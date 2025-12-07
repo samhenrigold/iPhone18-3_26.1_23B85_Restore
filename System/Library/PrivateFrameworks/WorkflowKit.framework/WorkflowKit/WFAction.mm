@@ -230,6 +230,8 @@
 - (void)prepareToProcessWithCompletionHandler:(id)handler;
 - (void)presentSmartPromptAuthorizationWithConfiguration:(id)configuration userInterface:(id)interface databaseApprovalResult:(id)result contentDestination:(id)destination completionHandler:(id)handler;
 - (void)processEncodedValue:(id)value withToolKitInvocation:(id)invocation forParameter:(id)parameter completionHandler:(id)handler;
+- (void)processParameterStates:(id)states withInput:(id)input skippingHiddenParameters:(BOOL)parameters askForValuesIfNecessary:(BOOL)necessary workQueue:(id)queue completionHandler:(id)handler;
+- (void)processParametersWithoutAskingForValuesWithInput:(id)input workQueue:(id)queue fallingBackToDefaultValue:(BOOL)value completionHandler:(id)handler;
 - (void)processValueForParameter:(id)parameter withToolKitInvocation:(id)invocation completionHandler:(id)handler;
 - (void)promptForArchiveVerificationIfNecessary:(id)necessary completionHandler:(id)handler;
 - (void)promptForAudioRecordingPermissionIfNeededWithCompletionBlock:(id)block;
@@ -255,6 +257,7 @@
 - (void)setDefaultCoercionOptionsOnInputs;
 - (void)setGroupingIdentifier:(id)identifier;
 - (void)setOutput:(id)output onVariableSource:(id)source;
+- (void)setOutputExpandedInEditor:(BOOL)editor;
 - (void)setOutputName:(id)name;
 - (void)setSupplementalParameterValue:(id)value forKey:(id)key;
 - (void)setUUID:(id)d;
@@ -294,7 +297,7 @@
 
 - (void)initializeParameters
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner(&self->_parameterInitializationLock);
   if (!self->_parameters)
   {
@@ -309,9 +312,9 @@
       v9 = objc_opt_class();
       v10 = NSStringFromClass(v9);
       *buf = 138412546;
-      v38 = identifier;
-      v39 = 2112;
-      v40 = v10;
+      v37 = identifier;
+      v38 = 2112;
+      v39 = v10;
       _os_signpost_emit_with_name_impl(&dword_1CA256000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "InitializeActionParameters", "identifier=%{signpost.description:attribute}@,class=%{signpost.description:attribute}@", buf, 0x16u);
     }
 
@@ -326,15 +329,15 @@
     v14 = v13;
 
     v15 = objc_opt_new();
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __32__WFAction_initializeParameters__block_invoke;
-    v33[3] = &unk_1E83752E0;
-    v33[4] = self;
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __32__WFAction_initializeParameters__block_invoke;
+    v32[3] = &unk_1E83752E0;
+    v32[4] = self;
     v16 = v15;
-    v34 = v16;
-    v35 = a2;
-    v17 = [v14 if_compactMap:v33];
+    v33 = v16;
+    v34 = a2;
+    v17 = [v14 if_compactMap:v32];
     parameters = self->_parameters;
     self->_parameters = v17;
 
@@ -342,29 +345,29 @@
     parametersByKey = self->_parametersByKey;
     self->_parametersByKey = v19;
 
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     v21 = self->_parameters;
-    v22 = [(NSArray *)v21 countByEnumeratingWithState:&v29 objects:v36 count:16];
+    v22 = [(NSArray *)v21 countByEnumeratingWithState:&v28 objects:v35 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v30;
+      v24 = *v29;
       do
       {
         for (i = 0; i != v23; ++i)
         {
-          if (*v30 != v24)
+          if (*v29 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          [(WFAction *)self configureResourcesForParameter:*(*(&v29 + 1) + 8 * i), v29];
+          [(WFAction *)self configureResourcesForParameter:*(*(&v28 + 1) + 8 * i), v28];
         }
 
-        v23 = [(NSArray *)v21 countByEnumeratingWithState:&v29 objects:v36 count:16];
+        v23 = [(NSArray *)v21 countByEnumeratingWithState:&v28 objects:v35 count:16];
       }
 
       while (v23);
@@ -378,8 +381,6 @@
       _os_signpost_emit_with_name_impl(&dword_1CA256000, v27, OS_SIGNPOST_INTERVAL_END, v5, "InitializeActionParameters", "", buf, 2u);
     }
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)parameterDefinitions
@@ -404,7 +405,7 @@
 
 id __32__WFAction_initializeParameters__block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [WFParameter parameterWithDefinition:v3];
   if (v4)
@@ -415,11 +416,11 @@ id __32__WFAction_initializeParameters__block_invoke(uint64_t a1, void *a2)
 
     if (v6)
     {
-      v11 = [MEMORY[0x1E696AAA8] currentHandler];
-      v12 = *(a1 + 48);
-      v13 = *(a1 + 32);
-      v14 = [v13 identifier];
-      [v11 handleFailureInMethod:v12 object:v13 file:@"WFAction.m" lineNumber:2301 description:{@"Multiple parameters of %@ use key %@", v14, v5}];
+      v10 = [MEMORY[0x1E696AAA8] currentHandler];
+      v11 = *(a1 + 48);
+      v12 = *(a1 + 32);
+      v13 = [v12 identifier];
+      [v10 handleFailureInMethod:v11 object:v12 file:@"WFAction.m" lineNumber:2301 description:{@"Multiple parameters of %@ use key %@", v13, v5}];
     }
 
     [*(a1 + 40) setObject:v4 forKey:v5];
@@ -433,14 +434,12 @@ id __32__WFAction_initializeParameters__block_invoke(uint64_t a1, void *a2)
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v16 = "[WFAction initializeParameters]_block_invoke";
-      v17 = 2112;
-      v18 = v3;
+      v15 = "[WFAction initializeParameters]_block_invoke";
+      v16 = 2112;
+      v17 = v3;
       _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_ERROR, "%s Failed to initialize parameter with definition: %@", buf, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -628,7 +627,7 @@ id __32__WFAction_initializeParameters__block_invoke(uint64_t a1, void *a2)
 
 - (id)localizedErrorWithLinkError:(id)error
 {
-  v88[1] = *MEMORY[0x1E69E9840];
+  v87[1] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   if (!errorCopy)
   {
@@ -669,9 +668,9 @@ id __32__WFAction_initializeParameters__block_invoke(uint64_t a1, void *a2)
   }
 
   domain = [v5 domain];
-  v21 = [domain isEqualToString:*MEMORY[0x1E69ACB58]];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  if (v21)
+  if (isEqualToString)
   {
     code = [v5 code];
     if (code <= 1006)
@@ -835,12 +834,12 @@ LABEL_67:
   }
 
   domain2 = [v5 domain];
-  v24 = [domain2 isEqualToString:*MEMORY[0x1E69ACC68]];
+  v24 = objc_msgSend_isEqualToString_(domain2);
 
   if (!v24)
   {
     domain3 = [v5 domain];
-    v32 = [domain3 isEqualToString:*MEMORY[0x1E69ACB90]];
+    v32 = objc_msgSend_isEqualToString_(domain3);
 
     if (!v32)
     {
@@ -857,12 +856,12 @@ LABEL_67:
         v35 = WFLocalizedString(@"Unable to load options due to the %@ parameter not being set.");
         metadata = [(WFAction *)selfCopy metadata];
         parameters = [metadata parameters];
-        v85[0] = MEMORY[0x1E69E9820];
-        v85[1] = 3221225472;
-        v85[2] = __61__WFAction_LinkLocalizedErrors__localizedErrorWithLinkError___block_invoke;
-        v85[3] = &unk_1E837CB40;
-        v86 = v5;
-        v36 = [parameters if_firstObjectPassingTest:v85];
+        v84[0] = MEMORY[0x1E69E9820];
+        v84[1] = 3221225472;
+        v84[2] = __61__WFAction_LinkLocalizedErrors__localizedErrorWithLinkError___block_invoke;
+        v84[3] = &unk_1E837CB40;
+        v85 = v5;
+        v36 = [parameters if_firstObjectPassingTest:v84];
         title = [v36 title];
         wf_localizedString = [title wf_localizedString];
         v39 = v34;
@@ -906,21 +905,21 @@ LABEL_45:
 
           else
           {
-            v74 = MEMORY[0x1E696AEC0];
-            v75 = WFLocalizedString(@"The action “%1$@” could not run because a value was not provided for the “%2$@” parameter.");
+            v73 = MEMORY[0x1E696AEC0];
+            v74 = WFLocalizedString(@"The action “%1$@” could not run because a value was not provided for the “%2$@” parameter.");
             localizedName7 = [(WFAction *)self localizedName];
-            v77 = localizedName7;
+            v76 = localizedName7;
             if (localizedLabel)
             {
-              v78 = localizedLabel;
+              v77 = localizedLabel;
             }
 
             else
             {
-              v78 = v27;
+              v77 = v27;
             }
 
-            localizedDescription = [v74 localizedStringWithFormat:v75, localizedName7, v78];
+            localizedDescription = [v73 localizedStringWithFormat:v74, localizedName7, v77];
           }
 
 LABEL_71:
@@ -942,7 +941,7 @@ LABEL_71:
             userInfo3 = [v5 userInfo];
             v59 = [userInfo3 objectForKeyedSubscript:*MEMORY[0x1E696A578]];
 
-            if (v59 && ([localizedDescription isEqualToString:v59] & 1) == 0)
+            if (v59 && (objc_msgSend_isEqualToString_(localizedDescription) & 1) == 0)
             {
               v66 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@ [Internal Only: %@]", localizedDescription, v59];
 
@@ -954,9 +953,9 @@ LABEL_74:
           if (localizedDescription)
           {
             userInfo4 = [v5 userInfo];
-            v87 = *MEMORY[0x1E696A578];
-            v88[0] = localizedDescription;
-            v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v88 forKeys:&v87 count:1];
+            v86 = *MEMORY[0x1E696A578];
+            v87[0] = localizedDescription;
+            v61 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v87 forKeys:&v86 count:1];
             v62 = [userInfo4 if_dictionaryByAddingEntriesFromDictionary:v61];
 
             v63 = MEMORY[0x1E696ABC0];
@@ -975,17 +974,17 @@ LABEL_74:
         goto LABEL_99;
       }
 
-      v69 = LNPerformActionErrorCodeAsString();
-      v70 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: ", v69];
+      v68 = LNPerformActionErrorCodeAsString();
+      v69 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@: ", v68];
       localizedDescription = [v5 localizedDescription];
       if ([localizedDescription length])
       {
         [v5 localizedDescription];
-        v71 = v84 = v69;
-        v72 = [v71 hasPrefix:v70];
+        v70 = v83 = v68;
+        v71 = [v70 hasPrefix:v69];
 
-        v69 = v84;
-        if (!v72)
+        v68 = v83;
+        if (!v71)
         {
 LABEL_98:
 
@@ -1003,7 +1002,7 @@ LABEL_70:
         }
 
         localizedDescription2 = [v5 localizedDescription];
-        localizedDescription = [localizedDescription2 substringFromIndex:{objc_msgSend(v70, "length")}];
+        localizedDescription = [localizedDescription2 substringFromIndex:{objc_msgSend(v69, "length")}];
 
         if ([localizedDescription length])
         {
@@ -1067,7 +1066,6 @@ LABEL_42:
 LABEL_82:
 
 LABEL_83:
-  v67 = *MEMORY[0x1E69E9840];
 
   return userCancelledError;
 }
@@ -1077,9 +1075,9 @@ uint64_t __61__WFAction_LinkLocalizedErrors__localizedErrorWithLinkError___block
   v3 = [a2 name];
   v4 = [*(a1 + 32) userInfo];
   v5 = [v4 objectForKeyedSubscript:*MEMORY[0x1E69ACBA0]];
-  v6 = [v3 isEqualToString:v5];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  return v6;
+  return isEqualToString;
 }
 
 - (WFWorkflow)workflow
@@ -1091,21 +1089,20 @@ uint64_t __61__WFAction_LinkLocalizedErrors__localizedErrorWithLinkError___block
 
 - (void)fetchSuggestedEntitiesForParameterWithKey:(id)key completionHandler:(id)handler
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = WFLocalizedString(@"Suggestions Not Found");
   v6 = WFLocalizedString(@"The specified action has no suggestions available");
   v7 = MEMORY[0x1E696ABC0];
   v8 = *MEMORY[0x1E696A578];
-  v12[0] = *MEMORY[0x1E696A588];
-  v12[1] = v8;
-  v13[0] = v5;
-  v13[1] = v6;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+  v11[0] = *MEMORY[0x1E696A588];
+  v11[1] = v8;
+  v12[0] = v5;
+  v12[1] = v6;
+  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
   v10 = [v7 errorWithDomain:@"WFActionErrorDomain" code:5 userInfo:v9];
 
   handlerCopy[2](handlerCopy, 0, v10);
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)systemEntityCollectionIdentifierForDisambiguatingParameterWithKey:(id)key
@@ -1251,26 +1248,26 @@ void __50__WFAction_synchronouslyHandleTestingEvent_error___block_invoke(uint64_
 
 - (BOOL)takeSessionKitAssertionIfNeededWithError:(id *)error
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = getWFSessionKitLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v14 = 136315138;
-    v15 = "[WFAction takeSessionKitAssertionIfNeededWithError:]";
-    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEBUG, "%s Trying to see if we should take a session assertion...", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[WFAction takeSessionKitAssertionIfNeededWithError:]";
+    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEBUG, "%s Trying to see if we should take a session assertion...", &v13, 0xCu);
   }
 
   sessionKitSessionInvocationType = [(WFAction *)self sessionKitSessionInvocationType];
-  v7 = [sessionKitSessionInvocationType isEqualToString:@"Manual"];
+  isEqualToString = objc_msgSend_isEqualToString_(sessionKitSessionInvocationType);
 
-  if (v7)
+  if (isEqualToString)
   {
     sessionKitSessionConfiguration = getWFSessionKitLogObject();
     if (os_log_type_enabled(sessionKitSessionConfiguration, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 136315138;
-      v15 = "[WFAction takeSessionKitAssertionIfNeededWithError:]";
-      _os_log_impl(&dword_1CA256000, sessionKitSessionConfiguration, OS_LOG_TYPE_DEFAULT, "%s Action says it's going to take assertion itself...", &v14, 0xCu);
+      v13 = 136315138;
+      v14 = "[WFAction takeSessionKitAssertionIfNeededWithError:]";
+      _os_log_impl(&dword_1CA256000, sessionKitSessionConfiguration, OS_LOG_TYPE_DEFAULT, "%s Action says it's going to take assertion itself...", &v13, 0xCu);
     }
 
 LABEL_13:
@@ -1285,9 +1282,9 @@ LABEL_13:
   {
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 136315138;
-      v15 = "[WFAction takeSessionKitAssertionIfNeededWithError:]";
-      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_DEBUG, "%s It doesn't look like we are dealing with a session here. See you later!", &v14, 0xCu);
+      v13 = 136315138;
+      v14 = "[WFAction takeSessionKitAssertionIfNeededWithError:]";
+      _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_DEBUG, "%s It doesn't look like we are dealing with a session here. See you later!", &v13, 0xCu);
     }
 
     sessionKitSessionConfiguration = 0;
@@ -1296,22 +1293,21 @@ LABEL_13:
 
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = 136315138;
-    v15 = "[WFAction takeSessionKitAssertionIfNeededWithError:]";
-    _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_DEFAULT, "%s Found a session configuration! Taking it...", &v14, 0xCu);
+    v13 = 136315138;
+    v14 = "[WFAction takeSessionKitAssertionIfNeededWithError:]";
+    _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_DEFAULT, "%s Found a session configuration! Taking it...", &v13, 0xCu);
   }
 
   v11 = [(WFAction *)self allowSessionKitSessionsIfNeededWithConfiguration:sessionKitSessionConfiguration isManualInvocation:0 error:error];
 LABEL_14:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (BOOL)allowSessionKitSessionsIfNeededWithConfiguration:(id)configuration isManualInvocation:(BOOL)invocation error:(id *)error
 {
   invocationCopy = invocation;
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   if (!configurationCopy)
   {
@@ -1332,13 +1328,13 @@ LABEL_14:
     v13 = sessionKitSessionInvocationType;
     if (sessionKitSessionInvocationType)
     {
-      if (invocationCopy && ([sessionKitSessionInvocationType isEqualToString:@"Manual"] & 1) == 0)
+      if (invocationCopy && (objc_msgSend_isEqualToString_(sessionKitSessionInvocationType) & 1) == 0)
       {
         bundleIdentifier = getWFSessionKitLogObject();
         if (os_log_type_enabled(bundleIdentifier, OS_LOG_TYPE_FAULT))
         {
           *buf = 136315138;
-          v33 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]";
+          v32 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]";
           _os_log_impl(&dword_1CA256000, bundleIdentifier, OS_LOG_TYPE_FAULT, "%s Tried to manually invoke a session, but the session invocation type is not manual?", buf, 0xCu);
         }
 
@@ -1352,9 +1348,9 @@ LABEL_14:
         if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v33 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]";
-          v34 = 2112;
-          v35 = bundleIdentifier;
+          v32 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]";
+          v33 = 2112;
+          v34 = bundleIdentifier;
           _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_DEFAULT, "%s Attempting to take SessionKit assertion for %@...", buf, 0x16u);
         }
 
@@ -1364,31 +1360,31 @@ LABEL_14:
           v17 = [[WFSessionKitAssertion alloc] initWithBundleIdentifier:bundleIdentifier];
           runningDelegate = [(WFAction *)self runningDelegate];
           objc_initWeak(buf, self);
-          v27[0] = MEMORY[0x1E69E9820];
-          v27[1] = 3221225472;
-          v27[2] = __86__WFAction_allowSessionKitSessionsIfNeededWithConfiguration_isManualInvocation_error___block_invoke;
-          v27[3] = &unk_1E8375330;
-          objc_copyWeak(v31, buf);
+          v26[0] = MEMORY[0x1E69E9820];
+          v26[1] = 3221225472;
+          v26[2] = __86__WFAction_allowSessionKitSessionsIfNeededWithConfiguration_isManualInvocation_error___block_invoke;
+          v26[3] = &unk_1E8375330;
+          objc_copyWeak(v30, buf);
           v19 = runningDelegate;
-          v28 = v19;
-          v29 = bundleIdentifier;
-          v31[1] = a2;
-          v30 = configurationCopy;
-          [(WFSessionKitAssertion *)v17 setResultHandler:v27];
-          v24[0] = MEMORY[0x1E69E9820];
-          v24[1] = 3221225472;
-          v24[2] = __86__WFAction_allowSessionKitSessionsIfNeededWithConfiguration_isManualInvocation_error___block_invoke_586;
-          v24[3] = &unk_1E8377C00;
-          objc_copyWeak(&v26, buf);
+          v27 = v19;
+          v28 = bundleIdentifier;
+          v30[1] = a2;
+          v29 = configurationCopy;
+          [(WFSessionKitAssertion *)v17 setResultHandler:v26];
+          v23[0] = MEMORY[0x1E69E9820];
+          v23[1] = 3221225472;
+          v23[2] = __86__WFAction_allowSessionKitSessionsIfNeededWithConfiguration_isManualInvocation_error___block_invoke_586;
+          v23[3] = &unk_1E8377C00;
+          objc_copyWeak(&v25, buf);
           v20 = v19;
-          v25 = v20;
-          [(WFSessionKitAssertion *)v17 setFailureHandler:v24];
+          v24 = v20;
+          [(WFSessionKitAssertion *)v17 setFailureHandler:v23];
           v11 = [(WFSessionKitAssertion *)v17 takeWithError:error];
           [(WFAction *)self setSessionKitAssertion:v17];
           [(WFAction *)self setExtendedOperation:v17];
 
-          objc_destroyWeak(&v26);
-          objc_destroyWeak(v31);
+          objc_destroyWeak(&v25);
+          objc_destroyWeak(v30);
           objc_destroyWeak(buf);
         }
 
@@ -1405,13 +1401,12 @@ LABEL_14:
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 void __86__WFAction_allowSessionKitSessionsIfNeededWithConfiguration_isManualInvocation_error___block_invoke(uint64_t a1, void *a2, int a3, void *a4)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -1425,9 +1420,9 @@ void __86__WFAction_allowSessionKitSessionsIfNeededWithConfiguration_isManualInv
     {
       v15 = *(a1 + 40);
       *buf = 136315394;
-      v38 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]_block_invoke";
-      v39 = 2112;
-      v40 = v15;
+      v37 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]_block_invoke";
+      v38 = 2112;
+      v39 = v15;
       v12 = "%s SessionKit assertion was granted, but %@ did not start a session. Bummer!";
       v13 = v10;
       v14 = OS_LOG_TYPE_DEFAULT;
@@ -1443,7 +1438,7 @@ LABEL_13:
   if (v11)
   {
     *buf = 136315138;
-    v38 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]_block_invoke";
+    v37 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]_block_invoke";
     _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_DEFAULT, "%s SessionKit session started, have fun!", buf, 0xCu);
   }
 
@@ -1453,7 +1448,7 @@ LABEL_13:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v38 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]_block_invoke";
+      v37 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]_block_invoke";
       v12 = "%s Session started, but we don't have an identifier for it?";
       v13 = v10;
       v14 = OS_LOG_TYPE_FAULT;
@@ -1472,7 +1467,7 @@ LABEL_14:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v38 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]_block_invoke";
+      v37 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]_block_invoke";
       v12 = "%s We allowed the app to start a session, but it started multiple. We don't know which one to toast!";
       v13 = v10;
       v14 = OS_LOG_TYPE_DEFAULT;
@@ -1486,106 +1481,103 @@ LABEL_12:
 
   if ([v7 count] != 1)
   {
-    v34 = [MEMORY[0x1E696AAA8] currentHandler];
-    [v34 handleFailureInMethod:*(a1 + 64) object:WeakRetained file:@"WFAction.m" lineNumber:2974 description:@"Should have only one session identifier"];
+    v33 = [MEMORY[0x1E696AAA8] currentHandler];
+    [v33 handleFailureInMethod:*(a1 + 64) object:WeakRetained file:@"WFAction.m" lineNumber:2974 description:@"Should have only one session identifier"];
   }
 
-  v18 = [v7 firstObject];
-  v19 = *MEMORY[0x1E69E1428];
-  v20 = [WeakRetained runningDelegate];
-  v21 = objc_opt_respondsToSelector();
+  v17 = [v7 firstObject];
+  v18 = *MEMORY[0x1E69E1428];
+  v19 = [WeakRetained runningDelegate];
+  v20 = objc_opt_respondsToSelector();
 
-  if (v21)
+  if (v20)
   {
-    v22 = [WeakRetained runningDelegate];
-    v23 = [v22 currentRunningContextForAction:WeakRetained];
+    v21 = [WeakRetained runningDelegate];
+    v22 = [v21 currentRunningContextForAction:WeakRetained];
 
-    v24 = [v23 runSource];
-    v25 = v24;
-    if (v24)
+    v23 = [v22 runSource];
+    v24 = v23;
+    if (v23)
     {
-      v26 = v24;
+      v25 = v23;
 
-      v19 = v26;
+      v18 = v25;
     }
   }
 
-  [*(a1 + 48) toastDurationForRunSource:v19];
-  v28 = v27;
-  v29 = getWFSessionKitLogObject();
-  v30 = os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT);
-  if (v28 == 0.0)
+  [*(a1 + 48) toastDurationForRunSource:v18];
+  v27 = v26;
+  v28 = getWFSessionKitLogObject();
+  v29 = os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT);
+  if (v27 == 0.0)
   {
-    if (v30)
+    if (v29)
     {
-      v32 = [WeakRetained identifier];
+      v31 = [WeakRetained identifier];
       *buf = 136315650;
-      v38 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]_block_invoke_2";
-      v39 = 2112;
-      v40 = v18;
-      v41 = 2114;
-      v42 = v32;
-      _os_log_impl(&dword_1CA256000, v29, OS_LOG_TYPE_DEFAULT, "%s We'd toast the session %@, but the action is asking for no toasting (see SessionConfiguration#ToastDuration key in the action definition %{public}@)", buf, 0x20u);
+      v37 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]_block_invoke_2";
+      v38 = 2112;
+      v39 = v17;
+      v40 = 2114;
+      v41 = v31;
+      _os_log_impl(&dword_1CA256000, v28, OS_LOG_TYPE_DEFAULT, "%s We'd toast the session %@, but the action is asking for no toasting (see SessionConfiguration#ToastDuration key in the action definition %{public}@)", buf, 0x20u);
     }
   }
 
   else
   {
-    if (v30)
+    if (v29)
     {
-      v31 = [WeakRetained identifier];
+      v30 = [WeakRetained identifier];
       *buf = 136315650;
-      v38 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]_block_invoke";
-      v39 = 2112;
-      v40 = v18;
-      v41 = 2114;
-      v42 = v31;
-      _os_log_impl(&dword_1CA256000, v29, OS_LOG_TYPE_DEFAULT, "%s Asking the daemon to toast the session %@ for action %{public}@", buf, 0x20u);
+      v37 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]_block_invoke";
+      v38 = 2112;
+      v39 = v17;
+      v40 = 2114;
+      v41 = v30;
+      _os_log_impl(&dword_1CA256000, v28, OS_LOG_TYPE_DEFAULT, "%s Asking the daemon to toast the session %@ for action %{public}@", buf, 0x20u);
     }
 
-    if (v28 == -1.0)
+    if (v27 == -1.0)
     {
-      v29 = 0;
+      v28 = 0;
     }
 
     else
     {
-      v29 = [MEMORY[0x1E696AD98] numberWithDouble:v28];
+      v28 = [MEMORY[0x1E696AD98] numberWithDouble:v27];
     }
 
-    v33 = [MEMORY[0x1E69E0938] standardClient];
-    v35[0] = MEMORY[0x1E69E9820];
-    v35[1] = 3221225472;
-    v35[2] = __86__WFAction_allowSessionKitSessionsIfNeededWithConfiguration_isManualInvocation_error___block_invoke_583;
-    v35[3] = &unk_1E837BA78;
-    v36 = v8;
-    [v33 toastSessionKitSessionWithIdentifier:v18 forDuration:v29 completion:v35];
+    v32 = [MEMORY[0x1E69E0938] standardClient];
+    v34[0] = MEMORY[0x1E69E9820];
+    v34[1] = 3221225472;
+    v34[2] = __86__WFAction_allowSessionKitSessionsIfNeededWithConfiguration_isManualInvocation_error___block_invoke_583;
+    v34[3] = &unk_1E837BA78;
+    v35 = v8;
+    [v32 toastSessionKitSessionWithIdentifier:v17 forDuration:v28 completion:v34];
   }
 
 LABEL_15:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __86__WFAction_allowSessionKitSessionsIfNeededWithConfiguration_isManualInvocation_error___block_invoke_586(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   [WeakRetained setSessionKitAssertion:0];
   v5 = getWFSessionKitLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315394;
-    v8 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]_block_invoke";
-    v9 = 2112;
-    v10 = v3;
-    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s Failed to start SessionKit session: %@", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[WFAction allowSessionKitSessionsIfNeededWithConfiguration:isManualInvocation:error:]_block_invoke";
+    v8 = 2112;
+    v9 = v3;
+    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s Failed to start SessionKit session: %@", &v6, 0x16u);
   }
 
   [*(a1 + 32) action:WeakRetained didDecideRunningProgressIsAllowed:1];
   [WeakRetained finishRunningWithError:v3];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (NSString)externalMetricsBundleIdentifier
@@ -1606,31 +1598,31 @@ void __86__WFAction_allowSessionKitSessionsIfNeededWithConfiguration_isManualInv
 
 - (void)setDefaultCoercionOptionsOnInputs
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [(WFAction *)self setDefaultCoercionOptionsOnContentCollection:self->_input];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   processedParameters = [(WFAction *)self processedParameters];
   allValues = [processedParameters allValues];
 
-  v5 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -1641,61 +1633,58 @@ void __86__WFAction_allowSessionKitSessionsIfNeededWithConfiguration_isManualInv
       }
 
       while (v6 != v8);
-      v6 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDefaultCoercionOptionsOnContentCollection:(id)collection
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E6996CE8];
-  v10 = *MEMORY[0x1E6997010];
+  v9 = *MEMORY[0x1E6997010];
   collectionCopy = collection;
   contentPermissionRequestor = [(WFAction *)self contentPermissionRequestor];
-  v11[0] = contentPermissionRequestor;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = contentPermissionRequestor;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v8 = [v4 optionsWithDictionary:v7];
 
   [collectionCopy setDefaultCoercionOptions:v8];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)minimumSupportedClientVersion
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   containedVariables = [(WFAction *)self containedVariables];
-  v3 = [containedVariables countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [containedVariables countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     v6 = @"411";
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      if (*v11 != v5)
+      if (*v10 != v5)
       {
         objc_enumerationMutation(containedVariables);
       }
 
-      if ([*(*(&v10 + 1) + 8 * v7) requiresModernVariableSupport])
+      if ([*(*(&v9 + 1) + 8 * v7) requiresModernVariableSupport])
       {
         break;
       }
 
       if (v4 == ++v7)
       {
-        v4 = [containedVariables countByEnumeratingWithState:&v10 objects:v14 count:16];
+        v4 = [containedVariables countByEnumeratingWithState:&v9 objects:v13 count:16];
         if (v4)
         {
           goto LABEL_3;
@@ -1712,7 +1701,6 @@ LABEL_3:
     v6 = @"0";
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1730,9 +1718,9 @@ LABEL_3:
   v6 = [runningDelegate2 currentRunningContextForAction:self];
 
   runSource = [v6 runSource];
-  v8 = [runSource isEqualToString:*MEMORY[0x1E69E1410]];
+  isEqualToString = objc_msgSend_isEqualToString_(runSource);
 
-  return v8;
+  return isEqualToString;
 }
 
 - (BOOL)runningInStepWiseExecutor
@@ -1776,22 +1764,20 @@ LABEL_3:
 
 - (NSArray)supportedAppIdentifiers
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   appDescriptor = [(WFAction *)self appDescriptor];
   bundleIdentifier = [appDescriptor bundleIdentifier];
   if (bundleIdentifier)
   {
     bundleIdentifier2 = [appDescriptor bundleIdentifier];
-    v8[0] = bundleIdentifier2;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
+    v7[0] = bundleIdentifier2;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
   }
 
   else
   {
     v5 = 0;
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1875,7 +1861,7 @@ uint64_t __53__WFAction_unlockAppProtectionWithCompletionHandler___block_invoke(
 
 - (id)smartPromptWithContentDescription:(id)description contentDestination:(id)destination workflowName:(id)name
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   descriptionCopy = description;
   destinationCopy = destination;
   nameCopy = name;
@@ -1884,9 +1870,9 @@ uint64_t __53__WFAction_unlockAppProtectionWithCompletionHandler___block_invoke(
   {
     identifier = [(WFAction *)self identifier];
     *buf = 136315394;
-    v22 = "[WFAction smartPromptWithContentDescription:contentDestination:workflowName:]";
-    v23 = 2114;
-    v24 = identifier;
+    v21 = "[WFAction smartPromptWithContentDescription:contentDestination:workflowName:]";
+    v22 = 2114;
+    v23 = identifier;
     _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_FAULT, "%s Action %{public}@ is presenting a smart prompt, but it does not have a custom smart prompt string.", buf, 0x16u);
   }
 
@@ -1903,18 +1889,16 @@ uint64_t __53__WFAction_unlockAppProtectionWithCompletionHandler___block_invoke(
     if (destinationCopy)
     {
       v14 = WFLocalizedString(@"Allow “%@” to access “%@”?");
-      [v15 localizedStringWithFormat:v14, nameCopy, destinationCopy, v20];
+      [v15 localizedStringWithFormat:v14, nameCopy, destinationCopy, v19];
     }
 
     else
     {
       v14 = WFLocalizedString(@"Allow “%@” to access another app?");
-      [v15 localizedStringWithFormat:v14, nameCopy, v19, v20];
+      [v15 localizedStringWithFormat:v14, nameCopy, v18, v19];
     }
   }
   v16 = ;
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v16;
 }
@@ -1931,22 +1915,10 @@ uint64_t __53__WFAction_unlockAppProtectionWithCompletionHandler___block_invoke(
 - (id)contentDestinationWithError:(id *)error
 {
   appDescriptor = [(WFAction *)self appDescriptor];
-  if (!appDescriptor)
+  if (!appDescriptor || (v5 = appDescriptor, -[WFAction appDescriptor](self, "appDescriptor"), v6 = objc_claimAutoreleasedReturnValue(), [v6 bundleIdentifier], v7 = objc_claimAutoreleasedReturnValue(), WFMCIsAppAccountBasedSourceForOpenIn(v7), v9 = v8, v7, v6, v5, (v9 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  v5 = appDescriptor;
-  appDescriptor2 = [(WFAction *)self appDescriptor];
-  bundleIdentifier = [appDescriptor2 bundleIdentifier];
-  WFMCIsAppAccountBasedSourceForOpenIn(bundleIdentifier);
-  v9 = v8;
-
-  if ((v9 & 1) == 0)
-  {
-LABEL_3:
-    appDescriptor3 = [(WFAction *)self appDescriptor];
-    if (!appDescriptor3)
+    appDescriptor2 = [(WFAction *)self appDescriptor];
+    if (!appDescriptor2)
     {
       goto LABEL_10;
     }
@@ -1957,26 +1929,26 @@ LABEL_3:
     {
       highRisk = [(WFAction *)self highRisk];
       v13 = MEMORY[0x1E6996C90];
-      appDescriptor4 = [(WFAction *)self appDescriptor];
+      appDescriptor3 = [(WFAction *)self appDescriptor];
       if (highRisk)
       {
-        [v13 locationWithAppDescriptor:appDescriptor4 promptingBehaviour:1];
+        [v13 locationWithAppDescriptor:appDescriptor3 promptingBehaviour:1];
       }
 
       else
       {
-        [v13 locationWithAppDescriptor:appDescriptor4];
+        [v13 locationWithAppDescriptor:appDescriptor3];
       }
-      appDescriptor3 = ;
+      appDescriptor2 = ;
 
       goto LABEL_10;
     }
   }
 
-  appDescriptor3 = 0;
+  appDescriptor2 = 0;
 LABEL_10:
 
-  return appDescriptor3;
+  return appDescriptor2;
 }
 
 - (id)actionForAppIdentifier:(id)identifier
@@ -1985,7 +1957,7 @@ LABEL_10:
   displayableAppDescriptor = [(WFAction *)self displayableAppDescriptor];
   bundleIdentifier = [displayableAppDescriptor bundleIdentifier];
 
-  LODWORD(displayableAppDescriptor) = [bundleIdentifier isEqualToString:identifierCopy];
+  LODWORD(displayableAppDescriptor) = objc_msgSend_isEqualToString_(bundleIdentifier);
   if (displayableAppDescriptor)
   {
     selfCopy = self;
@@ -2001,7 +1973,7 @@ LABEL_10:
 
 - (void)snapInputParameterToVariable:(id)variable
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   variableCopy = variable;
   inputParameter = [(WFAction *)self inputParameter];
   if (!inputParameter || ![(WFAction *)self inputParameterUnlocked])
@@ -2020,13 +1992,13 @@ LABEL_10:
   v8 = getWFGeneralLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 136315650;
-    v18 = "[WFAction snapInputParameterToVariable:]";
-    v19 = 2114;
-    v20 = variableCopy;
-    v21 = 2114;
+    v16 = 136315650;
+    v17 = "[WFAction snapInputParameterToVariable:]";
+    v18 = 2114;
+    v19 = variableCopy;
+    v20 = 2114;
     selfCopy = self;
-    _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_DEFAULT, "%s Found input variable: %{public}@, for action: %{public}@", &v17, 0x20u);
+    _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_DEFAULT, "%s Found input variable: %{public}@, for action: %{public}@", &v16, 0x20u);
   }
 
   if (objc_opt_respondsToSelector() & 1) != 0 && (objc_opt_respondsToSelector())
@@ -2048,11 +2020,11 @@ LABEL_10:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       v14 = NSStringFromClass(stateClass);
-      v17 = 136315394;
-      v18 = "[WFAction snapInputParameterToVariable:]";
-      v19 = 2114;
-      v20 = v14;
-      _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s Unsupported parameter state type for input variable: %{public}@", &v17, 0x16u);
+      v16 = 136315394;
+      v17 = "[WFAction snapInputParameterToVariable:]";
+      v18 = 2114;
+      v19 = v14;
+      _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_ERROR, "%s Unsupported parameter state type for input variable: %{public}@", &v16, 0x16u);
     }
 
 LABEL_14:
@@ -2071,7 +2043,6 @@ LABEL_15:
   }
 
 LABEL_18:
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)snapInputParameterIfNecessary
@@ -2095,23 +2066,21 @@ LABEL_18:
 
 - (void)lockInputParameter
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if ([(WFAction *)self inputParameterUnlocked])
   {
     v3 = getWFGeneralLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136315394;
-      v6 = "[WFAction lockInputParameter]";
-      v7 = 2114;
+      v4 = 136315394;
+      v5 = "[WFAction lockInputParameter]";
+      v6 = 2114;
       selfCopy = self;
-      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s Locking input parameter of action: %{public}@", &v5, 0x16u);
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s Locking input parameter of action: %{public}@", &v4, 0x16u);
     }
 
     [(WFAction *)self setInputParameterUnlocked:0];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unlockInputParameter
@@ -2149,31 +2118,31 @@ LABEL_18:
 
 - (BOOL)isDisabledWhenRunOnDevice:(id)device
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   deviceCopy = device;
   resourceManager = [(WFAction *)self resourceManager];
   v6 = [resourceManager resourceObjectsOfClass:objc_opt_class()];
 
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v30;
+    v10 = *v29;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v30 != v10)
+        if (*v29 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        if (![*(*(&v29 + 1) + 8 * i) isAvailable])
+        if (![*(*(&v28 + 1) + 8 * i) isAvailable])
         {
           v22 = 1;
           v14 = v7;
@@ -2181,7 +2150,7 @@ LABEL_18:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v28 objects:v33 count:16];
       if (v9)
       {
         continue;
@@ -2194,26 +2163,26 @@ LABEL_18:
   resourceManager2 = [(WFAction *)self resourceManager];
   v13 = [resourceManager2 resourceObjectsOfClass:objc_opt_class()];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v14 = v13;
-  v15 = [v14 countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v26;
+    v17 = *v25;
     while (2)
     {
       for (j = 0; j != v16; ++j)
       {
-        if (*v26 != v17)
+        if (*v25 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        if (![*(*(&v25 + 1) + 8 * j) isAvailable])
+        if (![*(*(&v24 + 1) + 8 * j) isAvailable])
         {
           v22 = 1;
           disabledOnPlatforms = v14;
@@ -2221,7 +2190,7 @@ LABEL_18:
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v24 objects:v32 count:16];
       if (v16)
       {
         continue;
@@ -2256,7 +2225,6 @@ LABEL_18:
 LABEL_25:
 
 LABEL_26:
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -2297,7 +2265,7 @@ LABEL_8:
 
   else if (typeCopy)
   {
-    LOBYTE(v11) = [typeCopy isEqualToString:*MEMORY[0x1E6997160]];
+    LOBYTE(v11) = objc_msgSend_isEqualToString_(typeCopy);
   }
 
   else
@@ -2375,52 +2343,52 @@ LABEL_13:
 - (BOOL)canHandleInputOfContentClasses:(id)classes withSupportedClasses:(id)supportedClasses includingCoercedTypes:(BOOL)types
 {
   typesCopy = types;
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   classesCopy = classes;
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   supportedClassesCopy = supportedClasses;
-  v9 = [supportedClassesCopy countByEnumeratingWithState:&v52 objects:v59 count:16];
+  v9 = [supportedClassesCopy countByEnumeratingWithState:&v51 objects:v58 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v53;
-    v34 = *v53;
+    v11 = *v52;
+    v33 = *v52;
     while (1)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v53 != v11)
+        if (*v52 != v11)
         {
           objc_enumerationMutation(supportedClassesCopy);
         }
 
-        v13 = *(*(&v52 + 1) + 8 * i);
+        v13 = *(*(&v51 + 1) + 8 * i);
+        v47 = 0u;
         v48 = 0u;
         v49 = 0u;
         v50 = 0u;
-        v51 = 0u;
         v14 = classesCopy;
-        v38 = [v14 countByEnumeratingWithState:&v48 objects:v58 count:16];
-        if (!v38)
+        v37 = [v14 countByEnumeratingWithState:&v47 objects:v57 count:16];
+        if (!v37)
         {
           goto LABEL_41;
         }
 
-        v39 = *v49;
-        v35 = v10;
+        v38 = *v48;
+        v34 = v10;
         while (2)
         {
-          for (j = 0; j != v38; ++j)
+          for (j = 0; j != v37; ++j)
           {
-            if (*v49 != v39)
+            if (*v48 != v38)
             {
               objc_enumerationMutation(v14);
             }
 
-            v16 = *(*(&v48 + 1) + 8 * j);
+            v16 = *(*(&v47 + 1) + 8 * j);
             if (([v16 isSubclassOfClass:v13] & 1) != 0 || v16 == objc_opt_class())
             {
               goto LABEL_45;
@@ -2428,29 +2396,29 @@ LABEL_13:
 
             if (v16 == objc_opt_class())
             {
-              v46 = 0u;
-              v47 = 0u;
-              v44 = 0u;
               v45 = 0u;
+              v46 = 0u;
+              v43 = 0u;
+              v44 = 0u;
               supportedTypes = [v13 supportedTypes];
-              v20 = [supportedTypes countByEnumeratingWithState:&v44 objects:v57 count:16];
+              v20 = [supportedTypes countByEnumeratingWithState:&v43 objects:v56 count:16];
               if (v20)
               {
                 v21 = v20;
-                v33 = typesCopy;
-                v36 = supportedClassesCopy;
-                v37 = classesCopy;
-                v22 = *v45;
+                v32 = typesCopy;
+                v35 = supportedClassesCopy;
+                v36 = classesCopy;
+                v22 = *v44;
 LABEL_20:
                 v23 = 0;
                 while (1)
                 {
-                  if (*v45 != v22)
+                  if (*v44 != v22)
                   {
                     objc_enumerationMutation(supportedTypes);
                   }
 
-                  v24 = *(*(&v44 + 1) + 8 * v23);
+                  v24 = *(*(&v43 + 1) + 8 * v23);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass() & 1) != 0 && ([v24 isDeclared])
                   {
@@ -2459,16 +2427,16 @@ LABEL_20:
 
                   if (v21 == ++v23)
                   {
-                    v21 = [supportedTypes countByEnumeratingWithState:&v44 objects:v57 count:16];
+                    v21 = [supportedTypes countByEnumeratingWithState:&v43 objects:v56 count:16];
                     if (v21)
                     {
                       goto LABEL_20;
                     }
 
 LABEL_37:
-                    supportedClassesCopy = v36;
-                    classesCopy = v37;
-                    typesCopy = v33;
+                    supportedClassesCopy = v35;
+                    classesCopy = v36;
+                    typesCopy = v32;
                     goto LABEL_38;
                   }
                 }
@@ -2479,29 +2447,29 @@ LABEL_37:
 
             if (v13 == objc_opt_class())
             {
-              v42 = 0u;
-              v43 = 0u;
-              v40 = 0u;
               v41 = 0u;
+              v42 = 0u;
+              v39 = 0u;
+              v40 = 0u;
               supportedTypes = [v16 allSupportedTypes];
-              v25 = [supportedTypes countByEnumeratingWithState:&v40 objects:v56 count:16];
+              v25 = [supportedTypes countByEnumeratingWithState:&v39 objects:v55 count:16];
               if (v25)
               {
                 v26 = v25;
-                v33 = typesCopy;
-                v36 = supportedClassesCopy;
-                v37 = classesCopy;
-                v27 = *v41;
+                v32 = typesCopy;
+                v35 = supportedClassesCopy;
+                v36 = classesCopy;
+                v27 = *v40;
 LABEL_30:
                 v28 = 0;
                 while (1)
                 {
-                  if (*v41 != v27)
+                  if (*v40 != v27)
                   {
                     objc_enumerationMutation(supportedTypes);
                   }
 
-                  v29 = *(*(&v40 + 1) + 8 * v28);
+                  v29 = *(*(&v39 + 1) + 8 * v28);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass() & 1) != 0 && ([v29 isDeclared])
                   {
@@ -2510,7 +2478,7 @@ LABEL_30:
 
                   if (v26 == ++v28)
                   {
-                    v26 = [supportedTypes countByEnumeratingWithState:&v40 objects:v56 count:16];
+                    v26 = [supportedTypes countByEnumeratingWithState:&v39 objects:v55 count:16];
                     if (v26)
                     {
                       goto LABEL_30;
@@ -2522,8 +2490,8 @@ LABEL_30:
 
 LABEL_44:
 
-                supportedClassesCopy = v36;
-                classesCopy = v37;
+                supportedClassesCopy = v35;
+                classesCopy = v36;
 LABEL_45:
 
                 v30 = 1;
@@ -2547,10 +2515,10 @@ LABEL_38:
             }
           }
 
-          v11 = v34;
-          v10 = v35;
-          v38 = [v14 countByEnumeratingWithState:&v48 objects:v58 count:16];
-          if (v38)
+          v11 = v33;
+          v10 = v34;
+          v37 = [v14 countByEnumeratingWithState:&v47 objects:v57 count:16];
+          if (v37)
           {
             continue;
           }
@@ -2561,7 +2529,7 @@ LABEL_38:
 LABEL_41:
       }
 
-      v10 = [supportedClassesCopy countByEnumeratingWithState:&v52 objects:v59 count:16];
+      v10 = [supportedClassesCopy countByEnumeratingWithState:&v51 objects:v58 count:16];
       v30 = 0;
       if (!v10)
       {
@@ -2573,13 +2541,12 @@ LABEL_41:
   v30 = 0;
 LABEL_47:
 
-  v31 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
 - (BOOL)legacyBehaviorIgnoresOutputFromAction:(id)action inWorkflow:(id)workflow
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   actionCopy = action;
   workflowCopy = workflow;
   actions = [workflowCopy actions];
@@ -2600,41 +2567,41 @@ LABEL_47:
 
     else
     {
-      v27 = inputContentClasses;
-      v28 = workflowCopy;
-      v31 = 0u;
-      v32 = 0u;
-      v29 = 0u;
+      v26 = inputContentClasses;
+      v27 = workflowCopy;
       v30 = 0u;
+      v31 = 0u;
+      v28 = 0u;
+      v29 = 0u;
       v12 = [(WFAction *)self containedVariablesOfClass:objc_opt_class()];
-      v13 = [v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v30;
+        v15 = *v29;
         while (2)
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v30 != v15)
+            if (*v29 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            outputUUID = [*(*(&v29 + 1) + 8 * i) outputUUID];
+            outputUUID = [*(*(&v28 + 1) + 8 * i) outputUUID];
             uUID = [actionCopy UUID];
-            v19 = [outputUUID isEqualToString:uUID];
+            isEqualToString = objc_msgSend_isEqualToString_(outputUUID);
 
-            if (v19)
+            if (isEqualToString)
             {
               LOBYTE(v10) = 0;
-              inputContentClasses = v27;
-              workflowCopy = v28;
+              inputContentClasses = v26;
+              workflowCopy = v27;
               goto LABEL_18;
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
           if (v14)
           {
             continue;
@@ -2647,15 +2614,15 @@ LABEL_47:
       if ([(WFAction *)self inputRequired])
       {
         LOBYTE(v10) = 0;
-        inputContentClasses = v27;
-        workflowCopy = v28;
+        inputContentClasses = v26;
+        workflowCopy = v27;
       }
 
       else
       {
-        workflowCopy = v28;
-        actions2 = [v28 actions];
-        inputContentClasses = v27;
+        workflowCopy = v27;
+        actions2 = [v27 actions];
+        inputContentClasses = v26;
         if (v9 >= [actions2 count] - 1)
         {
           v12 = 0;
@@ -2663,16 +2630,16 @@ LABEL_47:
 
         else
         {
-          actions3 = [v28 actions];
+          actions3 = [v27 actions];
           v12 = [actions3 objectAtIndex:v9 + 1];
         }
 
-        if (-[WFAction inputPassthrough](self, "inputPassthrough") && ![v12 legacyBehaviorIgnoresOutputFromAction:self inWorkflow:v28])
+        if (-[WFAction inputPassthrough](self, "inputPassthrough") && ![v12 legacyBehaviorIgnoresOutputFromAction:self inWorkflow:v27])
         {
           LOBYTE(v10) = 0;
         }
 
-        else if ([v27 count])
+        else if ([v26 count])
         {
           if (v9)
           {
@@ -2682,7 +2649,7 @@ LABEL_47:
 
           else
           {
-            effectiveInputClasses = [v28 effectiveInputClasses];
+            effectiveInputClasses = [v27 effectiveInputClasses];
           }
 
           inputContentClasses2 = [(WFAction *)self inputContentClasses];
@@ -2699,7 +2666,6 @@ LABEL_18:
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -2770,34 +2736,34 @@ LABEL_18:
 
 - (id)classesForTypeArray:(id)array includeAllOutputTypes:(BOOL)types
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
+  v33 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0u;
   v5 = arrayCopy;
-  v6 = [v5 countByEnumeratingWithState:&v36 objects:v40 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v37;
+    v8 = *v34;
     v9 = 0x1E6996000uLL;
     v10 = 0x1E6996000uLL;
     v11 = 0x1E6996000uLL;
     do
     {
       v12 = 0;
-      v33 = v7;
+      v30 = v7;
       do
       {
-        if (*v37 != v8)
+        if (*v34 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v13 = *(*(&v36 + 1) + 8 * v12);
+        v13 = *(*(&v33 + 1) + 8 * v12);
         v14 = NSClassFromString(v13);
         if (v14)
         {
@@ -2820,8 +2786,7 @@ LABEL_18:
         sharedRegistry = [*(v9 + 3432) sharedRegistry];
         v19 = [sharedRegistry contentItemClassForType:v17];
 
-        v20 = *(v10 + 3936);
-        if (v19 == objc_opt_class() || (v21 = *(v11 + 3664), v19 == objc_opt_class()) || !types)
+        if (v19 == objc_opt_class() || v19 == objc_opt_class() || !types)
         {
           if (v19)
           {
@@ -2832,24 +2797,24 @@ LABEL_18:
         else
         {
           sharedRegistry2 = [*(v9 + 3432) sharedRegistry];
-          v23 = [sharedRegistry2 contentItemClassesSupportingType:v17];
-          v24 = v8;
-          v25 = v11;
-          v26 = v5;
-          v27 = v9;
-          v28 = v10;
-          v29 = [v23 mutableCopy];
+          v21 = [sharedRegistry2 contentItemClassesSupportingType:v17];
+          v22 = v8;
+          v23 = v11;
+          v24 = v5;
+          v25 = v9;
+          v26 = v10;
+          v27 = [v21 mutableCopy];
 
-          [v29 removeObject:NSClassFromString(&cfstr_Wfworkflowcont.isa)];
-          [v29 removeObject:objc_opt_class()];
-          [orderedSet unionSet:v29];
+          [v27 removeObject:NSClassFromString(&cfstr_Wfworkflowcont.isa)];
+          [v27 removeObject:objc_opt_class()];
+          [orderedSet unionSet:v27];
 
-          v10 = v28;
-          v9 = v27;
-          v5 = v26;
-          v11 = v25;
-          v8 = v24;
-          v7 = v33;
+          v10 = v26;
+          v9 = v25;
+          v5 = v24;
+          v11 = v23;
+          v8 = v22;
+          v7 = v30;
         }
 
 LABEL_18:
@@ -2857,15 +2822,13 @@ LABEL_18:
       }
 
       while (v7 != v12);
-      v7 = [v5 countByEnumeratingWithState:&v36 objects:v40 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v33 objects:v37 count:16];
     }
 
     while (v7);
   }
 
   array = [orderedSet array];
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return array;
 }
@@ -2881,32 +2844,32 @@ LABEL_18:
 
 - (void)wasRemovedFromWorkflow:(id)workflow
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v4 = objc_opt_new();
   resourceManager = [(WFAction *)self resourceManager];
   v6 = [resourceManager resourceObjectsConformingToProtocol:&unk_1F4A9CC28];
   [v4 unionSet:v6];
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   parameters = [(WFAction *)self parameters];
-  v8 = [parameters countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v8 = [parameters countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(parameters);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
+        v12 = *(*(&v24 + 1) + 8 * i);
         resourceManager2 = [v12 resourceManager];
         v14 = [resourceManager2 resourceObjectsConformingToProtocol:&unk_1F4A9CC28];
         [v4 unionSet:v14];
@@ -2915,35 +2878,35 @@ LABEL_18:
         [v12 wasRemovedFromWorkflow];
       }
 
-      v9 = [parameters countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v9 = [parameters countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v9);
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v15 = v4;
-  v16 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v20 objects:v28 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v22;
+    v18 = *v21;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v22 != v18)
+        if (*v21 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        [*(*(&v21 + 1) + 8 * j) setWorkflow:{0, v21}];
+        [*(*(&v20 + 1) + 8 * j) setWorkflow:{0, v20}];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v20 objects:v28 count:16];
     }
 
     while (v17);
@@ -2951,13 +2914,11 @@ LABEL_18:
 
   [(WFAction *)self resetOutput];
   objc_storeWeak(&self->_workflow, 0);
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)wasAddedToWorkflow:(id)workflow
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   workflowCopy = workflow;
   if (!self->_parameters)
   {
@@ -2969,26 +2930,26 @@ LABEL_18:
   v6 = [resourceManager resourceObjectsConformingToProtocol:&unk_1F4A9CC28];
   [v4 unionSet:v6];
 
-  v32 = 0u;
-  v33 = 0u;
-  v30 = 0u;
   v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   obj = [(WFAction *)self parameters];
-  v7 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v7 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v31;
+    v9 = *v30;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v31 != v9)
+        if (*v30 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v30 + 1) + 8 * i);
+        v11 = *(*(&v29 + 1) + 8 * i);
         resourceManager2 = [v11 resourceManager];
         v13 = [resourceManager2 resourceObjectsConformingToProtocol:&unk_1F4A9CC28];
         [v4 unionSet:v13];
@@ -3005,55 +2966,53 @@ LABEL_18:
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v8 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v8);
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v17 = v4;
-  v18 = [v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
   v19 = workflowCopy;
   if (v18)
   {
     v20 = v18;
-    v21 = *v27;
+    v21 = *v26;
     do
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v27 != v21)
+        if (*v26 != v21)
         {
           objc_enumerationMutation(v17);
         }
 
-        [*(*(&v26 + 1) + 8 * j) setWorkflow:{v19, workflowCopy}];
+        [*(*(&v25 + 1) + 8 * j) setWorkflow:{v19, workflowCopy}];
       }
 
-      v20 = [v17 countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v20 = [v17 countByEnumeratingWithState:&v25 objects:v33 count:16];
     }
 
     while (v20);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)wasAddedToWorkflowByUser:(id)user
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = getWFGeneralLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "[WFAction wasAddedToWorkflowByUser:]";
-    v10 = 2114;
+    v7 = 136315394;
+    v8 = "[WFAction wasAddedToWorkflowByUser:]";
+    v9 = 2114;
     selfCopy = self;
-    _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_DEFAULT, "%s User added action %{public}@ to workflow", &v8, 0x16u);
+    _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_DEFAULT, "%s User added action %{public}@ to workflow", &v7, 0x16u);
   }
 
   inputParameterKey = [(WFAction *)self inputParameterKey];
@@ -3066,8 +3025,6 @@ LABEL_18:
       [(WFAction *)self unlockInputParameter];
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)configureResourcesForParameter:(id)parameter
@@ -3094,9 +3051,9 @@ LABEL_18:
     goto LABEL_8;
   }
 
-  v7 = [v8 isEqualToString:v6];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-  if ((v7 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
 LABEL_8:
     [(WFAction *)self setSupplementalParameterValue:v8 forKey:@"GroupingIdentifier"];
@@ -3192,41 +3149,39 @@ LABEL_9:
 
 - (void)setActionTree:(id)tree
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   treeCopy = tree;
   if (self->_actionTree != treeCopy)
   {
     objc_storeStrong(&self->_actionTree, tree);
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     containedVariables = [(WFAction *)self containedVariables];
-    v7 = [containedVariables countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [containedVariables countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(containedVariables);
           }
 
-          [*(*(&v12 + 1) + 8 * i) variableProviderDidInvalidateOutputDetails:self];
+          [*(*(&v11 + 1) + 8 * i) variableProviderDidInvalidateOutputDetails:self];
         }
 
-        v8 = [containedVariables countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [containedVariables countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (WFWorkflowActionTree)actionTree
@@ -3453,44 +3408,42 @@ void __23__WFAction_iconUpdated__block_invoke(uint64_t a1, void *a2)
 
 - (void)enumerateObservers:(id)observers
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   observersCopy = observers;
   os_unfair_lock_lock(&self->_observersLock);
   eventObservers = [(WFAction *)self eventObservers];
   allObjects = [eventObservers allObjects];
 
   os_unfair_lock_unlock(&self->_observersLock);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = allObjects;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        observersCopy[2](observersCopy, *(*(&v13 + 1) + 8 * v11++));
+        observersCopy[2](observersCopy, *(*(&v12 + 1) + 8 * v11++));
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeEventObserver:(id)observer
@@ -3596,7 +3549,7 @@ void __23__WFAction_nameUpdated__block_invoke(uint64_t a1, void *a2)
   {
     appDefinition2 = [(WFAction *)self appDefinition];
     v5 = [appDefinition2 objectForKey:*MEMORY[0x1E69E0908]];
-    v6 = [v5 isEqualToString:*MEMORY[0x1E69E0FB0]] ^ 1;
+    v6 = objc_msgSend_isEqualToString_(v5) ^ 1;
   }
 
   else
@@ -3609,7 +3562,7 @@ void __23__WFAction_nameUpdated__block_invoke(uint64_t a1, void *a2)
 
 - (void)requestInterfacePresentationWithCompletionHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   userInterfaceClasses = [(WFAction *)self userInterfaceClasses];
   if (![userInterfaceClasses count])
@@ -3630,13 +3583,13 @@ void __23__WFAction_nameUpdated__block_invoke(uint64_t a1, void *a2)
       userInterface3 = [(WFAction *)self userInterface];
       v13 = objc_opt_class();
       v14 = NSStringFromClass(v13);
-      v16[0] = MEMORY[0x1E69E9820];
-      v16[1] = 3221225472;
-      v16[2] = __62__WFAction_requestInterfacePresentationWithCompletionHandler___block_invoke;
-      v16[3] = &unk_1E83752B8;
-      v16[4] = self;
-      v17 = handlerCopy;
-      [userInterface3 requestActionInterfacePresentationForActionClassName:v14 classNamesByType:userInterfaceClasses completionHandler:v16];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __62__WFAction_requestInterfacePresentationWithCompletionHandler___block_invoke;
+      v15[3] = &unk_1E83752B8;
+      v15[4] = self;
+      v16 = handlerCopy;
+      [userInterface3 requestActionInterfacePresentationForActionClassName:v14 classNamesByType:userInterfaceClasses completionHandler:v15];
 
       goto LABEL_9;
     }
@@ -3650,7 +3603,7 @@ LABEL_8:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v19 = "[WFAction requestInterfacePresentationWithCompletionHandler:]";
+    v18 = "[WFAction requestInterfacePresentationWithCompletionHandler:]";
     _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_DEFAULT, "%s Action running in Siri needs to display UI, punching to Shortcuts", buf, 0xCu);
   }
 
@@ -3658,12 +3611,11 @@ LABEL_8:
   (*(handlerCopy + 2))(handlerCopy, 0, wfUnsupportedUserInterfaceError);
 
 LABEL_9:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __62__WFAction_requestInterfacePresentationWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if ([*(a1 + 32) isRunning])
@@ -3674,12 +3626,12 @@ void __62__WFAction_requestInterfacePresentationWithCompletionHandler___block_in
     block[1] = 3221225472;
     block[2] = __62__WFAction_requestInterfacePresentationWithCompletionHandler___block_invoke_467;
     block[3] = &unk_1E837ECE0;
-    v15 = *(a1 + 40);
-    v13 = v5;
-    v14 = v6;
+    v14 = *(a1 + 40);
+    v12 = v5;
+    v13 = v6;
     dispatch_async(v7, block);
 
-    v8 = v15;
+    v8 = v14;
   }
 
   else
@@ -3688,7 +3640,7 @@ void __62__WFAction_requestInterfacePresentationWithCompletionHandler___block_in
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "[WFAction requestInterfacePresentationWithCompletionHandler:]_block_invoke";
+      v16 = "[WFAction requestInterfacePresentationWithCompletionHandler:]_block_invoke";
       _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_DEFAULT, "%s Action is not running during the completion of a UI presentation request, returning with user cancelled error", buf, 0xCu);
     }
 
@@ -3696,8 +3648,6 @@ void __62__WFAction_requestInterfacePresentationWithCompletionHandler___block_in
     v8 = [MEMORY[0x1E696ABC0] userCancelledError];
     (*(v10 + 16))(v10, 0, v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setOutput:(id)output onVariableSource:(id)source
@@ -3779,14 +3729,14 @@ LABEL_7:
 
 - (void)dismissPresentedContentWithCompletionHandler:(id)handler
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = getWFGeneralLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315138;
-    v11 = "[WFAction dismissPresentedContentWithCompletionHandler:]";
-    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s Dismissing presented content", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = "[WFAction dismissPresentedContentWithCompletionHandler:]";
+    _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEFAULT, "%s Dismissing presented content", &v9, 0xCu);
   }
 
   userInterface = [(WFAction *)self userInterface];
@@ -3802,13 +3752,11 @@ LABEL_7:
   {
     handlerCopy[2](handlerCopy);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_finishRunningWithError:(id)error
 {
-  v77[2] = *MEMORY[0x1E69E9840];
+  v76[2] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   effectiveWorkQueue = [(WFAction *)self effectiveWorkQueue];
   dispatch_assert_queue_V2(effectiveWorkQueue);
@@ -3817,7 +3765,7 @@ LABEL_7:
   {
     domain = [errorCopy domain];
     v7 = *MEMORY[0x1E6997158];
-    if ([domain isEqualToString:*MEMORY[0x1E6997158]])
+    if (objc_msgSend_isEqualToString_(domain))
     {
       code = [errorCopy code];
 
@@ -3883,7 +3831,7 @@ LABEL_16:
     }
 
     domain3 = [errorCopy domain];
-    if ([domain3 isEqualToString:@"WFActionErrorDomain"])
+    if (objc_msgSend_isEqualToString_(domain3))
     {
       code2 = [errorCopy code];
 
@@ -3937,7 +3885,7 @@ LABEL_17:
           if (v35)
           {
             *buf = 136315138;
-            v73 = "[WFAction _finishRunningWithError:]";
+            v72 = "[WFAction _finishRunningWithError:]";
             _os_log_impl(&dword_1CA256000, v34, OS_LOG_TYPE_DEFAULT, "%s We finished with an error, and we were holding a SessionKit assertion. Letting it go.", buf, 0xCu);
           }
 
@@ -3949,7 +3897,7 @@ LABEL_17:
           if (v35)
           {
             *buf = 136315138;
-            v73 = "[WFAction _finishRunningWithError:]";
+            v72 = "[WFAction _finishRunningWithError:]";
             _os_log_impl(&dword_1CA256000, v34, OS_LOG_TYPE_DEFAULT, "%s Action finished running, and we seem to be holding a SessionKit assertion. Starting a timeout to invalidate it if we're still waiting on the app...", buf, 0xCu);
           }
 
@@ -3978,23 +3926,23 @@ LABEL_17:
         if ((v43 & 1) == 0)
         {
           v44 = MEMORY[0x1E6996D38];
-          v77[0] = trackedAttributionSet;
+          v76[0] = trackedAttributionSet;
           v45 = MEMORY[0x1E6996D30];
           outputDisclosureLevel = [(WFAction *)self outputDisclosureLevel];
           v47 = MEMORY[0x1E6996C90];
           appDescriptor3 = [(WFAction *)self appDescriptor];
-          v67 = [v47 locationWithAppDescriptor:appDescriptor3];
+          v66 = [v47 locationWithAppDescriptor:appDescriptor3];
           v49 = MEMORY[0x1E695DFB8];
           output = [(WFAction *)self output];
           items = [output items];
-          v66 = [items if_map:&__block_literal_global_459];
-          v50 = [v49 orderedSetWithArray:v66];
-          v51 = [v45 attributionWithDisclosureLevel:outputDisclosureLevel origin:v67 originalItemIdentifiers:v50];
-          v76 = v51;
-          v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v76 count:1];
+          v65 = [items if_map:&__block_literal_global_459];
+          v50 = [v49 orderedSetWithArray:v65];
+          v51 = [v45 attributionWithDisclosureLevel:outputDisclosureLevel origin:v66 originalItemIdentifiers:v50];
+          v75 = v51;
+          v52 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v75 count:1];
           v53 = [v44 attributionSetWithAttributions:v52];
-          v77[1] = v53;
-          v54 = [MEMORY[0x1E695DEC8] arrayWithObjects:v77 count:2];
+          v76[1] = v53;
+          v54 = [MEMORY[0x1E695DEC8] arrayWithObjects:v76 count:2];
           v55 = [v44 attributionSetByMergingAttributionSets:v54];
 
           trackedAttributionSet = v55;
@@ -4019,9 +3967,9 @@ LABEL_38:
           {
             identifier = [(WFAction *)self identifier];
             *buf = 136315394;
-            v73 = "[WFAction _finishRunningWithError:]";
-            v74 = 2112;
-            v75 = identifier;
+            v72 = "[WFAction _finishRunningWithError:]";
+            v73 = 2112;
+            v74 = identifier;
             _os_log_impl(&dword_1CA256000, appDescriptor3, OS_LOG_TYPE_FAULT, "%s Action %@ produces private output and is not exempt from taint tracking, but is missing an appIdentifier", buf, 0x16u);
           }
 
@@ -4041,14 +3989,14 @@ LABEL_40:
       variableSource = [(WFAction *)self variableSource];
       [(WFAction *)self setOutput:output4 onVariableSource:variableSource];
 
-      v70[0] = MEMORY[0x1E69E9820];
-      v70[1] = 3221225472;
-      v70[2] = __36__WFAction__finishRunningWithError___block_invoke_460;
-      v70[3] = &unk_1E837F870;
-      v70[4] = self;
+      v69[0] = MEMORY[0x1E69E9820];
+      v69[1] = 3221225472;
+      v69[2] = __36__WFAction__finishRunningWithError___block_invoke_460;
+      v69[3] = &unk_1E837F870;
+      v69[4] = self;
       errorCopy = errorCopy;
-      v71 = errorCopy;
-      [(WFAction *)self dismissPresentedContentWithCompletionHandler:v70];
+      v70 = errorCopy;
+      [(WFAction *)self dismissPresentedContentWithCompletionHandler:v69];
 
       goto LABEL_41;
     }
@@ -4060,8 +4008,6 @@ LABEL_40:
   }
 
 LABEL_41:
-
-  v65 = *MEMORY[0x1E69E9840];
 }
 
 void __36__WFAction__finishRunningWithError___block_invoke_460(uint64_t a1)
@@ -4225,80 +4171,74 @@ void __50__WFAction_prepareToProcessWithCompletionHandler___block_invoke_3(uint6
 
 void __36__WFAction_checkUserInterfaceAndRun__block_invoke(uint64_t a1)
 {
-  v27[1] = *MEMORY[0x1E69E9840];
-  if (![*(a1 + 32) isRunning])
+  v25[1] = *MEMORY[0x1E69E9840];
+  if ([*(a1 + 32) isRunning])
   {
-    goto LABEL_5;
-  }
+    v2 = [*(a1 + 32) app];
+    v3 = [v2 isRestricted];
 
-  v2 = [*(a1 + 32) app];
-  v3 = [v2 isRestricted];
-
-  v4 = *(a1 + 32);
-  if (v3)
-  {
-    v5 = MEMORY[0x1E696ABC0];
-    v26 = *MEMORY[0x1E696A578];
-    v6 = MEMORY[0x1E696AEC0];
-    v7 = WFLocalizedString(@"This action could not be run because “%@” is restricted.");
-    v8 = [*(a1 + 32) appDescriptor];
-    v9 = [v8 localizedName];
-    v10 = [v6 localizedStringWithFormat:v7, v9];
-    v27[0] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
-    v12 = [v5 errorWithDomain:@"WFActionErrorDomain" code:7 userInfo:v11];
-    [v4 finishRunningWithError:v12];
+    v4 = *(a1 + 32);
+    if (v3)
+    {
+      v5 = MEMORY[0x1E696ABC0];
+      v24 = *MEMORY[0x1E696A578];
+      v6 = MEMORY[0x1E696AEC0];
+      v7 = WFLocalizedString(@"This action could not be run because “%@” is restricted.");
+      v8 = [*(a1 + 32) appDescriptor];
+      v9 = [v8 localizedName];
+      v10 = [v6 localizedStringWithFormat:v7, v9];
+      v25[0] = v10;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+      v12 = [v5 errorWithDomain:@"WFActionErrorDomain" code:7 userInfo:v11];
+      [v4 finishRunningWithError:v12];
 
 LABEL_4:
-LABEL_5:
-    v13 = *MEMORY[0x1E69E9840];
-    return;
-  }
-
-  if (![*(a1 + 32) highRisk] || +[WFShortcutsSecuritySettings areScriptingActionsEnabled](WFShortcutsSecuritySettings, "areScriptingActionsEnabled") || (objc_msgSend(*(a1 + 32), "requiresRemoteExecution") & 1) != 0 || (objc_msgSend(*(a1 + 32), "runningViaSpotlight") & 1) != 0)
-  {
-    v14 = [*(a1 + 32) requiresRemoteExecution];
-    v15 = *(a1 + 32);
-    if (!v14)
-    {
-      v17 = [*(a1 + 32) userInterface];
-      v7 = [v17 userInterfaceType];
-
-      if ([*(a1 + 32) requiresHandoffWhenRunWithUserInterfaceType:v7])
-      {
-        v18 = *(a1 + 32);
-        v19 = [MEMORY[0x1E696ABC0] wfUnsupportedUserInterfaceError];
-        [v18 finishRunningWithError:v19];
-      }
-
-      else
-      {
-        v20 = *(a1 + 32);
-        v21 = [v20 effectiveWorkQueue];
-        v25[0] = MEMORY[0x1E69E9820];
-        v25[1] = 3221225472;
-        v25[2] = __36__WFAction_checkUserInterfaceAndRun__block_invoke_2;
-        v25[3] = &unk_1E837FA70;
-        v25[4] = *(a1 + 32);
-        [WFActionRateLimiter performAction:v20 onQueue:v21 withBlock:v25];
-      }
-
-      goto LABEL_4;
+      return;
     }
 
-    v24 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WFActionErrorDomain" code:2 userInfo:0];
-    [v15 finishRunningWithError:?];
-  }
+    if (![*(a1 + 32) highRisk] || +[WFShortcutsSecuritySettings areScriptingActionsEnabled](WFShortcutsSecuritySettings, "areScriptingActionsEnabled") || (objc_msgSend(*(a1 + 32), "requiresRemoteExecution") & 1) != 0 || (objc_msgSend(*(a1 + 32), "runningViaSpotlight") & 1) != 0)
+    {
+      v13 = [*(a1 + 32) requiresRemoteExecution];
+      v14 = *(a1 + 32);
+      if (!v13)
+      {
+        v15 = [*(a1 + 32) userInterface];
+        v7 = [v15 userInterfaceType];
 
-  else
-  {
-    v22 = *(a1 + 32);
-    v24 = [v22 localizedName];
-    v23 = [WFShortcutsSecuritySettings scripingActionDisabledErrorWithActionName:?];
-    [v22 finishRunningWithError:v23];
-  }
+        if ([*(a1 + 32) requiresHandoffWhenRunWithUserInterfaceType:v7])
+        {
+          v16 = *(a1 + 32);
+          v17 = [MEMORY[0x1E696ABC0] wfUnsupportedUserInterfaceError];
+          [v16 finishRunningWithError:v17];
+        }
 
-  v16 = *MEMORY[0x1E69E9840];
+        else
+        {
+          v18 = *(a1 + 32);
+          v19 = [v18 effectiveWorkQueue];
+          v23[0] = MEMORY[0x1E69E9820];
+          v23[1] = 3221225472;
+          v23[2] = __36__WFAction_checkUserInterfaceAndRun__block_invoke_2;
+          v23[3] = &unk_1E837FA70;
+          v23[4] = *(a1 + 32);
+          [WFActionRateLimiter performAction:v18 onQueue:v19 withBlock:v23];
+        }
+
+        goto LABEL_4;
+      }
+
+      v22 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WFActionErrorDomain" code:2 userInfo:0];
+      [v14 finishRunningWithError:?];
+    }
+
+    else
+    {
+      v20 = *(a1 + 32);
+      v22 = [v20 localizedName];
+      v21 = [WFShortcutsSecuritySettings scripingActionDisabledErrorWithActionName:?];
+      [v20 finishRunningWithError:v21];
+    }
+  }
 }
 
 uint64_t __36__WFAction_checkUserInterfaceAndRun__block_invoke_2(uint64_t a1)
@@ -4489,7 +4429,7 @@ LABEL_11:
 
 - (void)performDeletionAuthorizationChecksWithUserInterface:(id)interface contentItemCache:(id)cache completionHandler:(id)handler
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   interfaceCopy = interface;
   handlerCopy = handler;
   if (![(WFAction *)self shouldDisableSmartPromptChecks])
@@ -4508,7 +4448,7 @@ LABEL_11:
       }
 
       *buf = 136315138;
-      v67 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]";
+      v66 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]";
       v10 = "%s deletesInput was set to YES, but no contentItemClass was specified";
       v11 = v9;
       v12 = OS_LOG_TYPE_FAULT;
@@ -4526,8 +4466,8 @@ LABEL_53:
     }
 
     v15 = numberOfItems;
-    v60 = interfaceCopy;
-    v61 = itemsBeingDeleted;
+    v59 = interfaceCopy;
+    v60 = itemsBeingDeleted;
     workflow = [(WFAction *)self workflow];
     reference = [workflow reference];
     if (reference)
@@ -4550,26 +4490,26 @@ LABEL_53:
     identifier = [(WFAction *)self identifier];
     workflow4 = [(WFAction *)self workflow];
     actions = [workflow4 actions];
-    v65 = 0;
-    v62 = reference2;
-    v28 = [v22 currentDeletionAuthorizationStatusWithContentItemClassName:v23 actionUUID:uUID actionIdentifier:identifier actionIndex:objc_msgSend(actions count:"indexOfObject:" reference:self) error:{v15, reference2, &v65}];
-    v59 = v65;
+    v64 = 0;
+    v61 = reference2;
+    v28 = [v22 currentDeletionAuthorizationStatusWithContentItemClassName:v23 actionUUID:uUID actionIdentifier:identifier actionIndex:objc_msgSend(actions count:"indexOfObject:" reference:self) error:{v15, reference2, &v64}];
+    v58 = v64;
 
     actionUUID = [v28 actionUUID];
     [(WFAction *)self setUUID:actionUUID];
 
     status = [v28 status];
-    LODWORD(identifier) = [status isEqualToString:@"Restricted"];
+    LODWORD(identifier) = objc_msgSend_isEqualToString_(status);
 
     if (identifier)
     {
       v31 = getWFSecurityLogObject();
-      interfaceCopy = v60;
-      itemsBeingDeleted = v61;
+      interfaceCopy = v59;
+      itemsBeingDeleted = v60;
       if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v67 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]";
+        v66 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]";
         _os_log_impl(&dword_1CA256000, v31, OS_LOG_TYPE_INFO, "%s Stopping action because exfiltration is restricted", buf, 0xCu);
       }
 
@@ -4578,27 +4518,27 @@ LABEL_28:
       v40 = localizedExfiltrationRestrictedError;
       handlerCopy[2](handlerCopy, localizedExfiltrationRestrictedError);
 
-      v36 = v62;
+      v36 = v61;
 LABEL_52:
 
       goto LABEL_53;
     }
 
-    interfaceCopy = v60;
-    itemsBeingDeleted = v61;
+    interfaceCopy = v59;
+    itemsBeingDeleted = v60;
     if (+[WFShortcutsSecuritySettings allowsDeletingWithoutConfirmation])
     {
       status2 = [v28 status];
-      v34 = [status2 isEqualToString:@"Allow"];
+      isEqualToString = objc_msgSend_isEqualToString_(status2);
 
-      if (v34)
+      if (isEqualToString)
       {
         v35 = getWFSecurityLogObject();
-        v36 = v62;
+        v36 = v61;
         if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315138;
-          v67 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]";
+          v66 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]";
           _os_log_impl(&dword_1CA256000, v35, OS_LOG_TYPE_DEBUG, "%s Executing action because flag in Preferences is on and deletion authorization was previously approved", buf, 0xCu);
         }
 
@@ -4608,7 +4548,7 @@ LABEL_52:
     }
 
     status3 = [v28 status];
-    v38 = [status3 isEqualToString:@"Disallow"];
+    v38 = objc_msgSend_isEqualToString_(status3);
 
     if (v38)
     {
@@ -4616,7 +4556,7 @@ LABEL_52:
       if (os_log_type_enabled(v39, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v67 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]";
+        v66 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]";
         _os_log_impl(&dword_1CA256000, v39, OS_LOG_TYPE_INFO, "%s Stopping action because deletion authorization was previously denied", buf, 0xCu);
       }
 
@@ -4626,14 +4566,14 @@ LABEL_52:
 
     v41 = @"Shortcut";
     v42 = @"Shortcut";
-    v36 = v62;
+    v36 = v61;
     if ([(WFAction *)self isRunningInSiriUserInterface])
     {
       v43 = getWFSecurityLogObject();
       if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v67 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]";
+        v66 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]";
         _os_log_impl(&dword_1CA256000, v43, OS_LOG_TYPE_DEBUG, "%s Deletion authorization prompt is being presented in Siri", buf, 0xCu);
       }
 
@@ -4641,14 +4581,14 @@ LABEL_52:
       v44 = @"Siri";
     }
 
-    v45 = [[WFSmartPromptConfiguration alloc] initWithDeletionAuthorizationState:v28 contentCollection:v61 action:self reference:v62 source:v41];
+    v45 = [[WFSmartPromptConfiguration alloc] initWithDeletionAuthorizationState:v28 contentCollection:v60 action:self reference:v61 source:v41];
     if (!v45)
     {
       v52 = getWFWorkflowExecutionLogObject();
       if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v67 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]";
+        v66 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]";
         _os_log_impl(&dword_1CA256000, v52, OS_LOG_TYPE_ERROR, "%s Failed to init WFSmartPromptConfiguration for deletion authorization", buf, 0xCu);
       }
 
@@ -4657,7 +4597,7 @@ LABEL_52:
       v55 = WFRunnerFailureErrorMessage(name);
       (handlerCopy)[2](handlerCopy, v55);
 
-      itemsBeingDeleted = v61;
+      itemsBeingDeleted = v60;
       goto LABEL_50;
     }
 
@@ -4667,7 +4607,7 @@ LABEL_52:
       if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v67 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]";
+        v66 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]";
         _os_log_impl(&dword_1CA256000, v56, OS_LOG_TYPE_ERROR, "%s Current UI does not support setting deletion authorizations", buf, 0xCu);
       }
 
@@ -4691,17 +4631,17 @@ LABEL_52:
         if (v50)
         {
           userInterface4 = [(WFAction *)self userInterface];
-          v64[0] = MEMORY[0x1E69E9820];
-          v64[1] = 3221225472;
-          v64[2] = __99__WFAction_performDeletionAuthorizationChecksWithUserInterface_contentItemCache_completionHandler___block_invoke;
-          v64[3] = &unk_1E8375270;
-          v64[4] = self;
-          v64[5] = handlerCopy;
-          [userInterface4 presentAlertWithSmartPromptConfiguration:v45 completionHandler:v64];
+          v63[0] = MEMORY[0x1E69E9820];
+          v63[1] = 3221225472;
+          v63[2] = __99__WFAction_performDeletionAuthorizationChecksWithUserInterface_contentItemCache_completionHandler___block_invoke;
+          v63[3] = &unk_1E8375270;
+          v63[4] = self;
+          v63[5] = handlerCopy;
+          [userInterface4 presentAlertWithSmartPromptConfiguration:v45 completionHandler:v63];
 LABEL_49:
 
 LABEL_50:
-          v36 = v62;
+          v36 = v61;
 LABEL_51:
 
           goto LABEL_52;
@@ -4714,13 +4654,13 @@ LABEL_51:
     }
 
     userInterface4 = [(WFAction *)self userInterface];
-    v63[0] = MEMORY[0x1E69E9820];
-    v63[1] = 3221225472;
-    v63[2] = __99__WFAction_performDeletionAuthorizationChecksWithUserInterface_contentItemCache_completionHandler___block_invoke_418;
-    v63[3] = &unk_1E8375270;
-    v63[4] = self;
-    v63[5] = handlerCopy;
-    [userInterface4 requestAuthorizationWithConfiguration:v45 completionHandler:v63];
+    v62[0] = MEMORY[0x1E69E9820];
+    v62[1] = 3221225472;
+    v62[2] = __99__WFAction_performDeletionAuthorizationChecksWithUserInterface_contentItemCache_completionHandler___block_invoke_418;
+    v62[3] = &unk_1E8375270;
+    v62[4] = self;
+    v62[5] = handlerCopy;
+    [userInterface4 requestAuthorizationWithConfiguration:v45 completionHandler:v62];
     goto LABEL_49;
   }
 
@@ -4728,7 +4668,7 @@ LABEL_51:
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v67 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]";
+    v66 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]";
     v11 = v9;
     v12 = OS_LOG_TYPE_DEBUG;
 LABEL_4:
@@ -4740,67 +4680,57 @@ LABEL_5:
 LABEL_12:
   handlerCopy[2](handlerCopy, 0);
 LABEL_54:
-
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 void __99__WFAction_performDeletionAuthorizationChecksWithUserInterface_contentItemCache_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (a2 == 5)
   {
     v3 = getWFSecurityLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]_block_invoke";
-      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s User selected Don't Delete at deletion authorization", &v10, 0xCu);
+      v7 = 136315138;
+      v8 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]_block_invoke";
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s User selected Don't Delete at deletion authorization", &v7, 0xCu);
     }
 
     v4 = *(a1 + 40);
     v5 = +[WFDeletionAuthorizationState dontDeleteErrorForContentItemClass:](WFDeletionAuthorizationState, "dontDeleteErrorForContentItemClass:", [*(a1 + 32) contentItemClass]);
     (*(v4 + 16))(v4, v5);
-
-    v6 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v7 = *(a1 + 40);
-    v8 = *(*(a1 + 40) + 16);
-    v9 = *MEMORY[0x1E69E9840];
+    v6 = *(*(a1 + 40) + 16);
 
-    v8();
+    v6();
   }
 }
 
 void __99__WFAction_performDeletionAuthorizationChecksWithUserInterface_contentItemCache_completionHandler___block_invoke_418(uint64_t a1, uint64_t a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (a2 == 5)
   {
     v3 = getWFSecurityLogObject();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315138;
-      v11 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]_block_invoke";
-      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s User selected Don't Delete at deletion authorization", &v10, 0xCu);
+      v7 = 136315138;
+      v8 = "[WFAction performDeletionAuthorizationChecksWithUserInterface:contentItemCache:completionHandler:]_block_invoke";
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s User selected Don't Delete at deletion authorization", &v7, 0xCu);
     }
 
     v4 = *(a1 + 40);
     v5 = +[WFDeletionAuthorizationState dontDeleteErrorForContentItemClass:](WFDeletionAuthorizationState, "dontDeleteErrorForContentItemClass:", [*(a1 + 32) contentItemClass]);
     (*(v4 + 16))(v4, v5);
-
-    v6 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v7 = *(a1 + 40);
-    v8 = *(*(a1 + 40) + 16);
-    v9 = *MEMORY[0x1E69E9840];
+    v6 = *(*(a1 + 40) + 16);
 
-    v8();
+    v6();
   }
 }
 
@@ -4838,23 +4768,23 @@ void __99__WFAction_performDeletionAuthorizationChecksWithUserInterface_contentI
   runSource = [v6 runSource];
   if ([runSource length])
   {
-    if ([runSource isEqualToString:*MEMORY[0x1E69E13F0]])
+    if (objc_msgSend_isEqualToString_(runSource))
     {
-      v8 = 1;
+      isEqualToString = 1;
     }
 
     else
     {
-      v8 = [runSource isEqualToString:*MEMORY[0x1E69E1370]];
+      isEqualToString = objc_msgSend_isEqualToString_(runSource);
     }
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (BOOL)isRunningInSiriUserInterface
@@ -4960,19 +4890,19 @@ LABEL_15:
       v18 = [v15 identifier];
     }
 
-    if ([v18 isEqualToString:*MEMORY[0x1E69E0EF0]])
+    if (objc_msgSend_isEqualToString_(v18))
     {
       v19 = MEMORY[0x1E6997098];
     }
 
-    else if ([v18 isEqualToString:*MEMORY[0x1E69E0E58]])
+    else if (objc_msgSend_isEqualToString_(v18))
     {
       v19 = MEMORY[0x1E6997090];
     }
 
     else
     {
-      if (([v18 isEqualToString:*MEMORY[0x1E69E0F98]] & 1) == 0 && (objc_msgSend(v18, "isEqualToString:", @"com.apple.shortcuts.microphoneDestination") & 1) == 0 && (objc_msgSend(v18, "isEqualToString:", *MEMORY[0x1E69E0ED0]) & 1) == 0 && !objc_msgSend(v18, "isEqualToString:", *MEMORY[0x1E69E0ED8]))
+      if ((objc_msgSend_isEqualToString_(v18) & 1) == 0 && (objc_msgSend_isEqualToString_(v18) & 1) == 0 && (objc_msgSend_isEqualToString_(v18) & 1) == 0 && !objc_msgSend_isEqualToString_(v18))
       {
         v13 = 0;
         goto LABEL_30;
@@ -4997,7 +4927,7 @@ LABEL_32:
 
 - (void)presentSmartPromptAuthorizationWithConfiguration:(id)configuration userInterface:(id)interface databaseApprovalResult:(id)result contentDestination:(id)destination completionHandler:(id)handler
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   interfaceCopy = interface;
   resultCopy = result;
@@ -5005,17 +4935,17 @@ LABEL_32:
   handlerCopy = handler;
   if (objc_opt_respondsToSelector() & 1) != 0 && [interfaceCopy requestedFromAnotherDevice] && (objc_opt_respondsToSelector())
   {
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __135__WFAction_presentSmartPromptAuthorizationWithConfiguration_userInterface_databaseApprovalResult_contentDestination_completionHandler___block_invoke;
-    v26[3] = &unk_1E8375208;
-    v30 = handlerCopy;
-    v27 = destinationCopy;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __135__WFAction_presentSmartPromptAuthorizationWithConfiguration_userInterface_databaseApprovalResult_contentDestination_completionHandler___block_invoke;
+    v25[3] = &unk_1E8375208;
+    v29 = handlerCopy;
+    v26 = destinationCopy;
     selfCopy = self;
-    v29 = resultCopy;
-    [interfaceCopy presentAlertWithSmartPromptConfiguration:configurationCopy completionHandler:v26];
+    v28 = resultCopy;
+    [interfaceCopy presentAlertWithSmartPromptConfiguration:configurationCopy completionHandler:v25];
 
-    v17 = v27;
+    v17 = v26;
 LABEL_7:
 
     goto LABEL_11;
@@ -5023,17 +4953,17 @@ LABEL_7:
 
   if (objc_opt_respondsToSelector())
   {
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __135__WFAction_presentSmartPromptAuthorizationWithConfiguration_userInterface_databaseApprovalResult_contentDestination_completionHandler___block_invoke_406;
-    v21[3] = &unk_1E8375208;
-    v25 = handlerCopy;
-    v22 = destinationCopy;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __135__WFAction_presentSmartPromptAuthorizationWithConfiguration_userInterface_databaseApprovalResult_contentDestination_completionHandler___block_invoke_406;
+    v20[3] = &unk_1E8375208;
+    v24 = handlerCopy;
+    v21 = destinationCopy;
     selfCopy2 = self;
-    v24 = resultCopy;
-    [interfaceCopy requestAuthorizationWithConfiguration:configurationCopy completionHandler:v21];
+    v23 = resultCopy;
+    [interfaceCopy requestAuthorizationWithConfiguration:configurationCopy completionHandler:v20];
 
-    v17 = v22;
+    v17 = v21;
     goto LABEL_7;
   }
 
@@ -5041,7 +4971,7 @@ LABEL_7:
   if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315138;
-    v32 = "[WFAction presentSmartPromptAuthorizationWithConfiguration:userInterface:databaseApprovalResult:contentDestination:completionHandler:]";
+    v31 = "[WFAction presentSmartPromptAuthorizationWithConfiguration:userInterface:databaseApprovalResult:contentDestination:completionHandler:]";
     _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_ERROR, "%s Current UI does not support setting smart prompts", buf, 0xCu);
   }
 
@@ -5049,120 +4979,113 @@ LABEL_7:
   handlerCopy[2](handlerCopy, v19);
 
 LABEL_11:
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __135__WFAction_presentSmartPromptAuthorizationWithConfiguration_userInterface_databaseApprovalResult_contentDestination_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  switch(a2)
+  v15 = *MEMORY[0x1E69E9840];
+  if (a2 == 3)
   {
-    case 3:
-      v11 = *(a1 + 56);
-      v16 = [MEMORY[0x1E696ABC0] wfUnsupportedUserInterfaceError];
-      (*(v11 + 16))(v11);
-      v12 = *MEMORY[0x1E69E9840];
+    v10 = *(a1 + 56);
+    v12 = [MEMORY[0x1E696ABC0] wfUnsupportedUserInterfaceError];
+    (*(v10 + 16))(v10);
+  }
 
-      break;
-    case 2:
-      v6 = getWFSecurityLogObject();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136315138;
-        v18 = "[WFAction presentSmartPromptAuthorizationWithConfiguration:userInterface:databaseApprovalResult:contentDestination:completionHandler:]_block_invoke";
-        _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_DEFAULT, "%s User selected Allow Once at smart prompt", buf, 0xCu);
-      }
+  else if (a2 == 2)
+  {
+    v6 = getWFSecurityLogObject();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      v14 = "[WFAction presentSmartPromptAuthorizationWithConfiguration:userInterface:databaseApprovalResult:contentDestination:completionHandler:]_block_invoke";
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_DEFAULT, "%s User selected Allow Once at smart prompt", buf, 0xCu);
+    }
 
-      v7 = MEMORY[0x1E695DFD8];
-      v8 = [*(a1 + 48) undefinedStates];
-      v9 = [v7 setWithArray:v8];
-      [*(a1 + 40) setAllowedOnceSmartPromptStates:v9];
+    v7 = MEMORY[0x1E695DFD8];
+    v8 = [*(a1 + 48) undefinedStates];
+    v9 = [v7 setWithArray:v8];
+    [*(a1 + 40) setAllowedOnceSmartPromptStates:v9];
 
-      (*(*(a1 + 56) + 16))();
-      goto LABEL_10;
-    case 0:
-      v3 = getWFSecurityLogObject();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136315138;
-        v18 = "[WFAction presentSmartPromptAuthorizationWithConfiguration:userInterface:databaseApprovalResult:contentDestination:completionHandler:]_block_invoke";
-        _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s User selected Deny at smart prompt", buf, 0xCu);
-      }
+    (*(*(a1 + 56) + 16))();
+  }
 
-      v4 = *(a1 + 56);
-      v5 = [WFSmartPromptState localizedDeniedPermissionsErrorWithContentDestination:*(a1 + 32)];
-      (*(v4 + 16))(v4, v5);
+  else if (a2)
+  {
+    v11 = *(*(a1 + 56) + 16);
 
-LABEL_10:
-      v10 = *MEMORY[0x1E69E9840];
-      return;
-    default:
-      v13 = *(a1 + 56);
-      v14 = *(*(a1 + 56) + 16);
-      v15 = *MEMORY[0x1E69E9840];
+    v11();
+  }
 
-      v14();
-      break;
+  else
+  {
+    v3 = getWFSecurityLogObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      v14 = "[WFAction presentSmartPromptAuthorizationWithConfiguration:userInterface:databaseApprovalResult:contentDestination:completionHandler:]_block_invoke";
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s User selected Deny at smart prompt", buf, 0xCu);
+    }
+
+    v4 = *(a1 + 56);
+    v5 = [WFSmartPromptState localizedDeniedPermissionsErrorWithContentDestination:*(a1 + 32)];
+    (*(v4 + 16))(v4, v5);
   }
 }
 
 void __135__WFAction_presentSmartPromptAuthorizationWithConfiguration_userInterface_databaseApprovalResult_contentDestination_completionHandler___block_invoke_406(uint64_t a1, uint64_t a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  switch(a2)
+  v15 = *MEMORY[0x1E69E9840];
+  if (a2 == 3)
   {
-    case 3:
-      v11 = *(a1 + 56);
-      v16 = [MEMORY[0x1E696ABC0] wfUnsupportedUserInterfaceError];
-      (*(v11 + 16))(v11);
-      v12 = *MEMORY[0x1E69E9840];
+    v10 = *(a1 + 56);
+    v12 = [MEMORY[0x1E696ABC0] wfUnsupportedUserInterfaceError];
+    (*(v10 + 16))(v10);
+  }
 
-      break;
-    case 2:
-      v6 = getWFSecurityLogObject();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136315138;
-        v18 = "[WFAction presentSmartPromptAuthorizationWithConfiguration:userInterface:databaseApprovalResult:contentDestination:completionHandler:]_block_invoke";
-        _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_DEFAULT, "%s User selected Allow Once at smart prompt", buf, 0xCu);
-      }
+  else if (a2 == 2)
+  {
+    v6 = getWFSecurityLogObject();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      v14 = "[WFAction presentSmartPromptAuthorizationWithConfiguration:userInterface:databaseApprovalResult:contentDestination:completionHandler:]_block_invoke";
+      _os_log_impl(&dword_1CA256000, v6, OS_LOG_TYPE_DEFAULT, "%s User selected Allow Once at smart prompt", buf, 0xCu);
+    }
 
-      v7 = MEMORY[0x1E695DFD8];
-      v8 = [*(a1 + 48) undefinedStates];
-      v9 = [v7 setWithArray:v8];
-      [*(a1 + 40) setAllowedOnceSmartPromptStates:v9];
+    v7 = MEMORY[0x1E695DFD8];
+    v8 = [*(a1 + 48) undefinedStates];
+    v9 = [v7 setWithArray:v8];
+    [*(a1 + 40) setAllowedOnceSmartPromptStates:v9];
 
-      (*(*(a1 + 56) + 16))();
-      goto LABEL_10;
-    case 0:
-      v3 = getWFSecurityLogObject();
-      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 136315138;
-        v18 = "[WFAction presentSmartPromptAuthorizationWithConfiguration:userInterface:databaseApprovalResult:contentDestination:completionHandler:]_block_invoke";
-        _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s User selected Deny at smart prompt", buf, 0xCu);
-      }
+    (*(*(a1 + 56) + 16))();
+  }
 
-      v4 = *(a1 + 56);
-      v5 = [WFSmartPromptState localizedDeniedPermissionsErrorWithContentDestination:*(a1 + 32)];
-      (*(v4 + 16))(v4, v5);
+  else if (a2)
+  {
+    v11 = *(*(a1 + 56) + 16);
 
-LABEL_10:
-      v10 = *MEMORY[0x1E69E9840];
-      return;
-    default:
-      v13 = *(a1 + 56);
-      v14 = *(*(a1 + 56) + 16);
-      v15 = *MEMORY[0x1E69E9840];
+    v11();
+  }
 
-      v14();
-      break;
+  else
+  {
+    v3 = getWFSecurityLogObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315138;
+      v14 = "[WFAction presentSmartPromptAuthorizationWithConfiguration:userInterface:databaseApprovalResult:contentDestination:completionHandler:]_block_invoke";
+      _os_log_impl(&dword_1CA256000, v3, OS_LOG_TYPE_DEFAULT, "%s User selected Deny at smart prompt", buf, 0xCu);
+    }
+
+    v4 = *(a1 + 56);
+    v5 = [WFSmartPromptState localizedDeniedPermissionsErrorWithContentDestination:*(a1 + 32)];
+    (*(v4 + 16))(v4, v5);
   }
 }
 
 - (void)performSmartPromptChecksWithUserInterface:(id)interface contentDestination:(id)destination contentItemCache:(id)cache isWebpageCoercion:(BOOL)coercion completionHandler:(id)handler
 {
-  v147 = *MEMORY[0x1E69E9840];
+  v146 = *MEMORY[0x1E69E9840];
   interfaceCopy = interface;
   destinationCopy = destination;
   cacheCopy = cache;
@@ -5178,7 +5101,7 @@ LABEL_10:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v139 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
+        v138 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
 LABEL_11:
         _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_DEBUG, v15, buf, 0xCu);
         goto LABEL_12;
@@ -5194,7 +5117,7 @@ LABEL_11:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v139 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
+        v138 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
         v15 = "%s Not performing smart prompt checks because action is executed remotely.";
         goto LABEL_11;
       }
@@ -5221,12 +5144,12 @@ LABEL_12:
     attributionSetForCurrentScope = [flowTracker attributionSetForCurrentScope];
     [array if_addObjectIfNonNil:attributionSetForCurrentScope];
 
-    v107 = array;
+    v106 = array;
     v27 = [MEMORY[0x1E6996D38] attributionSetByMergingAttributionSets:array];
     runningDelegate2 = [(WFAction *)self runningDelegate];
     exfiltrationLogger = [runningDelegate2 exfiltrationLogger];
     uUID = [(WFAction *)self UUID];
-    v114 = v27;
+    v113 = v27;
     v31 = [exfiltrationLogger attributionSetByRewritingSetWithLoggedCounts:v27 forExfiltratingActionUUID:uUID];
 
     v32 = +[WFDatabaseProxy defaultDatabase];
@@ -5242,9 +5165,9 @@ LABEL_12:
       v38 = [MEMORY[0x1E695DFD8] set];
     }
 
-    v136 = 0;
-    v39 = [v32 approvalResultForContentAttributionSet:v31 contentDestination:destinationCopy actionUUID:uUID2 actionIdentifier:identifier actionIndex:v20 reference:reference allowedOnceStates:v38 error:&v136];
-    v40 = v136;
+    v135 = 0;
+    v39 = [v32 approvalResultForContentAttributionSet:v31 contentDestination:destinationCopy actionUUID:uUID2 actionIdentifier:identifier actionIndex:v20 reference:reference allowedOnceStates:v38 error:&v135];
+    v40 = v135;
     if (!allowedOnceSmartPromptStates)
     {
     }
@@ -5282,96 +5205,96 @@ LABEL_25:
 
       if (!v50)
       {
-        v134 = 0u;
-        v135 = 0u;
-        v132 = 0u;
         v133 = 0u;
-        v105 = v42;
+        v134 = 0u;
+        v131 = 0u;
+        v132 = 0u;
+        v104 = v42;
         obj = [v42 allowedStates];
-        v118 = [obj countByEnumeratingWithState:&v132 objects:v146 count:16];
-        if (v118)
+        v117 = [obj countByEnumeratingWithState:&v131 objects:v145 count:16];
+        if (v117)
         {
-          v116 = *v133;
-          v113 = v31;
+          v115 = *v132;
+          v112 = v31;
           do
           {
-            for (i = 0; i != v118; ++i)
+            for (i = 0; i != v117; ++i)
             {
-              if (*v133 != v116)
+              if (*v132 != v115)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v54 = *(*(&v132 + 1) + 8 * i);
-              v55 = getWFSecurityLogObject();
-              if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+              v53 = *(*(&v131 + 1) + 8 * i);
+              v54 = getWFSecurityLogObject();
+              if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
               {
-                sourceContentAttribution = [v54 sourceContentAttribution];
-                v57 = [sourceContentAttribution count];
-                sourceContentAttribution2 = [v54 sourceContentAttribution];
+                sourceContentAttribution = [v53 sourceContentAttribution];
+                v56 = [sourceContentAttribution count];
+                sourceContentAttribution2 = [v53 sourceContentAttribution];
                 origin = [sourceContentAttribution2 origin];
                 uUID3 = [(WFAction *)v41 UUID];
                 *buf = 136315906;
-                v139 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
-                v140 = 2048;
-                v141 = v57;
-                v142 = 2112;
-                v143 = origin;
-                v144 = 2112;
-                v145 = uUID3;
-                _os_log_impl(&dword_1CA256000, v55, OS_LOG_TYPE_DEBUG, "%s Logging allowed exfiltration of %lu items from %@ by action %@", buf, 0x2Au);
+                v138 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
+                v139 = 2048;
+                v140 = v56;
+                v141 = 2112;
+                v142 = origin;
+                v143 = 2112;
+                v144 = uUID3;
+                _os_log_impl(&dword_1CA256000, v54, OS_LOG_TYPE_DEBUG, "%s Logging allowed exfiltration of %lu items from %@ by action %@", buf, 0x2Au);
               }
 
-              sourceContentAttribution3 = [v54 sourceContentAttribution];
+              sourceContentAttribution3 = [v53 sourceContentAttribution];
               if (sourceContentAttribution3)
               {
-                v120 = i;
-                v62 = [MEMORY[0x1E695DFA8] set];
+                v119 = i;
+                v61 = [MEMORY[0x1E695DFA8] set];
+                v127 = 0u;
                 v128 = 0u;
                 v129 = 0u;
                 v130 = 0u;
-                v131 = 0u;
-                attributions = [v114 attributions];
-                v64 = [attributions countByEnumeratingWithState:&v128 objects:v137 count:16];
-                if (v64)
+                attributions = [v113 attributions];
+                v63 = [attributions countByEnumeratingWithState:&v127 objects:v136 count:16];
+                if (v63)
                 {
-                  v65 = v64;
-                  v66 = *v129;
+                  v64 = v63;
+                  v65 = *v128;
                   do
                   {
-                    for (j = 0; j != v65; ++j)
+                    for (j = 0; j != v64; ++j)
                     {
-                      if (*v129 != v66)
+                      if (*v128 != v65)
                       {
                         objc_enumerationMutation(attributions);
                       }
 
-                      v68 = *(*(&v128 + 1) + 8 * j);
-                      origin2 = [v68 origin];
+                      v67 = *(*(&v127 + 1) + 8 * j);
+                      origin2 = [v67 origin];
                       origin3 = [sourceContentAttribution3 origin];
-                      v71 = [origin2 matches:origin3];
+                      v70 = [origin2 matches:origin3];
 
-                      if (v71)
+                      if (v70)
                       {
-                        privateItemIdentifiers = [v68 privateItemIdentifiers];
-                        v73 = [privateItemIdentifiers set];
-                        if (v73)
+                        privateItemIdentifiers = [v67 privateItemIdentifiers];
+                        v72 = [privateItemIdentifiers set];
+                        if (v72)
                         {
-                          [v62 unionSet:v73];
+                          [v61 unionSet:v72];
                         }
 
                         else
                         {
-                          v74 = [MEMORY[0x1E695DFD8] set];
-                          [v62 unionSet:v74];
+                          v73 = [MEMORY[0x1E695DFD8] set];
+                          [v61 unionSet:v73];
                         }
                       }
                     }
 
-                    v65 = [attributions countByEnumeratingWithState:&v128 objects:v137 count:16];
+                    v64 = [attributions countByEnumeratingWithState:&v127 objects:v136 count:16];
                   }
 
-                  while (v65);
+                  while (v64);
                 }
 
                 v41 = selfCopy;
@@ -5379,145 +5302,145 @@ LABEL_25:
                 exfiltrationLogger2 = [runningDelegate3 exfiltrationLogger];
                 uUID4 = [(WFAction *)selfCopy UUID];
                 origin4 = [sourceContentAttribution3 origin];
-                [exfiltrationLogger2 logExfiltratedItems:v62 actionUUID:uUID4 contentOrigin:origin4];
+                [exfiltrationLogger2 logExfiltratedItems:v61 actionUUID:uUID4 contentOrigin:origin4];
 
-                v31 = v113;
-                i = v120;
+                v31 = v112;
+                i = v119;
               }
             }
 
-            v118 = [obj countByEnumeratingWithState:&v132 objects:v146 count:16];
+            v117 = [obj countByEnumeratingWithState:&v131 objects:v145 count:16];
           }
 
-          while (v118);
+          while (v117);
         }
 
-        v42 = v105;
-        undefinedStates = [v105 undefinedStates];
-        v80 = [undefinedStates count];
+        v42 = v104;
+        undefinedStates = [v104 undefinedStates];
+        v79 = [undefinedStates count];
 
-        if (v80)
+        if (v79)
         {
+          v80 = @"Shortcut";
           v81 = @"Shortcut";
-          v82 = @"Shortcut";
           if ([(WFAction *)v41 isRunningInSiriUserInterface])
           {
-            v83 = getWFSecurityLogObject();
-            if (os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
+            v82 = getWFSecurityLogObject();
+            if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315138;
-              v139 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
-              _os_log_impl(&dword_1CA256000, v83, OS_LOG_TYPE_DEBUG, "%s Smart prompt is being presented in Siri", buf, 0xCu);
+              v138 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
+              _os_log_impl(&dword_1CA256000, v82, OS_LOG_TYPE_DEBUG, "%s Smart prompt is being presented in Siri", buf, 0xCu);
             }
 
-            v81 = @"Siri";
-            v84 = @"Siri";
+            v80 = @"Siri";
+            v83 = @"Siri";
           }
 
-          v119 = [WFSmartPromptConfiguration alloc];
-          undefinedStates2 = [v105 undefinedStates];
+          v118 = [WFSmartPromptConfiguration alloc];
+          undefinedStates2 = [v104 undefinedStates];
           contentAttributionTracker2 = [(WFAction *)v41 contentAttributionTracker];
           trackedAttributionSet2 = [contentAttributionTracker2 trackedAttributionSet];
-          previousAttributions = [v105 previousAttributions];
+          previousAttributions = [v104 previousAttributions];
           workflow3 = [(WFAction *)v41 workflow];
           reference2 = [workflow3 reference];
           workflow4 = [(WFAction *)v41 workflow];
           name = [workflow4 name];
-          LOBYTE(v104) = coercionCopy;
-          v92 = [(WFSmartPromptConfiguration *)v119 initWithSmartPromptStates:undefinedStates2 attributionSet:trackedAttributionSet2 previousAttributions:previousAttributions contentItemCache:cacheCopy action:v41 contentDestination:destinationCopy reference:reference2 workflowName:name source:v81 isWebpageCoercion:v104];
+          LOBYTE(v103) = coercionCopy;
+          v91 = [(WFSmartPromptConfiguration *)v118 initWithSmartPromptStates:undefinedStates2 attributionSet:trackedAttributionSet2 previousAttributions:previousAttributions contentItemCache:cacheCopy action:v41 contentDestination:destinationCopy reference:reference2 workflowName:name source:v80 isWebpageCoercion:v103];
 
-          if (v92)
+          if (v91)
           {
-            v93 = getWFSecurityLogObject();
-            if (os_log_type_enabled(v93, OS_LOG_TYPE_DEBUG))
+            v92 = getWFSecurityLogObject();
+            if (os_log_type_enabled(v92, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315138;
-              v139 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
-              _os_log_impl(&dword_1CA256000, v93, OS_LOG_TYPE_DEBUG, "%s Requiring device unlock before presenting smart prompt", buf, 0xCu);
+              v138 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
+              _os_log_impl(&dword_1CA256000, v92, OS_LOG_TYPE_DEBUG, "%s Requiring device unlock before presenting smart prompt", buf, 0xCu);
             }
 
             v14 = interfaceCopy;
-            v94 = v81;
+            v93 = v80;
             if ([(WFAction *)selfCopy isRunningInCarPlay])
             {
-              v95 = getWFSecurityLogObject();
-              if (os_log_type_enabled(v95, OS_LOG_TYPE_DEBUG))
+              v94 = getWFSecurityLogObject();
+              if (os_log_type_enabled(v94, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 136315138;
-                v139 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
-                _os_log_impl(&dword_1CA256000, v95, OS_LOG_TYPE_DEBUG, "%s CarPlay run: presenting permission prompt immediately", buf, 0xCu);
+                v138 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
+                _os_log_impl(&dword_1CA256000, v94, OS_LOG_TYPE_DEBUG, "%s CarPlay run: presenting permission prompt immediately", buf, 0xCu);
               }
 
               v17 = handlerCopy;
-              [(WFAction *)selfCopy presentSmartPromptAuthorizationWithConfiguration:v92 userInterface:interfaceCopy databaseApprovalResult:v105 contentDestination:destinationCopy completionHandler:handlerCopy];
+              [(WFAction *)selfCopy presentSmartPromptAuthorizationWithConfiguration:v91 userInterface:interfaceCopy databaseApprovalResult:v104 contentDestination:destinationCopy completionHandler:handlerCopy];
             }
 
             else
             {
               if ([(WFAction *)selfCopy isRunningInSiriUserInterface])
               {
-                v100 = getWFSecurityLogObject();
-                if (os_log_type_enabled(v100, OS_LOG_TYPE_DEBUG))
+                v99 = getWFSecurityLogObject();
+                if (os_log_type_enabled(v99, OS_LOG_TYPE_DEBUG))
                 {
                   *buf = 136315138;
-                  v139 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
-                  _os_log_impl(&dword_1CA256000, v100, OS_LOG_TYPE_DEBUG, "%s Requesting Siri punch-out to present permission UI with private content", buf, 0xCu);
+                  v138 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
+                  _os_log_impl(&dword_1CA256000, v99, OS_LOG_TYPE_DEBUG, "%s Requesting Siri punch-out to present permission UI with private content", buf, 0xCu);
                 }
 
                 wfUnsupportedUserInterfaceError = [MEMORY[0x1E696ABC0] wfUnsupportedUserInterfaceError];
-                v102 = handlerCopy;
+                v101 = handlerCopy;
                 (*(handlerCopy + 2))(handlerCopy, wfUnsupportedUserInterfaceError);
               }
 
               else
               {
-                v103 = objc_alloc_init(WFCompactUnlockService);
-                v121[0] = MEMORY[0x1E69E9820];
-                v121[1] = 3221225472;
-                v121[2] = __126__WFAction_performSmartPromptChecksWithUserInterface_contentDestination_contentItemCache_isWebpageCoercion_completionHandler___block_invoke;
-                v121[3] = &unk_1E83751E0;
-                v121[4] = selfCopy;
-                v122 = v92;
-                v123 = interfaceCopy;
-                v124 = v105;
-                v102 = handlerCopy;
-                v126 = v103;
-                v127 = handlerCopy;
-                v125 = destinationCopy;
-                wfUnsupportedUserInterfaceError = v103;
-                [(WFCompactUnlockService *)wfUnsupportedUserInterfaceError requestUnlockIfNeeded:v121];
+                v102 = objc_alloc_init(WFCompactUnlockService);
+                v120[0] = MEMORY[0x1E69E9820];
+                v120[1] = 3221225472;
+                v120[2] = __126__WFAction_performSmartPromptChecksWithUserInterface_contentDestination_contentItemCache_isWebpageCoercion_completionHandler___block_invoke;
+                v120[3] = &unk_1E83751E0;
+                v120[4] = selfCopy;
+                v121 = v91;
+                v122 = interfaceCopy;
+                v123 = v104;
+                v101 = handlerCopy;
+                v125 = v102;
+                v126 = handlerCopy;
+                v124 = destinationCopy;
+                wfUnsupportedUserInterfaceError = v102;
+                [(WFCompactUnlockService *)wfUnsupportedUserInterfaceError requestUnlockIfNeeded:v120];
               }
 
-              v17 = v102;
+              v17 = v101;
             }
           }
 
           else
           {
-            v96 = getWFWorkflowExecutionLogObject();
-            if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
+            v95 = getWFWorkflowExecutionLogObject();
+            if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315138;
-              v139 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
-              _os_log_impl(&dword_1CA256000, v96, OS_LOG_TYPE_ERROR, "%s Failed to init WFSmartPromptConfiguration for smart prompt.", buf, 0xCu);
+              v138 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
+              _os_log_impl(&dword_1CA256000, v95, OS_LOG_TYPE_ERROR, "%s Failed to init WFSmartPromptConfiguration for smart prompt.", buf, 0xCu);
             }
 
             workflow5 = [(WFAction *)selfCopy workflow];
             name2 = [workflow5 name];
-            v99 = WFRunnerFailureErrorMessage(name2);
-            (*(handlerCopy + 2))(handlerCopy, v99);
+            v98 = WFRunnerFailureErrorMessage(name2);
+            (*(handlerCopy + 2))(handlerCopy, v98);
 
             v17 = handlerCopy;
             v14 = interfaceCopy;
-            v94 = v81;
+            v93 = v80;
           }
 
-          v42 = v105;
+          v42 = v104;
           v40 = 0;
           goto LABEL_25;
         }
 
-        [(WFAction *)v41 logDataTransmissionForSmartPromptApprovalResult:v105];
+        [(WFAction *)v41 logDataTransmissionForSmartPromptApprovalResult:v104];
         v17 = handlerCopy;
         (*(handlerCopy + 2))(handlerCopy, 0);
         goto LABEL_24;
@@ -5543,7 +5466,7 @@ LABEL_24:
   if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315138;
-    v139 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
+    v138 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]";
     _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_FAULT, "%s Not performing smart prompt checks because database access is not available.", buf, 0xCu);
   }
 
@@ -5551,22 +5474,20 @@ LABEL_24:
   (*(handlerCopy + 2))(handlerCopy, 0);
   v14 = interfaceCopy;
 LABEL_26:
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 void __126__WFAction_performSmartPromptChecksWithUserInterface_contentDestination_contentItemCache_isWebpageCoercion_completionHandler___block_invoke(uint64_t a1, int a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v4 = getWFSecurityLogObject();
   v5 = v4;
   if (a2)
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 136315138;
-      v10 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]_block_invoke";
-      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEBUG, "%s Device unlocked successfully, or was already unlocked", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]_block_invoke";
+      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_DEBUG, "%s Device unlocked successfully, or was already unlocked", &v8, 0xCu);
     }
 
     [*(a1 + 32) presentSmartPromptAuthorizationWithConfiguration:*(a1 + 40) userInterface:*(a1 + 48) databaseApprovalResult:*(a1 + 56) contentDestination:*(a1 + 64) completionHandler:*(a1 + 80)];
@@ -5576,17 +5497,15 @@ void __126__WFAction_performSmartPromptChecksWithUserInterface_contentDestinatio
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v9 = 136315138;
-      v10 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]_block_invoke";
-      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_INFO, "%s Did not succeed unlocking the device, interrupting execution.", &v9, 0xCu);
+      v8 = 136315138;
+      v9 = "[WFAction performSmartPromptChecksWithUserInterface:contentDestination:contentItemCache:isWebpageCoercion:completionHandler:]_block_invoke";
+      _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_INFO, "%s Did not succeed unlocking the device, interrupting execution.", &v8, 0xCu);
     }
 
     v6 = *(a1 + 80);
     v7 = +[WFSmartPromptState localizedUnlockedDeviceRequiredError];
     (*(v6 + 16))(v6, v7);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performDataAccessChecksWithUserInterface:(id)interface contentItemCache:(id)cache completionHandler:(id)handler
@@ -5610,7 +5529,7 @@ void __126__WFAction_performSmartPromptChecksWithUserInterface_contentDestinatio
 
 void __88__WFAction_performDataAccessChecksWithUserInterface_contentItemCache_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -5620,11 +5539,11 @@ void __88__WFAction_performDataAccessChecksWithUserInterface_contentItemCache_co
     {
       v8 = [*(a1 + 32) identifier];
       *buf = 136315650;
-      v21 = "[WFAction performDataAccessChecksWithUserInterface:contentItemCache:completionHandler:]_block_invoke";
-      v22 = 2114;
-      v23 = v8;
-      v24 = 2114;
-      v25 = v6;
+      v20 = "[WFAction performDataAccessChecksWithUserInterface:contentItemCache:completionHandler:]_block_invoke";
+      v21 = 2114;
+      v22 = v8;
+      v23 = 2114;
+      v24 = v6;
       _os_log_impl(&dword_1CA256000, v7, OS_LOG_TYPE_ERROR, "%s Failed to get content destination for action %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -5633,28 +5552,26 @@ void __88__WFAction_performDataAccessChecksWithUserInterface_contentItemCache_co
 
   else
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __88__WFAction_performDataAccessChecksWithUserInterface_contentItemCache_completionHandler___block_invoke_389;
-    v13[3] = &unk_1E8375190;
-    v14 = 0;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __88__WFAction_performDataAccessChecksWithUserInterface_contentItemCache_completionHandler___block_invoke_389;
+    v12[3] = &unk_1E8375190;
+    v13 = 0;
     v9 = *(a1 + 56);
     v10 = *(a1 + 32);
     v11 = *(a1 + 40);
-    v19 = v9;
-    v15 = v10;
-    v16 = v11;
-    v17 = *(a1 + 48);
-    v18 = v5;
-    [WFScreenTimeHelper isContentDestinationAllowedByScreenTimeSettings:v18 completionHandler:v13];
+    v18 = v9;
+    v14 = v10;
+    v15 = v11;
+    v16 = *(a1 + 48);
+    v17 = v5;
+    [WFScreenTimeHelper isContentDestinationAllowedByScreenTimeSettings:v17 completionHandler:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __88__WFAction_performDataAccessChecksWithUserInterface_contentItemCache_completionHandler___block_invoke_389(uint64_t a1, char a2, void *a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (v5 || (a2 & 1) == 0)
   {
@@ -5663,9 +5580,9 @@ void __88__WFAction_performDataAccessChecksWithUserInterface_contentItemCache_co
     {
       v13 = *(a1 + 32);
       *buf = 136315394;
-      v21 = "[WFAction performDataAccessChecksWithUserInterface:contentItemCache:completionHandler:]_block_invoke";
-      v22 = 2112;
-      v23 = v13;
+      v20 = "[WFAction performDataAccessChecksWithUserInterface:contentItemCache:completionHandler:]_block_invoke";
+      v21 = 2112;
+      v22 = v13;
       _os_log_impl(&dword_1CA256000, v12, OS_LOG_TYPE_ERROR, "%s WFScreenTimeHelper will block execution with error %@", buf, 0x16u);
     }
 
@@ -5677,22 +5594,20 @@ void __88__WFAction_performDataAccessChecksWithUserInterface_contentItemCache_co
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
     v8 = *(a1 + 56);
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __88__WFAction_performDataAccessChecksWithUserInterface_contentItemCache_completionHandler___block_invoke_390;
-    v16[3] = &unk_1E83767B8;
-    v19 = *(a1 + 72);
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __88__WFAction_performDataAccessChecksWithUserInterface_contentItemCache_completionHandler___block_invoke_390;
+    v15[3] = &unk_1E83767B8;
+    v18 = *(a1 + 72);
     v9 = *(a1 + 64);
-    v15 = *(a1 + 40);
-    v10 = v15.i64[1];
+    v14 = *(a1 + 40);
+    v10 = v14.i64[1];
     v11.i64[0] = *(a1 + 56);
     v11.i64[1] = v9;
-    v18 = vextq_s8(v15, v11, 8uLL);
-    v17 = vextq_s8(v11, v15, 8uLL);
-    [v6 performDeletionAuthorizationChecksWithUserInterface:v7 contentItemCache:v8 completionHandler:v16];
+    v17 = vextq_s8(v14, v11, 8uLL);
+    v16 = vextq_s8(v11, v14, 8uLL);
+    [v6 performDeletionAuthorizationChecksWithUserInterface:v7 contentItemCache:v8 completionHandler:v15];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __88__WFAction_performDataAccessChecksWithUserInterface_contentItemCache_completionHandler___block_invoke_390(uint64_t a1, void *a2)
@@ -5739,58 +5654,55 @@ LABEL_10:
 
 - (BOOL)shouldDisableSmartPromptChecks
 {
-  v14 = *MEMORY[0x1E69E9840];
-  if (![MEMORY[0x1E695E000] smartPromptsExplicitlyDisabled])
+  v13 = *MEMORY[0x1E69E9840];
+  if ([MEMORY[0x1E695E000] smartPromptsExplicitlyDisabled])
   {
-    runningDelegate = [(WFAction *)self runningDelegate];
-    if (objc_opt_respondsToSelector())
+    v3 = getWFSecurityLogObject();
+    if (!os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      runningDelegate2 = [(WFAction *)self runningDelegate];
-      shouldDisablePrivacyPrompts = [runningDelegate2 shouldDisablePrivacyPrompts];
+LABEL_5:
 
-      if (shouldDisablePrivacyPrompts)
-      {
-        v3 = getWFSecurityLogObject();
-        if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
-        {
-          goto LABEL_5;
-        }
-
-        v12 = 136315138;
-        v13 = "[WFAction shouldDisableSmartPromptChecks]";
-        v4 = "%s Exempting action from smart prompts due to workflow controller flag.";
-        v5 = v3;
-        v6 = OS_LOG_TYPE_DEBUG;
-        goto LABEL_4;
-      }
+      return 1;
     }
 
-    else
-    {
-    }
-
-    result = 0;
-    goto LABEL_12;
-  }
-
-  v3 = getWFSecurityLogObject();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
-  {
-    v12 = 136315138;
-    v13 = "[WFAction shouldDisableSmartPromptChecks]";
+    v11 = 136315138;
+    v12 = "[WFAction shouldDisableSmartPromptChecks]";
     v4 = "%s ‼️ Smart Prompts are currently disabled through defaults, bypassing checks. If you did not set this explicitly, your device is in an unexpected and unsupported state.";
     v5 = v3;
     v6 = OS_LOG_TYPE_ERROR;
 LABEL_4:
-    _os_log_impl(&dword_1CA256000, v5, v6, v4, &v12, 0xCu);
+    _os_log_impl(&dword_1CA256000, v5, v6, v4, &v11, 0xCu);
+    goto LABEL_5;
   }
 
-LABEL_5:
+  runningDelegate = [(WFAction *)self runningDelegate];
+  if (objc_opt_respondsToSelector())
+  {
+    runningDelegate2 = [(WFAction *)self runningDelegate];
+    shouldDisablePrivacyPrompts = [runningDelegate2 shouldDisablePrivacyPrompts];
 
-  result = 1;
-LABEL_12:
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+    if (shouldDisablePrivacyPrompts)
+    {
+      v3 = getWFSecurityLogObject();
+      if (!os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+      {
+        goto LABEL_5;
+      }
+
+      v11 = 136315138;
+      v12 = "[WFAction shouldDisableSmartPromptChecks]";
+      v4 = "%s Exempting action from smart prompts due to workflow controller flag.";
+      v5 = v3;
+      v6 = OS_LOG_TYPE_DEBUG;
+      goto LABEL_4;
+    }
+  }
+
+  else
+  {
+  }
+
+  return 0;
 }
 
 - (void)runAsynchronouslyWithInput:(id)input
@@ -5862,33 +5774,31 @@ uint64_t __39__WFAction_runAsynchronouslyWithInput___block_invoke_3(uint64_t a1,
 
 - (void)runWithInput:(id)input error:(id *)error
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   if (error)
   {
     v6 = MEMORY[0x1E696ABC0];
-    v13 = *MEMORY[0x1E696A578];
+    v12 = *MEMORY[0x1E696A578];
     v7 = MEMORY[0x1E696AEC0];
     v8 = WFLocalizedString(@"The action being run (%@) is missing an implementation.");
     localizedName = [(WFAction *)self localizedName];
-    v10 = [v7 localizedStringWithFormat:v8, localizedName, v13];
-    v14[0] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v10 = [v7 localizedStringWithFormat:v8, localizedName, v12];
+    v13[0] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     *error = [v6 errorWithDomain:@"WFActionErrorDomain" code:3 userInfo:v11];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (OS_dispatch_queue)effectiveWorkQueue
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   effectiveWorkQueue = self->_effectiveWorkQueue;
   if (!effectiveWorkQueue)
   {
     resourceManager = [(WFAction *)self resourceManager];
-    v11[0] = objc_opt_class();
-    v11[1] = objc_opt_class();
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
+    v10[0] = objc_opt_class();
+    v10[1] = objc_opt_class();
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
     [resourceManager refreshAvailabilityOfRequiredResourcesOfClasses:v5];
     if ([resourceManager currentlyRequiresResourceOfClasses:v5])
     {
@@ -5906,8 +5816,6 @@ uint64_t __39__WFAction_runAsynchronouslyWithInput___block_invoke_3(uint64_t a1,
 
     effectiveWorkQueue = self->_effectiveWorkQueue;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return effectiveWorkQueue;
 }
@@ -5929,72 +5837,72 @@ uint64_t __39__WFAction_runAsynchronouslyWithInput___block_invoke_3(uint64_t a1,
 
 - (id)parametersRequiringUserInputAlongsideParameter:(id)parameter
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   parameterCopy = parameter;
-  v23 = objc_opt_new();
+  v22 = objc_opt_new();
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = [(WFAction *)self parameters];
-  v5 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+  v5 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v32;
-    v24 = *v32;
+    v7 = *v31;
+    v23 = *v31;
     do
     {
       v8 = 0;
-      v25 = v6;
+      v24 = v6;
       do
       {
-        if (*v32 != v7)
+        if (*v31 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v31 + 1) + 8 * v8);
+        v9 = *(*(&v30 + 1) + 8 * v8);
         if (v9 != parameterCopy)
         {
-          resourceManager = [*(*(&v31 + 1) + 8 * v8) resourceManager];
+          resourceManager = [*(*(&v30 + 1) + 8 * v8) resourceManager];
           resourcesRequiredForDisplayAvailable = [resourceManager resourcesRequiredForDisplayAvailable];
 
           if ((resourcesRequiredForDisplayAvailable & 1) == 0)
           {
-            v29 = 0u;
-            v30 = 0u;
-            v27 = 0u;
             v28 = 0u;
+            v29 = 0u;
+            v26 = 0u;
+            v27 = 0u;
             resourceManager2 = [v9 resourceManager];
             v13 = [resourceManager2 resourceObjectsOfClass:objc_opt_class()];
 
-            v14 = [v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
+            v14 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
             if (v14)
             {
               v15 = v14;
-              v16 = *v28;
+              v16 = *v27;
               while (2)
               {
                 for (i = 0; i != v15; ++i)
                 {
-                  if (*v28 != v16)
+                  if (*v27 != v16)
                   {
                     objc_enumerationMutation(v13);
                   }
 
-                  parameterKey = [*(*(&v27 + 1) + 8 * i) parameterKey];
+                  parameterKey = [*(*(&v26 + 1) + 8 * i) parameterKey];
                   v19 = [parameterCopy key];
-                  v20 = [parameterKey isEqualToString:v19];
+                  isEqualToString = objc_msgSend_isEqualToString_(parameterKey);
 
-                  if (v20)
+                  if (isEqualToString)
                   {
-                    [v23 addObject:v9];
+                    [v22 addObject:v9];
                     goto LABEL_18;
                   }
                 }
 
-                v15 = [v13 countByEnumeratingWithState:&v27 objects:v35 count:16];
+                v15 = [v13 countByEnumeratingWithState:&v26 objects:v34 count:16];
                 if (v15)
                 {
                   continue;
@@ -6006,8 +5914,8 @@ uint64_t __39__WFAction_runAsynchronouslyWithInput___block_invoke_3(uint64_t a1,
 
 LABEL_18:
 
-            v7 = v24;
-            v6 = v25;
+            v7 = v23;
+            v6 = v24;
           }
         }
 
@@ -6015,15 +5923,13 @@ LABEL_18:
       }
 
       while (v8 != v6);
-      v6 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      v6 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
     while (v6);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v22;
 }
 
 - (void)askForValuesOfParameters:(id)parameters withDefaultStates:(id)states prompts:(id)prompts input:(id)input workQueue:(id)queue completionHandler:(id)handler
@@ -6082,14 +5988,13 @@ void __97__WFAction_askForValuesOfParameters_withDefaultStates_prompts_input_wor
   }
 }
 
-void __97__WFAction_askForValuesOfParameters_withDefaultStates_prompts_input_workQueue_completionHandler___block_invoke_2(void *a1, void *a2, id obj, void *a4)
+void __97__WFAction_askForValuesOfParameters_withDefaultStates_prompts_input_workQueue_completionHandler___block_invoke_2(uint64_t a1, void *a2, id obj, void *a4)
 {
-  objc_storeStrong((a1[4] + 144), obj);
+  objc_storeStrong((*(a1 + 32) + 144), obj);
   v8 = obj;
   v9 = a4;
-  v11 = a2;
-  v10 = a1[5];
-  (*(a1[6] + 16))();
+  v10 = a2;
+  (*(*(a1 + 48) + 16))();
 }
 
 - (void)processValueForParameter:(id)parameter withToolKitInvocation:(id)invocation completionHandler:(id)handler
@@ -6137,7 +6042,7 @@ void __77__WFAction_processValueForParameter_withToolKitInvocation_completionHan
   v5 = a3;
   v6 = [v5 domain];
   v7 = +[WFToolInvocation errorDomain];
-  if ([v6 isEqualToString:v7])
+  if (objc_msgSend_isEqualToString_(v6))
   {
     v8 = [v5 code];
 
@@ -6264,9 +6169,9 @@ LABEL_3:
         v31 = [parameters4 objectAtIndex:j];
 
         v32 = [v31 key];
-        v33 = [v32 isEqualToString:v26];
+        isEqualToString = objc_msgSend_isEqualToString_(v32);
 
-        if (v33)
+        if (isEqualToString)
         {
           v34 = [v21 objectAtIndex:j];
           [v21 removeObjectAtIndex:j];
@@ -6537,7 +6442,7 @@ LABEL_36:
 
 void __123__WFAction__processParameterStates_withInput_skippingHiddenParameters_askForValuesIfNecessary_workQueue_completionHandler___block_invoke_5(uint64_t a1, uint64_t a2, void *a3)
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   v4 = a3;
   if ([*(a1 + 32) count] && (*(a1 + 96) & 1) != 0)
   {
@@ -6550,41 +6455,41 @@ void __123__WFAction__processParameterStates_withInput_skippingHiddenParameters_
 
       if (v7)
       {
-        v69 = 0u;
-        v70 = 0u;
-        v67 = 0u;
-        v68 = 0u;
+        v64 = 0u;
+        v65 = 0u;
+        v62 = 0u;
+        v63 = 0u;
         v8 = *(a1 + 32);
-        v9 = [v8 countByEnumeratingWithState:&v67 objects:v73 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v62 objects:v68 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v68;
+          v11 = *v63;
           while (2)
           {
             for (i = 0; i != v10; ++i)
             {
-              if (*v68 != v11)
+              if (*v63 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v67 + 1) + 8 * i);
+              v13 = *(*(&v62 + 1) + 8 * i);
               v14 = [*(a1 + 48) runningDelegate];
               LOBYTE(v13) = [v14 action:*(a1 + 48) canProvideInputForParameter:v13];
 
               if ((v13 & 1) == 0)
               {
-                v36 = *(a1 + 80);
-                v37 = *(*(*(a1 + 88) + 8) + 40);
-                v38 = [MEMORY[0x1E696ABC0] wfUnsupportedUserInterfaceError];
-                (*(v36 + 16))(v36, 0, v37, v38);
+                v33 = *(a1 + 80);
+                v34 = *(*(*(a1 + 88) + 8) + 40);
+                v35 = [MEMORY[0x1E696ABC0] wfUnsupportedUserInterfaceError];
+                (*(v33 + 16))(v33, 0, v34, v35);
 
                 goto LABEL_29;
               }
             }
 
-            v10 = [v8 countByEnumeratingWithState:&v67 objects:v73 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v62 objects:v68 count:16];
             if (v10)
             {
               continue;
@@ -6597,38 +6502,38 @@ void __123__WFAction__processParameterStates_withInput_skippingHiddenParameters_
 
       v15 = [*(a1 + 48) parameters];
       v16 = *(a1 + 32);
-      v65[0] = MEMORY[0x1E69E9820];
-      v65[1] = 3221225472;
-      v65[2] = __123__WFAction__processParameterStates_withInput_skippingHiddenParameters_askForValuesIfNecessary_workQueue_completionHandler___block_invoke_6;
-      v65[3] = &unk_1E83750A0;
+      v60[0] = MEMORY[0x1E69E9820];
+      v60[1] = 3221225472;
+      v60[2] = __123__WFAction__processParameterStates_withInput_skippingHiddenParameters_askForValuesIfNecessary_workQueue_completionHandler___block_invoke_6;
+      v60[3] = &unk_1E83750A0;
       v17 = v15;
-      v66 = v17;
-      [v16 sortUsingComparator:v65];
+      v61 = v17;
+      [v16 sortUsingComparator:v60];
       if ([*(a1 + 48) requiresRemoteExecution])
       {
-        v63 = 0u;
-        v64 = 0u;
-        v61 = 0u;
-        v62 = 0u;
+        v58 = 0u;
+        v59 = 0u;
+        v56 = 0u;
+        v57 = 0u;
         v18 = *(a1 + 32);
-        v19 = [v18 countByEnumeratingWithState:&v61 objects:v72 count:16];
-        v52 = v17;
-        v53 = v4;
+        v19 = [v18 countByEnumeratingWithState:&v56 objects:v67 count:16];
+        v47 = v17;
+        v48 = v4;
         if (v19)
         {
           v20 = v19;
           v21 = 0;
-          v22 = *v62;
+          v22 = *v57;
           do
           {
             for (j = 0; j != v20; ++j)
             {
-              if (*v62 != v22)
+              if (*v57 != v22)
               {
                 objc_enumerationMutation(v18);
               }
 
-              v24 = *(*(&v61 + 1) + 8 * j);
+              v24 = *(*(&v56 + 1) + 8 * j);
               v25 = objc_opt_class();
               if ([v25 isSubclassOfClass:objc_opt_class()])
               {
@@ -6647,12 +6552,12 @@ void __123__WFAction__processParameterStates_withInput_skippingHiddenParameters_
                     v21 = objc_alloc_init(MEMORY[0x1E695DF70]);
                   }
 
-                  [v21 addObject:{v24, v52}];
+                  [v21 addObject:{v24, v47}];
                 }
               }
             }
 
-            v20 = [v18 countByEnumeratingWithState:&v61 objects:v72 count:16];
+            v20 = [v18 countByEnumeratingWithState:&v56 objects:v67 count:16];
           }
 
           while (v20);
@@ -6663,82 +6568,76 @@ void __123__WFAction__processParameterStates_withInput_skippingHiddenParameters_
           v21 = 0;
         }
 
-        v59 = 0u;
-        v60 = 0u;
-        v57 = 0u;
-        v58 = 0u;
-        v39 = v21;
-        v40 = [v39 countByEnumeratingWithState:&v57 objects:v71 count:16];
-        v4 = v53;
-        if (v40)
+        v54 = 0u;
+        v55 = 0u;
+        v52 = 0u;
+        v53 = 0u;
+        v36 = v21;
+        v37 = [v36 countByEnumeratingWithState:&v52 objects:v66 count:16];
+        v4 = v48;
+        if (v37)
         {
-          v41 = v40;
-          v42 = *v58;
+          v38 = v37;
+          v39 = *v53;
           do
           {
-            for (k = 0; k != v41; ++k)
+            for (k = 0; k != v38; ++k)
             {
-              if (*v58 != v42)
+              if (*v53 != v39)
               {
-                objc_enumerationMutation(v39);
+                objc_enumerationMutation(v36);
               }
 
-              [*(a1 + 32) removeObject:{*(*(&v57 + 1) + 8 * k), v52}];
+              [*(a1 + 32) removeObject:{*(*(&v52 + 1) + 8 * k), v47}];
             }
 
-            v41 = [v39 countByEnumeratingWithState:&v57 objects:v71 count:16];
+            v38 = [v36 countByEnumeratingWithState:&v52 objects:v66 count:16];
           }
 
-          while (v41);
+          while (v38);
         }
 
-        v17 = v52;
+        v17 = v47;
       }
 
       if ([*(a1 + 32) count])
       {
-        v44 = *(a1 + 48);
-        v45 = *(a1 + 56);
-        v46 = *(*(*(a1 + 88) + 8) + 40);
-        v47 = *(a1 + 64);
-        v48 = *(a1 + 72);
-        v54[0] = MEMORY[0x1E69E9820];
-        v54[1] = 3221225472;
-        v54[2] = __123__WFAction__processParameterStates_withInput_skippingHiddenParameters_askForValuesIfNecessary_workQueue_completionHandler___block_invoke_7;
-        v54[3] = &unk_1E83750C8;
-        v49 = *(a1 + 32);
-        v55 = *(a1 + 40);
-        v56 = *(a1 + 80);
-        [v44 askForValuesOfParameters:v49 withDefaultStates:v45 prompts:v47 input:v46 workQueue:v48 completionHandler:v54];
+        v41 = *(a1 + 48);
+        v42 = *(a1 + 56);
+        v43 = *(*(*(a1 + 88) + 8) + 40);
+        v44 = *(a1 + 64);
+        v45 = *(a1 + 72);
+        v49[0] = MEMORY[0x1E69E9820];
+        v49[1] = 3221225472;
+        v49[2] = __123__WFAction__processParameterStates_withInput_skippingHiddenParameters_askForValuesIfNecessary_workQueue_completionHandler___block_invoke_7;
+        v49[3] = &unk_1E83750C8;
+        v46 = *(a1 + 32);
+        v50 = *(a1 + 40);
+        v51 = *(a1 + 80);
+        [v41 askForValuesOfParameters:v46 withDefaultStates:v42 prompts:v44 input:v43 workQueue:v45 completionHandler:v49];
       }
 
       else
       {
-        v50 = *(a1 + 40);
-        v51 = *(*(*(a1 + 88) + 8) + 40);
         (*(*(a1 + 80) + 16))();
       }
     }
 
     else
     {
-      v33 = *(a1 + 80);
-      v34 = *(*(*(a1 + 88) + 8) + 40);
-      v35 = [MEMORY[0x1E696ABC0] wfUnsupportedUserInterfaceError];
-      (*(v33 + 16))(v33, 0, v34, v35);
+      v30 = *(a1 + 80);
+      v31 = *(*(*(a1 + 88) + 8) + 40);
+      v32 = [MEMORY[0x1E696ABC0] wfUnsupportedUserInterfaceError];
+      (*(v30 + 16))(v30, 0, v31, v32);
     }
   }
 
   else
   {
-    v30 = *(a1 + 40);
-    v31 = *(*(*(a1 + 88) + 8) + 40);
     (*(*(a1 + 80) + 16))();
   }
 
 LABEL_29:
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __123__WFAction__processParameterStates_withInput_skippingHiddenParameters_askForValuesIfNecessary_workQueue_completionHandler___block_invoke_6(uint64_t a1, uint64_t a2, void *a3)
@@ -6760,9 +6659,8 @@ void __123__WFAction__processParameterStates_withInput_skippingHiddenParameters_
 {
   v7 = *(a1 + 32);
   v8 = a4;
-  v10 = a3;
+  v9 = a3;
   [v7 addEntriesFromDictionary:a2];
-  v9 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
 }
 
@@ -6836,9 +6734,53 @@ void __123__WFAction__processParameterStates_withInput_skippingHiddenParameters_
   return v5;
 }
 
+- (void)processParametersWithoutAskingForValuesWithInput:(id)input workQueue:(id)queue fallingBackToDefaultValue:(BOOL)value completionHandler:(id)handler
+{
+  valueCopy = value;
+  handlerCopy = handler;
+  queueCopy = queue;
+  inputCopy = input;
+  v13 = [(WFAction *)self copyParameterStatesWithFallingBackToDefaultValue:valueCopy];
+  [(WFAction *)self processParameterStates:v13 withInput:inputCopy skippingHiddenParameters:[(WFAction *)self skipsProcessingHiddenParameters] askForValuesIfNecessary:0 workQueue:queueCopy completionHandler:handlerCopy];
+}
+
+- (void)processParameterStates:(id)states withInput:(id)input skippingHiddenParameters:(BOOL)parameters askForValuesIfNecessary:(BOOL)necessary workQueue:(id)queue completionHandler:(id)handler
+{
+  necessaryCopy = necessary;
+  parametersCopy = parameters;
+  v31 = *MEMORY[0x1E69E9840];
+  statesCopy = states;
+  inputCopy = input;
+  handlerCopy = handler;
+  queueCopy = queue;
+  v18 = getWFWorkflowExecutionLogObject();
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  {
+    *buf = 136315906;
+    v24 = "[WFAction processParameterStates:withInput:skippingHiddenParameters:askForValuesIfNecessary:workQueue:completionHandler:]";
+    v25 = 2114;
+    selfCopy = self;
+    v27 = 2112;
+    v28 = statesCopy;
+    v29 = 2112;
+    v30 = inputCopy;
+    _os_log_impl(&dword_1CA256000, v18, OS_LOG_TYPE_INFO, "%s Action %{public}@ started processing parameter states: %@, input: %@", buf, 0x2Au);
+  }
+
+  v19 = [statesCopy mutableCopy];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __122__WFAction_processParameterStates_withInput_skippingHiddenParameters_askForValuesIfNecessary_workQueue_completionHandler___block_invoke;
+  v21[3] = &unk_1E8375000;
+  v21[4] = self;
+  v22 = handlerCopy;
+  v20 = handlerCopy;
+  [(WFAction *)self _processParameterStates:v19 withInput:inputCopy skippingHiddenParameters:parametersCopy askForValuesIfNecessary:necessaryCopy workQueue:queueCopy completionHandler:v21];
+}
+
 void __122__WFAction_processParameterStates_withInput_skippingHiddenParameters_askForValuesIfNecessary_workQueue_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -6859,17 +6801,16 @@ void __122__WFAction_processParameterStates_withInput_skippingHiddenParameters_a
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = *(a1 + 32);
-    v13 = 136315650;
-    v14 = "[WFAction processParameterStates:withInput:skippingHiddenParameters:askForValuesIfNecessary:workQueue:completionHandler:]_block_invoke";
-    v15 = 2114;
-    v16 = v11;
-    v17 = 2112;
-    v18 = v7;
-    _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_DEFAULT, "%s Action %{public}@ finished processing parameter states. Values: %@", &v13, 0x20u);
+    v12 = 136315650;
+    v13 = "[WFAction processParameterStates:withInput:skippingHiddenParameters:askForValuesIfNecessary:workQueue:completionHandler:]_block_invoke";
+    v14 = 2114;
+    v15 = v11;
+    v16 = 2112;
+    v17 = v7;
+    _os_log_impl(&dword_1CA256000, v10, OS_LOG_TYPE_DEFAULT, "%s Action %{public}@ finished processing parameter states. Values: %@", &v12, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyParameterStatesWithFallingBackToDefaultValue:(BOOL)value
@@ -6894,7 +6835,7 @@ void __61__WFAction_copyParameterStatesWithFallingBackToDefaultValue___block_inv
 
 - (id)populatedInputWithProcessedParameterValues:(id)values
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   valuesCopy = values;
   inputParameterKey = [(WFAction *)self inputParameterKey];
   v6 = [valuesCopy wf_popObjectForKey:inputParameterKey];
@@ -6917,8 +6858,8 @@ void __61__WFAction_copyParameterStatesWithFallingBackToDefaultValue___block_inv
 
       else
       {
-        v13[0] = v6;
-        v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+        v12[0] = v6;
+        v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
       }
 
       v9 = v8;
@@ -6931,8 +6872,6 @@ void __61__WFAction_copyParameterStatesWithFallingBackToDefaultValue___block_inv
   {
     v7 = 0;
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -6957,7 +6896,7 @@ id __55__WFAction_populatedInputWithProcessedParameterValues___block_invoke(uint
 
 - (BOOL)getInputContentFromVariablesInParameterState:(id)state context:(id)context completionHandler:(id)handler
 {
-  v41[1] = *MEMORY[0x1E69E9840];
+  v40[1] = *MEMORY[0x1E69E9840];
   stateCopy = state;
   contextCopy = context;
   handlerCopy = handler;
@@ -6972,13 +6911,13 @@ id __55__WFAction_populatedInputWithProcessedParameterValues___block_invoke(uint
 
     if (bOOLValue)
     {
-      v38[0] = MEMORY[0x1E69E9820];
-      v38[1] = 3221225472;
-      v38[2] = __83__WFAction_getInputContentFromVariablesInParameterState_context_completionHandler___block_invoke;
-      v38[3] = &unk_1E837DC20;
-      v39 = handlerCopy;
-      [variableString processIntoContentItemsWithContext:contextCopy completionHandler:v38];
-      v16 = v39;
+      v37[0] = MEMORY[0x1E69E9820];
+      v37[1] = 3221225472;
+      v37[2] = __83__WFAction_getInputContentFromVariablesInParameterState_context_completionHandler___block_invoke;
+      v37[3] = &unk_1E837DC20;
+      v38 = handlerCopy;
+      [variableString processIntoContentItemsWithContext:contextCopy completionHandler:v37];
+      v16 = v38;
     }
 
     else
@@ -7009,18 +6948,18 @@ id __55__WFAction_populatedInputWithProcessedParameterValues___block_invoke(uint
       if (processesIntoContentItems)
       {
         v29 = MEMORY[0x1E6996CE8];
-        v40 = *MEMORY[0x1E6997010];
+        v39 = *MEMORY[0x1E6997010];
         v30 = [[WFActionContentPermissionRequestor alloc] initWithAction:self];
-        v41[0] = v30;
-        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+        v40[0] = v30;
+        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
         v16 = [v29 optionsWithDictionary:v31];
 
-        v36[0] = MEMORY[0x1E69E9820];
-        v36[1] = 3221225472;
-        v36[2] = __83__WFAction_getInputContentFromVariablesInParameterState_context_completionHandler___block_invoke_2;
-        v36[3] = &unk_1E837DC20;
-        v37 = handlerCopy;
-        [variableString processIntoStringsAndAttachmentsWithContext:contextCopy options:v16 completionHandler:v36];
+        v35[0] = MEMORY[0x1E69E9820];
+        v35[1] = 3221225472;
+        v35[2] = __83__WFAction_getInputContentFromVariablesInParameterState_context_completionHandler___block_invoke_2;
+        v35[3] = &unk_1E837DC20;
+        v36 = handlerCopy;
+        [variableString processIntoStringsAndAttachmentsWithContext:contextCopy options:v16 completionHandler:v35];
       }
 
       else
@@ -7031,13 +6970,13 @@ id __55__WFAction_populatedInputWithProcessedParameterValues___block_invoke(uint
           goto LABEL_24;
         }
 
-        v34[0] = MEMORY[0x1E69E9820];
-        v34[1] = 3221225472;
-        v34[2] = __83__WFAction_getInputContentFromVariablesInParameterState_context_completionHandler___block_invoke_3;
-        v34[3] = &unk_1E837DC20;
-        v35 = handlerCopy;
-        [variableString processIntoContentItemsWithContext:contextCopy completionHandler:v34];
-        v16 = v35;
+        v33[0] = MEMORY[0x1E69E9820];
+        v33[1] = 3221225472;
+        v33[2] = __83__WFAction_getInputContentFromVariablesInParameterState_context_completionHandler___block_invoke_3;
+        v33[3] = &unk_1E837DC20;
+        v34 = handlerCopy;
+        [variableString processIntoContentItemsWithContext:contextCopy completionHandler:v33];
+        v16 = v34;
       }
     }
 
@@ -7103,7 +7042,6 @@ LABEL_27:
   v19 = 1;
 LABEL_28:
 
-  v32 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -7124,7 +7062,7 @@ LABEL_28:
 
 - (void)runWithInput:(id)input userInterface:(id)interface runningDelegate:(id)delegate variableSource:(id)source workQueue:(id)queue completionHandler:(id)handler
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   inputCopy = input;
   interfaceCopy = interface;
   delegateCopy = delegate;
@@ -7144,9 +7082,9 @@ LABEL_28:
     {
       v21 = [(WFAction *)self description];
       *buf = 136315394;
-      v42 = "[WFAction runWithInput:userInterface:runningDelegate:variableSource:workQueue:completionHandler:]";
-      v43 = 2114;
-      v44 = v21;
+      v41 = "[WFAction runWithInput:userInterface:runningDelegate:variableSource:workQueue:completionHandler:]";
+      v42 = 2114;
+      v43 = v21;
       _os_log_impl(&dword_1CA256000, v20, OS_LOG_TYPE_DEFAULT, "%s Action %{public}@ started running", buf, 0x16u);
     }
 
@@ -7159,7 +7097,7 @@ LABEL_28:
     {
       identifier = [(WFAction *)self identifier];
       *buf = 138543362;
-      v42 = identifier;
+      v41 = identifier;
       _os_signpost_emit_with_name_impl(&dword_1CA256000, v25, OS_SIGNPOST_INTERVAL_BEGIN, v23, "RunAction", " enableTelemetry=YES actionID=%{signpost.telemetry:string1,public}@", buf, 0xCu);
     }
 
@@ -7179,9 +7117,9 @@ LABEL_28:
     aBlock[1] = 3221225472;
     aBlock[2] = __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_workQueue_completionHandler___block_invoke_3;
     aBlock[3] = &unk_1E8374EC8;
-    objc_copyWeak(v39, buf);
-    v39[1] = v23;
-    v38 = handlerCopy;
+    objc_copyWeak(v38, buf);
+    v38[1] = v23;
+    v37 = handlerCopy;
     v27 = _Block_copy(aBlock);
     completionHandler = self->_completionHandler;
     self->_completionHandler = v27;
@@ -7195,23 +7133,21 @@ LABEL_28:
 
     else
     {
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_workQueue_completionHandler___block_invoke_321;
-      v33[3] = &unk_1E8374F90;
-      v34 = queueCopy;
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_workQueue_completionHandler___block_invoke_321;
+      v32[3] = &unk_1E8374F90;
+      v33 = queueCopy;
       selfCopy = self;
-      v36 = inputCopy;
-      [(WFAction *)self prepareToProcessWithCompletionHandler:v33];
+      v35 = inputCopy;
+      [(WFAction *)self prepareToProcessWithCompletionHandler:v32];
 
-      v30 = v34;
+      v30 = v33;
     }
 
-    objc_destroyWeak(v39);
+    objc_destroyWeak(v38);
     objc_destroyWeak(buf);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_workQueue_completionHandler___block_invoke(uint64_t a1)
@@ -7227,7 +7163,7 @@ uint64_t __98__WFAction_runWithInput_userInterface_runningDelegate_variableSourc
 
 void __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_workQueue_completionHandler___block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -7247,14 +7183,14 @@ void __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_wo
       v13 = [v5 numberOfItems];
       v14 = [v5 items];
       v15 = [v14 firstObject];
-      v24 = 136315907;
-      v25 = "[WFAction runWithInput:userInterface:runningDelegate:variableSource:workQueue:completionHandler:]_block_invoke";
-      v26 = 2114;
-      v27 = v8;
-      v28 = 2048;
-      v29 = v13;
-      v30 = 2113;
-      v31 = v15;
+      v23 = 136315907;
+      v24 = "[WFAction runWithInput:userInterface:runningDelegate:variableSource:workQueue:completionHandler:]_block_invoke";
+      v25 = 2114;
+      v26 = v8;
+      v27 = 2048;
+      v28 = v13;
+      v29 = 2113;
+      v30 = v15;
       v16 = "%s Action %{public}@ finished with output of %ld items and first item: %{private}@";
     }
 
@@ -7268,18 +7204,18 @@ void __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_wo
       v17 = [v5 numberOfItems];
       v14 = [v5 items];
       v15 = [v14 firstObject];
-      v24 = 136315906;
-      v25 = "[WFAction runWithInput:userInterface:runningDelegate:variableSource:workQueue:completionHandler:]_block_invoke";
-      v26 = 2114;
-      v27 = v8;
-      v28 = 2048;
-      v29 = v17;
-      v30 = 2112;
-      v31 = v15;
+      v23 = 136315906;
+      v24 = "[WFAction runWithInput:userInterface:runningDelegate:variableSource:workQueue:completionHandler:]_block_invoke";
+      v25 = 2114;
+      v26 = v8;
+      v27 = 2048;
+      v28 = v17;
+      v29 = 2112;
+      v30 = v15;
       v16 = "%s Action %{public}@ finished with output of %ld items and first item: %@";
     }
 
-    _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_DEFAULT, v16, &v24, 0x2Au);
+    _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_DEFAULT, v16, &v23, 0x2Au);
 
     goto LABEL_10;
   }
@@ -7288,17 +7224,17 @@ void __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_wo
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
     v10 = [v6 domain];
-    v24 = 136316162;
-    v25 = "[WFAction runWithInput:userInterface:runningDelegate:variableSource:workQueue:completionHandler:]_block_invoke_3";
-    v26 = 2114;
-    v27 = v8;
-    v28 = 2114;
-    v29 = v10;
-    v30 = 2048;
-    v31 = [v6 code];
-    v32 = 2112;
-    v33 = v6;
-    _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_ERROR, "%s Action %{public}@ finished with error {domain: %{public}@, code: %ld}. %@", &v24, 0x34u);
+    v23 = 136316162;
+    v24 = "[WFAction runWithInput:userInterface:runningDelegate:variableSource:workQueue:completionHandler:]_block_invoke_3";
+    v25 = 2114;
+    v26 = v8;
+    v27 = 2114;
+    v28 = v10;
+    v29 = 2048;
+    v30 = [v6 code];
+    v31 = 2112;
+    v32 = v6;
+    _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_ERROR, "%s Action %{public}@ finished with error {domain: %{public}@, code: %ld}. %@", &v23, 0x34u);
   }
 
 LABEL_10:
@@ -7308,8 +7244,8 @@ LABEL_10:
   v20 = *(a1 + 48);
   if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
-    LOWORD(v24) = 0;
-    _os_signpost_emit_with_name_impl(&dword_1CA256000, v19, OS_SIGNPOST_INTERVAL_END, v20, "RunAction", " enableTelemetry=YES ", &v24, 2u);
+    LOWORD(v23) = 0;
+    _os_signpost_emit_with_name_impl(&dword_1CA256000, v19, OS_SIGNPOST_INTERVAL_END, v20, "RunAction", " enableTelemetry=YES ", &v23, 2u);
   }
 
   [v8 setUserInterface:0];
@@ -7327,8 +7263,6 @@ LABEL_10:
   {
     (*(v22 + 16))(v22, v5, v6);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_workQueue_completionHandler___block_invoke_321(uint64_t a1, void *a2)
@@ -7362,39 +7296,38 @@ void __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_wo
 
 void __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_workQueue_completionHandler___block_invoke_2_322(uint64_t a1, void *a2)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v3 = a2;
   dispatch_assert_queue_V2(*(a1 + 32));
-  v50 = 0u;
-  v51 = 0u;
   v48 = 0u;
   v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   v4 = v3;
-  v5 = [v4 countByEnumeratingWithState:&v48 objects:v53 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v46 objects:v51 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v49;
-    v8 = *MEMORY[0x1E6997158];
+    v7 = *v47;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v49 != v7)
+        if (*v47 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v48 + 1) + 8 * i);
-        v11 = [v10 domain];
-        if ([v11 isEqualToString:v8])
+        v9 = *(*(&v46 + 1) + 8 * i);
+        v10 = [v9 domain];
+        if (objc_msgSend_isEqualToString_(v10))
         {
-          v12 = [v10 code];
+          v11 = [v9 code];
 
-          if (!v12)
+          if (!v11)
           {
-            [*(a1 + 40) finishRunningWithError:v10];
-            v24 = v4;
+            [*(a1 + 40) finishRunningWithError:v9];
+            v23 = v4;
             goto LABEL_30;
           }
         }
@@ -7404,95 +7337,95 @@ void __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_wo
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v48 objects:v53 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v46 objects:v51 count:16];
     }
 
     while (v6);
   }
 
-  v46 = 0u;
-  v47 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v13 = [*(a1 + 40) resourceManager];
-  v24 = [v13 unavailableResources];
+  v42 = 0u;
+  v43 = 0u;
+  v12 = [*(a1 + 40) resourceManager];
+  v23 = [v12 unavailableResources];
 
-  v14 = [v24 countByEnumeratingWithState:&v44 objects:v52 count:16];
-  if (!v14)
+  v13 = [v23 countByEnumeratingWithState:&v42 objects:v50 count:16];
+  if (!v13)
   {
     goto LABEL_20;
   }
 
-  v15 = v14;
-  v16 = *v45;
+  v14 = v13;
+  v15 = *v43;
   while (2)
   {
-    for (j = 0; j != v15; ++j)
+    for (j = 0; j != v14; ++j)
     {
-      if (*v45 != v16)
+      if (*v43 != v15)
       {
-        objc_enumerationMutation(v24);
+        objc_enumerationMutation(v23);
       }
 
-      v18 = *(*(&v44 + 1) + 8 * j);
-      v19 = [v18 availabilityError];
+      v17 = *(*(&v42 + 1) + 8 * j);
+      v18 = [v17 availabilityError];
 
-      if (v19)
+      if (v18)
       {
-        v25 = [v18 availabilityError];
-        v26 = [v25 wf_isUnsupportedOnPlatformError];
+        v24 = [v17 availabilityError];
+        v25 = [v24 wf_isUnsupportedOnPlatformError];
 
-        if (v26)
+        if (v25)
         {
-          v27 = *(a1 + 40);
-          v28 = [v18 availabilityError];
-          [v27 finishRunningWithError:v28];
+          v26 = *(a1 + 40);
+          v27 = [v17 availabilityError];
+          [v26 finishRunningWithError:v27];
 LABEL_29:
 
           goto LABEL_30;
         }
 
-        v28 = [v18 availabilityError];
-        v29 = objc_opt_new();
-        v30 = MEMORY[0x1E696AEC0];
-        v31 = WFLocalizedString(@"Could not run “%@”");
-        v32 = [*(a1 + 40) localizedName];
-        v33 = [v30 localizedStringWithFormat:v31, v32];
-        [v29 setObject:v33 forKeyedSubscript:*MEMORY[0x1E696A588]];
+        v27 = [v17 availabilityError];
+        v28 = objc_opt_new();
+        v29 = MEMORY[0x1E696AEC0];
+        v30 = WFLocalizedString(@"Could not run “%@”");
+        v31 = [*(a1 + 40) localizedName];
+        v32 = [v29 localizedStringWithFormat:v30, v31];
+        [v28 setObject:v32 forKeyedSubscript:*MEMORY[0x1E696A588]];
 
-        v34 = [v28 localizedFailureReason];
+        v33 = [v27 localizedFailureReason];
 
-        if (v34)
+        if (v33)
         {
-          v35 = [v28 localizedFailureReason];
+          v34 = [v27 localizedFailureReason];
         }
 
         else
         {
-          v36 = [v28 localizedDescription];
+          v35 = [v27 localizedDescription];
 
-          if (!v36)
+          if (!v35)
           {
 LABEL_28:
-            v38 = *(a1 + 40);
-            v39 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WFActionErrorDomain" code:1 userInfo:v29];
-            [v38 finishRunningWithError:v39];
+            v37 = *(a1 + 40);
+            v38 = [MEMORY[0x1E696ABC0] errorWithDomain:@"WFActionErrorDomain" code:1 userInfo:v28];
+            [v37 finishRunningWithError:v38];
 
             goto LABEL_29;
           }
 
-          v35 = [v28 localizedDescription];
+          v34 = [v27 localizedDescription];
         }
 
-        v37 = v35;
-        [v29 setObject:v35 forKeyedSubscript:*MEMORY[0x1E696A578]];
+        v36 = v34;
+        [v28 setObject:v34 forKeyedSubscript:*MEMORY[0x1E696A578]];
 
         goto LABEL_28;
       }
     }
 
-    v15 = [v24 countByEnumeratingWithState:&v44 objects:v52 count:16];
-    if (v15)
+    v14 = [v23 countByEnumeratingWithState:&v42 objects:v50 count:16];
+    if (v14)
     {
       continue;
     }
@@ -7503,21 +7436,20 @@ LABEL_28:
 LABEL_20:
 
   [*(a1 + 40) willBeginProcessingParameterStates];
-  v24 = [*(a1 + 40) copyParameterStates];
-  v20 = *(a1 + 40);
-  v21 = *(a1 + 48);
-  v22 = [v20 skipsProcessingHiddenParameters];
-  v23 = [*(a1 + 40) shouldAskForValuesWhileProcessingParameterStates];
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_workQueue_completionHandler___block_invoke_3_329;
-  v42[3] = &unk_1E8374F40;
-  v41 = *(a1 + 32);
-  v43 = vextq_s8(v41, v41, 8uLL);
-  [v20 processParameterStates:v24 withInput:v21 skippingHiddenParameters:v22 askForValuesIfNecessary:v23 workQueue:v41.i64[0] completionHandler:v42];
+  v23 = [*(a1 + 40) copyParameterStates];
+  v19 = *(a1 + 40);
+  v20 = *(a1 + 48);
+  v21 = [v19 skipsProcessingHiddenParameters];
+  v22 = [*(a1 + 40) shouldAskForValuesWhileProcessingParameterStates];
+  v40[0] = MEMORY[0x1E69E9820];
+  v40[1] = 3221225472;
+  v40[2] = __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_workQueue_completionHandler___block_invoke_3_329;
+  v40[3] = &unk_1E8374F40;
+  v39 = *(a1 + 32);
+  v41 = vextq_s8(v39, v39, 8uLL);
+  [v19 processParameterStates:v23 withInput:v20 skippingHiddenParameters:v21 askForValuesIfNecessary:v22 workQueue:v39.i64[0] completionHandler:v40];
 
 LABEL_30:
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 void __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_workQueue_completionHandler___block_invoke_3_329(uint64_t a1, void *a2, void *a3, void *a4)
@@ -7583,7 +7515,7 @@ void __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_wo
 
 void __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_workQueue_completionHandler___block_invoke_5(uint64_t a1, char a2)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (a2)
   {
@@ -7605,37 +7537,37 @@ void __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_wo
     if (!v10)
     {
       v11 = [*(a1 + 32) previousAction];
+      v33 = 0u;
+      v34 = 0u;
       v35 = 0u;
       v36 = 0u;
-      v37 = 0u;
-      v38 = 0u;
       v12 = [*(a1 + 32) containedVariablesOfClass:objc_opt_class()];
-      v13 = [v12 countByEnumeratingWithState:&v35 objects:v39 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v36;
+        v15 = *v34;
         while (2)
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v36 != v15)
+            if (*v34 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            v17 = [*(*(&v35 + 1) + 8 * i) outputUUID];
+            v17 = [*(*(&v33 + 1) + 8 * i) outputUUID];
             v18 = [v11 UUID];
-            v19 = [v17 isEqualToString:v18];
+            isEqualToString = objc_msgSend_isEqualToString_(v17);
 
-            if (v19)
+            if (isEqualToString)
             {
               v20 = 0;
               goto LABEL_19;
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v35 objects:v39 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v33 objects:v37 count:16];
           if (v14)
           {
             continue;
@@ -7648,47 +7580,44 @@ void __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_wo
       v20 = 1;
 LABEL_19:
 
-      v22 = [*(a1 + 32) inputRequired];
-      if ((v20 & 1) == 0 && (v22 & 1) == 0)
+      v21 = [*(a1 + 32) inputRequired];
+      if ((v20 & 1) == 0 && (v21 & 1) == 0)
       {
-        v23 = objc_opt_new();
-        v24 = *(a1 + 32);
-        v25 = *(v24 + 144);
-        *(v24 + 144) = v23;
+        v22 = objc_opt_new();
+        v23 = *(a1 + 32);
+        v24 = *(v23 + 144);
+        *(v23 + 144) = v22;
       }
     }
 
     if ([*(a1 + 32) showsImplicitChooseFromListWhenRunWithInput:*(*(a1 + 32) + 144)])
     {
-      v26 = objc_opt_class();
-      v27 = *(a1 + 32);
-      v28 = v27[18];
-      v29 = [v27 userInterface];
-      v33[0] = MEMORY[0x1E69E9820];
-      v33[1] = 3221225472;
-      v33[2] = __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_workQueue_completionHandler___block_invoke_6;
-      v33[3] = &unk_1E837FA70;
-      v30 = *(a1 + 40);
-      v34 = *(a1 + 32);
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_workQueue_completionHandler___block_invoke_7;
-      v32[3] = &unk_1E8374F18;
-      v32[4] = v34;
-      [v26 showImplicitChooseFromListWithInput:v28 userInterface:v29 workQueue:v30 cancelHandler:v33 selectionHandler:v32];
+      v25 = objc_opt_class();
+      v26 = *(a1 + 32);
+      v27 = v26[18];
+      v28 = [v26 userInterface];
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_workQueue_completionHandler___block_invoke_6;
+      v31[3] = &unk_1E837FA70;
+      v29 = *(a1 + 40);
+      v32 = *(a1 + 32);
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __98__WFAction_runWithInput_userInterface_runningDelegate_variableSource_workQueue_completionHandler___block_invoke_7;
+      v30[3] = &unk_1E8374F18;
+      v30[4] = v32;
+      [v25 showImplicitChooseFromListWithInput:v27 userInterface:v28 workQueue:v29 cancelHandler:v31 selectionHandler:v30];
     }
 
     else
     {
       [*(a1 + 32) performDataAndHardwareAccessChecksAndRun];
     }
-
-    v31 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v21 = *MEMORY[0x1E69E9840];
 
     [v3 finishRunningWithError:?];
   }
@@ -7798,38 +7727,36 @@ LABEL_6:
 
 - (id)unevaluatedResourceObjectsOfClasses:(id)classes
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   classesCopy = classes;
   v5 = objc_opt_new();
   unevaluatedResourceNodes = [(WFAction *)self unevaluatedResourceNodes];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v7 = [unevaluatedResourceNodes countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v7 = [unevaluatedResourceNodes countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(unevaluatedResourceNodes);
         }
 
-        [*(*(&v13 + 1) + 8 * i) addResourceObjectsOfClassesOrProtocols:classesCopy toSet:v5];
+        [*(*(&v12 + 1) + 8 * i) addResourceObjectsOfClassesOrProtocols:classesCopy toSet:v5];
       }
 
-      v8 = [unevaluatedResourceNodes countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [unevaluatedResourceNodes countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -7844,36 +7771,36 @@ LABEL_6:
 
 - (void)setCurrentGeneratedResourceNodes:(id)nodes
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   nodesCopy = nodes;
   v6 = self->_resourceManager;
   v7 = v6;
   p_currentGeneratedResourceNodes = &self->_currentGeneratedResourceNodes;
-  v31 = v6;
+  v30 = v6;
   if (self->_currentGeneratedResourceNodes)
   {
-    v30 = nodesCopy;
+    v29 = nodesCopy;
     [(WFResourceManager *)v6 removeResourceNodes:?];
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v9 = *p_currentGeneratedResourceNodes;
-    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v10 = [(NSArray *)v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v37;
+      v12 = *v36;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v37 != v12)
+          if (*v36 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          resource = [*(*(&v36 + 1) + 8 * i) resource];
+          resource = [*(*(&v35 + 1) + 8 * i) resource];
           v15 = resource;
           if (resource)
           {
@@ -7898,40 +7825,40 @@ LABEL_6:
           [v17 setWorkflow:0];
         }
 
-        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v36 objects:v41 count:16];
+        v11 = [(NSArray *)v9 countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
       while (v11);
     }
 
-    nodesCopy = v30;
-    v7 = v31;
+    nodesCopy = v29;
+    v7 = v30;
   }
 
   objc_storeStrong(&self->_currentGeneratedResourceNodes, nodes);
   if (*p_currentGeneratedResourceNodes)
   {
     [(WFResourceManager *)v7 addResourceNodes:?];
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v18 = *p_currentGeneratedResourceNodes;
-    v19 = [(NSArray *)v18 countByEnumeratingWithState:&v32 objects:v40 count:16];
+    v19 = [(NSArray *)v18 countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v33;
+      v21 = *v32;
       do
       {
         for (j = 0; j != v20; ++j)
         {
-          if (*v33 != v21)
+          if (*v32 != v21)
           {
             objc_enumerationMutation(v18);
           }
 
-          v23 = *(*(&v32 + 1) + 8 * j);
+          v23 = *(*(&v31 + 1) + 8 * j);
           workflow = [(WFAction *)self workflow];
           resource2 = [v23 resource];
           v26 = resource2;
@@ -7958,16 +7885,14 @@ LABEL_6:
           [v28 setWorkflow:workflow];
         }
 
-        v20 = [(NSArray *)v18 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v20 = [(NSArray *)v18 countByEnumeratingWithState:&v31 objects:v39 count:16];
       }
 
       while (v20);
     }
 
-    v7 = v31;
+    v7 = v30;
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (id)createResourceManager
@@ -7981,7 +7906,7 @@ LABEL_6:
 
 - (WFResourceManager)resourceManager
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_resourceManagerLock);
   if (!self->_resourceManager)
   {
@@ -7995,11 +7920,11 @@ LABEL_6:
       identifier = [(WFAction *)self identifier];
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
-      v17 = 138412546;
-      v18 = identifier;
-      v19 = 2112;
-      v20 = v9;
-      _os_signpost_emit_with_name_impl(&dword_1CA256000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "CreateResourceManager", "identifier=%{signpost.description:attribute}@,class=%{signpost.description:attribute}@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = identifier;
+      v18 = 2112;
+      v19 = v9;
+      _os_signpost_emit_with_name_impl(&dword_1CA256000, v6, OS_SIGNPOST_INTERVAL_BEGIN, v4, "CreateResourceManager", "identifier=%{signpost.description:attribute}@,class=%{signpost.description:attribute}@", &v16, 0x16u);
     }
 
     createResourceManager = [(WFAction *)self createResourceManager];
@@ -8012,14 +7937,13 @@ LABEL_6:
     v13 = v12;
     if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
     {
-      LOWORD(v17) = 0;
-      _os_signpost_emit_with_name_impl(&dword_1CA256000, v13, OS_SIGNPOST_INTERVAL_END, v4, "CreateResourceManager", "", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_signpost_emit_with_name_impl(&dword_1CA256000, v13, OS_SIGNPOST_INTERVAL_END, v4, "CreateResourceManager", "", &v16, 2u);
     }
   }
 
   os_unfair_lock_unlock(&self->_resourceManagerLock);
   v14 = self->_resourceManager;
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -8085,7 +8009,7 @@ LABEL_6:
 
 - (void)notifyEventObserversParameterStateDidChangeForKey:(id)key
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   os_unfair_lock_lock(&self->_observersLock);
   eventObservers = [(WFAction *)self eventObservers];
@@ -8093,43 +8017,41 @@ LABEL_6:
   v7 = [allObjects sortedArrayUsingComparator:&__block_literal_global_8842];
 
   os_unfair_lock_unlock(&self->_observersLock);
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v15 + 1) + 8 * v12);
+        v13 = *(*(&v14 + 1) + 8 * v12);
         if (objc_opt_respondsToSelector())
         {
-          [v13 action:self parameterStateDidChangeForKey:{keyCopy, v15}];
+          [v13 action:self parameterStateDidChangeForKey:{keyCopy, v14}];
         }
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __62__WFAction_notifyEventObserversParameterStateDidChangeForKey___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -8283,7 +8205,7 @@ LABEL_3:
 
 - (BOOL)setParameterState:(id)state forKey:(id)key
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   stateCopy = state;
   keyCopy = key;
   v8 = getWFGeneralLogObject();
@@ -8291,24 +8213,24 @@ LABEL_3:
   {
     v9 = objc_opt_class();
     v10 = NSStringFromClass(v9);
-    v26 = 136316162;
-    v27 = "[WFAction setParameterState:forKey:]";
-    v28 = 2114;
+    v25 = 136316162;
+    v26 = "[WFAction setParameterState:forKey:]";
+    v27 = 2114;
     selfCopy = self;
-    v30 = 2114;
-    v31 = v10;
-    v32 = 2114;
-    v33 = keyCopy;
-    v34 = 2112;
-    v35 = stateCopy;
-    _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_DEFAULT, "%s Action: %{public}@ setting parameter state: %{public}@, key:%{public}@, value:%@", &v26, 0x34u);
+    v29 = 2114;
+    v30 = v10;
+    v31 = 2114;
+    v32 = keyCopy;
+    v33 = 2112;
+    v34 = stateCopy;
+    _os_log_impl(&dword_1CA256000, v8, OS_LOG_TYPE_DEFAULT, "%s Action: %{public}@ setting parameter state: %{public}@, key:%{public}@, value:%@", &v25, 0x34u);
   }
 
   v11 = [(WFAction *)self parameterForKey:keyCopy];
   inputParameterKey = [(WFAction *)self inputParameterKey];
-  v13 = [keyCopy isEqualToString:inputParameterKey];
+  isEqualToString = objc_msgSend_isEqualToString_(keyCopy);
 
-  if (v13)
+  if (isEqualToString)
   {
     [(WFAction *)self lockInputParameter];
   }
@@ -8345,22 +8267,21 @@ LABEL_8:
     v18 = objc_opt_class();
     v19 = v18;
     stateClass = [v11 stateClass];
-    v26 = 136315906;
-    v27 = "[WFAction setParameterState:forKey:]";
-    v28 = 2112;
+    v25 = 136315906;
+    v26 = "[WFAction setParameterState:forKey:]";
+    v27 = 2112;
     selfCopy = v16;
-    v30 = 2112;
-    v31 = v18;
-    v32 = 2112;
-    v33 = stateClass;
+    v29 = 2112;
+    v30 = v18;
+    v31 = 2112;
+    v32 = stateClass;
     v21 = stateClass;
-    _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_FAULT, "%s Warning: Attempted to set a parameter state of class %@ when %@ requires %@", &v26, 0x2Au);
+    _os_log_impl(&dword_1CA256000, v15, OS_LOG_TYPE_FAULT, "%s Warning: Attempted to set a parameter state of class %@ when %@ requires %@", &v25, 0x2Au);
   }
 
   v22 = 0;
 LABEL_13:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
@@ -8387,7 +8308,7 @@ LABEL_13:
 - (id)parameterStateForKey:(id)key fallingBackToDefaultValue:(BOOL)value
 {
   valueCopy = value;
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v7 = [(WFAction *)self parameterForKey:keyCopy];
   if (!v7)
@@ -8412,26 +8333,26 @@ LABEL_13:
     legacyKey = [v7 legacyKey];
     v14 = [v12 initWithObjects:{keyForSerialization, legacyKey, 0}];
 
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v15 = v14;
-    v9 = [v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v9 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v9)
     {
-      v26 = keyForSerialization;
-      v16 = *v28;
+      v25 = keyForSerialization;
+      v16 = *v27;
 LABEL_7:
       v17 = 0;
       while (1)
       {
-        if (*v28 != v16)
+        if (*v27 != v16)
         {
           objc_enumerationMutation(v15);
         }
 
-        v18 = *(*(&v27 + 1) + 8 * v17);
+        v18 = *(*(&v26 + 1) + 8 * v17);
         encodedSerializedParameters = [(WFAction *)self encodedSerializedParameters];
         v20 = [encodedSerializedParameters objectForKey:v18];
 
@@ -8442,14 +8363,14 @@ LABEL_7:
 
         if (v9 == ++v17)
         {
-          v9 = [v15 countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v9 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
           if (v9)
           {
             goto LABEL_7;
           }
 
           encodedSerializedParameters2 = v15;
-          keyForSerialization = v26;
+          keyForSerialization = v25;
           goto LABEL_17;
         }
       }
@@ -8462,12 +8383,12 @@ LABEL_7:
         [decodedParameterStates2 setObject:v9 forKey:keyCopy];
 
         encodedSerializedParameters2 = [(WFAction *)self encodedSerializedParameters];
-        keyForSerialization = v26;
-        [encodedSerializedParameters2 removeObjectForKey:v26];
+        keyForSerialization = v25;
+        [encodedSerializedParameters2 removeObjectForKey:v25];
         goto LABEL_17;
       }
 
-      keyForSerialization = v26;
+      keyForSerialization = v25;
     }
 
     else
@@ -8503,7 +8424,6 @@ LABEL_22:
   v10 = v23;
 
 LABEL_26:
-  v24 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -8564,10 +8484,10 @@ LABEL_26:
 
 uint64_t __28__WFAction_parameterForKey___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 key];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 key];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (void)preloadDefaultParameterStatesIfNecessaryWithCompletionHandler:(id)handler
@@ -8629,21 +8549,7 @@ void __74__WFAction_preloadDefaultParameterStatesIfNecessaryWithCompletionHandle
     [v9 setCompletionQueue:v11];
   }
 
-  if (!v9)
-  {
-    goto LABEL_11;
-  }
-
-  if (![v9 loadsDefaultStateAsynchronously])
-  {
-    goto LABEL_11;
-  }
-
-  v12 = [*(a1 + 32) serializedParameters];
-  v13 = [v6 key];
-  v14 = [v12 objectForKeyedSubscript:v13];
-
-  if (!v14)
+  if (v9 && [v9 loadsDefaultStateAsynchronously] && (objc_msgSend(*(a1 + 32), "serializedParameters"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "key"), v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v12, "objectForKeyedSubscript:", v13), v14 = objc_claimAutoreleasedReturnValue(), v14, v13, v12, !v14))
   {
     v15[0] = MEMORY[0x1E69E9820];
     v15[1] = 3221225472;
@@ -8655,7 +8561,6 @@ void __74__WFAction_preloadDefaultParameterStatesIfNecessaryWithCompletionHandle
 
   else
   {
-LABEL_11:
     (*(v7 + 2))(v7, 0);
   }
 }
@@ -8674,7 +8579,7 @@ LABEL_11:
 
 - (id)copyForProcessing
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = [(WFAction *)self copy];
   runningDelegate = [(WFAction *)self runningDelegate];
   [v3 setRunningDelegate:runningDelegate];
@@ -8683,7 +8588,7 @@ LABEL_11:
   [v3 setVariableSource:variableSource];
 
   toolInvocation = [(WFAction *)self toolInvocation];
-  v32 = v3;
+  v29 = v3;
   [v3 setToolInvocation:toolInvocation];
 
   if ([(WFAction *)self requiresRemoteExecution])
@@ -8691,29 +8596,29 @@ LABEL_11:
     parameters = [(WFAction *)self parameters];
     v8 = [parameters objectsMatchingClass:objc_opt_class()];
 
-    v35 = 0u;
-    v36 = 0u;
+    v32 = 0u;
     v33 = 0u;
-    v34 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
     if (!v10)
     {
       goto LABEL_33;
     }
 
     v11 = v10;
-    v12 = *v34;
+    v12 = *v31;
     while (1)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v34 != v12)
+        if (*v31 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v33 + 1) + 8 * i);
+        v14 = *(*(&v30 + 1) + 8 * i);
         if (!v14)
         {
           v19 = 0;
@@ -8753,15 +8658,14 @@ LABEL_11:
           if ([v16 possibleStatesLoadingState] == 3)
           {
             v20 = [v16 key];
-            v21 = [v32 parameterForKey:v20];
+            v21 = [v29 parameterForKey:v20];
 
             if (v21)
             {
-              v22 = off_1E836E2B8;
               goto LABEL_24;
             }
 
-            v27 = 0;
+            v25 = 0;
             goto LABEL_30;
           }
         }
@@ -8778,65 +8682,62 @@ LABEL_11:
         }
 
         possibleStates = [v18 possibleStates];
-        v24 = [possibleStates count];
+        v23 = [possibleStates count];
 
-        if (!v24)
+        if (!v23)
         {
           goto LABEL_31;
         }
 
-        v25 = [v18 key];
-        v21 = [v32 parameterForKey:v25];
+        v24 = [v18 key];
+        v21 = [v29 parameterForKey:v24];
 
         if (v21)
         {
-          v22 = off_1E836E2F8;
           v16 = v18;
           v18 = v14;
           v14 = v19;
 LABEL_24:
-          v26 = *v22;
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v27 = v21;
+            v25 = v21;
           }
 
           else
           {
-            v27 = 0;
+            v25 = 0;
           }
 
           goto LABEL_30;
         }
 
-        v27 = 0;
+        v25 = 0;
         v16 = v18;
         v18 = v14;
         v14 = v19;
 LABEL_30:
         v19 = v14;
-        v28 = v27;
+        v26 = v25;
 
         possibleStates2 = [v16 possibleStates];
-        [v28 setPossibleStatesFromRemoteSource:possibleStates2];
+        [v26 setPossibleStatesFromRemoteSource:possibleStates2];
 
         v14 = v18;
 LABEL_31:
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v30 objects:v34 count:16];
       if (!v11)
       {
 LABEL_33:
 
-        break;
+        return v29;
       }
     }
   }
 
-  v30 = *MEMORY[0x1E69E9840];
-  return v32;
+  return v29;
 }
 
 - (id)copyWithDefinition:(id)definition serializedParameters:(id)parameters
@@ -8931,18 +8832,16 @@ LABEL_33:
 
 - (id)missingAppError
 {
-  v10[2] = *MEMORY[0x1E69E9840];
+  v9[2] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ABC0];
-  v9[0] = *MEMORY[0x1E696A580];
+  v8[0] = *MEMORY[0x1E696A580];
   v3 = WFLocalizedString(@"Missing App");
-  v10[0] = v3;
-  v9[1] = *MEMORY[0x1E696A578];
+  v9[0] = v3;
+  v8[1] = *MEMORY[0x1E696A578];
   v4 = WFLocalizedString(@"This action requires an app that may not be installed.");
-  v10[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
+  v9[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
   v6 = [v2 errorWithDomain:@"WFActionErrorDomain" code:10 userInfo:v5];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -9003,43 +8902,41 @@ void __44__WFAction_resolveAppDescriptorIfNecessary___block_invoke(uint64_t a1, 
 
 - (void)updateAppDescriptorWithSelectedApp:(id)app
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   [(WFAction *)self setAppDescriptor:app];
   [(WFAction *)self setAppResource:0];
   [(WFAction *)self recreateResourcesIfNeeded];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   resourceManager = [(WFAction *)self resourceManager];
   v5 = [resourceManager resourceObjectsOfClass:objc_opt_class()];
 
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) refreshAvailabilityWithNotification];
+        [*(*(&v10 + 1) + 8 * v9++) refreshAvailabilityWithNotification];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (INAppDescriptor)appDescriptor
@@ -9172,47 +9069,46 @@ LABEL_13:
 
 + (void)showImplicitChooseFromListWithInput:(id)input userInterface:(id)interface workQueue:(id)queue cancelHandler:(id)handler selectionHandler:(id)selectionHandler
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   inputCopy = input;
   interfaceCopy = interface;
   queueCopy = queue;
   handlerCopy = handler;
   selectionHandlerCopy = selectionHandler;
-  v36 = @"WFChooseFromListActionPrompt";
+  v35 = @"WFChooseFromListActionPrompt";
   v18 = WFLocalizedString(@"Choose an Item");
-  v37[0] = v18;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+  v36[0] = v18;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
 
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = __Block_byref_object_copy__8610;
-  v34 = __Block_byref_object_dispose__8611;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__8610;
+  v33 = __Block_byref_object_dispose__8611;
   v20 = +[WFActionRegistry sharedRegistry];
-  v35 = [v20 createActionWithIdentifier:@"is.workflow.actions.choosefromlist" serializedParameters:v19];
+  v34 = [v20 createActionWithIdentifier:@"is.workflow.actions.choosefromlist" serializedParameters:v19];
 
-  v21 = v31[5];
+  v21 = v30[5];
   if (!v21)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
     [currentHandler handleFailureInMethod:a2 object:self file:@"WFAction.m" lineNumber:2795 description:@"Choose from list action expected to load from registry"];
 
-    v21 = v31[5];
+    v21 = v30[5];
   }
 
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __103__WFAction_showImplicitChooseFromListWithInput_userInterface_workQueue_cancelHandler_selectionHandler___block_invoke;
-  v26[3] = &unk_1E8375308;
+  v25[0] = MEMORY[0x1E69E9820];
+  v25[1] = 3221225472;
+  v25[2] = __103__WFAction_showImplicitChooseFromListWithInput_userInterface_workQueue_cancelHandler_selectionHandler___block_invoke;
+  v25[3] = &unk_1E8375308;
   v22 = handlerCopy;
-  v27 = v22;
+  v26 = v22;
   v23 = selectionHandlerCopy;
-  v28 = v23;
-  v29 = &v30;
-  [v21 runWithInput:inputCopy userInterface:interfaceCopy runningDelegate:0 variableSource:0 workQueue:queueCopy completionHandler:v26];
+  v27 = v23;
+  v28 = &v29;
+  [v21 runWithInput:inputCopy userInterface:interfaceCopy runningDelegate:0 variableSource:0 workQueue:queueCopy completionHandler:v25];
 
-  _Block_object_dispose(&v30, 8);
-  v24 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v29, 8);
 }
 
 void __103__WFAction_showImplicitChooseFromListWithInput_userInterface_workQueue_cancelHandler_selectionHandler___block_invoke(void *a1, void *a2, void *a3)
@@ -9246,6 +9142,16 @@ void __103__WFAction_showImplicitChooseFromListWithInput_userInterface_workQueue
   }
 
   return v3;
+}
+
+- (void)setOutputExpandedInEditor:(BOOL)editor
+{
+  editorCopy = editor;
+  if (_os_feature_enabled_impl())
+  {
+    v5 = [MEMORY[0x1E696AD98] numberWithBool:editorCopy];
+    [(WFAction *)self setSupplementalParameterValue:v5 forKey:@"OutputExpandedInEditor"];
+  }
 }
 
 - (BOOL)isOutputExpandedInEditor
@@ -9285,7 +9191,7 @@ void __103__WFAction_showImplicitChooseFromListWithInput_userInterface_workQueue
 
 id __53__WFAction_Display__visibleParametersWithProcessing___block_invoke(uint64_t a1, void *a2)
 {
-  v38[5] = *MEMORY[0x1E69E9840];
+  v37[5] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (![*(a1 + 32) shouldInsertExpandingParameterForParameter:v3])
   {
@@ -9306,27 +9212,27 @@ id __53__WFAction_Display__visibleParametersWithProcessing___block_invoke(uint64
   v9 = [v7 stringWithFormat:@"Show-%@", v8];
 
   v10 = [WFParameterDefinition alloc];
-  v38[0] = v9;
-  v37[0] = @"Key";
-  v37[1] = @"Label";
+  v37[0] = v9;
+  v36[0] = @"Key";
+  v36[1] = @"Label";
   v11 = [v3 localizedLabel];
   v12 = v11;
   if (!v11)
   {
     v13 = [v3 localizedPlaceholder];
     v12 = &stru_1F4A1C408;
-    v32 = v13;
+    v31 = v13;
     if (v13)
     {
       v12 = v13;
     }
   }
 
-  v38[1] = v12;
-  v37[2] = @"MultipleValueParameterKey";
+  v37[1] = v12;
+  v36[2] = @"MultipleValueParameterKey";
   v14 = [v3 key];
-  v38[2] = v14;
-  v37[3] = @"RequiredResources";
+  v37[2] = v14;
+  v36[3] = @"RequiredResources";
   v15 = [v3 definition];
   v16 = [v15 objectForKey:@"RequiredResources"];
   v17 = v16;
@@ -9336,11 +9242,11 @@ id __53__WFAction_Display__visibleParametersWithProcessing___block_invoke(uint64
     v18 = v16;
   }
 
-  v37[4] = @"DefaultValue";
+  v36[4] = @"DefaultValue";
   v19 = MEMORY[0x1E695E118];
-  v38[3] = v18;
-  v38[4] = MEMORY[0x1E695E118];
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:v37 count:5];
+  v37[3] = v18;
+  v37[4] = MEMORY[0x1E695E118];
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:5];
   v21 = [(WFParameterDefinition *)v10 initWithDictionary:v20];
 
   if (!v11)
@@ -9348,15 +9254,15 @@ id __53__WFAction_Display__visibleParametersWithProcessing___block_invoke(uint64
   }
 
   v6 = [[WFMultipleValueExpandingParameter alloc] initWithDefinition:v21];
-  v35[0] = @"WFParameterKey";
-  v35[1] = @"WFParameterValue";
-  v36[0] = v9;
-  v36[1] = v19;
-  v35[2] = @"WFResourceClass";
+  v34[0] = @"WFParameterKey";
+  v34[1] = @"WFParameterValue";
+  v35[0] = v9;
+  v35[1] = v19;
+  v34[2] = @"WFResourceClass";
   v22 = objc_opt_class();
   v23 = NSStringFromClass(v22);
-  v36[2] = v23;
-  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:3];
+  v35[2] = v23;
+  v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:3];
 
   v25 = [(WFResource *)[WFParameterRelationResource alloc] initWithDefinition:v24];
   [(WFParameterRelationResource *)v25 setupWithAction:*(a1 + 32) parameter:v6];
@@ -9372,19 +9278,17 @@ id __53__WFAction_Display__visibleParametersWithProcessing___block_invoke(uint64
   if (v6)
   {
 LABEL_11:
-    v34[0] = v6;
-    v34[1] = v3;
-    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
+    v33[0] = v6;
+    v33[1] = v3;
+    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
   }
 
   else
   {
 LABEL_12:
-    v33 = v3;
-    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v33 count:1];
+    v32 = v3;
+    v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v32 count:1];
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 
   return v29;
 }
@@ -9439,54 +9343,54 @@ LABEL_5:
 
 - (BOOL)containsVariableOfType:(id)type
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   typeCopy = type;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   parameters = [(WFAction *)self parameters];
-  v22 = [parameters countByEnumeratingWithState:&v27 objects:v32 count:16];
-  if (v22)
+  v21 = [parameters countByEnumeratingWithState:&v26 objects:v31 count:16];
+  if (v21)
   {
-    v6 = *v28;
-    v21 = *v28;
+    v6 = *v27;
+    v20 = *v27;
     do
     {
-      for (i = 0; i != v22; ++i)
+      for (i = 0; i != v21; ++i)
       {
-        if (*v28 != v6)
+        if (*v27 != v6)
         {
           objc_enumerationMutation(parameters);
         }
 
-        v8 = *(*(&v27 + 1) + 8 * i);
+        v8 = *(*(&v26 + 1) + 8 * i);
+        v22 = 0u;
         v23 = 0u;
         v24 = 0u;
         v25 = 0u;
-        v26 = 0u;
         v9 = [v8 key];
         v10 = [(WFAction *)self parameterStateForKey:v9];
         containedVariables = [v10 containedVariables];
 
-        v12 = [containedVariables countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v12 = [containedVariables countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v24;
+          v14 = *v23;
           while (2)
           {
             for (j = 0; j != v13; ++j)
             {
-              if (*v24 != v14)
+              if (*v23 != v14)
               {
                 objc_enumerationMutation(containedVariables);
               }
 
-              type = [*(*(&v23 + 1) + 8 * j) type];
-              v17 = [type isEqualToString:typeCopy];
+              type = [*(*(&v22 + 1) + 8 * j) type];
+              isEqualToString = objc_msgSend_isEqualToString_(type);
 
-              if (v17)
+              if (isEqualToString)
               {
 
                 v18 = 1;
@@ -9494,7 +9398,7 @@ LABEL_5:
               }
             }
 
-            v13 = [containedVariables countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v13 = [containedVariables countByEnumeratingWithState:&v22 objects:v30 count:16];
             if (v13)
             {
               continue;
@@ -9504,14 +9408,14 @@ LABEL_5:
           }
         }
 
-        v6 = v21;
+        v6 = v20;
       }
 
       v18 = 0;
-      v22 = [parameters countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v21 = [parameters countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
-    while (v22);
+    while (v21);
   }
 
   else
@@ -9521,7 +9425,6 @@ LABEL_5:
 
 LABEL_19:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -9540,85 +9443,82 @@ LABEL_19:
 
 void *__51__WFAction_Convenience__containedVariablesOfClass___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
+  v2 = a2;
   if (objc_opt_isKindOfClass())
   {
-    v4 = v3;
+    v3 = v2;
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  v5 = v4;
+  v4 = v3;
 
-  return v4;
+  return v3;
 }
 
 - (id)containedVariables
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   parameters = [(WFAction *)self parameters];
-  v5 = [parameters countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [parameters countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(parameters);
         }
 
-        v9 = [*(*(&v14 + 1) + 8 * i) key];
+        v9 = [*(*(&v13 + 1) + 8 * i) key];
         v10 = [(WFAction *)self parameterStateForKey:v9 fallingBackToDefaultValue:0];
         containedVariables = [v10 containedVariables];
         [v3 addObjectsFromArray:containedVariables];
       }
 
-      v6 = [parameters countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [parameters countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (void)promptForArchiveVerificationIfNecessary:(id)necessary completionHandler:(id)handler
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   necessaryCopy = necessary;
   handlerCopy = handler;
   fileURL = [necessaryCopy fileURL];
   path = [fileURL path];
 
   v10 = WFSupportedArchiveFormats();
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary_completionHandler___block_invoke;
-  v35[3] = &unk_1E837AB68;
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary_completionHandler___block_invoke;
+  v34[3] = &unk_1E837AB68;
   v11 = path;
-  v36 = v11;
-  v12 = [v10 if_firstObjectPassingTest:v35];
+  v35 = v11;
+  v12 = [v10 if_firstObjectPassingTest:v34];
 
   if (v12)
   {
-    v34 = 0;
-    v13 = [MEMORY[0x1E6996CB0] checkArchiveForDisallowedContent:necessaryCopy error:&v34];
-    v14 = v34;
+    v33 = 0;
+    v13 = [MEMORY[0x1E6996CB0] checkArchiveForDisallowedContent:necessaryCopy error:&v33];
+    v14 = v33;
     v15 = getWFActionsLogObject();
     v16 = v15;
     if (v13)
@@ -9626,7 +9526,7 @@ void *__51__WFAction_Convenience__containedVariablesOfClass___block_invoke(uint6
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v38 = "[WFAction(ArchiveVerification) promptForArchiveVerificationIfNecessary:completionHandler:]";
+        v37 = "[WFAction(ArchiveVerification) promptForArchiveVerificationIfNecessary:completionHandler:]";
         _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_DEBUG, "%s Archive file successfully passed security validation", buf, 0xCu);
       }
 
@@ -9639,9 +9539,9 @@ void *__51__WFAction_Convenience__containedVariablesOfClass___block_invoke(uint6
       {
         v17 = [v14 description];
         *buf = 136315394;
-        v38 = "[WFAction(ArchiveVerification) promptForArchiveVerificationIfNecessary:completionHandler:]";
-        v39 = 2112;
-        v40 = v17;
+        v37 = "[WFAction(ArchiveVerification) promptForArchiveVerificationIfNecessary:completionHandler:]";
+        v38 = 2112;
+        v39 = v17;
         _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_ERROR, "%s Found shell config files in file to be opened: %@", buf, 0x16u);
       }
 
@@ -9654,23 +9554,23 @@ void *__51__WFAction_Convenience__containedVariablesOfClass___block_invoke(uint6
 
       v21 = MEMORY[0x1E6996C78];
       v22 = WFLocalizedString(@"Don’t Allow");
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary_completionHandler___block_invoke_181;
-      v32[3] = &unk_1E837F4E8;
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary_completionHandler___block_invoke_181;
+      v31[3] = &unk_1E837F4E8;
       v23 = handlerCopy;
-      v33 = v23;
-      v24 = [v21 buttonWithTitle:v22 style:1 handler:v32];
+      v32 = v23;
+      v24 = [v21 buttonWithTitle:v22 style:1 handler:v31];
       [v18 addButton:v24];
 
       v25 = MEMORY[0x1E6996C78];
       v26 = WFLocalizedString(@"OK");
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary_completionHandler___block_invoke_2;
-      v30[3] = &unk_1E837F4E8;
-      v31 = v23;
-      v27 = [v25 buttonWithTitle:v26 style:2 preferred:1 handler:v30];
+      v29[0] = MEMORY[0x1E69E9820];
+      v29[1] = 3221225472;
+      v29[2] = __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary_completionHandler___block_invoke_2;
+      v29[3] = &unk_1E837F4E8;
+      v30 = v23;
+      v27 = [v25 buttonWithTitle:v26 style:2 preferred:1 handler:v29];
       [v18 addButton:v27];
 
       userInterface = [(WFAction *)self userInterface];
@@ -9682,8 +9582,6 @@ void *__51__WFAction_Convenience__containedVariablesOfClass___block_invoke(uint6
   {
     handlerCopy[2](handlerCopy, 0);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -9691,9 +9589,9 @@ uint64_t __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNeces
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 pathExtension];
-  v5 = [v4 isEqualToString:v3];
+  isEqualToString = objc_msgSend_isEqualToString_(v4);
 
-  return v5;
+  return isEqualToString;
 }
 
 void __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary_completionHandler___block_invoke_181(uint64_t a1)
@@ -9800,25 +9698,25 @@ void __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary
   definition = [(WFAction *)self definition];
   v3 = [definition objectForKey:@"Appearance"];
 
-  if (v3 && ([v3 isEqualToString:@"Normal"] & 1) == 0)
+  if (v3 && (objc_msgSend_isEqualToString_(v3) & 1) == 0)
   {
-    if ([v3 isEqualToString:@"Comment"])
+    if (objc_msgSend_isEqualToString_(v3))
     {
-      v4 = 2;
+      isEqualToString = 2;
     }
 
     else
     {
-      v4 = [v3 isEqualToString:@"Input"];
+      isEqualToString = objc_msgSend_isEqualToString_(v3);
     }
   }
 
   else
   {
-    v4 = 0;
+    isEqualToString = 0;
   }
 
-  return v4;
+  return isEqualToString;
 }
 
 - (BOOL)deletesInput
@@ -9867,12 +9765,12 @@ void __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary
   definition = [(WFAction *)self definition];
   v7 = [definition objectForKey:@"ParameterCollapsingBehavior"];
 
-  if ([v7 isEqualToString:@"DefaultBeginExpanded"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v8 = 1;
   }
 
-  else if ([v7 isEqualToString:@"Never"])
+  else if (objc_msgSend_isEqualToString_(v7))
   {
     v8 = 2;
   }
@@ -9989,7 +9887,7 @@ void __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary
   outputDictionary = [(WFAction *)self outputDictionary];
   v3 = [outputDictionary objectForKey:@"DisclosureLevel"];
 
-  v4 = [v3 isEqualToString:@"Public"] ^ 1;
+  v4 = objc_msgSend_isEqualToString_(v3) ^ 1;
   return v4;
 }
 
@@ -10237,20 +10135,20 @@ void __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary
 
 - (BOOL)requiresRemoteExecution
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   remoteExecuteOnPlatforms = [(WFAction *)self remoteExecuteOnPlatforms];
   if (remoteExecuteOnPlatforms)
   {
     v4 = getWFRemoteExecutionLogObject();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315650;
-      v13 = "[WFAction(Definition) requiresRemoteExecution]";
-      v14 = 2114;
+      v11 = 136315650;
+      v12 = "[WFAction(Definition) requiresRemoteExecution]";
+      v13 = 2114;
       selfCopy3 = self;
-      v16 = 2114;
-      v17 = remoteExecuteOnPlatforms;
-      _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_DEFAULT, "%s %{public}@ definition requires remote execution on platforms: %{public}@", &v12, 0x20u);
+      v15 = 2114;
+      v16 = remoteExecuteOnPlatforms;
+      _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_DEFAULT, "%s %{public}@ definition requires remote execution on platforms: %{public}@", &v11, 0x20u);
     }
   }
 
@@ -10263,11 +10161,11 @@ void __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary
       v9 = getWFRemoteExecutionLogObject();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v12 = 136315394;
-        v13 = "[WFAction(Definition) requiresRemoteExecution]";
-        v14 = 2114;
+        v11 = 136315394;
+        v12 = "[WFAction(Definition) requiresRemoteExecution]";
+        v13 = 2114;
         selfCopy3 = currentDevice;
-        _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_ERROR, "%s Current platform is unspecified for device: %{public}@", &v12, 0x16u);
+        _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_ERROR, "%s Current platform is unspecified for device: %{public}@", &v11, 0x16u);
       }
 
       v7 = 0;
@@ -10281,13 +10179,13 @@ void __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary
       v9 = getWFRemoteExecutionLogObject();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 136315650;
-        v13 = "[WFAction(Definition) requiresRemoteExecution]";
-        v14 = 2114;
+        v11 = 136315650;
+        v12 = "[WFAction(Definition) requiresRemoteExecution]";
+        v13 = 2114;
         selfCopy3 = self;
-        v16 = 2114;
-        v17 = v7;
-        _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_DEFAULT, "%s %{public}@ definition requires remote execution for current platform (%{public}@)", &v12, 0x20u);
+        v15 = 2114;
+        v16 = v7;
+        _os_log_impl(&dword_1CA256000, v9, OS_LOG_TYPE_DEFAULT, "%s %{public}@ definition requires remote execution for current platform (%{public}@)", &v11, 0x20u);
       }
     }
   }
@@ -10297,17 +10195,16 @@ void __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary
     currentDevice = getWFRemoteExecutionLogObject();
     if (os_log_type_enabled(currentDevice, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315394;
-      v13 = "[WFAction(Definition) requiresRemoteExecution]";
-      v14 = 2114;
+      v11 = 136315394;
+      v12 = "[WFAction(Definition) requiresRemoteExecution]";
+      v13 = 2114;
       selfCopy3 = self;
-      _os_log_impl(&dword_1CA256000, currentDevice, OS_LOG_TYPE_DEFAULT, "%s %{public}@ definition doesn't require remote execution", &v12, 0x16u);
+      _os_log_impl(&dword_1CA256000, currentDevice, OS_LOG_TYPE_DEFAULT, "%s %{public}@ definition doesn't require remote execution", &v11, 0x16u);
     }
 
     v8 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -10694,30 +10591,30 @@ void __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary
 - (id)typeDescriptionWithTypes:(id)types explanationText:(id)text multiple:(BOOL)multiple optional:(BOOL)optional
 {
   optionalCopy = optional;
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   typesCopy = types;
   textCopy = text;
   v11 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(typesCopy, "count")}];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v12 = typesCopy;
-  v13 = [v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v30;
+    v15 = *v29;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v30 != v15)
+        if (*v29 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v29 + 1) + 8 * i);
+        v17 = *(*(&v28 + 1) + 8 * i);
         if (multiple)
         {
           [v17 localizedPluralTypeDescription];
@@ -10734,7 +10631,7 @@ void __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v14);
@@ -10760,7 +10657,7 @@ void __91__WFAction_ArchiveVerification__promptForArchiveVerificationIfNecessary
 LABEL_17:
     v22 = MEMORY[0x1E696AEC0];
     v23 = WFLocalizedString(@"(%@) %@");
-    v24 = [v22 localizedStringWithFormat:v23, v20, textCopy, v29];
+    v24 = [v22 localizedStringWithFormat:v23, v20, textCopy, v28];
 
     v20 = v24;
   }
@@ -10773,8 +10670,6 @@ LABEL_18:
 
     v20 = v26;
   }
-
-  v27 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -10864,7 +10759,7 @@ LABEL_18:
 
 - (WFIcon)icon
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   iconName = [(WFAction *)self iconName];
   if (!iconName)
   {
@@ -10902,7 +10797,7 @@ LABEL_18:
     bundleIdentifier = ;
     if (bundleIdentifier)
     {
-      if ([iconBackgroundColorName isEqualToString:@"Tint"])
+      if (objc_msgSend_isEqualToString_(iconBackgroundColorName))
       {
         [MEMORY[0x1E69E09E0] tintedColorForName:v10];
       }
@@ -10926,11 +10821,11 @@ LABEL_28:
       v16 = getWFGeneralLogObject();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v19 = 136315394;
-        v20 = "[WFAction(Definition) icon]";
-        v21 = 2112;
-        v22 = iconBackgroundColorName;
-        _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_ERROR, "%s A custom icon color was specified (%@) but we could not find the color in the assets", &v19, 0x16u);
+        v18 = 136315394;
+        v19 = "[WFAction(Definition) icon]";
+        v20 = 2112;
+        v21 = iconBackgroundColorName;
+        _os_log_impl(&dword_1CA256000, v16, OS_LOG_TYPE_ERROR, "%s A custom icon color was specified (%@) but we could not find the color in the assets", &v18, 0x16u);
       }
 
       v14 = 0;
@@ -10941,11 +10836,11 @@ LABEL_28:
       v14 = getWFGeneralLogObject();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v19 = 136315394;
-        v20 = "[WFAction(Definition) icon]";
-        v21 = 2112;
-        v22 = iconBackgroundColorName;
-        _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_ERROR, "%s A custom icon symbol color was specified (%@) but we could not find the color in the assets", &v19, 0x16u);
+        v18 = 136315394;
+        v19 = "[WFAction(Definition) icon]";
+        v20 = 2112;
+        v21 = iconBackgroundColorName;
+        _os_log_impl(&dword_1CA256000, v14, OS_LOG_TYPE_ERROR, "%s A custom icon symbol color was specified (%@) but we could not find the color in the assets", &v18, 0x16u);
       }
     }
 
@@ -10967,11 +10862,11 @@ LABEL_28:
     v11 = getWFGeneralLogObject();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v19 = 136315394;
-      v20 = "[WFAction(Definition) icon]";
-      v21 = 2112;
-      v22 = iconName;
-      _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_ERROR, "%s A custom icon was specified (%@) but we could not find the icon in our image assets", &v19, 0x16u);
+      v18 = 136315394;
+      v19 = "[WFAction(Definition) icon]";
+      v20 = 2112;
+      v21 = iconName;
+      _os_log_impl(&dword_1CA256000, v11, OS_LOG_TYPE_ERROR, "%s A custom icon was specified (%@) but we could not find the icon in our image assets", &v18, 0x16u);
     }
 
     iconSymbolName = 0;
@@ -10979,8 +10874,6 @@ LABEL_28:
   }
 
 LABEL_29:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -11265,9 +11158,9 @@ void __33__WFAction_Definition__iconCache__block_invoke()
 
 - (id)deviceLockedError
 {
-  v19[2] = *MEMORY[0x1E69E9840];
+  v18[2] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
-  v18[0] = *MEMORY[0x1E696A578];
+  v17[0] = *MEMORY[0x1E696A578];
   currentDevice = [MEMORY[0x1E69E0A90] currentDevice];
   idiom = [currentDevice idiom];
 
@@ -11311,18 +11204,16 @@ void __33__WFAction_Definition__iconCache__block_invoke()
   v7 = @"This shortcut requires your device to be unlocked.";
 LABEL_13:
   v8 = WFLocalizedStringWithKey(v6, v7);
-  v19[0] = v8;
-  v18[1] = *MEMORY[0x1E696A588];
+  v18[0] = v8;
+  v17[1] = *MEMORY[0x1E696A588];
   v9 = MEMORY[0x1E696AEC0];
   v10 = WFLocalizedString(@"Couldn’t run “%@”");
   workflow = [(WFAction *)self workflow];
   name = [workflow name];
   v13 = [v9 localizedStringWithFormat:v10, name];
-  v19[1] = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:v18 count:2];
+  v18[1] = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
   v15 = [v3 errorWithDomain:@"WFActionErrorDomain" code:17 userInfo:v14];
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -11478,9 +11369,9 @@ void __49__WFAction_RequestUnlock__requestUnlockIfNeeded___block_invoke(uint64_t
   v6 = [runningDelegate2 currentRunningContextForAction:self];
 
   runSource = [v6 runSource];
-  v8 = [runSource isEqualToString:*MEMORY[0x1E69E13A8]];
+  isEqualToString = objc_msgSend_isEqualToString_(runSource);
 
-  if (v8)
+  if (isEqualToString)
   {
     v9 = 1;
   }
@@ -11488,7 +11379,7 @@ void __49__WFAction_RequestUnlock__requestUnlockIfNeeded___block_invoke(uint64_t
   else
   {
     runSource2 = [v6 runSource];
-    v9 = [runSource2 isEqualToString:*MEMORY[0x1E69E1368]];
+    v9 = objc_msgSend_isEqualToString_(runSource2);
   }
 
   return v9;
@@ -11496,16 +11387,14 @@ void __49__WFAction_RequestUnlock__requestUnlockIfNeeded___block_invoke(uint64_t
 
 - (NSDictionary)serializedRepresentation
 {
-  v9[2] = *MEMORY[0x1E69E9840];
-  v8[0] = @"WFWorkflowActionIdentifier";
+  v8[2] = *MEMORY[0x1E69E9840];
+  v7[0] = @"WFWorkflowActionIdentifier";
   identifier = [(WFAction *)self identifier];
-  v8[1] = @"WFWorkflowActionParameters";
-  v9[0] = identifier;
+  v7[1] = @"WFWorkflowActionParameters";
+  v8[0] = identifier;
   serializedParameters = [(WFAction *)self serializedParameters];
-  v9[1] = serializedParameters;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v8[1] = serializedParameters;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
@@ -11543,18 +11432,16 @@ void *__79__WFAction_Serialization__actionsFromSerializedRepresentations_actionR
 
 + (id)actionFromSerializedRepresentation:(id)representation actionRegistry:(id)registry
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v6 = MEMORY[0x1E695DEC8];
   registryCopy = registry;
   representationCopy2 = representation;
   v9 = [v6 arrayWithObjects:&representationCopy count:1];
 
-  v10 = [self actionsFromSerializedRepresentations:v9 actionRegistry:{registryCopy, representationCopy, v15}];
+  v10 = [self actionsFromSerializedRepresentations:v9 actionRegistry:{registryCopy, representationCopy, v14}];
 
   firstObject = [v10 firstObject];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return firstObject;
 }

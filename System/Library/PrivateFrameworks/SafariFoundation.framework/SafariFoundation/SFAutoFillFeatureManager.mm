@@ -14,7 +14,9 @@
 - (void)_refreshCachedAutoFillRestrictionValues;
 - (void)dealloc;
 - (void)reportPasswordAutoFillProviderTelemetry;
+- (void)setShouldAutoFillPasswords:(BOOL)passwords;
 - (void)setShouldAutoFillPasswordsFromKeychain:(BOOL)keychain;
+- (void)test_overrideUserIsEligibleForPasskeys:(BOOL)passkeys;
 @end
 
 @implementation SFAutoFillFeatureManager
@@ -228,6 +230,84 @@ uint64_t __48__SFAutoFillFeatureManager_sharedFeatureManager__block_invoke()
   +[SFAutoFillFeatureManager autoFillPreferencesDidChange];
 }
 
+- (void)setShouldAutoFillPasswords:(BOOL)passwords
+{
+  passwordsCopy = passwords;
+  v23 = *MEMORY[0x277D85DE8];
+  mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
+  [mEMORY[0x277D262A0] setBoolValue:passwordsCopy forSetting:*MEMORY[0x277D26000]];
+
+  v6 = +[SFCredentialProviderExtensionManager sharedManager];
+  extensionsSync = [v6 extensionsSync];
+  v8 = [extensionsSync copy];
+
+  if (!passwordsCopy)
+  {
+    v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v11 = v8;
+    v12 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    if (v12)
+    {
+      v13 = v12;
+      v14 = *v19;
+      do
+      {
+        v15 = 0;
+        do
+        {
+          if (*v19 != v14)
+          {
+            objc_enumerationMutation(v11);
+          }
+
+          [v6 setExtension:*(*(&v18 + 1) + 8 * v15++) isEnabled:{0, v18}];
+        }
+
+        while (v13 != v15);
+        v13 = [v11 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      }
+
+      while (v13);
+    }
+
+    selfCopy2 = self;
+    v17 = 0;
+    goto LABEL_15;
+  }
+
+  if (self->_cachedIsPasswordsAppInstalled)
+  {
+    if ([v8 count])
+    {
+      if (self->_cachedIsPasswordsAppInstalled)
+      {
+        goto LABEL_16;
+      }
+
+      goto LABEL_5;
+    }
+
+    selfCopy2 = self;
+    v17 = 1;
+LABEL_15:
+    [(SFAutoFillFeatureManager *)selfCopy2 setShouldAutoFillPasswordsFromKeychain:v17, v18];
+    goto LABEL_16;
+  }
+
+LABEL_5:
+  if ([v8 count] == 1)
+  {
+    allObjects = [v8 allObjects];
+    v10 = [allObjects objectAtIndexedSubscript:0];
+    [v6 setExtension:v10 isEnabled:1];
+  }
+
+LABEL_16:
+}
+
 - (BOOL)isUserAllowedToTogglePasswordAutoFillEnabledState
 {
   mEMORY[0x277D262A0] = [MEMORY[0x277D262A0] sharedConnection];
@@ -277,9 +357,9 @@ uint64_t __53__SFAutoFillFeatureManager_autoFillPreferencesDomain__block_invoke(
   v5 = [v3 alloc];
   v6 = [objc_alloc(MEMORY[0x277CBEBC0]) initWithString:stringCopy];
 
-  v15 = 0;
-  v7 = [v5 initWithURL:v6 error:&v15];
-  v8 = v15;
+  v17 = 0;
+  v7 = [v5 initWithURL:v6 error:&v17];
+  v8 = v17;
 
   bundleRecord = [v7 bundleRecord];
   bundleIdentifier = [bundleRecord bundleIdentifier];
@@ -287,24 +367,24 @@ uint64_t __53__SFAutoFillFeatureManager_autoFillPreferencesDomain__block_invoke(
 
   if (v11)
   {
-    v12 = bundleRecord;
+    v14 = bundleRecord;
   }
 
   else
   {
     if (v8)
     {
-      v13 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = WBS_LOG_CHANNEL_PREFIXAutoFill(v12, v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [(SFAutoFillFeatureManager *)v13 _getBundleRecordIdentifierWithString:v8];
+        [(SFAutoFillFeatureManager *)v15 _getBundleRecordIdentifierWithString:v8];
       }
     }
 
-    v12 = 0;
+    v14 = 0;
   }
 
-  return v12;
+  return v14;
 }
 
 - (id)_getVerificationCodeProviderBundleIdentifier
@@ -360,16 +440,21 @@ LABEL_10:
   [mEMORY[0x277D499B8]2 reportVerificationCodeProvider:_getVerificationCodeProviderBundleIdentifier];
 }
 
+- (void)test_overrideUserIsEligibleForPasskeys:(BOOL)passkeys
+{
+  self->_overrideUserIsEligibleForPasskeys = [MEMORY[0x277CCABB0] numberWithBool:passkeys];
+
+  MEMORY[0x2821F96F8]();
+}
+
 - (void)_getBundleRecordIdentifierWithString:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_26450F000, v3, OS_LOG_TYPE_ERROR, "Verification Code bundle identifier does not exist, error: %@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_26450F000, v3, OS_LOG_TYPE_ERROR, "Verification Code bundle identifier does not exist, error: %@", &v5, 0xCu);
 }
 
 @end

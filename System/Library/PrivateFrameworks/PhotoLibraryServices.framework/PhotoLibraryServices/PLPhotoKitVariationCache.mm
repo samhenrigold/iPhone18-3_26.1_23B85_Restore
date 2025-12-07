@@ -336,7 +336,7 @@ void __41__PLPhotoKitVariationCache_evictIfNeeded__block_invoke(uint64_t a1)
   v50[2] = *MEMORY[0x1E695DB50];
   v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:3];
   v8 = [v5 contentsOfDirectoryAtURL:*(*(a1 + 32) + 24) includingPropertiesForKeys:? options:? error:?];
-  v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v8, "count")}];
+  v9 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(v8)];
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
@@ -369,9 +369,9 @@ LABEL_31:
       v16 = [v15 resourceValuesForKeys:v38 error:{0, v32}];
       v17 = [v16 objectForKeyedSubscript:v6];
       v18 = [v17 pathExtension];
-      v19 = [v18 isEqualToString:@"plist"];
+      isEqualToString = objc_msgSend_isEqualToString_(v18);
 
-      if (v19)
+      if (isEqualToString)
       {
         v20 = [v16 objectForKeyedSubscript:v35];
         v21 = v20;
@@ -384,9 +384,9 @@ LABEL_31:
             v36 += [v23 integerValue];
           }
 
-          if ([v9 count])
+          if (objc_msgSend_count(v9))
           {
-            [v9 insertObject:v15 atIndex:{objc_msgSend(v9, "indexOfObject:inSortedRange:options:usingComparator:", v15, 0, objc_msgSend(v9, "count"), 1024, &__block_literal_global_9037)}];
+            [v9 insertObject:v15 atIndex:{objc_msgSend(v9, "indexOfObject:inSortedRange:options:usingComparator:", v15, 0, objc_msgSend_count(v9), 1024, &__block_literal_global_9037)}];
           }
 
           else
@@ -560,7 +560,7 @@ void __84__PLPhotoKitVariationCache_gatingResultForVariationType_assetIdentifier
 
 void __89__PLPhotoKitVariationCache_saveGatingResult_forVariationType_assetIdentifier_sourceType___block_invoke(uint64_t a1)
 {
-  if ([*(a1 + 32) count])
+  if (objc_msgSend_count(*(a1 + 32)))
   {
     v2 = *(a1 + 40);
     v3 = *(a1 + 48);
@@ -642,7 +642,7 @@ void __80__PLPhotoKitVariationCache_portraitEffectSettingsForAssetIdentifier_sou
 
 void __82__PLPhotoKitVariationCache_savePortraitEffectSettings_sourceType_assetIdentifier___block_invoke(uint64_t a1)
 {
-  if ([*(a1 + 32) count])
+  if (objc_msgSend_count(*(a1 + 32)))
   {
     v2 = *(a1 + 40);
     v3 = *(a1 + 48);
@@ -713,7 +713,7 @@ void __72__PLPhotoKitVariationCache_analysisResultForAssetIdentifier_sourceType_
 
 void __74__PLPhotoKitVariationCache_saveAnalysisResult_assetIdentifier_sourceType___block_invoke(uint64_t a1)
 {
-  if ([*(a1 + 32) count])
+  if (objc_msgSend_count(*(a1 + 32)))
   {
     v2 = *(a1 + 40);
     v3 = *(a1 + 48);

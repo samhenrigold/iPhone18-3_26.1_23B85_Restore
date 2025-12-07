@@ -29,13 +29,11 @@
   toCopy = to;
   if ([(_CPSearchViewDisappearFeedback *)self timestamp])
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
   }
 
   if ([(_CPSearchViewDisappearFeedback *)self viewDisappearEvent])
   {
-    viewDisappearEvent = self->_viewDisappearEvent;
     PBDataWriterWriteInt32Field();
   }
 }

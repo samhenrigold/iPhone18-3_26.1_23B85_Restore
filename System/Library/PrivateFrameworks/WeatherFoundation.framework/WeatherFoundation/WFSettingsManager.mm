@@ -99,8 +99,7 @@ void __40__WFSettingsManager_setupRemoteSettings__block_invoke(uint64_t a1)
   v3 = +[WFRemoteAppSettings defaultSettings];
   [v2 setSettings:v3];
 
-  [*v1 clearConfigCacheOnLaunchIfRequested];
-  v4 = WeatherFoundationInternalUserDefaults();
+  v4 = WeatherFoundationInternalUserDefaults([*v1 clearConfigCacheOnLaunchIfRequested]);
   v5 = [v4 objectForKey:@"cachedAppConfig"];
 
   if (v5)
@@ -205,7 +204,7 @@ void __40__WFSettingsManager_setupRemoteSettings__block_invoke(uint64_t a1)
 
 + (id)userIdentifier
 {
-  v2 = WeatherFoundationInternalUserDefaults();
+  v2 = WeatherFoundationInternalUserDefaults(self);
   uUIDString = [v2 stringForKey:@"userId"];
 
   if (!uUIDString)
@@ -213,8 +212,8 @@ void __40__WFSettingsManager_setupRemoteSettings__block_invoke(uint64_t a1)
     uUID = [MEMORY[0x277CCAD78] UUID];
     uUIDString = [uUID UUIDString];
 
-    v5 = WeatherFoundationInternalUserDefaults();
-    [v5 setValue:uUIDString forKey:@"userId"];
+    v6 = WeatherFoundationInternalUserDefaults(v5);
+    [v6 setValue:uUIDString forKey:@"userId"];
   }
 
   return uUIDString;
@@ -225,7 +224,7 @@ void __40__WFSettingsManager_setupRemoteSettings__block_invoke(uint64_t a1)
   if (identifier)
   {
     identifierCopy = identifier;
-    v4 = WeatherFoundationInternalUserDefaults();
+    v4 = WeatherFoundationInternalUserDefaults(identifierCopy);
     [v4 setValue:identifierCopy forKey:@"userId"];
   }
 }
@@ -266,7 +265,7 @@ void __40__WFSettingsManager_setupRemoteSettings__block_invoke(uint64_t a1)
 
 - (BOOL)clearConfigCacheOnLaunchIfRequested
 {
-  v2 = WeatherFoundationInternalUserDefaults();
+  v2 = WeatherFoundationInternalUserDefaults(self);
   v3 = [v2 BOOLForKey:@"clearConfigCacheOnLaunch"];
 
   if (!v3)
@@ -274,26 +273,26 @@ void __40__WFSettingsManager_setupRemoteSettings__block_invoke(uint64_t a1)
     return 0;
   }
 
-  v4 = WeatherFoundationInternalUserDefaults();
-  [v4 setBool:0 forKey:@"clearConfigCacheOnLaunch"];
+  v5 = WeatherFoundationInternalUserDefaults(v4);
+  [v5 setBool:0 forKey:@"clearConfigCacheOnLaunch"];
 
   wf_cacheDirectory = [MEMORY[0x277CBEBC0] wf_cacheDirectory];
-  v6 = WeatherFoundationInternalUserDefaults();
-  [v6 removeObjectForKey:@"cachedAppConfig"];
+  v7 = WeatherFoundationInternalUserDefaults(wf_cacheDirectory);
+  [v7 removeObjectForKey:@"cachedAppConfig"];
 
-  v7 = WeatherFoundationInternalUserDefaults();
-  [v7 removeObjectForKey:@"cachedAppConfigLastSavedDate"];
+  v9 = WeatherFoundationInternalUserDefaults(v8);
+  [v9 removeObjectForKey:@"cachedAppConfigLastSavedDate"];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v9 = [defaultManager removeItemAtURL:wf_cacheDirectory error:0];
+  v11 = [defaultManager removeItemAtURL:wf_cacheDirectory error:0];
 
-  v10 = WFLogForCategory(0xAuLL);
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  v12 = WFLogForCategory(0xAuLL);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    [(WFSettingsManager *)v9 clearConfigCacheOnLaunchIfRequested];
+    [(WFSettingsManager *)v11 clearConfigCacheOnLaunchIfRequested];
   }
 
-  return v9;
+  return v11;
 }
 
 - (void)fetchAppConfigurationIfExpired
@@ -336,7 +335,7 @@ void __40__WFSettingsManager_setupRemoteSettings__block_invoke(uint64_t a1)
 
 - (id)debugOverrides
 {
-  v3 = WeatherFoundationInternalUserDefaults();
+  v3 = WeatherFoundationInternalUserDefaults(self);
   v4 = [v3 stringForKey:@"remoteconfiguration_env"];
 
   if (v4)
@@ -426,9 +425,9 @@ void __73__WFSettingsManager_fetchAppConfigurationWithCompletionQueue_completion
   else
   {
     v11 = *(a1 + 40);
-    v19 = 0;
-    v12 = [WFRemoteAppSettings configurationWithData:v7 userID:v11 error:&v19];
-    v13 = v19;
+    v20 = 0;
+    v12 = [WFRemoteAppSettings configurationWithData:v7 userID:v11 error:&v20];
+    v13 = v20;
     v14 = WFLogForCategory(0xAuLL);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
@@ -446,13 +445,12 @@ void __73__WFSettingsManager_fetchAppConfigurationWithCompletionQueue_completion
 
     else
     {
-      [WeakRetained setSettings:v12];
-      v16 = WeatherFoundationInternalUserDefaults();
+      v16 = WeatherFoundationInternalUserDefaults([WeakRetained setSettings:v12]);
       [v16 setObject:v7 forKey:@"cachedAppConfig"];
 
-      v17 = WeatherFoundationInternalUserDefaults();
-      v18 = [MEMORY[0x277CBEAA8] date];
-      [v17 setObject:v18 forKey:@"cachedAppConfigLastSavedDate"];
+      v18 = WeatherFoundationInternalUserDefaults(v17);
+      v19 = [MEMORY[0x277CBEAA8] date];
+      [v18 setObject:v19 forKey:@"cachedAppConfigLastSavedDate"];
 
       [WeakRetained notifyObserversOfAppConfigRefresh];
     }
@@ -587,7 +585,7 @@ void __54__WFSettingsManager_completeOnQueue_error_completion___block_invoke(uin
 
 - (id)containerIdentifier
 {
-  v2 = WeatherFoundationInternalUserDefaults();
+  v2 = WeatherFoundationInternalUserDefaults(self);
   v3 = [v2 stringForKey:@"remoteconfiguration_env"];
 
   if ([v3 isEqualToString:@"remoteconfig_staging"])

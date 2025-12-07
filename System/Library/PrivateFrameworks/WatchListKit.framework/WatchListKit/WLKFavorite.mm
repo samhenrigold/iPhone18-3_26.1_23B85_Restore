@@ -49,10 +49,9 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  ID = self->_ID;
-  v7 = [v3 stringWithFormat:@"<%@: %p name:%@ ID:%@ leagueID:%@>", v5, self, self->_name, ID, self->_leagueID];
+  v6 = [v3 stringWithFormat:@"<%@: %p name:%@ ID:%@ leagueID:%@>", v5, self, self->_name, self->_ID, self->_leagueID];
 
-  return v7;
+  return v6;
 }
 
 - (WLKFavorite)initWithID:(id)d name:(id)name leagueID:(id)iD

@@ -2,6 +2,7 @@
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
 - (void)loadView;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation PKContinuityPaymentViewControllerAccessibility
@@ -28,6 +29,14 @@
   v3.super_class = PKContinuityPaymentViewControllerAccessibility;
   [(PKContinuityPaymentViewControllerAccessibility *)&v3 loadView];
   [(PKContinuityPaymentViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = PKContinuityPaymentViewControllerAccessibility;
+  [(PKContinuityPaymentViewControllerAccessibility *)&v3 viewDidAppear:appear];
+  AXPerformBlockOnMainThreadAfterDelay();
 }
 
 void __64__PKContinuityPaymentViewControllerAccessibility_viewDidAppear___block_invoke(uint64_t a1)

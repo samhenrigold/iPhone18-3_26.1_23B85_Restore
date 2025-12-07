@@ -36,7 +36,7 @@
 
 - (void)beginQuery
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = +[DADAgentManager sharedManager];
   accountID = [(DADClientDelegate *)self accountID];
   v5 = [v3 accountWithAccountID:accountID];
@@ -54,16 +54,14 @@
     if (os_log_type_enabled(v7, v8))
     {
       accountID2 = [(DADClientDelegate *)self accountID];
-      v12 = 138543362;
-      v13 = accountID2;
-      _os_log_impl(&dword_248524000, v7, v8, "Could not get an account with the ID %{public}@", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = accountID2;
+      _os_log_impl(&dword_248524000, v7, v8, "Could not get an account with the ID %{public}@", &v11, 0xCu);
     }
 
     v10 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D038E0] code:55 userInfo:0];
     [(DADClientContactsSearchDelegate *)self finishWithError:v10];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)searchQuery:(id)query returnedResults:(id)results
@@ -86,7 +84,7 @@
 
 - (void)finishWithError:(id)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (![(DADClientDelegate *)self finished])
   {
@@ -99,9 +97,9 @@
       code = [errorCopy code];
       query = [(DADClientContactsSearchDelegate *)self query];
       *buf = 134218240;
-      v36 = code;
-      v37 = 2048;
-      v38 = query;
+      v35 = code;
+      v36 = 2048;
+      v37 = query;
       _os_log_impl(&dword_248524000, v5, v7, "DADClientContactsSearchDelegate finished with status %ld. Finishing DASearchQuery %p", buf, 0x16u);
     }
 
@@ -125,7 +123,7 @@
         {
           accountID2 = [(DADClientDelegate *)self accountID];
           *buf = 138543362;
-          v36 = accountID2;
+          v35 = accountID2;
           _os_log_impl(&dword_248524000, query2, v19, "DADServerContactsSearchTask finished, but could not find an account with the ID %{public}@", buf, 0xCu);
         }
       }
@@ -139,10 +137,10 @@
       if (rawConnection)
       {
         v15 = *MEMORY[0x277D03C88];
-        v34[0] = *MEMORY[0x277D03DD0];
+        v33[0] = *MEMORY[0x277D03DD0];
         v16 = *MEMORY[0x277D03E38];
-        v31 = v15;
-        v32 = v16;
+        v30 = v15;
+        v31 = v16;
         v17 = MEMORY[0x277CCABB0];
         if (errorCopy)
         {
@@ -154,12 +152,12 @@
           code2 = 2;
         }
 
-        v21 = [v17 numberWithInteger:{code2, v31, v32}];
-        v34[1] = v21;
-        v33 = *MEMORY[0x277D03DB8];
+        v21 = [v17 numberWithInteger:{code2, v30, v31}];
+        v33[1] = v21;
+        v32 = *MEMORY[0x277D03DB8];
         delegateID = [(DADClientDelegate *)self delegateID];
-        v34[2] = delegateID;
-        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v31 count:3];
+        v33[2] = delegateID;
+        v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v30 count:3];
         v24 = [v23 mutableCopy];
 
         queryResultData = [(DADClientContactsSearchDelegate *)self queryResultData];
@@ -182,8 +180,6 @@
     delegateID2 = [(DADClientDelegate *)self delegateID];
     [client2 delegateWithIDIsGoingAway:delegateID2];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 @end

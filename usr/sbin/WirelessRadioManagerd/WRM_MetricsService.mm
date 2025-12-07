@@ -39,7 +39,9 @@
 - (void)resetiRATMetricCellularToWifi;
 - (void)resetiRATMetricLinkPrefInit;
 - (void)resetiRATMetricWiFiToCellular;
+- (void)updateiRATMetricCellToWifi:(BOOL)wifi :(unint64_t)a4 :(int)a5 :(int)a6;
 - (void)updateiRATMetricLinkInit:(int)init;
+- (void)updateiRATMetricWifiToCell:(BOOL)cell :(unint64_t)a4 :(int)a5 :(int)a6;
 @end
 
 @implementation WRM_MetricsService
@@ -306,6 +308,265 @@ LABEL_8:
   {
     strcpy(a4, "NONE");
   }
+}
+
+- (void)updateiRATMetricWifiToCell:(BOOL)cell :(unint64_t)a4 :(int)a5 :(int)a6
+{
+  v6 = *&a6;
+  v7 = *&a5;
+  cellCopy = cell;
+  [(WRM_MetricsService *)self getReasonStr:*&a6];
+  self->mWiFiCallingMetrics->mWifiCallingEnd.Call_End_Reason = v14;
+  [WCM_Logging logLevel:25 message:@"========= %s === reason 0x%x =============", "[WRM_MetricsService updateiRATMetricWifiToCell::::]", v6];
+  v11 = "NO";
+  if (cellCopy)
+  {
+    v11 = "YES";
+  }
+
+  [WCM_Logging logLevel:25 message:@"%s: callActive %s app %ld mob %ld reason 0x%x (%s)", "[WRM_MetricsService updateiRATMetricWifiToCell::::]", v11, a4, v7, v6, v14];
+  v12 = objc_alloc_init(WRM_HORecordCacheEntry);
+  [(WRM_HORecordCacheEntry *)v12 setWithRecord:100];
+  [(NSMutableArray *)self->miRATMetrics->mHORecordCache addObject:v12];
+  if ([(NSMutableArray *)self->miRATMetrics->mHORecordCache count]>= 0xB)
+  {
+    [(NSMutableArray *)self->miRATMetrics->mHORecordCache removeObjectAtIndex:0];
+  }
+
+  ++self->miRATMetrics->mWifiToCell.count;
+  v13 = 12;
+  if (cellCopy)
+  {
+    v13 = 16;
+  }
+
+  ++*(&self->miRATMetrics->super.isa + v13);
+  [(WRM_MetricsService *)self appCountUpdate:&self->miRATMetrics->mWifiToCell.appType];
+  [(WRM_MetricsService *)self mobCountUpdate:&self->miRATMetrics->mWifiToCell.mobStatus];
+  if (v6)
+  {
+    ++self->miRATMetrics->mWifiToCell.reason.nBrokenBH_DPD_or_Video;
+    if ((v6 & 2) == 0)
+    {
+LABEL_9:
+      if ((v6 & 4) == 0)
+      {
+        goto LABEL_10;
+      }
+
+      goto LABEL_21;
+    }
+  }
+
+  else if ((v6 & 2) == 0)
+  {
+    goto LABEL_9;
+  }
+
+  ++self->miRATMetrics->mWifiToCell.reason.nWiFiNotReady;
+  if ((v6 & 4) == 0)
+  {
+LABEL_10:
+    if ((v6 & 8) == 0)
+    {
+      goto LABEL_11;
+    }
+
+    goto LABEL_22;
+  }
+
+LABEL_21:
+  ++self->miRATMetrics->mWifiToCell.reason.nWiFiBadSNR;
+  if ((v6 & 8) == 0)
+  {
+LABEL_11:
+    if ((v6 & 0x10) == 0)
+    {
+      goto LABEL_12;
+    }
+
+    goto LABEL_23;
+  }
+
+LABEL_22:
+  ++self->miRATMetrics->mWifiToCell.reason.nWiFiBadRSSI;
+  if ((v6 & 0x10) == 0)
+  {
+LABEL_12:
+    if ((v6 & 0x20) == 0)
+    {
+      goto LABEL_13;
+    }
+
+    goto LABEL_24;
+  }
+
+LABEL_23:
+  ++self->miRATMetrics->mWifiToCell.reason.nWiFiBadARQ;
+  if ((v6 & 0x20) == 0)
+  {
+LABEL_13:
+    if ((v6 & 0x40) == 0)
+    {
+      goto LABEL_14;
+    }
+
+    goto LABEL_25;
+  }
+
+LABEL_24:
+  ++self->miRATMetrics->mWifiToCell.reason.nWiFiBadLoad;
+  if ((v6 & 0x40) == 0)
+  {
+LABEL_14:
+    if ((v6 & 0x80) == 0)
+    {
+      goto LABEL_15;
+    }
+
+    goto LABEL_26;
+  }
+
+LABEL_25:
+  ++self->miRATMetrics->mWifiToCell.reason.nWiFiBadBrokenBH_SIP_VideoStall;
+  if ((v6 & 0x80) == 0)
+  {
+LABEL_15:
+    if ((v6 & 0x100) == 0)
+    {
+      goto LABEL_16;
+    }
+
+LABEL_27:
+    ++self->miRATMetrics->mWifiToCell.reason.nWiFiBadRTP;
+    if ((v6 & 0x200) == 0)
+    {
+      goto LABEL_18;
+    }
+
+    goto LABEL_17;
+  }
+
+LABEL_26:
+  ++self->miRATMetrics->mWifiToCell.reason.nWiFiBadSymptom;
+  if ((v6 & 0x100) != 0)
+  {
+    goto LABEL_27;
+  }
+
+LABEL_16:
+  if ((v6 & 0x200) != 0)
+  {
+LABEL_17:
+    ++self->miRATMetrics->mWifiToCell.reason.nWiFiCellularGood;
+  }
+
+LABEL_18:
+  [(WRM_MetricsService *)self dumpiRATWifiToCell];
+  [WCM_Logging logLevel:25 message:@"=============================================================================="];
+}
+
+- (void)updateiRATMetricCellToWifi:(BOOL)wifi :(unint64_t)a4 :(int)a5 :(int)a6
+{
+  v6 = *&a6;
+  v7 = *&a5;
+  wifiCopy = wifi;
+  [(WRM_MetricsService *)self getReasonStr:*&a6];
+  [WCM_Logging logLevel:25 message:@"========= %s ==== reason 0x%x  ============", "[WRM_MetricsService updateiRATMetricCellToWifi::::]", v6];
+  v11 = "NO";
+  if (wifiCopy)
+  {
+    v11 = "YES";
+  }
+
+  [WCM_Logging logLevel:25 message:@"%s: callActive %s app %ld mob %ld reason 0x%x (%s)", "[WRM_MetricsService updateiRATMetricCellToWifi::::]", v11, a4, v7, v6, v14];
+  v12 = objc_alloc_init(WRM_HORecordCacheEntry);
+  [(WRM_HORecordCacheEntry *)v12 setWithRecord:200];
+  [(NSMutableArray *)self->miRATMetrics->mHORecordCache addObject:v12];
+  if ([(NSMutableArray *)self->miRATMetrics->mHORecordCache count]>= 0xB)
+  {
+    [(NSMutableArray *)self->miRATMetrics->mHORecordCache removeObjectAtIndex:0];
+  }
+
+  ++self->miRATMetrics->mCellToWifi.count;
+  v13 = 124;
+  if (wifiCopy)
+  {
+    v13 = 128;
+  }
+
+  ++*(&self->miRATMetrics->super.isa + v13);
+  [(WRM_MetricsService *)self appCountUpdate:&self->miRATMetrics->mCellToWifi.appType];
+  [(WRM_MetricsService *)self mobCountUpdate:&self->miRATMetrics->mCellToWifi.mobStatus];
+  if ((v6 & 0x10000) != 0)
+  {
+    ++self->miRATMetrics->mCellToWifi.reason.nWiFiGood;
+    if ((v6 & 0x20000) == 0)
+    {
+LABEL_9:
+      if ((v6 & 0x40000) == 0)
+      {
+        goto LABEL_10;
+      }
+
+      goto LABEL_17;
+    }
+  }
+
+  else if ((v6 & 0x20000) == 0)
+  {
+    goto LABEL_9;
+  }
+
+  ++self->miRATMetrics->mCellToWifi.reason.nCellularNotReady;
+  if ((v6 & 0x40000) == 0)
+  {
+LABEL_10:
+    if ((v6 & 0x80000) == 0)
+    {
+      goto LABEL_11;
+    }
+
+    goto LABEL_18;
+  }
+
+LABEL_17:
+  ++self->miRATMetrics->mCellToWifi.reason.nCelluarBadSigBar;
+  if ((v6 & 0x80000) == 0)
+  {
+LABEL_11:
+    if ((v6 & 0x100000) == 0)
+    {
+      goto LABEL_12;
+    }
+
+LABEL_19:
+    ++self->miRATMetrics->mCellToWifi.reason.nCelluarBadRsrp;
+    if ((v6 & 0x200000) == 0)
+    {
+      goto LABEL_14;
+    }
+
+    goto LABEL_13;
+  }
+
+LABEL_18:
+  ++self->miRATMetrics->mCellToWifi.reason.nCelluarBadLQM;
+  if ((v6 & 0x100000) != 0)
+  {
+    goto LABEL_19;
+  }
+
+LABEL_12:
+  if ((v6 & 0x200000) != 0)
+  {
+LABEL_13:
+    ++self->miRATMetrics->mCellToWifi.reason.nCelluarBadEcio;
+  }
+
+LABEL_14:
+  [(WRM_MetricsService *)self dumpiRATCellToWifi];
+  [WCM_Logging logLevel:25 message:@"=============================================================================="];
 }
 
 - (void)dumpiRATCellToWifi

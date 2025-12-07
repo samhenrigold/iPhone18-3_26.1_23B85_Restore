@@ -93,34 +93,34 @@ LABEL_4:
 {
   if (IMOSLoggingEnabled())
   {
-    v0 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+    v2 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_19020E000, v0, OS_LOG_TYPE_INFO, "Generate placeholder image", buf, 2u);
+      _os_log_impl(&dword_19020E000, v2, OS_LOG_TYPE_INFO, "Generate placeholder image", buf, 2u);
     }
   }
 
   mainScreen = [MEMORY[0x1E69DCEB0] mainScreen];
   [mainScreen scale];
-  v3 = v2;
+  v5 = v4;
 
-  v8 = v3;
-  [MEMORY[0x1E69DCAB8] _iconVariantForUIApplicationIconFormat:14 scale:&v8];
-  v4 = LICreateDefaultIcon();
-  if (v4)
+  v10 = v5;
+  [MEMORY[0x1E69DCAB8] _iconVariantForUIApplicationIconFormat:14 scale:&v10];
+  v6 = LICreateDefaultIcon();
+  if (v6)
   {
-    v5 = v4;
-    v6 = [MEMORY[0x1E69DCAB8] imageWithCGImage:v4];
-    CFRelease(v5);
+    v7 = v6;
+    v8 = [MEMORY[0x1E69DCAB8] imageWithCGImage:v6];
+    CFRelease(v7);
   }
 
   else
   {
-    v6 = 0;
+    v8 = 0;
   }
 
-  return v6;
+  return v8;
 }
 
 - (id)__ck_typingImage

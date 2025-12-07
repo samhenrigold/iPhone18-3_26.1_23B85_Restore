@@ -31,95 +31,93 @@
   type = self->_type;
   self->_type = ik_sharedInstance;
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](ik_sharedInstance, type);
 }
 
 - (id)expressionAsString
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v4 = self->_queryList;
-  v5 = [(IKArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [(IKArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     v8 = 1;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         if (v8)
         {
           type = [(IKCSSMediaQueryAndList *)self type];
           expressionAsString = [v10 expressionAsString];
-          [string appendFormat:@"%@ and (%@)", type, expressionAsString, v15];
+          [string appendFormat:@"%@ and (%@)", type, expressionAsString, v14];
         }
 
         else
         {
-          type = [*(*(&v15 + 1) + 8 * i) expressionAsString];
+          type = [*(*(&v14 + 1) + 8 * i) expressionAsString];
           [string appendFormat:@" and (%@)", type];
         }
 
         v8 = 0;
       }
 
-      v6 = [(IKArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [(IKArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       v8 = 0;
     }
 
     while (v6);
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return string;
 }
 
 - (BOOL)evaluate
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [[IKStyleMediaQuery alloc] initWithMediaType:self->_type featureValues:0 isNegated:0];
   if (v3)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v4 = self->_queryList;
-    v5 = [(IKArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v5 = [(IKArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v14;
+      v7 = *v13;
       while (2)
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v7)
+          if (*v13 != v7)
           {
             objc_enumerationMutation(v4);
           }
 
-          if (![*(*(&v13 + 1) + 8 * i) evaluate])
+          if (![*(*(&v12 + 1) + 8 * i) evaluate])
           {
             v9 = 0;
             goto LABEL_12;
           }
         }
 
-        v6 = [(IKArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [(IKArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
         if (v6)
         {
           continue;
@@ -140,7 +138,6 @@ LABEL_12:
 
   negated = self->_negated;
 
-  v11 = *MEMORY[0x277D85DE8];
   return (v9 ^ negated) & 1;
 }
 

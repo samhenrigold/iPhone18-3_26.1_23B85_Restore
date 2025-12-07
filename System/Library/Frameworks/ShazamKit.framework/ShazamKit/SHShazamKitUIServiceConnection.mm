@@ -78,38 +78,34 @@
 
 void __65__SHShazamKitUIServiceConnection_attachDefaultConnectionHandlers__block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = shcore_log_object();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v6 = 138412290;
-    v7 = WeakRetained;
-    _os_log_impl(&dword_230F52000, v2, OS_LOG_TYPE_ERROR, "Fired XPC service interruption handler %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = WeakRetained;
+    _os_log_impl(&dword_230F52000, v2, OS_LOG_TYPE_ERROR, "Fired XPC service interruption handler %@", &v5, 0xCu);
   }
 
   v4 = objc_loadWeakRetained((a1 + 32));
   [v4 tearDownConnection];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __65__SHShazamKitUIServiceConnection_attachDefaultConnectionHandlers__block_invoke_3(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = shcore_log_object();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
-    v6 = 138412290;
-    v7 = WeakRetained;
-    _os_log_impl(&dword_230F52000, v2, OS_LOG_TYPE_ERROR, "Fired XPC service invalidation handler %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = WeakRetained;
+    _os_log_impl(&dword_230F52000, v2, OS_LOG_TYPE_ERROR, "Fired XPC service invalidation handler %@", &v5, 0xCu);
   }
 
   v4 = objc_loadWeakRetained((a1 + 32));
   [v4 tearDownConnection];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tearDownConnection

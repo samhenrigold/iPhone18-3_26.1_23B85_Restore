@@ -12,10 +12,11 @@
 
 + (void)initialize
 {
-  if (objc_opt_class() == self)
+  v3 = objc_opt_class();
+  if (v3 == self)
   {
 
-    BNRegisterBannerKitLogging();
+    BNRegisterBannerKitLogging(v3, v4);
   }
 }
 

@@ -13,7 +13,7 @@
 
 - (id)_optimalResult
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (self->_type != 4)
   {
     selfCopy = self;
@@ -28,27 +28,27 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v3 = self->_results;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        _optimalResult = [*(*(&v15 + 1) + 8 * i) _optimalResult];
+        _optimalResult = [*(*(&v14 + 1) + 8 * i) _optimalResult];
         v10 = _optimalResult;
         if (!v6 || _optimalResult[1] > v6->_type)
         {
@@ -58,7 +58,7 @@ LABEL_16:
         }
       }
 
-      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [(NSArray *)v3 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -70,7 +70,6 @@ LABEL_16:
   }
 
 LABEL_19:
-  v13 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

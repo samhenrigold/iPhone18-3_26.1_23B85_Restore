@@ -2357,7 +2357,7 @@ LABEL_23:
         v23 = 0u;
         v24 = 0u;
         *buf = 0u;
-        +[StartNavigationDetailsBuilder defaultNavigationDetailsOptions];
+        objc_msgSend_defaultNavigationDetailsOptions(StartNavigationDetailsBuilder);
         *&v23 = 2;
         *(&v24 + 1) = 0;
         appCoordinator = [(ActionCoordinator *)self appCoordinator];
@@ -4637,8 +4637,8 @@ LABEL_60:
       v12 = objc_retainBlock(v31);
       if (currentViewController)
       {
-        configuration = [currentViewController configuration];
-        shouldRestoreCamera = [configuration shouldRestoreCamera];
+        v13 = objc_msgSend_configuration(currentViewController);
+        shouldRestoreCamera = [v13 shouldRestoreCamera];
         v29[0] = _NSConcreteStackBlock;
         v29[1] = 3221225472;
         v29[2] = sub_10090F784;

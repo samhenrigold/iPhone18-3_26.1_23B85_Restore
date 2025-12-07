@@ -23,11 +23,16 @@
 - (void)pairedWatchDidChange:(id)change;
 - (void)registerUpdateBlock:(id)block forRetrieveSelector:(SEL)selector withListener:(id)listener;
 - (void)setCurrentLeq:(double)leq;
+- (void)setHearingProtectionDeviceAvailable:(BOOL)available;
+- (void)setInternalLoggingEnabled:(BOOL)enabled;
 - (void)setLeqDuration:(double)duration;
 - (void)setLeqTimestamp:(id)timestamp;
+- (void)setMigratedThreshold:(BOOL)threshold;
 - (void)setNoiseEnabled:(BOOL)enabled;
 - (void)setNotificationMuteDate:(id)date;
 - (void)setNotificationThreshold:(unint64_t)threshold;
+- (void)setNotificationsEnabled:(BOOL)enabled;
+- (void)setOnboardingCompleted:(BOOL)completed;
 - (void)setThresholdVersion:(unint64_t)version;
 @end
 
@@ -47,9 +52,11 @@
 
 uint64_t __33__HUNoiseSettings_sharedInstance__block_invoke()
 {
-  sharedInstance_Settings_3 = objc_alloc_init(HUNoiseSettings);
+  v0 = objc_alloc_init(HUNoiseSettings);
+  v1 = sharedInstance_Settings_3;
+  sharedInstance_Settings_3 = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (HUNoiseSettings)init
@@ -91,7 +98,7 @@ uint64_t __33__HUNoiseSettings_sharedInstance__block_invoke()
 {
   domainAccessor = self->_domainAccessor;
   self->_domainAccessor = 0;
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](self, domainAccessor);
 }
 
 - (NPSDomainAccessor)domainAccessor
@@ -233,7 +240,7 @@ void __44__HUNoiseSettings__registerForNotification___block_invoke_2(uint64_t a1
 
 - (void)registerUpdateBlock:(id)block forRetrieveSelector:(SEL)selector withListener:(id)listener
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v25[2] = *MEMORY[0x1E69E9840];
   blockCopy = block;
   listenerCopy = listener;
   v10 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:listenerCopy];
@@ -246,10 +253,10 @@ void __44__HUNoiseSettings__registerForNotification___block_invoke_2(uint64_t a1
   array = [v12 objectForKey:v13];
   if (blockCopy)
   {
-    v26[0] = v10;
+    v25[0] = v10;
     v15 = _Block_copy(blockCopy);
-    v26[1] = v15;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+    v25[1] = v15;
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
 
     if (!array)
     {
@@ -270,18 +277,18 @@ void __44__HUNoiseSettings__registerForNotification___block_invoke_2(uint64_t a1
 
   else
   {
-    v21 = MEMORY[0x1E69E9820];
-    v22 = 3221225472;
-    v23 = __72__HUNoiseSettings_registerUpdateBlock_forRetrieveSelector_withListener___block_invoke;
-    v24 = &unk_1E85CA868;
-    v25 = v10;
-    v18 = [array indexesOfObjectsPassingTest:&v21];
+    v20 = MEMORY[0x1E69E9820];
+    v21 = 3221225472;
+    v22 = __72__HUNoiseSettings_registerUpdateBlock_forRetrieveSelector_withListener___block_invoke;
+    v23 = &unk_1E85CA868;
+    v24 = v10;
+    v18 = [array indexesOfObjectsPassingTest:&v20];
     if ([v18 count])
     {
       [array removeObjectsAtIndexes:v18];
     }
 
-    v16 = v25;
+    v16 = v24;
   }
 
   [(NSLock *)self->_synchronizeDomainsLock lock];
@@ -289,7 +296,6 @@ void __44__HUNoiseSettings__registerForNotification___block_invoke_2(uint64_t a1
   [updateBlocks2 setObject:array forKey:v13];
 
   [(NSLock *)self->_synchronizeDomainsLock unlock];
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __72__HUNoiseSettings_registerUpdateBlock_forRetrieveSelector_withListener___block_invoke(uint64_t a1, void *a2)
@@ -321,7 +327,7 @@ uint64_t __72__HUNoiseSettings_registerUpdateBlock_forRetrieveSelector_withListe
 
 - (void)_setValue:(id)value forPreferenceKey:(id)key
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   valueCopy = value;
   domainAccessor = [(HUNoiseSettings *)self domainAccessor];
@@ -333,8 +339,8 @@ uint64_t __72__HUNoiseSettings_registerUpdateBlock_forRetrieveSelector_withListe
   v11 = objc_opt_new();
   v12 = kAXSNoisePreferenceDomain;
   v13 = MEMORY[0x1E695DFD8];
-  v19[0] = keyCopy;
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+  v18[0] = keyCopy;
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
   v15 = [v13 setWithArray:v14];
   [v11 synchronizeNanoDomain:v12 keys:v15];
 
@@ -345,8 +351,6 @@ uint64_t __72__HUNoiseSettings_registerUpdateBlock_forRetrieveSelector_withListe
     DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
     CFNotificationCenterPostNotification(DarwinNotifyCenter, v16, 0, 0, 1u);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_synchronizeIfNecessary:(id)necessary
@@ -391,15 +395,19 @@ uint64_t __72__HUNoiseSettings_registerUpdateBlock_forRetrieveSelector_withListe
 
 id __35__HUNoiseSettings_setNoiseEnabled___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = @"enabled";
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"enabled";
   v1 = [MEMORY[0x1E696AD98] numberWithBool:*(a1 + 32)];
-  v6[0] = v1;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-
-  v3 = *MEMORY[0x1E69E9840];
+  v5[0] = v1;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
+}
+
+- (void)setOnboardingCompleted:(BOOL)completed
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:completed];
+  [(HUNoiseSettings *)self _setValue:v4 forPreferenceKey:@"OnboardingCompleted"];
 }
 
 - (BOOL)notificationsEnabled
@@ -419,6 +427,12 @@ id __35__HUNoiseSettings_setNoiseEnabled___block_invoke(uint64_t a1)
 
     return AXSettingsReturnBoolValue(@"NotificationsEnabled");
   }
+}
+
+- (void)setNotificationsEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(HUNoiseSettings *)self _setValue:v4 forPreferenceKey:@"NotificationsEnabled"];
 }
 
 - (unint64_t)notificationThreshold
@@ -490,26 +504,36 @@ id __35__HUNoiseSettings_setNoiseEnabled___block_invoke(uint64_t a1)
   [(HUNoiseSettings *)self _setValue:v4 forPreferenceKey:@"LeqDuration"];
 }
 
+- (void)setMigratedThreshold:(BOOL)threshold
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:threshold];
+  [(HUNoiseSettings *)self _setValue:v4 forPreferenceKey:@"ThresholdMigration"];
+}
+
 - (void)setThresholdVersion:(unint64_t)version
 {
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:version];
   [(HUNoiseSettings *)self _setValue:v4 forPreferenceKey:@"ThresholdVersion"];
 }
 
+- (void)setInternalLoggingEnabled:(BOOL)enabled
+{
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:enabled];
+  [(HUNoiseSettings *)self _setValue:v4 forPreferenceKey:@"NoiseInternalLogging"];
+}
+
 - (NSAttributedString)noiseThresholdFooterDescriptionWithLink
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   noiseThresholdFooterDescription = [(HUNoiseSettings *)self noiseThresholdFooterDescription];
   v4 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:noiseThresholdFooterDescription];
-  v12 = @"NSLink";
+  v11 = @"NSLink";
   noiseThresholdFooterLinkURL = [(HUNoiseSettings *)self noiseThresholdFooterLinkURL];
-  v13[0] = noiseThresholdFooterLinkURL;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v12[0] = noiseThresholdFooterLinkURL;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   noiseThresholdFooterLinkTitle = [(HUNoiseSettings *)self noiseThresholdFooterLinkTitle];
   v8 = [noiseThresholdFooterDescription rangeOfString:noiseThresholdFooterLinkTitle];
   [v4 setAttributes:v6 range:{v8, v9}];
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -613,6 +637,22 @@ LABEL_17:
   v4 = AXCFormattedString();
 
   return v4;
+}
+
+- (void)setHearingProtectionDeviceAvailable:(BOOL)available
+{
+  availableCopy = available;
+  v8 = *MEMORY[0x1E69E9840];
+  v5 = HCLogHearingProtection();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v7[0] = 67109120;
+    v7[1] = availableCopy;
+    _os_log_impl(&dword_1DA5E2000, v5, OS_LOG_TYPE_DEFAULT, "Set hearingProtectionDeviceAvailable %d", v7, 8u);
+  }
+
+  v6 = [MEMORY[0x1E696AD98] numberWithBool:availableCopy];
+  [(HUNoiseSettings *)self _setValue:v6 forPreferenceKey:@"HearingProtectionDeviceAvailablePreference"];
 }
 
 @end

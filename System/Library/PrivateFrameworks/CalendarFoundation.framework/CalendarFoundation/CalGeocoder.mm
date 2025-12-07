@@ -36,11 +36,10 @@
 
 - (void)startGeocoding
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "nil or empty location string given: [%@].  Will not geocode.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "nil or empty location string given: [%@].  Will not geocode.", &v2, 0xCu);
 }
 
 void __29__CalGeocoder_startGeocoding__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -170,35 +169,32 @@ uint64_t __57__CalGeocoder_geocodeLocationString_withCompletionBlock___block_inv
 
 void __29__CalGeocoder_startGeocoding__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138412546;
-  v6 = v3;
-  v7 = 2112;
-  v8 = a2;
-  _os_log_debug_impl(&dword_1B990D000, log, OS_LOG_TYPE_DEBUG, "Found one result for location string: [%@].  Result: [%@]", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = v3;
+  v6 = 2112;
+  v7 = a2;
+  _os_log_debug_impl(&dword_1B990D000, log, OS_LOG_TYPE_DEBUG, "Found one result for location string: [%@].  Result: [%@]", &v4, 0x16u);
 }
 
 void __29__CalGeocoder_startGeocoding__block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138412290;
-  v5 = v2;
-  _os_log_debug_impl(&dword_1B990D000, a2, OS_LOG_TYPE_DEBUG, "No geocoding results found for location string: [%@]", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = v2;
+  _os_log_debug_impl(&dword_1B990D000, a2, OS_LOG_TYPE_DEBUG, "No geocoding results found for location string: [%@]", &v3, 0xCu);
 }
 
 void __29__CalGeocoder_startGeocoding__block_invoke_cold_3(void *a1, NSObject *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v5 = 134218242;
-  v6 = [a1 count];
-  v7 = 2112;
-  v8 = a1;
-  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Expected 0 or 1 geocoding results.  Got %lu.  Map items: [%@]", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
+  v4 = 134218242;
+  v5 = [a1 count];
+  v6 = 2112;
+  v7 = a1;
+  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Expected 0 or 1 geocoding results.  Got %lu.  Map items: [%@]", &v4, 0x16u);
 }
 
 @end

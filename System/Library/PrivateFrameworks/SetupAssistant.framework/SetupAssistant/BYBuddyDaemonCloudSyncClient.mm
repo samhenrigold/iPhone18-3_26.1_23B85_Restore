@@ -62,40 +62,39 @@
 
 void __41__BYBuddyDaemonCloudSyncClient_startSync__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "Failed to communicate with daemon for cloud sync: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __41__BYBuddyDaemonCloudSyncClient_startSync__block_invoke_65(uint64_t a1)
@@ -120,40 +119,39 @@ uint64_t __41__BYBuddyDaemonCloudSyncClient_startSync__block_invoke_65(uint64_t 
 
 void __42__BYBuddyDaemonCloudSyncClient_cancelSync__block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "Failed to communicate with daemon for cloud sync: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __42__BYBuddyDaemonCloudSyncClient_cancelSync__block_invoke_69(uint64_t a1)
@@ -196,40 +194,39 @@ uint64_t __42__BYBuddyDaemonCloudSyncClient_cancelSync__block_invoke_69(uint64_t
 
 void __80__BYBuddyDaemonCloudSyncClient_cloudSyncProgressUpdate_completedClients_errors___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = _BYLoggingFacility();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v4 = _BYLoggingFacility(v3);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
+  if (v5)
   {
-    if (_BYIsInternalInstall())
+    if (_BYIsInternalInstall(v5, v6))
     {
-      v6 = 0;
-      v7 = v3;
+      v7 = 0;
+      v8 = v3;
     }
 
     else if (v3)
     {
-      v8 = MEMORY[0x1E696AEC0];
+      v9 = MEMORY[0x1E696AEC0];
       v2 = [v3 domain];
-      v7 = [v8 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
-      v6 = 1;
+      v8 = [v9 stringWithFormat:@"<Error domain: %@, code %ld>", v2, objc_msgSend(v3, "code")];
+      v7 = 1;
     }
 
     else
     {
-      v6 = 0;
       v7 = 0;
+      v8 = 0;
     }
 
     *buf = 138543362;
-    v10 = v7;
+    v11 = v8;
     _os_log_error_impl(&dword_1B862F000, v4, OS_LOG_TYPE_ERROR, "Failed to communicate with daemon for cloud sync: %{public}@", buf, 0xCu);
-    if (v6)
+    if (v7)
     {
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connectToDaemon
@@ -277,48 +274,44 @@ void __80__BYBuddyDaemonCloudSyncClient_cloudSyncProgressUpdate_completedClients
 
 void __47__BYBuddyDaemonCloudSyncClient_connectToDaemon__block_invoke(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = _BYLoggingFacility();
+  v3 = _BYLoggingFacility(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_1B862F000, v3, OS_LOG_TYPE_DEFAULT, "Cloud sync client connection invalidated!", v8, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1B862F000, v3, OS_LOG_TYPE_DEFAULT, "Cloud sync client connection invalidated!", v7, 2u);
   }
 
   if ([*(a1 + 32) syncDidStart] && (objc_msgSend(*(a1 + 32), "syncDidComplete") & 1) == 0)
   {
     v4 = [WeakRetained delegate];
     v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"BYCloudSyncErrorDomain" code:0 userInfo:0];
-    v9[0] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
     [v4 syncCompletedWithErrors:v6];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __47__BYBuddyDaemonCloudSyncClient_connectToDaemon__block_invoke_92(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v3 = _BYLoggingFacility();
+  v3 = _BYLoggingFacility(WeakRetained);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    *v8 = 0;
-    _os_log_impl(&dword_1B862F000, v3, OS_LOG_TYPE_DEFAULT, "Cloud sync client connection interruption!", v8, 2u);
+    *v7 = 0;
+    _os_log_impl(&dword_1B862F000, v3, OS_LOG_TYPE_DEFAULT, "Cloud sync client connection interruption!", v7, 2u);
   }
 
   if ([*(a1 + 32) syncDidStart] && (objc_msgSend(*(a1 + 32), "syncDidComplete") & 1) == 0)
   {
     v4 = [WeakRetained delegate];
     v5 = [MEMORY[0x1E696ABC0] errorWithDomain:@"BYCloudSyncErrorDomain" code:0 userInfo:0];
-    v9[0] = v5;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
     [v4 syncCompletedWithErrors:v6];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)syncProgress:(double)progress

@@ -14,11 +14,11 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  v5 = sub_100004BF8();
+  v6 = sub_100004BF8(connection);
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
 
-  return v5;
+  return v6;
 }
 
 - (id)dependenciesForUser:(id)user environment:(id)environment mainIdentityProvider:(id)provider

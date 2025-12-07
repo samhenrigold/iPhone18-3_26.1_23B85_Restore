@@ -291,7 +291,7 @@ void __67__GKLocalImageSource_cachedImageFromGamedWithSubdirectory_handler___blo
   v2 = a1;
   v3 = [OUTLINED_FUNCTION_5() basename];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_24E4A8000, v4, v5, "Image found in in-memory cache: %@", v6, v7, v8, v9, v10);
+  OUTLINED_FUNCTION_2_0(&dword_24E4A8000, v4, v5, "Image found in in-memory cache: %@", v6, v7, v8, v9);
 }
 
 void __67__GKLocalImageSource_cachedImageFromGamedWithSubdirectory_handler___block_invoke_280_cold_1(uint64_t a1, void *a2)
@@ -299,7 +299,7 @@ void __67__GKLocalImageSource_cachedImageFromGamedWithSubdirectory_handler___blo
   v3 = a2;
   v4 = [OUTLINED_FUNCTION_5() basename];
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_2_0(&dword_24E4A8000, v5, v6, "Loaded cached image from gamed %@", v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_2_0(&dword_24E4A8000, v5, v6, "Loaded cached image from gamed %@", v7, v8, v9, v10);
 }
 
 void __67__GKLocalImageSource_cachedImageFromGamedWithSubdirectory_handler___block_invoke_280_cold_2(uint64_t a1, void *a2)

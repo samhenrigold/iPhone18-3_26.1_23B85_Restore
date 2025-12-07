@@ -16,7 +16,7 @@
 
 - (id)_fcck_parseListContainsFiltersWithTranslator:()FCCKConversion withError:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = a3;
   leftExpression = [self leftExpression];
   rightExpression = [self rightExpression];
@@ -26,16 +26,16 @@
     {
       v7 = objc_opt_new();
       cKExpressionValue = [leftExpression CKExpressionValue];
-      v21 = NTPBCKRecordFieldIdentifierForUserFieldName(cKExpressionValue);
-      [v7 setFieldName:v21];
+      v20 = NTPBCKRecordFieldIdentifierForUserFieldName(cKExpressionValue);
+      [v7 setFieldName:v20];
 
       [v7 setType:12];
       cKExpressionValue2 = [rightExpression CKExpressionValue];
-      v23 = [(FCCKProtocolTranslator *)v4 fieldValueFromObject:cKExpressionValue2];
-      [v7 setFieldValue:v23];
+      v22 = [(FCCKProtocolTranslator *)v4 fieldValueFromObject:cKExpressionValue2];
+      [v7 setFieldValue:v22];
 
-      v25 = v7;
-      v12 = &v25;
+      v24 = v7;
+      v12 = &v24;
     }
 
     else
@@ -48,16 +48,16 @@
 
       v7 = objc_opt_new();
       cKExpressionValue3 = [leftExpression CKExpressionValue];
-      v17 = NTPBCKRecordFieldIdentifierForUserFieldName(cKExpressionValue3);
-      [v7 setFieldName:v17];
+      v16 = NTPBCKRecordFieldIdentifierForUserFieldName(cKExpressionValue3);
+      [v7 setFieldName:v16];
 
       [v7 setType:12];
       cKExpressionValue4 = [rightExpression CKExpressionValue];
-      v19 = [(FCCKProtocolTranslator *)v4 fieldValueFromObject:cKExpressionValue4];
-      [v7 setFieldValue:v19];
+      v18 = [(FCCKProtocolTranslator *)v4 fieldValueFromObject:cKExpressionValue4];
+      [v7 setFieldValue:v18];
 
-      v24 = v7;
-      v12 = &v24;
+      v23 = v7;
+      v12 = &v23;
     }
   }
 
@@ -73,21 +73,20 @@
     v11 = [(FCCKProtocolTranslator *)v4 fieldValueFromObject:cKExpressionValue6];
     [v7 setFieldValue:v11];
 
-    v26 = v7;
-    v12 = &v26;
+    v25 = v7;
+    v12 = &v25;
   }
 
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:{1, v24, v25, v26, v27}];
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:{1, v23, v24, v25, v26}];
 
 LABEL_15:
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
 
 - (id)_fcck_parseInFiltersWithTranslator:()FCCKConversion withError:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v4 = a3;
   leftExpression = [self leftExpression];
   rightExpression = [self rightExpression];
@@ -106,8 +105,8 @@ LABEL_15:
     v14 = [(FCCKProtocolTranslator *)v4 fieldValueFromObject:v13];
     [v9 setFieldValue:v14];
 
-    v33 = v9;
-    v15 = &v33;
+    v32 = v9;
+    v15 = &v32;
   }
 
   else if ([self predicateOperatorType] == 4 && objc_msgSend(self, "comparisonPredicateModifier") == 2 && (expressionType != 14 ? (v16 = expressionType == 0) : (v16 = 1), v16 && expressionType2 == 3))
@@ -123,8 +122,8 @@ LABEL_15:
     v21 = [(FCCKProtocolTranslator *)v4 fieldValueFromObject:v20];
     [v9 setFieldValue:v21];
 
-    v32 = v9;
-    v15 = &v32;
+    v31 = v9;
+    v15 = &v31;
   }
 
   else
@@ -153,21 +152,20 @@ LABEL_15:
     v28 = [(FCCKProtocolTranslator *)v4 fieldValueFromObject:v27];
     [v9 setFieldValue:v28];
 
-    v31 = v9;
-    v15 = &v31;
+    v30 = v9;
+    v15 = &v30;
   }
 
-  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:{1, v31, v32, v33, v34}];
+  v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:{1, v30, v31, v32, v33}];
 
 LABEL_27:
-  v29 = *MEMORY[0x1E69E9840];
 
   return v22;
 }
 
 - (id)_fcck_parseListContainsAnyFiltersWithTranslator:()FCCKConversion withError:
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   leftExpression = [self leftExpression];
   rightExpression = [self rightExpression];
@@ -186,8 +184,8 @@ LABEL_27:
     v14 = [(FCCKProtocolTranslator *)v4 fieldValueFromObject:v13];
     [v9 setFieldValue:v14];
 
-    v26[0] = v9;
-    v15 = v26;
+    v25[0] = v9;
+    v15 = v25;
 LABEL_16:
     v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:1];
 
@@ -214,22 +212,20 @@ LABEL_16:
     v22 = [(FCCKProtocolTranslator *)v4 fieldValueFromObject:v21];
     [v9 setFieldValue:v22];
 
-    v25 = v9;
-    v15 = &v25;
+    v24 = v9;
+    v15 = &v24;
     goto LABEL_16;
   }
 
   v16 = 0;
 LABEL_18:
 
-  v23 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 - (id)_fcck_parseListContainsAllFiltersWithTranslator:()FCCKConversion withError:
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   leftExpression = [self leftExpression];
   rightExpression = [self rightExpression];
@@ -252,8 +248,8 @@ LABEL_18:
       v16 = [(FCCKProtocolTranslator *)v4 fieldValueFromObject:v15];
       [v11 setFieldValue:v16];
 
-      v19[0] = v11;
-      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+      v18[0] = v11;
+      v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
     }
   }
 
@@ -262,14 +258,12 @@ LABEL_18:
     v9 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)_fcck_parseBeginsWithFiltersWithTranslator:()FCCKConversion withError:
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v17[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   leftExpression = [self leftExpression];
   rightExpression = [self rightExpression];
@@ -301,13 +295,13 @@ LABEL_18:
     }
   }
 
-  v13 = objc_opt_new();
+  v12 = objc_opt_new();
   cKExpressionValue2 = [leftExpression CKExpressionValue];
-  v15 = NTPBCKRecordFieldIdentifierForUserFieldName(cKExpressionValue2);
-  [v13 setFieldName:v15];
+  v14 = NTPBCKRecordFieldIdentifierForUserFieldName(cKExpressionValue2);
+  [v12 setFieldName:v14];
 
-  v16 = [(FCCKProtocolTranslator *)v6 fieldValueFromObject:cKExpressionValue];
-  [v13 setFieldValue:v16];
+  v15 = [(FCCKProtocolTranslator *)v6 fieldValueFromObject:cKExpressionValue];
+  [v12 setFieldValue:v15];
 
   if ([self comparisonPredicateModifier])
   {
@@ -317,30 +311,28 @@ LABEL_18:
       goto LABEL_18;
     }
 
-    v17 = 18;
+    v16 = 18;
   }
 
   else
   {
-    v17 = 16;
+    v16 = 16;
   }
 
-  [v13 setType:v17];
-  v18[0] = v13;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
+  [v12 setType:v16];
+  v17[0] = v12;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
 LABEL_18:
 
 LABEL_19:
 LABEL_5:
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (id)_fcck_parseBetweenFiltersWithTranslator:()FCCKConversion withError:
 {
-  v28[2] = *MEMORY[0x1E69E9840];
+  v27[2] = *MEMORY[0x1E69E9840];
   v6 = a3;
   leftExpression = [self leftExpression];
   rightExpression = [self rightExpression];
@@ -360,7 +352,7 @@ LABEL_5:
       if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
       {
         v14 = objc_opt_new();
-        v27 = objc_opt_new();
+        v26 = objc_opt_new();
         cKExpressionValue3 = [leftExpression CKExpressionValue];
         NTPBCKRecordFieldIdentifierForUserFieldName(cKExpressionValue3);
         v17 = v16 = cKExpressionValue;
@@ -372,15 +364,15 @@ LABEL_5:
 
         [v14 setType:8];
         fieldName = [v14 fieldName];
-        [v27 setFieldName:fieldName];
+        [v26 setFieldName:fieldName];
 
         v20 = [(FCCKProtocolTranslator *)v6 fieldValueFromObject:cKExpressionValue2];
-        [v27 setFieldValue:v20];
+        [v26 setFieldValue:v20];
 
-        [v27 setType:6];
-        v28[0] = v14;
-        v28[1] = v27;
-        v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:2];
+        [v26 setType:6];
+        v27[0] = v14;
+        v27[1] = v26;
+        v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v27 count:2];
       }
 
       else if (a4)
@@ -399,10 +391,10 @@ LABEL_5:
     {
       if (a4)
       {
-        v24 = MEMORY[0x1E695B978];
-        v25 = objc_opt_class();
-        v26 = NSStringFromClass(v25);
-        *a4 = [v24 errorWithCode:1009 format:{@"Expected array with two number arguments on right hand side, but got %@: %@", v26, self}];
+        v23 = MEMORY[0x1E695B978];
+        v24 = objc_opt_class();
+        v25 = NSStringFromClass(v24);
+        *a4 = [v23 errorWithCode:1009 format:{@"Expected array with two number arguments on right hand side, but got %@: %@", v25, self}];
       }
 
       v21 = 0;
@@ -413,8 +405,6 @@ LABEL_5:
   {
     v21 = 0;
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -446,30 +436,30 @@ LABEL_5:
 
 - (id)_fcck_parseFullTextSearchUsingContainsTranslator:()FCCKConversion withError:
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v4 = a3;
   leftExpression = [self leftExpression];
   rightExpression = [self rightExpression];
   if ([self predicateOperatorType] == 99 && objc_msgSend(leftExpression, "expressionType") == 1 && !objc_msgSend(rightExpression, "expressionType"))
   {
-    v10 = objc_opt_new();
+    v9 = objc_opt_new();
     if ([self comparisonPredicateModifier] == 1)
     {
-      v11 = 10;
+      v10 = 10;
     }
 
     else
     {
-      v11 = 11;
+      v10 = 11;
     }
 
-    [v10 setType:v11];
+    [v9 setType:v10];
     constantValue = [rightExpression constantValue];
-    v13 = [(FCCKProtocolTranslator *)v4 fieldValueFromObject:constantValue];
-    [v10 setFieldValue:v13];
+    v12 = [(FCCKProtocolTranslator *)v4 fieldValueFromObject:constantValue];
+    [v9 setFieldValue:v12];
 
-    v14[0] = v10;
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v13[0] = v9;
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   }
 
   else
@@ -477,14 +467,12 @@ LABEL_5:
     v7 = 0;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 - (id)_fcck_parseFullTextSearchFiltersWithTranslator:()FCCKConversion withError:
 {
-  v44[1] = *MEMORY[0x1E69E9840];
+  v43[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   leftExpression = [self leftExpression];
   rightExpression = [self rightExpression];
@@ -503,7 +491,7 @@ LABEL_5:
   expressionType = [v16 expressionType];
   if (!expressionType)
   {
-    v42 = v6;
+    v41 = v6;
     constantValue = [v16 constantValue];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -514,20 +502,20 @@ LABEL_5:
       }
 
       v29 = 0;
-      v6 = v42;
+      v6 = v41;
       goto LABEL_58;
     }
 
-    v41 = v15;
+    v40 = v15;
     constantValue2 = [v16 constantValue];
-    v30 = [(FCCKProtocolTranslator *)v42 fieldValueFromObject:constantValue2];
+    v30 = [(FCCKProtocolTranslator *)v41 fieldValueFromObject:constantValue2];
     [v17 setFieldValue:v30];
 
 LABEL_17:
-    v15 = v41;
-    if ([self comparisonPredicateModifier] == 1 && v41 == leftExpression)
+    v15 = v40;
+    if ([self comparisonPredicateModifier] == 1 && v40 == leftExpression)
     {
-      v6 = v42;
+      v6 = v41;
       if (a4)
       {
         [MEMORY[0x1E695B978] errorWithCode:1009 format:{@"Enumerating special key-path allTokens is not allowed: %@", self}];
@@ -539,7 +527,7 @@ LABEL_57:
       goto LABEL_58;
     }
 
-    v6 = v42;
+    v6 = v41;
     if ([self predicateOperatorType] == 1000)
     {
       if (!expressionType && (([self options] & 4) != 0 || (objc_msgSend(self, "options") & 1) == 0 || (objc_msgSend(self, "options") & 2) == 0 || (objc_msgSend(self, "options") & 8) == 0))
@@ -564,9 +552,9 @@ LABEL_57:
       }
 
       [v17 setType:v31];
-      v44[0] = v17;
+      v43[0] = v17;
       v32 = MEMORY[0x1E695DEC8];
-      v33 = v44;
+      v33 = v43;
     }
 
     else
@@ -615,9 +603,9 @@ LABEL_57:
         goto LABEL_57;
       }
 
-      v43 = v17;
+      v42 = v17;
       v32 = MEMORY[0x1E695DEC8];
-      v33 = &v43;
+      v33 = &v42;
     }
 
     v29 = [v32 arrayWithObjects:v33 count:1];
@@ -627,14 +615,14 @@ LABEL_57:
   if ([v16 expressionType] == 4)
   {
     [v16 function];
-    v19 = v41 = v15;
+    v19 = v40 = v15;
     v20 = [v19 isEqualToString:@"tokenize:using:"];
 
-    v15 = v41;
+    v15 = v40;
     if (v20)
     {
-      v40 = v17;
-      v42 = v6;
+      v39 = v17;
+      v41 = v6;
       arguments = [v16 arguments];
       v22 = [arguments objectAtIndexedSubscript:1];
       constantValue3 = [v22 constantValue];
@@ -649,9 +637,9 @@ LABEL_57:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          constantValue2 = [(FCCKProtocolTranslator *)v42 fieldValueFromObject:constantValue];
-          v17 = v40;
-          [v40 setFieldValue:constantValue2];
+          constantValue2 = [(FCCKProtocolTranslator *)v41 fieldValueFromObject:constantValue];
+          v17 = v39;
+          [v39 setFieldValue:constantValue2];
           goto LABEL_17;
         }
 
@@ -664,14 +652,14 @@ LABEL_57:
         }
 
         v29 = 0;
-        v15 = v41;
-        v6 = v42;
+        v15 = v40;
+        v6 = v41;
       }
 
       else
       {
-        v15 = v41;
-        v6 = v42;
+        v15 = v40;
+        v6 = v41;
         if (a4)
         {
           [MEMORY[0x1E695B978] errorWithCode:1009 format:{@"Required NSCaseInsensitivePredicateOption, NSDiacriticInsensitivePredicateOption, and NSLocaleSensitivePredicateOption tokenization options on tokenize() function: %@", self}];
@@ -684,7 +672,7 @@ LABEL_57:
         }
       }
 
-      v17 = v40;
+      v17 = v39;
       goto LABEL_58;
     }
   }
@@ -700,14 +688,13 @@ LABEL_14:
 LABEL_58:
 
 LABEL_59:
-  v38 = *MEMORY[0x1E69E9840];
 
   return v29;
 }
 
 - (id)_fcck_parseBasicOperatorFiltersWithTranslator:()FCCKConversion withError:
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   v6 = a3;
   leftExpression = [self leftExpression];
   rightExpression = [self rightExpression];
@@ -847,28 +834,27 @@ LABEL_42:
   {
     if (a4)
     {
-      v28 = MEMORY[0x1E695B978];
-      v29 = objc_opt_class();
-      v30 = NSStringFromClass(v29);
-      *a4 = [v28 errorWithCode:1009 format:{@"Type '%@' not allowed in comparison expression: %@", v30, self}];
+      v27 = MEMORY[0x1E695B978];
+      v28 = objc_opt_class();
+      v29 = NSStringFromClass(v28);
+      *a4 = [v27 errorWithCode:1009 format:{@"Type '%@' not allowed in comparison expression: %@", v29, self}];
     }
 
     goto LABEL_15;
   }
 
-  v31 = objc_opt_new();
-  v32 = NTPBCKRecordFieldIdentifierForUserFieldName(cKExpressionValue);
-  [v31 setFieldName:v32];
+  v30 = objc_opt_new();
+  v31 = NTPBCKRecordFieldIdentifierForUserFieldName(cKExpressionValue);
+  [v30 setFieldName:v31];
 
-  [v31 setType:NTPBCKQueryFilterTypeForNSPredicateOperatorType(v24)];
-  v33 = [(FCCKProtocolTranslator *)v6 fieldValueFromObject:v17];
-  [v31 setFieldValue:v33];
+  [v30 setType:NTPBCKQueryFilterTypeForNSPredicateOperatorType(v24)];
+  v32 = [(FCCKProtocolTranslator *)v6 fieldValueFromObject:v17];
+  [v30 setFieldValue:v32];
 
-  v34[0] = v31;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:1];
+  v33[0] = v30;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:1];
 
 LABEL_43:
-  v26 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

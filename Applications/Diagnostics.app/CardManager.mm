@@ -27,17 +27,18 @@
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v16 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v23 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_10015706C();
+  sub_10015706C(v9);
   v13 = v12;
 
   (*(v7 + 8))(v9, v6);
   if (v13)
   {
     v14 = String._bridgeToObjectiveC()();
+    v13, v15, v16, v17, v18, v19, v20, v21;
   }
 
   else
@@ -50,27 +51,28 @@
 
 - (id)indexPathForElementWithModelIdentifier:(id)identifier inView:(id)view
 {
-  v6 = sub_10003C49C(&unk_1001FFEC0);
+  v6 = sub_10003C49C(&unk_1001FFEC0, &qword_100182508);
   __chkstk_darwin(v6 - 8);
-  v8 = &v20 - v7;
+  v8 = &v27 - v7;
   v9 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v11 = v10;
   viewCopy = view;
   selfCopy = self;
   sub_10015569C(v9, v11, v8);
 
-  v14 = type metadata accessor for IndexPath();
-  v15 = *(v14 - 8);
-  v16 = (*(v15 + 48))(v8, 1, v14);
-  v17 = 0;
-  if (v16 != 1)
+  v11, v14, v15, v16, v17, v18, v19, v20;
+  v21 = type metadata accessor for IndexPath();
+  v22 = *(v21 - 8);
+  v23 = (*(v22 + 48))(v8, 1, v21);
+  v24 = 0;
+  if (v23 != 1)
   {
     isa = IndexPath._bridgeToObjectiveC()().super.isa;
-    (*(v15 + 8))(v8, v14);
-    v17 = isa;
+    (*(v22 + 8))(v8, v21);
+    v24 = isa;
   }
 
-  return v17;
+  return v24;
 }
 
 @end

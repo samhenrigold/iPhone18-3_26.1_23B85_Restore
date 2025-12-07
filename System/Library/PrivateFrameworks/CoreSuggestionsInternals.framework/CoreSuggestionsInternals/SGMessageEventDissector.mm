@@ -32,7 +32,7 @@
 
 - (id)schemaOrgAndMissingEntitiesForMessage:(id)message withMLModelParameters:(id)parameters
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   parametersCopy = parameters;
   if ([objc_opt_class() featureEnabled])
@@ -57,16 +57,16 @@
         v17 = [allKeys objectAtIndexedSubscript:0];
         allKeys2 = [v15 allKeys];
         [allKeys2 objectAtIndexedSubscript:0];
-        v18 = v29 = v8;
+        v18 = v28 = v8;
         v19 = [v15 objectForKeyedSubscript:v18];
         [v19 doubleValue];
         *buf = 138412546;
-        v32 = v17;
-        v33 = 2048;
-        v34 = v20;
+        v31 = v17;
+        v32 = 2048;
+        v33 = v20;
         _os_log_impl(&dword_231E60000, v16, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissector: Message classification by Event-Classifier: %@ (Score: %.02f)", buf, 0x16u);
 
-        v8 = v29;
+        v8 = v28;
       }
 
       if (v15)
@@ -78,14 +78,14 @@
     v21 = [parametersCopy objectForKeyedSubscript:@"assetFolderPath"];
     v22 = [(SGMessageEventDissector *)self eventsFromMessage:messageCopy eventExtractionAssetsPath:v21];
 
-    if (v22 && [v22 count])
+    if (v22 && objc_msgSend_count(v22))
     {
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __87__SGMessageEventDissector_schemaOrgAndMissingEntitiesForMessage_withMLModelParameters___block_invoke;
-      v30[3] = &unk_27894F0A8;
-      v30[4] = self;
-      v23 = [v22 _pas_mappedArrayWithTransform:v30];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __87__SGMessageEventDissector_schemaOrgAndMissingEntitiesForMessage_withMLModelParameters___block_invoke;
+      v29[3] = &unk_27894F0A8;
+      v29[4] = self;
+      v23 = [v22 _pas_mappedArrayWithTransform:v29];
       [v9 addObjectsFromArray:v23];
     }
 
@@ -99,18 +99,15 @@
     v24 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v24;
 }
 
 id __87__SGMessageEventDissector_schemaOrgAndMissingEntitiesForMessage_withMLModelParameters___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  v4 = [objc_opt_class() schemaOrgAndMissingEntitiesForExtractedEvent:v3];
+  v2 = a2;
+  v3 = [objc_opt_class() schemaOrgAndMissingEntitiesForExtractedEvent:v2];
 
-  return v4;
+  return v3;
 }
 
 - (void)logFailedEventExtractionForMessage:(id)message failureCode:(int64_t)code
@@ -374,7 +371,7 @@ id __87__SGMessageEventDissector_schemaOrgAndMissingEntitiesForMessage_withMLMod
 
 void __48__SGMessageEventDissector_isMessageOfTypeEvent___block_invoke(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3[3] result];
   if (v4 || ([*(a1 + 32) loadEventClassifierModel], v5 = objc_claimAutoreleasedReturnValue(), v6 = v3[3], v3[3] = v5, v6, objc_msgSend(v3[3], "result"), (v4 = objc_claimAutoreleasedReturnValue()) != 0))
@@ -395,15 +392,13 @@ void __48__SGMessageEventDissector_isMessageOfTypeEvent___block_invoke(uint64_t 
       v16 = [v15 objectAtIndexedSubscript:0];
       v17 = [v14 objectForKeyedSubscript:v16];
       [v17 doubleValue];
-      v20 = 138412546;
-      v21 = v13;
-      v22 = 2048;
-      v23 = v18;
-      _os_log_impl(&dword_231E60000, v11, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissector: Message classification by Event-Classifier: %@ (Score: %.02f)", &v20, 0x16u);
+      v19 = 138412546;
+      v20 = v13;
+      v21 = 2048;
+      v22 = v18;
+      _os_log_impl(&dword_231E60000, v11, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissector: Message classification by Event-Classifier: %@ (Score: %.02f)", &v19, 0x16u);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)loadEventClassifierModel
@@ -421,12 +416,11 @@ void __48__SGMessageEventDissector_isMessageOfTypeEvent___block_invoke(uint64_t 
 
 NSObject *__51__SGMessageEventDissector_loadEventClassifierModel__block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
+  v17 = *MEMORY[0x277D85DE8];
   if ([objc_opt_class() mobileAssetsEnabled])
   {
-    v3 = [*(a1 + 32) eventClassifierMobileAssetsPath];
-    if (v3)
+    v2 = [*(a1 + 32) eventClassifierMobileAssetsPath];
+    if (v2)
     {
       goto LABEL_3;
     }
@@ -434,76 +428,74 @@ NSObject *__51__SGMessageEventDissector_loadEventClassifierModel__block_invoke(u
 
   else
   {
-    v10 = +[SGMessageEventDissectorTrialClientWrapper sharedInstance];
-    v3 = [v10 eventClassifierModelPath];
+    v9 = +[SGMessageEventDissectorTrialClientWrapper sharedInstance];
+    v2 = [v9 eventClassifierModelPath];
 
-    if (v3)
+    if (v2)
     {
 LABEL_3:
-      v4 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:v3];
-      v5 = objc_opt_new();
-      [v5 setComputeUnits:0];
-      v16 = 0;
-      v6 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v4 configuration:v5 error:&v16];
-      v7 = v16;
-      if (v7)
+      v3 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:v2];
+      v4 = objc_opt_new();
+      [v4 setComputeUnits:0];
+      v14 = 0;
+      v5 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v3 configuration:v4 error:&v14];
+      v6 = v14;
+      if (v6)
       {
-        v8 = v7;
-        v9 = sgEventsLogHandle();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v7 = v6;
+        v8 = sgEventsLogHandle();
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v18 = v8;
-          _os_log_error_impl(&dword_231E60000, v9, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: Unable to load Event Classifier Model: %@", buf, 0xCu);
+          v16 = v7;
+          _os_log_error_impl(&dword_231E60000, v8, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: Unable to load Event Classifier Model: %@", buf, 0xCu);
         }
       }
 
       else
       {
-        v15 = 0;
-        v9 = [objc_alloc(MEMORY[0x277CD89D0]) initWithMLModel:v6 error:&v15];
-        v8 = v15;
-        if (!v8)
+        v13 = 0;
+        v8 = [objc_alloc(MEMORY[0x277CD89D0]) initWithMLModel:v5 error:&v13];
+        v7 = v13;
+        if (!v7)
         {
-          v9 = v9;
-          v11 = v9;
+          v8 = v8;
+          v10 = v8;
           goto LABEL_15;
         }
 
-        v12 = sgEventsLogHandle();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v11 = sgEventsLogHandle();
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v18 = v8;
-          _os_log_error_impl(&dword_231E60000, v12, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: Unable to convert ML Model to NL Model: %@", buf, 0xCu);
+          v16 = v7;
+          _os_log_error_impl(&dword_231E60000, v11, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: Unable to convert ML Model to NL Model: %@", buf, 0xCu);
         }
       }
 
-      v11 = 0;
+      v10 = 0;
 LABEL_15:
 
       goto LABEL_16;
     }
   }
 
-  v8 = sgEventsLogHandle();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v7 = sgEventsLogHandle();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_error_impl(&dword_231E60000, v8, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: Unable to load Event Classifier Model. Model Path does not exist", buf, 2u);
+    _os_log_error_impl(&dword_231E60000, v7, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: Unable to load Event Classifier Model. Model Path does not exist", buf, 2u);
   }
 
-  v11 = 0;
+  v10 = 0;
 LABEL_16:
 
-  v13 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v10;
 }
 
 - (id)eventsFromMessage:(id)message eventExtractionAssetsPath:(id)path
 {
-  v76[3] = *MEMORY[0x277D85DE8];
+  v75[3] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   pathCopy = path;
   v8 = sgEventsLogHandle();
@@ -518,24 +510,24 @@ LABEL_16:
   v10 = textContent;
   if (textContent)
   {
-    v75[0] = @"TaskName";
-    v75[1] = @"InputMessage";
-    v76[0] = @"EventSuggestionsFromMessage";
-    v76[1] = textContent;
-    v75[2] = @"AssetFolderPath";
-    v76[2] = pathCopy;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v76 forKeys:v75 count:3];
+    v74[0] = @"TaskName";
+    v74[1] = @"InputMessage";
+    v75[0] = @"EventSuggestionsFromMessage";
+    v75[1] = textContent;
+    v74[2] = @"AssetFolderPath";
+    v75[2] = pathCopy;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:3];
     v12 = [objc_alloc(MEMORY[0x277D253F0]) initWithParametersDict:v11];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v71 = 0x3032000000;
-    v72 = __Block_byref_object_copy__21654;
-    v73 = __Block_byref_object_dispose__21655;
-    v74 = 0;
-    v66 = 0;
-    v67 = &v66;
-    v68 = 0x2020000000;
-    v69 = 0;
+    v70 = 0x3032000000;
+    v71 = __Block_byref_object_copy__21654;
+    v72 = __Block_byref_object_dispose__21655;
+    v73 = 0;
+    v65 = 0;
+    v66 = &v65;
+    v67 = 0x2020000000;
+    v68 = 0;
     if (serialQueue__pasOnceToken4 != -1)
     {
       dispatch_once(&serialQueue__pasOnceToken4, &__block_literal_global_467);
@@ -547,15 +539,15 @@ LABEL_16:
     block[2] = __71__SGMessageEventDissector_eventsFromMessage_eventExtractionAssetsPath___block_invoke;
     block[3] = &unk_278956180;
     v14 = v12;
-    v62 = v14;
-    v63 = @"com.apple.eventMetaDataExtractor.eventMetaDataExtractorPlugin";
+    v61 = v14;
+    v62 = @"com.apple.eventMetaDataExtractor.eventMetaDataExtractorPlugin";
     p_buf = &buf;
-    v65 = &v66;
+    v64 = &v65;
     dispatch_async_and_wait(v13, block);
     v15 = *(*(&buf + 1) + 40);
     if (!v15)
     {
-      if (*(v67 + 24))
+      if (*(v66 + 24))
       {
         v50 = 102;
       }
@@ -571,13 +563,13 @@ LABEL_16:
     }
 
     v16 = [v15 objectForKeyedSubscript:@"events"];
-    if (!v16 || ([*(*(&buf + 1) + 40) objectForKeyedSubscript:@"events"], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "count") == 0, v17, v16, v18))
+    if (!v16 || ([*(*(&buf + 1) + 40) objectForKeyedSubscript:@"events"], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend_count(v17) == 0, v17, v16, v18))
     {
       v49 = sgEventsLogHandle();
       if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
-        *v60 = 0;
-        _os_log_error_impl(&dword_231E60000, v49, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: ML Runtime failed to return events information, bailing", v60, 2u);
+        *v59 = 0;
+        _os_log_error_impl(&dword_231E60000, v49, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: ML Runtime failed to return events information, bailing", v59, 2u);
       }
 
       v23 = [*(*(&buf + 1) + 40) objectForKeyedSubscript:@"errorCode"];
@@ -596,62 +588,62 @@ LABEL_16:
       {
 LABEL_33:
 
-        _Block_object_dispose(&v66, 8);
+        _Block_object_dispose(&v65, 8);
         _Block_object_dispose(&buf, 8);
 
         goto LABEL_34;
       }
 
       v23 = objc_opt_new();
-      v59 = [v23 getFlightReferencesAndReservationId:messageCopy];
-      v24 = [v59 objectForKeyedSubscript:@"flightReferences"];
+      v58 = [v23 getFlightReferencesAndReservationId:messageCopy];
+      v24 = [v58 objectForKeyedSubscript:@"flightReferences"];
       if (v24)
       {
-        v25 = [v59 objectForKeyedSubscript:@"flightReferences"];
-        v26 = [v25 count] == 0;
+        v25 = [v58 objectForKeyedSubscript:@"flightReferences"];
+        v26 = objc_msgSend_count(v25) == 0;
 
         if (!v26)
         {
-          v55 = [v59 objectForKeyedSubscript:@"flightReferences"];
-          v53 = [v55 objectAtIndexedSubscript:0];
-          v27 = [v53 objectForKeyedSubscript:@"airline"];
+          v54 = [v58 objectForKeyedSubscript:@"flightReferences"];
+          v52 = [v54 objectAtIndexedSubscript:0];
+          v27 = [v52 objectForKeyedSubscript:@"airline"];
           v28 = [v27 objectForKeyedSubscript:@"IATA"];
           v29 = [v19 objectAtIndexedSubscript:0];
           [v29 setObject:v28 forKeyedSubscript:@"carrierCode"];
 
-          v56 = [v59 objectForKeyedSubscript:@"flightReferences"];
-          v30 = [v56 objectAtIndexedSubscript:0];
+          v55 = [v58 objectForKeyedSubscript:@"flightReferences"];
+          v30 = [v55 objectAtIndexedSubscript:0];
           v31 = [v30 objectForKeyedSubscript:@"flightNumber"];
           v32 = [v19 objectAtIndexedSubscript:0];
           [v32 setObject:v31 forKeyedSubscript:@"flightNumber"];
 
-          v33 = [v59 objectForKeyedSubscript:@"reservationId"];
+          v33 = [v58 objectForKeyedSubscript:@"reservationId"];
           v34 = [v19 objectAtIndexedSubscript:0];
           v35 = v34;
           v36 = v33 ? v33 : &stru_284703F00;
           [v34 setObject:v36 forKeyedSubscript:@"reservationId"];
 
-          if ([v19 count] == 2)
+          if (objc_msgSend_count(v19) == 2)
           {
-            v37 = [v59 objectForKeyedSubscript:@"flightReferences"];
-            v38 = [v37 count] == 2;
+            v37 = [v58 objectForKeyedSubscript:@"flightReferences"];
+            v38 = objc_msgSend_count(v37) == 2;
 
             if (v38)
             {
-              v57 = [v59 objectForKeyedSubscript:@"flightReferences"];
-              v54 = [v57 objectAtIndexedSubscript:1];
-              v39 = [v54 objectForKeyedSubscript:@"airline"];
+              v56 = [v58 objectForKeyedSubscript:@"flightReferences"];
+              v53 = [v56 objectAtIndexedSubscript:1];
+              v39 = [v53 objectForKeyedSubscript:@"airline"];
               v40 = [v39 objectForKeyedSubscript:@"IATA"];
               v41 = [v19 objectAtIndexedSubscript:1];
               [v41 setObject:v40 forKeyedSubscript:@"carrierCode"];
 
-              v58 = [v59 objectForKeyedSubscript:@"flightReferences"];
-              v42 = [v58 objectAtIndexedSubscript:1];
+              v57 = [v58 objectForKeyedSubscript:@"flightReferences"];
+              v42 = [v57 objectAtIndexedSubscript:1];
               v43 = [v42 objectForKeyedSubscript:@"flightNumber"];
               v44 = [v19 objectAtIndexedSubscript:1];
               [v44 setObject:v43 forKeyedSubscript:@"flightNumber"];
 
-              v45 = [v59 objectForKeyedSubscript:@"reservationId"];
+              v45 = [v58 objectForKeyedSubscript:@"reservationId"];
               v46 = [v19 objectAtIndexedSubscript:1];
               v47 = v46;
               if (v45)
@@ -683,8 +675,6 @@ LABEL_33:
 
   v19 = 0;
 LABEL_34:
-
-  v51 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
@@ -718,7 +708,7 @@ void __71__SGMessageEventDissector_eventsFromMessage_eventExtractionAssetsPath__
 
 void __71__SGMessageEventDissector_eventsFromMessage_eventExtractionAssetsPath___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (a2)
   {
@@ -733,47 +723,45 @@ void __71__SGMessageEventDissector_eventsFromMessage_eventExtractionAssetsPath__
     v9 = sgEventsLogHandle();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v5;
-      _os_log_error_impl(&dword_231E60000, v9, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: MLRuntime Plugin Task failed with error:  %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v5;
+      _os_log_error_impl(&dword_231E60000, v9, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: MLRuntime Plugin Task failed with error:  %@", &v10, 0xCu);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addEnrichmentForEvents:(id)events toEntity:(id)entity message:(id)message context:(id)context timingProcessingInMs:(unint64_t)ms
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   entityCopy = entity;
   messageCopy = message;
   contextCopy = context;
   context = objc_autoreleasePoolPush();
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
   obj = eventsCopy;
-  v48 = [obj countByEnumeratingWithState:&v58 objects:v67 count:16];
-  if (v48)
+  v47 = [obj countByEnumeratingWithState:&v57 objects:v66 count:16];
+  if (v47)
   {
-    v45 = *v59;
+    v44 = *v58;
     selfCopy = self;
     do
     {
       v13 = 0;
       do
       {
-        if (*v59 != v45)
+        if (*v58 != v44)
         {
           objc_enumerationMutation(obj);
         }
 
-        v52 = v13;
-        v14 = *(*(&v58 + 1) + 8 * v13);
+        v51 = v13;
+        v14 = *(*(&v57 + 1) + 8 * v13);
         v15 = objc_autoreleasePoolPush();
         v16 = [objc_opt_class() schemaOrgAndMissingEntitiesForExtractedEvent:{v14, context}];
         v17 = v15;
@@ -792,30 +780,30 @@ void __71__SGMessageEventDissector_eventsFromMessage_eventExtractionAssetsPath__
           log = v24;
           if (v24)
           {
-            v49 = v22;
-            v51 = v19;
-            v43 = v20;
-            v44 = v18;
-            v56 = 0u;
-            v57 = 0u;
-            v54 = 0u;
+            v48 = v22;
+            v50 = v19;
+            v42 = v20;
+            v43 = v18;
             v55 = 0u;
+            v56 = 0u;
+            v53 = 0u;
+            v54 = 0u;
             v25 = v24;
-            v26 = [v25 countByEnumeratingWithState:&v54 objects:v66 count:16];
+            v26 = [v25 countByEnumeratingWithState:&v53 objects:v65 count:16];
             if (v26)
             {
               v27 = v26;
-              v28 = *v55;
+              v28 = *v54;
               do
               {
                 for (i = 0; i != v27; ++i)
                 {
-                  if (*v55 != v28)
+                  if (*v54 != v28)
                   {
                     objc_enumerationMutation(v25);
                   }
 
-                  v30 = *(*(&v54 + 1) + 8 * i);
+                  v30 = *(*(&v53 + 1) + 8 * i);
                   v31 = objc_autoreleasePoolPush();
                   v32 = [MEMORY[0x277D01FA0] extractedFromTemplateWithName:@"ML_EventMessage"];
                   [v30 addTag:v32];
@@ -827,9 +815,9 @@ void __71__SGMessageEventDissector_eventsFromMessage_eventExtractionAssetsPath__
                   if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
                   {
                     *buf = 138412546;
-                    v63 = v30;
-                    v64 = 2112;
-                    v65 = entityCopy;
+                    v62 = v30;
+                    v63 = 2112;
+                    v64 = entityCopy;
                     _os_log_impl(&dword_231E60000, v34, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissector: Adding Enrichment: %@ to entity:%@", buf, 0x16u);
                   }
 
@@ -837,26 +825,26 @@ void __71__SGMessageEventDissector_eventsFromMessage_eventExtractionAssetsPath__
                   objc_autoreleasePoolPop(v31);
                 }
 
-                v27 = [v25 countByEnumeratingWithState:&v54 objects:v66 count:16];
+                v27 = [v25 countByEnumeratingWithState:&v53 objects:v65 count:16];
               }
 
               while (v27);
             }
 
             self = selfCopy;
-            v20 = v43;
-            v18 = v44;
-            v22 = v49;
-            v19 = v51;
+            v20 = v42;
+            v18 = v43;
+            v22 = v48;
+            v19 = v50;
           }
 
           [objc_opt_class() logMLMessageEventExtractionInteractions:entityCopy context:contextCopy];
-          v35 = v52;
+          v35 = v51;
         }
 
         else
         {
-          v50 = v21;
+          v49 = v21;
           v36 = v18;
           v37 = [v18 objectForKeyedSubscript:@"missingEntities"];
           [(SGMessageEventDissector *)self logFailedEventExtractionForMessage:messageCopy category:v20 missingEntities:v37 timingProcessingInMs:ms];
@@ -865,36 +853,35 @@ void __71__SGMessageEventDissector_eventsFromMessage_eventExtractionAssetsPath__
           if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v63 = v14;
-            v64 = 2112;
-            v65 = entityCopy;
+            v62 = v14;
+            v63 = 2112;
+            v64 = entityCopy;
             _os_log_error_impl(&dword_231E60000, log, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: Could not extract event deatils from event dictionary: %@ for entity: %@", buf, 0x16u);
           }
 
           v18 = v36;
           v19 = 0;
-          v35 = v52;
-          v22 = v50;
+          v35 = v51;
+          v22 = v49;
         }
 
         objc_autoreleasePoolPop(v22);
         v13 = v35 + 1;
       }
 
-      while (v13 != v48);
-      v48 = [obj countByEnumeratingWithState:&v58 objects:v67 count:16];
+      while (v13 != v47);
+      v47 = [obj countByEnumeratingWithState:&v57 objects:v66 count:16];
     }
 
-    while (v48);
+    while (v47);
   }
 
   objc_autoreleasePoolPop(context);
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (id)eventExtractionMobileAssetsPath
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = +[SGAsset regionAsset];
   v3 = [v2 filesystemPathForAssetDataRelativePath:@"MLEventExtractionModel.assets"];
 
@@ -912,9 +899,9 @@ void __71__SGMessageEventDissector_eventsFromMessage_eventExtractionAssetsPath__
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v11 = 138477827;
-      v12 = v3;
-      _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGMessageEventDissector: MLEventExtractionAssets Path: %{private}@", &v11, 0xCu);
+      v10 = 138477827;
+      v11 = v3;
+      _os_log_debug_impl(&dword_231E60000, v7, OS_LOG_TYPE_DEBUG, "SGMessageEventDissector: MLEventExtractionAssets Path: %{private}@", &v10, 0xCu);
     }
 
     v8 = v3;
@@ -924,19 +911,17 @@ void __71__SGMessageEventDissector_eventsFromMessage_eventExtractionAssetsPath__
   {
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v11) = 0;
-      _os_log_error_impl(&dword_231E60000, v7, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: Unable to find MA path for MLEventExtractionAssets", &v11, 2u);
+      LOWORD(v10) = 0;
+      _os_log_error_impl(&dword_231E60000, v7, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: Unable to find MA path for MLEventExtractionAssets", &v10, 2u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (id)eventClassifierMobileAssetsPath
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = +[SGAsset regionAsset];
   v3 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%@.%@", @"EventClassifier", @"mlmodelc"];
   v4 = [v2 filesystemPathForAssetDataRelativePath:v3];
@@ -957,7 +942,7 @@ void __71__SGMessageEventDissector_eventsFromMessage_eventExtractionAssetsPath__
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138477827;
-      v14 = v4;
+      v13 = v4;
       _os_log_debug_impl(&dword_231E60000, v9, OS_LOG_TYPE_DEBUG, "SGMessageEventDissector: EventClassifier Model Path: %{private}@", buf, 0xCu);
     }
 
@@ -972,8 +957,6 @@ void __71__SGMessageEventDissector_eventsFromMessage_eventExtractionAssetsPath__
       _os_log_error_impl(&dword_231E60000, v9, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: Unable to find MA path for EventClassifier model", buf, 2u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1008,7 +991,7 @@ void __71__SGMessageEventDissector_eventsFromMessage_eventExtractionAssetsPath__
 LABEL_8:
             v16 = [(SGMessageEventDissector *)self eventsFromMessage:messageCopy eventExtractionAssetsPath:eventExtractionMobileAssetsPath];
             v17 = v16;
-            if (v16 && [v16 count])
+            if (v16 && objc_msgSend_count(v16))
             {
               v18 = mach_absolute_time() - v11;
               if (SGMachTimeToNanoseconds_onceToken != -1)
@@ -1017,7 +1000,7 @@ LABEL_8:
               }
 
               v19 = v18 * SGMachTimeToNanoseconds_machTimebaseInfo / *algn_280D9D734 / 0xF4240;
-              v20 = [v17 count];
+              v20 = objc_msgSend_count(v17);
               v24[0] = MEMORY[0x277D85DD0];
               v24[1] = 3221225472;
               v24[2] = __61__SGMessageEventDissector_dissectTextMessage_entity_context___block_invoke;
@@ -1082,7 +1065,7 @@ LABEL_21:
 
 - (BOOL)shouldProcessTextMessage:(id)message entity:(id)entity
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   if (!+[SGMessageEventDissector allowMessageEventDissector])
   {
@@ -1096,12 +1079,12 @@ LABEL_12:
       goto LABEL_13;
     }
 
-    LOWORD(v18) = 0;
+    LOWORD(v17) = 0;
     v12 = "SGMessageEventDissector: Skipping Message Event dissector: allowMessageEventDissector is OFF";
     v13 = v11;
     v14 = 2;
 LABEL_10:
-    _os_log_impl(&dword_231E60000, v13, OS_LOG_TYPE_DEFAULT, v12, &v18, v14);
+    _os_log_impl(&dword_231E60000, v13, OS_LOG_TYPE_DEFAULT, v12, &v17, v14);
     goto LABEL_11;
   }
 
@@ -1124,8 +1107,8 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    v18 = 138412290;
-    v19 = @"Event";
+    v17 = 138412290;
+    v18 = @"Event";
     v12 = "SGMessageEventDissector: Skipping Message: Message is not classified as %@ type by the Event-Classifier.";
     v13 = v11;
     v14 = 12;
@@ -1134,11 +1117,11 @@ LABEL_10:
 
   if (![(SGMessageEventDissector *)self isDissectorProcessingWithinRateLimit])
   {
-    v17 = sgEventsLogHandle();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v16 = sgEventsLogHandle();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_231E60000, v17, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissector: Skipping Message: Exceeded Rate Limit", &v18, 2u);
+      LOWORD(v17) = 0;
+      _os_log_impl(&dword_231E60000, v16, OS_LOG_TYPE_DEFAULT, "SGMessageEventDissector: Skipping Message: Exceeded Rate Limit", &v17, 2u);
     }
 
     [(SGMessageEventDissector *)self logFailedEventExtractionForMessage:messageCopy failureCode:101];
@@ -1148,7 +1131,6 @@ LABEL_10:
   v10 = 1;
 LABEL_13:
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -1173,61 +1155,60 @@ LABEL_13:
 
 void __63__SGMessageEventDissector_isDissectorProcessingWithinRateLimit__block_invoke(uint64_t a1, void *a2)
 {
-  v21 = a2;
-  v3 = *(a1 + 32);
+  v20 = a2;
   if ([objc_opt_class() mobileAssetsEnabled])
   {
-    v4 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:@"EventExtractionMessageProcessingLimit"];
-    v5 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:@"EventExtractionRateLimitInterval"];
+    v3 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:@"EventExtractionMessageProcessingLimit"];
+    v4 = [*(*(a1 + 32) + 16) objectForKeyedSubscript:@"EventExtractionRateLimitInterval"];
   }
 
   else
   {
+    v5 = +[SGMessageEventDissectorTrialClientWrapper sharedInstance];
+    v3 = [v5 messageProcessingLimit];
+
     v6 = +[SGMessageEventDissectorTrialClientWrapper sharedInstance];
-    v4 = [v6 messageProcessingLimit];
-
-    v7 = +[SGMessageEventDissectorTrialClientWrapper sharedInstance];
-    v5 = [v7 rateLimitInterval];
+    v4 = [v6 rateLimitInterval];
   }
 
-  v8 = v21[1];
-  v9 = v21[2];
-  v10 = objc_opt_new();
-  [v10 timeIntervalSinceDate:v8];
-  v12 = v11;
-  [v5 doubleValue];
-  if (v12 >= v13)
+  v7 = v20[1];
+  v8 = v20[2];
+  v9 = objc_opt_new();
+  [v9 timeIntervalSinceDate:v7];
+  v11 = v10;
+  [v4 doubleValue];
+  if (v11 >= v12)
   {
-    v14 = v10;
+    v13 = v9;
 
-    v15 = v4;
+    v14 = v3;
+    v7 = v13;
     v8 = v14;
-    v9 = v15;
   }
 
-  if ([v9 intValue] >= 1)
+  if ([v8 intValue] >= 1)
   {
-    v16 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v9, "intValue") - 1}];
+    v15 = [MEMORY[0x277CCABB0] numberWithInt:{objc_msgSend(v8, "intValue") - 1}];
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
-    v9 = v16;
+    v8 = v15;
   }
 
-  v17 = v21[1];
-  v21[1] = v8;
-  v18 = v8;
+  v16 = v20[1];
+  v20[1] = v7;
+  v17 = v7;
 
-  v19 = v21[2];
-  v21[2] = v9;
-  v20 = v9;
+  v18 = v20[2];
+  v20[2] = v8;
+  v19 = v8;
 }
 
 - (id)_init
 {
-  v23[3] = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = SGMessageEventDissector;
-  v2 = [(SGMessageEventDissector *)&v21 init];
+  v22[3] = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = SGMessageEventDissector;
+  v2 = [(SGMessageEventDissector *)&v20 init];
   if (v2)
   {
     v3 = objc_opt_new();
@@ -1244,13 +1225,13 @@ void __63__SGMessageEventDissector_isDissectorProcessingWithinRateLimit__block_i
       v8 = v2->_dissectorConfig;
       if (!v8)
       {
-        v22[0] = @"EventExtractionMessageProcessingLimit";
-        v22[1] = @"EventExtractionRateLimitInterval";
-        v23[0] = &unk_284749A88;
-        v23[1] = &unk_284749AA0;
-        v22[2] = @"EventClassifierThreshold";
-        v23[2] = &unk_28474A3A8;
-        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
+        v21[0] = @"EventExtractionMessageProcessingLimit";
+        v21[1] = @"EventExtractionRateLimitInterval";
+        v22[0] = &unk_284749A88;
+        v22[1] = &unk_284749AA0;
+        v21[2] = @"EventClassifierThreshold";
+        v22[2] = &unk_28474A3A8;
+        v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
         v10 = v2->_dissectorConfig;
         v2->_dissectorConfig = v9;
 
@@ -1279,27 +1260,26 @@ void __63__SGMessageEventDissector_isDissectorProcessingWithinRateLimit__block_i
     v2->_lock = v17;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 + (id)loadEventClassifierModelFromPath:(id)path
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   if (pathCopy)
   {
     v4 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:pathCopy];
     v5 = objc_opt_new();
     [v5 setComputeUnits:0];
-    v16 = 0;
-    v6 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v4 configuration:v5 error:&v16];
-    v7 = v16;
+    v15 = 0;
+    v6 = [MEMORY[0x277CBFF20] modelWithContentsOfURL:v4 configuration:v5 error:&v15];
+    v7 = v15;
     if (v6)
     {
-      v15 = v7;
-      v8 = [objc_alloc(MEMORY[0x277CD89D0]) initWithMLModel:v6 error:&v15];
-      v9 = v15;
+      v14 = v7;
+      v8 = [objc_alloc(MEMORY[0x277CD89D0]) initWithMLModel:v6 error:&v14];
+      v9 = v14;
 
       if (v8)
       {
@@ -1313,7 +1293,7 @@ void __63__SGMessageEventDissector_isDissectorProcessingWithinRateLimit__block_i
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v18 = v9;
+          v17 = v9;
           _os_log_error_impl(&dword_231E60000, v12, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: Unable to convert ML Model to NL Model: %@", buf, 0xCu);
         }
 
@@ -1328,7 +1308,7 @@ void __63__SGMessageEventDissector_isDissectorProcessingWithinRateLimit__block_i
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v18 = v7;
+        v17 = v7;
         _os_log_error_impl(&dword_231E60000, v10, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: Unable to load Event Classifier Model: %@", buf, 0xCu);
       }
 
@@ -1349,37 +1329,35 @@ void __63__SGMessageEventDissector_isDissectorProcessingWithinRateLimit__block_i
     v11 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 + (void)logMLMessageEventExtractionInteractions:(id)interactions context:(id)context
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   interactionsCopy = interactions;
   contextCopy = context;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v20 = interactionsCopy;
+  v19 = interactionsCopy;
   enrichments = [interactionsCopy enrichments];
-  v8 = [enrichments countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [enrichments countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(enrichments);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         v13 = objc_autoreleasePoolPush();
         duplicateKey = [v12 duplicateKey];
         [duplicateKey entityType];
@@ -1421,28 +1399,26 @@ LABEL_16:
         objc_autoreleasePoolPop(v13);
       }
 
-      v9 = [enrichments countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [enrichments countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 + (id)getFlightInformationForFlightEventData:(id)data
 {
-  v130 = *MEMORY[0x277D85DE8];
+  v129 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v4 = objc_opt_new();
   v5 = [dataCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__DEPARTURE_LOCATION"];
-  v107 = [dataCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__ARRIVAL_LOCATION"];
-  v98 = [dataCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__START_DATETIME"];
+  v106 = [dataCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__ARRIVAL_LOCATION"];
+  v97 = [dataCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__START_DATETIME"];
   v6 = [dataCopy objectForKeyedSubscript:@"carrierCode"];
-  v99 = [dataCopy objectForKeyedSubscript:@"flightNumber"];
-  v95 = [dataCopy objectForKeyedSubscript:@"reservationId"];
-  v96 = v6;
-  if (!v6 || !v99 || !v98)
+  v98 = [dataCopy objectForKeyedSubscript:@"flightNumber"];
+  v94 = [dataCopy objectForKeyedSubscript:@"reservationId"];
+  v95 = v6;
+  if (!v6 || !v98 || !v97)
   {
     log = sgEventsLogHandle();
     if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
@@ -1455,20 +1431,20 @@ LABEL_16:
     goto LABEL_89;
   }
 
-  v94 = dataCopy;
+  v93 = dataCopy;
   v7 = objc_opt_new();
   [v7 setDateFormat:@"yyyy-MM-dd'T'HH:mm:ss"];
   v8 = [MEMORY[0x277CBEBB0] timeZoneWithName:@"UTC"];
   [v7 setTimeZone:v8];
 
-  v9 = [self dateFromString:v98];
+  v9 = [self dateFromString:v97];
   log = v7;
   v10 = [v7 stringFromDate:v9];
 
-  v93 = objc_opt_new();
-  v108 = v10;
-  v11 = [v93 flightInformationWithAirlineCode:v96 flightNumber:v99 flightDate:v10];
-  if (![v11 count])
+  v92 = objc_opt_new();
+  v107 = v10;
+  v11 = [v92 flightInformationWithAirlineCode:v95 flightNumber:v98 flightDate:v10];
+  if (!objc_msgSend_count(v11))
   {
     v15 = sgEventsLogHandle();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
@@ -1481,11 +1457,11 @@ LABEL_16:
     goto LABEL_88;
   }
 
-  if ([v11 count] == 1)
+  if (objc_msgSend_count(v11) == 1)
   {
     v12 = [v11 objectAtIndexedSubscript:0];
     v13 = [v12 objectForKeyedSubscript:@"legs"];
-    v14 = [v13 count];
+    v14 = objc_msgSend_count(v13);
 
     if (v14 == 1)
     {
@@ -1495,22 +1471,22 @@ LABEL_16:
       v18 = [v17 objectAtIndexedSubscript:0];
 
       v19 = 0;
-      v109 = 0;
+      v108 = 0;
       goto LABEL_51;
     }
   }
 
-  v122 = 0u;
-  v123 = 0u;
-  v120 = 0u;
   v121 = 0u;
+  v122 = 0u;
+  v119 = 0u;
+  v120 = 0u;
   v21 = v11;
-  v103 = [v21 countByEnumeratingWithState:&v120 objects:v129 count:16];
-  if (!v103)
+  v102 = [v21 countByEnumeratingWithState:&v119 objects:v128 count:16];
+  if (!v102)
   {
 
     v15 = 0;
-    v109 = 0;
+    v108 = 0;
     v19 = 0;
 LABEL_83:
     v18 = 0;
@@ -1519,33 +1495,33 @@ LABEL_83:
 
   obj = v21;
   v19 = 0;
-  v109 = 0;
+  v108 = 0;
   v15 = 0;
-  v101 = v4;
-  v102 = *v121;
-  v111 = v5;
-  v100 = v11;
+  v100 = v4;
+  v101 = *v120;
+  v110 = v5;
+  v99 = v11;
   do
   {
     v22 = 0;
     do
     {
-      if (*v121 != v102)
+      if (*v120 != v101)
       {
         objc_enumerationMutation(obj);
       }
 
-      v110 = v15;
-      v104 = v22;
-      v23 = *(*(&v120 + 1) + 8 * v22);
+      v109 = v15;
+      v103 = v22;
+      v23 = *(*(&v119 + 1) + 8 * v22);
 
-      v118 = 0u;
-      v119 = 0u;
-      v116 = 0u;
       v117 = 0u;
-      v105 = v23;
-      v106 = [v23 objectForKeyedSubscript:@"legs"];
-      v24 = [v106 countByEnumeratingWithState:&v116 objects:v128 count:16];
+      v118 = 0u;
+      v115 = 0u;
+      v116 = 0u;
+      v104 = v23;
+      v105 = [v23 objectForKeyedSubscript:@"legs"];
+      v24 = [v105 countByEnumeratingWithState:&v115 objects:v127 count:16];
       if (!v24)
       {
         v19 = 0;
@@ -1554,19 +1530,19 @@ LABEL_83:
 
       v25 = v24;
       v19 = 0;
-      v114 = *v117;
+      v113 = *v116;
       do
       {
         v26 = 0;
         do
         {
           v27 = v19;
-          if (*v117 != v114)
+          if (*v116 != v113)
           {
-            objc_enumerationMutation(v106);
+            objc_enumerationMutation(v105);
           }
 
-          v28 = *(*(&v116 + 1) + 8 * v26);
+          v28 = *(*(&v115 + 1) + 8 * v26);
           v29 = [v28 objectForKeyedSubscript:@"departureAirport"];
           v30 = [v28 objectForKeyedSubscript:@"arrivalAirport"];
           v31 = [v28 objectForKeyedSubscript:@"departureActualTime"];
@@ -1576,7 +1552,7 @@ LABEL_83:
           v34 = [v29 objectForKeyedSubscript:@"code"];
           if ([v5 isEqualToString:v34])
           {
-            v35 = [v33 isEqualToString:v108];
+            v35 = [v33 isEqualToString:v107];
 
             if (v35)
             {
@@ -1589,15 +1565,15 @@ LABEL_83:
             v36 = [v29 objectForKeyedSubscript:@"city"];
             if ([v5 isEqualToString:v36])
             {
-              v37 = [v33 isEqualToString:v108];
+              v37 = [v33 isEqualToString:v107];
 
               if (v37)
               {
 LABEL_26:
-                v38 = v109;
-                v39 = v110;
-                v109 = v28;
-                v110 = v105;
+                v38 = v108;
+                v39 = v109;
+                v108 = v28;
+                v109 = v104;
                 v40 = v27;
 LABEL_30:
 
@@ -1616,7 +1592,7 @@ LABEL_31:
           }
 
           v39 = [v30 objectForKeyedSubscript:@"code"];
-          if ([v107 isEqualToString:v39])
+          if ([v106 isEqualToString:v39])
           {
             v38 = v27;
             v40 = v28;
@@ -1624,7 +1600,7 @@ LABEL_31:
           }
 
           v42 = [v30 objectForKeyedSubscript:@"city"];
-          v43 = [v107 isEqualToString:v42];
+          v43 = [v106 isEqualToString:v42];
 
           v40 = v28;
           v19 = v27;
@@ -1636,45 +1612,45 @@ LABEL_31:
 LABEL_32:
 
           ++v26;
-          v5 = v111;
+          v5 = v110;
         }
 
         while (v25 != v26);
-        v44 = [v106 countByEnumeratingWithState:&v116 objects:v128 count:16];
+        v44 = [v105 countByEnumeratingWithState:&v115 objects:v127 count:16];
         v25 = v44;
       }
 
       while (v44);
 LABEL_39:
 
-      v15 = v110;
-      if (v110 && v109)
+      v15 = v109;
+      if (v109 && v108)
       {
 
-        v11 = v100;
-        v4 = v101;
+        v11 = v99;
+        v4 = v100;
         goto LABEL_49;
       }
 
-      v22 = v104 + 1;
-      v11 = v100;
-      v4 = v101;
+      v22 = v103 + 1;
+      v11 = v99;
+      v4 = v100;
     }
 
-    while (v104 + 1 != v103);
-    v103 = [obj countByEnumeratingWithState:&v120 objects:v129 count:16];
+    while (v103 + 1 != v102);
+    v102 = [obj countByEnumeratingWithState:&v119 objects:v128 count:16];
   }
 
-  while (v103);
+  while (v102);
 
-  if (!v109)
+  if (!v108)
   {
-    v109 = 0;
+    v108 = 0;
     goto LABEL_83;
   }
 
 LABEL_49:
-  v18 = [v109 mutableCopy];
+  v18 = [v108 mutableCopy];
   if (v19)
   {
     v45 = [v19 objectForKeyedSubscript:@"arrivalAirport"];
@@ -1720,9 +1696,9 @@ LABEL_51:
       [v4 setObject:v57 forKeyedSubscript:@"flightNumber"];
     }
 
-    if (v95)
+    if (v94)
     {
-      [v4 setObject:v95 forKeyedSubscript:@"reservationId"];
+      [v4 setObject:v94 forKeyedSubscript:@"reservationId"];
     }
 
     v58 = [v18 objectForKeyedSubscript:@"departureActualTime"];
@@ -1761,7 +1737,7 @@ LABEL_51:
       [v4 setObject:v69 forKeyedSubscript:@"arrivalGate"];
     }
 
-    v115 = v19;
+    v114 = v19;
     v70 = [v18 objectForKeyedSubscript:@"departureTerminal"];
     null8 = [MEMORY[0x277CBEB68] null];
 
@@ -1822,7 +1798,7 @@ LABEL_51:
     v20 = v4;
 
     v15 = v73;
-    v19 = v115;
+    v19 = v114;
     goto LABEL_87;
   }
 
@@ -1831,9 +1807,9 @@ LABEL_84:
   if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
   {
     *buf = 138478083;
-    v125 = v108;
-    v126 = 2113;
-    v127 = v5;
+    v124 = v107;
+    v125 = 2113;
+    v126 = v5;
     _os_log_error_impl(&dword_231E60000, v77, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: No flight information for departure date:%{private}@ & departureLocation:%{private}@ found, bailing", buf, 0x16u);
   }
 
@@ -1841,10 +1817,9 @@ LABEL_84:
 LABEL_87:
 
 LABEL_88:
-  dataCopy = v94;
+  dataCopy = v93;
 
 LABEL_89:
-  v91 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -1905,29 +1880,29 @@ LABEL_89:
 
 + (id)nilEntities:(id)entities
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   entitiesCopy = entities;
   v4 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = entitiesCopy;
-  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         first = [v10 first];
 
         if (!first)
@@ -1945,20 +1920,18 @@ LABEL_89:
             second2 = sgEventsLogHandle();
             if (os_log_type_enabled(second2, OS_LOG_TYPE_ERROR))
             {
-              *v16 = 0;
-              _os_log_error_impl(&dword_231E60000, second2, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: No name for missing entity", v16, 2u);
+              *v15 = 0;
+              _os_log_error_impl(&dword_231E60000, second2, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: No name for missing entity", v15, 2u);
             }
           }
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1984,7 +1957,7 @@ LABEL_89:
 
 + (id)enrichmentsFromSchema:(id)schema forMessage:(id)message forEntity:(id)entity category:(id)category
 {
-  v40[1] = *MEMORY[0x277D85DE8];
+  v39[1] = *MEMORY[0x277D85DE8];
   schemaCopy = schema;
   messageCopy = message;
   entityCopy = entity;
@@ -1994,8 +1967,8 @@ LABEL_89:
   if ((v13 - 1) < 5)
   {
     v14 = objc_opt_new();
-    v40[0] = schemaCopy;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v40 count:1];
+    v39[0] = schemaCopy;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
     v16 = [v14 enrichmentsFromSchemas:v15 inTextMessage:messageCopy parentEntity:entityCopy];
 
 LABEL_3:
@@ -2010,58 +1983,58 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v20 = [schemaCopy objectForKeyedSubscript:@"reservationFor"];
-  v21 = [v20 objectForKeyedSubscript:@"name"];
-  v22 = objc_opt_class();
-  v23 = [v20 objectForKeyedSubscript:@"startDate"];
-  v24 = [v22 dateFromString:v23];
+  v19 = [schemaCopy objectForKeyedSubscript:@"reservationFor"];
+  v20 = [v19 objectForKeyedSubscript:@"name"];
+  v21 = objc_opt_class();
+  v22 = [v19 objectForKeyedSubscript:@"startDate"];
+  v23 = [v21 dateFromString:v22];
 
-  v25 = objc_opt_class();
-  v26 = [v20 objectForKeyedSubscript:@"endDate"];
-  v27 = [v25 dateFromString:v26];
+  v24 = objc_opt_class();
+  v25 = [v19 objectForKeyedSubscript:@"endDate"];
+  v26 = [v24 dateFromString:v25];
 
   v16 = 0;
-  v28 = 0;
-  if (v24 && v27)
+  v27 = 0;
+  if (v23 && v26)
   {
-    if ([v24 compare:v27] == 1)
+    if ([v23 compare:v26] == 1)
     {
-      v28 = 0;
+      v27 = 0;
       v16 = 0;
     }
 
     else
     {
-      v29 = objc_alloc(MEMORY[0x277CCACA8]);
-      v30 = [v20 objectForKeyedSubscript:@"startDate"];
-      v31 = [v20 objectForKeyedSubscript:@"endDate"];
-      v37 = [v29 initWithFormat:@"GenericEvent|%@|%@|%@", v21, v30, v31];
-      v38 = v21;
+      v28 = objc_alloc(MEMORY[0x277CCACA8]);
+      v29 = [v19 objectForKeyedSubscript:@"startDate"];
+      v30 = [v19 objectForKeyedSubscript:@"endDate"];
+      v36 = [v28 initWithFormat:@"GenericEvent|%@|%@|%@", v20, v29, v30];
+      v37 = v20;
 
       duplicateKey = [entityCopy duplicateKey];
-      v36 = [SGDuplicateKey duplicateKeyForPseudoEventWithGroupId:v37 parentKey:duplicateKey];
+      v35 = [SGDuplicateKey duplicateKeyForPseudoEventWithGroupId:v36 parentKey:duplicateKey];
 
-      v33 = [[SGPipelineEnrichment alloc] initWithDuplicateKey:v36 title:v21 parent:entityCopy];
-      v28 = 1;
-      [(SGEntity *)v33 setState:1];
-      v34 = [MEMORY[0x277D020E8] floatingRangeWithLocalStartDate:v24 endDate:v27];
-      [(SGEntity *)v33 setTimeRange:v34];
-      [(SGEntity *)v33 setTitle:v38];
+      v32 = [[SGPipelineEnrichment alloc] initWithDuplicateKey:v35 title:v20 parent:entityCopy];
+      v27 = 1;
+      [(SGEntity *)v32 setState:1];
+      v33 = [MEMORY[0x277D020E8] floatingRangeWithLocalStartDate:v23 endDate:v26];
+      [(SGEntity *)v32 setTimeRange:v33];
+      [(SGEntity *)v32 setTitle:v37];
       [entityCopy creationTimestamp];
-      [(SGPipelineEnrichment *)v33 setCreationTimestamp:?];
+      [(SGPipelineEnrichment *)v32 setCreationTimestamp:?];
       [entityCopy lastModifiedTimestamp];
-      [(SGPipelineEnrichment *)v33 setLastModifiedTimestamp:?];
+      [(SGPipelineEnrichment *)v32 setLastModifiedTimestamp:?];
       extractedEvent = [MEMORY[0x277D01FA0] extractedEvent];
-      [(SGEntity *)v33 addTag:extractedEvent];
+      [(SGEntity *)v32 addTag:extractedEvent];
 
-      v39 = v33;
-      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v39 count:1];
+      v38 = v32;
+      v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v38 count:1];
 
-      v21 = v38;
+      v20 = v37;
     }
   }
 
-  if (v28)
+  if (v27)
   {
     goto LABEL_3;
   }
@@ -2069,45 +2042,41 @@ LABEL_3:
   v17 = 0;
 LABEL_4:
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 + (id)fallbackSchemaForGenericEventWithTitle:(id)title startDate:(id)date endDate:(id)endDate
 {
-  v18[4] = *MEMORY[0x277D85DE8];
-  v17[0] = @"@context";
-  v17[1] = @"@type";
-  v18[0] = @"http://schema.org";
-  v18[1] = @"http://schema.org/EventReservation";
-  v18[2] = @"http://schema.org/ReservationConfirmed";
-  v17[2] = @"reservationStatus";
-  v17[3] = @"reservationFor";
-  v15[0] = @"@type";
-  v15[1] = @"name";
-  v16[0] = @"http://schema.org/Event";
-  v16[1] = title;
-  v15[2] = @"startDate";
-  v15[3] = @"endDate";
-  v16[2] = date;
-  v16[3] = endDate;
+  v17[4] = *MEMORY[0x277D85DE8];
+  v16[0] = @"@context";
+  v16[1] = @"@type";
+  v17[0] = @"http://schema.org";
+  v17[1] = @"http://schema.org/EventReservation";
+  v17[2] = @"http://schema.org/ReservationConfirmed";
+  v16[2] = @"reservationStatus";
+  v16[3] = @"reservationFor";
+  v14[0] = @"@type";
+  v14[1] = @"name";
+  v15[0] = @"http://schema.org/Event";
+  v15[1] = title;
+  v14[2] = @"startDate";
+  v14[3] = @"endDate";
+  v15[2] = date;
+  v15[3] = endDate;
   v7 = MEMORY[0x277CBEAC0];
   endDateCopy = endDate;
   dateCopy = date;
   titleCopy = title;
-  v11 = [v7 dictionaryWithObjects:v16 forKeys:v15 count:4];
-  v18[3] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = [v7 dictionaryWithObjects:v15 forKeys:v14 count:4];
+  v17[3] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
 
   return v12;
 }
 
 + (id)schemaOrgAndMissingEntitiesForExtractedEvent:(id)event
 {
-  v178[5] = *MEMORY[0x277D85DE8];
+  v177[5] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = objc_opt_new();
   v6 = objc_opt_class();
@@ -2125,55 +2094,55 @@ LABEL_4:
       if (v8 != 3)
       {
         v11 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__NAME"];
-        v134 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__START_DATETIME"];
+        v133 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__START_DATETIME"];
         v12 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__END_DATETIME"];
         v13 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__END_DATETIME_IS_SIGNIFICANT"];
         bOOLValue = [v13 BOOLValue];
 
         v15 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__TITLE"];
         v16 = v15;
-        if (v11 && v134 && v12 && bOOLValue)
+        if (v11 && v133 && v12 && bOOLValue)
         {
-          v165[0] = @"http://schema.org";
-          v165[1] = @"http://schema.org/LodgingReservation";
-          v164[0] = @"@context";
-          v164[1] = @"@type";
-          v164[2] = @"checkinTime";
-          v164[3] = @"checkoutTime";
-          v165[2] = v134;
-          v165[3] = v12;
-          v165[4] = @"http://schema.org/ReservationConfirmed";
-          v164[4] = @"reservationStatus";
-          v164[5] = @"reservationFor";
-          v162[0] = @"@type";
-          v162[1] = @"name";
-          v163[0] = @"http://schema.org/LodgingBusiness";
-          v163[1] = v11;
-          v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v163 forKeys:v162 count:2];
-          v165[5] = v17;
-          v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v165 forKeys:v164 count:6];
+          v164[0] = @"http://schema.org";
+          v164[1] = @"http://schema.org/LodgingReservation";
+          v163[0] = @"@context";
+          v163[1] = @"@type";
+          v163[2] = @"checkinTime";
+          v163[3] = @"checkoutTime";
+          v164[2] = v133;
+          v164[3] = v12;
+          v164[4] = @"http://schema.org/ReservationConfirmed";
+          v163[4] = @"reservationStatus";
+          v163[5] = @"reservationFor";
+          v161[0] = @"@type";
+          v161[1] = @"name";
+          v162[0] = @"http://schema.org/LodgingBusiness";
+          v162[1] = v11;
+          v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v162 forKeys:v161 count:2];
+          v164[5] = v17;
+          v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v164 forKeys:v163 count:6];
         }
 
         else
         {
-          if (!v15 || !v134 || !v12)
+          if (!v15 || !v133 || !v12)
           {
             v94 = objc_opt_class();
             v95 = [objc_opt_class() tupleWithEntity:v11 label:@"name"];
-            v161[0] = v95;
-            v96 = [objc_opt_class() tupleWithEntity:v134 label:@"startDate"];
-            v161[1] = v96;
+            v160[0] = v95;
+            v96 = [objc_opt_class() tupleWithEntity:v133 label:@"startDate"];
+            v160[1] = v96;
             v97 = [objc_opt_class() tupleWithEntity:v12 label:@"endDate"];
-            v161[2] = v97;
-            v98 = [MEMORY[0x277CBEA60] arrayWithObjects:v161 count:3];
+            v160[2] = v97;
+            v98 = [MEMORY[0x277CBEA60] arrayWithObjects:v160 count:3];
             v30 = [v94 nilEntities:v98];
 
             v17 = sgEventsLogHandle();
             if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
             {
-              v109 = [v30 _pas_componentsJoinedByString:{@", "}];
+              v108 = [v30 _pas_componentsJoinedByString:{@", "}];
               *buf = 138412290;
-              v167 = v109;
+              v166 = v108;
               _os_log_error_impl(&dword_231E60000, v17, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: Missing entities for message event extraction: %@", buf, 0xCu);
             }
 
@@ -2184,13 +2153,13 @@ LABEL_4:
           v72 = sgEventsLogHandle();
           if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
           {
-            v110 = [objc_opt_class() describeCategory:4];
+            v109 = [objc_opt_class() describeCategory:4];
             *buf = 138412290;
-            v167 = v110;
+            v166 = v109;
             _os_log_debug_impl(&dword_231E60000, v72, OS_LOG_TYPE_DEBUG, "SGMessageEventDissector: Using fallback schema for generic event for category: %@", buf, 0xCu);
           }
 
-          v10 = [objc_opt_class() fallbackSchemaForGenericEventWithTitle:v16 startDate:v134 endDate:v12];
+          v10 = [objc_opt_class() fallbackSchemaForGenericEventWithTitle:v16 startDate:v133 endDate:v12];
           v17 = [objc_opt_class() describeCategory:6];
           [v5 setObject:v17 forKeyedSubscript:@"category"];
         }
@@ -2202,7 +2171,7 @@ LABEL_120:
       }
 
       v11 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__DEPARTURE_LOCATION"];
-      v134 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__ARRIVAL_LOCATION"];
+      v133 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__ARRIVAL_LOCATION"];
       v12 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__START_DATETIME"];
       v18 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__END_DATETIME"];
       v34 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__END_DATETIME_IS_SIGNIFICANT"];
@@ -2210,47 +2179,47 @@ LABEL_120:
 
       v36 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__TITLE"];
       v22 = v36;
-      if (v11 && v134 && v12 && v18 && bOOLValue2)
+      if (v11 && v133 && v12 && v18 && bOOLValue2)
       {
-        v150[0] = @"@context";
-        v150[1] = @"@type";
-        v151[0] = @"http://schema.org";
-        v151[1] = @"http://schema.org/TrainReservation";
-        v151[2] = @"http://schema.org/ReservationConfirmed";
-        v150[2] = @"reservationStatus";
-        v150[3] = @"reservationFor";
-        v149[0] = @"http://schema.org/TrainTrip";
-        v148[0] = @"@type";
-        v148[1] = @"departureStation";
-        v131 = v5;
+        v149[0] = @"@context";
+        v149[1] = @"@type";
+        v150[0] = @"http://schema.org";
+        v150[1] = @"http://schema.org/TrainReservation";
+        v150[2] = @"http://schema.org/ReservationConfirmed";
+        v149[2] = @"reservationStatus";
+        v149[3] = @"reservationFor";
+        v148[0] = @"http://schema.org/TrainTrip";
+        v147[0] = @"@type";
+        v147[1] = @"departureStation";
+        v130 = v5;
         v37 = v36;
         v38 = v12;
         v39 = v18;
-        v146[0] = @"@type";
-        v146[1] = @"name";
-        v147[0] = @"http://schema.org/TrainStation";
-        v147[1] = v11;
-        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v147 forKeys:v146 count:2];
-        v149[1] = v25;
-        v149[2] = v38;
-        v148[2] = @"departureTime";
-        v148[3] = @"arrivalStation";
-        v144[0] = @"@type";
-        v144[1] = @"name";
-        v145[0] = @"http://schema.org/TrainStation";
-        v145[1] = v134;
-        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v145 forKeys:v144 count:2];
-        v148[4] = @"arrivalTime";
-        v149[3] = v26;
-        v149[4] = v18;
-        v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v149 forKeys:v148 count:5];
-        v151[3] = v40;
-        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v151 forKeys:v150 count:4];
+        v145[0] = @"@type";
+        v145[1] = @"name";
+        v146[0] = @"http://schema.org/TrainStation";
+        v146[1] = v11;
+        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v146 forKeys:v145 count:2];
+        v148[1] = v25;
+        v148[2] = v38;
+        v147[2] = @"departureTime";
+        v147[3] = @"arrivalStation";
+        v143[0] = @"@type";
+        v143[1] = @"name";
+        v144[0] = @"http://schema.org/TrainStation";
+        v144[1] = v133;
+        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v144 forKeys:v143 count:2];
+        v147[4] = @"arrivalTime";
+        v148[3] = v26;
+        v148[4] = v18;
+        v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v148 forKeys:v147 count:5];
+        v150[3] = v40;
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v150 forKeys:v149 count:4];
 
         v18 = v39;
         v12 = v38;
         v22 = v37;
-        v5 = v131;
+        v5 = v130;
         goto LABEL_31;
       }
 
@@ -2261,7 +2230,7 @@ LABEL_120:
         {
           v70 = [objc_opt_class() describeCategory:3];
           *buf = 138412290;
-          v167 = v70;
+          v166 = v70;
 LABEL_135:
           _os_log_debug_impl(&dword_231E60000, v69, OS_LOG_TYPE_DEBUG, "SGMessageEventDissector: Using fallback schema for generic event for category: %@", buf, 0xCu);
 
@@ -2272,16 +2241,16 @@ LABEL_135:
       }
 
       v85 = objc_opt_class();
-      v128 = [objc_opt_class() tupleWithEntity:v11 label:@"departureStation"];
-      v143[0] = v128;
-      v125 = [objc_opt_class() tupleWithEntity:v134 label:@"arrivalStation"];
-      v143[1] = v125;
+      v127 = [objc_opt_class() tupleWithEntity:v11 label:@"departureStation"];
+      v142[0] = v127;
+      v124 = [objc_opt_class() tupleWithEntity:v133 label:@"arrivalStation"];
+      v142[1] = v124;
       v86 = [objc_opt_class() tupleWithEntity:v12 label:@"startDate"];
-      v143[2] = v86;
-      v133 = v18;
+      v142[2] = v86;
+      v132 = v18;
       v87 = [objc_opt_class() tupleWithEntity:v18 label:@"endDate"];
-      v143[3] = v87;
-      v88 = [MEMORY[0x277CBEA60] arrayWithObjects:v143 count:4];
+      v142[3] = v87;
+      v88 = [MEMORY[0x277CBEA60] arrayWithObjects:v142 count:4];
       v30 = [v85 nilEntities:v88];
 
       v25 = sgEventsLogHandle();
@@ -2289,7 +2258,7 @@ LABEL_135:
       {
         v89 = [v30 _pas_componentsJoinedByString:{@", "}];
         *buf = 138412290;
-        v167 = v89;
+        v166 = v89;
 LABEL_133:
         _os_log_error_impl(&dword_231E60000, v25, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: Missing entities for message event extraction: %@", buf, 0xCu);
 
@@ -2307,33 +2276,33 @@ LABEL_133:
       }
 
       v11 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__TITLE"];
-      v134 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__START_DATETIME"];
+      v133 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__START_DATETIME"];
       v12 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__END_DATETIME"];
       v28 = objc_opt_class();
       v29 = v28;
-      if (v11 && v134 && v12)
+      if (v11 && v133 && v12)
       {
-        v10 = [v28 fallbackSchemaForGenericEventWithTitle:v11 startDate:v134 endDate:v12];
+        v10 = [v28 fallbackSchemaForGenericEventWithTitle:v11 startDate:v133 endDate:v12];
         v30 = 0;
       }
 
       else
       {
         v73 = [objc_opt_class() tupleWithEntity:v11 label:@"name"];
-        v137[0] = v73;
-        v74 = [objc_opt_class() tupleWithEntity:v134 label:@"startDate"];
-        v137[1] = v74;
+        v136[0] = v73;
+        v74 = [objc_opt_class() tupleWithEntity:v133 label:@"startDate"];
+        v136[1] = v74;
         v75 = [objc_opt_class() tupleWithEntity:v12 label:@"endDate"];
-        v137[2] = v75;
-        v76 = [MEMORY[0x277CBEA60] arrayWithObjects:v137 count:3];
+        v136[2] = v75;
+        v76 = [MEMORY[0x277CBEA60] arrayWithObjects:v136 count:3];
         v30 = [v29 nilEntities:v76];
 
         v77 = sgEventsLogHandle();
         if (os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
         {
-          v105 = [v30 _pas_componentsJoinedByString:{@", "}];
+          v104 = [v30 _pas_componentsJoinedByString:{@", "}];
           *buf = 138412290;
-          v167 = v105;
+          v166 = v104;
           _os_log_error_impl(&dword_231E60000, v77, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: Missing entities for message event extraction: %@", buf, 0xCu);
         }
 
@@ -2344,48 +2313,48 @@ LABEL_133:
     }
 
     v11 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__NAME"];
-    v134 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__START_DATETIME"];
+    v133 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__START_DATETIME"];
     v12 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__END_DATETIME"];
     v41 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__TITLE"];
     v42 = v41;
-    if (v11 && v134)
+    if (v11 && v133)
     {
-      v141[0] = @"@context";
-      v141[1] = @"@type";
-      v142[0] = @"http://schema.org";
-      v142[1] = @"http://schema.org/EventReservation";
-      v142[2] = @"http://schema.org/ReservationConfirmed";
-      v141[2] = @"reservationStatus";
-      v141[3] = @"reservationFor";
-      v139[0] = @"@type";
-      v139[1] = @"name";
-      v140[0] = @"http://schema.org/ScreeningEvent";
-      v140[1] = v11;
-      v139[2] = @"startDate";
-      v140[2] = v134;
-      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v140 forKeys:v139 count:3];
-      v142[3] = v43;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v142 forKeys:v141 count:4];
+      v140[0] = @"@context";
+      v140[1] = @"@type";
+      v141[0] = @"http://schema.org";
+      v141[1] = @"http://schema.org/EventReservation";
+      v141[2] = @"http://schema.org/ReservationConfirmed";
+      v140[2] = @"reservationStatus";
+      v140[3] = @"reservationFor";
+      v138[0] = @"@type";
+      v138[1] = @"name";
+      v139[0] = @"http://schema.org/ScreeningEvent";
+      v139[1] = v11;
+      v138[2] = @"startDate";
+      v139[2] = v133;
+      v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v139 forKeys:v138 count:3];
+      v141[3] = v43;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v141 forKeys:v140 count:4];
     }
 
     else
     {
-      if (!v41 || !v134 || !v12)
+      if (!v41 || !v133 || !v12)
       {
         v90 = objc_opt_class();
         v91 = [objc_opt_class() tupleWithEntity:v11 label:@"name"];
-        v138[0] = v91;
-        v92 = [objc_opt_class() tupleWithEntity:v134 label:@"startDate"];
-        v138[1] = v92;
-        v93 = [MEMORY[0x277CBEA60] arrayWithObjects:v138 count:2];
+        v137[0] = v91;
+        v92 = [objc_opt_class() tupleWithEntity:v133 label:@"startDate"];
+        v137[1] = v92;
+        v93 = [MEMORY[0x277CBEA60] arrayWithObjects:v137 count:2];
         v30 = [v90 nilEntities:v93];
 
         v43 = sgEventsLogHandle();
         if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
         {
-          v107 = [v30 _pas_componentsJoinedByString:{@", "}];
+          v106 = [v30 _pas_componentsJoinedByString:{@", "}];
           *buf = 138412290;
-          v167 = v107;
+          v166 = v106;
           _os_log_error_impl(&dword_231E60000, v43, OS_LOG_TYPE_ERROR, "SGMessageEventDissector: Missing entities for message event extraction: %@", buf, 0xCu);
         }
 
@@ -2396,13 +2365,13 @@ LABEL_133:
       v71 = sgEventsLogHandle();
       if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
       {
-        v108 = [objc_opt_class() describeCategory:5];
+        v107 = [objc_opt_class() describeCategory:5];
         *buf = 138412290;
-        v167 = v108;
+        v166 = v107;
         _os_log_debug_impl(&dword_231E60000, v71, OS_LOG_TYPE_DEBUG, "SGMessageEventDissector: Using fallback schema for generic event for category: %@", buf, 0xCu);
       }
 
-      v10 = [objc_opt_class() fallbackSchemaForGenericEventWithTitle:v42 startDate:v134 endDate:v12];
+      v10 = [objc_opt_class() fallbackSchemaForGenericEventWithTitle:v42 startDate:v133 endDate:v12];
       v43 = [objc_opt_class() describeCategory:6];
       [v5 setObject:v43 forKeyedSubscript:@"category"];
     }
@@ -2423,7 +2392,7 @@ LABEL_115:
       }
 
       v11 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__DEPARTURE_LOCATION"];
-      v134 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__ARRIVAL_LOCATION"];
+      v133 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__ARRIVAL_LOCATION"];
       v12 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__START_DATETIME"];
       v18 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__END_DATETIME"];
       v19 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__END_DATETIME_IS_SIGNIFICANT"];
@@ -2431,45 +2400,45 @@ LABEL_115:
 
       v21 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__TITLE"];
       v22 = v21;
-      if (v11 && v134 && v12 && v18 && bOOLValue3)
+      if (v11 && v133 && v12 && v18 && bOOLValue3)
       {
-        v159[0] = @"@context";
-        v159[1] = @"@type";
-        v160[0] = @"http://schema.org";
-        v160[1] = @"http://schema.org/BusReservation";
-        v160[2] = @"http://schema.org/ReservationConfirmed";
-        v159[2] = @"reservationStatus";
-        v159[3] = @"reservationFor";
-        v158[0] = @"http://schema.org/BusTrip";
-        v157[0] = @"@type";
-        v157[1] = @"departureBusStop";
-        v130 = v21;
+        v158[0] = @"@context";
+        v158[1] = @"@type";
+        v159[0] = @"http://schema.org";
+        v159[1] = @"http://schema.org/BusReservation";
+        v159[2] = @"http://schema.org/ReservationConfirmed";
+        v158[2] = @"reservationStatus";
+        v158[3] = @"reservationFor";
+        v157[0] = @"http://schema.org/BusTrip";
+        v156[0] = @"@type";
+        v156[1] = @"departureBusStop";
+        v129 = v21;
         v23 = v11;
         v24 = v18;
-        v155[0] = @"@type";
-        v155[1] = @"name";
-        v156[0] = @"http://schema.org/BusStop";
-        v156[1] = v23;
-        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v156 forKeys:v155 count:2];
-        v158[1] = v25;
-        v158[2] = v12;
-        v157[2] = @"departureTime";
-        v157[3] = @"arrivalBusStop";
-        v153[0] = @"@type";
-        v153[1] = @"name";
-        v154[0] = @"http://schema.org/BusStop";
-        v154[1] = v134;
-        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v154 forKeys:v153 count:2];
-        v157[4] = @"arrivalTime";
-        v158[3] = v26;
-        v158[4] = v18;
-        v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v158 forKeys:v157 count:5];
-        v160[3] = v27;
-        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v160 forKeys:v159 count:4];
+        v154[0] = @"@type";
+        v154[1] = @"name";
+        v155[0] = @"http://schema.org/BusStop";
+        v155[1] = v23;
+        v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v155 forKeys:v154 count:2];
+        v157[1] = v25;
+        v157[2] = v12;
+        v156[2] = @"departureTime";
+        v156[3] = @"arrivalBusStop";
+        v152[0] = @"@type";
+        v152[1] = @"name";
+        v153[0] = @"http://schema.org/BusStop";
+        v153[1] = v133;
+        v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v153 forKeys:v152 count:2];
+        v156[4] = @"arrivalTime";
+        v157[3] = v26;
+        v157[4] = v18;
+        v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v157 forKeys:v156 count:5];
+        v159[3] = v27;
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v159 forKeys:v158 count:4];
 
         v18 = v24;
         v11 = v23;
-        v22 = v130;
+        v22 = v129;
 LABEL_31:
 
 LABEL_97:
@@ -2486,7 +2455,7 @@ LABEL_123:
         {
           v70 = [objc_opt_class() describeCategory:2];
           *buf = 138412290;
-          v167 = v70;
+          v166 = v70;
           goto LABEL_135;
         }
 
@@ -2499,16 +2468,16 @@ LABEL_96:
       }
 
       v99 = objc_opt_class();
-      v129 = [objc_opt_class() tupleWithEntity:v11 label:@"departureBusStop"];
-      v152[0] = v129;
-      v126 = [objc_opt_class() tupleWithEntity:v134 label:@"arrivalBusStop"];
-      v152[1] = v126;
+      v128 = [objc_opt_class() tupleWithEntity:v11 label:@"departureBusStop"];
+      v151[0] = v128;
+      v125 = [objc_opt_class() tupleWithEntity:v133 label:@"arrivalBusStop"];
+      v151[1] = v125;
       v100 = [objc_opt_class() tupleWithEntity:v12 label:@"startDate"];
-      v152[2] = v100;
-      v133 = v18;
+      v151[2] = v100;
+      v132 = v18;
       v101 = [objc_opt_class() tupleWithEntity:v18 label:@"endDate"];
-      v152[3] = v101;
-      v102 = [MEMORY[0x277CBEA60] arrayWithObjects:v152 count:4];
+      v151[3] = v101;
+      v102 = [MEMORY[0x277CBEA60] arrayWithObjects:v151 count:4];
       v30 = [v99 nilEntities:v102];
 
       v25 = sgEventsLogHandle();
@@ -2516,13 +2485,13 @@ LABEL_96:
       {
         v89 = [v30 _pas_componentsJoinedByString:{@", "}];
         *buf = 138412290;
-        v167 = v89;
+        v166 = v89;
         goto LABEL_133;
       }
 
 LABEL_122:
       v10 = 0;
-      v18 = v133;
+      v18 = v132;
       goto LABEL_123;
     }
 
@@ -2532,21 +2501,21 @@ LABEL_122:
     if (v11)
     {
       v45 = [v11 objectForKeyedSubscript:@"carrierCode"];
-      v116 = [v11 objectForKeyedSubscript:@"carrierName"];
+      v115 = [v11 objectForKeyedSubscript:@"carrierName"];
       v46 = [v11 objectForKeyedSubscript:@"flightNumber"];
-      v114 = [v11 objectForKeyedSubscript:@"reservationId"];
+      v113 = [v11 objectForKeyedSubscript:@"reservationId"];
       v47 = [v11 objectForKeyedSubscript:@"departureActualTime"];
       v48 = [v11 objectForKeyedSubscript:@"arrivalActualTime"];
-      v122 = [v11 objectForKeyedSubscript:@"departureAirportName"];
-      v121 = [v11 objectForKeyedSubscript:@"arrivalAirportName"];
+      v121 = [v11 objectForKeyedSubscript:@"departureAirportName"];
+      v120 = [v11 objectForKeyedSubscript:@"arrivalAirportName"];
       v49 = [v11 objectForKeyedSubscript:@"departureAirportCode"];
       v50 = [v11 objectForKeyedSubscript:@"arrivalAirportCode"];
-      v120 = [v11 objectForKeyedSubscript:@"departureGate"];
-      v119 = [v11 objectForKeyedSubscript:@"arrivalGate"];
-      v118 = [v11 objectForKeyedSubscript:@"departureTerminal"];
-      v117 = [v11 objectForKeyedSubscript:@"arrivalTerminal"];
-      v132 = v47;
-      v135 = v46;
+      v119 = [v11 objectForKeyedSubscript:@"departureGate"];
+      v118 = [v11 objectForKeyedSubscript:@"arrivalGate"];
+      v117 = [v11 objectForKeyedSubscript:@"departureTerminal"];
+      v116 = [v11 objectForKeyedSubscript:@"arrivalTerminal"];
+      v131 = v47;
+      v134 = v46;
       if (v45)
       {
         v51 = v46 == 0;
@@ -2558,134 +2527,134 @@ LABEL_122:
       }
 
       v52 = v51 || v47 == 0;
-      v124 = v49;
-      v127 = v48;
+      v123 = v49;
+      v126 = v48;
       v54 = v52 || v48 == 0 || v49 == 0;
-      v123 = v50;
+      v122 = v50;
       v55 = v54 || v50 == 0;
       v56 = !v55;
-      v113 = v56;
-      v115 = v45;
+      v112 = v56;
+      v114 = v45;
       if (v55)
       {
         v78 = objc_opt_class();
-        v112 = [objc_opt_class() tupleWithEntity:v45 label:@"carrierCode"];
-        v168[0] = v112;
-        v111 = [objc_opt_class() tupleWithEntity:v135 label:@"flightNumber"];
-        v168[1] = v111;
+        v111 = [objc_opt_class() tupleWithEntity:v45 label:@"carrierCode"];
+        v167[0] = v111;
+        v110 = [objc_opt_class() tupleWithEntity:v134 label:@"flightNumber"];
+        v167[1] = v110;
         v62 = [objc_opt_class() tupleWithEntity:v47 label:@"departureTime"];
-        v168[2] = v62;
+        v167[2] = v62;
         v66 = [objc_opt_class() tupleWithEntity:v48 label:@"arrivalTime"];
-        v168[3] = v66;
+        v167[3] = v66;
         v79 = [objc_opt_class() tupleWithEntity:v49 label:@"departureAirportCode"];
-        v168[4] = v79;
+        v167[4] = v79;
         v80 = [objc_opt_class() tupleWithEntity:v50 label:@"arrivalAirportCode"];
-        v168[5] = v80;
-        v81 = [MEMORY[0x277CBEA60] arrayWithObjects:v168 count:6];
+        v167[5] = v80;
+        v81 = [MEMORY[0x277CBEA60] arrayWithObjects:v167 count:6];
         v30 = [v78 nilEntities:v81];
 
         v10 = 0;
-        v67 = v114;
+        v67 = v113;
       }
 
       else
       {
-        v177[0] = @"@context";
-        v177[1] = @"@type";
-        v178[0] = @"http://schema.org";
-        v178[1] = @"http://schema.org/FlightReservation";
-        v177[2] = @"reservationFor";
-        v176[0] = @"http://schema.org/Flight";
-        v175[0] = @"@type";
-        v175[1] = @"airline";
-        v173[0] = @"@type";
-        v173[1] = @"iataCode";
-        v174[0] = @"http://schema.org/Airline";
-        v174[1] = v45;
-        v173[2] = @"name";
-        v57 = v116;
-        if (!v116)
+        v176[0] = @"@context";
+        v176[1] = @"@type";
+        v177[0] = @"http://schema.org";
+        v177[1] = @"http://schema.org/FlightReservation";
+        v176[2] = @"reservationFor";
+        v175[0] = @"http://schema.org/Flight";
+        v174[0] = @"@type";
+        v174[1] = @"airline";
+        v172[0] = @"@type";
+        v172[1] = @"iataCode";
+        v173[0] = @"http://schema.org/Airline";
+        v173[1] = v45;
+        v172[2] = @"name";
+        v57 = v115;
+        if (!v115)
         {
           v57 = &stru_284703F00;
         }
 
-        v174[2] = v57;
-        v112 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v174 forKeys:v173 count:3];
-        v176[1] = v112;
-        v175[2] = @"arrivalAirport";
-        v171[0] = @"@type";
-        v171[1] = @"iataCode";
-        v172[0] = @"http://schema.org/Airport";
-        v172[1] = v50;
-        v171[2] = @"name";
-        v58 = v121;
-        if (!v121)
+        v173[2] = v57;
+        v111 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v173 forKeys:v172 count:3];
+        v175[1] = v111;
+        v174[2] = @"arrivalAirport";
+        v170[0] = @"@type";
+        v170[1] = @"iataCode";
+        v171[0] = @"http://schema.org/Airport";
+        v171[1] = v50;
+        v170[2] = @"name";
+        v58 = v120;
+        if (!v120)
         {
           v58 = &stru_284703F00;
         }
 
-        v172[2] = v58;
-        v111 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v172 forKeys:v171 count:3];
-        v176[2] = v111;
-        v176[3] = v48;
-        v175[3] = @"arrivalTime";
-        v175[4] = @"arrivalGate";
-        v59 = v119;
-        if (!v119)
+        v171[2] = v58;
+        v110 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v171 forKeys:v170 count:3];
+        v175[2] = v110;
+        v175[3] = v48;
+        v174[3] = @"arrivalTime";
+        v174[4] = @"arrivalGate";
+        v59 = v118;
+        if (!v118)
         {
           v59 = &stru_284703F00;
         }
 
-        v60 = v117;
-        if (!v117)
+        v60 = v116;
+        if (!v116)
         {
           v60 = &stru_284703F00;
         }
 
-        v176[4] = v59;
-        v176[5] = v60;
-        v175[5] = @"arrivalTerminal";
-        v175[6] = @"departureAirport";
-        v169[0] = @"@type";
-        v169[1] = @"iataCode";
-        v170[0] = @"http://schema.org/Airport";
-        v170[1] = v49;
-        v169[2] = @"name";
-        v61 = v122;
-        if (!v122)
+        v175[4] = v59;
+        v175[5] = v60;
+        v174[5] = @"arrivalTerminal";
+        v174[6] = @"departureAirport";
+        v168[0] = @"@type";
+        v168[1] = @"iataCode";
+        v169[0] = @"http://schema.org/Airport";
+        v169[1] = v49;
+        v168[2] = @"name";
+        v61 = v121;
+        if (!v121)
         {
           v61 = &stru_284703F00;
         }
 
-        v170[2] = v61;
-        v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v170 forKeys:v169 count:3];
-        v176[6] = v62;
-        v176[7] = v47;
-        v175[7] = @"departureTime";
-        v175[8] = @"departureGate";
-        v63 = v120;
-        if (!v120)
+        v169[2] = v61;
+        v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v169 forKeys:v168 count:3];
+        v175[6] = v62;
+        v175[7] = v47;
+        v174[7] = @"departureTime";
+        v174[8] = @"departureGate";
+        v63 = v119;
+        if (!v119)
         {
           v63 = &stru_284703F00;
         }
 
-        v64 = v118;
-        if (!v118)
+        v64 = v117;
+        if (!v117)
         {
           v64 = &stru_284703F00;
         }
 
-        v176[8] = v63;
-        v176[9] = v64;
-        v175[9] = @"departureTerminal";
-        v175[10] = @"flightNumber";
-        v176[10] = v46;
-        v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v176 forKeys:v175 count:11];
+        v175[8] = v63;
+        v175[9] = v64;
+        v174[9] = @"departureTerminal";
+        v174[10] = @"flightNumber";
+        v175[10] = v46;
+        v65 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v175 forKeys:v174 count:11];
         v66 = v65;
-        v67 = v114;
-        if (v114)
+        v67 = v113;
+        if (v113)
         {
-          v68 = v114;
+          v68 = v113;
         }
 
         else
@@ -2693,16 +2662,16 @@ LABEL_122:
           v68 = &stru_284703F00;
         }
 
-        v178[2] = v65;
-        v178[3] = v68;
-        v177[3] = @"reservationId";
-        v177[4] = @"reservationStatus";
-        v178[4] = @"http://schema.org/ReservationConfirmed";
-        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v178 forKeys:v177 count:5];
+        v177[2] = v65;
+        v177[3] = v68;
+        v176[3] = @"reservationId";
+        v176[4] = @"reservationStatus";
+        v177[4] = @"http://schema.org/ReservationConfirmed";
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v177 forKeys:v176 count:5];
         v30 = 0;
       }
 
-      if (v113)
+      if (v112)
       {
         goto LABEL_125;
       }
@@ -2714,21 +2683,21 @@ LABEL_122:
       v30 = 0;
     }
 
-    v134 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__START_DATETIME"];
+    v133 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__START_DATETIME"];
     v12 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__END_DATETIME"];
     v42 = [eventCopy objectForKeyedSubscript:@"EventMetaDataExtractor_ML_EVENT__TITLE"];
-    if (v42 && v134 && v12)
+    if (v42 && v133 && v12)
     {
       v82 = sgEventsLogHandle();
       if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
       {
-        v106 = [objc_opt_class() describeCategory:1];
+        v105 = [objc_opt_class() describeCategory:1];
         *buf = 138412290;
-        v167 = v106;
+        v166 = v105;
         _os_log_debug_impl(&dword_231E60000, v82, OS_LOG_TYPE_DEBUG, "SGMessageEventDissector: Using fallback schema for generic event for category: %@", buf, 0xCu);
       }
 
-      v83 = [objc_opt_class() fallbackSchemaForGenericEventWithTitle:v42 startDate:v134 endDate:v12];
+      v83 = [objc_opt_class() fallbackSchemaForGenericEventWithTitle:v42 startDate:v133 endDate:v12];
 
       v84 = [objc_opt_class() describeCategory:6];
       [v5 setObject:v84 forKeyedSubscript:@"category"];
@@ -2752,8 +2721,8 @@ LABEL_125:
   v31 = objc_alloc(MEMORY[0x277CCACA8]);
   v32 = [objc_opt_class() describeCategory:0];
   v33 = [v31 initWithFormat:@"Unsupported category: %@", v32];
-  v136 = v33;
-  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v136 count:1];
+  v135 = v33;
+  v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v135 count:1];
 
   v10 = 0;
 LABEL_127:
@@ -2764,14 +2733,12 @@ LABEL_127:
 
 LABEL_129:
 
-  v103 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 + (id)loadLazyPlistWithBasename:(id)basename
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = [basename stringByAppendingPathExtension:@"plplist"];
   if (!v3)
   {
@@ -2796,25 +2763,25 @@ LABEL_129:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v3;
+      v15 = v3;
       _os_log_error_impl(&dword_231E60000, v9, OS_LOG_TYPE_ERROR, "Unable to resolve path: %@", buf, 0xCu);
     }
 
     goto LABEL_12;
   }
 
-  v14 = 0;
-  v8 = [MEMORY[0x277D425D8] dictionaryWithPath:v5 error:&v14];
-  v9 = v14;
+  v13 = 0;
+  v8 = [MEMORY[0x277D425D8] dictionaryWithPath:v5 error:&v13];
+  v9 = v13;
   if (!v8)
   {
     v10 = sgEventsLogHandle();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v16 = v5;
-      v17 = 2112;
-      v18 = v9;
+      v15 = v5;
+      v16 = 2112;
+      v17 = v9;
       _os_log_error_impl(&dword_231E60000, v10, OS_LOG_TYPE_ERROR, "Unable to load plplist content for %@: %@", buf, 0x16u);
     }
 
@@ -2824,8 +2791,6 @@ LABEL_12:
 
   v11 = v8;
 LABEL_14:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

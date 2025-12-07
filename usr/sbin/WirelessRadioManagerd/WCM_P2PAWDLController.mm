@@ -2,6 +2,7 @@
 - (WCM_P2PAWDLController)init;
 - (void)dealloc;
 - (void)handleAWDLOn:(id)on;
+- (void)handleAWDLRealTimeMode:(BOOL)mode;
 - (void)handleDisconnection:(id)disconnection;
 - (void)handleMessage:(id)message;
 @end
@@ -79,6 +80,19 @@
   v4 = +[WCM_PolicyManager singleton];
 
   [v4 updateControllerState:2702];
+}
+
+- (void)handleAWDLRealTimeMode:(BOOL)mode
+{
+  modeCopy = mode;
+  if ([(WCM_P2PAWDLController *)self mRealTimeAwdlTrafficEnabled]!= mode)
+  {
+    [WCM_Logging logLevel:2 message:@"Real Time AWDL State changed (%d -> %d)", [(WCM_P2PAWDLController *)self mRealTimeAwdlTrafficEnabled], modeCopy];
+    [(WCM_P2PAWDLController *)self setMRealTimeAwdlTrafficEnabled:modeCopy];
+    v5 = +[WCM_PolicyManager singleton];
+
+    [v5 updateControllerState:2702];
+  }
 }
 
 - (void)handleAWDLOn:(id)on

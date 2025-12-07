@@ -5,7 +5,7 @@
 - (NSString)uniqueName;
 - (char)relevanceScoreForNames:(id)names addresses:(id)addresses mapItems:(id)items completion:(id)completion;
 - (id).cxx_construct;
-- (uint64_t)_fetchLOIsWithCallback:(uint64_t)callback;
+- (uint64_t)_fetchLOIsWithCallback:(uint64_t *)callback;
 - (void)preLoad;
 @end
 
@@ -55,38 +55,39 @@
 
 - (char)relevanceScoreForNames:(id)names addresses:(id)addresses mapItems:(id)items completion:(id)completion
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   namesCopy = names;
   addressesCopy = addresses;
   itemsCopy = items;
   completionCopy = completion;
+  v15 = completionCopy;
   if (!completionCopy)
   {
-    v15 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446978;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsRoutineRelevanceScoreProvider.mm";
-      v25 = 1024;
-      v26 = 67;
-      v27 = 2082;
-      v28 = "[MapsSuggestionsRoutineRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
+      v26 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsRoutineRelevanceScoreProvider.mm";
+      v27 = 1024;
+      v28 = 67;
       v29 = 2082;
-      v30 = "nil == (completion)";
-      _os_log_impl(&dword_1C5126000, v15, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. nil completion", buf, 0x26u);
+      v30 = "[MapsSuggestionsRoutineRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
+      v31 = 2082;
+      v32 = "nil == (completion)";
+      _os_log_impl(&dword_1C5126000, v17, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. nil completion", buf, 0x26u);
     }
 
     goto LABEL_10;
   }
 
-  if (MapsSuggestionsLoggingIsVerbose())
+  if (MapsSuggestionsLoggingIsVerbose(completionCopy, v14))
   {
-    v14 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v16 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v24 = "[MapsSuggestionsRoutineRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
-      _os_log_impl(&dword_1C5126000, v14, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
+      v26 = "[MapsSuggestionsRoutineRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
+      _os_log_impl(&dword_1C5126000, v16, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
     }
   }
 
@@ -105,66 +106,66 @@
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v15 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v17 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446978;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsRoutineRelevanceScoreProvider.mm";
-      v25 = 1024;
-      v26 = 75;
-      v27 = 2082;
-      v28 = "[MapsSuggestionsRoutineRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
+      v26 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsRoutineRelevanceScoreProvider.mm";
+      v27 = 1024;
+      v28 = 75;
       v29 = 2082;
-      v30 = "[mapItems isKindOfClass:[NSMutableArray class]]";
-      _os_log_impl(&dword_1C5126000, v15, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Passing a mutable array for mapItems results in undefined behaviour", buf, 0x26u);
+      v30 = "[MapsSuggestionsRoutineRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
+      v31 = 2082;
+      v32 = "[mapItems isKindOfClass:[NSMutableArray class]]";
+      _os_log_impl(&dword_1C5126000, v17, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Passing a mutable array for mapItems results in undefined behaviour", buf, 0x26u);
     }
 
 LABEL_10:
 
 LABEL_16:
-    v16 = 0;
+    v18 = 0;
     goto LABEL_17;
   }
 
-  v18 = [itemsCopy copy];
+  v20 = [itemsCopy copy];
 
-  if ([v18 count])
+  if ([v20 count])
   {
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __101__MapsSuggestionsRoutineRelevanceScoreProvider_relevanceScoreForNames_addresses_mapItems_completion___block_invoke;
-    v20[3] = &unk_1E81F5488;
-    v21 = v18;
-    v22 = completionCopy;
-    itemsCopy = v18;
-    MSg::Queue::async<MapsSuggestionsRoutineRelevanceScoreProvider>(&self->_queue, self, v20);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __101__MapsSuggestionsRoutineRelevanceScoreProvider_relevanceScoreForNames_addresses_mapItems_completion___block_invoke;
+    v22[3] = &unk_1E81F5488;
+    v23 = v20;
+    v24 = v15;
+    itemsCopy = v20;
+    MSg::Queue::async<MapsSuggestionsRoutineRelevanceScoreProvider>(&self->_queue, self, v22);
 
-    v16 = 1;
+    v18 = 1;
   }
 
   else
   {
-    v19 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v21 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       *buf = 136446978;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsRoutineRelevanceScoreProvider.mm";
-      v25 = 1024;
-      v26 = 80;
-      v27 = 2082;
-      v28 = "[MapsSuggestionsRoutineRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
+      v26 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsRoutineRelevanceScoreProvider.mm";
+      v27 = 1024;
+      v28 = 80;
       v29 = 2082;
-      v30 = "0u == [mapItems count]";
-      _os_log_impl(&dword_1C5126000, v19, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. 0 mapItems passed", buf, 0x26u);
+      v30 = "[MapsSuggestionsRoutineRelevanceScoreProvider relevanceScoreForNames:addresses:mapItems:completion:]";
+      v31 = 2082;
+      v32 = "0u == [mapItems count]";
+      _os_log_impl(&dword_1C5126000, v21, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. 0 mapItems passed", buf, 0x26u);
     }
 
-    v16 = 0;
-    itemsCopy = v18;
+    v18 = 0;
+    itemsCopy = v20;
   }
 
 LABEL_17:
 
-  return v16;
+  return v18;
 }
 
 void __101__MapsSuggestionsRoutineRelevanceScoreProvider_relevanceScoreForNames_addresses_mapItems_completion___block_invoke(uint64_t a1, uint64_t a2)
@@ -176,8 +177,8 @@ void __101__MapsSuggestionsRoutineRelevanceScoreProvider_relevanceScoreForNames_
 
 - (NSObject)_confidencesForMapItems:(uint64_t)items
 {
-  v38 = *MEMORY[0x1E69E9840];
-  v25 = a2;
+  v40 = *MEMORY[0x1E69E9840];
+  v27 = a2;
   if (items)
   {
     v3 = [*(items + 40) count];
@@ -189,26 +190,26 @@ void __101__MapsSuggestionsRoutineRelevanceScoreProvider_relevanceScoreForNames_
       {
         objc_sync_exit(v4);
 
-        v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v25, "count")}];
+        v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v27, "count")}];
+        v31 = 0u;
+        v32 = 0u;
         v29 = 0u;
         v30 = 0u;
-        v27 = 0u;
-        v28 = 0u;
-        obj = v25;
-        v5 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+        obj = v27;
+        v5 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
         if (v5)
         {
-          v6 = *v28;
+          v6 = *v30;
           do
           {
             for (i = 0; i != v5; ++i)
             {
-              if (*v28 != v6)
+              if (*v30 != v6)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v8 = *(*(&v27 + 1) + 8 * i);
+              v8 = *(*(&v29 + 1) + 8 * i);
               null = [MEMORY[0x1E695DFB0] null];
               if (v8)
               {
@@ -232,22 +233,22 @@ void __101__MapsSuggestionsRoutineRelevanceScoreProvider_relevanceScoreForNames_
               {
                 v12 = [(MapsSuggestionsRoutineRelevanceScoreProvider *)items _confidencesForMapItem:v8];
                 [(MapsSuggestionsRelevanceScore *)v12 confidence];
-                if (v13 == MapsSuggestionsConfidenceDontKnow() && MapsSuggestionsLoggingIsVerbose())
+                if (v15 == MapsSuggestionsConfidenceDontKnow() && MapsSuggestionsLoggingIsVerbose(v13, v14))
                 {
-                  v14 = GEOFindOrCreateLog();
-                  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+                  v16 = GEOFindOrCreateLog();
+                  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
                   {
                     name = [v8 name];
                     [v8 coordinate];
-                    v17 = v16;
+                    v19 = v18;
                     [v8 coordinate];
                     *buf = 138412802;
                     *&buf[4] = name;
-                    v33 = 2048;
-                    v34 = v17;
                     v35 = 2048;
-                    v36 = v18;
-                    _os_log_impl(&dword_1C5126000, v14, OS_LOG_TYPE_DEBUG, "mapItem %@ , %f , %f was NOT found in CoreRoutine", buf, 0x20u);
+                    v36 = v19;
+                    v37 = 2048;
+                    v38 = v20;
+                    _os_log_impl(&dword_1C5126000, v16, OS_LOG_TYPE_DEBUG, "mapItem %@ , %f , %f was NOT found in CoreRoutine", buf, 0x20u);
                   }
                 }
 
@@ -255,53 +256,53 @@ void __101__MapsSuggestionsRoutineRelevanceScoreProvider_relevanceScoreForNames_
               }
             }
 
-            v5 = [obj countByEnumeratingWithState:&v27 objects:v37 count:16];
+            v5 = [obj countByEnumeratingWithState:&v29 objects:v39 count:16];
           }
 
           while (v5);
         }
 
-        v19 = [v4 count];
-        if (v19 == [obj count])
+        v21 = [v4 count];
+        if (v21 == [obj count])
         {
           v4 = v4;
-          v20 = v4;
+          v22 = v4;
 LABEL_31:
 
           goto LABEL_32;
         }
 
-        v23 = GEOFindOrCreateLog();
-        [MapsSuggestionsRoutineRelevanceScoreProvider _confidencesForMapItems:v23];
+        v25 = GEOFindOrCreateLog();
+        [MapsSuggestionsRoutineRelevanceScoreProvider _confidencesForMapItems:v25];
       }
 
       else
       {
-        v22 = GEOFindOrCreateLog();
-        [(MapsSuggestionsRoutineRelevanceScoreProvider *)v22 _confidencesForMapItems:v4];
+        v24 = GEOFindOrCreateLog();
+        [(MapsSuggestionsRoutineRelevanceScoreProvider *)v24 _confidencesForMapItems:v4];
       }
 
-      v20 = 0;
+      v22 = 0;
       goto LABEL_31;
     }
 
-    v21 = GEOFindOrCreateLog();
-    [(MapsSuggestionsRoutineRelevanceScoreProvider *)v21 _confidencesForMapItems:buf];
-    v4 = v31;
-    v20 = *buf;
+    v23 = GEOFindOrCreateLog();
+    [(MapsSuggestionsRoutineRelevanceScoreProvider *)v23 _confidencesForMapItems:buf];
+    v4 = v33;
+    v22 = *buf;
     goto LABEL_31;
   }
 
-  v20 = 0;
+  v22 = 0;
 LABEL_32:
 
-  return v20;
+  return v22;
 }
 
 - (void)preLoad
 {
   v7 = *MEMORY[0x1E69E9840];
-  if (MapsSuggestionsLoggingIsVerbose())
+  if (MapsSuggestionsLoggingIsVerbose(self, a2))
   {
     v3 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
@@ -402,53 +403,53 @@ void __55__MapsSuggestionsRoutineRelevanceScoreProvider_preLoad__block_invoke_2(
   }
 }
 
-- (uint64_t)_fetchLOIsWithCallback:(uint64_t)callback
+- (uint64_t)_fetchLOIsWithCallback:(uint64_t *)callback
 {
   v3 = a2;
-  v4 = v3;
+  v5 = v3;
   if (callback)
   {
     if (v3)
     {
-      if (MapsSuggestionsLoggingIsVerbose())
+      if (MapsSuggestionsLoggingIsVerbose(v3, v4))
       {
-        v5 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+        v6 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
         {
           LOWORD(buf[0]) = 0;
-          _os_log_impl(&dword_1C5126000, v5, OS_LOG_TYPE_DEBUG, "Calling CoreRoutine SPI", buf, 2u);
+          _os_log_impl(&dword_1C5126000, v6, OS_LOG_TYPE_DEBUG, "Calling CoreRoutine SPI", buf, 2u);
         }
       }
 
       objc_initWeak(buf, callback);
       mEMORY[0x1E69A22C8] = [MEMORY[0x1E69A22C8] sharedManager];
-      v7 = [mEMORY[0x1E69A22C8] isEnabledForSubTestWithName:@"MSGPPTTest_Insights_ACRanking_RoutineCall"];
+      v8 = [mEMORY[0x1E69A22C8] isEnabledForSubTestWithName:@"MSGPPTTest_Insights_ACRanking_RoutineCall"];
 
-      if (v7)
+      if (v8)
       {
         defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
         [defaultCenter postNotificationName:@"MSGPPTTest_Insights_ACRanking_RoutineCallBEGIN" object:0];
       }
 
-      v9 = *(callback + 32);
-      v10 = *(callback + 8);
-      v13[0] = MEMORY[0x1E69E9820];
-      v13[1] = 3221225472;
-      v13[2] = __71__MapsSuggestionsRoutineRelevanceScoreProvider__fetchLOIsWithCallback___block_invoke;
-      v13[3] = &unk_1E81F5500;
-      objc_copyWeak(&v15, buf);
-      v14 = v4;
-      [v9 fetchLocationsSinceDate:v10 handler:v13];
+      v10 = callback[4];
+      v11 = callback[1];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __71__MapsSuggestionsRoutineRelevanceScoreProvider__fetchLOIsWithCallback___block_invoke;
+      v14[3] = &unk_1E81F5500;
+      objc_copyWeak(&v16, buf);
+      v15 = v5;
+      [v10 fetchLocationsSinceDate:v11 handler:v14];
 
-      objc_destroyWeak(&v15);
+      objc_destroyWeak(&v16);
       objc_destroyWeak(buf);
       callback = 1;
     }
 
     else
     {
-      v12 = GEOFindOrCreateLog();
-      [MapsSuggestionsRoutineRelevanceScoreProvider _fetchLOIsWithCallback:v12];
+      v13 = GEOFindOrCreateLog();
+      [MapsSuggestionsRoutineRelevanceScoreProvider _fetchLOIsWithCallback:v13];
       callback = 0;
     }
   }
@@ -543,7 +544,7 @@ LABEL_8:
 
 void __71__MapsSuggestionsRoutineRelevanceScoreProvider__fetchLOIsWithCallback___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -564,9 +565,9 @@ void __71__MapsSuggestionsRoutineRelevanceScoreProvider__fetchLOIsWithCallback__
       v14 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v19 = 138412290;
-        v20 = v9;
-        _os_log_impl(&dword_1C5126000, v14, OS_LOG_TYPE_ERROR, "Error while fetching locations: %@", &v19, 0xCu);
+        v23 = 138412290;
+        v24 = v9;
+        _os_log_impl(&dword_1C5126000, v14, OS_LOG_TYPE_ERROR, "Error while fetching locations: %@", &v23, 0xCu);
       }
 
       (*(*(a1 + 32) + 16))();
@@ -577,30 +578,31 @@ void __71__MapsSuggestionsRoutineRelevanceScoreProvider__fetchLOIsWithCallback__
       v16 = GEOFindOrCreateLog();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        v19 = 67109120;
-        LODWORD(v20) = [v7 count];
-        _os_log_impl(&dword_1C5126000, v16, OS_LOG_TYPE_DEBUG, "CoreRoutine returned %u locations", &v19, 8u);
+        v23 = 67109120;
+        LODWORD(v24) = [v7 count];
+        _os_log_impl(&dword_1C5126000, v16, OS_LOG_TYPE_DEBUG, "CoreRoutine returned %u locations", &v23, 8u);
       }
 
-      if (MapsSuggestionsLoggingIsVerbose())
+      IsVerbose = MapsSuggestionsLoggingIsVerbose(v17, v18);
+      if (IsVerbose)
       {
-        v17 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v21 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
-          v19 = 138412290;
-          v20 = v7;
-          _os_log_impl(&dword_1C5126000, v17, OS_LOG_TYPE_DEBUG, "Locations: %@", &v19, 0xCu);
+          v23 = 138412290;
+          v24 = v7;
+          _os_log_impl(&dword_1C5126000, v21, OS_LOG_TYPE_DEBUG, "Locations: %@", &v23, 0xCu);
         }
       }
 
-      if (MapsSuggestionsLoggingIsVerbose())
+      if (MapsSuggestionsLoggingIsVerbose(IsVerbose, v20))
       {
-        v18 = GEOFindOrCreateLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v22 = GEOFindOrCreateLog();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
-          v19 = 138412290;
-          v20 = v8;
-          _os_log_impl(&dword_1C5126000, v18, OS_LOG_TYPE_DEBUG, "Visits: %@", &v19, 0xCu);
+          v23 = 138412290;
+          v24 = v8;
+          _os_log_impl(&dword_1C5126000, v22, OS_LOG_TYPE_DEBUG, "Visits: %@", &v23, 0xCu);
         }
       }
 
@@ -613,13 +615,13 @@ void __71__MapsSuggestionsRoutineRelevanceScoreProvider__fetchLOIsWithCallback__
     v15 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v19 = 136446722;
-      v20 = "MapsSuggestionsRoutineRelevanceScoreProvider.mm";
-      v21 = 1026;
-      v22 = 192;
-      v23 = 2082;
-      v24 = "[MapsSuggestionsRoutineRelevanceScoreProvider _fetchLOIsWithCallback:]_block_invoke";
-      _os_log_impl(&dword_1C5126000, v15, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", &v19, 0x1Cu);
+      v23 = 136446722;
+      v24 = "MapsSuggestionsRoutineRelevanceScoreProvider.mm";
+      v25 = 1026;
+      v26 = 192;
+      v27 = 2082;
+      v28 = "[MapsSuggestionsRoutineRelevanceScoreProvider _fetchLOIsWithCallback:]_block_invoke";
+      _os_log_impl(&dword_1C5126000, v15, OS_LOG_TYPE_ERROR, "%{public}s:%{public}d: strongSelf went away in %{public}s", &v23, 0x1Cu);
     }
   }
 }
@@ -635,9 +637,10 @@ void __71__MapsSuggestionsRoutineRelevanceScoreProvider__fetchLOIsWithCallback__
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Return count must be same as input count!", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. Return count must be same as input count!", v4, v5, v6, v7, v8);
   }
 }
 
@@ -673,9 +676,10 @@ void __71__MapsSuggestionsRoutineRelevanceScoreProvider__fetchLOIsWithCallback__
 {
   if (os_log_type_enabled(a1, OS_LOG_TYPE_ERROR))
   {
+    v8 = 136446978;
     OUTLINED_FUNCTION_4();
     OUTLINED_FUNCTION_3();
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. nil callback", v4, v5, v6, v7, 2u);
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v2, v3, "At %{public}s:%d, %{public}s forbids: %{public}s. nil callback", v4, v5, v6, v7, v8);
   }
 }
 

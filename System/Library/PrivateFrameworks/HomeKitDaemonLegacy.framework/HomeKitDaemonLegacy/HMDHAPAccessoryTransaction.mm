@@ -26,133 +26,131 @@
 
 void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
 {
-  v46[33] = *MEMORY[0x277D85DE8];
+  v45[33] = *MEMORY[0x277D85DE8];
   v1 = MEMORY[0x277CBEB38];
-  v43.receiver = *(a1 + 32);
-  v43.super_class = &OBJC_METACLASS___HMDHAPAccessoryTransaction;
-  v2 = objc_msgSendSuper2(&v43, sel_properties);
+  v42.receiver = *(a1 + 32);
+  v42.super_class = &OBJC_METACLASS___HMDHAPAccessoryTransaction;
+  v2 = objc_msgSendSuper2(&v42, sel_properties);
   v3 = [v1 dictionaryWithDictionary:v2];
   v4 = properties__properties_49210;
   properties__properties_49210 = v3;
 
-  v35 = properties__properties_49210;
-  v45[0] = @"uniqueIdentifier";
-  v42 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[0] = v42;
-  v45[1] = @"bridgeUUID";
+  v34 = properties__properties_49210;
+  v44[0] = @"uniqueIdentifier";
   v41 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[1] = v41;
-  v45[2] = @"paired";
-  v40 = +[HMDBackingStoreModelObjectStorageInfo deprecatedField];
-  v46[2] = v40;
-  v45[3] = @"accessoryFlags";
-  v39 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[3] = v39;
-  v45[4] = @"certificationStatus";
+  v45[0] = v41;
+  v44[1] = @"bridgeUUID";
+  v40 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
+  v45[1] = v40;
+  v44[2] = @"paired";
+  v39 = +[HMDBackingStoreModelObjectStorageInfo deprecatedField];
+  v45[2] = v39;
+  v44[3] = @"accessoryFlags";
   v38 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[4] = v38;
-  v45[5] = @"pairingUsername";
+  v45[3] = v38;
+  v44[4] = @"certificationStatus";
   v37 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[5] = v37;
-  v45[6] = @"publicKey";
+  v45[4] = v37;
+  v44[5] = @"pairingUsername";
   v36 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[6] = v36;
-  v45[7] = @"transportInformation";
-  v34 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[7] = v34;
-  v45[8] = @"communicationProtocol";
+  v45[5] = v36;
+  v44[6] = @"publicKey";
+  v35 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
+  v45[6] = v35;
+  v44[7] = @"transportInformation";
   v33 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[8] = v33;
-  v45[9] = @"accessorySetupHash";
+  v45[7] = v33;
+  v44[8] = @"communicationProtocol";
   v32 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[9] = v32;
-  v45[10] = @"broadcastKey";
+  v45[8] = v32;
+  v44[9] = @"accessorySetupHash";
   v31 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[10] = v31;
-  v45[11] = @"keyUpdatedStateNumber";
+  v45[9] = v31;
+  v44[10] = @"broadcastKey";
   v30 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[11] = v30;
-  v45[12] = @"keyUpdatedTime";
+  v45[10] = v30;
+  v44[11] = @"keyUpdatedStateNumber";
   v29 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[12] = v29;
-  v45[13] = @"targetUUIDs";
+  v45[11] = v29;
+  v44[12] = @"keyUpdatedTime";
   v28 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[13] = v28;
-  v45[14] = @"hardwareSupport";
+  v45[12] = v28;
+  v44[13] = @"targetUUIDs";
   v27 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[14] = v27;
-  v45[15] = @"connectivityInfo";
+  v45[13] = v27;
+  v44[14] = @"hardwareSupport";
   v26 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[15] = v26;
-  v45[16] = @"wiFiTransportCapabilities";
+  v45[14] = v26;
+  v44[15] = @"connectivityInfo";
   v25 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[16] = v25;
-  v45[17] = @"sleepInterval";
+  v45[15] = v25;
+  v44[16] = @"wiFiTransportCapabilities";
   v24 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[17] = v24;
-  v45[18] = @"hasOnboardedForNaturalLighting";
+  v45[16] = v24;
+  v44[17] = @"sleepInterval";
   v23 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[18] = v23;
-  v45[19] = @"initialServiceTypeUUIDs";
+  v45[17] = v23;
+  v44[18] = @"hasOnboardedForNaturalLighting";
+  v22 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
+  v45[18] = v22;
+  v44[19] = @"initialServiceTypeUUIDs";
   v5 = objc_opt_class();
-  v44 = objc_opt_class();
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v44 count:1];
-  v21 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:v5 additionalDecodeClasses:v22];
-  v46[19] = v21;
-  v45[20] = @"needsOnboarding";
-  v20 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[20] = v20;
-  v45[21] = @"suspendedState";
+  v43 = objc_opt_class();
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
+  v20 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:v5 additionalDecodeClasses:v21];
+  v45[19] = v20;
+  v44[20] = @"needsOnboarding";
   v19 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[21] = v19;
-  v45[22] = @"preferredMediaUserUUID";
+  v45[20] = v19;
+  v44[21] = @"suspendedState";
   v18 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[22] = v18;
-  v45[23] = @"preferredUserSelectionType";
+  v45[21] = v18;
+  v44[22] = @"preferredMediaUserUUID";
   v17 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[23] = v17;
-  v45[24] = @"chipNodeID";
+  v45[22] = v17;
+  v44[23] = @"preferredUserSelectionType";
+  v16 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
+  v45[23] = v16;
+  v44[24] = @"chipNodeID";
   v6 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[24] = v6;
-  v45[25] = @"chipVendorID";
+  v45[24] = v6;
+  v44[25] = @"chipVendorID";
   v7 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[25] = v7;
-  v45[26] = @"chipProductID";
+  v45[25] = v7;
+  v44[26] = @"chipProductID";
   v8 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[26] = v8;
-  v45[27] = @"chipAttributeDatabase";
+  v45[26] = v8;
+  v44[27] = @"chipAttributeDatabase";
   v9 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[27] = v9;
-  v45[28] = @"chipPairingsData";
+  v45[27] = v9;
+  v44[28] = @"chipPairingsData";
   v10 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[28] = v10;
-  v45[29] = @"chipWEDSupport";
+  v45[28] = v10;
+  v44[29] = @"chipWEDSupport";
   v11 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[29] = v11;
-  v45[30] = @"chipExtendedMACAddress";
+  v45[29] = v11;
+  v44[30] = @"chipExtendedMACAddress";
   v12 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[30] = v12;
-  v45[31] = @"matterSoftwareVersionNumber";
+  v45[30] = v12;
+  v44[31] = @"matterSoftwareVersionNumber";
   v13 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[31] = v13;
-  v45[32] = @"supportedLinkLayerTypes";
+  v45[31] = v13;
+  v44[32] = @"supportedLinkLayerTypes";
   v14 = [HMDBackingStoreModelObjectStorageInfo infoWithClass:objc_opt_class()];
-  v46[32] = v14;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:33];
-  [v35 addEntriesFromDictionary:v15];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v45[32] = v14;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:33];
+  [v34 addEntriesFromDictionary:v15];
 }
 
 - (void)setChipPairings:(id)pairings
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   pairingsCopy = pairings;
   if (pairingsCopy)
   {
-    v12 = 0;
-    v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:pairingsCopy requiringSecureCoding:1 error:&v12];
-    v6 = v12;
+    v11 = 0;
+    v5 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:pairingsCopy requiringSecureCoding:1 error:&v11];
+    v6 = v11;
     if (v5)
     {
       [(HMDHAPAccessoryTransaction *)self setChipPairingsData:v5];
@@ -167,11 +165,11 @@ void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
       {
         v10 = HMFGetLogIdentifier();
         *buf = 138543874;
-        v14 = v10;
-        v15 = 2112;
-        v16 = pairingsCopy;
-        v17 = 2112;
-        v18 = v6;
+        v13 = v10;
+        v14 = 2112;
+        v15 = pairingsCopy;
+        v16 = 2112;
+        v17 = v6;
         _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_ERROR, "%{public}@Failed to serialize pairings %@: %@", buf, 0x20u);
       }
 
@@ -183,25 +181,23 @@ void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
   {
     [(HMDHAPAccessoryTransaction *)self setChipPairingsData:0];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)chipPairings
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   chipPairingsData = [(HMDHAPAccessoryTransaction *)self chipPairingsData];
   if (chipPairingsData)
   {
     v4 = MEMORY[0x277CCAAC8];
     v5 = MEMORY[0x277CBEB98];
-    v22[0] = objc_opt_class();
-    v22[1] = objc_opt_class();
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+    v21[0] = objc_opt_class();
+    v21[1] = objc_opt_class();
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
     v7 = [v5 setWithArray:v6];
-    v17 = 0;
-    v8 = [v4 unarchivedObjectOfClasses:v7 fromData:chipPairingsData error:&v17];
-    v9 = v17;
+    v16 = 0;
+    v8 = [v4 unarchivedObjectOfClasses:v7 fromData:chipPairingsData error:&v16];
+    v9 = v16;
 
     if (v8)
     {
@@ -217,9 +213,9 @@ void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
       {
         v14 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v19 = v14;
-        v20 = 2112;
-        v21 = v9;
+        v18 = v14;
+        v19 = 2112;
+        v20 = v9;
         _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_ERROR, "%{public}@Failed to deserialize pairings from data: %@", buf, 0x16u);
       }
 
@@ -232,18 +228,16 @@ void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
     v8 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)dependentUUIDs
 {
   selfCopy = self;
-  v40 = *MEMORY[0x277D85DE8];
-  v34.receiver = self;
-  v34.super_class = HMDHAPAccessoryTransaction;
-  dependentUUIDs = [(HMDAccessoryTransaction *)&v34 dependentUUIDs];
+  v39 = *MEMORY[0x277D85DE8];
+  v33.receiver = self;
+  v33.super_class = HMDHAPAccessoryTransaction;
+  dependentUUIDs = [(HMDAccessoryTransaction *)&v33 dependentUUIDs];
   v4 = [dependentUUIDs mutableCopy];
 
   bridgeUUID = [(HMDHAPAccessoryTransaction *)selfCopy bridgeUUID];
@@ -261,36 +255,36 @@ void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
 
   if (v10)
   {
-    v27 = v4;
+    v26 = v4;
     v11 = MEMORY[0x277CBEB18];
     targetUUIDs2 = [(HMDHAPAccessoryTransaction *)selfCopy targetUUIDs];
-    v29 = [v11 arrayWithCapacity:{objc_msgSend(targetUUIDs2, "count")}];
+    v28 = [v11 arrayWithCapacity:{objc_msgSend(targetUUIDs2, "count")}];
 
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     obj = [(HMDHAPAccessoryTransaction *)selfCopy targetUUIDs];
-    v13 = [obj countByEnumeratingWithState:&v30 objects:v39 count:16];
+    v13 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
     v14 = 0x277CCA000uLL;
     if (v13)
     {
       v15 = v13;
-      v16 = *v31;
+      v16 = *v30;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v31 != v16)
+          if (*v30 != v16)
           {
             objc_enumerationMutation(obj);
           }
 
-          v18 = *(*(&v30 + 1) + 8 * i);
+          v18 = *(*(&v29 + 1) + 8 * i);
           v19 = [objc_alloc(*(v14 + 3448)) initWithUUIDString:v18];
           if (v19)
           {
-            [v29 addObject:v19];
+            [v28 addObject:v19];
           }
 
           else
@@ -303,9 +297,9 @@ void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
               HMFGetLogIdentifier();
               v24 = v23 = selfCopy;
               *buf = 138543618;
-              v36 = v24;
-              v37 = 2112;
-              v38 = v18;
+              v35 = v24;
+              v36 = 2112;
+              v37 = v18;
               _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@UUID string not well-formed: %@", buf, 0x16u);
 
               selfCopy = v23;
@@ -316,17 +310,15 @@ void __40__HMDHAPAccessoryTransaction_properties__block_invoke(uint64_t a1)
           }
         }
 
-        v15 = [obj countByEnumeratingWithState:&v30 objects:v39 count:16];
+        v15 = [obj countByEnumeratingWithState:&v29 objects:v38 count:16];
       }
 
       while (v15);
     }
 
-    v4 = v27;
-    [v27 addObjectsFromArray:v29];
+    v4 = v26;
+    [v26 addObjectsFromArray:v28];
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

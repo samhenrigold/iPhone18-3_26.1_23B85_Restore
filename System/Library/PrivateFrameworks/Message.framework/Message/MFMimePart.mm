@@ -1,5 +1,5 @@
 @interface MFMimePart
-- (BOOL)_needsSignatureVerification:(void *)verification;
+- (unint64_t)_needsSignatureVerification:(void *)verification;
 - (void)_setSMIMEError:(void *)error;
 - (void)_setSignatureInfo:(void *)info;
 - (void)_setSigners:(void *)signers;
@@ -148,7 +148,7 @@ LABEL_3:
 
 void __107__MFMimePart_SMIMEEncoding___encryptedDataUsingMessageSecurity_compositionSpecification_contentType_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) objectForKeyedSubscript:v5];
@@ -166,8 +166,8 @@ void __107__MFMimePart_SMIMEEncoding___encryptedDataUsingMessageSecurity_composi
 
     else
     {
-      v14[0] = *(a1 + 40);
-      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+      v13[0] = *(a1 + 40);
+      v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
     }
   }
 
@@ -176,10 +176,9 @@ void __107__MFMimePart_SMIMEEncoding___encryptedDataUsingMessageSecurity_composi
   v12 = [v10 initWithAddress:v5 certificate:v11 capabilities:v8];
 
   [*(a1 + 48) addObject:v12];
-  v13 = *MEMORY[0x1E69E9840];
 }
 
-- (BOOL)_needsSignatureVerification:(void *)verification
+- (unint64_t)_needsSignatureVerification:(void *)verification
 {
   verificationCopy = verification;
   if (verification)

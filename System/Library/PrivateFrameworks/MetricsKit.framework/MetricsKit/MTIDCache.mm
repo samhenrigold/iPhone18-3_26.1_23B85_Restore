@@ -316,14 +316,13 @@ LABEL_5:
 
 - (void)removeNamespace:(id)namespace
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   namespaceCopy = namespace;
   v4 = MEMORY[0x277CBEA60];
   namespaceCopy2 = namespace;
   v6 = [v4 arrayWithObjects:&namespaceCopy count:1];
 
-  [(MTIDCache *)self removeNamespaces:v6, namespaceCopy, v9];
-  v7 = *MEMORY[0x277D85DE8];
+  [(MTIDCache *)self removeNamespaces:v6, namespaceCopy, v8];
 }
 
 - (void)removeNamespaces:(id)namespaces
@@ -364,7 +363,7 @@ LABEL_5:
 
 void __30__MTIDCache_removeNamespaces___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -378,28 +377,28 @@ void __30__MTIDCache_removeNamespaces___block_invoke(uint64_t a1, void *a2, void
     [v10 setObject:0 forKeyedSubscript:v5];
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v11 = [v6 scheme];
   v12 = [v11 correlations];
 
-  v13 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v25;
+    v15 = *v24;
     while (2)
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v25 != v15)
+        if (*v24 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        if ([*(a1 + 32) containsObject:*(*(&v24 + 1) + 8 * i)])
+        if ([*(a1 + 32) containsObject:*(*(&v23 + 1) + 8 * i)])
         {
           v17 = *(a1 + 32);
           v18 = [v6 scheme];
@@ -419,7 +418,7 @@ void __30__MTIDCache_removeNamespaces___block_invoke(uint64_t a1, void *a2, void
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v14)
       {
         continue;
@@ -430,8 +429,6 @@ void __30__MTIDCache_removeNamespaces___block_invoke(uint64_t a1, void *a2, void
   }
 
 LABEL_14:
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllNamespaces
@@ -446,32 +443,32 @@ LABEL_14:
 
 - (void)removeUnsyncedNamespaces
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   cache = [(MTIDCache *)selfCopy cache];
   allKeys = [cache allKeys];
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v5 = allKeys;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       v8 = 0;
       do
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * v8);
+        v9 = *(*(&v13 + 1) + 8 * v8);
         cache2 = [(MTIDCache *)selfCopy cache];
         v11 = [cache2 objectForKeyedSubscript:v9];
 
@@ -485,14 +482,13 @@ LABEL_14:
       }
 
       while (v6 != v8);
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
   objc_sync_exit(selfCopy);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 @end

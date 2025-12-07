@@ -28,9 +28,9 @@
   {
     v9 = objc_opt_class();
     v10 = NSStringFromSelector(a2);
-    v15 = objc_msgSend_bounds(boundsCopy, v11, v12, v13, v14);
-    v23 = sub_276165634(v15, v16, v17, v18, v19, v20, v21, v22);
-    NSLog(&cfstr_PBounds_0.isa, v9, self, v10, v23);
+    v14 = objc_msgSend_bounds(boundsCopy, v11, v12, v13);
+    v15 = sub_276165634(v14);
+    NSLog(&cfstr_PBounds_0.isa, v9, self, v10, v15);
   }
 }
 
@@ -42,9 +42,9 @@
   {
     v9 = objc_opt_class();
     v10 = NSStringFromSelector(a2);
-    v15 = objc_msgSend_bounds(boundsCopy, v11, v12, v13, v14);
-    v23 = sub_276165634(v15, v16, v17, v18, v19, v20, v21, v22);
-    NSLog(&cfstr_PBounds_0.isa, v9, self, v10, v23);
+    v14 = objc_msgSend_bounds(boundsCopy, v11, v12, v13);
+    v15 = sub_276165634(v14);
+    NSLog(&cfstr_PBounds_0.isa, v9, self, v10, v15);
   }
 }
 

@@ -36,7 +36,7 @@
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_190D50F60();
   selfCopy = self;
-  sub_190A91088();
+  sub_190A91088(v7);
 
   (*(v5 + 8))(v7, v4);
 }
@@ -58,7 +58,7 @@
 
 - (void)picker:(id)picker didFinishPicking:(id)picking
 {
-  sub_1902188FC(0, &unk_1EAD5BC70);
+  sub_1902188FC(0, &unk_1EAD5BC70, 0x1E69790F0);
   v6 = sub_190D57180();
   pickerCopy = picker;
   selfCopy = self;

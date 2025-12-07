@@ -31,7 +31,7 @@
   }
 
   selfCopy = self;
-  sub_2A6D98(v6, v8, state);
+  sub_2A6D98(v6, v8, state, v10);
 }
 
 - (CGSize)intrinsicContentSize

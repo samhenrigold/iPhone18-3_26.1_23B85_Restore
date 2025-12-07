@@ -94,7 +94,7 @@ void __58__MRTransactionDestination_packetsFromMessage_completion___block_invoke
       v4 = _MRLogForCategory(0);
       if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
-        __58__MRTransactionDestination_packetsFromMessage_completion___block_invoke_cold_1(a1);
+        __58__MRTransactionDestination_packetsFromMessage_completion___block_invoke_cold_1();
       }
     }
   }
@@ -104,7 +104,7 @@ void __58__MRTransactionDestination_packetsFromMessage_completion___block_invoke
     reply = _MRLogForCategory(0);
     if (os_log_type_enabled(reply, OS_LOG_TYPE_ERROR))
     {
-      __58__MRTransactionDestination_packetsFromMessage_completion___block_invoke_cold_2(a1);
+      __58__MRTransactionDestination_packetsFromMessage_completion___block_invoke_cold_2();
     }
   }
 }
@@ -192,51 +192,40 @@ uint64_t __51__MRTransactionDestination_unpacketize_completion___block_invoke_3(
 - (void)packetsFromMessage:completion:.cold.3()
 {
   OUTLINED_FUNCTION_2();
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v4 = MRTransactionNameGetDescription(*(v3 + 24));
   v5 = MRTransactionPacketsGetKeys(v1);
   v6 = *(v2 + 32);
-  v8 = 138412802;
-  v9 = v4;
-  v10 = 2112;
-  v11 = v5;
-  v12 = 2112;
-  v13 = v6;
-  _os_log_debug_impl(&dword_1A2860000, v0, OS_LOG_TYPE_DEBUG, "[MRTransactionDestination] %@ received %@ for playerPath %@", &v8, 0x20u);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v7 = 138412802;
+  v8 = v4;
+  v9 = 2112;
+  v10 = v5;
+  v11 = 2112;
+  v12 = v6;
+  _os_log_debug_impl(&dword_1A2860000, v0, OS_LOG_TYPE_DEBUG, "[MRTransactionDestination] %@ received %@ for playerPath %@", &v7, 0x20u);
 }
 
 - (void)packetsFromMessage:(uint64_t)a1 completion:.cold.4(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = MRTransactionNameGetDescription(*(a1 + 24));
   OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v2, v3, "[MRTransactionDestination] %@ received interrupted/invalid connection", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v2, v3, "[MRTransactionDestination] %@ received interrupted/invalid connection", v4, v5, v6, v7);
 }
 
-void __58__MRTransactionDestination_packetsFromMessage_completion___block_invoke_cold_1(uint64_t a1)
+void __58__MRTransactionDestination_packetsFromMessage_completion___block_invoke_cold_1()
 {
-  v1 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6_6(a1);
-  v3 = MRTransactionNameGetDescription(*(v2 + 24));
+  OUTLINED_FUNCTION_6_6();
+  v1 = MRTransactionNameGetDescription(*(v0 + 24));
   OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v4, v5, "[MRTransactionDestination] %@ could not extract reply", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v2, v3, "[MRTransactionDestination] %@ could not extract reply", v4, v5, v6, v7);
 }
 
-void __58__MRTransactionDestination_packetsFromMessage_completion___block_invoke_cold_2(uint64_t a1)
+void __58__MRTransactionDestination_packetsFromMessage_completion___block_invoke_cold_2()
 {
-  v1 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_6_6(a1);
-  v3 = MRTransactionNameGetDescription(*(v2 + 24));
+  OUTLINED_FUNCTION_6_6();
+  v1 = MRTransactionNameGetDescription(*(v0 + 24));
   OUTLINED_FUNCTION_1_14();
-  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v4, v5, "[MRTransactionDestination] %@ could not extract connection", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_18(&dword_1A2860000, v2, v3, "[MRTransactionDestination] %@ could not extract connection", v4, v5, v6, v7);
 }
 
 @end

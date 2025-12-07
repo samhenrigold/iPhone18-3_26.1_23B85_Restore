@@ -37,7 +37,7 @@
   if ([(SBRotationSwitcherModifier *)self appLayoutRequiresLegacyRotationSupport:self->_appLayout])
   {
     v4 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:4 updateMode:1];
-    v5 = SBAppendSwitcherModifierResponse(v4, transitionWillBegin);
+    v5 = SBAppendSwitcherModifierResponse();
 
     transitionWillBegin = v5;
   }

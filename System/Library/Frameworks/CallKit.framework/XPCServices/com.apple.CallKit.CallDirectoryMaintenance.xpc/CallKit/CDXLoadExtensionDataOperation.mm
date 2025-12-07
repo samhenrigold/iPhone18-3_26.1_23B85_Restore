@@ -69,15 +69,15 @@
   }
 
   store = [(CDXLoadExtensionDataOperation *)self store];
-  v17 = 0;
-  v7 = [store removeBlockingEntriesForExtensionWithID:-[CDXLoadExtensionDataOperation extensionID](self error:{"extensionID"), &v17}];
-  v8 = v17;
+  v18 = 0;
+  v7 = [store removeBlockingEntriesForExtensionWithID:-[CDXLoadExtensionDataOperation extensionID](self error:{"extensionID"), &v18}];
+  v8 = v18;
   if ((v7 & 1) == 0)
   {
 
 LABEL_10:
-    v12 = sub_100005CC4();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100005CC4(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_100022374();
     }
@@ -88,9 +88,9 @@ LABEL_10:
   }
 
   store2 = [(CDXLoadExtensionDataOperation *)self store];
-  v16 = v8;
-  v10 = [store2 removeIdentificationEntriesForExtensionWithID:-[CDXLoadExtensionDataOperation extensionID](self error:{"extensionID"), &v16}];
-  v11 = v16;
+  v17 = v8;
+  v10 = [store2 removeIdentificationEntriesForExtensionWithID:-[CDXLoadExtensionDataOperation extensionID](self error:{"extensionID"), &v17}];
+  v11 = v17;
 
   if (!v10)
   {
@@ -99,21 +99,20 @@ LABEL_10:
   }
 
   v5 = 1;
-  [(CDXLoadExtensionDataOperation *)self setHasPerfomedInitialDeletion:1];
-  v12 = sub_100005CC4();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = sub_100005CC4([(CDXLoadExtensionDataOperation *)self setHasPerfomedInitialDeletion:1]);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     extensionIdentifier = [(CDXLoadExtensionDataOperation *)self extensionIdentifier];
     *buf = 138412290;
-    v19 = extensionIdentifier;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Performed initial deletion for extension with identifier %@", buf, 0xCu);
+    v20 = extensionIdentifier;
+    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Performed initial deletion for extension with identifier %@", buf, 0xCu);
   }
 
 LABEL_13:
 
   if (error && v11)
   {
-    v14 = v11;
+    v15 = v11;
     *error = v11;
   }
 
@@ -139,12 +138,12 @@ LABEL_13:
   v5 = [(CDXLoadExtensionDataOperation *)self queue:request];
   dispatch_assert_queue_V2(v5);
 
-  v6 = sub_100005CC4();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100005CC4(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134217984;
+    v11 = 134217984;
     incrementalLoadingState = [(CDXLoadExtensionDataOperation *)self incrementalLoadingState];
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Extension data request queried incremental loading allowed. incrementalLoadingState: %ld", &v10, 0xCu);
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Extension data request queried incremental loading allowed. incrementalLoadingState: %ld", &v11, 0xCu);
   }
 
   incrementalLoadingState2 = [(CDXLoadExtensionDataOperation *)self incrementalLoadingState];
@@ -155,11 +154,11 @@ LABEL_13:
 
   if (incrementalLoadingState2 == 1)
   {
-    v8 = sub_100005CC4();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = sub_100005CC4(1);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Eligible for incremental loading, so changing incremental loading state to Confirmed", &v10, 2u);
+      LOWORD(v11) = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Eligible for incremental loading, so changing incremental loading state to Confirmed", &v11, 2u);
     }
 
     [(CDXLoadExtensionDataOperation *)self setIncrementalLoadingState:2];
@@ -175,105 +174,108 @@ LABEL_13:
   queue = [(CDXLoadExtensionDataOperation *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = sub_100005CC4();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100005CC4(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = dataCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Extension data request added blocking entry data: %@", buf, 0xCu);
+    v31 = dataCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Extension data request added blocking entry data: %@", buf, 0xCu);
   }
 
   if ([(CDXLoadExtensionDataOperation *)self performInitialDeletionIfNecessaryWithError:error])
   {
-    v10 = [dataCopy count];
-    v11 = &v10[[(CDXLoadExtensionDataOperation *)self entriesAdded]];
-    if (v11 >= [(CDXLoadExtensionDataOperation *)self maximumAllowedEntries])
+    v11 = [dataCopy count];
+    v12 = &v11[[(CDXLoadExtensionDataOperation *)self entriesAdded]];
+    maximumAllowedEntries = [(CDXLoadExtensionDataOperation *)self maximumAllowedEntries];
+    if (v12 >= maximumAllowedEntries)
     {
-      v15 = sub_100005CC4();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v19 = sub_100005CC4(maximumAllowedEntries);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         sub_100022A5C(self);
       }
 
-      v12 = [NSError cx_callDirectoryManagerErrorWithCode:5];
+      v14 = [NSError cx_callDirectoryManagerErrorWithCode:5];
     }
 
     else
     {
-      v12 = 0;
-      if (!v10)
+      v14 = 0;
+      if (!v11)
       {
 LABEL_31:
-        v14 = v12 == 0;
+        v18 = v14 == 0;
 
         goto LABEL_32;
       }
 
       while (1)
       {
-        v13 = [dataCopy phoneNumberAtIndex:v12];
-        if (v13 == [(CDXLoadExtensionDataOperation *)self lastBlockingPhoneNumber])
+        v15 = [dataCopy phoneNumberAtIndex:v14];
+        lastBlockingPhoneNumber = [(CDXLoadExtensionDataOperation *)self lastBlockingPhoneNumber];
+        if (v15 == lastBlockingPhoneNumber)
         {
           break;
         }
 
-        if (v13 < [(CDXLoadExtensionDataOperation *)self lastBlockingPhoneNumber])
+        lastBlockingPhoneNumber2 = [(CDXLoadExtensionDataOperation *)self lastBlockingPhoneNumber];
+        if (v15 < lastBlockingPhoneNumber2)
         {
-          v16 = sub_100005CC4();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v20 = sub_100005CC4(lastBlockingPhoneNumber2);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             sub_100022ADC();
           }
 
-          v17 = 3;
+          v21 = 3;
           goto LABEL_20;
         }
 
-        [(CDXLoadExtensionDataOperation *)self setLastBlockingPhoneNumber:v13];
-        if (v10 == ++v12)
+        [(CDXLoadExtensionDataOperation *)self setLastBlockingPhoneNumber:v15];
+        if (v11 == ++v14)
         {
           goto LABEL_21;
         }
       }
 
-      v16 = sub_100005CC4();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v20 = sub_100005CC4(lastBlockingPhoneNumber);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         sub_100022B5C();
       }
 
-      v17 = 4;
+      v21 = 4;
 LABEL_20:
 
-      v12 = [NSError cx_callDirectoryManagerErrorWithCode:v17];
-      if (v12)
+      v14 = [NSError cx_callDirectoryManagerErrorWithCode:v21];
+      if (v14)
       {
         goto LABEL_28;
       }
 
 LABEL_21:
       store = [(CDXLoadExtensionDataOperation *)self store];
-      v24 = 0;
-      v19 = [store addBlockingEntriesWithData:dataCopy extensionID:-[CDXLoadExtensionDataOperation extensionID](self error:{"extensionID"), &v24}];
-      v12 = v24;
+      v29 = 0;
+      v23 = [store addBlockingEntriesWithData:dataCopy extensionID:-[CDXLoadExtensionDataOperation extensionID](self error:{"extensionID"), &v29}];
+      v14 = v29;
 
-      v20 = sub_100005CC4();
-      v21 = v20;
-      if (v19)
+      v25 = sub_100005CC4(v24);
+      v26 = v25;
+      if (v23)
       {
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v26 = v10;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Added %lu phone number blocking entries", buf, 0xCu);
+          v31 = v11;
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Added %lu phone number blocking entries", buf, 0xCu);
         }
 
-        [(CDXLoadExtensionDataOperation *)self setBlockingEntriesAdded:&v10[[(CDXLoadExtensionDataOperation *)self blockingEntriesAdded]]];
+        [(CDXLoadExtensionDataOperation *)self setBlockingEntriesAdded:&v11[[(CDXLoadExtensionDataOperation *)self blockingEntriesAdded]]];
       }
 
       else
       {
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           sub_100022BDC();
         }
@@ -281,19 +283,19 @@ LABEL_21:
     }
 
 LABEL_28:
-    if (error && v12)
+    if (error && v14)
     {
-      v22 = v12;
-      *error = v12;
+      v27 = v14;
+      *error = v14;
     }
 
     goto LABEL_31;
   }
 
-  v14 = 0;
+  v18 = 0;
 LABEL_32:
 
-  return v14;
+  return v18;
 }
 
 - (BOOL)extensionDataRequest:(id)request removedBlockingEntryData:(id)data error:(id *)error
@@ -302,37 +304,103 @@ LABEL_32:
   queue = [(CDXLoadExtensionDataOperation *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = sub_100005CC4();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100005CC4(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = dataCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Extension data request removed blocking entry data: %@", buf, 0xCu);
+    v24 = dataCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Extension data request removed blocking entry data: %@", buf, 0xCu);
   }
 
-  if ([(CDXLoadExtensionDataOperation *)self incrementalLoadingState]== 2)
+  incrementalLoadingState = [(CDXLoadExtensionDataOperation *)self incrementalLoadingState];
+  if (incrementalLoadingState == 2)
   {
     store = [(CDXLoadExtensionDataOperation *)self store];
-    v19 = 0;
-    v11 = [store removeBlockingEntriesWithData:dataCopy extensionID:-[CDXLoadExtensionDataOperation extensionID](self error:{"extensionID"), &v19}];
-    v12 = v19;
+    v22 = 0;
+    v13 = [store removeBlockingEntriesWithData:dataCopy extensionID:-[CDXLoadExtensionDataOperation extensionID](self error:{"extensionID"), &v22}];
+    v14 = v22;
 
-    v13 = sub_100005CC4();
-    v14 = v13;
-    if (v11)
+    v16 = sub_100005CC4(v15);
+    v17 = v16;
+    if (v13)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = [dataCopy count];
+        v18 = [dataCopy count];
         *buf = 134217984;
-        v21 = v15;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Removed %lu phone number blocking entries", buf, 0xCu);
+        v24 = v18;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Removed %lu phone number blocking entries", buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_100022C90();
+    }
+
+    if (error)
+    {
+LABEL_14:
+      if (v14)
+      {
+        v20 = v14;
+        *error = v14;
+      }
+    }
+  }
+
+  else
+  {
+    v19 = sub_100005CC4(incrementalLoadingState);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      sub_100022C5C();
+    }
+
+    v14 = [NSError cx_callDirectoryManagerErrorWithCode:8];
+    if (error)
+    {
+      goto LABEL_14;
+    }
+  }
+
+  return v14 == 0;
+}
+
+- (BOOL)extensionDataRequest:(id)request removedAllBlockingEntriesWithError:(id *)error
+{
+  queue = [(CDXLoadExtensionDataOperation *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v8 = sub_100005CC4(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Extension data request removed all blocking entries", buf, 2u);
+  }
+
+  incrementalLoadingState = [(CDXLoadExtensionDataOperation *)self incrementalLoadingState];
+  if (incrementalLoadingState == 2)
+  {
+    store = [(CDXLoadExtensionDataOperation *)self store];
+    v20 = 0;
+    v11 = [store removeBlockingEntriesForExtensionWithID:-[CDXLoadExtensionDataOperation extensionID](self error:{"extensionID"), &v20}];
+    v12 = v20;
+
+    v14 = sub_100005CC4(v13);
+    v15 = v14;
+    if (v11)
+    {
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        *v19 = 0;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Removed all phone number blocking entries", v19, 2u);
+      }
+    }
+
+    else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      sub_100022D10();
     }
 
     if (error)
@@ -348,7 +416,7 @@ LABEL_14:
 
   else
   {
-    v16 = sub_100005CC4();
+    v16 = sub_100005CC4(incrementalLoadingState);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_100022C5C();
@@ -362,70 +430,6 @@ LABEL_14:
   }
 
   return v12 == 0;
-}
-
-- (BOOL)extensionDataRequest:(id)request removedAllBlockingEntriesWithError:(id *)error
-{
-  queue = [(CDXLoadExtensionDataOperation *)self queue];
-  dispatch_assert_queue_V2(queue);
-
-  v7 = sub_100005CC4();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Extension data request removed all blocking entries", buf, 2u);
-  }
-
-  if ([(CDXLoadExtensionDataOperation *)self incrementalLoadingState]== 2)
-  {
-    store = [(CDXLoadExtensionDataOperation *)self store];
-    v17 = 0;
-    v9 = [store removeBlockingEntriesForExtensionWithID:-[CDXLoadExtensionDataOperation extensionID](self error:{"extensionID"), &v17}];
-    v10 = v17;
-
-    v11 = sub_100005CC4();
-    v12 = v11;
-    if (v9)
-    {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-      {
-        *v16 = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Removed all phone number blocking entries", v16, 2u);
-      }
-    }
-
-    else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      sub_100022D10();
-    }
-
-    if (error)
-    {
-LABEL_14:
-      if (v10)
-      {
-        v14 = v10;
-        *error = v10;
-      }
-    }
-  }
-
-  else
-  {
-    v13 = sub_100005CC4();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      sub_100022C5C();
-    }
-
-    v10 = [NSError cx_callDirectoryManagerErrorWithCode:8];
-    if (error)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  return v10 == 0;
 }
 
 - (BOOL)extensionDataRequest:(id)request addedIdentificationEntryData:(id)data error:(id *)error
@@ -434,105 +438,108 @@ LABEL_14:
   queue = [(CDXLoadExtensionDataOperation *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = sub_100005CC4();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100005CC4(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = dataCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Extension data request added identification entry data: %@", buf, 0xCu);
+    v31 = dataCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Extension data request added identification entry data: %@", buf, 0xCu);
   }
 
   if ([(CDXLoadExtensionDataOperation *)self performInitialDeletionIfNecessaryWithError:error])
   {
-    v10 = [dataCopy count];
-    v11 = &v10[[(CDXLoadExtensionDataOperation *)self entriesAdded]];
-    if (v11 >= [(CDXLoadExtensionDataOperation *)self maximumAllowedEntries])
+    v11 = [dataCopy count];
+    v12 = &v11[[(CDXLoadExtensionDataOperation *)self entriesAdded]];
+    maximumAllowedEntries = [(CDXLoadExtensionDataOperation *)self maximumAllowedEntries];
+    if (v12 >= maximumAllowedEntries)
     {
-      v15 = sub_100005CC4();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v19 = sub_100005CC4(maximumAllowedEntries);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         sub_100022A5C(self);
       }
 
-      v12 = [NSError cx_callDirectoryManagerErrorWithCode:5];
+      v14 = [NSError cx_callDirectoryManagerErrorWithCode:5];
     }
 
     else
     {
-      v12 = 0;
-      if (!v10)
+      v14 = 0;
+      if (!v11)
       {
 LABEL_31:
-        v14 = v12 == 0;
+        v18 = v14 == 0;
 
         goto LABEL_32;
       }
 
       while (1)
       {
-        v13 = [dataCopy phoneNumberAtIndex:v12];
-        if (v13 == [(CDXLoadExtensionDataOperation *)self lastIdentificationPhoneNumber])
+        v15 = [dataCopy phoneNumberAtIndex:v14];
+        lastIdentificationPhoneNumber = [(CDXLoadExtensionDataOperation *)self lastIdentificationPhoneNumber];
+        if (v15 == lastIdentificationPhoneNumber)
         {
           break;
         }
 
-        if (v13 < [(CDXLoadExtensionDataOperation *)self lastIdentificationPhoneNumber])
+        lastIdentificationPhoneNumber2 = [(CDXLoadExtensionDataOperation *)self lastIdentificationPhoneNumber];
+        if (v15 < lastIdentificationPhoneNumber2)
         {
-          v16 = sub_100005CC4();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+          v20 = sub_100005CC4(lastIdentificationPhoneNumber2);
+          if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
             sub_100022D90();
           }
 
-          v17 = 3;
+          v21 = 3;
           goto LABEL_20;
         }
 
-        [(CDXLoadExtensionDataOperation *)self setLastIdentificationPhoneNumber:v13];
-        if (v10 == ++v12)
+        [(CDXLoadExtensionDataOperation *)self setLastIdentificationPhoneNumber:v15];
+        if (v11 == ++v14)
         {
           goto LABEL_21;
         }
       }
 
-      v16 = sub_100005CC4();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v20 = sub_100005CC4(lastIdentificationPhoneNumber);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         sub_100022E10();
       }
 
-      v17 = 4;
+      v21 = 4;
 LABEL_20:
 
-      v12 = [NSError cx_callDirectoryManagerErrorWithCode:v17];
-      if (v12)
+      v14 = [NSError cx_callDirectoryManagerErrorWithCode:v21];
+      if (v14)
       {
         goto LABEL_28;
       }
 
 LABEL_21:
       store = [(CDXLoadExtensionDataOperation *)self store];
-      v24 = 0;
-      v19 = [store addIdentificationEntriesWithData:dataCopy extensionID:-[CDXLoadExtensionDataOperation extensionID](self error:{"extensionID"), &v24}];
-      v12 = v24;
+      v29 = 0;
+      v23 = [store addIdentificationEntriesWithData:dataCopy extensionID:-[CDXLoadExtensionDataOperation extensionID](self error:{"extensionID"), &v29}];
+      v14 = v29;
 
-      v20 = sub_100005CC4();
-      v21 = v20;
-      if (v19)
+      v25 = sub_100005CC4(v24);
+      v26 = v25;
+      if (v23)
       {
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v26 = v10;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Added %lu phone number identification entries", buf, 0xCu);
+          v31 = v11;
+          _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Added %lu phone number identification entries", buf, 0xCu);
         }
 
-        [(CDXLoadExtensionDataOperation *)self setIdentificationEntriesAdded:&v10[[(CDXLoadExtensionDataOperation *)self identificationEntriesAdded]]];
+        [(CDXLoadExtensionDataOperation *)self setIdentificationEntriesAdded:&v11[[(CDXLoadExtensionDataOperation *)self identificationEntriesAdded]]];
       }
 
       else
       {
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           sub_100022E90();
         }
@@ -540,19 +547,19 @@ LABEL_21:
     }
 
 LABEL_28:
-    if (error && v12)
+    if (error && v14)
     {
-      v22 = v12;
-      *error = v12;
+      v27 = v14;
+      *error = v14;
     }
 
     goto LABEL_31;
   }
 
-  v14 = 0;
+  v18 = 0;
 LABEL_32:
 
-  return v14;
+  return v18;
 }
 
 - (BOOL)extensionDataRequest:(id)request removedIdentificationEntryData:(id)data error:(id *)error
@@ -561,37 +568,103 @@ LABEL_32:
   queue = [(CDXLoadExtensionDataOperation *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v9 = sub_100005CC4();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100005CC4(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = dataCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Extension data request removed identification entry data: %@", buf, 0xCu);
+    v24 = dataCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Extension data request removed identification entry data: %@", buf, 0xCu);
   }
 
-  if ([(CDXLoadExtensionDataOperation *)self incrementalLoadingState]== 2)
+  incrementalLoadingState = [(CDXLoadExtensionDataOperation *)self incrementalLoadingState];
+  if (incrementalLoadingState == 2)
   {
     store = [(CDXLoadExtensionDataOperation *)self store];
-    v19 = 0;
-    v11 = [store removeIdentificationEntriesWithData:dataCopy extensionID:-[CDXLoadExtensionDataOperation extensionID](self error:{"extensionID"), &v19}];
-    v12 = v19;
+    v22 = 0;
+    v13 = [store removeIdentificationEntriesWithData:dataCopy extensionID:-[CDXLoadExtensionDataOperation extensionID](self error:{"extensionID"), &v22}];
+    v14 = v22;
 
-    v13 = sub_100005CC4();
-    v14 = v13;
-    if (v11)
+    v16 = sub_100005CC4(v15);
+    v17 = v16;
+    if (v13)
     {
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = [dataCopy count];
+        v18 = [dataCopy count];
         *buf = 134217984;
-        v21 = v15;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Removed %lu phone number identification entries", buf, 0xCu);
+        v24 = v18;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Removed %lu phone number identification entries", buf, 0xCu);
       }
     }
 
-    else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_100022F10();
+    }
+
+    if (error)
+    {
+LABEL_14:
+      if (v14)
+      {
+        v20 = v14;
+        *error = v14;
+      }
+    }
+  }
+
+  else
+  {
+    v19 = sub_100005CC4(incrementalLoadingState);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    {
+      sub_100022C5C();
+    }
+
+    v14 = [NSError cx_callDirectoryManagerErrorWithCode:8];
+    if (error)
+    {
+      goto LABEL_14;
+    }
+  }
+
+  return v14 == 0;
+}
+
+- (BOOL)extensionDataRequest:(id)request removedAllIdentificationEntriesWithError:(id *)error
+{
+  queue = [(CDXLoadExtensionDataOperation *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  v8 = sub_100005CC4(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Extension data request removed all identification entries", buf, 2u);
+  }
+
+  incrementalLoadingState = [(CDXLoadExtensionDataOperation *)self incrementalLoadingState];
+  if (incrementalLoadingState == 2)
+  {
+    store = [(CDXLoadExtensionDataOperation *)self store];
+    v20 = 0;
+    v11 = [store removeIdentificationEntriesForExtensionWithID:-[CDXLoadExtensionDataOperation extensionID](self error:{"extensionID"), &v20}];
+    v12 = v20;
+
+    v14 = sub_100005CC4(v13);
+    v15 = v14;
+    if (v11)
+    {
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        *v19 = 0;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Removed all phone number identification entries", v19, 2u);
+      }
+    }
+
+    else if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      sub_100022F90();
     }
 
     if (error)
@@ -607,7 +680,7 @@ LABEL_14:
 
   else
   {
-    v16 = sub_100005CC4();
+    v16 = sub_100005CC4(incrementalLoadingState);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       sub_100022C5C();
@@ -621,70 +694,6 @@ LABEL_14:
   }
 
   return v12 == 0;
-}
-
-- (BOOL)extensionDataRequest:(id)request removedAllIdentificationEntriesWithError:(id *)error
-{
-  queue = [(CDXLoadExtensionDataOperation *)self queue];
-  dispatch_assert_queue_V2(queue);
-
-  v7 = sub_100005CC4();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Extension data request removed all identification entries", buf, 2u);
-  }
-
-  if ([(CDXLoadExtensionDataOperation *)self incrementalLoadingState]== 2)
-  {
-    store = [(CDXLoadExtensionDataOperation *)self store];
-    v17 = 0;
-    v9 = [store removeIdentificationEntriesForExtensionWithID:-[CDXLoadExtensionDataOperation extensionID](self error:{"extensionID"), &v17}];
-    v10 = v17;
-
-    v11 = sub_100005CC4();
-    v12 = v11;
-    if (v9)
-    {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-      {
-        *v16 = 0;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Removed all phone number identification entries", v16, 2u);
-      }
-    }
-
-    else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-    {
-      sub_100022F90();
-    }
-
-    if (error)
-    {
-LABEL_14:
-      if (v10)
-      {
-        v14 = v10;
-        *error = v10;
-      }
-    }
-  }
-
-  else
-  {
-    v13 = sub_100005CC4();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-    {
-      sub_100022C5C();
-    }
-
-    v10 = [NSError cx_callDirectoryManagerErrorWithCode:8];
-    if (error)
-    {
-      goto LABEL_14;
-    }
-  }
-
-  return v10 == 0;
 }
 
 @end

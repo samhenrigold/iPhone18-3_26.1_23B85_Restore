@@ -586,7 +586,7 @@ LABEL_6:
   return *&v12;
 }
 
-unint64_t *vDSP_ztoc_fp16(unint64_t *result, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5)
+unint64_t *vDSP_ztoc_fp16(unint64_t *result, uint64_t a2, __int16 *a3, uint64_t a4, unint64_t a5)
 {
   if (a2 == 1 && a4 == 2)
   {
@@ -604,7 +604,7 @@ LABEL_6:
       v8 = a5 - v7;
       v9 = (v6 + 2 * v7);
       v10 = (v5 + 2 * v7);
-      v11 = (a3 + 4 * v7 + 2);
+      v11 = &a3[2 * v7 + 1];
       do
       {
         v12 = *v10++;
@@ -620,14 +620,14 @@ LABEL_6:
     }
 
     v7 = 0;
-    v18 = a3 + 4 * (a5 - 1);
-    if (v18 < a3 || v18 + 2 < a3 + 2 || (a5 - 1) >> 62)
+    v18 = &a3[2 * a5 - 2];
+    if (v18 < a3 || v18 + 2 < (a3 + 1) || (a5 - 1) >> 62)
     {
       goto LABEL_6;
     }
 
     v7 = 0;
-    v19 = a3 + 4 * a5;
+    v19 = &a3[2 * a5];
     v20 = v6 + 2 * a5 <= a3 || v6 >= v19;
     v21 = !v20;
     if (v5 < v19 && v5 + 2 * a5 > a3)
@@ -673,7 +673,7 @@ LABEL_6:
     v14 = 0;
     v15 = *result;
     v16 = result[1];
-    v17 = (a3 + 2);
+    v17 = a3 + 1;
     do
     {
       *(v17 - 1) = *(v15 + v14);
@@ -1071,10 +1071,10 @@ float16x8_t vDSP_zvmul_fp16(float16x8_t **a1, uint64_t a2, float16x8_t **a3, uin
       if (a7 > 0xF)
       {
         v43 = 0;
-        v129 = (v41 + 2 * a7);
+        v129 = v41 + 2 * a7;
         v130 = (v42 + 2 * a7);
-        v131 = (v37 + 2 * a7);
-        v132 = (v39 + 2 * a7);
+        v131 = v37 + 2 * a7;
+        v132 = v39 + 2 * a7;
         v133 = (v38 + 2 * a7);
         v134 = (v40 + 2 * a7);
         v136 = v41 < v131 && v37 < v129;
@@ -1188,10 +1188,10 @@ LABEL_8:
     }
 
     v15 = 0;
-    v91 = (v13 + 2 * a7);
+    v91 = v13 + 2 * a7;
     v92 = (v14 + 2 * a7);
-    v93 = (v9 + 2 * a7);
-    v94 = (v11 + 2 * a7);
+    v93 = v9 + 2 * a7;
+    v94 = v11 + 2 * a7;
     v95 = (v10 + 2 * a7);
     v96 = (v12 + 2 * a7);
     v98 = v13 < v93 && v9 < v91;
@@ -1308,10 +1308,10 @@ LABEL_8:
         if (a2 == 1 && a4 == 1 && a6 == 1)
         {
           v31 = 0;
-          v53 = (v29 + 2 * a7);
+          v53 = v29 + 2 * a7;
           v54 = (v30 + 2 * a7);
-          v55 = (v25 + 2 * a7);
-          v56 = (v27 + 2 * a7);
+          v55 = v25 + 2 * a7;
+          v56 = v27 + 2 * a7;
           v57 = (v26 + 2 * a7);
           v58 = (v28 + 2 * a7);
           v59 = v29 >= v55 || v25 >= v53;
@@ -1414,13 +1414,13 @@ unint64_t vDSP_zvma_fp16(unint64_t result, uint64_t a2, float16x8_t **a3, uint64
       if (a2 == 1 && a4 == 1 && a8 == 1 && a6 == 1)
       {
         v36 = 0;
-        v45 = (v34 + 2 * a9);
+        v45 = v34 + 2 * a9;
         v46 = (v35 + 2 * a9);
-        v47 = (v28 + 2 * a9);
-        v48 = (v30 + 2 * a9);
-        v49 = (v29 + 2 * a9);
+        v47 = v28 + 2 * a9;
+        v48 = v30 + 2 * a9;
+        v49 = v29 + 2 * a9;
         v50 = (v31 + 2 * a9);
-        v51 = (v32 + 2 * a9);
+        v51 = v32 + 2 * a9;
         v52 = (v33 + 2 * a9);
         v53 = v34 >= v47 || v28 >= v45;
         v54 = !v53;
@@ -1555,13 +1555,13 @@ LABEL_8:
   }
 
   v17 = 0;
-  v97 = (v15 + 2 * a9);
+  v97 = v15 + 2 * a9;
   v98 = (v16 + 2 * a9);
-  v99 = (v9 + 2 * a9);
-  v100 = (v11 + 2 * a9);
-  v101 = (v10 + 2 * a9);
+  v99 = v9 + 2 * a9;
+  v100 = v11 + 2 * a9;
+  v101 = v10 + 2 * a9;
   v102 = (v12 + 2 * a9);
-  v103 = (v13 + 2 * a9);
+  v103 = v13 + 2 * a9;
   v104 = (v14 + 2 * a9);
   v106 = v15 < v99 && v9 < v97;
   v108 = v15 < v100 && v11 < v97;
@@ -1690,7 +1690,7 @@ LABEL_8:
   return result;
 }
 
-short float *vDSP_zvmmaa_fp16(short float *result, uint64_t a2, float16x8_t **a3, uint64_t a4, float16x8_t **a5, uint64_t a6, float16x8_t **a7, uint64_t a8, float16x8_t **a9, uint64_t a10, unint64_t *a11, uint64_t a12, unint64_t a13)
+float16x8_t *vDSP_zvmmaa_fp16(float16x8_t *result, uint64_t a2, float16x8_t **a3, uint64_t a4, float16x8_t **a5, uint64_t a6, float16x8_t **a7, uint64_t a8, float16x8_t **a9, uint64_t a10, float16x8_t **a11, uint64_t a12, unint64_t a13)
 {
   v14 = a12;
   v13 = a13;
@@ -1701,8 +1701,8 @@ short float *vDSP_zvmmaa_fp16(short float *result, uint64_t a2, float16x8_t **a3
       return result;
     }
 
-    v41 = *result;
-    v42 = *(result + 1);
+    v41 = result->i64[0];
+    v42 = result->u64[1];
     v44 = *a3;
     v43 = a3[1];
     v45 = *a5;
@@ -1726,7 +1726,7 @@ short float *vDSP_zvmmaa_fp16(short float *result, uint64_t a2, float16x8_t **a3
         v70 = v42 + 2 * a13;
         v265 = v42;
         v263 = v49 + 2 * a13;
-        v256 = &result[a13];
+        v256 = &result->i16[a13];
         v73 = v50 >= v68 || v41 >= v66;
         v74 = !v73;
         v254 = v74;
@@ -1734,17 +1734,17 @@ short float *vDSP_zvmmaa_fp16(short float *result, uint64_t a2, float16x8_t **a3
         v252 = v76;
         v78 = v50 < v70 && v42 < v66;
         v250 = v78;
-        v80 = v50 < v43 + 2 * a13 && v43 < v66;
+        v80 = v50 < (v43 + 2 * a13) && v43 < v66;
         v248 = v80;
         v71 = v45 + 2 * a13;
         v82 = v50 < v71 && v45 < v66;
         v247 = v82;
-        v84 = v50 < v47 + 2 * a13 && v47 < v66;
+        v84 = v50 < (v47 + 2 * a13) && v47 < v66;
         v246 = v84;
-        v72 = v46 + 2 * a13;
+        v72 = (v46 + 2 * a13);
         v86 = v50 < v72 && v46 < v66;
         v245 = v86;
-        v88 = v50 < v48 + 2 * a13 && v48 < v66;
+        v88 = v50 < (v48 + 2 * a13) && v48 < v66;
         v244 = v88;
         v90 = v50 < v263 && v49 < v66;
         v243 = v90;
@@ -1874,12 +1874,12 @@ short float *vDSP_zvmmaa_fp16(short float *result, uint64_t a2, float16x8_t **a3
     v65 = 2 * a2;
     do
     {
-      *(v50 + 2 * v54) = (((*(v44->i16 + v62) * *(v41->i16 + v64)) + (*&v47->i16[v58] * *(v45->i16 + v60))) + *&v49->i16[v56]) - ((*(v43->i16 + v62) * *(v42->i16 + v64)) + (*&v48->i16[v58] * *(v46->i16 + v60)));
-      *(v51 + 2 * v54) = ((((*(v43->i16 + v62) * *(v41->i16 + v64)) + (*(v44->i16 + v62) * *(v42->i16 + v64))) + (*&v48->i16[v58] * *(v45->i16 + v60))) + (*&v47->i16[v58] * *(v46->i16 + v60))) + result[v56];
+      *&v50->i16[v54] = (((*(v44 + v62) * *(v41 + v64)) + (*&v47->i16[v58] * *(v45->i16 + v60))) + *(v49 + 2 * v56)) - ((*(v43->i16 + v62) * *(v42 + v64)) + (*&v48->i16[v58] * *(v46->i16 + v60)));
+      *(v51 + 2 * v54) = ((((*(v43->i16 + v62) * *(v41 + v64)) + (*(v44 + v62) * *(v42 + v64))) + (*&v48->i16[v58] * *(v45->i16 + v60))) + (*&v47->i16[v58] * *(v46->i16 + v60))) + *&result->i16[v56];
       v51 += v55;
-      v50 += v55;
+      v50 = (v50 + v55);
       result = (result + v57);
-      v49 = (v49 + v57);
+      v49 += v57;
       v48 = (v48 + v59);
       v47 = (v47 + v59);
       v60 += v61;
@@ -1897,8 +1897,8 @@ short float *vDSP_zvmmaa_fp16(short float *result, uint64_t a2, float16x8_t **a3
     return result;
   }
 
-  v16 = *result;
-  v15 = *(result + 1);
+  v16 = result->i64[0];
+  v15 = result->i64[1];
   v18 = *a3;
   v17 = a3[1];
   v19 = *a5;
@@ -1915,7 +1915,7 @@ short float *vDSP_zvmmaa_fp16(short float *result, uint64_t a2, float16x8_t **a3
     goto LABEL_10;
   }
 
-  v148 = &result[a13];
+  v148 = &result->i16[a13];
   v149 = v25 + 2 * a13;
   v150 = v16 + 2 * a13;
   v151 = v18 + 2 * a13;
@@ -2002,21 +2002,21 @@ LABEL_10:
     v28 = v13 - v26;
     v29 = 2 * v26;
     v30 = v25 + 2 * v26;
-    v31 = v24->i64 + 2 * v26;
-    result += v26;
-    v32 = v23->i64 + 2 * v26;
-    v33 = v21->i64 + 2 * v26;
-    v34 = v20->i64 + 2 * v26;
-    v35 = v22->i64 + 2 * v26;
-    v36 = v19->i64 + 2 * v26;
-    v37 = v17->i64 + 2 * v26;
+    v31 = &v24->i8[2 * v26];
+    result = (result + 2 * v26);
+    v32 = v23 + 2 * v26;
+    v33 = &v21->i8[2 * v26];
+    v34 = &v20->i8[2 * v26];
+    v35 = v22 + 2 * v26;
+    v36 = v19 + 2 * v26;
+    v37 = &v17->i8[2 * v26];
     v38 = &v15->i8[2 * v26];
-    v39 = v18->i64 + v29;
-    v40 = v16->i64 + v29;
+    v39 = v18 + v29;
+    v40 = v16 + v29;
     do
     {
-      result[v27] = (((*(v39 + 2 * v27) * *(v40 + 2 * v27)) + (*(v35 + 2 * v27) * *(v36 + 2 * v27))) + *(v32 + 2 * v27)) - ((*(v37 + 2 * v27) * *&v38[2 * v27]) + (*(v33 + 2 * v27) * *(v34 + 2 * v27)));
-      *(v30 + 2 * v27) = ((((*(v37 + 2 * v27) * *(v40 + 2 * v27)) + (*(v39 + 2 * v27) * *&v38[2 * v27])) + (*(v33 + 2 * v27) * *(v36 + 2 * v27))) + (*(v35 + 2 * v27) * *(v34 + 2 * v27))) + *(v31 + 2 * v27);
+      *&result->i16[v27] = (((*(v39 + 2 * v27) * *(v40 + 2 * v27)) + (*(v35 + 2 * v27) * *(v36 + 2 * v27))) + *(v32 + 2 * v27)) - ((*&v37[2 * v27] * *&v38[2 * v27]) + (*&v33[2 * v27] * *&v34[2 * v27]));
+      *(v30 + 2 * v27) = ((((*&v37[2 * v27] * *(v40 + 2 * v27)) + (*(v39 + 2 * v27) * *&v38[2 * v27])) + (*&v33[2 * v27] * *(v36 + 2 * v27))) + (*(v35 + 2 * v27) * *&v34[2 * v27])) + *&v31[2 * v27];
       ++v27;
     }
 
@@ -2384,7 +2384,8 @@ uint64_t IR::ComplexDataCircBuffer::Implementation::initialize(IR::ComplexDataCi
           if (*(this + 3) != *(this + 4) && *(this + 13) == a4 && 0xAAAAAAAAAAAAAAABLL * ((*(this + 1) - *this) >> 3) == a2)
           {
             v12 = a2;
-            std::vector<float>::vector[abi:ne200100](&__p, 2 * a3 * a2 * a4);
+            v31 = 0;
+            std::vector<float>::vector[abi:ne200100](&__p, 2 * a3 * a2 * a4, &v31);
             v13 = 0;
             v14 = 0;
             v15 = *this;
@@ -2431,11 +2432,11 @@ uint64_t IR::ComplexDataCircBuffer::Implementation::initialize(IR::ComplexDataCi
             }
 
             while (v13 != v12);
-            std::vector<float>::__assign_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(this + 3, __p, v32, (v32 - __p) >> 2);
+            std::vector<float>::__assign_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(this + 3, __p, v33, (v33 - __p) >> 2);
             v10 = a5;
             if (__p)
             {
-              v32 = __p;
+              v33 = __p;
               operator delete(__p);
             }
           }
@@ -2649,7 +2650,7 @@ void *IR::ComplexDataCircBuffer::Implementation::getFFTBufferVec(IR::ComplexData
     return (*this + 24 * a2);
   }
 
-  if (atomic_load_explicit(&_MergedGlobals_0, memory_order_acquire))
+  if (atomic_load_explicit(_MergedGlobals_0, memory_order_acquire))
   {
     return &unk_2A18B8290;
   }
@@ -2847,7 +2848,7 @@ void *IR::ComplexDataCircBuffer::getFFTBufferVec(IR::ComplexDataCircBuffer::Impl
     return IR::ComplexDataCircBuffer::Implementation::getFFTBufferVec(v4, a2);
   }
 
-  else if (atomic_load_explicit(&qword_2A18B8280, memory_order_acquire))
+  else if (atomic_load_explicit(byte_2A18B8280, memory_order_acquire))
   {
     return &unk_2A18B82A8;
   }
@@ -2868,7 +2869,7 @@ void *IR::ComplexDataCircBuffer::getSampleDataPtrs(IR::ComplexDataCircBuffer *th
     return (*this + 120);
   }
 
-  if (atomic_load_explicit(&qword_2A18B8288, memory_order_acquire))
+  if (atomic_load_explicit(byte_2A18B8288, memory_order_acquire))
   {
     return &unk_2A18B82C0;
   }
@@ -2891,7 +2892,7 @@ uint64_t std::vector<float *>::~vector[abi:ne200100](uint64_t a1)
   return a1;
 }
 
-void *std::vector<float>::__assign_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<float>::__assign_with_size[abi:ne200100]<std::__wrap_iter<float *>,std::__wrap_iter<float *>>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v7 = result;
   v8 = result[2];
@@ -3318,7 +3319,7 @@ void IR::MPResampler<float>::Interpolate(uint64_t a1, uint64_t a2, float **a3)
     v7 = *(a1 + 168);
     v8 = *a2;
     v9 = *a3;
-    v10 = (*a3 + 1);
+    v10 = *a3 + 1;
     v11 = -4;
     v12 = *(a1 + 16) / *(a1 + 12);
     while (1)
@@ -3331,7 +3332,7 @@ void IR::MPResampler<float>::Interpolate(uint64_t a1, uint64_t a2, float **a3)
 
       v14 = vcvtps_u32_f32(v12 * (v4 + 1));
       v15 = v14 - 1;
-      *(v10 + 4 * v4) = fmaxf(v8[v15] + (((v13 - *(v7 + 4 * v15)) * (v8[v14] - v8[v15])) / (*(v7 + 4 * v14) - *(v7 + 4 * v15))), 1.0e-10);
+      v10[v4] = fmaxf(v8[v15] + (((v13 - *(v7 + 4 * v15)) * (v8[v14] - v8[v15])) / (*(v7 + 4 * v14) - *(v7 + 4 * v15))), 1.0e-10);
       v11 -= 4;
       if (v3 - 1 == ++v4)
       {
@@ -3350,7 +3351,7 @@ void IR::MPResampler<float>::Interpolate(uint64_t a1, uint64_t a2, float **a3)
     else
     {
       v18 = v8[v6];
-      v9[v4 + 1] = fmaxf(v18, 1.0e-10);
+      *(v9 + 4 * v4 + 4) = fmaxf(v18, 1.0e-10);
       v19 = (*(a1 + 200) - v5) >> 2;
       v20 = v4 + 2;
       if (v19 > v4 + 2)
@@ -3360,7 +3361,7 @@ void IR::MPResampler<float>::Interpolate(uint64_t a1, uint64_t a2, float **a3)
         v23 = (3.1416 / ((v3 - v4 - 2) + -1.0)) * 0.5;
         do
         {
-          v9[v20] = fmaxf(v18 * cosf(v23 * v21), 1.0e-10);
+          *(v9 + 4 * v20) = fmaxf(v18 * cosf(v23 * v21), 1.0e-10);
           v20 = v22;
           ++v21;
         }
@@ -5216,15 +5217,15 @@ LABEL_17:
   return v7;
 }
 
-void sub_296BF4038(_Unwind_Exception *a1, uint64_t a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, char a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
+void sub_296BF4038(_Unwind_Exception *a1, uint64_t a2, void *__p, uint64_t a4, int a5, __int16 a6, char a7, char a8, char a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  va_start(va, a24);
-  if (a8 < 0)
+  va_start(va, a28);
+  if (SHIBYTE(a12) < 0)
   {
-    operator delete(__p);
+    operator delete(a10);
   }
 
-  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a9, MEMORY[0x29EDC9528]);
+  std::basic_stringstream<char,std::char_traits<char>,std::allocator<char>>::~basic_stringstream(&a13, MEMORY[0x29EDC9528]);
   MEMORY[0x29C25FBA0](va);
   _Unwind_Resume(a1);
 }
@@ -6371,11 +6372,11 @@ LABEL_29:
   std::mutex::unlock(a1);
 }
 
-void sub_296BF51D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_296BF51D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::__split_buffer<CASmartPreferences::Pref>::~__split_buffer(va);
-  std::mutex::unlock(v4);
+  std::mutex::unlock(v7);
   _Unwind_Resume(a1);
 }
 
@@ -6390,9 +6391,9 @@ void *std::construct_at[abi:ne200100]<CASmartPreferences::Pref,__CFString const*
   return a1;
 }
 
-void sub_296BF5298(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296BF5298(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<BOOL ()(void const*)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6439,7 +6440,7 @@ uint64_t std::__function::__value_func<BOOL ()(void const*)>::__value_func[abi:n
   return a1;
 }
 
-void std::list<int>::__insert_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::list<int>::__insert_with_sentinel[abi:ne200100]<std::__list_const_iterator<int,void *>,std::__list_const_iterator<int,void *>>(uint64_t result, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
   if (a3 != a4)
   {
@@ -7038,7 +7039,7 @@ uint64_t CDelaunayTriangles3D::find_subtriangle_containment(unint64_t this, doub
     v6 = fabs(a4);
     v7 = fabs(a3);
     v8 = fabs(a2);
-    v9 = (this + 1);
+    v9 = this + 1;
     v10 = 2 * this - 2;
     v11 = MEMORY[0x29EDCA988];
     do
@@ -7205,7 +7206,7 @@ LABEL_11:
   return v5;
 }
 
-uint64_t std::list<int>::__sort<std::__less<void,void>>(uint64_t result, uint64_t **a2, unint64_t a3)
+uint64_t *std::list<int>::__sort<std::__less<void,void>>(uint64_t *result, uint64_t **a2, unint64_t a3)
 {
   if (a3 < 2)
   {
@@ -7215,7 +7216,7 @@ uint64_t std::list<int>::__sort<std::__less<void,void>>(uint64_t result, uint64_
   if (a3 == 2)
   {
     v4 = *a2;
-    if (*(*a2 + 4) < *(result + 16))
+    if (*(*a2 + 4) < *(result + 4))
     {
       v6 = *v4;
       v5 = v4[1];
@@ -7245,7 +7246,7 @@ uint64_t std::list<int>::__sort<std::__less<void,void>>(uint64_t result, uint64_
     v12 = std::list<int>::__sort<std::__less<void,void>>(result, v11, a3 >> 1);
     result = std::list<int>::__sort<std::__less<void,void>>(v11, a2, a3 - v9);
     v13 = *(v12 + 16);
-    if (*(result + 16) >= v13)
+    if (*(result + 4) >= v13)
     {
       v18 = *(v12 + 8);
       i = result;
@@ -7258,7 +7259,7 @@ uint64_t std::list<int>::__sort<std::__less<void,void>>(uint64_t result, uint64_
 
     else
     {
-      for (i = *(result + 8); i != a2; i = *(i + 8))
+      for (i = result[1]; i != a2; i = *(i + 8))
       {
         if (*(i + 16) >= v13)
         {
@@ -7276,7 +7277,7 @@ uint64_t std::list<int>::__sort<std::__less<void,void>>(uint64_t result, uint64_
       *(v19 + 8) = result;
       *result = v19;
       *v12 = v15;
-      *(v15 + 8) = v12;
+      v15[1] = v12;
       if (v18 == i)
       {
         return result;
@@ -7288,10 +7289,10 @@ uint64_t std::list<int>::__sort<std::__less<void,void>>(uint64_t result, uint64_
       v20 = i;
       do
       {
-        v21 = *(v18 + 4);
+        v21 = *(v18 + 16);
         if (*(i + 16) >= v21)
         {
-          v18 = v18[1];
+          v18 = *(v18 + 8);
           if (v18 == v20)
           {
             return result;
@@ -7311,7 +7312,7 @@ uint64_t std::list<int>::__sort<std::__less<void,void>>(uint64_t result, uint64_
           v23 = *j;
           v24 = *(*j + 8);
           v25 = *i;
-          *(v25 + 8) = v24;
+          v25[1] = v24;
           *v24 = v25;
           if (v20 == i)
           {
@@ -7319,11 +7320,11 @@ uint64_t std::list<int>::__sort<std::__less<void,void>>(uint64_t result, uint64_
           }
 
           v27 = *v18;
-          v26 = v18[1];
+          v26 = *(v18 + 8);
           *(v27 + 8) = i;
           *i = v27;
           *v18 = v23;
-          *(v23 + 8) = v18;
+          v23[1] = v18;
           v18 = v26;
           i = j;
           if (v26 == v20)
@@ -7480,7 +7481,7 @@ uint64_t VBAP::initialize(uint64_t a1, uint64_t *a2, uint64_t *a3, char **a4, ui
     {
       v21 = *(v11 + 4 * v10);
       v22 = *(v12 + 4 * v10);
-      v23 = v5[3];
+      v23 = *(v5 + 24);
       if (v6 < v23)
       {
         *v6 = v21;
@@ -7490,7 +7491,7 @@ uint64_t VBAP::initialize(uint64_t a1, uint64_t *a2, uint64_t *a3, char **a4, ui
 
       else
       {
-        v24 = v5[1];
+        v24 = *(v5 + 8);
         v25 = v6 - v24;
         v26 = (v6 - v24) >> 3;
         v27 = v26 + 1;
@@ -7543,10 +7544,10 @@ uint64_t VBAP::initialize(uint64_t a1, uint64_t *a2, uint64_t *a3, char **a4, ui
         }
       }
 
-      v5[2] = v6;
+      *(v5 + 16) = v6;
       v11 = *a2;
       v12 = *a3;
-      v13 = v5[7];
+      v13 = *(v5 + 56);
       v14 = (v13 + 4 * v9);
       v15 = *(*a2 + 4 * v10) * 0.0174532925;
       v16 = __sincos_stret(*(*a3 + 4 * v10) * 0.0174532925);
@@ -7561,7 +7562,7 @@ uint64_t VBAP::initialize(uint64_t a1, uint64_t *a2, uint64_t *a3, char **a4, ui
       v9 += 3;
     }
 
-    while (v10 < *(v5 + 1));
+    while (v10 < *(v5 + 4));
   }
 
   else
@@ -7569,7 +7570,7 @@ uint64_t VBAP::initialize(uint64_t a1, uint64_t *a2, uint64_t *a3, char **a4, ui
     v13 = *(a1 + 56);
   }
 
-  v34 = (v5[8] - v13) >> 2;
+  v34 = (*(v5 + 64) - v13) >> 2;
   if (v34 >= 3)
   {
     if (v34 >> 62 != 3)
@@ -7598,10 +7599,10 @@ uint64_t VBAP::initialize(uint64_t a1, uint64_t *a2, uint64_t *a3, char **a4, ui
     return 4294967246;
   }
 
-  if (v5[2] - v5[1] == 16)
+  if (*(v5 + 16) - *(v5 + 8) == 16)
   {
     LODWORD(__C) = 0;
-    vDSP_distancesq(v5[7], 1, (v5[7] + 12), 1, &__C, 3uLL);
+    vDSP_distancesq(*(v5 + 56), 1, (*(v5 + 56) + 12), 1, &__C, 3uLL);
     if (fabsf(*&__C + -4.0) < 0.00001)
     {
       if (os_log_type_enabled(MEMORY[0x29EDCA988], OS_LOG_TYPE_DEFAULT))
@@ -7625,19 +7626,19 @@ uint64_t VBAP::initialize(uint64_t a1, uint64_t *a2, uint64_t *a3, char **a4, ui
     *(v5 + 313) = 0;
   }
 
-  if (*(v5 + 1) == 1)
+  if (*(v5 + 4) == 1)
   {
     *(v5 + 312) = 1;
-    v36 = v5[10];
-    if (v5[11] != v36)
+    v36 = *(v5 + 80);
+    if (*(v5 + 88) != v36)
     {
-      v5[11] = v36;
+      *(v5 + 88) = v36;
     }
 
     return 0;
   }
 
-  if (((v5[8] - v5[7]) >> 2) > 2)
+  if (((*(v5 + 64) - *(v5 + 56)) >> 2) > 2)
   {
     operator new();
   }
@@ -7652,7 +7653,7 @@ uint64_t VBAP::initialize(uint64_t a1, uint64_t *a2, uint64_t *a3, char **a4, ui
   __A = 0;
   v137 = 0.0;
   v136 = 0;
-  v37 = *(v5 + 1);
+  v37 = *(v5 + 4);
   __B = 0.0;
   v134 = 0.0;
   v135 = 0.0;
@@ -7661,7 +7662,7 @@ uint64_t VBAP::initialize(uint64_t a1, uint64_t *a2, uint64_t *a3, char **a4, ui
     operator new();
   }
 
-  v38 = v5[7];
+  v38 = *(v5 + 56);
   v39 = 0;
   v40 = 0;
   do
@@ -7674,15 +7675,15 @@ uint64_t VBAP::initialize(uint64_t a1, uint64_t *a2, uint64_t *a3, char **a4, ui
 
   while (v39 != 0xFFFFFFFFLL);
   vDSP_meanvD(0, 1, &__B, 0);
-  vDSP_meanvD(0, 1, &v135, (*(v5 + 1) + 1));
-  vDSP_meanvD(0, 1, &v134, (*(v5 + 1) + 1));
+  vDSP_meanvD(0, 1, &v135, (*(v5 + 4) + 1));
+  vDSP_meanvD(0, 1, &v134, (*(v5 + 4) + 1));
   __B = -__B;
   v134 = -v134;
   v135 = -v135;
-  vDSP_vsaddD(0, 1, &__B, 0, 1, (*(v5 + 1) + 1));
-  vDSP_vsaddD(0, 1, &v135, 0, 1, (*(v5 + 1) + 1));
-  vDSP_vsaddD(0, 1, &v134, 0, 1, (*(v5 + 1) + 1));
-  v43 = *(v5 + 1);
+  vDSP_vsaddD(0, 1, &__B, 0, 1, (*(v5 + 4) + 1));
+  vDSP_vsaddD(0, 1, &v135, 0, 1, (*(v5 + 4) + 1));
+  vDSP_vsaddD(0, 1, &v134, 0, 1, (*(v5 + 4) + 1));
+  v43 = *(v5 + 4);
   v44 = (v43 + 1);
   if (v44 >= 4)
   {
@@ -7798,7 +7799,7 @@ LABEL_44:
   operator delete(0);
   operator delete(0);
   operator delete(0);
-  v46 = *(v5 + 1);
+  v46 = *(v5 + 4);
   if (v45)
   {
     if (v46 >= 3)
@@ -7807,13 +7808,13 @@ LABEL_44:
     }
 
     v79 = v5;
-    vDSP_meanv(v5[7], 3, buf, v46);
-    vDSP_meanv((v79[7] + 4), 3, &buf[4], *(v79 + 1));
-    vDSP_meanv((v79[7] + 8), 3, &buf[8], *(v79 + 1));
+    vDSP_meanv(*(v5 + 56), 3, buf, v46);
+    vDSP_meanv((*(v79 + 56) + 4), 3, &buf[4], *(v79 + 4));
+    vDSP_meanv((*(v79 + 56) + 8), 3, &buf[8], *(v79 + 4));
     v100 = vnegq_f32(*buf);
     LODWORD(v139) = v100.i32[2];
     __C = v100.i64[0];
-    v101 = *(v5 + 1);
+    v101 = *(v5 + 4);
     if (v101 < 2)
     {
       v82.f64[0] = 0.0;
@@ -7822,7 +7823,7 @@ LABEL_44:
 
     else
     {
-      v102 = v5[7];
+      v102 = *(v5 + 56);
       v107 = vcvtq_f64_f32(vadd_f32(*v102, *buf));
       v106.f64[0] = (v102[1].f32[0] + *&buf[8]);
       v106.f64[1] = v107.f64[0];
@@ -7875,29 +7876,29 @@ LABEL_44:
     v136 = vsub_f32(*v100.f32, *&v82.f64[0]);
     v141 = v114 + v100.f32[2];
     v137 = v100.f32[2] - v114;
-    VBAP::lineUnitSphereIntersection(&__A, &v136, v5[10], v80);
+    VBAP::lineUnitSphereIntersection(&__A, &v136, *(v5 + 80), v80);
     goto LABEL_102;
   }
 
-  vDSP_meanv(v5[7], 3, buf, v46);
-  vDSP_meanv((v5[7] + 4), 3, &buf[4], *(v5 + 1));
-  vDSP_meanv((v5[7] + 8), 3, &buf[8], *(v5 + 1));
+  vDSP_meanv(*(v5 + 56), 3, buf, v46);
+  vDSP_meanv((*(v5 + 56) + 4), 3, &buf[4], *(v5 + 4));
+  vDSP_meanv((*(v5 + 56) + 8), 3, &buf[8], *(v5 + 4));
   if ((vaddv_f32(vabs_f32(*buf)) + fabsf(*&buf[8])) >= 0.00003)
   {
     v49 = vnegq_f32(*buf);
     LODWORD(v139) = v49.i32[2];
     __C = v49.i64[0];
-    VBAP::lineUnitSphereIntersection(buf, &__C, v5[10], v47);
-    if (v5[39])
+    VBAP::lineUnitSphereIntersection(buf, &__C, *(v5 + 80), v47);
+    if (*(v5 + 312))
     {
       goto LABEL_71;
     }
 
-    v50 = v5[10];
-    v51 = v5[11] - v50;
+    v50 = *(v5 + 80);
+    v51 = *(v5 + 88) - v50;
     if ((v51 >> 2) <= 2)
     {
-      std::vector<float>::__append((v5 + 10), 3 - (v51 >> 2));
+      std::vector<float>::__append((v5 + 80), 3 - (v51 >> 2));
       goto LABEL_71;
     }
 
@@ -7910,18 +7911,18 @@ LABEL_44:
     goto LABEL_49;
   }
 
-  v48 = v5[10];
-  if (v5[11] != v48)
+  v48 = *(v5 + 80);
+  if (*(v5 + 88) != v48)
   {
 LABEL_49:
-    v5[11] = v48;
+    *(v5 + 88) = v48;
   }
 
 LABEL_71:
-  v83 = (v5[11] - v5[10]) >> 2;
+  v83 = (*(v5 + 88) - *(v5 + 80)) >> 2;
   if (v83 >= 3)
   {
-    v84 = *(v5 + 1);
+    v84 = *(v5 + 4);
     if (v84)
     {
       LODWORD(v85) = 0;
@@ -7932,8 +7933,8 @@ LABEL_75:
       v91 = 3 * v84;
       while (1)
       {
-        v90 = v5[7];
-        v89 = v5[10];
+        v90 = *(v5 + 56);
+        v89 = *(v5 + 80);
         if (((vabds_f32(*(v89 + 4 * (3 * v85 + 1)), *(v90 + 4 * (v88 + 1))) + vabds_f32(*(v89 + 4 * (3 * v85)), *(v90 + 4 * v88))) + vabds_f32(*(v89 + 4 * (3 * v85 + 2)), *(v90 + 4 * (v88 + 2)))) < 0.00000035763)
         {
           break;
@@ -7975,8 +7976,8 @@ LABEL_84:
           break;
         }
 
-        v84 = *(v5 + 1);
-        if (*(v5 + 1))
+        v84 = *(v5 + 4);
+        if (*(v5 + 4))
         {
           goto LABEL_75;
         }
@@ -7986,19 +7987,19 @@ LABEL_84:
       {
         v94 = 0;
         v95 = v86 >> 2;
-        v96 = v5[11];
+        v96 = *(v5 + 88);
         v97 = 1;
         do
         {
-          v98 = v5[10] + 12 * *(4 * v94);
+          v98 = *(v5 + 80) + 12 * *(4 * v94);
           v99 = v96 - (v98 + 12);
           if (v96 != v98 + 12)
           {
-            memmove((v5[10] + 12 * *(4 * v94)), (v98 + 12), v96 - (v98 + 12));
+            memmove((*(v5 + 80) + 12 * *(4 * v94)), (v98 + 12), v96 - (v98 + 12));
           }
 
           v96 = v98 + v99;
-          v5[11] = v98 + v99;
+          *(v5 + 88) = v98 + v99;
           v94 = v97++;
         }
 
@@ -8009,22 +8010,22 @@ LABEL_84:
   }
 
 LABEL_102:
-  v117 = ((v5[11] - v5[10]) >> 2) / 3uLL;
-  v5[38] = v117;
-  v118 = v5[16];
-  v119 = (v5[17] - v118) >> 2;
+  v117 = ((*(v5 + 88) - *(v5 + 80)) >> 2) / 3uLL;
+  *(v5 + 304) = v117;
+  v118 = *(v5 + 128);
+  v119 = (*(v5 + 136) - v118) >> 2;
   if (v117 <= v119)
   {
     v120 = v5;
     if (v117 < v119)
     {
-      v5[17] = v118 + 4 * v117;
+      *(v5 + 136) = v118 + 4 * v117;
     }
   }
 
   else
   {
-    std::vector<float>::__append((v5 + 16), v117 - v119);
+    std::vector<float>::__append((v5 + 128), v117 - v119);
     v120 = v5;
   }
 
@@ -8057,7 +8058,7 @@ LABEL_102:
   return v35;
 }
 
-void sub_296BF9DD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31)
+void sub_296BF9DD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, void *__p, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31)
 {
   std::vector<std::vector<unsigned int>>::~vector[abi:ne200100]((v31 - 176));
   std::vector<std::vector<unsigned int>>::~vector[abi:ne200100](&a15);
@@ -8119,7 +8120,7 @@ void **std::vector<std::list<int>>::~vector[abi:ne200100](void **a1)
   return a1;
 }
 
-void **std::vector<std::vector<unsigned int>>::~vector[abi:ne200100](void **a1)
+char **std::vector<std::vector<unsigned int>>::~vector[abi:ne200100](char **a1)
 {
   v2 = *a1;
   if (*a1)
@@ -8154,10 +8155,10 @@ void **std::vector<std::vector<unsigned int>>::~vector[abi:ne200100](void **a1)
   return a1;
 }
 
-uint64_t VBAP::delaunayTriangulation(uint64_t a1, void *a2, char **a3, uint64_t *a4, double a5, float64x2_t a6, double a7, double a8, double a9, double a10, float64x2_t a11)
+uint64_t VBAP::delaunayTriangulation(uint64_t a1, const float **a2, char **a3, uint64_t *a4, double a5, float64x2_t a6, double a7, double a8, double a9, double a10, float64x2_t a11)
 {
   v205 = *MEMORY[0x29EDCA608];
-  v11 = ((a2[1] - *a2) >> 2) / 3uLL;
+  v11 = (a2[1] - *a2) / 3uLL;
   if (v11 << 32)
   {
     if (((v11 << 32) & 0x8000000000000000) == 0)
@@ -8171,11 +8172,11 @@ uint64_t VBAP::delaunayTriangulation(uint64_t a1, void *a2, char **a3, uint64_t 
   v12 = (v11 - 1);
   if (v11 >= 1)
   {
-    v13 = (((a2[1] - *a2) >> 2) / 3uLL) & 0x7FFFFFFF;
+    v13 = ((a2[1] - *a2) / 3uLL) & 0x7FFFFFFF;
     v14 = 0;
     v15 = 0;
     v16 = 0;
-    v17 = (*a2 + 4);
+    v17 = *a2 + 1;
     do
     {
       *v16++ = *(v17 - 1);
@@ -8902,7 +8903,7 @@ LABEL_97:
         {
           do
           {
-            v150 = v148 - 24;
+            v150 = v148 - 3;
             if (*(v148 - 1))
             {
               v151 = *(v148 - 2);
@@ -8915,7 +8916,7 @@ LABEL_97:
               {
                 do
                 {
-                  v154 = *(v151 + 1);
+                  v154 = v151[1];
                   operator delete(v151);
                   v151 = v154;
                 }
@@ -8965,7 +8966,7 @@ LABEL_97:
     }
 
     v162 = *(a1 + 280);
-    if (0xAAAAAAAAAAAAAAABLL * ((v162 - v147) >> 3) >= v143)
+    if (0xAAAAAAAAAAAAAAABLL * (v162 - v147) >= v143)
     {
       if (v145 == v144)
       {
@@ -8980,7 +8981,7 @@ LABEL_97:
           if (v147 != v145)
           {
             v171 = *(v145 + 8);
-            for (i = *(v147 + 1); v171 != v145 && i != v147; i = *(i + 1))
+            for (i = v147[1]; v171 != v145 && i != v147; i = i[1])
             {
               *(i + 4) = *(v171 + 16);
               v171 = *(v171 + 8);
@@ -8999,8 +9000,8 @@ LABEL_97:
               *v174 = v175;
               do
               {
-                v176 = *(i + 1);
-                --*(v147 + 2);
+                v176 = i[1];
+                --v147[2];
                 operator delete(i);
                 i = v176;
               }
@@ -9010,7 +9011,7 @@ LABEL_97:
           }
 
           v145 += 24;
-          v147 += 24;
+          v147 += 3;
         }
 
         while (v145 != v144);
@@ -9021,7 +9022,7 @@ LABEL_97:
       {
         do
         {
-          v180 = v162 - 24;
+          v180 = v162 - 3;
           if (*(v162 - 1))
           {
             v181 = *(v162 - 2);
@@ -9034,7 +9035,7 @@ LABEL_97:
             {
               do
               {
-                v184 = *(v181 + 1);
+                v184 = v181[1];
                 operator delete(v181);
                 v181 = v184;
               }
@@ -9062,7 +9063,7 @@ LABEL_97:
           if (v147 != v145)
           {
             v164 = *(v145 + 8);
-            for (j = *(v147 + 1); v164 != v145 && j != v147; j = *(j + 1))
+            for (j = v147[1]; v164 != v145 && j != v147; j = j[1])
             {
               *(j + 4) = *(v164 + 16);
               v164 = *(v164 + 8);
@@ -9081,8 +9082,8 @@ LABEL_97:
               *v167 = v168;
               do
               {
-                v169 = *(j + 1);
-                --*(v147 + 2);
+                v169 = j[1];
+                --v147[2];
                 operator delete(j);
                 j = v169;
               }
@@ -9092,7 +9093,7 @@ LABEL_97:
           }
 
           v145 += 24;
-          v147 += 24;
+          v147 += 3;
         }
 
         while (v145 != v163);
@@ -9139,9 +9140,9 @@ void sub_296BFD2AC(void *a1, int a2)
 
 void sub_296BFD2BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (a72)
+  if (a65)
   {
-    operator delete(a72);
+    operator delete(a65);
     if (!STACK[0x228])
     {
 LABEL_3:
@@ -9466,7 +9467,7 @@ uint64_t std::__exception_guard_exceptions<std::_AllocatorDestroyRangeReverse<st
 BOOL VBAP::find_duplicate_vertex(VBAP *this, const float *a2, const float *a3, const float *a4)
 {
   v17 = *MEMORY[0x29EDCA608];
-  MEMORY[0x2A1C7C4A8]();
+  MEMORY[0x2A1C7C4A8](this);
   v9 = &v15[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
   if (v10 < 2)
   {
@@ -9491,18 +9492,18 @@ BOOL VBAP::find_duplicate_vertex(VBAP *this, const float *a2, const float *a3, c
   return result;
 }
 
-void VBAP::VBAP(uint64_t a1, uint64_t a2, void *a3, int a4)
+void VBAP::VBAP(uint64_t a1, uint64_t *a2, uint64_t *a3, int a4, uint64_t a5, unint64_t a6)
 {
   *a1 = a4;
-  v4 = a3[1] - *a3;
+  v6 = a3[1] - *a3;
   *(a1 + 8) = 0u;
-  v4 >>= 2;
-  *(a1 + 4) = v4;
+  v6 >>= 2;
+  *(a1 + 4) = v6;
   *(a1 + 24) = 0u;
   *(a1 + 40) = 0u;
   *(a1 + 56) = 0u;
   *(a1 + 72) = 0;
-  if (3 * v4)
+  if (3 * v6)
   {
     operator new();
   }

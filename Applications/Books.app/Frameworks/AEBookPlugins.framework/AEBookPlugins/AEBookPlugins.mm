@@ -38,73 +38,73 @@ id sub_4824(uint64_t a1)
   v9 = *(a1 + 32);
   if (*(a1 + 40) <= *(a1 + 48))
   {
-    v13 = [v9 delegate];
-    v14 = [v13 pageNavigationCurrentReadAloudPageOffset:*(a1 + 32)];
+    v14 = [v9 delegate];
+    v15 = [v14 pageNavigationCurrentReadAloudPageOffset:*(a1 + 32)];
 
-    if (v14 != 0x7FFFFFFFFFFFFFFFLL)
+    if (v15 != 0x7FFFFFFFFFFFFFFFLL)
     {
-      *(*(a1 + 32) + 352) = v14;
-      v15 = _AECaptureLocationLog();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      *(*(a1 + 32) + 352) = v15;
+      v17 = _AECaptureLocationLog(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = [NSNumber numberWithInteger:*(*(a1 + 32) + 352)];
-        v29 = 138412290;
-        v30 = v16;
-        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "#PictureBook 2 Capturing offset : %@", &v29, 0xCu);
+        v18 = [NSNumber numberWithInteger:*(*(a1 + 32) + 352)];
+        v31 = 138412290;
+        v32 = v18;
+        _os_log_impl(&dword_0, v17, OS_LOG_TYPE_DEFAULT, "#PictureBook 2 Capturing offset : %@", &v31, 0xCu);
       }
     }
 
-    v17 = *(a1 + 32);
-    v18 = v17[44];
-    if (v18 == 0x7FFFFFFFFFFFFFFFLL)
+    v19 = *(a1 + 32);
+    v20 = v19[44];
+    if (v20 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v19 = [v17 layoutDirection];
-      v20 = *(a1 + 32);
-      v21 = [v20 pageOffset];
-      if (v19 == &dword_0 + 1)
+      v21 = [v19 layoutDirection];
+      v22 = *(a1 + 32);
+      v23 = [v22 pageOffset];
+      if (v21 == &dword_0 + 1)
       {
-        v22 = [v20 rightPageNumberForSinglePageOffset:v21];
+        v24 = [v22 rightPageNumberForSinglePageOffset:v23];
       }
 
       else
       {
-        v22 = [v20 leftPageNumberForSinglePageOffset:v21];
+        v24 = [v22 leftPageNumberForSinglePageOffset:v23];
       }
 
-      *(*(a1 + 32) + 352) = v22;
-      v23 = *(a1 + 32);
-      v24 = v23[44];
-      if (v24 == 0x7FFFFFFFFFFFFFFFLL)
+      *(*(a1 + 32) + 352) = v24;
+      v25 = *(a1 + 32);
+      v26 = v25[44];
+      if (v26 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        *(*(a1 + 32) + 352) = [v23 pageOffset];
+        v25 = [v25 pageOffset];
+        *(*(a1 + 32) + 352) = v25;
       }
 
       else
       {
-        v23[44] = v24 - 1;
+        v25[44] = v26 - 1;
       }
 
-      v25 = _AECaptureLocationLog();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+      v27 = _AECaptureLocationLog(v25);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v26 = [NSNumber numberWithInteger:*(*(a1 + 32) + 352)];
-        v29 = 138412290;
-        v30 = v26;
-        _os_log_impl(&dword_0, v25, OS_LOG_TYPE_DEFAULT, "#PictureBook 3 Capturing offset : %@", &v29, 0xCu);
+        v28 = [NSNumber numberWithInteger:*(*(a1 + 32) + 352)];
+        v31 = 138412290;
+        v32 = v28;
+        _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "#PictureBook 3 Capturing offset : %@", &v31, 0xCu);
       }
 
-      v17 = *(a1 + 32);
-      v18 = v17[44];
+      v19 = *(a1 + 32);
+      v20 = v19[44];
     }
 
-    [v17 setPageOffset:v18];
-    v27 = _AECaptureLocationLog();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    v29 = _AECaptureLocationLog([v19 setPageOffset:v20]);
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = [NSNumber numberWithInteger:*(*(a1 + 32) + 352)];
-      v29 = 138412290;
-      v30 = v28;
-      _os_log_impl(&dword_0, v27, OS_LOG_TYPE_DEFAULT, "#PictureBook 4 Using offset : %@", &v29, 0xCu);
+      v30 = [NSNumber numberWithInteger:*(*(a1 + 32) + 352)];
+      v31 = 138412290;
+      v32 = v30;
+      _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "#PictureBook 4 Using offset : %@", &v31, 0xCu);
     }
 
     *(*(a1 + 32) + 352) = 0x7FFFFFFFFFFFFFFFLL;
@@ -115,14 +115,15 @@ id sub_4824(uint64_t a1)
   {
     if (v9[44] == 0x7FFFFFFFFFFFFFFFLL)
     {
-      *(*(a1 + 32) + 352) = [v9 pageOffset];
-      v10 = _AECaptureLocationLog();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v10 = [v9 pageOffset];
+      *(*(a1 + 32) + 352) = v10;
+      v11 = _AECaptureLocationLog(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = [NSNumber numberWithInteger:*(*(a1 + 32) + 352)];
-        v29 = 138412290;
-        v30 = v11;
-        _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "#PictureBook 1 Capturing offset : %@", &v29, 0xCu);
+        v12 = [NSNumber numberWithInteger:*(*(a1 + 32) + 352)];
+        v31 = 138412290;
+        v32 = v12;
+        _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "#PictureBook 1 Capturing offset : %@", &v31, 0xCu);
       }
 
       v9 = *(a1 + 32);
@@ -322,11 +323,12 @@ void sub_DAB4(uint64_t a1)
   }
 }
 
-void sub_E088(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_E088(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
-  objc_destroyWeak((v17 + 40));
+  va_start(va, location);
+  objc_destroyWeak((v16 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -492,25 +494,31 @@ void sub_1757C(uint64_t a1, void *a2)
 
 void sub_17E68(id a1)
 {
-  qword_22CFC0 = objc_opt_new();
+  v1 = objc_opt_new();
+  v2 = qword_22CFC0;
+  qword_22CFC0 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
 void sub_18734(uint64_t a1)
 {
-  if ([*(a1 + 32) state] == 2 && *(a1 + 56) == 1 && *(a1 + 57) == 1 && (objc_msgSend(*(a1 + 40), "disableAutoFontDownload") & 1) == 0)
+  if ([*(a1 + 32) state] == 2 && *(a1 + 56) == 1 && *(a1 + 57) == 1)
   {
-    v2 = _AEBookPluginsFontCacheLog();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v2 = [*(a1 + 40) disableAutoFontDownload];
+    if ((v2 & 1) == 0)
     {
-      v3 = [*(a1 + 32) familyName];
-      v4 = 138543362;
-      v5 = v3;
-      _os_log_impl(&dword_0, v2, OS_LOG_TYPE_DEFAULT, "Attempting download of %{public}@", &v4, 0xCu);
-    }
+      v3 = _AEBookPluginsFontCacheLog(v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+      {
+        v4 = [*(a1 + 32) familyName];
+        v5 = 138543362;
+        v6 = v4;
+        _os_log_impl(&dword_0, v3, OS_LOG_TYPE_DEFAULT, "Attempting download of %{public}@", &v5, 0xCu);
+      }
 
-    [*(a1 + 32) download];
+      [*(a1 + 32) download];
+    }
   }
 
   dispatch_group_leave(*(a1 + 48));
@@ -528,24 +536,24 @@ void sub_18838(uint64_t a1)
   v4 = +[NSNotificationCenter defaultCenter];
   [v4 postNotificationName:BKStyleManagerDidRegisterFontsNotification[0] object:0];
 
-  v5 = _AEBookPluginsFontCacheLog();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _AEBookPluginsFontCacheLog(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [*(a1 + 32) count];
-    v7 = *(a1 + 40);
-    v8 = 134218242;
-    v9 = v6;
-    v10 = 2114;
-    v11 = v7;
-    _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Registered %lu fonts for language: %{public}@", &v8, 0x16u);
+    v7 = [*(a1 + 32) count];
+    v8 = *(a1 + 40);
+    v9 = 134218242;
+    v10 = v7;
+    v11 = 2114;
+    v12 = v8;
+    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Registered %lu fonts for language: %{public}@", &v9, 0x16u);
   }
 }
 
-void sub_19158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_19158(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  objc_sync_exit(v7);
+  objc_sync_exit(v13);
   _Unwind_Resume(a1);
 }
 
@@ -833,12 +841,12 @@ void sub_1E960(uint64_t a1, uint64_t a2, void *a3, void *a4)
       }
     }
 
-    [v9 _highlightAnnotation:*(a1 + 40) rects:v6];
+    WeakRetained = [v9 _highlightAnnotation:*(a1 + 40) rects:v6];
   }
 
   if (v7)
   {
-    v18 = _AEAnnotationLocationLog();
+    v18 = _AEAnnotationLocationLog(WeakRetained);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       v19 = *(a1 + 48);
@@ -1874,6 +1882,13 @@ void sub_25210(uint64_t a1, void *a2, void *a3)
   }
 }
 
+void sub_259BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
+{
+  va_start(va, a50);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
 uint64_t sub_25A38(uint64_t result, uint64_t a2)
 {
   *(result + 40) = *(a2 + 40);
@@ -2096,52 +2111,54 @@ void sub_26704(uint64_t a1, void *a2)
 
 void sub_26BBC(uint64_t a1, CGFloat a2, CGFloat a3, CGFloat a4, CGFloat a5)
 {
-  v24.origin.x = CGRectZero.origin.x;
-  v24.origin.y = CGRectZero.origin.y;
-  v24.size.width = CGRectZero.size.width;
-  v24.size.height = CGRectZero.size.height;
-  v26.origin.x = a2;
-  v26.origin.y = a3;
-  v26.size.width = a4;
-  v26.size.height = a5;
-  if (CGRectEqualToRect(v24, v26))
+  v25.origin.x = CGRectZero.origin.x;
+  v25.origin.y = CGRectZero.origin.y;
+  v25.size.width = CGRectZero.size.width;
+  v25.size.height = CGRectZero.size.height;
+  v27.origin.x = a2;
+  v27.origin.y = a3;
+  v27.size.width = a4;
+  v27.size.height = a5;
+  IsNull = CGRectEqualToRect(v25, v27);
+  if (IsNull)
   {
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    v25.origin.x = a2;
-    v25.origin.y = a3;
-    v25.size.width = a4;
-    v25.size.height = a5;
-    v10 = !CGRectIsNull(v25);
+    v26.origin.x = a2;
+    v26.origin.y = a3;
+    v26.size.width = a4;
+    v26.size.height = a5;
+    IsNull = CGRectIsNull(v26);
+    v11 = IsNull ^ 1;
   }
 
-  v11 = _AEAnnotationLocationLog();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = _AEAnnotationLocationLog(IsNull);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    *v17 = a2;
-    *&v17[1] = a3;
-    *&v17[2] = a4;
-    *&v17[3] = a5;
-    v12 = [NSValue valueWithBytes:v17 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-    v13 = *(a1 + 32);
-    v14 = [NSNumber numberWithBool:v10];
+    *v18 = a2;
+    *&v18[1] = a3;
+    *&v18[2] = a4;
+    *&v18[3] = a5;
+    v13 = [NSValue valueWithBytes:v18 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+    v14 = *(a1 + 32);
+    v15 = [NSNumber numberWithBool:v11];
     *buf = 138412802;
-    v19 = v12;
-    v20 = 2112;
-    v21 = v13;
-    v22 = 2112;
-    v23 = v14;
-    _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "isLocationVisible: found contentRect: %@ forLocation:%@ isVisible:%@", buf, 0x20u);
+    v20 = v13;
+    v21 = 2112;
+    v22 = v14;
+    v23 = 2112;
+    v24 = v15;
+    _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "isLocationVisible: found contentRect: %@ forLocation:%@ isVisible:%@", buf, 0x20u);
   }
 
-  v15 = objc_retainBlock(*(a1 + 40));
-  v16 = v15;
-  if (v15)
+  v16 = objc_retainBlock(*(a1 + 40));
+  v17 = v16;
+  if (v16)
   {
-    (*(v15 + 2))(v15, v10);
+    (*(v16 + 2))(v16, v11);
   }
 }
 
@@ -2224,44 +2241,45 @@ void sub_2BF9C(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = _AEAnnotationLocationLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _AEAnnotationLocationLog(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = [*(a1 + 32) annotationUuid];
-      v7 = [*(a1 + 32) location];
-      v8 = [*(a1 + 32) annotationSelectedText];
+      v7 = [*(a1 + 32) annotationUuid];
+      v8 = [*(a1 + 32) location];
+      v9 = [*(a1 + 32) annotationSelectedText];
       *buf = 138544130;
-      v19 = v6;
-      v20 = 2114;
-      v21 = v7;
-      v22 = 2112;
-      v23 = v8;
-      v24 = 2114;
-      v25 = v3;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "#annotationcache point annotation:%{public}@ location:%{public}@ text:%@ cached rects:%{public}@", buf, 0x2Au);
+      v20 = v7;
+      v21 = 2114;
+      v22 = v8;
+      v23 = 2112;
+      v24 = v9;
+      v25 = 2114;
+      v26 = v3;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "#annotationcache point annotation:%{public}@ location:%{public}@ text:%@ cached rects:%{public}@", buf, 0x2Au);
     }
 
-    v9 = [*(a1 + 32) annotationLocation];
-    if (v9 && [v3 count])
+    v10 = [*(a1 + 32) annotationLocation];
+    if (v10 && [v3 count])
     {
-      v10 = [WeakRetained annotationRectsCache];
-      [v10 setObject:v3 forKey:v9];
+      v11 = [v5 annotationRectsCache];
+      [v11 setObject:v3 forKey:v10];
 
-      v11 = [WeakRetained annotationRectUnionCache];
-      v17[0] = BKUnionRects(v3);
-      v17[1] = v12;
-      v17[2] = v13;
-      v17[3] = v14;
-      v15 = [NSValue valueWithBytes:v17 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-      [v11 setObject:v15 forKey:v9];
+      v12 = [v5 annotationRectUnionCache];
+      v18[0] = BKUnionRects(v3);
+      v18[1] = v13;
+      v18[2] = v14;
+      v18[3] = v15;
+      v16 = [NSValue valueWithBytes:v18 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+      [v12 setObject:v16 forKey:v10];
     }
 
-    v16 = [WeakRetained delegate];
+    v17 = [v5 delegate];
     if (objc_opt_respondsToSelector())
     {
-      [v16 contentViewControllerAnnotationCacheDidChange:*(a1 + 40)];
+      [v17 contentViewControllerAnnotationCacheDidChange:*(a1 + 40)];
     }
   }
 }
@@ -2277,10 +2295,11 @@ void sub_2C910(uint64_t a1)
   }
 }
 
-void sub_2D1CC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_2D1CC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_2D770(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id location)
@@ -2295,103 +2314,104 @@ void sub_2D78C(uint64_t a1, void *a2, void *a3)
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v8 = WeakRetained;
   if (!v5 || v6)
   {
-    v28 = _AELog();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v30 = _AELog(WeakRetained);
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v39 = v6;
-      _os_log_impl(&dword_0, v28, OS_LOG_TYPE_ERROR, "Failed to get size of TOC WebView: %@", buf, 0xCu);
+      v41 = v6;
+      _os_log_impl(&dword_0, v30, OS_LOG_TYPE_ERROR, "Failed to get size of TOC WebView: %@", buf, 0xCu);
     }
 
-    [WeakRetained _notifyRequesterAndSendNextRequestOfPreferredHeight:v6 error:0.0];
+    [v8 _notifyRequesterAndSendNextRequestOfPreferredHeight:v6 error:0.0];
   }
 
   else
   {
     objc_opt_class();
-    v33 = BUDynamicCast();
-    v8 = [v33 dataUsingEncoding:4];
-    v9 = [NSJSONSerialization JSONObjectWithData:v8 options:4 error:0];
+    v35 = BUDynamicCast();
+    v9 = [v35 dataUsingEncoding:4];
+    v10 = [NSJSONSerialization JSONObjectWithData:v9 options:4 error:0];
 
     objc_opt_class();
-    v10 = [v9 objectForKeyedSubscript:@"width"];
-    v11 = BUDynamicCast();
+    v11 = [v10 objectForKeyedSubscript:@"width"];
+    v12 = BUDynamicCast();
 
     objc_opt_class();
-    v12 = [v9 objectForKeyedSubscript:@"height"];
-    v13 = BUDynamicCast();
+    v13 = [v10 objectForKeyedSubscript:@"height"];
+    v14 = BUDynamicCast();
 
-    if (v11 && v13)
+    if (v12 && v14)
     {
-      v14 = [WeakRetained webView];
-      [v14 frame];
-      v16 = v15;
+      v16 = [v8 webView];
+      [v16 frame];
       v18 = v17;
-
-      [v11 doubleValue];
       v20 = v19;
-      [v13 doubleValue];
-      if (v21 >= 54.0)
+
+      [v12 doubleValue];
+      v22 = v21;
+      [v14 doubleValue];
+      if (v23 >= 54.0)
       {
-        v22 = v21;
+        v24 = v23;
       }
 
       else
       {
-        v22 = 54.0;
+        v24 = 54.0;
       }
 
-      [WeakRetained setFrameAndPositionWebView:{v16, v18, v20, v22}];
-      v34[0] = @"initial-scale";
-      v34[1] = @"maximum-scale";
-      v35[0] = @"1";
-      v35[1] = @"1";
-      v34[2] = @"minimum-scale";
-      v34[3] = @"user-scalable";
-      v35[2] = @"1";
-      v35[3] = @"no";
-      v35[4] = @"no";
-      v34[4] = @"shrink-to-fit";
-      v34[5] = @"width";
-      v23 = [v11 stringValue];
-      v24 = v23;
-      v25 = @"device-width";
-      if (v23)
+      [v8 setFrameAndPositionWebView:{v18, v20, v22, v24}];
+      v36[0] = @"initial-scale";
+      v36[1] = @"maximum-scale";
+      v37[0] = @"1";
+      v37[1] = @"1";
+      v36[2] = @"minimum-scale";
+      v36[3] = @"user-scalable";
+      v37[2] = @"1";
+      v37[3] = @"no";
+      v37[4] = @"no";
+      v36[4] = @"shrink-to-fit";
+      v36[5] = @"width";
+      v25 = [v12 stringValue];
+      v26 = v25;
+      v27 = @"device-width";
+      if (v25)
       {
-        v25 = v23;
+        v27 = v25;
       }
 
-      v35[5] = v25;
-      v26 = [NSDictionary dictionaryWithObjects:v35 forKeys:v34 count:6];
+      v37[5] = v27;
+      v28 = [NSDictionary dictionaryWithObjects:v37 forKeys:v36 count:6];
 
-      v27 = [WeakRetained webView];
-      [v27 _overrideViewportWithArguments:v26];
+      v29 = [v8 webView];
+      [v29 _overrideViewportWithArguments:v28];
 
-      [WeakRetained _snapshotCurrentContent];
+      [v8 _snapshotCurrentContent];
     }
 
     else
     {
-      v29 = _AELog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      v31 = _AELog(v15);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v39 = v5;
-        _os_log_impl(&dword_0, v29, OS_LOG_TYPE_ERROR, "Failed to get width/height of TOC WebView from JSON: %@", buf, 0xCu);
+        v41 = v5;
+        _os_log_impl(&dword_0, v31, OS_LOG_TYPE_ERROR, "Failed to get width/height of TOC WebView from JSON: %@", buf, 0xCu);
       }
 
-      v30 = WebKitErrorDomain;
-      v36[0] = NSDebugDescriptionErrorKey;
-      v36[1] = @"request";
-      v37[0] = v9;
-      v31 = [WeakRetained currentRequest];
-      v37[1] = v31;
-      v32 = [NSDictionary dictionaryWithObjects:v37 forKeys:v36 count:2];
-      v26 = [NSError errorWithDomain:v30 code:-5 userInfo:v32];
+      v32 = WebKitErrorDomain;
+      v38[0] = NSDebugDescriptionErrorKey;
+      v38[1] = @"request";
+      v39[0] = v10;
+      v33 = [v8 currentRequest];
+      v39[1] = v33;
+      v34 = [NSDictionary dictionaryWithObjects:v39 forKeys:v38 count:2];
+      v28 = [NSError errorWithDomain:v32 code:-5 userInfo:v34];
 
-      [WeakRetained _notifyRequesterAndSendNextRequestOfPreferredHeight:v26 error:0.0];
+      [v8 _notifyRequesterAndSendNextRequestOfPreferredHeight:v28 error:0.0];
     }
   }
 }
@@ -2408,44 +2428,45 @@ void sub_2DC84(uint64_t a1, void *a2, void *a3)
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v8 = WeakRetained;
   if (!v5 || v6)
   {
-    v18 = _AELog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = _AELog(WeakRetained);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v19 = 138412290;
-      v20 = v6;
-      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "Failed to snapshot TOC WebView: %@", &v19, 0xCu);
+      v20 = 138412290;
+      v21 = v6;
+      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "Failed to snapshot TOC WebView: %@", &v20, 0xCu);
     }
 
-    [WeakRetained _notifyRequesterAndSendNextRequestOfPreferredHeight:v6 error:0.0];
+    [v8 _notifyRequesterAndSendNextRequestOfPreferredHeight:v6 error:0.0];
   }
 
   else
   {
-    v8 = v5;
-    v9 = [v8 im_imageWithAlpha:0.65];
-    v10 = [WeakRetained currentRequest];
-    v11 = [v10 cacheKey];
+    v9 = v5;
+    v10 = [v9 im_imageWithAlpha:0.65];
+    v11 = [v8 currentRequest];
+    v12 = [v11 cacheKey];
 
-    v12 = [WeakRetained imageCache];
+    v13 = [v8 imageCache];
 
-    if (!v12)
+    if (!v13)
     {
       sub_136D54();
     }
 
-    v13 = [WeakRetained imageCache];
-    [v13 setObject:v8 forKey:v11];
+    v14 = [v8 imageCache];
+    [v14 setObject:v9 forKey:v12];
 
-    v14 = [WeakRetained imageCache];
-    v15 = [v11 stringByAppendingString:@"-selected"];
-    [v14 setObject:v9 forKey:v15];
+    v15 = [v8 imageCache];
+    v16 = [v12 stringByAppendingString:@"-selected"];
+    [v15 setObject:v10 forKey:v16];
 
-    [v8 size];
-    v17 = v16;
+    [v9 size];
+    v18 = v17;
 
-    [WeakRetained _notifyRequesterAndSendNextRequestOfPreferredHeight:0 error:v17];
+    [v8 _notifyRequesterAndSendNextRequestOfPreferredHeight:0 error:v18];
   }
 }
 
@@ -2760,11 +2781,12 @@ void sub_3ACC8(uint64_t a1, void *a2)
   }
 }
 
-void sub_3B048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_3B048(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a33, 8);
-  _Block_object_dispose((v33 - 144), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v32 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2949,7 +2971,7 @@ void sub_3B96C(uint64_t a1)
 void sub_3BB38(id a1, UITextField *a2)
 {
   v4 = a2;
-  v2 = AEBundle();
+  v2 = AEBundle(v4);
   v3 = [v2 localizedStringForKey:@"Password" value:&stru_1E7188 table:0];
   [(UITextField *)v4 setPlaceholder:v3];
 
@@ -3028,105 +3050,106 @@ LABEL_8:
 void sub_3CF7C(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _AEBookPluginsLifeCycleLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _AEBookPluginsLifeCycleLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(a1 + 32);
-      v6 = [*(a1 + 40) objectForKeyedSubscript:@"assetLogID"];
+      v6 = *(a1 + 32);
+      v7 = [*(a1 + 40) objectForKeyedSubscript:@"assetLogID"];
       *buf = 138412802;
-      *&buf[4] = v5;
+      *&buf[4] = v6;
       *&buf[12] = 2114;
-      *&buf[14] = v6;
+      *&buf[14] = v7;
       *&buf[22] = 2112;
-      v44 = v3;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "AEBookInfoAssetPlugin coordinateReadingItemAtURL Error taking coordinate read for %@; logID:%{public}@  Error: %@", buf, 0x20u);
+      v45 = v4;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "AEBookInfoAssetPlugin coordinateReadingItemAtURL Error taking coordinate read for %@; logID:%{public}@  Error: %@", buf, 0x20u);
     }
 
-    v7 = [v3 code];
-    v8 = AssetEngineErrorDomain;
-    v47 = NSUnderlyingErrorKey;
-    v48 = v3;
-    v9 = [NSDictionary dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-    if (v7 == -1004)
+    v8 = [v4 code];
+    v9 = AssetEngineErrorDomain;
+    v48 = NSUnderlyingErrorKey;
+    v49 = v4;
+    v10 = [NSDictionary dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+    if (v8 == -1004)
     {
-      v10 = 2004;
+      v11 = 2004;
     }
 
     else
     {
-      v10 = 1001;
+      v11 = 1001;
     }
 
-    v11 = [NSError errorWithDomain:v8 code:v10 userInfo:v9];
+    v12 = [NSError errorWithDomain:v9 code:v11 userInfo:v10];
 
-    v12 = *(a1 + 88);
-    v13 = [*(a1 + 48) URL];
-    (*(v12 + 16))(v12, 0, v13, v11);
+    v13 = *(a1 + 88);
+    v14 = [*(a1 + 48) URL];
+    (*(v13 + 16))(v13, 0, v14, v12);
   }
 
   else
   {
-    v14 = _AEBookPluginsLifeCycleLog();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = _AEBookPluginsLifeCycleLog(0);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = *(a1 + 32);
-      v16 = [*(a1 + 40) objectForKeyedSubscript:@"assetLogID"];
+      v16 = *(a1 + 32);
+      v17 = [*(a1 + 40) objectForKeyedSubscript:@"assetLogID"];
       *buf = 138412546;
-      *&buf[4] = v15;
+      *&buf[4] = v16;
       *&buf[12] = 2114;
-      *&buf[14] = v16;
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "AEBookInfoAssetPlugin coordinateReadingItemAtURL Successful coordinated read [URL: %@] logID:%{public}@", buf, 0x16u);
+      *&buf[14] = v17;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "AEBookInfoAssetPlugin coordinateReadingItemAtURL Successful coordinated read [URL: %@] logID:%{public}@", buf, 0x16u);
     }
 
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v44 = sub_3CD04;
-    v45 = sub_3CD14;
-    v46 = 0;
-    v41[0] = 0;
-    v41[1] = v41;
-    v41[2] = 0x3032000000;
-    v41[3] = sub_3CD04;
-    v41[4] = sub_3CD14;
-    v42 = 0;
-    v17 = +[AEEpubInfoSource sharedInstance];
-    v35[0] = _NSConcreteStackBlock;
-    v35[1] = 3221225472;
-    v35[2] = sub_3D548;
-    v35[3] = &unk_1E39C8;
-    v36 = *(a1 + 40);
-    v21 = *(a1 + 48);
-    v18 = v21.i64[0];
-    v37 = vextq_s8(v21, v21, 8uLL);
-    v39 = buf;
-    v40 = v41;
-    v38 = *(a1 + 64);
-    [v17 performBackgroundTaskAndWait:v35];
-
-    v19 = +[AEEpubInfoSource sharedInstance];
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_3D8F0;
-    v23[3] = &unk_1E3A68;
-    v32 = buf;
-    v33 = v41;
-    v24 = *(a1 + 64);
-    v25 = *(a1 + 40);
+    v45 = sub_3CD04;
+    v46 = sub_3CD14;
+    v47 = 0;
+    v42[0] = 0;
+    v42[1] = v42;
+    v42[2] = 0x3032000000;
+    v42[3] = sub_3CD04;
+    v42[4] = sub_3CD14;
+    v43 = 0;
+    v18 = +[AEEpubInfoSource sharedInstance];
+    v36[0] = _NSConcreteStackBlock;
+    v36[1] = 3221225472;
+    v36[2] = sub_3D548;
+    v36[3] = &unk_1E39C8;
+    v37 = *(a1 + 40);
     v22 = *(a1 + 48);
-    v20 = v22.i64[0];
-    v26 = vextq_s8(v22, v22, 8uLL);
-    v27 = *(a1 + 32);
-    v34 = *(a1 + 104);
-    v28 = *(a1 + 72);
-    v29 = *(a1 + 80);
-    v30 = *(a1 + 96);
-    v31 = *(a1 + 88);
-    [v19 performMainQueueTaskWithNewContext:v23];
+    v19 = v22.i64[0];
+    v38 = vextq_s8(v22, v22, 8uLL);
+    v40 = buf;
+    v41 = v42;
+    v39 = *(a1 + 64);
+    [v18 performBackgroundTaskAndWait:v36];
 
-    _Block_object_dispose(v41, 8);
+    v20 = +[AEEpubInfoSource sharedInstance];
+    v24[0] = _NSConcreteStackBlock;
+    v24[1] = 3221225472;
+    v24[2] = sub_3D8F0;
+    v24[3] = &unk_1E3A68;
+    v33 = buf;
+    v34 = v42;
+    v25 = *(a1 + 64);
+    v26 = *(a1 + 40);
+    v23 = *(a1 + 48);
+    v21 = v23.i64[0];
+    v27 = vextq_s8(v23, v23, 8uLL);
+    v28 = *(a1 + 32);
+    v35 = *(a1 + 104);
+    v29 = *(a1 + 72);
+    v30 = *(a1 + 80);
+    v31 = *(a1 + 96);
+    v32 = *(a1 + 88);
+    [v20 performMainQueueTaskWithNewContext:v24];
+
+    _Block_object_dispose(v42, 8);
     _Block_object_dispose(buf, 8);
   }
 }
@@ -3162,51 +3185,52 @@ void sub_3D548(uint64_t a1, void *a2)
 
       if (*(*(*(a1 + 64) + 8) + 40))
       {
-        v16 = _AEBookPluginsLifeCycleLog();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v17 = _AEBookPluginsLifeCycleLog(v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v17 = [*(a1 + 48) URL];
-          v18 = *(*(*(a1 + 64) + 8) + 40);
-          v19 = [*(a1 + 32) objectForKeyedSubscript:@"assetLogID"];
+          v18 = [*(a1 + 48) URL];
+          v19 = *(*(*(a1 + 64) + 8) + 40);
+          v20 = [*(a1 + 32) objectForKeyedSubscript:@"assetLogID"];
           *buf = 138412802;
-          v28 = v17;
-          v29 = 2112;
           v30 = v18;
-          v31 = 2114;
+          v31 = 2112;
           v32 = v19;
-          _os_log_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "DRM/Keybag failure for book at URL: %@ -- %@ logID:%{public}@", buf, 0x20u);
+          v33 = 2114;
+          v34 = v20;
+          _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "DRM/Keybag failure for book at URL: %@ -- %@ logID:%{public}@", buf, 0x20u);
         }
       }
     }
   }
 
-  v26 = 0;
-  v20 = [v3 save:&v26];
-  v21 = v26;
-  if (v21)
+  v28 = 0;
+  v21 = [v3 save:&v28];
+  v22 = v28;
+  v23 = v22;
+  if (v22)
   {
-    v22 = v20;
+    v24 = v21;
   }
 
   else
   {
-    v22 = 1;
+    v24 = 1;
   }
 
-  if ((v22 & 1) == 0)
+  if ((v24 & 1) == 0)
   {
-    v23 = _AEBookPluginsLifeCycleLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v25 = _AEBookPluginsLifeCycleLog(v22);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      v24 = [*(a1 + 48) URL];
-      v25 = [*(a1 + 32) objectForKeyedSubscript:@"assetLogID"];
+      v26 = [*(a1 + 48) URL];
+      v27 = [*(a1 + 32) objectForKeyedSubscript:@"assetLogID"];
       *buf = 138412802;
-      v28 = v24;
-      v29 = 2112;
-      v30 = v21;
-      v31 = 2114;
-      v32 = v25;
-      _os_log_impl(&dword_0, v23, OS_LOG_TYPE_ERROR, "Core Data save error for book at URL: %@ -- %@ logID:%{public}@", buf, 0x20u);
+      v30 = v26;
+      v31 = 2112;
+      v32 = v23;
+      v33 = 2114;
+      v34 = v27;
+      _os_log_impl(&dword_0, v25, OS_LOG_TYPE_ERROR, "Core Data save error for book at URL: %@ -- %@ logID:%{public}@", buf, 0x20u);
     }
   }
 }
@@ -3227,9 +3251,9 @@ void sub_3D8F0(uint64_t a1, void *a2)
     {
       objc_opt_class();
       v7 = *(*(*(a1 + 112) + 8) + 40);
-      v73 = 0;
-      v8 = [v3 existingObjectWithID:v7 error:&v73];
-      v9 = v73;
+      v75 = 0;
+      v8 = [v3 existingObjectWithID:v7 error:&v75];
+      v9 = v75;
       v10 = BUDynamicCast();
 
       [v10 initializeAnnotationProviderWithAssetID:*(a1 + 32)];
@@ -3248,15 +3272,15 @@ void sub_3D8F0(uint64_t a1, void *a2)
     else
     {
       v5 = [NSError errorWithDomain:AssetEngineErrorDomain code:1007 userInfo:0];
-      v9 = _AEBookPluginsLifeCycleLog();
+      v9 = _AEBookPluginsLifeCycleLog(v5);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v14 = [*(a1 + 56) URL];
         v15 = [*(a1 + 40) objectForKeyedSubscript:@"assetLogID"];
         *buf = 138412546;
-        v75 = v14;
-        v76 = 2114;
-        v77 = v15;
+        v77 = v14;
+        v78 = 2114;
+        v79 = v15;
         _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "Missing bookObjectId for book at URL: %@ -- AEErrorCodeMissingBookInfo logID:%{public}@", buf, 0x16u);
       }
 
@@ -3265,7 +3289,7 @@ void sub_3D8F0(uint64_t a1, void *a2)
 
     if (!v5)
     {
-      v36 = 0;
+      v38 = 0;
       goto LABEL_46;
     }
   }
@@ -3282,18 +3306,18 @@ void sub_3D8F0(uint64_t a1, void *a2)
   if (!v17)
   {
 LABEL_17:
-    v18 = _AEBookPluginsLifeCycleLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = _AEBookPluginsLifeCycleLog(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v19 = *(a1 + 64);
-      v20 = [*(a1 + 40) objectForKeyedSubscript:@"assetLogID"];
+      v20 = *(a1 + 64);
+      v21 = [*(a1 + 40) objectForKeyedSubscript:@"assetLogID"];
       *buf = 138412802;
-      v75 = v19;
-      v76 = 2112;
-      v77 = v5;
-      v78 = 2114;
-      v79 = v20;
-      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_ERROR, "Error fetching bookInfoForAssetAtURL: %@ -- %@ logID:%{public}@", buf, 0x20u);
+      v77 = v20;
+      v78 = 2112;
+      v79 = v5;
+      v80 = 2114;
+      v81 = v21;
+      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "Error fetching bookInfoForAssetAtURL: %@ -- %@ logID:%{public}@", buf, 0x20u);
     }
   }
 
@@ -3302,148 +3326,148 @@ LABEL_17:
     goto LABEL_47;
   }
 
-  v21 = [v5 domain];
-  v22 = [v21 isEqualToString:AssetEngineErrorDomain];
+  v22 = [v5 domain];
+  v23 = [v22 isEqualToString:AssetEngineErrorDomain];
 
   if (*(a1 + 120) != 1)
   {
-    if (!v22)
+    if (!v23)
     {
       goto LABEL_47;
     }
 
-    v37 = [v5 userInfo];
-    v38 = [v37 objectForKeyedSubscript:AssetEngineErrorIsFamilyRemovalKey];
-    v39 = [v38 BOOLValue];
+    v39 = [v5 userInfo];
+    v40 = [v39 objectForKeyedSubscript:AssetEngineErrorIsFamilyRemovalKey];
+    v41 = [v40 BOOLValue];
 
-    if (!v39)
+    if (!v41)
     {
       goto LABEL_47;
     }
 
-    v36 = [NSError errorWithDomain:fd45c988dd8cc08fce2e58d17f4ed2 code:-996 userInfo:0];
+    v38 = [NSError errorWithDomain:fd45c988dd8cc08fce2e58d17f4ed2 code:-996 userInfo:0];
     goto LABEL_45;
   }
 
-  if (!v22)
+  if (!v23)
   {
 LABEL_47:
-    v45 = *(a1 + 96);
-    v46 = [*(a1 + 56) URL];
-    (*(v45 + 16))(v45, v6, v46, v5);
+    v47 = *(a1 + 96);
+    v48 = [*(a1 + 56) URL];
+    (*(v47 + 16))(v47, v6, v48, v5);
 
     goto LABEL_48;
   }
 
-  v56 = +[AEAssetEngine appInfoMgr];
-  v50 = [*(a1 + 64) path];
-  v49 = [v50 stringByAppendingPathComponent:@"iTunesMetadata.plist"];
-  v51 = [NSDictionary dictionaryWithContentsOfFile:?];
-  v23 = [v51 objectForKey:@"com.apple.iTunesStore.downloadInfo"];
-  v53 = [v23 valueForKeyPath:@"accountInfo.DSPersonID"];
-  v52 = [v23 valueForKeyPath:@"accountInfo.AltDSID"];
-  v24 = [v23 valueForKeyPath:@"accountInfo.AppleID"];
-  if (![v24 length])
+  v58 = +[AEAssetEngine appInfoMgr];
+  v52 = [*(a1 + 64) path];
+  v51 = [v52 stringByAppendingPathComponent:@"iTunesMetadata.plist"];
+  v53 = [NSDictionary dictionaryWithContentsOfFile:?];
+  v24 = [v53 objectForKey:@"com.apple.iTunesStore.downloadInfo"];
+  v55 = [v24 valueForKeyPath:@"accountInfo.DSPersonID"];
+  v54 = [v24 valueForKeyPath:@"accountInfo.AltDSID"];
+  v25 = [v24 valueForKeyPath:@"accountInfo.AppleID"];
+  if (![v25 length])
   {
-    v25 = [v51 objectForKeyedSubscript:@"apple-id"];
+    v26 = [v53 objectForKeyedSubscript:@"apple-id"];
 
-    v24 = v25;
+    v25 = v26;
   }
 
-  v55 = v5;
-  if ([v24 length])
+  v57 = v5;
+  if ([v25 length])
   {
-    v26 = +[ACAccountStore bu_sharedAccountStore];
-    v54 = [v26 ams_iTunesAccountWithUsername:v24];
+    v27 = +[ACAccountStore bu_sharedAccountStore];
+    v56 = [v27 ams_iTunesAccountWithUsername:v25];
 
-    if (v54 && ([v54 credential], v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "isEmpty"), v27, !v28))
+    if (v56 && ([v56 credential], v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "isEmpty"), v29, !v30))
     {
-      v41 = [v54 ams_DSID];
-      v57[0] = _NSConcreteStackBlock;
-      v57[1] = 3221225472;
-      v57[2] = sub_3E6CC;
-      v57[3] = &unk_1E3A40;
-      v57[4] = *(a1 + 48);
-      v58 = *(a1 + 80);
-      v59 = *(a1 + 40);
-      v63 = *(a1 + 88);
-      v48 = v41;
-      v60 = v48;
-      v64 = *(a1 + 96);
-      v61 = *(a1 + 56);
-      v36 = v55;
-      v62 = v36;
-      v42 = objc_retainBlock(v57);
+      v43 = [v56 ams_DSID];
+      v59[0] = _NSConcreteStackBlock;
+      v59[1] = 3221225472;
+      v59[2] = sub_3E6CC;
+      v59[3] = &unk_1E3A40;
+      v59[4] = *(a1 + 48);
+      v60 = *(a1 + 80);
+      v61 = *(a1 + 40);
+      v65 = *(a1 + 88);
+      v50 = v43;
+      v62 = v50;
+      v66 = *(a1 + 96);
+      v63 = *(a1 + 56);
+      v38 = v57;
+      v64 = v38;
+      v44 = objc_retainBlock(v59);
       if (objc_opt_respondsToSelector())
       {
-        v43 = [v56 isConnectedToInternet];
-        v44 = v48 ? v43 : 0;
-        if (v44 == 1)
+        v45 = [v58 isConnectedToInternet];
+        v46 = v50 ? v45 : 0;
+        if (v46 == 1)
         {
           [ft9cupR7u6OrU4m1pyhB Xj3eVHDeBoTD6fVn6fY8:"Xj3eVHDeBoTD6fVn6fY8:completion:" completion:?];
 
           v6 = 0;
-          v36 = 0;
+          v38 = 0;
         }
       }
     }
 
     else
     {
-      v29 = _AEBookPluginsLifeCycleLog();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v31 = _AEBookPluginsLifeCycleLog(v28);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
       {
-        v30 = *(a1 + 64);
-        v31 = [*(a1 + 40) objectForKeyedSubscript:@"assetLogID"];
+        v32 = *(a1 + 64);
+        v33 = [*(a1 + 40) objectForKeyedSubscript:@"assetLogID"];
         *buf = 138412802;
-        v75 = v30;
-        v76 = 2112;
-        v77 = v24;
-        v78 = 2114;
-        v79 = v31;
-        _os_log_impl(&dword_0, v29, OS_LOG_TYPE_DEFAULT, "Auth needed due to non-existing account for asset at url, username: %@ -- %@, logID:%{public}@", buf, 0x20u);
+        v77 = v32;
+        v78 = 2112;
+        v79 = v25;
+        v80 = 2114;
+        v81 = v33;
+        _os_log_impl(&dword_0, v31, OS_LOG_TYPE_DEFAULT, "Auth needed due to non-existing account for asset at url, username: %@ -- %@, logID:%{public}@", buf, 0x20u);
       }
 
-      v48 = [v56 _mainViewControllerForTransaction:*(a1 + 72)];
-      v32 = objc_alloc_init(AMSAuthenticateOptions);
-      [v32 setCanMakeAccountActive:0];
-      v47 = [[AMSAuthenticateRequest alloc] initWithDSID:v53 altDSID:v52 username:v24 options:v32];
-      v33 = [[AMSUIAuthenticateTask alloc] initWithRequest:v47 presentingViewController:v48];
-      v34 = [v33 performAuthentication];
-      v65[0] = _NSConcreteStackBlock;
-      v65[1] = 3221225472;
-      v65[2] = sub_3E4B4;
-      v65[3] = &unk_1E3A18;
-      v65[4] = *(a1 + 48);
-      v66 = *(a1 + 80);
-      v67 = *(a1 + 40);
-      v71 = *(a1 + 88);
-      v68 = v24;
-      v72 = *(a1 + 96);
-      v69 = *(a1 + 56);
-      v35 = v55;
-      v70 = v35;
-      [v34 addFinishBlock:v65];
+      v50 = [v58 _mainViewControllerForTransaction:*(a1 + 72)];
+      v34 = objc_alloc_init(AMSAuthenticateOptions);
+      [v34 setCanMakeAccountActive:0];
+      v49 = [[AMSAuthenticateRequest alloc] initWithDSID:v55 altDSID:v54 username:v25 options:v34];
+      v35 = [[AMSUIAuthenticateTask alloc] initWithRequest:v49 presentingViewController:v50];
+      v36 = [v35 performAuthentication];
+      v67[0] = _NSConcreteStackBlock;
+      v67[1] = 3221225472;
+      v67[2] = sub_3E4B4;
+      v67[3] = &unk_1E3A18;
+      v67[4] = *(a1 + 48);
+      v68 = *(a1 + 80);
+      v69 = *(a1 + 40);
+      v73 = *(a1 + 88);
+      v70 = v25;
+      v74 = *(a1 + 96);
+      v71 = *(a1 + 56);
+      v37 = v57;
+      v72 = v37;
+      [v36 addFinishBlock:v67];
 
       v6 = 0;
-      v36 = 0;
+      v38 = 0;
     }
 
-    v40 = v55;
+    v42 = v57;
   }
 
   else
   {
-    v40 = v55;
-    v36 = v55;
+    v42 = v57;
+    v38 = v57;
   }
 
-  v5 = v56;
+  v5 = v58;
 LABEL_45:
 
 LABEL_46:
-  v5 = v36;
-  if (v6 | v36)
+  v5 = v38;
+  if (v6 | v38)
   {
     goto LABEL_47;
   }
@@ -3457,7 +3481,7 @@ void sub_3E4B4(uint64_t a1, uint64_t a2, void *a3)
   v6 = v5;
   if (!a2 || v5)
   {
-    v8 = _AEBookPluginsLifeCycleLog();
+    v8 = _AEBookPluginsLifeCycleLog(v5);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = *(a1 + 56);
@@ -3494,45 +3518,46 @@ void sub_3E4B4(uint64_t a1, uint64_t a2, void *a3)
 void sub_3E6CC(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = _AEBookPluginsLifeCycleLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _AEBookPluginsLifeCycleLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = *(a1 + 56);
-      v6 = [*(a1 + 48) objectForKeyedSubscript:@"assetLogID"];
+      v6 = *(a1 + 56);
+      v7 = [*(a1 + 48) objectForKeyedSubscript:@"assetLogID"];
       *buf = 138412802;
-      v15 = v5;
-      v16 = 2112;
-      v17 = v3;
-      v18 = 2114;
-      v19 = v6;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "Error refetching bag for dsid: %@ -- %@, logID:%{public}@", buf, 0x20u);
+      v16 = v6;
+      v17 = 2112;
+      v18 = v4;
+      v19 = 2114;
+      v20 = v7;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "Error refetching bag for dsid: %@ -- %@, logID:%{public}@", buf, 0x20u);
     }
 
-    v7 = *(a1 + 88);
-    v8 = [*(a1 + 64) URL];
-    (*(v7 + 16))(v7, 0, v8, *(a1 + 72));
+    v8 = *(a1 + 88);
+    v9 = [*(a1 + 64) URL];
+    (*(v8 + 16))(v8, 0, v9, *(a1 + 72));
   }
 
   else
   {
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_3E8C8;
-    v10[3] = &unk_1E39F0;
-    v9 = *(a1 + 40);
-    v10[4] = *(a1 + 32);
-    v11 = v9;
-    v12 = *(a1 + 48);
-    v13 = *(a1 + 80);
-    dispatch_async(&_dispatch_main_q, v10);
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_3E8C8;
+    v11[3] = &unk_1E39F0;
+    v10 = *(a1 + 40);
+    v11[4] = *(a1 + 32);
+    v12 = v10;
+    v13 = *(a1 + 48);
+    v14 = *(a1 + 80);
+    dispatch_async(&_dispatch_main_q, v11);
   }
 }
 
-void sub_3EA0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_3EA0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -3581,7 +3606,7 @@ void sub_3EA4C(uint64_t a1, void *a2)
   }
 }
 
-void sub_3ED54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
+void sub_3ED54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, id a22)
 {
   v24 = v23;
 
@@ -3822,16 +3847,16 @@ LABEL_53:
   [v3 reset];
 }
 
-id BKActionControllerLog()
+id BKActionControllerLog(uint64_t a1)
 {
   if (qword_22D018 != -1)
   {
     sub_1375E4();
   }
 
-  v1 = qword_22D010;
+  v2 = qword_22D010;
 
-  return v1;
+  return v2;
 }
 
 void sub_3FE0C(id a1)
@@ -3884,58 +3909,58 @@ void sub_40390(uint64_t a1, void *a2)
   v13 = [WeakRetained bookInfo];
   [v9 setIsContentManaged:{objc_msgSend(v13, "isManagedBook")}];
 
-  v14 = BKActionControllerLog();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  v15 = BKActionControllerLog(v14);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
-    v15 = objc_opt_class();
-    v16 = v15;
-    v17 = [v9 isContentManaged];
-    v18 = @"NO";
-    if (v17)
+    v16 = objc_opt_class();
+    v17 = v16;
+    v18 = [v9 isContentManaged];
+    v19 = @"NO";
+    if (v18)
     {
-      v18 = @"YES";
+      v19 = @"YES";
     }
 
-    v29 = 138412546;
-    v30 = v15;
-    v31 = 2112;
-    v32 = v18;
-    _os_log_impl(&dword_0, v14, OS_LOG_TYPE_INFO, "%@ isContentManaged: %@", &v29, 0x16u);
+    v31 = 138412546;
+    v32 = v16;
+    v33 = 2112;
+    v34 = v19;
+    _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "%@ isContentManaged: %@", &v31, 0x16u);
   }
 
-  v19 = [v9 excludedActivityTypes];
+  v20 = [v9 excludedActivityTypes];
 
-  if (v19)
+  if (v20)
   {
-    v20 = BKActionControllerLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+    v22 = BKActionControllerLog(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v21 = [v9 excludedActivityTypes];
-      v29 = 138412290;
-      v30 = v21;
-      _os_log_impl(&dword_0, v20, OS_LOG_TYPE_INFO, "Excluded activity types: %@", &v29, 0xCu);
+      v23 = [v9 excludedActivityTypes];
+      v31 = 138412290;
+      v32 = v23;
+      _os_log_impl(&dword_0, v22, OS_LOG_TYPE_INFO, "Excluded activity types: %@", &v31, 0xCu);
     }
   }
 
-  v22 = [v9 popoverPresentationController];
-  v23 = [WeakRetained ancestorViewController];
-  v24 = [v23 view];
-  [v22 setSourceView:v24];
+  v24 = [v9 popoverPresentationController];
+  v25 = [WeakRetained ancestorViewController];
+  v26 = [v25 view];
+  [v24 setSourceView:v26];
 
-  [v22 setBarButtonItem:*(a1 + 32)];
-  [v22 setPermittedArrowDirections:15];
-  v25 = [WeakRetained delegate];
-  LOBYTE(v23) = objc_opt_respondsToSelector();
+  [v24 setBarButtonItem:*(a1 + 32)];
+  [v24 setPermittedArrowDirections:15];
+  v27 = [WeakRetained delegate];
+  LOBYTE(v25) = objc_opt_respondsToSelector();
 
-  if (v23)
+  if (v25)
   {
-    v26 = [WeakRetained delegate];
-    [v26 actionControllerWillShow:WeakRetained];
+    v28 = [WeakRetained delegate];
+    [v28 actionControllerWillShow:WeakRetained];
   }
 
-  v27 = [WeakRetained ancestorViewController];
-  v28 = +[UIColor bc_booksKeyColor];
-  [v27 bc_presentViewController:v9 animated:1 tintColor:v28 completion:0];
+  v29 = [WeakRetained ancestorViewController];
+  v30 = +[UIColor bc_booksKeyColor];
+  [v29 bc_presentViewController:v9 animated:1 tintColor:v30 completion:0];
 }
 
 void sub_40704(uint64_t a1, void *a2)
@@ -3952,9 +3977,9 @@ void sub_40704(uint64_t a1, void *a2)
   dispatch_async(&_dispatch_main_q, v6);
 }
 
-void sub_4678C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_4678C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4229,7 +4254,7 @@ void sub_49AE8(id a1, id a2, NSError *a3)
 void sub_4A0EC(id a1, IMConfigurationAdder *a2)
 {
   v6 = a2;
-  v2 = AEBundle();
+  v2 = AEBundle(v6);
   v3 = [v2 localizedStringForKey:@"Library" value:&stru_1E7188 table:0];
   [(IMConfigurationAdder *)v6 addString:v3 forKey:@"libraryButtonTitle"];
 
@@ -4246,7 +4271,7 @@ void sub_4A0EC(id a1, IMConfigurationAdder *a2)
 void sub_4A198(id a1, IMConfigurationAdder *a2)
 {
   v4 = a2;
-  v2 = AEBundle();
+  v2 = AEBundle(v4);
   v3 = [v2 localizedStringForKey:@"Library" value:&stru_1E7188 table:0];
   [(IMConfigurationAdder *)v4 addString:v3 forKey:@"libraryButtonTitle"];
 
@@ -5450,16 +5475,16 @@ void sub_61094(uint64_t a1, int a2)
   [WeakRetained setDoNotDisturbStatusAtStart:v4];
 }
 
-void sub_6137C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_6137C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5680,16 +5705,16 @@ void sub_64F34(id a1, IMConfigurationAdder *a2)
   [(IMConfigurationAdder *)v2 addWithPredicate:v12 adder:&stru_1E44E0];
 }
 
-id AEBundle()
+id AEBundle(uint64_t a1)
 {
   if (qword_22D028 != -1)
   {
     sub_137DA4();
   }
 
-  v1 = qword_22D020;
+  v2 = qword_22D020;
 
-  return v1;
+  return v2;
 }
 
 void sub_652FC(id a1)
@@ -5728,10 +5753,11 @@ void sub_67074(uint64_t a1)
   [v1 _visibleAreaChangedInScrollView:WeakRetained];
 }
 
-void sub_68944(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_68944(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_68D40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location)
@@ -5838,37 +5864,37 @@ void sub_69208(uint64_t a1, void *a2)
     v14 = [WeakRetained _scrollPageCountFromCurrentPageSize];
   }
 
-  if ([WeakRetained pageCount] != v14)
+  v15 = [WeakRetained pageCount];
+  if (v15 != v14)
   {
-    v15 = _AEWKLoaderLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = _AEWKLoaderLog(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [WeakRetained pageCount]);
-      v17 = [NSNumber numberWithInteger:v14];
-      v20 = 138412802;
-      v21 = WeakRetained;
-      v22 = 2112;
-      v23 = v16;
-      v24 = 2112;
-      v25 = v17;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_DEFAULT, "Loader %@ finished executing JS - previously captured page count has been updated from %@ to %@", &v20, 0x20u);
+      v17 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [WeakRetained pageCount]);
+      v18 = [NSNumber numberWithInteger:v14];
+      v21 = 138412802;
+      v22 = WeakRetained;
+      v23 = 2112;
+      v24 = v17;
+      v25 = 2112;
+      v26 = v18;
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEFAULT, "Loader %@ finished executing JS - previously captured page count has been updated from %@ to %@", &v21, 0x20u);
     }
 
     [WeakRetained setPageCount:v14];
   }
 
-  v18 = objc_retainBlock(*(a1 + 32));
-  v19 = v18;
-  if (v18)
+  v19 = objc_retainBlock(*(a1 + 32));
+  v20 = v19;
+  if (v19)
   {
-    (*(v18 + 2))(v18);
+    (*(v19 + 2))(v19);
   }
 }
 
 void sub_697BC(uint64_t a1)
 {
-  [*(a1 + 32) setPageCount:{objc_msgSend(*(a1 + 40), "_pageCount")}];
-  v2 = _AEWKLoaderLog();
+  v2 = _AEWKLoaderLog([*(a1 + 32) setPageCount:{objc_msgSend(*(a1 + 40), "_pageCount")}]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) ordinal];
@@ -5903,7 +5929,7 @@ void sub_69F38(uint64_t a1, void *a2, void *a3)
 
     else
     {
-      v9 = _AEWKLoaderLog();
+      v9 = _AEWKLoaderLog(WeakRetained);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         v10 = [*(a1 + 32) ordinal];
@@ -5936,19 +5962,19 @@ void sub_6A548(void *a1, void *a2)
   v5 = +[BEContentSupportJS performAfterLoad];
   [v4 addScriptToEvaluate:v5 key:@"performAfterLoad" transform:0];
 
-  v6 = _AEWKLoaderLog();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = _AEWKLoaderLog(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v7 = a1[7];
-    v8 = [v7 webView];
-    v9 = a1[8];
-    v10 = 138412802;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    v14 = 2112;
-    v15 = v9;
-    _os_log_impl(&dword_0, v6, OS_LOG_TYPE_INFO, "loader: %@ webview: %@ processing request: %@ adding scripts to context", &v10, 0x20u);
+    v8 = a1[7];
+    v9 = [v8 webView];
+    v10 = a1[8];
+    v11 = 138412802;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v9;
+    v15 = 2112;
+    v16 = v10;
+    _os_log_impl(&dword_0, v7, OS_LOG_TYPE_INFO, "loader: %@ webview: %@ processing request: %@ adding scripts to context", &v11, 0x20u);
   }
 }
 
@@ -5956,7 +5982,7 @@ void sub_6A6A8(uint64_t a1, void *a2)
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  v5 = _AEWKLoaderLog();
+  v5 = _AEWKLoaderLog(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 32);
@@ -6163,7 +6189,7 @@ void sub_6B8AC(uint64_t a1, void *a2)
   {
     v4 = [*(a1 + 32) pageOffsetRangeForRect:BKUnionRects(v3)];
     v6 = v5;
-    v7 = _AEWKLoaderLog();
+    v7 = _AEWKLoaderLog(v4);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 40);
@@ -6188,7 +6214,7 @@ LABEL_10:
 
   else
   {
-    v12 = _AEWKLoaderLog();
+    v12 = _AEWKLoaderLog(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = [*(a1 + 32) ordinal];
@@ -6214,7 +6240,7 @@ void sub_6BA54(uint64_t a1, void *a2)
     [a2 CGRectValue];
     v3 = [*(a1 + 32) pageOffsetRangeForRect:?];
     v5 = v4;
-    v6 = _AEWKLoaderLog();
+    v6 = _AEWKLoaderLog(v3);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 40);
@@ -6239,7 +6265,7 @@ LABEL_10:
 
   else
   {
-    v11 = _AEWKLoaderLog();
+    v11 = _AEWKLoaderLog(a1);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       v12 = *(a1 + 40);
@@ -6363,49 +6389,49 @@ void sub_6C6F4(uint64_t a1, void *a2, void *a3)
 
   if (!v5 && v7)
   {
-    v8 = [v7 objectForKeyedSubscript:@"_id"];
+    v9 = [v7 objectForKeyedSubscript:@"_id"];
     objc_opt_class();
-    v9 = [v8 objectForKeyedSubscript:@"rects"];
-    v10 = BUDynamicCast();
+    v10 = [v9 objectForKeyedSubscript:@"rects"];
+    v11 = BUDynamicCast();
 
-    v11 = +[BEJavascriptUtilities collapsedLineRectsFromArrayOfRectDictionaries:isVerticalDocument:](BEJavascriptUtilities, "collapsedLineRectsFromArrayOfRectDictionaries:isVerticalDocument:", v10, [*(a1 + 40) isVerticalDocument]);
-    v12 = BKUnionRects(v11);
-    v14 = v13;
-    v16 = v15;
-    v18 = v17;
-    v19 = objc_retainBlock(*(a1 + 48));
-    if (v19)
+    v12 = +[BEJavascriptUtilities collapsedLineRectsFromArrayOfRectDictionaries:isVerticalDocument:](BEJavascriptUtilities, "collapsedLineRectsFromArrayOfRectDictionaries:isVerticalDocument:", v11, [*(a1 + 40) isVerticalDocument]);
+    v13 = BKUnionRects(v12);
+    v15 = v14;
+    v17 = v16;
+    v19 = v18;
+    v20 = objc_retainBlock(*(a1 + 48));
+    if (v20)
     {
-      *v24 = v12;
-      v24[1] = v14;
-      v24[2] = v16;
-      v24[3] = v18;
-      v20 = [NSValue valueWithBytes:v24 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-      v19[2](v19, v20, 0);
+      *v25 = v13;
+      v25[1] = v15;
+      v25[2] = v17;
+      v25[3] = v19;
+      v21 = [NSValue valueWithBytes:v25 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+      v20[2](v20, v21, 0);
     }
 
     goto LABEL_10;
   }
 
-  v21 = _AEAnnotationLocationLog();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+  v22 = _AEAnnotationLocationLog(v8);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
-    v22 = *(a1 + 32);
+    v23 = *(a1 + 32);
     *buf = 138412546;
-    v27 = v22;
-    v28 = 2112;
-    v29 = v5;
-    _os_log_impl(&dword_0, v21, OS_LOG_TYPE_ERROR, "Failed to get rect information for location: %@ error: %@", buf, 0x16u);
+    v28 = v23;
+    v29 = 2112;
+    v30 = v5;
+    _os_log_impl(&dword_0, v22, OS_LOG_TYPE_ERROR, "Failed to get rect information for location: %@ error: %@", buf, 0x16u);
   }
 
-  v8 = objc_retainBlock(*(a1 + 48));
-  if (v8)
+  v9 = objc_retainBlock(*(a1 + 48));
+  if (v9)
   {
     size = CGRectZero.size;
-    v25[0] = CGRectZero.origin;
-    v25[1] = size;
-    v10 = [NSValue valueWithBytes:v25 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
-    (v8)[2](v8, v10, v5);
+    v26[0] = CGRectZero.origin;
+    v26[1] = size;
+    v11 = [NSValue valueWithBytes:v26 objCType:"{CGRect={CGPoint=dd}{CGSize=dd}}"];
+    (v9)[2](v9, v11, v5);
 LABEL_10:
   }
 }
@@ -6460,7 +6486,7 @@ NSDictionary *__cdecl sub_6EC48(id a1, NSObject *a2, NSError *a3)
   v7 = v6;
   if (v5 || !v6)
   {
-    v8 = _AEWKLoaderLog();
+    v8 = _AEWKLoaderLog(v6);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
@@ -6716,16 +6742,16 @@ id *sub_7740C(id *result)
   return result;
 }
 
-id BKTOCCVCLog()
+id BKTOCCVCLog(uint64_t a1)
 {
   if (qword_22D048 != -1)
   {
     sub_1380F4();
   }
 
-  v1 = qword_22D040;
+  v2 = qword_22D040;
 
-  return v1;
+  return v2;
 }
 
 void sub_77A64(id a1)
@@ -6845,94 +6871,94 @@ void sub_7FF88(uint64_t a1)
   }
 
   [WeakRetained postPaginationLoadedNotification];
-  v31 = 0;
+  v33 = 0;
   v4 = [v3 bookDatabaseKey];
-  if ([BKTextIndex doesBookIndexWithNameExist:v4 isLoaded:&v31]&& v31 == 1)
+  if ([BKTextIndex doesBookIndexWithNameExist:v4 isLoaded:&v33]&& v33 == 1)
   {
     v5 = [BKTextIndex bookIndexWithName:v4];
     [v5 save];
     [BKTextIndex removeTextIndexWithName:v4];
   }
 
-  [v3 progress];
-  v7 = v6;
-  v8 = _AEPaginationLog();
-  v9 = v8;
-  if (v7 >= 1.0)
+  v6 = [v3 progress];
+  v8 = v7;
+  v9 = _AEPaginationLog(v6);
+  v10 = v9;
+  if (v8 >= 1.0)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = [v3 paginationRetryCount];
+      v18 = [v3 paginationRetryCount];
       *buf = 134217984;
-      v33 = *&v16;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Pagination completed successfully, Required %lu retries for pagination. Posting BKPaginationCompleteForBookNotification. #retryPagination", buf, 0xCu);
+      v35 = *&v18;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_DEFAULT, "Pagination completed successfully, Required %lu retries for pagination. Posting BKPaginationCompleteForBookNotification. #retryPagination", buf, 0xCu);
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [v3 progress];
-      v11 = v10;
-      v12 = [v3 paginationRetryCount];
+      v12 = v11;
+      v13 = [v3 paginationRetryCount];
       *buf = 134218496;
-      v33 = v11;
-      v34 = 2048;
       v35 = v12;
       v36 = 2048;
-      v37 = 5;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_ERROR, "Received paginationComplete.  Progress:%f - Used %lu/%lu retrys. #retryPagination", buf, 0x20u);
+      v37 = v13;
+      v38 = 2048;
+      v39 = 5;
+      _os_log_impl(&dword_0, v10, OS_LOG_TYPE_ERROR, "Received paginationComplete.  Progress:%f - Used %lu/%lu retrys. #retryPagination", buf, 0x20u);
     }
 
-    if ([v3 paginationRetryCount] <= 4)
+    v14 = [v3 paginationRetryCount];
+    if (v14 <= 4)
     {
-      [v3 setPaginationRetryCount:{objc_msgSend(v3, "paginationRetryCount") + 1}];
-      v13 = _AEPaginationLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v15 = _AEPaginationLog([v3 setPaginationRetryCount:{objc_msgSend(v3, "paginationRetryCount") + 1}]);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
-        v14 = [v3 paginationRetryCount];
+        v16 = [v3 paginationRetryCount];
         *buf = 134217984;
-        v33 = *&v14;
-        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_INFO, "Will attempt to repaginate after %lu seconds.  #retryPagination", buf, 0xCu);
+        v35 = *&v16;
+        _os_log_impl(&dword_0, v15, OS_LOG_TYPE_INFO, "Will attempt to repaginate after %lu seconds.  #retryPagination", buf, 0xCu);
       }
 
-      v15 = dispatch_time(0, 1000000000 * [v3 paginationRetryCount]);
-      v26 = _NSConcreteStackBlock;
-      v27 = 3221225472;
-      v28 = sub_80384;
-      v29 = &unk_1E4920;
-      objc_copyWeak(&v30, (a1 + 32));
-      dispatch_after(v15, &_dispatch_main_q, &v26);
-      objc_destroyWeak(&v30);
+      v17 = dispatch_time(0, 1000000000 * [v3 paginationRetryCount]);
+      v28 = _NSConcreteStackBlock;
+      v29 = 3221225472;
+      v30 = sub_80384;
+      v31 = &unk_1E4920;
+      objc_copyWeak(&v32, (a1 + 32));
+      dispatch_after(v17, &_dispatch_main_q, &v28);
+      objc_destroyWeak(&v32);
       goto LABEL_19;
     }
 
-    v17 = _AEPaginationLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = _AEPaginationLog(v14);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "Used all retries! We've totally failed to paginate content! #retryPagination", buf, 2u);
+      _os_log_impl(&dword_0, v19, OS_LOG_TYPE_ERROR, "Used all retries! We've totally failed to paginate content! #retryPagination", buf, 2u);
     }
   }
 
   [v3 setPaginationRetryCount:0];
-  v18 = +[NSNotificationCenter defaultCenter];
-  [v18 postNotificationName:BKPaginationCompleteForBookNotification object:v3];
+  v20 = +[NSNotificationCenter defaultCenter];
+  [v20 postNotificationName:BKPaginationCompleteForBookNotification object:v3];
 
 LABEL_19:
-  v19 = [AETestDriver shared:v26];
-  v20 = [v19 testingLayout];
+  v21 = [AETestDriver shared:v28];
+  v22 = [v21 testingLayout];
 
-  if (v20)
+  if (v22)
   {
-    v21 = [v3 book];
-    v22 = [v3 style];
-    v23 = [v3 configuration];
-    v24 = [AETestDriver getBookKeyWithBook:v21 style:v22 geometry:v23];
+    v23 = [v3 book];
+    v24 = [v3 style];
+    v25 = [v3 configuration];
+    v26 = [AETestDriver getBookKeyWithBook:v23 style:v24 geometry:v25];
 
-    v25 = +[AETestDriver shared];
-    [v25 paginationControllerFinishedBookPagination:v24];
+    v27 = +[AETestDriver shared];
+    [v27 paginationControllerFinishedBookPagination:v26];
   }
 
 LABEL_22:
@@ -6944,7 +6970,7 @@ void sub_80384(uint64_t a1)
   v2 = WeakRetained;
   if (!WeakRetained)
   {
-    v3 = _AEPaginationLog();
+    v3 = _AEPaginationLog(0);
     if (!os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       goto LABEL_9;
@@ -6960,7 +6986,7 @@ LABEL_8:
 
   if (![WeakRetained paginationRetryCount])
   {
-    v3 = _AEPaginationLog();
+    v3 = _AEPaginationLog(0);
     if (!os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
       goto LABEL_9;
@@ -7674,9 +7700,9 @@ void sub_8FC04(uint64_t a1)
   [qword_22D060 setBcTracker:v5];
 }
 
-void sub_90748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_90748(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7767,9 +7793,9 @@ void sub_92F44(uint64_t a1, void *a2)
   [*(a1 + 32) _updateCancelButton];
 }
 
-void sub_93570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_93570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7922,11 +7948,11 @@ void sub_9B560(uint64_t a1)
   }
 }
 
-void sub_9B924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_9B924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 144), 8);
+  _Block_object_dispose((v16 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7961,9 +7987,9 @@ void sub_9BA38(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_9BCFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_9BCFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8075,9 +8101,9 @@ id sub_A42DC(uint64_t a1)
   return [v7 updateView];
 }
 
-void sub_A59F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_A59F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8573,7 +8599,7 @@ void sub_ABCD0(uint64_t a1, void *a2, void *a3)
 {
   v4 = a3;
   v5 = a2;
-  v6 = AEBundle();
+  v6 = AEBundle(v5);
   v7 = [v6 pathForResource:v5 ofType:@"tmpl"];
 
   v8 = [NSURL fileURLWithPath:v7];
@@ -8798,23 +8824,4 @@ void sub_AD158(uint64_t a1, void *a2, void *a3)
     v16 = [v5 imSanitizedFontFamilyName];
     [v15 setObject:v7 forKey:v16];
   }
-}
-
-void sub_B26D4()
-{
-  objc_opt_class();
-  v0 = __IMAccessibilityCastAsClass();
-  [v0 dismissViewControllerAnimated:1 completion:0];
-}
-
-void sub_B5FFC(id a1)
-{
-  v1 = AEBundle();
-  v2 = [v1 URLForResource:@"toc_web_cell.html" withExtension:@"tmpl"];
-
-  v6 = 0;
-  v3 = [[AEMinimalTemplate alloc] initWithURL:v2 error:&v6];
-  v4 = v6;
-  v5 = qword_22D0C8;
-  qword_22D0C8 = v3;
 }

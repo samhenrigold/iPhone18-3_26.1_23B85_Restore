@@ -8,7 +8,7 @@
 {
   sectionsCopy = sections;
 
-  sub_24E1D3198();
+  sub_24E1D3198(v4);
 }
 
 @end

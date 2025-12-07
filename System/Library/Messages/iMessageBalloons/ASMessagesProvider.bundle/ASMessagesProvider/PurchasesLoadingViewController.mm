@@ -44,7 +44,7 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_608264();
+  sub_608264(selfCopy);
 }
 
 - (_TtC18ASMessagesProvider30PurchasesLoadingViewController)initWithNibName:(id)name bundle:(id)bundle

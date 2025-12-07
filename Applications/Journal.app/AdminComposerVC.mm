@@ -36,12 +36,12 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100788B40();
+  sub_100788B40(selfCopy);
 }
 
 - (void)save
 {
-  v3 = sub_1000F24EC(&qword_100AD5170);
+  v3 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   v6 = type metadata accessor for TaskPriority();
@@ -105,15 +105,16 @@
   v6 = type metadata accessor for IndexPath();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  v12 = sub_10078A5E8();
+  sub_10078A5E8();
+  v13 = v12;
 
   (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v13;
 }
 
 - (void)tableView:(id)view commitEditingStyle:(int64_t)style forRowAtIndexPath:(id)path
@@ -133,7 +134,7 @@
 - (void)tableView:(id)view moveRowAtIndexPath:(id)path toIndexPath:(id)indexPath
 {
   selfCopy = self;
-  v5 = sub_1000F24EC(&qword_100AD5170);
+  v5 = sub_1000F24EC(&qword_100AD5170, &unk_100943680);
   __chkstk_darwin(v5 - 8);
   v7 = &v30 - v6;
   v32 = &v30 - v6;

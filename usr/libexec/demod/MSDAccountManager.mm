@@ -4,6 +4,7 @@
 - (BOOL)_iCloudAccountSignedIn;
 - (BOOL)_setupiCloudAccountWithSettings:(id)settings outError:(id *)error;
 - (BOOL)_setupiTunesAccountWithSettings:(id)settings outError:(id *)error;
+- (BOOL)_signIniCloudAccount:(id)account password:(id)password features:(id)features recoveryKey:(id)key resetCDP:(BOOL)p outError:(id *)error;
 - (BOOL)_signIniTunesAccount:(id)account password:(id)password outError:(id *)error;
 - (BOOL)_signOutiCloudAccountWithPassword:(id)password outError:(id *)error;
 - (BOOL)_signOutiTunesAccount:(id *)account;
@@ -55,7 +56,7 @@
 
 - (void)disallowAccountModification
 {
-  v2 = sub_100063A54();
+  v2 = sub_100063A54(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -68,7 +69,7 @@
 
 - (void)setupTrustedPeerChangeNotificationObserver
 {
-  v3 = sub_100063A54();
+  v3 = sub_100063A54(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v7 = 0;
@@ -79,7 +80,7 @@
   if (v4)
   {
     v5 = v4;
-    v6 = sub_100063A54();
+    v6 = sub_100063A54(v4);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_1000D812C(v5, v6);
@@ -118,24 +119,24 @@
 - (BOOL)setupAccounts:(id *)accounts
 {
   v5 = +[MSDGreyMatterHelper isOptedIn];
-  v6 = sub_100063A54();
+  v6 = sub_100063A54(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v26) = v5;
+    LODWORD(v27) = v5;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "GreyMatter opt-in status before iCloud account setup: %{BOOL}d", buf, 8u);
   }
 
   v7 = 0;
   v8 = 2;
   *&v9 = 134218498;
-  v23 = v9;
+  v24 = v9;
   do
   {
     v10 = v7;
-    v24 = v7;
-    v11 = [(MSDAccountManager *)self _trySetupAccountsWithContinuity:0 retryAfter:0 withError:&v24, v23];
-    v7 = v24;
+    v25 = v7;
+    v11 = [(MSDAccountManager *)self _trySetupAccountsWithContinuity:0 retryAfter:0 withError:&v25, v24];
+    v7 = v25;
 
     if (v11)
     {
@@ -144,7 +145,7 @@
 
     if ([v7 code] == 3727741185)
     {
-      v14 = sub_100063A54();
+      v14 = sub_100063A54(3727741185);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -158,7 +159,7 @@ LABEL_16:
     }
 
     code = [v7 code];
-    v13 = sub_100063A54();
+    v13 = sub_100063A54(code);
     v14 = v13;
     if (code == 3727741043)
     {
@@ -177,12 +178,12 @@ LABEL_15:
     {
       localizedFailureReason = [v7 localizedFailureReason];
       code2 = [v7 code];
-      *buf = v23;
-      v26 = v8 - 1;
-      v27 = 2114;
-      v28 = localizedFailureReason;
-      v29 = 2048;
-      v30 = code2;
+      *buf = v24;
+      v27 = v8 - 1;
+      v28 = 2114;
+      v29 = localizedFailureReason;
+      v30 = 2048;
+      v31 = code2;
       _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to setup accounts (retryCount = %td): %{public}@(0x%tx)", buf, 0x20u);
     }
 
@@ -191,22 +192,23 @@ LABEL_15:
 
   while (v8-- >= 2 && !v11);
   v19 = +[MSDGreyMatterHelper isOptedIn];
-  v20 = sub_100063A54();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v20 = v19;
+  v21 = sub_100063A54(v19);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v26) = v19;
-    _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "GreyMatter opt-in status after iCloud account setup: %{BOOL}d", buf, 8u);
+    LODWORD(v27) = v20;
+    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "GreyMatter opt-in status after iCloud account setup: %{BOOL}d", buf, 8u);
   }
 
-  if (v5 != v19)
+  if (v5 != v20)
   {
     [MSDGreyMatterHelper setIsOptedIn:v5];
   }
 
   if (accounts)
   {
-    v21 = v7;
+    v22 = v7;
     *accounts = v7;
   }
 
@@ -217,66 +219,67 @@ LABEL_15:
 
 - (BOOL)setupContinuityLinking:(id *)linking
 {
-  v22 = 0;
-  v23 = &v22;
-  v24 = 0x3032000000;
-  v25 = sub_10006BD90;
-  v26 = sub_10006BDA0;
-  v27 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = sub_10006BD90;
+  v27 = sub_10006BDA0;
+  v28 = 0;
   v5 = dispatch_semaphore_create(0);
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x2020000000;
-  v21 = 1;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 1;
   v6 = dispatch_get_global_queue(21, 0);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10006BDA8;
   block[3] = &unk_10016B488;
-  v16 = &v18;
-  v17 = &v22;
+  v17 = &v19;
+  v18 = &v23;
   block[4] = self;
   v7 = v5;
-  v15 = v7;
+  v16 = v7;
   dispatch_async(v6, block);
 
   v8 = dispatch_time(0, 3600000000000);
-  if (dispatch_semaphore_wait(v7, v8))
+  v9 = dispatch_semaphore_wait(v7, v8);
+  if (v9)
   {
-    v9 = sub_100063A54();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = sub_100063A54(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      sub_1000D81A4(v9);
+      sub_1000D81A4(v10);
     }
 
-    v10 = v23;
-    obj = v23[5];
+    v11 = v24;
+    obj = v24[5];
     sub_1000C1390(&obj, 3727744777, @"Timed out while trying to perform continuity linking");
-    objc_storeStrong(v10 + 5, obj);
-    *(v19 + 24) = 0;
+    objc_storeStrong(v11 + 5, obj);
+    *(v20 + 24) = 0;
   }
 
   if (linking)
   {
-    *linking = v23[5];
+    *linking = v24[5];
   }
 
-  v11 = *(v19 + 24);
+  v12 = *(v20 + 24);
 
-  _Block_object_dispose(&v18, 8);
-  _Block_object_dispose(&v22, 8);
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v23, 8);
 
-  return v11;
+  return v12;
 }
 
 - (BOOL)setupContinuityAccounts:(id *)accounts
 {
   v4 = +[MSDGreyMatterHelper isOptedIn];
-  v5 = sub_100063A54();
+  v5 = sub_100063A54(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    *v44 = v4;
+    *v48 = v4;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "GreyMatter opt-in status before iCloud account setup: %{BOOL}d", buf, 8u);
   }
 
@@ -284,187 +287,190 @@ LABEL_15:
   v7 = 0;
   v8 = 2;
   *&v9 = 134218498;
-  v38 = v9;
+  v42 = v9;
   while (1)
   {
     v10 = v7;
     v11 = v6;
-    v41 = v6;
-    v42 = v7;
-    v12 = [(MSDAccountManager *)self _trySetupAccountsWithContinuity:1 retryAfter:&v42 withError:&v41, v38];
-    v7 = v42;
+    v45 = v6;
+    v46 = v7;
+    v12 = [(MSDAccountManager *)self _trySetupAccountsWithContinuity:1 retryAfter:&v46 withError:&v45, v42];
+    v7 = v46;
 
-    v6 = v41;
+    v6 = v45;
     if (v12)
     {
-      v13 = v7 == 0;
+      v14 = v7 == 0;
       goto LABEL_17;
     }
 
     if (!v6)
     {
-      v15 = sub_100063A54();
-      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
+      v17 = sub_100063A54(v13);
+      v18 = os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT);
       if (!v7)
       {
-        if (v16)
+        if (v18)
         {
           intValue = [0 intValue];
           localizedFailureReason = [0 localizedFailureReason];
           code = [0 code];
           *buf = 67109890;
-          *v44 = intValue;
-          *&v44[4] = 1024;
-          *&v44[6] = 0;
-          *v45 = 2114;
-          *&v45[2] = localizedFailureReason;
-          LOWORD(v46[0]) = 2048;
-          *(v46 + 2) = code;
-          _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Unexpected result. retry = %d, rval = %d, error = %{public}@(0x%tx)", buf, 0x22u);
+          *v48 = intValue;
+          *&v48[4] = 1024;
+          *&v48[6] = 0;
+          *v49 = 2114;
+          *&v49[2] = localizedFailureReason;
+          LOWORD(v50[0]) = 2048;
+          *(v50 + 2) = code;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Unexpected result. retry = %d, rval = %d, error = %{public}@(0x%tx)", buf, 0x22u);
         }
 
-        v40 = 0;
-        sub_1000C1390(&v40, 3727744743, @"An error has occurred.");
-        v6 = v40;
-        v13 = 0;
+        v44 = 0;
+        sub_1000C1390(&v44, 3727744743, @"An error has occurred.");
+        v13 = v44;
+        v6 = v13;
+        v14 = 0;
         --v8;
         goto LABEL_17;
       }
 
-      if (v16)
+      if (v18)
       {
         intValue2 = [v7 intValue];
         *buf = 67109120;
-        *v44 = intValue2;
-        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "retryAfter = %d, waiting before trying endpoint again", buf, 8u);
+        *v48 = intValue2;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "retryAfter = %d, waiting before trying endpoint again", buf, 8u);
       }
 
-      sleep([v7 intValue]);
+      v13 = sleep([v7 intValue]);
       v6 = 0;
       goto LABEL_16;
     }
 
     if ([v6 code] == 3727741185)
     {
-      v23 = sub_100063A54();
-      if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v25 = sub_100063A54(3727741185);
+      if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_28;
       }
 
       *buf = 0;
-      v24 = "Account setup cancelled. Not going to retry.";
+      v26 = "Account setup cancelled. Not going to retry.";
       goto LABEL_27;
     }
 
-    if ([v6 code] == 3727741043)
+    code2 = [v6 code];
+    if (code2 == 3727741043)
     {
       break;
     }
 
     --v8;
-    v14 = sub_100063A54();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    v16 = sub_100063A54(code2);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       localizedFailureReason2 = [v6 localizedFailureReason];
-      code2 = [v6 code];
-      *buf = v38;
-      *v44 = v8;
-      *&v44[8] = 2114;
-      *v45 = localizedFailureReason2;
-      *&v45[8] = 2048;
-      v46[0] = code2;
-      _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to setup accounts (retryCount = %td): %{public}@(0x%tx)", buf, 0x20u);
+      code3 = [v6 code];
+      *buf = v42;
+      *v48 = v8;
+      *&v48[8] = 2114;
+      *v49 = localizedFailureReason2;
+      *&v49[8] = 2048;
+      v50[0] = code3;
+      _os_log_error_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "Failed to setup accounts (retryCount = %td): %{public}@(0x%tx)", buf, 0x20u);
     }
 
-    sleep(5u);
+    v13 = sleep(5u);
 LABEL_16:
-    v13 = 0;
+    v14 = 0;
 LABEL_17:
-    if (v8 < 1 || v13)
+    if (v8 < 1 || v14)
     {
       goto LABEL_29;
     }
   }
 
-  v23 = sub_100063A54();
-  if (!os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v25 = sub_100063A54(3727741043);
+  if (!os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     goto LABEL_28;
   }
 
   *buf = 0;
-  v24 = "Account authentication failure. Not going to retry.";
+  v26 = "Account authentication failure. Not going to retry.";
 LABEL_27:
-  _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, v24, buf, 2u);
+  _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, v26, buf, 2u);
 LABEL_28:
 
-  v13 = 0;
+  v14 = 0;
 LABEL_29:
-  v25 = sub_100063A54();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v27 = sub_100063A54(v13);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "Account setup completed. Checking cloud pairing records", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Account setup completed. Checking cloud pairing records", buf, 2u);
   }
 
   cloudPairedDeviceList = [(MSDAccountManager *)self cloudPairedDeviceList];
-  v27 = [cloudPairedDeviceList count];
+  v29 = [cloudPairedDeviceList count];
 
-  if (v27)
+  if (v29)
   {
     cloudPairedDeviceList2 = [(MSDAccountManager *)self cloudPairedDeviceList];
-    v29 = [(MSDAccountManager *)self _checkCloudPairedDevices:cloudPairedDeviceList2];
+    v32 = [(MSDAccountManager *)self _checkCloudPairedDevices:cloudPairedDeviceList2];
 
     p_superclass = (MSDS3UploadHandler + 8);
-    if ((v29 & 1) == 0)
+    if ((v32 & 1) == 0)
     {
       do
       {
         sleep(5u);
         cloudPairedDeviceList3 = [(MSDAccountManager *)self cloudPairedDeviceList];
-        v32 = [(MSDAccountManager *)self _checkCloudPairedDevices:cloudPairedDeviceList3];
+        v35 = [(MSDAccountManager *)self _checkCloudPairedDevices:cloudPairedDeviceList3];
       }
 
-      while ((v32 & 1) == 0);
+      while ((v35 & 1) == 0);
     }
 
-    v13 = 1;
+    v14 = 1;
   }
 
   else
   {
-    v33 = sub_100063A54();
+    v36 = sub_100063A54(v30);
     p_superclass = MSDS3UploadHandler.superclass;
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      sub_1000D8224(v33);
+      sub_1000D8224(v36);
     }
   }
 
   isOptedIn = [p_superclass + 449 isOptedIn];
-  v35 = sub_100063A54();
-  if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+  v38 = isOptedIn;
+  v39 = sub_100063A54(isOptedIn);
+  if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    *v44 = isOptedIn;
-    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "GreyMatter opt-in status after iCloud account setup: %{BOOL}d", buf, 8u);
+    *v48 = v38;
+    _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "GreyMatter opt-in status after iCloud account setup: %{BOOL}d", buf, 8u);
   }
 
-  if (v4 != isOptedIn)
+  if (v4 != v38)
   {
     [p_superclass + 449 setIsOptedIn:v4];
   }
 
   if (accounts)
   {
-    v36 = v6;
+    v40 = v6;
     *accounts = v6;
   }
 
   [(MSDAccountManager *)self _syncAppsWithiCloud];
 
-  return v13;
+  return v14;
 }
 
 - (BOOL)removeAccounts:(id *)accounts
@@ -472,13 +478,13 @@ LABEL_29:
   v6 = 0;
   v7 = 1;
   *&v3 = 134218498;
-  v18 = v3;
+  v19 = v3;
   while (1)
   {
     v8 = v6;
-    v20 = v6;
-    v9 = [(MSDAccountManager *)self _signOutiCloudAccountWithPassword:0 outError:&v20, v18];
-    v6 = v20;
+    v21 = v6;
+    v9 = [(MSDAccountManager *)self _signOutiCloudAccountWithPassword:0 outError:&v21, v19];
+    v6 = v21;
 
     if (v9)
     {
@@ -486,24 +492,24 @@ LABEL_29:
     }
 
 LABEL_5:
-    v12 = sub_100063A54();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100063A54(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       localizedFailureReason = [v6 localizedFailureReason];
       code = [v6 code];
-      *buf = v18;
-      v22 = v7;
-      v23 = 2114;
-      v24 = localizedFailureReason;
-      v25 = 2048;
-      v26 = code;
-      _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "Failed to remove accounts (retryCount = %td): %{public}@(0x%tx)", buf, 0x20u);
+      *buf = v19;
+      v23 = v7;
+      v24 = 2114;
+      v25 = localizedFailureReason;
+      v26 = 2048;
+      v27 = code;
+      _os_log_error_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "Failed to remove accounts (retryCount = %td): %{public}@(0x%tx)", buf, 0x20u);
     }
 
     if (--v7 == -1)
     {
-      v15 = 0;
-      v11 = v6;
+      v16 = 0;
+      v12 = v6;
       if (!accounts)
       {
         goto LABEL_10;
@@ -513,27 +519,27 @@ LABEL_5:
     }
   }
 
-  v19 = v6;
-  v10 = [(MSDAccountManager *)self _signOutiTunesAccount:&v19];
-  v11 = v19;
+  v20 = v6;
+  v11 = [(MSDAccountManager *)self _signOutiTunesAccount:&v20];
+  v12 = v20;
 
-  if ((v10 & 1) == 0)
+  if ((v11 & 1) == 0)
   {
-    v6 = v11;
+    v6 = v12;
     goto LABEL_5;
   }
 
-  v15 = 1;
+  v16 = 1;
   if (accounts)
   {
 LABEL_9:
-    v16 = v11;
-    *accounts = v11;
+    v17 = v12;
+    *accounts = v12;
   }
 
 LABEL_10:
 
-  return v15;
+  return v16;
 }
 
 - (id)cloudPairedDevices
@@ -568,7 +574,7 @@ LABEL_10:
   continuityCopy = continuity;
   v7 = +[MSDTargetDevice sharedInstance];
   v8 = +[MSDProgressUpdater sharedInstance];
-  v9 = sub_100063A54();
+  v9 = sub_100063A54(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -578,23 +584,23 @@ LABEL_10:
   [v8 updateStage:20];
   if (([v7 allowAccountSetup] & 1) == 0)
   {
-    v31 = v7;
+    v33 = v7;
     sub_1000D8268(buf);
-    LOBYTE(v33) = 0;
-    v72 = 0;
-    v73 = 0;
+    LOBYTE(v35) = 0;
+    v80 = 0;
+    v81 = 0;
     retryAfter = 0;
     continuityDict = 0;
-    v34 = 0;
-    v35 = 0;
-    v69 = 0;
     v36 = 0;
     v37 = 0;
-    v74 = 0;
-    v75 = 0;
-    v76 = 0;
-    v60 = 0;
-    v16 = *buf;
+    v77 = 0;
+    v38 = 0;
+    v39 = 0;
+    v82 = 0;
+    v83 = 0;
+    v84 = 0;
+    v68 = 0;
+    v17 = *buf;
     goto LABEL_86;
   }
 
@@ -606,430 +612,436 @@ LABEL_10:
 
     if (mockAccountSettingsFile)
     {
-      v12 = sub_100063A54();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100063A54(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
         *&buf[4] = mockAccountSettingsFile;
-        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Loading account settings from file: %{public}@", buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Loading account settings from file: %{public}@", buf, 0xCu);
       }
 
-      v13 = [NSDictionary alloc];
-      v14 = [NSURL fileURLWithPath:mockAccountSettingsFile];
-      v82 = 0;
-      v15 = [v13 initWithContentsOfURL:v14 error:&v82];
-      v16 = v82;
+      v14 = [NSDictionary alloc];
+      v15 = [NSURL fileURLWithPath:mockAccountSettingsFile];
+      v90 = 0;
+      v16 = [v14 initWithContentsOfURL:v15 error:&v90];
+      v17 = v90;
 
-      v17 = sub_100063A54();
-      v18 = v17;
-      continuityDict = v15;
-      if (v15)
+      v19 = sub_100063A54(v18);
+      v20 = v19;
+      continuityDict = v16;
+      if (v16)
       {
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          *&buf[4] = v15;
-          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Account settings successfully loaded: %{public}@", buf, 0xCu);
+          *&buf[4] = v16;
+          _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Account settings successfully loaded: %{public}@", buf, 0xCu);
         }
 
-        retryAfter = [v15 objectForKey:@"RetryAfter"];
+        retryAfter = [v16 objectForKey:@"RetryAfter"];
 
-        v73 = 0;
-        v19 = 0;
-        v20 = 0;
+        v81 = 0;
         v21 = 0;
-        v71 = 0;
+        v22 = 0;
+        v23 = 0;
+        v79 = 0;
         goto LABEL_30;
       }
 
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        sub_1000D82EC(v16);
+        sub_1000D82EC(v17);
       }
     }
 
     else
     {
-      v16 = 0;
+      v17 = 0;
     }
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
   if (continuityCopy)
   {
-    v22 = objc_alloc_init(MSDGetContinuitySettingsRequest);
+    v24 = objc_alloc_init(MSDGetContinuitySettingsRequest);
     existingAccounts = [(MSDAccountManager *)self existingAccounts];
-    [(MSDGetContinuitySettingsRequest *)v22 setExistingAccounts:existingAccounts];
+    [(MSDGetContinuitySettingsRequest *)v24 setExistingAccounts:existingAccounts];
 
     accountManagerHelper = [(MSDAccountManager *)self accountManagerHelper];
     getIdentityServicesID = [accountManagerHelper getIdentityServicesID];
-    [(MSDGetContinuitySettingsRequest *)v22 setIdentityServicesID:getIdentityServicesID];
+    [(MSDGetContinuitySettingsRequest *)v24 setIdentityServicesID:getIdentityServicesID];
 
-    v26 = +[MSDServerRequestHandler sharedInstance];
-    v71 = v22;
-    v27 = [v26 handleRequestSync:v22];
-    v19 = 0;
-    v20 = 0;
-    v21 = v27;
+    v28 = +[MSDServerRequestHandler sharedInstance];
+    v79 = v24;
+    v29 = [v28 handleRequestSync:v24];
+    v21 = 0;
+    v22 = 0;
+    v23 = v29;
   }
 
   else
   {
-    v20 = objc_alloc_init(MSDGetAccountSettingsRequest);
+    v22 = objc_alloc_init(MSDGetAccountSettingsRequest);
     existingAccounts2 = [(MSDAccountManager *)self existingAccounts];
-    [(MSDGetAccountSettingsRequest *)v20 setExistingAccounts:existingAccounts2];
+    [(MSDGetAccountSettingsRequest *)v22 setExistingAccounts:existingAccounts2];
 
-    v26 = +[MSDServerRequestHandler sharedInstance];
-    v27 = [v26 handleRequestSync:v20];
-    v21 = 0;
-    v71 = 0;
-    v19 = v27;
+    v28 = +[MSDServerRequestHandler sharedInstance];
+    v29 = [v28 handleRequestSync:v22];
+    v23 = 0;
+    v79 = 0;
+    v21 = v29;
   }
 
-  error = [v27 error];
+  error = [v29 error];
   if (error)
   {
-    v30 = error;
+    v32 = error;
     if ([error code] == 3727741185)
     {
-      v74 = v19;
-      v75 = v21;
-      v76 = v20;
-      v31 = v7;
-      v32 = v30;
+      v82 = v21;
+      v83 = v23;
+      v84 = v22;
+      v33 = v7;
+      v34 = v32;
 
-      LOBYTE(v33) = 0;
+      LOBYTE(v35) = 0;
       retryAfter = 0;
       continuityDict = 0;
-      v34 = 0;
-      v35 = 0;
-      v69 = 0;
       v36 = 0;
-      v72 = 0;
-      v73 = v32;
       v37 = 0;
-      v16 = v32;
+      v77 = 0;
+      v38 = 0;
+      v80 = 0;
+      v81 = v34;
+      v39 = 0;
+      v17 = v34;
 LABEL_85:
-      v60 = v71;
+      v68 = v79;
 LABEL_86:
       if (error)
       {
-        v66 = v16;
-        *error = v16;
+        v74 = v17;
+        *error = v17;
       }
 
-      v59 = v69;
+      v67 = v77;
       goto LABEL_89;
     }
 
-    v38 = [NSError errorDomainMSDWithCode:3727744512 message:@"Unexpected server response."];
+    v40 = [NSError errorDomainMSDWithCode:3727744512 message:@"Unexpected server response."];
 
-    v16 = v38;
-    error = v30;
+    v17 = v40;
+    error = v32;
   }
 
-  v73 = error;
-  if (v16)
+  v81 = error;
+  if (v17)
   {
-    v74 = v19;
-    v75 = v21;
-    v76 = v20;
+    v82 = v21;
+    v83 = v23;
+    v84 = v22;
     retryAfter = 0;
-    v31 = v7;
-    LOBYTE(v33) = 0;
-    v34 = 0;
-    v35 = 0;
-    v69 = 0;
+    v33 = v7;
+    LOBYTE(v35) = 0;
     v36 = 0;
-    v72 = 0;
     v37 = 0;
+    v77 = 0;
+    v38 = 0;
+    v80 = 0;
+    v39 = 0;
     continuityDict = 0;
     goto LABEL_85;
   }
 
   if (continuityCopy)
   {
-    continuityDict = [v21 continuityDict];
-    retryAfter = [v21 retryAfter];
+    continuityDict = [v23 continuityDict];
+    retryAfter = [v23 retryAfter];
   }
 
   else
   {
-    [v19 accountSettings];
+    [v21 accountSettings];
     continuityDict = retryAfter = 0;
   }
 
-  v16 = 0;
+  v17 = 0;
 LABEL_30:
   has_internal_content = os_variant_has_internal_content();
-  v40 = sub_100063A54();
-  v41 = os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT);
-  if (has_internal_content)
+  v42 = has_internal_content;
+  v43 = sub_100063A54(has_internal_content);
+  v44 = os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT);
+  if (v42)
   {
-    if (v41)
+    if (v44)
     {
       *buf = 138543362;
       *&buf[4] = continuityDict;
-      v42 = "Got account settings from hub: %{public}@";
-      v43 = v40;
-      v44 = 12;
+      v45 = "Got account settings from hub: %{public}@";
+      v46 = v43;
+      v47 = 12;
 LABEL_35:
-      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, v42, buf, v44);
+      _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, v45, buf, v47);
     }
   }
 
-  else if (v41)
+  else if (v44)
   {
     *buf = 0;
-    v42 = "Got account settings from hub";
-    v43 = v40;
-    v44 = 2;
+    v45 = "Got account settings from hub";
+    v46 = v43;
+    v47 = 2;
     goto LABEL_35;
   }
 
-  v75 = v21;
-  v76 = v20;
-  v74 = v19;
+  v83 = v23;
+  v84 = v22;
+  v82 = v21;
   if (continuityCopy && !retryAfter)
   {
-    v45 = sub_100063A54();
-    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
+    v49 = sub_100063A54(v48);
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "List of cloud paired devices received", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "List of cloud paired devices received", buf, 2u);
     }
 
-    v46 = [continuityDict objectForKey:@"IdentityServicesIDsList"];
-    v34 = v46;
-    if (v46 && [v46 count])
+    v50 = [continuityDict objectForKey:@"IdentityServicesIDsList"];
+    v36 = v50;
+    if (v50)
     {
-      if (after)
+      v51 = [v50 count];
+      if (v51)
       {
-        *after = 0;
-      }
+        if (after)
+        {
+          *after = 0;
+        }
 
-      v47 = sub_100063A54();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 138543362;
-        *&buf[4] = v34;
-        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_DEFAULT, "Setting local cloud paired device list to : %{public}@", buf, 0xCu);
-      }
+        v52 = sub_100063A54(v51);
+        if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138543362;
+          *&buf[4] = v36;
+          _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "Setting local cloud paired device list to : %{public}@", buf, 0xCu);
+        }
 
-      [(MSDAccountManager *)self setCloudPairedDeviceList:v34];
-      v69 = 0;
-      v72 = 0;
-      v48 = 0;
-      goto LABEL_79;
+        [(MSDAccountManager *)self setCloudPairedDeviceList:v36];
+        v77 = 0;
+        v80 = 0;
+        v53 = 0;
+        goto LABEL_79;
+      }
     }
 
-    v51 = v8;
-    v55 = [NSError errorDomainMSDWithCode:3727744512 message:@"Unexpected server response."];
+    v56 = v8;
+    v62 = [NSError errorDomainMSDWithCode:3727744512 message:@"Unexpected server response."];
 
-    v33 = 0;
-    v69 = 0;
-    v72 = 0;
-    v48 = 0;
+    v35 = 0;
+    v77 = 0;
+    v80 = 0;
+    v53 = 0;
     if (after)
     {
       *after = 0;
     }
 
 LABEL_77:
-    v16 = v55;
-    v8 = v51;
+    v17 = v62;
+    v8 = v56;
 LABEL_81:
-    v37 = v48;
-    v31 = v7;
+    v39 = v53;
+    v33 = v7;
     existingAccounts3 = [(MSDAccountManager *)self existingAccounts];
     if (existingAccounts3)
     {
-      v36 = existingAccounts3;
-      v62 = v8;
-      v63 = [existingAccounts3 objectForKey:@"Account"];
-      v64 = [v36 objectForKey:@"Account"];
-      v35 = [NSDictionary dictionaryWithObjectsAndKeys:v63, @"iCloudAccount", v64, @"iTunesAccount", 0];
+      v38 = existingAccounts3;
+      v70 = v8;
+      v71 = [existingAccounts3 objectForKey:@"Account"];
+      v72 = [v38 objectForKey:@"Account"];
+      v37 = [NSDictionary dictionaryWithObjectsAndKeys:v71, @"iCloudAccount", v72, @"iTunesAccount", 0];
 
-      v8 = v62;
+      v8 = v70;
     }
 
     else
     {
-      v35 = 0;
-      v36 = &__NSDictionary0__struct;
+      v37 = 0;
+      v38 = &__NSDictionary0__struct;
     }
 
     bundleInProgress = [v8 bundleInProgress];
-    [bundleInProgress updateComponentProgress:@"Accounts" withResult:v33 withAdditionalInfo:v35];
+    [bundleInProgress updateComponentProgress:@"Accounts" withResult:v35 withAdditionalInfo:v37];
 
     goto LABEL_85;
   }
 
-  v49 = [continuityDict objectForKey:@"iCloud"];
-  v50 = [continuityDict objectForKey:@"iTunes"];
-  if (v49 | v50)
+  v54 = [continuityDict objectForKey:@"iCloud"];
+  v55 = [continuityDict objectForKey:@"iTunes"];
+  if (v54 | v55)
   {
-    v48 = v50;
+    v53 = v55;
     if (after && continuityCopy)
     {
-      *after = retryAfter;
+      v55 = retryAfter;
+      *after = v55;
     }
 
-    v51 = v8;
-    v33 = sub_100063A54();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v56 = v8;
+    v35 = sub_100063A54(v55);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Signing out existing iCloud account.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Signing out existing iCloud account.", buf, 2u);
     }
 
-    [v49 objectForKey:@"PwdForExistingAccount"];
-    v69 = v81[1] = v16;
-    LODWORD(v33) = [MSDAccountManager _signOutiCloudAccountWithPassword:"_signOutiCloudAccountWithPassword:outError:" outError:?];
-    v52 = v16;
+    [v54 objectForKey:@"PwdForExistingAccount"];
+    v77 = v89[1] = v17;
+    LODWORD(v35) = [MSDAccountManager _signOutiCloudAccountWithPassword:"_signOutiCloudAccountWithPassword:outError:" outError:?];
+    v57 = v17;
 
-    v72 = v49;
-    if (v33)
+    v80 = v54;
+    if (v35)
     {
-      v33 = sub_100063A54();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v35 = sub_100063A54(v58);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Signing out existing iTunes account.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "Signing out existing iTunes account.", buf, 2u);
       }
 
-      v81[0] = v52;
-      LODWORD(v33) = [(MSDAccountManager *)self _signOutiTunesAccount:v81];
-      v16 = v81[0];
+      v89[0] = v57;
+      LODWORD(v35) = [(MSDAccountManager *)self _signOutiTunesAccount:v89];
+      v17 = v89[0];
 
-      if (!v33)
+      if (!v35)
       {
-        v37 = v48;
-        v31 = v7;
-        v34 = 0;
-        v35 = 0;
+        v39 = v53;
+        v33 = v7;
         v36 = 0;
+        v37 = 0;
+        v38 = 0;
         goto LABEL_94;
       }
 
-      v53 = sub_100063A54();
-      v8 = v51;
-      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+      v60 = sub_100063A54(v59);
+      v8 = v56;
+      if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "Wait for some extra time to make sure accounts complete signout.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v60, OS_LOG_TYPE_DEFAULT, "Wait for some extra time to make sure accounts complete signout.", buf, 2u);
       }
 
       sleep(0xAu);
-      if (!v49)
+      if (!v54)
       {
         goto LABEL_62;
       }
 
-      v80 = v16;
-      LODWORD(v33) = [(MSDAccountManager *)self _setupiCloudAccountWithSettings:v49 outError:&v80];
-      v52 = v80;
+      v88 = v17;
+      LODWORD(v35) = [(MSDAccountManager *)self _setupiCloudAccountWithSettings:v54 outError:&v88];
+      v57 = v88;
 
-      if (v33)
+      if (v35)
       {
-        v16 = v52;
-        v8 = v51;
+        v17 = v57;
+        v8 = v56;
 LABEL_62:
-        if (!v48)
+        if (!v53)
         {
-          v34 = 0;
+          v36 = 0;
 LABEL_79:
-          v33 = 1;
+          v35 = 1;
           goto LABEL_81;
         }
 
-        v79 = v16;
-        v54 = [(MSDAccountManager *)self _setupiTunesAccountWithSettings:v48 outError:&v79];
-        v55 = v79;
+        v87 = v17;
+        v61 = [(MSDAccountManager *)self _setupiTunesAccountWithSettings:v53 outError:&v87];
+        v62 = v87;
 
-        v34 = 0;
-        if (v54)
+        v36 = 0;
+        if (v61)
         {
-          v33 = 1;
+          v35 = 1;
           goto LABEL_77;
         }
 
-        v37 = v48;
-        v31 = v7;
-        LOBYTE(v33) = 0;
-        v16 = v55;
-        v35 = 0;
-        v36 = 0;
+        v39 = v53;
+        v33 = v7;
+        LOBYTE(v35) = 0;
+        v17 = v62;
+        v37 = 0;
+        v38 = 0;
         goto LABEL_94;
       }
     }
 
-    v37 = v48;
-    v31 = v7;
-    v34 = 0;
-    v35 = 0;
+    v39 = v53;
+    v33 = v7;
     v36 = 0;
-    v16 = v52;
+    v37 = 0;
+    v38 = 0;
+    v17 = v57;
 LABEL_94:
-    v8 = v51;
+    v8 = v56;
     goto LABEL_85;
   }
 
-  v33 = sub_100063A54();
-  v56 = os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT);
+  v35 = sub_100063A54(v55);
+  v63 = os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT);
   if (continuityCopy)
   {
-    if (v56)
+    if (v63)
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "No iCloud or iTunes account settings provided. Skip setting up any account.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "No iCloud or iTunes account settings provided. Skip setting up any account.", buf, 2u);
     }
 
-    v57 = sub_100063A54();
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
+    v65 = sub_100063A54(v64);
+    if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
     {
       intValue = [retryAfter intValue];
       *buf = 67109120;
       *&buf[4] = intValue;
-      _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "Waiting %d sec before trying endpoint again", buf, 8u);
+      _os_log_impl(&_mh_execute_header, v65, OS_LOG_TYPE_DEFAULT, "Waiting %d sec before trying endpoint again", buf, 8u);
     }
 
-    v33 = 0;
-    v34 = 0;
-    v69 = 0;
-    v72 = 0;
+    v35 = 0;
+    v36 = 0;
+    v77 = 0;
+    v80 = 0;
     if (after)
     {
       *after = retryAfter;
     }
 
-    v48 = 0;
+    v53 = 0;
     goto LABEL_81;
   }
 
-  v31 = v7;
-  if (v56)
+  v33 = v7;
+  if (v63)
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "No iCloud or iTunes account settings provided. Skip setting up any account.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "No iCloud or iTunes account settings provided. Skip setting up any account.", buf, 2u);
   }
 
   [(MSDAccountManager *)self _forceiCloudKeychainToSyncWithServer];
-  v34 = 0;
-  v35 = 0;
-  v59 = 0;
   v36 = 0;
-  v72 = 0;
   v37 = 0;
-  LOBYTE(v33) = 1;
-  v60 = v71;
+  v67 = 0;
+  v38 = 0;
+  v80 = 0;
+  v39 = 0;
+  LOBYTE(v35) = 1;
+  v68 = v79;
 LABEL_89:
 
-  return v33;
+  return v35;
 }
 
 - (BOOL)_setupiCloudAccountWithSettings:(id)settings outError:(id *)error
@@ -1039,7 +1051,7 @@ LABEL_89:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     sub_1000D8374();
-    v14 = 0;
+    v15 = 0;
     v10 = 0;
     v12 = 0;
     v11 = 0;
@@ -1056,7 +1068,7 @@ LABEL_89:
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       sub_1000D8428();
-      v14 = 0;
+      v15 = 0;
       v10 = 0;
       v12 = 0;
       v11 = 0;
@@ -1079,8 +1091,8 @@ LABEL_89:
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              sub_1000D84DC();
-              v14 = 0;
+              sub_1000D84DC(error);
+              v15 = 0;
               v12 = 0;
               goto LABEL_18;
             }
@@ -1092,16 +1104,17 @@ LABEL_89:
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              sub_1000D8588();
+              sub_1000D8588(error);
               goto LABEL_26;
             }
           }
 
-          if (!-[MSDAccountManager _signIniCloudAccount:password:features:recoveryKey:resetCDP:outError:](self, "_signIniCloudAccount:password:features:recoveryKey:resetCDP:outError:", v8, v9, v10, v11, [v12 BOOLValue], error))
+          v13 = -[MSDAccountManager _signIniCloudAccount:password:features:recoveryKey:resetCDP:outError:](self, "_signIniCloudAccount:password:features:recoveryKey:resetCDP:outError:", v8, v9, v10, v11, [v12 BOOLValue], error);
+          if ((v13 & 1) == 0)
           {
-            sub_1000D8634();
+            sub_1000D8634(v13);
 LABEL_26:
-            v14 = 0;
+            v15 = 0;
             goto LABEL_18;
           }
 
@@ -1109,14 +1122,14 @@ LABEL_26:
         }
       }
 
-      sub_1000D86D0();
-      v14 = 0;
+      sub_1000D86D0(error);
+      v15 = 0;
     }
 
     else
     {
-      sub_1000D877C();
-      v14 = 0;
+      sub_1000D877C(error);
+      v15 = 0;
       v10 = 0;
     }
 
@@ -1125,11 +1138,11 @@ LABEL_26:
     goto LABEL_18;
   }
 
-  v13 = sub_100063A54();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = sub_100063A54(0);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
-    *v16 = 0;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "No iCloud account information in settings. iCloud account setup skipped.", v16, 2u);
+    *v17 = 0;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "No iCloud account information in settings. iCloud account setup skipped.", v17, 2u);
   }
 
   v10 = 0;
@@ -1138,10 +1151,10 @@ LABEL_26:
   v9 = 0;
   v8 = 0;
 LABEL_17:
-  v14 = 1;
+  v15 = 1;
 LABEL_18:
 
-  return v14;
+  return v15;
 }
 
 - (BOOL)_setupiTunesAccountWithSettings:(id)settings outError:(id *)error
@@ -1151,7 +1164,7 @@ LABEL_18:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     sub_1000D8828();
-    v11 = 0;
+    v12 = 0;
     v9 = 0;
     v8 = 0;
     goto LABEL_12;
@@ -1165,7 +1178,7 @@ LABEL_18:
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
       sub_1000D88DC();
-      v11 = 0;
+      v12 = 0;
       v9 = 0;
       goto LABEL_12;
     }
@@ -1173,36 +1186,37 @@ LABEL_18:
     v9 = [settingsCopy objectForKey:@"Password"];
     if (!v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
-      sub_1000D8A2C();
+      sub_1000D8A2C(error);
       goto LABEL_14;
     }
 
-    if (![(MSDAccountManager *)self _signIniTunesAccount:v8 password:v9 outError:error])
+    v10 = [(MSDAccountManager *)self _signIniTunesAccount:v8 password:v9 outError:error];
+    if ((v10 & 1) == 0)
     {
-      sub_1000D8990();
+      sub_1000D8990(v10);
 LABEL_14:
-      v11 = 0;
+      v12 = 0;
       goto LABEL_12;
     }
   }
 
   else
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100063A54(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "No iTunes account information in settings. iTunes account setup skipped.", v13, 2u);
+      *v14 = 0;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "No iTunes account information in settings. iTunes account setup skipped.", v14, 2u);
     }
 
     v9 = 0;
     v8 = 0;
   }
 
-  v11 = 1;
+  v12 = 1;
 LABEL_12:
 
-  return v11;
+  return v12;
 }
 
 - (BOOL)_signIniTunesAccount:(id)account password:(id)password outError:(id *)error
@@ -1253,46 +1267,47 @@ LABEL_12:
   v6 = cloudPairedDevices;
   if (!devicesCopy)
   {
-    sub_1000D8BC8();
+    sub_1000D8BC8(cloudPairedDevices);
 LABEL_17:
-    v12 = 0;
+    v13 = 0;
     goto LABEL_14;
   }
 
   if (!cloudPairedDevices)
   {
-    sub_1000D8B70();
+    sub_1000D8B70(0);
     goto LABEL_17;
   }
 
-  v16 = 0u;
   v17 = 0u;
-  v14 = 0u;
+  v18 = 0u;
   v15 = 0u;
+  v16 = 0u;
   v7 = devicesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v16;
     while (2)
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v15 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        if (([v6 containsObject:{*(*(&v14 + 1) + 8 * i), v14}] & 1) == 0)
+        v12 = *(*(&v15 + 1) + 8 * i);
+        if (([v6 containsObject:{v12, v15}] & 1) == 0)
         {
-          sub_1000D8AD8();
-          v12 = 0;
+          sub_1000D8AD8(v12);
+          v13 = 0;
           goto LABEL_13;
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v9)
       {
         continue;
@@ -1302,67 +1317,175 @@ LABEL_17:
     }
   }
 
-  v12 = 1;
+  v13 = 1;
 LABEL_13:
 
 LABEL_14:
-  return v12;
+  return v13;
 }
 
 - (void)_syncAppsWithiCloud
 {
-  v18 = SBSOpenApplicationOptionKeyPreventDismissalOfTransientOverlays;
-  v19 = &__kCFBooleanTrue;
-  v3 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
-  if ([(MSDAccountManager *)self _iCloudAccountSignedIn])
+  v19 = SBSOpenApplicationOptionKeyPreventDismissalOfTransientOverlays;
+  v20 = &__kCFBooleanTrue;
+  v3 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+  _iCloudAccountSignedIn = [(MSDAccountManager *)self _iCloudAccountSignedIn];
+  if (_iCloudAccountSignedIn)
   {
-    v4 = +[MSDAppSwitcherManager sharedInstance];
-    [v4 stashSwitcherModelToPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/emptyAppSwitcherModel.plist" overwrite:1];
+    v5 = +[MSDAppSwitcherManager sharedInstance];
+    [v5 stashSwitcherModelToPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/emptyAppSwitcherModel.plist" overwrite:1];
 
-    v13 = 0u;
     v14 = 0u;
-    v11 = 0u;
+    v15 = 0u;
     v12 = 0u;
-    v5 = [&off_10017BDA8 countByEnumeratingWithState:&v11 objects:v15 count:16];
-    if (v5)
+    v13 = 0u;
+    v6 = [&off_10017BDA8 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    if (v6)
     {
-      v6 = v5;
-      v7 = *v12;
+      v7 = v6;
+      v8 = *v13;
       do
       {
-        for (i = 0; i != v6; i = i + 1)
+        for (i = 0; i != v7; i = i + 1)
         {
-          if (*v12 != v7)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(&off_10017BDA8);
           }
 
-          v9 = *(*(&v11 + 1) + 8 * i);
-          [MSDAppLauncherTerminator launchApp:v9 withOptions:v3 outError:0];
+          v10 = *(*(&v12 + 1) + 8 * i);
+          [MSDAppLauncherTerminator launchApp:v10 withOptions:v3 outError:0];
           sleep(0x3Cu);
-          [MSDAppLauncherTerminator terminateApp:v9 outError:0];
+          [MSDAppLauncherTerminator terminateApp:v10 outError:0];
         }
 
-        v6 = [&off_10017BDA8 countByEnumeratingWithState:&v11 objects:v15 count:16];
+        v7 = [&off_10017BDA8 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
-      while (v6);
+      while (v7);
     }
 
-    v10 = +[MSDAppSwitcherManager sharedInstance];
-    [v10 loadStashedSwitcherModelFromPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/emptyAppSwitcherModel.plist"];
+    v11 = +[MSDAppSwitcherManager sharedInstance];
+    [v11 loadStashedSwitcherModelFromPath:@"/private/var/mnt/com.apple.mobilestoredemo.storage/com.apple.mobilestoredemo.blob/Metadata/emptyAppSwitcherModel.plist"];
   }
 
   else
   {
-    v10 = sub_100063A54();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100063A54(_iCloudAccountSignedIn);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "[MSDAccountManager _syncAppsWithiCloud]";
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%s - No iCloud account logged in. Not synching any apps", buf, 0xCu);
+      v18 = "[MSDAccountManager _syncAppsWithiCloud]";
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "%s - No iCloud account logged in. Not synching any apps", buf, 0xCu);
     }
   }
+}
+
+- (BOOL)_signIniCloudAccount:(id)account password:(id)password features:(id)features recoveryKey:(id)key resetCDP:(BOOL)p outError:(id *)error
+{
+  pCopy = p;
+  keyCopy = key;
+  featuresCopy = features;
+  passwordCopy = password;
+  accountCopy = account;
+  v18 = +[MSDTargetDevice sharedInstance];
+  v19 = +[MSDMailProcessor sharedInstance];
+  v20 = objc_alloc_init(MSDAccountContext);
+  [(MSDAccountContext *)v20 setUsername:accountCopy];
+
+  [(MSDAccountContext *)v20 setPassword:passwordCopy];
+  [(MSDAccountContext *)v20 setRecoveryKey:keyCopy];
+  [(MSDAccountContext *)v20 setResetCDP:pCopy];
+  [(MSDAccountContext *)v20 setFeatures:featuresCopy];
+
+  [(MSDAccountContext *)v20 setLocalSecret:@"123456"];
+  if (([v18 createTemporaryPasscodeIfNeeded] & 1) == 0)
+  {
+    sub_1000C1390(error, 3727741045, @"Failed to setup device local secret.");
+    goto LABEL_18;
+  }
+
+  [v18 unlockDeviceKeybagIfNeeded];
+  [v18 acquireDeviceKeybagAssertionIfNeeded];
+  accountManagerHelper = [(MSDAccountManager *)self accountManagerHelper];
+  v22 = [accountManagerHelper performiCloudAccountSignInWithContext:v20 outError:error];
+
+  if (!v22)
+  {
+LABEL_18:
+    v37 = 0;
+    getIdentityServicesID = 0;
+    goto LABEL_11;
+  }
+
+  accountManagerHelper2 = [(MSDAccountManager *)self accountManagerHelper];
+  getIdentityServicesID = [accountManagerHelper2 getIdentityServicesID];
+
+  v25 = +[MSDPreferencesFile sharedInstance];
+  [v25 setObject:getIdentityServicesID forKey:@"IdentityServicesID"];
+
+  if (pCopy)
+  {
+    v27 = sub_100063A54(v26);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+    {
+      *v39 = 0;
+      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Received CDP reset request. Generate new recovery key for iCloud account!", v39, 2u);
+    }
+
+    accountManagerHelper3 = [(MSDAccountManager *)self accountManagerHelper];
+    v29 = [accountManagerHelper3 generateiCloudAccountRecoveryKeyWithError:error];
+
+    if (!v29)
+    {
+      v37 = 0;
+      goto LABEL_16;
+    }
+
+    has_internal_content = os_variant_has_internal_content();
+    v31 = has_internal_content;
+    v32 = sub_100063A54(has_internal_content);
+    v33 = os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT);
+    if (v31)
+    {
+      if (v33)
+      {
+        *v39 = 138543362;
+        *&v39[4] = v29;
+        v34 = "New recovery key generated: %{public}@";
+        v35 = v32;
+        v36 = 12;
+LABEL_14:
+        _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, v34, v39, v36);
+      }
+    }
+
+    else if (v33)
+    {
+      *v39 = 141558274;
+      *&v39[4] = 1752392040;
+      *&v39[12] = 2112;
+      *&v39[14] = v29;
+      v34 = "New recovery key generated: %{mask.hash}@";
+      v35 = v32;
+      v36 = 22;
+      goto LABEL_14;
+    }
+
+    [v18 saveiCloudAccountRecoveryKey:v29];
+    [v19 sendImmediateDeviceInfoPing];
+    v37 = 1;
+    goto LABEL_16;
+  }
+
+  v37 = 1;
+LABEL_11:
+  v29 = keyCopy;
+LABEL_16:
+  [v18 removeTemporaryPasscodeIfNeeded];
+  [(MSDAccountManager *)self _forceiCloudKeychainToSyncWithServer];
+
+  return v37;
 }
 
 @end

@@ -30,10 +30,11 @@ CNPair *__cdecl sub_2584(id a1, ACAccount *a2)
   return v5;
 }
 
-void sub_3524(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_3524(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 void sub_35A0(id a1)
@@ -67,10 +68,9 @@ void sub_3B08(uint64_t a1, void *a2)
 
 void sub_3C6C(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = [objc_opt_class() os_log];
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+  v2 = a2;
+  v3 = [objc_opt_class() os_log];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     sub_72E4();
   }
@@ -141,15 +141,14 @@ void sub_4ACC(uint64_t a1, void *a2)
   v3 = a2;
   if (os_log_type_enabled(*(a1 + 32), OS_LOG_TYPE_ERROR))
   {
-    sub_776C(v3, a1);
+    sub_776C();
   }
 }
 
 void sub_4C70(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
-  [objc_opt_class() removeDelegate:v3];
+  v2 = a2;
+  [objc_opt_class() removeDelegate:v2];
 }
 
 void sub_4F68(uint64_t a1, void *a2)
@@ -169,9 +168,9 @@ void sub_4FC0(uint64_t a1, void *a2)
   }
 }
 
-void sub_5540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_5540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -204,9 +203,9 @@ void sub_5600(void *a1, void *a2)
   }
 }
 
-void sub_5C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_5C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -239,10 +238,11 @@ void sub_65B4(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void sub_65E0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_65E0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void sub_6658(id a1)
@@ -284,7 +284,7 @@ void sub_6E5C()
   v4 = [sub_3544() account];
   v5 = [v4 username];
   sub_350C();
-  sub_3524(&dword_0, v6, v7, "Failed to create an Contacts account for iCloud account %@ (%@)", v8, v9, v10, v11, v12);
+  sub_3524(&dword_0, v6, v7, "Failed to create an Contacts account for iCloud account %@ (%@)", v8, v9, v10, v11);
 }
 
 void sub_6F30()
@@ -297,7 +297,7 @@ void sub_6F30()
   v4 = [sub_3544() account];
   v5 = [v4 username];
   sub_350C();
-  sub_3524(&dword_0, v6, v7, "Could not from the Contacts container for iCloud account %@ (%@) into the Contacts local container", v8, v9, v10, v11, v12);
+  sub_3524(&dword_0, v6, v7, "Could not from the Contacts container for iCloud account %@ (%@) into the Contacts local container", v8, v9, v10, v11);
 }
 
 void sub_7004()
@@ -310,7 +310,7 @@ void sub_7004()
   v4 = [sub_3544() account];
   v5 = [v4 username];
   sub_350C();
-  sub_3524(&dword_0, v6, v7, "Failed to remove the Contacts account for iCloud account %@ (%@)", v8, v9, v10, v11, v12);
+  sub_3524(&dword_0, v6, v7, "Failed to remove the Contacts account for iCloud account %@ (%@)", v8, v9, v10, v11);
 }
 
 void sub_70D8()
@@ -323,7 +323,7 @@ void sub_70D8()
   v4 = [sub_3544() account];
   v5 = [v4 username];
   sub_350C();
-  sub_3524(&dword_0, v6, v7, "Failed to remove the Contacts account for account %@ (%@)", v8, v9, v10, v11, v12);
+  sub_3524(&dword_0, v6, v7, "Failed to remove the Contacts account for account %@ (%@)", v8, v9, v10, v11);
 }
 
 void sub_71C0()
@@ -357,11 +357,10 @@ void sub_748C()
 
 void sub_751C(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 40);
-  v4 = a2;
+  v3 = a2;
   [sub_65FC() count];
   sub_655C();
-  sub_3524(&dword_0, v5, v6, "error deleting %ld contacts: %{public}@", v7, v8, v9, v10, v11);
+  sub_3524(&dword_0, v4, v5, "error deleting %ld contacts: %{public}@", v6, v7, v8, v9);
 }
 
 void sub_75B0(void *a1)
@@ -370,13 +369,6 @@ void sub_75B0(void *a1)
   v3 = [a1 valueForKey:@"identifier"];
   sub_6580();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x20u);
-}
-
-void sub_776C(uint64_t a1, uint64_t a2)
-{
-  v2 = *(a2 + 40);
-  sub_65A8();
-  sub_65B4(&dword_0, v3, v4, "error creating account %@: %@");
 }
 
 void sub_78B8(void *a1)
@@ -392,11 +384,10 @@ void sub_78B8(void *a1)
 
 void sub_7980(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 40);
-  v4 = a2;
-  v5 = [sub_65FC() externalIdentifierString];
+  v3 = a2;
+  v4 = [sub_65FC() externalIdentifierString];
   sub_65A8();
-  sub_3524(&dword_0, v6, v7, "cound not remove account %@: %@", v8, v9, v10, v11, v12);
+  sub_3524(&dword_0, v5, v6, "cound not remove account %@: %@", v7, v8, v9, v10);
 }
 
 void sub_7A28(void *a1)

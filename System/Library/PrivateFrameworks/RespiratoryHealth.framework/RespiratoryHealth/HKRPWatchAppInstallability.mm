@@ -41,16 +41,16 @@
 
 - (BOOL)shouldInstallWatchApp
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (([(HKRPWatchAppInstallabilityDataSource *)self->_dataSource isBloodOxygenSaturationEnabled]& 1) == 0)
   {
     _HKInitializeLogging();
     v3 = HKLogRespiratoryCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543362;
-      v14 = objc_opt_class();
-      v4 = v14;
+      v12 = 138543362;
+      v13 = objc_opt_class();
+      v4 = v13;
       v5 = "[%{public}@] -> 0 (Not allowed when feature is disabled)";
       goto LABEL_7;
     }
@@ -66,12 +66,12 @@ LABEL_8:
     v3 = HKLogRespiratoryCategory();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138543362;
-      v14 = objc_opt_class();
-      v4 = v14;
+      v12 = 138543362;
+      v13 = objc_opt_class();
+      v4 = v13;
       v5 = "[%{public}@] -> 0 (Not allowed in Satellite Pairing Mode)";
 LABEL_7:
-      _os_log_impl(&dword_262078000, v3, OS_LOG_TYPE_DEFAULT, v5, &v13, 0xCu);
+      _os_log_impl(&dword_262078000, v3, OS_LOG_TYPE_DEFAULT, v5, &v12, 0xCu);
 
       goto LABEL_8;
     }
@@ -83,33 +83,32 @@ LABEL_7:
   shouldForceAppInstall = [(HKRPWatchAppInstallabilityDataSource *)self->_dataSource shouldForceAppInstall];
   _HKInitializeLogging();
   v3 = HKLogRespiratoryCategory();
-  v11 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+  v10 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
   if ((isDeviceSupported & 1) == 0 && (shouldForceAppInstall & 1) == 0)
   {
-    if (!v11)
+    if (!v10)
     {
       goto LABEL_8;
     }
 
-    v13 = 138543362;
-    v14 = objc_opt_class();
-    v4 = v14;
+    v12 = 138543362;
+    v13 = objc_opt_class();
+    v4 = v13;
     v5 = "[%{public}@] -> 0 (Device hardware not supported)";
     goto LABEL_7;
   }
 
-  if (v11)
+  if (v10)
   {
-    v13 = 138543362;
-    v14 = objc_opt_class();
-    v12 = v14;
-    _os_log_impl(&dword_262078000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] -> 1 (App installation not restricted)", &v13, 0xCu);
+    v12 = 138543362;
+    v13 = objc_opt_class();
+    v11 = v13;
+    _os_log_impl(&dword_262078000, v3, OS_LOG_TYPE_DEFAULT, "[%{public}@] -> 1 (App installation not restricted)", &v12, 0xCu);
   }
 
   v6 = 1;
 LABEL_9:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

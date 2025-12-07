@@ -41,7 +41,7 @@
 - (BOOL)isEmpty
 {
   assets = [(PLAvalanche *)self assets];
-  v3 = [assets count] == 0;
+  v3 = objc_msgSend_count(assets) == 0;
 
   return v3;
 }
@@ -49,7 +49,7 @@
 - (unint64_t)photosCount
 {
   assets = [(PLAvalanche *)self assets];
-  v3 = [assets count];
+  v3 = objc_msgSend_count(assets);
 
   return v3;
 }
@@ -57,7 +57,7 @@
 - (unint64_t)assetsCount
 {
   assets = [(PLAvalanche *)self assets];
-  v3 = [assets count];
+  v3 = objc_msgSend_count(assets);
 
   return v3;
 }
@@ -65,7 +65,7 @@
 - (unint64_t)approximateCount
 {
   assets = [(PLAvalanche *)self assets];
-  v3 = [assets count];
+  v3 = objc_msgSend_count(assets);
 
   return v3;
 }
@@ -84,7 +84,7 @@
 
     [v9 removeIndex:v7];
     assets2 = [(PLAvalanche *)self assets];
-    v11 = [assets2 count];
+    v11 = objc_msgSend_count(assets2);
     _originalAutoPickIndexes = [(PLAvalanche *)self _originalAutoPickIndexes];
     v13 = [PLAvalanche _calculateStackAssetForAssetCount:v11 autoPicks:_originalAutoPickIndexes userFavorites:v9];
 
@@ -167,7 +167,7 @@
 - (void)_recalculateStackAsset
 {
   assets = [(PLAvalanche *)self assets];
-  v3 = [assets count];
+  v3 = objc_msgSend_count(assets);
   _originalAutoPickIndexes = [(PLAvalanche *)self _originalAutoPickIndexes];
   _userFavoriteIndexes = [(PLAvalanche *)self _userFavoriteIndexes];
   self->__stackIndex = [PLAvalanche _calculateStackAssetForAssetCount:v3 autoPicks:_originalAutoPickIndexes userFavorites:_userFavoriteIndexes];
@@ -301,7 +301,7 @@
 - (void)assetsDidChange:(id)change
 {
   updatedAssets = [change updatedAssets];
-  if ([updatedAssets count])
+  if (objc_msgSend_count(updatedAssets))
   {
     _anOldPick = [(PLAvalanche *)self _anOldPick];
     _aNewPick = [(PLAvalanche *)self _aNewPick];
@@ -375,7 +375,7 @@ LABEL_14:
   containerCopy = container;
   handlerCopy = handler;
   assets = [(PLAvalanche *)self assets];
-  if ([assets count] == 1)
+  if (objc_msgSend_count(assets) == 1)
   {
     firstObject = [assets firstObject];
     [(PLAvalanche *)self addUserFavorite:firstObject];
@@ -707,7 +707,7 @@ LABEL_10:
   return v10;
 }
 
-uint64_t __73__PLAvalanche__calculateStackAssetForAssetCount_autoPicks_userFavorites___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__73__PLAvalanche__calculateStackAssetForAssetCount_autoPicks_userFavorites___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = [*(a1 + 32) containsIndex:a2];
   if ((result & 1) == 0)
@@ -793,7 +793,7 @@ BOOL __77__PLAvalanche__visibleIndexesAmongAssets_fromUserFavoriteIndexes_stackI
   return v3;
 }
 
-uint64_t __77__PLAvalanche__visibleIndexesAmongAssets_fromUserFavoriteIndexes_stackIndex___block_invoke_2(uint64_t a1, uint64_t a2)
+void *__77__PLAvalanche__visibleIndexesAmongAssets_fromUserFavoriteIndexes_stackIndex___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   result = (*(*(a1 + 40) + 16))();
   if (result)
@@ -1226,7 +1226,7 @@ LABEL_26:
   v75 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
   libraryCopy = library;
-  if ([assetsCopy count] == 1)
+  if (objc_msgSend_count(assetsCopy) == 1)
   {
     [PLAvalanche disolveBurstForAssets:assetsCopy permanently:0];
 LABEL_45:
@@ -1234,7 +1234,7 @@ LABEL_45:
     goto LABEL_56;
   }
 
-  if (![assetsCopy count])
+  if (!objc_msgSend_count(assetsCopy))
   {
     goto LABEL_45;
   }
@@ -1343,7 +1343,7 @@ LABEL_45:
 
     while (v16);
 
-    if (!v17 || [array2 count] <= 1 && (objc_msgSend(array2, "firstObject"), v26 = objc_claimAutoreleasedReturnValue(), v26, v26 == v17))
+    if (!v17 || objc_msgSend_count(array2) <= 1 && ([array2 firstObject], v26 = objc_claimAutoreleasedReturnValue(), v26, v26 == v17))
     {
       assetsCopy = v51;
     }
@@ -1503,7 +1503,7 @@ LABEL_56:
 {
   v31 = *MEMORY[0x1E69E9840];
   assetsCopy = assets;
-  if ([assetsCopy count] >= 2)
+  if (objc_msgSend_count(assetsCopy) >= 2)
   {
     v26 = 0u;
     v27 = 0u;

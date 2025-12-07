@@ -144,7 +144,7 @@
 
 - (void)_updateAppEntityAnnotationIfNeeded
 {
-  if (CalendarLinkLibraryCore())
+  if (CalendarLinkLibraryCore(0))
   {
     if (self->_occurrence && [(EKDayOccurrenceView *)self _shouldActuallyAnnotateAppEntities])
     {
@@ -164,7 +164,7 @@
 
 - (void)_updateAppEntityAnnotationState
 {
-  if (CalendarLinkLibraryCore() && (*(self + 480) & 0x10) != 0)
+  if (CalendarLinkLibraryCore(0) && (*(self + 480) & 0x10) != 0)
   {
     isSelected = [(EKDayOccurrenceView *)self isSelected];
 
@@ -557,49 +557,49 @@ LABEL_56:
   v11 = v10;
   v13 = v12;
   [(EKDayOccurrenceView *)self bounds];
-  height = v28.size.height;
-  v14 = v5 + CGRectGetWidth(v28) - v4 + -10.0;
+  height = v30.size.height;
+  v16 = v5 + CGRectGetWidth(v30) - v4 + -10.0;
   if (self->_startResizeHandle)
   {
-    v25 = v11;
-    if (CalInterfaceIsLeftToRight())
+    v27 = v11;
+    if (CalInterfaceIsLeftToRight(v14, v15))
     {
-      v15 = v14;
+      v17 = v16;
     }
 
     else
     {
-      v15 = 10.0 - v5;
+      v17 = 10.0 - v5;
     }
 
     [(EKDayOccurrenceView *)self travelTimeSubviewHeightInPoints];
-    v17 = v9 + -6.0 - v5 + v16;
+    v19 = v9 + -6.0 - v5 + v18;
     [(UIView *)self->_startResizeHandle frame];
-    v18 = CalRoundPointToScreenScale(v7 + v15, v17);
-    v11 = v25;
-    [(UIView *)self->_startResizeHandle setFrame:v18];
+    v20 = CalRoundPointToScreenScale(v7 + v17, v19);
+    v11 = v27;
+    v14 = [(UIView *)self->_startResizeHandle setFrame:v20];
   }
 
   if (self->_endResizeHandle)
   {
-    if (CalInterfaceIsLeftToRight())
+    if (CalInterfaceIsLeftToRight(v14, v15))
     {
-      v19 = 10.0 - v5;
+      v21 = 10.0 - v5;
     }
 
     else
     {
-      v19 = v14;
+      v21 = v16;
     }
 
-    v20 = v5 + height - v4 + 6.0;
-    v21 = v11 + v19;
-    v22 = v13 + v20;
+    v22 = v5 + height - v4 + 6.0;
+    v23 = v11 + v21;
+    v24 = v13 + v22;
     [(UIView *)self->_endResizeHandle frame];
-    v23 = CalRoundPointToScreenScale(v21, v22);
+    v25 = CalRoundPointToScreenScale(v23, v24);
     endResizeHandle = self->_endResizeHandle;
 
-    [(UIView *)endResizeHandle setFrame:v23];
+    [(UIView *)endResizeHandle setFrame:v25];
   }
 }
 
@@ -933,76 +933,78 @@ LABEL_10:
   if (isAllDay)
   {
     v6 = !hasPrecedingDuration || [(EKDayOccurrenceView *)self multiAllDayRoundCorners];
-    if ([(EKDayOccurrenceView *)self hasTrailingDuration])
+    hasTrailingDuration = [(EKDayOccurrenceView *)self hasTrailingDuration];
+    if (hasTrailingDuration)
     {
-      multiAllDayRoundCorners = [(EKDayOccurrenceView *)self multiAllDayRoundCorners];
+      hasTrailingDuration = [(EKDayOccurrenceView *)self multiAllDayRoundCorners];
+      v18 = hasTrailingDuration;
     }
 
     else
     {
-      multiAllDayRoundCorners = 1;
+      v18 = 1;
     }
 
-    IsLeftToRight = CalTimeDirectionIsLeftToRight();
-    v18 = 10;
+    IsLeftToRight = CalTimeDirectionIsLeftToRight(hasTrailingDuration, v17);
+    v20 = 10;
     if (IsLeftToRight)
     {
-      v19 = 5;
+      v21 = 5;
     }
 
     else
     {
-      v19 = 10;
+      v21 = 10;
     }
 
     if (!IsLeftToRight)
     {
-      v18 = 5;
+      v20 = 5;
     }
 
     if (v6)
     {
-      v20 = v19;
+      v22 = v21;
     }
 
     else
     {
-      v20 = 0;
+      v22 = 0;
     }
 
-    if (multiAllDayRoundCorners)
+    if (v18)
     {
-      v21 = v18;
+      v23 = v20;
     }
 
     else
     {
-      v21 = 0;
+      v23 = 0;
     }
 
     layer = [(EKDayOccurrenceView *)self layer];
     [layer setMasksToBounds:1];
 
     layer2 = [(EKDayOccurrenceView *)self layer];
-    [layer2 setMaskedCorners:v20 | v21];
+    [layer2 setMaskedCorners:v22 | v23];
 
     [(EKDayOccurrenceView *)self bounds];
-    v25 = v24 * 0.5;
+    v27 = v26 * 0.5;
     layer3 = [(EKDayOccurrenceView *)self layer];
-    [layer3 setCornerRadius:v25];
+    [layer3 setCornerRadius:v27];
 
     layer4 = [(UIImageView *)self->_eventBackgroundView layer];
-    [layer4 setMaskedCorners:v20 | v21];
+    [layer4 setMaskedCorners:v22 | v23];
 
     [(EKDayOccurrenceView *)self bounds];
-    v29 = v28 * 0.5;
+    v31 = v30 * 0.5;
     layer5 = [(UIImageView *)self->_eventBackgroundView layer];
-    [layer5 setCornerRadius:v29];
+    [layer5 setCornerRadius:v31];
   }
 
   else
   {
-    hasTrailingDuration = [(EKDayOccurrenceView *)self hasTrailingDuration];
+    hasTrailingDuration2 = [(EKDayOccurrenceView *)self hasTrailingDuration];
     showsTravelTime = [(EKDayOccurrenceView *)self showsTravelTime];
     v9 = 3;
     if (showsTravelTime || v5)
@@ -1010,7 +1012,7 @@ LABEL_10:
       v9 = 0;
     }
 
-    if (hasTrailingDuration)
+    if (hasTrailingDuration2)
     {
       v10 = v9;
     }
@@ -1704,7 +1706,7 @@ void __37__EKDayOccurrenceView_initWithFrame___block_invoke(uint64_t a1)
   left = margin.left;
   top = margin.top;
   bottom = margin.bottom;
-  IsLeftToRight = CalInterfaceIsLeftToRight();
+  IsLeftToRight = CalInterfaceIsLeftToRight(self, a2);
   if (IsLeftToRight)
   {
     v7 = left;
@@ -1748,7 +1750,7 @@ void __37__EKDayOccurrenceView_initWithFrame___block_invoke(uint64_t a1)
   left = padding.left;
   top = padding.top;
   bottom = padding.bottom;
-  IsLeftToRight = CalInterfaceIsLeftToRight();
+  IsLeftToRight = CalInterfaceIsLeftToRight(self, a2);
   if (IsLeftToRight)
   {
     v7 = left;
@@ -2025,7 +2027,7 @@ void __37__EKDayOccurrenceView_initWithFrame___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __54__EKDayOccurrenceView_setAllDayDrawingStyle_animated___block_invoke(uint64_t a1)
+void *__54__EKDayOccurrenceView_setAllDayDrawingStyle_animated___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 416) removeFromSuperview];
   v2 = *(a1 + 32);
@@ -3135,43 +3137,43 @@ LABEL_26:
 {
   y = point.y;
   x = point.x;
-  [(EKDayOccurrenceView *)self bounds];
-  v7 = v6;
-  v9 = v8;
-  IsLeftToRight = CalInterfaceIsLeftToRight();
+  bounds = [(EKDayOccurrenceView *)self bounds];
+  v8 = v7;
+  v10 = v9;
+  IsLeftToRight = CalInterfaceIsLeftToRight(bounds, v11);
   if (IsLeftToRight)
   {
-    v11 = v7 + -40.0;
+    v13 = v8 + -40.0;
   }
 
   else
-  {
-    v11 = 0.0;
-  }
-
-  if (IsLeftToRight)
-  {
-    v12 = v7;
-  }
-
-  else
-  {
-    v12 = 40.0;
-  }
-
-  if (IsLeftToRight)
   {
     v13 = 0.0;
   }
 
+  if (IsLeftToRight)
+  {
+    v14 = v8;
+  }
+
   else
   {
-    v13 = v7 + -40.0;
+    v14 = 40.0;
   }
 
   if (IsLeftToRight)
   {
-    v7 = 40.0;
+    v15 = 0.0;
+  }
+
+  else
+  {
+    v15 = v8 + -40.0;
+  }
+
+  if (IsLeftToRight)
+  {
+    v8 = 40.0;
   }
 
   if (!self->_startResizeHandle && !self->_endResizeHandle)
@@ -3180,13 +3182,13 @@ LABEL_26:
   }
 
   [(EKDayOccurrenceView *)self travelTime];
-  v16 = v14 <= 0.0 || v11 >= x || x > v12;
-  if (v16 || ([(EKDayOccurrenceView *)self travelTimeSubviewHeightInPoints], y >= v17 + 40.0) || ([(EKDayOccurrenceView *)self travelTimeSubviewHeightInPoints], y <= v18 + -40.0))
+  v18 = v16 <= 0.0 || v13 >= x || x > v14;
+  if (v18 || ([(EKDayOccurrenceView *)self travelTimeSubviewHeightInPoints], y >= v19 + 40.0) || ([(EKDayOccurrenceView *)self travelTimeSubviewHeightInPoints], y <= v20 + -40.0))
   {
-    v19 = v11 >= x || x > v12;
-    if (v19 || y >= 40.0)
+    v21 = v13 >= x || x > v14;
+    if (v21 || y >= 40.0)
     {
-      if (v13 <= x && x < v7 && y > v9 + -40.0)
+      if (v15 <= x && x < v8 && y > v10 + -40.0)
       {
         return 2;
       }

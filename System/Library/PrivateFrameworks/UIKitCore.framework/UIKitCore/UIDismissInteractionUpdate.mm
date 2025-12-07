@@ -3,39 +3,39 @@
 
 @implementation UIDismissInteractionUpdate
 
-double __39___UIDismissInteractionUpdate_isEqual___block_invoke_2@<D0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
+double __39___UIDismissInteractionUpdate_isEqual___block_invoke_2@<D0>(uint64_t a1@<X0>, const char *a2@<X1>, _OWORD *a3@<X8>)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 translation];
+    objc_msgSend_translation(v3, a2);
   }
 
   else
   {
     result = 0.0;
-    a2[1] = 0u;
-    a2[2] = 0u;
-    *a2 = 0u;
+    a3[1] = 0u;
+    a3[2] = 0u;
+    *a3 = 0u;
   }
 
   return result;
 }
 
-double __39___UIDismissInteractionUpdate_isEqual___block_invoke_3@<D0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
+double __39___UIDismissInteractionUpdate_isEqual___block_invoke_3@<D0>(uint64_t a1@<X0>, const char *a2@<X1>, _OWORD *a3@<X8>)
 {
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 transform];
+    objc_msgSend_transform(v3, a2);
   }
 
   else
   {
     result = 0.0;
-    a2[1] = 0u;
-    a2[2] = 0u;
-    *a2 = 0u;
+    a3[1] = 0u;
+    a3[2] = 0u;
+    *a3 = 0u;
   }
 
   return result;

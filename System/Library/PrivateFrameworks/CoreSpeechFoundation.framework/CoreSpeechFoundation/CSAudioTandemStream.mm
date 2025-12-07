@@ -48,7 +48,7 @@
 
 - (void)attachToPrimaryStreamWithConfig:(id)config completion:(id)completion
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   configCopy = config;
   completionCopy = completion;
   primaryStream = [(CSAudioTandemStream *)self primaryStream];
@@ -58,9 +58,9 @@
     v12 = CSLogCategoryAudio;
     if (os_log_type_enabled(CSLogCategoryAudio, OS_LOG_TYPE_ERROR))
     {
-      v15 = 136315138;
-      v16 = "[CSAudioTandemStream attachToPrimaryStreamWithConfig:completion:]";
-      _os_log_error_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_ERROR, "%s primaryStream already torn down", &v15, 0xCu);
+      v14 = 136315138;
+      v15 = "[CSAudioTandemStream attachToPrimaryStreamWithConfig:completion:]";
+      _os_log_error_impl(&dword_1DDA4B000, v12, OS_LOG_TYPE_ERROR, "%s primaryStream already torn down", &v14, 0xCu);
       if (!completionCopy)
       {
         goto LABEL_6;
@@ -84,7 +84,6 @@
   [streamProvider attachTandemStream:self withConfig:configCopy toPrimaryStream:primaryStream3 completion:completionCopy];
 
 LABEL_6:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (CSAudioTandemStream)initWithMasterAudioStream:(id)stream name:(id)name

@@ -67,14 +67,14 @@
 
 - (HMPerson)initWithCoder:(id)coder
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMP.ck.u"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HMP.ck.n"];
   v7 = MEMORY[0x1E695DFD8];
-  v23[0] = objc_opt_class();
-  v23[1] = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
+  v22[0] = objc_opt_class();
+  v22[1] = objc_opt_class();
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
   v9 = [v7 setWithArray:v8];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"HMP.ck.pl"];
 
@@ -93,18 +93,17 @@
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       v16 = HMFGetLogIdentifier();
-      v19 = 138543618;
-      v20 = v16;
-      v21 = 2112;
-      v22 = 0;
-      _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded UUID: %@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v16;
+      v20 = 2112;
+      v21 = 0;
+      _os_log_impl(&dword_19BB39000, v15, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded UUID: %@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v14);
     v13 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

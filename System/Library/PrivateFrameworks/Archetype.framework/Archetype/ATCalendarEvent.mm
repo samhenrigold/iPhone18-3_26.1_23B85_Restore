@@ -36,13 +36,11 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC9Archetype15ATCalendarEvent_eventTitle);
-  v5 = *&self->eventTitle[OBJC_IVAR____TtC9Archetype15ATCalendarEvent_eventTitle];
   coderCopy = coder;
   selfCopy = self;
-  v7 = sub_240FAE970();
-  v8 = sub_240FAE970();
-  [coderCopy encodeObject:v7 forKey:v8];
+  v5 = sub_240FAE970();
+  v6 = sub_240FAE970();
+  [coderCopy encodeObject:v5 forKey:v6];
 }
 
 - (NSString)description

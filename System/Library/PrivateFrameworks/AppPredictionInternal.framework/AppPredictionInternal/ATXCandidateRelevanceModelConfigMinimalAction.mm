@@ -52,16 +52,7 @@
 {
   biomeStoreData = [candidate biomeStoreData];
   actionFromDatastoreLookup = [biomeStoreData actionFromDatastoreLookup];
-  if (!actionFromDatastoreLookup)
-  {
-    goto LABEL_5;
-  }
-
-  v8 = actionFromDatastoreLookup;
-  actionType = [biomeStoreData actionType];
-  v10 = [actionType isEqualToString:@"INPlayMediaIntent"];
-
-  if (!v10 || ([ATXMediaActionPrediction updatedPlayMediaAction:v8], v11 = objc_claimAutoreleasedReturnValue(), v8, (v8 = v11) != 0))
+  if (actionFromDatastoreLookup && ((v8 = actionFromDatastoreLookup, [biomeStoreData actionType], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isEqualToString:", @"INPlayMediaIntent"), v9, !v10) || (+[ATXMediaActionPrediction updatedPlayMediaAction:](ATXMediaActionPrediction, "updatedPlayMediaAction:", v8), v11 = objc_claimAutoreleasedReturnValue(), v8, (v8 = v11) != 0)))
   {
     v12 = objc_alloc(MEMORY[0x277D42078]);
     clientModel = [(ATXCandidateRelevanceModelConfig *)self clientModel];
@@ -82,7 +73,6 @@
 
   else
   {
-LABEL_5:
     v24 = 0;
   }
 

@@ -388,7 +388,7 @@ uint64_t __65__NTKFaceColorEditOption_standardColorsWithColorClass_forDevice___b
   v7 = pdrDeviceVersion;
   if (!(pdrDeviceVersion >> 18))
   {
-    v8 = NTKNewToFortuneColors();
+    v8 = NTKNewToFortuneColors(pdrDeviceVersion);
     v9 = [v8 containsIndex:value];
 
     if (v9)
@@ -398,7 +398,7 @@ uint64_t __65__NTKFaceColorEditOption_standardColorsWithColorClass_forDevice___b
 
     if (v7 >> 9 <= 0x180)
     {
-      v10 = NTKNewToElectricColors();
+      v10 = NTKNewToElectricColors(pdrDeviceVersion);
       v11 = [v10 containsIndex:value];
 
       if (v11)
@@ -408,7 +408,7 @@ uint64_t __65__NTKFaceColorEditOption_standardColorsWithColorClass_forDevice___b
     }
 
 LABEL_7:
-    v12 = NTKNewToEmperorColors();
+    v12 = NTKNewToEmperorColors(pdrDeviceVersion);
     v13 = [v12 containsIndex:value];
 
     if (v13)
@@ -424,10 +424,10 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  if (HIWORD(pdrDeviceVersion) <= 4u)
+  if (WORD1(pdrDeviceVersion) <= 4u)
   {
 LABEL_10:
-    v14 = NTKNewToGloryColors();
+    v14 = NTKNewToGloryColors(pdrDeviceVersion);
     v15 = [v14 containsIndex:value];
 
     if (v15)
@@ -449,7 +449,7 @@ LABEL_10:
   }
 
 LABEL_13:
-  v16 = NTKNewToGloryEColors();
+  v16 = NTKNewToGloryEColors(pdrDeviceVersion);
   v17 = [v16 containsIndex:value];
 
   if (v17)
@@ -458,42 +458,33 @@ LABEL_13:
   }
 
 LABEL_16:
-  v18 = NTKNewToGraceColors();
+  v18 = NTKNewToGraceColors(pdrDeviceVersion);
   v19 = [v18 containsIndex:value];
 
   if (v19)
   {
 LABEL_23:
-    v26 = 0;
+    v29 = 0;
     goto LABEL_24;
   }
 
 LABEL_17:
-  if (([deviceCopy supportsPDRCapability:753405533] & 1) == 0)
+  v20 = [deviceCopy supportsPDRCapability:753405533];
+  if ((v20 & 1) == 0)
   {
-    v20 = NTKNewToGraceEColors();
-    v21 = [v20 containsIndex:value];
+    v21 = NTKNewToGraceEColors(v20);
+    v22 = [v21 containsIndex:value];
 
-    if (v21)
+    if (v22)
     {
       goto LABEL_23;
     }
   }
 
-  if (([deviceCopy supportsPDRCapability:2919474315] & 1) == 0)
+  v23 = [deviceCopy supportsPDRCapability:2919474315];
+  if ((v23 & 1) == 0)
   {
-    v22 = NTKNewToHunterColors();
-    v23 = [v22 containsIndex:value];
-
-    if (v23)
-    {
-      goto LABEL_23;
-    }
-  }
-
-  if (([deviceCopy supportsPDRCapability:3356802055] & 1) == 0)
-  {
-    v24 = NTKNewToHunterEColors();
+    v24 = NTKNewToHunterColors(v23);
     v25 = [v24 containsIndex:value];
 
     if (v25)
@@ -502,22 +493,35 @@ LABEL_17:
     }
   }
 
-  if (NTKDeviceSupportsFaceColorMappingAndDistinctFaceColorValues(deviceCopy))
+  v26 = [deviceCopy supportsPDRCapability:3356802055];
+  if ((v26 & 1) == 0)
   {
-    v26 = 1;
+    v27 = NTKNewToHunterEColors(v26);
+    v28 = [v27 containsIndex:value];
+
+    if (v28)
+    {
+      goto LABEL_23;
+    }
+  }
+
+  v31 = NTKDeviceSupportsFaceColorMappingAndDistinctFaceColorValues(deviceCopy);
+  if (v31)
+  {
+    v29 = 1;
   }
 
   else
   {
-    v28 = NTKDistinctSportPlusAndEditionColors();
-    v29 = [v28 containsIndex:value];
+    v32 = NTKDistinctSportPlusAndEditionColors(v31);
+    v33 = [v32 containsIndex:value];
 
-    v26 = v29 ^ 1;
+    v29 = v33 ^ 1;
   }
 
 LABEL_24:
 
-  return v26 & 1;
+  return v29 & 1;
 }
 
 - (BOOL)optionExistsInDevice:(id)device

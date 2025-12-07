@@ -22,7 +22,7 @@
   responderCopy = responder;
   selfCopy = self;
   sub_1E3FC7580(selfCopy, v6, v7);
-  sub_1E34AF594(v6);
+  sub_1E34AF594(v6, v7);
 }
 
 @end

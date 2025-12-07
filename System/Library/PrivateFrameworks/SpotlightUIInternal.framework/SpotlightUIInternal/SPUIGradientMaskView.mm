@@ -6,10 +6,10 @@
 
 - (SPUIGradientMaskView)init
 {
-  v19[2] = *MEMORY[0x277D85DE8];
-  v17.receiver = self;
-  v17.super_class = SPUIGradientMaskView;
-  v2 = [(SPUIGradientMaskView *)&v17 init];
+  v18[2] = *MEMORY[0x277D85DE8];
+  v16.receiver = self;
+  v16.super_class = SPUIGradientMaskView;
+  v2 = [(SPUIGradientMaskView *)&v16 init];
   if (v2)
   {
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
@@ -18,11 +18,11 @@
     if (userInterfaceLayoutDirection == 1)
     {
       clearColor = [MEMORY[0x277D75348] clearColor];
-      v19[0] = [clearColor CGColor];
+      v18[0] = [clearColor CGColor];
       whiteColor = [MEMORY[0x277D75348] whiteColor];
       v7 = 0.5;
       v8 = 0.0;
-      v9 = v19;
+      v9 = v18;
       v10 = 0.1;
     }
 
@@ -49,7 +49,6 @@
     [layer3 setEndPoint:{v10, v7}];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

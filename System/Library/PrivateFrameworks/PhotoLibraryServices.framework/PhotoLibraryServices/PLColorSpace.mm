@@ -13,22 +13,22 @@
   v5 = equalCopy;
   if (equalCopy == self)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else if (equalCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
     colorSpaceName = self->_colorSpaceName;
     colorSpaceName = [(PLColorSpace *)v5 colorSpaceName];
-    v8 = [(NSString *)colorSpaceName isEqualToString:colorSpaceName];
+    isEqualToString = objc_msgSend_isEqualToString_(colorSpaceName);
   }
 
   else
   {
-    v8 = 0;
+    isEqualToString = 0;
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 - (PLColorSpace)initWithName:(id)name

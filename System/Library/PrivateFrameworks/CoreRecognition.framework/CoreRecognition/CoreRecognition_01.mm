@@ -1,5 +1,6 @@
-void sub_247823E74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, void *__p, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51)
+void sub_247823E74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, void *a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, void *__p, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, ...)
 {
+  va_start(va, a50);
   if (__p)
   {
     operator delete(__p);
@@ -10,14 +11,14 @@ void sub_247823E74(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a45);
   }
 
-  CTCLayer::~CTCLayer(&a51);
+  CTCLayer::~CTCLayer(va);
 
   _Unwind_Resume(a1);
 }
 
-id decodeCreditCardExpirationActivations(uint64_t *a1, int *a2, int a3)
+id decodeCreditCardExpirationActivations(uint64_t *a1, unsigned int *a2, unsigned int a3)
 {
-  v36[3] = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
   if (a1[1] != *a1)
   {
@@ -30,7 +31,7 @@ id decodeCreditCardExpirationActivations(uint64_t *a1, int *a2, int a3)
     std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](v29);
     CTCLayer::getMaxActivations(&v32);
     CTCLayer::setCummulativeScores(&v32);
-    CTCLayer::bestPathDecoding(&v32, v29);
+    CTCLayer::bestPathDecoding(v29, &v32);
     if (v29[1] != v29[0])
     {
       __p = 0;
@@ -72,7 +73,7 @@ id decodeCreditCardExpirationActivations(uint64_t *a1, int *a2, int a3)
     while (v8 != v9)
     {
       v10 = unicodeToNSString();
-      [v7 appendString:v10];
+      [v7 appendString:?];
 
       v8 += 4;
     }
@@ -80,17 +81,17 @@ id decodeCreditCardExpirationActivations(uint64_t *a1, int *a2, int a3)
     v11 = [MEMORY[0x277CBEB18] array];
     v24 = 0uLL;
     v25 = 0;
-    std::vector<std::pair<float,float>>::__init_with_size[abi:ne200100]<std::pair<float,float>*,std::pair<float,float>*>(&v24, v34, v35, (v35 - v34) >> 3);
+    std::vector<std::pair<float,float>>::__init_with_size[abi:ne200100]<std::pair<float,float>*,std::pair<float,float>*>(&v24, v33, v34, v34 - v33);
     v13 = *(&v24 + 1);
     v12 = v24;
     if (v24 != *(&v24 + 1))
     {
       do
       {
-        v14 = [MEMORY[0x277CCABB0] numberWithInteger:2 * v12[1]];
-        [v11 addObject:v14];
+        v14 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+        [v11 addObject:?];
 
-        v12 += 2;
+        v12 += 8;
       }
 
       while (v12 != v13);
@@ -103,21 +104,21 @@ id decodeCreditCardExpirationActivations(uint64_t *a1, int *a2, int a3)
       operator delete(v12);
     }
 
-    v36[0] = v7;
-    v36[1] = v11;
-    v15 = [MEMORY[0x277CCABB0] numberWithInt:(2 * v33)];
-    v36[2] = v15;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:3];
-    [v6 setObject:v16 forKey:@"FastScanningCTCSegmentKey"];
+    v35 = v7;
+    v36 = v11;
+    v15 = [MEMORY[0x277CCABB0] numberWithInt:?];
+    v37 = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+    [v6 setObject:? forKey:?];
 
-    v17 = [ActivationMapTools textFromActivationMap:a1 codeMap:a2 invert:0];
+    v17 = [ActivationMapTools textFromActivationMap:"textFromActivationMap:codeMap:invert:" codeMap:? invert:?];
     v18 = v17;
     if (v17)
     {
-      v19 = [v17 objectForKey:@"Expiration"];
+      v19 = [v17 objectForKey:?];
       if (v19)
       {
-        [v6 setObject:v19 forKey:@"FastScanningPatternSearchKey"];
+        [v6 setObject:? forKey:?];
       }
     }
 
@@ -133,19 +134,21 @@ id decodeCreditCardExpirationActivations(uint64_t *a1, int *a2, int a3)
   return v6;
 }
 
-void sub_2478244B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_2478244B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
+
   if (__p)
   {
     operator delete(__p);
   }
 
-  CTCLayer::~CTCLayer(&a26);
+  CTCLayer::~CTCLayer(va);
 
   _Unwind_Resume(a1);
 }
 
-id decodeCreditCardholderActivations(uint64_t *a1, int *a2, int a3)
+id decodeCreditCardholderActivations(uint64_t *a1, unsigned int *a2, unsigned int a3)
 {
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if (a1[1] != *a1)
@@ -159,7 +162,7 @@ id decodeCreditCardholderActivations(uint64_t *a1, int *a2, int a3)
     std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](v30);
     CTCLayer::getMaxActivations(&v33);
     CTCLayer::setCummulativeScores(&v33);
-    CTCLayer::bestPathDecoding(&v33, v30);
+    CTCLayer::bestPathDecoding(v30, &v33);
     if (v30[1] != v30[0])
     {
       __p = 0;
@@ -196,10 +199,10 @@ id decodeCreditCardholderActivations(uint64_t *a1, int *a2, int a3)
     }
 
     v7 = [MEMORY[0x277CBEB18] array];
-    v8 = v35;
+    v8 = v34;
     v25 = 0uLL;
     v26 = 0;
-    std::vector<std::pair<float,float>>::__init_with_size[abi:ne200100]<std::pair<float,float>*,std::pair<float,float>*>(&v25, v36, v37, (v37 - v36) >> 3);
+    std::vector<std::pair<float,float>>::__init_with_size[abi:ne200100]<std::pair<float,float>*,std::pair<float,float>*>(&v25, v35, v36, v36 - v35);
     v10 = *(&v25 + 1);
     v9 = v25;
     if (v25 != *(&v25 + 1))
@@ -209,12 +212,12 @@ id decodeCreditCardholderActivations(uint64_t *a1, int *a2, int a3)
       {
         if (v11 >= v8 && v8 + ((v30[1] - v30[0]) >> 2) > v11)
         {
-          v12 = [MEMORY[0x277CCABB0] numberWithInteger:2 * v9[1]];
-          [v7 addObject:v12];
+          v12 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+          [v7 addObject:?];
         }
 
         ++v11;
-        v9 += 2;
+        v9 += 8;
       }
 
       while (v9 != v10);
@@ -254,15 +257,15 @@ id decodeCreditCardholderActivations(uint64_t *a1, int *a2, int a3)
     while (v14 != v15)
     {
       v16 = unicodeToNSString();
-      [v13 appendString:v16];
+      [v13 appendString:?];
 
       v14 += 4;
     }
 
-    [v6 addObject:v13];
-    [v6 addObject:v7];
-    v17 = [MEMORY[0x277CCABB0] numberWithInt:(2 * v34)];
-    [v6 addObject:v17];
+    [v6 addObject:?];
+    [v6 addObject:?];
+    v17 = [MEMORY[0x277CCABB0] numberWithInt:?];
+    [v6 addObject:?];
 
     if (v30[0])
     {
@@ -276,8 +279,9 @@ id decodeCreditCardholderActivations(uint64_t *a1, int *a2, int a3)
   return v6;
 }
 
-void sub_24782492C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, char a28)
+void sub_24782492C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *__p, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
 {
+  va_start(va, a27);
   if (__p)
   {
     operator delete(__p);
@@ -288,12 +292,12 @@ void sub_24782492C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(a21);
   }
 
-  CTCLayer::~CTCLayer(&a28);
+  CTCLayer::~CTCLayer(va);
 
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<std::pair<float,float>>::__init_with_size[abi:ne200100]<std::pair<float,float>*,std::pair<float,float>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t std::vector<std::pair<float,float>>::__init_with_size[abi:ne200100]<std::pair<float,float>*,std::pair<float,float>*>(uint64_t result, uint64_t *a2, uint64_t *a3, unint64_t a4)
 {
   if (a4)
   {
@@ -320,7 +324,7 @@ void sub_247824A9C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t std::vector<std::vector<std::vector<float>>>::__init_with_size[abi:ne200100]<std::vector<std::vector<float>>*,std::vector<std::vector<float>>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<std::vector<float>>>::__init_with_size[abi:ne200100]<std::vector<std::vector<float>>*,std::vector<std::vector<float>>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -330,14 +334,14 @@ uint64_t std::vector<std::vector<std::vector<float>>>::__init_with_size[abi:ne20
   return result;
 }
 
-void sub_247824B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
+void sub_247824B20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   *(v9 + 8) = v10;
   std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](&a9);
   _Unwind_Resume(a1);
 }
 
-void std::vector<std::vector<std::vector<float>>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<std::vector<float>>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -357,7 +361,7 @@ void std::__allocate_at_least[abi:ne200100]<std::allocator<std::vector<std::vect
   std::__throw_bad_array_new_length[abi:ne200100]();
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<std::vector<float>>>,std::vector<std::vector<float>>*,std::vector<std::vector<float>>*,std::vector<std::vector<float>>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<std::vector<float>>>,std::vector<std::vector<float>>*,std::vector<std::vector<float>>*,std::vector<std::vector<float>>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -388,7 +392,7 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
   return v4;
 }
 
-uint64_t std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<std::vector<float>>::__init_with_size[abi:ne200100]<std::vector<float>*,std::vector<float>*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -405,7 +409,7 @@ void sub_247824D0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(uint64_t a1, uint64_t *a2, uint64_t *a3, void *a4)
+uint64_t *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std::vector<float>>,std::vector<float>*,std::vector<float>*,std::vector<float>*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = a4;
   v10 = a4;
@@ -422,8 +426,8 @@ void *std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<std:
       *v4 = 0;
       v4[1] = 0;
       v4[2] = 0;
-      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *v6, v6[1], (v6[1] - *v6) >> 2);
-      v6 += 3;
+      std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(v4, *v6, *(v6 + 8), (*(v6 + 8) - *v6) >> 2);
+      v6 += 24;
       v4 = v11 + 3;
       v11 += 3;
     }
@@ -493,7 +497,7 @@ void std::_AllocatorDestroyRangeReverse<std::allocator<std::vector<std::vector<f
   }
 }
 
-void std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](void ***a1)
+void std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](void ****a1)
 {
   v1 = *a1;
   v2 = **a1;
@@ -519,7 +523,7 @@ void std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[
   }
 }
 
-uint64_t std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -541,9 +545,9 @@ void sub_247824FC0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<std::vector<std::vector<float>>>::resize(uint64_t a1, unint64_t a2)
+void std::vector<std::vector<std::vector<float>>>::resize(const void **a1, unint64_t a2)
 {
-  v3 = *(a1 + 8);
+  v3 = a1[1];
   v4 = 0xAAAAAAAAAAAAAAABLL * ((v3 - *a1) >> 3);
   v5 = a2 >= v4;
   v6 = a2 - v4;
@@ -563,7 +567,7 @@ void std::vector<std::vector<std::vector<float>>>::resize(uint64_t a1, unint64_t
       std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](&v8);
     }
 
-    *(a1 + 8) = v7;
+    a1[1] = v7;
   }
 }
 
@@ -670,7 +674,7 @@ void std::__split_buffer<std::vector<std::vector<float>>>::clear[abi:ne200100](u
 
 CGImageSource *createCGImageFromFile(uint64_t a1)
 {
-  result = CGImageSourceCreateWithURL([MEMORY[0x277CBEBC0] fileURLWithPath:a1], 0);
+  result = CGImageSourceCreateWithURL([MEMORY[0x277CBEBC0] fileURLWithPath:?], 0);
   if (result)
   {
     v2 = result;
@@ -680,6 +684,14 @@ CGImageSource *createCGImageFromFile(uint64_t a1)
   }
 
   return result;
+}
+
+void _findCodeRectInImage(_OWORD *a1, uint64_t a2, float64_t a3, float64_t a4, double a5, double a6)
+{
+  v6 = a1[1];
+  v7[0] = *a1;
+  v7[1] = v6;
+  _findCodeRectInImageWithModel(v7, a2, 95158272, 0, a3, a4);
 }
 
 uint64_t findTopLeftIndex(CGPoint *a1)
@@ -718,7 +730,7 @@ uint64_t _segmentHomeKitCodeImages(_OWORD *a1, CGPoint *a2, CFArrayRef *a3)
   v6 = a1[1];
   v9[0] = *a1;
   v9[1] = v6;
-  _perspectiveCorrectImageWithTargetRect(x, y, 170.0, 64.0, v9, a2, v10);
+  _perspectiveCorrectImageWithTargetRect(v9, a2, v10, x, y, 170.0, 64.0);
   DigitCodeImages = extractDigitCodeImages(v10, a3, 10);
   free(v10[0]);
   return DigitCodeImages;
@@ -731,7 +743,7 @@ uint64_t _segmentCodeImages(__int128 *a1, CGPoint *a2, CFArrayRef *a3)
   v8 = a1[1];
   v13 = *a1;
   v14 = v8;
-  _perspectiveCorrectImageWithTargetRect(x, y, 272.0, 64.0, &v13, a2, v15);
+  _perspectiveCorrectImageWithTargetRect(&v13, a2, v15, x, y, 272.0, 64.0);
   v13 = *v15;
   v14 = v16;
   DigitCodeImages = extractDigitCodeImages(&v13, a3, 16);
@@ -744,7 +756,7 @@ uint64_t _segmentCodeImages(__int128 *a1, CGPoint *a2, CFArrayRef *a3)
   v11 = a1[1];
   v13 = *a1;
   v14 = v11;
-  _perspectiveCorrectImageWithTargetRect(x, y, 204.0, 64.0, &v13, a2, v15);
+  _perspectiveCorrectImageWithTargetRect(&v13, a2, v15, x, y, 204.0, 64.0);
   v13 = *v15;
   v14 = v16;
   v10 = extractDigitCodeImages(&v13, a3, 12);
@@ -1254,19 +1266,19 @@ LABEL_126:
   return result;
 }
 
-void _perspectiveCorrectImageWithTargetRect(double a1, double a2, double a3, double a4, uint64_t a5, CGPoint *a6, void *a7)
+void _perspectiveCorrectImageWithTargetRect(unint64_t *a1, CGPoint *a2, void *a3, double a4, double a5, double a6, double a7)
 {
-  v11 = malloc_type_calloc(a4 * a3, 1uLL, 0x100004077774924uLL);
-  findTopLeftIndex(a6);
+  v11 = malloc_type_calloc(a7 * a6, 1uLL, 0x100004077774924uLL);
+  findTopLeftIndex(a2);
   find_homography();
   applyHomograpyMatrix();
-  v12 = malloc_type_calloc(a4 * a3, 1uLL, 0x100004077774924uLL);
+  v12 = malloc_type_calloc(a7 * a6, 1uLL, 0x100004077774924uLL);
   correctHistogram();
   free(v11);
-  *a7 = v12;
-  a7[1] = a4;
-  a7[2] = a3;
-  a7[3] = a3;
+  *a3 = v12;
+  a3[1] = a7;
+  a3[2] = a6;
+  a3[3] = a6;
 }
 
 uint64_t extractDigitCodeImages(uint64_t *a1, CFArrayRef *a2, int a3)
@@ -1497,7 +1509,7 @@ LABEL_18:
   }
 
   LODWORD(src.data) = 0;
-  std::vector<int>::vector[abi:ne200100](__p, v71 + 1);
+  std::vector<int>::vector[abi:ne200100](__p, v71 + 1, &src);
   v62 = v60 + -1.0;
   v63 = __p[0];
   *__p[0] = (v60 + -1.0);
@@ -1710,15 +1722,15 @@ void calculatePointsWithPaddingInCorrectedSpace(double *a1, double *a2, double *
   *a1 = v74;
 }
 
-void __codeImage2char12_block_invoke(uint64_t a1)
+void __codeImage2char12_block_invoke(void *a1)
 {
   std::vector<unsigned char>::vector[abi:ne200100](&v6, 400);
   for (i = 0; i != 400; ++i)
   {
-    *(v6 + i) = *(*(a1 + 32) + i);
+    *(v6 + i) = *(a1[4] + i);
   }
 
-  v3 = [objc_msgSend(objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8] bundleWithIdentifier:{@"com.apple.CoreRecognition", "resourcePath"), "stringByAppendingPathComponent:", @"model12.bin", "UTF8String"}];
+  v3 = [objc_msgSend(objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8] "bundleWithIdentifier:{"resourcePath"), "stringByAppendingPathComponent:"), "UTF8String"}")];
   v4 = sCNN12;
   if (!sCNN12)
   {
@@ -1734,7 +1746,7 @@ void __codeImage2char12_block_invoke(uint64_t a1)
 
   memset(v5, 0, sizeof(v5));
   std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v5, v6, v7, v7 - v6);
-  CNN::ClassifyOne(v4, v5);
+  CNN::ClassifyOne(v4, v5, a1[5], a1[6]);
 }
 
 void sub_24782740C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -1752,15 +1764,15 @@ void sub_24782740C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void __codeImage2char10_block_invoke(uint64_t a1)
+void __codeImage2char10_block_invoke(void *a1)
 {
   std::vector<unsigned char>::vector[abi:ne200100](&v6, 400);
   for (i = 0; i != 400; ++i)
   {
-    *(v6 + i) = *(*(a1 + 32) + i);
+    *(v6 + i) = *(a1[4] + i);
   }
 
-  v3 = [objc_msgSend(objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8] bundleWithIdentifier:{@"com.apple.CoreRecognition", "resourcePath"), "stringByAppendingPathComponent:", @"modelHK.bin", "UTF8String"}];
+  v3 = [objc_msgSend(objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8] "bundleWithIdentifier:{"resourcePath"), "stringByAppendingPathComponent:"), "UTF8String"}")];
   v4 = sCNN10;
   if (!sCNN10)
   {
@@ -1776,7 +1788,7 @@ void __codeImage2char10_block_invoke(uint64_t a1)
 
   memset(v5, 0, sizeof(v5));
   std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v5, v6, v7, v7 - v6);
-  CNN::ClassifyOne(v4, v5);
+  CNN::ClassifyOne(v4, v5, a1[5], a1[6]);
 }
 
 void sub_247827560(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -1794,15 +1806,15 @@ void sub_247827560(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void __codeImage2char_block_invoke(uint64_t a1)
+void __codeImage2char_block_invoke(void *a1)
 {
   std::vector<unsigned char>::vector[abi:ne200100](&v6, 400);
   for (i = 0; i != 400; ++i)
   {
-    *(v6 + i) = *(*(a1 + 32) + i);
+    *(v6 + i) = *(a1[4] + i);
   }
 
-  v3 = [objc_msgSend(objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8] bundleWithIdentifier:{@"com.apple.CoreRecognition", "resourcePath"), "stringByAppendingPathComponent:", @"model.bin", "UTF8String"}];
+  v3 = [objc_msgSend(objc_msgSend(objc_msgSend(MEMORY[0x277CCA8D8] "bundleWithIdentifier:{"resourcePath"), "stringByAppendingPathComponent:"), "UTF8String"}")];
   v4 = sCNN;
   if (!sCNN)
   {
@@ -1818,7 +1830,7 @@ void __codeImage2char_block_invoke(uint64_t a1)
 
   memset(v5, 0, sizeof(v5));
   std::vector<unsigned char>::__init_with_size[abi:ne200100]<unsigned char *,unsigned char *>(v5, v6, v7, v7 - v6);
-  CNN::ClassifyOne(v4, v5);
+  CNN::ClassifyOne(v4, v5, a1[5], a1[6]);
 }
 
 void sub_2478276B4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, void *__p, uint64_t a17, int a18, __int16 a19, char a20, char a21)
@@ -1841,106 +1853,88 @@ uint64_t closestNameInContacts(void *a1, void *a2, void *a3, void *a4)
   v7 = a1;
   v8 = a3;
   v9 = a4;
-  v45 = 0;
-  v46 = &v45;
-  v47 = 0x2020000000;
-  v48 = 0x7FFFFFFFLL;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy_;
-  v43 = __Block_byref_object_dispose_;
-  v44 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy_;
-  v37 = __Block_byref_object_dispose_;
-  v38 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x2020000000;
+  v35 = 0x7FFFFFFFLL;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy_;
+  v30 = __Block_byref_object_dispose_;
+  v31 = 0;
+  v24[0] = 0;
+  v24[1] = v24;
+  v24[2] = 0x3032000000;
+  v24[3] = __Block_byref_object_copy_;
+  v24[4] = __Block_byref_object_dispose_;
+  v25 = 0;
   v10 = [v7 uppercaseString];
 
-  v11 = [v8 objectForKey:@"meContact"];
+  v11 = [v8 objectForKey:?];
   if (v11)
   {
-    v12 = (v40 + 5);
-    obj = v40[5];
+    v12 = (v27 + 5);
+    obj = v27[5];
     matched = matchAgainstContact(v10, v11, &obj);
     objc_storeStrong(v12, obj);
-    v46[3] = matched;
+    v33[3] = matched;
   }
 
   else
   {
-    matched = v46[3];
+    matched = v33[3];
   }
 
   if (matched >= 2)
   {
-    v14 = [v9 objectForKey:v10];
+    v14 = [v9 objectForKey:?];
     if (v14)
     {
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
-        v15 = (v40 + 5);
-        v31 = v40[5];
-        v16 = matchAgainstContact(v10, v14, &v31);
-        objc_storeStrong(v15, v31);
-        v46[3] = v16;
+        v15 = (v27 + 5);
+        v22 = v27[5];
+        v16 = matchAgainstContact(v10, v14, &v22);
+        objc_storeStrong(v15, v22);
+        v33[3] = v16;
       }
     }
 
     else
     {
-      v23 = MEMORY[0x277D85DD0];
-      v24 = 3221225472;
-      v25 = __closestNameInContacts_block_invoke;
-      v26 = &unk_278EAAC78;
-      v17 = v10;
-      v27 = v17;
-      v28 = &v45;
-      v29 = &v39;
-      v30 = &v33;
-      [v8 enumerateKeysAndObjectsUsingBlock:&v23];
-      v18 = v34[5];
-      v19 = [MEMORY[0x277CCACA8] _newZStringWithString:{v17, v23, v24, v25, v26}];
-      if (v18)
-      {
-        v20 = v18;
-      }
-
-      else
-      {
-        v20 = @"NO_MATCH";
-      }
-
-      [v9 setObject:v20 forKey:v19];
+      v20 = MEMORY[0x277D85DD0];
+      v21 = v10;
+      [v8 enumerateKeysAndObjectsUsingBlock:{v20, 3221225472, __closestNameInContacts_block_invoke, &unk_278EAAC78}];
+      v17 = [MEMORY[0x277CCACA8] _newZStringWithString:?];
+      [v9 setObject:? forKey:?];
     }
   }
 
-  *a2 = v40[5];
-  v21 = v46[3];
+  *a2 = v27[5];
+  v18 = v33[3];
 
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(v24, 8);
+  _Block_object_dispose(&v26, 8);
 
-  _Block_object_dispose(&v45, 8);
-  return v21;
+  _Block_object_dispose(&v32, 8);
+  return v18;
 }
 
-void sub_247827E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_247827E5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1953,7 +1947,7 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
 
 uint64_t matchAgainstContact(void *a1, void *a2, void *a3)
 {
-  v149 = *MEMORY[0x277D85DE8];
+  v139[17] = *MEMORY[0x277D85DE8];
   v4 = a1;
   v5 = a2;
   if (!objc_opt_class())
@@ -1962,102 +1956,104 @@ uint64_t matchAgainstContact(void *a1, void *a2, void *a3)
     goto LABEL_104;
   }
 
-  v6 = [v5 objectForKey:*MEMORY[0x277CBD000]];
-  v135 = [v5 objectForKey:*MEMORY[0x277CBD078]];
-  v140 = [v5 objectForKey:*MEMORY[0x277CBCFF8]];
-  v142 = [v5 objectForKey:*MEMORY[0x277CBD058]];
-  v138 = [v5 objectForKey:*MEMORY[0x277CBD0B0]];
-  v137 = [v5 objectForKey:*MEMORY[0x277CBD0A8]];
-  v7 = [v5 objectForKey:@"pinyinName"];
-  v127 = [v5 objectForKey:@"romanjiName"];
-  v136 = v7;
-  v8 = [v7 componentsSeparatedByString:@" "];
+  v6 = [v5 objectForKey:?];
+  v131 = [v5 objectForKey:?];
+  v136 = [v5 objectForKey:?];
+  v138 = [v5 objectForKey:?];
+  v134 = [v5 objectForKey:?];
+  v133 = [v5 objectForKey:?];
+  v7 = [v5 objectForKey:?];
+  v123 = [v5 objectForKey:?];
+  v132 = v7;
+  v8 = [v7 componentsSeparatedByString:?];
   if ([v8 count])
   {
-    v133 = [v8 lastObject];
+    v129 = [v8 lastObject];
   }
 
   else
   {
-    v133 = 0;
+    v129 = 0;
   }
 
   if ([v8 count] < 2)
   {
-    v134 = 0;
+    v130 = 0;
   }
 
   else
   {
-    v10 = [v8 subarrayWithRange:{0, objc_msgSend(v8, "count") - 1}];
-    v134 = [v10 componentsJoinedByString:@" "];
+    [v8 count];
+    v10 = [v8 subarrayWithRange:?];
+    v130 = [v10 componentsJoinedByString:?];
   }
 
   if ([v8 count])
   {
-    v132 = [v8 firstObject];
+    v128 = [v8 firstObject];
   }
 
   else
   {
-    v132 = 0;
+    v128 = 0;
   }
 
-  v119 = v8;
-  v120 = v5;
+  v115 = v8;
+  v116 = v5;
   if ([v8 count] < 2)
   {
-    v131 = 0;
+    v127 = 0;
   }
 
   else
   {
-    v11 = [v8 subarrayWithRange:{1, objc_msgSend(v8, "count") - 1}];
-    v131 = [v11 componentsJoinedByString:@" "];
+    [v8 count];
+    v11 = [v8 subarrayWithRange:?];
+    v127 = [v11 componentsJoinedByString:?];
   }
 
   v12 = [v6 length] - 1;
-  v13 = [v140 length] - 1;
-  v14 = [v142 length];
-  v15 = [v142 length];
-  v16 = [v138 length];
-  v17 = [v137 length];
-  v18 = [v136 length];
-  v121 = [v127 count];
-  v141 = v4;
-  v139 = v6;
+  v13 = [v136 length] - 1;
+  v14 = [v138 length];
+  v15 = [v138 length];
+  v16 = [v134 length];
+  v17 = [v133 length];
+  v18 = [v132 length];
+  v117 = [v123 count];
+  v137 = v4;
+  v135 = v6;
   v19 = v12 > 0x1C || !stringContainsApproximateSubstring(v4, v6);
   v20 = v14 - 1;
-  v21 = v13 > 0x1C || !stringContainsApproximateSubstring(v141, v140);
+  v21 = v13 > 0x1C || !stringContainsApproximateSubstring(v137, v136);
   v22 = v17 - 1;
   if (v20 > 0x1C)
   {
     v24 = 0;
-    v23 = v141;
+    v23 = v137;
   }
 
   else
   {
-    v23 = v141;
-    v24 = stringContainsApproximateSubstring(v141, v142);
+    v23 = v137;
+    v24 = stringContainsApproximateSubstring(v137, v138);
   }
 
   v25 = v16 - 1;
-  v26 = v22 > 0x1C || !stringContainsApproximateSubstring(v23, v137);
-  v124 = v26;
-  v27 = v25 > 0x1C || !stringContainsApproximateSubstring(v23, v138);
-  v117 = v27;
+  v26 = v22 > 0x1C || !stringContainsApproximateSubstring(v23, v133);
+  v120 = v26;
+  v27 = v25 > 0x1C || !stringContainsApproximateSubstring(v23, v134);
+  v113 = v27;
   v28 = v18 - 1;
-  if ((v15 - 1) > 0x1C)
+  if (v15 - 1 > 0x1C)
   {
     v31 = 0;
   }
 
   else
   {
-    v29 = [v142 substringToIndex:1];
-    v30 = [@" " stringByAppendingString:v29];
-    v31 = [v23 containsString:v30];
+    v29 = [v138 substringToIndex:?];
+    v30 = [@" " stringByAppendingString:?];
+    v31 = [v23 containsString:?];
   }
 
   if (v28 > 0x1C)
@@ -2067,13 +2063,13 @@ uint64_t matchAgainstContact(void *a1, void *a2, void *a3)
 
   else
   {
-    v32 = stringContainsApproximateSubstring(v23, v134) || stringContainsApproximateSubstring(v23, v133);
+    v32 = stringContainsApproximateSubstring(v23, v130) || stringContainsApproximateSubstring(v23, v129);
   }
 
   if (v19 || v21)
   {
-    v123 = 0;
-    v115 = 0x7FFFFFFFLL;
+    v119 = 0;
+    v111 = 0x7FFFFFFFLL;
     v33 = v6;
     if (!v24)
     {
@@ -2084,13 +2080,13 @@ uint64_t matchAgainstContact(void *a1, void *a2, void *a3)
   else
   {
     v33 = v6;
-    v123 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v6, v140];
-    v115 = [v123 editDistanceFromString:v23 threshold:4];
+    v119 = [MEMORY[0x277CCACA8] stringWithFormat:v6, v136];
+    v111 = [v119 editDistanceFromString:? threshold:?];
     if (!v24)
     {
 LABEL_40:
-      v128 = 0x7FFFFFFFLL;
-      v130 = 0;
+      v124 = 0x7FFFFFFFLL;
+      v126 = 0;
       v34 = 0x7FFFFFFFLL;
       if (!v31)
       {
@@ -2098,30 +2094,30 @@ LABEL_40:
       }
 
 LABEL_46:
-      v40 = MEMORY[0x277CCACA8];
-      v41 = [v142 substringToIndex:1];
-      v42 = [v40 stringWithFormat:@"%@ %@ %@", v33, v41, v140];
+      v39 = MEMORY[0x277CCACA8];
+      v40 = [v138 substringToIndex:?];
+      v41 = [v39 stringWithFormat:v33, v40, v136];
 
-      v43 = [v42 editDistanceFromString:v23 threshold:4];
-      if (v43 < v34 || [v42 editDistanceFromStringIgnoringSpaces:v23 threshold:3] < v34)
+      v42 = [v41 editDistanceFromString:? threshold:?];
+      if (v42 < v34 || [v41 editDistanceFromStringIgnoringSpaces:? threshold:?] < v34)
       {
-        v44 = v42;
+        v43 = v41;
 
-        v34 = v43;
-        v130 = v44;
+        v34 = v42;
+        v126 = v43;
       }
 
-      v45 = MEMORY[0x277CCACA8];
-      v46 = [v142 substringToIndex:1];
-      v47 = [v45 stringWithFormat:@"%@ %@. %@", v33, v46, v140];
+      v44 = MEMORY[0x277CCACA8];
+      v45 = [v138 substringToIndex:?];
+      v46 = [v44 stringWithFormat:v33, v45, v136];
 
-      v48 = [v47 editDistanceFromString:v23 threshold:4];
-      if (v48 < v34 || [v47 editDistanceFromStringIgnoringSpaces:v23 threshold:4] < v34)
+      v47 = [v46 editDistanceFromString:? threshold:?];
+      if (v47 < v34 || [v46 editDistanceFromStringIgnoringSpaces:? threshold:?] < v34)
       {
-        v49 = v47;
+        v48 = v46;
 
-        v34 = v48;
-        v130 = v49;
+        v34 = v47;
+        v126 = v48;
       }
 
       if (v32)
@@ -2133,10 +2129,10 @@ LABEL_46:
     }
   }
 
-  v39 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@ %@", v33, v142, v140];
-  v34 = [v39 editDistanceFromString:v23 threshold:4];
-  v130 = v39;
-  v128 = [v39 editDistanceFromStringIgnoringSpaces:v23 threshold:5];
+  v38 = [MEMORY[0x277CCACA8] stringWithFormat:v33, v138, v136];
+  v34 = [v38 editDistanceFromString:? threshold:?];
+  v126 = v38;
+  v124 = [v38 editDistanceFromStringIgnoringSpaces:? threshold:?];
   if (v31)
   {
     goto LABEL_46;
@@ -2146,13 +2142,12 @@ LABEL_41:
   if (v32)
   {
 LABEL_42:
-    v35 = v23;
-    v36 = [v136 editDistanceFromString:v23 threshold:4];
-    v37 = [v136 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
-    v38 = [v136 length];
-    if (v36 <= (v38 - [v37 length]))
+    v35 = [v132 editDistanceFromString:? threshold:?];
+    v36 = [v132 stringByReplacingOccurrencesOfString:? withString:?];
+    v37 = [v132 length];
+    if (v35 <= (v37 - [v36 length]))
     {
-      v9 = [v37 editDistanceFromString:v35 threshold:4];
+      v9 = [v36 editDistanceFromString:? threshold:?];
     }
 
     else
@@ -2160,83 +2155,83 @@ LABEL_42:
       v9 = 0x7FFFFFFFLL;
     }
 
-    if (v36 >= 2 && v9 >= 2)
+    if (v35 >= 2 && v9 >= 2)
     {
-      v50 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v133, v134];
-      v51 = [v50 editDistanceFromString:v141 threshold:4];
-      v52 = [v50 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
-      if (v51 >= v36)
+      v49 = [MEMORY[0x277CCACA8] stringWithFormat:v129, v130];
+      v50 = [v49 editDistanceFromString:? threshold:?];
+      v51 = [v49 stringByReplacingOccurrencesOfString:? withString:?];
+      if (v50 >= v35)
       {
-        v51 = v36;
-        v53 = v136;
+        v50 = v35;
+        v52 = v132;
       }
 
       else
       {
-        v53 = v50;
+        v52 = v49;
 
-        v54 = [v53 length];
-        if (v51 <= v54 - [v52 length])
+        v53 = [v52 length];
+        if (v50 <= v53 - [v51 length])
         {
-          v9 = [v52 editDistanceFromString:v141 threshold:4];
+          v9 = [v51 editDistanceFromString:? threshold:?];
         }
       }
 
-      v36 = v51;
-      v136 = v53;
+      v35 = v50;
+      v132 = v52;
     }
 
-    if (v36 >= 2 && v9 >= 2)
+    if (v35 >= 2 && v9 >= 2)
     {
-      v55 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v131, v132];
-      v56 = [v136 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
-      v57 = [v55 editDistanceFromString:v141 threshold:4];
-      if (v57 >= v36)
+      v54 = [MEMORY[0x277CCACA8] stringWithFormat:v127, v128];
+      v55 = [v132 stringByReplacingOccurrencesOfString:? withString:?];
+      v56 = [v54 editDistanceFromString:? threshold:?];
+      if (v56 >= v35)
       {
-        v58 = v36;
-        v59 = v136;
+        v57 = v35;
+        v58 = v132;
       }
 
       else
       {
-        v58 = v57;
-        v59 = v55;
+        v57 = v56;
+        v58 = v54;
 
-        v60 = [v59 length];
-        if (v58 <= v60 - [v56 length])
+        v59 = [v58 length];
+        if (v57 <= v59 - [v55 length])
         {
-          v9 = [v56 editDistanceFromString:v141 threshold:4];
+          v9 = [v55 editDistanceFromString:? threshold:?];
         }
       }
 
-      v36 = v58;
-      v136 = v59;
+      v35 = v57;
+      v132 = v58;
     }
 
-    if (v36 >= 2 && v9 >= 2)
+    if (v35 >= 2 && v9 >= 2)
     {
-      v61 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v132, v131];
-      v62 = [v61 editDistanceFromString:v141 threshold:4];
-      v63 = [v61 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
-      if (v62 >= v36)
+      v60 = [MEMORY[0x277CCACA8] stringWithFormat:v128, v127];
+      v61 = [v60 editDistanceFromString:? threshold:?];
+      v62 = [v60 stringByReplacingOccurrencesOfString:? withString:?];
+      if (v61 >= v35)
       {
-        v62 = v36;
-        v64 = v136;
+        v61 = v35;
+        v63 = v132;
       }
 
       else
       {
-        v64 = v61;
+        v63 = v60;
 
-        v65 = [v64 length];
-        if (v62 <= v65 - [v63 length])
+        v64 = [v63 length];
+        if (v61 <= v64 - [v62 length])
         {
-          v9 = [v63 editDistanceFromString:v141 threshold:4];
+          v9 = [v62 editDistanceFromString:? threshold:?];
         }
       }
 
-      v36 = v62;
-      v136 = v64;
+      v35 = v61;
+      v132 = v63;
     }
 
     goto LABEL_77;
@@ -2244,368 +2239,313 @@ LABEL_42:
 
 LABEL_53:
   v9 = 0x7FFFFFFFLL;
-  v36 = 0x7FFFFFFFLL;
+  v35 = 0x7FFFFFFFLL;
 LABEL_77:
-  if (v121)
+  if (v117)
   {
-    v147 = 0;
-    v66 = bestMatchInStringCandidates(v127, v141, &v147, 1);
-    v67 = v147;
-    v68 = [v67 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
-    v122 = v67;
-    v69 = [v67 length];
-    if (v66 <= (v69 - [v68 length]))
+    v139[0] = 0;
+    v65 = bestMatchInStringCandidates(v123, v137, v139, 1);
+    v66 = v139[0];
+    v67 = [v66 stringByReplacingOccurrencesOfString:? withString:?];
+    v118 = v66;
+    v68 = [v66 length];
+    if (v65 <= (v68 - [v67 length]))
     {
-      v70 = [v68 editDistanceFromString:v141 threshold:4];
+      v69 = [v67 editDistanceFromString:? threshold:?];
     }
 
     else
     {
-      v70 = 0x7FFFFFFFLL;
+      v69 = 0x7FFFFFFFLL;
     }
   }
 
   else
   {
-    v122 = 0;
-    v70 = 0x7FFFFFFFLL;
-    v66 = 0x7FFFFFFFLL;
+    v118 = 0;
+    v69 = 0x7FFFFFFFLL;
+    v65 = 0x7FFFFFFFLL;
   }
 
-  if (v117 || v124)
+  if (v113 || v120)
   {
-    v118 = 0;
+    v114 = 0;
+    v70 = 0;
     v71 = 0;
-    v72 = 0;
-    v73 = v115;
+    v72 = v111;
   }
 
   else
   {
-    v74 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ %@", v138, v137];
-    v75 = [v74 editDistanceFromString:v141 threshold:4];
-    v76 = [v74 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
-    v118 = v74;
-    v77 = [v74 length];
-    v71 = v75 <= v77 - [v76 length] && objc_msgSend(v76, "editDistanceFromString:threshold:", v141, 4) < 2;
-    v73 = v115;
+    v73 = [MEMORY[0x277CCACA8] stringWithFormat:v134, v133];
+    v74 = [v73 editDistanceFromString:? threshold:?];
+    v75 = [v73 stringByReplacingOccurrencesOfString:? withString:?];
+    v114 = v73;
+    v76 = [v73 length];
+    v70 = v74 <= v76 - [v75 length] && objc_msgSend(v75, "editDistanceFromString:threshold:") < 2;
+    v72 = v111;
 
-    v72 = v75 == 0;
+    v71 = v74 == 0;
   }
 
-  if (!v73 || !v34 || !v36 || v72 || !v66)
+  if (!v72 || !v34 || !v35 || v71 || !v65)
   {
-    v4 = v141;
-    v79 = v141;
-    *a3 = v141;
+    v4 = v137;
+    v78 = v137;
+    *a3 = v137;
     v9 = -1;
 LABEL_101:
-    v5 = v120;
-    v80 = v139;
+    v5 = v116;
+    v79 = v135;
 LABEL_102:
-    v81 = v118;
+    v80 = v114;
     goto LABEL_103;
   }
 
-  if (v73 == 1)
+  if (v72 == 1)
   {
-    v78 = v123;
+    v77 = v119;
 LABEL_99:
-    *a3 = v78;
+    *a3 = v77;
     v9 = 1;
 LABEL_100:
-    v4 = v141;
+    v4 = v137;
     goto LABEL_101;
   }
 
   if (v34 == 1)
   {
-    v78 = v130;
+    v77 = v126;
     goto LABEL_99;
   }
 
-  if (v128 <= 1)
+  if (v124 <= 1)
   {
-    *a3 = v130;
-    v4 = v141;
-    v5 = v120;
-    v80 = v139;
-    v9 = v128;
+    *a3 = v126;
+    v4 = v137;
+    v5 = v116;
+    v79 = v135;
+    v9 = v124;
     goto LABEL_102;
   }
 
-  if (v36 <= 1)
+  if (v35 <= 1)
   {
-    *a3 = v136;
-    v9 = v36;
+    *a3 = v132;
+    v9 = v35;
     goto LABEL_100;
   }
 
   if (v9 <= 1)
   {
-    *a3 = v136;
+    *a3 = v132;
     goto LABEL_100;
   }
 
-  v4 = v141;
-  if (v66 <= 1)
+  v4 = v137;
+  if (v65 <= 1)
   {
-    *a3 = v122;
-    v9 = v66;
-    goto LABEL_101;
-  }
-
-  if (v70 <= 1)
-  {
-    *a3 = v122;
-    v9 = v70;
-    goto LABEL_101;
-  }
-
-  v5 = v120;
-  v80 = v139;
-  if (v71)
-  {
-    v81 = v118;
-    v83 = v118;
     *a3 = v118;
+    v9 = v65;
+    goto LABEL_101;
+  }
+
+  if (v69 <= 1)
+  {
+    *a3 = v118;
+    v9 = v69;
+    goto LABEL_101;
+  }
+
+  v5 = v116;
+  v79 = v135;
+  if (v70)
+  {
+    v80 = v114;
+    v82 = v114;
+    *a3 = v114;
     v9 = 1;
     goto LABEL_103;
   }
 
-  v84 = [v141 uppercaseString];
-  v85 = [v84 componentsSeparatedByString:@" "];
+  v83 = [v137 uppercaseString];
+  v84 = [v83 componentsSeparatedByString:?];
 
-  v114 = [MEMORY[0x277CCAB68] string];
-  v143 = 0u;
-  v144 = 0u;
-  v145 = 0u;
-  v146 = 0u;
-  v86 = v85;
-  v116 = [v86 countByEnumeratingWithState:&v143 objects:v148 count:16];
-  if (!v116)
+  v110 = [MEMORY[0x277CCAB68] string];
+  v85 = v84;
+  v112 = [v85 countByEnumeratingWithState:? objects:? count:?];
+  if (!v112)
   {
 
-    v81 = v118;
-    v108 = v86;
-    goto LABEL_183;
+    v80 = v114;
+    v104 = v85;
+    goto LABEL_179;
   }
 
-  obj = v86;
+  obj = v85;
   v9 = 0;
-  v110 = 0;
-  v112 = 0;
-  v113 = *v144;
+  v106 = 0;
+  v108 = 0;
+  v109 = MEMORY[0];
   do
   {
-    v87 = 0;
+    v86 = 0;
     do
     {
-      v129 = v9;
-      if (*v144 != v113)
+      v125 = v9;
+      if (MEMORY[0] != v109)
       {
         objc_enumerationMutation(obj);
       }
 
-      v125 = v87;
-      v88 = *(*(&v143 + 1) + 8 * v87);
-      v89 = [v88 editDistanceFromString:v139 threshold:4];
-      v90 = [v88 editDistanceFromString:v135 threshold:4];
-      v91 = [v88 editDistanceFromString:v142 threshold:4];
-      v92 = [v88 editDistanceFromString:v140 threshold:4];
-      v93 = [v88 editDistanceFromString:v138 threshold:4];
-      v94 = [v88 editDistanceFromString:v137 threshold:4];
-      v95 = [v88 editDistanceFromString:v133 threshold:4];
-      v96 = [v88 editDistanceFromString:v134 threshold:4];
-      v97 = [v88 editDistanceFromString:v132 threshold:4];
-      v98 = [v88 editDistanceFromString:v131 threshold:4];
-      if (v89 >= v90)
+      v121 = v86;
+      v87 = *(8 * v86);
+      v88 = [v87 editDistanceFromString:? threshold:?];
+      v89 = [v87 editDistanceFromString:? threshold:?];
+      v90 = [v87 editDistanceFromString:? threshold:?];
+      v91 = [v87 editDistanceFromString:? threshold:?];
+      v92 = [v87 editDistanceFromString:? threshold:?];
+      v93 = [v87 editDistanceFromString:? threshold:?];
+      v94 = [v87 editDistanceFromString:? threshold:?];
+      v95 = [v87 editDistanceFromString:? threshold:?];
+      v96 = [v87 editDistanceFromString:? threshold:?];
+      v97 = [v87 editDistanceFromString:? threshold:?];
+      if (v88 >= v89)
       {
-        v99 = v90;
+        v98 = v89;
       }
 
       else
       {
-        v99 = v89;
+        v98 = v88;
       }
 
-      if (v99 >= v91)
+      if (v98 >= v90)
       {
-        v99 = v91;
+        v98 = v90;
       }
 
-      if (v99 >= v92)
+      if (v98 >= v91)
       {
-        v99 = v92;
+        v98 = v91;
       }
 
-      if (v99 >= v93)
+      if (v98 >= v92)
       {
-        v99 = v93;
+        v98 = v92;
       }
 
-      if (v99 >= v94)
+      if (v98 >= v93)
       {
-        v99 = v94;
+        v98 = v93;
       }
 
-      if (v99 >= v95)
+      if (v98 >= v94)
       {
-        v99 = v95;
+        v98 = v94;
       }
 
-      if (v99 >= v96)
+      if (v98 >= v95)
       {
-        v99 = v96;
+        v98 = v95;
       }
 
-      if (v99 >= v97)
+      if (v98 >= v96)
+      {
+        v98 = v96;
+      }
+
+      if (v98 >= v97)
       {
         v99 = v97;
       }
 
-      if (v99 >= v98)
+      else
       {
-        v100 = v98;
+        v99 = v98;
+      }
+
+      if (v135 && v88 <= 1 || v131 && v89 <= 1 || v138 && v90 <= 1 || v129 && v94 <= 1 || v128 && v96 <= 1 || v134 && v92 <= 1)
+      {
+        v100 = v99;
+        [v110 appendString:?];
+        [v110 appendString:?];
+        v108 = 1;
+LABEL_157:
+        v4 = v137;
+        v101 = v125;
+        goto LABEL_158;
+      }
+
+      if (v130 && v95 <= 1)
+      {
+        v100 = v99;
+        [v110 appendString:?];
+        [v110 appendString:?];
+        v106 = 1;
+        goto LABEL_157;
+      }
+
+      v101 = v125;
+      if (v127 && v97 <= 1)
+      {
+        v100 = v99;
+        [v110 appendString:?];
+        v102 = v110;
       }
 
       else
       {
         v100 = v99;
-      }
-
-      if (v139 && v89 <= 1)
-      {
-        v101 = v100;
-        [v114 appendString:@" "];
-        v102 = v114;
-        v103 = v139;
-        goto LABEL_160;
-      }
-
-      if (v135 && v90 <= 1)
-      {
-        v101 = v100;
-        [v114 appendString:@" "];
-        v102 = v114;
-        v103 = v135;
-        goto LABEL_160;
-      }
-
-      if (v142 && v91 <= 1)
-      {
-        v101 = v100;
-        [v114 appendString:@" "];
-        v102 = v114;
-        v103 = v142;
-        goto LABEL_160;
-      }
-
-      if (v133 && v95 <= 1)
-      {
-        v101 = v100;
-        [v114 appendString:@" "];
-        v102 = v114;
-        v103 = v133;
-        goto LABEL_160;
-      }
-
-      if (v132 && v97 <= 1)
-      {
-        v101 = v100;
-        [v114 appendString:@" "];
-        v102 = v114;
-        v103 = v132;
-        goto LABEL_160;
-      }
-
-      if (v138 && v93 <= 1)
-      {
-        v101 = v100;
-        [v114 appendString:@" "];
-        v102 = v114;
-        v103 = v138;
-LABEL_160:
-        [v102 appendString:v103];
-        v112 = 1;
-LABEL_161:
-        v4 = v141;
-        v104 = v129;
-        goto LABEL_162;
-      }
-
-      if (v134 && v96 <= 1)
-      {
-        v101 = v100;
-        [v114 appendString:@" "];
-        [v114 appendString:v134];
-        v110 = 1;
-        goto LABEL_161;
-      }
-
-      v104 = v129;
-      if (v131 && v98 <= 1)
-      {
-        v101 = v100;
-        [v114 appendString:@" "];
-        v105 = v114;
-        v106 = v131;
-      }
-
-      else
-      {
-        v101 = v100;
-        if (v137 && v94 <= 1)
+        if (v133 && v93 <= 1)
         {
-          [v114 appendString:@" "];
-          v105 = v114;
-          v106 = v137;
+          [v110 appendString:?];
+          v102 = v110;
         }
 
         else
         {
-          [v114 appendString:@" "];
-          if (!v140 || v92 > 1)
+          [v110 appendString:?];
+          if (!v136 || v91 > 1)
           {
-            [v114 appendString:v88];
-            goto LABEL_177;
+            [v110 appendString:?];
+            goto LABEL_173;
           }
 
-          v105 = v114;
-          v106 = v140;
+          v102 = v110;
         }
       }
 
-      [v105 appendString:v106];
-      v110 = 1;
-LABEL_177:
-      v4 = v141;
-LABEL_162:
-      v9 = v101 + v104;
-      v87 = v125 + 1;
+      [v102 appendString:?];
+      v106 = 1;
+LABEL_173:
+      v4 = v137;
+LABEL_158:
+      v9 = v100 + v101;
+      v86 = v121 + 1;
     }
 
-    while (v116 != v125 + 1);
-    v107 = [obj countByEnumeratingWithState:&v143 objects:v148 count:16];
-    v116 = v107;
+    while (v112 != (v121 + 1));
+    v103 = [obj countByEnumeratingWithState:? objects:? count:?];
+    v112 = v103;
   }
 
-  while (v107);
-  v108 = obj;
+  while (v103);
+  v104 = obj;
 
-  v5 = v120;
-  v80 = v139;
-  v81 = v118;
-  if (v112 & v110)
+  v5 = v116;
+  v79 = v135;
+  v80 = v114;
+  if (v108 & v106)
   {
-    [v114 deleteCharactersInRange:{0, 1}];
-    v109 = v114;
-    *a3 = v114;
+    [v110 deleteCharactersInRange:?];
+    v105 = v110;
+    *a3 = v110;
 
     goto LABEL_103;
   }
 
-LABEL_183:
+LABEL_179:
 
   v9 = 0x7FFFFFFFLL;
 LABEL_103:
@@ -2641,9 +2581,9 @@ void __closestNameInContacts_block_invoke(void *a1, void *a2, void *a3, BOOL *a4
 BOOL isValidNameString(void *a1)
 {
   v1 = a1;
-  if ([v1 rangeOfString:@"(([\\.\\-\\'\\ options:{\\/])([\\.\\-\\'\\, \\/]))|(\\/)|(\\ \\.)", 1024}] == 0x7FFFFFFFFFFFFFFFLL)
+  if ([v1 rangeOfString:? options:?] == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v2 = [v1 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
+    v2 = [v1 stringByReplacingOccurrencesOfString:? withString:?];
     v3 = [v2 length] > 5;
   }
 
@@ -2657,41 +2597,35 @@ BOOL isValidNameString(void *a1)
 
 uint64_t isNonNameString(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v2 = [v1 componentsSeparatedByString:@" "];
+  v2 = [v1 componentsSeparatedByString:?];
   v3 = [v2 count];
 
-  if (v3 >= 2 && ([v1 componentsSeparatedByString:@"-"], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "count"), v4, v5 <= 2))
+  if (v3 >= 2 && ([v1 componentsSeparatedByString:?], v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v4, "count"), v4, v5 <= 2))
   {
-    v7 = [v1 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
-    v14 = 0u;
-    v15 = 0u;
-    v16 = 0u;
-    v17 = 0u;
-    v8 = [&unk_285976770 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v7 = [v1 stringByReplacingOccurrencesOfString:? withString:?];
+    v8 = [&unk_285976770 countByEnumeratingWithState:0 objects:? count:?];
     if (v8)
     {
       v9 = v8;
-      v10 = *v15;
+      v10 = MEMORY[0];
       while (2)
       {
-        for (i = 0; i != v9; ++i)
+        for (i = 0; i != v9; i = (i + 1))
         {
-          if (*v15 != v10)
+          if (MEMORY[0] != v10)
           {
             objc_enumerationMutation(&unk_285976770);
           }
 
-          v12 = *(*(&v14 + 1) + 8 * i);
-          if ([v1 rangeOfString:v12] != 0x7FFFFFFFFFFFFFFFLL || objc_msgSend(v7, "rangeOfString:", v12) != 0x7FFFFFFFFFFFFFFFLL)
+          if ([v1 rangeOfString:?] != 0x7FFFFFFFFFFFFFFFLL || objc_msgSend(v7, "rangeOfString:") != 0x7FFFFFFFFFFFFFFFLL)
           {
             v6 = 1;
             goto LABEL_16;
           }
         }
 
-        v9 = [&unk_285976770 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [&unk_285976770 countByEnumeratingWithState:? objects:? count:?];
         v6 = 0;
         if (v9)
         {
@@ -2720,23 +2654,18 @@ LABEL_16:
 
 id extractBestDateString(void *a1, char a2, void *a3)
 {
-  v44 = *MEMORY[0x277D85DE8];
   v4 = a1;
   v5 = a3;
-  v6 = [MEMORY[0x277CBEA80] calendarWithIdentifier:*MEMORY[0x277CBE5C0]];
+  v6 = [MEMORY[0x277CBEA80] calendarWithIdentifier:?];
   v33 = v5;
-  v7 = [v6 components:28 fromDate:v5];
+  v7 = [v6 components:? fromDate:?];
 
   v36 = [v7 year];
   v35 = [v7 month];
   v32 = v7;
   v8 = [v7 year];
-  v39 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
   obj = v4;
-  v9 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+  v9 = [obj countByEnumeratingWithState:? objects:? count:?];
   if (!v9)
   {
     v11 = 0;
@@ -2747,27 +2676,27 @@ id extractBestDateString(void *a1, char a2, void *a3)
   v11 = 0;
   v34 = v8 + 15;
   v12 = -2147483647;
-  v13 = *v40;
+  v13 = MEMORY[0];
   do
   {
     v14 = 0;
     do
     {
-      if (*v40 != v13)
+      if (MEMORY[0] != v13)
       {
         objc_enumerationMutation(obj);
       }
 
-      v15 = *(*(&v39 + 1) + 8 * v14);
-      v16 = [v15 objectForKey:@"Year"];
+      v15 = *(8 * v14);
+      v16 = [v15 objectForKey:?];
       v17 = [v16 integerValue];
 
       if (v17 <= 99)
       {
-        v18 = [v15 objectForKey:@"Year"];
+        v18 = [v15 objectForKey:?];
         v19 = [v18 integerValue];
 
-        v20 = [v15 objectForKey:@"Year"];
+        v20 = [v15 objectForKey:?];
         if (v19 <= 80)
         {
           v21 = @"20";
@@ -2778,11 +2707,11 @@ id extractBestDateString(void *a1, char a2, void *a3)
           v21 = @"19";
         }
 
-        v22 = [(__CFString *)v21 stringByAppendingString:v20];
+        v22 = [(__CFString *)v21 stringByAppendingString:?];
         v17 = [v22 integerValue];
       }
 
-      v23 = [v15 objectForKey:@"Month"];
+      v23 = [v15 objectForKey:?];
       v24 = [v23 integerValue];
 
       if (a2)
@@ -2812,11 +2741,11 @@ LABEL_13:
       }
 
 LABEL_14:
-      ++v14;
+      v14 = (v14 + 1);
     }
 
     while (v10 != v14);
-    v30 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v30 = [obj countByEnumeratingWithState:? objects:? count:?];
     v10 = v30;
   }
 
@@ -2828,326 +2757,303 @@ LABEL_33:
 
 id extractValidDateStrings(void *a1)
 {
-  v132 = *MEMORY[0x277D85DE8];
-  v106 = a1;
-  v101 = [MEMORY[0x277CBEB18] array];
+  v73 = *MEMORY[0x277D85DE8];
+  v68 = a1;
+  v63 = [MEMORY[0x277CBEB18] array];
   v1 = [MEMORY[0x277CBEB18] array];
-  v127 = 0;
-  v2 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(0[1-9]|[12][0-9]|3[01])([\\-\\/\\.])(0[1-9]|1[012])\\2(\\d\\d)" options:0 error:&v127];
-  v3 = v127;
-  [v1 addObject:v2];
+  v2 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:? options:? error:?];
+  v3 = 0;
+  [v1 addObject:?];
 
-  v126 = v3;
-  v4 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(0[1-9]|1[012])([\\-\\/\\.])(0[1-9]|[12][0-9]|3[01])\\2(\\d\\d)" options:0 error:&v126];
-  v5 = v126;
+  v4 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:? options:? error:?];
+  v5 = v3;
 
-  [v1 addObject:v4];
-  v125 = v5;
-  v6 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(0[1-9]|1[012])([\\-\\/\\.])((?:20)?\\d\\d)" options:0 error:&v125];
-  v7 = v125;
+  [v1 addObject:?];
+  v6 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:? options:? error:?];
+  v7 = v5;
 
-  [v1 addObject:v6];
-  v124 = v7;
-  v8 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(0[1-9]|[12][0-9]|3[01])?(JAN|FEB|MAR|APR|MAY|JUN|JLY|AUG|SEP|OCT|NOV|DEC)(\\d\\d)" options:0 error:&v124];
-  v9 = v124;
+  [v1 addObject:?];
+  v8 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:? options:? error:?];
+  v9 = v7;
 
-  [v1 addObject:v8];
-  v123 = v9;
-  v10 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(?<![\\/])(20\\d\\d)([\\-\\/\\.])(0[1-9]|1[012])(?![\\/])" options:0 error:&v123];
-  v11 = v123;
+  [v1 addObject:?];
+  v10 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:? options:? error:?];
+  v11 = v9;
 
-  [v1 addObject:v10];
-  v122 = v11;
-  v12 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(0[1-9]|1[012])([\\-\\/\\.])(\\d)(\\d\\d)" options:0 error:&v122];
-  v94 = v122;
+  [v1 addObject:?];
+  v12 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:? options:? error:?];
+  v56 = v11;
 
-  [v1 addObject:v12];
-  v120 = 0u;
-  v121 = 0u;
-  v118 = 0u;
-  v119 = 0u;
+  [v1 addObject:?];
   obj = v1;
-  v98 = [obj countByEnumeratingWithState:&v118 objects:v131 count:16];
-  if (v98)
+  v60 = [obj countByEnumeratingWithState:? objects:? count:?];
+  if (v60)
   {
     v13 = 0;
-    v97 = *v119;
+    v59 = MEMORY[0];
     do
     {
       v14 = 0;
-      v95 = v13;
+      v57 = v13;
       v15 = v13;
       do
       {
-        if (*v119 != v97)
+        if (MEMORY[0] != v59)
         {
           objc_enumerationMutation(obj);
         }
 
-        v99 = v14;
-        v16 = [*(*(&v118 + 1) + 8 * v14) matchesInString:v106 options:0 range:{0, objc_msgSend(v106, "length")}];
-        v114 = 0u;
-        v115 = 0u;
-        v116 = 0u;
-        v117 = 0u;
-        v104 = v16;
-        v17 = [v16 countByEnumeratingWithState:&v114 objects:v130 count:16];
+        v61 = v14;
+        v16 = *(8 * v14);
+        [v68 length];
+        v66 = [v16 matchesInString:? options:? range:?];
+        v17 = [v66 countByEnumeratingWithState:? objects:? count:?];
         if (v17)
         {
           v18 = v17;
-          v19 = *v115;
-          v102 = v15;
-          v100 = *v115;
+          v19 = MEMORY[0];
+          v64 = v15;
+          v62 = MEMORY[0];
           do
           {
             v20 = 0;
-            v103 = v18;
+            v65 = v18;
             do
             {
-              if (*v115 != v19)
+              if (MEMORY[0] != v19)
               {
-                objc_enumerationMutation(v104);
+                objc_enumerationMutation(v66);
               }
 
-              v21 = *(*(&v114 + 1) + 8 * v20);
+              v21 = *(8 * v20);
               if ([v21 range] != 0x7FFFFFFFFFFFFFFFLL)
               {
-                v22 = [v21 rangeAtIndex:0];
-                v108 = [v106 substringWithRange:{v22, v23}];
-                v109 = [MEMORY[0x277CBEB38] dictionary];
-                v24 = MEMORY[0x277CCAE60];
-                v25 = [v21 rangeAtIndex:0];
-                v27 = [v24 valueWithRange:{v25, v26}];
-                v107 = v20;
+                [v21 rangeAtIndex:?];
+                v70 = [v68 substringWithRange:?];
+                v71 = [MEMORY[0x277CBEB38] dictionary];
+                v22 = MEMORY[0x277CCAE60];
+                [v21 rangeAtIndex:?];
+                v23 = [v22 valueWithRange:?];
+                v69 = v20;
                 if (v15 <= 2)
                 {
-                  v105 = v21;
+                  v67 = v21;
                   if (v15)
                   {
-                    v28 = v109;
+                    v24 = v71;
                     if (v15 != 1)
                     {
                       if (v15 == 2)
                       {
-                        v112 = 0u;
-                        v113 = 0u;
-                        v110 = 0u;
-                        v111 = 0u;
-                        v29 = v101;
-                        v30 = [v29 countByEnumeratingWithState:&v110 objects:v129 count:16];
-                        if (v30)
+                        v25 = v63;
+                        v26 = [v25 countByEnumeratingWithState:? objects:? count:?];
+                        if (v26)
                         {
-                          v31 = v30;
-                          v32 = 0;
-                          v33 = *v111;
+                          v27 = v26;
+                          v28 = 0;
+                          v29 = MEMORY[0];
                           do
                           {
-                            for (i = 0; i != v31; ++i)
+                            for (i = 0; i != v27; i = (i + 1))
                             {
-                              if (*v111 != v33)
+                              if (MEMORY[0] != v29)
                               {
-                                objc_enumerationMutation(v29);
+                                objc_enumerationMutation(v25);
                               }
 
-                              v35 = [*(*(&v110 + 1) + 8 * i) objectForKey:@"substringRange"];
-                              v36 = v35;
-                              if (v35)
+                              v31 = [*(8 * i) objectForKey:?];
+                              v32 = v31;
+                              if (v31)
                               {
-                                v37 = [v35 rangeValue];
-                                v39 = v38;
-                                v136.location = [v27 rangeValue];
-                                v136.length = v40;
-                                v134.location = v37;
-                                v134.length = v39;
-                                v32 |= NSIntersectionRange(v134, v136).length != 0;
+                                v33 = [v31 rangeValue];
+                                v35 = v34;
+                                v77.location = [v23 rangeValue];
+                                v77.length = v36;
+                                v75.location = v33;
+                                v75.length = v35;
+                                v28 |= NSIntersectionRange(v75, v77).length != 0;
                               }
                             }
 
-                            v31 = [v29 countByEnumeratingWithState:&v110 objects:v129 count:16];
+                            v27 = [v25 countByEnumeratingWithState:? objects:? count:?];
                           }
 
-                          while (v31);
+                          while (v27);
 
-                          v15 = v102;
-                          v19 = v100;
-                          v18 = v103;
-                          v28 = v109;
-                          if (v32)
+                          v15 = v64;
+                          v19 = v62;
+                          v18 = v65;
+                          v24 = v71;
+                          if (v28)
                           {
-                            goto LABEL_51;
+                            goto LABEL_50;
                           }
                         }
 
                         else
                         {
 
-                          v28 = v109;
+                          v24 = v71;
                         }
 
-                        v79 = [v105 rangeAtIndex:1];
-                        v81 = v80;
-                        v137.location = [v105 rangeAtIndex:2];
-                        v137.length = v82;
-                        v135.location = v79;
-                        v135.length = v81;
-                        v83 = NSUnionRange(v135, v137);
-                        v138.location = [v105 rangeAtIndex:3];
-                        v138.length = v84;
-                        v85 = NSUnionRange(v83, v138);
-                        v86 = [v106 substringWithRange:{v85.location, v85.length}];
-                        [v28 setObject:v86 forKey:@"Result"];
+                        v46 = [v67 rangeAtIndex:?];
+                        v48 = v47;
+                        v78.location = [v67 rangeAtIndex:?];
+                        v78.length = v49;
+                        v76.location = v46;
+                        v76.length = v48;
+                        v50 = NSUnionRange(v76, v78);
+                        v79.location = [v67 rangeAtIndex:?];
+                        v79.length = v51;
+                        NSUnionRange(v50, v79);
+                        v52 = [v68 substringWithRange:?];
+                        [v24 setObject:? forKey:?];
 
-                        v87 = [v105 rangeAtIndex:{objc_msgSend(v105, "numberOfRanges") - 1}];
-                        v43 = [v106 substringWithRange:{v87, v88}];
-                        [v28 setObject:v43 forKey:@"Year"];
-                        v89 = [v105 rangeAtIndex:1];
-                        v46 = [v106 substringWithRange:{v89, v90}];
-                        v47 = v28;
-                        v48 = v46;
+                        [v67 numberOfRanges];
+                        [v67 rangeAtIndex:?];
+                        v37 = [v68 substringWithRange:?];
+                        [v24 setObject:? forKey:?];
+                        [v67 rangeAtIndex:?];
+                        v38 = [v68 substringWithRange:?];
+                        v39 = v24;
+LABEL_46:
+                        [v39 setObject:? forKey:?];
 LABEL_47:
-                        [v47 setObject:v48 forKey:@"Month"];
-LABEL_48:
 
-                        v15 = v102;
-                        v18 = v103;
-                        v28 = v109;
+                        v15 = v64;
+                        v18 = v65;
+                        v24 = v71;
                       }
 
-                      goto LABEL_49;
+                      goto LABEL_48;
                     }
 
-                    [v109 setObject:v108 forKey:@"Result"];
-                    v69 = [v21 rangeAtIndex:{objc_msgSend(v21, "numberOfRanges") - 1}];
-                    v43 = [v106 substringWithRange:{v69, v70}];
-                    [v109 setObject:v43 forKey:@"Year"];
-                    v71 = [v21 rangeAtIndex:3];
-                    v46 = [v106 substringWithRange:{v71, v72}];
-                    [v109 setObject:v46 forKey:@"Day"];
-                    v73 = [v21 rangeAtIndex:1];
-                    v55 = [v106 substringWithRange:{v73, v74}];
-                    v56 = v109;
-                    v57 = v55;
-                    v58 = @"Month";
+                    [v71 setObject:? forKey:?];
+                    [v21 numberOfRanges];
+                    [v21 rangeAtIndex:?];
+                    v37 = [v68 substringWithRange:?];
+                    [v71 setObject:? forKey:?];
+                    [v21 rangeAtIndex:?];
+                    v38 = [v68 substringWithRange:?];
+                    [v71 setObject:? forKey:?];
+                    [v21 rangeAtIndex:?];
+                    v40 = [v68 substringWithRange:?];
+                    v41 = v71;
                   }
 
                   else
                   {
-                    v28 = v109;
-                    [v109 setObject:v108 forKey:@"Result"];
-                    v49 = [v21 rangeAtIndex:{objc_msgSend(v21, "numberOfRanges") - 1}];
-                    v43 = [v106 substringWithRange:{v49, v50}];
-                    [v109 setObject:v43 forKey:@"Year"];
-                    v51 = [v21 rangeAtIndex:3];
-                    v46 = [v106 substringWithRange:{v51, v52}];
-                    [v109 setObject:v46 forKey:@"Month"];
-                    v53 = [v21 rangeAtIndex:1];
-                    v55 = [v106 substringWithRange:{v53, v54}];
-                    v56 = v109;
-                    v57 = v55;
-                    v58 = @"Day";
+                    v24 = v71;
+                    [v71 setObject:? forKey:?];
+                    [v21 numberOfRanges];
+                    [v21 rangeAtIndex:?];
+                    v37 = [v68 substringWithRange:?];
+                    [v71 setObject:? forKey:?];
+                    [v21 rangeAtIndex:?];
+                    v38 = [v68 substringWithRange:?];
+                    [v71 setObject:? forKey:?];
+                    [v21 rangeAtIndex:?];
+                    v40 = [v68 substringWithRange:?];
+                    v41 = v71;
                   }
 
-                  [v56 setObject:v57 forKey:v58];
-                  [v28 setObject:v27 forKey:@"substringRange"];
+                  [v41 setObject:? forKey:?];
+                  [v24 setObject:? forKey:?];
 
-                  goto LABEL_48;
+                  goto LABEL_47;
                 }
 
                 if (v15 == 3)
                 {
-                  [v109 setObject:v108 forKey:@"Result"];
-                  v59 = [v21 rangeAtIndex:{objc_msgSend(v21, "numberOfRanges") - 1}];
-                  v43 = [v106 substringWithRange:{v59, v60}];
-                  [v109 setObject:v43 forKey:@"Year"];
-                  v61 = [v21 rangeAtIndex:{objc_msgSend(v21, "numberOfRanges") - 2}];
-                  v46 = [v106 substringWithRange:{v61, v62}];
-                  v63 = 0;
-                  v128[2] = xmmword_278EAACB8;
-                  v128[3] = *&off_278EAACC8;
-                  v128[4] = xmmword_278EAACD8;
-                  v128[5] = *off_278EAACE8;
-                  v128[0] = xmmword_278EAAC98;
-                  v128[1] = *&off_278EAACA8;
+                  [v71 setObject:? forKey:?];
+                  [v21 numberOfRanges];
+                  [v21 rangeAtIndex:?];
+                  v37 = [v68 substringWithRange:?];
+                  [v71 setObject:? forKey:?];
+                  [v21 numberOfRanges];
+                  [v21 rangeAtIndex:?];
+                  v38 = [v68 substringWithRange:?];
+                  v42 = 0;
+                  v72[2] = xmmword_278EAACB8;
+                  v72[3] = *&off_278EAACC8;
+                  v72[4] = xmmword_278EAACD8;
+                  v72[5] = *off_278EAACE8;
+                  v72[0] = xmmword_278EAAC98;
+                  v72[1] = *&off_278EAACA8;
                   do
                   {
-                    if ([v46 isEqualToString:*(v128 + v63)])
+                    ++v42;
+                    if ([v38 isEqualToString:?])
                     {
-                      v64 = [MEMORY[0x277CCACA8] stringWithFormat:@"%02i", ++v63];
-                      [v109 setObject:v64 forKey:@"Month"];
-                    }
-
-                    else
-                    {
-                      ++v63;
+                      v43 = [MEMORY[0x277CCACA8] stringWithFormat:v42];
+                      [v71 setObject:? forKey:?];
                     }
                   }
 
-                  while (v63 != 12);
-                  v65 = [v21 rangeAtIndex:1];
-                  if (v65 != 0x7FFFFFFFFFFFFFFFLL)
+                  while (v42 != 12);
+                  if ([v21 rangeAtIndex:?] != 0x7FFFFFFFFFFFFFFFLL)
                   {
-                    v67 = [v106 substringWithRange:{v65, v66}];
-                    [v109 setObject:v67 forKey:@"Day"];
+                    v44 = [v68 substringWithRange:?];
+                    [v71 setObject:? forKey:?];
                   }
 
-                  v68 = 88;
-                  v19 = v100;
+                  v45 = 88;
+                  v19 = v62;
                   do
                   {
 
-                    v68 -= 8;
+                    v45 -= 8;
                   }
 
-                  while (v68 != -8);
-                  goto LABEL_48;
-                }
-
-                v28 = v109;
-                if (v15 == 4)
-                {
-                  [v109 setObject:v108 forKey:@"Result"];
-                  v75 = [v21 rangeAtIndex:1];
-                  v43 = [v106 substringWithRange:{v75, v76}];
-                  [v109 setObject:v43 forKey:@"Year"];
-                  v77 = [v21 rangeAtIndex:3];
-                  v46 = [v106 substringWithRange:{v77, v78}];
-                  [v109 setObject:v46 forKey:@"Month"];
-                  v19 = v100;
-                  goto LABEL_48;
-                }
-
-                v19 = v100;
-                if (v15 == 5)
-                {
-                  [v109 setObject:v108 forKey:@"Result"];
-                  v41 = [v21 rangeAtIndex:4];
-                  v43 = [v106 substringWithRange:{v41, v42}];
-                  [v109 setObject:v43 forKey:@"Year"];
-                  v44 = [v21 rangeAtIndex:1];
-                  v46 = [v106 substringWithRange:{v44, v45}];
-                  v47 = v109;
-                  v48 = v46;
+                  while (v45 != -8);
                   goto LABEL_47;
                 }
 
-LABEL_49:
-                v91 = [v28 objectForKey:@"Result"];
-
-                if (v91)
+                v24 = v71;
+                if (v15 == 4)
                 {
-                  [v101 addObject:v28];
+                  [v71 setObject:? forKey:?];
+                  [v21 rangeAtIndex:?];
+                  v37 = [v68 substringWithRange:?];
+                  [v71 setObject:? forKey:?];
+                  [v21 rangeAtIndex:?];
+                  v38 = [v68 substringWithRange:?];
+                  [v71 setObject:? forKey:?];
+                  v19 = v62;
+                  goto LABEL_47;
                 }
 
-LABEL_51:
+                v19 = v62;
+                if (v15 == 5)
+                {
+                  [v71 setObject:? forKey:?];
+                  [v21 rangeAtIndex:?];
+                  v37 = [v68 substringWithRange:?];
+                  [v71 setObject:? forKey:?];
+                  [v21 rangeAtIndex:?];
+                  v38 = [v68 substringWithRange:?];
+                  v39 = v71;
+                  goto LABEL_46;
+                }
 
-                v20 = v107;
+LABEL_48:
+                v53 = [v24 objectForKey:?];
+
+                if (v53)
+                {
+                  [v63 addObject:?];
+                }
+
+LABEL_50:
+
+                v20 = v69;
               }
 
-              ++v20;
+              v20 = (v20 + 1);
             }
 
             while (v20 != v18);
-            v18 = [v104 countByEnumeratingWithState:&v114 objects:v130 count:16];
+            v18 = [v66 countByEnumeratingWithState:? objects:? count:?];
           }
 
           while (v18);
@@ -3155,51 +3061,46 @@ LABEL_51:
 
         ++v15;
 
-        v14 = v99 + 1;
+        v14 = v61 + 1;
       }
 
-      while (v99 + 1 != v98);
-      v92 = [obj countByEnumeratingWithState:&v118 objects:v131 count:16];
-      v13 = v95 + v98;
-      v98 = v92;
+      while ((v61 + 1) != v60);
+      v54 = [obj countByEnumeratingWithState:? objects:? count:?];
+      v13 = v57 + v60;
+      v60 = v54;
     }
 
-    while (v92);
+    while (v54);
   }
 
-  return v101;
+  return v63;
 }
 
 id computeReferenceDateFromString(void *a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = v1;
   if (v1 && [v1 length])
   {
-    v3 = [v2 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
+    v3 = [v2 stringByReplacingOccurrencesOfString:? withString:?];
 
     v4 = objc_alloc_init(MEMORY[0x277CCA968]);
-    v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v5 = [&unk_285976788 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v5 = [&unk_285976788 countByEnumeratingWithState:0 objects:? count:?];
     if (v5)
     {
       v6 = v5;
-      v7 = *v20;
+      v7 = MEMORY[0];
 LABEL_5:
       v8 = 0;
       while (1)
       {
-        if (*v20 != v7)
+        if (MEMORY[0] != v7)
         {
           objc_enumerationMutation(&unk_285976788);
         }
 
-        [v4 setDateFormat:*(*(&v19 + 1) + 8 * v8)];
-        v9 = [v4 dateFromString:v3];
+        [v4 setDateFormat:?];
+        v9 = [v4 dateFromString:?];
         if (v9)
         {
           break;
@@ -3207,7 +3108,7 @@ LABEL_5:
 
         if (v6 == ++v8)
         {
-          v6 = [&unk_285976788 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v6 = [&unk_285976788 countByEnumeratingWithState:? objects:? count:?];
           if (v6)
           {
             goto LABEL_5;
@@ -3219,15 +3120,16 @@ LABEL_5:
 
       v11 = v9;
       v12 = [MEMORY[0x277CBEA80] currentCalendar];
-      v13 = [v12 components:28 fromDate:v11];
+      v13 = [v12 components:? fromDate:?];
       if ([v13 year] >= 1981)
       {
       }
 
       else
       {
-        [v13 setYear:{objc_msgSend(v13, "year") + 100}];
-        v14 = [v12 dateFromComponents:v13];
+        [v13 year];
+        [v13 setYear:?];
+        v14 = [v12 dateFromComponents:?];
 
         v11 = v14;
         if (!v14)
@@ -3237,9 +3139,10 @@ LABEL_5:
       }
 
       v15 = [MEMORY[0x277CBEA80] currentCalendar];
-      v16 = [v15 components:12 fromDate:v11];
-      [v16 setYear:{objc_msgSend(v16, "year") - 7}];
-      v17 = [v15 dateFromComponents:v16];
+      v16 = [v15 components:? fromDate:?];
+      [v16 year];
+      [v16 setYear:?];
+      v17 = [v15 dateFromComponents:?];
 
       v10 = v17;
     }
@@ -3264,51 +3167,51 @@ LABEL_15:
 
 uint64_t checkPartialCodePrefix(void *a1, uint64_t a2)
 {
-  v18[6] = *MEMORY[0x277D85DE8];
-  v3 = a1;
-  v17[0] = &unk_2859768C0;
-  v17[1] = &unk_2859768D8;
-  v18[0] = &unk_2859767A0;
-  v18[1] = &unk_2859767B8;
-  v17[2] = &unk_2859768F0;
-  v17[3] = &unk_285976908;
-  v18[2] = &unk_2859767D0;
-  v18[3] = &unk_2859767E8;
-  v17[4] = &unk_285976920;
-  v17[5] = &unk_285976938;
-  v18[4] = &unk_285976800;
-  v18[5] = &unk_285976818;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:6];
-  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
-  v6 = [v4 objectForKey:v5];
+  v27 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v15 = &unk_2859768C0;
+  v16 = &unk_2859768D8;
+  v21 = &unk_2859767A0;
+  v22 = &unk_2859767B8;
+  v17 = &unk_2859768F0;
+  v18 = &unk_285976908;
+  v23 = &unk_2859767D0;
+  v24 = &unk_2859767E8;
+  v19 = &unk_285976920;
+  v20 = &unk_285976938;
+  v25 = &unk_285976800;
+  v26 = &unk_285976818;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+  v5 = [v3 objectForKey:?];
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
-  v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v8)
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
+  v6 = v5;
+  v7 = [v6 countByEnumeratingWithState:0 objects:? count:?];
+  if (v7)
   {
-    v9 = *v13;
+    v8 = *v12;
     while (2)
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v9)
+        if (*v12 != v8)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        if ([v3 hasPrefix:{*(*(&v12 + 1) + 8 * i), v12}])
+        if ([v2 hasPrefix:?])
         {
-          v8 = 1;
+          v7 = 1;
           goto LABEL_11;
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
-      if (v8)
+      v7 = [v6 countByEnumeratingWithState:? objects:? count:?];
+      if (v7)
       {
         continue;
       }
@@ -3319,7 +3222,7 @@ uint64_t checkPartialCodePrefix(void *a1, uint64_t a2)
 
 LABEL_11:
 
-  return v8;
+  return v7;
 }
 
 uint64_t checkCodePrefix(void *a1)
@@ -3335,89 +3238,83 @@ id extractExpirationDateResults(void *a1, void *a2)
   v3 = a1;
   v4 = a2;
   v5 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  v6 = [v5 objectForKey:@"com.apple.CoreRecognition.disable_year_check"];
+  v6 = [v5 objectForKey:?];
   v7 = [v6 BOOLValue];
 
   v8 = [MEMORY[0x277CBEB38] dictionary];
   if (v3 && [v3 count])
   {
-    v9 = [v3 objectAtIndex:0];
+    v9 = [v3 objectAtIndex:?];
     v10 = extractValidDateStrings(v9);
 
     if (!v10 || ![v10 count])
     {
-      v11 = [v3 objectAtIndex:0];
-      v12 = [v11 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
+      v11 = [v3 objectAtIndex:?];
+      v12 = [v11 stringByReplacingOccurrencesOfString:? withString:?];
       v13 = extractValidDateStrings(v12);
 
       v10 = v13;
     }
 
-    v14 = [v3 objectAtIndex:0];
-    [v8 setObject:v14 forKey:@"expfull"];
+    v14 = [v3 objectAtIndex:?];
+    [v8 setObject:? forKey:?];
 
     v15 = extractBestDateString(v10, v7, v4);
     v16 = v15;
     if (v15)
     {
-      v17 = [v15 objectForKey:@"Result"];
+      v17 = [v15 objectForKey:?];
       if ([v17 length] == 6)
       {
-        v18 = [v17 stringByReplacingCharactersInRange:3 withString:{1, &stru_2859636D0}];
+        v18 = [v17 stringByReplacingCharactersInRange:? withString:?];
 
         v17 = v18;
       }
 
-      [v8 setObject:v17 forKey:@"expirationDate"];
-      v19 = [v16 objectForKey:@"Year"];
-      [v8 setObject:v19 forKey:@"expirationYear"];
+      [v8 setObject:? forKey:?];
+      v19 = [v16 objectForKey:?];
+      [v8 setObject:? forKey:?];
 
-      v20 = [v16 objectForKey:@"Month"];
+      v20 = [v16 objectForKey:?];
 
       if (v20)
       {
-        v21 = [v16 objectForKey:@"Month"];
-        [v8 setObject:v21 forKey:@"expirationMonth"];
+        v21 = [v16 objectForKey:?];
+        [v8 setObject:? forKey:?];
       }
 
-      v22 = [v16 objectForKey:@"Day"];
+      v22 = [v16 objectForKey:?];
 
       if (v22)
       {
-        v23 = [v16 objectForKey:@"Day"];
-        [v8 setObject:v23 forKey:@"expirationDay"];
+        v23 = [v16 objectForKey:?];
+        [v8 setObject:? forKey:?];
       }
 
-      [v8 setObject:MEMORY[0x277CBEC38] forKey:@"expDateAccepted"];
-      v24 = [v3 objectAtIndex:0];
-      v25 = [v24 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
-      v26 = [v16 objectForKey:@"Result"];
-      v27 = [v25 rangeOfString:v26];
+      [v8 setObject:? forKey:?];
+      v24 = [v3 objectAtIndex:?];
+      v25 = [v24 stringByReplacingOccurrencesOfString:? withString:?];
+      v26 = [v16 objectForKey:?];
+      [v25 rangeOfString:?];
 
       if ([v3 count] >= 2)
       {
-        v28 = [v3 objectAtIndex:1];
-        v29 = [v28 objectAtIndex:v27];
-        [v8 setObject:v29 forKey:@"dateOffset"];
+        v27 = [v3 objectAtIndex:?];
+        v28 = [v27 objectAtIndex:?];
+        [v8 setObject:? forKey:?];
 
-        if ([v3 count] < 3)
+        if ([v3 count] >= 3)
         {
-          v31 = 300.0;
+          v29 = [v3 objectAtIndex:?];
+          [v29 integerValue];
         }
 
-        else
-        {
-          v30 = [v3 objectAtIndex:2];
-          v31 = [v30 integerValue];
-        }
+        v30 = [v3 objectAtIndex:?];
+        v31 = [v30 objectAtIndex:?];
+        [v31 integerValue];
 
-        v32 = [v3 objectAtIndex:1];
-        v33 = [v32 objectAtIndex:v27];
-        v34 = [v33 integerValue] / v31;
-
-        *&v35 = v34;
-        v36 = [MEMORY[0x277CCABB0] numberWithFloat:v35];
-        [v8 setObject:v36 forKey:@"normalizedDateOffset"];
+        v32 = [MEMORY[0x277CCABB0] numberWithFloat:?];
+        [v8 setObject:? forKey:?];
       }
     }
   }
@@ -3433,90 +3330,78 @@ id extractCardholderNameResults(void *a1, void *a2, void *a3)
   v8 = [MEMORY[0x277CBEB38] dictionary];
   if ([v5 count])
   {
-    v9 = [v5 objectAtIndex:0];
+    v9 = [v5 objectAtIndex:?];
     v10 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
-    v11 = [v9 stringByTrimmingCharactersInSet:v10];
+    v11 = [v9 stringByTrimmingCharactersInSet:?];
 
     if ([v11 length])
     {
-      v39 = 0;
-      v12 = closestNameInContacts(v11, &v39, v6, v7);
-      v13 = v39;
-      v14 = [MEMORY[0x277CCACA8] _newZStringWithString:v11];
-      [v8 setObject:v14 forKey:@"nameResult"];
+      v33 = 0;
+      v12 = closestNameInContacts(v11, &v33, v6, v7);
+      v13 = v33;
+      v14 = [MEMORY[0x277CCACA8] _newZStringWithString:?];
+      [v8 setObject:? forKey:?];
 
       if ([v5 count] >= 2)
       {
-        v15 = [v5 objectAtIndex:1];
-        v16 = [v15 objectAtIndex:0];
-        [v8 setObject:v16 forKey:@"nameOffset"];
+        v15 = [v5 objectAtIndex:?];
+        v16 = [v15 objectAtIndex:?];
+        [v8 setObject:? forKey:?];
 
-        if ([v5 count] < 3)
+        if ([v5 count] >= 3)
         {
-          v18 = 300.0;
+          v17 = [v5 objectAtIndex:?];
+          [v17 integerValue];
         }
 
-        else
-        {
-          v17 = [v5 objectAtIndex:2];
-          v18 = [v17 integerValue];
-        }
+        v18 = [v5 objectAtIndex:?];
+        v19 = [v18 objectAtIndex:?];
+        [v19 integerValue];
 
-        v19 = [v5 objectAtIndex:1];
-        v20 = [v19 objectAtIndex:0];
-        v21 = [v20 integerValue] / v18;
-
-        *&v22 = v21;
-        v23 = [MEMORY[0x277CCABB0] numberWithFloat:v22];
-        [v8 setObject:v23 forKey:@"normalizedNameOffset"];
+        v20 = [MEMORY[0x277CCABB0] numberWithFloat:?];
+        [v8 setObject:? forKey:?];
       }
 
       if (v13)
       {
-        v24 = [v13 length] / 3;
-        v25 = [MEMORY[0x277CCACA8] _newZStringWithString:v13];
-        [v8 setObject:v25 forKey:@"closestNameMatch"];
+        v21 = [v13 length] / 3;
+        v22 = [MEMORY[0x277CCACA8] _newZStringWithString:?];
+        [v8 setObject:? forKey:?];
 
-        v26 = [MEMORY[0x277CCABB0] numberWithInteger:v12];
-        [v8 setObject:v26 forKey:@"closestNameDistance"];
+        v23 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+        [v8 setObject:? forKey:?];
 
-        v27 = [MEMORY[0x277CCABB0] numberWithInteger:v24];
-        [v8 setObject:v27 forKey:@"minMatchDistance"];
+        v24 = [MEMORY[0x277CCABB0] numberWithInteger:?];
+        [v8 setObject:? forKey:?];
 
-        if (v12 <= v24)
+        if (v12 <= v21)
         {
           if (v12 < 0)
           {
-            [v8 setObject:MEMORY[0x277CBEC38] forKey:@"nameAccepted"];
+            [v8 setObject:? forKey:?];
           }
 
-          v28 = [MEMORY[0x277CCACA8] _newZStringWithString:v13];
-          [v8 setObject:v28 forKey:@"cardholderName"];
+          v25 = [MEMORY[0x277CCACA8] _newZStringWithString:?];
+          [v8 setObject:? forKey:?];
 
           if ([v5 count] >= 2)
           {
-            v29 = [v5 objectAtIndex:1];
-            v30 = [v29 objectAtIndex:0];
-            [v8 setObject:v30 forKey:@"nameOffset"];
+            v26 = [v5 objectAtIndex:?];
+            v27 = [v26 objectAtIndex:?];
+            [v8 setObject:? forKey:?];
 
-            if ([v5 count] < 3)
+            if ([v5 count] >= 3)
             {
-              v32 = 300.0;
+              v28 = [v5 objectAtIndex:?];
+              [v28 integerValue];
             }
 
-            else
-            {
-              v31 = [v5 objectAtIndex:2];
-              v32 = [v31 integerValue];
-            }
+            v29 = [v5 objectAtIndex:?];
+            v30 = [v29 objectAtIndex:?];
+            [v30 integerValue];
 
-            v33 = [v5 objectAtIndex:1];
-            v34 = [v33 objectAtIndex:0];
-            v35 = [v34 integerValue] / v32;
-
-            *&v36 = v35;
-            v37 = [MEMORY[0x277CCABB0] numberWithFloat:v36];
-            [v8 setObject:v37 forKey:@"normalizedNameOffset"];
+            v31 = [MEMORY[0x277CCABB0] numberWithFloat:?];
+            [v8 setObject:? forKey:?];
           }
         }
       }
@@ -3532,149 +3417,118 @@ id extractCardNumberResults(void *a1)
   v2 = [MEMORY[0x277CBEB38] dictionary];
   if (v1 && [v1 count])
   {
-    v3 = [v1 objectAtIndex:0];
+    v3 = [v1 objectAtIndex:?];
     v4 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
-    v5 = [v3 stringByTrimmingCharactersInSet:v4];
+    v5 = [v3 stringByTrimmingCharactersInSet:?];
 
     v6 = extractCardCode(v5);
-    v7 = @"code";
     if (v6)
     {
-      [v2 setObject:v6 forKey:@"code"];
-      v8 = MEMORY[0x277CBEC38];
-      v7 = @"accepted";
-      v9 = v2;
+      [v2 setObject:? forKey:?];
     }
 
-    else
-    {
-      v9 = v2;
-      v8 = v5;
-    }
-
-    [v9 setObject:v8 forKey:v7];
+    [v2 setObject:? forKey:?];
   }
 
   return v2;
 }
 
-id extractCardCode(void *a1)
+void *extractCardCode(void *a1)
 {
   v1 = a1;
   v2 = [MEMORY[0x277CBEBD0] standardUserDefaults];
-  v3 = [v2 objectForKey:@"com.apple.CoreRecognition.disable_prefix_check"];
+  v3 = [v2 objectForKey:?];
   v4 = [v3 BOOLValue];
 
-  v5 = [v1 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
+  v5 = [v1 stringByReplacingOccurrencesOfString:? withString:?];
   if ([v5 length] && objc_msgSend(v5, "length") == 16 && checkCardCode(v5) && ((v4 & 1) != 0 || checkCodePrefix(v5)))
   {
     v6 = [v5 mutableCopy];
-    [v6 insertString:@" " atIndex:12];
-    [v6 insertString:@" " atIndex:8];
-    [v6 insertString:@" " atIndex:4];
-    v7 = [MEMORY[0x277CCACA8] _newZStringWithString:v6];
-    goto LABEL_56;
+    [v6 insertString:? atIndex:?];
+    [v6 insertString:? atIndex:?];
+    [v6 insertString:? atIndex:?];
+    v7 = [MEMORY[0x277CCACA8] _newZStringWithString:?];
+    goto LABEL_50;
   }
 
-  v6 = [v1 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
+  v6 = [v1 stringByReplacingOccurrencesOfString:? withString:?];
   if ([v6 length] && objc_msgSend(v6, "length") == 15 && checkCardCode(v6) && ((v4 & 1) != 0 || checkCodePrefix(v6)))
   {
     v8 = [v6 mutableCopy];
-    v9 = [MEMORY[0x277CBEB98] setWithArray:&unk_285976860];
-    v10 = [v8 substringToIndex:2];
-    v11 = [v9 containsObject:v10];
+    v9 = [MEMORY[0x277CBEB98] setWithArray:?];
+    v10 = [v8 substringToIndex:?];
+    [v9 containsObject:?];
 
-    if (v11)
-    {
-      v12 = 6;
-    }
-
-    else
-    {
-      v12 = 10;
-    }
-
-    if (v11)
-    {
-      v13 = 11;
-    }
-
-    else
-    {
-      v13 = 4;
-    }
-
-    [v8 insertString:@" " atIndex:v12];
-    [v8 insertString:@" " atIndex:v13];
-    v14 = MEMORY[0x277CCACA8];
-    v15 = v8;
+    [v8 insertString:? atIndex:?];
+    [v8 insertString:? atIndex:?];
+    v11 = MEMORY[0x277CCACA8];
   }
 
   else
   {
-    v8 = [v1 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
+    v8 = [v1 stringByReplacingOccurrencesOfString:? withString:?];
     if ([v8 length] < 0x11 || objc_msgSend(v8, "length") > 0x13 || !checkCardCode(v8) || (v4 & 1) == 0 && !checkCodePrefix(v8))
     {
-      v9 = [v1 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
+      v9 = [v1 stringByReplacingOccurrencesOfString:? withString:?];
       if ([v9 length] != 12 && objc_msgSend(v9, "length") != 11)
       {
-        goto LABEL_40;
+        goto LABEL_34;
       }
 
-      if ([v9 length] == 12 && objc_msgSend(v1, "characterAtIndex:", objc_msgSend(v1, "length") - 3) != 32 || objc_msgSend(v9, "length") == 11 && objc_msgSend(v1, "characterAtIndex:", objc_msgSend(v1, "length") - 2) != 32)
+      if ([v9 length] == 12 && (objc_msgSend(v1, "length"), objc_msgSend(v1, "characterAtIndex:") != 32) || objc_msgSend(v9, "length") == 11 && (objc_msgSend(v1, "length"), objc_msgSend(v1, "characterAtIndex:") != 32))
       {
         v7 = 0;
-        goto LABEL_55;
+        goto LABEL_49;
       }
 
-      if (([v9 length] != 11 || objc_msgSend(v9, "characterAtIndex:", 10) == 49) && (objc_msgSend(v9, "substringWithRange:", 0, 10), v16 = objc_claimAutoreleasedReturnValue(), v17 = checkCardCode(v16), v16, v17))
+      if (([v9 length] != 11 || objc_msgSend(v9, "characterAtIndex:") == 49) && (objc_msgSend(v9, "substringWithRange:"), v12 = objc_claimAutoreleasedReturnValue(), v13 = checkCardCode(v12), v12, v13))
       {
-        v18 = [v9 mutableCopy];
+        v14 = [v9 mutableCopy];
         if ([v9 length] == 12)
         {
-          [v18 insertString:@" " atIndex:10];
-          [v18 insertString:@" " atIndex:7];
-          [v18 insertString:@" " atIndex:3];
+          [v14 insertString:? atIndex:?];
+          [v14 insertString:? atIndex:?];
+          [v14 insertString:? atIndex:?];
         }
 
         if ([v9 length] == 11)
         {
-          [v18 insertString:@" " atIndex:10];
-          [v18 insertString:@" " atIndex:9];
-          [v18 insertString:@" " atIndex:6];
-          [v18 insertString:@" " atIndex:3];
+          [v14 insertString:? atIndex:?];
+          [v14 insertString:? atIndex:?];
+          [v14 insertString:? atIndex:?];
+          [v14 insertString:? atIndex:?];
         }
 
-        v7 = [MEMORY[0x277CCACA8] _newZStringWithString:v18];
+        v7 = [MEMORY[0x277CCACA8] _newZStringWithString:?];
       }
 
       else
       {
-LABEL_40:
-        v18 = [v1 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
-        if ([v18 length] == 14 && checkCardCode(v18) && ((v4 & 1) != 0 || checkCodePrefix(v18)))
+LABEL_34:
+        v14 = [v1 stringByReplacingOccurrencesOfString:? withString:?];
+        if ([v14 length] == 14 && checkCardCode(v14) && ((v4 & 1) != 0 || checkCodePrefix(v14)))
         {
-          v19 = [v18 mutableCopy];
-          [v19 insertString:@" " atIndex:10];
-          [v19 insertString:@" " atIndex:4];
-          v7 = [MEMORY[0x277CCACA8] _newZStringWithString:v19];
+          v15 = [v14 mutableCopy];
+          [v15 insertString:? atIndex:?];
+          [v15 insertString:? atIndex:?];
+          v7 = [MEMORY[0x277CCACA8] _newZStringWithString:?];
         }
 
         else
         {
-          v19 = [v1 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
-          if ([v19 length] == 13 && objc_msgSend(v1, "rangeOfString:", @" ") == 4)
+          v15 = [v1 stringByReplacingOccurrencesOfString:? withString:?];
+          if ([v15 length] == 13 && objc_msgSend(v1, "rangeOfString:") == 4)
           {
-            v20 = [@"589297" stringByAppendingString:v19];
+            v16 = [@"589297" stringByAppendingString:?];
 
-            if (checkCardCode(v20))
+            if (checkCardCode(v16))
             {
-              v21 = [v20 mutableCopy];
-              [v21 insertString:@" " atIndex:16];
-              [v21 insertString:@" " atIndex:13];
-              [v21 insertString:@" " atIndex:10];
-              [v21 insertString:@" " atIndex:6];
-              v7 = [MEMORY[0x277CCACA8] _newZStringWithString:v21];
+              v17 = [v16 mutableCopy];
+              [v17 insertString:? atIndex:?];
+              [v17 insertString:? atIndex:?];
+              [v17 insertString:? atIndex:?];
+              [v17 insertString:? atIndex:?];
+              v7 = [MEMORY[0x277CCACA8] _newZStringWithString:?];
             }
 
             else
@@ -3682,7 +3536,7 @@ LABEL_40:
               v7 = 0;
             }
 
-            v19 = v20;
+            v15 = v16;
           }
 
           else
@@ -3692,25 +3546,24 @@ LABEL_40:
         }
       }
 
-      goto LABEL_55;
+      goto LABEL_49;
     }
 
     v9 = [v8 mutableCopy];
-    v14 = MEMORY[0x277CCACA8];
-    v15 = v9;
+    v11 = MEMORY[0x277CCACA8];
   }
 
-  v7 = [v14 _newZStringWithString:v15];
-LABEL_55:
+  v7 = [v11 _newZStringWithString:?];
+LABEL_49:
 
-LABEL_56:
+LABEL_50:
 
   return v7;
 }
 
 BOOL isValidCodeLocation(void *a1, char a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
 {
-  v11 = [a1 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
+  v11 = [a1 stringByReplacingOccurrencesOfString:? withString:?];
   v12 = [v11 length];
 
   result = 1;
@@ -3740,32 +3593,27 @@ BOOL isValidCodeLocation(void *a1, char a2, CGFloat a3, CGFloat a4, CGFloat a5, 
 
 uint64_t isValidNameLocationForCode(void *a1, double a2, double a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
   v4 = a1;
-  v13 = 0u;
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v5 = [&unk_285976830 arrayByAddingObjectsFromArray:{&unk_285976848, 0}];
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [&unk_285976830 arrayByAddingObjectsFromArray:0];
+  v6 = [v5 countByEnumeratingWithState:? objects:? count:?];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v14;
+    v9 = MEMORY[0];
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v7; i = (i + 1))
       {
-        if (*v14 != v9)
+        if (MEMORY[0] != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v8 |= [v4 hasPrefix:*(*(&v13 + 1) + 8 * i)];
+        v8 |= [v4 hasPrefix:?];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v7);
@@ -3787,8 +3635,8 @@ BOOL checkCardCode(void *a1)
   v1 = a1;
   if ([v1 length] >= 0xA && objc_msgSend(v1, "length") <= 0x13)
   {
-    v3 = [MEMORY[0x277CBEB98] setWithArray:&unk_2859768A8];
-    if (([v3 containsObject:v1] & 1) != 0 || (v4 = objc_msgSend(v1, "UTF8String"), !objc_msgSend(v1, "length")))
+    v3 = [MEMORY[0x277CBEB98] setWithArray:?];
+    if (([v3 containsObject:?] & 1) != 0 || (v4 = objc_msgSend(v1, "UTF8String"), !objc_msgSend(v1, "length")))
     {
 LABEL_9:
       v2 = 0;
@@ -3848,46 +3696,39 @@ LABEL_9:
   return v2;
 }
 
-id extractCardCodeHK(void *a1)
+void *extractCardCodeHK(void *a1)
 {
-  v27 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v2 = [v1 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
-  if ([v2 length] != 13 || objc_msgSend(v1, "characterAtIndex:", 3) != 32)
+  v2 = [v1 stringByReplacingOccurrencesOfString:? withString:?];
+  if ([v2 length] != 13 || objc_msgSend(v1, "characterAtIndex:") != 32)
   {
-    if ([v2 length] == 11 && objc_msgSend(v1, "characterAtIndex:", 3) == 32)
+    if ([v2 length] == 11 && objc_msgSend(v1, "characterAtIndex:") == 32)
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
-      v18 = 0u;
-      v11 = [&unk_285976890 countByEnumeratingWithState:&v17 objects:v25 count:16];
-      if (v11)
+      v9 = [&unk_285976890 countByEnumeratingWithState:0 objects:? count:?];
+      if (v9)
       {
-        v12 = v11;
-        v13 = *v18;
-        v6 = 10;
-        v7 = 16;
+        v10 = v9;
+        v11 = MEMORY[0];
 LABEL_16:
-        v14 = 0;
+        v12 = 0;
         while (1)
         {
-          if (*v18 != v13)
+          if (MEMORY[0] != v11)
           {
             objc_enumerationMutation(&unk_285976890);
           }
 
-          v9 = [*(*(&v17 + 1) + 8 * v14) stringByAppendingString:v2];
-          if (checkCardCode(v9))
+          v7 = [*(8 * v12) stringByAppendingString:?];
+          if (checkCardCode(v7))
           {
             goto LABEL_24;
           }
 
-          if (v12 == ++v14)
+          if (v10 == ++v12)
           {
-            v12 = [&unk_285976890 countByEnumeratingWithState:&v17 objects:v25 count:16];
-            v10 = 0;
-            if (v12)
+            v10 = [&unk_285976890 countByEnumeratingWithState:? objects:? count:?];
+            v8 = 0;
+            if (v10)
             {
               goto LABEL_16;
             }
@@ -3899,43 +3740,37 @@ LABEL_16:
     }
 
 LABEL_23:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_25;
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v3 = [&unk_285976878 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v3 = [&unk_285976878 countByEnumeratingWithState:? objects:? count:?];
   if (!v3)
   {
     goto LABEL_23;
   }
 
   v4 = v3;
-  v5 = *v22;
-  v6 = 15;
-  v7 = 18;
+  v5 = MEMORY[0];
 LABEL_5:
-  v8 = 0;
+  v6 = 0;
   while (1)
   {
-    if (*v22 != v5)
+    if (MEMORY[0] != v5)
     {
       objc_enumerationMutation(&unk_285976878);
     }
 
-    v9 = [*(*(&v21 + 1) + 8 * v8) stringByAppendingString:v2];
-    if (checkCardCode(v9))
+    v7 = [*(8 * v6) stringByAppendingString:?];
+    if (checkCardCode(v7))
     {
       break;
     }
 
-    if (v4 == ++v8)
+    if (v4 == ++v6)
     {
-      v4 = [&unk_285976878 countByEnumeratingWithState:&v21 objects:v26 count:16];
-      v10 = 0;
+      v4 = [&unk_285976878 countByEnumeratingWithState:? objects:? count:?];
+      v8 = 0;
       if (v4)
       {
         goto LABEL_5;
@@ -3946,46 +3781,41 @@ LABEL_5:
   }
 
 LABEL_24:
-  v15 = [v9 mutableCopy];
-  [v15 insertString:@" " atIndex:v7];
-  [v15 insertString:@" " atIndex:v6];
-  [v15 insertString:@" " atIndex:9];
-  [v15 insertString:@" " atIndex:6];
-  v10 = [MEMORY[0x277CCACA8] _newZStringWithString:v15];
+  v13 = [v7 mutableCopy];
+  [v13 insertString:? atIndex:?];
+  [v13 insertString:? atIndex:?];
+  [v13 insertString:? atIndex:?];
+  [v13 insertString:? atIndex:?];
+  v8 = [MEMORY[0x277CCACA8] _newZStringWithString:?];
 
 LABEL_25:
 
-  return v10;
+  return v8;
 }
 
-id enrichedNumbersListHK(void *a1)
+void *enrichedNumbersListHK(void *a1)
 {
-  v45 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v37 = [v1 mutableCopy];
-  v40 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
+  v38 = [v1 mutableCopy];
   v2 = v1;
-  v3 = [v2 countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v3 = [v2 countByEnumeratingWithState:? objects:? count:?];
   if (v3)
   {
     v4 = v3;
-    v5 = *v41;
-    v38 = v2;
-    v39 = *v41;
+    v5 = MEMORY[0];
+    v39 = v2;
+    v40 = MEMORY[0];
     do
     {
-      for (i = 0; i != v4; ++i)
+      for (i = 0; i != v4; i = (i + 1))
       {
-        if (*v41 != v5)
+        if (MEMORY[0] != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v40 + 1) + 8 * i);
-        v8 = [v7 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
+        v7 = *(8 * i);
+        v8 = [v7 stringByReplacingOccurrencesOfString:? withString:?];
         if ([v7 length] >= 0xC && objc_msgSend(v8, "length") >= 0xA)
         {
           v9 = [v7 length];
@@ -4001,281 +3831,275 @@ id enrichedNumbersListHK(void *a1)
 
           if (!v10)
           {
-            v11 = 0;
             while (1)
             {
-              v12 = [v7 rangeOfString:@" " options:0 range:{v11, v9}];
-              if (v12 > 0xA || ((1 << v12) & 0x428) == 0)
+              v11 = [v7 rangeOfString:? options:? range:?];
+              if (v11 > 0xA || ((1 << v11) & 0x428) == 0)
               {
                 break;
               }
 
-              v11 = v12 + 1;
-              v9 = [v7 length] + ~v12;
-              if (v11 >= [v7 length] || v9 == 0)
+              v13 = v11 + 1;
+              v14 = [v7 length] + ~v11;
+              if (v13 >= [v7 length] || v14 == 0)
               {
-                goto LABEL_24;
+                goto LABEL_23;
               }
             }
 
-            if (v12 != 0x7FFFFFFFFFFFFFFFLL)
+            if (v11 != 0x7FFFFFFFFFFFFFFFLL)
             {
-              [v37 removeObject:v7];
-              v5 = v39;
-              goto LABEL_58;
-            }
-          }
-
-LABEL_24:
-          v15 = [v7 copy];
-          v16 = [v7 characterAtIndex:3];
-          if (v16 > 0x37)
-          {
-            goto LABEL_57;
-          }
-
-          v17 = v16;
-          if (((1 << v16) & 0x81000100000000) == 0)
-          {
-            goto LABEL_57;
-          }
-
-          if ([v15 length] >= 0xC && objc_msgSend(v15, "rangeOfString:", @" ") == 5)
-          {
-            if ([v15 length] >= 0xD)
-            {
-              v18 = [v15 substringToIndex:12];
-
-              v15 = v18;
-            }
-
-            v19 = [v15 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
-            v20 = [v19 length];
-
-            v21 = v20 >= 0xA;
-            goto LABEL_49;
-          }
-
-          if ([v15 length] <= 0xD)
-          {
-            v22 = [v15 characterAtIndex:5];
-            if (v22 <= 0x39 && ((1 << v22) & 0x228000000000000) != 0)
-            {
-              v23 = [v15 stringByReplacingCharactersInRange:5 withString:{1, @" "}];
-
-              v15 = v23;
-            }
-
-            v24 = [v15 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
-            v25 = [v24 length];
-
-            v26 = v25 > 9;
-            v2 = v38;
-            if (!v26)
-            {
+              [v38 removeObject:?];
+              v5 = v40;
               goto LABEL_57;
             }
-
-LABEL_51:
-            if (v17 == 55 || v17 == 48)
-            {
-              v32 = [v15 stringByReplacingCharactersInRange:3 withString:{1, @" "}];
-
-              v15 = v32;
-            }
-
-            v33 = [v15 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
-            v34 = [v33 length];
-
-            if (v34 >= 0xA && ([v37 containsObject:v15] & 1) == 0)
-            {
-              v35 = [MEMORY[0x277CCACA8] _newZStringWithString:v15];
-              [v37 addObject:v35];
-            }
-
-LABEL_57:
-
-            v5 = v39;
-            goto LABEL_58;
           }
 
-          if ([v15 length] < 0xE)
+LABEL_23:
+          v16 = [v7 copy];
+          v17 = [v7 characterAtIndex:?];
+          if (v17 > 0x37)
           {
+            goto LABEL_56;
+          }
+
+          v18 = v17;
+          if (((1 << v17) & 0x81000100000000) == 0)
+          {
+            goto LABEL_56;
+          }
+
+          if ([v16 length] >= 0xC && objc_msgSend(v16, "rangeOfString:") == 5)
+          {
+            if ([v16 length] >= 0xD)
+            {
+              v19 = [v16 substringToIndex:?];
+
+              v16 = v19;
+            }
+
+            v20 = [v16 stringByReplacingOccurrencesOfString:? withString:?];
+            v21 = [v20 length];
+
+            v22 = v21 >= 0xA;
+            goto LABEL_48;
+          }
+
+          if ([v16 length] <= 0xD)
+          {
+            v23 = [v16 characterAtIndex:?];
+            if (v23 <= 0x39 && ((1 << v23) & 0x228000000000000) != 0)
+            {
+              v24 = [v16 stringByReplacingCharactersInRange:? withString:?];
+
+              v16 = v24;
+            }
+
+            v25 = [v16 stringByReplacingOccurrencesOfString:? withString:?];
+            v26 = [v25 length];
+
+            v27 = v26 > 9;
+            v2 = v39;
+            if (!v27)
+            {
+              goto LABEL_56;
+            }
+
+LABEL_50:
+            if (v18 == 55 || v18 == 48)
+            {
+              v33 = [v16 stringByReplacingCharactersInRange:? withString:?];
+
+              v16 = v33;
+            }
+
+            v34 = [v16 stringByReplacingOccurrencesOfString:? withString:?];
+            v35 = [v34 length];
+
+            if (v35 >= 0xA && ([v38 containsObject:?] & 1) == 0)
+            {
+              v36 = [MEMORY[0x277CCACA8] _newZStringWithString:?];
+              [v38 addObject:?];
+            }
+
+LABEL_56:
+
+            v5 = v40;
             goto LABEL_57;
           }
 
-          v27 = [v15 characterAtIndex:10];
-          if (v27 <= 50)
+          if ([v16 length] < 0xE)
           {
-            if (v27 != 32)
+            goto LABEL_56;
+          }
+
+          v28 = [v16 characterAtIndex:?];
+          if (v28 <= 50)
+          {
+            if (v28 != 32)
             {
-              if (v27 != 48)
+              if (v28 != 48)
               {
-                goto LABEL_57;
+                goto LABEL_56;
               }
 
-LABEL_45:
-              v28 = [v15 stringByReplacingCharactersInRange:10 withString:{1, @" "}];
+LABEL_44:
+              v29 = [v16 stringByReplacingCharactersInRange:? withString:?];
 
-              v15 = v28;
+              v16 = v29;
             }
 
-            if ([v15 length] >= 0xF)
+            if ([v16 length] >= 0xF)
             {
-              v29 = [v15 substringToIndex:14];
+              v30 = [v16 substringToIndex:?];
 
-              v15 = v29;
+              v16 = v30;
             }
 
-            v30 = [v15 stringByReplacingOccurrencesOfString:@" " withString:&stru_2859636D0];
-            v31 = [v30 length];
+            v31 = [v16 stringByReplacingOccurrencesOfString:? withString:?];
+            v32 = [v31 length];
 
-            v21 = v31 >= 0xC;
-LABEL_49:
-            v2 = v38;
-            if (v21)
+            v22 = v32 >= 0xC;
+LABEL_48:
+            v2 = v39;
+            if (v22)
             {
-              goto LABEL_51;
+              goto LABEL_50;
             }
 
-            goto LABEL_57;
+            goto LABEL_56;
           }
 
-          if (v27 != 55 && v27 != 51)
+          if (v28 != 55 && v28 != 51)
           {
-            goto LABEL_57;
+            goto LABEL_56;
           }
 
-          goto LABEL_45;
+          goto LABEL_44;
         }
 
-LABEL_58:
+LABEL_57:
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v4 = [v2 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v4);
   }
 
-  return v37;
+  return v38;
 }
 
 void sortOverlappingCALayers(void *a1, void *a2, double a3, double a4, double a5, double a6)
 {
-  v172 = a1;
-  v171 = a2;
+  v142 = a1;
+  v141 = a2;
   v9 = 0;
   v10 = 0;
-  v11 = 2 * [v172 count];
+  v11 = 2 * [v142 count];
   v12 = a4 + a6;
   do
   {
     rect2 = v11;
     v13 = v10;
     v14 = v9;
-    v188 = v9;
-    v189 = v10;
-    sortLayersWithYCoordinate(v172, v171, &v189, &v188);
-    v10 = v189;
+    v158 = v9;
+    v159[0] = v10;
+    sortLayersWithYCoordinate(v142, v141, v159, &v158);
+    v10 = v159[0];
 
-    v9 = v188;
+    v9 = v158;
     v15 = [v10 lastObject];
     [v15 frame];
     v17 = v16;
     [v15 frame];
-    v19 = v12 - (v17 + v18);
-    if (v19 < 0.0)
+    if (v12 - (v17 + v18) < 0.0)
     {
       [v15 position];
-      v21 = v20;
       [v15 position];
-      [v15 setPosition:{v21, v19 + v22}];
+      [v15 setPosition:?];
     }
 
-    v179 = v15;
-    v23 = [v10 count];
-    if (v23 < 2)
+    v149 = v15;
+    v19 = [v10 count];
+    if (v19 < 2)
     {
 LABEL_20:
 
       break;
     }
 
-    v24 = (v23 - 1);
-    v25 = v23 & 0x7FFFFFFF;
+    v20 = (v19 - 1);
+    v21 = v19 & 0x7FFFFFFF;
     while (1)
     {
-      v26 = [v10 objectAtIndex:v25 - 2];
-      v27 = [v10 objectAtIndex:v25 - 1];
-      v28 = [v9 objectAtIndex:v25 - 2];
-      v29 = [v28 unsignedIntegerValue];
+      v22 = [v10 objectAtIndex:?];
+      v23 = [v10 objectAtIndex:?];
+      v24 = [v9 objectAtIndex:?];
+      v25 = [v24 unsignedIntegerValue];
 
-      v30 = [v9 objectAtIndex:v25 - 1];
-      v31 = [v30 unsignedIntegerValue];
+      v26 = [v9 objectAtIndex:?];
+      v27 = [v26 unsignedIntegerValue];
 
-      v183 = v26;
-      [v26 frame];
+      v153 = v22;
+      [v22 frame];
+      v29 = v28;
+      v31 = v30;
       v33 = v32;
       v35 = v34;
-      v37 = v36;
-      v39 = v38;
-      v181 = v27;
-      [v27 frame];
-      v197.origin.x = v40;
-      v197.origin.y = v41;
-      v197.size.width = v42;
-      v197.size.height = v43;
-      v191.origin.x = v33;
-      v191.origin.y = v35;
-      v191.size.width = v37;
-      v191.size.height = v39;
-      v192 = CGRectIntersection(v191, v197);
-      *&v192.origin.x = v192.size.height;
-      v44 = vcvtps_s32_f32(*&v192.origin.x);
-      if (v44 >= 1)
+      v151 = v23;
+      [v23 frame];
+      v167.origin.x = v36;
+      v167.origin.y = v37;
+      v167.size.width = v38;
+      v167.size.height = v39;
+      v161.origin.x = v29;
+      v161.origin.y = v31;
+      v161.size.width = v33;
+      v161.size.height = v35;
+      v162 = CGRectIntersection(v161, v167);
+      *&v162.origin.x = v162.size.height;
+      if (vcvtps_s32_f32(*&v162.origin.x) >= 1)
       {
         break;
       }
 
 LABEL_15:
 
-      --v24;
-      if (v25-- <= 2)
+      --v20;
+      if (v21-- <= 2)
       {
         goto LABEL_20;
       }
     }
 
-    if (v29 < v31)
+    if (v25 < v27)
     {
-      if ([v10 count] > (v25 - 1))
+      if ([v10 count] > v21 - 1)
       {
-        v45 = v44;
-        v46 = v24;
+        v40 = v20;
         while (1)
         {
-          v47 = [v10 objectAtIndex:v46];
-          v48 = [v9 objectAtIndex:v46];
-          v49 = [v48 unsignedIntegerValue];
+          v41 = [v10 objectAtIndex:?];
+          v42 = [v9 objectAtIndex:?];
+          v43 = [v42 unsignedIntegerValue];
 
-          if ([v10 count] > ++v46)
+          if ([v10 count] > ++v40)
           {
-            v50 = [v9 objectAtIndex:v46];
-            v51 = [v50 unsignedIntegerValue];
+            v44 = [v9 objectAtIndex:?];
+            v45 = [v44 unsignedIntegerValue];
 
-            if (v51 < v49)
+            if (v45 < v43)
             {
               break;
             }
           }
 
-          [v47 position];
-          v53 = v52;
-          [v47 position];
-          [v47 setPosition:{v53, v54 + v45}];
+          [v41 position];
+          [v41 position];
+          [v41 setPosition:?];
 
-          if ([v10 count] <= v46)
+          if ([v10 count] <= v40)
           {
             goto LABEL_15;
           }
@@ -4285,116 +4109,111 @@ LABEL_15:
       goto LABEL_15;
     }
 
-    [v183 position];
-    v57 = v56;
-    [v183 position];
-    [v183 setPosition:{v57, v58 - v44}];
+    [v22 position];
+    [v22 position];
+    [v22 setPosition:?];
 
     v11 = rect2 - 1;
   }
 
   while (rect2 != 1);
-  v59 = [v10 firstObject];
-  [v59 frame];
-  v61 = a4 - v60;
-  v62 = vcvtps_s32_f32(v61);
-  if (v62 >= 1)
+  v47 = [v10 firstObject];
+  [v47 frame];
+  v49 = a4 - v48;
+  if (vcvtps_s32_f32(v49) >= 1)
   {
-    [v59 position];
-    v64 = v63;
-    [v59 position];
-    [v59 setPosition:{v64, v65 + v62}];
+    [v47 position];
+    [v47 position];
+    [v47 setPosition:?];
   }
 
   if ([v10 count] >= 2)
   {
     for (i = 1; [v10 count] > i; ++i)
     {
-      v67 = [v10 objectAtIndex:i - 1];
-      v68 = [v10 objectAtIndex:i];
-      v69 = [v9 objectAtIndex:i - 1];
-      v70 = [v69 unsignedIntegerValue];
+      v51 = [v10 objectAtIndex:?];
+      v52 = [v10 objectAtIndex:?];
+      v53 = [v9 objectAtIndex:?];
+      v54 = [v53 unsignedIntegerValue];
 
-      v71 = [v9 objectAtIndex:i];
-      v72 = [v71 unsignedIntegerValue];
+      v55 = [v9 objectAtIndex:?];
+      v56 = [v55 unsignedIntegerValue];
 
-      [v67 frame];
-      v74 = v73;
-      v76 = v75;
-      v78 = v77;
-      v80 = v79;
-      [v68 frame];
-      v198.origin.x = v81;
-      v198.origin.y = v82;
-      v198.size.width = v83;
-      v198.size.height = v84;
-      v193.origin.x = v74;
-      v193.origin.y = v76;
-      v193.size.width = v78;
-      v193.size.height = v80;
-      v194 = CGRectIntersection(v193, v198);
-      *&v194.origin.x = v194.size.height;
-      v85 = vcvtps_s32_f32(*&v194.origin.x);
-      if (v85 >= 1)
+      [v51 frame];
+      v58 = v57;
+      v60 = v59;
+      v62 = v61;
+      v64 = v63;
+      [v52 frame];
+      v168.origin.x = v65;
+      v168.origin.y = v66;
+      v168.size.width = v67;
+      v168.size.height = v68;
+      v163.origin.x = v58;
+      v163.origin.y = v60;
+      v163.size.width = v62;
+      v163.size.height = v64;
+      v164 = CGRectIntersection(v163, v168);
+      *&v164.origin.x = v164.size.height;
+      if (vcvtps_s32_f32(*&v164.origin.x) >= 1)
       {
-        if (v72 < v70)
+        if (v56 < v54)
         {
 
           break;
         }
 
-        [v68 position];
-        v87 = v86;
-        [v68 position];
-        [v68 setPosition:{v87, v88 + v85}];
+        [v52 position];
+        [v52 position];
+        [v52 setPosition:?];
       }
     }
   }
 
-  v186 = v9;
-  v187 = v10;
-  sortLayersWithYCoordinate(v172, v171, &v187, &v186);
-  v89 = v187;
+  v156 = v9;
+  v157 = v10;
+  sortLayersWithYCoordinate(v142, v141, &v157, &v156);
+  v69 = v157;
 
-  v90 = v186;
-  v180 = [MEMORY[0x277CBEB38] dictionary];
-  v182 = [MEMORY[0x277CBEB38] dictionary];
-  if ([v89 count])
+  v70 = v156;
+  v150 = [MEMORY[0x277CBEB38] dictionary];
+  v152 = [MEMORY[0x277CBEB38] dictionary];
+  if ([v69 count])
   {
-    v91 = 0;
-    v174 = a6 + 1.79769313e308 - a4;
+    v71 = 0;
+    v144 = a6 + 1.79769313e308 - a4;
     do
     {
-      if (v91)
+      if (v71)
       {
-        v92 = [v89 objectAtIndex:v91 - 1];
-        [v92 frame];
-        v94 = v93;
-        v96 = v95;
-        v184 = v97;
-        rect2a = v98;
+        v72 = [v69 objectAtIndex:?];
+        [v72 frame];
+        v74 = v73;
+        v76 = v75;
+        v154 = v77;
+        rect2a = v78;
       }
 
       else
       {
-        v96 = -1.79769313e308;
-        v184 = INFINITY;
+        v76 = -1.79769313e308;
+        v154 = INFINITY;
         rect2a = 1.79769313e308 - a4;
-        v94 = -1.79769313e308;
+        v74 = -1.79769313e308;
       }
 
-      v99 = [v89 objectAtIndex:v91];
-      if ([v89 count] - 1 <= v91)
+      v79 = [v69 objectAtIndex:?];
+      if ([v69 count] - 1 <= v71)
       {
-        v102 = -1.79769313e308;
-        v106 = INFINITY;
-        v108 = v174;
-        v104 = v12;
-        if (v91)
+        v82 = -1.79769313e308;
+        v86 = INFINITY;
+        v88 = v144;
+        v84 = v12;
+        if (v71)
         {
 LABEL_38:
-          v109 = [v90 objectAtIndex:v91 - 1];
-          v110 = [v109 unsignedIntegerValue];
+          v89 = [v70 objectAtIndex:?];
+          v90 = [v89 unsignedIntegerValue];
 
           goto LABEL_41;
         }
@@ -4402,218 +4221,212 @@ LABEL_38:
 
       else
       {
-        v100 = [v89 objectAtIndex:v91 + 1];
-        [v100 frame];
-        v102 = v101;
-        v104 = v103;
-        v106 = v105;
-        v108 = v107;
+        v80 = [v69 objectAtIndex:?];
+        [v80 frame];
+        v82 = v81;
+        v84 = v83;
+        v86 = v85;
+        v88 = v87;
 
-        if (v91)
+        if (v71)
         {
           goto LABEL_38;
         }
       }
 
-      v110 = -1;
+      v90 = -1;
 LABEL_41:
-      v111 = [v90 objectAtIndex:v91];
-      v112 = [v111 unsignedIntegerValue];
+      v91 = [v70 objectAtIndex:?];
+      v92 = [v91 unsignedIntegerValue];
 
-      if ([v90 count] - 1 <= v91)
+      if ([v70 count] - 1 <= v71)
       {
-        v114 = -1;
+        v94 = -1;
       }
 
       else
       {
-        v113 = [v90 objectAtIndex:v91 + 1];
-        v114 = [v113 unsignedIntegerValue];
+        v93 = [v70 objectAtIndex:?];
+        v94 = [v93 unsignedIntegerValue];
       }
 
-      if ((v110 == -1 || v112 > v110) && ([v99 frame], v199.origin.x = v94, v199.origin.y = v96, v199.size.width = v184, v199.size.height = rect2a, CGRectIntersectsRect(v195, v199)) || (v114 == -1 || v112 >= v114) && (objc_msgSend(v99, "frame"), v200.origin.x = v102, v200.origin.y = v104, v200.size.width = v106, v200.size.height = v108, CGRectIntersectsRect(v196, v200)))
+      if ((v90 == -1 || v92 > v90) && ([v79 frame], v169.origin.x = v74, v169.origin.y = v76, v169.size.width = v154, v169.size.height = rect2a, CGRectIntersectsRect(v165, v169)) || (v94 == -1 || v92 >= v94) && (objc_msgSend(v79, "frame"), v170.origin.x = v82, v170.origin.y = v84, v170.size.width = v86, v170.size.height = v88, CGRectIntersectsRect(v166, v170)))
       {
-        v115 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v112];
-        v116 = [v180 objectForKey:v115];
+        v95 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+        v96 = [v150 objectForKey:?];
 
-        if (!v116)
+        if (!v96)
         {
-          v116 = [MEMORY[0x277CBEB18] array];
-          v117 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v112];
-          [v180 setObject:v116 forKey:v117];
+          v96 = [MEMORY[0x277CBEB18] array];
+          v97 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+          [v150 setObject:? forKey:?];
         }
 
-        [v116 addObject:v99];
+        [v96 addObject:?];
       }
 
-      v118 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v112];
-      v119 = [v182 objectForKey:v118];
+      v98 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+      v99 = [v152 objectForKey:?];
 
-      if (!v119)
+      if (!v99)
       {
-        v119 = [MEMORY[0x277CBEB18] array];
-        v120 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v112];
-        [v182 setObject:v119 forKey:v120];
+        v99 = [MEMORY[0x277CBEB18] array];
+        v100 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+        [v152 setObject:? forKey:?];
       }
 
-      [v119 addObject:v99];
+      [v99 addObject:?];
 
-      ++v91;
+      ++v71;
     }
 
-    while ([v89 count] > v91);
+    while ([v69 count] > v71);
   }
 
-  v173 = v90;
-  v175 = v89;
-  v121 = [v180 allKeys];
-  v122 = [v121 sortedArrayUsingComparator:&__block_literal_global_1];
+  v143 = v70;
+  v145 = v69;
+  v101 = [v150 allKeys];
+  v102 = [v101 sortedArrayUsingComparator:?];
 
-  v123 = [v182 allKeys];
-  v124 = [v123 sortedArrayUsingComparator:&__block_literal_global_504];
+  v103 = [v152 allKeys];
+  v104 = [v103 sortedArrayUsingComparator:?];
 
-  v125 = [MEMORY[0x277CBEB18] array];
-  if ([v122 count])
+  v105 = [MEMORY[0x277CBEB18] array];
+  if ([v102 count])
   {
-    v126 = 0;
-    LODWORD(v127) = 0;
-    v128 = v182;
-    rect2b = v122;
+    v106 = 0;
+    LODWORD(v107) = 0;
+    v108 = v152;
+    rect2b = v102;
     do
     {
-      v185 = v126;
-      v129 = [v122 objectAtIndex:v126];
-      v130 = [v129 unsignedIntegerValue];
+      v155 = v106;
+      v109 = [v102 objectAtIndex:?];
+      v110 = [v109 unsignedIntegerValue];
 
-      if ([v124 count] > v127)
+      if ([v104 count] > v107)
       {
-        v127 = v127;
+        v107 = v107;
         while (1)
         {
-          v131 = [v124 objectAtIndex:v127];
-          v132 = [v131 unsignedIntegerValue];
+          v111 = [v104 objectAtIndex:?];
+          v112 = [v111 unsignedIntegerValue];
 
-          if (v130 < v132)
+          if (v110 < v112)
           {
             break;
           }
 
-          v133 = [v124 objectAtIndex:v127];
-          v134 = [v128 objectForKey:v133];
-          v135 = [v125 arrayByAddingObjectsFromArray:v134];
+          v113 = [v104 objectAtIndex:?];
+          v114 = [v108 objectForKey:?];
+          v115 = [v105 arrayByAddingObjectsFromArray:?];
 
-          ++v127;
-          v125 = v135;
-          if ([v124 count] <= v127)
+          ++v107;
+          v105 = v115;
+          if ([v104 count] <= v107)
           {
             goto LABEL_64;
           }
         }
 
-        v135 = v125;
+        v115 = v105;
 LABEL_64:
-        v125 = v135;
-        v122 = rect2b;
+        v105 = v115;
+        v102 = rect2b;
       }
 
-      v136 = [v122 objectAtIndex:v185];
-      v137 = [v180 objectForKey:v136];
+      v116 = [v102 objectAtIndex:?];
+      v117 = [v150 objectForKey:?];
 
-      if ([v137 count])
+      if ([v117 count])
       {
-        v138 = 0;
+        v118 = 0;
         do
         {
-          v139 = [v125 sortedArrayUsingComparator:&__block_literal_global_507];
-          v140 = [v137 objectAtIndex:v138];
-          v141 = a4;
-          if ([v139 count])
+          v119 = [v105 sortedArrayUsingComparator:?];
+          v120 = [v117 objectAtIndex:?];
+          v121 = a4;
+          if ([v119 count])
           {
-            v142 = 0;
-            v141 = a4;
+            v122 = 0;
+            v121 = a4;
             while (1)
             {
-              v143 = [v139 objectAtIndex:v142];
-              [v143 frame];
-              v145 = v144;
-              v146 = v144 - v141;
-              [v140 frame];
-              if (v146 >= v147)
+              v123 = [v119 objectAtIndex:?];
+              [v123 frame];
+              v125 = v124;
+              v126 = v124 - v121;
+              [v120 frame];
+              if (v126 >= v127)
               {
                 break;
               }
 
-              [v143 frame];
-              v141 = v141 + v148;
+              [v123 frame];
+              v121 = v121 + v128;
 
-              if ([v139 count] <= ++v142)
+              if ([v119 count] <= ++v122)
               {
                 goto LABEL_71;
               }
             }
 
-            [v140 frame];
-            v162 = vabdd_f64(v161, v141);
-            [v140 frame];
-            v164 = vabdd_f64(v163, v145);
-            [v140 frame];
-            v166 = v165;
-            [v140 frame];
-            if (v162 >= v164)
+            [v120 frame];
+            v137 = vabdd_f64(v136, v121);
+            [v120 frame];
+            v139 = vabdd_f64(v138, v125);
+            [v120 frame];
+            [v120 frame];
+            if (v137 >= v139)
             {
-              v141 = v145 - v168;
-              [v140 frame];
+              [v120 frame];
             }
 
-            v169 = v167;
-            [v140 frame];
-            [v140 setFrame:{v166, v141, v169}];
+            [v120 frame];
+            [v120 setFrame:?];
           }
 
           else
           {
 LABEL_71:
-            [v140 frame];
-            if (v12 - v141 >= v149)
+            [v120 frame];
+            if (v12 - v121 >= v129)
             {
-              [v140 frame];
-              v151 = v150;
-              [v140 frame];
-              v153 = vabdd_f64(v151 + v152, v141);
-              [v140 frame];
-              v155 = vabdd_f64(v154, v12);
-              [v140 frame];
-              v157 = v156;
-              [v140 frame];
-              if (v153 >= v155)
+              [v120 frame];
+              v131 = v130;
+              [v120 frame];
+              v133 = vabdd_f64(v131 + v132, v121);
+              [v120 frame];
+              v135 = vabdd_f64(v134, v12);
+              [v120 frame];
+              [v120 frame];
+              if (v133 >= v135)
               {
-                v141 = v12 - v159;
-                [v140 frame];
+                [v120 frame];
               }
 
-              v160 = v158;
-              [v140 frame];
-              [v140 setFrame:{v157, v141, v160}];
+              [v120 frame];
+              [v120 setFrame:?];
             }
           }
 
-          ++v138;
+          ++v118;
         }
 
-        while ([v137 count] > v138);
+        while ([v117 count] > v118);
       }
 
-      v126 = v185 + 1;
-      v122 = rect2b;
-      v128 = v182;
+      v106 = v155 + 1;
+      v102 = rect2b;
+      v108 = v152;
     }
 
-    while ([rect2b count] > (v185 + 1));
+    while ([rect2b count] > v155 + 1);
   }
 
   else
   {
-    v128 = v182;
+    v108 = v152;
   }
 }
 
@@ -4621,49 +4434,57 @@ void sortLayersWithYCoordinate(void *a1, void *a2, void **a3, void **a4)
 {
   v7 = a1;
   v8 = a2;
-  v9 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v7, "count")}];
+  v9 = MEMORY[0x277CBEB18];
+  [v7 count];
+  v10 = [v9 arrayWithCapacity:?];
   if ([v7 count])
   {
-    v10 = 0;
+    v11 = 0;
     do
     {
-      v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v10];
-      [v9 addObject:v11];
+      v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:?];
+      [v10 addObject:?];
 
-      ++v10;
+      ++v11;
     }
 
-    while (v10 < [v7 count]);
+    while (v11 < [v7 count]);
   }
 
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __sortLayersWithYCoordinate_block_invoke;
-  v21[3] = &unk_278EAAD40;
-  v12 = v7;
-  v22 = v12;
-  v13 = [v9 sortedArrayUsingComparator:v21];
-  *a3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v13, "count")}];
-  *a4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v13, "count")}];
-  if ([v13 count])
+  v24 = MEMORY[0x277D85DD0];
+  v25 = 3221225472;
+  v26 = __sortLayersWithYCoordinate_block_invoke;
+  v27 = &unk_278EAAD40;
+  v13 = v7;
+  v28 = v13;
+  v14 = [v10 sortedArrayUsingComparator:?];
+  v15 = MEMORY[0x277CBEB18];
+  [v14 count];
+  *a3 = [v15 arrayWithCapacity:?];
+  v16 = MEMORY[0x277CBEB18];
+  [v14 count];
+  *a4 = [v16 arrayWithCapacity:?];
+  if ([v14 count])
   {
-    v14 = 0;
+    v17 = 0;
     do
     {
-      v15 = *a3;
-      v16 = [v13 objectAtIndexedSubscript:v14];
-      v17 = [v12 objectAtIndex:{objc_msgSend(v16, "unsignedIntegerValue")}];
-      [v15 addObject:v17];
+      v18 = *a3;
+      v19 = [v14 objectAtIndexedSubscript:?];
+      [v19 unsignedIntegerValue];
+      v20 = [v13 objectAtIndex:?];
+      [v18 addObject:?];
 
-      v18 = *a4;
-      v19 = [v13 objectAtIndexedSubscript:v14];
-      v20 = [v8 objectAtIndex:{objc_msgSend(v19, "unsignedIntegerValue")}];
-      [v18 addObject:v20];
+      v21 = *a4;
+      v22 = [v14 objectAtIndexedSubscript:?];
+      [v22 unsignedIntegerValue];
+      v23 = [v8 objectAtIndex:?];
+      [v21 addObject:?];
 
-      ++v14;
+      ++v17;
     }
 
-    while (v14 < [v13 count]);
+    while (v17 < [v14 count]);
   }
 }
 
@@ -4692,56 +4513,46 @@ uint64_t __sortOverlappingCALayers_block_invoke_3(uint64_t a1, void *a2, void *a
 
 void keepAllLayersWithinHorizontalBounds(void *a1, double a2, double a3, double a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
   v6 = a1;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [v6 countByEnumeratingWithState:0 objects:? count:?];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
-    v10 = a2 + a4;
+    v9 = MEMORY[0];
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v8; i = (i + 1))
       {
-        if (*v24 != v9)
+        if (MEMORY[0] != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v23 + 1) + 8 * i);
-        [v12 frame];
-        if (v14 < a4)
+        v11 = *(8 * i);
+        [v11 frame];
+        if (v12 < a4)
         {
-          [v12 frame];
+          [v11 frame];
+          v14 = v13;
+          [v11 frame];
           v16 = v15;
-          [v12 frame];
-          v18 = v17;
-          [v12 frame];
-          v20 = v16 < a2;
-          v21 = a2;
-          if (!v20)
+          [v11 frame];
+          if (v14 >= a2)
           {
-            v13 = v18 + v19;
-            if (v18 + v19 <= v10)
+            if (v16 + v17 <= a2 + a4)
             {
               continue;
             }
 
-            [v12 frame];
-            v21 = v10 - v22;
+            [v11 frame];
           }
 
-          [v12 position];
-          [v12 setPosition:v21];
+          [v11 position];
+          [v11 setPosition:?];
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:{16, v13}];
+      v8 = [v6 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v8);
@@ -4758,7 +4569,6 @@ Float64 secondsBetweenTimestamps(CMTime *a1, CMTime *a2)
 
 id stringByTransliteratingNameToPinyin(void *a1, void *a2)
 {
-  v59 = *MEMORY[0x277D85DE8];
   v3 = qword_27EE544E0;
   v4 = a2;
   v5 = a1;
@@ -4771,196 +4581,204 @@ id stringByTransliteratingNameToPinyin(void *a1, void *a2)
 
   v7 = [v4 uppercaseString];
 
-  v55 = 0u;
-  v56 = 0u;
-  v53 = 0u;
-  v54 = 0u;
   v8 = qword_27EE544C8;
-  v9 = [v8 countByEnumeratingWithState:&v53 objects:v58 count:16];
+  v9 = [v8 countByEnumeratingWithState:? objects:? count:?];
   if (v9)
   {
     v10 = v9;
-    v11 = *v54;
+    v11 = MEMORY[0];
     do
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v10; i = (i + 1))
       {
-        if (*v54 != v11)
+        if (MEMORY[0] != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v53 + 1) + 8 * i);
-        if ([(__CFString *)v7 containsString:v13])
+        if ([(__CFString *)v7 containsString:?])
         {
-          v14 = [_MergedGlobals_4 objectForKeyedSubscript:v13];
-          v15 = [v14 lowercaseString];
-          v16 = [(__CFString *)v7 stringByReplacingOccurrencesOfString:v13 withString:v15];
+          v13 = [_MergedGlobals_4 objectForKeyedSubscript:?];
+          v14 = [v13 lowercaseString];
+          v15 = [__CFString stringByReplacingOccurrencesOfString:v7 withString:"stringByReplacingOccurrencesOfString:withString:"];
 
-          v7 = v16;
+          v7 = v15;
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v53 objects:v58 count:16];
+      v10 = [v8 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v10);
   }
 
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
-  v17 = qword_27EE544D8;
-  v18 = [v17 countByEnumeratingWithState:&v49 objects:v57 count:16];
-  if (v18)
+  v16 = qword_27EE544D8;
+  v17 = [v16 countByEnumeratingWithState:0 objects:? count:?];
+  if (v17)
   {
-    v19 = v18;
-    v20 = *v50;
+    v18 = v17;
+    v19 = MEMORY[0];
     do
     {
-      for (j = 0; j != v19; ++j)
+      for (j = 0; j != v18; j = (j + 1))
       {
-        if (*v50 != v20)
+        if (MEMORY[0] != v19)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v16);
         }
 
-        v22 = *(*(&v49 + 1) + 8 * j);
-        if ([(__CFString *)v6 containsString:v22, v49])
+        if ([(__CFString *)v6 containsString:?])
         {
-          v23 = [qword_27EE544D0 objectForKeyedSubscript:v22];
-          v24 = [v23 lowercaseString];
-          v25 = [(__CFString *)v6 stringByReplacingOccurrencesOfString:v22 withString:v24];
+          v21 = [qword_27EE544D0 objectForKeyedSubscript:?];
+          v22 = [v21 lowercaseString];
+          v23 = [__CFString stringByReplacingOccurrencesOfString:v6 withString:"stringByReplacingOccurrencesOfString:withString:"];
 
-          v6 = v25;
+          v6 = v23;
         }
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v49 objects:v57 count:16];
+      v18 = [v16 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v19);
+    while (v18);
   }
 
-  v26 = [MEMORY[0x277CCAB68] string];
-  v27 = CFLocaleCreate(0, @"zh-Hans");
-  v61.location = 0;
-  v61.length = 0;
-  v28 = CFStringTokenizerCreate(0, &stru_2859636D0, v61, 0, v27);
-  CFRelease(v27);
-  v62.length = [(__CFString *)v7 length];
-  v62.location = 0;
-  CFStringTokenizerSetString(v28, v7, v62);
-  while (CFStringTokenizerAdvanceToNextToken(v28))
+  v24 = [MEMORY[0x277CCAB68] string];
+  v25 = CFLocaleCreate(0, @"zh-Hans");
+  v48.location = 0;
+  v48.length = 0;
+  v26 = CFStringTokenizerCreate(0, &stru_2859636D0, v48, 0, v25);
+  CFRelease(v25);
+  v49.length = [(__CFString *)v7 length];
+  v49.location = 0;
+  CFStringTokenizerSetString(v26, v7, v49);
+  while (CFStringTokenizerAdvanceToNextToken(v26))
   {
-    v29 = CFStringTokenizerCopyCurrentTokenAttribute(v28, 0x10000uLL);
-    if (v29)
+    v27 = CFStringTokenizerCopyCurrentTokenAttribute(v26, 0x10000uLL);
+    if (v27)
     {
-      v30 = v29;
-      if (CFStringGetLength(v29) >= 1)
+      v28 = v27;
+      if (CFStringGetLength(v27) >= 1)
       {
-        CurrentTokenRange = CFStringTokenizerGetCurrentTokenRange(v28);
-        if (CurrentTokenRange.location != -1)
+        location = CFStringTokenizerGetCurrentTokenRange(v26).location;
+        if (location != -1)
         {
-          v32 = [(__CFString *)v7 substringWithRange:CurrentTokenRange.location, CurrentTokenRange.length];
-          v33 = CurrentTokenRange.location - 1;
-          v34 = CurrentTokenRange.location >= 1 && [(__CFString *)v7 characterAtIndex:v33]== 32;
-          if ([v32 isCaseApplicable])
+          v30 = location;
+          v31 = [(__CFString *)v7 substringWithRange:?];
+          v32 = v30 >= 1 && [(__CFString *)v7 characterAtIndex:?]== 32;
+          if ([v31 isCaseApplicable])
           {
-            v35 = [v32 isLowercase];
+            v33 = [v31 isLowercase];
           }
 
           else
           {
-            v35 = 0;
+            v33 = 0;
           }
 
-          v36 = 0;
-          if (![v32 caseInsensitiveCompare:v30] && (v35 & 1) == 0)
+          v34 = 0;
+          if (![v31 caseInsensitiveCompare:?] && (v33 & 1) == 0)
           {
-            v36 = [v32 isCaseApplicable];
+            v34 = [v31 isCaseApplicable];
           }
 
-          if (((v34 | v36) & 1) != 0 && [(__CFString *)v26 length]&& [(__CFString *)v26 characterAtIndex:[(__CFString *)v26 length]- 1]!= 32)
+          if ((v32 | v34))
           {
-            CFStringAppend(v26, @" ");
+            if ([(__CFString *)v24 length])
+            {
+              [(__CFString *)v24 length];
+              if ([(__CFString *)v24 characterAtIndex:?]!= 32)
+              {
+                CFStringAppend(v24, @" ");
+              }
+            }
           }
 
-          CFStringAppend(v26, v30);
-          if (v36)
+          CFStringAppend(v24, v28);
+          if (v34)
           {
-            CFStringAppend(v26, @" ");
+            CFStringAppend(v24, @" ");
           }
         }
       }
 
-      CFRelease(v30);
+      CFRelease(v28);
     }
   }
 
-  if ([(__CFString *)v26 length]&& [(__CFString *)v26 characterAtIndex:[(__CFString *)v26 length]- 1]!= 32)
+  if ([(__CFString *)v24 length])
   {
-    CFStringAppend(v26, @" ");
+    [(__CFString *)v24 length];
+    if ([(__CFString *)v24 characterAtIndex:?]!= 32)
+    {
+      CFStringAppend(v24, @" ");
+    }
   }
 
-  v63.length = [(__CFString *)v6 length];
-  v63.location = 0;
-  CFStringTokenizerSetString(v28, v6, v63);
-  while (CFStringTokenizerAdvanceToNextToken(v28))
+  v50.length = [(__CFString *)v6 length];
+  v50.location = 0;
+  CFStringTokenizerSetString(v26, v6, v50);
+  while (CFStringTokenizerAdvanceToNextToken(v26))
   {
-    v37 = CFStringTokenizerCopyCurrentTokenAttribute(v28, 0x10000uLL);
-    if (v37)
+    v35 = CFStringTokenizerCopyCurrentTokenAttribute(v26, 0x10000uLL);
+    if (v35)
     {
-      v38 = v37;
-      if (CFStringGetLength(v37) >= 1)
+      v36 = v35;
+      if (CFStringGetLength(v35) >= 1)
       {
-        v39 = CFStringTokenizerGetCurrentTokenRange(v28);
-        if (v39.location != -1)
+        v37 = CFStringTokenizerGetCurrentTokenRange(v26).location;
+        if (v37 != -1)
         {
-          v40 = [(__CFString *)v6 substringWithRange:v39.location, v39.length];
-          v41 = v39.location - 1;
-          v42 = v39.location >= 1 && [(__CFString *)v6 characterAtIndex:v41]== 32;
-          if ([v40 isCaseApplicable])
+          v38 = v37;
+          v39 = [(__CFString *)v6 substringWithRange:?];
+          v40 = v38 >= 1 && [(__CFString *)v6 characterAtIndex:?]== 32;
+          if ([v39 isCaseApplicable])
           {
-            v43 = [v40 isLowercase];
+            v41 = [v39 isLowercase];
           }
 
           else
           {
-            v43 = 0;
+            v41 = 0;
           }
 
-          v44 = 0;
-          if (![v40 caseInsensitiveCompare:v38] && (v43 & 1) == 0)
+          v42 = 0;
+          if (![v39 caseInsensitiveCompare:?] && (v41 & 1) == 0)
           {
-            v44 = [v40 isCaseApplicable];
+            v42 = [v39 isCaseApplicable];
           }
 
-          if (((v42 | v44) & 1) != 0 && [(__CFString *)v26 length]&& [(__CFString *)v26 characterAtIndex:[(__CFString *)v26 length]- 1]!= 32)
+          if ((v40 | v42))
           {
-            CFStringAppend(v26, @" ");
+            if ([(__CFString *)v24 length])
+            {
+              [(__CFString *)v24 length];
+              if ([(__CFString *)v24 characterAtIndex:?]!= 32)
+              {
+                CFStringAppend(v24, @" ");
+              }
+            }
           }
 
-          CFStringAppend(v26, v38);
-          if (v44)
+          CFStringAppend(v24, v36);
+          if (v42)
           {
-            CFStringAppend(v26, @" ");
+            CFStringAppend(v24, @" ");
           }
         }
       }
 
-      CFRelease(v38);
+      CFRelease(v36);
     }
   }
 
-  CFStringTransform(v26, 0, *MEMORY[0x277CBF100], 0);
-  CFRelease(v28);
-  v45 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
-  v46 = [(__CFString *)v26 stringByTrimmingCharactersInSet:v45];
-  v47 = [v46 lowercaseString];
+  CFStringTransform(v24, 0, *MEMORY[0x277CBF100], 0);
+  CFRelease(v26);
+  v43 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
+  v44 = [(__CFString *)v24 stringByTrimmingCharactersInSet:?];
+  v45 = [v44 lowercaseString];
 
-  return v47;
+  return v45;
 }
 
 void __stringByTransliteratingNameToPinyin_block_invoke()
@@ -4974,55 +4792,52 @@ void __stringByTransliteratingNameToPinyin_block_invoke()
   qword_27EE544D0 = v2;
 
   v4 = [_MergedGlobals_4 allKeys];
-  v5 = [v4 sortedArrayUsingComparator:&__block_literal_global_513];
+  v5 = [v4 sortedArrayUsingComparator:?];
   v6 = qword_27EE544C8;
   qword_27EE544C8 = v5;
 
   v9 = [qword_27EE544D0 allKeys];
-  v7 = [v9 sortedArrayUsingComparator:&__block_literal_global_515];
+  v7 = [v9 sortedArrayUsingComparator:?];
   v8 = qword_27EE544D8;
   qword_27EE544D8 = v7;
 }
 
-uint64_t __stringByTransliteratingNameToPinyin_block_invoke_2(uint64_t a1, void *a2, void *a3)
+void *__stringByTransliteratingNameToPinyin_block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
   v4 = MEMORY[0x277CCABB0];
   v5 = a3;
-  v6 = [v4 numberWithInteger:{objc_msgSend(a2, "length")}];
+  [a2 length];
+  v6 = [v4 numberWithInteger:?];
   v7 = MEMORY[0x277CCABB0];
-  v8 = [v5 length];
+  [v5 length];
 
-  v9 = [v7 numberWithInteger:v8];
-  v10 = [v9 compare:v6];
+  v8 = [v7 numberWithInteger:?];
+  v9 = [v8 compare:?];
 
-  return v10;
+  return v9;
 }
 
-uint64_t __stringByTransliteratingNameToPinyin_block_invoke_3(uint64_t a1, void *a2, void *a3)
+void *__stringByTransliteratingNameToPinyin_block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
   v4 = MEMORY[0x277CCABB0];
   v5 = a3;
-  v6 = [v4 numberWithInteger:{objc_msgSend(a2, "length")}];
+  [a2 length];
+  v6 = [v4 numberWithInteger:?];
   v7 = MEMORY[0x277CCABB0];
-  v8 = [v5 length];
+  [v5 length];
 
-  v9 = [v7 numberWithInteger:v8];
-  v10 = [v9 compare:v6];
+  v8 = [v7 numberWithInteger:?];
+  v9 = [v8 compare:?];
 
-  return v10;
+  return v9;
 }
 
 uint64_t bestMatchInStringCandidates(void *a1, void *a2, void *a3, int a4)
 {
   v33 = a3;
-  v47 = *MEMORY[0x277D85DE8];
   v6 = a1;
   v7 = a2;
-  v41 = 0u;
-  v42 = 0u;
-  v43 = 0u;
-  v44 = 0u;
-  v8 = [v6 countByEnumeratingWithState:&v41 objects:v46 count:16];
+  v8 = [v6 countByEnumeratingWithState:? objects:? count:?];
   if (!v8)
   {
     v10 = 0;
@@ -5037,19 +4852,19 @@ uint64_t bestMatchInStringCandidates(void *a1, void *a2, void *a3, int a4)
 
   v9 = v8;
   v10 = 0;
-  v11 = *v42;
+  v11 = MEMORY[0];
   v12 = 0x7FFFFFFFLL;
   do
   {
-    for (i = 0; i != v9; ++i)
+    for (i = 0; i != v9; i = (i + 1))
     {
-      if (*v42 != v11)
+      if (MEMORY[0] != v11)
       {
         objc_enumerationMutation(v6);
       }
 
-      v14 = *(*(&v41 + 1) + 8 * i);
-      v15 = [v14 editDistanceFromString:v7 threshold:{4, v33}];
+      v14 = *(8 * i);
+      v15 = [v14 editDistanceFromString:v33 threshold:?];
       if (v15 < v12)
       {
         v16 = v15;
@@ -5060,45 +4875,42 @@ uint64_t bestMatchInStringCandidates(void *a1, void *a2, void *a3, int a4)
       }
     }
 
-    v9 = [v6 countByEnumeratingWithState:&v41 objects:v46 count:16];
+    v9 = [v6 countByEnumeratingWithState:? objects:? count:?];
   }
 
   while (v9);
   if (a4)
   {
 LABEL_13:
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
-    v38 = 0u;
     obj = v6;
-    v18 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+    v18 = [obj countByEnumeratingWithState:? objects:? count:?];
     if (v18)
     {
       v19 = v18;
-      v20 = *v38;
-      v34 = *v38;
+      v20 = MEMORY[0];
+      v34 = MEMORY[0];
       do
       {
         v21 = 0;
         v35 = v19;
         do
         {
-          if (*v38 != v20)
+          if (MEMORY[0] != v20)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = [*(*(&v37 + 1) + 8 * v21) componentsSeparatedByString:{@" ", v33}];
+          v22 = [*(8 * v21) componentsSeparatedByString:v33];
           if ([v22 count] >= 2)
           {
             v23 = v6;
-            v24 = [v22 subarrayWithRange:{1, objc_msgSend(v22, "count") - 1}];
+            [v22 count];
+            v24 = [v22 subarrayWithRange:?];
             v25 = [v22 firstObject];
-            v26 = [v24 arrayByAddingObject:v25];
+            v26 = [v24 arrayByAddingObject:?];
 
-            v27 = [v26 componentsJoinedByString:@" "];
-            v28 = [v27 editDistanceFromString:v7 threshold:4];
+            v27 = [v26 componentsJoinedByString:?];
+            v28 = [v27 editDistanceFromString:? threshold:?];
             if (v28 < v12)
             {
               v29 = v28;
@@ -5114,11 +4926,11 @@ LABEL_13:
             v20 = v34;
           }
 
-          ++v21;
+          v21 = (v21 + 1);
         }
 
         while (v19 != v21);
-        v19 = [obj countByEnumeratingWithState:&v37 objects:v45 count:16];
+        v19 = [obj countByEnumeratingWithState:? objects:? count:?];
       }
 
       while (v19);
@@ -5137,21 +4949,20 @@ LABEL_25:
 
 id stringCandidatesByTransliteratingNameToRomaji(void *a1, void *a2)
 {
-  v103 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [a1 uppercaseString];
   v5 = [v3 uppercaseString];
 
   v6 = [MEMORY[0x277CCAB68] string];
   v7 = CFLocaleCreate(0, @"ja");
-  v105.location = 0;
-  v105.length = 0;
-  v8 = CFStringTokenizerCreate(0, 0, v105, 0, v7);
+  v73.location = 0;
+  v73.length = 0;
+  v8 = CFStringTokenizerCreate(0, 0, v73, 0, v7);
   CFRelease(v7);
-  v106.length = [(__CFString *)v5 length];
-  v70 = v5;
-  v106.location = 0;
-  CFStringTokenizerSetString(v8, v5, v106);
+  v74.length = [(__CFString *)v5 length];
+  v69 = v5;
+  v74.location = 0;
+  CFStringTokenizerSetString(v8, v5, v74);
   while (CFStringTokenizerAdvanceToNextToken(v8))
   {
     v9 = CFStringTokenizerCopyCurrentTokenAttribute(v8, 0x1000000uLL);
@@ -5167,14 +4978,18 @@ id stringCandidatesByTransliteratingNameToRomaji(void *a1, void *a2)
     }
   }
 
-  if ([(__CFString *)v6 length]&& [(__CFString *)v6 characterAtIndex:[(__CFString *)v6 length]- 1]!= 32)
+  if ([(__CFString *)v6 length])
   {
-    CFStringAppend(v6, @" ");
+    [(__CFString *)v6 length];
+    if ([(__CFString *)v6 characterAtIndex:?]!= 32)
+    {
+      CFStringAppend(v6, @" ");
+    }
   }
 
-  v107.length = [(__CFString *)v4 length];
-  v107.location = 0;
-  CFStringTokenizerSetString(v8, v4, v107);
+  v75.length = [(__CFString *)v4 length];
+  v75.location = 0;
+  CFStringTokenizerSetString(v8, v4, v75);
   while (CFStringTokenizerAdvanceToNextToken(v8))
   {
     v11 = CFStringTokenizerCopyCurrentTokenAttribute(v8, 0x1000000uLL);
@@ -5192,210 +5007,192 @@ id stringCandidatesByTransliteratingNameToRomaji(void *a1, void *a2)
 
   CFRelease(v8);
   v13 = v6;
-  v71 = v4;
+  v70 = v4;
   if (qword_27EE54508 != -1)
   {
     dispatch_once(&qword_27EE54508, &__block_literal_global_542);
   }
 
-  v69 = v13;
+  v68 = v13;
   v14 = [(__CFString *)v13 mutableCopy];
-  v93 = 0u;
-  v94 = 0u;
-  v95 = 0u;
-  v96 = 0u;
   v15 = qword_27EE54500;
-  v16 = [v15 countByEnumeratingWithState:&v93 objects:v102 count:16];
+  v16 = [v15 countByEnumeratingWithState:? objects:? count:?];
   if (v16)
   {
     v17 = v16;
-    v18 = *v94;
+    v18 = MEMORY[0];
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v17; i = (i + 1))
       {
-        if (*v94 != v18)
+        if (MEMORY[0] != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v93 + 1) + 8 * i);
-        v21 = [qword_27EE544F8 objectForKey:v20];
-        [v14 replaceOccurrencesOfString:v20 withString:v21 options:0 range:{0, objc_msgSend(v14, "length")}];
+        v20 = [qword_27EE544F8 objectForKey:?];
+        [v14 length];
+        [v14 replaceOccurrencesOfString:? withString:? options:? range:?];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v93 objects:v102 count:16];
+      v17 = [v15 countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v17);
   }
 
-  v22 = MEMORY[0x277CBEB58];
-  v23 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
-  v24 = [v14 stringByTrimmingCharactersInSet:v23];
-  v25 = [v22 setWithObject:v24];
+  v21 = MEMORY[0x277CBEB58];
+  v22 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
+  v23 = [v14 stringByTrimmingCharactersInSet:?];
+  v24 = [v21 setWithObject:?];
 
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
-  v90 = 0u;
-  v26 = [v25 allObjects];
-  v27 = [v26 countByEnumeratingWithState:&v89 objects:v101 count:16];
-  if (v27)
+  v25 = [v24 allObjects];
+  v26 = [v25 countByEnumeratingWithState:? objects:? count:?];
+  if (v26)
   {
-    v28 = v27;
-    v29 = *v90;
+    v27 = v26;
+    v28 = MEMORY[0];
     do
     {
-      for (j = 0; j != v28; ++j)
+      for (j = 0; j != v27; j = (j + 1))
       {
-        if (*v90 != v29)
+        if (MEMORY[0] != v28)
         {
-          objc_enumerationMutation(v26);
+          objc_enumerationMutation(v25);
         }
 
-        v31 = *(*(&v89 + 1) + 8 * j);
-        v32 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"っ(.)" options:1 error:0];
-        v33 = [v32 stringByReplacingMatchesInString:v31 options:0 range:0 withTemplate:{objc_msgSend(v31, "length"), @"$1$1"}];
-        [v25 addObject:v33];
+        v30 = *(8 * j);
+        v31 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:? options:? error:?];
+        [v30 length];
+        v32 = [v31 stringByReplacingMatchesInString:? options:? range:? withTemplate:?];
+        [v24 addObject:?];
       }
 
-      v28 = [v26 countByEnumeratingWithState:&v89 objects:v101 count:16];
+      v27 = [v25 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v28);
+    while (v27);
   }
 
-  v87 = 0u;
-  v88 = 0u;
-  v85 = 0u;
-  v86 = 0u;
-  v34 = [v25 allObjects];
-  v35 = [v34 countByEnumeratingWithState:&v85 objects:v100 count:16];
-  if (v35)
+  v33 = [v24 allObjects];
+  v34 = [v33 countByEnumeratingWithState:? objects:? count:?];
+  if (v34)
   {
-    v36 = v35;
-    v37 = *v86;
+    v35 = v34;
+    v36 = MEMORY[0];
     do
     {
-      for (k = 0; k != v36; ++k)
+      for (k = 0; k != v35; k = (k + 1))
       {
-        if (*v86 != v37)
+        if (MEMORY[0] != v36)
         {
-          objc_enumerationMutation(v34);
+          objc_enumerationMutation(v33);
         }
 
-        v39 = *(*(&v85 + 1) + 8 * k);
-        v40 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"っ$" options:1 error:0];
-        v41 = [v40 stringByReplacingMatchesInString:v39 options:0 range:0 withTemplate:{objc_msgSend(v39, "length"), &stru_2859636D0}];
-        [v25 addObject:v41];
+        v38 = *(8 * k);
+        v39 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:? options:? error:?];
+        [v38 length];
+        v40 = [v39 stringByReplacingMatchesInString:? options:? range:? withTemplate:?];
+        [v24 addObject:?];
       }
 
-      v36 = [v34 countByEnumeratingWithState:&v85 objects:v100 count:16];
+      v35 = [v33 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v36);
+    while (v35);
   }
 
-  v83 = 0u;
-  v84 = 0u;
-  v81 = 0u;
-  v82 = 0u;
-  v42 = [v25 allObjects];
-  v43 = [v42 countByEnumeratingWithState:&v81 objects:v99 count:16];
-  if (v43)
+  v41 = [v24 allObjects];
+  v42 = [v41 countByEnumeratingWithState:? objects:? count:?];
+  if (v42)
   {
-    v44 = v43;
-    v45 = *v82;
+    v43 = v42;
+    v44 = MEMORY[0];
     do
     {
-      for (m = 0; m != v44; ++m)
+      for (m = 0; m != v43; m = (m + 1))
       {
-        if (*v82 != v45)
+        if (MEMORY[0] != v44)
         {
-          objc_enumerationMutation(v42);
+          objc_enumerationMutation(v41);
         }
 
-        v47 = *(*(&v81 + 1) + 8 * m);
-        v48 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"n(b|p)([aiueo])" options:1 error:0];
-        v49 = [v48 stringByReplacingMatchesInString:v47 options:0 range:0 withTemplate:{objc_msgSend(v47, "length"), @"m$1$2"}];
-        [v25 addObject:v49];
+        v46 = *(8 * m);
+        v47 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:? options:? error:?];
+        [v46 length];
+        v48 = [v47 stringByReplacingMatchesInString:? options:? range:? withTemplate:?];
+        [v24 addObject:?];
       }
 
-      v44 = [v42 countByEnumeratingWithState:&v81 objects:v99 count:16];
+      v43 = [v41 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v44);
+    while (v43);
   }
 
-  v79 = 0u;
-  v80 = 0u;
-  v77 = 0u;
-  v78 = 0u;
-  v50 = [v25 allObjects];
-  v51 = [v50 countByEnumeratingWithState:&v77 objects:v98 count:16];
-  if (v51)
+  v49 = [v24 allObjects];
+  v50 = [v49 countByEnumeratingWithState:? objects:? count:?];
+  if (v50)
   {
-    v52 = v51;
-    v53 = *v78;
+    v51 = v50;
+    v52 = MEMORY[0];
     do
     {
-      for (n = 0; n != v52; ++n)
+      for (n = 0; n != v51; n = (n + 1))
       {
-        if (*v78 != v53)
+        if (MEMORY[0] != v52)
         {
-          objc_enumerationMutation(v50);
+          objc_enumerationMutation(v49);
         }
 
-        v55 = *(*(&v77 + 1) + 8 * n);
-        v56 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"([aiue])\\1" options:1 error:0];
-        v57 = [v56 stringByReplacingMatchesInString:v55 options:0 range:0 withTemplate:{objc_msgSend(v55, "length"), @"$1"}];
-        [v25 addObject:v57];
+        v54 = *(8 * n);
+        v55 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:? options:? error:?];
+        [v54 length];
+        v56 = [v55 stringByReplacingMatchesInString:? options:? range:? withTemplate:?];
+        [v24 addObject:?];
       }
 
-      v52 = [v50 countByEnumeratingWithState:&v77 objects:v98 count:16];
+      v51 = [v49 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v52);
+    while (v51);
   }
 
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
-  v74 = 0u;
-  obj = [v25 allObjects];
-  v58 = [obj countByEnumeratingWithState:&v73 objects:v97 count:16];
-  if (v58)
+  obj = [v24 allObjects];
+  v57 = [obj countByEnumeratingWithState:? objects:? count:?];
+  if (v57)
   {
-    v59 = v58;
-    v60 = *v74;
+    v58 = v57;
+    v59 = MEMORY[0];
     do
     {
-      for (ii = 0; ii != v59; ++ii)
+      for (ii = 0; ii != v58; ii = (ii + 1))
       {
-        if (*v74 != v60)
+        if (MEMORY[0] != v59)
         {
           objc_enumerationMutation(obj);
         }
 
-        v62 = *(*(&v73 + 1) + 8 * ii);
-        v63 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"(o)(o|u)" options:1 error:0];
-        v64 = [v63 stringByReplacingMatchesInString:v62 options:0 range:0 withTemplate:{objc_msgSend(v62, "length"), @"$1"}];
-        [v25 addObject:v64];
-        v65 = [v63 stringByReplacingMatchesInString:v62 options:0 range:0 withTemplate:{objc_msgSend(v62, "length"), @"$1h"}];
-        [v25 addObject:v65];
+        v61 = *(8 * ii);
+        v62 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:? options:? error:?];
+        [v61 length];
+        v63 = [v62 stringByReplacingMatchesInString:? options:? range:? withTemplate:?];
+        [v24 addObject:?];
+        [v61 length];
+        v64 = [v62 stringByReplacingMatchesInString:? options:? range:? withTemplate:?];
+        [v24 addObject:?];
       }
 
-      v59 = [obj countByEnumeratingWithState:&v73 objects:v97 count:16];
+      v58 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v59);
+    while (v58);
   }
 
-  v66 = [v25 valueForKey:@"uppercaseString"];
-  v67 = [v66 allObjects];
+  v65 = [v24 valueForKey:?];
+  v66 = [v65 allObjects];
 
-  return v67;
+  return v66;
 }
 
 BOOL stringContainsApproximateSubstring(void *a1, void *a2)
@@ -5403,7 +5200,7 @@ BOOL stringContainsApproximateSubstring(void *a1, void *a2)
   v3 = MEMORY[0x277CCACA8];
   v4 = a2;
   v5 = a1;
-  v6 = [v3 editDistance:v5 string:v4] - 4;
+  v6 = [v3 editDistance:? string:?] - 4;
   v7 = [v5 length];
 
   v8 = [v4 length];
@@ -5419,47 +5216,47 @@ id createCachedContact(void *a1)
     v3 = [MEMORY[0x277CCA900] controlCharacterSet];
     v4 = [v1 givenName];
     v5 = [v4 uppercaseString];
-    v6 = [v5 stringByTrimmingCharactersInSet:v3];
+    v6 = [v5 stringByTrimmingCharactersInSet:?];
 
     if (v6)
     {
-      [v2 setObject:v6 forKey:*MEMORY[0x277CBD000]];
+      [v2 setObject:? forKey:?];
     }
 
     v7 = [v1 nickname];
     v8 = [v7 uppercaseString];
-    v9 = [v8 stringByTrimmingCharactersInSet:v3];
+    v9 = [v8 stringByTrimmingCharactersInSet:?];
 
     if (v9)
     {
-      [v2 setObject:v9 forKey:*MEMORY[0x277CBD078]];
+      [v2 setObject:? forKey:?];
     }
 
     v10 = [v1 familyName];
     v11 = [v10 uppercaseString];
-    v12 = [v11 stringByTrimmingCharactersInSet:v3];
+    v12 = [v11 stringByTrimmingCharactersInSet:?];
 
     if (v12)
     {
-      [v2 setObject:v12 forKey:*MEMORY[0x277CBCFF8]];
+      [v2 setObject:? forKey:?];
     }
 
     v13 = [v1 middleName];
     v14 = [v13 uppercaseString];
-    v15 = [v14 stringByTrimmingCharactersInSet:v3];
+    v15 = [v14 stringByTrimmingCharactersInSet:?];
 
     if (v15)
     {
-      [v2 setObject:v15 forKey:*MEMORY[0x277CBD058]];
+      [v2 setObject:? forKey:?];
     }
 
     v16 = [v1 phoneticGivenName];
     v17 = [v16 uppercaseString];
-    v18 = [v17 stringByTrimmingCharactersInSet:v3];
+    v18 = [v17 stringByTrimmingCharactersInSet:?];
 
     if (v18)
     {
-      [v2 setObject:v18 forKey:*MEMORY[0x277CBD0B0]];
+      [v2 setObject:? forKey:?];
     }
 
     v61 = v18;
@@ -5470,11 +5267,11 @@ id createCachedContact(void *a1)
     v19 = [v1 phoneticFamilyName];
     v20 = [v19 uppercaseString];
     v66 = v3;
-    v21 = [v20 stringByTrimmingCharactersInSet:v3];
+    v21 = [v20 stringByTrimmingCharactersInSet:?];
 
     if (v21)
     {
-      [v2 setObject:v21 forKey:*MEMORY[0x277CBD0A8]];
+      [v2 setObject:? forKey:?];
     }
 
     v60 = v21;
@@ -5488,13 +5285,14 @@ id createCachedContact(void *a1)
 
     v28 = [v27 uppercaseString];
 
-    v29 = [v26 stringByTrimmingCharactersInSet:v24];
+    v29 = [v26 stringByTrimmingCharactersInSet:?];
 
-    v30 = [v28 stringByTrimmingCharactersInSet:v24];
+    v30 = [v28 stringByTrimmingCharactersInSet:?];
 
-    v31 = [v29 stringByAppendingString:v30];
-    v32 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"[^ -~]" options:1 error:0];
-    if ([v32 numberOfMatchesInString:v31 options:0 range:{0, objc_msgSend(v31, "length")}])
+    v31 = [v29 stringByAppendingString:?];
+    v32 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:? options:? error:?];
+    [v31 length];
+    if ([v32 numberOfMatchesInString:? options:? range:?])
     {
       v33 = stringByTransliteratingNameToPinyin(v29, v30);
       v34 = [v33 uppercaseString];
@@ -5509,7 +5307,7 @@ id createCachedContact(void *a1)
 
     if (v35)
     {
-      [v2 setObject:v35 forKey:@"pinyinName"];
+      [v2 setObject:? forKey:?];
     }
 
     v59 = v35;
@@ -5530,24 +5328,25 @@ id createCachedContact(void *a1)
 
     v47 = [v46 uppercaseString];
 
-    v48 = [v41 stringByTrimmingCharactersInSet:v39];
+    v48 = [v41 stringByTrimmingCharactersInSet:?];
 
-    v49 = [v43 stringByTrimmingCharactersInSet:v39];
+    v49 = [v43 stringByTrimmingCharactersInSet:?];
 
-    v50 = [v45 stringByTrimmingCharactersInSet:v39];
+    v50 = [v45 stringByTrimmingCharactersInSet:?];
 
-    v51 = [v47 stringByTrimmingCharactersInSet:v39];
+    v51 = [v47 stringByTrimmingCharactersInSet:?];
 
-    v52 = [v48 stringByAppendingString:@" "];
-    v53 = [v52 stringByAppendingString:v49];
+    v52 = [v48 stringByAppendingString:?];
+    v53 = [v52 stringByAppendingString:?];
 
-    v54 = [v50 stringByAppendingString:@" "];
-    v55 = [v54 stringByAppendingString:v51];
+    v54 = [v50 stringByAppendingString:?];
+    v55 = [v54 stringByAppendingString:?];
 
-    v56 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:@"[^ -~]" options:1 error:0];
-    if (!v55 || ![v55 length] || !objc_msgSend(v56, "numberOfMatchesInString:options:range:", v55, 0, 0, objc_msgSend(v55, "length")) || (stringCandidatesByTransliteratingNameToRomaji(v50, v51), (v57 = objc_claimAutoreleasedReturnValue()) == 0))
+    v56 = [MEMORY[0x277CCAC68] regularExpressionWithPattern:? options:? error:?];
+    if (!v55 || ![v55 length] || (objc_msgSend(v55, "length"), !objc_msgSend(v56, "numberOfMatchesInString:options:range:")) || (stringCandidatesByTransliteratingNameToRomaji(v50, v51), (v57 = objc_claimAutoreleasedReturnValue()) == 0))
     {
-      if ([v56 numberOfMatchesInString:v53 options:0 range:{0, objc_msgSend(v53, "length", v1, v59, v60)}])
+      [v53 length];
+      if ([v56 numberOfMatchesInString:? options:? range:?])
       {
         v57 = stringCandidatesByTransliteratingNameToRomaji(v48, v49);
       }
@@ -5561,7 +5360,7 @@ id createCachedContact(void *a1)
     v36 = v67;
     if (v57)
     {
-      [v67 setObject:v57 forKey:@"romanjiName"];
+      [v67 setObject:? forKey:?];
     }
   }
 
@@ -5590,7 +5389,7 @@ void __deviceModel_block_invoke()
   v3 = *MEMORY[0x277D85DE8];
   memset(&v2, 0, 512);
   uname(&v2);
-  v0 = [MEMORY[0x277CCACA8] stringWithCString:v2.machine encoding:4];
+  v0 = [MEMORY[0x277CCACA8] stringWithCString:? encoding:?];
   v1 = qword_27EE544F0;
   qword_27EE544F0 = v0;
 }
@@ -5599,25 +5398,26 @@ uint64_t __sortLayersWithYCoordinate_block_invoke(uint64_t a1, void *a2, void *a
 {
   v5 = *(a1 + 32);
   v6 = a3;
-  v7 = [v5 objectAtIndexedSubscript:{objc_msgSend(a2, "unsignedIntegerValue")}];
+  [a2 unsignedIntegerValue];
+  v7 = [v5 objectAtIndexedSubscript:?];
   [v7 frame];
   v9 = v8;
 
   v10 = *(a1 + 32);
-  v11 = [v6 unsignedIntegerValue];
+  [v6 unsignedIntegerValue];
 
-  v12 = [v10 objectAtIndexedSubscript:v11];
-  [v12 frame];
-  v14 = v13;
+  v11 = [v10 objectAtIndexedSubscript:?];
+  [v11 frame];
+  v13 = v12;
 
-  if (v9 < v14)
+  if (v9 < v13)
   {
     return -1;
   }
 
   else
   {
-    return v9 > v14;
+    return v9 > v13;
   }
 }
 
@@ -5628,7 +5428,7 @@ void __romajiFromKana_block_invoke()
   qword_27EE544F8 = v0;
 
   v4 = [qword_27EE544F8 allKeys];
-  v2 = [v4 sortedArrayUsingComparator:&__block_literal_global_545];
+  v2 = [v4 sortedArrayUsingComparator:?];
   v3 = qword_27EE54500;
   qword_27EE54500 = v2;
 }
@@ -6012,21 +5812,19 @@ void rotateBuffer180(vImage_Buffer *a1)
 float calculateImageBlur(void *a1)
 {
   v1 = a1;
-  v2 = objc_alloc(MEMORY[0x277CE2D50]);
-  v3 = [v2 initWithCIImage:v1 options:MEMORY[0x277CBEC10]];
-  v4 = objc_alloc_init(MEMORY[0x277CE2D38]);
-  v5 = [MEMORY[0x277CBEA60] arrayWithObject:v4];
-  v13 = 0;
-  [v3 performRequests:v5 error:&v13];
-  v6 = v13;
+  v2 = [objc_alloc(MEMORY[0x277CE2D50]) initWithCIImage:? options:?];
+  v3 = objc_alloc_init(MEMORY[0x277CE2D38]);
+  v4 = [MEMORY[0x277CBEA60] arrayWithObject:?];
+  [v2 performRequests:? error:?];
+  v5 = 0;
 
-  v7 = [v4 results];
-  v8 = [v7 firstObject];
-  v9 = [v8 blurScore];
-  [v9 floatValue];
-  v11 = v10;
+  v6 = [v3 results];
+  v7 = [v6 firstObject];
+  v8 = [v7 blurScore];
+  [v8 floatValue];
+  v10 = v9;
 
-  return v11;
+  return v10;
 }
 
 void sub_24782F904(_Unwind_Exception *a1)
@@ -6043,28 +5841,26 @@ BOOL isLeastBlurryFrame(void *a1, void *a2, int a3)
   v7 = calculateImageBlur(v5);
   if ([v6 count] >= a3)
   {
-    v11 = [v6 valueForKeyPath:@"@min.self"];
-    [v11 floatValue];
-    v13 = v12;
+    v10 = [v6 valueForKeyPath:?];
+    [v10 floatValue];
+    v12 = v11;
 
-    [v6 removeObjectAtIndex:0];
-    *&v14 = v7;
-    v15 = [MEMORY[0x277CCABB0] numberWithFloat:v14];
-    [v6 addObject:v15];
+    [v6 removeObjectAtIndex:?];
+    v13 = [MEMORY[0x277CCABB0] numberWithFloat:?];
+    [v6 addObject:?];
 
-    v10 = v7 < v13;
+    v9 = v7 < v12;
   }
 
   else
   {
-    *&v8 = v7;
-    v9 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
-    [v6 addObject:v9];
+    v8 = [MEMORY[0x277CCABB0] numberWithFloat:?];
+    [v6 addObject:?];
 
-    v10 = 0;
+    v9 = 0;
   }
 
-  return v10;
+  return v9;
 }
 
 void sub_24782FA68(_Unwind_Exception *a1)
@@ -6074,9 +5870,9 @@ void sub_24782FA68(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_24782FB00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_24782FB00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   std::vector<std::vector<std::vector<float>>>::__destroy_vector::operator()[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -6154,49 +5950,49 @@ void CTCLayer::CTCLayer(CTCLayer *this)
   *(this + 24) = 103;
 }
 
-void sub_247831530(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_247831530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  v5 = v3;
-  v2[25] = 0;
-  Matrix<float>::~Matrix(v5);
-  v7 = v2[22];
-  if (v7)
-  {
-    v2[23] = v7;
-    operator delete(v7);
-  }
-
-  v8 = v2[19];
+  va_start(va, a3);
+  v6 = v4;
+  v3[25] = 0;
+  Matrix<float>::~Matrix(v6);
+  v8 = v3[22];
   if (v8)
   {
-    v2[20] = v8;
+    v3[23] = v8;
     operator delete(v8);
   }
 
-  v9 = v2[16];
+  v9 = v3[19];
   if (v9)
   {
-    v2[17] = v9;
+    v3[20] = v9;
     operator delete(v9);
   }
 
-  v10 = v2[13];
+  v10 = v3[16];
   if (v10)
   {
-    v2[14] = v10;
+    v3[17] = v10;
     operator delete(v10);
   }
 
-  v11 = v2[10];
+  v11 = v3[13];
   if (v11)
   {
-    v2[11] = v11;
+    v3[14] = v11;
     operator delete(v11);
   }
 
+  v12 = v3[10];
+  if (v12)
+  {
+    v3[11] = v12;
+    operator delete(v12);
+  }
+
   std::vector<std::vector<float>>::__destroy_vector::operator()[abi:ne200100](va);
-  std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::destroy(*v4);
+  std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::destroy(*v5);
   _Unwind_Resume(a1);
 }
 
@@ -6256,16 +6052,16 @@ void CTCLayer::~CTCLayer(CTCLayer *this)
   std::__tree<std::__value_type<unsigned int,unsigned int>,std::__map_value_compare<unsigned int,std::__value_type<unsigned int,unsigned int>,std::less<unsigned int>,true>,std::allocator<std::__value_type<unsigned int,unsigned int>>>::destroy(*(this + 4));
 }
 
-void CTCLayer::bestPathDecoding(CTCLayer *this@<X0>, uint64_t a2@<X8>)
+void CTCLayer::bestPathDecoding(const void **__return_ptr a1@<X8>, CTCLayer *this@<X0>)
 {
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   v2 = *(this + 16);
   for (i = *(this + 17); v2 != i; ++v2)
   {
     v5 = *v2;
-    std::vector<unsigned int>::push_back[abi:ne200100](a2, &v5 + 1);
+    std::vector<unsigned int>::push_back[abi:ne200100](a1, &v5 + 1);
   }
 }
 
@@ -6293,7 +6089,7 @@ void CTCLayer::setCummulativeScores(CTCLayer *this)
   v4 = *(this + 24);
   v19 = v4;
   v20 = &v19;
-  v5 = *(std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(this + 24, v4) + 8);
+  v5 = *(std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(this + 24, v4, &v20) + 8);
   v6 = *(v2 - 6);
   v7 = *(v2 - 5);
   if (v7 == v6)
@@ -6478,14 +6274,14 @@ void std::vector<std::pair<float,float>>::push_back[abi:ne200100](uint64_t a1, v
   *(a1 + 8) = v6;
 }
 
-void CTCLayer::pathDecodingFixedLengthInjectSpaces(CTCLayer *this@<X0>, int a2@<W1>, uint64_t a3@<X8>)
+void CTCLayer::pathDecodingFixedLengthInjectSpaces(const void **__return_ptr a1@<X8>, CTCLayer *this@<X0>, int a3@<W1>)
 {
   v6 = *(this + 20);
   v7 = *(this + 19);
   v8 = 126 - 2 * __clz((v6 - v7) >> 3);
-  *a3 = 0;
-  *(a3 + 8) = 0;
-  *(a3 + 16) = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (v6 == v7)
   {
     v9 = 0;
@@ -6500,12 +6296,12 @@ void CTCLayer::pathDecodingFixedLengthInjectSpaces(CTCLayer *this@<X0>, int a2@<
   v22 = 0;
   v23 = 0;
   v24 = 0;
-  v10 = a2;
+  v10 = a3;
   v11 = *(this + 19);
   v12 = (*(this + 20) - v11) >> 3;
-  if (v12 >= a2)
+  if (v12 >= a3)
   {
-    v12 = a2;
+    v12 = a3;
   }
 
   if (v12)
@@ -6533,7 +6329,7 @@ void CTCLayer::pathDecodingFixedLengthInjectSpaces(CTCLayer *this@<X0>, int a2@<
   v16 = v22;
   if (v23 != v22)
   {
-    std::vector<unsigned int>::push_back[abi:ne200100](a3, (*(this + 16) + 8 * *v22 + 4));
+    std::vector<unsigned int>::push_back[abi:ne200100](a1, (*(this + 16) + 8 * *v22 + 4));
     v16 = v22;
     if ((v23 - v22) >= 5)
     {
@@ -6545,11 +6341,11 @@ void CTCLayer::pathDecodingFixedLengthInjectSpaces(CTCLayer *this@<X0>, int a2@<
         v20 = *(v18 + 8 * v16[v17] + 4);
         if (((*(v18 + 8 * v19 + 4) - v20) + (*(v18 + 8 * v19 + 4) - v20)) > 30.0)
         {
-          std::vector<unsigned int>::push_back[abi:ne200100](a3, this + 1);
+          std::vector<unsigned int>::push_back[abi:ne200100](a1, this + 1);
           v19 = v22[v17 + 1];
         }
 
-        std::vector<unsigned int>::push_back[abi:ne200100](a3, (*(this + 16) + 8 * v19 + 4));
+        std::vector<unsigned int>::push_back[abi:ne200100](a1, (*(this + 16) + 8 * v19 + 4));
         v16 = v22;
         v21 = v17 + 2;
         ++v17;
@@ -6591,7 +6387,7 @@ void CTCLayer::pathDecodingCTCSegment(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3
   v8 = *(a1 + 48);
   LODWORD(v149) = v8;
   v153 = &v149;
-  v9 = *(std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(a1 + 24, v8) + 8);
+  v9 = *(std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(a1 + 24, v8, &v153) + 8);
   *(a1 + 184) = *(a1 + 176);
   v10 = *(a1 + 56);
   v11 = -1431655765 * ((*(a1 + 64) - v10) >> 3);
@@ -6599,7 +6395,7 @@ void CTCLayer::pathDecodingCTCSegment(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3
   {
     v152 = (v10[1] - *v10) >> 2;
     LODWORD(v149) = 1;
-    std::vector<int>::vector[abi:ne200100](&v153, v11);
+    std::vector<int>::vector[abi:ne200100](&v153, v11, &v149);
     v26 = v153;
     if (v11 >= 1)
     {
@@ -6637,12 +6433,12 @@ void CTCLayer::pathDecodingCTCSegment(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3
         v39 = *v34;
         if (v9 == ((v34 - v30) >> 2))
         {
-          *(v26 + v27) = 0;
+          v26[v27] = 0;
         }
 
         if (v39 == 0.0)
         {
-          *(v26 + v27) = 0;
+          v26[v27] = 0;
         }
 
         ++v27;
@@ -6657,7 +6453,7 @@ void CTCLayer::pathDecodingCTCSegment(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3
     v147 = 0;
     v148 = 0;
     v146 = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v146, v26, v154, (v154 - v26) >> 2);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&v146, v26, v154, v154 - v26);
     v40 = indexGrouping(&v146, &v149, 0);
     if (v146)
     {
@@ -6671,7 +6467,7 @@ void CTCLayer::pathDecodingCTCSegment(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3
       v41 = v153;
       if (v150 != v149)
       {
-        v42 = v153 + 4;
+        v42 = v153 + 1;
         if (0xAAAAAAAAAAAAAAABLL * (v150 - v149) <= 1)
         {
           v43 = 1;
@@ -6691,7 +6487,7 @@ void CTCLayer::pathDecodingCTCSegment(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3
           {
             if (v46 == 8)
             {
-              v47 = v41 + 4 * *v45;
+              v47 = &v41[*v45];
               v48 = v42 - v47 + 4 * v45[1];
               if (v48 >= 1)
               {
@@ -6701,7 +6497,7 @@ void CTCLayer::pathDecodingCTCSegment(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3
 
             else
             {
-              *(v41 + *v45) = 1;
+              v41[*v45] = 1;
             }
           }
 
@@ -6718,7 +6514,7 @@ void CTCLayer::pathDecodingCTCSegment(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3
       v141 = 0;
       v142 = 0;
       __p = 0;
-      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v41, v154, (v154 - v41) >> 2);
+      std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&__p, v41, v154, v154 - v41);
       v49 = indexGrouping(&__p, &v143, 1);
       if (__p)
       {
@@ -6741,7 +6537,7 @@ void CTCLayer::pathDecodingCTCSegment(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3
             v56 = *(v54 - 1);
             if ((*v54 - v56) <= 4)
             {
-              *(v53 + *v56) = 0;
+              v53[*v56] = 0;
               if (v55 < 21)
               {
                 break;
@@ -6829,7 +6625,7 @@ void CTCLayer::pathDecodingCTCSegment(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3
           if (v137 != v138)
           {
             LODWORD(v126) = 0;
-            std::vector<int>::vector[abi:ne200100](&__dst, (v138 - v137) >> 2);
+            std::vector<int>::vector[abi:ne200100](&__dst, (v138 - v137) >> 2, &v126);
             v74 = v138;
             v75 = __dst;
             v76 = a1 + 176;
@@ -6959,11 +6755,11 @@ void CTCLayer::pathDecodingCTCSegment(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3
                   v94 = v96 >= v99 && v97 < v99;
                 }
 
-                v100 = (*(a1 + 56) + 24 * v91[v93]);
+                v100 = *(a1 + 56) + 24 * v91[v93];
                 v127 = 0;
                 v128 = 0;
                 v126 = 0;
-                std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v126, *v100, v100[1], (v100[1] - *v100) >> 2);
+                std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v126, *v100, *(v100 + 8), (*(v100 + 8) - *v100) >> 2);
                 v124 = v98;
                 v101 = v126;
                 if (v127 != v126)
@@ -7133,7 +6929,7 @@ LABEL_148:
   std::vector<int>::vector[abi:ne200100](&v153, (v10[1] - *v10) >> 2);
   v12 = v153;
   v13 = v154;
-  v14 = (v154 - v153) >> 2;
+  v14 = v154 - v153;
   if (v154 != v153)
   {
     v15 = 0;
@@ -7144,14 +6940,14 @@ LABEL_148:
 
     else
     {
-      v16 = (v154 - v153) >> 2;
+      v16 = v154 - v153;
     }
 
     v17 = (v16 + 3) & 0xFFFFFFFFFFFFFFFCLL;
     v18 = vdupq_n_s64(v16 - 1);
     v19 = xmmword_24783F580;
     v20 = xmmword_24783F590;
-    v21 = v153 + 1;
+    v21 = v153 + 2;
     v22 = vdupq_n_s64(4uLL);
     do
     {
@@ -7194,7 +6990,7 @@ LABEL_148:
   }
 
   std::__introsort<std::_ClassicAlgPolicy,returnIndiciesOfSortedFloatVector(std::vector<float> const&)::$_0 &,int *,false>(v12, v13, &v149, v25, 1);
-  std::vector<unsigned int>::push_back[abi:ne200100](a4, v153 + (*v153 == v9));
+  std::vector<unsigned int>::push_back[abi:ne200100](a4, &v153[*v153 == v9]);
 LABEL_156:
   if (v153)
   {
@@ -7242,22 +7038,23 @@ void sub_2478325B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t indexGrouping(uint64_t *a1, void *a2, int a3)
+uint64_t indexGrouping(char **a1, const void **a2, int a3)
 {
   v5 = *a1;
   v6 = a1[1];
   if (*a1 != v6)
   {
-    v8 = (v5 + 4);
+    v8 = v5 + 4;
     while (v8 != v6)
     {
       v9 = *(v8 - 1);
-      v10 = *v8++;
+      v10 = *v8;
+      v8 += 4;
       if (v9 != v10)
       {
         __p = 0;
         v30 = 0;
-        v11 = (v5 + 4);
+        v11 = v5 + 4;
         v31 = 0;
         do
         {
@@ -7267,11 +7064,12 @@ uint64_t indexGrouping(uint64_t *a1, void *a2, int a3)
           }
 
           v12 = *(v11 - 1);
-          v13 = *v11++;
+          v13 = *v11;
+          v11 += 4;
         }
 
         while (v12 == v13);
-        if (v11 - 2 == v6)
+        if (v11 - 8 == v6)
         {
 LABEL_16:
           std::vector<std::vector<int>>::push_back[abi:ne200100](a2, a1);
@@ -7281,7 +7079,8 @@ LABEL_16:
         v14 = v5;
         while (*v14 != a3)
         {
-          if (++v14 == v6)
+          v14 += 4;
+          if (v14 == v6)
           {
             v14 = v6;
             break;
@@ -7307,8 +7106,8 @@ LABEL_14:
         {
           do
           {
-            v21 = *(v17 + 4 * v16);
-            v22 = *(v17 + 4 * v15);
+            v21 = *&v17[4 * v16];
+            v22 = *&v17[4 * v15];
             if (v21 == a3 && v21 == v22)
             {
               if (a2[1] - *a2 == 6120)
@@ -7316,7 +7115,7 @@ LABEL_14:
                 goto LABEL_14;
               }
 
-              std::vector<unsigned int>::push_back[abi:ne200100]((a2[1] - 24), &v27);
+              std::vector<unsigned int>::push_back[abi:ne200100](a2[1] - 3, &v27);
             }
 
             else if (v21 == a3)
@@ -7379,7 +7178,7 @@ void sub_2478328C4(int a1, int a2, int a3, int a4, int a5, int a6, int a7, int a
   JUMPOUT(0x2478328ACLL);
 }
 
-void CTCLayer::removeNoise(uint64_t a1@<X0>, uint64_t a2@<X1>, const void **a3@<X8>)
+void CTCLayer::removeNoise(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   *a3 = 0;
   a3[1] = 0;
@@ -7727,21 +7526,24 @@ void CTCLayer::setActivations(uint64_t a1, uint64_t **a2)
   }
 }
 
-uint64_t *CTCLayer::setCodeMap(uint64_t *this, int *a2, int a3)
+uint64_t *CTCLayer::setCodeMap(uint64_t *this, unsigned int *a2, unsigned int a3)
 {
   if (a3 >= 1)
   {
-    v4 = this;
-    v5 = 0;
-    v6 = a3;
+    v9[7] = v3;
+    v9[8] = v4;
+    v6 = this;
+    v7 = 0;
+    v8 = a3;
     do
     {
-      this = std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v4 + 3), a2);
-      *(this + 8) = v5++;
+      v9[0] = a2;
+      this = std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>((v6 + 3), a2, &std::piecewise_construct, v9);
+      *(this + 8) = v7++;
       ++a2;
     }
 
-    while (v6 != v5);
+    while (v8 != v7);
   }
 
   return this;
@@ -8574,7 +8376,7 @@ LABEL_81:
 
       if (v60 <= *(v14 + 4 * *(a2 - 1)))
       {
-        v76 = v10 + 1;
+        v76 = (v10 + 1);
         do
         {
           v10 = v76;
@@ -8583,7 +8385,7 @@ LABEL_81:
             break;
           }
 
-          ++v76;
+          v76 += 4;
         }
 
         while (v60 <= *(v14 + 4 * *v10));
@@ -9066,10 +8868,10 @@ LABEL_34:
   return v37 + 1 == a2;
 }
 
-uint64_t std::vector<std::vector<int>>::push_back[abi:ne200100](uint64_t a1, uint64_t *a2)
+uint64_t std::vector<std::vector<int>>::push_back[abi:ne200100](const void **a1, uint64_t a2)
 {
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v5 = a1[1];
+  v4 = a1[2];
   if (v5 >= v4)
   {
     v8 = 0xAAAAAAAAAAAAAAABLL * ((v5 - *a1) >> 3);
@@ -9109,16 +8911,16 @@ uint64_t std::vector<std::vector<int>>::push_back[abi:ne200100](uint64_t a1, uin
     *v12 = 0;
     *(v12 + 8) = 0;
     *(v12 + 16) = 0;
-    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(24 * v8, *a2, a2[1], (a2[1] - *a2) >> 2);
+    std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((24 * v8), *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
     v7 = (v19 + 24);
-    v13 = *(a1 + 8) - *a1;
+    v13 = a1[1] - *a1;
     v14 = &v18[-v13];
     memcpy(&v18[-v13], *a1, v13);
     v15 = *a1;
     *a1 = v14;
-    *(a1 + 8) = v7;
-    v16 = *(a1 + 16);
-    *(a1 + 16) = v20;
+    a1[1] = v7;
+    v16 = a1[2];
+    a1[2] = v20;
     v19 = v15;
     v20 = v16;
     v17 = v15;
@@ -9131,18 +8933,18 @@ uint64_t std::vector<std::vector<int>>::push_back[abi:ne200100](uint64_t a1, uin
     *v5 = 0;
     v5[1] = 0;
     v5[2] = 0;
-    result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v5, *a2, a2[1], (a2[1] - *a2) >> 2);
+    result = std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v5, *a2, *(a2 + 8), (*(a2 + 8) - *a2) >> 2);
     v7 = v5 + 3;
-    *(a1 + 8) = v7;
+    a1[1] = v7;
   }
 
-  *(a1 + 8) = v7;
+  a1[1] = v7;
   return result;
 }
 
-void sub_2478346B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2478346B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__split_buffer<std::vector<float>>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -9169,23 +8971,23 @@ void Matrix<float>::operator*(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X
   operator new[]();
 }
 
-void Matrix<float>::operator*(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void Matrix<float>::operator*(uint64_t a1@<X0>, uint64_t a3@<X8>)
 {
-  v4 = *(a1 + 136);
-  v3 = *(a1 + 140);
-  *a2 = &unk_2859634D8;
-  *(a2 + 136) = v4;
-  *(a2 + 140) = v3;
+  v5 = *(a1 + 136);
+  v4 = *(a1 + 140);
+  *a3 = &unk_2859634D8;
+  *(a3 + 136) = v5;
+  *(a3 + 140) = v4;
   operator new[]();
 }
 
-void Matrix<float>::operator+(uint64_t a1@<X0>, uint64_t a2@<X8>)
+void Matrix<float>::operator+(uint64_t a1@<X0>, uint64_t a3@<X8>)
 {
-  v4 = *(a1 + 136);
-  v3 = *(a1 + 140);
-  *a2 = &unk_2859634D8;
-  *(a2 + 136) = v4;
-  *(a2 + 140) = v3;
+  v5 = *(a1 + 136);
+  v4 = *(a1 + 140);
+  *a3 = &unk_2859634D8;
+  *(a3 + 136) = v5;
+  *(a3 + 140) = v4;
   operator new[]();
 }
 
@@ -9254,10 +9056,10 @@ BOOL Matrix<float>::operator==(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t *std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(uint64_t a1, int a2)
+uint64_t *std::__tree<std::__value_type<int,int>,std::__map_value_compare<int,std::__value_type<int,int>,std::less<int>,true>,std::allocator<std::__value_type<int,int>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int &&>,std::tuple<>>(uint64_t a1, int a2, unsigned int **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
@@ -9267,34 +9069,34 @@ LABEL_8:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 28);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 28);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_8;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
   }
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,false>(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5, char a6)
+void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,false>(float *result, float *a2, float *a3, float *a4, uint64_t a5, char a6)
 {
   while (1)
   {
@@ -9305,12 +9107,12 @@ void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::rever
       {
         case 3:
 
-          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(a1, a2, a2 - 8, a2 - 8, a3, a4 + 8);
+          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(result, a2, (a2 - 2), (a2 - 2), a3, (a4 + 2));
           return;
         case 4:
-          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(a1, a2, a2 - 8, a2 - 8, a2 - 16, a2 - 16);
+          std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(result, a2, (a2 - 2), (a2 - 2), (a2 - 4), (a2 - 4));
           v56 = *a4;
-          v57 = *(a2 - 24);
+          v57 = *(a2 - 6);
           if (*a4 >= v57)
           {
             if (v57 < v56)
@@ -9318,8 +9120,8 @@ void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::rever
               return;
             }
 
-            v59 = *(a4 + 4);
-            v58 = *(a2 - 20);
+            v59 = *(a4 + 1);
+            v58 = *(a2 - 5);
             if (v59 >= v58)
             {
               return;
@@ -9328,16 +9130,16 @@ void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::rever
 
           else
           {
-            v58 = *(a2 - 20);
-            v59 = *(a4 + 4);
+            v58 = *(a2 - 5);
+            v59 = *(a4 + 1);
           }
 
-          *(a2 - 24) = v56;
+          *(a2 - 6) = v56;
           *a4 = v57;
-          *(a2 - 20) = v59;
-          *(a4 + 4) = v58;
-          v60 = *(a2 - 24);
-          v61 = *(a2 - 16);
+          *(a2 - 5) = v59;
+          *(a4 + 1) = v58;
+          v60 = *(a2 - 6);
+          v61 = *(a2 - 4);
           if (v60 >= v61)
           {
             if (v61 < v60)
@@ -9345,8 +9147,8 @@ void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::rever
               return;
             }
 
-            v63 = *(a2 - 20);
-            v62 = *(a2 - 12);
+            v63 = *(a2 - 5);
+            v62 = *(a2 - 3);
             if (v63 >= v62)
             {
               return;
@@ -9355,15 +9157,15 @@ void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::rever
 
           else
           {
-            v62 = *(a2 - 12);
-            v63 = *(a2 - 20);
+            v62 = *(a2 - 3);
+            v63 = *(a2 - 5);
           }
 
-          *(a2 - 16) = v60;
-          *(a2 - 24) = v61;
-          *(a2 - 12) = v63;
-          *(a2 - 20) = v62;
-          v64 = *(a2 - 8);
+          *(a2 - 4) = v60;
+          *(a2 - 6) = v61;
+          *(a2 - 3) = v63;
+          *(a2 - 5) = v62;
+          v64 = *(a2 - 2);
           if (v60 >= v64)
           {
             if (v64 < v60)
@@ -9371,8 +9173,8 @@ void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::rever
               return;
             }
 
-            v66 = *(a2 - 12);
-            v65 = *(a2 - 4);
+            v66 = *(a2 - 3);
+            v65 = *(a2 - 1);
             if (v66 >= v65)
             {
               return;
@@ -9381,17 +9183,17 @@ void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::rever
 
           else
           {
-            v65 = *(a2 - 4);
-            v66 = *(a2 - 12);
+            v65 = *(a2 - 1);
+            v66 = *(a2 - 3);
           }
 
-          *(a2 - 8) = v60;
-          *(a2 - 16) = v64;
-          *(a2 - 4) = v66;
-          *(a2 - 12) = v65;
+          *(a2 - 2) = v60;
+          *(a2 - 4) = v64;
+          *(a2 - 1) = v66;
+          *(a2 - 3) = v65;
           return;
         case 5:
-          std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(a1, a2, a2 - 8, a2 - 8, a2 - 16, a2 - 16, a2 - 24, a2 - 24, a3, a4 + 8);
+          std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(result, a2, (a2 - 2), (a2 - 2), (a2 - 4), (a2 - 4), (a2 - 6), (a2 - 6), a3, (a4 + 2));
           return;
       }
     }
@@ -9406,7 +9208,7 @@ void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::rever
       if (v10 == 2)
       {
         v52 = *a4;
-        v53 = *(a2 - 8);
+        v53 = *(a2 - 2);
         if (*a4 >= v53)
         {
           if (v53 < v52)
@@ -9414,8 +9216,8 @@ void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::rever
             return;
           }
 
-          v55 = *(a4 + 4);
-          v54 = *(a2 - 4);
+          v55 = *(a4 + 1);
+          v54 = *(a2 - 1);
           if (v55 >= v54)
           {
             return;
@@ -9424,14 +9226,14 @@ void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::rever
 
         else
         {
-          v54 = *(a2 - 4);
-          v55 = *(a4 + 4);
+          v54 = *(a2 - 1);
+          v55 = *(a4 + 1);
         }
 
-        *(a2 - 8) = v52;
+        *(a2 - 2) = v52;
         *a4 = v53;
-        *(a2 - 4) = v55;
-        *(a4 + 4) = v54;
+        *(a2 - 1) = v55;
+        *(a4 + 1) = v54;
         return;
       }
     }
@@ -9458,70 +9260,70 @@ void std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::rever
         {
           v85 = v84 >> 2;
           v86 = (v84 >> 2) | 1;
-          v87 = a2 - 8 * v86;
+          v87 = &a2[-2 * v86];
           v88 = v85 + 2;
-          if (v85 + 2 < v10 && ((v89 = v87 - 8, v90 = *(v87 - 8), v91 = *(v87 - 16), v90 < v91) || v91 >= v90 && *(v87 - 4) < *(v87 - 12)))
+          if (v85 + 2 < v10 && ((v89 = v87 - 2, v90 = *(v87 - 2), v91 = *(v87 - 4), v90 < v91) || v91 >= v90 && *(v87 - 1) < *(v87 - 3)))
           {
             v86 = v88;
           }
 
           else
           {
-            v89 = a2 - 8 * v86;
+            v89 = &a2[-2 * v86];
           }
 
-          v92 = a2 - 8 * v83;
-          v93 = *(v89 - 8);
-          v94 = *(v92 - 8);
+          v92 = &a2[-2 * v83];
+          v93 = *(v89 - 2);
+          v94 = *(v92 - 2);
           if (v93 >= v94)
           {
             if (v94 < v93)
             {
-              v95 = *(v92 - 4);
-              v96 = *(v89 - 4);
+              v95 = *(v92 - 1);
+              v96 = *(v89 - 1);
               goto LABEL_146;
             }
 
-            v96 = *(v89 - 4);
-            v95 = *(v92 - 4);
+            v96 = *(v89 - 1);
+            v95 = *(v92 - 1);
             if (v96 >= v95)
             {
 LABEL_146:
-              *(v92 - 8) = v93;
-              *(v92 - 4) = v96;
+              *(v92 - 2) = v93;
+              *(v92 - 1) = v96;
               if (v81 >= v86)
               {
                 while (1)
                 {
                   v98 = 2 * v86;
                   v86 = (2 * v86) | 1;
-                  v99 = a2 - 8 * v86;
+                  v99 = &a2[-2 * v86];
                   v100 = v98 + 2;
-                  if (v98 + 2 < v10 && ((v97 = v99 - 8, v101 = *(v99 - 8), v102 = *(v99 - 16), v101 < v102) || v102 >= v101 && *(v99 - 4) < *(v99 - 12)))
+                  if (v98 + 2 < v10 && ((v97 = v99 - 2, v101 = *(v99 - 2), v102 = *(v99 - 4), v101 < v102) || v102 >= v101 && *(v99 - 1) < *(v99 - 3)))
                   {
                     v86 = v100;
                   }
 
                   else
                   {
-                    v97 = a2 - 8 * v86;
+                    v97 = &a2[-2 * v86];
                   }
 
-                  v103 = *(v97 - 8);
+                  v103 = *(v97 - 2);
                   if (v103 < v94)
                   {
                     break;
                   }
 
-                  v104 = *(v97 - 4);
+                  v104 = *(v97 - 1);
                   v105 = v94 >= v103 && v104 < v95;
                   if (v105)
                   {
                     break;
                   }
 
-                  *(v89 - 8) = v103;
-                  *(v89 - 4) = v104;
+                  *(v89 - 2) = v103;
+                  *(v89 - 1) = v104;
                   v89 = v97;
                   if (v81 < v86)
                   {
@@ -9532,8 +9334,8 @@ LABEL_146:
 
               v97 = v89;
 LABEL_148:
-              *(v97 - 8) = v94;
-              *(v97 - 4) = v95;
+              *(v97 - 2) = v94;
+              *(v97 - 1) = v95;
             }
           }
         }
@@ -9549,45 +9351,45 @@ LABEL_148:
 
 LABEL_164:
       v106 = 0;
-      v107 = *(a2 - 8);
-      v108 = *(a2 - 4);
+      v107 = *(a2 - 2);
+      v108 = *(a2 - 1);
       v109 = a2;
       do
       {
         v110 = v109;
-        v109 += 8 * ~v106;
+        v109 += 2 * ~v106;
         v111 = 2 * v106;
         v106 = (2 * v106) | 1;
         v112 = v111 + 2;
         if (v112 < v10)
         {
-          v113 = *(v109 - 8);
-          v114 = *(v109 - 16);
-          if (v113 < v114 || v114 >= v113 && *(v109 - 4) < *(v109 - 12))
+          v113 = *(v109 - 2);
+          v114 = *(v109 - 4);
+          if (v113 < v114 || v114 >= v113 && *(v109 - 1) < *(v109 - 3))
           {
-            v109 -= 8;
+            v109 -= 2;
             v106 = v112;
           }
         }
 
-        *(v110 - 8) = *(v109 - 8);
-        *(v110 - 4) = *(v109 - 4);
+        *(v110 - 2) = *(v109 - 2);
+        *(v110 - 1) = *(v109 - 1);
       }
 
       while (v106 <= ((v10 - 2) >> 1));
-      if (a4 + 8 == v109)
+      if (a4 + 2 == v109)
       {
-        *(v109 - 8) = v107;
-        *(v109 - 4) = v108;
+        *(v109 - 2) = v107;
+        *(v109 - 1) = v108;
         goto LABEL_189;
       }
 
-      v115 = (v109 - 8);
-      *(v109 - 8) = *a4;
-      *(v109 - 4) = *(a4 + 4);
+      v115 = v109 - 2;
+      *(v109 - 2) = *a4;
+      *(v109 - 1) = a4[1];
       *a4 = v107;
-      *(a4 + 4) = v108;
-      v116 = (a2 - (v109 - 8)) >> 3;
+      *(a4 + 1) = v108;
+      v116 = (a2 - (v109 - 2)) >> 3;
       v117 = v116 - 2;
       if (v116 < 2)
       {
@@ -9595,8 +9397,8 @@ LABEL_164:
       }
 
       v118 = v117 >> 1;
-      v119 = a2 - 8 * (v117 >> 1);
-      v120 = *(v119 - 8);
+      v119 = &a2[-2 * (v117 >> 1)];
+      v120 = *(v119 - 2);
       v121 = *v115;
       if (v120 >= *v115)
       {
@@ -9605,8 +9407,8 @@ LABEL_164:
           goto LABEL_189;
         }
 
-        v123 = *(v119 - 4);
-        v122 = *(v109 - 4);
+        v123 = *(v119 - 1);
+        v122 = *(v109 - 1);
         if (v123 >= v122)
         {
           goto LABEL_189;
@@ -9615,34 +9417,34 @@ LABEL_164:
 
       else
       {
-        v122 = *(v109 - 4);
-        v123 = *(v119 - 4);
+        v122 = *(v109 - 1);
+        v123 = *(v119 - 1);
       }
 
-      *(v109 - 8) = v120;
-      *(v109 - 4) = v123;
+      *(v109 - 2) = v120;
+      *(v109 - 1) = v123;
       if (v117 < 2)
       {
         goto LABEL_188;
       }
 
-      v124 = a2 - 8 * (v117 >> 1);
+      v124 = &a2[-2 * (v117 >> 1)];
       while (1)
       {
         v125 = v118 - 1;
         v118 = (v118 - 1) >> 1;
-        v119 = a2 - 8 * v118;
-        v126 = *(v119 - 8);
+        v119 = &a2[-2 * v118];
+        v126 = *(v119 - 2);
         if (v126 >= v121)
         {
-          if (v121 < v126 || (v127 = *(v119 - 4), v127 >= v122))
+          if (v121 < v126 || (v127 = *(v119 - 1), v127 >= v122))
           {
             v119 = v124;
 LABEL_188:
-            *(v119 - 8) = v121;
-            *(v119 - 4) = v122;
+            *(v119 - 2) = v121;
+            *(v119 - 1) = v122;
 LABEL_189:
-            a4 += 8;
+            a4 += 2;
             v105 = v10-- <= 2;
             if (v105)
             {
@@ -9655,12 +9457,12 @@ LABEL_189:
 
         else
         {
-          v127 = *(v119 - 4);
+          v127 = *(v119 - 1);
         }
 
-        *(v124 - 8) = v126;
-        *(v124 - 4) = v127;
-        v124 = a2 - 8 * v118;
+        *(v124 - 2) = v126;
+        *(v124 - 1) = v127;
+        v124 = &a2[-2 * v118];
         if (v125 <= 1)
         {
           goto LABEL_188;
@@ -9669,43 +9471,43 @@ LABEL_189:
     }
 
     v11 = ((a2 - a4) >> 1) & 0x7FFFFFFFFFFFFFF8;
-    v12 = a2 - v11;
+    v12 = (a2 - v11);
     v13 = a2;
-    v14 = a1;
+    v14 = result;
     if (v10 < 0x81)
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(a2 - v11, a2 - v11, a1, a2, a4 + 8, a4 + 8);
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(a2 - v11, a2 - v11, result, a2, (a4 + 2), (a4 + 2));
     }
 
     else
     {
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(a1, a2, a2 - v11, a2 - v11, a4 + 8, a4 + 8);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(a2 - 8, a2 - 8, v12 + 8, v12 + 8, a4 + 16, a4 + 16);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(a2 - 16, a2 - 16, a2 - 8 - v11, a2 - 8 - v11, a4 + 24, a4 + 24);
-      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(v12 + 8, v12 + 8, a2 - v11, a2 - v11, a2 - 8 - v11, a2 - 8 - v11);
-      v15 = *(a2 - 8);
-      *(a2 - 8) = *(v12 - 8);
-      *(v12 - 8) = v15;
-      v16 = *(a2 - 4);
-      *(a2 - 4) = *(v12 - 4);
-      *(v12 - 4) = v16;
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>(result, a2, a2 - v11, a2 - v11, (a4 + 2), (a4 + 2));
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>((a2 - 2), (a2 - 2), (v12 + 2), (v12 + 2), (a4 + 4), (a4 + 4));
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>((a2 - 4), (a2 - 4), a2 - v11 - 8, a2 - v11 - 8, (a4 + 6), (a4 + 6));
+      std::__sort3[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,0>((v12 + 2), (v12 + 2), a2 - v11, a2 - v11, a2 - v11 - 8, a2 - v11 - 8);
+      v15 = *(a2 - 2);
+      *(a2 - 2) = *(v12 - 2);
+      *(v12 - 2) = v15;
+      v16 = *(a2 - 1);
+      *(a2 - 1) = *(v12 - 1);
+      *(v12 - 1) = v16;
     }
 
     --a5;
     if (a6)
     {
-      v17 = *(a2 - 8);
+      v17 = *(a2 - 2);
       goto LABEL_16;
     }
 
-    v18 = (a2 - 8);
-    v17 = *(a2 - 8);
+    v18 = a2 - 2;
+    v17 = *(a2 - 2);
     if (*a2 >= v17)
     {
       if (v17 >= *a2)
       {
-        v38 = *(a2 - 4);
-        if (*(a2 + 4) < v38)
+        v38 = *(a2 - 1);
+        if (*(a2 + 1) < v38)
         {
           goto LABEL_16;
         }
@@ -9713,29 +9515,29 @@ LABEL_189:
 
       else
       {
-        v38 = *(a2 - 4);
+        v38 = *(a2 - 1);
       }
 
-      if (v17 < *a4 || *a4 >= v17 && v38 < *(a4 + 4))
+      if (v17 < *a4 || *a4 >= v17 && v38 < *(a4 + 1))
       {
-        v39 = *(a2 - 16);
+        v39 = *(a2 - 4);
         if (v17 >= v39)
         {
-          v40 = a2 - 24;
+          v40 = a2 - 6;
           do
           {
-            if (v39 >= v17 && v38 < *(v40 + 12))
+            if (v39 >= v17 && v38 < *(v40 + 3))
             {
               break;
             }
 
             v41 = *v40;
-            v40 -= 8;
+            v40 -= 2;
             v39 = v41;
           }
 
           while (v17 >= v41);
-          v18 = (v40 + 16);
+          v18 = v40 + 4;
         }
       }
 
@@ -9756,7 +9558,7 @@ LABEL_189:
       i = a4;
       if (v18 > a4)
       {
-        for (i = a4 + 8; ; i += 8)
+        for (i = (a4 + 2); ; i += 8)
         {
           v43 = *(i - 8);
           if (v17 >= v43 && (v43 < v17 || v38 >= *(i - 4)))
@@ -9823,8 +9625,8 @@ LABEL_189:
 
       if (v44 + 2 != a2)
       {
-        *(a2 - 8) = *v44;
-        *(a2 - 4) = v44[1];
+        *(a2 - 2) = *v44;
+        *(a2 - 1) = v44[1];
       }
 
       a6 = 0;
@@ -9837,21 +9639,21 @@ LABEL_189:
     {
 LABEL_16:
       v19 = 0;
-      v20 = *(a2 - 4);
+      v20 = *(a2 - 1);
       while (1)
       {
-        v21 = *(a2 + v19 - 16);
-        if (v21 >= v17 && (v17 < v21 || *(a2 + v19 - 12) >= v20))
+        v21 = a2[v19 - 4];
+        if (v21 >= v17 && (v17 < v21 || SLODWORD(a2[v19 - 3]) >= v20))
         {
           break;
         }
 
-        v19 -= 8;
+        v19 -= 2;
       }
 
-      v22 = a2 + v19;
-      v23 = a2 + v19 - 8;
-      if (v19)
+      v22 = &a2[v19];
+      v23 = &a2[v19 - 2];
+      if (v19 * 4)
       {
         v24 = a4;
         do
@@ -9902,22 +9704,22 @@ LABEL_16:
         v31 = v24;
         do
         {
-          v32 = *(v30 - 4);
-          *(v30 - 4) = *(v31 - 1);
-          v33 = *(v30 - 8);
+          v32 = *(v30 - 1);
+          *(v30 - 1) = *(v31 - 1);
+          v33 = *(v30 - 2);
           v22 = v30;
-          *(v30 - 8) = *(v31 - 2);
+          *(v30 - 2) = *(v31 - 2);
           *(v31 - 2) = v33;
           *(v31 - 1) = v32;
-          for (v30 -= 8; ; v30 -= 8)
+          for (v30 -= 2; ; v30 -= 2)
           {
-            v34 = *(v30 - 8);
-            if (v34 >= v17 && (v17 < v34 || *(v30 - 4) >= v20))
+            v34 = *(v30 - 2);
+            if (v34 >= v17 && (v17 < v34 || *(v30 - 1) >= v20))
             {
               break;
             }
 
-            v22 -= 8;
+            v22 -= 2;
           }
 
           do
@@ -9935,16 +9737,16 @@ LABEL_16:
 
       if (v22 != a2)
       {
-        *(a2 - 8) = *(v22 - 8);
-        *(a2 - 4) = *(v22 - 4);
+        *(a2 - 2) = *(v22 - 2);
+        *(a2 - 1) = *(v22 - 1);
       }
 
-      *(v22 - 8) = v17;
-      *(v22 - 4) = v20;
+      *(v22 - 2) = v17;
+      *(v22 - 1) = v20;
       if (v24 >= v23)
       {
-        v37 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>>(a1, a2, v22, v22);
-        if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>>(v22 - 8, v22 - 8, a3, a4))
+        v37 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>>(result, a2, v22, v22);
+        if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>>((v22 - 2), v22 - 2, a3, a4))
         {
           a3 = v22;
           a4 = v22;
@@ -9956,8 +9758,8 @@ LABEL_16:
 
         else
         {
-          a1 = v22;
-          a2 = v22 - 8;
+          result = v22;
+          a2 = v22 - 2;
           if ((v37 & 1) == 0)
           {
             goto LABEL_52;
@@ -9970,8 +9772,8 @@ LABEL_16:
 LABEL_52:
         std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::reverse_iterator<std::__wrap_iter<std::pair<float,int> *>>,false>(v14, v13, v22, v22, a5, a6 & 1);
         a6 = 0;
-        a1 = v22;
-        a2 = v22 - 8;
+        result = v22;
+        a2 = v22 - 2;
       }
     }
   }
@@ -9983,19 +9785,19 @@ LABEL_52:
       return;
     }
 
-    v128 = a2 - 8;
-    if (a2 - 8 == a4)
+    v128 = a2 - 2;
+    if (a2 - 2 == a4)
     {
       return;
     }
 
-    v129 = a2 - 8;
+    v129 = a2 - 2;
     while (1)
     {
-      v130 = v128 + 8;
+      v130 = v128 + 2;
       v131 = *v128;
-      v132 = *(v129 - 8);
-      v129 -= 8;
+      v132 = *(v129 - 2);
+      v129 -= 2;
       v133 = v132;
       if (v132 < *v128)
       {
@@ -10004,8 +9806,8 @@ LABEL_52:
 
       if (v131 >= v133)
       {
-        v134 = *(v128 - 4);
-        if (v134 < *(v128 + 4))
+        v134 = *(v128 - 1);
+        if (v134 < *(v128 + 1))
         {
           goto LABEL_203;
         }
@@ -10019,16 +9821,16 @@ LABEL_209:
       }
     }
 
-    v134 = *(v128 - 4);
+    v134 = *(v128 - 1);
     do
     {
       do
       {
 LABEL_203:
         v135 = v130;
-        *(v128 - 8) = v131;
-        *(v128 - 4) = *(v130 - 4);
-        v130 += 8;
+        *(v128 - 2) = v131;
+        *(v128 - 1) = *(v130 - 1);
+        v130 += 2;
         v131 = *v135;
         v128 = v135;
       }
@@ -10042,9 +9844,9 @@ LABEL_203:
       v128 = v135;
     }
 
-    while (v134 < *(v135 + 4));
-    *(v135 - 8) = v133;
-    *(v135 - 4) = v134;
+    while (v134 < *(v135 + 1));
+    *(v135 - 2) = v133;
+    *(v135 - 1) = v134;
     goto LABEL_209;
   }
 
@@ -10053,20 +9855,20 @@ LABEL_203:
     return;
   }
 
-  v67 = a2 - 8;
-  if (a2 - 8 == a4)
+  v67 = a2 - 2;
+  if (a2 - 2 == a4)
   {
     return;
   }
 
   v68 = 0;
-  v69 = a2 - 8;
+  v69 = a2 - 2;
   while (2)
   {
-    v70 = v67 + 8;
+    v70 = v67 + 2;
     v71 = *v67;
-    v72 = *(v69 - 8);
-    v69 -= 8;
+    v72 = *(v69 - 2);
+    v69 -= 2;
     v73 = v72;
     if (v72 >= *v67)
     {
@@ -10075,8 +9877,8 @@ LABEL_203:
         goto LABEL_131;
       }
 
-      v74 = *(v67 - 4);
-      v75 = *(v67 + 4);
+      v74 = *(v67 - 1);
+      v75 = *(v67 + 1);
       if (v74 >= v75)
       {
         goto LABEL_131;
@@ -10085,12 +9887,12 @@ LABEL_203:
 
     else
     {
-      v74 = *(v67 - 4);
-      v75 = *(v67 + 4);
+      v74 = *(v67 - 1);
+      v75 = *(v67 + 1);
     }
 
-    *(v67 - 8) = v71;
-    *(v67 - 4) = v75;
+    *(v67 - 2) = v71;
+    *(v67 - 1) = v75;
     v76 = a2;
     if (v70 == a2)
     {
@@ -10117,10 +9919,10 @@ LABEL_203:
       if (v74 < v79)
       {
 LABEL_124:
-        v76 += 8;
-        v80 = a2 + v77;
-        *(v80 - 8) = v78;
-        *(v80 - 4) = v79;
+        v76 += 2;
+        v80 = (a2 + v77);
+        *(v80 - 2) = v78;
+        *(v80 - 1) = v79;
         v77 += 8;
         if (!v77)
         {
@@ -10134,10 +9936,10 @@ LABEL_124:
       break;
     }
 
-    v76 = a2 + v77;
+    v76 = (a2 + v77);
 LABEL_130:
-    *(v76 - 8) = v73;
-    *(v76 - 4) = v74;
+    *(v76 - 2) = v73;
+    *(v76 - 1) = v74;
 LABEL_131:
     v68 -= 8;
     v67 = v69;

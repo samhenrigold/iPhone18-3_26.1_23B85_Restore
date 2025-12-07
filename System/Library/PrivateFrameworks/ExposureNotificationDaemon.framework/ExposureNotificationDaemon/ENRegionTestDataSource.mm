@@ -3,7 +3,7 @@
 - (ENRegionTestDataSource)initWithDelegate:(id)delegate;
 - (NSString)description;
 - (id)currentRegionVisit;
-- (uint64_t)currentRegionVisit;
+- (void)currentRegionVisit;
 - (void)dealloc;
 - (void)regionChanged;
 - (void)startMonitoring;
@@ -55,7 +55,7 @@
   v15 = NSStringFromClass(v3);
   v4 = NSStringFromSelector(a2);
   OUTLINED_FUNCTION_0_1(v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15);
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENRegionTestDataSource, "[ENRegionTestDataSource startMonitoring]", 30, "%@, %@");
 }
 
 - (void)stopMonitoring
@@ -64,7 +64,7 @@
   v15 = NSStringFromClass(v3);
   v4 = NSStringFromSelector(a2);
   OUTLINED_FUNCTION_0_1(v4, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v15);
-  LogPrintF_safe();
+  LogPrintF_safe(&gLogCategory_ENRegionTestDataSource, "[ENRegionTestDataSource stopMonitoring]", 30, "%@, %@");
 }
 
 - (id)currentRegionVisit
@@ -91,7 +91,7 @@
 
     if ((isSensitiveLoggingAllowed & 1) != 0 && gLogCategory_ENRegionTestDataSource <= 30 && (gLogCategory_ENRegionTestDataSource != -1 || _LogCategory_Initialize()))
     {
-      [ENRegionTestDataSource regionChanged];
+      [(ENRegionTestDataSource *)v7 regionChanged];
     }
 
     delegate = [(ENRegionTestDataSource *)self delegate];
@@ -108,14 +108,14 @@
   return WeakRetained;
 }
 
-- (uint64_t)currentRegionVisit
+- (void)currentRegionVisit
 {
   v1 = result;
   if (gLogCategory_ENRegionTestDataSource <= 30)
   {
     if (gLogCategory_ENRegionTestDataSource != -1 || (result = _LogCategory_Initialize(), result))
     {
-      result = LogPrintF_safe();
+      result = LogPrintF_safe(&gLogCategory_ENRegionTestDataSource, "[ENRegionTestDataSource currentRegionVisit]", 30, "Test Region Data Invalid Region Defaults");
     }
   }
 

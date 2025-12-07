@@ -7,6 +7,7 @@
 - (id)hangsDataEntryAtPath:(id)path error:(id *)error;
 - (id)hangsDataEntryWithFullPath:(id)path extendedAttributes:(id)attributes cachedAppRecords:(id)records;
 - (void)dealloc;
+- (void)findEventsFilteringDeveloperApps:(BOOL)apps completionHandler:(id)handler;
 - (void)findProcessingEventsFilteringDeveloperApps:(BOOL)apps completionHandler:(id)handler;
 - (void)hangReporterDidSaveTailspin:(id)tailspin;
 @end
@@ -50,62 +51,62 @@
       v42[2] = 0x3042000000;
       v42[3] = __Block_byref_object_copy__0;
       v42[4] = __Block_byref_object_dispose__0;
-      objc_initWeak(&v43, v6);
+      inited = objc_initWeak(&v43, v6);
       v40 = 0u;
       v41 = 0u;
       v38 = 0u;
       v39 = 0u;
-      obj = getDataTypePaths();
-      v17 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
-      if (v17)
+      obj = getDataTypePaths(inited);
+      v18 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
+      if (v18)
       {
-        v18 = *v39;
+        v19 = *v39;
         do
         {
-          for (i = 0; i != v17; ++i)
+          for (i = 0; i != v18; ++i)
           {
-            if (*v39 != v18)
+            if (*v39 != v19)
             {
               objc_enumerationMutation(obj);
             }
 
-            v20 = *(*(&v38 + 1) + 8 * i);
-            v21 = *(v6 + 6);
+            v21 = *(*(&v38 + 1) + 8 * i);
+            v22 = *(v6 + 6);
             block[0] = MEMORY[0x277D85DD0];
             block[1] = 3221225472;
             block[2] = __69__HTHangsDataFinder_initWithLogUpdateCallback_tailspinSavedCallback___block_invoke;
             block[3] = &unk_2796A9238;
-            block[4] = v20;
+            block[4] = v21;
             block[5] = v42;
-            dispatch_async(v21, block);
-            v22 = v20;
-            v23 = open([v20 UTF8String], 0x8000);
-            v24 = v23;
-            if (v23 != -1)
+            dispatch_async(v22, block);
+            v23 = v21;
+            v24 = open([v21 UTF8String], 0x8000);
+            v25 = v24;
+            if (v24 != -1)
             {
-              v25 = dispatch_source_create(MEMORY[0x277D85D48], v23, 2uLL, *(v6 + 6));
+              v26 = dispatch_source_create(MEMORY[0x277D85D48], v24, 2uLL, *(v6 + 6));
               handler[0] = MEMORY[0x277D85DD0];
               handler[1] = 3221225472;
               handler[2] = __69__HTHangsDataFinder_initWithLogUpdateCallback_tailspinSavedCallback___block_invoke_2;
               handler[3] = &unk_2796A9238;
-              handler[4] = v20;
+              handler[4] = v21;
               handler[5] = v42;
-              dispatch_source_set_event_handler(v25, handler);
+              dispatch_source_set_event_handler(v26, handler);
               v34[0] = MEMORY[0x277D85DD0];
               v34[1] = 3221225472;
               v34[2] = __69__HTHangsDataFinder_initWithLogUpdateCallback_tailspinSavedCallback___block_invoke_3;
               v34[3] = &__block_descriptor_36_e5_v8__0l;
-              v35 = v24;
-              dispatch_source_set_cancel_handler(v25, v34);
-              dispatch_resume(v25);
-              [*(v6 + 5) addObject:v25];
+              v35 = v25;
+              dispatch_source_set_cancel_handler(v26, v34);
+              dispatch_resume(v26);
+              [*(v6 + 5) addObject:v26];
             }
           }
 
-          v17 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
+          v18 = [obj countByEnumeratingWithState:&v38 objects:v45 count:16];
         }
 
-        while (v17);
+        while (v18);
       }
 
       _Block_object_dispose(v42, 8);
@@ -114,16 +115,15 @@
 
     if (savedCallbackCopy)
     {
-      v26 = MEMORY[0x25306A220](savedCallbackCopy);
-      v27 = *(v6 + 4);
-      *(v6 + 4) = v26;
+      v27 = MEMORY[0x25306A220](savedCallbackCopy);
+      v28 = *(v6 + 4);
+      *(v6 + 4) = v27;
 
       defaultCenter = [MEMORY[0x277CCA9A0] defaultCenter];
       [defaultCenter addObserver:v6 selector:sel_hangReporterDidSaveTailspin_ name:*MEMORY[0x277D0FA30] object:0];
     }
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -199,27 +199,25 @@ void __69__HTHangsDataFinder_initWithLogUpdateCallback_tailspinSavedCallback___b
 
 - (id)getFilteredLogURLsForPath:(id)path error:(id *)error
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v18 = 0;
+  v17 = 0;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v8 = [defaultManager fileExistsAtPath:pathCopy isDirectory:&v18];
-  v9 = v18;
+  v8 = [defaultManager fileExistsAtPath:pathCopy isDirectory:&v17];
+  v9 = v17;
 
   v10 = MEMORY[0x277CBEBF8];
   if (v8 && (v9 & 1) != 0)
   {
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v12 = [MEMORY[0x277CBEBC0] fileURLWithPath:pathCopy isDirectory:v18];
-    v19[0] = *MEMORY[0x277CBE8E0];
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:1];
+    v12 = [MEMORY[0x277CBEBC0] fileURLWithPath:pathCopy isDirectory:v17];
+    v18[0] = *MEMORY[0x277CBE8E0];
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
     v14 = [defaultManager2 contentsOfDirectoryAtURL:v12 includingPropertiesForKeys:v13 options:0 error:error];
 
     hangLogPredicate = [(HTHangsDataFinder *)self hangLogPredicate];
     v10 = [v14 filteredArrayUsingPredicate:hangLogPredicate];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -367,29 +365,29 @@ LABEL_7:
 
 + (id)groupEntriesByHangID:(id)d
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v5 = dCopy;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         hangID = [v10 hangID];
         if (hangID)
         {
@@ -406,16 +404,32 @@ LABEL_7:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
 
   v15 = [dictionary copy];
-  v16 = *MEMORY[0x277D85DE8];
 
   return v15;
+}
+
+- (void)findEventsFilteringDeveloperApps:(BOOL)apps completionHandler:(id)handler
+{
+  appsCopy = apps;
+  handlerCopy = handler;
+  NSLog(&cfstr_FindingHangEve.isa, appsCopy);
+  v7 = dispatch_get_global_queue(0, 0);
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __72__HTHangsDataFinder_findEventsFilteringDeveloperApps_completionHandler___block_invoke;
+  block[3] = &unk_2796A9320;
+  v11 = appsCopy;
+  block[4] = self;
+  v10 = handlerCopy;
+  v8 = handlerCopy;
+  dispatch_async(v7, block);
 }
 
 void __72__HTHangsDataFinder_findEventsFilteringDeveloperApps_completionHandler___block_invoke(uint64_t a1)
@@ -427,7 +441,7 @@ void __72__HTHangsDataFinder_findEventsFilteringDeveloperApps_completionHandler_
   v17[4] = __Block_byref_object_dispose__42;
   v18 = 0;
   v2 = [MEMORY[0x277CBEB18] array];
-  v3 = getDataTypePaths();
+  v3 = getDataTypePaths(v2);
   v12[0] = MEMORY[0x277D85DD0];
   v12[1] = 3221225472;
   v12[2] = __72__HTHangsDataFinder_findEventsFilteringDeveloperApps_completionHandler___block_invoke_43;
@@ -495,27 +509,27 @@ void __72__HTHangsDataFinder_findEventsFilteringDeveloperApps_completionHandler_
 - (void)findProcessingEventsFilteringDeveloperApps:(BOOL)apps completionHandler:(id)handler
 {
   appsCopy = apps;
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    v16 = appsCopy;
+    v15 = appsCopy;
     _os_log_impl(&dword_2510AF000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Getting pending hangs list (filtering on developer apps: %d)", buf, 8u);
   }
 
   hangReporterService = self->_hangReporterService;
   if (hangReporterService || (v8 = objc_alloc_init(HTHangReporterService), v9 = self->_hangReporterService, self->_hangReporterService = v8, v9, (hangReporterService = self->_hangReporterService) != 0))
   {
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __82__HTHangsDataFinder_findProcessingEventsFilteringDeveloperApps_completionHandler___block_invoke;
-    v12[3] = &unk_2796A9348;
-    v12[4] = self;
-    v13 = handlerCopy;
-    v14 = appsCopy;
-    [(HTHangReporterService *)hangReporterService getProcessingHangsWithCompletion:v12];
-    v10 = v13;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __82__HTHangsDataFinder_findProcessingEventsFilteringDeveloperApps_completionHandler___block_invoke;
+    v11[3] = &unk_2796A9348;
+    v11[4] = self;
+    v12 = handlerCopy;
+    v13 = appsCopy;
+    [(HTHangReporterService *)hangReporterService getProcessingHangsWithCompletion:v11];
+    v10 = v12;
   }
 
   else
@@ -523,46 +537,44 @@ void __72__HTHangsDataFinder_findEventsFilteringDeveloperApps_completionHandler_
     v10 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA050] code:4099 userInfo:0];
     (*(handlerCopy + 2))(handlerCopy, 0, v10);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __82__HTHangsDataFinder_findProcessingEventsFilteringDeveloperApps_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = v6;
   if (v5)
   {
-    v35 = a1;
-    v31 = v6;
+    v34 = a1;
+    v30 = v6;
     v8 = [MEMORY[0x277CBEB18] array];
-    v34 = [MEMORY[0x277CBEB38] dictionary];
+    v33 = [MEMORY[0x277CBEB38] dictionary];
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
-    v32 = v5;
+    v31 = v5;
     obj = v5;
-    v9 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
+    v9 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v40;
+      v11 = *v39;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v40 != v11)
+          if (*v39 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v39 + 1) + 8 * i);
-          v14 = *(v35 + 32);
+          v13 = *(*(&v38 + 1) + 8 * i);
+          v14 = *(v34 + 32);
           v15 = [v13 bundleID];
-          v16 = [v14 appRecordWithBundleId:v15 cachedAppRecords:v34];
+          v16 = [v14 appRecordWithBundleId:v15 cachedAppRecords:v33];
 
           v17 = [HTHangsDataEntry alloc];
           v18 = [v13 identifier];
@@ -576,24 +588,24 @@ void __82__HTHangsDataFinder_findProcessingEventsFilteringDeveloperApps_completi
           [v8 addObject:v24];
         }
 
-        v10 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
+        v10 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
       }
 
       while (v10);
     }
 
-    if (*(v35 + 48) == 1)
+    if (*(v34 + 48) == 1)
     {
       v25 = [MEMORY[0x277CCAC30] predicateWithBlock:&__block_literal_global_126];
       [v8 filterUsingPredicate:v25];
     }
 
-    v7 = v31;
+    v7 = v30;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       v26 = [v8 count];
       *buf = 134217984;
-      v47 = v26;
+      v46 = v26;
       _os_log_impl(&dword_2510AF000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Found %lu pending hangs entries", buf, 0xCu);
     }
 
@@ -602,29 +614,27 @@ void __82__HTHangsDataFinder_findProcessingEventsFilteringDeveloperApps_completi
     block[1] = 3221225472;
     block[2] = __82__HTHangsDataFinder_findProcessingEventsFilteringDeveloperApps_completionHandler___block_invoke_54;
     block[3] = &unk_2796A92F8;
-    v28 = *(v35 + 40);
-    v37 = v27;
-    v38 = v28;
+    v28 = *(v34 + 40);
+    v36 = v27;
+    v37 = v28;
     v29 = v27;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    v5 = v32;
+    v5 = v31;
   }
 
   else
   {
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __82__HTHangsDataFinder_findProcessingEventsFilteringDeveloperApps_completionHandler___block_invoke_2;
-    v43[3] = &unk_2796A92F8;
-    v45 = *(a1 + 40);
-    v44 = v7;
-    dispatch_async(MEMORY[0x277D85CD0], v43);
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __82__HTHangsDataFinder_findProcessingEventsFilteringDeveloperApps_completionHandler___block_invoke_2;
+    v42[3] = &unk_2796A92F8;
+    v44 = *(a1 + 40);
+    v43 = v7;
+    dispatch_async(MEMORY[0x277D85CD0], v42);
 
-    v8 = v45;
+    v8 = v44;
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)hangReporterDidSaveTailspin:(id)tailspin

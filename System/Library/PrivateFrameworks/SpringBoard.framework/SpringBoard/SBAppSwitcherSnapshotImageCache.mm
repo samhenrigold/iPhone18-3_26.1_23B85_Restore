@@ -102,14 +102,14 @@
 {
   v2 = [OUTLINED_FUNCTION_10_5(self a2)];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_12(&dword_21ED4E000, v3, v4, "\n|\n|— [%{public}@] [Purging] low priority sequenceID-s: %{public}@\n|", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v3, v4, "\n|\n|— [%{public}@] [Purging] low priority sequenceID-s: %{public}@\n|", v5, v6, v7, v8);
 }
 
 - (void)_enqueueNextSnapshotRequestIfNecessary
 {
   OUTLINED_FUNCTION_5_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] enqueue snapshot request load if necessary", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] enqueue snapshot request load if necessary", v2, v3, v4, v5);
 }
 
 - (SBAppSwitcherSnapshotImageCacheDelegate)delegate
@@ -126,7 +126,7 @@ uint64_t __69__SBAppSwitcherSnapshotImageCache__purgeLowPriorityFullSizeSnapshot
   {
     v5 = *(a1 + 32);
     v6 = [v4 appLayout];
-    v7 = [v5 containsObject:v6];
+    v7 = objc_msgSend_containsObject_(v5);
 
     if (*(*(a1 + 40) + 88) == 1)
     {
@@ -434,8 +434,8 @@ uint64_t __57__SBAppSwitcherSnapshotImageCache_setCachableAppLayouts___block_inv
     v6 = *(v5 + 120);
     *(v5 + 120) = v4;
 
-    v7 = SBLogSwitcherSnapshotCache();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = SBLogSwitcherSnapshotCache(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       __57__SBAppSwitcherSnapshotImageCache_setCachableAppLayouts___block_invoke_cold_1();
     }
@@ -503,8 +503,8 @@ uint64_t __65__SBAppSwitcherSnapshotImageCache_setFullSizeCachableAppLayouts___b
     v6 = *(v5 + 128);
     *(v5 + 128) = v4;
 
-    v7 = SBLogSwitcherSnapshotCache();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = SBLogSwitcherSnapshotCache(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       __65__SBAppSwitcherSnapshotImageCache_setFullSizeCachableAppLayouts___block_invoke_cold_1();
     }
@@ -549,27 +549,27 @@ void __61__SBAppSwitcherSnapshotImageCache_fullSizeCachableAppLayouts__block_inv
 - (void)_updateCacheForDisplayItem:(id)item
 {
   itemCopy = item;
-  BSDispatchQueueAssertMain();
-  v5 = SBLogSwitcherSnapshotCache();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v5 = BSDispatchQueueAssertMain();
+  v6 = SBLogSwitcherSnapshotCache(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [SBAppSwitcherSnapshotImageCache _updateCacheForDisplayItem:];
   }
 
   controlQueue = self->_controlQueue;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __62__SBAppSwitcherSnapshotImageCache__updateCacheForDisplayItem___block_invoke;
-  v8[3] = &unk_2783A92D8;
-  v9 = itemCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __62__SBAppSwitcherSnapshotImageCache__updateCacheForDisplayItem___block_invoke;
+  v9[3] = &unk_2783A92D8;
+  v10 = itemCopy;
   selfCopy = self;
-  v7 = itemCopy;
-  dispatch_sync(controlQueue, v8);
+  v8 = itemCopy;
+  dispatch_sync(controlQueue, v9);
 }
 
 uint64_t __62__SBAppSwitcherSnapshotImageCache__updateCacheForDisplayItem___block_invoke(uint64_t a1)
 {
-  v2 = SBLogSwitcherSnapshotCache();
+  v2 = SBLogSwitcherSnapshotCache(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __62__SBAppSwitcherSnapshotImageCache__updateCacheForDisplayItem___block_invoke_cold_1();
@@ -618,28 +618,29 @@ LABEL_3:
   }
 
 LABEL_4:
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x2020000000;
-  v42 = 0;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2020000000;
+  v43 = 0;
   controlQueue = self->_controlQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __88__SBAppSwitcherSnapshotImageCache_addSnapshotUpdateObserver_forDisplayItem_inAppLayout___block_invoke;
   block[3] = &unk_2783BDC20;
-  v38 = &v39;
+  v39 = &v40;
   block[4] = self;
   v12 = layoutCopy;
-  v35 = v12;
+  v36 = v12;
   v13 = observerCopy;
-  v36 = v13;
+  v37 = v13;
   v14 = itemCopy;
-  v37 = v14;
+  v38 = v14;
   dispatch_sync(controlQueue, block);
-  if ([(SBAppSwitcherSettings *)self->_settings shouldSimplifyForOptions:1]|| *(v40 + 24) != 1)
+  v15 = [(SBAppSwitcherSettings *)self->_settings shouldSimplifyForOptions:1];
+  if ((v15 & 1) != 0 || *(v41 + 24) != 1)
   {
-    v17 = SBLogSwitcherSnapshotCache();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+    v18 = SBLogSwitcherSnapshotCache(v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       [SBAppSwitcherSnapshotImageCache addSnapshotUpdateObserver:forDisplayItem:inAppLayout:];
     }
@@ -647,51 +648,51 @@ LABEL_4:
 
   else
   {
-    v15 = [[_SBAppSwitcherSnapshotCacheKey alloc] initWithDisplayItem:v14 inAppLayout:v12];
+    v16 = [[_SBAppSwitcherSnapshotCacheKey alloc] initWithDisplayItem:v14 inAppLayout:v12];
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x3032000000;
+    v32 = __Block_byref_object_copy__100;
+    v33 = __Block_byref_object_dispose__100;
+    v34 = 0;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2020000000;
     v28 = 0;
-    v29 = &v28;
-    v30 = 0x3032000000;
-    v31 = __Block_byref_object_copy__100;
-    v32 = __Block_byref_object_dispose__100;
-    v33 = 0;
-    v24 = 0;
-    v25 = &v24;
-    v26 = 0x2020000000;
-    v27 = 0;
-    v16 = self->_controlQueue;
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __88__SBAppSwitcherSnapshotImageCache_addSnapshotUpdateObserver_forDisplayItem_inAppLayout___block_invoke_2;
-    v18[3] = &unk_2783BDC48;
-    v22 = &v28;
-    v18[4] = self;
-    v17 = v15;
-    v19 = v17;
-    v20 = v12;
-    v21 = v14;
-    v23 = &v24;
-    dispatch_sync(v16, v18);
-    if (*(v25 + 24) == 1)
+    v17 = self->_controlQueue;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __88__SBAppSwitcherSnapshotImageCache_addSnapshotUpdateObserver_forDisplayItem_inAppLayout___block_invoke_2;
+    v19[3] = &unk_2783BDC48;
+    v23 = &v29;
+    v19[4] = self;
+    v18 = v16;
+    v20 = v18;
+    v21 = v12;
+    v22 = v14;
+    v24 = &v25;
+    dispatch_sync(v17, v19);
+    if (*(v26 + 24) == 1)
     {
-      [v13 didUpdateCacheEntry:v29[5]];
+      [v13 didUpdateCacheEntry:v30[5]];
     }
 
-    _Block_object_dispose(&v24, 8);
-    _Block_object_dispose(&v28, 8);
+    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v29, 8);
   }
 
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v40, 8);
 }
 
-uint64_t __88__SBAppSwitcherSnapshotImageCache_addSnapshotUpdateObserver_forDisplayItem_inAppLayout___block_invoke(void *a1)
+uint64_t __88__SBAppSwitcherSnapshotImageCache_addSnapshotUpdateObserver_forDisplayItem_inAppLayout___block_invoke(void *a1, const char *a2)
 {
-  *(*(a1[8] + 8) + 24) = [*(a1[4] + 120) containsObject:a1[5]];
-  v2 = a1[6];
-  v3 = a1[7];
-  v4 = a1[4];
-  v5 = a1[5];
+  *(*(a1[8] + 8) + 24) = objc_msgSend_containsObject_(*(a1[4] + 120), a2, a1[5]);
+  v3 = a1[6];
+  v4 = a1[7];
+  v5 = a1[4];
+  v6 = a1[5];
 
-  return [v4 _addObserver:v2 forDisplayItem:v3 inAppLayout:v5];
+  return [v5 _addObserver:v3 forDisplayItem:v4 inAppLayout:v6];
 }
 
 void __88__SBAppSwitcherSnapshotImageCache_addSnapshotUpdateObserver_forDisplayItem_inAppLayout___block_invoke_2(uint64_t a1)
@@ -713,8 +714,8 @@ void __88__SBAppSwitcherSnapshotImageCache_addSnapshotUpdateObserver_forDisplayI
 
       if (v9)
       {
-        v10 = SBLogSwitcherSnapshotCache();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+        v11 = SBLogSwitcherSnapshotCache(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           __88__SBAppSwitcherSnapshotImageCache_addSnapshotUpdateObserver_forDisplayItem_inAppLayout___block_invoke_2_cold_2();
         }
@@ -728,8 +729,8 @@ void __88__SBAppSwitcherSnapshotImageCache_addSnapshotUpdateObserver_forDisplayI
     {
     }
 
-    v12 = SBLogSwitcherSnapshotCache();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = SBLogSwitcherSnapshotCache(v10);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       __88__SBAppSwitcherSnapshotImageCache_addSnapshotUpdateObserver_forDisplayItem_inAppLayout___block_invoke_2_cold_1();
     }
@@ -740,8 +741,8 @@ void __88__SBAppSwitcherSnapshotImageCache_addSnapshotUpdateObserver_forDisplayI
 
   else
   {
-    v11 = SBLogSwitcherSnapshotCache();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = SBLogSwitcherSnapshotCache(0);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       __88__SBAppSwitcherSnapshotImageCache_addSnapshotUpdateObserver_forDisplayItem_inAppLayout___block_invoke_2_cold_3();
     }
@@ -882,7 +883,7 @@ LABEL_7:
 
   else
   {
-    v13 = SBLogSwitcherSnapshotCache();
+    v13 = SBLogSwitcherSnapshotCache(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
       v19 = objc_opt_class();
@@ -922,21 +923,21 @@ LABEL_7:
 
 - (void)reloadSnapshotsForInterfaceStyleChange:(int64_t)change
 {
-  BSDispatchQueueAssertMain();
-  v5 = SBLogSwitcherSnapshotCache();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v5 = BSDispatchQueueAssertMain();
+  v6 = SBLogSwitcherSnapshotCache(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [SBAppSwitcherSnapshotImageCache reloadSnapshotsForInterfaceStyleChange:];
   }
 
   controlQueue = self->_controlQueue;
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __74__SBAppSwitcherSnapshotImageCache_reloadSnapshotsForInterfaceStyleChange___block_invoke;
-  v7[3] = &unk_2783A8BC8;
-  v7[4] = self;
-  v7[5] = change;
-  dispatch_sync(controlQueue, v7);
+  v8[0] = MEMORY[0x277D85DD0];
+  v8[1] = 3221225472;
+  v8[2] = __74__SBAppSwitcherSnapshotImageCache_reloadSnapshotsForInterfaceStyleChange___block_invoke;
+  v8[3] = &unk_2783A8BC8;
+  v8[4] = self;
+  v8[5] = change;
+  dispatch_sync(controlQueue, v8);
 }
 
 uint64_t __74__SBAppSwitcherSnapshotImageCache_reloadSnapshotsForInterfaceStyleChange___block_invoke(uint64_t a1)
@@ -962,84 +963,85 @@ uint64_t __74__SBAppSwitcherSnapshotImageCache_reloadSnapshotsForInterfaceStyleC
     if ([object isWebApplication])
     {
       v8 = [SBDisplayItem webAppDisplayItemWithWebAppIdentifier:v7];
+      v9 = v8;
     }
 
     else
     {
       bundleIdentifier = [object bundleIdentifier];
-      v8 = [SBDisplayItem displayItemWithType:0 bundleIdentifier:bundleIdentifier uniqueIdentifier:v7];
+      v9 = [SBDisplayItem displayItemWithType:0 bundleIdentifier:bundleIdentifier uniqueIdentifier:v7];
     }
 
-    v10 = SBLogSwitcherSnapshotCache();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = SBLogSwitcherSnapshotCache(v8);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [SBAppSwitcherSnapshotImageCache _snapshotChanged:];
     }
 
-    [(SBAppSwitcherSnapshotImageCache *)self _updateCacheForDisplayItem:v8];
+    [(SBAppSwitcherSnapshotImageCache *)self _updateCacheForDisplayItem:v9];
   }
 }
 
 - (void)_updateObserversForDisplayItem:(id)item inAppLayout:(id)layout withCacheEntry:(id)entry
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   layoutCopy = layout;
   entryCopy = entry;
-  BSDispatchQueueAssertMain();
-  v11 = SBLogSwitcherSnapshotCache();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v11 = BSDispatchQueueAssertMain();
+  v12 = SBLogSwitcherSnapshotCache(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [SBAppSwitcherSnapshotImageCache _updateObserversForDisplayItem:inAppLayout:withCacheEntry:];
   }
 
-  v12 = [[_SBAppSwitcherSnapshotCacheKey alloc] initWithDisplayItem:itemCopy inAppLayout:layoutCopy];
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__100;
-  v30 = __Block_byref_object_dispose__100;
-  v31 = 0;
+  v13 = [[_SBAppSwitcherSnapshotCacheKey alloc] initWithDisplayItem:itemCopy inAppLayout:layoutCopy];
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__100;
+  v31 = __Block_byref_object_dispose__100;
+  v32 = 0;
   controlQueue = self->_controlQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __93__SBAppSwitcherSnapshotImageCache__updateObserversForDisplayItem_inAppLayout_withCacheEntry___block_invoke;
   block[3] = &unk_2783AB258;
-  v25 = &v26;
+  v26 = &v27;
   block[4] = self;
-  v14 = v12;
-  v24 = v14;
+  v15 = v13;
+  v25 = v15;
   dispatch_sync(controlQueue, block);
-  v21 = 0u;
   v22 = 0u;
-  v19 = 0u;
+  v23 = 0u;
   v20 = 0u;
-  v15 = v27[5];
-  v16 = [v15 countByEnumeratingWithState:&v19 objects:v32 count:16];
-  if (v16)
+  v21 = 0u;
+  v16 = v28[5];
+  v17 = [v16 countByEnumeratingWithState:&v20 objects:v33 count:16];
+  if (v17)
   {
-    v17 = *v20;
+    v18 = *v21;
     do
     {
-      v18 = 0;
+      v19 = 0;
       do
       {
-        if (*v20 != v17)
+        if (*v21 != v18)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v16);
         }
 
-        [*(*(&v19 + 1) + 8 * v18++) didUpdateCacheEntry:{entryCopy, v19}];
+        [*(*(&v20 + 1) + 8 * v19++) didUpdateCacheEntry:{entryCopy, v20}];
       }
 
-      while (v16 != v18);
-      v16 = [v15 countByEnumeratingWithState:&v19 objects:v32 count:16];
+      while (v17 != v19);
+      v17 = [v16 countByEnumeratingWithState:&v20 objects:v33 count:16];
     }
 
-    while (v16);
+    while (v17);
   }
 
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v27, 8);
 }
 
 void __93__SBAppSwitcherSnapshotImageCache__updateObserversForDisplayItem_inAppLayout_withCacheEntry___block_invoke(void *a1)
@@ -1055,9 +1057,9 @@ void __93__SBAppSwitcherSnapshotImageCache__updateObserversForDisplayItem_inAppL
   requestCopy = request;
   itemCopy = item;
   layoutCopy = layout;
-  BSDispatchQueueAssertMain();
-  v11 = SBLogSwitcherSnapshotCache();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v11 = BSDispatchQueueAssertMain();
+  v12 = SBLogSwitcherSnapshotCache(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [SBAppSwitcherSnapshotImageCache _cacheSnapshotForRequest:withDisplayItem:inAppLayout:];
   }
@@ -1067,12 +1069,12 @@ void __93__SBAppSwitcherSnapshotImageCache__updateObserversForDisplayItem_inAppL
   if (appLayout)
   {
     snapshot = [requestCopy snapshot];
-    v14 = snapshot;
+    v15 = snapshot;
     if (snapshot)
     {
-      v15 = [snapshot cachedImageForInterfaceOrientation:0];
-      v16 = v15;
-      if (v15)
+      v16 = [snapshot cachedImageForInterfaceOrientation:0];
+      v17 = v16;
+      if (v16)
       {
         controlQueue = self->_controlQueue;
         block[0] = MEMORY[0x277D85DD0];
@@ -1080,11 +1082,11 @@ void __93__SBAppSwitcherSnapshotImageCache__updateObserversForDisplayItem_inAppL
         block[2] = __88__SBAppSwitcherSnapshotImageCache__cacheSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke;
         block[3] = &unk_2783A8ED8;
         block[4] = self;
-        v30 = v15;
-        v31 = requestCopy;
+        v34 = v16;
+        v35 = requestCopy;
         dispatch_sync(controlQueue, block);
-        v18 = SBLogSwitcherSnapshotCache();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+        v20 = SBLogSwitcherSnapshotCache(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
         {
           [SBAppSwitcherSnapshotImageCache _cacheSnapshotForRequest:withDisplayItem:inAppLayout:];
         }
@@ -1094,36 +1096,36 @@ void __93__SBAppSwitcherSnapshotImageCache__updateObserversForDisplayItem_inAppL
       {
         objc_initWeak(&location, self);
         snapshotQueue = self->_snapshotQueue;
-        v25[0] = MEMORY[0x277D85DD0];
-        v25[1] = 3221225472;
-        v25[2] = __88__SBAppSwitcherSnapshotImageCache__cacheSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke_263;
-        v25[3] = &unk_2783A9CE8;
-        objc_copyWeak(&v27, &location);
-        v26 = requestCopy;
-        dispatch_async(snapshotQueue, v25);
-        v22 = SBLogSwitcherSnapshotCache();
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __88__SBAppSwitcherSnapshotImageCache__cacheSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke_263;
+        v29[3] = &unk_2783A9CE8;
+        objc_copyWeak(&v31, &location);
+        v30 = requestCopy;
+        dispatch_async(snapshotQueue, v29);
+        v26 = SBLogSwitcherSnapshotCache(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
           [SBAppSwitcherSnapshotImageCache _cacheSnapshotForRequest:withDisplayItem:inAppLayout:];
         }
 
-        objc_destroyWeak(&v27);
+        objc_destroyWeak(&v31);
         objc_destroyWeak(&location);
       }
     }
 
     else
     {
-      v19 = self->_controlQueue;
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __88__SBAppSwitcherSnapshotImageCache__cacheSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke_264;
-      v23[3] = &unk_2783A92D8;
-      v23[4] = self;
-      v24 = requestCopy;
-      dispatch_sync(v19, v23);
-      v20 = SBLogSwitcherSnapshotCache();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v21 = self->_controlQueue;
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __88__SBAppSwitcherSnapshotImageCache__cacheSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke_264;
+      v27[3] = &unk_2783A92D8;
+      v27[4] = self;
+      v28 = requestCopy;
+      dispatch_sync(v21, v27);
+      v23 = SBLogSwitcherSnapshotCache(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         [SBAppSwitcherSnapshotImageCache _cacheSnapshotForRequest:withDisplayItem:inAppLayout:];
       }
@@ -1144,252 +1146,252 @@ void __88__SBAppSwitcherSnapshotImageCache__cacheSnapshotForRequest_withDisplayI
 
 - (void)_loadSnapshotForRequest:(id)request withDisplayItem:(id)item inAppLayout:(id)layout
 {
-  v117 = *MEMORY[0x277D85DE8];
+  v122 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   itemCopy = item;
   layoutCopy = layout;
-  BSDispatchQueueAssertMain();
-  v11 = SBLogSwitcherSnapshotCache();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+  v11 = BSDispatchQueueAssertMain();
+  v12 = SBLogSwitcherSnapshotCache(v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [SBAppSwitcherSnapshotImageCache _loadSnapshotForRequest:withDisplayItem:inAppLayout:];
   }
 
-  v93 = 0;
-  v94 = &v93;
-  v95 = 0x2020000000;
-  v96 = 1;
+  v98 = 0;
+  v99 = &v98;
+  v100 = 0x2020000000;
+  v101 = 1;
   controlQueue = self->_controlQueue;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __87__SBAppSwitcherSnapshotImageCache__loadSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke;
   block[3] = &unk_2783AB258;
-  v92 = &v93;
+  v97 = &v98;
   block[4] = self;
-  v13 = requestCopy;
-  v91 = v13;
+  v14 = requestCopy;
+  v96 = v14;
   dispatch_sync(controlQueue, block);
-  if (v94[3])
+  if (v99[3])
   {
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
-    v15 = [(SBAppSwitcherSnapshotImageCache *)self _representedApplicationSceneEntityForDisplayItem:itemCopy];
-    v16 = v15;
-    v76 = v15;
-    if (!v15)
+    v17 = [(SBAppSwitcherSnapshotImageCache *)self _representedApplicationSceneEntityForDisplayItem:itemCopy];
+    v18 = v17;
+    v81 = v17;
+    if (!v17)
     {
-      v26 = self->_controlQueue;
-      v87[0] = MEMORY[0x277D85DD0];
-      v87[1] = 3221225472;
-      v87[2] = __87__SBAppSwitcherSnapshotImageCache__loadSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke_265;
-      v87[3] = &unk_2783A8ED8;
-      v87[4] = self;
-      v88 = itemCopy;
-      v89 = v13;
-      dispatch_sync(v26, v87);
+      v29 = self->_controlQueue;
+      v92[0] = MEMORY[0x277D85DD0];
+      v92[1] = 3221225472;
+      v92[2] = __87__SBAppSwitcherSnapshotImageCache__loadSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke_265;
+      v92[3] = &unk_2783A8ED8;
+      v92[4] = self;
+      v93 = itemCopy;
+      v94 = v14;
+      dispatch_sync(v29, v92);
 
 LABEL_51:
       goto LABEL_52;
     }
 
-    sceneHandle = [v15 sceneHandle];
-    application = [v16 application];
-    v75 = [WeakRetained displayConfigurationForImageCache:self];
-    v17 = [(SBAppSwitcherSnapshotImageCache *)self _orientationForAppLayout:layoutCopy];
-    v18 = [sceneHandle _mainSceneSupportsInterfaceOrientation:v17];
-    if (v17)
+    sceneHandle = [v17 sceneHandle];
+    application = [v18 application];
+    v80 = [WeakRetained displayConfigurationForImageCache:self];
+    v19 = [(SBAppSwitcherSnapshotImageCache *)self _orientationForAppLayout:layoutCopy];
+    v20 = [sceneHandle _mainSceneSupportsInterfaceOrientation:v19];
+    if (v19)
     {
-      v19 = v18;
+      v21 = v20;
     }
 
     else
     {
-      v19 = 0;
+      v21 = 0;
     }
 
-    if ((v19 & 1) == 0 || [application classicAppPhoneAppRunningOnPad])
+    if ((v21 & 1) == 0 || [application classicAppPhoneAppRunningOnPad])
     {
-      v17 = [sceneHandle activationInterfaceOrientationForOrientation:v17];
+      v19 = [sceneHandle activationInterfaceOrientationForOrientation:v19];
     }
 
-    if ([application isClassic])
+    isClassic = [application isClassic];
+    if (isClassic)
     {
       mainScreen = [MEMORY[0x277D759A0] mainScreen];
       displayConfiguration = [mainScreen displayConfiguration];
       [application defaultLaunchingSizeForDisplayConfiguration:displayConfiguration];
-      v23 = v22;
-      v25 = v24;
+      v26 = v25;
+      v28 = v27;
     }
 
     else if (WeakRetained)
     {
-      -[NSObject snapshotSizeForItemWithRole:inAppLayout:interfaceOrientation:inImageCache:](WeakRetained, "snapshotSizeForItemWithRole:inAppLayout:interfaceOrientation:inImageCache:", [layoutCopy layoutRoleForItem:itemCopy], layoutCopy, v17, self);
-      v23 = v27;
-      v25 = v28;
+      -[NSObject snapshotSizeForItemWithRole:inAppLayout:interfaceOrientation:inImageCache:](WeakRetained, "snapshotSizeForItemWithRole:inAppLayout:interfaceOrientation:inImageCache:", [layoutCopy layoutRoleForItem:itemCopy], layoutCopy, v19, self);
+      v26 = v30;
+      v28 = v31;
     }
 
     else
     {
-      v29 = SBLogSwitcherSnapshotCache();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v32 = SBLogSwitcherSnapshotCache(isClassic);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         debugName = self->_debugName;
         *buf = 138543362;
-        v98 = debugName;
-        _os_log_impl(&dword_21ED4E000, v29, OS_LOG_TYPE_DEFAULT, "[%{public}@] failing to retrieve a snapshot due to nil delegate", buf, 0xCu);
+        v103 = debugName;
+        _os_log_impl(&dword_21ED4E000, v32, OS_LOG_TYPE_DEFAULT, "[%{public}@] failing to retrieve a snapshot due to nil delegate", buf, 0xCu);
       }
 
-      v23 = *MEMORY[0x277CBF3A8];
-      v25 = *(MEMORY[0x277CBF3A8] + 8);
+      v26 = *MEMORY[0x277CBF3A8];
+      v28 = *(MEMORY[0x277CBF3A8] + 8);
     }
 
-    loadFullSizeSnapshot = [v13 loadFullSizeSnapshot];
-    v32 = @"downscaled";
+    loadFullSizeSnapshot = [v14 loadFullSizeSnapshot];
+    v35 = @"downscaled";
     if (loadFullSizeSnapshot)
     {
-      v32 = 0;
+      v35 = 0;
     }
 
-    v78 = v32;
-    v74 = [sceneHandle displayEdgeInfoForLayoutEnvironment:{objc_msgSend(layoutCopy, "environment")}];
-    v33 = [WeakRetained appLayoutRequiresExactSize:layoutCopy inImageCache:self];
-    [v75 pointScale];
-    v34 = [application bestSnapshotWithImageName:@"SBSuspendSnapshot" sceneHandle:sceneHandle variantID:v78 scale:v33 referenceSize:-1 requireExactSize:-5 contentTypeMask:v17 statusBarStateMask:0 launchingOrientation:self->_lastKnownUserInterfaceStyle contentOverridesContext:v74 userInterfaceStyle:? displayEdgeInfo:?];
-    v35 = [[_SBAppSwitcherSnapshotCacheKey alloc] initWithDisplayItem:itemCopy inAppLayout:layoutCopy];
-    v73 = v35;
-    if (!v34)
+    v83 = v35;
+    v79 = [sceneHandle displayEdgeInfoForLayoutEnvironment:{objc_msgSend(layoutCopy, "environment")}];
+    v36 = [WeakRetained appLayoutRequiresExactSize:layoutCopy inImageCache:self];
+    [v80 pointScale];
+    v37 = [application bestSnapshotWithImageName:@"SBSuspendSnapshot" sceneHandle:sceneHandle variantID:v83 scale:v36 referenceSize:-1 requireExactSize:-5 contentTypeMask:v19 statusBarStateMask:0 launchingOrientation:self->_lastKnownUserInterfaceStyle contentOverridesContext:v79 userInterfaceStyle:? displayEdgeInfo:?];
+    v38 = [[_SBAppSwitcherSnapshotCacheKey alloc] initWithDisplayItem:itemCopy inAppLayout:layoutCopy];
+    v78 = v38;
+    if (!v37)
     {
-      v62 = self->_controlQueue;
-      v81[0] = MEMORY[0x277D85DD0];
-      v81[1] = 3221225472;
-      v81[2] = __87__SBAppSwitcherSnapshotImageCache__loadSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke_271;
-      v81[3] = &unk_2783A8ED8;
-      v81[4] = self;
-      v82 = itemCopy;
-      v83 = v13;
-      dispatch_sync(v62, v81);
+      v67 = self->_controlQueue;
+      v86[0] = MEMORY[0x277D85DD0];
+      v86[1] = 3221225472;
+      v86[2] = __87__SBAppSwitcherSnapshotImageCache__loadSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke_271;
+      v86[3] = &unk_2783A8ED8;
+      v86[4] = self;
+      v87 = itemCopy;
+      v88 = v14;
+      dispatch_sync(v67, v86);
 
 LABEL_50:
       goto LABEL_51;
     }
 
-    v72 = loadFullSizeSnapshot;
-    v36 = [(NSMutableDictionary *)self->_cachedSnapshots objectForKey:v35];
-    snapshot = [v36 snapshot];
+    v77 = loadFullSizeSnapshot;
+    v39 = [(NSMutableDictionary *)self->_cachedSnapshots objectForKey:v38];
+    snapshot = [v39 snapshot];
 
     variantID = [snapshot variantID];
-    variantID2 = [v34 variantID];
+    variantID2 = [v37 variantID];
     if (([variantID isEqualToString:variantID2] & 1) == 0)
     {
-      variantID3 = [v34 variantID];
-      v40 = [snapshot variantWithIdentifier:variantID3];
-      v41 = v40 == 0;
+      variantID3 = [v37 variantID];
+      v43 = [snapshot variantWithIdentifier:variantID3];
+      v44 = v43 == 0;
 
-      if (v41)
+      if (v44)
       {
         goto LABEL_28;
       }
 
-      variantID = [v34 variantID];
+      variantID = [v37 variantID];
       [snapshot variantWithIdentifier:variantID];
       snapshot = variantID2 = snapshot;
     }
 
 LABEL_28:
-    if (snapshot && ([snapshot identifier], v42 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v34, "identifier"), v43 = objc_claimAutoreleasedReturnValue(), v44 = objc_msgSend(v42, "isEqual:", v43), v43, v42, (v44 & 1) != 0))
+    if (snapshot && ([snapshot identifier], v46 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v37, "identifier"), v47 = objc_claimAutoreleasedReturnValue(), v48 = objc_msgSend(v46, "isEqual:", v47), v47, v46, (v48 & 1) != 0))
     {
-      v45 = self->_controlQueue;
-      v84[0] = MEMORY[0x277D85DD0];
-      v84[1] = 3221225472;
-      v84[2] = __87__SBAppSwitcherSnapshotImageCache__loadSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke_270;
-      v84[3] = &unk_2783A8ED8;
-      v84[4] = self;
-      v85 = v13;
-      v86 = v73;
-      dispatch_sync(v45, v84);
+      v49 = self->_controlQueue;
+      v89[0] = MEMORY[0x277D85DD0];
+      v89[1] = 3221225472;
+      v89[2] = __87__SBAppSwitcherSnapshotImageCache__loadSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke_270;
+      v89[3] = &unk_2783A8ED8;
+      v89[4] = self;
+      v90 = v14;
+      v91 = v78;
+      dispatch_sync(v49, v89);
     }
 
     else
     {
-      v46 = SBLogSwitcherSnapshotCache();
-      v47 = os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG);
+      v50 = SBLogSwitcherSnapshotCache(v45);
+      v51 = os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG);
 
-      if (v47)
+      if (v51)
       {
-        sequenceID = [v13 sequenceID];
+        sequenceID = [v14 sequenceID];
         application2 = [sceneHandle application];
         bundleIdentifier = [application2 bundleIdentifier];
-        v50 = [bundleIdentifier componentsSeparatedByString:@"."];
-        lastObject = [v50 lastObject];
+        v54 = [bundleIdentifier componentsSeparatedByString:@"."];
+        lastObject = [v54 lastObject];
 
         uniqueIdentifier = [itemCopy uniqueIdentifier];
         sceneIfExists = [sceneHandle sceneIfExists];
 
-        v118.width = v23;
-        v118.height = v25;
-        v53 = NSStringFromSize(v118);
+        v123.width = v26;
+        v123.height = v28;
+        v57 = NSStringFromSize(v123);
         lastKnownUserInterfaceStyle = self->_lastKnownUserInterfaceStyle;
-        v55 = @"Light";
+        v59 = @"Light";
         if (lastKnownUserInterfaceStyle == 2)
         {
-          v55 = @"Dark";
+          v59 = @"Dark";
         }
 
         if (lastKnownUserInterfaceStyle)
         {
-          v56 = v55;
+          v60 = v59;
         }
 
         else
         {
-          v56 = @"Unspecified";
+          v60 = @"Unspecified";
         }
 
-        v69 = v56;
-        v70 = v78;
-        v57 = SBLogSwitcherSnapshotCache();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
+        v74 = v60;
+        v75 = v83;
+        v61 = SBLogSwitcherSnapshotCache(v75);
+        if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
         {
-          v67 = v53;
-          v65 = self->_debugName;
-          loadFullSizeSnapshot2 = [v13 loadFullSizeSnapshot];
+          v72 = v57;
+          v70 = self->_debugName;
+          loadFullSizeSnapshot2 = [v14 loadFullSizeSnapshot];
           *buf = 138545666;
-          v98 = v65;
-          v99 = 2114;
-          v100 = lastObject;
-          v101 = 2048;
-          v53 = v67;
-          v102 = sequenceID;
-          v103 = 1024;
-          v104 = loadFullSizeSnapshot2;
-          v105 = 2114;
-          v106 = uniqueIdentifier;
-          v107 = 1024;
-          v108 = sceneIfExists != 0;
-          v109 = 2114;
-          v110 = v67;
-          v111 = 2114;
-          v112 = v69;
-          v113 = 2114;
-          v114 = v70;
-          v115 = 1024;
-          v116 = snapshot != 0;
-          _os_log_debug_impl(&dword_21ED4E000, v57, OS_LOG_TYPE_DEBUG, "\n|\n|— [%{public}@] [Loading] request for %{public}@:\n|\n|     sequence : %lu \n|   fullscreen : %{BOOL}u \n| itemUniqueID : %{public}@ \n|     hasScene : %{BOOL}u \n|         size : %{public}@ \n|        style : %{public}@ \n|      variant : %{public}@ \n|     hadEntry : %{BOOL}u \n|", buf, 0x5Au);
+          v103 = v70;
+          v104 = 2114;
+          v105 = lastObject;
+          v106 = 2048;
+          v57 = v72;
+          v107 = sequenceID;
+          v108 = 1024;
+          v109 = loadFullSizeSnapshot2;
+          v110 = 2114;
+          v111 = uniqueIdentifier;
+          v112 = 1024;
+          v113 = sceneIfExists != 0;
+          v114 = 2114;
+          v115 = v72;
+          v116 = 2114;
+          v117 = v74;
+          v118 = 2114;
+          v119 = v75;
+          v120 = 1024;
+          v121 = snapshot != 0;
+          _os_log_debug_impl(&dword_21ED4E000, v61, OS_LOG_TYPE_DEBUG, "\n|\n|— [%{public}@] [Loading] request for %{public}@:\n|\n|     sequence : %lu \n|   fullscreen : %{BOOL}u \n| itemUniqueID : %{public}@ \n|     hasScene : %{BOOL}u \n|         size : %{public}@ \n|        style : %{public}@ \n|      variant : %{public}@ \n|     hadEntry : %{BOOL}u \n|", buf, 0x5Au);
         }
       }
 
-      [v34 contentType];
-      v58 = XBApplicationSnapshotContentTypeMaskForContentType();
-      if (v78 && (v59 = v58, [v34 variantID], v60 = objc_claimAutoreleasedReturnValue(), v61 = objc_msgSend(v60, "isEqualToString:", v78), v60, !((v72 | v61) & 1 | ((v59 & 6) == 0))))
+      [v37 contentType];
+      v62 = XBApplicationSnapshotContentTypeMaskForContentType();
+      if (v83 && (v63 = v62, [v37 variantID], v64 = objc_claimAutoreleasedReturnValue(), v65 = objc_msgSend(v64, "isEqualToString:", v83), v64, !((v77 | v65) & 1 | ((v63 & 6) == 0))))
       {
-        v63 = SBLogSwitcherSnapshotCache();
-        if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
+        v68 = SBLogSwitcherSnapshotCache(v66);
+        if (os_log_type_enabled(v68, OS_LOG_TYPE_DEBUG))
         {
           [SBAppSwitcherSnapshotImageCache _loadSnapshotForRequest:withDisplayItem:inAppLayout:];
         }
 
-        [(SBAppSwitcherSnapshotImageCache *)self _createDownscaledVariantForRequest:v13 snapshot:v34 displayItem:itemCopy sceneHandle:sceneHandle application:application];
-        v64 = SBLogSwitcherSnapshotCache();
-        if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+        v69 = SBLogSwitcherSnapshotCache([(SBAppSwitcherSnapshotImageCache *)self _createDownscaledVariantForRequest:v14 snapshot:v37 displayItem:itemCopy sceneHandle:sceneHandle application:application]);
+        if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
         {
           [SBAppSwitcherSnapshotImageCache _loadSnapshotForRequest:withDisplayItem:inAppLayout:];
         }
@@ -1397,26 +1399,26 @@ LABEL_28:
 
       else
       {
-        [v13 setSnapshot:v34];
-        [(SBAppSwitcherSnapshotImageCache *)self _cacheSnapshotForRequest:v13 withDisplayItem:itemCopy inAppLayout:layoutCopy];
+        [v14 setSnapshot:v37];
+        [(SBAppSwitcherSnapshotImageCache *)self _cacheSnapshotForRequest:v14 withDisplayItem:itemCopy inAppLayout:layoutCopy];
       }
     }
 
     goto LABEL_50;
   }
 
-  WeakRetained = SBLogSwitcherSnapshotCache();
+  WeakRetained = SBLogSwitcherSnapshotCache(v15);
   if (os_log_type_enabled(WeakRetained, OS_LOG_TYPE_DEBUG))
   {
-    -[SBAppSwitcherSnapshotImageCache _loadSnapshotForRequest:withDisplayItem:inAppLayout:].cold.2(self->_debugName, buf, [v13 sequenceID], WeakRetained);
+    -[SBAppSwitcherSnapshotImageCache _loadSnapshotForRequest:withDisplayItem:inAppLayout:].cold.2(self->_debugName, buf, [v14 sequenceID], WeakRetained);
   }
 
 LABEL_52:
 
-  _Block_object_dispose(&v93, 8);
+  _Block_object_dispose(&v98, 8);
 }
 
-uint64_t __87__SBAppSwitcherSnapshotImageCache__loadSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke(uint64_t a1)
+void *__87__SBAppSwitcherSnapshotImageCache__loadSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isValidSnapshotRequest:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -1433,7 +1435,7 @@ uint64_t __87__SBAppSwitcherSnapshotImageCache__loadSnapshotForRequest_withDispl
 uint64_t __87__SBAppSwitcherSnapshotImageCache__loadSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke_265(uint64_t a1)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = SBLogSwitcherSnapshotCache();
+  v2 = SBLogSwitcherSnapshotCache(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
@@ -1450,7 +1452,7 @@ uint64_t __87__SBAppSwitcherSnapshotImageCache__loadSnapshotForRequest_withDispl
 
 uint64_t __87__SBAppSwitcherSnapshotImageCache__loadSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke_270(uint64_t a1)
 {
-  v2 = SBLogSwitcherSnapshotCache();
+  v2 = SBLogSwitcherSnapshotCache(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
     __87__SBAppSwitcherSnapshotImageCache__loadSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke_270_cold_1(a1);
@@ -1480,7 +1482,7 @@ uint64_t __87__SBAppSwitcherSnapshotImageCache__loadSnapshotForRequest_withDispl
 uint64_t __87__SBAppSwitcherSnapshotImageCache__loadSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke_271(uint64_t a1)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = SBLogSwitcherSnapshotCache();
+  v2 = SBLogSwitcherSnapshotCache(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
@@ -1554,23 +1556,24 @@ void __115__SBAppSwitcherSnapshotImageCache__createDownscaledVariantForRequest_s
 {
   if ([*(a1 + 32) _isValidSnapshotRequest:*(a1 + 40)])
   {
-    if ([*(a1 + 48) isValid] && *(a1 + 72) == 1)
+    v2 = [*(a1 + 48) isValid];
+    if (v2 && *(a1 + 72) == 1)
     {
-      v3[0] = MEMORY[0x277D85DD0];
-      v3[1] = 3221225472;
-      v3[2] = __115__SBAppSwitcherSnapshotImageCache__createDownscaledVariantForRequest_snapshot_displayItem_sceneHandle_application___block_invoke_3;
-      v3[3] = &unk_2783A9CE8;
-      objc_copyWeak(&v5, (a1 + 64));
-      v4 = *(a1 + 56);
-      dispatch_async(MEMORY[0x277D85CD0], v3);
+      v4[0] = MEMORY[0x277D85DD0];
+      v4[1] = 3221225472;
+      v4[2] = __115__SBAppSwitcherSnapshotImageCache__createDownscaledVariantForRequest_snapshot_displayItem_sceneHandle_application___block_invoke_3;
+      v4[3] = &unk_2783A9CE8;
+      objc_copyWeak(&v6, (a1 + 64));
+      v5 = *(a1 + 56);
+      dispatch_async(MEMORY[0x277D85CD0], v4);
 
-      objc_destroyWeak(&v5);
+      objc_destroyWeak(&v6);
     }
 
     else
     {
-      v2 = SBLogSwitcherSnapshotCache();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+      v3 = SBLogSwitcherSnapshotCache(v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
       {
         __115__SBAppSwitcherSnapshotImageCache__createDownscaledVariantForRequest_snapshot_displayItem_sceneHandle_application___block_invoke_2_cold_1();
       }
@@ -1653,7 +1656,7 @@ void __124__SBAppSwitcherSnapshotImageCache_activeInterfaceOrientationDidChangeT
 LABEL_7:
   if (*(*(*(a1 + 40) + 8) + 24) == 1)
   {
-    v4 = SBLogSwitcherSnapshotCache();
+    v4 = SBLogSwitcherSnapshotCache(a1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       __124__SBAppSwitcherSnapshotImageCache_activeInterfaceOrientationDidChangeToOrientation_willAnimateWithDuration_fromOrientation___block_invoke_cold_1();
@@ -1717,67 +1720,68 @@ void __124__SBAppSwitcherSnapshotImageCache_activeInterfaceOrientationDidChangeT
 
 - (void)_purgeSnapshotRequest:(id)request withReason:(id)reason
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   reasonCopy = reason;
-  BSDispatchQueueAssert();
-  v8 = SBLogSwitcherSnapshotCache();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v8 = BSDispatchQueueAssert();
+  v9 = SBLogSwitcherSnapshotCache(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     debugName = self->_debugName;
-    v12 = 138543874;
-    v13 = debugName;
-    v14 = 2114;
-    v15 = reasonCopy;
-    v16 = 2048;
+    v13 = 138543874;
+    v14 = debugName;
+    v15 = 2114;
+    v16 = reasonCopy;
+    v17 = 2048;
     sequenceID = [requestCopy sequenceID];
-    _os_log_debug_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEBUG, "\n|\n|— [%{public}@] [Purging] [%{public}@] sequenceID: %lu\n|", &v12, 0x20u);
+    _os_log_debug_impl(&dword_21ED4E000, v9, OS_LOG_TYPE_DEBUG, "\n|\n|— [%{public}@] [Purging] [%{public}@] sequenceID: %lu\n|", &v13, 0x20u);
   }
 
   snapshotRequestsCurrentlyBeingLoaded = self->_snapshotRequestsCurrentlyBeingLoaded;
-  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(requestCopy, "sequenceID")}];
-  [(NSMutableDictionary *)snapshotRequestsCurrentlyBeingLoaded removeObjectForKey:v10];
+  v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(requestCopy, "sequenceID")}];
+  [(NSMutableDictionary *)snapshotRequestsCurrentlyBeingLoaded removeObjectForKey:v11];
 }
 
 - (void)_purgeSnapshotRequestsForDisplayItem:(id)item withReason:(id)reason
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   reasonCopy = reason;
-  BSDispatchQueueAssert();
-  v8 = SBLogSwitcherSnapshotCache();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v8 = BSDispatchQueueAssert();
+  v9 = SBLogSwitcherSnapshotCache(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [SBAppSwitcherSnapshotImageCache _purgeSnapshotRequestsForDisplayItem:withReason:];
   }
 
   snapshotRequestsCurrentlyBeingLoaded = self->_snapshotRequestsCurrentlyBeingLoaded;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __83__SBAppSwitcherSnapshotImageCache__purgeSnapshotRequestsForDisplayItem_withReason___block_invoke;
-  v17[3] = &unk_2783BDCE8;
-  v10 = itemCopy;
-  v18 = v10;
-  v11 = [(NSMutableDictionary *)snapshotRequestsCurrentlyBeingLoaded keysOfEntriesPassingTest:v17];
-  if ([v11 count])
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __83__SBAppSwitcherSnapshotImageCache__purgeSnapshotRequestsForDisplayItem_withReason___block_invoke;
+  v19[3] = &unk_2783BDCE8;
+  v11 = itemCopy;
+  v20 = v11;
+  v12 = [(NSMutableDictionary *)snapshotRequestsCurrentlyBeingLoaded keysOfEntriesPassingTest:v19];
+  v13 = [v12 count];
+  if (v13)
   {
-    v12 = SBLogSwitcherSnapshotCache();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v14 = SBLogSwitcherSnapshotCache(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
       debugName = self->_debugName;
-      allObjects = [v11 allObjects];
+      allObjects = [v12 allObjects];
       *buf = 138543874;
-      v20 = debugName;
-      v21 = 2114;
-      v22 = reasonCopy;
+      v22 = debugName;
       v23 = 2114;
-      v24 = allObjects;
-      _os_log_debug_impl(&dword_21ED4E000, v12, OS_LOG_TYPE_DEBUG, "\n|\n|— [%{public}@] [Purging] [%{public}@] sequenceID-s: %{public}@\n|", buf, 0x20u);
+      v24 = reasonCopy;
+      v25 = 2114;
+      v26 = allObjects;
+      _os_log_debug_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEBUG, "\n|\n|— [%{public}@] [Purging] [%{public}@] sequenceID-s: %{public}@\n|", buf, 0x20u);
     }
 
-    v13 = self->_snapshotRequestsCurrentlyBeingLoaded;
-    allObjects2 = [v11 allObjects];
-    [(NSMutableDictionary *)v13 removeObjectsForKeys:allObjects2];
+    v15 = self->_snapshotRequestsCurrentlyBeingLoaded;
+    allObjects2 = [v12 allObjects];
+    [(NSMutableDictionary *)v15 removeObjectsForKeys:allObjects2];
   }
 }
 
@@ -1815,9 +1819,9 @@ LABEL_6:
 - (void)_purgeSnapshotsForKey:(id)key
 {
   keyCopy = key;
-  BSDispatchQueueAssert();
-  v5 = SBLogSwitcherSnapshotCache();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v5 = BSDispatchQueueAssert();
+  v6 = SBLogSwitcherSnapshotCache(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [SBAppSwitcherSnapshotImageCache _purgeSnapshotsForKey:];
   }
@@ -1827,8 +1831,8 @@ LABEL_6:
 
   if (uniqueIdentifier)
   {
-    v8 = SBLogSwitcherSnapshotCache();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v10 = SBLogSwitcherSnapshotCache(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [(SBAppSwitcherSnapshotImageCache *)self _purgeSnapshotsForKey:displayItem];
     }
@@ -1843,23 +1847,24 @@ LABEL_6:
     if (bundleIdentifier)
     {
       cachedSnapshots = self->_cachedSnapshots;
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __57__SBAppSwitcherSnapshotImageCache__purgeSnapshotsForKey___block_invoke;
-      v15[3] = &unk_2783BDD10;
-      v16 = displayItem;
-      v11 = [(NSMutableDictionary *)cachedSnapshots keysOfEntriesPassingTest:v15];
-      if ([v11 count])
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __57__SBAppSwitcherSnapshotImageCache__purgeSnapshotsForKey___block_invoke;
+      v18[3] = &unk_2783BDD10;
+      v19 = displayItem;
+      v13 = [(NSMutableDictionary *)cachedSnapshots keysOfEntriesPassingTest:v18];
+      v14 = [v13 count];
+      if (v14)
       {
-        v12 = SBLogSwitcherSnapshotCache();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+        v15 = SBLogSwitcherSnapshotCache(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
         {
           [SBAppSwitcherSnapshotImageCache _purgeSnapshotsForKey:];
         }
 
-        v13 = self->_cachedSnapshots;
-        allObjects = [v11 allObjects];
-        [(NSMutableDictionary *)v13 removeObjectsForKeys:allObjects];
+        v16 = self->_cachedSnapshots;
+        allObjects = [v13 allObjects];
+        [(NSMutableDictionary *)v16 removeObjectsForKeys:allObjects];
       }
     }
   }
@@ -1894,7 +1899,7 @@ uint64_t __76__SBAppSwitcherSnapshotImageCache__purgeLowPriorityFullSizeSnapshot
   {
     v5 = *(a1 + 32);
     v6 = [v4 appLayout];
-    v7 = [v5 containsObject:v6] ^ 1;
+    v7 = objc_msgSend_containsObject_(v5) ^ 1;
   }
 
   else
@@ -1907,11 +1912,11 @@ uint64_t __76__SBAppSwitcherSnapshotImageCache__purgeLowPriorityFullSizeSnapshot
 
 - (void)_setSnapshotNeedsUpdateForDisplayItem:(id)item
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   itemCopy = item;
-  BSDispatchQueueAssert();
-  v5 = SBLogSwitcherSnapshotCache();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v5 = BSDispatchQueueAssert();
+  v6 = SBLogSwitcherSnapshotCache(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [SBAppSwitcherSnapshotImageCache _setSnapshotNeedsUpdateForDisplayItem:];
   }
@@ -1921,13 +1926,13 @@ uint64_t __76__SBAppSwitcherSnapshotImageCache__purgeLowPriorityFullSizeSnapshot
   if (uniqueIdentifier)
   {
     cachedSnapshots = self->_cachedSnapshots;
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __73__SBAppSwitcherSnapshotImageCache__setSnapshotNeedsUpdateForDisplayItem___block_invoke;
-    v23[3] = &unk_2783BDD10;
-    v8 = &v24;
-    v24 = itemCopy;
-    v9 = v23;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __73__SBAppSwitcherSnapshotImageCache__setSnapshotNeedsUpdateForDisplayItem___block_invoke;
+    v24[3] = &unk_2783BDD10;
+    v9 = &v25;
+    v25 = itemCopy;
+    v10 = v24;
   }
 
   else
@@ -1940,49 +1945,49 @@ uint64_t __76__SBAppSwitcherSnapshotImageCache__purgeLowPriorityFullSizeSnapshot
     }
 
     cachedSnapshots = self->_cachedSnapshots;
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __73__SBAppSwitcherSnapshotImageCache__setSnapshotNeedsUpdateForDisplayItem___block_invoke_2;
-    v21[3] = &unk_2783BDD10;
-    v8 = &v22;
-    v22 = itemCopy;
-    v9 = v21;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __73__SBAppSwitcherSnapshotImageCache__setSnapshotNeedsUpdateForDisplayItem___block_invoke_2;
+    v22[3] = &unk_2783BDD10;
+    v9 = &v23;
+    v23 = itemCopy;
+    v10 = v22;
   }
 
-  bundleIdentifier = [(NSMutableDictionary *)cachedSnapshots keysOfEntriesPassingTest:v9];
+  bundleIdentifier = [(NSMutableDictionary *)cachedSnapshots keysOfEntriesPassingTest:v10];
 
 LABEL_8:
-  v19 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  v11 = bundleIdentifier;
-  v12 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
-  if (v12)
+  v19 = 0u;
+  v12 = bundleIdentifier;
+  v13 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
+  if (v13)
   {
-    v13 = v12;
-    v14 = *v18;
+    v14 = v13;
+    v15 = *v19;
     do
     {
-      v15 = 0;
+      v16 = 0;
       do
       {
-        if (*v18 != v14)
+        if (*v19 != v15)
         {
-          objc_enumerationMutation(v11);
+          objc_enumerationMutation(v12);
         }
 
-        v16 = [(NSMutableDictionary *)self->_cachedSnapshots objectForKey:*(*(&v17 + 1) + 8 * v15), v17];
-        [v16 setNeedsUpdate:1];
+        v17 = [(NSMutableDictionary *)self->_cachedSnapshots objectForKey:*(*(&v18 + 1) + 8 * v16), v18];
+        [v17 setNeedsUpdate:1];
 
-        ++v15;
+        ++v16;
       }
 
-      while (v13 != v15);
-      v13 = [v11 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      while (v14 != v16);
+      v14 = [v12 countByEnumeratingWithState:&v18 objects:v26 count:16];
     }
 
-    while (v13);
+    while (v14);
   }
 }
 
@@ -2009,7 +2014,7 @@ uint64_t __73__SBAppSwitcherSnapshotImageCache__setSnapshotNeedsUpdateForDisplay
   layoutsCopy = layouts;
   layoutCopy = layout;
   BSDispatchQueueAssert();
-  v8 = [layoutsCopy containsObject:layoutCopy];
+  v8 = objc_msgSend_containsObject_(layoutsCopy);
 
   return v8;
 }
@@ -2018,14 +2023,14 @@ uint64_t __73__SBAppSwitcherSnapshotImageCache__setSnapshotNeedsUpdateForDisplay
 {
   OUTLINED_FUNCTION_5_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] purge all snapshot requests", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] purge all snapshot requests", v2, v3, v4, v5);
 }
 
 - (void)_purgeAllSnapshots
 {
   OUTLINED_FUNCTION_5_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] purge all cached snapshots", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] purge all cached snapshots", v2, v3, v4, v5);
 }
 
 - (void)_enqueueSnapshotRequestsForCachableAppLayouts:(id)layouts forFullSizeSnapshots:(BOOL)snapshots
@@ -2215,46 +2220,46 @@ void __102__SBAppSwitcherSnapshotImageCache__enqueueSnapshotRequestsForCachableA
 {
   imageCopy = image;
   requestCopy = request;
-  BSDispatchQueueAssert();
-  v8 = SBLogSwitcherSnapshotCache();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v8 = BSDispatchQueueAssert();
+  v9 = SBLogSwitcherSnapshotCache(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [SBAppSwitcherSnapshotImageCache _snapshotImage:requestCopy finishedLoadingForRequest:?];
   }
 
   displayItem = [requestCopy displayItem];
-  v10 = [(SBAppSwitcherSnapshotImageCache *)self _isValidSnapshotRequest:requestCopy];
-  v11 = @"invalid";
-  if (v10)
+  v11 = [(SBAppSwitcherSnapshotImageCache *)self _isValidSnapshotRequest:requestCopy];
+  v12 = @"invalid";
+  if (v11)
   {
-    v11 = @"valid";
+    v12 = @"valid";
   }
 
-  v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"Finished loading %@ request", v11];
-  [(SBAppSwitcherSnapshotImageCache *)self _purgeSnapshotRequest:requestCopy withReason:v12];
+  v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Finished loading %@ request", v12];
+  [(SBAppSwitcherSnapshotImageCache *)self _purgeSnapshotRequest:requestCopy withReason:v13];
 
-  if (v10)
+  if (v11)
   {
     [(SBAppSwitcherSnapshotImageCache *)self _addCacheEntryForImage:imageCopy fromRequest:requestCopy];
-    v13 = [_SBAppSwitcherSnapshotCacheKey alloc];
+    v14 = [_SBAppSwitcherSnapshotCacheKey alloc];
     appLayout = [requestCopy appLayout];
-    v15 = [(_SBAppSwitcherSnapshotCacheKey *)v13 initWithDisplayItem:displayItem inAppLayout:appLayout];
+    v16 = [(_SBAppSwitcherSnapshotCacheKey *)v14 initWithDisplayItem:displayItem inAppLayout:appLayout];
 
-    v16 = [(NSMutableDictionary *)self->_cachedSnapshots objectForKey:v15];
-    [v16 setNeedsUpdate:0];
+    v17 = [(NSMutableDictionary *)self->_cachedSnapshots objectForKey:v16];
+    [v17 setNeedsUpdate:0];
     objc_initWeak(&location, self);
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __76__SBAppSwitcherSnapshotImageCache__snapshotImage_finishedLoadingForRequest___block_invoke;
     block[3] = &unk_2783B4560;
-    objc_copyWeak(&v22, &location);
-    v19 = displayItem;
-    v20 = requestCopy;
-    v21 = v16;
-    v17 = v16;
+    objc_copyWeak(&v23, &location);
+    v20 = displayItem;
+    v21 = requestCopy;
+    v22 = v17;
+    v18 = v17;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(&location);
   }
 
@@ -2277,40 +2282,39 @@ void __76__SBAppSwitcherSnapshotImageCache__snapshotImage_finishedLoadingForRequ
 
 - (void)_addCacheEntryForImage:(id)image fromRequest:(id)request
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   imageCopy = image;
   requestCopy = request;
-  BSDispatchQueueAssert();
-  v8 = SBLogSwitcherSnapshotCache();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v8 = BSDispatchQueueAssert();
+  v9 = SBLogSwitcherSnapshotCache(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [SBAppSwitcherSnapshotImageCache _addCacheEntryForImage:fromRequest:];
   }
 
   appLayout = [requestCopy appLayout];
   displayItem = [requestCopy displayItem];
-  v11 = objc_alloc_init(SBAppSwitcherSnapshotCacheEntry);
-  [(SBAppSwitcherSnapshotCacheEntry *)v11 setAppLayout:appLayout];
-  [(SBAppSwitcherSnapshotCacheEntry *)v11 setDisplayItem:displayItem];
+  v12 = objc_alloc_init(SBAppSwitcherSnapshotCacheEntry);
+  [(SBAppSwitcherSnapshotCacheEntry *)v12 setAppLayout:appLayout];
+  [(SBAppSwitcherSnapshotCacheEntry *)v12 setDisplayItem:displayItem];
   snapshot = [requestCopy snapshot];
-  [(SBAppSwitcherSnapshotCacheEntry *)v11 setSnapshot:snapshot];
+  [(SBAppSwitcherSnapshotCacheEntry *)v12 setSnapshot:snapshot];
 
-  [(SBAppSwitcherSnapshotCacheEntry *)v11 setSnapshotImage:imageCopy];
-  -[SBAppSwitcherSnapshotCacheEntry setFromFullSizeSnapshotRequest:](v11, "setFromFullSizeSnapshotRequest:", [requestCopy loadFullSizeSnapshot]);
-  v13 = [[_SBAppSwitcherSnapshotCacheKey alloc] initWithDisplayItem:displayItem inAppLayout:appLayout];
-  [(NSMutableDictionary *)self->_cachedSnapshots setObject:v11 forKey:v13];
-  v14 = SBLogSwitcherSnapshotCache();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+  [(SBAppSwitcherSnapshotCacheEntry *)v12 setSnapshotImage:imageCopy];
+  -[SBAppSwitcherSnapshotCacheEntry setFromFullSizeSnapshotRequest:](v12, "setFromFullSizeSnapshotRequest:", [requestCopy loadFullSizeSnapshot]);
+  v14 = [[_SBAppSwitcherSnapshotCacheKey alloc] initWithDisplayItem:displayItem inAppLayout:appLayout];
+  v15 = SBLogSwitcherSnapshotCache([(NSMutableDictionary *)self->_cachedSnapshots setObject:v12 forKey:v14]);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
     debugName = self->_debugName;
     displayItem2 = [requestCopy displayItem];
-    v17 = 138543874;
-    v18 = debugName;
-    v19 = 2114;
-    v20 = imageCopy;
-    v21 = 2114;
-    v22 = displayItem2;
-    _os_log_debug_impl(&dword_21ED4E000, v14, OS_LOG_TYPE_DEBUG, "[%{public}@] cached image %{public}@ for display item [%{public}@]", &v17, 0x20u);
+    v18 = 138543874;
+    v19 = debugName;
+    v20 = 2114;
+    v21 = imageCopy;
+    v22 = 2114;
+    v23 = displayItem2;
+    _os_log_debug_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEBUG, "[%{public}@] cached image %{public}@ for display item [%{public}@]", &v18, 0x20u);
   }
 }
 
@@ -2338,7 +2342,7 @@ void __76__SBAppSwitcherSnapshotImageCache__snapshotImage_finishedLoadingForRequ
   return requestCopy;
 }
 
-uint64_t __56__SBAppSwitcherSnapshotImageCache__keepGoingForRequest___block_invoke(uint64_t a1)
+void *__56__SBAppSwitcherSnapshotImageCache__keepGoingForRequest___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _isValidSnapshotRequest:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -2349,16 +2353,17 @@ uint64_t __56__SBAppSwitcherSnapshotImageCache__keepGoingForRequest___block_invo
 {
   requestCopy = request;
   dispatch_assert_queue_V2(self->_snapshotQueue);
-  v5 = SBLogSwitcherSnapshotCache();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+  v6 = SBLogSwitcherSnapshotCache(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     [SBAppSwitcherSnapshotImageCache _asynchronouslyLoadSnapshotFromRequest:];
   }
 
-  if (![(SBAppSwitcherSnapshotImageCache *)self _keepGoingForRequest:requestCopy])
+  v7 = [(SBAppSwitcherSnapshotImageCache *)self _keepGoingForRequest:requestCopy];
+  if (!v7)
   {
-    v8 = SBLogSwitcherSnapshotCache();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+    v11 = SBLogSwitcherSnapshotCache(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [SBAppSwitcherSnapshotImageCache _asynchronouslyLoadSnapshotFromRequest:];
     }
@@ -2367,23 +2372,23 @@ uint64_t __56__SBAppSwitcherSnapshotImageCache__keepGoingForRequest___block_invo
   }
 
   snapshot = [requestCopy snapshot];
-  v7 = [snapshot imageForInterfaceOrientation:0];
+  v9 = [snapshot imageForInterfaceOrientation:0];
 
-  v8 = SBLogSwitcherSnapshotCache();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG);
-  if (!v7)
+  v11 = SBLogSwitcherSnapshotCache(v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
+  if (!v9)
   {
-    if (v9)
+    if (v12)
     {
       [SBAppSwitcherSnapshotImageCache _asynchronouslyLoadSnapshotFromRequest:];
     }
 
 LABEL_11:
-    v7 = 0;
+    v9 = 0;
     goto LABEL_12;
   }
 
-  if (v9)
+  if (v12)
   {
     [SBAppSwitcherSnapshotImageCache _asynchronouslyLoadSnapshotFromRequest:];
   }
@@ -2392,18 +2397,18 @@ LABEL_12:
 
   objc_initWeak(&location, self);
   controlQueue = self->_controlQueue;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __74__SBAppSwitcherSnapshotImageCache__asynchronouslyLoadSnapshotFromRequest___block_invoke;
-  v13[3] = &unk_2783B00B0;
-  objc_copyWeak(&v16, &location);
-  v14 = v7;
-  v15 = requestCopy;
-  v11 = requestCopy;
-  v12 = v7;
-  dispatch_async(controlQueue, v13);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __74__SBAppSwitcherSnapshotImageCache__asynchronouslyLoadSnapshotFromRequest___block_invoke;
+  v16[3] = &unk_2783B00B0;
+  objc_copyWeak(&v19, &location);
+  v17 = v9;
+  v18 = requestCopy;
+  v14 = requestCopy;
+  v15 = v9;
+  dispatch_async(controlQueue, v16);
 
-  objc_destroyWeak(&v16);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
 }
 
@@ -2430,21 +2435,21 @@ void __57__SBAppSwitcherSnapshotImageCache_setCachableAppLayouts___block_invoke_
 {
   OUTLINED_FUNCTION_3_27(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] Updating cache because there are new cachable app layouts.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] Updating cache because there are new cachable app layouts.", v2, v3, v4, v5);
 }
 
 void __65__SBAppSwitcherSnapshotImageCache_setFullSizeCachableAppLayouts___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_3_27(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] Updating cache because there are new full size cachable app layouts.", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] Updating cache because there are new full size cachable app layouts.", v2, v3, v4, v5);
 }
 
 - (void)_updateCacheForDisplayItem:.cold.1()
 {
   OUTLINED_FUNCTION_5_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] cache update requested for display item", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] cache update requested for display item", v2, v3, v4, v5);
 }
 
 - (void)addSnapshotUpdateObserver:forDisplayItem:inAppLayout:.cold.1()
@@ -2525,14 +2530,14 @@ void __88__SBAppSwitcherSnapshotImageCache_addSnapshotUpdateObserver_forDisplayI
 {
   OUTLINED_FUNCTION_5_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] call completion block for display item", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] call completion block for display item", v2, v3, v4, v5);
 }
 
 - (void)_cacheSnapshotForRequest:withDisplayItem:inAppLayout:.cold.1()
 {
   OUTLINED_FUNCTION_5_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] cache snapshot for request", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] cache snapshot for request", v2, v3, v4, v5);
 }
 
 - (void)_cacheSnapshotForRequest:withDisplayItem:inAppLayout:.cold.2()
@@ -2576,7 +2581,7 @@ void __88__SBAppSwitcherSnapshotImageCache_addSnapshotUpdateObserver_forDisplayI
 {
   OUTLINED_FUNCTION_5_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] creating downscaled default snapshot request for default app layout", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] creating downscaled default snapshot request for default app layout", v2, v3, v4, v5);
 }
 
 - (void)_loadSnapshotForRequest:withDisplayItem:inAppLayout:.cold.4()
@@ -2584,6 +2589,15 @@ void __88__SBAppSwitcherSnapshotImageCache_addSnapshotUpdateObserver_forDisplayI
   OUTLINED_FUNCTION_5_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_0_42();
   OUTLINED_FUNCTION_3_3(&dword_21ED4E000, v0, v1, "[%{public}@] stopping default App Layouts loading cycle, waiting for downscaled snapshot request to complete for [%{public}@]");
+}
+
+void __87__SBAppSwitcherSnapshotImageCache__loadSnapshotForRequest_withDisplayItem_inAppLayout___block_invoke_270_cold_1(uint64_t a1)
+{
+  *v7 = 138543618;
+  *&v7[4] = *(*(a1 + 32) + 144);
+  *&v7[12] = 2048;
+  *&v7[14] = [*(a1 + 40) sequenceID];
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v1, v2, "\n|\n|— [%{public}@] [Loading] request was matched by already cached entry. Request sequenceID: %lu\n|", v3, v4, v5, v6, *v7, *&v7[8], *&v7[16]);
 }
 
 void __115__SBAppSwitcherSnapshotImageCache__createDownscaledVariantForRequest_snapshot_displayItem_sceneHandle_application___block_invoke_2_cold_1()
@@ -2604,21 +2618,21 @@ void __124__SBAppSwitcherSnapshotImageCache_activeInterfaceOrientationDidChangeT
 {
   OUTLINED_FUNCTION_5_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] purge snapshot requests for display item", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] purge snapshot requests for display item", v2, v3, v4, v5);
 }
 
 - (void)_purgeSnapshotsForKey:.cold.1()
 {
   OUTLINED_FUNCTION_5_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] purge snapshots for display item", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] purge snapshots for display item", v2, v3, v4, v5);
 }
 
 - (void)_purgeSnapshotsForKey:(uint64_t)a1 .cold.2(uint64_t a1, uint64_t a2)
 {
   v2 = [OUTLINED_FUNCTION_10_5(a1 a2)];
   OUTLINED_FUNCTION_9();
-  OUTLINED_FUNCTION_12(&dword_21ED4E000, v3, v4, "\n|\n|— [%{public}@] [Purging] displayItem with uniqueID: %{public}@\n|", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v3, v4, "\n|\n|— [%{public}@] [Purging] displayItem with uniqueID: %{public}@\n|", v5, v6, v7, v8);
 }
 
 - (void)_purgeSnapshotsForKey:.cold.3()
@@ -2632,13 +2646,17 @@ void __124__SBAppSwitcherSnapshotImageCache_activeInterfaceOrientationDidChangeT
 {
   OUTLINED_FUNCTION_5_10(*MEMORY[0x277D85DE8]);
   OUTLINED_FUNCTION_2_4();
-  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] set snapshots need update for display item", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_0_2(&dword_21ED4E000, v0, v1, "[%{public}@] set snapshots need update for display item", v2, v3, v4, v5);
 }
 
 - (void)_snapshotImage:(uint64_t)a1 finishedLoadingForRequest:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
 {
-  v8 = [OUTLINED_FUNCTION_10_5(a1 a2)];
-  OUTLINED_FUNCTION_12(&dword_21ED4E000, v2, v3, "[%{public}@] finished loading snapshot request %@", v4, v5, v6, v7, 2u);
+  v3 = [OUTLINED_FUNCTION_10_5(a1 a2)];
+  *v10 = 138543618;
+  *&v10[4] = v2;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v4, v5, "[%{public}@] finished loading snapshot request %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 - (void)_addCacheEntryForImage:fromRequest:.cold.1()

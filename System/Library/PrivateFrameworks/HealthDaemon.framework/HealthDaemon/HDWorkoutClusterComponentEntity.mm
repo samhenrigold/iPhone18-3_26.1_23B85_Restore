@@ -11,34 +11,33 @@
 
 + (BOOL)associateWorkout:(id)workout withCluster:(id)cluster transaction:(id)transaction error:(id *)error
 {
-  v27[2] = *MEMORY[0x277D85DE8];
+  v26[2] = *MEMORY[0x277D85DE8];
   workoutCopy = workout;
   clusterCopy = cluster;
-  v27[0] = @"cluster_id";
-  v27[1] = @"workout_id";
+  v26[0] = @"cluster_id";
+  v26[1] = @"workout_id";
   v12 = MEMORY[0x277CBEA60];
   transactionCopy = transaction;
-  v14 = [v12 arrayWithObjects:v27 count:2];
+  v14 = [v12 arrayWithObjects:v26 count:2];
   v15 = [transactionCopy databaseForEntityClass:self];
 
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __82__HDWorkoutClusterComponentEntity_associateWorkout_withCluster_transaction_error___block_invoke;
-  v24[3] = &unk_278618EF0;
-  v25 = v14;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __82__HDWorkoutClusterComponentEntity_associateWorkout_withCluster_transaction_error___block_invoke;
+  v23[3] = &unk_278618EF0;
+  v24 = v14;
   selfCopy = self;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __82__HDWorkoutClusterComponentEntity_associateWorkout_withCluster_transaction_error___block_invoke_2;
-  v21[3] = &unk_278613038;
-  v22 = clusterCopy;
-  v23 = workoutCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __82__HDWorkoutClusterComponentEntity_associateWorkout_withCluster_transaction_error___block_invoke_2;
+  v20[3] = &unk_278613038;
+  v21 = clusterCopy;
+  v22 = workoutCopy;
   v16 = workoutCopy;
   v17 = clusterCopy;
   v18 = v14;
-  LOBYTE(error) = [v15 executeCachedStatementForKey:&associateWorkout_withCluster_transaction_error__insertKey error:error SQLGenerator:v24 bindingHandler:v21 enumerationHandler:0];
+  LOBYTE(error) = [v15 executeCachedStatementForKey:&associateWorkout_withCluster_transaction_error__insertKey error:error SQLGenerator:v23 bindingHandler:v20 enumerationHandler:0];
 
-  v19 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -125,21 +124,20 @@ uint64_t __87__HDWorkoutClusterComponentEntity_enumerateWorkoutsForCluster_trans
   return sqlite3_bind_int64(a2, 1, v3);
 }
 
-uint64_t __87__HDWorkoutClusterComponentEntity_enumerateWorkoutsForCluster_transaction_error_block___block_invoke_3(uint64_t a1)
+uint64_t __87__HDWorkoutClusterComponentEntity_enumerateWorkoutsForCluster_transaction_error_block___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v3 = *(a1 + 32);
-  v1 = HKWithAutoreleasePool();
+  v5 = *(a1 + 32);
+  v3 = HKWithAutoreleasePool();
 
-  return v1;
+  return v3;
 }
 
 uint64_t __87__HDWorkoutClusterComponentEntity_enumerateWorkoutsForCluster_transaction_error_block___block_invoke_4(uint64_t a1)
 {
-  v2 = *(a1 + 40);
-  v3 = [(HDSQLiteEntity *)[HDWorkoutEntity alloc] initWithPersistentID:HDSQLiteColumnAsInt64()];
-  v4 = (*(*(a1 + 32) + 16))();
+  v2 = [(HDSQLiteEntity *)[HDWorkoutEntity alloc] initWithPersistentID:HDSQLiteColumnAsInt64()];
+  v3 = (*(*(a1 + 32) + 16))();
 
-  return v4;
+  return v3;
 }
 
 + (id)numberOfWorkoutsInCluster:(id)cluster transaction:(id)transaction error:(id *)error
@@ -190,27 +188,24 @@ uint64_t __79__HDWorkoutClusterComponentEntity_numberOfWorkoutsInCluster_transac
 
 + (id)uniquedColumns
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"cluster_id";
-  v5[1] = @"workout_id";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"cluster_id";
+  v4[1] = @"workout_id";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
 
 + (id)foreignKeys
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"cluster_id";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"cluster_id";
   v2 = +[(HDHealthEntity *)HDWorkoutClusterEntity];
-  v7[1] = @"workout_id";
-  v8[0] = v2;
+  v6[1] = @"workout_id";
+  v7[0] = v2;
   v3 = +[(HDDataEntity *)HDWorkoutEntity];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }

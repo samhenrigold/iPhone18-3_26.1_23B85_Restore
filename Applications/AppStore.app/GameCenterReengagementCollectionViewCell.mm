@@ -20,7 +20,7 @@
   selfCopy = self;
   sub_10041F6B4(x, y, width, height);
 
-  sub_10002849C(&qword_100985340);
+  sub_10002849C(&qword_100985340, &qword_1007CC948);
   v8.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v8.super.isa;

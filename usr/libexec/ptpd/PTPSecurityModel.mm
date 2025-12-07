@@ -14,6 +14,7 @@
 - (void)registerForSecurityNotifications;
 - (void)setDelegate:(id)delegate;
 - (void)setHasVended:(BOOL)vended;
+- (void)setSessionID:(unsigned int)d;
 - (void)start;
 - (void)stop;
 - (void)unregisterForSecurityNotifications;
@@ -151,6 +152,32 @@
   }
 }
 
+- (void)setSessionID:(unsigned int)d
+{
+  v3 = *&d;
+  self->_sessionID = d;
+  __ICOSLogCreate();
+  v4 = &stru_100038B48;
+  if ([&stru_100038B48 length] >= 0x15)
+  {
+    v5 = [&stru_100038B48 substringWithRange:{0, 18}];
+    v4 = [v5 stringByAppendingString:@".."];
+  }
+
+  v6 = [NSString stringWithFormat:@"PTPSecurityModel Allocated SessionID: 0x%x", v3];
+  v7 = _gICOSLog;
+  if (os_log_type_enabled(_gICOSLog, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = v4;
+    v9 = v7;
+    *buf = 136446466;
+    uTF8String = [(__CFString *)v4 UTF8String];
+    v12 = 2114;
+    v13 = v6;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%{public}20s | %{public}@", buf, 0x16u);
+  }
+}
+
 - (void)setHasVended:(BOOL)vended
 {
   self->_hasVended = vended;
@@ -192,7 +219,7 @@
   photoLibraryIsAvailable = self->_photoLibraryIsAvailable;
   hostIsTrusted = self->_hostIsTrusted;
   photoStorageIsAvailable = self->_photoStorageIsAvailable;
-  v9 = sub_10000C470();
+  v9 = sub_10000C470(self);
   v10 = v9;
   if (status > 2)
   {

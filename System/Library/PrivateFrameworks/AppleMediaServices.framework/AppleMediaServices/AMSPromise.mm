@@ -1177,7 +1177,7 @@ void __96__AMSPromise__configureFlattenedPromise_withPromises_results_previousEr
   _Block_object_dispose(&v26, 8);
 }
 
-uint64_t __50__AMSPromise__enumeratePromises_startingAt_block___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
+uint64_t __50__AMSPromise__enumeratePromises_startingAt_block___block_invoke(uint64_t a1, void *a2, void *a3, char *a4)
 {
   v7 = a2;
   v8 = a3;
@@ -1212,7 +1212,7 @@ void __50__AMSPromise__enumeratePromises_startingAt_block___block_invoke_2(uint6
   *(*(*(a1 + 64) + 8) + 24) = 0;
 }
 
-uint64_t __50__AMSPromise__enumeratePromises_startingAt_block___block_invoke_3(void *a1)
+void *__50__AMSPromise__enumeratePromises_startingAt_block___block_invoke_3(void *a1)
 {
   result = (*(a1[5] + 16))();
   if (result)

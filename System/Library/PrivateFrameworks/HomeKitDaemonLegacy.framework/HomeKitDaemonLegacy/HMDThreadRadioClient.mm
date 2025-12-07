@@ -84,33 +84,33 @@
 
 void __89__HMDThreadRadioClient_informThreadLayerOfResidentChange_primaryResidentIsThreadCapable___block_invoke(uint64_t a1)
 {
-  v61[20] = *MEMORY[0x277D85DE8];
+  v60[20] = *MEMORY[0x277D85DE8];
   if ([*(a1 + 32) shouldInformThreadOfResidentChange:*(a1 + 40) primaryResidentIsThreadCapable:*(a1 + 41)])
   {
     v2 = [*(a1 + 32) threadClient];
     v3 = v2;
     if (v2)
     {
-      [v2 updatePrimaryResident:*(a1 + 40) isPrimaryResidentThreadCapable:*(a1 + 41) primaryResidentInfo:0];
+      objc_msgSend_updatePrimaryResident_isPrimaryResidentThreadCapable_primaryResidentInfo_(v2);
     }
 
     else
     {
-      *v47 = 0u;
-      v48 = 0u;
+      *v46 = 0u;
+      v47 = 0u;
     }
 
-    if (SLODWORD(v47[0]) > 6)
+    if (SLODWORD(v46[0]) > 6)
     {
-      if (SLODWORD(v47[0]) > 9)
+      if (SLODWORD(v46[0]) > 9)
       {
-        if (LODWORD(v47[0]) == 10)
+        if (LODWORD(v46[0]) == 10)
         {
           v8 = 3;
           goto LABEL_30;
         }
 
-        if (LODWORD(v47[0]) == 12)
+        if (LODWORD(v46[0]) == 12)
         {
           v8 = 80;
           goto LABEL_30;
@@ -119,13 +119,13 @@ void __89__HMDThreadRadioClient_informThreadLayerOfResidentChange_primaryResiden
 
       else
       {
-        if (LODWORD(v47[0]) == 7)
+        if (LODWORD(v46[0]) == 7)
         {
           v8 = 10;
           goto LABEL_30;
         }
 
-        if (LODWORD(v47[0]) == 9)
+        if (LODWORD(v46[0]) == 9)
         {
           v8 = 27;
           goto LABEL_30;
@@ -135,9 +135,9 @@ void __89__HMDThreadRadioClient_informThreadLayerOfResidentChange_primaryResiden
 
     else
     {
-      if (SLODWORD(v47[0]) > 4)
+      if (SLODWORD(v46[0]) > 4)
       {
-        if (LODWORD(v47[0]) == 5)
+        if (LODWORD(v46[0]) == 5)
         {
           v8 = 48;
         }
@@ -157,17 +157,17 @@ LABEL_30:
           *buf = 138543874;
           *&buf[4] = v19;
           *&buf[12] = 2048;
-          *&buf[14] = LODWORD(v47[0]);
-          v54 = 2048;
-          *&v55 = v8;
+          *&buf[14] = LODWORD(v46[0]);
+          v53 = 2048;
+          *&v54 = v8;
           _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_DEBUG, "%{public}@CoreThreadRadio result code %lu mapped to HMErrorCode %lu", buf, 0x20u);
         }
 
         objc_autoreleasePoolPop(v16);
         v20 = MEMORY[0x277CCACA8];
-        v61[6] = 0;
+        v60[6] = 0;
         v21 = MEMORY[0x277D828A0] + 64;
-        v61[0] = MEMORY[0x277D828A0] + 64;
+        v60[0] = MEMORY[0x277D828A0] + 64;
         v22 = MEMORY[0x277D82828];
         v23 = *(MEMORY[0x277D82828] + 16);
         *buf = *(MEMORY[0x277D82828] + 8);
@@ -179,41 +179,41 @@ LABEL_30:
         v24[1].__vftable = 0;
         v24[1].__fmtflags_ = -1;
         *buf = v26;
-        v61[0] = v21;
+        v60[0] = v21;
         v27 = MEMORY[0x277D82868] + 16;
         *&buf[8] = MEMORY[0x277D82868] + 16;
         MEMORY[0x259C02800](&buf[16]);
-        v57 = 0u;
+        v56 = 0u;
         *__src = 0u;
-        v55 = 0u;
+        v54 = 0u;
         v28 = MEMORY[0x277D82878] + 16;
         *&buf[8] = MEMORY[0x277D82878] + 16;
-        memset(&v58, 0, sizeof(v58));
-        v59 = &v58;
-        v60 = 16;
-        std::string::resize(&v58, 0x16uLL, 0);
-        size = HIBYTE(v58.__r_.__value_.__r.__words[2]);
-        if ((v58.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+        memset(&v57, 0, sizeof(v57));
+        v58 = &v57;
+        v59 = 16;
+        std::string::resize(&v57, 0x16uLL, 0);
+        size = HIBYTE(v57.__r_.__value_.__r.__words[2]);
+        if ((v57.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
         {
-          size = v58.__r_.__value_.__l.__size_;
+          size = v57.__r_.__value_.__l.__size_;
         }
 
-        __src[1] = &v58;
-        *&v57 = &v58;
-        *(&v57 + 1) = &v58 + size;
+        __src[1] = &v57;
+        *&v56 = &v57;
+        *(&v56 + 1) = &v57 + size;
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "Result:'", 8);
-        if (LODWORD(v47[0]) > 0xE)
+        if (LODWORD(v46[0]) > 0xE)
         {
           v30 = "kInvalidErrorCode";
         }
 
         else
         {
-          v30 = off_27972B690[LODWORD(v47[0])];
+          v30 = off_27972B690[LODWORD(v46[0])];
         }
 
         std::string::basic_string[abi:ne200100]<0>(__p, v30);
-        if ((v52 & 0x80u) == 0)
+        if ((v51 & 0x80u) == 0)
         {
           v31 = __p;
         }
@@ -223,9 +223,9 @@ LABEL_30:
           v31 = __p[0];
         }
 
-        if ((v52 & 0x80u) == 0)
+        if ((v51 & 0x80u) == 0)
         {
-          v32 = v52;
+          v32 = v51;
         }
 
         else
@@ -235,51 +235,51 @@ LABEL_30:
 
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, v31, v32);
         std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "'", 1);
-        if (v52 < 0)
+        if (v51 < 0)
         {
           operator delete(__p[0]);
         }
 
-        v33 = HIBYTE(v48);
-        if (v48 < 0)
+        v33 = HIBYTE(v47);
+        if (v47 < 0)
         {
-          v33 = v48;
+          v33 = v47;
         }
 
         if (v33)
         {
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, " Info:'", 7);
-          if (v48 >= 0)
+          if (v47 >= 0)
           {
-            v34 = &v47[1];
+            v34 = &v46[1];
           }
 
           else
           {
-            v34 = v47[1];
+            v34 = v46[1];
           }
 
-          if (v48 >= 0)
+          if (v47 >= 0)
           {
-            v35 = HIBYTE(v48);
+            v35 = HIBYTE(v47);
           }
 
           else
           {
-            v35 = v48;
+            v35 = v47;
           }
 
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, v34, v35);
           std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(buf, "'", 1);
         }
 
-        if ((v60 & 0x10) != 0)
+        if ((v59 & 0x10) != 0)
         {
-          v37 = v59;
-          if (v59 < v57)
+          v37 = v58;
+          if (v58 < v56)
           {
-            v59 = v57;
-            v37 = v57;
+            v58 = v56;
+            v37 = v56;
           }
 
           v38 = __src[1];
@@ -287,25 +287,25 @@ LABEL_30:
 
         else
         {
-          if ((v60 & 8) == 0)
+          if ((v59 & 8) == 0)
           {
             v36 = 0;
-            v50 = 0;
+            v49 = 0;
 LABEL_69:
             *(&__dst + v36) = 0;
             *buf = *v22;
             *&buf[*(*buf - 24)] = v22[3];
             *&buf[8] = v28;
-            if (SHIBYTE(v58.__r_.__value_.__r.__words[2]) < 0)
+            if (SHIBYTE(v57.__r_.__value_.__r.__words[2]) < 0)
             {
-              operator delete(v58.__r_.__value_.__l.__data_);
+              operator delete(v57.__r_.__value_.__l.__data_);
             }
 
             *&buf[8] = v27;
             std::locale::~locale(&buf[16]);
             std::ostream::~ostream();
-            MEMORY[0x259C02850](v61);
-            if (v50 >= 0)
+            MEMORY[0x259C02850](v60);
+            if (v49 >= 0)
             {
               p_dst = &__dst;
             }
@@ -316,7 +316,7 @@ LABEL_69:
             }
 
             v40 = [v20 stringWithCString:p_dst encoding:4];
-            if (v50 < 0)
+            if (v49 < 0)
             {
               operator delete(__dst);
             }
@@ -338,15 +338,15 @@ LABEL_69:
 
             objc_autoreleasePoolPop(v42);
 LABEL_79:
-            if (SHIBYTE(v48) < 0)
+            if (SHIBYTE(v47) < 0)
             {
-              operator delete(v47[1]);
+              operator delete(v46[1]);
             }
 
-            goto LABEL_81;
+            return;
           }
 
-          v38 = v55;
+          v38 = v54;
           v37 = __src[0];
         }
 
@@ -361,7 +361,7 @@ LABEL_79:
           operator new();
         }
 
-        v50 = v37 - v38;
+        v49 = v37 - v38;
         if (v36)
         {
           memmove(&__dst, v38, v36);
@@ -371,7 +371,7 @@ LABEL_79:
         goto LABEL_69;
       }
 
-      if (!LODWORD(v47[0]))
+      if (!LODWORD(v46[0]))
       {
         v9 = objc_autoreleasePoolPush();
         v10 = *(a1 + 32);
@@ -385,8 +385,8 @@ LABEL_79:
           *&buf[4] = v12;
           *&buf[12] = 2112;
           *&buf[14] = v13;
-          v54 = 2112;
-          *&v55 = v14;
+          v53 = 2112;
+          *&v54 = v14;
           _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_DEBUG, "%{public}@Successfully informed Thread layer of primary resident change (isPrimary=%@ primaryThreadCapable=%@)", buf, 0x20u);
         }
 
@@ -410,7 +410,7 @@ LABEL_79:
         goto LABEL_79;
       }
 
-      if (LODWORD(v47[0]) == 4)
+      if (LODWORD(v46[0]) == 4)
       {
         v8 = 23;
         goto LABEL_30;
@@ -433,8 +433,6 @@ LABEL_79:
   }
 
   objc_autoreleasePoolPop(v4);
-LABEL_81:
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)triggerThreadNetworkStateCaptureForAccessories:(id)accessories isSessionFailure:(BOOL)failure withCompletion:(id)completion
@@ -543,7 +541,7 @@ LABEL_13:
   }
 
 LABEL_5:
-  if ([v23 duration])
+  if (objc_msgSend_duration(v23))
   {
     v11 = v23;
   }
@@ -672,7 +670,7 @@ LABEL_13:
   }
 
 LABEL_5:
-  if ([v17 duration])
+  if (objc_msgSend_duration(v17))
   {
     v11 = v17;
   }
@@ -684,7 +682,7 @@ LABEL_5:
 
   v12 = v11;
   v13 = *(a1 + 32);
-  v14 = -[HMDThreadNetworkStatusReport initWithNumAdvertisedBRs:numAppleBRs:numThirdPartyBRs:numThreadNetworks:maxSimuIPPrefixesDetected:txTotal:txSuccess:txDelayAvg:rxTotal:rxSuccess:reportDuration:]([HMDThreadNetworkStatusReport alloc], "initWithNumAdvertisedBRs:numAppleBRs:numThirdPartyBRs:numThreadNetworks:maxSimuIPPrefixesDetected:txTotal:txSuccess:txDelayAvg:rxTotal:rxSuccess:reportDuration:", [v12 num_border_routers_advertised], objc_msgSend(v12, "num_apple_BRs"), objc_msgSend(v12, "num_thirdparty_BRs"), objc_msgSend(v12, "num_thread_networks"), objc_msgSend(v12, "max_simultaneous_prefix_detected"), objc_msgSend(v12, "tx_total"), objc_msgSend(v12, "tx_total_success"), objc_msgSend(v12, "tx_delayavg"), objc_msgSend(v12, "rx_total"), objc_msgSend(v12, "rx_total_success"), objc_msgSend(v12, "duration"));
+  v14 = -[HMDThreadNetworkStatusReport initWithNumAdvertisedBRs:numAppleBRs:numThirdPartyBRs:numThreadNetworks:maxSimuIPPrefixesDetected:txTotal:txSuccess:txDelayAvg:rxTotal:rxSuccess:reportDuration:]([HMDThreadNetworkStatusReport alloc], "initWithNumAdvertisedBRs:numAppleBRs:numThirdPartyBRs:numThreadNetworks:maxSimuIPPrefixesDetected:txTotal:txSuccess:txDelayAvg:rxTotal:rxSuccess:reportDuration:", [v12 num_border_routers_advertised], objc_msgSend(v12, "num_apple_BRs"), objc_msgSend(v12, "num_thirdparty_BRs"), objc_msgSend(v12, "num_thread_networks"), objc_msgSend(v12, "max_simultaneous_prefix_detected"), objc_msgSend(v12, "tx_total"), objc_msgSend(v12, "tx_total_success"), objc_msgSend(v12, "tx_delayavg"), objc_msgSend(v12, "rx_total"), objc_msgSend(v12, "rx_total_success"), objc_msgSend_duration(v12));
   (*(v13 + 16))(v13, v14, 0);
 
 LABEL_16:
@@ -693,19 +691,17 @@ LABEL_17:
 
 - (BOOL)isThreadNetworkUp
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (self->_threadNetworkUp)
   {
-    threadNetworkUp = 1;
-    goto LABEL_20;
+    return 1;
   }
 
   threadClient = [(HMDThreadRadioClient *)self threadClient];
 
   if (!threadClient)
   {
-    threadNetworkUp = self->_threadNetworkUp;
-    goto LABEL_20;
+    return self->_threadNetworkUp;
   }
 
   v5 = xpc_dictionary_create(0, 0, 0);
@@ -713,13 +709,13 @@ LABEL_17:
   v7 = threadClient2;
   if (threadClient2)
   {
-    [threadClient2 getProperty:"NCP:State" output:v5];
+    objc_msgSend_getProperty_output_(threadClient2);
   }
 
   else
   {
     *__p = 0u;
-    v20 = 0u;
+    v19 = 0u;
   }
 
   v8 = objc_autoreleasePoolPush();
@@ -731,7 +727,7 @@ LABEL_17:
     {
       v11 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v11;
+      v21 = v11;
       _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_ERROR, "%{public}@failed to fetch kWPANTUNDProperty_NCPState", buf, 0xCu);
     }
 
@@ -745,9 +741,9 @@ LABEL_17:
     {
       v13 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v22 = v13;
-      v23 = 2112;
-      v24 = v5;
+      v21 = v13;
+      v22 = 2112;
+      v23 = v5;
       _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_DEBUG, "%{public}@fetched kWPANTUNDProperty_NCPState got value =%@", buf, 0x16u);
     }
 
@@ -758,27 +754,25 @@ LABEL_17:
     if (string_ptr)
     {
       v16 = [objc_alloc(MEMORY[0x277CCACA8]) initWithCString:string_ptr];
-      threadNetworkUp = [(HMDThreadRadioClient *)selfCopy _connectionStateFromString:v16]> 1;
+      v2 = [(HMDThreadRadioClient *)selfCopy _connectionStateFromString:v16]> 1;
 
       goto LABEL_17;
     }
   }
 
-  threadNetworkUp = 0;
+  v2 = 0;
 LABEL_17:
-  if (SHIBYTE(v20) < 0)
+  if (SHIBYTE(v19) < 0)
   {
     operator delete(__p[1]);
   }
 
-LABEL_20:
-  v17 = *MEMORY[0x277D85DE8];
-  return threadNetworkUp;
+  return v2;
 }
 
 - (void)_unregisterForThreadNetworkEvents
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   threadClient = [(HMDThreadRadioClient *)self threadClient];
 
   v4 = objc_autoreleasePoolPush();
@@ -789,9 +783,9 @@ LABEL_20:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       v7 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v7;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@_unregisterForThreadNetworkEvents", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v7;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@_unregisterForThreadNetworkEvents", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -805,20 +799,18 @@ LABEL_20:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       v10 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Thread radio client is not available on this device", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v10;
+      _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Thread radio client is not available on this device", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForThreadNetworkEvents
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   threadClient = [(HMDThreadRadioClient *)self threadClient];
 
   if (threadClient)
@@ -826,90 +818,90 @@ LABEL_20:
     objc_initWeak(&location, self);
     threadClient2 = [(HMDThreadRadioClient *)self threadClient];
     std::string::basic_string[abi:ne200100]<0>(buf, "NCP:State");
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke;
-    v38[3] = &unk_27972B648;
-    objc_copyWeak(&v39, &location);
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke;
+    v37[3] = &unk_27972B648;
+    objc_copyWeak(&v38, &location);
     threadEventQueue = [(HMDThreadRadioClient *)self threadEventQueue];
     v5 = threadEventQueue;
-    [threadClient2 setEventHandler:buf EventBlock:v38 dqueue:&threadEventQueue];
+    [threadClient2 setEventHandler:buf EventBlock:v37 dqueue:&threadEventQueue];
     v6 = threadEventQueue;
     threadEventQueue = 0;
 
-    if (v42 < 0)
+    if (v41 < 0)
     {
       operator delete(*buf);
     }
 
     threadClient3 = [(HMDThreadRadioClient *)self threadClient];
     std::string::basic_string[abi:ne200100]<0>(buf, "Network:NodeType");
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_303;
-    v35[3] = &unk_27972B648;
-    objc_copyWeak(&v36, &location);
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_303;
+    v34[3] = &unk_27972B648;
+    objc_copyWeak(&v35, &location);
     threadEventQueue2 = [(HMDThreadRadioClient *)self threadEventQueue];
     v8 = threadEventQueue2;
-    [threadClient3 setEventHandler:buf EventBlock:v35 dqueue:&threadEventQueue2];
+    [threadClient3 setEventHandler:buf EventBlock:v34 dqueue:&threadEventQueue2];
     v9 = threadEventQueue2;
     threadEventQueue2 = 0;
 
-    if (v42 < 0)
+    if (v41 < 0)
     {
       operator delete(*buf);
     }
 
     threadClient4 = [(HMDThreadRadioClient *)self threadClient];
     std::string::basic_string[abi:ne200100]<0>(buf, "WakeOnDeviceConnectionStatus");
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_305;
-    v32[3] = &unk_27972B648;
-    objc_copyWeak(&v33, &location);
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_305;
+    v31[3] = &unk_27972B648;
+    objc_copyWeak(&v32, &location);
     threadEventQueue3 = [(HMDThreadRadioClient *)self threadEventQueue];
     v11 = threadEventQueue3;
-    [threadClient4 setEventHandler:buf EventBlock:v32 dqueue:&threadEventQueue3];
+    [threadClient4 setEventHandler:buf EventBlock:v31 dqueue:&threadEventQueue3];
     v12 = threadEventQueue3;
     threadEventQueue3 = 0;
 
-    if (v42 < 0)
+    if (v41 < 0)
     {
       operator delete(*buf);
     }
 
     threadClient5 = [(HMDThreadRadioClient *)self threadClient];
     std::string::basic_string[abi:ne200100]<0>(buf, "PeripheralDeviceType");
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_307;
-    v29[3] = &unk_27972B648;
-    objc_copyWeak(&v30, &location);
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_307;
+    v28[3] = &unk_27972B648;
+    objc_copyWeak(&v29, &location);
     threadEventQueue4 = [(HMDThreadRadioClient *)self threadEventQueue];
     v14 = threadEventQueue4;
-    [threadClient5 setEventHandler:buf EventBlock:v29 dqueue:&threadEventQueue4];
+    [threadClient5 setEventHandler:buf EventBlock:v28 dqueue:&threadEventQueue4];
     v15 = threadEventQueue4;
     threadEventQueue4 = 0;
 
-    if (v42 < 0)
+    if (v41 < 0)
     {
       operator delete(*buf);
     }
 
     threadClient6 = [(HMDThreadRadioClient *)self threadClient];
     std::string::basic_string[abi:ne200100]<0>(buf, "bt_airpod_esco");
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_310;
-    v26[3] = &unk_27972B648;
-    objc_copyWeak(&v27, &location);
+    v25[0] = MEMORY[0x277D85DD0];
+    v25[1] = 3221225472;
+    v25[2] = __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_310;
+    v25[3] = &unk_27972B648;
+    objc_copyWeak(&v26, &location);
     threadEventQueue5 = [(HMDThreadRadioClient *)self threadEventQueue];
     v17 = threadEventQueue5;
-    [threadClient6 setEventHandler:buf EventBlock:v26 dqueue:&threadEventQueue5];
+    [threadClient6 setEventHandler:buf EventBlock:v25 dqueue:&threadEventQueue5];
     v18 = threadEventQueue5;
     threadEventQueue5 = 0;
 
-    if (v42 < 0)
+    if (v41 < 0)
     {
       operator delete(*buf);
     }
@@ -918,11 +910,11 @@ LABEL_20:
     [threadClient7 setClientEventsOn];
 
     [(HMDThreadRadioClient *)self _reportCurrentThreadState:0];
-    objc_destroyWeak(&v27);
-    objc_destroyWeak(&v30);
-    objc_destroyWeak(&v33);
-    objc_destroyWeak(&v36);
-    objc_destroyWeak(&v39);
+    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v32);
+    objc_destroyWeak(&v35);
+    objc_destroyWeak(&v38);
     objc_destroyWeak(&location);
   }
 
@@ -941,218 +933,9 @@ LABEL_20:
 
     objc_autoreleasePoolPop(v20);
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke(uint64_t a1, CtrXPC::Event **a2)
-{
-  v26 = *MEMORY[0x277D85DE8];
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained)
-  {
-    v4 = objc_autoreleasePoolPush();
-    v5 = WeakRetained;
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-    {
-      v7 = HMFGetLogIdentifier();
-      CtrXPC::Event::getName(__p, *a2);
-      v8 = v19;
-      v9 = __p[0];
-      v10 = CtrXPC::Event::getDataValue(*a2);
-      v11 = v10;
-      v12 = __p;
-      *buf = 138543874;
-      if (v8 < 0)
-      {
-        v12 = v9;
-      }
-
-      v21 = v7;
-      v22 = 2080;
-      v23 = v12;
-      v24 = 2112;
-      v25 = v10;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Received thread event: event name - %s, value =%@", buf, 0x20u);
-      if (v19 < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    objc_autoreleasePoolPop(v4);
-    v13 = objc_alloc(MEMORY[0x277CCACA8]);
-    v14 = CtrXPC::Event::getDataValue(*a2);
-    v15 = [v13 initWithCString:xpc_string_get_string_ptr(v14)];
-
-    v16 = -[HMDThreadNetworkStateChangeEvent initWithEventType:eventValue:]([HMDThreadNetworkStateChangeEvent alloc], "initWithEventType:eventValue:", 0, [v5 _connectionStateFromString:v15]);
-    [v5 _notifyObserversOfThreadNetworkEvent:v16];
-  }
-
-  v17 = *MEMORY[0x277D85DE8];
-}
-
-void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_303(uint64_t a1, CtrXPC::Event **a2)
-{
-  v26 = *MEMORY[0x277D85DE8];
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained)
-  {
-    v4 = objc_autoreleasePoolPush();
-    v5 = WeakRetained;
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-    {
-      v7 = HMFGetLogIdentifier();
-      CtrXPC::Event::getName(__p, *a2);
-      v8 = v19;
-      v9 = __p[0];
-      v10 = CtrXPC::Event::getDataValue(*a2);
-      v11 = v10;
-      v12 = __p;
-      *buf = 138543874;
-      if (v8 < 0)
-      {
-        v12 = v9;
-      }
-
-      v21 = v7;
-      v22 = 2080;
-      v23 = v12;
-      v24 = 2112;
-      v25 = v10;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Received thread event: event name - %s, value =%@", buf, 0x20u);
-      if (v19 < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    objc_autoreleasePoolPop(v4);
-    v13 = objc_alloc(MEMORY[0x277CCACA8]);
-    v14 = CtrXPC::Event::getDataValue(*a2);
-    v15 = [v13 initWithCString:xpc_string_get_string_ptr(v14)];
-
-    v16 = -[HMDThreadNetworkStateChangeEvent initWithEventType:eventValue:]([HMDThreadNetworkStateChangeEvent alloc], "initWithEventType:eventValue:", 1, [v5 _nodeTypeFromString:v15]);
-    [v5 _notifyObserversOfThreadNetworkEvent:v16];
-  }
-
-  v17 = *MEMORY[0x277D85DE8];
-}
-
-void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_305(uint64_t a1, uint64_t a2)
-{
-  v21 = *MEMORY[0x277D85DE8];
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
-  if (WeakRetained)
-  {
-    v5 = *(a2 + 8);
-    v15 = *a2;
-    v16 = v5;
-    if (v5)
-    {
-      atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    v6 = [WeakRetained _WEDStateChangeEventFromThreadEvent:&v15];
-    if (v16)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v16);
-    }
-
-    if (v6)
-    {
-      [v4 _notifyObserversOfThreadWakeOnDeviceConnectionStateEvent:v6];
-    }
-
-    else
-    {
-      v7 = objc_autoreleasePoolPush();
-      v8 = v4;
-      v9 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
-      {
-        v10 = HMFGetLogIdentifier();
-        CtrXPC::Event::getName(__p, *a2);
-        if (v14 >= 0)
-        {
-          v11 = __p;
-        }
-
-        else
-        {
-          v11 = __p[0];
-        }
-
-        *buf = 138543618;
-        v18 = v10;
-        v19 = 2080;
-        v20 = v11;
-        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Ignoring thread event: event name - %s", buf, 0x16u);
-        if (v14 < 0)
-        {
-          operator delete(__p[0]);
-        }
-      }
-
-      objc_autoreleasePoolPop(v7);
-    }
-  }
-
-  v12 = *MEMORY[0x277D85DE8];
-}
-
-void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_307(uint64_t a1, CtrXPC::Event **a2)
-{
-  v26 = *MEMORY[0x277D85DE8];
-  WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if (WeakRetained)
-  {
-    v4 = objc_autoreleasePoolPush();
-    v5 = WeakRetained;
-    v6 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
-    {
-      v7 = HMFGetLogIdentifier();
-      CtrXPC::Event::getName(__p, *a2);
-      v8 = v19;
-      v9 = __p[0];
-      v10 = CtrXPC::Event::getDataValue(*a2);
-      v11 = v10;
-      v12 = __p;
-      *buf = 138543874;
-      if (v8 < 0)
-      {
-        v12 = v9;
-      }
-
-      v21 = v7;
-      v22 = 2080;
-      v23 = v12;
-      v24 = 2112;
-      v25 = v10;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Received thread event: event name - %s, value =%@", buf, 0x20u);
-      if (v19 < 0)
-      {
-        operator delete(__p[0]);
-      }
-    }
-
-    objc_autoreleasePoolPop(v4);
-    v13 = objc_alloc(MEMORY[0x277CCACA8]);
-    v14 = CtrXPC::Event::getDataValue(*a2);
-    v15 = [v13 initWithCString:xpc_string_get_string_ptr(v14)];
-
-    v16 = -[HMDThreadNetworkPeripheralDeviceNodeTypeEvent initWithPeripheralDeviceNodeType:]([HMDThreadNetworkPeripheralDeviceNodeTypeEvent alloc], "initWithPeripheralDeviceNodeType:", [v5 _nodeTypeFromString:v15]);
-    [v5 _notifyObserversOfPeripheralDeviceNodeTypeEvent:v16];
-  }
-
-  v17 = *MEMORY[0x277D85DE8];
-}
-
-void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_310(uint64_t a1, CtrXPC::Event **a2)
 {
   v25 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -1189,32 +972,229 @@ void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_31
     }
 
     objc_autoreleasePoolPop(v4);
+    v13 = objc_alloc(MEMORY[0x277CCACA8]);
+    v14 = CtrXPC::Event::getDataValue(*a2);
+    v15 = [v13 initWithCString:xpc_string_get_string_ptr(v14)];
+
+    v16 = -[HMDThreadNetworkStateChangeEvent initWithEventType:eventValue:]([HMDThreadNetworkStateChangeEvent alloc], "initWithEventType:eventValue:", 0, [v5 _connectionStateFromString:v15]);
+    [v5 _notifyObserversOfThreadNetworkEvent:v16];
+  }
+}
+
+void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_303(uint64_t a1, CtrXPC::Event **a2)
+{
+  v25 = *MEMORY[0x277D85DE8];
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  if (WeakRetained)
+  {
+    v4 = objc_autoreleasePoolPush();
+    v5 = WeakRetained;
+    v6 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = HMFGetLogIdentifier();
+      CtrXPC::Event::getName(__p, *a2);
+      v8 = v18;
+      v9 = __p[0];
+      v10 = CtrXPC::Event::getDataValue(*a2);
+      v11 = v10;
+      v12 = __p;
+      *buf = 138543874;
+      if (v8 < 0)
+      {
+        v12 = v9;
+      }
+
+      v20 = v7;
+      v21 = 2080;
+      v22 = v12;
+      v23 = 2112;
+      v24 = v10;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Received thread event: event name - %s, value =%@", buf, 0x20u);
+      if (v18 < 0)
+      {
+        operator delete(__p[0]);
+      }
+    }
+
+    objc_autoreleasePoolPop(v4);
+    v13 = objc_alloc(MEMORY[0x277CCACA8]);
+    v14 = CtrXPC::Event::getDataValue(*a2);
+    v15 = [v13 initWithCString:xpc_string_get_string_ptr(v14)];
+
+    v16 = -[HMDThreadNetworkStateChangeEvent initWithEventType:eventValue:]([HMDThreadNetworkStateChangeEvent alloc], "initWithEventType:eventValue:", 1, [v5 _nodeTypeFromString:v15]);
+    [v5 _notifyObserversOfThreadNetworkEvent:v16];
+  }
+}
+
+void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_305(uint64_t a1, uint64_t a2)
+{
+  v20 = *MEMORY[0x277D85DE8];
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v4 = WeakRetained;
+  if (WeakRetained)
+  {
+    v5 = *(a2 + 8);
+    v14 = *a2;
+    v15 = v5;
+    if (v5)
+    {
+      atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
+    }
+
+    v6 = [WeakRetained _WEDStateChangeEventFromThreadEvent:&v14];
+    if (v15)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+    }
+
+    if (v6)
+    {
+      [v4 _notifyObserversOfThreadWakeOnDeviceConnectionStateEvent:v6];
+    }
+
+    else
+    {
+      v7 = objc_autoreleasePoolPush();
+      v8 = v4;
+      v9 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+      {
+        v10 = HMFGetLogIdentifier();
+        CtrXPC::Event::getName(__p, *a2);
+        if (v13 >= 0)
+        {
+          v11 = __p;
+        }
+
+        else
+        {
+          v11 = __p[0];
+        }
+
+        *buf = 138543618;
+        v17 = v10;
+        v18 = 2080;
+        v19 = v11;
+        _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Ignoring thread event: event name - %s", buf, 0x16u);
+        if (v13 < 0)
+        {
+          operator delete(__p[0]);
+        }
+      }
+
+      objc_autoreleasePoolPop(v7);
+    }
+  }
+}
+
+void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_307(uint64_t a1, CtrXPC::Event **a2)
+{
+  v25 = *MEMORY[0x277D85DE8];
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  if (WeakRetained)
+  {
+    v4 = objc_autoreleasePoolPush();
+    v5 = WeakRetained;
+    v6 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = HMFGetLogIdentifier();
+      CtrXPC::Event::getName(__p, *a2);
+      v8 = v18;
+      v9 = __p[0];
+      v10 = CtrXPC::Event::getDataValue(*a2);
+      v11 = v10;
+      v12 = __p;
+      *buf = 138543874;
+      if (v8 < 0)
+      {
+        v12 = v9;
+      }
+
+      v20 = v7;
+      v21 = 2080;
+      v22 = v12;
+      v23 = 2112;
+      v24 = v10;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Received thread event: event name - %s, value =%@", buf, 0x20u);
+      if (v18 < 0)
+      {
+        operator delete(__p[0]);
+      }
+    }
+
+    objc_autoreleasePoolPop(v4);
+    v13 = objc_alloc(MEMORY[0x277CCACA8]);
+    v14 = CtrXPC::Event::getDataValue(*a2);
+    v15 = [v13 initWithCString:xpc_string_get_string_ptr(v14)];
+
+    v16 = -[HMDThreadNetworkPeripheralDeviceNodeTypeEvent initWithPeripheralDeviceNodeType:]([HMDThreadNetworkPeripheralDeviceNodeTypeEvent alloc], "initWithPeripheralDeviceNodeType:", [v5 _nodeTypeFromString:v15]);
+    [v5 _notifyObserversOfPeripheralDeviceNodeTypeEvent:v16];
+  }
+}
+
+void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_310(uint64_t a1, CtrXPC::Event **a2)
+{
+  v24 = *MEMORY[0x277D85DE8];
+  WeakRetained = objc_loadWeakRetained((a1 + 32));
+  if (WeakRetained)
+  {
+    v4 = objc_autoreleasePoolPush();
+    v5 = WeakRetained;
+    v6 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    {
+      v7 = HMFGetLogIdentifier();
+      CtrXPC::Event::getName(__p, *a2);
+      v8 = v17;
+      v9 = __p[0];
+      v10 = CtrXPC::Event::getDataValue(*a2);
+      v11 = v10;
+      v12 = __p;
+      *buf = 138543874;
+      if (v8 < 0)
+      {
+        v12 = v9;
+      }
+
+      v19 = v7;
+      v20 = 2080;
+      v21 = v12;
+      v22 = 2112;
+      v23 = v10;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEBUG, "%{public}@Received thread event: event name - %s, value =%@", buf, 0x20u);
+      if (v17 < 0)
+      {
+        operator delete(__p[0]);
+      }
+    }
+
+    objc_autoreleasePoolPop(v4);
     v13 = CtrXPC::Event::getDataValue(*a2);
     value = xpc_BOOL_get_value(v13);
 
     v15 = [[HMDThreadNetworkBTCallStateEvent alloc] initWithCallState:value];
     [v5 _notifyObserversOfCallStateChangedEvent:v15];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportCurrentThreadState:(id)state
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   v5 = xpc_dictionary_create(0, 0, 0);
   threadClient = [(HMDThreadRadioClient *)self threadClient];
   v7 = threadClient;
   if (threadClient)
   {
-    [threadClient getProperty:"NCP:State" output:v5];
+    objc_msgSend_getProperty_output_(threadClient);
   }
 
   else
   {
     *__p = 0u;
-    v35 = 0u;
+    v34 = 0u;
   }
 
   v8 = objc_autoreleasePoolPush();
@@ -1267,7 +1247,7 @@ void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_31
   v19 = threadClient2;
   if (threadClient2)
   {
-    [threadClient2 getProperty:"Network:NodeType" output:v5];
+    objc_msgSend_getProperty_output_(threadClient2);
     v20 = *buf;
   }
 
@@ -1278,13 +1258,13 @@ void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_31
   }
 
   __pa = v20;
-  if (SHIBYTE(v35) < 0)
+  if (SHIBYTE(v34) < 0)
   {
     operator delete(__p[1]);
   }
 
   __p_8 = *&buf[8];
-  v36 = buf[31];
+  v35 = buf[31];
   buf[31] = 0;
   buf[8] = 0;
 
@@ -1335,229 +1315,217 @@ void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_31
     }
   }
 
-  if (v36 < 0)
+  if (v35 < 0)
   {
     operator delete(__p_8);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyObserversOfCallStateChangedEvent:(id)event
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   os_unfair_lock_lock_with_options();
   observers = [(HMDThreadRadioClient *)self observers];
   allObjects = [observers allObjects];
 
   os_unfair_lock_unlock(&self->_lock);
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = allObjects;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
+        v11 = *(*(&v12 + 1) + 8 * v10);
         if (objc_opt_respondsToSelector())
         {
-          [v11 threadBTCallStateChange:{eventCopy, v13}];
+          [v11 threadBTCallStateChange:{eventCopy, v12}];
         }
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyObserversOfPeripheralDeviceNodeTypeEvent:(id)event
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   os_unfair_lock_lock_with_options();
   observers = [(HMDThreadRadioClient *)self observers];
   allObjects = [observers allObjects];
 
   os_unfair_lock_unlock(&self->_lock);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v7 = allObjects;
-  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v8)
   {
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) threadPeripheralDeviceNodeTypeChange:{eventCopy, v12}];
+        [*(*(&v11 + 1) + 8 * v10++) threadPeripheralDeviceNodeTypeChange:{eventCopy, v11}];
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyObserversOfThreadWakeOnDeviceConnectionStateEvent:(id)event
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   os_unfair_lock_lock_with_options();
   observers = [(HMDThreadRadioClient *)self observers];
   allObjects = [observers allObjects];
 
   os_unfair_lock_unlock(&self->_lock);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v7 = allObjects;
-  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v8)
   {
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) threadWakeOnDeviceConnectionStateChange:{eventCopy, v12}];
+        [*(*(&v11 + 1) + 8 * v10++) threadWakeOnDeviceConnectionStateChange:{eventCopy, v11}];
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyObserversOfThreadPreferredNetworkUpdatedEvent:(id)event
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   os_unfair_lock_lock_with_options();
   observers = [(HMDThreadRadioClient *)self observers];
   allObjects = [observers allObjects];
 
   os_unfair_lock_unlock(&self->_lock);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v7 = allObjects;
-  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v8)
   {
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) threadPreferredNetworkUpdated:{eventCopy, v12}];
+        [*(*(&v11 + 1) + 8 * v10++) threadPreferredNetworkUpdated:{eventCopy, v11}];
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyObserversOfThreadNetworkEvent:(id)event
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   os_unfair_lock_lock_with_options();
   observers = [(HMDThreadRadioClient *)self observers];
   allObjects = [observers allObjects];
 
   os_unfair_lock_unlock(&self->_lock);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v7 = allObjects;
-  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v8)
   {
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) threadNetworkStateChange:{eventCopy, v12}];
+        [*(*(&v11 + 1) + 8 * v10++) threadNetworkStateChange:{eventCopy, v11}];
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_WEDStateChangeEventFromThreadEvent:(shared_ptr<CtrXPC::Event>)event
 {
   var0 = event.var0;
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v6 = HMFGetOSLogHandle();
@@ -1565,7 +1533,7 @@ void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_31
   {
     v7 = HMFGetLogIdentifier();
     CtrXPC::Event::getName(__p, *var0);
-    if (v33 >= 0)
+    if (v32 >= 0)
     {
       v8 = __p;
     }
@@ -1576,11 +1544,11 @@ void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_31
     }
 
     *buf = 138543618;
-    v35 = v7;
-    v36 = 2080;
-    v37 = v8;
+    v34 = v7;
+    v35 = 2080;
+    v36 = v8;
     _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Received thread event: event name - %s", buf, 0x16u);
-    if (v33 < 0)
+    if (v32 < 0)
     {
       operator delete(*__p);
     }
@@ -1592,11 +1560,11 @@ void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_31
   if (count)
   {
     uppercaseString = 0;
+    v26 = 0;
     v27 = 0;
-    v28 = 0;
     v12 = 0;
     *&v10 = 138543618;
-    v25 = v10;
+    v24 = v10;
     while (1)
     {
       v13 = xpc_array_get_dictionary(xarray, v12);
@@ -1611,8 +1579,8 @@ void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_31
 
       else if ([v14 isEqualToString:@"status"])
       {
-        v16 = v28;
-        v28 = v15;
+        v16 = v27;
+        v27 = v15;
       }
 
       else
@@ -1625,10 +1593,10 @@ void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_31
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
           {
             v20 = HMFGetLogIdentifier();
-            *__p = v25;
+            *__p = v24;
             *&__p[4] = v20;
-            v31 = 2112;
-            v32 = v14;
+            v30 = 2112;
+            v31 = v14;
             _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Ignoring key: %@", __p, 0x16u);
           }
 
@@ -1636,8 +1604,8 @@ void __55__HMDThreadRadioClient__registerForThreadNetworkEvents__block_invoke_31
           goto LABEL_17;
         }
 
-        v16 = v27;
-        v27 = v15;
+        v16 = v26;
+        v26 = v15;
       }
 
 LABEL_17:
@@ -1648,18 +1616,16 @@ LABEL_17:
     }
   }
 
+  v26 = 0;
   v27 = 0;
-  v28 = 0;
   uppercaseString = 0;
 LABEL_23:
-  v21 = [(HMDThreadRadioClient *)selfCopy _WEDConnectionStateFromStatus:v28 disconnectReason:v27, v25];
+  v21 = [(HMDThreadRadioClient *)selfCopy _WEDConnectionStateFromStatus:v27 disconnectReason:v26, v24];
   v22 = 0;
   if (uppercaseString && v21)
   {
     v22 = [[HMDThreadNetworkWakeOnDeviceConnectionStateChangeEvent alloc] initWitheMACAddress:uppercaseString connectionState:v21];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -1813,7 +1779,7 @@ LABEL_23:
 
 - (void)registerForThreadNetworkEvents:(id)events
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   os_unfair_lock_lock_with_options();
   observers = [(HMDThreadRadioClient *)self observers];
@@ -1831,9 +1797,9 @@ LABEL_23:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
       v11 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v11;
-      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@registerForThreadNetworkEvents - events already setup, reading and notifying current state", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v11;
+      _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@registerForThreadNetworkEvents - events already setup, reading and notifying current state", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -1846,21 +1812,19 @@ LABEL_23:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
       v13 = HMFGetLogIdentifier();
-      v15 = 138543362;
-      v16 = v13;
-      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@registerForThreadNetworkEvents - setting up events for first observer", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v13;
+      _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@registerForThreadNetworkEvents - setting up events for first observer", &v14, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     [(HMDThreadRadioClient *)selfCopy _registerForThreadNetworkEvents];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopThreadNetworkWithCompletion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   [(HMDThreadRadioClient *)self _updateThreadMessageReliabilityParametersWithUserDefinedValues:0];
   threadClient = [(HMDThreadRadioClient *)self threadClient];
@@ -1874,7 +1838,7 @@ LABEL_23:
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v9;
+      v27 = v9;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@Scheduling an attempt to stop the thread network", buf, 0xCu);
     }
 
@@ -1885,13 +1849,13 @@ LABEL_23:
     if (v11)
     {
       defaultScheduler = [MEMORY[0x277D0F8F0] defaultScheduler];
-      v23[0] = MEMORY[0x277D85DD0];
-      v23[1] = 3221225472;
-      v23[2] = __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_200;
-      v23[3] = &unk_279735738;
-      v23[4] = selfCopy;
-      v24 = completionCopy;
-      v13 = [defaultScheduler performWithQualityOfService:25 block:v23];
+      v22[0] = MEMORY[0x277D85DD0];
+      v22[1] = 3221225472;
+      v22[2] = __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_200;
+      v22[3] = &unk_279735738;
+      v22[4] = selfCopy;
+      v23 = completionCopy;
+      v13 = [defaultScheduler performWithQualityOfService:25 block:v22];
     }
 
     else
@@ -1903,7 +1867,7 @@ LABEL_23:
       {
         v20 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v28 = v20;
+        v27 = v20;
         _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_ERROR, "%{public}@ThreadClient did not respond to selector - threadStopWithCompletion:", buf, 0xCu);
       }
 
@@ -1920,7 +1884,7 @@ LABEL_23:
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v15;
+      v27 = v15;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Thread radio client is not available on this device", buf, 0xCu);
     }
 
@@ -1930,11 +1894,9 @@ LABEL_23:
     block[1] = 3221225472;
     block[2] = __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke;
     block[3] = &unk_2797348C0;
-    v26 = completionCopy;
+    v25 = completionCopy;
     dispatch_async(v16, block);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke(uint64_t a1)
@@ -1946,7 +1908,7 @@ void __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke(u
 
 void __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_200(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -1954,26 +1916,24 @@ void __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_2
   {
     v5 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v11 = v5;
+    v10 = v5;
     _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Attempting to stop thread network", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v2);
   v6 = [*(a1 + 32) threadClient];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_201;
-  v8[3] = &unk_279733F30;
-  v8[4] = *(a1 + 32);
-  v9 = *(a1 + 40);
-  [v6 threadStopWithCompletion:v8];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_201;
+  v7[3] = &unk_279733F30;
+  v7[4] = *(a1 + 32);
+  v8 = *(a1 + 40);
+  [v6 threadStopWithCompletion:v7];
 }
 
 void __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_201(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   *(*(a1 + 32) + 13) = 0;
   v4 = objc_autoreleasePoolPush();
@@ -1984,11 +1944,11 @@ void __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_2
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to stop thread network: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to stop thread network: %@", &v9, 0x16u);
     }
   }
 
@@ -1998,22 +1958,20 @@ void __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_2
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Successfully stopped thread network", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Successfully stopped thread network", &v9, 0xCu);
     }
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateThreadMessageReliabilityParametersWithUserDefinedValues:(BOOL)values
 {
   valuesCopy = values;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
   v7 = HMFGetOSLogHandle();
@@ -2021,42 +1979,42 @@ void __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_2
   {
     v8 = HMFGetLogIdentifier();
     v9 = HMFBooleanToString();
-    v20 = 138543618;
-    v21 = v8;
-    v22 = 2112;
-    v23 = v9;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Should use user defined values for thread message reliability parameters: %@", &v20, 0x16u);
+    v19 = 138543618;
+    v20 = v8;
+    v21 = 2112;
+    v22 = v9;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Should use user defined values for thread message reliability parameters: %@", &v19, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   if (valuesCopy)
   {
-    LOBYTE(v20) = 0;
+    LOBYTE(v19) = 0;
     v10 = *MEMORY[0x277CBF028];
     v11 = &unk_286628CF0;
-    AppIntegerValue = CFPreferencesGetAppIntegerValue(@"matter.thread.idleRetransmitMs", *MEMORY[0x277CBF028], &v20);
-    if (v20 && AppIntegerValue)
+    AppIntegerValue = CFPreferencesGetAppIntegerValue(@"matter.thread.idleRetransmitMs", *MEMORY[0x277CBF028], &v19);
+    if (v19 && AppIntegerValue)
     {
       v11 = [MEMORY[0x277CCABB0] numberWithLong:AppIntegerValue];
     }
 
     v13 = &unk_286628CF0;
-    v14 = CFPreferencesGetAppIntegerValue(@"matter.thread.activeRetransmitMs", v10, &v20);
-    if (v20 && v14)
+    v14 = CFPreferencesGetAppIntegerValue(@"matter.thread.activeRetransmitMs", v10, &v19);
+    if (v19 && v14)
     {
       v13 = [MEMORY[0x277CCABB0] numberWithLong:v14];
     }
 
     v15 = &unk_286628CF0;
-    v16 = CFPreferencesGetAppIntegerValue(@"matter.thread.activeThresholdMs", v10, &v20);
-    if (v20 && v16)
+    v16 = CFPreferencesGetAppIntegerValue(@"matter.thread.activeThresholdMs", v10, &v19);
+    if (v19 && v16)
     {
       v15 = [MEMORY[0x277CCABB0] numberWithLong:v16];
     }
 
-    v17 = CFPreferencesGetAppIntegerValue(@"matter.thread.additionalRetransmitDelayMs", v10, &v20);
+    v17 = CFPreferencesGetAppIntegerValue(@"matter.thread.additionalRetransmitDelayMs", v10, &v19);
     v18 = &unk_286628CF0;
-    if (v20 && v17)
+    if (v19 && v17)
     {
       v18 = [MEMORY[0x277CCABB0] numberWithLong:v17];
     }
@@ -2071,13 +2029,11 @@ void __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_2
   }
 
   [(HMDThreadRadioClient *)selfCopy setThreadMessageReliabilityParameters:v11 activeRetransmitMs:v13 activeThresholdMs:v15 additionalRetransmitDelayMs:v18];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setThreadMessageReliabilityParameters:(id)parameters activeRetransmitMs:(id)ms activeThresholdMs:(id)thresholdMs additionalRetransmitDelayMs:(id)delayMs
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   msCopy = ms;
   thresholdMsCopy = thresholdMs;
@@ -2088,17 +2044,17 @@ void __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_2
   if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
     v17 = HMFGetLogIdentifier();
-    v25 = 138544386;
-    v26 = v17;
-    v27 = 2112;
-    v28 = parametersCopy;
-    v29 = 2112;
-    v30 = msCopy;
-    v31 = 2112;
-    v32 = thresholdMsCopy;
-    v33 = 2112;
-    v34 = delayMsCopy;
-    _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Updating thread message reliability parameters, idleRetransmitMs=%@, activeRetransmitMs=%@, activeThresholdMs=%@, additionalRetransmitDelayMs=%@", &v25, 0x34u);
+    v24 = 138544386;
+    v25 = v17;
+    v26 = 2112;
+    v27 = parametersCopy;
+    v28 = 2112;
+    v29 = msCopy;
+    v30 = 2112;
+    v31 = thresholdMsCopy;
+    v32 = 2112;
+    v33 = delayMsCopy;
+    _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Updating thread message reliability parameters, idleRetransmitMs=%@, activeRetransmitMs=%@, activeThresholdMs=%@, additionalRetransmitDelayMs=%@", &v24, 0x34u);
   }
 
   objc_autoreleasePoolPop(v14);
@@ -2113,9 +2069,9 @@ void __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_2
     if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
       v23 = HMFGetLogIdentifier();
-      v25 = 138543362;
-      v26 = v23;
-      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Thread radio client is not available on this device, not setting thread reliability parameters", &v25, 0xCu);
+      v24 = 138543362;
+      v25 = v23;
+      _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Thread radio client is not available on this device, not setting thread reliability parameters", &v24, 0xCu);
     }
 
     objc_autoreleasePoolPop(v20);
@@ -2125,13 +2081,11 @@ void __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_2
   {
     MTRSetMessageReliabilityParameters();
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopFirmwareUpdateWithCompletion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   threadClient = [(HMDThreadRadioClient *)self threadClient];
 
@@ -2147,7 +2101,7 @@ void __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_2
       aBlock[2] = __57__HMDThreadRadioClient_stopFirmwareUpdateWithCompletion___block_invoke_184;
       aBlock[3] = &unk_279735738;
       aBlock[4] = self;
-      v23 = completionCopy;
+      v22 = completionCopy;
       v8 = _Block_copy(aBlock);
       defaultScheduler = [MEMORY[0x277D0F8F0] defaultScheduler];
       v10 = [defaultScheduler performWithQualityOfService:25 block:v8];
@@ -2162,7 +2116,7 @@ void __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_2
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v27 = v19;
+        v26 = v19;
         _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@ThreadClient did not respond to selector - stopFWUpdate:", buf, 0xCu);
       }
 
@@ -2181,7 +2135,7 @@ void __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_2
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v14;
+      v26 = v14;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Thread radio client is not available on this device", buf, 0xCu);
     }
 
@@ -2191,11 +2145,9 @@ void __56__HMDThreadRadioClient_stopThreadNetworkWithCompletion___block_invoke_2
     block[1] = 3221225472;
     block[2] = __57__HMDThreadRadioClient_stopFirmwareUpdateWithCompletion___block_invoke;
     block[3] = &unk_2797348C0;
-    v25 = completionCopy;
+    v24 = completionCopy;
     dispatch_async(v15, block);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __57__HMDThreadRadioClient_stopFirmwareUpdateWithCompletion___block_invoke(uint64_t a1)
@@ -2220,7 +2172,7 @@ void __57__HMDThreadRadioClient_stopFirmwareUpdateWithCompletion___block_invoke_
 
 void __57__HMDThreadRadioClient_stopFirmwareUpdateWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2230,24 +2182,22 @@ void __57__HMDThreadRadioClient_stopFirmwareUpdateWithCompletion___block_invoke_
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error while informing thread sw of stopFWUpdate, error: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error while informing thread sw of stopFWUpdate, error: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startFirmwareUpdateWithExtendedMACAddress:(id)address isWedDevice:(BOOL)device completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   completionCopy = completion;
   threadClient = [(HMDThreadRadioClient *)self threadClient];
@@ -2264,9 +2214,9 @@ void __57__HMDThreadRadioClient_stopFirmwareUpdateWithCompletion___block_invoke_
       aBlock[2] = __89__HMDThreadRadioClient_startFirmwareUpdateWithExtendedMACAddress_isWedDevice_completion___block_invoke_181;
       aBlock[3] = &unk_279732430;
       aBlock[4] = self;
-      v28 = addressCopy;
+      v27 = addressCopy;
       deviceCopy = device;
-      v29 = completionCopy;
+      v28 = completionCopy;
       v13 = _Block_copy(aBlock);
       defaultScheduler = [MEMORY[0x277D0F8F0] defaultScheduler];
       v15 = [defaultScheduler performWithQualityOfService:25 block:v13];
@@ -2281,7 +2231,7 @@ void __57__HMDThreadRadioClient_stopFirmwareUpdateWithCompletion___block_invoke_
       {
         v24 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v34 = v24;
+        v33 = v24;
         _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@ThreadClient did not respond to selector - startFWUpdate:isWedDevice:completion", buf, 0xCu);
       }
 
@@ -2300,7 +2250,7 @@ void __57__HMDThreadRadioClient_stopFirmwareUpdateWithCompletion___block_invoke_
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v19;
+      v33 = v19;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Thread radio client is not available on this device", buf, 0xCu);
     }
 
@@ -2310,11 +2260,9 @@ void __57__HMDThreadRadioClient_stopFirmwareUpdateWithCompletion___block_invoke_
     block[1] = 3221225472;
     block[2] = __89__HMDThreadRadioClient_startFirmwareUpdateWithExtendedMACAddress_isWedDevice_completion___block_invoke;
     block[3] = &unk_2797348C0;
-    v32 = completionCopy;
+    v31 = completionCopy;
     dispatch_async(v20, block);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __89__HMDThreadRadioClient_startFirmwareUpdateWithExtendedMACAddress_isWedDevice_completion___block_invoke(uint64_t a1)
@@ -2342,7 +2290,7 @@ void __89__HMDThreadRadioClient_startFirmwareUpdateWithExtendedMACAddress_isWedD
 
 void __89__HMDThreadRadioClient_startFirmwareUpdateWithExtendedMACAddress_isWedDevice_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2353,30 +2301,27 @@ void __89__HMDThreadRadioClient_startFirmwareUpdateWithExtendedMACAddress_isWedD
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v9 = *(a1 + 56);
-      v10 = HMFBooleanToString();
-      v12 = 138544130;
-      v13 = v7;
+      v9 = HMFBooleanToString();
+      v10 = 138544130;
+      v11 = v7;
+      v12 = 2112;
+      v13 = v8;
       v14 = 2112;
-      v15 = v8;
+      v15 = v9;
       v16 = 2112;
-      v17 = v10;
-      v18 = 2112;
-      v19 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error while informing thread sw of startFWUpdate (emac: %@, isWed: %@), error: %@", &v12, 0x2Au);
+      v17 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error while informing thread sw of startFWUpdate (emac: %@, isWed: %@), error: %@", &v10, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopThreadPairingWithCompletion:(id)completion
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   threadClient = [(HMDThreadRadioClient *)self threadClient];
 
@@ -2392,7 +2337,7 @@ void __89__HMDThreadRadioClient_startFirmwareUpdateWithExtendedMACAddress_isWedD
       aBlock[2] = __56__HMDThreadRadioClient_stopThreadPairingWithCompletion___block_invoke_178;
       aBlock[3] = &unk_279735738;
       aBlock[4] = self;
-      v23 = completionCopy;
+      v22 = completionCopy;
       v8 = _Block_copy(aBlock);
       defaultScheduler = [MEMORY[0x277D0F8F0] defaultScheduler];
       v10 = [defaultScheduler performWithQualityOfService:25 block:v8];
@@ -2407,7 +2352,7 @@ void __89__HMDThreadRadioClient_startFirmwareUpdateWithExtendedMACAddress_isWedD
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v27 = v19;
+        v26 = v19;
         _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_ERROR, "%{public}@ThreadClient did not respond to selector - stopPairing:", buf, 0xCu);
       }
 
@@ -2426,7 +2371,7 @@ void __89__HMDThreadRadioClient_startFirmwareUpdateWithExtendedMACAddress_isWedD
     {
       v14 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v14;
+      v26 = v14;
       _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Thread radio client is not available on this device", buf, 0xCu);
     }
 
@@ -2436,11 +2381,9 @@ void __89__HMDThreadRadioClient_startFirmwareUpdateWithExtendedMACAddress_isWedD
     block[1] = 3221225472;
     block[2] = __56__HMDThreadRadioClient_stopThreadPairingWithCompletion___block_invoke;
     block[3] = &unk_2797348C0;
-    v25 = completionCopy;
+    v24 = completionCopy;
     dispatch_async(v15, block);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __56__HMDThreadRadioClient_stopThreadPairingWithCompletion___block_invoke(uint64_t a1)
@@ -2465,7 +2408,7 @@ void __56__HMDThreadRadioClient_stopThreadPairingWithCompletion___block_invoke_1
 
 void __56__HMDThreadRadioClient_stopThreadPairingWithCompletion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2475,24 +2418,22 @@ void __56__HMDThreadRadioClient_stopThreadPairingWithCompletion___block_invoke_2
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error while informing thread sw of pairing stop, error: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error while informing thread sw of pairing stop, error: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startThreadPairingWithExtendedMACAddress:(id)address isWedDevice:(BOOL)device completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   completionCopy = completion;
   threadClient = [(HMDThreadRadioClient *)self threadClient];
@@ -2509,9 +2450,9 @@ void __56__HMDThreadRadioClient_stopThreadPairingWithCompletion___block_invoke_2
       aBlock[2] = __88__HMDThreadRadioClient_startThreadPairingWithExtendedMACAddress_isWedDevice_completion___block_invoke_175;
       aBlock[3] = &unk_279732430;
       aBlock[4] = self;
-      v28 = addressCopy;
+      v27 = addressCopy;
       deviceCopy = device;
-      v29 = completionCopy;
+      v28 = completionCopy;
       v13 = _Block_copy(aBlock);
       defaultScheduler = [MEMORY[0x277D0F8F0] defaultScheduler];
       v15 = [defaultScheduler performWithQualityOfService:25 block:v13];
@@ -2526,7 +2467,7 @@ void __56__HMDThreadRadioClient_stopThreadPairingWithCompletion___block_invoke_2
       {
         v24 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v34 = v24;
+        v33 = v24;
         _os_log_impl(&dword_2531F8000, v23, OS_LOG_TYPE_ERROR, "%{public}@ThreadClient did not respond to selector - startPairingForExtendedMACAddress:isWedDevice:completion", buf, 0xCu);
       }
 
@@ -2545,7 +2486,7 @@ void __56__HMDThreadRadioClient_stopThreadPairingWithCompletion___block_invoke_2
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v34 = v19;
+      v33 = v19;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Thread radio client is not available on this device", buf, 0xCu);
     }
 
@@ -2555,11 +2496,9 @@ void __56__HMDThreadRadioClient_stopThreadPairingWithCompletion___block_invoke_2
     block[1] = 3221225472;
     block[2] = __88__HMDThreadRadioClient_startThreadPairingWithExtendedMACAddress_isWedDevice_completion___block_invoke;
     block[3] = &unk_2797348C0;
-    v32 = completionCopy;
+    v31 = completionCopy;
     dispatch_async(v20, block);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __88__HMDThreadRadioClient_startThreadPairingWithExtendedMACAddress_isWedDevice_completion___block_invoke(uint64_t a1)
@@ -2585,7 +2524,7 @@ void __88__HMDThreadRadioClient_startThreadPairingWithExtendedMACAddress_isWedDe
 
 void __88__HMDThreadRadioClient_startThreadPairingWithExtendedMACAddress_isWedDevice_completion___block_invoke_2(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2595,24 +2534,22 @@ void __88__HMDThreadRadioClient_startThreadPairingWithExtendedMACAddress_isWedDe
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v9 = 138543618;
-      v10 = v7;
-      v11 = 2112;
-      v12 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error while informing thread sw of pairing start, error: %@", &v9, 0x16u);
+      v8 = 138543618;
+      v9 = v7;
+      v10 = 2112;
+      v11 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error while informing thread sw of pairing start, error: %@", &v8, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
   (*(*(a1 + 40) + 16))();
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectToExtendedMACAddress:(id)address completion:(id)completion
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   completionCopy = completion;
   threadClient = [(HMDThreadRadioClient *)self threadClient];
@@ -2624,17 +2561,17 @@ void __88__HMDThreadRadioClient_startThreadPairingWithExtendedMACAddress_isWedDe
 
     if (v10)
     {
-      v28 = MEMORY[0x277D85DD0];
-      v29 = 3221225472;
-      v30 = __63__HMDThreadRadioClient_connectToExtendedMACAddress_completion___block_invoke_171;
-      v31 = &unk_2797355D0;
+      v27 = MEMORY[0x277D85DD0];
+      v28 = 3221225472;
+      v29 = __63__HMDThreadRadioClient_connectToExtendedMACAddress_completion___block_invoke_171;
+      v30 = &unk_2797355D0;
       v11 = addressCopy;
-      v32 = v11;
+      v31 = v11;
       selfCopy = self;
       v12 = completionCopy;
-      v34 = v12;
-      v13 = _Block_copy(&v28);
-      [(HMDThreadRadioClient *)self deferredCommandTimer:v28];
+      v33 = v12;
+      v13 = _Block_copy(&v27);
+      [(HMDThreadRadioClient *)self deferredCommandTimer:v27];
       if (v11)
         v14 = {;
         [v14 abort];
@@ -2648,7 +2585,7 @@ void __88__HMDThreadRadioClient_startThreadPairingWithExtendedMACAddress_isWedDe
         [defaultScheduler startWithBlock:v13 completion:v12 commandType:1];
       }
 
-      v22 = v32;
+      v22 = v31;
     }
 
     else
@@ -2660,7 +2597,7 @@ void __88__HMDThreadRadioClient_startThreadPairingWithExtendedMACAddress_isWedDe
       {
         v26 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v38 = v26;
+        v37 = v26;
         _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@ThreadClient did not respond to selector - provideExtendedMACAddress:completion", buf, 0xCu);
       }
 
@@ -2679,7 +2616,7 @@ void __88__HMDThreadRadioClient_startThreadPairingWithExtendedMACAddress_isWedDe
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v38 = v20;
+      v37 = v20;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Thread radio client is not available on this device", buf, 0xCu);
     }
 
@@ -2689,13 +2626,11 @@ void __88__HMDThreadRadioClient_startThreadPairingWithExtendedMACAddress_isWedDe
     block[1] = 3221225472;
     block[2] = __63__HMDThreadRadioClient_connectToExtendedMACAddress_completion___block_invoke;
     block[3] = &unk_2797348C0;
-    v36 = completionCopy;
+    v35 = completionCopy;
     dispatch_async(v21, block);
 
-    v22 = v36;
+    v22 = v35;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 void __63__HMDThreadRadioClient_connectToExtendedMACAddress_completion___block_invoke(uint64_t a1)
@@ -2707,7 +2642,7 @@ void __63__HMDThreadRadioClient_connectToExtendedMACAddress_completion___block_i
 
 void __63__HMDThreadRadioClient_connectToExtendedMACAddress_completion___block_invoke_171(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   v3 = objc_autoreleasePoolPush();
   v4 = *(a1 + 40);
@@ -2719,9 +2654,9 @@ void __63__HMDThreadRadioClient_connectToExtendedMACAddress_completion___block_i
       v6 = HMFGetLogIdentifier();
       v7 = *(a1 + 32);
       *buf = 138543618;
-      v17 = v6;
-      v18 = 2112;
-      v19 = v7;
+      v16 = v6;
+      v17 = 2112;
+      v18 = v7;
       _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Attempting to connect to device with eMAC address %@", buf, 0x16u);
     }
   }
@@ -2733,29 +2668,27 @@ void __63__HMDThreadRadioClient_connectToExtendedMACAddress_completion___block_i
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v17 = v8;
+      v16 = v8;
       _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@Received nil eMAC, disconnecting from current device", buf, 0xCu);
     }
   }
 
   objc_autoreleasePoolPop(v3);
   v9 = [*(a1 + 40) threadClient];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __63__HMDThreadRadioClient_connectToExtendedMACAddress_completion___block_invoke_172;
-  v13[3] = &unk_279735168;
-  v12 = *(a1 + 32);
-  v10 = v12.i64[0];
-  v14 = vextq_s8(v12, v12, 8uLL);
-  v15 = *(a1 + 48);
-  [v9 provideExtendedMACAddress:v10 completion:v13];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __63__HMDThreadRadioClient_connectToExtendedMACAddress_completion___block_invoke_172;
+  v12[3] = &unk_279735168;
+  v11 = *(a1 + 32);
+  v10 = v11.i64[0];
+  v13 = vextq_s8(v11, v11, 8uLL);
+  v14 = *(a1 + 48);
+  [v9 provideExtendedMACAddress:v10 completion:v12];
 }
 
 void __63__HMDThreadRadioClient_connectToExtendedMACAddress_completion___block_invoke_172(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2766,26 +2699,24 @@ void __63__HMDThreadRadioClient_connectToExtendedMACAddress_completion___block_i
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v10 = 138543874;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error while trying to connect to emac address: %@ error: %@", &v10, 0x20u);
+      v9 = 138543874;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Error while trying to connect to emac address: %@ error: %@", &v9, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
   }
 
   (*(*(a1 + 48) + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startThreadNetworkWithOperationalDataset:(id)dataset isOwnerUser:(BOOL)user completion:(id)completion
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   datasetCopy = dataset;
   completionCopy = completion;
   [(HMDThreadRadioClient *)self _updateThreadMessageReliabilityParametersWithUserDefinedValues:1];
@@ -2800,21 +2731,21 @@ void __63__HMDThreadRadioClient_connectToExtendedMACAddress_completion___block_i
     v19 = [datasetCopy hmf_hexadecimalStringWithOptions:0];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v31 = 0x3032000000;
-    v32 = __Block_byref_object_copy__113704;
-    v33 = __Block_byref_object_dispose__113705;
-    v34 = [v19 dataUsingEncoding:4];
+    v30 = 0x3032000000;
+    v31 = __Block_byref_object_copy__113704;
+    v32 = __Block_byref_object_dispose__113705;
+    v33 = [v19 dataUsingEncoding:4];
     defaultScheduler = [MEMORY[0x277D0F8F0] defaultScheduler];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __88__HMDThreadRadioClient_startThreadNetworkWithOperationalDataset_isOwnerUser_completion___block_invoke_166;
-    v23[3] = &unk_27972B5F8;
-    v23[4] = self;
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __88__HMDThreadRadioClient_startThreadNetworkWithOperationalDataset_isOwnerUser_completion___block_invoke_166;
+    v22[3] = &unk_27972B5F8;
+    v22[4] = self;
     p_buf = &buf;
-    v26 = v13;
+    v25 = v13;
     userCopy = user;
-    v24 = completionCopy;
-    v21 = [defaultScheduler performWithQualityOfService:25 block:v23];
+    v23 = completionCopy;
+    v21 = [defaultScheduler performWithQualityOfService:25 block:v22];
 
     _Block_object_dispose(&buf, 8);
   }
@@ -2838,13 +2769,11 @@ void __63__HMDThreadRadioClient_connectToExtendedMACAddress_completion___block_i
     block[1] = 3221225472;
     block[2] = __88__HMDThreadRadioClient_startThreadNetworkWithOperationalDataset_isOwnerUser_completion___block_invoke;
     block[3] = &unk_2797348C0;
-    v29 = completionCopy;
+    v28 = completionCopy;
     dispatch_async(v18, block);
 
-    v19 = v29;
+    v19 = v28;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __88__HMDThreadRadioClient_startThreadNetworkWithOperationalDataset_isOwnerUser_completion___block_invoke(uint64_t a1)
@@ -2856,7 +2785,7 @@ void __88__HMDThreadRadioClient_startThreadNetworkWithOperationalDataset_isOwner
 
 void __88__HMDThreadRadioClient_startThreadNetworkWithOperationalDataset_isOwnerUser_completion___block_invoke_166(uint64_t a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -2865,9 +2794,9 @@ void __88__HMDThreadRadioClient_startThreadNetworkWithOperationalDataset_isOwner
     v5 = HMFGetLogIdentifier();
     v6 = *(*(*(a1 + 48) + 8) + 40);
     *buf = 138543618;
-    v15 = v5;
-    v16 = 2112;
-    v17 = v6;
+    v14 = v5;
+    v15 = 2112;
+    v16 = v6;
     _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@Attempting to start thread network with operation data set: %@", buf, 0x16u);
   }
 
@@ -2876,20 +2805,18 @@ void __88__HMDThreadRadioClient_startThreadNetworkWithOperationalDataset_isOwner
   v8 = *(*(*(a1 + 48) + 8) + 40);
   v9 = *(a1 + 56);
   v10 = *(a1 + 57);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __88__HMDThreadRadioClient_startThreadNetworkWithOperationalDataset_isOwnerUser_completion___block_invoke_167;
-  v12[3] = &unk_279733F30;
-  v12[4] = *(a1 + 32);
-  v13 = *(a1 + 40);
-  [v7 threadStart:v8 geoAvailable:v9 isPrimaryUser:v10 waitForSync:0 completion:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __88__HMDThreadRadioClient_startThreadNetworkWithOperationalDataset_isOwnerUser_completion___block_invoke_167;
+  v11[3] = &unk_279733F30;
+  v11[4] = *(a1 + 32);
+  v12 = *(a1 + 40);
+  [v7 threadStart:v8 geoAvailable:v9 isPrimaryUser:v10 waitForSync:0 completion:v11];
 }
 
 void __88__HMDThreadRadioClient_startThreadNetworkWithOperationalDataset_isOwnerUser_completion___block_invoke_167(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2899,11 +2826,11 @@ void __88__HMDThreadRadioClient_startThreadNetworkWithOperationalDataset_isOwner
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v10 = 138543618;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to start thread network: %@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_ERROR, "%{public}@Failed to start thread network: %@", &v9, 0x16u);
     }
   }
 
@@ -2916,21 +2843,19 @@ void __88__HMDThreadRadioClient_startThreadNetworkWithOperationalDataset_isOwner
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Successfully started thread network", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@Successfully started thread network", &v9, 0xCu);
     }
   }
 
   objc_autoreleasePoolPop(v4);
   (*(*(a1 + 40) + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startThreadNetwork:(id)network completion:(id)completion
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   completionCopy = completion;
   threadClient = [(HMDThreadRadioClient *)self threadClient];
@@ -2949,7 +2874,7 @@ void __88__HMDThreadRadioClient_startThreadNetworkWithOperationalDataset_isOwner
         {
           v13 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v39 = v13;
+          v38 = v13;
           _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@Scheduling an attempt to join an existing thread network", buf, 0xCu);
         }
 
@@ -2961,9 +2886,9 @@ void __88__HMDThreadRadioClient_startThreadNetworkWithOperationalDataset_isOwner
         {
           v17 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v39 = v17;
-          v40 = 2112;
-          v41 = v9;
+          v38 = v17;
+          v39 = 2112;
+          v40 = v9;
           _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_DEBUG, "%{public}@Thread networkID: %@", buf, 0x16u);
         }
 
@@ -2976,9 +2901,9 @@ void __88__HMDThreadRadioClient_startThreadNetworkWithOperationalDataset_isOwner
       {
         v27 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v39 = v27;
-        v40 = 2112;
-        v41 = networkCopy;
+        v38 = v27;
+        v39 = 2112;
+        v40 = networkCopy;
         _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@NetworkID is not valid for thread unique id: %@", buf, 0x16u);
       }
     }
@@ -2992,7 +2917,7 @@ void __88__HMDThreadRadioClient_startThreadNetworkWithOperationalDataset_isOwner
       {
         v26 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v39 = v26;
+        v38 = v26;
         _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_DEFAULT, "%{public}@Scheduling an attempt to create a new thread network", buf, 0xCu);
       }
     }
@@ -3007,19 +2932,19 @@ LABEL_17:
     {
       v31 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v39 = v31;
+      v38 = v31;
       _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_ERROR, "%{public}@Incorrect startThread API used", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v28);
     v32 = dispatch_get_global_queue(21, 0);
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __54__HMDThreadRadioClient_startThreadNetwork_completion___block_invoke_163;
-    v34[3] = &unk_2797348C0;
-    v35 = completionCopy;
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __54__HMDThreadRadioClient_startThreadNetwork_completion___block_invoke_163;
+    v33[3] = &unk_2797348C0;
+    v34 = completionCopy;
     v23 = completionCopy;
-    dispatch_async(v32, v34);
+    dispatch_async(v32, v33);
 
     goto LABEL_20;
   }
@@ -3031,7 +2956,7 @@ LABEL_17:
   {
     v21 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v39 = v21;
+    v38 = v21;
     _os_log_impl(&dword_2531F8000, v20, OS_LOG_TYPE_INFO, "%{public}@Thread radio client is not available on this device", buf, 0xCu);
   }
 
@@ -3041,14 +2966,12 @@ LABEL_17:
   block[1] = 3221225472;
   block[2] = __54__HMDThreadRadioClient_startThreadNetwork_completion___block_invoke;
   block[3] = &unk_2797348C0;
-  v37 = completionCopy;
+  v36 = completionCopy;
   v9 = completionCopy;
   dispatch_async(v22, block);
 
-  v23 = v37;
+  v23 = v36;
 LABEL_20:
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __54__HMDThreadRadioClient_startThreadNetwork_completion___block_invoke(uint64_t a1)
@@ -3067,13 +2990,13 @@ void __54__HMDThreadRadioClient_startThreadNetwork_completion___block_invoke_163
 
 - (HMDThreadRadioClient)init
 {
-  v34 = *MEMORY[0x277D85DE8];
-  v31.receiver = self;
-  v31.super_class = HMDThreadRadioClient;
-  v2 = [(HMDThreadRadioClient *)&v31 init];
+  v33 = *MEMORY[0x277D85DE8];
+  v30.receiver = self;
+  v30.super_class = HMDThreadRadioClient;
+  v2 = [(HMDThreadRadioClient *)&v30 init];
   if (!v2)
   {
-    goto LABEL_11;
+    return v2;
   }
 
   if ((isFeatureMatteriPhoneOnlyPairingControlForThreadEnabled() & 1) == 0)
@@ -3085,7 +3008,7 @@ void __54__HMDThreadRadioClient_startThreadNetwork_completion___block_invoke_163
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v26;
+      v32 = v26;
       _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@Thread service not enabled", buf, 0xCu);
     }
 
@@ -3104,14 +3027,14 @@ void __54__HMDThreadRadioClient_startThreadNetwork_completion___block_invoke_163
     {
       v28 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v33 = v28;
+      v32 = v28;
       _os_log_impl(&dword_2531F8000, v25, OS_LOG_TYPE_ERROR, "%{public}@This device doesn't support thread service", buf, 0xCu);
     }
 
 LABEL_10:
 
     objc_autoreleasePoolPop(v23);
-    goto LABEL_11;
+    return v2;
   }
 
   if (objc_opt_class())
@@ -3148,8 +3071,6 @@ LABEL_10:
     v2->_observers = weakObjectsHashTable;
   }
 
-LABEL_11:
-  v29 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -3174,12 +3095,11 @@ LABEL_11:
 
 uint64_t __35__HMDThreadRadioClient_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = +[HMDThreadRadioClient logCategory]::_hmf_once_v789;
-  +[HMDThreadRadioClient logCategory]::_hmf_once_v789 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = +[HMDThreadRadioClient logCategory]::_hmf_once_v789;
+  +[HMDThreadRadioClient logCategory]::_hmf_once_v789 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

@@ -250,8 +250,8 @@ LABEL_7:
       logKey3 = [(InAppTransactionTask *)self logKey];
       *buf = 138543618;
       selfCopy2 = logKey3;
-      v69 = 2112;
-      v70 = v29;
+      v74 = 2112;
+      v75 = v29;
       _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "[%{public}@] Payment received more than one transaction: %@ Using only the first.", buf, 0x16u);
     }
   }
@@ -270,8 +270,8 @@ LABEL_7:
       logKey4 = [(InAppTransactionTask *)self logKey];
       *buf = 138543618;
       selfCopy2 = self;
-      v69 = 2114;
-      v70 = logKey4;
+      v74 = 2114;
+      v75 = logKey4;
       _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "[%{public}@][%{public}@] Processing auth result.", buf, 0x16u);
     }
 
@@ -288,9 +288,9 @@ LABEL_7:
       [v38 setObject:v41 forKeyedSubscript:off_1003CAF10];
 
 LABEL_63:
-      v55 = [v38 copy];
-      v56 = *(&self->_receiptInstallURL + 2);
-      *(&self->_receiptInstallURL + 2) = v55;
+      v60 = [v38 copy];
+      v61 = *(&self->_receiptInstallURL + 2);
+      *(&self->_receiptInstallURL + 2) = v60;
 
       goto LABEL_64;
     }
@@ -306,42 +306,42 @@ LABEL_63:
       if (isKindOfClass)
       {
         error7 = [authorizationResultCopy authorizationCredential];
-        v66 = 0;
-        v49 = [NSKeyedArchiver archivedDataWithRootObject:error7 requiringSecureCoding:1 error:&v66];
-        v50 = v66;
-        v51 = sub_10001A118();
-        v52 = v51;
-        if (v50 || !v49)
+        v71 = 0;
+        v53 = [NSKeyedArchiver archivedDataWithRootObject:error7 requiringSecureCoding:1 error:&v71];
+        v54 = v71;
+        v56 = sub_10001A118(v54, v55);
+        v57 = v56;
+        if (v54 || !v53)
         {
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
           {
             sub_1002C83F8();
           }
 
-          v64 = ASDErrorWithSafeUserInfo();
-          [v38 setObject:v64 forKeyedSubscript:off_1003CAF10];
+          v69 = ASDErrorWithSafeUserInfo();
+          [v38 setObject:v69 forKeyedSubscript:off_1003CAF10];
         }
 
         else
         {
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
           {
             logKey5 = [(InAppTransactionTask *)self logKey];
             *buf = 138543618;
             selfCopy2 = self;
-            v69 = 2114;
-            v70 = logKey5;
-            _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, "[%{public}@][%{public}@] Received credential", buf, 0x16u);
+            v74 = 2114;
+            v75 = logKey5;
+            _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "[%{public}@][%{public}@] Received credential", buf, 0x16u);
           }
 
-          [v38 setObject:v49 forKeyedSubscript:off_1003CAF10];
+          [v38 setObject:v53 forKeyedSubscript:off_1003CAF10];
         }
 
         goto LABEL_63;
       }
 
-      v54 = sub_10001A118();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+      v59 = sub_10001A118(v51, v52);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
         sub_1002C8360(self);
       }
@@ -349,8 +349,8 @@ LABEL_63:
 
     else
     {
-      v54 = sub_10001A118();
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+      v59 = sub_10001A118(v47, v48);
+      if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
         sub_1002C84A0(self);
       }
@@ -392,13 +392,13 @@ LABEL_64:
   if (transaction)
   {
     transaction2 = [(InAppTransactionTask *)self transaction];
-    v59 = [transaction2 tcr_stringForKey:@"tid"];
+    v64 = [transaction2 tcr_stringForKey:@"tid"];
 
-    v60 = [responseDictionary2 objectForKeyedSubscript:@"metrics"];
-    v61 = v60;
-    if (v59 && v60)
+    v65 = [responseDictionary2 objectForKeyedSubscript:@"metrics"];
+    v66 = v65;
+    if (v64 && v65)
     {
-      [(InAppTransactionTask *)self purchaseIntakeWithTransactionID:v59 metrics:v60];
+      [(InAppTransactionTask *)self purchaseIntakeWithTransactionID:v64 metrics:v65];
     }
 
     else
@@ -408,10 +408,10 @@ LABEL_64:
         sub_1002C80BC();
       }
 
-      v62 = qword_1003D3CA0;
+      v67 = qword_1003D3CA0;
       if (os_log_type_enabled(qword_1003D3CA0, OS_LOG_TYPE_FAULT))
       {
-        sub_1002C85E8(self, v62);
+        sub_1002C85E8(self, v67);
       }
     }
 

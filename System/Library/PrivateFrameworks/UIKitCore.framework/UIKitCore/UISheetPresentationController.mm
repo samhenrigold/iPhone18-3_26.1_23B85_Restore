@@ -464,7 +464,7 @@
     dispatch_once(&qword_1ED49AC08, &__block_literal_global_593);
   }
 
-  if (_MergedGlobals_49 != 1 || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_DisableWorkaroundFor88706066, @"DisableWorkaroundFor88706066") & 1) == 0 && byte_1EA95E74C)
+  if (_MergedGlobals_49 != 1 || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_DisableWorkaroundFor88706066, @"DisableWorkaroundFor88706066") && byte_1EA95E74C)
   {
 LABEL_4:
     _internalTraitOverrides = [(UIPresentationController *)self _internalTraitOverrides];
@@ -628,7 +628,7 @@ LABEL_55:
     {
       if (_layoutInfo)
       {
-        [_layoutInfo _transform];
+        objc_msgSend__transform(_layoutInfo);
       }
 
       else
@@ -1175,7 +1175,7 @@ LABEL_45:
 {
   presentedViewController = [(UIPresentationController *)self presentedViewController];
   v4 = _UISheetPresentationControllerStylesSheetsAsCards(presentedViewController);
-  if ((objc_opt_respondsToSelector() & 1) != 0 && v4 && ([presentedViewController _containedRemoteViewController], (_remoteSheet2 = objc_claimAutoreleasedReturnValue()) != 0) || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_ForceSheetHosting, @"ForceSheetHosting") & 1) == 0 && byte_1ED48B5E4 && (v6 = objc_opt_class(), _UISheetPresentationControllerFindViewControllerOfClass(presentedViewController, v6, 0), (_remoteSheet2 = objc_claimAutoreleasedReturnValue()) != 0))
+  if ((objc_opt_respondsToSelector() & 1) != 0 && v4 && ([presentedViewController _containedRemoteViewController], (_remoteSheet2 = objc_claimAutoreleasedReturnValue()) != 0) || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_ForceSheetHosting, @"ForceSheetHosting") && byte_1ED48B5E4 && (v6 = objc_opt_class(), _UISheetPresentationControllerFindViewControllerOfClass(presentedViewController, v6, 0), (_remoteSheet2 = objc_claimAutoreleasedReturnValue()) != 0))
   {
 LABEL_10:
     _remoteSheet = _remoteSheet2;
@@ -2313,9 +2313,9 @@ void __50__UISheetPresentationController__sheetInteraction__block_invoke_7(uint6
 
   if (heightCopy)
   {
-    v5 = [(__CFString *)heightCopy isEqual:@"com.apple.UIKit.unspecified"];
+    isEqual = objc_msgSend_isEqual_(heightCopy);
 
-    if (v5)
+    if (isEqual)
     {
 LABEL_4:
       [(UISheetPresentationController *)self _setEdgeAttachedCompactHeightAppearance:0];
@@ -2364,9 +2364,9 @@ LABEL_8:
 
   if (floatingCopy)
   {
-    v5 = [(__CFString *)floatingCopy isEqual:@"com.apple.UIKit.unspecified"];
+    isEqual = objc_msgSend_isEqual_(floatingCopy);
 
-    if (v5)
+    if (isEqual)
     {
 LABEL_4:
       [(UISheetPresentationController *)self _setFloatingAppearance:0];
@@ -2391,7 +2391,7 @@ LABEL_8:
 {
   detents = [(UISheetPresentationController *)self detents];
   largestUndimmedDetentIdentifier = [(UISheetPresentationController *)self largestUndimmedDetentIdentifier];
-  v5 = _UISheetIndexOfDetentWithIdentifier(detents, largestUndimmedDetentIdentifier, -1);
+  v5 = _UISheetIndexOfDetentWithIdentifier(detents, largestUndimmedDetentIdentifier, 0xFFFFFFFFFFFFFFFFLL);
 
   return v5;
 }
@@ -2424,9 +2424,9 @@ LABEL_8:
   v4 = _largestUndimmedDetentIdentifierWhenEdgeAttachedInCompactHeight;
   if (_largestUndimmedDetentIdentifierWhenEdgeAttachedInCompactHeight)
   {
-    v5 = [(__CFString *)_largestUndimmedDetentIdentifierWhenEdgeAttachedInCompactHeight isEqual:@"com.apple.UIKit.unspecified"];
+    isEqual = objc_msgSend_isEqual_(_largestUndimmedDetentIdentifierWhenEdgeAttachedInCompactHeight);
 
-    if (v5)
+    if (isEqual)
     {
       return 0x7FFFFFFFFFFFFFFFLL;
     }
@@ -2434,7 +2434,7 @@ LABEL_8:
 
   detents = [(UISheetPresentationController *)self detents];
   _largestUndimmedDetentIdentifierWhenEdgeAttachedInCompactHeight2 = [(UISheetPresentationController *)self _largestUndimmedDetentIdentifierWhenEdgeAttachedInCompactHeight];
-  v9 = _UISheetIndexOfDetentWithIdentifier(detents, _largestUndimmedDetentIdentifierWhenEdgeAttachedInCompactHeight2, -1);
+  v9 = _UISheetIndexOfDetentWithIdentifier(detents, _largestUndimmedDetentIdentifierWhenEdgeAttachedInCompactHeight2, 0xFFFFFFFFFFFFFFFFLL);
 
   return v9;
 }
@@ -2475,9 +2475,9 @@ LABEL_8:
   v4 = _largestUndimmedDetentIdentifierWhenFloating;
   if (_largestUndimmedDetentIdentifierWhenFloating)
   {
-    v5 = [(__CFString *)_largestUndimmedDetentIdentifierWhenFloating isEqual:@"com.apple.UIKit.unspecified"];
+    isEqual = objc_msgSend_isEqual_(_largestUndimmedDetentIdentifierWhenFloating);
 
-    if (v5)
+    if (isEqual)
     {
       return 0x7FFFFFFFFFFFFFFFLL;
     }
@@ -2485,7 +2485,7 @@ LABEL_8:
 
   detents = [(UISheetPresentationController *)self detents];
   _largestUndimmedDetentIdentifierWhenFloating2 = [(UISheetPresentationController *)self _largestUndimmedDetentIdentifierWhenFloating];
-  v9 = _UISheetIndexOfDetentWithIdentifier(detents, _largestUndimmedDetentIdentifierWhenFloating2, -1);
+  v9 = _UISheetIndexOfDetentWithIdentifier(detents, _largestUndimmedDetentIdentifierWhenFloating2, 0xFFFFFFFFFFFFFFFFLL);
 
   return v9;
 }
@@ -2800,9 +2800,9 @@ LABEL_54:
   {
     if (_detents && v53)
     {
-      v55 = [_detents isEqual:v53];
+      isEqual = objc_msgSend_isEqual_(_detents);
 
-      if (v55)
+      if (isEqual)
       {
         goto LABEL_56;
       }
@@ -2841,7 +2841,7 @@ LABEL_65:
     goto LABEL_64;
   }
 
-  v62 = [_selectedDetentIdentifier3 isEqual:v60];
+  v62 = objc_msgSend_isEqual_(_selectedDetentIdentifier3);
 
   if ((v62 & 1) == 0)
   {
@@ -2870,7 +2870,7 @@ LABEL_74:
   {
     if (_standardAppearance && v67)
     {
-      v69 = [_standardAppearance isEqual:v67];
+      v69 = objc_msgSend_isEqual_(_standardAppearance);
 
       if (v69)
       {
@@ -2911,7 +2911,7 @@ LABEL_85:
     goto LABEL_84;
   }
 
-  v76 = [_edgeAttachedCompactHeightAppearance3 isEqual:v74];
+  v76 = objc_msgSend_isEqual_(_edgeAttachedCompactHeightAppearance3);
 
   if ((v76 & 1) == 0)
   {
@@ -2940,7 +2940,7 @@ LABEL_94:
   {
     if (_floatingAppearance && v81)
     {
-      v83 = [_floatingAppearance isEqual:v81];
+      v83 = objc_msgSend_isEqual_(_floatingAppearance);
 
       if (v83)
       {
@@ -4647,9 +4647,9 @@ uint64_t __85__UISheetPresentationController__completeInteractiveTransition_dura
     {
       if (v25)
       {
-        v28 = [v25 isEqual:v26];
+        isEqual = objc_msgSend_isEqual_(v25);
 
-        if (v28)
+        if (isEqual)
         {
           goto LABEL_21;
         }
@@ -5537,7 +5537,7 @@ LABEL_38:
         }
         dropShadowView = ;
 
-        if (dropShadowView || (_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_MakeAllSheetsTearable, @"MakeAllSheetsTearable") & 1) == 0 && byte_1ED48B5DC && (v22 = objc_alloc(MEMORY[0x1E696B090]), (dropShadowView = [v22 initWithActivityType:*MEMORY[0x1E696AA68]]) != 0))
+        if (dropShadowView || !_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_MakeAllSheetsTearable, @"MakeAllSheetsTearable") && byte_1ED48B5DC && (v22 = objc_alloc(MEMORY[0x1E696B090]), (dropShadowView = [v22 initWithActivityType:*MEMORY[0x1E696AA68]]) != 0))
         {
           [(UISheetPresentationController *)self _setTearOffActivity:dropShadowView];
           _UIInitializeDraggingSystem();
@@ -5620,7 +5620,7 @@ LABEL_38:
   v11 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v8 requiringSecureCoding:1 error:0];
   [v7 setTeamData:v11];
 
-  if ((_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_MakeAllSheetsTearable, @"MakeAllSheetsTearable") & 1) == 0 && byte_1ED48B5DC)
+  if (!_UIInternalPreferenceUsesDefault_0(&_UIInternalPreference_MakeAllSheetsTearable, @"MakeAllSheetsTearable") && byte_1ED48B5DC)
   {
     v12 = [MEMORY[0x1E695DFF8] URLWithString:@"https://apple.com"];
     [v7 registerObject:v12 visibility:0];

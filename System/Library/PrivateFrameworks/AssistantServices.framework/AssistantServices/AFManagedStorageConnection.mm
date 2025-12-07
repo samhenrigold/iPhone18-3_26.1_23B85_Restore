@@ -16,83 +16,75 @@
 
 - (void)resetKnowledgeStoreWithName:(id)name
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v5 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v8 = 136315394;
-    v9 = "[AFManagedStorageConnection resetKnowledgeStoreWithName:]";
-    v10 = 2112;
-    v11 = nameCopy;
-    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s %@", &v8, 0x16u);
+    v7 = 136315394;
+    v8 = "[AFManagedStorageConnection resetKnowledgeStoreWithName:]";
+    v9 = 2112;
+    v10 = nameCopy;
+    _os_log_impl(&dword_1912FE000, v5, OS_LOG_TYPE_INFO, "%s %@", &v7, 0x16u);
   }
 
   v6 = [(AFManagedStorageConnection *)self _synchronousManagedStoreServiceWithErrorHandler:&__block_literal_global_68_19768];
   [v6 resetKnowledgeStoreWithName:nameCopy completion:&__block_literal_global_71];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __58__AFManagedStorageConnection_resetKnowledgeStoreWithName___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[AFManagedStorageConnection resetKnowledgeStoreWithName:]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s Error: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[AFManagedStorageConnection resetKnowledgeStoreWithName:]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s Error: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setData:(id)data forKey:(id)key inKnowledgeStoreWithName:(id)name
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   keyCopy = key;
   nameCopy = name;
   v11 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_INFO))
   {
-    v14 = 136315394;
-    v15 = "[AFManagedStorageConnection setData:forKey:inKnowledgeStoreWithName:]";
-    v16 = 2112;
-    v17 = nameCopy;
-    _os_log_impl(&dword_1912FE000, v11, OS_LOG_TYPE_INFO, "%s %@", &v14, 0x16u);
+    v13 = 136315394;
+    v14 = "[AFManagedStorageConnection setData:forKey:inKnowledgeStoreWithName:]";
+    v15 = 2112;
+    v16 = nameCopy;
+    _os_log_impl(&dword_1912FE000, v11, OS_LOG_TYPE_INFO, "%s %@", &v13, 0x16u);
   }
 
   v12 = [(AFManagedStorageConnection *)self _synchronousManagedStoreServiceWithErrorHandler:&__block_literal_global_63];
   [v12 setKnowledgeStoreData:dataCopy forKey:keyCopy inStoreWithName:nameCopy completion:&__block_literal_global_66_19772];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __70__AFManagedStorageConnection_setData_forKey_inKnowledgeStoreWithName___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[AFManagedStorageConnection setData:forKey:inKnowledgeStoreWithName:]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s Error: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[AFManagedStorageConnection setData:forKey:inKnowledgeStoreWithName:]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s Error: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dataForKey:(id)key inKnowledgeStoreWithName:(id)name
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   nameCopy = name;
   v8 = AFSiriLogContextConnection;
@@ -108,40 +100,36 @@ void __70__AFManagedStorageConnection_setData_forKey_inKnowledgeStoreWithName___
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v15 = __Block_byref_object_copy__19776;
-  v16 = __Block_byref_object_dispose__19777;
-  v17 = 0;
+  v14 = __Block_byref_object_copy__19776;
+  v15 = __Block_byref_object_dispose__19777;
+  v16 = 0;
   v9 = [(AFManagedStorageConnection *)self _synchronousManagedStoreServiceWithErrorHandler:&__block_literal_global_19778];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __66__AFManagedStorageConnection_dataForKey_inKnowledgeStoreWithName___block_invoke_60;
-  v13[3] = &unk_1E7344EE0;
-  v13[4] = buf;
-  [v9 getKnowledgeStoreDataForKey:keyCopy inStoreWithName:nameCopy completion:v13];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __66__AFManagedStorageConnection_dataForKey_inKnowledgeStoreWithName___block_invoke_60;
+  v12[3] = &unk_1E7344EE0;
+  v12[4] = buf;
+  [v9 getKnowledgeStoreDataForKey:keyCopy inStoreWithName:nameCopy completion:v12];
 
   v10 = *(*&buf[8] + 40);
   _Block_object_dispose(buf, 8);
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 void __66__AFManagedStorageConnection_dataForKey_inKnowledgeStoreWithName___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v5 = 136315394;
-    v6 = "[AFManagedStorageConnection dataForKey:inKnowledgeStoreWithName:]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s Error: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[AFManagedStorageConnection dataForKey:inKnowledgeStoreWithName:]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_error_impl(&dword_1912FE000, v3, OS_LOG_TYPE_ERROR, "%s Error: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDomainObject:(id)object forKey:(id)key
@@ -183,22 +171,20 @@ void __66__AFManagedStorageConnection_dataForKey_inKnowledgeStoreWithName___bloc
 
 void __49__AFManagedStorageConnection_domainObjectForKey___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = AFSiriLogContextConnection;
   if (os_log_type_enabled(AFSiriLogContextConnection, OS_LOG_TYPE_ERROR))
   {
-    v6 = *(a1 + 32);
-    v7 = 136315650;
-    v8 = "[AFManagedStorageConnection domainObjectForKey:]_block_invoke";
-    v9 = 2112;
-    v10 = v6;
-    v11 = 2114;
-    v12 = v3;
-    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Could not get domain objects for %@: %{public}@", &v7, 0x20u);
+    v5 = *(a1 + 32);
+    v6 = 136315650;
+    v7 = "[AFManagedStorageConnection domainObjectForKey:]_block_invoke";
+    v8 = 2112;
+    v9 = v5;
+    v10 = 2114;
+    v11 = v3;
+    _os_log_error_impl(&dword_1912FE000, v4, OS_LOG_TYPE_ERROR, "%s Could not get domain objects for %@: %{public}@", &v6, 0x20u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_synchronousManagedStoreServiceWithErrorHandler:(id)handler

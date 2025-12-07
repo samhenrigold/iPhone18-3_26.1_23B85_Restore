@@ -38,14 +38,14 @@
 {
   buttonCopy = button;
   selfCopy = self;
-  sub_24A5DD2A8();
+  sub_24A5DD2A8(buttonCopy);
 }
 
 - (void)handleWithSlider:(id)slider
 {
   sliderCopy = slider;
   selfCopy = self;
-  sub_24A5DED80();
+  sub_24A5DED80(selfCopy, v5);
 }
 
 - (_TtC11FMFindingUI28FMFindingDebugViewController)initWithNibName:(id)name bundle:(id)bundle

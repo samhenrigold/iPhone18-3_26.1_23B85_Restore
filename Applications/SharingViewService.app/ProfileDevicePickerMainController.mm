@@ -25,7 +25,7 @@
 
   if (dword_1001BEBC0 <= 30 && (dword_1001BEBC0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEBC0, "[ProfileDevicePickerMainController _pickerAlertCanceled]", 30, "Cancel\n");
   }
 
   [(ProfileDevicePickerMainController *)self dismiss:8];
@@ -314,8 +314,7 @@ LABEL_28:
 {
   if (dword_1001BEBC0 <= 30 && (dword_1001BEBC0 != -1 || _LogCategory_Initialize()))
   {
-    v3 = [(NSMutableDictionary *)self->_devices count];
-    LogPrintF();
+    LogPrintF(&dword_1001BEBC0, "[ProfileDevicePickerMainController _discoveryTimeout]", 30, "Discovery timeout. Showing picker with %ld devices\n", [(NSMutableDictionary *)self->_devices count]);
   }
 
   [(ProfileDevicePickerMainController *)self _discoveryStop];
@@ -339,8 +338,7 @@ LABEL_10:
       {
         if (dword_1001BEBC0 <= 30 && (dword_1001BEBC0 != -1 || _LogCategory_Initialize()))
         {
-          v11 = deviceCopy;
-          LogPrintF();
+          LogPrintF(&dword_1001BEBC0, "[ProfileDevicePickerMainController _discoveryFoundDevice:]", 30, "Discovery found: %@\n", deviceCopy);
         }
 
         devices = self->_devices;
@@ -353,12 +351,12 @@ LABEL_10:
           devices = self->_devices;
         }
 
-        [(NSMutableDictionary *)devices setObject:deviceCopy forKeyedSubscript:identifier, v11];
+        [(NSMutableDictionary *)devices setObject:deviceCopy forKeyedSubscript:identifier];
       }
 
       else if (dword_1001BEBC0 <= 60 && (dword_1001BEBC0 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001BEBC0, "[ProfileDevicePickerMainController _discoveryFoundDevice:]", 60, "### Discovery ignoring without identifier: %@\n", deviceCopy);
       }
 
       goto LABEL_24;
@@ -374,7 +372,7 @@ LABEL_10:
 
   if (dword_1001BEBC0 <= 9 && (dword_1001BEBC0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEBC0, "[ProfileDevicePickerMainController _discoveryFoundDevice:]", 9, "Discovery ignoring mismatch: %@\n", deviceCopy);
   }
 
 LABEL_24:
@@ -437,7 +435,7 @@ LABEL_24:
         {
           if (dword_1001BEBC0 <= 30 && (dword_1001BEBC0 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1001BEBC0, "[ProfileDevicePickerMainController handleButtonActions:]", 30, "Home button\n");
           }
 
           [(ProfileDevicePickerMainController *)self dismiss:4];
@@ -481,7 +479,7 @@ LABEL_24:
   disappearCopy = disappear;
   if (dword_1001BEBC0 <= 30 && (dword_1001BEBC0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEBC0, "[ProfileDevicePickerMainController viewDidDisappear:]", 30, "Main ViewDidDisappear\n");
   }
 
   [(ProfileDevicePickerMainController *)self _discoveryStop];
@@ -489,7 +487,7 @@ LABEL_24:
   {
     if (dword_1001BEBC0 <= 30 && (dword_1001BEBC0 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BEBC0, "[ProfileDevicePickerMainController viewDidDisappear:]", 30, "Main disappeared without dismiss (device locked?)...dismissing UI\n");
     }
 
     [(ProfileDevicePickerMainController *)self dismiss:21];
@@ -505,7 +503,7 @@ LABEL_24:
   appearCopy = appear;
   if (dword_1001BEBC0 <= 30 && (dword_1001BEBC0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEBC0, "[ProfileDevicePickerMainController viewDidAppear:]", 30, "Main ViewDidAppear\n");
   }
 
   v5.receiver = self;
@@ -523,7 +521,7 @@ LABEL_24:
 
   if (dword_1001BEBC0 <= 30 && (dword_1001BEBC0 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BEBC0, "[ProfileDevicePickerMainController configureWithContext:completion:]", 30, "Main configuration: %.64@\n", self->super._userInfo);
   }
 
   self->_pickerFlags = CFDictionaryGetInt64Ranged();

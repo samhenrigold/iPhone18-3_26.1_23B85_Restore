@@ -1,5 +1,6 @@
 @interface NPKProtoPasscodeUpgradeFlowPresentationRequest
 - (BOOL)isEqual:(id)equal;
+- (id)changeTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -24,6 +25,29 @@
   {
     return 0;
   }
+}
+
+- (id)changeTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"Complex";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"Simple";
+  }
+
+  return v4;
 }
 
 - (int)StringAsChangeType:(id)type
@@ -88,7 +112,6 @@
 {
   if (*&self->_has)
   {
-    changeType = self->_changeType;
     PBDataWriterWriteInt32Field();
   }
 }

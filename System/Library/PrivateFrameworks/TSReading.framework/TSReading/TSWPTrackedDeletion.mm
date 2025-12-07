@@ -98,8 +98,8 @@
     [storage range];
     v24.location = NSExpandedRange();
     v24.length = v16;
-    TSWPAttributeArray::begin(deletionChangesTable, &v24, &v22);
-    TSWPAttributeArray::end(deletionChangesTable, &v24, v21);
+    TSWPAttributeArray::begin(&v22, deletionChangesTable, &v24);
+    TSWPAttributeArray::end(v21, deletionChangesTable, &v24);
     for (k = v23; k != v21[1]; k = ++v23)
     {
       if ([*(v22->var4 + 2 * k + 1) canMergeWithKind:2 session:self->_changeSession])

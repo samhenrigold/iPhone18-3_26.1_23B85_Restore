@@ -5,6 +5,7 @@
 - (AXFrontBoardProcessWatcher)init;
 - (BOOL)_processStateChangeIsTaskStateChangeFrom:(id)from to:(id)to;
 - (BOOL)_processStateChangeIsVisibilityStateChangeFrom:(id)from to:(id)to;
+- (id)_processDescriptionForPID:(int)d;
 - (void)_validateFocusedApps:(int64_t)apps;
 - (void)dealloc;
 - (void)process:(id)process stateDidChangeFromState:(id)state toState:(id)toState;
@@ -16,24 +17,22 @@
 
 + (void)validateFocusedAppsWithEvent:(int64_t)event
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   v5 = AXValidateFocusedAppsNotification;
-  v9 = @"event";
+  v8 = @"event";
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:event];
-  v10[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v9[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
   [defaultCenter postNotificationName:v5 object:0 userInfo:v7];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (AXFrontBoardProcessWatcher)init
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v28.receiver = self;
-  v28.super_class = AXFrontBoardProcessWatcher;
-  v2 = [(AXFrontBoardProcessWatcher *)&v28 init];
+  v29 = *MEMORY[0x277D85DE8];
+  v27.receiver = self;
+  v27.super_class = AXFrontBoardProcessWatcher;
+  v2 = [(AXFrontBoardProcessWatcher *)&v27 init];
   if (v2)
   {
     v3 = objc_alloc(MEMORY[0x277CE6950]);
@@ -47,30 +46,30 @@
     v2->_cachedFocusedAppPIDs = v6;
 
     mEMORY[0x277D0AAC0] = [MEMORY[0x277D0AAC0] sharedInstance];
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     allProcesses = [mEMORY[0x277D0AAC0] allProcesses];
-    v10 = [allProcesses countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v10 = [allProcesses countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v10)
     {
-      v11 = *v25;
+      v11 = *v24;
       do
       {
         v12 = 0;
         do
         {
-          if (*v25 != v11)
+          if (*v24 != v11)
           {
             objc_enumerationMutation(allProcesses);
           }
 
-          [*(*(&v24 + 1) + 8 * v12++) addObserver:v2];
+          [*(*(&v23 + 1) + 8 * v12++) addObserver:v2];
         }
 
         while (v10 != v12);
-        v10 = [allProcesses countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v10 = [allProcesses countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v10);
@@ -81,16 +80,16 @@
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     v14 = AXValidateFocusedAppsNotification;
     mainQueue = [MEMORY[0x277CCABD8] mainQueue];
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __34__AXFrontBoardProcessWatcher_init__block_invoke;
-    v21[3] = &unk_278BDA7D8;
-    objc_copyWeak(&v22, location);
-    v16 = [defaultCenter addObserverForName:v14 object:0 queue:mainQueue usingBlock:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __34__AXFrontBoardProcessWatcher_init__block_invoke;
+    v20[3] = &unk_278BDA7D8;
+    objc_copyWeak(&v21, location);
+    v16 = [defaultCenter addObserverForName:v14 object:0 queue:mainQueue usingBlock:v20];
     observerToken = v2->_observerToken;
     v2->_observerToken = v16;
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(location);
   }
 
@@ -101,7 +100,6 @@
     _os_log_impl(&dword_23D5EE000, v18, OS_LOG_TYPE_INFO, "did initialize AXFrontBoardProcessWatcher", location, 2u);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -117,7 +115,7 @@ void __34__AXFrontBoardProcessWatcher_init__block_invoke(uint64_t a1, void *a2)
 
 - (void)dealloc
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   [(AXDispatchTimer *)self->_appTransitionTimer cancel];
   appTransitionTimer = self->_appTransitionTimer;
   self->_appTransitionTimer = 0;
@@ -129,52 +127,75 @@ void __34__AXFrontBoardProcessWatcher_init__block_invoke(uint64_t a1, void *a2)
   self->_observerToken = 0;
 
   mEMORY[0x277D0AAC0] = [MEMORY[0x277D0AAC0] sharedInstance];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allProcesses = [mEMORY[0x277D0AAC0] allProcesses];
-  v8 = [allProcesses countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [allProcesses countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       v11 = 0;
       do
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(allProcesses);
         }
 
-        [*(*(&v14 + 1) + 8 * v11++) removeObserver:self];
+        [*(*(&v13 + 1) + 8 * v11++) removeObserver:self];
       }
 
       while (v9 != v11);
-      v9 = [allProcesses countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [allProcesses countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
 
   [mEMORY[0x277D0AAC0] removeObserver:self];
-  v13.receiver = self;
-  v13.super_class = AXFrontBoardProcessWatcher;
-  [(AXFrontBoardProcessWatcher *)&v13 dealloc];
-  v12 = *MEMORY[0x277D85DE8];
+  v12.receiver = self;
+  v12.super_class = AXFrontBoardProcessWatcher;
+  [(AXFrontBoardProcessWatcher *)&v12 dealloc];
+}
+
+- (id)_processDescriptionForPID:(int)d
+{
+  v3 = *&d;
+  mEMORY[0x277D0AAC0] = [MEMORY[0x277D0AAC0] sharedInstance];
+  v5 = [mEMORY[0x277D0AAC0] processForPID:v3];
+  v6 = v5;
+  v7 = MEMORY[0x277CCACA8];
+  v8 = v3;
+  if (v5)
+  {
+    handle = [v5 handle];
+    name = [handle name];
+    bundleIdentifier = [v6 bundleIdentifier];
+    v12 = [v7 stringWithFormat:@"PID:%ld Name:%@ BundleID:%@", v8, name, bundleIdentifier];
+  }
+
+  else
+  {
+    v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"PID:%ld <no other info available>", v3];
+  }
+
+  return v12;
 }
 
 - (void)_validateFocusedApps:(int64_t)apps
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v5 = AXRuntimeLogPID();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v65 = "AXValidateFocusedAppsEventAppStateVisibilityDidChange";
-    v66 = 2048;
+    v64 = "AXValidateFocusedAppsEventAppStateVisibilityDidChange";
+    v65 = 2048;
     appsCopy = apps;
     _os_log_impl(&dword_23D5EE000, v5, OS_LOG_TYPE_INFO, "Received focused app validation event: %s (%ld)", buf, 0x16u);
   }
@@ -197,7 +218,7 @@ void __34__AXFrontBoardProcessWatcher_init__block_invoke(uint64_t a1, void *a2)
         [(AXFrontBoardProcessWatcher *)v12 _validateFocusedApps:v13, v14, v15, v16, v17, v18, v19];
       }
 
-      v53 = v8;
+      v52 = v8;
 
       v20 = AXRuntimeLogPID();
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
@@ -205,33 +226,33 @@ void __34__AXFrontBoardProcessWatcher_init__block_invoke(uint64_t a1, void *a2)
         [(AXFrontBoardProcessWatcher *)v20 _validateFocusedApps:v21, v22, v23, v24, v25, v26, v27];
       }
 
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
       v59 = 0u;
+      v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
       v28 = *p_cachedFocusedAppPIDs;
-      v29 = [(NSSet *)v28 countByEnumeratingWithState:&v58 objects:v63 count:16];
+      v29 = [(NSSet *)v28 countByEnumeratingWithState:&v57 objects:v62 count:16];
       if (v29)
       {
         v30 = v29;
-        v31 = *v59;
+        v31 = *v58;
         do
         {
           v32 = 0;
           do
           {
-            if (*v59 != v31)
+            if (*v58 != v31)
             {
               objc_enumerationMutation(v28);
             }
 
-            v33 = *(*(&v58 + 1) + 8 * v32);
+            v33 = *(*(&v57 + 1) + 8 * v32);
             v34 = AXRuntimeLogPID();
             if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
             {
               v35 = -[AXFrontBoardProcessWatcher _processDescriptionForPID:](self, "_processDescriptionForPID:", [v33 integerValue]);
               *buf = 138412290;
-              v65 = v35;
+              v64 = v35;
               _os_log_debug_impl(&dword_23D5EE000, v34, OS_LOG_TYPE_DEBUG, "  %@", buf, 0xCu);
             }
 
@@ -239,7 +260,7 @@ void __34__AXFrontBoardProcessWatcher_init__block_invoke(uint64_t a1, void *a2)
           }
 
           while (v30 != v32);
-          v30 = [(NSSet *)v28 countByEnumeratingWithState:&v58 objects:v63 count:16];
+          v30 = [(NSSet *)v28 countByEnumeratingWithState:&v57 objects:v62 count:16];
         }
 
         while (v30);
@@ -251,33 +272,33 @@ void __34__AXFrontBoardProcessWatcher_init__block_invoke(uint64_t a1, void *a2)
         [(AXFrontBoardProcessWatcher *)v36 _validateFocusedApps:v37, v38, v39, v40, v41, v42, v43];
       }
 
-      v56 = 0u;
-      v57 = 0u;
-      v54 = 0u;
       v55 = 0u;
-      v44 = v53;
-      v45 = [v44 countByEnumeratingWithState:&v54 objects:v62 count:16];
+      v56 = 0u;
+      v53 = 0u;
+      v54 = 0u;
+      v44 = v52;
+      v45 = [v44 countByEnumeratingWithState:&v53 objects:v61 count:16];
       if (v45)
       {
         v46 = v45;
-        v47 = *v55;
+        v47 = *v54;
         do
         {
           v48 = 0;
           do
           {
-            if (*v55 != v47)
+            if (*v54 != v47)
             {
               objc_enumerationMutation(v44);
             }
 
-            v49 = *(*(&v54 + 1) + 8 * v48);
+            v49 = *(*(&v53 + 1) + 8 * v48);
             v50 = AXRuntimeLogPID();
             if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
             {
               v51 = -[AXFrontBoardProcessWatcher _processDescriptionForPID:](self, "_processDescriptionForPID:", [v49 integerValue]);
               *buf = 138412290;
-              v65 = v51;
+              v64 = v51;
               _os_log_debug_impl(&dword_23D5EE000, v50, OS_LOG_TYPE_DEBUG, "  %@", buf, 0xCu);
             }
 
@@ -285,21 +306,19 @@ void __34__AXFrontBoardProcessWatcher_init__block_invoke(uint64_t a1, void *a2)
           }
 
           while (v46 != v48);
-          v46 = [v44 countByEnumeratingWithState:&v54 objects:v62 count:16];
+          v46 = [v44 countByEnumeratingWithState:&v53 objects:v61 count:16];
         }
 
         while (v46);
       }
 
       p_cachedFocusedAppPIDs = &self->_cachedFocusedAppPIDs;
-      v8 = v53;
+      v8 = v52;
     }
 
     objc_storeStrong(p_cachedFocusedAppPIDs, v8);
     UIAccessibilityPostNotification(0x1389u, 0);
   }
-
-  v52 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_processStateChangeIsVisibilityStateChangeFrom:(id)from to:(id)to
@@ -365,25 +384,23 @@ void __34__AXFrontBoardProcessWatcher_init__block_invoke(uint64_t a1, void *a2)
 
 - (void)processDidExit:(id)exit
 {
-  v7[2] = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277D85DE8];
   v3 = [exit pid];
   if (v3 >= 1)
   {
-    v6[0] = @"pid";
+    v5[0] = @"pid";
     v4 = [MEMORY[0x277CCABB0] numberWithInt:v3];
-    v6[1] = @"terminated";
-    v7[0] = v4;
-    v7[1] = @"true";
-    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
+    v5[1] = @"terminated";
+    v6[0] = v4;
+    v6[1] = @"true";
+    [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
     AXPushNotificationToSystemForBroadcast();
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)process:(id)process stateDidChangeFromState:(id)state toState:(id)toState
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   processCopy = process;
   stateCopy = state;
   toStateCopy = toState;
@@ -392,11 +409,11 @@ void __34__AXFrontBoardProcessWatcher_init__block_invoke(uint64_t a1, void *a2)
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412802;
-    v17 = processCopy;
-    v18 = 2112;
-    v19 = stateCopy;
-    v20 = 2112;
-    v21 = toStateCopy;
+    v16 = processCopy;
+    v17 = 2112;
+    v18 = stateCopy;
+    v19 = 2112;
+    v20 = toStateCopy;
     _os_log_debug_impl(&dword_23D5EE000, v12, OS_LOG_TYPE_DEBUG, "Process state change:%@.\n From:%@\nTo:%@", buf, 0x20u);
   }
 
@@ -431,8 +448,6 @@ void __34__AXFrontBoardProcessWatcher_init__block_invoke(uint64_t a1, void *a2)
     block[4] = self;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __70__AXFrontBoardProcessWatcher_process_stateDidChangeFromState_toState___block_invoke(uint64_t a1)
@@ -549,15 +564,13 @@ void __57__AXFrontBoardProcessWatcher_processForBundleIdentifier___block_invoke(
 
 - (void)processManager:(void *)a1 didAddProcess:(NSObject *)a2 .cold.1(void *a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = [a1 state];
-  v6 = 138412546;
-  v7 = a1;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_debug_impl(&dword_23D5EE000, a2, OS_LOG_TYPE_DEBUG, "Did add new process: %@\nState: %@", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = a1;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_debug_impl(&dword_23D5EE000, a2, OS_LOG_TYPE_DEBUG, "Did add new process: %@\nState: %@", &v5, 0x16u);
 }
 
 @end

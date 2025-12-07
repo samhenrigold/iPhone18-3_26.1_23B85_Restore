@@ -83,65 +83,63 @@
 
 - (void)submitWithCallbackQueue:(id)queue handler:(id)handler networkActivity:(id)activity
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   queueCopy = queue;
   handlerCopy = handler;
   activityCopy = activity;
-  v11 = MSPGetMSPFeedbackSubmissionTicketLog();
+  v11 = MSPGetMSPFeedbackSubmissionTicketLog(activityCopy);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
   {
     sessionIdentifier = self->_sessionIdentifier;
     *buf = 138412290;
-    v32 = sessionIdentifier;
+    v35 = sessionIdentifier;
     _os_log_impl(&dword_25813A000, v11, OS_LOG_TYPE_INFO, "<<<<<< BEGIN Session %@ >>>>>>>>", buf, 0xCu);
   }
 
   fakeProgress = [(MSPFeedbackSubmissionTicket *)self fakeProgress];
   [fakeProgress setCompletedUnitCount:20];
 
-  v14 = MSPGetMSPFeedbackSubmissionTicketLog();
-  v15 = os_signpost_id_generate(v14);
+  v15 = MSPGetMSPFeedbackSubmissionTicketLog(v14);
+  v16 = os_signpost_id_generate(v15);
 
-  v16 = MSPGetMSPFeedbackSubmissionTicketLog();
-  v17 = v16;
-  if (v15 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v16))
+  v18 = MSPGetMSPFeedbackSubmissionTicketLog(v17);
+  v19 = v18;
+  if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_25813A000, v17, OS_SIGNPOST_INTERVAL_BEGIN, v15, "MapServiceRequest", &unk_2581CCE6D, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_25813A000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v16, "MapServiceRequest", &unk_2581CCE6D, buf, 2u);
   }
 
-  v18 = MSPGetMSPFeedbackSubmissionTicketLog();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  v21 = MSPGetMSPFeedbackSubmissionTicketLog(v20);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
-    v19 = self->_sessionIdentifier;
+    v22 = self->_sessionIdentifier;
     *buf = 138412290;
-    v32 = v19;
-    _os_log_impl(&dword_25813A000, v18, OS_LOG_TYPE_INFO, "%@ - Initiate a Map Service request", buf, 0xCu);
+    v35 = v22;
+    _os_log_impl(&dword_25813A000, v21, OS_LOG_TYPE_INFO, "%@ - Initiate a Map Service request", buf, 0xCu);
   }
 
   ticket = self->_ticket;
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __79__MSPFeedbackSubmissionTicket_submitWithCallbackQueue_handler_networkActivity___block_invoke;
-  v26[3] = &unk_279868820;
-  v21 = queueCopy;
-  v30 = v15;
-  v27 = v21;
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __79__MSPFeedbackSubmissionTicket_submitWithCallbackQueue_handler_networkActivity___block_invoke;
+  v29[3] = &unk_279868820;
+  v24 = queueCopy;
+  v33 = v16;
+  v30 = v24;
   selfCopy = self;
-  v22 = handlerCopy;
-  v29 = v22;
-  [(GEOMapServiceFeedbackReportTicket *)ticket submitWithHandler:v26 networkActivity:activityCopy];
+  v25 = handlerCopy;
+  v32 = v25;
+  [(GEOMapServiceFeedbackReportTicket *)ticket submitWithHandler:v29 networkActivity:activityCopy];
 
-  v23 = MSPGetMSPFeedbackSubmissionTicketLog();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+  v27 = MSPGetMSPFeedbackSubmissionTicketLog(v26);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
-    v24 = self->_sessionIdentifier;
+    v28 = self->_sessionIdentifier;
     *buf = 138412290;
-    v32 = v24;
-    _os_log_impl(&dword_25813A000, v23, OS_LOG_TYPE_INFO, "<<<<<< END Session %@ >>>>>>>>", buf, 0xCu);
+    v35 = v28;
+    _os_log_impl(&dword_25813A000, v27, OS_LOG_TYPE_INFO, "<<<<<< END Session %@ >>>>>>>>", buf, 0xCu);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 void __79__MSPFeedbackSubmissionTicket_submitWithCallbackQueue_handler_networkActivity___block_invoke(void *a1, void *a2, void *a3, void *a4)
@@ -170,14 +168,14 @@ void __79__MSPFeedbackSubmissionTicket_submitWithCallbackQueue_handler_networkAc
 
 uint64_t __79__MSPFeedbackSubmissionTicket_submitWithCallbackQueue_handler_networkActivity___block_invoke_2(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = MSPGetMSPFeedbackSubmissionTicketLog();
+  v23 = *MEMORY[0x277D85DE8];
+  v2 = MSPGetMSPFeedbackSubmissionTicketLog(a1);
   v3 = v2;
   v4 = *(a1 + 72);
   if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v2))
   {
-    LOWORD(v16) = 0;
-    _os_signpost_emit_with_name_impl(&dword_25813A000, v3, OS_SIGNPOST_INTERVAL_END, v4, "MapServiceRequest", &unk_2581CCE6D, &v16, 2u);
+    LOWORD(v17) = 0;
+    _os_signpost_emit_with_name_impl(&dword_25813A000, v3, OS_SIGNPOST_INTERVAL_END, v4, "MapServiceRequest", &unk_2581CCE6D, &v17, 2u);
   }
 
   v5 = [*(a1 + 32) fakeProgress];
@@ -185,13 +183,13 @@ uint64_t __79__MSPFeedbackSubmissionTicket_submitWithCallbackQueue_handler_netwo
 
   if (*(a1 + 40))
   {
-    v6 = MSPGetMSPFeedbackSubmissionTicketLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = MSPGetMSPFeedbackSubmissionTicketLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v7 = *(a1 + 40);
-      v16 = 138412290;
-      v17 = v7;
-      _os_log_impl(&dword_25813A000, v6, OS_LOG_TYPE_ERROR, "Failed Map Service request with error %@", &v16, 0xCu);
+      v8 = *(a1 + 40);
+      v17 = 138412290;
+      v18 = v8;
+      _os_log_impl(&dword_25813A000, v7, OS_LOG_TYPE_ERROR, "Failed Map Service request with error %@", &v17, 0xCu);
     }
 
     if (*(a1 + 40))
@@ -200,40 +198,40 @@ uint64_t __79__MSPFeedbackSubmissionTicket_submitWithCallbackQueue_handler_netwo
     }
   }
 
-  if ([*(a1 + 48) status])
+  v9 = [*(a1 + 48) status];
+  if (v9)
   {
 LABEL_9:
-    v8 = MSPGetMSPFeedbackSubmissionTicketLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    v10 = MSPGetMSPFeedbackSubmissionTicketLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v9 = *(*(a1 + 32) + 16);
-      v10 = [*(a1 + 48) status];
-      v11 = *(a1 + 40);
-      v16 = 138412802;
-      v17 = v9;
-      v18 = 1024;
-      v19 = v10;
-      v20 = 2112;
-      v21 = v11;
-      _os_log_impl(&dword_25813A000, v8, OS_LOG_TYPE_INFO, "%@ - Map Service request failed with response status: %d, and error: %@", &v16, 0x1Cu);
+      v11 = *(*(a1 + 32) + 16);
+      v12 = [*(a1 + 48) status];
+      v13 = *(a1 + 40);
+      v17 = 138412802;
+      v18 = v11;
+      v19 = 1024;
+      v20 = v12;
+      v21 = 2112;
+      v22 = v13;
+      _os_log_impl(&dword_25813A000, v10, OS_LOG_TYPE_INFO, "%@ - Map Service request failed with response status: %d, and error: %@", &v17, 0x1Cu);
     }
   }
 
   else
   {
-    v8 = [*(a1 + 32) fakeProgress];
-    v12 = [v8 totalUnitCount];
-    v13 = [*(a1 + 32) fakeProgress];
-    [v13 setCompletedUnitCount:v12];
+    v10 = [*(a1 + 32) fakeProgress];
+    v14 = [v10 totalUnitCount];
+    v15 = [*(a1 + 32) fakeProgress];
+    [v15 setCompletedUnitCount:v14];
   }
 
   result = *(a1 + 64);
   if (result)
   {
-    result = (*(result + 16))(result, *(a1 + 48), *(a1 + 56), *(a1 + 40));
+    return (*(result + 16))(result, *(a1 + 48), *(a1 + 56), *(a1 + 40));
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return result;
 }
 

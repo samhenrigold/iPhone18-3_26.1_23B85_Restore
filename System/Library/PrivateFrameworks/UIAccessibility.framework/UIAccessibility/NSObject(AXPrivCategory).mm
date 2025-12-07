@@ -13,6 +13,8 @@
 - (BOOL)_accessibilityHierarchyIsRTL;
 - (BOOL)_accessibilityIsDescendantOfElement:()AXPrivCategory;
 - (BOOL)_accessibilityIsDraggableElementAttribute;
+- (BOOL)_accessibilityIsGroupedParent;
+- (BOOL)_accessibilityIsGuideElement;
 - (BOOL)_accessibilityIsInCollectionCell;
 - (BOOL)_accessibilityIsInTableCell;
 - (BOOL)_accessibilityIsPressed;
@@ -24,6 +26,7 @@
 - (BOOL)_accessibilitySupportsActivateAction;
 - (BOOL)_accessibilitySupportsAudiographs;
 - (BOOL)_accessibilitySupportsRangeForLineNumber;
+- (BOOL)_accessibilityUseContextlessPassthroughForDrag;
 - (BOOL)accessibilityShouldEnumerateContainerElementsArrayDirectly;
 - (UIAccessibilityAddToDragSessionCustomAction)_accessibilityAddToDragSessionCustomAction;
 - (__CFString)_accessibilityRotorTypeStringForCustomRotor:()AXPrivCategory;
@@ -251,7 +254,6 @@
 - (uint64_t)_accessibilityCustomRotorTypeForString:()AXPrivCategory;
 - (uint64_t)_accessibilityDirectTouchOptionsAttribute;
 - (uint64_t)_accessibilityDisplayId;
-- (uint64_t)_accessibilityEffectiveMediaAnalysisOptions;
 - (uint64_t)_accessibilityExpandedStatus;
 - (uint64_t)_accessibilityFKAShouldProcessChildren;
 - (uint64_t)_accessibilityHandlePublicScroll:()AXPrivCategory;
@@ -271,8 +273,6 @@
 - (uint64_t)_accessibilityIsFirstSibling;
 - (uint64_t)_accessibilityIsFirstSiblingForType:()AXPrivCategory;
 - (uint64_t)_accessibilityIsFrameOutOfBoundsConsideringScrollParents:()AXPrivCategory;
-- (uint64_t)_accessibilityIsGroupedParent;
-- (uint64_t)_accessibilityIsGuideElement;
 - (uint64_t)_accessibilityIsInJindo;
 - (uint64_t)_accessibilityIsInMenuBar;
 - (uint64_t)_accessibilityIsInTabBar;
@@ -280,9 +280,7 @@
 - (uint64_t)_accessibilityIsLastSiblingForType:()AXPrivCategory;
 - (uint64_t)_accessibilityIsMainWindow;
 - (uint64_t)_accessibilityIsNotFirstElement;
-- (uint64_t)_accessibilityIsRTL;
 - (uint64_t)_accessibilityIsRealtimeElement;
-- (uint64_t)_accessibilityIsScrollable;
 - (uint64_t)_accessibilityIsSortPriorityContainer;
 - (uint64_t)_accessibilityIsSpeakThisElement;
 - (uint64_t)_accessibilityIsStarkElement;
@@ -334,7 +332,6 @@
 - (uint64_t)_accessibilitySortPriority;
 - (uint64_t)_accessibilitySortPriorityWithReturningElement:()AXPrivCategory;
 - (uint64_t)_accessibilityStatusBar;
-- (uint64_t)_accessibilitySupportsFrameForRange;
 - (uint64_t)_accessibilitySupportsHandwriting;
 - (uint64_t)_accessibilityTextInputElementRangeAsNSRange;
 - (uint64_t)_accessibilityTextOperationAction:()AXPrivCategory;
@@ -342,7 +339,6 @@
 - (uint64_t)_accessibilityTraitsInspectorHumanReadable;
 - (uint64_t)_accessibilityTryScrollWithSelector:()AXPrivCategory shouldSendScrollFailed:;
 - (uint64_t)_accessibilityUpdatesOnActivationAfterDelay;
-- (uint64_t)_accessibilityUseContextlessPassthroughForDrag;
 - (uint64_t)_accessibilityUsesScrollParentForOrdering;
 - (uint64_t)_accessibilityUsesSpecialKeyboardDismiss;
 - (uint64_t)_accessibilityVisiblePoint;
@@ -357,12 +353,14 @@
 - (uint64_t)accessibilityRequired;
 - (uint64_t)accessibilityRowCount;
 - (uint64_t)accessibilityRowRange;
-- (uint64_t)accessibilitySemanticGroupChildrentCount;
 - (uint64_t)accessibilityZoomInAtPoint:()AXPrivCategory;
 - (uint64_t)accessibilityZoomOutAtPoint:()AXPrivCategory;
 - (uint64_t)axContainerTypeFromUIKitContainerType:()AXPrivCategory;
 - (uint64_t)impOrNullForSelector:()AXPrivCategory;
 - (uint64_t)isAccessibilityOpaqueElementProvider;
+- (unint64_t)_accessibilityEffectiveMediaAnalysisOptions;
+- (unint64_t)_accessibilityIsRTL;
+- (unint64_t)_accessibilityIsScrollable;
 - (void)_accessibilityAddAutoCorrectionAttributes:()AXPrivCategory;
 - (void)_accessibilityAddMispellingsToAttributedString:()AXPrivCategory;
 - (void)_accessibilityAllDragSourceDescriptors;
@@ -410,6 +408,7 @@
 - (void)_accessibilitySetValue:()AXPrivCategory;
 - (void)_accessibilityShowKeyboard;
 - (void)_accessibilityStatusBar;
+- (void)_accessibilitySupportsFrameForRange;
 - (void)_accessibilityUnregister;
 - (void)_accessibilityUpdateContainerElementReferencesIfNeededForNewElements:()AXPrivCategory;
 - (void)_accessibilityUserTestingActionIdentifiers;
@@ -427,6 +426,7 @@
 - (void)accessibilityEnumerateContainerElementsWithOptions:()AXPrivCategory usingBlock:;
 - (void)accessibilityIncreaseTrackingDetail;
 - (void)accessibilityPostNotification:()AXPrivCategory withObject:afterDelay:;
+- (void)accessibilitySemanticGroupChildrentCount;
 - (void)setAccessibilityCustomContent:()AXPrivCategory;
 - (void)setAccessibilitySize:()AXPrivCategory;
 - (void)setIsAccessibilityScrollAncestor:()AXPrivCategory;
@@ -795,7 +795,7 @@ LABEL_14:
   return bOOLValue;
 }
 
-- (uint64_t)_accessibilityIsRTL
+- (unint64_t)_accessibilityIsRTL
 {
   v2 = LocalDirectionModeValue;
   if (UIAccessibilityIsVoiceOverRunning() && v2)
@@ -817,7 +817,7 @@ LABEL_14:
 - (id)_accessibilityHitTest:()AXPrivCategory withEvent:
 {
   v8 = a5;
-  if (([self _accessibilityBoolValueForKey:@"AXInHitTestOverride"] & 1) != 0 || !__60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke())
+  if (([self _accessibilityBoolValueForKey:@"AXInHitTestOverride"] & 1) != 0 || (v11[0] = MEMORY[0x1E69E9820], v11[1] = 3221225472, v11[2] = __60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke, v11[3] = &unk_1E78AABC0, v11[4] = self, !__60__NSObject_AXPrivCategory___accessibilityHitTest_withEvent___block_invoke(v11)))
   {
     v9 = [self _accessibilityBaseHitTest:v8 withEvent:{a2, a3}];
   }
@@ -2218,6 +2218,7 @@ LABEL_19:
   v28 = 0;
   if (aSelector)
   {
+    v5 = a4;
     v7 = NSStringFromSelector(aSelector);
     v8 = [v7 stringByAppendingString:@"Supported"];
 
@@ -2237,7 +2238,7 @@ LABEL_19:
           v11 = [_accessibilityScrollAncestor safeValueForKey:v8];
           bOOLValue = [v11 BOOLValue];
 
-          if ((bOOLValue & 1) != 0 || a4 && sel_accessibilityScrollUpPage == aSelector)
+          if ((bOOLValue & 1) != 0 || v5 && sel_accessibilityScrollUpPage == aSelector)
           {
             break;
           }
@@ -2270,7 +2271,7 @@ LABEL_13:
     v21 = &v23;
     v22 = 0;
     v20 = 0;
-    [self _accessibilityIterateScrollParentsUsingBlock:v19];
+    [self _accessibilityIterateScrollParentsUsingBlock:{v19, a4}];
     v8 = v20;
   }
 
@@ -2357,7 +2358,7 @@ LABEL_13:
   return _accessibilityCanPerformEscapeAction;
 }
 
-- (uint64_t)_accessibilityIsScrollable
+- (unint64_t)_accessibilityIsScrollable
 {
   v2 = [self _accessibilityValueForKey:@"AXIsScrollable"];
 
@@ -2459,22 +2460,22 @@ LABEL_13:
 
   if (__AXRuntimeApplicationElement())
   {
-    v4 = __AXRuntimeApplicationElement();
-    v5 = v4();
-    v6 = _AXCreateAXUIElementWithElement();
+    v6 = __AXRuntimeApplicationElement();
+    v7 = v6();
+    v8 = _AXCreateAXUIElementWithElement();
   }
 
   else
   {
-    v6 = _AXCreateAXUIElementWithElement();
+    v8 = _AXCreateAXUIElementWithElement();
   }
 
-  v8 = 0;
+  v10 = 0;
   [self _accessibilityDisplayId];
   _AXUIElementCopyElementAtPositionWithParams();
-  if (v6)
+  if (v8)
   {
-    CFRelease(v6);
+    CFRelease(v8);
   }
 
   return 0;
@@ -2799,7 +2800,7 @@ LABEL_13:
   return v6;
 }
 
-- (uint64_t)_accessibilityEffectiveMediaAnalysisOptions
+- (unint64_t)_accessibilityEffectiveMediaAnalysisOptions
 {
   _accessibilityMediaAnalysisOptions = [self _accessibilityMediaAnalysisOptions];
   if ((_accessibilityMediaAnalysisOptions & 0x8000) != 0)
@@ -2869,21 +2870,21 @@ LABEL_13:
     [NSObject(AXPrivCategory) accessibilityShouldEnumerateContainerElementsArrayDirectly];
   }
 
-  v0 = objc_opt_class();
-  v1 = accessibilityShouldEnumerateContainerElementsArrayDirectly_elementsBaseMethod;
-  if (v1 == class_getInstanceMethod(v0, sel__accessibilityElements))
+  v1 = objc_opt_class();
+  v2 = accessibilityShouldEnumerateContainerElementsArrayDirectly_elementsBaseMethod;
+  if (v2 == class_getInstanceMethod(v1, sel__accessibilityElements))
   {
     return 0;
   }
 
-  v2 = accessibilityShouldEnumerateContainerElementsArrayDirectly_elementsCountBaseMethod;
-  if (v2 != class_getInstanceMethod(v0, sel_accessibilityElementCount))
+  v3 = accessibilityShouldEnumerateContainerElementsArrayDirectly_elementsCountBaseMethod;
+  if (v3 != class_getInstanceMethod(v1, sel_accessibilityElementCount))
   {
     return 0;
   }
 
-  v4 = accessibilityShouldEnumerateContainerElementsArrayDirectly_elementAtIndexBaseMethod;
-  return v4 == class_getInstanceMethod(v0, sel_accessibilityElementAtIndex_);
+  v5 = accessibilityShouldEnumerateContainerElementsArrayDirectly_elementAtIndexBaseMethod;
+  return v5 == class_getInstanceMethod(v1, sel_accessibilityElementAtIndex_);
 }
 
 - (void)accessibilityEnumerateContainerElementsWithOptions:()AXPrivCategory usingBlock:
@@ -3456,42 +3457,40 @@ LABEL_13:
 
 - (id)_accessibilityRetieveHeaderElementText
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v14 = 0u;
-  v15 = 0u;
-  v16 = 0u;
-  v17 = 0u;
+  v24 = *MEMORY[0x1E69E9840];
+  v19 = 0u;
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   _accessibilityRetrieveHeaderElements = [self _accessibilityRetrieveHeaderElements];
-  v2 = [_accessibilityRetrieveHeaderElements countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v2 = [_accessibilityRetrieveHeaderElements countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v2)
   {
     v3 = v2;
     v4 = 0;
-    v5 = *v15;
+    v5 = *v20;
     do
     {
       v6 = 0;
       v7 = v4;
       do
       {
-        if (*v15 != v5)
+        if (*v20 != v5)
         {
           objc_enumerationMutation(_accessibilityRetrieveHeaderElements);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * v6);
-        v9 = [v8 _iosAccessibilityAttributeValue:{2001, v11, v12, v13}];
-        v12 = [v8 _iosAccessibilityAttributeValue:2006];
-        v13 = @"__AXStringForVariablesSentinel";
-        v11 = v9;
-        v4 = __UIAXStringForVariables();
+        v8 = *(*(&v19 + 1) + 8 * v6);
+        v9 = [v8 _iosAccessibilityAttributeValue:2001];
+        v18 = [v8 _iosAccessibilityAttributeValue:2006];
+        v4 = __UIAXStringForVariables(v7, v10, v11, v12, v13, v14, v15, v16, v9);
 
         ++v6;
         v7 = v4;
       }
 
       while (v3 != v6);
-      v3 = [_accessibilityRetrieveHeaderElements countByEnumeratingWithState:&v14 objects:v18 count:{16, v9, v12, @"__AXStringForVariablesSentinel"}];
+      v3 = [_accessibilityRetrieveHeaderElements countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v3);
@@ -4574,7 +4573,7 @@ LABEL_9:
   return [self setAccessibilityTraits:v4];
 }
 
-- (uint64_t)_accessibilityIsGuideElement
+- (BOOL)_accessibilityIsGuideElement
 {
   if ([self _accessibilityUserDefinedIsGuideElement])
   {
@@ -5348,7 +5347,12 @@ LABEL_12:
 
 - (id)_accessibilityFirstElementForFocus
 {
-  if (__62__NSObject_AXPrivCategory___accessibilityFirstElementForFocus__block_invoke())
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __62__NSObject_AXPrivCategory___accessibilityFirstElementForFocus__block_invoke;
+  v5[3] = &unk_1E78AABC0;
+  v5[4] = self;
+  if (__62__NSObject_AXPrivCategory___accessibilityFirstElementForFocus__block_invoke(v5))
   {
     v2 = 0;
   }
@@ -5364,7 +5368,12 @@ LABEL_12:
 
 - (id)_accessibilityFirstElementForFocusWithOptions:()AXPrivCategory
 {
-  if (__74__NSObject_AXPrivCategory___accessibilityFirstElementForFocusWithOptions___block_invoke())
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __74__NSObject_AXPrivCategory___accessibilityFirstElementForFocusWithOptions___block_invoke;
+  v4[3] = &unk_1E78AABC0;
+  v4[4] = self;
+  if (__74__NSObject_AXPrivCategory___accessibilityFirstElementForFocusWithOptions___block_invoke(v4))
   {
     _accessibilityFirstOpaqueElement = [self _accessibilityFirstOpaqueElement];
   }
@@ -6480,7 +6489,7 @@ LABEL_13:
   {
     _accessibilityAXAttributedLabel = [self _accessibilityAXAttributedLabel];
     _accessibilitySpeakThisStringValue = [self _accessibilitySpeakThisStringValue];
-    v4 = __UIAXStringForVariables();
+    v4 = __UIAXStringForVariables(_accessibilityAXAttributedLabel, v7, v8, v9, v10, v11, v12, v13, _accessibilitySpeakThisStringValue);
   }
 
   return v4;
@@ -6985,28 +6994,28 @@ LABEL_4:
     accessibilityTraits = [self accessibilityTraits];
     if ((UIAccessibilityTraitBackButton & accessibilityTraits) != 0)
     {
-      v6 = UIAccessibilityBundle();
+      v6 = UIAccessibilityBundle(accessibilityTraits);
       v7 = v6;
       v8 = @"USER_INPUT_BACK_BUTTON";
     }
 
     else if ((*MEMORY[0x1E69DD9B8] & accessibilityTraits) != 0)
     {
-      v6 = UIAccessibilityBundle();
+      v6 = UIAccessibilityBundle(accessibilityTraits);
       v7 = v6;
       v8 = @"USER_INPUT_BUTTON";
     }
 
     else if ((*MEMORY[0x1E69DD9D0] & accessibilityTraits) != 0)
     {
-      v6 = UIAccessibilityBundle();
+      v6 = UIAccessibilityBundle(accessibilityTraits);
       v7 = v6;
       v8 = @"USER_INPUT_IMAGE";
     }
 
     else if ((*MEMORY[0x1E69DD9A8] & accessibilityTraits) != 0)
     {
-      v6 = UIAccessibilityBundle();
+      v6 = UIAccessibilityBundle(accessibilityTraits);
       v7 = v6;
       v8 = @"USER_INPUT_ADJUSTABLE";
     }
@@ -7031,7 +7040,7 @@ LABEL_16:
           goto LABEL_17;
         }
 
-        v7 = UIAccessibilityBundle();
+        v7 = UIAccessibilityBundle(0);
         v12 = [v7 localizedStringForKey:@"USER_INPUT_TEXT" value:&stru_1F1DB9E20 table:@"Localized"];
 
         accessibilityValue = v12;
@@ -7040,7 +7049,7 @@ LABEL_15:
         goto LABEL_16;
       }
 
-      v6 = UIAccessibilityBundle();
+      v6 = UIAccessibilityBundle(accessibilityTraits);
       v7 = v6;
       v8 = @"USER_INPUT_SEARCH";
     }
@@ -7054,7 +7063,7 @@ LABEL_17:
   return _accessibilityAXAttributedUserInputLabels;
 }
 
-- (uint64_t)accessibilitySemanticGroupChildrentCount
+- (void)accessibilitySemanticGroupChildrentCount
 {
   result = [self accessibilityElementCount];
   if (result == 0x7FFFFFFFFFFFFFFFLL)
@@ -7068,7 +7077,7 @@ LABEL_17:
   return result;
 }
 
-- (uint64_t)_accessibilityIsGroupedParent
+- (BOOL)_accessibilityIsGroupedParent
 {
   accessibilityContainerType = [self accessibilityContainerType];
   if (!accessibilityContainerType)
@@ -8878,7 +8887,7 @@ LABEL_173:
       default:
         if (a3 == 96001)
         {
-          if (LookingGlassRuntimeSupportLibraryCore())
+          if (LookingGlassRuntimeSupportLibraryCore(0))
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
@@ -8894,7 +8903,7 @@ LABEL_173:
           }
         }
 
-        else if (a3 == 96002 && AXTinkerKitLibraryCore())
+        else if (a3 == 96002 && AXTinkerKitLibraryCore(0))
         {
           EventForSceneReferencePoint = [getTinkerRuntimeClass() shared];
           v22 = [EventForSceneReferencePoint handleRequest:v7 withElement:self];
@@ -9127,7 +9136,7 @@ LABEL_14:
 {
   selfCopy = self;
   _accessibilityAXAttributedValue = 0;
-  v207 = *MEMORY[0x1E69E9840];
+  v203 = *MEMORY[0x1E69E9840];
   if (a3 <= 2700)
   {
     switch(a3)
@@ -9237,40 +9246,40 @@ LABEL_14:
           v136 = v135;
           v138 = v137;
           v140 = v139;
-          v210.origin.x = v126;
-          v210.origin.y = v128;
-          v210.size.width = v130;
-          v210.size.height = v132;
-          v216.origin.x = v134;
-          v216.origin.y = v136;
-          v216.size.width = v138;
-          v216.size.height = v140;
-          if (CGRectIntersectsRect(v210, v216))
+          v206.origin.x = v126;
+          v206.origin.y = v128;
+          v206.size.width = v130;
+          v206.size.height = v132;
+          v212.origin.x = v134;
+          v212.origin.y = v136;
+          v212.size.width = v138;
+          v212.size.height = v140;
+          if (CGRectIntersectsRect(v206, v212))
           {
-            v211.origin.x = v134;
-            v211.origin.y = v136;
-            v211.size.width = v138;
-            v211.size.height = v140;
-            if (v126 > CGRectGetWidth(v211))
+            v207.origin.x = v134;
+            v207.origin.y = v136;
+            v207.size.width = v138;
+            v207.size.height = v140;
+            if (v126 > CGRectGetWidth(v207))
             {
-              v212.origin.x = v134;
-              v212.origin.y = v136;
-              v212.size.width = v138;
-              v212.size.height = v140;
-              v126 = CGRectGetWidth(v212) * 0.5;
+              v208.origin.x = v134;
+              v208.origin.y = v136;
+              v208.size.width = v138;
+              v208.size.height = v140;
+              v126 = CGRectGetWidth(v208) * 0.5;
             }
 
-            v213.origin.x = v134;
-            v213.origin.y = v136;
-            v213.size.width = v138;
-            v213.size.height = v140;
-            if (v128 > CGRectGetHeight(v213))
+            v209.origin.x = v134;
+            v209.origin.y = v136;
+            v209.size.width = v138;
+            v209.size.height = v140;
+            if (v128 > CGRectGetHeight(v209))
             {
-              v214.origin.x = v134;
-              v214.origin.y = v136;
-              v214.size.width = v138;
-              v214.size.height = v140;
-              v128 = CGRectGetHeight(v214) * 0.5;
+              v210.origin.x = v134;
+              v210.origin.y = v136;
+              v210.size.width = v138;
+              v210.size.height = v140;
+              v128 = CGRectGetHeight(v210) * 0.5;
             }
           }
 
@@ -9907,7 +9916,7 @@ LABEL_384:
         if (os_log_type_enabled(_accessibilityWindow, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v205 = _accessibilityAXAttributedValue;
+          v201 = _accessibilityAXAttributedValue;
           _os_log_impl(&dword_1A9B83000, _accessibilityWindow, OS_LOG_TYPE_INFO, "Return visible point: %@", buf, 0xCu);
         }
 
@@ -10184,11 +10193,11 @@ LABEL_216:
         break;
       case 2149:
         [self _accessibilityFocusableFrameForZoom];
-        x = v209.origin.x;
-        y = v209.origin.y;
-        width = v209.size.width;
-        height = v209.size.height;
-        if (CGRectIsNull(v209))
+        x = v205.origin.x;
+        y = v205.origin.y;
+        width = v205.size.width;
+        height = v205.size.height;
+        if (CGRectIsNull(v205))
         {
           _accessibilityProcessedLabelAttribute = [selfCopy _iosAccessibilityAttributeValue:2003];
           goto LABEL_19;
@@ -10448,9 +10457,9 @@ LABEL_487:
         }
 
         v84 = _accessibilityCustomContent;
-        v202 = 0;
-        _accessibilityAXAttributedValue = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:_accessibilityCustomContent requiringSecureCoding:1 error:&v202];
-        _accessibilityWindow = v202;
+        v198 = 0;
+        _accessibilityAXAttributedValue = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:_accessibilityCustomContent requiringSecureCoding:1 error:&v198];
+        _accessibilityWindow = v198;
 
         if (!_accessibilityWindow)
         {
@@ -10675,7 +10684,7 @@ LABEL_485:
         v195 = 0u;
         v196 = 0u;
         _accessibilityWindow = _accessibilityCapturedImages;
-        v98 = [_accessibilityWindow countByEnumeratingWithState:&v193 objects:v206 count:16];
+        v98 = [_accessibilityWindow countByEnumeratingWithState:&v193 objects:v202 count:16];
         if (v98)
         {
           v99 = v98;
@@ -10696,7 +10705,7 @@ LABEL_485:
               }
             }
 
-            v99 = [_accessibilityWindow countByEnumeratingWithState:&v193 objects:v206 count:16];
+            v99 = [_accessibilityWindow countByEnumeratingWithState:&v193 objects:v202 count:16];
           }
 
           while (v99);
@@ -10709,12 +10718,12 @@ LABEL_485:
         break;
       case 2317:
         v6 = MEMORY[0x1E696AD98];
-        v197 = MEMORY[0x1E69E9820];
-        v198 = 3221225472;
-        v199 = __60__NSObject_AXPrivCategory___iosAccessibilityAttributeValue___block_invoke_1125;
-        v200 = &unk_1E78AABC0;
-        selfCopy2 = self;
-        isAccessibilityElement = __60__NSObject_AXPrivCategory___iosAccessibilityAttributeValue___block_invoke_1125();
+        v197[0] = MEMORY[0x1E69E9820];
+        v197[1] = 3221225472;
+        v197[2] = __60__NSObject_AXPrivCategory___iosAccessibilityAttributeValue___block_invoke_1125;
+        v197[3] = &unk_1E78AABC0;
+        v197[4] = self;
+        isAccessibilityElement = __60__NSObject_AXPrivCategory___iosAccessibilityAttributeValue___block_invoke_1125(v197);
         break;
       case 2318:
         v6 = MEMORY[0x1E696AD98];
@@ -10728,9 +10737,9 @@ LABEL_485:
         }
 
         v95 = _accessibilityBrailleMap;
-        v203 = 0;
-        _accessibilityAXAttributedValue = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:_accessibilityBrailleMap requiringSecureCoding:1 error:&v203];
-        _accessibilityWindow = v203;
+        v199 = 0;
+        _accessibilityAXAttributedValue = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:_accessibilityBrailleMap requiringSecureCoding:1 error:&v199];
+        _accessibilityWindow = v199;
 
         if (!_accessibilityWindow)
         {
@@ -11433,11 +11442,11 @@ LABEL_510:
         goto LABEL_19;
       case 3058:
         [self accessibilityBrailleMapRenderRegion];
-        v173 = v215.origin.x;
-        v174 = v215.origin.y;
-        v175 = v215.size.width;
-        v176 = v215.size.height;
-        if (CGRectIsEmpty(v215))
+        v173 = v211.origin.x;
+        v174 = v211.origin.y;
+        v175 = v211.size.width;
+        v176 = v211.size.height;
+        if (CGRectIsEmpty(v211))
         {
 LABEL_548:
           _accessibilityAXAttributedValue = 0;
@@ -12759,8 +12768,8 @@ LABEL_12:
 - (id)_accessibilityTableViewCellContentSubviews
 {
   objc_opt_class();
-  v0 = __UIAccessibilityCastAsClass();
-  contentView = [v0 contentView];
+  v1 = __UIAccessibilityCastAsClass();
+  contentView = [v1 contentView];
   subviews = [contentView subviews];
 
   return subviews;
@@ -12769,8 +12778,8 @@ LABEL_12:
 - (id)_accessibilityCollectionViewCellContentSubviews
 {
   objc_opt_class();
-  v0 = __UIAccessibilityCastAsClass();
-  contentView = [v0 contentView];
+  v1 = __UIAccessibilityCastAsClass();
+  contentView = [v1 contentView];
   subviews = [contentView subviews];
 
   return subviews;
@@ -12795,12 +12804,12 @@ LABEL_12:
 - (id)_accessibilityElementTextualContent
 {
   v2 = [self _accessibilityFindAncestor:&__block_literal_global_1272 startWithSelf:1];
-  if (v2 || ([self _accessibilityContainerTypes], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "containsObject:", &unk_1F1DC2710), v18, v19) && (objc_msgSend(self, "safeValueForKey:", @"_accessibilityTableAncestor"), (v2 = objc_claimAutoreleasedReturnValue()) != 0))
+  if (v2 || ([self _accessibilityContainerTypes], v25 = objc_claimAutoreleasedReturnValue(), v26 = objc_msgSend(v25, "containsObject:", &unk_1F1DC2710), v25, v26) && (objc_msgSend(self, "safeValueForKey:", @"_accessibilityTableAncestor"), (v2 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     accessibilityLabel = v2;
     accessibilityRowCount = [v2 accessibilityRowCount];
     accessibilityColumnCount = [accessibilityLabel accessibilityColumnCount];
-    v24 = accessibilityRowCount;
+    v36 = accessibilityRowCount;
     if (accessibilityRowCount)
     {
       v6 = accessibilityColumnCount;
@@ -12814,34 +12823,32 @@ LABEL_12:
         {
           for (i = 0; i != v6; ++i)
           {
-            v12 = [accessibilityLabel accessibilityElementForRow:v7 andColumn:{i, v21, v23}];
+            v12 = [accessibilityLabel accessibilityElementForRow:v7 andColumn:i];
             v13 = UIAXStringForAllChildren(v12);
             [v13 stringByReplacingOccurrencesOfString:v9 withString:v10];
             v14 = v10;
             v16 = v15 = v9;
 
-            v21 = v16;
-            v23 = @"__AXStringForVariablesSentinel";
-            v17 = __UIAXStringForVariables();
+            v24 = __UIAXStringForVariables(v8, v17, v18, v19, v20, v21, v22, v23, v16);
 
             v9 = v15;
             v10 = v14;
 
-            v8 = v17;
+            v8 = v24;
           }
         }
 
         else
         {
-          v17 = v8;
+          v24 = v8;
         }
 
-        v8 = [v17 stringByAppendingString:{@"\n", v21, v23}];
+        v8 = [v24 stringByAppendingString:@"\n"];
 
         ++v7;
       }
 
-      while (v7 != v24);
+      while (v7 != v36);
     }
 
     else
@@ -12854,7 +12861,7 @@ LABEL_12:
   {
     accessibilityLabel = [self accessibilityLabel];
     accessibilityValue = [self accessibilityValue];
-    v8 = __UIAXStringForVariables();
+    v8 = __UIAXStringForVariables(accessibilityLabel, v28, v29, v30, v31, v32, v33, v34, accessibilityValue);
   }
 
   return v8;
@@ -13070,8 +13077,8 @@ LABEL_12:
 
 - (uint64_t)_accessibilityStatusBar
 {
-  v0 = AXLogCommon();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_FAULT))
+  v2 = AXLogCommon();
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
     [NSObject(AXPrivCategory) _accessibilityStatusBar];
   }
@@ -13528,7 +13535,12 @@ LABEL_12:
 - (id)_accessibilityFirstOpaqueElement
 {
   v2 = +[UIAccessibilityElementTraversalOptions defaultVoiceOverOptions];
-  if (__60__NSObject_AXPrivCategory___accessibilityFirstOpaqueElement__block_invoke())
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __60__NSObject_AXPrivCategory___accessibilityFirstOpaqueElement__block_invoke;
+  v6[3] = &unk_1E78AABC0;
+  v6[4] = self;
+  if (__60__NSObject_AXPrivCategory___accessibilityFirstOpaqueElement__block_invoke(v6))
   {
     v3 = [self _accessibilitySortedElementsWithinWithOptions:v2];
     firstObject = [v3 firstObject];
@@ -13545,7 +13557,12 @@ LABEL_12:
 - (id)_accessibilityFirstOpaqueElementWithOptions:()AXPrivCategory
 {
   v4 = a3;
-  if (__72__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementWithOptions___block_invoke())
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __72__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementWithOptions___block_invoke;
+  v8[3] = &unk_1E78AABC0;
+  v8[4] = self;
+  if (__72__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementWithOptions___block_invoke(v8))
   {
     _accessibilityFirstOpaqueElement = [self _accessibilityFirstOpaqueElement];
   }
@@ -13562,7 +13579,12 @@ LABEL_12:
 - (id)_accessibilityFirstOpaqueElementForFocus
 {
   v2 = +[UIAccessibilityElementTraversalOptions defaultVoiceOverOptions];
-  if (__68__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementForFocus__block_invoke())
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __68__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementForFocus__block_invoke;
+  v5[3] = &unk_1E78AABC0;
+  v5[4] = self;
+  if (__68__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementForFocus__block_invoke(v5))
   {
     [self _accessibilityFirstOpaqueElementWithOptions:v2];
   }
@@ -13579,7 +13601,12 @@ LABEL_12:
 - (id)_accessibilityFirstOpaqueElementForFocusWithOptions:()AXPrivCategory
 {
   v4 = a3;
-  if (__80__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementForFocusWithOptions___block_invoke())
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __80__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementForFocusWithOptions___block_invoke;
+  v7[3] = &unk_1E78AABC0;
+  v7[4] = self;
+  if (__80__NSObject_AXPrivCategory___accessibilityFirstOpaqueElementForFocusWithOptions___block_invoke(v7))
   {
     [self _accessibilityFirstOpaqueElementForFocus];
   }
@@ -13596,7 +13623,12 @@ LABEL_12:
 - (id)_accessibilityLastOpaqueElement
 {
   v2 = +[UIAccessibilityElementTraversalOptions defaultVoiceOverOptions];
-  if (__59__NSObject_AXPrivCategory___accessibilityLastOpaqueElement__block_invoke())
+  v6[0] = MEMORY[0x1E69E9820];
+  v6[1] = 3221225472;
+  v6[2] = __59__NSObject_AXPrivCategory___accessibilityLastOpaqueElement__block_invoke;
+  v6[3] = &unk_1E78AABC0;
+  v6[4] = self;
+  if (__59__NSObject_AXPrivCategory___accessibilityLastOpaqueElement__block_invoke(v6))
   {
     v3 = [self _accessibilitySortedElementsWithinWithOptions:v2];
     lastObject = [v3 lastObject];
@@ -13613,7 +13645,12 @@ LABEL_12:
 - (id)_accessibilityLastOpaqueElementWithOptions:()AXPrivCategory
 {
   v4 = a3;
-  if (__71__NSObject_AXPrivCategory___accessibilityLastOpaqueElementWithOptions___block_invoke())
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __71__NSObject_AXPrivCategory___accessibilityLastOpaqueElementWithOptions___block_invoke;
+  v8[3] = &unk_1E78AABC0;
+  v8[4] = self;
+  if (__71__NSObject_AXPrivCategory___accessibilityLastOpaqueElementWithOptions___block_invoke(v8))
   {
     _accessibilityLastOpaqueElement = [self _accessibilityLastOpaqueElement];
   }
@@ -13919,7 +13956,7 @@ LABEL_11:
 - (id)_accessibilityFindElementInDirection:()AXPrivCategory searchType:allowOutOfBoundsChild:startingTouchContainer:honorGroups:
 {
   LODWORD(v7) = a7;
-  v70[1] = *MEMORY[0x1E69E9840];
+  v72[1] = *MEMORY[0x1E69E9840];
   v11 = a6;
   v12 = AXLogOpaqueElements();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
@@ -13965,10 +14002,10 @@ LABEL_5:
       {
         if (a4 == 35)
         {
-          v45 = v11;
+          v47 = v11;
           _accessibilityTouchContainer = [v18 _accessibilityTouchContainer];
 
-          if (_accessibilityTouchContainer == v45)
+          if (_accessibilityTouchContainer == v47)
           {
             goto LABEL_5;
           }
@@ -13993,19 +14030,19 @@ LABEL_78:
 LABEL_79:
         if (!a5)
         {
-          v69[0] = MEMORY[0x1E69E9820];
-          v69[1] = 3221225472;
-          v69[2] = __133__NSObject_AXPrivCategory___accessibilityFindElementInDirection_searchType_allowOutOfBoundsChild_startingTouchContainer_honorGroups___block_invoke;
-          v69[3] = &unk_1E78AABC0;
-          v69[4] = v18;
-          v48 = _Block_copy(v69);
-          v68[0] = MEMORY[0x1E69E9820];
-          v68[1] = 3221225472;
-          v68[2] = __133__NSObject_AXPrivCategory___accessibilityFindElementInDirection_searchType_allowOutOfBoundsChild_startingTouchContainer_honorGroups___block_invoke_2;
-          v68[3] = &unk_1E78AABC0;
-          v68[4] = v18;
-          v49 = _Block_copy(v68);
-          if ((v49[2]() & 1) != 0 || (v48[2](v48) & 1) == 0)
+          v71[0] = MEMORY[0x1E69E9820];
+          v71[1] = 3221225472;
+          v71[2] = __133__NSObject_AXPrivCategory___accessibilityFindElementInDirection_searchType_allowOutOfBoundsChild_startingTouchContainer_honorGroups___block_invoke;
+          v71[3] = &unk_1E78AABC0;
+          v71[4] = v18;
+          v50 = _Block_copy(v71);
+          v70[0] = MEMORY[0x1E69E9820];
+          v70[1] = 3221225472;
+          v70[2] = __133__NSObject_AXPrivCategory___accessibilityFindElementInDirection_searchType_allowOutOfBoundsChild_startingTouchContainer_honorGroups___block_invoke_2;
+          v70[3] = &unk_1E78AABC0;
+          v70[4] = v18;
+          v51 = _Block_copy(v70);
+          if ((v51[2]() & 1) != 0 || (v50[2](v50) & 1) == 0)
           {
             v14 = v18;
           }
@@ -14028,9 +14065,9 @@ LABEL_81:
       v31 = MEMORY[0x1E69890A8];
     }
 
-    v47 = *v31 & ~accessibilityTraits2;
+    v49 = *v31 & ~accessibilityTraits2;
 
-    if (v47)
+    if (v49)
     {
       goto LABEL_5;
     }
@@ -14044,7 +14081,7 @@ LABEL_81:
     goto LABEL_81;
   }
 
-  v58 = a3;
+  v60 = a3;
   _accessibilityHasOrderedChildren = [self _accessibilityHasOrderedChildren];
   if (_accessibilityHasOrderedChildren)
   {
@@ -14064,20 +14101,20 @@ LABEL_81:
         v23 = +[UIAccessibilityElementTraversalOptions defaultVoiceOverOptionsHonoringGroups];
 
         leafNodePredicate = [v23 leafNodePredicate];
-        v66[0] = MEMORY[0x1E69E9820];
-        v66[1] = 3221225472;
-        v66[2] = __133__NSObject_AXPrivCategory___accessibilityFindElementInDirection_searchType_allowOutOfBoundsChild_startingTouchContainer_honorGroups___block_invoke_3;
-        v66[3] = &unk_1E78AAF48;
-        v66[4] = self;
+        v68[0] = MEMORY[0x1E69E9820];
+        v68[1] = 3221225472;
+        v68[2] = __133__NSObject_AXPrivCategory___accessibilityFindElementInDirection_searchType_allowOutOfBoundsChild_startingTouchContainer_honorGroups___block_invoke_3;
+        v68[3] = &unk_1E78AAF48;
+        v68[4] = self;
         v25 = leafNodePredicate;
-        v67 = v25;
-        [v23 setLeafNodePredicate:v66];
+        v69 = v25;
+        [v23 setLeafNodePredicate:v68];
         _accessibilityGroupedParent = [self _accessibilityGroupedParent];
         v7 = _accessibilityGroupedParent;
         if (_accessibilityGroupedParent)
         {
-          v70[0] = _accessibilityGroupedParent;
-          [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:1];
+          v72[0] = _accessibilityGroupedParent;
+          [MEMORY[0x1E695DEC8] arrayWithObjects:v72 count:1];
           v27 = v11;
           v29 = v28 = a4;
           [v23 setAllowedElementsForTraversal:v29];
@@ -14097,7 +14134,7 @@ LABEL_81:
       v32 = [self _accessibilitySortedElementsWithinWithOptions:v23];
       accessibilityElementCount = [v32 count];
 
-      a3 = v58;
+      a3 = v60;
       goto LABEL_29;
     }
 
@@ -14128,8 +14165,8 @@ LABEL_29:
     goto LABEL_71;
   }
 
-  v52 = v60;
-  v53 = v11;
+  v54 = v62;
+  v55 = v11;
   if (a3 == 1)
   {
     v35 = 1;
@@ -14140,9 +14177,9 @@ LABEL_29:
     v35 = -1;
   }
 
-  v55 = a4;
-  v54 = v7;
-  v51 = v32;
+  v57 = a4;
+  v56 = v7;
+  v53 = v32;
   while (1)
   {
     if ([self _accessibilityHasOrderedChildren])
@@ -14155,91 +14192,92 @@ LABEL_29:
       [v32 objectAtIndex:v33];
     }
     v36 = ;
-    if (v36 == self || UIAccessibilityIsWidgetExtension() && ([v36 _accessibilityIsFrameOutOfBounds] & 1) != 0)
+    v38 = v36;
+    if (v36 == self || UIAccessibilityIsWidgetExtension(v36, v37) && ([v38 _accessibilityIsFrameOutOfBounds] & 1) != 0)
     {
       goto LABEL_64;
     }
 
-    v37 = AXRemoteElementFromObject();
-    if (v37)
+    v39 = AXRemoteElementFromObject();
+    if (v39)
     {
-      v14 = v36;
+      v14 = v38;
       goto LABEL_63;
     }
 
     aBlock[0] = MEMORY[0x1E69E9820];
     aBlock[1] = 3221225472;
-    v60[0] = __133__NSObject_AXPrivCategory___accessibilityFindElementInDirection_searchType_allowOutOfBoundsChild_startingTouchContainer_honorGroups___block_invoke_4;
-    v60[1] = &unk_1E78AB0A0;
-    v38 = v58;
-    v62 = v58;
-    v63 = a4;
-    v64 = a5;
-    v39 = v53;
-    v61 = v39;
-    v65 = v7;
+    v62[0] = __133__NSObject_AXPrivCategory___accessibilityFindElementInDirection_searchType_allowOutOfBoundsChild_startingTouchContainer_honorGroups___block_invoke_4;
+    v62[1] = &unk_1E78AB0A0;
+    v40 = v60;
+    v64 = v60;
+    v65 = a4;
+    v66 = a5;
+    v41 = v55;
+    v63 = v41;
+    v67 = v7;
     v7 = _Block_copy(aBlock);
     if (!_accessibilityHasOrderedChildren)
     {
       goto LABEL_52;
     }
 
-    if (v58 == 2)
+    if (v60 == 2)
     {
-      [v36 _accessibilitySupplementaryFooterViews];
+      [v38 _accessibilitySupplementaryFooterViews];
     }
 
     else
     {
-      [v36 _accessibilitySupplementaryHeaderViews];
+      [v38 _accessibilitySupplementaryHeaderViews];
     }
-    v40 = ;
-    v14 = (*(v7 + 2))(v7, v40);
+    v42 = ;
+    v14 = (*(v7 + 2))(v7, v42);
 
-    v38 = v58;
+    v40 = v60;
     if (!v14)
     {
 LABEL_52:
-      v41 = [v36 _accessibilityFindElementInDirection:v38 searchType:v55 allowOutOfBoundsChild:a5 startingTouchContainer:v39 honorGroups:v54];
-      if (v41)
+      v43 = [v38 _accessibilityFindElementInDirection:v40 searchType:v57 allowOutOfBoundsChild:a5 startingTouchContainer:v41 honorGroups:v56];
+      if (v43)
       {
-        v42 = 0;
+        v44 = 0;
       }
 
       else
       {
-        v42 = _accessibilityHasOrderedChildren;
+        v44 = _accessibilityHasOrderedChildren;
       }
 
-      if (v42 == 1)
+      if (v44 == 1)
       {
-        if (v38 == 2)
+        if (v40 == 2)
         {
-          [v36 _accessibilitySupplementaryHeaderViews];
+          [v38 _accessibilitySupplementaryHeaderViews];
         }
 
         else
         {
-          [v36 _accessibilitySupplementaryFooterViews];
+          [v38 _accessibilitySupplementaryFooterViews];
         }
-        v43 = ;
-        v32 = v51;
-        v14 = (*(v7 + 2))(v7, v43);
+        v45 = ;
+        v32 = v53;
+        v14 = (*(v7 + 2))(v7, v45);
 
         goto LABEL_62;
       }
 
-      v14 = v41;
+      v14 = v43;
     }
 
-    v32 = v51;
+    v32 = v53;
 LABEL_62:
 
-    a4 = v55;
-    LOBYTE(v7) = v54;
+    a4 = v57;
+    LOBYTE(v7) = v56;
 LABEL_63:
 
-    a3 = v58;
+    a3 = v60;
     if (v14)
     {
       break;
@@ -14248,13 +14286,13 @@ LABEL_63:
 LABEL_64:
 
     v33 += v35;
-    v44 = v33 < accessibilityElementCount;
+    v46 = v33 < accessibilityElementCount;
     if (a3 != 1)
     {
-      v44 = v33 >= 0;
+      v46 = v33 >= 0;
     }
 
-    if (!v44)
+    if (!v46)
     {
       v14 = 0;
       goto LABEL_70;
@@ -14262,7 +14300,7 @@ LABEL_64:
   }
 
 LABEL_70:
-  v11 = v53;
+  v11 = v55;
 LABEL_71:
 
 LABEL_87:
@@ -14313,7 +14351,12 @@ LABEL_87:
 
 - (id)_accessibilitySortedElementsWithin
 {
-  if (__62__NSObject_AXPrivCategory___accessibilitySortedElementsWithin__block_invoke())
+  v5[0] = MEMORY[0x1E69E9820];
+  v5[1] = 3221225472;
+  v5[2] = __62__NSObject_AXPrivCategory___accessibilitySortedElementsWithin__block_invoke;
+  v5[3] = &unk_1E78AABC0;
+  v5[4] = self;
+  if (__62__NSObject_AXPrivCategory___accessibilitySortedElementsWithin__block_invoke(v5))
   {
     v2 = 0;
   }
@@ -14329,7 +14372,12 @@ LABEL_87:
 
 - (id)_accessibilitySortedElementsWithinWithOptions:()AXPrivCategory
 {
-  if (__74__NSObject_AXPrivCategory___accessibilitySortedElementsWithinWithOptions___block_invoke())
+  v4[0] = MEMORY[0x1E69E9820];
+  v4[1] = 3221225472;
+  v4[2] = __74__NSObject_AXPrivCategory___accessibilitySortedElementsWithinWithOptions___block_invoke;
+  v4[3] = &unk_1E78AABC0;
+  v4[4] = self;
+  if (__74__NSObject_AXPrivCategory___accessibilitySortedElementsWithinWithOptions___block_invoke(v4))
   {
     _accessibilitySortedElementsWithin = [self _accessibilitySortedElementsWithin];
   }
@@ -14344,12 +14392,13 @@ LABEL_87:
 
 - (id)_accessibilityFocusAbsoluteFirstLastOpaqueElement:()AXPrivCategory technology:honorsGroups:shouldAlwaysScroll:
 {
+  v6 = a3;
   if (([self isAccessibilityOpaqueElementProvider] & 1) == 0)
   {
     _AXAssert();
   }
 
-  if (a3)
+  if (v6)
   {
     v8 = 1;
   }
@@ -15442,14 +15491,14 @@ LABEL_8:
 
 - (double)_handleRotatingFrame:()AXPrivCategory fromOrientation:toOrientation:
 {
-  if (a4)
+  if (a7)
   {
     AXDeviceGetMainScreenBounds();
     _UIConvertRectFromOrientationToOrientation();
-    return v5;
+    return v9;
   }
 
-  return self;
+  return a2;
 }
 
 - (double)_accessibilityChildrenUnionContentFrame
@@ -15577,7 +15626,7 @@ LABEL_7:
   if (_accessibilityWindow)
   {
     AXUIConvertRectFromScreenToContextSpace();
-    a2 = v4;
+    a2 = v7;
   }
 
   return a2;
@@ -15767,30 +15816,30 @@ LABEL_12:
 
 - (id)_axOutermostScrollParent
 {
-  if (UIAccessibilityIsWidgetExtension())
+  if (UIAccessibilityIsWidgetExtension(self, a2))
   {
-    v2 = 0;
+    v3 = 0;
   }
 
   else
   {
-    v5 = 0;
-    v6 = &v5;
-    v7 = 0x3032000000;
-    v8 = __Block_byref_object_copy__2;
-    v9 = __Block_byref_object_dispose__2;
-    v10 = 0;
-    v4[0] = MEMORY[0x1E69E9820];
-    v4[1] = 3221225472;
-    v4[2] = __52__NSObject_AXPrivCategory___axOutermostScrollParent__block_invoke;
-    v4[3] = &unk_1E78AACB0;
-    v4[4] = &v5;
-    [self _accessibilityIterateScrollParentsUsingBlock:v4];
-    v2 = v6[5];
-    _Block_object_dispose(&v5, 8);
+    v6 = 0;
+    v7 = &v6;
+    v8 = 0x3032000000;
+    v9 = __Block_byref_object_copy__2;
+    v10 = __Block_byref_object_dispose__2;
+    v11 = 0;
+    v5[0] = MEMORY[0x1E69E9820];
+    v5[1] = 3221225472;
+    v5[2] = __52__NSObject_AXPrivCategory___axOutermostScrollParent__block_invoke;
+    v5[3] = &unk_1E78AACB0;
+    v5[4] = &v6;
+    [self _accessibilityIterateScrollParentsUsingBlock:v5];
+    v3 = v7[5];
+    _Block_object_dispose(&v6, 8);
   }
 
-  return v2;
+  return v3;
 }
 
 - (double)_axFrameForBoundsCheck:()AXPrivCategory
@@ -16457,36 +16506,36 @@ LABEL_17:
 
   if (__AXRuntimeApplicationElement())
   {
-    v3 = __AXRuntimeApplicationElement();
-    v4 = v3();
-    v5 = _AXCreateAXUIElementWithElement();
+    v5 = __AXRuntimeApplicationElement();
+    v6 = v5();
+    v7 = _AXCreateAXUIElementWithElement();
   }
 
   else
   {
-    v5 = _AXCreateAXUIElementWithElement();
+    v7 = _AXCreateAXUIElementWithElement();
   }
 
   AXDeviceGetMainScreenBounds();
-  x = v11.origin.x;
-  y = v11.origin.y;
-  width = v11.size.width;
-  height = v11.size.height;
-  CGRectGetMidX(v11);
-  v12.origin.x = x;
-  v12.origin.y = y;
-  v12.size.width = width;
-  v12.size.height = height;
-  CGRectGetMidY(v12);
+  x = v13.origin.x;
+  y = v13.origin.y;
+  width = v13.size.width;
+  height = v13.size.height;
+  CGRectGetMidX(v13);
+  v14.origin.x = x;
+  v14.origin.y = y;
+  v14.size.width = width;
+  v14.size.height = height;
+  CGRectGetMidY(v14);
   [self _accessibilityDisplayId];
   _AXUIElementCopyElementAtPositionWithParams();
-  v2 = 0;
-  if (v5)
+  v4 = 0;
+  if (v7)
   {
-    CFRelease(v5);
+    CFRelease(v7);
   }
 
-  return v2;
+  return v4;
 }
 
 - (uint64_t)_accessibilityBasePerformOrbGesture:()AXPrivCategory
@@ -17332,7 +17381,7 @@ LABEL_17:
   return length;
 }
 
-- (uint64_t)_accessibilitySupportsFrameForRange
+- (void)_accessibilitySupportsFrameForRange
 {
   result = [self conformsToProtocol:&unk_1F1E1E028];
   if (result)
@@ -17344,7 +17393,7 @@ LABEL_17:
     }
 
     v3 = objc_opt_class();
-    return _accessibilitySupportsFrameForRange_BaseFrameForRangeMethod != class_getInstanceMethod(v3, sel__accessibilityFrameForRange_);
+    return (_accessibilitySupportsFrameForRange_BaseFrameForRangeMethod != class_getInstanceMethod(v3, sel__accessibilityFrameForRange_));
   }
 
   return result;
@@ -17354,12 +17403,12 @@ LABEL_17:
 {
   if (!_accessibilitySupportsRangeForLineNumber_BaseRangeForLineNumberMethod)
   {
-    v0 = objc_opt_class();
-    _accessibilitySupportsRangeForLineNumber_BaseRangeForLineNumberMethod = class_getInstanceMethod(v0, sel__accessibilityRangeForLineNumber_);
+    v1 = objc_opt_class();
+    _accessibilitySupportsRangeForLineNumber_BaseRangeForLineNumberMethod = class_getInstanceMethod(v1, sel__accessibilityRangeForLineNumber_);
   }
 
-  v1 = objc_opt_class();
-  return _accessibilitySupportsRangeForLineNumber_BaseRangeForLineNumberMethod != class_getInstanceMethod(v1, sel__accessibilityRangeForLineNumber_);
+  v2 = objc_opt_class();
+  return _accessibilitySupportsRangeForLineNumber_BaseRangeForLineNumberMethod != class_getInstanceMethod(v2, sel__accessibilityRangeForLineNumber_);
 }
 
 + (id)_accessibilityTextChecker
@@ -18058,10 +18107,10 @@ LABEL_31:
 {
   if (a4 < 0)
   {
-    return [self _accessibilityInsertText:?];
+    return [result _accessibilityInsertText:a3];
   }
 
-  return self;
+  return result;
 }
 
 - (void)_accessibilityInsertText:()AXPrivCategory
@@ -18373,61 +18422,61 @@ LABEL_27:
 
 - (id)_accessibilityUserTestingActionIdentifiers
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   _accessibilityUserTestingActions = [self _accessibilityUserTestingActions];
   if ([_accessibilityUserTestingActions count])
   {
-    v2 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(_accessibilityUserTestingActions, "count")}];
-    v13 = 0u;
+    v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(_accessibilityUserTestingActions, "count")}];
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v3 = _accessibilityUserTestingActions;
-    v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
-    if (v4)
+    v17 = 0u;
+    v4 = _accessibilityUserTestingActions;
+    v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v5)
     {
-      v5 = v4;
-      v6 = *v14;
+      v6 = v5;
+      v7 = *v15;
       do
       {
-        for (i = 0; i != v5; ++i)
+        for (i = 0; i != v6; ++i)
         {
-          if (*v14 != v6)
+          if (*v15 != v7)
           {
-            objc_enumerationMutation(v3);
+            objc_enumerationMutation(v4);
           }
 
-          v8 = *(*(&v13 + 1) + 8 * i);
-          identifier = [v8 identifier];
-          v10 = [identifier length];
+          v9 = *(*(&v14 + 1) + 8 * i);
+          identifier = [v9 identifier];
+          v11 = [identifier length];
 
-          if (!v10)
-          {
-            [NSObject(AXPrivCategory) _accessibilityUserTestingActionIdentifiers];
-          }
-
-          if (![v8 selector])
+          if (!v11)
           {
             [NSObject(AXPrivCategory) _accessibilityUserTestingActionIdentifiers];
           }
 
-          identifier2 = [v8 identifier];
-          [v2 addObject:identifier2];
+          if (![v9 selector])
+          {
+            [NSObject(AXPrivCategory) _accessibilityUserTestingActionIdentifiers];
+          }
+
+          identifier2 = [v9 identifier];
+          [v3 addObject:identifier2];
         }
 
-        v5 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
-      while (v5);
+      while (v6);
     }
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 - (uint64_t)_accessibilityShouldApplySemanticGroupContainerType
@@ -18702,9 +18751,9 @@ LABEL_11:
     [NSObject(AXPrivCategory) _accessibilitySupportedLanguages];
   }
 
-  v1 = _accessibilitySupportedLanguages_Supported;
+  v2 = _accessibilitySupportedLanguages_Supported;
 
-  return v1;
+  return v2;
 }
 
 - (void)_accessibilityAnnouncementComplete:()AXPrivCategory
@@ -19030,7 +19079,7 @@ LABEL_13:
   return v5;
 }
 
-- (uint64_t)_accessibilityUseContextlessPassthroughForDrag
+- (BOOL)_accessibilityUseContextlessPassthroughForDrag
 {
   _accessibilityAllDragSourceDescriptors = [self _accessibilityAllDragSourceDescriptors];
   v3 = [_accessibilityAllDragSourceDescriptors count];

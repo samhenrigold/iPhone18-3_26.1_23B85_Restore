@@ -5,6 +5,8 @@
 - (HDOntologyShardPruner)init;
 - (HDOntologyShardPruner)initWithOntologyUpdateCoordinator:(id)coordinator;
 - (HDOntologyUpdateCoordinator)updateCoordinator;
+- (char)_purgeSpaceForUrgency:(id *)urgency;
+- (char)_purgeableSpaceForUrgency:(id *)urgency;
 - (id)_entriesToPruneWithError:(uint64_t)error;
 - (id)_entriesWithSchemaType:(void *)type entries:;
 - (id)_importerClassesBySchemaType;
@@ -14,10 +16,8 @@
 - (int64_t)purgeSpaceForUrgency:(int)urgency volume:(id)volume;
 - (int64_t)purgeableSpaceForUrgency:(int)urgency volume:(id)volume;
 - (uint64_t)_garbageCollectStagedFilesWithError:(uint64_t)error;
-- (uint64_t)_pruneOntologyWithOptions:(uint64_t)options error:;
-- (uint64_t)_pruneShardsThatAreNotLongerRequiredWithOptions:(uint64_t)options error:;
-- (uint64_t)_purgeSpaceForUrgency:(id *)urgency;
-- (uint64_t)_purgeableSpaceForUrgency:(id *)urgency;
+- (uint64_t)_pruneOntologyWithOptions:(void *)options error:;
+- (uint64_t)_pruneShardsThatAreNotLongerRequiredWithOptions:(void *)options error:;
 - (void)_markPrunedEntries:(uint64_t)entries;
 - (void)_markPrunedEntries:(void *)entries transaction:;
 - (void)_persistPruneRequestMetadataForEntries:(uint64_t)entries;
@@ -52,7 +52,7 @@
 
 - (BOOL)pruneOntologyWithOptions:(unint64_t)options error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v7 = HKLogHealthOntology();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -60,15 +60,15 @@
     v8 = HKStringFromHKOntologyPruneOptions();
     *buf = 138543618;
     selfCopy2 = self;
-    v22 = 2112;
-    v23 = v8;
+    v21 = 2112;
+    v22 = v8;
     _os_log_impl(&dword_2514A1000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Garbage collect and prune ontology with options %{pubic}@", buf, 0x16u);
   }
 
   CFAbsoluteTimeGetCurrent();
-  v19 = 0;
-  v9 = [(HDOntologyShardPruner *)self _pruneOntologyWithOptions:options error:&v19];
-  v10 = v19;
+  v18 = 0;
+  v9 = [(HDOntologyShardPruner *)self _pruneOntologyWithOptions:options error:&v18];
+  v10 = v18;
   _HKInitializeLogging();
   v11 = HKLogHealthOntology();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
@@ -97,12 +97,12 @@
 
     *buf = 138544130;
     selfCopy2 = self;
-    v22 = 2114;
-    v23 = v12;
-    v24 = 2114;
-    v25 = v13;
-    v26 = 2114;
-    v27 = v14;
+    v21 = 2114;
+    v22 = v12;
+    v23 = 2114;
+    v24 = v13;
+    v25 = 2114;
+    v26 = v14;
     _os_log_impl(&dword_2514A1000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@: Garbage collect and prune ontology %{public}@ in %{public}@%{public}@", buf, 0x2Au);
     if ((v9 & 1) == 0)
     {
@@ -124,13 +124,12 @@
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
 - (int64_t)purgeableSpaceForUrgency:(int)urgency volume:(id)volume
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   volumeCopy = volume;
   v7 = volumeCopy;
   if (urgency != 4)
@@ -139,10 +138,10 @@
     v8 = HKLogHealthOntology();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543618;
+      v14 = 138543618;
       selfCopy3 = self;
-      v17 = 1024;
-      LODWORD(v18) = urgency;
+      v16 = 1024;
+      LODWORD(v17) = urgency;
       v9 = "%{public}@: Non-maximum urgency request for purgable space for urgency %d";
       v10 = v8;
       v11 = 18;
@@ -160,15 +159,15 @@ LABEL_8:
     v8 = HKLogHealthOntology();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543618;
+      v14 = 138543618;
       selfCopy3 = self;
-      v17 = 2114;
-      v18 = v7;
+      v16 = 2114;
+      v17 = v7;
       v9 = "%{public}@: No purgable space for requested volume %{public}@";
       v10 = v8;
       v11 = 22;
 LABEL_7:
-      _os_log_impl(&dword_2514A1000, v10, OS_LOG_TYPE_DEFAULT, v9, &v15, v11);
+      _os_log_impl(&dword_2514A1000, v10, OS_LOG_TYPE_DEFAULT, v9, &v14, v11);
       goto LABEL_8;
     }
 
@@ -180,22 +179,21 @@ LABEL_7:
   v8 = HKLogHealthOntology();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138543618;
+    v14 = 138543618;
     selfCopy3 = self;
-    v17 = 2048;
-    v18 = v12;
-    _os_log_impl(&dword_2514A1000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Maximum urgency request for purgable space: %llu bytes", &v15, 0x16u);
+    v16 = 2048;
+    v17 = v12;
+    _os_log_impl(&dword_2514A1000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Maximum urgency request for purgable space: %llu bytes", &v14, 0x16u);
   }
 
 LABEL_9:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 - (int64_t)purgeSpaceForUrgency:(int)urgency volume:(id)volume
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   volumeCopy = volume;
   v7 = volumeCopy;
   if (urgency != 4)
@@ -204,10 +202,10 @@ LABEL_9:
     v8 = HKLogHealthOntology();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543618;
+      v14 = 138543618;
       selfCopy3 = self;
-      v17 = 1024;
-      LODWORD(v18) = urgency;
+      v16 = 1024;
+      LODWORD(v17) = urgency;
       v9 = "%{public}@: Non-maximum urgency request request to purge space for urgency %d";
       v10 = v8;
       v11 = 18;
@@ -225,15 +223,15 @@ LABEL_8:
     v8 = HKLogHealthOntology();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138543618;
+      v14 = 138543618;
       selfCopy3 = self;
-      v17 = 2114;
-      v18 = v7;
+      v16 = 2114;
+      v17 = v7;
       v9 = "%{public}@: Nothing to purge for requested volume %{public}@";
       v10 = v8;
       v11 = 22;
 LABEL_7:
-      _os_log_impl(&dword_2514A1000, v10, OS_LOG_TYPE_DEFAULT, v9, &v15, v11);
+      _os_log_impl(&dword_2514A1000, v10, OS_LOG_TYPE_DEFAULT, v9, &v14, v11);
       goto LABEL_8;
     }
 
@@ -245,16 +243,15 @@ LABEL_7:
   v8 = HKLogHealthOntology();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138543618;
+    v14 = 138543618;
     selfCopy3 = self;
-    v17 = 2048;
-    v18 = v12;
-    _os_log_impl(&dword_2514A1000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Maximum urgency request to purge space: %llu bytes", &v15, 0x16u);
+    v16 = 2048;
+    v17 = v12;
+    _os_log_impl(&dword_2514A1000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Maximum urgency request to purge space: %llu bytes", &v14, 0x16u);
   }
 
 LABEL_9:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -309,36 +306,36 @@ uint64_t __56__HDOntologyShardPruner__entriesWithSchemaType_entries___block_invo
 
 uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___block_invoke(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [MEMORY[0x277CBEAA8] date];
   v5 = HKDiagnosticStringFromDate();
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   obj = *(a1 + 32);
-  v6 = [obj countByEnumeratingWithState:&v20 objects:v30 count:16];
+  v6 = [obj countByEnumeratingWithState:&v19 objects:v29 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v21;
+    v8 = *v20;
     do
     {
       v9 = 0;
       do
       {
-        if (*v21 != v8)
+        if (*v20 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
         v10 = [HDOntologyShardPruner _metadataKeyForPruneRequestForEntry:?];
         v11 = [v3 graphDatabase];
-        v19 = 0;
-        v12 = [v11 setMetadataValue:v5 forKey:v10 error:&v19];
-        v13 = v19;
+        v18 = 0;
+        v12 = [v11 setMetadataValue:v5 forKey:v10 error:&v18];
+        v13 = v18;
 
         if ((v12 & 1) == 0)
         {
@@ -348,11 +345,11 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
           {
             v15 = *(a1 + 40);
             *buf = 138543874;
-            v25 = v15;
-            v26 = 2114;
-            v27 = v10;
-            v28 = 2114;
-            v29 = v13;
+            v24 = v15;
+            v25 = 2114;
+            v26 = v10;
+            v27 = 2114;
+            v28 = v13;
             _os_log_error_impl(&dword_2514A1000, v14, OS_LOG_TYPE_ERROR, "%{public}@: Unable to set metdata value for key %{public}@: %{public}@", buf, 0x20u);
           }
         }
@@ -361,13 +358,12 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v20 objects:v30 count:16];
+      v7 = [obj countByEnumeratingWithState:&v19 objects:v29 count:16];
     }
 
     while (v7);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -392,7 +388,7 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
   return WeakRetained;
 }
 
-- (uint64_t)_pruneOntologyWithOptions:(uint64_t)options error:
+- (uint64_t)_pruneOntologyWithOptions:(void *)options error:
 {
   if (!self || ![(HDOntologyShardPruner *)self _garbageCollectStagedFilesWithError:options])
   {
@@ -402,186 +398,176 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
   return [(HDOntologyShardPruner *)self _pruneShardsThatAreNotLongerRequiredWithOptions:a2 error:options];
 }
 
-- (uint64_t)_purgeableSpaceForUrgency:(id *)urgency
+- (char)_purgeableSpaceForUrgency:(id *)urgency
 {
-  v43 = *MEMORY[0x277D85DE8];
-  if (urgency)
+  v42 = *MEMORY[0x277D85DE8];
+  if (!urgency)
   {
-    urgencyCopy = urgency;
-    _importerClassesBySchemaType = [(HDOntologyShardPruner *)urgency _importerClassesBySchemaType];
-    OUTLINED_FUNCTION_2_1();
-    [(HDOntologyShardPruner *)urgencyCopy _orderedSchemaTypes];
-    objc_claimAutoreleasedReturnValue();
-    OUTLINED_FUNCTION_4_0();
-    obj = v4;
-    v5 = [v4 countByEnumeratingWithState:? objects:? count:?];
-    if (v5)
+    return 0;
+  }
+
+  urgencyCopy = urgency;
+  _importerClassesBySchemaType = [(HDOntologyShardPruner *)urgency _importerClassesBySchemaType];
+  OUTLINED_FUNCTION_2_1();
+  [(HDOntologyShardPruner *)urgencyCopy _orderedSchemaTypes];
+  objc_claimAutoreleasedReturnValue();
+  OUTLINED_FUNCTION_4_0();
+  obj = v4;
+  v5 = [v4 countByEnumeratingWithState:? objects:? count:?];
+  if (v5)
+  {
+    v7 = v5;
+    v8 = 0;
+    v9 = *v35;
+    *&v6 = 138544130;
+    v30 = v6;
+    do
     {
-      v7 = v5;
-      v8 = 0;
-      v9 = *v36;
-      *&v6 = 138544130;
-      v31 = v6;
+      v10 = 0;
+      v31 = v7;
       do
       {
-        v10 = 0;
-        v32 = v7;
-        do
+        if (*v35 != v9)
         {
-          if (*v36 != v9)
-          {
-            objc_enumerationMutation(obj);
-          }
-
-          [_importerClassesBySchemaType objectForKeyedSubscript:{*(v35 + 8 * v10), v31}];
-          if (objc_opt_respondsToSelector())
-          {
-            v11 = v8;
-            WeakRetained = objc_loadWeakRetained(urgencyCopy + 1);
-            [WeakRetained shardRegistry];
-            objc_claimAutoreleasedReturnValue();
-            v13 = [OUTLINED_FUNCTION_3_0() purgeableSpaceForUrgency:? shardRegistry:?];
-
-            urgencyCopy = _importerClassesBySchemaType;
-            _HKInitializeLogging();
-            v14 = HKLogHealthOntology();
-            v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-            if (v15)
-            {
-              OUTLINED_FUNCTION_1_2(v15, v16, v17, v18, v19, v20, v21, v22, v31);
-              _os_log_impl(&dword_2514A1000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ urgency %d purgable space %llu", v23, 0x26u);
-            }
-
-            v8 = v13 + v11;
-            v7 = v32;
-          }
-
-          ++v10;
+          objc_enumerationMutation(obj);
         }
 
-        while (v7 != v10);
-        OUTLINED_FUNCTION_4_0();
-        v7 = [obj countByEnumeratingWithState:? objects:? count:?];
+        [_importerClassesBySchemaType objectForKeyedSubscript:{*(v34 + 8 * v10), v30}];
+        if (objc_opt_respondsToSelector())
+        {
+          v11 = v8;
+          WeakRetained = objc_loadWeakRetained(urgencyCopy + 1);
+          [WeakRetained shardRegistry];
+          objc_claimAutoreleasedReturnValue();
+          v13 = [OUTLINED_FUNCTION_3_0() purgeableSpaceForUrgency:? shardRegistry:?];
+
+          urgencyCopy = _importerClassesBySchemaType;
+          _HKInitializeLogging();
+          v14 = HKLogHealthOntology();
+          v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+          if (v15)
+          {
+            OUTLINED_FUNCTION_1_2(v15, v16, v17, v18, v19, v20, v21, v22, v30);
+            _os_log_impl(&dword_2514A1000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ urgency %d purgable space %llu", v23, 0x26u);
+          }
+
+          v8 = v13 + v11;
+          v7 = v31;
+        }
+
+        ++v10;
       }
 
-      while (v7);
+      while (v7 != v10);
+      OUTLINED_FUNCTION_4_0();
+      v7 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
-    else
-    {
-      v8 = 0;
-    }
-
-    v24 = objc_loadWeakRetained(urgencyCopy + 1);
-    shardRegistry = [v24 shardRegistry];
-    purgeableSpaceForStagedShards = [shardRegistry purgeableSpaceForStagedShards];
-
-    _HKInitializeLogging();
-    v27 = HKLogHealthOntology();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 138543874;
-      v38 = urgencyCopy;
-      v39 = 1024;
-      v40 = a2;
-      v41 = 2048;
-      v42 = purgeableSpaceForStagedShards;
-      _os_log_impl(&dword_2514A1000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@: staged files urgency %d purgable space %llu", buf, 0x1Cu);
-    }
-
-    v28 = purgeableSpaceForStagedShards + v8;
+    while (v7);
   }
 
   else
   {
-    v28 = 0;
+    v8 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
+  v24 = objc_loadWeakRetained(urgencyCopy + 1);
+  shardRegistry = [v24 shardRegistry];
+  purgeableSpaceForStagedShards = [shardRegistry purgeableSpaceForStagedShards];
+
+  _HKInitializeLogging();
+  v27 = HKLogHealthOntology();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138543874;
+    v37 = urgencyCopy;
+    v38 = 1024;
+    v39 = a2;
+    v40 = 2048;
+    v41 = purgeableSpaceForStagedShards;
+    _os_log_impl(&dword_2514A1000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@: staged files urgency %d purgable space %llu", buf, 0x1Cu);
+  }
+
+  v28 = purgeableSpaceForStagedShards + v8;
   return v28;
 }
 
-- (uint64_t)_purgeSpaceForUrgency:(id *)urgency
+- (char)_purgeSpaceForUrgency:(id *)urgency
 {
-  v33 = *MEMORY[0x277D85DE8];
-  if (urgency)
+  if (!urgency)
   {
-    urgencyCopy = urgency;
-    _importerClassesBySchemaType = [(HDOntologyShardPruner *)urgency _importerClassesBySchemaType];
-    OUTLINED_FUNCTION_2_1();
-    [(HDOntologyShardPruner *)urgencyCopy _orderedSchemaTypes];
-    objc_claimAutoreleasedReturnValue();
-    OUTLINED_FUNCTION_4_0();
-    obj = v3;
-    v4 = [v3 countByEnumeratingWithState:? objects:? count:?];
-    if (v4)
+    return 0;
+  }
+
+  urgencyCopy = urgency;
+  _importerClassesBySchemaType = [(HDOntologyShardPruner *)urgency _importerClassesBySchemaType];
+  OUTLINED_FUNCTION_2_1();
+  [(HDOntologyShardPruner *)urgencyCopy _orderedSchemaTypes];
+  objc_claimAutoreleasedReturnValue();
+  OUTLINED_FUNCTION_4_0();
+  obj = v3;
+  v4 = [v3 countByEnumeratingWithState:? objects:? count:?];
+  if (v4)
+  {
+    v6 = v4;
+    v7 = 0;
+    v8 = *v31;
+    *&v5 = 138544130;
+    v27 = v5;
+    do
     {
-      v6 = v4;
-      v7 = 0;
-      v8 = *v32;
-      *&v5 = 138544130;
-      v28 = v5;
+      v9 = 0;
+      v28 = v6;
       do
       {
-        v9 = 0;
-        v29 = v6;
-        do
+        if (*v31 != v8)
         {
-          if (*v32 != v8)
-          {
-            objc_enumerationMutation(obj);
-          }
-
-          [_importerClassesBySchemaType objectForKeyedSubscript:{*(v31 + 8 * v9), v28}];
-          if (objc_opt_respondsToSelector())
-          {
-            v10 = v7;
-            WeakRetained = objc_loadWeakRetained(urgencyCopy + 1);
-            [WeakRetained shardRegistry];
-            objc_claimAutoreleasedReturnValue();
-            v12 = [OUTLINED_FUNCTION_3_0() purgeSpaceForUrgency:? shardRegistry:?];
-
-            urgencyCopy = _importerClassesBySchemaType;
-            _HKInitializeLogging();
-            v13 = HKLogHealthOntology();
-            v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-            if (v14)
-            {
-              OUTLINED_FUNCTION_1_2(v14, v15, v16, v17, v18, v19, v20, v21, v28);
-              _os_log_impl(&dword_2514A1000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ urgency %d request to purge space %llu", v22, 0x26u);
-            }
-
-            v7 = v12 + v10;
-            v6 = v29;
-          }
-
-          ++v9;
+          objc_enumerationMutation(obj);
         }
 
-        while (v6 != v9);
-        OUTLINED_FUNCTION_4_0();
-        v6 = [obj countByEnumeratingWithState:? objects:? count:?];
+        [_importerClassesBySchemaType objectForKeyedSubscript:{*(v30 + 8 * v9), v27}];
+        if (objc_opt_respondsToSelector())
+        {
+          v10 = v7;
+          WeakRetained = objc_loadWeakRetained(urgencyCopy + 1);
+          [WeakRetained shardRegistry];
+          objc_claimAutoreleasedReturnValue();
+          v12 = [OUTLINED_FUNCTION_3_0() purgeSpaceForUrgency:? shardRegistry:?];
+
+          urgencyCopy = _importerClassesBySchemaType;
+          _HKInitializeLogging();
+          v13 = HKLogHealthOntology();
+          v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+          if (v14)
+          {
+            OUTLINED_FUNCTION_1_2(v14, v15, v16, v17, v18, v19, v20, v21, v27);
+            _os_log_impl(&dword_2514A1000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ urgency %d request to purge space %llu", v22, 0x26u);
+          }
+
+          v7 = v12 + v10;
+          v6 = v28;
+        }
+
+        ++v9;
       }
 
-      while (v6);
+      while (v6 != v9);
+      OUTLINED_FUNCTION_4_0();
+      v6 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
-    else
-    {
-      v7 = 0;
-    }
-
-    v23 = objc_loadWeakRetained(urgencyCopy + 1);
-    shardRegistry = [v23 shardRegistry];
-    v25 = [shardRegistry purgeSpaceForStagedShards] + v7;
+    while (v6);
   }
 
   else
   {
-    v25 = 0;
+    v7 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
+  v23 = objc_loadWeakRetained(urgencyCopy + 1);
+  shardRegistry = [v23 shardRegistry];
+  v25 = [shardRegistry purgeSpaceForStagedShards] + v7;
+
   return v25;
 }
 
@@ -623,32 +609,29 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
 
 - (uint64_t)_garbageCollectStagedFilesWithError:(uint64_t)error
 {
-  v17[2] = *MEMORY[0x277D85DE8];
-  if (error)
+  v16[2] = *MEMORY[0x277D85DE8];
+  if (!error)
   {
-    v4 = MEMORY[0x277D10B20];
-    v5 = [MEMORY[0x277D10B28] containsPredicateWithProperty:@"desired_state" values:&unk_286374820];
-    v17[0] = v5;
-    v6 = [MEMORY[0x277D10B18] predicateWithProperty:@"available_state" notEqualToValue:&unk_286374628];
-    v17[1] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
-    v8 = [v4 predicateMatchingAllPredicates:v7];
+    return 0;
+  }
 
-    WeakRetained = objc_loadWeakRetained((error + 8));
-    shardRegistry = [WeakRetained shardRegistry];
-    v11 = [shardRegistry entriesWithPredicate:v8 orderingTerms:0 error:a2];
+  v4 = MEMORY[0x277D10B20];
+  v5 = [MEMORY[0x277D10B28] containsPredicateWithProperty:@"desired_state" values:&unk_286374820];
+  v16[0] = v5;
+  v6 = [MEMORY[0x277D10B18] predicateWithProperty:@"available_state" notEqualToValue:&unk_286374628];
+  v16[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
+  v8 = [v4 predicateMatchingAllPredicates:v7];
 
-    if (v11)
-    {
-      v12 = objc_loadWeakRetained((error + 8));
-      shardRegistry2 = [v12 shardRegistry];
-      v14 = [shardRegistry2 deleteStagedFilesNotMatchingEntries:v11 error:a2];
-    }
+  WeakRetained = objc_loadWeakRetained((error + 8));
+  shardRegistry = [WeakRetained shardRegistry];
+  v11 = [shardRegistry entriesWithPredicate:v8 orderingTerms:0 error:a2];
 
-    else
-    {
-      v14 = 0;
-    }
+  if (v11)
+  {
+    v12 = objc_loadWeakRetained((error + 8));
+    shardRegistry2 = [v12 shardRegistry];
+    v14 = [shardRegistry2 deleteStagedFilesNotMatchingEntries:v11 error:a2];
   }
 
   else
@@ -656,78 +639,77 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
-- (uint64_t)_pruneShardsThatAreNotLongerRequiredWithOptions:(uint64_t)options error:
+- (uint64_t)_pruneShardsThatAreNotLongerRequiredWithOptions:(void *)options error:
 {
   selfCopy = self;
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v5 = [(HDOntologyShardPruner *)self _entriesToPruneWithError:options];
     if (v5)
     {
-      v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
       _importerClassesBySchemaType = [(HDOntologyShardPruner *)selfCopy _importerClassesBySchemaType];
+      v21 = 0u;
       v22 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
-      v9 = [_importerClassesBySchemaType countByEnumeratingWithState:&v22 objects:v26 count:16];
-      if (v9)
+      v8 = [_importerClassesBySchemaType countByEnumeratingWithState:&v21 objects:v25 count:16];
+      if (v8)
       {
-        v10 = v9;
+        v9 = v8;
         optionsCopy = options;
-        v11 = *v23;
-        v18 = 1;
+        v10 = *v22;
+        v17 = 1;
         do
         {
-          v12 = 0;
+          v11 = 0;
           do
           {
-            if (*v23 != v11)
+            if (*v22 != v10)
             {
               objc_enumerationMutation(_importerClassesBySchemaType);
             }
 
-            v13 = *(*(&v22 + 1) + 8 * v12);
-            v14 = [_importerClassesBySchemaType objectForKeyedSubscript:v13];
-            v15 = [(HDOntologyShardPruner *)selfCopy _entriesWithSchemaType:v13 entries:v5];
-            if ([v15 count] | a2 & 1)
+            v12 = *(*(&v21 + 1) + 8 * v11);
+            v13 = [_importerClassesBySchemaType objectForKeyedSubscript:v12];
+            v14 = [(HDOntologyShardPruner *)selfCopy _entriesWithSchemaType:v12 entries:v5];
+            if ([v14 count] | a2 & 1)
             {
-              v16 = [(HDOntologyShardPruner *)selfCopy _requestToPruneEntries:v15 options:a2 schemaType:v13 importerClass:v14 error:optionsCopy];
-              if (v16)
+              v15 = [(HDOntologyShardPruner *)selfCopy _requestToPruneEntries:v14 options:a2 schemaType:v12 importerClass:v13 error:optionsCopy];
+              if (v15)
               {
-                [v19 addObjectsFromArray:v16];
+                [v18 addObjectsFromArray:v15];
               }
 
               else
               {
-                v18 = 0;
+                v17 = 0;
               }
             }
 
-            ++v12;
+            ++v11;
           }
 
-          while (v10 != v12);
-          v17 = [_importerClassesBySchemaType countByEnumeratingWithState:&v22 objects:v26 count:16];
-          v10 = v17;
+          while (v9 != v11);
+          v16 = [_importerClassesBySchemaType countByEnumeratingWithState:&v21 objects:v25 count:16];
+          v9 = v16;
         }
 
-        while (v17);
+        while (v16);
       }
 
       else
       {
-        v18 = 1;
+        v17 = 1;
       }
 
-      [(HDOntologyShardPruner *)selfCopy _markPrunedEntries:v19];
+      [(HDOntologyShardPruner *)selfCopy _markPrunedEntries:v18];
 
-      LOBYTE(selfCopy) = v18;
+      LOBYTE(selfCopy) = v17;
     }
 
     else
@@ -736,21 +718,20 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
     }
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return selfCopy & 1;
 }
 
 - (id)_entriesToPruneWithError:(uint64_t)error
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   if (error)
   {
     v4 = MEMORY[0x277D10B20];
     v5 = [MEMORY[0x277D10B18] predicateWithProperty:@"desired_state" notEqualToValue:&unk_286374628];
-    v14[0] = v5;
+    v13[0] = v5;
     v6 = [MEMORY[0x277D10B18] predicateWithProperty:@"current_version" notEqualToValue:&unk_286374640];
-    v14[1] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[1] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
     v8 = [v4 predicateMatchingAllPredicates:v7];
 
     WeakRetained = objc_loadWeakRetained((error + 8));
@@ -762,8 +743,6 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
   {
     v11 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -791,7 +770,7 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
 
 - (id)_requestToPruneEntries:(uint64_t)entries options:(void *)options schemaType:(void *)type importerClass:(void *)class error:
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v11 = a2;
   optionsCopy = options;
   if (self)
@@ -804,22 +783,22 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
       v14 = HKStringFromHKOntologyPruneOptions();
       OUTLINED_FUNCTION_5_0();
       typeCopy2 = optionsCopy;
-      v35 = v15;
+      v34 = v15;
       typeCopy = type;
-      v37 = v15;
-      v38 = v16;
+      v36 = v15;
+      v37 = v16;
       _os_log_impl(&dword_2514A1000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@: Request to prune content for schema type %{public}@ with %{public}@ %{public}@", buf, 0x2Au);
     }
 
-    v32 = 0;
-    v18 = [(HDOntologyShardPruner *)self _pruneEntries:v11 options:entries schemaType:v17 importerClass:type error:&v32];
-    v19 = v32;
+    v31 = 0;
+    v18 = [(HDOntologyShardPruner *)self _pruneEntries:v11 options:entries schemaType:v17 importerClass:type error:&v31];
+    v19 = v31;
     _HKInitializeLogging();
     v20 = HKLogHealthOntology();
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       classCopy = class;
-      v31 = optionsCopy;
+      v30 = optionsCopy;
       v21 = [v18 count];
       v22 = [v11 count];
       CFAbsoluteTimeGetCurrent();
@@ -836,17 +815,17 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
 
       OUTLINED_FUNCTION_5_0();
       typeCopy2 = type;
-      v35 = 2048;
+      v34 = 2048;
       typeCopy = v21;
-      v37 = 2048;
-      v38 = v22;
-      v39 = v25;
-      optionsCopy = v31;
-      v40 = v31;
-      v41 = v25;
-      v42 = v23;
-      v43 = 2112;
-      v44 = v24;
+      v36 = 2048;
+      v37 = v22;
+      v38 = v25;
+      optionsCopy = v30;
+      v39 = v30;
+      v40 = v25;
+      v41 = v23;
+      v42 = 2112;
+      v43 = v24;
       _os_log_impl(&dword_2514A1000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@: %{public}@ pruned %ld out of %ld eligable %{public}@ shards in %{public}@%@", buf, 0x48u);
       if (!v18)
       {
@@ -876,27 +855,25 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
     v18 = 0;
   }
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v18;
 }
 
 - (void)_markPrunedEntries:(uint64_t)entries
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (entries)
   {
     WeakRetained = objc_loadWeakRetained((entries + 8));
-    v14 = 0;
+    v13 = 0;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6_0();
-    v10 = __44__HDOntologyShardPruner__markPrunedEntries___block_invoke;
-    v11 = &unk_2796B8AF0;
+    v9 = __44__HDOntologyShardPruner__markPrunedEntries___block_invoke;
+    v10 = &unk_2796B8AF0;
     entriesCopy = entries;
-    v13 = v3;
-    v5 = [WeakRetained performOntologyTransactionForWrite:1 databaseTransaction:0 error:&v14 transactionHandler:v9];
-    v6 = v14;
+    v12 = v3;
+    v5 = [WeakRetained performOntologyTransactionForWrite:1 databaseTransaction:0 error:&v13 transactionHandler:v8];
+    v6 = v13;
 
     if ((v5 & 1) == 0)
     {
@@ -906,14 +883,12 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
       {
         *buf = 138543618;
         entriesCopy2 = entries;
-        v17 = 2114;
-        v18 = v6;
+        v16 = 2114;
+        v17 = v6;
         _os_log_error_impl(&dword_2514A1000, v7, OS_LOG_TYPE_ERROR, "%{public}@: Unable to mark pruned entries in the shard registry: %{public}@", buf, 0x16u);
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_pruneEntries:(uint64_t)entries options:(uint64_t)options schemaType:(void *)type importerClass:(uint64_t)class error:
@@ -975,21 +950,21 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
 
 - (void)_persistPruneRequestMetadataForEntries:(uint64_t)entries
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (entries)
   {
     WeakRetained = objc_loadWeakRetained((entries + 8));
-    v16 = 0;
+    v15 = 0;
     OUTLINED_FUNCTION_1();
     OUTLINED_FUNCTION_6_0();
-    v12 = __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___block_invoke;
-    v13 = &unk_2796B8AF0;
+    v11 = __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___block_invoke;
+    v12 = &unk_2796B8AF0;
     v5 = v3;
-    v14 = v5;
+    v13 = v5;
     entriesCopy = entries;
-    v6 = [WeakRetained performOntologyTransactionForWrite:1 databaseTransaction:0 error:&v16 transactionHandler:v11];
-    v7 = v16;
+    v6 = [WeakRetained performOntologyTransactionForWrite:1 databaseTransaction:0 error:&v15 transactionHandler:v10];
+    v7 = v15;
 
     if ((v6 & 1) == 0)
     {
@@ -997,51 +972,49 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
       v8 = HKLogHealthOntology();
       if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        v10 = [v5 count];
+        v9 = [v5 count];
         *buf = 138543874;
         entriesCopy2 = entries;
-        v19 = 2048;
-        v20 = v10;
-        v21 = 2114;
-        v22 = v7;
+        v18 = 2048;
+        v19 = v9;
+        v20 = 2114;
+        v21 = v7;
         _os_log_error_impl(&dword_2514A1000, v8, OS_LOG_TYPE_ERROR, "%{public}@: error persisting prune request metadata for %ld entries: %{public}@", buf, 0x20u);
       }
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_markPrunedEntries:(void *)entries transaction:
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = a2;
   entriesCopy = entries;
   if (self)
   {
     date = [MEMORY[0x277CBEAA8] date];
     OUTLINED_FUNCTION_2_1();
-    v18 = v5;
+    v17 = v5;
     v8 = v5;
-    v9 = [v8 countByEnumeratingWithState:v20 objects:v29 count:16];
+    v9 = [v8 countByEnumeratingWithState:v19 objects:v28 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       do
       {
         v12 = 0;
         do
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(v21 + 8 * v12);
-          v19 = 0;
-          v14 = [(HDOntologyShardPruner *)self _markPrunedEntry:v13 date:date transaction:entriesCopy error:&v19];
-          v15 = v19;
+          v13 = *(v20 + 8 * v12);
+          v18 = 0;
+          v14 = [(HDOntologyShardPruner *)self _markPrunedEntry:v13 date:date transaction:entriesCopy error:&v18];
+          v15 = v18;
           if (!v14)
           {
             _HKInitializeLogging();
@@ -1050,10 +1023,10 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
             {
               *buf = 138543874;
               selfCopy = self;
-              v25 = 2114;
-              v26 = v13;
-              v27 = 2114;
-              v28 = v15;
+              v24 = 2114;
+              v25 = v13;
+              v26 = 2114;
+              v27 = v15;
               _os_log_error_impl(&dword_2514A1000, v16, OS_LOG_TYPE_ERROR, "%{public}@: Unable to mark pruned entry %{public}@ in the shard registry: %{public}@", buf, 0x20u);
             }
           }
@@ -1062,16 +1035,14 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:v20 objects:v29 count:16];
+        v10 = [v8 countByEnumeratingWithState:v19 objects:v28 count:16];
       }
 
       while (v10);
     }
 
-    v5 = v18;
+    v5 = v17;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_markPrunedEntry:(void *)entry date:(void *)date transaction:(uint64_t)transaction error:
@@ -1079,19 +1050,7 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
   v9 = a2;
   entryCopy = entry;
   dateCopy = date;
-  if (!self)
-  {
-    goto LABEL_4;
-  }
-
-  WeakRetained = objc_loadWeakRetained((self + 8));
-  shardRegistry = [WeakRetained shardRegistry];
-  identifier = [v9 identifier];
-  schemaType = [v9 schemaType];
-  v20 = 0;
-  v16 = [shardRegistry entryWithIdentifier:identifier schemaType:schemaType schemaVersion:objc_msgSend(v9 entryOut:"schemaVersion") transaction:&v20 error:{dateCopy, transaction}];
-
-  if (v16)
+  if (self && (WeakRetained = objc_loadWeakRetained((self + 8)), [WeakRetained shardRegistry], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "identifier"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "schemaType"), v15 = objc_claimAutoreleasedReturnValue(), v20 = 0, v16 = objc_msgSend(v13, "entryWithIdentifier:schemaType:schemaVersion:entryOut:transaction:error:", v14, v15, objc_msgSend(v9, "schemaVersion"), &v20, dateCopy, transaction), v15, v14, v13, WeakRetained, v16))
   {
     v17 = [v9 copyWithAvailableStateNotImportedForDate:entryCopy];
     v18 = [HDOntologyShardRegistry insertEntry:v17 transaction:dateCopy error:transaction];
@@ -1099,7 +1058,6 @@ uint64_t __64__HDOntologyShardPruner__persistPruneRequestMetadataForEntries___bl
 
   else
   {
-LABEL_4:
     v18 = 0;
   }
 

@@ -31,9 +31,9 @@
 
   v9 = type metadata accessor for Logger();
   sub_100003E30(v9, qword_10077FB00);
-  sub_100008E04(_swiftEmptyArrayStorage);
-  sub_100008E04(_swiftEmptyArrayStorage);
-  sub_1003F9818("init(coder:) has not been implemented", 37, 2);
+  v10 = sub_100008E04(_swiftEmptyArrayStorage);
+  v11 = sub_100008E04(_swiftEmptyArrayStorage);
+  sub_1003F9818("init(coder:) has not been implemented", 37, 2uLL, v10, v11);
   __break(1u);
   return result;
 }
@@ -121,7 +121,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_10033F6E8(viewCopy);
+  sub_10033F6E8(viewCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }
@@ -135,7 +135,7 @@
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
   viewCopy = view;
   selfCopy = self;
-  sub_100340354();
+  sub_100340354(v10);
   v14 = v13;
 
   (*(v8 + 8))(v10, v7);

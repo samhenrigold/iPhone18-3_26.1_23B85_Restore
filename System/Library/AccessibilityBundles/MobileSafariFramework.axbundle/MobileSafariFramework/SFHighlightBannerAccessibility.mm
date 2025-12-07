@@ -24,30 +24,30 @@
 
 - (void)_accessibilityMarkupButton
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   objc_opt_class();
   v3 = __UIAccessibilityCastAsClass();
   subviews = [v3 subviews];
 
-  v5 = [subviews countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [subviews countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(subviews);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -63,13 +63,11 @@
         }
       }
 
-      v6 = [subviews countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [subviews countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 - (SFHighlightBannerAccessibility)initWithHighlight:(id)highlight

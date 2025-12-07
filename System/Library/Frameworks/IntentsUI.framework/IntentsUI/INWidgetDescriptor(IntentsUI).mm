@@ -12,9 +12,10 @@
     return 360.0;
   }
 
-  result = dbl_22CA489C0[preferredSizeClass];
-  v3 = qword_22CA489E8[preferredSizeClass];
-  return result;
+  else
+  {
+    return dbl_22CA489C0[preferredSizeClass];
+  }
 }
 
 @end

@@ -10,7 +10,7 @@
 - (_UISearchControllerTrackableState)init
 {
   v3 = OBJC_IVAR____UISearchControllerTrackableState_trackableState;
-  _s5StateCMa_0();
+  _s5StateCMa_0(0);
   v4 = swift_allocObject();
   *(v4 + 16) = 0;
   sub_18A4A2C38();
@@ -36,9 +36,8 @@
 
 - (void)setIsActive:(BOOL)active
 {
-  activeCopy = active;
   selfCopy = self;
-  sub_1890A4930(activeCopy);
+  sub_1890A4930(active);
 }
 
 - (void)setActive:(BOOL)active animated:(BOOL)animated

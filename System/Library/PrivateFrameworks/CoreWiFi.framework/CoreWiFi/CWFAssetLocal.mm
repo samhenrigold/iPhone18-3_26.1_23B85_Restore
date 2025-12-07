@@ -34,7 +34,7 @@
 
 + (BOOL)isValidAssetVersion:(id)version
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   versionCopy = version;
   v4 = objc_autoreleasePoolPush();
   v5 = [objc_alloc(sub_1E0BFC038()) initWithRestoreVersion:versionCopy];
@@ -52,17 +52,28 @@
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    _os_log_send_and_compose_impl();
+    v9 = @"NO";
+    v11 = 136315650;
+    v12 = "+[CWFAssetLocal isValidAssetVersion:]";
+    v13 = 2112;
+    v14 = versionCopy;
+    if (v5)
+    {
+      v9 = @"YES";
+    }
+
+    v15 = 2112;
+    v16 = v9;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 2, "[corewifi] %s: assetVersion: %@ valid: %@", &v11, 32);
   }
 
   objc_autoreleasePoolPop(v4);
-  v9 = *MEMORY[0x1E69E9840];
   return v5 != 0;
 }
 
 + (BOOL)isValidRestoreOSVersion:(id)version
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   versionCopy = version;
   v4 = objc_autoreleasePoolPush();
   v5 = [objc_alloc(sub_1E0BFC038()) initWithRestoreVersion:versionCopy];
@@ -80,17 +91,28 @@
 
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    _os_log_send_and_compose_impl();
+    v9 = @"NO";
+    v11 = 136315650;
+    v12 = "+[CWFAssetLocal isValidRestoreOSVersion:]";
+    v13 = 2112;
+    v14 = versionCopy;
+    if (v5)
+    {
+      v9 = @"YES";
+    }
+
+    v15 = 2112;
+    v16 = v9;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v7, 2, "[corewifi] %s: RestoreVersion: %@ valid: %@", &v11, 32);
   }
 
   objc_autoreleasePoolPop(v4);
-  v9 = *MEMORY[0x1E69E9840];
   return v5 != 0;
 }
 
 + (BOOL)isValidOSVersion:(id)version
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   versionCopy = version;
   v4 = objc_autoreleasePoolPush();
   v5 = [CWFAssetLocal restoreOSVersionFromOSVersion:versionCopy];
@@ -109,17 +131,30 @@
 
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    _os_log_send_and_compose_impl();
+    v10 = @"NO";
+    v12 = 136315906;
+    v13 = "+[CWFAssetLocal isValidOSVersion:]";
+    if (v6)
+    {
+      v10 = @"YES";
+    }
+
+    v14 = 2112;
+    v15 = versionCopy;
+    v16 = 2112;
+    v17 = v5;
+    v18 = 2112;
+    v19 = v10;
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v8, 0, "[corewifi] %s: osVersion: %@, restoreOSVersionString: %@, valid: %@", &v12, 42);
   }
 
   objc_autoreleasePoolPop(v4);
-  v10 = *MEMORY[0x1E69E9840];
   return v6 != 0;
 }
 
 + (id)restoreOSVersionFromOSVersion:(id)version
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   versionCopy = version;
   v4 = versionCopy;
   if (!versionCopy || ([versionCopy isEqual:&stru_1F5B8FC80] & 1) != 0 || (objc_msgSend(v4, "containsString:", @",") & 1) != 0)
@@ -129,25 +164,29 @@
 
   else
   {
-    v8 = [v4 componentsSeparatedByString:@"."];
-    v9 = [v8 count];
-    if (v9 > 5)
+    v7 = [v4 componentsSeparatedByString:@"."];
+    v8 = [v7 count];
+    if (v8 > 5)
     {
-      v14 = CWFGetOSLog();
-      if (v14)
+      v13 = CWFGetOSLog();
+      if (v13)
       {
-        v15 = CWFGetOSLog();
+        v14 = CWFGetOSLog();
       }
 
       else
       {
-        v15 = MEMORY[0x1E69E9C10];
-        v21 = MEMORY[0x1E69E9C10];
+        v14 = MEMORY[0x1E69E9C10];
+        v20 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        _os_log_send_and_compose_impl();
+        v21 = 136315394;
+        v22 = "+[CWFAssetLocal restoreOSVersionFromOSVersion:]";
+        v23 = 2114;
+        v24 = v4;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v14, 16, "[corewifi] %s:too many elements in osVersion:%{public}@", &v21, 22);
       }
 
       v5 = 0;
@@ -155,42 +194,40 @@
 
     else
     {
-      v10 = v9;
-      v11 = objc_alloc_init(MEMORY[0x1E696AD60]);
-      v12 = [v8 objectAtIndexedSubscript:0];
-      v13 = [v12 isEqualToString:&stru_1F5B8FC80];
+      v9 = v8;
+      v10 = objc_alloc_init(MEMORY[0x1E696AD60]);
+      v11 = [v7 objectAtIndexedSubscript:0];
+      v12 = [v11 isEqualToString:&stru_1F5B8FC80];
 
-      if (v13)
+      if (v12)
       {
-        [v11 appendString:@"0"];
+        [v10 appendString:@"0"];
       }
 
       else
       {
-        v16 = [v8 objectAtIndexedSubscript:0];
-        [v11 appendString:v16];
+        v15 = [v7 objectAtIndexedSubscript:0];
+        [v10 appendString:v15];
       }
 
       for (i = 1; i != 5; ++i)
       {
-        if (i >= v10 || ([v8 objectAtIndexedSubscript:i], v18 = objc_claimAutoreleasedReturnValue(), v19 = objc_msgSend(v18, "isEqualToString:", &stru_1F5B8FC80), v18, (v19 & 1) != 0))
+        if (i >= v9 || ([v7 objectAtIndexedSubscript:i], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "isEqualToString:", &stru_1F5B8FC80), v17, (v18 & 1) != 0))
         {
-          v20 = @"0";
+          v19 = @"0";
         }
 
         else
         {
-          v20 = [v8 objectAtIndexedSubscript:i];
+          v19 = [v7 objectAtIndexedSubscript:i];
         }
 
-        [v11 appendFormat:@".%@", v20];
+        [v10 appendFormat:@".%@", v19];
       }
 
-      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@, 0", v11];
+      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@, 0", v10];
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -246,12 +283,12 @@
 
 - (BOOL)sanityCheckOSRestoreVersion:(id)version
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   versionCopy = version;
   v5 = versionCopy;
   if (!versionCopy)
   {
-    goto LABEL_55;
+    goto LABEL_60;
   }
 
   v6 = [versionCopy objectForKey:@"_OSRestoreVersionCompatibilities"];
@@ -272,10 +309,20 @@
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v28 = @"empty";
+      if (!v7)
+      {
+        v28 = @"nil";
+      }
+
+      *v44 = 136315394;
+      *&v44[4] = "[CWFAssetLocal sanityCheckOSRestoreVersion:]";
+      *&v44[12] = 2112;
+      *&v44[14] = v28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 16, "[OTA] %s: restoreVersionCompatibilities is %@", v44, 22);
     }
 
-    goto LABEL_54;
+    goto LABEL_59;
   }
 
   v8 = MGCopyAnswer();
@@ -291,15 +338,25 @@
     else
     {
       v11 = MEMORY[0x1E69E9C10];
-      v28 = MEMORY[0x1E69E9C10];
+      v29 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v30 = @"empty string";
+      if (!v9)
+      {
+        v30 = @"nil";
+      }
+
+      *v44 = 136315394;
+      *&v44[4] = "[CWFAssetLocal sanityCheckOSRestoreVersion:]";
+      *&v44[12] = 2112;
+      *&v44[14] = v30;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 16, "[OTA] %s: deviceName is %@", v44, 22);
     }
 
-    goto LABEL_53;
+    goto LABEL_58;
   }
 
   v10 = [v7 objectForKey:v9];
@@ -315,15 +372,25 @@
     else
     {
       restoreVersion = MEMORY[0x1E69E9C10];
-      v29 = MEMORY[0x1E69E9C10];
+      v31 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(restoreVersion, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(restoreVersion, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_52;
+      v32 = @"empty";
+      if (!v11)
+      {
+        v32 = @"nil";
+      }
+
+      *v44 = 136315394;
+      *&v44[4] = "[CWFAssetLocal sanityCheckOSRestoreVersion:]";
+      *&v44[12] = 2112;
+      *&v44[14] = v32;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, restoreVersion, 16, "[OTA] %s: supportedBuildRange is %@", v44, 22, *v44, *&v44[8], v45);
     }
 
-    goto LABEL_43;
+    goto LABEL_57;
   }
 
   v12 = [v11 objectForKey:@"_MinOSRestoreVersion"];
@@ -345,27 +412,22 @@
     else
     {
       restoreVersion = MEMORY[0x1E69E9C10];
-      v30 = MEMORY[0x1E69E9C10];
+      v33 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(restoreVersion, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(restoreVersion, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_52;
+      v34 = self->_firstSupportedBuild;
+      v35 = self->_lastSupportedBuild;
+      *v44 = 136315650;
+      *&v44[4] = "[CWFAssetLocal sanityCheckOSRestoreVersion:]";
+      *&v44[12] = 2112;
+      *&v44[14] = v34;
+      *&v44[22] = 2112;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, restoreVersion, 16, "[OTA] %s: Malformed first or last supported builds. firstSupportedBuild: %@, lastSupportedBuild: %@", v44, 32, *v44, *&v44[8], v35);
     }
 
-LABEL_42:
-    v36 = self->_firstSupportedBuild;
-    v38 = self->_lastSupportedBuild;
-LABEL_43:
-    _os_log_send_and_compose_impl();
-LABEL_52:
-
-LABEL_53:
-LABEL_54:
-
-LABEL_55:
-    v18 = 0;
-    goto LABEL_56;
+    goto LABEL_57;
   }
 
   if (([CWFAssetLocal compareOSRestoreVersion:self->_firstSupportedBuild withVersion:self->_lastSupportedBuild]- 1) <= 0xFDu)
@@ -379,15 +441,22 @@ LABEL_55:
     else
     {
       restoreVersion = MEMORY[0x1E69E9C10];
-      v31 = MEMORY[0x1E69E9C10];
+      v36 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(restoreVersion, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(restoreVersion, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_52;
+      v37 = self->_firstSupportedBuild;
+      v38 = self->_lastSupportedBuild;
+      *v44 = 136315650;
+      *&v44[4] = "[CWFAssetLocal sanityCheckOSRestoreVersion:]";
+      *&v44[12] = 2112;
+      *&v44[14] = v37;
+      *&v44[22] = 2112;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, restoreVersion, 16, "[OTA] %s: First build is larger than last build. firstSupportedBuild: %@, lastSupportedBuild: %@", v44, 32, *v44, *&v44[8], v38);
     }
 
-    goto LABEL_42;
+    goto LABEL_57;
   }
 
   sharedDevice = [sub_1E0BFCECC() sharedDevice];
@@ -404,16 +473,21 @@ LABEL_55:
     else
     {
       v25 = MEMORY[0x1E69E9C10];
-      v32 = MEMORY[0x1E69E9C10];
+      v39 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_51;
+      v40 = self->_firstSupportedBuild;
+      *v44 = 136315650;
+      *&v44[4] = "[CWFAssetLocal sanityCheckOSRestoreVersion:]";
+      *&v44[12] = 2112;
+      *&v44[14] = v40;
+      *&v44[22] = 2112;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v25, 16, "[OTA] %s: First build is larger than current build firstSupportedBuild: %@, currentRestoreVersion: %@", v44, 32, *v44, *&v44[8], restoreVersion);
     }
 
-    v37 = self->_firstSupportedBuild;
-    goto LABEL_50;
+    goto LABEL_56;
   }
 
   if (([CWFAssetLocal compareOSRestoreVersion:restoreVersion withVersion:self->_lastSupportedBuild]- 1) <= 0xFDu)
@@ -427,37 +501,45 @@ LABEL_55:
     else
     {
       v25 = MEMORY[0x1E69E9C10];
-      v33 = MEMORY[0x1E69E9C10];
+      v41 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_51;
+      v42 = self->_lastSupportedBuild;
+      *v44 = 136315650;
+      *&v44[4] = "[CWFAssetLocal sanityCheckOSRestoreVersion:]";
+      *&v44[12] = 2112;
+      *&v44[14] = restoreVersion;
+      *&v44[22] = 2112;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v25, 16, "[OTA] %s: Current build is larger than last supported build currentRestoreVersion: %@, lastSupportedBuild: %@", v44, 32, *v44, *&v44[8], v42);
     }
 
-    v39 = self->_lastSupportedBuild;
-LABEL_50:
-    _os_log_send_and_compose_impl();
-LABEL_51:
+LABEL_56:
 
-    goto LABEL_52;
+LABEL_57:
+LABEL_58:
+
+LABEL_59:
+LABEL_60:
+    v18 = 0;
+    goto LABEL_61;
   }
 
   v18 = 1;
-LABEL_56:
+LABEL_61:
 
-  v34 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (BOOL)sanityCheckOSVersion:(id)version
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   versionCopy = version;
   v5 = versionCopy;
   if (!versionCopy)
   {
-    goto LABEL_55;
+    goto LABEL_60;
   }
 
   v6 = [versionCopy objectForKey:@"_OSVersionCompatibilities"];
@@ -478,10 +560,20 @@ LABEL_56:
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v28 = @"empty";
+      if (!v7)
+      {
+        v28 = @"nil";
+      }
+
+      *v44 = 136315394;
+      *&v44[4] = "[CWFAssetLocal sanityCheckOSVersion:]";
+      *&v44[12] = 2112;
+      *&v44[14] = v28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v9, 16, "[OTA] %s: OSVersionCompatibilities is %@", v44, 22);
     }
 
-    goto LABEL_54;
+    goto LABEL_59;
   }
 
   v8 = MGCopyAnswer();
@@ -497,15 +589,25 @@ LABEL_56:
     else
     {
       v11 = MEMORY[0x1E69E9C10];
-      v28 = MEMORY[0x1E69E9C10];
+      v29 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      _os_log_send_and_compose_impl();
+      v30 = @"empty string";
+      if (!v9)
+      {
+        v30 = @"nil";
+      }
+
+      *v44 = 136315394;
+      *&v44[4] = "[CWFAssetLocal sanityCheckOSVersion:]";
+      *&v44[12] = 2112;
+      *&v44[14] = v30;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v11, 16, "[OTA] %s: deviceName is %@", v44, 22);
     }
 
-    goto LABEL_53;
+    goto LABEL_58;
   }
 
   v10 = [v7 objectForKey:v9];
@@ -521,15 +623,25 @@ LABEL_56:
     else
     {
       productVersion = MEMORY[0x1E69E9C10];
-      v29 = MEMORY[0x1E69E9C10];
+      v31 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(productVersion, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(productVersion, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_52;
+      v32 = @"empty";
+      if (!v11)
+      {
+        v32 = @"nil";
+      }
+
+      *v44 = 136315394;
+      *&v44[4] = "[CWFAssetLocal sanityCheckOSVersion:]";
+      *&v44[12] = 2112;
+      *&v44[14] = v32;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, productVersion, 16, "[OTA] %s: supportedOSRange is %@", v44, 22, *v44, *&v44[8], v45);
     }
 
-    goto LABEL_43;
+    goto LABEL_57;
   }
 
   v12 = [v11 objectForKey:@"_MinOSVersion"];
@@ -551,27 +663,22 @@ LABEL_56:
     else
     {
       productVersion = MEMORY[0x1E69E9C10];
-      v30 = MEMORY[0x1E69E9C10];
+      v33 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(productVersion, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(productVersion, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_52;
+      v34 = self->_firstSupportedOS;
+      v35 = self->_lastSupportedOS;
+      *v44 = 136315650;
+      *&v44[4] = "[CWFAssetLocal sanityCheckOSVersion:]";
+      *&v44[12] = 2112;
+      *&v44[14] = v34;
+      *&v44[22] = 2112;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, productVersion, 16, "[OTA] %s: Malformed first or last supported OS Version. firstSupportedOS: %@, lastSupportedOS: %@", v44, 32, *v44, *&v44[8], v35);
     }
 
-LABEL_42:
-    v36 = self->_firstSupportedOS;
-    v38 = self->_lastSupportedOS;
-LABEL_43:
-    _os_log_send_and_compose_impl();
-LABEL_52:
-
-LABEL_53:
-LABEL_54:
-
-LABEL_55:
-    v18 = 0;
-    goto LABEL_56;
+    goto LABEL_57;
   }
 
   if (([CWFAssetLocal compareOSVersion:self->_firstSupportedOS withVersion:self->_lastSupportedOS]- 1) <= 0xFDu)
@@ -585,15 +692,22 @@ LABEL_55:
     else
     {
       productVersion = MEMORY[0x1E69E9C10];
-      v31 = MEMORY[0x1E69E9C10];
+      v36 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(productVersion, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(productVersion, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_52;
+      v37 = self->_firstSupportedOS;
+      v38 = self->_lastSupportedOS;
+      *v44 = 136315650;
+      *&v44[4] = "[CWFAssetLocal sanityCheckOSVersion:]";
+      *&v44[12] = 2112;
+      *&v44[14] = v37;
+      *&v44[22] = 2112;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, productVersion, 16, "[OTA] %s: First OS version is larger than last OS Version. firstSupportedOS: %@, lastSupportedOS: %@", v44, 32, *v44, *&v44[8], v38);
     }
 
-    goto LABEL_42;
+    goto LABEL_57;
   }
 
   sharedDevice = [sub_1E0BFCECC() sharedDevice];
@@ -610,16 +724,21 @@ LABEL_55:
     else
     {
       v25 = MEMORY[0x1E69E9C10];
-      v32 = MEMORY[0x1E69E9C10];
+      v39 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_51;
+      v40 = self->_firstSupportedOS;
+      *v44 = 136315650;
+      *&v44[4] = "[CWFAssetLocal sanityCheckOSVersion:]";
+      *&v44[12] = 2112;
+      *&v44[14] = v40;
+      *&v44[22] = 2112;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v25, 16, "[OTA] %s: First OS Version is larger than current OS Version firstSupportedOS: %@, currentOSVersion: %@", v44, 32, *v44, *&v44[8], productVersion);
     }
 
-    v37 = self->_firstSupportedOS;
-    goto LABEL_50;
+    goto LABEL_56;
   }
 
   if (([CWFAssetLocal compareOSVersion:productVersion withVersion:self->_lastSupportedOS]- 1) <= 0xFDu)
@@ -633,32 +752,40 @@ LABEL_55:
     else
     {
       v25 = MEMORY[0x1E69E9C10];
-      v33 = MEMORY[0x1E69E9C10];
+      v41 = MEMORY[0x1E69E9C10];
     }
 
-    if (!os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
-      goto LABEL_51;
+      v42 = self->_lastSupportedOS;
+      *v44 = 136315650;
+      *&v44[4] = "[CWFAssetLocal sanityCheckOSVersion:]";
+      *&v44[12] = 2112;
+      *&v44[14] = productVersion;
+      *&v44[22] = 2112;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v25, 16, "[OTA] %s: Current OS Version is larger than last supported OS Version currentOSVersion: %@, lastSupportedOS: %@", v44, 32, *v44, *&v44[8], v42);
     }
 
-    v39 = self->_lastSupportedOS;
-LABEL_50:
-    _os_log_send_and_compose_impl();
-LABEL_51:
+LABEL_56:
 
-    goto LABEL_52;
+LABEL_57:
+LABEL_58:
+
+LABEL_59:
+LABEL_60:
+    v18 = 0;
+    goto LABEL_61;
   }
 
   v18 = 1;
-LABEL_56:
+LABEL_61:
 
-  v34 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (BOOL)sanityCheckSKUVersion:(id)version
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   versionCopy = version;
   if (versionCopy)
   {
@@ -674,26 +801,26 @@ LABEL_56:
       {
         v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithData:v5 encoding:4];
         uTF8String = [v10 UTF8String];
+        v19 = 0u;
         v20 = 0u;
         v21 = 0u;
         v22 = 0u;
-        v23 = 0u;
         v9 = v9;
-        v12 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v12 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v12)
         {
           v13 = v12;
-          v14 = *v21;
+          v14 = *v20;
           while (2)
           {
             for (i = 0; i != v13; ++i)
             {
-              if (*v21 != v14)
+              if (*v20 != v14)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v16 = *(*(&v20 + 1) + 8 * i);
+              v16 = *(*(&v19 + 1) + 8 * i);
               if (!strcmp([v16 UTF8String], uTF8String))
               {
 
@@ -701,7 +828,7 @@ LABEL_56:
               }
             }
 
-            v13 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+            v13 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
             if (v13)
             {
               continue;
@@ -725,7 +852,6 @@ LABEL_17:
   v17 = 0;
 LABEL_21:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -739,7 +865,7 @@ LABEL_21:
 
 - (id)getCoreWiFiCatalogDataFromMobileAssetFile:(id)file
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   fileCopy = file;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -748,17 +874,17 @@ LABEL_21:
 
   if ((v7 & 1) == 0)
   {
-    v21 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v20 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       path2 = [fileCopy path];
-      v26 = 136446722;
-      v27 = "[CWFAssetLocal getCoreWiFiCatalogDataFromMobileAssetFile:]";
-      v28 = 1024;
-      v29 = 326;
-      v30 = 2112;
-      v31 = path2;
-      _os_log_impl(&dword_1E0BBF000, v21, OS_LOG_TYPE_ERROR, "%{public}s::%d:Path doesn't exist %@", &v26, 0x1Cu);
+      v25 = 136446722;
+      v26 = "[CWFAssetLocal getCoreWiFiCatalogDataFromMobileAssetFile:]";
+      v27 = 1024;
+      v28 = 326;
+      v29 = 2112;
+      v30 = path2;
+      _os_log_impl(&dword_1E0BBF000, v20, OS_LOG_TYPE_ERROR, "%{public}s::%d:Path doesn't exist %@", &v25, 0x1Cu);
     }
 
     v10 = 0;
@@ -774,19 +900,19 @@ LABEL_21:
 
   if ((v8URLByDeletingLastPathComponent & 1) == 0)
   {
-    v23 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v22 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       path4 = [v10 path];
-      v26 = 136446722;
-      v27 = "[CWFAssetLocal getCoreWiFiCatalogDataFromMobileAssetFile:]";
-      v28 = 1024;
-      v29 = 329;
-      v30 = 2112;
-      v31 = path4;
-      v25 = "%{public}s::%d:Core WiFi Mobile Asset Catalog XML File doesn't exist %@";
+      v25 = 136446722;
+      v26 = "[CWFAssetLocal getCoreWiFiCatalogDataFromMobileAssetFile:]";
+      v27 = 1024;
+      v28 = 329;
+      v29 = 2112;
+      v30 = path4;
+      v24 = "%{public}s::%d:Core WiFi Mobile Asset Catalog XML File doesn't exist %@";
 LABEL_20:
-      _os_log_impl(&dword_1E0BBF000, v23, OS_LOG_TYPE_ERROR, v25, &v26, 0x1Cu);
+      _os_log_impl(&dword_1E0BBF000, v22, OS_LOG_TYPE_ERROR, v24, &v25, 0x1Cu);
     }
 
 LABEL_21:
@@ -799,17 +925,17 @@ LABEL_22:
   v12 = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:v10];
   if (!v12)
   {
-    v23 = CWFGetOTAOSLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v22 = CWFGetOTAOSLog();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       path4 = [v10 path];
-      v26 = 136446722;
-      v27 = "[CWFAssetLocal getCoreWiFiCatalogDataFromMobileAssetFile:]";
-      v28 = 1024;
-      v29 = 332;
-      v30 = 2112;
-      v31 = path4;
-      v25 = "%{public}s::%d:Core WiFi Mobile Asset Catalog XML File Empty %@";
+      v25 = 136446722;
+      v26 = "[CWFAssetLocal getCoreWiFiCatalogDataFromMobileAssetFile:]";
+      v27 = 1024;
+      v28 = 332;
+      v29 = 2112;
+      v30 = path4;
+      v24 = "%{public}s::%d:Core WiFi Mobile Asset Catalog XML File Empty %@";
       goto LABEL_20;
     }
 
@@ -837,16 +963,14 @@ LABEL_8:
   v18 = CWFGetOTAOSLog();
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 136446722;
-    v27 = "[CWFAssetLocal getCoreWiFiCatalogDataFromMobileAssetFile:]";
-    v28 = 1024;
-    v29 = 344;
-    v30 = 2112;
-    v31 = dictionary;
-    _os_log_impl(&dword_1E0BBF000, v18, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Core WiFi Mobile Asset Catalog XML Data %@", &v26, 0x1Cu);
+    v25 = 136446722;
+    v26 = "[CWFAssetLocal getCoreWiFiCatalogDataFromMobileAssetFile:]";
+    v27 = 1024;
+    v28 = 344;
+    v29 = 2112;
+    v30 = dictionary;
+    _os_log_impl(&dword_1E0BBF000, v18, OS_LOG_TYPE_DEFAULT, "%{public}s::%d:Core WiFi Mobile Asset Catalog XML Data %@", &v25, 0x1Cu);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -948,27 +1072,27 @@ LABEL_8:
 
     if (!v34)
     {
-      v62 = CWFGetOTAOSLog();
-      if (v62)
+      v61 = CWFGetOTAOSLog();
+      if (v61)
       {
-        v63 = CWFGetOTAOSLog();
+        v62 = CWFGetOTAOSLog();
       }
 
       else
       {
-        v63 = MEMORY[0x1E69E9C10];
-        v71 = MEMORY[0x1E69E9C10];
+        v62 = MEMORY[0x1E69E9C10];
+        v70 = MEMORY[0x1E69E9C10];
       }
 
       versionCopy = v80;
-      if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
       {
         v88 = 136315394;
         v89 = "[CWFAssetLocal initWithAssetType:assetSpecifier:assetVersion:attributes:rootCatalogInfo:localURL:]";
         v90 = 2112;
         v91 = v80;
-        v79 = &v88;
-        _os_log_send_and_compose_impl();
+        LODWORD(v79) = 22;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v62, 16, "[OTA] %s: assetVersion:%@ is nil or malformed", &v88, v79);
       }
 
       v55 = 0;
@@ -983,30 +1107,30 @@ LABEL_8:
 
     if (v37)
     {
-      v64 = CWFGetOTAOSLog();
-      if (v64)
+      v63 = CWFGetOTAOSLog();
+      if (v63)
       {
-        v65 = CWFGetOTAOSLog();
+        v64 = CWFGetOTAOSLog();
       }
 
       else
       {
-        v65 = MEMORY[0x1E69E9C10];
-        v72 = MEMORY[0x1E69E9C10];
+        v64 = MEMORY[0x1E69E9C10];
+        v71 = MEMORY[0x1E69E9C10];
       }
 
-      if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
       {
-        v73 = +[CWFAssetPowerTable sharedObj];
-        assetSpecifierToTrack2 = [v73 assetSpecifierToTrack];
+        v72 = +[CWFAssetPowerTable sharedObj];
+        assetSpecifierToTrack2 = [v72 assetSpecifierToTrack];
         v88 = 136315650;
         v89 = "[CWFAssetLocal initWithAssetType:assetSpecifier:assetVersion:attributes:rootCatalogInfo:localURL:]";
         v90 = 2112;
         v91 = v86;
         v92 = 2112;
         v93 = assetSpecifierToTrack2;
-        v79 = &v88;
-        _os_log_send_and_compose_impl();
+        LODWORD(v79) = 32;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v64, 16, "[OTA] %s: assetSpecifier:%@ is nil or malformed, or doesn't match required %@", &v88, v79);
       }
 
       v56 = 0;
@@ -1043,8 +1167,8 @@ LABEL_8:
               v89 = "[CWFAssetLocal initWithAssetType:assetSpecifier:assetVersion:attributes:rootCatalogInfo:localURL:]";
               v90 = 2112;
               v91 = v53;
-              v79 = &v88;
-              _os_log_send_and_compose_impl();
+              LODWORD(v79) = 22;
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v51, 0, "[OTA] %s: Initialized CWFAssetLocal %@", &v88, v79);
             }
 
             v54 = 1;
@@ -1058,21 +1182,20 @@ LABEL_8:
           {
             if (v49)
             {
-              v69 = CWFGetOTAOSLog();
+              v68 = CWFGetOTAOSLog();
             }
 
             else
             {
-              v69 = MEMORY[0x1E69E9C10];
-              v78 = MEMORY[0x1E69E9C10];
+              v68 = MEMORY[0x1E69E9C10];
+              v77 = MEMORY[0x1E69E9C10];
             }
 
-            if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
             {
               v88 = 136315138;
               v89 = "[CWFAssetLocal initWithAssetType:assetSpecifier:assetVersion:attributes:rootCatalogInfo:localURL:]";
-              v79 = &v88;
-              _os_log_send_and_compose_impl();
+              _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v68, 16, "[OTA] %s: sanityCheckSKUVersion failed.", &v88);
             }
 
             v54 = 0;
@@ -1087,21 +1210,20 @@ LABEL_8:
 
         if (v49)
         {
-          v68 = CWFGetOTAOSLog();
+          v67 = CWFGetOTAOSLog();
         }
 
         else
         {
-          v68 = MEMORY[0x1E69E9C10];
-          v77 = MEMORY[0x1E69E9C10];
+          v67 = MEMORY[0x1E69E9C10];
+          v76 = MEMORY[0x1E69E9C10];
         }
 
-        if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
         {
           v88 = 136315138;
           v89 = "[CWFAssetLocal initWithAssetType:assetSpecifier:assetVersion:attributes:rootCatalogInfo:localURL:]";
-          v79 = &v88;
-          _os_log_send_and_compose_impl();
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v67, 16, "[OTA] %s: sanityCheckOSRestoreVersion failed.", &v88);
         }
 
         v39 = 0;
@@ -1110,30 +1232,6 @@ LABEL_8:
         goto LABEL_69;
       }
 
-      if (v49)
-      {
-        v67 = CWFGetOTAOSLog();
-      }
-
-      else
-      {
-        v67 = MEMORY[0x1E69E9C10];
-        v76 = MEMORY[0x1E69E9C10];
-      }
-
-      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
-      {
-        v88 = 136315138;
-        v89 = "[CWFAssetLocal initWithAssetType:assetSpecifier:assetVersion:attributes:rootCatalogInfo:localURL:]";
-        v79 = &v88;
-        _os_log_send_and_compose_impl();
-      }
-
-      v38 = 0;
-    }
-
-    else
-    {
       if (v49)
       {
         v66 = CWFGetOTAOSLog();
@@ -1149,8 +1247,30 @@ LABEL_8:
       {
         v88 = 136315138;
         v89 = "[CWFAssetLocal initWithAssetType:assetSpecifier:assetVersion:attributes:rootCatalogInfo:localURL:]";
-        v79 = &v88;
-        _os_log_send_and_compose_impl();
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v66, 16, "[OTA] %s: sanityCheckOSVersion failed.", &v88);
+      }
+
+      v38 = 0;
+    }
+
+    else
+    {
+      if (v49)
+      {
+        v65 = CWFGetOTAOSLog();
+      }
+
+      else
+      {
+        v65 = MEMORY[0x1E69E9C10];
+        v74 = MEMORY[0x1E69E9C10];
+      }
+
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+      {
+        v88 = 136315138;
+        v89 = "[CWFAssetLocal initWithAssetType:assetSpecifier:assetVersion:attributes:rootCatalogInfo:localURL:]";
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v65, 16, "[OTA] %s: localAsset.attributes is nil", &v88);
       }
     }
 
@@ -1162,25 +1282,24 @@ LABEL_70:
     goto LABEL_27;
   }
 
-  v60 = CWFGetOTAOSLog();
-  if (v60)
+  v59 = CWFGetOTAOSLog();
+  if (v59)
   {
-    v61 = CWFGetOTAOSLog();
+    v60 = CWFGetOTAOSLog();
   }
 
   else
   {
-    v61 = MEMORY[0x1E69E9C10];
-    v70 = MEMORY[0x1E69E9C10];
+    v60 = MEMORY[0x1E69E9C10];
+    v69 = MEMORY[0x1E69E9C10];
   }
 
-  v84 = v61;
-  if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
+  v84 = v60;
+  if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
   {
     v88 = 136315138;
     v89 = "[CWFAssetLocal initWithAssetType:assetSpecifier:assetVersion:attributes:rootCatalogInfo:localURL:]";
-    v79 = &v88;
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_1E0BBF000, v60, 16, "[OTA] %s: Failed to super init", &v88);
   }
 
   v83 = 0;
@@ -1192,12 +1311,12 @@ LABEL_70:
 LABEL_27:
 
   v57 = +[CWFAssetPowerTableTelemetry sharedObj];
-  BYTE4(v79) = v83;
-  BYTE3(v79) = v54;
-  BYTE2(v79) = v39;
-  BYTE1(v79) = v38;
-  LOBYTE(v79) = v55;
-  [v57 setAssetLocalInfo:v82 assetSpecifier:v86 assetVersion:versionCopy assetBuild:v20->_assetBuild lastTimeCatalogChecked:v20->_lastTimeCatalogChecked catalogPostedDate:v20->_catalogPostedDate assetVersionSanity:v79 osVersionSanity:attributesCopy osRestoreVersionSanity:lCopy skuSanity:? sanityCheckAssetBuildAttribute:? attributes:? localURL:?];
+  BYTE4(v78) = v83;
+  BYTE3(v78) = v54;
+  BYTE2(v78) = v39;
+  BYTE1(v78) = v38;
+  LOBYTE(v78) = v55;
+  [v57 setAssetLocalInfo:v82 assetSpecifier:v86 assetVersion:versionCopy assetBuild:v20->_assetBuild lastTimeCatalogChecked:v20->_lastTimeCatalogChecked catalogPostedDate:v20->_catalogPostedDate assetVersionSanity:v78 osVersionSanity:attributesCopy osRestoreVersionSanity:lCopy skuSanity:? sanityCheckAssetBuildAttribute:? attributes:? localURL:?];
 
   if ((v56 & 1) == 0)
   {
@@ -1205,7 +1324,6 @@ LABEL_27:
     v20 = 0;
   }
 
-  v58 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

@@ -5,8 +5,8 @@
 - (BOOL)pointInside:(CGPoint)inside withEvent:(id)event;
 - (CGSize)sizeThatFits:(CGSize)fits;
 - (double)_labelIntrinsicContentSize;
-- (uint64_t)_intrinsicContentSizeWithLabelsInline;
-- (uint64_t)_updateSliderEnabledStateIfNeeded;
+- (id)_intrinsicContentSizeWithLabelsInline;
+- (id)_updateSliderEnabledStateIfNeeded;
 - (void)_commonInit;
 - (void)_setUpShadowAppearance;
 - (void)_traitCollectionDidChange:(id)change;
@@ -324,7 +324,7 @@ LABEL_7:
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(AVMobileGlassTimelineView *)self _intrinsicContentSizeWithLabelsInline];
+  [(AVMobileGlassTimelineView *)&self->super.super.super.super.super.isa _intrinsicContentSizeWithLabelsInline];
   v5 = v4;
   v7 = v6;
   if (self->_layoutType == 2)
@@ -343,19 +343,19 @@ LABEL_7:
   return result;
 }
 
-- (uint64_t)_intrinsicContentSizeWithLabelsInline
+- (id)_intrinsicContentSizeWithLabelsInline
 {
   if (result)
   {
     v1 = result;
-    if (*(result + 624))
+    if (result[78])
     {
-      result = [*(result + 528) intrinsicContentSize];
+      result = [result[66] intrinsicContentSize];
     }
 
-    if (*(v1 + 640))
+    if (v1[80])
     {
-      return [*(v1 + 536) intrinsicContentSize];
+      return [v1[67] intrinsicContentSize];
     }
   }
 
@@ -763,7 +763,7 @@ LABEL_89:
       [(AVMobileGlassTimelineView *)self insertSubview:self->_contentsView aboveSubview:self->_dimmingView];
     }
 
-    if (self->_slider || (!self->_overrideFluidSliderPreference ? (v16 = off_1E7205B20) : (v16 = off_1E7205B18), v17 = objc_alloc_init(*v16), slider = self->_slider, self->_slider = v17, slider, -[AVMobileChromelessSlider setAutoresizingMask:](self->_slider, "setAutoresizingMask:", 0), -[AVMobileChromelessSlider setBarHeight:](self->_slider, "setBarHeight:", 8.0), -[AVMobileChromelessSlider setSemanticContentAttribute:](self->_slider, "setSemanticContentAttribute:", 3), -[UIView setAvkit_extendedDynamicRangeGain:](self->_slider, "setAvkit_extendedDynamicRangeGain:", self->_sliderExtendedDynamicRangeGain), -[AVMobileGlassTimelineView fluidSlider](self, "fluidSlider"), v19 = objc_claimAutoreleasedReturnValue(), [v19 setStretchLimit:6.0], v19, -[AVMobileGlassTimelineView _updateSliderEnabledStateIfNeeded](self), -[AVGlassBackedView addSubview:](self->_contentsView, "addSubview:", self->_slider), self->_slider))
+    if (self->_slider || (!self->_overrideFluidSliderPreference ? (v16 = off_1E7205B20) : (v16 = off_1E7205B18), v17 = objc_alloc_init(*v16), slider = self->_slider, self->_slider = v17, slider, -[AVMobileChromelessSlider setAutoresizingMask:](self->_slider, "setAutoresizingMask:", 0), -[AVMobileChromelessSlider setBarHeight:](self->_slider, "setBarHeight:", 8.0), -[AVMobileChromelessSlider setSemanticContentAttribute:](self->_slider, "setSemanticContentAttribute:", 3), -[UIView setAvkit_extendedDynamicRangeGain:](self->_slider, "setAvkit_extendedDynamicRangeGain:", self->_sliderExtendedDynamicRangeGain), -[AVMobileGlassTimelineView fluidSlider](self, "fluidSlider"), v19 = objc_claimAutoreleasedReturnValue(), [v19 setStretchLimit:6.0], v19, -[AVMobileGlassTimelineView _updateSliderEnabledStateIfNeeded](&self->super.super.super.super.super.isa), -[AVGlassBackedView addSubview:](self->_contentsView, "addSubview:", self->_slider), self->_slider))
     {
       if (!self->_trailingLabel)
       {
@@ -880,16 +880,16 @@ LABEL_10:
   [self setNeedsLayout];
 }
 
-- (uint64_t)_updateSliderEnabledStateIfNeeded
+- (id)_updateSliderEnabledStateIfNeeded
 {
   if (result)
   {
     v1 = result;
     v2 = *(result + 604);
-    result = [*(result + 696) isEnabled];
+    result = [result[87] isEnabled];
     if (v2 != result)
     {
-      v3 = *(v1 + 696);
+      v3 = v1[87];
       v4 = *(v1 + 604);
 
       return [v3 setEnabled:v4];
@@ -1026,7 +1026,7 @@ uint64_t __57__AVMobileGlassTimelineView_prepareForDeemphasisIfNeeded__block_inv
   if (self->_enabled != enabled)
   {
     self->_enabled = enabled;
-    [(AVMobileGlassTimelineView *)self _updateSliderEnabledStateIfNeeded];
+    [(AVMobileGlassTimelineView *)&self->super.super.super.super.super.isa _updateSliderEnabledStateIfNeeded];
   }
 }
 

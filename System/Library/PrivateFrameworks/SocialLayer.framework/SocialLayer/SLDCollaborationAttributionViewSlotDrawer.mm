@@ -1,5 +1,6 @@
 @interface SLDCollaborationAttributionViewSlotDrawer
 + (id)resolvedStyleForStyle:(id)style tag:(id)tag;
+- (id)drawingWithStyle:(id)style tag:(id)tag forRemote:(BOOL)remote;
 - (id)resolvedStyleForStyle:(id)style tag:(id)tag;
 @end
 
@@ -31,6 +32,16 @@
   v7 = [objc_opt_class() resolvedStyleForStyle:styleCopy tag:tagCopy];
 
   return v7;
+}
+
+- (id)drawingWithStyle:(id)style tag:(id)tag forRemote:(BOOL)remote
+{
+  remoteCopy = remote;
+  tagCopy = tag;
+  styleCopy = style;
+  v9 = [[SLDCollaborationAttributionViewDrawing alloc] initWithStyle:styleCopy tag:tagCopy forRemote:remoteCopy];
+
+  return v9;
 }
 
 @end

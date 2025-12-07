@@ -29,7 +29,7 @@
 
 - (id)biomePublisherWithBookmark:(id)bookmark
 {
-  v43[2] = *MEMORY[0x277D85DE8];
+  v42[2] = *MEMORY[0x277D85DE8];
   bookmarkCopy = bookmark;
   defaultDatabaseDirectory = [MEMORY[0x277CFE0C0] defaultDatabaseDirectory];
   v3 = [MEMORY[0x277CFE0C0] storeWithDirectory:? readOnly:?];
@@ -42,42 +42,42 @@
   v9 = [v7 predicateWithFormat:@"(direction IN %@)", v8];
 
   v10 = MEMORY[0x277CCA920];
-  v31 = v9;
-  v32 = v6;
-  v43[0] = v6;
-  v43[1] = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:2];
+  v30 = v9;
+  v31 = v6;
+  v42[0] = v6;
+  v42[1] = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v42 count:2];
   v12 = [v10 andPredicateWithSubpredicates:v11];
 
   v13 = [MEMORY[0x277CFE260] startDateSortDescriptorAscending:1];
-  v42 = v13;
-  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
-  v40 = 0;
-  v33 = v3;
-  v15 = [v3 queryInteractionsUsingPredicate:v12 sortDescriptors:v14 limit:0 offset:0 error:&v40];
-  v30 = v40;
+  v41 = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
+  v39 = 0;
+  v32 = v3;
+  v15 = [v3 queryInteractionsUsingPredicate:v12 sortDescriptors:v14 limit:0 offset:0 error:&v39];
+  v29 = v39;
 
   v16 = objc_opt_new();
+  v35 = 0u;
   v36 = 0u;
   v37 = 0u;
   v38 = 0u;
-  v39 = 0u;
   v17 = v15;
-  v18 = [v17 countByEnumeratingWithState:&v36 objects:v41 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v35 objects:v40 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v37;
+    v20 = *v36;
     do
     {
       for (i = 0; i != v19; ++i)
       {
-        if (*v37 != v20)
+        if (*v36 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v22 = *(*(&v36 + 1) + 8 * i);
+        v22 = *(*(&v35 + 1) + 8 * i);
         v23 = objc_autoreleasePoolPush();
         if ([v22 direction] == 1)
         {
@@ -92,14 +92,13 @@
         objc_autoreleasePoolPop(v23);
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v36 objects:v41 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v35 objects:v40 count:16];
     }
 
     while (v19);
   }
 
   v27 = [objc_alloc(MEMORY[0x277CF17D0]) initWithSequence:v16];
-  v28 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -276,7 +275,7 @@ void __50__ATXInteractionEventProvider_eventsFromPublisher__block_invoke_2(uint6
 
 - (id)contactEntityFromInstantMessagingInteraction:(id)interaction
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   interactionCopy = interaction;
   recipients = [interactionCopy recipients];
   if ([recipients count] >= 2 && (objc_msgSend(interactionCopy, "groupName"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "length"), v7, v8))
@@ -326,17 +325,17 @@ LABEL_12:
   {
     if (!personId)
     {
-      v17 = __atxlog_handle_notification_management();
+      v17 = __atxlog_handle_notification_management(domainIdentifier);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
         v18 = NSStringFromSelector(a2);
         v19 = objc_opt_class();
         v20 = NSStringFromClass(v19);
-        v29 = 138412546;
-        v30 = v18;
-        v31 = 2112;
-        v32 = v20;
-        _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEFAULT, "No cnContactId provided for %@ in %@", &v29, 0x16u);
+        v28 = 138412546;
+        v29 = v18;
+        v30 = 2112;
+        v31 = v20;
+        _os_log_impl(&dword_2263AA000, v17, OS_LOG_TYPE_DEFAULT, "No cnContactId provided for %@ in %@", &v28, 0x16u);
       }
     }
 
@@ -357,8 +356,6 @@ LABEL_12:
   {
     v21 = 0;
   }
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v21;
 }

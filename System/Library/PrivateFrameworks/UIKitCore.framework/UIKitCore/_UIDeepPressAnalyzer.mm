@@ -78,53 +78,53 @@
 
 - (double)_touchForceFromTouches:(id)touches
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   touchesCopy = touches;
   if ([touchesCopy count])
   {
-    v14 = 0u;
     v15 = 0u;
-    v12 = 0u;
+    v16 = 0u;
     v13 = 0u;
+    v14 = 0u;
     v4 = touchesCopy;
-    v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v5)
     {
-      v6 = v5;
-      v7 = *v13;
-      v8 = 0.0;
+      v7 = v5;
+      v8 = *v14;
+      v9 = 0.0;
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v13 != v7)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v8 = v8 + [(UITouch *)*(*(&v12 + 1) + 8 * i) _unclampedForce];
+          v9 = v9 + [(UITouch *)*(*(&v13 + 1) + 8 * i) _unclampedForce];
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v7 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
-      while (v6);
+      while (v7);
     }
 
     else
     {
-      v8 = 0.0;
+      v9 = 0.0;
     }
 
-    v10 = v8 / [v4 count];
+    v11 = v9 / [v4 count];
   }
 
   else
   {
-    v10 = 0.0;
+    v11 = 0.0;
   }
 
-  return v10;
+  return v11;
 }
 
 @end

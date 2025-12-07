@@ -12,7 +12,7 @@
 
 - (OrgXmlSaxSAXException)init
 {
-  JavaLangException_init(self, a2);
+  JavaLangException_init(self);
   JreStrongAssign(&self->exception_, 0);
   return self;
 }
@@ -26,7 +26,7 @@
 
 - (OrgXmlSaxSAXException)initWithJavaLangException:(id)exception
 {
-  JavaLangException_init(self, a2);
+  JavaLangException_init(self);
   JreStrongAssign(&self->exception_, exception);
   return self;
 }

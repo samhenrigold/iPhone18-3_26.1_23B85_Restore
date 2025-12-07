@@ -11,6 +11,7 @@
 - (BOOL)isSelectedPhoneNumberRegistrationSubscriptionContext:(id)context;
 - (FTSelectedPNRSubscription)init;
 - (id)_firstPresentSubscriptionFromAvailableSubscriptions:(id)subscriptions;
+- (id)_protected_reevaluateCacheIfNeededAndPersistUpdate:(BOOL)update;
 - (id)_reevaluateCachedActiveSubscriptionWithError:(id *)error;
 - (id)_reevaluateCachedSelectedPhoneNumberRegistrationWithSubscription:(id)subscription activeContexts:(id)contexts fallbackProhibited:(BOOL)prohibited persistUpdate:(BOOL)update error:(id *)error;
 - (id)_reevaluateCachedSelectedPhoneNumberWithContext:(id)context error:(id *)error;
@@ -71,7 +72,7 @@
 
 + (BOOL)isPhoneNumber:(id)number equivalentToExistingPhoneNumber:(id)phoneNumber
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   numberCopy = number;
   phoneNumberCopy = phoneNumber;
   if ([numberCopy length] || objc_msgSend(phoneNumberCopy, "length"))
@@ -97,18 +98,18 @@
       if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
       {
         v15 = @"NO";
-        v18 = 138412802;
-        v19 = numberCopy;
-        v20 = 2112;
+        v17 = 138412802;
+        v18 = numberCopy;
+        v19 = 2112;
         if (v13)
         {
           v15 = @"YES";
         }
 
-        v21 = phoneNumberCopy;
-        v22 = 2112;
-        v23 = v15;
-        _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Determined whether phone numbers are equivalent { phoneNumber: %@, existingPhoneNumber: %@, equivalent: %@ }", &v18, 0x20u);
+        v20 = phoneNumberCopy;
+        v21 = 2112;
+        v22 = v15;
+        _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Determined whether phone numbers are equivalent { phoneNumber: %@, existingPhoneNumber: %@, equivalent: %@ }", &v17, 0x20u);
       }
     }
 
@@ -123,7 +124,6 @@
     LOBYTE(v13) = 1;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -150,34 +150,32 @@
 
 - (void)phoneNumberChanged:(id)changed
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = changedCopy;
-    _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Phone number changed -- clearing cached selected phone number registration subscription { context: %@ }", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = changedCopy;
+    _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Phone number changed -- clearing cached selected phone number registration subscription { context: %@ }", &v6, 0xCu);
   }
 
   [(FTSelectedPNRSubscription *)self _protected_invalidateCache];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)phoneNumberAvailable:(id)available
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   availableCopy = available;
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = availableCopy;
-    _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Phone number became available -- clearing cached selected phone number registration subscription { context: %@ }", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = availableCopy;
+    _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Phone number became available -- clearing cached selected phone number registration subscription { context: %@ }", &v6, 0xCu);
   }
 
   [(FTSelectedPNRSubscription *)self _protected_invalidateCache];
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)activeSubscriptionsDidChange
@@ -202,6 +200,70 @@
   }
 
   [(FTSelectedPNRSubscription *)self _protected_invalidateCache];
+}
+
+- (id)_protected_reevaluateCacheIfNeededAndPersistUpdate:(BOOL)update
+{
+  updateCopy = update;
+  [(NSRecursiveLock *)self->_lock lock];
+  if (!self->_isCacheValid)
+  {
+    v5 = objc_alloc_init(FTSelectedPNRSubscriptionCache);
+    v33 = 0;
+    v6 = [(FTSelectedPNRSubscription *)self _reevaluateCachedSubscriptionWithError:&v33];
+    v7 = v33;
+    [(FTSelectedPNRSubscriptionCache *)v5 setSubscriptionInfo:v6];
+
+    v32 = 0;
+    v8 = [(FTSelectedPNRSubscription *)self _reevaluateCachedActiveSubscriptionWithError:&v32];
+    v9 = v32;
+    [(FTSelectedPNRSubscriptionCache *)v5 setActiveSubscriptionInfo:v8];
+
+    subscriptionInfo = [(FTSelectedPNRSubscriptionCache *)v5 subscriptionInfo];
+    [(FTSelectedPNRSubscription *)self _reevaluateDualIdentityModeWithSubscriptionInfo:subscriptionInfo];
+
+    coreTelephonyClient = self->_coreTelephonyClient;
+    v31 = 0;
+    v12 = [(CoreTelephonyClient *)coreTelephonyClient getDualSimCapability:&v31];
+    v13 = v31;
+    [(FTSelectedPNRSubscriptionCache *)v5 setDualSIMCapability:v12];
+    if (v13)
+    {
+      registration = [MEMORY[0x1E69A6138] registration];
+      if (os_log_type_enabled(registration, OS_LOG_TYPE_ERROR))
+      {
+        sub_195962F5C();
+      }
+    }
+
+    dualSIMCapability = [(FTSelectedPNRSubscriptionCache *)v5 dualSIMCapability];
+    subscriptionInfo2 = [(FTSelectedPNRSubscriptionCache *)v5 subscriptionInfo];
+    v17 = [(FTSelectedPNRSubscription *)self _isIdentityFallbackProhibitedForDeviceBasedOnCapability:dualSIMCapability subscriptionInfo:subscriptionInfo2];
+
+    subscriptionInfo3 = [(FTSelectedPNRSubscriptionCache *)v5 subscriptionInfo];
+    activeSubscriptionInfo = [(FTSelectedPNRSubscriptionCache *)v5 activeSubscriptionInfo];
+    v30 = 0;
+    v20 = [(FTSelectedPNRSubscription *)self _reevaluateCachedSelectedPhoneNumberRegistrationWithSubscription:subscriptionInfo3 activeContexts:activeSubscriptionInfo fallbackProhibited:v17 persistUpdate:updateCopy error:&v30];
+    v21 = v30;
+    [(FTSelectedPNRSubscriptionCache *)v5 setSelectedContext:v20];
+
+    selectedContext = [(FTSelectedPNRSubscriptionCache *)v5 selectedContext];
+    v29 = 0;
+    v23 = [(FTSelectedPNRSubscription *)self _reevaluateCachedSelectedPhoneNumberWithContext:selectedContext error:&v29];
+    v24 = v29;
+    [(FTSelectedPNRSubscriptionCache *)v5 setPhoneNumber:v23];
+
+    cache = self->_cache;
+    self->_cache = v5;
+    v26 = v5;
+
+    self->_isCacheValid = v7 == 0;
+  }
+
+  v27 = self->_cache;
+  [(NSRecursiveLock *)self->_lock unlock];
+
+  return v27;
 }
 
 - (void)_distributed_invalidateCache
@@ -241,7 +303,7 @@
 
 - (BOOL)isSelectedPhoneNumberRegistrationSubscriptionContext:(id)context
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   v5 = [(FTSelectedPNRSubscription *)self _protected_reevaluateCacheIfNeededAndPersistUpdate:0];
   selectedContext = [v5 selectedContext];
@@ -263,24 +325,23 @@
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEBUG))
   {
-    v19 = @"NO";
-    v20 = 138413058;
-    v21 = contextCopy;
+    v18 = @"NO";
+    v19 = 138413058;
+    v20 = contextCopy;
     if (v15)
     {
-      v19 = @"YES";
+      v18 = @"YES";
     }
 
-    v22 = 2112;
-    v23 = selectedContext;
-    v24 = 2112;
-    v25 = firstObject;
-    v26 = 2112;
-    v27 = v19;
-    _os_log_debug_impl(&dword_195925000, registration, OS_LOG_TYPE_DEBUG, "Determined if provided subscription context is selected IDS phone number subscription context { context: %@, selectedContext: %@, persistedLabel: %@, isMatching: %@ }", &v20, 0x2Au);
+    v21 = 2112;
+    v22 = selectedContext;
+    v23 = 2112;
+    v24 = firstObject;
+    v25 = 2112;
+    v26 = v18;
+    _os_log_debug_impl(&dword_195925000, registration, OS_LOG_TYPE_DEBUG, "Determined if provided subscription context is selected IDS phone number subscription context { context: %@, selectedContext: %@, persistedLabel: %@, isMatching: %@ }", &v19, 0x2Au);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v15 & 1;
 }
 
@@ -294,47 +355,47 @@
 
 - (id)setSelectedPhoneNumberRegistrationSubscriptionNumber:(id)number
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   numberCopy = number;
   coreTelephonyClient = self->_coreTelephonyClient;
-  v35 = 0;
-  v6 = [(CoreTelephonyClient *)coreTelephonyClient getSubscriptionInfoWithError:&v35];
-  v7 = v35;
+  v34 = 0;
+  v6 = [(CoreTelephonyClient *)coreTelephonyClient getSubscriptionInfoWithError:&v34];
+  v7 = v34;
   subscriptions = [v6 subscriptions];
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v38 = v6;
-    v39 = 2112;
-    v40 = v7;
+    v37 = v6;
+    v38 = 2112;
+    v39 = v7;
     _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Loaded subscription info { info: %@, error: %@ }", buf, 0x16u);
   }
 
   if ([subscriptions count])
   {
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
     v32 = 0u;
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
     v10 = subscriptions;
-    v11 = [v10 countByEnumeratingWithState:&v31 objects:v45 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v30 objects:v44 count:16];
     if (v11)
     {
-      v30 = subscriptions;
-      v12 = *v32;
+      v29 = subscriptions;
+      v12 = *v31;
       while (2)
       {
         for (i = 0; i != v11; i = i + 1)
         {
-          if (*v32 != v12)
+          if (*v31 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
           if (numberCopy)
           {
-            v14 = *(*(&v31 + 1) + 8 * i);
+            v14 = *(*(&v30 + 1) + 8 * i);
             slotID = [v14 slotID];
             v16 = slotID == 1 ? &unk_1F09D0728 : &unk_1F09D0710;
             v17 = slotID == 2 ? &unk_1F09D0740 : v16;
@@ -346,7 +407,7 @@
           }
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v31 objects:v45 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v30 objects:v44 count:16];
         if (v11)
         {
           continue;
@@ -356,7 +417,7 @@
       }
 
 LABEL_25:
-      subscriptions = v30;
+      subscriptions = v29;
     }
 
     goto LABEL_27;
@@ -380,11 +441,11 @@ LABEL_27:
   if (os_log_type_enabled(registration2, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412802;
-    v38 = v6;
-    v39 = 2112;
-    v40 = subscriptions;
-    v41 = 2112;
-    v42 = v7;
+    v37 = v6;
+    v38 = 2112;
+    v39 = subscriptions;
+    v40 = 2112;
+    v41 = v7;
     _os_log_error_impl(&dword_195925000, v19, OS_LOG_TYPE_ERROR, "Failed to fetch subscriptions { subscriptionInfo: %@, subscriptions: %@, error: %@ }", buf, 0x20u);
   }
 
@@ -396,20 +457,20 @@ LABEL_28:
   {
     labelID = [v11 labelID];
     *buf = 138413058;
-    v38 = numberCopy;
-    v39 = 2112;
-    v40 = labelID;
-    v41 = 2112;
-    v42 = v11;
-    v43 = 2112;
-    v44 = subscriptions;
+    v37 = numberCopy;
+    v38 = 2112;
+    v39 = labelID;
+    v40 = 2112;
+    v41 = v11;
+    v42 = 2112;
+    v43 = subscriptions;
     _os_log_impl(&dword_195925000, registration3, OS_LOG_TYPE_DEFAULT, "Selected new phone number registration subscription context { subscriptionNumber: %@, labelID: %@, selectedSubscription: %@, availableSubscriptions: %@ }", buf, 0x2Au);
   }
 
   v23 = +[FTUserConfiguration sharedInstance];
   labelID2 = [v11 labelID];
-  v36 = labelID2;
-  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
+  v35 = labelID2;
+  v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
   [v23 setSelectedPhoneNumberRegistrationSubscriptionLabels:v25];
 
   [(FTSelectedPNRSubscription *)self _protected_invalidateCache];
@@ -417,7 +478,6 @@ LABEL_28:
   v26 = [(FTSelectedPNRSubscription *)self _protected_reevaluateCacheIfNeededAndPersistUpdate:0];
   v27 = v20;
 
-  v28 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -485,7 +545,7 @@ LABEL_28:
 
 - (BOOL)_isInDualPhoneIdentityModeBasedOnCapability:(int64_t)capability
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = capability == 2 || capability == 4;
   v6 = +[FTUserConfiguration sharedInstance];
   isDeviceInDualPhoneIdentityMode = [v6 isDeviceInDualPhoneIdentityMode];
@@ -505,21 +565,20 @@ LABEL_28:
       v11 = @"NO";
     }
 
-    v14 = 138412802;
-    v15 = v11;
+    v13 = 138412802;
+    v14 = v11;
     if (isDeviceInDualPhoneIdentityMode)
     {
       v10 = @"YES";
     }
 
-    v16 = 2048;
+    v15 = 2048;
     capabilityCopy = capability;
-    v18 = 2112;
-    v19 = v10;
-    _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Determined if device is in dual phone identity mode { isDualIdentity: %@, dualSIMCapability: %ld, isDeviceInDualPhoneIdentityMode: %@ }", &v14, 0x20u);
+    v17 = 2112;
+    v18 = v10;
+    _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Determined if device is in dual phone identity mode { isDualIdentity: %@, dualSIMCapability: %ld, isDeviceInDualPhoneIdentityMode: %@ }", &v13, 0x20u);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -536,18 +595,18 @@ LABEL_28:
 
 - (id)_reevaluateCachedSubscriptionWithError:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   coreTelephonyClient = self->_coreTelephonyClient;
-  v12 = 0;
-  v5 = [(CoreTelephonyClient *)coreTelephonyClient getSubscriptionInfoWithError:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [(CoreTelephonyClient *)coreTelephonyClient getSubscriptionInfoWithError:&v11];
+  v6 = v11;
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v6;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v6;
     _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Loaded subscription info { info: %@, error: %@ }", buf, 0x16u);
   }
 
@@ -566,25 +625,23 @@ LABEL_28:
     *error = v6;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (id)_reevaluateCachedActiveSubscriptionWithError:(id *)error
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   coreTelephonyClient = self->_coreTelephonyClient;
-  v12 = 0;
-  v5 = [(CoreTelephonyClient *)coreTelephonyClient getActiveContexts:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [(CoreTelephonyClient *)coreTelephonyClient getActiveContexts:&v11];
+  v6 = v11;
   registration = [MEMORY[0x1E69A6138] registration];
   if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v14 = v5;
-    v15 = 2112;
-    v16 = v6;
+    v13 = v5;
+    v14 = 2112;
+    v15 = v6;
     _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Loaded active contexts { contexts: %@, error: %@ }", buf, 0x16u);
   }
 
@@ -603,34 +660,32 @@ LABEL_28:
     *error = v6;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 - (BOOL)_doesSubscriptionInfoContainMultipleLabels:(id)labels
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   subscriptions = [labels subscriptions];
-  v4 = [subscriptions countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v4 = [subscriptions countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v4)
   {
     v5 = 0;
-    v6 = *v13;
+    v6 = *v12;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v13 != v6)
+        if (*v12 != v6)
         {
           objc_enumerationMutation(subscriptions);
         }
 
-        labelID = [*(*(&v12 + 1) + 8 * i) labelID];
+        labelID = [*(*(&v11 + 1) + 8 * i) labelID];
         v9 = [labelID length];
 
         if (v9)
@@ -639,42 +694,41 @@ LABEL_28:
         }
       }
 
-      v4 = [subscriptions countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [subscriptions countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
     LOBYTE(v4) = v5 > 1;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 - (BOOL)_doesSubscriptionInfoContainMultipleUniqueLabels:(id)labels
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   labelsCopy = labels;
   v4 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   subscriptions = [labelsCopy subscriptions];
-  v6 = [subscriptions countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [subscriptions countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(subscriptions);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         labelID = [v10 labelID];
         v12 = [labelID length];
 
@@ -685,20 +739,19 @@ LABEL_28:
         }
       }
 
-      v7 = [subscriptions countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [subscriptions countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
 
   v14 = [v4 count] > 1;
-  v15 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (void)_reevaluateDualIdentityModeWithSubscriptionInfo:(id)info
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   infoCopy = info;
   v5 = +[FTUserConfiguration sharedInstance];
   isDeviceInDualPhoneIdentityMode = [v5 isDeviceInDualPhoneIdentityMode];
@@ -708,42 +761,40 @@ LABEL_28:
     registration = [MEMORY[0x1E69A6138] registration];
     if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = infoCopy;
-      _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Determined that device has entered dual identity mode { subscriptionInfo: %@ }", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = infoCopy;
+      _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Determined that device has entered dual identity mode { subscriptionInfo: %@ }", &v9, 0xCu);
     }
 
     v8 = +[FTUserConfiguration sharedInstance];
     [v8 setIsDeviceInDualPhoneIdentityMode:1];
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_subscriptionFromAvailableSubscriptions:(id)subscriptions matchingSelectedLabel:(id)label
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   subscriptionsCopy = subscriptions;
   labelCopy = label;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = subscriptionsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
-    v9 = *v17;
+    v9 = *v16;
     while (2)
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
+        v11 = *(*(&v15 + 1) + 8 * i);
         labelID = [v11 labelID];
         v13 = labelID;
         if (labelCopy && labelID && [labelID isEqualToString:labelCopy])
@@ -754,7 +805,7 @@ LABEL_28:
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         continue;
@@ -766,33 +817,31 @@ LABEL_28:
 
 LABEL_13:
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (id)_firstPresentSubscriptionFromAvailableSubscriptions:(id)subscriptions
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   subscriptionsCopy = subscriptions;
-  v4 = [subscriptionsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [subscriptionsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; i = i + 1)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(subscriptionsCopy);
         }
 
-        v7 = *(*(&v11 + 1) + 8 * i);
+        v7 = *(*(&v10 + 1) + 8 * i);
         labelID = [v7 labelID];
         if ([labelID length])
         {
@@ -802,7 +851,7 @@ LABEL_13:
         }
       }
 
-      v4 = [subscriptionsCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [subscriptionsCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -814,8 +863,6 @@ LABEL_13:
 
 LABEL_11:
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v4;
 }
 
@@ -823,7 +870,7 @@ LABEL_11:
 {
   updateCopy = update;
   prohibitedCopy = prohibited;
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   subscriptionCopy = subscription;
   contextsCopy = contexts;
   if (self->_coreTelephonyClient)
@@ -844,9 +891,9 @@ LABEL_24:
       if (os_log_type_enabled(registration, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v36 = v21;
-        v37 = 2112;
-        v38 = firstObject;
+        v35 = v21;
+        v36 = 2112;
+        v37 = firstObject;
         _os_log_impl(&dword_195925000, registration, OS_LOG_TYPE_DEFAULT, "Determined selected phone number registration subscription context { selectedSubscription: %@, persistedLabel: %@ }", buf, 0x16u);
       }
 
@@ -854,7 +901,7 @@ LABEL_24:
       if (os_log_type_enabled(registration2, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v36 = subscriptions;
+        v35 = subscriptions;
         _os_log_impl(&dword_195925000, registration2, OS_LOG_TYPE_DEFAULT, "Available subscriptions { available: %@ }", buf, 0xCu);
       }
 
@@ -863,7 +910,7 @@ LABEL_24:
       {
         subscriptions2 = [contextsCopy subscriptions];
         *buf = 138412290;
-        v36 = subscriptions2;
+        v35 = subscriptions2;
         _os_log_impl(&dword_195925000, registration3, OS_LOG_TYPE_DEFAULT, "Active subscriptions { active: %@ }", buf, 0xCu);
       }
 
@@ -899,8 +946,8 @@ LABEL_24:
     if (updateCopy && labelID)
     {
       v25 = +[FTUserConfiguration sharedInstance];
-      v40[0] = v24;
-      v26 = v40;
+      v39[0] = v24;
+      v26 = v39;
     }
 
     else
@@ -911,8 +958,8 @@ LABEL_24:
       }
 
       v25 = +[FTUserConfiguration sharedInstance];
-      v39 = v24;
-      v26 = &v39;
+      v38 = v24;
+      v26 = &v38;
     }
 
     v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
@@ -931,21 +978,19 @@ LABEL_23:
   v21 = 0;
 LABEL_31:
 
-  v32 = *MEMORY[0x1E69E9840];
-
   return v21;
 }
 
 - (id)_reevaluateCachedSelectedPhoneNumberWithContext:(id)context error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   if (contextCopy)
   {
     coreTelephonyClient = self->_coreTelephonyClient;
-    v22 = 0;
-    v8 = [(CoreTelephonyClient *)coreTelephonyClient getPhoneNumber:contextCopy error:&v22];
-    registration2 = v22;
+    v21 = 0;
+    v8 = [(CoreTelephonyClient *)coreTelephonyClient getPhoneNumber:contextCopy error:&v21];
+    registration2 = v21;
     registration = [MEMORY[0x1E69A6138] registration];
     v11 = registration;
     if (v8)
@@ -992,7 +1037,7 @@ LABEL_31:
     if (os_log_type_enabled(registration3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v24 = v14;
+      v23 = v14;
       _os_log_impl(&dword_195925000, registration3, OS_LOG_TYPE_DEFAULT, "No selected registration phone number found -- falling back { phoneNumberFallbackValue: %@ }", buf, 0xCu);
     }
 
@@ -1008,11 +1053,11 @@ LABEL_31:
   if (os_log_type_enabled(registration4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v24 = number;
-    v25 = 2112;
-    v26 = v8;
-    v27 = 2112;
-    v28 = v13;
+    v23 = number;
+    v24 = 2112;
+    v25 = v8;
+    v26 = 2112;
+    v27 = v13;
     _os_log_impl(&dword_195925000, registration4, OS_LOG_TYPE_DEFAULT, "Returning selected registration phone number for device { phoneNumber: %@, phoneNumberInfo: %@, clientError: %@ }", buf, 0x20u);
   }
 
@@ -1024,13 +1069,12 @@ LABEL_31:
 
   v19 = number;
 
-  v20 = *MEMORY[0x1E69E9840];
   return number;
 }
 
 - (BOOL)isPhoneNumberEmergencyNumber:(id)number
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   numberCopy = number;
   if (IMStringIsInHardcodedEmergencyNumberSet())
   {
@@ -1041,46 +1085,46 @@ LABEL_16:
   else
   {
     [(FTSelectedPNRSubscription *)self _protected_reevaluateCacheIfNeededAndPersistUpdate:0];
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v21 = v26 = 0u;
-    subscriptionInfo = [v21 subscriptionInfo];
+    v20 = v25 = 0u;
+    subscriptionInfo = [v20 subscriptionInfo];
     subscriptions = [subscriptionInfo subscriptions];
 
-    v7 = [subscriptions countByEnumeratingWithState:&v23 objects:v33 count:16];
+    v7 = [subscriptions countByEnumeratingWithState:&v22 objects:v32 count:16];
     if (v7)
     {
       v9 = v7;
-      v10 = *v24;
+      v10 = *v23;
       *&v8 = 138412802;
-      v20 = v8;
+      v19 = v8;
       while (2)
       {
         v11 = 0;
         do
         {
-          if (*v24 != v10)
+          if (*v23 != v10)
           {
             objc_enumerationMutation(subscriptions);
           }
 
-          v12 = *(*(&v23 + 1) + 8 * v11);
+          v12 = *(*(&v22 + 1) + 8 * v11);
           coreTelephonyClient = self->_coreTelephonyClient;
-          v22 = 0;
-          v14 = [(CoreTelephonyClient *)coreTelephonyClient isEmergencyNumber:v12 number:numberCopy error:&v22, v20];
-          v15 = v22;
+          v21 = 0;
+          v14 = [(CoreTelephonyClient *)coreTelephonyClient isEmergencyNumber:v12 number:numberCopy error:&v21, v19];
+          v15 = v21;
           if (v15)
           {
             registration = [MEMORY[0x1E69A6138] registration];
             if (os_log_type_enabled(registration, OS_LOG_TYPE_ERROR))
             {
-              *buf = v20;
-              v28 = numberCopy;
-              v29 = 2112;
-              v30 = v12;
-              v31 = 2112;
-              v32 = v15;
+              *buf = v19;
+              v27 = numberCopy;
+              v28 = 2112;
+              v29 = v12;
+              v30 = 2112;
+              v31 = v15;
               _os_log_error_impl(&dword_195925000, registration, OS_LOG_TYPE_ERROR, "Failed to check if number is emergency number { phoneNumber: %@, context: %@, error: %@ }", buf, 0x20u);
             }
           }
@@ -1095,7 +1139,7 @@ LABEL_16:
         }
 
         while (v9 != v11);
-        v9 = [subscriptions countByEnumeratingWithState:&v23 objects:v33 count:16];
+        v9 = [subscriptions countByEnumeratingWithState:&v22 objects:v32 count:16];
         if (v9)
         {
           continue;
@@ -1108,7 +1152,6 @@ LABEL_16:
     v17 = [(FTSelectedPNRSubscription *)self _legacy_isPhoneNumberEmergencyNumber:numberCopy];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 

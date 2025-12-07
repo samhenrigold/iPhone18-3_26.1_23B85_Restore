@@ -23,43 +23,43 @@
 - (void)getServerStoreBlockingWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  _LSAssertRunningInServer("[LSDatabaseBlockingFetchClient getServerStoreBlockingWithCompletionHandler:]");
+  _LSAssertRunningInServer("[LSDatabaseBlockingFetchClient getServerStoreBlockingWithCompletionHandler:]", v5);
   if (getServerStoreBlockingWithCompletionHandler__onceToken != -1)
   {
     [LSDatabaseBlockingFetchClient getServerStoreBlockingWithCompletionHandler:];
   }
 
-  v5 = +[LSDatabaseBlockingFetchServer sharedInstance];
-  isForManualRebuild = [v5 isForManualRebuild];
+  v6 = +[LSDatabaseBlockingFetchServer sharedInstance];
+  isForManualRebuild = [v6 isForManualRebuild];
 
   if (isForManualRebuild)
   {
-    __LAUNCH_SERVICES_CLIENTS_ARE_WAITING_FOR_A_MANUAL_DATABASE_REBUILD_TO_COMPLETE__();
+    __LAUNCH_SERVICES_CLIENTS_ARE_WAITING_FOR_A_MANUAL_DATABASE_REBUILD_TO_COMPLETE__(v8, v9);
   }
 
   else
   {
-    __LAUNCH_SERVICES_CLIENTS_ARE_WAITING_FOR_THE_DATABASE_TO_FINISH_SEEDING__();
+    __LAUNCH_SERVICES_CLIENTS_ARE_WAITING_FOR_THE_DATABASE_TO_FINISH_SEEDING__(v8, v9);
   }
 
-  v7 = self->_connection;
-  v8 = _LSServer_DatabaseExecutionContext();
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __77__LSDatabaseBlockingFetchClient_getServerStoreBlockingWithCompletionHandler___block_invoke_2;
-  v11[3] = &unk_1E6A1D3F0;
-  v12 = v7;
-  v13 = handlerCopy;
-  v9 = handlerCopy;
-  v10 = v7;
-  [(LSDBExecutionContext *)v8 syncRead:v11];
+  v10 = self->_connection;
+  v11 = _LSServer_DatabaseExecutionContext();
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __77__LSDatabaseBlockingFetchClient_getServerStoreBlockingWithCompletionHandler___block_invoke_2;
+  v14[3] = &unk_1E6A1D3F0;
+  v15 = v10;
+  v16 = handlerCopy;
+  v12 = handlerCopy;
+  v13 = v10;
+  [(LSDBExecutionContext *)v11 syncRead:v14];
 }
 
-uint64_t __77__LSDatabaseBlockingFetchClient_getServerStoreBlockingWithCompletionHandler___block_invoke()
+void __77__LSDatabaseBlockingFetchClient_getServerStoreBlockingWithCompletionHandler___block_invoke()
 {
-  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(__LAUNCH_SERVICES_CLIENTS_ARE_WAITING_FOR_THE_DATABASE_TO_FINISH_SEEDING__);
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
 
-  return std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func(__LAUNCH_SERVICES_CLIENTS_ARE_WAITING_FOR_A_MANUAL_DATABASE_REBUILD_TO_COMPLETE__);
+  std::__function::__func<BOOL (*)(objc_object *),std::allocator<BOOL (*)(objc_object *)>,BOOL ()(objc_object *)>::~__func();
 }
 
 @end

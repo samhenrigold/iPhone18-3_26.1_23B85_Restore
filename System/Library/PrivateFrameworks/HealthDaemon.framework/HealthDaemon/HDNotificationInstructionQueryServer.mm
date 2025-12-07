@@ -6,7 +6,7 @@
 
 - (void)_queue_start
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   configuration = [(HDQueryServer *)self configuration];
   debugIdentifier = [configuration debugIdentifier];
 
@@ -24,54 +24,54 @@
     _os_log_impl(&dword_228986000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Query Started", buf, 0x16u);
   }
 
-  v40.receiver = self;
-  v40.super_class = HDNotificationInstructionQueryServer;
-  [(HDQueryServer *)&v40 _queue_start];
+  v39.receiver = self;
+  v39.super_class = HDNotificationInstructionQueryServer;
+  [(HDQueryServer *)&v39 _queue_start];
   clientProxy = [(HDQueryServer *)self clientProxy];
   remoteObjectProxy = [clientProxy remoteObjectProxy];
 
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v46 = __Block_byref_object_copy__195;
-  v47 = __Block_byref_object_dispose__195;
-  v48 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x2020000000;
-  v39 = 1;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x2020000000;
+  v45 = __Block_byref_object_copy__195;
+  v46 = __Block_byref_object_dispose__195;
+  v47 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v35 = 0;
-  v31[0] = 0;
-  v31[1] = v31;
-  v31[2] = 0x2020000000;
-  v31[3] = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
+  v38 = 1;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2020000000;
+  v34 = 0;
+  v30[0] = 0;
+  v30[1] = v30;
+  v30[2] = 0x2020000000;
+  v30[3] = 0;
   v11 = [HDNotificationInstructionDiagnostics alloc];
   profile = [(HDQueryServer *)self profile];
   v13 = [(HDNotificationInstructionDiagnostics *)v11 initWithProfile:profile];
 
-  v30 = 0;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __52__HDNotificationInstructionQueryServer__queue_start__block_invoke;
-  v24[3] = &unk_27862E4D8;
-  v24[4] = self;
-  v26 = &v32;
-  v27 = buf;
+  v29 = 0;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __52__HDNotificationInstructionQueryServer__queue_start__block_invoke;
+  v23[3] = &unk_27862E4D8;
+  v23[4] = self;
+  v25 = &v31;
+  v26 = buf;
   v14 = remoteObjectProxy;
-  v25 = v14;
-  v28 = &v36;
-  v29 = v31;
-  v15 = [(HDNotificationInstructionDiagnostics *)v13 enumerateAllNotificationInstructionsWithError:&v30 enumerationHandler:v24];
-  v16 = v30;
-  if ((v33[3] & 1) == 0)
+  v24 = v14;
+  v27 = &v35;
+  v28 = v30;
+  v15 = [(HDNotificationInstructionDiagnostics *)v13 enumerateAllNotificationInstructionsWithError:&v29 enumerationHandler:v23];
+  v16 = v29;
+  if ((v32[3] & 1) == 0)
   {
     if (v15)
     {
       v17 = *(*&buf[8] + 40);
-      v18 = *(v37 + 24);
+      v18 = *(v36 + 24);
       queryUUID = [(HDQueryServer *)self queryUUID];
       [v14 client_deliverNotificationInstructions:v17 clearPending:v18 isFinalBatch:1 queryUUID:queryUUID];
     }
@@ -88,20 +88,18 @@
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     v21 = objc_opt_class();
-    *v41 = 138543618;
-    v42 = v21;
-    v43 = 2114;
-    v44 = debugIdentifier;
+    *v40 = 138543618;
+    v41 = v21;
+    v42 = 2114;
+    v43 = debugIdentifier;
     v22 = v21;
-    _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Query Finished", v41, 0x16u);
+    _os_log_impl(&dword_228986000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@:%{public}@] Query Finished", v40, 0x16u);
   }
 
-  _Block_object_dispose(v31, 8);
-  _Block_object_dispose(&v32, 8);
-  _Block_object_dispose(&v36, 8);
+  _Block_object_dispose(v30, 8);
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v35, 8);
   _Block_object_dispose(buf, 8);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __52__HDNotificationInstructionQueryServer__queue_start__block_invoke(uint64_t a1, void *a2, uint64_t a3)

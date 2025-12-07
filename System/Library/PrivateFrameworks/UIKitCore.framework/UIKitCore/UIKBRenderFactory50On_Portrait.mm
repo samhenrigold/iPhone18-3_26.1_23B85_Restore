@@ -126,21 +126,21 @@
   v7 = [(UIKBRenderFactory10Key_Round *)&v50 _traitsForKey:keyCopy onKeyplane:keyplane];
   if ([keyCopy state] <= 3)
   {
-    geometry = [v7 geometry];
-    [geometry frame];
+    v8 = objc_msgSend_geometry(v7);
+    [v8 frame];
     v10 = v9;
     v12 = v11;
     v14 = v13;
     v16 = v15;
-    geometry2 = [v7 geometry];
-    [geometry2 setDisplayFrame:{v10, v12, v14, v16}];
+    v17 = objc_msgSend_geometry(v7);
+    [v17 setDisplayFrame:{v10, v12, v14, v16}];
   }
 
   displayType = [keyCopy displayType];
   name = [keyCopy name];
-  v20 = [name isEqualToString:@"Facemark"];
+  isEqualToString = objc_msgSend_isEqualToString_(name);
 
-  if (v20)
+  if (isEqualToString)
   {
     lightKeycapsFontName = [(UIKBRenderFactory50On_Portrait *)self lightKeycapsFontName];
     symbolStyle = [v7 symbolStyle];

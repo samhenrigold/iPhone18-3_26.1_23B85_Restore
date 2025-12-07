@@ -35,7 +35,7 @@
 
 - (void)handleFetchMultiuserSettingsRequest:(id)request
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -45,11 +45,11 @@
     v8 = HMFGetLogIdentifier();
     home = [(HMDMultiuserSettingsMessenger *)selfCopy home];
     multiUserSettings = [home multiUserSettings];
-    v15 = 138543618;
-    v16 = v8;
-    v17 = 2112;
-    v18 = multiUserSettings;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling fetch Multiuser Settings Request, %@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v8;
+    v16 = 2112;
+    v17 = multiUserSettings;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Handling fetch Multiuser Settings Request, %@", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -58,13 +58,11 @@
 
   payloadCopy = [multiUserSettings2 payloadCopy];
   [requestCopy respondWithPayload:payloadCopy];
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForMessages
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [HMDXPCMessagePolicy policyWithEntitlements:5];
   home = [(HMDMultiuserSettingsMessenger *)self home];
   v5 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:3 remoteAccessRequired:0];
@@ -76,19 +74,17 @@
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v16 = v9;
+    v15 = v9;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Registered for Multiuser Settings Metrics Messages", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v6);
   messageDispatcher = [(HMDMultiuserSettingsMessenger *)selfCopy messageDispatcher];
   v11 = *MEMORY[0x277CD09C0];
-  v14[0] = v3;
-  v14[1] = v5;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[0] = v3;
+  v13[1] = v5;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   [messageDispatcher registerForMessage:v11 receiver:selfCopy policies:v12 selector:sel_handleFetchMultiuserSettingsRequest_];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDMultiuserSettingsMessenger)initWithHome:(id)home messageDispatcher:(id)dispatcher
@@ -136,12 +132,11 @@ LABEL_7:
 
 uint64_t __44__HMDMultiuserSettingsMessenger_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_132143;
-  logCategory__hmf_once_v3_132143 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_132143;
+  logCategory__hmf_once_v3_132143 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

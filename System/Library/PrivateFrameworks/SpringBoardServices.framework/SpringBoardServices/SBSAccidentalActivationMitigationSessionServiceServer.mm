@@ -66,7 +66,7 @@ void __68__SBSAccidentalActivationMitigationSessionServiceServer_startServer__bl
 
 - (void)listener:(id)listener didReceiveConnection:(id)connection withContext:(id)context
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   listenerCopy = listener;
   connectionCopy = connection;
   contextCopy = context;
@@ -86,46 +86,46 @@ void __68__SBSAccidentalActivationMitigationSessionServiceServer_startServer__bl
     {
       remoteProcess2 = [connectionCopy remoteProcess];
       auditToken2 = [remoteProcess2 auditToken];
-      v19 = [auditToken2 hasEntitlement:@"com.apple.springboard.private.3CAD882F-D615-43E4-89A9-34720441BC23"];
+      v20 = [auditToken2 hasEntitlement:@"com.apple.springboard.private.3CAD882F-D615-43E4-89A9-34720441BC23"];
 
-      if (!v19)
+      if (!v20)
       {
-        v13 = SBLogCameraCaptureAccidentalActivationMitigationSession();
-        if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v14 = SBLogCameraCaptureAccidentalActivationMitigationSession(v21);
+        if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_5;
         }
 
         *buf = 138412290;
-        v29 = connectionCopy;
-        v14 = "Invalidating connection because client process is missing required entitlement %@.";
+        v31 = connectionCopy;
+        v15 = "Invalidating connection because client process is missing required entitlement %@.";
         goto LABEL_4;
       }
     }
 
-    v21 = MEMORY[0x1E69E9820];
-    v22 = 3221225472;
-    v23 = __99__SBSAccidentalActivationMitigationSessionServiceServer_listener_didReceiveConnection_withContext___block_invoke;
-    v24 = &unk_1E735F0A8;
+    v23 = MEMORY[0x1E69E9820];
+    v24 = 3221225472;
+    v25 = __99__SBSAccidentalActivationMitigationSessionServiceServer_listener_didReceiveConnection_withContext___block_invoke;
+    v26 = &unk_1E735F0A8;
     selfCopy = self;
-    objc_copyWeak(&v26, &location);
-    [connectionCopy configureConnection:&v21];
-    v20 = MEMORY[0x1E69E9820];
+    objc_copyWeak(&v28, &location);
+    [connectionCopy configureConnection:&v23];
+    v22 = MEMORY[0x1E69E9820];
     BSDispatchMain();
-    [(SBSAccidentalActivationMitigationSessionServiceServer *)self _setConnection:connectionCopy, v20, 3221225472, __99__SBSAccidentalActivationMitigationSessionServiceServer_listener_didReceiveConnection_withContext___block_invoke_19, &unk_1E735F9D0, self, v21, v22, v23, v24, selfCopy];
+    [(SBSAccidentalActivationMitigationSessionServiceServer *)self _setConnection:connectionCopy, v22, 3221225472, __99__SBSAccidentalActivationMitigationSessionServiceServer_listener_didReceiveConnection_withContext___block_invoke_19, &unk_1E735F9D0, self, v23, v24, v25, v26, selfCopy];
     [connectionCopy activate];
-    objc_destroyWeak(&v26);
+    objc_destroyWeak(&v28);
     goto LABEL_10;
   }
 
-  v13 = SBLogCameraCaptureAccidentalActivationMitigationSession();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v14 = SBLogCameraCaptureAccidentalActivationMitigationSession(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v29 = connectionCopy;
-    v14 = "Refuse to connect since there is already a host session %@.";
+    v31 = connectionCopy;
+    v15 = "Refuse to connect since there is already a host session %@.";
 LABEL_4:
-    _os_log_impl(&dword_19169D000, v13, OS_LOG_TYPE_DEFAULT, v14, buf, 0xCu);
+    _os_log_impl(&dword_19169D000, v14, OS_LOG_TYPE_DEFAULT, v15, buf, 0xCu);
   }
 
 LABEL_5:
@@ -161,7 +161,7 @@ void __99__SBSAccidentalActivationMitigationSessionServiceServer_listener_didRec
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogCameraCaptureAccidentalActivationMitigationSession();
+  v3 = SBLogCameraCaptureAccidentalActivationMitigationSession(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -175,7 +175,7 @@ void __99__SBSAccidentalActivationMitigationSessionServiceServer_listener_didRec
   v9 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v5 = SBLogCameraCaptureAccidentalActivationMitigationSession();
+  v5 = SBLogCameraCaptureAccidentalActivationMitigationSession(WeakRetained);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -211,7 +211,7 @@ void __99__SBSAccidentalActivationMitigationSessionServiceServer_listener_didRec
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogCameraCaptureAccidentalActivationMitigationSession();
+  v3 = SBLogCameraCaptureAccidentalActivationMitigationSession(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 138412290;
@@ -299,26 +299,26 @@ void __99__SBSAccidentalActivationMitigationSessionServiceServer_listener_didRec
 
 - (void)activateSessionForBundleIdentifier:(id)identifier durationNum:(id)num accidentalActivationMitigationSessionCancellationPolicyClassName:(id)name
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
-  [num doubleValue];
-  v10 = v9;
-  v11 = SBLogCameraCaptureAccidentalActivationMitigationSession();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  doubleValue = [num doubleValue];
+  v11 = v10;
+  v12 = SBLogCameraCaptureAccidentalActivationMitigationSession(doubleValue);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v16 = identifierCopy;
-    v17 = 2048;
-    v18 = v10;
-    v19 = 2112;
-    v20 = nameCopy;
-    _os_log_impl(&dword_19169D000, v11, OS_LOG_TYPE_DEFAULT, "Activate host session with bundle identifier: %@ with duration: %f and accidental activation mitigation session cancellation policy: %@", buf, 0x20u);
+    v17 = identifierCopy;
+    v18 = 2048;
+    v19 = v11;
+    v20 = 2112;
+    v21 = nameCopy;
+    _os_log_impl(&dword_19169D000, v12, OS_LOG_TYPE_DEFAULT, "Activate host session with bundle identifier: %@ with duration: %f and accidental activation mitigation session cancellation policy: %@", buf, 0x20u);
   }
 
+  v15 = identifierCopy;
+  v13 = nameCopy;
   v14 = identifierCopy;
-  v12 = nameCopy;
-  v13 = identifierCopy;
   BSDispatchMain();
 }
 
@@ -330,7 +330,7 @@ void __169__SBSAccidentalActivationMitigationSessionServiceServer_activateSessio
 
 - (void)requestSessionCancellation
 {
-  v2 = SBLogCameraCaptureAccidentalActivationMitigationSession();
+  v2 = SBLogCameraCaptureAccidentalActivationMitigationSession(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

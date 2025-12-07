@@ -243,7 +243,7 @@
 - (void)setHasMedicalIDSlider:(BOOL)slider
 {
   sliderCopy = slider;
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v7[0] = 67109120;
@@ -290,18 +290,18 @@
 
   if (sosCallSlidingButton == buttonCopy)
   {
-    v10 = sub_100004F84();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004F84(v6);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "PHSOSRestingView,user slid SOS slider", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "PHSOSRestingView,user slid SOS slider", buf, 2u);
     }
 
     completionHandler = [(PHSOSRestingView *)self completionHandler];
 
     if (completionHandler)
     {
-      v9 = 0;
+      v11 = 0;
       goto LABEL_11;
     }
   }
@@ -312,21 +312,21 @@
 
     if (medicalIDSlidingButton == buttonCopy)
     {
-      v7 = sub_100004F84();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100004F84(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        *v13 = 0;
-        _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "PHSOSRestingView,user slid medical ID slider", v13, 2u);
+        *v15 = 0;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "PHSOSRestingView,user slid medical ID slider", v15, 2u);
       }
 
       completionHandler2 = [(PHSOSRestingView *)self completionHandler];
 
       if (completionHandler2)
       {
-        v9 = 1;
+        v11 = 1;
 LABEL_11:
         completionHandler3 = [(PHSOSRestingView *)self completionHandler];
-        completionHandler3[2](completionHandler3, v9);
+        completionHandler3[2](completionHandler3, v11);
       }
     }
   }

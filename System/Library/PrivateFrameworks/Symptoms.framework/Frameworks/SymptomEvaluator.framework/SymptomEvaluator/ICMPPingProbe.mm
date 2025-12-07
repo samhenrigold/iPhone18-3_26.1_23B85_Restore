@@ -17,6 +17,7 @@
 - (void)_stopDataTransfer;
 - (void)dealloc;
 - (void)setPayloadSize:(unint64_t)size;
+- (void)startICMPPingTestTo:(id)to hostName:(id)name interface:(unsigned int)interface pingCount:(int64_t)count interPingInterval:(double)interval burstCount:(int64_t)burstCount interBurstInterval:(double)burstInterval timeout:(double)self0 stopTestOnFirstSuccess:(BOOL)self1;
 - (void)stopTest;
 @end
 
@@ -34,7 +35,7 @@
 
 void __32__ICMPPingProbe_loadStringUtils__block_invoke()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = +[TestProbe loadCoreUtils];
   if (v0)
   {
@@ -51,8 +52,8 @@ void __32__ICMPPingProbe_loadStringUtils__block_invoke()
       v6 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        LOWORD(v8) = 0;
-        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Failed to load StringToSockAddr() in CoreUtils framework.", &v8, 2u);
+        LOWORD(v7) = 0;
+        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_ERROR, "Failed to load StringToSockAddr() in CoreUtils framework.", &v7, 2u);
       }
     }
 
@@ -66,13 +67,11 @@ void __32__ICMPPingProbe_loadStringUtils__block_invoke()
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
       v5 = v4;
-      v8 = 136315138;
-      v9 = dlerror();
-      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "CoreUtils failed to load due to %s\n", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = dlerror();
+      _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "CoreUtils failed to load due to %s\n", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (ICMPPingProbe)initWithQueue:(id)queue
@@ -103,7 +102,7 @@ void __32__ICMPPingProbe_loadStringUtils__block_invoke()
 
 - (void)setPayloadSize:(unint64_t)size
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (self->_payloadSize != size)
   {
     if (size <= 0x1000)
@@ -120,9 +119,9 @@ void __32__ICMPPingProbe_loadStringUtils__block_invoke()
       v5 = debuggabilityLogHandle;
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
       {
-        v10 = 134217984;
+        v9 = 134217984;
         sizeCopy2 = size;
-        _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "Invalid requested ICMP Ping payload size (%lu)", &v10, 0xCu);
+        _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_ERROR, "Invalid requested ICMP Ping payload size (%lu)", &v9, 0xCu);
       }
 
       sizeCopy = 4096;
@@ -133,18 +132,57 @@ void __32__ICMPPingProbe_loadStringUtils__block_invoke()
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
     {
       payloadSize = self->_payloadSize;
-      v10 = 134217984;
+      v9 = 134217984;
       sizeCopy2 = payloadSize;
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "ICMP Ping Payload Size set to %lu", &v10, 0xCu);
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_DEFAULT, "ICMP Ping Payload Size set to %lu", &v9, 0xCu);
     }
   }
+}
 
-  v9 = *MEMORY[0x277D85DE8];
+- (void)startICMPPingTestTo:(id)to hostName:(id)name interface:(unsigned int)interface pingCount:(int64_t)count interPingInterval:(double)interval burstCount:(int64_t)burstCount interBurstInterval:(double)burstInterval timeout:(double)self0 stopTestOnFirstSuccess:(BOOL)self1
+{
+  v17 = *&interface;
+  nameCopy = name;
+  toCopy = to;
+  [(TestProbe *)self setRunning:1];
+  [(TestProbe *)self setStatus:1];
+  [(ICMPPingProbe *)self setIpAddress:toCopy];
+
+  [(ICMPPingProbe *)self setHostName:nameCopy];
+  [(ICMPPingProbe *)self setInterfaceIndex:v17];
+  self->stopTestOnFirstSuccess = success;
+  [(ICMPPingProbe *)self setPingCount:count];
+  [(ICMPPingProbe *)self setInterPingInterval:interval];
+  [(ICMPPingProbe *)self setBurstCount:burstCount];
+  [(ICMPPingProbe *)self setInterBurstInterval:burstInterval];
+  [(ICMPPingProbe *)self _startThePinging];
+  v22 = (burstCount - 1) * burstInterval;
+  if ((interval + 10.0) * count * v22 >= timeout)
+  {
+    timeout = (interval + 10.0) * count * v22;
+  }
+
+  queue = [(TestProbe *)self queue];
+  v24 = dispatch_source_create(MEMORY[0x277D85D38], 0, 0, queue);
+  timeoutTimer = self->timeoutTimer;
+  self->timeoutTimer = v24;
+
+  v26 = self->timeoutTimer;
+  v27 = dispatch_time(0, (timeout * 1000000000.0));
+  dispatch_source_set_timer(v26, v27, 0xFFFFFFFFFFFFFFFFLL, 0x989680uLL);
+  v28 = self->timeoutTimer;
+  handler[0] = MEMORY[0x277D85DD0];
+  handler[1] = 3221225472;
+  handler[2] = __145__ICMPPingProbe_startICMPPingTestTo_hostName_interface_pingCount_interPingInterval_burstCount_interBurstInterval_timeout_stopTestOnFirstSuccess___block_invoke;
+  handler[3] = &unk_27898A0C8;
+  handler[4] = self;
+  dispatch_source_set_event_handler(v28, handler);
+  dispatch_resume(self->timeoutTimer);
 }
 
 void __145__ICMPPingProbe_startICMPPingTestTo_hostName_interface_pingCount_interPingInterval_burstCount_interBurstInterval_timeout_stopTestOnFirstSuccess___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = debuggabilityLogHandle;
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
@@ -156,7 +194,7 @@ void __145__ICMPPingProbe_startICMPPingTestTo_hostName_interface_pingCount_inter
     }
 
     *buf = 138477827;
-    v12 = v4;
+    v11 = v4;
     _os_log_impl(&dword_23255B000, v2, OS_LOG_TYPE_ERROR, "Ping: Timed out waiting for ping response to %{private}@", buf, 0xCu);
     if (!v3)
     {
@@ -190,8 +228,6 @@ LABEL_12:
   block[3] = &unk_27898A0C8;
   block[4] = *(a1 + 32);
   dispatch_async(v8, block);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __145__ICMPPingProbe_startICMPPingTestTo_hostName_interface_pingCount_interPingInterval_burstCount_interBurstInterval_timeout_stopTestOnFirstSuccess___block_invoke_6(uint64_t a1)
@@ -299,7 +335,7 @@ void __35__ICMPPingProbe__didFailWithError___block_invoke(uint64_t a1)
 
 + (unint64_t)icmpIPv4OffsetInPacket:(id)packet
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   packetCopy = packet;
   if ([packetCopy length] < 0x30)
   {
@@ -314,11 +350,11 @@ void __35__ICMPPingProbe__didFailWithError___block_invoke(uint64_t a1)
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
       v8 = *v5 >> 4;
-      v13 = 67109120;
-      v14 = v8;
+      v12 = 67109120;
+      v13 = v8;
       v9 = "This is not an IPv4 packet! What is it? (%d)";
 LABEL_9:
-      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, v9, &v13, 8u);
+      _os_log_impl(&dword_23255B000, v7, OS_LOG_TYPE_ERROR, v9, &v12, 8u);
     }
 
 LABEL_10:
@@ -332,8 +368,8 @@ LABEL_10:
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_ERROR))
     {
       v10 = v5[9];
-      v13 = 67109120;
-      v14 = v10;
+      v12 = 67109120;
+      v13 = v10;
       v9 = "This is not an ICMP packet! What is it? (%d)";
       goto LABEL_9;
     }
@@ -344,7 +380,6 @@ LABEL_10:
   v6 = 4 * (*bytes & 0x3F);
 LABEL_11:
 
-  v11 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -358,18 +393,18 @@ LABEL_11:
   }
 }
 
-void __26__ICMPPingProbe__readData__block_invoke(uint64_t a1)
+void __26__ICMPPingProbe__readData__block_invoke(uint64_t result)
 {
-  if (*(a1 + 58) == 1)
+  if (*(result + 58) == 1)
   {
-    __26__ICMPPingProbe__readData__block_invoke_cold_2(a1);
+    __26__ICMPPingProbe__readData__block_invoke_cold_2(result);
   }
 
-  else if (*(a1 + 59) == 1)
+  else if (*(result + 59) == 1)
   {
-    if ((*(a1 + 60) & 1) != 0 || (v2 = *(a1 + 56), v2 != 0xFFFF) && (v3 = [*(a1 + 32) pingCount], objc_msgSend(*(a1 + 32), "burstCount") * v3 <= v2))
+    if ((*(result + 60) & 1) != 0 || (v2 = *(result + 56), v2 != 0xFFFF) && (v3 = [*(result + 32) pingCount], objc_msgSend(*(result + 32), "burstCount") * v3 <= v2))
     {
-      __26__ICMPPingProbe__readData__block_invoke_cold_1(a1);
+      __26__ICMPPingProbe__readData__block_invoke_cold_1(result);
     }
   }
 }
@@ -430,21 +465,34 @@ void __33__ICMPPingProbe__startThePinging__block_invoke_57(uint64_t a1)
 
 - (void)_startThePinging
 {
-  v54 = *MEMORY[0x277D85DE8];
-  if (!self)
+  v53 = *MEMORY[0x277D85DE8];
+  if (self)
   {
-    goto LABEL_25;
-  }
+    ipAddress = [self ipAddress];
+    uTF8String = [ipAddress UTF8String];
 
-  ipAddress = [self ipAddress];
-  uTF8String = [ipAddress UTF8String];
+    memset(v49, 0, sizeof(v49));
+    v50 = 0;
+    v48 = 0;
+    if (gStringToSockAddrFunc(uTF8String, v49, 28, &v48))
+    {
+      queue2 = debuggabilityLogHandle;
+      if (!OUTLINED_FUNCTION_14())
+      {
+        return;
+      }
 
-  memset(v50, 0, sizeof(v50));
-  v51 = 0;
-  v49 = 0;
-  if (!gStringToSockAddrFunc(uTF8String, v50, 28, &v49))
-  {
-    if (BYTE1(v50[0]) == 2)
+      v5 = queue2;
+      ipAddress2 = [OUTLINED_FUNCTION_4() ipAddress];
+      v51 = 138477827;
+      v52 = ipAddress2;
+      OUTLINED_FUNCTION_10();
+      _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
+
+      goto LABEL_24;
+    }
+
+    if (BYTE1(v49[0]) == 2)
     {
       v12 = objc_alloc(MEMORY[0x277CBEA90]);
       v13 = 16;
@@ -452,14 +500,14 @@ void __33__ICMPPingProbe__startThePinging__block_invoke_57(uint64_t a1)
 
     else
     {
-      if (BYTE1(v50[0]) != 30)
+      if (BYTE1(v49[0]) != 30)
       {
         if (OUTLINED_FUNCTION_14())
         {
-          v52 = 67109120;
-          LODWORD(v53) = BYTE1(v50[0]);
+          v51 = 67109120;
+          LODWORD(v52) = BYTE1(v49[0]);
           OUTLINED_FUNCTION_10();
-          _os_log_impl(v34, v35, v36, v37, v38, 8u);
+          _os_log_impl(v33, v34, v35, v36, v37, 8u);
         }
 
 LABEL_10:
@@ -484,8 +532,8 @@ LABEL_10:
           v18 = *__error();
           if (OUTLINED_FUNCTION_15())
           {
-            v52 = 67109120;
-            LODWORD(v53) = v18;
+            v51 = 67109120;
+            LODWORD(v52) = v18;
             goto LABEL_21;
           }
         }
@@ -496,11 +544,11 @@ LABEL_10:
           {
             if (OUTLINED_FUNCTION_15())
             {
-              v39 = *(queue2 + 1);
-              v52 = 67109120;
-              LODWORD(v53) = v39;
+              v38 = *(queue2 + 1);
+              v51 = 67109120;
+              LODWORD(v52) = v38;
               OUTLINED_FUNCTION_22();
-              _os_log_impl(v40, v41, v42, v43, v44, 8u);
+              _os_log_impl(v39, v40, v41, v42, v43, 8u);
             }
 
             v18 = 43;
@@ -527,29 +575,31 @@ LABEL_23:
             handler[4] = self;
             dispatch_source_set_event_handler(v29, handler);
             v30 = OUTLINED_FUNCTION_19();
-            v47[0] = MEMORY[0x277D85DD0];
-            v47[1] = 3221225472;
-            v47[2] = __33__ICMPPingProbe__startThePinging__block_invoke_2;
-            v47[3] = &unk_27898A0C8;
-            v47[4] = self;
-            dispatch_source_set_cancel_handler(v30, v47);
+            v46[0] = MEMORY[0x277D85DD0];
+            v46[1] = 3221225472;
+            v46[2] = __33__ICMPPingProbe__startThePinging__block_invoke_2;
+            v46[3] = &unk_27898A0C8;
+            v46[4] = self;
+            dispatch_source_set_cancel_handler(v30, v46);
             v31 = OUTLINED_FUNCTION_19();
             dispatch_activate(v31);
             queue2 = [self queue];
             OUTLINED_FUNCTION_1_4();
-            v46[1] = 3221225472;
-            v46[2] = __33__ICMPPingProbe__startThePinging__block_invoke_57;
-            v46[3] = &unk_27898A0C8;
-            v46[4] = self;
-            dispatch_async(v32, v46);
-            goto LABEL_24;
+            v45[1] = 3221225472;
+            v45[2] = __33__ICMPPingProbe__startThePinging__block_invoke_57;
+            v45[3] = &unk_27898A0C8;
+            v45[4] = self;
+            dispatch_async(v32, v45);
+LABEL_24:
+
+            return;
           }
 
           v18 = *__error();
           if (OUTLINED_FUNCTION_15())
           {
-            v52 = 67109120;
-            LODWORD(v53) = v18;
+            v51 = 67109120;
+            LODWORD(v52) = v18;
 LABEL_21:
             OUTLINED_FUNCTION_22();
             _os_log_impl(v20, v21, v22, v23, v24, 8u);
@@ -564,8 +614,8 @@ LABEL_21:
 LABEL_31:
         [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:v18 userInfo:0];
         objc_claimAutoreleasedReturnValue();
-        v45 = OUTLINED_FUNCTION_4();
-        [(ICMPPingProbe *)v45 _didFailWithError:queue2];
+        v44 = OUTLINED_FUNCTION_4();
+        [(ICMPPingProbe *)v44 _didFailWithError:queue2];
         goto LABEL_24;
       }
 
@@ -573,28 +623,12 @@ LABEL_31:
       v13 = 28;
     }
 
-    v14 = [v12 initWithBytes:v50 length:v13];
+    v14 = [v12 initWithBytes:v49 length:v13];
     v15 = *(self + 104);
     *(self + 104) = v14;
 
     goto LABEL_10;
   }
-
-  queue2 = debuggabilityLogHandle;
-  if (OUTLINED_FUNCTION_14())
-  {
-    v5 = queue2;
-    ipAddress2 = [OUTLINED_FUNCTION_4() ipAddress];
-    v52 = 138477827;
-    v53 = ipAddress2;
-    OUTLINED_FUNCTION_10();
-    _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
-
-LABEL_24:
-  }
-
-LABEL_25:
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_shortErrorFromError:(void *)error
@@ -677,7 +711,7 @@ LABEL_10:
 
 - (void)_sendPingWithData:(uint64_t)data
 {
-  v80 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (data)
@@ -685,9 +719,8 @@ LABEL_10:
     if ((*(data + 112) & 0x80000000) != 0)
     {
       v7 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:9 userInfo:0];
-      v8 = *(data + 104);
-      v9 = OUTLINED_FUNCTION_7();
-      [(ICMPPingProbe *)v9 _pingDidFailToSendToAddress:v10 packet:v11 sequence:v12 error:v7];
+      v8 = OUTLINED_FUNCTION_7();
+      [(ICMPPingProbe *)v8 _pingDidFailToSendToAddress:v9 packet:v10 sequence:v11 error:v7];
 LABEL_45:
 
       goto LABEL_46;
@@ -697,62 +730,59 @@ LABEL_45:
     if (v7)
     {
 LABEL_12:
-      v15 = &OBJC_IVAR___CoreMediaDownload__prevRunsWiFiTxBytes;
       if (*(data + 120) == 1)
       {
-        v16 = objc_alloc(MEMORY[0x277CBEB28]);
-        v17 = [v2 initWithLength:{objc_msgSend(OUTLINED_FUNCTION_21(), "length") + 8}];
-        mutableBytes = [v17 mutableBytes];
+        v14 = objc_alloc(MEMORY[0x277CBEB28]);
+        v15 = [v2 initWithLength:{objc_msgSend(OUTLINED_FUNCTION_21(), "length") + 8}];
+        mutableBytes = [v15 mutableBytes];
         *mutableBytes = 128;
-        OUTLINED_FUNCTION_3_0(116);
-        *(v19 + 4) = v20;
-        OUTLINED_FUNCTION_3_0(118);
-        *(v21 + 6) = v22;
+        OUTLINED_FUNCTION_3_0();
+        *(v17 + 4) = v18;
+        OUTLINED_FUNCTION_3_0();
+        *(v19 + 6) = v20;
         [v7 bytes];
-        v23 = [OUTLINED_FUNCTION_11() length];
-        memcpy(mutableBytes + 2, v3, v23);
-        v73 = 1;
-        if (setsockopt(*(data + 112), 0xFFFF, 4356, &v73, 4u) < 0)
+        v21 = [OUTLINED_FUNCTION_11() length];
+        memcpy(mutableBytes + 2, v3, v21);
+        v69 = 1;
+        if (setsockopt(*(data + 112), 0xFFFF, 4356, &v69, 4u) < 0)
         {
-          v24 = *__error();
+          v22 = *__error();
           if (OUTLINED_FUNCTION_16())
           {
-            LODWORD(v79.msg_name) = 67109120;
-            HIDWORD(v79.msg_name) = v24;
+            LODWORD(v75.msg_name) = 67109120;
+            HIDWORD(v75.msg_name) = v22;
             OUTLINED_FUNCTION_5();
-            _os_log_impl(v25, v26, v27, v28, v29, 8u);
+            _os_log_impl(v23, v24, v25, v26, v27, 8u);
           }
         }
 
         else
         {
-          v24 = 0;
+          v22 = 0;
         }
 
-        v46 = OUTLINED_FUNCTION_8() + 8;
-        v79.msg_name = [*(data + 104) bytes];
-        v79.msg_namelen = [*(data + 104) length];
-        v77 = mutableBytes;
-        v78 = v46;
-        v79.msg_iov = &v77;
-        v79.msg_iovlen = 1;
-        v47 = sendmsg(*(data + 112), &v79, 0);
-        v48 = v47;
-        if (v47 < 0 || v47 != v46)
+        v44 = OUTLINED_FUNCTION_8() + 8;
+        v75.msg_name = [*(data + 104) bytes];
+        v75.msg_namelen = [*(data + 104) length];
+        v73 = mutableBytes;
+        v74 = v44;
+        v75.msg_iov = &v73;
+        v75.msg_iovlen = 1;
+        v45 = sendmsg(*(data + 112), &v75, 0);
+        v46 = v45;
+        if (v45 < 0 || v45 != v44)
         {
-          v24 = *__error();
+          v22 = *__error();
           if (OUTLINED_FUNCTION_16())
           {
             OUTLINED_FUNCTION_23();
-            v74 = v46;
-            v75 = 1024;
-            v76 = v24;
+            v70 = v44;
+            v71 = 1024;
+            v72 = v22;
             OUTLINED_FUNCTION_5();
-            _os_log_impl(v49, v50, v51, v52, v53, 0x1Cu);
+            _os_log_impl(v47, v48, v49, v50, v51, 0x1Cu);
           }
         }
-
-        v15 = &OBJC_IVAR___CoreMediaDownload__prevRunsWiFiTxBytes;
       }
 
       else
@@ -764,96 +794,95 @@ LABEL_12:
             v2 = debuggabilityLogHandle;
             if (OUTLINED_FUNCTION_13())
             {
-              v79.msg_name = 67109120;
+              v75.msg_name = 67109120;
               OUTLINED_FUNCTION_9();
-              _os_log_impl(v30, v31, v32, v33, v34, 8u);
+              _os_log_impl(v28, v29, v30, v31, v32, 8u);
             }
           }
         }
 
-        v35 = objc_alloc(MEMORY[0x277CBEB28]);
-        v17 = [v2 initWithLength:{objc_msgSend(OUTLINED_FUNCTION_21(), "length") + 28}];
-        mutableBytes2 = [v17 mutableBytes];
+        v33 = objc_alloc(MEMORY[0x277CBEB28]);
+        v15 = [v2 initWithLength:{objc_msgSend(OUTLINED_FUNCTION_21(), "length") + 28}];
+        mutableBytes2 = [v15 mutableBytes];
         *mutableBytes2 = 8;
-        OUTLINED_FUNCTION_3_0(116);
-        *(v37 + 4) = v38;
-        OUTLINED_FUNCTION_3_0(118);
-        *(v39 + 6) = v40;
+        OUTLINED_FUNCTION_3_0();
+        *(v35 + 4) = v36;
+        OUTLINED_FUNCTION_3_0();
+        *(v37 + 6) = v38;
         [v7 bytes];
-        v41 = [OUTLINED_FUNCTION_11() length];
-        memcpy((mutableBytes2 + 28), v3, v41);
-        bytes = [v17 bytes];
-        v43 = [v17 length];
-        if (v43 < 2)
+        v39 = [OUTLINED_FUNCTION_11() length];
+        memcpy((mutableBytes2 + 28), v3, v39);
+        bytes = [v15 bytes];
+        v41 = [v15 length];
+        if (v41 < 2)
         {
-          v44 = 0;
+          v42 = 0;
         }
 
         else
         {
-          v44 = 0;
+          v42 = 0;
           do
           {
-            v45 = *bytes++;
-            v44 += v45;
-            v43 -= 2;
+            v43 = *bytes++;
+            v42 += v43;
+            v41 -= 2;
           }
 
-          while (v43 > 1);
+          while (v41 > 1);
         }
 
-        if (v43)
+        if (v41)
         {
-          v44 += *bytes;
+          v42 += *bytes;
         }
 
-        *(mutableBytes2 + 2) = ~(HIWORD(v44) + v44 + (((v44 >> 16) + v44) >> 16));
-        v54 = OUTLINED_FUNCTION_8() + 28;
-        v79.msg_name = [*(data + 104) bytes];
-        v79.msg_namelen = [*(data + 104) length];
-        v77 = mutableBytes2;
-        v78 = v54;
-        v79.msg_iov = &v77;
-        v79.msg_iovlen = 1;
-        v55 = sendmsg(*(data + 112), &v79, 0);
-        v48 = v55;
-        if (v55 < 0 || (v24 = 0, v55 != v54))
+        *(mutableBytes2 + 2) = ~(HIWORD(v42) + v42 + (((v42 >> 16) + v42) >> 16));
+        v52 = OUTLINED_FUNCTION_8() + 28;
+        v75.msg_name = [*(data + 104) bytes];
+        v75.msg_namelen = [*(data + 104) length];
+        v73 = mutableBytes2;
+        v74 = v52;
+        v75.msg_iov = &v73;
+        v75.msg_iovlen = 1;
+        v53 = sendmsg(*(data + 112), &v75, 0);
+        v46 = v53;
+        if (v53 < 0 || (v22 = 0, v53 != v52))
         {
-          v24 = *__error();
+          v22 = *__error();
           if (OUTLINED_FUNCTION_16())
           {
             OUTLINED_FUNCTION_23();
-            v74 = v54;
-            v75 = 1024;
-            v76 = v24;
+            v70 = v52;
+            v71 = 1024;
+            v72 = v22;
             OUTLINED_FUNCTION_5();
-            _os_log_impl(v56, v57, v58, v59, v60, 0x1Cu);
+            _os_log_impl(v54, v55, v56, v57, v58, 0x1Cu);
           }
         }
       }
 
-      if (v48 >= 1 && v48 == [v17 length])
+      if (v46 >= 1 && v46 == [v15 length])
       {
-        v61 = OUTLINED_FUNCTION_7();
-        [(ICMPPingProbe *)v61 _pingDidSendToAddress:v62 packet:v63 sequence:v64];
+        v59 = OUTLINED_FUNCTION_7();
+        [(ICMPPingProbe *)v59 _pingDidSendToAddress:v60 packet:v61 sequence:v62];
       }
 
       else
       {
-        if (v24)
+        if (v22)
         {
-          v65 = v24;
+          v63 = v22;
         }
 
         else
         {
-          v65 = 55;
+          v63 = 55;
         }
 
-        v66 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:v65 userInfo:0];
-        v67 = *(data + v15[84]);
-        v68 = OUTLINED_FUNCTION_7();
-        [(ICMPPingProbe *)v68 _pingDidFailToSendToAddress:v69 packet:v70 sequence:v71 error:v66];
+        v64 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:v63 userInfo:0];
+        v65 = OUTLINED_FUNCTION_7();
+        [(ICMPPingProbe *)v65 _pingDidFailToSendToAddress:v66 packet:v67 sequence:v68 error:v64];
       }
 
       ++*(data + 118);
@@ -864,14 +893,14 @@ LABEL_12:
     if (*(data + 136) == 56)
     {
       v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"%28zd bottles of beer on the wall", (100 * (*(data + 118) / 0x64u) - *(data + 118) + 99)];
-      v13 = [v2 dataUsingEncoding:1];
+      v12 = [v2 dataUsingEncoding:1];
     }
 
     else
     {
-      v14 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:*(data + 136)];
-      v2 = v14;
-      if (!v14)
+      v13 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:*(data + 136)];
+      v2 = v13;
+      if (!v13)
       {
         v7 = 0;
 LABEL_11:
@@ -879,18 +908,16 @@ LABEL_11:
         goto LABEL_12;
       }
 
-      arc4random_buf([v14 bytes], objc_msgSend(v14, "length"));
-      v13 = v2;
-      v2 = v13;
+      arc4random_buf([v13 bytes], objc_msgSend(v13, "length"));
+      v12 = v2;
+      v2 = v12;
     }
 
-    v7 = v13;
+    v7 = v12;
     goto LABEL_11;
   }
 
 LABEL_46:
-
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pingDidSendToAddress:(uint64_t)address packet:(uint64_t)packet sequence:
@@ -919,7 +946,7 @@ LABEL_46:
 
 - (void)_pingDidFailToSendToAddress:(uint64_t)address packet:(uint64_t)packet sequence:(void *)sequence error:
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v8 = a2;
   sequenceCopy = sequence;
   if (self)
@@ -948,10 +975,10 @@ LABEL_46:
 
       *buf = 134218499;
       selfCopy = self;
-      v23 = 2113;
-      v24 = ipAddress;
-      v25 = 2112;
-      v26 = sequenceCopy;
+      v22 = 2113;
+      v23 = ipAddress;
+      v24 = 2112;
+      v25 = sequenceCopy;
       _os_log_impl(&dword_23255B000, v15, OS_LOG_TYPE_ERROR, "%p ping NOT sent to %{private}@ because %@", buf, 0x20u);
       if (!v8)
       {
@@ -967,13 +994,11 @@ LABEL_46:
       [delegate2 icmpPingProbe:self echoRequestSent:v13 success:0];
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pingDidReceivePingResponseFromAddress:(void *)address packet:(uint64_t)packet sequence:
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v7 = a2;
   addressCopy = address;
   if (self)
@@ -994,9 +1019,9 @@ LABEL_46:
         ipAddress = [self ipAddress];
       }
 
-      v45 = 138477827;
+      v44 = 138477827;
       selfCopy = ipAddress;
-      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "ping response received from %{private}@", &v45, 0xCu);
+      _os_log_impl(&dword_23255B000, v10, OS_LOG_TYPE_DEBUG, "ping response received from %{private}@", &v44, 0xCu);
       if (!hostName)
       {
       }
@@ -1014,12 +1039,12 @@ LABEL_46:
         v29 = v17;
         pings2 = [OUTLINED_FUNCTION_11() pings];
         v31 = [pings2 count];
-        v45 = 134218496;
+        v44 = 134218496;
         selfCopy = self;
-        v47 = 1024;
+        v46 = 1024;
         packetCopy2 = packet;
-        v49 = 2048;
-        v50 = v31;
+        v48 = 2048;
+        v49 = v31;
         OUTLINED_FUNCTION_5();
         _os_log_impl(v32, v33, v34, v35, v36, 0x1Cu);
       }
@@ -1095,13 +1120,11 @@ LABEL_26:
       }
     }
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_pingDidReceiveUnexpectedPingResponseFromAddress:(void *)address packet:(uint64_t)packet sequence:
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v7 = a2;
   addressCopy = address;
   if (!self)
@@ -1133,11 +1156,11 @@ LABEL_26:
     DisplayAddressForAddress(v7);
     *buf = 134218755;
     selfCopy = self;
-    v52 = 1024;
+    v51 = 1024;
     packetCopy2 = packet;
-    v54 = 2048;
-    v55 = v32;
-    v57 = v56 = 2113;
+    v53 = 2048;
+    v54 = v32;
+    v56 = v55 = 2113;
     OUTLINED_FUNCTION_5();
     _os_log_impl(v33, v34, v35, v36, v37, 0x26u);
   }
@@ -1215,16 +1238,14 @@ LABEL_19:
 
     queue = [self queue];
     OUTLINED_FUNCTION_2_1();
-    v46 = 3221225472;
-    v47 = __82__ICMPPingProbe__pingDidReceiveUnexpectedPingResponseFromAddress_packet_sequence___block_invoke;
-    v48 = &unk_27898A0C8;
+    v45 = 3221225472;
+    v46 = __82__ICMPPingProbe__pingDidReceiveUnexpectedPingResponseFromAddress_packet_sequence___block_invoke;
+    v47 = &unk_27898A0C8;
     selfCopy2 = self;
     dispatch_async(v43, block);
   }
 
 LABEL_27:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopDataTransfer
@@ -1243,18 +1264,18 @@ LABEL_27:
 
 - (void)_didFailWithError:(void *)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (error)
   {
     v4 = debuggabilityLogHandle;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
     {
-      v9 = v4;
-      v10 = [(ICMPPingProbe *)error _shortErrorFromError:v3];
+      v8 = v4;
+      v9 = [(ICMPPingProbe *)error _shortErrorFromError:v3];
       *buf = 138412290;
-      v14 = v10;
-      _os_log_impl(&dword_23255B000, v9, OS_LOG_TYPE_INFO, "ping failed because %@", buf, 0xCu);
+      v13 = v9;
+      _os_log_impl(&dword_23255B000, v8, OS_LOG_TYPE_INFO, "ping failed because %@", buf, 0xCu);
     }
 
     v5 = error[9];
@@ -1269,20 +1290,18 @@ LABEL_27:
     [error setStatus:3];
     queue = [error queue];
     OUTLINED_FUNCTION_1_4();
-    v11[1] = 3221225472;
-    v11[2] = __35__ICMPPingProbe__didFailWithError___block_invoke;
-    v11[3] = &unk_27898A7D0;
-    v11[4] = error;
-    v12 = v3;
-    dispatch_async(queue, v11);
+    v10[1] = 3221225472;
+    v10[2] = __35__ICMPPingProbe__didFailWithError___block_invoke;
+    v10[3] = &unk_27898A7D0;
+    v10[4] = error;
+    v11 = v3;
+    dispatch_async(queue, v10);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)isValidIPv6PingResponsePacket:(BOOL *)packet isForMe:(_WORD *)me sequence:(_BYTE *)sequence isBadPacket:
 {
-  *&v51[13] = *MEMORY[0x277D85DE8];
+  *&v49[13] = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = v9;
   if (!self)
@@ -1296,10 +1315,10 @@ LABEL_27:
     if (OUTLINED_FUNCTION_13())
     {
       v14 = v13;
-      v48 = 134218240;
+      v46 = 134218240;
       selfCopy2 = self;
-      v50 = 2048;
-      *v51 = [v10 length];
+      v48 = 2048;
+      *v49 = [v10 length];
       OUTLINED_FUNCTION_9();
       _os_log_impl(v15, v16, v17, v18, v19, 0x16u);
     }
@@ -1322,7 +1341,7 @@ LABEL_28:
   {
     if (OUTLINED_FUNCTION_13())
     {
-      v48 = 134217984;
+      v46 = 134217984;
       selfCopy2 = self;
       OUTLINED_FUNCTION_9();
       _os_log_impl(v20, v21, v22, v23, v24, 0xCu);
@@ -1351,16 +1370,15 @@ LABEL_28:
   v32 = v26 == v27 && v12;
   if (v32 && v31 > v28)
   {
-    v44 = debuggabilityLogHandle;
+    v43 = debuggabilityLogHandle;
     v25 = 1;
     if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
     {
-      v45 = self[58];
-      v48 = 134218496;
+      v46 = 134218496;
       OUTLINED_FUNCTION_18();
-      v51[2] = v46;
-      *&v51[3] = v47;
-      _os_log_impl(&dword_23255B000, v44, OS_LOG_TYPE_INFO, "%p Valid ICMP6_ECHO_REPLY (sequence %u) for me %u!", &v48, 0x18u);
+      v49[2] = v44;
+      *&v49[3] = v45;
+      _os_log_impl(&dword_23255B000, v43, OS_LOG_TYPE_INFO, "%p Valid ICMP6_ECHO_REPLY (sequence %u) for me %u!", &v46, 0x18u);
     }
   }
 
@@ -1375,10 +1393,10 @@ LABEL_28:
         v35 = v34;
         [self pingCount];
         [self burstCount];
-        v48 = 134218496;
+        v46 = 134218496;
         OUTLINED_FUNCTION_18();
-        v51[2] = 2048;
-        *&v51[3] = v36;
+        v49[2] = 2048;
+        *&v49[3] = v36;
         OUTLINED_FUNCTION_22();
         _os_log_impl(v37, v38, v39, v40, v41, 0x1Cu);
       }
@@ -1389,13 +1407,12 @@ LABEL_28:
 
 LABEL_29:
 
-  v42 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
 - (uint64_t)isValidIPv4PingResponsePacket:(BOOL *)packet isForMe:(_WORD *)me sequence:(_BYTE *)sequence isBadPacket:
 {
-  *&v67[13] = *MEMORY[0x277D85DE8];
+  *&v65[13] = *MEMORY[0x277D85DE8];
   v9 = a2;
   if (!self)
   {
@@ -1410,9 +1427,9 @@ LABEL_29:
     {
       v12 = v11;
       *buf = 134218240;
-      *v66 = self;
-      *&v66[8] = 2048;
-      *v67 = [v9 length];
+      *v64 = self;
+      *&v64[8] = 2048;
+      *v65 = [v9 length];
       OUTLINED_FUNCTION_9();
       _os_log_impl(v13, v14, v15, v16, v17, 0x16u);
     }
@@ -1427,7 +1444,7 @@ LABEL_29:
     if (OUTLINED_FUNCTION_13())
     {
       *buf = 134217984;
-      *v66 = self;
+      *v64 = self;
       OUTLINED_FUNCTION_9();
       _os_log_impl(v21, v22, v23, v24, v25, 0xCu);
     }
@@ -1449,12 +1466,12 @@ LABEL_44:
   sequenceCopy = sequence;
   if (*(mutableBytes + v18))
   {
-    v64 = 0;
+    v62 = 0;
   }
 
   else
   {
-    v64 = *(v20 + 1) == 0;
+    v62 = *(v20 + 1) == 0;
   }
 
   v27 = bswap32(v20[2]) >> 16;
@@ -1505,7 +1522,7 @@ LABEL_44:
     *me = v35;
   }
 
-  v39 = v64;
+  v39 = v62;
   if (v27 != v28)
   {
     v39 = 0;
@@ -1522,11 +1539,11 @@ LABEL_44:
           if (OUTLINED_FUNCTION_15())
           {
             *buf = 67109376;
-            *v66 = v30;
-            *&v66[4] = 1024;
-            *&v66[6] = v37;
+            *v64 = v30;
+            *&v64[4] = 1024;
+            *&v64[6] = v37;
             OUTLINED_FUNCTION_22();
-            _os_log_impl(v54, v55, v56, v57, v58, 0xEu);
+            _os_log_impl(v53, v54, v55, v56, v57, 0xEu);
           }
 
           if (sequenceCopy)
@@ -1548,8 +1565,8 @@ LABEL_44:
           [OUTLINED_FUNCTION_21() burstCount];
           *buf = 134218496;
           OUTLINED_FUNCTION_17();
-          v67[2] = 2048;
-          *&v67[3] = v44;
+          v65[2] = 2048;
+          *&v65[3] = v44;
           OUTLINED_FUNCTION_10();
           _os_log_impl(v45, v46, v47, v48, v49, 0x1Cu);
         }
@@ -1563,17 +1580,15 @@ LABEL_44:
   v26 = 1;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_INFO))
   {
-    v51 = self[58];
     *buf = 134218496;
     OUTLINED_FUNCTION_17();
-    v67[2] = v52;
-    *&v67[3] = v53;
+    v65[2] = v51;
+    *&v65[3] = v52;
     _os_log_impl(&dword_23255B000, v50, OS_LOG_TYPE_INFO, "%p Valid ICMP_ECHOREPLY (sequence %u) for me %u!", buf, 0x18u);
   }
 
 LABEL_45:
 
-  v59 = *MEMORY[0x277D85DE8];
   return v26;
 }
 

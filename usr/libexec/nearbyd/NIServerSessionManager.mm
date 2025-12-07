@@ -10,6 +10,7 @@
 - (void)_startObserving:(id)observing;
 - (void)_stopObserving:(id)observing;
 - (void)enableInternalObserverSession;
+- (void)monitoredApp:(int)app didChangeState:(int)state;
 - (void)registerObserversForSession:(id)session;
 @end
 
@@ -107,7 +108,7 @@
   v51 = 0u;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   v8 = xpc_copy_code_signing_identity_for_token();
@@ -235,7 +236,7 @@
   v35 = 0u;
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   v8 = xpc_copy_code_signing_identity_for_token();
@@ -424,6 +425,47 @@
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "#nisessmgr,removed observer session object from retained sessions.", buf, 2u);
+  }
+
+  os_unfair_lock_unlock(&self->_sessionsLock);
+}
+
+- (void)monitoredApp:(int)app didChangeState:(int)state
+{
+  v5 = *&app;
+  dispatch_assert_queue_V2(self->_queue);
+  os_unfair_lock_lock(&self->_sessionsLock);
+  v7 = qword_1009F9820;
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = sub_100208CC4(state);
+    v15 = 67109378;
+    v16 = v5;
+    v17 = 2112;
+    v18 = v8;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "#nisessmgr,SessionManager got update for pid: %d state: %@", &v15, 0x12u);
+  }
+
+  if (state == 1)
+  {
+    processMonitors = self->_processMonitors;
+    v10 = [NSNumber numberWithInt:v5];
+    v11 = [(NSMutableDictionary *)processMonitors objectForKey:v10];
+
+    [v11 invalidate];
+    v12 = self->_processMonitors;
+    v13 = [NSNumber numberWithInt:v5];
+    [(NSMutableDictionary *)v12 removeObjectForKey:v13];
+
+    v14 = qword_1009F9820;
+    if (os_log_type_enabled(qword_1009F9820, OS_LOG_TYPE_DEFAULT))
+    {
+      v15 = 67109120;
+      v16 = v5;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "#nisessmgr,pid %d is gone. Clearing auth manager state.", &v15, 8u);
+    }
+
+    [(NIPrivacyAuthorizationManager *)self->_authManager clearStateForPid:v5];
   }
 
   os_unfair_lock_unlock(&self->_sessionsLock);

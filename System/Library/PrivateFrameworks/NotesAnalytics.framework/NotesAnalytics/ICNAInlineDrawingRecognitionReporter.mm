@@ -169,52 +169,52 @@ uint64_t __54__ICNAInlineDrawingRecognitionReporter_sharedReporter__block_invoke
 
 - (void)submitReportsWithEventReporter:(id)reporter
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   reporterCopy = reporter;
   selfCopy = self;
   obj = [(ICNAInlineDrawingRecognitionReporter *)self stagedReports];
   objc_sync_enter(obj);
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   stagedReports = [(ICNAInlineDrawingRecognitionReporter *)self stagedReports];
-  v5 = [stagedReports countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v5 = [stagedReports countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v5)
   {
-    v21 = stagedReports;
-    v22 = *v27;
+    v20 = stagedReports;
+    v21 = *v26;
     do
     {
-      v25 = v5;
-      for (i = 0; i != v25; ++i)
+      v24 = v5;
+      for (i = 0; i != v24; ++i)
       {
-        if (*v27 != v22)
+        if (*v26 != v21)
         {
-          objc_enumerationMutation(v21);
+          objc_enumerationMutation(v20);
         }
 
-        v7 = *(*(&v26 + 1) + 8 * i);
+        v7 = *(*(&v25 + 1) + 8 * i);
         stagedReports2 = [(ICNAInlineDrawingRecognitionReporter *)selfCopy stagedReports];
         v9 = [stagedReports2 objectForKeyedSubscript:v7];
 
         v10 = +[ICNAController sharedController];
         v11 = objc_opt_class();
         noteData = [v9 noteData];
-        v30[0] = noteData;
+        v29[0] = noteData;
         noteAccessData = [v9 noteAccessData];
-        v30[1] = noteAccessData;
+        v29[1] = noteAccessData;
         accountData = [v9 accountData];
-        v30[2] = accountData;
+        v29[2] = accountData;
         drawingRecognitionData = [v9 drawingRecognitionData];
-        v30[3] = drawingRecognitionData;
-        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:4];
+        v29[3] = drawingRecognitionData;
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
         subTracker = [reporterCopy subTracker];
         [v10 submitEventOfType:v11 pushThenPopDataObjects:v16 subTracker:subTracker];
       }
 
-      stagedReports = v21;
-      v5 = [v21 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      stagedReports = v20;
+      v5 = [v20 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v5);
@@ -224,7 +224,6 @@ uint64_t __54__ICNAInlineDrawingRecognitionReporter_sharedReporter__block_invoke
   [stagedReports3 removeAllObjects];
 
   objc_sync_exit(obj);
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

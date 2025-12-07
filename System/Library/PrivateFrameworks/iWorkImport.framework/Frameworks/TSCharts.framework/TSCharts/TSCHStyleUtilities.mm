@@ -155,16 +155,16 @@
   addedCopy = added;
   if (objc_msgSend_shouldRender(addedCopy, v4, v5, v6, v7))
   {
-    v12 = objc_msgSend_color(addedCopy, v8, v9, v10, v11);
-    v17 = objc_msgSend_isClear(v12, v13, v14, v15, v16) ^ 1;
+    v11 = objc_msgSend_color(addedCopy, v8, v9, v10);
+    v16 = objc_msgSend_isClear(v11, v12, v13, v14, v15) ^ 1;
   }
 
   else
   {
-    LOBYTE(v17) = 0;
+    LOBYTE(v16) = 0;
   }
 
-  return v17;
+  return v16;
 }
 
 + (BOOL)shouldExteriorBorderButtonBeDisabled:(id)disabled
@@ -172,8 +172,8 @@
   disabledCopy = disabled;
   if (objc_msgSend_shouldRender(disabledCopy, v4, v5, v6, v7))
   {
-    v12 = objc_msgSend_color(disabledCopy, v8, v9, v10, v11);
-    isClear = objc_msgSend_isClear(v12, v13, v14, v15, v16);
+    v11 = objc_msgSend_color(disabledCopy, v8, v9, v10);
+    isClear = objc_msgSend_isClear(v11, v12, v13, v14, v15);
   }
 
   else
@@ -969,61 +969,61 @@ LABEL_7:
   objectCopy = object;
   objc_opt_class();
   v4 = TSUDynamicCast();
-  v9 = v4;
+  v8 = v4;
   if (v4)
   {
-    v10 = 0;
-    v11 = objc_msgSend_color(v4, v5, v6, v7, v8);
-    v12 = 0;
+    v9 = 0;
+    v10 = objc_msgSend_color(v4, v5, v6, v7);
+    v11 = 0;
 LABEL_3:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_8;
   }
 
   objc_opt_class();
-  v14 = TSUDynamicCast();
-  v13 = v14;
-  if (v14)
+  v13 = TSUDynamicCast();
+  v12 = v13;
+  if (v13)
   {
-    v10 = 0;
-    v11 = objc_msgSend_firstColor(v14, v15, v16, v17, v18);
-    v12 = 0;
+    v9 = 0;
+    v10 = objc_msgSend_firstColor(v13, v14, v15, v16, v17);
+    v11 = 0;
   }
 
   else
   {
     objc_opt_class();
-    v19 = TSUDynamicCast();
-    v24 = v19;
-    if (v19)
+    v18 = TSUDynamicCast();
+    v23 = v18;
+    if (v18)
     {
+      v11 = 0;
+      v10 = objc_msgSend_referenceColor(v18, v19, v20, v21, v22);
+      v9 = v23;
       v12 = 0;
-      v11 = objc_msgSend_referenceColor(v19, v20, v21, v22, v23);
-      v10 = v24;
-      v13 = 0;
     }
 
     else
     {
       objc_opt_class();
-      v26 = TSUDynamicCast();
-      v10 = 0;
-      v13 = v26;
-      if (v26)
+      v25 = TSUDynamicCast();
+      v9 = 0;
+      v12 = v25;
+      if (v25)
       {
-        v11 = objc_msgSend_color(v26, v27, v28, v29, v30);
-        v12 = v13;
+        v10 = objc_msgSend_color(v25, v26, v27, v28);
+        v11 = v12;
         goto LABEL_3;
       }
 
-      v12 = 0;
       v11 = 0;
+      v10 = 0;
     }
   }
 
 LABEL_8:
 
-  return v11;
+  return v10;
 }
 
 + (id)fillForSeries:(id)series chartType:(id)type
@@ -1428,7 +1428,7 @@ LABEL_15:
 
 + (id)tupleToUpdate2_3ExplosionFromValue:(id)value chartInfo:(id)info forStyleOwner:(id)owner
 {
-  v83[1] = *MEMORY[0x277D85DE8];
+  v82[1] = *MEMORY[0x277D85DE8];
   valueCopy = value;
   infoCopy = info;
   ownerCopy = owner;
@@ -1448,19 +1448,19 @@ LABEL_15:
     v46 = objc_msgSend_model(v41, v42, v43, v44, v45);
     v51 = objc_msgSend_chart(infoCopy, v47, v48, v49, v50);
     v56 = objc_msgSend_geometry(v51, v52, v53, v54, v55);
-    objc_msgSend_size(v56, v57, v58, v59, v60);
-    objc_msgSend_pre2_4BendedCalloutLineLabelExplosionValueFromExplosionValue_chartModel_bodySize_(self, v61, v40, v62, v63, v46);
-    v40 = v64;
+    objc_msgSend_size(v56, v57, v58, v59);
+    objc_msgSend_pre2_4BendedCalloutLineLabelExplosionValueFromExplosionValue_chartModel_bodySize_(self, v60, v40, v61, v62, v46);
+    v40 = v63;
   }
 
-  v65 = [TSCHPropertyMutationTuple alloc];
-  v82 = v36;
-  v69 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v66, v40, v67, v68);
-  v83[0] = v69;
-  v74 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v70, v71, v72, v73, v83, &v82, 1);
-  v79 = objc_msgSend_initWithStyleOwner_mutations_(v65, v75, v76, v77, v78, ownerCopy, v74);
+  v64 = [TSCHPropertyMutationTuple alloc];
+  v81 = v36;
+  v68 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v65, v40, v66, v67);
+  v82[0] = v68;
+  v73 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v69, v70, v71, v72, v82, &v81, 1);
+  v78 = objc_msgSend_initWithStyleOwner_mutations_(v64, v74, v75, v76, v77, ownerCopy, v73);
 
-  return v79;
+  return v78;
 }
 
 + (float)defaultDonutLabelExplosionPercentage

@@ -156,7 +156,7 @@
 
 - (NSArray)documentContentTypes
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   documentContentTypes = self->_documentContentTypes;
   if (documentContentTypes)
   {
@@ -182,13 +182,13 @@ LABEL_2:
       hostIdentifier = 0;
     }
 
-    v8 = DOCContentTypesReadableByApplicationWithBundleIdentifier(hostIdentifier);
-    v9 = self->_documentContentTypes;
-    self->_documentContentTypes = v8;
+    v7 = DOCContentTypesReadableByApplicationWithBundleIdentifier(hostIdentifier);
+    v8 = self->_documentContentTypes;
+    self->_documentContentTypes = v7;
 
-    v10 = [(NSArray *)self->_documentContentTypes count];
+    v9 = [(NSArray *)self->_documentContentTypes count];
     documentContentTypes = self->_documentContentTypes;
-    if (!v10)
+    if (!v9)
     {
       self->_documentContentTypes = 0;
 
@@ -198,10 +198,9 @@ LABEL_2:
     goto LABEL_2;
   }
 
-  v11[0] = *MEMORY[0x277CE1D40];
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = *MEMORY[0x277CE1D40];
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
 LABEL_3:
-  v4 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -336,38 +335,38 @@ LABEL_3:
 
 void __63__DOCConfiguration_pickableContentTypesFromAllowedConversions___block_invoke(void *a1, void *a2, void *a3)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   [*(*(a1[6] + 8) + 40) addObject:v5];
   v7 = a1[4];
-  v25 = v5;
+  v24 = v5;
   v8 = [v5 identifier];
   LODWORD(v7) = [v7 containsObject:v8];
 
   if (v7)
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
-    v24 = v6;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v23 = v6;
     v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v26 objects:v36 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v25 objects:v35 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v27;
+      v12 = *v26;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v27 != v12)
+          if (*v26 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v26 + 1) + 8 * i);
+          v14 = *(*(&v25 + 1) + 8 * i);
           v15 = a1[5];
           v16 = [v14 identifier];
           LODWORD(v15) = [v15 containsObject:v16];
@@ -391,25 +390,25 @@ void __63__DOCConfiguration_pickableContentTypesFromAllowedConversions___block_i
               v18 = v17;
               v19 = [v14 identifier];
               v20 = [v14 identifier];
-              v21 = [v25 identifier];
+              v21 = [v24 identifier];
               *buf = 138412802;
-              v31 = v19;
-              v32 = 2112;
-              v33 = v20;
-              v34 = 2112;
-              v35 = v21;
+              v30 = v19;
+              v31 = 2112;
+              v32 = v20;
+              v33 = 2112;
+              v34 = v21;
               _os_log_error_impl(&dword_249340000, v18, OS_LOG_TYPE_ERROR, "%@ is not part of Image I/O Source types so conversion from %@ to %@ not allowed", buf, 0x20u);
             }
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v26 objects:v36 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v25 objects:v35 count:16];
       }
 
       while (v11);
     }
 
-    v6 = v24;
+    v6 = v23;
   }
 
   else
@@ -426,13 +425,11 @@ void __63__DOCConfiguration_pickableContentTypesFromAllowedConversions___block_i
       __63__DOCConfiguration_pickableContentTypesFromAllowedConversions___block_invoke_cold_1(v22, v5);
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 + (id)configurationForExportingDocumentsToURLs:(id)ls mode:(unint64_t)mode
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   lsCopy = ls;
   if (!lsCopy)
   {
@@ -444,33 +441,33 @@ void __63__DOCConfiguration_pickableContentTypesFromAllowedConversions___block_i
     [DOCConfiguration configurationForExportingDocumentsToURLs:a2 mode:self];
   }
 
-  v20 = objc_opt_new();
-  [v20 setInteractionMode:mode];
+  v19 = objc_opt_new();
+  [v19 setInteractionMode:mode];
   v8 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(lsCopy, "count")}];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = lsCopy;
-  v9 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
+  v9 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v24;
+    v11 = *v23;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v11)
+        if (*v23 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v23 + 1) + 8 * i);
+        v13 = *(*(&v22 + 1) + 8 * i);
         v14 = objc_autoreleasePoolPush();
-        v22 = 0;
-        v15 = [MEMORY[0x277CC6438] wrapperWithURL:v13 readonly:mode == 2 error:&v22];
-        v16 = v22;
+        v21 = 0;
+        v15 = [MEMORY[0x277CC6438] wrapperWithURL:v13 readonly:mode == 2 error:&v21];
+        v16 = v21;
         if (v15)
         {
           [v8 addObject:v15];
@@ -488,9 +485,9 @@ void __63__DOCConfiguration_pickableContentTypesFromAllowedConversions___block_i
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v28 = v13;
-            v29 = 2112;
-            v30 = v16;
+            v27 = v13;
+            v28 = 2112;
+            v29 = v16;
             _os_log_error_impl(&dword_249340000, v17, OS_LOG_TYPE_ERROR, "Failed to create FPSandboxingURLWrapper for %@. %@", buf, 0x16u);
           }
         }
@@ -498,16 +495,15 @@ void __63__DOCConfiguration_pickableContentTypesFromAllowedConversions___block_i
         objc_autoreleasePoolPop(v14);
       }
 
-      v10 = [obj countByEnumeratingWithState:&v23 objects:v31 count:16];
+      v10 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v10);
   }
 
-  [v20 setUrls:v8];
-  v18 = *MEMORY[0x277D85DE8];
+  [v19 setUrls:v8];
 
-  return v20;
+  return v19;
 }
 
 + (id)configurationForFolderPicking
@@ -807,44 +803,7 @@ void __63__DOCConfiguration_pickableContentTypesFromAllowedConversions___block_i
 {
   configurationCopy = configuration;
   v5 = configurationCopy;
-  if (self->_interactionMode != configurationCopy[6])
-  {
-    goto LABEL_53;
-  }
-
-  if (self->_shouldIgnoreInteractionMode != *(configurationCopy + 8))
-  {
-    goto LABEL_53;
-  }
-
-  documentContentTypes = self->_documentContentTypes;
-  if (documentContentTypes != v5[7] && ![(NSArray *)documentContentTypes isEqual:?])
-  {
-    goto LABEL_53;
-  }
-
-  excludedDocumentContentTypes = self->_excludedDocumentContentTypes;
-  if (excludedDocumentContentTypes != v5[9] && ![(NSArray *)excludedDocumentContentTypes isEqual:?])
-  {
-    goto LABEL_53;
-  }
-
-  recentDocumentsContentTypes = self->_recentDocumentsContentTypes;
-  if (recentDocumentsContentTypes != v5[10] && ![(NSArray *)recentDocumentsContentTypes isEqual:?])
-  {
-    goto LABEL_53;
-  }
-
-  if (((urls = self->_urls, urls == v5[11]) || [(NSArray *)urls isEqual:?]) && ((hostIdentifier = self->_hostIdentifier, hostIdentifier == v5[12]) || [(NSString *)hostIdentifier isEqual:?]) && self->_isContentManaged == *(v5 + 17) && ((forbiddenActionIdentifiers = self->_forbiddenActionIdentifiers, forbiddenActionIdentifiers == v5[22]) || [(NSArray *)forbiddenActionIdentifiers isEqual:?]) && self->_neverCreateBookmarkForOpenInPlace == *(v5 + 18) && self->_showCollectionControls == *(v5 + 30) && ((hiddenSourcesIdentifiers = self->_hiddenSourcesIdentifiers, hiddenSourcesIdentifiers == v5[14]) || [(NSArray *)hiddenSourcesIdentifiers isEqual:?]) && self->_useExpandedSourceList == *(v5 + 35) && self->_restoreLastVisitedLocation == *(v5 + 25) && hasEqual_defaultEffectiveTabIdentifierForLocationRestore(self, v5) && self->_saveLastVisitedLocation == *(v5 + 26) && self->_shouldOpenInApp == *(v5 + 24) && ((roleIdentifier = self->_roleIdentifier, roleIdentifier == v5[19]) || [(NSString *)roleIdentifier isEqual:?]) && ((stateIdentifier = self->_stateIdentifier, stateIdentifier == v5[20]) || [(NSString *)stateIdentifier isEqual:?]) && ((sceneIdentifier = self->_sceneIdentifier, sceneIdentifier == v5[21]) || [(NSString *)sceneIdentifier isEqual:?]) && self->_maximumNumberOfItemsToFetch == v5[16] && self->_maximumNumberOfRows == v5[17] && self->_pickingItemsShouldBumpLastOpenDate == *(v5 + 19) && self->_shouldAdjustContentInset == *(v5 + 33) && self->_forPickingDocuments == *(v5 + 11) && self->_forPickingFolders == *(v5 + 12) && self->_forPickingDownloadsFolder == *(v5 + 15) && self->_forMovingDocuments == *(v5 + 13) && self->_supportsRelatedFilesInPicker == *(v5 + 16) && self->_useSharedQuickLook == *(v5 + 34) && self->_suppressBlackCallout == *(v5 + 20) && self->_preferLastUsedDate == *(v5 + 21) && self->_browserViewContext == v5[18] && self->_skipDownload == *(v5 + 28) && self->_presentingMakesCollectionFirstResponder == *(v5 + 29) && self->_thumbnailFetchingTimeOut == *(v5 + 23) && self->_collectionSupportsDragAndDrop == *(v5 + 27) && self->_supportsColumnView == *(v5 + 31) && self->_supportsNavigationTitleMenus == *(v5 + 32) && self->_supportsRemovableFileProviders == *(v5 + 14) && self->_isInUIPDocumentLanding == *(v5 + 22))
-  {
-    v16 = self->_shouldHideCatalystHostWindow == *(v5 + 23);
-  }
-
-  else
-  {
-LABEL_53:
-    v16 = 0;
-  }
+  v16 = self->_interactionMode == configurationCopy[6] && self->_shouldIgnoreInteractionMode == *(configurationCopy + 8) && ((documentContentTypes = self->_documentContentTypes, documentContentTypes == v5[7]) || [(NSArray *)documentContentTypes isEqual:?]) && ((excludedDocumentContentTypes = self->_excludedDocumentContentTypes, excludedDocumentContentTypes == v5[9]) || [(NSArray *)excludedDocumentContentTypes isEqual:?]) && ((recentDocumentsContentTypes = self->_recentDocumentsContentTypes, recentDocumentsContentTypes == v5[10]) || [(NSArray *)recentDocumentsContentTypes isEqual:?]) && ((urls = self->_urls, urls == v5[11]) || [(NSArray *)urls isEqual:?]) && ((hostIdentifier = self->_hostIdentifier, hostIdentifier == v5[12]) || [(NSString *)hostIdentifier isEqual:?]) && self->_isContentManaged == *(v5 + 17) && ((forbiddenActionIdentifiers = self->_forbiddenActionIdentifiers, forbiddenActionIdentifiers == v5[22]) || [(NSArray *)forbiddenActionIdentifiers isEqual:?]) && self->_neverCreateBookmarkForOpenInPlace == *(v5 + 18) && self->_showCollectionControls == *(v5 + 30) && ((hiddenSourcesIdentifiers = self->_hiddenSourcesIdentifiers, hiddenSourcesIdentifiers == v5[14]) || [(NSArray *)hiddenSourcesIdentifiers isEqual:?]) && self->_useExpandedSourceList == *(v5 + 35) && self->_restoreLastVisitedLocation == *(v5 + 25) && hasEqual_defaultEffectiveTabIdentifierForLocationRestore(self, v5) && self->_saveLastVisitedLocation == *(v5 + 26) && self->_shouldOpenInApp == *(v5 + 24) && ((roleIdentifier = self->_roleIdentifier, roleIdentifier == v5[19]) || [(NSString *)roleIdentifier isEqual:?]) && ((stateIdentifier = self->_stateIdentifier, stateIdentifier == v5[20]) || [(NSString *)stateIdentifier isEqual:?]) && ((sceneIdentifier = self->_sceneIdentifier, sceneIdentifier == v5[21]) || [(NSString *)sceneIdentifier isEqual:?]) && self->_maximumNumberOfItemsToFetch == v5[16] && self->_maximumNumberOfRows == v5[17] && self->_pickingItemsShouldBumpLastOpenDate == *(v5 + 19) && self->_shouldAdjustContentInset == *(v5 + 33) && self->_forPickingDocuments == *(v5 + 11) && self->_forPickingFolders == *(v5 + 12) && self->_forPickingDownloadsFolder == *(v5 + 15) && self->_forMovingDocuments == *(v5 + 13) && self->_supportsRelatedFilesInPicker == *(v5 + 16) && self->_useSharedQuickLook == *(v5 + 34) && self->_suppressBlackCallout == *(v5 + 20) && self->_preferLastUsedDate == *(v5 + 21) && self->_browserViewContext == v5[18] && self->_skipDownload == *(v5 + 28) && self->_presentingMakesCollectionFirstResponder == *(v5 + 29) && self->_thumbnailFetchingTimeOut == *(v5 + 23) && self->_collectionSupportsDragAndDrop == *(v5 + 27) && self->_supportsColumnView == *(v5 + 31) && self->_supportsNavigationTitleMenus == *(v5 + 32) && self->_supportsRemovableFileProviders == *(v5 + 14) && self->_isInUIPDocumentLanding == *(v5 + 22) && self->_shouldHideCatalystHostWindow == *(v5 + 23);
 
   return v16;
 }
@@ -873,7 +832,7 @@ LABEL_53:
 - (void)setIsContentManaged:(BOOL)managed
 {
   managedCopy = managed;
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = docPersonaLogHandle;
   if (!docPersonaLogHandle)
   {
@@ -889,9 +848,9 @@ LABEL_53:
       v6 = @"YES";
     }
 
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_249340000, v5, OS_LOG_TYPE_DEFAULT, "MDM : setting isContentManaged to : %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_249340000, v5, OS_LOG_TYPE_DEFAULT, "MDM : setting isContentManaged to : %@", &v8, 0xCu);
   }
 
   self->_isContentManaged = managedCopy;
@@ -899,8 +858,6 @@ LABEL_53:
   objc_sync_enter(v7);
   [v7 setHostAccountDataOwnerState:managedCopy];
   objc_sync_exit(v7);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 + (void)configurationForImportingDocumentContentTypes:(uint64_t)a1 mode:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
@@ -911,14 +868,12 @@ LABEL_53:
 
 void __63__DOCConfiguration_pickableContentTypesFromAllowedConversions___block_invoke_cold_1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 identifier];
-  v6 = 138412290;
-  v7 = v4;
-  _os_log_error_impl(&dword_249340000, v3, OS_LOG_TYPE_ERROR, "%@ is not part of Image I/O Destination types so conversion not allowed", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412290;
+  v6 = v4;
+  _os_log_error_impl(&dword_249340000, v3, OS_LOG_TYPE_ERROR, "%@ is not part of Image I/O Destination types so conversion not allowed", &v5, 0xCu);
 }
 
 + (void)configurationForExportingDocumentsToURLs:(uint64_t)a1 mode:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)

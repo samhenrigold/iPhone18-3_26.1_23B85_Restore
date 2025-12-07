@@ -7,7 +7,7 @@
 
 - (void)main
 {
-  v3 = sub_18F3EC(&qword_2E5CE8);
+  v3 = sub_18F3EC(&qword_2E5CE8, "J5");
   __chkstk_darwin(v3 - 8);
   v5 = &v9 - v4;
   v6 = sub_19C5F8();

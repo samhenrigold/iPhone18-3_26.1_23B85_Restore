@@ -152,14 +152,12 @@ LABEL_10:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 8) != 0)
   {
-    registrationType = self->_registrationType;
     PBDataWriterWriteInt32Field();
   }
 
@@ -168,8 +166,8 @@ LABEL_10:
     PBDataWriterWriteStringField();
   }
 
-  v7 = self->_has;
-  if ((v7 & 0x10) == 0)
+  v5 = self->_has;
+  if ((v5 & 0x10) == 0)
   {
     if ((*&self->_has & 4) == 0)
     {
@@ -177,7 +175,6 @@ LABEL_10:
     }
 
 LABEL_12:
-    registrationError = self->_registrationError;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 2) == 0)
     {
@@ -187,22 +184,20 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  wasSuccessful = self->_wasSuccessful;
   PBDataWriterWriteUint32Field();
-  v7 = self->_has;
-  if ((v7 & 4) != 0)
+  v5 = self->_has;
+  if ((v5 & 4) != 0)
   {
     goto LABEL_12;
   }
 
 LABEL_9:
-  if ((v7 & 2) == 0)
+  if ((v5 & 2) == 0)
   {
     return;
   }
 
 LABEL_13:
-  circleStatus = self->_circleStatus;
 
   PBDataWriterWriteInt32Field();
 }
@@ -326,7 +321,6 @@ LABEL_8:
   if (v5)
   {
     has = self->_has;
-    v7 = *(equal + 44);
     if (has)
     {
       if ((*(equal + 44) & 1) == 0 || self->_timestamp != *(equal + 1))

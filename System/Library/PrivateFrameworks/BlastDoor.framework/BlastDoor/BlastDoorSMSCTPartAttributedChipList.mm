@@ -8,8 +8,6 @@
 
 - (NSString)description
 {
-  v4 = *(&self->super.isa + OBJC_IVAR___BlastDoorSMSCTPartAttributedChipList_sMSCTPartAttributedChipList);
-  v5 = self->sMSCTPartAttributedChipList[OBJC_IVAR___BlastDoorSMSCTPartAttributedChipList_sMSCTPartAttributedChipList];
 
   sub_2146D9608();
   v2 = sub_2146D9588();
@@ -21,8 +19,6 @@
 {
   if (*(&self->super.isa + OBJC_IVAR___BlastDoorSMSCTPartAttributedChipList_sMSCTPartAttributedChipList))
   {
-    v5 = *(&self->super.isa + OBJC_IVAR___BlastDoorSMSCTPartAttributedChipList_sMSCTPartAttributedChipList);
-    v6 = self->sMSCTPartAttributedChipList[OBJC_IVAR___BlastDoorSMSCTPartAttributedChipList_sMSCTPartAttributedChipList] & 1;
     selfCopy = self;
 
     MBDChipList.dictionaryRepresentation.getter();

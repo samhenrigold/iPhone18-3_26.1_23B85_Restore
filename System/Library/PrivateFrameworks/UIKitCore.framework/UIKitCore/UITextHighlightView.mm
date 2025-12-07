@@ -133,7 +133,7 @@
   }
 
   obj = colorCopy;
-  if (![(UIColor *)self->_fillColor isEqual:colorCopy])
+  if ((objc_msgSend_isEqual_(self->_fillColor, colorCopy, colorCopy) & 1) == 0)
   {
     objc_storeStrong(&self->_fillColor, obj);
     v5 = obj;
@@ -245,7 +245,7 @@ uint64_t __46__UITextHighlightView_fadeAwayWithCompletion___block_invoke_2(uint6
 - (void)setOverriddenPreviewParameters:(id)parameters
 {
   parametersCopy = parameters;
-  if (![(UIPreviewParameters *)self->_overriddenPreviewParameters isEqual:?])
+  if ((objc_msgSend_isEqual_(self->_overriddenPreviewParameters) & 1) == 0)
   {
     [(UITextHighlightView *)self invalidateContentView];
     objc_storeStrong(&self->_overriddenPreviewParameters, parameters);

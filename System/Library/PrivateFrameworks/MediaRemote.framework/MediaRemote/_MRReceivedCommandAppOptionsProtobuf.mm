@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    launchApplication = self->_launchApplication;
     PBDataWriterWriteBOOLField();
   }
 }

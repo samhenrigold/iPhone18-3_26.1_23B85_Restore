@@ -14,6 +14,7 @@
 - (void)deleteCandidate:(id)candidate;
 - (void)didSpotOnLocationComplete:(id)complete;
 - (void)didUpdateContextWithReason:(id)reason andOverrides:(id)overrides;
+- (void)restartLowLatencyMiLo:(BOOL)lo;
 - (void)run;
 - (void)setSpotOnLocationWithParameters:(id)parameters andClientID:(id)d;
 - (void)setUpdateMode:(int64_t)mode;
@@ -108,8 +109,8 @@ LABEL_7:
     v53 = monitorCopy;
     v54 = v25;
     service = [(IRPolicyManager *)v30 service];
-    clientIdentifier = [service clientIdentifier];
-    if ([clientIdentifier containsString:@"com.apple.mediaremoted"])
+    v45 = objc_msgSend_clientIdentifier(service);
+    if ([v45 containsString:@"com.apple.mediaremoted"])
     {
 
       monitorCopy = v53;
@@ -124,8 +125,8 @@ LABEL_6:
     }
 
     service2 = [(IRPolicyManager *)v30 service];
-    clientIdentifier2 = [service2 clientIdentifier];
-    v52 = [clientIdentifier2 isEqual:@"com.apple.intelligentroutingclient.Media"];
+    v47 = objc_msgSend_clientIdentifier(service2);
+    v52 = [v47 isEqual:@"com.apple.intelligentroutingclient.Media"];
 
     delegateCopy = v58;
     monitorCopy = v53;
@@ -208,7 +209,7 @@ LABEL_8:
 
 - (void)addEvent:(id)event forCandidate:(id)candidate
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   candidateCopy = candidate;
   queue = [(IRPolicyManager *)self queue];
@@ -222,7 +223,7 @@ LABEL_8:
   historyEventsContainer = [historyManager historyEventsContainer];
   systemStateManager = [(IRPolicyManager *)self systemStateManager];
   systemState = [systemStateManager systemState];
-  v60 = date;
+  v59 = date;
   LODWORD(date) = [policyEngine shouldRejectEvent:eventCopy withHistoryEventsContainer:historyEventsContainer withSystemState:systemState forCandidate:candidateCopy date:date];
 
   if (date)
@@ -241,17 +242,17 @@ LABEL_8:
       systemState2 = [systemStateManager2 systemState];
       v26 = [v23 numberWithBool:{objc_msgSend(systemState2, "displayOn")}];
       *buf = 136316418;
-      v63 = "#policy-manager, ";
-      v64 = 2112;
-      v65 = v17;
-      v66 = 2112;
-      v67 = v21;
-      v68 = 2112;
-      v69 = v22;
-      v70 = 2112;
-      v71 = v16;
-      v72 = 2112;
-      v73 = v26;
+      v62 = "#policy-manager, ";
+      v63 = 2112;
+      v64 = v17;
+      v65 = 2112;
+      v66 = v21;
+      v67 = 2112;
+      v68 = v22;
+      v69 = 2112;
+      v70 = v16;
+      v71 = 2112;
+      v72 = v26;
       _os_log_impl(&dword_25543D000, v20, OS_LOG_TYPE_INFO, "%s[%@], Event rejected, type: %@, subtype: %@, for candidateIdentifier: %@, displayOn: %@", buf, 0x3Eu);
     }
   }
@@ -270,13 +271,13 @@ LABEL_8:
       v33 = [IRLogQEUtility getEventAsString:eventCopy];
       v34 = [IRLogQEUtility getCandidateAsString:v29];
       *buf = 136315906;
-      v63 = "#policy-manager, ";
-      v64 = 2112;
-      v65 = v30;
-      v66 = 2112;
-      v67 = v33;
-      v68 = 2112;
-      v69 = v34;
+      v62 = "#policy-manager, ";
+      v63 = 2112;
+      v64 = v30;
+      v65 = 2112;
+      v66 = v33;
+      v67 = 2112;
+      v68 = v34;
       _os_log_impl(&dword_25543D000, v32, OS_LOG_TYPE_DEFAULT, "%s[%@], Adding event:\n %@\n for candidate:\n %@", buf, 0x2Au);
     }
 
@@ -286,17 +287,17 @@ LABEL_8:
 
     systemStateManager3 = [(IRPolicyManager *)self systemStateManager];
     systemState3 = [systemStateManager3 systemState];
-    v58 = [IRHistoryEventDO historyEventDOWithDate:v60 candidateIdentifier:candidateIdentifier event:eventCopy miloPredictionEvent:0 systemState:systemState3 sharingPolicy:0];
+    v57 = [IRHistoryEventDO historyEventDOWithDate:v59 candidateIdentifier:candidateIdentifier event:eventCopy miloPredictionEvent:0 systemState:systemState3 sharingPolicy:0];
 
-    v61 = v58;
-    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v61 count:1];
-    v57 = [IRHistoryEventsContainerDO historyEventsContainerDOWithHistoryEvents:v38];
+    v60 = v57;
+    v38 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
+    v56 = [IRHistoryEventsContainerDO historyEventsContainerDOWithHistoryEvents:v38];
 
-    [(IRPolicyManager *)self _checkAndStartLowLatencyMiLoIfNeededWithForce:0 historyEventsContainer:v57];
+    [(IRPolicyManager *)self _checkAndStartLowLatencyMiLoIfNeededWithForce:0 historyEventsContainer:v56];
     historyManager2 = [(IRPolicyManager *)self historyManager];
     systemStateManager4 = [(IRPolicyManager *)self systemStateManager];
     [systemStateManager4 systemState];
-    v41 = v59 = v29;
+    v41 = v58 = v29;
     systemStateManager5 = [(IRPolicyManager *)self systemStateManager];
     miloProviderLslPredictionResults = [systemStateManager5 miloProviderLslPredictionResults];
     [historyManager2 addEvent:eventCopy forCandidateIdentifier:candidateIdentifier withSystemState:v41 andMiloPrediction:miloProviderLslPredictionResults];
@@ -306,7 +307,7 @@ LABEL_8:
     policyInspections = [policyEngine2 policyInspections];
 
     systemStateManager6 = [(IRPolicyManager *)self systemStateManager];
-    [systemStateManager6 addEvent:eventCopy forCandidate:v59];
+    [systemStateManager6 addEvent:eventCopy forCandidate:v58];
 
     service = [(IRPolicyManager *)self service];
     systemStateManager7 = [(IRPolicyManager *)self systemStateManager];
@@ -319,19 +320,17 @@ LABEL_8:
     [IRAnalyticsManager logUiEvent:v49 withService:service forCandidateIdentifier:v16 systemStateManager:systemStateManager7 candidatesContainer:candidatesContainer2 inspections:policyInspections statisticsManager:v50 historyEventsContainer:historyEventsContainer2];
 
     eventCopy = v49;
-    candidateCopy = v59;
+    candidateCopy = v58;
     statisticsManager = [(IRPolicyManager *)self statisticsManager];
-    [statisticsManager event:v49 forCandidate:v59 inspections:policyInspections date:v60];
+    [statisticsManager event:v49 forCandidate:v58 inspections:policyInspections date:v59];
 
-    v17 = v58;
+    v17 = v57;
   }
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setSpotOnLocationWithParameters:(id)parameters andClientID:(id)d
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   dCopy = d;
   queue = [(IRPolicyManager *)self queue];
@@ -347,13 +346,13 @@ LABEL_8:
     v14 = v12;
     v15 = [v13 numberWithBool:{objc_msgSend(parametersCopy, "resetAllBrokerDiscoveredCandidates")}];
     *buf = 136315906;
-    v41 = "#policy-manager, ";
-    v42 = 2112;
-    v43 = v10;
-    v44 = 2112;
-    v45 = dCopy;
-    v46 = 2112;
-    v47 = v15;
+    v40 = "#policy-manager, ";
+    v41 = 2112;
+    v42 = v10;
+    v43 = 2112;
+    v44 = dCopy;
+    v45 = 2112;
+    v46 = v15;
     _os_log_impl(&dword_25543D000, v14, OS_LOG_TYPE_INFO, "%s[%@], Set Spot On for clientId: %@, shouldResetBrokeredDevices: %@", buf, 0x2Au);
   }
 
@@ -378,13 +377,13 @@ LABEL_8:
       v22 = v21;
       spotOnPendingClientIDs3 = [(IRPolicyManager *)self spotOnPendingClientIDs];
       *buf = 136315906;
-      v41 = "#policy-manager, ";
-      v42 = 2112;
-      v43 = v20;
-      v44 = 2112;
-      v45 = dCopy;
-      v46 = 2112;
-      v47 = spotOnPendingClientIDs3;
+      v40 = "#policy-manager, ";
+      v41 = 2112;
+      v42 = v20;
+      v43 = 2112;
+      v44 = dCopy;
+      v45 = 2112;
+      v46 = spotOnPendingClientIDs3;
       _os_log_impl(&dword_25543D000, v22, OS_LOG_TYPE_INFO, "%s[%@], Set Spot On for clientId: %@, there is already a pending request for: %@", buf, 0x2Au);
     }
   }
@@ -400,9 +399,9 @@ LABEL_8:
       if (os_log_type_enabled(*v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315394;
-        v41 = "#policy-manager, ";
-        v42 = 2112;
-        v43 = v25;
+        v40 = "#policy-manager, ";
+        v41 = 2112;
+        v42 = v25;
         _os_log_impl(&dword_25543D000, v26, OS_LOG_TYPE_ERROR, "%s[%@], [ErrorId - spot on timer conflict] Spot on timer retriggered while is still ongoing", buf, 0x16u);
       }
     }
@@ -413,12 +412,12 @@ LABEL_8:
     miloTimeoutForSetSpotOnRequestSeconds = [v28 miloTimeoutForSetSpotOnRequestSeconds];
     integerValue = [miloTimeoutForSetSpotOnRequestSeconds integerValue];
     queue2 = [(IRPolicyManager *)self queue];
-    v38[0] = MEMORY[0x277D85DD0];
-    v38[1] = 3221225472;
-    v38[2] = __63__IRPolicyManager_setSpotOnLocationWithParameters_andClientID___block_invoke;
-    v38[3] = &unk_2797E0C18;
-    objc_copyWeak(&v39, buf);
-    v32 = [(IRTimer *)v27 initWithInterval:0 repeats:queue2 queue:v38 block:integerValue];
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __63__IRPolicyManager_setSpotOnLocationWithParameters_andClientID___block_invoke;
+    v37[3] = &unk_2797E0C18;
+    objc_copyWeak(&v38, buf);
+    v32 = [(IRTimer *)v27 initWithInterval:0 repeats:queue2 queue:v37 block:integerValue];
     [(IRPolicyManager *)self setSpotOnTimeout:v32];
 
     historyManager = [(IRPolicyManager *)self historyManager];
@@ -429,16 +428,14 @@ LABEL_8:
     miloProvider = [systemStateManager miloProvider];
     [miloProvider setSpotOnLocation];
 
-    objc_destroyWeak(&v39);
+    objc_destroyWeak(&v38);
     objc_destroyWeak(buf);
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __63__IRPolicyManager_setSpotOnLocationWithParameters_andClientID___block_invoke(uint64_t a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -447,9 +444,9 @@ void __63__IRPolicyManager_setSpotOnLocationWithParameters_andClientID___block_i
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v14 = "#policy-manager, ";
-      v15 = 2112;
-      v16 = v2;
+      v13 = "#policy-manager, ";
+      v14 = 2112;
+      v15 = v2;
       _os_log_impl(&dword_25543D000, v3, OS_LOG_TYPE_INFO, "%s[%@], spot on milo request timeout, returning error", buf, 0x16u);
     }
 
@@ -459,14 +456,12 @@ void __63__IRPolicyManager_setSpotOnLocationWithParameters_andClientID___block_i
 
     v6 = MEMORY[0x277CCA9B8];
     v7 = *MEMORY[0x277D21258];
-    v11 = *MEMORY[0x277CCA470];
-    v12 = @"timeout";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
+    v10 = *MEMORY[0x277CCA470];
+    v11 = @"timeout";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
     v9 = [v6 errorWithDomain:v7 code:-12898 userInfo:v8];
     [WeakRetained didSpotOnLocationComplete:v9];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synchronizeAndFetchFromDBOnDisk
@@ -514,23 +509,12 @@ void __63__IRPolicyManager_setSpotOnLocationWithParameters_andClientID___block_i
 
 - (void)_checkAndStartLowLatencyMiLoIfNeededWithForce:(BOOL)force historyEventsContainer:(id)container
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   containerCopy = container;
   if (![(IRPolicyManager *)self isLowLatencyMiLo])
   {
-    if (force)
+    if (force || (-[IRPolicyManager policyEngine](self, "policyEngine"), v7 = objc_claimAutoreleasedReturnValue(), -[IRPolicyManager candidateManager](self, "candidateManager"), v8 = objc_claimAutoreleasedReturnValue(), [v8 candidatesContainer], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v7, "shouldAskForLowLatencyMiLo:historyEventsContainer:", v9, containerCopy), v9, v8, v7, v10))
     {
-      goto LABEL_4;
-    }
-
-    policyEngine = [(IRPolicyManager *)self policyEngine];
-    candidateManager = [(IRPolicyManager *)self candidateManager];
-    candidatesContainer = [candidateManager candidatesContainer];
-    v10 = [policyEngine shouldAskForLowLatencyMiLo:candidatesContainer historyEventsContainer:containerCopy];
-
-    if (v10)
-    {
-LABEL_4:
       systemStateManager = [(IRPolicyManager *)self systemStateManager];
       -[IRPolicyManager setIsLowLatencyMiLo:](self, "setIsLowLatencyMiLo:", [systemStateManager startLowLatencyMiLo]);
 
@@ -541,23 +525,21 @@ LABEL_4:
         v14 = v13;
         isLowLatencyMiLo = [(IRPolicyManager *)self isLowLatencyMiLo];
         v16 = @"No";
-        v19 = "#policy-manager, ";
-        v18 = 136315650;
-        v20 = 2112;
-        v21 = v12;
+        v18 = "#policy-manager, ";
+        v17 = 136315650;
+        v19 = 2112;
+        v20 = v12;
         if (isLowLatencyMiLo)
         {
           v16 = @"Yes";
         }
 
-        v22 = 2112;
-        v23 = v16;
-        _os_log_impl(&dword_25543D000, v14, OS_LOG_TYPE_INFO, "%s[%@], Low Latency MiLo started: %@", &v18, 0x20u);
+        v21 = 2112;
+        v22 = v16;
+        _os_log_impl(&dword_25543D000, v14, OS_LOG_TYPE_INFO, "%s[%@], Low Latency MiLo started: %@", &v17, 0x20u);
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_createContextOverrdiesForBundleIDIfNeeded:(id)needed
@@ -578,31 +560,16 @@ LABEL_4:
 
 - (void)_checkAndUpdateBundlesForEventIfNeeded:(id)needed
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   neededCopy = needed;
-  if (!neededCopy)
+  if (!neededCopy || (-[IRPolicyManager policyEngine](self, "policyEngine"), v5 = objc_claimAutoreleasedReturnValue(), [v5 bundlesWithSignificantInteraction], v6 = objc_claimAutoreleasedReturnValue(), v21[0] = MEMORY[0x277D85DD0], v21[1] = 3221225472, v21[2] = __58__IRPolicyManager__checkAndUpdateBundlesForEventIfNeeded___block_invoke, v21[3] = &unk_2797E2080, v22 = neededCopy, v7 = objc_msgSend(v6, "containsObjectPassingTest:", v21), v6, v5, v22, (v7 & 1) == 0))
   {
-    goto LABEL_3;
-  }
-
-  policyEngine = [(IRPolicyManager *)self policyEngine];
-  bundlesWithSignificantInteraction = [policyEngine bundlesWithSignificantInteraction];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __58__IRPolicyManager__checkAndUpdateBundlesForEventIfNeeded___block_invoke;
-  v22[3] = &unk_2797E2080;
-  v23 = neededCopy;
-  v7 = [bundlesWithSignificantInteraction containsObjectPassingTest:v22];
-
-  if ((v7 & 1) == 0)
-  {
-LABEL_3:
-    policyEngine2 = [(IRPolicyManager *)self policyEngine];
+    policyEngine = [(IRPolicyManager *)self policyEngine];
     candidateManager = [(IRPolicyManager *)self candidateManager];
     candidatesContainer = [candidateManager candidatesContainer];
     historyManager = [(IRPolicyManager *)self historyManager];
     historyEventsContainer = [historyManager historyEventsContainer];
-    v13 = [policyEngine2 updateBundlesWithSignificantInteractionForEvent:neededCopy candidatesContainer:candidatesContainer historyEventsContainer:historyEventsContainer];
+    v13 = [policyEngine updateBundlesWithSignificantInteractionForEvent:neededCopy candidatesContainer:candidatesContainer historyEventsContainer:historyEventsContainer];
 
     v14 = dispatch_get_specific(*MEMORY[0x277D21308]);
     v15 = *MEMORY[0x277D21260];
@@ -610,16 +577,16 @@ LABEL_3:
     {
       v16 = @"NO";
       *buf = 136315650;
-      v25 = "#policy-manager, ";
-      v26 = 2112;
-      v27 = v14;
+      v24 = "#policy-manager, ";
+      v25 = 2112;
+      v26 = v14;
       if (v13)
       {
         v16 = @"YES";
       }
 
-      v28 = 2112;
-      v29 = v16;
+      v27 = 2112;
+      v28 = v16;
       _os_log_impl(&dword_25543D000, v15, OS_LOG_TYPE_INFO, "%s[%@], _checkAndUpdateBundlesForEventIfNeeded bundlesUpdated: %@", buf, 0x20u);
     }
 
@@ -632,13 +599,11 @@ LABEL_3:
     if ((v17 & 1) == 0)
     {
       delegate = [(IRPolicyManager *)self delegate];
-      policyEngine3 = [(IRPolicyManager *)self policyEngine];
-      bundlesWithSignificantInteraction2 = [policyEngine3 bundlesWithSignificantInteraction];
-      [delegate policyManager:self didUpdateBundlesWithSignificantInteractionPattern:bundlesWithSignificantInteraction2];
+      policyEngine2 = [(IRPolicyManager *)self policyEngine];
+      bundlesWithSignificantInteraction = [policyEngine2 bundlesWithSignificantInteraction];
+      [delegate policyManager:self didUpdateBundlesWithSignificantInteractionPattern:bundlesWithSignificantInteraction];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __58__IRPolicyManager__checkAndUpdateBundlesForEventIfNeeded___block_invoke(uint64_t a1, void *a2)
@@ -679,7 +644,7 @@ BOOL __58__IRPolicyManager__checkAndUpdateBundlesForEventIfNeeded___block_invoke
 
 - (void)didUpdateContextWithReason:(id)reason andOverrides:(id)overrides
 {
-  v69 = *MEMORY[0x277D85DE8];
+  v68 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
   overridesCopy = overrides;
   queue = [(IRPolicyManager *)self queue];
@@ -688,7 +653,7 @@ BOOL __58__IRPolicyManager__checkAndUpdateBundlesForEventIfNeeded___block_invoke
   v9 = [MEMORY[0x277CBEAA8] now];
   systemStateManager = [(IRPolicyManager *)self systemStateManager];
   systemState = [systemStateManager systemState];
-  v60 = [systemState overrideSystemStateIfNeeded:overridesCopy];
+  v59 = [systemState overrideSystemStateIfNeeded:overridesCopy];
 
   statisticsManager = [(IRPolicyManager *)self statisticsManager];
   mode = [(IRPolicyManager *)self mode];
@@ -708,11 +673,11 @@ BOOL __58__IRPolicyManager__checkAndUpdateBundlesForEventIfNeeded___block_invoke
     if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
     {
       *buf = 136315650;
-      v62 = "#policy-manager, ";
-      v63 = 2112;
-      v64 = statisticsManager2;
-      v65 = 2112;
-      *v66 = reasonCopy;
+      v61 = "#policy-manager, ";
+      v62 = 2112;
+      v63 = statisticsManager2;
+      v64 = 2112;
+      *v65 = reasonCopy;
       _os_log_impl(&dword_25543D000, v54, OS_LOG_TYPE_INFO, "%s[%@], didUpdateContextWithReason was triggered with reason: %@, but service is not in updates mode", buf, 0x20u);
     }
 
@@ -723,18 +688,18 @@ BOOL __58__IRPolicyManager__checkAndUpdateBundlesForEventIfNeeded___block_invoke
   candidateManager = [(IRPolicyManager *)self candidateManager];
   candidatesContainer = [candidateManager candidatesContainer];
   [(IRPolicyManager *)self historyManager];
-  v21 = v59 = reasonCopy;
+  v21 = v58 = reasonCopy;
   [v21 historyEventsContainer];
   v23 = v22 = v9;
   systemStateManager4 = [(IRPolicyManager *)self systemStateManager];
   miloProviderLslPredictionResults2 = [systemStateManager4 miloProviderLslPredictionResults];
   systemStateManager5 = [(IRPolicyManager *)self systemStateManager];
   nearbyDeviceContainer = [systemStateManager5 nearbyDeviceContainer];
-  LOBYTE(v56) = 1;
-  v58 = [policyEngine updateContextWithDate:v22 candidatesContainer:candidatesContainer historyEventsContainer:v23 systemState:v60 miloProviderLslPredictionResults:miloProviderLslPredictionResults2 nearbyDeviceContainer:nearbyDeviceContainer fillInspection:v56];
+  LOBYTE(v55) = 1;
+  v57 = [policyEngine updateContextWithDate:v22 candidatesContainer:candidatesContainer historyEventsContainer:v23 systemState:v59 miloProviderLslPredictionResults:miloProviderLslPredictionResults2 nearbyDeviceContainer:nearbyDeviceContainer fillInspection:v55];
 
   v9 = v22;
-  reasonCopy = v59;
+  reasonCopy = v58;
 
   replayWriter = [(IRPolicyManager *)self replayWriter];
   systemStateManager6 = [(IRPolicyManager *)self systemStateManager];
@@ -743,9 +708,9 @@ BOOL __58__IRPolicyManager__checkAndUpdateBundlesForEventIfNeeded___block_invoke
   candidatesContainer2 = [candidateManager2 candidatesContainer];
   systemStateManager7 = [(IRPolicyManager *)self systemStateManager];
   nearbyDeviceContainer2 = [systemStateManager7 nearbyDeviceContainer];
-  [replayWriter writeReplayEventWithReason:v59 SystemState:v60 miloLslPrediction:miloProviderLslPredictionResults3 candidatesContainerDO:candidatesContainer2 nearbyDeviceContainerDO:nearbyDeviceContainer2 date:v9];
+  [replayWriter writeReplayEventWithReason:v58 SystemState:v59 miloLslPrediction:miloProviderLslPredictionResults3 candidatesContainerDO:candidatesContainer2 nearbyDeviceContainerDO:nearbyDeviceContainer2 date:v9];
 
-  if ((v58 & 1) != 0 || [v59 isEqual:@"Run"])
+  if ((v57 & 1) != 0 || [v58 isEqual:@"Run"])
   {
     v35 = dispatch_get_specific(*MEMORY[0x277D21308]);
     v36 = *MEMORY[0x277D21260];
@@ -755,11 +720,11 @@ BOOL __58__IRPolicyManager__checkAndUpdateBundlesForEventIfNeeded___block_invoke
       policyEngine2 = [(IRPolicyManager *)self policyEngine];
       lastEventsString = [policyEngine2 lastEventsString];
       *buf = 136315650;
-      v62 = "#policy-manager, ";
-      v63 = 2112;
-      v64 = v35;
-      v65 = 2112;
-      *v66 = lastEventsString;
+      v61 = "#policy-manager, ";
+      v62 = 2112;
+      v63 = v35;
+      v64 = 2112;
+      *v65 = lastEventsString;
       _os_log_impl(&dword_25543D000, v37, OS_LOG_TYPE_INFO, "%s[%@], %@", buf, 0x20u);
     }
 
@@ -767,14 +732,14 @@ BOOL __58__IRPolicyManager__checkAndUpdateBundlesForEventIfNeeded___block_invoke
     [systemStateManager8 logProviderState];
   }
 
-  if ([v59 isEqual:@"Run"])
+  if ([v58 isEqual:@"Run"])
   {
     v41 = 1;
   }
 
   else
   {
-    v41 = ([v59 isEqual:@"Request current context"] ^ 1) & v58;
+    v41 = ([v58 isEqual:@"Request current context"] ^ 1) & v57;
   }
 
   v42 = dispatch_get_specific(*MEMORY[0x277D21308]);
@@ -782,15 +747,15 @@ BOOL __58__IRPolicyManager__checkAndUpdateBundlesForEventIfNeeded___block_invoke
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
   {
     *buf = 136316162;
-    v62 = "#policy-manager, ";
-    v63 = 2112;
-    v64 = v42;
-    v65 = 1024;
-    *v66 = v41;
-    *&v66[4] = 1024;
-    *&v66[6] = v58;
-    v67 = 2112;
-    v68 = v59;
+    v61 = "#policy-manager, ";
+    v62 = 2112;
+    v63 = v42;
+    v64 = 1024;
+    *v65 = v41;
+    *&v65[4] = 1024;
+    *&v65[6] = v57;
+    v66 = 2112;
+    v67 = v58;
     _os_log_impl(&dword_25543D000, v43, OS_LOG_TYPE_INFO, "%s[%@], sendContextToClient: %d, context updated: %d, reason: %@", buf, 0x2Cu);
   }
 
@@ -799,7 +764,7 @@ BOOL __58__IRPolicyManager__checkAndUpdateBundlesForEventIfNeeded___block_invoke
     delegate = [(IRPolicyManager *)self delegate];
     policyEngine3 = [(IRPolicyManager *)self policyEngine];
     contexts = [policyEngine3 contexts];
-    [delegate policyManager:self didUpdateContexts:contexts withReason:v59];
+    [delegate policyManager:self didUpdateContexts:contexts withReason:v58];
 
     policyEngine4 = [(IRPolicyManager *)self policyEngine];
     contexts2 = [policyEngine4 contexts];
@@ -817,8 +782,6 @@ BOOL __58__IRPolicyManager__checkAndUpdateBundlesForEventIfNeeded___block_invoke
 LABEL_18:
     }
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __59__IRPolicyManager_didUpdateContextWithReason_andOverrides___block_invoke(uint64_t a1, void *a2)
@@ -831,7 +794,7 @@ BOOL __59__IRPolicyManager_didUpdateContextWithReason_andOverrides___block_invok
 
 - (void)didSpotOnLocationComplete:(id)complete
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   queue = [(IRPolicyManager *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -840,13 +803,13 @@ BOOL __59__IRPolicyManager_didUpdateContextWithReason_andOverrides___block_invok
   v7 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO))
   {
-    v14 = 136315650;
-    v15 = "#policy-manager, ";
-    v16 = 2112;
-    v17 = v6;
-    v18 = 2112;
-    v19 = completeCopy;
-    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_INFO, "%s[%@], got call for didSpotOnLocationComplete with error: %@, answering relevant clients and removing all spotOnPendingClients", &v14, 0x20u);
+    v13 = 136315650;
+    v14 = "#policy-manager, ";
+    v15 = 2112;
+    v16 = v6;
+    v17 = 2112;
+    v18 = completeCopy;
+    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_INFO, "%s[%@], got call for didSpotOnLocationComplete with error: %@, answering relevant clients and removing all spotOnPendingClients", &v13, 0x20u);
   }
 
   delegate = [(IRPolicyManager *)self delegate];
@@ -861,7 +824,59 @@ BOOL __59__IRPolicyManager_didUpdateContextWithReason_andOverrides___block_invok
   [spotOnTimeout invalidate];
 
   [(IRPolicyManager *)self setSpotOnTimeout:0];
-  v13 = *MEMORY[0x277D85DE8];
+}
+
+- (void)restartLowLatencyMiLo:(BOOL)lo
+{
+  loCopy = lo;
+  v25 = *MEMORY[0x277D85DE8];
+  queue = [(IRPolicyManager *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  isLowLatencyMiLo = [(IRPolicyManager *)self isLowLatencyMiLo];
+  systemStateManager = dispatch_get_specific(*MEMORY[0x277D21308]);
+  v8 = *MEMORY[0x277D21260];
+  v9 = os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_INFO);
+  if (isLowLatencyMiLo == loCopy)
+  {
+    if (v9)
+    {
+      v14 = MEMORY[0x277CCABB0];
+      v15 = v8;
+      v16 = [v14 numberWithBool:loCopy];
+      v17 = 136315650;
+      v18 = "#policy-manager, ";
+      v19 = 2112;
+      v20 = systemStateManager;
+      v21 = 2112;
+      v22 = v16;
+      _os_log_impl(&dword_25543D000, v15, OS_LOG_TYPE_INFO, "%s[%@], restartLowLatencyMiLo: %@, nothing to do", &v17, 0x20u);
+    }
+  }
+
+  else
+  {
+    if (v9)
+    {
+      v10 = MEMORY[0x277CCABB0];
+      v11 = v8;
+      v12 = [v10 numberWithBool:{-[IRPolicyManager isLowLatencyMiLo](self, "isLowLatencyMiLo")}];
+      v13 = [MEMORY[0x277CCABB0] numberWithBool:loCopy];
+      v17 = 136315906;
+      v18 = "#policy-manager, ";
+      v19 = 2112;
+      v20 = systemStateManager;
+      v21 = 2112;
+      v22 = v12;
+      v23 = 2112;
+      v24 = v13;
+      _os_log_impl(&dword_25543D000, v11, OS_LOG_TYPE_INFO, "%s[%@], restartLowLatencyMiLo: prev %@, current %@", &v17, 0x2Au);
+    }
+
+    [(IRPolicyManager *)self setIsLowLatencyMiLo:loCopy];
+    systemStateManager = [(IRPolicyManager *)self systemStateManager];
+    [systemStateManager restartLowLatencyMiLo:loCopy];
+  }
 }
 
 @end

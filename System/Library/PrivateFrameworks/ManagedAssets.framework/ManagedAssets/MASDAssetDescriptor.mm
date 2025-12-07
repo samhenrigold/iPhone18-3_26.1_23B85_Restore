@@ -150,29 +150,29 @@
 
 - (id)initDescriptorWithOptions:(id)options withData:(id)data error:(id *)error
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   dataCopy = data;
+  v64 = 0u;
   v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
   v7 = optionsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v65 objects:v69 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v64 objects:v68 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v66;
+    v10 = *v65;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v66 != v10)
+        if (*v65 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v65 + 1) + 8 * i);
+        v12 = *(*(&v64 + 1) + 8 * i);
         v13 = [v7 objectForKeyedSubscript:v12];
         if (([v12 isEqualToString:@"com.apple.managedassets.assettype"] & 1) != 0 || objc_msgSend(v12, "isEqualToString:", @"com.apple.managedassets.sync"))
         {
@@ -213,7 +213,7 @@ LABEL_27:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v65 objects:v69 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v64 objects:v68 count:16];
       if (v9)
       {
         continue;
@@ -227,9 +227,9 @@ LABEL_27:
 
   if (v18)
   {
-    v64.receiver = self;
-    v64.super_class = MASDAssetDescriptor;
-    v19 = [(MASDAssetDescriptor *)&v64 init];
+    v63.receiver = self;
+    v63.super_class = MASDAssetDescriptor;
+    v19 = [(MASDAssetDescriptor *)&v63 init];
     v20 = dataCopy;
     if (v19)
     {
@@ -293,7 +293,6 @@ LABEL_27:
 
 LABEL_28:
 
-  v59 = *MEMORY[0x277D85DE8];
   return v42;
 }
 
@@ -653,16 +652,16 @@ LABEL_71:
 
 - (void)initDescriptorWithOptions:(uint64_t)a3 withData:(uint64_t)a4 error:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4(&dword_258089000, MEMORY[0x277D86220], a3, "invalid input: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_4(&dword_258089000, MEMORY[0x277D86220], a3, "invalid input: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initDescriptorWithOptions:(uint64_t)a3 withData:(uint64_t)a4 error:(uint64_t)a5 .cold.3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4(&dword_258089000, MEMORY[0x277D86220], a3, "option %@ is empty.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_4(&dword_258089000, MEMORY[0x277D86220], a3, "option %@ is empty.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -90,18 +90,7 @@ LABEL_10:
   }
 
   v14 = [v8 objectForKeyedSubscript:@"changeTag"];
-  if (!v14)
-  {
-    goto LABEL_6;
-  }
-
-  v15 = [NSString alloc];
-  v16 = [v8 objectForKeyedSubscript:@"changeTag"];
-  v17 = [v15 initWithData:v16 encoding:4];
-  recordChangeTag = self->_recordChangeTag;
-  self->_recordChangeTag = v17;
-
-  if (!self->_recordChangeTag)
+  if (v14 && (v15 = [NSString alloc], [v8 objectForKeyedSubscript:@"changeTag"], v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "initWithData:encoding:", v16, 4), recordChangeTag = self->_recordChangeTag, self->_recordChangeTag = v17, recordChangeTag, v16, !self->_recordChangeTag))
   {
     v26 = @"KCSharingInvalidAttribute";
     v23 = [v8 objectForKeyedSubscript:@"changeTag"];
@@ -114,7 +103,6 @@ LABEL_10:
 
   else
   {
-LABEL_6:
     v19 = 1;
   }
 

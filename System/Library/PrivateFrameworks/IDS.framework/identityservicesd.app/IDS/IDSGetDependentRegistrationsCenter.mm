@@ -83,7 +83,7 @@
               }
 
               idsUserID2 = [*(*(&v59 + 1) + 8 * i) idsUserID];
-              v27 = [idsUserID isEqualToIgnoringCase:idsUserID2];
+              v27 = objc_msgSend_isEqualToIgnoringCase_(idsUserID);
 
               if (v27)
               {

@@ -112,7 +112,7 @@ LABEL_6:
   return 0;
 }
 
-uint64_t _citrus_JOHAB_stdenc_cstomb(uint64_t a1, _BYTE *a2, unint64_t a3, unsigned int a4, unsigned int a5, _DWORD *a6, uint64_t *a7)
+uint64_t _citrus_JOHAB_stdenc_cstomb(uint64_t a1, _BYTE *a2, unint64_t a3, unsigned int a4, uint64_t a5, _DWORD *a6, uint64_t *a7)
 {
   if (a4 < 2)
   {
@@ -132,7 +132,7 @@ uint64_t _citrus_JOHAB_stdenc_cstomb(uint64_t a1, _BYTE *a2, unint64_t a3, unsig
     }
 
     v7 = 0;
-    if (a5 - 8481 >= 0xB51 && a5 - 18977 >= 0x335E)
+    if ((a5 - 8481) >= 0xB51 && (a5 - 18977) >= 0x335E)
     {
       return 92;
     }
@@ -141,7 +141,7 @@ uint64_t _citrus_JOHAB_stdenc_cstomb(uint64_t a1, _BYTE *a2, unint64_t a3, unsig
   return _citrus_JOHAB_wcrtomb_priv(a2, a3, v7, a6, a7);
 }
 
-uint64_t _citrus_JOHAB_stdenc_mbtowc(uint64_t a1, int *a2, unsigned __int8 **a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7)
+uint64_t _citrus_JOHAB_stdenc_mbtowc(uint64_t a1, unsigned int *a2, unsigned __int8 **a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7)
 {
   v9 = _citrus_JOHAB_mbrtowc_priv(a2, a3, a4, a5, a6);
   v10 = v9;

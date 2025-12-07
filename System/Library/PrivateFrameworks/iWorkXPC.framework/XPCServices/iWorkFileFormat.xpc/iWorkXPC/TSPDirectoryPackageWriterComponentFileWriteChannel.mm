@@ -54,22 +54,22 @@
       sub_100153468();
     }
 
-    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Already closed", v7, v8, v9, v10, v11, v12, v13, "[TSPDirectoryPackageWriterComponentFileWriteChannel writeData:]");
-    v14 = [NSString stringWithUTF8String:"[TSPDirectoryPackageWriterComponentFileWriteChannel writeData:]"];
-    v15 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDirectoryPackageWriter.mm"];
-    [TSUAssertionHandler handleFailureInFunction:v14 file:v15 lineNumber:278 isFatal:1 description:"Already closed"];
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Already closed", "[TSPDirectoryPackageWriterComponentFileWriteChannel writeData:]", "/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDirectoryPackageWriter.mm", 278);
+    v7 = [NSString stringWithUTF8String:"[TSPDirectoryPackageWriterComponentFileWriteChannel writeData:]"];
+    v8 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPDirectoryPackageWriter.mm"];
+    [TSUAssertionHandler handleFailureInFunction:v7 file:v8 lineNumber:278 isFatal:1 description:"Already closed"];
 
     TSUCrashBreakpoint();
     abort();
   }
 
   writeChannel = self->_writeChannel;
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_100020808;
-  v16[3] = &unk_1001C6B58;
-  v16[4] = self;
-  [(TSUFileIOChannel *)writeChannel writeData:dataCopy handler:v16];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100020808;
+  v9[3] = &unk_1001C6B58;
+  v9[4] = self;
+  [(TSUFileIOChannel *)writeChannel writeData:dataCopy handler:v9];
 }
 
 - (void)close

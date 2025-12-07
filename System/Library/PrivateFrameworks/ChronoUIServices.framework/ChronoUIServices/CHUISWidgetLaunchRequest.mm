@@ -34,24 +34,22 @@
 
 - (NSURL)url
 {
-  action = self->_action;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v4 = [(BSAction *)self->_action url];
+    v3 = [(BSAction *)self->_action url];
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (id)userActivityData
 {
-  action = self->_action;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {

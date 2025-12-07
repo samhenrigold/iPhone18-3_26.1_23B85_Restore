@@ -26,7 +26,7 @@
 
 - (void)registerExposures:(id)exposures
 {
-  type metadata accessor for ItemExposure();
+  type metadata accessor for ItemExposure(0);
   v4 = sub_1B67D97BC();
   selfCopy = self;
   sub_1B6452114(v4, &unk_1F2DBCEE0, sub_1B6456524);
@@ -34,14 +34,14 @@
 
 - (id)exposuresForItemIDs:(id)ds
 {
-  sub_1B67D97BC();
+  v4 = sub_1B67D97BC();
   selfCopy = self;
-  sub_1B6451280();
+  sub_1B6451280(v4);
 
-  type metadata accessor for ItemExposure();
-  v5 = sub_1B67D97AC();
+  type metadata accessor for ItemExposure(0);
+  v6 = sub_1B67D97AC();
 
-  return v5;
+  return v6;
 }
 
 - (void)removeExposureForItemID:(id)d
@@ -73,15 +73,14 @@
 {
   v5 = sub_1B67D877C();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1B67D97BC();
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = sub_1B67D97BC();
   sub_1B67D874C();
   selfCopy = self;
-  sub_1B64524AC();
+  sub_1B64524AC(v9, v8);
 
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
   v11 = sub_1B67D97AC();
 
   return v11;

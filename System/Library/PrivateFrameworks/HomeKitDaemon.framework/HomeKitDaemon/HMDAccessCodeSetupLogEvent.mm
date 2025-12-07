@@ -19,7 +19,7 @@
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDAccessCodeSetupLogEvent failureReason](self, "failureReason")}];
   [dictionary setObject:v6 forKeyedSubscript:@"failureReason"];
 
-  v7 = [dictionary copy];
+  v7 = objc_msgSend_copy(dictionary);
 
   return v7;
 }

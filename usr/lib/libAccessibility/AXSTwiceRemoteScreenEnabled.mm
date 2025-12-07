@@ -3,7 +3,7 @@
 
 @implementation AXSTwiceRemoteScreenEnabled
 
-uint64_t ___AXSTwiceRemoteScreenEnabled_block_invoke()
+void *___AXSTwiceRemoteScreenEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

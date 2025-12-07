@@ -328,7 +328,7 @@ LABEL_25:
 
 - (void)writeTo:(id)to
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_uuid)
   {
@@ -365,30 +365,29 @@ LABEL_25:
     PBDataWriterWriteStringField();
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
-  v22 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = self->_allContactIdentifiers;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v22;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v21 + 1) + 8 * i);
         PBDataWriterWriteStringField();
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -397,7 +396,6 @@ LABEL_25:
   has = self->_has;
   if ((has & 0x40) != 0)
   {
-    type = self->_type;
     PBDataWriterWriteInt64Field();
     has = self->_has;
     if ((has & 1) == 0)
@@ -417,7 +415,6 @@ LABEL_24:
     goto LABEL_24;
   }
 
-  direction = self->_direction;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -432,7 +429,6 @@ LABEL_25:
   }
 
 LABEL_39:
-  status = self->_status;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -447,7 +443,6 @@ LABEL_26:
   }
 
 LABEL_40:
-  notificationStatus = self->_notificationStatus;
   PBDataWriterWriteInt64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -462,7 +457,6 @@ LABEL_27:
   }
 
 LABEL_41:
-  entryModificationDate = self->_entryModificationDate;
   PBDataWriterWriteDoubleField();
   has = self->_has;
   if ((has & 4) == 0)
@@ -477,12 +471,10 @@ LABEL_28:
   }
 
 LABEL_42:
-  entryInvitationDate = self->_entryInvitationDate;
   PBDataWriterWriteDoubleField();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_29:
-    entryAcceptanceDate = self->_entryAcceptanceDate;
     PBDataWriterWriteDoubleField();
   }
 
@@ -499,11 +491,8 @@ LABEL_30:
 
   if ((*&self->_has & 0x80000000) != 0)
   {
-    userWheelchairMode = self->_userWheelchairMode;
     PBDataWriterWriteInt64Field();
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -674,7 +663,7 @@ LABEL_27:
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSString *)self->_uuid copyWithZone:zone];
   v7 = *(v5 + 144);
@@ -704,30 +693,30 @@ LABEL_27:
   v19 = *(v5 + 120);
   *(v5 + 120) = v18;
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v20 = self->_allContactIdentifiers;
-  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v21 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v21)
   {
     v22 = v21;
-    v23 = *v34;
+    v23 = *v33;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v34 != v23)
+        if (*v33 != v23)
         {
           objc_enumerationMutation(v20);
         }
 
-        v25 = [*(*(&v33 + 1) + 8 * i) copyWithZone:{zone, v33}];
+        v25 = [*(*(&v32 + 1) + 8 * i) copyWithZone:{zone, v32}];
         [v5 addAllContactIdentifiers:v25];
       }
 
-      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v22 = [(NSMutableArray *)v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v22);
@@ -826,7 +815,7 @@ LABEL_15:
   }
 
 LABEL_16:
-  v27 = [(NSData *)self->_ownerParticipant copyWithZone:zone, v33];
+  v27 = [(NSData *)self->_ownerParticipant copyWithZone:zone, v32];
   v28 = *(v5 + 128);
   *(v5 + 128) = v27;
 
@@ -840,7 +829,6 @@ LABEL_16:
     *(v5 + 152) |= 0x80u;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -924,7 +912,6 @@ LABEL_16:
     }
   }
 
-  v13 = equalCopy[152];
   if ((*&self->_has & 0x40) != 0)
   {
     if ((equalCopy[152] & 0x40) == 0 || self->_type != *(equalCopy + 7))
@@ -936,7 +923,7 @@ LABEL_16:
   else if ((equalCopy[152] & 0x40) != 0)
   {
 LABEL_62:
-    v17 = 0;
+    v16 = 0;
     goto LABEL_63;
   }
 
@@ -1033,25 +1020,25 @@ LABEL_62:
     }
   }
 
-  v16 = equalCopy[152];
+  v15 = equalCopy[152];
   if ((*&self->_has & 0x80000000) != 0)
   {
-    if ((v16 & 0x80000000) == 0 || self->_userWheelchairMode != *(equalCopy + 8))
+    if ((v15 & 0x80000000) == 0 || self->_userWheelchairMode != *(equalCopy + 8))
     {
       goto LABEL_62;
     }
 
-    v17 = 1;
+    v16 = 1;
   }
 
   else
   {
-    v17 = v16 >= 0;
+    v16 = v15 >= 0;
   }
 
 LABEL_63:
 
-  return v17;
+  return v16;
 }
 
 - (unint64_t)hash
@@ -1237,7 +1224,7 @@ LABEL_15:
 
 - (void)mergeFrom:(id)from
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 18))
   {
@@ -1274,29 +1261,29 @@ LABEL_15:
     [(HDCloudSyncCodableSharedSummaryParticipantRecord *)self setLastName:?];
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = *(fromCopy + 9);
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [(HDCloudSyncCodableSharedSummaryParticipantRecord *)self addAllContactIdentifiers:*(*(&v12 + 1) + 8 * i), v12];
+        [(HDCloudSyncCodableSharedSummaryParticipantRecord *)self addAllContactIdentifiers:*(*(&v11 + 1) + 8 * i), v11];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
@@ -1410,8 +1397,6 @@ LABEL_30:
     self->_userWheelchairMode = *(fromCopy + 8);
     *&self->_has |= 0x80u;
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

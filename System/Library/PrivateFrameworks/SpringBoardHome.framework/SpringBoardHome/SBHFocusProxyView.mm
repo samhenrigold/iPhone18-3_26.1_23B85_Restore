@@ -11,7 +11,7 @@
 - (SBHFocusProxyView)initWithProxyableView:(id)view
 {
   viewCopy = view;
-  [viewCopy bounds];
+  objc_msgSend_bounds(viewCopy);
   v8.receiver = self;
   v8.super_class = SBHFocusProxyView;
   v5 = [(SBHFocusProxyView *)&v8 initWithFrame:?];

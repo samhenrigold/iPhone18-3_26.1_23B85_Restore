@@ -296,14 +296,14 @@ void __89__GKServiceFriendRequestViewController_messageComposeViewController_did
   dispatch_async(MEMORY[0x277D85CD0], v9);
 }
 
-void __73__GKServiceFriendRequestViewController_displayAlertWithTitle_andMessage___block_invoke(uint64_t a1)
+void __73__GKServiceFriendRequestViewController_displayAlertWithTitle_andMessage___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v5 = 0;
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
-  v3 = GKGameCenterUIFrameworkBundle();
-  v4 = GKGetLocalizedStringFromTableInBundle();
-  CFUserNotificationDisplayAlert(30.0, 0, 0, 0, 0, v1, v2, v4, 0, 0, &v5);
+  v6 = 0;
+  v2 = *(a1 + 32);
+  v3 = *(a1 + 40);
+  v4 = GKGameCenterUIFrameworkBundle();
+  v5 = GKGetLocalizedStringFromTableInBundle();
+  CFUserNotificationDisplayAlert(30.0, 0, 0, 0, 0, v2, v3, v5, 0, 0, &v6);
 }
 
 void __89__GKServiceFriendRequestViewController_messageComposeViewController_didFinishWithResult___block_invoke_cold_1(uint64_t a1, NSObject *a2)

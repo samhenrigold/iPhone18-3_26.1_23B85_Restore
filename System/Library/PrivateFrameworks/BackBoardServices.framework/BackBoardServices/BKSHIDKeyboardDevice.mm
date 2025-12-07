@@ -137,38 +137,38 @@
 
 - (id)_initWithProperties:(id)properties
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
-  v15.receiver = self;
-  v15.super_class = BKSHIDKeyboardDevice;
-  v7 = [(BKSHIDKeyboardDevice *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = BKSHIDKeyboardDevice;
+  v7 = [(BKSHIDKeyboardDevice *)&v14 init];
   if (v7)
   {
     v8 = objc_opt_class();
     if (v8 != objc_opt_class())
     {
-      v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BKSHIDKeyboardDevice cannot be subclassed"];
+      v10 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v12 = NSStringFromSelector(a2);
-        v13 = objc_opt_class();
-        v14 = NSStringFromClass(v13);
+        v11 = NSStringFromSelector(a2);
+        v12 = objc_opt_class();
+        v13 = NSStringFromClass(v12);
         *buf = 138544642;
-        v17 = v12;
-        v18 = 2114;
-        v19 = v14;
-        v20 = 2048;
-        v21 = v7;
-        v22 = 2114;
-        v23 = @"BKSHIDKeyboardDevice.m";
-        v24 = 1024;
-        v25 = 75;
-        v26 = 2114;
-        v27 = v11;
+        v16 = v11;
+        v17 = 2114;
+        v18 = v13;
+        v19 = 2048;
+        v20 = v7;
+        v21 = 2114;
+        v22 = @"BKSHIDKeyboardDevice.m";
+        v23 = 1024;
+        v24 = 75;
+        v25 = 2114;
+        v26 = v10;
         _os_log_error_impl(&dword_186345000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      [v11 UTF8String];
+      [v10 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x18639068CLL);
@@ -177,7 +177,6 @@
     objc_storeStrong(&v7->_lock_properties, properties);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -186,32 +185,21 @@
   streamCopy = stream;
   proxyCopy = proxy;
   os_unfair_lock_lock(&self->_lock);
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __60__BKSHIDKeyboardDevice_appendDescriptionToStream_fromProxy___block_invoke;
-  v14[3] = &unk_1E6F47C78;
-  v15 = proxyCopy;
-  v8 = streamCopy;
-  v16 = v8;
-  v9 = proxyCopy;
-  [v8 appendProem:self block:v14];
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __60__BKSHIDKeyboardDevice_appendDescriptionToStream_fromProxy___block_invoke_2;
-  v11[3] = &unk_1E6F47C78;
-  v12 = v8;
-  selfCopy = self;
-  v10 = v8;
-  [v10 appendBodySectionWithName:0 block:v11];
+  v11 = proxyCopy;
+  v12 = streamCopy;
+  v8 = proxyCopy;
+  [v12 appendProem:? block:?];
+  v10 = MEMORY[0x1E69E9820];
+  v9 = v12;
+  [v9 appendBodySectionWithName:v10 block:{3221225472, __60__BKSHIDKeyboardDevice_appendDescriptionToStream_fromProxy___block_invoke_2, &unk_1E6F47C78}];
   os_unfair_lock_unlock(&self->_lock);
 }
 
-id __60__BKSHIDKeyboardDevice_appendDescriptionToStream_fromProxy___block_invoke(id result)
+id *__60__BKSHIDKeyboardDevice_appendDescriptionToStream_fromProxy___block_invoke(id *result)
 {
-  v1 = *(result + 4);
-  if (v1)
+  if (result[4])
   {
-    return [*(result + 5) appendPointer:v1 withName:@"proxy"];
+    return [result[5] appendPointer:? withName:?];
   }
 
   return result;
@@ -221,21 +209,18 @@ id __60__BKSHIDKeyboardDevice_appendDescriptionToStream_fromProxy___block_invoke
 {
   streamCopy = stream;
   os_unfair_lock_lock(&self->_lock);
-  [streamCopy appendProem:self block:&__block_literal_global_7985];
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __50__BKSHIDKeyboardDevice_appendDescriptionToStream___block_invoke_2;
-  v6[3] = &unk_1E6F47C78;
+  [streamCopy appendProem:? block:?];
+  v6 = MEMORY[0x1E69E9820];
   v7 = streamCopy;
   selfCopy = self;
   v5 = streamCopy;
-  [v5 appendBodySectionWithName:0 block:v6];
+  [v5 appendBodySectionWithName:v6 block:{3221225472, __50__BKSHIDKeyboardDevice_appendDescriptionToStream___block_invoke_2, &unk_1E6F47C78}];
   os_unfair_lock_unlock(&self->_lock);
 }
 
 - (BKSHIDKeyboardDevice)init
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot -init"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);
@@ -264,7 +249,7 @@ id __60__BKSHIDKeyboardDevice_appendDescriptionToStream_fromProxy___block_invoke
 
 + (BKSHIDKeyboardDevice)new
 {
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot +new"];
+  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:?];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     v5 = NSStringFromSelector(a2);

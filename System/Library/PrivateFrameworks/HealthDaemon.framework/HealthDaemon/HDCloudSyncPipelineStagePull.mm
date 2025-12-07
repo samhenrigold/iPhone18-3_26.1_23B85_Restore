@@ -9,11 +9,10 @@
 
 + (id)operationTagDependencies
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"compute-push-targets";
-  v5[1] = @"compute-pull-targets";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"compute-push-targets";
+  v4[1] = @"compute-pull-targets";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }
@@ -34,7 +33,7 @@
 
 - (void)main
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   context = [configuration context];
   options = [context options];
@@ -58,9 +57,9 @@
     if (self)
     {
       profile = [(HDCloudSyncOperation *)self profile];
-      v55 = 0;
-      v7 = [HDSampleEntity minimumSampleStartDateForProfile:profile error:&v55];
-      v8 = v55;
+      v54 = 0;
+      v7 = [HDSampleEntity minimumSampleStartDateForProfile:profile error:&v54];
+      v8 = v54;
 
       _HKInitializeLogging();
       v9 = HKLogSyncCategory();
@@ -81,10 +80,10 @@
 
         *buf = 138543874;
         selfCopy3 = self;
-        v59 = 2112;
-        v60 = databaseSizeInBytes;
-        v61 = 2112;
-        v62 = v13;
+        v58 = 2112;
+        v59 = databaseSizeInBytes;
+        v60 = 2112;
+        v61 = v13;
         _os_log_impl(&dword_228986000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@: Aggregated database size is %@ bytes%@", buf, 0x20u);
         if (v7)
         {
@@ -102,27 +101,27 @@
     pullTargets = [computedState pullTargets];
     v22 = [pullTargets sortedArrayUsingComparator:&__block_literal_global_222];
 
-    v54 = 0u;
-    v52 = 0u;
     v53 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v50 = 0u;
     obj = v22;
-    v23 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+    v23 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v52;
+      v25 = *v51;
       do
       {
         v26 = 0;
         do
         {
-          if (*v52 != v25)
+          if (*v51 != v25)
           {
             objc_enumerationMutation(obj);
           }
 
-          v27 = *(*(&v51 + 1) + 8 * v26);
+          v27 = *(*(&v50 + 1) + 8 * v26);
           v28 = [HDCloudSyncPullStoreOperation alloc];
           configuration4 = [(HDCloudSyncOperation *)self configuration];
           cloudState2 = [(HDCloudSyncOperation *)self cloudState];
@@ -133,24 +132,24 @@
         }
 
         while (v24 != v26);
-        v24 = [obj countByEnumeratingWithState:&v51 objects:v56 count:16];
+        v24 = [obj countByEnumeratingWithState:&v50 objects:v55 count:16];
       }
 
       while (v24);
     }
 
-    v50[0] = MEMORY[0x277D85DD0];
-    v50[1] = 3221225472;
-    v50[2] = __36__HDCloudSyncPipelineStagePull_main__block_invoke_2;
-    v50[3] = &unk_278613060;
-    v50[4] = self;
-    [(HDCloudSyncOperation *)v18 setOnSuccess:v50];
     v49[0] = MEMORY[0x277D85DD0];
     v49[1] = 3221225472;
-    v49[2] = __36__HDCloudSyncPipelineStagePull_main__block_invoke_3;
-    v49[3] = &unk_278613088;
+    v49[2] = __36__HDCloudSyncPipelineStagePull_main__block_invoke_2;
+    v49[3] = &unk_278613060;
     v49[4] = self;
-    [(HDCloudSyncOperation *)v18 setOnError:v49];
+    [(HDCloudSyncOperation *)v18 setOnSuccess:v49];
+    v48[0] = MEMORY[0x277D85DD0];
+    v48[1] = 3221225472;
+    v48[2] = __36__HDCloudSyncPipelineStagePull_main__block_invoke_3;
+    v48[3] = &unk_278613088;
+    v48[4] = self;
+    [(HDCloudSyncOperation *)v18 setOnError:v48];
     [(HDCloudSyncCompoundOperation *)v18 start];
     configuration5 = [(HDCloudSyncOperation *)self configuration];
     context2 = [configuration5 context];
@@ -169,9 +168,9 @@
 
       v37 = MEMORY[0x277CF07F0];
       v38 = [MEMORY[0x277CBEAA8] now];
-      v48 = 0;
-      [v37 reportFeatureCheckpoint:30 forFeature:601 atDate:v38 error:&v48];
-      v39 = v48;
+      v47 = 0;
+      [v37 reportFeatureCheckpoint:30 forFeature:601 atDate:v38 error:&v47];
+      v39 = v47;
 
       if (v39)
       {
@@ -181,8 +180,8 @@
         {
           *buf = 138543618;
           selfCopy3 = self;
-          v59 = 2114;
-          v60 = v39;
+          v58 = 2114;
+          v59 = v39;
           _os_log_error_impl(&dword_228986000, v40, OS_LOG_TYPE_ERROR, "%{public}@: Failed to report feature checkpoint due to error: %{public}@", buf, 0x16u);
         }
       }
@@ -198,8 +197,6 @@
     progress4 = [(HDCloudSyncOperation *)v18 progress];
     [progress3 addChild:progress4 withPendingUnitCount:totalUnitCount];
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __36__HDCloudSyncPipelineStagePull_main__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -215,7 +212,7 @@ uint64_t __36__HDCloudSyncPipelineStagePull_main__block_invoke(uint64_t a1, void
 uint64_t __36__HDCloudSyncPipelineStagePull_main__block_invoke_2(uint64_t a1)
 {
   v1 = a1;
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   [(HDCloudSyncPipelineStagePull *)*(a1 + 32) _reportLastPulledUpdateDate];
   v2 = *(v1 + 32);
   if (v2)
@@ -234,16 +231,16 @@ uint64_t __36__HDCloudSyncPipelineStagePull_main__block_invoke_2(uint64_t a1)
     v11 = [v10 containerIdentifier];
     v12 = HDCloudSyncLastSuccessfulPullKeyForContainerIdentifier(v11);
 
-    v68 = 0;
-    v13 = [v9 dateForKey:v12 error:&v68];
-    v14 = v68;
+    v67 = 0;
+    v13 = [v9 dateForKey:v12 error:&v67];
+    v14 = v67;
     v15 = v14;
     if (v13 || !v14)
     {
       if (!v13 && [v8 profileType] == 1)
       {
-        v62 = v2;
-        v60 = v12;
+        v61 = v2;
+        v59 = v12;
         _HKInitializeLogging();
         v17 = *MEMORY[0x277CCC328];
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEBUG))
@@ -262,16 +259,16 @@ uint64_t __36__HDCloudSyncPipelineStagePull_main__block_invoke_2(uint64_t a1)
           [v19 timeIntervalSinceDate:v21];
           v24 = v23;
           [v18 daemon];
-          v25 = v58 = v4;
+          v25 = v57 = v4;
           [v25 analyticsSubmissionCoordinator];
-          v56 = v9;
+          v55 = v9;
           v27 = v26 = v6;
           [v27 cloudSync_reportRestoreForProfile:v18 startDate:v22 endDate:v19 duration:0 finishedJournalMerge:v24];
 
           v6 = v26;
-          v9 = v56;
+          v9 = v55;
 
-          v4 = v58;
+          v4 = v57;
           HDSetCloudSyncRestorPhaseSyncCompleteEndDate(v19, v18);
         }
 
@@ -285,12 +282,12 @@ uint64_t __36__HDCloudSyncPipelineStagePull_main__block_invoke_2(uint64_t a1)
 
         v29 = MEMORY[0x277CF07F0];
         v30 = [MEMORY[0x277CBEAA8] now];
-        v67 = v15;
-        [v29 reportFeatureCheckpoint:50 forFeature:601 atDate:v30 error:&v67];
-        v31 = v67;
+        v66 = v15;
+        [v29 reportFeatureCheckpoint:50 forFeature:601 atDate:v30 error:&v66];
+        v31 = v66;
 
-        v12 = v60;
-        v2 = v62;
+        v12 = v59;
+        v2 = v61;
         if (v31)
         {
           _HKInitializeLogging();
@@ -298,9 +295,9 @@ uint64_t __36__HDCloudSyncPipelineStagePull_main__block_invoke_2(uint64_t a1)
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v70 = v62;
-            v71 = 2114;
-            v72 = v31;
+            v69 = v61;
+            v70 = 2114;
+            v71 = v31;
             _os_log_error_impl(&dword_228986000, v32, OS_LOG_TYPE_ERROR, "%{public}@: Failed to report feature checkpoint due to error: %{public}@", buf, 0x16u);
           }
 
@@ -323,15 +320,15 @@ uint64_t __36__HDCloudSyncPipelineStagePull_main__block_invoke_2(uint64_t a1)
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v70 = v15;
+        v69 = v15;
         _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "Unable to determine whether or not this is the first successful pull: %{public}@.", buf, 0xCu);
       }
     }
 
     v33 = [[HDCloudSyncUpdateLastPullDateOperation alloc] initWithPullCompleteDate:v4 lastSuccessfulPullKey:v12];
-    v66 = 0;
-    v34 = [(HDJournalableOperation *)v33 performOrJournalWithProfile:v8 error:&v66];
-    v65 = v66;
+    v65 = 0;
+    v34 = [(HDJournalableOperation *)v33 performOrJournalWithProfile:v8 error:&v65];
+    v64 = v65;
     if (v34)
     {
       if ([(HDJournalableOperation *)v33 didJournal])
@@ -341,9 +338,9 @@ uint64_t __36__HDCloudSyncPipelineStagePull_main__block_invoke_2(uint64_t a1)
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543618;
-          v70 = v2;
-          v71 = 2114;
-          v72 = v8;
+          v69 = v2;
+          v70 = 2114;
+          v71 = v8;
           _os_log_impl(&dword_228986000, v35, OS_LOG_TYPE_DEFAULT, "%{public}@: Cloud Sync Journals are present, last pull date will be updated after cloud sync journals are ingested %{public}@", buf, 0x16u);
         }
       }
@@ -351,16 +348,16 @@ uint64_t __36__HDCloudSyncPipelineStagePull_main__block_invoke_2(uint64_t a1)
 
     if ([v8 profileType] == 3)
     {
-      v61 = v12;
-      v63 = v2;
-      v54 = v6;
-      v64 = v13;
+      v60 = v12;
+      v62 = v2;
+      v53 = v6;
+      v63 = v13;
       v36 = v13;
       v37 = v8;
       v38 = v36;
-      v52 = v37;
+      v51 = v37;
       v39 = v37;
-      v59 = v4;
+      v58 = v4;
       v40 = v4;
       v41 = HDCloudSyncLastPulledUpdateDate(v39);
       if (v41)
@@ -375,9 +372,9 @@ uint64_t __36__HDCloudSyncPipelineStagePull_main__block_invoke_2(uint64_t a1)
         v43 = 0;
       }
 
-      v55 = v1;
-      v57 = v9;
-      if (v64)
+      v54 = v1;
+      v56 = v9;
+      if (v63)
       {
         v44 = MEMORY[0x277CCABB0];
         [v40 timeIntervalSinceDate:v38];
@@ -391,16 +388,16 @@ uint64_t __36__HDCloudSyncPipelineStagePull_main__block_invoke_2(uint64_t a1)
 
       v46 = [v39 daemon];
       v47 = [v46 analyticsSubmissionCoordinator];
-      v48 = [v63 configuration];
+      v48 = [v62 configuration];
       [v47 tinker_syncFinishedWithLatency:v43 timeSinceLastSuccessfullPull:v45 configuration:v48];
 
-      v6 = v54;
-      v1 = v55;
-      v9 = v57;
-      v4 = v59;
-      v12 = v61;
-      v13 = v64;
-      v8 = v53;
+      v6 = v53;
+      v1 = v54;
+      v9 = v56;
+      v4 = v58;
+      v12 = v60;
+      v13 = v63;
+      v8 = v52;
     }
 
     HDUpdateOldestSampleStartDateForProfile(v8);
@@ -412,8 +409,6 @@ uint64_t __36__HDCloudSyncPipelineStagePull_main__block_invoke_2(uint64_t a1)
   {
     v49 = 0;
   }
-
-  v50 = *MEMORY[0x277D85DE8];
 
   return [v49 finishWithSuccess:1 error:0];
 }

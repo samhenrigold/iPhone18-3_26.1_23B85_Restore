@@ -19,7 +19,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_100242DAC();
+  sub_100242DAC(selfCopy, v2);
 }
 
 - (_TtC5Books24FloatingPlayerController)initWithNibName:(id)name bundle:(id)bundle

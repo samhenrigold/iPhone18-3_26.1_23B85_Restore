@@ -18,6 +18,8 @@
 - (void)updateContent;
 - (void)updateHeader;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator;
 @end
 
@@ -74,6 +76,27 @@
   [navigationItem setLargeTitleDisplayMode:2];
 
   [(iFBAFormResponseDraftViewController *)self configureActionsMenu];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = iFBAFormResponseDraftViewController;
+  [(iFBAFormResponseDraftViewController *)&v6 viewWillDisappear:disappear];
+  v4 = +[NSNotificationCenter defaultCenter];
+  contentItemObserver = [(iFBAFormResponseDraftViewController *)self contentItemObserver];
+  [v4 removeObserver:contentItemObserver];
+
+  [(iFBAFormResponseDraftViewController *)self fbkHideSpinner];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v5.receiver = self;
+  v5.super_class = iFBAFormResponseDraftViewController;
+  [(iFBAFormResponseDraftViewController *)&v5 viewWillAppear:appear];
+  tableView = [(iFBAFormResponseDraftViewController *)self tableView];
+  [tableView reloadData];
 }
 
 - (FBKFormResponseStub)responseStub

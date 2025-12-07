@@ -3,7 +3,7 @@
 
 @implementation SUUIOffscreenRenderOperationPopRenderingContext
 
-unint64_t ___SUUIOffscreenRenderOperationPopRenderingContext_block_invoke(uint64_t a1)
+void *___SUUIOffscreenRenderOperationPopRenderingContext_block_invoke(uint64_t a1)
 {
   result = [sRendererStackArray count];
   if (result >= 2)

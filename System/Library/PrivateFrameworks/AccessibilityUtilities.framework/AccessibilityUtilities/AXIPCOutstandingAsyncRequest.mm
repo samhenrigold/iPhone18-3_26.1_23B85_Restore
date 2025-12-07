@@ -31,9 +31,11 @@ uint64_t __42__AXIPCOutstandingAsyncRequest_initialize__block_invoke()
   v1 = OutstandingAsyncRequestsLock;
   OutstandingAsyncRequestsLock = v0;
 
-  AllOutstandingAsyncRequests = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v3 = AllOutstandingAsyncRequests;
+  AllOutstandingAsyncRequests = v2;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v2, v3);
 }
 
 + (id)lookupByPort:(unsigned int)port

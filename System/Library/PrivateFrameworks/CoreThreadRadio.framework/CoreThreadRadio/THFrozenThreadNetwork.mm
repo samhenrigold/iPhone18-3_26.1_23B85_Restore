@@ -139,16 +139,7 @@ LABEL_12:
 - (id)keyChainQueryForFrozenThreadNetworkUpdateOperation
 {
   credentialsDataSet = [(THFrozenThreadNetwork *)self credentialsDataSet];
-  if (!credentialsDataSet)
-  {
-    goto LABEL_4;
-  }
-
-  v4 = credentialsDataSet;
-  credentialsDataSet2 = [(THFrozenThreadNetwork *)self credentialsDataSet];
-  dataSetArray = [credentialsDataSet2 dataSetArray];
-
-  if (dataSetArray)
+  if (credentialsDataSet && (v4 = credentialsDataSet, -[THFrozenThreadNetwork credentialsDataSet](self, "credentialsDataSet"), v5 = objc_claimAutoreleasedReturnValue(), [v5 dataSetArray], v6 = objc_claimAutoreleasedReturnValue(), v6, v5, v4, v6))
   {
     v12[0] = kSecClass;
     v12[1] = kSecAttrSynchronizable;
@@ -157,18 +148,17 @@ LABEL_12:
     v13[2] = kSecAttrViewHintHome;
     v12[2] = kSecAttrSyncViewHint;
     v12[3] = kSecAttrAccount;
-    credentialsDataSet3 = [(THFrozenThreadNetwork *)self credentialsDataSet];
-    dataSetArray2 = [credentialsDataSet3 dataSetArray];
-    v9 = base64StringFromData(dataSetArray2);
+    credentialsDataSet2 = [(THFrozenThreadNetwork *)self credentialsDataSet];
+    dataSetArray = [credentialsDataSet2 dataSetArray];
+    v9 = base64StringFromData(dataSetArray);
     v13[3] = v9;
     v10 = [NSDictionary dictionaryWithObjects:v13 forKeys:v12 count:4];
   }
 
   else
   {
-LABEL_4:
-    credentialsDataSet3 = THCredentialsServerLogHandleForCategory(1);
-    if (os_log_type_enabled(credentialsDataSet3, OS_LOG_TYPE_ERROR))
+    credentialsDataSet2 = THCredentialsServerLogHandleForCategory(1);
+    if (os_log_type_enabled(credentialsDataSet2, OS_LOG_TYPE_ERROR))
     {
       [THFrozenThreadNetwork(Keychain) keyChainQueryForFrozenThreadNetworkUpdateOperation];
     }

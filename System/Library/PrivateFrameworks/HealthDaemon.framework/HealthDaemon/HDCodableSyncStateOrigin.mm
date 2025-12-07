@@ -140,32 +140,30 @@ LABEL_11:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_build)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_productType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    majorVersion = self->_majorVersion;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -184,22 +182,20 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  minorVersion = self->_minorVersion;
   PBDataWriterWriteInt32Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_10:
-    patchVersion = self->_patchVersion;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_11:
   if (self->_syncIdentity)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -334,7 +330,6 @@ LABEL_7:
     goto LABEL_28;
   }
 
-  v5 = *(equalCopy + 56);
   if (*&self->_has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -346,7 +341,7 @@ LABEL_7:
   else if (*(equalCopy + 56))
   {
 LABEL_28:
-    v10 = 0;
+    v8 = 0;
     goto LABEL_29;
   }
 
@@ -365,7 +360,6 @@ LABEL_28:
     }
   }
 
-  v8 = *(equalCopy + 56);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 56) & 2) == 0 || self->_majorVersion != *(equalCopy + 6))
@@ -408,17 +402,17 @@ LABEL_28:
   syncIdentity = self->_syncIdentity;
   if (syncIdentity | *(equalCopy + 6))
   {
-    v10 = [(HDCodableSyncIdentity *)syncIdentity isEqual:?];
+    v8 = [(HDCodableSyncIdentity *)syncIdentity isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_29:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

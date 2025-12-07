@@ -34,7 +34,7 @@
 - (BOOL)isEqual:(id)equal
 {
   equalCopy = equal;
-  v6 = equalCopy && (v5 = objc_opt_class(), v5 == objc_opt_class()) && [equalCopy[1] isEqualToString:self->_name] && objc_msgSend(equalCopy[2], "isEqualToConfiguration:", self->_configuration) && equalCopy[3] == self->_style && *(equalCopy + 4) == self->_contentsScale && equalCopy[5] == self->_layoutDirection && equalCopy[6] == self->_renderingMode;
+  v6 = equalCopy && (v5 = objc_opt_class(), v5 == objc_opt_class()) && objc_msgSend_isEqualToString_(equalCopy[1]) && [equalCopy[2] isEqualToConfiguration:self->_configuration] && equalCopy[3] == self->_style && *(equalCopy + 4) == self->_contentsScale && equalCopy[5] == self->_layoutDirection && equalCopy[6] == self->_renderingMode;
 
   return v6;
 }

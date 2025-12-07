@@ -87,7 +87,7 @@
   v10 = *(v9 + 64);
   __chkstk_darwin(v8);
   v11 = &v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v12 - 8);
   v14 = &v24 - v13;
   v15 = type metadata accessor for TaskPriority();

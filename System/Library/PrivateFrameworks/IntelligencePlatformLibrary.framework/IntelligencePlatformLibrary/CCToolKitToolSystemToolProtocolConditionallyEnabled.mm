@@ -193,7 +193,6 @@ LABEL_38:
       v32 = objc_opt_class();
       NSStringFromClass(v32);
       v34 = v33 = v10;
-      v35 = *&v5[*v8];
       v9 = CCSkipFieldErrorForMessage();
 
       v10 = v33;
@@ -211,22 +210,21 @@ LABEL_38:
 LABEL_43:
     if (!*&v5[*v8])
     {
-      v39 = 1;
+      v37 = 1;
       goto LABEL_47;
     }
 
 LABEL_44:
-    v36 = objc_opt_class();
-    v9 = NSStringFromClass(v36);
-    v37 = *&v5[*v8];
-    v38 = CCInvalidBufferErrorForMessage();
+    v35 = objc_opt_class();
+    v9 = NSStringFromClass(v35);
+    v36 = CCInvalidBufferErrorForMessage();
     CCSetError();
   }
 
-  v39 = 0;
+  v37 = 0;
 LABEL_47:
 
-  return v39;
+  return v37;
 }
 
 - (CCToolKitToolSystemToolProtocolConditionallyEnabled)initWithPersistState:(id)state error:(id *)error

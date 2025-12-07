@@ -35,7 +35,7 @@
 {
   listenerCopy = listener;
   connectionCopy = connection;
-  v8 = PO_LOG_POAgentListener();
+  v8 = PO_LOG_POAgentListener(connectionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [POPlatformSSOListener listener:shouldAcceptNewConnection:];
@@ -70,14 +70,6 @@ void __60__POPlatformSSOListener_listener_shouldAcceptNewConnection___block_invo
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained connectionInvalidated];
-}
-
-- (void)listener:shouldAcceptNewConnection:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_1(&dword_25E831000, v0, v1, "%{public}@, %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

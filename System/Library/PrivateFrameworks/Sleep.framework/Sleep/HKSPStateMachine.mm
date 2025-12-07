@@ -45,7 +45,7 @@
 
 - (void)setInitialState:(id)state
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   if (self->_currentState)
   {
@@ -58,17 +58,15 @@
   {
     stateMachineName = [(HKSPStateMachine *)self stateMachineName];
     stateName = [(HKSPStateMachineState *)v5 stateName];
-    v11 = 138543618;
-    v12 = stateMachineName;
-    v13 = 2114;
-    v14 = stateName;
-    _os_log_impl(&dword_269A84000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] starting in state %{public}@", &v11, 0x16u);
+    v10 = 138543618;
+    v11 = stateMachineName;
+    v12 = 2114;
+    v13 = stateName;
+    _os_log_impl(&dword_269A84000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] starting in state %{public}@", &v10, 0x16u);
   }
 
   currentState = self->_currentState;
   self->_currentState = v5;
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)currentStateIdentifier
@@ -176,35 +174,35 @@
   self->_initialized = 1;
 }
 
-uint64_t __31__HKSPStateMachine_enterState___block_invoke(uint64_t a1)
+void *__31__HKSPStateMachine_enterState___block_invoke(id *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   if (*(a1 + 56) == 1)
   {
-    [*(a1 + 32) _willExit];
-    if (*(a1 + 56))
+    [a1[4] _willExit];
+    if (a1[7])
     {
       if (HKSPIsUnitTesting())
       {
         goto LABEL_11;
       }
 
-      v2 = HKSPLogForCategory([*(a1 + 40) loggingCategory]);
+      v2 = HKSPLogForCategory([a1[5] loggingCategory]);
       if (!os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_10;
       }
 
-      v3 = [*(a1 + 40) stateMachineName];
-      v4 = [*(a1 + 48) stateName];
-      v5 = [*(a1 + 32) stateName];
-      *v17 = 138543874;
-      *&v17[4] = v3;
-      *&v17[12] = 2114;
-      *&v17[14] = v4;
-      *&v17[22] = 2114;
-      v18 = v5;
-      _os_log_impl(&dword_269A84000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Will enter state %{public}@ with previous state %{public}@", v17, 0x20u);
+      v3 = [a1[5] stateMachineName];
+      v4 = [a1[6] stateName];
+      v5 = [a1[4] stateName];
+      *v16 = 138543874;
+      *&v16[4] = v3;
+      *&v16[12] = 2114;
+      *&v16[14] = v4;
+      *&v16[22] = 2114;
+      v17 = v5;
+      _os_log_impl(&dword_269A84000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Will enter state %{public}@ with previous state %{public}@", v16, 0x20u);
 
       goto LABEL_9;
     }
@@ -215,32 +213,32 @@ uint64_t __31__HKSPStateMachine_enterState___block_invoke(uint64_t a1)
     goto LABEL_11;
   }
 
-  v2 = HKSPLogForCategory([*(a1 + 40) loggingCategory]);
+  v2 = HKSPLogForCategory([a1[5] loggingCategory]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = [*(a1 + 40) stateMachineName];
-    v4 = [*(*(a1 + 40) + 16) stateName];
-    *v17 = 138543618;
-    *&v17[4] = v3;
-    *&v17[12] = 2114;
-    *&v17[14] = v4;
-    _os_log_impl(&dword_269A84000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Will update current state %{public}@", v17, 0x16u);
+    v3 = [a1[5] stateMachineName];
+    v4 = [*(a1[5] + 2) stateName];
+    *v16 = 138543618;
+    *&v16[4] = v3;
+    *&v16[12] = 2114;
+    *&v16[14] = v4;
+    _os_log_impl(&dword_269A84000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] Will update current state %{public}@", v16, 0x16u);
 LABEL_9:
   }
 
 LABEL_10:
 
 LABEL_11:
-  v6 = *(a1 + 48);
+  v6 = a1[6];
   if (v6)
   {
     result = [v6 _willEnter];
     if (!result)
     {
-      goto LABEL_26;
+      return result;
     }
 
-    v8 = *(a1 + 48);
+    v8 = a1[6];
   }
 
   else
@@ -248,7 +246,7 @@ LABEL_11:
     v8 = 0;
   }
 
-  objc_storeStrong((*(a1 + 40) + 16), v8);
+  objc_storeStrong(a1[5] + 2, v8);
   v9 = *(a1 + 56);
   v10 = HKSPIsUnitTesting();
   if (v9 == 1)
@@ -258,21 +256,21 @@ LABEL_11:
       goto LABEL_24;
     }
 
-    v11 = HKSPLogForCategory([*(a1 + 40) loggingCategory]);
+    v11 = HKSPLogForCategory([a1[5] loggingCategory]);
     if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_23;
     }
 
-    v12 = [*(a1 + 40) stateMachineName];
-    v13 = [*(*(a1 + 40) + 16) stateName];
-    v14 = [*(a1 + 32) stateName];
-    *v17 = 138543874;
-    *&v17[4] = v12;
-    *&v17[12] = 2114;
-    *&v17[14] = v13;
-    *&v17[22] = 2114;
-    v18 = v14;
+    v12 = [a1[5] stateMachineName];
+    v13 = [*(a1[5] + 2) stateName];
+    v14 = [a1[4] stateName];
+    *v16 = 138543874;
+    *&v16[4] = v12;
+    *&v16[12] = 2114;
+    *&v16[14] = v13;
+    *&v16[22] = 2114;
+    v17 = v14;
     v15 = "[%{public}@] Did enter state %{public}@ with previous state %{public}@";
     goto LABEL_22;
   }
@@ -282,40 +280,38 @@ LABEL_11:
     goto LABEL_24;
   }
 
-  v11 = HKSPLogForCategory([*(a1 + 40) loggingCategory]);
+  v11 = HKSPLogForCategory([a1[5] loggingCategory]);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = [*(a1 + 40) stateMachineName];
-    v13 = [*(*(a1 + 40) + 16) stateName];
-    v14 = [*(a1 + 32) stateName];
-    *v17 = 138543874;
-    *&v17[4] = v12;
-    *&v17[12] = 2114;
-    *&v17[14] = v13;
-    *&v17[22] = 2114;
-    v18 = v14;
+    v12 = [a1[5] stateMachineName];
+    v13 = [*(a1[5] + 2) stateName];
+    v14 = [a1[4] stateName];
+    *v16 = 138543874;
+    *&v16[4] = v12;
+    *&v16[12] = 2114;
+    *&v16[14] = v13;
+    *&v16[22] = 2114;
+    v17 = v14;
     v15 = "[%{public}@] Did update current state %{public}@ with previous state %{public}@";
 LABEL_22:
-    _os_log_impl(&dword_269A84000, v11, OS_LOG_TYPE_DEFAULT, v15, v17, 0x20u);
+    _os_log_impl(&dword_269A84000, v11, OS_LOG_TYPE_DEFAULT, v15, v16, 0x20u);
   }
 
 LABEL_23:
 
 LABEL_24:
-  result = [*(*(a1 + 40) + 16) _didEnter];
+  result = [*(a1[5] + 2) _didEnter];
   if (*(a1 + 56) == 1)
   {
-    result = [*(a1 + 32) _didExit];
+    return [a1[4] _didExit];
   }
 
-LABEL_26:
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)updateState
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   currentState = [(HKSPStateMachine *)self currentState];
 
   if (!currentState)
@@ -337,17 +333,15 @@ LABEL_26:
       currentState3 = [(HKSPStateMachine *)self currentState];
       stateName = [currentState3 stateName];
       *buf = 138543618;
-      v15 = stateMachineName2;
-      v16 = 2114;
-      v17 = stateName;
+      v14 = stateMachineName2;
+      v15 = 2114;
+      v16 = stateName;
       _os_log_impl(&dword_269A84000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] State not yet initialized, re-entering state %{public}@", buf, 0x16u);
     }
 
     currentState4 = [(HKSPStateMachine *)self currentState];
     [(HKSPStateMachine *)self enterState:currentState4];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyDelegateWithBlock:(id)block

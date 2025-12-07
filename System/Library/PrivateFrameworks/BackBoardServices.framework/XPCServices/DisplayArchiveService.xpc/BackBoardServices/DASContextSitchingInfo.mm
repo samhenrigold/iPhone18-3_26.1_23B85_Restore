@@ -2,6 +2,7 @@
 + (id)infoWithContextInfoToArchive:(id)archive;
 - (id)_initWithContextInfoToArchiveMap:(id)map;
 - (id)archiveOfContext:(id)context;
+- (id)contextWithIdentifier:(unsigned int)identifier;
 - (id)description;
 @end
 
@@ -52,6 +53,15 @@
   v6 = [(NSDictionary *)self->_contextInfoToArchiveMap objectForKey:contextCopy];
 
   return v6;
+}
+
+- (id)contextWithIdentifier:(unsigned int)identifier
+{
+  contextIDNumberToContextMap = self->_contextIDNumberToContextMap;
+  v4 = [NSNumber numberWithUnsignedInt:*&identifier];
+  v5 = [(NSDictionary *)contextIDNumberToContextMap objectForKey:v4];
+
+  return v5;
 }
 
 - (id)_initWithContextInfoToArchiveMap:(id)map

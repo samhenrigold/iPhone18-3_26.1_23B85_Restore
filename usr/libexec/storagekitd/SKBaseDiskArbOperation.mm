@@ -164,7 +164,7 @@ LABEL_6:
 - (id)disksForOperationWithTarget:(id)target ignoreGroup:(BOOL)group
 {
   targetCopy = target;
-  v65 = +[NSMutableSet set];
+  v63 = +[NSMutableSet set];
   if ([(SKBaseDiskArbOperation *)self recursive])
   {
     v6 = [NSMutableArray arrayWithObject:targetCopy];
@@ -177,269 +177,262 @@ LABEL_6:
       }
     }
 
-    v59 = targetCopy;
+    v57 = targetCopy;
     [(SKBaseDiskArbOperation *)self raidTraverse];
+    v72 = 0u;
+    v73 = 0u;
     v74 = 0u;
     v75 = 0u;
-    v76 = 0u;
-    v77 = 0u;
     obj = v6;
-    v8 = [obj countByEnumeratingWithState:&v74 objects:v80 count:16];
+    v8 = [obj countByEnumeratingWithState:&v72 objects:v78 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v75;
-      v11 = &CacheDeleteCopyPurgeableSpaceWithInfo_ptr;
-      v60 = *v75;
+      v10 = *v73;
+      v58 = *v73;
       do
       {
-        v12 = 0;
-        v62 = v9;
+        v11 = 0;
+        v60 = v9;
         do
         {
-          if (*v75 != v10)
+          if (*v73 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v13 = *(*(&v74 + 1) + 8 * v12);
-          v14 = v11[205];
+          v12 = *(*(&v72 + 1) + 8 * v11);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            container = [v13 container];
+            container = [v12 container];
             if (!container)
             {
               goto LABEL_58;
             }
 
-            v16 = container;
+            v14 = container;
 
-            v13 = v16;
+            v12 = v14;
           }
 
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v17 = v12;
-            v18 = v13;
-            apfsVolumeGroupUUID = v13;
+            v15 = v11;
+            v16 = v12;
+            apfsVolumeGroupUUID = v12;
             volumes = [apfsVolumeGroupUUID volumes];
+            v68 = 0u;
+            v69 = 0u;
             v70 = 0u;
             v71 = 0u;
-            v72 = 0u;
-            v73 = 0u;
-            v21 = [volumes countByEnumeratingWithState:&v70 objects:v79 count:16];
-            if (v21)
+            v19 = [volumes countByEnumeratingWithState:&v68 objects:v77 count:16];
+            if (v19)
             {
-              v22 = v21;
-              v23 = *v71;
+              v20 = v19;
+              v21 = *v69;
               do
               {
-                for (i = 0; i != v22; i = i + 1)
+                for (i = 0; i != v20; i = i + 1)
                 {
-                  if (*v71 != v23)
+                  if (*v69 != v21)
                   {
                     objc_enumerationMutation(volumes);
                   }
 
-                  v25 = *(*(&v70 + 1) + 8 * i);
-                  if ([(SKBaseDiskArbOperation *)self toOperateWithDisk:v25])
+                  v23 = *(*(&v68 + 1) + 8 * i);
+                  if ([(SKBaseDiskArbOperation *)self toOperateWithDisk:v23])
                   {
-                    [v65 addObject:v25];
+                    [v63 addObject:v23];
                   }
                 }
 
-                v22 = [volumes countByEnumeratingWithState:&v70 objects:v79 count:16];
+                v20 = [volumes countByEnumeratingWithState:&v68 objects:v77 count:16];
               }
 
-              while (v22);
+              while (v20);
             }
 
-            v11 = &CacheDeleteCopyPurgeableSpaceWithInfo_ptr;
-            v9 = v62;
-            v12 = v17;
-            v13 = v18;
+            v9 = v60;
+            v11 = v15;
+            v12 = v16;
             goto LABEL_57;
           }
 
-          type = [v13 type];
+          type = [v12 type];
           if ([type isEqualToString:kSKDiskTypeEFI])
           {
-            v27 = v12;
-            v28 = v13;
-            diskIdentifier = [v13 diskIdentifier];
-            diskIdentifier2 = [v59 diskIdentifier];
+            v25 = v11;
+            v26 = v12;
+            diskIdentifier = [v12 diskIdentifier];
+            diskIdentifier2 = [v57 diskIdentifier];
             if (![diskIdentifier isEqualToString:diskIdentifier2])
             {
               options = [(SKBaseDiskArbOperation *)self options];
-              v51 = [options objectForKeyedSubscript:kSKDiskMountOptionWithoutEFI];
-              v52 = sub_100010328(v51);
+              v49 = [options objectForKeyedSubscript:kSKDiskMountOptionWithoutEFI];
+              v50 = sub_100010328(v49);
 
-              v12 = v27;
-              v13 = v28;
-              v11 = &CacheDeleteCopyPurgeableSpaceWithInfo_ptr;
-              v9 = v62;
-              if (v52)
+              v11 = v25;
+              v12 = v26;
+              v9 = v60;
+              if (v50)
               {
-                v10 = v60;
+                v10 = v58;
                 goto LABEL_58;
               }
 
               goto LABEL_29;
             }
 
-            v12 = v27;
-            v13 = v28;
-            v11 = &CacheDeleteCopyPurgeableSpaceWithInfo_ptr;
-            v9 = v62;
+            v11 = v25;
+            v12 = v26;
+            v9 = v60;
           }
 
 LABEL_29:
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0 || ([v13 apfsVolumeGroupUUID], v31 = objc_claimAutoreleasedReturnValue(), v31, !v31) || group)
+          if ((objc_opt_isKindOfClass() & 1) == 0 || ([v12 apfsVolumeGroupUUID], v29 = objc_claimAutoreleasedReturnValue(), v29, !v29) || group)
           {
-            apfsVolumeGroupUUID = [(SKBaseDiskArbOperation *)self diskWithFSRefresh:v13];
+            apfsVolumeGroupUUID = [(SKBaseDiskArbOperation *)self diskWithFSRefresh:v12];
             if (apfsVolumeGroupUUID)
             {
-              [v65 addObject:apfsVolumeGroupUUID];
+              [v63 addObject:apfsVolumeGroupUUID];
             }
 
-            v10 = v60;
+            v10 = v58;
             goto LABEL_57;
           }
 
-          v58 = v12;
-          apfsVolumeGroupUUID = [v13 apfsVolumeGroupUUID];
-          v57 = v13;
-          container2 = [v13 container];
+          v56 = v11;
+          apfsVolumeGroupUUID = [v12 apfsVolumeGroupUUID];
+          v55 = v12;
+          container2 = [v12 container];
+          v64 = 0u;
+          v65 = 0u;
           v66 = 0u;
           v67 = 0u;
-          v68 = 0u;
-          v69 = 0u;
           volumes2 = [container2 volumes];
-          v34 = [volumes2 countByEnumeratingWithState:&v66 objects:v78 count:16];
-          if (!v34)
+          v32 = [volumes2 countByEnumeratingWithState:&v64 objects:v76 count:16];
+          if (!v32)
           {
 
-            v36 = 0;
-            v49 = 0;
-            v10 = v60;
+            v34 = 0;
+            v47 = 0;
+            v10 = v58;
             goto LABEL_55;
           }
 
-          v35 = v34;
-          v63 = 0;
-          v64 = volumes2;
-          v55 = container2;
-          v36 = 0;
-          v37 = *v67;
+          v33 = v32;
+          v61 = 0;
+          v62 = volumes2;
+          v53 = container2;
+          v34 = 0;
+          v35 = *v65;
           do
           {
-            for (j = 0; j != v35; j = j + 1)
+            for (j = 0; j != v33; j = j + 1)
             {
-              if (*v67 != v37)
+              if (*v65 != v35)
               {
-                objc_enumerationMutation(v64);
+                objc_enumerationMutation(v62);
               }
 
-              v39 = *(*(&v66 + 1) + 8 * j);
-              apfsVolumeGroupUUID2 = [v39 apfsVolumeGroupUUID];
-              v41 = [apfsVolumeGroupUUID2 isEqualToString:apfsVolumeGroupUUID];
+              v37 = *(*(&v64 + 1) + 8 * j);
+              apfsVolumeGroupUUID2 = [v37 apfsVolumeGroupUUID];
+              v39 = [apfsVolumeGroupUUID2 isEqualToString:apfsVolumeGroupUUID];
 
-              if (v41)
+              if (v39)
               {
-                getAPFSVolumeRole = [v39 getAPFSVolumeRole];
-                v43 = [getAPFSVolumeRole isEqualToString:SKAPFSVolumeRoleData];
+                getAPFSVolumeRole = [v37 getAPFSVolumeRole];
+                v41 = [getAPFSVolumeRole isEqualToString:SKAPFSVolumeRoleData];
 
-                if (v43)
+                if (v41)
                 {
-                  v44 = v63;
-                  v63 = v39;
-                  v45 = v36;
+                  v42 = v61;
+                  v61 = v37;
+                  v43 = v34;
                 }
 
                 else
                 {
-                  getAPFSVolumeRole2 = [v39 getAPFSVolumeRole];
-                  v47 = [getAPFSVolumeRole2 isEqualToString:SKAPFSVolumeRoleSystem];
+                  getAPFSVolumeRole2 = [v37 getAPFSVolumeRole];
+                  v45 = [getAPFSVolumeRole2 isEqualToString:SKAPFSVolumeRoleSystem];
 
-                  v44 = v36;
-                  v45 = v39;
-                  if (!v47)
+                  v42 = v34;
+                  v43 = v37;
+                  if (!v45)
                   {
                     continue;
                   }
                 }
 
-                v48 = v39;
+                v46 = v37;
 
-                v36 = v45;
+                v34 = v43;
               }
             }
 
-            v35 = [v64 countByEnumeratingWithState:&v66 objects:v78 count:16];
+            v33 = [v62 countByEnumeratingWithState:&v64 objects:v76 count:16];
           }
 
-          while (v35);
+          while (v33);
 
-          v49 = v63;
-          if (v63)
+          v47 = v61;
+          if (v61)
           {
-            v10 = v60;
-            v11 = &CacheDeleteCopyPurgeableSpaceWithInfo_ptr;
-            v9 = v62;
-            v13 = v57;
-            v12 = v58;
-            if (v36)
+            v10 = v58;
+            v9 = v60;
+            v12 = v55;
+            v11 = v56;
+            if (v34)
             {
-              [v65 addObject:v63];
-              [v65 addObject:v36];
-              container2 = v55;
+              [v63 addObject:v61];
+              [v63 addObject:v34];
+              container2 = v53;
               goto LABEL_56;
             }
           }
 
           else
           {
-            v10 = v60;
-            v11 = &CacheDeleteCopyPurgeableSpaceWithInfo_ptr;
-            v9 = v62;
-            v13 = v57;
-            v12 = v58;
+            v10 = v58;
+            v9 = v60;
+            v12 = v55;
+            v11 = v56;
           }
 
-          container2 = v55;
+          container2 = v53;
 LABEL_55:
-          [v65 addObject:v13];
+          [v63 addObject:v12];
 LABEL_56:
 
 LABEL_57:
 LABEL_58:
 
-          v12 = v12 + 1;
+          v11 = v11 + 1;
         }
 
-        while (v12 != v9);
-        v9 = [obj countByEnumeratingWithState:&v74 objects:v80 count:16];
+        while (v11 != v9);
+        v9 = [obj countByEnumeratingWithState:&v72 objects:v78 count:16];
       }
 
       while (v9);
     }
 
-    targetCopy = v59;
+    targetCopy = v57;
   }
 
   else
   {
-    v53 = [(SKBaseDiskArbOperation *)self diskWithFSRefresh:targetCopy];
-    if (v53)
+    v51 = [(SKBaseDiskArbOperation *)self diskWithFSRefresh:targetCopy];
+    if (v51)
     {
-      [v65 addObject:v53];
+      [v63 addObject:v51];
     }
   }
 
-  return v65;
+  return v63;
 }
 
 - (void)diskArbCallbackWithDissenter:(__DADissenter *)dissenter

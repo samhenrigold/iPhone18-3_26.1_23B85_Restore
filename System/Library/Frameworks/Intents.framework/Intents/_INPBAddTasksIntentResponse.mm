@@ -3,6 +3,7 @@
 - (_INPBAddTasksIntentResponse)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)warningsAsString:(int)string;
 - (int)StringAsWarnings:(id)warnings;
 - (unint64_t)hash;
 - (void)addAddedTasks:(id)tasks;
@@ -17,35 +18,35 @@
 
 - (id)dictionaryRepresentation
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   if ([(NSArray *)self->_addedTasks count])
   {
     array = [MEMORY[0x1E695DF70] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v5 = self->_addedTasks;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          dictionaryRepresentation = [*(*(&v19 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation = [*(*(&v18 + 1) + 8 * i) dictionaryRepresentation];
           [array addObject:dictionaryRepresentation];
         }
 
-        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [(NSArray *)v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v7);
@@ -87,8 +88,6 @@
 
     [dictionary setObject:v13 forKeyedSubscript:@"warnings"];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -216,35 +215,34 @@ LABEL_13:
 
 - (void)writeTo:(id)to
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   toCopy = to;
+  v14 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
   v5 = self->_addedTasks;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v15;
     do
     {
       v9 = 0;
       do
       {
-        if (*v18 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * v9);
         PBDataWriterWriteSubmessage();
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -261,18 +259,15 @@ LABEL_13:
   p_warnings = &self->_warnings;
   if (p_warnings->count)
   {
-    v14 = 0;
+    v13 = 0;
     do
     {
-      v15 = p_warnings->list[v14];
       PBDataWriterWriteInt32Field();
-      ++v14;
+      ++v13;
     }
 
-    while (v14 < p_warnings->count);
+    while (v13 < p_warnings->count);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (int)StringAsWarnings:(id)warnings
@@ -306,6 +301,21 @@ LABEL_13:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)warningsAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7283E08[string];
   }
 
   return v4;

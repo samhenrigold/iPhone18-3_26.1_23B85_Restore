@@ -3,7 +3,6 @@
 + (BOOL)hasWordTimingSupportWithVoicePath:(id)path;
 + (_NSRange)_gryphonVoiceCompatibility;
 - (AudioStreamBasicDescription)asbd;
-- (BOOL)_preheatWithError:(id *)error;
 - (BOOL)_unlockedLoadResourceWithPath:(id)path error:(id *)error;
 - (BOOL)_unlockedSynthesize:(id)synthesize error:(id *)error;
 - (BOOL)loadResourceWithPath:(id)path error:(id *)error;
@@ -101,15 +100,6 @@
   return error;
 }
 
-- (BOOL)_preheatWithError:(id *)error
-{
-  v5 = *MEMORY[0x1E69E9840];
-  TTSSynthesizer::preheat(self->_synthesizer);
-  result = 1;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (BOOL)synthesize:(id)synthesize error:(id *)error
 {
   synthesizeCopy = synthesize;
@@ -122,200 +112,188 @@
 
 - (BOOL)_unlockedSynthesize:(id)synthesize error:(id *)error
 {
-  v117[4] = *MEMORY[0x1E69E9840];
+  v94[4] = *MEMORY[0x1E69E9840];
   synthesizeCopy = synthesize;
   synthesizer = self->_synthesizer;
   [synthesizeCopy privacySensitive];
   TTSSynthesizer::set_censor_plaintext(synthesizer);
-  v8 = self->_synthesizer;
   [synthesizeCopy profile];
   TTSSynthesizer::set_neural_cost();
-  v9 = self->_synthesizer;
   [synthesizeCopy neuralSentencePitch];
   TTSSynthesizer::set_global_property();
-  v10 = self->_synthesizer;
   [synthesizeCopy neuralSentencePitchRange];
   TTSSynthesizer::set_global_property();
-  v11 = self->_synthesizer;
   [synthesizeCopy neuralSentenceDuration];
   TTSSynthesizer::set_global_property();
-  v12 = self->_synthesizer;
   [synthesizeCopy neuralSentenceEnergy];
   TTSSynthesizer::set_global_property();
-  v13 = self->_synthesizer;
   [synthesizeCopy neuralSentenceTilt];
   TTSSynthesizer::set_global_property();
   requestId = [synthesizeCopy requestId];
 
   if (requestId)
   {
-    v15 = self->_synthesizer;
     requestId2 = [synthesizeCopy requestId];
     std::string::basic_string[abi:ne200100]<0>(&__p, [requestId2 UTF8String]);
     TTSSynthesizer::set_global_property();
-    if (SHIBYTE(v96) < 0)
+    if (SHIBYTE(v73) < 0)
     {
       operator delete(__p);
     }
   }
 
-  v17 = self->_synthesizer;
   [synthesizeCopy disableThermalFallback];
   TTSSynthesizer::set_global_property();
-  v102 = 0;
-  v103 = 0;
-  v104 = 0;
+  v79 = 0;
+  v80 = 0;
+  v81 = 0;
   [synthesizeCopy rate];
-  if (v18 != 0.0)
+  if (v10 != 0.0)
   {
     [synthesizeCopy rate];
-    if (fabsf(v19 + -1.0) >= 0.01)
+    if (fabsf(v11 + -1.0) >= 0.01)
     {
-      v20 = self->_synthesizer;
       [synthesizeCopy rate];
       TTSSynthesizer::set_global_property();
     }
   }
 
   [synthesizeCopy pitch];
-  if (v21 != 0.0)
+  if (v12 != 0.0)
   {
     [synthesizeCopy pitch];
-    if (v22 != 1.0)
+    if (v13 != 1.0)
     {
-      v23 = self->_synthesizer;
       [synthesizeCopy pitch];
       TTSSynthesizer::set_global_property();
     }
   }
 
   [synthesizeCopy volume];
-  if (v24 != 0.0)
+  if (v14 != 0.0)
   {
     [synthesizeCopy volume];
-    if (v25 != 0.8)
+    if (v15 != 0.8)
     {
-      v26 = self->_synthesizer;
       [synthesizeCopy volume];
       TTSSynthesizer::set_global_property();
     }
   }
 
   LOBYTE(__p) = 0;
-  v101 = 0;
+  v78 = 0;
   promptStyle = [synthesizeCopy promptStyle];
-  v28 = promptStyle == 0;
+  v17 = promptStyle == 0;
 
-  if (!v28)
+  if (!v17)
   {
-    v29 = self->_synthesizer;
-    std::string::basic_string[abi:ne200100]<0>(&v85, "");
+    std::string::basic_string[abi:ne200100]<0>(&v62, "");
     promptStyle2 = [synthesizeCopy promptStyle];
-    v31 = promptStyle2;
-    std::string::basic_string[abi:ne200100]<0>(&v83, [promptStyle2 UTF8String]);
+    v19 = promptStyle2;
+    std::string::basic_string[abi:ne200100]<0>(&v60, [promptStyle2 UTF8String]);
     TTSSynthesizer::set_dynamic_prompts();
-    if (v101 == v94)
+    if (v78 == v71)
     {
-      if (v101)
+      if (v78)
       {
-        if (SHIBYTE(v96) < 0)
+        if (SHIBYTE(v73) < 0)
         {
           operator delete(__p);
         }
 
-        __p = *v88;
-        v96 = v89;
-        HIBYTE(v89) = 0;
-        LOBYTE(v88[0]) = 0;
-        if (SHIBYTE(v98) < 0)
+        __p = *v65;
+        v73 = v66;
+        HIBYTE(v66) = 0;
+        LOBYTE(v65[0]) = 0;
+        if (SHIBYTE(v75) < 0)
         {
-          operator delete(v97);
+          operator delete(v74);
         }
 
-        v97 = *v90;
-        v98 = v91;
-        HIBYTE(v91) = 0;
-        LOBYTE(v90[0]) = 0;
-        std::vector<std::string>::__vdeallocate(&v99);
-        v99 = v92;
-        memset(&v92, 0, sizeof(v92));
-        std::vector<std::string>::__vdeallocate(&v100);
-        v100 = v93;
-        memset(&v93, 0, sizeof(v93));
+        v74 = *v67;
+        v75 = v68;
+        HIBYTE(v68) = 0;
+        LOBYTE(v67[0]) = 0;
+        std::vector<std::string>::__vdeallocate(&v76);
+        v76 = v69;
+        memset(&v69, 0, sizeof(v69));
+        std::vector<std::string>::__vdeallocate(&v77);
+        v77 = v70;
+        memset(&v70, 0, sizeof(v70));
       }
     }
 
-    else if (v101)
+    else if (v78)
     {
-      v105 = &v100;
-      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v105);
-      v105 = &v99;
-      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v105);
-      if (SHIBYTE(v98) < 0)
+      v82 = &v77;
+      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v82);
+      v82 = &v76;
+      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v82);
+      if (SHIBYTE(v75) < 0)
       {
-        operator delete(v97);
+        operator delete(v74);
       }
 
-      if (SHIBYTE(v96) < 0)
+      if (SHIBYTE(v73) < 0)
       {
         operator delete(__p);
       }
 
-      v101 = 0;
+      v78 = 0;
     }
 
     else
     {
-      __p = *v88;
-      v32 = v89;
-      v88[0] = 0;
-      v88[1] = 0;
-      v33 = *v90;
-      v89 = 0;
-      v90[0] = 0;
-      v97 = v33;
-      v96 = v32;
-      v98 = v91;
-      v90[1] = 0;
-      v91 = 0;
-      v99 = v92;
-      memset(&v92, 0, sizeof(v92));
-      v100 = v93;
-      memset(&v93, 0, sizeof(v93));
-      v101 = 1;
+      __p = *v65;
+      v20 = v66;
+      v65[0] = 0;
+      v65[1] = 0;
+      v21 = *v67;
+      v66 = 0;
+      v67[0] = 0;
+      v74 = v21;
+      v73 = v20;
+      v75 = v68;
+      v67[1] = 0;
+      v68 = 0;
+      v76 = v69;
+      memset(&v69, 0, sizeof(v69));
+      v77 = v70;
+      memset(&v70, 0, sizeof(v70));
+      v78 = 1;
     }
 
-    if (v94 == 1)
+    if (v71 == 1)
     {
-      v105 = &v93;
-      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v105);
-      v105 = &v92;
-      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v105);
-      if (SHIBYTE(v91) < 0)
+      v82 = &v70;
+      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v82);
+      v82 = &v69;
+      std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v82);
+      if (SHIBYTE(v68) < 0)
       {
-        operator delete(v90[0]);
+        operator delete(v67[0]);
       }
 
-      if (SHIBYTE(v89) < 0)
+      if (SHIBYTE(v66) < 0)
       {
-        operator delete(v88[0]);
+        operator delete(v65[0]);
       }
     }
 
-    if (v84 < 0)
+    if (v61 < 0)
     {
-      operator delete(v83);
+      operator delete(v60);
     }
 
-    if (v87 < 0)
+    if (v64 < 0)
     {
-      operator delete(v85);
+      operator delete(v62);
     }
   }
 
-  if (v101 == 1)
+  if (v78 == 1)
   {
-    if (v96 >= 0)
+    if (v73 >= 0)
     {
       p_p = &__p;
     }
@@ -325,275 +303,264 @@
       p_p = __p;
     }
 
-    v35 = [MEMORY[0x1E696AEC0] stringWithUTF8String:p_p];
-    if (v98 >= 0)
+    v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:p_p];
+    if (v75 >= 0)
     {
-      v36 = &v97;
+      v24 = &v74;
     }
 
     else
     {
-      v36 = v97;
+      v24 = v74;
     }
 
-    v37 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v36];
+    v25 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v24];
     dynamicPromptHandler = [synthesizeCopy dynamicPromptHandler];
-    (dynamicPromptHandler)[2](dynamicPromptHandler, v35, v37);
+    (dynamicPromptHandler)[2](dynamicPromptHandler, v23, v25);
   }
 
   audioHandler = [synthesizeCopy audioHandler];
-  v40 = audioHandler == 0;
+  v28 = audioHandler == 0;
 
-  if (!v40)
+  if (!v28)
   {
-    TTSSynthesizer::get_event_bus(&v85, self->_synthesizer);
-    v41 = synthesizeCopy;
-    v117[0] = &unk_1F28C4A40;
-    v117[1] = v41;
-    v117[3] = v117;
+    TTSSynthesizer::get_event_bus(&v62, self->_synthesizer);
+    v29 = synthesizeCopy;
+    v94[0] = &unk_1F28C4A40;
+    v94[1] = v29;
+    v94[3] = v94;
     TTSSynthesizerEventBus::on_audio();
-    std::__function::__value_func<void ()(std::vector<float> const&)>::~__value_func[abi:ne200100](v117);
-    if (v86)
+    std::__function::__value_func<void ()(std::vector<float> const&)>::~__value_func[abi:ne200100](v94);
+    if (v63)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v86);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v63);
     }
 
-    std::vector<std::shared_ptr<Observer>>::push_back[abi:ne200100](&v102, v88);
-    if (v88[1])
+    std::vector<std::shared_ptr<Observer>>::push_back[abi:ne200100](&v79, v65);
+    if (v65[1])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v88[1]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v65[1]);
     }
   }
 
   promptHandler = [synthesizeCopy promptHandler];
-  v43 = promptHandler == 0;
+  v31 = promptHandler == 0;
 
-  if (!v43)
+  if (!v31)
   {
-    TTSSynthesizer::get_event_bus(&v85, self->_synthesizer);
-    v44 = synthesizeCopy;
-    v116[0] = &unk_1F28C4AC0;
-    v116[1] = v44;
-    v116[3] = v116;
+    TTSSynthesizer::get_event_bus(&v62, self->_synthesizer);
+    v32 = synthesizeCopy;
+    v93[0] = &unk_1F28C4AC0;
+    v93[1] = v32;
+    v93[3] = v93;
     Observable::on_event();
-    std::__function::__value_func<void ()(void const*)>::~__value_func[abi:ne200100](v116);
-    if (v86)
+    std::__function::__value_func<void ()(void const*)>::~__value_func[abi:ne200100](v93);
+    if (v63)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v86);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v63);
     }
 
-    std::vector<std::shared_ptr<Observer>>::push_back[abi:ne200100](&v102, v88);
-    if (v88[1])
+    std::vector<std::shared_ptr<Observer>>::push_back[abi:ne200100](&v79, v65);
+    if (v65[1])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v88[1]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v65[1]);
     }
   }
 
   wordTimingsHandler = [synthesizeCopy wordTimingsHandler];
-  v46 = wordTimingsHandler == 0;
+  v34 = wordTimingsHandler == 0;
 
-  if (!v46)
+  if (!v34)
   {
     mSampleRate = self->_asbd.mSampleRate;
-    TTSSynthesizer::get_event_bus(&v85, self->_synthesizer);
-    v48 = synthesizeCopy;
-    v112 = &unk_1F28C4B40;
+    TTSSynthesizer::get_event_bus(&v62, self->_synthesizer);
+    v36 = synthesizeCopy;
+    v89 = &unk_1F28C4B40;
     *&mSampleRate = mSampleRate;
-    v113 = LODWORD(mSampleRate);
-    v114 = v48;
-    v115 = &v112;
+    v90 = LODWORD(mSampleRate);
+    v91 = v36;
+    v92 = &v89;
     TTSSynthesizerEventBus::on_marker();
-    std::__function::__value_func<void ()(std::vector<TTSSynthesizer::Marker> const&)>::~__value_func[abi:ne200100](&v112);
-    if (v86)
+    std::__function::__value_func<void ()(std::vector<TTSSynthesizer::Marker> const&)>::~__value_func[abi:ne200100](&v89);
+    if (v63)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v86);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v63);
     }
 
-    std::vector<std::shared_ptr<Observer>>::push_back[abi:ne200100](&v102, v88);
-    if (v88[1])
+    std::vector<std::shared_ptr<Observer>>::push_back[abi:ne200100](&v79, v65);
+    if (v65[1])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v88[1]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v65[1]);
     }
   }
 
   neuralFallbackHandler = [synthesizeCopy neuralFallbackHandler];
-  v50 = neuralFallbackHandler == 0;
+  v38 = neuralFallbackHandler == 0;
 
-  if (!v50)
+  if (!v38)
   {
-    TTSSynthesizer::get_event_bus(&v85, self->_synthesizer);
-    v51 = synthesizeCopy;
-    v111[0] = &unk_1F28C4BC0;
-    v111[1] = v51;
-    v111[3] = v111;
+    TTSSynthesizer::get_event_bus(&v62, self->_synthesizer);
+    v39 = synthesizeCopy;
+    v88[0] = &unk_1F28C4BC0;
+    v88[1] = v39;
+    v88[3] = v88;
     Observable::on_event();
-    std::__function::__value_func<void ()(void const*)>::~__value_func[abi:ne200100](v111);
-    if (v86)
+    std::__function::__value_func<void ()(void const*)>::~__value_func[abi:ne200100](v88);
+    if (v63)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v86);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v63);
     }
 
-    std::vector<std::shared_ptr<Observer>>::push_back[abi:ne200100](&v102, v88);
-    if (v88[1])
+    std::vector<std::shared_ptr<Observer>>::push_back[abi:ne200100](&v79, v65);
+    if (v65[1])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v88[1]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v65[1]);
     }
   }
 
   useHydraFrontendHandler = [synthesizeCopy useHydraFrontendHandler];
-  v53 = useHydraFrontendHandler == 0;
+  v41 = useHydraFrontendHandler == 0;
 
-  if (!v53)
+  if (!v41)
   {
-    TTSSynthesizer::get_event_bus(&v85, self->_synthesizer);
-    v54 = synthesizeCopy;
-    v110[0] = &unk_1F28C4C40;
-    v110[1] = v54;
-    v110[3] = v110;
+    TTSSynthesizer::get_event_bus(&v62, self->_synthesizer);
+    v42 = synthesizeCopy;
+    v87[0] = &unk_1F28C4C40;
+    v87[1] = v42;
+    v87[3] = v87;
     Observable::on_event();
-    std::__function::__value_func<void ()(void const*)>::~__value_func[abi:ne200100](v110);
-    if (v86)
+    std::__function::__value_func<void ()(void const*)>::~__value_func[abi:ne200100](v87);
+    if (v63)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v86);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v63);
     }
 
-    std::vector<std::shared_ptr<Observer>>::push_back[abi:ne200100](&v102, v88);
-    if (v88[1])
+    std::vector<std::shared_ptr<Observer>>::push_back[abi:ne200100](&v79, v65);
+    if (v65[1])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v88[1]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v65[1]);
     }
   }
 
   synthesisIssueHandler = [synthesizeCopy synthesisIssueHandler];
-  v56 = synthesisIssueHandler == 0;
+  v44 = synthesisIssueHandler == 0;
 
-  if (!v56)
+  if (!v44)
   {
-    TTSSynthesizer::get_event_bus(&v85, self->_synthesizer);
-    v57 = synthesizeCopy;
-    v109[0] = &unk_1F28C4CC0;
-    v109[1] = v57;
-    v109[3] = v109;
+    TTSSynthesizer::get_event_bus(&v62, self->_synthesizer);
+    v45 = synthesizeCopy;
+    v86[0] = &unk_1F28C4CC0;
+    v86[1] = v45;
+    v86[3] = v86;
     Observable::on_event();
-    std::__function::__value_func<void ()(void const*)>::~__value_func[abi:ne200100](v109);
-    if (v86)
+    std::__function::__value_func<void ()(void const*)>::~__value_func[abi:ne200100](v86);
+    if (v63)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v86);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v63);
     }
 
-    std::vector<std::shared_ptr<Observer>>::push_back[abi:ne200100](&v102, v88);
-    if (v88[1])
+    std::vector<std::shared_ptr<Observer>>::push_back[abi:ne200100](&v79, v65);
+    if (v65[1])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v88[1]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v65[1]);
     }
   }
 
   wordAlignmentFailureHandler = [synthesizeCopy wordAlignmentFailureHandler];
-  v59 = wordAlignmentFailureHandler == 0;
+  v47 = wordAlignmentFailureHandler == 0;
 
-  if (!v59)
+  if (!v47)
   {
-    TTSSynthesizer::get_event_bus(&v85, self->_synthesizer);
-    v60 = synthesizeCopy;
-    v108[0] = &unk_1F28C4D40;
-    v108[1] = v60;
-    v108[3] = v108;
+    TTSSynthesizer::get_event_bus(&v62, self->_synthesizer);
+    v48 = synthesizeCopy;
+    v85[0] = &unk_1F28C4D40;
+    v85[1] = v48;
+    v85[3] = v85;
     Observable::on_event();
-    std::__function::__value_func<void ()(void const*)>::~__value_func[abi:ne200100](v108);
-    if (v86)
+    std::__function::__value_func<void ()(void const*)>::~__value_func[abi:ne200100](v85);
+    if (v63)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v86);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v63);
     }
 
-    std::vector<std::shared_ptr<Observer>>::push_back[abi:ne200100](&v102, v88);
-    if (v88[1])
+    std::vector<std::shared_ptr<Observer>>::push_back[abi:ne200100](&v79, v65);
+    if (v65[1])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v88[1]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v65[1]);
     }
   }
 
-  v61 = self->_synthesizer;
   text = [synthesizeCopy text];
-  v63 = text;
-  std::string::basic_string[abi:ne200100]<0>(v88, [text UTF8String]);
-  v64 = TTSSynthesizer::synthesize_text();
-  if (SHIBYTE(v89) < 0)
+  v50 = text;
+  std::string::basic_string[abi:ne200100]<0>(v65, [text UTF8String]);
+  v51 = TTSSynthesizer::synthesize_text();
+  if (SHIBYTE(v66) < 0)
   {
-    operator delete(v88[0]);
+    operator delete(v65[0]);
   }
 
-  v65 = v102;
-  for (i = v103; v65 != i; v65 += 2)
+  v52 = v79;
+  for (i = v80; v52 != i; v52 += 16)
   {
-    TTSSynthesizer::get_event_bus(v88, self->_synthesizer);
-    v67 = v65[1];
-    v81 = *v65;
-    v82 = v67;
-    if (v67)
+    TTSSynthesizer::get_event_bus(v65, self->_synthesizer);
+    v54 = *(v52 + 8);
+    v59 = v54;
+    if (v54)
     {
-      atomic_fetch_add_explicit(&v67->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v54->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
     Observable::remove_observer();
-    if (v82)
+    if (v59)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v82);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v59);
     }
 
-    if (v88[1])
+    if (v65[1])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v88[1]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v65[1]);
     }
   }
 
-  v68 = self->_synthesizer;
   TTSSynthesizer::set_global_property();
-  v69 = self->_synthesizer;
   TTSSynthesizer::set_global_property();
-  v70 = self->_synthesizer;
   TTSSynthesizer::set_global_property();
-  v71 = self->_synthesizer;
   TTSSynthesizer::set_global_property();
-  v72 = self->_synthesizer;
   TTSSynthesizer::set_global_property();
-  v73 = self->_synthesizer;
   TTSSynthesizer::set_global_property();
-  v74 = self->_synthesizer;
   TTSSynthesizer::set_global_property();
-  v75 = self->_synthesizer;
   TTSSynthesizer::set_global_property();
-  if (error && v64)
+  if (error && v51)
   {
-    v76 = MEMORY[0x1E696ABC0];
-    v106 = *MEMORY[0x1E696A588];
-    v77 = [MEMORY[0x1E696AEC0] stringWithFormat:@"TTSSynthesizer::synthesize_text error: %@", 0];
-    v107 = v77;
-    v78 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
-    *error = [v76 errorWithDomain:@"SiriTTSSynthesisEngine" code:v64 userInfo:v78];
+    v55 = MEMORY[0x1E696ABC0];
+    v83 = *MEMORY[0x1E696A588];
+    v56 = [MEMORY[0x1E696AEC0] stringWithFormat:@"TTSSynthesizer::synthesize_text error: %@", 0];
+    v84 = v56;
+    v57 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v84 forKeys:&v83 count:1];
+    *error = [v55 errorWithDomain:@"SiriTTSSynthesisEngine" code:v51 userInfo:v57];
   }
 
-  if (v101 == 1)
+  if (v78 == 1)
   {
-    v88[0] = &v100;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v88);
-    v88[0] = &v99;
-    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v88);
-    if (SHIBYTE(v98) < 0)
+    v65[0] = &v77;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v65);
+    v65[0] = &v76;
+    std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](v65);
+    if (SHIBYTE(v75) < 0)
     {
-      operator delete(v97);
+      operator delete(v74);
     }
 
-    if (SHIBYTE(v96) < 0)
+    if (SHIBYTE(v73) < 0)
     {
       operator delete(__p);
     }
   }
 
-  *&__p = &v102;
+  *&__p = &v79;
   std::vector<std::shared_ptr<Observer>>::__destroy_vector::operator()[abi:ne200100](&__p);
 
-  v79 = *MEMORY[0x1E69E9840];
-  return v64 == 0;
+  return v51 == 0;
 }
 
 - (uint64_t)_unlockedSynthesize:error:
@@ -634,23 +601,22 @@
 - (void)_unlockedUnloadResource:(id)resource
 {
   resourceCopy = resource;
-  v5 = resourceCopy;
+  v4 = resourceCopy;
   if (resourceCopy)
   {
-    [resourceCopy handle];
-    if (v8)
+    objc_msgSend_handle(resourceCopy);
+    if (v6)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
     }
 
-    if (v7)
+    if (v5)
     {
-      synthesizer = self->_synthesizer;
-      [v5 handle];
+      objc_msgSend_handle(v4);
       TTSSynthesizer::unload_resource();
-      if (v8)
+      if (v6)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v6);
       }
     }
   }
@@ -668,39 +634,38 @@
 
 - (BOOL)_unlockedLoadResourceWithPath:(id)path error:(id *)error
 {
-  v27[3] = *MEMORY[0x1E69E9840];
+  v25[3] = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  synthesizer = self->_synthesizer;
   path = [pathCopy path];
-  std::string::basic_string[abi:ne200100]<0>(&v22, [path UTF8String]);
+  std::string::basic_string[abi:ne200100]<0>(&v20, [path UTF8String]);
   mimeType = [pathCopy mimeType];
-  v10 = mimeType;
+  v9 = mimeType;
   std::string::basic_string[abi:ne200100]<0>(&__p, [mimeType UTF8String]);
   TTSSynthesizer::load_voice_resource();
-  if (v21 < 0)
+  if (v19 < 0)
   {
     operator delete(__p);
   }
 
-  if (v23 < 0)
+  if (v21 < 0)
   {
-    operator delete(v22);
+    operator delete(v20);
   }
 
-  v11 = v24;
-  if (v24)
+  v10 = v22;
+  if (v22)
   {
-    v18 = v24;
-    v19 = v25;
-    if (v25)
+    v16 = v22;
+    v17 = v23;
+    if (v23)
     {
-      atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit(&v23->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    [pathCopy setHandle:&v18];
-    if (v19)
+    [pathCopy setHandle:&v16];
+    if (v17)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v17);
     }
 
     [(NSMutableArray *)self->_loadedResources addObject:pathCopy];
@@ -708,55 +673,54 @@
 
   else if (error)
   {
-    v12 = MEMORY[0x1E696ABC0];
-    v26[0] = @"path";
+    v11 = MEMORY[0x1E696ABC0];
+    v24[0] = @"path";
     path2 = [pathCopy path];
-    v27[0] = path2;
-    v26[1] = @"mimeType";
+    v25[0] = path2;
+    v24[1] = @"mimeType";
     mimeType2 = [pathCopy mimeType];
-    v26[2] = *MEMORY[0x1E696A588];
-    v27[1] = mimeType2;
-    v27[2] = @"TTSSynthesizer::load_voice_resource";
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:3];
-    *error = [v12 errorWithDomain:@"SiriTTSSynthesisEngine" code:1 userInfo:v15];
+    v24[2] = *MEMORY[0x1E696A588];
+    v25[1] = mimeType2;
+    v25[2] = @"TTSSynthesizer::load_voice_resource";
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:3];
+    *error = [v11 errorWithDomain:@"SiriTTSSynthesisEngine" code:1 userInfo:v14];
   }
 
-  if (v25)
+  if (v23)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-  return v11 != 0;
+  return v10 != 0;
 }
 
 - (void)dealloc
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = self->_loadedResources;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        [(SiriTTSSynthesisEngine *)self _unlockedUnloadResource:*(*(&v10 + 1) + 8 * v6++)];
+        [(SiriTTSSynthesisEngine *)self _unlockedUnloadResource:*(*(&v9 + 1) + 8 * v6++)];
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -770,20 +734,19 @@
   }
 
   self->_synthesizer = 0;
-  v9.receiver = self;
-  v9.super_class = SiriTTSSynthesisEngine;
-  [(SiriTTSSynthesisEngine *)&v9 dealloc];
-  v8 = *MEMORY[0x1E69E9840];
+  v8.receiver = self;
+  v8.super_class = SiriTTSSynthesisEngine;
+  [(SiriTTSSynthesisEngine *)&v8 dealloc];
 }
 
 - (SiriTTSSynthesisEngine)initWithVoicePath:(id)path resourcePath:(id)resourcePath error:(id *)error
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   resourcePathCopy = resourcePath;
-  v15.receiver = self;
-  v15.super_class = SiriTTSSynthesisEngine;
-  v14 = [(SiriTTSSynthesisEngine *)&v15 init];
+  v14.receiver = self;
+  v14.super_class = SiriTTSSynthesisEngine;
+  v13 = [(SiriTTSSynthesisEngine *)&v14 init];
   if (pathCopy && [pathCopy length])
   {
     operator new();
@@ -792,13 +755,12 @@
   if (error)
   {
     v9 = MEMORY[0x1E696ABC0];
-    v16 = *MEMORY[0x1E696A588];
-    v17[0] = @"Empty voice path cannot be used.";
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A588];
+    v16[0] = @"Empty voice path cannot be used.";
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     *error = [v9 errorWithDomain:@"SiriTTSSynthesisEngine" code:-1 userInfo:v10];
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return 0;
 }
 

@@ -66,11 +66,11 @@
 
 - (CLSHandoutEvent)initWithCoder:(id)coder
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v37[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v36.receiver = self;
-  v36.super_class = CLSHandoutEvent;
-  v5 = [(CLSInsightEvent *)&v36 initWithCoder:coderCopy];
+  v35.receiver = self;
+  v35.super_class = CLSHandoutEvent;
+  v5 = [(CLSInsightEvent *)&v35 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = objc_opt_class();
@@ -89,25 +89,24 @@
     v5->_dueDate = v16;
 
     v18 = MEMORY[0x277CBEB98];
-    v38[0] = objc_opt_class();
-    v38[1] = objc_opt_class();
-    v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v19, v38, 2);
+    v37[0] = objc_opt_class();
+    v37[1] = objc_opt_class();
+    v20 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v19, v37, 2);
     v22 = objc_msgSend_setWithArray_(v18, v21, v20);
     v24 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v23, v22, @"recipientIDs");
     recipientIDs = v5->_recipientIDs;
     v5->_recipientIDs = v24;
 
     v26 = MEMORY[0x277CBEB98];
-    v37[0] = objc_opt_class();
-    v37[1] = objc_opt_class();
-    v28 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v27, v37, 2);
+    v36[0] = objc_opt_class();
+    v36[1] = objc_opt_class();
+    v28 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v27, v36, 2);
     v30 = objc_msgSend_setWithArray_(v26, v29, v28);
     v32 = objc_msgSend_decodeObjectOfClasses_forKey_(coderCopy, v31, v30, @"attachmentDetails");
     attachmentDetails = v5->_attachmentDetails;
     v5->_attachmentDetails = v32;
   }
 
-  v34 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -154,47 +153,45 @@
 
 - (void)mergeWithObject:(id)object
 {
-  v23[5] = *MEMORY[0x277D85DE8];
+  v22[5] = *MEMORY[0x277D85DE8];
   objectCopy = object;
-  v21.receiver = self;
-  v21.super_class = CLSHandoutEvent;
-  [(CLSInsightEvent *)&v21 mergeWithObject:objectCopy];
-  v23[0] = @"classID";
-  v23[1] = @"handoutID";
-  v23[2] = @"dueDate";
-  v23[3] = @"recipientIDs";
-  v23[4] = @"attachmentDetails";
-  objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, v23, 5);
+  v20.receiver = self;
+  v20.super_class = CLSHandoutEvent;
+  [(CLSInsightEvent *)&v20 mergeWithObject:objectCopy];
+  v22[0] = @"classID";
+  v22[1] = @"handoutID";
+  v22[2] = @"dueDate";
+  v22[3] = @"recipientIDs";
+  v22[4] = @"attachmentDetails";
+  objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v5, v22, 5);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v6 = v20 = 0u;
-  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v17, v22, 16);
+  v6 = v19 = 0u;
+  v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v7, &v16, v21, 16);
   if (v8)
   {
     v10 = v8;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(v6);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
-        v14 = objc_msgSend_valueForKey_(objectCopy, v9, v13, v17);
+        v13 = *(*(&v16 + 1) + 8 * i);
+        v14 = objc_msgSend_valueForKey_(objectCopy, v9, v13, v16);
         objc_msgSend_setValue_forKey_(self, v15, v14, v13);
       }
 
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v17, v22, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v16, v21, 16);
     }
 
     while (v10);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)description

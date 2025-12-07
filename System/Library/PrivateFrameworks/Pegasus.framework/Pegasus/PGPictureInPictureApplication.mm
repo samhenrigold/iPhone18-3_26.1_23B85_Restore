@@ -78,15 +78,17 @@ LABEL_14:
 
 uint64_t __82__PGPictureInPictureApplication_pictureInPictureApplicationWithProcessIdentifier___block_invoke()
 {
-  pictureInPictureApplicationWithProcessIdentifier____pictureInPictureApplications = [MEMORY[0x1E696AC70] weakObjectsHashTable];
+  v0 = [MEMORY[0x1E696AC70] weakObjectsHashTable];
+  v1 = pictureInPictureApplicationWithProcessIdentifier____pictureInPictureApplications;
+  pictureInPictureApplicationWithProcessIdentifier____pictureInPictureApplications = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 - (PGPictureInPictureApplication)initWithProcessIdentifier:(int)identifier
 {
   v3 = *&identifier;
-  v5 = PGLogCommon();
+  v5 = PGLogCommon(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [PGPictureInPictureApplication initWithProcessIdentifier:?];
@@ -120,7 +122,7 @@ uint64_t __82__PGPictureInPictureApplication_pictureInPictureApplicationWithProc
 
 - (void)dealloc
 {
-  v3 = PGLogCommon();
+  v3 = PGLogCommon(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [PGPictureInPictureApplication initWithProcessIdentifier:?];
@@ -178,7 +180,9 @@ uint64_t __82__PGPictureInPictureApplication_pictureInPictureApplicationWithProc
 - (void)initWithProcessIdentifier:(void *)a1 .cold.1(void *a1)
 {
   v1 = _PGLogMethodProem(a1, 1);
-  OUTLINED_FUNCTION_0(&dword_1BB282000, v2, v3, "%@", v4, v5, v6, v7, 2u);
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0(&dword_1BB282000, v2, v3, "%@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

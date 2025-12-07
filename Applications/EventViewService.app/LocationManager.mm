@@ -11,7 +11,7 @@
   v4 = OBJC_IVAR____TtC16EventViewService15LocationManager_manager;
   *(&self->super.isa + v4) = [objc_allocWithZone(CLLocationManager) init];
   v5 = OBJC_IVAR____TtC16EventViewService15LocationManager_checkedThrowingContinuation;
-  v6 = sub_1000024C4(&qword_100222550);
+  v6 = sub_1000024C4(&qword_100222550, &qword_1001B5D78);
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   v8.receiver = self;
   v8.super_class = ObjectType;
@@ -20,7 +20,7 @@
 
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
-  v6 = sub_1000024C4(&qword_100227360);
+  v6 = sub_1000024C4(&qword_100227360, &qword_1001B5D80);
   __chkstk_darwin(v6 - 8);
   v8 = &v16 - v7;
   sub_1000311DC();

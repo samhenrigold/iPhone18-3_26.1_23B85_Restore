@@ -1,6 +1,6 @@
 @interface NEIKEv2InformationalPacket
 + (NSObject)createDeleteResponse:(void *)response child:;
-+ (id)createInformationalResponse:(void *)response ikeSA:;
++ (NSObject)createInformationalResponse:(void *)response ikeSA:;
 - (uint64_t)isDeleteChild;
 - (uint64_t)isDeleteIKE;
 - (uint64_t)isMOBIKE;
@@ -14,7 +14,7 @@
 
 + (NSObject)createDeleteResponse:(void *)response child:
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v4 = a2;
   responseCopy = response;
   objc_opt_self();
@@ -30,8 +30,8 @@
         v7->_protocol = protocol;
       }
 
-      v18 = responseCopy;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v18 count:1];
+      v17 = responseCopy;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
       if (v7)
       {
         objc_setProperty_atomic(v7, v9, v10, 40);
@@ -39,8 +39,8 @@
 
       if (([(NEIKEv2Payload *)v7 isValid]& 1) != 0)
       {
-        v17 = v7;
-        v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v17 count:1];
+        v16 = v7;
+        v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v16 count:1];
         objc_setProperty_atomic(v6, v12, v11, 88);
 
         v13 = v6;
@@ -49,12 +49,12 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      v16 = ne_log_obj();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+      v15 = ne_log_obj();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
       {
         *buf = 136315138;
-        v20 = "+[NEIKEv2InformationalPacket(Exchange) createDeleteResponse:child:]";
-        _os_log_fault_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_FAULT, "%s called with null delete.isValid", buf, 0xCu);
+        v19 = "+[NEIKEv2InformationalPacket(Exchange) createDeleteResponse:child:]";
+        _os_log_fault_impl(&dword_1BA83C000, v15, OS_LOG_TYPE_FAULT, "%s called with null delete.isValid", buf, 0xCu);
       }
     }
 
@@ -76,54 +76,52 @@ LABEL_12:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
   {
     *buf = 136315138;
-    v20 = "+[NEIKEv2InformationalPacket(Exchange) createDeleteResponse:child:]";
+    v19 = "+[NEIKEv2InformationalPacket(Exchange) createDeleteResponse:child:]";
     _os_log_fault_impl(&dword_1BA83C000, v6, OS_LOG_TYPE_FAULT, "%s called with null childSPI", buf, 0xCu);
   }
 
   v13 = 0;
 LABEL_13:
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (uint64_t)validateDeleteChild:(uint64_t)child
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v5 = v3;
   if (child)
   {
     if (v3)
     {
-      v19 = 0u;
-      v20 = 0u;
-      v17 = 0u;
       v18 = 0u;
+      v19 = 0u;
+      v16 = 0u;
+      v17 = 0u;
       v6 = objc_getProperty(child, v4, 88, 1);
-      v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         v9 = v7;
-        v10 = *v18;
+        v10 = *v17;
         while (2)
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v18 != v10)
+            if (*v17 != v10)
             {
               objc_enumerationMutation(v6);
             }
 
-            Property = *(*(&v17 + 1) + 8 * i);
+            Property = *(*(&v16 + 1) + 8 * i);
             if (Property)
             {
               Property = objc_getProperty(Property, v8, 40, 1);
             }
 
             v13 = Property;
-            v14 = [v13 containsObject:{v5, v17}];
+            v14 = [v13 containsObject:{v5, v16}];
 
             if (v14)
             {
@@ -133,7 +131,7 @@ LABEL_13:
             }
           }
 
-          v9 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v9 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (v9)
           {
             continue;
@@ -154,13 +152,12 @@ LABEL_13:
 
 LABEL_16:
 
-  v15 = *MEMORY[0x1E69E9840];
   return child;
 }
 
-+ (id)createInformationalResponse:(void *)response ikeSA:
++ (NSObject)createInformationalResponse:(void *)response ikeSA:
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   v4 = a2;
   responseCopy = response;
   objc_opt_self();
@@ -177,10 +174,10 @@ LABEL_16:
     goto LABEL_49;
   }
 
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   if (v4)
   {
     Property = objc_getProperty(v4, v6, 64, 1);
@@ -192,29 +189,29 @@ LABEL_16:
   }
 
   v9 = Property;
-  v10 = [v9 countByEnumeratingWithState:&v52 objects:v58 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v51 objects:v57 count:16];
   if (v10)
   {
     v11 = v10;
     v12 = 0;
-    v13 = *v53;
+    v13 = *v52;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v53 != v13)
+        if (*v52 != v13)
         {
           objc_enumerationMutation(v9);
         }
 
-        v15 = *(*(&v52 + 1) + 8 * i);
+        v15 = *(*(&v51 + 1) + 8 * i);
         if (v15)
         {
           v12 |= (*(v15 + 32) & 0xFFFELL) == 16388;
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v52 objects:v58 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v51 objects:v57 count:16];
     }
 
     while (v11);
@@ -307,7 +304,7 @@ LABEL_34:
     {
       copyShortDescription = [(NEIKEv2Packet *)v4 copyShortDescription];
       *buf = 138412290;
-      v57 = copyShortDescription;
+      v56 = copyShortDescription;
       _os_log_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEFAULT, "%@ Ignoring request for device identity as peer is not authenticated", buf, 0xCu);
     }
 
@@ -318,7 +315,7 @@ LABEL_34:
   {
     copyShortDescription2 = [(NEIKEv2Packet *)v4 copyShortDescription];
     *buf = 138412290;
-    v57 = copyShortDescription2;
+    v56 = copyShortDescription2;
     _os_log_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEFAULT, "%@ Received request for device identity", buf, 0xCu);
   }
 
@@ -330,7 +327,7 @@ LABEL_34:
     {
       copyShortDescription3 = [(NEIKEv2Packet *)v4 copyShortDescription];
       *buf = 138412290;
-      v57 = copyShortDescription3;
+      v56 = copyShortDescription3;
       _os_log_error_impl(&dword_1BA83C000, v33, OS_LOG_TYPE_ERROR, "%@ Failed to get device identity payload", buf, 0xCu);
     }
 
@@ -353,7 +350,7 @@ LABEL_33:
     _os_log_fault_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_FAULT, "[packet addNotifyPayload:notifyPayload] failed", buf, 2u);
   }
 
-  ErrorInternal = NEIKEv2CreateErrorInternal(@"[packet addNotification:NEIKEv2NotifyTypeDeviceIdentity] failed", v24, v25, v26, v27, v28, v29, v30, v52);
+  ErrorInternal = NEIKEv2CreateErrorInternal(@"[packet addNotification:NEIKEv2NotifyTypeDeviceIdentity] failed", v24, v25, v26, v27, v28, v29, v30, v51);
   [(NEIKEv2IKESA *)responseCopy setState:ErrorInternal error:?];
 LABEL_48:
 
@@ -361,14 +358,12 @@ LABEL_49:
   v47 = 0;
 LABEL_50:
 
-  v49 = *MEMORY[0x1E69E9840];
-
   return v47;
 }
 
 - (uint64_t)validateUpdateAddresses:(void *)addresses
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v5 = v3;
   if (!addresses)
@@ -383,7 +378,7 @@ LABEL_50:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v59 = "[NEIKEv2InformationalPacket(Exchange) validateUpdateAddresses:]";
+      v58 = "[NEIKEv2InformationalPacket(Exchange) validateUpdateAddresses:]";
       _os_log_fault_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_FAULT, "%s called with null ikeSA", buf, 0xCu);
     }
 
@@ -394,26 +389,26 @@ LABEL_22:
 
   if ([(NEIKEv2Packet *)addresses hasErrors])
   {
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
     v7 = objc_getProperty(addresses, v6, 64, 1);
-    v8 = [v7 countByEnumeratingWithState:&v54 objects:v62 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v53 objects:v61 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v55;
+      v10 = *v54;
       while (2)
       {
         for (i = 0; i != v9; ++i)
         {
-          if (*v55 != v10)
+          if (*v54 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v54 + 1) + 8 * i);
+          v12 = *(*(&v53 + 1) + 8 * i);
           if (v12 && v12[1].isa - 1 <= 0x3FFE)
           {
             copyError = [(NEIKEv2NotifyPayload *)v12 copyError];
@@ -422,9 +417,9 @@ LABEL_22:
             {
               copyShortDescription = [(NEIKEv2Packet *)addresses copyShortDescription];
               *buf = 138412546;
-              v59 = copyShortDescription;
-              v60 = 2112;
-              v61 = copyError;
+              v58 = copyShortDescription;
+              v59 = 2112;
+              v60 = copyError;
               _os_log_error_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_ERROR, "%@ Update addresses received notify error %@", buf, 0x16u);
             }
 
@@ -433,7 +428,7 @@ LABEL_22:
           }
         }
 
-        v9 = [v7 countByEnumeratingWithState:&v54 objects:v62 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v53 objects:v61 count:16];
         if (v9)
         {
           continue;
@@ -473,7 +468,7 @@ LABEL_22:
 
       copyShortDescription2 = [(NEIKEv2Packet *)addresses copyShortDescription];
       *buf = 138412290;
-      v59 = copyShortDescription2;
+      v58 = copyShortDescription2;
       v33 = "%@ Detected no incoming NAT";
     }
 
@@ -488,7 +483,7 @@ LABEL_22:
 
       copyShortDescription2 = [(NEIKEv2Packet *)addresses copyShortDescription];
       *buf = 138412290;
-      v59 = copyShortDescription2;
+      v58 = copyShortDescription2;
       v33 = "%@ Detected incoming NAT";
     }
 
@@ -509,7 +504,7 @@ LABEL_24:
 
       copyShortDescription3 = [(NEIKEv2Packet *)addresses copyShortDescription];
       *buf = 138412290;
-      v59 = copyShortDescription3;
+      v58 = copyShortDescription3;
       v42 = "%@ Detected no outgoing NAT";
     }
 
@@ -524,7 +519,7 @@ LABEL_24:
 
       copyShortDescription3 = [(NEIKEv2Packet *)addresses copyShortDescription];
       *buf = 138412290;
-      v59 = copyShortDescription3;
+      v58 = copyShortDescription3;
       v42 = "%@ Detected outgoing NAT";
     }
 
@@ -545,9 +540,9 @@ LABEL_28:
 
       else
       {
-        v52 = v5[14];
+        v51 = v5[14];
 
-        if ((v52 & 1) == 0)
+        if ((v51 & 1) == 0)
         {
           goto LABEL_34;
         }
@@ -565,17 +560,16 @@ LABEL_34:
 LABEL_36:
 
 LABEL_37:
-  v50 = *MEMORY[0x1E69E9840];
   return v36;
 }
 
 - (void)filloutPayloads
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   if (self)
   {
     rawPayloads = self->super._rawPayloads;
@@ -587,27 +581,27 @@ LABEL_37:
   }
 
   v4 = rawPayloads;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v37 objects:v48 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v36 objects:v47 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v38;
+    v8 = *v37;
     v9 = &OBJC_IVAR___NEFilterFlow__direction;
     v10 = 0x1E695D000uLL;
     v11 = &OBJC_IVAR___NEFilterFlow__direction;
     *&v6 = 138412546;
-    v35 = v6;
-    v36 = v4;
+    v34 = v6;
+    v35 = v4;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v38 != v8)
+        if (*v37 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v13 = *(*(&v37 + 1) + 8 * i);
+        v13 = *(*(&v36 + 1) + 8 * i);
         type = [v13 type];
         switch(type)
         {
@@ -627,8 +621,8 @@ LABEL_37:
 
             else
             {
-              v46 = v17;
-              v20 = [*(v10 + 3784) arrayWithObjects:&v46 count:1];
+              v45 = v17;
+              v20 = [*(v10 + 3784) arrayWithObjects:&v45 count:1];
               if (!self)
               {
                 goto LABEL_33;
@@ -648,8 +642,8 @@ LABEL_37:
 
             else
             {
-              v47 = v17;
-              v20 = [*(v10 + 3784) arrayWithObjects:&v47 count:1];
+              v46 = v17;
+              v20 = [*(v10 + 3784) arrayWithObjects:&v46 count:1];
               if (!self)
               {
                 goto LABEL_33;
@@ -671,8 +665,8 @@ LABEL_37:
                 goto LABEL_31;
               }
 
-              v45 = v17;
-              v20 = [*(v10 + 3784) arrayWithObjects:&v45 count:1];
+              v44 = v17;
+              v20 = [*(v10 + 3784) arrayWithObjects:&v44 count:1];
               if (self)
               {
 LABEL_31:
@@ -696,29 +690,27 @@ LABEL_33:
               v28 = v9;
               copyShortDescription = [(NEIKEv2Packet *)self copyShortDescription];
               typeDescription = [v13 typeDescription];
-              *buf = v35;
-              v42 = copyShortDescription;
-              v43 = 2112;
-              v44 = typeDescription;
+              *buf = v34;
+              v41 = copyShortDescription;
+              v42 = 2112;
+              v43 = typeDescription;
               _os_log_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_DEFAULT, "%@ ignoring unexpected %@ payload", buf, 0x16u);
 
               v9 = v28;
               v10 = v27;
               v11 = v26;
-              v4 = v36;
+              v4 = v35;
             }
 
             break;
         }
       }
 
-      v7 = [(NSArray *)v4 countByEnumeratingWithState:&v37 objects:v48 count:16];
+      v7 = [(NSArray *)v4 countByEnumeratingWithState:&v36 objects:v47 count:16];
     }
 
     while (v7);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (void)gatherPayloads
@@ -749,26 +741,26 @@ LABEL_33:
 
 - (uint64_t)isDeleteIKE
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = objc_getProperty(self, a2, 88, 1);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if (v6 && *(v6 + 32) == 1)
         {
           v3 = 1;
@@ -776,7 +768,7 @@ LABEL_33:
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -788,7 +780,6 @@ LABEL_33:
 
 LABEL_12:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -804,26 +795,26 @@ LABEL_12:
 
 - (uint64_t)isDeleteChild
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = objc_getProperty(self, a2, 88, 1);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
-    v4 = *v10;
+    v4 = *v9;
     while (2)
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v10 != v4)
+        if (*v9 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v9 + 1) + 8 * i);
+        v6 = *(*(&v8 + 1) + 8 * i);
         if (v6 && *(v6 + 32) == 3)
         {
           v3 = 1;
@@ -831,7 +822,7 @@ LABEL_12:
         }
       }
 
-      v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v3)
       {
         continue;
@@ -843,7 +834,6 @@ LABEL_12:
 
 LABEL_12:
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

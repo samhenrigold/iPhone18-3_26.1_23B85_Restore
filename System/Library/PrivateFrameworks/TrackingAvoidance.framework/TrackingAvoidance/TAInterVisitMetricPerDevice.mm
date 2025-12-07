@@ -89,7 +89,7 @@
 
 - (void)accumulateSampledObservedLocations:(id)locations
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   locationsCopy = locations;
   sampledObservedLocations = self->_sampledObservedLocations;
   if (!sampledObservedLocations)
@@ -101,30 +101,30 @@
     sampledObservedLocations = self->_sampledObservedLocations;
   }
 
-  v27 = locationsCopy;
-  v26 = [(NSArray *)sampledObservedLocations arrayByAddingObjectsFromArray:locationsCopy];
-  v8 = [v26 sortedArrayUsingComparator:&__block_literal_global_0];
+  v26 = locationsCopy;
+  v25 = [(NSArray *)sampledObservedLocations arrayByAddingObjectsFromArray:locationsCopy];
+  v8 = [v25 sortedArrayUsingComparator:&__block_literal_global_0];
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v29;
+    v13 = *v28;
 LABEL_5:
     v14 = 0;
     while (1)
     {
-      if (*v29 != v13)
+      if (*v28 != v13)
       {
         objc_enumerationMutation(v10);
       }
 
-      v15 = *(*(&v28 + 1) + 8 * v14);
+      v15 = *(*(&v27 + 1) + 8 * v14);
       v16 = [(NSArray *)v9 count];
       if (v16 >= [(TAInterVisitMetricPerDeviceSettings *)self->_settings sampledObservationLocationsBufferSize])
       {
@@ -154,7 +154,7 @@ LABEL_5:
 
       if (v12 == ++v14)
       {
-        v12 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v27 objects:v31 count:16];
         if (v12)
         {
           goto LABEL_5;
@@ -167,8 +167,6 @@ LABEL_5:
 
   v24 = self->_sampledObservedLocations;
   self->_sampledObservedLocations = v9;
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __66__TAInterVisitMetricPerDevice_accumulateSampledObservedLocations___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -197,30 +195,30 @@ uint64_t __66__TAInterVisitMetricPerDevice_accumulateSampledObservedLocations___
 
 - (void)accumulateDurationPerMotionState:(id)state
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   selfCopy = self;
   v5 = [(NSDictionary *)self->_durationPerMotionState mutableCopy];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v6 = stateCopy;
-  v7 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v24;
+    v9 = *v23;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v24 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v23 + 1) + 8 * i);
+        v11 = *(*(&v22 + 1) + 8 * i);
         v12 = [(NSDictionary *)v5 objectForKey:v11];
 
         if (v12)
@@ -242,7 +240,7 @@ uint64_t __66__TAInterVisitMetricPerDevice_accumulateSampledObservedLocations___
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v8);
@@ -250,8 +248,6 @@ uint64_t __66__TAInterVisitMetricPerDevice_accumulateSampledObservedLocations___
 
   durationPerMotionState = selfCopy->_durationPerMotionState;
   selfCopy->_durationPerMotionState = v5;
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -391,34 +387,32 @@ LABEL_13:
 
 - (id)descriptionDictionary
 {
-  v17[6] = *MEMORY[0x277D85DE8];
-  v16[0] = @"NumOfAssociatedLocs";
+  v16[6] = *MEMORY[0x277D85DE8];
+  v15[0] = @"NumOfAssociatedLocs";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[TAInterVisitMetricPerDevice numOfAssociatedLocs](self, "numOfAssociatedLocs")}];
-  v17[0] = v3;
-  v16[1] = @"Duration";
+  v16[0] = v3;
+  v15[1] = @"Duration";
   v4 = MEMORY[0x277CCABB0];
   [(TAInterVisitMetricPerDevice *)self duration];
   v5 = [v4 numberWithDouble:?];
-  v17[1] = v5;
-  v16[2] = @"Distance";
+  v16[1] = v5;
+  v15[2] = @"Distance";
   v6 = MEMORY[0x277CCABB0];
   [(TAInterVisitMetricPerDevice *)self distance];
   v7 = [v6 numberWithDouble:?];
-  v17[2] = v7;
-  v16[3] = @"NumOfSampledObservationLocations";
+  v16[2] = v7;
+  v15[3] = @"NumOfSampledObservationLocations";
   v8 = MEMORY[0x277CCABB0];
   sampledObservedLocations = [(TAInterVisitMetricPerDevice *)self sampledObservedLocations];
   v10 = [v8 numberWithUnsignedInteger:{objc_msgSend(sampledObservedLocations, "count")}];
-  v17[3] = v10;
-  v16[4] = @"LatestAdvertisement";
+  v16[3] = v10;
+  v15[4] = @"LatestAdvertisement";
   descriptionDictionary = [(TASPAdvertisement *)self->_latestAdvertisement descriptionDictionary];
-  v17[4] = descriptionDictionary;
-  v16[5] = @"DurationPerMotionState";
+  v16[4] = descriptionDictionary;
+  v15[5] = @"DurationPerMotionState";
   durationPerMotionState = [(TAInterVisitMetricPerDevice *)self durationPerMotionState];
-  v17[5] = durationPerMotionState;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:6];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v16[5] = durationPerMotionState;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:6];
 
   return v13;
 }
@@ -426,15 +420,15 @@ LABEL_13:
 - (id)description
 {
   descriptionDictionary = [(TAInterVisitMetricPerDevice *)self descriptionDictionary];
-  v9 = 0;
-  v3 = [MEMORY[0x277CCAAA0] JSONStringFromNSDictionary:descriptionDictionary error:&v9];
-  v4 = v9;
-  if (v4)
+  v10 = 0;
+  v4 = [MEMORY[0x277CCAAA0] JSONStringFromNSDictionary:descriptionDictionary error:&v10];
+  v5 = v10;
+  if (v5)
   {
-    v5 = TAStatusLog;
+    v6 = TAStatusLog;
     if (os_log_type_enabled(TAStatusLog, OS_LOG_TYPE_ERROR))
     {
-      [(TAInterVisitMetricPerDevice *)v5 description];
+      [(TAInterVisitMetricPerDevice *)v6 description];
     }
 
     string = [MEMORY[0x277CCACA8] string];
@@ -442,12 +436,12 @@ LABEL_13:
 
   else
   {
-    string = v3;
+    string = v4;
   }
 
-  v7 = string;
+  v8 = string;
 
-  return v7;
+  return v8;
 }
 
 - (TAInterVisitMetricPerDevice)initWithCoder:(id)coder
@@ -504,14 +498,11 @@ LABEL_13:
 
 - (void)description
 {
-  v12 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_26F2E2000, v4, v5, "%@ instance failed to create description:%@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_26F2E2000, v5, v6, "%@ instance failed to create description:%@", v7, v8, v9, v10);
 }
 
 @end

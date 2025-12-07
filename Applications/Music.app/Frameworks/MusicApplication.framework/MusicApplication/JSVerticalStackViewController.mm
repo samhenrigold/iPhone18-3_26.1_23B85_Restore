@@ -25,7 +25,7 @@
 {
   appearCopy = appear;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for JSVerticalStackViewController();
+  v7.super_class = type metadata accessor for JSVerticalStackViewController(0);
   v4 = v7.receiver;
   [(VerticalStackViewController *)&v7 viewWillAppear:appearCopy];
   sub_A17B4([v4 _isInPopoverPresentation]);
@@ -44,7 +44,7 @@
 {
   disappearCopy = disappear;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for JSVerticalStackViewController();
+  v8.super_class = type metadata accessor for JSVerticalStackViewController(0);
   v4 = v8.receiver;
   v5 = [(VerticalStackViewController *)&v8 viewWillDisappear:disappearCopy];
   v6 = (*&stru_388.segname[(swift_isaMask & *v4) - 8])(v5);
@@ -72,7 +72,7 @@
 - (void)traitCollectionDidChange:(id)change
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for JSVerticalStackViewController();
+  v6.super_class = type metadata accessor for JSVerticalStackViewController(0);
   changeCopy = change;
   v5 = v6.receiver;
   [(JSVerticalStackViewController *)&v6 traitCollectionDidChange:changeCopy];
@@ -82,7 +82,7 @@
 - (void)viewSafeAreaInsetsDidChange
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for JSVerticalStackViewController();
+  v3.super_class = type metadata accessor for JSVerticalStackViewController(0);
   v2 = v3.receiver;
   [(JSVerticalStackViewController *)&v3 viewSafeAreaInsetsDidChange];
   sub_A737C();
@@ -92,7 +92,7 @@
 {
   scrollCopy = scroll;
   selfCopy = self;
-  sub_A14D4(scrollCopy);
+  sub_A14D4(scrollCopy, v5);
 }
 
 - (void)scrollViewWillEndDragging:(id)dragging withVelocity:(CGPoint)velocity targetContentOffset:(CGPoint *)offset
@@ -113,7 +113,7 @@
 - (UIColor)viewBackgroundColor
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for JSVerticalStackViewController();
+  v4.super_class = type metadata accessor for JSVerticalStackViewController(0);
   viewBackgroundColor = [(JSVerticalStackViewController *)&v4 viewBackgroundColor];
 
   return viewBackgroundColor;
@@ -121,7 +121,7 @@
 
 - (void)setViewBackgroundColor:(id)color
 {
-  v5 = type metadata accessor for JSVerticalStackViewController();
+  v5 = type metadata accessor for JSVerticalStackViewController(0);
   v10.receiver = self;
   v10.super_class = v5;
   colorCopy = color;
@@ -130,7 +130,7 @@
   v9.receiver = selfCopy;
   v9.super_class = v5;
   [(JSVerticalStackViewController *)&v9 setViewBackgroundColor:colorCopy];
-  sub_A2E34();
+  sub_A2E34(viewBackgroundColor);
 }
 
 @end

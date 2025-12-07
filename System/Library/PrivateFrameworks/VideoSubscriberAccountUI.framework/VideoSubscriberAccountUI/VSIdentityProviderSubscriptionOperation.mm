@@ -277,102 +277,98 @@ void __60__VSIdentityProviderSubscriptionOperation_executionDidBegin__block_invo
 
 - (id)_authorizedBundleIdsFromAppDescriptions:(id)descriptions
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   descriptionsCopy = descriptions;
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v5 = descriptionsCopy;
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        bundleID = [*(*(&v13 + 1) + 8 * i) bundleID];
+        bundleID = [*(*(&v12 + 1) + 8 * i) bundleID];
         if (bundleID)
         {
           [v4 addObject:bundleID];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (void)_removeSubscriptionsForBundleIdentifiers:(id)identifiers withAuthorizedBundleIdentifiers:(id)bundleIdentifiers
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   bundleIdentifiersCopy = bundleIdentifiers;
   registrationCenter = [(VSIdentityProviderSubscriptionOperation *)self registrationCenter];
   v9 = objc_alloc_init(MEMORY[0x277CE22D8]);
-  v25 = *MEMORY[0x277CE24C8];
-  v26[0] = MEMORY[0x277CBEC28];
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
-  v16 = MEMORY[0x277D85DD0];
-  v17 = 3221225472;
-  v18 = __116__VSIdentityProviderSubscriptionOperation__removeSubscriptionsForBundleIdentifiers_withAuthorizedBundleIdentifiers___block_invoke;
-  v19 = &unk_279E19480;
-  v20 = identifiersCopy;
-  v21 = bundleIdentifiersCopy;
+  v24 = *MEMORY[0x277CE24C8];
+  v25[0] = MEMORY[0x277CBEC28];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+  v15 = MEMORY[0x277D85DD0];
+  v16 = 3221225472;
+  v17 = __116__VSIdentityProviderSubscriptionOperation__removeSubscriptionsForBundleIdentifiers_withAuthorizedBundleIdentifiers___block_invoke;
+  v18 = &unk_279E19480;
+  v19 = identifiersCopy;
+  v20 = bundleIdentifiersCopy;
   selfCopy = self;
-  v23 = registrationCenter;
-  v24 = v9;
+  v22 = registrationCenter;
+  v23 = v9;
   v11 = v9;
   v12 = registrationCenter;
   v13 = bundleIdentifiersCopy;
   v14 = identifiersCopy;
-  [v12 fetchActiveSubscriptionsWithOptions:v10 completionHandler:&v16];
+  [v12 fetchActiveSubscriptionsWithOptions:v10 completionHandler:&v15];
   [v11 wait];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __116__VSIdentityProviderSubscriptionOperation__removeSubscriptionsForBundleIdentifiers_withAuthorizedBundleIdentifiers___block_invoke(uint64_t a1, void *a2)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = v3;
-  v5 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
+  v5 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v40;
+    v8 = *v39;
     *&v6 = 138412546;
-    v30 = v6;
+    v29 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v40 != v8)
+        if (*v39 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v39 + 1) + 8 * i);
+        v10 = *(*(&v38 + 1) + 8 * i);
         v11 = [v10 source];
         v12 = [v11 identifier];
 
@@ -380,7 +376,7 @@ void __116__VSIdentityProviderSubscriptionOperation__removeSubscriptionsForBundl
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v45 = v12;
+          v44 = v12;
           _os_log_impl(&dword_270DD4000, v13, OS_LOG_TYPE_DEFAULT, "will check if subscription for bundle ID %@ exists and is authorized for removal", buf, 0xCu);
         }
 
@@ -392,13 +388,13 @@ void __116__VSIdentityProviderSubscriptionOperation__removeSubscriptionsForBundl
             v15 = VSErrorLogObject();
             if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
-              v32 = [*(a1 + 48) identityProvider];
-              v16 = [v32 providerID];
-              v31 = [v16 forceUnwrapObject];
-              *buf = v30;
-              v45 = v12;
-              v46 = 2112;
-              v47 = v31;
+              v31 = [*(a1 + 48) identityProvider];
+              v16 = [v31 providerID];
+              v30 = [v16 forceUnwrapObject];
+              *buf = v29;
+              v44 = v12;
+              v45 = 2112;
+              v46 = v30;
               _os_log_error_impl(&dword_270DD4000, v15, OS_LOG_TYPE_ERROR, "denying subscription removal for subscription for bundle ID %@ from identity provider %@", buf, 0x16u);
             }
           }
@@ -410,7 +406,7 @@ void __116__VSIdentityProviderSubscriptionOperation__removeSubscriptionsForBundl
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v39 objects:v48 count:16];
+      v7 = [obj countByEnumeratingWithState:&v38 objects:v47 count:16];
     }
 
     while (v7);
@@ -423,32 +419,32 @@ void __116__VSIdentityProviderSubscriptionOperation__removeSubscriptionsForBundl
     {
       v18 = [v4 count];
       *buf = 134217984;
-      v45 = v18;
+      v44 = v18;
       _os_log_impl(&dword_270DD4000, v17, OS_LOG_TYPE_DEFAULT, "will remove %lu subscriptions due to idenity provider clear request.", buf, 0xCu);
     }
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v33 = v4;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = v4;
     v19 = v4;
-    v20 = [v19 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v36;
+      v22 = *v35;
       v23 = *MEMORY[0x277CE2490];
       do
       {
         for (j = 0; j != v21; ++j)
         {
-          if (*v36 != v22)
+          if (*v35 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v25 = *(*(&v35 + 1) + 8 * j);
+          v25 = *(*(&v34 + 1) + 8 * j);
           v26 = [*(a1 + 48) identityProvider];
           v27 = [v26 providerID];
           v28 = [v27 forceUnwrapObject];
@@ -457,53 +453,51 @@ void __116__VSIdentityProviderSubscriptionOperation__removeSubscriptionsForBundl
           [v25 setModifierType:v23];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v34 objects:v42 count:16];
       }
 
       while (v21);
     }
 
     [*(a1 + 56) removeSubscriptions:v19];
-    v4 = v33;
+    v4 = v32;
   }
 
   [*(a1 + 64) signal];
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerSubscriptions:(id)subscriptions withAuthorizedBundleIdentifiers:(id)identifiers
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   subscriptionsCopy = subscriptions;
   identifiersCopy = identifiers;
   selfCopy = self;
   registrationCenter = [(VSIdentityProviderSubscriptionOperation *)self registrationCenter];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = subscriptionsCopy;
-  v9 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v9 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
   if (v9)
   {
     v11 = v9;
-    v12 = *v33;
+    v12 = *v32;
     v13 = *MEMORY[0x277CE2490];
     *&v10 = 138412546;
-    v27 = v10;
+    v26 = v10;
     do
     {
       v14 = 0;
       do
       {
-        if (*v33 != v12)
+        if (*v32 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v32 + 1) + 8 * v14);
-        if (identifiersCopy && ([*(*(&v32 + 1) + 8 * v14) source], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "identifier"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(identifiersCopy, "containsObject:", v17), v17, v16, !v18))
+        v15 = *(*(&v31 + 1) + 8 * v14);
+        if (identifiersCopy && ([*(*(&v31 + 1) + 8 * v14) source], v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v16, "identifier"), v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(identifiersCopy, "containsObject:", v17), v17, v16, !v18))
         {
           v22 = VSErrorLogObject();
           if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
@@ -513,10 +507,10 @@ void __116__VSIdentityProviderSubscriptionOperation__removeSubscriptionsForBundl
             identityProvider = [(VSIdentityProviderSubscriptionOperation *)selfCopy identityProvider];
             providerID = [identityProvider providerID];
             forceUnwrapObject = [providerID forceUnwrapObject];
-            *buf = v27;
-            v37 = identifier;
-            v38 = 2112;
-            v39 = forceUnwrapObject;
+            *buf = v26;
+            v36 = identifier;
+            v37 = 2112;
+            v38 = forceUnwrapObject;
             _os_log_error_impl(&dword_270DD4000, v22, OS_LOG_TYPE_ERROR, "denying subscription registration for subscription for bundle ID %@ from identity provider %@", buf, 0x16u);
           }
         }
@@ -536,13 +530,11 @@ void __116__VSIdentityProviderSubscriptionOperation__removeSubscriptionsForBundl
       }
 
       while (v11 != v14);
-      v11 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v11 = [obj countByEnumeratingWithState:&v31 objects:v39 count:16];
     }
 
     while (v11);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel
@@ -556,11 +548,10 @@ void __116__VSIdentityProviderSubscriptionOperation__removeSubscriptionsForBundl
 
 void __60__VSIdentityProviderSubscriptionOperation_executionDidBegin__block_invoke_3_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Error fetching developer settings: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_270DD4000, a2, OS_LOG_TYPE_ERROR, "Error fetching developer settings: %@", &v2, 0xCu);
 }
 
 @end

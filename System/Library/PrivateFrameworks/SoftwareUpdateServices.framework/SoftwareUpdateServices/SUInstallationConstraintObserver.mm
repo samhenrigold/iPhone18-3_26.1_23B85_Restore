@@ -61,7 +61,7 @@
   v19 = v9;
   dispatch_sync(v18, block);
   v20 = [(SUInstallationConstraintObserver *)self initWithDownload:v17 installOptions:v16 queue:v18 constraints:v19];
-  v21 = SULogInstallConstraints();
+  v21 = SULogInstallConstraints(v20);
   v29 = SUStringFromInstallationConstraints([(SUComposedInstallationConstraintMonitor *)v20 unsatisfiedConstraints]);
   SULogInfoForSubsystem(v21, @"[InstallationConstraintObserver] Create: %@ (unsatisfied constraints: %@)", v22, v23, v24, v25, v26, v27, v20);
 
@@ -149,7 +149,7 @@ void __71__SUInstallationConstraintObserver_initWithDownload_andInstallOptions__
 
 - (void)dealloc
 {
-  v3 = SULogInstallConstraints();
+  v3 = SULogInstallConstraints(self);
   SULogInfoForSubsystem(v3, @"[InstallationConstraintObserver] Dealloc: %@", v4, v5, v6, v7, v8, v9, self);
 
   v10.receiver = self;
@@ -243,8 +243,8 @@ uint64_t __58__SUInstallationConstraintObserver_registerObserverBlock___block_in
 
 void __56__SUInstallationConstraintObserver_invalidateWithError___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  v2 = SULogInstallConstraints();
+  v24 = *MEMORY[0x277D85DE8];
+  v2 = SULogInstallConstraints(a1);
   SULogInfoForSubsystem(v2, @"[InstallationConstraintObserver] Invalidate: %@", v3, v4, v5, v6, v7, v8, *(a1 + 32));
 
   v9 = *(a1 + 32);
@@ -256,32 +256,32 @@ void __56__SUInstallationConstraintObserver_invalidateWithError___block_invoke(u
       v10 = [*(*(a1 + 32) + 64) copy];
       v11 = [v10 objectEnumerator];
 
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
       v12 = v11;
-      v13 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
       if (v13)
       {
         v14 = v13;
-        v15 = *v21;
+        v15 = *v20;
         do
         {
           v16 = 0;
           do
           {
-            if (*v21 != v15)
+            if (*v20 != v15)
             {
               objc_enumerationMutation(v12);
             }
 
-            (*(*(*(&v20 + 1) + 8 * v16) + 16))(*(*(&v20 + 1) + 8 * v16), 0, [*(a1 + 32) _queue_representedConstraints], *(a1 + 40));
+            (*(*(*(&v19 + 1) + 8 * v16) + 16))(*(*(&v19 + 1) + 8 * v16), 0, [*(a1 + 32) _queue_representedConstraints], *(a1 + 40));
             ++v16;
           }
 
           while (v14 != v16);
-          v14 = [v12 countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v19 objects:v23 count:16];
         }
 
         while (v14);
@@ -296,8 +296,6 @@ void __56__SUInstallationConstraintObserver_invalidateWithError___block_invoke(u
 
     [*(a1 + 32) _queue_clearDelegate];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)monitorOfClass:(Class)class
@@ -325,28 +323,27 @@ void __56__SUInstallationConstraintObserver_invalidateWithError___block_invoke(u
 
 void __51__SUInstallationConstraintObserver_monitorOfClass___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v13 = 0u;
   v2 = [*(a1 + 32) constraintMonitors];
-  v3 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v9;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
-        v8 = *(a1 + 48);
+        v7 = *(*(&v8 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           objc_storeStrong((*(*(a1 + 40) + 8) + 40), v7);
@@ -354,7 +351,7 @@ void __51__SUInstallationConstraintObserver_monitorOfClass___block_invoke(uint64
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
       if (v4)
       {
         continue;
@@ -365,57 +362,52 @@ void __51__SUInstallationConstraintObserver_monitorOfClass___block_invoke(uint64
   }
 
 LABEL_11:
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_noteInstallationConstraintMonitor:(id)monitor constraintsDidChange:(unint64_t)change
 {
-  v30 = *MEMORY[0x277D85DE8];
-  queue = self->super._queue;
+  v28 = *MEMORY[0x277D85DE8];
   BSDispatchQueueAssert();
   _queue_unsatisfiedConstraints = [(SUComposedInstallationConstraintMonitor *)self _queue_unsatisfiedConstraints];
-  v8 = SULogInstallConstraints();
-  v24 = SUStringFromInstallationConstraints(_queue_unsatisfiedConstraints);
-  SULogInfoForSubsystem(v8, @"%@ - unsatisfied constraints changed (unsatisfied? %@)", v9, v10, v11, v12, v13, v14, self);
+  v7 = SULogInstallConstraints(_queue_unsatisfiedConstraints);
+  v22 = SUStringFromInstallationConstraints(_queue_unsatisfiedConstraints);
+  SULogInfoForSubsystem(v7, @"%@ - unsatisfied constraints changed (unsatisfied? %@)", v8, v9, v10, v11, v12, v13, self);
 
-  v15 = [(NSMapTable *)self->_queue_observerBlockTokens copy];
-  objectEnumerator = [v15 objectEnumerator];
+  v14 = [(NSMapTable *)self->_queue_observerBlockTokens copy];
+  objectEnumerator = [v14 objectEnumerator];
 
-  v27 = 0u;
-  v28 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v17 = objectEnumerator;
-  v18 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
-  if (v18)
+  v23 = 0u;
+  v24 = 0u;
+  v16 = objectEnumerator;
+  v17 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  if (v17)
   {
-    v19 = v18;
-    v20 = *v26;
+    v18 = v17;
+    v19 = *v24;
     do
     {
-      v21 = 0;
+      v20 = 0;
       do
       {
-        if (*v26 != v20)
+        if (*v24 != v19)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v16);
         }
 
-        (*(*(*(&v25 + 1) + 8 * v21++) + 16))();
+        (*(*(*(&v23 + 1) + 8 * v20++) + 16))();
       }
 
-      while (v19 != v21);
-      v19 = [v17 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      while (v18 != v20);
+      v18 = [v16 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
-    while (v19);
+    while (v18);
   }
 
   _queue_delegate = [(SUComposedInstallationConstraintMonitor *)self _queue_delegate];
   [_queue_delegate installationConstraintMonitor:self constraintsDidChange:change];
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeToken:(id)token

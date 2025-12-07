@@ -1,4 +1,4 @@
-uint64_t BRCurrentProcessHasUbiquityContainer()
+uint64_t BRCurrentProcessHasUbiquityContainer(uint64_t a1, uint64_t a2)
 {
   if (_BRLoadUbiquityEntitlements_once != -1)
   {
@@ -8,7 +8,7 @@ uint64_t BRCurrentProcessHasUbiquityContainer()
   return (currentProcessUbiquityContainerEntitlements != 0) | currentProcessIsContainerProxy & 1u;
 }
 
-void BRStartCellularConstraintsNotificationsObserver()
+void BRStartCellularConstraintsNotificationsObserver(uint64_t result, uint64_t a2)
 {
   if (BRStartCellularConstraintsNotificationsObserver_onceToken != -1)
   {
@@ -58,7 +58,7 @@ id BREntitledContainerIdentifiers(uint64_t a1)
 
 id BREntitledContainerIdentifiersForPropertyList(void *a1)
 {
-  v21[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [v1 objectForKey:@"application-identifier" ofClass:objc_opt_class()];
   v3 = v2;
@@ -91,8 +91,8 @@ LABEL_19:
       if (!v7)
       {
         v8 = [@"iCloud." stringByAppendingString:v4];
-        v21[0] = v8;
-        v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
+        v20[0] = v8;
+        v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
       }
     }
 
@@ -119,13 +119,13 @@ LABEL_19:
     v11 = brc_default_log(1, 0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412802;
-      v16 = v4;
-      v17 = 2112;
-      v18 = v3;
-      v19 = 2112;
-      v20 = v10;
-      _os_log_impl(&dword_1AE2A9000, v11, OS_LOG_TYPE_DEFAULT, "[WARNING] %@ has prohibited identifiers in its list of entitled container identifiers: %@%@", &v15, 0x20u);
+      v14 = 138412802;
+      v15 = v4;
+      v16 = 2112;
+      v17 = v3;
+      v18 = 2112;
+      v19 = v10;
+      _os_log_impl(&dword_1AE2A9000, v11, OS_LOG_TYPE_DEFAULT, "[WARNING] %@ has prohibited identifiers in its list of entitled container identifiers: %@%@", &v14, 0x20u);
     }
 
     goto LABEL_19;
@@ -135,14 +135,12 @@ LABEL_19:
   v12 = v7;
 LABEL_20:
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 id BRAppIdentifierFromTeamAppTuple(void *a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if ([v1 hasPrefix:@"com.apple."])
   {
@@ -152,10 +150,10 @@ id BRAppIdentifierFromTeamAppTuple(void *a1)
   else if ([v1 length] > 0xA)
   {
     MEMORY[0x1EEE9AC00]();
-    [v1 getCharacters:v15 range:{0, 10}];
+    [v1 getCharacters:v14 range:{0, 10}];
     for (i = 0; i != 20; i += 2)
     {
-      v6 = *&v15[i];
+      v6 = *&v14[i];
       if ((v6 - 65) >= 0x1A && (v6 - 48) >= 0xA)
       {
         v8 = brc_bread_crumbs("BRAppIdentifierFromTeamAppTuple", 986);
@@ -166,9 +164,9 @@ id BRAppIdentifierFromTeamAppTuple(void *a1)
         }
 
         *buf = 138412546;
-        v17 = v1;
-        v18 = 2112;
-        v19 = v8;
+        v16 = v1;
+        v17 = 2112;
+        v18 = v8;
         v10 = "[WARNING] team prefix must only contain characters in [0-9,A-Z] (%@)%@";
         v11 = v9;
         v12 = 22;
@@ -187,7 +185,7 @@ id BRAppIdentifierFromTeamAppTuple(void *a1)
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v17 = v8;
+      v16 = v8;
       v10 = "[WARNING] team prefix must be followed by a dot.%@";
       v11 = v9;
       v12 = 12;
@@ -207,9 +205,9 @@ LABEL_20:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v17 = v1;
-      v18 = 2112;
-      v19 = v3;
+      v16 = v1;
+      v17 = 2112;
+      v18 = v3;
       _os_log_impl(&dword_1AE2A9000, v4, OS_LOG_TYPE_DEFAULT, "[WARNING] can't extract application ID from '%@'%@", buf, 0x16u);
     }
 
@@ -217,8 +215,6 @@ LABEL_20:
   }
 
 LABEL_21:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -259,9 +255,9 @@ uint64_t __BRIsCurrentProcessHasAccessToGroupContainers_block_invoke(uint64_t a1
   return v3;
 }
 
-void sub_1AE2AB76C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AE2AB76C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -402,26 +398,26 @@ void LBGetMobileContainerForID(void *a1, void *a2, void *a3)
 
 void BRGetProcessMobileContainerForID(void *a1, _OWORD *a2, void *a3)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
-  memset(v40, 0, sizeof(v40));
-  __brc_create_section(0, "BRGetProcessMobileContainerForID", 345, 0, v40);
+  memset(v39, 0, sizeof(v39));
+  __brc_create_section(0, "BRGetProcessMobileContainerForID", 345, 0, v39);
   v8 = brc_bread_crumbs("BRGetProcessMobileContainerForID", 345);
   v9 = brc_default_log(1, 0);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134219010;
-    *&buf[4] = v40[0];
+    *&buf[4] = v39[0];
     *&buf[12] = 2080;
     *&buf[14] = "BRGetProcessMobileContainerForID";
     *&buf[22] = 2112;
     *&buf[24] = v5;
-    v42 = 2048;
-    v43 = a2;
-    v44 = 2112;
-    v45 = v8;
+    v41 = 2048;
+    v42 = a2;
+    v43 = 2112;
+    v44 = v8;
     _os_log_debug_impl(&dword_1AE2A9000, v9, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx %s: container:%@ audit-token:%p%@", buf, 0x34u);
   }
 
@@ -455,12 +451,12 @@ LABEL_7:
 
         if ((v13 & 1) == 0)
         {
-          v25 = +[BRDaemonConnection mobileDocumentsURL];
-          v26 = [[BRMangledID alloc] initWithAppLibraryName:@"com.apple.CloudDocs"];
-          v27 = [(BRMangledID *)v26 mangledIDString];
-          v28 = [v25 URLByAppendingPathComponent:v27 isDirectory:1];
+          v24 = +[BRDaemonConnection mobileDocumentsURL];
+          v25 = [[BRMangledID alloc] initWithAppLibraryName:@"com.apple.CloudDocs"];
+          v26 = [(BRMangledID *)v25 mangledIDString];
+          v27 = [v24 URLByAppendingPathComponent:v26 isDirectory:1];
 
-          (v6)[2](v6, v28, 0);
+          (v6)[2](v6, v27, 0);
           goto LABEL_19;
         }
       }
@@ -478,37 +474,37 @@ LABEL_7:
   v15 = brc_default_log(1, 0);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
   {
-    BRGetProcessMobileContainerForID_cold_2(buf);
+    BRGetProcessMobileContainerForID_cold_2();
   }
 
-  v38 = *buf;
-  v39 = *&buf[16];
+  v37 = *buf;
+  v38 = *&buf[16];
   v16 = +[BRDaemonConnection defaultConnection];
   v17 = [v16 newSyncProxy];
 
-  v29 = MEMORY[0x1E69E9820];
-  v30 = 3221225472;
-  v31 = __BRGetProcessMobileContainerForID_block_invoke;
-  v32 = &unk_1E7A14EE8;
+  v28 = MEMORY[0x1E69E9820];
+  v29 = 3221225472;
+  v30 = __BRGetProcessMobileContainerForID_block_invoke;
+  v31 = &unk_1E7A14EE8;
+  v34 = v37;
   v35 = v38;
-  v36 = v39;
   v18 = v17;
-  v33 = v18;
+  v32 = v18;
   v19 = v5;
-  v34 = v19;
-  v37 = a2;
-  v20 = MEMORY[0x1B26FEA90](&v29);
+  v33 = v19;
+  v36 = a2;
+  v20 = MEMORY[0x1B26FEA90](&v28);
   if (a2)
   {
     v21 = a2[1];
     *buf = *a2;
     *&buf[16] = v21;
-    [v18 getContainerURLForID:v19 forProcess:buf reply:{v20, v29, v30, v31, v32, v33}];
+    [v18 getContainerURLForID:v19 forProcess:buf reply:{v20, v28, v29, v30, v31, v32}];
   }
 
   else
   {
-    [v18 getContainerURLForID:v19 reply:{v20, v29, v30, v31, v32, v33}];
+    [v18 getContainerURLForID:v19 reply:{v20, v28, v29, v30, v31, v32}];
   }
 
   v22 = [v18 result];
@@ -516,15 +512,13 @@ LABEL_7:
   (v6)[2](v6, v22, v23);
 
 LABEL_19:
-  __brc_leave_section(v40);
+  __brc_leave_section(v39);
   objc_autoreleasePoolPop(v7);
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1AE2AC328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_1AE2AC328(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   __brc_leave_section(va);
   _Unwind_Resume(a1);
 }
@@ -582,51 +576,45 @@ uint64_t ____brc_create_section_block_invoke_2(uint64_t result)
 
 uint64_t brc_notify_get_state(int a1, uint64_t *a2, uint64_t a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (a1 == -1)
   {
-    state = 2;
+    return 2;
   }
 
-  else
+  state = notify_get_state(a1, a2);
+  if (state)
   {
-    state = notify_get_state(a1, a2);
-    if (state)
+    v6 = brc_bread_crumbs("brc_notify_get_state", 69);
+    v7 = brc_default_log(0, 0);
+    if (os_log_type_enabled(v7, 0x90u))
     {
-      v6 = brc_bread_crumbs("brc_notify_get_state", 69);
-      v7 = brc_default_log(0, 0);
-      if (os_log_type_enabled(v7, 0x90u))
-      {
-        v10[0] = 67110146;
-        v10[1] = a1;
-        v11 = 2080;
-        v12 = brc_prettyprint_notify_status(state);
-        v13 = 1024;
-        v14 = state;
-        v15 = 2080;
-        v16 = a3;
-        v17 = 2112;
-        v18 = v6;
-        _os_log_error_impl(&dword_1AE2A9000, v7, 0x90u, "[ERROR] notify_get_state(%d) failed with %s (%d) for '%s'%@", v10, 0x2Cu);
-      }
+      v9[0] = 67110146;
+      v9[1] = a1;
+      v10 = 2080;
+      v11 = brc_prettyprint_notify_status(state);
+      v12 = 1024;
+      v13 = state;
+      v14 = 2080;
+      v15 = a3;
+      v16 = 2112;
+      v17 = v6;
+      _os_log_error_impl(&dword_1AE2A9000, v7, 0x90u, "[ERROR] notify_get_state(%d) failed with %s (%d) for '%s'%@", v9, 0x2Cu);
     }
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return state;
 }
 
 void __BRStartCellularConstraintsNotificationsObserver_block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD88] defaultCenter];
-  v7 = @"BRCellularConstraintReached";
+  v6 = @"BRCellularConstraintReached";
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:a2];
-  v8[0] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+  v7[0] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
   [v3 postNotificationName:@"BRCellularConstraintChangedNotification" object:0 userInfo:v5];
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __brc_default_log_block_invoke()
@@ -638,14 +626,6 @@ uint64_t __brc_default_log_block_invoke()
   brc_default_log_loggerEnterprise = os_log_create("com.apple.clouddocs", "default enterprise");
 
   return MEMORY[0x1EEE66BB8]();
-}
-
-void brc_default_log_cold_3()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, v0, v1, "[CRIT] Assertion failed: !isDataSeparated%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 id BRCXPCInterface()
@@ -696,21 +676,21 @@ id BREntitledApplicationIdentifier(void *a1)
   return v2;
 }
 
-uint64_t BRCopyEntitlementsForAuditToken()
+uint64_t BRCopyEntitlementsForAuditToken(uint64_t a1)
 {
-  v0 = xpc_copy_entitlement_for_token();
-  if (v0)
+  v1 = xpc_copy_entitlement_for_token();
+  if (v1)
   {
-    v1 = _CFXPCCreateCFObjectFromXPCObject();
-    v2 = [v1 mutableCopy];
+    v2 = _CFXPCCreateCFObjectFromXPCObject();
+    v3 = [v2 mutableCopy];
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 uint64_t BRIsEntitledForAnyiCloudService(void *a1)
@@ -791,7 +771,7 @@ void *CloudKitLibrary()
 
 void CloudKitLibrary_0()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   if (!CloudKitLibrary_frameworkLibrary_1)
   {
     CloudKitLibrary_frameworkLibrary_1 = dlopen("/System/Library/Frameworks/CloudKit.framework/CloudKit", 2);
@@ -801,31 +781,29 @@ void CloudKitLibrary_0()
       v1 = brc_default_log(1, 0);
       if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
       {
-        v3 = 136315394;
-        v4 = dlerror();
-        v5 = 2112;
-        v6 = v0;
-        _os_log_impl(&dword_1AE2A9000, v1, OS_LOG_TYPE_DEFAULT, "[WARNING] Can't open CloudKit : %s%@", &v3, 0x16u);
+        v2 = 136315394;
+        v3 = dlerror();
+        v4 = 2112;
+        v5 = v0;
+        _os_log_impl(&dword_1AE2A9000, v1, OS_LOG_TYPE_DEFAULT, "[WARNING] Can't open CloudKit : %s%@", &v2, 0x16u);
       }
     }
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 void __BRCXPCInterface_block_invoke()
 {
-  v141[4] = *MEMORY[0x1E69E9840];
+  v143[4] = *MEMORY[0x1E69E9840];
   v0 = objc_opt_new();
   v1 = BRCXPCInterface_iface;
   BRCXPCInterface_iface = v0;
 
   [BRCXPCInterface_iface setProtocol:&unk_1F240B2A8];
-  v141[0] = objc_opt_class();
-  v141[1] = objc_opt_class();
-  v141[2] = objc_opt_class();
-  v141[3] = objc_opt_class();
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v141 count:4];
+  v143[0] = objc_opt_class();
+  v143[1] = objc_opt_class();
+  v143[2] = objc_opt_class();
+  v143[3] = objc_opt_class();
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v143 count:4];
   v3 = BRCXPCInterface_iface;
   v4 = [MEMORY[0x1E695DFD8] setWithArray:v2];
   [v3 setClasses:v4 forSelector:sel_setupInstanceWithDict_reply_ argumentIndex:0 ofReply:0];
@@ -833,34 +811,34 @@ void __BRCXPCInterface_block_invoke()
   BRCSetupGenericOperations(&unk_1F240B2A8, BRCXPCInterface_iface);
   BRCSetupGenericOperations(&unk_1F24064F8, BRCXPCInterface_iface);
   BRCSetupGenericOperations(&unk_1F2404ED8, BRCXPCInterface_iface);
-  v140[0] = objc_opt_class();
-  v140[1] = objc_opt_class();
-  v140[2] = objc_opt_class();
-  v140[3] = objc_opt_class();
-  v140[4] = objc_opt_class();
-  v140[5] = objc_opt_class();
-  v140[6] = objc_opt_class();
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v140 count:7];
+  v142[0] = objc_opt_class();
+  v142[1] = objc_opt_class();
+  v142[2] = objc_opt_class();
+  v142[3] = objc_opt_class();
+  v142[4] = objc_opt_class();
+  v142[5] = objc_opt_class();
+  v142[6] = objc_opt_class();
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v142 count:7];
 
   v6 = objc_opt_new();
   [v6 setProtocol:&unk_1F23EB800];
   v7 = [MEMORY[0x1E695DFD8] setWithArray:v5];
   [v6 setClasses:v7 forSelector:sel_receiveUpdates_reply_ argumentIndex:0 ofReply:0];
 
-  v139[0] = objc_opt_class();
-  v139[1] = objc_opt_class();
-  v139[2] = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v139 count:3];
+  v141[0] = objc_opt_class();
+  v141[1] = objc_opt_class();
+  v141[2] = objc_opt_class();
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v141 count:3];
 
   v9 = [MEMORY[0x1E695DFD8] setWithArray:v8];
   [v6 setClasses:v9 forSelector:sel_receiveProgressUpdates_reply_ argumentIndex:0 ofReply:0];
 
   v128 = v6;
   [BRCXPCInterface_iface setInterface:v6 forSelector:sel_getItemUpdateSenderWithReceiver_reply_ argumentIndex:0 ofReply:0];
-  v138[0] = objc_opt_class();
-  v138[1] = objc_opt_class();
-  v138[2] = objc_opt_class();
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v138 count:3];
+  v140[0] = objc_opt_class();
+  v140[1] = objc_opt_class();
+  v140[2] = objc_opt_class();
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v140 count:3];
 
   v11 = BRCXPCInterface_iface;
   v12 = [MEMORY[0x1E695DFD8] setWithArray:v10];
@@ -870,9 +848,9 @@ void __BRCXPCInterface_block_invoke()
   [v13 setProtocol:&unk_1F240B308];
   v127 = v13;
   [BRCXPCInterface_iface setInterface:v13 forSelector:sel_getItemUpdateSenderWithReceiver_reply_ argumentIndex:0 ofReply:1];
-  v137[0] = objc_opt_class();
-  v137[1] = objc_opt_class();
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v137 count:2];
+  v139[0] = objc_opt_class();
+  v139[1] = objc_opt_class();
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v139 count:2];
 
   v15 = BRCXPCInterface_iface;
   v16 = [MEMORY[0x1E695DFD8] setWithArray:v14];
@@ -884,14 +862,14 @@ void __BRCXPCInterface_block_invoke()
   v136[3] = objc_opt_class();
   v136[4] = objc_opt_class();
   v136[5] = objc_opt_class();
-  v136[6] = objc_opt_class();
-  CKRecordIDClass = getCKRecordIDClass();
+  v137 = objc_opt_class();
+  CKRecordIDClass = getCKRecordIDClass(v137);
   if (!CKRecordIDClass)
   {
     CKRecordIDClass = objc_opt_class();
   }
 
-  v136[7] = CKRecordIDClass;
+  v138 = CKRecordIDClass;
   v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v136 count:8];
 
   v19 = BRCXPCInterface_iface;
@@ -909,7 +887,7 @@ void __BRCXPCInterface_block_invoke()
   v126 = v23;
   [BRCXPCInterface_iface setClasses:v23 forSelector:sel_getContainersByID_ argumentIndex:0 ofReply:1];
   v24 = MEMORY[0x1E695DFD8];
-  v25 = getCKRecordIDClass();
+  v25 = (getCKRecordIDClass)();
   if (!v25)
   {
     v25 = objc_opt_class();
@@ -940,7 +918,7 @@ void __BRCXPCInterface_block_invoke()
   v33 = MEMORY[0x1E695DFD8];
   v132[0] = objc_opt_class();
   v132[1] = objc_opt_class();
-  v34 = getCKRecordIDClass();
+  v34 = (getCKRecordIDClass)();
   if (!v34)
   {
     v34 = objc_opt_class();
@@ -963,142 +941,140 @@ void __BRCXPCInterface_block_invoke()
   [BRCXPCInterface_iface setClasses:v32 forSelector:sel_resolveFileObjectIDsToContentRecordIDsForThumbnails_reply_ argumentIndex:1 ofReply:1];
   [BRCXPCInterface_iface setClasses:v32 forSelector:sel_resolveFileObjectIDsToContentRecordIDsForThumbnails_reply_ argumentIndex:2 ofReply:1];
   [BRCXPCInterface_iface setClasses:v32 forSelector:sel_resolveFileObjectIDsToContentRecordIDsForThumbnails_reply_ argumentIndex:3 ofReply:1];
-  [BRCXPCInterface_iface setClasses:v39 forSelector:sel_resolveFileObjectIDsToContentRecordIDsForThumbnails_reply_ argumentIndex:4 ofReply:1];
-  v40 = BRCXPCInterface_iface;
-  v41 = MEMORY[0x1E695DFD8];
-  CKUserIdentityLookupInfoClass = getCKUserIdentityLookupInfoClass();
+  v40 = [BRCXPCInterface_iface setClasses:v39 forSelector:sel_resolveFileObjectIDsToContentRecordIDsForThumbnails_reply_ argumentIndex:4 ofReply:1];
+  v41 = BRCXPCInterface_iface;
+  v42 = MEMORY[0x1E695DFD8];
+  CKUserIdentityLookupInfoClass = getCKUserIdentityLookupInfoClass(v40);
   if (!CKUserIdentityLookupInfoClass)
   {
     CKUserIdentityLookupInfoClass = objc_opt_class();
   }
 
-  v43 = objc_opt_class();
-  v44 = [v41 setWithObjects:{CKUserIdentityLookupInfoClass, v43, objc_opt_class(), 0}];
-  [v40 setClasses:v44 forSelector:sel_startOperation_toLookupShareParticipants_reply_ argumentIndex:1 ofReply:0];
+  v44 = objc_opt_class();
+  v45 = [v42 setWithObjects:{CKUserIdentityLookupInfoClass, v44, objc_opt_class(), 0}];
+  [v41 setClasses:v45 forSelector:sel_startOperation_toLookupShareParticipants_reply_ argumentIndex:1 ofReply:0];
 
-  v45 = BRCXPCInterface_iface;
-  v46 = MEMORY[0x1E695DFD8];
+  v46 = BRCXPCInterface_iface;
+  v47 = MEMORY[0x1E695DFD8];
   CKShareParticipantClass = getCKShareParticipantClass();
   if (!CKShareParticipantClass)
   {
     CKShareParticipantClass = objc_opt_class();
   }
 
-  v48 = objc_opt_class();
-  v49 = [v46 setWithObjects:{CKShareParticipantClass, v48, objc_opt_class(), 0}];
-  [v45 setClasses:v49 forSelector:sel_startOperation_toLookupShareParticipants_reply_ argumentIndex:0 ofReply:1];
+  v49 = objc_opt_class();
+  v50 = [v47 setWithObjects:{CKShareParticipantClass, v49, objc_opt_class(), 0}];
+  [v46 setClasses:v50 forSelector:sel_startOperation_toLookupShareParticipants_reply_ argumentIndex:0 ofReply:1];
 
   v130[0] = objc_opt_class();
   v130[1] = objc_opt_class();
-  v50 = [MEMORY[0x1E695DEC8] arrayWithObjects:v130 count:2];
+  v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:v130 count:2];
 
-  v51 = BRCXPCInterface_iface;
-  v52 = [MEMORY[0x1E695DFD8] setWithArray:v50];
-  [v51 setClasses:v52 forSelector:sel_getLoggedInUserPropertyValuesForKeys_reply_ argumentIndex:0 ofReply:0];
+  v52 = BRCXPCInterface_iface;
+  v53 = [MEMORY[0x1E695DFD8] setWithArray:v51];
+  [v52 setClasses:v53 forSelector:sel_getLoggedInUserPropertyValuesForKeys_reply_ argumentIndex:0 ofReply:0];
 
   v129[0] = objc_opt_class();
   v129[1] = objc_opt_class();
   v129[2] = objc_opt_class();
   v122 = [MEMORY[0x1E695DEC8] arrayWithObjects:v129 count:3];
 
-  v53 = BRCXPCInterface_iface;
-  v54 = [MEMORY[0x1E695DFD8] setWithArray:v122];
-  [v53 setClasses:v54 forSelector:sel_getLoggedInUserPropertyValuesForKeys_reply_ argumentIndex:0 ofReply:1];
+  v54 = BRCXPCInterface_iface;
+  v55 = [MEMORY[0x1E695DFD8] setWithArray:v122];
+  [v54 setClasses:v55 forSelector:sel_getLoggedInUserPropertyValuesForKeys_reply_ argumentIndex:0 ofReply:1];
 
-  v55 = BRCXPCInterface_iface;
-  v56 = MEMORY[0x1E695DFD8];
-  v57 = objc_opt_class();
+  v56 = BRCXPCInterface_iface;
+  v57 = MEMORY[0x1E695DFD8];
   v58 = objc_opt_class();
-  v59 = [v56 setWithObjects:{v57, v58, objc_opt_class(), 0}];
-  [v55 setClasses:v59 forSelector:sel_queryEligibleAccountDescriptorsWithReply_ argumentIndex:0 ofReply:1];
+  v59 = objc_opt_class();
+  v60 = [v57 setWithObjects:{v58, v59, objc_opt_class(), 0}];
+  [v56 setClasses:v60 forSelector:sel_queryEligibleAccountDescriptorsWithReply_ argumentIndex:0 ofReply:1];
 
-  v60 = BRCXPCInterface_iface;
-  v61 = MEMORY[0x1E695DFD8];
-  v62 = objc_opt_class();
+  v61 = BRCXPCInterface_iface;
+  v62 = MEMORY[0x1E695DFD8];
   v63 = objc_opt_class();
-  v64 = [v61 setWithObjects:{v62, v63, objc_opt_class(), 0}];
-  [v60 setClasses:v64 forSelector:sel_queryPathsForPersona_reply_ argumentIndex:0 ofReply:1];
+  v64 = objc_opt_class();
+  v65 = [v62 setWithObjects:{v63, v64, objc_opt_class(), 0}];
+  [v61 setClasses:v65 forSelector:sel_queryPathsForPersona_reply_ argumentIndex:0 ofReply:1];
 
-  v65 = BRCXPCInterface_iface;
-  v66 = MEMORY[0x1E695DFD8];
-  v67 = objc_opt_class();
+  v66 = BRCXPCInterface_iface;
+  v67 = MEMORY[0x1E695DFD8];
   v68 = objc_opt_class();
-  v69 = [v66 setWithObjects:{v67, v68, objc_opt_class(), 0}];
-  [v65 setClasses:v69 forSelector:sel_enumerateWorkingSetChangesFromChangeToken_limit_completion_ argumentIndex:0 ofReply:1];
+  v69 = objc_opt_class();
+  v70 = [v67 setWithObjects:{v68, v69, objc_opt_class(), 0}];
+  [v66 setClasses:v70 forSelector:sel_enumerateWorkingSetChangesFromChangeToken_limit_completion_ argumentIndex:0 ofReply:1];
 
-  v70 = BRCXPCInterface_iface;
-  v71 = MEMORY[0x1E695DFD8];
-  v72 = objc_opt_class();
-  v73 = [v71 setWithObjects:{v72, objc_opt_class(), 0}];
-  [v70 setClasses:v73 forSelector:sel_enumerateWorkingSetChangesFromChangeToken_limit_completion_ argumentIndex:1 ofReply:1];
+  v71 = BRCXPCInterface_iface;
+  v72 = MEMORY[0x1E695DFD8];
+  v73 = objc_opt_class();
+  v74 = [v72 setWithObjects:{v73, objc_opt_class(), 0}];
+  [v71 setClasses:v74 forSelector:sel_enumerateWorkingSetChangesFromChangeToken_limit_completion_ argumentIndex:1 ofReply:1];
 
-  v74 = BRCXPCInterface_iface;
-  v75 = MEMORY[0x1E695DFD8];
-  v76 = objc_opt_class();
+  v75 = BRCXPCInterface_iface;
+  v76 = MEMORY[0x1E695DFD8];
   v77 = objc_opt_class();
-  v78 = [v75 setWithObjects:{v76, v77, objc_opt_class(), 0}];
-  [v74 setClasses:v78 forSelector:sel_enumerateItemsInFolder_sortOrder_offset_limit_completion_ argumentIndex:0 ofReply:1];
+  v78 = objc_opt_class();
+  v79 = [v76 setWithObjects:{v77, v78, objc_opt_class(), 0}];
+  [v75 setClasses:v79 forSelector:sel_enumerateItemsInFolder_sortOrder_offset_limit_completion_ argumentIndex:0 ofReply:1];
 
   [BRCXPCInterface_iface setClass:objc_opt_class() forSelector:sel_createItemBasedOnTemplate_fields_contents_options_additionalItemAttributes_completionHandler_ argumentIndex:0 ofReply:0];
-  v79 = BRCXPCInterface_iface;
-  v80 = MEMORY[0x1E695DFD8];
-  v81 = objc_opt_class();
+  v80 = BRCXPCInterface_iface;
+  v81 = MEMORY[0x1E695DFD8];
   v82 = objc_opt_class();
-  v83 = [v80 setWithObjects:{v81, v82, objc_opt_class(), 0}];
-  [v79 setClasses:v83 forSelector:sel_createItemBasedOnTemplate_fields_contents_options_additionalItemAttributes_completionHandler_ argumentIndex:1 ofReply:1];
+  v83 = objc_opt_class();
+  v84 = [v81 setWithObjects:{v82, v83, objc_opt_class(), 0}];
+  [v80 setClasses:v84 forSelector:sel_createItemBasedOnTemplate_fields_contents_options_additionalItemAttributes_completionHandler_ argumentIndex:1 ofReply:1];
 
   [BRCXPCInterface_iface setClass:objc_opt_class() forSelector:sel_modifyItem_baseVersion_changedFields_contents_options_additionalAttrs_completionHandler_ argumentIndex:0 ofReply:0];
-  v84 = BRCXPCInterface_iface;
-  v85 = MEMORY[0x1E695DFD8];
-  v86 = objc_opt_class();
+  v85 = BRCXPCInterface_iface;
+  v86 = MEMORY[0x1E695DFD8];
   v87 = objc_opt_class();
-  v88 = [v85 setWithObjects:{v86, v87, objc_opt_class(), 0}];
-  [v84 setClasses:v88 forSelector:sel_modifyItem_baseVersion_changedFields_contents_options_additionalAttrs_completionHandler_ argumentIndex:1 ofReply:1];
+  v88 = objc_opt_class();
+  v89 = [v86 setWithObjects:{v87, v88, objc_opt_class(), 0}];
+  [v85 setClasses:v89 forSelector:sel_modifyItem_baseVersion_changedFields_contents_options_additionalAttrs_completionHandler_ argumentIndex:1 ofReply:1];
 
-  v89 = BRCXPCInterface_iface;
-  v90 = MEMORY[0x1E695DFD8];
-  v91 = objc_opt_class();
+  v90 = BRCXPCInterface_iface;
+  v91 = MEMORY[0x1E695DFD8];
   v92 = objc_opt_class();
-  v93 = [v90 setWithObjects:{v91, v92, objc_opt_class(), 0}];
-  [v89 setClasses:v93 forSelector:sel_deleteItemWithIdentifier_baseVersion_options_completionHandler_ argumentIndex:0 ofReply:1];
+  v93 = objc_opt_class();
+  v94 = [v91 setWithObjects:{v92, v93, objc_opt_class(), 0}];
+  [v90 setClasses:v94 forSelector:sel_deleteItemWithIdentifier_baseVersion_options_completionHandler_ argumentIndex:0 ofReply:1];
 
-  v94 = BRCXPCInterface_iface;
-  v95 = MEMORY[0x1E695DFD8];
-  v96 = objc_opt_class();
+  v95 = BRCXPCInterface_iface;
+  v96 = MEMORY[0x1E695DFD8];
   v97 = objc_opt_class();
   v98 = objc_opt_class();
-  v99 = [v95 setWithObjects:{v96, v97, v98, objc_opt_class(), 0}];
-  [v94 setClasses:v99 forSelector:sel_startDownloadFileObject_existingContents_options_etagIfLoser_reply_ argumentIndex:0 ofReply:1];
+  v99 = objc_opt_class();
+  v100 = [v96 setWithObjects:{v97, v98, v99, objc_opt_class(), 0}];
+  [v95 setClasses:v100 forSelector:sel_startDownloadFileObject_existingContents_options_etagIfLoser_reply_ argumentIndex:0 ofReply:1];
 
-  v100 = BRCXPCInterface_iface;
-  v101 = MEMORY[0x1E695DFD8];
-  v102 = objc_opt_class();
+  v101 = BRCXPCInterface_iface;
+  v102 = MEMORY[0x1E695DFD8];
   v103 = objc_opt_class();
-  v104 = [v101 setWithObjects:{v102, v103, objc_opt_class(), 0}];
-  [v100 setClasses:v104 forSelector:sel_enumerateTrashItemsFromRank_limit_completion_ argumentIndex:0 ofReply:1];
+  v104 = objc_opt_class();
+  v105 = [v102 setWithObjects:{v103, v104, objc_opt_class(), 0}];
+  [v101 setClasses:v105 forSelector:sel_enumerateTrashItemsFromRank_limit_completion_ argumentIndex:0 ofReply:1];
 
-  v105 = BRCXPCInterface_iface;
-  v106 = MEMORY[0x1E695DFD8];
-  v107 = objc_opt_class();
+  v106 = BRCXPCInterface_iface;
+  v107 = MEMORY[0x1E695DFD8];
   v108 = objc_opt_class();
-  v109 = [v106 setWithObjects:{v107, v108, objc_opt_class(), 0}];
-  [v105 setClasses:v109 forSelector:sel_getQueryItemForBRFileObjectID_reply_ argumentIndex:0 ofReply:1];
+  v109 = objc_opt_class();
+  v110 = [v107 setWithObjects:{v108, v109, objc_opt_class(), 0}];
+  [v106 setClasses:v110 forSelector:sel_getQueryItemForBRFileObjectID_reply_ argumentIndex:0 ofReply:1];
 
-  v110 = BRCXPCInterface_iface;
-  v111 = MEMORY[0x1E695DFD8];
-  v112 = objc_opt_class();
+  v111 = BRCXPCInterface_iface;
+  v112 = MEMORY[0x1E695DFD8];
   v113 = objc_opt_class();
-  v114 = [v111 setWithObjects:{v112, v113, objc_opt_class(), 0}];
-  [v110 setClasses:v114 forSelector:sel_getCKRecordIDsForFPItems_reply_ argumentIndex:0 ofReply:0];
+  v114 = objc_opt_class();
+  v115 = [v112 setWithObjects:{v113, v114, objc_opt_class(), 0}];
+  [v111 setClasses:v115 forSelector:sel_getCKRecordIDsForFPItems_reply_ argumentIndex:0 ofReply:0];
 
-  v115 = BRCXPCInterface_iface;
-  v116 = MEMORY[0x1E695DFD8];
-  v117 = objc_opt_class();
+  v116 = BRCXPCInterface_iface;
+  v117 = MEMORY[0x1E695DFD8];
   v118 = objc_opt_class();
-  v119 = [v116 setWithObjects:{v117, v118, getCKRecordIDClass(), 0}];
-  [v115 setClasses:v119 forSelector:sel_getCKRecordIDsForFPItems_reply_ argumentIndex:0 ofReply:1];
-
-  v120 = *MEMORY[0x1E69E9840];
+  v119 = objc_opt_class();
+  v120 = [v117 setWithObjects:{v118, v119, getCKRecordIDClass(v119), 0}];
+  [v116 setClasses:v120 forSelector:sel_getCKRecordIDsForFPItems_reply_ argumentIndex:0 ofReply:1];
 }
 
 void BRCSetupGenericOperations(void *a1, void *a2)
@@ -1184,7 +1160,7 @@ void _preComputeURLSForPersona(char a1, void *a2, int a3)
 
 void ___preComputeURLSForPersona_block_invoke(uint64_t a1, void *a2)
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (*(a1 + 40) == 1 && (+[BRContainerCache isPersonalProvider](BRContainerCache, "isPersonalProvider") || +[BRContainerCache isManagedProvider]))
   {
@@ -1211,15 +1187,15 @@ LABEL_10:
       v16 = brc_default_log(1, 0);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        v27 = *(a1 + 32);
-        v28 = [v6 path];
+        v26 = *(a1 + 32);
+        v27 = [v6 path];
         *buf = 138412802;
-        v40 = v27;
-        v41 = 2112;
-        v42 = v28;
-        v29 = v28;
-        v43 = 2112;
-        v44 = v15;
+        v39 = v26;
+        v40 = 2112;
+        v41 = v27;
+        v28 = v27;
+        v42 = 2112;
+        v43 = v15;
         _os_log_debug_impl(&dword_1AE2A9000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] homeDirectory for persona %@: %@%@", buf, 0x20u);
       }
 
@@ -1229,14 +1205,14 @@ LABEL_10:
       v19 = brc_default_log(1, 0);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        v33 = *(a1 + 32);
-        v35 = [v17 path];
+        v32 = *(a1 + 32);
+        v34 = [v17 path];
         *buf = 138412802;
-        v40 = v33;
-        v41 = 2112;
-        v42 = v35;
-        v43 = 2112;
-        v44 = v18;
+        v39 = v32;
+        v40 = 2112;
+        v41 = v34;
+        v42 = 2112;
+        v43 = v18;
         _os_log_debug_impl(&dword_1AE2A9000, v19, OS_LOG_TYPE_DEBUG, "[DEBUG] cloudDocsAppSupport for persona %@: %@%@", buf, 0x20u);
       }
 
@@ -1247,14 +1223,14 @@ LABEL_10:
       v22 = brc_default_log(1, 0);
       if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        v34 = *(a1 + 32);
-        v36 = [v20 path];
+        v33 = *(a1 + 32);
+        v35 = [v20 path];
         *buf = 138412802;
-        v40 = v34;
-        v41 = 2112;
-        v42 = v36;
-        v43 = 2112;
-        v44 = v21;
+        v39 = v33;
+        v40 = 2112;
+        v41 = v35;
+        v42 = 2112;
+        v43 = v21;
         _os_log_debug_impl(&dword_1AE2A9000, v22, OS_LOG_TYPE_DEBUG, "[DEBUG] cloudDocsCaches for persona %@: %@%@", buf, 0x20u);
       }
 
@@ -1265,22 +1241,22 @@ LABEL_10:
         v24 = brc_default_log(1, 0);
         if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
-          v30 = *(a1 + 32);
-          v31 = [v10 path];
+          v29 = *(a1 + 32);
+          v30 = [v10 path];
           *buf = 138412802;
-          v40 = v30;
-          v41 = 2112;
-          v42 = v31;
-          v32 = v31;
-          v43 = 2112;
-          v44 = v23;
+          v39 = v29;
+          v40 = 2112;
+          v41 = v30;
+          v31 = v30;
+          v42 = 2112;
+          v43 = v23;
           _os_log_debug_impl(&dword_1AE2A9000, v24, OS_LOG_TYPE_DEBUG, "[DEBUG] mobileDocuments for persona %@: %@%@", buf, 0x20u);
         }
 
         if (v10)
         {
-          v38 = v10;
-          v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v38 count:1];
+          v37 = v10;
+          v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v37 count:1];
           [g_syncedRootURLsForPersona setObject:v25 forKeyedSubscript:*(a1 + 32)];
         }
 
@@ -1301,9 +1277,9 @@ LABEL_10:
 
   v13 = +[BRCloudDocsHelperProvider cloudDocsHelper];
   v14 = *(a1 + 32);
-  v37 = 0;
-  v12 = [v13 queryPathsForPersona:v14 withError:&v37];
-  v11 = v37;
+  v36 = 0;
+  v12 = [v13 queryPathsForPersona:v14 withError:&v36];
+  v11 = v36;
   v6 = [v12 objectForKeyedSubscript:@"home"];
   v10 = [v12 objectForKeyedSubscript:@"Mobile Documents"];
 
@@ -1320,8 +1296,6 @@ LABEL_10:
   }
 
 LABEL_24:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 Class initCKUserIdentityLookupInfo()
@@ -1353,26 +1327,26 @@ Class initCKRecordID()
 
 void __BRGetProcessMobileContainerForID_block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v9 = a2;
   v10 = a3;
   v11 = a4;
   v12 = a5;
-  v35 = *(a1 + 48);
-  v36 = *(a1 + 64);
+  v34 = *(a1 + 48);
+  v35 = *(a1 + 64);
   v13 = brc_bread_crumbs("BRGetProcessMobileContainerForID_block_invoke", 379);
   v14 = brc_default_log(1, 0);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     v25 = [v9 path];
     *buf = 134218754;
-    v38 = v35;
-    v39 = 2112;
-    *v40 = v25;
-    *&v40[8] = 2112;
-    *&v40[10] = v12;
-    v41 = 2112;
-    v42 = v13;
+    v37 = v34;
+    v38 = 2112;
+    *v39 = v25;
+    *&v39[8] = 2112;
+    *&v39[10] = v12;
+    v40 = 2112;
+    v41 = v13;
     _os_log_debug_impl(&dword_1AE2A9000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx container url:'%@' %@%@", buf, 0x2Au);
   }
 
@@ -1388,11 +1362,11 @@ void __BRGetProcessMobileContainerForID_block_invoke(uint64_t a1, void *a2, void
       if (os_log_type_enabled(v18, 0x90u))
       {
         *buf = 138412802;
-        v38 = v10;
-        v39 = 1024;
-        *v40 = v16;
-        *&v40[4] = 2112;
-        *&v40[6] = v17;
+        v37 = v10;
+        v38 = 1024;
+        *v39 = v16;
+        *&v39[4] = 2112;
+        *&v39[6] = v17;
         _os_log_error_impl(&dword_1AE2A9000, v18, 0x90u, "[ERROR] Failed to consume extension %@ %{errno}d%@", buf, 0x1Cu);
       }
 
@@ -1439,7 +1413,7 @@ void __BRGetProcessMobileContainerForID_block_invoke(uint64_t a1, void *a2, void
         v29 = v28;
         if (v27 && ([v28 timeIntervalSinceDate:v27], v30 < 10.0))
         {
-          v34 = brc_bread_crumbs("_RefreshContainerMetadataIfNecessary", 328);
+          v33 = brc_bread_crumbs("_RefreshContainerMetadataIfNecessary", 328);
           v31 = brc_default_log(1, 0);
           if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
           {
@@ -1465,14 +1439,14 @@ void __BRGetProcessMobileContainerForID_block_invoke(uint64_t a1, void *a2, void
 
 LABEL_23:
 
-  __brc_leave_section(&v35);
-  v33 = *MEMORY[0x1E69E9840];
+  __brc_leave_section(&v34);
 }
 
-void sub_1AE2AFB30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_1AE2AFB30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
-  objc_sync_exit(v11);
-  __brc_leave_section(&a11);
+  va_start(va, a10);
+  objc_sync_exit(v10);
+  __brc_leave_section(va);
   _Unwind_Resume(a1);
 }
 
@@ -1508,15 +1482,15 @@ LABEL_8:
   return v2;
 }
 
-void __brc_leave_section(uint64_t a1)
+void __brc_leave_section(uint64_t *a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (a1)
   {
     v2 = *a1;
     if (*a1)
     {
-      v3 = brc_bread_crumbs(*(a1 + 8), *(a1 + 16));
+      v3 = brc_bread_crumbs(a1[1], *(a1 + 4));
       v4 = brc_default_log(1, *(a1 + 20));
       v5 = v4;
       if (v2)
@@ -1529,16 +1503,14 @@ void __brc_leave_section(uint64_t a1)
 
       else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v7 = 134218242;
-        v8 = v2;
-        v9 = 2112;
-        v10 = v3;
-        _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_INFO, "[INFO] ┗%llx %@", &v7, 0x16u);
+        v6 = 134218242;
+        v7 = v2;
+        v8 = 2112;
+        v9 = v3;
+        _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_INFO, "[INFO] ┗%llx %@", &v6, 0x16u);
       }
     }
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __LBGetMobileContainerForID_block_invoke(uint64_t a1, void *a2, void *a3)
@@ -1561,7 +1533,7 @@ void __LBGetMobileContainerForID_block_invoke(uint64_t a1, void *a2, void *a3)
 
 id BRCopyDisplayNameForContainerAtURL(void *a1, uint64_t a2)
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   v4 = objc_autoreleasePoolPush();
   v5 = [a1 br_containerIDIfIsDocumentsContainerURL];
   v6 = v5;
@@ -1592,8 +1564,8 @@ id BRCopyDisplayNameForContainerAtURL(void *a1, uint64_t a2)
     {
       if (a2)
       {
-        v19[0] = a2;
-        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
+        v18[0] = a2;
+        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
       }
 
       else
@@ -1663,13 +1635,12 @@ LABEL_9:
 
 LABEL_26:
   objc_autoreleasePoolPop(v4);
-  v17 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
-void sub_1AE2B04D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1AE2B04D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1791,7 +1762,7 @@ void BRGetCloudDocsRootURL(void *a1)
 
 void BRPerformWithPersonaAndError(void *a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   if ([v3 isEqualToString:@"__defaultPersonaID__"])
@@ -1819,7 +1790,7 @@ void BRPerformWithPersonaAndError(void *a1, void *a2)
   v8 = [MEMORY[0x1E69DF068] sharedManager];
   v9 = [v8 currentPersona];
 
-  v23 = 0;
+  v22 = 0;
   v10 = [v9 userPersonaUniqueString];
   v11 = v10;
   if (v10 == v7 || ([v10 isEqualToString:v7] & 1) != 0)
@@ -1831,17 +1802,17 @@ void BRPerformWithPersonaAndError(void *a1, void *a2)
 
   if (voucher_process_can_use_arbitrary_personas())
   {
-    v22 = 0;
-    v12 = [v9 copyCurrentPersonaContextWithError:&v22];
-    v15 = v22;
-    v23 = v12;
-    if (v15)
+    v21 = 0;
+    v12 = [v9 copyCurrentPersonaContextWithError:&v21];
+    v14 = v21;
+    v22 = v12;
+    if (v14)
     {
-      v16 = brc_bread_crumbs("BRPerformWithPersonaAndError", 33);
-      v17 = brc_default_log(0, 0);
-      if (os_log_type_enabled(v17, 0x90u))
+      v15 = brc_bread_crumbs("BRPerformWithPersonaAndError", 33);
+      v16 = brc_default_log(0, 0);
+      if (os_log_type_enabled(v16, 0x90u))
       {
-        BRPerformWithPersonaAndError_cold_4(v15, v16, v17);
+        BRPerformWithPersonaAndError_cold_4(v14, v15, v16);
       }
     }
 
@@ -1849,17 +1820,17 @@ void BRPerformWithPersonaAndError(void *a1, void *a2)
 
     if (v13)
     {
-      v18 = brc_bread_crumbs("BRPerformWithPersonaAndError", 33);
-      v19 = brc_default_log(0, 0);
-      if (os_log_type_enabled(v19, 0x90u))
+      v17 = brc_bread_crumbs("BRPerformWithPersonaAndError", 33);
+      v18 = brc_default_log(0, 0);
+      if (os_log_type_enabled(v18, 0x90u))
       {
         *buf = 138412802;
-        v25 = v3;
-        v26 = 2112;
-        v27 = v13;
-        v28 = 2112;
-        v29 = v18;
-        _os_log_error_impl(&dword_1AE2A9000, v19, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+        v24 = v3;
+        v25 = 2112;
+        v26 = v13;
+        v27 = 2112;
+        v28 = v17;
+        _os_log_error_impl(&dword_1AE2A9000, v18, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
       }
 
 LABEL_28:
@@ -1870,11 +1841,11 @@ LABEL_28:
   {
     if (!v6 && ([v9 isDataSeparatedPersona] & 1) == 0)
     {
-      v18 = brc_bread_crumbs("BRPerformWithPersonaAndError", 33);
-      v19 = brc_default_log(1, 0);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v17 = brc_bread_crumbs("BRPerformWithPersonaAndError", 33);
+      v18 = brc_default_log(1, 0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
-        __br_notify_register_dispatch_block_invoke_cold_2_0(v18, v19);
+        __br_notify_register_dispatch_block_invoke_cold_2_0(v17, v18);
       }
 
       v12 = 0;
@@ -1882,11 +1853,11 @@ LABEL_28:
       goto LABEL_28;
     }
 
-    v20 = brc_bread_crumbs("BRPerformWithPersonaAndError", 33);
-    v21 = brc_default_log(1, 0);
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v19 = brc_bread_crumbs("BRPerformWithPersonaAndError", 33);
+    v20 = brc_default_log(1, 0);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
     {
-      __br_notify_register_dispatch_block_invoke_cold_3_0(v20, v21);
+      __br_notify_register_dispatch_block_invoke_cold_3_0(v19, v20);
     }
 
     v13 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
@@ -1896,13 +1867,12 @@ LABEL_28:
 LABEL_11:
   v4[2](v4, v13);
 
-  _BRRestorePersona(&v23);
-  v14 = *MEMORY[0x1E69E9840];
+  _BRRestorePersona(&v22);
 }
 
-void sub_1AE2B0A98(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AE2B0A98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _BRRestorePersona(va);
   _Unwind_Resume(a1);
 }
@@ -1935,7 +1905,7 @@ id _BRLocalizedStringWithFormat(void *a1, void *a2, void *a3, uint64_t a4, uint6
 
 __CFString *_BRLocalizedString(void *a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -1951,20 +1921,18 @@ __CFString *_BRLocalizedString(void *a1, void *a2, void *a3)
     v10 = brc_default_log(0, 0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      v13 = [v7 bundlePath];
-      v14 = 138413058;
-      v15 = v5;
-      v16 = 2112;
-      v17 = v6;
-      v18 = 2112;
-      v19 = v13;
-      v20 = 2112;
-      v21 = v9;
-      _os_log_fault_impl(&dword_1AE2A9000, v10, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Could not find localized string value for key %@ in %@ at %@%@", &v14, 0x2Au);
+      v12 = [v7 bundlePath];
+      v13 = 138413058;
+      v14 = v5;
+      v15 = 2112;
+      v16 = v6;
+      v17 = 2112;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v9;
+      _os_log_fault_impl(&dword_1AE2A9000, v10, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Could not find localized string value for key %@ in %@ at %@%@", &v13, 0x2Au);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -2228,7 +2196,7 @@ void schedule_fire_after_delay(void *a1, double a2)
 
 uint64_t BRCurrentPersonaMatchesID(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = [MEMORY[0x1E69DF068] sharedManager];
   v3 = [v2 br_currentPersonaID];
@@ -2240,17 +2208,16 @@ uint64_t BRCurrentPersonaMatchesID(void *a1)
     v6 = brc_default_log(1, 0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      v9 = 138412802;
-      v10 = v3;
-      v11 = 2112;
-      v12 = v1;
-      v13 = 2112;
-      v14 = v5;
-      _os_log_debug_impl(&dword_1AE2A9000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] current persona (%@) and persona (%@) don't match%@", &v9, 0x20u);
+      v8 = 138412802;
+      v9 = v3;
+      v10 = 2112;
+      v11 = v1;
+      v12 = 2112;
+      v13 = v5;
+      _os_log_debug_impl(&dword_1AE2A9000, v6, OS_LOG_TYPE_DEBUG, "[DEBUG] current persona (%@) and persona (%@) don't match%@", &v8, 0x20u);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -2263,10 +2230,11 @@ uint64_t BRCurrentPersonaIsDataSeparated()
   return v2;
 }
 
-void OUTLINED_FUNCTION_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_6(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -2276,16 +2244,18 @@ void OUTLINED_FUNCTION_6(void *a1, uint64_t a2, os_log_t log, const char *a4, ..
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_10(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_10(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_0_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, v9, OS_LOG_TYPE_FAULT, a4, &a9, 0xCu);
+  _os_log_fault_impl(a1, v8, OS_LOG_TYPE_FAULT, a4, va, 0xCu);
 }
 
 const char *_extensionInFilename(char *a1, uint64_t a2)
@@ -2368,7 +2338,7 @@ LABEL_8:
 LABEL_28:
       v12 = strdup(a1);
       v12[~a1 + v5] = 0;
-      v13 = _extensionInFilename();
+      v13 = _extensionInFilename(v12, v5);
       if (v13)
       {
         v5 = &a1[v13 - v12];
@@ -2389,16 +2359,23 @@ void br_pacer_signal(void *a1)
   objc_sync_exit(obj);
 }
 
-uint64_t _br_parseUUIDString(void *a1, unsigned __int8 *a2)
+void *_br_parseUUIDString(void *a1, unsigned __int8 *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   result = [a1 getCString:__s maxLength:256 encoding:4];
   if (result)
   {
-    result = strlen(__s) == 36 && uuid_parse(__s, a2) == 0;
+    if (strlen(__s) == 36)
+    {
+      return (uuid_parse(__s, a2) == 0);
+    }
+
+    else
+    {
+      return 0;
+    }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -2496,15 +2473,15 @@ id BRLocalizedFileSizeDescription(uint64_t a1)
 
 uint64_t offsetOfPackageRootFilenameInPath(void *a1, void *a2)
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   v3 = a1;
   if ([v3 length])
   {
-    v42 = a2;
-    v41 = v3;
+    v41 = a2;
+    v40 = v3;
     v4 = [v3 fileSystemRepresentation];
-    v48[0] = 47;
-    v5 = v48;
+    v47[0] = 47;
+    v5 = v47;
     v6 = __strlcpy_chk();
     if ((v6 + 2) >= 0x400)
     {
@@ -2513,14 +2490,14 @@ uint64_t offsetOfPackageRootFilenameInPath(void *a1, void *a2)
       memcpy(v5 + 1, v4, v6 + 1);
     }
 
-    v40 = v4;
-    v39 = v5 + 1;
+    v39 = v4;
+    v38 = v5 + 1;
     __stringp = v5 + 1;
     v7 = "/";
     v8 = 0x1E696A000uLL;
-    v43 = *MEMORY[0x1E695DBA0];
+    v42 = *MEMORY[0x1E695DBA0];
     v9 = "key";
-    v44 = v5;
+    v43 = v5;
     do
     {
       v10 = strsep(&__stringp, v7);
@@ -2575,11 +2552,11 @@ uint64_t offsetOfPackageRootFilenameInPath(void *a1, void *a2)
           v21 = [*(v8 + 3776) stringWithUTF8String:v5];
           v22 = [v19 fileURLWithPath:v21];
 
+          v44 = 0;
           v45 = 0;
-          v46 = 0;
-          v23 = [v22 getResourceValue:&v46 forKey:v43 error:&v45];
-          v24 = v46;
-          v25 = v45;
+          v23 = [v22 getResourceValue:&v45 forKey:v42 error:&v44];
+          v24 = v45;
+          v25 = v44;
           v26 = v25;
           if (v23)
           {
@@ -2591,18 +2568,18 @@ uint64_t offsetOfPackageRootFilenameInPath(void *a1, void *a2)
               [v35 brc_addForcedPackageExtension:v36];
 
               v8 = v34;
-              v5 = v44;
+              v5 = v43;
 LABEL_43:
 
 LABEL_44:
-              v30 = &v10[strlen(v10)] - v39;
-              if (v42)
+              v30 = &v10[strlen(v10)] - v38;
+              if (v41)
               {
                 *&v5[v30 + 1] = 47;
-                *v42 = [*(v8 + 3776) br_pathWithFileSystemRepresentation:?];
+                *v41 = [*(v8 + 3776) br_pathWithFileSystemRepresentation:?];
               }
 
-              if (v40[v30] == 47)
+              if (v39[v30] == 47)
               {
                 ++v30;
               }
@@ -2619,11 +2596,11 @@ LABEL_44:
             {
               v29 = [v22 path];
               *buf = 138412802;
-              v50 = v29;
-              v51 = 2112;
-              v52 = v26;
-              v53 = 2112;
-              v54 = v27;
+              v49 = v29;
+              v50 = 2112;
+              v51 = v26;
+              v52 = 2112;
+              v53 = v27;
               _os_log_impl(&dword_1AE2A9000, v28, OS_LOG_TYPE_DEFAULT, "[WARNING] can't get whether %@ is a package: %@%@", buf, 0x20u);
             }
           }
@@ -2631,21 +2608,21 @@ LABEL_44:
           v8 = v20;
           v7 = v18;
           v9 = v17;
-          v5 = v44;
+          v5 = v43;
         }
       }
     }
 
     while (__stringp);
-    if (v42)
+    if (v41)
     {
-      *v42 = 0;
+      *v41 = 0;
     }
 
     v30 = -1;
 LABEL_48:
-    v3 = v41;
-    if (v5 != v48)
+    v3 = v40;
+    if (v5 != v47)
     {
       free(v5);
     }
@@ -2656,11 +2633,10 @@ LABEL_48:
     v30 = -1;
   }
 
-  v37 = *MEMORY[0x1E69E9840];
   return v30;
 }
 
-id _getContentTypeValue(void *a1, char a2)
+__CFString *_getContentTypeValue(void *a1, char a2)
 {
   v3 = a1;
   if ([v3 isDirectory])
@@ -2707,41 +2683,39 @@ LABEL_7:
   else
   {
     v7 = *MEMORY[0x1E6963800];
-    v8 = [v3 isDocument];
-    v9 = *MEMORY[0x1E6963798];
-    if (v8)
+    if ([v3 isDocument])
     {
       v7 = *MEMORY[0x1E6963798];
     }
   }
 
-  v10 = [v3 logicalName];
-  v11 = [v10 br_pathExtension];
-  v12 = v11;
-  v13 = &stru_1F23D4ED0;
-  if (v11)
+  v8 = [v3 logicalName];
+  v9 = [v8 br_pathExtension];
+  v10 = v9;
+  v11 = &stru_1F23D4ED0;
+  if (v9)
   {
-    v13 = v11;
+    v11 = v9;
   }
 
-  v14 = v13;
+  v12 = v11;
 
-  if ([(__CFString *)v14 rangeOfString:@"."]!= 0x7FFFFFFFFFFFFFFFLL)
+  if ([(__CFString *)v12 rangeOfString:@"."]!= 0x7FFFFFFFFFFFFFFFLL)
   {
-    if (([(__CFString *)v14 isEqualToString:@"tar.gz"]& 1) != 0)
+    if (([(__CFString *)v12 isEqualToString:@"tar.gz"]& 1) != 0)
     {
-      v15 = @"tgz";
+      v13 = @"tgz";
     }
 
     else
     {
-      v15 = [(__CFString *)v14 pathExtension];
+      v13 = [(__CFString *)v12 pathExtension];
     }
 
-    v14 = v15;
+    v12 = v13;
   }
 
-  PreferredIdentifierForTag = UTTypeCreatePreferredIdentifierForTag(*MEMORY[0x1E6963710], v14, v7);
+  PreferredIdentifierForTag = UTTypeCreatePreferredIdentifierForTag(*MEMORY[0x1E6963710], v12, v7);
 
 LABEL_8:
 
@@ -2837,16 +2811,16 @@ LABEL_5:
   return v3;
 }
 
-void sub_1AE2B7450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AE2B7450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE2B7694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE2B7694(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2928,7 +2902,7 @@ void br_pacer_resume(unsigned __int8 *a1)
   atomic_store(1u, a1 + 56);
   obj = a1;
   objc_sync_enter(obj);
-  dispatch_resume(obj[1]);
+  dispatch_resume(*(obj + 1));
   objc_sync_exit(obj);
 }
 
@@ -3134,7 +3108,7 @@ LABEL_45:
 
 uint64_t brc_notify_post(char *name)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!name)
   {
     brc_notify_post_cold_1();
@@ -3147,19 +3121,18 @@ uint64_t brc_notify_post(char *name)
     v4 = brc_default_log(0, 0);
     if (os_log_type_enabled(v4, 0x90u))
     {
-      v7 = 136315906;
-      v8 = name;
-      v9 = 2080;
-      v10 = brc_prettyprint_notify_status(v2);
-      v11 = 1024;
-      v12 = v2;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_error_impl(&dword_1AE2A9000, v4, 0x90u, "[ERROR] notify_post(%s) failed with %s (%d)%@", &v7, 0x26u);
+      v6 = 136315906;
+      v7 = name;
+      v8 = 2080;
+      v9 = brc_prettyprint_notify_status(v2);
+      v10 = 1024;
+      v11 = v2;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_error_impl(&dword_1AE2A9000, v4, 0x90u, "[ERROR] notify_post(%s) failed with %s (%d)%@", &v6, 0x26u);
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -3224,67 +3197,60 @@ const char *brc_prettyprint_notify_status(int a1)
 
 uint64_t brc_notify_set_state_and_post(int a1, uint64_t a2, char *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = brc_bread_crumbs("brc_notify_set_state_and_post", 46);
   v7 = brc_default_log(1, 0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 136315906;
-    *v16 = a3;
-    *&v16[8] = 1024;
-    *&v16[10] = a1;
-    v17 = 2048;
-    v18 = a2;
-    v19 = 2112;
-    *v20 = v6;
-    _os_log_debug_impl(&dword_1AE2A9000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] notifying '%s' on token %d with state %llu%@", &v15, 0x26u);
+    v14 = 136315906;
+    *v15 = a3;
+    *&v15[8] = 1024;
+    *&v15[10] = a1;
+    v16 = 2048;
+    v17 = a2;
+    v18 = 2112;
+    *v19 = v6;
+    _os_log_debug_impl(&dword_1AE2A9000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] notifying '%s' on token %d with state %llu%@", &v14, 0x26u);
   }
 
   if (a1 == -1)
   {
-    v9 = 2;
+    return 2;
   }
 
-  else
+  v8 = notify_set_state(a1, a2);
+  if (!v8)
   {
-    v8 = notify_set_state(a1, a2);
-    if (v8)
-    {
-      v9 = v8;
-      v10 = brc_bread_crumbs("brc_notify_set_state_and_post", 54);
-      v11 = brc_default_log(0, 0);
-      if (os_log_type_enabled(v11, 0x90u))
-      {
-        v14 = brc_prettyprint_notify_status(v9);
-        v15 = 67110402;
-        *v16 = a1;
-        *&v16[4] = 2048;
-        *&v16[6] = a2;
-        v17 = 2080;
-        v18 = v14;
-        v19 = 1024;
-        *v20 = v9;
-        *&v20[4] = 2080;
-        *&v20[6] = a3;
-        v21 = 2112;
-        v22 = v10;
-        _os_log_error_impl(&dword_1AE2A9000, v11, 0x90u, "[ERROR] notify_set_state(%d, %llu) failed with %s (%d) for '%s'%@", &v15, 0x36u);
-      }
-    }
-
-    else
-    {
-      v9 = brc_notify_post(a3);
-    }
+    return brc_notify_post(a3);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
+  v9 = v8;
+  v10 = brc_bread_crumbs("brc_notify_set_state_and_post", 54);
+  v11 = brc_default_log(0, 0);
+  if (os_log_type_enabled(v11, 0x90u))
+  {
+    v13 = brc_prettyprint_notify_status(v9);
+    v14 = 67110402;
+    *v15 = a1;
+    *&v15[4] = 2048;
+    *&v15[6] = a2;
+    v16 = 2080;
+    v17 = v13;
+    v18 = 1024;
+    *v19 = v9;
+    *&v19[4] = 2080;
+    *&v19[6] = a3;
+    v20 = 2112;
+    v21 = v10;
+    _os_log_error_impl(&dword_1AE2A9000, v11, 0x90u, "[ERROR] notify_set_state(%d, %llu) failed with %s (%d) for '%s'%@", &v14, 0x36u);
+  }
+
   return v9;
 }
 
 uint64_t brc_notify_register_check(const char *a1, int *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = notify_register_check(a1, a2);
   if (v3)
   {
@@ -3292,19 +3258,18 @@ uint64_t brc_notify_register_check(const char *a1, int *a2)
     v5 = brc_default_log(0, 0);
     if (os_log_type_enabled(v5, 0x90u))
     {
-      v8 = 136315906;
-      v9 = a1;
-      v10 = 2080;
-      v11 = brc_prettyprint_notify_status(v3);
-      v12 = 1024;
-      v13 = v3;
-      v14 = 2112;
-      v15 = v4;
-      _os_log_error_impl(&dword_1AE2A9000, v5, 0x90u, "[ERROR] notify_register_check(%s) failed with %s (%d)%@", &v8, 0x26u);
+      v7 = 136315906;
+      v8 = a1;
+      v9 = 2080;
+      v10 = brc_prettyprint_notify_status(v3);
+      v11 = 1024;
+      v12 = v3;
+      v13 = 2112;
+      v14 = v4;
+      _os_log_error_impl(&dword_1AE2A9000, v5, 0x90u, "[ERROR] notify_register_check(%s) failed with %s (%d)%@", &v7, 0x26u);
     }
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -3315,30 +3280,30 @@ void sub_1AE2B9E60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_1AE2BA4BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1AE2BA4BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _BRRestorePersona(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE2BA9B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1AE2BA9B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _BRRestorePersona(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE2BB12C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1AE2BB12C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _BRRestorePersona(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE2BBD94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
+void sub_1AE2BBD94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, ...)
 {
-  va_start(va, a12);
+  va_start(va, a19);
   _BRRestorePersona(va);
   _Unwind_Resume(a1);
 }
@@ -3364,7 +3329,7 @@ void BRPerformWithAccountDescriptorAndError(void *a1, void *a2)
 
 void __br_notify_register_dispatch_block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (([*(a1 + 32) isEqualToString:@"__defaultPersonaID__"] & 1) != 0 || (v2 = *(a1 + 32)) == 0)
   {
     if (BRPreserveUploadedDataXattrKey_block_invoke___personaOnceToken != -1)
@@ -3385,7 +3350,7 @@ void __br_notify_register_dispatch_block_invoke(uint64_t a1)
   v5 = [MEMORY[0x1E69DF068] sharedManager];
   v6 = [v5 currentPersona];
 
-  v28 = 0;
+  v27 = 0;
   v7 = [v6 userPersonaUniqueString];
   v8 = v7;
   if (v7 == v3 || ([v7 isEqualToString:v3] & 1) != 0)
@@ -3397,9 +3362,9 @@ void __br_notify_register_dispatch_block_invoke(uint64_t a1)
   {
     if (v4 && ([v6 isDataSeparatedPersona] & 1) == 0)
     {
-      v22 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
-      v23 = brc_default_log(1, 0);
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v21 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
+      v22 = brc_default_log(1, 0);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         [BRAccount containerWithPendingChanges];
       }
@@ -3407,15 +3372,15 @@ void __br_notify_register_dispatch_block_invoke(uint64_t a1)
 
     else
     {
-      v18 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
-      v19 = brc_default_log(1, 0);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v17 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
+      v18 = brc_default_log(1, 0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         [BRAccount containerWithPendingChanges];
       }
 
-      v15 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-      if (v15)
+      v14 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+      if (v14)
       {
         goto LABEL_25;
       }
@@ -3426,68 +3391,66 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v27 = 0;
-  v10 = [v6 copyCurrentPersonaContextWithError:&v27];
+  v26 = 0;
+  v9 = [v6 copyCurrentPersonaContextWithError:&v26];
+  v10 = v26;
   v11 = v27;
-  v12 = v28;
-  v28 = v10;
+  v27 = v9;
 
-  if (v11)
+  if (v10)
   {
-    v13 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
-    v14 = brc_default_log(0, 0);
-    if (os_log_type_enabled(v14, 0x90u))
+    v12 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
+    v13 = brc_default_log(0, 0);
+    if (os_log_type_enabled(v13, 0x90u))
     {
       [BRAccount containerWithPendingChanges];
     }
   }
 
-  v15 = [v6 br_generateAndRestorePersonaContextWithPersonaUniqueString:v3];
+  v14 = [v6 br_generateAndRestorePersonaContextWithPersonaUniqueString:v3];
 
-  if (!v15)
+  if (!v14)
   {
     goto LABEL_9;
   }
 
-  v16 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
-  v17 = brc_default_log(0, 0);
-  if (os_log_type_enabled(v17, 0x90u))
+  v15 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
+  v16 = brc_default_log(0, 0);
+  if (os_log_type_enabled(v16, 0x90u))
   {
-    v26 = *(a1 + 32);
+    v25 = *(a1 + 32);
     *buf = 138412802;
-    v30 = v26;
-    v31 = 2112;
-    v32 = v15;
-    v33 = 2112;
-    v34 = v16;
-    _os_log_error_impl(&dword_1AE2A9000, v17, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+    v29 = v25;
+    v30 = 2112;
+    v31 = v14;
+    v32 = 2112;
+    v33 = v15;
+    _os_log_error_impl(&dword_1AE2A9000, v16, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
   }
 
 LABEL_25:
-  v20 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 112);
-  v21 = brc_default_log(0, 0);
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+  v19 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 112);
+  v20 = brc_default_log(0, 0);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
   {
-    v24 = *(a1 + 48);
-    v25 = [v15 localizedDescription];
+    v23 = *(a1 + 48);
+    v24 = [v14 localizedDescription];
     *buf = 136315650;
-    v30 = v24;
-    v31 = 2112;
-    v32 = v25;
-    v33 = 2112;
-    v34 = v20;
-    _os_log_fault_impl(&dword_1AE2A9000, v21, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed to adopt persona for notification %s due to %@%@", buf, 0x20u);
+    v29 = v23;
+    v30 = 2112;
+    v31 = v24;
+    v32 = 2112;
+    v33 = v19;
+    _os_log_fault_impl(&dword_1AE2A9000, v20, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed to adopt persona for notification %s due to %@%@", buf, 0x20u);
   }
 
 LABEL_10:
-  _BRRestorePersona(&v28);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _BRRestorePersona(&v27);
 }
 
-void sub_1AE2BE214(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AE2BE214(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _BRRestorePersona(va);
   _Unwind_Resume(a1);
 }
@@ -3500,10 +3463,11 @@ void __br_notify_register_dispatch_block_invoke_2()
   BRPreserveUploadedDataXattrKey_block_invoke___personalPersona = v0;
 }
 
-void OUTLINED_FUNCTION_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_7(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -3521,10 +3485,11 @@ uint64_t OUTLINED_FUNCTION_8(uint64_t result, uint64_t a2, uint64_t a3, float a4
   return result;
 }
 
-void OUTLINED_FUNCTION_10_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_10_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
 id _getCloudDocsAppSupportURL()
@@ -3551,54 +3516,53 @@ id _getCloudDocsAppSupportURL()
   return v1;
 }
 
-void sub_1AE2BFB64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_1AE2BFB64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   __brc_leave_section(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE2C0010(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AE2C0010(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __brc_leave_section(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE2C082C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AE2C082C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __brc_leave_section(va);
   _Unwind_Resume(a1);
 }
 
 void __dispatch_async_with_logs_block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v6 = *(a1 + 48);
-  v7 = *(a1 + 64);
+  v13 = *MEMORY[0x1E69E9840];
+  v5 = *(a1 + 48);
+  v6 = *(a1 + 64);
   v2 = brc_bread_crumbs("dispatch_async_with_logs_block_invoke", 285);
   v3 = brc_default_log(1, 0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     label = dispatch_queue_get_label(*(a1 + 32));
     *buf = 134218498;
-    v9 = v6;
-    v10 = 2080;
-    v11 = label;
-    v12 = 2112;
-    v13 = v2;
+    v8 = v5;
+    v9 = 2080;
+    v10 = label;
+    v11 = 2112;
+    v12 = v2;
     _os_log_debug_impl(&dword_1AE2A9000, v3, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx continuing on %s%@", buf, 0x20u);
   }
 
   (*(*(a1 + 40) + 16))();
-  __brc_leave_section(&v6);
-  v4 = *MEMORY[0x1E69E9840];
+  __brc_leave_section(&v5);
 }
 
 uint64_t brc_xattr_set_string(int fd, char *name, void *a3)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (a3)
   {
     if (([a3 getCString:__s maxLength:1024 encoding:4] & 1) == 0)
@@ -3612,8 +3576,7 @@ uint64_t brc_xattr_set_string(int fd, char *name, void *a3)
     }
 
     v7 = strlen(__s);
-    result = fsetxattr(fd, name, __s, v7 + 1, 0, 0);
-    v9 = *MEMORY[0x1E69E9840];
+    return fsetxattr(fd, name, __s, v7 + 1, 0, 0);
   }
 
   else
@@ -3621,65 +3584,64 @@ uint64_t brc_xattr_set_string(int fd, char *name, void *a3)
 
     return fremovexattr(fd, name, 0);
   }
-
-  return result;
 }
 
-void sub_1AE2C17F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_1AE2C17F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
   _Block_object_dispose(&a17, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE2C1B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AE2C1B48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AE2C26D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE2C26D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Unwind_Resume(a1);
-}
-
-id OSVersion()
+id OSVersion(uint64_t a1)
 {
   if (OSVersion_pred != -1)
   {
     OSVersion_cold_1();
   }
 
-  v1 = OSVersion_OSVersion;
+  v2 = OSVersion_OSVersion;
 
-  return v1;
+  return v2;
 }
 
 void __OSVersion_block_invoke()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  *v7 = 0x4100000001;
-  v6 = 20;
-  if (sysctl(v7, 2u, v8, &v6, 0, 0) < 0)
+  v8 = *MEMORY[0x1E69E9840];
+  *v6 = 0x4100000001;
+  v5 = 20;
+  if (sysctl(v6, 2u, v7, &v5, 0, 0) < 0)
   {
     v2 = *__error();
     v3 = brc_bread_crumbs("OSVersion_block_invoke", 24);
@@ -3694,18 +3656,16 @@ void __OSVersion_block_invoke()
 
   else
   {
-    v8[19] = 0;
-    v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v8];
+    v7[19] = 0;
+    v0 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v7];
     v1 = OSVersion_OSVersion;
     OSVersion_OSVersion = v0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void BRTelemetryReportShareInvitation(void *a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v9 = a1;
   v10 = a2;
   v11 = a3;
@@ -3791,22 +3751,21 @@ LABEL_21:
   if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138413570;
-    v27 = v9;
-    v28 = 2112;
-    v29 = v10;
-    v30 = 2112;
-    v31 = v19;
-    v32 = 2048;
-    v33 = v17;
-    v34 = 2112;
-    v35 = v12;
-    v36 = 2112;
-    v37 = v23;
+    v26 = v9;
+    v27 = 2112;
+    v28 = v10;
+    v29 = 2112;
+    v30 = v19;
+    v31 = 2048;
+    v32 = v17;
+    v33 = 2112;
+    v34 = v12;
+    v35 = 2112;
+    v36 = v23;
     _os_log_debug_impl(&dword_1AE2A9000, v24, OS_LOG_TYPE_DEBUG, "[DEBUG] BRTelemetry sending new share invitation report with access = %@, transport = %@, permission = %@, duration = %f, error = %@%@", buf, 0x3Eu);
   }
 
   BRTelemetrySendEventToCoreAnalytics(@"com.apple.clouddocsUI.shareInvitation", v14);
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void BRTelemetrySendEventToCoreAnalytics(void *a1, void *a2)
@@ -3880,7 +3839,7 @@ __darwin_time_t brc_current_date_nsec()
 
 void __br_notify_register_dispatch_block_invoke_0(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (([*(a1 + 32) isEqualToString:@"__defaultPersonaID__"] & 1) != 0 || (v2 = *(a1 + 32)) == 0)
   {
     if (_block_invoke___personaOnceToken != -1)
@@ -3901,7 +3860,7 @@ void __br_notify_register_dispatch_block_invoke_0(uint64_t a1)
   v5 = [MEMORY[0x1E69DF068] sharedManager];
   v6 = [v5 currentPersona];
 
-  v28 = 0;
+  v27 = 0;
   v7 = [v6 userPersonaUniqueString];
   v8 = v7;
   if (v7 == v3 || ([v7 isEqualToString:v3] & 1) != 0)
@@ -3913,9 +3872,9 @@ void __br_notify_register_dispatch_block_invoke_0(uint64_t a1)
   {
     if (v4 && ([v6 isDataSeparatedPersona] & 1) == 0)
     {
-      v22 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
-      v23 = brc_default_log(1, 0);
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v21 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
+      v22 = brc_default_log(1, 0);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         __br_notify_register_dispatch_block_invoke_cold_2();
       }
@@ -3923,15 +3882,15 @@ void __br_notify_register_dispatch_block_invoke_0(uint64_t a1)
 
     else
     {
-      v18 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
-      v19 = brc_default_log(1, 0);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v17 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
+      v18 = brc_default_log(1, 0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         __br_notify_register_dispatch_block_invoke_cold_3();
       }
 
-      v15 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-      if (v15)
+      v14 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+      if (v14)
       {
         goto LABEL_25;
       }
@@ -3942,68 +3901,66 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v27 = 0;
-  v10 = [v6 copyCurrentPersonaContextWithError:&v27];
+  v26 = 0;
+  v9 = [v6 copyCurrentPersonaContextWithError:&v26];
+  v10 = v26;
   v11 = v27;
-  v12 = v28;
-  v28 = v10;
+  v27 = v9;
 
-  if (v11)
+  if (v10)
   {
-    v13 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
-    v14 = brc_default_log(0, 0);
-    if (os_log_type_enabled(v14, 0x90u))
+    v12 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
+    v13 = brc_default_log(0, 0);
+    if (os_log_type_enabled(v13, 0x90u))
     {
       __br_notify_register_dispatch_block_invoke_cold_4();
     }
   }
 
-  v15 = [v6 br_generateAndRestorePersonaContextWithPersonaUniqueString:v3];
+  v14 = [v6 br_generateAndRestorePersonaContextWithPersonaUniqueString:v3];
 
-  if (!v15)
+  if (!v14)
   {
     goto LABEL_9;
   }
 
-  v16 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
-  v17 = brc_default_log(0, 0);
-  if (os_log_type_enabled(v17, 0x90u))
+  v15 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
+  v16 = brc_default_log(0, 0);
+  if (os_log_type_enabled(v16, 0x90u))
   {
-    v26 = *(a1 + 32);
+    v25 = *(a1 + 32);
     *buf = 138412802;
-    v30 = v26;
-    v31 = 2112;
-    v32 = v15;
-    v33 = 2112;
-    v34 = v16;
-    _os_log_error_impl(&dword_1AE2A9000, v17, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+    v29 = v25;
+    v30 = 2112;
+    v31 = v14;
+    v32 = 2112;
+    v33 = v15;
+    _os_log_error_impl(&dword_1AE2A9000, v16, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
   }
 
 LABEL_25:
-  v20 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 112);
-  v21 = brc_default_log(0, 0);
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+  v19 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 112);
+  v20 = brc_default_log(0, 0);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
   {
-    v24 = *(a1 + 48);
-    v25 = [v15 localizedDescription];
+    v23 = *(a1 + 48);
+    v24 = [v14 localizedDescription];
     *buf = 136315650;
-    v30 = v24;
-    v31 = 2112;
-    v32 = v25;
-    v33 = 2112;
-    v34 = v20;
-    _os_log_fault_impl(&dword_1AE2A9000, v21, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed to adopt persona for notification %s due to %@%@", buf, 0x20u);
+    v29 = v23;
+    v30 = 2112;
+    v31 = v24;
+    v32 = 2112;
+    v33 = v19;
+    _os_log_fault_impl(&dword_1AE2A9000, v20, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed to adopt persona for notification %s due to %@%@", buf, 0x20u);
   }
 
 LABEL_10:
-  _BRRestorePersona(&v28);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _BRRestorePersona(&v27);
 }
 
-void sub_1AE2C3CCC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AE2C3CCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _BRRestorePersona(va);
   _Unwind_Resume(a1);
 }
@@ -4026,7 +3983,7 @@ id br_shareCopyWithAttributesStripped(void *a1)
 
 void br_setShareAssociatedURL(void *a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = v4;
@@ -4034,14 +3991,14 @@ void br_setShareAssociatedURL(void *a1, void *a2)
   {
     if (v4)
     {
-      v16 = 0;
-      v6 = [MEMORY[0x1E6967410] wrapperWithURL:v4 readonly:1 error:&v16];
-      v7 = v16;
+      v15 = 0;
+      v6 = [MEMORY[0x1E6967410] wrapperWithURL:v4 readonly:1 error:&v15];
+      v7 = v15;
       if (v6)
       {
-        v15 = v7;
-        v8 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v15];
-        v9 = v15;
+        v14 = v7;
+        v8 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:v6 requiringSecureCoding:1 error:&v14];
+        v9 = v14;
 
         if (v8)
         {
@@ -4057,11 +4014,11 @@ void br_setShareAssociatedURL(void *a1, void *a2)
           if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412802;
-            v18 = v6;
-            v19 = 2112;
-            v20 = v9;
-            v21 = 2112;
-            v22 = v12;
+            v17 = v6;
+            v18 = 2112;
+            v19 = v9;
+            v20 = 2112;
+            v21 = v12;
             _os_log_fault_impl(&dword_1AE2A9000, v13, OS_LOG_TYPE_FAULT, "[CRIT] failed to encode wrapper %@: %@%@", buf, 0x20u);
           }
         }
@@ -4074,11 +4031,11 @@ void br_setShareAssociatedURL(void *a1, void *a2)
         if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412802;
-          v18 = v5;
-          v19 = 2112;
-          v20 = v7;
-          v21 = 2112;
-          v22 = v10;
+          v17 = v5;
+          v18 = 2112;
+          v19 = v7;
+          v20 = 2112;
+          v21 = v10;
           _os_log_fault_impl(&dword_1AE2A9000, v11, OS_LOG_TYPE_FAULT, "[CRIT] failed to create wrapper for URL %@: %@%@", buf, 0x20u);
         }
       }
@@ -4091,21 +4048,19 @@ void br_setShareAssociatedURL(void *a1, void *a2)
       [v3 setTrackChanges:1];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 id br_shareAssociatedURL(void *a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = v1;
   if (v1 && ([v1 valueForKey:@"BRAssociatedURLWrapperDataKey"], (v3 = objc_claimAutoreleasedReturnValue()) != 0))
   {
     v4 = v3;
-    v12 = 0;
-    v5 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v12];
-    v6 = v12;
+    v11 = 0;
+    v5 = [MEMORY[0x1E696ACD0] unarchivedObjectOfClass:objc_opt_class() fromData:v3 error:&v11];
+    v6 = v11;
     if (!v5)
     {
       v7 = brc_bread_crumbs("br_shareAssociatedURL", 176);
@@ -4113,11 +4068,11 @@ id br_shareAssociatedURL(void *a1)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
       {
         *buf = 138412802;
-        v14 = v4;
-        v15 = 2112;
-        v16 = v2;
-        v17 = 2112;
-        v18 = v7;
+        v13 = v4;
+        v14 = 2112;
+        v15 = v2;
+        v16 = 2112;
+        v17 = v7;
         _os_log_fault_impl(&dword_1AE2A9000, v8, OS_LOG_TYPE_FAULT, "[CRIT] failed to unarchive url wrapper %@ from share %@%@", buf, 0x20u);
       }
     }
@@ -4129,8 +4084,6 @@ id br_shareAssociatedURL(void *a1)
   {
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -4185,16 +4138,18 @@ id initCKPartialErrorsByItemIDKey()
   return v2;
 }
 
-void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x16u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_7_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_7_0(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, 0x90u, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, 0x90u, a4, va, 0xCu);
 }
 
 id _fetchSynchronousAutomaticErrorProxyFromURL(void *a1, void *a2, void *a3)
@@ -4225,9 +4180,9 @@ id _fetchSynchronousAutomaticErrorProxyFromURL(void *a1, void *a2, void *a3)
   return v10;
 }
 
-void sub_1AE2CB634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AE2CB634(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4293,7 +4248,7 @@ void ___fetchSynchronousAutomaticErrorProxyFromURL_block_invoke(uint64_t a1, voi
 
 void ___fetchServiceAutomaticErrorProxyFromURL_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (*(a1 + 64) == 1)
@@ -4307,31 +4262,31 @@ void ___fetchServiceAutomaticErrorProxyFromURL_block_invoke(uint64_t a1, void *a
     if (v7)
     {
       v8 = *(a1 + 65);
-      v27[0] = MEMORY[0x1E69E9820];
-      v27[1] = 3221225472;
-      v28 = ___fetchServiceAutomaticErrorProxyFromURL_block_invoke_10;
-      v29 = &unk_1E7A14E98;
-      v30 = *(a1 + 40);
-      v33 = *(a1 + 56);
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v27 = ___fetchServiceAutomaticErrorProxyFromURL_block_invoke_10;
+      v28 = &unk_1E7A14E98;
+      v29 = *(a1 + 40);
+      v32 = *(a1 + 56);
       v9 = v7;
-      v31 = v9;
-      v32 = *(a1 + 48);
-      v34 = *(a1 + 65);
+      v30 = v9;
+      v31 = *(a1 + 48);
+      v33 = *(a1 + 65);
       if (v8 == 1)
       {
         *buf = 0;
         v10 = [v9 fetchFileProviderConnectionAndReturnError:buf];
         v11 = *buf;
-        v28(v27, v10, v11);
+        v27(v26, v10, v11);
       }
 
       else
       {
-        v11 = v27;
+        v11 = v26;
         [v9 getFileProviderConnectionWithCompletionHandler:v11];
       }
 
-      v24 = v30;
+      v24 = v29;
     }
 
     else
@@ -4344,12 +4299,12 @@ void ___fetchServiceAutomaticErrorProxyFromURL_block_invoke(uint64_t a1, void *a
         v22 = [*(a1 + 32) path];
         *buf = 138413058;
         *&buf[4] = v21;
-        v36 = 2112;
-        v37 = v22;
-        v38 = 2112;
-        v39 = v5;
-        v40 = 2112;
-        v41 = v19;
+        v35 = 2112;
+        v36 = v22;
+        v37 = 2112;
+        v38 = v5;
+        v39 = 2112;
+        v40 = v19;
         _os_log_impl(&dword_1AE2A9000, v20, OS_LOG_TYPE_DEFAULT, "[WARNING] Can't find service named %@ on %@ in %@%@", buf, 0x2Au);
       }
 
@@ -4380,25 +4335,23 @@ void ___fetchServiceAutomaticErrorProxyFromURL_block_invoke(uint64_t a1, void *a
     v18 = brc_default_log(0, 0);
     if (os_log_type_enabled(v18, 0x90u))
     {
-      v26 = [*(a1 + 32) path];
+      v25 = [*(a1 + 32) path];
       *buf = 138412802;
-      *&buf[4] = v26;
-      v36 = 2112;
-      v37 = v6;
-      v38 = 2112;
-      v39 = v17;
+      *&buf[4] = v25;
+      v35 = 2112;
+      v36 = v6;
+      v37 = 2112;
+      v38 = v17;
       _os_log_error_impl(&dword_1AE2A9000, v18, 0x90u, "[ERROR] Can't find services for %@: %@%@", buf, 0x20u);
     }
 
     (*(*(a1 + 56) + 16))();
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 void ___fetchServiceAutomaticErrorProxyFromURL_block_invoke_10(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -4407,13 +4360,13 @@ void ___fetchServiceAutomaticErrorProxyFromURL_block_invoke_10(uint64_t a1, void
     v8 = brc_default_log(0, 0);
     if (os_log_type_enabled(v8, 0x90u))
     {
-      v13 = *(a1 + 32);
+      v12 = *(a1 + 32);
       *buf = 138412802;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v6;
-      v20 = 2112;
-      v21 = v7;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v6;
+      v19 = 2112;
+      v20 = v7;
       _os_log_error_impl(&dword_1AE2A9000, v8, 0x90u, "[ERROR] Can't get connection for %@: %@%@", buf, 0x20u);
     }
 
@@ -4427,7 +4380,7 @@ void ___fetchServiceAutomaticErrorProxyFromURL_block_invoke_10(uint64_t a1, void
     block[1] = 3221225472;
     block[2] = ___fetchServiceAutomaticErrorProxyFromURL_block_invoke_11;
     block[3] = &unk_1E7A14798;
-    v15 = *(a1 + 32);
+    v14 = *(a1 + 32);
     if (_block_invoke_onceToken != -1)
     {
       dispatch_once(&_block_invoke_onceToken, block);
@@ -4448,8 +4401,6 @@ void ___fetchServiceAutomaticErrorProxyFromURL_block_invoke_10(uint64_t a1, void
     v11 = ;
     (*(v10 + 16))(v10, v11, 0);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void ___fetchServiceAutomaticErrorProxyFromURL_block_invoke_11(uint64_t a1)
@@ -4496,48 +4447,48 @@ id _BRPromiseURLCombine(void *a1, void *a2, void *a3, void *a4)
   return v7;
 }
 
-void BRCurrentProcessIsNotAppSandboxed()
+void BRCurrentProcessIsNotAppSandboxed(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   abc_report_panic_with_signature(@"BRCurrentProcessIsNotAppSandboxed is not supported on iOS");
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BRCurrentProcessIsNotAppSandboxed is not supported on iOS"];
-  v1 = brc_bread_crumbs("BRCurrentProcessIsNotAppSandboxed", 236);
-  v2 = brc_default_log(0, 0);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BRCurrentProcessIsNotAppSandboxed is not supported on iOS"];
+  v3 = brc_bread_crumbs("BRCurrentProcessIsNotAppSandboxed", 236);
+  v4 = brc_default_log(0, 0);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
-    v3 = brc_append_system_info_to_message(v0);
-    v5 = 138412546;
-    v6 = v3;
-    v7 = 2112;
-    v8 = v1;
-    _os_log_fault_impl(&dword_1AE2A9000, v2, OS_LOG_TYPE_FAULT, "[CRIT] %@%@", &v5, 0x16u);
+    v5 = brc_append_system_info_to_message(v2);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_fault_impl(&dword_1AE2A9000, v4, OS_LOG_TYPE_FAULT, "[CRIT] %@%@", &v7, 0x16u);
   }
 
-  brc_append_system_info_to_message(v0);
-  v4 = [objc_claimAutoreleasedReturnValue() UTF8String];
-  __assert_rtn("BRCurrentProcessIsNotAppSandboxed", "/Library/Caches/com.apple.xbs/Sources/CloudDocs/framework/CloudDocs.m", 236, v4);
+  brc_append_system_info_to_message(v2);
+  v6 = [objc_claimAutoreleasedReturnValue() UTF8String];
+  __assert_rtn("BRCurrentProcessIsNotAppSandboxed", "/Library/Caches/com.apple.xbs/Sources/CloudDocs/framework/CloudDocs.m", 236, v6);
 }
 
-void BRCurrentProcessIsNotAppSandboxedAndHasContainers()
+void BRCurrentProcessIsNotAppSandboxedAndHasContainers(uint64_t a1, uint64_t a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   abc_report_panic_with_signature(@"BRCurrentProcessIsNotAppSandboxedAndHasContainers is not supported on iOS");
-  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BRCurrentProcessIsNotAppSandboxedAndHasContainers is not supported on iOS"];
-  v1 = brc_bread_crumbs("BRCurrentProcessIsNotAppSandboxedAndHasContainers", 242);
-  v2 = brc_default_log(0, 0);
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BRCurrentProcessIsNotAppSandboxedAndHasContainers is not supported on iOS"];
+  v3 = brc_bread_crumbs("BRCurrentProcessIsNotAppSandboxedAndHasContainers", 242);
+  v4 = brc_default_log(0, 0);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
-    v3 = brc_append_system_info_to_message(v0);
-    v5 = 138412546;
-    v6 = v3;
-    v7 = 2112;
-    v8 = v1;
-    _os_log_fault_impl(&dword_1AE2A9000, v2, OS_LOG_TYPE_FAULT, "[CRIT] %@%@", &v5, 0x16u);
+    v5 = brc_append_system_info_to_message(v2);
+    v7 = 138412546;
+    v8 = v5;
+    v9 = 2112;
+    v10 = v3;
+    _os_log_fault_impl(&dword_1AE2A9000, v4, OS_LOG_TYPE_FAULT, "[CRIT] %@%@", &v7, 0x16u);
   }
 
-  brc_append_system_info_to_message(v0);
-  v4 = [objc_claimAutoreleasedReturnValue() UTF8String];
-  __assert_rtn("BRCurrentProcessIsNotAppSandboxedAndHasContainers", "/Library/Caches/com.apple.xbs/Sources/CloudDocs/framework/CloudDocs.m", 242, v4);
+  brc_append_system_info_to_message(v2);
+  v6 = [objc_claimAutoreleasedReturnValue() UTF8String];
+  __assert_rtn("BRCurrentProcessIsNotAppSandboxedAndHasContainers", "/Library/Caches/com.apple.xbs/Sources/CloudDocs/framework/CloudDocs.m", 242, v6);
 }
 
 uint64_t BRCurrentProcessIsContainerProxy()
@@ -4562,14 +4513,14 @@ uint64_t BRCurrentProcessHasAccessToCloudDocsGroupContainers()
 
 id BRCopyUbiquityContainerIdentifiersForCurrentProcess()
 {
-  v18 = *MEMORY[0x1E69E9840];
-  memset(v16, 0, sizeof(v16));
-  __brc_create_section(0, "BRCopyUbiquityContainerIdentifiersForCurrentProcess", 273, 0, v16);
+  v17 = *MEMORY[0x1E69E9840];
+  memset(v15, 0, sizeof(v15));
+  __brc_create_section(0, "BRCopyUbiquityContainerIdentifiersForCurrentProcess", 273, 0, v15);
   v0 = brc_bread_crumbs("BRCopyUbiquityContainerIdentifiersForCurrentProcess", 273);
   v1 = brc_default_log(1, 0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    BRCopyUbiquityContainerIdentifiersForCurrentProcess_cold_1(v16);
+    BRCopyUbiquityContainerIdentifiersForCurrentProcess_cold_1();
   }
 
   if (_BRLoadUbiquityEntitlements_once != -1)
@@ -4580,32 +4531,32 @@ id BRCopyUbiquityContainerIdentifiersForCurrentProcess()
   if (currentProcessUbiquityContainerEntitlements)
   {
     v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v3 = currentProcessUbiquityContainerEntitlements;
-    v4 = [v3 countByEnumeratingWithState:&v12 objects:v17 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v11 objects:v16 count:16];
     if (v4)
     {
-      v5 = *v13;
+      v5 = *v12;
       do
       {
         for (i = 0; i != v4; ++i)
         {
-          if (*v13 != v5)
+          if (*v12 != v5)
           {
             objc_enumerationMutation(v3);
           }
 
-          v7 = *(*(&v12 + 1) + 8 * i);
-          if (([v7 hasSuffix:{@".*", v12}] & 1) == 0)
+          v7 = *(*(&v11 + 1) + 8 * i);
+          if (([v7 hasSuffix:{@".*", v11}] & 1) == 0)
           {
             [v2 addObject:v7];
           }
         }
 
-        v4 = [v3 countByEnumeratingWithState:&v12 objects:v17 count:16];
+        v4 = [v3 countByEnumeratingWithState:&v11 objects:v16 count:16];
       }
 
       while (v4);
@@ -4624,15 +4575,14 @@ id BRCopyUbiquityContainerIdentifiersForCurrentProcess()
     BRCopyUbiquityContainerIdentifiersForCurrentProcess_cold_3();
   }
 
-  __brc_leave_section(v16);
-  v10 = *MEMORY[0x1E69E9840];
+  __brc_leave_section(v15);
 
   return v2;
 }
 
-void sub_1AE2CCA98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AE2CCA98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   __brc_leave_section(va);
   _Unwind_Resume(a1);
 }
@@ -4699,7 +4649,7 @@ void BRGetURLForPublishedItemWithOptions(void *a1, char a2, uint64_t a3, void *a
     v11 = brc_default_log(1, 0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      BRGetProcessMobileContainerForID_cold_2(&v19);
+      BRGetProcessMobileContainerForID_cold_2();
     }
 
     v22 = v20;
@@ -4727,98 +4677,94 @@ void BRGetURLForPublishedItemWithOptions(void *a1, char a2, uint64_t a3, void *a
 
 void __BRGetURLForPublishedItemWithOptions_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
   {
-    v14 = *(a1 + 40);
-    v15 = *(a1 + 56);
+    v13 = *(a1 + 40);
+    v14 = *(a1 + 56);
     v7 = brc_bread_crumbs("BRGetURLForPublishedItemWithOptions_block_invoke", 461);
     v8 = brc_default_log(1, 0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218498;
-      v17 = v14;
-      v18 = 2112;
-      v19 = v6;
-      v20 = 2112;
-      v21 = v7;
+      v16 = v13;
+      v17 = 2112;
+      v18 = v6;
+      v19 = 2112;
+      v20 = v7;
       _os_log_debug_impl(&dword_1AE2A9000, v8, OS_LOG_TYPE_DEBUG, "[DEBUG] ┳%llx failed getting Item Service failed: %@%@", buf, 0x20u);
     }
 
     (*(*(a1 + 32) + 16))();
-    __brc_leave_section(&v14);
+    __brc_leave_section(&v13);
   }
 
   else
   {
     v9 = *(a1 + 72);
     v10 = *(a1 + 64);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __BRGetURLForPublishedItemWithOptions_block_invoke_25;
-    v12[3] = &unk_1E7A14F10;
-    v13 = *(a1 + 32);
-    [v5 getPublishedURLForStreaming:v9 requestedTTL:v10 reply:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __BRGetURLForPublishedItemWithOptions_block_invoke_25;
+    v11[3] = &unk_1E7A14F10;
+    v12 = *(a1 + 32);
+    [v5 getPublishedURLForStreaming:v9 requestedTTL:v10 reply:v11];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1AE2CD08C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE2CD08C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   __brc_leave_section(va);
   _Unwind_Resume(a1);
 }
 
 void BRRegisterInitialSyncHandlerForContainer(void *a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   v5 = objc_autoreleasePoolPush();
-  memset(v11, 0, sizeof(v11));
-  __brc_create_section(0, "BRRegisterInitialSyncHandlerForContainer", 477, 0, v11);
+  memset(v12, 0, sizeof(v12));
+  __brc_create_section(0, "BRRegisterInitialSyncHandlerForContainer", 477, 0, v12);
   v6 = brc_bread_crumbs("BRRegisterInitialSyncHandlerForContainer", 477);
   v7 = brc_default_log(1, 0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218754;
-    v13 = v11[0];
-    v14 = 2080;
-    v15 = "BRRegisterInitialSyncHandlerForContainer";
-    v16 = 2112;
-    v17 = v3;
-    v18 = 2112;
-    v19 = v6;
+    v14 = v12[0];
+    v15 = 2080;
+    v16 = "BRRegisterInitialSyncHandlerForContainer";
+    v17 = 2112;
+    v18 = v3;
+    v19 = 2112;
+    v20 = v6;
     _os_log_debug_impl(&dword_1AE2A9000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx %s: container:%@%@", buf, 0x2Au);
   }
 
-  if (BRCurrentProcessHasUbiquityContainer())
+  if (BRCurrentProcessHasUbiquityContainer(v8, v9))
   {
-    v8 = +[BRDaemonConnection defaultConnection];
-    v9 = [v8 remoteObjectProxyWithErrorHandler:v4];
+    v10 = +[BRDaemonConnection defaultConnection];
+    v11 = [v10 remoteObjectProxyWithErrorHandler:v4];
 
-    [v9 registerInitialSyncBarrierForID:v3 reply:v4];
+    [v11 registerInitialSyncBarrierForID:v3 reply:v4];
   }
 
   else
   {
-    v9 = [MEMORY[0x1E696ABC0] errorWithDomain:@"BRCloudDocsErrorDomain" code:1 userInfo:0];
-    v4[2](v4, v9);
+    v11 = [MEMORY[0x1E696ABC0] errorWithDomain:@"BRCloudDocsErrorDomain" code:1 userInfo:0];
+    v4[2](v4, v11);
   }
 
-  __brc_leave_section(v11);
+  __brc_leave_section(v12);
   objc_autoreleasePoolPop(v5);
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1AE2CD2A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AE2CD2A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __brc_leave_section(va);
   _Unwind_Resume(a1);
 }
@@ -4846,7 +4792,7 @@ void BREvictItemAtURL(void *a1, void *a2)
 
 void __BREvictItemAtURL_block_invoke(uint64_t a1, void *a2)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (*(a1 + 32))
@@ -4855,9 +4801,9 @@ void __BREvictItemAtURL_block_invoke(uint64_t a1, void *a2)
     {
       v5 = MEMORY[0x1E696ABC0];
       v6 = *MEMORY[0x1E696A250];
-      v10 = *MEMORY[0x1E696AA08];
-      v11[0] = v4;
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+      v9 = *MEMORY[0x1E696AA08];
+      v10[0] = v4;
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
       v8 = [v5 errorWithDomain:v6 code:255 userInfo:v7];
 
       v4 = v8;
@@ -4865,13 +4811,11 @@ void __BREvictItemAtURL_block_invoke(uint64_t a1, void *a2)
 
     (*(*(a1 + 32) + 16))();
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __BREvictItemAtURL_block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   if (a3)
   {
     v5 = *(a1 + 32);
@@ -4885,8 +4829,8 @@ void __BREvictItemAtURL_block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
     v8 = MEMORY[0x1E6967320];
     v9 = a2;
     v10 = [v8 alloc];
-    v14[0] = v9;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+    v13[0] = v9;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
     v7 = [v10 initWithItems:v11];
 
     [v7 setActionCompletionBlock:*(a1 + 32)];
@@ -4894,13 +4838,11 @@ void __BREvictItemAtURL_block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
 
     [v12 scheduleAction:v7];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void BREvictItemAtURLWithOptions(void *a1, char a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a3;
   v7 = objc_autoreleasePoolPush();
@@ -4912,9 +4854,9 @@ void BREvictItemAtURLWithOptions(void *a1, char a2, void *a3)
       v9 = brc_default_log(1, 0);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 138412290;
-        v13 = v8;
-        _os_log_impl(&dword_1AE2A9000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] We shouldn't be evicting thumbnails in FPFS - only content%@", &v12, 0xCu);
+        v11 = 138412290;
+        v12 = v8;
+        _os_log_impl(&dword_1AE2A9000, v9, OS_LOG_TYPE_DEFAULT, "[WARNING] We shouldn't be evicting thumbnails in FPFS - only content%@", &v11, 0xCu);
       }
     }
 
@@ -4928,8 +4870,6 @@ void BREvictItemAtURLWithOptions(void *a1, char a2, void *a3)
   }
 
   objc_autoreleasePoolPop(v7);
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void BRSynchronousEvictItemAtURLWithOptions(void *a1, uint64_t a2, void *a3)
@@ -4990,37 +4930,37 @@ void BRThumbnailChangedAtURL(void *a1, void *a2)
 
 void BRStartDownloadForItemsWithOptions(void *a1, uint64_t a2, void *a3)
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v4 = a1;
   v5 = a3;
   v6 = objc_autoreleasePoolPush();
   if ([v4 br_any_of:&__block_literal_global_7])
   {
     v7 = [MEMORY[0x1E696AC08] defaultManager];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v8 = v4;
-    v9 = [v8 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v22;
+      v11 = *v21;
       while (2)
       {
         v12 = 0;
         do
         {
-          if (*v22 != v11)
+          if (*v21 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = *(*(&v21 + 1) + 8 * v12);
-          v20 = 0;
-          [v7 startDownloadingUbiquitousItemAtURL:v13 error:&v20];
-          v14 = v20;
+          v13 = *(*(&v20 + 1) + 8 * v12);
+          v19 = 0;
+          [v7 startDownloadingUbiquitousItemAtURL:v13 error:&v19];
+          v14 = v19;
           if (v14)
           {
             v17 = v14;
@@ -5033,7 +4973,7 @@ void BRStartDownloadForItemsWithOptions(void *a1, uint64_t a2, void *a3)
         }
 
         while (v10 != v12);
-        v10 = [v8 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
         if (v10)
         {
           continue;
@@ -5048,10 +4988,10 @@ void BRStartDownloadForItemsWithOptions(void *a1, uint64_t a2, void *a3)
 
   else if ([v4 count])
   {
-    v25 = 0;
-    v7 = [BRAccount currentCachedLoggedInAccountWithError:&v25];
+    v24 = 0;
+    v7 = [BRAccount currentCachedLoggedInAccountWithError:&v24];
     v15 = MEMORY[0x1E696ABC0];
-    if (v7 | v25)
+    if (v7 | v24)
     {
       v16 = [v4 objectAtIndexedSubscript:0];
       v18 = [v15 brc_errorPathOutsideAnyCloudDocsAppLibraryAtURL:v16];
@@ -5074,7 +5014,6 @@ void BRStartDownloadForItemsWithOptions(void *a1, uint64_t a2, void *a3)
 LABEL_19:
 
   objc_autoreleasePoolPop(v6);
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void BRDumpDatabaseToFileHandle(void *a1, void *a2)
@@ -5100,7 +5039,7 @@ void BRDumpDatabaseToFileHandle(void *a1, void *a2)
 
 uint64_t BRRemoveItemAtURL(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696ABC0];
   v4 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"BRRemoveItemAtURL"];
   v5 = [v3 brc_errorFunctionNotImplemented:v4];
@@ -5111,21 +5050,21 @@ uint64_t BRRemoveItemAtURL(uint64_t a1, void *a2)
     v7 = brc_default_log(0, 0);
     if (os_log_type_enabled(v7, 0x90u))
     {
-      v11 = "(passed to caller)";
-      v12 = 136315906;
-      v13 = "BRRemoveItemAtURL";
-      v14 = 2080;
+      v10 = "(passed to caller)";
+      v11 = 136315906;
+      v12 = "BRRemoveItemAtURL";
+      v13 = 2080;
       if (!a2)
       {
-        v11 = "(ignored by caller)";
+        v10 = "(ignored by caller)";
       }
 
-      v15 = v11;
-      v16 = 2112;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v6;
-      _os_log_error_impl(&dword_1AE2A9000, v7, 0x90u, "[ERROR] %s: %s error: %@%@", &v12, 0x2Au);
+      v14 = v10;
+      v15 = 2112;
+      v16 = v5;
+      v17 = 2112;
+      v18 = v6;
+      _os_log_error_impl(&dword_1AE2A9000, v7, 0x90u, "[ERROR] %s: %s error: %@%@", &v11, 0x2Au);
     }
   }
 
@@ -5135,7 +5074,6 @@ uint64_t BRRemoveItemAtURL(uint64_t a1, void *a2)
     *a2 = v5;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -5285,16 +5223,16 @@ LABEL_36:
   return v14;
 }
 
-void sub_1AE2CE3B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE2CE3B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5316,16 +5254,16 @@ void __BRGetAttributeValuesForItem_block_invoke(uint64_t a1, void *a2, void *a3)
 
 id BRGetAttributeValueForItem(void *a1, void *a2, uint64_t *a3)
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
-  v16[0] = v5;
+  v15[0] = v5;
   v6 = MEMORY[0x1E695DEC8];
   v7 = a1;
-  v8 = [v6 arrayWithObjects:v16 count:1];
-  v15 = 0;
-  v9 = BRGetAttributeValuesForItem(v7, v8, &v15);
+  v8 = [v6 arrayWithObjects:v15 count:1];
+  v14 = 0;
+  v9 = BRGetAttributeValuesForItem(v7, v8, &v14);
 
-  v10 = v15;
+  v10 = v14;
   v11 = [v9 objectForKey:v5];
   if (!(v11 | v10))
   {
@@ -5337,8 +5275,6 @@ id BRGetAttributeValueForItem(void *a1, void *a2, uint64_t *a3)
     v12 = v10;
     *a3 = v10;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -5393,49 +5329,49 @@ id BRPushTopicGetContainerID(void *a1)
 
 id BRAddNetworkReachabilityObserverWithCallbackQueue(void *a1, void *a2)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   if (v4)
   {
     v5 = [@"BRNotificationServerAvailabilityChanges" br_libnotifyPerUserNotificationName];
-    v38 = 0;
-    v39 = &v38;
-    v40 = 0x2020000000;
-    v41 = 0;
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __BRAddNetworkReachabilityObserverWithCallbackQueue_block_invoke;
-    v34[3] = &unk_1E7A14FE0;
-    v37 = &v38;
+    v37 = 0;
+    v38 = &v37;
+    v39 = 0x2020000000;
+    v40 = 0;
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __BRAddNetworkReachabilityObserverWithCallbackQueue_block_invoke;
+    v33[3] = &unk_1E7A14FE0;
+    v36 = &v37;
     v6 = v5;
-    v35 = v6;
-    v36 = v4;
-    v7 = MEMORY[0x1B26FEA90](v34);
+    v34 = v6;
+    v35 = v4;
+    v7 = MEMORY[0x1B26FEA90](v33);
     v8 = v6;
     v9 = [v6 UTF8String];
-    v10 = v39;
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = __BRAddNetworkReachabilityObserverWithCallbackQueue_block_invoke_2;
-    v31[3] = &unk_1E7A15008;
-    v33 = &v38;
+    v10 = v38;
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __BRAddNetworkReachabilityObserverWithCallbackQueue_block_invoke_2;
+    v30[3] = &unk_1E7A15008;
+    v32 = &v37;
     v11 = v7;
-    v32 = v11;
+    v31 = v11;
     v12 = v3;
-    v13 = v31;
+    v13 = v30;
     v14 = [MEMORY[0x1E69DF068] sharedManager];
     v15 = [v14 br_currentPersonaID];
 
     *handler = MEMORY[0x1E69E9820];
     *&handler[8] = 3221225472;
     *&handler[16] = __br_notify_register_dispatch_block_invoke_1;
-    v43 = &unk_1E7A14940;
+    v42 = &unk_1E7A14940;
     v16 = v15;
-    v44 = v16;
-    v46 = v9;
+    v43 = v16;
+    v45 = v9;
     v17 = v13;
-    v45 = v17;
+    v44 = v17;
     v18 = notify_register_dispatch(v9, v10 + 6, v12, handler);
 
     if (v18)
@@ -5452,16 +5388,16 @@ id BRAddNetworkReachabilityObserverWithCallbackQueue(void *a1, void *a2)
       }
     }
 
-    v26 = MEMORY[0x1E69E9820];
-    v27 = 3221225472;
-    v28 = __BRAddNetworkReachabilityObserverWithCallbackQueue_block_invoke_54;
-    v29 = &unk_1E7A14BB8;
+    v25 = MEMORY[0x1E69E9820];
+    v26 = 3221225472;
+    v27 = __BRAddNetworkReachabilityObserverWithCallbackQueue_block_invoke_54;
+    v28 = &unk_1E7A14BB8;
     v21 = v11;
-    v30 = v21;
-    dispatch_async(v12, &v26);
-    v22 = [MEMORY[0x1E696AD98] numberWithInt:{v39[6], v26, v27, v28, v29}];
+    v29 = v21;
+    dispatch_async(v12, &v25);
+    v22 = [MEMORY[0x1E696AD98] numberWithInt:{v38[6], v25, v26, v27, v28}];
 
-    _Block_object_dispose(&v38, 8);
+    _Block_object_dispose(&v37, 8);
   }
 
   else
@@ -5478,9 +5414,14 @@ id BRAddNetworkReachabilityObserverWithCallbackQueue(void *a1, void *a2)
     v22 = 0;
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
   return v22;
+}
+
+void sub_1AE2CEC40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __BRAddNetworkReachabilityObserverWithCallbackQueue_block_invoke(uint64_t a1)
@@ -5510,7 +5451,7 @@ id BRAddNetworkReachabilityObserver(void *a1)
 
 void BRRemoveNetworkReachabilityObserver(void *a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v1 = a1;
   if (!v1)
   {
@@ -5518,8 +5459,8 @@ void BRRemoveNetworkReachabilityObserver(void *a1)
     v5 = brc_default_log(1, 0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      *v12 = v4;
+      v10 = 138412290;
+      *v11 = v4;
       v6 = "[WARNING] Can't remove observer: given observer is nil%@";
       v7 = v5;
       v8 = 12;
@@ -5538,12 +5479,12 @@ LABEL_11:
     v5 = brc_default_log(1, 0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412546;
-      *v12 = objc_opt_class();
-      *&v12[8] = 2112;
-      *&v12[10] = v4;
-      v9 = *v12;
-      _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] Can't remove observer: unexpected kind of class (expected: NSNumber, actual: %@)%@", &v11, 0x16u);
+      v10 = 138412546;
+      *v11 = objc_opt_class();
+      *&v11[8] = 2112;
+      *&v11[10] = v4;
+      v9 = *v11;
+      _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] Can't remove observer: unexpected kind of class (expected: NSNumber, actual: %@)%@", &v10, 0x16u);
     }
 
     goto LABEL_11;
@@ -5557,15 +5498,15 @@ LABEL_11:
     v5 = brc_default_log(1, 0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 67109378;
-      *v12 = v3;
-      *&v12[4] = 2112;
-      *&v12[6] = v4;
+      v10 = 67109378;
+      *v11 = v3;
+      *&v11[4] = 2112;
+      *&v11[6] = v4;
       v6 = "[WARNING] Can't remove observer: error code %d%@";
       v7 = v5;
       v8 = 18;
 LABEL_8:
-      _os_log_impl(&dword_1AE2A9000, v7, OS_LOG_TYPE_DEFAULT, v6, &v11, v8);
+      _os_log_impl(&dword_1AE2A9000, v7, OS_LOG_TYPE_DEFAULT, v6, &v10, v8);
       goto LABEL_11;
     }
 
@@ -5573,8 +5514,6 @@ LABEL_8:
   }
 
 LABEL_12:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 id BREntitledContainerIdentifiersForProxy(void *a1)
@@ -5587,7 +5526,7 @@ id BREntitledContainerIdentifiersForProxy(void *a1)
 
 BOOL BRSyncedDocumentIDForDocumentAtURL(void *a1, void *a2, void *a3, uint64_t (**a4)(uint64_t result, uint64_t a2))
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v7 = a1;
   if (!v7)
   {
@@ -5598,21 +5537,21 @@ BOOL BRSyncedDocumentIDForDocumentAtURL(void *a1, void *a2, void *a3, uint64_t (
       v18 = brc_default_log(0, 0);
       if (os_log_type_enabled(v18, 0x90u))
       {
-        v26 = "(passed to caller)";
-        *v53 = 136315906;
-        *&v53[4] = "BRSyncedDocumentIDForDocumentAtURL";
-        *&v53[12] = 2080;
+        v25 = "(passed to caller)";
+        *v52 = 136315906;
+        *&v52[4] = "BRSyncedDocumentIDForDocumentAtURL";
+        *&v52[12] = 2080;
         if (!a4)
         {
-          v26 = "(ignored by caller)";
+          v25 = "(ignored by caller)";
         }
 
-        *&v53[14] = v26;
-        *&v53[22] = 2112;
-        v54 = v16;
-        LOWORD(v55) = 2112;
-        *(&v55 + 2) = v17;
-        _os_log_error_impl(&dword_1AE2A9000, v18, 0x90u, "[ERROR] %s: %s error: %@%@", v53, 0x2Au);
+        *&v52[14] = v25;
+        *&v52[22] = 2112;
+        v53 = v16;
+        LOWORD(v54) = 2112;
+        *(&v54 + 2) = v17;
+        _os_log_error_impl(&dword_1AE2A9000, v18, 0x90u, "[ERROR] %s: %s error: %@%@", v52, 0x2Au);
       }
     }
 
@@ -5634,21 +5573,21 @@ BOOL BRSyncedDocumentIDForDocumentAtURL(void *a1, void *a2, void *a3, uint64_t (
       v21 = brc_default_log(0, 0);
       if (os_log_type_enabled(v21, 0x90u))
       {
-        v27 = "(passed to caller)";
-        *v53 = 136315906;
-        *&v53[4] = "BRSyncedDocumentIDForDocumentAtURL";
-        *&v53[12] = 2080;
+        v26 = "(passed to caller)";
+        *v52 = 136315906;
+        *&v52[4] = "BRSyncedDocumentIDForDocumentAtURL";
+        *&v52[12] = 2080;
         if (!a4)
         {
-          v27 = "(ignored by caller)";
+          v26 = "(ignored by caller)";
         }
 
-        *&v53[14] = v27;
-        *&v53[22] = 2112;
-        v54 = v16;
-        LOWORD(v55) = 2112;
-        *(&v55 + 2) = v20;
-        _os_log_error_impl(&dword_1AE2A9000, v21, 0x90u, "[ERROR] %s: %s error: %@%@", v53, 0x2Au);
+        *&v52[14] = v26;
+        *&v52[22] = 2112;
+        v53 = v16;
+        LOWORD(v54) = 2112;
+        *(&v54 + 2) = v20;
+        _os_log_error_impl(&dword_1AE2A9000, v21, 0x90u, "[ERROR] %s: %s error: %@%@", v52, 0x2Au);
       }
     }
 
@@ -5664,37 +5603,37 @@ LABEL_19:
     goto LABEL_23;
   }
 
-  *v53 = 0;
-  *&v53[8] = v53;
-  *&v53[16] = 0x3032000000;
-  v54 = __Block_byref_object_copy__3;
-  *&v55 = __Block_byref_object_dispose__3;
-  *(&v55 + 1) = 0;
-  v39 = 0;
-  v40 = &v39;
-  v41 = 0x3032000000;
-  v42 = __Block_byref_object_copy__3;
-  v43 = __Block_byref_object_dispose__3;
-  v44 = 0;
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy__3;
-  v37 = __Block_byref_object_dispose__3;
+  *v52 = 0;
+  *&v52[8] = v52;
+  *&v52[16] = 0x3032000000;
+  v53 = __Block_byref_object_copy__3;
+  *&v54 = __Block_byref_object_dispose__3;
+  *(&v54 + 1) = 0;
   v38 = 0;
+  v39 = &v38;
+  v40 = 0x3032000000;
+  v41 = __Block_byref_object_copy__3;
+  v42 = __Block_byref_object_dispose__3;
+  v43 = 0;
+  v32 = 0;
+  v33 = &v32;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy__3;
+  v36 = __Block_byref_object_dispose__3;
+  v37 = 0;
   v8 = dispatch_semaphore_create(0);
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __BRSyncedDocumentIDForDocumentAtURL_block_invoke;
-  v28[3] = &unk_1E7A15050;
-  v30 = v53;
-  v31 = &v39;
-  v32 = &v33;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __BRSyncedDocumentIDForDocumentAtURL_block_invoke;
+  v27[3] = &unk_1E7A15050;
+  v29 = v52;
+  v30 = &v38;
+  v31 = &v32;
   v9 = v8;
-  v29 = v9;
-  [v7 br_bookmarkableStringWithEtag:a3 != 0 completion:v28];
+  v28 = v9;
+  [v7 br_bookmarkableStringWithEtag:a3 != 0 completion:v27];
   dispatch_semaphore_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
-  v10 = v34[5];
+  v10 = v33[5];
   v11 = v10 == 0;
   if (v10)
   {
@@ -5703,20 +5642,20 @@ LABEL_19:
     v14 = brc_default_log(0, 0);
     if (os_log_type_enabled(v14, 0x90u))
     {
-      v25 = "(passed to caller)";
+      v24 = "(passed to caller)";
       *buf = 136315906;
-      v46 = "BRSyncedDocumentIDForDocumentAtURL";
-      v47 = 2080;
+      v45 = "BRSyncedDocumentIDForDocumentAtURL";
+      v46 = 2080;
       if (!a4)
       {
-        v25 = "(ignored by caller)";
+        v24 = "(ignored by caller)";
       }
 
-      v48 = v25;
-      v49 = 2112;
-      v50 = v12;
-      v51 = 2112;
-      v52 = v13;
+      v47 = v24;
+      v48 = 2112;
+      v49 = v12;
+      v50 = 2112;
+      v51 = v13;
       _os_log_error_impl(&dword_1AE2A9000, v14, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
 
@@ -5729,36 +5668,35 @@ LABEL_19:
 
   else
   {
-    *a2 = *(*&v53[8] + 40);
+    *a2 = *(*&v52[8] + 40);
     if (a3)
     {
-      *a3 = v40[5];
+      *a3 = v39[5];
     }
   }
 
-  _Block_object_dispose(&v33, 8);
-  _Block_object_dispose(&v39, 8);
+  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v38, 8);
 
-  _Block_object_dispose(v53, 8);
+  _Block_object_dispose(v52, 8);
 LABEL_23:
 
-  v23 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
-void sub_1AE2CF4DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AE2CF4DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 144), 8);
+  _Block_object_dispose((v16 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5787,32 +5725,32 @@ void __BRSyncedDocumentIDForDocumentAtURL_block_invoke(uint64_t a1, void *a2, vo
 
 BOOL BRLocateDocumentForSyncedDocumentID(uint64_t a1, void *a2, void *a3)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (a2)
   {
-    v17 = 0;
-    *a2 = BRCopyDocumentURLForUbiquitousBookmarkData(a1, &v17);
-    v5 = v17;
-    if (v17)
+    v16 = 0;
+    *a2 = BRCopyDocumentURLForUbiquitousBookmarkData(a1, &v16);
+    v5 = v16;
+    if (v16)
     {
       v6 = brc_bread_crumbs("BRLocateDocumentForSyncedDocumentID", 1202);
       v7 = brc_default_log(0, 0);
       if (os_log_type_enabled(v7, 0x90u))
       {
-        v15 = "(passed to caller)";
+        v14 = "(passed to caller)";
         *buf = 136315906;
-        v19 = "BRLocateDocumentForSyncedDocumentID";
-        v20 = 2080;
+        v18 = "BRLocateDocumentForSyncedDocumentID";
+        v19 = 2080;
         if (!a3)
         {
-          v15 = "(ignored by caller)";
+          v14 = "(ignored by caller)";
         }
 
-        v21 = v15;
-        v22 = 2112;
-        v23 = v5;
-        v24 = 2112;
-        v25 = v6;
+        v20 = v14;
+        v21 = 2112;
+        v22 = v5;
+        v23 = 2112;
+        v24 = v6;
         _os_log_error_impl(&dword_1AE2A9000, v7, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -5823,7 +5761,7 @@ BOOL BRLocateDocumentForSyncedDocumentID(uint64_t a1, void *a2, void *a3)
       *a3 = v5;
     }
 
-    result = *a2 != 0;
+    return *a2 != 0;
   }
 
   else
@@ -5835,20 +5773,20 @@ BOOL BRLocateDocumentForSyncedDocumentID(uint64_t a1, void *a2, void *a3)
       v12 = brc_default_log(0, 0);
       if (os_log_type_enabled(v12, 0x90u))
       {
-        v16 = "(passed to caller)";
+        v15 = "(passed to caller)";
         *buf = 136315906;
-        v19 = "BRLocateDocumentForSyncedDocumentID";
-        v20 = 2080;
+        v18 = "BRLocateDocumentForSyncedDocumentID";
+        v19 = 2080;
         if (!a3)
         {
-          v16 = "(ignored by caller)";
+          v15 = "(ignored by caller)";
         }
 
-        v21 = v16;
-        v22 = 2112;
-        v23 = v10;
-        v24 = 2112;
-        v25 = v11;
+        v20 = v15;
+        v21 = 2112;
+        v22 = v10;
+        v23 = 2112;
+        v24 = v11;
         _os_log_error_impl(&dword_1AE2A9000, v12, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -5859,16 +5797,13 @@ BOOL BRLocateDocumentForSyncedDocumentID(uint64_t a1, void *a2, void *a3)
       *a3 = v10;
     }
 
-    result = 0;
+    return 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t BRPrepareDocumentForForcedConflict(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E696ABC0];
   v6 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"BRPrepareDocumentForForcedConflict"];
   v7 = [v5 brc_errorFunctionNotImplemented:v6];
@@ -5879,21 +5814,21 @@ uint64_t BRPrepareDocumentForForcedConflict(uint64_t a1, uint64_t a2, uint64_t a
     v9 = brc_default_log(0, 0);
     if (os_log_type_enabled(v9, 0x90u))
     {
-      v13 = "(passed to caller)";
-      v14 = 136315906;
-      v15 = "BRPrepareDocumentForForcedConflict";
-      v16 = 2080;
+      v12 = "(passed to caller)";
+      v13 = 136315906;
+      v14 = "BRPrepareDocumentForForcedConflict";
+      v15 = 2080;
       if (!a4)
       {
-        v13 = "(ignored by caller)";
+        v12 = "(ignored by caller)";
       }
 
-      v17 = v13;
-      v18 = 2112;
-      v19 = v7;
-      v20 = 2112;
-      v21 = v8;
-      _os_log_error_impl(&dword_1AE2A9000, v9, 0x90u, "[ERROR] %s: %s error: %@%@", &v14, 0x2Au);
+      v16 = v12;
+      v17 = 2112;
+      v18 = v7;
+      v19 = 2112;
+      v20 = v8;
+      _os_log_error_impl(&dword_1AE2A9000, v9, 0x90u, "[ERROR] %s: %s error: %@%@", &v13, 0x2Au);
     }
   }
 
@@ -5903,7 +5838,6 @@ uint64_t BRPrepareDocumentForForcedConflict(uint64_t a1, uint64_t a2, uint64_t a
     *a4 = v7;
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -5967,7 +5901,7 @@ void __BRiWorkSharingSetSharingState_block_invoke(uint64_t a1)
 
 void __BRiWorkSharingSetSharingState_block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -5975,34 +5909,32 @@ void __BRiWorkSharingSetSharingState_block_invoke_2(uint64_t a1, void *a2)
     v5 = brc_default_log(0, 0);
     if (os_log_type_enabled(v5, 0x90u))
     {
-      v10 = *(a1 + 32);
+      v9 = *(a1 + 32);
       *buf = 138412802;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v3;
-      v18 = 2112;
-      v19 = v4;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v3;
+      v17 = 2112;
+      v18 = v4;
       _os_log_error_impl(&dword_1AE2A9000, v5, 0x90u, "[ERROR] Failed publishing document at %@ - %@%@", buf, 0x20u);
     }
   }
 
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __BRiWorkSharingSetSharingState_block_invoke_84;
-  v11[3] = &unk_1E7A15078;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __BRiWorkSharingSetSharingState_block_invoke_84;
+  v10[3] = &unk_1E7A15078;
   v6 = *(a1 + 40);
   v7 = *(a1 + 48);
-  v12 = v3;
-  v13 = v7;
+  v11 = v3;
+  v12 = v7;
   v8 = v3;
-  dispatch_async(v6, v11);
-
-  v9 = *MEMORY[0x1E69E9840];
+  dispatch_async(v6, v10);
 }
 
 BOOL BRiWorkSharingGetBadgingSharingState(void *a1, _BYTE *a2, BOOL *a3, uint64_t (**a4)(uint64_t result, uint64_t a2))
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v7 = a1;
   v8 = v7;
   if (v7)
@@ -6010,23 +5942,23 @@ BOOL BRiWorkSharingGetBadgingSharingState(void *a1, _BYTE *a2, BOOL *a3, uint64_
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v40 = __Block_byref_object_copy__3;
-    *&v41 = __Block_byref_object_dispose__3;
-    *(&v41 + 1) = 0;
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x3032000000;
-    v28 = __Block_byref_object_copy__3;
-    v29 = __Block_byref_object_dispose__3;
-    v30 = 0;
+    v39 = __Block_byref_object_copy__3;
+    *&v40 = __Block_byref_object_dispose__3;
+    *(&v40 + 1) = 0;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = __Block_byref_object_copy__3;
+    v28 = __Block_byref_object_dispose__3;
+    v29 = 0;
     v9 = [v7 _br_itemServiceSyncProxy];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __BRiWorkSharingGetBadgingSharingState_block_invoke;
-    v24[3] = &unk_1E7A150C8;
-    v24[4] = buf;
-    v24[5] = &v25;
-    [v9 getiWorkPublishingBadgingStatus:v24];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __BRiWorkSharingGetBadgingSharingState_block_invoke;
+    v23[3] = &unk_1E7A150C8;
+    v23[4] = buf;
+    v23[5] = &v24;
+    [v9 getiWorkPublishingBadgingStatus:v23];
     v10 = *(*&buf[8] + 40);
     v11 = v10 != 0;
     if (v10)
@@ -6044,28 +5976,28 @@ BOOL BRiWorkSharingGetBadgingSharingState(void *a1, _BYTE *a2, BOOL *a3, uint64_
 
     else
     {
-      v16 = v26[5];
+      v16 = v25[5];
       if (v16)
       {
         v17 = brc_bread_crumbs("BRiWorkSharingGetBadgingSharingState", 1258);
         v18 = brc_default_log(0, 0);
         if (os_log_type_enabled(v18, 0x90u))
         {
-          v23 = "(passed to caller)";
-          *v31 = 136315906;
-          v32 = "BRiWorkSharingGetBadgingSharingState";
-          v33 = 2080;
+          v22 = "(passed to caller)";
+          *v30 = 136315906;
+          v31 = "BRiWorkSharingGetBadgingSharingState";
+          v32 = 2080;
           if (!a4)
           {
-            v23 = "(ignored by caller)";
+            v22 = "(ignored by caller)";
           }
 
-          v34 = v23;
-          v35 = 2112;
-          v36 = v16;
-          v37 = 2112;
-          v38 = v17;
-          _os_log_error_impl(&dword_1AE2A9000, v18, 0x90u, "[ERROR] %s: %s error: %@%@", v31, 0x2Au);
+          v33 = v22;
+          v34 = 2112;
+          v35 = v16;
+          v36 = 2112;
+          v37 = v17;
+          _os_log_error_impl(&dword_1AE2A9000, v18, 0x90u, "[ERROR] %s: %s error: %@%@", v30, 0x2Au);
         }
       }
 
@@ -6076,7 +6008,7 @@ BOOL BRiWorkSharingGetBadgingSharingState(void *a1, _BYTE *a2, BOOL *a3, uint64_
       }
     }
 
-    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v24, 8);
     _Block_object_dispose(buf, 8);
   }
 
@@ -6089,20 +6021,20 @@ BOOL BRiWorkSharingGetBadgingSharingState(void *a1, _BYTE *a2, BOOL *a3, uint64_
       v14 = brc_default_log(0, 0);
       if (os_log_type_enabled(v14, 0x90u))
       {
-        v22 = "(passed to caller)";
+        v21 = "(passed to caller)";
         *buf = 136315906;
         *&buf[4] = "BRiWorkSharingGetBadgingSharingState";
         *&buf[12] = 2080;
         if (!a4)
         {
-          v22 = "(ignored by caller)";
+          v21 = "(ignored by caller)";
         }
 
-        *&buf[14] = v22;
+        *&buf[14] = v21;
         *&buf[22] = 2112;
-        v40 = v12;
-        LOWORD(v41) = 2112;
-        *(&v41 + 2) = v13;
+        v39 = v12;
+        LOWORD(v40) = 2112;
+        *(&v40 + 2) = v13;
         _os_log_error_impl(&dword_1AE2A9000, v14, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -6116,14 +6048,14 @@ BOOL BRiWorkSharingGetBadgingSharingState(void *a1, _BYTE *a2, BOOL *a3, uint64_
     v11 = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
-void sub_1AE2D0150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_1AE2D0150(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
+  va_start(va, a26);
   _Block_object_dispose(&a15, 8);
-  _Block_object_dispose(&a27, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6142,50 +6074,50 @@ void __BRiWorkSharingGetBadgingSharingState_block_invoke(uint64_t a1, uint64_t a
 
 uint64_t BRiWorkSharingGetNeedsMigrateAtURL(void *a1, uint64_t (**a2)(uint64_t result, uint64_t a2))
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = v3;
   if (v3)
   {
-    v20 = 0;
-    v21 = &v20;
-    v22 = 0x2020000000;
-    v23 = 0;
-    *v32 = 0;
-    *&v32[8] = v32;
-    *&v32[16] = 0x3032000000;
-    v33 = __Block_byref_object_copy__3;
-    *&v34 = __Block_byref_object_dispose__3;
-    *(&v34 + 1) = 0;
+    v19 = 0;
+    v20 = &v19;
+    v21 = 0x2020000000;
+    v22 = 0;
+    *v31 = 0;
+    *&v31[8] = v31;
+    *&v31[16] = 0x3032000000;
+    v32 = __Block_byref_object_copy__3;
+    *&v33 = __Block_byref_object_dispose__3;
+    *(&v33 + 1) = 0;
     v5 = [v3 _br_itemServiceSyncProxy];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __BRiWorkSharingGetNeedsMigrateAtURL_block_invoke;
-    v19[3] = &unk_1E7A150F0;
-    v19[4] = &v20;
-    v19[5] = v32;
-    [v5 getiWorkNeedsShareMigrate:v19];
-    v6 = *(*&v32[8] + 40);
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __BRiWorkSharingGetNeedsMigrateAtURL_block_invoke;
+    v18[3] = &unk_1E7A150F0;
+    v18[4] = &v19;
+    v18[5] = v31;
+    [v5 getiWorkNeedsShareMigrate:v18];
+    v6 = *(*&v31[8] + 40);
     if (v6)
     {
       v7 = brc_bread_crumbs("BRiWorkSharingGetNeedsMigrateAtURL", 1289);
       v8 = brc_default_log(0, 0);
       if (os_log_type_enabled(v8, 0x90u))
       {
-        v17 = "(passed to caller)";
+        v16 = "(passed to caller)";
         *buf = 136315906;
-        v25 = "BRiWorkSharingGetNeedsMigrateAtURL";
-        v26 = 2080;
+        v24 = "BRiWorkSharingGetNeedsMigrateAtURL";
+        v25 = 2080;
         if (!a2)
         {
-          v17 = "(ignored by caller)";
+          v16 = "(ignored by caller)";
         }
 
-        v27 = v17;
-        v28 = 2112;
-        v29 = v6;
-        v30 = 2112;
-        v31 = v7;
+        v26 = v16;
+        v27 = 2112;
+        v28 = v6;
+        v29 = 2112;
+        v30 = v7;
         _os_log_error_impl(&dword_1AE2A9000, v8, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -6196,10 +6128,10 @@ uint64_t BRiWorkSharingGetNeedsMigrateAtURL(void *a1, uint64_t (**a2)(uint64_t r
       *a2 = v6;
     }
 
-    v10 = *(v21 + 24);
-    _Block_object_dispose(v32, 8);
+    v10 = *(v20 + 24);
+    _Block_object_dispose(v31, 8);
 
-    _Block_object_dispose(&v20, 8);
+    _Block_object_dispose(&v19, 8);
   }
 
   else
@@ -6211,21 +6143,21 @@ uint64_t BRiWorkSharingGetNeedsMigrateAtURL(void *a1, uint64_t (**a2)(uint64_t r
       v13 = brc_default_log(0, 0);
       if (os_log_type_enabled(v13, 0x90u))
       {
-        v18 = "(passed to caller)";
-        *v32 = 136315906;
-        *&v32[4] = "BRiWorkSharingGetNeedsMigrateAtURL";
-        *&v32[12] = 2080;
+        v17 = "(passed to caller)";
+        *v31 = 136315906;
+        *&v31[4] = "BRiWorkSharingGetNeedsMigrateAtURL";
+        *&v31[12] = 2080;
         if (!a2)
         {
-          v18 = "(ignored by caller)";
+          v17 = "(ignored by caller)";
         }
 
-        *&v32[14] = v18;
-        *&v32[22] = 2112;
-        v33 = v11;
-        LOWORD(v34) = 2112;
-        *(&v34 + 2) = v12;
-        _os_log_error_impl(&dword_1AE2A9000, v13, 0x90u, "[ERROR] %s: %s error: %@%@", v32, 0x2Au);
+        *&v31[14] = v17;
+        *&v31[22] = 2112;
+        v32 = v11;
+        LOWORD(v33) = 2112;
+        *(&v33 + 2) = v12;
+        _os_log_error_impl(&dword_1AE2A9000, v13, 0x90u, "[ERROR] %s: %s error: %@%@", v31, 0x2Au);
       }
     }
 
@@ -6238,24 +6170,23 @@ uint64_t BRiWorkSharingGetNeedsMigrateAtURL(void *a1, uint64_t (**a2)(uint64_t r
     v10 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v10 & 1;
 }
 
-void sub_1AE2D0534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE2D0534(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
   v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -6510,7 +6441,7 @@ void BRSharingCopyCurrentUserNameAndDisplayHandleForURL(void *a1, void *a2)
 
 id BRSharingCreateShareForItemAtURL(void *a1, BRShareCreateShareOperation **a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v3 = a1;
   if (v3)
   {
@@ -6518,52 +6449,52 @@ id BRSharingCreateShareForItemAtURL(void *a1, BRShareCreateShareOperation **a2)
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v37 = __Block_byref_object_copy__3;
-    *&v38 = __Block_byref_object_dispose__3;
-    *(&v38 + 1) = 0;
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__3;
-    v25 = __Block_byref_object_dispose__3;
-    v26 = 0;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __BRSharingCreateShareForItemAtURL_block_invoke;
-    v20[3] = &unk_1E7A15230;
-    v20[4] = buf;
-    v20[5] = &v21;
-    [(BRShareCreateShareOperation *)v4 setShareCreateCompletionBlock:v20];
+    v36 = __Block_byref_object_copy__3;
+    *&v37 = __Block_byref_object_dispose__3;
+    *(&v37 + 1) = 0;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__3;
+    v24 = __Block_byref_object_dispose__3;
+    v25 = 0;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __BRSharingCreateShareForItemAtURL_block_invoke;
+    v19[3] = &unk_1E7A15230;
+    v19[4] = buf;
+    v19[5] = &v20;
+    [(BRShareCreateShareOperation *)v4 setShareCreateCompletionBlock:v19];
     v5 = objc_opt_new();
-    v35 = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+    v34 = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
     [v5 addOperations:v6 waitUntilFinished:1];
 
     v7 = *(*&buf[8] + 40);
     if (!v7)
     {
-      v8 = v22[5];
+      v8 = v21[5];
       if (v8)
       {
         v9 = brc_bread_crumbs("BRSharingCreateShareForItemAtURL", 1393);
         v10 = brc_default_log(0, 0);
         if (os_log_type_enabled(v10, 0x90u))
         {
-          v19 = "(passed to caller)";
-          *v27 = 136315906;
-          v28 = "BRSharingCreateShareForItemAtURL";
-          v29 = 2080;
+          v18 = "(passed to caller)";
+          *v26 = 136315906;
+          v27 = "BRSharingCreateShareForItemAtURL";
+          v28 = 2080;
           if (!a2)
           {
-            v19 = "(ignored by caller)";
+            v18 = "(ignored by caller)";
           }
 
-          v30 = v19;
-          v31 = 2112;
-          v32 = v8;
-          v33 = 2112;
-          v34 = v9;
-          _os_log_error_impl(&dword_1AE2A9000, v10, 0x90u, "[ERROR] %s: %s error: %@%@", v27, 0x2Au);
+          v29 = v18;
+          v30 = 2112;
+          v31 = v8;
+          v32 = 2112;
+          v33 = v9;
+          _os_log_error_impl(&dword_1AE2A9000, v10, 0x90u, "[ERROR] %s: %s error: %@%@", v26, 0x2Au);
         }
       }
 
@@ -6578,7 +6509,7 @@ id BRSharingCreateShareForItemAtURL(void *a1, BRShareCreateShareOperation **a2)
 
     v12 = v7;
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
     _Block_object_dispose(buf, 8);
   }
 
@@ -6591,20 +6522,20 @@ id BRSharingCreateShareForItemAtURL(void *a1, BRShareCreateShareOperation **a2)
       v14 = brc_default_log(0, 0);
       if (os_log_type_enabled(v14, 0x90u))
       {
-        v18 = "(passed to caller)";
+        v17 = "(passed to caller)";
         *buf = 136315906;
         *&buf[4] = "BRSharingCreateShareForItemAtURL";
         *&buf[12] = 2080;
         if (!a2)
         {
-          v18 = "(ignored by caller)";
+          v17 = "(ignored by caller)";
         }
 
-        *&buf[14] = v18;
+        *&buf[14] = v17;
         *&buf[22] = 2112;
-        v37 = v4;
-        LOWORD(v38) = 2112;
-        *(&v38 + 2) = v13;
+        v36 = v4;
+        LOWORD(v37) = 2112;
+        *(&v37 + 2) = v13;
         _os_log_error_impl(&dword_1AE2A9000, v14, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -6622,16 +6553,14 @@ id BRSharingCreateShareForItemAtURL(void *a1, BRShareCreateShareOperation **a2)
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
-void sub_1AE2D14A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE2D14A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 144), 8);
+  _Block_object_dispose((v13 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6651,7 +6580,7 @@ void __BRSharingCreateShareForItemAtURL_block_invoke(uint64_t a1, void *a2, void
 
 id BRSharingCreateShareForItemWithIdentifier(void *a1, BRShareCreateShareOperation **a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v3 = a1;
   if (v3)
   {
@@ -6659,52 +6588,52 @@ id BRSharingCreateShareForItemWithIdentifier(void *a1, BRShareCreateShareOperati
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v37 = __Block_byref_object_copy__3;
-    *&v38 = __Block_byref_object_dispose__3;
-    *(&v38 + 1) = 0;
-    v21 = 0;
-    v22 = &v21;
-    v23 = 0x3032000000;
-    v24 = __Block_byref_object_copy__3;
-    v25 = __Block_byref_object_dispose__3;
-    v26 = 0;
-    v20[0] = MEMORY[0x1E69E9820];
-    v20[1] = 3221225472;
-    v20[2] = __BRSharingCreateShareForItemWithIdentifier_block_invoke;
-    v20[3] = &unk_1E7A15230;
-    v20[4] = buf;
-    v20[5] = &v21;
-    [(BRShareCreateShareOperation *)v4 setShareCreateCompletionBlock:v20];
+    v36 = __Block_byref_object_copy__3;
+    *&v37 = __Block_byref_object_dispose__3;
+    *(&v37 + 1) = 0;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3032000000;
+    v23 = __Block_byref_object_copy__3;
+    v24 = __Block_byref_object_dispose__3;
+    v25 = 0;
+    v19[0] = MEMORY[0x1E69E9820];
+    v19[1] = 3221225472;
+    v19[2] = __BRSharingCreateShareForItemWithIdentifier_block_invoke;
+    v19[3] = &unk_1E7A15230;
+    v19[4] = buf;
+    v19[5] = &v20;
+    [(BRShareCreateShareOperation *)v4 setShareCreateCompletionBlock:v19];
     v5 = objc_opt_new();
-    v35 = v4;
-    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+    v34 = v4;
+    v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
     [v5 addOperations:v6 waitUntilFinished:1];
 
     v7 = *(*&buf[8] + 40);
     if (!v7)
     {
-      v8 = v22[5];
+      v8 = v21[5];
       if (v8)
       {
         v9 = brc_bread_crumbs("BRSharingCreateShareForItemWithIdentifier", 1421);
         v10 = brc_default_log(0, 0);
         if (os_log_type_enabled(v10, 0x90u))
         {
-          v19 = "(passed to caller)";
-          *v27 = 136315906;
-          v28 = "BRSharingCreateShareForItemWithIdentifier";
-          v29 = 2080;
+          v18 = "(passed to caller)";
+          *v26 = 136315906;
+          v27 = "BRSharingCreateShareForItemWithIdentifier";
+          v28 = 2080;
           if (!a2)
           {
-            v19 = "(ignored by caller)";
+            v18 = "(ignored by caller)";
           }
 
-          v30 = v19;
-          v31 = 2112;
-          v32 = v8;
-          v33 = 2112;
-          v34 = v9;
-          _os_log_error_impl(&dword_1AE2A9000, v10, 0x90u, "[ERROR] %s: %s error: %@%@", v27, 0x2Au);
+          v29 = v18;
+          v30 = 2112;
+          v31 = v8;
+          v32 = 2112;
+          v33 = v9;
+          _os_log_error_impl(&dword_1AE2A9000, v10, 0x90u, "[ERROR] %s: %s error: %@%@", v26, 0x2Au);
         }
       }
 
@@ -6719,7 +6648,7 @@ id BRSharingCreateShareForItemWithIdentifier(void *a1, BRShareCreateShareOperati
 
     v12 = v7;
 
-    _Block_object_dispose(&v21, 8);
+    _Block_object_dispose(&v20, 8);
     _Block_object_dispose(buf, 8);
   }
 
@@ -6732,20 +6661,20 @@ id BRSharingCreateShareForItemWithIdentifier(void *a1, BRShareCreateShareOperati
       v14 = brc_default_log(0, 0);
       if (os_log_type_enabled(v14, 0x90u))
       {
-        v18 = "(passed to caller)";
+        v17 = "(passed to caller)";
         *buf = 136315906;
         *&buf[4] = "BRSharingCreateShareForItemWithIdentifier";
         *&buf[12] = 2080;
         if (!a2)
         {
-          v18 = "(ignored by caller)";
+          v17 = "(ignored by caller)";
         }
 
-        *&buf[14] = v18;
+        *&buf[14] = v17;
         *&buf[22] = 2112;
-        v37 = v4;
-        LOWORD(v38) = 2112;
-        *(&v38 + 2) = v13;
+        v36 = v4;
+        LOWORD(v37) = 2112;
+        *(&v37 + 2) = v13;
         _os_log_error_impl(&dword_1AE2A9000, v14, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -6763,16 +6692,14 @@ id BRSharingCreateShareForItemWithIdentifier(void *a1, BRShareCreateShareOperati
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
-void sub_1AE2D1940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AE2D1940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v7 - 144), 8);
+  _Block_object_dispose((v13 - 144), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6792,7 +6719,7 @@ void __BRSharingCreateShareForItemWithIdentifier_block_invoke(uint64_t a1, void 
 
 void BRSharingBulkCopyShareID(void *a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -6801,49 +6728,49 @@ void BRSharingBulkCopyShareID(void *a1, void *a2, void *a3)
   {
     if ([v5 count])
     {
-      v29[0] = 0;
-      v29[1] = v29;
-      v29[2] = 0x3032000000;
-      v29[3] = __Block_byref_object_copy__3;
-      v29[4] = __Block_byref_object_dispose__3;
-      v30 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v5, "count")}];
-      v27[0] = 0;
-      v27[1] = v27;
-      v27[2] = 0x3032000000;
-      v27[3] = __Block_byref_object_copy__3;
-      v27[4] = __Block_byref_object_dispose__3;
-      v28 = 0;
+      v28[0] = 0;
+      v28[1] = v28;
+      v28[2] = 0x3032000000;
+      v28[3] = __Block_byref_object_copy__3;
+      v28[4] = __Block_byref_object_dispose__3;
+      v29 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v5, "count")}];
+      v26[0] = 0;
+      v26[1] = v26;
+      v26[2] = 0x3032000000;
+      v26[3] = __Block_byref_object_copy__3;
+      v26[4] = __Block_byref_object_dispose__3;
+      v27 = 0;
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
       v25 = 0u;
-      v26 = 0u;
       obj = v5;
-      v9 = [obj countByEnumeratingWithState:&v23 objects:v34 count:16];
+      v9 = [obj countByEnumeratingWithState:&v22 objects:v33 count:16];
       if (v9)
       {
-        v10 = *v24;
+        v10 = *v23;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v24 != v10)
+            if (*v23 != v10)
             {
               objc_enumerationMutation(obj);
             }
 
-            v12 = *(*(&v23 + 1) + 8 * i);
+            v12 = *(*(&v22 + 1) + 8 * i);
             v13 = [v12 _br_itemServiceSyncProxy];
-            v22[0] = MEMORY[0x1E69E9820];
-            v22[1] = 3221225472;
-            v22[2] = __BRSharingBulkCopyShareID_block_invoke_2;
-            v22[3] = &unk_1E7A15258;
-            v22[4] = v12;
-            v22[5] = v27;
-            v22[6] = v29;
-            [v13 copyShareIDWithReply:v22];
+            v21[0] = MEMORY[0x1E69E9820];
+            v21[1] = 3221225472;
+            v21[2] = __BRSharingBulkCopyShareID_block_invoke_2;
+            v21[3] = &unk_1E7A15258;
+            v21[4] = v12;
+            v21[5] = v26;
+            v21[6] = v28;
+            [v13 copyShareIDWithReply:v21];
           }
 
-          v9 = [obj countByEnumeratingWithState:&v23 objects:v34 count:16];
+          v9 = [obj countByEnumeratingWithState:&v22 objects:v33 count:16];
         }
 
         while (v9);
@@ -6853,24 +6780,24 @@ void BRSharingBulkCopyShareID(void *a1, void *a2, void *a3)
       block[1] = 3221225472;
       block[2] = __BRSharingBulkCopyShareID_block_invoke_3;
       block[3] = &unk_1E7A15280;
-      v19 = v8;
-      v20 = v29;
-      v21 = v27;
+      v18 = v8;
+      v19 = v28;
+      v20 = v26;
       dispatch_async(v6, block);
 
-      _Block_object_dispose(v27, 8);
-      _Block_object_dispose(v29, 8);
+      _Block_object_dispose(v26, 8);
+      _Block_object_dispose(v28, 8);
     }
 
     else
     {
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __BRSharingBulkCopyShareID_block_invoke;
-      v31[3] = &unk_1E7A15078;
-      v33 = v8;
-      v32 = v5;
-      dispatch_async(v6, v31);
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __BRSharingBulkCopyShareID_block_invoke;
+      v30[3] = &unk_1E7A15078;
+      v32 = v8;
+      v31 = v5;
+      dispatch_async(v6, v30);
     }
   }
 
@@ -6883,14 +6810,13 @@ void BRSharingBulkCopyShareID(void *a1, void *a2, void *a3)
       BRSharingCopyCurrentUserIdentifier_cold_1();
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
-void sub_1AE2D1DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_1AE2D1DB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
 {
+  va_start(va, a40);
   _Block_object_dispose(&a35, 8);
-  _Block_object_dispose(&a41, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6936,7 +6862,7 @@ void BRDaemonConnectionInvalidate()
 
 uint64_t BRGetMigrationStatusForDSID(void *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = objc_autoreleasePoolPush();
   if (v1)
@@ -6950,9 +6876,9 @@ uint64_t BRGetMigrationStatusForDSID(void *a1)
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v13 = BRDefaultsDomain;
-        v14 = 2112;
-        v15 = v4;
+        v12 = BRDefaultsDomain;
+        v13 = 2112;
+        v14 = v4;
         _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEFAULT, "[WARNING] failed to synchronize user defaults for %@%@", buf, 0x16u);
       }
     }
@@ -6982,13 +6908,12 @@ uint64_t BRGetMigrationStatusForDSID(void *a1)
 
   objc_autoreleasePoolPop(v2);
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 uint64_t BRSetMigrationStatusForDSIDAndUpdateAccount(void *a1, uint64_t a2, uint64_t a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a1;
   if (BRGetMigrationStatusForDSID(v5) >= a2)
   {
@@ -6997,20 +6922,20 @@ uint64_t BRSetMigrationStatusForDSIDAndUpdateAccount(void *a1, uint64_t a2, uint
 
   else
   {
-    memset(v21, 0, sizeof(v21));
-    __brc_create_section(0, "BRSetMigrationStatusForDSIDAndUpdateAccount", 1556, 0, v21);
+    memset(v20, 0, sizeof(v20));
+    __brc_create_section(0, "BRSetMigrationStatusForDSIDAndUpdateAccount", 1556, 0, v20);
     v6 = brc_bread_crumbs("BRSetMigrationStatusForDSIDAndUpdateAccount", 1556);
     v7 = brc_default_log(1, 0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218754;
-      *v23 = v21[0];
-      *&v23[8] = 1024;
-      *&v23[10] = a2;
-      v24 = 2112;
-      v25 = v5;
-      v26 = 2112;
-      v27 = v6;
+      *v22 = v20[0];
+      *&v22[8] = 1024;
+      *&v22[10] = a2;
+      v23 = 2112;
+      v24 = v5;
+      v25 = 2112;
+      v26 = v6;
       _os_log_debug_impl(&dword_1AE2A9000, v7, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx setting migration status %d for %@%@", buf, 0x26u);
     }
 
@@ -7018,12 +6943,12 @@ uint64_t BRSetMigrationStatusForDSIDAndUpdateAccount(void *a1, uint64_t a2, uint
     v9 = [v8 newSyncProxy];
 
     objc_initWeak(&location, v9);
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __BRSetMigrationStatusForDSIDAndUpdateAccount_block_invoke;
-    v18[3] = &unk_1E7A148A8;
-    objc_copyWeak(&v19, &location);
-    [v9 setMigrationStatus:a2 forDSID:v5 shouldUpdateAccount:a3 reply:v18];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __BRSetMigrationStatusForDSIDAndUpdateAccount_block_invoke;
+    v17[3] = &unk_1E7A148A8;
+    objc_copyWeak(&v18, &location);
+    [v9 setMigrationStatus:a2 forDSID:v5 shouldUpdateAccount:a3 reply:v17];
     v10 = [v9 result];
     v11 = v10 == 0;
 
@@ -7033,15 +6958,15 @@ uint64_t BRSetMigrationStatusForDSIDAndUpdateAccount(void *a1, uint64_t a2, uint
       v14 = brc_default_log(0, 0);
       if (os_log_type_enabled(v14, 0x90u))
       {
-        v17 = [v9 error];
+        v16 = [v9 error];
         *buf = 67109890;
-        *v23 = a2;
-        *&v23[4] = 2112;
-        *&v23[6] = v5;
-        v24 = 2112;
-        v25 = v17;
-        v26 = 2112;
-        v27 = v13;
+        *v22 = a2;
+        *&v22[4] = 2112;
+        *&v22[6] = v5;
+        v23 = 2112;
+        v24 = v16;
+        v25 = 2112;
+        v26 = v13;
         _os_log_error_impl(&dword_1AE2A9000, v14, 0x90u, "[ERROR] can't set migration status %d for %@: %@%@", buf, 0x26u);
       }
 
@@ -7053,17 +6978,16 @@ uint64_t BRSetMigrationStatusForDSIDAndUpdateAccount(void *a1, uint64_t a2, uint
       v12 = 1;
     }
 
-    objc_destroyWeak(&v19);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
 
-    __brc_leave_section(v21);
+    __brc_leave_section(v20);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
-void sub_1AE2D23E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, char a16)
+void sub_1AE2D23E8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, id location, uint64_t a16)
 {
   objc_destroyWeak((v16 + 32));
   objc_destroyWeak(&location);
@@ -7080,20 +7004,20 @@ void __BRSetMigrationStatusForDSIDAndUpdateAccount_block_invoke(uint64_t a1, voi
 
 void BRUnsetMigrationStatusForDSIDInPref(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v1 = a1;
-  memset(v10, 0, sizeof(v10));
-  __brc_create_section(0, "BRUnsetMigrationStatusForDSIDInPref", 1573, 0, v10);
+  memset(v9, 0, sizeof(v9));
+  __brc_create_section(0, "BRUnsetMigrationStatusForDSIDInPref", 1573, 0, v9);
   v2 = brc_bread_crumbs("BRUnsetMigrationStatusForDSIDInPref", 1573);
   v3 = brc_default_log(1, 0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218498;
-    v12 = v10[0];
-    v13 = 2112;
-    v14 = v1;
-    v15 = 2112;
-    v16 = v2;
+    v11 = v9[0];
+    v12 = 2112;
+    v13 = v1;
+    v14 = 2112;
+    v15 = v2;
     _os_log_debug_impl(&dword_1AE2A9000, v3, OS_LOG_TYPE_DEBUG, "[DEBUG] ┏%llx deleting migration status for dsid %@%@", buf, 0x20u);
   }
 
@@ -7104,9 +7028,9 @@ void BRUnsetMigrationStatusForDSIDInPref(void *a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v12 = v1;
-      v13 = 2112;
-      v14 = v4;
+      v11 = v1;
+      v12 = 2112;
+      v13 = v4;
       _os_log_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_DEFAULT, "[NOTICE] removing migration status for %@%@", buf, 0x16u);
     }
 
@@ -7119,29 +7043,27 @@ void BRUnsetMigrationStatusForDSIDInPref(void *a1)
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v12 = BRDefaultsDomain;
-        v13 = 2112;
-        v14 = v7;
+        v11 = BRDefaultsDomain;
+        v12 = 2112;
+        v13 = v7;
         _os_log_impl(&dword_1AE2A9000, v8, OS_LOG_TYPE_DEFAULT, "[WARNING] failed to delete user defaults for %@%@", buf, 0x16u);
       }
     }
   }
 
-  __brc_leave_section(v10);
-
-  v9 = *MEMORY[0x1E69E9840];
+  __brc_leave_section(v9);
 }
 
-void sub_1AE2D2704(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AE2D2704(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __brc_leave_section(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t BRSetMigrationStatusForDSIDInPref(void *a1, int a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = v3;
   if (a2 == 1)
@@ -7179,11 +7101,11 @@ uint64_t BRSetMigrationStatusForDSIDInPref(void *a1, int a2)
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
       {
         *buf = 67109634;
-        *v22 = a2;
-        *&v22[4] = 2112;
-        *&v22[6] = v4;
-        *&v22[14] = 2112;
-        *&v22[16] = v13;
+        *v21 = a2;
+        *&v21[4] = 2112;
+        *&v21[6] = v4;
+        *&v21[14] = 2112;
+        *&v21[16] = v13;
         _os_log_debug_impl(&dword_1AE2A9000, v14, OS_LOG_TYPE_DEBUG, "[DEBUG] not setting status to %d for %@ because that's the current value of the default%@", buf, 0x1Cu);
       }
     }
@@ -7192,21 +7114,21 @@ uint64_t BRSetMigrationStatusForDSIDInPref(void *a1, int a2)
     {
       if (v12 <= a2)
       {
-        v18 = brc_bread_crumbs("BRSetMigrationStatusForDSIDInPref", 1614);
-        v19 = brc_default_log(1, 0);
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        v17 = brc_bread_crumbs("BRSetMigrationStatusForDSIDInPref", 1614);
+        v18 = brc_default_log(1, 0);
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412802;
-          *v22 = v4;
-          *&v22[8] = 1024;
-          *&v22[10] = a2;
-          *&v22[14] = 2112;
-          *&v22[16] = v18;
-          _os_log_impl(&dword_1AE2A9000, v19, OS_LOG_TYPE_DEFAULT, "[NOTICE] migration update for %@; status is now %d%@", buf, 0x1Cu);
+          *v21 = v4;
+          *&v21[8] = 1024;
+          *&v21[10] = a2;
+          *&v21[14] = 2112;
+          *&v21[16] = v17;
+          _os_log_impl(&dword_1AE2A9000, v18, OS_LOG_TYPE_DEFAULT, "[NOTICE] migration update for %@; status is now %d%@", buf, 0x1Cu);
         }
 
-        v20 = [v4 description];
-        syslog(5, "migration update for %s; status is now %d", [v20 UTF8String], a2);
+        v19 = [v4 description];
+        syslog(5, "migration update for %s; status is now %d", [v19 UTF8String], a2);
 
         CFPreferencesSetAppValue(v9, v11, BRDefaultsDomain);
         if (CFPreferencesAppSynchronize(BRDefaultsDomain))
@@ -7221,9 +7143,9 @@ uint64_t BRSetMigrationStatusForDSIDInPref(void *a1, int a2)
         if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          *v22 = BRDefaultsDomain;
-          *&v22[8] = 2112;
-          *&v22[10] = v13;
+          *v21 = BRDefaultsDomain;
+          *&v21[8] = 2112;
+          *&v21[10] = v13;
           _os_log_impl(&dword_1AE2A9000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] failed to synchronize user defaults for %@%@", buf, 0x16u);
         }
 
@@ -7240,13 +7162,13 @@ LABEL_18:
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 67109890;
-        *v22 = a2;
-        *&v22[4] = 2112;
-        *&v22[6] = v4;
-        *&v22[14] = 1024;
-        *&v22[16] = v15;
-        *&v22[20] = 2112;
-        *&v22[22] = v13;
+        *v21 = a2;
+        *&v21[4] = 2112;
+        *&v21[6] = v4;
+        *&v21[14] = 1024;
+        *&v21[16] = v15;
+        *&v21[20] = 2112;
+        *&v21[22] = v13;
         _os_log_impl(&dword_1AE2A9000, v14, OS_LOG_TYPE_DEFAULT, "[WARNING] not setting status to %d for %@, because it's going backward (old:%d)%@", buf, 0x22u);
       }
     }
@@ -7260,31 +7182,30 @@ LABEL_5:
   v7 = 0;
 LABEL_19:
 
-  v16 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 id BRPrimaryiCloudAccountCopyStatus(void *a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  memset(v21, 0, sizeof(v21));
-  __brc_create_section(0, "BRPrimaryiCloudAccountCopyStatus", 1638, 0, v21);
+  v22 = *MEMORY[0x1E69E9840];
+  memset(v20, 0, sizeof(v20));
+  __brc_create_section(0, "BRPrimaryiCloudAccountCopyStatus", 1638, 0, v20);
   v2 = brc_bread_crumbs("BRPrimaryiCloudAccountCopyStatus", 1638);
   v3 = brc_default_log(1, 0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    BRPrimaryiCloudAccountCopyStatus_cold_1(v21);
+    BRPrimaryiCloudAccountCopyStatus_cold_1();
   }
 
   v4 = [[BRDaemonConnection alloc] initUsingUserLocalDaemonTokenService];
   v5 = [v4 newSyncTokenProxy];
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __BRPrimaryiCloudAccountCopyStatus_block_invoke;
-  v19 = &unk_1E7A152E8;
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __BRPrimaryiCloudAccountCopyStatus_block_invoke;
+  v18 = &unk_1E7A152E8;
   v6 = v5;
-  v20 = v6;
-  [v6 getPrimaryiCloudAccountStatus:&v16];
+  v19 = v6;
+  [v6 getPrimaryiCloudAccountStatus:&v15];
   v7 = [v6 result];
   v8 = brc_bread_crumbs("BRPrimaryiCloudAccountCopyStatus", 1646);
   v9 = brc_default_log(1, 0);
@@ -7313,33 +7234,32 @@ id BRPrimaryiCloudAccountCopyStatus(void *a1)
 
   [v4 invalidate];
 
-  __brc_leave_section(v21);
-  v14 = *MEMORY[0x1E69E9840];
+  __brc_leave_section(v20);
 
   return v7;
 }
 
-void sub_1AE2D2D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1AE2D2D98(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   __brc_leave_section(va);
   _Unwind_Resume(a1);
 }
 
 id BRGetCKRecordIDsForFPItems(void *a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v3 = [a1 br_transform:&__block_literal_global_132];
   v4 = +[BRDaemonConnection secondaryConnection];
   v5 = [v4 newFPFSSyncProxy];
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __BRGetCKRecordIDsForFPItems_block_invoke_2;
-  v15[3] = &unk_1E7A152E8;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __BRGetCKRecordIDsForFPItems_block_invoke_2;
+  v14[3] = &unk_1E7A152E8;
   v6 = v5;
-  v16 = v6;
-  [v6 getCKRecordIDsForFPItems:v3 reply:v15];
+  v15 = v6;
+  [v6 getCKRecordIDsForFPItems:v3 reply:v14];
   v7 = [v6 error];
   if (v7)
   {
@@ -7347,20 +7267,20 @@ id BRGetCKRecordIDsForFPItems(void *a1, void *a2)
     v9 = brc_default_log(0, 0);
     if (os_log_type_enabled(v9, 0x90u))
     {
-      v14 = "(passed to caller)";
+      v13 = "(passed to caller)";
       *buf = 136315906;
-      v18 = "BRGetCKRecordIDsForFPItems";
-      v19 = 2080;
+      v17 = "BRGetCKRecordIDsForFPItems";
+      v18 = 2080;
       if (!a2)
       {
-        v14 = "(ignored by caller)";
+        v13 = "(ignored by caller)";
       }
 
-      v20 = v14;
-      v21 = 2112;
-      v22 = v7;
-      v23 = 2112;
-      v24 = v8;
+      v19 = v13;
+      v20 = 2112;
+      v21 = v7;
+      v22 = 2112;
+      v23 = v8;
       _os_log_error_impl(&dword_1AE2A9000, v9, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -7372,8 +7292,6 @@ id BRGetCKRecordIDsForFPItems(void *a1, void *a2)
   }
 
   v11 = [v6 result];
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -7392,20 +7310,20 @@ id __BRGetCKRecordIDsForFPItems_block_invoke(uint64_t a1, void *a2)
 
 uint64_t BRGetCloudEnabledStatusForAuditToken(_OWORD *a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v4 = +[BRDaemonConnection secondaryConnection];
   v5 = [v4 newSyncProxy];
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __BRGetCloudEnabledStatusForAuditToken_block_invoke;
-  v17[3] = &unk_1E7A15330;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __BRGetCloudEnabledStatusForAuditToken_block_invoke;
+  v16[3] = &unk_1E7A15330;
   v6 = v5;
-  v18 = v6;
+  v17 = v6;
   v7 = a1[1];
   *buf = *a1;
   *&buf[16] = v7;
-  [v6 getApplicationStatusForProcess:buf reply:v17];
+  [v6 getApplicationStatusForProcess:buf reply:v16];
   v8 = [v6 result];
   v9 = [v6 error];
   if (v9)
@@ -7414,20 +7332,20 @@ uint64_t BRGetCloudEnabledStatusForAuditToken(_OWORD *a1, void *a2)
     v11 = brc_default_log(0, 0);
     if (os_log_type_enabled(v11, 0x90u))
     {
-      v16 = "(passed to caller)";
+      v15 = "(passed to caller)";
       *buf = 136315906;
       *&buf[4] = "BRGetCloudEnabledStatusForAuditToken";
       *&buf[12] = 2080;
       if (!a2)
       {
-        v16 = "(ignored by caller)";
+        v15 = "(ignored by caller)";
       }
 
-      *&buf[14] = v16;
+      *&buf[14] = v15;
       *&buf[22] = 2112;
       *&buf[24] = v9;
-      v20 = 2112;
-      v21 = v10;
+      v19 = 2112;
+      v20 = v10;
       _os_log_error_impl(&dword_1AE2A9000, v11, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -7439,7 +7357,6 @@ uint64_t BRGetCloudEnabledStatusForAuditToken(_OWORD *a1, void *a2)
   }
 
   v13 = [v8 charValue];
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -7454,17 +7371,17 @@ void __BRGetCloudEnabledStatusForAuditToken_block_invoke(uint64_t a1, uint64_t a
 
 uint64_t BRGetCloudEnabledStatus(void *a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = +[BRDaemonConnection secondaryConnection];
   v3 = [v2 newSyncProxy];
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __BRGetCloudEnabledStatus_block_invoke;
-  v14[3] = &unk_1E7A15330;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __BRGetCloudEnabledStatus_block_invoke;
+  v13[3] = &unk_1E7A15330;
   v4 = v3;
-  v15 = v4;
-  [v4 getApplicationStatus:v14];
+  v14 = v4;
+  [v4 getApplicationStatus:v13];
   v5 = [v4 result];
   v6 = [v4 error];
   if (v6)
@@ -7473,20 +7390,20 @@ uint64_t BRGetCloudEnabledStatus(void *a1)
     v8 = brc_default_log(0, 0);
     if (os_log_type_enabled(v8, 0x90u))
     {
-      v13 = "(passed to caller)";
+      v12 = "(passed to caller)";
       *buf = 136315906;
-      v17 = "BRGetCloudEnabledStatus";
-      v18 = 2080;
+      v16 = "BRGetCloudEnabledStatus";
+      v17 = 2080;
       if (!a1)
       {
-        v13 = "(ignored by caller)";
+        v12 = "(ignored by caller)";
       }
 
-      v19 = v13;
-      v20 = 2112;
-      v21 = v6;
-      v22 = 2112;
-      v23 = v7;
+      v18 = v12;
+      v19 = 2112;
+      v20 = v6;
+      v21 = 2112;
+      v22 = v7;
       _os_log_error_impl(&dword_1AE2A9000, v8, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -7498,7 +7415,6 @@ uint64_t BRGetCloudEnabledStatus(void *a1)
   }
 
   v10 = [v5 charValue];
-  v11 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -7519,7 +7435,7 @@ uint64_t BRCloudDocsCanBeEnabledForCurrentUser()
   v1 = brc_default_log(1, 0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    BRCloudDocsCanBeEnabledForCurrentUser_cold_1(v4);
+    BRCloudDocsCanBeEnabledForCurrentUser_cold_1();
   }
 
   if (BRCloudDocsCanBeEnabledForCurrentUser_onceToken != -1)
@@ -7532,16 +7448,16 @@ uint64_t BRCloudDocsCanBeEnabledForCurrentUser()
   return v2;
 }
 
-void sub_1AE2D3654(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AE2D3654(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __brc_leave_section(va);
   _Unwind_Resume(a1);
 }
 
 void __BRCloudDocsCanBeEnabledForCurrentUser_block_invoke()
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v0 = +[BRSpecialFolders homeDirForCurrentPersona];
   v1 = v0;
   if (v0)
@@ -7579,24 +7495,24 @@ void __BRCloudDocsCanBeEnabledForCurrentUser_block_invoke()
 
   v8 = *MEMORY[0x1E695DEB0];
   v9 = [MEMORY[0x1E695DF70] arrayWithObject:*MEMORY[0x1E695DEB0]];
-  v28 = 0;
-  v10 = [v5 resourceValuesForKeys:v9 error:&v28];
-  v11 = v28;
+  v27 = 0;
+  v10 = [v5 resourceValuesForKeys:v9 error:&v27];
+  v11 = v27;
   if (!v10)
   {
     v10 = brc_bread_crumbs("BRCloudDocsCanBeEnabledStateForURL", 1738);
     v18 = brc_default_log(0, 0);
     if (os_log_type_enabled(v18, 0x90u))
     {
-      v24 = [v5 path];
+      v23 = [v5 path];
       *buf = 138413058;
-      v30 = v24;
-      v31 = 2112;
-      v32 = v9;
-      v33 = 2112;
-      v34 = v11;
-      v35 = 2112;
-      v36 = v10;
+      v29 = v23;
+      v30 = 2112;
+      v31 = v9;
+      v32 = 2112;
+      v33 = v11;
+      v34 = 2112;
+      v35 = v10;
       _os_log_error_impl(&dword_1AE2A9000, v18, 0x90u, "[ERROR] failed to get %@ resource values for keys %@: %@%@", buf, 0x2Au);
     }
 
@@ -7613,12 +7529,12 @@ LABEL_20:
     __BRCloudDocsCanBeEnabledForCurrentUser_block_invoke_cold_2();
   }
 
-  v27 = 0;
-  v13 = *MEMORY[0x1E695DDA8];
   v26 = 0;
-  v14 = [v12 getResourceValue:&v27 forKey:v13 error:&v26];
-  v15 = v27;
-  v16 = v26;
+  v13 = *MEMORY[0x1E695DDA8];
+  v25 = 0;
+  v14 = [v12 getResourceValue:&v26 forKey:v13 error:&v25];
+  v15 = v26;
+  v16 = v25;
 
   if (v14)
   {
@@ -7639,13 +7555,13 @@ LABEL_20:
     v20 = brc_default_log(0, 0);
     if (os_log_type_enabled(v20, 0x90u))
     {
-      v25 = [v12 path];
+      v24 = [v12 path];
       *buf = 138412802;
-      v30 = v25;
-      v31 = 2112;
-      v32 = v16;
-      v33 = 2112;
-      v34 = v19;
+      v29 = v24;
+      v30 = 2112;
+      v31 = v16;
+      v32 = 2112;
+      v33 = v19;
       _os_log_error_impl(&dword_1AE2A9000, v20, 0x90u, "[ERROR] can't find if volume %@ is local: %@%@", buf, 0x20u);
     }
 
@@ -7663,7 +7579,6 @@ LABEL_25:
   }
 
   BRCloudDocsCanBeEnabledForCurrentUser_canBeEnabled = v17;
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t BRHandoffDidReceiveApplicationContinuity(void *a1, void *a2)
@@ -7716,10 +7631,10 @@ id BRLoggedInUserAccountProperties(void *a1, void *a2)
 
 BOOL BRCopyLoggedInUserFirstAndLastName(void *a1, void *a2, void *a3)
 {
-  v10[2] = *MEMORY[0x1E69E9840];
-  v10[0] = @"BRLoggedInUserFirstNameKey";
-  v10[1] = @"BRLoggedInUserLastNameKey";
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:2];
+  v9[2] = *MEMORY[0x1E69E9840];
+  v9[0] = @"BRLoggedInUserFirstNameKey";
+  v9[1] = @"BRLoggedInUserLastNameKey";
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:2];
   v7 = BRLoggedInUserAccountProperties(v6, a3);
 
   if (a1)
@@ -7732,15 +7647,14 @@ BOOL BRCopyLoggedInUserFirstAndLastName(void *a1, void *a2, void *a3)
     *a2 = [v7 objectForKeyedSubscript:@"BRLoggedInUserLastNameKey"];
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7 != 0;
 }
 
 BOOL BRLoggedInUserHasManagedAppleID(_BYTE *a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
-  v9[0] = @"BRLoggedInUserHasManagedAppleIDKey";
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v9 count:1];
+  v8[1] = *MEMORY[0x1E69E9840];
+  v8[0] = @"BRLoggedInUserHasManagedAppleIDKey";
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:1];
   v5 = BRLoggedInUserAccountProperties(v4, a2);
 
   if (a1)
@@ -7749,23 +7663,22 @@ BOOL BRLoggedInUserHasManagedAppleID(_BYTE *a1, void *a2)
     *a1 = [v6 BOOLValue];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v5 != 0;
 }
 
 id BRGetLastSyncDateWithError(void *a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = +[BRDaemonConnection secondaryConnection];
   v3 = [v2 newSyncProxy];
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __BRGetLastSyncDateWithError_block_invoke;
-  v13[3] = &unk_1E7A15358;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __BRGetLastSyncDateWithError_block_invoke;
+  v12[3] = &unk_1E7A15358;
   v4 = v3;
-  v14 = v4;
-  [v4 getLastSyncDateWithReply:v13];
+  v13 = v4;
+  [v4 getLastSyncDateWithReply:v12];
   v5 = [v4 result];
   v6 = [v4 error];
   if (v6)
@@ -7774,20 +7687,20 @@ id BRGetLastSyncDateWithError(void *a1)
     v8 = brc_default_log(0, 0);
     if (os_log_type_enabled(v8, 0x90u))
     {
-      v12 = "(passed to caller)";
+      v11 = "(passed to caller)";
       *buf = 136315906;
-      v16 = "BRGetLastSyncDateWithError";
-      v17 = 2080;
+      v15 = "BRGetLastSyncDateWithError";
+      v16 = 2080;
       if (!a1)
       {
-        v12 = "(ignored by caller)";
+        v11 = "(ignored by caller)";
       }
 
-      v18 = v12;
-      v19 = 2112;
-      v20 = v6;
-      v21 = 2112;
-      v22 = v7;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v6;
+      v20 = 2112;
+      v21 = v7;
       _os_log_error_impl(&dword_1AE2A9000, v8, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -7798,24 +7711,22 @@ id BRGetLastSyncDateWithError(void *a1)
     *a1 = v6;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 id BRGetLocalizedLastSyncWithError(void *a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = +[BRDaemonConnection secondaryConnection];
   v3 = [v2 newSyncProxy];
 
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __BRGetLocalizedLastSyncWithError_block_invoke;
-  v13[3] = &unk_1E7A14CF8;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __BRGetLocalizedLastSyncWithError_block_invoke;
+  v12[3] = &unk_1E7A14CF8;
   v4 = v3;
-  v14 = v4;
-  [v4 getLocalizedLastSyncWithReply:v13];
+  v13 = v4;
+  [v4 getLocalizedLastSyncWithReply:v12];
   v5 = [v4 result];
   v6 = [v4 error];
   if (v6)
@@ -7824,20 +7735,20 @@ id BRGetLocalizedLastSyncWithError(void *a1)
     v8 = brc_default_log(0, 0);
     if (os_log_type_enabled(v8, 0x90u))
     {
-      v12 = "(passed to caller)";
+      v11 = "(passed to caller)";
       *buf = 136315906;
-      v16 = "BRGetLocalizedLastSyncWithError";
-      v17 = 2080;
+      v15 = "BRGetLocalizedLastSyncWithError";
+      v16 = 2080;
       if (!a1)
       {
-        v12 = "(ignored by caller)";
+        v11 = "(ignored by caller)";
       }
 
-      v18 = v12;
-      v19 = 2112;
-      v20 = v6;
-      v21 = 2112;
-      v22 = v7;
+      v17 = v11;
+      v18 = 2112;
+      v19 = v6;
+      v20 = 2112;
+      v21 = v7;
       _os_log_error_impl(&dword_1AE2A9000, v8, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -7848,21 +7759,19 @@ id BRGetLocalizedLastSyncWithError(void *a1)
     *a1 = v6;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
-id getSharingServiceInterface()
+id getSharingServiceInterface(uint64_t a1)
 {
   if (getSharingServiceInterface_onceToken != -1)
   {
     getSharingServiceInterface_cold_1();
   }
 
-  v1 = getSharingServiceInterface_interface;
+  v2 = getSharingServiceInterface_interface;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __getSharingServiceInterface_block_invoke()
@@ -7924,7 +7833,7 @@ uint64_t BROverrideUploadOnCellularConstraints(void *a1)
 
 void __br_notify_register_dispatch_block_invoke_1(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (([*(a1 + 32) isEqualToString:@"__defaultPersonaID__"] & 1) != 0 || (v2 = *(a1 + 32)) == 0)
   {
     if (ICDErrorRetryAfterKey_block_invoke___personaOnceToken != -1)
@@ -7945,7 +7854,7 @@ void __br_notify_register_dispatch_block_invoke_1(uint64_t a1)
   v5 = [MEMORY[0x1E69DF068] sharedManager];
   v6 = [v5 currentPersona];
 
-  v28 = 0;
+  v27 = 0;
   v7 = [v6 userPersonaUniqueString];
   v8 = v7;
   if (v7 == v3 || ([v7 isEqualToString:v3] & 1) != 0)
@@ -7957,9 +7866,9 @@ void __br_notify_register_dispatch_block_invoke_1(uint64_t a1)
   {
     if (v4 && ([v6 isDataSeparatedPersona] & 1) == 0)
     {
-      v22 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
-      v23 = brc_default_log(1, 0);
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v21 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
+      v22 = brc_default_log(1, 0);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
         [BRAccount containerWithPendingChanges];
       }
@@ -7967,15 +7876,15 @@ void __br_notify_register_dispatch_block_invoke_1(uint64_t a1)
 
     else
     {
-      v18 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
-      v19 = brc_default_log(1, 0);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v17 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
+      v18 = brc_default_log(1, 0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
         [BRAccount containerWithPendingChanges];
       }
 
-      v15 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-      if (v15)
+      v14 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+      if (v14)
       {
         goto LABEL_25;
       }
@@ -7986,68 +7895,66 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v27 = 0;
-  v10 = [v6 copyCurrentPersonaContextWithError:&v27];
+  v26 = 0;
+  v9 = [v6 copyCurrentPersonaContextWithError:&v26];
+  v10 = v26;
   v11 = v27;
-  v12 = v28;
-  v28 = v10;
+  v27 = v9;
 
-  if (v11)
+  if (v10)
   {
-    v13 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
-    v14 = brc_default_log(0, 0);
-    if (os_log_type_enabled(v14, 0x90u))
+    v12 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
+    v13 = brc_default_log(0, 0);
+    if (os_log_type_enabled(v13, 0x90u))
     {
       __br_notify_register_dispatch_block_invoke_cold_4_0();
     }
   }
 
-  v15 = [v6 br_generateAndRestorePersonaContextWithPersonaUniqueString:v3];
+  v14 = [v6 br_generateAndRestorePersonaContextWithPersonaUniqueString:v3];
 
-  if (!v15)
+  if (!v14)
   {
     goto LABEL_9;
   }
 
-  v16 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
-  v17 = brc_default_log(0, 0);
-  if (os_log_type_enabled(v17, 0x90u))
+  v15 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
+  v16 = brc_default_log(0, 0);
+  if (os_log_type_enabled(v16, 0x90u))
   {
-    v26 = *(a1 + 32);
+    v25 = *(a1 + 32);
     *buf = 138412802;
-    v30 = v26;
-    v31 = 2112;
-    v32 = v15;
-    v33 = 2112;
-    v34 = v16;
-    _os_log_error_impl(&dword_1AE2A9000, v17, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+    v29 = v25;
+    v30 = 2112;
+    v31 = v14;
+    v32 = 2112;
+    v33 = v15;
+    _os_log_error_impl(&dword_1AE2A9000, v16, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
   }
 
 LABEL_25:
-  v20 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 112);
-  v21 = brc_default_log(0, 0);
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+  v19 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 112);
+  v20 = brc_default_log(0, 0);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
   {
-    v24 = *(a1 + 48);
-    v25 = [v15 localizedDescription];
+    v23 = *(a1 + 48);
+    v24 = [v14 localizedDescription];
     *buf = 136315650;
-    v30 = v24;
-    v31 = 2112;
-    v32 = v25;
-    v33 = 2112;
-    v34 = v20;
-    _os_log_fault_impl(&dword_1AE2A9000, v21, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed to adopt persona for notification %s due to %@%@", buf, 0x20u);
+    v29 = v23;
+    v30 = 2112;
+    v31 = v24;
+    v32 = 2112;
+    v33 = v19;
+    _os_log_fault_impl(&dword_1AE2A9000, v20, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed to adopt persona for notification %s due to %@%@", buf, 0x20u);
   }
 
 LABEL_10:
-  _BRRestorePersona(&v28);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _BRRestorePersona(&v27);
 }
 
-void sub_1AE2D4A78(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AE2D4A78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _BRRestorePersona(va);
   _Unwind_Resume(a1);
 }
@@ -8058,13 +7965,6 @@ void __br_notify_register_dispatch_block_invoke_2_1()
   v0 = [v2 userPersonaUniqueString];
   v1 = ICDErrorRetryAfterKey_block_invoke___personalPersona;
   ICDErrorRetryAfterKey_block_invoke___personalPersona = v0;
-}
-
-uint64_t *OUTLINED_FUNCTION_8_0@<X0>(uint64_t *result@<X0>, uint64_t a2@<X8>)
-{
-  *(v2 - 8) = a2;
-  v3 = *result;
-  return result;
 }
 
 id brc_trace_log()
@@ -8144,7 +8044,7 @@ uint64_t __brc_notifications_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t _brc_log_is_internal_install()
+uint64_t _brc_log_is_internal_install(uint64_t a1, uint64_t a2)
 {
   if (_brc_log_is_internal_install_once != -1)
   {
@@ -8240,7 +8140,7 @@ uint64_t __brc_signpost_log_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-uint64_t _brc_create_simulate_crash_message()
+uint64_t _brc_create_simulate_crash_message(uint64_t a1, uint64_t a2)
 {
   if (_brc_log_is_internal_install_once != -1)
   {
@@ -8252,7 +8152,7 @@ uint64_t _brc_create_simulate_crash_message()
 
 void _brc_assert_failure(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v9 = MEMORY[0x1EEE9AC00]();
+  v9 = MEMORY[0x1EEE9AC00](a1, a2, a3, a4, a5, a6, a7, a8);
   v11 = v10;
   v13 = v12;
   v15 = v14;
@@ -8261,7 +8161,7 @@ void _brc_assert_failure(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   v18 = v17;
   signal(6, 0);
   v19 = objc_autoreleasePoolPush();
-  brc_backtrace_detailed_snprint(v31, 0x2000, 3);
+  brc_backtrace_detailed_snprint(v31, 0x2000uLL);
   v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:v18 arguments:&a9];
   v21 = brc_bread_crumbs(v15, v11);
   v22 = brc_default_log(0, 0);
@@ -8283,7 +8183,7 @@ void _brc_assert_failure(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
 
 void abc_report_assert_with_signature(uint64_t a1, void *a2)
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (a1)
   {
@@ -8305,7 +8205,7 @@ void abc_report_assert_with_signature(uint64_t a1, void *a2)
     atomic_store(v4, a1);
   }
 
-  v6 = signature_from_format_and_subtype(v3);
+  v13 = signature_from_format_and_subtype(v3);
   if (_brc_log_is_internal_install_once != -1)
   {
     _brc_log_is_internal_install_cold_1();
@@ -8318,20 +8218,20 @@ void abc_report_assert_with_signature(uint64_t a1, void *a2)
 
   else
   {
-    brc_backtrace_non_detailed_but_fast();
+    brc_backtrace_non_detailed_but_fast(3, v6, v7, v8, v9, v10, v11, v12);
   }
-  v7 = ;
-  v8 = get_sd_reporter();
-  v14 = @"backtrace";
-  v15[0] = v7;
-  v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
-  v10 = [v8 snapshotWithSignature:v6 duration:v9 event:0 payload:&__block_literal_global_41 reply:15.0];
+  v14 = ;
+  v15 = get_sd_reporter(v14);
+  v20 = @"backtrace";
+  v21[0] = v14;
+  v16 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+  v17 = [v15 snapshotWithSignature:v13 duration:v16 event:0 payload:&__block_literal_global_41 reply:15.0];
 
-  if (v10)
+  if (v17)
   {
-    v11 = brc_bread_crumbs("abc_report_assert_with_signature", 266);
-    v12 = brc_default_log(1, 0);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v18 = brc_bread_crumbs("abc_report_assert_with_signature", 266);
+    v19 = brc_default_log(1, 0);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       abc_report_assert_with_signature_cold_3();
     }
@@ -8339,48 +8239,48 @@ void abc_report_assert_with_signature(uint64_t a1, void *a2)
 
   else
   {
-    v11 = brc_bread_crumbs("abc_report_assert_with_signature", 264);
-    v12 = brc_default_log(0, 0);
-    if (os_log_type_enabled(v12, 0x90u))
+    v18 = brc_bread_crumbs("abc_report_assert_with_signature", 264);
+    v19 = brc_default_log(0, 0);
+    if (os_log_type_enabled(v19, 0x90u))
     {
       abc_report_assert_with_signature_cold_2();
     }
   }
 
 LABEL_17:
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 id signature_from_format_and_subtype(void *a1)
 {
   v1 = a1;
-  if ([v1 length] >= 0x65)
+  v2 = [v1 length];
+  if (v2 >= 0x65)
   {
-    v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@":0x%lx", objc_msgSend(v1, "hash")];
-    v3 = [v1 substringToIndex:{100 - objc_msgSend(v2, "length")}];
-    v4 = [v3 stringByAppendingString:v2];
+    v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@":0x%lx", objc_msgSend(v1, "hash")];
+    v4 = [v1 substringToIndex:{100 - objc_msgSend(v3, "length")}];
+    v5 = [v4 stringByAppendingString:v3];
 
-    v1 = v4;
+    v1 = v5;
   }
 
-  v5 = get_sd_reporter();
-  v6 = [v5 signatureWithDomain:@"Application" type:@"Functional" subType:@"AssertionFailed" detectedProcess:@"bird" triggerThresholdValues:0];
+  v6 = get_sd_reporter(v2);
+  v7 = [v6 signatureWithDomain:@"Application" type:@"Functional" subType:@"AssertionFailed" detectedProcess:@"bird" triggerThresholdValues:0];
 
-  [v6 setObject:v1 forKeyedSubscript:*MEMORY[0x1E69D50E8]];
+  [v7 setObject:v1 forKeyedSubscript:*MEMORY[0x1E69D50E8]];
 
-  return v6;
+  return v7;
 }
 
-id get_sd_reporter()
+id get_sd_reporter(uint64_t a1)
 {
   if (get_sd_reporter_onceToken != -1)
   {
     get_sd_reporter_cold_1();
   }
 
-  v1 = get_sd_reporter__diagnosticReporter;
+  v2 = get_sd_reporter__diagnosticReporter;
 
-  return v1;
+  return v2;
 }
 
 void __abc_report_assert_with_signature_block_invoke(uint64_t a1, void *a2)
@@ -8396,14 +8296,14 @@ void __abc_report_assert_with_signature_block_invoke(uint64_t a1, void *a2)
 
 void abc_report_panic_with_signature(void *a1)
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   v1 = a1;
   v2 = signature_from_format_and_subtype(v1);
   v3 = brc_backtrace();
-  v4 = get_sd_reporter();
-  v10 = @"backtrace";
-  v11[0] = v3;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v4 = get_sd_reporter(v3);
+  v9 = @"backtrace";
+  v10[0] = v3;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v6 = [v4 snapshotWithSignature:v2 duration:v5 event:0 payload:0 reply:1.0];
 
   if (v6)
@@ -8425,18 +8325,16 @@ void abc_report_panic_with_signature(void *a1)
       abc_report_panic_with_signature_cold_1();
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 id brc_append_system_info_to_message(uint64_t a1)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   v1 = [MEMORY[0x1E696AD60] stringWithString:a1];
   [v1 appendString:@"\n\n"];
   v2 = v1;
-  v39.rlim_cur = 0;
-  v39.rlim_max = 0;
+  v38.rlim_cur = 0;
+  v38.rlim_max = 0;
   v3 = MEMORY[0x1E696AEC0];
   v4 = [@" LIMITS " stringByPaddingToLength:80 withString:@"-" startingAtIndex:0];
   v5 = [v3 stringWithFormat:@"\n%@\n\n", v4];
@@ -8444,7 +8342,7 @@ id brc_append_system_info_to_message(uint64_t a1)
   [v2 appendString:v5];
   for (i = 0; i != 8; ++i)
   {
-    v7 = getrlimit(dword_1AE33DF98[i], &v39);
+    v7 = getrlimit(dword_1AE33DF98[i], &v38);
     v8 = off_1E7A15400[i];
     if (v7)
     {
@@ -8455,24 +8353,24 @@ id brc_append_system_info_to_message(uint64_t a1)
     else
     {
       [v2 appendFormat:@"%s\t\t\t", off_1E7A15400[i]];
-      if (v39.rlim_cur == 0x7FFFFFFFFFFFFFFFLL)
+      if (v38.rlim_cur == 0x7FFFFFFFFFFFFFFFLL)
       {
         [v2 appendString:@"    infinity"];
       }
 
       else
       {
-        [v2 appendFormat:@"%12llu", v39.rlim_cur];
+        [v2 appendFormat:@"%12llu", v38.rlim_cur];
       }
 
-      if (v39.rlim_max == 0x7FFFFFFFFFFFFFFFLL)
+      if (v38.rlim_max == 0x7FFFFFFFFFFFFFFFLL)
       {
         [v2 appendString:@"    infinity"];
       }
 
       else
       {
-        [v2 appendFormat:@"%12llu", v39.rlim_max];
+        [v2 appendFormat:@"%12llu", v38.rlim_max];
       }
 
       [v2 appendString:@"\n"];
@@ -8488,60 +8386,58 @@ id brc_append_system_info_to_message(uint64_t a1)
   v16 = [v13 stringWithFormat:@"\n%@\n\n", v15];
 
   v17 = [MEMORY[0x1E696AC08] defaultManager];
-  v38 = 0;
-  v18 = [v17 attributesOfFileSystemForPath:v11 error:&v38];
-  v19 = v38;
+  v37 = 0;
+  v18 = [v17 attributesOfFileSystemForPath:v11 error:&v37];
+  v19 = v37;
 
   [v12 appendString:v16];
   if (v18)
   {
-    v30 = v19;
-    v31 = v16;
-    v32 = v11;
-    v33 = v10;
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
+    v29 = v19;
+    v30 = v16;
+    v31 = v11;
+    v32 = v10;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v20 = v18;
-    v21 = [v20 countByEnumeratingWithState:&v34 objects:&v39 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v33 objects:&v38 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v35;
+      v23 = *v34;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v35 != v23)
+          if (*v34 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v34 + 1) + 8 * j);
+          v25 = *(*(&v33 + 1) + 8 * j);
           v26 = [v25 stringByPaddingToLength:21 withString:@" " startingAtIndex:0];
           v27 = [v20 objectForKeyedSubscript:v25];
           [v12 appendFormat:@"%@\t%12llu\n", v26, objc_msgSend(v27, "unsignedLongLongValue")];
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v34 objects:&v39 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v33 objects:&v38 count:16];
       }
 
       while (v22);
     }
 
-    v11 = v32;
-    v10 = v33;
-    v19 = v30;
-    v16 = v31;
+    v11 = v31;
+    v10 = v32;
+    v19 = v29;
+    v16 = v30;
   }
 
   else
   {
     [v12 appendFormat:@"%@\n", v19];
   }
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -8576,28 +8472,68 @@ uint64_t BRMakeiWorkSharingOptions(int a1, int a2)
   }
 }
 
+void sub_1AE2D7628(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, int a9, __int128 a10, uint64_t a11)
+{
+  if (a2 == 1)
+  {
+    v11 = objc_begin_catch(exception_object);
+    v12 = [v11 name];
+    v13 = [v12 isEqualToString:*MEMORY[0x1E695D940]];
+
+    if (v13)
+    {
+      v14 = brc_bread_crumbs("[NSString(BRPathAdditions) br_pathSafeFileSystemRepresentation]", 600);
+      v15 = brc_default_log(1, 0);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      {
+        v16 = [v11 reason];
+        a9 = 138412802;
+        WORD2(a10) = 2112;
+        *(&a10 + 6) = v16;
+        HIWORD(a10) = 2112;
+        a11 = v14;
+        _os_log_debug_impl(&dword_1AE2A9000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] Could not convert %@ to fileSystemRepresentation for reason: %@%@", &a9, 0x20u);
+      }
+
+      objc_end_catch();
+      JUMPOUT(0x1AE2D75F4);
+    }
+
+    v17 = brc_bread_crumbs("[NSString(BRPathAdditions) br_pathSafeFileSystemRepresentation]", 603);
+    v18 = brc_default_log(1, 0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    {
+      [NSString(BRPathAdditions) br_pathSafeFileSystemRepresentation];
+    }
+
+    v19 = v11;
+    objc_exception_throw(v11);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
 uint64_t __fileSystemSizeForDirectoryAtPath_block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = brc_bread_crumbs("fileSystemSizeForDirectoryAtPath_block_invoke", 231);
   v8 = brc_default_log(0, 0);
   if (os_log_type_enabled(v8, 0x90u))
   {
-    v11 = *(a1 + 32);
-    v12 = 138413058;
-    v13 = v11;
-    v14 = 2112;
-    v15 = v6;
-    v16 = 2112;
-    v17 = v5;
-    v18 = 2112;
-    v19 = v7;
-    _os_log_error_impl(&dword_1AE2A9000, v8, 0x90u, "[ERROR] error enumerating %@: error %@ at %@%@", &v12, 0x2Au);
+    v10 = *(a1 + 32);
+    v11 = 138413058;
+    v12 = v10;
+    v13 = 2112;
+    v14 = v6;
+    v15 = 2112;
+    v16 = v5;
+    v17 = 2112;
+    v18 = v7;
+    _os_log_error_impl(&dword_1AE2A9000, v8, 0x90u, "[ERROR] error enumerating %@: error %@ at %@%@", &v11, 0x2Au);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -8622,21 +8558,21 @@ id BRNotifyNameForForegroundChangeWithContainerID(void *a1)
   return v2;
 }
 
-void sub_1AE2D9598(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AE2D9598(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __brc_leave_section(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE2D9838(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AE2D9838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __brc_leave_section(va);
   _Unwind_Resume(a1);
 }
 
-void sub_1AE2D9CCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24)
+void sub_1AE2D9CCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24)
 {
   objc_sync_exit(v24);
   __brc_leave_section(&a24);
@@ -8670,7 +8606,7 @@ id notifyNameWithPrefixedContainerID(void *a1)
 
 void __br_notify_register_dispatch_block_invoke_3(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (([*(a1 + 32) isEqualToString:@"__defaultPersonaID__"] & 1) != 0 || (v2 = *(a1 + 32)) == 0)
   {
     if (_block_invoke___personaOnceToken_0 != -1)
@@ -8691,7 +8627,7 @@ void __br_notify_register_dispatch_block_invoke_3(uint64_t a1)
   v5 = [MEMORY[0x1E69DF068] sharedManager];
   v6 = [v5 currentPersona];
 
-  v28 = 0;
+  v27 = 0;
   v7 = [v6 userPersonaUniqueString];
   v8 = v7;
   if (v7 == v3 || ([v7 isEqualToString:v3] & 1) != 0)
@@ -8703,25 +8639,25 @@ void __br_notify_register_dispatch_block_invoke_3(uint64_t a1)
   {
     if (v4 && ([v6 isDataSeparatedPersona] & 1) == 0)
     {
-      v22 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
-      v23 = brc_default_log(1, 0);
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v21 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
+      v22 = brc_default_log(1, 0);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        __br_notify_register_dispatch_block_invoke_cold_2_0(v22, v23);
+        __br_notify_register_dispatch_block_invoke_cold_2_0(v21, v22);
       }
     }
 
     else
     {
-      v18 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
-      v19 = brc_default_log(1, 0);
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v17 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
+      v18 = brc_default_log(1, 0);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
       {
-        __br_notify_register_dispatch_block_invoke_cold_3_0(v18, v19);
+        __br_notify_register_dispatch_block_invoke_cold_3_0(v17, v18);
       }
 
-      v15 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
-      if (v15)
+      v14 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:0];
+      if (v14)
       {
         goto LABEL_25;
       }
@@ -8732,68 +8668,66 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v27 = 0;
-  v10 = [v6 copyCurrentPersonaContextWithError:&v27];
+  v26 = 0;
+  v9 = [v6 copyCurrentPersonaContextWithError:&v26];
+  v10 = v26;
   v11 = v27;
-  v12 = v28;
-  v28 = v10;
+  v27 = v9;
 
-  if (v11)
+  if (v10)
   {
-    v13 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
-    v14 = brc_default_log(0, 0);
-    if (os_log_type_enabled(v14, 0x90u))
+    v12 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
+    v13 = brc_default_log(0, 0);
+    if (os_log_type_enabled(v13, 0x90u))
     {
       __br_notify_register_dispatch_block_invoke_cold_4_1();
     }
   }
 
-  v15 = [v6 br_generateAndRestorePersonaContextWithPersonaUniqueString:v3];
+  v14 = [v6 br_generateAndRestorePersonaContextWithPersonaUniqueString:v3];
 
-  if (!v15)
+  if (!v14)
   {
     goto LABEL_9;
   }
 
-  v16 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
-  v17 = brc_default_log(0, 0);
-  if (os_log_type_enabled(v17, 0x90u))
+  v15 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 110);
+  v16 = brc_default_log(0, 0);
+  if (os_log_type_enabled(v16, 0x90u))
   {
-    v26 = *(a1 + 32);
+    v25 = *(a1 + 32);
     *buf = 138412802;
-    v30 = v26;
-    v31 = 2112;
-    v32 = v15;
-    v33 = 2112;
-    v34 = v16;
-    _os_log_error_impl(&dword_1AE2A9000, v17, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
+    v29 = v25;
+    v30 = 2112;
+    v31 = v14;
+    v32 = 2112;
+    v33 = v15;
+    _os_log_error_impl(&dword_1AE2A9000, v16, 0x90u, "[ERROR] Can't adopt persona %@: %@%@", buf, 0x20u);
   }
 
 LABEL_25:
-  v20 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 112);
-  v21 = brc_default_log(0, 0);
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
+  v19 = brc_bread_crumbs("br_notify_register_dispatch_block_invoke", 112);
+  v20 = brc_default_log(0, 0);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
   {
-    v24 = *(a1 + 48);
-    v25 = [v15 localizedDescription];
+    v23 = *(a1 + 48);
+    v24 = [v14 localizedDescription];
     *buf = 136315650;
-    v30 = v24;
-    v31 = 2112;
-    v32 = v25;
-    v33 = 2112;
-    v34 = v20;
-    _os_log_fault_impl(&dword_1AE2A9000, v21, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed to adopt persona for notification %s due to %@%@", buf, 0x20u);
+    v29 = v23;
+    v30 = 2112;
+    v31 = v24;
+    v32 = 2112;
+    v33 = v19;
+    _os_log_fault_impl(&dword_1AE2A9000, v20, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Failed to adopt persona for notification %s due to %@%@", buf, 0x20u);
   }
 
 LABEL_10:
-  _BRRestorePersona(&v28);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _BRRestorePersona(&v27);
 }
 
-void sub_1AE2DA6C8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AE2DA6C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   _BRRestorePersona(va);
   _Unwind_Resume(a1);
 }
@@ -8806,16 +8740,16 @@ void __br_notify_register_dispatch_block_invoke_2_2()
   _block_invoke___personalPersona_0 = v0;
 }
 
-void sub_1AE2DB588(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1AE2DB588(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __brc_leave_section(va);
   _Unwind_Resume(a1);
 }
 
-id BRGetFileNameFromServerInfoBlob(void *a1, void *a2)
+id BRGetFileNameFromServerInfoBlob(void *a1, BRServerInfoRecordInfo **a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBase64EncodedString:v3 options:0];
   if (v4)
@@ -8826,7 +8760,7 @@ id BRGetFileNameFromServerInfoBlob(void *a1, void *a2)
     {
       v7 = MEMORY[0x1E696AEC0];
       v8 = [(BRServerInfoRecordInfo *)v5 zoneName];
-      v9 = [v6 recordID];
+      v9 = [(BRServerInfoRecordInfo *)v6 recordID];
       v10 = [v9 lastPathComponent];
       v11 = [v7 stringWithFormat:@"%@/%@/BRGetFileNameFromServerInfoBlob", v8, v10];
 
@@ -8843,20 +8777,20 @@ id BRGetFileNameFromServerInfoBlob(void *a1, void *a2)
       v19 = brc_default_log(0, 0);
       if (os_log_type_enabled(v19, 0x90u))
       {
-        v24 = "(passed to caller)";
+        v23 = "(passed to caller)";
         *buf = 136315906;
-        v26 = "BRGetFileNameFromServerInfoBlob";
-        v27 = 2080;
+        v25 = "BRGetFileNameFromServerInfoBlob";
+        v26 = 2080;
         if (!a2)
         {
-          v24 = "(ignored by caller)";
+          v23 = "(ignored by caller)";
         }
 
-        v28 = v24;
-        v29 = 2112;
-        v30 = v17;
-        v31 = 2112;
-        v32 = v18;
+        v27 = v23;
+        v28 = 2112;
+        v29 = v17;
+        v30 = 2112;
+        v31 = v18;
         _os_log_error_impl(&dword_1AE2A9000, v19, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -8877,20 +8811,20 @@ id BRGetFileNameFromServerInfoBlob(void *a1, void *a2)
       v15 = brc_default_log(0, 0);
       if (os_log_type_enabled(v15, 0x90u))
       {
-        v23 = "(passed to caller)";
+        v22 = "(passed to caller)";
         *buf = 136315906;
-        v26 = "BRGetFileNameFromServerInfoBlob";
-        v27 = 2080;
+        v25 = "BRGetFileNameFromServerInfoBlob";
+        v26 = 2080;
         if (!a2)
         {
-          v23 = "(ignored by caller)";
+          v22 = "(ignored by caller)";
         }
 
-        v28 = v23;
-        v29 = 2112;
-        v30 = v6;
-        v31 = 2112;
-        v32 = v14;
+        v27 = v22;
+        v28 = 2112;
+        v29 = v6;
+        v30 = 2112;
+        v31 = v14;
         _os_log_error_impl(&dword_1AE2A9000, v15, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
       }
     }
@@ -8907,8 +8841,6 @@ id BRGetFileNameFromServerInfoBlob(void *a1, void *a2)
   v13 = 0;
 LABEL_16:
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
@@ -8922,7 +8854,7 @@ void __BRPerformWithPersonaAndError_block_invoke()
 
 void BRPerformWithPersonaAndErrorForURLIfAble(void *a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = a2;
   if (+[BRAccountDescriptor mightHaveDataSeparatedAccountDescriptor])
@@ -8938,27 +8870,27 @@ void BRPerformWithPersonaAndErrorForURLIfAble(void *a1, void *a2)
       v6 = +[BRAccountDescriptor allLoggedInAccountDescriptors];
       if ([v6 count] > 1 || (objc_msgSend(v6, "firstObject"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "isDataSeparated"), v7, v8))
       {
-        v26 = 0u;
-        v27 = 0u;
-        v24 = 0u;
         v25 = 0u;
-        v21 = v6;
+        v26 = 0u;
+        v23 = 0u;
+        v24 = 0u;
+        v20 = v6;
         v9 = v6;
-        v10 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v25;
+          v12 = *v24;
           while (2)
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v25 != v12)
+              if (*v24 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = *(*(&v24 + 1) + 8 * i);
+              v14 = *(*(&v23 + 1) + 8 * i);
               v15 = [v14 personaIdentifier];
               v16 = [v5 isEqualToString:v15];
 
@@ -8969,21 +8901,21 @@ void BRPerformWithPersonaAndErrorForURLIfAble(void *a1, void *a2)
 
                 if (v18)
                 {
-                  v22[0] = MEMORY[0x1E69E9820];
-                  v22[1] = 3221225472;
-                  v22[2] = __BRPerformWithPersonaAndErrorForURLIfAble_block_invoke;
-                  v22[3] = &unk_1E7A15590;
-                  v22[4] = v14;
-                  v23 = v4;
-                  BRPerformWithAccountDescriptorAndError(v14, v22);
+                  v21[0] = MEMORY[0x1E69E9820];
+                  v21[1] = 3221225472;
+                  v21[2] = __BRPerformWithPersonaAndErrorForURLIfAble_block_invoke;
+                  v21[3] = &unk_1E7A15590;
+                  v21[4] = v14;
+                  v22 = v4;
+                  BRPerformWithAccountDescriptorAndError(v14, v21);
 
-                  v6 = v21;
+                  v6 = v20;
                   goto LABEL_22;
                 }
               }
             }
 
-            v11 = [v9 countByEnumeratingWithState:&v24 objects:v28 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
             if (v11)
             {
               continue;
@@ -8994,7 +8926,7 @@ void BRPerformWithPersonaAndErrorForURLIfAble(void *a1, void *a2)
         }
 
         v19 = 1;
-        v6 = v21;
+        v6 = v20;
       }
 
       else
@@ -9011,6 +8943,13 @@ LABEL_22:
   {
     v4[2](v4, @"__defaultPersonaID__", 0, 0, 0);
   }
+}
 
-  v20 = *MEMORY[0x1E69E9840];
+void __BRPerformWithPersonaAndErrorForURLIfAble_block_invoke(uint64_t a1, void *a2)
+{
+  v3 = *(a1 + 32);
+  v2 = *(a1 + 40);
+  v4 = a2;
+  v5 = [v3 personaIdentifier];
+  (*(v2 + 16))(v2, v5, 1, 1, v4);
 }

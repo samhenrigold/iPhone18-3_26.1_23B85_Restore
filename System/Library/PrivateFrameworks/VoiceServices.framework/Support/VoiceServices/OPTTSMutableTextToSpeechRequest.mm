@@ -9,6 +9,7 @@
 - (void)setAudio_type:(int64_t)audio_type;
 - (void)setContext:(id)context;
 - (void)setContext_info:(id)context_info;
+- (void)setEnable_word_timing_info:(BOOL)enable_word_timing_info;
 - (void)setExperiment:(id)experiment;
 - (void)setFeature_flags:(id)feature_flags;
 - (void)setGender:(id)gender;
@@ -49,13 +50,13 @@
 
 - (void)setPreferred_voice_type:(int64_t)preferred_voice_type
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:preferred_voice_type];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (int64_t)preferred_voice_type
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"preferred_voice_type"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   integerValue = [v2 integerValue];
 
   return integerValue;
@@ -73,9 +74,15 @@
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
+- (void)setEnable_word_timing_info:(BOOL)enable_word_timing_info
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:?];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
 - (BOOL)enable_word_timing_info
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"enable_word_timing_info"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
@@ -83,13 +90,13 @@
 
 - (void)setAudio_type:(int64_t)audio_type
 {
-  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:audio_type];
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithInteger:?];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 
 - (int64_t)audio_type
 {
-  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:@"audio_type"];
+  v2 = [(NSMutableDictionary *)self->super._storage objectForKeyedSubscript:?];
   integerValue = [v2 integerValue];
 
   return integerValue;
@@ -127,7 +134,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v4 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
+  v4 = [objc_msgSend(objc_opt_class() "allocWithZone:"init"")];
   v5 = [(NSMutableDictionary *)self->super._storage copy];
   v6 = v4[1];
   v4[1] = v5;
@@ -155,11 +162,12 @@
   requestCopy = request;
   v5 = objc_alloc_init(OPTTSMutableTextToSpeechRequest);
   languageCode = [requestCopy languageCode];
-  v7 = [languageCode stringByReplacingOccurrencesOfString:@"-" withString:@"_"];
-  [(OPTTSMutableTextToSpeechRequest *)v5 setLanguage:v7];
+  v7 = [languageCode stringByReplacingOccurrencesOfString:? withString:?];
+  [(OPTTSMutableTextToSpeechRequest *)v5 setLanguage:?];
 
-  v8 = [self genderStringFromGender:{objc_msgSend(requestCopy, "gender")}];
-  [(OPTTSMutableTextToSpeechRequest *)v5 setGender:v8];
+  [requestCopy gender];
+  v8 = [self genderStringFromGender:?];
+  [(OPTTSMutableTextToSpeechRequest *)v5 setGender:?];
 
   utterance = [requestCopy utterance];
   [requestCopy volume];
@@ -170,7 +178,7 @@
     {
       v12 = MEMORY[0x277CCACA8];
       [requestCopy volume];
-      v14 = [v12 stringWithFormat:@"\x1B\\vol=%d\\%@", (v13 * 100.0), utterance];
+      v14 = [v12 stringWithFormat:(v13 * 100.0), utterance];
 
       utterance = v14;
     }
@@ -184,7 +192,7 @@
     {
       v17 = MEMORY[0x277CCACA8];
       [requestCopy rate];
-      v19 = [v17 stringWithFormat:@"\x1B\\rate=%d\\%@", (v18 * 100.0), utterance];
+      v19 = [v17 stringWithFormat:(v18 * 100.0), utterance];
 
       utterance = v19;
     }
@@ -198,24 +206,24 @@
     {
       v22 = MEMORY[0x277CCACA8];
       [requestCopy pitch];
-      v24 = [v22 stringWithFormat:@"\x1B\\pitch=%d\\%@", (v23 * 100.0), utterance];
+      v24 = [v22 stringWithFormat:(v23 * 100.0), utterance];
 
       utterance = v24;
     }
   }
 
-  [(OPTTSMutableTextToSpeechRequest *)v5 setText:utterance];
-  [(OPTTSMutableTextToSpeechRequest *)v5 setAudio_type:1];
-  [(OPTTSMutableTextToSpeechRequest *)v5 setEnable_word_timing_info:1];
+  [(OPTTSMutableTextToSpeechRequest *)v5 setText:?];
+  [(OPTTSMutableTextToSpeechRequest *)v5 setAudio_type:?];
+  [(OPTTSMutableTextToSpeechRequest *)v5 setEnable_word_timing_info:?];
   voiceName = [requestCopy voiceName];
-  [(OPTTSMutableTextToSpeechRequest *)v5 setVoice_name:voiceName];
+  [(OPTTSMutableTextToSpeechRequest *)v5 setVoice_name:?];
 
   v26 = objc_alloc_init(OPTTSMutableTextToSpeechRequestMeta);
   clientBundleIdentifier = [requestCopy clientBundleIdentifier];
-  [(OPTTSMutableTextToSpeechRequestMeta *)v26 setApp_id:clientBundleIdentifier];
+  [(OPTTSMutableTextToSpeechRequestMeta *)v26 setApp_id:?];
 
-  [(OPTTSMutableTextToSpeechRequestMeta *)v26 setChannel_type:2];
-  [(OPTTSMutableTextToSpeechRequest *)v5 setMeta_info:v26];
+  [(OPTTSMutableTextToSpeechRequestMeta *)v26 setChannel_type:?];
+  [(OPTTSMutableTextToSpeechRequest *)v5 setMeta_info:?];
 
   return v5;
 }

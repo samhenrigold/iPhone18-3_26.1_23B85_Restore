@@ -1,6 +1,7 @@
 @interface HFRGBColor
 - (BOOL)isEqual:(id)equal;
 - (HFRGBColor)init;
+- (HFRGBColor)initWithHue:(float)hue saturation:(float)saturation brightness:(float)brightness;
 - (HFRGBColor)initWithRed:(float)red green:(float)green blue:(float)blue;
 - (HFRGBColor)initWithUIColor:(id)color;
 - (NSString)description;
@@ -20,6 +21,23 @@
   [currentHandler handleFailureInMethod:a2 object:self file:@"HFColorPrimitive.m" lineNumber:21 description:{@"%s is unavailable; use %@ instead", "-[HFRGBColor init]", v5}];
 
   return 0;
+}
+
+- (HFRGBColor)initWithHue:(float)hue saturation:(float)saturation brightness:(float)brightness
+{
+  v13 = 0.0;
+  v14 = 0.0;
+  v12 = 0.0;
+  *v7.i64 = hue;
+  HFConvertHSBToRGB(&v14, &v13, &v12, v7, saturation, brightness, v5);
+  HIDWORD(v9) = HIDWORD(v13);
+  HIDWORD(v8) = HIDWORD(v14);
+  *&v8 = v14;
+  *&v9 = v13;
+  HIDWORD(v10) = HIDWORD(v12);
+  *&v10 = v12;
+
+  return [(HFRGBColor *)self initWithRed:v8 green:v9 blue:v10];
 }
 
 - (HFRGBColor)initWithRed:(float)red green:(float)green blue:(float)blue

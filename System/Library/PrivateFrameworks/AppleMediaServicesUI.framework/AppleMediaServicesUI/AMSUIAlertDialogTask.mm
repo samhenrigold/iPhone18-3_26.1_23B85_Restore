@@ -114,7 +114,7 @@ void __30__AMSUIAlertDialogTask_cancel__block_invoke(uint64_t a1)
 
 - (id)_createIOSViewControllerFromRequest:(id)request completion:(id)completion
 {
-  v88 = *MEMORY[0x1E69E9840];
+  v87 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   completionCopy = completion;
   dispatch_assert_queue_V2(MEMORY[0x1E69E96A0]);
@@ -124,7 +124,7 @@ void __30__AMSUIAlertDialogTask_cancel__block_invoke(uint64_t a1)
   message = [requestCopy message];
   v10 = [v7 alertControllerWithTitle:title message:message preferredStyle:style != 2];
 
-  v65 = requestCopy;
+  v64 = requestCopy;
   iconURL = [requestCopy iconURL];
   if (iconURL)
   {
@@ -132,36 +132,36 @@ void __30__AMSUIAlertDialogTask_cancel__block_invoke(uint64_t a1)
     [v10 _setHeaderContentViewController:v12];
   }
 
-  v61 = iconURL;
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
+  v60 = iconURL;
   v79 = 0u;
-  buttonActions = [v65 buttonActions];
+  v80 = 0u;
+  v77 = 0u;
+  v78 = 0u;
+  buttonActions = [v64 buttonActions];
   v14 = 0x1E698C000;
-  v67 = [buttonActions countByEnumeratingWithState:&v78 objects:v87 count:16];
-  if (v67)
+  v66 = [buttonActions countByEnumeratingWithState:&v77 objects:v86 count:16];
+  if (v66)
   {
     obj = buttonActions;
-    v60 = style;
+    v59 = style;
     v15 = 0;
     preferredButtonActionIdentifier = 0;
-    v66 = *v79;
+    v65 = *v78;
     do
     {
       v17 = 0;
       do
       {
-        if (*v79 != v66)
+        if (*v78 != v65)
         {
           objc_enumerationMutation(obj);
         }
 
-        v18 = *(*(&v78 + 1) + 8 * v17);
+        v18 = *(*(&v77 + 1) + 8 * v17);
         style2 = [v18 style];
         if (style2 == 2)
         {
-          v20 = [v65 preventsCancelButtonStyle] ^ 1;
+          v20 = [v64 preventsCancelButtonStyle] ^ 1;
         }
 
         else if (style2 == 1)
@@ -181,18 +181,18 @@ void __30__AMSUIAlertDialogTask_cancel__block_invoke(uint64_t a1)
           v22 = v15;
           v23 = MEMORY[0x1E69DC648];
           title3 = [v18 title];
-          v73[0] = MEMORY[0x1E69E9820];
-          v73[1] = 3221225472;
-          v73[2] = __71__AMSUIAlertDialogTask__createIOSViewControllerFromRequest_completion___block_invoke;
-          v73[3] = &unk_1E7F244B0;
+          v72[0] = MEMORY[0x1E69E9820];
+          v72[1] = 3221225472;
+          v72[2] = __71__AMSUIAlertDialogTask__createIOSViewControllerFromRequest_completion___block_invoke;
+          v72[3] = &unk_1E7F244B0;
           v25 = v10;
           v26 = v10;
-          v74 = v26;
-          v27 = v65;
-          v75 = v27;
-          v76 = v18;
-          v77 = completionCopy;
-          v28 = [v23 actionWithTitle:title3 style:v20 handler:v73];
+          v73 = v26;
+          v27 = v64;
+          v74 = v27;
+          v75 = v18;
+          v76 = completionCopy;
+          v28 = [v23 actionWithTitle:title3 style:v20 handler:v72];
 
           if (!preferredButtonActionIdentifier)
           {
@@ -226,7 +226,7 @@ void __30__AMSUIAlertDialogTask_cancel__block_invoke(uint64_t a1)
           [v26 addAction:v28];
           v15 = v22 + 1;
 
-          mEMORY[0x1E698C968] = v74;
+          mEMORY[0x1E698C968] = v73;
           v10 = v25;
         }
 
@@ -243,7 +243,7 @@ void __30__AMSUIAlertDialogTask_cancel__block_invoke(uint64_t a1)
           {
             v33 = objc_opt_class();
             *buf = 138543362;
-            v84 = v33;
+            v83 = v33;
             v34 = v33;
             _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: No action title is provided. A UIAlertAction requires a title.", buf, 0xCu);
           }
@@ -252,9 +252,9 @@ void __30__AMSUIAlertDialogTask_cancel__block_invoke(uint64_t a1)
         ++v17;
       }
 
-      while (v67 != v17);
-      v38 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
-      v67 = v38;
+      while (v66 != v17);
+      v38 = [obj countByEnumeratingWithState:&v77 objects:v86 count:16];
+      v66 = v38;
     }
 
     while (v38);
@@ -263,7 +263,7 @@ void __30__AMSUIAlertDialogTask_cancel__block_invoke(uint64_t a1)
     {
       [v10 setPreferredAction:preferredButtonActionIdentifier];
       selfCopy3 = self;
-      style = v60;
+      style = v59;
       if (v15)
       {
         goto LABEL_47;
@@ -274,7 +274,7 @@ void __30__AMSUIAlertDialogTask_cancel__block_invoke(uint64_t a1)
 
     v40 = v15;
     selfCopy3 = self;
-    style = v60;
+    style = v59;
     v14 = 0x1E698C000uLL;
   }
 
@@ -285,7 +285,7 @@ void __30__AMSUIAlertDialogTask_cancel__block_invoke(uint64_t a1)
     selfCopy3 = self;
   }
 
-  preferredButtonActionIdentifier3 = [v65 preferredButtonActionIdentifier];
+  preferredButtonActionIdentifier3 = [v64 preferredButtonActionIdentifier];
 
   if (preferredButtonActionIdentifier3)
   {
@@ -300,11 +300,11 @@ void __30__AMSUIAlertDialogTask_cancel__block_invoke(uint64_t a1)
     {
       v44 = objc_opt_class();
       v45 = v44;
-      preferredButtonActionIdentifier4 = [v65 preferredButtonActionIdentifier];
+      preferredButtonActionIdentifier4 = [v64 preferredButtonActionIdentifier];
       *buf = 138543618;
-      v84 = v44;
-      v85 = 2114;
-      v86 = preferredButtonActionIdentifier4;
+      v83 = v44;
+      v84 = 2114;
+      v85 = preferredButtonActionIdentifier4;
       _os_log_impl(&dword_1BB036000, oSLogObject2, OS_LOG_TYPE_DEBUG, "%{public}@: preferredButtonActionIdentifier provided but no action has such identifier (preferredButtonActionIdentifier: %{public}@)", buf, 0x16u);
     }
   }
@@ -324,7 +324,7 @@ LABEL_42:
     {
       v49 = objc_opt_class();
       *buf = 138543362;
-      v84 = v49;
+      v83 = v49;
       v50 = v49;
       _os_log_impl(&dword_1BB036000, oSLogObject3, OS_LOG_TYPE_ERROR, "%{public}@: Presented Alert with no actions", buf, 0xCu);
     }
@@ -333,36 +333,36 @@ LABEL_42:
 LABEL_47:
   if (style != 2)
   {
-    v71 = 0u;
-    v72 = 0u;
-    v69 = 0u;
     v70 = 0u;
-    textFields = [v65 textFields];
-    v52 = [textFields countByEnumeratingWithState:&v69 objects:v82 count:16];
+    v71 = 0u;
+    v68 = 0u;
+    v69 = 0u;
+    textFields = [v64 textFields];
+    v52 = [textFields countByEnumeratingWithState:&v68 objects:v81 count:16];
     if (v52)
     {
       v53 = v52;
-      v54 = *v70;
+      v54 = *v69;
       do
       {
         for (i = 0; i != v53; ++i)
         {
-          if (*v70 != v54)
+          if (*v69 != v54)
           {
             objc_enumerationMutation(textFields);
           }
 
-          v56 = *(*(&v69 + 1) + 8 * i);
-          v68[0] = MEMORY[0x1E69E9820];
-          v68[1] = 3221225472;
-          v68[2] = __71__AMSUIAlertDialogTask__createIOSViewControllerFromRequest_completion___block_invoke_14;
-          v68[3] = &unk_1E7F244D8;
-          v68[4] = selfCopy3;
-          v68[5] = v56;
-          [v10 addTextFieldWithConfigurationHandler:v68];
+          v56 = *(*(&v68 + 1) + 8 * i);
+          v67[0] = MEMORY[0x1E69E9820];
+          v67[1] = 3221225472;
+          v67[2] = __71__AMSUIAlertDialogTask__createIOSViewControllerFromRequest_completion___block_invoke_14;
+          v67[3] = &unk_1E7F244D8;
+          v67[4] = selfCopy3;
+          v67[5] = v56;
+          [v10 addTextFieldWithConfigurationHandler:v67];
         }
 
-        v53 = [textFields countByEnumeratingWithState:&v69 objects:v82 count:16];
+        v53 = [textFields countByEnumeratingWithState:&v68 objects:v81 count:16];
       }
 
       while (v53);
@@ -371,7 +371,6 @@ LABEL_47:
 
   v57 = v10;
 
-  v58 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -428,15 +427,14 @@ void __71__AMSUIAlertDialogTask__createIOSViewControllerFromRequest_completion__
 
 void __71__AMSUIAlertDialogTask__createIOSViewControllerFromRequest_completion___block_invoke_14(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  [v4 setKeyboardType:{objc_msgSend(objc_opt_class(), "_keyboardTypeFromType:", objc_msgSend(*(a1 + 40), "keyboardType"))}];
-  [v4 setSecureTextEntry:{objc_msgSend(*(a1 + 40), "secure")}];
-  v5 = [*(a1 + 40) placeholder];
-  [v4 setPlaceholder:v5];
+  v3 = a2;
+  [v3 setKeyboardType:{objc_msgSend(objc_opt_class(), "_keyboardTypeFromType:", objc_msgSend(*(a1 + 40), "keyboardType"))}];
+  [v3 setSecureTextEntry:{objc_msgSend(*(a1 + 40), "secure")}];
+  v4 = [*(a1 + 40) placeholder];
+  [v3 setPlaceholder:v4];
 
-  v6 = [*(a1 + 40) text];
-  [v4 setText:v6];
+  v5 = [*(a1 + 40) text];
+  [v3 setText:v5];
 }
 
 + (int64_t)_keyboardTypeFromType:(int64_t)type

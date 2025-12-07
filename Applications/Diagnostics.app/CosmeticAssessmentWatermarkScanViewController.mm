@@ -18,29 +18,30 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1000E3B04();
+  sub_1000E3B04(v2);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_1000E4064(appear);
+  sub_1000E4064(appear, v4);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
   selfCopy = self;
-  sub_1000E42B4(disappear);
+  sub_1000E42B4(disappear, v4);
 }
 
 - (void)updateWatermarkPayload
 {
   selfCopy = self;
   sub_1000E48C4();
-  v3 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC11Diagnostics45CosmeticAssessmentWatermarkScanViewController_watermarkPresenterView);
-  v4 = String._bridgeToObjectiveC()();
-
-  [v3 setVerificationCode:v4];
+  v4 = v3;
+  v5 = *(&selfCopy->super.super.super.isa + OBJC_IVAR____TtC11Diagnostics45CosmeticAssessmentWatermarkScanViewController_watermarkPresenterView);
+  v13 = String._bridgeToObjectiveC()();
+  v4, v6, v7, v8, v9, v10, v11, v12;
+  [v5 setVerificationCode:v13];
 }
 
 - (_TtC11Diagnostics45CosmeticAssessmentWatermarkScanViewController)initWithNibName:(id)name bundle:(id)bundle

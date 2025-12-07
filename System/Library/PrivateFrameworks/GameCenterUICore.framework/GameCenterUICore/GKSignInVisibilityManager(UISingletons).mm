@@ -12,9 +12,9 @@
     +[GKSignInVisibilityManager(UISingletons) shared];
   }
 
-  v1 = shared_sharedInstance_0;
+  v2 = shared_sharedInstance_0;
 
-  return v1;
+  return v2;
 }
 
 + (id)sharedWithoutPersistence
@@ -24,9 +24,9 @@
     +[GKSignInVisibilityManager(UISingletons) sharedWithoutPersistence];
   }
 
-  v1 = sharedWithoutPersistence_sharedInstance;
+  v2 = sharedWithoutPersistence_sharedInstance;
 
-  return v1;
+  return v2;
 }
 
 @end

@@ -31,7 +31,7 @@
 
 - (void)setReadClient:(void *)client subscriptionCallback:(void *)callback
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   sub_23947632C("/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/MTRDevice_Concrete.mm", 198);
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -41,17 +41,17 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
-      v17 = selfCopy;
-      v18 = 2048;
+      v14 = selfCopy;
+      v15 = 2048;
       callbackCopy2 = client;
-      v20 = 2048;
+      v17 = 2048;
       callbackCopy = callback;
       _os_log_impl(&dword_238DAE000, v8, OS_LOG_TYPE_ERROR, "%@: setReadClient:subscriptionCallback: readClient and subscriptionCallback must both be valid or both be null %p %p", buf, 0x20u);
     }
 
     if (sub_2393D5398(1u))
     {
-      sub_2393D5320(0, 1);
+      sub_2393D5320(0, 1, "%@: setReadClient:subscriptionCallback: readClient and subscriptionCallback must both be valid or both be null %p %p", selfCopy, client, callback);
     }
   }
 
@@ -64,18 +64,17 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v17 = selfCopy;
-        v18 = 2048;
+        v14 = selfCopy;
+        v15 = 2048;
         callbackCopy2 = client;
-        v20 = 2048;
+        v17 = 2048;
         callbackCopy = readClient;
         _os_log_impl(&dword_238DAE000, v10, OS_LOG_TYPE_ERROR, "%@: setReadClient:subscriptionCallback: readClient set when current value not null %p %p", buf, 0x20u);
       }
 
       if (sub_2393D5398(1u))
       {
-        v14 = selfCopy->_readClient;
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "%@: setReadClient:subscriptionCallback: readClient set when current value not null %p %p", selfCopy, client, selfCopy->_readClient);
       }
     }
   }
@@ -89,18 +88,17 @@
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v17 = selfCopy;
-        v18 = 2048;
+        v14 = selfCopy;
+        v15 = 2048;
         callbackCopy2 = callback;
-        v20 = 2048;
+        v17 = 2048;
         callbackCopy = subscriptionCallback;
         _os_log_impl(&dword_238DAE000, v12, OS_LOG_TYPE_ERROR, "%@: setReadClient:subscriptionCallback: subscriptionCallback set when current value not null %p %p", buf, 0x20u);
       }
 
       if (sub_2393D5398(1u))
       {
-        v15 = selfCopy->_subscriptionCallback;
-        sub_2393D5320(0, 1);
+        sub_2393D5320(0, 1, "%@: setReadClient:subscriptionCallback: subscriptionCallback set when current value not null %p %p", selfCopy, callback, selfCopy->_subscriptionCallback);
       }
     }
   }
@@ -108,8 +106,6 @@
   selfCopy->_readClient = client;
   selfCopy->_subscriptionCallback = callback;
   objc_sync_exit(selfCopy);
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clearReadClientAndDeleteSubscriptionCallback

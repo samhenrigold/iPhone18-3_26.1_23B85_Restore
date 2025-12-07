@@ -60,10 +60,10 @@
 
 - (ANSTTensorDescriptor)initWithName:(id)name dataType:(unint64_t)type numberOfDimensions:(unint64_t)dimensions lengths:(const unint64_t *)lengths strides:(const unint64_t *)strides error:(id *)error
 {
-  v30[1] = *MEMORY[0x277D85DE8];
-  v28.receiver = self;
-  v28.super_class = ANSTTensorDescriptor;
-  v13 = [(ANSTDescriptor *)&v28 initWithName:name error:error];
+  v29[1] = *MEMORY[0x277D85DE8];
+  v27.receiver = self;
+  v27.super_class = ANSTTensorDescriptor;
+  v13 = [(ANSTDescriptor *)&v27 initWithName:name error:error];
   v14 = v13;
   if (!v13)
   {
@@ -105,9 +105,9 @@ LABEL_11:
         if (error)
         {
           v23 = MEMORY[0x277CCA9B8];
-          v29 = *MEMORY[0x277CCA068];
-          v30[0] = @"Tensor descriptor's length(s) and/or stride(s) should not be zero.";
-          v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v16, v30, &v29, 1);
+          v28 = *MEMORY[0x277CCA068];
+          v29[0] = @"Tensor descriptor's length(s) and/or stride(s) should not be zero.";
+          v24 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v16, v29, &v28, 1);
           *error = objc_msgSend_errorWithDomain_code_userInfo_(v23, v25, @"ANSTErrorDomain", 8, v24);
         }
 
@@ -129,7 +129,6 @@ LABEL_16:
   *error = v22 = 0;
 LABEL_17:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -283,16 +282,14 @@ LABEL_10:
 
 + (id)descriptorWithName:(id)name dataType:(unint64_t)type n:(unint64_t)n c:(unint64_t)c h:(unint64_t)h w:(unint64_t)w
 {
-  v16[4] = *MEMORY[0x277D85DE8];
-  v16[0] = n;
-  v16[1] = c;
-  v16[2] = h;
-  v16[3] = w;
+  v15[4] = *MEMORY[0x277D85DE8];
+  v15[0] = n;
+  v15[1] = c;
+  v15[2] = h;
+  v15[3] = w;
   nameCopy = name;
   v11 = [self alloc];
-  v13 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v11, v12, nameCopy, type, 4, v16, 1, 0);
-
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = objc_msgSend_initWithName_dataType_numberOfDimensions_lengths_alignment_error_(v11, v12, nameCopy, type, 4, v15, 1, 0);
 
   return v13;
 }
@@ -497,11 +494,11 @@ LABEL_14:
 
 - (ANSTTensorDescriptor)initWithCoder:(id)coder
 {
-  v95[2] = *MEMORY[0x277D85DE8];
+  v94[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v85.receiver = self;
-  v85.super_class = ANSTTensorDescriptor;
-  v5 = [(ANSTDescriptor *)&v85 initWithCoder:coderCopy];
+  v84.receiver = self;
+  v84.super_class = ANSTTensorDescriptor;
+  v5 = [(ANSTDescriptor *)&v84 initWithCoder:coderCopy];
   if (!v5)
   {
     goto LABEL_13;
@@ -515,12 +512,12 @@ LABEL_14:
   {
     v41 = MEMORY[0x277CCA9B8];
     v42 = *MEMORY[0x277CCA050];
-    v94[0] = *MEMORY[0x277CCA068];
-    v94[1] = @"ANSTDescriptorName";
-    v95[0] = @"Tensor descriptor data type was not encoded.";
+    v93[0] = *MEMORY[0x277CCA068];
+    v93[1] = @"ANSTDescriptorName";
+    v94[0] = @"Tensor descriptor data type was not encoded.";
     v43 = objc_msgSend_name(v5, v10, v11);
-    v95[1] = v43;
-    v45 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v44, v95, v94, 2);
+    v94[1] = v43;
+    v45 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v44, v94, v93, 2);
     v47 = objc_msgSend_errorWithDomain_code_userInfo_(v41, v46, v42, 4865, v45);
     objc_msgSend_failWithError_(coderCopy, v48, v47);
 
@@ -539,12 +536,12 @@ LABEL_19:
     v49 = MEMORY[0x277CCA9B8];
     v50 = *MEMORY[0x277CCA050];
     v51 = *MEMORY[0x277CCA068];
-    v93[0] = @"Tensor descriptor number of dimensions was not encoded.";
-    v92[0] = v51;
-    v92[1] = @"ANSTDescriptorName";
+    v92[0] = @"Tensor descriptor number of dimensions was not encoded.";
+    v91[0] = v51;
+    v91[1] = @"ANSTDescriptorName";
     v52 = objc_msgSend_name(v5, v16, v17);
-    v93[1] = v52;
-    v54 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v53, v93, v92, 2);
+    v92[1] = v52;
+    v54 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v53, v92, v91, 2);
     objc_msgSend_errorWithDomain_code_userInfo_(v49, v55, v50, 4865, v54);
     v60 = LABEL_17:;
     objc_msgSend_failWithError_(coderCopy, v61, v60);
@@ -559,12 +556,12 @@ LABEL_18:
   {
     v56 = MEMORY[0x277CCA9B8];
     v57 = *MEMORY[0x277CCA050];
-    v90[0] = *MEMORY[0x277CCA068];
-    v90[1] = @"ANSTDescriptorName";
-    v91[0] = @"Invalid tensor descriptor number of dimensions was encoded.";
+    v89[0] = *MEMORY[0x277CCA068];
+    v89[1] = @"ANSTDescriptorName";
+    v90[0] = @"Invalid tensor descriptor number of dimensions was encoded.";
     v52 = objc_msgSend_name(v5, v19, v20);
-    v91[1] = v52;
-    v54 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v58, v91, v90, 2);
+    v90[1] = v52;
+    v54 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v58, v90, v89, 2);
     objc_msgSend_errorWithDomain_code_userInfo_(v56, v59, v57, 4864, v54);
     goto LABEL_17;
   }
@@ -583,8 +580,8 @@ LABEL_18:
     goto LABEL_18;
   }
 
-  v83 = v15;
-  v84 = v9;
+  v82 = v15;
+  v83 = v9;
   if (v5->_numberOfDimensions)
   {
     v23 = 0;
@@ -597,25 +594,25 @@ LABEL_18:
 
       if (!v29)
       {
-        v64 = MEMORY[0x277CCA9B8];
-        v65 = v24;
-        v66 = *MEMORY[0x277CCA050];
-        v88[0] = *MEMORY[0x277CCA068];
-        v29 = objc_msgSend_stringWithFormat_(*(v65 + 3240), v30, @"Tensor descriptor length at dimension index #%zu was not encoded.", v23, v83, v84);
-        v88[1] = @"ANSTDescriptorName";
-        v89[0] = v29;
-        v69 = objc_msgSend_name(v5, v67, v68);
-        v89[1] = v69;
-        v71 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v70, v89, v88, 2);
-        v73 = objc_msgSend_errorWithDomain_code_userInfo_(v64, v72, v66, 4865, v71);
-        objc_msgSend_failWithError_(coderCopy, v74, v73);
+        v63 = MEMORY[0x277CCA9B8];
+        v64 = v24;
+        v65 = *MEMORY[0x277CCA050];
+        v87[0] = *MEMORY[0x277CCA068];
+        v29 = objc_msgSend_stringWithFormat_(*(v64 + 3240), v30, @"Tensor descriptor length at dimension index #%zu was not encoded.", v23, v82, v83);
+        v87[1] = @"ANSTDescriptorName";
+        v88[0] = v29;
+        v68 = objc_msgSend_name(v5, v66, v67);
+        v88[1] = v68;
+        v70 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v69, v88, v87, 2);
+        v72 = objc_msgSend_errorWithDomain_code_userInfo_(v63, v71, v65, 4865, v70);
+        objc_msgSend_failWithError_(coderCopy, v73, v72);
         goto LABEL_23;
       }
 
       v5->_lengths[v23] = objc_msgSend_unsignedIntegerValue(v29, v30, v31);
       v32 = objc_opt_class();
       v33 = v24;
-      v35 = objc_msgSend_stringWithFormat_(*(v24 + 3240), v34, @"stride@%zu", v23, v83, v84);
+      v35 = objc_msgSend_stringWithFormat_(*(v24 + 3240), v34, @"stride@%zu", v23, v82, v83);
       v37 = objc_msgSend_decodeObjectOfClass_forKey_(coderCopy, v36, v32, v35);
 
       if (!v37)
@@ -633,17 +630,17 @@ LABEL_18:
       }
     }
 
-    v75 = MEMORY[0x277CCA9B8];
-    v76 = *MEMORY[0x277CCA050];
-    v86[0] = *MEMORY[0x277CCA068];
-    v69 = objc_msgSend_stringWithFormat_(*(v33 + 3240), v38, @"Tensor descriptor stride at dimension index #%zu was not encoded.", v23);
-    v86[1] = @"ANSTDescriptorName";
-    v87[0] = v69;
-    v71 = objc_msgSend_name(v5, v77, v78);
-    v87[1] = v71;
-    v73 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v79, v87, v86, 2);
-    v81 = objc_msgSend_errorWithDomain_code_userInfo_(v75, v80, v76, 4865, v73);
-    objc_msgSend_failWithError_(coderCopy, v82, v81);
+    v74 = MEMORY[0x277CCA9B8];
+    v75 = *MEMORY[0x277CCA050];
+    v85[0] = *MEMORY[0x277CCA068];
+    v68 = objc_msgSend_stringWithFormat_(*(v33 + 3240), v38, @"Tensor descriptor stride at dimension index #%zu was not encoded.", v23);
+    v85[1] = @"ANSTDescriptorName";
+    v86[0] = v68;
+    v70 = objc_msgSend_name(v5, v76, v77);
+    v86[1] = v70;
+    v72 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v78, v86, v85, 2);
+    v80 = objc_msgSend_errorWithDomain_code_userInfo_(v74, v79, v75, 4865, v72);
+    objc_msgSend_failWithError_(coderCopy, v81, v80);
 
 LABEL_23:
     goto LABEL_19;
@@ -655,7 +652,6 @@ LABEL_13:
   v40 = v5;
 LABEL_20:
 
-  v62 = *MEMORY[0x277D85DE8];
   return v40;
 }
 
@@ -707,16 +703,16 @@ LABEL_20:
 
 - (ANSTTensorDescriptor)initWithE5TensorDescriptor:(e5rt_tensor_desc *)descriptor name:(id)name error:(id *)error
 {
-  v66[1] = *MEMORY[0x277D85DE8];
+  v65[1] = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v58 = 0;
+  v57 = 0;
   rank = e5rt_tensor_desc_get_rank();
   if (rank)
   {
     v9 = rank;
     last_error_message = e5rt_get_last_error_message();
     v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v11, @"%s returned error code %u (%s)", "e5rt_tensor_desc_get_rank(e5TensorDescriptor, &rank)", v9, last_error_message);
-    v13 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v13 = _ANSTLoggingGetOSLogForCategoryANSTKit(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_22E657820();
@@ -725,23 +721,23 @@ LABEL_20:
     if (error)
     {
       v15 = MEMORY[0x277CCA9B8];
-      v65 = *MEMORY[0x277CCA068];
-      v66[0] = v12;
-      v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, v66, &v65, 1);
+      v64 = *MEMORY[0x277CCA068];
+      v65[0] = v12;
+      v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v14, v65, &v64, 1);
       *error = objc_msgSend_errorWithDomain_code_userInfo_(v15, v17, @"ANSTErrorDomain", 5, v16);
     }
 
     goto LABEL_7;
   }
 
-  v57 = 0;
+  v56 = 0;
   v19 = e5rt_tensor_desc_retain_dtype();
   if (v19)
   {
     v20 = v19;
     v21 = e5rt_get_last_error_message();
     v23 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v22, @"%s returned error code %u (%s)", "e5rt_tensor_desc_retain_dtype(e5TensorDescriptor, &dtype_desc)", v20, v21);
-    v24 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v24 = _ANSTLoggingGetOSLogForCategoryANSTKit(v23);
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       sub_22E657820();
@@ -756,9 +752,9 @@ LABEL_32:
     }
 
     v26 = MEMORY[0x277CCA9B8];
-    v63 = *MEMORY[0x277CCA068];
-    v64 = v23;
-    v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v25, &v64, &v63, 1);
+    v62 = *MEMORY[0x277CCA068];
+    v63 = v23;
+    v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v25, &v63, &v62, 1);
     objc_msgSend_errorWithDomain_code_userInfo_(v26, v28, @"ANSTErrorDomain", 5, v27);
     *error = selfCopy = 0;
 LABEL_31:
@@ -766,11 +762,11 @@ LABEL_31:
     goto LABEL_32;
   }
 
-  if (sub_22E5E1C70(0, &v57, error))
+  if (sub_22E5E1C70(0, &v56, error))
   {
-    v23 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v29, v58);
-    v27 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v30, v58);
-    if (v58)
+    v23 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v29, v57);
+    v27 = objc_msgSend_arrayWithCapacity_(MEMORY[0x277CBEB18], v30, v57);
+    if (v57)
     {
       v32 = 0;
       while (1)
@@ -787,7 +783,7 @@ LABEL_31:
           v48 = dimension_stride;
           v49 = e5rt_get_last_error_message();
           v44 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v50, @"%s returned error code %u (%s)", "e5rt_tensor_desc_get_dimension_stride(e5TensorDescriptor, dim, &stride)", v48, v49);
-          v51 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+          v51 = _ANSTLoggingGetOSLogForCategoryANSTKit(v44);
           if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
           {
             sub_22E657820();
@@ -796,9 +792,9 @@ LABEL_31:
           if (error)
           {
             v47 = MEMORY[0x277CCA9B8];
-            v59 = *MEMORY[0x277CCA068];
-            v60 = v44;
-            objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v52, &v60, &v59, 1);
+            v58 = *MEMORY[0x277CCA068];
+            v59 = v44;
+            objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v52, &v59, &v58, 1);
             goto LABEL_29;
           }
 
@@ -811,7 +807,7 @@ LABEL_31:
         v39 = objc_msgSend_numberWithLong_(MEMORY[0x277CCABB0], v38, 0);
         objc_msgSend_addObject_(v27, v40, v39);
 
-        if (++v32 >= v58)
+        if (++v32 >= v57)
         {
           goto LABEL_19;
         }
@@ -820,7 +816,7 @@ LABEL_31:
       v41 = dimension_length;
       v42 = e5rt_get_last_error_message();
       v44 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v43, @"%s returned error code %u (%s)", "e5rt_tensor_desc_get_dimension_length(e5TensorDescriptor, dim, &length)", v41, v42);
-      v45 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+      v45 = _ANSTLoggingGetOSLogForCategoryANSTKit(v44);
       if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
       {
         sub_22E657820();
@@ -829,9 +825,9 @@ LABEL_31:
       if (error)
       {
         v47 = MEMORY[0x277CCA9B8];
-        v61 = *MEMORY[0x277CCA068];
-        v62 = v44;
-        objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v46, &v62, &v61, 1);
+        v60 = *MEMORY[0x277CCA068];
+        v61 = v44;
+        objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v46, &v61, &v60, 1);
         v53 = LABEL_29:;
         *error = objc_msgSend_errorWithDomain_code_userInfo_(v47, v54, @"ANSTErrorDomain", 5, v53);
       }
@@ -844,7 +840,7 @@ LABEL_30:
     else
     {
 LABEL_19:
-      self = objc_msgSend_initWithName_dataType_lengths_strides_error_(self, v31, nameCopy, v57, v23, v27, error);
+      self = objc_msgSend_initWithName_dataType_lengths_strides_error_(self, v31, nameCopy, v56, v23, v27, error);
       selfCopy = self;
     }
 
@@ -855,7 +851,6 @@ LABEL_7:
   selfCopy = 0;
 LABEL_33:
 
-  v55 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
@@ -868,7 +863,7 @@ LABEL_33:
     v9 = rank;
     last_error_message = e5rt_get_last_error_message();
     v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v11, @"%s returned error code %u (%s)", "e5rt_tensor_desc_get_rank(e5TensorDescriptor, &rank)", v9, last_error_message);
-    v13 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v13 = _ANSTLoggingGetOSLogForCategoryANSTKit(v12);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_22E657908();
@@ -895,7 +890,7 @@ LABEL_33:
     v28 = MEMORY[0x277CCACA8];
     v29 = objc_msgSend_numberOfDimensions(self, v18, v19);
     v12 = objc_msgSend_stringWithFormat_(v28, v30, @"%s: Rank mismatch (self %ld, E5 %ld)", "[ANSTTensorDescriptor(E5RT) matchesE5TensorDescriptor:error:]", v29, 0);
-    v31 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v31 = _ANSTLoggingGetOSLogForCategoryANSTKit(v12);
     if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
       sub_22E657908();
@@ -919,7 +914,7 @@ LABEL_33:
     v23 = v20;
     v24 = e5rt_get_last_error_message();
     v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v25, @"%s returned error code %u (%s)", "e5rt_tensor_desc_retain_dtype(e5TensorDescriptor, &dtype_desc)", v23, v24);
-    v26 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v26 = _ANSTLoggingGetOSLogForCategoryANSTKit(v12);
     if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       sub_22E657908();
@@ -937,19 +932,20 @@ LABEL_33:
     goto LABEL_6;
   }
 
-  v37 = objc_msgSend_dataType(self, v21, v22);
+  v36 = objc_msgSend_dataType(self, v21, v22);
   v102 = 0;
   v103 = 0;
-  v38 = sub_22E5E1C70(0, &v103, &v102);
-  v39 = v102;
-  if (v38)
+  v37 = sub_22E5E1C70(0, &v103, &v102);
+  v38 = v102;
+  v39 = v38;
+  if (v37)
   {
-    v40 = v103 == v37;
+    v40 = v103 == v36;
   }
 
   else
   {
-    v41 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v41 = _ANSTLoggingGetOSLogForCategoryANSTKit(v38);
     if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
       sub_22E65797C(v39, v41, v42, v43, v44, v45, v46, v47);
@@ -964,7 +960,7 @@ LABEL_33:
     v51 = v48;
     v52 = e5rt_get_last_error_message();
     v54 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v53, @"%s returned error code %u (%s)", "e5rt_tensor_desc_dtype_release(&dtype_desc)", v51, v52);
-    v55 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v55 = _ANSTLoggingGetOSLogForCategoryANSTKit(v54);
     if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
     {
       sub_22E657908();
@@ -976,7 +972,7 @@ LABEL_33:
     v78 = MEMORY[0x277CCACA8];
     v79 = objc_msgSend_dataType(self, v49, v50);
     v12 = objc_msgSend_stringWithFormat_(v78, v80, @"%s: Data type mismatch (self %ld)", "[ANSTTensorDescriptor(E5RT) matchesE5TensorDescriptor:error:]", v79);
-    v81 = _ANSTLoggingGetOSLogForCategoryANSTKit();
+    v81 = _ANSTLoggingGetOSLogForCategoryANSTKit(v12);
     if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
     {
       sub_22E657908();
@@ -996,137 +992,130 @@ LABEL_33:
     goto LABEL_18;
   }
 
-  if (objc_msgSend_numberOfDimensions(self, v49, v50))
+  if (!objc_msgSend_numberOfDimensions(self, v49, v50))
   {
-    v58 = 0;
-    while (1)
+    return 1;
+  }
+
+  v58 = 0;
+  while (1)
+  {
+    v59 = objc_msgSend_lengths(self, v56, v57);
+    v61 = objc_msgSend_objectAtIndexedSubscript_(v59, v60, v58);
+    v64 = objc_msgSend_unsignedLongValue(v61, v62, v63);
+
+    v103 = 0;
+    dimension_length = e5rt_tensor_desc_get_dimension_length();
+    if (dimension_length)
     {
-      v59 = objc_msgSend_lengths(self, v56, v57);
-      v61 = objc_msgSend_objectAtIndexedSubscript_(v59, v60, v58);
-      v64 = objc_msgSend_unsignedLongValue(v61, v62, v63);
-
-      v103 = 0;
-      dimension_length = e5rt_tensor_desc_get_dimension_length();
-      if (dimension_length)
+      v83 = dimension_length;
+      v84 = e5rt_get_last_error_message();
+      v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v85, @"%s returned error code %u (%s)", "e5rt_tensor_desc_get_dimension_length(e5TensorDescriptor, dim, &e5Length)", v83, v84);
+      v86 = _ANSTLoggingGetOSLogForCategoryANSTKit(v12);
+      if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
       {
-        v83 = dimension_length;
-        v84 = e5rt_get_last_error_message();
-        v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v85, @"%s returned error code %u (%s)", "e5rt_tensor_desc_get_dimension_length(e5TensorDescriptor, dim, &e5Length)", v83, v84);
-        v86 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-        if (os_log_type_enabled(v86, OS_LOG_TYPE_ERROR))
-        {
-          sub_22E657908();
-        }
-
-        if (!error)
-        {
-          goto LABEL_19;
-        }
-
-        v88 = MEMORY[0x277CCA9B8];
-        v110 = *MEMORY[0x277CCA068];
-        v111 = v12;
-        objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v87, &v111, &v110, 1);
-        v97 = LABEL_56:;
-        objc_msgSend_errorWithDomain_code_userInfo_(v88, v98, @"ANSTErrorDomain", 5, v97);
-        goto LABEL_62;
+        sub_22E657908();
       }
 
-      if (v64 != v103)
+      if (!error)
       {
-        v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v66, @"%s: Dimension %d length mismatch (self %ld, e5 %ld)", "[ANSTTensorDescriptor(E5RT) matchesE5TensorDescriptor:error:]", v58, v64, v103);
-        v89 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-        if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
-        {
-          sub_22E657908();
-        }
-
-        if (error)
-        {
-          v91 = MEMORY[0x277CCA9B8];
-          v108 = *MEMORY[0x277CCA068];
-          v109 = v12;
-          objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v90, &v109, &v108, 1);
-          goto LABEL_61;
-        }
-
         goto LABEL_19;
       }
 
-      v68 = objc_msgSend_strides(self, v66, v67);
-      v70 = objc_msgSend_objectAtIndexedSubscript_(v68, v69, v58);
-      v73 = objc_msgSend_longValue(v70, v71, v72);
-
-      v102 = 0;
-      dimension_stride = e5rt_tensor_desc_get_dimension_stride();
-      if (dimension_stride)
-      {
-        v92 = dimension_stride;
-        v93 = e5rt_get_last_error_message();
-        v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v94, @"%s returned error code %u (%s)", "e5rt_tensor_desc_get_dimension_stride(e5TensorDescriptor, dim, &e5Stride)", v92, v93);
-        v95 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-        if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
-        {
-          sub_22E657908();
-        }
-
-        if (!error)
-        {
-          goto LABEL_19;
-        }
-
-        v88 = MEMORY[0x277CCA9B8];
-        v106 = *MEMORY[0x277CCA068];
-        v107 = v12;
-        objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v96, &v107, &v106, 1);
-        goto LABEL_56;
-      }
-
-      if (v73 != v102)
-      {
-        break;
-      }
-
-      ++v58;
-      v77 = objc_msgSend_numberOfDimensions(self, v75, v76);
-      result = 1;
-      if (v77 <= v58)
-      {
-        goto LABEL_20;
-      }
+      v88 = MEMORY[0x277CCA9B8];
+      v110 = *MEMORY[0x277CCA068];
+      v111 = v12;
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v87, &v111, &v110, 1);
+      v97 = LABEL_55:;
+      objc_msgSend_errorWithDomain_code_userInfo_(v88, v98, @"ANSTErrorDomain", 5, v97);
+      goto LABEL_61;
     }
 
-    v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v75, @"%s: Dimension %d stride mismatch (self %ld, e5 %ld)", "[ANSTTensorDescriptor(E5RT) matchesE5TensorDescriptor:error:]", v58, v73, v102);
-    v99 = _ANSTLoggingGetOSLogForCategoryANSTKit();
-    if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+    if (v64 != v103)
     {
-      sub_22E657908();
+      v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v66, @"%s: Dimension %d length mismatch (self %ld, e5 %ld)", "[ANSTTensorDescriptor(E5RT) matchesE5TensorDescriptor:error:]", v58, v64, v103);
+      v89 = _ANSTLoggingGetOSLogForCategoryANSTKit(v12);
+      if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
+      {
+        sub_22E657908();
+      }
+
+      if (error)
+      {
+        v91 = MEMORY[0x277CCA9B8];
+        v108 = *MEMORY[0x277CCA068];
+        v109 = v12;
+        objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v90, &v109, &v108, 1);
+        goto LABEL_60;
+      }
+
+      goto LABEL_19;
     }
 
-    if (error)
+    v68 = objc_msgSend_strides(self, v66, v67);
+    v70 = objc_msgSend_objectAtIndexedSubscript_(v68, v69, v58);
+    v73 = objc_msgSend_longValue(v70, v71, v72);
+
+    v102 = 0;
+    dimension_stride = e5rt_tensor_desc_get_dimension_stride();
+    if (dimension_stride)
     {
-      v91 = MEMORY[0x277CCA9B8];
-      v104 = *MEMORY[0x277CCA068];
-      v105 = v12;
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v100, &v105, &v104, 1);
-      v97 = LABEL_61:;
-      objc_msgSend_errorWithDomain_code_userInfo_(v91, v101, @"ANSTErrorDomain", 8, v97);
-      *error = LABEL_62:;
+      v92 = dimension_stride;
+      v93 = e5rt_get_last_error_message();
+      v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v94, @"%s returned error code %u (%s)", "e5rt_tensor_desc_get_dimension_stride(e5TensorDescriptor, dim, &e5Stride)", v92, v93);
+      v95 = _ANSTLoggingGetOSLogForCategoryANSTKit(v12);
+      if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
+      {
+        sub_22E657908();
+      }
+
+      if (!error)
+      {
+        goto LABEL_19;
+      }
+
+      v88 = MEMORY[0x277CCA9B8];
+      v106 = *MEMORY[0x277CCA068];
+      v107 = v12;
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v96, &v107, &v106, 1);
+      goto LABEL_55;
     }
+
+    if (v73 != v102)
+    {
+      break;
+    }
+
+    ++v58;
+    v77 = objc_msgSend_numberOfDimensions(self, v75, v76);
+    result = 1;
+    if (v77 <= v58)
+    {
+      return result;
+    }
+  }
+
+  v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v75, @"%s: Dimension %d stride mismatch (self %ld, e5 %ld)", "[ANSTTensorDescriptor(E5RT) matchesE5TensorDescriptor:error:]", v58, v73, v102);
+  v99 = _ANSTLoggingGetOSLogForCategoryANSTKit(v12);
+  if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
+  {
+    sub_22E657908();
+  }
+
+  if (error)
+  {
+    v91 = MEMORY[0x277CCA9B8];
+    v104 = *MEMORY[0x277CCA068];
+    v105 = v12;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v100, &v105, &v104, 1);
+    v97 = LABEL_60:;
+    objc_msgSend_errorWithDomain_code_userInfo_(v91, v101, @"ANSTErrorDomain", 8, v97);
+    *error = LABEL_61:;
+  }
 
 LABEL_19:
 
-    result = 0;
-  }
-
-  else
-  {
-    result = 1;
-  }
-
-LABEL_20:
-  v36 = *MEMORY[0x277D85DE8];
-  return result;
+  return 0;
 }
 
 @end

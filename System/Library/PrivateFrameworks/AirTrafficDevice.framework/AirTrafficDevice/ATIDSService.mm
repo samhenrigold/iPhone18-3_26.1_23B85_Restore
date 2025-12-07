@@ -634,7 +634,7 @@ void __31__ATIDSService_socketDidClose___block_invoke(uint64_t a1)
   dispatch_async(queue, block);
 }
 
-unint64_t __71__ATIDSService_service_account_identifier_hasBeenDeliveredWithContext___block_invoke(uint64_t a1)
+void *__71__ATIDSService_service_account_identifier_hasBeenDeliveredWithContext___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   if (v2[4])
@@ -1147,7 +1147,7 @@ LABEL_11:
   dispatch_async(queue, block);
 }
 
-uint64_t __20__ATIDSService_stop__block_invoke(uint64_t a1)
+void *__20__ATIDSService_stop__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _cancelPendingConnectionRequests];
   *(*(a1 + 32) + 48) = 0;

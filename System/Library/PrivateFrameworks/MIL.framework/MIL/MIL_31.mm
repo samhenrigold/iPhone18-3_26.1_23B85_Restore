@@ -1,3 +1,389 @@
+void sub_21838B994(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
+{
+  if (a28 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a21 < 0)
+  {
+    operator delete(a16);
+  }
+
+  if (a15 < 0)
+  {
+    operator delete(a10);
+    if ((v29 & 1) == 0)
+    {
+LABEL_10:
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v29)
+  {
+    goto LABEL_10;
+  }
+
+  __cxa_free_exception(v28);
+  goto LABEL_10;
+}
+
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,float>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
+{
+  v12 = (*(**a4 + 32))();
+  v13 = (*(*v12 + 88))(v12);
+  v14 = v13;
+  if (v13 <= 12)
+  {
+    if (v13 > 6)
+    {
+      if (v13 == 7)
+      {
+        v55 = MIL::IRTensorValue::GetDataView<MIL::Bf16>(*a4);
+        result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
+        if (a6[1] != *a6)
+        {
+          v56 = 0;
+          do
+          {
+            v57 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v56);
+            v58 = *(a1 + 4 * v56);
+            Float = MIL::Fp16::GetFloat((a3 + 2 * v57));
+            v60 = MIL::Bf16::GetFloat((v55 + 2 * v57));
+            result = MIL::Fp16::FromFloat(v61, Float * (v58 - v60));
+            v62 = *a6;
+            *(*a6 + 2 * v56++) = result;
+          }
+
+          while (v56 < (a6[1] - v62) >> 1);
+        }
+      }
+
+      else
+      {
+        if (v13 != 9)
+        {
+          goto LABEL_49;
+        }
+
+        Data = MIL::IRTensorValue::GetDataView<signed char>(*a4);
+        result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
+        if (a6[1] != *a6)
+        {
+          v33 = 0;
+          do
+          {
+            v34 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v33);
+            v35 = *(a1 + 4 * v33);
+            v36 = MIL::Fp16::GetFloat((a3 + 2 * v34));
+            result = MIL::Fp16::FromFloat(v37, v36 * (v35 - *(Data + v34)));
+            v38 = *a6;
+            *(*a6 + 2 * v33++) = result;
+          }
+
+          while (v33 < (a6[1] - v38) >> 1);
+        }
+      }
+    }
+
+    else if (v13 == 4)
+    {
+      v47 = MIL::IRTensorValue::GetDataView<MIL::Fp16>(*a4);
+      result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
+      if (a6[1] != *a6)
+      {
+        v48 = 0;
+        do
+        {
+          v49 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v48);
+          v50 = *(a1 + 4 * v48);
+          v51 = MIL::Fp16::GetFloat((a3 + 2 * v49));
+          v52 = MIL::Fp16::GetFloat((v47 + 2 * v49));
+          result = MIL::Fp16::FromFloat(v53, v51 * (v50 - v52));
+          v54 = *a6;
+          *(*a6 + 2 * v48++) = result;
+        }
+
+        while (v48 < (a6[1] - v54) >> 1);
+      }
+    }
+
+    else
+    {
+      if (v13 != 5)
+      {
+        goto LABEL_49;
+      }
+
+      v25 = MIL::IRTensorValue::GetDataView<float>(*a4);
+      result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
+      if (a6[1] != *a6)
+      {
+        v26 = 0;
+        do
+        {
+          v27 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v26);
+          v28 = *(a1 + 4 * v26);
+          v29 = MIL::Fp16::GetFloat((a3 + 2 * v27));
+          result = MIL::Fp16::FromFloat(v30, v29 * (v28 - *(v25 + 4 * v27)));
+          v31 = *a6;
+          *(*a6 + 2 * v26++) = result;
+        }
+
+        while (v26 < (a6[1] - v31) >> 1);
+      }
+    }
+  }
+
+  else if (v13 <= 19)
+  {
+    if (v13 == 13)
+    {
+      v63 = MIL::IRTensorValue::GetDataView<MIL::Int4>(*a4);
+      v65 = v64;
+      result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
+      if (a6[1] != *a6)
+      {
+        v66 = 0;
+        do
+        {
+          v67 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v66);
+          v68 = *(a1 + 4 * v66);
+          v69 = MIL::Fp16::GetFloat((a3 + 2 * v67));
+          v95.__r_.__value_.__r.__words[0] = v63;
+          v95.__r_.__value_.__l.__size_ = v65;
+          v94.__r_.__value_.__s.__data_[0] = MIL::Util::Span<MIL::Int4 const,18446744073709551615ul>::ValueAt(&v95, v67);
+          Int = MIL::Int4::GetInt(&v94);
+          result = MIL::Fp16::FromFloat(Int, v69 * (v68 - Int));
+          v71 = *a6;
+          *(*a6 + 2 * v66++) = result;
+        }
+
+        while (v66 < (a6[1] - v71) >> 1);
+      }
+    }
+
+    else
+    {
+      if (v13 != 14)
+      {
+        goto LABEL_49;
+      }
+
+      v39 = MIL::IRTensorValue::GetDataView<unsigned char>(*a4);
+      result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
+      if (a6[1] != *a6)
+      {
+        v40 = 0;
+        do
+        {
+          v41 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v40);
+          v42 = *(a1 + 4 * v40);
+          v43 = MIL::Fp16::GetFloat((a3 + 2 * v41));
+          LOBYTE(v44) = *(v39 + v41);
+          result = MIL::Fp16::FromFloat(v45, v43 * (v42 - v44));
+          v46 = *a6;
+          *(*a6 + 2 * v40++) = result;
+        }
+
+        while (v40 < (a6[1] - v46) >> 1);
+      }
+    }
+  }
+
+  else
+  {
+    switch(v13)
+    {
+      case 25:
+        v72 = MIL::IRTensorValue::GetDataView<MIL::Fp8E5M2>(*a4);
+        result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
+        if (a6[1] != *a6)
+        {
+          v73 = 0;
+          do
+          {
+            v74 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v73);
+            v75 = *(a1 + 4 * v73);
+            v76 = MIL::Fp16::GetFloat((a3 + 2 * v74));
+            v77 = MIL::Fp8E5M2::GetFloat((v72 + v74));
+            result = MIL::Fp16::FromFloat(v78, v76 * (v75 - v77));
+            v79 = *a6;
+            *(*a6 + 2 * v73++) = result;
+          }
+
+          while (v73 < (a6[1] - v79) >> 1);
+        }
+
+        break;
+      case 24:
+        v80 = MIL::IRTensorValue::GetDataView<MIL::Fp8E4M3FN>(*a4);
+        result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
+        if (a6[1] != *a6)
+        {
+          v81 = 0;
+          do
+          {
+            v82 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v81);
+            v83 = *(a1 + 4 * v81);
+            v84 = MIL::Fp16::GetFloat((a3 + 2 * v82));
+            v85 = MIL::Fp8E4M3FN::GetFloat((v80 + v82));
+            result = MIL::Fp16::FromFloat(v86, v84 * (v83 - v85));
+            v87 = *a6;
+            *(*a6 + 2 * v81++) = result;
+          }
+
+          while (v81 < (a6[1] - v87) >> 1);
+        }
+
+        break;
+      case 20:
+        v15 = MIL::IRTensorValue::GetDataView<MIL::UInt4>(*a4);
+        v17 = v16;
+        result = std::vector<MIL::Fp16>::vector[abi:ne200100](a6, a2);
+        if (a6[1] != *a6)
+        {
+          v19 = 0;
+          do
+          {
+            v20 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a5, v19);
+            v21 = *(a1 + 4 * v19);
+            v22 = MIL::Fp16::GetFloat((a3 + 2 * v20));
+            v95.__r_.__value_.__r.__words[0] = v15;
+            v95.__r_.__value_.__l.__size_ = v17;
+            v94.__r_.__value_.__s.__data_[0] = MIL::Util::Span<MIL::UInt4 const,18446744073709551615ul>::ValueAt(&v95, v20);
+            v23 = MIL::UInt4::GetInt(&v94);
+            result = MIL::Fp16::FromFloat(v23, v22 * (v21 - v23));
+            v24 = *a6;
+            *(*a6 + 2 * v19++) = result;
+          }
+
+          while (v19 < (a6[1] - v24) >> 1);
+        }
+
+        return result;
+      default:
+LABEL_49:
+        exception = __cxa_allocate_exception(0x10uLL);
+        MIL::IRDataTypeToString(v14, &v93);
+        v89 = std::string::insert(&v93, 0, "Unsupported dType (");
+        v90 = *&v89->__r_.__value_.__l.__data_;
+        v94.__r_.__value_.__r.__words[2] = v89->__r_.__value_.__r.__words[2];
+        *&v94.__r_.__value_.__l.__data_ = v90;
+        v89->__r_.__value_.__l.__size_ = 0;
+        v89->__r_.__value_.__r.__words[2] = 0;
+        v89->__r_.__value_.__r.__words[0] = 0;
+        v91 = std::string::append(&v94, ") for offset.");
+        v92 = *&v91->__r_.__value_.__l.__data_;
+        v95.__r_.__value_.__r.__words[2] = v91->__r_.__value_.__r.__words[2];
+        *&v95.__r_.__value_.__l.__data_ = v92;
+        v91->__r_.__value_.__l.__size_ = 0;
+        v91->__r_.__value_.__r.__words[2] = 0;
+        v91->__r_.__value_.__r.__words[0] = 0;
+        std::runtime_error::runtime_error(exception, &v95);
+        __cxa_throw(exception, MEMORY[0x277D82760], MEMORY[0x277D82600]);
+    }
+  }
+
+  return result;
+}
+
+void sub_21838C09C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, uint64_t a22, void *__p, uint64_t a24, int a25, __int16 a26, char a27, char a28)
+{
+  if (a28 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a21 < 0)
+  {
+    operator delete(a16);
+  }
+
+  if (a15 < 0)
+  {
+    operator delete(a10);
+    if ((v29 & 1) == 0)
+    {
+LABEL_10:
+      _Unwind_Resume(a1);
+    }
+  }
+
+  else if (!v29)
+  {
+    goto LABEL_10;
+  }
+
+  __cxa_free_exception(v28);
+  goto LABEL_10;
+}
+
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::UInt4>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
+{
+  result = std::vector<MIL::Fp16>::vector[abi:ne200100](a5, a2);
+  if (a5[1] != *a5)
+  {
+    v11 = 0;
+    do
+    {
+      v12 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a4, v11);
+      v19[0] = a1;
+      v19[1] = a2;
+      v18 = MIL::Util::Span<MIL::UInt4 const,18446744073709551615ul>::ValueAt(v19, v11);
+      Int = MIL::UInt4::GetInt(&v18);
+      Float = MIL::Fp16::GetFloat((a3 + 2 * v12));
+      result = MIL::Fp16::FromFloat(v15, Float * Int);
+      v16 = *a5;
+      v17 = a5[1];
+      *(*a5 + 2 * v11++) = result;
+    }
+
+    while (v11 < (v17 - v16) >> 1);
+  }
+
+  return result;
+}
+
+void sub_21838C238(_Unwind_Exception *exception_object)
+{
+  v3 = *v1;
+  if (*v1)
+  {
+    *(v1 + 8) = v3;
+    operator delete(v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Int4>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
+{
+  result = std::vector<MIL::Fp16>::vector[abi:ne200100](a5, a2);
+  if (a5[1] != *a5)
+  {
+    v11 = 0;
+    do
+    {
+      v12 = MIL::Operators::Common::Shared::ConstExprs::BlockwiseShiftScaleIndexConverter::DataIndexToScaleIndex(a4, v11);
+      v19[0] = a1;
+      v19[1] = a2;
+      v18 = MIL::Util::Span<MIL::Int4 const,18446744073709551615ul>::ValueAt(v19, v11);
+      Int = MIL::Int4::GetInt(&v18);
+      Float = MIL::Fp16::GetFloat((a3 + 2 * v12));
+      result = MIL::Fp16::FromFloat(v15, Float * Int);
+      v16 = *a5;
+      v17 = a5[1];
+      *(*a5 + 2 * v11++) = result;
+    }
+
+    while (v11 < (v17 - v16) >> 1);
+  }
+
+  return result;
+}
+
 void sub_21838C31C(_Unwind_Exception *exception_object)
 {
   v3 = *v1;
@@ -10,7 +396,7 @@ void sub_21838C31C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,signed char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,signed char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   result = std::vector<MIL::Fp16>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -45,7 +431,7 @@ void sub_21838C3D0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,unsigned char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,unsigned char>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   result = std::vector<MIL::Fp16>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -80,7 +466,7 @@ void sub_21838C480(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp8E4M3FN>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp8E4M3FN>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   result = std::vector<MIL::Fp16>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -115,7 +501,7 @@ void sub_21838C540(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp8E5M2>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp8E5M2>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   result = std::vector<MIL::Fp16>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -150,7 +536,7 @@ void sub_21838C600(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Bf16>@<X0>(MIL::Bf16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Bf16>@<X0>(MIL::Bf16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   result = std::vector<MIL::Fp16>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -186,7 +572,7 @@ void sub_21838C6C4(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp16>@<X0>(MIL::Fp16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp16>@<X0>(MIL::Fp16 *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   result = std::vector<MIL::Fp16>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -222,7 +608,7 @@ void sub_21838C788(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,float>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,float>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   result = std::vector<MIL::Fp16>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -257,7 +643,7 @@ void sub_21838C83C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::UInt4>(std::string::size_type a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::UInt4>(std::string::size_type a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -561,7 +947,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Int4>(std::string::size_type a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Int4>(std::string::size_type a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -865,7 +1251,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,signed char>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,signed char>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -1142,7 +1528,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,unsigned char>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,unsigned char>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v13 = (*(**a4 + 32))();
   v14 = (*(*v13 + 88))(v13);
@@ -1419,7 +1805,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp8E4M3FN>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp8E4M3FN>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -1696,7 +2082,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp8E5M2>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp8E5M2>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -1973,7 +2359,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Bf16>(MIL::Bf16 *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Bf16>(MIL::Bf16 *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -2259,7 +2645,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp16>(MIL::Fp16 *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp16>(MIL::Fp16 *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -2545,7 +2931,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,float>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t **a4@<X4>, unint64_t **a5@<X5>, uint64_t *a6@<X8>)
+void MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,float>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, void **a4@<X4>, char **a5@<X5>, uint64_t *a6@<X8>)
 {
   v12 = (*(**a4 + 32))();
   v13 = (*(*v12 + 88))(v12);
@@ -2822,7 +3208,7 @@ LABEL_10:
   goto LABEL_10;
 }
 
-float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::UInt4>@<S0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::UInt4>@<S0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   std::vector<float>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -2858,7 +3244,7 @@ void sub_218390714(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Int4>@<S0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Int4>@<S0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   std::vector<float>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -2894,7 +3280,7 @@ void sub_2183907E8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,signed char>@<S0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,signed char>@<S0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   std::vector<float>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -2926,7 +3312,7 @@ void sub_21839088C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,unsigned char>@<S0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,unsigned char>@<S0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   std::vector<float>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -2960,7 +3346,7 @@ void sub_218390930(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp8E4M3FN>@<S0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp8E4M3FN>@<S0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   std::vector<float>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -2993,7 +3379,7 @@ void sub_2183909D8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp8E5M2>@<S0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp8E5M2>@<S0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   std::vector<float>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -3026,7 +3412,7 @@ void sub_218390A80(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Bf16>@<S0>(MIL::Bf16 *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Bf16>@<S0>(MIL::Bf16 *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   std::vector<float>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -3060,7 +3446,7 @@ void sub_218390B2C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp16>@<S0>(MIL::Fp16 *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp16>@<S0>(MIL::Fp16 *a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   std::vector<float>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -3094,7 +3480,7 @@ void sub_218390BD8(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,float>@<S0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, unint64_t **a4@<X4>, uint64_t *a5@<X8>)
+float MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,float>@<S0>(uint64_t a1@<X0>, unint64_t a2@<X1>, uint64_t a3@<X2>, char **a4@<X4>, uint64_t *a5@<X8>)
 {
   std::vector<float>::vector[abi:ne200100](a5, a2);
   if (a5[1] != *a5)
@@ -3160,10 +3546,10 @@ void sub_218390CF0(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::ConstExprs::SparseBlockwiseShiftScale::Impl::ValidateArgsAndTypeConstraints(MIL::Operators::Common::ios18::ConstExprs::SparseBlockwiseShiftScale::Impl *this)
 {
-  std::string::basic_string[abi:ne200100]<0>(&__p, "Constexpr-SparseBlockwiseShiftScale");
+  std::string::basic_string[abi:ne200100]<0>(__p, "Constexpr-SparseBlockwiseShiftScale");
   v2 = (*(**(this + 2) + 32))(*(this + 2));
   std::string::basic_string[abi:ne200100]<0>(&v35, "mask");
-  MIL::Operators::Common::Shared::ConstExprs::AssertIsShapeConstant(v2, &v35);
+  MIL::Operators::Common::Shared::ConstExprs::AssertIsShapeConstant(v2, &v35, __p);
   if (SHIBYTE(v37) < 0)
   {
     operator delete(v35);
@@ -3171,7 +3557,7 @@ void MIL::Operators::Common::ios18::ConstExprs::SparseBlockwiseShiftScale::Impl:
 
   v3 = (*(**(this + 6) + 32))(*(this + 6));
   std::string::basic_string[abi:ne200100]<0>(&v35, "scale");
-  MIL::Operators::Common::Shared::ConstExprs::AssertIsShapeConstant(v3, &v35);
+  MIL::Operators::Common::Shared::ConstExprs::AssertIsShapeConstant(v3, &v35, __p);
   if (SHIBYTE(v37) < 0)
   {
     operator delete(v35);
@@ -3181,7 +3567,7 @@ void MIL::Operators::Common::ios18::ConstExprs::SparseBlockwiseShiftScale::Impl:
   v5 = (*(**(this + 6) + 32))(*(this + 6));
   std::string::basic_string[abi:ne200100]<0>(&v35, "mask");
   std::string::basic_string[abi:ne200100]<0>(&v32, "scale");
-  MIL::Operators::Common::Shared::ConstExprs::AssertSameRank(v4, v5, &v35, &v32);
+  MIL::Operators::Common::Shared::ConstExprs::AssertSameRank(v4, v5, &v35, &v32, __p);
   if (SHIBYTE(v34) < 0)
   {
     operator delete(v32);
@@ -3197,13 +3583,13 @@ void MIL::Operators::Common::ios18::ConstExprs::SparseBlockwiseShiftScale::Impl:
   v35 = 0;
   v36 = 0;
   v37 = 0;
-  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&v35, *v7, v7[1], (v7[1] - *v7) >> 3);
+  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&v35, *v7, *(v7 + 8), (*(v7 + 8) - *v7) >> 3);
   v8 = (*(**(this + 6) + 32))(*(this + 6));
   v9 = (*(*v8 + 96))(v8);
   v32 = 0;
   v33 = 0;
   v34 = 0;
-  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&v32, *v9, v9[1], (v9[1] - *v9) >> 3);
+  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&v32, *v9, *(v9 + 8), (*(v9 + 8) - *v9) >> 3);
   v10 = v35;
   if (v36 != v35)
   {
@@ -3292,16 +3678,16 @@ void MIL::Operators::Common::ios18::ConstExprs::SparseBlockwiseShiftScale::Impl:
   }
 
   v15 = (*(**(this + 6) + 32))(*(this + 6));
-  MIL::Operators::Common::Shared::ConstExprs::AssertExpectedOutputDType(v15, *(this + 1));
+  MIL::Operators::Common::Shared::ConstExprs::AssertExpectedOutputDType(v15, *(this + 1), __p);
   v16 = (*(**(this + 2) + 32))(*(this + 2));
-  MIL::Operators::Common::Shared::ConstExprs::AssertExpectedOutputShape(v16, *this);
+  MIL::Operators::Common::Shared::ConstExprs::AssertExpectedOutputShape(v16, *this, __p);
   if (*(this + 8))
   {
     v17 = (*(**(this + 6) + 32))(*(this + 6));
     v18 = (*(**(this + 8) + 32))(*(this + 8));
     std::string::basic_string[abi:ne200100]<0>(&v35, "scale");
     std::string::basic_string[abi:ne200100]<0>(&v32, "offset");
-    MIL::Operators::Common::Shared::ConstExprs::AssertConstantAndSameShape(v17, v18, &v35);
+    MIL::Operators::Common::Shared::ConstExprs::AssertConstantAndSameShape(v17, v18, &v35, &v32, __p);
     if (SHIBYTE(v34) < 0)
     {
       operator delete(v32);
@@ -3315,7 +3701,7 @@ void MIL::Operators::Common::ios18::ConstExprs::SparseBlockwiseShiftScale::Impl:
 
   if (v27 < 0)
   {
-    operator delete(__p);
+    operator delete(__p[0]);
   }
 }
 
@@ -3362,7 +3748,7 @@ void MIL::Operators::Common::ios18::ConstExprs::SparseBlockwiseShiftScale::Impl:
         if (v8 != 7)
         {
           exception = __cxa_allocate_exception(0x10uLL);
-          std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(": Unsupported dtype ", v386, &v400.__r_.__value_.__l.__data_);
+          std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v400, ": Unsupported dtype ", v386);
           MIL::IRDataTypeToString(v9, &v399);
           if ((v399.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
           {
@@ -3470,7 +3856,7 @@ void MIL::Operators::Common::ios18::ConstExprs::SparseBlockwiseShiftScale::Impl:
                   atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp16>(v237, v236, v235, &v399, &v388, &v400);
+                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp16>(v237, v236, v235, &v399.__r_.__value_.__l.__data_, &v388.__r_.__value_.__l.__data_, &v400);
                 if (v399.__r_.__value_.__l.__size_)
                 {
                   std::__shared_weak_count::__release_shared[abi:ne200100](v399.__r_.__value_.__l.__size_);
@@ -3501,7 +3887,7 @@ void MIL::Operators::Common::ios18::ConstExprs::SparseBlockwiseShiftScale::Impl:
                   atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,float>(v222, v221, v220, &v399, &v388, &v400);
+                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,float>(v222, v221, v220, &v399.__r_.__value_.__l.__data_, &v388.__r_.__value_.__l.__data_, &v400);
                 if (v399.__r_.__value_.__l.__size_)
                 {
                   std::__shared_weak_count::__release_shared[abi:ne200100](v399.__r_.__value_.__l.__size_);
@@ -3532,7 +3918,7 @@ void MIL::Operators::Common::ios18::ConstExprs::SparseBlockwiseShiftScale::Impl:
                   atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Bf16>(v135, v134, v133, &v399, &v388, &v400);
+                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Bf16>(v135, v134, v133, &v399.__r_.__value_.__l.__data_, &v388.__r_.__value_.__l.__data_, &v400);
                 if (v399.__r_.__value_.__l.__size_)
                 {
                   std::__shared_weak_count::__release_shared[abi:ne200100](v399.__r_.__value_.__l.__size_);
@@ -3575,7 +3961,7 @@ void MIL::Operators::Common::ios18::ConstExprs::SparseBlockwiseShiftScale::Impl:
                   atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::UInt4>(v158, v159, v156, &v397, &v388, &v399);
+                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::UInt4>(v158, v159, v156, &v397, &v388.__r_.__value_.__l.__data_, &v399);
                 if (v398)
                 {
                   std::__shared_weak_count::__release_shared[abi:ne200100](v398);
@@ -3628,7 +4014,7 @@ LABEL_434:
               atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,unsigned char>(v267, v266, v265, &v399, &v388, &v400);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,unsigned char>(v267, v266, v265, &v399.__r_.__value_.__l.__data_, &v388.__r_.__value_.__l.__data_, &v400);
             if (v399.__r_.__value_.__l.__size_)
             {
               std::__shared_weak_count::__release_shared[abi:ne200100](v399.__r_.__value_.__l.__size_);
@@ -3666,7 +4052,7 @@ LABEL_434:
                   atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
                 }
 
-                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Int4>(v33, v34, v31, &v397, &v388, &v399);
+                MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Int4>(v33, v34, v31, &v397, &v388.__r_.__value_.__l.__data_, &v399);
                 if (v398)
                 {
                   std::__shared_weak_count::__release_shared[abi:ne200100](v398);
@@ -3709,7 +4095,7 @@ LABEL_160:
               atomic_fetch_add_explicit(&v17->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,signed char>(v262, v261, v260, &v399, &v388, &v400);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,signed char>(v262, v261, v260, &v399.__r_.__value_.__l.__data_, &v388.__r_.__value_.__l.__data_, &v400);
             if (v399.__r_.__value_.__l.__size_)
             {
               std::__shared_weak_count::__release_shared[abi:ne200100](v399.__r_.__value_.__l.__size_);
@@ -3758,7 +4144,7 @@ LABEL_315:
                 v303 = v401.__r_.__value_.__r.__words[0];
               }
 
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp16>(v303, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 1, v302, &v388, &v400);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Fp16>(v303, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 1, v302, &v388.__r_.__value_.__l.__data_, &v400);
               MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v400, v298, v300, &v385);
               break;
             case 5:
@@ -3777,7 +4163,7 @@ LABEL_315:
                 v285 = v401.__r_.__value_.__r.__words[0];
               }
 
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,float>(v285, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 2, v284, &v388, &v400);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,float>(v285, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 2, v284, &v388.__r_.__value_.__l.__data_, &v400);
               MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v400, v280, v282, &v385);
               break;
             case 7:
@@ -3796,7 +4182,7 @@ LABEL_315:
                 v177 = v401.__r_.__value_.__r.__words[0];
               }
 
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Bf16>(v177, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 1, v176, &v388, &v400);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Bf16>(v177, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 1, v176, &v388.__r_.__value_.__l.__data_, &v400);
               MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v400, v172, v174, &v385);
               break;
             default:
@@ -3828,7 +4214,7 @@ LABEL_315:
               }
 
               MIL::Util::CastToBitSpan<MIL::UInt4 const,unsigned char,true>(v205, v400.__r_.__value_.__l.__size_ - v400.__r_.__value_.__r.__words[0], v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]);
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::UInt4>(v206, v207, v204, &v388, &v399);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::UInt4>(v206, v207, v204, &v388.__r_.__value_.__l.__data_, &v399);
               MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v399, v198, v200, &v385);
 LABEL_205:
               if (v399.__r_.__value_.__r.__words[0])
@@ -3876,7 +4262,7 @@ LABEL_437:
             v339 = v401.__r_.__value_.__r.__words[0];
           }
 
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,unsigned char>(v339, v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0], v338, &v388, &v400);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,unsigned char>(v339, v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0], v338, &v388.__r_.__value_.__l.__data_, &v400);
           MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v400, v334, v336, &v385);
         }
 
@@ -3904,7 +4290,7 @@ LABEL_437:
               }
 
               MIL::Util::CastToBitSpan<MIL::Int4 const,unsigned char,true>(v112, v400.__r_.__value_.__l.__size_ - v400.__r_.__value_.__r.__words[0], v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]);
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Int4>(v113, v114, v111, &v388, &v399);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,MIL::Int4>(v113, v114, v111, &v388.__r_.__value_.__l.__data_, &v399);
               MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v399, v105, v107, &v385);
               goto LABEL_205;
             }
@@ -3927,7 +4313,7 @@ LABEL_437:
             v333 = v401.__r_.__value_.__r.__words[0];
           }
 
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,signed char>(v333, v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0], v332, &v388, &v400);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Bf16,signed char>(v333, v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0], v332, &v388.__r_.__value_.__l.__data_, &v400);
           MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(&v400, v328, v330, &v385);
         }
 
@@ -4046,7 +4432,7 @@ LABEL_403:
                 atomic_fetch_add_explicit(&v42->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp16>(v227, v226, v225, &v399, &v388, &v400);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp16>(v227, v226, v225, &v399.__r_.__value_.__l.__data_, &v388.__r_.__value_.__l.__data_, &v400);
               if (v399.__r_.__value_.__l.__size_)
               {
                 std::__shared_weak_count::__release_shared[abi:ne200100](v399.__r_.__value_.__l.__size_);
@@ -4077,7 +4463,7 @@ LABEL_403:
                 atomic_fetch_add_explicit(&v42->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,float>(v212, v211, v210, &v399, &v388, &v400);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,float>(v212, v211, v210, &v399.__r_.__value_.__l.__data_, &v388.__r_.__value_.__l.__data_, &v400);
               if (v399.__r_.__value_.__l.__size_)
               {
                 std::__shared_weak_count::__release_shared[abi:ne200100](v399.__r_.__value_.__l.__size_);
@@ -4108,7 +4494,7 @@ LABEL_403:
                 atomic_fetch_add_explicit(&v42->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Bf16>(v121, v120, v119, &v399, &v388, &v400);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Bf16>(v121, v120, v119, &v399.__r_.__value_.__l.__data_, &v388.__r_.__value_.__l.__data_, &v400);
               if (v399.__r_.__value_.__l.__size_)
               {
                 std::__shared_weak_count::__release_shared[abi:ne200100](v399.__r_.__value_.__l.__size_);
@@ -4151,7 +4537,7 @@ LABEL_403:
                 atomic_fetch_add_explicit(&v42->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::UInt4>(v142, v143, v140, &v397, &v388, &v399);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::UInt4>(v142, v143, v140, &v397, &v388.__r_.__value_.__l.__data_, &v399);
               if (v398)
               {
                 std::__shared_weak_count::__release_shared[abi:ne200100](v398);
@@ -4204,7 +4590,7 @@ LABEL_432:
             atomic_fetch_add_explicit(&v42->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,unsigned char>(v247, v246, v245, &v399, &v388, &v400);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,unsigned char>(v247, v246, v245, &v399.__r_.__value_.__l.__data_, &v388.__r_.__value_.__l.__data_, &v400);
           if (v399.__r_.__value_.__l.__size_)
           {
             std::__shared_weak_count::__release_shared[abi:ne200100](v399.__r_.__value_.__l.__size_);
@@ -4242,7 +4628,7 @@ LABEL_432:
                 atomic_fetch_add_explicit(&v42->__shared_owners_, 1uLL, memory_order_relaxed);
               }
 
-              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Int4>(v58, v59, v56, &v397, &v388, &v399);
+              MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Int4>(v58, v59, v56, &v397, &v388.__r_.__value_.__l.__data_, &v399);
               if (v398)
               {
                 std::__shared_weak_count::__release_shared[abi:ne200100](v398);
@@ -4285,7 +4671,7 @@ LABEL_138:
             atomic_fetch_add_explicit(&v42->__shared_owners_, 1uLL, memory_order_relaxed);
           }
 
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,signed char>(v242, v241, v240, &v399, &v388, &v400);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,signed char>(v242, v241, v240, &v399.__r_.__value_.__l.__data_, &v388.__r_.__value_.__l.__data_, &v400);
           if (v399.__r_.__value_.__l.__size_)
           {
             std::__shared_weak_count::__release_shared[abi:ne200100](v399.__r_.__value_.__l.__size_);
@@ -4334,7 +4720,7 @@ LABEL_271:
               v291 = v401.__r_.__value_.__r.__words[0];
             }
 
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp16>(v291, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 1, v290, &v388, &v400);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Fp16>(v291, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 1, v290, &v388.__r_.__value_.__l.__data_, &v400);
             MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v400, v286, v288, &v385);
             break;
           case 5:
@@ -4353,7 +4739,7 @@ LABEL_271:
               v273 = v401.__r_.__value_.__r.__words[0];
             }
 
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,float>(v273, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 2, v272, &v388, &v400);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,float>(v273, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 2, v272, &v388.__r_.__value_.__l.__data_, &v400);
             MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v400, v268, v270, &v385);
             break;
           case 7:
@@ -4372,7 +4758,7 @@ LABEL_271:
               v165 = v401.__r_.__value_.__r.__words[0];
             }
 
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Bf16>(v165, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 1, v164, &v388, &v400);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Bf16>(v165, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 1, v164, &v388.__r_.__value_.__l.__data_, &v400);
             MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v400, v160, v162, &v385);
             break;
           default:
@@ -4404,7 +4790,7 @@ LABEL_271:
             }
 
             MIL::Util::CastToBitSpan<MIL::UInt4 const,unsigned char,true>(v185, v400.__r_.__value_.__l.__size_ - v400.__r_.__value_.__r.__words[0], v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::UInt4>(v186, v187, v184, &v388, &v399);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::UInt4>(v186, v187, v184, &v388.__r_.__value_.__l.__data_, &v399);
             MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v399, v178, v180, &v385);
 LABEL_189:
             if (v399.__r_.__value_.__r.__words[0])
@@ -4452,7 +4838,7 @@ LABEL_435:
           v315 = v401.__r_.__value_.__r.__words[0];
         }
 
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,unsigned char>(v315, v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0], v314, &v388, &v400);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,unsigned char>(v315, v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0], v314, &v388.__r_.__value_.__l.__data_, &v400);
         MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v400, v310, v312, &v385);
       }
 
@@ -4480,7 +4866,7 @@ LABEL_435:
             }
 
             MIL::Util::CastToBitSpan<MIL::Int4 const,unsigned char,true>(v92, v400.__r_.__value_.__l.__size_ - v400.__r_.__value_.__r.__words[0], v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]);
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Int4>(v93, v94, v91, &v388, &v399);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,MIL::Int4>(v93, v94, v91, &v388.__r_.__value_.__l.__data_, &v399);
             MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v399, v85, v87, &v385);
             goto LABEL_189;
           }
@@ -4503,7 +4889,7 @@ LABEL_435:
           v309 = v401.__r_.__value_.__r.__words[0];
         }
 
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,signed char>(v309, v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0], v308, &v388, &v400);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<float,signed char>(v309, v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0], v308, &v388.__r_.__value_.__l.__data_, &v400);
         MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(&v400, v304, v306, &v385);
       }
 
@@ -4622,7 +5008,7 @@ LABEL_357:
               atomic_fetch_add_explicit(&v67->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp16>(v232, v231, v230, &v399, &v388, &v400);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp16>(v232, v231, v230, &v399.__r_.__value_.__l.__data_, &v388.__r_.__value_.__l.__data_, &v400);
             if (v399.__r_.__value_.__l.__size_)
             {
               std::__shared_weak_count::__release_shared[abi:ne200100](v399.__r_.__value_.__l.__size_);
@@ -4653,7 +5039,7 @@ LABEL_357:
               atomic_fetch_add_explicit(&v67->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,float>(v217, v216, v215, &v399, &v388, &v400);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,float>(v217, v216, v215, &v399.__r_.__value_.__l.__data_, &v388.__r_.__value_.__l.__data_, &v400);
             if (v399.__r_.__value_.__l.__size_)
             {
               std::__shared_weak_count::__release_shared[abi:ne200100](v399.__r_.__value_.__l.__size_);
@@ -4684,7 +5070,7 @@ LABEL_357:
               atomic_fetch_add_explicit(&v67->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Bf16>(v128, v127, v126, &v399, &v388, &v400);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Bf16>(v128, v127, v126, &v399.__r_.__value_.__l.__data_, &v388.__r_.__value_.__l.__data_, &v400);
             if (v399.__r_.__value_.__l.__size_)
             {
               std::__shared_weak_count::__release_shared[abi:ne200100](v399.__r_.__value_.__l.__size_);
@@ -4727,7 +5113,7 @@ LABEL_357:
               atomic_fetch_add_explicit(&v67->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::UInt4>(v150, v151, v148, &v397, &v388, &v399);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::UInt4>(v150, v151, v148, &v397, &v388.__r_.__value_.__l.__data_, &v399);
             if (v398)
             {
               std::__shared_weak_count::__release_shared[abi:ne200100](v398);
@@ -4780,7 +5166,7 @@ LABEL_433:
           atomic_fetch_add_explicit(&v67->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,unsigned char>(v257, v256, v255, &v399, &v388, &v400);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,unsigned char>(v257, v256, v255, &v399.__r_.__value_.__l.__data_, &v388.__r_.__value_.__l.__data_, &v400);
         if (v399.__r_.__value_.__l.__size_)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v399.__r_.__value_.__l.__size_);
@@ -4818,7 +5204,7 @@ LABEL_433:
               atomic_fetch_add_explicit(&v67->__shared_owners_, 1uLL, memory_order_relaxed);
             }
 
-            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Int4>(v83, v84, v81, &v397, &v388, &v399);
+            MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Int4>(v83, v84, v81, &v397, &v388.__r_.__value_.__l.__data_, &v399);
             if (v398)
             {
               std::__shared_weak_count::__release_shared[abi:ne200100](v398);
@@ -4861,7 +5247,7 @@ LABEL_149:
           atomic_fetch_add_explicit(&v67->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,signed char>(v252, v251, v250, &v399, &v388, &v400);
+        MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,signed char>(v252, v251, v250, &v399.__r_.__value_.__l.__data_, &v388.__r_.__value_.__l.__data_, &v400);
         if (v399.__r_.__value_.__l.__size_)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v399.__r_.__value_.__l.__size_);
@@ -4910,7 +5296,7 @@ LABEL_293:
             v297 = v401.__r_.__value_.__r.__words[0];
           }
 
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp16>(v297, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 1, v296, &v388, &v400);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Fp16>(v297, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 1, v296, &v388.__r_.__value_.__l.__data_, &v400);
           MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v400, v292, v294, &v385);
           break;
         case 5:
@@ -4929,7 +5315,7 @@ LABEL_293:
             v279 = v401.__r_.__value_.__r.__words[0];
           }
 
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,float>(v279, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 2, v278, &v388, &v400);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,float>(v279, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 2, v278, &v388.__r_.__value_.__l.__data_, &v400);
           MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v400, v274, v276, &v385);
           break;
         case 7:
@@ -4948,7 +5334,7 @@ LABEL_293:
             v171 = v401.__r_.__value_.__r.__words[0];
           }
 
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Bf16>(v171, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 1, v170, &v388, &v400);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Bf16>(v171, (v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]) >> 1, v170, &v388.__r_.__value_.__l.__data_, &v400);
           MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v400, v166, v168, &v385);
           break;
         default:
@@ -4980,7 +5366,7 @@ LABEL_293:
           }
 
           MIL::Util::CastToBitSpan<MIL::UInt4 const,unsigned char,true>(v195, v400.__r_.__value_.__l.__size_ - v400.__r_.__value_.__r.__words[0], v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::UInt4>(v196, v197, v194, &v388, &v399);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::UInt4>(v196, v197, v194, &v388.__r_.__value_.__l.__data_, &v399);
           MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v399, v188, v190, &v385);
 LABEL_197:
           if (v399.__r_.__value_.__r.__words[0])
@@ -5028,7 +5414,7 @@ LABEL_436:
         v327 = v401.__r_.__value_.__r.__words[0];
       }
 
-      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,unsigned char>(v327, v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0], v326, &v388, &v400);
+      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,unsigned char>(v327, v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0], v326, &v388.__r_.__value_.__l.__data_, &v400);
       MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v400, v322, v324, &v385);
     }
 
@@ -5056,7 +5442,7 @@ LABEL_436:
           }
 
           MIL::Util::CastToBitSpan<MIL::Int4 const,unsigned char,true>(v102, v400.__r_.__value_.__l.__size_ - v400.__r_.__value_.__r.__words[0], v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0]);
-          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Int4>(v103, v104, v101, &v388, &v399);
+          MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,MIL::Int4>(v103, v104, v101, &v388.__r_.__value_.__l.__data_, &v399);
           MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v399, v95, v97, &v385);
           goto LABEL_197;
         }
@@ -5079,7 +5465,7 @@ LABEL_436:
         v321 = v401.__r_.__value_.__r.__words[0];
       }
 
-      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,signed char>(v321, v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0], v320, &v388, &v400);
+      MIL::Operators::Common::Shared::ConstExprs::EvaluateBlockwiseShiftScale<MIL::Fp16,signed char>(v321, v401.__r_.__value_.__l.__size_ - v401.__r_.__value_.__r.__words[0], v320, &v388.__r_.__value_.__l.__data_, &v400);
       MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(&v400, v316, v318, &v385);
     }
 
@@ -5133,7 +5519,7 @@ LABEL_380:
   if (a2)
   {
     v340 = __cxa_allocate_exception(0x10uLL);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(" has two outputs, index i cannot be larger than 1.", v386, &v388.__r_.__value_.__l.__data_);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v388, " has two outputs, index i cannot be larger than 1.", v386);
     std::runtime_error::runtime_error(v340, &v388);
     __cxa_throw(v340, MEMORY[0x277D82760], MEMORY[0x277D82600]);
   }
@@ -5142,7 +5528,7 @@ LABEL_380:
   if (v6 != 21)
   {
     v341 = __cxa_allocate_exception(0x10uLL);
-    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(": Unsupported dtype ", v386, &v400.__r_.__value_.__l.__data_);
+    std::operator+[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v400, ": Unsupported dtype ", v386);
     MIL::IRDataTypeToString(v6, &v399);
     if ((v399.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
     {
@@ -5385,7 +5771,7 @@ void MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Bf16>(ui
         else
         {
           *v12 = *(v10 + 2 * v8);
-          v13 = v12 + 1;
+          v13 = v12 + 2;
         }
 
         a4[1] = v13;
@@ -5409,7 +5795,7 @@ void MIL::Util::CastToBitSpan<MIL::Int4 const,unsigned char,true>(uint64_t a1, u
   }
 }
 
-void *MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::Bf16>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
+uint64_t *MIL::Operators::Common::Shared::ConstExprs::EvaluateBitMask<MIL::Bf16>@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t a3@<X3>, uint64_t *a4@<X8>)
 {
   v12[0] = a2;
   v12[1] = a3;
@@ -5539,7 +5925,7 @@ void MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<MIL::Fp16>(ui
         else
         {
           *v12 = *(v10 + 2 * v8);
-          v13 = v12 + 1;
+          v13 = v12 + 2;
         }
 
         a4[1] = v13;
@@ -5629,7 +6015,7 @@ void MIL::Operators::Common::Shared::ConstExprs::ExtractMaskedData<float>(uint64
         else
         {
           *v12 = *(v10 + 4 * v8);
-          v13 = v12 + 1;
+          v13 = v12 + 4;
         }
 
         a4[1] = v13;
@@ -5672,8 +6058,8 @@ void MIL::Operators::Common::ios18::ConstExprs::SparseBlockwiseShiftScale::Impl:
 
 void MIL::Operators::Common::ios18::Conv::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -5701,8 +6087,8 @@ void sub_218397190(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::ConvTranspose::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -5728,17 +6114,17 @@ void sub_21839A4A0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void MIL::Operators::Common::ios18::CustomValueTypeInference::ValueTypeInferenceElementwiseBinaryBoolOutput(MIL::IRUnknownDimension **a1, void *a2, void *a3)
+void MIL::Operators::Common::ios18::CustomValueTypeInference::ValueTypeInferenceElementwiseBinaryBoolOutput(MIL::IRUnknownDimension **a1, uint64_t *a2, void *a3)
 {
-  v3 = a2[1];
-  v4[0] = *a2;
-  v4[1] = v3;
-  if (v3)
+  v4 = a2[1];
+  v5[0] = *a2;
+  v5[1] = v4;
+  if (v4)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
-  MIL::Operators::Common::ios17::CustomValueTypeInference::ValueTypeInferenceElementwiseBinaryBoolOutput(a1, v4, a3);
+  MIL::Operators::Common::ios17::CustomValueTypeInference::ValueTypeInferenceElementwiseBinaryBoolOutput(a1, v5, a3);
 }
 
 void sub_21839B19C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -5753,66 +6139,66 @@ void sub_21839B19C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void MIL::Operators::Common::ios18::ElementwiseBinary::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   operator new();
 }
 
 void sub_21839C22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61, uint64_t a62, void *a63)
 {
-  v71 = a63;
+  v68 = a63;
   a63 = 0;
-  if (v71)
+  if (v68)
   {
-    (*(*v71 + 8))(v71);
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a60, 0);
-  v72 = *v68;
-  *v68 = 0;
-  if (v72)
+  v69 = *v65;
+  *v65 = 0;
+  if (v69)
   {
-    (*(*v72 + 8))(v72);
+    (*(*v69 + 8))(v69);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v69 - 80), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a68, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 80), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::Add::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_21839D924(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61, uint64_t a62, void *a63)
 {
-  v71 = a63;
+  v68 = a63;
   a63 = 0;
-  if (v71)
+  if (v68)
   {
-    (*(*v71 + 8))(v71);
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a60, 0);
-  v72 = *v68;
-  *v68 = 0;
-  if (v72)
+  v69 = *v65;
+  *v65 = 0;
+  if (v69)
   {
-    (*(*v72 + 8))(v72);
+    (*(*v69 + 8))(v69);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v69 - 64), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a68, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 64), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::ElementwiseBinaryBoolOutput::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   operator new();
 }
 
@@ -5822,7 +6208,7 @@ void sub_21839ED50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(v59 - 128) = 0;
   if (v61)
   {
-    (*(*v61 + 8))(v61);
+    (*(*v61 + 8))(v61, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -5840,8 +6226,8 @@ void sub_21839ED50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::ElementwiseBinaryLogical::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   operator new();
 }
 
@@ -5851,7 +6237,7 @@ void sub_21839FE50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(v53 - 96) = 0;
   if (v55)
   {
-    (*(*v55 + 8))(v55);
+    (*(*v55 + 8))(v55, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v53 - 88), 0);
@@ -5869,8 +6255,8 @@ void sub_21839FE50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::LogicalAnd::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -5880,7 +6266,7 @@ void sub_2183A0F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(v53 - 80) = 0;
   if (v55)
   {
-    (*(*v55 + 8))(v55);
+    (*(*v55 + 8))(v55, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v53 - 72), 0);
@@ -5898,8 +6284,8 @@ void sub_2183A0F64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::LogicalOr::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -5909,7 +6295,7 @@ void sub_2183A2088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(v53 - 80) = 0;
   if (v55)
   {
-    (*(*v55 + 8))(v55);
+    (*(*v55 + 8))(v55, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v53 - 72), 0);
@@ -5927,8 +6313,8 @@ void sub_2183A2088(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::LogicalXor::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -5938,7 +6324,7 @@ void sub_2183A31AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(v53 - 80) = 0;
   if (v55)
   {
-    (*(*v55 + 8))(v55);
+    (*(*v55 + 8))(v55, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v53 - 72), 0);
@@ -5956,8 +6342,8 @@ void sub_2183A31AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Equal::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -5967,7 +6353,7 @@ void sub_2183A44C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(v59 - 112) = 0;
   if (v61)
   {
-    (*(*v61 + 8))(v61);
+    (*(*v61 + 8))(v61, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -5985,8 +6371,8 @@ void sub_2183A44C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Greater::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -5996,7 +6382,7 @@ void sub_2183A5850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(v59 - 112) = 0;
   if (v61)
   {
-    (*(*v61 + 8))(v61);
+    (*(*v61 + 8))(v61, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -6014,8 +6400,8 @@ void sub_2183A5850(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::GreaterEqual::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6025,7 +6411,7 @@ void sub_2183A6BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(v59 - 112) = 0;
   if (v61)
   {
-    (*(*v61 + 8))(v61);
+    (*(*v61 + 8))(v61, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -6043,8 +6429,8 @@ void sub_2183A6BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Less::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6054,7 +6440,7 @@ void sub_2183A7F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(v59 - 112) = 0;
   if (v61)
   {
-    (*(*v61 + 8))(v61);
+    (*(*v61 + 8))(v61, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -6072,8 +6458,8 @@ void sub_2183A7F60(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::LessEqual::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6083,7 +6469,7 @@ void sub_2183A92E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(v59 - 112) = 0;
   if (v61)
   {
-    (*(*v61 + 8))(v61);
+    (*(*v61 + 8))(v61, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -6101,8 +6487,8 @@ void sub_2183A92E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::NotEqual::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6112,7 +6498,7 @@ void sub_2183AA670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(v59 - 112) = 0;
   if (v61)
   {
-    (*(*v61 + 8))(v61);
+    (*(*v61 + 8))(v61, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -6130,267 +6516,267 @@ void sub_2183AA670(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::FloorDiv::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_2183ABC54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61, uint64_t a62, void *a63)
 {
-  v71 = a63;
+  v68 = a63;
   a63 = 0;
-  if (v71)
+  if (v68)
   {
-    (*(*v71 + 8))(v71);
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a60, 0);
-  v72 = *v68;
-  *v68 = 0;
-  if (v72)
+  v69 = *v65;
+  *v65 = 0;
+  if (v69)
   {
-    (*(*v72 + 8))(v72);
+    (*(*v69 + 8))(v69);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v69 - 64), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a68, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 64), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::Maximum::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_2183AD35C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61, uint64_t a62, void *a63)
 {
-  v71 = a63;
+  v68 = a63;
   a63 = 0;
-  if (v71)
+  if (v68)
   {
-    (*(*v71 + 8))(v71);
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a60, 0);
-  v72 = *v68;
-  *v68 = 0;
-  if (v72)
+  v69 = *v65;
+  *v65 = 0;
+  if (v69)
   {
-    (*(*v72 + 8))(v72);
+    (*(*v69 + 8))(v69);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v69 - 64), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a68, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 64), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::Minimum::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_2183AEA64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61, uint64_t a62, void *a63)
 {
-  v71 = a63;
+  v68 = a63;
   a63 = 0;
-  if (v71)
+  if (v68)
   {
-    (*(*v71 + 8))(v71);
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a60, 0);
-  v72 = *v68;
-  *v68 = 0;
-  if (v72)
+  v69 = *v65;
+  *v65 = 0;
+  if (v69)
   {
-    (*(*v72 + 8))(v72);
+    (*(*v69 + 8))(v69);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v69 - 64), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a68, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 64), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::Mod::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_2183B016C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61, uint64_t a62, void *a63)
 {
-  v71 = a63;
+  v68 = a63;
   a63 = 0;
-  if (v71)
+  if (v68)
   {
-    (*(*v71 + 8))(v71);
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a60, 0);
-  v72 = *v68;
-  *v68 = 0;
-  if (v72)
+  v69 = *v65;
+  *v65 = 0;
+  if (v69)
   {
-    (*(*v72 + 8))(v72);
+    (*(*v69 + 8))(v69);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v69 - 64), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a68, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 64), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::Mul::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_2183B1874(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61, uint64_t a62, void *a63)
 {
-  v71 = a63;
+  v68 = a63;
   a63 = 0;
-  if (v71)
+  if (v68)
   {
-    (*(*v71 + 8))(v71);
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a60, 0);
-  v72 = *v68;
-  *v68 = 0;
-  if (v72)
+  v69 = *v65;
+  *v65 = 0;
+  if (v69)
   {
-    (*(*v72 + 8))(v72);
+    (*(*v69 + 8))(v69);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v69 - 64), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a68, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 64), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::Pow::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_2183B2F7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61, uint64_t a62, void *a63)
 {
-  v71 = a63;
+  v68 = a63;
   a63 = 0;
-  if (v71)
+  if (v68)
   {
-    (*(*v71 + 8))(v71);
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a60, 0);
-  v72 = *v68;
-  *v68 = 0;
-  if (v72)
+  v69 = *v65;
+  *v65 = 0;
+  if (v69)
   {
-    (*(*v72 + 8))(v72);
+    (*(*v69 + 8))(v69);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v69 - 64), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a68, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 64), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::RealDiv::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_2183B4684(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61, uint64_t a62, void *a63)
 {
-  v71 = a63;
+  v68 = a63;
   a63 = 0;
-  if (v71)
+  if (v68)
   {
-    (*(*v71 + 8))(v71);
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a60, 0);
-  v72 = *v68;
-  *v68 = 0;
-  if (v72)
+  v69 = *v65;
+  *v65 = 0;
+  if (v69)
   {
-    (*(*v72 + 8))(v72);
+    (*(*v69 + 8))(v69);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v69 - 64), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a68, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 64), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::Sub::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_2183B5D8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61, uint64_t a62, void *a63)
 {
-  v71 = a63;
+  v68 = a63;
   a63 = 0;
-  if (v71)
+  if (v68)
   {
-    (*(*v71 + 8))(v71);
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a60, 0);
-  v72 = *v68;
-  *v68 = 0;
-  if (v72)
+  v69 = *v65;
+  *v65 = 0;
+  if (v69)
   {
-    (*(*v72 + 8))(v72);
+    (*(*v69 + 8))(v69);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v69 - 64), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a68, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 64), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::Cast::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_2183B7788(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, void *a29, uint64_t a30, uint64_t a31, void *a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, void *a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61, uint64_t a62, void *a63)
 {
-  if (a72)
+  if (a65)
   {
-    (*(*a72 + 8))(a72);
+    (*(*a65 + 8))(a65, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x210], 0);
-  v75 = *v72;
-  *v72 = 0;
-  if (v75)
+  v68 = *v65;
+  *v65 = 0;
+  if (v68)
   {
-    (*(*v75 + 8))(v75);
+    (*(*v68 + 8))(v68);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v73 - 64), 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 64), 0);
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x238], 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::ElementwiseUnary::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   operator new();
 }
 
@@ -6398,7 +6784,7 @@ void sub_2183B8B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -6416,8 +6802,8 @@ void sub_2183B8B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Acos::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6425,7 +6811,7 @@ void sub_2183B9CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -6443,8 +6829,8 @@ void sub_2183B9CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Acosh::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6452,7 +6838,7 @@ void sub_2183BAECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -6470,8 +6856,8 @@ void sub_2183BAECC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Asin::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6479,7 +6865,7 @@ void sub_2183BC0AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -6497,8 +6883,8 @@ void sub_2183BC0AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Asinh::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6506,7 +6892,7 @@ void sub_2183BD28C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -6524,8 +6910,8 @@ void sub_2183BD28C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Atan::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6533,7 +6919,7 @@ void sub_2183BE46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -6551,8 +6937,8 @@ void sub_2183BE46C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Atanh::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6560,7 +6946,7 @@ void sub_2183BF64C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -6578,8 +6964,8 @@ void sub_2183BF64C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Ceil::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6587,7 +6973,7 @@ void sub_2183C082C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -6605,35 +6991,35 @@ void sub_2183C082C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Clip::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_2183C1D74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  if (a67)
+  if (a65)
   {
-    (*(*a67 + 8))(a67);
+    (*(*a65 + 8))(a65, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a70, 0);
-  v73 = *v70;
-  *v70 = 0;
-  if (v73)
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a66, 0);
+  v69 = *v66;
+  *v66 = 0;
+  if (v69)
   {
-    (*(*v73 + 8))(v73);
+    (*(*v69 + 8))(v69);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v71 - 64), 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v67 - 64), 0);
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x210], 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::Cos::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6641,7 +7027,7 @@ void sub_2183C30AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -6659,8 +7045,8 @@ void sub_2183C30AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Cosh::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6668,7 +7054,7 @@ void sub_2183C428C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -6686,8 +7072,8 @@ void sub_2183C428C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::ElementwiseUnaryWithEpsilon::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   operator new();
 }
 
@@ -6695,7 +7081,7 @@ void sub_2183C55C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a57)
   {
-    (*(*a57 + 8))(a57);
+    (*(*a57 + 8))(a57, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a60, 0);
@@ -6711,7 +7097,7 @@ void sub_2183C55C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void MIL::Operators::Common::ios18::Inverse::Make(uint64_t a1, void *a2)
+void MIL::Operators::Common::ios18::Inverse::Make(MIL::IRUnknownDimension *a1, void *a2)
 {
   a2[1] = 0;
   a2[2] = 0;
@@ -6730,7 +7116,7 @@ void sub_2183C5BB0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void MIL::Operators::Common::ios18::Log::Make(uint64_t a1, void *a2)
+void MIL::Operators::Common::ios18::Log::Make(MIL::IRUnknownDimension *a1, void *a2)
 {
   a2[1] = 0;
   a2[2] = 0;
@@ -6749,7 +7135,7 @@ void sub_2183C5C64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void MIL::Operators::Common::ios18::Rsqrt::Make(uint64_t a1, void *a2)
+void MIL::Operators::Common::ios18::Rsqrt::Make(MIL::IRUnknownDimension *a1, void *a2)
 {
   a2[1] = 0;
   a2[2] = 0;
@@ -6770,8 +7156,8 @@ void sub_2183C5D18(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void MIL::Operators::Common::ios18::ElementwiseUnaryWithInt::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   operator new();
 }
 
@@ -6779,7 +7165,7 @@ void sub_2183C6A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a50)
   {
-    (*(*a50 + 8))(a50);
+    (*(*a50 + 8))(a50, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a53, 0);
@@ -6797,8 +7183,8 @@ void sub_2183C6A84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Abs::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6806,7 +7192,7 @@ void sub_2183C7D34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a50)
   {
-    (*(*a50 + 8))(a50);
+    (*(*a50 + 8))(a50, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a53, 0);
@@ -6824,8 +7210,8 @@ void sub_2183C7D34(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Exp2::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6833,7 +7219,7 @@ void sub_2183C8FF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a50)
   {
-    (*(*a50 + 8))(a50);
+    (*(*a50 + 8))(a50, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a53, 0);
@@ -6851,8 +7237,8 @@ void sub_2183C8FF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Sign::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6860,7 +7246,7 @@ void sub_2183CA2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a50)
   {
-    (*(*a50 + 8))(a50);
+    (*(*a50 + 8))(a50, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a53, 0);
@@ -6878,8 +7264,8 @@ void sub_2183CA2B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Square::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6887,7 +7273,7 @@ void sub_2183CB574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a50)
   {
-    (*(*a50 + 8))(a50);
+    (*(*a50 + 8))(a50, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a53, 0);
@@ -6905,8 +7291,8 @@ void sub_2183CB574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Threshold::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6914,26 +7300,26 @@ void sub_2183CC9F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a60)
   {
-    (*(*a60 + 8))(a60);
+    (*(*a60 + 8))(a60, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a63, 0);
-  v71 = *v68;
-  *v68 = 0;
-  if (v71)
+  v68 = *v65;
+  *v65 = 0;
+  if (v68)
   {
-    (*(*v71 + 8))(v71);
+    (*(*v68 + 8))(v68);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v69 - 64), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a68, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 64), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::Exp::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6941,7 +7327,7 @@ void sub_2183CDCBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -6959,8 +7345,8 @@ void sub_2183CDCBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Floor::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6968,7 +7354,7 @@ void sub_2183CEE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -6986,8 +7372,8 @@ void sub_2183CEE9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Round::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -6995,7 +7381,7 @@ void sub_2183D007C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -7013,8 +7399,8 @@ void sub_2183D007C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Sin::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7022,7 +7408,7 @@ void sub_2183D125C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -7040,8 +7426,8 @@ void sub_2183D125C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Sinh::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7049,7 +7435,7 @@ void sub_2183D243C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -7067,8 +7453,8 @@ void sub_2183D243C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Sqrt::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7076,7 +7462,7 @@ void sub_2183D361C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -7094,8 +7480,8 @@ void sub_2183D361C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Tan::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7103,7 +7489,7 @@ void sub_2183D47FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -7121,8 +7507,8 @@ void sub_2183D47FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Tanh::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7130,7 +7516,7 @@ void sub_2183D59DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a47)
   {
-    (*(*a47 + 8))(a47);
+    (*(*a47 + 8))(a47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a50, 0);
@@ -7148,18 +7534,18 @@ void sub_2183D59DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::LogicalNot::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
-void sub_2183D675C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44)
+void sub_2183D675C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, int a41, __int16 a42, char a43, char a44)
 {
   v47 = *(v45 - 80);
   *(v45 - 80) = 0;
   if (v47)
   {
-    (*(*v47 + 8))(v47);
+    (*(*v47 + 8))(v47, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v45 - 72), 0);
@@ -7177,8 +7563,8 @@ void sub_2183D675C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void MIL::Operators::Common::ios18::BaseGather::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   operator new();
 }
 
@@ -7205,8 +7591,8 @@ void sub_2183D7D08(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::BaseGatherWithAxis::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   operator new();
 }
 
@@ -7233,8 +7619,8 @@ void sub_2183D9638(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::Gather::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7261,8 +7647,8 @@ void sub_2183DB0F4(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::GatherAlongAxis::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7289,8 +7675,8 @@ void sub_2183DCB1C(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::GatherNd::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7317,8 +7703,8 @@ void sub_2183DE540(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::Affine::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7346,8 +7732,8 @@ void sub_2183E0F88(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::CropResize::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7375,8 +7761,8 @@ void sub_2183E463C(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::Resample::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7404,8 +7790,8 @@ void sub_2183E841C(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::Resize::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7433,123 +7819,123 @@ void sub_2183EAC5C(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::CustomValidators::ValidateMatMul(MIL::Operators::Common::ios18::CustomValidators *this@<X0>, uint64_t a2@<X8>)
 {
-  v60 = *MEMORY[0x277D85DE8];
-  MIL::Operators::Common::ios17::CustomValidators::ValidateMatMul(this, v50);
-  if (!MIL::ValidationResult::IsGood(v50))
+  v57 = *MEMORY[0x277D85DE8];
+  MIL::Operators::Common::ios17::CustomValidators::ValidateMatMul(this, &v47);
+  if (!MIL::ValidationResult::IsGood(&v47))
   {
-    *(a2 + 8) = v51;
-    v51 = 0uLL;
-    *(a2 + 24) = v52;
-    *(a2 + 40) = v53;
-    v52 = 0uLL;
-    v53 = 0;
+    *(a2 + 8) = v48;
+    v48 = 0uLL;
+    *(a2 + 24) = v49;
+    *(a2 + 40) = v50;
+    v49 = 0uLL;
+    v50 = 0;
     *a2 = &unk_2829E9B70;
-    *(a2 + 48) = v54;
+    *(a2 + 48) = v51;
     goto LABEL_20;
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v56, "x");
-  ParameterType = MIL::IROperation::GetParameterType(this);
-  v6 = MIL::IRValueType::AsTensorType(ParameterType);
-  if (SHIBYTE(v57) < 0)
+  std::string::basic_string[abi:ne200100]<0>(v53, "x");
+  ParameterType = MIL::IROperation::GetParameterType(this, v53);
+  v5 = MIL::IRValueType::AsTensorType(ParameterType);
+  if (SHIBYTE(v54) < 0)
   {
-    operator delete(v56[0]);
+    operator delete(v53[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v56, "y");
-  v7 = MIL::IROperation::GetParameterType(this);
-  v8 = MIL::IRValueType::AsTensorType(v7);
-  if (SHIBYTE(v57) < 0)
+  std::string::basic_string[abi:ne200100]<0>(v53, "y");
+  v6 = MIL::IROperation::GetParameterType(this, v53);
+  v7 = MIL::IRValueType::AsTensorType(v6);
+  if (SHIBYTE(v54) < 0)
   {
-    operator delete(v56[0]);
+    operator delete(v53[0]);
   }
 
-  if (!(*(*v6 + 104))(v6) || ((*(*v8 + 104))(v8) & 1) == 0)
+  if (!(*(*v5 + 104))(v5) || ((*(*v7 + 104))(v7) & 1) == 0)
   {
     MIL::ValidationResult::ValidationResult(a2);
     goto LABEL_20;
   }
 
-  v9 = (*(*v6 + 96))(v6);
-  v47 = 0;
-  v48 = 0;
-  v49 = 0;
-  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&v47, *v9, v9[1], (v9[1] - *v9) >> 3);
-  v10 = (*(*v8 + 96))(v8);
+  v8 = (*(*v5 + 96))(v5);
   v44 = 0;
   v45 = 0;
   v46 = 0;
-  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&v44, *v10, v10[1], (v10[1] - *v10) >> 3);
-  std::string::basic_string[abi:ne200100]<0>(v56, "transpose_x");
-  ParameterValue = MIL::IROperation::GetParameterValue(this);
-  v12 = MIL::IRValue::GetScalar<BOOL>(ParameterValue);
-  if (SHIBYTE(v57) < 0)
+  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&v44, *v8, *(v8 + 8), (*(v8 + 8) - *v8) >> 3);
+  v9 = (*(*v7 + 96))(v7);
+  v41 = 0;
+  v42 = 0;
+  v43 = 0;
+  std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&v41, *v9, *(v9 + 8), (*(v9 + 8) - *v9) >> 3);
+  std::string::basic_string[abi:ne200100]<0>(v53, "transpose_x");
+  ParameterValue = MIL::IROperation::GetParameterValue(this, v53);
+  v11 = MIL::IRValue::GetScalar<BOOL>(ParameterValue);
+  if (SHIBYTE(v54) < 0)
   {
-    operator delete(v56[0]);
+    operator delete(v53[0]);
   }
 
-  std::string::basic_string[abi:ne200100]<0>(v56, "transpose_y");
-  v13 = MIL::IROperation::GetParameterValue(this);
-  v14 = MIL::IRValue::GetScalar<BOOL>(v13);
-  if (SHIBYTE(v57) < 0)
+  std::string::basic_string[abi:ne200100]<0>(v53, "transpose_y");
+  v12 = MIL::IROperation::GetParameterValue(this, v53);
+  v13 = MIL::IRValue::GetScalar<BOOL>(v12);
+  if (SHIBYTE(v54) < 0)
   {
-    operator delete(v56[0]);
+    operator delete(v53[0]);
   }
 
-  v15 = v47;
-  if (v48 - v47 != 8)
+  v14 = v44;
+  if (v45 - v44 != 8)
   {
-    v15 = (v48 - 16);
-    if (!v12)
+    v14 = (v45 - 16);
+    if (!v11)
     {
-      v15 = (v48 - 8);
+      v14 = (v45 - 8);
     }
   }
 
-  v16 = *v15;
-  v17 = v44;
-  if (v45 - v44 != 8)
+  v15 = *v14;
+  v16 = v41;
+  if (v42 - v41 != 8)
   {
-    if (v14)
+    if (v13)
     {
-      v17 = (v45 - 8);
+      v16 = (v42 - 8);
     }
 
     else
     {
-      v17 = (v45 - 16);
+      v16 = (v42 - 16);
     }
   }
 
-  v18 = *v17;
-  if ((*(*v16 + 16))(v16))
+  v17 = *v16;
+  if ((*(*v15 + 16))(v15))
   {
-    if ((*(*v18 + 16))(v18))
+    if ((*(*v17 + 16))(v17))
     {
-      v19 = (*(*v16 + 16))(v16);
-      v20 = (*(*v19 + 48))(v19);
-      v21 = (*(*v18 + 16))(v18);
-      if (v20 != (*(*v21 + 48))(v21))
+      v18 = (*(*v15 + 16))(v15);
+      v19 = (*(*v18 + 48))(v18);
+      v20 = (*(*v17 + 16))(v17);
+      if (v19 != (*(*v20 + 48))(v20))
       {
         LocationPtr = MIL::IRObject::GetLocationPtr(this);
-        v26 = LocationPtr[1];
-        v42 = *LocationPtr;
-        v43 = v26;
-        if (v26)
+        v25 = LocationPtr[1];
+        *&v40 = *LocationPtr;
+        *(&v40 + 1) = v25;
+        if (v25)
         {
-          atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+          atomic_fetch_add_explicit((v25 + 8), 1uLL, memory_order_relaxed);
         }
 
-        std::string::basic_string[abi:ne200100]<0>(v40, "x shape and y shape are not compatible.");
-        MIL::ValidationResult::ValidationResult(a2, &v42, 315, v40);
-        if (v41 < 0)
+        std::string::basic_string[abi:ne200100]<0>(v38, "x shape and y shape are not compatible.");
+        MIL::ValidationResult::ValidationResult(a2, &v40, 315, v38);
+        if (v39 < 0)
         {
-          operator delete(v40[0]);
+          operator delete(v38[0]);
         }
 
-        if (v43)
+        if (*(&v40 + 1))
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v43);
+          std::__shared_weak_count::__release_shared[abi:ne200100](*(&v40 + 1));
         }
 
         goto LABEL_37;
@@ -7557,72 +7943,72 @@ void MIL::Operators::Common::ios18::CustomValidators::ValidateMatMul(MIL::Operat
     }
   }
 
-  if ((v48 - v47) >= 9 && (v45 - v44) >= 9)
+  if ((v45 - v44) >= 9 && (v42 - v41) >= 9)
   {
-    v37 = 0;
-    v38 = 0;
-    v39 = 0;
-    std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<std::__wrap_iter<MIL::IRDimension const**>,std::__wrap_iter<MIL::IRDimension const**>>(&v37, v47, (v48 - 16), (v48 - 16 - v47) >> 3);
     v35 = 0;
     v36 = 0;
+    v37 = 0;
+    std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<std::__wrap_iter<MIL::IRDimension const**>,std::__wrap_iter<MIL::IRDimension const**>>(&v35, v44, (v45 - 16), (v45 - 16 - v44) >> 3);
+    v33 = 0;
+    v34 = 0;
     __p = 0;
-    std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<std::__wrap_iter<MIL::IRDimension const**>,std::__wrap_iter<MIL::IRDimension const**>>(&__p, v44, (v45 - 16), (v45 - 16 - v44) >> 3);
+    std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<std::__wrap_iter<MIL::IRDimension const**>,std::__wrap_iter<MIL::IRDimension const**>>(&__p, v41, (v42 - 16), (v42 - 16 - v41) >> 3);
+    v53[0] = 0;
+    v53[1] = 0;
+    v54 = 0;
+    std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(v53, v35, v36, (v36 - v35) >> 3);
+    v55 = 0;
     v56[0] = 0;
     v56[1] = 0;
-    v57 = 0;
-    std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(v56, v37, v38, (v38 - v37) >> 3);
-    v58 = 0;
-    v59[0] = 0;
-    v59[1] = 0;
-    std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&v58, __p, v35, (v35 - __p) >> 3);
-    memset(v33, 0, sizeof(v33));
-    std::vector<std::vector<MIL::IRDimension const*>>::__init_with_size[abi:ne200100]<std::vector<MIL::IRDimension const*> const*,std::vector<MIL::IRDimension const*> const*>(v33, v56, &v60, 2uLL);
-    CanBroadcastShapes = MIL::Validation::CanBroadcastShapes(v33);
-    v55 = v33;
-    std::vector<std::vector<unsigned long long>>::__destroy_vector::operator()[abi:ne200100](&v55);
+    std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&v55, __p, v33, (v33 - __p) >> 3);
+    memset(v31, 0, sizeof(v31));
+    std::vector<std::vector<MIL::IRDimension const*>>::__init_with_size[abi:ne200100]<std::vector<MIL::IRDimension const*> const*,std::vector<MIL::IRDimension const*> const*>(v31, v53, &v57, 2uLL);
+    CanBroadcastShapes = MIL::Validation::CanBroadcastShapes(v31);
+    v52 = v31;
+    std::vector<std::vector<unsigned long long>>::__destroy_vector::operator()[abi:ne200100](&v52);
     for (i = 0; i != -6; i -= 3)
     {
-      v24 = v59[i - 1];
-      if (v24)
+      v23 = v56[i - 1];
+      if (v23)
       {
-        v59[i] = v24;
-        operator delete(v24);
+        v56[i] = v23;
+        operator delete(v23);
       }
     }
 
     if (!CanBroadcastShapes)
     {
-      v27 = MIL::IRObject::GetLocationPtr(this);
-      v28 = v27[1];
-      v31 = *v27;
-      v32 = v28;
-      if (v28)
+      v26 = MIL::IRObject::GetLocationPtr(this);
+      v27 = v26[1];
+      *&v30 = *v26;
+      *(&v30 + 1) = v27;
+      if (v27)
       {
-        atomic_fetch_add_explicit(&v28->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit((v27 + 8), 1uLL, memory_order_relaxed);
       }
 
-      std::string::basic_string[abi:ne200100]<0>(v29, "x shape and y shape are not broadcastable.");
-      MIL::ValidationResult::ValidationResult(a2, &v31, 315, v29);
-      if (v30 < 0)
+      std::string::basic_string[abi:ne200100]<0>(v28, "x shape and y shape are not broadcastable.");
+      MIL::ValidationResult::ValidationResult(a2, &v30, 315, v28);
+      if (v29 < 0)
       {
-        operator delete(v29[0]);
+        operator delete(v28[0]);
       }
 
-      if (v32)
+      if (*(&v30 + 1))
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+        std::__shared_weak_count::__release_shared[abi:ne200100](*(&v30 + 1));
       }
 
       if (__p)
       {
-        v35 = __p;
+        v33 = __p;
         operator delete(__p);
       }
 
-      if (v37)
+      if (v35)
       {
-        v38 = v37;
-        operator delete(v37);
+        v36 = v35;
+        operator delete(v35);
       }
 
       goto LABEL_37;
@@ -7630,33 +8016,33 @@ void MIL::Operators::Common::ios18::CustomValidators::ValidateMatMul(MIL::Operat
 
     if (__p)
     {
-      v35 = __p;
+      v33 = __p;
       operator delete(__p);
     }
 
-    if (v37)
+    if (v35)
     {
-      v38 = v37;
-      operator delete(v37);
+      v36 = v35;
+      operator delete(v35);
     }
   }
 
   MIL::ValidationResult::ValidationResult(a2);
 LABEL_37:
+  if (v41)
+  {
+    v42 = v41;
+    operator delete(v41);
+  }
+
   if (v44)
   {
     v45 = v44;
     operator delete(v44);
   }
 
-  if (v47)
-  {
-    v48 = v47;
-    operator delete(v47);
-  }
-
 LABEL_20:
-  MIL::ValidationResult::~ValidationResult(v50);
+  MIL::ValidationResult::~ValidationResult(&v47);
 }
 
 void sub_2183EBABC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, std::__shared_weak_count *a16, uint64_t a17, uint64_t a18, uint64_t a19, void *a20, uint64_t a21, uint64_t a22, void *a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, int a28, __int16 a29, char a30, char a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, void *a37, uint64_t a38)
@@ -7697,8 +8083,8 @@ void sub_2183EBABC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void MIL::Operators::Common::ios18::Linear::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7726,8 +8112,8 @@ void sub_2183ED5A4(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::MatMul::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7753,17 +8139,17 @@ void sub_2183EF344(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void MIL::Operators::Common::ios18::CustomValueTypeInference::ValueTypeInferenceTensorToTensorBuffer(MIL::IRUnknownProperty **a1, void *a2, void *a3)
+void MIL::Operators::Common::ios18::CustomValueTypeInference::ValueTypeInferenceTensorToTensorBuffer(MIL::IRUnknownProperty **a1, uint64_t *a2, void *a3)
 {
-  v3 = a2[1];
-  v4[0] = *a2;
-  v4[1] = v3;
-  if (v3)
+  v4 = a2[1];
+  v5[0] = *a2;
+  v5[1] = v4;
+  if (v4)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
-  MIL::Operators::Common::Shared::CustomValueTypeInference::ValueTypeInferenceTensorToTensorBuffer(a1, v4, a3);
+  MIL::Operators::Common::Shared::CustomValueTypeInference::ValueTypeInferenceTensorToTensorBuffer(a1, v5, a3);
 }
 
 void sub_2183EFA94(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -7776,17 +8162,17 @@ void sub_2183EFA94(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Operators::Common::ios18::CustomValueTypeInference::ValueTypeInferenceTensorBufferToTensor(uint64_t a1, void *a2, void *a3)
+void MIL::Operators::Common::ios18::CustomValueTypeInference::ValueTypeInferenceTensorBufferToTensor(uint64_t *a1, void *a2, void *a3)
 {
-  v3 = a2[1];
-  v4[0] = *a2;
-  v4[1] = v3;
-  if (v3)
+  v4 = a2[1];
+  v5[0] = *a2;
+  v5[1] = v4;
+  if (v4)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v4 + 8), 1uLL, memory_order_relaxed);
   }
 
-  MIL::Operators::Common::Shared::CustomValueTypeInference::ValueTypeInferenceTensorBufferToTensor(a1, v4, a3);
+  MIL::Operators::Common::Shared::CustomValueTypeInference::ValueTypeInferenceTensorBufferToTensor(a1, v5, a3);
 }
 
 void sub_2183EFB00(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -7801,8 +8187,8 @@ void sub_2183EFB00(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void MIL::Operators::Common::ios18::PixelBufferToTensor::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7829,8 +8215,8 @@ void sub_2183F0BE0(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::TensorBufferToTensor::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7840,14 +8226,14 @@ void sub_2183F23C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(v56 - 200) = 0;
   if (v58)
   {
-    (*(*v58 + 8))(v58);
+    (*(*v58 + 8))(v58, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v59 = *v55;
   *v55 = 0;
   if (v59)
   {
-    (*(*v59 + 8))(v59);
+    (*(*v59 + 8))(v59, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a55, 0);
@@ -7857,8 +8243,8 @@ void sub_2183F23C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::TensorToPixelBuffer::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7885,8 +8271,8 @@ void sub_2183F3D1C(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::TensorToTensorBuffer::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7913,8 +8299,8 @@ void sub_2183F5B18(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::BatchNorm::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7942,8 +8328,8 @@ void sub_2183F8560(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::InstanceNorm::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -7971,37 +8357,37 @@ void sub_2183FAB90(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::L2Norm::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_2183FC728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, void *a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v75 = STACK[0x210];
+  v68 = STACK[0x210];
   STACK[0x210] = 0;
-  if (v75)
+  if (v68)
   {
-    (*(*v75 + 8))(v75);
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v73 - 88), 0);
-  v76 = *v72;
-  *v72 = 0;
-  if (v76)
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 88), 0);
+  v69 = *v65;
+  *v65 = 0;
+  if (v69)
   {
-    (*(*v76 + 8))(v76);
+    (*(*v69 + 8))(v69);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a72, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x238], 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::LayerNorm::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -8029,8 +8415,8 @@ void sub_2183FE500(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::LocalResponseNorm::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -8058,10 +8444,10 @@ void sub_2184003BC(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::CustomValueTypeInference::ValueTypeInferenceBasePool(MIL::IRConstantDimension **a1, uint64_t a2, void *a3)
 {
-  v3 = *a2;
+  v4 = *a2;
   *a2 = 0;
   *(a2 + 8) = 0;
-  MIL::Operators::Common::ios16::CustomValueTypeInference::ValueTypeInferenceBasePool(a1, &v3, a3);
+  MIL::Operators::Common::ios16::CustomValueTypeInference::ValueTypeInferenceBasePool(a1, &v4, a3);
 }
 
 void sub_218400BF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -8076,8 +8462,8 @@ void sub_218400BF8(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void MIL::Operators::Common::ios18::BasePool::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   operator new();
 }
 
@@ -8105,8 +8491,8 @@ void sub_218402774(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::BaseAvgPool::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   operator new();
 }
 
@@ -8132,7 +8518,7 @@ void sub_218404CF4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void MIL::Operators::Common::ios18::AvgPool::Make(uint64_t a1, void *a2)
+void MIL::Operators::Common::ios18::AvgPool::Make(MIL::IRUnknownDimension *a1, void *a2)
 {
   a2[1] = 0;
   a2[2] = 0;
@@ -8151,15 +8537,15 @@ void sub_218405724(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void MIL::Operators::Common::ios18::L2Pool::Make(uint64_t a1, void *a2)
+void MIL::Operators::Common::ios18::L2Pool::Make(MIL::IRUnknownDimension *a1, void *a2)
 {
-  v2[4] = *MEMORY[0x277D85DE8];
+  v3[4] = *MEMORY[0x277D85DE8];
   a2[1] = 0;
   a2[2] = 0;
   *a2 = 0;
-  v2[0] = &unk_2829EA4C8;
-  v2[1] = MIL::Operators::Common::ios18::CustomValidators::ValidateL2Pool;
-  v2[3] = v2;
+  v3[0] = &unk_2829EA4C8;
+  v3[1] = MIL::Operators::Common::ios18::CustomValidators::ValidateL2Pool;
+  v3[3] = v3;
   MIL::Operators::Common::ios18::BasePool::Make();
 }
 
@@ -8174,7 +8560,7 @@ void sub_218405804(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void MIL::Operators::Common::ios18::MaxPool::Make(uint64_t a1, void *a2)
+void MIL::Operators::Common::ios18::MaxPool::Make(MIL::IRUnknownDimension *a1, void *a2)
 {
   a2[1] = 0;
   a2[2] = 0;
@@ -8195,8 +8581,8 @@ void sub_2184058B8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void MIL::Operators::Common::ios18::Dequantize::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -8223,8 +8609,8 @@ void sub_218406D00(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::DynamicDequantize::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -8263,8 +8649,8 @@ void sub_218408C9C()
 
 void MIL::Operators::Common::ios18::DynamicQuantize::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -8272,7 +8658,7 @@ void sub_218409900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a48)
   {
-    (*(*a48 + 8))(a48);
+    (*(*a48 + 8))(a48, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v59 = *v57;
@@ -8289,8 +8675,8 @@ void sub_218409900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::Quantize::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -8317,8 +8703,8 @@ void sub_21840B36C(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::RandomBernoulli::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -8328,7 +8714,7 @@ void sub_21840CA2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(v66 - 120) = 0;
   if (v68)
   {
-    (*(*v68 + 8))(v68);
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 88), 0);
@@ -8346,8 +8732,8 @@ void sub_21840CA2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::RandomCategorical::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -8355,7 +8741,7 @@ void sub_21840DE0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a53)
   {
-    (*(*a53 + 8))(a53);
+    (*(*a53 + 8))(a53, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a56, 0);
@@ -8373,66 +8759,66 @@ void sub_21840DE0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::RandomNormal::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_21840F458(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v69 = *(v67 - 120);
-  *(v67 - 120) = 0;
+  v68 = *(v66 - 120);
+  *(v66 - 120) = 0;
+  if (v68)
+  {
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 88), 0);
+  v69 = *v65;
+  *v65 = 0;
   if (v69)
   {
     (*(*v69 + 8))(v69);
   }
 
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v67 - 88), 0);
-  v70 = *v66;
-  *v66 = 0;
-  if (v70)
-  {
-    (*(*v70 + 8))(v70);
-  }
-
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a66, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x210], 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::RandomUniform::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_218410B7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, void *a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, void *a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v69 = *(v67 - 120);
-  *(v67 - 120) = 0;
+  v68 = *(v66 - 120);
+  *(v66 - 120) = 0;
+  if (v68)
+  {
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 88), 0);
+  v69 = *v65;
+  *v65 = 0;
   if (v69)
   {
     (*(*v69 + 8))(v69);
   }
 
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v67 - 88), 0);
-  v70 = *v66;
-  *v66 = 0;
-  if (v70)
-  {
-    (*(*v70 + 8))(v70);
-  }
-
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a66, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x210], 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::GRU::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -8460,8 +8846,8 @@ void sub_2184149D8(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::LSTM::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -8489,8 +8875,8 @@ void sub_21841B534(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::RNN::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -8516,17 +8902,17 @@ void sub_218420228(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void MIL::Operators::Common::ios18::CustomValueTypeInference::ValueTypeInferenceBaseArgReduction(MIL::IRConstantDimension **a1, uint64_t *a2, void *a3)
+void MIL::Operators::Common::ios18::CustomValueTypeInference::ValueTypeInferenceBaseArgReduction(MIL::IRConstantDimension **a1, uint64_t *a2, void *a3, uint64_t x3_0, uint64_t a5)
 {
-  v3 = a2[1];
-  v4[0] = *a2;
-  v4[1] = v3;
-  if (v3)
+  v6 = a2[1];
+  v7[0] = *a2;
+  v7[1] = v6;
+  if (v6)
   {
-    atomic_fetch_add_explicit((v3 + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
   }
 
-  MIL::Operators::Common::ios17::CustomValueTypeInference::ValueTypeInferenceBaseArgReduction(a1, v4, a3);
+  MIL::Operators::Common::ios17::CustomValueTypeInference::ValueTypeInferenceBaseArgReduction(a1, v7, a3, x3_0, a5);
 }
 
 void sub_218421254(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -8541,34 +8927,34 @@ void sub_218421254(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void MIL::Operators::Common::ios18::BaseArgReduction::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   operator new();
 }
 
 void sub_218422630(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, void *a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v73 = *(v71 - 144);
-  *(v71 - 144) = 0;
-  if (v73)
+  v69 = *(v67 - 144);
+  *(v67 - 144) = 0;
+  if (v69)
   {
-    (*(*v73 + 8))(v73);
+    (*(*v69 + 8))(v69, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a70, 0);
-  v74 = *v70;
-  *v70 = 0;
-  if (v74)
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a66, 0);
+  v70 = *v66;
+  *v66 = 0;
+  if (v70)
   {
-    (*(*v74 + 8))(v74);
+    (*(*v70 + 8))(v70);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a67, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x218], 0);
   _Unwind_Resume(a1);
 }
 
-void MIL::Operators::Common::ios18::ReduceArgmax::Make(uint64_t a1, void *a2)
+void MIL::Operators::Common::ios18::ReduceArgmax::Make(MIL::IRUnknownDimension *a1, void *a2)
 {
   a2[1] = 0;
   a2[2] = 0;
@@ -8587,7 +8973,7 @@ void sub_218422D34(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void MIL::Operators::Common::ios18::ReduceArgmin::Make(uint64_t a1, void *a2)
+void MIL::Operators::Common::ios18::ReduceArgmin::Make(MIL::IRUnknownDimension *a1, void *a2)
 {
   a2[1] = 0;
   a2[2] = 0;
@@ -8608,8 +8994,8 @@ void sub_218422DE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void MIL::Operators::Common::ios18::BaseScatter::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   operator new();
 }
 
@@ -8637,8 +9023,8 @@ void sub_218424E5C(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::BaseScatterWithAxis::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v5 = *MEMORY[0x277D85DE8];
+  v4 = 0;
   operator new();
 }
 
@@ -8664,7 +9050,7 @@ void sub_2184279C8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void MIL::Operators::Common::ios18::Scatter::Make(uint64_t a1, void *a2)
+void MIL::Operators::Common::ios18::Scatter::Make(MIL::IRUnknownDimension *a1, void *a2)
 {
   a2[1] = 0;
   a2[2] = 0;
@@ -8683,7 +9069,7 @@ void sub_2184284BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void MIL::Operators::Common::ios18::ScatterAlongAxis::Make(uint64_t a1, void *a2)
+void MIL::Operators::Common::ios18::ScatterAlongAxis::Make(MIL::IRUnknownDimension *a1, void *a2)
 {
   a2[1] = 0;
   a2[2] = 0;
@@ -8702,7 +9088,7 @@ void sub_218428570(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void MIL::Operators::Common::ios18::ScatterNd::Make(uint64_t a1, void *a2)
+void MIL::Operators::Common::ios18::ScatterNd::Make(MIL::IRUnknownDimension *a1, void *a2)
 {
   a2[1] = 0;
   a2[2] = 0;
@@ -8721,11 +9107,11 @@ void sub_218428624(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void MIL::Operators::Common::ios18::CustomValidators::ValidateReadState(MIL::Operators::Common::ios18::CustomValidators *this, const MIL::IROperation *a2)
+void MIL::Operators::Common::ios18::CustomValidators::ValidateReadState(MIL::Operators::Common::ios18::CustomValidators *this)
 {
   v28 = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:ne200100]<0>(&v27, "input");
-  ParameterType = MIL::IROperation::GetParameterType(this);
+  ParameterType = MIL::IROperation::GetParameterType(this, &v27);
   v4 = MIL::IRValueType::AsStateType(ParameterType);
   if (SHIBYTE(v27.__r_.__value_.__r.__words[2]) < 0)
   {
@@ -8800,8 +9186,7 @@ void MIL::Operators::Common::ios18::CustomValidators::ValidateReadState(MIL::Ope
     goto LABEL_15;
   }
 
-  ParameterValue = MIL::IRValue::GetScalar<int>(v11);
-  if ((ParameterValue & 0x80000000) != 0)
+  if ((MIL::IRValue::GetScalar<int>(v11) & 0x80000000) != 0)
   {
     v18 = __cxa_allocate_exception(0x48uLL);
     v19 = MIL::IRObject::GetLocationPtr(this);
@@ -8818,7 +9203,7 @@ void MIL::Operators::Common::ios18::CustomValidators::ValidateReadState(MIL::Ope
   }
 
 LABEL_15:
-  MIL::MILContext::Make(ParameterValue);
+  MIL::MILContext::Make();
 }
 
 void sub_218428CE4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *a10, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, int a20, __int16 a21, char a22, char a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36, uint64_t a37, void *a38, uint64_t a39, int a40, __int16 a41, char a42, char a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, void *a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, void *__p, uint64_t a58, int a59, __int16 a60, char a61, char a62)
@@ -8848,14 +9233,14 @@ LABEL_8:
   goto LABEL_8;
 }
 
-void MIL::Operators::Common::ios18::CustomValueTypeInference::ValueTypeInferenceReadState(uint64_t a1@<X0>, uint64_t *a2@<X1>, void *a3@<X2>, void *a4@<X8>)
+void MIL::Operators::Common::ios18::CustomValueTypeInference::ValueTypeInferenceReadState(uint64_t *a1@<X0>, uint64_t *a2@<X1>, void *a3@<X2>, uint64_t *a4@<X8>)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   std::string::basic_string[abi:ne200100]<0>(&__p, "input");
   SingleValueType = MIL::ValueTypeInferenceUtils::GetSingleValueType(a3, &__p);
   v9 = MIL::IRValueType::AsStateType(SingleValueType);
   WrappedType = MIL::IRStateValueType::GetWrappedType(v9);
-  if ((v15[15] & 0x80000000) != 0)
+  if (v16 < 0)
   {
     operator delete(__p);
   }
@@ -8872,59 +9257,59 @@ void MIL::Operators::Common::ios18::CustomValueTypeInference::ValueTypeInference
   a4[1] = 0;
   a4[2] = 0;
   *a4 = 0;
-  std::vector<MIL::IRValueType const*>::__init_with_size[abi:ne200100]<MIL::IRValueType const* const*,MIL::IRValueType const* const*>(a4, &__p, v15, 1uLL);
+  std::vector<MIL::IRValueType const*>::__init_with_size[abi:ne200100]<MIL::IRValueType const* const*,MIL::IRValueType const* const*>(a4, &__p, &v15, 1uLL);
   if (v12)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v12);
   }
 }
 
-uint64_t MIL::Operators::Common::ios18::anonymous namespace::ExtractTensor(uint64_t a1, void *a2, MIL::IRValueType *a3)
+uint64_t MIL::Operators::Common::ios18::anonymous namespace::ExtractTensor(uint64_t *a1, void *a2, MIL::IRValueType *a3)
 {
   if (!(*(*a3 + 24))(a3))
   {
     if (MIL::IRValueType::TryCastAsMemoryLayoutType(a3))
     {
-      v6 = MIL::IRValueType::AsMemoryLayoutType(a3);
-      v7 = MIL::IRMemoryLayoutValueType::TryAsTensorBufferType(v6);
-      v8 = MIL::IRValueType::AsMemoryLayoutType(a3);
-      if (v7)
+      v7 = MIL::IRValueType::AsMemoryLayoutType(a3);
+      v8 = MIL::IRMemoryLayoutValueType::TryAsTensorBufferType(v7);
+      v9 = MIL::IRValueType::AsMemoryLayoutType(a3);
+      if (v8)
       {
-        v9 = MIL::IRMemoryLayoutValueType::AsTensorBufferType(v8);
-        Shape = MIL::IRTensorBufferValueType::GetShape(v9);
-        v19 = 0;
-        v20 = 0;
+        v10 = MIL::IRMemoryLayoutValueType::AsTensorBufferType(v9);
+        Shape = MIL::IRTensorBufferValueType::GetShape(v10);
+        v22 = 0;
+        v23 = 0;
         __p = 0;
-        std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&__p, *Shape, Shape[1], (Shape[1] - *Shape) >> 3);
-        MIL::IRTensorBufferValueType::GetDataType(v9);
-        MIL::IRTensorValueType::MakeWithShape();
+        std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&__p, *Shape, *(Shape + 8), (*(Shape + 8) - *Shape) >> 3);
+        DataType = MIL::IRTensorBufferValueType::GetDataType(v10);
+        MIL::IRTensorValueType::MakeWithShape(*a1, DataType, &__p);
       }
 
-      if (MIL::IRMemoryLayoutValueType::TryAsCircularBufferType(v8))
+      if (MIL::IRMemoryLayoutValueType::TryAsCircularBufferType(v9))
       {
-        v11 = MIL::IRValueType::AsMemoryLayoutType(a3);
-        v12 = MIL::IRMemoryLayoutValueType::AsCircularBufferType(v11);
-        v13 = MIL::IRCircularBufferValueType::GetShape(v12);
-        v19 = 0;
-        v20 = 0;
+        v13 = MIL::IRValueType::AsMemoryLayoutType(a3);
+        v14 = MIL::IRMemoryLayoutValueType::AsCircularBufferType(v13);
+        v15 = MIL::IRCircularBufferValueType::GetShape(v14);
+        v22 = 0;
+        v23 = 0;
         __p = 0;
-        std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&__p, *v13, v13[1], (v13[1] - *v13) >> 3);
-        MIL::IRCircularBufferValueType::GetDataType(v12);
-        MIL::IRTensorValueType::MakeWithShape();
+        std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&__p, *v15, *(v15 + 8), (*(v15 + 8) - *v15) >> 3);
+        v16 = MIL::IRCircularBufferValueType::GetDataType(v14);
+        MIL::IRTensorValueType::MakeWithShape(*a1, v16, &__p);
       }
     }
 
     exception = __cxa_allocate_exception(0x48uLL);
-    v15 = a2[1];
-    *&v17 = *a2;
-    *(&v17 + 1) = v15;
-    if (v15)
+    v18 = a2[1];
+    *&v20 = *a2;
+    *(&v20 + 1) = v18;
+    if (v18)
     {
-      atomic_fetch_add_explicit((v15 + 8), 1uLL, memory_order_relaxed);
+      atomic_fetch_add_explicit((v18 + 8), 1uLL, memory_order_relaxed);
     }
 
-    std::string::basic_string[abi:ne200100]<0>(v16, "Parameter 'input' needs to be a state wrapping either a tensor, tensor_buffer, or circular_buffer.");
-    MIL::ValidationError::ValidationError(exception, &v17, v16, 315);
+    std::string::basic_string[abi:ne200100]<0>(v19, "Parameter 'input' needs to be a state wrapping either a tensor, tensor_buffer, or circular_buffer.");
+    MIL::ValidationError::ValidationError(exception, &v20, v19, 315);
   }
 
   return MIL::IRValueType::AsTensorType(a3);
@@ -8950,10 +9335,10 @@ void sub_21842924C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void MIL::Operators::Common::ios18::CustomValidators::ValidateWriteState(MIL::Operators::Common::ios18::CustomValidators *this, const MIL::IROperation *a2)
+void MIL::Operators::Common::ios18::CustomValidators::ValidateWriteState(MIL::Operators::Common::ios18::CustomValidators *this)
 {
   std::string::basic_string[abi:ne200100]<0>(&v26, "input");
-  ParameterType = MIL::IROperation::GetParameterType(this);
+  ParameterType = MIL::IROperation::GetParameterType(this, &v26);
   v4 = MIL::IRValueType::AsStateType(ParameterType);
   if (v27 < 0)
   {
@@ -8961,7 +9346,7 @@ void MIL::Operators::Common::ios18::CustomValidators::ValidateWriteState(MIL::Op
   }
 
   std::string::basic_string[abi:ne200100]<0>(&v26, "data");
-  MIL::IROperation::GetParameterType(this);
+  MIL::IROperation::GetParameterType(this, &v26);
   if (v27 < 0)
   {
     operator delete(v26);
@@ -9033,8 +9418,7 @@ void MIL::Operators::Common::ios18::CustomValidators::ValidateWriteState(MIL::Op
     goto LABEL_17;
   }
 
-  ParameterValue = MIL::IRValue::GetScalar<int>(v10);
-  if ((ParameterValue & 0x80000000) != 0)
+  if ((MIL::IRValue::GetScalar<int>(v10) & 0x80000000) != 0)
   {
     v17 = __cxa_allocate_exception(0x48uLL);
     v18 = MIL::IRObject::GetLocationPtr(this);
@@ -9051,7 +9435,7 @@ void MIL::Operators::Common::ios18::CustomValidators::ValidateWriteState(MIL::Op
   }
 
 LABEL_17:
-  MIL::MILContext::Make(ParameterValue);
+  MIL::MILContext::Make();
 }
 
 void sub_2184296A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, std::__shared_weak_count *a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35)
@@ -9089,8 +9473,8 @@ void MIL::Operators::Common::ios18::CustomValueTypeInference::ValueTypeInference
 
 void MIL::Operators::Common::ios18::ReadState::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -9113,8 +9497,8 @@ void sub_21842A068(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void MIL::Operators::Common::ios18::WriteState::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -9144,8 +9528,8 @@ uint64_t OUTLINED_FUNCTION_1_1(uint64_t *a1)
 
 void MIL::Operators::Common::ios18::NonMaximumSuppression::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -9173,51 +9557,50 @@ void sub_21842D388(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::Topk::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_21842EE48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, void *a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61, uint64_t a62, void *a63)
 {
-  if (a69)
+  if (a65)
   {
-    (*(*a69 + 8))(a69);
+    (*(*a65 + 8))(a65, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  v74 = *v72;
-  *v72 = 0;
-  if (v74)
+  v68 = *v66;
+  *v66 = 0;
+  if (v68)
   {
-    (*(*v74 + 8))(v74);
+    (*(*v68 + 8))(v68);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a72, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a66, 0);
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x228], 0);
   _Unwind_Resume(a1);
 }
 
 uint64_t MIL::Operators::Common::ios18::CustomValidators::ValidateSliceUpdate@<X0>(MIL::Operators::Common::ios18::CustomValidators *this@<X0>, uint64_t a2@<X8>)
 {
-  memset(v11, 0, sizeof(v11));
-  v12 = 1065353216;
-  MIL::Validation::OpToTypeInferenceParams(this, v11, v6);
-  IsGood = MIL::ValidationResult::IsGood(v6);
-  if (IsGood)
+  memset(v9, 0, sizeof(v9));
+  v10 = 1065353216;
+  MIL::Validation::OpToTypeInferenceParams(this, v9, &v4);
+  if (MIL::ValidationResult::IsGood(&v4))
   {
-    MIL::MILContext::Make(IsGood);
+    MIL::MILContext::Make();
   }
 
-  *(a2 + 8) = v7;
-  v7 = 0uLL;
-  *(a2 + 24) = v8;
-  *(a2 + 40) = v9;
-  v8 = 0uLL;
-  v9 = 0;
+  *(a2 + 8) = v5;
+  v5 = 0uLL;
+  *(a2 + 24) = v6;
+  *(a2 + 40) = v7;
+  v6 = 0uLL;
+  v7 = 0;
   *a2 = &unk_2829E9B70;
-  *(a2 + 48) = v10;
-  MIL::ValidationResult::~ValidationResult(v6);
-  return std::__hash_table<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRTypedArgument>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRTypedArgument>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRTypedArgument>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRTypedArgument>>>>>::~__hash_table(v11);
+  *(a2 + 48) = v8;
+  MIL::ValidationResult::~ValidationResult(&v4);
+  return std::__hash_table<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRTypedArgument>>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRTypedArgument>>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRTypedArgument>>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::shared_ptr<MIL::IRTypedArgument>>>>>::~__hash_table(v9);
 }
 
 void sub_21842F914(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, void *__p, uint64_t a21, int a22, __int16 a23, char a24, char a25, uint64_t a26, std::__shared_weak_count *a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41, uint64_t a42, uint64_t a43, uint64_t a44, void *a45, uint64_t a46)
@@ -9250,8 +9633,8 @@ void sub_21842F914(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void MIL::Operators::Common::ios18::Concat::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -9261,14 +9644,14 @@ void sub_218430604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(v55 - 96) = 0;
   if (v57)
   {
-    (*(*v57 + 8))(v57);
+    (*(*v57 + 8))(v57, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v58 = *v54;
   *v54 = 0;
   if (v58)
   {
-    (*(*v58 + 8))(v58);
+    (*(*v58 + 8))(v58, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v55 - 128), 0);
@@ -9278,36 +9661,36 @@ void sub_218430604(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::ExpandDims::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_218431980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12, uint64_t a13, uint64_t a14, void *__p, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, void *a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, uint64_t a53, void *a54, uint64_t a55, uint64_t a56, void *a57, uint64_t a58, uint64_t a59, void *a60, uint64_t a61, uint64_t a62, void *a63)
 {
-  v74 = *(v72 - 128);
-  *(v72 - 128) = 0;
-  if (v74)
+  v68 = *(v66 - 128);
+  *(v66 - 128) = 0;
+  if (v68)
   {
-    (*(*v74 + 8))(v74);
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  v75 = *v71;
-  *v71 = 0;
-  if (v75)
+  v69 = *v65;
+  *v65 = 0;
+  if (v69)
   {
-    (*(*v75 + 8))(v75);
+    (*(*v69 + 8))(v69, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v72 - 136), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a71, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v66 - 136), 0);
+  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::Reshape::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -9334,8 +9717,8 @@ void sub_218432FDC(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::ReshapeLike::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -9362,8 +9745,8 @@ void sub_2184349B4(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::Reverse::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -9373,14 +9756,14 @@ void sub_2184362A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   *(v59 - 128) = 0;
   if (v61)
   {
-    (*(*v61 + 8))(v61);
+    (*(*v61 + 8))(v61, a2, a3, a4, a5, a6, a7, a8);
   }
 
   v62 = *v58;
   *v58 = 0;
   if (v62)
   {
-    (*(*v62 + 8))(v62);
+    (*(*v62 + 8))(v62, a2, a3, a4, a5, a6, a7, a8);
   }
 
   std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a58, 0);
@@ -9390,36 +9773,36 @@ void sub_2184362A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MIL::Operators::Common::ios18::ReverseSequence::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
 void sub_218437EB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, uint64_t a18, void *__p, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, void *a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, void *a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, void *a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, void *a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, void *a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  v69 = *(v67 - 128);
-  *(v67 - 128) = 0;
+  v68 = *(v66 - 128);
+  *(v66 - 128) = 0;
+  if (v68)
+  {
+    (*(*v68 + 8))(v68, a2, a3, a4, a5, a6, a7, a8);
+  }
+
+  v69 = *v65;
+  *v65 = 0;
   if (v69)
   {
-    (*(*v69 + 8))(v69);
+    (*(*v69 + 8))(v69, a2, a3, a4, a5, a6, a7, a8);
   }
 
-  v70 = *v66;
-  *v66 = 0;
-  if (v70)
-  {
-    (*(*v70 + 8))(v70);
-  }
-
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a66, 0);
+  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&a65, 0);
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x288], 0);
   _Unwind_Resume(a1);
 }
 
 void MIL::Operators::Common::ios18::SliceByIndex::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -9446,8 +9829,8 @@ void sub_21843A948(_Unwind_Exception *a1)
 
 void MIL::Operators::Common::ios18::SliceBySize::Make()
 {
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
+  v4 = *MEMORY[0x277D85DE8];
+  v3 = 0;
   operator new();
 }
 
@@ -9470,505 +9853,4 @@ void sub_21843CD04(_Unwind_Exception *a1)
   std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 168), 0);
   std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x2F0], 0);
   _Unwind_Resume(a1);
-}
-
-void MIL::Operators::Common::ios18::SliceUpdate::Make()
-{
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
-  operator new();
-}
-
-void sub_21843FD18(_Unwind_Exception *a1)
-{
-  v4 = *(v2 - 128);
-  *(v2 - 128) = 0;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  v5 = *v1;
-  *v1 = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x408], 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x4F0], 0);
-  _Unwind_Resume(a1);
-}
-
-void MIL::Operators::Common::ios18::SlidingWindows::Make()
-{
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
-  operator new();
-}
-
-void sub_218441ACC(_Unwind_Exception *a1)
-{
-  v4 = *(v2 - 136);
-  *(v2 - 136) = 0;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  v5 = *v1;
-  *v1 = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 192), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x218], 0);
-  _Unwind_Resume(a1);
-}
-
-void MIL::Operators::Common::ios18::Squeeze::Make()
-{
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
-  operator new();
-}
-
-void sub_2184431C0(_Unwind_Exception *a1)
-{
-  v4 = *(v2 - 136);
-  *(v2 - 136) = 0;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  v5 = *v1;
-  *v1 = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 192), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x220], 0);
-  _Unwind_Resume(a1);
-}
-
-void MIL::Operators::Common::ios18::Transpose::Make()
-{
-  v1 = *MEMORY[0x277D85DE8];
-  v0 = 0;
-  operator new();
-}
-
-void sub_2184448B8(_Unwind_Exception *a1)
-{
-  v4 = *(v2 - 136);
-  *(v2 - 136) = 0;
-  if (v4)
-  {
-    (*(*v4 + 8))(v4);
-  }
-
-  v5 = *v1;
-  *v1 = 0;
-  if (v5)
-  {
-    (*(*v5 + 8))(v5);
-  }
-
-  std::unique_ptr<std::vector<std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100]((v2 - 192), 0);
-  std::unique_ptr<std::unordered_map<std::string,std::shared_ptr<MIL::IRParameter>>>::reset[abi:ne200100](&STACK[0x220], 0);
-  _Unwind_Resume(a1);
-}
-
-void MIL::Operators::Common::ios18::CustomValidators::ValidateScaledDotProductAttention(MIL::Operators::Common::ios18::CustomValidators *this@<X0>, MIL::ValidationResult *a2@<X8>)
-{
-  std::string::basic_string[abi:ne200100]<0>(__p, "query");
-  ParameterType = MIL::IROperation::GetParameterType(this);
-  v6 = MIL::IRValueType::AsTensorType(ParameterType);
-  if (v21 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(__p, "key");
-  v7 = MIL::IROperation::GetParameterType(this);
-  v8 = MIL::IRValueType::AsTensorType(v7);
-  if (v21 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(__p, "value");
-  v9 = MIL::IROperation::GetParameterType(this);
-  v10 = MIL::IRValueType::AsTensorType(v9);
-  if (v21 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  OutputType = MIL::IROperation::GetOutputType(this, 0);
-  v12 = MIL::IRValueType::AsTensorType(OutputType);
-  std::string::basic_string[abi:ne200100]<0>(__p, "attn_mask");
-  if (MIL::IROperation::TryGetParameterType(this, __p, 0))
-  {
-    std::string::basic_string[abi:ne200100]<0>(v18, "attn_mask");
-    v13 = MIL::IROperation::TryGetParameterType(this, v18, 0);
-    v14 = MIL::IRValueType::AsTensorType(v13);
-    if (v19 < 0)
-    {
-      operator delete(v18[0]);
-    }
-  }
-
-  else
-  {
-    v14 = 0;
-  }
-
-  if (v21 < 0)
-  {
-    operator delete(__p[0]);
-  }
-
-  LocationPtr = MIL::IRObject::GetLocationPtr(this);
-  v16 = LocationPtr[1];
-  v17[0] = *LocationPtr;
-  v17[1] = v16;
-  if (v16)
-  {
-    atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  if (v16)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v16);
-  }
-}
-
-void sub_218445058(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, uint64_t a18, int a19, __int16 a20, char a21, char a22)
-{
-  if (a22 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void anonymous namespace::ValidateScaledDotProductAttentionInputs(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t *a6@<X5>, MIL::ValidationResult *a7@<X8>)
-{
-  v91 = *MEMORY[0x277D85DE8];
-  if (!(*(*a1 + 104))(a1) || !(*(*a3 + 104))(a3) || !(*(*a2 + 104))(a2) || a4 && ((*(*a4 + 104))(a4) & 1) == 0)
-  {
-    v45 = a6[1];
-    v85 = *a6;
-    v86 = v45;
-    if (v45)
-    {
-      atomic_fetch_add_explicit(&v45->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(v83, "Scaled Dot Product Attention currently doesn't support variadic shapes.");
-    MIL::ValidationResult::ValidationResult(a7, &v85, 318, v83);
-    if (v84 < 0)
-    {
-      operator delete(v83[0]);
-    }
-
-    v46 = v86;
-    if (!v86)
-    {
-      return;
-    }
-
-LABEL_47:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v46);
-    return;
-  }
-
-  v14 = (*(*a1 + 96))(a1);
-  v15 = (*(*a2 + 96))(a2);
-  v16 = (*(*a3 + 96))(a3);
-  v17 = v14[1] - *v14;
-  if (v17 != v15[1] - *v15 || (v18 = v16, v16[1] - *v16 != v17))
-  {
-    v47 = a6[1];
-    v81 = *a6;
-    v82 = v47;
-    if (v47)
-    {
-      atomic_fetch_add_explicit(&v47->__shared_owners_, 1uLL, memory_order_relaxed);
-    }
-
-    std::string::basic_string[abi:ne200100]<0>(v79, "Query, key, and value should have the same rank.");
-    MIL::ValidationResult::ValidationResult(a7, &v81, 304, v79);
-    if (v80 < 0)
-    {
-      operator delete(v79[0]);
-    }
-
-    v46 = v82;
-    if (!v82)
-    {
-      return;
-    }
-
-    goto LABEL_47;
-  }
-
-  if (a5)
-  {
-    v19 = (*(*a5 + 96))(a5);
-    if (v19[1] - *v19 != v17)
-    {
-      v48 = a6[1];
-      v77 = *a6;
-      v78 = v48;
-      if (v48)
-      {
-        atomic_fetch_add_explicit(&v48->__shared_owners_, 1uLL, memory_order_relaxed);
-      }
-
-      std::string::basic_string[abi:ne200100]<0>(v75, "Output should have the same rank as query, key, and value.");
-      MIL::ValidationResult::ValidationResult(a7, &v77, 304, v75);
-      if (v76 < 0)
-      {
-        operator delete(v75[0]);
-      }
-
-      v46 = v78;
-      if (!v78)
-      {
-        return;
-      }
-
-      goto LABEL_47;
-    }
-  }
-
-  v54 = v17 >> 3;
-  v53 = (v17 >> 3) - 2;
-  if (v53 < 2)
-  {
-LABEL_30:
-    if (a4)
-    {
-      __p = 0;
-      v61 = 0;
-      v62 = 0;
-      std::vector<std::string const*>::reserve(&__p, v54);
-      v39 = v54 - 1;
-      if (v54 != 1)
-      {
-        v40 = 0;
-        do
-        {
-          std::vector<MIL::IRDimension const*>::push_back[abi:ne200100](&__p, (*v14 + v40));
-          v40 += 8;
-          --v39;
-        }
-
-        while (v39);
-      }
-
-      std::vector<MIL::IRDimension const*>::push_back[abi:ne200100](&__p, (*v15 + 8 * v53));
-      v41 = (*(*a4 + 96))(a4);
-      memset(v88, 0, sizeof(v88));
-      std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(v88, *v41, v41[1], (v41[1] - *v41) >> 3);
-      v89 = 0;
-      v90[0] = 0;
-      v90[1] = 0;
-      std::vector<MIL::IRDimension const*>::__init_with_size[abi:ne200100]<MIL::IRDimension const**,MIL::IRDimension const**>(&v89, __p, v61, (v61 - __p) >> 3);
-      memset(v59, 0, sizeof(v59));
-      std::vector<std::vector<MIL::IRDimension const*>>::__init_with_size[abi:ne200100]<std::vector<MIL::IRDimension const*> const*,std::vector<MIL::IRDimension const*> const*>(v59, v88, &v91, 2uLL);
-      CanBroadcastShapes = MIL::Validation::CanBroadcastShapes(v59);
-      v87 = v59;
-      std::vector<std::vector<unsigned long long>>::__destroy_vector::operator()[abi:ne200100](&v87);
-      for (i = 0; i != -6; i -= 3)
-      {
-        v44 = v88[i + 3];
-        if (v44)
-        {
-          v90[i] = v44;
-          operator delete(v44);
-        }
-      }
-
-      if (!CanBroadcastShapes)
-      {
-        v49 = a6[1];
-        v57 = *a6;
-        v58 = v49;
-        if (v49)
-        {
-          atomic_fetch_add_explicit(&v49->__shared_owners_, 1uLL, memory_order_relaxed);
-        }
-
-        std::string::basic_string[abi:ne200100]<0>(v55, "Attention mask is not broadcastable with query/value/key.");
-        MIL::ValidationResult::ValidationResult(a7, &v57, 304, v55);
-        if (v56 < 0)
-        {
-          operator delete(v55[0]);
-        }
-
-        if (v58)
-        {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v58);
-        }
-
-        if (__p)
-        {
-          v61 = __p;
-          operator delete(__p);
-        }
-
-        return;
-      }
-
-      if (__p)
-      {
-        v61 = __p;
-        operator delete(__p);
-      }
-    }
-
-    MIL::ValidationResult::ValidationResult(a7);
-    return;
-  }
-
-  v20 = 0;
-  while (1)
-  {
-    v21 = *(*v15 + 8 * v20 + 8);
-    if ((*(*v21 + 16))(v21))
-    {
-      v22 = *(*v15 + 8 * v20 + 8);
-      v23 = (*(*v22 + 16))(v22);
-      v24 = (*(*v23 + 48))(v23);
-    }
-
-    else
-    {
-      v24 = -1;
-    }
-
-    v25 = *(*v14 + 8 * v20 + 8);
-    if ((*(*v25 + 16))(v25))
-    {
-      break;
-    }
-
-LABEL_19:
-    v30 = *(*v18 + 8 * v20 + 8);
-    if ((*(*v30 + 16))(v30))
-    {
-      if ((v24 & 0x8000000000000000) == 0)
-      {
-        v31 = *(*v18 + 8 * v20 + 8);
-        v32 = (*(*v31 + 16))(v31);
-        if ((*(*v32 + 48))(v32) != v24)
-        {
-          v51 = a6[1];
-          v69 = *a6;
-          v70 = v51;
-          if (v51)
-          {
-            atomic_fetch_add_explicit(&v51->__shared_owners_, 1uLL, memory_order_relaxed);
-          }
-
-          std::string::basic_string[abi:ne200100]<0>(v67, "Inner dimensions of Query, Key, and Value must match.");
-          MIL::ValidationResult::ValidationResult(a7, &v69, 304, v67);
-          if (v68 < 0)
-          {
-            operator delete(v67[0]);
-          }
-
-          v46 = v70;
-          if (v70)
-          {
-            goto LABEL_47;
-          }
-
-          return;
-        }
-      }
-
-      v33 = *(*v18 + 8 * v20 + 8);
-      v34 = (*(*v33 + 16))(v33);
-      v24 = (*(*v34 + 48))(v34);
-    }
-
-    if (a5)
-    {
-      v35 = *(*(*(*a5 + 96))(a5) + 8 * v20 + 8);
-      if ((*(*v35 + 16))(v35) && v24 >= 1)
-      {
-        v37 = *(*(*(*a5 + 96))(a5) + 8 * v20 + 8);
-        v38 = (*(*v37 + 16))(v37);
-        if ((*(*v38 + 48))(v38) != v24)
-        {
-          v52 = a6[1];
-          v65 = *a6;
-          v66 = v52;
-          if (v52)
-          {
-            atomic_fetch_add_explicit(&v52->__shared_owners_, 1uLL, memory_order_relaxed);
-          }
-
-          std::string::basic_string[abi:ne200100]<0>(v63, "Inner dimensions of Output must match Query, Key, and Value.");
-          MIL::ValidationResult::ValidationResult(a7, &v65, 304, v63);
-          if (v64 < 0)
-          {
-            operator delete(v63[0]);
-          }
-
-          v46 = v66;
-          if (v66)
-          {
-            goto LABEL_47;
-          }
-
-          return;
-        }
-      }
-    }
-
-    if (v54 - 3 == ++v20)
-    {
-      goto LABEL_30;
-    }
-  }
-
-  if (v24 < 0 || (v26 = *(*v14 + 8 * v20 + 8), v27 = (*(*v26 + 16))(v26), (*(*v27 + 48))(v27) == v24))
-  {
-    v28 = *(*v14 + 8 * v20 + 8);
-    v29 = (*(*v28 + 16))(v28);
-    v24 = (*(*v29 + 48))(v29);
-    goto LABEL_19;
-  }
-
-  v50 = a6[1];
-  v73 = *a6;
-  v74 = v50;
-  if (v50)
-  {
-    atomic_fetch_add_explicit(&v50->__shared_owners_, 1uLL, memory_order_relaxed);
-  }
-
-  std::string::basic_string[abi:ne200100]<0>(v71, "Inner dimensions of Query, Key, and Value must match.");
-  MIL::ValidationResult::ValidationResult(a7, &v73, 304, v71);
-  if (v72 < 0)
-  {
-    operator delete(v71[0]);
-  }
-
-  v46 = v74;
-  if (v74)
-  {
-    goto LABEL_47;
-  }
 }

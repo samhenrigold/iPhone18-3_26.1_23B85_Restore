@@ -10,11 +10,14 @@
   MEMORY[0x277D82BE0](of);
   MEMORY[0x277D82BE0](with);
   MEMORY[0x277D82BE0](using);
-  sub_255600AAC();
-  sub_255600AAC();
-  sub_255600AAC();
+  v11 = sub_255600AAC();
+  v16 = v5;
+  v9 = sub_255600AAC();
+  v14 = v6;
+  v10 = sub_255600AAC();
+  v12 = v7;
   swift_getObjCClassMetadata();
-  sub_2555F794C();
+  sub_2555F794C(v11, v16, v9, v14, v10, v12);
 
   MEMORY[0x277D82BD8](using);
 

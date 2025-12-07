@@ -252,7 +252,7 @@
 
 + (double)preferredHeightForWidth:(double)width supportsSortByAvgNumberOfNotifications:(BOOL)notifications
 {
-  v31[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   if (!preferredHeightForWidth_supportsSortByAvgNumberOfNotifications____drawingContext)
   {
     v7 = objc_alloc_init(MEMORY[0x277D74260]);
@@ -264,49 +264,49 @@
 
   v9 = fmax(width + -32.0, 0.0);
   _titleText = [objc_opt_class() _titleText];
-  v30 = *MEMORY[0x277D740A8];
-  v11 = v30;
+  v32 = *MEMORY[0x277D740A8];
+  v11 = v32;
   _titleFont = [self _titleFont];
-  v31[0] = _titleFont;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+  v33[0] = _titleFont;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
   [_titleText boundingRectWithSize:1 options:v13 attributes:preferredHeightForWidth_supportsSortByAvgNumberOfNotifications____drawingContext context:{v9, 0.0}];
-  CGRectGetHeight(v32);
+  CGRectGetHeight(v34);
 
   _descriptionText = [objc_opt_class() _descriptionText];
-  v28 = v11;
+  v30 = v11;
   _descriptionFont = [self _descriptionFont];
-  v29 = _descriptionFont;
-  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+  v31 = _descriptionFont;
+  v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
   [_descriptionText boundingRectWithSize:1 options:v16 attributes:preferredHeightForWidth_supportsSortByAvgNumberOfNotifications____drawingContext context:{v9, 0.0}];
-  CGRectGetHeight(v33);
+  CGRectGetHeight(v35);
 
   _orderingDescriptionText = [objc_opt_class() _orderingDescriptionText];
-  v26 = v11;
+  v28 = v11;
   _orderingDescriptionFont = [self _orderingDescriptionFont];
-  v27 = _orderingDescriptionFont;
-  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+  v29 = _orderingDescriptionFont;
+  v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
   [_orderingDescriptionText boundingRectWithSize:1 options:v19 attributes:preferredHeightForWidth_supportsSortByAvgNumberOfNotifications____drawingContext context:{v9, 0.0}];
-  CGRectGetHeight(v34);
+  CGRectGetHeight(v36);
 
   if (!notifications)
   {
     _orderingWarningText = [objc_opt_class() _orderingWarningText];
-    v24 = v11;
+    v26 = v11;
     _orderingWarningFont = [self _orderingWarningFont];
-    v25 = _orderingWarningFont;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-    [_orderingWarningText boundingRectWithSize:1 options:v22 attributes:preferredHeightForWidth_supportsSortByAvgNumberOfNotifications____drawingContext context:{fmax(width + -12.0 + -24.0 + -10.0 + -10.0, 0.0), 0.0}];
-    CGRectGetHeight(v35);
+    v27 = _orderingWarningFont;
+    v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+    [_orderingWarningText boundingRectWithSize:1 options:v24 attributes:preferredHeightForWidth_supportsSortByAvgNumberOfNotifications____drawingContext context:{fmax(width + -12.0 + -24.0 + -10.0 + -10.0, 0.0), 0.0}];
+    CGRectGetHeight(v37);
   }
 
-  _NCMainScreenScale();
+  _NCMainScreenScale(v20, v21);
   UICeilToScale();
   return result;
 }
 
 + (id)_titleText
 {
-  v2 = NCUserNotificationsUIKitFrameworkBundle();
+  v2 = NCUserNotificationsUIKitFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"NOTIFICATION_DIGEST_ONBOARDING_ADD_PICKER_TITLE" value:&stru_282FE84F8 table:0];
 
   return v3;
@@ -333,7 +333,7 @@
 
 + (id)_descriptionText
 {
-  v2 = NCUserNotificationsUIKitFrameworkBundle();
+  v2 = NCUserNotificationsUIKitFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"NOTIFICATION_DIGEST_ONBOARDING_ADD_PICKER_DESCRIPTION" value:&stru_282FE84F8 table:0];
 
   return v3;
@@ -341,7 +341,7 @@
 
 + (id)_orderingDescriptionText
 {
-  v2 = NCUserNotificationsUIKitFrameworkBundle();
+  v2 = NCUserNotificationsUIKitFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"NOTIFICATION_DIGEST_SETTINGS_ORDERED_BY" value:&stru_282FE84F8 table:0];
 
   return v3;
@@ -349,7 +349,7 @@
 
 + (id)_orderingWarningText
 {
-  v2 = NCUserNotificationsUIKitFrameworkBundle();
+  v2 = NCUserNotificationsUIKitFrameworkBundle(self);
   v3 = [v2 localizedStringForKey:@"NOTIFICATION_DIGEST_SETTINGS_NOT_ENOUGH_DATA" value:&stru_282FE84F8 table:0];
 
   return v3;

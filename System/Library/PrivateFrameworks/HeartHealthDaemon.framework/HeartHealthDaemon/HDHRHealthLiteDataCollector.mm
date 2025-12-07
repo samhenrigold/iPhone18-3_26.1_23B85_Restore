@@ -23,11 +23,11 @@
 
 - (HDHRHealthLiteDataCollector)initWithProfile:(id)profile
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
-  v30.receiver = self;
-  v30.super_class = HDHRHealthLiteDataCollector;
-  v6 = [(HDHRHealthLiteDataCollector *)&v30 init];
+  v29.receiver = self;
+  v29.super_class = HDHRHealthLiteDataCollector;
+  v6 = [(HDHRHealthLiteDataCollector *)&v29 init];
   if (v6)
   {
     if (!profileCopy)
@@ -42,7 +42,7 @@
       v8 = objc_opt_class();
       v9 = NSStringFromClass(v8);
       *buf = 138543362;
-      v32 = v9;
+      v31 = v9;
       _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "[%{public}@] Initializing", buf, 0xCu);
     }
 
@@ -80,7 +80,7 @@
     handler[1] = 3221225472;
     handler[2] = __47__HDHRHealthLiteDataCollector_initWithProfile___block_invoke;
     handler[3] = &unk_278660570;
-    objc_copyWeak(&v29, buf);
+    objc_copyWeak(&v28, buf);
     notify_register_dispatch(uTF8String, &v6->_privacyPreferencesNotificationToken, v23, handler);
     mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
     features = [mEMORY[0x277CCDD30] features];
@@ -92,11 +92,10 @@
       [(HDHRHealthLiteDataCollector *)v6 _startObservingAssertionManagerChanges];
     }
 
-    objc_destroyWeak(&v29);
+    objc_destroyWeak(&v28);
     objc_destroyWeak(buf);
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -145,7 +144,7 @@ uint64_t __38__HDHRHealthLiteDataCollector_dealloc__block_invoke(uint64_t a1)
 
 - (void)daemonReady:(id)ready
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   readyCopy = ready;
   _HKInitializeLogging();
   v5 = HKLogHeartRateCategory();
@@ -154,21 +153,19 @@ uint64_t __38__HDHRHealthLiteDataCollector_dealloc__block_invoke(uint64_t a1)
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     *buf = 138543362;
-    v15 = v7;
+    v14 = v7;
     _os_log_impl(&dword_229486000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received daemon ready", buf, 0xCu);
   }
 
   queue = self->_queue;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __43__HDHRHealthLiteDataCollector_daemonReady___block_invoke;
-  v11[3] = &unk_27865FE98;
-  v12 = readyCopy;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __43__HDHRHealthLiteDataCollector_daemonReady___block_invoke;
+  v10[3] = &unk_27865FE98;
+  v11 = readyCopy;
   selfCopy = self;
   v9 = readyCopy;
-  dispatch_async(queue, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  dispatch_async(queue, v10);
 }
 
 uint64_t __43__HDHRHealthLiteDataCollector_daemonReady___block_invoke(uint64_t a1)
@@ -252,31 +249,31 @@ uint64_t __43__HDHRHealthLiteDataCollector_daemonReady___block_invoke(uint64_t a
   dispatch_async(queue, block);
 }
 
-uint64_t __79__HDHRHealthLiteDataCollector_dataAggregator_wantsCollectionWithConfiguration___block_invoke(uint64_t result)
+id *__79__HDHRHealthLiteDataCollector_dataAggregator_wantsCollectionWithConfiguration___block_invoke(id *result)
 {
   v1 = result;
-  v3 = *(result + 32);
-  v2 = *(result + 40);
-  if (v3 == *(v2 + 32))
+  v3 = result[4];
+  v2 = result[5];
+  if (v3 == v2[4])
   {
-    objc_storeStrong((v2 + 56), *(result + 48));
-    v4 = *(v1 + 40);
+    objc_storeStrong(v2 + 7, result[6]);
+    v4 = v1[5];
 
     return [v4 _queue_updateHeartRateCollectionType];
   }
 
-  else if (v3 == *(v2 + 40))
+  else if (v3 == v2[5])
   {
-    objc_storeStrong((v2 + 64), *(result + 48));
-    v5 = *(v1 + 40);
+    objc_storeStrong(v2 + 8, result[6]);
+    v5 = v1[5];
 
     return [v5 _queue_updateTachycardiaCollectionType];
   }
 
-  else if (v3 == *(v2 + 48))
+  else if (v3 == v2[6])
   {
-    objc_storeStrong((v2 + 72), *(result + 48));
-    v6 = *(v1 + 40);
+    objc_storeStrong(v2 + 9, result[6]);
+    v6 = v1[5];
 
     return [v6 _queue_updateBradycardiaCollectionType];
   }
@@ -294,7 +291,7 @@ uint64_t __79__HDHRHealthLiteDataCollector_dataAggregator_wantsCollectionWithCon
 
 - (void)_queue_updateHeartRateCollectionType
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
   features = [mEMORY[0x277CCDD30] features];
@@ -314,13 +311,13 @@ uint64_t __79__HDHRHealthLiteDataCollector_dataAggregator_wantsCollectionWithCon
         v10 = v9;
         v11 = HKDataCollectionTypeToString();
         v12 = HKDataCollectionTypeToString();
-        v16 = 138543874;
-        v17 = v9;
-        v18 = 2114;
-        v19 = v11;
-        v20 = 2114;
-        v21 = v12;
-        _os_log_impl(&dword_229486000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Heart rate collection transitioning from %{public}@ to %{public}@", &v16, 0x20u);
+        v15 = 138543874;
+        v16 = v9;
+        v17 = 2114;
+        v18 = v11;
+        v19 = 2114;
+        v20 = v12;
+        _os_log_impl(&dword_229486000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: Heart rate collection transitioning from %{public}@ to %{public}@", &v15, 0x20u);
       }
 
       v13 = [(HKDataCollectorState *)self->_heartRateCollectionState cloneWithNewType:v7];
@@ -330,13 +327,11 @@ uint64_t __79__HDHRHealthLiteDataCollector_dataAggregator_wantsCollectionWithCon
       [(HDHeartRateDataAggregator *)self->_heartRateAggregator dataCollector:self didChangeState:self->_heartRateCollectionState];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_updateTachycardiaCollectionType
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   collectionType = [(HDDataCollectorConfiguration *)self->_tachycardiaCollectionConfiguration collectionType];
   if ([(HKDataCollectorState *)self->_tachycardiaCollectionState collectionType]!= collectionType)
@@ -348,11 +343,11 @@ uint64_t __79__HDHRHealthLiteDataCollector_dataAggregator_wantsCollectionWithCon
       [(HKDataCollectorState *)self->_tachycardiaCollectionState collectionType];
       v5 = HKDataCollectionTypeToString();
       v6 = HKDataCollectionTypeToString();
-      v10 = 138543618;
-      v11 = v5;
-      v12 = 2114;
-      v13 = v6;
-      _os_log_impl(&dword_229486000, v4, OS_LOG_TYPE_DEFAULT, "tachycardia collection transitioning from %{public}@ to %{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v6;
+      _os_log_impl(&dword_229486000, v4, OS_LOG_TYPE_DEFAULT, "tachycardia collection transitioning from %{public}@ to %{public}@", &v9, 0x16u);
     }
 
     v7 = [(HKDataCollectorState *)self->_tachycardiaCollectionState cloneWithNewType:collectionType];
@@ -361,13 +356,11 @@ uint64_t __79__HDHRHealthLiteDataCollector_dataAggregator_wantsCollectionWithCon
 
     [(HDTachycardiaDataAggregator *)self->_tachycardiaAggregator dataCollector:self didChangeState:self->_tachycardiaCollectionState];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_updateBradycardiaCollectionType
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
   collectionType = [(HDDataCollectorConfiguration *)self->_bradycardiaCollectionConfiguration collectionType];
   if ([(HKDataCollectorState *)self->_bradycardiaCollectionState collectionType]!= collectionType)
@@ -379,11 +372,11 @@ uint64_t __79__HDHRHealthLiteDataCollector_dataAggregator_wantsCollectionWithCon
       [(HKDataCollectorState *)self->_bradycardiaCollectionState collectionType];
       v5 = HKDataCollectionTypeToString();
       v6 = HKDataCollectionTypeToString();
-      v10 = 138543618;
-      v11 = v5;
-      v12 = 2114;
-      v13 = v6;
-      _os_log_impl(&dword_229486000, v4, OS_LOG_TYPE_DEFAULT, "bradycardia collection transitioning from %{public}@ to %{public}@", &v10, 0x16u);
+      v9 = 138543618;
+      v10 = v5;
+      v11 = 2114;
+      v12 = v6;
+      _os_log_impl(&dword_229486000, v4, OS_LOG_TYPE_DEFAULT, "bradycardia collection transitioning from %{public}@ to %{public}@", &v9, 0x16u);
     }
 
     v7 = [(HKDataCollectorState *)self->_bradycardiaCollectionState cloneWithNewType:collectionType];
@@ -392,8 +385,6 @@ uint64_t __79__HDHRHealthLiteDataCollector_dataAggregator_wantsCollectionWithCon
 
     [(HDBradycardiaDataAggregator *)self->_bradycardiaAggregator dataCollector:self didChangeState:self->_bradycardiaCollectionState];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_createHealthLiteManager
@@ -439,7 +430,7 @@ uint64_t __79__HDHRHealthLiteDataCollector_dataAggregator_wantsCollectionWithCon
 
 - (void)_assertionManagerStateChanged:(id)changed
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   if (_assertionManagerStateChanged__onceToken != -1)
   {
@@ -456,10 +447,10 @@ uint64_t __79__HDHRHealthLiteDataCollector_dataAggregator_wantsCollectionWithCon
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v13 = objc_opt_class();
-      v14 = 2114;
-      v15 = v6;
-      v8 = v13;
+      v12 = objc_opt_class();
+      v13 = 2114;
+      v14 = v6;
+      v8 = v12;
       _os_log_impl(&dword_229486000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@: Updating heart rate collection type because assertion changed: %{public}@", buf, 0x16u);
     }
 
@@ -471,8 +462,6 @@ uint64_t __79__HDHRHealthLiteDataCollector_dataAggregator_wantsCollectionWithCon
     block[4] = self;
     dispatch_async(queue, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __61__HDHRHealthLiteDataCollector__assertionManagerStateChanged___block_invoke()
@@ -504,7 +493,7 @@ void __61__HDHRHealthLiteDataCollector__assertionManagerStateChanged___block_inv
 
 - (BOOL)_queue_hasHeartRateClientsWithoutWorkouts
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCB90]];
   v4 = HDQueryServerSampleTypeObservationAssertionName();
 
@@ -528,24 +517,23 @@ void __61__HDHRHealthLiteDataCollector__assertionManagerStateChanged___block_inv
     v15 = HKLogHeartRateCategory();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      v18 = HKStringFromBool();
-      v19 = 138412802;
-      v20 = v18;
-      v21 = 2112;
-      v22 = v7;
-      v23 = 2112;
-      v24 = v10;
-      _os_log_debug_impl(&dword_229486000, v15, OS_LOG_TYPE_DEBUG, "Workout power saving mode is active, full-fidelity streaming allowed: %@, heart rate clients: %@, workout clients: %@", &v19, 0x20u);
+      v17 = HKStringFromBool();
+      v18 = 138412802;
+      v19 = v17;
+      v20 = 2112;
+      v21 = v7;
+      v22 = 2112;
+      v23 = v10;
+      _os_log_debug_impl(&dword_229486000, v15, OS_LOG_TYPE_DEBUG, "Workout power saving mode is active, full-fidelity streaming allowed: %@, heart rate clients: %@, workout clients: %@", &v18, 0x20u);
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v12 != 0;
 }
 
 - (void)_queue_privacyPreferencesDidChange
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = HKIsHeartRateEnabled();
   if (self->_heartRateEnabledInPrivacy != v3)
   {
@@ -561,15 +549,13 @@ void __61__HDHRHealthLiteDataCollector__assertionManagerStateChanged___block_inv
         v6 = "enabled";
       }
 
-      v8 = 136315138;
-      v9 = v6;
-      _os_log_impl(&dword_229486000, v5, OS_LOG_TYPE_DEFAULT, "heart rate privacy setting changed to %s", &v8, 0xCu);
+      v7 = 136315138;
+      v8 = v6;
+      _os_log_impl(&dword_229486000, v5, OS_LOG_TYPE_DEFAULT, "heart rate privacy setting changed to %s", &v7, 0xCu);
     }
 
     [(HDHRHealthLiteDataCollector *)self _queue_updateAllCollectionTypes];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)diagnosticDescription
@@ -621,24 +607,22 @@ void __61__HDHRHealthLiteDataCollector__assertionManagerStateChanged___block_inv
 
 - (void)dataAggregator:(os_log_t)log wantsCollectionWithConfiguration:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_debug_impl(&dword_229486000, log, OS_LOG_TYPE_DEBUG, "aggregator %{public}@ wants collection with configuration: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_debug_impl(&dword_229486000, log, OS_LOG_TYPE_DEBUG, "aggregator %{public}@ wants collection with configuration: %{public}@", &v3, 0x16u);
 }
 
 - (void)_registerPowerLogEvent:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 138412546;
-  v4 = @"healthlite_event";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_debug_impl(&dword_229486000, a2, OS_LOG_TYPE_DEBUG, "PowerLog %@: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 138412546;
+  v3 = @"healthlite_event";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_debug_impl(&dword_229486000, a2, OS_LOG_TYPE_DEBUG, "PowerLog %@: %@", &v2, 0x16u);
 }
 
 @end

@@ -7,12 +7,12 @@
 
 - (void)getImagesFromInput:(id)input completionHandler:(id)handler
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   v5 = MEMORY[0x1E6996CF0];
   handlerCopy = handler;
   inputCopy = input;
-  v23[0] = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+  v22[0] = objc_opt_class();
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
   v9 = [v5 requestForCoercingToContentClasses:v8 completionHandler:handlerCopy];
 
   v10 = MEMORY[0x1E695DFB8];
@@ -21,16 +21,15 @@
   v13 = [v10 orderedSetWithObjects:{v11, v12, objc_opt_class(), 0}];
   v14 = MEMORY[0x1E6996CE8];
   v15 = *MEMORY[0x1E6996FF8];
-  v20 = v13;
-  v21 = v15;
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
-  v22 = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+  v19 = v13;
+  v20 = v15;
+  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v19 count:1];
+  v21 = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
   v18 = [v14 optionsWithDictionary:v17];
   [v9 setOptions:v18];
 
   [inputCopy performCoercion:v9];
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)performActionWithInput:(id)input parameters:(id)parameters userInterface:(id)interface successHandler:(id)handler errorHandler:(id)errorHandler

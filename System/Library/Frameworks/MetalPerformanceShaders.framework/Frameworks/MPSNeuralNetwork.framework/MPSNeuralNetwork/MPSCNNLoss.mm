@@ -18,7 +18,7 @@
 {
   if (MTLReportFailureTypeEnabled())
   {
-    MTLReportFailure();
+    MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", 0x33A, @"Cannot directly initialize MPSCNNLoss. Use initWithDevice:lossDescriptor: instead.\n", v3, v4, v5, v6);
   }
 
   return 0;
@@ -26,9 +26,9 @@
 
 - (MPSCNNLoss)initWithDevice:(id)device lossDescriptor:(MPSCNNLossDescriptor *)lossDescriptor
 {
-  v126.receiver = self;
-  v126.super_class = MPSCNNLoss;
-  v13 = [(MPSCNNKernel *)&v126 initWithDevice:?];
+  v132.receiver = self;
+  v132.super_class = MPSCNNLoss;
+  v13 = [(MPSCNNKernel *)&v132 initWithDevice:?];
   if (v13)
   {
     objc_msgSend_lossType(lossDescriptor, v6, v7, v8, v9, v10, v11, v12);
@@ -37,8 +37,10 @@
       if (MTLReportFailureTypeEnabled())
       {
         objc_msgSend_lossType(lossDescriptor, v112, v113, v114, v115, v116, v117, v118);
+        v123 = @"invalid loss type (%lu)";
+        v124 = 837;
 LABEL_10:
-        MTLReportFailure();
+        MTLReportFailure(0, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", v124, v123, v119, v120, v121, v122);
       }
     }
 
@@ -75,7 +77,9 @@ LABEL_10:
 
       if (MTLReportFailureTypeEnabled())
       {
-        objc_msgSend_reductionType(lossDescriptor, v119, v120, v121, v122, v123, v124, v125);
+        objc_msgSend_reductionType(lossDescriptor, v125, v126, v127, v128, v129, v130, v131);
+        v123 = @"invalid reduction type (%lu)";
+        v124 = 840;
         goto LABEL_10;
       }
     }
@@ -88,8 +92,8 @@ LABEL_10:
 
 - (MPSCNNLoss)initWithCoder:(NSCoder *)aDecoder device:(id)device
 {
-  v80.receiver = self;
-  v80.super_class = MPSCNNLoss;
+  v87.receiver = self;
+  v87.super_class = MPSCNNLoss;
   v6 = [MPSCNNKernel initWithCoder:sel_initWithCoder_device_ device:?];
   v13 = v6;
   if (!v6)
@@ -108,6 +112,9 @@ LABEL_10:
         goto LABEL_10;
       }
 
+      v84 = @"invalid loss type (%lu)";
+      v85 = 0;
+      v86 = 897;
       goto LABEL_9;
     }
 
@@ -139,8 +146,10 @@ LABEL_10:
 
     if (MTLReportFailureTypeEnabled())
     {
-LABEL_9:
-      MTLReportFailure();
+      v84 = @"invalid reduction type (%lu)";
+      v85 = 0;
+      v86 = 900;
+      goto LABEL_9;
     }
   }
 
@@ -148,7 +157,11 @@ LABEL_9:
   {
     v79 = objc_opt_class();
     NSStringFromClass(v79);
-    goto LABEL_9;
+    v84 = @"[%@ initWithCoder:device:] Failed: unsupported file version.";
+    v85 = 1;
+    v86 = 890;
+LABEL_9:
+    MTLReportFailure(v85, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Filters/MPSCNNLoss.mm", v86, v84, v80, v81, v82, v83);
   }
 
 LABEL_10:

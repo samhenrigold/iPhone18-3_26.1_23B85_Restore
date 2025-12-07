@@ -17,11 +17,11 @@
 - (void)makeMLIROpWithBuilder:(void *)builder symbolTable:(void *)table inputValues:(void *)values opInitialization:(BOOL)initialization name:(id)name
 {
   nameCopy = name;
-  mpsFileLoc("[MPSGraphGatherOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphGatherOps.mm", __p);
-  v12 = MPSSymbolTable::getLocationByInsertingOp<mlir::mps::GatherOp>(table, builder, __p, 0x89u, nameCopy);
-  if (v22 < 0)
+  mpsFileLoc(&__p, "[MPSGraphGatherOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphGatherOps.mm");
+  v12 = MPSSymbolTable::getLocationByInsertingOp<mlir::mps::GatherOp>(table, builder, &__p, 0x89u, nameCopy);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
   v13 = *values;

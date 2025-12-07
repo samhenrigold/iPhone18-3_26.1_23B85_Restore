@@ -64,9 +64,8 @@
     sub_100010CF0();
   }
 
-  v7 = toCopy;
+  v5 = toCopy;
   PBDataWriterWriteStringField();
-  iconVariant = self->_iconVariant;
   PBDataWriterWriteInt32Field();
   if (!self->_iconData)
   {
@@ -81,7 +80,6 @@
 
   if (*&self->_has)
   {
-    deletable = self->_deletable;
     PBDataWriterWriteBOOLField();
   }
 }

@@ -32,22 +32,20 @@
 
 + (void)simulateCrashWithMessage:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B990D000, a2, OS_LOG_TYPE_DEBUG, "Simulating crash report with message: [%@]", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B990D000, a2, OS_LOG_TYPE_DEBUG, "Simulating crash report with message: [%@]", &v2, 0xCu);
 }
 
 + (void)simulateCrashWithMessage:(uint64_t)a1 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "SimulateCrash";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Will not simulate crash report because the [%s] function couldn't be loaded.  Given crash report message: [%@]", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "SimulateCrash";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_1B990D000, a2, OS_LOG_TYPE_ERROR, "Will not simulate crash report because the [%s] function couldn't be loaded.  Given crash report message: [%@]", &v2, 0x16u);
 }
 
 @end

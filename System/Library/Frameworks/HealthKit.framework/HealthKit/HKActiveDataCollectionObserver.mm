@@ -7,6 +7,7 @@
 - (id)exportedInterface;
 - (id)remoteInterface;
 - (void)_restartTaskServerIfNeeded;
+- (void)client_didChangeAllowCollectionPause:(BOOL)pause;
 - (void)client_updatedCollectedTypes:(id)types;
 - (void)setDelegate:(id)delegate;
 - (void)subscribeForQuantityTypes:(id)types;
@@ -75,15 +76,15 @@ void __54__HKActiveDataCollectionObserver_initWithHealthStore___block_invoke(uin
 {
   v17 = *MEMORY[0x1E69E9840];
   typesCopy = types;
-  _HKInitializeLogging();
-  v5 = HKLogWorkouts;
+  _HKInitializeLogging(typesCopy, v5);
+  v6 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
     v15 = 2112;
     v16 = typesCopy;
-    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Subscribing to active collection of types %@", buf, 0x16u);
+    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Subscribing to active collection of types %@", buf, 0x16u);
   }
 
   proxyProvider = self->_proxyProvider;
@@ -98,10 +99,8 @@ void __54__HKActiveDataCollectionObserver_initWithHealthStore___block_invoke(uin
   v9[2] = __60__HKActiveDataCollectionObserver_subscribeForQuantityTypes___block_invoke_2;
   v9[3] = &unk_1E7376898;
   v9[4] = self;
-  v7 = typesCopy;
+  v8 = typesCopy;
   [(HKProxyProvider *)proxyProvider fetchProxyWithHandler:v10 errorHandler:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __60__HKActiveDataCollectionObserver_subscribeForQuantityTypes___block_invoke(uint64_t a1, void *a2)
@@ -129,11 +128,11 @@ void __60__HKActiveDataCollectionObserver_subscribeForQuantityTypes___block_invo
 
 void __60__HKActiveDataCollectionObserver_subscribeForQuantityTypes___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __60__HKActiveDataCollectionObserver_subscribeForQuantityTypes___block_invoke_2_cold_1(a1);
+    __60__HKActiveDataCollectionObserver_subscribeForQuantityTypes___block_invoke_2_cold_1();
   }
 }
 
@@ -141,15 +140,15 @@ void __60__HKActiveDataCollectionObserver_subscribeForQuantityTypes___block_invo
 {
   v17 = *MEMORY[0x1E69E9840];
   typesCopy = types;
-  _HKInitializeLogging();
-  v5 = HKLogWorkouts;
+  _HKInitializeLogging(typesCopy, v5);
+  v6 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
     v15 = 2112;
     v16 = typesCopy;
-    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Unsubscribing to active collection of types %@", buf, 0x16u);
+    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Unsubscribing to active collection of types %@", buf, 0x16u);
   }
 
   proxyProvider = self->_proxyProvider;
@@ -164,10 +163,8 @@ void __60__HKActiveDataCollectionObserver_subscribeForQuantityTypes___block_invo
   v9[2] = __62__HKActiveDataCollectionObserver_unsubscribeForQuantityTypes___block_invoke_2;
   v9[3] = &unk_1E7376898;
   v9[4] = self;
-  v7 = typesCopy;
+  v8 = typesCopy;
   [(HKProxyProvider *)proxyProvider fetchProxyWithHandler:v10 errorHandler:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __62__HKActiveDataCollectionObserver_unsubscribeForQuantityTypes___block_invoke(uint64_t a1, void *a2)
@@ -185,44 +182,41 @@ void __62__HKActiveDataCollectionObserver_unsubscribeForQuantityTypes___block_in
 
 void __62__HKActiveDataCollectionObserver_unsubscribeForQuantityTypes___block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = a2;
-  _HKInitializeLogging();
+  v2 = a2;
+  _HKInitializeLogging(v2, v3);
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_ERROR))
   {
-    __60__HKActiveDataCollectionObserver_subscribeForQuantityTypes___block_invoke_2_cold_1(a1);
+    __60__HKActiveDataCollectionObserver_subscribeForQuantityTypes___block_invoke_2_cold_1();
   }
 }
 
 + (id)clientInterface
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F06F6F38];
   v3 = MEMORY[0x1E695DFD8];
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
   v5 = [v3 setWithArray:v4];
 
   [v2 setClasses:v5 forSelector:sel_client_updatedCollectedTypes_ argumentIndex:0 ofReply:0];
-  v6 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
 
 + (id)serverInterface
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F06F6F98];
   v3 = MEMORY[0x1E695DFD8];
-  v8[0] = objc_opt_class();
-  v8[1] = objc_opt_class();
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
+  v7[0] = objc_opt_class();
+  v7[1] = objc_opt_class();
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
   v5 = [v3 setWithArray:v4];
 
   [v2 setClasses:v5 forSelector:sel_remote_subscribeForQuantityTypes_ argumentIndex:0 ofReply:0];
   [v2 setClasses:v5 forSelector:sel_remote_unsubscribeForQuantityTypes_ argumentIndex:0 ofReply:0];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -245,36 +239,75 @@ void __62__HKActiveDataCollectionObserver_unsubscribeForQuantityTypes___block_in
 {
   v16 = *MEMORY[0x1E69E9840];
   typesCopy = types;
-  _HKInitializeLogging();
-  v5 = HKLogWorkouts;
+  _HKInitializeLogging(typesCopy, v5);
+  v6 = HKLogWorkouts;
   if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
   {
     v12 = 138543618;
     selfCopy = self;
     v14 = 2112;
     v15 = typesCopy;
-    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Updated actively collected types: %@", &v12, 0x16u);
+    _os_log_impl(&dword_19197B000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@: Updated actively collected types: %@", &v12, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_lock);
-  v6 = [typesCopy copy];
+  v7 = [typesCopy copy];
   activelyCollectedTypes = self->_activelyCollectedTypes;
-  self->_activelyCollectedTypes = v6;
+  self->_activelyCollectedTypes = v7;
 
   objc_copyWeak(&v12, &self->_delegate);
   os_unfair_lock_unlock(&self->_lock);
   WeakRetained = objc_loadWeakRetained(&v12);
-  v9 = WeakRetained == 0;
+  v10 = WeakRetained == 0;
 
-  if (!v9)
+  if (!v10)
   {
-    v10 = objc_loadWeakRetained(&v12);
-    [v10 activeDataCollectionObserver:self updatedCollectedTypes:typesCopy];
+    v11 = objc_loadWeakRetained(&v12);
+    [v11 activeDataCollectionObserver:self updatedCollectedTypes:typesCopy];
   }
 
   objc_destroyWeak(&v12);
+}
 
-  v11 = *MEMORY[0x1E69E9840];
+- (void)client_didChangeAllowCollectionPause:(BOOL)pause
+{
+  pauseCopy = pause;
+  v15 = *MEMORY[0x1E69E9840];
+  _HKInitializeLogging(self, a2);
+  v5 = HKLogWorkouts;
+  if (os_log_type_enabled(HKLogWorkouts, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = @"NO";
+    if (pauseCopy)
+    {
+      v6 = @"YES";
+    }
+
+    v11 = 138543618;
+    selfCopy = self;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_19197B000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@: Did change allow collection pause %@", &v11, 0x16u);
+  }
+
+  os_unfair_lock_lock(&self->_lock);
+  self->_allowCollectionPause = pauseCopy;
+  objc_copyWeak(&v11, &self->_delegate);
+  os_unfair_lock_unlock(&self->_lock);
+  WeakRetained = objc_loadWeakRetained(&v11);
+  if (WeakRetained)
+  {
+    v8 = objc_loadWeakRetained(&v11);
+    v9 = objc_opt_respondsToSelector();
+
+    if (v9)
+    {
+      v10 = objc_loadWeakRetained(&v11);
+      [v10 activeDataCollectionObserver:self didChangeAllowCollectionPause:pauseCopy];
+    }
+  }
+
+  objc_destroyWeak(&v11);
 }
 
 - (HKActiveDataCollectionObserverDelegate)delegate
@@ -296,15 +329,6 @@ void __62__HKActiveDataCollectionObserver_unsubscribeForQuantityTypes___block_in
       [self subscribeForQuantityTypes:allObjects];
     }
   }
-}
-
-void __60__HKActiveDataCollectionObserver_subscribeForQuantityTypes___block_invoke_2_cold_1(uint64_t a1)
-{
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(*(a1 + 32) + 8);
-  OUTLINED_FUNCTION_0_8();
-  OUTLINED_FUNCTION_1_3(&dword_19197B000, v2, v3, "%{public}@: Unable to fetch active data collection observer proxy %{public}@ with error: %{public}@");
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 @end

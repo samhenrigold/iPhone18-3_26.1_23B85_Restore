@@ -7,10 +7,10 @@ void __134___UIWindowSceneDeviceOrientationSettingsDiffAction__updateDeviceOrien
 {
   v2 = *(a1 + 32);
   v3 = +[(UIScene *)UIWindowScene];
-  v4 = [v2 isEqual:v3];
+  isEqual = objc_msgSend_isEqual_(v2);
 
   v5 = +[UIDevice currentDevice];
-  [v5 setOrientation:*(a1 + 40) animated:v4];
+  [v5 setOrientation:*(a1 + 40) animated:isEqual];
 }
 
 @end

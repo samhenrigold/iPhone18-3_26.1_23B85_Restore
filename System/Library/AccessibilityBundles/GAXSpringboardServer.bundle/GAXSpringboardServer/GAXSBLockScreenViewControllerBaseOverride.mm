@@ -1,5 +1,6 @@
 @interface GAXSBLockScreenViewControllerBaseOverride
 + (void)_accessibilityPerformValidations:(id)validations;
+- (void)exitEmergencyDialerAnimated:(BOOL)animated;
 - (void)launchEmergencyDialer;
 @end
 
@@ -32,6 +33,14 @@
     [(GAXSBLockScreenViewControllerBaseOverride *)&v5 launchEmergencyDialer];
     [v3 notifyBackboardIsMakingEmergencyCall:1];
   }
+}
+
+- (void)exitEmergencyDialerAnimated:(BOOL)animated
+{
+  v3.receiver = self;
+  v3.super_class = GAXSBLockScreenViewControllerBaseOverride;
+  [(GAXSBLockScreenViewControllerBaseOverride *)&v3 exitEmergencyDialerAnimated:animated];
+  dispatch_async(&_dispatch_main_q, &stru_2D550);
 }
 
 @end

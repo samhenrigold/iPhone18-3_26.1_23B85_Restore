@@ -123,7 +123,7 @@
 
 - (void)_accessibilityPrefsDidChange
 {
-  v2 = SBLogButtonsInteraction();
+  v2 = SBLogButtonsInteraction(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -154,7 +154,7 @@ void __72__SBAccessibilityHardwareButtonInteraction__accessibilityPrefsDidChange
     v4 = 0;
   }
 
-  v5 = SBLogButtonsInteraction();
+  v5 = SBLogButtonsInteraction(v2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(SBAccessibilityHardwareButtonInteraction *)v4 _supportsTripleClick];
@@ -192,7 +192,7 @@ void __72__SBAccessibilityHardwareButtonInteraction__accessibilityPrefsDidChange
 
   if (([sosDefaults performedCheckForTripleClickSOSMigrationAlert] & 1) == 0 && -[SBAccessibilityHardwareButtonInteraction _supportsTripleClick](self, "_supportsTripleClick") && objc_msgSend(MEMORY[0x277D495A8], "currentSOSTriggerMechanism") == 1 && SBFEffectiveHomeButtonType() == 2)
   {
-    v5 = SBLogButtonsInteraction();
+    v5 = SBLogButtonsInteraction(2);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *v10 = 0;

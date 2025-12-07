@@ -11,98 +11,95 @@
 
 - (id)validateExtendedKeyUsage:(id)usage
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
   usageCopy = usage;
-  v4 = [usageCopy countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v4 = [usageCopy countByEnumeratingWithState:&v23 objects:v28 count:16];
   if (!v4)
   {
-    v18 = 0;
+    v16 = 0;
     goto LABEL_29;
   }
 
   v5 = v4;
-  v6 = *v27;
-  v7 = 0x1E695D000uLL;
+  v6 = *v24;
 LABEL_3:
-  v8 = 0;
+  v7 = 0;
   while (1)
   {
-    if (*v27 != v6)
+    if (*v24 != v6)
     {
       objc_enumerationMutation(usageCopy);
     }
 
-    v9 = *(*(&v26 + 1) + 8 * v8);
+    v8 = *(*(&v23 + 1) + 8 * v7);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       break;
     }
 
-    v11 = *(v7 + 3784);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v18 = [MCPayload badFieldTypeErrorWithField:@"ExtendedKeyUsage"];
+      v16 = [MCPayload badFieldTypeErrorWithField:@"ExtendedKeyUsage"];
       goto LABEL_29;
     }
 
-    v10 = v9;
-    if (![v10 count])
+    v9 = v8;
+    if (![v9 count])
     {
       goto LABEL_32;
     }
 
-    v24 = 0u;
-    v25 = 0u;
+    v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v10 = v10;
-    v12 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
-    if (!v12)
+    v19 = 0u;
+    v20 = 0u;
+    v9 = v9;
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v27 count:16];
+    if (!v10)
     {
       goto LABEL_20;
     }
 
-    v13 = v12;
-    v14 = *v23;
-    v21 = v6;
+    v11 = v10;
+    v12 = *v20;
+    v18 = v6;
     while (2)
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v14)
+        if (*v20 != v12)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v9);
         }
 
-        v16 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v18 = [MCPayload badFieldTypeErrorWithField:@"ExtendedKeyUsage"];
+          v16 = [MCPayload badFieldTypeErrorWithField:@"ExtendedKeyUsage"];
 LABEL_27:
 
           goto LABEL_28;
         }
 
-        v17 = v16;
-        if (![v17 length])
+        v15 = v14;
+        if (![v15 length])
         {
-          v18 = [MCPayload badFieldTypeErrorWithField:@"ExtendedKeyUsage"];
+          v16 = [MCPayload badFieldTypeErrorWithField:@"ExtendedKeyUsage"];
 
           goto LABEL_27;
         }
       }
 
-      v13 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
-      v6 = v21;
-      v7 = 0x1E695D000;
-      if (v13)
+      v11 = [v9 countByEnumeratingWithState:&v19 objects:v27 count:16];
+      v6 = v18;
+      if (v11)
       {
         continue;
       }
@@ -113,10 +110,10 @@ LABEL_27:
 LABEL_20:
 
 LABEL_21:
-    if (++v8 == v5)
+    if (++v7 == v5)
     {
-      v5 = [usageCopy countByEnumeratingWithState:&v26 objects:v31 count:16];
-      v18 = 0;
+      v5 = [usageCopy countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v16 = 0;
       if (!v5)
       {
         goto LABEL_29;
@@ -126,35 +123,34 @@ LABEL_21:
     }
   }
 
-  v10 = v9;
-  if ([v10 length])
+  v9 = v8;
+  if ([v9 length])
   {
     goto LABEL_21;
   }
 
 LABEL_32:
-  v18 = [MCPayload badFieldTypeErrorWithField:@"ExtendedKeyUsage"];
+  v16 = [MCPayload badFieldTypeErrorWithField:@"ExtendedKeyUsage"];
 LABEL_28:
 
 LABEL_29:
-  v19 = *MEMORY[0x1E69E9840];
 
-  return v18;
+  return v16;
 }
 
 - (MCSelfSignedCertificatePayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v51.receiver = self;
-  v51.super_class = MCSelfSignedCertificatePayload;
-  v10 = [(MCCertificatePayload *)&v51 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v50.receiver = self;
+  v50.super_class = MCSelfSignedCertificatePayload;
+  v10 = [(MCCertificatePayload *)&v50 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (v10)
   {
-    v50 = 0;
-    v11 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"HardwareBound" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" missingDataCode:1002 missingDataErrorString:@"ERROR_PROFILE_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v50];
-    v12 = v50;
+    v49 = 0;
+    v11 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"HardwareBound" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" missingDataCode:1002 missingDataErrorString:@"ERROR_PROFILE_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v49];
+    v12 = v49;
     if (v12)
     {
       v13 = v12;
@@ -178,9 +174,9 @@ LABEL_5:
         v20 = v19;
         mCVerboseDescription = [v15 MCVerboseDescription];
         *buf = 138543618;
-        v53 = v19;
-        v54 = 2114;
-        v55 = mCVerboseDescription;
+        v52 = v19;
+        v53 = 2114;
+        v54 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v18, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
       }
 
@@ -196,11 +192,11 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    v49 = 0;
-    v24 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"KeyType" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" missingDataCode:1002 missingDataErrorString:@"ERROR_PROFILE_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v49];
-    v13 = v49;
+    v48 = 0;
+    v23 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"KeyType" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" missingDataCode:1002 missingDataErrorString:@"ERROR_PROFILE_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v48];
+    v13 = v48;
     keyType = v10->_keyType;
-    v10->_keyType = v24;
+    v10->_keyType = v23;
 
     if (v13)
     {
@@ -209,20 +205,20 @@ LABEL_10:
 
     if (![(NSString *)v10->_keyType isEqualToString:@"RSA"]&& ![(NSString *)v10->_keyType isEqualToString:@"ECSECPrimeRandom"])
     {
-      v27 = [MCPayload badFieldTypeErrorWithField:@"KeyType"];
+      v26 = [MCPayload badFieldTypeErrorWithField:@"KeyType"];
       goto LABEL_29;
     }
 
-    v48 = 0;
-    v26 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"KeySize" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" missingDataCode:1002 missingDataErrorString:@"ERROR_PROFILE_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v48];
-    v27 = v48;
-    if (v27)
+    v47 = 0;
+    v25 = [MCProfile removeRequiredObjectInDictionary:dictionaryCopy key:@"KeySize" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" missingDataCode:1002 missingDataErrorString:@"ERROR_PROFILE_REQUIRED_FIELD_MISSING_P_FIELD" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v47];
+    v26 = v47;
+    if (v26)
     {
 LABEL_28:
 
 LABEL_29:
-      v11 = v27;
-      if (!v27)
+      v11 = v26;
+      if (!v26)
       {
         goto LABEL_11;
       }
@@ -230,28 +226,28 @@ LABEL_29:
       goto LABEL_5;
     }
 
-    v44 = v26;
-    v10->_keySize = [v26 unsignedIntegerValue];
-    v47 = 0;
-    v28 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"KeyUsage" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v47];
-    v29 = v47;
-    if (v29)
+    v43 = v25;
+    v10->_keySize = [v25 unsignedIntegerValue];
+    v46 = 0;
+    v27 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"KeyUsage" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v46];
+    v28 = v46;
+    if (v28)
     {
       goto LABEL_18;
     }
 
-    if (v28)
+    if (v27)
     {
-      unsignedIntValue = [v28 unsignedIntValue];
+      unsignedIntValue = [v27 unsignedIntValue];
       v10->_keyUsage = unsignedIntValue;
       if ((unsignedIntValue & 0xFFFFFFFA) != 0)
       {
-        v29 = [MCPayload badFieldTypeErrorWithField:@"KeyUsage"];
+        v28 = [MCPayload badFieldTypeErrorWithField:@"KeyUsage"];
 LABEL_18:
-        v27 = v29;
+        v26 = v28;
 LABEL_27:
 
-        v26 = v44;
+        v25 = v43;
         goto LABEL_28;
       }
     }
@@ -261,36 +257,36 @@ LABEL_27:
       v10->_keyUsage = 1;
     }
 
-    v43 = v28;
-    v46 = 0;
-    v31 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"ExtendedKeyUsage" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v46];
-    v27 = v46;
-    extendedKeyUsage = v10->_extendedKeyUsage;
-    v10->_extendedKeyUsage = v31;
-
-    if (v27)
-    {
-      goto LABEL_27;
-    }
-
-    v33 = [(MCSelfSignedCertificatePayload *)v10 validateExtendedKeyUsage:v10->_extendedKeyUsage];
-    if (v33)
-    {
-      v27 = v33;
-      goto LABEL_27;
-    }
-
+    v42 = v27;
     v45 = 0;
-    v34 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"Lifetime" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v45];
-    v35 = v45;
-    if (v35)
+    v30 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"ExtendedKeyUsage" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v45];
+    v26 = v45;
+    extendedKeyUsage = v10->_extendedKeyUsage;
+    v10->_extendedKeyUsage = v30;
+
+    if (v26)
+    {
+      goto LABEL_27;
+    }
+
+    v32 = [(MCSelfSignedCertificatePayload *)v10 validateExtendedKeyUsage:v10->_extendedKeyUsage];
+    if (v32)
+    {
+      v26 = v32;
+      goto LABEL_27;
+    }
+
+    v44 = 0;
+    v33 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"Lifetime" type:objc_opt_class() errorDomain:@"MCProfileErrorDomain" invalidDataCode:1003 invalidDataErrorString:@"ERROR_PROFILE_FIELD_INVALID_P_FIELD" outError:&v44];
+    v34 = v44;
+    if (v34)
     {
       goto LABEL_49;
     }
 
-    if (v34)
+    if (v33)
     {
-      unsignedIntegerValue = [v34 unsignedIntegerValue];
+      unsignedIntegerValue = [v33 unsignedIntegerValue];
     }
 
     else
@@ -303,20 +299,20 @@ LABEL_27:
     {
       if (![(NSString *)v10->_keyType isEqualToString:@"ECSECPrimeRandom"])
       {
-        v38 = @"KeyType";
+        v37 = @"KeyType";
         goto LABEL_48;
       }
 
       if ((v10->_keySize | 0x80) != 0x180)
       {
 LABEL_41:
-        v38 = @"KeySize";
+        v37 = @"KeySize";
 LABEL_48:
-        v35 = [MCPayload badFieldTypeErrorWithField:v38];
+        v34 = [MCPayload badFieldTypeErrorWithField:v37];
 LABEL_49:
-        v27 = v35;
+        v26 = v34;
 LABEL_50:
-        v28 = v43;
+        v27 = v42;
 
         goto LABEL_27;
       }
@@ -333,22 +329,22 @@ LABEL_50:
 
     else if ([(NSString *)v10->_keyType isEqualToString:@"ECSECPrimeRandom"])
     {
-      v39 = v10->_keySize;
-      if (v39 > 383)
+      v38 = v10->_keySize;
+      if (v38 > 383)
       {
-        if (v39 == 384 || v39 == 521)
+        if (v38 == 384 || v38 == 521)
         {
           goto LABEL_54;
         }
       }
 
-      else if (v39 == 192 || v39 == 256)
+      else if (v38 == 192 || v38 == 256)
       {
         goto LABEL_54;
       }
 
-      v35 = [MCPayload badFieldTypeErrorWithField:@"KeySize"];
-      if (v35)
+      v34 = [MCPayload badFieldTypeErrorWithField:@"KeySize"];
+      if (v34)
       {
         goto LABEL_49;
       }
@@ -357,26 +353,25 @@ LABEL_50:
 LABEL_54:
     if ([dictionaryCopy count])
     {
-      v40 = _MCLogObjects;
+      v39 = _MCLogObjects;
       if (os_log_type_enabled(_MCLogObjects, OS_LOG_TYPE_INFO))
       {
-        v41 = v40;
+        v40 = v39;
         friendlyName = [(MCPayload *)v10 friendlyName];
         *buf = 138543618;
-        v53 = friendlyName;
-        v54 = 2114;
-        v55 = dictionaryCopy;
-        _os_log_impl(&dword_1A795B000, v41, OS_LOG_TYPE_INFO, "Payload “%{public}@” has fields that we are ignoring. They are: %{public}@", buf, 0x16u);
+        v52 = friendlyName;
+        v53 = 2114;
+        v54 = dictionaryCopy;
+        _os_log_impl(&dword_1A795B000, v40, OS_LOG_TYPE_INFO, "Payload “%{public}@” has fields that we are ignoring. They are: %{public}@", buf, 0x16u);
       }
     }
 
-    v27 = 0;
+    v26 = 0;
     goto LABEL_50;
   }
 
 LABEL_11:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v10;
 }
 

@@ -19,10 +19,10 @@
 
 - (_OSBatteryPredictor)init
 {
-  v22[2] = *MEMORY[0x277D85DE8];
-  v21.receiver = self;
-  v21.super_class = _OSBatteryPredictor;
-  v2 = [(_OSBatteryPredictor *)&v21 init];
+  v21[2] = *MEMORY[0x277D85DE8];
+  v20.receiver = self;
+  v20.super_class = _OSBatteryPredictor;
+  v2 = [(_OSBatteryPredictor *)&v20 init];
   if (v2)
   {
     v3 = os_log_create("com.apple.osintelligence", "battery");
@@ -35,33 +35,32 @@
 
     v7 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_286EBE158];
     v8 = MEMORY[0x277CBEB98];
-    v22[0] = objc_opt_class();
-    v22[1] = objc_opt_class();
-    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+    v21[0] = objc_opt_class();
+    v21[1] = objc_opt_class();
+    v9 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
     v10 = [v8 setWithArray:v9];
     [v7 setClasses:v10 forSelector:sel_batteryLifeMitigationWithHandler_ argumentIndex:0 ofReply:1];
 
     [(NSXPCConnection *)v2->_connection setRemoteObjectInterface:v7];
     objc_initWeak(&location, v2);
-    v18[0] = MEMORY[0x277D85DD0];
-    v18[1] = 3221225472;
-    v18[2] = __27___OSBatteryPredictor_init__block_invoke;
-    v18[3] = &unk_2799C1528;
-    objc_copyWeak(&v19, &location);
-    [(NSXPCConnection *)v2->_connection setInvalidationHandler:v18];
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __27___OSBatteryPredictor_init__block_invoke_73;
-    v16 = &unk_2799C1528;
-    objc_copyWeak(&v17, &location);
-    [(NSXPCConnection *)v2->_connection setInterruptionHandler:&v13];
-    [(NSXPCConnection *)v2->_connection resume:v13];
-    objc_destroyWeak(&v17);
-    objc_destroyWeak(&v19);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __27___OSBatteryPredictor_init__block_invoke;
+    v17[3] = &unk_2799C1528;
+    objc_copyWeak(&v18, &location);
+    [(NSXPCConnection *)v2->_connection setInvalidationHandler:v17];
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = __27___OSBatteryPredictor_init__block_invoke_73;
+    v15 = &unk_2799C1528;
+    objc_copyWeak(&v16, &location);
+    [(NSXPCConnection *)v2->_connection setInterruptionHandler:&v12];
+    [(NSXPCConnection *)v2->_connection resume:v12];
+    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v18);
     objc_destroyWeak(&location);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

@@ -213,13 +213,10 @@ void __67__HKSignedClinicalDataStore_reverifySignatureForRecord_completion___blo
 
 void __67__HKSignedClinicalDataStore_reverifySignatureForRecord_completion___block_invoke_2(uint64_t a1)
 {
-  v2 = *(a1 + 64);
-  v3 = *(a1 + 56);
-  v4 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-  v5 = *(*(a1 + 48) + 8);
-  v6 = *(v5 + 40);
-  *(v5 + 40) = 0;
+  v2 = *(*(a1 + 48) + 8);
+  v3 = *(v2 + 40);
+  *(v2 + 40) = 0;
 }
 
 void __67__HKSignedClinicalDataStore_reverifySignatureForRecord_completion___block_invoke_4(uint64_t a1, void *a2)
@@ -467,19 +464,17 @@ void __64__HKSignedClinicalDataStore_fetchPublicKeyWithKeyID_completion___block_
 
 - (void)connectionInvalidated
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2C0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2C0], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
     logPrefix = [(HKSignedClinicalDataStore *)self logPrefix];
-    v7 = 138543362;
-    v8 = logPrefix;
-    _os_log_impl(&dword_2519FE000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ connection invalidated", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = logPrefix;
+    _os_log_impl(&dword_2519FE000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ connection invalidated", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

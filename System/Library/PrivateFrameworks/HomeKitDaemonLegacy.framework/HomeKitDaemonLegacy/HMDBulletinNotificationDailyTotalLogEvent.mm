@@ -7,19 +7,17 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v10[3] = *MEMORY[0x277D85DE8];
-  v9[0] = @"topic";
+  v9[3] = *MEMORY[0x277D85DE8];
+  v8[0] = @"topic";
   topic = [(HMDBulletinNotificationDailyTotalLogEvent *)self topic];
-  v10[0] = topic;
-  v9[1] = @"topicCount";
+  v9[0] = topic;
+  v8[1] = @"topicCount";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDBulletinNotificationDailyTotalLogEvent topicCount](self, "topicCount")}];
-  v10[1] = v4;
-  v9[2] = @"bulletinNotificationSettings";
+  v9[1] = v4;
+  v8[2] = @"bulletinNotificationSettings";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[HMDBulletinNotificationDailyTotalLogEvent bulletinNotificationSettings](self, "bulletinNotificationSettings")}];
-  v10[2] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:3];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9[2] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:3];
 
   return v6;
 }

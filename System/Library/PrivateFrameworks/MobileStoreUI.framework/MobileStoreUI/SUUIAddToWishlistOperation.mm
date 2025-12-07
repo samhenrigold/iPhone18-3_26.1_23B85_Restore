@@ -57,7 +57,7 @@
 
 - (void)main
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277D69BD0]);
   [v3 setAllowedRetryCount:0];
   [v3 setCachePolicy:1];
@@ -76,26 +76,26 @@
 
   v8 = [objc_alloc(MEMORY[0x277D69A58]) initWithAccount:activeAccount];
   [(SSURLConnectionRequest *)v5 setAuthenticationContext:v8];
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__26;
-  v36 = __Block_byref_object_dispose__26;
-  v37 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__26;
+  v35 = __Block_byref_object_dispose__26;
+  v36 = 0;
   v9 = dispatch_semaphore_create(0);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __34__SUUIAddToWishlistOperation_main__block_invoke;
-  v29[3] = &unk_2798F82D8;
-  v31 = &v32;
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = __34__SUUIAddToWishlistOperation_main__block_invoke;
+  v28[3] = &unk_2798F82D8;
+  v30 = &v31;
   v10 = v9;
-  v30 = v10;
-  [(SUUIURLConnectionRequest *)v5 startWithConnectionResponseBlock:v29];
+  v29 = v10;
+  [(SUUIURLConnectionRequest *)v5 startWithConnectionResponseBlock:v28];
   dispatch_semaphore_wait(v10, 0xFFFFFFFFFFFFFFFFLL);
-  v11 = v33[5];
+  v11 = v32[5];
   if (v11)
   {
-    v27 = [MEMORY[0x277CCAC58] propertyListWithData:v11 options:0 format:0 error:0];
+    v26 = [MEMORY[0x277CCAC58] propertyListWithData:v11 options:0 format:0 error:0];
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -104,7 +104,7 @@ LABEL_19:
       goto LABEL_20;
     }
 
-    v26 = [v27 objectForKey:@"status"];
+    v25 = [v26 objectForKey:@"status"];
     mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     shouldLogToDisk = [mEMORY[0x277D69B38] shouldLogToDisk];
@@ -133,12 +133,11 @@ LABEL_19:
     if (v18)
     {
       itemIdentifier = self->_itemIdentifier;
-      v38 = 138412546;
-      v39 = v26;
-      v40 = 2048;
-      v41 = itemIdentifier;
-      LODWORD(v25) = 22;
-      v20 = _os_log_send_and_compose_impl();
+      v37 = 138412546;
+      v38 = v25;
+      v39 = 2048;
+      v40 = itemIdentifier;
+      v20 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &dword_259CB8000, v16, 2, "[Wishlist]: Received status: %@ when adding wishlist item: %lld", &v37, 22);
 
       if (!v20)
       {
@@ -146,7 +145,7 @@ LABEL_13:
 
         if (objc_opt_respondsToSelector())
         {
-          if ([v26 integerValue] >= 2)
+          if ([v25 integerValue] >= 2)
           {
             v21 = 3;
           }
@@ -166,18 +165,18 @@ LABEL_13:
         uniqueIdentifier = [activeAccount uniqueIdentifier];
         v24 = [v22 initWithAccountIdentifier:{objc_msgSend(uniqueIdentifier, "longLongValue")}];
 
-        v28[0] = MEMORY[0x277D85DD0];
-        v28[1] = 3221225472;
-        v28[2] = __34__SUUIAddToWishlistOperation_main__block_invoke_41;
-        v28[3] = &unk_2798F8650;
-        v28[4] = self;
-        v28[5] = v21;
-        [v24 performTransactionWithBlock:v28];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __34__SUUIAddToWishlistOperation_main__block_invoke_41;
+        v27[3] = &unk_2798F8650;
+        v27[4] = self;
+        v27[5] = v21;
+        [v24 performTransactionWithBlock:v27];
 
         goto LABEL_19;
       }
 
-      v16 = [MEMORY[0x277CCACA8] stringWithCString:v20 encoding:{4, &v38, v25}];
+      v16 = [MEMORY[0x277CCACA8] stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }
@@ -187,7 +186,7 @@ LABEL_13:
 
 LABEL_20:
 
-  _Block_object_dispose(&v32, 8);
+  _Block_object_dispose(&v31, 8);
 }
 
 intptr_t __34__SUUIAddToWishlistOperation_main__block_invoke(uint64_t a1, void *a2)

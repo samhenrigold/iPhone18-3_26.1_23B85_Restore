@@ -5,24 +5,24 @@ void sub_22AADDAA0(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22AADDDC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AADDDC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AADF484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AADF484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v9 - 112), 8);
+  _Block_object_dispose((v16 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -193,16 +193,16 @@ void sub_22AAE7410(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22AAE774C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AAE774C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AAE794C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AAE794C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -283,7 +283,7 @@ void sub_22AAEE670(_Unwind_Exception *a1)
 
 uint64_t _SavePairedPeerDelegateCallback_f(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v7 = a4;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -309,15 +309,15 @@ uint64_t _SavePairedPeerDelegateCallback_f(uint64_t a1, uint64_t a2, uint64_t a3
     {
       v17 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v28 = v17;
+      v27 = v17;
       _os_log_impl(&dword_22AADC000, v16, OS_LOG_TYPE_INFO, "%{public}@Pair-Setup - Saving KeyChain for accessory", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v14);
     v18 = [v15 keyStore];
-    v26 = 0;
-    [v18 savePublicKey:v10 forAccessoryName:v11 error:&v26];
-    v19 = v26;
+    v25 = 0;
+    [v18 savePublicKey:v10 forAccessoryName:v11 error:&v25];
+    v19 = v25;
 
     [v15 associateAccessoryWithControllerKeyUsingAccessoryPublicKey:v10];
     v20 = [v19 code];
@@ -331,11 +331,11 @@ uint64_t _SavePairedPeerDelegateCallback_f(uint64_t a1, uint64_t a2, uint64_t a3
       v22 = HMFGetLogIdentifier();
       v23 = [v7 identifier];
       *buf = 138543874;
-      v28 = v22;
-      v29 = 2112;
-      v30 = v23;
-      v31 = 2112;
-      v32 = v11;
+      v27 = v22;
+      v28 = 2112;
+      v29 = v23;
+      v30 = 2112;
+      v31 = v11;
       _os_log_impl(&dword_22AADC000, v21, OS_LOG_TYPE_ERROR, "%{public}@Device id changed during pair setup: %@, %@", buf, 0x20u);
     }
 
@@ -343,7 +343,6 @@ uint64_t _SavePairedPeerDelegateCallback_f(uint64_t a1, uint64_t a2, uint64_t a3
     v20 = 4294960591;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
@@ -410,7 +409,7 @@ uint64_t _FindPairedPeerDelegateCallback_f(uint64_t a1, uint64_t a2, _OWORD *a3,
 
 uint64_t _CopyPairingIdentityDelegateCallback_f(int a1, char **a2, _OWORD *a3, _OWORD *a4, void *a5)
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v9 = a5;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -436,40 +435,40 @@ uint64_t _CopyPairingIdentityDelegateCallback_f(int a1, char **a2, _OWORD *a3, _
 
     if (!v14)
     {
-      v40 = a2;
+      v39 = a2;
       v24 = [v9 keyStore];
       if (a4)
       {
-        v46 = 0;
-        v47 = 0;
         v45 = 0;
-        v27 = [v9 identifier];
+        v46 = 0;
         v44 = 0;
-        [v24 getControllerPublicKey:&v47 secretKey:&v46 username:&v45 allowCreation:a1 != 0 forAccessory:v27 error:&v44];
-        v22 = v47;
-        v25 = v46;
-        v23 = v45;
-        v26 = v44;
+        v27 = [v9 identifier];
+        v43 = 0;
+        [v24 getControllerPublicKey:&v46 secretKey:&v45 username:&v44 allowCreation:a1 != 0 forAccessory:v27 error:&v43];
+        v22 = v46;
+        v25 = v45;
+        v23 = v44;
+        v26 = v43;
 
         v14 = 0;
       }
 
       else
       {
-        v42 = 0;
-        v43 = 0;
-        v28 = [v9 identifier];
         v41 = 0;
-        [v24 getControllerPublicKey:&v43 secretKey:0 username:&v42 allowCreation:a1 != 0 forAccessory:v28 error:&v41];
-        v22 = v43;
-        v23 = v42;
-        v26 = v41;
+        v42 = 0;
+        v28 = [v9 identifier];
+        v40 = 0;
+        [v24 getControllerPublicKey:&v42 secretKey:0 username:&v41 allowCreation:a1 != 0 forAccessory:v28 error:&v40];
+        v22 = v42;
+        v23 = v41;
+        v26 = v40;
 
         v14 = 0;
         v25 = 0;
       }
 
-      a2 = v40;
+      a2 = v39;
       goto LABEL_16;
     }
   }
@@ -482,9 +481,9 @@ uint64_t _CopyPairingIdentityDelegateCallback_f(int a1, char **a2, _OWORD *a3, _
     v19 = HMFGetLogIdentifier();
     v20 = [v14 identifier];
     *buf = 138543618;
-    v49 = v19;
-    v50 = 2114;
-    v51 = v20;
+    v48 = v19;
+    v49 = 2114;
+    v50 = v20;
     _os_log_impl(&dword_22AADC000, v18, OS_LOG_TYPE_INFO, "%{public}@Using Pairing Identity for PV/PS : %{public}@", buf, 0x16u);
   }
 
@@ -578,7 +577,6 @@ LABEL_30:
 
 LABEL_29:
 
-  v38 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -603,14 +601,14 @@ void sub_22AAF2814(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22AAF30EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AAF30EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -630,11 +628,12 @@ void sub_22AAF33A0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22AAF4A2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_22AAF4A2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, id location, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
-  objc_destroyWeak((v26 + 48));
+  va_start(va, a25);
+  objc_destroyWeak((v25 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a26, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -666,7 +665,7 @@ void sub_22AAF742C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t _PairSetupEventHandler(uint64_t result, uint64_t a2, void *a3)
+void *_PairSetupEventHandler(void *result, uint64_t a2, void *a3)
 {
   if (result == 3)
   {
@@ -678,23 +677,29 @@ uint64_t _PairSetupEventHandler(uint64_t result, uint64_t a2, void *a3)
 
 uint64_t _PairSetupPromptForSetupCodeDelegateCallback_f(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = a3[43];
-  v6 = a3;
-  v7 = [v6 _promptForSetupCodeWithFlags:a1 delaySeconds:a2 pairingFlags:PairingSessionGetPeerFlags() isWAC:0];
+  v5 = a3;
+  v6 = [v5 _promptForSetupCodeWithFlags:a1 delaySeconds:a2 pairingFlags:PairingSessionGetPeerFlags() isWAC:0];
 
-  return v7;
+  return v6;
 }
 
-void sub_22AAF9DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AAF9DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22AAFB4E0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
+{
+  va_start(va, location);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 id _parseNotificationContextFromCharacteristicResponse(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 hmf_stringForKey:@"context"];
   if (v2)
@@ -709,16 +714,14 @@ id _parseNotificationContextFromCharacteristicResponse(void *a1)
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       v6 = HMFGetLogIdentifier();
-      v9 = 138543362;
-      v10 = v6;
-      _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%{public}@[HAPAccessoryServerIP] Notification context not present in response", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = v6;
+      _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_INFO, "%{public}@[HAPAccessoryServerIP] Notification context not present in response", &v8, 0xCu);
     }
 
     objc_autoreleasePoolPop(v4);
     v3 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -742,27 +745,27 @@ void sub_22AB03128(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22AB03F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id location, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
+void sub_22AB03F3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, id location, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, id a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, ...)
 {
-  va_start(va, a37);
-  objc_destroyWeak((v37 + 48));
-  objc_destroyWeak(&a27);
-  objc_destroyWeak(&a26);
-  objc_destroyWeak(&location);
+  va_start(va, a44);
+  objc_destroyWeak((v44 + 48));
+  objc_destroyWeak(&a34);
+  objc_destroyWeak(&a33);
+  objc_destroyWeak(&a36);
   objc_destroyWeak(va);
-  objc_destroyWeak((v38 - 192));
+  objc_destroyWeak((v45 - 192));
   _Unwind_Resume(a1);
 }
 
-void sub_22AB073E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
+void sub_22AB073E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, char a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id location, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, id a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, ...)
 {
-  va_start(va, a32);
-  objc_destroyWeak((v32 + 48));
-  objc_destroyWeak(&a22);
-  objc_destroyWeak(&a21);
-  objc_destroyWeak(&location);
+  va_start(va, a39);
+  objc_destroyWeak((v39 + 48));
+  objc_destroyWeak(&a29);
+  objc_destroyWeak(&a28);
+  objc_destroyWeak(&a31);
   objc_destroyWeak(va);
-  objc_destroyWeak((v33 - 160));
+  objc_destroyWeak((v40 - 160));
   _Unwind_Resume(a1);
 }
 
@@ -831,405 +834,403 @@ void sub_22AB10B9C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 HAPService *_parseSerializedService(void *a1)
 {
-  v196 = *MEMORY[0x277D85DE8];
+  v193 = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v2 = 0x277CBE000uLL;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v129 = objc_autoreleasePoolPush();
-    v130 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v130, OS_LOG_TYPE_ERROR))
+    v127 = objc_autoreleasePoolPush();
+    v128 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v128, OS_LOG_TYPE_ERROR))
     {
-      v131 = HMFGetLogIdentifier();
+      v129 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v191 = v131;
-      v192 = 2114;
-      v193 = objc_opt_class();
-      v132 = v193;
-      _os_log_impl(&dword_22AADC000, v130, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Expected service object to be a dictionary in the attribute database, instead it is a %{public}@", buf, 0x16u);
+      v188 = v129;
+      v189 = 2114;
+      v190 = objc_opt_class();
+      v130 = v190;
+      _os_log_impl(&dword_22AADC000, v128, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Expected service object to be a dictionary in the attribute database, instead it is a %{public}@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v129);
-    v127 = 0;
-    goto LABEL_176;
+    objc_autoreleasePoolPop(v127);
+    v125 = 0;
+    goto LABEL_175;
   }
 
-  v3 = [v1 objectForKeyedSubscript:@"characteristics"];
-  v158 = v3;
-  if (!v3)
+  v2 = [v1 objectForKeyedSubscript:@"characteristics"];
+  v155 = v2;
+  if (!v2)
   {
-    v133 = objc_autoreleasePoolPush();
+    v131 = objc_autoreleasePoolPush();
+    v132 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v132, OS_LOG_TYPE_ERROR))
+    {
+      v133 = HMFGetLogIdentifier();
+      *buf = 138543362;
+      v188 = v133;
+      _os_log_impl(&dword_22AADC000, v132, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] No characteristics found when parsing service object in attribute database", buf, 0xCu);
+    }
+
+    goto LABEL_158;
+  }
+
+  v3 = v2;
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    v131 = objc_autoreleasePoolPush();
     v134 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v134, OS_LOG_TYPE_ERROR))
     {
       v135 = HMFGetLogIdentifier();
-      *buf = 138543362;
-      v191 = v135;
-      _os_log_impl(&dword_22AADC000, v134, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] No characteristics found when parsing service object in attribute database", buf, 0xCu);
-    }
-
-    goto LABEL_159;
-  }
-
-  v4 = v3;
-  objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    v133 = objc_autoreleasePoolPush();
-    v136 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v136, OS_LOG_TYPE_ERROR))
-    {
-      v137 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v191 = v137;
-      v192 = 2114;
-      v193 = @"characteristics";
-      v194 = 2114;
-      v195 = objc_opt_class();
-      v138 = v195;
-      _os_log_impl(&dword_22AADC000, v136, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Expected '%{public}@' to be an array in the service object of the attribute database, instead it is a %{public}@", buf, 0x20u);
+      v188 = v135;
+      v189 = 2114;
+      v190 = @"characteristics";
+      v191 = 2114;
+      v192 = objc_opt_class();
+      v136 = v192;
+      _os_log_impl(&dword_22AADC000, v134, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Expected '%{public}@' to be an array in the service object of the attribute database, instead it is a %{public}@", buf, 0x20u);
     }
 
-LABEL_159:
-    objc_autoreleasePoolPop(v133);
-    v127 = 0;
-    goto LABEL_175;
+LABEL_158:
+    objc_autoreleasePoolPop(v131);
+    v125 = 0;
+    goto LABEL_174;
   }
 
-  v5 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v4, "count")}];
+  v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v3, "count")}];
+  v173 = 0u;
+  v174 = 0u;
+  v175 = 0u;
   v176 = 0u;
-  v177 = 0u;
-  v178 = 0u;
-  v179 = 0u;
-  v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v176 objects:v185 count:16];
-  v156 = v5;
-  if (!v7)
+  v5 = v3;
+  v6 = [v5 countByEnumeratingWithState:&v173 objects:v182 count:16];
+  v153 = v4;
+  if (!v6)
   {
-LABEL_137:
+LABEL_136:
 
-    v112 = [v1 hmf_numberForKey:@"iid"];
-    obj = v112;
-    if (v112)
+    v110 = [v1 hmf_numberForKey:@"iid"];
+    obj = v110;
+    if (v110)
     {
-      v113 = v112;
+      v111 = v110;
       [v1 hmf_BOOLForKey:@"primary"];
       [v1 hmf_BOOLForKey:@"hidden"];
-      v114 = [v1 hmf_arrayForKey:@"linked"];
-      v115 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v114, "count")}];
+      v112 = [v1 hmf_arrayForKey:@"linked"];
+      v113 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v112, "count")}];
+      v169 = 0u;
+      v170 = 0u;
+      v171 = 0u;
       v172 = 0u;
-      v173 = 0u;
-      v174 = 0u;
-      v175 = 0u;
-      v116 = v114;
-      v117 = [v116 countByEnumeratingWithState:&v172 objects:v184 count:16];
-      if (v117)
+      v114 = v112;
+      v115 = [v114 countByEnumeratingWithState:&v169 objects:v181 count:16];
+      if (v115)
       {
-        v118 = v117;
-        v119 = *v173;
+        v116 = v115;
+        v117 = *v170;
         do
         {
-          for (i = 0; i != v118; ++i)
+          for (i = 0; i != v116; ++i)
           {
-            if (*v173 != v119)
+            if (*v170 != v117)
             {
-              objc_enumerationMutation(v116);
+              objc_enumerationMutation(v114);
             }
 
-            v121 = *(*(&v172 + 1) + 8 * i);
+            v119 = *(*(&v169 + 1) + 8 * i);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              [v115 addObject:v121];
+              [v113 addObject:v119];
             }
           }
 
-          v118 = [v116 countByEnumeratingWithState:&v172 objects:v184 count:16];
+          v116 = [v114 countByEnumeratingWithState:&v169 objects:v181 count:16];
         }
 
-        while (v118);
+        while (v116);
       }
 
-      [v115 removeObject:v113];
-      v122 = [v1 hmf_stringForKey:@"type"];
-      if (v122)
+      [v113 removeObject:v111];
+      v120 = [v1 hmf_stringForKey:@"type"];
+      if (v120)
       {
-        v123 = v122;
-        v124 = [MEMORY[0x277D0F888] hmf_cachedInstanceForString:v122];
+        v121 = v120;
+        v122 = [MEMORY[0x277D0F888] hmf_cachedInstanceForString:v120];
 
-        v125 = v156;
-        v126 = [HAPService initWithType:"initWithType:instanceID:parsedCharacteristics:serviceProperties:linkedServices:" instanceID:v124 parsedCharacteristics:v113 serviceProperties:? linkedServices:?];
-        v127 = v126;
-        if (v126)
+        v123 = v153;
+        v124 = [HAPService initWithType:"initWithType:instanceID:parsedCharacteristics:serviceProperties:linkedServices:" instanceID:v122 parsedCharacteristics:v111 serviceProperties:? linkedServices:?];
+        v125 = v124;
+        if (v124)
         {
-          v128 = v126;
+          v126 = v124;
         }
 
         else
         {
-          v150 = objc_autoreleasePoolPush();
-          v151 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v151, OS_LOG_TYPE_ERROR))
+          v148 = objc_autoreleasePoolPush();
+          v149 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v149, OS_LOG_TYPE_ERROR))
           {
-            v152 = HMFGetLogIdentifier();
+            v150 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v191 = v152;
-            _os_log_impl(&dword_22AADC000, v151, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Unable to parse serialized service.", buf, 0xCu);
+            v188 = v150;
+            _os_log_impl(&dword_22AADC000, v149, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Unable to parse serialized service.", buf, 0xCu);
 
-            v125 = v156;
+            v123 = v153;
           }
 
-          objc_autoreleasePoolPop(v150);
+          objc_autoreleasePoolPop(v148);
         }
       }
 
       else
       {
-        v146 = objc_autoreleasePoolPush();
-        v147 = HMFGetOSLogHandle();
-        v125 = v156;
-        if (os_log_type_enabled(v147, OS_LOG_TYPE_ERROR))
+        v144 = objc_autoreleasePoolPush();
+        v145 = HMFGetOSLogHandle();
+        v123 = v153;
+        if (os_log_type_enabled(v145, OS_LOG_TYPE_ERROR))
         {
-          v148 = HMFGetLogIdentifier();
-          v149 = [v1 objectForKeyedSubscript:@"type"];
+          v146 = HMFGetLogIdentifier();
+          v147 = [v1 objectForKeyedSubscript:@"type"];
           *buf = 138543618;
-          v191 = v148;
-          v192 = 2112;
-          v193 = v149;
-          _os_log_impl(&dword_22AADC000, v147, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Unable to parse serialized service type: %@.", buf, 0x16u);
+          v188 = v146;
+          v189 = 2112;
+          v190 = v147;
+          _os_log_impl(&dword_22AADC000, v145, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Unable to parse serialized service type: %@.", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v146);
-        v127 = 0;
+        objc_autoreleasePoolPop(v144);
+        v125 = 0;
       }
 
-      v5 = v125;
+      v4 = v123;
     }
 
     else
     {
-      v142 = objc_autoreleasePoolPush();
-      v143 = HMFGetOSLogHandle();
-      if (os_log_type_enabled(v143, OS_LOG_TYPE_ERROR))
+      v140 = objc_autoreleasePoolPush();
+      v141 = HMFGetOSLogHandle();
+      if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
       {
-        v144 = HMFGetLogIdentifier();
-        v145 = [v1 objectForKeyedSubscript:@"iid"];
+        v142 = HMFGetLogIdentifier();
+        v143 = [v1 objectForKeyedSubscript:@"iid"];
         *buf = 138543618;
-        v191 = v144;
-        v192 = 2112;
-        v193 = v145;
-        _os_log_impl(&dword_22AADC000, v143, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Unable to parse serialized service instanceID: %@.", buf, 0x16u);
+        v188 = v142;
+        v189 = 2112;
+        v190 = v143;
+        _os_log_impl(&dword_22AADC000, v141, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Unable to parse serialized service instanceID: %@.", buf, 0x16u);
       }
 
-      objc_autoreleasePoolPop(v142);
-      v127 = 0;
+      objc_autoreleasePoolPop(v140);
+      v125 = 0;
     }
 
-    goto LABEL_174;
+    goto LABEL_173;
   }
 
-  v8 = v7;
-  v9 = 0;
-  v170 = *v177;
-  v155 = v1;
-  obj = v6;
+  v7 = v6;
+  v8 = 0;
+  v167 = *v174;
+  v152 = v1;
+  obj = v5;
 LABEL_6:
-  v10 = 0;
-  v11 = v9;
-  v157 = v8;
+  v9 = 0;
+  v10 = v8;
+  v154 = v7;
   while (1)
   {
-    if (*v177 != v170)
+    if (*v174 != v167)
     {
       objc_enumerationMutation(obj);
     }
 
-    v12 = *(*(&v176 + 1) + 8 * v10);
-    v13 = *(v2 + 2752);
+    v11 = *(*(&v173 + 1) + 8 * v9);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v14 = [(__CFString *)v12 hmf_numberForKey:@"iid"];
-      v15 = [(__CFString *)v12 hmf_stringForKey:@"type"];
-      v16 = v15;
-      if (v14)
+      v12 = [(__CFString *)v11 hmf_numberForKey:@"iid"];
+      v13 = [(__CFString *)v11 hmf_stringForKey:@"type"];
+      v14 = v13;
+      if (v12)
       {
-        v17 = v15 == 0;
+        v15 = v13 == 0;
       }
 
       else
       {
-        v17 = 1;
+        v15 = 1;
       }
 
-      v169 = v10;
-      if (v17)
+      v166 = v9;
+      if (v15)
       {
-        v18 = objc_autoreleasePoolPush();
-        v19 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+        v16 = objc_autoreleasePoolPush();
+        v17 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          v20 = HMFGetLogIdentifier();
+          v18 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v191 = v20;
-          v192 = 2112;
-          v193 = v12;
-          _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] unable to parse characteristic: %@", buf, 0x16u);
+          v188 = v18;
+          v189 = 2112;
+          v190 = v11;
+          _os_log_impl(&dword_22AADC000, v17, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] unable to parse characteristic: %@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v18);
-        v9 = 0;
-        goto LABEL_127;
+        objc_autoreleasePoolPop(v16);
+        v8 = 0;
+        goto LABEL_126;
       }
 
-      v166 = [MEMORY[0x277D0F888] hmf_cachedInstanceForString:v15];
+      v163 = [MEMORY[0x277D0F888] hmf_cachedInstanceForString:v13];
 
-      v29 = [(__CFString *)v12 objectForKeyedSubscript:@"perms"];
+      v27 = [(__CFString *)v11 objectForKeyedSubscript:@"perms"];
       objc_opt_class();
       isKindOfClass = objc_opt_isKindOfClass();
-      v164 = v11;
-      v165 = v14;
-      v168 = v12;
+      v161 = v10;
+      v162 = v12;
+      v165 = v11;
       if (isKindOfClass)
       {
-        v182 = 0u;
-        v183 = 0u;
+        v179 = 0u;
         v180 = 0u;
-        v181 = 0u;
-        v31 = v29;
-        v32 = [v31 countByEnumeratingWithState:&v180 objects:buf count:16];
-        if (v32)
+        v177 = 0u;
+        v178 = 0u;
+        v29 = v27;
+        v30 = [v29 countByEnumeratingWithState:&v177 objects:buf count:16];
+        if (v30)
         {
-          v33 = v32;
-          v171 = 0;
-          v34 = *v181;
+          v31 = v30;
+          v168 = 0;
+          v32 = *v178;
 LABEL_24:
-          v35 = 0;
+          v33 = 0;
           while (1)
           {
-            if (*v181 != v34)
+            if (*v178 != v32)
             {
-              objc_enumerationMutation(v31);
+              objc_enumerationMutation(v29);
             }
 
-            v36 = *(*(&v180 + 1) + 8 * v35);
+            v34 = *(*(&v177 + 1) + 8 * v33);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
-              v51 = objc_autoreleasePoolPush();
-              v52 = HMFGetOSLogHandle();
-              if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
+              v49 = objc_autoreleasePoolPush();
+              v50 = HMFGetOSLogHandle();
+              if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
               {
-                v53 = HMFGetLogIdentifier();
-                v54 = objc_opt_class();
-                *v186 = 138543618;
-                v187 = v53;
-                v188 = 2114;
-                v189 = v54;
-                v55 = v54;
-                _os_log_impl(&dword_22AADC000, v52, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Expected characteristic property to be a string in the properties array in the attribute database, instead it is a %{public}@", v186, 0x16u);
+                v51 = HMFGetLogIdentifier();
+                v52 = objc_opt_class();
+                *v183 = 138543618;
+                v184 = v51;
+                v185 = 2114;
+                v186 = v52;
+                v53 = v52;
+                _os_log_impl(&dword_22AADC000, v50, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Expected characteristic property to be a string in the properties array in the attribute database, instead it is a %{public}@", v183, 0x16u);
               }
 
-              objc_autoreleasePoolPop(v51);
-              LOWORD(v171) = 0;
+              objc_autoreleasePoolPop(v49);
+              LOWORD(v168) = 0;
               goto LABEL_66;
             }
 
-            if ([v36 isEqualToString:@"pr"])
+            if ([v34 isEqualToString:@"pr"])
             {
-              v37 = v171 | 2;
+              v35 = v168 | 2;
             }
 
-            else if ([v36 isEqualToString:@"pw"])
+            else if ([v34 isEqualToString:@"pw"])
             {
-              v37 = v171 | 4;
+              v35 = v168 | 4;
             }
 
-            else if ([v36 isEqualToString:@"ev"])
+            else if ([v34 isEqualToString:@"ev"])
             {
-              v37 = v171 | 1;
+              v35 = v168 | 1;
             }
 
-            else if ([v36 isEqualToString:@"bonjour"])
+            else if ([v34 isEqualToString:@"bonjour"])
             {
-              v37 = v171 | 8;
+              v35 = v168 | 8;
             }
 
             else
             {
-              if ([v36 isEqualToString:@"aa"])
+              if ([v34 isEqualToString:@"aa"])
               {
-                v171 |= 0x10u;
-                v38 = objc_autoreleasePoolPush();
-                v39 = HMFGetOSLogHandle();
-                if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+                v168 |= 0x10u;
+                v36 = objc_autoreleasePoolPush();
+                v37 = HMFGetOSLogHandle();
+                if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
                 {
-                  v40 = HMFGetLogIdentifier();
-                  *v186 = 138543618;
-                  v187 = v40;
-                  v188 = 2048;
-                  v189 = v171;
-                  _os_log_impl(&dword_22AADC000, v39, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPAccessoryServerIP] Characteristic with AAD Properties: %lu", v186, 0x16u);
+                  v38 = HMFGetLogIdentifier();
+                  *v183 = 138543618;
+                  v184 = v38;
+                  v185 = 2048;
+                  v186 = v168;
+                  _os_log_impl(&dword_22AADC000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPAccessoryServerIP] Characteristic with AAD Properties: %lu", v183, 0x16u);
                 }
 
-                objc_autoreleasePoolPop(v38);
+                objc_autoreleasePoolPop(v36);
                 goto LABEL_37;
               }
 
-              if ([v36 isEqualToString:@"tw"])
+              if ([v34 isEqualToString:@"tw"])
               {
-                v37 = v171 | 0x20;
+                v35 = v168 | 0x20;
               }
 
               else
               {
-                if (([v36 isEqualToString:@"hd"] & 1) != 0 || objc_msgSend(v36, "isEqualToString:", @"hidden"))
+                if (([v34 isEqualToString:@"hd"] & 1) != 0 || objc_msgSend(v34, "isEqualToString:", @"hidden"))
                 {
-                  v41 = objc_autoreleasePoolPush();
-                  v42 = HMFGetOSLogHandle();
-                  if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+                  v39 = objc_autoreleasePoolPush();
+                  v40 = HMFGetOSLogHandle();
+                  if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
                   {
-                    v43 = HMFGetLogIdentifier();
-                    *v186 = 138543618;
-                    v187 = v43;
-                    v188 = 2048;
-                    v189 = v171 | 0x40u;
-                    _os_log_impl(&dword_22AADC000, v42, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPAccessoryServerIP] Characteristic which is hidden: %lu", v186, 0x16u);
+                    v41 = HMFGetLogIdentifier();
+                    *v183 = 138543618;
+                    v184 = v41;
+                    v185 = 2048;
+                    v186 = v168 | 0x40u;
+                    _os_log_impl(&dword_22AADC000, v40, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPAccessoryServerIP] Characteristic which is hidden: %lu", v183, 0x16u);
                   }
 
-                  objc_autoreleasePoolPop(v41);
-                  v171 |= 0x40u;
+                  objc_autoreleasePoolPop(v39);
+                  v168 |= 0x40u;
                   goto LABEL_37;
                 }
 
-                if (![v36 isEqualToString:@"wr"])
+                if (![v34 isEqualToString:@"wr"])
                 {
-                  if ([v36 isEqualToString:@"enc"])
+                  if ([v34 isEqualToString:@"enc"])
                   {
-                    v44 = v171 | 0x100;
+                    v42 = v168 | 0x100;
                   }
 
                   else
                   {
-                    v44 = v171;
+                    v42 = v168;
                   }
 
-                  v171 = v44;
+                  v168 = v42;
                   goto LABEL_37;
                 }
 
-                v37 = v171 | 0x80;
+                v35 = v168 | 0x80;
               }
             }
 
-            v171 = v37;
+            v168 = v35;
 LABEL_37:
-            if (v33 == ++v35)
+            if (v31 == ++v33)
             {
-              v45 = [v31 countByEnumeratingWithState:&v180 objects:buf count:16];
-              v33 = v45;
-              if (v45)
+              v43 = [v29 countByEnumeratingWithState:&v177 objects:buf count:16];
+              v31 = v43;
+              if (v43)
               {
                 goto LABEL_24;
               }
@@ -1239,307 +1240,299 @@ LABEL_37:
           }
         }
 
-        LOWORD(v171) = 0;
+        LOWORD(v168) = 0;
 LABEL_65:
 
 LABEL_66:
-        v12 = v168;
+        v11 = v165;
       }
 
       else
       {
-        v46 = objc_autoreleasePoolPush();
-        v47 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+        v44 = objc_autoreleasePoolPush();
+        v45 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
-          v48 = HMFGetLogIdentifier();
-          v49 = objc_opt_class();
+          v46 = HMFGetLogIdentifier();
+          v47 = objc_opt_class();
           *buf = 138543618;
-          v191 = v48;
-          v192 = 2114;
-          v193 = v49;
-          v50 = v49;
-          _os_log_impl(&dword_22AADC000, v47, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Expected characteristic properties to be an array in the attribute database, instead it is a %{public}@", buf, 0x16u);
+          v188 = v46;
+          v189 = 2114;
+          v190 = v47;
+          v48 = v47;
+          _os_log_impl(&dword_22AADC000, v45, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Expected characteristic properties to be an array in the attribute database, instead it is a %{public}@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v46);
-        LOWORD(v171) = 0;
+        objc_autoreleasePoolPop(v44);
+        LOWORD(v168) = 0;
       }
 
-      v56 = [(__CFString *)v12 hmf_numberForKey:@"ev"];
-      v57 = v12;
-      v162 = [(__CFString *)v57 hmf_stringForKey:@"description"];
-      v58 = [(__CFString *)v57 hmf_stringForKey:@"format"];
-      v161 = [(__CFString *)v57 hmf_stringForKey:@"unit"];
-      v59 = v57;
-      v60 = v58;
-      v61 = objc_alloc_init(HAPMetadataConstraints);
-      v160 = v60;
-      if (([v60 isEqualToString:@"int"] & 1) != 0 || (objc_msgSend(v60, "isEqualToString:", @"float") & 1) != 0 || (objc_msgSend(v60, "isEqualToString:", @"BOOL") & 1) != 0 || (objc_msgSend(v60, "isEqualToString:", @"int8") & 1) != 0 || (objc_msgSend(v60, "isEqualToString:", @"int16") & 1) != 0 || (objc_msgSend(v60, "isEqualToString:", @"int64") & 1) != 0 || (objc_msgSend(v60, "isEqualToString:", @"uint8") & 1) != 0 || (objc_msgSend(v60, "isEqualToString:", @"uint16") & 1) != 0 || (objc_msgSend(v60, "isEqualToString:", @"uint32") & 1) != 0 || objc_msgSend(v60, "isEqualToString:", @"uint64"))
+      v54 = [(__CFString *)v11 hmf_numberForKey:@"ev"];
+      v55 = v11;
+      v159 = [(__CFString *)v55 hmf_stringForKey:@"description"];
+      v56 = [(__CFString *)v55 hmf_stringForKey:@"format"];
+      v158 = [(__CFString *)v55 hmf_stringForKey:@"unit"];
+      v57 = v55;
+      v58 = v56;
+      v59 = objc_alloc_init(HAPMetadataConstraints);
+      v157 = v58;
+      if (([v58 isEqualToString:@"int"] & 1) != 0 || (objc_msgSend(v58, "isEqualToString:", @"float") & 1) != 0 || (objc_msgSend(v58, "isEqualToString:", @"BOOL") & 1) != 0 || (objc_msgSend(v58, "isEqualToString:", @"int8") & 1) != 0 || (objc_msgSend(v58, "isEqualToString:", @"int16") & 1) != 0 || (objc_msgSend(v58, "isEqualToString:", @"int64") & 1) != 0 || (objc_msgSend(v58, "isEqualToString:", @"uint8") & 1) != 0 || (objc_msgSend(v58, "isEqualToString:", @"uint16") & 1) != 0 || (objc_msgSend(v58, "isEqualToString:", @"uint32") & 1) != 0 || objc_msgSend(v58, "isEqualToString:", @"uint64"))
       {
-        v62 = [v60 isEqualToString:@"string"];
-        v63 = [(__CFString *)v59 hmf_numberForKey:@"minValue"];
-        [(HAPMetadataConstraints *)v61 setMinimumValue:v63];
+        v60 = [v58 isEqualToString:@"string"];
+        v61 = [(__CFString *)v57 hmf_numberForKey:@"minValue"];
+        [(HAPMetadataConstraints *)v59 setMinimumValue:v61];
 
-        v64 = [(__CFString *)v59 hmf_numberForKey:@"maxValue"];
-        [(HAPMetadataConstraints *)v61 setMaximumValue:v64];
+        v62 = [(__CFString *)v57 hmf_numberForKey:@"maxValue"];
+        [(HAPMetadataConstraints *)v59 setMaximumValue:v62];
 
-        v65 = [(__CFString *)v59 hmf_numberForKey:@"minStep"];
-        [(HAPMetadataConstraints *)v61 setStepValue:v65];
+        v63 = [(__CFString *)v57 hmf_numberForKey:@"minStep"];
+        [(HAPMetadataConstraints *)v59 setStepValue:v63];
 
-        if ((v62 & 1) == 0)
+        if ((v60 & 1) == 0)
         {
           goto LABEL_80;
         }
       }
 
-      else if (![v60 isEqualToString:@"string"])
+      else if (![v58 isEqualToString:@"string"])
       {
         goto LABEL_80;
       }
 
-      v66 = [(__CFString *)v59 hmf_numberForKey:@"maxLen"];
-      [(HAPMetadataConstraints *)v61 setMaxLength:v66];
+      v64 = [(__CFString *)v57 hmf_numberForKey:@"maxLen"];
+      [(HAPMetadataConstraints *)v59 setMaxLength:v64];
 
-      v67 = [(HAPMetadataConstraints *)v61 maxLength];
+      v65 = [(HAPMetadataConstraints *)v59 maxLength];
 
-      if (!v67)
+      if (!v65)
       {
-        [(HAPMetadataConstraints *)v61 setMaxLength:&unk_283EA9620];
+        [(HAPMetadataConstraints *)v59 setMaxLength:&unk_283EA9620];
       }
 
 LABEL_80:
+      v66 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
+      v67 = [(__CFString *)v57 hmf_arrayForKey:@"valid-values" ofClasses:v66];
+
       v68 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-      v69 = [(__CFString *)v59 hmf_arrayForKey:@"valid-values" ofClasses:v68];
+      v69 = [(__CFString *)v57 hmf_arrayForKey:@"valid-values-range" ofClasses:v68];
 
-      v70 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-      v71 = [(__CFString *)v59 hmf_arrayForKey:@"valid-values-range" ofClasses:v70];
-
-      v163 = v56;
-      v159 = v69;
-      if ([v69 count] || objc_msgSend(v71, "count"))
+      v160 = v54;
+      v156 = v67;
+      if ([v67 count] || objc_msgSend(v69, "count"))
       {
-        v72 = [MEMORY[0x277CBEB18] arrayWithArray:v69];
+        v70 = [MEMORY[0x277CBEB18] arrayWithArray:v67];
       }
 
       else
       {
-        v72 = 0;
+        v70 = 0;
       }
 
-      if ([v71 count] && (objc_msgSend(v71, "count") & 1) == 0 && objc_msgSend(v71, "count"))
+      if ([v69 count] && (objc_msgSend(v69, "count") & 1) == 0 && objc_msgSend(v69, "count"))
       {
-        v73 = 0;
+        v71 = 0;
         do
         {
-          v74 = [v71 objectAtIndexedSubscript:v73];
-          v75 = [v71 objectAtIndexedSubscript:v73 | 1];
-          v76 = [v74 integerValue];
-          if (v76 <= [v75 integerValue])
+          v72 = [v69 objectAtIndexedSubscript:v71];
+          v73 = [v69 objectAtIndexedSubscript:v71 | 1];
+          v74 = [v72 integerValue];
+          if (v74 <= [v73 integerValue])
           {
             do
             {
-              v77 = [MEMORY[0x277CCABB0] numberWithInteger:v76];
-              v78 = [(__CFString *)v72 containsObject:v77];
+              v75 = [MEMORY[0x277CCABB0] numberWithInteger:v74];
+              v76 = [(__CFString *)v70 containsObject:v75];
 
-              if ((v78 & 1) == 0)
+              if ((v76 & 1) == 0)
               {
-                v79 = [MEMORY[0x277CCABB0] numberWithInteger:v76];
-                [(__CFString *)v72 addObject:v79];
+                v77 = [MEMORY[0x277CCABB0] numberWithInteger:v74];
+                [(__CFString *)v70 addObject:v77];
               }
             }
 
-            while (v76++ < [v75 integerValue]);
+            while (v74++ < [v73 integerValue]);
           }
 
-          v73 += 2;
+          v71 += 2;
         }
 
-        while ([v71 count] > v73);
+        while ([v69 count] > v71);
       }
 
-      v11 = v164;
-      v14 = v165;
-      if ([(__CFString *)v72 count])
+      v10 = v161;
+      v12 = v162;
+      if ([(__CFString *)v70 count])
       {
-        [(__CFString *)v72 sortUsingComparator:&__block_literal_global_1341];
-        v81 = objc_autoreleasePoolPush();
-        v82 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
+        [(__CFString *)v70 sortUsingComparator:&__block_literal_global_1341];
+        v79 = objc_autoreleasePoolPush();
+        v80 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
         {
-          v83 = HMFGetLogIdentifier();
+          v81 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v191 = v83;
-          v192 = 2112;
-          v193 = v72;
-          _os_log_impl(&dword_22AADC000, v82, OS_LOG_TYPE_DEBUG, "%{public}@[HAPAccessoryServerIP] Setting valid values: %@", buf, 0x16u);
+          v188 = v81;
+          v189 = 2112;
+          v190 = v70;
+          _os_log_impl(&dword_22AADC000, v80, OS_LOG_TYPE_DEBUG, "%{public}@[HAPAccessoryServerIP] Setting valid values: %@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v81);
-        [(HAPMetadataConstraints *)v61 setValidValues:v72];
+        objc_autoreleasePoolPop(v79);
+        [(HAPMetadataConstraints *)v59 setValidValues:v70];
       }
 
-      v84 = [(HAPMetadataConstraints *)v61 minimumValue];
-      if (v84)
+      v82 = [(HAPMetadataConstraints *)v59 minimumValue];
+      if (v82)
       {
-        v12 = v168;
+        v11 = v165;
       }
 
       else
       {
-        v84 = [(HAPMetadataConstraints *)v61 maximumValue];
-        v12 = v168;
-        if (!v84)
+        v82 = [(HAPMetadataConstraints *)v59 maximumValue];
+        v11 = v165;
+        if (!v82)
         {
-          v84 = [(HAPMetadataConstraints *)v61 stepValue];
-          if (!v84)
+          v82 = [(HAPMetadataConstraints *)v59 stepValue];
+          if (!v82)
           {
-            v84 = [(HAPMetadataConstraints *)v61 maxLength];
-            if (!v84)
+            v82 = [(HAPMetadataConstraints *)v59 maxLength];
+            if (!v82)
             {
-              v110 = [(HAPMetadataConstraints *)v61 validValues];
-              v85 = [v110 count];
+              v108 = [(HAPMetadataConstraints *)v59 validValues];
+              v83 = [v108 count];
 
-              if (!v85)
+              if (!v83)
               {
 LABEL_103:
 
-                v86 = [[HAPCharacteristicMetadata alloc] initWithConstraints:v85 description:v162 format:v160 units:v161];
-                v87 = [HMFObjectCacheHAPCharacteristicMetadata hap_cacheInstanceForMetadata:v86];
+                v84 = [[HAPCharacteristicMetadata alloc] initWithConstraints:v83 description:v159 format:v157 units:v158];
+                v85 = [HMFObjectCacheHAPCharacteristicMetadata hap_cacheInstanceForMetadata:v84];
 
-                v88 = [(__CFString *)v59 objectForKeyedSubscript:@"value"];
-                v89 = v88;
-                if ((v171 & 2) != 0)
+                v86 = [(__CFString *)v57 objectForKeyedSubscript:@"value"];
+                v87 = v86;
+                if ((v168 & 2) != 0)
                 {
-                  if (!v88)
+                  if (!v86)
                   {
-                    v104 = objc_autoreleasePoolPush();
-                    v105 = HMFGetOSLogHandle();
-                    v92 = v87;
-                    if (os_log_type_enabled(v105, OS_LOG_TYPE_ERROR))
+                    v102 = objc_autoreleasePoolPush();
+                    v103 = HMFGetOSLogHandle();
+                    v90 = v85;
+                    if (os_log_type_enabled(v103, OS_LOG_TYPE_ERROR))
                     {
-                      v106 = HMFGetLogIdentifier();
+                      v104 = HMFGetLogIdentifier();
                       *buf = 138543362;
-                      v191 = v106;
-                      _os_log_impl(&dword_22AADC000, v105, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Readable characteristics must contain 'value' key", buf, 0xCu);
+                      v188 = v104;
+                      _os_log_impl(&dword_22AADC000, v103, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Readable characteristics must contain 'value' key", buf, 0xCu);
                     }
 
-                    objc_autoreleasePoolPop(v104);
-                    v9 = 0;
-                    v8 = v157;
+                    objc_autoreleasePoolPop(v102);
+                    v8 = 0;
+                    v7 = v154;
                     goto LABEL_118;
                   }
 
-                  v92 = v87;
-                  v94 = [v87 format];
-                  v95 = HAPCharacteristicFormatFromString(v94);
+                  v90 = v85;
+                  v92 = [v85 format];
+                  v93 = HAPCharacteristicFormatFromString(v92);
 
-                  v96 = [(__CFString *)v59 objectForKeyedSubscript:@"value"];
-                  if (v95)
+                  v94 = [(__CFString *)v57 objectForKeyedSubscript:@"value"];
+                  if (v93)
                   {
-                    v97 = +[HAPJSONValueTransformer defaultJSONValueTransformer];
-                    *&v180 = 0;
-                    v98 = [v97 reverseTransformedValue:v96 format:v95 error:&v180];
-                    v99 = v180;
+                    v95 = +[HAPJSONValueTransformer defaultJSONValueTransformer];
+                    *&v177 = 0;
+                    v96 = [v95 reverseTransformedValue:v94 format:v93 error:&v177];
+                    v97 = v177;
 
-                    if (v99)
+                    if (v97)
                     {
-                      v100 = objc_autoreleasePoolPush();
-                      v101 = HMFGetOSLogHandle();
-                      if (os_log_type_enabled(v101, OS_LOG_TYPE_ERROR))
+                      v98 = objc_autoreleasePoolPush();
+                      v99 = HMFGetOSLogHandle();
+                      if (os_log_type_enabled(v99, OS_LOG_TYPE_ERROR))
                       {
-                        v102 = HMFGetLogIdentifier();
+                        v100 = HMFGetLogIdentifier();
                         *buf = 138543874;
-                        v191 = v102;
-                        v192 = 2114;
-                        v193 = v96;
-                        v194 = 2114;
-                        v195 = v99;
-                        _os_log_impl(&dword_22AADC000, v101, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Failed to transform the value '%{public}@' with error: %{public}@", buf, 0x20u);
+                        v188 = v100;
+                        v189 = 2114;
+                        v190 = v94;
+                        v191 = 2114;
+                        v192 = v97;
+                        _os_log_impl(&dword_22AADC000, v99, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Failed to transform the value '%{public}@' with error: %{public}@", buf, 0x20u);
 
-                        v14 = v165;
+                        v12 = v162;
                       }
 
-                      objc_autoreleasePoolPop(v100);
-                      v9 = 0;
-                      v2 = 0x277CBE000;
-                      v8 = v157;
-                      v12 = v168;
-                      v103 = v163;
-                      goto LABEL_126;
+                      objc_autoreleasePoolPop(v98);
+                      v8 = 0;
+                      v7 = v154;
+                      v11 = v165;
+                      v101 = v160;
+                      goto LABEL_125;
                     }
-
-                    v2 = 0x277CBE000;
                   }
 
                   else
                   {
-                    v107 = objc_autoreleasePoolPush();
-                    v108 = HMFGetOSLogHandle();
-                    v2 = 0x277CBE000;
-                    if (os_log_type_enabled(v108, OS_LOG_TYPE_ERROR))
+                    v105 = objc_autoreleasePoolPush();
+                    v106 = HMFGetOSLogHandle();
+                    if (os_log_type_enabled(v106, OS_LOG_TYPE_ERROR))
                     {
-                      v109 = HMFGetLogIdentifier();
+                      v107 = HMFGetLogIdentifier();
                       *buf = 138543362;
-                      v191 = v109;
-                      _os_log_impl(&dword_22AADC000, v108, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] The characteristic has not specified a characteristic format type. This may cause the characteristic value to contain an object of an unexpected type. For now, the value will be passed through without transformation into an appropriate type. At some point in the future, support for this accessory may be dropped.", buf, 0xCu);
-
-                      v2 = 0x277CBE000;
+                      v188 = v107;
+                      _os_log_impl(&dword_22AADC000, v106, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] The characteristic has not specified a characteristic format type. This may cause the characteristic value to contain an object of an unexpected type. For now, the value will be passed through without transformation into an appropriate type. At some point in the future, support for this accessory may be dropped.", buf, 0xCu);
                     }
 
-                    objc_autoreleasePoolPop(v107);
-                    v98 = v96;
+                    objc_autoreleasePoolPop(v105);
+                    v96 = v94;
                   }
 
-                  v8 = v157;
+                  v7 = v154;
                 }
 
                 else
                 {
-                  v8 = v157;
-                  if (v88)
+                  v7 = v154;
+                  if (v86)
                   {
-                    v90 = objc_autoreleasePoolPush();
-                    v91 = HMFGetOSLogHandle();
-                    v92 = v87;
-                    if (os_log_type_enabled(v91, OS_LOG_TYPE_ERROR))
+                    v88 = objc_autoreleasePoolPush();
+                    v89 = HMFGetOSLogHandle();
+                    v90 = v85;
+                    if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
                     {
-                      v93 = HMFGetLogIdentifier();
+                      v91 = HMFGetLogIdentifier();
                       *buf = 138543362;
-                      v191 = v93;
-                      _os_log_impl(&dword_22AADC000, v91, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Non-readable characteristics must not contain 'value' key", buf, 0xCu);
+                      v188 = v91;
+                      _os_log_impl(&dword_22AADC000, v89, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Non-readable characteristics must not contain 'value' key", buf, 0xCu);
 
-                      v8 = v157;
+                      v7 = v154;
                     }
 
-                    objc_autoreleasePoolPop(v90);
-                    v9 = 0;
+                    objc_autoreleasePoolPop(v88);
+                    v8 = 0;
 LABEL_118:
-                    v103 = v163;
-                    v2 = 0x277CBE000;
+                    v101 = v160;
+LABEL_125:
+
+                    v14 = v163;
+                    v4 = v153;
 LABEL_126:
 
-                    v16 = v166;
-                    v5 = v156;
-LABEL_127:
-
-                    v28 = v169;
-                    goto LABEL_128;
+                    v26 = v166;
+                    goto LABEL_127;
                   }
 
-                  v98 = 0;
-                  v92 = v87;
-                  v2 = 0x277CBE000;
+                  v96 = 0;
+                  v90 = v85;
                 }
 
-                v103 = v163;
-                v9 = -[HAPCharacteristic initWithType:instanceID:value:stateNumber:properties:eventNotificationsEnabled:metadata:]([HAPCharacteristic alloc], "initWithType:instanceID:value:stateNumber:properties:eventNotificationsEnabled:metadata:", v166, v165, v98, 0, v171, [v163 BOOLValue], v92);
+                v101 = v160;
+                v8 = -[HAPCharacteristic initWithType:instanceID:value:stateNumber:properties:eventNotificationsEnabled:metadata:]([HAPCharacteristic alloc], "initWithType:instanceID:value:stateNumber:properties:eventNotificationsEnabled:metadata:", v163, v162, v96, 0, v168, [v160 BOOLValue], v90);
 
-                goto LABEL_126;
+                goto LABEL_125;
               }
 
 LABEL_102:
-              v85 = v61;
+              v83 = v59;
               goto LABEL_103;
             }
           }
@@ -1549,73 +1542,71 @@ LABEL_102:
       goto LABEL_102;
     }
 
-    v21 = v11;
-    v22 = v10;
-    v23 = objc_autoreleasePoolPush();
-    v24 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v19 = v10;
+    v20 = v9;
+    v21 = objc_autoreleasePoolPush();
+    v22 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      v25 = HMFGetLogIdentifier();
-      v26 = objc_opt_class();
+      v23 = HMFGetLogIdentifier();
+      v24 = objc_opt_class();
       *buf = 138543618;
-      v191 = v25;
-      v192 = 2114;
-      v193 = v26;
-      v27 = v26;
-      _os_log_impl(&dword_22AADC000, v24, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Expected characteristic object to be a dictionary in the attribute database, instead it is a %{public}@", buf, 0x16u);
+      v188 = v23;
+      v189 = 2114;
+      v190 = v24;
+      v25 = v24;
+      _os_log_impl(&dword_22AADC000, v22, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Expected characteristic object to be a dictionary in the attribute database, instead it is a %{public}@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v23);
-    v9 = 0;
-    v28 = v22;
-    v11 = v21;
-LABEL_128:
+    objc_autoreleasePoolPop(v21);
+    v8 = 0;
+    v26 = v20;
+    v10 = v19;
+LABEL_127:
 
-    if (!v9)
+    if (!v8)
     {
       break;
     }
 
-    [v5 addObject:v9];
-    v10 = v28 + 1;
-    v11 = v9;
-    if (v10 == v8)
+    [v4 addObject:v8];
+    v9 = v26 + 1;
+    v10 = v8;
+    if (v9 == v7)
     {
-      v6 = obj;
-      v111 = [obj countByEnumeratingWithState:&v176 objects:v185 count:16];
-      v8 = v111;
-      if (!v111)
+      v5 = obj;
+      v109 = [obj countByEnumeratingWithState:&v173 objects:v182 count:16];
+      v7 = v109;
+      if (!v109)
       {
 
-        v1 = v155;
-        goto LABEL_137;
+        v1 = v152;
+        goto LABEL_136;
       }
 
       goto LABEL_6;
     }
   }
 
-  v139 = objc_autoreleasePoolPush();
-  v140 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v140, OS_LOG_TYPE_ERROR))
+  v137 = objc_autoreleasePoolPush();
+  v138 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v138, OS_LOG_TYPE_ERROR))
   {
-    v141 = HMFGetLogIdentifier();
+    v139 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v191 = v141;
-    _os_log_impl(&dword_22AADC000, v140, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Unable to parse serialized characteristic.", buf, 0xCu);
+    v188 = v139;
+    _os_log_impl(&dword_22AADC000, v138, OS_LOG_TYPE_ERROR, "%{public}@[HAPAccessoryServerIP] Unable to parse serialized characteristic.", buf, 0xCu);
   }
 
-  objc_autoreleasePoolPop(v139);
-  v127 = 0;
-  v1 = v155;
+  objc_autoreleasePoolPop(v137);
+  v125 = 0;
+  v1 = v152;
+LABEL_173:
+
 LABEL_174:
-
 LABEL_175:
-LABEL_176:
 
-  v153 = *MEMORY[0x277D85DE8];
-
-  return v127;
+  return v125;
 }
 
 void sub_22AB17150(_Unwind_Exception *a1)
@@ -1724,7 +1715,7 @@ uint64_t verifyResponseStateAndError(void *a1)
   return result;
 }
 
-uint64_t appendRequestMethodAndState()
+uint64_t appendRequestMethodAndState(uint64_t a1, unsigned int a2)
 {
   result = TLV8BufferAppendUInt64();
   if (!result)
@@ -1763,9 +1754,9 @@ uint64_t __hap2LogInitialize_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-void sub_22AB210D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AB210D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1777,78 +1768,78 @@ uint64_t __Block_byref_object_copy__2091(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22AB21868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AB21868(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB242B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AB242B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB25A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_22AB25A9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
   v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   va_copy(va2, va1);
-  v11 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
-  v14 = va_arg(va2, void);
   v15 = va_arg(va2, void);
+  v17 = va_arg(va2, void);
+  v18 = va_arg(va2, void);
+  v19 = va_arg(va2, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Block_object_dispose(va2, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB26B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB26B24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB26DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB26DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB270D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AB270D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB274BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_22AB274BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB2BD08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22AB2BD08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -1861,11 +1852,11 @@ uint64_t __Block_byref_object_copy__2760(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22AB2C04C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22AB2C04C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -2269,16 +2260,16 @@ LABEL_12:
   return v7;
 }
 
-void sub_22AB3DEDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB3DEDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB3E06C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB3E06C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2290,93 +2281,93 @@ uint64_t __Block_byref_object_copy__4322(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22AB3E2E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB3E2E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB3E458(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB3E458(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB3E70C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB3E70C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB3E81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB3E81C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB3EA78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB3EA78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB3EC50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB3EC50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB3ED9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB3ED9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB3EFB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB3EFB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB3F1C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB3F1C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB3F8F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB3F8F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB3FCF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB3FCF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB40044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB40044(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB40264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB40264(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2389,16 +2380,17 @@ void sub_22AB40558(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22AB40B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_22AB40B28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB40EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AB40EF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2559,7 +2551,7 @@ __CFString *HAP2TLVPairingStateAsString(uint64_t a1)
   return v2;
 }
 
-uint64_t _deserializeDataToKeyPair(void *a1, uint64_t a2, uint64_t a3)
+uint64_t _deserializeDataToKeyPair(void *a1, _OWORD *a2, _OWORD *a3)
 {
   v16 = *MEMORY[0x277D85DE8];
   v5 = a1;
@@ -2631,7 +2623,7 @@ uint64_t _deserializeDataToKeyPair(void *a1, uint64_t a2, uint64_t a3)
     goto LABEL_21;
   }
 
-  v13 = _deserializePublicKey([v8 UTF8String], objc_msgSend(v8, "length"));
+  v13 = _deserializePublicKey([v8 UTF8String], objc_msgSend(v8, "length"), &v15);
   if (v13)
   {
     v7 = v13;
@@ -2647,11 +2639,10 @@ LABEL_21:
 
 LABEL_14:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
-uint64_t _deserializePublicKey(uint64_t a1, uint64_t a2)
+uint64_t _deserializePublicKey(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (a2 != 64)
   {
@@ -2672,21 +2663,23 @@ uint64_t _deserializePublicKey(uint64_t a1, uint64_t a2)
 
 uint64_t _serializeKeyPairToData(uint64_t a1, uint64_t a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = 4294960591;
-  if (a1 && a2 && a3)
+  if (a1 && a2)
   {
-    DataToHexCStringEx();
-    DataToHexCStringEx();
-    v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s+%s", v10, __s];
-    v7 = [v6 dataUsingEncoding:4];
-    *a3 = v7;
-    memset_s(__s, 0x41uLL, 0, 0x41uLL);
+    if (a3)
+    {
+      DataToHexCStringEx();
+      DataToHexCStringEx();
+      v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s+%s", v9, __s];
+      v7 = [v6 dataUsingEncoding:4];
+      *a3 = v7;
+      memset_s(__s, 0x41uLL, 0, 0x41uLL);
 
-    result = 0;
+      return 0;
+    }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2875,38 +2868,39 @@ uint64_t __Block_byref_object_copy__5207(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22AB4A160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22AB4A160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB4A464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AB4A464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB4A840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, char a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_22AB4A840(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   _Block_object_dispose(&a23, 8);
-  _Block_object_dispose(&a29, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22AB4BB70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB4BD78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB4BB70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a7);
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 80), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22AB4BD78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2935,162 +2929,163 @@ uint64_t _deserializeUUID(void *a1, void *a2)
   return v4;
 }
 
-void sub_22AB4C510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22AB4C510(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB4C880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AB4C880(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
+  _Block_object_dispose((v16 - 80), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB4CB48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_22AB4CB48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
+  va_start(va, a33);
   _Block_object_dispose(&a26, 8);
   _Block_object_dispose(&a30, 8);
-  _Block_object_dispose(&a34, 8);
-  _Block_object_dispose((v34 - 168), 8);
-  _Block_object_dispose((v34 - 120), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v33 - 168), 8);
+  _Block_object_dispose((v33 - 120), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB4D21C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22AB4D21C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22AB4EEA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22AB4F218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 80), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22AB4F400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 80), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22AB4F618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 80), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22AB50160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v18 - 96), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22AB508F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v18 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22AB50ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  _Block_object_dispose(va1, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22AB511A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v16 - 80), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22AB5153C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
+  v26 = va_arg(va1, void);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose(va1, 8);
+  _Block_object_dispose((v18 - 160), 8);
+  _Block_object_dispose((v18 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22AB51B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  _Block_object_dispose(va1, 8);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22AB51CBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB4EEA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AB51E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22AB4F218(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22AB4F400(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22AB4F618(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22AB50160(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22AB508F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 112), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22AB50ED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  _Block_object_dispose(va1, 8);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22AB511A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 80), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22AB5153C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
-  v19 = va_arg(va1, void);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 160), 8);
-  _Block_object_dispose((v11 - 112), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22AB51B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  _Block_object_dispose(va1, 8);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22AB51CBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22AB51E08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t deviceSupportsKeychainSync()
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (HAPIsHH2Enabled_onceToken != -1)
   {
     dispatch_once(&HAPIsHH2Enabled_onceToken, &__block_literal_global_12209);
@@ -3103,15 +3098,15 @@ uint64_t deviceSupportsKeychainSync()
     if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
     {
       v2 = HMFGetLogIdentifier();
-      v8 = 138543618;
-      v9 = v2;
-      v10 = 2080;
-      v11 = "BOOL deviceSupportsKeychainSync(void)";
-      _os_log_impl(&dword_22AADC000, v1, OS_LOG_TYPE_INFO, "%{public}@%s always returns YES because HAPIsHH2Enabled() is true)", &v8, 0x16u);
+      v7 = 138543618;
+      v8 = v2;
+      v9 = 2080;
+      v10 = "BOOL deviceSupportsKeychainSync(void)";
+      _os_log_impl(&dword_22AADC000, v1, OS_LOG_TYPE_INFO, "%{public}@%s always returns YES because HAPIsHH2Enabled() is true)", &v7, 0x16u);
     }
 
     objc_autoreleasePoolPop(v0);
-    v3 = 1;
+    return 1;
   }
 
   else
@@ -3121,36 +3116,37 @@ uint64_t deviceSupportsKeychainSync()
     v3 = (v5 < 6) & (0x26u >> v5);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
-void sub_22AB5282C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, char a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, char a32)
+void sub_22AB5282C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, ...)
 {
+  va_start(va, a31);
   _Block_object_dispose(&a20, 8);
   _Block_object_dispose(&a26, 8);
-  _Block_object_dispose(&a32, 8);
-  _Block_object_dispose((v32 - 168), 8);
-  _Block_object_dispose((v32 - 120), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22AB52DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
-{
-  va_start(va, a11);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v31 - 168), 8);
+  _Block_object_dispose((v31 - 120), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB542C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_22AB52DB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v18 - 96), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22AB542C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
+{
+  va_start(va, a35);
   _Block_object_dispose(&a24, 8);
   _Block_object_dispose(&a30, 8);
-  _Block_object_dispose(&a36, 8);
-  _Block_object_dispose((v36 - 216), 8);
-  _Block_object_dispose((v36 - 168), 8);
-  _Block_object_dispose((v36 - 120), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v35 - 216), 8);
+  _Block_object_dispose((v35 - 168), 8);
+  _Block_object_dispose((v35 - 120), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3161,16 +3157,16 @@ void sub_22AB5538C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22AB57100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22AB57100(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3183,11 +3179,11 @@ uint64_t __Block_byref_object_copy__5467(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22AB575E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AB575E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3245,7 +3241,7 @@ LABEL_5:
   return v7;
 }
 
-void sub_22AB5EA2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, char a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, id location)
+void sub_22AB5EA2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, id location)
 {
   objc_destroyWeak(&a35);
   objc_destroyWeak(&a43);
@@ -3284,36 +3280,44 @@ void sub_22AB61014(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22AB61C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB61C94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t CoreWiFiLibraryCore()
+uint64_t CoreWiFiLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
   if (!CoreWiFiLibraryCore_frameworkLibrary)
   {
     CoreWiFiLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = CoreWiFiLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return CoreWiFiLibraryCore_frameworkLibrary;
 }
 
-Class __getCWFInterfaceClass_block_invoke(uint64_t a1)
+void __getCWFInterfaceClass_block_invoke(uint64_t a1)
 {
-  if (!CoreWiFiLibraryCore())
+  v6 = 0;
+  v2 = CoreWiFiLibraryCore(&v6);
+  v3 = v6;
+  if (v2)
   {
-    v3 = abort_report_np();
-    free(v3);
+    if (!v6)
+    {
+      goto LABEL_3;
+    }
   }
 
-  result = objc_getClass("CWFInterface");
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  else
+  {
+    v3 = abort_report_np("%s", v6);
+  }
+
+  free(v3);
+LABEL_3:
+  *(*(*(a1 + 32) + 8) + 24) = objc_getClass("CWFInterface");
   if (*(*(*(a1 + 32) + 8) + 24))
   {
     getCWFInterfaceClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -3321,20 +3325,15 @@ Class __getCWFInterfaceClass_block_invoke(uint64_t a1)
 
   else
   {
-    v4 = abort_report_np();
-    return __61__HAPWACAccessoryClient__joinAccessoryNetworkWithCompletion___block_invoke(v4);
+    v4 = abort_report_np("Unable to find class %s", "CWFInterface");
+    __61__HAPWACAccessoryClient__joinAccessoryNetworkWithCompletion___block_invoke(v4, v5);
   }
-
-  return result;
 }
 
 uint64_t __CoreWiFiLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreWiFiLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3354,7 +3353,7 @@ void sub_22AB630F0(_Unwind_Exception *a1)
 
 id _notificationContextTLVDataFromPayload(uint64_t a1, unint64_t a2, uint64_t a3, void *a4)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v7 = a4;
   v8 = a3 + 5;
   if (a3 + 5 <= a2)
@@ -3369,11 +3368,11 @@ id _notificationContextTLVDataFromPayload(uint64_t a1, unint64_t a2, uint64_t a3
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v35 = v20;
-      v36 = 1024;
-      *v37 = v15;
-      *&v37[4] = 1024;
-      *&v37[6] = v16;
+      v34 = v20;
+      v35 = 1024;
+      *v36 = v15;
+      *&v36[4] = 1024;
+      *&v36[6] = v16;
       _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_DEBUG, "%{public}@Notification context identifier: 0x%x source: 0x%x", buf, 0x18u);
     }
 
@@ -3384,9 +3383,9 @@ id _notificationContextTLVDataFromPayload(uint64_t a1, unint64_t a2, uint64_t a3
 
     v24 = [[HAPNotificationContextSourceWrapper alloc] initWithValue:v16];
     v25 = [[HAPCharacteristicNotificationContext alloc] initWithContextIdentifier:v23 source:v24 clockTickCounter:0];
-    v33 = 0;
-    v13 = [(HAPCharacteristicNotificationContext *)v25 serializeWithError:&v33];
-    v26 = v33;
+    v32 = 0;
+    v13 = [(HAPCharacteristicNotificationContext *)v25 serializeWithError:&v32];
+    v26 = v32;
     if (v26)
     {
       v27 = objc_autoreleasePoolPush();
@@ -3396,9 +3395,9 @@ id _notificationContextTLVDataFromPayload(uint64_t a1, unint64_t a2, uint64_t a3
       {
         v30 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v35 = v30;
-        v36 = 2114;
-        *v37 = v26;
+        v34 = v30;
+        v35 = 2114;
+        *v36 = v26;
         _os_log_impl(&dword_22AADC000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to encode notification context with error: %{public}@", buf, 0x16u);
       }
 
@@ -3415,19 +3414,17 @@ id _notificationContextTLVDataFromPayload(uint64_t a1, unint64_t a2, uint64_t a3
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v35 = v12;
-      v36 = 2048;
-      *v37 = a2;
-      *&v37[8] = 2048;
-      v38 = v8;
+      v34 = v12;
+      v35 = 2048;
+      *v36 = a2;
+      *&v36[8] = 2048;
+      v37 = v8;
       _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_ERROR, "%{public}@Received notification context of invalid length:%lu:%lu in payload", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v9);
     v13 = 0;
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -3439,9 +3436,9 @@ void sub_22AB6E2EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_22AB74C38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AB74C38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3453,9 +3450,9 @@ uint64_t __Block_byref_object_copy__6553(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22AB76304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AB76304(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3467,9 +3464,9 @@ void sub_22AB7695C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22AB76FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AB76FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3481,14 +3478,14 @@ uint64_t __Block_byref_object_copy__6734(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22AB77C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AB77C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -3501,10 +3498,11 @@ void sub_22AB7814C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22AB78A1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, id location, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
+void sub_22AB78A1C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, id location, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
+  va_start(va, a24);
   _Block_object_dispose(&a21, 8);
-  _Block_object_dispose(&a25, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -3515,16 +3513,16 @@ void sub_22AB7921C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22AB795A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB795A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB7969C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB7969C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3597,9 +3595,9 @@ __CFString *HAPOTAProviderStateAsString(unint64_t a1)
   return v2;
 }
 
-void sub_22AB7F24C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AB7F24C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3618,16 +3616,16 @@ void sub_22AB83BF8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22AB83DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AB83DA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AB852B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AB852B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -3869,7 +3867,6 @@ void sub_22ABA2FAC(_Unwind_Exception *a1)
 
 id _createCharacteristicWriteBody(void *a1, uint64_t a2, void *a3, int a4, void *a5, void *a6, double a7)
 {
-  v27 = *MEMORY[0x277D85DE8];
   v13 = a3;
   v14 = a5;
   v15 = a1;
@@ -3912,7 +3909,7 @@ LABEL_26:
         {
           if (![v14 length] || (objc_msgSend(v14, "bytes"), objc_msgSend(v14, "length"), appended = TLV8BufferAppend(), !appended))
           {
-            v20 = [MEMORY[0x277CBEA90] dataWithBytes:v25 length:v26];
+            v20 = [MEMORY[0x277CBEA90] dataWithBytes:v24 length:v25];
             if (!v20)
             {
               v19 = 4294960568;
@@ -3936,8 +3933,6 @@ LABEL_4:
     v22 = [MEMORY[0x277CCA9B8] errorWithOSStatus:v19];
     *a6 = [v21 hapErrorWithCode:12 description:@"Write failed." reason:@"Failed to create write request body." suggestion:0 underlyingError:v22];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -3989,23 +3984,8 @@ uint64_t _parseBTLEPresentationFormat(void *a1, uint64_t a2, void *a3)
   v5 = a1;
   if ([v5 length] > 6)
   {
-    if (!a2)
+    if (!a2 || ([v5 getBytes:&v11 length:7], *a2 = v11, v7 = v12, *(a2 + 1) = v12, *(a2 + 2) = v13, v8 = v14, *(a2 + 4) = v14, v9 = v15, *(a2 + 6) = v15, !v7) && v8 == 1 && !v9)
     {
-      goto LABEL_11;
-    }
-
-    [v5 getBytes:&v11 length:7];
-    *a2 = v11;
-    v7 = v12;
-    *(a2 + 1) = v12;
-    *(a2 + 2) = v13;
-    v8 = v14;
-    *(a2 + 4) = v14;
-    v9 = v15;
-    *(a2 + 6) = v15;
-    if (!v7 && v8 == 1 && !v9)
-    {
-LABEL_11:
       v6 = 1;
       goto LABEL_12;
     }
@@ -4135,7 +4115,7 @@ LABEL_16:
 
 BOOL _parseCharacteristicValidRange(void *a1, uint64_t a2, void *a3, void *a4)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a3;
   if (![v7 length] || (objc_msgSend(v7, "length") & 1) != 0)
@@ -4167,105 +4147,105 @@ LABEL_9:
       goto LABEL_9;
     }
 
+    v14 = [v7 length] >> 1;
     v15 = [v7 length] >> 1;
-    v16 = [v7 length] >> 1;
-    v17 = [v7 subdataWithRange:{0, v15}];
-    v18 = [v7 subdataWithRange:{v15, v16}];
-    v37 = a2 - 11;
+    v16 = [v7 subdataWithRange:{0, v14}];
+    v17 = [v7 subdataWithRange:{v14, v15}];
+    v36 = a2 - 11;
     if ((a2 - 11) >= 3)
     {
-      v19 = a2;
+      v18 = a2;
     }
 
     else
     {
-      v19 = 2;
+      v18 = 2;
     }
 
-    v20 = +[HAPDataValueTransformer defaultDataValueTransformer];
-    v39 = 0;
-    v21 = [v20 reverseTransformedValue:v17 format:v19 error:&v39];
-    v22 = v39;
+    v19 = +[HAPDataValueTransformer defaultDataValueTransformer];
+    v38 = 0;
+    v20 = [v19 reverseTransformedValue:v16 format:v18 error:&v38];
+    v21 = v38;
 
-    if (v21)
+    if (v20)
     {
-      v36 = v17;
-      v23 = +[HAPDataValueTransformer defaultDataValueTransformer];
-      v38 = v22;
-      v35 = v18;
-      v24 = [v23 reverseTransformedValue:v18 format:v19 error:&v38];
-      v25 = v38;
+      v35 = v16;
+      v22 = +[HAPDataValueTransformer defaultDataValueTransformer];
+      v37 = v21;
+      v34 = v17;
+      v23 = [v22 reverseTransformedValue:v17 format:v18 error:&v37];
+      v24 = v37;
 
-      v12 = v24 != 0;
-      if (v24)
+      v12 = v23 != 0;
+      if (v23)
       {
-        if (v37 > 2)
+        if (v36 > 2)
         {
-          v26 = v21;
-          [v8 setMinimumValue:v21];
-          [v8 setMaximumValue:v24];
+          v25 = v20;
+          [v8 setMinimumValue:v20];
+          [v8 setMaximumValue:v23];
         }
 
         else
         {
-          v26 = v21;
-          if ([v21 longLongValue] >= 1)
+          v25 = v20;
+          if ([v20 longLongValue] >= 1)
           {
-            [v8 setMinLength:v21];
+            [v8 setMinLength:v20];
           }
 
-          [v8 setMaxLength:v24];
+          [v8 setMaxLength:v23];
         }
       }
 
       else
       {
-        v32 = objc_autoreleasePoolPush();
-        v33 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        v31 = objc_autoreleasePoolPush();
+        v32 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
         {
-          v34 = HMFGetLogIdentifier();
+          v33 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v41 = v34;
-          v42 = 2112;
-          v43 = v25;
-          _os_log_impl(&dword_22AADC000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPBTLE] Failed to transform upper value with error: %@", buf, 0x16u);
+          v40 = v33;
+          v41 = 2112;
+          v42 = v24;
+          _os_log_impl(&dword_22AADC000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPBTLE] Failed to transform upper value with error: %@", buf, 0x16u);
         }
 
-        objc_autoreleasePoolPop(v32);
-        v18 = v35;
-        v26 = v21;
+        objc_autoreleasePoolPop(v31);
+        v17 = v34;
+        v25 = v20;
         if (a4)
         {
-          *a4 = [MEMORY[0x277CCA9B8] hapErrorWithCode:12 description:@"Failed to parse upper value" reason:0 suggestion:0 underlyingError:v25];
+          *a4 = [MEMORY[0x277CCA9B8] hapErrorWithCode:12 description:@"Failed to parse upper value" reason:0 suggestion:0 underlyingError:v24];
         }
       }
 
-      v17 = v36;
+      v16 = v35;
     }
 
     else
     {
-      v27 = objc_autoreleasePoolPush();
-      v28 = HMFGetOSLogHandle();
-      v29 = v22;
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      v26 = objc_autoreleasePoolPush();
+      v27 = HMFGetOSLogHandle();
+      v28 = v21;
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
         HMFGetLogIdentifier();
-        v31 = v30 = v17;
+        v30 = v29 = v16;
         *buf = 138543618;
-        v41 = v31;
-        v42 = 2112;
-        v43 = v29;
-        _os_log_impl(&dword_22AADC000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPBTLE] Failed to transform lower value with error: %@", buf, 0x16u);
+        v40 = v30;
+        v41 = 2112;
+        v42 = v28;
+        _os_log_impl(&dword_22AADC000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPBTLE] Failed to transform lower value with error: %@", buf, 0x16u);
 
-        v17 = v30;
+        v16 = v29;
       }
 
-      objc_autoreleasePoolPop(v27);
+      objc_autoreleasePoolPop(v26);
       if (a4)
       {
-        [MEMORY[0x277CCA9B8] hapErrorWithCode:12 description:@"Failed to parse lower value" reason:0 suggestion:0 underlyingError:v29];
+        [MEMORY[0x277CCA9B8] hapErrorWithCode:12 description:@"Failed to parse lower value" reason:0 suggestion:0 underlyingError:v28];
         *a4 = v12 = 0;
       }
 
@@ -4274,20 +4254,19 @@ LABEL_9:
         v12 = 0;
       }
 
-      v25 = v29;
-      v26 = 0;
+      v24 = v28;
+      v25 = 0;
     }
   }
 
 LABEL_10:
 
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 BOOL _parseCharacteristicStepValue(void *a1, uint64_t a2, void *a3, void *a4)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a3;
   if (![v7 length])
@@ -4318,46 +4297,45 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v15 = +[HAPDataValueTransformer defaultDataValueTransformer];
-  v21 = 0;
-  v16 = [v15 reverseTransformedValue:v7 format:a2 error:&v21];
-  v17 = v21;
+  v14 = +[HAPDataValueTransformer defaultDataValueTransformer];
+  v20 = 0;
+  v15 = [v14 reverseTransformedValue:v7 format:a2 error:&v20];
+  v16 = v20;
 
-  v12 = v16 != 0;
-  if (v16)
+  v12 = v15 != 0;
+  if (v15)
   {
-    [v8 setStepValue:v16];
+    [v8 setStepValue:v15];
   }
 
   else
   {
-    v18 = objc_autoreleasePoolPush();
-    v19 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v17 = objc_autoreleasePoolPush();
+    v18 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = HMFGetLogIdentifier();
+      v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v23 = v20;
-      v24 = 2112;
-      v25 = v17;
-      _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPBTLE] Failed to transform step value with error: %@", buf, 0x16u);
+      v22 = v19;
+      v23 = 2112;
+      v24 = v16;
+      _os_log_impl(&dword_22AADC000, v18, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPBTLE] Failed to transform step value with error: %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v18);
+    objc_autoreleasePoolPop(v17);
     if (a4)
     {
-      *a4 = [MEMORY[0x277CCA9B8] hapErrorWithCode:12 description:@"Failed to parse step value" reason:0 suggestion:0 underlyingError:v17];
+      *a4 = [MEMORY[0x277CCA9B8] hapErrorWithCode:12 description:@"Failed to parse step value" reason:0 suggestion:0 underlyingError:v16];
     }
   }
 
 LABEL_8:
-  v13 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
 BOOL _parseCharacteristicValidValues(void *a1, uint64_t a2, void *a3, void *a4)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a3;
   if (![v7 length])
@@ -4397,7 +4375,7 @@ LABEL_14:
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v12;
+      v30 = v12;
       _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPBTLE] Failed to extract valid values, total size is not a multiple of the format size", buf, 0xCu);
     }
 
@@ -4416,41 +4394,41 @@ LABEL_11:
     goto LABEL_14;
   }
 
-  v22 = _getValuesFromData(v7, a2);
-  v23 = [v22 count];
-  v16 = v23 != 0;
-  if (v23)
+  v21 = _getValuesFromData(v7, a2);
+  v22 = [v21 count];
+  v16 = v22 != 0;
+  if (v22)
   {
-    [v22 sortUsingComparator:&__block_literal_global_7865];
-    v24 = objc_autoreleasePoolPush();
-    v25 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    [v21 sortUsingComparator:&__block_literal_global_7865];
+    v23 = objc_autoreleasePoolPush();
+    v24 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
     {
-      v26 = HMFGetLogIdentifier();
+      v25 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v31 = v26;
-      v32 = 2112;
-      v33 = v22;
-      _os_log_impl(&dword_22AADC000, v25, OS_LOG_TYPE_DEBUG, "%{public}@[HAPBTLE] Setting valid values to : %@", buf, 0x16u);
+      v30 = v25;
+      v31 = 2112;
+      v32 = v21;
+      _os_log_impl(&dword_22AADC000, v24, OS_LOG_TYPE_DEBUG, "%{public}@[HAPBTLE] Setting valid values to : %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v24);
-    [v8 setValidValues:v22];
+    objc_autoreleasePoolPop(v23);
+    [v8 setValidValues:v21];
   }
 
   else
   {
-    v27 = objc_autoreleasePoolPush();
-    v28 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+    v26 = objc_autoreleasePoolPush();
+    v27 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = HMFGetLogIdentifier();
+      v28 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v31 = v29;
-      _os_log_impl(&dword_22AADC000, v28, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPBTLE] Failed to extract valid values", buf, 0xCu);
+      v30 = v28;
+      _os_log_impl(&dword_22AADC000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPBTLE] Failed to extract valid values", buf, 0xCu);
     }
 
-    objc_autoreleasePoolPop(v27);
+    objc_autoreleasePoolPop(v26);
     if (a4)
     {
       *a4 = [MEMORY[0x277CCA9B8] hapErrorWithCode:12 description:@"Failed to extract valid values" reason:0 suggestion:0 underlyingError:0];
@@ -4458,13 +4436,12 @@ LABEL_11:
   }
 
 LABEL_15:
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 uint64_t _parseCharacteristicValidValuesRange(void *a1, uint64_t a2, void *a3, void *a4)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a3;
   if ([v7 length] && (objc_msgSend(v7, "length") & 1) == 0)
@@ -4483,7 +4460,7 @@ uint64_t _parseCharacteristicValidValuesRange(void *a1, uint64_t a2, void *a3, v
         {
           v15 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v44 = v15;
+          v43 = v15;
           _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPBTLE] Failed to extract valid value range, total size is not a multiple of the format's size", buf, 0xCu);
         }
 
@@ -4511,7 +4488,7 @@ uint64_t _parseCharacteristicValidValuesRange(void *a1, uint64_t a2, void *a3, v
         {
           v35 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v44 = v35;
+          v43 = v35;
           _os_log_impl(&dword_22AADC000, v34, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPBTLE] Failed to extract valid value range, valid value ranges are not pairs", buf, 0xCu);
         }
 
@@ -4529,8 +4506,8 @@ LABEL_38:
 
       else
       {
-        v41 = a4;
-        v42 = v8;
+        v40 = a4;
+        v41 = v8;
         if ([v20 count])
         {
           v21 = 0;
@@ -4569,39 +4546,39 @@ LABEL_38:
           [v11 sortUsingComparator:&__block_literal_global_1513];
           v30 = objc_autoreleasePoolPush();
           v31 = HMFGetOSLogHandle();
-          v8 = v42;
+          v8 = v41;
           if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
           {
             v32 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v44 = v32;
-            v45 = 2112;
-            v46 = v11;
+            v43 = v32;
+            v44 = 2112;
+            v45 = v11;
             _os_log_impl(&dword_22AADC000, v31, OS_LOG_TYPE_DEBUG, "%{public}@[HAPBTLE] Setting valid values to : %@", buf, 0x16u);
           }
 
           objc_autoreleasePoolPop(v30);
-          [v42 setValidValues:v11];
+          [v41 setValidValues:v11];
           v16 = 1;
           goto LABEL_37;
         }
 
         v36 = objc_autoreleasePoolPush();
         v37 = HMFGetOSLogHandle();
-        v8 = v42;
+        v8 = v41;
         if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
         {
           v38 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v44 = v38;
+          v43 = v38;
           _os_log_impl(&dword_22AADC000, v37, OS_LOG_TYPE_DEFAULT, "%{public}@[HAPBTLE] Failed to extract valid values", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v36);
-        if (v41)
+        if (v40)
         {
           [MEMORY[0x277CCA9B8] hapErrorWithCode:12 description:@"Failed to extract valid values" reason:0 suggestion:0 underlyingError:0];
-          *v41 = v16 = 0;
+          *v40 = v16 = 0;
           goto LABEL_37;
         }
       }
@@ -4633,7 +4610,6 @@ LABEL_14:
   *a4 = v16 = 0;
 LABEL_39:
 
-  v39 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -4678,26 +4654,25 @@ id _getValuesFromData(void *a1, uint64_t a2)
 
 id HAPTLVWriteSInt64(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   if (a1 == a1)
   {
-    LOBYTE(v5[0]) = a1;
+    LOBYTE(v4[0]) = a1;
     v1 = 1;
   }
 
   else
   {
-    v5[0] = a1;
+    v4[0] = a1;
     v1 = 8;
   }
 
-  v2 = [MEMORY[0x277CBEA90] dataWithBytes:v5 length:v1];
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CBEA90] dataWithBytes:v4 length:v1];
 
   return v2;
 }
 
-unint64_t HAPTLVParseSInt64(unsigned __int8 *a1, uint64_t a2, int *a3)
+unint64_t HAPTLVParseSInt64(char *a1, uint64_t a2, int *a3)
 {
   result = 0;
   v5 = -6743;
@@ -4761,18 +4736,18 @@ LABEL_12:
 
 id HAPTLVWriteUInt64(unint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (a1 > 0xFF)
   {
     if (a1 >> 16)
     {
-      v5 = a1;
+      v4 = a1;
       if (HIDWORD(a1))
       {
-        v6 = BYTE4(a1);
-        v7 = BYTE5(a1);
-        v8 = BYTE6(a1);
-        v9 = HIBYTE(a1);
+        v5 = BYTE4(a1);
+        v6 = BYTE5(a1);
+        v7 = BYTE6(a1);
+        v8 = HIBYTE(a1);
         v1 = 8;
       }
 
@@ -4784,19 +4759,18 @@ id HAPTLVWriteUInt64(unint64_t a1)
 
     else
     {
-      LOWORD(v5) = a1;
+      LOWORD(v4) = a1;
       v1 = 2;
     }
   }
 
   else
   {
-    LOBYTE(v5) = a1;
+    LOBYTE(v4) = a1;
     v1 = 1;
   }
 
-  v2 = [MEMORY[0x277CBEA90] dataWithBytes:&v5 length:v1];
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = [MEMORY[0x277CBEA90] dataWithBytes:&v4 length:v1];
 
   return v2;
 }
@@ -4865,39 +4839,39 @@ LABEL_12:
 
 id HAPTLVCreateParseArrayToString(void *a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   v5 = [MEMORY[0x277CCAB68] string];
   v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"\n%@[", v4];
   [v5 appendString:v6];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   v7 = v3;
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v19;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
         v12 = MEMORY[0x277CCACA8];
-        v13 = [*(*(&v19 + 1) + 8 * i) descriptionWithIndent:v4];
+        v13 = [*(*(&v18 + 1) + 8 * i) descriptionWithIndent:v4];
         v14 = [v12 stringWithFormat:@" %@", v13];
         [v5 appendString:v14];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v9);
@@ -4907,12 +4881,11 @@ id HAPTLVCreateParseArrayToString(void *a1, void *a2)
   [v5 appendString:v15];
 
   v16 = [v5 copy];
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
-id HAPTLVParseContiguousTlvs(uint64_t a1, unint64_t a2, unint64_t a3, unint64_t *a4, void *a5)
+id HAPTLVParseContiguousTlvs(int a1, unint64_t a2, unint64_t a3, unint64_t *a4, void *a5)
 {
   if (a2 >= a3)
   {
@@ -5044,19 +5017,19 @@ LABEL_17:
 
 id HMErrorFromOSStatus(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v21 = 0;
-    memset(v20, 0, sizeof(v20));
+    v20 = 0;
+    memset(v19, 0, sizeof(v19));
     DebugGetErrorString();
-    v18[0] = *MEMORY[0x277CCA450];
-    v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed with OSStatus code %d (%s)", a1, v20];
-    v19[0] = v2;
-    v18[1] = *MEMORY[0x277CCA7E8];
+    v17[0] = *MEMORY[0x277CCA450];
+    v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed with OSStatus code %d (%s)", a1, v19];
+    v18[0] = v2;
+    v17[1] = *MEMORY[0x277CCA7E8];
     v3 = [MEMORY[0x277CCA9B8] errorWithOSStatus:a1];
-    v19[1] = v3;
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
+    v18[1] = v3;
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
 
     if (a1 > -6761)
     {
@@ -5176,11 +5149,11 @@ LABEL_15:
                 {
                   v9 = HMFGetLogIdentifier();
                   *buf = 138543874;
-                  v13 = v9;
-                  v14 = 1024;
-                  v15 = a1;
-                  v16 = 2080;
-                  v17 = v20;
+                  v12 = v9;
+                  v13 = 1024;
+                  v14 = a1;
+                  v15 = 2080;
+                  v16 = v19;
                   _os_log_impl(&dword_22AADC000, v8, OS_LOG_TYPE_ERROR, "%{public}@Treating OSStatus %d (%s) as Generic error", buf, 0x1Cu);
                 }
 
@@ -5213,24 +5186,20 @@ LABEL_15:
     v6 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 id HMErrorFromHAPErrorCode(uint64_t a1)
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed with HAP Error code %ld", a1, *MEMORY[0x277CCA450]];
-  v9[0] = v2;
-  v8[1] = *MEMORY[0x277CCA7E8];
+  v8[0] = v2;
+  v7[1] = *MEMORY[0x277CCA7E8];
   v3 = [MEMORY[0x277CCA9B8] hapErrorWithCode:a1];
-  v9[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
+  v8[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   v5 = [MEMORY[0x277CCA9B8] errorWithDomain:@"HMErrorDomain" code:a1 userInfo:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -5242,11 +5211,11 @@ void sub_22ABB07CC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22ABB09E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ABB09E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5278,9 +5247,9 @@ void sub_22ABB10C8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22ABB11F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ABB11F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5292,23 +5261,23 @@ void sub_22ABB1434(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22ABB1560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ABB1560(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABB1864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22ABB1864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5342,17 +5311,17 @@ void sub_22ABB2E64(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22ABB30F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ABB30F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 96), 8);
+  _Block_object_dispose((v16 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABB3318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ABB3318(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5392,37 +5361,37 @@ void sub_22ABB4128(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22ABB44BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABB44BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABB46A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABB46A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABB4864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABB4864(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABB4A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABB4A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABB5674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABB5674(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5434,12 +5403,12 @@ uint64_t __Block_byref_object_copy__9445(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22ABB5E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ABB5E94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   __HMFActivityScopeLeave();
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5450,30 +5419,30 @@ uint64_t __Block_byref_object_copy__9649(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22ABB60F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABB60F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABB6208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABB6208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABB6310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABB6310(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABB6418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABB6418(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5570,9 +5539,9 @@ void sub_22ABBC62C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22ABC1710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABC1710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5584,9 +5553,9 @@ uint64_t __Block_byref_object_copy__10722(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22ABC192C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABC192C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5661,23 +5630,23 @@ void sub_22ABC3790(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22ABC3E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ABC3E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABC4CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_22ABC4CD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va1, a10);
-  va_start(va, a10);
-  v11 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a17);
+  va_start(va, a17);
+  v18 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -5690,16 +5659,16 @@ uint64_t __Block_byref_object_copy__11021(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22ABC55FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ABC55FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABC6238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_22ABC6238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5795,10 +5764,10 @@ void sub_22ABCAA3C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22ABCAF20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABCAF20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
-  os_unfair_lock_unlock((v7 + v8));
+  va_start(va, a13);
+  os_unfair_lock_unlock((v13 + v14));
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5819,7 +5788,7 @@ void sub_22ABCB990(_Unwind_Exception *a1)
 
 HAP2AccessoryServerDiscoveryAccessoryInfo *accessoryInfoForBonjourDevice(void *a1, void *a2, void *a3)
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   v5 = a1;
   v6 = a2;
   v7 = a3;
@@ -5838,7 +5807,7 @@ HAP2AccessoryServerDiscoveryAccessoryInfo *accessoryInfoForBonjourDevice(void *a
       if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v71 = v5;
+        v70 = v5;
         _os_log_impl(&dword_22AADC000, v19, OS_LOG_TYPE_INFO, "Received bonjour device that has no TXT record: %@", buf, 0xCu);
       }
 
@@ -5858,7 +5827,7 @@ HAP2AccessoryServerDiscoveryAccessoryInfo *accessoryInfoForBonjourDevice(void *a
       if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v71 = v5;
+        v70 = v5;
         _os_log_impl(&dword_22AADC000, v20, OS_LOG_TYPE_INFO, "Received bonjour device that has a no device id: %@", buf, 0xCu);
       }
 
@@ -5878,9 +5847,9 @@ HAP2AccessoryServerDiscoveryAccessoryInfo *accessoryInfoForBonjourDevice(void *a
       if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v71 = v10;
-        v72 = 2112;
-        v73 = v5;
+        v70 = v10;
+        v71 = 2112;
+        v72 = v5;
         _os_log_impl(&dword_22AADC000, v21, OS_LOG_TYPE_INFO, "Received bonjour device that has an invalid device id '%@': %@", buf, 0x16u);
       }
 
@@ -5888,18 +5857,18 @@ HAP2AccessoryServerDiscoveryAccessoryInfo *accessoryInfoForBonjourDevice(void *a
       goto LABEL_63;
     }
 
-    v68[0] = @"bonjourServiceName";
-    v68[1] = @"bonjourServiceType";
-    v69[0] = v8;
-    v69[1] = v6;
-    v68[2] = @"bonjourServiceDomain";
-    v68[3] = @"bonjourTXTRecord";
-    v69[2] = v7;
-    v69[3] = v9;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:4];
-    v66 = v11;
-    v67 = v12;
-    v65 = v8;
+    v67[0] = @"bonjourServiceName";
+    v67[1] = @"bonjourServiceType";
+    v68[0] = v8;
+    v68[1] = v6;
+    v67[2] = @"bonjourServiceDomain";
+    v67[3] = @"bonjourTXTRecord";
+    v68[2] = v7;
+    v68[3] = v9;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v68 forKeys:v67 count:4];
+    v65 = v11;
+    v66 = v12;
+    v64 = v8;
     v13 = v9;
     v14 = [(__CFString *)v13 objectForKeyedSubscript:@"sf"];
     v15 = v14;
@@ -5917,17 +5886,17 @@ HAP2AccessoryServerDiscoveryAccessoryInfo *accessoryInfoForBonjourDevice(void *a
     v23 = v22;
     if (v22)
     {
-      v63 = [v22 longLongValue];
+      v62 = [v22 longLongValue];
     }
 
     else
     {
-      v63 = 1;
+      v62 = 1;
     }
 
     v24 = @"c#";
     v25 = [(__CFString *)v13 objectForKeyedSubscript:@"c#"];
-    v64 = v11;
+    v63 = v11;
     if (v25)
     {
       v26 = v25;
@@ -5947,16 +5916,16 @@ HAP2AccessoryServerDiscoveryAccessoryInfo *accessoryInfoForBonjourDevice(void *a
         }
 
         *buf = 138412546;
-        v71 = @"c#";
-        v72 = 2112;
-        v73 = v13;
+        v70 = @"c#";
+        v71 = 2112;
+        v72 = v13;
         v30 = "Received txtRecord that has a bad value for key '%@': %@";
         v31 = v28;
         v32 = 22;
         goto LABEL_37;
       }
 
-      v62 = v27;
+      v61 = v27;
 
       v35 = [(__CFString *)v13 objectForKeyedSubscript:@"s#"];
       v36 = v35;
@@ -5975,7 +5944,7 @@ HAP2AccessoryServerDiscoveryAccessoryInfo *accessoryInfoForBonjourDevice(void *a
         v37 = v35;
       }
 
-      v61 = v37;
+      v60 = v37;
 
       v38 = @"pv";
       v39 = [(__CFString *)v13 objectForKeyedSubscript:@"pv"];
@@ -5985,8 +5954,8 @@ HAP2AccessoryServerDiscoveryAccessoryInfo *accessoryInfoForBonjourDevice(void *a
         v40 = [objc_alloc(MEMORY[0x277D0F940]) initWithString:v39];
         if (v40)
         {
-          v59 = v16;
-          v60 = v40;
+          v58 = v16;
+          v59 = v40;
 
           v41 = [(__CFString *)v13 objectForKeyedSubscript:@"md"];
           if (v41)
@@ -5996,22 +5965,22 @@ HAP2AccessoryServerDiscoveryAccessoryInfo *accessoryInfoForBonjourDevice(void *a
             v43 = v42;
             if (v42)
             {
-              v58 = [v42 longLongValue];
+              v57 = [v42 longLongValue];
             }
 
             else
             {
-              v58 = 0;
+              v57 = 0;
             }
 
-            v50 = @"sh";
-            v51 = [(__CFString *)v13 objectForKeyedSubscript:@"sh"];
-            if (v51)
+            v49 = @"sh";
+            v50 = [(__CFString *)v13 objectForKeyedSubscript:@"sh"];
+            if (v50)
             {
-              v52 = v51;
-              v53 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v51 options:0];
-              v51 = v52;
-              if (!v53)
+              v51 = v50;
+              v52 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v50 options:0];
+              v50 = v51;
+              if (!v52)
               {
                 if (hap2LogInitialize_onceToken != -1)
                 {
@@ -6022,28 +5991,28 @@ HAP2AccessoryServerDiscoveryAccessoryInfo *accessoryInfoForBonjourDevice(void *a
                 if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412546;
-                  v71 = @"sh";
-                  v72 = 2112;
-                  v73 = v13;
+                  v70 = @"sh";
+                  v71 = 2112;
+                  v72 = v13;
                   _os_log_impl(&dword_22AADC000, log, OS_LOG_TYPE_INFO, "Received txtRecord that has a bad value for key '%@': %@", buf, 0x16u);
                 }
 
-                v53 = 0;
-                v51 = v52;
+                v52 = 0;
+                v50 = v51;
               }
             }
 
             else
             {
-              v53 = 0;
+              v52 = 0;
             }
 
-            v54 = v53;
-            loga = v53;
+            v53 = v52;
+            loga = v52;
 
-            v55 = v54;
-            v29 = v60;
-            v44 = [[HAP2AccessoryServerDiscoveryHAPAccessoryInfo alloc] initWithDeviceID:v66 rawDiscoveryInfo:v67 name:v65 model:v26 status:v59 category:v63 configurationNumber:v62 stateNumber:v61 protocolVersion:v60 featureFlags:v58 setupHash:v55];
+            v54 = v53;
+            v29 = v59;
+            v44 = [[HAP2AccessoryServerDiscoveryHAPAccessoryInfo alloc] initWithDeviceID:v65 rawDiscoveryInfo:v66 name:v64 model:v26 status:v58 category:v62 configurationNumber:v61 stateNumber:v60 protocolVersion:v59 featureFlags:v57 setupHash:v54];
           }
 
           else
@@ -6053,17 +6022,17 @@ HAP2AccessoryServerDiscoveryAccessoryInfo *accessoryInfoForBonjourDevice(void *a
               dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
             }
 
-            v49 = hap2Log_browser;
+            v48 = hap2Log_browser;
             if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v71 = @"md";
-              _os_log_error_impl(&dword_22AADC000, v49, OS_LOG_TYPE_ERROR, "Received txtRecord that doesn't include key '%@'", buf, 0xCu);
+              v70 = @"md";
+              _os_log_error_impl(&dword_22AADC000, v48, OS_LOG_TYPE_ERROR, "Received txtRecord that doesn't include key '%@'", buf, 0xCu);
             }
 
             v26 = 0;
             v44 = 0;
-            v29 = v60;
+            v29 = v59;
           }
 
           goto LABEL_59;
@@ -6074,7 +6043,7 @@ HAP2AccessoryServerDiscoveryAccessoryInfo *accessoryInfoForBonjourDevice(void *a
           dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
         }
 
-        v48 = hap2Log_browser;
+        v47 = hap2Log_browser;
         v29 = @"pv";
         if (!os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_INFO))
         {
@@ -6089,11 +6058,11 @@ LABEL_59:
 
           else
           {
-            v45 = [[HAP2AccessoryServerDiscoveryAccessoryInfo alloc] initWithDeviceID:v66 rawDiscoveryInfo:v67];
+            v45 = [[HAP2AccessoryServerDiscoveryAccessoryInfo alloc] initWithDeviceID:v65 rawDiscoveryInfo:v66];
           }
 
           v18 = v45;
-          v11 = v64;
+          v11 = v63;
 
 LABEL_63:
 LABEL_64:
@@ -6103,13 +6072,13 @@ LABEL_65:
         }
 
         *buf = 138412802;
-        v71 = @"pv";
-        v72 = 2112;
-        v73 = v26;
-        v74 = 2112;
-        v75 = v13;
+        v70 = @"pv";
+        v71 = 2112;
+        v72 = v26;
+        v73 = 2112;
+        v74 = v13;
         v30 = "Received txtRecord that has a bad value for key '%@' ('%@'): %@";
-        v31 = v48;
+        v31 = v47;
         v32 = 32;
 LABEL_37:
         _os_log_impl(&dword_22AADC000, v31, OS_LOG_TYPE_INFO, v30, buf, v32);
@@ -6131,9 +6100,9 @@ LABEL_57:
       }
 
       *buf = 138412546;
-      v71 = @"pv";
-      v72 = 2112;
-      v73 = v13;
+      v70 = @"pv";
+      v71 = 2112;
+      v72 = v13;
       v34 = "Received txtRecord that has no value for key '%@': %@";
     }
 
@@ -6152,9 +6121,9 @@ LABEL_57:
       }
 
       *buf = 138412546;
-      v71 = @"c#";
-      v72 = 2112;
-      v73 = v13;
+      v70 = @"c#";
+      v71 = 2112;
+      v72 = v13;
       v34 = "Received txtRecord that has a no value for key '%@': %@";
     }
 
@@ -6171,14 +6140,12 @@ LABEL_57:
   if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v71 = v5;
+    v70 = v5;
     _os_log_error_impl(&dword_22AADC000, v17, OS_LOG_TYPE_ERROR, "Received bonjour device that has no service name: %@", buf, 0xCu);
   }
 
   v18 = 0;
 LABEL_66:
-
-  v46 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -6192,23 +6159,23 @@ void sub_22ABD855C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22ABD8C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ABD8C0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABD96A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABD96A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABD98A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABD98A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6279,10 +6246,11 @@ LABEL_14:
   return v7;
 }
 
-void sub_22ABDA06C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27)
+void sub_22ABDA06C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
 {
-  _Block_object_dispose(&a27, 8);
-  _Block_object_dispose((v27 - 112), 8);
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v26 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6295,7 +6263,7 @@ uint64_t __Block_byref_object_copy__12038(uint64_t result, uint64_t a2)
 
 HAP2AccessoryServerDiscoveryAccessoryInfo *accessoryInfoForBrowseResult(void *a1)
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = nw_browse_result_copy_endpoint(v1);
   v3 = v2;
@@ -6404,7 +6372,7 @@ LABEL_30:
       dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
     }
 
-    v34 = hap2Log_browser;
+    v33 = hap2Log_browser;
     if (!os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_41;
@@ -6412,9 +6380,9 @@ LABEL_30:
 
     *applier = 138412290;
     *&applier[4] = v1;
-    v35 = "Received browse result that has no service type: %@";
-    v36 = v34;
-    v37 = 12;
+    v34 = "Received browse result that has no service type: %@";
+    v35 = v33;
+    v36 = 12;
     goto LABEL_96;
   }
 
@@ -6435,7 +6403,7 @@ LABEL_30:
         if (v17)
         {
           v18 = v17;
-          v62 = v16;
+          v61 = v16;
           if (nw_txt_record_is_dictionary(v18))
           {
             v19 = v18;
@@ -6443,10 +6411,10 @@ LABEL_30:
             *applier = MEMORY[0x277D85DD0];
             *&applier[8] = 3221225472;
             *&applier[16] = __txtRecordDictionaryForNetworkTxtRecordDictionary_block_invoke;
-            v77 = &unk_2786D4AF0;
-            v78 = v19;
+            v76 = &unk_2786D4AF0;
+            v77 = v19;
             v21 = v20;
-            v79 = v21;
+            v78 = v21;
             v22 = v19;
             if (nw_txt_record_apply(v22, applier))
             {
@@ -6461,40 +6429,40 @@ LABEL_30:
 
           else
           {
-            v45 = v18;
-            v68 = 0;
-            v69 = &v68;
-            v70 = 0x3032000000;
-            v71 = __Block_byref_object_copy__12038;
-            v72 = __Block_byref_object_dispose__12039;
-            v73 = 0;
+            v44 = v18;
+            v67 = 0;
+            v68 = &v67;
+            v69 = 0x3032000000;
+            v70 = __Block_byref_object_copy__12038;
+            v71 = __Block_byref_object_dispose__12039;
+            v72 = 0;
             access_bytes[0] = MEMORY[0x277D85DD0];
             access_bytes[1] = 3221225472;
             access_bytes[2] = __txtRecordDictionaryForNetworkTxtRecordData_block_invoke;
             access_bytes[3] = &unk_2786D4B18;
-            access_bytes[4] = &v68;
-            nw_txt_record_access_bytes(v45, access_bytes);
-            v46 = v69[5];
-            if (v46)
+            access_bytes[4] = &v67;
+            nw_txt_record_access_bytes(v44, access_bytes);
+            v45 = v68[5];
+            if (v45)
             {
-              v47 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v46, "count")}];
-              v63 = 0;
-              v64 = &v63;
-              v65 = 0x2020000000;
-              v66 = 1;
-              v48 = v69[5];
+              v46 = [MEMORY[0x277CBEB38] dictionaryWithCapacity:{objc_msgSend(v45, "count")}];
+              v62 = 0;
+              v63 = &v62;
+              v64 = 0x2020000000;
+              v65 = 1;
+              v47 = v68[5];
               *applier = MEMORY[0x277D85DD0];
               *&applier[8] = 3221225472;
               *&applier[16] = __txtRecordDictionaryForNetworkTxtRecordData_block_invoke_198;
-              v77 = &unk_2786D4B40;
-              v78 = v45;
-              v80 = &v63;
-              v49 = v47;
-              v79 = v49;
-              [v48 enumerateKeysAndObjectsUsingBlock:applier];
-              if (*(v64 + 24) == 1)
+              v76 = &unk_2786D4B40;
+              v77 = v44;
+              v79 = &v62;
+              v48 = v46;
+              v78 = v48;
+              [v47 enumerateKeysAndObjectsUsingBlock:applier];
+              if (*(v63 + 24) == 1)
               {
-                v23 = [v49 copy];
+                v23 = [v48 copy];
               }
 
               else
@@ -6502,7 +6470,7 @@ LABEL_30:
                 v23 = 0;
               }
 
-              _Block_object_dispose(&v63, 8);
+              _Block_object_dispose(&v62, 8);
             }
 
             else
@@ -6512,95 +6480,95 @@ LABEL_30:
                 dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
               }
 
-              v50 = hap2Log_browser;
+              v49 = hap2Log_browser;
               if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_ERROR))
               {
                 *applier = 138412290;
-                *&applier[4] = v45;
-                _os_log_error_impl(&dword_22AADC000, v50, OS_LOG_TYPE_ERROR, "Received txtRecord with data that couldn't be parsed: %@", applier, 0xCu);
+                *&applier[4] = v44;
+                _os_log_error_impl(&dword_22AADC000, v49, OS_LOG_TYPE_ERROR, "Received txtRecord with data that couldn't be parsed: %@", applier, 0xCu);
               }
 
               v23 = 0;
             }
 
-            _Block_object_dispose(&v68, 8);
+            _Block_object_dispose(&v67, 8);
           }
 
           if (v23)
           {
-            v51 = [v12 isEqualToString:@"_airplay._tcp"];
-            v52 = v51;
-            v53 = @"deviceid";
-            if (!v51)
+            v50 = [v12 isEqualToString:@"_airplay._tcp"];
+            v51 = v50;
+            v52 = @"deviceid";
+            if (!v50)
             {
-              v53 = @"id";
+              v52 = @"id";
             }
 
-            v54 = v53;
-            v55 = [v23 objectForKeyedSubscript:v54];
-            if (v55)
+            v53 = v52;
+            v54 = [v23 objectForKeyedSubscript:v53];
+            if (v54)
             {
-              v56 = [[HAPDeviceID alloc] initWithDeviceIDString:v55];
-              if (v56)
+              v55 = [[HAPDeviceID alloc] initWithDeviceIDString:v54];
+              if (v55)
               {
-                v74[0] = @"bonjourServiceName";
-                v74[1] = @"bonjourServiceType";
-                v75[0] = v8;
-                v75[1] = v12;
-                v74[2] = @"bonjourServiceDomain";
-                v74[3] = @"bonjourTXTRecord";
-                v75[2] = v62;
-                v75[3] = v23;
-                v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v75 forKeys:v74 count:4];
-                if ((v52 & 1) != 0 || (hapAccessoryInfoWithDeviceID(v56, v57, v8, v23), (v31 = objc_claimAutoreleasedReturnValue()) == 0))
+                v73[0] = @"bonjourServiceName";
+                v73[1] = @"bonjourServiceType";
+                v74[0] = v8;
+                v74[1] = v12;
+                v73[2] = @"bonjourServiceDomain";
+                v73[3] = @"bonjourTXTRecord";
+                v74[2] = v61;
+                v74[3] = v23;
+                v56 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v74 forKeys:v73 count:4];
+                if ((v51 & 1) != 0 || (hapAccessoryInfoWithDeviceID(v55, v56, v8, v23), (v31 = objc_claimAutoreleasedReturnValue()) == 0))
                 {
-                  v31 = [[HAP2AccessoryServerDiscoveryAccessoryInfo alloc] initWithDeviceID:v56 rawDiscoveryInfo:v57];
+                  v31 = [[HAP2AccessoryServerDiscoveryAccessoryInfo alloc] initWithDeviceID:v55 rawDiscoveryInfo:v56];
                 }
               }
 
               else
               {
-                v61 = v54;
+                v60 = v53;
                 if (hap2LogInitialize_onceToken != -1)
                 {
                   dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
                 }
 
-                v60 = hap2Log_browser;
+                v59 = hap2Log_browser;
                 if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_INFO))
                 {
                   *applier = 138412546;
                   *&applier[4] = @"id";
                   *&applier[12] = 2112;
                   *&applier[14] = v23;
-                  _os_log_impl(&dword_22AADC000, v60, OS_LOG_TYPE_INFO, "Received txtRecord that has an invalid '%@' value: %@", applier, 0x16u);
+                  _os_log_impl(&dword_22AADC000, v59, OS_LOG_TYPE_INFO, "Received txtRecord that has an invalid '%@' value: %@", applier, 0x16u);
                 }
 
                 v31 = 0;
-                v54 = v61;
+                v53 = v60;
               }
             }
 
             else
             {
-              v58 = v54;
+              v57 = v53;
               if (hap2LogInitialize_onceToken != -1)
               {
                 dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
               }
 
-              v59 = hap2Log_browser;
+              v58 = hap2Log_browser;
               if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_INFO))
               {
                 *applier = 138412546;
                 *&applier[4] = @"id";
                 *&applier[12] = 2112;
                 *&applier[14] = v23;
-                _os_log_impl(&dword_22AADC000, v59, OS_LOG_TYPE_INFO, "Received txtRecord that has a no '%@': %@", applier, 0x16u);
+                _os_log_impl(&dword_22AADC000, v58, OS_LOG_TYPE_INFO, "Received txtRecord that has a no '%@': %@", applier, 0x16u);
               }
 
               v31 = 0;
-              v54 = v58;
+              v53 = v57;
             }
           }
 
@@ -6609,7 +6577,7 @@ LABEL_30:
             v31 = 0;
           }
 
-          v16 = v62;
+          v16 = v61;
         }
 
         else
@@ -6619,12 +6587,12 @@ LABEL_30:
             dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
           }
 
-          v44 = hap2Log_browser;
+          v43 = hap2Log_browser;
           if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_INFO))
           {
             *applier = 138412290;
             *&applier[4] = v1;
-            _os_log_impl(&dword_22AADC000, v44, OS_LOG_TYPE_INFO, "Received browse result that has no TXT record: %@", applier, 0xCu);
+            _os_log_impl(&dword_22AADC000, v43, OS_LOG_TYPE_INFO, "Received browse result that has no TXT record: %@", applier, 0xCu);
           }
 
           v31 = 0;
@@ -6638,7 +6606,7 @@ LABEL_30:
         dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
       }
 
-      v43 = hap2Log_browser;
+      v42 = hap2Log_browser;
       if (!os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_ERROR))
       {
 LABEL_49:
@@ -6652,9 +6620,9 @@ LABEL_93:
       *&applier[4] = v14;
       *&applier[12] = 2112;
       *&applier[14] = v1;
-      v40 = "Received browse result that has bad service name '%s': %@";
-      v41 = v43;
-      v42 = 22;
+      v39 = "Received browse result that has bad service name '%s': %@";
+      v40 = v42;
+      v41 = 22;
     }
 
     else
@@ -6664,7 +6632,7 @@ LABEL_93:
         dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
       }
 
-      v39 = hap2Log_browser;
+      v38 = hap2Log_browser;
       if (!os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_49;
@@ -6672,12 +6640,12 @@ LABEL_93:
 
       *applier = 138412290;
       *&applier[4] = v1;
-      v40 = "Received browse result that has no service domain: %@";
-      v41 = v39;
-      v42 = 12;
+      v39 = "Received browse result that has no service domain: %@";
+      v40 = v38;
+      v41 = 12;
     }
 
-    _os_log_error_impl(&dword_22AADC000, v41, OS_LOG_TYPE_ERROR, v40, applier, v42);
+    _os_log_error_impl(&dword_22AADC000, v40, OS_LOG_TYPE_ERROR, v39, applier, v41);
     goto LABEL_49;
   }
 
@@ -6686,18 +6654,18 @@ LABEL_93:
     dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
   }
 
-  v38 = hap2Log_browser;
+  v37 = hap2Log_browser;
   if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_ERROR))
   {
     *applier = 136315394;
     *&applier[4] = v10;
     *&applier[12] = 2112;
     *&applier[14] = v1;
-    v35 = "Received browse result that has bad service name '%s': %@";
-    v36 = v38;
-    v37 = 22;
+    v34 = "Received browse result that has bad service name '%s': %@";
+    v35 = v37;
+    v36 = 22;
 LABEL_96:
-    _os_log_error_impl(&dword_22AADC000, v36, OS_LOG_TYPE_ERROR, v35, applier, v37);
+    _os_log_error_impl(&dword_22AADC000, v35, OS_LOG_TYPE_ERROR, v34, applier, v36);
   }
 
 LABEL_41:
@@ -6705,24 +6673,23 @@ LABEL_41:
 LABEL_94:
 
 LABEL_31:
-  v32 = *MEMORY[0x277D85DE8];
 
   return v31;
 }
 
-void sub_22ABDAE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_22ABDAE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v5 = va_arg(va1, void);
-  v7 = va_arg(va1, void);
+  va_start(va1, a7);
+  va_start(va, a7);
   v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -6730,7 +6697,7 @@ void sub_22ABDAE38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t __txtRecordDictionaryForNetworkTxtRecordDictionary_block_invoke(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithUTF8String:a2];
   if (!v10)
   {
@@ -6746,10 +6713,10 @@ uint64_t __txtRecordDictionaryForNetworkTxtRecordDictionary_block_invoke(uint64_
     }
 
     v14 = *(a1 + 32);
-    v22 = 136315394;
-    *v23 = a2;
-    *&v23[8] = 2112;
-    *&v23[10] = v14;
+    v21 = 136315394;
+    *v22 = a2;
+    *&v22[8] = 2112;
+    *&v22[10] = v14;
     v15 = "Received txtRecord that has a bad key '%s': %@";
     goto LABEL_10;
   }
@@ -6770,14 +6737,14 @@ uint64_t __txtRecordDictionaryForNetworkTxtRecordDictionary_block_invoke(uint64_
     v17 = hap2Log_browser;
     if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_DEBUG))
     {
-      v21 = *(a1 + 32);
-      v22 = 67109634;
-      *v23 = a3;
-      *&v23[4] = 2112;
-      *&v23[6] = v10;
-      *&v23[14] = 2112;
-      *&v23[16] = v21;
-      _os_log_debug_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEBUG, "Received txtRecord that has a bad state (%d) for key '%@': %@", &v22, 0x1Cu);
+      v20 = *(a1 + 32);
+      v21 = 67109634;
+      *v22 = a3;
+      *&v22[4] = 2112;
+      *&v22[6] = v10;
+      *&v22[14] = 2112;
+      *&v22[16] = v20;
+      _os_log_debug_impl(&dword_22AADC000, v17, OS_LOG_TYPE_DEBUG, "Received txtRecord that has a bad state (%d) for key '%@': %@", &v21, 0x1Cu);
     }
 
     goto LABEL_17;
@@ -6802,21 +6769,20 @@ LABEL_17:
   v13 = hap2Log_browser;
   if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_INFO))
   {
-    v20 = *(a1 + 32);
-    v22 = 138412546;
-    *v23 = v10;
-    *&v23[8] = 2112;
-    *&v23[10] = v20;
+    v19 = *(a1 + 32);
+    v21 = 138412546;
+    *v22 = v10;
+    *&v22[8] = 2112;
+    *&v22[10] = v19;
     v15 = "Received txtRecord that has a bad value for '%@': %@";
 LABEL_10:
-    _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_INFO, v15, &v22, 0x16u);
+    _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_INFO, v15, &v21, 0x16u);
   }
 
 LABEL_11:
   v16 = 0;
 LABEL_18:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -6833,7 +6799,7 @@ uint64_t __txtRecordDictionaryForNetworkTxtRecordData_block_invoke(uint64_t a1, 
 
 void __txtRecordDictionaryForNetworkTxtRecordData_block_invoke_198(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = MEMORY[0x277CCACA8];
   v9 = a3;
@@ -6855,23 +6821,21 @@ void __txtRecordDictionaryForNetworkTxtRecordData_block_invoke_198(uint64_t a1, 
     if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_INFO))
     {
       v12 = *(a1 + 32);
-      v14 = 138412546;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v12;
-      _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_INFO, "Received txtRecord that has a bad key '%@': %@", &v14, 0x16u);
+      v13 = 138412546;
+      v14 = v7;
+      v15 = 2112;
+      v16 = v12;
+      _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_INFO, "Received txtRecord that has a bad key '%@': %@", &v13, 0x16u);
     }
 
     *(*(*(a1 + 48) + 8) + 24) = 0;
     *a4 = 1;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 HAP2AccessoryServerDiscoveryHAPAccessoryInfo *hapAccessoryInfoWithDeviceID(void *a1, void *a2, void *a3, void *a4)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = a3;
@@ -6917,9 +6881,9 @@ HAP2AccessoryServerDiscoveryHAPAccessoryInfo *hapAccessoryInfoWithDeviceID(void 
     }
 
     *buf = 138412546;
-    v50 = @"c#";
-    v51 = 2112;
-    v52 = v10;
+    v49 = @"c#";
+    v50 = 2112;
+    v51 = v10;
     v27 = "Received txtRecord that has a no value for key '%@': %@";
 LABEL_32:
     _os_log_impl(&dword_22AADC000, v26, OS_LOG_TYPE_INFO, v27, buf, 0x16u);
@@ -6944,9 +6908,9 @@ LABEL_33:
     }
 
     *buf = 138412546;
-    v50 = @"c#";
-    v51 = 2112;
-    v52 = v10;
+    v49 = @"c#";
+    v50 = 2112;
+    v51 = v10;
     v23 = "Received txtRecord that has a bad value for key '%@': %@";
     v24 = v22;
     v25 = 22;
@@ -6989,9 +6953,9 @@ LABEL_33:
     }
 
     *buf = 138412546;
-    v50 = @"pv";
-    v51 = 2112;
-    v52 = v10;
+    v49 = @"pv";
+    v50 = 2112;
+    v51 = v10;
     v27 = "Received txtRecord that has no value for key '%@': %@";
     goto LABEL_32;
   }
@@ -7005,20 +6969,20 @@ LABEL_33:
       dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
     }
 
-    v41 = hap2Log_browser;
+    v40 = hap2Log_browser;
     if (!os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_INFO))
     {
       goto LABEL_34;
     }
 
     *buf = 138412802;
-    v50 = @"pv";
-    v51 = 2112;
-    v52 = v20;
-    v53 = 2112;
-    v54 = v10;
+    v49 = @"pv";
+    v50 = 2112;
+    v51 = v20;
+    v52 = 2112;
+    v53 = v10;
     v23 = "Received txtRecord that has a bad value for key '%@' ('%@'): %@";
-    v24 = v41;
+    v24 = v40;
     v25 = 32;
 LABEL_13:
     _os_log_impl(&dword_22AADC000, v24, OS_LOG_TYPE_INFO, v23, buf, v25);
@@ -7028,7 +6992,7 @@ LABEL_34:
   }
 
   v17 = v34;
-  v48 = v31;
+  v47 = v31;
 
   v35 = [v10 objectForKeyedSubscript:@"md"];
   if (!v35)
@@ -7038,12 +7002,12 @@ LABEL_34:
       dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
     }
 
-    v42 = hap2Log_browser;
+    v41 = hap2Log_browser;
     if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v50 = @"md";
-      _os_log_error_impl(&dword_22AADC000, v42, OS_LOG_TYPE_ERROR, "Received txtRecord that doesn't include key '%@'", buf, 0xCu);
+      v49 = @"md";
+      _os_log_error_impl(&dword_22AADC000, v41, OS_LOG_TYPE_ERROR, "Received txtRecord that doesn't include key '%@'", buf, 0xCu);
     }
 
     goto LABEL_33;
@@ -7054,45 +7018,43 @@ LABEL_34:
   v37 = v36;
   if (v36)
   {
-    v47 = [v36 longLongValue];
+    v46 = [v36 longLongValue];
   }
 
   else
   {
-    v47 = 0;
+    v46 = 0;
   }
 
-  v43 = @"sh";
-  v44 = [v10 objectForKeyedSubscript:@"sh"];
-  v46 = v44;
-  if (v44)
+  v42 = @"sh";
+  v43 = [v10 objectForKeyedSubscript:@"sh"];
+  v45 = v43;
+  if (v43)
   {
-    v44 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v44 options:0];
-    if (!v44)
+    v43 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:v43 options:0];
+    if (!v43)
     {
       if (hap2LogInitialize_onceToken != -1)
       {
         dispatch_once(&hap2LogInitialize_onceToken, &__block_literal_global_1996);
       }
 
-      v45 = hap2Log_browser;
+      v44 = hap2Log_browser;
       if (os_log_type_enabled(hap2Log_browser, OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v50 = @"sh";
-        v51 = 2112;
-        v52 = v10;
-        _os_log_impl(&dword_22AADC000, v45, OS_LOG_TYPE_INFO, "Received txtRecord that has a bad value for key '%@': %@", buf, 0x16u);
+        v49 = @"sh";
+        v50 = 2112;
+        v51 = v10;
+        _os_log_impl(&dword_22AADC000, v44, OS_LOG_TYPE_INFO, "Received txtRecord that has a bad value for key '%@': %@", buf, 0x16u);
       }
 
-      v44 = 0;
+      v43 = 0;
     }
   }
 
-  v38 = [[HAP2AccessoryServerDiscoveryHAPAccessoryInfo alloc] initWithDeviceID:v7 rawDiscoveryInfo:v8 name:v9 model:v20 status:v13 category:v16 configurationNumber:v28 stateNumber:v48 protocolVersion:v17 featureFlags:v47 setupHash:v44];
+  v38 = [[HAP2AccessoryServerDiscoveryHAPAccessoryInfo alloc] initWithDeviceID:v7 rawDiscoveryInfo:v8 name:v9 model:v20 status:v13 category:v16 configurationNumber:v28 stateNumber:v47 protocolVersion:v17 featureFlags:v46 setupHash:v43];
 LABEL_35:
-
-  v39 = *MEMORY[0x277D85DE8];
 
   return v38;
 }
@@ -7105,16 +7067,16 @@ void sub_22ABDC3CC(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22ABDCB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABDCB20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABDCD20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABDCD20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7205,7 +7167,7 @@ uint64_t HAPCompareStateNumberWithRollover(void *a1, void *a2, unint64_t a3)
 
 uint64_t HAPValidateSetupHash(void *a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = v5;
   v7 = 0;
@@ -7215,9 +7177,9 @@ uint64_t HAPValidateSetupHash(void *a1, void *a2, void *a3)
     v9 = [a2 uppercaseString];
     v10 = [v6 stringByAppendingString:v9];
     v11 = [v10 dataUsingEncoding:{4, 0, 0, 0, 0, 0, 0, 0, 0}];
-    if (CC_SHA512([v11 bytes], objc_msgSend(v11, "length"), &v15))
+    if (CC_SHA512([v11 bytes], objc_msgSend(v11, "length"), &v14))
     {
-      v12 = [MEMORY[0x277CBEA90] dataWithBytes:&v15 length:4];
+      v12 = [MEMORY[0x277CBEA90] dataWithBytes:&v14 length:4];
     }
 
     else
@@ -7228,7 +7190,6 @@ uint64_t HAPValidateSetupHash(void *a1, void *a2, void *a3)
     v7 = [v12 isEqual:v8];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -7278,7 +7239,7 @@ uint64_t HAPIsHH2Enabled()
 
 void __HAPIsHH2Enabled_block_invoke()
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCA8D8] bundleForClass:NSClassFromString(&cfstr_Hmdhomemanager.isa)];
   v1 = [v0 bundlePath];
   v2 = [v1 containsString:@"HomeKitDaemonLegacy.framework"];
@@ -7302,9 +7263,9 @@ void __HAPIsHH2Enabled_block_invoke()
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = HMFGetLogIdentifier();
-        v15 = 138543362;
-        v16 = v8;
-        _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Detected unit test app. Switching the flag to HH1", &v15, 0xCu);
+        v14 = 138543362;
+        v15 = v8;
+        _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@Detected unit test app. Switching the flag to HH1", &v14, 0xCu);
       }
 
       objc_autoreleasePoolPop(v6);
@@ -7323,15 +7284,14 @@ void __HAPIsHH2Enabled_block_invoke()
       v13 = @"HH2";
     }
 
-    v15 = 138543618;
-    v16 = v11;
-    v17 = 2112;
-    v18 = v13;
-    _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@coreHAP Running in %@ mode", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v11;
+    v16 = 2112;
+    v17 = v13;
+    _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@coreHAP Running in %@ mode", &v14, 0x16u);
   }
 
   objc_autoreleasePoolPop(v9);
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t HAPEqualInstanceIDs(void *a1, void *a2)
@@ -7470,9 +7430,9 @@ __CFString *HAPOperatingStateAsString(unint64_t a1)
   return v2;
 }
 
-void sub_22ABE14FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABE14FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7581,7 +7541,7 @@ __CFString *HAPUpdateNotReadyReasonsAsString(unint64_t a1)
 
 uint64_t isValidTypeName(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if (!v1)
   {
@@ -7593,11 +7553,11 @@ uint64_t isValidTypeName(void *a1)
     }
 
     v5 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v5;
+    v8 = 138543362;
+    v9 = v5;
     v6 = "%{public}@### Type name is nil";
 LABEL_11:
-    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_ERROR, v6, &v9, 0xCu);
+    _os_log_impl(&dword_22AADC000, v4, OS_LOG_TYPE_ERROR, v6, &v8, 0xCu);
 
     goto LABEL_12;
   }
@@ -7613,8 +7573,8 @@ LABEL_11:
     }
 
     v5 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v5;
+    v8 = 138543362;
+    v9 = v5;
     v6 = "%{public}@### Type name is not a string";
     goto LABEL_11;
   }
@@ -7626,8 +7586,8 @@ LABEL_11:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       v5 = HMFGetLogIdentifier();
-      v9 = 138543362;
-      v10 = v5;
+      v8 = 138543362;
+      v9 = v5;
       v6 = "%{public}@### Type name is an empty string";
       goto LABEL_11;
     }
@@ -7642,13 +7602,12 @@ LABEL_12:
   v2 = 1;
 LABEL_13:
 
-  v7 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 uint64_t isValidInstanceID(void *a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v1 = a1;
   if (v1)
   {
@@ -7671,8 +7630,8 @@ uint64_t isValidInstanceID(void *a1)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           v7 = HMFGetLogIdentifier();
-          v12 = 138543362;
-          v13 = v7;
+          v11 = 138543362;
+          v12 = v7;
           v8 = "%{public}@### instance ID is not > 0";
           goto LABEL_10;
         }
@@ -7685,11 +7644,11 @@ uint64_t isValidInstanceID(void *a1)
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           v7 = HMFGetLogIdentifier();
-          v12 = 138543362;
-          v13 = v7;
+          v11 = 138543362;
+          v12 = v7;
           v8 = "%{public}@### instance ID is not an integer";
 LABEL_10:
-          _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_ERROR, v8, &v12, 0xCu);
+          _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_ERROR, v8, &v11, 0xCu);
         }
       }
     }
@@ -7701,8 +7660,8 @@ LABEL_10:
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         v7 = HMFGetLogIdentifier();
-        v12 = 138543362;
-        v13 = v7;
+        v11 = 138543362;
+        v12 = v7;
         v8 = "%{public}@### instance ID is not a number";
         goto LABEL_10;
       }
@@ -7716,8 +7675,8 @@ LABEL_10:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       v7 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v7;
+      v11 = 138543362;
+      v12 = v7;
       v8 = "%{public}@### nil instance ID";
       goto LABEL_10;
     }
@@ -7727,7 +7686,6 @@ LABEL_10:
   v9 = 0;
 LABEL_12:
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -7764,9 +7722,9 @@ uint64_t numbersAreNotEqualNilSafe(void *a1, void *a2)
   return v6;
 }
 
-void sub_22ABE4570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ABE4570(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7785,16 +7743,24 @@ void sub_22ABE4A68(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_22ABE4F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_22ABE4F04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void _HandleSocketEvent_f(unsigned int a1, void *a2)
+void sub_22ABE6A5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, ...)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  va_start(va, a29);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void _HandleSocketEvent_f(uint64_t a1, void *a2)
+{
+  v2 = a1;
+  v13 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 delegate];
   v5 = objc_autoreleasePoolPush();
@@ -7803,27 +7769,25 @@ void _HandleSocketEvent_f(unsigned int a1, void *a2)
   {
     v7 = HMFGetLogIdentifier();
     v8 = CUPrintFlags32();
-    v10 = 138543618;
-    v11 = v7;
-    v12 = 2112;
-    v13 = v8;
-    _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@[HAP HTTP Client] Received socket event with flags %@", &v10, 0x16u);
+    v9 = 138543618;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@[HAP HTTP Client] Received socket event with flags %@", &v9, 0x16u);
   }
 
   objc_autoreleasePoolPop(v5);
   if (v4)
   {
-    [v4 httpClient:v3 didReceiveSocketEvent:(a1 >> 1) & 2 | (a1 >> 11) & 1];
+    [v4 httpClient:v3 didReceiveSocketEvent:(v2 >> 1) & 2 | (v2 >> 11) & 1];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void _Invalidated_f(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v23 = 0;
-  memset(v22, 0, sizeof(v22));
+  v23 = *MEMORY[0x277D85DE8];
+  v22 = 0;
+  memset(v21, 0, sizeof(v21));
   v3 = a2;
   v4 = [v3 delegate];
   DebugGetErrorString();
@@ -7834,13 +7798,13 @@ void _Invalidated_f(uint64_t a1, void *a2)
     v7 = HMFGetLogIdentifier();
     v8 = [v4 identifier];
     *buf = 138544130;
-    v15 = v7;
-    v16 = 2112;
-    v17 = v8;
-    v18 = 1024;
-    v19 = a1;
-    v20 = 2080;
-    v21 = v22;
+    v14 = v7;
+    v15 = 2112;
+    v16 = v8;
+    v17 = 1024;
+    v18 = a1;
+    v19 = 2080;
+    v20 = v21;
     _os_log_impl(&dword_22AADC000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@[HAP HTTP Client] Received invalidate callback from CoreUtils HTTPClient %@ due to %d (%s)", buf, 0x26u);
   }
 
@@ -7861,29 +7825,27 @@ void _Invalidated_f(uint64_t a1, void *a2)
     block[1] = 3221225472;
     block[2] = ___Invalidated_f_block_invoke;
     block[3] = &unk_2786D6CA0;
-    v13 = v3;
+    v12 = v3;
     dispatch_async(v10, block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void _HandleEvent_f(uint64_t a1, void *a2)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v4 = objc_autoreleasePoolPush();
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v28 = v6;
+    v26 = v6;
     _os_log_impl(&dword_22AADC000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@[HAP HTTP Client] Received event message", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v4);
-  v25 = 0;
-  v26 = 0;
+  v23 = 0;
+  v24 = 0;
   v7 = a2;
   v8 = *(a1 + 9648);
   if (v8)
@@ -7894,94 +7856,91 @@ void _HandleEvent_f(uint64_t a1, void *a2)
   v9 = *(a1 + 8456);
   if ((v9 - 300) <= 0xFFFFFF9B)
   {
-    v11 = 0;
+    v10 = 0;
     v8 = (v9 + 200000);
   }
 
   else if (*(a1 + 8528) && *(a1 + 8520))
   {
-    v10 = *(a1 + 8216);
     v8 = HTTPGetHeaderField();
     if (v8)
     {
 LABEL_8:
-      v11 = 0;
+      v10 = 0;
       goto LABEL_9;
     }
 
-    v11 = 0;
+    v10 = 0;
     v8 = 4294960579;
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
     v8 = 4294960558;
   }
 
 LABEL_9:
-  v12 = HMErrorFromOSStatus(v8);
-  if (v12)
+  v11 = HMErrorFromOSStatus(v8);
+  if (v11)
   {
-    v13 = v12;
-    v14 = objc_autoreleasePoolPush();
-    v15 = HMFGetOSLogHandle();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v12 = v11;
+    v13 = objc_autoreleasePoolPush();
+    v14 = HMFGetOSLogHandle();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v16 = HMFGetLogIdentifier();
+      v15 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v28 = v16;
-      v29 = 2112;
-      v30 = v13;
-      _os_log_impl(&dword_22AADC000, v15, OS_LOG_TYPE_ERROR, "%{public}@[HAP HTTP Client] ### Received event but failed to deliver it due to %@", buf, 0x16u);
+      v26 = v15;
+      v27 = 2112;
+      v28 = v12;
+      _os_log_impl(&dword_22AADC000, v14, OS_LOG_TYPE_ERROR, "%{public}@[HAP HTTP Client] ### Received event but failed to deliver it due to %@", buf, 0x16u);
     }
 
-    objc_autoreleasePoolPop(v14);
+    objc_autoreleasePoolPop(v13);
   }
 
   else
   {
     if ([v7 _delegateRespondsToSelector:sel_httpClient_didReceiveEvent_])
     {
-      v17 = [v7 delegateQueue];
+      v16 = [v7 delegateQueue];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = ___HandleEvent_f_block_invoke;
       block[3] = &unk_2786D7050;
-      v23 = v7;
-      v11 = 0;
-      v24 = v11;
-      dispatch_async(v17, block);
+      v21 = v7;
+      v10 = 0;
+      v22 = v10;
+      dispatch_async(v16, block);
     }
 
-    v13 = 0;
+    v12 = 0;
   }
 
-  v18 = [v7 delegate];
+  v17 = [v7 delegate];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v19 = v18;
+    v18 = v17;
   }
 
   else
   {
-    v19 = 0;
+    v18 = 0;
   }
 
-  v20 = v19;
+  v19 = v18;
 
-  if (v20)
+  if (v19)
   {
-    [v20 incrementHAPIPHTTPEventsCount];
+    [v19 incrementHAPIPHTTPEventsCount];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void _HandleConnectionProgress(int a1, uint64_t a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((a1 - 1) >= 2)
   {
@@ -8004,18 +7963,16 @@ void _HandleConnectionProgress(int a1, uint64_t a2, void *a3)
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v11 = HMFGetLogIdentifier();
-        v13 = 138543618;
-        v14 = v11;
-        v15 = 1024;
-        v16 = a1;
-        _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unknown Phase in HandleConnectionProgress: %d", &v13, 0x12u);
+        v12 = 138543618;
+        v13 = v11;
+        v14 = 1024;
+        v15 = a1;
+        _os_log_impl(&dword_22AADC000, v10, OS_LOG_TYPE_ERROR, "%{public}@Unknown Phase in HandleConnectionProgress: %d", &v12, 0x12u);
       }
 
       objc_autoreleasePoolPop(v8);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void _HandleWillSendMessage_f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
@@ -8166,30 +8123,30 @@ void sub_22ABEDA40(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22ABEED8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABEED8C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABEEED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABEEED8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABEF084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABEF084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABEF290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABEF290(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8201,16 +8158,16 @@ uint64_t __Block_byref_object_copy__13800(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22ABF0710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_22ABF0710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABF0838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABF0838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8222,31 +8179,31 @@ uint64_t __Block_byref_object_copy__14027(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22ABF12F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_22ABF12F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
+{
+  va_start(va, a22);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22ABF1930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22ABF1C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
   va_start(va, a15);
   _Block_object_dispose(va, 8);
+  _Block_object_dispose((v15 - 128), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABF1930(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22ABF20F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22ABF1C28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
-  _Block_object_dispose(va, 8);
-  _Block_object_dispose((v8 - 128), 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22ABF20F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
-{
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8363,30 +8320,30 @@ LABEL_26:
   return v7;
 }
 
-void sub_22ABFDB78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_22ABFDB78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABFDFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_22ABFDFCC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABFEE18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22ABFEE18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
-  v18 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
+  v25 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -8399,31 +8356,31 @@ uint64_t __Block_byref_object_copy__15106(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22ABFF420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22ABFF420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABFF800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABFF800(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22ABFF984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22ABFF984(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void _PairSetupAfterM4(int a1, uint64_t a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if (a1 == 3)
   {
@@ -8446,11 +8403,11 @@ void _PairSetupAfterM4(int a1, uint64_t a2, void *a3)
           v12 = HMFGetLogIdentifier();
           v13 = [v8 shortDescription];
           *buf = 138543874;
-          v17 = v12;
-          v18 = 1024;
-          v19 = PeerFlags;
-          v20 = 2112;
-          v21 = v13;
+          v16 = v12;
+          v17 = 1024;
+          v18 = PeerFlags;
+          v19 = 2112;
+          v20 = v13;
           _os_log_impl(&dword_22AADC000, v11, OS_LOG_TYPE_INFO, "%{public}@Pair-setup after M4, flags %08X  productData %@", buf, 0x1Cu);
         }
 
@@ -8477,23 +8434,21 @@ void _PairSetupAfterM4(int a1, uint64_t a2, void *a3)
 LABEL_8:
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t _PromptForSetupCodeDelegateCallback_f(int a1, int a2, void *a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v6 = objc_autoreleasePoolPush();
   v7 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     v8 = HMFGetLogIdentifier();
-    v13 = 138543618;
-    v14 = v8;
-    v15 = 1024;
-    v16 = a1;
-    _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@_PromptForSetupCodeDelegateCallback_f with flags: %u", &v13, 0x12u);
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 1024;
+    v15 = a1;
+    _os_log_impl(&dword_22AADC000, v7, OS_LOG_TYPE_DEBUG, "%{public}@_PromptForSetupCodeDelegateCallback_f with flags: %u", &v12, 0x12u);
   }
 
   objc_autoreleasePoolPop(v6);
@@ -8524,22 +8479,21 @@ uint64_t _PromptForSetupCodeDelegateCallback_f(int a1, int a2, void *a3)
     v10 = 4294960569;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 uint64_t _PairingShowSetupCode_f(int a1, void *a2, uint64_t a3, void *a4)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v8 = objc_autoreleasePoolPush();
   v9 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v25 = v10;
-    v26 = 1024;
-    LODWORD(v27) = a1;
+    v24 = v10;
+    v25 = 1024;
+    LODWORD(v26) = a1;
     _os_log_impl(&dword_22AADC000, v9, OS_LOG_TYPE_DEBUG, "%{public}@_PairingShowSetupCode_f with flags: %u", buf, 0x12u);
   }
 
@@ -8548,9 +8502,9 @@ uint64_t _PairingShowSetupCode_f(int a1, void *a2, uint64_t a3, void *a4)
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v23 = 0;
-    v12 = [v11 _showSetupCodeWithError:&v23];
-    v13 = v23;
+    v22 = 0;
+    v12 = [v11 _showSetupCodeWithError:&v22];
+    v13 = v22;
     v14 = v13;
     if (v12)
     {
@@ -8583,9 +8537,9 @@ uint64_t _PairingShowSetupCode_f(int a1, void *a2, uint64_t a3, void *a4)
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v25 = v19;
-      v26 = 2112;
-      v27 = v11;
+      v24 = v19;
+      v25 = 2112;
+      v26 = v11;
       _os_log_impl(&dword_22AADC000, v18, OS_LOG_TYPE_ERROR, "%{public}@Error during _PairingShowSetupCode_f, object is not a HAPSRPPairSetupSession: %@", buf, 0x16u);
     }
 
@@ -8593,13 +8547,12 @@ uint64_t _PairingShowSetupCode_f(int a1, void *a2, uint64_t a3, void *a4)
     v16 = 4294960591;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 uint64_t _SavePairedPeerDelegateCallback_f_15196(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v7 = a4;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -8625,8 +8578,8 @@ uint64_t _SavePairedPeerDelegateCallback_f_15196(uint64_t a1, uint64_t a2, uint6
       {
         v14 = HMFGetLogIdentifier();
         v15 = @"nonnil";
-        v23 = 138544130;
-        v24 = v14;
+        v22 = 138544130;
+        v23 = v14;
         if (v8)
         {
           v16 = @"nonnil";
@@ -8637,18 +8590,18 @@ uint64_t _SavePairedPeerDelegateCallback_f_15196(uint64_t a1, uint64_t a2, uint6
           v16 = @"nil";
         }
 
-        v26 = v16;
-        v25 = 2112;
+        v25 = v16;
+        v24 = 2112;
         if (!v10)
         {
           v15 = @"nil";
         }
 
-        v27 = 2112;
-        v28 = v15;
-        v29 = 2112;
-        v30 = v7;
-        _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_ERROR, "%{public}@Error during _SavePairedPeerDelegateCallback_f with peerIdentifier: %@, peerPublicKeyData: %@, session: %@", &v23, 0x2Au);
+        v26 = 2112;
+        v27 = v15;
+        v28 = 2112;
+        v29 = v7;
+        _os_log_impl(&dword_22AADC000, v13, OS_LOG_TYPE_ERROR, "%{public}@Error during _SavePairedPeerDelegateCallback_f with peerIdentifier: %@, peerPublicKeyData: %@, session: %@", &v22, 0x2Au);
       }
 
       objc_autoreleasePoolPop(v12);
@@ -8681,7 +8634,6 @@ uint64_t _SavePairedPeerDelegateCallback_f_15196(uint64_t a1, uint64_t a2, uint6
     v17 = 4294960569;
   }
 
-  v21 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -9124,9 +9076,9 @@ uint64_t HAPCharacteristicUnitFromString(void *a1)
   return v2;
 }
 
-void sub_22AC14B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AC14B78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -9138,66 +9090,66 @@ uint64_t __Block_byref_object_copy__17262(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22AC14E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AC14E24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AC15104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22AC15104(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v13 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
-  v17 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v20 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
+  v24 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AC152C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AC152C8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AC15540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22AC15540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 96), 8);
+  _Block_object_dispose((v18 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AC157DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AC157DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_22AC15914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AC167A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AC15914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_22AC167A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va1, a13);
+  va_start(va, a13);
   v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -9210,91 +9162,93 @@ uint64_t __Block_byref_object_copy__17482(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_22AC17830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AC17830(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AC17A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AC17A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AC17CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AC17CEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AC17F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AC17F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AC181E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AC181E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AC18454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AC18454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AC186C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AC186C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AC18934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_22AC18934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AC18DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_22AC18DD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AC193B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, char a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34)
+void sub_22AC193B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, ...)
 {
+  va_start(va, a33);
   _Block_object_dispose(&a22, 8);
   _Block_object_dispose(&a26, 8);
   _Block_object_dispose(&a30, 8);
-  _Block_object_dispose(&a34, 8);
-  _Block_object_dispose((v34 - 216), 8);
-  _Block_object_dispose((v34 - 184), 8);
-  _Block_object_dispose((v34 - 152), 8);
-  _Block_object_dispose((v34 - 120), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v33 - 216), 8);
+  _Block_object_dispose((v33 - 184), 8);
+  _Block_object_dispose((v33 - 152), 8);
+  _Block_object_dispose((v33 - 120), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_22AC1A1A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_22AC1A1A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  _Block_object_dispose((v33 - 128), 8);
-  _Block_object_dispose((v33 - 96), 8);
+  va_start(va, a32);
+  _Block_object_dispose((v32 - 128), 8);
+  _Block_object_dispose((v32 - 96), 8);
   _Block_object_dispose(&a17, 8);
   _Block_object_dispose(&a21, 8);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 

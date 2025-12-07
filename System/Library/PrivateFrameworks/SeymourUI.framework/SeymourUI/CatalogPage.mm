@@ -204,7 +204,7 @@
 
 - (id)indexPathForPreferredFocusedViewInCollectionView:(id)view
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7629C0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7629C0, qword_20C1510D0);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v18 - v5;
   v7 = self + OBJC_IVAR____TtC9SeymourUI11CatalogPage_delegate;

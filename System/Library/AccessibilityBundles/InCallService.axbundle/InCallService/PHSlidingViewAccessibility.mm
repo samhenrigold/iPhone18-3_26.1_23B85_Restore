@@ -76,14 +76,14 @@ id __72__PHSlidingViewAccessibility__accessibilityLoadAccessibilityInformation__
 
 - (void)setSlidingViewState:(unint64_t)state
 {
-  v19 = *MEMORY[0x29EDCA608];
+  v18 = *MEMORY[0x29EDCA608];
   v5 = [(PHSlidingViewAccessibility *)self safeUIViewForKey:@"titleLabel"];
   [v5 alpha];
   v7 = v6;
 
-  v16.receiver = self;
-  v16.super_class = PHSlidingViewAccessibility;
-  [(PHSlidingViewAccessibility *)&v16 setSlidingViewState:state];
+  v15.receiver = self;
+  v15.super_class = PHSlidingViewAccessibility;
+  [(PHSlidingViewAccessibility *)&v15 setSlidingViewState:state];
   v8 = [(PHSlidingViewAccessibility *)self safeUIViewForKey:@"titleLabel"];
   [v8 alpha];
   v10 = v9;
@@ -102,14 +102,12 @@ id __72__PHSlidingViewAccessibility__accessibilityLoadAccessibilityInformation__
     {
       v14 = [MEMORY[0x29EDBA070] numberWithUnsignedInteger:state];
       *buf = 138412290;
-      v18 = v14;
+      v17 = v14;
       _os_log_impl(&dword_29BEB2000, v13, OS_LOG_TYPE_DEFAULT, "Resetting VO quiet state: %@", buf, 0xCu);
     }
 
     [*MEMORY[0x29EDC8008] _accessibilitySetIsDictationListeningOverride:0];
   }
-
-  v15 = *MEMORY[0x29EDCA608];
 }
 
 - (void)interactiveStartWithCountdownModel:(id)model

@@ -6,10 +6,10 @@
 
 - (MIUIRelationshipPickerDataSource)init
 {
-  v23[10] = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = MIUIRelationshipPickerDataSource;
-  v2 = [(MIUIRelationshipPickerDataSource *)&v22 init];
+  v22[10] = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = MIUIRelationshipPickerDataSource;
+  v2 = [(MIUIRelationshipPickerDataSource *)&v21 init];
   if (v2)
   {
     v3 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
@@ -30,33 +30,32 @@
       [v6 insertObject:*MEMORY[0x277CBD6D8] atIndex:v8 + 1];
     }
 
-    v21 = [(NSBundle *)v2->_medicalIDBundle localizedStringForKey:@"relationship_roommate" value:&stru_2869C2C28 table:0];
-    v23[0] = v21;
-    v20 = [(NSBundle *)v2->_medicalIDBundle localizedStringForKey:@"relationship_doctor" value:&stru_2869C2C28 table:0];
-    v23[1] = v20;
-    v19 = [(NSBundle *)v2->_medicalIDBundle localizedStringForKey:@"relationship_emergency" value:&stru_2869C2C28 table:0];
-    v23[2] = v19;
+    v20 = [(NSBundle *)v2->_medicalIDBundle localizedStringForKey:@"relationship_roommate" value:&stru_2869C2C28 table:0];
+    v22[0] = v20;
+    v19 = [(NSBundle *)v2->_medicalIDBundle localizedStringForKey:@"relationship_doctor" value:&stru_2869C2C28 table:0];
+    v22[1] = v19;
+    v18 = [(NSBundle *)v2->_medicalIDBundle localizedStringForKey:@"relationship_emergency" value:&stru_2869C2C28 table:0];
+    v22[2] = v18;
     v9 = [(NSBundle *)v2->_medicalIDBundle localizedStringForKey:@"relationship_family_member" value:&stru_2869C2C28 table:0];
-    v23[3] = v9;
+    v22[3] = v9;
     v10 = [(NSBundle *)v2->_medicalIDBundle localizedStringForKey:@"relationship_teacher" value:&stru_2869C2C28 table:0];
-    v23[4] = v10;
+    v22[4] = v10;
     v11 = [(NSBundle *)v2->_medicalIDBundle localizedStringForKey:@"relationship_caretaker" value:&stru_2869C2C28 table:0];
-    v23[5] = v11;
+    v22[5] = v11;
     v12 = [(NSBundle *)v2->_medicalIDBundle localizedStringForKey:@"relationship_guardian" value:&stru_2869C2C28 table:0];
-    v23[6] = v12;
+    v22[6] = v12;
     v13 = [(NSBundle *)v2->_medicalIDBundle localizedStringForKey:@"relationship_social_worker" value:&stru_2869C2C28 table:0];
-    v23[7] = v13;
+    v22[7] = v13;
     v14 = [(NSBundle *)v2->_medicalIDBundle localizedStringForKey:@"relationship_school" value:&stru_2869C2C28 table:0];
-    v23[8] = v14;
+    v22[8] = v14;
     v15 = [(NSBundle *)v2->_medicalIDBundle localizedStringForKey:@"relationship_daycare" value:&stru_2869C2C28 table:0];
-    v23[9] = v15;
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:10];
+    v22[9] = v15;
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:10];
     [v6 addObjectsFromArray:v16];
 
     [(MIUIRelationshipPickerDataSource *)v2 setRelationships:v6];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

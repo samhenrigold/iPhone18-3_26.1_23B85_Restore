@@ -230,7 +230,7 @@ LABEL_19:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   v13 = v32;
   a7 = v31;
   a5 = v30;
@@ -506,7 +506,7 @@ LABEL_19:
   }
 
   fig_log_get_emitter();
-  v34 = FigSignalErrorAtGM();
+  v34 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v41.i64[0], v41.i32[2], v42.i32[0]);
   v13 = v32;
   a7 = v31;
   a5 = v30;
@@ -751,7 +751,7 @@ LABEL_14:
   v28.i64[0] = v27.i64[0];
   v28.i64[1] = -1;
   v29 = vaddq_s64(v42, v28);
-  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM(), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
+  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v38.i64[0], v38.i32[2], v39.i32[0]), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
   {
     v20 = v31;
   }
@@ -996,7 +996,7 @@ LABEL_14:
   v28.i64[0] = v27.i64[0];
   v28.i64[1] = -1;
   v29 = vaddq_s64(v42, v28);
-  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM(), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
+  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v38.i64[0], v38.i32[2], v39.i32[0]), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
   {
     v20 = v31;
   }
@@ -1219,7 +1219,7 @@ LABEL_14:
   v28.i64[0] = v27.i64[0];
   v28.i64[1] = -1;
   v29 = vaddq_s64(v42, v28);
-  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM(), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
+  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v38.i64[0], v38.i32[2], v39.i32[0]), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
   {
     v20 = v31;
   }
@@ -1408,7 +1408,7 @@ LABEL_14:
   v28.i64[0] = v27.i64[0];
   v28.i64[1] = -1;
   v29 = vaddq_s64(v42, v28);
-  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM(), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
+  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v38.i64[0], v38.i32[2], v39.i32[0]), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
   {
     v20 = v31;
   }
@@ -1651,7 +1651,7 @@ LABEL_14:
   v28.i64[0] = v27.i64[0];
   v28.i64[1] = -1;
   v29 = vaddq_s64(v42, v28);
-  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM(), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
+  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v38.i64[0], v38.i32[2], v39.i32[0]), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
   {
     v20 = v31;
   }
@@ -1874,7 +1874,7 @@ LABEL_14:
   v28.i64[0] = v27.i64[0];
   v28.i64[1] = -1;
   v29 = vaddq_s64(v42, v28);
-  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM(), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
+  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v38.i64[0], v38.i32[2], v39.i32[0]), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
   {
     v20 = v31;
   }
@@ -2062,7 +2062,7 @@ LABEL_14:
   v28.i64[0] = v27.i64[0];
   v28.i64[1] = -1;
   v29 = vaddq_s64(v42, v28);
-  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM(), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
+  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v38.i64[0], v38.i32[2], v39.i32[0]), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
   {
     v20 = v31;
   }
@@ -2270,7 +2270,7 @@ LABEL_14:
   v28.i64[0] = v27.i64[0];
   v28.i64[1] = -1;
   v29 = vaddq_s64(v42, v28);
-  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM(), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
+  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v38.i64[0], v38.i32[2], v39.i32[0]), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
   {
     v20 = v31;
   }
@@ -2461,7 +2461,7 @@ LABEL_14:
   v28.i64[0] = v27.i64[0];
   v28.i64[1] = -1;
   v29 = vaddq_s64(v42, v28);
-  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM(), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
+  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 8 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v38.i64[0], v38.i32[2], v39.i32[0]), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
   {
     v20 = v31;
   }
@@ -2620,7 +2620,7 @@ LABEL_14:
   v28.i64[0] = v27.i64[0];
   v28.i64[1] = -1;
   v29 = vaddq_s64(v42, v28);
-  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 16 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM(), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
+  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 16 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v38.i64[0], v38.i32[2], v39.i32[0]), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
   {
     v20 = v31;
   }
@@ -2832,7 +2832,7 @@ LABEL_14:
   v28.i64[0] = v27.i64[0];
   v28.i64[1] = -1;
   v29 = vaddq_s64(v42, v28);
-  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 16 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM(), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
+  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 16 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v38.i64[0], v38.i32[2], v39.i32[0]), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
   {
     v20 = v31;
   }
@@ -3025,7 +3025,7 @@ LABEL_14:
   v28.i64[0] = v27.i64[0];
   v28.i64[1] = -1;
   v29 = vaddq_s64(v42, v28);
-  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 16 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM(), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
+  if (((*a4 * (v29.i64[1] + v27.i64[1]) + 8 * v29.i64[0]) > *a5 || (v30 = vaddq_s64(v40, v28), (*a8 * (v30.i64[1] + v27.i64[1]) + 16 * v30.i64[0]) > *a9)) && (v38 = v27, v39.i64[0] = a9, fig_log_get_emitter(), v31 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v38.i64[0], v38.i32[2], v39.i32[0]), v24 = v40, v23 = v39.i64[0], v27 = v38, v31))
   {
     v20 = v31;
   }
@@ -3976,7 +3976,7 @@ LABEL_8:
         if (a2 != 5)
         {
           fig_log_get_emitter();
-          v20 = FigSignalErrorAtGM();
+          v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v29, v30, v31);
           goto LABEL_50;
         }
 
@@ -3993,11 +3993,15 @@ LABEL_8:
         }
       }
 
+      v31 = 768;
+      v30 = 512;
       ArrayWithCacheModes = createArrayWithCacheModes(1024, v10, v11, v12, v13, v14, v15, v16, 1280);
     }
 
     else
     {
+      v31 = 512;
+      v30 = 1280;
       ArrayWithCacheModes = createArrayWithCacheModes(768, v10, v11, v12, v13, v14, v15, v16, 0);
     }
 
@@ -4047,7 +4051,7 @@ LABEL_33:
     else
     {
       fig_log_get_emitter();
-      v20 = FigSignalErrorAtGM();
+      v20 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v29, v30, v31);
     }
 
     goto LABEL_44;
@@ -4247,8 +4251,7 @@ LABEL_6:
       v13 = &a9;
       while (1)
       {
-        v11 = v13;
-        v13 += 2;
+        v11 = v13++;
         if (*v11 < 0)
         {
           break;
@@ -4270,7 +4273,7 @@ LABEL_6:
   return Mutable;
 }
 
-uint64_t figIOSurfaceAcceleratedPixelTransfer_Transfer(int a1, int a2, CVPixelBufferRef pixelBuffer, uint64_t a4, __CVBuffer *a5)
+uint64_t figIOSurfaceAcceleratedPixelTransfer_Transfer(uint64_t *a1, int a2, CVPixelBufferRef pixelBuffer, uint64_t a4, __CVBuffer *a5)
 {
   CVPixelBufferGetIOSurface(pixelBuffer);
   CVPixelBufferGetIOSurface(a5);
@@ -4278,7 +4281,7 @@ uint64_t figIOSurfaceAcceleratedPixelTransfer_Transfer(int a1, int a2, CVPixelBu
   if (v6)
   {
     fig_log_get_emitter();
-    FigSignalErrorAtGM();
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v8, v9, v10);
   }
 
   return v6;
@@ -4417,41 +4420,41 @@ LABEL_30:
   return result;
 }
 
-uint64_t getSubSampling(OSType pixelFormat)
+uint64_t getSubSampling(OSType pixelFormat, uint64_t a2)
 {
-  v1 = CVPixelFormatDescriptionCreateWithPixelFormatType(*MEMORY[0x1E695E480], pixelFormat);
-  if (v1)
+  v2 = CVPixelFormatDescriptionCreateWithPixelFormatType(*MEMORY[0x1E695E480], pixelFormat);
+  if (v2)
   {
-    v2 = v1;
-    Value = CFDictionaryGetValue(v1, *MEMORY[0x1E69662D8]);
+    v3 = v2;
+    Value = CFDictionaryGetValue(v2, *MEMORY[0x1E69662D8]);
     if (Value)
     {
-      v4 = Value;
-      v5 = CFGetTypeID(Value);
-      if (v5 == CFArrayGetTypeID() && CFArrayGetCount(v4) >= 1)
+      v5 = Value;
+      v6 = CFGetTypeID(Value);
+      if (v6 == CFArrayGetTypeID() && CFArrayGetCount(v5) >= 1)
       {
-        v6 = 0;
+        v7 = 0;
         do
         {
-          ValueAtIndex = CFArrayGetValueAtIndex(v4, v6);
+          ValueAtIndex = CFArrayGetValueAtIndex(v5, v7);
           if (ValueAtIndex)
           {
-            v8 = CFGetTypeID(ValueAtIndex);
-            if (v8 == CFDictionaryGetTypeID())
+            v9 = CFGetTypeID(ValueAtIndex);
+            if (v9 == CFDictionaryGetTypeID())
             {
               FigCFDictionaryGetInt32IfPresent();
             }
           }
 
-          ++v6;
+          ++v7;
         }
 
-        while (CFArrayGetCount(v4) > v6);
+        while (CFArrayGetCount(v5) > v7);
       }
     }
 
     FigCFDictionaryGetInt32IfPresent();
-    CFRelease(v2);
+    CFRelease(v3);
   }
 
   return 1;
@@ -4514,7 +4517,7 @@ uint64_t isH3Platform()
   return isH3Platform_isH3Platform;
 }
 
-void _initAsgFilter(unsigned int a1, uint64_t a2, char a3, char a4, int a5, unsigned int *a6, double a7)
+void _initAsgFilter(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, unsigned int *a6, double a7)
 {
   v40 = a5;
   v46 = a2;
@@ -4544,7 +4547,7 @@ void _initAsgFilter(unsigned int a1, uint64_t a2, char a3, char a4, int a5, unsi
     v49 = 3.14159265;
     do
     {
-      MEMORY[0x1EEE9AC00]();
+      MEMORY[0x1EEE9AC00](a1, a2, a3, a4);
       v15 = (&v34 - ((v14 + 15) & 0xFFFFFFFF0));
       bzero(v15, v45);
       if (a7 == 1.0)
@@ -4651,19 +4654,19 @@ LABEL_30:
   }
 }
 
-uint64_t VTDecompressionSessionServerStartXPC()
+uint64_t VTDecompressionSessionServerStartXPC(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   FigKTraceInit();
   Mutable = CFDictionaryCreateMutable(*MEMORY[0x1E695E480], 0, MEMORY[0x1E695E9D8], MEMORY[0x1E695E9E8]);
-  FigCFDictionarySetInt32();
-  VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode();
-  v1 = FigXPCServerStart();
+  v7 = FigCFDictionarySetInt32();
+  VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode(v7, v8);
+  v9 = FigXPCServerStart();
   if (Mutable)
   {
     CFRelease(Mutable);
   }
 
-  return v1;
+  return v9;
 }
 
 uint64_t dssxpc_decompressionSessionClientRecordCreate()
@@ -4676,7 +4679,7 @@ uint64_t dssxpc_decompressionSessionClientRecordCreate()
   return _CFRuntimeCreateInstance();
 }
 
-uint64_t dssxpc_InitializeClient(uint64_t a1, int a2, uint64_t a3, void *a4, const void *a5, const void *a6, uint64_t a7)
+uint64_t dssxpc_InitializeClient(uint64_t a1, unsigned int a2, uint64_t a3, void *a4, const void *a5, const void *a6, uint64_t a7)
 {
   valuePtr = a2;
   *(a1 + 16) = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
@@ -5166,13 +5169,13 @@ void __dssxpc_invalidateSession_block_invoke(uint64_t a1)
 {
   FigSimpleMutexLock();
   VTDecompressionSessionInvalidate(*(*(a1 + 32) + 56));
-  VTTileDecompressionSessionInvalidate(*(*(a1 + 32) + 64));
+  VTTileDecompressionSessionInvalidate(*(*(a1 + 32) + 64), v2, v3);
   FigSimpleMutexUnlock();
-  v2 = *(a1 + 32);
-  if (v2)
+  v4 = *(a1 + 32);
+  if (v4)
   {
 
-    CFRelease(v2);
+    CFRelease(v4);
   }
 }
 
@@ -5209,7 +5212,7 @@ double __TileDecompressionOutputCallback_block_invoke(uint64_t a1, CMBlockBuffer
   return result;
 }
 
-void OUTLINED_FUNCTION_15_4(NSObject *a1@<X0>, NSObject *a2@<X1>, uint64_t a3@<X8>, uint64_t a4, char block, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
+void OUTLINED_FUNCTION_15_4(NSObject *a1@<X0>, NSObject *a2@<X1>, uint64_t a3@<X8>, uint64_t a4, uint64_t block, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   a9 = v12;
   a10 = a3;
@@ -5227,71 +5230,71 @@ uint64_t vtdcr_Register()
 
 uint64_t VTDecompressionSessionRemote_Create(uint64_t a1, uint64_t a2, void *a3, const __CFDictionary *a4, const __CFDictionary *a5, _OWORD *a6, uint64_t *a7)
 {
-  v28 = 0;
+  v30 = 0;
   values = a3;
   cf = 0;
+  v29 = 0;
+  v26 = 0;
   v27 = 0;
-  v24 = 0;
-  v25 = 0;
   v11 = vtdsr_oneTimeInitialization();
   if (v11)
   {
-    v21 = v11;
-    v15 = 0;
-    v19 = 0;
+    v23 = v11;
+    v16 = 0;
+    v21 = 0;
   }
 
   else
   {
-    VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode();
+    VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode(v11, v12);
     MEMORY[0x193AE3010](&VTDecompressionSessionRemoteGetTypeID_sRegisterVTDecompressionSessionRemoteOnce, vtdcr_Register);
     Instance = _CFRuntimeCreateInstance();
     if (Instance)
     {
-      v13 = Instance;
+      v14 = Instance;
       *(Instance + 56) = FigCFWeakReferenceHolderCreateWithReferencedObject();
-      *(v13 + 120) = dispatch_group_create();
-      *(v13 + 112) = dispatch_queue_create("com.apple.coremedia.decompressionsession.clientcallback", 0);
-      *(v13 + 104) = dispatch_queue_create("com.apple.coremedia.decompressionsession.pendingframequeue", 0);
-      *(v13 + 136) = FigSemaphoreCreate();
-      *(v13 + 160) = FigSemaphoreCreate();
-      *(v13 + 200) = 1;
-      *(v13 + 40) = FigSemaphoreCreate();
+      *(v14 + 120) = dispatch_group_create();
+      *(v14 + 112) = dispatch_queue_create("com.apple.coremedia.decompressionsession.clientcallback", 0);
+      *(v14 + 104) = dispatch_queue_create("com.apple.coremedia.decompressionsession.pendingframequeue", 0);
+      *(v14 + 136) = FigSemaphoreCreate();
+      *(v14 + 160) = FigSemaphoreCreate();
+      *(v14 + 200) = 1;
+      *(v14 + 40) = FigSemaphoreCreate();
       if (a6)
       {
-        *(v13 + 72) = *a6;
+        *(v14 + 72) = *a6;
       }
 
-      *(v13 + 240) = 1;
-      v14 = *MEMORY[0x1E695E480];
-      v15 = CFArrayCreate(*MEMORY[0x1E695E480], &values, 1, MEMORY[0x1E695E9C0]);
-      if (!v15)
+      *(v14 + 240) = 1;
+      v15 = *MEMORY[0x1E695E480];
+      v16 = CFArrayCreate(*MEMORY[0x1E695E480], &values, 1, MEMORY[0x1E695E9C0]);
+      if (!v16)
       {
-        VTDecompressionSessionRemote_Create_cold_1(&v30);
-        v19 = 0;
-        v21 = v30;
+        VTDecompressionSessionRemote_Create_cold_1(&v32);
+        v21 = 0;
+        v23 = v32;
         goto LABEL_37;
       }
 
       SerializedAtomDataForFormatDescriptions = FigRemote_CreateSerializedAtomDataForFormatDescriptions();
       if (SerializedAtomDataForFormatDescriptions)
       {
-        v21 = SerializedAtomDataForFormatDescriptions;
+        v23 = SerializedAtomDataForFormatDescriptions;
       }
 
       else
       {
         if (!a4)
         {
-          v19 = 0;
+          v21 = 0;
 LABEL_14:
-          PixelBufferAttributesWithIOSurfaceSupport = vtdsr_createPixelBufferAttributesWithIOSurfaceSupport(a5, &v24);
+          PixelBufferAttributesWithIOSurfaceSupport = vtdsr_createPixelBufferAttributesWithIOSurfaceSupport(a5, &v26);
           if (!PixelBufferAttributesWithIOSurfaceSupport)
           {
             PixelBufferAttributesWithIOSurfaceSupport = FigCreateCFDataFromCFPropertyList();
             if (!PixelBufferAttributesWithIOSurfaceSupport)
             {
-              *(v13 + 248) = 0;
+              *(v14 + 248) = 0;
               PixelBufferAttributesWithIOSurfaceSupport = weakReferenceTable_AddPointerAndGetKey_0();
               if (!PixelBufferAttributesWithIOSurfaceSupport)
               {
@@ -5303,17 +5306,17 @@ LABEL_14:
                   {
                     CMNotificationCenterGetDefaultLocalCenter();
                     FigNotificationCenterAddWeakListener();
-                    v21 = 0;
+                    v23 = 0;
                     if (a7)
                     {
-                      *a7 = v13;
+                      *a7 = v14;
                       goto LABEL_21;
                     }
 
 LABEL_37:
-                    v22 = vtdsr_handleMachErrorsInternal(v13, v21);
-                    CFRelease(v13);
-                    if (!v15)
+                    v24 = vtdsr_handleMachErrorsInternal(v14, v23, "VTDecompressionSessionRemote_Create", 0);
+                    CFRelease(v14);
+                    if (!v16)
                     {
                       goto LABEL_23;
                     }
@@ -5326,13 +5329,13 @@ LABEL_37:
           }
 
 LABEL_36:
-          v21 = PixelBufferAttributesWithIOSurfaceSupport;
+          v23 = PixelBufferAttributesWithIOSurfaceSupport;
           goto LABEL_37;
         }
 
-        if (!VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode() || !CFDictionaryContainsKey(a4, @"CMSession"))
+        if (!VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode(SerializedAtomDataForFormatDescriptions, v18) || !CFDictionaryContainsKey(a4, @"CMSession"))
         {
-          v19 = 0;
+          v21 = 0;
 LABEL_13:
           PixelBufferAttributesWithIOSurfaceSupport = FigCreateCFDataFromCFPropertyList();
           if (PixelBufferAttributesWithIOSurfaceSupport)
@@ -5343,38 +5346,38 @@ LABEL_13:
           goto LABEL_14;
         }
 
-        MutableCopy = CFDictionaryCreateMutableCopy(v14, 0, a4);
+        MutableCopy = CFDictionaryCreateMutableCopy(v15, 0, a4);
         if (MutableCopy)
         {
-          v18 = MutableCopy;
+          v20 = MutableCopy;
           CFDictionaryRemoveValue(MutableCopy, @"CMSession");
-          v19 = v18;
+          v21 = v20;
           goto LABEL_13;
         }
 
-        v21 = 0;
+        v23 = 0;
       }
 
-      v19 = 0;
+      v21 = 0;
       goto LABEL_37;
     }
 
-    VTDecompressionSessionRemote_Create_cold_2(&v30);
-    v15 = 0;
-    v19 = 0;
-    v21 = v30;
+    VTDecompressionSessionRemote_Create_cold_2(&v32);
+    v16 = 0;
+    v21 = 0;
+    v23 = v32;
   }
 
 LABEL_21:
-  v22 = vtdsr_handleMachErrorsInternal(0, v21);
-  if (v15)
+  v24 = vtdsr_handleMachErrorsInternal(0, v23, "VTDecompressionSessionRemote_Create", 0);
+  if (v16)
   {
 LABEL_22:
-    CFRelease(v15);
+    CFRelease(v16);
   }
 
 LABEL_23:
-  if (v28 && v27)
+  if (v30 && v29)
   {
     MEMORY[0x193AE4440](*MEMORY[0x1E69E9A60]);
   }
@@ -5384,22 +5387,22 @@ LABEL_23:
     CFRelease(cf);
   }
 
-  if (v25)
+  if (v27)
   {
-    CFRelease(v25);
+    CFRelease(v27);
   }
 
-  if (v19)
+  if (v21)
   {
-    CFRelease(v19);
+    CFRelease(v21);
   }
 
-  if (v24)
+  if (v26)
   {
-    CFRelease(v24);
+    CFRelease(v26);
   }
 
-  return v22;
+  return v24;
 }
 
 uint64_t vtdsr_oneTimeInitialization()
@@ -5475,7 +5478,7 @@ void vtdsr_handleDeadServerConnection(uint64_t a1, uint64_t a2)
   _Block_object_dispose(v9, 8);
 }
 
-uint64_t vtdsr_handleMachErrorsInternal(uint64_t a1, uint64_t a2)
+uint64_t vtdsr_handleMachErrorsInternal(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   if (a2 <= 268435458)
   {
@@ -5488,111 +5491,111 @@ uint64_t vtdsr_handleMachErrorsInternal(uint64_t a1, uint64_t a2)
   else if ((a2 - 268435459) >= 2 && a2 != 268451843)
   {
 LABEL_11:
-    v2 = a2;
+    v4 = a2;
 LABEL_12:
-    if (!VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode())
+    if (!VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode(a1, a2))
     {
       goto LABEL_15;
     }
 
-    return v2;
+    return v4;
   }
 
   if (a1)
   {
     *(a1 + 28) = 1;
-    v2 = 4294954385;
+    v4 = 4294954385;
     goto LABEL_12;
   }
 
-  if (!VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode())
+  if (!VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode(0, a2))
   {
-    v2 = 4294954385;
+    v4 = 4294954385;
 LABEL_15:
     FigRPCKillServerOnTimeout();
-    return v2;
+    return v4;
   }
 
   return 4294954385;
 }
 
-uint64_t VTDecompressionSessionRemote_Invalidate(uint64_t result)
+uint64_t VTDecompressionSessionRemote_Invalidate(uint64_t result, uint64_t a2, uint64_t a3)
 {
   if (result)
   {
-    v1 = result;
+    v3 = result;
     if (!*(result + 52))
     {
       *(result + 52) = 1;
-      v2 = *(result + 24);
-      if (v2 && *(v1 + 56))
+      v4 = *(result + 24);
+      if (v4 && *(v3 + 56))
       {
-        if (*(v1 + 224))
+        if (*(v3 + 224))
         {
-          VTDecompressionSessionRemote_FinishDelayedTiles(v1);
+          VTDecompressionSessionRemote_FinishDelayedTiles(v3);
         }
 
         else
         {
-          VTDecompressionSessionRemoteClient_Invalidate(v2);
+          VTDecompressionSessionRemoteClient_Invalidate(v4, a2, a3);
         }
 
-        if (*(v1 + 112))
+        if (*(v3 + 112))
         {
-          vtdsr_dequeueAllPendingFramesAndCallbackClientForEach(v1, 1, 1);
+          vtdsr_dequeueAllPendingFramesAndCallbackClientForEach(v3, 1, 1);
         }
       }
 
       CMNotificationCenterGetDefaultLocalCenter();
       FigNotificationCenterRemoveWeakListener();
-      v3 = *(v1 + 120);
-      if (v3)
+      v7 = *(v3 + 120);
+      if (v7)
       {
-        dispatch_group_wait(v3, 0xFFFFFFFFFFFFFFFFLL);
+        dispatch_group_wait(v7, 0xFFFFFFFFFFFFFFFFLL);
       }
 
-      v4 = *(v1 + 24);
-      if (v4)
+      v8 = *(v3 + 24);
+      if (v8)
       {
-        v5 = VTDecompressionSessionRemoteClient_Destroy(v4);
-        v6 = vtdsr_handleMachErrorsInternal(v1, v5);
+        v9 = VTDecompressionSessionRemoteClient_Destroy(v8, v5, v6);
+        v10 = vtdsr_handleMachErrorsInternal(v3, v9, "VTDecompressionSessionRemote_Invalidate", 0);
       }
 
       else
       {
-        v6 = 0;
+        v10 = 0;
       }
 
       FigRPCDisposeServerConnection();
-      *(v1 + 16) = 0;
-      v7 = *(v1 + 64);
-      if (v7)
+      *(v3 + 16) = 0;
+      v11 = *(v3 + 64);
+      if (v11)
       {
-        CFRelease(v7);
-        *(v1 + 64) = 0;
+        CFRelease(v11);
+        *(v3 + 64) = 0;
       }
 
-      v8 = *(v1 + 184);
-      if (v8)
+      v12 = *(v3 + 184);
+      if (v12)
       {
-        CFRelease(v8);
-        *(v1 + 184) = 0;
+        CFRelease(v12);
+        *(v3 + 184) = 0;
       }
 
-      v9 = *(v1 + 192);
-      if (v9)
+      v13 = *(v3 + 192);
+      if (v13)
       {
-        CFRelease(v9);
-        *(v1 + 192) = 0;
+        CFRelease(v13);
+        *(v3 + 192) = 0;
       }
 
-      if (*(v1 + 248))
+      if (*(v3 + 248))
       {
         MEMORY[0x193AE3010](&gWeakReferenceTable_RemoteDecompressionSessionClientThreadOnce, weakReferenceTable_OneTimeInitialization_0);
         if (gWeakReferenceTable_RemoteDecompressionSessionClient)
         {
           FigCFWeakReferenceTableRemoveValue();
-          *(v1 + 248) = 0;
+          *(v3 + 248) = 0;
         }
 
         else
@@ -5601,7 +5604,7 @@ uint64_t VTDecompressionSessionRemote_Invalidate(uint64_t result)
         }
       }
 
-      return vtdsr_handleMachErrorsInternal(v1, v6);
+      return vtdsr_handleMachErrorsInternal(v3, v10, "VTDecompressionSessionRemote_Invalidate", 0);
     }
   }
 
@@ -5610,18 +5613,29 @@ uint64_t VTDecompressionSessionRemote_Invalidate(uint64_t result)
 
 uint64_t VTDecompressionSessionRemote_FinishDelayedTiles(uint64_t a1)
 {
-  if (!*(a1 + 28) && *(a1 + 16))
+  if (*(a1 + 28))
   {
-    VTDecompressionSessionRemote_FinishDelayedTiles_cold_1(a1);
-    return v2;
+    emitter = fig_log_get_emitter();
+    v3 = v1;
+    v4 = 4294954385;
+    v5 = 2247;
   }
 
   else
   {
-    fig_log_get_emitter();
+    if (*(a1 + 16))
+    {
+      VTDecompressionSessionRemote_FinishDelayedTiles_cold_1(a1);
+      return v7;
+    }
 
-    return FigSignalErrorAtGM();
+    emitter = fig_log_get_emitter();
+    v3 = v1;
+    v4 = 4294954393;
+    v5 = 2251;
   }
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v4, "<<<< DecompressionSessionRemote >>>>", v5, v3);
 }
 
 void vtdsr_dequeueAllPendingFramesAndCallbackClientForEach(uint64_t a1, char a2, int a3)
@@ -5648,115 +5662,165 @@ void vtdsr_dequeueAllPendingFramesAndCallbackClientForEach(uint64_t a1, char a2,
   _Block_object_dispose(v9, 8);
 }
 
-uint64_t VTDecompressionSessionRemote_CopySupportedPropertyDictionary(uint64_t a1)
+uint64_t VTDecompressionSessionRemote_CopySupportedPropertyDictionary(uint64_t a1, uint64_t a2)
 {
-  v8 = 0;
-  v7 = 0;
-  v6 = 0;
-  if (*(a1 + 28) || *(a1 + 52))
+  v14 = 0;
+  v13 = 0;
+  v12 = 0;
+  if (*(a1 + 28))
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
+    v4 = v2;
+    v5 = 4294954385;
+    v6 = 1241;
+LABEL_5:
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v5, "<<<< DecompressionSessionRemote >>>>", v6, v4);
   }
 
-  CFPropertyListFromData = VTDecompressionSessionRemoteClient_CopySupportedPropertyDictionary(*(a1 + 24), &v7, &v6, &v8);
+  if (*(a1 + 52))
+  {
+    emitter = fig_log_get_emitter();
+    v4 = v2;
+    v5 = 4294954393;
+    v6 = 1244;
+    goto LABEL_5;
+  }
+
+  CFPropertyListFromData = VTDecompressionSessionRemoteClient_CopySupportedPropertyDictionary(*(a1 + 24), &v13, &v12, &v14);
   if (CFPropertyListFromData)
   {
-    goto LABEL_9;
+    goto LABEL_11;
   }
 
-  v4 = v8;
-  if (!v8)
+  v10 = v14;
+  if (!v14)
   {
     CFPropertyListFromData = FigCreateCFPropertyListFromData();
-LABEL_9:
-    v4 = CFPropertyListFromData;
+LABEL_11:
+    v10 = CFPropertyListFromData;
   }
 
-  v5 = vtdsr_handleMachErrorsInternal(a1, v4);
-  if (v6)
+  v11 = vtdsr_handleMachErrorsInternal(a1, v10, "VTDecompressionSessionRemote_CopySupportedPropertyDictionary", 0);
+  if (v12)
   {
-    MEMORY[0x193AE4440](*MEMORY[0x1E69E9A60], v7);
+    MEMORY[0x193AE4440](*MEMORY[0x1E69E9A60], v13);
   }
 
-  return v5;
+  return v11;
 }
 
 uint64_t VTDecompressionSessionRemote_CopySerializableProperties(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v10 = 0;
-  v9 = 0;
-  v8 = 0;
-  if (*(a1 + 28) || *(a1 + 52) || !a3)
+  v15 = 0;
+  v14 = 0;
+  v13 = 0;
+  if (*(a1 + 28))
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
+    v5 = v3;
+    v6 = 4294954385;
+    v7 = 1279;
+LABEL_5:
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v6, "<<<< DecompressionSessionRemote >>>>", v7, v5);
   }
 
-  CFPropertyListFromData = VTDecompressionSessionRemoteClient_CopySerializableProperties(*(a1 + 24), &v9, &v8, &v10);
+  if (*(a1 + 52))
+  {
+    emitter = fig_log_get_emitter();
+    v5 = v3;
+    v6 = 4294954393;
+    v7 = 1282;
+    goto LABEL_5;
+  }
+
+  if (!a3)
+  {
+    emitter = fig_log_get_emitter();
+    v5 = v3;
+    v6 = 4294954394;
+    v7 = 1285;
+    goto LABEL_5;
+  }
+
+  CFPropertyListFromData = VTDecompressionSessionRemoteClient_CopySerializableProperties(*(a1 + 24), &v14, &v13, &v15);
   if (CFPropertyListFromData)
   {
-    goto LABEL_10;
+    goto LABEL_12;
   }
 
-  v6 = v10;
-  if (!v10)
+  v11 = v15;
+  if (!v15)
   {
     CFPropertyListFromData = FigCreateCFPropertyListFromData();
-LABEL_10:
-    v6 = CFPropertyListFromData;
+LABEL_12:
+    v11 = CFPropertyListFromData;
   }
 
-  v7 = vtdsr_handleMachErrorsInternal(a1, v6);
-  if (v8)
+  v12 = vtdsr_handleMachErrorsInternal(a1, v11, "VTDecompressionSessionRemote_CopySerializableProperties", 0);
+  if (v13)
   {
-    MEMORY[0x193AE4440](*MEMORY[0x1E69E9A60], v9);
+    MEMORY[0x193AE4440](*MEMORY[0x1E69E9A60], v14);
   }
 
-  return v7;
+  return v12;
 }
 
 uint64_t VTDecompressionSessionRemote_CopyProperty(uint64_t a1, const void *a2, const __CFAllocator *a3, void *a4)
 {
   cf[3] = *MEMORY[0x1E69E9840];
-  v19 = 0;
-  v18 = 0;
-  v17 = 0;
-  if (*(a1 + 28) || *(a1 + 52))
+  v27 = 0;
+  v26 = 0;
+  v25 = 0;
+  if (*(a1 + 28))
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
+    v6 = v4;
+    v7 = emitter;
+    v8 = 4294954385;
+    v9 = 1323;
+LABEL_5:
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v7, v8, "<<<< DecompressionSessionRemote >>>>", v9, v6);
+  }
+
+  if (*(a1 + 52))
+  {
+    v11 = fig_log_get_emitter();
+    v6 = v4;
+    v7 = v11;
+    v8 = 4294954393;
+    v9 = 1326;
+    goto LABEL_5;
   }
 
   if (CFEqual(a2, @"PixelBufferPool"))
   {
-    v21 = 0;
+    v29 = 0;
     cf[0] = 0;
-    v8 = *MEMORY[0x1E6966050];
+    v16 = *MEMORY[0x1E6966050];
     cf[1] = *MEMORY[0x1E69660F8];
-    cf[2] = v8;
-    v9 = VTDecompressionSessionRemote_CopyProperty(a1, @"PoolPixelBufferAttributesSeed", a3, cf);
-    if (!v9)
+    cf[2] = v16;
+    v17 = VTDecompressionSessionRemote_CopyProperty(a1, @"PoolPixelBufferAttributesSeed", a3, cf);
+    if (!v17)
     {
       if (FigCFEqual())
       {
-LABEL_11:
-        if (v21 && !*(a1 + 192))
+LABEL_13:
+        if (v29 && !*(a1 + 192))
         {
           CopyRemovingKeys = FigCFDictionaryCreateCopyRemovingKeys();
           pixelBufferAttributes = 0;
-          v16 = vtdsr_createPixelBufferAttributesWithIOSurfaceSupport(CopyRemovingKeys, &pixelBufferAttributes);
-          if (v16)
+          v24 = vtdsr_createPixelBufferAttributesWithIOSurfaceSupport(CopyRemovingKeys, &pixelBufferAttributes);
+          if (v24)
           {
-            v11 = v16;
+            v19 = v24;
           }
 
           else
           {
-            v11 = CVPixelBufferPoolCreate(a3, 0, pixelBufferAttributes, (a1 + 192));
+            v19 = CVPixelBufferPoolCreate(a3, 0, pixelBufferAttributes, (a1 + 192));
             CFRelease(pixelBufferAttributes);
           }
         }
@@ -5764,31 +5828,31 @@ LABEL_11:
         else
         {
           CopyRemovingKeys = 0;
-          v11 = 0;
+          v19 = 0;
         }
 
-        goto LABEL_14;
+        goto LABEL_16;
       }
 
-      v9 = VTDecompressionSessionRemote_CopyProperty(a1, @"PoolPixelBufferAttributes", a3, &v21);
-      if (!v9)
+      v17 = VTDecompressionSessionRemote_CopyProperty(a1, @"PoolPixelBufferAttributes", a3, &v29);
+      if (!v17)
       {
         VTDecompressionSessionRemote_CopyProperty_cold_1(a1, (a1 + 184), cf);
-        goto LABEL_11;
+        goto LABEL_13;
       }
     }
 
-    v11 = v9;
+    v19 = v17;
     CopyRemovingKeys = 0;
-LABEL_14:
+LABEL_16:
     if (cf[0])
     {
       CFRelease(cf[0]);
     }
 
-    if (v21)
+    if (v29)
     {
-      CFRelease(v21);
+      CFRelease(v29);
     }
 
     if (CopyRemovingKeys)
@@ -5796,137 +5860,184 @@ LABEL_14:
       CFRelease(CopyRemovingKeys);
     }
 
-    if (!v11)
+    if (!v19)
     {
-      v12 = *(a1 + 192);
-      if (v12)
+      v20 = *(a1 + 192);
+      if (v20)
       {
-        v12 = CFRetain(v12);
+        v20 = CFRetain(v20);
       }
 
-      v11 = 0;
-      *a4 = v12;
+      v19 = 0;
+      *a4 = v20;
     }
 
-    goto LABEL_28;
+    goto LABEL_30;
   }
 
   CStringPtrAndBufferToFree = FigCFStringGetCStringPtrAndBufferToFree();
-  CFPropertyListFromData = VTDecompressionSessionRemoteClient_CopyProperty(*(a1 + 24), CStringPtrAndBufferToFree, &v18, &v17, &v19);
+  CFPropertyListFromData = VTDecompressionSessionRemoteClient_CopyProperty(*(a1 + 24), CStringPtrAndBufferToFree, &v26, &v25, &v27);
   if (CFPropertyListFromData)
   {
-    goto LABEL_27;
+    goto LABEL_29;
   }
 
-  v11 = v19;
-  if (!v19)
+  v19 = v27;
+  if (!v27)
   {
     CFPropertyListFromData = FigCreateCFPropertyListFromData();
-LABEL_27:
-    v11 = CFPropertyListFromData;
+LABEL_29:
+    v19 = CFPropertyListFromData;
   }
 
-LABEL_28:
+LABEL_30:
   free(0);
-  v15 = vtdsr_handleMachErrorsInternal(a1, v11);
-  if (v17)
+  v23 = vtdsr_handleMachErrorsInternal(a1, v19, "VTDecompressionSessionRemote_CopyProperty", a2);
+  if (v25)
   {
-    MEMORY[0x193AE4440](*MEMORY[0x1E69E9A60], v18);
+    MEMORY[0x193AE4440](*MEMORY[0x1E69E9A60], v26);
   }
 
-  return v15;
+  return v23;
 }
 
 uint64_t VTDecompressionSessionRemote_SetProperty(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v13 = 0;
-  if (*(a1 + 28) || *(a1 + 52) || !a2 || !a3)
+  v19 = 0;
+  if (*(a1 + 28))
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
+    v5 = v3;
+    v6 = 4294954385;
+    v7 = 1373;
+LABEL_5:
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v6, "<<<< DecompressionSessionRemote >>>>", v7, v5);
+  }
+
+  if (*(a1 + 52))
+  {
+    emitter = fig_log_get_emitter();
+    v5 = v3;
+    v6 = 4294954393;
+    v7 = 1376;
+    goto LABEL_5;
+  }
+
+  if (!a2)
+  {
+    emitter = fig_log_get_emitter();
+    v5 = v3;
+    v6 = 4294954394;
+    v7 = 1379;
+    goto LABEL_5;
+  }
+
+  if (!a3)
+  {
+    emitter = fig_log_get_emitter();
+    v5 = v3;
+    v6 = 4294954394;
+    v7 = 1382;
+    goto LABEL_5;
+  }
+
+  if (FigCFEqual())
+  {
+    v11 = *(a1 + 208);
+    if (v11)
+    {
+      CFRelease(v11);
+      *(a1 + 208) = 0;
+    }
+  }
+
+  CStringPtrAndBufferToFree = FigCFStringGetCStringPtrAndBufferToFree();
+  CFGetAllocator(a1);
+  CFDataFromCFPropertyList = FigCreateCFDataFromCFPropertyList();
+  if (CFDataFromCFPropertyList)
+  {
+    v18 = CFDataFromCFPropertyList;
   }
 
   else
   {
-    if (FigCFEqual())
+    v14 = *(a1 + 24);
+    BytePtr = CFDataGetBytePtr(0);
+    Length = CFDataGetLength(0);
+    v17 = VTDecompressionSessionRemoteClient_SetProperty(v14, CStringPtrAndBufferToFree, BytePtr, Length, &v19);
+    if (v17)
     {
-      v5 = *(a1 + 208);
-      if (v5)
-      {
-        CFRelease(v5);
-        *(a1 + 208) = 0;
-      }
-    }
-
-    CStringPtrAndBufferToFree = FigCFStringGetCStringPtrAndBufferToFree();
-    CFGetAllocator(a1);
-    CFDataFromCFPropertyList = FigCreateCFDataFromCFPropertyList();
-    if (CFDataFromCFPropertyList)
-    {
-      v12 = CFDataFromCFPropertyList;
+      v18 = v17;
     }
 
     else
     {
-      v8 = *(a1 + 24);
-      BytePtr = CFDataGetBytePtr(0);
-      Length = CFDataGetLength(0);
-      v11 = VTDecompressionSessionRemoteClient_SetProperty(v8, CStringPtrAndBufferToFree, BytePtr, Length, &v13);
-      if (v11)
-      {
-        v12 = v11;
-      }
-
-      else
-      {
-        v12 = v13;
-      }
+      v18 = v19;
     }
-
-    free(0);
-    return vtdsr_handleMachErrorsInternal(a1, v12);
   }
+
+  free(0);
+  return vtdsr_handleMachErrorsInternal(a1, v18, "VTDecompressionSessionRemote_SetProperty", a2);
 }
 
-uint64_t VTDecompressionSessionRemote_SetProperties(mach_port_t *cf, uint64_t a2)
+uint64_t VTDecompressionSessionRemote_SetProperties(_BYTE *cf, uint64_t a2)
 {
-  v10 = 0;
-  if (*(cf + 28) || *(cf + 52) || !a2)
+  v15 = 0;
+  if (cf[28])
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
+    v4 = v2;
+    v5 = 4294954385;
+    v6 = 1428;
+LABEL_5:
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v5, "<<<< DecompressionSessionRemote >>>>", v6, v4);
+  }
+
+  if (cf[52])
+  {
+    emitter = fig_log_get_emitter();
+    v4 = v2;
+    v5 = 4294954393;
+    v6 = 1431;
+    goto LABEL_5;
+  }
+
+  if (!a2)
+  {
+    emitter = fig_log_get_emitter();
+    v4 = v2;
+    v5 = 4294954394;
+    v6 = 1434;
+    goto LABEL_5;
+  }
+
+  CFGetAllocator(cf);
+  CFDataFromCFPropertyList = FigCreateCFDataFromCFPropertyList();
+  if (CFDataFromCFPropertyList)
+  {
+    v14 = CFDataFromCFPropertyList;
   }
 
   else
   {
-    CFGetAllocator(cf);
-    CFDataFromCFPropertyList = FigCreateCFDataFromCFPropertyList();
-    if (CFDataFromCFPropertyList)
+    v10 = *(cf + 6);
+    BytePtr = CFDataGetBytePtr(0);
+    Length = CFDataGetLength(0);
+    v13 = VTDecompressionSessionRemoteClient_SetProperties(v10, BytePtr, Length, &v15);
+    if (v13)
     {
-      v9 = CFDataFromCFPropertyList;
+      v14 = v13;
     }
 
     else
     {
-      v5 = cf[6];
-      BytePtr = CFDataGetBytePtr(0);
-      Length = CFDataGetLength(0);
-      v8 = VTDecompressionSessionRemoteClient_SetProperties(v5, BytePtr, Length, &v10);
-      if (v8)
-      {
-        v9 = v8;
-      }
-
-      else
-      {
-        v9 = v10;
-      }
+      v14 = v15;
     }
-
-    return vtdsr_handleMachErrorsInternal(cf, v9);
   }
+
+  return vtdsr_handleMachErrorsInternal(cf, v14, "VTDecompressionSessionRemote_SetProperties", 0);
 }
 
 uint64_t VTDecompressionSessionRemote_SetMultiImageCallback(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -5956,118 +6067,132 @@ uint64_t VTDecompressionSessionRemote_SetMultiImageCallback(uint64_t a1, uint64_
   return VTDecompressionSessionRemoteClient_EnableMIO(v3);
 }
 
-uint64_t vtDecompressionSessionRemote_DecodeFrameCommon(uint64_t a1, opaqueCMSampleBuffer *a2, int a3, const __CFDictionary *a4, uint64_t a5, _DWORD *a6, const void *a7, const void *a8)
+uint64_t vtDecompressionSessionRemote_DecodeFrameCommon(uint64_t a1, opaqueCMSampleBuffer *a2, uint64_t a3, const __CFDictionary *a4, uint64_t a5, _DWORD *a6, const void *a7, const void *a8)
 {
-  v39 = 0;
-  v38 = 0;
+  v44[0] = 0;
+  v43 = 0;
   theData = 0;
-  v37 = 0;
-  if (*(a1 + 28) || *(a1 + 52))
+  v42 = 0;
+  if (*(a1 + 28))
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
+    v10 = v8;
+    v11 = 4294954385;
+    v12 = 1505;
+LABEL_5:
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v11, "<<<< DecompressionSessionRemote >>>>", v12, v10);
   }
 
-  VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode();
+  if (*(a1 + 52))
+  {
+    emitter = fig_log_get_emitter();
+    v10 = v8;
+    v11 = 4294954393;
+    v12 = 1508;
+    goto LABEL_5;
+  }
+
+  v20 = a3;
+  VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode(a1, a2);
   SerializedAtomDataForSampleBufferWithOptions = FigRemote_CreateSerializedAtomDataForSampleBufferWithOptions();
   if (SerializedAtomDataForSampleBufferWithOptions)
   {
-    v18 = SerializedAtomDataForSampleBufferWithOptions;
+    v23 = SerializedAtomDataForSampleBufferWithOptions;
     *(a1 + 176) = 0;
-    goto LABEL_22;
+    goto LABEL_24;
   }
 
-  *(a1 + 176) = (v37 + *MEMORY[0x1E69E9AC8] - 1) & -*MEMORY[0x1E69E9AC8];
+  *(a1 + 176) = (v42 + *MEMORY[0x1E69E9AC8] - 1) & -*MEMORY[0x1E69E9AC8];
   if (a4)
   {
     CFDataFromCFPropertyList = FigCreateCFDataFromCFPropertyList();
     if (CFDataFromCFPropertyList)
     {
-      v18 = CFDataFromCFPropertyList;
-      goto LABEL_22;
+      v23 = CFDataFromCFPropertyList;
+      goto LABEL_24;
     }
   }
 
-  v20 = malloc_type_calloc(1uLL, 0x58uLL, 0x10E0040737232EDuLL);
-  v21 = *(a1 + 200);
-  *(a1 + 200) = v21 + 1;
-  *v20 = v21;
-  v20[1] = a5;
-  v20[3] = _Block_copy(a7);
-  v20[4] = _Block_copy(a8);
-  v20[2] = CMSampleBufferGetNumSamples(a2);
-  v20[9] = VTDecompressionSessionCopyAnalysisOptions(a4);
-  v22 = *(a1 + 104);
+  v25 = malloc_type_calloc(1uLL, 0x58uLL, 0x10E0040737232EDuLL);
+  v26 = *(a1 + 200);
+  *(a1 + 200) = v26 + 1;
+  *v25 = v26;
+  v25[1] = a5;
+  v25[3] = _Block_copy(a7);
+  v25[4] = _Block_copy(a8);
+  v25[2] = CMSampleBufferGetNumSamples(a2);
+  v25[9] = VTDecompressionSessionCopyAnalysisOptions(a4);
+  v27 = *(a1 + 104);
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 0x40000000;
   block[2] = __vtDecompressionSessionRemote_DecodeFrameCommon_block_invoke;
   block[3] = &__block_descriptor_tmp_20_0;
   block[4] = a1;
-  block[5] = v20;
-  dispatch_sync(v22, block);
-  v23 = *(a1 + 24);
-  v24 = v39;
-  v25 = v38;
-  v26 = v37;
+  block[5] = v25;
+  dispatch_sync(v27, block);
+  v28 = *(a1 + 24);
+  v29 = v44[0];
+  v30 = v43;
+  v31 = v42;
   if (!theData)
   {
     BytePtr = 0;
-    goto LABEL_14;
+    goto LABEL_16;
   }
 
   BytePtr = CFDataGetBytePtr(theData);
   if (!theData)
   {
-LABEL_14:
+LABEL_16:
     Length = 0;
-    goto LABEL_15;
+    goto LABEL_17;
   }
 
   Length = CFDataGetLength(theData);
-LABEL_15:
-  v29 = VTDecompressionSessionRemoteClient_DecodeFrame(v23, v24, v25, v26, a3, BytePtr, Length, *v20, a8 != 0);
-  if (v29)
+LABEL_17:
+  v34 = VTDecompressionSessionRemoteClient_DecodeFrame(v28, v29, v30, v31, v20, BytePtr, Length, *v25, a8 != 0);
+  if (v34)
   {
-    v18 = v29;
+    v23 = v34;
   }
 
   else
   {
     FigSemaphoreWaitRelative();
-    v18 = *(a1 + 152);
-    v30 = *(a1 + 144);
-    v31 = *(a1 + 148);
-    if ((v30 & 1) == 0)
+    v23 = *(a1 + 152);
+    v35 = *(a1 + 144);
+    v36 = *(a1 + 148);
+    if ((v35 & 1) == 0)
     {
       vtdsr_dequeueAllPendingFramesAndCallbackClientForEach(a1, 0, 1);
     }
 
     if (a6)
     {
-      *a6 = v30;
+      *a6 = v35;
     }
 
-    if (v31)
+    if (v36)
     {
-      goto LABEL_22;
+      goto LABEL_24;
     }
   }
 
-  v32 = *(a1 + 104);
-  v34[0] = MEMORY[0x1E69E9820];
-  v34[1] = 0x40000000;
-  v34[2] = __vtDecompressionSessionRemote_DecodeFrameCommon_block_invoke_2;
-  v34[3] = &__block_descriptor_tmp_21_0;
-  v34[4] = a1;
-  v34[5] = v20;
-  dispatch_sync(v32, v34);
-LABEL_22:
-  v33 = vtdsr_handleMachErrorsInternal(a1, v18);
+  v37 = *(a1 + 104);
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 0x40000000;
+  v39[2] = __vtDecompressionSessionRemote_DecodeFrameCommon_block_invoke_2;
+  v39[3] = &__block_descriptor_tmp_21_0;
+  v39[4] = a1;
+  v39[5] = v25;
+  dispatch_sync(v37, v39);
+LABEL_24:
+  v38 = vtdsr_handleMachErrorsInternal(a1, v23, "vtDecompressionSessionRemote_DecodeFrameCommon", 0);
   FigMachPortReleaseSendRight_();
-  if (v37)
+  if (v42)
   {
-    MEMORY[0x193AE4440](*MEMORY[0x1E69E9A60], v38);
+    MEMORY[0x193AE4440](*MEMORY[0x1E69E9A60], v43);
   }
 
   if (theData)
@@ -6075,10 +6200,10 @@ LABEL_22:
     CFRelease(theData);
   }
 
-  return v33;
+  return v38;
 }
 
-uint64_t VTDecompressionSessionRemote_DecodeFrameWithOutputHandler(uint64_t a1, opaqueCMSampleBuffer *a2, int a3, const __CFDictionary *a4, _DWORD *a5, unint64_t a6, unint64_t a7)
+uint64_t VTDecompressionSessionRemote_DecodeFrameWithOutputHandler(uint64_t a1, opaqueCMSampleBuffer *a2, uint64_t a3, const __CFDictionary *a4, _DWORD *a5, unint64_t a6, unint64_t a7)
 {
   if (a6 | a7)
   {
@@ -6113,34 +6238,56 @@ uint64_t weakReferenceTable_CopyPointerFromKey_0()
 
 uint64_t VTDecompressionSessionRemote_WaitForAsynchronousFrames(uint64_t a1)
 {
-  if (!*(a1 + 28) && *(a1 + 16))
+  if (*(a1 + 28))
   {
-    VTDecompressionSessionRemote_WaitForAsynchronousFrames_cold_1(a1);
-    return v2;
+    emitter = fig_log_get_emitter();
+    v3 = v1;
+    v4 = 4294954385;
+    v5 = 1694;
   }
 
   else
   {
-    fig_log_get_emitter();
+    if (*(a1 + 16))
+    {
+      VTDecompressionSessionRemote_WaitForAsynchronousFrames_cold_1(a1);
+      return v7;
+    }
 
-    return FigSignalErrorAtGM();
+    emitter = fig_log_get_emitter();
+    v3 = v1;
+    v4 = 4294954393;
+    v5 = 1698;
   }
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v4, "<<<< DecompressionSessionRemote >>>>", v5, v3);
 }
 
 uint64_t VTDecompressionSessionRemote_FinishDelayedFrames(uint64_t a1)
 {
-  if (*(a1 + 28) || *(a1 + 52))
+  if (*(a1 + 28))
   {
-    fig_log_get_emitter();
-
-    return FigSignalErrorAtGM();
+    emitter = fig_log_get_emitter();
+    v3 = v1;
+    v4 = 4294954385;
+    v5 = 1728;
   }
 
   else
   {
-    VTDecompressionSessionRemote_FinishDelayedFrames_cold_1(a1);
-    return v2;
+    if (!*(a1 + 52))
+    {
+      VTDecompressionSessionRemote_FinishDelayedFrames_cold_1(a1);
+      return v7;
+    }
+
+    emitter = fig_log_get_emitter();
+    v3 = v1;
+    v4 = 4294954393;
+    v5 = 1731;
   }
+
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v4, "<<<< DecompressionSessionRemote >>>>", v5, v3);
 }
 
 uint64_t VTDecompressionSessionRemote_CanAcceptFormatDescription(uint64_t a1, void *a2)
@@ -6151,7 +6298,7 @@ uint64_t VTDecompressionSessionRemote_CanAcceptFormatDescription(uint64_t a1, vo
   {
     v7 = 0;
 LABEL_10:
-    vtdsr_handleMachErrorsInternal(a1, v7);
+    vtdsr_handleMachErrorsInternal(a1, v7, "VTDecompressionSessionRemote_CanAcceptFormatDescription", 0);
     return v8;
   }
 
@@ -6170,62 +6317,75 @@ LABEL_10:
     SerializedAtomDataForFormatDescriptions = VTDecompressionSessionRemoteClient_CanAcceptFormatDescription(*(a1 + 24), 0, 0, &v8);
   }
 
-  vtdsr_handleMachErrorsInternal(a1, SerializedAtomDataForFormatDescriptions);
+  vtdsr_handleMachErrorsInternal(a1, SerializedAtomDataForFormatDescriptions, "VTDecompressionSessionRemote_CanAcceptFormatDescription", 0);
   CFRelease(v4);
   return v8;
 }
 
 uint64_t VTDecompressionSessionRemote_CopyBlackPixelBuffer(uint64_t a1, CFTypeRef *a2)
 {
-  v10 = 0;
+  v15 = 0;
   cf = 0;
-  v8 = 0;
-  v7 = 0;
-  v6 = 0;
-  if (*(a1 + 28) || *(a1 + 52))
+  v13 = 0;
+  v12 = 0;
+  v11 = 0;
+  if (*(a1 + 28))
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
+    v4 = v2;
+    v5 = 4294954385;
+    v6 = 1831;
+LABEL_5:
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v5, "<<<< DecompressionSessionRemote >>>>", v6, v4);
   }
 
-  PixelBufferFromSerializedAtomData = VTDecompressionSessionRemoteClient_CopyBlackPixelBuffer(*(a1 + 24), &v8, &v7, &v6, &v10);
+  if (*(a1 + 52))
+  {
+    emitter = fig_log_get_emitter();
+    v4 = v2;
+    v5 = 4294954393;
+    v6 = 1834;
+    goto LABEL_5;
+  }
+
+  PixelBufferFromSerializedAtomData = VTDecompressionSessionRemoteClient_CopyBlackPixelBuffer(*(a1 + 24), &v13, &v12, &v11, &v15);
   if (PixelBufferFromSerializedAtomData)
   {
-LABEL_18:
-    v5 = PixelBufferFromSerializedAtomData;
-    goto LABEL_11;
+LABEL_20:
+    v10 = PixelBufferFromSerializedAtomData;
+    goto LABEL_13;
   }
 
-  v5 = v10;
-  if (!v10)
+  v10 = v15;
+  if (!v15)
   {
     PixelBufferFromSerializedAtomData = FigRemote_CreatePixelBufferFromSerializedAtomData();
     if (!PixelBufferFromSerializedAtomData)
     {
-      v6 = 0;
-      v5 = 0;
+      v11 = 0;
+      v10 = 0;
       if (a2)
       {
         *a2 = cf;
         cf = 0;
       }
 
-      goto LABEL_11;
+      goto LABEL_13;
     }
 
-    goto LABEL_18;
+    goto LABEL_20;
   }
 
-LABEL_11:
-  if (v8)
+LABEL_13:
+  if (v13)
   {
     FigMachPortReleaseSendRight_();
   }
 
-  if (v6)
+  if (v11)
   {
-    MEMORY[0x193AE4440](*MEMORY[0x1E69E9A60], v7);
+    MEMORY[0x193AE4440](*MEMORY[0x1E69E9A60], v12);
   }
 
   if (cf)
@@ -6233,110 +6393,129 @@ LABEL_11:
     CFRelease(cf);
   }
 
-  return v5;
+  return v10;
 }
 
-uint64_t VTDecompressionSessionRemote_FlushPixelBufferPool(uint64_t a1)
+uint64_t VTDecompressionSessionRemote_FlushPixelBufferPool(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (*(a1 + 28) || *(a1 + 52))
+  if (*(a1 + 28))
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
+    v5 = v3;
+    v6 = 4294954385;
+    v7 = 1872;
+LABEL_5:
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v6, "<<<< DecompressionSessionRemote >>>>", v7, v5);
   }
 
-  else
+  if (*(a1 + 52))
   {
-    v3 = VTDecompressionSessionRemoteClient_FlushPixelBufferPool(*(a1 + 24));
-
-    return vtdsr_handleMachErrorsInternal(a1, v3);
+    emitter = fig_log_get_emitter();
+    v5 = v3;
+    v6 = 4294954393;
+    v7 = 1875;
+    goto LABEL_5;
   }
+
+  v10 = VTDecompressionSessionRemoteClient_FlushPixelBufferPool(*(a1 + 24), a2, a3);
+
+  return vtdsr_handleMachErrorsInternal(a1, v10, "VTDecompressionSessionRemote_FlushPixelBufferPool", 0);
 }
 
 uint64_t VTDecompressionSessionRemote_GetMinAndMaxOutputPresentationTimeStampOfFramesBeingDecoded(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x2000000000;
+  v34 = 0;
   v27 = 0;
   v28 = &v27;
   v29 = 0x2000000000;
   v30 = 0;
   v23 = 0;
   v24 = &v23;
-  v25 = 0x2000000000;
-  v26 = 0;
+  v25 = *"";
+  memset(v26, 0, sizeof(v26));
   v19 = 0;
   v20 = &v19;
   v21 = *"";
   memset(v22, 0, sizeof(v22));
-  v15 = 0;
-  v16 = &v15;
-  v17 = *"";
-  memset(v18, 0, sizeof(v18));
-  if (!*(a1 + 28) && !*(a1 + 52))
+  if (!*(a1 + 28))
   {
+    if (*(a1 + 52))
+    {
+      emitter = fig_log_get_emitter();
+      v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 4294954393, "<<<< DecompressionSessionRemote >>>>", 1935, v3);
+      goto LABEL_5;
+    }
+
     if (*(a1 + 128))
     {
-      MinAndMaxOutputPresentationTimeStampOfFramesBeingDecoded = VTDecompressionSessionRemoteClient_GetMinAndMaxOutputPresentationTimeStampOfFramesBeingDecoded(*(a1 + 24), v22, v18, &v26);
-      v9 = v28;
-      *(v28 + 6) = MinAndMaxOutputPresentationTimeStampOfFramesBeingDecoded;
+      MinAndMaxOutputPresentationTimeStampOfFramesBeingDecoded = VTDecompressionSessionRemoteClient_GetMinAndMaxOutputPresentationTimeStampOfFramesBeingDecoded(*(a1 + 24), v26, v22, &v30);
+      v13 = v32;
+      *(v32 + 6) = MinAndMaxOutputPresentationTimeStampOfFramesBeingDecoded;
       if (MinAndMaxOutputPresentationTimeStampOfFramesBeingDecoded)
       {
-        goto LABEL_14;
+        goto LABEL_16;
       }
     }
 
     else
     {
-      v10 = *(a1 + 112);
+      v14 = *(a1 + 112);
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 0x40000000;
       block[2] = __VTDecompressionSessionRemote_GetMinAndMaxOutputPresentationTimeStampOfFramesBeingDecoded_block_invoke;
       block[3] = &unk_1E72C8C18;
-      block[4] = &v27;
-      block[5] = &v19;
-      block[6] = &v15;
-      block[7] = &v23;
+      block[4] = &v31;
+      block[5] = &v23;
+      block[6] = &v19;
+      block[7] = &v27;
       block[8] = a1;
-      dispatch_sync(v10, block);
-      v9 = v28;
-      if (*(v28 + 6))
+      dispatch_sync(v14, block);
+      v13 = v32;
+      if (*(v32 + 6))
       {
-LABEL_14:
-        v4 = vtdsr_handleMachErrorsInternal(a1, *(v9 + 6));
-        *(v28 + 6) = v4;
-        goto LABEL_4;
+LABEL_16:
+        v8 = vtdsr_handleMachErrorsInternal(a1, *(v13 + 6), "VTDecompressionSessionRemote_GetMinAndMaxOutputPresentationTimeStampOfFramesBeingDecoded", 0);
+        *(v32 + 6) = v8;
+        goto LABEL_6;
       }
     }
 
-    v11 = *(v24 + 6);
-    *(v9 + 6) = v11;
-    if (!v11)
+    v15 = *(v28 + 6);
+    *(v13 + 6) = v15;
+    if (!v15)
     {
       if (a2)
       {
-        v12 = v20[5];
-        *a2 = *(v20 + 3);
-        *(a2 + 16) = v12;
+        v16 = v24[5];
+        *a2 = *(v24 + 3);
+        *(a2 + 16) = v16;
       }
 
       if (a3)
       {
-        v13 = v16[5];
-        *a3 = *(v16 + 3);
-        *(a3 + 16) = v13;
+        v17 = v20[5];
+        *a3 = *(v20 + 3);
+        *(a3 + 16) = v17;
       }
     }
 
-    goto LABEL_14;
+    goto LABEL_16;
   }
 
-  fig_log_get_emitter();
-  v4 = FigSignalErrorAtGM();
-LABEL_4:
-  _Block_object_dispose(&v15, 8);
+  v4 = fig_log_get_emitter();
+  v5 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v4, 4294954385, "<<<< DecompressionSessionRemote >>>>", 1932, v3);
+LABEL_5:
+  v8 = v5;
+LABEL_6:
   _Block_object_dispose(&v19, 8);
   _Block_object_dispose(&v23, 8);
   _Block_object_dispose(&v27, 8);
-  return v4;
+  _Block_object_dispose(&v31, 8);
+  return v8;
 }
 
 uint64_t VTTileDecompressionSessionRemote_Create(uint64_t a1, uint64_t a2, void *a3, const __CFDictionary *a4, uint64_t a5, uint64_t a6, uint64_t *a7)
@@ -6345,53 +6524,53 @@ uint64_t VTTileDecompressionSessionRemote_Create(uint64_t a1, uint64_t a2, void 
   v11 = vtdsr_oneTimeInitialization();
   if (v11)
   {
-    v21 = v11;
-    v15 = 0;
-    v19 = 0;
+    v23 = v11;
+    v16 = 0;
+    v21 = 0;
     goto LABEL_19;
   }
 
-  VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode();
+  VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode(v11, v12);
   MEMORY[0x193AE3010](&VTDecompressionSessionRemoteGetTypeID_sRegisterVTDecompressionSessionRemoteOnce, vtdcr_Register);
   Instance = _CFRuntimeCreateInstance();
   if (!Instance)
   {
-    VTTileDecompressionSessionRemote_Create_cold_2(&v25);
-    v15 = 0;
-    v19 = 0;
-    v21 = v25;
+    VTTileDecompressionSessionRemote_Create_cold_2(&v27);
+    v16 = 0;
+    v21 = 0;
+    v23 = v27;
     goto LABEL_19;
   }
 
-  v13 = Instance;
+  v14 = Instance;
   *(Instance + 56) = FigCFWeakReferenceHolderCreateWithReferencedObject();
-  *(v13 + 120) = dispatch_group_create();
-  *(v13 + 112) = dispatch_queue_create("com.apple.coremedia.decompressionsession.clientcallback", 0);
-  *(v13 + 104) = dispatch_queue_create("com.apple.coremedia.decompressionsession.pendingframequeue", 0);
-  *(v13 + 136) = FigSemaphoreCreate();
-  *(v13 + 160) = FigSemaphoreCreate();
-  *(v13 + 200) = 1;
-  *(v13 + 40) = FigSemaphoreCreate();
-  *(v13 + 224) = a5;
-  *(v13 + 232) = a6;
-  *(v13 + 240) = 0;
-  v14 = *MEMORY[0x1E695E480];
-  v15 = CFArrayCreate(*MEMORY[0x1E695E480], &values, 1, MEMORY[0x1E695E9C0]);
-  if (v15)
+  *(v14 + 120) = dispatch_group_create();
+  *(v14 + 112) = dispatch_queue_create("com.apple.coremedia.decompressionsession.clientcallback", 0);
+  *(v14 + 104) = dispatch_queue_create("com.apple.coremedia.decompressionsession.pendingframequeue", 0);
+  *(v14 + 136) = FigSemaphoreCreate();
+  *(v14 + 160) = FigSemaphoreCreate();
+  *(v14 + 200) = 1;
+  *(v14 + 40) = FigSemaphoreCreate();
+  *(v14 + 224) = a5;
+  *(v14 + 232) = a6;
+  *(v14 + 240) = 0;
+  v15 = *MEMORY[0x1E695E480];
+  v16 = CFArrayCreate(*MEMORY[0x1E695E480], &values, 1, MEMORY[0x1E695E9C0]);
+  if (v16)
   {
     SerializedAtomDataForFormatDescriptions = FigRemote_CreateSerializedAtomDataForFormatDescriptions();
     if (SerializedAtomDataForFormatDescriptions)
     {
-      v21 = SerializedAtomDataForFormatDescriptions;
+      v23 = SerializedAtomDataForFormatDescriptions;
     }
 
     else
     {
       if (!a4)
       {
-        v19 = 0;
+        v21 = 0;
 LABEL_14:
-        *(v13 + 248) = 0;
+        *(v14 + 248) = 0;
         Key_0 = weakReferenceTable_AddPointerAndGetKey_0();
         if (Key_0)
         {
@@ -6412,16 +6591,16 @@ LABEL_14:
 
         CMNotificationCenterGetDefaultLocalCenter();
         FigNotificationCenterAddWeakListener();
-        v21 = 0;
+        v23 = 0;
         if (!a7)
         {
           goto LABEL_30;
         }
 
-        *a7 = v13;
+        *a7 = v14;
 LABEL_19:
-        v22 = vtdsr_handleMachErrorsInternal(0, v21);
-        if (!v15)
+        v24 = vtdsr_handleMachErrorsInternal(0, v23, "VTTileDecompressionSessionRemote_Create", 0);
+        if (!v16)
         {
           goto LABEL_21;
         }
@@ -6429,193 +6608,206 @@ LABEL_19:
         goto LABEL_20;
       }
 
-      if (!VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode() || !CFDictionaryContainsKey(a4, @"CMSession"))
+      if (!VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode(SerializedAtomDataForFormatDescriptions, v18) || !CFDictionaryContainsKey(a4, @"CMSession"))
       {
-        v19 = 0;
+        v21 = 0;
 LABEL_11:
         Key_0 = FigCreateCFDataFromCFPropertyList();
         if (Key_0)
         {
 LABEL_24:
-          v21 = Key_0;
+          v23 = Key_0;
           goto LABEL_30;
         }
 
         goto LABEL_14;
       }
 
-      MutableCopy = CFDictionaryCreateMutableCopy(v14, 0, a4);
+      MutableCopy = CFDictionaryCreateMutableCopy(v15, 0, a4);
       if (MutableCopy)
       {
-        v18 = MutableCopy;
+        v20 = MutableCopy;
         CFDictionaryRemoveValue(MutableCopy, @"CMSession");
-        v19 = v18;
+        v21 = v20;
         goto LABEL_11;
       }
 
-      v21 = 0;
+      v23 = 0;
     }
 
-    v19 = 0;
+    v21 = 0;
   }
 
   else
   {
-    VTTileDecompressionSessionRemote_Create_cold_1(&v25);
-    v19 = 0;
-    v21 = v25;
+    VTTileDecompressionSessionRemote_Create_cold_1(&v27);
+    v21 = 0;
+    v23 = v27;
   }
 
 LABEL_30:
-  v22 = vtdsr_handleMachErrorsInternal(v13, v21);
-  CFRelease(v13);
-  if (v15)
+  v24 = vtdsr_handleMachErrorsInternal(v14, v23, "VTTileDecompressionSessionRemote_Create", 0);
+  CFRelease(v14);
+  if (v16)
   {
 LABEL_20:
-    CFRelease(v15);
+    CFRelease(v16);
   }
 
 LABEL_21:
-  if (v19)
+  if (v21)
   {
-    CFRelease(v19);
+    CFRelease(v21);
   }
 
-  return v22;
+  return v24;
 }
 
 uint64_t VTDecompressionSessionRemote_DecodeTile(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, const void *a5, uint64_t a6, int a7, uint64_t a8, _DWORD *a9)
 {
-  v38 = 0;
-  v39 = 0;
-  v37 = 0;
-  v35 = 0;
-  v36 = 0;
-  if (*(a1 + 28) || *(a1 + 52))
+  v43 = 0;
+  *v44 = 0;
+  v42 = 0;
+  v40 = 0;
+  v41 = 0;
+  if (*(a1 + 28))
   {
-    fig_log_get_emitter();
+    emitter = fig_log_get_emitter();
+    v11 = v9;
+    v12 = 4294954385;
+    v13 = 2135;
+LABEL_5:
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, v12, "<<<< DecompressionSessionRemote >>>>", v13, v11);
+  }
+
+  if (*(a1 + 52))
+  {
+    emitter = fig_log_get_emitter();
+    v11 = v9;
+    v12 = 4294954393;
+    v13 = 2138;
+    goto LABEL_5;
   }
 
   SerializedAtomDataForSampleBuffer = FigRemote_CreateSerializedAtomDataForSampleBuffer();
   if (SerializedAtomDataForSampleBuffer)
   {
-    v18 = SerializedAtomDataForSampleBuffer;
+    v23 = SerializedAtomDataForSampleBuffer;
     *(a1 + 176) = 0;
   }
 
   else
   {
-    v19 = MEMORY[0x1E69E9AC8];
-    *(a1 + 176) = (v37 + *MEMORY[0x1E69E9AC8] - 1) & -*MEMORY[0x1E69E9AC8];
+    v24 = MEMORY[0x1E69E9AC8];
+    *(a1 + 176) = (v42 + *MEMORY[0x1E69E9AC8] - 1) & -*MEMORY[0x1E69E9AC8];
     if (!FigCFEqual())
     {
       SerializedAtomDataForPixelBuffer = FigRemote_CreateSerializedAtomDataForPixelBuffer();
       if (SerializedAtomDataForPixelBuffer)
       {
-        v18 = SerializedAtomDataForPixelBuffer;
+        v23 = SerializedAtomDataForPixelBuffer;
         *(a1 + 216) = 0;
-        goto LABEL_21;
+        goto LABEL_23;
       }
 
-      v31 = (v35 + *v19 - 1) & -*v19;
-      v32 = *(a1 + 208);
+      v36 = (v40 + *v24 - 1) & -*v24;
+      v37 = *(a1 + 208);
       *(a1 + 208) = a5;
-      *(a1 + 216) = v31;
+      *(a1 + 216) = v36;
       if (a5)
       {
         CFRetain(a5);
       }
 
-      if (v32)
+      if (v37)
       {
-        CFRelease(v32);
+        CFRelease(v37);
       }
     }
 
-    v20 = malloc_type_calloc(1uLL, 0x58uLL, 0x10E0040737232EDuLL);
-    v21 = *(a1 + 200);
-    *(a1 + 200) = v21 + 1;
-    *v20 = v21;
-    v20[1] = a8;
+    v25 = malloc_type_calloc(1uLL, 0x58uLL, 0x10E0040737232EDuLL);
+    v26 = *(a1 + 200);
+    *(a1 + 200) = v26 + 1;
+    *v25 = v26;
+    v25[1] = a8;
     if (a5)
     {
-      v22 = CFRetain(a5);
+      v27 = CFRetain(a5);
     }
 
     else
     {
-      v22 = 0;
+      v27 = 0;
     }
 
-    v20[5] = v22;
-    v20[6] = a3;
-    v20[7] = a4;
-    v20[8] = a6;
-    v20[2] = 1;
-    v24 = *(a1 + 104);
+    v25[5] = v27;
+    v25[6] = a3;
+    v25[7] = a4;
+    v25[8] = a6;
+    v25[2] = 1;
+    v29 = *(a1 + 104);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 0x40000000;
     block[2] = __VTDecompressionSessionRemote_DecodeTile_block_invoke;
     block[3] = &__block_descriptor_tmp_11_3;
     block[4] = a1;
-    block[5] = v20;
-    dispatch_sync(v24, block);
-    v25 = VTDecompressionSessionRemoteClient_DecodeTile(*(a1 + 24), SHIDWORD(v39), v38, v37, a3, a4, v39, v36, v35, a6, a7, *v20);
-    if (v25)
+    block[5] = v25;
+    dispatch_sync(v29, block);
+    v30 = VTDecompressionSessionRemoteClient_DecodeTile(*(a1 + 24), v44[1], v43, v42, a3, a4, v44[0], v41, v40, a6, a7, *v25);
+    if (v30)
     {
-      v18 = v25;
+      v23 = v30;
     }
 
     else
     {
       FigSemaphoreWaitRelative();
-      v18 = *(a1 + 152);
-      v26 = *(a1 + 144);
-      v27 = *(a1 + 148);
-      if ((v26 & 1) == 0)
+      v23 = *(a1 + 152);
+      v31 = *(a1 + 144);
+      v32 = *(a1 + 148);
+      if ((v31 & 1) == 0)
       {
         vtdsr_dequeueAllPendingFramesAndCallbackClientForEach(a1, 0, 1);
       }
 
       if (a9)
       {
-        *a9 = v26;
+        *a9 = v31;
       }
 
-      if (v27)
+      if (v32)
       {
-        goto LABEL_21;
+        goto LABEL_23;
       }
     }
 
-    v28 = *(a1 + 104);
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 0x40000000;
-    v33[2] = __VTDecompressionSessionRemote_DecodeTile_block_invoke_2;
-    v33[3] = &__block_descriptor_tmp_12_3;
-    v33[4] = a1;
-    v33[5] = v20;
-    dispatch_sync(v28, v33);
+    v33 = *(a1 + 104);
+    v38[0] = MEMORY[0x1E69E9820];
+    v38[1] = 0x40000000;
+    v38[2] = __VTDecompressionSessionRemote_DecodeTile_block_invoke_2;
+    v38[3] = &__block_descriptor_tmp_12_3;
+    v38[4] = a1;
+    v38[5] = v25;
+    dispatch_sync(v33, v38);
   }
 
-LABEL_21:
-  v29 = vtdsr_handleMachErrorsInternal(a1, v18);
+LABEL_23:
+  v34 = vtdsr_handleMachErrorsInternal(a1, v23, "VTDecompressionSessionRemote_DecodeTile", 0);
   FigMachPortReleaseSendRight_();
   FigMachPortReleaseSendRight_();
-  v30 = MEMORY[0x1E69E9A60];
-  if (v37)
+  v35 = MEMORY[0x1E69E9A60];
+  if (v42)
   {
-    MEMORY[0x193AE4440](*MEMORY[0x1E69E9A60], v38);
+    MEMORY[0x193AE4440](*MEMORY[0x1E69E9A60], v43);
   }
 
-  if (v35)
+  if (v40)
   {
-    MEMORY[0x193AE4440](*v30, v36);
+    MEMORY[0x193AE4440](*v35, v41);
   }
 
-  return v29;
+  return v34;
 }
 
 double vtdsr_Init(_OWORD *a1)
@@ -6639,48 +6831,48 @@ double vtdsr_Init(_OWORD *a1)
   return result;
 }
 
-void vtdsr_Finalize(uint64_t a1)
+void vtdsr_Finalize(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  VTDecompressionSessionRemote_Invalidate(a1);
-  v2 = *(a1 + 120);
-  if (v2)
+  VTDecompressionSessionRemote_Invalidate(a1, a2, a3);
+  v4 = *(a1 + 120);
+  if (v4)
   {
-    dispatch_group_wait(v2, 0xFFFFFFFFFFFFFFFFLL);
+    dispatch_group_wait(v4, 0xFFFFFFFFFFFFFFFFLL);
     dispatch_release(*(a1 + 120));
   }
 
-  v3 = *(a1 + 112);
-  if (v3)
-  {
-    dispatch_release(v3);
-  }
-
-  v4 = *(a1 + 104);
-  if (v4)
-  {
-    dispatch_release(v4);
-  }
-
-  FigSemaphoreDestroy();
-  FigSemaphoreDestroy();
-  FigSemaphoreDestroy();
-  v5 = *(a1 + 56);
+  v5 = *(a1 + 112);
   if (v5)
   {
-    CFRelease(v5);
+    dispatch_release(v5);
   }
 
-  v6 = *(a1 + 208);
+  v6 = *(a1 + 104);
   if (v6)
   {
+    dispatch_release(v6);
+  }
 
-    CFRelease(v6);
+  FigSemaphoreDestroy();
+  FigSemaphoreDestroy();
+  FigSemaphoreDestroy();
+  v7 = *(a1 + 56);
+  if (v7)
+  {
+    CFRelease(v7);
+  }
+
+  v8 = *(a1 + 208);
+  if (v8)
+  {
+
+    CFRelease(v8);
   }
 }
 
-uint64_t __vtdsr_oneTimeInitialization_block_invoke(uint64_t a1)
+uint64_t __vtdsr_oneTimeInitialization_block_invoke(uint64_t a1, uint64_t a2)
 {
-  VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode();
+  VTVideoCodecService_ShouldUseSeparateCodecProcessForDecode(a1, a2);
   result = FigRPCCreateRemoteClient();
   *(*(*(a1 + 32) + 8) + 24) = result;
   return result;
@@ -6688,11 +6880,11 @@ uint64_t __vtdsr_oneTimeInitialization_block_invoke(uint64_t a1)
 
 void __vtdsr_dequeueAllPendingFramesAndCallbackClientForEach_block_invoke(uint64_t a1)
 {
-  v124 = *MEMORY[0x1E69E9840];
+  v127 = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 40) + 52) && !*(a1 + 48))
   {
     fig_log_get_emitter();
-    *(*(*(a1 + 32) + 8) + 24) = FigSignalErrorAtGM();
+    *(*(*(a1 + 32) + 8) + 24) = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v52, v53, v54);
     return;
   }
 
@@ -6702,52 +6894,55 @@ void __vtdsr_dequeueAllPendingFramesAndCallbackClientForEach_block_invoke(uint64
   do
   {
     v5 = *(a1 + 40);
-    v107 = 0;
-    v106 = 0;
-    v102 = 0;
-    v103 = &v102;
-    v104 = 0x2000000000;
+    v110 = 0;
+    v109 = 0;
     v105 = 0;
-    v96 = 0;
-    v97 = &v96;
-    v98 = 0x3002000000;
-    v99 = __Block_byref_object_copy__1;
-    v100 = __Block_byref_object_dispose__1;
-    v101 = 0;
-    v90 = 0;
-    v91 = &v90;
-    v92 = 0x3002000000;
-    v93 = __Block_byref_object_copy__1;
-    v94 = __Block_byref_object_dispose__1;
-    v95 = 0;
-    v86 = 0;
-    v87 = &v86;
-    v88 = 0x2000000000;
+    v106 = &v105;
+    v107 = 0x2000000000;
+    v108 = 0;
+    v99 = 0;
+    v100 = &v99;
+    v101 = 0x3002000000;
+    v102 = __Block_byref_object_copy__1;
+    v103 = __Block_byref_object_dispose__1;
+    v104 = 0;
+    v93 = 0;
+    v94 = &v93;
+    v95 = 0x3002000000;
+    v96 = __Block_byref_object_copy__1;
+    v97 = __Block_byref_object_dispose__1;
+    v98 = 0;
     v89 = 0;
-    v82 = 0;
-    v83 = &v82;
-    v84 = 0x2000000000;
+    v90 = &v89;
+    v91 = 0x2000000000;
+    v92 = 0;
     v85 = 0;
-    v78 = 0;
-    v79 = &v78;
-    v80 = 0x2000000000;
+    v86 = &v85;
+    v87 = 0x2000000000;
+    v88 = 0;
     v81 = 0;
-    v74 = 0;
-    v75 = &v74;
-    v76 = 0x2000000000;
+    v82 = &v81;
+    v83 = 0x2000000000;
+    v84 = 0;
     v77 = 0;
-    v73 = 0;
-    v69 = 0;
-    v70 = &v69;
-    v71 = 0x2000000000;
+    v78 = &v77;
+    v79 = 0x2000000000;
+    v80 = 0;
+    v76 = 0;
     v72 = 0;
+    v73 = &v72;
+    v74 = 0x2000000000;
+    v75 = 0;
+    v71 = 0;
+    v70 = 0;
+    v69 = 0;
+    v67 = 0uLL;
     v68 = 0;
-    v67 = 0;
+    v65 = 0uLL;
     v66 = 0;
-    v64 = 0uLL;
-    v65 = 0;
-    v62 = 0uLL;
-    v63 = 0;
+    memset(v126, 0, sizeof(v126));
+    v125 = 0u;
+    v124 = 0u;
     memset(v123, 0, sizeof(v123));
     v122 = 0u;
     v121 = 0u;
@@ -6757,29 +6952,26 @@ void __vtdsr_dequeueAllPendingFramesAndCallbackClientForEach_block_invoke(uint64
     memset(v117, 0, sizeof(v117));
     v116 = 0u;
     v115 = 0u;
-    memset(v114, 0, sizeof(v114));
+    v114 = 0u;
     v113 = 0u;
     v112 = 0u;
     v111 = 0u;
-    v110 = 0u;
-    v109 = 0u;
-    v108 = 0u;
     cf = 0;
-    v57 = 0;
-    v58 = &v57;
-    v59 = 0x2000000000;
     v60 = 0;
+    v61 = &v60;
+    v62 = 0x2000000000;
+    v63 = 0;
     v6 = *(v5 + 24);
     if (!v6)
     {
-      __vtdsr_dequeueAllPendingFramesAndCallbackClientForEach_block_invoke_cold_4(&v54);
+      __vtdsr_dequeueAllPendingFramesAndCallbackClientForEach_block_invoke_cold_4(&v57);
       Mutable = 0;
       v11 = 0;
-      v8 = v54;
+      v8 = v57;
       goto LABEL_52;
     }
 
-    v7 = VTDecompressionSessionRemoteClient_DequeueNextPendingFrame(v6, &v106, &v105, &v73 + 1, &v73, &v68, &v67, &v66, &v108, &v108 + 1, &v109, &v109 + 1, &v110, &v112, &v112 + 1, &v113, &v113 + 1, v114, &v115, &v115 + 1, &v116, &v116 + 1, v117, &v118, &v118 + 1, &v119, &v119 + 1, v120, &v121, &v121 + 1, &v122, &v122 + 1, v123, &v64, &v62, &v107, &v107 + 1);
+    v7 = VTDecompressionSessionRemoteClient_DequeueNextPendingFrame(v6, &v109, &v108, &v76 + 1, &v76, &v71, &v70, &v69, &v111, &v111 + 1, &v112, &v112 + 1, &v113, &v115, &v115 + 1, &v116, &v116 + 1, v117, &v118, &v118 + 1, &v119, &v119 + 1, v120, &v121, &v121 + 1, &v122, &v122 + 1, v123, &v124, &v124 + 1, &v125, &v125 + 1, v126, &v67, &v65, &v110, &v110 + 1);
     if (v7)
     {
       v8 = v7;
@@ -6789,13 +6981,13 @@ LABEL_102:
       goto LABEL_52;
     }
 
-    v8 = HIDWORD(v107);
-    if (HIDWORD(v107))
+    v8 = HIDWORD(v110);
+    if (HIDWORD(v110))
     {
       goto LABEL_102;
     }
 
-    if (!v106)
+    if (!v109)
     {
       v8 = 0;
       Mutable = 0;
@@ -6803,24 +6995,24 @@ LABEL_102:
       goto LABEL_51;
     }
 
-    if (HIDWORD(v73))
+    if (HIDWORD(v76))
     {
       goto LABEL_28;
     }
 
     v9 = MEMORY[0x1E695E9C0];
-    if (v68 | v66)
+    if (v71 | v69)
     {
-      HIDWORD(v73) = FigRemote_CreatePixelBufferFromSerializedAtomData();
-      if (HIDWORD(v73))
+      HIDWORD(v76) = FigRemote_CreatePixelBufferFromSerializedAtomData();
+      if (HIDWORD(v76))
       {
         goto LABEL_28;
       }
 
-      v66 = 0;
+      v69 = 0;
     }
 
-    if (!(v108 | v109))
+    if (!(v111 | v112))
     {
 LABEL_28:
       v8 = 0;
@@ -6832,28 +7024,28 @@ LABEL_28:
     Mutable = CFArrayCreateMutable(v3, 5, v9);
     if (!Mutable)
     {
-      __vtdsr_dequeueAllPendingFramesAndCallbackClientForEach_block_invoke_cold_3(&v54);
+      __vtdsr_dequeueAllPendingFramesAndCallbackClientForEach_block_invoke_cold_3(&v57);
       v11 = 0;
 LABEL_106:
-      v8 = v54;
+      v8 = v57;
       goto LABEL_29;
     }
 
     v11 = CFArrayCreateMutable(v3, 5, v9);
     if (!v11)
     {
-      __vtdsr_dequeueAllPendingFramesAndCallbackClientForEach_block_invoke_cold_2(&v54);
+      __vtdsr_dequeueAllPendingFramesAndCallbackClientForEach_block_invoke_cold_2(&v57);
       goto LABEL_106;
     }
 
     v12 = 0;
     while (1)
     {
-      v13 = &v108 + v12;
-      if (*(&v108 + v12) | *(&v108 + v12 + 16))
+      v13 = &v111 + v12;
+      if (*(&v111 + v12) | *(&v111 + v12 + 16))
       {
-        HIDWORD(v73) = FigRemote_CreatePixelBufferFromSerializedAtomData();
-        if (HIDWORD(v73))
+        HIDWORD(v76) = FigRemote_CreatePixelBufferFromSerializedAtomData();
+        if (HIDWORD(v76))
         {
           goto LABEL_99;
         }
@@ -6867,28 +7059,28 @@ LABEL_106:
         goto LABEL_23;
       }
 
-      v15 = *(&v110 + v12);
+      v15 = *(&v113 + v12);
       if (!v15)
       {
         goto LABEL_23;
       }
 
       v16 = CFDataCreate(v3, v14, v15);
-      *(&v110 + v12 + 8) = v16;
+      *(&v113 + v12 + 8) = v16;
       if (!v16)
       {
         break;
       }
 
-      HIDWORD(v73) = MEMORY[0x193AE2F20](v16, v3, &v111 + v12);
-      if (HIDWORD(v73))
+      HIDWORD(v76) = MEMORY[0x193AE2F20](v16, v3, &v114 + v12);
+      if (HIDWORD(v76))
       {
         goto LABEL_99;
       }
 
 LABEL_23:
-      v17 = (&v108 + v12);
-      v18 = *(&v111 + v12);
+      v17 = (&v111 + v12);
+      v18 = *(&v114 + v12);
       if (v18 && v17[7])
       {
         CFArrayAppendValue(Mutable, v18);
@@ -6899,12 +7091,12 @@ LABEL_23:
       if (v12 == 320)
       {
         v8 = 0;
-        HIDWORD(v73) = MEMORY[0x193AE2F70](v3, Mutable, v11, &cf);
+        HIDWORD(v76) = MEMORY[0x193AE2F70](v3, Mutable, v11, &cf);
         goto LABEL_29;
       }
     }
 
-    __vtdsr_dequeueAllPendingFramesAndCallbackClientForEach_block_invoke_cold_1(&v73 + 1);
+    __vtdsr_dequeueAllPendingFramesAndCallbackClientForEach_block_invoke_cold_1(&v76 + 1);
 LABEL_99:
     v8 = 0;
 LABEL_29:
@@ -6913,18 +7105,18 @@ LABEL_29:
     block[1] = 0x40000000;
     block[2] = __vtdsr_dequeueNextPendingFrameAndCallbackClient_block_invoke;
     block[3] = &unk_1E72C8CF8;
-    block[4] = &v102;
-    block[5] = &v96;
-    block[6] = &v90;
-    block[7] = &v86;
-    block[8] = &v82;
-    block[9] = &v78;
-    block[10] = &v57;
-    block[11] = &v69;
+    block[4] = &v105;
+    block[5] = &v99;
+    block[6] = &v93;
+    block[7] = &v89;
+    block[8] = &v85;
+    block[9] = &v81;
+    block[10] = &v60;
+    block[11] = &v72;
     block[13] = v5;
-    block[12] = &v74;
+    block[12] = &v77;
     dispatch_sync(v19, block);
-    if (*(v75 + 24))
+    if (*(v78 + 24))
     {
       *(v5 + 128) = 1;
       if (*(v5 + 240))
@@ -6933,49 +7125,49 @@ LABEL_29:
         if (v20)
         {
           v21 = v20;
-          v22 = v58[3];
-          v54 = v64;
-          v55 = v65;
-          VTDecompressionSessionAnalyzeAndInterruptFrame(v20, SHIDWORD(v73), &v54, v22, &v73, v70 + 3);
+          v22 = v61[3];
+          v57 = v67;
+          v58 = v68;
+          VTDecompressionSessionAnalyzeAndInterruptFrame(v20, SHIDWORD(v76), &v57, v22, &v76, v73 + 3);
           CFRelease(v21);
         }
       }
 
-      v23 = v70[3];
+      v23 = v73[3];
       if (v23)
       {
 LABEL_34:
-        if (cf && !*(v5 + 88) && !v91[5])
+        if (cf && !*(v5 + 88) && !v94[5])
         {
-          if (!HIDWORD(v73))
+          if (!HIDWORD(v76))
           {
-            HIDWORD(v73) = -17699;
+            HIDWORD(v76) = -17699;
           }
 
           v46 = *(v5 + 72);
           if (v46)
           {
             v47 = *(v5 + 80);
-            v48 = v103[3];
-            v54 = *MEMORY[0x1E6960C70];
-            v55 = *(MEMORY[0x1E6960C70] + 16);
-            v52 = v54;
-            v53 = v55;
+            v48 = v106[3];
+            v57 = *MEMORY[0x1E6960C70];
+            v58 = *(MEMORY[0x1E6960C70] + 16);
+            v55 = v57;
+            v56 = v58;
             v46(v47, v48);
             goto LABEL_43;
           }
 
-          v51 = v97[5];
+          v51 = v100[5];
           if (!v51)
           {
             goto LABEL_43;
           }
 
           v45 = *(v51 + 16);
-          v54 = *MEMORY[0x1E6960C70];
-          v55 = *(MEMORY[0x1E6960C70] + 16);
-          v52 = v54;
-          v53 = v55;
+          v57 = *MEMORY[0x1E6960C70];
+          v58 = *(MEMORY[0x1E6960C70] + 16);
+          v55 = v57;
+          v56 = v58;
 LABEL_97:
           v45();
           goto LABEL_43;
@@ -6985,13 +7177,13 @@ LABEL_97:
         if (v24)
         {
           v25 = *(v5 + 80);
-          v26 = v103[3];
-          v27 = HIDWORD(v73);
-          v28 = v73;
-          v54 = v64;
+          v26 = v106[3];
+          v27 = HIDWORD(v76);
+          v28 = v76;
+          v57 = v67;
+          v58 = v68;
           v55 = v65;
-          v52 = v62;
-          v53 = v63;
+          v56 = v66;
           v29 = v23;
           goto LABEL_42;
         }
@@ -6999,30 +7191,30 @@ LABEL_97:
         v41 = *(v5 + 224);
         if (v41)
         {
-          v41(*(v5 + 232), v103[3], v87[3], v83[3], v70[3], v79[3], HIDWORD(v73), v73);
+          v41(*(v5 + 232), v106[3], v90[3], v86[3], v73[3], v82[3], HIDWORD(v76), v76);
           goto LABEL_43;
         }
 
-        v44 = v97[5];
+        v44 = v100[5];
         if (v44)
         {
           v45 = *(v44 + 16);
-          v54 = v64;
+          v57 = v67;
+          v58 = v68;
           v55 = v65;
-          v52 = v62;
-          v53 = v63;
+          v56 = v66;
           goto LABEL_97;
         }
 
-        v49 = v91[5];
+        v49 = v94[5];
         if (v49)
         {
           v50 = *(v49 + 16);
-          v54 = v64;
+          v57 = v67;
+          v58 = v68;
           v55 = v65;
-          v52 = v62;
-          v53 = v63;
-          v50(v49, HIDWORD(v73), v73, v23, 0, &v54, &v52);
+          v56 = v66;
+          v50(v49, HIDWORD(v76), v76, v23, 0, &v57, &v55);
         }
       }
 
@@ -7032,39 +7224,39 @@ LABEL_97:
         if (v24)
         {
           v25 = *(v5 + 96);
-          v26 = v103[3];
-          v27 = HIDWORD(v73);
-          v28 = v73;
+          v26 = v106[3];
+          v27 = HIDWORD(v76);
+          v28 = v76;
           v29 = cf;
-          v54 = v64;
+          v57 = v67;
+          v58 = v68;
           v55 = v65;
-          v52 = v62;
-          v53 = v63;
+          v56 = v66;
 LABEL_42:
-          v24(v25, v26, v27, v28, v29, &v54, &v52);
+          v24(v25, v26, v27, v28, v29, &v57, &v55);
         }
 
         else
         {
-          v42 = v91[5];
+          v42 = v94[5];
           if (!v42)
           {
             goto LABEL_34;
           }
 
           v43 = *(v42 + 16);
-          v54 = v64;
+          v57 = v67;
+          v58 = v68;
           v55 = v65;
-          v52 = v62;
-          v53 = v63;
-          v43(v42, HIDWORD(v73), v73, 0, cf, &v54, &v52);
+          v56 = v66;
+          v43(v42, HIDWORD(v76), v76, 0, cf, &v57, &v55);
         }
       }
 
 LABEL_43:
-      if ((v73 & 0x10) != 0)
+      if ((v76 & 0x10) != 0)
       {
-        v30 = v70[3];
+        v30 = v73[3];
         if (v30)
         {
           CFRelease(v30);
@@ -7087,7 +7279,7 @@ LABEL_43:
 
       *(v5 + 128) = 0;
 LABEL_51:
-      v2 = v107;
+      v2 = v110;
     }
 
     else
@@ -7096,48 +7288,48 @@ LABEL_51:
     }
 
 LABEL_52:
-    v33 = vtdsr_handleMachErrorsInternal(v5, v8);
-    if (v68)
+    v33 = vtdsr_handleMachErrorsInternal(v5, v8, "vtdsr_dequeueNextPendingFrameAndCallbackClient", 0);
+    if (v71)
     {
       FigMachPortReleaseSendRight_();
     }
 
-    if (v66)
+    if (v69)
     {
-      MEMORY[0x193AE4440](*v4, v67);
+      MEMORY[0x193AE4440](*v4, v70);
     }
 
     for (i = 0; i != 320; i += 64)
     {
-      if (*(&v108 + i))
+      if (*(&v111 + i))
       {
         FigMachPortReleaseSendRight_();
       }
 
-      v35 = &v108 + i;
-      if (*(&v108 + i + 16))
+      v35 = &v111 + i;
+      if (*(&v111 + i + 16))
       {
         MEMORY[0x193AE4440](*v4, *(v35 + 1));
       }
 
       if (*(v35 + 8))
       {
-        MEMORY[0x193AE4440](*v4, *(&v109 + i + 8));
+        MEMORY[0x193AE4440](*v4, *(&v112 + i + 8));
       }
 
-      v36 = *(&v111 + i);
+      v36 = *(&v114 + i);
       if (v36)
       {
         CFRelease(v36);
       }
 
-      v37 = *(&v110 + i + 8);
+      v37 = *(&v113 + i + 8);
       if (v37)
       {
         CFRelease(v37);
       }
 
-      v38 = *(&v111 + i + 8);
+      v38 = *(&v114 + i + 8);
       if (v38)
       {
         CFRelease(v38);
@@ -7159,29 +7351,29 @@ LABEL_52:
       CFRelease(cf);
     }
 
-    v39 = v70[3];
+    v39 = v73[3];
     if (v39)
     {
       CFRelease(v39);
     }
 
-    _Block_release(v97[5]);
-    _Block_release(v91[5]);
-    v40 = v58[3];
+    _Block_release(v100[5]);
+    _Block_release(v94[5]);
+    v40 = v61[3];
     if (v40)
     {
       CFRelease(v40);
     }
 
-    _Block_object_dispose(&v57, 8);
-    _Block_object_dispose(&v69, 8);
-    _Block_object_dispose(&v74, 8);
-    _Block_object_dispose(&v78, 8);
-    _Block_object_dispose(&v82, 8);
-    _Block_object_dispose(&v86, 8);
-    _Block_object_dispose(&v90, 8);
-    _Block_object_dispose(&v96, 8);
-    _Block_object_dispose(&v102, 8);
+    _Block_object_dispose(&v60, 8);
+    _Block_object_dispose(&v72, 8);
+    _Block_object_dispose(&v77, 8);
+    _Block_object_dispose(&v81, 8);
+    _Block_object_dispose(&v85, 8);
+    _Block_object_dispose(&v89, 8);
+    _Block_object_dispose(&v93, 8);
+    _Block_object_dispose(&v99, 8);
+    _Block_object_dispose(&v105, 8);
     *(*(*(a1 + 32) + 8) + 24) = v33;
   }
 
@@ -7374,10 +7566,10 @@ void __vtdsr_handleDeadServerConnection_block_invoke_2(void *a1)
   }
 }
 
-uint64_t OUTLINED_FUNCTION_2_16(uint64_t a1, uint64_t a2)
+uint64_t OUTLINED_FUNCTION_2_16(uint64_t a1, uint64_t a2, uint64_t a3)
 {
 
-  return vtdsr_handleMachErrorsInternal(v2, a2);
+  return vtdsr_handleMachErrorsInternal(v3, a2, a3, 0);
 }
 
 uint64_t vtLoadVideoEncodersGuts(int a1)
@@ -7410,13 +7602,13 @@ uint64_t vtLoadVideoEncodersGuts(int a1)
 
 uint64_t vt_Copy_b64a_TRC_Tone_Mat_TRC_420vf(uint64_t a1, uint64_t *a2, uint64_t a3, void *a4, void *a5, uint64_t *a6, uint64_t a7, void *a8, void *a9)
 {
-  v60 = a7;
-  v61 = a8;
-  v66 = a4;
-  v67 = a5;
-  v59 = a3;
-  v68 = *MEMORY[0x1E69E9840];
-  v58 = a1;
+  v61 = a7;
+  v62 = a8;
+  v67 = a4;
+  v68 = a5;
+  v60 = a3;
+  v69 = *MEMORY[0x1E69E9840];
+  v59 = a1;
   v9 = *(a1 + 162);
   v10 = a2[1];
   v12 = a2[2];
@@ -7424,15 +7616,15 @@ uint64_t vt_Copy_b64a_TRC_Tone_Mat_TRC_420vf(uint64_t a1, uint64_t *a2, uint64_t
   v14 = a2[4];
   v13 = a2[5];
   v15 = *a6;
-  v62 = *a2;
-  v63 = v15;
+  v63 = *a2;
+  v64 = v15;
   v16 = a6[1];
   v17 = a6[2];
   v18 = a6[3];
   v19 = a6[4];
   v20 = a6[5];
-  v64 = v16;
-  v65 = v10;
+  v65 = v16;
+  v66 = v10;
   v22 = v13 + v11 != v10 || v20 + v18 != v16;
   LODWORD(v57) = v22;
   if (v9 == 255)
@@ -7507,7 +7699,7 @@ LABEL_61:
 
   if (v34)
   {
-    if ((v57 & 1) != 0 || (*v66 * (v35 + 1 + v36)) > *v67 || (v38 = v34 + 1 + v37, (*v61 * v38) > *a9) || (v61[1] * (v38 / 2)) > a9[1] || (v61[2] * v38) > a9[2])
+    if ((v57 & 1) != 0 || (*v67 * (v35 + 1 + v36)) > *v68 || (v38 = v34 + 1 + v37, (*v62 * v38) > *a9) || (v62[1] * (v38 / 2)) > a9[1] || (v62[2] * v38) > a9[2])
     {
       --v34;
       --v35;
@@ -7515,31 +7707,31 @@ LABEL_61:
 
     else
     {
-      ++v64;
       ++v65;
+      ++v66;
       ++v35;
       ++v34;
     }
   }
 
-  if (v32 + v30 > v62)
+  if (v32 + v30 > v63)
   {
-    v32 = v62 - v30;
+    v32 = v63 - v30;
   }
 
-  if (v33 + v31 > v63)
+  if (v33 + v31 > v64)
   {
-    v33 = v63 - v31;
+    v33 = v64 - v31;
   }
 
-  if (v35 + v36 > v65)
+  if (v35 + v36 > v66)
   {
-    v35 = v65 - v36;
+    v35 = v66 - v36;
   }
 
-  if (v34 + v37 > v64)
+  if (v34 + v37 > v65)
   {
-    v34 = v64 - v37;
+    v34 = v65 - v37;
   }
 
   if (v32 >= v33)
@@ -7562,7 +7754,7 @@ LABEL_61:
     v40 = v35;
   }
 
-  if (((v36 + v40 - 1) * *v66 + 8 * (v39 + v30)) > *v67)
+  if (((v36 + v40 - 1) * *v67 + 8 * (v39 + v30)) > *v68)
   {
     v57 = v36;
     v41 = v30;
@@ -7574,7 +7766,7 @@ LABEL_61:
 
   v45 = v40 + v37 - 1;
   v46 = v39 + v31;
-  if ((v39 + v31 + *v61 * v45) > *a9)
+  if ((v39 + v31 + *v62 * v45) > *a9)
   {
     v57 = v36;
     v41 = v30;
@@ -7584,8 +7776,8 @@ LABEL_61:
     goto LABEL_54;
   }
 
-  v47 = v60;
-  if (*(v60 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + v61[1] * ((v40 + v37 + 1) / 2 - 1) > a9[1])
+  v47 = v61;
+  if (*(v61 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + v62[1] * ((v40 + v37 + 1) / 2 - 1) > a9[1])
   {
     v57 = v36;
     v41 = v30;
@@ -7595,7 +7787,7 @@ LABEL_61:
     goto LABEL_54;
   }
 
-  if (*(v60 + 16) && (v46 + v61[2] * v45) > a9[2])
+  if (*(v61 + 16) && (v46 + v62[2] * v45) > a9[2])
   {
     v57 = v36;
     v41 = v30;
@@ -7604,8 +7796,8 @@ LABEL_61:
     v44 = a9;
 LABEL_54:
     fig_log_get_emitter();
-    v24 = FigSignalErrorAtGM();
-    v47 = v60;
+    v24 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v56, v57, v58);
+    v47 = v61;
     v28 = v44;
     v9 = v43;
     v31 = v42;
@@ -7618,9 +7810,9 @@ LABEL_54:
   }
 
   *v23 = v9;
-  *(v23 + 4) = v62;
-  v48 = v64;
-  *(v23 + 12) = v65;
+  *(v23 + 4) = v63;
+  v48 = v65;
+  *(v23 + 12) = v66;
   *(v23 + 20) = v39;
   *(v23 + 28) = v40;
   *(v23 + 36) = v30;
@@ -7629,17 +7821,17 @@ LABEL_54:
   v23[12] = v39;
   v23[13] = v40;
   v23[14] = v31;
-  v49 = v66;
-  v23[7] = v59;
+  v49 = v67;
+  v23[7] = v60;
   v23[8] = v49;
-  v50 = v63;
-  v23[9] = v67;
+  v50 = v64;
+  v23[9] = v68;
   v23[10] = v50;
   v23[15] = v37;
   v23[16] = v47;
-  v23[17] = v61;
+  v23[17] = v62;
   v23[18] = v28;
-  v23[19] = v58;
+  v23[19] = v59;
   global_queue = dispatch_get_global_queue(0, 0);
   dispatch_apply_f(v9, global_queue, v23, vt_Copy_b64a_TRC_Tone_Mat_TRC_420vf_GCD);
   if (!v9)
@@ -8070,13 +8262,13 @@ unsigned __int8 *vt_Copy_b64a_TRC_Tone_Mat_TRC_420vf_GCD(unsigned __int8 *result
 
 uint64_t vt_Copy_b64a_TRC_Mat_TRC_420vf(uint64_t a1, uint64_t *a2, uint64_t a3, void *a4, void *a5, uint64_t *a6, uint64_t a7, void *a8, void *a9)
 {
-  v60 = a7;
-  v61 = a8;
-  v66 = a4;
-  v67 = a5;
-  v59 = a3;
-  v68 = *MEMORY[0x1E69E9840];
-  v58 = a1;
+  v61 = a7;
+  v62 = a8;
+  v67 = a4;
+  v68 = a5;
+  v60 = a3;
+  v69 = *MEMORY[0x1E69E9840];
+  v59 = a1;
   v9 = *(a1 + 162);
   v10 = a2[1];
   v12 = a2[2];
@@ -8084,15 +8276,15 @@ uint64_t vt_Copy_b64a_TRC_Mat_TRC_420vf(uint64_t a1, uint64_t *a2, uint64_t a3, 
   v14 = a2[4];
   v13 = a2[5];
   v15 = *a6;
-  v62 = *a2;
-  v63 = v15;
+  v63 = *a2;
+  v64 = v15;
   v16 = a6[1];
   v17 = a6[2];
   v18 = a6[3];
   v19 = a6[4];
   v20 = a6[5];
-  v64 = v16;
-  v65 = v10;
+  v65 = v16;
+  v66 = v10;
   v22 = v13 + v11 != v10 || v20 + v18 != v16;
   LODWORD(v57) = v22;
   if (v9 == 255)
@@ -8167,7 +8359,7 @@ LABEL_61:
 
   if (v34)
   {
-    if ((v57 & 1) != 0 || (*v66 * (v35 + 1 + v36)) > *v67 || (v38 = v34 + 1 + v37, (*v61 * v38) > *a9) || (v61[1] * (v38 / 2)) > a9[1] || (v61[2] * v38) > a9[2])
+    if ((v57 & 1) != 0 || (*v67 * (v35 + 1 + v36)) > *v68 || (v38 = v34 + 1 + v37, (*v62 * v38) > *a9) || (v62[1] * (v38 / 2)) > a9[1] || (v62[2] * v38) > a9[2])
     {
       --v34;
       --v35;
@@ -8175,31 +8367,31 @@ LABEL_61:
 
     else
     {
-      ++v64;
       ++v65;
+      ++v66;
       ++v35;
       ++v34;
     }
   }
 
-  if (v32 + v30 > v62)
+  if (v32 + v30 > v63)
   {
-    v32 = v62 - v30;
+    v32 = v63 - v30;
   }
 
-  if (v33 + v31 > v63)
+  if (v33 + v31 > v64)
   {
-    v33 = v63 - v31;
+    v33 = v64 - v31;
   }
 
-  if (v35 + v36 > v65)
+  if (v35 + v36 > v66)
   {
-    v35 = v65 - v36;
+    v35 = v66 - v36;
   }
 
-  if (v34 + v37 > v64)
+  if (v34 + v37 > v65)
   {
-    v34 = v64 - v37;
+    v34 = v65 - v37;
   }
 
   if (v32 >= v33)
@@ -8222,7 +8414,7 @@ LABEL_61:
     v40 = v35;
   }
 
-  if (((v36 + v40 - 1) * *v66 + 8 * (v39 + v30)) > *v67)
+  if (((v36 + v40 - 1) * *v67 + 8 * (v39 + v30)) > *v68)
   {
     v57 = v36;
     v41 = v30;
@@ -8234,7 +8426,7 @@ LABEL_61:
 
   v45 = v40 + v37 - 1;
   v46 = v39 + v31;
-  if ((v39 + v31 + *v61 * v45) > *a9)
+  if ((v39 + v31 + *v62 * v45) > *a9)
   {
     v57 = v36;
     v41 = v30;
@@ -8244,8 +8436,8 @@ LABEL_61:
     goto LABEL_54;
   }
 
-  v47 = v60;
-  if (*(v60 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + v61[1] * ((v40 + v37 + 1) / 2 - 1) > a9[1])
+  v47 = v61;
+  if (*(v61 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + v62[1] * ((v40 + v37 + 1) / 2 - 1) > a9[1])
   {
     v57 = v36;
     v41 = v30;
@@ -8255,7 +8447,7 @@ LABEL_61:
     goto LABEL_54;
   }
 
-  if (*(v60 + 16) && (v46 + v61[2] * v45) > a9[2])
+  if (*(v61 + 16) && (v46 + v62[2] * v45) > a9[2])
   {
     v57 = v36;
     v41 = v30;
@@ -8264,8 +8456,8 @@ LABEL_61:
     v44 = a9;
 LABEL_54:
     fig_log_get_emitter();
-    v24 = FigSignalErrorAtGM();
-    v47 = v60;
+    v24 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v56, v57, v58);
+    v47 = v61;
     v28 = v44;
     v9 = v43;
     v31 = v42;
@@ -8278,9 +8470,9 @@ LABEL_54:
   }
 
   *v23 = v9;
-  *(v23 + 4) = v62;
-  v48 = v64;
-  *(v23 + 12) = v65;
+  *(v23 + 4) = v63;
+  v48 = v65;
+  *(v23 + 12) = v66;
   *(v23 + 20) = v39;
   *(v23 + 28) = v40;
   *(v23 + 36) = v30;
@@ -8289,17 +8481,17 @@ LABEL_54:
   v23[12] = v39;
   v23[13] = v40;
   v23[14] = v31;
-  v49 = v66;
-  v23[7] = v59;
+  v49 = v67;
+  v23[7] = v60;
   v23[8] = v49;
-  v50 = v63;
-  v23[9] = v67;
+  v50 = v64;
+  v23[9] = v68;
   v23[10] = v50;
   v23[15] = v37;
   v23[16] = v47;
-  v23[17] = v61;
+  v23[17] = v62;
   v23[18] = v28;
-  v23[19] = v58;
+  v23[19] = v59;
   global_queue = dispatch_get_global_queue(0, 0);
   dispatch_apply_f(v9, global_queue, v23, vt_Copy_b64a_TRC_Mat_TRC_420vf_GCD);
   if (!v9)
@@ -8659,13 +8851,13 @@ unsigned __int8 *vt_Copy_b64a_TRC_Mat_TRC_420vf_GCD(unsigned __int8 *result, uin
 
 uint64_t vt_Copy_b64a_rgb_420vf(uint64_t a1, uint64_t *a2, uint64_t a3, void *a4, void *a5, uint64_t *a6, uint64_t a7, void *a8, void *a9)
 {
-  v60 = a7;
-  v61 = a8;
-  v66 = a4;
-  v67 = a5;
-  v59 = a3;
-  v68 = *MEMORY[0x1E69E9840];
-  v58 = a1;
+  v61 = a7;
+  v62 = a8;
+  v67 = a4;
+  v68 = a5;
+  v60 = a3;
+  v69 = *MEMORY[0x1E69E9840];
+  v59 = a1;
   v9 = *(a1 + 162);
   v10 = a2[1];
   v12 = a2[2];
@@ -8673,15 +8865,15 @@ uint64_t vt_Copy_b64a_rgb_420vf(uint64_t a1, uint64_t *a2, uint64_t a3, void *a4
   v14 = a2[4];
   v13 = a2[5];
   v15 = *a6;
-  v62 = *a2;
-  v63 = v15;
+  v63 = *a2;
+  v64 = v15;
   v16 = a6[1];
   v17 = a6[2];
   v18 = a6[3];
   v19 = a6[4];
   v20 = a6[5];
-  v64 = v16;
-  v65 = v10;
+  v65 = v16;
+  v66 = v10;
   v22 = v13 + v11 != v10 || v20 + v18 != v16;
   LODWORD(v57) = v22;
   if (v9 == 255)
@@ -8756,7 +8948,7 @@ LABEL_61:
 
   if (v34)
   {
-    if ((v57 & 1) != 0 || (*v66 * (v35 + 1 + v36)) > *v67 || (v38 = v34 + 1 + v37, (*v61 * v38) > *a9) || (v61[1] * (v38 / 2)) > a9[1] || (v61[2] * v38) > a9[2])
+    if ((v57 & 1) != 0 || (*v67 * (v35 + 1 + v36)) > *v68 || (v38 = v34 + 1 + v37, (*v62 * v38) > *a9) || (v62[1] * (v38 / 2)) > a9[1] || (v62[2] * v38) > a9[2])
     {
       --v34;
       --v35;
@@ -8764,31 +8956,31 @@ LABEL_61:
 
     else
     {
-      ++v64;
       ++v65;
+      ++v66;
       ++v35;
       ++v34;
     }
   }
 
-  if (v32 + v30 > v62)
+  if (v32 + v30 > v63)
   {
-    v32 = v62 - v30;
+    v32 = v63 - v30;
   }
 
-  if (v33 + v31 > v63)
+  if (v33 + v31 > v64)
   {
-    v33 = v63 - v31;
+    v33 = v64 - v31;
   }
 
-  if (v35 + v36 > v65)
+  if (v35 + v36 > v66)
   {
-    v35 = v65 - v36;
+    v35 = v66 - v36;
   }
 
-  if (v34 + v37 > v64)
+  if (v34 + v37 > v65)
   {
-    v34 = v64 - v37;
+    v34 = v65 - v37;
   }
 
   if (v32 >= v33)
@@ -8811,7 +9003,7 @@ LABEL_61:
     v40 = v35;
   }
 
-  if (((v36 + v40 - 1) * *v66 + 8 * (v39 + v30)) > *v67)
+  if (((v36 + v40 - 1) * *v67 + 8 * (v39 + v30)) > *v68)
   {
     v57 = v36;
     v41 = v30;
@@ -8823,7 +9015,7 @@ LABEL_61:
 
   v45 = v40 + v37 - 1;
   v46 = v39 + v31;
-  if ((v39 + v31 + *v61 * v45) > *a9)
+  if ((v39 + v31 + *v62 * v45) > *a9)
   {
     v57 = v36;
     v41 = v30;
@@ -8833,8 +9025,8 @@ LABEL_61:
     goto LABEL_54;
   }
 
-  v47 = v60;
-  if (*(v60 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + v61[1] * ((v40 + v37 + 1) / 2 - 1) > a9[1])
+  v47 = v61;
+  if (*(v61 + 8) && ((v46 + 1 + ((v46 + 1) >> 63)) & 0xFFFFFFFFFFFFFFFELL) + v62[1] * ((v40 + v37 + 1) / 2 - 1) > a9[1])
   {
     v57 = v36;
     v41 = v30;
@@ -8844,7 +9036,7 @@ LABEL_61:
     goto LABEL_54;
   }
 
-  if (*(v60 + 16) && (v46 + v61[2] * v45) > a9[2])
+  if (*(v61 + 16) && (v46 + v62[2] * v45) > a9[2])
   {
     v57 = v36;
     v41 = v30;
@@ -8853,8 +9045,8 @@ LABEL_61:
     v44 = a9;
 LABEL_54:
     fig_log_get_emitter();
-    v24 = FigSignalErrorAtGM();
-    v47 = v60;
+    v24 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v56, v57, v58);
+    v47 = v61;
     v28 = v44;
     v9 = v43;
     v31 = v42;
@@ -8867,9 +9059,9 @@ LABEL_54:
   }
 
   *v23 = v9;
-  *(v23 + 4) = v62;
-  v48 = v64;
-  *(v23 + 12) = v65;
+  *(v23 + 4) = v63;
+  v48 = v65;
+  *(v23 + 12) = v66;
   *(v23 + 20) = v39;
   *(v23 + 28) = v40;
   *(v23 + 36) = v30;
@@ -8878,17 +9070,17 @@ LABEL_54:
   v23[12] = v39;
   v23[13] = v40;
   v23[14] = v31;
-  v49 = v66;
-  v23[7] = v59;
+  v49 = v67;
+  v23[7] = v60;
   v23[8] = v49;
-  v50 = v63;
-  v23[9] = v67;
+  v50 = v64;
+  v23[9] = v68;
   v23[10] = v50;
   v23[15] = v37;
   v23[16] = v47;
-  v23[17] = v61;
+  v23[17] = v62;
   v23[18] = v28;
-  v23[19] = v58;
+  v23[19] = v59;
   global_queue = dispatch_get_global_queue(0, 0);
   dispatch_apply_f(v9, global_queue, v23, vt_Copy_b64a_rgb_420vf_GCD);
   if (!v9)
@@ -9146,13 +9338,13 @@ unsigned __int8 *vt_Copy_b64a_rgb_420vf_GCD(unsigned __int8 *result, uint64_t a2
 
 uint64_t vt_Copy_b64a_TRC_Tone_Mat_TRC_xf420(uint64_t a1, uint64_t *a2, uint64_t a3, void *a4, void *a5, uint64_t *a6, uint64_t a7, void *a8, void *a9)
 {
-  v60 = a7;
-  v61 = a8;
-  v66 = a4;
-  v67 = a5;
-  v59 = a3;
-  v68 = *MEMORY[0x1E69E9840];
-  v58 = a1;
+  v61 = a7;
+  v62 = a8;
+  v67 = a4;
+  v68 = a5;
+  v60 = a3;
+  v69 = *MEMORY[0x1E69E9840];
+  v59 = a1;
   v9 = *(a1 + 162);
   v10 = a2[1];
   v12 = a2[2];
@@ -9160,15 +9352,15 @@ uint64_t vt_Copy_b64a_TRC_Tone_Mat_TRC_xf420(uint64_t a1, uint64_t *a2, uint64_t
   v14 = a2[4];
   v13 = a2[5];
   v15 = *a6;
-  v62 = *a2;
-  v63 = v15;
+  v63 = *a2;
+  v64 = v15;
   v16 = a6[1];
   v17 = a6[2];
   v18 = a6[3];
   v19 = a6[4];
   v20 = a6[5];
-  v64 = v16;
-  v65 = v10;
+  v65 = v16;
+  v66 = v10;
   v22 = v13 + v11 != v10 || v20 + v18 != v16;
   LODWORD(v57) = v22;
   if (v9 == 255)
@@ -9243,7 +9435,7 @@ LABEL_61:
 
   if (v34)
   {
-    if ((v57 & 1) != 0 || (*v66 * (v35 + 1 + v36)) > *v67 || (v38 = v34 + 1 + v37, (*v61 * v38) > *a9) || (v61[1] * (v38 / 2)) > a9[1] || (v61[2] * v38) > a9[2])
+    if ((v57 & 1) != 0 || (*v67 * (v35 + 1 + v36)) > *v68 || (v38 = v34 + 1 + v37, (*v62 * v38) > *a9) || (v62[1] * (v38 / 2)) > a9[1] || (v62[2] * v38) > a9[2])
     {
       --v34;
       --v35;
@@ -9251,31 +9443,31 @@ LABEL_61:
 
     else
     {
-      ++v64;
       ++v65;
+      ++v66;
       ++v35;
       ++v34;
     }
   }
 
-  if (v32 + v30 > v62)
+  if (v32 + v30 > v63)
   {
-    v32 = v62 - v30;
+    v32 = v63 - v30;
   }
 
-  if (v33 + v31 > v63)
+  if (v33 + v31 > v64)
   {
-    v33 = v63 - v31;
+    v33 = v64 - v31;
   }
 
-  if (v35 + v36 > v65)
+  if (v35 + v36 > v66)
   {
-    v35 = v65 - v36;
+    v35 = v66 - v36;
   }
 
-  if (v34 + v37 > v64)
+  if (v34 + v37 > v65)
   {
-    v34 = v64 - v37;
+    v34 = v65 - v37;
   }
 
   if (v32 >= v33)
@@ -9298,7 +9490,7 @@ LABEL_61:
     v40 = v35;
   }
 
-  if (((v36 + v40 - 1) * *v66 + 8 * (v39 + v30)) > *v67)
+  if (((v36 + v40 - 1) * *v67 + 8 * (v39 + v30)) > *v68)
   {
     v57 = v36;
     v41 = v30;
@@ -9310,7 +9502,7 @@ LABEL_61:
 
   v45 = v40 + v37 - 1;
   v46 = v39 + v31;
-  if ((*v61 * v45 + 2 * (v39 + v31)) > *a9)
+  if ((*v62 * v45 + 2 * (v39 + v31)) > *a9)
   {
     v57 = v36;
     v41 = v30;
@@ -9320,8 +9512,8 @@ LABEL_61:
     goto LABEL_54;
   }
 
-  v47 = v60;
-  if (*(v60 + 8) && v61[1] * ((v40 + v37 + 1) / 2 - 1) + 4 * ((v46 + 1 + ((v46 + 1) >> 63)) >> 1) > a9[1])
+  v47 = v61;
+  if (*(v61 + 8) && v62[1] * ((v40 + v37 + 1) / 2 - 1) + 4 * ((v46 + 1 + ((v46 + 1) >> 63)) >> 1) > a9[1])
   {
     v57 = v36;
     v41 = v30;
@@ -9331,7 +9523,7 @@ LABEL_61:
     goto LABEL_54;
   }
 
-  if (*(v60 + 16) && (2 * v46 + v61[2] * v45) > a9[2])
+  if (*(v61 + 16) && (2 * v46 + v62[2] * v45) > a9[2])
   {
     v57 = v36;
     v41 = v30;
@@ -9340,8 +9532,8 @@ LABEL_61:
     v44 = a9;
 LABEL_54:
     fig_log_get_emitter();
-    v24 = FigSignalErrorAtGM();
-    v47 = v60;
+    v24 = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v56, v57, v58);
+    v47 = v61;
     v28 = v44;
     v9 = v43;
     v31 = v42;
@@ -9354,9 +9546,9 @@ LABEL_54:
   }
 
   *v23 = v9;
-  *(v23 + 4) = v62;
-  v48 = v64;
-  *(v23 + 12) = v65;
+  *(v23 + 4) = v63;
+  v48 = v65;
+  *(v23 + 12) = v66;
   *(v23 + 20) = v39;
   *(v23 + 28) = v40;
   *(v23 + 36) = v30;
@@ -9365,17 +9557,17 @@ LABEL_54:
   v23[12] = v39;
   v23[13] = v40;
   v23[14] = v31;
-  v49 = v66;
-  v23[7] = v59;
+  v49 = v67;
+  v23[7] = v60;
   v23[8] = v49;
-  v50 = v63;
-  v23[9] = v67;
+  v50 = v64;
+  v23[9] = v68;
   v23[10] = v50;
   v23[15] = v37;
   v23[16] = v47;
-  v23[17] = v61;
+  v23[17] = v62;
   v23[18] = v28;
-  v23[19] = v58;
+  v23[19] = v59;
   global_queue = dispatch_get_global_queue(0, 0);
   dispatch_apply_f(v9, global_queue, v23, vt_Copy_b64a_TRC_Tone_Mat_TRC_xf420_GCD);
   if (!v9)

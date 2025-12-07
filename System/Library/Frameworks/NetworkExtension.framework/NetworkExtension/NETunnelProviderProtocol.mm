@@ -9,9 +9,11 @@
 - (__SCNetworkInterface)createInterface;
 - (id)copyLegacyDictionary;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options;
 - (id)initFromLegacyDictionary:(id)dictionary;
 - (void)copyPasswordsFromKeychainInDomain:(int64_t)domain;
 - (void)encodeWithCoder:(id)coder;
+- (void)removeKeychainItemsInDomain:(int64_t)domain keepIdentity:(BOOL)identity;
 - (void)setPluginType:(id)type;
 - (void)syncWithKeychainInDomain:(int64_t)domain configuration:(id)configuration suffix:(id)suffix;
 @end
@@ -57,6 +59,34 @@
   }
 }
 
+- (void)removeKeychainItemsInDomain:(int64_t)domain keepIdentity:(BOOL)identity
+{
+  if (domain == 1)
+  {
+    passwordKeychainItem2 = [(NEVPNProtocol *)self passwordKeychainItem:1];
+    if ([passwordKeychainItem2 domain] == 1)
+    {
+      passwordKeychainItem = [(NEVPNProtocol *)self passwordKeychainItem];
+      accessGroup = [passwordKeychainItem accessGroup];
+
+      if (!accessGroup)
+      {
+        return;
+      }
+
+      passwordKeychainItem2 = [(NEVPNProtocol *)self passwordKeychainItem];
+      [passwordKeychainItem2 setIdentifier:0];
+    }
+  }
+
+  else if (!domain)
+  {
+    v8.receiver = self;
+    v8.super_class = NETunnelProviderProtocol;
+    [(NEVPNProtocol *)&v8 removeKeychainItemsInDomain:0 keepIdentity:identity];
+  }
+}
+
 - (void)copyPasswordsFromKeychainInDomain:(int64_t)domain
 {
   v16.receiver = self;
@@ -72,7 +102,7 @@
     if (domain == domain)
     {
       passwordEncryption = [(NEVPNProtocol *)self passwordEncryption];
-      if (!passwordEncryption || (v10 = passwordEncryption, -[NEVPNProtocol passwordEncryption](self, "passwordEncryption"), v11 = objc_claimAutoreleasedReturnValue(), v12 = [v11 isEqualToString:*MEMORY[0x1E6982950]], v11, v10, (v12 & 1) == 0))
+      if (!passwordEncryption || (v10 = passwordEncryption, [(NEVPNProtocol *)self passwordEncryption], v11 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v11), v11, v10, (isEqualToString & 1) == 0))
       {
         passwordKeychainItem3 = [(NEVPNProtocol *)self passwordKeychainItem];
         copyData = [passwordKeychainItem3 copyData];
@@ -106,25 +136,25 @@
 
 - (BOOL)setServiceProtocolsInService:(__SCNetworkService *)service
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v15.receiver = self;
-  v15.super_class = NETunnelProviderProtocol;
-  v5 = [(NEVPNProtocol *)&v15 setServiceProtocolsInService:?];
+  v19 = *MEMORY[0x1E69E9840];
+  v14.receiver = self;
+  v14.super_class = NETunnelProviderProtocol;
+  v5 = [(NEVPNProtocol *)&v14 setServiceProtocolsInService:?];
   if (v5)
   {
     Interface = SCNetworkServiceGetInterface(service);
     if (Interface && (v7 = SCNetworkInterfaceGetInterface(Interface)) != 0 && (v8 = v7, [(NETunnelProviderProtocol *)self providerConfiguration], v9 = objc_claimAutoreleasedReturnValue(), LODWORD(v8) = SCNetworkInterfaceSetConfiguration(v8, v9), v9, !v8))
     {
-      v11 = ne_log_obj();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v10 = ne_log_obj();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v12 = SCError();
-        v13 = SCErrorString(v12);
+        v11 = SCError();
+        v12 = SCErrorString(v11);
         *buf = 136315394;
-        v17 = "[NETunnelProviderProtocol setServiceProtocolsInService:]";
-        v18 = 2080;
-        v19 = v13;
-        _os_log_error_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_ERROR, "%s: SCNetworkInterfaceSetConfiguration failed: %s", buf, 0x16u);
+        v16 = "[NETunnelProviderProtocol setServiceProtocolsInService:]";
+        v17 = 2080;
+        v18 = v12;
+        _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "%s: SCNetworkInterfaceSetConfiguration failed: %s", buf, 0x16u);
       }
 
       LOBYTE(v5) = 0;
@@ -136,7 +166,6 @@
     }
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -178,7 +207,7 @@
   v7 = [dictionaryCopy objectForKeyedSubscript:*MEMORY[0x1E6982758]];
   if (isa_nsstring(v7))
   {
-    if ([v7 isEqualToString:*MEMORY[0x1E6982960]])
+    if (objc_msgSend_isEqualToString_(v7))
     {
       v8 = 0;
 LABEL_9:
@@ -186,7 +215,7 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    if ([v7 isEqualToString:*MEMORY[0x1E6982958]])
+    if (objc_msgSend_isEqualToString_(v7))
     {
       v8 = 1;
       goto LABEL_9;
@@ -234,62 +263,60 @@ LABEL_15:
 
 void __53__NETunnelProviderProtocol_initFromLegacyDictionary___block_invoke()
 {
-  v17[36] = *MEMORY[0x1E69E9840];
+  v16[36] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E6982730];
-  v17[0] = *MEMORY[0x1E6982728];
-  v17[1] = v0;
+  v16[0] = *MEMORY[0x1E6982728];
+  v16[1] = v0;
   v1 = *MEMORY[0x1E6982740];
-  v17[2] = *MEMORY[0x1E6982738];
-  v17[3] = v1;
+  v16[2] = *MEMORY[0x1E6982738];
+  v16[3] = v1;
   v2 = *MEMORY[0x1E6982750];
-  v17[4] = *MEMORY[0x1E6982748];
-  v17[5] = v2;
+  v16[4] = *MEMORY[0x1E6982748];
+  v16[5] = v2;
   v3 = *MEMORY[0x1E6982760];
-  v17[6] = *MEMORY[0x1E6982758];
-  v17[7] = v3;
+  v16[6] = *MEMORY[0x1E6982758];
+  v16[7] = v3;
   v4 = *MEMORY[0x1E6982770];
-  v17[8] = *MEMORY[0x1E6982768];
-  v17[9] = v4;
+  v16[8] = *MEMORY[0x1E6982768];
+  v16[9] = v4;
   v5 = *MEMORY[0x1E6982780];
-  v17[10] = *MEMORY[0x1E6982778];
-  v17[11] = v5;
+  v16[10] = *MEMORY[0x1E6982778];
+  v16[11] = v5;
   v6 = *MEMORY[0x1E6982790];
-  v17[12] = *MEMORY[0x1E6982788];
-  v17[13] = v6;
+  v16[12] = *MEMORY[0x1E6982788];
+  v16[13] = v6;
   v7 = *MEMORY[0x1E69827A0];
-  v17[14] = *MEMORY[0x1E6982798];
-  v17[15] = v7;
+  v16[14] = *MEMORY[0x1E6982798];
+  v16[15] = v7;
   v8 = *MEMORY[0x1E69827B0];
-  v17[16] = *MEMORY[0x1E69827A8];
-  v17[17] = v8;
+  v16[16] = *MEMORY[0x1E69827A8];
+  v16[17] = v8;
   v9 = *MEMORY[0x1E69827C0];
-  v17[18] = *MEMORY[0x1E69827B8];
-  v17[19] = v9;
+  v16[18] = *MEMORY[0x1E69827B8];
+  v16[19] = v9;
   v10 = *MEMORY[0x1E69827D8];
-  v17[20] = *MEMORY[0x1E69827C8];
-  v17[21] = v10;
+  v16[20] = *MEMORY[0x1E69827C8];
+  v16[21] = v10;
   v11 = *MEMORY[0x1E6982838];
-  v17[22] = *MEMORY[0x1E69827D0];
-  v17[23] = v11;
+  v16[22] = *MEMORY[0x1E69827D0];
+  v16[23] = v11;
   v12 = *MEMORY[0x1E6982848];
-  v17[24] = *MEMORY[0x1E6982840];
-  v17[25] = v12;
+  v16[24] = *MEMORY[0x1E6982840];
+  v16[25] = v12;
   v13 = *MEMORY[0x1E6982858];
-  v17[26] = *MEMORY[0x1E6982850];
-  v17[27] = v13;
-  v17[28] = *MEMORY[0x1E6982860];
-  v17[29] = @"ReassertionTimer";
-  v17[30] = *MEMORY[0x1E6982360];
-  v17[31] = @"__NEVPNProtocolType";
-  v17[32] = @"__NEVPNPluginType";
-  v17[33] = @"__NEVPNProtocolIdentifier";
-  v17[34] = @"NEProviderBundleIdentifier";
-  v17[35] = @"DesignatedRequirement";
-  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:36];
+  v16[26] = *MEMORY[0x1E6982850];
+  v16[27] = v13;
+  v16[28] = *MEMORY[0x1E6982860];
+  v16[29] = @"ReassertionTimer";
+  v16[30] = *MEMORY[0x1E6982360];
+  v16[31] = @"__NEVPNProtocolType";
+  v16[32] = @"__NEVPNPluginType";
+  v16[33] = @"__NEVPNProtocolIdentifier";
+  v16[34] = @"NEProviderBundleIdentifier";
+  v16[35] = @"DesignatedRequirement";
+  v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:36];
   v15 = initFromLegacyDictionary__nsprotocolkeys;
   initFromLegacyDictionary__nsprotocolkeys = v14;
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyLegacyDictionary
@@ -337,6 +364,37 @@ LABEL_6:
   [copyLegacyDictionary setObject:designatedRequirement forKeyedSubscript:@"DesignatedRequirement"];
 
   return copyLegacyDictionary;
+}
+
+- (id)descriptionWithIndent:(int)indent options:(unint64_t)options
+{
+  v5 = *&indent;
+  v7 = objc_alloc(MEMORY[0x1E696AD60]);
+  v17.receiver = self;
+  v17.super_class = NETunnelProviderProtocol;
+  v8 = [(NEVPNProtocol *)&v17 descriptionWithIndent:v5 options:options];
+  v9 = [v7 initWithString:v8];
+
+  pluginType = [(NETunnelProviderProtocol *)self pluginType];
+  [v9 appendPrettyObject:pluginType withName:@"pluginType" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  vendorInfo = [(NETunnelProviderProtocol *)self vendorInfo];
+  [v9 appendPrettyObject:vendorInfo withName:@"vendorInfo" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  authenticationPluginType = [(NETunnelProviderProtocol *)self authenticationPluginType];
+  [v9 appendPrettyObject:authenticationPluginType withName:@"authenticationPluginType" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  [v9 appendPrettyInt:-[NETunnelProviderProtocol authenticationMethod](self withName:"authenticationMethod") andIndent:@"authenticationMethod" options:{v5, options & 0xFFFFFFFFFFFFFFF7}];
+  providerConfiguration = [(NETunnelProviderProtocol *)self providerConfiguration];
+  [v9 appendPrettyObject:providerConfiguration withName:@"providerConfiguration" andIndent:v5 options:options | 8];
+
+  providerBundleIdentifier = [(NETunnelProviderProtocol *)self providerBundleIdentifier];
+  [v9 appendPrettyObject:providerBundleIdentifier withName:@"providerBundleIdentifier" andIndent:v5 options:options | 8];
+
+  designatedRequirement = [(NETunnelProviderProtocol *)self designatedRequirement];
+  [v9 appendPrettyObject:designatedRequirement withName:@"designatedRequirement" andIndent:v5 options:options & 0xFFFFFFFFFFFFFFF7];
+
+  return v9;
 }
 
 - (BOOL)checkValidityAndCollectErrors:(id)errors
@@ -535,7 +593,7 @@ LABEL_6:
 + (BOOL)isLegacyPluginType:(id)type
 {
   typeCopy = type;
-  if ([typeCopy isEqualToString:@"com.cisco.anyconnect.applevpn.plugin"] & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", @"com.apple.ac-otc-authen.vpn.plugin") & 1) != 0 || (objc_msgSend(typeCopy, "isEqualToString:", @"net.juniper.sslvpn"))
+  if (objc_msgSend_isEqualToString_(typeCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(typeCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(typeCopy))
   {
     v4 = 1;
   }

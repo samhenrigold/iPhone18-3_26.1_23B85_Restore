@@ -73,6 +73,7 @@
 - (void)requestAccessToShareURLs:(id)ls completionHandler:(id)handler;
 - (void)requestApplicationPermission:(CKApplicationPermissions)applicationPermission completionHandler:(CKApplicationPermissionBlock)completionHandler;
 - (void)serverPreferredPushEnvironmentWithCompletionHandler:(id)handler;
+- (void)setApplicationPermission:(unint64_t)permission enabled:(BOOL)enabled completionHandler:(id)handler;
 - (void)setFakeError:(id)error forNextRequestOfClassName:(id)name;
 - (void)setSourceApplicationBundleIdentifier:(id)identifier;
 - (void)setSourceApplicationSecondaryIdentifier:(id)identifier;
@@ -83,6 +84,7 @@
 - (void)unregisterFromUploadRequests;
 - (void)unregisterFromUploadRequestsWithMachServiceName:(id)name;
 - (void)wipeAllCachesAndDie;
+- (void)withUploadManager:(int)manager performBlock:(id)block;
 @end
 
 @implementation CKContainer
@@ -258,7 +260,7 @@
 
 + (CKContainer)allocWithZone:(_NSZone *)zone
 {
-  if (objc_opt_class() == self && __sTestOverridesAvailable[0] == 1 && (byte_1EA90C538 & 1) == 0)
+  if (objc_opt_class() == self && __sTestOverridesAvailable == 1 && (byte_1EA90C538 & 1) == 0)
   {
     v8 = objc_msgSend_currentHandler(MEMORY[0x1E696AAA8], v6, v7);
     objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v8, v9, a2, self, @"CKContainer.m", 2601, @"Why is partlycloudd initting a CKContainer directly");
@@ -490,13 +492,13 @@ LABEL_13:
   identifierCopy = identifier;
   if (!identifierCopy)
   {
-    identifierCopy = sub_1883F3854();
+    identifierCopy = sub_1883F3854(self);
   }
 
-  v6 = [CKContainerID alloc];
-  v8 = objc_msgSend_initWithContainerIdentifier_environment_(v6, v7, identifierCopy, environment);
+  v7 = [CKContainerID alloc];
+  v9 = objc_msgSend_initWithContainerIdentifier_environment_(v7, v8, identifierCopy, environment);
 
-  return v8;
+  return v9;
 }
 
 + (id)containerIDForContainerIdentifier:(id)identifier
@@ -504,7 +506,7 @@ LABEL_13:
   identifierCopy = identifier;
   if (!identifierCopy)
   {
-    identifierCopy = sub_1883F3854();
+    identifierCopy = sub_1883F3854(self);
   }
 
   v7 = objc_msgSend_sharedManager(CKProcessScopedStateManager, v4, v5);
@@ -519,7 +521,7 @@ LABEL_13:
 
 + (int64_t)containerEnvironmentForContainerIdentifier:(id)identifier entitlements:(id)entitlements
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   entitlementsCopy = entitlements;
   v11 = objc_msgSend_containerEnvironment(entitlementsCopy, v7, v8);
@@ -540,11 +542,11 @@ LABEL_13:
       {
         v16 = v15;
         v19 = objc_msgSend_applicationBundleID(entitlementsCopy, v17, v18);
-        v22 = 138543618;
-        v23 = v19;
-        v24 = 2114;
-        v25 = identifierCopy;
-        _os_log_impl(&dword_1883EA000, v16, OS_LOG_TYPE_INFO, "Client %{public}@ requested sandbox environment for container identifier %{public}@", &v22, 0x16u);
+        v21 = 138543618;
+        v22 = v19;
+        v23 = 2114;
+        v24 = identifierCopy;
+        _os_log_impl(&dword_1883EA000, v16, OS_LOG_TYPE_INFO, "Client %{public}@ requested sandbox environment for container identifier %{public}@", &v21, 0x16u);
       }
 
       v11 = 2;
@@ -556,13 +558,12 @@ LABEL_13:
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 + (int64_t)containerEnvironmentForContainerID:(id)d entitlements:(id)entitlements
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dCopy = d;
   entitlementsCopy = entitlements;
   if (objc_msgSend_hasEnvironmentEntitlement(entitlementsCopy, v8, v9))
@@ -575,9 +576,9 @@ LABEL_13:
     v12 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_INFO))
     {
-      v32 = 138412290;
+      v31 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_1883EA000, v12, OS_LOG_TYPE_INFO, "Allowing %@ to set any environment", &v32, 0xCu);
+      _os_log_impl(&dword_1883EA000, v12, OS_LOG_TYPE_INFO, "Allowing %@ to set any environment", &v31, 0xCu);
     }
 
     v17 = objc_msgSend_environment(dCopy, v13, v14);
@@ -599,22 +600,21 @@ LABEL_13:
     v20 = ck_log_facility_ck;
     if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_ERROR))
     {
-      v23 = v20;
-      v26 = objc_msgSend_applicationBundleID(entitlementsCopy, v24, v25);
-      v29 = objc_msgSend_environment(dCopy, v27, v28);
-      v30 = CKContainerEnvironmentString(v29);
-      v31 = CKContainerEnvironmentString(v17);
-      v32 = 138543874;
-      selfCopy = v26;
-      v34 = 2114;
-      v35 = v30;
-      v36 = 2114;
-      v37 = v31;
-      _os_log_error_impl(&dword_1883EA000, v23, OS_LOG_TYPE_ERROR, "Client %{public}@ tried to access environment %{public}@, even though the entitlements specified %{public}@", &v32, 0x20u);
+      v22 = v20;
+      v25 = objc_msgSend_applicationBundleID(entitlementsCopy, v23, v24);
+      v28 = objc_msgSend_environment(dCopy, v26, v27);
+      v29 = CKContainerEnvironmentString(v28);
+      v30 = CKContainerEnvironmentString(v17);
+      v31 = 138543874;
+      selfCopy = v25;
+      v33 = 2114;
+      v34 = v29;
+      v35 = 2114;
+      v36 = v30;
+      _os_log_error_impl(&dword_1883EA000, v22, OS_LOG_TYPE_ERROR, "Client %{public}@ tried to access environment %{public}@, even though the entitlements specified %{public}@", &v31, 0x20u);
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -1028,6 +1028,14 @@ LABEL_7:
   objc_msgSend_submitEventMetric_completionHandler_(v11, v10, metricCopy, handlerCopy);
 }
 
+- (void)setApplicationPermission:(unint64_t)permission enabled:(BOOL)enabled completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  v12 = objc_msgSend_implementation(self, v9, v10);
+  objc_msgSend_setApplicationPermission_enabled_completionHandler_(v12, v11, permission, enabledCopy, handlerCopy);
+}
+
 - (void)statusGroupsForApplicationPermission:(unint64_t)permission completionHandler:(id)handler
 {
   handlerCopy = handler;
@@ -1168,6 +1176,14 @@ LABEL_7:
   objc_msgSend_cancelUploadRequests(v5, v3, v4);
 }
 
+- (void)withUploadManager:(int)manager performBlock:(id)block
+{
+  v4 = *&manager;
+  blockCopy = block;
+  v10 = objc_msgSend_implementation(self, v7, v8);
+  objc_msgSend_withUploadManager_performBlock_(v10, v9, v4, blockCopy);
+}
+
 - (id)CKStatusReportArray
 {
   v3 = objc_msgSend_implementation(self, a2, v2);
@@ -1178,7 +1194,7 @@ LABEL_7:
 
 - (void)discoverAllContactUserInfosWithCompletionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   if (ck_log_initialization_predicate != -1)
   {
@@ -1188,11 +1204,11 @@ LABEL_7:
   v5 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_FAULT))
   {
-    v13 = v5;
-    v14 = NSStringFromSelector(a2);
+    v12 = v5;
+    v13 = NSStringFromSelector(a2);
     *buf = 138543362;
-    v16 = v14;
-    _os_log_fault_impl(&dword_1883EA000, v13, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.", buf, 0xCu);
+    v15 = v13;
+    _os_log_fault_impl(&dword_1883EA000, v12, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.", buf, 0xCu);
 
     if (!handlerCopy)
     {
@@ -1213,13 +1229,11 @@ LABEL_5:
   }
 
 LABEL_6:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)discoverUserInfoWithEmailAddress:(id)address completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   addressCopy = address;
   handlerCopy = handler;
   if (ck_log_initialization_predicate != -1)
@@ -1230,11 +1244,11 @@ LABEL_6:
   v8 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_FAULT))
   {
-    v16 = v8;
-    v17 = NSStringFromSelector(a2);
+    v15 = v8;
+    v16 = NSStringFromSelector(a2);
     *buf = 138543362;
-    v19 = v17;
-    _os_log_fault_impl(&dword_1883EA000, v16, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.", buf, 0xCu);
+    v18 = v16;
+    _os_log_fault_impl(&dword_1883EA000, v15, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.", buf, 0xCu);
 
     if (!handlerCopy)
     {
@@ -1255,13 +1269,11 @@ LABEL_5:
   }
 
 LABEL_6:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)discoverUserInfoWithUserRecordID:(id)d completionHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   dCopy = d;
   handlerCopy = handler;
   if (ck_log_initialization_predicate != -1)
@@ -1272,11 +1284,11 @@ LABEL_6:
   v8 = ck_log_facility_ck;
   if (os_log_type_enabled(ck_log_facility_ck, OS_LOG_TYPE_FAULT))
   {
-    v16 = v8;
-    v17 = NSStringFromSelector(a2);
+    v15 = v8;
+    v16 = NSStringFromSelector(a2);
     *buf = 138543362;
-    v19 = v17;
-    _os_log_fault_impl(&dword_1883EA000, v16, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.", buf, 0xCu);
+    v18 = v16;
+    _os_log_fault_impl(&dword_1883EA000, v15, OS_LOG_TYPE_FAULT, "%{public}@ is deprecated, and will be removed in a future release.", buf, 0xCu);
 
     if (!handlerCopy)
     {
@@ -1297,8 +1309,6 @@ LABEL_5:
   }
 
 LABEL_6:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -219,22 +219,22 @@ void __42__PXBarAppearance__performBarsTransition___block_invoke(uint64_t a1)
   [(PXBarAppearance *)self _performBarsTransition:v14];
 }
 
-uint64_t __58__PXBarAppearance__setTabBarVisible_withAnimationOptions___block_invoke(uint64_t a1)
+uint64_t __58__PXBarAppearance__setTabBarVisible_withAnimationOptions___block_invoke(uint64_t a1, const char *a2)
 {
-  v1 = *(a1 + 52);
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 32);
-  [*(a1 + 40) duration];
-  if (v1 == 1)
+  v3 = *(a1 + 52);
+  v4 = *(a1 + 48);
+  v5 = *(a1 + 32);
+  objc_msgSend_duration(*(a1 + 40), a2);
+  if (v3 == 1)
   {
 
-    return [v3 showBarWithTransition:v2 duration:?];
+    return [v5 showBarWithTransition:v4 duration:?];
   }
 
   else
   {
 
-    return [v3 hideBarWithTransition:v2 duration:?];
+    return [v5 hideBarWithTransition:v4 duration:?];
   }
 }
 
@@ -258,34 +258,40 @@ uint64_t __58__PXBarAppearance__setTabBarVisible_withAnimationOptions___block_in
   }
 }
 
-uint64_t __59__PXBarAppearance__setToolbarVisible_withAnimationOptions___block_invoke(uint64_t a1)
+void *__59__PXBarAppearance__setToolbarVisible_withAnimationOptions___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) type];
-  switch(result)
+  if (result == 2)
   {
-    case 2:
-      v10 = *(a1 + 48);
-      v11 = *(a1 + 40);
-      [*(a1 + 32) duration];
-      v7 = (v10 & 1) == 0;
-      v8 = v11;
-      v9 = 4;
-      break;
-    case 1:
-      v5 = *(a1 + 48);
-      v6 = *(a1 + 40);
-      [*(a1 + 32) duration];
-      v7 = (v5 & 1) == 0;
-      v8 = v6;
-      v9 = 15;
-      break;
-    case 0:
-      v3 = *(a1 + 40);
-      v4 = (*(a1 + 48) & 1) == 0;
+    v10 = *(a1 + 48);
+    v11 = *(a1 + 40);
+    objc_msgSend_duration(*(a1 + 32));
+    v7 = (v10 & 1) == 0;
+    v8 = v11;
+    v9 = 4;
+  }
 
-      return [v3 setToolbarHidden:v4 animated:0];
-    default:
+  else
+  {
+    if (result != 1)
+    {
+      if (!result)
+      {
+        v3 = *(a1 + 40);
+        v4 = (*(a1 + 48) & 1) == 0;
+
+        return [v3 setToolbarHidden:v4 animated:0];
+      }
+
       return result;
+    }
+
+    v5 = *(a1 + 48);
+    v6 = *(a1 + 40);
+    objc_msgSend_duration(*(a1 + 32));
+    v7 = (v5 & 1) == 0;
+    v8 = v6;
+    v9 = 15;
   }
 
   return [v8 _setToolbarHidden:v7 edge:v9 duration:?];
@@ -311,34 +317,40 @@ uint64_t __59__PXBarAppearance__setToolbarVisible_withAnimationOptions___block_i
   }
 }
 
-uint64_t __65__PXBarAppearance__setNavigationBarVisible_withAnimationOptions___block_invoke(uint64_t a1)
+void *__65__PXBarAppearance__setNavigationBarVisible_withAnimationOptions___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) type];
-  switch(result)
+  if (result == 2)
   {
-    case 2:
-      v10 = *(a1 + 48);
-      v11 = *(a1 + 40);
-      [*(a1 + 32) duration];
-      v7 = (v10 & 1) == 0;
-      v8 = v11;
-      v9 = 1;
-      break;
-    case 1:
-      v5 = *(a1 + 48);
-      v6 = *(a1 + 40);
-      [*(a1 + 32) duration];
-      v7 = (v5 & 1) == 0;
-      v8 = v6;
-      v9 = 15;
-      break;
-    case 0:
-      v3 = *(a1 + 40);
-      v4 = (*(a1 + 48) & 1) == 0;
+    v10 = *(a1 + 48);
+    v11 = *(a1 + 40);
+    objc_msgSend_duration(*(a1 + 32));
+    v7 = (v10 & 1) == 0;
+    v8 = v11;
+    v9 = 1;
+  }
 
-      return [v3 setNavigationBarHidden:v4 animated:0];
-    default:
+  else
+  {
+    if (result != 1)
+    {
+      if (!result)
+      {
+        v3 = *(a1 + 40);
+        v4 = (*(a1 + 48) & 1) == 0;
+
+        return [v3 setNavigationBarHidden:v4 animated:0];
+      }
+
       return result;
+    }
+
+    v5 = *(a1 + 48);
+    v6 = *(a1 + 40);
+    objc_msgSend_duration(*(a1 + 32));
+    v7 = (v5 & 1) == 0;
+    v8 = v6;
+    v9 = 15;
   }
 
   return [v8 _setNavigationBarHidden:v7 edge:v9 duration:?];
@@ -366,7 +378,7 @@ uint64_t __65__PXBarAppearance__setNavigationBarVisible_withAnimationOptions___b
 
   [(PXBarAppearance *)self _setPreferredStatusBarUpdateAnimation:v7];
   v8 = MEMORY[0x1E69DD250];
-  [optionsCopy duration];
+  objc_msgSend_duration(optionsCopy);
   v10 = v9;
 
   v11[0] = MEMORY[0x1E69E9820];

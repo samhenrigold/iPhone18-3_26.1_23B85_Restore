@@ -18,13 +18,11 @@
 
 - (BOOL)isUpsellAction
 {
-  v2 = *(self + OBJC_IVAR____TtC14iCloudSettings6Action_type);
-  v3 = *(self + OBJC_IVAR____TtC14iCloudSettings6Action_type + 8);
   selfCopy = self;
-  v5 = sub_2759BA258();
-  v6 = _ICQActionForString();
+  v3 = sub_2759BA258();
+  v4 = _ICQActionForString();
 
-  return ((v6 - 114) < 0xE) & (0x20F1u >> (v6 - 114));
+  return ((v4 - 114) < 0xE) & (0x20F1u >> (v4 - 114));
 }
 
 - (_TtC14iCloudSettings6Action)init

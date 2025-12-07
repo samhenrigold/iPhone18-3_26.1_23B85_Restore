@@ -96,7 +96,7 @@ LABEL_11:
       goto LABEL_11;
     }
 
-    PixelBufferUtils::pixelFormatAsString(v24, buf);
+    PixelBufferUtils::pixelFormatAsString(buf, v24);
     if (v31 >= 0)
     {
       v25 = buf;
@@ -137,7 +137,7 @@ LABEL_23:
       goto LABEL_11;
     }
 
-    PixelBufferUtils::pixelFormatAsString(v20, buf);
+    PixelBufferUtils::pixelFormatAsString(buf, v20);
     if (v31 >= 0)
     {
       v21 = buf;

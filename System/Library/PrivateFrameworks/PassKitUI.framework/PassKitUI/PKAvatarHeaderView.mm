@@ -22,7 +22,7 @@
   {
     objc_storeStrong(&v9->_counterpartHandle, handle);
     objc_storeStrong(&v10->_contact, contact);
-    v11 = objc_alloc_init(getCNAvatarViewClass_1[0]());
+    v11 = objc_alloc_init(getCNAvatarViewClass_1());
     avatarView = v10->_avatarView;
     v10->_avatarView = v11;
 
@@ -95,54 +95,76 @@
   width = bounds.size.width;
   y = bounds.origin.y;
   x = bounds.origin.x;
-  v22.origin.x = bounds.origin.x + 14.0;
-  v22.origin.y = bounds.origin.y + 14.0;
-  v22.size.width = bounds.size.width + -28.0;
-  v22.size.height = bounds.size.height + -14.0;
-  remainder = v22;
-  memset(&v19, 0, sizeof(v19));
-  CGRectDivide(v22, &v19, &remainder, 100.0, CGRectMinYEdge);
+  v49.origin.x = bounds.origin.x + 14.0;
+  v49.origin.y = bounds.origin.y + 14.0;
+  v49.size.width = bounds.size.width + -28.0;
+  v49.size.height = bounds.size.height + -14.0;
+  remainder = v49;
+  memset(&v46, 0, sizeof(v46));
+  CGRectDivide(v49, &v46, &remainder, 100.0, CGRectMinYEdge);
+  v17 = MEMORY[0x1E69BB7F8];
   if (layoutCopy)
   {
     avatarView = self->_avatarView;
-    PKSizeAlignedInRect();
+    v13.n128_u64[0] = *&v46.origin.y;
+    v12.n128_u64[0] = *&v46.origin.x;
+    v15.n128_u64[0] = *&v46.size.height;
+    v14.n128_u64[0] = *&v46.size.width;
+    v10.n128_u64[0] = 0x4059000000000000;
+    v11.n128_u64[0] = 0x4059000000000000;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v10, v11, v12, v13, v14, v15, v16);
     [(CNAvatarView *)avatarView setFrame:?];
   }
 
-  CGRectDivide(remainder, &v19, &remainder, 14.0, CGRectMinYEdge);
+  CGRectDivide(remainder, &v46, &remainder, 14.0, CGRectMinYEdge);
   [(UILabel *)self->_primaryLabel pkui_sizeThatFits:remainder.size.width, remainder.size.height];
-  CGRectDivide(remainder, &v19, &remainder, v11, CGRectMinYEdge);
+  v20 = v19;
+  v22 = v21;
+  CGRectDivide(remainder, &v46, &remainder, v21, CGRectMinYEdge);
   if (layoutCopy)
   {
     primaryLabel = self->_primaryLabel;
-    PKSizeAlignedInRect();
+    v26.n128_u64[0] = *&v46.origin.y;
+    v25.n128_u64[0] = *&v46.origin.x;
+    v28.n128_u64[0] = *&v46.size.height;
+    v27.n128_u64[0] = *&v46.size.width;
+    v23.n128_u64[0] = v20;
+    v24.n128_f64[0] = v22;
+    PKSizeAlignedInRect(*v17, v23, v24, v25, v26, v27, v28, v29);
     [(UILabel *)primaryLabel setFrame:?];
   }
 
   [(UILabel *)self->_secondaryLabel sizeThatFits:remainder.size.width, remainder.size.height];
-  v14 = v13;
-  if (v13 > 0.0)
+  v32 = v31;
+  v34 = v33;
+  if (v33 > 0.0)
   {
-    CGRectDivide(remainder, &v19, &remainder, 3.0, CGRectMinYEdge);
+    CGRectDivide(remainder, &v46, &remainder, 3.0, CGRectMinYEdge);
   }
 
-  CGRectDivide(remainder, &v19, &remainder, v14, CGRectMinYEdge);
+  CGRectDivide(remainder, &v46, &remainder, v34, CGRectMinYEdge);
   if (layoutCopy)
   {
     secondaryLabel = self->_secondaryLabel;
-    PKSizeAlignedInRect();
+    v38.n128_u64[0] = *&v46.origin.y;
+    v37.n128_u64[0] = *&v46.origin.x;
+    v40.n128_u64[0] = *&v46.size.height;
+    v39.n128_u64[0] = *&v46.size.width;
+    v35.n128_u64[0] = v32;
+    v36.n128_f64[0] = v34;
+    PKSizeAlignedInRect(*v17, v35, v36, v37, v38, v39, v40, v41);
     [(UILabel *)secondaryLabel setFrame:?];
   }
 
-  v23.origin.x = x;
-  v23.origin.y = y;
-  v23.size.width = width;
-  v23.size.height = height;
-  v16 = CGRectGetWidth(v23);
-  MaxY = CGRectGetMaxY(v19);
-  v18 = v16;
+  v50.origin.x = x;
+  v50.origin.y = y;
+  v50.size.width = width;
+  v50.size.height = height;
+  v43 = CGRectGetWidth(v50);
+  MaxY = CGRectGetMaxY(v46);
+  v45 = v43;
   result.height = MaxY;
-  result.width = v18;
+  result.width = v45;
   return result;
 }
 

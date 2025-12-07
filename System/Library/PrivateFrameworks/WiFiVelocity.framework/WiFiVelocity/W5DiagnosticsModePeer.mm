@@ -37,11 +37,11 @@
       v21 = "W5DiagnosticsModePeer.m";
       v22 = 1024;
       v23 = 37;
-      _os_log_send_and_compose_impl();
+      LODWORD(v16) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &dword_274216000, p_super, 0, "[wifivelocity] %s (%s:%u) init error!", &v18, v16, LODWORD(v17.receiver));
     }
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v12;
 }
 

@@ -17,7 +17,7 @@
   v6 = *(v5 - 8);
   MEMORY[0x28223BE20](v5);
   v8 = v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for TabletSessionSummaryViewController();
+  v9 = type metadata accessor for TabletSessionSummaryViewController(0);
   v12.receiver = self;
   v12.super_class = v9;
   selfCopy = self;
@@ -39,7 +39,7 @@
 - (void)traitCollectionDidChange:(id)change
 {
   v8.receiver = self;
-  v8.super_class = type metadata accessor for TabletSessionSummaryViewController();
+  v8.super_class = type metadata accessor for TabletSessionSummaryViewController(0);
   v4 = v8.receiver;
   changeCopy = change;
   [(TabletSessionSummaryViewController *)&v8 traitCollectionDidChange:changeCopy];
@@ -59,7 +59,7 @@
 - (void)updateViewConstraints
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for TabletSessionSummaryViewController();
+  v3.super_class = type metadata accessor for TabletSessionSummaryViewController(0);
   v2 = v3.receiver;
   [(TabletSessionSummaryViewController *)&v3 updateViewConstraints];
   sub_20B79DD70();
@@ -82,7 +82,7 @@
 
 - (uint64_t)ttrButtonTapped
 {
-  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7617F0);
+  v0 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27C7617F0, &unk_20C151A10);
   MEMORY[0x28223BE20](v0 - 8);
   v2 = &v11 - v1;
   v3 = sub_20C132C14();
@@ -93,7 +93,7 @@
   sub_20C0930CC(v2);
   if ((*(v4 + 48))(v2, 1, v3) == 1)
   {
-    return sub_20B520158(v2, &unk_27C7617F0);
+    return sub_20B520158(v2, &unk_27C7617F0, &unk_20C151A10);
   }
 
   (*(v4 + 32))(v6, v2, v3);

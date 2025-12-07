@@ -73,7 +73,7 @@
 
 - (BOOL)validateSignature:(id)signature error:(id *)error
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   signatureCopy = signature;
   [signatureCopy duration];
   v8 = v7;
@@ -104,9 +104,9 @@ LABEL_5:
     [signatureCopy duration];
     v25 = [v17 stringWithFormat:@"The current Catalog accepts signatures in the range %f-%f, the current signature duration is %f", v20, v23, v24];
 
-    v29 = *MEMORY[0x277CCA498];
-    v30[0] = v25;
-    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v28 = *MEMORY[0x277CCA498];
+    v29[0] = v25;
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
     [SHError annotateClientError:error code:201 underlyingError:0 keyOverrides:v26];
 
     v16 = 0;
@@ -116,54 +116,54 @@ LABEL_5:
   v16 = 1;
 LABEL_6:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (void)matchSignature:(SHSignature *)signature
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v4 = signature;
   delegate = [(SHSession *)self delegate];
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
 
 LABEL_8:
-    v34 = 0;
-    v18 = [(SHSession *)self validateSignature:v4 error:&v34];
-    v15 = v34;
+    v35 = 0;
+    v18 = [(SHSession *)self validateSignature:v4 error:&v35];
+    v19 = v35;
+    v15 = v19;
     if (v18)
     {
-      v19 = [(SHSignature *)v4 copy];
+      v20 = [(SHSignature *)v4 copy];
 
-      v20 = sh_log_object();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v22 = sh_log_object(v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        [(SHSignature *)v19 duration];
+        [(SHSignature *)v20 duration];
         *buf = 134217984;
-        v36 = v21;
-        _os_log_impl(&dword_230F52000, v20, OS_LOG_TYPE_DEFAULT, "Matching signature with duration %f", buf, 0xCu);
+        v37 = v23;
+        _os_log_impl(&dword_230F52000, v22, OS_LOG_TYPE_DEFAULT, "Matching signature with duration %f", buf, 0xCu);
       }
 
       catalog = [(SHSession *)self catalog];
       _configuration = [catalog _configuration];
       installationID = [_configuration installationID];
-      sessionDriver2 = [SHMatcherRequest requestToMatchSignature:v19 installationID:installationID sendNotifications:0];
+      sessionDriver2 = [SHMatcherRequest requestToMatchSignature:v20 installationID:installationID sendNotifications:0];
 
       matcher = [(SHSession *)self matcher];
       [matcher startRecognitionForRequest:sessionDriver2];
 
-      v4 = v19;
+      v4 = v20;
     }
 
     else
     {
-      v26 = sh_log_object();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+      v28 = sh_log_object(v19);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v36 = v15;
-        _os_log_impl(&dword_230F52000, v26, OS_LOG_TYPE_DEBUG, "Failed validation for signature with error %@", buf, 0xCu);
+        v37 = v15;
+        _os_log_impl(&dword_230F52000, v28, OS_LOG_TYPE_DEBUG, "Failed validation for signature with error %@", buf, 0xCu);
       }
 
       sessionDriver2 = [SHMatcherResponse errorResponseForSignature:v4 error:v15];
@@ -175,13 +175,13 @@ LABEL_8:
       }
 
       delegate2 = [(SHSession *)self delegate];
-      v30 = objc_opt_respondsToSelector();
+      v32 = objc_opt_respondsToSelector();
 
-      if (v30)
+      if (v32)
       {
         delegate3 = [(SHSession *)self delegate];
-        v32 = [SHError remapErrorToClientError:v15];
-        [delegate3 session:self didNotFindMatchForSignature:v4 error:v32];
+        v34 = [SHError remapErrorToClientError:v15];
+        [delegate3 session:self didNotFindMatchForSignature:v4 error:v34];
       }
 
       [(SHSession *)self handleCommonActionsForResponse:sessionDriver2];
@@ -219,8 +219,6 @@ LABEL_8:
 
 LABEL_19:
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 - (void)matchStreamingBuffer:(AVAudioPCMBuffer *)buffer atTime:(AVAudioTime *)time
@@ -233,7 +231,7 @@ LABEL_19:
 
 - (void)matcher:(id)matcher didProduceResponse:(id)response
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   matcherCopy = matcher;
   responseCopy = response;
   signature = [responseCopy signature];
@@ -246,15 +244,15 @@ LABEL_19:
     {
       case 1:
         match = [responseCopy match];
-        v23 = sh_log_object();
+        v23 = sh_log_object(match);
         if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
         {
           mediaItems = [match mediaItems];
           firstObject = [mediaItems firstObject];
           v26 = [firstObject valueForProperty:@"sh_title"];
-          v30 = 138412290;
-          v31 = v26;
-          _os_log_impl(&dword_230F52000, v23, OS_LOG_TYPE_DEFAULT, "SHSession: Match found %@", &v30, 0xCu);
+          v29 = 138412290;
+          v30 = v26;
+          _os_log_impl(&dword_230F52000, v23, OS_LOG_TYPE_DEFAULT, "SHSession: Match found %@", &v29, 0xCu);
         }
 
         delegate = [(SHSession *)self delegate];
@@ -316,8 +314,6 @@ LABEL_17:
   }
 
 LABEL_19:
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleCommonActionsForResponse:(id)response
@@ -339,11 +335,11 @@ LABEL_19:
 
     if (v9)
     {
-      v10 = sh_log_object();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+      v11 = sh_log_object(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        *v14 = 0;
-        _os_log_impl(&dword_230F52000, v10, OS_LOG_TYPE_DEBUG, "Returned all responses for request", v14, 2u);
+        *v15 = 0;
+        _os_log_impl(&dword_230F52000, v11, OS_LOG_TYPE_DEBUG, "Returned all responses for request", v15, 2u);
       }
 
       delegate4 = [(SHSession *)self delegate];
@@ -416,17 +412,17 @@ LABEL_9:
 
       if (matchingSignatureID2)
       {
-        v13 = sh_log_object();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+        v14 = sh_log_object(v13);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
         {
-          v14 = [v5 _ID];
+          v15 = [v5 _ID];
           sessionDriver3 = [(SHSession *)self sessionDriver];
           matchingSignatureID3 = [sessionDriver3 matchingSignatureID];
           v19 = 138412546;
-          v20 = v14;
+          v20 = v15;
           v21 = 2112;
           v22 = matchingSignatureID3;
-          _os_log_impl(&dword_230F52000, v13, OS_LOG_TYPE_DEBUG, "Session received a response for non streaming session signature %@, session is waiting for %@", &v19, 0x16u);
+          _os_log_impl(&dword_230F52000, v14, OS_LOG_TYPE_DEBUG, "Session received a response for non streaming session signature %@, session is waiting for %@", &v19, 0x16u);
         }
       }
     }
@@ -437,7 +433,6 @@ LABEL_9:
   v10 = 1;
 LABEL_10:
 
-  v17 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

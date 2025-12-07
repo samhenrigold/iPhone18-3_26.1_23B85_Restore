@@ -5,9 +5,9 @@ void sub_100001524(id a1)
   _objc_release_x1();
 }
 
-void sub_100001A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100001A7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -45,10 +45,11 @@ uint64_t _HIDEventFilterCallback(uint64_t a1, void *a2, uint64_t a3, uint64_t a4
   return 0;
 }
 
-void sub_1000022B4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000022B4(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_100004D44(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, id location)
@@ -111,9 +112,9 @@ void sub_100004F94(uint64_t a1)
   [v2 addTarget:v3 action:"didReceiveButtonEvent:" forButtonEvents:objc_msgSend(v3 propagate:{"targetButtonEvents"), 0}];
 }
 
-void sub_10000530C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10000530C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -386,156 +387,147 @@ void sub_1000076B4(uint64_t a1)
   v2 = [*(a1 + 32) inputs];
   v3 = [v2 touchButtonParameters];
 
-  if (v3)
+  if (v3 && ([*(a1 + 32) isCancelled] & 1) == 0 && (objc_msgSend(*(a1 + 32), "isFinished") & 1) == 0 && (objc_msgSend(*(a1 + 32), "isInputMonitoringPaused") & 1) == 0 && IOHIDEventGetType() == 42)
   {
-    if (([*(a1 + 32) isCancelled] & 1) == 0 && (objc_msgSend(*(a1 + 32), "isFinished") & 1) == 0 && (objc_msgSend(*(a1 + 32), "isInputMonitoringPaused") & 1) == 0)
+    v4 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 40);
-      if (IOHIDEventGetType() == 42)
+      v5 = *(a1 + 40);
+      *buf = 138412290;
+      v49 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Found touch sensitive button event %@", buf, 0xCu);
+    }
+
+    if (([*(a1 + 32) currentSegment] & 0x80000000) != 0)
+    {
+      v17 = DiagnosticLogHandleForCategory();
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v5 = DiagnosticLogHandleForCategory();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Ignoring event as initial segment has not yet been started", buf, 2u);
+      }
+    }
+
+    else
+    {
+      v6 = [*(a1 + 32) currentSegment];
+      v7 = [v3 targetEvents];
+      v8 = [v7 count];
+
+      if (v8 > v6)
+      {
+        v9 = +[NSDate date];
+        [v9 timeIntervalSince1970];
+        v11 = [NSNumber numberWithUnsignedLongLong:(v10 * 1000.0)];
+
+        IntegerValue = IOHIDEventGetIntegerValue();
+        IOHIDEventGetFloatValue();
+        v14 = v13;
+        if (_UIEventHIDGetChildForceStageEvent(*(a1 + 40)))
         {
-          v6 = *(a1 + 40);
-          *buf = 138412290;
-          v52 = v6;
-          _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Found touch sensitive button event %@", buf, 0xCu);
+          IOHIDEventGetFloatValue();
+          v16 = v15;
         }
 
-        if (([*(a1 + 32) currentSegment] & 0x80000000) != 0)
+        else
         {
-          v20 = DiagnosticLogHandleForCategory();
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+          v16 = -1;
+        }
+
+        v46[0] = @"type";
+        v41 = [*(a1 + 32) inputs];
+        v19 = [v41 type];
+        v47[0] = v19;
+        v46[1] = @"identifier";
+        v20 = [*(a1 + 32) inputs];
+        v21 = [v20 identifier];
+        v47[1] = v21;
+        v47[2] = v11;
+        v42 = v11;
+        v46[2] = @"timestamp";
+        v46[3] = @"eventData";
+        v44[0] = @"touch";
+        v22 = [NSNumber numberWithLong:IntegerValue];
+        v45[0] = v22;
+        v44[1] = @"stage";
+        v40 = v16;
+        [NSNumber numberWithLong:v16];
+        v23 = v39 = IntegerValue;
+        v45[1] = v23;
+        v44[2] = @"positionY";
+        *&v24 = v14;
+        v25 = [NSNumber numberWithFloat:v24];
+        v45[2] = v25;
+        v26 = [NSDictionary dictionaryWithObjects:v45 forKeys:v44 count:3];
+        v47[3] = v26;
+        v27 = [NSDictionary dictionaryWithObjects:v47 forKeys:v46 count:4];
+
+        v28 = v27;
+        v29 = [*(a1 + 32) allResults];
+        [v29 addObject:v27];
+
+        v30 = [v3 targetEvents];
+        v31 = [v30 objectAtIndexedSubscript:{objc_msgSend(*(a1 + 32), "currentSegment")}];
+
+        v32 = [v31 eventType];
+        if (v32 == 1)
+        {
+          v36 = [v31 value];
+          v37 = [NSNumber numberWithInteger:v39];
+          v38 = [v36 isEqualToNumber:v37];
+
+          if (!v38)
           {
-            *buf = 0;
-            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Ignoring event as initial segment has not yet been started", buf, 2u);
+LABEL_29:
+
+            goto LABEL_30;
           }
         }
 
         else
         {
-          v7 = [*(a1 + 32) currentSegment];
-          v8 = [v3 targetEvents];
-          v9 = [v8 count];
-
-          if (v9 > v7)
+          if (v32)
           {
-            v10 = +[NSDate date];
-            [v10 timeIntervalSince1970];
-            v12 = [NSNumber numberWithUnsignedLongLong:(v11 * 1000.0)];
-
-            v13 = *(a1 + 40);
-            IntegerValue = IOHIDEventGetIntegerValue();
-            v15 = *(a1 + 40);
-            IOHIDEventGetFloatValue();
-            v17 = v16;
-            if (_UIEventHIDGetChildForceStageEvent(*(a1 + 40)))
-            {
-              IOHIDEventGetFloatValue();
-              v19 = v18;
-            }
-
-            else
-            {
-              v19 = -1;
-            }
-
-            v49[0] = @"type";
-            v44 = [*(a1 + 32) inputs];
-            v22 = [v44 type];
-            v50[0] = v22;
-            v49[1] = @"identifier";
-            v23 = [*(a1 + 32) inputs];
-            v24 = [v23 identifier];
-            v50[1] = v24;
-            v50[2] = v12;
-            v45 = v12;
-            v49[2] = @"timestamp";
-            v49[3] = @"eventData";
-            v47[0] = @"touch";
-            v25 = [NSNumber numberWithLong:IntegerValue];
-            v48[0] = v25;
-            v47[1] = @"stage";
-            v43 = v19;
-            [NSNumber numberWithLong:v19];
-            v26 = v42 = IntegerValue;
-            v48[1] = v26;
-            v47[2] = @"positionY";
-            *&v27 = v17;
-            v28 = [NSNumber numberWithFloat:v27];
-            v48[2] = v28;
-            v29 = [NSDictionary dictionaryWithObjects:v48 forKeys:v47 count:3];
-            v50[3] = v29;
-            v30 = [NSDictionary dictionaryWithObjects:v50 forKeys:v49 count:4];
-
-            v31 = v30;
-            v32 = [*(a1 + 32) allResults];
-            [v32 addObject:v30];
-
-            v33 = [v3 targetEvents];
-            v34 = [v33 objectAtIndexedSubscript:{objc_msgSend(*(a1 + 32), "currentSegment")}];
-
-            v35 = [v34 eventType];
-            if (v35 == 1)
-            {
-              v39 = [v34 value];
-              v40 = [NSNumber numberWithInteger:v42];
-              v41 = [v39 isEqualToNumber:v40];
-
-              if (!v41)
-              {
-LABEL_29:
-
-                goto LABEL_30;
-              }
-            }
-
-            else
-            {
-              if (v35)
-              {
-                goto LABEL_29;
-              }
-
-              v36 = [v34 value];
-              v37 = [NSNumber numberWithInteger:v43];
-              v38 = [v36 isEqualToNumber:v37];
-
-              if ((v38 & 1) == 0)
-              {
-                goto LABEL_29;
-              }
-            }
-
-            if ([v3 resetTimer])
-            {
-              block[0] = _NSConcreteStackBlock;
-              block[1] = 3221225472;
-              block[2] = sub_100007CE0;
-              block[3] = &unk_100010438;
-              block[4] = *(a1 + 32);
-              dispatch_async(&_dispatch_main_q, block);
-            }
-
-            if ([v34 performHapticOnEvent])
-            {
-              [*(a1 + 32) playHaptic];
-            }
-
-            [*(a1 + 32) setCurrentSegmentActionCount:{objc_msgSend(*(a1 + 32), "currentSegmentActionCount") + 1}];
-            [*(a1 + 32) showNextSegment];
             goto LABEL_29;
           }
 
-          v21 = DiagnosticLogHandleForCategory();
-          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
-          {
-            sub_100008990();
-          }
+          v33 = [v31 value];
+          v34 = [NSNumber numberWithInteger:v40];
+          v35 = [v33 isEqualToNumber:v34];
 
-          [*(a1 + 32) endTestWithStatusCode:&off_1000112A8];
+          if ((v35 & 1) == 0)
+          {
+            goto LABEL_29;
+          }
         }
+
+        if ([v3 resetTimer])
+        {
+          block[0] = _NSConcreteStackBlock;
+          block[1] = 3221225472;
+          block[2] = sub_100007CE0;
+          block[3] = &unk_100010438;
+          block[4] = *(a1 + 32);
+          dispatch_async(&_dispatch_main_q, block);
+        }
+
+        if ([v31 performHapticOnEvent])
+        {
+          [*(a1 + 32) playHaptic];
+        }
+
+        [*(a1 + 32) setCurrentSegmentActionCount:{objc_msgSend(*(a1 + 32), "currentSegmentActionCount") + 1}];
+        [*(a1 + 32) showNextSegment];
+        goto LABEL_29;
       }
+
+      v18 = DiagnosticLogHandleForCategory();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      {
+        sub_100008990();
+      }
+
+      [*(a1 + 32) endTestWithStatusCode:&off_1000112A8];
     }
   }
 
@@ -559,18 +551,19 @@ uint64_t _UIEventHIDGetChildForceStageEvent(uint64_t a1)
   return v1;
 }
 
-void sub_100007CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100007CC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000080B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location, uint64_t a21, char a22)
+void sub_1000080B0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, id location, uint64_t a21, ...)
 {
-  objc_destroyWeak((v22 + 40));
+  va_start(va, a21);
+  objc_destroyWeak((v21 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a22, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -610,10 +603,11 @@ void sub_1000081A0(uint64_t a1)
   }
 }
 
-void _UIEventHIDEnumerateChildren(uint64_t a1, int a2, void *a3)
+void _UIEventHIDEnumerateChildren(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v4 = a3;
-  if (!a2 || IOHIDEventConformsTo())
+  if (!v3 || IOHIDEventConformsTo())
   {
     Children = IOHIDEventGetChildren();
     if (Children)
@@ -627,7 +621,7 @@ void _UIEventHIDEnumerateChildren(uint64_t a1, int a2, void *a3)
         for (i = 0; i < v8; ++i)
         {
           ValueAtIndex = CFArrayGetValueAtIndex(v6, i);
-          if (!a2 || IOHIDEventGetType() == a2)
+          if (!v3 || IOHIDEventGetType() == v3)
           {
             v4[2](v4, ValueAtIndex, i, &v11);
             if (v11)

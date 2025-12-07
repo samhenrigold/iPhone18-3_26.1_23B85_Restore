@@ -220,22 +220,26 @@
   handler[1] = 3221225472;
   handler[2] = sub_10004A6E0;
   handler[3] = &unk_1000C4FC0;
-  objc_copyWeak(&v5, &location);
+  objc_copyWeak(&v8, &location);
   handler[4] = selfCopy;
   LODWORD(selfCopy) = notify_register_dispatch("com.apple.springboard.lockstate", &selfCopy->lockStateToken, &_dispatch_main_q, handler);
 
-  if (selfCopy && os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
+  if (selfCopy)
   {
-    sub_100071018();
+    v4 = FCDefaultLog;
+    if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
+    {
+      sub_100071018(v4, v5, v6);
+    }
   }
 
-  objc_destroyWeak(&v5);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(&location);
 }
 
 - (void)prepareAppCacheSnapShot
 {
-  if (FeldsparInternalExtrasEnabled())
+  if (FeldsparInternalExtrasEnabled(self, a2))
   {
     v2 = objc_alloc_init(NSClassFromString(@"FRAppCacheSnapshotter"));
     if ([v2 snapshotPreparedAndWaitingForRestoration])
@@ -271,71 +275,71 @@
 
 - (NSArray)tfBundleAssemblies
 {
-  v30 = objc_alloc_init(SXFrameworkAssembly);
-  v31[0] = v30;
-  v29 = objc_alloc_init(NUApplicationFrameworkAssembly);
-  v31[1] = v29;
-  v28 = objc_alloc_init(TFTeaFoundationAssembly);
-  v31[2] = v28;
-  v27 = objc_alloc_init(TUAssembly);
-  v31[3] = v27;
-  v26 = objc_alloc_init(FCAssembly);
-  v31[4] = v26;
-  v25 = objc_alloc_init(NMAssembly);
-  v31[5] = v25;
-  v24 = objc_alloc_init(NYAssembly);
-  v31[6] = v24;
-  v23 = objc_alloc_init(NEAssembly);
-  v31[7] = v23;
+  v32 = objc_alloc_init(SXFrameworkAssembly);
+  v33[0] = v32;
+  v31 = objc_alloc_init(NUApplicationFrameworkAssembly);
+  v33[1] = v31;
+  v30 = objc_alloc_init(TFTeaFoundationAssembly);
+  v33[2] = v30;
+  v29 = objc_alloc_init(TUAssembly);
+  v33[3] = v29;
+  v28 = objc_alloc_init(FCAssembly);
+  v33[4] = v28;
+  v27 = objc_alloc_init(NMAssembly);
+  v33[5] = v27;
+  v26 = objc_alloc_init(NYAssembly);
+  v33[6] = v26;
+  v25 = objc_alloc_init(NEAssembly);
+  v33[7] = v25;
   v3 = objc_alloc_init(NAAssembly);
-  v31[8] = v3;
+  v33[8] = v3;
   v4 = objc_alloc_init(NPAssembly);
-  v31[9] = v4;
+  v33[9] = v4;
   v5 = objc_alloc_init(NXAssembly);
-  v31[10] = v5;
+  v33[10] = v5;
   v6 = objc_alloc_init(NAPAssembly);
-  v31[11] = v6;
+  v33[11] = v6;
   v7 = [TSFrameworkAssembly alloc];
   selfCopy = self;
   feldsparContext = [(FRAppDelegate *)self feldsparContext];
   cloudContext = [feldsparContext cloudContext];
   appConfigurationManager = [cloudContext appConfigurationManager];
   v11 = [v7 initWithNewsAppConfigurationManager:appConfigurationManager];
-  v31[12] = v11;
+  v33[12] = v11;
   v12 = objc_alloc_init(SNAssembly);
-  v31[13] = v12;
+  v33[13] = v12;
   v13 = objc_alloc_init(EGAssembly);
-  v31[14] = v13;
-  v22 = [NSArray arrayWithObjects:v31 count:15];
+  v33[14] = v13;
+  v24 = [NSArray arrayWithObjects:v33 count:15];
 
-  if (FeldsparInternalExtrasEnabled())
+  if (FeldsparInternalExtrasEnabled(v14, v15))
   {
-    v14 = +[NSBundle fr_feldsparInternalExtrasBundle];
-    [v14 load];
+    v16 = +[NSBundle fr_feldsparInternalExtrasBundle];
+    [v16 load];
 
-    v15 = [v22 mutableCopy];
-    v16 = objc_alloc(NSClassFromString(@"FRInternalExtrasAssembly"));
+    v17 = [v24 mutableCopy];
+    v18 = objc_alloc(NSClassFromString(@"FRInternalExtrasAssembly"));
     feldsparContext2 = [(FRAppDelegate *)selfCopy feldsparContext];
-    v18 = [v16 initWithContext:feldsparContext2];
+    v20 = [v18 initWithContext:feldsparContext2];
 
-    if (v18)
+    if (v20)
     {
-      [v15 addObject:v18];
+      [v17 addObject:v20];
     }
 
-    v19 = objc_alloc_init(NSClassFromString(@"FRInternalExtrasBundleAssembly"));
-    if (v19)
+    v21 = objc_alloc_init(NSClassFromString(@"FRInternalExtrasBundleAssembly"));
+    if (v21)
     {
-      [v15 addObject:v19];
+      [v17 addObject:v21];
     }
   }
 
   else
   {
-    v15 = v22;
+    v17 = v24;
   }
 
-  return v15;
+  return v17;
 }
 
 - (NSArray)tfAssemblies
@@ -957,37 +961,37 @@
   providerCopy = provider;
   v15 = FRURLForNewsAppCachesDirectory();
   v16 = +[FCContextConfiguration defaultConfiguration];
-  v52 = +[FCFeldsparIDProvider sharedInstance];
+  v54 = +[FCFeldsparIDProvider sharedInstance];
   v17 = [FCCloudContext alloc];
   v18 = FRURLForNewsAppDocumentsDirectory();
   LOBYTE(helpers) = +[FRMacros iPad];
   v19 = +[UIApplication sharedApplication];
   v20 = +[FCPrivateDataSyncAvailability defaultAvailability];
   v21 = +[FRPPTContext sharedContext];
-  LOBYTE(v48) = helpers;
-  v53 = v15;
-  v22 = [v17 initWithConfiguration:v16 configurationManager:managerCopy contentHostDirectory:v15 privateDataHostDirectory:v18 privateDataActionProvider:providerCopy networkBehaviorMonitor:behaviorMonitorCopy networkReachability:reachabilityCopy appActivityMonitor:monitorCopy desiredHeadlineFieldOptions:0xF87FFFFC1 feedUsage:6 deviceIsiPad:v48 backgroundTaskable:v19 privateDataSyncAvailability:v20 pptContext:v21 options:14];
+  LOBYTE(v50) = helpers;
+  v55 = v15;
+  v22 = [v17 initWithConfiguration:v16 configurationManager:managerCopy contentHostDirectory:v15 privateDataHostDirectory:v18 privateDataActionProvider:providerCopy networkBehaviorMonitor:behaviorMonitorCopy networkReachability:reachabilityCopy appActivityMonitor:monitorCopy desiredHeadlineFieldOptions:0xF87FFFFC1 feedUsage:6 deviceIsiPad:v50 backgroundTaskable:v19 privateDataSyncAvailability:v20 pptContext:v21 options:14];
 
-  if (FeldsparInternalExtrasEnabled())
+  if (FeldsparInternalExtrasEnabled(v23, v24))
   {
-    v23 = +[NSBundle fr_feldsparInternalExtrasBundle];
-    [v23 load];
+    v25 = +[NSBundle fr_feldsparInternalExtrasBundle];
+    [v25 load];
 
-    v24 = objc_alloc(NSClassFromString(@"FREntitlementsOverrideProvider"));
+    v26 = objc_alloc(NSClassFromString(@"FREntitlementsOverrideProvider"));
     configurationManager = [v22 configurationManager];
-    v26 = [v24 initWithConfigurationManager:configurationManager];
+    v28 = [v26 initWithConfigurationManager:configurationManager];
 
-    v27 = FCProtocolCast();
+    v29 = FCProtocolCast();
     purchaseController = [v22 purchaseController];
-    [purchaseController setEntitlementsOverrideProvider:v27];
+    [purchaseController setEntitlementsOverrideProvider:v29];
 
     bundleSubscriptionManager = [v22 bundleSubscriptionManager];
-    [bundleSubscriptionManager setEntitlementsOverrideProvider:v27];
+    [bundleSubscriptionManager setEntitlementsOverrideProvider:v29];
 
-    v30 = objc_alloc_init(NSClassFromString(@"FRPurchaseFlowOverrideProvider"));
-    v31 = FCProtocolCast();
+    v32 = objc_alloc_init(NSClassFromString(@"FRPurchaseFlowOverrideProvider"));
+    v33 = FCProtocolCast();
     purchaseManager = [v22 purchaseManager];
-    [purchaseManager setPurchaseFlowOverrideProvider:v31];
+    [purchaseManager setPurchaseFlowOverrideProvider:v33];
   }
 
   [v22 prewarmStores];
@@ -996,48 +1000,48 @@
   [tagController setShouldPrefetchGlobalTags:1];
 
   userInfo = [v22 userInfo];
-  [v52 registerUserInfo:userInfo];
+  [v54 registerUserInfo:userInfo];
 
   FRSetupLogging();
-  v35 = [[FRApplicationUpdateNotifier alloc] initWithVersionHelpers:helpersCopy appActivityMonitor:monitorCopy];
+  v37 = [[FRApplicationUpdateNotifier alloc] initWithVersionHelpers:helpersCopy appActivityMonitor:monitorCopy];
 
-  [(FRApplicationUpdateNotifier *)v35 setup];
-  [(FRAppDelegate *)self setApplicationUpdateNotifier:v35];
-  v36 = +[UIApplication sharedApplication];
-  [v36 registerForRemoteNotifications];
+  [(FRApplicationUpdateNotifier *)v37 setup];
+  [(FRAppDelegate *)self setApplicationUpdateNotifier:v37];
+  v38 = +[UIApplication sharedApplication];
+  [v38 registerForRemoteNotifications];
 
-  v37 = +[NSUserDefaults standardUserDefaults];
-  v38 = NewsCoreUserDefaults();
-  v39 = [v38 BOOLForKey:FCExcludeHiddenFeedsCurrentSharedPreferenceKey];
+  v39 = +[NSUserDefaults standardUserDefaults];
+  v40 = NewsCoreUserDefaults();
+  v41 = [v40 BOOLForKey:FCExcludeHiddenFeedsCurrentSharedPreferenceKey];
 
-  if (v39 != [v37 BOOLForKey:@"previous_exclude_hidden_feeds"])
+  if (v41 != [v39 BOOLForKey:@"previous_exclude_hidden_feeds"])
   {
-    [v37 setBool:v39 forKey:@"previous_exclude_hidden_feeds"];
+    [v39 setBool:v41 forKey:@"previous_exclude_hidden_feeds"];
   }
 
-  v40 = +[NSUserDefaults standardUserDefaults];
-  v41 = [v40 BOOLForKey:FCShouldResetOnboardingVersion];
+  v42 = +[NSUserDefaults standardUserDefaults];
+  v43 = [v42 BOOLForKey:FCShouldResetOnboardingVersion];
 
-  if (v41)
+  if (v43)
   {
-    v42 = +[NSUserDefaults standardUserDefaults];
-    v43 = [v42 integerForKey:FCOnboardingVersionToResetTo];
+    v44 = +[NSUserDefaults standardUserDefaults];
+    v45 = [v44 integerForKey:FCOnboardingVersionToResetTo];
 
-    if (v43 <= 1)
+    if (v45 <= 1)
     {
-      if (!v43)
+      if (!v45)
       {
-        v44 = +[NSUserDefaults standardUserDefaults];
-        [v44 setBool:0 forKey:@"has_passed_new_user_state"];
+        v46 = +[NSUserDefaults standardUserDefaults];
+        [v46 setBool:0 forKey:@"has_passed_new_user_state"];
       }
 
-      v45 = +[NSUserDefaults standardUserDefaults];
-      [v45 setBool:1 forKey:FCWhitetailOnboardingNeededKey];
+      v47 = +[NSUserDefaults standardUserDefaults];
+      [v47 setBool:1 forKey:FCWhitetailOnboardingNeededKey];
     }
 
-    v46 = [NSNumber numberWithInteger:v43];
+    v48 = [NSNumber numberWithInteger:v45];
     userInfo2 = [v22 userInfo];
-    [userInfo2 setOnboardingVersionNumber:v46];
+    [userInfo2 setOnboardingVersionNumber:v48];
   }
 
   [(FRAppDelegate *)self setCloudContext:v22];
@@ -1584,9 +1588,10 @@ LABEL_9:
 {
   if (notify_cancel(self->lockStateToken))
   {
+    v2 = FCDefaultLog;
     if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
     {
-      sub_100071058();
+      sub_100071058(v2, v3, v4);
     }
   }
 }
@@ -1650,21 +1655,22 @@ LABEL_9:
 - (void)application:(id)application didFailToRegisterForRemoteNotificationsWithError:(id)error
 {
   errorCopy = error;
+  v6 = FCDefaultLog;
   if (os_log_type_enabled(FCDefaultLog, OS_LOG_TYPE_ERROR))
   {
-    sub_100071098();
+    sub_100071098(errorCopy, v6, v7);
   }
 
   objc_opt_class();
   feldsparContext = [(FRAppDelegate *)self feldsparContext];
-  v7 = FCDynamicCast();
+  v9 = FCDynamicCast();
 
-  v8 = +[UNUserNotificationCenter currentNotificationCenter];
-  notificationSettings = [v8 notificationSettings];
-  v10 = -[FRAppDelegate fcDigestModeFromScheduledDeliverySetting:](self, "fcDigestModeFromScheduledDeliverySetting:", [notificationSettings scheduledDeliverySetting]);
-  cloudContext = [v7 cloudContext];
+  v10 = +[UNUserNotificationCenter currentNotificationCenter];
+  notificationSettings = [v10 notificationSettings];
+  v12 = -[FRAppDelegate fcDigestModeFromScheduledDeliverySetting:](self, "fcDigestModeFromScheduledDeliverySetting:", [notificationSettings scheduledDeliverySetting]);
+  cloudContext = [v9 cloudContext];
   notificationController = [cloudContext notificationController];
-  [notificationController registerDeviceToken:0 deviceDigestMode:v10];
+  [notificationController registerDeviceToken:0 deviceDigestMode:v12];
 }
 
 - (void)application:(id)application didReceiveRemoteNotification:(id)notification fetchCompletionHandler:(id)handler

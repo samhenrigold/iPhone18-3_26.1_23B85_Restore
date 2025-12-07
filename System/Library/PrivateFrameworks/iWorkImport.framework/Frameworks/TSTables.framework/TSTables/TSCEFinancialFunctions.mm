@@ -19,335 +19,340 @@
 {
   dayCopy = day;
   date2Copy = date2;
-  v19 = 0;
-  v20 = 0;
-  v17 = 0;
   v18 = 0;
-  v11 = objc_msgSend_gregorianCalendar(TSCECalendar, v7, v8, v9, v10);
-  objc_msgSend_extractComponentsFromDate_year_month_day_(v11, v12, dayCopy, 0, &v20, &v19);
-  objc_msgSend_extractComponentsFromDate_year_month_day_(v11, v13, date2Copy, 0, &v18, &v17);
-  if (v20 <= v18)
+  v19 = 0;
+  v16 = 0;
+  v17 = 0;
+  v10 = objc_msgSend_gregorianCalendar(TSCECalendar, v7, v8, v9);
+  objc_msgSend_extractComponentsFromDate_year_month_day_(v10, v11, dayCopy, 0, &v19, &v18);
+  objc_msgSend_extractComponentsFromDate_year_month_day_(v10, v12, date2Copy, 0, &v17, &v16);
+  if (v19 <= v17)
   {
-    if (v20 >= v18)
+    if (v19 >= v17)
     {
-      if (v19 >= v17)
+      if (v18 >= v16)
       {
-        v15 = 0;
+        v14 = 0;
       }
 
       else
       {
-        v15 = -1;
+        v14 = -1;
       }
 
-      if (v19 <= v17)
+      if (v18 <= v16)
       {
-        v14 = v15;
+        v13 = v14;
       }
 
       else
       {
-        v14 = 1;
+        v13 = 1;
       }
     }
 
     else
     {
-      v14 = -1;
+      v13 = -1;
     }
   }
 
   else
   {
-    v14 = 1;
+    v13 = 1;
   }
 
-  return v14;
+  return v13;
 }
 
 + (id)prevCoupDateWithSettlement:(id)settlement settlement:(id)a4 maturity:(id)maturity frequency:(int)frequency outError:(id *)error
 {
   v11 = a4;
   maturityCopy = maturity;
-  if (objc_msgSend_compare_(v11, v13, maturityCopy, v14, v15) == 1)
+  if (objc_msgSend_compare_(v11, v13, maturityCopy, v14) == 1)
   {
-    v20 = MEMORY[0x277D81150];
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "+[TSCEFinancialFunctions prevCoupDateWithSettlement:settlement:maturity:frequency:outError:]", v18, v19);
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFinancialFunctions.mm", v23, v24);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v26, v21, v25, 127, 0, "Setlement date should not be larger than maturity date");
+    v18 = MEMORY[0x277D81150];
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "+[TSCEFinancialFunctions prevCoupDateWithSettlement:settlement:maturity:frequency:outError:]", v17);
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFinancialFunctions.mm", v21);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v23, v19, v22, 127, 0, "Setlement date should not be larger than maturity date");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30);
-    v35 = objc_msgSend_functionName(settlement, v31, v32, v33, v34);
-    *error = objc_msgSend_numberErrorForFunctionName_(TSCEError, v36, v35, v37, v38);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26);
+    v30 = objc_msgSend_functionName(settlement, v27, v28, v29);
+    *error = objc_msgSend_numberErrorForFunctionName_(TSCEError, v31, v30, v32);
 
-    v39 = 0;
-    goto LABEL_32;
+    v33 = 0;
+    goto LABEL_33;
   }
 
-  v40 = objc_msgSend_gregorianCalendar(TSCECalendar, v16, v17, v18, v19);
-  Year = objc_msgSend_extractYear_(v40, v41, v11, v42, v43);
-  v99 = 0;
-  v100 = 0;
-  objc_msgSend_extractComponentsFromDate_year_month_day_(v40, v45, maturityCopy, 0, &v100, &v99);
-  v48 = objc_msgSend_compareMonthAndDay_date2_(TSCEFinancialFunctions, v46, v11, maturityCopy, v47);
-  v51 = (12 / frequency);
-  v52 = v100;
-  if (v48 != 1)
+  v34 = objc_msgSend_gregorianCalendar(TSCECalendar, v15, v16, v17);
+  Year = objc_msgSend_extractYear_(v34, v35, v11, v36);
+  v85 = 0;
+  v86 = 0;
+  objc_msgSend_extractComponentsFromDate_year_month_day_(v34, v38, maturityCopy, 0, &v86, &v85);
+  v40 = objc_msgSend_compareMonthAndDay_date2_(TSCEFinancialFunctions, v39, v11, maturityCopy);
+  v43 = (12 / frequency);
+  v44 = v86;
+  if (v40 == 1)
   {
-    if (v48 != -1)
+    v47 = v85;
+    if (v86 == 2 && v85 == 29)
     {
-      v57 = 0;
-      v58 = objc_msgSend_dateWithYear_month_day_(v40, v49, Year, v100, v99);
-      v59 = 0;
-      v60 = 0;
-LABEL_30:
-      v80 = v58;
+      if (Year == 0x7FFFFFFFFFFFFFFFLL)
+      {
+        v48 = objc_msgSend_functionName(settlement, v41, v42, 2, 29);
+        v51 = objc_msgSend_numberErrorForFunctionName_(TSCEError, v49, v48, v50);
+LABEL_25:
+        v33 = 0;
+        *error = v51;
+        goto LABEL_32;
+      }
 
-      v39 = v80;
-      goto LABEL_31;
+      v68 = Year + 1;
+      v69 = Year - 0x7FFFFFFFFFFFFFFFLL;
+      while ((objc_msgSend_isLeapYear_(TSCECalendar, v41, v68, v44, v47) & 1) == 0)
+      {
+        ++v68;
+        if (__CFADD__(v69++, 1))
+        {
+          v48 = objc_msgSend_functionName(settlement, v41, v70, v44);
+          v51 = objc_msgSend_numberErrorForFunctionName_(TSCEError, v72, v48, v73);
+          goto LABEL_25;
+        }
+      }
+
+      v56 = objc_msgSend_dateWithYear_month_day_(v34, v41, v68, v86, v85);
     }
 
-    if (v100 == 2 && v99 == 29)
+    else
     {
-      for (i = objc_msgSend_isLeapYear_(TSCECalendar, v49, Year, 2, 29); (i & 1) == 0; i = objc_msgSend_isLeapYear_(TSCECalendar, v49, Year, v54, v55))
+      v56 = objc_msgSend_dateWithYear_month_day_(v34, v41, Year + 1, v86, v85);
+    }
+
+    v52 = v56;
+    v58 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v74, v52, maturityCopy);
+    v75 = -1;
+    v54 = v52;
+    for (i = objc_msgSend_compare_(v58, v76, v11, v77); i == 1; i = objc_msgSend_compare_(v81, v82, v11, v83))
+    {
+      v79 = sub_2214A3CE8(v52, (v43 * v75));
+
+      v81 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v80, v79, maturityCopy);
+
+      --v75;
+      v54 = v79;
+      v58 = v81;
+    }
+
+    goto LABEL_30;
+  }
+
+  if (v40 == -1)
+  {
+    if (v86 == 2 && v85 == 29)
+    {
+      for (j = objc_msgSend_isLeapYear_(TSCECalendar, v41, Year, 2); (j & 1) == 0; j = objc_msgSend_isLeapYear_(TSCECalendar, v41, Year, v46))
       {
         ++Year;
       }
     }
 
-    v57 = objc_msgSend_dateWithYear_month_day_(v40, v49, Year, v100, v99);
-    v64 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v62, v57, maturityCopy, v63);
-    v65 = -1;
-    v59 = v57;
-    for (j = objc_msgSend_compare_(v64, v66, v11, v67, v68); j == 1; j = objc_msgSend_compare_(v73, v74, v11, v75, v76))
+    v52 = objc_msgSend_dateWithYear_month_day_(v34, v41, Year, v86, v85);
+    v58 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v57, v52, maturityCopy);
+    v59 = -1;
+    v54 = v52;
+    for (k = objc_msgSend_compare_(v58, v60, v11, v61); k == 1; k = objc_msgSend_compare_(v65, v66, v11, v67))
     {
-      v70 = sub_2214A3CE8(v57, (v51 * v65));
+      v63 = sub_2214A3CE8(v52, (v43 * v59));
 
-      v73 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v71, v70, maturityCopy, v72);
+      v65 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v64, v63, maturityCopy);
 
-      --v65;
-      v59 = v70;
-      v64 = v73;
+      --v59;
+      v54 = v63;
+      v58 = v65;
     }
 
-LABEL_29:
-    v58 = v64;
-    v60 = v58;
-    goto LABEL_30;
+LABEL_30:
+    v53 = v58;
+    v55 = v53;
+    goto LABEL_31;
   }
 
-  v56 = v99;
-  if (v100 != 2 || v99 != 29)
-  {
-    v61 = objc_msgSend_dateWithYear_month_day_(v40, v49, Year + 1, v100, v99);
-LABEL_26:
-    v57 = v61;
-    v64 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v84, v57, maturityCopy, v85);
-    v86 = -1;
-    v59 = v57;
-    for (k = objc_msgSend_compare_(v64, v87, v11, v88, v89); k == 1; k = objc_msgSend_compare_(v94, v95, v11, v96, v97))
-    {
-      v91 = sub_2214A3CE8(v57, (v51 * v86));
-
-      v94 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v92, v91, maturityCopy, v93);
-
-      --v86;
-      v59 = v91;
-      v64 = v94;
-    }
-
-    goto LABEL_29;
-  }
-
-  if (Year != 0x7FFFFFFFFFFFFFFFLL)
-  {
-    v77 = Year + 1;
-    v78 = Year - 0x7FFFFFFFFFFFFFFFLL;
-    while ((objc_msgSend_isLeapYear_(TSCECalendar, v49, v77, v52, v56) & 1) == 0)
-    {
-      ++v77;
-      if (__CFADD__(v78++, 1))
-      {
-        goto LABEL_24;
-      }
-    }
-
-    v61 = objc_msgSend_dateWithYear_month_day_(v40, v49, v77, v100, v99);
-    goto LABEL_26;
-  }
-
-LABEL_24:
-  v80 = objc_msgSend_functionName(settlement, v49, v50, v52, v56);
-  objc_msgSend_numberErrorForFunctionName_(TSCEError, v81, v80, v82, v83);
-  *error = v39 = 0;
+  v52 = 0;
+  v53 = objc_msgSend_dateWithYear_month_day_(v34, v41, Year, v86, v85);
+  v54 = 0;
+  v55 = 0;
 LABEL_31:
+  v48 = v53;
 
+  v33 = v48;
 LABEL_32:
 
-  return v39;
+LABEL_33:
+
+  return v33;
 }
 
 + (id)nextCoupDateWithSettlement:(id)settlement settlement:(id)a4 maturity:(id)maturity frequency:(int)frequency outError:(id *)error
 {
   v11 = a4;
   maturityCopy = maturity;
-  if (objc_msgSend_compare_(v11, v13, maturityCopy, v14, v15) == 1)
+  if (objc_msgSend_compare_(v11, v13, maturityCopy, v14) == 1)
   {
-    v20 = MEMORY[0x277D81150];
-    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "+[TSCEFinancialFunctions nextCoupDateWithSettlement:settlement:maturity:frequency:outError:]", v18, v19);
-    v25 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v22, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFinancialFunctions.mm", v23, v24);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v20, v26, v21, v25, 207, 0, "Setlement date should not be larger than maturity date");
+    v18 = MEMORY[0x277D81150];
+    v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "+[TSCEFinancialFunctions nextCoupDateWithSettlement:settlement:maturity:frequency:outError:]", v17);
+    v22 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/calculationEngine/TSCEFinancialFunctions.mm", v21);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v18, v23, v19, v22, 207, 0, "Setlement date should not be larger than maturity date");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v27, v28, v29, v30);
-    v35 = objc_msgSend_functionName(settlement, v31, v32, v33, v34);
-    *error = objc_msgSend_numberErrorForFunctionName_(TSCEError, v36, v35, v37, v38);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v24, v25, v26);
+    v30 = objc_msgSend_functionName(settlement, v27, v28, v29);
+    *error = objc_msgSend_numberErrorForFunctionName_(TSCEError, v31, v30, v32);
 
-    v39 = 0;
+    v33 = 0;
     goto LABEL_33;
   }
 
-  v40 = objc_msgSend_gregorianCalendar(TSCECalendar, v16, v17, v18, v19);
-  Year = objc_msgSend_extractYear_(v40, v41, v11, v42, v43);
-  v109 = 0;
-  v110 = 0;
-  objc_msgSend_extractComponentsFromDate_year_month_day_(v40, v45, maturityCopy, 0, &v110, &v109);
-  v48 = objc_msgSend_compareMonthAndDay_date2_(TSCEFinancialFunctions, v46, v11, maturityCopy, v47);
-  v51 = (12 / frequency);
-  v52 = v110;
-  if (v48 == 1)
+  v34 = objc_msgSend_gregorianCalendar(TSCECalendar, v15, v16, v17);
+  Year = objc_msgSend_extractYear_(v34, v35, v11, v36);
+  v88 = 0;
+  v89 = 0;
+  objc_msgSend_extractComponentsFromDate_year_month_day_(v34, v38, maturityCopy, 0, &v89, &v88);
+  v40 = objc_msgSend_compareMonthAndDay_date2_(TSCEFinancialFunctions, v39, v11, maturityCopy);
+  v43 = (12 / frequency);
+  v44 = v89;
+  if (v40 == 1)
   {
-    if (v110 == 2 && v109 == 29)
+    if (v89 == 2 && v88 == 29)
     {
-      for (i = objc_msgSend_isLeapYear_(TSCECalendar, v49, Year, 2, 29); (i & 1) == 0; i = objc_msgSend_isLeapYear_(TSCECalendar, v49, Year, v60, v61))
+      for (i = objc_msgSend_isLeapYear_(TSCECalendar, v41, Year, 2); (i & 1) == 0; i = objc_msgSend_isLeapYear_(TSCECalendar, v41, Year, v51))
       {
         --Year;
       }
     }
 
-    v67 = objc_msgSend_dateWithYear_month_day_(v40, v49, Year, v110, v109);
-    v70 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v68, v67, maturityCopy, v69);
-    v71 = 1;
-    v63 = v67;
-    for (j = objc_msgSend_compare_(v70, v72, v11, v73, v74); j == -1 || !objc_msgSend_compare_(v70, v76, v11, v77, v78); j = objc_msgSend_compare_(v82, v83, v11, v84, v85))
+    v57 = objc_msgSend_dateWithYear_month_day_(v34, v41, Year, v89, v88);
+    v59 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v58, v57, maturityCopy);
+    v60 = 1;
+    v53 = v57;
+    for (j = objc_msgSend_compare_(v59, v61, v11, v62); j == -1 || !objc_msgSend_compare_(v59, v64, v11, v65); j = objc_msgSend_compare_(v68, v69, v11, v70))
     {
-      v79 = sub_2214A3CE8(v67, (v51 * v71));
+      v66 = sub_2214A3CE8(v57, (v43 * v60));
 
-      v82 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v80, v79, maturityCopy, v81);
+      v68 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v67, v66, maturityCopy);
 
-      ++v71;
-      v63 = v79;
-      v70 = v82;
+      ++v60;
+      v53 = v66;
+      v59 = v68;
     }
 
 LABEL_30:
-    v64 = v70;
-    v62 = v67;
-    v65 = v64;
+    v54 = v59;
+    v52 = v57;
+    v55 = v54;
     goto LABEL_31;
   }
 
-  if (v48 == -1)
+  if (v40 == -1)
   {
-    v53 = v109;
-    if (v110 == 2 && v109 == 29)
+    v45 = v88;
+    if (v89 == 2 && v88 == 29)
     {
       if (Year == 0x8000000000000000)
       {
-        v54 = objc_msgSend_functionName(settlement, v49, v50, 2, 29);
-        v58 = objc_msgSend_numberErrorForFunctionName_(TSCEError, v55, v54, v56, v57);
+        v46 = objc_msgSend_functionName(settlement, v41, v42, 2, 29);
+        v49 = objc_msgSend_numberErrorForFunctionName_(TSCEError, v47, v46, v48);
 LABEL_24:
-        v39 = 0;
-        *error = v58;
+        v33 = 0;
+        *error = v49;
         goto LABEL_32;
       }
 
-      v86 = Year - 1;
-      while ((objc_msgSend_isLeapYear_(TSCECalendar, v49, v86, v52, v53) & 1) == 0)
+      v71 = Year - 1;
+      while ((objc_msgSend_isLeapYear_(TSCECalendar, v41, v71, v44, v45) & 1) == 0)
       {
-        if (--v86 == 0x7FFFFFFFFFFFFFFFLL)
+        if (--v71 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v54 = objc_msgSend_functionName(settlement, v49, v87, v52, v53);
-          v58 = objc_msgSend_numberErrorForFunctionName_(TSCEError, v88, v54, v89, v90);
+          v46 = objc_msgSend_functionName(settlement, v41, v72, v44);
+          v49 = objc_msgSend_numberErrorForFunctionName_(TSCEError, v73, v46, v74);
           goto LABEL_24;
         }
       }
 
-      v66 = objc_msgSend_dateWithYear_month_day_(v40, v49, v86, v110, v109);
+      v56 = objc_msgSend_dateWithYear_month_day_(v34, v41, v71, v89, v88);
     }
 
     else
     {
-      v66 = objc_msgSend_dateWithYear_month_day_(v40, v49, Year - 1, v110, v109);
+      v56 = objc_msgSend_dateWithYear_month_day_(v34, v41, Year - 1, v89, v88);
     }
 
-    v67 = v66;
-    v70 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v91, v67, maturityCopy, v92);
-    v93 = 1;
-    v63 = v67;
-    for (k = objc_msgSend_compare_(v70, v94, v11, v95, v96); k == -1 || !objc_msgSend_compare_(v70, v98, v11, v99, v100); k = objc_msgSend_compare_(v104, v105, v11, v106, v107))
+    v57 = v56;
+    v59 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v75, v57, maturityCopy);
+    v76 = 1;
+    v53 = v57;
+    for (k = objc_msgSend_compare_(v59, v77, v11, v78); k == -1 || !objc_msgSend_compare_(v59, v80, v11, v81); k = objc_msgSend_compare_(v84, v85, v11, v86))
     {
-      v101 = sub_2214A3CE8(v67, (v51 * v93));
+      v82 = sub_2214A3CE8(v57, (v43 * v76));
 
-      v104 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v102, v101, maturityCopy, v103);
+      v84 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v83, v82, maturityCopy);
 
-      ++v93;
-      v63 = v101;
-      v70 = v104;
+      ++v76;
+      v53 = v82;
+      v59 = v84;
     }
 
     goto LABEL_30;
   }
 
-  v62 = objc_msgSend_dateWithYear_month_day_(v40, v49, Year, v110, v109);
-  v63 = 0;
-  v64 = sub_2214A3CE8(v62, 12 / frequency);
-  v65 = 0;
+  v52 = objc_msgSend_dateWithYear_month_day_(v34, v41, Year, v89, v88);
+  v53 = 0;
+  v54 = sub_2214A3CE8(v52, 12 / frequency);
+  v55 = 0;
 LABEL_31:
-  v54 = v64;
+  v46 = v54;
 
-  v39 = v54;
+  v33 = v46;
 LABEL_32:
 
 LABEL_33:
 
-  return v39;
+  return v33;
 }
 
 + (id)getCoupDateAfterEOMWithCoupDate:(id)date maturityDate:(id)maturityDate
 {
   dateCopy = date;
   maturityDateCopy = maturityDate;
-  v11 = objc_msgSend_gregorianCalendar(TSCECalendar, v7, v8, v9, v10);
-  if (objc_msgSend_extractDay_(v11, v12, dateCopy, v13, v14) <= 27)
+  v10 = objc_msgSend_gregorianCalendar(TSCECalendar, v7, v8, v9);
+  if (objc_msgSend_extractDay_(v10, v11, dateCopy, v12) <= 27)
   {
     goto LABEL_10;
   }
 
-  v33 = 0;
-  v34 = 0;
-  v32 = 0;
-  objc_msgSend_extractComponentsFromDate_year_month_day_(v11, v15, maturityDateCopy, &v34, &v33, &v32);
-  isLeapYear = objc_msgSend_isLeapYear_(TSCECalendar, v16, v34, v17, v18);
-  if (v33 > 0xC)
+  v29 = 0;
+  v30 = 0;
+  v28 = 0;
+  objc_msgSend_extractComponentsFromDate_year_month_day_(v10, v13, maturityDateCopy, &v30, &v29, &v28);
+  isLeapYear = objc_msgSend_isLeapYear_(TSCECalendar, v14, v30, v15);
+  if (v29 > 0xC)
   {
     goto LABEL_18;
   }
 
-  if (((1 << v33) & 0x15AA) != 0)
+  if (((1 << v29) & 0x15AA) != 0)
   {
-    if (v32 == 31)
+    if (v28 == 31)
     {
       goto LABEL_5;
     }
 
 LABEL_10:
-    v27 = dateCopy;
+    v23 = dateCopy;
     goto LABEL_15;
   }
 
-  if (((1 << v33) & 0xA50) != 0)
+  if (((1 << v29) & 0xA50) != 0)
   {
-    if (v32 != 30)
+    if (v28 != 30)
     {
       goto LABEL_10;
     }
@@ -358,43 +363,43 @@ LABEL_10:
 LABEL_18:
     if (isLeapYear)
     {
-      if (v32 != 29)
+      if (v28 != 29)
       {
         goto LABEL_10;
       }
     }
 
-    else if (v32 != 28)
+    else if (v28 != 28)
     {
       goto LABEL_10;
     }
   }
 
 LABEL_5:
-  v30 = 0;
-  v31 = 0;
-  objc_msgSend_extractComponentsFromDate_year_month_day_(v11, v20, dateCopy, &v31, &v30, 0);
-  v24 = objc_msgSend_isLeapYear_(TSCECalendar, v21, v31, v22, v23);
-  v26 = v30 - 1;
-  if (v30 - 1) < 0xC && ((0xFFDu >> v26))
+  v26 = 0;
+  v27 = 0;
+  objc_msgSend_extractComponentsFromDate_year_month_day_(v10, v17, dateCopy, &v27, &v26, 0);
+  v20 = objc_msgSend_isLeapYear_(TSCECalendar, v18, v27, v19);
+  v22 = v26 - 1;
+  if (v26 - 1) < 0xC && ((0xFFDu >> v22))
   {
-    objc_msgSend_dateWithYear_month_day_(v11, v25, v31, v30, qword_2217E1450[v26]);
+    objc_msgSend_dateWithYear_month_day_(v10, v21, v27, v26, qword_2217E1450[v22]);
   }
 
-  else if (v24)
+  else if (v20)
   {
-    objc_msgSend_dateWithYear_month_day_(v11, v25, v31, v30, 29);
+    objc_msgSend_dateWithYear_month_day_(v10, v21, v27, v26, 29);
   }
 
   else
   {
-    objc_msgSend_dateWithYear_month_day_(v11, v25, v31, v30, 28);
+    objc_msgSend_dateWithYear_month_day_(v10, v21, v27, v26, 28);
   }
-  v27 = ;
+  v23 = ;
 LABEL_15:
-  v28 = v27;
+  v24 = v23;
 
-  return v28;
+  return v24;
 }
 
 + (double)getCouponDaysBeforeSettlementDateWithSettlementDate:(id)date settlement:(id)settlement maturity:(id)maturity numCoupons:(double)coupons dayBasisMode:(int64_t)mode outError:(id *)error
@@ -477,103 +482,103 @@ LABEL_13:
 {
   settlementCopy = settlement;
   maturityCopy = maturity;
-  v18 = objc_msgSend_gregorianCalendar(TSCECalendar, v14, v15, v16, v17);
-  v19 = objc_alloc_init(MEMORY[0x277CBEAB8]);
-  objc_msgSend_setMonth_(v19, v20, (12.0 / coupons), v21, v22);
-  Year = objc_msgSend_extractYear_(v18, v23, settlementCopy, v24, v25);
-  v31 = objc_msgSend_extractYear_(v18, v26, maturityCopy, v27, v28);
+  v17 = objc_msgSend_gregorianCalendar(TSCECalendar, v14, v15, v16);
+  v18 = objc_alloc_init(MEMORY[0x277CBEAB8]);
+  objc_msgSend_setMonth_(v18, v19, (12.0 / coupons), v20);
+  Year = objc_msgSend_extractYear_(v17, v21, settlementCopy, v22);
+  v27 = objc_msgSend_extractYear_(v17, v23, maturityCopy, v24);
   couponsCopy = coupons;
-  if (Year == v31)
+  if (Year == v27)
   {
-    v35 = objc_msgSend_nextCoupDateWithSettlement_settlement_maturity_frequency_outError_(TSCEFinancialFunctions, v30, date, settlementCopy, maturityCopy, couponsCopy, error);
+    v30 = objc_msgSend_nextCoupDateWithSettlement_settlement_maturity_frequency_outError_(TSCEFinancialFunctions, v26, date, settlementCopy, maturityCopy, couponsCopy, error);
     if (!*error)
     {
-      v36 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v33, v35, maturityCopy, v34);
-      v37 = v35;
-      v38 = 0.0;
-      v39 = 12;
-      v40 = v37;
-      for (i = objc_msgSend_compare_(v36, v41, maturityCopy, v42, v43); i != 1; i = objc_msgSend_compare_(v52, v53, maturityCopy, v54, v55))
+      v31 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v29, v30, maturityCopy);
+      v32 = v30;
+      v33 = 0.0;
+      v34 = 12;
+      v35 = v32;
+      for (i = objc_msgSend_compare_(v31, v36, maturityCopy, v37); i != 1; i = objc_msgSend_compare_(v44, v45, maturityCopy, v46))
       {
-        objc_msgSend_setMonth_(v19, v45, (v39 / coupons), v46, v47);
-        v49 = objc_msgSend_dateByAddingComponents_toDate_options_(v18, v48, v19, v37, 0);
+        objc_msgSend_setMonth_(v18, v39, (v34 / coupons), v40);
+        v42 = objc_msgSend_dateByAddingComponents_toDate_options_(v17, v41, v18, v32, 0);
 
-        v52 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v50, v49, maturityCopy, v51);
-        v38 = v38 + 1.0;
+        v44 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v43, v42, maturityCopy);
+        v33 = v33 + 1.0;
 
-        v39 += 12;
-        v40 = v49;
-        v36 = v52;
+        v34 += 12;
+        v35 = v42;
+        v31 = v44;
       }
 
 LABEL_18:
 
-      v35 = v40;
+      v30 = v35;
       goto LABEL_19;
     }
   }
 
   else
   {
-    v35 = objc_msgSend_nextCoupDateWithSettlement_settlement_maturity_frequency_outError_(TSCEFinancialFunctions, v30, date, settlementCopy, maturityCopy, couponsCopy, error);
+    v30 = objc_msgSend_nextCoupDateWithSettlement_settlement_maturity_frequency_outError_(TSCEFinancialFunctions, v26, date, settlementCopy, maturityCopy, couponsCopy, error);
     if (!*error)
     {
-      v36 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v56, v35, maturityCopy, v57);
-      v58 = v35;
-      v59 = 0.0;
-      v60 = 12;
-      v40 = v58;
-      v96 = settlementCopy;
-      for (j = objc_msgSend_extractYear_(v18, v61, v36, v62, v63); j == Year; j = objc_msgSend_extractYear_(v18, v73, v72, v74, v75))
+      v31 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v47, v30, maturityCopy);
+      v48 = v30;
+      v49 = 0.0;
+      v50 = 12;
+      v35 = v48;
+      v78 = settlementCopy;
+      for (j = objc_msgSend_extractYear_(v17, v51, v31, v52); j == Year; j = objc_msgSend_extractYear_(v17, v60, v59, v61))
       {
-        objc_msgSend_setMonth_(v19, v65, (v60 / coupons), v66, v67);
-        v69 = objc_msgSend_dateByAddingComponents_toDate_options_(v18, v68, v19, v58, 0);
+        objc_msgSend_setMonth_(v18, v54, (v50 / coupons), v55);
+        v57 = objc_msgSend_dateByAddingComponents_toDate_options_(v17, v56, v18, v48, 0);
 
-        v72 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v70, v69, maturityCopy, v71);
-        v59 = v59 + 1.0;
+        v59 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v58, v57, maturityCopy);
+        v49 = v49 + 1.0;
 
-        v60 += 12;
-        v40 = v69;
-        v36 = v72;
+        v50 += 12;
+        v35 = v57;
+        v31 = v59;
       }
 
-      v76 = v31 - Year + -1.0;
-      if (v76 <= 0.0)
+      v62 = v27 - Year + -1.0;
+      if (v62 <= 0.0)
       {
-        v38 = v59;
+        v33 = v49;
       }
 
       else
       {
-        v38 = v59 + coupons * v76;
+        v33 = v49 + coupons * v62;
       }
 
-      v77 = maturityCopy;
+      v63 = maturityCopy;
 
-      v37 = v77;
-      v78 = -12;
-      v79 = v37;
-      for (k = objc_msgSend_extractYear_(v18, v80, v37, v81, v82); k == v31; k = objc_msgSend_extractYear_(v18, v92, v91, v93, v94))
+      v32 = v63;
+      v64 = -12;
+      v65 = v32;
+      for (k = objc_msgSend_extractYear_(v17, v66, v32, v67); k == v27; k = objc_msgSend_extractYear_(v17, v75, v74, v76))
       {
-        objc_msgSend_setMonth_(v19, v84, (v78 / coupons), v85, v86);
-        v88 = objc_msgSend_dateByAddingComponents_toDate_options_(v18, v87, v19, v37, 0);
-        v91 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v89, v88, v37, v90);
-        v38 = v38 + 1.0;
+        objc_msgSend_setMonth_(v18, v69, (v64 / coupons), v70);
+        v72 = objc_msgSend_dateByAddingComponents_toDate_options_(v17, v71, v18, v32, 0);
+        v74 = objc_msgSend_getCoupDateAfterEOMWithCoupDate_maturityDate_(TSCEFinancialFunctions, v73, v72, v32);
+        v33 = v33 + 1.0;
 
-        v78 -= 12;
-        v79 = v91;
+        v64 -= 12;
+        v65 = v74;
       }
 
-      settlementCopy = v96;
+      settlementCopy = v78;
       goto LABEL_18;
     }
   }
 
-  v37 = 0;
-  v38 = 0.0;
+  v32 = 0;
+  v33 = 0.0;
 LABEL_19:
 
-  return v38;
+  return v33;
 }
 
 + (TSUDecimal)getYieldDiscWithSettlementDate:(id)date maturity:(id)maturity price:(const TSUDecimal *)price redemptionValue:(const TSUDecimal *)value dayBasisMode:(int64_t)mode outError:(id *)error
@@ -607,74 +612,74 @@ LABEL_19:
     TSUDecimal::operator=();
     TSUDecimal::operator=();
     TSUDecimal::operator=();
-    v40 = *a4;
+    v37 = *a4;
     TSUDecimal::operator+=();
-    TSUDecimal::doubleValue(&v40);
+    TSUDecimal::doubleValue(&v37);
     v15 = v14;
     TSUDecimal::doubleValue(nper);
     pow(v15, v16);
     TSUDecimal::operator=();
-    if (TSUDecimal::isInf(&v35))
+    if (TSUDecimal::isInf(&v32))
     {
-      v21 = objc_msgSend_functionName(rate, v17, v18, v19, v20);
-      *error = objc_msgSend_numberErrorForFunctionName_(TSCEError, v22, v21, v23, v24);
+      v20 = objc_msgSend_functionName(rate, v17, v18, v19);
+      *error = objc_msgSend_numberErrorForFunctionName_(TSCEError, v21, v20, v22);
     }
 
     else
     {
-      v40._decimal.w[0] = TSUDecimal::operator-();
-      v40._decimal.w[1] = v25;
+      v37._decimal.w[0] = TSUDecimal::operator-();
+      v37._decimal.w[1] = v23;
       TSUDecimal::operator*=();
       TSUDecimal::operator-=();
       TSUDecimal::operator*=();
-      v37 = v40;
+      v34 = v37;
       TSUDecimal::operator=();
       if (beginningCopy)
       {
-        v40 = v34;
+        v37 = v31;
         TSUDecimal::operator+=();
-        v26 = v40._decimal.w[0];
-        v27 = v40._decimal.w[1];
+        v24 = v37._decimal.w[0];
+        v25 = v37._decimal.w[1];
         TSUDecimal::operator=();
-        v40 = v35;
+        v37 = v32;
         TSUDecimal::operator-=();
-        v40._decimal.w[0] = v26;
-        v40._decimal.w[1] = v27;
+        v37._decimal.w[0] = v24;
+        v37._decimal.w[1] = v25;
         TSUDecimal::operator*=();
       }
 
       else
       {
-        v40 = v35;
+        v37 = v32;
         TSUDecimal::operator-=();
       }
 
-      v36 = v40;
-      if (!TSUDecimal::isZero(&v36))
+      v33 = v37;
+      if (!TSUDecimal::isZero(&v33))
       {
-        v40 = v37;
+        v37 = v34;
         goto LABEL_3;
       }
 
-      *error = objc_msgSend_divideByZeroError(TSCEError, v28, v29, v30, v31);
+      *error = objc_msgSend_divideByZeroError(TSCEError, v26, v27, v28);
     }
 
     TSUDecimal::operator=();
     goto LABEL_12;
   }
 
-  v40._decimal.w[0] = TSUDecimal::operator-();
-  v40._decimal.w[1] = v13;
+  v37._decimal.w[0] = TSUDecimal::operator-();
+  v37._decimal.w[1] = v13;
   TSUDecimal::operator-=();
 LABEL_3:
   TSUDecimal::operator/=();
-  v38 = v40;
-  v39 = v40;
+  v35 = v37;
+  v36 = v37;
 LABEL_12:
-  v33 = v39._decimal.w[1];
-  v32 = v39._decimal.w[0];
-  result._decimal.w[1] = v33;
-  result._decimal.w[0] = v32;
+  v30 = v36._decimal.w[1];
+  v29 = v36._decimal.w[0];
+  result._decimal.w[1] = v30;
+  result._decimal.w[0] = v29;
   return result;
 }
 
@@ -685,34 +690,34 @@ LABEL_12:
   if (!TSUDecimal::operator==())
   {
     TSUDecimal::operator=();
-    v79 = v74;
+    v71 = v66;
     TSUDecimal::operator+=();
-    TSUDecimal::doubleValue(&v79);
+    TSUDecimal::doubleValue(&v71);
     v17 = v16;
     TSUDecimal::doubleValue(nper);
     pow(v17, v18);
     TSUDecimal::operator=();
-    if (TSUDecimal::isInf(&v75))
+    if (TSUDecimal::isInf(&v67))
     {
-      v23 = objc_msgSend_functionName(rate, v19, v20, v21, v22);
-      v27 = objc_msgSend_numberErrorForFunctionName_(TSCEError, v24, v23, v25, v26);
+      v22 = objc_msgSend_functionName(rate, v19, v20, v21);
+      v25 = objc_msgSend_numberErrorForFunctionName_(TSCEError, v23, v22, v24);
     }
 
     else
     {
       TSUDecimal::operator=();
-      v79 = v72;
+      v71 = v64;
       TSUDecimal::operator+=();
-      v73 = v79;
+      v65 = v71;
       TSUDecimal::operator=();
-      v79 = *per;
+      v71 = *per;
       TSUDecimal::operator-=();
-      TSUDecimal::doubleValue(&v73);
-      v29 = v28;
-      TSUDecimal::doubleValue(&v79);
-      pow(v29, v30);
+      TSUDecimal::doubleValue(&v65);
+      v27 = v26;
+      TSUDecimal::doubleValue(&v71);
+      pow(v27, v28);
       TSUDecimal::operator=();
-      if (!TSUDecimal::isInf(&v74))
+      if (!TSUDecimal::isInf(&v66))
       {
         if (beginning)
         {
@@ -723,120 +728,120 @@ LABEL_12:
           }
 
           TSUDecimal::operator=();
-          v79 = v71;
+          v71 = v63;
           TSUDecimal::operator+=();
-          v72 = v79;
+          v64 = v71;
           TSUDecimal::operator=();
-          v79 = *nper;
+          v71 = *nper;
           TSUDecimal::operator-=();
-          TSUDecimal::doubleValue(&v72);
-          v41 = v40;
-          TSUDecimal::doubleValue(&v79);
-          pow(v41, v42);
+          TSUDecimal::doubleValue(&v64);
+          v37 = v36;
+          TSUDecimal::doubleValue(&v71);
+          pow(v37, v38);
           TSUDecimal::operator=();
-          if (TSUDecimal::isInf(&v73))
+          if (TSUDecimal::isInf(&v65))
           {
-            v23 = objc_msgSend_functionName(rate, v43, v44, v45, v46);
-            v27 = objc_msgSend_numberErrorForFunctionName_(TSCEError, v47, v23, v48, v49);
+            v22 = objc_msgSend_functionName(rate, v39, v40, v41);
+            v25 = objc_msgSend_numberErrorForFunctionName_(TSCEError, v42, v22, v43);
             goto LABEL_7;
           }
 
           TSUDecimal::operator=();
-          v79 = v70;
+          v71 = v62;
           TSUDecimal::operator+=();
-          v71 = v79;
+          v63 = v71;
           TSUDecimal::operator=();
-          v79 = *per;
+          v71 = *per;
           TSUDecimal::operator-=();
-          v72._decimal.w[0] = sub_2212B2BA4(&v71, &v79);
-          v72._decimal.w[1] = v53;
-          if (TSUDecimal::isInf(&v72))
+          v64._decimal.w[0] = sub_2212B2BA4(&v63, &v71);
+          v64._decimal.w[1] = v47;
+          if (TSUDecimal::isInf(&v64))
           {
-            v23 = objc_msgSend_functionName(rate, v54, v55, v56, v57);
-            v27 = objc_msgSend_numberErrorForFunctionName_(TSCEError, v58, v23, v59, v60);
+            v22 = objc_msgSend_functionName(rate, v48, v49, v50);
+            v25 = objc_msgSend_numberErrorForFunctionName_(TSCEError, v51, v22, v52);
             goto LABEL_7;
           }
 
-          v79 = v73;
+          v71 = v65;
           TSUDecimal::operator-=();
-          v61 = v79._decimal.w[0];
-          v62 = v79._decimal.w[1];
+          v53 = v71._decimal.w[0];
+          v54 = v71._decimal.w[1];
           TSUDecimal::operator=();
-          v79 = v75;
+          v71 = v67;
           TSUDecimal::operator-=();
-          v79._decimal.w[0] = v61;
-          v79._decimal.w[1] = v62;
+          v71._decimal.w[0] = v53;
+          v71._decimal.w[1] = v54;
           TSUDecimal::operator/=();
-          v71 = v79;
+          v63 = v71;
           TSUDecimal::operator=();
-          v79 = v74;
+          v71 = v66;
           TSUDecimal::operator-=();
-          v63 = v79._decimal.w[0];
-          v64 = v79._decimal.w[1];
+          v55 = v71._decimal.w[0];
+          v56 = v71._decimal.w[1];
           TSUDecimal::operator=();
-          v79 = v75;
+          v71 = v67;
           TSUDecimal::operator-=();
-          v79._decimal.w[0] = v63;
-          v79._decimal.w[1] = v64;
+          v71._decimal.w[0] = v55;
+          v71._decimal.w[1] = v56;
           TSUDecimal::operator/=();
-          v65 = v79._decimal.w[0];
-          v66 = v79._decimal.w[1];
+          v57 = v71._decimal.w[0];
+          v58 = v71._decimal.w[1];
           TSUDecimal::operator=();
-          v79 = v69;
+          v71 = v61;
           TSUDecimal::operator+=();
-          v79._decimal.w[0] = v65;
-          v79._decimal.w[1] = v66;
+          v71._decimal.w[0] = v57;
+          v71._decimal.w[1] = v58;
           TSUDecimal::operator/=();
-          v79 = *pv;
+          v71 = *pv;
           TSUDecimal::operator*=();
-          v67 = v79._decimal.w[0];
-          v68 = v79._decimal.w[1];
-          v79 = *fv;
+          v59 = v71._decimal.w[0];
+          v60 = v71._decimal.w[1];
+          v71 = *fv;
           TSUDecimal::operator*=();
-          v79._decimal.w[0] = v67;
-          v79._decimal.w[1] = v68;
+          v71._decimal.w[0] = v59;
+          v71._decimal.w[1] = v60;
           TSUDecimal::operator-=();
-          v79 = *a4;
+          v71 = *a4;
         }
 
         else
         {
           TSUDecimal::operator=();
-          v79 = v74;
+          v71 = v66;
           TSUDecimal::operator-=();
-          v50 = v79._decimal.w[0];
-          v51 = v79._decimal.w[1];
+          v44 = v71._decimal.w[0];
+          v45 = v71._decimal.w[1];
           TSUDecimal::operator=();
-          v79 = v75;
+          v71 = v67;
           TSUDecimal::operator-=();
-          v71 = v79;
-          v79._decimal.w[0] = v50;
-          v79._decimal.w[1] = v51;
+          v63 = v71;
+          v71._decimal.w[0] = v44;
+          v71._decimal.w[1] = v45;
           TSUDecimal::operator/=();
-          v73 = v79;
-          v79 = *pv;
+          v65 = v71;
+          v71 = *pv;
           TSUDecimal::operator+=();
           TSUDecimal::operator*=();
-          v71 = v79;
-          v79 = *pv;
+          v63 = v71;
+          v71 = *pv;
           TSUDecimal::operator-=();
-          v72 = v79;
-          v79 = *a4;
+          v64 = v71;
+          v71 = *a4;
         }
 
         TSUDecimal::operator*=();
-        v76 = v79;
-        v77 = TSUDecimal::operator-();
-        v78 = v52;
+        v68 = v71;
+        v69 = TSUDecimal::operator-();
+        v70 = v46;
         goto LABEL_9;
       }
 
-      v23 = objc_msgSend_functionName(rate, v31, v32, v33, v34);
-      v27 = objc_msgSend_numberErrorForFunctionName_(TSCEError, v35, v23, v36, v37);
+      v22 = objc_msgSend_functionName(rate, v29, v30, v31);
+      v25 = objc_msgSend_numberErrorForFunctionName_(TSCEError, v32, v22, v33);
     }
 
 LABEL_7:
-    *error = v27;
+    *error = v25;
 
 LABEL_8:
     TSUDecimal::operator=();
@@ -845,10 +850,10 @@ LABEL_8:
 
   TSUDecimal::operator=();
 LABEL_9:
-  v38 = v77;
-  v39 = v78;
-  result._decimal.w[1] = v39;
-  result._decimal.w[0] = v38;
+  v34 = v69;
+  v35 = v70;
+  result._decimal.w[1] = v35;
+  result._decimal.w[0] = v34;
   return result;
 }
 
@@ -858,7 +863,7 @@ LABEL_9:
   maturityCopy = maturity;
   objc_msgSend_getCouponDaysWithSettlementDate_settlement_maturity_numCoupons_dayBasisMode_outError_(TSCEFinancialFunctions, v18, date, settlementCopy, maturityCopy, mode, error, coupons);
   TSUDecimal::operator=();
-  if (*error || (objc_msgSend_getCouponDaysBeforeSettlementDateWithSettlementDate_settlement_maturity_numCoupons_dayBasisMode_outError_(TSCEFinancialFunctions, v19, date, settlementCopy, maturityCopy, mode, error, coupons), TSUDecimal::operator=(), *error) || (v46 = v44, TSUDecimal::operator-=(), objc_msgSend_getNumFutureCouponsWithSettlementDate_settlement_maturity_numCoupons_dayBasisMode_outError_(TSCEFinancialFunctions, v20, date, settlementCopy, maturityCopy, mode, error, coupons), *error))
+  if (*error || (objc_msgSend_getCouponDaysBeforeSettlementDateWithSettlementDate_settlement_maturity_numCoupons_dayBasisMode_outError_(TSCEFinancialFunctions, v19, date, settlementCopy, maturityCopy, mode, error, coupons), TSUDecimal::operator=(), *error) || (v44 = v42, TSUDecimal::operator-=(), objc_msgSend_getNumFutureCouponsWithSettlementDate_settlement_maturity_numCoupons_dayBasisMode_outError_(TSCEFinancialFunctions, v20, date, settlementCopy, maturityCopy, mode, error, coupons), *error))
   {
     TSUDecimal::operator=();
   }
@@ -870,33 +875,33 @@ LABEL_9:
     TSUDecimal::operator=();
     TSUDecimal::operator=();
     TSUDecimal::operator=();
-    v46 = *rate;
+    v44 = *rate;
     TSUDecimal::operator*=();
     TSUDecimal::operator=();
     TSUDecimal::operator/=();
-    v23 = v46;
-    v46 = v44;
+    v23 = v44;
+    v44 = v42;
     TSUDecimal::operator/=();
-    v41 = v44;
+    v39 = v42;
     if (v22 <= 0.0)
     {
 LABEL_10:
       TSUDecimal::operator=();
       TSUDecimal::operator-=();
       TSUDecimal::operator=();
-      v46 = v41;
+      v44 = v39;
       TSUDecimal::operator*=();
       TSUDecimal::operator/=();
-      v40 = v46;
+      v38 = v44;
       TSUDecimal::operator+=();
       TSUDecimal::operator=();
-      v46 = v39;
+      v44 = v37;
       TSUDecimal::operator/=();
-      v40 = v46;
+      v38 = v44;
       TSUDecimal::operator+=();
-      v46 = v43;
+      v44 = v41;
       TSUDecimal::operator/=();
-      v45 = v46;
+      v43 = v44;
     }
 
     else
@@ -906,51 +911,51 @@ LABEL_10:
       {
         TSUDecimal::operator=();
         TSUDecimal::operator=();
-        v46 = *yield;
+        v44 = *yield;
         TSUDecimal::operator/=();
-        v46 = v39;
+        v44 = v37;
         TSUDecimal::operator+=();
-        v40 = v46;
-        TSUDecimal::doubleValue(&v40);
+        v38 = v44;
+        TSUDecimal::doubleValue(&v38);
         v26 = v25;
-        TSUDecimal::doubleValue(&v41);
+        TSUDecimal::doubleValue(&v39);
         pow(v26, v27);
         TSUDecimal::operator=();
-        v42 = v46;
-        if (TSUDecimal::isInf(&v42))
+        v40 = v44;
+        if (TSUDecimal::isInf(&v40))
         {
           break;
         }
 
-        v46 = v23;
+        v44 = v23;
         TSUDecimal::operator*=();
         TSUDecimal::operator/=();
-        v40 = v46;
+        v38 = v44;
         TSUDecimal::operator+=();
-        v46 = v23;
+        v44 = v23;
         TSUDecimal::operator/=();
-        v40 = v46;
+        v38 = v44;
         TSUDecimal::operator+=();
         TSUDecimal::operator=();
         TSUDecimal::operator+=();
-        v32 = v24++;
-        if (v22 <= v32)
+        v31 = v24++;
+        if (v22 <= v31)
         {
           goto LABEL_10;
         }
       }
 
-      v33 = objc_msgSend_functionName(date, v28, v29, v30, v31);
-      *error = objc_msgSend_numberErrorForFunctionName_(TSCEError, v34, v33, v35, v36);
+      v32 = objc_msgSend_functionName(date, v28, v29, v30);
+      *error = objc_msgSend_numberErrorForFunctionName_(TSCEError, v33, v32, v34);
 
       TSUDecimal::operator=();
     }
   }
 
-  v38 = v45._decimal.w[1];
-  v37 = v45._decimal.w[0];
-  result._decimal.w[1] = v38;
-  result._decimal.w[0] = v37;
+  v36 = v43._decimal.w[1];
+  v35 = v43._decimal.w[0];
+  result._decimal.w[1] = v36;
+  result._decimal.w[0] = v35;
   return result;
 }
 

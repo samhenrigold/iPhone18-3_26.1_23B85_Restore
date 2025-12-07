@@ -606,7 +606,7 @@ LABEL_40:
   x = frame.origin.x;
   Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
   v13 = (10 * ((y + 9.0) / 10));
-  v40 = (10 * ((y + height) / 10));
+  v36 = (10 * ((y + height) / 10));
   if ([drawable hasPagesOrder])
   {
     v15 = [drawable pagesOrder] - 1;
@@ -618,82 +618,70 @@ LABEL_40:
   }
 
   v16 = v13 + 10.0;
-  if ((v13 + 10.0) <= v40)
+  if ((v13 + 10.0) <= v36)
   {
     v17 = x;
     v18 = x + width;
-    v38 = v18;
-    v39 = v17;
+    v34 = v18;
+    v35 = v17;
     v19 = v17;
     v20 = v18;
-    v36 = v20;
-    v37 = v19;
     *&v20 = v13 + 10.0;
-    *&v14 = v38;
-    *&v19 = v39;
+    *&v14 = v34;
+    *&v19 = v35;
     v21 = [drawable createListOfWrapPointsAlongY:v15 minX:v20 maxX:v19 zIndex:{v14, self, state}];
     v22 = *v21;
     v23 = v21[1];
-    if (*v21 == v23)
+    if (*v21 != v23)
     {
-      v32 = v16 - y;
-      v29 = v32;
-      goto LABEL_24;
-    }
-
-    v24 = 0;
-    v25 = 0;
-    while (1)
-    {
-      v26 = *v22;
-      if (*(*v22 + 32) == drawable)
+      v24 = 0;
+      v25 = 0;
+      while (1)
       {
-        v27 = *(v26 + 40);
-        if (v27)
+        v26 = *v22;
+        if (*(*v22 + 32) == drawable)
         {
-          if (v27 != 2)
+          v27 = *(v26 + 40);
+          if (v27)
           {
-            v33 = v16 - y;
-            v29 = v33;
-            goto LABEL_24;
+            if (v27 != 2)
+            {
+              v31 = v16 - y;
+              v29 = v31;
+LABEL_20:
+              v32 = [[GQHWrapSandbag alloc] initWithSize:1 floatsLeft:width, v29];
+              CFArrayAppendValue(Mutable, v32);
+
+              v37 = v21;
+              sub_35BA8(&v37);
+              operator delete();
+            }
+
+            if (!v25 || *(v26 + 8) < *(v25 + 8))
+            {
+              v25 = *v22;
+            }
           }
 
-          if (!v25 || *(v26 + 8) < *(v25 + 8))
+          else if (!v24 || *(v26 + 8) > *(v24 + 8))
           {
-            v25 = *v22;
+            v24 = *v22;
           }
         }
 
-        else if (!v24 || *(v26 + 8) > *(v24 + 8))
+        v22 += 8;
+        if (v22 == v23)
         {
-          v24 = *v22;
+          v28 = v16 - y;
+          v29 = v28;
+          goto LABEL_20;
         }
-      }
-
-      v22 += 8;
-      if (v22 == v23)
-      {
-        v28 = v16 - y;
-        v29 = v28;
-        if (v24)
-        {
-          v30 = *(v24 + 8) - v37;
-        }
-
-        if (v25)
-        {
-          v31 = v36 - *(v25 + 8);
-        }
-
-LABEL_24:
-        v34 = [[GQHWrapSandbag alloc] initWithSize:1 floatsLeft:width, v29];
-        CFArrayAppendValue(Mutable, v34);
-
-        v41 = v21;
-        sub_35BA8(&v41);
-        operator delete();
       }
     }
+
+    v30 = v16 - y;
+    v29 = v30;
+    goto LABEL_20;
   }
 
   CFRelease(Mutable);

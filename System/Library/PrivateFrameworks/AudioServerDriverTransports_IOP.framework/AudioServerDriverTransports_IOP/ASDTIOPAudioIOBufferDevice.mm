@@ -1,4 +1,5 @@
 @interface ASDTIOPAudioIOBufferDevice
++ (id)forIOObject:(unsigned int)object andIDValue:(id)value;
 - (BOOL)mapIOBuffer;
 - (BOOL)open;
 - (id).cxx_construct;
@@ -9,6 +10,15 @@
 
 @implementation ASDTIOPAudioIOBufferDevice
 
++ (id)forIOObject:(unsigned int)object andIDValue:(id)value
+{
+  v4 = *&object;
+  valueCopy = value;
+  v7 = [[self alloc] initForIOObject:v4 andIDValue:valueCopy];
+
+  return v7;
+}
+
 - (id)initForIOObject:(unsigned int)object andIDValue:(id)value
 {
   v5 = *MEMORY[0x277D85DE8];
@@ -18,7 +28,7 @@
 
 - (BOOL)open
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   ptr = self->_userClient.__ptr_;
   if (!ptr)
   {
@@ -26,18 +36,18 @@
   }
 
   v4 = ASDT::IOUserClient::OpenConnection(ptr);
+  v6 = v4;
   if ((v4 & 1) == 0)
   {
-    v5 = ASDTIOPLogType();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v7 = ASDTIOPLogType(v4, v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       idValue = [(ASDTIOService *)self idValue];
       [(ASDTIOPAudioIOBufferDevice *)idValue open];
     }
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-  return v4;
+  return v6;
 }
 
 - (void)close
@@ -55,19 +65,17 @@
 
 - (BOOL)mapIOBuffer
 {
-  v6[15] = *MEMORY[0x277D85DE8];
+  v5[15] = *MEMORY[0x277D85DE8];
   ptr = self->_userClient.__ptr_;
   if (!ptr)
   {
     [ASDTIOPAudioIOBufferDevice mapIOBuffer];
   }
 
-  ASDT::IOPAudio::IOBuffer::UserClient::MapIOBuffer(ptr, v6);
+  ASDT::IOPAudio::IOBuffer::UserClient::MapIOBuffer(v5, ptr);
   ASDT::IOMemoryMap::operator=();
-  MEMORY[0x245CEDC00](v6);
-  result = self[1]._memoryMap.__vftable != 0;
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  MEMORY[0x245CEDC00](v5);
+  return self[1]._memoryMap.__vftable != 0;
 }
 
 - (id).cxx_construct

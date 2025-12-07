@@ -15,9 +15,10 @@ uint64_t __60__NSUserDefaults_VoiceMemosSettings__voiceMemosUserDefaults__block_
     v1 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.VoiceMemos"];
   }
 
+  v2 = voiceMemosUserDefaults_voiceMemosUserDefaults;
   voiceMemosUserDefaults_voiceMemosUserDefaults = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 @end

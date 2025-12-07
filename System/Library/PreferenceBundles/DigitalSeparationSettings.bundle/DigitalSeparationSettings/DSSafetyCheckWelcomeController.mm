@@ -12,7 +12,9 @@
 - (void)quickExit;
 - (void)startEmergencyResetFlow;
 - (void)startManageSharingFlow;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)viewWillLayoutSubviews;
 - (void)willEnterBackground:(id)background;
 @end
@@ -172,31 +174,31 @@ LABEL_9:
   v5 = [unpresentedResourceDictionary2 objectForKeyedSubscript:@"path"];
   v6 = [NSString stringWithFormat:@"EMERGENCY_RESET/%@", v5];
 
-  v12 = @"path";
-  v13 = v6;
-  v7 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v13 = @"path";
+  v14 = v6;
+  v7 = [NSDictionary dictionaryWithObjects:&v14 forKeys:&v13 count:1];
   LODWORD(v5) = [DSSafetyCheck startWithPresentingViewController:self withURL:v7];
 
-  v8 = DSLog();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = DSLog(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (!v5)
   {
-    if (v9)
+    if (v10)
     {
       *buf = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Can't form presentation for path %@, sending user through standard E.R. entrypoint", buf, 0xCu);
+      v12 = v6;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Can't form presentation for path %@, sending user through standard E.R. entrypoint", buf, 0xCu);
     }
 
     [(DSSafetyCheckWelcomeController *)self setUnpresentedResourceDictionary:0];
     goto LABEL_9;
   }
 
-  if (v9)
+  if (v10)
   {
     *buf = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Presenting resource dictionary with path: %@", buf, 0xCu);
+    v12 = v6;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Presenting resource dictionary with path: %@", buf, 0xCu);
   }
 }
 
@@ -215,32 +217,39 @@ LABEL_9:
   v5 = [unpresentedResourceDictionary2 objectForKeyedSubscript:@"path"];
   v6 = [NSString stringWithFormat:@"MANAGE_SHARING/%@", v5];
 
-  v12 = @"path";
-  v13 = v6;
-  v7 = [NSDictionary dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v13 = @"path";
+  v14 = v6;
+  v7 = [NSDictionary dictionaryWithObjects:&v14 forKeys:&v13 count:1];
   LODWORD(v5) = [DSSafetyCheck startWithPresentingViewController:self withURL:v7];
 
-  v8 = DSLog();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v9 = DSLog(v8);
+  v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
   if (!v5)
   {
-    if (v9)
+    if (v10)
     {
       *buf = 138412290;
-      v11 = v6;
-      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Can't form presentation for path %@, sending user through standard entrypoint", buf, 0xCu);
+      v12 = v6;
+      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Can't form presentation for path %@, sending user through standard entrypoint", buf, 0xCu);
     }
 
     [(DSSafetyCheckWelcomeController *)self setUnpresentedResourceDictionary:0];
     goto LABEL_9;
   }
 
-  if (v9)
+  if (v10)
   {
     *buf = 138412290;
-    v11 = v6;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Presenting for resource dictionary with path: %@", buf, 0xCu);
+    v12 = v6;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Presenting for resource dictionary with path: %@", buf, 0xCu);
   }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v5 = +[NSNotificationCenter defaultCenter];
+  presentedViewController = [(DSSafetyCheckWelcomeController *)self presentedViewController];
+  [v5 removeObserver:presentedViewController name:UIApplicationWillEnterForegroundNotification object:0];
 }
 
 - (BOOL)performButtonActionForSpecifier:(id)specifier
@@ -248,27 +257,27 @@ LABEL_9:
   specifierCopy = specifier;
   specifier = [(DSSafetyCheckWelcomeController *)self specifier];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [specifier isEqualToSpecifier:specifierCopy])
+  if ((objc_opt_isKindOfClass() & 1) != 0 && (v6 = [specifier isEqualToSpecifier:specifierCopy], v6))
   {
-    v6 = DSLog();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = DSLog(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Casting to DSDeepLinkSpecifier because self.specifer is kind of class", buf, 2u);
+      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Casting to DSDeepLinkSpecifier because self.specifer is kind of class", buf, 2u);
     }
 
     [(DSSafetyCheckWelcomeController *)self _performButtonActionForSpecifier:specifier];
-    v7 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v9.receiver = self;
-    v9.super_class = DSSafetyCheckWelcomeController;
-    v7 = [(DSSafetyCheckWelcomeController *)&v9 performButtonActionForSpecifier:specifierCopy];
+    v10.receiver = self;
+    v10.super_class = DSSafetyCheckWelcomeController;
+    v8 = [(DSSafetyCheckWelcomeController *)&v10 performButtonActionForSpecifier:specifierCopy];
   }
 
-  return v7;
+  return v8;
 }
 
 - (void)_performButtonActionForSpecifier:(id)specifier
@@ -278,18 +287,19 @@ LABEL_9:
 
   if ([path length])
   {
-    v10 = @"path";
-    v11 = path;
-    v6 = [NSDictionary dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+    v11 = @"path";
+    v12 = path;
+    v6 = [NSDictionary dictionaryWithObjects:&v12 forKeys:&v11 count:1];
     [(DSSafetyCheckWelcomeController *)self setUnpresentedResourceDictionary:0];
-    if (([DSSafetyCheck startWithPresentingViewController:self withURL:v6]& 1) == 0)
+    v7 = [DSSafetyCheck startWithPresentingViewController:self withURL:v6];
+    if ((v7 & 1) == 0)
     {
-      v7 = DSLog();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = DSLog(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 138412290;
-        v9 = v6;
-        _os_log_impl(&dword_0, v7, OS_LOG_TYPE_DEFAULT, "Not presenting flow for resource dictionary %@", &v8, 0xCu);
+        v9 = 138412290;
+        v10 = v6;
+        _os_log_impl(&dword_0, v8, OS_LOG_TYPE_DEFAULT, "Not presenting flow for resource dictionary %@", &v9, 0xCu);
       }
 
       [(DSSafetyCheckWelcomeController *)self setUnpresentedResourceDictionary:v6];
@@ -301,26 +311,27 @@ LABEL_9:
 {
   lCopy = l;
   completionCopy = completion;
-  v10.receiver = self;
-  v10.super_class = DSSafetyCheckWelcomeController;
-  [(DSSafetyCheckWelcomeController *)&v10 handleURL:lCopy withCompletion:&stru_107D0];
-  v8 = DSLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v12.receiver = self;
+  v12.super_class = DSSafetyCheckWelcomeController;
+  v8 = [(DSSafetyCheckWelcomeController *)&v12 handleURL:lCopy withCompletion:&stru_107D0];
+  v9 = DSLog(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v12 = lCopy;
-    _os_log_impl(&dword_0, v8, OS_LOG_TYPE_INFO, "Handling URL: %@", buf, 0xCu);
+    v14 = lCopy;
+    _os_log_impl(&dword_0, v9, OS_LOG_TYPE_INFO, "Handling URL: %@", buf, 0xCu);
   }
 
   [(DSSafetyCheckWelcomeController *)self setUnpresentedResourceDictionary:0];
-  if (([DSSafetyCheck startWithPresentingViewController:self withURL:lCopy]& 1) == 0)
+  v10 = [DSSafetyCheck startWithPresentingViewController:self withURL:lCopy];
+  if ((v10 & 1) == 0)
   {
-    v9 = DSLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v11 = DSLog(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = lCopy;
-      _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Not presenting flow for resource dictionary %@", buf, 0xCu);
+      v14 = lCopy;
+      _os_log_impl(&dword_0, v11, OS_LOG_TYPE_DEFAULT, "Not presenting flow for resource dictionary %@", buf, 0xCu);
     }
 
     [(DSSafetyCheckWelcomeController *)self setUnpresentedResourceDictionary:lCopy];
@@ -349,6 +360,35 @@ LABEL_9:
     if (banner)
     {
       [(DSSafetyCheckWelcomeController *)self _removeDTOBanner];
+    }
+  }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = DSSafetyCheckWelcomeController;
+  [(DSSafetyCheckWelcomeController *)&v10 viewDidAppear:appear];
+  if (+[DSFeatureFlags isWifiSyncRemindersEnabled])
+  {
+    daemonConnection = [(DSSafetyCheckWelcomeController *)self daemonConnection];
+
+    if (!daemonConnection)
+    {
+      initConnection = [[SCSharingReminderPeerService alloc] initConnection];
+      [(DSSafetyCheckWelcomeController *)self setDaemonConnection:initConnection];
+
+      objc_initWeak(&location, self);
+      daemonConnection2 = [(DSSafetyCheckWelcomeController *)self daemonConnection];
+      v7[0] = _NSConcreteStackBlock;
+      v7[1] = 3221225472;
+      v7[2] = sub_35C4;
+      v7[3] = &unk_107F8;
+      objc_copyWeak(&v8, &location);
+      [daemonConnection2 userOpenedSafetyCheckWithCompletion:v7];
+
+      objc_destroyWeak(&v8);
+      objc_destroyWeak(&location);
     }
   }
 }

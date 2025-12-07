@@ -148,7 +148,7 @@ void __114__SBHWidgetWrapperViewController_initWithGalleryItem_titleAndSubtitleV
 
 - (int64_t)selectedSizeClass
 {
-  v2 = [(NSArray *)self->_supportedSizeClasses objectAtIndex:self->_indexOfSelectedSizeClass];
+  v2 = objc_msgSend_objectAtIndex_(self->_supportedSizeClasses, a2, self->_indexOfSelectedSizeClass);
   integerValue = [v2 integerValue];
 
   return integerValue;
@@ -164,10 +164,10 @@ void __114__SBHWidgetWrapperViewController_initWithGalleryItem_titleAndSubtitleV
 
     if (v7 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v8 = SBLogWidgets();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = SBLogWidgets(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        [(SBHWidgetWrapperViewController *)class setSelectedSizeClass:v8];
+        [(SBHWidgetWrapperViewController *)class setSelectedSizeClass:v9];
       }
 
       v7 = 0;
@@ -591,8 +591,8 @@ SBHWidgetWrapperBackgroundView *__63__SBHWidgetWrapperViewController__widgetBack
 
       if (v23)
       {
-        metrics = [contentViewController metrics];
-        [metrics scaleFactor];
+        v24 = objc_msgSend_metrics(contentViewController);
+        [v24 scaleFactor];
         v20 = v25;
       }
     }
@@ -633,7 +633,7 @@ SBHWidgetWrapperBackgroundView *__63__SBHWidgetWrapperViewController__widgetBack
     activeDataSource = [v7 activeDataSource];
     gridSizeClass = [icon gridSizeClass];
 
-    [viewCopy iconImageInfo];
+    objc_msgSend_iconImageInfo(viewCopy);
     v14 = [[SBHWidgetStyleManager alloc] initWithWidgetViewController:customIconImageViewController widgetDataSource:activeDataSource gridSizeClass:gridSizeClass iconImageInfo:self delegate:v10, v11, v12, v13];
     [(SBHWidgetWrapperViewController *)self setWidgetStyleManager:v14];
   }

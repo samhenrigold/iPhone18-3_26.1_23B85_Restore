@@ -18,7 +18,7 @@
 
 - (KCJoiningRequestCircleSession)initWithCircleDelegate:(id)delegate session:(id)session otcontrol:(id)otcontrol altDSID:(id)d flowID:(id)iD deviceSessionID:(id)sessionID error:(id *)error
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
   sessionCopy = session;
   otcontrolCopy = otcontrol;
@@ -37,7 +37,7 @@
     v23 = otcontrolCopy2;
     v25 = v24 = delegateCopy;
     *buf = 138412290;
-    v45 = v25;
+    v44 = v25;
     _os_log_impl(&dword_22EB09000, v20, OS_LOG_TYPE_DEFAULT, "joining: KCJoiningRequestCircleSession initWithCircleDelegate called, uuid=%@", buf, 0xCu);
 
     delegateCopy = v24;
@@ -46,9 +46,9 @@
     iDCopy = v21;
   }
 
-  v43.receiver = self;
-  v43.super_class = KCJoiningRequestCircleSession;
-  v26 = [(KCJoiningRequestCircleSession *)&v43 init];
+  v42.receiver = self;
+  v42.super_class = KCJoiningRequestCircleSession;
+  v26 = [(KCJoiningRequestCircleSession *)&v42 init];
   v27 = v26;
   if (v26)
   {
@@ -74,7 +74,6 @@
     v27->_piggy_version = [sessionCopy piggybackingVersion];
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
@@ -95,8 +94,8 @@
   v7 = secLogObjForScope("joining");
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v17) = 0;
-    _os_log_impl(&dword_22EB09000, v7, OS_LOG_TYPE_DEFAULT, "joining: KCJoiningRequestCircleSession processMessage called", &v17, 2u);
+    *v17 = 0;
+    _os_log_impl(&dword_22EB09000, v7, OS_LOG_TYPE_DEFAULT, "joining: KCJoiningRequestCircleSession processMessage called", v17, 2u);
   }
 
   v8 = [KCJoiningMessage messageWithDER:messageCopy error:error];
@@ -106,7 +105,7 @@
     state = [(KCJoiningRequestCircleSession *)self state];
     if (state == 1)
     {
-      KCJoiningErrorCreate(6, error, @"Done, no messages expected.", v10, v11, v12, v13, v14, v17);
+      KCJoiningErrorCreate(6, error, @"Done, no messages expected.", v10, v11, v12, v13, v14, *v17);
     }
 
     else if (!state)
@@ -124,7 +123,7 @@ LABEL_9:
 
 - (id)handleCircleBlob:(id)blob error:(id *)error
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   blobCopy = blob;
   v6 = secLogObjForScope("joining");
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
@@ -137,13 +136,13 @@ LABEL_9:
   altDSID = [(KCJoiningRequestCircleSession *)self altDSID];
   flowID = [(KCJoiningRequestCircleSession *)self flowID];
   deviceSessionID = [(KCJoiningRequestCircleSession *)self deviceSessionID];
-  LOBYTE(v72) = 1;
-  v78 = [(AAFAnalyticsEventSecurity *)v7 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.piggybackingCircleInitiatorHandleCircleBlobMessage" testsAreEnabled:metricsAreEnabled canSendMetrics:v72 category:&unk_2843768F0];
+  LOBYTE(v71) = 1;
+  v77 = [(AAFAnalyticsEventSecurity *)v7 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.piggybackingCircleInitiatorHandleCircleBlobMessage" testsAreEnabled:metricsAreEnabled canSendMetrics:v71 category:&unk_2843768F0];
 
   if ([blobCopy type] != 5)
   {
     v18 = [MEMORY[0x277CCA9B8] errorWithDomain:KCErrorDomain code:54 description:@"Expected CircleBlob!"];
-    [(AAFAnalyticsEventSecurity *)v78 sendMetricWithResult:0 error:v18];
+    [(AAFAnalyticsEventSecurity *)v77 sendMetricWithResult:0 error:v18];
     if (error)
     {
       v19 = v18;
@@ -172,9 +171,9 @@ LABEL_9:
 
     session = [(KCJoiningRequestCircleSession *)self session];
     firstData = [blobCopy firstData];
-    v80 = 0;
-    v23 = [session decryptAndVerify:firstData error:&v80];
-    v18 = v80;
+    v79 = 0;
+    v23 = [session decryptAndVerify:firstData error:&v79];
+    v18 = v79;
 
     if (!v23 || v18)
     {
@@ -191,15 +190,15 @@ LABEL_9:
         _os_log_impl(&dword_22EB09000, v28, OS_LOG_TYPE_DEFAULT, "joining: failed to decrypt and verify circle blob message failed %@", &buf, 0xCu);
       }
 
-      [(AAFAnalyticsEventSecurity *)v78 sendMetricWithResult:0 error:v18];
+      [(AAFAnalyticsEventSecurity *)v77 sendMetricWithResult:0 error:v18];
     }
 
     else
     {
       circleDelegate = [(KCJoiningRequestCircleSession *)self circleDelegate];
-      v79 = 0;
-      v25 = [circleDelegate processCircleJoinData:v23 version:1 error:&v79];
-      v18 = v79;
+      v78 = 0;
+      v25 = [circleDelegate processCircleJoinData:v23 version:1 error:&v78];
+      v18 = v78;
 
       if (v25)
       {
@@ -221,7 +220,7 @@ LABEL_9:
 LABEL_29:
 
         self->_state = 1;
-        [(AAFAnalyticsEventSecurity *)v78 sendMetricWithResult:1 error:0];
+        [(AAFAnalyticsEventSecurity *)v77 sendMetricWithResult:1 error:0];
         data = [MEMORY[0x277CBEA90] data];
         goto LABEL_83;
       }
@@ -239,7 +238,7 @@ LABEL_29:
         _os_log_impl(&dword_22EB09000, v41, OS_LOG_TYPE_DEFAULT, "joining: failed to process SOS circle: %@", &buf, 0xCu);
       }
 
-      [(AAFAnalyticsEventSecurity *)v78 sendMetricWithResult:0 error:v18];
+      [(AAFAnalyticsEventSecurity *)v77 sendMetricWithResult:0 error:v18];
     }
 
     if (error)
@@ -255,72 +254,72 @@ LABEL_46:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v92 = 0x3032000000;
-  v93 = __Block_byref_object_copy__377;
-  v94 = __Block_byref_object_dispose__378;
-  v95 = 0;
+  v91 = 0x3032000000;
+  v92 = __Block_byref_object_copy__377;
+  v93 = __Block_byref_object_dispose__378;
+  v94 = 0;
   session2 = [(KCJoiningRequestCircleSession *)self session];
   firstData2 = [blobCopy firstData];
-  v85 = 0;
-  v15 = [session2 decryptAndVerify:firstData2 error:&v85];
-  v75 = v85;
+  v84 = 0;
+  v15 = [session2 decryptAndVerify:firstData2 error:&v84];
+  v74 = v84;
 
-  if (!v15 || v75)
+  if (!v15 || v74)
   {
     v29 = secLogObjForScope("joining");
     if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v88) = 138412290;
-      *(&v88 + 4) = v75;
-      _os_log_impl(&dword_22EB09000, v29, OS_LOG_TYPE_DEFAULT, "failed to decrypt voucher packet, fall back to legacy path, error: %@", &v88, 0xCu);
+      LODWORD(v87) = 138412290;
+      *(&v87 + 4) = v74;
+      _os_log_impl(&dword_22EB09000, v29, OS_LOG_TYPE_DEFAULT, "failed to decrypt voucher packet, fall back to legacy path, error: %@", &v87, 0xCu);
     }
 
     v30 = [OTPairingMessage alloc];
     firstData3 = [blobCopy firstData];
-    v76 = [(OTPairingMessage *)v30 initWithData:firstData3];
+    v75 = [(OTPairingMessage *)v30 initWithData:firstData3];
 
-    *&v88 = 0;
-    *(&v88 + 1) = &v88;
-    v89 = 0x2020000000;
-    v90 = 1;
+    *&v87 = 0;
+    *(&v87 + 1) = &v87;
+    v88 = 0x2020000000;
+    v89 = 1;
     otControl = [(KCJoiningRequestCircleSession *)self otControl];
     controlArguments = [(KCJoiningRequestCircleSession *)self controlArguments];
-    v84[0] = MEMORY[0x277D85DD0];
-    v84[1] = 3221225472;
-    v84[2] = __56__KCJoiningRequestCircleSession_handleCircleBlob_error___block_invoke;
-    v84[3] = &unk_278863DC0;
-    v84[4] = &v88;
-    [otControl fetchEscrowRecords:controlArguments source:2 reply:v84];
+    v83[0] = MEMORY[0x277D85DD0];
+    v83[1] = 3221225472;
+    v83[2] = __56__KCJoiningRequestCircleSession_handleCircleBlob_error___block_invoke;
+    v83[3] = &unk_278863DC0;
+    v83[4] = &v87;
+    [otControl fetchEscrowRecords:controlArguments source:2 reply:v83];
 
-    v74 = v15;
+    v73 = v15;
     v34 = [AAFAnalyticsEventSecurity alloc];
-    v86 = @"totalViableEscrowRecords";
-    v35 = [MEMORY[0x277CCABB0] numberWithBool:*(*(&v88 + 1) + 24)];
-    v87 = v35;
-    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
+    v85 = @"totalViableEscrowRecords";
+    v35 = [MEMORY[0x277CCABB0] numberWithBool:*(*(&v87 + 1) + 24)];
+    v86 = v35;
+    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
     altDSID2 = [(KCJoiningRequestCircleSession *)self altDSID];
     flowID2 = [(KCJoiningRequestCircleSession *)self flowID];
     deviceSessionID2 = [(KCJoiningRequestCircleSession *)self deviceSessionID];
-    LOBYTE(v73) = 1;
-    v40 = [(AAFAnalyticsEventSecurity *)v34 initWithKeychainCircleMetrics:v36 altDSID:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 eventName:@"com.apple.security.acceptorPreVersion3Change" testsAreEnabled:metricsAreEnabled canSendMetrics:v73 category:&unk_2843768F0];
+    LOBYTE(v72) = 1;
+    v40 = [(AAFAnalyticsEventSecurity *)v34 initWithKeychainCircleMetrics:v36 altDSID:altDSID2 flowID:flowID2 deviceSessionID:deviceSessionID2 eventName:@"com.apple.security.acceptorPreVersion3Change" testsAreEnabled:metricsAreEnabled canSendMetrics:v72 category:&unk_2843768F0];
 
     [(AAFAnalyticsEventSecurity *)v40 sendMetricWithResult:1 error:0];
-    v15 = v74;
-    _Block_object_dispose(&v88, 8);
+    v15 = v73;
+    _Block_object_dispose(&v87, 8);
   }
 
   else
   {
-    v76 = [[OTPairingMessage alloc] initWithData:v15];
-    if (![(OTPairingMessage *)v76 hasVersion]|| [(OTPairingMessage *)v76 version]<= 2)
+    v75 = [[OTPairingMessage alloc] initWithData:v15];
+    if (![(OTPairingMessage *)v75 hasVersion]|| [(OTPairingMessage *)v75 version]<= 2)
     {
       v16 = secLogObjForScope("SecError");
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        version = [(OTPairingMessage *)v76 version];
-        LODWORD(v88) = 134217984;
-        *(&v88 + 4) = version;
-        _os_log_impl(&dword_22EB09000, v16, OS_LOG_TYPE_DEFAULT, "joining: unexpected piggybacking version, received: %llu", &v88, 0xCu);
+        version = [(OTPairingMessage *)v75 version];
+        LODWORD(v87) = 134217984;
+        *(&v87 + 4) = version;
+        _os_log_impl(&dword_22EB09000, v16, OS_LOG_TYPE_DEFAULT, "joining: unexpected piggybacking version, received: %llu", &v87, 0xCu);
       }
 
       if (error)
@@ -328,7 +327,7 @@ LABEL_46:
         *error = [MEMORY[0x277CCA9B8] errorWithDomain:KCErrorDomain code:58 description:@"Unexpected piggybacking version"];
       }
 
-      [(AAFAnalyticsEventSecurity *)v78 sendMetricWithResult:0 error:0];
+      [(AAFAnalyticsEventSecurity *)v77 sendMetricWithResult:0 error:0];
       v18 = 0;
 LABEL_58:
       data = 0;
@@ -339,26 +338,26 @@ LABEL_58:
     altDSID3 = [(KCJoiningRequestCircleSession *)self altDSID];
     flowID3 = [(KCJoiningRequestCircleSession *)self flowID];
     deviceSessionID3 = [(KCJoiningRequestCircleSession *)self deviceSessionID];
-    LOBYTE(v73) = 1;
-    v47 = [(AAFAnalyticsEventSecurity *)v43 initWithKeychainCircleMetrics:0 altDSID:altDSID3 flowID:flowID3 deviceSessionID:deviceSessionID3 eventName:@"com.apple.security.initiatorChannelSecured" testsAreEnabled:metricsAreEnabled canSendMetrics:v73 category:&unk_2843768F0];
+    LOBYTE(v72) = 1;
+    v47 = [(AAFAnalyticsEventSecurity *)v43 initWithKeychainCircleMetrics:0 altDSID:altDSID3 flowID:flowID3 deviceSessionID:deviceSessionID3 eventName:@"com.apple.security.initiatorChannelSecured" testsAreEnabled:metricsAreEnabled canSendMetrics:v72 category:&unk_2843768F0];
 
     [(AAFAnalyticsEventSecurity *)v47 sendMetricWithResult:1 error:0];
   }
 
-  if ([(OTPairingMessage *)v76 hasVoucher])
+  if ([(OTPairingMessage *)v75 hasVoucher])
   {
-    voucher = [(OTPairingMessage *)v76 voucher];
+    voucher = [(OTPairingMessage *)v75 voucher];
     otControl2 = [(KCJoiningRequestCircleSession *)self otControl];
     controlArguments2 = [(KCJoiningRequestCircleSession *)self controlArguments];
     joiningConfiguration = [(KCJoiningRequestCircleSession *)self joiningConfiguration];
     v48Voucher = [voucher voucher];
     voucherSignature = [voucher voucherSignature];
-    v83[0] = MEMORY[0x277D85DD0];
-    v83[1] = 3221225472;
-    v83[2] = __56__KCJoiningRequestCircleSession_handleCircleBlob_error___block_invoke_46;
-    v83[3] = &unk_2788636C8;
-    v83[4] = &buf;
-    [otControl2 rpcJoinWithArguments:controlArguments2 configuration:joiningConfiguration vouchData:v48Voucher vouchSig:voucherSignature reply:v83];
+    v82[0] = MEMORY[0x277D85DD0];
+    v82[1] = 3221225472;
+    v82[2] = __56__KCJoiningRequestCircleSession_handleCircleBlob_error___block_invoke_46;
+    v82[3] = &unk_2788636C8;
+    v82[4] = &buf;
+    [otControl2 rpcJoinWithArguments:controlArguments2 configuration:joiningConfiguration vouchData:v48Voucher vouchSig:voucherSignature reply:v82];
 
     if (*(*(&buf + 1) + 40))
     {
@@ -366,12 +365,12 @@ LABEL_58:
       if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
       {
         v55 = *(*(&buf + 1) + 40);
-        LODWORD(v88) = 138412290;
-        *(&v88 + 4) = v55;
-        _os_log_impl(&dword_22EB09000, v54, OS_LOG_TYPE_DEFAULT, "joining: failed to join octagon: %@", &v88, 0xCu);
+        LODWORD(v87) = 138412290;
+        *(&v87 + 4) = v55;
+        _os_log_impl(&dword_22EB09000, v54, OS_LOG_TYPE_DEFAULT, "joining: failed to join octagon: %@", &v87, 0xCu);
       }
 
-      [(AAFAnalyticsEventSecurity *)v78 sendMetricWithResult:0 error:*(*(&buf + 1) + 40)];
+      [(AAFAnalyticsEventSecurity *)v77 sendMetricWithResult:0 error:*(*(&buf + 1) + 40)];
       v56 = voucher;
       v57 = v15;
       if (error)
@@ -391,20 +390,20 @@ LABEL_80:
       goto LABEL_81;
     }
 
-    if ([(KCJoiningRequestCircleSession *)self shouldJoinSOS:blobCopy pairingMessage:v76])
+    if ([(KCJoiningRequestCircleSession *)self shouldJoinSOS:blobCopy pairingMessage:v75])
     {
       v60 = secLogObjForScope("joining");
       if (os_log_type_enabled(v60, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v88) = 0;
-        _os_log_impl(&dword_22EB09000, v60, OS_LOG_TYPE_DEFAULT, "doing SOS processCircleJoinData", &v88, 2u);
+        LOWORD(v87) = 0;
+        _os_log_impl(&dword_22EB09000, v60, OS_LOG_TYPE_DEFAULT, "doing SOS processCircleJoinData", &v87, 2u);
       }
 
       session3 = [(KCJoiningRequestCircleSession *)self session];
       secondData = [blobCopy secondData];
-      v82 = 0;
-      v63 = [session3 decryptAndVerify:secondData error:&v82];
-      v18 = v82;
+      v81 = 0;
+      v63 = [session3 decryptAndVerify:secondData error:&v81];
+      v18 = v81;
 
       if (!v63 || v18)
       {
@@ -416,20 +415,20 @@ LABEL_80:
         v67 = secLogObjForScope("joining");
         if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
         {
-          LODWORD(v88) = 138412290;
-          *(&v88 + 4) = v18;
-          _os_log_impl(&dword_22EB09000, v67, OS_LOG_TYPE_DEFAULT, "decryptAndVerify failed: %@", &v88, 0xCu);
+          LODWORD(v87) = 138412290;
+          *(&v87 + 4) = v18;
+          _os_log_impl(&dword_22EB09000, v67, OS_LOG_TYPE_DEFAULT, "decryptAndVerify failed: %@", &v87, 0xCu);
         }
 
-        [(AAFAnalyticsEventSecurity *)v78 sendMetricWithResult:0 error:v18];
+        [(AAFAnalyticsEventSecurity *)v77 sendMetricWithResult:0 error:v18];
       }
 
       else
       {
         circleDelegate2 = [(KCJoiningRequestCircleSession *)self circleDelegate];
-        v81 = 0;
-        v65 = [circleDelegate2 processCircleJoinData:v63 version:1 error:&v81];
-        v66 = v81;
+        v80 = 0;
+        v65 = [circleDelegate2 processCircleJoinData:v63 version:1 error:&v80];
+        v66 = v80;
 
         if (v65)
         {
@@ -441,7 +440,7 @@ LABEL_68:
           self->_state = 1;
           data = [MEMORY[0x277CBEA90] data];
           self->_state = 1;
-          [(AAFAnalyticsEventSecurity *)v78 sendMetricWithResult:1 error:0];
+          [(AAFAnalyticsEventSecurity *)v77 sendMetricWithResult:1 error:0];
           goto LABEL_81;
         }
 
@@ -450,12 +449,12 @@ LABEL_68:
         v68 = secLogObjForScope("SecError");
         if (os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT))
         {
-          LODWORD(v88) = 138412290;
-          *(&v88 + 4) = v18;
-          _os_log_impl(&dword_22EB09000, v68, OS_LOG_TYPE_DEFAULT, "joining: processCircleJoinData failed %@", &v88, 0xCu);
+          LODWORD(v87) = 138412290;
+          *(&v87 + 4) = v18;
+          _os_log_impl(&dword_22EB09000, v68, OS_LOG_TYPE_DEFAULT, "joining: processCircleJoinData failed %@", &v87, 0xCu);
         }
 
-        [(AAFAnalyticsEventSecurity *)v78 sendMetricWithResult:0 error:v18];
+        [(AAFAnalyticsEventSecurity *)v77 sendMetricWithResult:0 error:v18];
       }
 
       if (error)
@@ -478,12 +477,12 @@ LABEL_68:
   v58 = secLogObjForScope("SecError");
   if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v88) = 0;
-    _os_log_impl(&dword_22EB09000, v58, OS_LOG_TYPE_DEFAULT, "octagon: expected voucher! returning from piggybacking.", &v88, 2u);
+    LOWORD(v87) = 0;
+    _os_log_impl(&dword_22EB09000, v58, OS_LOG_TYPE_DEFAULT, "octagon: expected voucher! returning from piggybacking.", &v87, 2u);
   }
 
   v18 = [MEMORY[0x277CCA9B8] errorWithDomain:KCErrorDomain code:15 description:@"Missing voucher from acceptor"];
-  [(AAFAnalyticsEventSecurity *)v78 sendMetricWithResult:0 error:v18];
+  [(AAFAnalyticsEventSecurity *)v77 sendMetricWithResult:0 error:v18];
   if (!error)
   {
     goto LABEL_58;
@@ -497,12 +496,10 @@ LABEL_82:
   _Block_object_dispose(&buf, 8);
 LABEL_83:
 
-  v70 = *MEMORY[0x277D85DE8];
-
   return data;
 }
 
-uint64_t __56__KCJoiningRequestCircleSession_handleCircleBlob_error___block_invoke(uint64_t a1, void *a2)
+void *__56__KCJoiningRequestCircleSession_handleCircleBlob_error___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 count];
   *(*(*(a1 + 32) + 8) + 24) = result != 0;
@@ -511,16 +508,16 @@ uint64_t __56__KCJoiningRequestCircleSession_handleCircleBlob_error___block_invo
 
 void __56__KCJoiningRequestCircleSession_handleCircleBlob_error___block_invoke_46(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
     v4 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v3;
-      _os_log_impl(&dword_22EB09000, v4, OS_LOG_TYPE_DEFAULT, "octagon: error joining octagon: %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v3;
+      _os_log_impl(&dword_22EB09000, v4, OS_LOG_TYPE_DEFAULT, "octagon: error joining octagon: %@", &v8, 0xCu);
     }
 
     v5 = *(*(a1 + 32) + 8);
@@ -534,12 +531,10 @@ void __56__KCJoiningRequestCircleSession_handleCircleBlob_error___block_invoke_4
     v7 = secLogObjForScope("octagon");
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v9) = 0;
-      _os_log_impl(&dword_22EB09000, v7, OS_LOG_TYPE_DEFAULT, "successfully joined octagon", &v9, 2u);
+      LOWORD(v8) = 0;
+      _os_log_impl(&dword_22EB09000, v7, OS_LOG_TYPE_DEFAULT, "successfully joined octagon", &v8, 2u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldJoinSOS:(id)s pairingMessage:(id)message
@@ -616,25 +611,23 @@ LABEL_14:
 
 void __54__KCJoiningRequestCircleSession_waitForOctagonUpgrade__block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
     v3 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_22EB09000, v3, OS_LOG_TYPE_DEFAULT, "pairing: failed to upgrade initiator into Octagon: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_22EB09000, v3, OS_LOG_TYPE_DEFAULT, "pairing: failed to upgrade initiator into Octagon: %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)initialMessage:(id *)message
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   v5 = secLogObjForScope("joining");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -646,8 +639,8 @@ void __54__KCJoiningRequestCircleSession_waitForOctagonUpgrade__block_invoke(uin
   altDSID = [(KCJoiningRequestCircleSession *)self altDSID];
   flowID = [(KCJoiningRequestCircleSession *)self flowID];
   deviceSessionID = [(KCJoiningRequestCircleSession *)self deviceSessionID];
-  LOBYTE(v58) = 1;
-  v10 = [(AAFAnalyticsEventSecurity *)v6 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.piggybackingCircleInitiatorInitialMessage" testsAreEnabled:metricsAreEnabled canSendMetrics:v58 category:&unk_2843768F0];
+  LOBYTE(v57) = 1;
+  v10 = [(AAFAnalyticsEventSecurity *)v6 initWithKeychainCircleMetrics:0 altDSID:altDSID flowID:flowID deviceSessionID:deviceSessionID eventName:@"com.apple.security.piggybackingCircleInitiatorInitialMessage" testsAreEnabled:metricsAreEnabled canSendMetrics:v57 category:&unk_2843768F0];
 
   if ([(KCJoiningRequestCircleSession *)self piggy_version]!= 2)
   {
@@ -677,9 +670,9 @@ void __54__KCJoiningRequestCircleSession_waitForOctagonUpgrade__block_invoke(uin
       goto LABEL_54;
     }
 
-    v60 = 0;
-    v18 = [(KCJoiningRequestCircleSession *)self encryptPeerInfo:&v60];
-    v19 = v60;
+    v59 = 0;
+    v18 = [(KCJoiningRequestCircleSession *)self encryptPeerInfo:&v59];
+    v19 = v59;
     v20 = v19;
     if (!v18 || v19)
     {
@@ -710,9 +703,9 @@ void __54__KCJoiningRequestCircleSession_waitForOctagonUpgrade__block_invoke(uin
     else
     {
       self->_state = 0;
-      v59 = 0;
-      v21 = [KCJoiningMessage messageWithType:4 data:v18 error:&v59];
-      v20 = v59;
+      v58 = 0;
+      v21 = [KCJoiningMessage messageWithType:4 data:v18 error:&v58];
+      v20 = v58;
       v22 = [v21 der];
 
       if (v22 && !v20)
@@ -753,16 +746,16 @@ LABEL_54:
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v74 = 0x3032000000;
-  v75 = __Block_byref_object_copy__377;
-  v76 = __Block_byref_object_dispose__378;
-  v77 = 0;
-  v65 = 0;
-  v66 = &v65;
-  v67 = 0x3032000000;
-  v68 = __Block_byref_object_copy__377;
-  v69 = __Block_byref_object_dispose__378;
-  v70 = 0;
+  v73 = 0x3032000000;
+  v74 = __Block_byref_object_copy__377;
+  v75 = __Block_byref_object_dispose__378;
+  v76 = 0;
+  v64 = 0;
+  v65 = &v64;
+  v66 = 0x3032000000;
+  v67 = __Block_byref_object_copy__377;
+  v68 = __Block_byref_object_dispose__378;
+  v69 = 0;
   joiningConfiguration = [(KCJoiningRequestCircleSession *)self joiningConfiguration];
   v12 = [joiningConfiguration epoch] == 0;
 
@@ -771,32 +764,32 @@ LABEL_54:
     otControl = [(KCJoiningRequestCircleSession *)self otControl];
     controlArguments = [(KCJoiningRequestCircleSession *)self controlArguments];
     joiningConfiguration2 = [(KCJoiningRequestCircleSession *)self joiningConfiguration];
-    v64[0] = MEMORY[0x277D85DD0];
-    v64[1] = 3221225472;
-    v64[2] = __48__KCJoiningRequestCircleSession_initialMessage___block_invoke;
-    v64[3] = &unk_278863680;
-    v64[4] = self;
-    v64[5] = &v65;
-    v64[6] = &buf;
-    [otControl rpcPrepareIdentityAsApplicantWithArguments:controlArguments configuration:joiningConfiguration2 reply:v64];
+    v63[0] = MEMORY[0x277D85DD0];
+    v63[1] = 3221225472;
+    v63[2] = __48__KCJoiningRequestCircleSession_initialMessage___block_invoke;
+    v63[3] = &unk_278863680;
+    v63[4] = self;
+    v63[5] = &v64;
+    v63[6] = &buf;
+    [otControl rpcPrepareIdentityAsApplicantWithArguments:controlArguments configuration:joiningConfiguration2 reply:v63];
 
-    if (v66[5])
+    if (v65[5])
     {
       v16 = secLogObjForScope("SecError");
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = v66[5];
-        *v71 = 138412290;
-        v72 = v17;
-        _os_log_impl(&dword_22EB09000, v16, OS_LOG_TYPE_DEFAULT, "joining: failed to prepare identity: %@", v71, 0xCu);
+        v17 = v65[5];
+        *v70 = 138412290;
+        v71 = v17;
+        _os_log_impl(&dword_22EB09000, v16, OS_LOG_TYPE_DEFAULT, "joining: failed to prepare identity: %@", v70, 0xCu);
       }
 
       if (message)
       {
-        *message = v66[5];
+        *message = v65[5];
       }
 
-      [(AAFAnalyticsEventSecurity *)v10 sendMetricWithResult:0 error:v66[5]];
+      [(AAFAnalyticsEventSecurity *)v10 sendMetricWithResult:0 error:v65[5]];
 LABEL_25:
       v22 = 0;
       goto LABEL_70;
@@ -804,12 +797,12 @@ LABEL_25:
 
     if (SOSCCIsSOSTrustAndSyncingEnabled())
     {
-      v31 = v66 + 5;
-      obj = v66[5];
+      v31 = v65 + 5;
+      obj = v65[5];
       v32 = [(KCJoiningRequestCircleSession *)self encryptPeerInfo:&obj];
       objc_storeStrong(v31, obj);
-      v33 = v66;
-      v34 = v66[5];
+      v33 = v65;
+      v34 = v65[5];
       if (v32)
       {
         if (!v34)
@@ -821,24 +814,24 @@ LABEL_25:
       else if (!v34)
       {
         v48 = [MEMORY[0x277CCA9B8] errorWithDomain:KCErrorDomain code:13 description:@"failed to encrypt peer info"];
-        v49 = v66[5];
-        v66[5] = v48;
+        v49 = v65[5];
+        v65[5] = v48;
       }
 
       v50 = secLogObjForScope("SecError");
       if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
-        v51 = v66[5];
-        *v71 = 138412290;
-        v72 = v51;
-        _os_log_impl(&dword_22EB09000, v50, OS_LOG_TYPE_DEFAULT, "joining: failed to create encrypted peer info: %@", v71, 0xCu);
+        v51 = v65[5];
+        *v70 = 138412290;
+        v71 = v51;
+        _os_log_impl(&dword_22EB09000, v50, OS_LOG_TYPE_DEFAULT, "joining: failed to create encrypted peer info: %@", v70, 0xCu);
       }
 
-      [(AAFAnalyticsEventSecurity *)v10 sendMetricWithResult:0 error:v66[5]];
+      [(AAFAnalyticsEventSecurity *)v10 sendMetricWithResult:0 error:v65[5]];
       v22 = 0;
       if (message)
       {
-        *message = v66[5];
+        *message = v65[5];
       }
 
       goto LABEL_69;
@@ -847,30 +840,30 @@ LABEL_25:
     v37 = secLogObjForScope("joining");
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
-      *v71 = 0;
-      _os_log_impl(&dword_22EB09000, v37, OS_LOG_TYPE_DEFAULT, "SOS not enabled, skipping peer info encryption", v71, 2u);
+      *v70 = 0;
+      _os_log_impl(&dword_22EB09000, v37, OS_LOG_TYPE_DEFAULT, "SOS not enabled, skipping peer info encryption", v70, 2u);
     }
 
     v32 = 0;
-    v33 = v66;
+    v33 = v65;
 LABEL_47:
     self->_state = 0;
     v38 = *(*(&buf + 1) + 40);
-    v62 = v33[5];
-    v39 = [(KCJoiningRequestCircleSession *)self encryptedInitialMessage:v38 error:&v62];
-    objc_storeStrong(v33 + 5, v62);
-    v41 = v66 + 5;
-    v40 = v66[5];
+    v61 = v33[5];
+    v39 = [(KCJoiningRequestCircleSession *)self encryptedInitialMessage:v38 error:&v61];
+    objc_storeStrong(v33 + 5, v61);
+    v41 = v65 + 5;
+    v40 = v65[5];
     if (v39)
     {
       if (!v40)
       {
-        v61 = 0;
-        v42 = [KCJoiningMessage messageWithType:4 data:v39 payload:v32 error:&v61];
-        objc_storeStrong(v41, v61);
+        v60 = 0;
+        v42 = [KCJoiningMessage messageWithType:4 data:v39 payload:v32 error:&v60];
+        objc_storeStrong(v41, v60);
         v22 = [v42 der];
 
-        v43 = v66[5];
+        v43 = v65[5];
         if (v22)
         {
           if (!v43)
@@ -885,25 +878,25 @@ LABEL_69:
 
         else if (!v43)
         {
-          v54 = [MEMORY[0x277CCA9B8] errorWithDomain:KCErrorDomain code:53 description:@"failed to create peerinfo response"];
-          v55 = v66[5];
-          v66[5] = v54;
+          v53 = [MEMORY[0x277CCA9B8] errorWithDomain:KCErrorDomain code:53 description:@"failed to create peerinfo response"];
+          v54 = v65[5];
+          v65[5] = v53;
         }
 
-        v56 = secLogObjForScope("SecError");
-        if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+        v55 = secLogObjForScope("SecError");
+        if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
         {
-          v57 = v66[5];
-          *v71 = 138412290;
-          v72 = v57;
-          _os_log_impl(&dword_22EB09000, v56, OS_LOG_TYPE_DEFAULT, "joining: initial message creation failed: %@", v71, 0xCu);
+          v56 = v65[5];
+          *v70 = 138412290;
+          v71 = v56;
+          _os_log_impl(&dword_22EB09000, v55, OS_LOG_TYPE_DEFAULT, "joining: initial message creation failed: %@", v70, 0xCu);
         }
 
-        [(AAFAnalyticsEventSecurity *)v10 sendMetricWithResult:0 error:v66[5]];
+        [(AAFAnalyticsEventSecurity *)v10 sendMetricWithResult:0 error:v65[5]];
 LABEL_60:
         if (message)
         {
-          *message = v66[5];
+          *message = v65[5];
         }
 
         goto LABEL_62;
@@ -913,59 +906,57 @@ LABEL_60:
     else if (!v40)
     {
       v44 = [MEMORY[0x277CCA9B8] errorWithDomain:KCErrorDomain code:52 description:@"failed to encrypt initial message"];
-      v45 = v66[5];
-      v66[5] = v44;
+      v45 = v65[5];
+      v65[5] = v44;
     }
 
     v46 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
     {
-      v47 = v66[5];
-      *v71 = 138412290;
-      v72 = v47;
-      _os_log_impl(&dword_22EB09000, v46, OS_LOG_TYPE_DEFAULT, "joining: failed to encrypt initial message: %@", v71, 0xCu);
+      v47 = v65[5];
+      *v70 = 138412290;
+      v71 = v47;
+      _os_log_impl(&dword_22EB09000, v46, OS_LOG_TYPE_DEFAULT, "joining: failed to encrypt initial message: %@", v70, 0xCu);
     }
 
-    [(AAFAnalyticsEventSecurity *)v10 sendMetricWithResult:0 error:v66[5]];
+    [(AAFAnalyticsEventSecurity *)v10 sendMetricWithResult:0 error:v65[5]];
     v22 = 0;
     goto LABEL_60;
   }
 
   v25 = [MEMORY[0x277CCA9B8] errorWithDomain:KCErrorDomain code:11 description:@"expected acceptor epoch"];
-  v26 = v66[5];
-  v66[5] = v25;
+  v26 = v65[5];
+  v65[5] = v25;
 
   v27 = secLogObjForScope("SecError");
   if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
-    v28 = v66[5];
-    *v71 = 138412290;
-    v72 = v28;
-    _os_log_impl(&dword_22EB09000, v27, OS_LOG_TYPE_DEFAULT, "joining: expected acceptor epoch! returning nil. error: %@", v71, 0xCu);
+    v28 = v65[5];
+    *v70 = 138412290;
+    v71 = v28;
+    _os_log_impl(&dword_22EB09000, v27, OS_LOG_TYPE_DEFAULT, "joining: expected acceptor epoch! returning nil. error: %@", v70, 0xCu);
   }
 
-  [(AAFAnalyticsEventSecurity *)v10 sendMetricWithResult:0 error:v66[5]];
+  [(AAFAnalyticsEventSecurity *)v10 sendMetricWithResult:0 error:v65[5]];
   if (!message)
   {
     goto LABEL_25;
   }
 
   v22 = 0;
-  *message = v66[5];
+  *message = v65[5];
 LABEL_70:
-  _Block_object_dispose(&v65, 8);
+  _Block_object_dispose(&v64, 8);
 
   _Block_object_dispose(&buf, 8);
 LABEL_71:
-
-  v52 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
 
 void __48__KCJoiningRequestCircleSession_initialMessage___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v13 = a2;
   v14 = a3;
   v15 = a4;
@@ -978,7 +969,7 @@ void __48__KCJoiningRequestCircleSession_initialMessage___block_invoke(uint64_t 
     if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v39 = v18;
+      v38 = v18;
       _os_log_impl(&dword_22EB09000, v19, OS_LOG_TYPE_DEFAULT, "joining: error preparing identity: %@", buf, 0xCu);
     }
 
@@ -1045,13 +1036,11 @@ void __48__KCJoiningRequestCircleSession_initialMessage___block_invoke(uint64_t 
     v36 = *(v35 + 40);
     *(v35 + 40) = v34;
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 - (id)encryptPeerInfo:(id *)info
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = secLogObjForScope("joining");
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
@@ -1059,9 +1048,9 @@ void __48__KCJoiningRequestCircleSession_initialMessage___block_invoke(uint64_t 
     _os_log_impl(&dword_22EB09000, v5, OS_LOG_TYPE_DEFAULT, "doing SOS encryptedPeerInfo", buf, 2u);
   }
 
-  v20 = 0;
-  v6 = [(KCJoiningRequestCircleSession *)self encryptedPeerInfo:&v20];
-  v7 = v20;
+  v19 = 0;
+  v6 = [(KCJoiningRequestCircleSession *)self encryptedPeerInfo:&v19];
+  v7 = v19;
   v8 = v7;
   if (v6 && !v7)
   {
@@ -1073,7 +1062,7 @@ void __48__KCJoiningRequestCircleSession_initialMessage___block_invoke(uint64_t 
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v22 = v8;
+    v21 = v8;
     _os_log_impl(&dword_22EB09000, v10, OS_LOG_TYPE_DEFAULT, "joining: failed to create encrypted peerInfo: %@", buf, 0xCu);
   }
 
@@ -1090,13 +1079,11 @@ void __48__KCJoiningRequestCircleSession_initialMessage___block_invoke(uint64_t 
 
   else
   {
-    KCJoiningErrorCreate(13, info, @"failed to encrypt the SOS peer info", v11, v12, v13, v14, v15, v19);
+    KCJoiningErrorCreate(13, info, @"failed to encrypt the SOS peer info", v11, v12, v13, v14, v15, v18);
   }
 
   v9 = 0;
 LABEL_13:
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

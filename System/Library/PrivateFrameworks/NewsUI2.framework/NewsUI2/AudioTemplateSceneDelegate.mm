@@ -37,7 +37,7 @@
   sceneCopy = scene;
   controllerCopy = controller;
   selfCopy = self;
-  sub_219117D54();
+  sub_219117D54(selfCopy);
 }
 
 @end

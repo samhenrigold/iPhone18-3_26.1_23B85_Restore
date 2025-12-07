@@ -85,7 +85,7 @@
   v6 = script2;
   if (script2)
   {
-    [script2 timeRange];
+    objc_msgSend_timeRange(script2);
   }
 
   else
@@ -127,7 +127,7 @@
             v17 = [PTCinematographyDecision alloc];
             if (v15)
             {
-              [v15 time];
+              objc_msgSend_time(v15);
             }
 
             else

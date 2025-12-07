@@ -35,7 +35,7 @@
 
   v6 = SNMeasureLKFSRequest.isEqual(_:)(v8);
 
-  sub_1C97F9D3C(v8, &unk_1EC3C5E60);
+  sub_1C97F9D3C(v8, &unk_1EC3C5E60, qword_1C9A9AE10);
   return v6 & 1;
 }
 

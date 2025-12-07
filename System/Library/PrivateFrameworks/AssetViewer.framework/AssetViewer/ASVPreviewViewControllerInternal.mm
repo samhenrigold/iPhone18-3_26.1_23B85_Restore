@@ -280,7 +280,7 @@
   {
   }
 
-  type metadata accessor for EntityController();
+  type metadata accessor for EntityController(0);
   v2 = sub_241353E1C();
 
   return v2;
@@ -505,7 +505,7 @@
   v7 = aBlock - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x28223BE20](v8);
   v10 = aBlock - v9;
-  sub_241246158(0, &unk_27E53A480);
+  sub_241246158(0, &unk_27E53A480, 0x277CDAA30);
   sub_2412EB1DC();
   v11 = sub_241353FFC();
   sub_24135162C();
@@ -608,11 +608,11 @@
   aBlock[2] = sub_2412D5698;
   aBlock[3] = &block_descriptor_156;
   v18 = _Block_copy(aBlock);
-  sub_24124AD38(v12);
+  sub_24124AD38(v12, v13);
 
   QLRunInMainThread();
   _Block_release(v18);
-  sub_2412186FC(v12);
+  sub_2412186FC(v12, v13);
   (*(v6 + 8))(v11, v5);
 }
 
@@ -849,23 +849,26 @@
 {
   v3 = (self + OBJC_IVAR___ASVPreviewViewControllerInternal_coachingOverlayViewDidDeactivateCompletionBlock);
   v4 = *(&self->super.super.super.super.isa + OBJC_IVAR___ASVPreviewViewControllerInternal_coachingOverlayViewDidDeactivateCompletionBlock);
-  selfCopy = self;
   if (v4)
   {
-    v6 = sub_24124AD38(v4);
-    v4(v6);
-    sub_2412186FC(v4);
-    v7 = *v3;
+    v5 = v3[1];
+    selfCopy = self;
+    v7 = sub_24124AD38(v4, v5);
+    v4(v7);
+    sub_2412186FC(v4, v5);
+    v8 = *v3;
   }
 
   else
   {
-    v7 = 0;
+    selfCopy2 = self;
+    v8 = 0;
   }
 
+  v10 = v3[1];
   *v3 = 0;
   v3[1] = 0;
-  sub_2412186FC(v7);
+  sub_2412186FC(v8, v10);
 }
 
 @end

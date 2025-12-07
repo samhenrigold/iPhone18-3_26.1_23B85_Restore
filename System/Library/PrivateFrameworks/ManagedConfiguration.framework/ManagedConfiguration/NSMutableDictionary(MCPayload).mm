@@ -93,7 +93,7 @@ LABEL_11:
 
 - (id)MCValidateAndRemoveArrayOfClass:()MCPayload withKey:isRequired:allowZeroLengthString:outError:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v11 = a4;
   v12 = [self objectForKey:v11];
   if (!v12)
@@ -126,27 +126,27 @@ LABEL_24:
     goto LABEL_20;
   }
 
-  v23 = a7;
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
+  v22 = a7;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v13 = v12;
-  v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v25;
+    v16 = *v24;
     while (2)
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v25 != v16)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v24 + 1) + 8 * i);
+        v18 = *(*(&v23 + 1) + 8 * i);
         if (objc_opt_isKindOfClass())
         {
           if (a6)
@@ -161,15 +161,15 @@ LABEL_24:
           }
         }
 
-        if (v23)
+        if (v22)
         {
-          *v23 = [MCPayload badFieldTypeErrorWithField:v11];
+          *v22 = [MCPayload badFieldTypeErrorWithField:v11];
         }
 
         goto LABEL_24;
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v15)
       {
         continue;
@@ -182,63 +182,61 @@ LABEL_24:
   v19 = v13;
 LABEL_25:
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 - (id)MCMutableDictionaryContainingValidatedKeysAndClasses:()MCPayload removeKeys:outError:
 {
-  v21 = a5;
-  v28 = *MEMORY[0x1E69E9840];
+  v20 = a5;
+  v27 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v7, "count")}];
-  v22 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v7, "count")}];
+  v21 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(v7, "count")}];
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   v9 = v7;
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v24;
+    v12 = *v23;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v24 != v12)
+        if (*v23 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v23 + 1) + 8 * i);
-        v15 = [v9 objectForKeyedSubscript:{v14, v21}];
+        v14 = *(*(&v22 + 1) + 8 * i);
+        v15 = [v9 objectForKeyedSubscript:{v14, v20}];
         v16 = [self objectForKeyedSubscript:v14];
         if (v16)
         {
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            if (v21)
+            if (v20)
             {
-              *v21 = [MCPayload badFieldTypeErrorWithField:v14];
+              *v20 = [MCPayload badFieldTypeErrorWithField:v14];
             }
 
             v18 = 0;
-            v17 = v22;
+            v17 = v21;
             goto LABEL_18;
           }
 
           [v8 setObject:v16 forKeyedSubscript:v14];
           if (a4)
           {
-            [v22 addObject:v14];
+            [v21 addObject:v14];
           }
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
       if (v11)
       {
         continue;
@@ -248,16 +246,14 @@ LABEL_25:
     }
   }
 
-  v17 = v22;
-  if ([v22 count])
+  v17 = v21;
+  if ([v21 count])
   {
-    [self removeObjectsForKeys:v22];
+    [self removeObjectsForKeys:v21];
   }
 
   v18 = v8;
 LABEL_18:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

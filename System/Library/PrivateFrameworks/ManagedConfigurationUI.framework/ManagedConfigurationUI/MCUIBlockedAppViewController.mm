@@ -145,7 +145,7 @@ void __59__MCUIBlockedAppViewController__askForReenableConfirmation__block_invok
 
 - (id)specifiers
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D3FC48];
   v3 = *(&self->super.super.super.super.super.isa + v2);
   if (v3)
@@ -180,10 +180,10 @@ void __59__MCUIBlockedAppViewController__askForReenableConfirmation__block_invok
       v15 = [v12 stringWithFormat:v14, v11];
 
       [v10 setProperty:v15 forKey:*MEMORY[0x277D3FF88]];
-      v21[0] = v10;
+      v20[0] = v10;
       _reenableButtonSpecifier = [(MCUIBlockedAppViewController *)self _reenableButtonSpecifier];
-      v21[1] = _reenableButtonSpecifier;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+      v20[1] = _reenableButtonSpecifier;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
       v18 = *(&self->super.super.super.super.super.isa + v2);
       *(&self->super.super.super.super.super.isa + v2) = v17;
 
@@ -196,8 +196,6 @@ void __59__MCUIBlockedAppViewController__askForReenableConfirmation__block_invok
       v4 = 0;
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

@@ -43,14 +43,14 @@
 
 - (id)codeChallengeFromVerifier:(id)verifier withCodeChallengeMethod:(int64_t)method
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   verifierCopy = verifier;
   v6 = verifierCopy;
   if (method == 1)
   {
     v7 = [verifierCopy dataUsingEncoding:{4, 0, 0, 0, 0}];
-    CC_SHA256([v7 bytes], objc_msgSend(v7, "length"), &v12);
-    v8 = [MEMORY[0x277CBEA90] dataWithBytes:&v12 length:32];
+    CC_SHA256([v7 bytes], objc_msgSend(v7, "length"), &v11);
+    v8 = [MEMORY[0x277CBEA90] dataWithBytes:&v11 length:32];
     v9 = [DAEASOAuthPKCEChallenge base64URLEncode:v8];
   }
 
@@ -58,8 +58,6 @@
   {
     v9 = verifierCopy;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }

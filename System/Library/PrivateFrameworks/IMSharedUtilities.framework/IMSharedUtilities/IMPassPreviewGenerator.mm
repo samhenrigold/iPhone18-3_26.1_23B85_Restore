@@ -22,7 +22,7 @@
 {
   v9[2] = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E695DFF8];
-  v3 = IMSafeTemporaryDirectory();
+  v3 = IMSafeTemporaryDirectory(self);
   path = [v3 path];
   v9[0] = path;
   v9[1] = @"PassPreview";
@@ -344,73 +344,74 @@ LABEL_61:
 
 + (id)previewFromSourceURL:(id)l senderContext:(id)context withPreviewConstraints:(IMPreviewConstraints *)constraints error:(id *)error
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   lCopy = l;
   contextCopy = context;
+  v10 = contextCopy;
   if (lCopy)
   {
-    *&v45 = 0;
-    *(&v45 + 1) = &v45;
-    v46 = 0x3032000000;
-    v47 = sub_1A8602024;
-    v48 = sub_1A8602204;
-    v49 = 0;
-    v10 = MEMORY[0x1E695DFF8];
-    v11 = IMSafeTemporaryDirectory();
-    path = [v11 path];
-    v44[0] = path;
-    v44[1] = @"PassPreview";
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
-    v14 = [v10 fileURLWithPathComponents:v13];
+    *&v46 = 0;
+    *(&v46 + 1) = &v46;
+    v47 = 0x3032000000;
+    v48 = sub_1A8602024;
+    v49 = sub_1A8602204;
+    v50 = 0;
+    v11 = MEMORY[0x1E695DFF8];
+    v12 = IMSafeTemporaryDirectory(contextCopy);
+    path = [v12 path];
+    v45[0] = path;
+    v45[1] = @"PassPreview";
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
+    v15 = [v11 fileURLWithPathComponents:v14];
 
     defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-    [defaultManager createDirectoryAtURL:v14 withIntermediateDirectories:1 attributes:0 error:0];
+    [defaultManager createDirectoryAtURL:v15 withIntermediateDirectories:1 attributes:0 error:0];
 
     stringGUID = [MEMORY[0x1E696AEC0] stringGUID];
-    v17 = [v14 URLByAppendingPathComponent:stringGUID isDirectory:0];
-    v18 = [v17 URLByAppendingPathExtension:@"plist"];
+    v18 = [v15 URLByAppendingPathComponent:stringGUID isDirectory:0];
+    v19 = [v18 URLByAppendingPathExtension:@"plist"];
 
-    if (v18)
+    if (v19)
     {
-      *&v39 = 0;
-      *(&v39 + 1) = &v39;
-      v40 = 0x3032000000;
-      v41 = sub_1A8602024;
-      v42 = sub_1A8602204;
-      v43 = 0;
-      v19 = dispatch_group_create();
-      dispatch_group_enter(v19);
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = sub_1A86F8B68;
-      v31[3] = &unk_1E7829BE8;
-      v33 = &v39;
-      v34 = &v45;
-      v20 = v19;
-      v32 = v20;
-      [IMAttachmentBlastdoor generatePassPreview:lCopy senderContext:contextCopy withCompletionBlock:v31];
-      v21 = dispatch_time(0, 5000000000);
-      if (dispatch_group_wait(v20, v21))
+      *&v40 = 0;
+      *(&v40 + 1) = &v40;
+      v41 = 0x3032000000;
+      v42 = sub_1A8602024;
+      v43 = sub_1A8602204;
+      v44 = 0;
+      v20 = dispatch_group_create();
+      dispatch_group_enter(v20);
+      v32[0] = MEMORY[0x1E69E9820];
+      v32[1] = 3221225472;
+      v32[2] = sub_1A86F8B68;
+      v32[3] = &unk_1E7829BE8;
+      v34 = &v40;
+      v35 = &v46;
+      v21 = v20;
+      v33 = v21;
+      [IMAttachmentBlastdoor generatePassPreview:lCopy senderContext:v10 withCompletionBlock:v32];
+      v22 = dispatch_time(0, 5000000000);
+      if (dispatch_group_wait(v21, v22))
       {
         if (IMOSLoggingEnabled())
         {
-          v22 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+          v23 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
           {
             *buf = 0;
-            _os_log_impl(&dword_1A85E5000, v22, OS_LOG_TYPE_INFO, "Blastdoor validation timed out", buf, 2u);
+            _os_log_impl(&dword_1A85E5000, v23, OS_LOG_TYPE_INFO, "Blastdoor validation timed out", buf, 2u);
           }
         }
 
         if (error)
         {
           [MEMORY[0x1E696ABC0] errorWithDomain:@"__kIMPreviewGenerationErrorDomain" code:12 userInfo:0];
-          *error = v23 = 0;
+          *error = v24 = 0;
         }
 
         else
         {
-          v23 = 0;
+          v24 = 0;
         }
       }
 
@@ -418,88 +419,88 @@ LABEL_61:
       {
         if (error)
         {
-          v27 = *(*(&v45 + 1) + 40);
-          if (v27)
+          v28 = *(*(&v46 + 1) + 40);
+          if (v28)
           {
-            *error = v27;
+            *error = v28;
           }
         }
 
         if (IMOSLoggingEnabled())
         {
-          v28 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+          v29 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
           {
-            v29 = *(*(&v45 + 1) + 40);
+            v30 = *(*(&v46 + 1) + 40);
             *buf = 67109378;
-            v36 = 0;
-            v37 = 2112;
-            v38 = v29;
-            _os_log_impl(&dword_1A85E5000, v28, OS_LOG_TYPE_INFO, "Blastdoor validation completed, result: %d, err: %@", buf, 0x12u);
+            v37 = 0;
+            v38 = 2112;
+            v39 = v30;
+            _os_log_impl(&dword_1A85E5000, v29, OS_LOG_TYPE_INFO, "Blastdoor validation completed, result: %d, err: %@", buf, 0x12u);
           }
         }
 
-        v23 = *(*(&v39 + 1) + 40);
+        v24 = *(*(&v40 + 1) + 40);
       }
 
-      _Block_object_dispose(&v39, 8);
+      _Block_object_dispose(&v40, 8);
     }
 
     else
     {
       if (IMOSLoggingEnabled())
       {
-        v26 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+        v27 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
         {
-          LODWORD(v39) = 138412290;
-          *(&v39 + 4) = stringGUID;
-          _os_log_impl(&dword_1A85E5000, v26, OS_LOG_TYPE_INFO, "Failed to get a temporaryPreviewURL %@", &v39, 0xCu);
+          LODWORD(v40) = 138412290;
+          *(&v40 + 4) = stringGUID;
+          _os_log_impl(&dword_1A85E5000, v27, OS_LOG_TYPE_INFO, "Failed to get a temporaryPreviewURL %@", &v40, 0xCu);
         }
       }
 
       if (error)
       {
         [MEMORY[0x1E696ABC0] errorWithDomain:@"__kIMPreviewGenerationErrorDomain" code:12 userInfo:0];
-        *error = v23 = 0;
+        *error = v24 = 0;
       }
 
       else
       {
-        v23 = 0;
+        v24 = 0;
       }
     }
 
-    _Block_object_dispose(&v45, 8);
+    _Block_object_dispose(&v46, 8);
   }
 
   else
   {
     if (IMOSLoggingEnabled())
     {
-      v24 = OSLogHandleForIMFoundationCategory();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+      v25 = OSLogHandleForIMFoundationCategory();
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
-        LODWORD(v45) = 138412290;
-        *(&v45 + 4) = objc_opt_class();
-        v25 = *(&v45 + 4);
-        _os_log_impl(&dword_1A85E5000, v24, OS_LOG_TYPE_INFO, "%@ - sourceURL is nil", &v45, 0xCu);
+        LODWORD(v46) = 138412290;
+        *(&v46 + 4) = objc_opt_class();
+        v26 = *(&v46 + 4);
+        _os_log_impl(&dword_1A85E5000, v25, OS_LOG_TYPE_INFO, "%@ - sourceURL is nil", &v46, 0xCu);
       }
     }
 
     if (error)
     {
       [MEMORY[0x1E696ABC0] errorWithDomain:@"__kIMPreviewGenerationErrorDomain" code:5 userInfo:0];
-      *error = v23 = 0;
+      *error = v24 = 0;
     }
 
     else
     {
-      v23 = 0;
+      v24 = 0;
     }
   }
 
-  return v23;
+  return v24;
 }
 
 @end

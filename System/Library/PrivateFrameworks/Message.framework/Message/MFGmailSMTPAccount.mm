@@ -7,34 +7,34 @@
 
 - (id)_urlFromResponse:(id)response
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   responseCopy = response;
   v4 = objc_alloc(MEMORY[0x1E695DF70]);
   continuationResponses = [responseCopy continuationResponses];
   v6 = [v4 initWithArray:continuationResponses];
 
   [v6 addObject:responseCopy];
-  v31 = 0u;
-  v32 = 0u;
-  v29 = 0u;
   v30 = 0u;
+  v31 = 0u;
+  v28 = 0u;
+  v29 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v8)
   {
-    v27 = v6;
+    v26 = v6;
     v9 = 0;
-    v10 = *v30;
+    v10 = *v29;
     while (1)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v30 != v10)
+        if (*v29 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v29 + 1) + 8 * i);
+        v12 = *(*(&v28 + 1) + 8 * i);
         if ([responseCopy failureReason] == 7)
         {
           statusString = [v12 statusString];
@@ -88,7 +88,7 @@ LABEL_15:
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v28 objects:v32 count:16];
       if (!v8)
       {
         v19 = 0;
@@ -100,8 +100,6 @@ LABEL_15:
   v19 = 0;
   v9 = 0;
 LABEL_22:
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v19;
 }

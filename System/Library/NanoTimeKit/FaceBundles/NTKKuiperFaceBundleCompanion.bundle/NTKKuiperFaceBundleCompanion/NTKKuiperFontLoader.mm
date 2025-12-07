@@ -3,6 +3,7 @@
 + (id)_fontVariationAttributesForTypographicSize:(CGSize)size tickRotation:(double)rotation;
 + (id)_kuiperFontDescriptorWithTypographicSize:(CGSize)size tickRotation:(double)rotation flipped:(BOOL)flipped background:(BOOL)background;
 - (NTKKuiperFontLoader)initWithFontSize:(double)size;
+- (id)_cachedFontWithTypographicSize:(CGSize)size tickRotation:(double)rotation flipped:(BOOL)flipped background:(BOOL)background;
 - (id)fontForMaximumOverscrollTypographicSize;
 @end
 
@@ -27,9 +28,34 @@
 
 - (id)fontForMaximumOverscrollTypographicSize
 {
-  v3 = NTKKuiperMaximumOverscrollTypographicSize();
+  v3 = NTKKuiperMaximumOverscrollTypographicSize(self, a2);
 
   return [(NTKKuiperFontLoader *)self _cachedFontWithTypographicSize:0 tickRotation:0 flipped:v3 background:?];
+}
+
+- (id)_cachedFontWithTypographicSize:(CGSize)size tickRotation:(double)rotation flipped:(BOOL)flipped background:(BOOL)background
+{
+  backgroundCopy = background;
+  flippedCopy = flipped;
+  [objc_opt_class() _discretizedTypographicSizeForTypographicSize:{size.width, size.height}];
+  v11 = v10;
+  v13 = v12;
+  [objc_opt_class() _discretizedTickRotationForTickRotation:rotation];
+  v15 = v14;
+  v22.width = v11;
+  v22.height = v13;
+  v16 = NSStringFromCGSize(v22);
+  backgroundCopy = [NSString stringWithFormat:@"(%@)-(%f)-(%lu)-(%lu)", v16, *&v15, flippedCopy, backgroundCopy];
+
+  v18 = [(NSCache *)self->_fontCache objectForKey:backgroundCopy];
+  if (!v18)
+  {
+    v19 = [objc_opt_class() _kuiperFontDescriptorWithTypographicSize:flippedCopy tickRotation:backgroundCopy flipped:v11 background:{v13, v15}];
+    v18 = [CLKFont fontWithDescriptor:v19 size:self->_fontSize];
+    [(NSCache *)self->_fontCache setObject:v18 forKey:backgroundCopy];
+  }
+
+  return v18;
 }
 
 + (CGSize)_discretizedTypographicSizeForTypographicSize:(CGSize)size

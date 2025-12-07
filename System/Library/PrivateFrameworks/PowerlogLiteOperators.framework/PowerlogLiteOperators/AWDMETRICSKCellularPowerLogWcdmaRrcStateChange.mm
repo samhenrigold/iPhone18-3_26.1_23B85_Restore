@@ -1,8 +1,12 @@
 @interface AWDMETRICSKCellularPowerLogWcdmaRrcStateChange
 - (BOOL)isEqual:(id)equal;
+- (id)connStateAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)establishmentCauseAsString:(int)string;
+- (id)prevConnStateAsString:(int)string;
+- (id)releaseCauseAsString:(int)string;
 - (int)StringAsConnState:(id)state;
 - (int)StringAsEstablishmentCause:(id)cause;
 - (int)StringAsPrevConnState:(id)state;
@@ -67,6 +71,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)connStateAsString:(int)string
+{
+  if (string >= 0xB)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278259A10[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsConnState:(id)state
@@ -161,6 +180,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)prevConnStateAsString:(int)string
+{
+  if (string >= 0xB)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278259A10[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsPrevConnState:(id)state
@@ -270,6 +304,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)establishmentCauseAsString:(int)string
+{
+  if (string >= 0x18)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278259A68[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsEstablishmentCause:(id)cause
@@ -429,6 +478,21 @@
   }
 
   *&self->_has = *&self->_has & 0xDF | v3;
+}
+
+- (id)releaseCauseAsString:(int)string
+{
+  if (string >= 0x1D)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278259B28[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsReleaseCause:(id)cause
@@ -784,7 +848,6 @@ LABEL_9:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x40) == 0)
@@ -804,7 +867,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  subsId = self->_subsId;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -819,7 +881,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  connState = self->_connState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -834,7 +895,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  prevConnState = self->_prevConnState;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -849,7 +909,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  prevDurMs = self->_prevDurMs;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -861,7 +920,6 @@ LABEL_7:
     }
 
 LABEL_18:
-    releaseCause = self->_releaseCause;
     PBDataWriterWriteInt32Field();
     if ((*&self->_has & 0x80) == 0)
     {
@@ -872,7 +930,6 @@ LABEL_18:
   }
 
 LABEL_17:
-  establishmentCause = self->_establishmentCause;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x20) != 0)
@@ -887,7 +944,6 @@ LABEL_8:
   }
 
 LABEL_19:
-  isDataPreferred = self->_isDataPreferred;
   PBDataWriterWriteBOOLField();
 LABEL_9:
 }

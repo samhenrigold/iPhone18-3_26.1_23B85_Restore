@@ -66,37 +66,37 @@
 
 - (void)_buildDataIfNeeded
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   if (!self->_pickerListDataSourceSnapshot)
   {
-    v70 = objc_alloc_init(MEMORY[0x277CBEB38]);
-    v74 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v95 = 0u;
-    v96 = 0u;
+    v72 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v76 = objc_alloc_init(MEMORY[0x277CBEB18]);
     v97 = 0u;
     v98 = 0u;
+    v99 = 0u;
+    v100 = 0u;
     obj = [(NTKFaceSlotComplicationTopLevelListProvider *)self complications];
-    v3 = [obj countByEnumeratingWithState:&v95 objects:v107 count:16];
+    v3 = [obj countByEnumeratingWithState:&v97 objects:v109 count:16];
     selfCopy = self;
     if (!v3)
     {
-      v68 = 0;
+      v70 = 0;
       goto LABEL_34;
     }
 
     v4 = v3;
-    v68 = 0;
-    v5 = *v96;
+    v70 = 0;
+    v5 = *v98;
     while (1)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v96 != v5)
+        if (*v98 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v95 + 1) + 8 * i);
+        v7 = *(*(&v97 + 1) + 8 * i);
         ntk_sectionIdentifier = [v7 ntk_sectionIdentifier];
         if (ntk_sectionIdentifier)
         {
@@ -107,11 +107,11 @@
             v9 = @"com.apple.NanoCalendar";
           }
 
-          array = [v70 objectForKeyedSubscript:v9];
+          array = [v72 objectForKeyedSubscript:v9];
           if (!array)
           {
             array = [MEMORY[0x277CBEB18] array];
-            [v70 setObject:array forKeyedSubscript:v9];
+            [v72 setObject:array forKeyedSubscript:v9];
             localizedSectionHeaderName = [v7 localizedSectionHeaderName];
             if (!localizedSectionHeaderName)
             {
@@ -119,7 +119,7 @@
             }
 
             v12 = [[NTKTopLevelSectionInfo alloc] initWithIdentifier:v9 localizedSectionName:localizedSectionHeaderName];
-            [v74 addObject:v12];
+            [v76 addObject:v12];
           }
 
           selectedItemIgnoringMoreButton = [(NTKFaceSlotComplicationTopLevelListProvider *)selfCopy selectedItemIgnoringMoreButton];
@@ -131,7 +131,7 @@
           {
             v17 = v9;
 
-            v68 = v17;
+            v70 = v17;
           }
 
           if ([v7 complicationType] == 31 || objc_msgSend(v7, "complicationType") == 37)
@@ -163,13 +163,13 @@ LABEL_18:
               if ([(__CFString *)v9 isEqualToString:@"com.apple.NanoCompass.watchkitapp.waypoints"])
               {
                 v18 = [array count];
-                v94[0] = MEMORY[0x277D85DD0];
-                v94[1] = 3221225472;
-                v94[2] = __65__NTKFaceSlotComplicationTopLevelListProvider__buildDataIfNeeded__block_invoke_3;
-                v94[3] = &unk_2787827E0;
-                v94[4] = selfCopy;
-                v94[5] = 1;
-                v21 = v94;
+                v96[0] = MEMORY[0x277D85DD0];
+                v96[1] = 3221225472;
+                v96[2] = __65__NTKFaceSlotComplicationTopLevelListProvider__buildDataIfNeeded__block_invoke_3;
+                v96[3] = &unk_2787827E0;
+                v96[4] = selfCopy;
+                v96[5] = 1;
+                v21 = v96;
               }
 
               else
@@ -181,13 +181,13 @@ LABEL_18:
 
                 pickerListProviderSlotIsRich = [(NTKFaceSlotComplicationTopLevelListProvider *)selfCopy pickerListProviderSlotIsRich];
                 v18 = [array count];
-                v92[0] = MEMORY[0x277D85DD0];
-                v92[1] = 3221225472;
-                v92[2] = __65__NTKFaceSlotComplicationTopLevelListProvider__buildDataIfNeeded__block_invoke_4;
-                v92[3] = &__block_descriptor_41_e45_q24__0__NTKComplication_8__NTKComplication_16l;
-                v92[4] = 1;
-                v93 = pickerListProviderSlotIsRich;
-                v21 = v92;
+                v94[0] = MEMORY[0x277D85DD0];
+                v94[1] = 3221225472;
+                v94[2] = __65__NTKFaceSlotComplicationTopLevelListProvider__buildDataIfNeeded__block_invoke_4;
+                v94[3] = &__block_descriptor_41_e45_q24__0__NTKComplication_8__NTKComplication_16l;
+                v94[4] = 1;
+                v95 = pickerListProviderSlotIsRich;
+                v21 = v94;
               }
 
               v19 = array;
@@ -201,100 +201,101 @@ LABEL_18:
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v95 objects:v107 count:16];
+      v4 = [obj countByEnumeratingWithState:&v97 objects:v109 count:16];
       if (!v4)
       {
 LABEL_34:
 
-        [v74 sortUsingComparator:&__block_literal_global_19_0];
+        [v76 sortUsingComparator:&__block_literal_global_19_0];
         v23 = [MEMORY[0x277CBEB58] set];
-        v66 = objc_alloc_init(MEMORY[0x277CFB890]);
-        [v66 appendSectionsWithIdentifiers:v74];
+        v68 = objc_alloc_init(MEMORY[0x277CFB890]);
+        [v68 appendSectionsWithIdentifiers:v76];
+        v92 = 0u;
+        v93 = 0u;
         v90 = 0u;
         v91 = 0u;
-        v88 = 0u;
-        v89 = 0u;
-        v64 = v74;
-        v67 = [v64 countByEnumeratingWithState:&v88 objects:v106 count:16];
-        if (!v67)
+        v66 = v76;
+        v69 = [v66 countByEnumeratingWithState:&v90 objects:v108 count:16];
+        if (!v69)
         {
           goto LABEL_96;
         }
 
-        v65 = *v89;
-        v63 = v86;
+        v67 = *v91;
+        v65 = v88;
         while (1)
         {
           v24 = 0;
           do
           {
-            if (*v89 != v65)
+            if (*v91 != v67)
             {
-              objc_enumerationMutation(v64);
+              objc_enumerationMutation(v66);
             }
 
-            v71 = *(*(&v88 + 1) + 8 * v24);
-            ntk_identifier3 = [v71 ntk_identifier];
-            v26 = [v70 objectForKey:ntk_identifier3];
-            if ([ntk_identifier3 isEqualToString:@"com.apple.nanotimekit.contacts"])
+            v73 = *(*(&v90 + 1) + 8 * v24);
+            ntk_identifier3 = [v73 ntk_identifier];
+            v26 = [v72 objectForKey:ntk_identifier3];
+            v27 = [ntk_identifier3 isEqualToString:@"com.apple.nanotimekit.contacts"];
+            if (v27)
             {
-              v27 = [NTKPeopleComplication _complicationPickerShouldShowMoreButtonForList:v26];
+              v29 = [NTKPeopleComplication _complicationPickerShouldShowMoreButtonForList:v26];
               if ([v26 count] > 4)
               {
                 goto LABEL_41;
               }
 
-              v29 = [v26 count];
-              v75 = [v26 copy];
-              if (v27)
+              v31 = [v26 count];
+              v77 = [v26 copy];
+              if (v29)
               {
-                v31 = v26;
+                v33 = v26;
                 goto LABEL_51;
               }
 
               goto LABEL_52;
             }
 
-            if ((NTKUseComplicationEditor() & 1) != 0 || ![ntk_identifier3 isEqualToString:@"com.apple.NanoHome"])
+            if ((NTKUseComplicationEditor(v27, v28) & 1) != 0 || ![ntk_identifier3 isEqualToString:@"com.apple.NanoHome"])
             {
-              v30 = [v26 count];
-              v75 = [v26 copy];
-              if (v30 <= 4)
+              v32 = [v26 count];
+              v77 = [v26 copy];
+              if (v32 <= 4)
               {
 LABEL_42:
-                v28 = 0;
-                v29 = 3;
+                v30 = 0;
+                v31 = 3;
                 goto LABEL_53;
               }
 
 LABEL_48:
-              v31 = v26;
-              v29 = 3;
+              v33 = v26;
+              v31 = 3;
 LABEL_51:
-              v26 = [v31 subarrayWithRange:{0, v29}];
+              v26 = [v33 subarrayWithRange:{0, v31}];
 
-              v28 = 1;
+              v30 = 1;
               goto LABEL_53;
             }
 
             if ([v26 count] <= 4)
             {
-              v29 = [v26 count];
-              v75 = [v26 copy];
+              v31 = [v26 count];
+              v77 = [v26 copy];
 LABEL_52:
-              v28 = 0;
+              v30 = 0;
               goto LABEL_53;
             }
 
-            v31 = [NTKHomeListPickerDataSource topLevelItemsForComplicationFamily:[(NTKFaceSlotComplicationTopLevelListProvider *)selfCopy pickerComplicationFamily] sectionIdentifier:ntk_identifier3];
+            v33 = [NTKHomeListPickerDataSource topLevelItemsForComplicationFamily:[(NTKFaceSlotComplicationTopLevelListProvider *)selfCopy pickerComplicationFamily] sectionIdentifier:ntk_identifier3];
 
-            v27 = +[NTKHomeListPickerDataSource shouldShowTopLevelMoreButton];
-            if ([v31 count] > 4)
+            v29 = +[NTKHomeListPickerDataSource shouldShowTopLevelMoreButton];
+            if ([v33 count] > 4)
             {
-              v26 = v31;
+              v26 = v33;
 LABEL_41:
-              v75 = [v26 copy];
-              if (!v27)
+              v77 = [v26 copy];
+              if (!v29)
               {
                 goto LABEL_42;
               }
@@ -302,162 +303,162 @@ LABEL_41:
               goto LABEL_48;
             }
 
-            v29 = [v31 count];
-            v75 = [v31 copy];
-            if (v27)
+            v31 = [v33 count];
+            v77 = [v33 copy];
+            if (v29)
             {
               goto LABEL_51;
             }
 
-            v28 = 0;
-            v26 = v31;
+            v30 = 0;
+            v26 = v33;
 LABEL_53:
-            if ([(__CFString *)v68 isEqual:ntk_identifier3])
+            if ([(__CFString *)v70 isEqual:ntk_identifier3])
             {
               selectedItemIgnoringMoreButton2 = [(NTKFaceSlotComplicationTopLevelListProvider *)selfCopy selectedItemIgnoringMoreButton];
-              v33 = selectedItemIgnoringMoreButton2;
-              v34 = v28 ^ 1;
+              v35 = selectedItemIgnoringMoreButton2;
+              v36 = v30 ^ 1;
               if (!selectedItemIgnoringMoreButton2)
               {
-                v34 = 1;
+                v36 = 1;
               }
 
-              if ((v34 & 1) == 0)
+              if ((v36 & 1) == 0)
               {
-                v85[0] = MEMORY[0x277D85DD0];
-                v85[1] = 3221225472;
-                v86[0] = __65__NTKFaceSlotComplicationTopLevelListProvider__buildDataIfNeeded__block_invoke_6;
-                v86[1] = &unk_278782848;
-                v35 = selectedItemIgnoringMoreButton2;
-                v87 = v35;
-                v36 = [v75 indexOfObjectPassingTest:v85];
-                if (v36 != 0x7FFFFFFFFFFFFFFFLL && v36 >= v29)
+                v87[0] = MEMORY[0x277D85DD0];
+                v87[1] = 3221225472;
+                v88[0] = __65__NTKFaceSlotComplicationTopLevelListProvider__buildDataIfNeeded__block_invoke_6;
+                v88[1] = &unk_278782848;
+                v37 = selectedItemIgnoringMoreButton2;
+                v89 = v37;
+                v38 = [v77 indexOfObjectPassingTest:v87];
+                if (v38 != 0x7FFFFFFFFFFFFFFFLL && v38 >= v31)
                 {
-                  v38 = [v26 subarrayWithRange:{0, v29 - 1}];
-                  v105 = v35;
-                  v39 = [MEMORY[0x277CBEA60] arrayWithObjects:&v105 count:1];
-                  v40 = [v39 arrayByAddingObjectsFromArray:v38];
+                  v40 = [v26 subarrayWithRange:{0, v31 - 1}];
+                  v107 = v37;
+                  v41 = [MEMORY[0x277CBEA60] arrayWithObjects:&v107 count:1];
+                  v42 = [v41 arrayByAddingObjectsFromArray:v40];
 
-                  v26 = v40;
+                  v26 = v42;
                 }
               }
 
-              [(NTKFaceSlotComplicationTopLevelListProvider *)selfCopy setPickerSelectedItem:v33];
+              [(NTKFaceSlotComplicationTopLevelListProvider *)selfCopy setPickerSelectedItem:v35];
             }
 
-            v73 = v24;
-            if (v28)
+            v75 = v24;
+            if (v30)
             {
-              v41 = [[NTKMoreButtonListItem alloc] initWithSectionIdentifier:ntk_identifier3];
-              v42 = [v26 arrayByAddingObject:v41];
+              v43 = [[NTKMoreButtonListItem alloc] initWithSectionIdentifier:ntk_identifier3];
+              v44 = [v26 arrayByAddingObject:v43];
 
-              v26 = v42;
+              v26 = v44;
             }
 
-            v72 = ntk_identifier3;
-            v43 = [MEMORY[0x277CBEB40] orderedSetWithArray:v26];
-            v44 = [v43 count];
-            if (v44 != [v26 count])
+            v74 = ntk_identifier3;
+            v45 = [MEMORY[0x277CBEB40] orderedSetWithArray:v26];
+            v46 = [v45 count];
+            if (v46 != [v26 count])
             {
               array2 = [MEMORY[0x277CBEB18] array];
-              v81 = 0u;
-              v82 = 0u;
               v83 = 0u;
               v84 = 0u;
-              v46 = v26;
-              v47 = [v46 countByEnumeratingWithState:&v81 objects:v104 count:16];
-              if (v47)
+              v85 = 0u;
+              v86 = 0u;
+              v48 = v26;
+              v49 = [v48 countByEnumeratingWithState:&v83 objects:v106 count:16];
+              if (v49)
               {
-                v48 = v47;
-                v49 = *v82;
+                v50 = v49;
+                v51 = *v84;
                 do
                 {
-                  for (j = 0; j != v48; ++j)
+                  for (j = 0; j != v50; ++j)
                   {
-                    if (*v82 != v49)
+                    if (*v84 != v51)
                     {
-                      objc_enumerationMutation(v46);
+                      objc_enumerationMutation(v48);
                     }
 
-                    ntk_identifier4 = [*(*(&v81 + 1) + 8 * j) ntk_identifier];
+                    ntk_identifier4 = [*(*(&v83 + 1) + 8 * j) ntk_identifier];
                     [array2 addObject:ntk_identifier4];
                   }
 
-                  v48 = [v46 countByEnumeratingWithState:&v81 objects:v104 count:16];
+                  v50 = [v48 countByEnumeratingWithState:&v83 objects:v106 count:16];
                 }
 
-                while (v48);
+                while (v50);
               }
 
-              v52 = _NTKLoggingObjectForDomain(18, "NTKLoggingDomainComplication");
-              if (os_log_type_enabled(v52, OS_LOG_TYPE_FAULT))
+              v54 = _NTKLoggingObjectForDomain(18, "NTKLoggingDomainComplication");
+              if (os_log_type_enabled(v54, OS_LOG_TYPE_FAULT))
               {
                 *buf = 138412546;
-                v101 = array2;
-                v102 = 2112;
-                v103 = v46;
-                _os_log_fault_impl(&dword_22D9C5000, v52, OS_LOG_TYPE_FAULT, "NTKListProviderError: Items %@ has a duplicate (%@)", buf, 0x16u);
+                v103 = array2;
+                v104 = 2112;
+                v105 = v48;
+                _os_log_fault_impl(&dword_22D9C5000, v54, OS_LOG_TYPE_FAULT, "NTKListProviderError: Items %@ has a duplicate (%@)", buf, 0x16u);
               }
             }
 
+            v81 = 0u;
+            v82 = 0u;
             v79 = 0u;
             v80 = 0u;
-            v77 = 0u;
-            v78 = 0u;
-            v53 = v26;
-            v54 = [v53 countByEnumeratingWithState:&v77 objects:v99 count:16];
-            if (v54)
+            v55 = v26;
+            v56 = [v55 countByEnumeratingWithState:&v79 objects:v101 count:16];
+            if (v56)
             {
-              v55 = v54;
-              v56 = *v78;
+              v57 = v56;
+              v58 = *v80;
               do
               {
-                for (k = 0; k != v55; ++k)
+                for (k = 0; k != v57; ++k)
                 {
-                  if (*v78 != v56)
+                  if (*v80 != v58)
                   {
-                    objc_enumerationMutation(v53);
+                    objc_enumerationMutation(v55);
                   }
 
-                  v58 = *(*(&v77 + 1) + 8 * k);
-                  if ([v23 containsObject:v58])
+                  v60 = *(*(&v79 + 1) + 8 * k);
+                  if ([v23 containsObject:v60])
                   {
-                    [v43 removeObject:v58];
-                    v59 = _NTKLoggingObjectForDomain(18, "NTKLoggingDomainComplication");
-                    if (os_log_type_enabled(v59, OS_LOG_TYPE_FAULT))
+                    [v45 removeObject:v60];
+                    v61 = _NTKLoggingObjectForDomain(18, "NTKLoggingDomainComplication");
+                    if (os_log_type_enabled(v61, OS_LOG_TYPE_FAULT))
                     {
-                      ntk_identifier5 = [v58 ntk_identifier];
+                      ntk_identifier5 = [v60 ntk_identifier];
                       *buf = 138412546;
-                      v101 = ntk_identifier5;
-                      v102 = 2112;
-                      v103 = v58;
-                      _os_log_fault_impl(&dword_22D9C5000, v59, OS_LOG_TYPE_FAULT, "NTKListProviderError: Item %@ (%@) already in list provider", buf, 0x16u);
+                      v103 = ntk_identifier5;
+                      v104 = 2112;
+                      v105 = v60;
+                      _os_log_fault_impl(&dword_22D9C5000, v61, OS_LOG_TYPE_FAULT, "NTKListProviderError: Item %@ (%@) already in list provider", buf, 0x16u);
                     }
                   }
                 }
 
-                v55 = [v53 countByEnumeratingWithState:&v77 objects:v99 count:16];
+                v57 = [v55 countByEnumeratingWithState:&v79 objects:v101 count:16];
               }
 
-              while (v55);
+              while (v57);
             }
 
-            array3 = [v43 array];
+            array3 = [v45 array];
             [v23 addObjectsFromArray:array3];
-            [v66 appendItemsWithIdentifiers:array3 intoSectionWithIdentifier:v71];
+            [v68 appendItemsWithIdentifiers:array3 intoSectionWithIdentifier:v73];
 
-            v24 = v73 + 1;
+            v24 = v75 + 1;
           }
 
-          while (v73 + 1 != v67);
-          v62 = [v64 countByEnumeratingWithState:&v88 objects:v106 count:16];
-          v67 = v62;
-          if (!v62)
+          while (v75 + 1 != v69);
+          v64 = [v66 countByEnumeratingWithState:&v90 objects:v108 count:16];
+          v69 = v64;
+          if (!v64)
           {
 LABEL_96:
 
-            [(NTKFaceSlotComplicationTopLevelListProvider *)selfCopy setPickerListDataSourceSnapshot:v66];
-            [(NTKFaceSlotComplicationTopLevelListProvider *)selfCopy setComplicationsBySectionIdentifier:v70];
+            [(NTKFaceSlotComplicationTopLevelListProvider *)selfCopy setPickerListDataSourceSnapshot:v68];
+            [(NTKFaceSlotComplicationTopLevelListProvider *)selfCopy setComplicationsBySectionIdentifier:v72];
 
             return;
           }

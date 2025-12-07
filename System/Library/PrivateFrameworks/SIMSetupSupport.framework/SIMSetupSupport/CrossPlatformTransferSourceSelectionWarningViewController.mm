@@ -3,6 +3,7 @@
 - (TSSIMSetupFlowDelegate)delegate;
 - (void)_handleNotificationESIMInstallStateChanged:(id)changed;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CrossPlatformTransferSourceSelectionWarningViewController
@@ -41,6 +42,13 @@
   [(TSOBWelcomeController *)&v4 viewDidLoad];
   navigationItem = [(OBBaseWelcomeController *)self navigationItem];
   [navigationItem setHidesBackButton:1 animated:0];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = CrossPlatformTransferSourceSelectionWarningViewController;
+  [(CrossPlatformTransferSourceSelectionWarningViewController *)&v3 viewWillAppear:appear];
 }
 
 - (void)_handleNotificationESIMInstallStateChanged:(id)changed

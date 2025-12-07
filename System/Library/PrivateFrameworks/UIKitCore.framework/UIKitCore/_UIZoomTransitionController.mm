@@ -147,19 +147,19 @@
 
 - (BOOL)shouldPreemptWithContext:(id)context
 {
-  objc_opt_self();
+  v4 = objc_opt_self();
   selfCopy = self;
-  if ((+[UIView _fluidZoomTransitionsEnabled]() & 1) != 0 || +[UIView _uip_fluidPresentationTransitionsEnabled])
+  if ((+[UIView _fluidZoomTransitionsEnabled](v4) & 1) != 0 || +[(UIView *)v4])
   {
-    v5 = 1;
+    v6 = 1;
   }
 
   else
   {
-    v5 = *(selfCopy + OBJC_IVAR____UIZoomTransitionController_isPreempting);
+    v6 = *(selfCopy + OBJC_IVAR____UIZoomTransitionController_isPreempting);
   }
 
-  return v5;
+  return v6;
 }
 
 - (id)preemptWithContext:(id)context
@@ -188,7 +188,7 @@
   swift_unknownObjectRetain();
   sub_18A4A7DE8();
   swift_unknownObjectRelease();
-  __swift_destroy_boxed_opaque_existential_0Tm(&v4);
+  __swift_destroy_boxed_opaque_existential_0Tm(v4);
 }
 
 - (void)prepareToAnimateKeyboard:(id)keyboard

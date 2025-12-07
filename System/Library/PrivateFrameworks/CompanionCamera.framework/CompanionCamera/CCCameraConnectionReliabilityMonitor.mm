@@ -92,9 +92,9 @@ uint64_t __54__CCCameraConnectionReliabilityMonitor_sharedInstance__block_invoke
   self->_isConnected = 1;
 }
 
-uint64_t __62__CCCameraConnectionReliabilityMonitor_incrementInstanceCount__block_invoke(uint64_t result)
+void *__62__CCCameraConnectionReliabilityMonitor_incrementInstanceCount__block_invoke(void *result)
 {
-  if (*(*(result + 32) + 8) >= 2u)
+  if (*(result[4] + 8) >= 2u)
   {
     return [ViewfinderErrorReporter report:103 status:0];
   }

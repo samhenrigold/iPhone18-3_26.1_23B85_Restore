@@ -71,8 +71,7 @@
   v12[2] = __66__SBSApplicationUserQuitMonitor__connectionQueue_setupAndActivate__block_invoke;
   v12[3] = &unk_1E735ED88;
   v12[4] = self;
-  [(BSServiceConnection *)v9 configureConnection:v12];
-  v10 = SBLogAppQuitMonitor();
+  v10 = SBLogAppQuitMonitor([(BSServiceConnection *)v9 configureConnection:v12]);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     v11 = self->_connection;
@@ -104,7 +103,7 @@ void __66__SBSApplicationUserQuitMonitor__connectionQueue_setupAndActivate__bloc
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogAppQuitMonitor();
+  v3 = SBLogAppQuitMonitor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 138543362;
@@ -117,7 +116,7 @@ void __66__SBSApplicationUserQuitMonitor__connectionQueue_setupAndActivate__bloc
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogAppQuitMonitor();
+  v3 = SBLogAppQuitMonitor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 138543362;
@@ -132,7 +131,7 @@ void __66__SBSApplicationUserQuitMonitor__connectionQueue_setupAndActivate__bloc
 {
   v6 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  v3 = SBLogAppQuitMonitor();
+  v3 = SBLogAppQuitMonitor(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v4 = 138543362;
@@ -144,7 +143,7 @@ void __66__SBSApplicationUserQuitMonitor__connectionQueue_setupAndActivate__bloc
 - (void)_connectionQueue_invalidate
 {
   v8 = *MEMORY[0x1E69E9840];
-  v3 = SBLogAppQuitMonitor();
+  v3 = SBLogAppQuitMonitor(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     connection = self->_connection;

@@ -358,11 +358,11 @@
 - (void)viewWillAppear:(BOOL)appear
 {
   selfCopy = self;
-  v7 = a2;
+  v6 = a2;
   appearCopy = appear;
-  v5.receiver = self;
-  v5.super_class = AKAuthorizationInputPaneViewController;
-  [(AKAuthorizationPaneViewController *)&v5 viewWillAppear:appear];
+  v4.receiver = self;
+  v4.super_class = AKAuthorizationInputPaneViewController;
+  [(AKAuthorizationPaneViewController *)&v4 viewWillAppear:appear];
   if ([(AKAuthorizationInputPaneViewController *)selfCopy editableScopeChoicesChanged])
   {
     [(AKAuthorizationInputPaneViewController *)selfCopy setEditableScopeChoicesChanged:0];
@@ -374,7 +374,6 @@
   [(AKAuthorizationInputPaneViewController *)selfCopy _enableOrDisableConfirmButton];
   if (([(AKAuthorizationInputPaneViewController *)selfCopy isViewLoaded]& 1) != 0 && ![(AKAuthorizationInputPaneViewController *)selfCopy isBeingDismissed])
   {
-    v4 = *MEMORY[0x277CBF3A8];
     [(AKAuthorizationInputPaneViewController *)selfCopy setPreferredContentSize:*MEMORY[0x277CBF3A8], *(MEMORY[0x277CBF3A8] + 8)];
     [(AKAuthorizationPaneViewController *)selfCopy sizeToFitPaneContent];
   }
@@ -797,7 +796,6 @@ void __63__AKAuthorizationInputPaneViewController__setupAnalyticsReport__block_i
   objc_storeStrong(&v36, 0);
   objc_storeStrong(&automaskedImage, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadAppIconViewImage
@@ -1944,7 +1942,6 @@ void __63__AKAuthorizationInputPaneViewController__loadAppIconViewImage__block_i
   objc_storeStrong(&_proxiedDeviceName, 0);
   objc_storeStrong(&localizedAppName, 0);
   objc_storeStrong(v65, 0);
-  *MEMORY[0x277D85DE8];
   v3 = v67;
 
   return v3;
@@ -2569,7 +2566,6 @@ LABEL_16:
 
   objc_storeStrong(&v58, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_loginChoiceTableViewCellForRow:(unint64_t)row
@@ -2779,7 +2775,6 @@ LABEL_9:
   v10 = 0;
 LABEL_10:
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
@@ -2861,7 +2856,6 @@ LABEL_10:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v4 = _nameCell;
 
   return v4;
@@ -3166,7 +3160,6 @@ LABEL_11:
 
   v5 = MEMORY[0x277D82BE0](v11);
   objc_storeStrong(&v11, 0);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -3353,7 +3346,6 @@ LABEL_11:
     objc_storeStrong(&v25, 0);
   }
 
-  *MEMORY[0x277D85DE8];
   v5 = v31;
 
   return v5;
@@ -3478,7 +3470,6 @@ void __72__AKAuthorizationInputPaneViewController__numberOfRowsInValidatedScopes
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -3591,7 +3582,6 @@ void __72__AKAuthorizationInputPaneViewController__numberOfRowsInValidatedScopes
 
 LABEL_9:
   MEMORY[0x277D82BD8](obj);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_selectScope:(id)scope localRow:(int64_t)row
@@ -3625,7 +3615,6 @@ LABEL_9:
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_selectEmailLocalRow:(int64_t)row
@@ -3698,8 +3687,6 @@ LABEL_9:
     [(AKAuthorizationInputPaneViewController *)selfCopy _enableOrDisableConfirmButton];
     [(AKAuthorizationInputPaneViewController *)selfCopy setEmailExpanded:0 animated:1];
   }
-
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_selectLoginChoiceCell
@@ -4590,7 +4577,6 @@ void __54__AKAuthorizationInputPaneViewController__clearButton__block_invoke(voi
   [v4 _didSelectEditScope:v3 options:?];
   MEMORY[0x277D82BD8](v5);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)_doneBarButtonItem
@@ -4813,7 +4799,6 @@ void __54__AKAuthorizationInputPaneViewController__clearButton__block_invoke(voi
   objc_storeStrong(&userResponse, 0);
   objc_storeStrong(&v25, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __97__AKAuthorizationInputPaneViewController__performAuthorizationWithRawPassword_completionHandler___block_invoke(void *a1, void *a2, void *a3)
@@ -5289,7 +5274,6 @@ uint64_t __86__AKAuthorizationInputPaneViewController_subPaneConfirmButtonDidEnt
   MEMORY[0x277D82BD8](editableScopeChoices3);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __92__AKAuthorizationInputPaneViewController_subPaneConfirmButtonPerformExternalAuthentication___block_invoke(void *a1, void *a2, void *a3)
@@ -5425,7 +5409,6 @@ void __92__AKAuthorizationInputPaneViewController_subPaneConfirmButtonPerformExt
 
   objc_storeStrong(&v9, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_paneDelegate_authorizationPaneViewControllerDismissWithAuthorization:(id)authorization error:(id)error

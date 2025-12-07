@@ -1662,7 +1662,7 @@ LABEL_4:
 - (void)scrollToFirstSignificantAction
 {
   highlightedIndexPath = [(_UIContextMenuListView *)self highlightedIndexPath];
-  if (highlightedIndexPath && (v4 = highlightedIndexPath, -[_UIContextMenuListView highlightedIndexPath](self, "highlightedIndexPath"), v5 = objc_claimAutoreleasedReturnValue(), -[_UIContextMenuListView _headerIndexPath](self, "_headerIndexPath"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v5 isEqual:v6], v6, v5, v4, (v7 & 1) == 0))
+  if (highlightedIndexPath && (v4 = highlightedIndexPath, [(_UIContextMenuListView *)self highlightedIndexPath], v5 = objc_claimAutoreleasedReturnValue(), [(_UIContextMenuListView *)self _headerIndexPath], v6 = objc_claimAutoreleasedReturnValue(), isEqual = objc_msgSend_isEqual_(v5), v6, v5, v4, (isEqual & 1) == 0))
   {
     collectionView = [(_UIContextMenuListView *)self collectionView];
     highlightedIndexPath2 = [(_UIContextMenuListView *)self highlightedIndexPath];
@@ -1775,9 +1775,9 @@ LABEL_4:
 {
   pathCopy = path;
   _headerIndexPath = [(_UIContextMenuListView *)self _headerIndexPath];
-  v6 = [pathCopy isEqual:_headerIndexPath];
+  isEqual = objc_msgSend_isEqual_(pathCopy);
 
-  if (v6)
+  if (isEqual)
   {
     displayedMenu = [(_UIContextMenuListView *)self displayedMenu];
   }
@@ -1785,7 +1785,7 @@ LABEL_4:
   else
   {
     _footerIndexPath = [(_UIContextMenuListView *)self _footerIndexPath];
-    v9 = [pathCopy isEqual:_footerIndexPath];
+    v9 = objc_msgSend_isEqual_(pathCopy);
 
     if (v9)
     {
@@ -1808,9 +1808,9 @@ LABEL_4:
 {
   elementCopy = element;
   displayedMenu = [(_UIContextMenuListView *)self displayedMenu];
-  v6 = [elementCopy isEqual:displayedMenu];
+  isEqual = objc_msgSend_isEqual_(elementCopy);
 
-  if (v6)
+  if (isEqual)
   {
     _headerIndexPath = [(_UIContextMenuListView *)self _headerIndexPath];
 LABEL_5:
@@ -1820,7 +1820,7 @@ LABEL_5:
 
   displayedMenu2 = [(_UIContextMenuListView *)self displayedMenu];
   _pinnedFooterElement = [displayedMenu2 _pinnedFooterElement];
-  v10 = [elementCopy isEqual:_pinnedFooterElement];
+  v10 = objc_msgSend_isEqual_(elementCopy);
 
   if (v10)
   {
@@ -1890,9 +1890,9 @@ LABEL_7:
   hoverCopy = hover;
   pathCopy = path;
   highlightedIndexPath = [(_UIContextMenuListView *)self highlightedIndexPath];
-  v9 = [highlightedIndexPath isEqual:pathCopy];
+  isEqual = objc_msgSend_isEqual_(highlightedIndexPath);
 
-  if ((v9 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
     highlightedIndexPath2 = [(_UIContextMenuListView *)self highlightedIndexPath];
 
@@ -2022,9 +2022,9 @@ LABEL_18:
 {
   pathCopy = path;
   _headerIndexPath = [(_UIContextMenuListView *)self _headerIndexPath];
-  v6 = [pathCopy isEqual:_headerIndexPath];
+  isEqual = objc_msgSend_isEqual_(pathCopy);
 
-  if (v6)
+  if (isEqual)
   {
     collectionView = [(_UIContextMenuListView *)self collectionView];
     v8 = [collectionView supplementaryViewForElementKind:@"kContextMenuSubmenuTitleHeader" atIndexPath:pathCopy];
@@ -2033,7 +2033,7 @@ LABEL_18:
   else
   {
     _footerIndexPath = [(_UIContextMenuListView *)self _footerIndexPath];
-    v10 = [pathCopy isEqual:_footerIndexPath];
+    v10 = objc_msgSend_isEqual_(pathCopy);
 
     collectionView2 = [(_UIContextMenuListView *)self collectionView];
     collectionView = collectionView2;
@@ -2394,9 +2394,9 @@ LABEL_3:
       }
 
       sourceView = [*(*(&v17 + 1) + 8 * v9) sourceView];
-      v11 = [sourceView isEqual:neededCopy];
+      isEqual = objc_msgSend_isEqual_(sourceView);
 
-      if (v11)
+      if (isEqual)
       {
         break;
       }

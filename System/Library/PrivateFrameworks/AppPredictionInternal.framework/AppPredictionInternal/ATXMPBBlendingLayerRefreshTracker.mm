@@ -82,39 +82,37 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_clientModelId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    interarrivalTime = self->_interarrivalTime;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    computationTime = self->_computationTime;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_abGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_consumerSubType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -204,7 +202,6 @@
     }
   }
 
-  v6 = *(equalCopy + 44);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 44) & 2) == 0 || self->_interarrivalTime != *(equalCopy + 10))
@@ -216,7 +213,7 @@
   else if ((*(equalCopy + 44) & 2) != 0)
   {
 LABEL_18:
-    v9 = 0;
+    v8 = 0;
     goto LABEL_19;
   }
 
@@ -242,17 +239,17 @@ LABEL_18:
   consumerSubType = self->_consumerSubType;
   if (consumerSubType | *(equalCopy + 4))
   {
-    v9 = [(NSString *)consumerSubType isEqual:?];
+    v8 = [(NSString *)consumerSubType isEqual:?];
   }
 
   else
   {
-    v9 = 1;
+    v8 = 1;
   }
 
 LABEL_19:
 
-  return v9;
+  return v8;
 }
 
 - (unint64_t)hash

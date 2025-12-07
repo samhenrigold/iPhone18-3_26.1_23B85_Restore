@@ -79,11 +79,9 @@ void __32__TVPMediaItemLoader_initialize__block_invoke(uint64_t a1)
 
 + (void)removeTemporaryDownloadDirectory
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (id)tempDirURL
@@ -98,7 +96,7 @@ void __32__TVPMediaItemLoader_initialize__block_invoke(uint64_t a1)
 
 + (id)loaderForMediaItem:(id)item
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   itemCopy = item;
   v4 = itemCopy;
   if (loaderForMediaItem__onceToken != -1)
@@ -120,26 +118,26 @@ LABEL_15:
   }
 
 LABEL_3:
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   allObjects = [sLoaderHashTable allObjects];
-  v6 = [allObjects countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [allObjects countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
 LABEL_5:
     v9 = 0;
     while (1)
     {
-      if (*v17 != v8)
+      if (*v16 != v8)
       {
         objc_enumerationMutation(allObjects);
       }
 
-      v10 = *(*(&v16 + 1) + 8 * v9);
+      v10 = *(*(&v15 + 1) + 8 * v9);
       mediaItem = [v10 mediaItem];
       v12 = [mediaItem isEqualToMediaItem:v4];
 
@@ -150,7 +148,7 @@ LABEL_5:
 
       if (v7 == ++v9)
       {
-        v7 = [allObjects countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v7 = [allObjects countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v7)
         {
           goto LABEL_5;
@@ -176,8 +174,6 @@ LABEL_11:
   v13 = [objc_alloc(objc_opt_class()) initWithMediaItem:v4];
   [sLoaderHashTable addObject:v13];
 LABEL_16:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -318,7 +314,7 @@ void __46__TVPMediaItemLoader__mediaServicesWereReset___block_invoke_2(uint64_t 
 
 void __40__TVPMediaItemLoader_initWithMediaItem___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a4;
   v6 = sMediaItemLoaderLogObject;
   if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_INFO))
@@ -328,19 +324,17 @@ void __40__TVPMediaItemLoader_initWithMediaItem___block_invoke(uint64_t a1, uint
     v9 = [WeakRetained error];
     v10 = objc_loadWeakRetained((a1 + 32));
     v11 = [v10 AVAsset];
-    v14 = 138412802;
-    v15 = v5;
-    v16 = 2112;
-    v17 = v9;
-    v18 = 2112;
-    v19 = v11;
-    _os_log_impl(&dword_26CEDD000, v7, OS_LOG_TYPE_INFO, "State did change to %@.  error property is %@, AVAsset property is %@", &v14, 0x20u);
+    v13 = 138412802;
+    v14 = v5;
+    v15 = 2112;
+    v16 = v9;
+    v17 = 2112;
+    v18 = v11;
+    _os_log_impl(&dword_26CEDD000, v7, OS_LOG_TYPE_INFO, "State did change to %@.  error property is %@, AVAsset property is %@", &v13, 0x20u);
   }
 
   v12 = objc_loadWeakRetained((a1 + 32));
   [v12 setState:v5];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -418,10 +412,7 @@ void __40__TVPMediaItemLoader_initWithMediaItem___block_invoke(uint64_t a1, uint
 
 uint64_t __33__TVPMediaItemLoader_description__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) AVAssetInternal];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) AVAssetInternal];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -458,10 +449,7 @@ uint64_t __33__TVPMediaItemLoader_description__block_invoke(uint64_t a1)
 
 uint64_t __29__TVPMediaItemLoader_AVAsset__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) AVAssetInternal];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) AVAssetInternal];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -683,7 +671,7 @@ LABEL_42:
 
 - (void)loadSHA1DigestWithCompletion:(id)completion
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   stateMachine = [(TVPMediaItemLoader *)self stateMachine];
   currentState = [stateMachine currentState];
@@ -691,17 +679,17 @@ LABEL_42:
   if (([currentState isEqualToString:@"AVAsset keys loaded"] & 1) != 0 || (objc_msgSend(currentState, "isEqualToString:", @"Preparing for playback initiation") & 1) != 0 || objc_msgSend(currentState, "isEqualToString:", @"Ready for playback"))
   {
     aVAssetInternal = [(TVPMediaItemLoader *)self AVAssetInternal];
-    v17[0] = @"SHA1Digest";
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __51__TVPMediaItemLoader_loadSHA1DigestWithCompletion___block_invoke;
-    v13[3] = &unk_279D7D370;
-    v14 = aVAssetInternal;
-    v15 = @"SHA1Digest";
-    v16 = completionCopy;
+    v16[0] = @"SHA1Digest";
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __51__TVPMediaItemLoader_loadSHA1DigestWithCompletion___block_invoke;
+    v12[3] = &unk_279D7D370;
+    v13 = aVAssetInternal;
+    v14 = @"SHA1Digest";
+    v15 = completionCopy;
     v9 = aVAssetInternal;
-    [v9 loadValuesAsynchronouslyForKeys:v8 completionHandler:v13];
+    [v9 loadValuesAsynchronouslyForKeys:v8 completionHandler:v12];
   }
 
   else
@@ -711,17 +699,16 @@ LABEL_42:
       goto LABEL_6;
     }
 
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __51__TVPMediaItemLoader_loadSHA1DigestWithCompletion___block_invoke_3;
-    v11[3] = &unk_279D7BF30;
-    v12 = completionCopy;
-    dispatch_async(MEMORY[0x277D85CD0], v11);
-    v9 = v12;
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __51__TVPMediaItemLoader_loadSHA1DigestWithCompletion___block_invoke_3;
+    v10[3] = &unk_279D7BF30;
+    v11 = completionCopy;
+    dispatch_async(MEMORY[0x277D85CD0], v10);
+    v9 = v11;
   }
 
 LABEL_6:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __51__TVPMediaItemLoader_loadSHA1DigestWithCompletion___block_invoke(id *a1)
@@ -761,152 +748,150 @@ void __51__TVPMediaItemLoader_loadSHA1DigestWithCompletion___block_invoke_2(uint
 
 - (void)_registerStateMachineHandlers
 {
-  v64[2] = *MEMORY[0x277D85DE8];
+  v63[2] = *MEMORY[0x277D85DE8];
   stateMachine = [(TVPMediaItemLoader *)self stateMachine];
   objc_initWeak(&location, self);
-  v59[0] = MEMORY[0x277D85DD0];
-  v59[1] = 3221225472;
-  v59[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke;
-  v59[3] = &unk_279D7DA40;
-  objc_copyWeak(&v60, &location);
-  v4 = MEMORY[0x26D6B0400](v59);
-  v57[0] = MEMORY[0x277D85DD0];
-  v57[1] = 3221225472;
-  v57[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2;
-  v57[3] = &unk_279D7DA68;
-  objc_copyWeak(&v58, &location);
-  v5 = MEMORY[0x26D6B0400](v57);
-  v53[0] = MEMORY[0x277D85DD0];
-  v53[1] = 3221225472;
-  v53[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_127;
-  v53[3] = &unk_279D7DB08;
-  objc_copyWeak(&v56, &location);
+  v58[0] = MEMORY[0x277D85DD0];
+  v58[1] = 3221225472;
+  v58[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke;
+  v58[3] = &unk_279D7DA40;
+  objc_copyWeak(&v59, &location);
+  v4 = MEMORY[0x26D6B0400](v58);
+  v56[0] = MEMORY[0x277D85DD0];
+  v56[1] = 3221225472;
+  v56[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2;
+  v56[3] = &unk_279D7DA68;
+  objc_copyWeak(&v57, &location);
+  v5 = MEMORY[0x26D6B0400](v56);
+  v52[0] = MEMORY[0x277D85DD0];
+  v52[1] = 3221225472;
+  v52[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_127;
+  v52[3] = &unk_279D7DB08;
+  objc_copyWeak(&v55, &location);
   v6 = stateMachine;
-  v54 = v6;
-  v21 = v5;
-  v55 = v21;
-  v7 = MEMORY[0x26D6B0400](v53);
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_182;
-  v49[3] = &unk_279D7DB58;
-  objc_copyWeak(&v52, &location);
+  v53 = v6;
+  v20 = v5;
+  v54 = v20;
+  v7 = MEMORY[0x26D6B0400](v52);
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_182;
+  v48[3] = &unk_279D7DB58;
+  objc_copyWeak(&v51, &location);
   v8 = v6;
-  v50 = v8;
+  v49 = v8;
   v9 = v7;
-  v51 = v9;
-  v10 = MEMORY[0x26D6B0400](v49);
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_185;
-  v46[3] = &unk_279D7CB20;
-  objc_copyWeak(&v48, &location);
+  v50 = v9;
+  v10 = MEMORY[0x26D6B0400](v48);
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_185;
+  v45[3] = &unk_279D7CB20;
+  objc_copyWeak(&v47, &location);
   v11 = v8;
-  v47 = v11;
-  [v11 registerHandlerForEvent:@"Load" onState:@"Cleaned up" withBlock:v46];
-  v42[0] = MEMORY[0x277D85DD0];
-  v42[1] = 3221225472;
-  v42[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_3_201;
-  v42[3] = &unk_279D7CD28;
-  objc_copyWeak(&v45, &location);
-  v20 = v4;
-  v44 = v20;
+  v46 = v11;
+  [v11 registerHandlerForEvent:@"Load" onState:@"Cleaned up" withBlock:v45];
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_3_201;
+  v41[3] = &unk_279D7CD28;
+  objc_copyWeak(&v44, &location);
+  v19 = v4;
+  v43 = v19;
   v12 = v11;
-  v43 = v12;
-  [v12 registerHandlerForEvent:@"Did finish preparing to load" onState:@"Preparing for loading" withBlock:v42];
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_5;
-  v40[3] = &unk_279D7C020;
-  v22 = v10;
-  v41 = v22;
-  [v12 registerHandlerForEvent:@"Disk space purge did complete" onState:@"Purging disk space during initial loading if necessary" withBlock:v40];
-  v38[0] = MEMORY[0x277D85DD0];
-  v38[1] = 3221225472;
-  v38[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_6;
-  v38[3] = &unk_279D7BFD0;
-  objc_copyWeak(&v39, &location);
-  [v12 registerHandlerForEvent:@"AVAsset keys did load successfully" onState:@"Loading AVAsset keys" withBlock:v38];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_8;
-  v36[3] = &unk_279D7BFD0;
-  objc_copyWeak(&v37, &location);
-  [v12 registerHandlerForEvent:@"AVAsset metadata did load successfully" onState:@"Loading AVAsset keys" withBlock:v36];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_9;
-  v33[3] = &unk_279D7CB20;
-  objc_copyWeak(&v35, &location);
+  v42 = v12;
+  [v12 registerHandlerForEvent:@"Did finish preparing to load" onState:@"Preparing for loading" withBlock:v41];
+  v39[0] = MEMORY[0x277D85DD0];
+  v39[1] = 3221225472;
+  v39[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_5;
+  v39[3] = &unk_279D7C020;
+  v21 = v10;
+  v40 = v21;
+  [v12 registerHandlerForEvent:@"Disk space purge did complete" onState:@"Purging disk space during initial loading if necessary" withBlock:v39];
+  v37[0] = MEMORY[0x277D85DD0];
+  v37[1] = 3221225472;
+  v37[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_6;
+  v37[3] = &unk_279D7BFD0;
+  objc_copyWeak(&v38, &location);
+  [v12 registerHandlerForEvent:@"AVAsset keys did load successfully" onState:@"Loading AVAsset keys" withBlock:v37];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_8;
+  v35[3] = &unk_279D7BFD0;
+  objc_copyWeak(&v36, &location);
+  [v12 registerHandlerForEvent:@"AVAsset metadata did load successfully" onState:@"Loading AVAsset keys" withBlock:v35];
+  v32[0] = MEMORY[0x277D85DD0];
+  v32[1] = 3221225472;
+  v32[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_9;
+  v32[3] = &unk_279D7CB20;
+  objc_copyWeak(&v34, &location);
   v13 = v12;
-  v34 = v13;
-  [v13 registerHandlerForEvent:@"Prepare for playback initiation" onState:@"AVAsset keys loaded" withBlock:v33];
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_206;
-  v30[3] = &unk_279D7CB20;
-  objc_copyWeak(&v32, &location);
+  v33 = v13;
+  [v13 registerHandlerForEvent:@"Prepare for playback initiation" onState:@"AVAsset keys loaded" withBlock:v32];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_206;
+  v29[3] = &unk_279D7CB20;
+  objc_copyWeak(&v31, &location);
   v14 = v13;
-  v31 = v14;
-  [v14 registerHandlerForEvent:@"Did finish preparing for playback initiation" onState:@"Preparing for playback initiation" withBlock:v30];
-  v64[0] = @"Cleaned up";
-  v64[1] = @"Failed";
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v64 count:2];
+  v30 = v14;
+  [v14 registerHandlerForEvent:@"Did finish preparing for playback initiation" onState:@"Preparing for playback initiation" withBlock:v29];
+  v63[0] = @"Cleaned up";
+  v63[1] = @"Failed";
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:2];
   [v14 registerHandlerForEvent:@"Failure" onStates:v15 withBlock:&__block_literal_global_210];
 
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_5_211;
-  v28[3] = &unk_279D7BFD0;
-  objc_copyWeak(&v29, &location);
-  [v14 registerDefaultHandlerForEvent:@"Failure" withBlock:v28];
-  v25[0] = MEMORY[0x277D85DD0];
-  v25[1] = 3221225472;
-  v25[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_212;
-  v25[3] = &unk_279D7BF58;
-  objc_copyWeak(&v27, &location);
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_5_211;
+  v27[3] = &unk_279D7BFD0;
+  objc_copyWeak(&v28, &location);
+  [v14 registerDefaultHandlerForEvent:@"Failure" withBlock:v27];
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_212;
+  v24[3] = &unk_279D7BF58;
+  objc_copyWeak(&v26, &location);
   v16 = v9;
-  v26 = v16;
-  [v14 registerHandlerForEvent:@"Media services were reset" onState:@"Waiting for media services to reset" withBlock:v25];
-  v63[0] = @"Loading AVAsset keys";
-  v63[1] = @"AVAsset keys loaded";
-  v63[2] = @"Preparing for playback initiation";
-  v63[3] = @"Ready for playback";
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v63 count:4];
+  v25 = v16;
+  [v14 registerHandlerForEvent:@"Media services were reset" onState:@"Waiting for media services to reset" withBlock:v24];
+  v62[0] = @"Loading AVAsset keys";
+  v62[1] = @"AVAsset keys loaded";
+  v62[2] = @"Preparing for playback initiation";
+  v62[3] = @"Ready for playback";
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:4];
   [v14 registerHandlerForEvent:@"Media services were reset" onStates:v17 withBlock:&__block_literal_global_215];
 
-  v62[0] = @"Cleaned up";
-  v62[1] = @"Failed";
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
+  v61[0] = @"Cleaned up";
+  v61[1] = @"Failed";
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
   [v14 registerHandlerForEvent:@"Clean up" onStates:v18 withBlock:&__block_literal_global_219];
 
-  v23[0] = MEMORY[0x277D85DD0];
-  v23[1] = 3221225472;
-  v23[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_3_220;
-  v23[3] = &unk_279D7BFD0;
-  objc_copyWeak(&v24, &location);
-  [v14 registerDefaultHandlerForEvent:@"Clean up" withBlock:v23];
-  objc_destroyWeak(&v24);
+  v22[0] = MEMORY[0x277D85DD0];
+  v22[1] = 3221225472;
+  v22[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_3_220;
+  v22[3] = &unk_279D7BFD0;
+  objc_copyWeak(&v23, &location);
+  [v14 registerDefaultHandlerForEvent:@"Clean up" withBlock:v22];
+  objc_destroyWeak(&v23);
 
-  objc_destroyWeak(&v27);
-  objc_destroyWeak(&v29);
+  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v28);
 
-  objc_destroyWeak(&v32);
-  objc_destroyWeak(&v35);
-  objc_destroyWeak(&v37);
-  objc_destroyWeak(&v39);
+  objc_destroyWeak(&v31);
+  objc_destroyWeak(&v34);
+  objc_destroyWeak(&v36);
+  objc_destroyWeak(&v38);
 
-  objc_destroyWeak(&v45);
-  objc_destroyWeak(&v48);
+  objc_destroyWeak(&v44);
+  objc_destroyWeak(&v47);
 
-  objc_destroyWeak(&v52);
-  objc_destroyWeak(&v56);
+  objc_destroyWeak(&v51);
+  objc_destroyWeak(&v55);
 
-  objc_destroyWeak(&v58);
-  objc_destroyWeak(&v60);
+  objc_destroyWeak(&v57);
+  objc_destroyWeak(&v59);
   objc_destroyWeak(&location);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 __CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke(uint64_t a1)
@@ -933,20 +918,18 @@ __CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_123(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v2 = [WeakRetained stateMachine];
-  v5 = @"success";
-  v6[0] = MEMORY[0x277CBEC38];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
+  v4 = @"success";
+  v5[0] = MEMORY[0x277CBEC38];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
   [v2 postEvent:@"Disk space purge did complete" withContext:0 userInfo:v3];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 id __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [objc_opt_class() removeTemporaryDownloadDirectory];
 
@@ -956,9 +939,9 @@ id __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2(uint64
   v5 = [MEMORY[0x277CCAA00] defaultManager];
   v6 = [v4 URLByDeletingLastPathComponent];
   v7 = [v6 path];
-  v27 = 0;
-  v8 = [v5 attributesOfFileSystemForPath:v7 error:&v27];
-  v9 = v27;
+  v26 = 0;
+  v8 = [v5 attributesOfFileSystemForPath:v7 error:&v26];
+  v9 = v26;
 
   if (v8)
   {
@@ -971,9 +954,9 @@ id __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2(uint64
     if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v29 = v10;
-      v30 = 2112;
-      v31 = v13;
+      v28 = v10;
+      v29 = 2112;
+      v30 = v13;
       _os_log_impl(&dword_26CEDD000, v14, OS_LOG_TYPE_DEFAULT, "Free space is %@, file size is %@", buf, 0x16u);
     }
 
@@ -983,9 +966,9 @@ id __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2(uint64
       if (v15 > [v13 unsignedLongLongValue] + 524288000)
       {
         v16 = [MEMORY[0x277CCAA00] defaultManager];
-        v26 = v9;
-        v17 = [v16 createDirectoryAtURL:v4 withIntermediateDirectories:0 attributes:0 error:&v26];
-        v18 = v26;
+        v25 = v9;
+        v17 = [v16 createDirectoryAtURL:v4 withIntermediateDirectories:0 attributes:0 error:&v25];
+        v18 = v25;
 
         if (v17)
         {
@@ -1050,14 +1033,12 @@ LABEL_18:
   v23 = 0;
 LABEL_19:
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
 __CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_127(uint64_t a1, int a2, int a3)
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v7 = [*(a1 + 32) currentState];
   if (WeakRetained)
@@ -1082,8 +1063,8 @@ __CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke
 
       [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
       v20 = v19;
-      v36 = [WeakRetained timingData];
-      [v36 setStartTimeForLoadingAVAssetKeys:v20];
+      v35 = [WeakRetained timingData];
+      [v35 setStartTimeForLoadingAVAssetKeys:v20];
       v21 = [WeakRetained _avAssetOptions];
       v22 = [WeakRetained mediaItem];
       v23 = [v22 hasTrait:@"TVPMediaItemTraitUseTempDownload"];
@@ -1112,15 +1093,15 @@ __CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke
 
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v53 = 0x2020000000;
-      v54 = 0;
+      v52 = 0x2020000000;
+      v53 = 0;
       if (a2)
       {
         v27 = sMediaItemLoaderLogObject;
         if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
         {
-          *v48 = 0;
-          _os_log_impl(&dword_26CEDD000, v27, OS_LOG_TYPE_DEFAULT, "Disabling AVAssetCache", v48, 2u);
+          *v47 = 0;
+          _os_log_impl(&dword_26CEDD000, v27, OS_LOG_TYPE_DEFAULT, "Disabling AVAssetCache", v47, 2u);
         }
 
         [v21 removeObjectForKey:*MEMORY[0x277CE61F8]];
@@ -1139,26 +1120,26 @@ __CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke
       block[3] = &unk_279D7D9F0;
       p_buf = &buf;
       v30 = WeakRetained;
-      v46 = v30;
+      v45 = v30;
       dispatch_sync(v29, block);
 
       v31 = [v30 assetInternalAccessQueue];
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_135;
-      v37[3] = &unk_279D7DAE0;
-      v43 = &buf;
-      v38 = v30;
-      v39 = v21;
-      v40 = v10;
-      v41 = *(a1 + 32);
-      v42 = v28;
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_135;
+      v36[3] = &unk_279D7DAE0;
+      v42 = &buf;
+      v37 = v30;
+      v38 = v21;
+      v39 = v10;
+      v40 = *(a1 + 32);
+      v41 = v28;
       v32 = v28;
       v33 = v21;
-      objc_copyWeak(&v44, (a1 + 48));
-      dispatch_async(v31, v37);
+      objc_copyWeak(&v43, (a1 + 48));
+      dispatch_async(v31, v36);
 
-      objc_destroyWeak(&v44);
+      objc_destroyWeak(&v43);
       _Block_object_dispose(&buf, 8);
 
       v7 = @"Loading AVAsset keys";
@@ -1172,26 +1153,24 @@ __CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke
       }
 
       v26 = *(a1 + 32);
-      v49[0] = MEMORY[0x277D85DD0];
-      v49[1] = 3221225472;
-      v49[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_128;
-      v49[3] = &unk_279D7BA58;
-      objc_copyWeak(&v51, (a1 + 48));
-      v50 = *(a1 + 32);
-      [v26 executeBlockAfterCurrentStateTransition:v49];
+      v48[0] = MEMORY[0x277D85DD0];
+      v48[1] = 3221225472;
+      v48[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_128;
+      v48[3] = &unk_279D7BA58;
+      objc_copyWeak(&v50, (a1 + 48));
+      v49 = *(a1 + 32);
+      [v26 executeBlockAfterCurrentStateTransition:v48];
 
-      objc_destroyWeak(&v51);
+      objc_destroyWeak(&v50);
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_128(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CCA9B8] errorWithDomain:@"TVPlaybackErrorDomain" code:802 userInfo:0];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v4 = [WeakRetained mediaItem];
@@ -1204,15 +1183,13 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_128(ui
   [v8 addSingleShotEventWithName:TVPPlaybackReportingEventErrorEvent value:TVPPlaybackReportingEventLoadAVAssetKeysTotal];
 
   v9 = *(a1 + 32);
-  v12 = @"error";
-  v13[0] = v2;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = @"error";
+  v12[0] = v2;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   [v9 postEvent:@"Failure" withContext:0 userInfo:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_134(uint64_t a1)
+void *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_134(uint64_t a1)
 {
   result = [*(a1 + 32) assetLoadContext];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1221,48 +1198,48 @@ uint64_t __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_13
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_135(uint64_t a1)
 {
-  v62[2] = *MEMORY[0x277D85DE8];
-  v54 = 0;
-  v55 = &v54;
-  v56 = 0x2020000000;
-  v57 = 0;
+  v61[2] = *MEMORY[0x277D85DE8];
+  v53 = 0;
+  v54 = &v53;
+  v55 = 0x2020000000;
+  v56 = 0;
   v2 = [*(a1 + 32) assetLoadContextAccessQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_3;
   block[3] = &unk_279D7D9F0;
-  v53 = &v54;
-  v52 = *(a1 + 32);
+  v52 = &v53;
+  v51 = *(a1 + 32);
   dispatch_sync(v2, block);
 
-  if (v55[3] != *(*(*(a1 + 72) + 8) + 24))
+  if (v54[3] != *(*(*(a1 + 72) + 8) + 24))
   {
     goto LABEL_46;
   }
 
   v3 = [*(a1 + 40) mutableCopy];
   v4 = *MEMORY[0x277CE6218];
-  v62[0] = *MEMORY[0x277CE6250];
-  v62[1] = v4;
-  [MEMORY[0x277CBEA60] arrayWithObjects:v62 count:2];
+  v61[0] = *MEMORY[0x277CE6250];
+  v61[1] = v4;
+  [MEMORY[0x277CBEA60] arrayWithObjects:v61 count:2];
+  v48 = 0u;
   v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
-  v5 = v48 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v47 objects:v61 count:16];
+  v46 = 0u;
+  v5 = v47 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v46 objects:v60 count:16];
   if (v6)
   {
-    v7 = *v48;
+    v7 = *v47;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v48 != v7)
+        if (*v47 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v47 + 1) + 8 * i);
+        v9 = *(*(&v46 + 1) + 8 * i);
         v10 = [v3 objectForKey:v9];
         v11 = v10 == 0;
 
@@ -1272,7 +1249,7 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_135(
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v47 objects:v61 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v46 objects:v60 count:16];
     }
 
     while (v6);
@@ -1282,7 +1259,7 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_135(
   if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v60 = v3;
+    v59 = v3;
     _os_log_impl(&dword_26CEDD000, v12, OS_LOG_TYPE_DEFAULT, "AVAsset options: %@", buf, 0xCu);
   }
 
@@ -1296,7 +1273,7 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_135(
     if (v16)
     {
       *buf = 138412290;
-      v60 = v14;
+      v59 = v14;
       v17 = "AVURLAssetiTunesStoreContentHLSAssetURLStringKey is present: %@";
       v18 = v15;
       v19 = 12;
@@ -1337,7 +1314,7 @@ LABEL_18:
       {
         v25 = [v23 unsignedLongValue];
         *buf = 134217984;
-        v60 = v25;
+        v59 = v25;
         _os_log_impl(&dword_26CEDD000, v24, OS_LOG_TYPE_DEFAULT, "Asset will be created using download token %lu", buf, 0xCu);
       }
     }
@@ -1347,7 +1324,7 @@ LABEL_18:
     {
       v27 = *(a1 + 48);
       *buf = 138412290;
-      v60 = v27;
+      v59 = v27;
       _os_log_impl(&dword_26CEDD000, v26, OS_LOG_TYPE_DEFAULT, "Creating AVURLAsset for %@", buf, 0xCu);
     }
 
@@ -1357,7 +1334,7 @@ LABEL_18:
     if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v60 = v28;
+      v59 = v28;
       _os_log_impl(&dword_26CEDD000, v29, OS_LOG_TYPE_DEFAULT, "Status of AVAsset key [URL] is %ld", buf, 0xCu);
     }
 
@@ -1380,32 +1357,32 @@ LABEL_18:
       __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_135_cold_2();
     }
 
-    v43[0] = MEMORY[0x277D85DD0];
-    v43[1] = 3221225472;
-    v43[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_143;
-    v43[3] = &unk_279D7BDF0;
-    v44 = v22;
-    v45 = *(a1 + 32);
-    v46 = *(a1 + 56);
-    dispatch_async(MEMORY[0x277D85CD0], v43);
+    v42[0] = MEMORY[0x277D85DD0];
+    v42[1] = 3221225472;
+    v42[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_143;
+    v42[3] = &unk_279D7BDF0;
+    v43 = v22;
+    v44 = *(a1 + 32);
+    v45 = *(a1 + 56);
+    dispatch_async(MEMORY[0x277D85CD0], v42);
 
-    v35 = v44;
+    v35 = v43;
   }
 
   else
   {
-    v58[0] = @"tracks";
-    v58[1] = @"availableMediaCharacteristicsWithMediaSelectionOptions";
-    v58[2] = @"availableChapterLocales";
-    v58[3] = @"duration";
-    v58[4] = @"availableMetadataFormats";
-    v58[5] = @"preferredSoundCheckVolumeNormalization";
-    v58[6] = @"streaming";
-    v58[7] = @"playable";
-    v58[8] = @"availableVideoDynamicRanges";
-    v58[9] = @"maximumVideoResolution";
-    v58[10] = @"metadata";
-    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v58 count:11];
+    v57[0] = @"tracks";
+    v57[1] = @"availableMediaCharacteristicsWithMediaSelectionOptions";
+    v57[2] = @"availableChapterLocales";
+    v57[3] = @"duration";
+    v57[4] = @"availableMetadataFormats";
+    v57[5] = @"preferredSoundCheckVolumeNormalization";
+    v57[6] = @"streaming";
+    v57[7] = @"playable";
+    v57[8] = @"availableVideoDynamicRanges";
+    v57[9] = @"maximumVideoResolution";
+    v57[10] = @"metadata";
+    v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v57 count:11];
     if (!*(a1 + 64))
     {
       v31 = [v20 resourceLoader];
@@ -1416,27 +1393,26 @@ LABEL_18:
     }
 
     [*(a1 + 32) setAVAssetInternal:v20];
-    v37[0] = MEMORY[0x277D85DD0];
-    v37[1] = 3221225472;
-    v37[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_177;
-    v37[3] = &unk_279D7DAB8;
+    v36[0] = MEMORY[0x277D85DD0];
+    v36[1] = 3221225472;
+    v36[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_177;
+    v36[3] = &unk_279D7DAB8;
     v35 = v30;
-    v38 = v35;
-    v39 = v20;
-    objc_copyWeak(&v42, (a1 + 80));
-    v41 = *(a1 + 72);
-    v40 = *(a1 + 56);
-    [v39 loadValuesAsynchronouslyForKeys:v35 completionHandler:v37];
+    v37 = v35;
+    v38 = v20;
+    objc_copyWeak(&v41, (a1 + 80));
+    v40 = *(a1 + 72);
+    v39 = *(a1 + 56);
+    [v38 loadValuesAsynchronouslyForKeys:v35 completionHandler:v36];
 
-    objc_destroyWeak(&v42);
+    objc_destroyWeak(&v41);
   }
 
 LABEL_46:
-  _Block_object_dispose(&v54, 8);
-  v36 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v53, 8);
 }
 
-uint64_t __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_3(uint64_t a1)
+void *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) assetLoadContext];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -1445,7 +1421,7 @@ uint64_t __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_3(
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_143(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (v2)
   {
@@ -1467,53 +1443,51 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_143(ui
   [v8 addSingleShotEventWithName:TVPPlaybackReportingEventErrorEvent value:TVPPlaybackReportingEventLoadAVAssetKeysTotal];
 
   v9 = *(a1 + 48);
-  v12 = @"error";
-  v13[0] = v4;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+  v11 = @"error";
+  v12[0] = v4;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
   [v9 postEvent:@"Failure" withContext:0 userInfo:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_177(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = *(a1 + 32);
-  v2 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v2 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
   v4 = 0;
   v5 = 0;
   if (v2)
   {
-    v6 = *v29;
+    v6 = *v28;
     *&v3 = 138412290;
-    v18 = v3;
+    v17 = v3;
     do
     {
       v7 = 0;
       do
       {
-        if (*v29 != v6)
+        if (*v28 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v28 + 1) + 8 * v7);
+        v8 = *(*(&v27 + 1) + 8 * v7);
         v9 = *(a1 + 40);
-        v27 = v4;
-        v10 = [v9 statusOfValueForKey:v8 error:{&v27, v18}];
-        v11 = v27;
+        v26 = v4;
+        v10 = [v9 statusOfValueForKey:v8 error:{&v26, v17}];
+        v11 = v26;
 
         v12 = sMediaItemLoaderLogObject;
         if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v33 = v8;
-          v34 = 2048;
-          v35 = v10;
+          v32 = v8;
+          v33 = 2048;
+          v34 = v10;
           _os_log_impl(&dword_26CEDD000, v12, OS_LOG_TYPE_DEFAULT, "Status of AVAsset key [%@] is %ld", buf, 0x16u);
         }
 
@@ -1530,8 +1504,8 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_177(
           v13 = sMediaItemLoaderLogObject;
           if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v18;
-            v33 = v8;
+            *buf = v17;
+            v32 = v8;
             _os_log_impl(&dword_26CEDD000, v13, OS_LOG_TYPE_DEFAULT, "Ignoring failure of non-essential key [%@]", buf, 0xCu);
           }
         }
@@ -1545,7 +1519,7 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_177(
       }
 
       while (v2 != v7);
-      v14 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v14 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
       v2 = v14;
     }
 
@@ -1558,52 +1532,51 @@ LABEL_19:
   block[1] = 3221225472;
   block[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_179;
   block[3] = &unk_279D7DA90;
-  objc_copyWeak(v25, (a1 + 64));
-  v26 = v2;
+  objc_copyWeak(v24, (a1 + 64));
+  v25 = v2;
   v15 = *(a1 + 48);
-  v24 = *(a1 + 56);
-  v21 = v4;
-  v22 = v15;
-  v25[1] = v5;
-  v23 = *(a1 + 32);
+  v23 = *(a1 + 56);
+  v20 = v4;
+  v21 = v15;
+  v24[1] = v5;
+  v22 = *(a1 + 32);
   v16 = v4;
   dispatch_async(MEMORY[0x277D85CD0], block);
 
-  objc_destroyWeak(v25);
-  v17 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(v24);
 }
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_179(uint64_t a1)
 {
-  v26[1] = *MEMORY[0x277D85DE8];
+  v25[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v3 = WeakRetained;
   if (WeakRetained)
   {
     *buf = 0;
-    v22 = buf;
-    v23 = 0x2020000000;
-    v24 = 0;
+    v21 = buf;
+    v22 = 0x2020000000;
+    v23 = 0;
     v4 = [WeakRetained assetLoadContextAccessQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_180;
     block[3] = &unk_279D7D9F0;
-    v20 = buf;
+    v19 = buf;
     v5 = v3;
-    v19 = v5;
+    v18 = v5;
     dispatch_sync(v4, block);
 
-    if (*(v22 + 3) == *(*(*(a1 + 56) + 8) + 24))
+    if (*(v21 + 3) == *(*(*(a1 + 56) + 8) + 24))
     {
       if (*(a1 + 80) == 1)
       {
         v6 = *(a1 + 32);
         if (v6)
         {
-          v25 = @"error";
-          v26[0] = v6;
-          v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+          v24 = @"error";
+          v25[0] = v6;
+          v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
         }
 
         else
@@ -1636,7 +1609,7 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_179(ui
         goto LABEL_17;
       }
 
-      *v17 = 0;
+      *v16 = 0;
       v10 = "Not posting any event because AVAsset key loading is still in progress or cancelled";
     }
 
@@ -1651,11 +1624,11 @@ LABEL_17:
         goto LABEL_18;
       }
 
-      *v17 = 0;
+      *v16 = 0;
       v10 = "AVAsset key load completion is from previous attempt, ignoring";
     }
 
-    _os_log_impl(&dword_26CEDD000, v9, OS_LOG_TYPE_DEFAULT, v10, v17, 2u);
+    _os_log_impl(&dword_26CEDD000, v9, OS_LOG_TYPE_DEFAULT, v10, v16, 2u);
     goto LABEL_17;
   }
 
@@ -1667,18 +1640,16 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_180(uint64_t a1)
+void *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_180(uint64_t a1)
 {
   result = [*(a1 + 32) assetLoadContext];
   *(*(*(a1 + 40) + 8) + 24) = result;
   return result;
 }
 
-id __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_182(uint64_t a1, uint64_t a2)
+__CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_182(uint64_t a1, uint64_t a2)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = [*(a1 + 32) currentState];
@@ -1729,7 +1700,7 @@ id __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_182(uint
 
 __CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_185(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained mediaItem];
   v4 = [v3 mediaItemMetadataForProperty:@"TVPMediaItemPlaybackReportingEventCollection"];
@@ -1758,40 +1729,39 @@ __CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke
     if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = v10;
+      v24 = v10;
       _os_log_impl(&dword_26CEDD000, v13, OS_LOG_TYPE_DEFAULT, "Calling prepareForLoadingWithCompletion for mediaItem %@", buf, 0xCu);
     }
 
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_189;
-    v21[3] = &unk_279D7DBA8;
-    v14 = &v22;
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_189;
+    v20[3] = &unk_279D7DBA8;
+    v14 = &v21;
     v15 = v10;
-    v22 = v15;
-    v23 = *(a1 + 32);
-    [v15 prepareForLoadingWithCompletion:v21];
+    v21 = v15;
+    v22 = *(a1 + 32);
+    [v15 prepareForLoadingWithCompletion:v20];
   }
 
   else
   {
     v16 = *(a1 + 32);
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_199;
-    v19[3] = &unk_279D7BDC8;
-    v14 = &v20;
-    v20 = v16;
-    [v20 executeBlockAfterCurrentStateTransition:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_199;
+    v18[3] = &unk_279D7BDC8;
+    v14 = &v19;
+    v19 = v16;
+    [v19 executeBlockAfterCurrentStateTransition:v18];
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return @"Preparing for loading";
 }
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_189(uint64_t a1, int a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = sMediaItemLoaderLogObject;
   if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
@@ -1804,26 +1774,24 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_189(ui
       v8 = @"YES";
     }
 
-    v17 = v7;
-    v18 = 2112;
-    v19 = v8;
-    v20 = 2112;
-    v21 = v5;
+    v16 = v7;
+    v17 = 2112;
+    v18 = v8;
+    v19 = 2112;
+    v20 = v5;
     _os_log_impl(&dword_26CEDD000, v6, OS_LOG_TYPE_DEFAULT, "prepareForLoadingWithCompletion callback received for mediaItem %@.  Success is %@, error is %@", buf, 0x20u);
   }
 
   v9 = *(a1 + 40);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_196;
-  v12[3] = &unk_279D7DB80;
-  v15 = a2;
-  v13 = v5;
-  v14 = v9;
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_196;
+  v11[3] = &unk_279D7DB80;
+  v14 = a2;
+  v12 = v5;
+  v13 = v9;
   v10 = v5;
-  [v9 executeBlockAfterCurrentStateTransition:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [v9 executeBlockAfterCurrentStateTransition:v11];
 }
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_196(uint64_t a1)
@@ -1838,14 +1806,12 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_196(ui
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_199(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v4 = @"success";
-  v5[0] = MEMORY[0x277CBEC38];
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v3 = @"success";
+  v4[0] = MEMORY[0x277CBEC38];
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
   [v1 postEvent:@"Did finish preparing to load" withContext:0 userInfo:v2];
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 id __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_3_201(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
@@ -1890,15 +1856,15 @@ id __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_3_201(ui
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_4(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) objectForKey:@"error"];
   v3 = v2;
   v4 = *(a1 + 40);
   if (v2)
   {
-    v7 = @"error";
-    v8[0] = v2;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v6 = @"error";
+    v7[0] = v2;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     [v4 postEvent:@"Failure" withContext:0 userInfo:v5];
   }
 
@@ -1906,8 +1872,6 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_4(uint
   {
     [v4 postEvent:@"Failure" withContext:0 userInfo:0];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 __CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_6(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
@@ -2003,7 +1967,7 @@ __CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke
 
 __CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_9(uint64_t a1, void *a2, void *a3, void *a4, void *a5)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a3;
   v11 = a4;
@@ -2030,9 +1994,9 @@ __CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke
   block[1] = 3221225472;
   block[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_10;
   block[3] = &unk_279D7BA58;
-  objc_copyWeak(&v37, (a1 + 40));
+  objc_copyWeak(&v36, (a1 + 40));
   v24 = v21;
-  v36 = v24;
+  v35 = v24;
   dispatch_sync(v23, block);
 
   if (objc_opt_respondsToSelector())
@@ -2041,35 +2005,34 @@ __CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke
     if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v39 = v17;
+      v38 = v17;
       _os_log_impl(&dword_26CEDD000, v25, OS_LOG_TYPE_DEFAULT, "Calling prepareForPlaybackInitiationWithCompletion for mediaItem %@", buf, 0xCu);
     }
 
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_204;
-    v32[3] = &unk_279D7DBA8;
-    v33 = v17;
-    v34 = *(a1 + 32);
-    [v33 prepareForPlaybackInitiationWithCompletion:v32];
+    v31[0] = MEMORY[0x277D85DD0];
+    v31[1] = 3221225472;
+    v31[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_204;
+    v31[3] = &unk_279D7DBA8;
+    v32 = v17;
+    v33 = *(a1 + 32);
+    [v32 prepareForPlaybackInitiationWithCompletion:v31];
 
-    v26 = &v33;
+    v26 = &v32;
   }
 
   else
   {
     v27 = *(a1 + 32);
-    v30[0] = MEMORY[0x277D85DD0];
-    v30[1] = 3221225472;
-    v30[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_205;
-    v30[3] = &unk_279D7BDC8;
-    v31 = v27;
-    [v31 executeBlockAfterCurrentStateTransition:v30];
-    v26 = &v31;
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_205;
+    v29[3] = &unk_279D7BDC8;
+    v30 = v27;
+    [v30 executeBlockAfterCurrentStateTransition:v29];
+    v26 = &v30;
   }
 
-  objc_destroyWeak(&v37);
-  v28 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v36);
   return @"Preparing for playback initiation";
 }
 
@@ -2081,25 +2044,25 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_10(uin
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_204(uint64_t a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = sMediaItemLoaderLogObject;
   if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *(a1 + 32);
     v8 = @"NO";
-    v12 = 138412802;
+    v11 = 138412802;
     if (a2)
     {
       v8 = @"YES";
     }
 
-    v13 = v7;
-    v14 = 2112;
-    v15 = v8;
-    v16 = 2112;
-    v17 = v5;
-    _os_log_impl(&dword_26CEDD000, v6, OS_LOG_TYPE_DEFAULT, "prepareForPlaybackInitiationWithCompletion callback received for mediaItem %@.  Success is %@, error is %@", &v12, 0x20u);
+    v12 = v7;
+    v13 = 2112;
+    v14 = v8;
+    v15 = 2112;
+    v16 = v5;
+    _os_log_impl(&dword_26CEDD000, v6, OS_LOG_TYPE_DEFAULT, "prepareForPlaybackInitiationWithCompletion callback received for mediaItem %@.  Success is %@, error is %@", &v11, 0x20u);
   }
 
   v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -2108,20 +2071,16 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_204(ui
 
   [v9 tvp_setObjectIfNotNil:v5 forKey:@"error"];
   [*(a1 + 40) postEvent:@"Did finish preparing for playback initiation" withContext:0 userInfo:v9];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_205(uint64_t a1)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
-  v4 = @"success";
-  v5[0] = MEMORY[0x277CBEC38];
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1];
+  v3 = @"success";
+  v4[0] = MEMORY[0x277CBEC38];
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1];
   [v1 postEvent:@"Did finish preparing for playback initiation" withContext:0 userInfo:v2];
-
-  v3 = *MEMORY[0x277D85DE8];
 }
 
 __CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_206(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5)
@@ -2165,15 +2124,15 @@ __CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_3_207(uint64_t a1)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) objectForKey:@"error"];
   v3 = v2;
   v4 = *(a1 + 40);
   if (v2)
   {
-    v7 = @"error";
-    v8[0] = v2;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v6 = @"error";
+    v7[0] = v2;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     [v4 postEvent:@"Failure" withContext:0 userInfo:v5];
   }
 
@@ -2181,13 +2140,11 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_3_207(
   {
     [v4 postEvent:@"Failure" withContext:0 userInfo:0];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 __CFString *__51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_5_211(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v6 = [a5 objectForKey:@"error"];
+  v6 = [a5 objectForKey:{@"error", a4}];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained setError:v6];
 
@@ -2225,7 +2182,7 @@ id __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_212(uint
 
 id __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_213(uint64_t a1, void *a2)
 {
-  v20[1] = *MEMORY[0x277D85DE8];
+  v19[1] = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = sMediaItemLoaderLogObject;
   if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
@@ -2234,24 +2191,22 @@ id __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_213(uint
     _os_log_impl(&dword_26CEDD000, v3, OS_LOG_TYPE_DEFAULT, "Media services were reset while using AVFoundation objects.  Posting failure event", buf, 2u);
   }
 
-  v19 = @"error";
+  v18 = @"error";
   v4 = objc_alloc(MEMORY[0x277CCA9B8]);
   v5 = [v4 initWithDomain:*MEMORY[0x277CE5DC0] code:-11819 userInfo:0];
-  v20[0] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+  v19[0] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
 
-  v12 = MEMORY[0x277D85DD0];
-  v13 = 3221225472;
-  v14 = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_216;
-  v15 = &unk_279D7BC20;
-  v16 = v2;
-  v17 = v6;
+  v11 = MEMORY[0x277D85DD0];
+  v12 = 3221225472;
+  v13 = __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_216;
+  v14 = &unk_279D7BC20;
+  v15 = v2;
+  v16 = v6;
   v7 = v6;
   v8 = v2;
-  [v8 executeBlockAfterCurrentStateTransition:&v12];
+  [v8 executeBlockAfterCurrentStateTransition:&v11];
   v9 = [v8 currentState];
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -2348,7 +2303,7 @@ LABEL_14:
 
 - (id)_avAssetOptions
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   if (_avAssetOptions_onceToken != -1)
   {
     [TVPMediaItemLoader _avAssetOptions];
@@ -2357,25 +2312,25 @@ LABEL_14:
   mediaItem = [(TVPMediaItemLoader *)self mediaItem];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v5 = _avAssetOptions_metadataKeysToAVAssetKeysMappings;
-  v52[0] = MEMORY[0x277D85DD0];
-  v52[1] = 3221225472;
-  v52[2] = __37__TVPMediaItemLoader__avAssetOptions__block_invoke_2;
-  v52[3] = &unk_279D7DBD0;
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __37__TVPMediaItemLoader__avAssetOptions__block_invoke_2;
+  v51[3] = &unk_279D7DBD0;
   v6 = mediaItem;
-  v53 = v6;
+  v52 = v6;
   v7 = dictionary;
-  v54 = v7;
-  [v5 enumerateKeysAndObjectsUsingBlock:v52];
+  v53 = v7;
+  [v5 enumerateKeysAndObjectsUsingBlock:v51];
   v8 = _avAssetOptions_traitsKeysToAVAssetKeysMappings;
-  v49[0] = MEMORY[0x277D85DD0];
-  v49[1] = 3221225472;
-  v49[2] = __37__TVPMediaItemLoader__avAssetOptions__block_invoke_3;
-  v49[3] = &unk_279D7DBD0;
+  v48[0] = MEMORY[0x277D85DD0];
+  v48[1] = 3221225472;
+  v48[2] = __37__TVPMediaItemLoader__avAssetOptions__block_invoke_3;
+  v48[3] = &unk_279D7DBD0;
   v9 = v6;
-  v50 = v9;
+  v49 = v9;
   v10 = v7;
-  v51 = v10;
-  [v8 enumerateKeysAndObjectsUsingBlock:v49];
+  v50 = v10;
+  [v8 enumerateKeysAndObjectsUsingBlock:v48];
   v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v12 = [v9 mediaItemMetadataForProperty:@"TVPMediaItemMetadataAVURLAssetAlternativeConfigurationOptions"];
   v13 = [v9 mediaItemMetadataForProperty:@"TVPMediaItemMetadataServiceIdentifier"];
@@ -2383,7 +2338,7 @@ LABEL_14:
   v15 = [v9 mediaItemMetadataForProperty:@"TVPMediaItemMetadataRTCChildHierarchyToken"];
   v16 = sMediaItemLoaderLogObject;
   v17 = os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT);
-  v45 = v14;
+  v44 = v14;
   if (v15)
   {
     if (v17)
@@ -2406,17 +2361,17 @@ LABEL_14:
     {
       v19 = [MEMORY[0x277D43FE0] newHierarchyTokenFromParentToken:v18];
       mediaItem2 = [(TVPMediaItemLoader *)self mediaItem];
-      v46[0] = MEMORY[0x277D85DD0];
-      v46[1] = 3221225472;
-      v46[2] = __37__TVPMediaItemLoader__avAssetOptions__block_invoke_277;
-      v46[3] = &unk_279D7BDF0;
-      v46[4] = self;
-      v47 = v18;
+      v45[0] = MEMORY[0x277D85DD0];
+      v45[1] = 3221225472;
+      v45[2] = __37__TVPMediaItemLoader__avAssetOptions__block_invoke_277;
+      v45[3] = &unk_279D7BDF0;
+      v45[4] = self;
+      v46 = v18;
       v15 = v19;
-      v48 = v15;
-      [mediaItem2 performMediaItemMetadataTransactionWithBlock:v46];
+      v47 = v15;
+      [mediaItem2 performMediaItemMetadataTransactionWithBlock:v45];
 
-      v14 = v45;
+      v14 = v44;
     }
 
     else
@@ -2429,7 +2384,7 @@ LABEL_14:
   if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v56 = v15;
+    v55 = v15;
     _os_log_impl(&dword_26CEDD000, v21, OS_LOG_TYPE_DEFAULT, "RTC hierarchy token for AVAsset: %@", buf, 0xCu);
   }
 
@@ -2496,7 +2451,7 @@ LABEL_14:
     }
 
     *buf = 138412290;
-    v56 = v29;
+    v55 = v29;
     _os_log_impl(&dword_26CEDD000, v28, OS_LOG_TYPE_DEFAULT, "Cellular usage is %@allowed for this media item loader", buf, 0xCu);
   }
 
@@ -2513,7 +2468,7 @@ LABEL_14:
       }
 
       *buf = 138412290;
-      v56 = v32;
+      v55 = v32;
       _os_log_impl(&dword_26CEDD000, v31, OS_LOG_TYPE_DEFAULT, "Cellular usage is %@prohibited for this media item", buf, 0xCu);
     }
 
@@ -2534,7 +2489,7 @@ LABEL_14:
     }
 
     *buf = 138412290;
-    v56 = v34;
+    v55 = v34;
     _os_log_impl(&dword_26CEDD000, v33, OS_LOG_TYPE_DEFAULT, "%@ cellular playback of this media item", buf, 0xCu);
   }
 
@@ -2552,7 +2507,7 @@ LABEL_14:
     }
 
     *buf = 138412290;
-    v56 = v38;
+    v55 = v38;
     _os_log_impl(&dword_26CEDD000, v37, OS_LOG_TYPE_DEFAULT, "Cellular usage is %@allowed for this media item loader", buf, 0xCu);
   }
 
@@ -2566,7 +2521,7 @@ LABEL_14:
     }
 
     *buf = 138412290;
-    v56 = v40;
+    v55 = v40;
     _os_log_impl(&dword_26CEDD000, v39, OS_LOG_TYPE_DEFAULT, "%@ constrained network playback of this media item", buf, 0xCu);
   }
 
@@ -2574,47 +2529,44 @@ LABEL_14:
   [v10 setObject:v41 forKey:*MEMORY[0x277CE61C0]];
 
   v42 = v10;
-  v43 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 void __37__TVPMediaItemLoader__avAssetOptions__block_invoke()
 {
-  v13[9] = *MEMORY[0x277D85DE8];
+  v12[9] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CE6250];
-  v12[0] = @"TVPMediaItemMetadataAcquisitionDictionary";
-  v12[1] = @"TVPMediaItemMetadataKeyBagPathFileURL";
+  v11[0] = @"TVPMediaItemMetadataAcquisitionDictionary";
+  v11[1] = @"TVPMediaItemMetadataKeyBagPathFileURL";
   v1 = *MEMORY[0x277CE6248];
-  v13[0] = v0;
-  v13[1] = v1;
+  v12[0] = v0;
+  v12[1] = v1;
   v2 = *MEMORY[0x277CE6280];
-  v12[2] = @"TVPMediaItemMetadataAllowAppleWirelessDirectLink";
-  v12[3] = @"TVPMediaItemMetadataAirPlayAuthorizationInfo";
+  v11[2] = @"TVPMediaItemMetadataAllowAppleWirelessDirectLink";
+  v11[3] = @"TVPMediaItemMetadataAirPlayAuthorizationInfo";
   v3 = *MEMORY[0x277CE61B0];
-  v13[2] = v2;
-  v13[3] = v3;
+  v12[2] = v2;
+  v12[3] = v3;
   v4 = *MEMORY[0x277CE6268];
-  v12[4] = @"TVPMediaItemMetadataSSLProperties";
-  v12[5] = @"TVPMediaItemMetadataOutOfBandAlternateTracks";
+  v11[4] = @"TVPMediaItemMetadataSSLProperties";
+  v11[5] = @"TVPMediaItemMetadataOutOfBandAlternateTracks";
   v5 = *MEMORY[0x277CE6238];
-  v13[4] = v4;
-  v13[5] = v5;
+  v12[4] = v4;
+  v12[5] = v5;
   v6 = *MEMORY[0x277CE6220];
-  v12[6] = @"TVPMediaItemMetadataHTTPHeaders";
-  v12[7] = @"TVPMediaItemMetadataDownloadToken";
+  v11[6] = @"TVPMediaItemMetadataHTTPHeaders";
+  v11[7] = @"TVPMediaItemMetadataDownloadToken";
   v7 = *MEMORY[0x277CE6210];
-  v13[6] = v6;
-  v13[7] = v7;
-  v12[8] = @"TVPMediaItemMetadataDownloadDestinationURL";
-  v13[8] = *MEMORY[0x277CE6208];
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:9];
+  v12[6] = v6;
+  v12[7] = v7;
+  v11[8] = @"TVPMediaItemMetadataDownloadDestinationURL";
+  v12[8] = *MEMORY[0x277CE6208];
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:9];
   v9 = _avAssetOptions_metadataKeysToAVAssetKeysMappings;
   _avAssetOptions_metadataKeysToAVAssetKeysMappings = v8;
 
   v10 = _avAssetOptions_traitsKeysToAVAssetKeysMappings;
   _avAssetOptions_traitsKeysToAVAssetKeysMappings = MEMORY[0x277CBEC10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __37__TVPMediaItemLoader__avAssetOptions__block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -2647,62 +2599,60 @@ void __37__TVPMediaItemLoader__avAssetOptions__block_invoke_277(uint64_t a1)
 
 - (void)_tvpMediaServicesWereReset:(id)reset
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v4 = sMediaItemLoaderLogObject;
   if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
+    v6 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_26CEDD000, v4, OS_LOG_TYPE_DEFAULT, "%@ received TVPMediaItemLoaderMediaServicesWereResetNotification", &v7, 0xCu);
+    _os_log_impl(&dword_26CEDD000, v4, OS_LOG_TYPE_DEFAULT, "%@ received TVPMediaItemLoaderMediaServicesWereResetNotification", &v6, 0xCu);
   }
 
   stateMachine = [(TVPMediaItemLoader *)self stateMachine];
   [stateMachine postEvent:@"Media services were reset"];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_needToLoadBlockingMetadataKeys
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__3;
-  v25 = __Block_byref_object_dispose__3;
-  v26 = 0;
+  v29 = *MEMORY[0x277D85DE8];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy__3;
+  v24 = __Block_byref_object_dispose__3;
+  v25 = 0;
   assetInternalAccessQueue = [(TVPMediaItemLoader *)self assetInternalAccessQueue];
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __53__TVPMediaItemLoader__needToLoadBlockingMetadataKeys__block_invoke;
   block[3] = &unk_279D7D9F0;
   block[4] = self;
-  block[5] = &v21;
+  block[5] = &v20;
   dispatch_sync(assetInternalAccessQueue, block);
 
-  v4 = v22[5];
+  v4 = v21[5];
   if (v4 && [v4 statusOfValueForKey:@"metadata" error:0] == 2)
   {
     _metadataKeysToLoad = [(TVPMediaItemLoader *)self _metadataKeysToLoad];
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
-    metadata = [v22[5] metadata];
-    v7 = [metadata countByEnumeratingWithState:&v16 objects:v29 count:16];
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    metadata = [v21[5] metadata];
+    v7 = [metadata countByEnumeratingWithState:&v15 objects:v28 count:16];
     if (v7)
     {
-      v8 = *v17;
+      v8 = *v16;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(metadata);
           }
 
-          v10 = [*(*(&v16 + 1) + 8 * i) key];
+          v10 = [*(*(&v15 + 1) + 8 * i) key];
           v11 = [_metadataKeysToLoad containsObject:v10];
 
           if (v11)
@@ -2712,7 +2662,7 @@ void __37__TVPMediaItemLoader__avAssetOptions__block_invoke_277(uint64_t a1)
           }
         }
 
-        v7 = [metadata countByEnumeratingWithState:&v16 objects:v29 count:16];
+        v7 = [metadata countByEnumeratingWithState:&v15 objects:v28 count:16];
         if (v7)
         {
           continue;
@@ -2740,22 +2690,18 @@ LABEL_14:
     }
 
     *buf = 138412290;
-    v28 = v13;
+    v27 = v13;
     _os_log_impl(&dword_26CEDD000, v12, OS_LOG_TYPE_DEFAULT, "Need to load metadata keys = %@", buf, 0xCu);
   }
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v20, 8);
 
-  v14 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 uint64_t __53__TVPMediaItemLoader__needToLoadBlockingMetadataKeys__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) AVAssetInternal];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) AVAssetInternal];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -2944,113 +2890,111 @@ uint64_t __53__TVPMediaItemLoader__needToLoadBlockingMetadataKeys__block_invoke(
 
 - (id)_contentKeyRequestParamsFromBase64String:(id)string
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   stringCopy = string;
-  v37 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v34 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ([stringCopy length])
   {
     v4 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:stringCopy options:1];
     if ([v4 length])
     {
-      v56 = 0;
-      v5 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v4 options:0 error:&v56];
-      v6 = v56;
+      v53 = 0;
+      v5 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v4 options:0 error:&v53];
+      v6 = v53;
       if (v5)
       {
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v32 = v6;
-          v33 = v5;
-          v34 = v4;
-          v35 = stringCopy;
+          v29 = v6;
+          v30 = v5;
+          v31 = v4;
+          v32 = stringCopy;
+          v49 = 0u;
+          v50 = 0u;
+          v51 = 0u;
           v52 = 0u;
-          v53 = 0u;
-          v54 = 0u;
-          v55 = 0u;
           obj = v5;
-          v7 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+          v7 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
           if (!v7)
           {
             goto LABEL_36;
           }
 
           v8 = v7;
-          v9 = 0x277CBE000uLL;
-          v10 = *v53;
-          v36 = *v53;
+          v9 = *v50;
+          v33 = *v50;
           while (1)
           {
-            v11 = 0;
-            v38 = v8;
+            v10 = 0;
+            v35 = v8;
             do
             {
-              if (*v53 != v10)
+              if (*v50 != v9)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v12 = *(*(&v52 + 1) + 8 * v11);
-              v13 = *(v9 + 2752);
+              v11 = *(*(&v49 + 1) + 8 * v10);
               objc_opt_class();
               if ((objc_opt_isKindOfClass() & 1) == 0)
               {
                 if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_ERROR))
                 {
-                  [(TVPMediaItemLoader *)&v44 _contentKeyRequestParamsFromBase64String:v45];
+                  [(TVPMediaItemLoader *)&v41 _contentKeyRequestParamsFromBase64String:v42];
                 }
 
                 goto LABEL_34;
               }
 
-              v14 = v12;
-              v15 = [v14 tvp_stringForKey:@"uri"];
-              v16 = [v14 tvp_arrayForKey:@"keyformatversion"];
-              if (![v15 length])
+              v12 = v11;
+              v13 = [v12 tvp_stringForKey:@"uri"];
+              v14 = [v12 tvp_arrayForKey:@"keyformatversion"];
+              if (![v13 length])
               {
                 goto LABEL_31;
               }
 
-              v43 = v14;
-              v17 = objc_alloc_init(TVPContentKeyRequestParams);
-              v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
-              v40 = v17;
-              v42 = v15;
-              [(TVPContentKeyRequestParams *)v17 setKeyIdentifier:v15];
-              v50 = 0u;
-              v51 = 0u;
+              v40 = v12;
+              v15 = objc_alloc_init(TVPContentKeyRequestParams);
+              v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+              v37 = v15;
+              v39 = v13;
+              [(TVPContentKeyRequestParams *)v15 setKeyIdentifier:v13];
+              v47 = 0u;
               v48 = 0u;
-              v49 = 0u;
-              v41 = v16;
-              v19 = v16;
-              v20 = [v19 countByEnumeratingWithState:&v48 objects:v57 count:16];
-              if (!v20)
+              v45 = 0u;
+              v46 = 0u;
+              v38 = v14;
+              v17 = v14;
+              v18 = [v17 countByEnumeratingWithState:&v45 objects:v54 count:16];
+              if (!v18)
               {
                 goto LABEL_28;
               }
 
-              v21 = v20;
-              v22 = *v49;
+              v19 = v18;
+              v20 = *v46;
               do
               {
-                v23 = 0;
+                v21 = 0;
                 do
                 {
-                  if (*v49 != v22)
+                  if (*v46 != v20)
                   {
-                    objc_enumerationMutation(v19);
+                    objc_enumerationMutation(v17);
                   }
 
-                  v24 = *(*(&v48 + 1) + 8 * v23);
+                  v22 = *(*(&v45 + 1) + 8 * v21);
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v25 = v24;
+                    v23 = v22;
 LABEL_22:
-                    v27 = v25;
-                    if (v25)
+                    v25 = v23;
+                    if (v23)
                     {
-                      [v18 addObject:v25];
+                      [v16 addObject:v23];
                     }
 
                     goto LABEL_26;
@@ -3059,61 +3003,60 @@ LABEL_22:
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    integerValue = [v24 integerValue];
+                    integerValue = [v22 integerValue];
                     if (integerValue < 1)
                     {
                       goto LABEL_26;
                     }
 
-                    v25 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
+                    v23 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
                     goto LABEL_22;
                   }
 
                   if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_ERROR))
                   {
-                    [(TVPMediaItemLoader *)&v46 _contentKeyRequestParamsFromBase64String:v47];
+                    [(TVPMediaItemLoader *)&v43 _contentKeyRequestParamsFromBase64String:v44];
                   }
 
 LABEL_26:
-                  ++v23;
+                  ++v21;
                 }
 
-                while (v21 != v23);
-                v21 = [v19 countByEnumeratingWithState:&v48 objects:v57 count:16];
+                while (v19 != v21);
+                v19 = [v17 countByEnumeratingWithState:&v45 objects:v54 count:16];
               }
 
-              while (v21);
+              while (v19);
 LABEL_28:
 
-              if ([v18 count])
+              if ([v16 count])
               {
-                [(TVPContentKeyRequestParams *)v40 setKeyFormatVersions:v18];
+                [(TVPContentKeyRequestParams *)v37 setKeyFormatVersions:v16];
               }
 
-              [v37 addObject:{v40, v32, v33, v34, v35}];
+              [v34 addObject:{v37, v29, v30, v31, v32}];
 
-              v9 = 0x277CBE000;
-              v10 = v36;
-              v8 = v38;
-              v15 = v42;
-              v14 = v43;
-              v16 = v41;
+              v9 = v33;
+              v8 = v35;
+              v13 = v39;
+              v12 = v40;
+              v14 = v38;
 LABEL_31:
 
 LABEL_34:
-              ++v11;
+              ++v10;
             }
 
-            while (v11 != v8);
-            v8 = [obj countByEnumeratingWithState:&v52 objects:v58 count:16];
+            while (v10 != v8);
+            v8 = [obj countByEnumeratingWithState:&v49 objects:v55 count:16];
             if (!v8)
             {
 LABEL_36:
 
-              v4 = v34;
-              stringCopy = v35;
-              v6 = v32;
-              v5 = v33;
+              v4 = v31;
+              stringCopy = v32;
+              v6 = v29;
+              v5 = v30;
               goto LABEL_41;
             }
           }
@@ -3134,20 +3077,19 @@ LABEL_41:
     }
   }
 
-  if ([v37 count])
+  if ([v34 count])
   {
-    v28 = v37;
+    v26 = v34;
   }
 
   else
   {
-    v28 = 0;
+    v26 = 0;
   }
 
-  v29 = v28;
+  v27 = v26;
 
-  v30 = *MEMORY[0x277D85DE8];
-  return v28;
+  return v26;
 }
 
 - (void)_loadMediaItemMetadataAsynchronously
@@ -3263,38 +3205,38 @@ void __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke
 
 void __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = sMediaItemLoaderLogObject;
   if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v32 = v6;
+    v31 = v6;
     _os_log_impl(&dword_26CEDD000, v7, OS_LOG_TYPE_DEFAULT, "Will load AVAsset metadata keys = %@", buf, 0xCu);
   }
 
-  v27 = 0u;
-  v28 = 0u;
-  v25 = 0u;
   v26 = 0u;
+  v27 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v8 = v5;
-  v9 = [v8 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v24 objects:v29 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v26;
-    v20 = v22;
+    v11 = *v25;
+    v19 = v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v26 != v11)
+        if (*v25 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * i);
+        v13 = *(*(&v24 + 1) + 8 * i);
         v14 = [v13 key];
         if ([v6 containsObject:v14])
         {
@@ -3307,49 +3249,46 @@ void __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke
             v17 = [v13 identifier];
             [v16 setObject:v17 forKey:v14];
 
-            v29 = @"value";
-            v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
-            v21[0] = MEMORY[0x277D85DD0];
-            v21[1] = 3221225472;
-            v22[0] = __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke_499;
-            v22[1] = &unk_279D7BDF0;
-            v22[2] = v13;
-            v23 = v14;
-            v24 = *(a1 + 32);
-            [v13 loadValuesAsynchronouslyForKeys:v18 completionHandler:v21];
+            v28 = @"value";
+            v18 = [MEMORY[0x277CBEA60] arrayWithObjects:&v28 count:1];
+            v20[0] = MEMORY[0x277D85DD0];
+            v20[1] = 3221225472;
+            v21[0] = __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke_499;
+            v21[1] = &unk_279D7BDF0;
+            v21[2] = v13;
+            v22 = v14;
+            v23 = *(a1 + 32);
+            [v13 loadValuesAsynchronouslyForKeys:v18 completionHandler:v20];
           }
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v25 objects:v30 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v24 objects:v29 count:16];
     }
 
     while (v10);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke_499(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) statusOfValueForKey:@"value" error:0];
   v3 = sMediaItemLoaderLogObject;
   if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
-    v6 = 138412546;
-    v7 = v4;
-    v8 = 2048;
-    v9 = v2;
-    _os_log_impl(&dword_26CEDD000, v3, OS_LOG_TYPE_DEFAULT, "Status of AVAsset Metadata key [%@] is = %ld", &v6, 0x16u);
+    v5 = 138412546;
+    v6 = v4;
+    v7 = 2048;
+    v8 = v2;
+    _os_log_impl(&dword_26CEDD000, v3, OS_LOG_TYPE_DEFAULT, "Status of AVAsset Metadata key [%@] is = %ld", &v5, 0x16u);
   }
 
   dispatch_group_leave(*(a1 + 48));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke_501(uint64_t a1)
+void *__58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke_501(uint64_t a1)
 {
   result = [*(a1 + 32) assetLoadContext];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -3358,85 +3297,85 @@ uint64_t __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_in
 
 void __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke_502(uint64_t a1)
 {
-  v139 = *MEMORY[0x277D85DE8];
+  v137 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 88));
-  v72 = [WeakRetained _stringValueForKey:@"com.apple.hls.feature.adam-id" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v71 = [WeakRetained _numberValueForKey:@"com.apple.hls.up-next.start" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v70 = [WeakRetained _numberValueForKey:@"com.apple.hls.watched.time" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v69 = [WeakRetained _numberValueForKey:@"com.apple.hls.pre-roll.duration" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v68 = [WeakRetained _numberValueForKey:@"com.apple.hls.feature.duration" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v67 = [WeakRetained _stringValueForKey:@"com.apple.hls.rating-image" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v65 = [WeakRetained _stringValueForKey:@"com.apple.hls.display-ratings-overlay" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v63 = [WeakRetained _stringValueForKey:@"com.apple.hls.title" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v61 = [WeakRetained _stringValueForKey:@"com.apple.hls.episode-title" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v45 = [WeakRetained _stringValueForKey:@"com.apple.hls.description" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v43 = [WeakRetained _stringValueForKey:@"com.apple.hls.genre" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v41 = [WeakRetained _stringValueForKey:@"com.apple.hls.rating-tag" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v39 = [WeakRetained _stringValueForKey:@"com.apple.hls.rating-system" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v59 = [WeakRetained _stringValueForKey:@"com.apple.hls.photosensitivity-info.text" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v58 = [WeakRetained _stringValueForKey:@"com.apple.hls.photosensitivity-info.image" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v57 = [WeakRetained _numberValueForKey:@"com.apple.hls.photosensitivity-info.duration" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v55 = [WeakRetained _stringValueForKey:@"com.apple.hls.high-motion-info.text" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v53 = [WeakRetained _stringValueForKey:@"com.apple.hls.high-motion-info.image" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v51 = [WeakRetained _numberValueForKey:@"com.apple.hls.high-motion-info.duration" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v37 = [WeakRetained _numberValueForKey:@"com.apple.hls.cs-rating" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v35 = [WeakRetained _stringValueForKey:@"com.apple.hls.rt-rating" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v33 = [WeakRetained _numberValueForKey:@"com.apple.hls.rt-audience-score" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v31 = [WeakRetained _stringValueForKey:@"com.apple.hls.poster" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v29 = [WeakRetained _stringValueForKey:@"com.apple.hls.poster.2x3" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v27 = [WeakRetained _stringValueForKey:@"com.apple.hls.keys" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v49 = [WeakRetained _numberValueForKey:@"com.apple.amp.video.recommended.viewing-distance.ratio" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v47 = [WeakRetained _stringValueForKey:@"com.apple.hls.haptics.url" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
-  v134 = 0;
-  v135 = &v134;
-  v136 = 0x2020000000;
-  v137 = 0;
-  v130 = 0;
-  v131 = &v130;
-  v132 = 0x2020000000;
-  v133 = 0;
-  v126 = 0;
-  v127 = &v126;
-  v128 = 0x2020000000;
-  v129 = 0;
-  v122 = 0;
-  v123 = &v122;
-  v124 = 0x2020000000;
-  v125 = 0;
-  v118 = 0;
-  v119 = &v118;
-  v120 = 0x2020000000;
-  v121 = 0;
-  v117[0] = MEMORY[0x277D85DD0];
-  v117[1] = 3221225472;
-  v117[2] = __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke_2_503;
-  v117[3] = &unk_279D7DC48;
-  v117[4] = WeakRetained;
-  v117[5] = &v134;
-  v117[6] = &v130;
-  v117[7] = &v126;
-  v117[8] = &v122;
-  v117[9] = &v118;
-  v2 = MEMORY[0x26D6B0400](v117);
-  v115 = 0u;
-  v116 = 0u;
+  v70 = [WeakRetained _stringValueForKey:@"com.apple.hls.feature.adam-id" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v69 = [WeakRetained _numberValueForKey:@"com.apple.hls.up-next.start" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v68 = [WeakRetained _numberValueForKey:@"com.apple.hls.watched.time" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v67 = [WeakRetained _numberValueForKey:@"com.apple.hls.pre-roll.duration" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v66 = [WeakRetained _numberValueForKey:@"com.apple.hls.feature.duration" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v65 = [WeakRetained _stringValueForKey:@"com.apple.hls.rating-image" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v63 = [WeakRetained _stringValueForKey:@"com.apple.hls.display-ratings-overlay" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v61 = [WeakRetained _stringValueForKey:@"com.apple.hls.title" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v59 = [WeakRetained _stringValueForKey:@"com.apple.hls.episode-title" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v43 = [WeakRetained _stringValueForKey:@"com.apple.hls.description" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v41 = [WeakRetained _stringValueForKey:@"com.apple.hls.genre" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v39 = [WeakRetained _stringValueForKey:@"com.apple.hls.rating-tag" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v37 = [WeakRetained _stringValueForKey:@"com.apple.hls.rating-system" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v57 = [WeakRetained _stringValueForKey:@"com.apple.hls.photosensitivity-info.text" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v56 = [WeakRetained _stringValueForKey:@"com.apple.hls.photosensitivity-info.image" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v55 = [WeakRetained _numberValueForKey:@"com.apple.hls.photosensitivity-info.duration" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v53 = [WeakRetained _stringValueForKey:@"com.apple.hls.high-motion-info.text" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v51 = [WeakRetained _stringValueForKey:@"com.apple.hls.high-motion-info.image" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v49 = [WeakRetained _numberValueForKey:@"com.apple.hls.high-motion-info.duration" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v35 = [WeakRetained _numberValueForKey:@"com.apple.hls.cs-rating" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v33 = [WeakRetained _stringValueForKey:@"com.apple.hls.rt-rating" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v31 = [WeakRetained _numberValueForKey:@"com.apple.hls.rt-audience-score" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v29 = [WeakRetained _stringValueForKey:@"com.apple.hls.poster" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v27 = [WeakRetained _stringValueForKey:@"com.apple.hls.poster.2x3" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v25 = [WeakRetained _stringValueForKey:@"com.apple.hls.keys" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v47 = [WeakRetained _numberValueForKey:@"com.apple.amp.video.recommended.viewing-distance.ratio" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v45 = [WeakRetained _stringValueForKey:@"com.apple.hls.haptics.url" fromMetadata:*(a1 + 32) andKeyIdentifierMap:*(*(*(a1 + 64) + 8) + 40)];
+  v132 = 0;
+  v133 = &v132;
+  v134 = 0x2020000000;
+  v135 = 0;
+  v128 = 0;
+  v129 = &v128;
+  v130 = 0x2020000000;
+  v131 = 0;
+  v124 = 0;
+  v125 = &v124;
+  v126 = 0x2020000000;
+  v127 = 0;
+  v120 = 0;
+  v121 = &v120;
+  v122 = 0x2020000000;
+  v123 = 0;
+  v116 = 0;
+  v117 = &v116;
+  v118 = 0x2020000000;
+  v119 = 0;
+  v115[0] = MEMORY[0x277D85DD0];
+  v115[1] = 3221225472;
+  v115[2] = __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke_2_503;
+  v115[3] = &unk_279D7DC48;
+  v115[4] = WeakRetained;
+  v115[5] = &v132;
+  v115[6] = &v128;
+  v115[7] = &v124;
+  v115[8] = &v120;
+  v115[9] = &v116;
+  v2 = MEMORY[0x26D6B0400](v115);
   v113 = 0u;
   v114 = 0u;
+  v111 = 0u;
+  v112 = 0u;
   v3 = [*(*(*(a1 + 72) + 8) + 40) metadata];
-  v4 = [v3 countByEnumeratingWithState:&v113 objects:v138 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v111 objects:v136 count:16];
   if (v4)
   {
-    v5 = *v114;
+    v5 = *v112;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v114 != v5)
+        if (*v112 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v113 + 1) + 8 * i);
+        v7 = *(*(&v111 + 1) + 8 * i);
         v8 = [v7 key];
         if ([*(a1 + 40) containsObject:v8] && objc_msgSend(v7, "statusOfValueForKey:error:", @"value", 0) == 2)
         {
@@ -3444,26 +3383,26 @@ void __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke
         }
       }
 
-      v4 = [v3 countByEnumeratingWithState:&v113 objects:v138 count:16];
+      v4 = [v3 countByEnumeratingWithState:&v111 objects:v136 count:16];
     }
 
     while (v4);
   }
 
   v9 = [MEMORY[0x277CBEB58] set];
-  v10 = [WeakRetained _rollKeyNamesForType:1 withCount:v135[3]];
+  v10 = [WeakRetained _rollKeyNamesForType:1 withCount:v133[3]];
   [v9 addObjectsFromArray:v10];
 
-  v11 = [WeakRetained _rollKeyNamesForType:2 withCount:v131[3]];
+  v11 = [WeakRetained _rollKeyNamesForType:2 withCount:v129[3]];
   [v9 addObjectsFromArray:v11];
 
-  v12 = [WeakRetained _rollKeyNamesForType:3 withCount:v127[3]];
+  v12 = [WeakRetained _rollKeyNamesForType:3 withCount:v125[3]];
   [v9 addObjectsFromArray:v12];
 
-  v13 = [WeakRetained _skipKeyNamesForType:1 withCount:v123[3]];
+  v13 = [WeakRetained _skipKeyNamesForType:1 withCount:v121[3]];
   [v9 addObjectsFromArray:v13];
 
-  v14 = [WeakRetained _advisoryKeyNamesWithCount:v119[3]];
+  v14 = [WeakRetained _advisoryKeyNamesWithCount:v117[3]];
   [v9 addObjectsFromArray:v14];
 
   v15 = sMediaItemLoaderLogObject;
@@ -3473,87 +3412,84 @@ void __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke
     _os_log_impl(&dword_26CEDD000, v15, OS_LOG_TYPE_DEFAULT, "Loading the values for AVAsset metadata items.", buf, 2u);
   }
 
-  v16 = *(a1 + 32);
   (*(*(a1 + 56) + 16))();
   group = *(a1 + 48);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke_510;
   block[3] = &unk_279D7DC98;
-  objc_copyWeak(&v111, (a1 + 88));
-  v104 = *(a1 + 80);
-  v17 = *(a1 + 32);
-  v105 = *(a1 + 64);
-  v106 = &v134;
-  v107 = &v130;
-  v108 = &v126;
-  v109 = &v122;
-  v110 = &v118;
-  v76 = v17;
-  v77 = v71;
-  v78 = v70;
-  v79 = v69;
-  v80 = v68;
-  v81 = v67;
-  v82 = v58;
-  v83 = v57;
-  v84 = v59;
+  objc_copyWeak(&v109, (a1 + 88));
+  v102 = *(a1 + 80);
+  v16 = *(a1 + 32);
+  v103 = *(a1 + 64);
+  v104 = &v132;
+  v105 = &v128;
+  v106 = &v124;
+  v107 = &v120;
+  v108 = &v116;
+  v74 = v16;
+  v75 = v69;
+  v76 = v68;
+  v77 = v67;
+  v78 = v66;
+  v79 = v65;
+  v80 = v56;
+  v81 = v55;
+  v82 = v57;
+  v83 = v51;
+  v84 = v49;
   v85 = v53;
-  v86 = v51;
-  v87 = v55;
-  v88 = v49;
-  v89 = v47;
-  v90 = v72;
-  v91 = v65;
-  v92 = v61;
-  v93 = v63;
-  v94 = v45;
-  v95 = v43;
-  v96 = v41;
-  v97 = v39;
-  v98 = v37;
-  v99 = v35;
-  v100 = v33;
-  v101 = v29;
-  v102 = v31;
-  v103 = v27;
+  v86 = v47;
+  v87 = v45;
+  v88 = v70;
+  v89 = v63;
+  v90 = v59;
+  v91 = v61;
+  v92 = v43;
+  v93 = v41;
+  v94 = v39;
+  v95 = v37;
+  v96 = v35;
+  v97 = v33;
+  v98 = v31;
+  v99 = v27;
+  v100 = v29;
+  v101 = v25;
+  v26 = v25;
+  v30 = v29;
   v28 = v27;
   v32 = v31;
-  v30 = v29;
   v34 = v33;
   v36 = v35;
   v38 = v37;
   v40 = v39;
   v42 = v41;
   v44 = v43;
-  v46 = v45;
-  v64 = v63;
   v62 = v61;
-  v66 = v65;
-  v73 = v72;
-  v48 = v47;
-  v50 = v49;
-  v56 = v55;
-  v52 = v51;
-  v54 = v53;
   v60 = v59;
-  v18 = v57;
-  v19 = v58;
-  v20 = v67;
-  v21 = v68;
-  v22 = v69;
-  v23 = v70;
-  v24 = v71;
+  v64 = v63;
+  v71 = v70;
+  v46 = v45;
+  v48 = v47;
+  v54 = v53;
+  v50 = v49;
+  v52 = v51;
+  v58 = v57;
+  v17 = v55;
+  v18 = v56;
+  v19 = v65;
+  v20 = v66;
+  v21 = v67;
+  v22 = v68;
+  v23 = v69;
   dispatch_group_notify(group, MEMORY[0x277D85CD0], block);
 
-  objc_destroyWeak(&v111);
-  _Block_object_dispose(&v118, 8);
-  _Block_object_dispose(&v122, 8);
-  _Block_object_dispose(&v126, 8);
-  _Block_object_dispose(&v130, 8);
-  _Block_object_dispose(&v134, 8);
-
-  v25 = *MEMORY[0x277D85DE8];
+  objc_destroyWeak(&v109);
+  _Block_object_dispose(&v116, 8);
+  _Block_object_dispose(&v120, 8);
+  _Block_object_dispose(&v124, 8);
+  _Block_object_dispose(&v128, 8);
+  _Block_object_dispose(&v132, 8);
 }
 
 void __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke_2_503(uint64_t a1, void *a2)
@@ -3764,7 +3700,7 @@ void __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke
   }
 }
 
-uint64_t __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke_2_511(uint64_t a1)
+void *__58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke_2_511(uint64_t a1)
 {
   result = [*(a1 + 32) assetLoadContext];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -3773,7 +3709,7 @@ uint64_t __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_in
 
 void __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke_3(uint64_t a1)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) mediaItem];
   [v2 setMediaItemMetadata:*(a1 + 40) forProperty:@"TVPMediaItemMetadataRollInfo"];
 
@@ -3830,8 +3766,8 @@ void __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke
     v20 = sMediaItemLoaderLogObject;
     if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v56) = 0;
-      _os_log_impl(&dword_26CEDD000, v20, OS_LOG_TYPE_DEFAULT, "Media item metadata already contains a haptics URL string, not overriding", &v56, 2u);
+      LOWORD(v55) = 0;
+      _os_log_impl(&dword_26CEDD000, v20, OS_LOG_TYPE_DEFAULT, "Media item metadata already contains a haptics URL string, not overriding", &v55, 2u);
     }
   }
 
@@ -3854,11 +3790,11 @@ void __58__TVPMediaItemLoader__loadMediaItemMetadataAsynchronously__block_invoke
         if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
         {
           v25 = *(a1 + 176);
-          v56 = 138412546;
-          v57 = v23;
-          v58 = 2112;
-          v59 = v25;
-          _os_log_impl(&dword_26CEDD000, v24, OS_LOG_TYPE_DEFAULT, "Media item metadata and HLS store identifiers do not match. Media item:%@ HLS:%@", &v56, 0x16u);
+          v55 = 138412546;
+          v56 = v23;
+          v57 = 2112;
+          v58 = v25;
+          _os_log_impl(&dword_26CEDD000, v24, OS_LOG_TYPE_DEFAULT, "Media item metadata and HLS store identifiers do not match. Media item:%@ HLS:%@", &v55, 0x16u);
         }
       }
     }
@@ -3985,8 +3921,6 @@ LABEL_41:
   v53 = [*(a1 + 32) _contentKeyRequestParamsFromBase64String:*(a1 + 280)];
   v54 = [*(a1 + 32) mediaItem];
   [v54 setMediaItemMetadata:v53 forProperty:@"TVPMediaItemMetadataContentKeyRequestParams"];
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_rollInfoFromMetadata:(id)metadata keyIdentifierMap:(id)map forType:(unint64_t)type withTotalCount:(unint64_t)count
@@ -4402,7 +4336,7 @@ LABEL_41:
 
 - (void)_mediaItemPlaybackErrorDidOccur:(id)occur
 {
-  v22[1] = *MEMORY[0x277D85DE8];
+  v21[1] = *MEMORY[0x277D85DE8];
   occurCopy = occur;
   userInfo = [occurCopy userInfo];
   v6 = [userInfo objectForKey:@"TVPMediaItemPlaybackErrorKey"];
@@ -4427,9 +4361,9 @@ LABEL_41:
 
   if (v6)
   {
-    v21 = @"error";
-    v22[0] = v6;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
+    v20 = @"error";
+    v21[0] = v6;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
   }
 
   else
@@ -4440,24 +4374,22 @@ LABEL_41:
   v16 = sMediaItemLoaderLogObject;
   if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = 138412290;
-    v20 = v6;
-    _os_log_impl(&dword_26CEDD000, v16, OS_LOG_TYPE_DEFAULT, "Media item playback error did occur: %@", &v19, 0xCu);
+    v18 = 138412290;
+    v19 = v6;
+    _os_log_impl(&dword_26CEDD000, v16, OS_LOG_TYPE_DEFAULT, "Media item playback error did occur: %@", &v18, 0xCu);
   }
 
   stateMachine = [(TVPMediaItemLoader *)self stateMachine];
   [stateMachine postEvent:@"Failure" withContext:0 userInfo:v15];
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_mediaItemStopPlayback:(id)playback
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v4 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v17 = @"TVPMediaItemLoaderSuppressErrorAndStopKey";
-  v18[0] = MEMORY[0x277CBEC38];
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+  v16 = @"TVPMediaItemLoaderSuppressErrorAndStopKey";
+  v17[0] = MEMORY[0x277CBEC38];
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
   v6 = [v4 initWithDomain:@"TVPlaybackErrorDomain" code:819 userInfo:v5];
 
   v7 = sMediaItemLoaderLogObject;
@@ -4466,22 +4398,20 @@ LABEL_41:
     v8 = v7;
     mediaItem = [(TVPMediaItemLoader *)self mediaItem];
     *buf = 138412290;
-    v16 = mediaItem;
+    v15 = mediaItem;
     _os_log_impl(&dword_26CEDD000, v8, OS_LOG_TYPE_DEFAULT, "Media item requested stop: %@", buf, 0xCu);
   }
 
   stateMachine = [(TVPMediaItemLoader *)self stateMachine];
-  v13 = @"error";
-  v14 = v6;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+  v12 = @"error";
+  v13 = v6;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
   [stateMachine postEvent:@"Failure" withContext:0 userInfo:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanUp
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (![(TVPMediaItemLoader *)self cleanedUp])
   {
     diskSpaceMonitorTimer = [(TVPMediaItemLoader *)self diskSpaceMonitorTimer];
@@ -4497,12 +4427,12 @@ LABEL_41:
     dispatch_sync(assetLoadContextAccessQueue, block);
 
     assetInternalAccessQueue = [(TVPMediaItemLoader *)self assetInternalAccessQueue];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __30__TVPMediaItemLoader__cleanUp__block_invoke_2;
-    v11[3] = &unk_279D7BDC8;
-    v11[4] = self;
-    dispatch_sync(assetInternalAccessQueue, v11);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __30__TVPMediaItemLoader__cleanUp__block_invoke_2;
+    v10[3] = &unk_279D7BDC8;
+    v10[4] = self;
+    dispatch_sync(assetInternalAccessQueue, v10);
 
     mediaItem = [(TVPMediaItemLoader *)self mediaItem];
     v7 = [mediaItem hasTrait:@"TVPMediaItemTraitUseTempDownload"];
@@ -4520,7 +4450,7 @@ LABEL_41:
       if (os_log_type_enabled(sMediaItemLoaderLogObject, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v14 = mediaItem2;
+        v13 = mediaItem2;
         _os_log_impl(&dword_26CEDD000, v9, OS_LOG_TYPE_DEFAULT, "Calling cleanUpMediaItem for media item %@", buf, 0xCu);
       }
 
@@ -4529,8 +4459,6 @@ LABEL_41:
 
     [(TVPMediaItemLoader *)self setCleanedUp:1];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __30__TVPMediaItemLoader__cleanUp__block_invoke(uint64_t a1)
@@ -4629,11 +4557,9 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_cold
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_3();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_cold_4()
@@ -4645,11 +4571,9 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_cold
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_127_cold_1()
@@ -4661,11 +4585,9 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_127_co
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_127_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_135_cold_1()
@@ -4684,11 +4606,9 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_2_135_
 
 void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_5_211_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onAssetInternalAccessQueue_updateContentKeySessionWithContentKeyLoader:.cold.1()
@@ -4723,11 +4643,9 @@ void __51__TVPMediaItemLoader__registerStateMachineHandlers__block_invoke_5_211_
 
 - (void)_contentKeyRequestParamsFromBase64String:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

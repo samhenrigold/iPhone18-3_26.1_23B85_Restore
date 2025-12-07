@@ -23,7 +23,7 @@
 
 - (void)addSignalsForClient:(id)client
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   clientCopy = client;
   v5 = MEMORY[0x277CBEAF8];
   locale = [clientCopy locale];
@@ -38,34 +38,34 @@
   [signals2 setValue:regionCode forKey:@"device_region"];
 
   v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   inputMethodLanguages = [clientCopy inputMethodLanguages];
-  v14 = [inputMethodLanguages countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v14 = [inputMethodLanguages countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v22;
+    v16 = *v21;
     do
     {
       v17 = 0;
       do
       {
-        if (*v22 != v16)
+        if (*v21 != v16)
         {
           objc_enumerationMutation(inputMethodLanguages);
         }
 
-        v18 = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:*(*(&v21 + 1) + 8 * v17)];
+        v18 = [MEMORY[0x277CBEAF8] canonicalLanguageIdentifierFromString:*(*(&v20 + 1) + 8 * v17)];
         [v12 addObject:v18];
 
         ++v17;
       }
 
       while (v15 != v17);
-      v15 = [inputMethodLanguages countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v15 = [inputMethodLanguages countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v15);
@@ -73,13 +73,11 @@
 
   signals3 = [(MKDiscoverabilitySignals *)self signals];
   [signals3 setValue:v12 forKey:@"input_method_languages"];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addSignalsForMigrator:(id)migrator
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   migratorCopy = migrator;
   type = [migratorCopy type];
   if (type <= 10)
@@ -122,9 +120,9 @@
       v17 = +[MKLog log];
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
-        v21 = 134217984;
-        v22 = aggregatedActivatedCellularPlansCount;
-        _os_log_impl(&dword_2592D2000, v17, OS_LOG_TYPE_INFO, "did set a signal. aggregated_activated_sims_count=%ld", &v21, 0xCu);
+        v20 = 134217984;
+        v21 = aggregatedActivatedCellularPlansCount;
+        _os_log_impl(&dword_2592D2000, v17, OS_LOG_TYPE_INFO, "did set a signal. aggregated_activated_sims_count=%ld", &v20, 0xCu);
       }
     }
   }
@@ -143,18 +141,16 @@
   }
 
 LABEL_16:
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)donateSignals
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAAA0];
   signals = [(MKDiscoverabilitySignals *)self signals];
-  v16 = 0;
-  v5 = [v3 dataWithJSONObject:signals options:0 error:&v16];
-  v6 = v16;
+  v15 = 0;
+  v5 = [v3 dataWithJSONObject:signals options:0 error:&v15];
+  v6 = v15;
 
   if (v6)
   {
@@ -179,16 +175,14 @@ LABEL_16:
       v13 = [signals3 count];
       *buf = 138412546;
       selfCopy = self;
-      v19 = 2048;
-      v20 = v13;
+      v18 = 2048;
+      v19 = v13;
       _os_log_impl(&dword_2592D2000, v11, OS_LOG_TYPE_INFO, "%@ will donate %lu signals", buf, 0x16u);
     }
 
     source = [signals2 source];
     [source sendEvent:v10];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 @end

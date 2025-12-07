@@ -824,7 +824,7 @@ void __89__STCommunicationSafetyListController__showCommunicationSafetyCompatibi
 {
   v1 = [MEMORY[0x277CCABB0] numberWithBool:a1 & 1];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_264BA2000, v2, v3, "Setting 'communication safety sending restricted' and 'communication safety receiving restricted' flags on viewmodel: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_0(&dword_264BA2000, v2, v3, "Setting 'communication safety sending restricted' and 'communication safety receiving restricted' flags on viewmodel: %@", v4, v5, v6, v7);
 }
 
 - (void)_checkForUnsafePhotos:.cold.1()
@@ -838,7 +838,7 @@ void __89__STCommunicationSafetyListController__showCommunicationSafetyCompatibi
 {
   v1 = [MEMORY[0x277CCABB0] numberWithBool:a1 & 1];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1_0(&dword_264BA2000, v2, v3, "Setting Improve Communication Safety on viewmodel: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_1_0(&dword_264BA2000, v2, v3, "Setting Improve Communication Safety on viewmodel: %@", v4, v5, v6, v7);
 }
 
 - (void)_getEnableAnalytics:.cold.1()

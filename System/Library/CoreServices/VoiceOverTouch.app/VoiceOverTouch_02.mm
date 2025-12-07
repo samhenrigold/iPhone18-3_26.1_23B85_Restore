@@ -1,3 +1,75 @@
+unint64_t sub_100126938(uint64_t a1, uint64_t a2)
+{
+  Hasher.init(_seed:)();
+  String.hash(into:)();
+  v4 = Hasher._finalize()();
+
+  return sub_100126A48(a1, a2, v4);
+}
+
+unint64_t sub_1001269B0(uint64_t a1)
+{
+  v2 = v1;
+  v4 = AnyHashable._rawHashValue(seed:)(*(v2 + 40));
+
+  return sub_100126B00(a1, v4);
+}
+
+unint64_t sub_100126A48(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v4 = -1 << *(v3 + 32);
+  v5 = a3 & ~v4;
+  if ((*(v3 + 64 + ((v5 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v5))
+  {
+    v8 = ~v4;
+    do
+    {
+      v9 = (*(v3 + 48) + 16 * v5);
+      if (*v9 == a1 && v9[1] == a2)
+      {
+        break;
+      }
+
+      if (_stringCompareWithSmolCheck(_:_:expecting:)())
+      {
+        break;
+      }
+
+      v5 = (v5 + 1) & v8;
+    }
+
+    while (((*(v3 + 64 + ((v5 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v5) & 1) != 0);
+  }
+
+  return v5;
+}
+
+unint64_t sub_100126B00(uint64_t a1, uint64_t a2)
+{
+  v3 = -1 << *(v2 + 32);
+  v4 = a2 & ~v3;
+  if ((*(v2 + 64 + ((v4 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v4))
+  {
+    v5 = ~v3;
+    do
+    {
+      sub_1001275E0(*(v2 + 48) + 40 * v4, v8);
+      v6 = static AnyHashable.== infix(_:_:)();
+      sub_1001269F4(v8);
+      if (v6)
+      {
+        break;
+      }
+
+      v4 = (v4 + 1) & v5;
+    }
+
+    while (((*(v2 + 64 + ((v4 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v4) & 1) != 0);
+  }
+
+  return v4;
+}
+
 uint64_t sub_100126BC8(uint64_t a1)
 {
   v1 = a1 - 1;
@@ -218,18 +290,19 @@ uint64_t sub_100127684()
 {
   v2 = v0[2];
   v3 = v0[3];
-  v4 = v0[4];
-  v5 = swift_task_alloc();
-  *(v1 + 16) = v5;
-  *v5 = v1;
-  v5[1] = sub_100124A60;
+  v5 = v0[4];
+  v4 = v0[5];
+  v6 = swift_task_alloc();
+  *(v1 + 16) = v6;
+  *v6 = v1;
+  v6[1] = sub_100124A60;
 
-  return sub_100125F88(v2, v3, v4);
+  return sub_100125F88(v2, v3, v5, v4);
 }
 
 uint64_t sub_100127748(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100117630(&qword_1001FE868);
+  v4 = sub_100117630(&qword_1001FE868, &qword_10017E888);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -262,7 +335,7 @@ uint64_t sub_1001278A8(uint64_t a1)
   return sub_1001226F8(a1, v4);
 }
 
-uint64_t sub_100127960(uint64_t a1, unint64_t *a2)
+uint64_t sub_100127960(uint64_t a1, unint64_t *a2, void *a3)
 {
   result = *a2;
   if (!*a2)
@@ -321,6 +394,15 @@ void sub_1001280A0(uint64_t a1, NSObject *a2)
   _os_log_error_impl(&_mh_execute_header, a2, OS_LOG_TYPE_ERROR, "Media server session lost - remaking player for %{public}@", &v3, 0xCu);
 }
 
+void sub_10012811C(uint64_t a1, id *a2)
+{
+  *v8 = 138543618;
+  *&v8[4] = a1;
+  *&v8[12] = 2048;
+  *&v8[14] = [*a2 numberOfChannels];
+  sub_1000125D4(&_mh_execute_header, v2, v3, "Made sound file: %{public}@ [channels %lu]", v4, v5, v6, v7, *v8, *&v8[8], *&v8[16]);
+}
+
 void sub_1001281AC(uint64_t a1, NSObject *a2)
 {
   v2 = *(a1 + 96);
@@ -355,7 +437,7 @@ void sub_1001283E0(char a1)
 {
   v1 = [NSNumber numberWithBool:a1 & 1];
   sub_1000125C0();
-  sub_1000125D4(&_mh_execute_header, v2, v3, "Finish playing: %@/%@", v4, v5, v6, v7, v8);
+  sub_1000125D4(&_mh_execute_header, v2, v3, "Finish playing: %@/%@", v4, v5, v6, v7);
 }
 
 void sub_1001284AC(void *a1, NSObject *a2)
@@ -462,6 +544,22 @@ void sub_100128F84()
   sub_10000F4D8();
   sub_10002A798();
   sub_10002A7A4(&_mh_execute_header, v0, v1, "Timeout getting value: %@ : %@");
+}
+
+void sub_100128FF4()
+{
+  sub_10003C264(__stack_chk_guard);
+  LODWORD(v7) = 138543362;
+  *(&v7 + 4) = v0;
+  sub_10000F4F4(&_mh_execute_header, v1, v2, "Set ducking data error: %{public}@", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+void sub_100129060()
+{
+  sub_10003C264(__stack_chk_guard);
+  LODWORD(v7) = 138543362;
+  *(&v7 + 4) = v0;
+  sub_10000F4F4(&_mh_execute_header, v1, v2, "Set category error: %{public}@", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 void sub_100129134()
@@ -583,20 +681,20 @@ void sub_10012A068(unsigned int *a1, uint64_t a2, NSObject *a3)
   _os_log_fault_impl(&_mh_execute_header, a3, OS_LOG_TYPE_FAULT, "Making an app element that's not an app: %@ %@", v6, 0x16u);
 }
 
-void sub_10012A124()
+void sub_10012A124(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   sub_100054F9C();
-  sub_1000125D4(&_mh_execute_header, v2, v3, "%@ - Image Explorer is not valid for context : %@", v4, v5, v6, v7, v8);
+  sub_1000125D4(&_mh_execute_header, v3, v4, "%@ - Image Explorer is not valid for context : %@", v5, v6, v7, v8);
 }
 
-void sub_10012A1B8()
+void sub_10012A1B8(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   sub_100054F9C();
-  sub_1000125D4(&_mh_execute_header, v2, v3, "%@ - Image Explorer is valid for context : %@", v4, v5, v6, v7, v8);
+  sub_1000125D4(&_mh_execute_header, v3, v4, "%@ - Image Explorer is valid for context : %@", v5, v6, v7, v8);
 }
 
 void sub_10012A4F4(uint64_t a1, NSObject *a2)
@@ -690,7 +788,7 @@ void sub_10012AAFC()
 {
   sub_1000B21FC(__stack_chk_guard);
   sub_1000B21E4();
-  sub_10000F4F4(&_mh_execute_header, v0, v1, "Invalid copied speech index %ld, not pasting", v2, v3, v4, v5, v6);
+  sub_10000F4F4(&_mh_execute_header, v0, v1, "Invalid copied speech index %ld, not pasting", v2, v3, v4, v5);
 }
 
 void sub_10012AC14()
@@ -820,16 +918,19 @@ void sub_10012B820()
   sub_100057B64();
   v0 = +[NSNumber numberWithInteger:](NSNumber, "numberWithInteger:", [VOTSharedWorkspace tvInteractionMode]);
   sub_1000125C0();
-  sub_1000B223C(&_mh_execute_header, v1, v2, "should not be calling _setElement if not in explore mode. Current mode: %@. element: %@", v3, v4, v5, v6, v7);
+  sub_1000B223C(&_mh_execute_header, v1, v2, "should not be calling _setElement if not in explore mode. Current mode: %@. element: %@", v3, v4, v5, v6);
 }
 
 void sub_10012B8D0(void *a1)
 {
   v1 = [a1 description];
-  [v1 UTF8String];
-  v2 = +[NSThread callStackSymbols];
+  v2 = [v1 UTF8String];
+  v3 = +[NSThread callStackSymbols];
+  LODWORD(v11) = 136315394;
+  *(&v11 + 4) = v2;
   sub_1000B21F0();
-  sub_1000B223C(&_mh_execute_header, v3, v4, "'currentElement' expected to be an accessibility element: %s %@", v5, v6, v7, v8, 2u);
+  *v12 = v4;
+  sub_1000B223C(&_mh_execute_header, v5, v6, "'currentElement' expected to be an accessibility element: %s %@", v7, v8, v9, v10, v11, DWORD2(v11), *&v12[2]);
 }
 
 void sub_10012B98C()
@@ -1894,6 +1995,13 @@ void sub_1001304D4(uint64_t a1, void *a2, uint8_t *a3, NSObject *a4)
   v6 = a2;
   sub_1000F7BB0(v6, 5.8382e-34);
   _os_log_error_impl(&_mh_execute_header, a4, OS_LOG_TYPE_ERROR, "Tried to use a zero point to find the next element after %{public}@. Going with fallback, %{public}@", a3, 0x16u);
+}
+
+void sub_100130728(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = *(*a1 + 48);
+  sub_10000F510(&_mh_execute_header, a2, a3, "Canceled search with generation: %lld", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void sub_10013079C(uint64_t a1)

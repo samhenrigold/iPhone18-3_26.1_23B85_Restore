@@ -144,32 +144,32 @@ void __57__REMPaths_dataSeparationEnabled_applicationDocumentsURL__block_invoke_
 
 + (id)URLForGroupContainerWithIdentifier:(id)identifier
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2050000000;
+  v40 = 0;
+  v41 = &v40;
+  v42 = 0x2050000000;
   v5 = getUMUserManagerClass_softClass_0;
-  v44 = getUMUserManagerClass_softClass_0;
+  v43 = getUMUserManagerClass_softClass_0;
   if (!getUMUserManagerClass_softClass_0)
   {
     *buf = MEMORY[0x1E69E9820];
     *&buf[8] = 3221225472;
     *&buf[16] = __getUMUserManagerClass_block_invoke_0;
-    v46 = &unk_1E75093A0;
-    v47 = &v41;
+    v45 = &unk_1E75093A0;
+    v46 = &v40;
     __getUMUserManagerClass_block_invoke_0(buf);
-    v5 = v42[3];
+    v5 = v41[3];
   }
 
   v6 = v5;
-  _Block_object_dispose(&v41, 8);
+  _Block_object_dispose(&v40, 8);
   sharedManager = [v5 sharedManager];
   currentPersona = [sharedManager currentPersona];
   v9 = [currentPersona isProxy];
-  v40 = 0;
-  v36 = [currentPersona copyCurrentPersonaContextWithError:&v40];
-  v10 = v40;
+  v39 = 0;
+  v35 = [currentPersona copyCurrentPersonaContextWithError:&v39];
+  v10 = v39;
   v11 = v10;
   if (v10)
   {
@@ -190,24 +190,24 @@ void __57__REMPaths_dataSeparationEnabled_applicationDocumentsURL__block_invoke_
       _os_log_impl(&dword_19A0DB000, v13, OS_LOG_TYPE_INFO, "URLForGroupContainer: Temporarily adopting personal persona context instead of system proxy", buf, 2u);
     }
 
-    v41 = 0;
-    v42 = &v41;
-    v43 = 0x2050000000;
+    v40 = 0;
+    v41 = &v40;
+    v42 = 0x2050000000;
     v14 = getUMUserPersonaAttributesClass_softClass_0;
-    v44 = getUMUserPersonaAttributesClass_softClass_0;
+    v43 = getUMUserPersonaAttributesClass_softClass_0;
     if (!getUMUserPersonaAttributesClass_softClass_0)
     {
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3221225472;
       *&buf[16] = __getUMUserPersonaAttributesClass_block_invoke_0;
-      v46 = &unk_1E75093A0;
-      v47 = &v41;
+      v45 = &unk_1E75093A0;
+      v46 = &v40;
       __getUMUserPersonaAttributesClass_block_invoke_0(buf);
-      v14 = v42[3];
+      v14 = v41[3];
     }
 
     v15 = v14;
-    _Block_object_dispose(&v41, 8);
+    _Block_object_dispose(&v40, 8);
     v16 = [v14 personaAttributesForPersonaType:0];
     userPersonaUniqueString = [v16 userPersonaUniqueString];
     v18 = [currentPersona generateAndRestorePersonaContextWithPersonaUniqueString:userPersonaUniqueString];
@@ -247,14 +247,14 @@ LABEL_16:
 
   if (v12)
   {
-    v24 = [currentPersona restorePersonaWithSavedPersonaContext:v37];
+    v24 = [currentPersona restorePersonaWithSavedPersonaContext:v36];
   }
 
   if (v20)
   {
-    v39 = 0;
-    v25 = [v20 checkResourceIsReachableAndReturnError:&v39];
-    v26 = v39;
+    v38 = 0;
+    v25 = [v20 checkResourceIsReachableAndReturnError:&v38];
+    v26 = v38;
     if ((v25 & 1) == 0)
     {
       v27 = os_log_create("com.apple.reminderkit", "default");
@@ -269,9 +269,9 @@ LABEL_16:
 
       defaultManager2 = [MEMORY[0x1E696AC08] defaultManager];
       attributesForGroupContainerDirectory = [self attributesForGroupContainerDirectory];
-      v38 = 0;
-      v30 = [defaultManager2 createDirectoryAtURL:v20 withIntermediateDirectories:1 attributes:attributesForGroupContainerDirectory error:&v38];
-      v31 = v38;
+      v37 = 0;
+      v30 = [defaultManager2 createDirectoryAtURL:v20 withIntermediateDirectories:1 attributes:attributesForGroupContainerDirectory error:&v37];
+      v31 = v37;
 
       if ((v30 & 1) == 0)
       {
@@ -300,8 +300,6 @@ LABEL_16:
     *&buf[4] = v20;
     _os_log_impl(&dword_19A0DB000, v33, OS_LOG_TYPE_INFO, "URLForGroupContainer: Group container URL: %@", buf, 0xCu);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -335,11 +333,10 @@ void __48__REMPaths__legacy_shouldUseCentralizedDataPath__block_invoke()
 
 + (id)attributesForGroupContainerDirectory
 {
-  v6[1] = *MEMORY[0x1E69E9840];
-  v5 = *MEMORY[0x1E696A370];
-  v6[0] = &unk_1F0D99B38;
-  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v6 forKeys:&v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E696A370];
+  v5[0] = &unk_1F0D99B38;
+  v2 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v5 forKeys:&v4 count:1];
 
   return v2;
 }
@@ -372,31 +369,28 @@ void __65__REMPaths_UnitTests__unitTest_setLegacyApplicationDocumentsURL___block
 
 + (void)URLForGroupContainerWithIdentifier:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "URLForGroupContainer: Error saving persona context {error: %@}", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "URLForGroupContainer: Error saving persona context {error: %@}", &v2, 0xCu);
 }
 
 + (void)URLForGroupContainerWithIdentifier:(os_log_t)log .cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_19A0DB000, log, OS_LOG_TYPE_ERROR, "URLForGroupContainer: Error creating %@ group container: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_19A0DB000, log, OS_LOG_TYPE_ERROR, "URLForGroupContainer: Error creating %@ group container: %@", &v3, 0x16u);
 }
 
 + (void)URLForGroupContainerWithIdentifier:(uint64_t)a1 .cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "URLForGroupContainer: Failed to get group container URL (maybe simulator) for %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_19A0DB000, a2, OS_LOG_TYPE_ERROR, "URLForGroupContainer: Failed to get group container URL (maybe simulator) for %@", &v2, 0xCu);
 }
 
 @end

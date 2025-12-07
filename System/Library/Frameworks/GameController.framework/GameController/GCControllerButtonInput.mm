@@ -45,7 +45,7 @@
 
 - (BOOL)_setValue:(float)value queue:(id)queue
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v74 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   v7 = clamp(value, 0.0, 1.0);
   value = self->_value;
@@ -65,18 +65,18 @@
 
     if (v17)
     {
-      v34 = _gc_log_signpost();
-      if (os_signpost_enabled(v34))
+      v33 = _gc_log_signpost();
+      if (os_signpost_enabled(v33))
       {
         *buf = 134218755;
-        v68 = device;
-        v69 = 2117;
-        v70 = primaryAlias;
-        v71 = 2048;
-        v72 = v14;
-        v73 = 2053;
-        v74 = v7;
-        _os_signpost_emit_with_name_impl(&dword_1D2CD5000, v34, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GCPhysicalInputProfile.Button.value.set", "{device: %p, primaryAlias: %{sensitive}@, lastEventTimestamp: %f, value: %{sensitive}f}", buf, 0x2Au);
+        v67 = device;
+        v68 = 2117;
+        v69 = primaryAlias;
+        v70 = 2048;
+        v71 = v14;
+        v72 = 2053;
+        v73 = v7;
+        _os_signpost_emit_with_name_impl(&dword_1D2CD5000, v33, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GCPhysicalInputProfile.Button.value.set", "{device: %p, primaryAlias: %{sensitive}@, lastEventTimestamp: %f, value: %{sensitive}f}", buf, 0x2Au);
       }
     }
 
@@ -94,23 +94,23 @@
 
       if (v25)
       {
-        v35 = v9;
-        v36 = v35;
+        v34 = v9;
+        v35 = v34;
         if (v23 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          log = v35;
-          v37 = os_signpost_enabled(v35);
-          v36 = log;
-          if (v37)
+          log = v34;
+          v36 = os_signpost_enabled(v34);
+          v35 = log;
+          if (v36)
           {
             *buf = 134218499;
-            v68 = device;
-            v69 = 2117;
-            v70 = primaryAlias;
-            v71 = 2048;
-            v72 = v14;
+            v67 = device;
+            v68 = 2117;
+            v69 = primaryAlias;
+            v70 = 2048;
+            v71 = v14;
             _os_signpost_emit_with_name_impl(&dword_1D2CD5000, log, OS_SIGNPOST_INTERVAL_BEGIN, v23, "GCPhysicalInputProfile.Button.value.callback", "{device: %p, primaryAlias: %{sensitive}@, lastEventTimestamp: %f}", buf, 0x20u);
-            v36 = log;
+            v35 = log;
           }
         }
       }
@@ -119,12 +119,12 @@
       block[1] = 3221225472;
       block[2] = __43__GCControllerButtonInput__setValue_queue___block_invoke;
       block[3] = &unk_1E841ACD0;
-      v63 = v20;
+      v62 = v20;
       block[4] = self;
-      v65 = v7;
-      v66 = deadzone < v7;
-      v62 = v9;
-      v64 = v23;
+      v64 = v7;
+      v65 = deadzone < v7;
+      v61 = v9;
+      v63 = v23;
       dispatch_async(queueCopy, block);
     }
 
@@ -139,39 +139,39 @@
 
         if (v28)
         {
-          v41 = v9;
-          v42 = v41;
+          v40 = v9;
+          v41 = v40;
           if (v26 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
           {
-            logb = v41;
-            v43 = os_signpost_enabled(v41);
-            v42 = logb;
-            if (v43)
+            logb = v40;
+            v42 = os_signpost_enabled(v40);
+            v41 = logb;
+            if (v42)
             {
               *buf = 134218499;
-              v68 = device;
-              v69 = 2117;
-              v70 = primaryAlias;
-              v71 = 2048;
-              v72 = v14;
+              v67 = device;
+              v68 = 2117;
+              v69 = primaryAlias;
+              v70 = 2048;
+              v71 = v14;
               _os_signpost_emit_with_name_impl(&dword_1D2CD5000, logb, OS_SIGNPOST_INTERVAL_BEGIN, v26, "GCPhysicalInputProfile.Button.touched.callback", "{device: %p, primaryAlias: %{sensitive}@, lastEventTimestamp: %f}", buf, 0x20u);
-              v42 = logb;
+              v41 = logb;
             }
           }
         }
 
-        v54[0] = MEMORY[0x1E69E9820];
-        v54[1] = 3221225472;
-        v54[2] = __43__GCControllerButtonInput__setValue_queue___block_invoke_89;
-        v54[3] = &unk_1E841ACF8;
-        v56 = v21;
-        v54[4] = self;
-        v58 = v7;
-        v59 = deadzone < v7;
-        v60 = v7 > 0.0019531;
-        v55 = v9;
-        v57 = v26;
-        dispatch_async(queueCopy, v54);
+        v53[0] = MEMORY[0x1E69E9820];
+        v53[1] = 3221225472;
+        v53[2] = __43__GCControllerButtonInput__setValue_queue___block_invoke_89;
+        v53[3] = &unk_1E841ACF8;
+        v55 = v21;
+        v53[4] = self;
+        v57 = v7;
+        v58 = deadzone < v7;
+        v59 = v7 > 0.0019531;
+        v54 = v9;
+        v56 = v26;
+        dispatch_async(queueCopy, v53);
       }
     }
 
@@ -183,38 +183,38 @@
 
       if (v31)
       {
-        v38 = v9;
-        v39 = v38;
+        v37 = v9;
+        v38 = v37;
         if (v29 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          loga = v38;
-          v40 = os_signpost_enabled(v38);
-          v39 = loga;
-          if (v40)
+          loga = v37;
+          v39 = os_signpost_enabled(v37);
+          v38 = loga;
+          if (v39)
           {
             *buf = 134218499;
-            v68 = device;
-            v69 = 2117;
-            v70 = primaryAlias;
-            v71 = 2048;
-            v72 = v14;
+            v67 = device;
+            v68 = 2117;
+            v69 = primaryAlias;
+            v70 = 2048;
+            v71 = v14;
             _os_signpost_emit_with_name_impl(&dword_1D2CD5000, loga, OS_SIGNPOST_INTERVAL_BEGIN, v29, "GCPhysicalInputProfile.Button.pressed.callback", "{device: %p, primaryAlias: %{sensitive}@, lastEventTimestamp: %f}", buf, 0x20u);
-            v39 = loga;
+            v38 = loga;
           }
         }
       }
 
-      v48[0] = MEMORY[0x1E69E9820];
-      v48[1] = 3221225472;
-      v48[2] = __43__GCControllerButtonInput__setValue_queue___block_invoke_90;
-      v48[3] = &unk_1E841ACD0;
-      v50 = v22;
-      v48[4] = self;
-      v52 = v7;
-      v53 = deadzone < v7;
-      v49 = v9;
-      v51 = v29;
-      dispatch_async(queueCopy, v48);
+      v47[0] = MEMORY[0x1E69E9820];
+      v47[1] = 3221225472;
+      v47[2] = __43__GCControllerButtonInput__setValue_queue___block_invoke_90;
+      v47[3] = &unk_1E841ACD0;
+      v49 = v22;
+      v47[4] = self;
+      v51 = v7;
+      v52 = deadzone < v7;
+      v48 = v9;
+      v50 = v29;
+      dispatch_async(queueCopy, v47);
     }
 
     if (v18 <= deadzone && deadzone < v7)
@@ -223,19 +223,16 @@
     }
   }
 
-  v32 = *MEMORY[0x1E69E9840];
   return value != v7;
 }
 
 void __43__GCControllerButtonInput__setValue_queue___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 68);
   (*(*(a1 + 48) + 16))(*(a1 + 64));
-  v4 = _gc_log_signpost();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v2 = _gc_log_signpost();
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG);
 
-  if (v5)
+  if (v3)
   {
     __43__GCControllerButtonInput__setValue_queue___block_invoke_cold_1(a1);
   }
@@ -243,14 +240,11 @@ void __43__GCControllerButtonInput__setValue_queue___block_invoke(uint64_t a1)
 
 void __43__GCControllerButtonInput__setValue_queue___block_invoke_89(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 68);
-  v4 = *(a1 + 69);
   (*(*(a1 + 48) + 16))(*(a1 + 64));
-  v5 = _gc_log_signpost();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
+  v2 = _gc_log_signpost();
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG);
 
-  if (v6)
+  if (v3)
   {
     __43__GCControllerButtonInput__setValue_queue___block_invoke_89_cold_1(a1);
   }
@@ -258,13 +252,11 @@ void __43__GCControllerButtonInput__setValue_queue___block_invoke_89(uint64_t a1
 
 void __43__GCControllerButtonInput__setValue_queue___block_invoke_90(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 68);
   (*(*(a1 + 48) + 16))(*(a1 + 64));
-  v4 = _gc_log_signpost();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v2 = _gc_log_signpost();
+  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG);
 
-  if (v5)
+  if (v3)
   {
     __43__GCControllerButtonInput__setValue_queue___block_invoke_90_cold_1(a1);
   }
@@ -273,7 +265,7 @@ void __43__GCControllerButtonInput__setValue_queue___block_invoke_90(uint64_t a1
 - (BOOL)_setTouched:(BOOL)touched queue:(id)queue
 {
   touchedCopy = touched;
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   if (self->_touchedAndValueDistinct && self->_touched != touchedCopy)
   {
@@ -291,18 +283,18 @@ void __43__GCControllerButtonInput__setValue_queue___block_invoke_90(uint64_t a1
 
     if (v17)
     {
-      v27 = _gc_log_signpost();
-      if (os_signpost_enabled(v27))
+      v26 = _gc_log_signpost();
+      if (os_signpost_enabled(v26))
       {
         *buf = 134218755;
-        v40 = device;
-        v41 = 2117;
-        v42 = primaryAlias;
-        v43 = 2048;
-        v44 = v14;
-        v45 = 1029;
-        v46 = touchedCopy;
-        _os_signpost_emit_with_name_impl(&dword_1D2CD5000, v27, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GCPhysicalInputProfile.Button.touched.set", "{device: %p, primaryAlias: %{sensitive}@, lastEventTimestamp: %f, value: %{sensitive}u", buf, 0x26u);
+        v39 = device;
+        v40 = 2117;
+        v41 = primaryAlias;
+        v42 = 2048;
+        v43 = v14;
+        v44 = 1029;
+        v45 = touchedCopy;
+        _os_signpost_emit_with_name_impl(&dword_1D2CD5000, v26, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "GCPhysicalInputProfile.Button.touched.set", "{device: %p, primaryAlias: %{sensitive}@, lastEventTimestamp: %f, value: %{sensitive}u", buf, 0x26u);
       }
     }
 
@@ -319,23 +311,23 @@ void __43__GCControllerButtonInput__setValue_queue___block_invoke_90(uint64_t a1
 
       if (v24)
       {
-        v28 = v8;
-        v29 = v28;
+        v27 = v8;
+        v28 = v27;
         if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL)
         {
-          log = v28;
-          v30 = os_signpost_enabled(v28);
-          v29 = log;
-          if (v30)
+          log = v27;
+          v29 = os_signpost_enabled(v27);
+          v28 = log;
+          if (v29)
           {
             *buf = 134218499;
-            v40 = device;
-            v41 = 2117;
-            v42 = primaryAlias;
-            v43 = 2048;
-            v44 = v14;
+            v39 = device;
+            v40 = 2117;
+            v41 = primaryAlias;
+            v42 = 2048;
+            v43 = v14;
             _os_signpost_emit_with_name_impl(&dword_1D2CD5000, log, OS_SIGNPOST_INTERVAL_BEGIN, v22, "GCPhysicalInputProfile.Button.touched.callback", "{device: %p, primaryAlias: %{sensitive}@, lastEventTimestamp: %f}", buf, 0x20u);
-            v29 = log;
+            v28 = log;
           }
         }
       }
@@ -344,13 +336,13 @@ void __43__GCControllerButtonInput__setValue_queue___block_invoke_90(uint64_t a1
       block[1] = 3221225472;
       block[2] = __45__GCControllerButtonInput__setTouched_queue___block_invoke;
       block[3] = &unk_1E841AD20;
-      v34 = v18;
+      v33 = v18;
       block[4] = self;
-      v36 = value;
-      v37 = v21;
-      v38 = touchedCopy;
-      v33 = v8;
-      v35 = v22;
+      v35 = value;
+      v36 = v21;
+      v37 = touchedCopy;
+      v32 = v8;
+      v34 = v22;
       dispatch_async(queueCopy, block);
     }
 
@@ -362,7 +354,6 @@ void __43__GCControllerButtonInput__setValue_queue___block_invoke_90(uint64_t a1
     v7 = 0;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -511,7 +502,8 @@ void __43__GCControllerButtonInput__setValue_queue___block_invoke_cold_1(uint64_
   OUTLINED_FUNCTION_1_22();
   if (!(!v3 & v2) && os_signpost_enabled(v1))
   {
-    OUTLINED_FUNCTION_2_16(&dword_1D2CD5000, v4, v5, v6, "GCPhysicalInputProfile.Button.value.callback", "{}", v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_2_16(&dword_1D2CD5000, v4, v5, v6, "GCPhysicalInputProfile.Button.value.callback", "{}", v7, v8, v9);
   }
 }
 
@@ -521,7 +513,8 @@ void __43__GCControllerButtonInput__setValue_queue___block_invoke_89_cold_1(uint
   OUTLINED_FUNCTION_1_22();
   if (!(!v3 & v2) && os_signpost_enabled(v1))
   {
-    OUTLINED_FUNCTION_2_16(&dword_1D2CD5000, v4, v5, v6, "GCPhysicalInputProfile.Button.touched.callback", "{}", v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_2_16(&dword_1D2CD5000, v4, v5, v6, "GCPhysicalInputProfile.Button.touched.callback", "{}", v7, v8, v9);
   }
 }
 
@@ -531,13 +524,13 @@ void __43__GCControllerButtonInput__setValue_queue___block_invoke_90_cold_1(uint
   OUTLINED_FUNCTION_1_22();
   if (!(!v3 & v2) && os_signpost_enabled(v1))
   {
-    OUTLINED_FUNCTION_2_16(&dword_1D2CD5000, v4, v5, v6, "GCPhysicalInputProfile.Button.pressed.callback", "{}", v7, v8, 0);
+    v9 = 0;
+    OUTLINED_FUNCTION_2_16(&dword_1D2CD5000, v4, v5, v6, "GCPhysicalInputProfile.Button.pressed.callback", "{}", v7, v8, v9);
   }
 }
 
 - (void)isPressed
 {
-  v15 = *MEMORY[0x1E69E9840];
   v2 = _gc_log_signpost();
   if (os_signpost_enabled(v2))
   {
@@ -550,13 +543,10 @@ void __43__GCControllerButtonInput__setValue_queue___block_invoke_90_cold_1(uint
     OUTLINED_FUNCTION_0_28();
     _os_signpost_emit_with_name_impl(v7, v8, v9, v10, v11, v12, v13, 0x26u);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isTouched
 {
-  v15 = *MEMORY[0x1E69E9840];
   v2 = _gc_log_signpost();
   if (os_signpost_enabled(v2))
   {
@@ -569,13 +559,10 @@ void __43__GCControllerButtonInput__setValue_queue___block_invoke_90_cold_1(uint
     OUTLINED_FUNCTION_0_28();
     _os_signpost_emit_with_name_impl(v7, v8, v9, v10, v11, v12, v13, 0x26u);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)value
 {
-  v15 = *MEMORY[0x1E69E9840];
   v2 = _gc_log_signpost();
   if (os_signpost_enabled(v2))
   {
@@ -587,8 +574,6 @@ void __43__GCControllerButtonInput__setValue_queue___block_invoke_90_cold_1(uint
     OUTLINED_FUNCTION_0_28();
     _os_signpost_emit_with_name_impl(v7, v8, v9, v10, v11, v12, v13, 0x2Au);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 @end

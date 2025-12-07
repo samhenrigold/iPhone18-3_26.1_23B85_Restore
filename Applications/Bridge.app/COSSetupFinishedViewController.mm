@@ -122,8 +122,7 @@
   v3->_progressView = v28;
 
   [(BPSIllustratedWatchView *)v3->_illustratedSyncView addSyncTrapProgressView:v3->_progressView];
-  [(PBBridgeProgressView *)v3->_progressView setHidden:1];
-  if ((sub_10002EAFC() & 1) == 0 && ![(COSSetupFinishedViewController *)v3 isTinkerWatch])
+  if ((sub_10002EAFC([(PBBridgeProgressView *)v3->_progressView setHidden:1]) & 1) == 0 && ![(COSSetupFinishedViewController *)v3 isTinkerWatch])
   {
     v31 = +[UIApplication sharedApplication];
     [v31 setSyncTrapUIEnabled:1];
@@ -802,7 +801,7 @@ LABEL_23:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v14 = setupCopy;
+    v15 = setupCopy;
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Device Is Setup(Sender %@)", buf, 0xCu);
   }
 
@@ -821,29 +820,29 @@ LABEL_23:
 
   if (isTinkerPairing)
   {
-    v10 = pbb_setupflow_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pbb_setupflow_log();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v11 = "Tinker pairing, skipping sync.";
+      v12 = "Tinker pairing, skipping sync.";
 LABEL_11:
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, v11, buf, 2u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v12, buf, 2u);
     }
   }
 
   else
   {
-    if (!sub_10002EAFC())
+    if (!sub_10002EAFC(v10))
     {
       [(COSSetupFinishedViewController *)self setupSyncMonitorIfNeeded];
       goto LABEL_14;
     }
 
-    v10 = pbb_setupflow_log();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = pbb_setupflow_log();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      v11 = "NR has notified us that we did Pair! Unblocking UI and Skipping Sync Monitor Creation.";
+      v12 = "NR has notified us that we did Pair! Unblocking UI and Skipping Sync Monitor Creation.";
       goto LABEL_11;
     }
   }

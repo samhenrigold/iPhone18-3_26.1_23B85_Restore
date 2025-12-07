@@ -91,7 +91,7 @@
 
 - (void)dequeueHighestQualityOfServiceJobsWithHandler:(id)handler
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -102,45 +102,45 @@
     v7 = [(NSMutableDictionary *)selfCopy->_qosToGroupingToJobMapping objectForKey:v6];
     if (![v7 count])
     {
-      v16 = brc_bread_crumbs();
-      v17 = brc_default_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+      v15 = brc_bread_crumbs();
+      v16 = brc_default_log();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
       {
-        [(BRCPipelineJobQueue *)v16 dequeueHighestQualityOfServiceJobsWithHandler:v17];
+        [(BRCPipelineJobQueue *)v15 dequeueHighestQualityOfServiceJobsWithHandler:v16];
       }
     }
 
-    v31 = 0;
-    v32 = &v31;
-    v33 = 0x3032000000;
-    v34 = __Block_byref_object_copy__14;
-    v35 = __Block_byref_object_dispose__14;
-    v36 = 0;
-    v25 = 0;
-    v26 = &v25;
-    v27 = 0x3032000000;
-    v28 = __Block_byref_object_copy__14;
-    v29 = __Block_byref_object_dispose__14;
     v30 = 0;
-    v24[0] = MEMORY[0x277D85DD0];
-    v24[1] = 3221225472;
-    v24[2] = __69__BRCPipelineJobQueue_dequeueHighestQualityOfServiceJobsWithHandler___block_invoke;
-    v24[3] = &unk_2785020A0;
-    v24[4] = &v31;
-    v24[5] = &v25;
-    [v7 enumerateKeysAndObjectsUsingBlock:v24];
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
+    v31 = &v30;
+    v32 = 0x3032000000;
+    v33 = __Block_byref_object_copy__14;
+    v34 = __Block_byref_object_dispose__14;
+    v35 = 0;
+    v24 = 0;
+    v25 = &v24;
+    v26 = 0x3032000000;
+    v27 = __Block_byref_object_copy__14;
+    v28 = __Block_byref_object_dispose__14;
+    v29 = 0;
+    v23[0] = MEMORY[0x277D85DD0];
+    v23[1] = 3221225472;
+    v23[2] = __69__BRCPipelineJobQueue_dequeueHighestQualityOfServiceJobsWithHandler___block_invoke;
+    v23[3] = &unk_2785020A0;
+    v23[4] = &v30;
+    v23[5] = &v24;
+    [v7 enumerateKeysAndObjectsUsingBlock:v23];
     v21 = 0u;
-    v8 = v32[5];
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v37 count:16];
-    v19 = v7;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
+    v8 = v31[5];
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v36 count:16];
+    v18 = v7;
     v10 = v6;
     v11 = 0;
     if (v9)
     {
-      v12 = *v21;
+      v12 = *v20;
       while (2)
       {
         v13 = 0;
@@ -148,12 +148,12 @@
         v11 += v9;
         do
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v8);
           }
 
-          if ((handlerCopy[2](handlerCopy, *(*(&v20 + 1) + 8 * v13)) & 1) == 0)
+          if ((handlerCopy[2](handlerCopy, *(*(&v19 + 1) + 8 * v13)) & 1) == 0)
           {
             v11 = v14;
             goto LABEL_13;
@@ -164,7 +164,7 @@
         }
 
         while (v9 != v13);
-        v9 = [v8 countByEnumeratingWithState:&v20 objects:v37 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v19 objects:v36 count:16];
         if (v9)
         {
           continue;
@@ -176,10 +176,10 @@
 
 LABEL_13:
 
-    if (v11 == [v32[5] count])
+    if (v11 == [v31[5] count])
     {
-      [v19 setObject:0 forKeyedSubscript:v26[5]];
-      if (![v19 count])
+      [v18 setObject:0 forKeyedSubscript:v25[5]];
+      if (![v18 count])
       {
         [(NSMutableDictionary *)selfCopy->_qosToGroupingToJobMapping setObject:0 forKeyedSubscript:v10];
         [(NSMutableIndexSet *)selfCopy->_activeQOSValues removeIndex:lastIndex];
@@ -188,17 +188,15 @@ LABEL_13:
 
     else
     {
-      [v32[5] removeObjectsInRange:{0, v11}];
+      [v31[5] removeObjectsInRange:{0, v11}];
     }
 
-    _Block_object_dispose(&v25, 8);
+    _Block_object_dispose(&v24, 8);
 
-    _Block_object_dispose(&v31, 8);
+    _Block_object_dispose(&v30, 8);
   }
 
   objc_sync_exit(selfCopy);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __69__BRCPipelineJobQueue_dequeueHighestQualityOfServiceJobsWithHandler___block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
@@ -253,7 +251,7 @@ void __37__BRCPipelineJobQueue_dumpToContext___block_invoke(uint64_t a1, uint64_
 
 void __37__BRCPipelineJobQueue_dumpToContext___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [MEMORY[0x277CBEB68] null];
@@ -264,31 +262,31 @@ void __37__BRCPipelineJobQueue_dumpToContext___block_invoke_2(uint64_t a1, void 
     [*(a1 + 32) pushIndentation];
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v8 = v6;
-  v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(*(&v15 + 1) + 8 * v12++) dumpToContext:*(a1 + 32)];
+        [*(*(&v14 + 1) + 8 * v12++) dumpToContext:*(a1 + 32)];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
@@ -300,17 +298,14 @@ void __37__BRCPipelineJobQueue_dumpToContext___block_invoke_2(uint64_t a1, void 
   {
     [*(a1 + 32) popIndentation];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dequeueHighestQualityOfServiceJobsWithHandler:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: groupToJobsMap.count > 0%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_223E7A000, a2, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: groupToJobsMap.count > 0%@", &v2, 0xCu);
 }
 
 @end

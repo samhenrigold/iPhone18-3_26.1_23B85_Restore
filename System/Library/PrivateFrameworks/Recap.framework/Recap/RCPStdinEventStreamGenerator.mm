@@ -92,30 +92,31 @@
 
 void __46__RCPStdinEventStreamGenerator__processBuffer__block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v13 = a2;
+  v14 = v13;
   if (v13 && a3 + a4 != a5 + a6)
   {
-    v15 = RCPLogPlayback();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = RCPLogPlayback(v13);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138543362;
-      v17 = v13;
-      _os_log_impl(&dword_2619DE000, v15, OS_LOG_TYPE_DEFAULT, "Found full command: %{public}@", &v16, 0xCu);
+      v17 = 138543362;
+      v18 = v14;
+      _os_log_impl(&dword_2619DE000, v16, OS_LOG_TYPE_DEFAULT, "Found full command: %{public}@", &v17, 0xCu);
     }
 
-    [*(*(a1 + 32) + 16) addObject:v13];
+    [*(*(a1 + 32) + 16) addObject:v14];
     [*(*(a1 + 32) + 24) deleteCharactersInRange:{a5, a6}];
   }
 
   else
   {
-    v14 = RCPLogPlayback();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = RCPLogPlayback(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138543362;
-      v17 = v13;
-      _os_log_impl(&dword_2619DE000, v14, OS_LOG_TYPE_DEFAULT, "Found partial command: %{public}@", &v16, 0xCu);
+      v17 = 138543362;
+      v18 = v14;
+      _os_log_impl(&dword_2619DE000, v15, OS_LOG_TYPE_DEFAULT, "Found partial command: %{public}@", &v17, 0xCu);
     }
 
     *a7 = 1;
@@ -128,8 +129,7 @@ void __46__RCPStdinEventStreamGenerator__processBuffer__block_invoke(uint64_t a1
   if ([(RCPStdinEventStreamGenerator *)self _processBuffer])
   {
     firstObject = [(NSMutableArray *)self->_commandBuffer firstObject];
-    [(NSMutableArray *)self->_commandBuffer removeObjectAtIndex:0];
-    v4 = RCPLogPlayback();
+    v4 = RCPLogPlayback([(NSMutableArray *)self->_commandBuffer removeObjectAtIndex:0]);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v9 = 138543362;

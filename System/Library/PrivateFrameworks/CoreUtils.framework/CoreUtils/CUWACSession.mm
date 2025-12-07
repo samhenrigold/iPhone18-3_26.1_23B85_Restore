@@ -47,7 +47,7 @@
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUWACSession _runFinishRestored:]", 0x3Cu, "### Finish restore original WiFi failed: %#m\n", v6, v7, v8, v9, v3);
+      LogPrintF(ucat, "[CUWACSession _runFinishRestored:]", 60, "### Finish restore original WiFi failed: %#m\n", v6, v7, v8, v9, v3);
     }
 
 LABEL_9:
@@ -150,14 +150,14 @@ LABEL_6:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUWACSession _runEasyConfigPostConfig]", 0x5Au, "### No EasyConfigDevice to resume?\n", v8, v9, v10, v11, v24);
+    LogPrintF(ucat, "[CUWACSession _runEasyConfigPostConfig]", 90, "### No EasyConfigDevice to resume?\n", v8, v9, v10, v11, v24);
 LABEL_14:
     self->_easyConfigPostConfigState = 3;
     v27 = @"eo";
     v15 = MEMORY[0x1E696ABC0];
     v16 = *MEMORY[0x1E696A768];
     v25 = *MEMORY[0x1E696A578];
-    v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{DebugGetErrorStringEx(0, -6762, 0, 0)}];
+    v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{DebugGetErrorStringEx(0, 4294960534, 0, 0)}];
     v18 = v17;
     v19 = @"?";
     if (v17)
@@ -189,7 +189,7 @@ LABEL_14:
       easyConfigPostConfigState = self->_easyConfigPostConfigState;
     }
 
-    LogPrintF(v13, "[CUWACSession _runEasyConfigPostConfig]", 0x1Eu, "EasyConfig PostConfig hasn't succeeded yet (%d)\n", v2, v3, v4, v5, easyConfigPostConfigState);
+    LogPrintF(v13, "[CUWACSession _runEasyConfigPostConfig]", 30, "EasyConfig PostConfig hasn't succeeded yet (%d)\n", v2, v3, v4, v5, easyConfigPostConfigState);
   }
 
   return self->_easyConfigPostConfigState;
@@ -218,7 +218,7 @@ LABEL_14:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUWACSession _runRestoreOriginalWiFiFinished:]", 0x3Cu, "### Restore original WiFi failed: %#m\n", v6, v7, v8, v9, v3);
+      LogPrintF(ucat, "[CUWACSession _runRestoreOriginalWiFiFinished:]", 60, "### Restore original WiFi failed: %#m\n", v6, v7, v8, v9, v3);
     }
 
 LABEL_9:
@@ -274,11 +274,11 @@ LABEL_9:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUWACSession _runRestoreOriginalWiFiStart]", 0x5Au, "### No original WiFi info to restore\n", v4, v5, v6, v7, v30);
+      LogPrintF(ucat, "[CUWACSession _runRestoreOriginalWiFiStart]", 90, "### No original WiFi info to restore\n", v4, v5, v6, v7, v30);
     }
 
 LABEL_17:
-    LODWORD(v19) = -6705;
+    v19 = 4294960591;
     goto LABEL_18;
   }
 
@@ -330,7 +330,7 @@ LABEL_17:
         v20 = self->_ucat;
       }
 
-      LogPrintF(v20, "[CUWACSession _runRestoreOriginalWiFiStart]", 0x3Cu, "### Restore original WiFi start failed: %#m\n", v14, v15, v16, v17, v19);
+      LogPrintF(v20, "[CUWACSession _runRestoreOriginalWiFiStart]", 60, "### Restore original WiFi start failed: %#m\n", v14, v15, v16, v17, v19);
     }
 
 LABEL_18:
@@ -378,7 +378,7 @@ LABEL_18:
           restoreOriginalWiFiState = self->_restoreOriginalWiFiState;
         }
 
-        LogPrintF(ucat, "[CUWACSession _runRestoreOriginalWiFi]", 0x1Eu, "Restore original WiFi hasn't succeeded yet (%d)\n", v2, v3, v4, v5, restoreOriginalWiFiState);
+        LogPrintF(ucat, "[CUWACSession _runRestoreOriginalWiFi]", 30, "Restore original WiFi hasn't succeeded yet (%d)\n", v2, v3, v4, v5, restoreOriginalWiFiState);
       }
     }
 
@@ -440,7 +440,7 @@ LABEL_18:
       if (ucat->var0 != -1)
       {
 LABEL_19:
-        LogPrintF(ucat, "[CUWACSession _runEasyConfigProgress:info:]", 0x1Eu, "EasyConfig final: %{error}\n", v15, v16, v17, v18, v19);
+        LogPrintF(ucat, "[CUWACSession _runEasyConfigProgress:info:]", 30, "EasyConfig final: %{error}\n", v15, v16, v17, v18, v19);
         goto LABEL_31;
       }
 
@@ -549,7 +549,7 @@ LABEL_27:
       v21 = self->_ucat;
     }
 
-    LogPrintF(v21, "[CUWACSession _runEasyConfigProgress:info:]", 0x1Eu, "EasyConfig unknown event %d %@\n", v6, v7, v8, v9, v4);
+    LogPrintF(v21, "[CUWACSession _runEasyConfigProgress:info:]", 30, "EasyConfig unknown event %d %@\n", v6, v7, v8, v9, v4);
   }
 
 LABEL_26:
@@ -557,7 +557,7 @@ LABEL_26:
 
 - (void)_runEasyConfigPreConfigStart
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   [(CUWACSession *)self _progress:60 info:0];
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
   deviceIEDeviceID = [(CUWiFiDevice *)self->_wacDevice deviceIEDeviceID];
@@ -600,7 +600,7 @@ LABEL_26:
         if (ucat->var0 != -1)
         {
 LABEL_9:
-          LogPrintF(ucat, "[CUWACSession _runEasyConfigPreConfigStart]", 0x32u, "### No WiFI password to configure\n", v20, v21, v22, v23, v42);
+          LogPrintF(ucat, "[CUWACSession _runEasyConfigPreConfigStart]", 50, "### No WiFI password to configure\n", v20, v21, v22, v23, v43);
           goto LABEL_11;
         }
 
@@ -635,100 +635,100 @@ LABEL_11:
             v30 = self->_ucat;
           }
 
-          LogPrintF(v30, "[CUWACSession _runEasyConfigPreConfigStart]", 0x32u, "### No WiFI SSID to configure\n", v26, v27, v28, v29, v42);
+          LogPrintF(v30, "[CUWACSession _runEasyConfigPreConfigStart]", 50, "### No WiFI SSID to configure\n", v26, v27, v28, v29, v43);
         }
       }
 
 LABEL_17:
-      [(EasyConfigDevice *)self->_easyConfigDevice stop];
-      v31 = [getEasyConfigDeviceClass[0]() deviceWithInfo:v3];
+      stop = [(EasyConfigDevice *)self->_easyConfigDevice stop];
+      v32 = [getEasyConfigDeviceClass(stop) deviceWithInfo:v3];
       easyConfigDevice = self->_easyConfigDevice;
-      self->_easyConfigDevice = v31;
+      self->_easyConfigDevice = v32;
 
       [(EasyConfigDevice *)self->_easyConfigDevice setConfiguration:v18];
       [(EasyConfigDevice *)self->_easyConfigDevice setDispatchQueue:self->_dispatchQueue];
       [(EasyConfigDevice *)self->_easyConfigDevice setPausesAfterApply:1];
       [(EasyConfigDevice *)self->_easyConfigDevice setPreConfigMetrics:&self->_easyConfigPreConfigMetrics];
-      v44[0] = MEMORY[0x1E69E9820];
-      v44[1] = 3221225472;
-      v44[2] = __44__CUWACSession__runEasyConfigPreConfigStart__block_invoke;
-      v44[3] = &unk_1E73A4250;
-      v44[4] = self;
-      [(EasyConfigDevice *)self->_easyConfigDevice setProgressHandler:v44];
+      v45[0] = MEMORY[0x1E69E9820];
+      v45[1] = 3221225472;
+      v45[2] = __44__CUWACSession__runEasyConfigPreConfigStart__block_invoke;
+      v45[3] = &unk_1E73A4250;
+      v45[4] = self;
+      [(EasyConfigDevice *)self->_easyConfigDevice setProgressHandler:v45];
       if (self->_promptForSetupCodeHandler)
       {
-        v33 = self->_easyConfigDevice;
-        v43[0] = MEMORY[0x1E69E9820];
-        v43[1] = 3221225472;
-        v43[2] = __44__CUWACSession__runEasyConfigPreConfigStart__block_invoke_2;
-        v43[3] = &unk_1E73A4278;
-        v43[4] = self;
-        [(EasyConfigDevice *)v33 setPromptForSetupCodeHandler:v43];
+        v34 = self->_easyConfigDevice;
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = __44__CUWACSession__runEasyConfigPreConfigStart__block_invoke_2;
+        v44[3] = &unk_1E73A4278;
+        v44[4] = self;
+        [(EasyConfigDevice *)v34 setPromptForSetupCodeHandler:v44];
       }
 
       [(EasyConfigDevice *)self->_easyConfigDevice start];
       goto LABEL_20;
     }
 
-    v34 = self->_ucat;
-    if (v34->var0 <= 90)
+    v35 = self->_ucat;
+    if (v35->var0 <= 90)
     {
-      if (v34->var0 == -1)
+      if (v35->var0 == -1)
       {
-        if (!_LogCategory_Initialize(v34, 0x5Au))
+        if (!_LogCategory_Initialize(v35, 0x5Au))
         {
           goto LABEL_31;
         }
 
-        v34 = self->_ucat;
+        v35 = self->_ucat;
       }
 
-      v35 = "### No current WiFi info to start EasyConfig\n";
+      v36 = "### No current WiFi info to start EasyConfig\n";
 LABEL_27:
-      LogPrintF(v34, "[CUWACSession _runEasyConfigPreConfigStart]", 0x5Au, v35, v4, v5, v6, v7, v42);
+      LogPrintF(v35, "[CUWACSession _runEasyConfigPreConfigStart]", 90, v36, v4, v5, v6, v7, v43);
     }
   }
 
   else
   {
-    v34 = self->_ucat;
-    if (v34->var0 <= 90)
+    v35 = self->_ucat;
+    if (v35->var0 <= 90)
     {
-      if (v34->var0 == -1)
+      if (v35->var0 == -1)
       {
-        if (!_LogCategory_Initialize(v34, 0x5Au))
+        if (!_LogCategory_Initialize(v35, 0x5Au))
         {
           goto LABEL_31;
         }
 
-        v34 = self->_ucat;
+        v35 = self->_ucat;
       }
 
-      v35 = "### No deviceID start EasyConfig\n";
+      v36 = "### No deviceID start EasyConfig\n";
       goto LABEL_27;
     }
   }
 
 LABEL_31:
   self->_easyConfigPreConfigState = 3;
-  v47 = @"eo";
-  v36 = MEMORY[0x1E696ABC0];
-  v37 = *MEMORY[0x1E696A768];
-  v45 = *MEMORY[0x1E696A578];
-  v38 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{DebugGetErrorStringEx(0, -6705, 0, 0)}];
-  v17 = v38;
-  v39 = @"?";
-  if (v38)
+  v48 = @"eo";
+  v37 = MEMORY[0x1E696ABC0];
+  v38 = *MEMORY[0x1E696A768];
+  v46 = *MEMORY[0x1E696A578];
+  v39 = [MEMORY[0x1E696AEC0] stringWithUTF8String:{DebugGetErrorStringEx(0, 4294960591, 0, 0)}];
+  v17 = v39;
+  v40 = @"?";
+  if (v39)
   {
-    v39 = v38;
+    v40 = v39;
   }
 
-  v46 = v39;
-  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
-  v40 = [v36 errorWithDomain:v37 code:-6705 userInfo:v18];
-  v48[0] = v40;
-  v41 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v48 forKeys:&v47 count:1];
-  [(CUWACSession *)self _progress:30 info:v41];
+  v47 = v40;
+  v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+  v41 = [v37 errorWithDomain:v38 code:-6705 userInfo:v18];
+  v49[0] = v41;
+  v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v49 forKeys:&v48 count:1];
+  [(CUWACSession *)self _progress:30 info:v42];
 
 LABEL_20:
 }
@@ -754,7 +754,7 @@ LABEL_20:
           easyConfigPreConfigState = self->_easyConfigPreConfigState;
         }
 
-        LogPrintF(ucat, "[CUWACSession _runEasyConfigPreConfig]", 0x1Eu, "EasyConfig PreConfig hasn't succeeded yet (%d)\n", v2, v3, v4, v5, easyConfigPreConfigState);
+        LogPrintF(ucat, "[CUWACSession _runEasyConfigPreConfig]", 30, "EasyConfig PreConfig hasn't succeeded yet (%d)\n", v2, v3, v4, v5, easyConfigPreConfigState);
       }
     }
 
@@ -788,7 +788,7 @@ LABEL_20:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUWACSession _runJoinSoftAPFinished:]", 0x3Cu, "### Join SoftAP start failed: %#m\n", v3, v4, v5, v6, v8);
+      LogPrintF(ucat, "[CUWACSession _runJoinSoftAPFinished:]", 60, "### Join SoftAP start failed: %#m\n", v3, v4, v5, v6, v8);
     }
 
 LABEL_9:
@@ -843,11 +843,11 @@ LABEL_9:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CUWACSession _runJoinSoftAPStart]", 0x5Au, "### No scan result to join SoftAP\n", v3, v4, v5, v6, v28);
+      LogPrintF(ucat, "[CUWACSession _runJoinSoftAPStart]", 90, "### No scan result to join SoftAP\n", v3, v4, v5, v6, v28);
     }
 
 LABEL_15:
-    LODWORD(v17) = -6705;
+    v17 = 4294960591;
     goto LABEL_16;
   }
 
@@ -891,7 +891,7 @@ LABEL_15:
         v18 = self->_ucat;
       }
 
-      LogPrintF(v18, "[CUWACSession _runJoinSoftAPStart]", 0x3Cu, "### Join SoftAP start failed: %#m\n", v12, v13, v14, v15, v17);
+      LogPrintF(v18, "[CUWACSession _runJoinSoftAPStart]", 60, "### Join SoftAP start failed: %#m\n", v12, v13, v14, v15, v17);
     }
 
 LABEL_16:
@@ -939,7 +939,7 @@ LABEL_16:
           joinSoftAPState = self->_joinSoftAPState;
         }
 
-        LogPrintF(ucat, "[CUWACSession _runJoinSoftAP]", 0x1Eu, "Join SoftAP hasn't succeeded yet (%d)\n", v2, v3, v4, v5, joinSoftAPState);
+        LogPrintF(ucat, "[CUWACSession _runJoinSoftAP]", 30, "Join SoftAP hasn't succeeded yet (%d)\n", v2, v3, v4, v5, joinSoftAPState);
       }
     }
 
@@ -976,7 +976,7 @@ LABEL_16:
       ucat = self->_ucat;
     }
 
-    LogPrintF(ucat, "[CUWACSession _runSaveOriginalWiFi]", 0x1Eu, "Saving off current WiFi info\n", v2, v3, v4, v5, v27);
+    LogPrintF(ucat, "[CUWACSession _runSaveOriginalWiFi]", 30, "Saving off current WiFi info\n", v2, v3, v4, v5, v27);
   }
 
 LABEL_6:
@@ -1010,13 +1010,13 @@ LABEL_6:
     v16 = self->_ucat;
   }
 
-  LogPrintF(v16, "[CUWACSession _runSaveOriginalWiFi]", 0x3Cu, "### Saving off current WiFi info failed: %#m\n", v11, v12, v13, v14, v15);
-  LODWORD(v15) = v28;
+  LogPrintF(v16, "[CUWACSession _runSaveOriginalWiFi]", 60, "### Saving off current WiFi info failed: %#m\n", v11, v12, v13, v14, v15);
+  v15 = v28;
 LABEL_13:
   self->_saveOriginalWiFiState = 3;
   if (!v15)
   {
-    LODWORD(v15) = -6762;
+    v15 = 4294960534;
     v28 = -6762;
   }
 
@@ -1216,7 +1216,7 @@ LABEL_13:
         case 0xAA:
           v11 = "FoundPostConfig";
 LABEL_55:
-          LogPrintF(ucat, "[CUWACSession _progress:info:]", 0x1Eu, "Progress: %s %@\n", v6, v7, v8, v9, v11);
+          LogPrintF(ucat, "[CUWACSession _progress:info:]", 30, "Progress: %s %@\n", v6, v7, v8, v9, v11);
           goto LABEL_56;
       }
     }
@@ -1250,9 +1250,9 @@ LABEL_56:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __26__CUWACSession_invalidate__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__26__CUWACSession_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *(result + 32);
+  v10 = result[4];
   if (*(v10 + 9))
   {
     return result;
@@ -1261,14 +1261,14 @@ uint64_t __26__CUWACSession_invalidate__block_invoke(uint64_t result, uint64_t a
   v16 = v8;
   v11 = result;
   *(v10 + 9) = 1;
-  v12 = *(result + 32);
+  v12 = result[4];
   v13 = v12[2];
   if (*v13 <= 30)
   {
     if (*v13 == -1)
     {
       v14 = _LogCategory_Initialize(v13, 0x1Eu);
-      v12 = *(v11 + 32);
+      v12 = v11[4];
       if (!v14)
       {
         goto LABEL_6;
@@ -1277,13 +1277,13 @@ uint64_t __26__CUWACSession_invalidate__block_invoke(uint64_t result, uint64_t a
       v13 = v12[2];
     }
 
-    LogPrintF(v13, "[CUWACSession invalidate]_block_invoke", 0x1Eu, "Invalidate\n", a5, a6, a7, a8, v8);
-    v12 = *(v11 + 32);
+    LogPrintF(v13, "[CUWACSession invalidate]_block_invoke", 30, "Invalidate\n", a5, a6, a7, a8, v8);
+    v12 = v11[4];
   }
 
 LABEL_6:
   [v12 _runFinish];
-  v15 = *(v11 + 32);
+  v15 = v11[4];
 
   return [v15 _cleanup];
 }
@@ -1308,7 +1308,7 @@ uint64_t __24__CUWACSession_activate__block_invoke(uint64_t a1, uint64_t a2, uin
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CUWACSession activate]_block_invoke", 0x1Eu, "Activate\n", a5, a6, a7, a8, v14);
+      LogPrintF(v10, "[CUWACSession activate]_block_invoke", 30, "Activate\n", a5, a6, a7, a8, v14);
       v9 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -1361,7 +1361,7 @@ LABEL_5:
 {
   if (self->_activateCalled && !self->_invalidateCalled)
   {
-    FatalErrorF("Dealloc without invalidate", a2, v2, v3, v4, v5, v6, v7, v10.receiver);
+    FatalErrorF("Dealloc without invalidate", a2);
   }
 
   [(CUWACSession *)self _cleanup];
@@ -1372,9 +1372,9 @@ LABEL_5:
     self->_ucat = 0;
   }
 
-  v10.receiver = self;
-  v10.super_class = CUWACSession;
-  [(CUWACSession *)&v10 dealloc];
+  v4.receiver = self;
+  v4.super_class = CUWACSession;
+  [(CUWACSession *)&v4 dealloc];
 }
 
 - (CUWACSession)init

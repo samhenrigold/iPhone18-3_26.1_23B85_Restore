@@ -50,18 +50,18 @@
   v6 = objc_storeWeak(&self->_enumerator, enumeratorCopy);
   if (enumeratorCopy)
   {
-    objc_msgSend_size(enumeratorCopy, v7, v8, v9, v10);
-    v11 = v16;
+    objc_msgSend_size(enumeratorCopy, v7, v8, v9);
+    v10 = v15;
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  self->_size = v11;
+  self->_size = v10;
 
-  objc_msgSend_reset(self, v12, v13, v14, v15);
+  objc_msgSend_reset(self, v11, v12, v13, v14);
   objc_storeWeak(&self->_enumerator, 0);
 }
 
@@ -98,10 +98,10 @@
 - (id)boundsGeometryForSeries:(id)series index:(void *)index
 {
   v7 = objc_msgSend_seriesStorage(series, a2, v4, v5, v6);
-  v12 = objc_msgSend_bounds(v7, v8, v9, v10, v11);
-  v17 = objc_msgSend_resourceWithType_resource_(TSCH3DGeometryResource, v13, v14, v15, v16, 1, v12);
+  v11 = objc_msgSend_bounds(v7, v8, v9, v10);
+  v16 = objc_msgSend_resourceWithType_resource_(TSCH3DGeometryResource, v12, v13, v14, v15, 1, v11);
 
-  return v17;
+  return v16;
 }
 
 - (id)normalsForSeries:(id)series index:(void *)index

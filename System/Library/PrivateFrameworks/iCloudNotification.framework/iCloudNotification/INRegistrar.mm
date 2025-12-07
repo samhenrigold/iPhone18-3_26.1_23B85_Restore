@@ -460,58 +460,56 @@ LABEL_13:
 - (void)registerForLoggedOutPushWithToken:(id)token reason:(unint64_t)reason completion:(id)completion
 {
   v9 = sub_100022CF0(&qword_1000632D0, &qword_10004DAC0);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v22 - v11;
-  v13 = _Block_copy(completion);
+  v11 = &v21 - v10;
+  v12 = _Block_copy(completion);
   tokenCopy = token;
   selfCopy = self;
-  v16 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
-  v18 = v17;
+  v15 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
+  v17 = v16;
 
-  v19 = swift_allocObject();
-  *(v19 + 16) = v13;
-  v20 = type metadata accessor for TaskPriority();
-  (*(*(v20 - 8) + 56))(v12, 1, 1, v20);
-  v21 = swift_allocObject();
-  v21[2] = 0;
-  v21[3] = 0;
-  v21[4] = v16;
-  v21[5] = v18;
-  v21[6] = reason;
-  v21[7] = selfCopy;
-  v21[8] = sub_1000334C8;
-  v21[9] = v19;
-  sub_100020818(0, 0, v12, &unk_10004E2E0, v21);
+  v18 = swift_allocObject();
+  *(v18 + 16) = v12;
+  v19 = type metadata accessor for TaskPriority();
+  (*(*(v19 - 8) + 56))(v11, 1, 1, v19);
+  v20 = swift_allocObject();
+  v20[2] = 0;
+  v20[3] = 0;
+  v20[4] = v15;
+  v20[5] = v17;
+  v20[6] = reason;
+  v20[7] = selfCopy;
+  v20[8] = sub_1000334C8;
+  v20[9] = v18;
+  sub_100020818(0, 0, v11, &unk_10004E2E0, v20);
 }
 
 - (void)unregisterFromLoggedOutPushNotificationsWithToken:(NSData *)token reason:(unint64_t)reason completionHandler:(id)handler
 {
   v9 = sub_100022CF0(&qword_1000632D0, &qword_10004DAC0);
-  v10 = *(*(v9 - 8) + 64);
   __chkstk_darwin(v9 - 8);
-  v12 = &v20 - v11;
-  v13 = _Block_copy(handler);
-  v14 = swift_allocObject();
-  v14[2] = token;
-  v14[3] = reason;
-  v14[4] = v13;
-  v14[5] = self;
-  v15 = type metadata accessor for TaskPriority();
-  (*(*(v15 - 8) + 56))(v12, 1, 1, v15);
+  v11 = &v19 - v10;
+  v12 = _Block_copy(handler);
+  v13 = swift_allocObject();
+  v13[2] = token;
+  v13[3] = reason;
+  v13[4] = v12;
+  v13[5] = self;
+  v14 = type metadata accessor for TaskPriority();
+  (*(*(v14 - 8) + 56))(v11, 1, 1, v14);
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = &unk_10004E2A0;
+  v15[5] = v13;
   v16 = swift_allocObject();
   v16[2] = 0;
   v16[3] = 0;
-  v16[4] = &unk_10004E2A0;
-  v16[5] = v14;
-  v17 = swift_allocObject();
-  v17[2] = 0;
-  v17[3] = 0;
-  v17[4] = &unk_10004E2B0;
-  v17[5] = v16;
+  v16[4] = &unk_10004E2B0;
+  v16[5] = v15;
   tokenCopy = token;
   selfCopy = self;
-  sub_10002FEE4(0, 0, v12, &unk_10004E2C0, v17);
+  sub_10002FEE4(0, 0, v11, &unk_10004E2C0, v16);
 }
 
 @end

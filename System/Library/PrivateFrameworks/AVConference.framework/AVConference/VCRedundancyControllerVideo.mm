@@ -391,7 +391,7 @@ void __64__VCRedundancyControllerVideo_initWithDelegate_mode_parameters___block_
     algorithm = self->_algorithm;
     if (algorithm)
     {
-      [(VCRedundancyControlAlgorithm *)algorithm getFecLevelPerFrameSizeVector];
+      objc_msgSend_getFecLevelPerFrameSizeVector(algorithm);
       if (*buf)
       {
         v16 = MEMORY[0x1E1289F20](&self->_redundancyControllerDelegate);
@@ -412,7 +412,7 @@ void __64__VCRedundancyControllerVideo_initWithDelegate_mode_parameters___block_
 
 - (void)loadDefaultSettings
 {
-  v3 = micro();
+  v3 = micro(self, a2);
   if (v3 - self->_lastDefaultSettingLoadingTime > 3.0)
   {
     self->_forceRedundancyPercentage = [+[VCDefaults sharedInstance](VCDefaults redundancyControlForceVideoRedundancyPercentage];
@@ -562,7 +562,7 @@ uint64_t __55__VCRedundancyControllerVideo_setBtNotificationMonitor__block_invok
 
     _os_log_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_DEFAULT, v10, v17, v12);
 LABEL_13:
-    [(VCRedundancyControlAlgorithm *)self->_algorithm setIsRedundancyStrategyResetPending:1, *v17, *&v17[16], v18, selfCopy, v20];
+    [(VCRedundancyControlAlgorithm *)self->_algorithm setIsRedundancyStrategyResetPending:1, *v17, *&v17[8], v18, selfCopy, v20];
   }
 }
 

@@ -66,19 +66,19 @@
 
 - (void)processHostTLVs
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   v3 = [UARPSuperBinaryAsset alloc];
   asset = [(UARPUploaderAsset *)self asset];
   v5 = [asset id];
   localURL = [v5 localURL];
   v7 = [(UARPSuperBinaryAsset *)v3 initWithURL:localURL];
 
-  v52 = 0;
-  LODWORD(v5) = [(UARPSuperBinaryAsset *)v7 expandHeadersAndTLVs:&v52];
-  v8 = v52;
+  v51 = 0;
+  LODWORD(v5) = [(UARPSuperBinaryAsset *)v7 expandHeadersAndTLVs:&v51];
+  v8 = v51;
   if (v5)
   {
-    v45 = v8;
+    v44 = v8;
     assetVersion = [(UARPSuperBinaryAsset *)v7 assetVersion];
     v10 = [assetVersion copy];
     assetVersion = self->_assetVersion;
@@ -87,7 +87,7 @@
     tlvs = [(UARPSuperBinaryAsset *)v7 tlvs];
     v13 = [UARPSuperBinaryAssetTLV findTLVWithType:3436347652 tlvs:tlvs];
 
-    v44 = v13;
+    v43 = v13;
     valueAsNumber = [v13 valueAsNumber];
     if ([valueAsNumber BOOLValue])
     {
@@ -99,7 +99,7 @@
     tlvs2 = [(UARPSuperBinaryAsset *)v7 tlvs];
     v17 = [UARPSuperBinaryAssetTLV findTLVWithType:3291140096 tlvs:tlvs2];
 
-    v42 = v17;
+    v41 = v17;
     valueAsNumber2 = [v17 valueAsNumber];
     v19 = valueAsNumber2;
     if (valueAsNumber2)
@@ -107,11 +107,11 @@
       self->_minimumHostBatteryLevel = [valueAsNumber2 unsignedIntegerValue];
     }
 
-    v41 = v19;
+    v40 = v19;
     tlvs3 = [(UARPSuperBinaryAsset *)v7 tlvs];
     v21 = [UARPSuperBinaryAssetTLV findTLVWithType:3291140105 tlvs:tlvs3];
 
-    v40 = v21;
+    v39 = v21;
     valueAsNumber3 = [v21 valueAsNumber];
     v23 = valueAsNumber3;
     if (valueAsNumber3)
@@ -119,31 +119,31 @@
       self->_triggerHostBatteryLevel = [valueAsNumber3 unsignedIntegerValue];
     }
 
-    v39 = v23;
-    v46 = v7;
+    v38 = v23;
+    v45 = v7;
     tlvs4 = [(UARPSuperBinaryAsset *)v7 tlvs];
     v25 = [UARPSuperBinaryAssetTLV findTLVsWithType:3291140106 tlvs:tlvs4];
 
-    v50 = 0u;
-    v51 = 0u;
-    v48 = 0u;
     v49 = 0u;
+    v50 = 0u;
+    v47 = 0u;
+    v48 = 0u;
     obj = v25;
-    v26 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+    v26 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
     if (v26)
     {
       v27 = v26;
-      v28 = *v49;
+      v28 = *v48;
       while (2)
       {
         for (i = 0; i != v27; ++i)
         {
-          if (*v49 != v28)
+          if (*v48 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v30 = *(*(&v48 + 1) + 8 * i);
+          v30 = *(*(&v47 + 1) + 8 * i);
           selfCopy = self;
           WeakRetained = objc_loadWeakRetained(&self->_remoteEndpoint);
           accessory = [WeakRetained accessory];
@@ -161,7 +161,7 @@
           self = selfCopy;
         }
 
-        v27 = [obj countByEnumeratingWithState:&v48 objects:v53 count:16];
+        v27 = [obj countByEnumeratingWithState:&v47 objects:v52 count:16];
         if (v27)
         {
           continue;
@@ -173,11 +173,9 @@
 
 LABEL_18:
 
-    v8 = v45;
-    v7 = v46;
+    v8 = v44;
+    v7 = v45;
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (UARPUploaderEndpoint)remoteEndpoint

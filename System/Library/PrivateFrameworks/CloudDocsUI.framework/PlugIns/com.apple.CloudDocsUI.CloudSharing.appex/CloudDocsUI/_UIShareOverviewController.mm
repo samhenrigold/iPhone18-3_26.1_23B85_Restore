@@ -13,10 +13,13 @@
 - (id)sharedByModifiedByText;
 - (void)dismiss;
 - (void)presentError:(id)error;
+- (void)presentReachabilityViewController:(id)controller animated:(BOOL)animated;
 - (void)setNavigationItemSpinner:(BOOL)spinner;
 - (void)shareDidChange;
 - (void)traitCollectionDidChange:(id)change;
 - (void)updateThumbnail;
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation _UIShareOverviewController
@@ -34,6 +37,29 @@
   }
 
   return v6;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v8.receiver = self;
+  v8.super_class = _UIShareOverviewController;
+  [(_UIShareOverviewController *)&v8 viewWillAppear:appear];
+  [(_UIShareOverviewController *)self setPreferredContentSize:375.0, 575.0];
+  closeButton = [(_UIShareOverviewController *)self closeButton];
+
+  if (closeButton)
+  {
+    closeButton2 = [(_UIShareOverviewController *)self closeButton];
+  }
+
+  else
+  {
+    closeButton2 = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:24 target:self action:"dismiss"];
+  }
+
+  v6 = closeButton2;
+  navigationItem = [(_UIShareOverviewController *)self navigationItem];
+  [navigationItem setRightBarButtonItem:v6];
 }
 
 - (void)presentError:(id)error
@@ -189,12 +215,31 @@ LABEL_11:
   [view setUserInteractionEnabled:!spinnerCopy];
 }
 
+- (void)viewDidMoveToWindow:(id)window shouldAppearOrDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = _UIShareOverviewController;
+  [(_UIShareOverviewController *)&v6 viewDidMoveToWindow:window shouldAppearOrDisappear:disappear];
+  if (window)
+  {
+    [(_UIShareOverviewController *)self updateTraitCollection];
+  }
+}
+
 - (void)traitCollectionDidChange:(id)change
 {
   v4.receiver = self;
   v4.super_class = _UIShareOverviewController;
   [(_UIShareOverviewController *)&v4 traitCollectionDidChange:change];
   [(_UIShareOverviewController *)self updateTraitCollection];
+}
+
+- (void)presentReachabilityViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  [controllerCopy setModalPresentationStyle:6];
+  [(_UIShareOverviewController *)self presentViewController:controllerCopy animated:animatedCopy completion:0];
 }
 
 - (_UIShareOverviewControllerDelegate)delegate

@@ -32,7 +32,7 @@
     [customContentView bounds];
 
     _richContentView2 = [(NCNotificationRichShortLookView *)self _richContentView];
-    _NCMainScreenScale();
+    _NCMainScreenScale(_richContentView2, v5);
     UIRectIntegralWithScale();
     [_richContentView2 setFrame:?];
   }

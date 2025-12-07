@@ -174,30 +174,30 @@ BOOL __118__PGGraphRelationshipProcessor__socialGroupNodesIncludingPersonLocalId
 
 - (void)_enumerateInferredRelationshipMembersFromScores:(id)scores cumulativeThreshold:(double)threshold minimumConfidence:(double)confidence usingBlock:(id)block
 {
-  v75[1] = *MEMORY[0x277D85DE8];
+  v74[1] = *MEMORY[0x277D85DE8];
   scoresCopy = scores;
   blockCopy = block;
-  v68 = 0;
-  v69 = &v68;
-  v70 = 0x2020000000;
-  v71 = 0;
+  v67 = 0;
+  v68 = &v67;
+  v69 = 0x2020000000;
+  v70 = 0;
   if ([scoresCopy count])
   {
     v12 = MEMORY[0x277CCA9C0];
     allValues = [scoresCopy allValues];
-    v48 = [v12 expressionForConstantValue:allValues];
+    v47 = [v12 expressionForConstantValue:allValues];
 
     v14 = MEMORY[0x277CCA9C0];
-    v75[0] = v48;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:1];
+    v74[0] = v47;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:1];
     v16 = [v14 expressionForFunction:@"average:" arguments:v15];
     v17 = [v16 expressionValueWithObject:0 context:0];
     [v17 doubleValue];
     v19 = v18;
 
     v20 = MEMORY[0x277CCA9C0];
-    v74 = v48;
-    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v74 count:1];
+    v73 = v47;
+    v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v73 count:1];
     v22 = [v20 expressionForFunction:@"stddev:" arguments:v21];
     v23 = [v22 expressionValueWithObject:0 context:0];
     [v23 doubleValue];
@@ -207,100 +207,98 @@ BOOL __118__PGGraphRelationshipProcessor__socialGroupNodesIncludingPersonLocalId
     v27 = [MEMORY[0x277CBEB58] set];
     v28 = MEMORY[0x277CBEB58];
     allKeys = [scoresCopy allKeys];
-    v46 = [v28 setWithArray:allKeys];
+    v45 = [v28 setWithArray:allKeys];
 
-    v62[0] = MEMORY[0x277D85DD0];
-    v62[1] = 3221225472;
-    v62[2] = __129__PGGraphRelationshipProcessor__enumerateInferredRelationshipMembersFromScores_cumulativeThreshold_minimumConfidence_usingBlock___block_invoke;
-    v62[3] = &unk_278880920;
-    v64 = &v68;
-    v65 = v19;
-    v66 = v25;
+    v61[0] = MEMORY[0x277D85DD0];
+    v61[1] = 3221225472;
+    v61[2] = __129__PGGraphRelationshipProcessor__enumerateInferredRelationshipMembersFromScores_cumulativeThreshold_minimumConfidence_usingBlock___block_invoke;
+    v61[3] = &unk_278880920;
+    v63 = &v67;
+    v64 = v19;
+    v65 = v25;
     thresholdCopy = threshold;
     v30 = v26;
-    v63 = v30;
-    [scoresCopy enumerateKeysAndObjectsUsingBlock:v62];
+    v62 = v30;
+    [scoresCopy enumerateKeysAndObjectsUsingBlock:v61];
     if ([v30 count])
     {
-      v31 = [(PGGraphNodeCollection *)PGGraphSocialGroupNodeCollection nodesInGraph:self->_graph, v46];
+      v31 = [(PGGraphNodeCollection *)PGGraphSocialGroupNodeCollection nodesInGraph:self->_graph, v45];
       v32 = [(PGGraphRelationshipProcessor *)self _socialGroupNodesIncludingPersonLocalIdentifiers:v30 minimumMatches:2 amongSocialGroupNodes:v31];
-      v57[0] = MEMORY[0x277D85DD0];
-      v57[1] = 3221225472;
-      v57[2] = __129__PGGraphRelationshipProcessor__enumerateInferredRelationshipMembersFromScores_cumulativeThreshold_minimumConfidence_usingBlock___block_invoke_2;
-      v57[3] = &unk_278880970;
-      v58 = scoresCopy;
-      v60 = &v68;
+      v56[0] = MEMORY[0x277D85DD0];
+      v56[1] = 3221225472;
+      v56[2] = __129__PGGraphRelationshipProcessor__enumerateInferredRelationshipMembersFromScores_cumulativeThreshold_minimumConfidence_usingBlock___block_invoke_2;
+      v56[3] = &unk_278880970;
+      v57 = scoresCopy;
+      v59 = &v67;
       confidenceCopy = confidence;
-      v59 = v27;
-      [v32 enumerateIdentifiersAsCollectionsWithBlock:v57];
+      v58 = v27;
+      [v32 enumerateIdentifiersAsCollectionsWithBlock:v56];
     }
 
-    [v30 unionSet:{v27, v46}];
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
+    [v30 unionSet:{v27, v45}];
     v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
     v33 = v30;
-    v34 = [v33 countByEnumeratingWithState:&v53 objects:v73 count:16];
+    v34 = [v33 countByEnumeratingWithState:&v52 objects:v72 count:16];
     if (v34)
     {
-      v35 = *v54;
+      v35 = *v53;
       do
       {
         for (i = 0; i != v34; ++i)
         {
-          if (*v54 != v35)
+          if (*v53 != v35)
           {
             objc_enumerationMutation(v33);
           }
 
-          v37 = *(*(&v53 + 1) + 8 * i);
+          v37 = *(*(&v52 + 1) + 8 * i);
           v38 = [scoresCopy objectForKeyedSubscript:v37];
           [v38 doubleValue];
-          blockCopy[2](blockCopy, v37, v39 / v69[3]);
+          blockCopy[2](blockCopy, v37, v39 / v68[3]);
         }
 
-        v34 = [v33 countByEnumeratingWithState:&v53 objects:v73 count:16];
+        v34 = [v33 countByEnumeratingWithState:&v52 objects:v72 count:16];
       }
 
       while (v34);
     }
 
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
-    v40 = v47;
-    v41 = [v40 countByEnumeratingWithState:&v49 objects:v72 count:16];
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
+    v40 = v46;
+    v41 = [v40 countByEnumeratingWithState:&v48 objects:v71 count:16];
     if (v41)
     {
-      v42 = *v50;
+      v42 = *v49;
       do
       {
         for (j = 0; j != v41; ++j)
         {
-          if (*v50 != v42)
+          if (*v49 != v42)
           {
             objc_enumerationMutation(v40);
           }
 
-          v44 = *(*(&v49 + 1) + 8 * j);
+          v44 = *(*(&v48 + 1) + 8 * j);
           if (([v33 containsObject:v44] & 1) == 0)
           {
             blockCopy[2](blockCopy, v44, 0.0);
           }
         }
 
-        v41 = [v40 countByEnumeratingWithState:&v49 objects:v72 count:16];
+        v41 = [v40 countByEnumeratingWithState:&v48 objects:v71 count:16];
       }
 
       while (v41);
     }
   }
 
-  _Block_object_dispose(&v68, 8);
-
-  v45 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v67, 8);
 }
 
 void __129__PGGraphRelationshipProcessor__enumerateInferredRelationshipMembersFromScores_cumulativeThreshold_minimumConfidence_usingBlock___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -692,16 +690,15 @@ void __104__PGGraphRelationshipProcessor_enumerateHighRecallInferredRelationship
   _Block_object_dispose(v36, 8);
 }
 
-void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock___block_invoke(void *a1, void *a2, double a3)
+void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock___block_invoke(uint64_t a1, void *a2, double a3)
 {
-  v5 = a1[4];
+  v5 = *(a1 + 32);
   v6 = a2;
   v7 = [v5 relationshipAnalyzerPropertiesByPersonLocalIdentifier];
-  v10 = [v7 objectForKeyedSubscript:v6];
+  v9 = [v7 objectForKeyedSubscript:v6];
 
-  v8 = [v10 edgeProperties];
-  v9 = *(a1[6] + 8);
-  (*(a1[5] + 16))(a3);
+  v8 = [v9 edgeProperties];
+  (*(*(a1 + 40) + 16))(a3);
 }
 
 void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock___block_invoke_2(uint64_t a1, void *a2, double a3)
@@ -712,16 +709,15 @@ void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock
   [*(a1 + 32) setObject:v7 forKeyedSubscript:v6];
 
   v8 = [*(a1 + 40) relationshipAnalyzerPropertiesByPersonLocalIdentifier];
-  v11 = [v8 objectForKeyedSubscript:v6];
+  v10 = [v8 objectForKeyedSubscript:v6];
 
-  v9 = [v11 edgeProperties];
-  v10 = *(*(a1 + 56) + 8);
+  v9 = [v10 edgeProperties];
   (*(*(a1 + 48) + 16))(a3);
 }
 
 void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock___block_invoke_3(uint64_t a1, void *a2, double a3)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [*(a1 + 32) objectForKeyedSubscript:v5];
   [v6 doubleValue];
@@ -731,7 +727,6 @@ void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock
     v11 = [v10 objectForKeyedSubscript:v5];
 
     v12 = [v11 edgeProperties];
-    v13 = *(*(a1 + 56) + 8);
     (*(*(a1 + 48) + 16))(a3);
   }
 
@@ -742,54 +737,49 @@ void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v15 = 138412290;
-      v16 = v5;
-      _os_log_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_INFO, "Person %@ is inferred family, filtering out of friends", &v15, 0xCu);
+      v13 = 138412290;
+      v14 = v5;
+      _os_log_impl(&dword_22F0FC000, v9, OS_LOG_TYPE_INFO, "Person %@ is inferred family, filtering out of friends", &v13, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
-void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock___block_invoke_237(void *a1, void *a2, double a3)
+void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock___block_invoke_237(uint64_t a1, void *a2, double a3)
 {
-  v5 = a1[4];
+  v5 = *(a1 + 32);
   v6 = a2;
   v7 = [v5 relationshipAnalyzerPropertiesByPersonLocalIdentifier];
-  v10 = [v7 objectForKeyedSubscript:v6];
+  v9 = [v7 objectForKeyedSubscript:v6];
 
-  v8 = [v10 edgeProperties];
-  v9 = *(a1[6] + 8);
-  (*(a1[5] + 16))(a3);
+  v8 = [v9 edgeProperties];
+  (*(*(a1 + 40) + 16))(a3);
 }
 
-void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock___block_invoke_2_238(void *a1, void *a2, double a3)
+void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock___block_invoke_2_238(uint64_t a1, void *a2, double a3)
 {
-  v5 = a1[4];
+  v5 = *(a1 + 32);
   v6 = a2;
   v7 = [v5 relationshipAnalyzerPropertiesByPersonLocalIdentifier];
-  v10 = [v7 objectForKeyedSubscript:v6];
+  v9 = [v7 objectForKeyedSubscript:v6];
 
-  v8 = [v10 edgeProperties];
-  v9 = *(a1[6] + 8);
-  (*(a1[5] + 16))(a3);
+  v8 = [v9 edgeProperties];
+  (*(*(a1 + 40) + 16))(a3);
 }
 
-void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock___block_invoke_3_239(void *a1, void *a2, double a3)
+void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock___block_invoke_3_239(uint64_t a1, void *a2, double a3)
 {
-  v5 = a1[4];
+  v5 = *(a1 + 32);
   v6 = a2;
   v7 = [v5 relationshipAnalyzerPropertiesByPersonLocalIdentifier];
-  v10 = [v7 objectForKeyedSubscript:v6];
+  v9 = [v7 objectForKeyedSubscript:v6];
 
-  v8 = [v10 edgeProperties];
-  v9 = *(a1[6] + 8);
-  (*(a1[5] + 16))(a3);
+  v8 = [v9 edgeProperties];
+  (*(*(a1 + 40) + 16))(a3);
 }
 
 - (void)runRelationshipAnalysisWithLoggingConnection:(id)connection progressBlock:(id)block
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   aBlock = block;
   dictionary = [MEMORY[0x277CBEB38] dictionary];
@@ -806,23 +796,23 @@ void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock
   contactIdentifiers = self->_contactIdentifiers;
   self->_contactIdentifiers = v11;
 
-  v66 = 0;
-  v67 = &v66;
-  v68 = 0x2020000000;
-  v69 = 0;
-  v62 = 0;
-  v63 = &v62;
-  v64 = 0x2020000000;
   v65 = 0;
-  v43 = _Block_copy(aBlock);
-  if (v43 && (v13 = CFAbsoluteTimeGetCurrent(), v13 - v63[3] >= 0.01) && (v63[3] = v13, LOBYTE(v58) = 0, (*(v43 + 2))(v43, &v58, 0.0), v14 = *(v67 + 24) | v58, *(v67 + 24) = v14, (v14 & 1) != 0))
+  v66 = &v65;
+  v67 = 0x2020000000;
+  v68 = 0;
+  v61 = 0;
+  v62 = &v61;
+  v63 = 0x2020000000;
+  v64 = 0;
+  v42 = _Block_copy(aBlock);
+  if (v42 && (v13 = CFAbsoluteTimeGetCurrent(), v13 - v62[3] >= 0.01) && (v62[3] = v13, LOBYTE(v57) = 0, (*(v42 + 2))(v42, &v57, 0.0), v14 = *(v66 + 24) | v57, *(v66 + 24) = v14, (v14 & 1) != 0))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
       *buf = 67109378;
       *&buf[4] = 96;
-      LOWORD(v76) = 2080;
-      *(&v76 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/People Inferences/Relationship/PGGraphRelationshipProcessor.m";
+      LOWORD(v75) = 2080;
+      *(&v75 + 2) = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/People Inferences/Relationship/PGGraphRelationshipProcessor.m";
       _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", buf, 0x12u);
     }
   }
@@ -830,67 +820,67 @@ void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock
   else
   {
     *buf = 0;
-    *&v76 = buf;
-    *(&v76 + 1) = 0x2020000000;
-    v77 = 0;
-    v58 = 0;
-    v59 = &v58;
-    v60 = 0x2020000000;
-    v61 = 0;
+    *&v75 = buf;
+    *(&v75 + 1) = 0x2020000000;
+    v76 = 0;
+    v57 = 0;
+    v58 = &v57;
+    v59 = 0x2020000000;
+    v60 = 0;
     numberOfSignals = self->_numberOfSignals;
+    v53 = 0u;
     v54 = 0u;
     v55 = 0u;
     v56 = 0u;
-    v57 = 0u;
     obj = self->_analyzersToRun;
-    v16 = [(NSMutableArray *)obj countByEnumeratingWithState:&v54 objects:v74 count:16];
+    v16 = [(NSMutableArray *)obj countByEnumeratingWithState:&v53 objects:v73 count:16];
     if (v16)
     {
-      v17 = *v55;
+      v17 = *v54;
       while (2)
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v55 != v17)
+          if (*v54 != v17)
           {
             objc_enumerationMutation(obj);
           }
 
-          if (*(v76 + 24))
+          if (*(v75 + 24))
           {
 
             goto LABEL_29;
           }
 
-          v19 = *(*(&v54 + 1) + 8 * i);
-          v20 = v59[3];
+          v19 = *(*(&v53 + 1) + 8 * i);
+          v20 = v58[3];
           v21 = connectionCopy;
           v22 = os_signpost_id_generate(v21);
           v23 = v21;
           v24 = v23;
           if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
           {
-            *v70 = 0;
-            _os_signpost_emit_with_name_impl(&dword_22F0FC000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v22, "RelationshipAnalyzer", "", v70, 2u);
+            *v69 = 0;
+            _os_signpost_emit_with_name_impl(&dword_22F0FC000, v24, OS_SIGNPOST_INTERVAL_BEGIN, v22, "RelationshipAnalyzer", "", v69, 2u);
           }
 
           info = 0;
           mach_timebase_info(&info);
           v25 = mach_absolute_time();
           v26 = objc_autoreleasePoolPush();
-          v44[0] = MEMORY[0x277D85DD0];
-          v44[1] = 3221225472;
-          v44[2] = __91__PGGraphRelationshipProcessor_runRelationshipAnalysisWithLoggingConnection_progressBlock___block_invoke;
-          v44[3] = &unk_278880808;
-          v45 = v43;
-          v46 = &v62;
-          v47 = &v58;
-          v48 = &v66;
-          v51 = v20;
-          v52 = 0.9 / numberOfSignals;
-          v50 = 0x3F847AE147AE147BLL;
-          v49 = buf;
-          [v19 runAnalysisWithProgressBlock:v44];
+          v43[0] = MEMORY[0x277D85DD0];
+          v43[1] = 3221225472;
+          v43[2] = __91__PGGraphRelationshipProcessor_runRelationshipAnalysisWithLoggingConnection_progressBlock___block_invoke;
+          v43[3] = &unk_278880808;
+          v44 = v42;
+          v45 = &v61;
+          v46 = &v57;
+          v47 = &v65;
+          v50 = v20;
+          v51 = 0.9 / numberOfSignals;
+          v49 = 0x3F847AE147AE147BLL;
+          v48 = buf;
+          [v19 runAnalysisWithProgressBlock:v43];
 
           objc_autoreleasePoolPop(v26);
           v27 = mach_absolute_time();
@@ -900,9 +890,9 @@ void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock
           if (v22 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v29))
           {
             name = [v19 name];
-            *v70 = 138412290;
-            *v71 = name;
-            _os_signpost_emit_with_name_impl(&dword_22F0FC000, v30, OS_SIGNPOST_INTERVAL_END, v22, "RelationshipAnalyzer", "Relationship Analyzer: %@", v70, 0xCu);
+            *v69 = 138412290;
+            *v70 = name;
+            _os_signpost_emit_with_name_impl(&dword_22F0FC000, v30, OS_SIGNPOST_INTERVAL_END, v22, "RelationshipAnalyzer", "Relationship Analyzer: %@", v69, 0xCu);
           }
 
           v32 = v30;
@@ -911,17 +901,17 @@ void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock
             v33 = MEMORY[0x277CCACA8];
             name2 = [v19 name];
             v35 = [v33 stringWithFormat:@"Relationship Analyzer: %@", name2];
-            *v70 = 136315650;
-            *v71 = "RelationshipAnalyzer";
-            *&v71[8] = 2112;
-            *&v71[10] = v35;
-            v72 = 2048;
-            v73 = ((((v27 - v25) * v28.numer) / v28.denom) / 1000000.0);
-            _os_log_impl(&dword_22F0FC000, v32, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v70, 0x20u);
+            *v69 = 136315650;
+            *v70 = "RelationshipAnalyzer";
+            *&v70[8] = 2112;
+            *&v70[10] = v35;
+            v71 = 2048;
+            v72 = ((((v27 - v25) * v28.numer) / v28.denom) / 1000000.0);
+            _os_log_impl(&dword_22F0FC000, v32, OS_LOG_TYPE_INFO, "[Performance] %s - %@: %f ms", v69, 0x20u);
           }
         }
 
-        v16 = [(NSMutableArray *)obj countByEnumeratingWithState:&v54 objects:v74 count:16];
+        v16 = [(NSMutableArray *)obj countByEnumeratingWithState:&v53 objects:v73 count:16];
         if (v16)
         {
           continue;
@@ -931,40 +921,38 @@ void __73__PGGraphRelationshipProcessor_enumerateInferredRelationshipsUsingBlock
       }
     }
 
-    if ((*(v76 + 24) & 1) == 0)
+    if ((*(v75 + 24) & 1) == 0)
     {
       [(PGGraphRelationshipProcessor *)self _aggregateScores];
-      if (v43)
+      if (v42)
       {
         Current = CFAbsoluteTimeGetCurrent();
-        if (Current - v63[3] >= 0.01)
+        if (Current - v62[3] >= 0.01)
         {
-          v63[3] = Current;
+          v62[3] = Current;
           LOBYTE(info.numer) = 0;
-          (*(v43 + 2))(v43, &info, 1.0);
-          v37 = *(v67 + 24) | LOBYTE(info.numer);
-          *(v67 + 24) = v37;
+          (*(v42 + 2))(v42, &info, 1.0);
+          v37 = *(v66 + 24) | LOBYTE(info.numer);
+          *(v66 + 24) = v37;
           if ((v37 & 1) != 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
           {
-            *v70 = 67109378;
-            *v71 = 129;
-            *&v71[4] = 2080;
-            *&v71[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/People Inferences/Relationship/PGGraphRelationshipProcessor.m";
-            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v70, 0x12u);
+            *v69 = 67109378;
+            *v70 = 129;
+            *&v70[4] = 2080;
+            *&v70[6] = "/Library/Caches/com.apple.xbs/Sources/Photos_Swift/workspaces/photoanalysis/PhotosGraph/Framework/Graph/People Inferences/Relationship/PGGraphRelationshipProcessor.m";
+            _os_log_impl(&dword_22F0FC000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cancelled at line %d in file %s", v69, 0x12u);
           }
         }
       }
     }
 
 LABEL_29:
-    _Block_object_dispose(&v58, 8);
+    _Block_object_dispose(&v57, 8);
     _Block_object_dispose(buf, 8);
   }
 
-  _Block_object_dispose(&v62, 8);
-  _Block_object_dispose(&v66, 8);
-
-  v38 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v61, 8);
+  _Block_object_dispose(&v65, 8);
 }
 
 void __91__PGGraphRelationshipProcessor_runRelationshipAnalysisWithLoggingConnection_progressBlock___block_invoke(uint64_t a1, _BYTE *a2, double a3)

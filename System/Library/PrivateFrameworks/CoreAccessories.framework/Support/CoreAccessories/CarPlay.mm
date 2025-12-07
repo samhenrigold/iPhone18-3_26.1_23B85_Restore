@@ -12,11 +12,11 @@ void __platform_CarPlay_availability_block_invoke(uint64_t a1)
   CFRelease(v2);
 }
 
-void __platform_CarPlay_availableDigitalCarKeys_block_invoke(uint64_t a1, const void *a2)
+void __platform_CarPlay_availableDigitalCarKeys_block_invoke(uint64_t result, const void *a2)
 {
   if (a2)
   {
-    platform_CarPlay_matchedDigitalCarKeys(*(a1 + 32), a2);
+    platform_CarPlay_matchedDigitalCarKeys(*(result + 32), a2);
   }
 }
 

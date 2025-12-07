@@ -109,7 +109,7 @@
 
 - (void)_addPlaceCollectionPullQuotesIfNeeded:(id)needed
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   mapItem = [(MUPlaceSectionController *)self mapItem];
   _geoMapItem = [mapItem _geoMapItem];
@@ -117,20 +117,20 @@
 
   if (_hasPlaceCollectionPullQuotes)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     mapItem2 = [(MUPlaceSectionController *)self mapItem];
     _geoMapItem2 = [mapItem2 _geoMapItem];
     _placeCollections = [_geoMapItem2 _placeCollections];
 
-    v10 = [_placeCollections countByEnumeratingWithState:&v27 objects:v32 count:16];
+    v10 = [_placeCollections countByEnumeratingWithState:&v26 objects:v31 count:16];
     if (v10)
     {
       v11 = v10;
       v12 = 0;
-      v13 = *v28;
+      v13 = *v27;
       v14 = *MEMORY[0x1E695F058];
       v15 = *(MEMORY[0x1E695F058] + 8);
       v16 = *(MEMORY[0x1E695F058] + 16);
@@ -139,12 +139,12 @@
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v28 != v13)
+          if (*v27 != v13)
           {
             objc_enumerationMutation(_placeCollections);
           }
 
-          v19 = *(*(&v27 + 1) + 8 * i);
+          v19 = *(*(&v26 + 1) + 8 * i);
           publisherBlockQuote = [v19 publisherBlockQuote];
           plainTextDescription = [publisherBlockQuote plainTextDescription];
           v22 = [plainTextDescription length];
@@ -160,7 +160,7 @@
           }
         }
 
-        v11 = [_placeCollections countByEnumeratingWithState:&v27 objects:v32 count:16];
+        v11 = [_placeCollections countByEnumeratingWithState:&v26 objects:v31 count:16];
       }
 
       while (v11);
@@ -183,13 +183,11 @@
       _os_log_impl(&dword_1C5620000, v24, OS_LOG_TYPE_INFO, "MURatingsAndReviewsSectionController: No place collection pull quotes present", buf, 2u);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addRatingSnippets:(id)snippets withCellItems:(id)items
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   snippetsCopy = snippets;
   itemsCopy = items;
   if ([snippetsCopy count])
@@ -197,15 +195,15 @@
     [(MUPlaceRatingReviewTitleBuilder *)self->_titleBuilder setSupportsReviews:1];
   }
 
-  v28 = 0u;
-  v29 = 0u;
-  v26 = 0u;
   v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   v7 = snippetsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v8)
   {
-    v9 = *v27;
+    v9 = *v26;
     v10 = *MEMORY[0x1E695F058];
     v11 = *(MEMORY[0x1E695F058] + 8);
     v12 = *(MEMORY[0x1E695F058] + 16);
@@ -215,41 +213,39 @@
       v14 = 0;
       do
       {
-        if (*v27 != v9)
+        if (*v26 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v15 = *(*(&v26 + 1) + 8 * v14);
+        v15 = *(*(&v25 + 1) + 8 * v14);
         v16 = [[MUPlaceReviewViewModel alloc] initWithRatingSnippet:v15 avatarGenerator:self->_avatarGenerator];
         v17 = [[MUPlaceReviewPlatterView alloc] initWithFrame:v10, v11, v12, v13];
         [(MUPlaceReviewPlatterView *)v17 setViewModel:v16];
         objc_initWeak(&location, self);
-        v21[0] = MEMORY[0x1E69E9820];
-        v21[1] = 3221225472;
-        v21[2] = __73__MURatingsAndReviewsSectionController__addRatingSnippets_withCellItems___block_invoke;
-        v21[3] = &unk_1E8218520;
-        objc_copyWeak(&v24, &location);
+        v20[0] = MEMORY[0x1E69E9820];
+        v20[1] = 3221225472;
+        v20[2] = __73__MURatingsAndReviewsSectionController__addRatingSnippets_withCellItems___block_invoke;
+        v20[3] = &unk_1E8218520;
+        objc_copyWeak(&v23, &location);
         v18 = v7;
-        v22 = v18;
-        v23 = v15;
-        [(MUPlaceReviewPlatterView *)v17 setActionHandler:v21];
+        v21 = v18;
+        v22 = v15;
+        [(MUPlaceReviewPlatterView *)v17 setActionHandler:v20];
         [(MURatingsAndReviewsSectionController *)self _addHorizontalTileToContentStackView:v17 items:itemsCopy];
 
-        objc_destroyWeak(&v24);
+        objc_destroyWeak(&v23);
         objc_destroyWeak(&location);
 
         ++v14;
       }
 
       while (v8 != v14);
-      v8 = [v18 countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v8 = [v18 countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v8);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __73__MURatingsAndReviewsSectionController__addRatingSnippets_withCellItems___block_invoke(uint64_t a1)
@@ -340,7 +336,7 @@ LABEL_10:
 
 - (void)_addAppleRatingsCategoryTileIfNeeded:(id)needed
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   neededCopy = needed;
   mapItem = [(MUPlaceSectionController *)self mapItem];
   _geoMapItem = [mapItem _geoMapItem];
@@ -349,34 +345,34 @@ LABEL_10:
   if (_hasAppleRatings)
   {
     v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
     mapItem2 = [(MUPlaceSectionController *)self mapItem];
     _geoMapItem2 = [mapItem2 _geoMapItem];
     _appleRatings = [_geoMapItem2 _appleRatings];
 
-    v12 = [_appleRatings countByEnumeratingWithState:&v20 objects:v25 count:16];
+    v12 = [_appleRatings countByEnumeratingWithState:&v19 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v21;
+      v14 = *v20;
       do
       {
         v15 = 0;
         do
         {
-          if (*v21 != v14)
+          if (*v20 != v14)
           {
             objc_enumerationMutation(_appleRatings);
           }
 
-          [v8 addObject:*(*(&v20 + 1) + 8 * v15++)];
+          [v8 addObject:*(*(&v19 + 1) + 8 * v15++)];
         }
 
         while (v13 != v15);
-        v13 = [_appleRatings countByEnumeratingWithState:&v20 objects:v25 count:16];
+        v13 = [_appleRatings countByEnumeratingWithState:&v19 objects:v24 count:16];
       }
 
       while (v13);
@@ -413,13 +409,11 @@ LABEL_10:
       _os_log_impl(&dword_1C5620000, v8, OS_LOG_TYPE_INFO, "MURatingsAndReviewsSectionController: No Apple ratings present, exit early", buf, 2u);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_setupRatingRows
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   v3 = [MUScrollableStackView alloc];
   v4 = [(MUScrollableStackView *)v3 initWithFrame:*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)];
   contentStackView = self->_contentStackView;
@@ -446,7 +440,7 @@ LABEL_10:
   [(MURatingsAndReviewsSectionController *)self _addPlaceCollectionPullQuotesIfNeeded:v11];
   if ([v11 count])
   {
-    v39 = v11;
+    v38 = v11;
     if ([v11 count] == 1)
     {
       firstObject = [v11 firstObject];
@@ -464,27 +458,27 @@ LABEL_10:
 
     else
     {
-      v38 = v8;
-      v42 = 0u;
-      v43 = 0u;
-      v40 = 0u;
+      v37 = v8;
       v41 = 0u;
+      v42 = 0u;
+      v39 = 0u;
+      v40 = 0u;
       v22 = v11;
-      v23 = [v22 countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v23 = [v22 countByEnumeratingWithState:&v39 objects:v43 count:16];
       if (v23)
       {
         v24 = v23;
-        v25 = *v41;
+        v25 = *v40;
         do
         {
           for (i = 0; i != v24; ++i)
           {
-            if (*v41 != v25)
+            if (*v40 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            v27 = *(*(&v40 + 1) + 8 * i);
+            v27 = *(*(&v39 + 1) + 8 * i);
             if ([v27 shouldApplyWidthConstraint])
             {
               ratingView3 = [v27 ratingView];
@@ -499,7 +493,7 @@ LABEL_10:
             [(MUScrollableStackView *)v31 addArrangedSubview:ratingView4];
           }
 
-          v24 = [v22 countByEnumeratingWithState:&v40 objects:v44 count:16];
+          v24 = [v22 countByEnumeratingWithState:&v39 objects:v43 count:16];
         }
 
         while (v24);
@@ -511,15 +505,13 @@ LABEL_10:
       v36 = self->_sectionView;
       self->_sectionView = v35;
 
-      v8 = v38;
-      [(MUPlaceSectionView *)self->_sectionView attachViewToContentView:v38];
+      v8 = v37;
+      [(MUPlaceSectionView *)self->_sectionView attachViewToContentView:v37];
     }
 
-    [(MUPlaceSectionView *)self->_sectionView configureWithSectionController:self, v38];
-    v11 = v39;
+    [(MUPlaceSectionView *)self->_sectionView configureWithSectionController:self, v37];
+    v11 = v38;
   }
-
-  v37 = *MEMORY[0x1E69E9840];
 }
 
 - (MURatingsAndReviewsSectionController)initWithMapItem:(id)item

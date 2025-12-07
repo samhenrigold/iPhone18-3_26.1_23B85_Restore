@@ -43,34 +43,34 @@
 
 - (void)evictAllEntries
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   evictionHandler = [(_OSLogLRUCache *)self evictionHandler];
 
   if (evictionHandler)
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     storage = [(_OSLogLRUCache *)self storage];
-    v5 = [storage countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v5 = [storage countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v17;
+      v8 = *v16;
       do
       {
         v9 = 0;
         v10 = v7;
         do
         {
-          if (*v17 != v8)
+          if (*v16 != v8)
           {
             objc_enumerationMutation(storage);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * v9);
+          v11 = *(*(&v15 + 1) + 8 * v9);
           storage2 = [(_OSLogLRUCache *)self storage];
           v7 = [storage2 objectForKeyedSubscript:v11];
 
@@ -83,19 +83,17 @@
         }
 
         while (v6 != v9);
-        v6 = [storage countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v6 = [storage countByEnumeratingWithState:&v15 objects:v19 count:16];
       }
 
       while (v6);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setObject:(id)object forKey:(id)key
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   objectCopy = object;
   keyCopy = key;
   os_unfair_lock_lock(&self->_lock);
@@ -106,26 +104,36 @@
 
   if (v8 != v10)
   {
-    v46 = 0u;
+    v42 = 0;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v43 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    v29 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v30 = 3;
+    }
+
+    else
+    {
+      v30 = 2;
+    }
+
     mruItems2 = [(_OSLogLRUCache *)self mruItems];
-    v31 = [mruItems2 count];
+    v32 = [mruItems2 count];
     self = [(_OSLogLRUCache *)self storage];
-    v39 = 134218240;
-    v40 = v31;
-    v41 = 2048;
-    v42 = [(_OSLogLRUCache *)self count];
-    LODWORD(v37) = 22;
-    v36 = &v39;
-    _os_log_send_and_compose_impl();
+    v43 = 134218240;
+    v44 = v32;
+    v45 = 2048;
+    v46 = [(_OSLogLRUCache *)self count];
+    v40 = 22;
+    _os_log_send_and_compose_impl(v30, &v42, &v47, 80, &dword_22E01A000, v29, 16, "bug in LRUCache implementation; %ld != %ld", &v43, v40);
 
     _os_crash_msg();
     __break(1u);
-    goto LABEL_15;
+    goto LABEL_18;
   }
 
   storage2 = [(_OSLogLRUCache *)self storage];
@@ -186,35 +194,45 @@
 
   if (v26 != v28)
   {
-LABEL_15:
-    v46 = 0u;
+LABEL_18:
+    v42 = 0;
+    v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v47 = 0u;
-    v44 = 0u;
-    v45 = 0u;
-    v43 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v32 = [(_OSLogLRUCache *)self mruItems:v36];
-    v33 = [v32 count];
+    v33 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v34 = 3;
+    }
+
+    else
+    {
+      v34 = 2;
+    }
+
+    mruItems8 = [(_OSLogLRUCache *)self mruItems];
+    v36 = [mruItems8 count];
     storage5 = [(_OSLogLRUCache *)self storage];
-    v35 = [storage5 count];
-    v39 = 134218240;
-    v40 = v33;
-    v41 = 2048;
-    v42 = v35;
-    _os_log_send_and_compose_impl();
+    v38 = [storage5 count];
+    v43 = 134218240;
+    v44 = v36;
+    v45 = 2048;
+    v46 = v38;
+    LODWORD(v39) = 22;
+    _os_log_send_and_compose_impl(v34, &v42, &v47, 80, &dword_22E01A000, v33, 16, "bug in LRUCache implementation; %ld != %ld", &v43, v39);
 
     _os_crash_msg();
     __break(1u);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (id)objectForKey:(id)key
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   os_unfair_lock_lock(&self->_lock);
   mruItems = [(_OSLogLRUCache *)self mruItems];
@@ -224,26 +242,36 @@ LABEL_15:
 
   if (v6 != v8)
   {
-    v34 = 0u;
+    v30 = 0;
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v31 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
+    v18 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v19 = 3;
+    }
+
+    else
+    {
+      v19 = 2;
+    }
+
     mruItems2 = [(_OSLogLRUCache *)self mruItems];
-    v20 = [mruItems2 count];
+    v21 = [mruItems2 count];
     self = [(_OSLogLRUCache *)self storage];
-    v27 = 134218240;
-    v28 = v20;
-    v29 = 2048;
-    v30 = [(_OSLogLRUCache *)self count];
-    LODWORD(v26) = 22;
-    v25 = &v27;
-    _os_log_send_and_compose_impl();
+    v31 = 134218240;
+    v32 = v21;
+    v33 = 2048;
+    v34 = [(_OSLogLRUCache *)self count];
+    v29 = 22;
+    _os_log_send_and_compose_impl(v19, &v30, &v35, 80, &dword_22E01A000, v18, 16, "bug in LRUCache implementation; %ld != %ld", &v31, v29);
 
     _os_crash_msg();
     __break(1u);
-    goto LABEL_9;
+    goto LABEL_12;
   }
 
   storage2 = [(_OSLogLRUCache *)self storage];
@@ -263,30 +291,40 @@ LABEL_15:
 
   if (v14 != v16)
   {
-LABEL_9:
-    v34 = 0u;
+LABEL_12:
+    v30 = 0;
+    v38 = 0u;
+    v39 = 0u;
+    v36 = 0u;
+    v37 = 0u;
     v35 = 0u;
-    v32 = 0u;
-    v33 = 0u;
-    v31 = 0u;
-    os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR);
-    v21 = [(_OSLogLRUCache *)self mruItems:v25];
-    v22 = [v21 count];
+    v22 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v23 = 3;
+    }
+
+    else
+    {
+      v23 = 2;
+    }
+
+    mruItems5 = [(_OSLogLRUCache *)self mruItems];
+    v25 = [mruItems5 count];
     storage4 = [(_OSLogLRUCache *)self storage];
-    v24 = [storage4 count];
-    v27 = 134218240;
-    v28 = v22;
-    v29 = 2048;
-    v30 = v24;
-    _os_log_send_and_compose_impl();
+    v27 = [storage4 count];
+    v31 = 134218240;
+    v32 = v25;
+    v33 = 2048;
+    v34 = v27;
+    LODWORD(v28) = 22;
+    _os_log_send_and_compose_impl(v23, &v30, &v35, 80, &dword_22E01A000, v22, 16, "bug in LRUCache implementation; %ld != %ld", &v31, v28);
 
     _os_crash_msg();
     __break(1u);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return data;
 }

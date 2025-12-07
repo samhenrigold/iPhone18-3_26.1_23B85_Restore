@@ -23,16 +23,14 @@
   }
 
   TaskLocal.get()();
-  sub_100001CC0(v10, v10[3]);
+  sub_100001CC0(v7, v7[3]);
   sub_100001D04(&qword_1000A4E10, &qword_1000839D0);
-  v7 = *(type metadata accessor for LogMessage() - 8);
-  v8 = *(v7 + 72);
-  v9 = (*(v7 + 80) + 32) & ~*(v7 + 80);
+  type metadata accessor for LogMessage();
   *(swift_allocObject() + 16) = xmmword_1000839C0;
   LogMessage.init(stringLiteral:)();
   Logger.debug(_:)();
 
-  sub_100001D4C(v10);
+  sub_100001D4C(v7);
 }
 
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message

@@ -137,30 +137,30 @@ LABEL_29:
 
 + (id)_augmentedErrorForError:(id)error localizedDescription:(id)description recoverySuggestion:(id)suggestion
 {
-  v33[2] = *MEMORY[0x1E69E9840];
+  v35[2] = *MEMORY[0x1E69E9840];
   errorCopy = error;
   descriptionCopy = description;
   suggestionCopy = suggestion;
   v10 = MEMORY[0x1E695DF90];
   v11 = *MEMORY[0x1E696AA08];
-  v32[0] = *MEMORY[0x1E696A578];
-  v32[1] = v11;
-  v33[0] = descriptionCopy;
-  v33[1] = errorCopy;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:v32 count:2];
+  v34[0] = *MEMORY[0x1E696A578];
+  v34[1] = v11;
+  v35[0] = descriptionCopy;
+  v35[1] = errorCopy;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v35 forKeys:v34 count:2];
   v13 = [v10 dictionaryWithDictionary:v12];
 
-  if (DOCIsInternalBuild())
+  if (DOCIsInternalBuild(v14, v15))
   {
-    v14 = &stru_1F5F4AEF8;
+    v16 = &stru_1F5F4AEF8;
     if (suggestionCopy)
     {
-      v15 = suggestionCopy;
+      v17 = suggestionCopy;
     }
 
     else
     {
-      v15 = &stru_1F5F4AEF8;
+      v17 = &stru_1F5F4AEF8;
     }
 
     code = [errorCopy code];
@@ -170,27 +170,27 @@ LABEL_29:
       userInfo2 = [errorCopy userInfo];
       if ([userInfo2 count])
       {
-        v18 = MEMORY[0x1E696AEC0];
+        v20 = MEMORY[0x1E696AEC0];
         userInfo3 = [errorCopy userInfo];
-        v14 = [v18 stringWithFormat:@"\n\n%@", userInfo3];
-        v19 = 1;
+        v16 = [v20 stringWithFormat:@"\n\n%@", userInfo3];
+        v21 = 1;
       }
 
       else
       {
-        v19 = 0;
+        v21 = 0;
       }
     }
 
     else
     {
-      v19 = 0;
+      v21 = 0;
     }
 
     domain = [errorCopy domain];
-    v21 = [(__CFString *)v15 stringByAppendingFormat:@"\n\n[INTERNAL BUILD]\nError %ld%@ (%@)", code, v14, domain];
+    v23 = [(__CFString *)v17 stringByAppendingFormat:@"\n\n[INTERNAL BUILD]\nError %ld%@ (%@)", code, v16, domain];
 
-    if (v19)
+    if (v21)
     {
     }
 
@@ -198,7 +198,7 @@ LABEL_29:
     {
     }
 
-    suggestionCopy = v21;
+    suggestionCopy = v23;
   }
 
   if (suggestionCopy)
@@ -222,11 +222,11 @@ LABEL_29:
     [v13 setObject:recoveryAttempter2 forKey:*MEMORY[0x1E696A8A8]];
   }
 
-  v26 = MEMORY[0x1E696ABC0];
+  v28 = MEMORY[0x1E696ABC0];
   domain2 = [errorCopy domain];
-  v28 = [v26 errorWithDomain:domain2 code:objc_msgSend(errorCopy userInfo:{"code"), v13}];
+  v30 = [v28 errorWithDomain:domain2 code:objc_msgSend(errorCopy userInfo:{"code"), v13}];
 
-  return v28;
+  return v30;
 }
 
 @end

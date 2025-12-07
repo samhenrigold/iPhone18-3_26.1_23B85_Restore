@@ -629,26 +629,26 @@ void __77__PXSharedLibrarySharingSuggestionsDataSourceManager_createInitialDataS
   }
 }
 
-void __77__PXSharedLibrarySharingSuggestionsDataSourceManager_createInitialDataSource__block_invoke_2(uint64_t a1)
+void __77__PXSharedLibrarySharingSuggestionsDataSourceManager_createInitialDataSource__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v2 = PLSharedLibraryGetLog();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v18 = *MEMORY[0x1E69E9840];
+  v3 = PLSharedLibraryGetLog();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = objc_opt_class();
-    v4 = *(a1 + 32);
-    v5 = [*(a1 + 40) totalNumberOfItems];
-    v6 = [MEMORY[0x1E695DF00] now];
-    [v6 timeIntervalSinceDate:*(a1 + 48)];
-    v9 = 138544130;
-    v10 = v3;
-    v11 = 2048;
-    v12 = v4;
-    v13 = 2048;
-    v14 = v5;
-    v15 = 2048;
-    v16 = v7;
-    _os_log_impl(&dword_1A3C1C000, v2, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p>: Initial data source created async with %lu items. Took %.1fs", &v9, 0x2Au);
+    v4 = objc_opt_class();
+    v5 = *(a1 + 32);
+    v6 = [*(a1 + 40) totalNumberOfItems];
+    v7 = [MEMORY[0x1E695DF00] now];
+    [v7 timeIntervalSinceDate:*(a1 + 48)];
+    v10 = 138544130;
+    v11 = v4;
+    v12 = 2048;
+    v13 = v5;
+    v14 = 2048;
+    v15 = v6;
+    v16 = 2048;
+    v17 = v8;
+    _os_log_impl(&dword_1A3C1C000, v3, OS_LOG_TYPE_DEFAULT, "<%{public}@:%p>: Initial data source created async with %lu items. Took %.1fs", &v10, 0x2Au);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 56));

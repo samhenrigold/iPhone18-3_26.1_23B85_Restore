@@ -12,13 +12,13 @@
   selfCopy = self;
   [v2 unregisterObserver_];
   v4.receiver = selfCopy;
-  v4.super_class = type metadata accessor for WidgetExtensionProviderObserver();
+  v4.super_class = type metadata accessor for WidgetExtensionProviderObserver(0);
   [(WidgetExtensionProviderObserver *)&v4 dealloc];
 }
 
 - (void)extensionsDidChangeForExtensionProvider:(id)provider
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECFAFB0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27ECFAFB0, &qword_242F432A0);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v10 - v5;
   v7 = sub_242F05450();

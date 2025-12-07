@@ -114,7 +114,7 @@ void __51__SUUIVerticalLockupView_setPerspectiveTargetView___block_invoke(uint64
   return reason;
 }
 
-uint64_t __73__SUUIVerticalLockupView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__73__SUUIVerticalLockupView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) prefetchResourcesForViewElement:a2 reason:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = (*(*(*(a1 + 40) + 8) + 24) | result) & 1;
@@ -605,7 +605,7 @@ LABEL_9:
   v19 = self->_productImageView;
   if (v19)
   {
-    [(UIView *)v19 transform];
+    objc_msgSend_transform(v19);
   }
 
   else
@@ -1120,9 +1120,9 @@ LABEL_27:
 void __51__SUUIVerticalLockupView_viewForElementIdentifier___block_invoke(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
 {
   v7 = [a2 itmlID];
-  v8 = [v7 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v8)
+  if (isEqualToString)
   {
     if ([*(a1 + 40) count] > a3)
     {
@@ -1335,7 +1335,7 @@ LABEL_38:
         memset(&v62, 0, sizeof(v62));
         if (v16)
         {
-          [(UIView *)v16 transform];
+          objc_msgSend_transform(v16);
         }
 
         v38 = self->_productImageBoundingSize;

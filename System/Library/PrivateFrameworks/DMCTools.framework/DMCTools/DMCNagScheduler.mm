@@ -29,10 +29,10 @@
 
 - (DMCNagScheduler)initWithTaskName:(id)name delegate:(id)delegate
 {
-  v4 = sub_247F23F3C();
-  v6 = v5;
+  v5 = sub_247F23F3C();
+  v7 = v6;
   swift_unknownObjectRetain();
-  return DMCNagScheduler.init(taskName:delegate:)(v4, v6);
+  return DMCNagScheduler.init(taskName:delegate:)(v5, v7, delegate);
 }
 
 - (id)nagItemsWithError:(id *)error
@@ -70,17 +70,16 @@
 {
   v5 = sub_247F23DEC();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x28223BE20](v5);
-  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   forCopy = for;
   selfCopy = self;
   sub_247F1E138(forCopy);
 
-  v12 = sub_247F23D8C();
-  (*(v6 + 8))(v9, v5);
+  v11 = sub_247F23D8C();
+  (*(v6 + 8))(v8, v5);
 
-  return v12;
+  return v11;
 }
 
 - (void)launchDeadlineURLString:(id)string

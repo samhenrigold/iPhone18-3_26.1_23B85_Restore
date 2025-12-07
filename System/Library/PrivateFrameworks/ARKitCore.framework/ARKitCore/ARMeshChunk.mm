@@ -142,7 +142,7 @@
         v46 = [*(self + 8) newBufferWithBytes:*(self + 216) length:12 * objc_msgSend(self options:{"faceCount"), 0}];
         v11 = -[ARGeometryElement initWithBuffer:count:bytesPerIndex:primitiveType:]([ARGeometryElement alloc], "initWithBuffer:count:bytesPerIndex:primitiveType:", v46, [self faceCount], 4, 1);
         v12 = [[ARMeshGeometry alloc] initWithVertices:v7 normals:v10 faces:v11];
-        [self semanticsVector];
+        objc_msgSend_semanticsVector(self);
         faceCount = [self faceCount];
         v14 = v63.i64[1] - v63.i64[0];
         if (v63.i64[0])
@@ -154,7 +154,7 @@
         if (v14 == faceCount)
         {
           v15 = *(self + 8);
-          [self semanticsVector];
+          objc_msgSend_semanticsVector(self);
           v16 = [v15 newBufferWithBytes:v63.i64[0] length:objc_msgSend(self options:{"faceCount"), 0}];
           if (v63.i64[0])
           {
@@ -243,7 +243,7 @@
 {
   *retstr->chunk_position.m_data = *self->_chunkMesh.chunk_position.m_data;
   retstr->chunk_position.m_data[2] = self->_chunkMesh.chunk_position.m_data[2];
-  return cv3d::recon::mesh_util::TriMesh<float,unsigned int>::TriMesh(&retstr->mesh.vertices.__begin_, &self->_chunkMesh.mesh);
+  return cv3d::recon::mesh_util::TriMesh<float,unsigned int>::TriMesh(&retstr->mesh, &self->_chunkMesh.mesh);
 }
 
 - (void)setChunkMesh:(ChunkMesh *)mesh

@@ -159,34 +159,43 @@
 
 - (void)layoutSubviews
 {
-  v21.receiver = self;
-  v21.super_class = _PKSimpleFieldView;
-  [(_PKSimpleFieldView *)&v21 layoutSubviews];
+  v37.receiver = self;
+  v37.super_class = _PKSimpleFieldView;
+  [(_PKSimpleFieldView *)&v37 layoutSubviews];
   [(_PKSimpleFieldView *)self bounds];
   v4 = v3;
+  v6 = *&v5;
   rect = v5;
-  v7 = v6;
-  v9 = v8;
-  [(UILabel *)self->_labelLabel sizeThatFits:v6, v8];
-  v11 = fmax(v9, v10);
-  PKSizeAlignedInRect();
-  v13 = v12;
-  v15 = v14;
-  v17 = v16;
-  v19 = v18;
+  v8 = v7;
+  v10 = v9;
+  [(UILabel *)self->_labelLabel sizeThatFits:v7, v9];
+  v12 = fmax(v10, v11.n128_f64[0]);
+  v13.n128_u64[0] = v4;
+  v14.n128_u64[0] = v6;
+  v15.n128_f64[0] = v8;
+  v16.n128_f64[0] = v12;
+  PKSizeAlignedInRect(3, v17, v11, v13, v14, v15, v16, v18);
+  v20 = v19;
+  v22 = v21;
+  v24 = v23;
+  v26 = v25;
   [(UILabel *)self->_labelLabel setFrame:?];
-  v22.origin.x = v13;
-  v22.origin.y = v15;
-  v22.size.width = v17;
-  v22.size.height = v19;
-  CGRectGetMaxY(v22);
-  v23.origin.x = v4;
-  v23.origin.y = rect;
-  v23.size.width = v7;
-  v23.size.height = v11;
-  CGRectGetMaxY(v23);
-  [(UILabel *)self->_valueLabel sizeThatFits:v7, v9];
-  PKSizeAlignedInRect();
+  v38.origin.x = v20;
+  v38.origin.y = v22;
+  v38.size.width = v24;
+  v38.size.height = v26;
+  v27 = CGRectGetMaxY(v38) + self->_verticalPadding;
+  *&v39.origin.x = v4;
+  v39.origin.y = rect;
+  v39.size.width = v8;
+  v39.size.height = v12;
+  v28 = CGRectGetMaxY(v39) - v27;
+  [(UILabel *)self->_valueLabel sizeThatFits:v8, v10];
+  v30.n128_f64[0] = fmax(v28, v29.n128_f64[0]);
+  v31.n128_u64[0] = v4;
+  v32.n128_f64[0] = v27;
+  v33.n128_f64[0] = v8;
+  PKSizeAlignedInRect(0x100000003, v34, v29, v31, v32, v33, v30, v35);
   [(UILabel *)self->_valueLabel setFrame:?];
 }
 

@@ -71,7 +71,8 @@
 
       break;
     case 33:
-      [self propertyColor:EshColor::getRed(color) colorPropertiesManager:managerCopy];
+      EshColor::getRed(color);
+      objc_msgSend_propertyColor_colorPropertiesManager_(self);
       if (v43 == 33)
       {
         v36 = +[OADRgbColor white];
@@ -156,7 +157,7 @@ LABEL_16:
       {
         if (managerCopy)
         {
-          [managerCopy shadowColor];
+          objc_msgSend_shadowColor(managerCopy);
           goto LABEL_28;
         }
 
@@ -167,7 +168,7 @@ LABEL_16:
       {
         if (managerCopy)
         {
-          [managerCopy fillBgColor];
+          objc_msgSend_fillBgColor(managerCopy);
           goto LABEL_28;
         }
 
@@ -183,7 +184,7 @@ LABEL_19:
     {
       if (managerCopy)
       {
-        [managerCopy strokeBgColor];
+        objc_msgSend_strokeBgColor(managerCopy);
         goto LABEL_28;
       }
 
@@ -207,7 +208,7 @@ LABEL_15:
       }
 
 LABEL_18:
-      [managerCopy fillFgColor];
+      objc_msgSend_fillFgColor(managerCopy);
       goto LABEL_28;
     }
 
@@ -251,7 +252,7 @@ LABEL_25:
   if (managerCopy)
   {
 LABEL_26:
-    [managerCopy strokeFgColor];
+    objc_msgSend_strokeFgColor(managerCopy);
     goto LABEL_28;
   }
 

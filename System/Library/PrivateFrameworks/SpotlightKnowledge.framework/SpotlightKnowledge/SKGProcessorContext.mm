@@ -103,12 +103,13 @@ uint64_t __36__SKGProcessorContext_sharedContext__block_invoke()
     }
   }
 
-  if (SKGLogGetCurrentLoggingLevel() >= 7)
+  CurrentLoggingLevel = SKGLogGetCurrentLoggingLevel();
+  if (CurrentLoggingLevel >= 7)
   {
-    v5 = SKGLogInit();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = SKGLogInit(CurrentLoggingLevel);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
-      [(SKGProcessorContext *)v5 enableEmbeddings];
+      [(SKGProcessorContext *)v6 enableEmbeddings];
     }
   }
 
@@ -132,37 +133,37 @@ uint64_t __36__SKGProcessorContext_sharedContext__block_invoke()
 
 void __46__SKGProcessorContext_embeddingExcludeBundles__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v3 = [*(a1 + 32) excludeBundles];
   [v2 addObjectsFromArray:v3];
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
-  v4 = [&unk_1F0BDD120 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v4 = [&unk_1F0BDD120 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(&unk_1F0BDD120);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         if (([v2 containsObject:v8] & 1) == 0)
         {
           [v2 addObject:v8];
         }
       }
 
-      v5 = [&unk_1F0BDD120 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [&unk_1F0BDD120 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -170,8 +171,6 @@ void __46__SKGProcessorContext_embeddingExcludeBundles__block_invoke(uint64_t a1
 
   v9 = embeddingExcludeBundles_gEmbeddingExcludeBundles;
   embeddingExcludeBundles_gEmbeddingExcludeBundles = v2;
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)excludeBundles
@@ -406,37 +405,35 @@ void __47__SKGProcessorContext_embeddingFetchAttributes__block_invoke(uint64_t a
 
 void __51__SKGProcessorContext_embeddingExcludeContentTypes__block_invoke()
 {
-  v12[16] = *MEMORY[0x1E69E9840];
+  v11[16] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E69830C8];
-  v12[0] = *MEMORY[0x1E6982E68];
-  v12[1] = v0;
+  v11[0] = *MEMORY[0x1E6982E68];
+  v11[1] = v0;
   v1 = *MEMORY[0x1E6982DB0];
-  v12[2] = *MEMORY[0x1E69830B0];
-  v12[3] = v1;
+  v11[2] = *MEMORY[0x1E69830B0];
+  v11[3] = v1;
   v2 = *MEMORY[0x1E6982D48];
-  v12[4] = *MEMORY[0x1E6982DD8];
-  v12[5] = v2;
+  v11[4] = *MEMORY[0x1E6982DD8];
+  v11[5] = v2;
   v3 = *MEMORY[0x1E6982F50];
-  v12[6] = *MEMORY[0x1E6982E30];
-  v12[7] = v3;
+  v11[6] = *MEMORY[0x1E6982E30];
+  v11[7] = v3;
   v4 = *MEMORY[0x1E6982D68];
-  v12[8] = *MEMORY[0x1E6982CD0];
-  v12[9] = v4;
+  v11[8] = *MEMORY[0x1E6982CD0];
+  v11[9] = v4;
   v5 = *MEMORY[0x1E6982FD8];
-  v12[10] = *MEMORY[0x1E6982CD8];
-  v12[11] = v5;
+  v11[10] = *MEMORY[0x1E6982CD8];
+  v11[11] = v5;
   v6 = *MEMORY[0x1E6982D70];
-  v12[12] = *MEMORY[0x1E69830D0];
-  v12[13] = v6;
+  v11[12] = *MEMORY[0x1E69830D0];
+  v11[13] = v6;
   v7 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.window-tab"];
-  v12[14] = v7;
+  v11[14] = v7;
   v8 = [MEMORY[0x1E6982C40] typeWithIdentifier:@"com.apple.ui-element"];
-  v12[15] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:16];
+  v11[15] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:16];
   v10 = embeddingExcludeContentTypes_gEmbeddingExcludeContentTypes;
   embeddingExcludeContentTypes_gEmbeddingExcludeContentTypes = v9;
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)keyphraseFetchAttributes
@@ -474,37 +471,37 @@ void __47__SKGProcessorContext_keyphraseFetchAttributes__block_invoke(uint64_t a
 
 void __46__SKGProcessorContext_keyphraseExcludeBundles__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v3 = [*(a1 + 32) excludeBundles];
   [v2 addObjectsFromArray:v3];
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
-  v4 = [&unk_1F0BDD1C8 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
+  v4 = [&unk_1F0BDD1C8 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(&unk_1F0BDD1C8);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         if (([v2 containsObject:v8] & 1) == 0)
         {
           [v2 addObject:v8];
         }
       }
 
-      v5 = [&unk_1F0BDD1C8 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [&unk_1F0BDD1C8 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
@@ -512,8 +509,6 @@ void __46__SKGProcessorContext_keyphraseExcludeBundles__block_invoke(uint64_t a1
 
   v9 = keyphraseExcludeBundles_gKeyphraseExcludeBundles;
   keyphraseExcludeBundles_gKeyphraseExcludeBundles = v2;
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)keyphrasesSupportsBundle:(id)bundle domainID:(id)d
@@ -691,11 +686,10 @@ void __53__SKGProcessorContext_docUnderstandingIncludeBundles__block_invoke()
 
 - (void)enableEmbeddings
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 67109120;
-  v2[1] = 11;
-  _os_log_debug_impl(&dword_1977A7000, log, OS_LOG_TYPE_DEBUG, "SKGTask: %d disabled", v2, 8u);
-  v1 = *MEMORY[0x1E69E9840];
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 67109120;
+  v1[1] = 11;
+  _os_log_debug_impl(&dword_1977A7000, log, OS_LOG_TYPE_DEBUG, "SKGTask: %d disabled", v1, 8u);
 }
 
 @end

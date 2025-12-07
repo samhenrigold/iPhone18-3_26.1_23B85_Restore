@@ -94,8 +94,7 @@
   {
     v4->_strategy = 0;
     *&v5 = alpha;
-    [(PTCinematographyFocusPuller *)v4 setAlpha:v5];
-    v7 = _PTLogSystem();
+    v7 = _PTLogSystem([(PTCinematographyFocusPuller *)v4 setAlpha:v5]);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [(PTCinematographyFocusPuller *)v6 initWithExponentialMovingAverageAlpha:v7];
@@ -114,8 +113,7 @@
   if (v4)
   {
     v4->_strategy = 0;
-    [(PTCinematographyFocusPuller *)v4 setSampleCount:count];
-    v6 = _PTLogSystem();
+    v6 = _PTLogSystem([(PTCinematographyFocusPuller *)v4 setSampleCount:count]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [(PTCinematographyFocusPuller *)v5 initWithExponentialMovingAverageSampleCount:v6];
@@ -183,7 +181,7 @@
     }
 
     v6->_maximumAcceleration = v10;
-    v11 = _PTLogSystem();
+    v11 = _PTLogSystem(v6);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [(PTCinematographyFocusPuller *)&v7->_maximumVelocity initWithMaximumVelocity:v11 resistance:?];
@@ -255,11 +253,11 @@
 
 - (float)pullTowardFocusDistance:(float)distance time:(id *)time
 {
-  [(PTCinematographyFocusPuller *)self time];
+  objc_msgSend_time(self, a2);
   if (v22)
   {
     self->_targetDistance = distance;
-    [(PTCinematographyFocusPuller *)self time];
+    objc_msgSend_time(self);
     v19 = *time;
     CMTimeSubtract(&time, &v19, &rhs);
     Seconds = CMTimeGetSeconds(&time);
@@ -312,7 +310,7 @@
     goto LABEL_5;
   }
 
-  [(PTCinematographyFocusPuller *)self time];
+  objc_msgSend_time(self, a2);
   if (v12)
   {
     *&v8 = selfCopy->_targetDistance;

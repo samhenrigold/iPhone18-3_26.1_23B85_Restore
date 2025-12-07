@@ -412,7 +412,7 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  sub_1BEB20D28(0, &qword_1EBDC75C8);
+  sub_1BEB20D28(0, &qword_1EBDC75C8, 0x1E69DD190);
   sub_1BEDD3D58();
   sub_1BEE4726C();
   eventCopy = event;

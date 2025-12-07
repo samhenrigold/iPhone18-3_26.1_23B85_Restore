@@ -77,9 +77,9 @@
 
 void __159__WLMigrationDataCoordinator_fetchAccountsAndSummariesFromSource_forMigrator_statistics_accountsRequestDurationBlock_summariesRequestDurationBlock_completion___block_invoke(uint64_t a1, void *a2, void *a3, int a4, double a5)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   v9 = a2;
-  v21 = a3;
+  v20 = a3;
   if (a4)
   {
     v10 = *(a1 + 72);
@@ -89,51 +89,51 @@ void __159__WLMigrationDataCoordinator_fetchAccountsAndSummariesFromSource_forMi
     }
   }
 
-  v25 = [MEMORY[0x277CBEB18] array];
-  v36 = 0;
-  v37 = &v36;
-  v38 = 0x3032000000;
-  v39 = __Block_byref_object_copy__1;
-  v40 = __Block_byref_object_dispose__1;
-  v41 = 0;
-  v24 = dispatch_semaphore_create(0);
+  v24 = [MEMORY[0x277CBEB18] array];
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x3032000000;
+  v38 = __Block_byref_object_copy__1;
+  v39 = __Block_byref_object_dispose__1;
+  v40 = 0;
+  v23 = dispatch_semaphore_create(0);
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   obj = v9;
-  v11 = [obj countByEnumeratingWithState:&v32 objects:v42 count:16];
+  v11 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
   if (v11)
   {
-    v23 = *v33;
+    v22 = *v32;
 LABEL_6:
     v12 = 0;
     while (1)
     {
-      if (*v33 != v23)
+      if (*v32 != v22)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v32 + 1) + 8 * v12);
+      v13 = *(*(&v31 + 1) + 8 * v12);
       v14 = *(a1 + 32);
       v15 = *(a1 + 40);
       v16 = *(a1 + 48);
       v17 = *(a1 + 56);
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __159__WLMigrationDataCoordinator_fetchAccountsAndSummariesFromSource_forMigrator_statistics_accountsRequestDurationBlock_summariesRequestDurationBlock_completion___block_invoke_6;
-      v26[3] = &unk_279EB57B0;
-      v26[4] = v14;
-      v27 = *(a1 + 64);
-      v31 = &v36;
-      v30 = *(a1 + 80);
-      v28 = v25;
-      v18 = v24;
-      v29 = v18;
-      [v14 _fetchSummariesFromSource:v15 forMigrator:v16 account:v13 statistics:v17 completion:v26];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __159__WLMigrationDataCoordinator_fetchAccountsAndSummariesFromSource_forMigrator_statistics_accountsRequestDurationBlock_summariesRequestDurationBlock_completion___block_invoke_6;
+      v25[3] = &unk_279EB57B0;
+      v25[4] = v14;
+      v26 = *(a1 + 64);
+      v30 = &v35;
+      v29 = *(a1 + 80);
+      v27 = v24;
+      v18 = v23;
+      v28 = v18;
+      [v14 _fetchSummariesFromSource:v15 forMigrator:v16 account:v13 statistics:v17 completion:v25];
       dispatch_semaphore_wait(v18, 0xFFFFFFFFFFFFFFFFLL);
-      LOBYTE(v16) = v37[5] == 0;
+      LOBYTE(v16) = v36[5] == 0;
 
       if ((v16 & 1) == 0)
       {
@@ -142,7 +142,7 @@ LABEL_6:
 
       if (v11 == ++v12)
       {
-        v11 = [obj countByEnumeratingWithState:&v32 objects:v42 count:16];
+        v11 = [obj countByEnumeratingWithState:&v31 objects:v41 count:16];
         if (v11)
         {
           goto LABEL_6;
@@ -159,8 +159,7 @@ LABEL_6:
     (*(v19 + 16))();
   }
 
-  _Block_object_dispose(&v36, 8);
-  v20 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v35, 8);
 }
 
 void __159__WLMigrationDataCoordinator_fetchAccountsAndSummariesFromSource_forMigrator_statistics_accountsRequestDurationBlock_summariesRequestDurationBlock_completion___block_invoke_6(uint64_t a1, void *a2, void *a3, double a4)
@@ -192,7 +191,7 @@ void __159__WLMigrationDataCoordinator_fetchAccountsAndSummariesFromSource_forMi
 
 - (void)_fetchAccountsFromSource:(id)source forMigrator:(id)migrator statistics:(id)statistics completion:(id)completion
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   migratorCopy = migrator;
   statisticsCopy = statistics;
@@ -204,15 +203,15 @@ void __159__WLMigrationDataCoordinator_fetchAccountsAndSummariesFromSource_forMi
     v16 = [v14 stringWithFormat:@"fetch '%@' accounts", contentType];
 
     _WLLog();
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __89__WLMigrationDataCoordinator__fetchAccountsFromSource_forMigrator_statistics_completion___block_invoke;
-    v20[3] = &unk_279EB5800;
-    v21 = statisticsCopy;
-    v22 = completionCopy;
-    [sourceCopy accountsDataForMigrator:migratorCopy completion:{v20, self, v16}];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __89__WLMigrationDataCoordinator__fetchAccountsFromSource_forMigrator_statistics_completion___block_invoke;
+    v19[3] = &unk_279EB5800;
+    v20 = statisticsCopy;
+    v21 = completionCopy;
+    [sourceCopy accountsDataForMigrator:migratorCopy completion:{v19, self, v16}];
 
-    v17 = v21;
+    v17 = v20;
 LABEL_5:
 
     goto LABEL_6;
@@ -222,53 +221,51 @@ LABEL_5:
   v16 = v18;
   if (completionCopy)
   {
-    v23[0] = v18;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+    v22[0] = v18;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
     (*(completionCopy + 2))(completionCopy, v17, 0, 0, 0.0);
     goto LABEL_5;
   }
 
 LABEL_6:
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __89__WLMigrationDataCoordinator__fetchAccountsFromSource_forMigrator_statistics_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4, double a5)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a4;
   v11 = *(a1 + 32);
   if (v9)
   {
-    v25 = v10;
+    v24 = v10;
     [v11 addToFetchByteCount:a3];
     [*(a1 + 32) incrementFetchRequestCount];
     v12 = [MEMORY[0x277CBEB18] array];
     v13 = [v9 objectForKeyedSubscript:@"dataItemSummaries"];
     v14 = [WLSourceDeviceAccount accountInfoArrayContainsNonSyncableAccount:v13];
+    v25 = 0u;
     v26 = 0u;
     v27 = 0u;
     v28 = 0u;
-    v29 = 0u;
     v15 = v13;
-    v16 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v27;
+      v18 = *v26;
       do
       {
         v19 = 0;
         do
         {
-          if (*v27 != v18)
+          if (*v26 != v18)
           {
             objc_enumerationMutation(v15);
           }
 
-          v20 = *(*(&v26 + 1) + 8 * v19);
-          if (!v14 || ![WLSourceDeviceAccount accountInfoRepresentsSyncableAccount:*(*(&v26 + 1) + 8 * v19)])
+          v20 = *(*(&v25 + 1) + 8 * v19);
+          if (!v14 || ![WLSourceDeviceAccount accountInfoRepresentsSyncableAccount:*(*(&v25 + 1) + 8 * v19)])
           {
             v21 = [WLSourceDeviceAccount accountWithInfo:v20];
             [v12 addObject:v21];
@@ -278,7 +275,7 @@ void __89__WLMigrationDataCoordinator__fetchAccountsFromSource_forMigrator_stati
         }
 
         while (v17 != v19);
-        v17 = [v15 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v17 = [v15 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (v17);
@@ -290,7 +287,7 @@ void __89__WLMigrationDataCoordinator__fetchAccountsFromSource_forMigrator_stati
       (*(v22 + 16))(v22, v12, 0, 1, a5);
     }
 
-    v10 = v25;
+    v10 = v24;
   }
 
   else
@@ -302,8 +299,6 @@ void __89__WLMigrationDataCoordinator__fetchAccountsFromSource_forMigrator_stati
       (*(v23 + 16))(v23, 0, v10, 1, a5);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchSummariesFromSource:(id)source forMigrator:(id)migrator account:(id)account statistics:(id)statistics completion:(id)completion
@@ -338,7 +333,7 @@ void __89__WLMigrationDataCoordinator__fetchAccountsFromSource_forMigrator_stati
 
 void __98__WLMigrationDataCoordinator__fetchSummariesFromSource_forMigrator_account_statistics_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4, double a5)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v9 = a2;
   v10 = a4;
   v11 = *(a1 + 32);
@@ -350,31 +345,31 @@ void __98__WLMigrationDataCoordinator__fetchSummariesFromSource_forMigrator_acco
     v13 = *(a1 + 40);
     v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v12, "count")}];
     v15 = [*(a1 + 48) contentType];
-    v26 = [*(a1 + 56) identifier];
+    v25 = [*(a1 + 56) identifier];
     _WLLog();
 
-    v16 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v12, "count", v13, v14, v15, v26)}];
+    v16 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v12, "count", v13, v14, v15, v25)}];
+    v26 = 0u;
     v27 = 0u;
     v28 = 0u;
     v29 = 0u;
-    v30 = 0u;
     v17 = v12;
-    v18 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v18 = [v17 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v28;
+      v20 = *v27;
       do
       {
         v21 = 0;
         do
         {
-          if (*v28 != v20)
+          if (*v27 != v20)
           {
             objc_enumerationMutation(v17);
           }
 
-          v22 = [*(a1 + 40) _recordSummaryForMigrator:*(a1 + 48) withInfo:*(*(&v27 + 1) + 8 * v21) account:*(a1 + 56)];
+          v22 = [*(a1 + 40) _recordSummaryForMigrator:*(a1 + 48) withInfo:*(*(&v26 + 1) + 8 * v21) account:*(a1 + 56)];
           if (v22)
           {
             [v16 addObject:v22];
@@ -384,7 +379,7 @@ void __98__WLMigrationDataCoordinator__fetchSummariesFromSource_forMigrator_acco
         }
 
         while (v19 != v21);
-        v19 = [v17 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v19 = [v17 countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v19);
@@ -406,8 +401,6 @@ void __98__WLMigrationDataCoordinator__fetchSummariesFromSource_forMigrator_acco
       (*(v24 + 16))(v24, 0, v10, a5);
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)downloadFileFromSource:(id)source forMigrator:(id)migrator summary:(id)summary account:(id)account segmentCompletion:(id)completion completion:(id)a8
@@ -557,9 +550,9 @@ id __110__WLMigrationDataCoordinator_downloadFileFromSource_forMigrator_summary_
   v3 = a2;
   v4 = [MEMORY[0x277CCAA00] defaultManager];
   v5 = [*(a1 + 32) URLByDeletingLastPathComponent];
-  v16 = 0;
-  v6 = [v4 createDirectoryAtURL:v5 withIntermediateDirectories:1 attributes:0 error:&v16];
-  v7 = v16;
+  v14 = 0;
+  v6 = [v4 createDirectoryAtURL:v5 withIntermediateDirectories:1 attributes:0 error:&v14];
+  v7 = v14;
 
   if (v6)
   {
@@ -575,14 +568,12 @@ id __110__WLMigrationDataCoordinator_downloadFileFromSource_forMigrator_summary_
   {
     v9 = [MEMORY[0x277CCAA00] defaultManager];
     v10 = *(a1 + 32);
-    v15 = 0;
-    v6 = [v9 copyItemAtURL:v3 toURL:v10 error:&v15];
-    v7 = v15;
+    v13 = 0;
+    v6 = [v9 copyItemAtURL:v3 toURL:v10 error:&v13];
+    v7 = v13;
   }
 
-  v12 = *(a1 + 32);
-  v11 = *(a1 + 40);
-  v14 = [MEMORY[0x277CCABB0] numberWithBool:v6];
+  v12 = [MEMORY[0x277CCABB0] numberWithBool:v6];
   _WLLog();
 
   return v7;
@@ -874,7 +865,7 @@ void __92__WLMigrationDataCoordinator_downloadDataFromSource_forMigrator_summary
 
 - (void)importDataForMigrator:(id)migrator fromProvider:(id)provider forSummaries:(id)summaries summaryStart:(id)start summaryCompletion:(id)completion
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   migratorCopy = migrator;
   providerCopy = provider;
   summariesCopy = summaries;
@@ -883,30 +874,30 @@ void __92__WLMigrationDataCoordinator_downloadDataFromSource_forMigrator_summary
   selfCopy = self;
   if ([(WLMigrationDataCoordinator *)self stashDataLocally])
   {
-    v49 = 0u;
-    v50 = 0u;
     v48 = 0u;
+    v49 = 0u;
     v47 = 0u;
-    v33 = summariesCopy;
+    v46 = 0u;
+    v32 = summariesCopy;
     v16 = summariesCopy;
-    v17 = [v16 countByEnumeratingWithState:&v47 objects:v52 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v46 objects:v51 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v48;
+      v19 = *v47;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v48 != v19)
+          if (*v47 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v47 + 1) + 8 * i);
+          v21 = *(*(&v46 + 1) + 8 * i);
           if (startCopy)
           {
-            startCopy[2](startCopy, *(*(&v47 + 1) + 8 * i));
+            startCopy[2](startCopy, *(*(&v46 + 1) + 8 * i));
           }
 
           if (completionCopy)
@@ -915,43 +906,43 @@ void __92__WLMigrationDataCoordinator_downloadDataFromSource_forMigrator_summary
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v47 objects:v52 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v46 objects:v51 count:16];
       }
 
       while (v18);
     }
 
 LABEL_32:
-    summariesCopy = v33;
+    summariesCopy = v32;
     goto LABEL_33;
   }
 
   if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    v37 = migratorCopy;
-    v36 = dispatch_semaphore_create(0);
+    v36 = migratorCopy;
+    v35 = dispatch_semaphore_create(0);
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    v33 = summariesCopy;
+    v32 = summariesCopy;
     obj = summariesCopy;
-    v22 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
+    v22 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
     if (v22)
     {
       v23 = v22;
-      v38 = *v44;
+      v37 = *v43;
       do
       {
         v24 = 0;
         do
         {
-          if (*v44 != v38)
+          if (*v43 != v37)
           {
             objc_enumerationMutation(obj);
           }
 
-          v25 = *(*(&v43 + 1) + 8 * v24);
+          v25 = *(*(&v42 + 1) + 8 * v24);
           v26 = objc_autoreleasePoolPush();
           if (startCopy)
           {
@@ -962,22 +953,22 @@ LABEL_32:
           if (v27 || [v25 storeDataAsFile])
           {
             account = [v25 account];
-            v40[0] = MEMORY[0x277D85DD0];
-            v40[1] = 3221225472;
-            v40[2] = __109__WLMigrationDataCoordinator_importDataForMigrator_fromProvider_forSummaries_summaryStart_summaryCompletion___block_invoke;
-            v40[3] = &unk_279EB5940;
-            v42 = completionCopy;
-            v40[4] = v25;
-            v29 = v36;
-            v41 = v29;
-            [v37 importRecordData:v27 summary:v25 account:account completion:v40];
+            v39[0] = MEMORY[0x277D85DD0];
+            v39[1] = 3221225472;
+            v39[2] = __109__WLMigrationDataCoordinator_importDataForMigrator_fromProvider_forSummaries_summaryStart_summaryCompletion___block_invoke;
+            v39[3] = &unk_279EB5940;
+            v41 = completionCopy;
+            v39[4] = v25;
+            v29 = v35;
+            v40 = v29;
+            [v36 importRecordData:v27 summary:v25 account:account completion:v39];
 
             dispatch_semaphore_wait(v29, 0xFFFFFFFFFFFFFFFFLL);
           }
 
           else
           {
-            v32 = selfCopy;
+            v31 = selfCopy;
             _WLLog();
             if (completionCopy)
             {
@@ -990,21 +981,19 @@ LABEL_32:
         }
 
         while (v23 != v24);
-        v30 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
+        v30 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
         v23 = v30;
       }
 
       while (v30);
     }
 
-    migratorCopy = v37;
+    migratorCopy = v36;
     goto LABEL_32;
   }
 
   [migratorCopy importDataFromProvider:providerCopy forSummaries:summariesCopy summaryStart:startCopy summaryCompletion:completionCopy];
 LABEL_33:
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 intptr_t __109__WLMigrationDataCoordinator_importDataForMigrator_fromProvider_forSummaries_summaryStart_summaryCompletion___block_invoke(void *a1)

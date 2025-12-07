@@ -29,11 +29,11 @@
 {
   resolverCopy = resolver;
   componentsCopy = components;
-  v12 = objc_msgSend_calcEngine(resolverCopy, v8, v9, v10, v11);
-  v16 = objc_msgSend_tableResolverForRefResolver_(v12, v13, resolverCopy, v14, v15);
+  v11 = objc_msgSend_calcEngine(resolverCopy, v8, v9, v10);
+  v14 = objc_msgSend_tableResolverForRefResolver_(v11, v12, resolverCopy, v13);
 
-  v19 = objc_msgSend_initWithContextTableResolver_components_(self, v17, v16, componentsCopy, v18);
-  return v19;
+  v16 = objc_msgSend_initWithContextTableResolver_components_(self, v15, v14, componentsCopy);
+  return v16;
 }
 
 - (TSCEReferenceResolving)contextResolver
@@ -41,8 +41,8 @@
   contextTableResolver = self->_contextTableResolver;
   if (contextTableResolver)
   {
-    contextTableResolver = objc_msgSend_referenceResolverObject(contextTableResolver, a2, v2, v3, v4);
-    v5 = vars8;
+    contextTableResolver = objc_msgSend_referenceResolverObject(contextTableResolver, a2, v2, v3);
+    v4 = vars8;
   }
 
   return contextTableResolver;
@@ -51,55 +51,55 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  v9 = objc_msgSend_contextTableResolver(self, v5, v6, v7, v8);
-  v12 = objc_msgSend_initWithContextTableResolver_components_(v4, v10, v9, self->_components, v11);
+  v8 = objc_msgSend_contextTableResolver(self, v5, v6, v7);
+  v10 = objc_msgSend_initWithContextTableResolver_components_(v4, v9, v8, self->_components);
 
-  v17 = objc_msgSend_contextSheetName(self, v13, v14, v15, v16);
-  objc_msgSend_setContextSheetName_(v12, v18, v17, v19, v20);
+  v14 = objc_msgSend_contextSheetName(self, v11, v12, v13);
+  objc_msgSend_setContextSheetName_(v10, v15, v14, v16);
 
-  v25 = objc_msgSend_sheetName(self, v21, v22, v23, v24);
-  objc_msgSend_setSheetName_(v12, v26, v25, v27, v28);
+  v20 = objc_msgSend_sheetName(self, v17, v18, v19);
+  objc_msgSend_setSheetName_(v10, v21, v20, v22);
 
-  v33 = objc_msgSend_tableName(self, v29, v30, v31, v32);
-  objc_msgSend_setTableName_(v12, v34, v33, v35, v36);
+  v26 = objc_msgSend_tableName(self, v23, v24, v25);
+  objc_msgSend_setTableName_(v10, v27, v26, v28);
 
-  v41 = objc_msgSend_sheetNameUnquoted(self, v37, v38, v39, v40);
-  objc_msgSend_setSheetNameUnquoted_(v12, v42, v41, v43, v44);
+  v32 = objc_msgSend_sheetNameUnquoted(self, v29, v30, v31);
+  objc_msgSend_setSheetNameUnquoted_(v10, v33, v32, v34);
 
-  v49 = objc_msgSend_tableNameUnquoted(self, v45, v46, v47, v48);
-  objc_msgSend_setTableNameUnquoted_(v12, v50, v49, v51, v52);
+  v38 = objc_msgSend_tableNameUnquoted(self, v35, v36, v37);
+  objc_msgSend_setTableNameUnquoted_(v10, v39, v38, v40);
 
-  v57 = objc_msgSend_referencesMatchingInputAsPrefix(self, v53, v54, v55, v56);
-  objc_msgSend_setReferencesMatchingInputAsPrefix_(v12, v58, v57, v59, v60);
+  v44 = objc_msgSend_referencesMatchingInputAsPrefix(self, v41, v42, v43);
+  objc_msgSend_setReferencesMatchingInputAsPrefix_(v10, v45, v44, v46);
 
-  v65 = objc_msgSend_abortObject(self, v61, v62, v63, v64);
-  objc_msgSend_setAbortObject_(v12, v66, v65, v67, v68);
+  v50 = objc_msgSend_abortObject(self, v47, v48, v49);
+  objc_msgSend_setAbortObject_(v10, v51, v50, v52);
 
-  v73 = objc_msgSend_preserveFlags(self, v69, v70, v71, v72);
-  objc_msgSend_setPreserveFlags_(v12, v74, v73, v75, v76);
-  v81 = objc_msgSend_filterColons(self, v77, v78, v79, v80);
-  objc_msgSend_setFilterColons_(v12, v82, v81, v83, v84);
-  IsComplete = objc_msgSend_referenceIsComplete(self, v85, v86, v87, v88);
-  objc_msgSend_setReferenceIsComplete_(v12, v90, IsComplete, v91, v92);
-  v97 = objc_msgSend_parseAsBaseTableReference(self, v93, v94, v95, v96);
-  objc_msgSend_setParseAsBaseTableReference_(v12, v98, v97, v99, v100);
-  v105 = objc_msgSend_namesUsed(self, v101, v102, v103, v104);
-  objc_msgSend_setNamesUsed_(v12, v106, v105, v107, v108);
-  v113 = objc_msgSend_trimNames(self, v109, v110, v111, v112);
-  objc_msgSend_setTrimNames_(v12, v114, v113, v115, v116);
-  return v12;
+  v56 = objc_msgSend_preserveFlags(self, v53, v54, v55);
+  objc_msgSend_setPreserveFlags_(v10, v57, v56, v58);
+  v62 = objc_msgSend_filterColons(self, v59, v60, v61);
+  objc_msgSend_setFilterColons_(v10, v63, v62, v64);
+  IsComplete = objc_msgSend_referenceIsComplete(self, v65, v66, v67);
+  objc_msgSend_setReferenceIsComplete_(v10, v69, IsComplete, v70);
+  v74 = objc_msgSend_parseAsBaseTableReference(self, v71, v72, v73);
+  objc_msgSend_setParseAsBaseTableReference_(v10, v75, v74, v76);
+  v80 = objc_msgSend_namesUsed(self, v77, v78, v79);
+  objc_msgSend_setNamesUsed_(v10, v81, v80, v82);
+  v86 = objc_msgSend_trimNames(self, v83, v84, v85);
+  objc_msgSend_setTrimNames_(v10, v87, v86, v88);
+  return v10;
 }
 
 - (void)reset
 {
-  objc_msgSend_setSheetName_(self, a2, 0, v2, v3);
-  objc_msgSend_setTableName_(self, v5, 0, v6, v7);
-  objc_msgSend_setSheetNameUnquoted_(self, v8, 0, v9, v10);
-  objc_msgSend_setTableNameUnquoted_(self, v11, 0, v12, v13);
-  objc_msgSend_setPreserveFlags_(self, v14, 0, v15, v16);
-  objc_msgSend_setNamesUsed_(self, v17, 0, v18, v19);
+  objc_msgSend_setSheetName_(self, a2, 0, v2);
+  objc_msgSend_setTableName_(self, v4, 0, v5);
+  objc_msgSend_setSheetNameUnquoted_(self, v6, 0, v7);
+  objc_msgSend_setTableNameUnquoted_(self, v8, 0, v9);
+  objc_msgSend_setPreserveFlags_(self, v10, 0, v11);
+  objc_msgSend_setNamesUsed_(self, v12, 0, v13);
 
-  objc_msgSend_setReferencesMatchingInputAsPrefix_(self, v20, 0, v21, v22);
+  objc_msgSend_setReferencesMatchingInputAsPrefix_(self, v14, 0, v15);
 }
 
 @end

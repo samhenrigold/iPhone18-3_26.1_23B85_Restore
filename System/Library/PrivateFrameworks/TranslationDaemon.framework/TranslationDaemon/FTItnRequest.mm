@@ -38,33 +38,7 @@
   }
 
   v10->_root = root;
-  if (!verifyCopy)
-  {
-    goto LABEL_13;
-  }
-
-  bytes2 = [(NSData *)v10->_data bytes];
-  v13 = [(NSData *)v10->_data length];
-  root = v10->_root;
-  if (root < bytes2 || root > bytes2 + v13)
-  {
-    goto LABEL_14;
-  }
-
-  bytes3 = [(NSData *)v10->_data bytes];
-  v17 = [(NSData *)v10->_data length];
-  v21[0] = bytes3;
-  v21[1] = v17;
-  v22 = xmmword_233005E20;
-  v23 = 0;
-  v24 = 1;
-  v18 = v10->_root;
-  if (!v18)
-  {
-    goto LABEL_13;
-  }
-
-  if (!siri::speech::schema_fb::ItnRequest::Verify(v18, v21))
+  if (verifyCopy && ((v12 = [(NSData *)v10->_data bytes], v13 = [(NSData *)v10->_data length], root = v10->_root, root >= v12) ? (v15 = root > v12 + v13) : (v15 = 1), v15 || (v16 = [(NSData *)v10->_data bytes], v17 = [(NSData *)v10->_data length], v21[0] = v16, v21[1] = v17, v22 = xmmword_233005E20, v23 = 0, v24 = 1, (v18 = v10->_root) != 0) && !siri::speech::schema_fb::ItnRequest::Verify(v18, v21)))
   {
 LABEL_14:
     v19 = 0;
@@ -278,7 +252,7 @@ LABEL_8:
 
 - (Offset<siri::speech::schema_fb::ItnRequest>)addObjectToBuffer:(void *)buffer
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   speech_id = [(FTItnRequest *)self speech_id];
   v6 = speech_id;
   if (!speech_id)
@@ -312,49 +286,49 @@ LABEL_8:
   v18 = strlen(uTF8String3);
   v19 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateString(buffer, uTF8String3, v18);
 
-  memset(&v38, 0, sizeof(v38));
+  memset(&v37, 0, sizeof(v37));
   words_list = [(FTItnRequest *)self words_list];
-  std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v38, [words_list count]);
+  std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>::reserve(&v37, [words_list count]);
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   words_list2 = [(FTItnRequest *)self words_list];
-  v22 = [words_list2 countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v22 = [words_list2 countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (v22)
   {
-    v23 = *v35;
+    v23 = *v34;
     do
     {
       for (i = 0; i != v22; ++i)
       {
-        if (*v35 != v23)
+        if (*v34 != v23)
         {
           objc_enumerationMutation(words_list2);
         }
 
-        v33 = [*(*(&v34 + 1) + 8 * i) addObjectToBuffer:buffer];
-        std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v38.__begin_, &v33);
+        v32 = [*(*(&v33 + 1) + 8 * i) addObjectToBuffer:buffer];
+        std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionToken>>::push_back[abi:ne200100](&v37.__begin_, &v32);
       }
 
-      v22 = [words_list2 countByEnumeratingWithState:&v34 objects:v39 count:16];
+      v22 = [words_list2 countByEnumeratingWithState:&v33 objects:v38 count:16];
     }
 
     while (v22);
   }
 
-  if (v38.__end_ == v38.__begin_)
+  if (v37.__end_ == v37.__begin_)
   {
     begin = &apple::aiml::flatbuffers2::data<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionPhraseTokens>,std::allocator<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionPhraseTokens>>>(std::vector<apple::aiml::flatbuffers2::Offset<siri::speech::schema_fb::RecognitionPhraseTokens>> const&)::t;
   }
 
   else
   {
-    begin = v38.__begin_;
+    begin = v37.__begin_;
   }
 
-  v26 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<apple::aiml::flatbuffers2::String>(buffer, begin, v38.__end_ - v38.__begin_);
+  v26 = apple::aiml::flatbuffers2::FlatBufferBuilder::CreateVector<apple::aiml::flatbuffers2::String>(buffer, begin, v37.__end_ - v37.__begin_);
   *(buffer + 70) = 1;
   v27 = *(buffer + 8);
   v28 = *(buffer + 12);
@@ -364,13 +338,12 @@ LABEL_8:
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 8, v19);
   apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::String>(buffer, 10, v26);
   v30.var0 = apple::aiml::flatbuffers2::FlatBufferBuilder::EndTable(buffer, v27 - v28 + v29);
-  if (v38.__begin_)
+  if (v37.__begin_)
   {
-    v38.__end_ = v38.__begin_;
-    operator delete(v38.__begin_);
+    v37.__end_ = v37.__begin_;
+    operator delete(v37.__begin_);
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v30;
 }
 

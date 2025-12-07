@@ -7,13 +7,15 @@
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v0 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315906;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_6_5();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_21();
-      OUTLINED_FUNCTION_10_3(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to encode the encode rules for payload (%d)", v2, v3, v4, v5, 2u);
+      OUTLINED_FUNCTION_10_3(&dword_1DB56E000, v1, v2, " [%s] %s:%d Failed to encode the encode rules for payload (%d)", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
 }
@@ -22,13 +24,15 @@
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v0 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315906;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_6_5();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_21();
-      OUTLINED_FUNCTION_10_3(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to encode the decode rules for payload (%d)", v2, v3, v4, v5, 2u);
+      OUTLINED_FUNCTION_10_3(&dword_1DB56E000, v1, v2, " [%s] %s:%d Failed to encode the decode rules for payload (%d)", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
 }
@@ -37,13 +41,15 @@
 {
   if (VRTraceGetErrorLogLevelForModule() >= 3)
   {
-    VRTraceErrorLogLevelToCSTR();
+    v0 = VRTraceErrorLogLevelToCSTR();
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
     {
+      LODWORD(v7) = 136315906;
+      *(&v7 + 4) = v0;
       OUTLINED_FUNCTION_6_5();
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_21();
-      OUTLINED_FUNCTION_10_3(&dword_1DB56E000, v0, v1, " [%s] %s:%d Unknown video payload (%d)", v2, v3, v4, v5, 2u);
+      OUTLINED_FUNCTION_10_3(&dword_1DB56E000, v1, v2, " [%s] %s:%d Unknown video payload (%d)", v3, v4, v5, v6, v7, DWORD2(v7));
     }
   }
 }

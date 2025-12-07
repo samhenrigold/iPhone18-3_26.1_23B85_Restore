@@ -111,9 +111,9 @@
 - (void)setItem:(id)item
 {
   itemCopy = item;
-  v4 = [(UIAccessibilityHUDItem *)self->_item isEqual:itemCopy];
+  isEqual = objc_msgSend_isEqual_(self->_item);
   v5 = itemCopy;
-  if (!v4)
+  if ((isEqual & 1) == 0)
   {
     flattenImage = [itemCopy flattenImage];
     if (flattenImage == [(UIAccessibilityHUDItem *)self->_item flattenImage])

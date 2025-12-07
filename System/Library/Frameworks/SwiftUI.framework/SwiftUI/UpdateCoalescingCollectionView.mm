@@ -122,8 +122,8 @@ LABEL_3:
 LABEL_6:
   selfCopy = self;
   UpdateCoalescingCollectionView.performBatchUpdates(_:completion:)(v6, v9, v11, v10);
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v11);
-  outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v6);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v11, v10);
+  outlined consume of (@escaping @callee_guaranteed (@guaranteed NSFileWrapper?) -> (@owned NSFileWrapper, @error @owned Error))?(v6, v9);
 }
 
 - (void)setAccessoryView:(id)view atEdge:(int64_t)edge

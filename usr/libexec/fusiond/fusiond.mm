@@ -187,7 +187,7 @@ id sub_1000015FC(void *a1)
   return v2;
 }
 
-id sub_1000016FC(void *a1)
+NSMutableData *sub_1000016FC(void *a1)
 {
   v1 = [a1 stringByReplacingOccurrencesOfString:@"0x" withString:&stru_1000108B0];
   v2 = [v1 stringByReplacingOccurrencesOfString:@"0X" withString:&stru_1000108B0];
@@ -236,7 +236,7 @@ LABEL_6:
   return v5;
 }
 
-uint64_t sub_100001888(const char **a1, char *a2, int64_t a3, void *a4, id *a5)
+uint64_t sub_100001888(uint64_t *a1, char *a2, ssize_t a3, void *a4, id *a5)
 {
   *__fd = 0;
   if (!a4)
@@ -762,9 +762,8 @@ void sub_100004204(uint64_t a1, void *a2)
   v6 = [NSString stringWithFormat:@"Got xpc remote connection: 0x%lx.", v3];
   sub_100006E34(2, @"[%@:%d] %@\n", v7, v8, v9, v10, v11, v12, v5);
 
-  v31 = *(a1 + 32);
-  objc_copyWeak(&v33, (a1 + 40));
-  v32 = v3;
+  objc_copyWeak(&v32, (a1 + 40));
+  v31 = v3;
   xpc_remote_connection_set_event_handler();
   v13 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/ComponentCheck/Daemon/CCCommunication/HSMessaging.m"];
   v14 = [v13 lastPathComponent];
@@ -777,7 +776,7 @@ void sub_100004204(uint64_t a1, void *a2)
   v30 = [NSString stringWithFormat:@"remote coonnection activated."];
   sub_100006E34(2, @"[%@:%d] %@\n", v24, v25, v26, v27, v28, v29, v23);
 
-  objc_destroyWeak(&v33);
+  objc_destroyWeak(&v32);
 }
 
 void sub_100004418(id *a1, void *a2)
@@ -823,13 +822,13 @@ BOOL sub_100005128()
   return &_lockdown_copy_checkin_info != 0;
 }
 
-id sub_1000051B4()
+id sub_1000051B4(uint64_t a1)
 {
-  v0 = [NSMutableData dataWithLength:0];
+  v1 = [NSMutableData dataWithLength:0];
   while (1)
   {
-    v1 = lockdown_recv();
-    if (v1)
+    v2 = lockdown_recv();
+    if (v2)
     {
       break;
     }
@@ -837,40 +836,40 @@ id sub_1000051B4()
     sleep(1u);
   }
 
-  if (v1 == 4)
+  if (v2 == 4)
   {
-    v2 = getLogHandle();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = getLogHandle();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v11 = 0;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Start receiving from the lockdown connection. Buffer size = %lu\n", buf, 0xCu);
+      v12 = 0;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Start receiving from the lockdown connection. Buffer size = %lu\n", buf, 0xCu);
     }
 
-    v6 = getLogHandle();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = getLogHandle();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 134217984;
-      v9 = [v0 length];
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Done receiving from the lockdown connection. Total received size = %lu\n", v8, 0xCu);
+      *v9 = 134217984;
+      v10 = [v1 length];
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Done receiving from the lockdown connection. Total received size = %lu\n", v9, 0xCu);
     }
 
-    v5 = sub_1000012E4(v0);
+    v6 = sub_1000012E4(v1);
   }
 
   else
   {
-    v4 = getLogHandle();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = getLogHandle();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Failed to receive the size of the message.\n", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Failed to receive the size of the message.\n", buf, 2u);
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 id sub_100005444(uint64_t a1, void *a2)
@@ -1104,14 +1103,13 @@ void sub_100005B60(id a1, OS_xpc_object *a2)
 
 void sub_100005F24(uint64_t a1)
 {
-  v2 = getLogHandle();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v1 = getLogHandle();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "hcs cancel handler is called", v4, 2u);
+    *v2 = 0;
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_DEFAULT, "hcs cancel handler is called", v2, 2u);
   }
 
-  v3 = *(a1 + 32);
   lockdown_disconnect();
   xpc_transaction_end();
 }
@@ -1121,7 +1119,7 @@ void sub_100005FA0(uint64_t a1)
   v2 = *(a1 + 40);
   v3 = *(a1 + 32);
   v4 = objc_autoreleasePoolPush();
-  v5 = sub_1000051B4();
+  v5 = sub_1000051B4(v2);
   v6 = v5;
   if (v5)
   {
@@ -1265,20 +1263,19 @@ void sub_100006510(uint64_t a1, void *a2)
   v3 = a2;
   if (xpc_get_type(v3) == &_xpc_type_error)
   {
-    v5 = *(a1 + 32);
     xpc_remote_connection_cancel();
   }
 
   else
   {
     v4 = qword_100014C68;
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_1000065E8;
-    v6[3] = &unk_100010588;
-    v7 = *(a1 + 32);
-    v8 = v3;
-    dispatch_sync(v4, v6);
+    v5[0] = _NSConcreteStackBlock;
+    v5[1] = 3221225472;
+    v5[2] = sub_1000065E8;
+    v5[3] = &unk_100010588;
+    v6 = *(a1 + 32);
+    v7 = v3;
+    dispatch_sync(v4, v5);
   }
 }
 
@@ -1959,13 +1956,12 @@ void sub_100008710(uint64_t a1, void *a2)
   v12 = [NSString stringWithFormat:@"Got xpc remote connection: 0x%lx.", v3];
   sub_100006E34(2, @"[%@:%d] %@\n", v6, v7, v8, v9, v10, v11, v5);
 
-  v13 = *(a1 + 32);
-  objc_copyWeak(&v15, (a1 + 40));
-  v14 = v3;
+  objc_copyWeak(&v14, (a1 + 40));
+  v13 = v3;
   xpc_remote_connection_set_event_handler();
   xpc_remote_connection_activate();
 
-  objc_destroyWeak(&v15);
+  objc_destroyWeak(&v14);
 }
 
 void sub_10000885C(id *a1, void *a2)

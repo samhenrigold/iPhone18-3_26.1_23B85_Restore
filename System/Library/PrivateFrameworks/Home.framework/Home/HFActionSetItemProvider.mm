@@ -35,8 +35,8 @@
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc(objc_opt_class());
-  home = [(HFActionSetItemProvider *)self home];
-  v6 = [v4 initWithHome:home actionSetItemStyle:{-[HFActionSetItemProvider actionSetItemStyle](self, "actionSetItemStyle")}];
+  v5 = objc_msgSend_home(self);
+  v6 = [v4 initWithHome:v5 actionSetItemStyle:{-[HFActionSetItemProvider actionSetItemStyle](self, "actionSetItemStyle")}];
 
   return v6;
 }
@@ -64,8 +64,8 @@
   aBlock[3] = &unk_277DF5228;
   objc_copyWeak(&v15, &location);
   v3 = _Block_copy(aBlock);
-  home = [(HFActionSetItemProvider *)self home];
-  actionSets = [home actionSets];
+  v4 = objc_msgSend_home(self);
+  actionSets = [v4 actionSets];
   v13[0] = MEMORY[0x277D85DD0];
   v13[1] = 3221225472;
   v13[2] = __38__HFActionSetItemProvider_reloadItems__block_invoke_2;
@@ -168,8 +168,8 @@ id __38__HFActionSetItemProvider_reloadItems__block_invoke_3(uint64_t a1, void *
 
   else
   {
-    home = [(HFActionSetItemProvider *)self home];
-    overrideValueSource2 = [home hf_characteristicValueManager];
+    v5 = objc_msgSend_home(self);
+    overrideValueSource2 = [v5 hf_characteristicValueManager];
   }
 
   return overrideValueSource2;
@@ -194,59 +194,56 @@ id __38__HFActionSetItemProvider_reloadItems__block_invoke_3(uint64_t a1, void *
 
 uint64_t __38__HFActionSetItemProvider__roomFilter__block_invoke(uint64_t a1, void *a2)
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   if (!*(a1 + 32))
   {
-    v34 = 1;
+    v31 = 1;
     goto LABEL_37;
   }
 
-  v55 = 0u;
-  v56 = 0u;
+  v52 = 0u;
   v53 = 0u;
-  v54 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v5 = [v3 actions];
-  v44 = [v5 countByEnumeratingWithState:&v53 objects:v59 count:16];
-  if (!v44)
+  v41 = [v5 countByEnumeratingWithState:&v50 objects:v56 count:16];
+  if (!v41)
   {
-    v34 = 0;
+    v31 = 0;
     goto LABEL_36;
   }
 
-  v6 = *v54;
-  v41 = v4;
+  v6 = *v51;
+  v38 = v4;
   while (2)
   {
-    v7 = 0;
-    v8 = 0x277CD1000uLL;
-    do
+    for (i = 0; i != v41; ++i)
     {
-      if (*v54 != v6)
+      if (*v51 != v6)
       {
         objc_enumerationMutation(v5);
       }
 
-      v9 = *(*(&v53 + 1) + 8 * v7);
-      v10 = *(v8 + 2472);
+      v8 = *(*(&v50 + 1) + 8 * i);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v11 = [v9 characteristic];
-        v12 = [v11 service];
+        v9 = [v8 characteristic];
+        v10 = objc_msgSend_service(v9);
 
-        v13 = *(a1 + 32);
-        v14 = [v12 accessory];
-        v15 = [v14 room];
-        v16 = [v15 uniqueIdentifier];
-        LOBYTE(v13) = [v13 isEqual:v16];
+        v11 = *(a1 + 32);
+        v12 = [v10 accessory];
+        v13 = [v12 room];
+        v14 = [v13 uniqueIdentifier];
+        LOBYTE(v11) = [v11 isEqual:v14];
 
-        if (v13)
+        if (v11)
         {
-          v34 = 1;
+          v31 = 1;
 LABEL_34:
-          v4 = v41;
+          v4 = v38;
           goto LABEL_36;
         }
       }
@@ -256,68 +253,68 @@ LABEL_34:
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          v17 = v9;
+          v15 = v8;
+          v46 = 0u;
+          v47 = 0u;
+          v48 = 0u;
           v49 = 0u;
-          v50 = 0u;
-          v51 = 0u;
-          v52 = 0u;
-          v18 = [v17 mediaProfiles];
-          v40 = [v18 countByEnumeratingWithState:&v49 objects:v58 count:16];
-          if (v40)
+          v16 = [v15 mediaProfiles];
+          v37 = [v16 countByEnumeratingWithState:&v46 objects:v55 count:16];
+          if (v37)
           {
-            v19 = *v50;
-            v42 = v18;
-            v43 = v5;
-            v38 = v6;
-            v39 = v17;
-            v37 = *v50;
+            v17 = *v47;
+            v39 = v16;
+            v40 = v5;
+            v35 = v6;
+            v36 = v15;
+            v34 = *v47;
             do
             {
-              v20 = 0;
+              v18 = 0;
               do
               {
-                if (*v50 != v19)
+                if (*v47 != v17)
                 {
-                  objc_enumerationMutation(v18);
+                  objc_enumerationMutation(v16);
                 }
 
-                v21 = *(*(&v49 + 1) + 8 * v20);
+                v19 = *(*(&v46 + 1) + 8 * v18);
+                v42 = 0u;
+                v43 = 0u;
+                v44 = 0u;
                 v45 = 0u;
-                v46 = 0u;
-                v47 = 0u;
-                v48 = 0u;
-                v22 = [v21 accessories];
-                v23 = [v22 countByEnumeratingWithState:&v45 objects:v57 count:16];
-                if (v23)
+                v20 = [v19 accessories];
+                v21 = [v20 countByEnumeratingWithState:&v42 objects:v54 count:16];
+                if (v21)
                 {
-                  v24 = v23;
-                  v25 = *v46;
+                  v22 = v21;
+                  v23 = *v43;
                   while (2)
                   {
-                    for (i = 0; i != v24; ++i)
+                    for (j = 0; j != v22; ++j)
                     {
-                      if (*v46 != v25)
+                      if (*v43 != v23)
                       {
-                        objc_enumerationMutation(v22);
+                        objc_enumerationMutation(v20);
                       }
 
-                      v27 = *(a1 + 32);
-                      v28 = [*(*(&v45 + 1) + 8 * i) room];
-                      v29 = [v28 uniqueIdentifier];
-                      LOBYTE(v27) = [v27 isEqual:v29];
+                      v25 = *(a1 + 32);
+                      v26 = [*(*(&v42 + 1) + 8 * j) room];
+                      v27 = [v26 uniqueIdentifier];
+                      LOBYTE(v25) = [v25 isEqual:v27];
 
-                      if (v27)
+                      if (v25)
                       {
-                        v34 = 1;
-                        v30 = v42;
-                        v5 = v43;
-                        v31 = v39;
+                        v31 = 1;
+                        v28 = v39;
+                        v5 = v40;
+                        v29 = v36;
                         goto LABEL_33;
                       }
                     }
 
-                    v24 = [v22 countByEnumeratingWithState:&v45 objects:v57 count:16];
-                    if (v24)
+                    v22 = [v20 countByEnumeratingWithState:&v42 objects:v54 count:16];
+                    if (v22)
                     {
                       continue;
                     }
@@ -326,20 +323,19 @@ LABEL_34:
                   }
                 }
 
-                ++v20;
-                v18 = v42;
-                v5 = v43;
-                v19 = v37;
-                v6 = v38;
-                v8 = 0x277CD1000;
+                ++v18;
+                v16 = v39;
+                v5 = v40;
+                v17 = v34;
+                v6 = v35;
               }
 
-              while (v20 != v40);
-              v17 = v39;
-              v40 = [v42 countByEnumeratingWithState:&v49 objects:v58 count:16];
+              while (v18 != v37);
+              v15 = v36;
+              v37 = [v39 countByEnumeratingWithState:&v46 objects:v55 count:16];
             }
 
-            while (v40);
+            while (v37);
           }
         }
 
@@ -348,28 +344,25 @@ LABEL_34:
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v35 = [v9 commands];
-            v36 = [v35 firstObject];
-            v31 = [v36 accessory];
+            v32 = [v8 commands];
+            v33 = [v32 firstObject];
+            v29 = [v33 accessory];
 
-            v30 = [v31 room];
-            v22 = [v30 uniqueIdentifier];
-            v34 = [v22 isEqual:*(a1 + 32)];
+            v28 = [v29 room];
+            v20 = [v28 uniqueIdentifier];
+            v31 = [v20 isEqual:*(a1 + 32)];
 LABEL_33:
 
             goto LABEL_34;
           }
         }
       }
-
-      ++v7;
     }
 
-    while (v7 != v44);
-    v34 = 0;
-    v4 = v41;
-    v44 = [v5 countByEnumeratingWithState:&v53 objects:v59 count:16];
-    if (v44)
+    v31 = 0;
+    v4 = v38;
+    v41 = [v5 countByEnumeratingWithState:&v50 objects:v56 count:16];
+    if (v41)
     {
       continue;
     }
@@ -380,8 +373,7 @@ LABEL_33:
 LABEL_36:
 
 LABEL_37:
-  v32 = *MEMORY[0x277D85DE8];
-  return v34;
+  return v31;
 }
 
 - (id)_favoriteFilter

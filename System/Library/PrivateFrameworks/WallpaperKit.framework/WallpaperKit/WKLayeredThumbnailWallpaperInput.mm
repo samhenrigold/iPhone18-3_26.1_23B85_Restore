@@ -77,16 +77,16 @@
   return v8;
 }
 
-id __47__WKLayeredThumbnailWallpaperInput_na_identity__block_invoke()
+id __47__WKLayeredThumbnailWallpaperInput_na_identity__block_invoke(uint64_t a1)
 {
   if (_block_invoke_na_once_token_0_7 != -1)
   {
     __47__WKLayeredThumbnailWallpaperInput_na_identity__block_invoke_cold_1();
   }
 
-  v1 = _block_invoke_na_once_object_0_7;
+  v2 = _block_invoke_na_once_object_0_7;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __47__WKLayeredThumbnailWallpaperInput_na_identity__block_invoke_2()

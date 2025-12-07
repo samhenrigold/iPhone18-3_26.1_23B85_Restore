@@ -36,13 +36,13 @@
 
 - (WatchSetupExtendedMetadata)initWithPackedExtendedMetadataData:(id)data
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if ([dataCopy length] > 6)
   {
-    v19.receiver = self;
-    v19.super_class = WatchSetupExtendedMetadata;
-    v9 = [(WatchSetupExtendedMetadata *)&v19 init];
+    v18.receiver = self;
+    v18.super_class = WatchSetupExtendedMetadata;
+    v9 = [(WatchSetupExtendedMetadata *)&v18 init];
     if (v9)
     {
       *&buf[3] = 0;
@@ -85,8 +85,8 @@
       {
         *buf = 134218240;
         *&buf[4] = 7;
-        v21 = 2048;
-        v22 = [dataCopy length];
+        v20 = 2048;
+        v21 = [dataCopy length];
         _os_log_error_impl(&dword_1E0ADF000, v7, OS_LOG_TYPE_ERROR, "Incorrect size of packed extended metadata, expecting >= %lu but got %lu", buf, 0x16u);
       }
     }
@@ -94,7 +94,6 @@
     selfCopy = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

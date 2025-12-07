@@ -102,7 +102,7 @@
 {
   sub_1000405FC();
   type metadata accessor for STBackgroundActivityIdentifier(0);
-  sub_100040D28(&unk_1000696E0, type metadata accessor for STBackgroundActivityIdentifier);
+  sub_100040D28(&unk_1000696E0, type metadata accessor for STBackgroundActivityIdentifier, &unk_1000494D4);
   v2.super.isa = Set._bridgeToObjectiveC()().super.isa;
 
   return v2.super.isa;
@@ -152,21 +152,20 @@
 
 - (NSString)associatedAppBundleIdentifier
 {
-  v2 = (self + OBJC_IVAR____TtC14ReplayKitAngel50RPReadyToRecordSystemApertureElementViewController_associatedAppBundleIdentifier);
+  v2 = self + OBJC_IVAR____TtC14ReplayKitAngel50RPReadyToRecordSystemApertureElementViewController_associatedAppBundleIdentifier;
   swift_beginAccess();
-  if (v2[1])
+  if (*(v2 + 1))
   {
-    v3 = *v2;
 
-    v4 = String._bridgeToObjectiveC()();
+    v3 = String._bridgeToObjectiveC()();
   }
 
   else
   {
-    v4 = 0;
+    v3 = 0;
   }
 
-  return v4;
+  return v3;
 }
 
 - (void)setAssociatedAppBundleIdentifier:(id)identifier
@@ -185,7 +184,6 @@
 
   v7 = (self + OBJC_IVAR____TtC14ReplayKitAngel50RPReadyToRecordSystemApertureElementViewController_associatedAppBundleIdentifier);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
@@ -193,50 +191,48 @@
 - (NSURL)launchURL
 {
   v3 = sub_10000B62C(&qword_100068DF0, qword_100047E90);
-  v4 = *(*(v3 - 8) + 64);
   __chkstk_darwin(v3 - 8);
-  v6 = &v15 - v5;
-  v7 = OBJC_IVAR____TtC14ReplayKitAngel50RPReadyToRecordSystemApertureElementViewController_launchURL;
+  v5 = &v14 - v4;
+  v6 = OBJC_IVAR____TtC14ReplayKitAngel50RPReadyToRecordSystemApertureElementViewController_launchURL;
   swift_beginAccess();
-  sub_1000406CC(self + v7, v6);
-  v8 = type metadata accessor for URL();
-  v9 = *(v8 - 8);
-  v10 = (*(v9 + 48))(v6, 1, v8);
-  v11 = 0;
-  if (v10 != 1)
+  sub_1000406CC(self + v6, v5);
+  v7 = type metadata accessor for URL();
+  v8 = *(v7 - 8);
+  v9 = (*(v8 + 48))(v5, 1, v7);
+  v10 = 0;
+  if (v9 != 1)
   {
-    URL._bridgeToObjectiveC()(v10);
-    v13 = v12;
-    (*(v9 + 8))(v6, v8);
-    v11 = v13;
+    URL._bridgeToObjectiveC()(v9);
+    v12 = v11;
+    (*(v8 + 8))(v5, v7);
+    v10 = v12;
   }
 
-  return v11;
+  return v10;
 }
 
 - (void)setLaunchURL:(id)l
 {
   v5 = sub_10000B62C(&qword_100068DF0, qword_100047E90);
-  v6 = *(*(v5 - 8) + 64);
   __chkstk_darwin(v5 - 8);
-  v8 = &v13 - v7;
+  v7 = &v12 - v6;
   if (l)
   {
     static URL._unconditionallyBridgeFromObjectiveC(_:)();
-    v9 = type metadata accessor for URL();
-    (*(*(v9 - 8) + 56))(v8, 0, 1, v9);
+    v8 = type metadata accessor for URL();
+    (*(*(v8 - 8) + 56))(v7, 0, 1, v8);
   }
 
   else
   {
-    v10 = type metadata accessor for URL();
-    (*(*(v10 - 8) + 56))(v8, 1, 1, v10);
+    v9 = type metadata accessor for URL();
+    (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   }
 
-  v11 = OBJC_IVAR____TtC14ReplayKitAngel50RPReadyToRecordSystemApertureElementViewController_launchURL;
+  v10 = OBJC_IVAR____TtC14ReplayKitAngel50RPReadyToRecordSystemApertureElementViewController_launchURL;
   swift_beginAccess();
   selfCopy = self;
-  sub_1000298BC(v8, self + v11);
+  sub_1000298BC(v7, self + v10);
   swift_endAccess();
 }
 

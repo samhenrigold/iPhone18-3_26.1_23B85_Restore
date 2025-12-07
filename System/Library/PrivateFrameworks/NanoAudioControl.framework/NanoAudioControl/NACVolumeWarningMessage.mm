@@ -93,7 +93,6 @@
   toCopy = to;
   if ((*&self->_has & 4) != 0)
   {
-    volumeWarningEnabled = self->_volumeWarningEnabled;
     PBDataWriterWriteBOOLField();
   }
 
@@ -105,14 +104,12 @@
   has = self->_has;
   if (has)
   {
-    originIdentifier = self->_originIdentifier;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    volumeWarningState = self->_volumeWarningState;
     PBDataWriterWriteInt32Field();
   }
 }
@@ -188,7 +185,6 @@
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 28);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 28) & 4) == 0)
@@ -196,7 +192,6 @@
       goto LABEL_21;
     }
 
-    v8 = *(equalCopy + 24);
     if (self->_volumeWarningEnabled)
     {
       if ((*(equalCopy + 24) & 1) == 0)
@@ -225,7 +220,7 @@
   if (![(NSString *)category isEqual:?])
   {
 LABEL_21:
-    v9 = 0;
+    v7 = 0;
     goto LABEL_22;
   }
 
@@ -244,7 +239,7 @@ LABEL_7:
     goto LABEL_21;
   }
 
-  v9 = (*(equalCopy + 28) & 2) == 0;
+  v7 = (*(equalCopy + 28) & 2) == 0;
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 28) & 2) == 0 || self->_volumeWarningState != *(equalCopy + 5))
@@ -252,12 +247,12 @@ LABEL_7:
       goto LABEL_21;
     }
 
-    v9 = 1;
+    v7 = 1;
   }
 
 LABEL_22:
 
-  return v9;
+  return v7;
 }
 
 - (unint64_t)hash

@@ -39,21 +39,19 @@
 
 - (id)jsonDict
 {
-  v11[3] = *MEMORY[0x1E69E9840];
-  v10[0] = @"poiCategory";
+  v10[3] = *MEMORY[0x1E69E9840];
+  v9[0] = @"poiCategory";
   poiCategory = [(BMPOICategoryEvent *)self poiCategory];
-  v11[0] = poiCategory;
-  v10[1] = @"rank";
+  v10[0] = poiCategory;
+  v9[1] = @"rank";
   v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[BMPOICategoryEvent rank](self, "rank")}];
-  v11[1] = v4;
-  v10[2] = @"timeIntervalSince1970";
+  v10[1] = v4;
+  v9[2] = @"timeIntervalSince1970";
   v5 = MEMORY[0x1E696AD98];
   [(BMPOICategoryEvent *)self timeIntervalSince1970];
   v6 = [v5 numberWithDouble:?];
-  v11[2] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10[2] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:3];
 
   return v7;
 }

@@ -1,5 +1,6 @@
 @interface TxHist
 - (BOOL)isEqual:(id)equal;
+- (id)chanTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -36,6 +37,29 @@
   {
     return 0;
   }
+}
+
+- (id)chanTypeAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"PUSCH";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"PUCCH";
+  }
+
+  return v4;
 }
 
 - (int)StringAsChanType:(id)type
@@ -165,7 +189,6 @@
   has = self->_has;
   if (has)
   {
-    chanType = self->_chanType;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -185,12 +208,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  workMode = self->_workMode;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    minTxLevel = self->_minTxLevel;
     PBDataWriterWriteSint32Field();
   }
 
@@ -201,15 +222,14 @@ LABEL_5:
     PBDataWriterPlaceMark();
     if (p_numTxLevels->count)
     {
-      v8 = 0;
+      v7 = 0;
       do
       {
-        v9 = p_numTxLevels->list[v8];
         PBDataWriterWriteUint32Field();
-        ++v8;
+        ++v7;
       }
 
-      while (v8 < p_numTxLevels->count);
+      while (v7 < p_numTxLevels->count);
     }
 
     PBDataWriterRecallMark();
@@ -323,7 +343,6 @@ LABEL_5:
     goto LABEL_18;
   }
 
-  v5 = *(equalCopy + 44);
   if (*&self->_has)
   {
     if ((*(equalCopy + 44) & 1) == 0 || self->_chanType != *(equalCopy + 8))

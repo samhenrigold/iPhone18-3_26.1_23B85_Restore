@@ -46,7 +46,7 @@
   responseCopy = response;
   selfCopy = self;
   sub_29AA6C(response, v6, v7);
-  sub_17654(v6);
+  sub_17654(v6, v7);
 }
 
 - (_TtC16MusicApplication20JSShelfModelResponse)initWithRequest:(id)request
@@ -59,9 +59,10 @@
 - (BOOL)hasVideoArtwork
 {
   selfCopy = self;
-  v3 = sub_38DD84();
+  sub_38DD84();
+  v4 = v3;
 
-  return v3 & 1;
+  return v4 & 1;
 }
 
 @end

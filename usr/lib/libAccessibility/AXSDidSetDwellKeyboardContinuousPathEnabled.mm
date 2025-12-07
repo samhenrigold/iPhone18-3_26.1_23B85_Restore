@@ -3,7 +3,7 @@
 
 @implementation AXSDidSetDwellKeyboardContinuousPathEnabled
 
-uint64_t ___AXSDidSetDwellKeyboardContinuousPathEnabled_block_invoke()
+void *___AXSDidSetDwellKeyboardContinuousPathEnabled_block_invoke()
 {
   v1 = 1;
   result = _getBooleanPreference(kAXSDidSetDwellKeyboardContinuousPathEnabledPreference, &v1);

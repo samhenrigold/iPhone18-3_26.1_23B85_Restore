@@ -144,38 +144,33 @@
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v30 = v11;
+    v28 = v11;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Request: %{public}@", buf, 0xCu);
   }
 
-  v25[0] = _NSConcreteStackBlock;
-  v25[1] = 3221225472;
-  v25[2] = sub_100148E10;
-  v25[3] = &unk_1004BECB8;
+  v23[0] = _NSConcreteStackBlock;
+  v23[1] = 3221225472;
+  v23[2] = sub_100148E10;
+  v23[3] = &unk_1004BECB8;
   v15 = commandCopy;
-  v26 = v15;
+  v24 = v15;
   v16 = v8;
-  v27 = v16;
+  v25 = v16;
   v17 = completionCopy;
-  v28 = v17;
-  v18 = objc_retainBlock(v25);
+  v26 = v17;
+  v18 = objc_retainBlock(v23);
+  v19 = objc_opt_respondsToSelector();
   callCenter = self->_callCenter;
-  v20 = objc_opt_respondsToSelector();
-  v21 = self->_callCenter;
-  if (v20)
+  if (v19)
   {
     commandType = [v15 commandType];
     routeUID = [v15 routeUID];
-    [(TUCallCenter *)v21 handleMediaRemoteCommand:commandType sourceIdentifier:routeUID completion:v18];
+    [(TUCallCenter *)callCenter handleMediaRemoteCommand:commandType sourceIdentifier:routeUID completion:v18];
   }
 
-  else
+  else if (objc_opt_respondsToSelector())
   {
-    v24 = self->_callCenter;
-    if (objc_opt_respondsToSelector())
-    {
-      -[TUCallCenter handleMediaRemoteCommand:completion:](self->_callCenter, "handleMediaRemoteCommand:completion:", [v15 commandType], v18);
-    }
+    -[TUCallCenter handleMediaRemoteCommand:completion:](self->_callCenter, "handleMediaRemoteCommand:completion:", [v15 commandType], v18);
   }
 }
 

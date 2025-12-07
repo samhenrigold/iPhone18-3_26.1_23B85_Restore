@@ -361,7 +361,7 @@
 
     adaptee = [(CLClientManagerAdapter *)self adaptee];
     Current = CFAbsoluteTimeGetCurrent();
-    sub_10002FE04(adaptee, v7, 3uLL, toCopy, 0, 0, Current);
+    sub_10002FE04(adaptee, Current, v7, 3uLL, toCopy, 0, 0);
   }
 }
 
@@ -410,7 +410,7 @@
 
     adaptee = [(CLClientManagerAdapter *)self adaptee];
     Current = CFAbsoluteTimeGetCurrent();
-    sub_10002FE04(adaptee, v7, 0x10uLL, toCopy, 0, 0, Current);
+    sub_10002FE04(adaptee, Current, v7, 0x10uLL, toCopy, 0, 0);
   }
 }
 
@@ -459,7 +459,7 @@
 
     adaptee = [(CLClientManagerAdapter *)self adaptee];
     Current = CFAbsoluteTimeGetCurrent();
-    sub_10002FE04(adaptee, v7, 6uLL, toCopy, 0, 0, Current);
+    sub_10002FE04(adaptee, Current, v7, 6uLL, toCopy, 0, 0);
   }
 }
 
@@ -508,7 +508,7 @@
 
     adaptee = [(CLClientManagerAdapter *)self adaptee];
     Current = CFAbsoluteTimeGetCurrent();
-    sub_10002FE04(adaptee, v7, 0xFuLL, toCopy, 0, 0, Current);
+    sub_10002FE04(adaptee, Current, v7, 0xFuLL, toCopy, 0, 0);
   }
 }
 
@@ -577,10 +577,11 @@
 
 - (void)takeInUseAssertionForCkp:(id)ckp reason:(id)reason assertionLevel:(int)level withReply:(id)reply
 {
+  v6 = *&level;
   v9 = sub_100033370([(CLClientManagerAdapter *)self adaptee], ckp);
   adaptee = [(CLClientManagerAdapter *)self adaptee];
   sub_10000EC00(&__p, [reason UTF8String]);
-  sub_1000E4F54(adaptee, v9, &__p, level, v12);
+  sub_1000E4F54(adaptee, v9, &__p, v6, v12);
   sub_1001457B8();
 }
 
@@ -597,7 +598,7 @@
   adaptee = [(CLClientManagerAdapter *)self adaptee];
   if (accuracy)
   {
-    [accuracy clientLocation];
+    objc_msgSend_clientLocation(accuracy);
   }
 
   else
@@ -687,12 +688,13 @@
 
 - (void)performMigrationWithReply:(id)reply
 {
-  sub_100794D08([(CLClientManagerAdapter *)self adaptee]);
+  adaptee = [(CLClientManagerAdapter *)self adaptee];
+  sub_100794D08(adaptee, v5);
   if (reply)
   {
-    v4 = *(reply + 2);
+    v6 = *(reply + 2);
 
-    v4(reply);
+    v6(reply);
   }
 }
 
@@ -973,7 +975,7 @@
 {
   adaptee = [(CLClientManagerAdapter *)self adaptee];
 
-  sub_10077D10C(adaptee);
+  sub_10077D10C(adaptee, v3);
 }
 
 - (void)appsWithClientKeysAreInstalledOnAPairedDevice:(id)device
@@ -1412,7 +1414,8 @@
   {
     v11 = [CLLocation alloc];
     LODWORD(v19[0]) = 0xFFFF;
-    *(v19 + 4) = 0uLL;
+    *(v19 + 12) = 0;
+    *(v19 + 4) = 0;
     *(&v19[1] + 4) = xmmword_101C75BF0;
     __asm { FMOV            V0.2D, #-1.0 }
 
@@ -1433,7 +1436,7 @@
   adaptee = [(CLClientManagerAdapter *)self adaptee];
   if (atCopy)
   {
-    [atCopy clientLocation];
+    objc_msgSend_clientLocation(atCopy);
   }
 
   else

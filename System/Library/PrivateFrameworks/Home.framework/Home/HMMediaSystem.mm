@@ -15,7 +15,7 @@ BOOL __61__HMMediaSystem_HFHomeKitObjectConformance__hf_isValidObject__block_inv
 {
   v2 = [a2 mediaProfile];
   v3 = [v2 accessory];
-  v4 = [v3 home];
+  v4 = objc_msgSend_home(v3);
   v5 = v4 != 0;
 
   return v5;
@@ -114,7 +114,7 @@ void __86__HMMediaSystem_HFMediaAccessoryProfileAdditions__hf_homePodSupportsMul
 
 void __86__HMMediaSystem_HFMediaAccessoryProfileAdditions__hf_homePodSupportsMultiUserLanguage__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = HFLogForCategory(0);
@@ -123,12 +123,12 @@ void __86__HMMediaSystem_HFMediaAccessoryProfileAdditions__hf_homePodSupportsMul
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v27 = NSStringFromSelector(*(a1 + 48));
-      v28 = 138412546;
-      v29 = v27;
-      v30 = 2112;
-      v31 = v6;
-      _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "%@ Error fetching voice recognition languages [%@]", &v28, 0x16u);
+      v26 = NSStringFromSelector(*(a1 + 48));
+      v27 = 138412546;
+      v28 = v26;
+      v29 = 2112;
+      v30 = v6;
+      _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "%@ Error fetching voice recognition languages [%@]", &v27, 0x16u);
     }
 
     [*(a1 + 32) finishWithNoResult];
@@ -139,13 +139,13 @@ void __86__HMMediaSystem_HFMediaAccessoryProfileAdditions__hf_homePodSupportsMul
   {
     v9 = *(a1 + 40);
     v10 = NSStringFromSelector(*(a1 + 48));
-    v28 = 138412802;
-    v29 = v9;
-    v30 = 2112;
-    v31 = v10;
-    v32 = 2112;
-    v33 = v5;
-    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "%@:%@ Supported voice recognition languages %@", &v28, 0x20u);
+    v27 = 138412802;
+    v28 = v9;
+    v29 = 2112;
+    v30 = v10;
+    v31 = 2112;
+    v32 = v5;
+    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "%@:%@ Supported voice recognition languages %@", &v27, 0x20u);
   }
 
   v11 = [*(a1 + 40) accessories];
@@ -200,7 +200,6 @@ LABEL_15:
   }
 
 LABEL_20:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 void __62__HMMediaSystem_HFMediaAccessoryProfileAdditions__hf_tileSize__block_invoke(uint64_t a1, uint64_t a2)

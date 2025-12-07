@@ -28,7 +28,7 @@
     v3 = +[IDSLogging IDSDeviceConnection];
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_195B26A7C();
+      sub_195B26A7C(self, v3);
     }
 
     selfCopy = 0;
@@ -61,7 +61,7 @@
 
 - (void)setActiveConnection:(id)connection forKey:(id)key
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   connectionCopy = connection;
   os_unfair_lock_lock(&self->_writeLock);
@@ -71,13 +71,13 @@
     v9 = +[IDSTransportLog IDSDeviceConnection];
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412802;
-      v12 = keyCopy;
-      v13 = 2112;
-      v14 = v8;
-      v15 = 2112;
-      v16 = keyCopy;
-      _os_log_impl(&dword_1959FF000, v9, OS_LOG_TYPE_DEFAULT, "Warning. Setting active connection %@ without closing existing %@ for key %@", &v11, 0x20u);
+      v10 = 138412802;
+      v11 = keyCopy;
+      v12 = 2112;
+      v13 = v8;
+      v14 = 2112;
+      v15 = keyCopy;
+      _os_log_impl(&dword_1959FF000, v9, OS_LOG_TYPE_DEFAULT, "Warning. Setting active connection %@ without closing existing %@ for key %@", &v10, 0x20u);
     }
   }
 
@@ -85,7 +85,6 @@
   [(NSMutableSet *)self->_openConnections addObject:connectionCopy];
 
   os_unfair_lock_unlock(&self->_writeLock);
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)hasActiveConnection:(id)connection forKey:(id)key

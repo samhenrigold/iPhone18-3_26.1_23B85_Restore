@@ -7,10 +7,10 @@
 
 - (id)brc_createTemporarySubdirectoryOfItem:()TempFilesAdditions withTemplate:error:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
-  v33[0] = 0;
+  v32[0] = 0;
   v9 = open([v7 fileSystemRepresentation], 33028);
   if (v9 < 0)
   {
@@ -22,11 +22,11 @@
     v10 = __pthread_fchdir();
     if ((v10 & 0x80000000) == 0)
     {
-      if ([v8 getFileSystemRepresentation:v33 maxLength:1024])
+      if ([v8 getFileSystemRepresentation:v32 maxLength:1024])
       {
-        if (mkdtemp(v33))
+        if (mkdtemp(v32))
         {
-          v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v33];
+          v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v32];
           v12 = [v7 stringByAppendingPathComponent:v11];
 
           if (v12)
@@ -50,21 +50,21 @@
     v15 = brc_default_log(0, 0);
     if (os_log_type_enabled(v15, 0x90u))
     {
-      v23 = "(passed to caller)";
-      v25 = 136315906;
-      v26 = "[NSFileManager(TempFilesAdditions) brc_createTemporarySubdirectoryOfItem:withTemplate:error:]";
-      v27 = 2080;
+      v22 = "(passed to caller)";
+      v24 = 136315906;
+      v25 = "[NSFileManager(TempFilesAdditions) brc_createTemporarySubdirectoryOfItem:withTemplate:error:]";
+      v26 = 2080;
       if (!a5)
       {
-        v23 = "(ignored by caller)";
+        v22 = "(ignored by caller)";
       }
 
-      v28 = v23;
-      v29 = 2112;
-      v30 = br_errorFromErrno;
-      v31 = 2112;
-      v32 = v14;
-      _os_log_error_impl(&dword_1AE2A9000, v15, 0x90u, "[ERROR] %s: %s error: %@%@", &v25, 0x2Au);
+      v27 = v22;
+      v28 = 2112;
+      v29 = br_errorFromErrno;
+      v30 = 2112;
+      v31 = v14;
+      _os_log_error_impl(&dword_1AE2A9000, v15, 0x90u, "[ERROR] %s: %s error: %@%@", &v24, 0x2Au);
     }
   }
 
@@ -90,21 +90,21 @@ LABEL_15:
       v19 = brc_default_log(0, 0);
       if (os_log_type_enabled(v19, 0x90u))
       {
-        v24 = "(passed to caller)";
-        v25 = 136315906;
-        v26 = "[NSFileManager(TempFilesAdditions) brc_createTemporarySubdirectoryOfItem:withTemplate:error:]";
-        v27 = 2080;
+        v23 = "(passed to caller)";
+        v24 = 136315906;
+        v25 = "[NSFileManager(TempFilesAdditions) brc_createTemporarySubdirectoryOfItem:withTemplate:error:]";
+        v26 = 2080;
         if (!a5)
         {
-          v24 = "(ignored by caller)";
+          v23 = "(ignored by caller)";
         }
 
-        v28 = v24;
-        v29 = 2112;
-        v30 = br_errorFromErrno2;
-        v31 = 2112;
-        v32 = v18;
-        _os_log_error_impl(&dword_1AE2A9000, v19, 0x90u, "[ERROR] %s: %s error: %@%@", &v25, 0x2Au);
+        v27 = v23;
+        v28 = 2112;
+        v29 = br_errorFromErrno2;
+        v30 = 2112;
+        v31 = v18;
+        _os_log_error_impl(&dword_1AE2A9000, v19, 0x90u, "[ERROR] %s: %s error: %@%@", &v24, 0x2Au);
       }
     }
 
@@ -115,14 +115,12 @@ LABEL_15:
     }
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v12;
 }
 
 - (id)brc_createTemporaryFileInDirectory:()TempFilesAdditions withTemplate:error:
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v8 = a3;
   v9 = a4;
   selfCopy = self;
@@ -142,7 +140,7 @@ LABEL_15:
     goto LABEL_10;
   }
 
-  if (([v11 getFileSystemRepresentation:&v26 maxLength:1024] & 1) == 0)
+  if (([v11 getFileSystemRepresentation:&v25 maxLength:1024] & 1) == 0)
   {
     v15 = 0;
     *__error() = 63;
@@ -156,10 +154,10 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v14 = mkstemp(&v26);
+  v14 = mkstemp(&v25);
   if ((v14 & 0x80000000) == 0)
   {
-    v15 = [selfCopy stringWithFileSystemRepresentation:&v26 length:strlen(&v26)];
+    v15 = [selfCopy stringWithFileSystemRepresentation:&v25 length:strlen(&v25)];
     v16 = v15;
     close(v14);
     if (!v13)
@@ -190,21 +188,21 @@ LABEL_12:
       v21 = brc_default_log(0, 0);
       if (os_log_type_enabled(v21, 0x90u))
       {
-        v25 = "(passed to caller)";
-        v26 = 136315906;
-        v27 = "[NSFileManager(TempFilesAdditions) brc_createTemporaryFileInDirectory:withTemplate:error:]";
-        v28 = 2080;
+        v24 = "(passed to caller)";
+        v25 = 136315906;
+        v26 = "[NSFileManager(TempFilesAdditions) brc_createTemporaryFileInDirectory:withTemplate:error:]";
+        v27 = 2080;
         if (!a5)
         {
-          v25 = "(ignored by caller)";
+          v24 = "(ignored by caller)";
         }
 
-        v29 = v25;
-        v30 = 2112;
-        v31 = br_errorFromErrno;
-        v32 = 2112;
-        v33 = v20;
-        _os_log_error_impl(&dword_1AE2A9000, v21, 0x90u, "[ERROR] %s: %s error: %@%@", &v26, 0x2Au);
+        v28 = v24;
+        v29 = 2112;
+        v30 = br_errorFromErrno;
+        v31 = 2112;
+        v32 = v20;
+        _os_log_error_impl(&dword_1AE2A9000, v21, 0x90u, "[ERROR] %s: %s error: %@%@", &v25, 0x2Au);
       }
     }
 
@@ -221,8 +219,6 @@ LABEL_12:
   {
     v18 = [v8 stringByAppendingPathComponent:v17];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

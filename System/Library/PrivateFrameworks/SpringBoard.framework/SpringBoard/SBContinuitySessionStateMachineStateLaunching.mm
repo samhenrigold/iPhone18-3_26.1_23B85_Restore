@@ -30,7 +30,7 @@ void __76___SBContinuitySessionStateMachineStateLaunching_appendDescriptionToStr
   [v4 appendProem:v3 block:v6];
 }
 
-uint64_t __76___SBContinuitySessionStateMachineStateLaunching_appendDescriptionToStream___block_invoke_2(uint64_t a1)
+id __76___SBContinuitySessionStateMachineStateLaunching_appendDescriptionToStream___block_invoke_2(uint64_t a1)
 {
   v2 = [*(a1 + 32) appendBool:*(*(a1 + 40) + 32) withName:@"isCurrentState"];
   result = [*(a1 + 32) hasSuccinctStyle];

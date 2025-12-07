@@ -71,7 +71,7 @@
 - (const)partDefinitionWithName:(id)name forElementDefinition:(id *)definition
 {
   uTF8String = [name UTF8String];
-  v13 = uTF8String;
+  v7 = uTF8String;
   if (!definition || !uTF8String)
   {
     [+[NSException exceptionWithName:reason:userInfo:](NSException raise:NSInvalidArgumentException];
@@ -83,29 +83,29 @@
     goto LABEL_9;
   }
 
-  v15 = &definition[-1].var4[7].var2[4];
+  v9 = &definition[-1].var4[7].var2[4];
   do
   {
-    v16 = strcmp(var0, v13);
-    v17 = v15 + 1;
-    if (!v16)
+    v10 = strcmp(var0, v7);
+    v11 = v9 + 1;
+    if (!v10)
     {
       break;
     }
 
-    var0 = v15[2].var0;
-    ++v15;
+    var0 = v9[2].var0;
+    ++v9;
   }
 
   while (var0);
-  if (v16)
+  if (v10)
   {
 LABEL_9:
-    _CUILog(1, "Unable to find partDefinition for Name: %@", v7, v8, v9, v10, v11, v12, name);
+    _CUILog(1, "Unable to find partDefinition for Name: %@", name);
     return 0;
   }
 
-  return v17;
+  return v11;
 }
 
 - (unint64_t)partDefinitionCountForEffectDefinition:(id *)definition

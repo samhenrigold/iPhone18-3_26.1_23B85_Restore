@@ -10,7 +10,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1000080F0();
+  sub_1000080F0(selfCopy);
 }
 
 - (void)documentCameraViewController:(id)controller didFinishWithScan:(id)scan

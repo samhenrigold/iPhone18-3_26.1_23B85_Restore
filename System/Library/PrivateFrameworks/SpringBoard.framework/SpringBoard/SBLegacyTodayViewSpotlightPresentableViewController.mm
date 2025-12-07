@@ -368,7 +368,7 @@ void __130__SBLegacyTodayViewSpotlightPresentableViewController_willBeginModifyi
 
         v13 = *(*(&v16 + 1) + 8 * i);
         v14 = MEMORY[0x277D65E58];
-        [v13 frame];
+        objc_msgSend_frame(v13, v16);
         v15 = [v14 matchMoveAnimationForFrame:window relativeToView:?];
         [v13 addAnimation:v15 forKey:@"SBTodayViewSearchBackdropMatchMoveAnimation"];
       }
@@ -393,26 +393,27 @@ void __130__SBLegacyTodayViewSpotlightPresentableViewController_willBeginModifyi
 - (void)_beginRequiringSearchBarPortalViewForReason:(id)reason
 {
   reasonCopy = reason;
+  v6 = reasonCopy;
   if (!reasonCopy)
   {
     [(SBLegacyTodayViewSpotlightPresentableViewController *)a2 _beginRequiringSearchBarPortalViewForReason:?];
-    reasonCopy = 0;
+    v6 = 0;
   }
 
   if (self->_searchBarViewController)
   {
     searchBarPortalRequirementReasons = self->_searchBarPortalRequirementReasons;
-    v18 = reasonCopy;
+    v19 = v6;
     if (!searchBarPortalRequirementReasons)
     {
-      v7 = [MEMORY[0x277CBEB58] set];
-      v8 = self->_searchBarPortalRequirementReasons;
-      self->_searchBarPortalRequirementReasons = v7;
+      v8 = [MEMORY[0x277CBEB58] set];
+      v9 = self->_searchBarPortalRequirementReasons;
+      self->_searchBarPortalRequirementReasons = v8;
 
       searchBarPortalRequirementReasons = self->_searchBarPortalRequirementReasons;
     }
 
-    [(NSMutableSet *)searchBarPortalRequirementReasons addObject:v18];
+    reasonCopy = [(NSMutableSet *)searchBarPortalRequirementReasons addObject:v19];
     if (!self->_searchBarPortalView)
     {
       _sharedRemoteSearchViewController = [(SBLegacyTodayViewSpotlightPresentableViewController *)self _sharedRemoteSearchViewController];
@@ -423,9 +424,9 @@ void __130__SBLegacyTodayViewSpotlightPresentableViewController_willBeginModifyi
         view = [(SPUISearchBarController *)self->_searchBarViewController view];
         [view setHidden:1];
 
-        v13 = objc_alloc_init(MEMORY[0x277D76180]);
+        v14 = objc_alloc_init(MEMORY[0x277D76180]);
         searchBarPortalView = self->_searchBarPortalView;
-        self->_searchBarPortalView = v13;
+        self->_searchBarPortalView = v14;
 
         [(_UIPortalView *)self->_searchBarPortalView bs_setHitTestingDisabled:1];
         [(_UIPortalView *)self->_searchBarPortalView setHidesSourceView:1];
@@ -441,7 +442,7 @@ void __130__SBLegacyTodayViewSpotlightPresentableViewController_willBeginModifyi
     }
   }
 
-  MEMORY[0x2821F9730]();
+  MEMORY[0x2821F9730](reasonCopy);
 }
 
 - (void)_endRequiringSearchBarPortalViewForReason:(id)reason
@@ -470,7 +471,7 @@ void __130__SBLegacyTodayViewSpotlightPresentableViewController_willBeginModifyi
   v10 = v9;
   v12 = v11;
   v14 = v13;
-  [(SBFFeatherBlurView *)self->_featherBlurView frame];
+  objc_msgSend_frame(self->_featherBlurView);
   v32 = v15;
   v17 = v16;
   v19 = v18;

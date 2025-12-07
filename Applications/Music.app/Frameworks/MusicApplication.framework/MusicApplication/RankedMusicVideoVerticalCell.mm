@@ -9,7 +9,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_42B9E0();
+  sub_42B9E0(v2);
 }
 
 + (UIEdgeInsets)visualContentInsets

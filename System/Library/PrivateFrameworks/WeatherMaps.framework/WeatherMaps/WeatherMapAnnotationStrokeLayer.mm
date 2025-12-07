@@ -7,11 +7,12 @@
 
 - (id)actionForKey:(id)key
 {
-  sub_220FC2700();
+  v4 = sub_220FC2700();
+  v6 = v5;
   selfCopy = self;
-  v5 = sub_220F9A02C();
+  v8 = sub_220F9A02C(v4, v6);
 
-  return v5;
+  return v8;
 }
 
 - (_TtC11WeatherMaps31WeatherMapAnnotationStrokeLayer)initWithLayer:(id)layer

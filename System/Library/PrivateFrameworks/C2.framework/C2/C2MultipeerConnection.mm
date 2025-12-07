@@ -39,28 +39,28 @@
 
 - (void)stopConnection
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
   v3 = self->_oustandingDiscoveryRequestsByRequestUUID;
-  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v4)
   {
-    v5 = *v24;
+    v5 = *v23;
     do
     {
       v6 = 0;
       do
       {
-        if (*v24 != v5)
+        if (*v23 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v7 = *(*(&v23 + 1) + 8 * v6);
+        v7 = *(*(&v22 + 1) + 8 * v6);
         parent = [(C2MultipeerConnection *)self parent];
         clientContextByRequestUUID = [parent clientContextByRequestUUID];
         v10 = [clientContextByRequestUUID objectForKeyedSubscript:v7];
@@ -78,8 +78,8 @@
         v12 = C2_MULTIPEER_LOG_INTERNAL_0;
         if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL_0, OS_LOG_TYPE_DEFAULT))
         {
-          *v21 = 0;
-          _os_log_impl(&dword_242158000, v12, OS_LOG_TYPE_DEFAULT, "_stopConnection", v21, 2u);
+          *v20 = 0;
+          _os_log_impl(&dword_242158000, v12, OS_LOG_TYPE_DEFAULT, "_stopConnection", v20, 2u);
         }
 
         discoveryPeers = [v10 discoveryPeers];
@@ -98,7 +98,7 @@
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v4 = [(NSMutableSet *)v3 countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v4);
@@ -119,8 +119,6 @@
   }
   v19 = ;
   [v19 setObject:0 forKeyedSubscript:self->_peerID];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __39__C2MultipeerConnection_stopConnection__block_invoke()
@@ -201,7 +199,7 @@ void __48__C2MultipeerConnection_handleDiscoveryRequest___block_invoke(id *a1)
 
 void __48__C2MultipeerConnection_handleDiscoveryRequest___block_invoke_2(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) setChunkData:*(a1 + 40)];
   if (C2_MULTIPEER_LOG_BLOCK_0 != -1)
   {
@@ -220,23 +218,23 @@ void __48__C2MultipeerConnection_handleDiscoveryRequest___block_invoke_2(uint64_
     v9 = [*(a1 + 56) containerIdentifier];
     v10 = *(a1 + 40);
     *buf = 138413314;
-    v25 = v5;
-    v26 = 2112;
-    v27 = v7;
-    v28 = 2112;
-    v29 = v8;
-    v30 = 2112;
-    v31 = v9;
-    v32 = 2112;
-    v33 = v10;
+    v24 = v5;
+    v25 = 2112;
+    v26 = v7;
+    v27 = 2112;
+    v28 = v8;
+    v29 = 2112;
+    v30 = v9;
+    v31 = 2112;
+    v32 = v10;
     _os_log_impl(&dword_242158000, v4, OS_LOG_TYPE_DEFAULT, "[[%@ %@] chunkDataFromSignature:%@ forContainerIdentifier:%@] - returned %@", buf, 0x34u);
   }
 
   [*(a1 + 64) setChunkAvailable:*(a1 + 40) != 0];
   v11 = *(a1 + 64);
-  v23 = 0;
-  v12 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v11 requiringSecureCoding:1 error:&v23];
-  v13 = v23;
+  v22 = 0;
+  v12 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v11 requiringSecureCoding:1 error:&v22];
+  v13 = v22;
   v14 = v13;
   if (!v12 || v13)
   {
@@ -249,7 +247,7 @@ void __48__C2MultipeerConnection_handleDiscoveryRequest___block_invoke_2(uint64_
     if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL_0, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = v14;
+      v24 = v14;
       _os_log_impl(&dword_242158000, v19, OS_LOG_TYPE_DEFAULT, "Unable to serialize request with error %@", buf, 0xCu);
     }
   }
@@ -262,16 +260,14 @@ void __48__C2MultipeerConnection_handleDiscoveryRequest___block_invoke_2(uint64_
     [v16 setObject:v15 forKeyedSubscript:v17];
 
     v18 = *(a1 + 48);
-    v21[0] = MEMORY[0x277D85DD0];
-    v21[1] = 3221225472;
-    v21[2] = __48__C2MultipeerConnection_handleDiscoveryRequest___block_invoke_20;
-    v21[3] = &unk_278D40150;
-    v21[4] = v18;
-    v22 = *(a1 + 56);
-    [v18 sendMessageWithData:v12 completionHandler:v21];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __48__C2MultipeerConnection_handleDiscoveryRequest___block_invoke_20;
+    v20[3] = &unk_278D40150;
+    v20[4] = v18;
+    v21 = *(a1 + 56);
+    [v18 sendMessageWithData:v12 completionHandler:v20];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__C2MultipeerConnection_handleDiscoveryRequest___block_invoke_3()
@@ -290,7 +286,7 @@ uint64_t __48__C2MultipeerConnection_handleDiscoveryRequest___block_invoke_17()
 
 void __48__C2MultipeerConnection_handleDiscoveryRequest___block_invoke_20(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -302,17 +298,15 @@ void __48__C2MultipeerConnection_handleDiscoveryRequest___block_invoke_20(uint64
     v4 = C2_MULTIPEER_LOG_INTERNAL_0;
     if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL_0, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 138412290;
-      v9 = v3;
-      _os_log_impl(&dword_242158000, v4, OS_LOG_TYPE_DEFAULT, "Unable to send response with error %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = v3;
+      _os_log_impl(&dword_242158000, v4, OS_LOG_TYPE_DEFAULT, "Unable to send response with error %@", &v7, 0xCu);
     }
 
     v5 = [*(a1 + 32) serverContextByRequestUUID];
     v6 = [*(a1 + 40) requestUUID];
     [v5 setObject:0 forKeyedSubscript:v6];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __48__C2MultipeerConnection_handleDiscoveryRequest___block_invoke_2_21()
@@ -324,22 +318,22 @@ uint64_t __48__C2MultipeerConnection_handleDiscoveryRequest___block_invoke_2_21(
 
 - (void)handleData:(id)data
 {
-  v98[4] = *MEMORY[0x277D85DE8];
+  v97[4] = *MEMORY[0x277D85DE8];
   dataCopy = data;
   queue = [(C2MultipeerConnection *)self queue];
   dispatch_assert_queue_V2(queue);
 
   v6 = MEMORY[0x277CCAAC8];
   v7 = MEMORY[0x277CBEB98];
-  v98[0] = objc_opt_class();
-  v98[1] = objc_opt_class();
-  v98[2] = objc_opt_class();
-  v98[3] = objc_opt_class();
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v98 count:4];
+  v97[0] = objc_opt_class();
+  v97[1] = objc_opt_class();
+  v97[2] = objc_opt_class();
+  v97[3] = objc_opt_class();
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v97 count:4];
   v9 = [v7 setWithArray:v8];
-  v85 = 0;
-  v10 = [v6 unarchivedObjectOfClasses:v9 fromData:dataCopy error:&v85];
-  v11 = v85;
+  v84 = 0;
+  v10 = [v6 unarchivedObjectOfClasses:v9 fromData:dataCopy error:&v84];
+  v11 = v84;
 
   if (!v10 || v11)
   {
@@ -353,12 +347,12 @@ uint64_t __48__C2MultipeerConnection_handleDiscoveryRequest___block_invoke_2_21(
     {
       *buf = 138413058;
       selfCopy7 = self;
-      v90 = 2112;
-      v91 = dataCopy;
-      v92 = 2112;
-      v93 = v10;
-      v94 = 2112;
-      v95 = v11;
+      v89 = 2112;
+      v90 = dataCopy;
+      v91 = 2112;
+      v92 = v10;
+      v93 = 2112;
+      v94 = v11;
       _os_log_impl(&dword_242158000, v13, OS_LOG_TYPE_DEFAULT, "[%@ handleData:%@] - Ignoring response %@ due to error %@", buf, 0x2Au);
     }
   }
@@ -378,12 +372,12 @@ uint64_t __48__C2MultipeerConnection_handleDiscoveryRequest___block_invoke_2_21(
       {
         *buf = 138413058;
         selfCopy7 = self;
-        v90 = 2112;
-        v91 = dataCopy;
-        v92 = 2112;
-        v93 = v10;
-        v94 = 2112;
-        v95 = 0;
+        v89 = 2112;
+        v90 = dataCopy;
+        v91 = 2112;
+        v92 = v10;
+        v93 = 2112;
+        v94 = 0;
         _os_log_impl(&dword_242158000, v12, OS_LOG_TYPE_DEFAULT, "[%@ handleData:%@] - received message %@ with error %@", buf, 0x2Au);
       }
 
@@ -400,11 +394,11 @@ LABEL_9:
       parent = [(C2MultipeerConnection *)self parent];
       clientContextByRequestUUID = [parent clientContextByRequestUUID];
       requestUUID = [v14 requestUUID];
-      v77 = [clientContextByRequestUUID objectForKeyedSubscript:requestUUID];
+      v76 = [clientContextByRequestUUID objectForKeyedSubscript:requestUUID];
 
       state.opaque[0] = 0;
       state.opaque[1] = 0;
-      osActivity = [v77 osActivity];
+      osActivity = [v76 osActivity];
       os_activity_scope_enter(osActivity, &state);
 
       if (C2_MULTIPEER_LOG_BLOCK_0 != -1)
@@ -416,18 +410,18 @@ LABEL_9:
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         mach_continuous_time();
-        [v77 startTimestamp];
+        [v76 startTimestamp];
         TMConvertTicksToSeconds();
         *buf = 138413314;
         selfCopy7 = self;
-        v90 = 2112;
-        v91 = dataCopy;
-        v92 = 2112;
-        v93 = v14;
-        v94 = 2112;
-        v95 = 0;
-        v96 = 2048;
-        v97 = v20;
+        v89 = 2112;
+        v90 = dataCopy;
+        v91 = 2112;
+        v92 = v14;
+        v93 = 2112;
+        v94 = 0;
+        v95 = 2048;
+        v96 = v20;
         _os_log_impl(&dword_242158000, v19, OS_LOG_TYPE_DEFAULT, "[%@ handleData:%@] - received message %@ with error %@ after %.3f seconds.", buf, 0x34u);
       }
 
@@ -435,7 +429,7 @@ LABEL_9:
       requestUUID2 = [v14 requestUUID];
       [(C2MultipeerChunkDataRequest *)v21 setRequestUUID:requestUUID2];
 
-      discoveryPeers = [v77 discoveryPeers];
+      discoveryPeers = [v76 discoveryPeers];
       peerID = [(C2MultipeerConnection *)self peerID];
       [discoveryPeers removeObject:peerID];
 
@@ -453,18 +447,18 @@ LABEL_9:
       {
         peerID2 = [(C2MultipeerConnection *)self peerID];
         requestUUID4 = [v14 requestUUID];
-        discoveryPeers2 = [v77 discoveryPeers];
+        discoveryPeers2 = [v76 discoveryPeers];
         v31 = [discoveryPeers2 count];
         *buf = 138412802;
         selfCopy7 = peerID2;
-        v90 = 2112;
-        v91 = requestUUID4;
-        v92 = 2048;
-        v93 = v31;
+        v89 = 2112;
+        v90 = requestUUID4;
+        v91 = 2048;
+        v92 = v31;
         _os_log_impl(&dword_242158000, v27, OS_LOG_TYPE_DEFAULT, "Received discovery response from %@ for %@, %llu peers remaining.", buf, 0x20u);
       }
 
-      chunkDataRequestedFromPeer = [v77 chunkDataRequestedFromPeer];
+      chunkDataRequestedFromPeer = [v76 chunkDataRequestedFromPeer];
       v33 = chunkDataRequestedFromPeer == 0;
 
       if (v33)
@@ -480,9 +474,9 @@ LABEL_9:
       [(C2MultipeerChunkDataRequest *)v21 setChunkDataRequested:chunkAvailable];
       if ([v14 chunkAvailable])
       {
-        v83 = 0;
-        v61 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v21 requiringSecureCoding:1 error:&v83];
-        v62 = v83;
+        v82 = 0;
+        v61 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v21 requiringSecureCoding:1 error:&v82];
+        v62 = v82;
         v11 = v62;
         if (!v61 || v62)
         {
@@ -505,9 +499,9 @@ LABEL_9:
           if (chunkAvailable)
           {
             peerID3 = [(C2MultipeerConnection *)self peerID];
-            [v77 setChunkDataRequestedFromPeer:peerID3];
+            [v76 setChunkDataRequestedFromPeer:peerID3];
 
-            [v77 resetTimerForChunkData];
+            [v76 resetTimerForChunkData];
             if (C2_MULTIPEER_LOG_BLOCK_0 != -1)
             {
               [C2MultipeerConnection handleData:];
@@ -520,20 +514,20 @@ LABEL_9:
               requestUUID5 = [v14 requestUUID];
               *buf = 138412546;
               selfCopy7 = peerID4;
-              v90 = 2112;
-              v91 = requestUUID5;
+              v89 = 2112;
+              v90 = requestUUID5;
               _os_log_impl(&dword_242158000, v64, OS_LOG_TYPE_DEFAULT, "Requested data from %@ for %@", buf, 0x16u);
             }
           }
 
-          v79[0] = MEMORY[0x277D85DD0];
-          v79[1] = 3221225472;
-          v79[2] = __36__C2MultipeerConnection_handleData___block_invoke_48;
-          v79[3] = &unk_278D401C8;
-          v80 = v77;
+          v78[0] = MEMORY[0x277D85DD0];
+          v78[1] = 3221225472;
+          v78[2] = __36__C2MultipeerConnection_handleData___block_invoke_48;
+          v78[3] = &unk_278D401C8;
+          v79 = v76;
           selfCopy4 = self;
-          v82 = v14;
-          [(C2MultipeerConnection *)self sendMessageWithData:v61 completionHandler:v79];
+          v81 = v14;
+          [(C2MultipeerConnection *)self sendMessageWithData:v61 completionHandler:v78];
         }
       }
 
@@ -542,7 +536,7 @@ LABEL_9:
         v11 = 0;
       }
 
-      if ([v77 hadFailedToDiscover])
+      if ([v76 hadFailedToDiscover])
       {
         parent2 = [(C2MultipeerConnection *)self parent];
         clientContextByRequestUUID2 = [parent2 clientContextByRequestUUID];
@@ -582,12 +576,12 @@ LABEL_9:
           {
             *buf = 138413058;
             selfCopy7 = self;
-            v90 = 2112;
-            v91 = dataCopy;
-            v92 = 2112;
-            v93 = v46;
-            v94 = 2112;
-            v95 = 0;
+            v89 = 2112;
+            v90 = dataCopy;
+            v91 = 2112;
+            v92 = v46;
+            v93 = 2112;
+            v94 = 0;
             _os_log_impl(&dword_242158000, v52, OS_LOG_TYPE_DEFAULT, "[%@ handleData:%@] - received message %@ with error %@", buf, 0x2Au);
           }
 
@@ -610,11 +604,11 @@ LABEL_9:
 
             else
             {
-              v76 = MEMORY[0x277CCA9B8];
-              v86 = *MEMORY[0x277CCA450];
-              v87 = @"chunk data response missing data.";
-              requestUUID7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
-              v60 = [v76 errorWithDomain:@"C2MultipeerErrorDomain" code:400 userInfo:requestUUID7];
+              v75 = MEMORY[0x277CCA9B8];
+              v85 = *MEMORY[0x277CCA450];
+              v86 = @"chunk data response missing data.";
+              requestUUID7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v86 forKeys:&v85 count:1];
+              v60 = [v75 errorWithDomain:@"C2MultipeerErrorDomain" code:400 userInfo:requestUUID7];
             }
 
             (chunkDataCallback2)[2](chunkDataCallback2, chunkData, v60);
@@ -638,12 +632,12 @@ LABEL_9:
           {
             *buf = 138413058;
             selfCopy7 = self;
-            v90 = 2112;
-            v91 = dataCopy;
-            v92 = 2112;
-            v93 = v10;
-            v94 = 2112;
-            v95 = 0;
+            v89 = 2112;
+            v90 = dataCopy;
+            v91 = 2112;
+            v92 = v10;
+            v93 = 2112;
+            v94 = 0;
             _os_log_impl(&dword_242158000, v67, OS_LOG_TYPE_DEFAULT, "[%@ handleData:%@] - received Unknown object %@ with error %@", buf, 0x2Au);
           }
         }
@@ -671,12 +665,12 @@ LABEL_9:
       {
         *buf = 138413058;
         selfCopy7 = self;
-        v90 = 2112;
-        v91 = dataCopy;
-        v92 = 2112;
-        v93 = v35;
-        v94 = 2112;
-        v95 = 0;
+        v89 = 2112;
+        v90 = dataCopy;
+        v91 = 2112;
+        v92 = v35;
+        v93 = 2112;
+        v94 = 0;
         _os_log_impl(&dword_242158000, v40, OS_LOG_TYPE_DEFAULT, "[%@ handleData:%@] - received message %@ with error %@", buf, 0x2Au);
       }
 
@@ -689,9 +683,9 @@ LABEL_9:
         chunkData3 = [v38 chunkData];
         [(C2MultipeerChunkDataResponse *)v41 setChunkData:chunkData3];
 
-        v78 = 0;
-        v44 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v41 requiringSecureCoding:1 error:&v78];
-        v45 = v78;
+        v77 = 0;
+        v44 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:v41 requiringSecureCoding:1 error:&v77];
+        v45 = v77;
         v11 = v45;
         if (!v44 || v45)
         {
@@ -729,8 +723,6 @@ LABEL_9:
   }
 
 LABEL_73:
-
-  v75 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __36__C2MultipeerConnection_handleData___block_invoke()
@@ -777,7 +769,7 @@ uint64_t __36__C2MultipeerConnection_handleData___block_invoke_45()
 
 void __36__C2MultipeerConnection_handleData___block_invoke_48(id *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -789,9 +781,9 @@ void __36__C2MultipeerConnection_handleData___block_invoke_48(id *a1, void *a2)
     v4 = C2_MULTIPEER_LOG_INTERNAL_0;
     if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL_0, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = v3;
-      _os_log_impl(&dword_242158000, v4, OS_LOG_TYPE_DEFAULT, "Unable to send request with error %@", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v3;
+      _os_log_impl(&dword_242158000, v4, OS_LOG_TYPE_DEFAULT, "Unable to send request with error %@", &v8, 0xCu);
     }
 
     [a1[4] setChunkDataRequestedFromPeer:0];
@@ -803,8 +795,6 @@ void __36__C2MultipeerConnection_handleData___block_invoke_48(id *a1, void *a2)
       [v6 setObject:0 forKeyedSubscript:v7];
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __36__C2MultipeerConnection_handleData___block_invoke_2()
@@ -830,7 +820,7 @@ uint64_t __36__C2MultipeerConnection_handleData___block_invoke_54()
 
 void __36__C2MultipeerConnection_handleData___block_invoke_57(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   if (v2)
   {
@@ -842,13 +832,11 @@ void __36__C2MultipeerConnection_handleData___block_invoke_57(uint64_t a1, void 
     v3 = C2_MULTIPEER_LOG_INTERNAL_0;
     if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL_0, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 138412290;
-      v6 = v2;
-      _os_log_impl(&dword_242158000, v3, OS_LOG_TYPE_DEFAULT, "Unable to send response with error %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v2;
+      _os_log_impl(&dword_242158000, v3, OS_LOG_TYPE_DEFAULT, "Unable to send response with error %@", &v4, 0xCu);
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __36__C2MultipeerConnection_handleData___block_invoke_2_60()

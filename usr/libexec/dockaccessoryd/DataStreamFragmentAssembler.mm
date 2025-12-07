@@ -42,7 +42,7 @@ LABEL_9:
     v11->_currentChunkSequenceNumber = &off_100282410;
 
     v17 = v11;
-    v18 = sub_10007FAA0();
+    v18 = sub_10007FAA0(v17);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
       v19 = sub_10007FAFC(v17);
@@ -91,7 +91,7 @@ LABEL_9:
 {
   chunkCopy = chunk;
   selfCopy = self;
-  v8 = sub_10007FAA0();
+  v8 = sub_10007FAA0(selfCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     v9 = sub_10007FAFC(selfCopy);
@@ -107,7 +107,7 @@ LABEL_9:
   if (assembledFragment)
   {
     v11 = selfCopy;
-    v12 = sub_10007FAA0();
+    v12 = sub_10007FAA0(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       v13 = sub_10007FAFC(v11);
@@ -139,7 +139,7 @@ LABEL_18:
   if (unsignedLongLongValue2 != unsignedLongLongValue + 1)
   {
     v28 = selfCopy;
-    v29 = sub_10007FAA0();
+    v29 = sub_10007FAA0(v28);
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       v30 = sub_10007FAFC(v28);
@@ -167,7 +167,7 @@ LABEL_23:
   if (unsignedLongLongValue2 == -1 && ([chunkCopy isLast] & 1) == 0)
   {
     v32 = selfCopy;
-    v33 = sub_10007FAA0();
+    v33 = sub_10007FAA0(v32);
     if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       v34 = sub_10007FAFC(v32);

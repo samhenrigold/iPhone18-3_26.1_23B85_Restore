@@ -26,29 +26,29 @@
 
 + (id)packageWithPackage:(id)package error:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   packageCopy = package;
   v7 = objc_msgSend_packageWithError_(CKConcretePackage, v6, error);
   objc_msgSend_itemEnumerator(packageCopy, v8, v9);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
-  v10 = v27 = 0u;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v24, v28, 16);
+  v10 = v26 = 0u;
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v11, &v23, v27, 16);
   if (v12)
   {
     v14 = v12;
-    v15 = *v25;
+    v15 = *v24;
 LABEL_3:
     v16 = 0;
     while (1)
     {
-      if (*v25 != v15)
+      if (*v24 != v15)
       {
         objc_enumerationMutation(v10);
       }
 
-      v17 = objc_msgSend_addItem_(v7, v13, *(*(&v24 + 1) + 8 * v16), v24);
+      v17 = objc_msgSend_addItem_(v7, v13, *(*(&v23 + 1) + 8 * v16), v23);
       if (v17)
       {
         break;
@@ -56,7 +56,7 @@ LABEL_3:
 
       if (v14 == ++v16)
       {
-        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v24, v28, 16);
+        v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v10, v13, &v23, v27, 16);
         if (v14)
         {
           goto LABEL_3;
@@ -94,8 +94,6 @@ LABEL_11:
 
   v7 = 0;
 LABEL_13:
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -377,16 +375,16 @@ LABEL_13:
 
 - (id)clonedPackageWithBundle:(id)bundle filesDuplicatedIntoDirectory:(id)directory error:(id *)error
 {
-  v79 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   directoryCopy = directory;
   if (error)
   {
     *error = 0;
   }
 
-  v76 = 0;
-  v10 = objc_msgSend_packageForBundleID_error_(CKConcretePackage, v8, bundle, &v76);
-  v11 = v76;
+  v75 = 0;
+  v10 = objc_msgSend_packageForBundleID_error_(CKConcretePackage, v8, bundle, &v75);
+  v11 = v75;
   v14 = v11;
   if (v11)
   {
@@ -406,28 +404,28 @@ LABEL_13:
   else
   {
     objc_msgSend_itemEnumerator(self, v12, v13);
+    v71 = 0u;
     v72 = 0u;
     v73 = 0u;
-    v74 = 0u;
-    v17 = v75 = 0u;
-    v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v72, v78, 16);
+    v17 = v74 = 0u;
+    v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v17, v18, &v71, v77, 16);
     if (v19)
     {
       v22 = v19;
-      v23 = *v73;
+      v23 = *v72;
       obj = v17;
-      v66 = directoryCopy;
-      v64 = 0;
+      v65 = directoryCopy;
+      v63 = 0;
 LABEL_8:
       v24 = 0;
       while (1)
       {
-        if (*v73 != v23)
+        if (*v72 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v25 = *(*(&v72 + 1) + 8 * v24);
+        v25 = *(*(&v71 + 1) + 8 * v24);
         if (directoryCopy)
         {
           v26 = v10;
@@ -437,9 +435,9 @@ LABEL_8:
           v32 = objc_msgSend_URLByAppendingPathComponent_isDirectory_(directoryCopy, v31, v30, 0);
           v35 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v33, v34);
           v38 = objc_msgSend_fileURL(v25, v36, v37);
-          v71 = 0;
-          objc_msgSend_copyItemAtURL_toURL_error_(v35, v39, v38, v32, &v71);
-          v40 = v71;
+          v70 = 0;
+          objc_msgSend_copyItemAtURL_toURL_error_(v35, v39, v38, v32, &v70);
+          v40 = v70;
 
           if (v40)
           {
@@ -453,7 +451,7 @@ LABEL_8:
 
         else
         {
-          v32 = objc_msgSend_fileURL(*(*(&v72 + 1) + 8 * v24), v20, v21);
+          v32 = objc_msgSend_fileURL(*(*(&v71 + 1) + 8 * v24), v20, v21);
         }
 
         v41 = [CKPackageItem alloc];
@@ -464,7 +462,7 @@ LABEL_8:
         {
           v17 = obj;
 
-          if (!v66)
+          if (!v65)
           {
 LABEL_31:
             if (error)
@@ -479,38 +477,38 @@ LABEL_31:
               v16 = 0;
             }
 
-            directoryCopy = v66;
-            v14 = v64;
+            directoryCopy = v65;
+            v14 = v63;
             goto LABEL_35;
           }
 
 LABEL_23:
-          v69 = 0u;
-          v70 = 0u;
-          v67 = 0u;
           v68 = 0u;
+          v69 = 0u;
+          v66 = 0u;
+          v67 = 0u;
           v47 = objc_msgSend_itemEnumerator(v10, v45, v46, 0);
-          v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v48, &v67, v77, 16);
+          v49 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v48, &v66, v76, 16);
           if (v49)
           {
             v52 = v49;
-            v53 = *v68;
+            v53 = *v67;
             do
             {
               for (i = 0; i != v52; ++i)
               {
-                if (*v68 != v53)
+                if (*v67 != v53)
                 {
                   objc_enumerationMutation(v47);
                 }
 
-                v55 = *(*(&v67 + 1) + 8 * i);
+                v55 = *(*(&v66 + 1) + 8 * i);
                 v56 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v50, v51);
                 v59 = objc_msgSend_fileURL(v55, v57, v58);
                 objc_msgSend_removeItemAtURL_error_(v56, v60, v59, 0);
               }
 
-              v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v50, &v67, v77, 16);
+              v52 = objc_msgSend_countByEnumeratingWithState_objects_count_(v47, v50, &v66, v76, 16);
             }
 
             while (v52);
@@ -521,11 +519,11 @@ LABEL_23:
         }
 
         ++v24;
-        directoryCopy = v66;
+        directoryCopy = v65;
         if (v22 == v24)
         {
           v17 = obj;
-          v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v20, &v72, v78, 16);
+          v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v20, &v71, v77, 16);
           v14 = 0;
           if (v22)
           {
@@ -542,42 +540,40 @@ LABEL_23:
 LABEL_35:
   }
 
-  v62 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 - (BOOL)deleteFilesWithError:(id *)error
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v4 = objc_msgSend_itemEnumerator(self, a2, error);
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v26, v30, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v5, &v25, v29, 16);
   if (v6)
   {
     v9 = v6;
     v10 = 0;
-    v11 = *v27;
+    v11 = *v26;
     do
     {
       v12 = 0;
       v13 = v10;
       do
       {
-        if (*v27 != v11)
+        if (*v26 != v11)
         {
           objc_enumerationMutation(v4);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * v12);
+        v14 = *(*(&v25 + 1) + 8 * v12);
         v15 = objc_msgSend_defaultManager(MEMORY[0x1E696AC08], v7, v8);
         v18 = objc_msgSend_fileURL(v14, v16, v17);
-        v25 = 0;
-        objc_msgSend_removeItemAtURL_error_(v15, v19, v18, &v25);
-        v20 = v25;
+        v24 = 0;
+        objc_msgSend_removeItemAtURL_error_(v15, v19, v18, &v24);
+        v20 = v24;
 
         if (v13)
         {
@@ -596,7 +592,7 @@ LABEL_35:
       }
 
       while (v9 != v12);
-      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v26, v30, 16);
+      v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v4, v7, &v25, v29, 16);
     }
 
     while (v9);
@@ -613,7 +609,6 @@ LABEL_35:
     *error = v10;
   }
 
-  v23 = *MEMORY[0x1E69E9840];
   return v10 == 0;
 }
 

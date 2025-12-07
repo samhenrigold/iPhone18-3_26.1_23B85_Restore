@@ -64,7 +64,7 @@
   v14 = objc_opt_class();
   if (v14)
   {
-    [v14 ambientSuggestionStatisticsFromSuggestions:v13];
+    objc_msgSend_ambientSuggestionStatisticsFromSuggestions_(v14);
     v15 = *buf;
   }
 
@@ -129,7 +129,7 @@
   spid = v6;
   if (v12)
   {
-    [v12 ambientSuggestionStatisticsFromSuggestions:v11];
+    objc_msgSend_ambientSuggestionStatisticsFromSuggestions_(v12);
     v13 = *buf;
   }
 
@@ -271,7 +271,7 @@
   v41 = v12;
   if (v13)
   {
-    [v13 wallpaperSuggestionStatisticsFromSuggestions:v12];
+    objc_msgSend_wallpaperSuggestionStatisticsFromSuggestions_(v13);
     v14 = *&buf[12];
     v15 = SDWORD1(v47);
     v16 = SHIDWORD(v47);
@@ -374,7 +374,7 @@
   v27 = v10;
   if (v11)
   {
-    [v11 wallpaperSuggestionStatisticsFromSuggestions:v10];
+    objc_msgSend_wallpaperSuggestionStatisticsFromSuggestions_(v11);
     v12 = *buf;
   }
 

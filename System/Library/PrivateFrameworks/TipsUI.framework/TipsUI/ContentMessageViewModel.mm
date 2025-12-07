@@ -18,7 +18,7 @@
 
 - (NSURL)settingsURL
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CF76C90);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CF76C90, &qword_220BD1810);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v13 - v4;
   v6 = OBJC_IVAR___ContentMessageViewModel_settingsURL;
@@ -40,7 +40,7 @@
 
 - (void)setSettingsURL:(id)l
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CF76C90);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CF76C90, &qword_220BD1810);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v12 - v6;
   if (l)
@@ -139,10 +139,11 @@
   v6 = (self + OBJC_IVAR___ContentMessageViewModel_debugActionHandler);
   swift_beginAccess();
   v7 = *v6;
+  v8 = v6[1];
   *v6 = v4;
   v6[1] = v5;
   selfCopy = self;
-  sub_220B3A128(v7);
+  sub_220B3A128(v7, v8);
 }
 
 - (ContentMessageViewModel)initWithContentMessageType:(int64_t)type additionalContext:(id)context
@@ -218,7 +219,7 @@ LABEL_3:
   *v21 = v12;
   v21[1] = v14;
   v23.receiver = self;
-  v23.super_class = type metadata accessor for ContentMessageViewModel();
+  v23.super_class = type metadata accessor for ContentMessageViewModel(0);
   return [(ContentMessageViewModel *)&v23 init];
 }
 
@@ -254,7 +255,7 @@ LABEL_3:
 
 + (NSURL)networkSettingsURL
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CF76C90);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CF76C90, &qword_220BD1810);
   MEMORY[0x28223BE20](v2 - 8);
   v4 = &v12 - v3;
   v5 = objc_opt_self();

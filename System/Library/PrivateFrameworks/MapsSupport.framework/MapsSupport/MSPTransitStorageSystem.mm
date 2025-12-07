@@ -87,24 +87,23 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    muid = self->_muid;
     PBDataWriterWriteUint64Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_name)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_artwork)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   [(PBUnknownFields *)self->_unknownFields writeTo:toCopy];
@@ -163,7 +162,6 @@
     goto LABEL_11;
   }
 
-  v5 = *(equalCopy + 40);
   if (*&self->_has)
   {
     if ((*(equalCopy + 40) & 1) == 0 || self->_muid != *(equalCopy + 2))
@@ -175,7 +173,7 @@
   else if (*(equalCopy + 40))
   {
 LABEL_11:
-    v8 = 0;
+    v7 = 0;
     goto LABEL_12;
   }
 
@@ -188,17 +186,17 @@ LABEL_11:
   artwork = self->_artwork;
   if (artwork | *(equalCopy + 3))
   {
-    v8 = [(MSPTransitStorageArtwork *)artwork isEqual:?];
+    v7 = [(MSPTransitStorageArtwork *)artwork isEqual:?];
   }
 
   else
   {
-    v8 = 1;
+    v7 = 1;
   }
 
 LABEL_12:
 
-  return v8;
+  return v7;
 }
 
 - (unint64_t)hash

@@ -139,10 +139,10 @@
 
 - (void)_sss_setConcentricCornerMaskingConfiguration
 {
-  v3 = sub_100055840(&qword_1000D4088);
+  v3 = sub_100055840(&qword_1000D4088, &qword_10008F738);
   __chkstk_darwin(v3 - 8);
   v5 = &v12 - v4;
-  v6 = sub_100055840(&qword_1000D4090);
+  v6 = sub_100055840(&qword_1000D4090, &qword_10008F740);
   __chkstk_darwin(v6 - 8);
   v8 = &v12 - v7;
   v9 = type metadata accessor for _UICornerMaskingConfiguration.CornerStyle();

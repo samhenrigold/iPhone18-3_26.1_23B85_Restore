@@ -2345,11 +2345,11 @@ void __63__MPAVRoutingViewController_tableView_didSelectRowAtIndexPath___block_i
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __63__MPAVRoutingViewController_tableView_didSelectRowAtIndexPath___block_invoke_4(uint64_t result)
+id *__63__MPAVRoutingViewController_tableView_didSelectRowAtIndexPath___block_invoke_4(id *result)
 {
-  if (*(*(*(result + 48) + 8) + 24) == 1)
+  if (*(*(result[6] + 1) + 24) == 1)
   {
-    return [*(result + 32) setOptimisticUpdate:*(result + 40)];
+    return [result[4] setOptimisticUpdate:result[5]];
   }
 
   return result;

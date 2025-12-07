@@ -9,12 +9,13 @@
 {
   v8 = _Block_copy(handler);
   v9 = swift_allocObject();
-  *(v9 + 16) = v8;
+  v9[2] = v8;
   promotionCopy = promotion;
   preparerCopy = preparer;
   selfCopy = self;
   LOBYTE(self) = PKAccountPromotionCollectionViewCell.configure(promotion:remoteImagePreparer:actionHandler:)(promotionCopy, preparerCopy, sub_1BD56E97C, v9);
 
+  v9, v13, v14, v15, v16, v17, v18, v19;
   return self & 1;
 }
 

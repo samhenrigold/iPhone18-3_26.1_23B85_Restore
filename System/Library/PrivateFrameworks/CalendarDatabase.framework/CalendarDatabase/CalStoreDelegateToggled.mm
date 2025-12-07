@@ -25,9 +25,9 @@ void ___CalStoreDelegateToggled_block_invoke_2(uint64_t a1)
     [_CalStoreDelegateToggled_storeIDsPendingCleanup removeObject:*(a1 + 32)];
     objc_sync_exit(obj);
 
-    [*(a1 + 32) intValue];
+    v2 = [*(a1 + 32) intValue];
 
-    _CalStoreDeleteDisabledDelegateData();
+    _CalStoreDeleteDisabledDelegateData(v2);
   }
 
   else

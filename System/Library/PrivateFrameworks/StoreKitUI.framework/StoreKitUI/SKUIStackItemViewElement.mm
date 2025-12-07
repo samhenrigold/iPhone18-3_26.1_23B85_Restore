@@ -2,6 +2,9 @@
 - (NSArray)imageElements;
 - (SKUILabelViewElement)textElement;
 - (int64_t)pageComponentType;
+- (void)imageElements;
+- (void)pageComponentType;
+- (void)textElement;
 @end
 
 @implementation SKUIStackItemViewElement
@@ -75,6 +78,24 @@ void __41__SKUIStackItemViewElement_imageElements__block_invoke(uint64_t a1, voi
   }
 
   return 24;
+}
+
+- (void)imageElements
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStackItemViewElement imageElements]";
+}
+
+- (void)textElement
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStackItemViewElement textElement]";
+}
+
+- (void)pageComponentType
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIStackItemViewElement pageComponentType]";
 }
 
 @end

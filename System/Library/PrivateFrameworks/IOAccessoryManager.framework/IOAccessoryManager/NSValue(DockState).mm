@@ -6,11 +6,11 @@
 
 - (uint64_t)dockStateValue
 {
-  *(x8_0 + 128) = 0xAAAAAAAAAAAAAAAALL;
-  *(x8_0 + 64) = xmmword_25491C2F8;
-  *(x8_0 + 80) = unk_25491C308;
-  memset((x8_0 + 96), 170, 32);
-  memset(x8_0, 170, 64);
+  *(a2 + 128) = 0xAAAAAAAAAAAAAAAALL;
+  *(a2 + 64) = xmmword_25491C2F8;
+  *(a2 + 80) = unk_25491C308;
+  memset((a2 + 96), 170, 32);
+  memset(a2, 170, 64);
   return [self getValue:?];
 }
 

@@ -740,6 +740,7 @@ LABEL_16:
 
 - (id)_name
 {
+  v13 = *MEMORY[0x1E69E9840];
   if (!self)
   {
 LABEL_12:
@@ -761,7 +762,15 @@ LABEL_12:
     v5 = GEOFindOrCreateLog();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_2_1(&dword_1C5126000, v6, v7, "At %{public}s:%d, %{public}s forbids: %{public}s. It doesn't make sense that there is no name at all", v8, v9, v10, v11, 2u);
+      *v12 = 136446978;
+      *&v12[4] = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsShortcut.m";
+      *&v12[12] = 1024;
+      *&v12[14] = 184;
+      *&v12[18] = 2082;
+      *&v12[20] = "[MapsSuggestionsShortcut _name]";
+      *&v12[28] = 2082;
+      *&v12[30] = "nil == (name)";
+      OUTLINED_FUNCTION_2_1(&dword_1C5126000, v6, v7, "At %{public}s:%d, %{public}s forbids: %{public}s. It doesn't make sense that there is no name at all", v8, v9, v10, v11, *v12, *&v12[8], *&v12[16], *&v12[24], *&v12[32], v13);
     }
 
     goto LABEL_12;
@@ -891,10 +900,19 @@ LABEL_4:
 
 - (void)subtitle
 {
+  v8 = *MEMORY[0x1E69E9840];
   v0 = GEOFindOrCreateLog();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v1, v2, "At %{public}s:%d, %{public}s forbids: %{public}s. Detected an unsupported MapsSuggestionsShortcutType!", v3, v4, v5, v6, 2u);
+    *v7 = 136446978;
+    *&v7[4] = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsShortcut.m";
+    *&v7[12] = 1024;
+    *&v7[14] = 221;
+    *&v7[18] = 2082;
+    *&v7[20] = "BOOL _isHomeOrWorkOrSchool(MapsSuggestionsShortcutType)";
+    *&v7[28] = 2082;
+    *&v7[30] = "YES";
+    OUTLINED_FUNCTION_2_1(&dword_1C5126000, v1, v2, "At %{public}s:%d, %{public}s forbids: %{public}s. Detected an unsupported MapsSuggestionsShortcutType!", v3, v4, v5, v6, *v7, *&v7[8], *&v7[16], *&v7[24], *&v7[32], v8);
   }
 }
 

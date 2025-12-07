@@ -37,7 +37,7 @@
 
 - (void)scheduleTimerFor:(unint64_t)for leeway:(unint64_t)leeway identifier:(id)identifier queue:(id)queue eventHandler:(id)handler cancelHandler:(id)cancelHandler
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   queueCopy = queue;
   handlerCopy = handler;
@@ -74,9 +74,9 @@
       {
         *buf = 138412802;
         forCopy2 = identifierCopy;
-        v38 = 2048;
+        v37 = 2048;
         leewayCopy2 = for;
-        v40 = 2048;
+        v39 = 2048;
         leewayCopy = leeway;
         _os_log_impl(&dword_23255B000, v23, OS_LOG_TYPE_INFO, "ExpertSystemCore: Scheduling timer with identifier %@ to fire in %ld seconds (leeway: %ld)", buf, 0x20u);
       }
@@ -89,10 +89,10 @@
       handler[1] = 3221225472;
       handler[2] = __95__ExpertSystemHandlerCore_scheduleTimerFor_leeway_identifier_queue_eventHandler_cancelHandler___block_invoke;
       handler[3] = &unk_27898D608;
-      v34 = handlerCopy;
-      objc_copyWeak(&v35, buf);
+      v33 = handlerCopy;
+      objc_copyWeak(&v34, buf);
       v30 = identifierCopy;
-      v33 = v30;
+      v32 = v30;
       dispatch_source_set_event_handler(v28, handler);
       if (cancelHandlerCopy)
       {
@@ -102,7 +102,7 @@
       [(NSMutableDictionary *)self->_activeTimers setObject:v28 forKeyedSubscript:v30];
       dispatch_resume(v28);
 
-      objc_destroyWeak(&v35);
+      objc_destroyWeak(&v34);
       objc_destroyWeak(buf);
     }
   }
@@ -116,19 +116,17 @@
       v27 = _Block_copy(handlerCopy);
       *buf = 134219010;
       forCopy2 = for;
-      v38 = 2048;
+      v37 = 2048;
       leewayCopy2 = leeway;
-      v40 = 2112;
+      v39 = 2112;
       leewayCopy = identifierCopy;
-      v42 = 2048;
-      v43 = queueCopy;
-      v44 = 2048;
-      v45 = v27;
+      v41 = 2048;
+      v42 = queueCopy;
+      v43 = 2048;
+      v44 = v27;
       _os_log_impl(&dword_23255B000, v26, OS_LOG_TYPE_DEBUG, "ES: Invalid parameters scheduling timer (duration %ld, leeway %ld, identifier %@, queue: %p, handler %p)", buf, 0x34u);
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __95__ExpertSystemHandlerCore_scheduleTimerFor_leeway_identifier_queue_eventHandler_cancelHandler___block_invoke(uint64_t a1)
@@ -150,7 +148,7 @@ void __95__ExpertSystemHandlerCore_scheduleTimerFor_leeway_identifier_queue_even
 
 - (void)cancelTimerWithIdentifier:(id)identifier
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (identifierCopy)
   {
@@ -160,9 +158,9 @@ void __95__ExpertSystemHandlerCore_scheduleTimerFor_leeway_identifier_queue_even
     {
       if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 138412290;
-        v9 = identifierCopy;
-        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "ES: Cancelling timer with identifier %@", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = identifierCopy;
+        _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEFAULT, "ES: Cancelling timer with identifier %@", &v7, 0xCu);
       }
 
       dispatch_source_cancel(v5);
@@ -171,31 +169,28 @@ void __95__ExpertSystemHandlerCore_scheduleTimerFor_leeway_identifier_queue_even
 
     else if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEBUG))
     {
-      v8 = 138412290;
-      v9 = identifierCopy;
-      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "ES: No active timer to cancel with identifier %@", &v8, 0xCu);
+      v7 = 138412290;
+      v8 = identifierCopy;
+      _os_log_impl(&dword_23255B000, v6, OS_LOG_TYPE_DEBUG, "ES: No active timer to cancel with identifier %@", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelAllTimers
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = debuggabilityLogHandle;
   if (os_log_type_enabled(debuggabilityLogHandle, OS_LOG_TYPE_DEFAULT))
   {
     activeTimers = self->_activeTimers;
     v5 = v3;
-    v7 = 134217984;
-    v8 = [(NSMutableDictionary *)activeTimers count];
-    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "ES: Cancelling all %ld timers", &v7, 0xCu);
+    v6 = 134217984;
+    v7 = [(NSMutableDictionary *)activeTimers count];
+    _os_log_impl(&dword_23255B000, v5, OS_LOG_TYPE_DEFAULT, "ES: Cancelling all %ld timers", &v6, 0xCu);
   }
 
   [(NSMutableDictionary *)self->_activeTimers enumerateKeysAndObjectsUsingBlock:&__block_literal_global_25];
   [(NSMutableDictionary *)self->_activeTimers removeAllObjects];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (id)configureClass:(id)class

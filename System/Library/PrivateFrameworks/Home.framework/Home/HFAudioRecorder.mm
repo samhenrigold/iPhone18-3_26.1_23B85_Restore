@@ -29,11 +29,11 @@
 
 - (HFAudioRecorder)initWithAudioRecorderDelegate:(id)delegate
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v21.receiver = self;
-  v21.super_class = HFAudioRecorder;
-  v5 = [(HFAudioRecorder *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = HFAudioRecorder;
+  v5 = [(HFAudioRecorder *)&v20 init];
   v6 = v5;
   if (!v5)
   {
@@ -53,9 +53,9 @@
   v9 = objc_alloc(MEMORY[0x277CB83E8]);
   recordingAudiofileURL = [(HFAudioRecorder *)v6 recordingAudiofileURL];
   _audioRecorderSettings = [(HFAudioRecorder *)v6 _audioRecorderSettings];
-  v20 = 0;
-  v12 = [v9 initWithURL:recordingAudiofileURL settings:_audioRecorderSettings error:&v20];
-  v13 = v20;
+  v19 = 0;
+  v12 = [v9 initWithURL:recordingAudiofileURL settings:_audioRecorderSettings error:&v19];
+  v13 = v19;
   [(HFAudioRecorder *)v6 setAudioRecorder:v12];
 
   if (!v13)
@@ -75,7 +75,7 @@ LABEL_7:
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v23 = v13;
+    v22 = v13;
     _os_log_error_impl(&dword_20D9BF000, v14, OS_LOG_TYPE_ERROR, "[AVVoiceController initWithContext:...] failed with error %@", buf, 0xCu);
   }
 
@@ -83,7 +83,6 @@ LABEL_7:
   v15 = 0;
 LABEL_8:
 
-  v18 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -191,7 +190,7 @@ LABEL_16:
 
 - (double)currentRecordedDuration
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   [(HFAudioRecorder *)self recordingStopTimeInterval];
   if (v3 == 0.0)
   {
@@ -211,12 +210,11 @@ LABEL_16:
   v10 = HFLogForCategory(0xBuLL);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 134217984;
-    v14 = v9;
-    _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Recorded so far %f", &v13, 0xCu);
+    v12 = 134217984;
+    v13 = v9;
+    _os_log_impl(&dword_20D9BF000, v10, OS_LOG_TYPE_DEFAULT, "Recorded so far %f", &v12, 0xCu);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -305,61 +303,55 @@ LABEL_12:
 
 - (void)audioSessionDidInterrupt:(id)interrupt
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   interruptCopy = interrupt;
   v5 = HFLogForCategory(0xBuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = interruptCopy;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Audio Session was interrupted [%@]", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = interruptCopy;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Audio Session was interrupted [%@]", &v6, 0xCu);
   }
 
   [(HFAudioRecorder *)self setRecordingStopSource:1];
   [(HFAudioRecorder *)self stopRecording];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionMediaServicesWereLost:(id)lost
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   lostCopy = lost;
   v5 = HFLogForCategory(0xBuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = lostCopy;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Media Services Were Lost [%@]", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = lostCopy;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Media Services Were Lost [%@]", &v6, 0xCu);
   }
 
   [(HFAudioRecorder *)self setRecordingStopSource:2];
   [(HFAudioRecorder *)self stopRecording];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionMediaServicesWereReset:(id)reset
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   resetCopy = reset;
   v5 = HFLogForCategory(0xBuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = resetCopy;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Media Services Were Reset [%@]", &v7, 0xCu);
+    v6 = 138412290;
+    v7 = resetCopy;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "Media Services Were Reset [%@]", &v6, 0xCu);
   }
 
   [(HFAudioRecorder *)self setRecordingStopSource:2];
   [(HFAudioRecorder *)self stopRecording];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)audioSessionRouteChanged:(id)changed
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   changedCopy = changed;
   if ([(HFAudioRecorder *)self isAudioSessionActive])
   {
@@ -372,9 +364,9 @@ LABEL_12:
       v8 = HFLogForCategory(0xBuLL);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = 138412290;
-        v12 = changedCopy;
-        _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Audio Session Route Changed [%@]", &v11, 0xCu);
+        v10 = 138412290;
+        v11 = changedCopy;
+        _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "Audio Session Route Changed [%@]", &v10, 0xCu);
       }
 
       [(HFAudioRecorder *)self setRecordingStopSource:3];
@@ -384,25 +376,22 @@ LABEL_12:
       [(HFAudioRecorder *)self stopRecording];
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_audioRecorderSettings
 {
-  v8[4] = *MEMORY[0x277D85DE8];
+  v7[4] = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277CB82E0];
-  v7[0] = *MEMORY[0x277CB8258];
-  v7[1] = v2;
-  v8[0] = &unk_282524060;
-  v8[1] = &unk_2825255A0;
+  v6[0] = *MEMORY[0x277CB8258];
+  v6[1] = v2;
+  v7[0] = &unk_282524060;
+  v7[1] = &unk_2825255A0;
   v3 = *MEMORY[0x277CB82B0];
-  v7[2] = *MEMORY[0x277CB8280];
-  v7[3] = v3;
-  v8[2] = &unk_282524078;
-  v8[3] = &unk_282524090;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:4];
-  v5 = *MEMORY[0x277D85DE8];
+  v6[2] = *MEMORY[0x277CB8280];
+  v6[3] = v3;
+  v7[2] = &unk_282524078;
+  v7[3] = &unk_282524090;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:4];
 
   return v4;
 }
@@ -427,7 +416,7 @@ LABEL_12:
 
 - (void)_setupAudioFileForRecording
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   outAudioFile = 0;
   dateFormatter = [(HFAudioRecorder *)self dateFormatter];
   [dateFormatter setDateFormat:@"MM-dd-yyyy"];
@@ -448,9 +437,9 @@ LABEL_12:
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   uRLByDeletingLastPathComponent = [v15 URLByDeletingLastPathComponent];
-  v28 = 0;
-  [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v28];
-  v18 = v28;
+  v27 = 0;
+  [defaultManager createDirectoryAtURL:uRLByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v27];
+  v18 = v27;
 
   if (!v18)
   {
@@ -471,8 +460,8 @@ LABEL_12:
       }
 
       uRLByDeletingLastPathComponent2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v22 userInfo:0];
-      *v30 = 138412290;
-      v31 = uRLByDeletingLastPathComponent2;
+      *v29 = 138412290;
+      v30 = uRLByDeletingLastPathComponent2;
       v23 = "AudioFormatGetProperty failed with error [%@]";
     }
 
@@ -494,12 +483,12 @@ LABEL_12:
       }
 
       uRLByDeletingLastPathComponent2 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA590] code:v25 userInfo:0];
-      *v30 = 138412290;
-      v31 = uRLByDeletingLastPathComponent2;
+      *v29 = 138412290;
+      v30 = uRLByDeletingLastPathComponent2;
       v23 = "AudioFileCreateWithURL error %@";
     }
 
-    _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, v23, v30, 0xCu);
+    _os_log_impl(&dword_20D9BF000, v19, OS_LOG_TYPE_DEFAULT, v23, v29, 0xCu);
     goto LABEL_11;
   }
 
@@ -518,12 +507,11 @@ LABEL_11:
 LABEL_12:
 
 LABEL_13:
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activateRecordingAudioSession
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = HFLogForCategory(0xBuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -534,9 +522,9 @@ LABEL_13:
   mEMORY[0x277CB83F8] = [MEMORY[0x277CB83F8] sharedInstance];
   v5 = *MEMORY[0x277CB8028];
   v6 = *MEMORY[0x277CB80A8];
-  v14 = 0;
-  [mEMORY[0x277CB83F8] setCategory:v5 mode:v6 routeSharingPolicy:0 options:12 error:&v14];
-  v7 = v14;
+  v13 = 0;
+  [mEMORY[0x277CB83F8] setCategory:v5 mode:v6 routeSharingPolicy:0 options:12 error:&v13];
+  v7 = v13;
   if (v7)
   {
     v8 = v7;
@@ -544,7 +532,7 @@ LABEL_13:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = v8;
+      v15 = v8;
       v10 = "AudioSession error setting category - [%@]";
 LABEL_9:
       _os_log_impl(&dword_20D9BF000, v9, OS_LOG_TYPE_DEFAULT, v10, buf, 0xCu);
@@ -555,9 +543,9 @@ LABEL_9:
   }
 
   [mEMORY[0x277CB83F8] setInterruptionFadeDuration:&unk_2825255B0 error:0];
-  v13 = 0;
-  [mEMORY[0x277CB83F8] setActive:1 error:&v13];
-  v11 = v13;
+  v12 = 0;
+  [mEMORY[0x277CB83F8] setActive:1 error:&v12];
+  v11 = v12;
   if (v11)
   {
     v8 = v11;
@@ -565,7 +553,7 @@ LABEL_9:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = v8;
+      v15 = v8;
       v10 = "AudioSession error activating audio session - [%@]";
       goto LABEL_9;
     }
@@ -584,13 +572,11 @@ LABEL_10:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deactivateRecordingAudioSession
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = HFLogForCategory(0xBuLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -599,23 +585,21 @@ LABEL_11:
   }
 
   mEMORY[0x277CB83F8] = [MEMORY[0x277CB83F8] sharedInstance];
-  v8 = 0;
-  [mEMORY[0x277CB83F8] setActive:0 withOptions:1 error:&v8];
-  v5 = v8;
+  v7 = 0;
+  [mEMORY[0x277CB83F8] setActive:0 withOptions:1 error:&v7];
+  v5 = v7;
   if (v5)
   {
     v6 = HFLogForCategory(0xBuLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v10 = v5;
+      v9 = v5;
       _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Error Deactivating audio session - [%@]", buf, 0xCu);
     }
   }
 
   [(HFAudioRecorder *)self setAudioSessionIsActive:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanup

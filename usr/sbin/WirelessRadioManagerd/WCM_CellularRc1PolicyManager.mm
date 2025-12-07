@@ -2,6 +2,7 @@
 - (BOOL)isNBDynamicPolicyUpdateRequired:(id)required;
 - (WCM_CellularRc1PolicyManager)init;
 - (id)calculateNBDynamicPolicy;
+- (void)WatchReportRc1ChannelsForGpioBlankingByCellBandInfoType:(int)type CellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq;
 - (void)handleCellularNetworkUpdate;
 - (void)handleCellularPowerState:(BOOL)state;
 - (void)sendRc1Message:(id)message;
@@ -444,6 +445,50 @@ LABEL_6:
   xpc_dictionary_set_BOOL(v4, "kWCMHToRCU1CellularStatus", 1);
   self->cellPowerState = 1;
   [(WCM_CellularRc1PolicyManager *)self sendRc1Message:v4];
+}
+
+- (void)WatchReportRc1ChannelsForGpioBlankingByCellBandInfoType:(int)type CellDlLowFreq:(double)freq cellDlHighFreq:(double)highFreq cellUlLowFreq:(double)lowFreq cellUlHighFreq:(double)ulHighFreq
+{
+  v11 = *&type;
+  platformManager = [(WCM_CellularRc1PolicyManager *)self platformManager];
+  v22 = -1;
+  v23 = -1;
+  wcmCellRc1CoexIssueTable = [platformManager wcmCellRc1CoexIssueTable];
+  [wcmCellRc1CoexIssueTable findRc1NbCoexIssueChannelByCellBandInfoType:v11 CellDlLowFreq:4 cellDlHighFreq:&v23 cellUlLowFreq:&v22 cellUlHighFreq:freq RC1Channel:highFreq uwbNbIssueChannelBegin:lowFreq uwbNbIssueChannelEnd:ulHighFreq];
+
+  if (v23 == -1)
+  {
+    wcmCellRc1CoexIssueTable2 = [platformManager wcmCellRc1CoexIssueTable];
+    [wcmCellRc1CoexIssueTable2 findRc1NbCoexIssueChannelByCellBandInfoType:v11 CellDlLowFreq:8 cellDlHighFreq:&v23 cellUlLowFreq:&v22 cellUlHighFreq:freq RC1Channel:highFreq uwbNbIssueChannelBegin:lowFreq uwbNbIssueChannelEnd:ulHighFreq];
+  }
+
+  wcmCellRc1CoexIssueTable3 = [platformManager wcmCellRc1CoexIssueTable];
+  v17 = [wcmCellRc1CoexIssueTable3 isCellularInRc1CoexBand:v11 CellDlLowFreq:2 cellDlHighFreq:freq cellUlLowFreq:highFreq cellUlHighFreq:lowFreq RC1ChannelBitmask:ulHighFreq];
+
+  [WCM_Logging logLevel:3 message:@"Cell RC1 policy manager: cellDlLow=%fHz, cellDlHigh=%fHz, cellUlLow=%fHz, cellUlHigh=%fHz", *&freq, *&highFreq, *&lowFreq, *&ulHighFreq];
+  [WCM_Logging logLevel:3 message:@"Cell RC1 policy manager: RC1 coex issue CH9=%d, NB channel[%d, %d]", v17, v23, v22];
+  v18 = v23;
+  if (v22 == -1 || v23 == -1)
+  {
+    v20 = v17;
+  }
+
+  else
+  {
+    v20 = 2;
+  }
+
+  if (v20 != self->WatchRc1IssueChannel || v23 != self->WatchRc1IssueNbChannelIndex_begin || v22 != self->WatchRc1IssueNbChannelIndex_end)
+  {
+    self->WatchRc1IssueNbChannelIndex_end = v22;
+    self->WatchRc1IssueChannel = v20;
+    self->WatchRc1IssueNbChannelIndex_begin = v18;
+    v21 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_uint64(v21, "kWCMHToRCU1ChannelsToTriggerGPIOBlanking", self->WatchRc1IssueChannel);
+    xpc_dictionary_set_uint64(v21, "kWCMHToRCU1SideChannelsToTriggerGPIOBlanking_ChBegin", self->WatchRc1IssueNbChannelIndex_begin);
+    xpc_dictionary_set_uint64(v21, "kWCMHToRCU1SideChannelsToTriggerGPIOBlanking_ChEnd", self->WatchRc1IssueNbChannelIndex_end);
+    [(WCM_CellularRc1PolicyManager *)self sendRc1Message:v21];
+  }
 }
 
 - (void)updateRc1OverallConfig

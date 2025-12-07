@@ -56,7 +56,7 @@
 
 - (NSURL)sk_advertisingAttributionReportURL
 {
-  v3 = sub_100080FB4(&unk_1003D0540);
+  v3 = sub_100080FB4(&unk_1003D0540, &unk_1002EDD50);
   __chkstk_darwin(v3 - 8);
   v5 = &v12 - v4;
   selfCopy = self;

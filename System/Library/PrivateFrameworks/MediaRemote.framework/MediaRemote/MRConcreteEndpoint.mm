@@ -15,18 +15,17 @@
 
 - (NSArray)outputDevices
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__1;
-  v9 = __Block_byref_object_dispose__1;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__1;
+  v8 = __Block_byref_object_dispose__1;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 void __35__MRConcreteEndpoint_outputDevices__block_invoke(uint64_t a1)
@@ -47,18 +46,17 @@ void __38__MRConcreteEndpoint_uniqueIdentifier__block_invoke(uint64_t a1)
 
 - (id)uniqueIdentifier
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__1;
-  v9 = __Block_byref_object_dispose__1;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__1;
+  v8 = __Block_byref_object_dispose__1;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (BOOL)canModifyGroupMembership
@@ -100,7 +98,7 @@ void __46__MRConcreteEndpoint_canModifyGroupMembership__block_invoke(uint64_t a1
       v10 = v20 = v4;
       v11 = [*(a1 + 32) designatedGroupLeader];
       v12 = [v11 parentGroupIdentifier];
-      v13 = [v10 isEqualToString:v12] ^ 1;
+      v13 = objc_msgSend_isEqualToString_(v10) ^ 1;
 
       v4 = v20;
       v2 = v21;
@@ -146,18 +144,17 @@ void __46__MRConcreteEndpoint_canModifyGroupMembership__block_invoke(uint64_t a1
 
 - (id)externalDevice
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x3032000000;
-  v8 = __Block_byref_object_copy__1;
-  v9 = __Block_byref_object_dispose__1;
-  v10 = 0;
-  serialQueue = self->_serialQueue;
+  v4 = 0;
+  v5 = &v4;
+  v6 = 0x3032000000;
+  v7 = __Block_byref_object_copy__1;
+  v8 = __Block_byref_object_dispose__1;
+  v9 = 0;
   msv_dispatch_sync_on_queue();
-  v3 = v6[5];
-  _Block_object_dispose(&v5, 8);
+  v2 = v5[5];
+  _Block_object_dispose(&v4, 8);
 
-  return v3;
+  return v2;
 }
 
 - (MRConcreteEndpoint)initWithDesignatedGroupLeader:(id)leader outputDevices:(id)devices preferredSuffix:(id)suffix
@@ -167,9 +164,9 @@ void __46__MRConcreteEndpoint_canModifyGroupMembership__block_invoke(uint64_t a1
   suffixCopy = suffix;
   primaryID = [leaderCopy primaryID];
   v13 = MRMediaRemoteCopyDeviceUID();
-  v14 = [primaryID isEqualToString:v13];
+  isEqualToString = objc_msgSend_isEqualToString_(primaryID);
 
-  if (v14)
+  if (isEqualToString)
   {
     v15 = 6;
   }
@@ -318,43 +315,41 @@ LABEL_15:
 
 void __39__MRConcreteEndpoint_setOutputDevices___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 40) copy];
   v3 = *(a1 + 32);
   v4 = *(v3 + 64);
   *(v3 + 64) = v2;
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = *(*(a1 + 32) + 64);
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) setEndpoint:{*(a1 + 32), v11}];
+        [*(*(&v10 + 1) + 8 * v9++) setEndpoint:{*(a1 + 32), v10}];
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setExternalDevice:(id)device

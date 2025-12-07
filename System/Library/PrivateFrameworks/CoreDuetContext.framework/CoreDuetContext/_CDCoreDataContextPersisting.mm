@@ -156,7 +156,7 @@
 
 - (id)uniquenessPredicateForKeyPath:(id)path
 {
-  v24[4] = *MEMORY[0x1E69E9840];
+  v23[4] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   deviceID = [pathCopy deviceID];
   v5 = MEMORY[0x1E696AE18];
@@ -202,14 +202,12 @@
   }
 
   v19 = MEMORY[0x1E696AB28];
-  v24[0] = v10;
-  v24[1] = v7;
-  v24[2] = v14;
-  v24[3] = v18;
-  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:4];
+  v23[0] = v10;
+  v23[1] = v7;
+  v23[2] = v14;
+  v23[3] = v18;
+  v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:4];
   v21 = [v19 andPredicateWithSubpredicates:v20];
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -242,29 +240,29 @@
 
 - (void)_deleteKeyPaths:(id)paths
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   pathsCopy = paths;
   array = [MEMORY[0x1E695DF70] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v6 = pathsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v22;
+    v9 = *v21;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v22 != v9)
+        if (*v21 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         if ([v11 isEphemeral] && !-[NSCountedSet countForObject:](self->_keyPathRegistrationCount, "countForObject:", v11))
         {
           v12 = MEMORY[0x1E696AE18];
@@ -276,7 +274,7 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v8);
@@ -287,7 +285,6 @@
   v19 = [v17 orPredicateWithSubpredicates:v18];
 
   [(_CDCoreDataContextPersisting *)self fromEntityWithName:@"ContextualKeyPath" deleteObjectsMatching:v19];
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveRegistration:(id)registration

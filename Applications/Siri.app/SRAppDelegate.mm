@@ -163,10 +163,11 @@ LABEL_15:
 
 - (void)_invalidateTrialManager
 {
-  if (self->_trialManager)
+  trialManager = self->_trialManager;
+  if (trialManager)
   {
     self->_trialManager = 0;
-    _objc_release_x1();
+    _objc_release_x1(self, trialManager);
   }
 }
 

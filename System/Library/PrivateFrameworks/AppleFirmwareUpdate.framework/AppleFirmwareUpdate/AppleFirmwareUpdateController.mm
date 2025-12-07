@@ -18,6 +18,7 @@
 - (unsigned)getServiceForRegistryID:(int64_t *)d;
 - (void)dealloc;
 - (void)earlyBootAccessoryAttached:(unsigned int)attached;
+- (void)earlyBootAccessoryAttachedInternal:(unsigned int)internal;
 - (void)readCriticalEarlyBootEntries;
 - (void)setDelegate:(id)delegate;
 @end
@@ -109,21 +110,19 @@
 
 void __50__AppleFirmwareUpdateController_getEarlyBootList___block_invoke(uint64_t a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   *(*(*(a1 + 48) + 8) + 24) = [*(a1 + 32) getEarlyBootListInternal:*(a1 + 40)];
   [*(a1 + 32) sortEarlyBootListWithLoadingGroup:*(a1 + 40)];
   v2 = *(*(a1 + 32) + 8);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
-    v5 = 136315394;
-    v6 = "[AppleFirmwareUpdateController getEarlyBootList:]_block_invoke";
-    v7 = 2112;
-    v8 = v3;
-    _os_log_impl(&dword_240529000, v2, OS_LOG_TYPE_INFO, "%s: Ealyboot List: %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[AppleFirmwareUpdateController getEarlyBootList:]_block_invoke";
+    v6 = 2112;
+    v7 = v3;
+    _os_log_impl(&dword_240529000, v2, OS_LOG_TYPE_INFO, "%s: Ealyboot List: %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __67__AppleFirmwareUpdateController_sortEarlyBootListWithLoadingGroup___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -159,7 +158,7 @@ uint64_t __67__AppleFirmwareUpdateController_sortEarlyBootListWithLoadingGroup__
 
 - (BOOL)getEarlyBootListInternal:(id)internal
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   internalCopy = internal;
   existing = 0;
   FudLogSetMode(1);
@@ -194,9 +193,9 @@ LABEL_14:
       if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v31 = "[AppleFirmwareUpdateController getEarlyBootListInternal:]";
-        v32 = 1024;
-        v33 = v14;
+        v29 = "[AppleFirmwareUpdateController getEarlyBootListInternal:]";
+        v30 = 1024;
+        v31 = v14;
         _os_log_impl(&dword_240529000, log, OS_LOG_TYPE_INFO, "%s: registry entry not found for service=%d", buf, 0x12u);
       }
 
@@ -267,10 +266,8 @@ LABEL_26:
     [(AppleFirmwareUpdateController *)v5 getEarlyBootListInternal:internalCopy, self];
   }
 
-  pendingCriticalEarlyBootEntriesInternal = self->_pendingCriticalEarlyBootEntriesInternal;
   FudLog(7, @"%s: Pending critical earlyBoot entries %@", v8, v9, v10, v11, v12, v13, "[AppleFirmwareUpdateController getEarlyBootListInternal:]");
 
-  v24 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -293,7 +290,7 @@ LABEL_26:
   return v3;
 }
 
-uint64_t __71__AppleFirmwareUpdateController_registerForPendingEarlyBootAccessories__block_invoke(uint64_t a1)
+void *__71__AppleFirmwareUpdateController_registerForPendingEarlyBootAccessories__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) registerForPendingEarlyBootAccessoriesInternal];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -302,41 +299,41 @@ uint64_t __71__AppleFirmwareUpdateController_registerForPendingEarlyBootAccessor
 
 - (BOOL)registerForPendingEarlyBootAccessoriesInternal
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v3 = [(NSMutableArray *)self->_pendingCriticalEarlyBootEntriesInternal count];
   if (v3)
   {
-    v21 = v3;
+    v20 = v3;
     if (!self->_iokitNotifyPort)
     {
       self->_iokitNotifyPort = IONotificationPortCreate(*MEMORY[0x277CD28A0]);
     }
 
     notification = 0;
+    v22 = 0u;
     v23 = 0u;
     v24 = 0u;
     v25 = 0u;
-    v26 = 0u;
     obj = self->_pendingCriticalEarlyBootEntriesInternal;
-    v4 = [(NSMutableArray *)obj countByEnumeratingWithState:&v23 objects:v30 count:16];
+    v4 = [(NSMutableArray *)obj countByEnumeratingWithState:&v22 objects:v29 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v24;
+      v6 = *v23;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v24 != v6)
+          if (*v23 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v23 + 1) + 8 * i);
+          v8 = *(*(&v22 + 1) + 8 * i);
           v9 = IOServiceMatching("AppleFirmwareUpdateKext");
-          v28 = @"Image Tag";
-          v29 = v8;
-          v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+          v27 = @"Image Tag";
+          v28 = v8;
+          v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
           [(__CFDictionary *)v9 setObject:v10 forKey:@"IOPropertyMatch"];
 
           iokitNotifyPort = self->_iokitNotifyPort;
@@ -357,18 +354,16 @@ uint64_t __71__AppleFirmwareUpdateController_registerForPendingEarlyBootAccessor
           }
         }
 
-        v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v23 objects:v30 count:16];
+        v5 = [(NSMutableArray *)obj countByEnumeratingWithState:&v22 objects:v29 count:16];
       }
 
       while (v5);
     }
 
-    v3 = v21;
+    v3 = v20;
   }
 
-  result = v3 != 0;
-  v20 = *MEMORY[0x277D85DE8];
-  return result;
+  return v3 != 0;
 }
 
 - (void)earlyBootAccessoryAttached:(unsigned int)attached
@@ -381,6 +376,63 @@ uint64_t __71__AppleFirmwareUpdateController_registerForPendingEarlyBootAccessor
   v4[4] = self;
   attachedCopy = attached;
   dispatch_async(workQueue, v4);
+}
+
+- (void)earlyBootAccessoryAttachedInternal:(unsigned int)internal
+{
+  FudLog(7, @"%s: %u", *&internal, v3, v4, v5, v6, v7, "[AppleFirmwareUpdateController earlyBootAccessoryAttachedInternal:]");
+  v10 = IOIteratorNext(internal);
+  if (v10)
+  {
+    v11 = v10;
+    allocator = *MEMORY[0x277CBECE8];
+    do
+    {
+      entryID = 0;
+      if (IORegistryEntryGetRegistryEntryID(v11, &entryID))
+      {
+        IOObjectRelease(v11);
+      }
+
+      else
+      {
+        dictionary = [MEMORY[0x277CBEB38] dictionary];
+        dictionary2 = [MEMORY[0x277CBEB38] dictionary];
+        [dictionary setObject:@"com.apple.mau.plugin.generickext" forKey:@"DeviceClassName"];
+        v14 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:entryID];
+        [dictionary2 setObject:v14 forKey:@"IOMatchLaunchServiceID"];
+
+        [dictionary setObject:dictionary2 forKey:@"OptionsDict"];
+        CFProperty = IORegistryEntryCreateCFProperty(v11, @"Image Tag", allocator, 0);
+        objc_opt_class();
+        if (objc_opt_isKindOfClass())
+        {
+          [(NSMutableArray *)self->_pendingCriticalEarlyBootEntriesInternal removeObject:CFProperty];
+        }
+
+        delegateQueue = self->_delegateQueue;
+        block[0] = MEMORY[0x277D85DD0];
+        block[1] = 3221225472;
+        block[2] = __68__AppleFirmwareUpdateController_earlyBootAccessoryAttachedInternal___block_invoke;
+        block[3] = &unk_278CA96A0;
+        block[4] = self;
+        v20 = dictionary;
+        v17 = dictionary;
+        dispatch_async(delegateQueue, block);
+        IOObjectRelease(v11);
+      }
+
+      v11 = IOIteratorNext(internal);
+    }
+
+    while (v11);
+  }
+
+  if (![(NSMutableArray *)self->_pendingCriticalEarlyBootEntriesInternal count])
+  {
+    IONotificationPortDestroy(self->_iokitNotifyPort);
+    self->_iokitNotifyPort = 0;
+  }
 }
 
 void __68__AppleFirmwareUpdateController_earlyBootAccessoryAttachedInternal___block_invoke(uint64_t a1)
@@ -453,10 +505,7 @@ void __68__AppleFirmwareUpdateController_earlyBootAccessoryAttachedInternal___bl
 
 uint64_t __63__AppleFirmwareUpdateController_getPendingEarlyBootAccessories__block_invoke(uint64_t a1)
 {
-  v2 = [MEMORY[0x277CBEA60] arrayWithArray:*(*(a1 + 32) + 24)];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [MEMORY[0x277CBEA60] arrayWithArray:*(*(a1 + 32) + 24)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -480,7 +529,7 @@ uint64_t __63__AppleFirmwareUpdateController_getPendingEarlyBootAccessories__blo
   return v3;
 }
 
-uint64_t __50__AppleFirmwareUpdateController_createFWAssetInfo__block_invoke(uint64_t a1)
+void *__50__AppleFirmwareUpdateController_createFWAssetInfo__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) createFWAssetInfoInternal];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -550,22 +599,19 @@ uint64_t __50__AppleFirmwareUpdateController_createFWAssetInfo__block_invoke(uin
 
 uint64_t __59__AppleFirmwareUpdateController_updateFirmwareWithOptions___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) updateFirmwareWithOptionsInternal:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) updateFirmwareWithOptionsInternal:*(a1 + 40)];
 
   return MEMORY[0x2821F96F8]();
 }
 
 - (id)updateFirmwareWithOptionsInternal:(id)internal
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   internalCopy = internal;
-  v37 = 0;
+  v36 = 0;
   if (!self->_registryEntryID)
   {
-    v36 = 1;
+    v35 = 1;
     goto LABEL_33;
   }
 
@@ -578,7 +624,7 @@ uint64_t __59__AppleFirmwareUpdateController_updateFirmwareWithOptions___block_i
 
   if (!fwAssetFile)
   {
-    v36 = 6;
+    v35 = 6;
     goto LABEL_33;
   }
 
@@ -587,7 +633,7 @@ uint64_t __59__AppleFirmwareUpdateController_updateFirmwareWithOptions___block_i
 
   if (unsignedIntegerValue)
   {
-    v36 = 5;
+    v35 = 5;
     goto LABEL_33;
   }
 
@@ -596,7 +642,7 @@ uint64_t __59__AppleFirmwareUpdateController_updateFirmwareWithOptions___block_i
 
   if (!unsignedLongLongValue)
   {
-    v36 = 7;
+    v35 = 7;
     goto LABEL_33;
   }
 
@@ -612,25 +658,25 @@ uint64_t __59__AppleFirmwareUpdateController_updateFirmwareWithOptions___block_i
 
   if ((v12 & 1) == 0)
   {
-    v36 = 4;
+    v35 = 4;
 LABEL_33:
-    v37 = v36;
+    v36 = v35;
     goto LABEL_20;
   }
 
 LABEL_9:
   if (![(AppleFirmwareUpdateController *)self isFWDownloadNeeded:self->_registryEntryID])
   {
-    v36 = 15;
+    v35 = 15;
     goto LABEL_33;
   }
 
-  v13 = [(AppleFirmwareUpdateController *)self getConnectionForRegistryID:&v37];
+  v13 = [(AppleFirmwareUpdateController *)self getConnectionForRegistryID:&v36];
   v14 = v13;
-  v15 = v37;
-  if (v13 && !v37)
+  v15 = v36;
+  if (v13 && !v36)
   {
-    if (([(AppleFirmwareUpdateController *)self updateFirmwareWithOptionsInternal:v13, &v37, input]& 1) == 0)
+    if (([(AppleFirmwareUpdateController *)self updateFirmwareWithOptionsInternal:v13, &v36, input]& 1) == 0)
     {
       v16 = *input;
       fwAssetSize2 = [(AppleFirmwareUpdateController *)self fwAssetSize];
@@ -638,7 +684,7 @@ LABEL_9:
 
       if (v18 == -1)
       {
-        v37 = 9;
+        v36 = 9;
       }
 
       else
@@ -653,7 +699,7 @@ LABEL_9:
 
         if (IOConnectCallScalarMethod(v14, 0, input, 4u, 0, 0) == 1)
         {
-          v37 = 10;
+          v36 = 10;
         }
 
         fwAssetSize4 = [(AppleFirmwareUpdateController *)self fwAssetSize];
@@ -670,7 +716,7 @@ LABEL_9:
   {
 LABEL_18:
     IOServiceClose(v14);
-    v15 = v37;
+    v15 = v36;
   }
 
   if (!v15)
@@ -683,27 +729,27 @@ LABEL_20:
   log = self->_log;
   if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
   {
-    if (v37 > 16)
+    if (v36 > 16)
     {
       v24 = @"Unknown Error";
     }
 
     else
     {
-      v24 = errorString[v37];
+      v24 = errorString[v36];
     }
 
     registryEntryID = self->_registryEntryID;
     *input = 138412802;
     *&input[4] = v24;
     *&input[12] = 2048;
-    *&input[14] = v37;
+    *&input[14] = v36;
     *&input[22] = 2112;
     unsignedLongLongValue2 = registryEntryID;
     _os_log_impl(&dword_240529000, log, OS_LOG_TYPE_INFO, "Bootstrap Error:%@ code=0x%0lx registryEntryID=%@", input, 0x20u);
   }
 
-  v25 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.AppleFirmwareUpdate" code:v37 userInfo:0];
+  v25 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.AppleFirmwareUpdate" code:v36 userInfo:0];
 LABEL_27:
   v27 = self->_log;
   if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
@@ -720,22 +766,20 @@ LABEL_27:
     *&input[14] = v28;
     *&input[22] = 2112;
     unsignedLongLongValue2 = img4Tag;
-    v40 = 2112;
-    v41 = fwAssetFile;
-    v42 = 2112;
-    v43 = fwAssetSignatureType;
-    v44 = 2112;
-    v45 = fwAssetVersion;
-    v46 = 2112;
-    v47 = fwAssetSize;
-    v48 = 2112;
-    v49 = internalCopy;
-    v50 = 2112;
-    v51 = v25;
+    v39 = 2112;
+    v40 = fwAssetFile;
+    v41 = 2112;
+    v42 = fwAssetSignatureType;
+    v43 = 2112;
+    v44 = fwAssetVersion;
+    v45 = 2112;
+    v46 = fwAssetSize;
+    v47 = 2112;
+    v48 = internalCopy;
+    v49 = 2112;
+    v50 = v25;
     _os_log_impl(&dword_240529000, v27, OS_LOG_TYPE_INFO, "%s:\n registryID=%@\n fwTag=%@ fwFile=%@\n fwSignType=%@\n fwVersion=%@\n fwSize=%@\n options=%@ error=%@", input, 0x5Cu);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
@@ -770,13 +814,13 @@ LABEL_27:
 
 - (id)findFWAssetFromTag:(id)tag tag:(unsigned int)a4 size:(unint64_t *)size
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   tagCopy = tag;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v52 = 0;
-  v44 = tagCopy;
-  v8 = [defaultManager contentsOfDirectoryAtPath:tagCopy error:&v52];
-  v9 = v52;
+  v51 = 0;
+  v43 = tagCopy;
+  v8 = [defaultManager contentsOfDirectoryAtPath:tagCopy error:&v51];
+  v9 = v51;
   if (!v8)
   {
     log = self->_log;
@@ -791,40 +835,40 @@ LABEL_27:
     goto LABEL_34;
   }
 
-  v37 = defaultManager;
-  v50 = 0u;
-  v51 = 0u;
-  v48 = 0u;
+  v36 = defaultManager;
   v49 = 0u;
+  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
   obj = v8;
-  v10 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
+  v10 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
   if (!v10)
   {
-    v40 = 0;
+    v39 = 0;
     goto LABEL_33;
   }
 
   v11 = v10;
   sizeCopy = size;
-  v40 = 0;
-  v43 = *v49;
+  v39 = 0;
+  v42 = *v48;
   while (2)
   {
     v12 = 0;
     do
     {
-      if (*v49 != v43)
+      if (*v48 != v42)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v48 + 1) + 8 * v12);
+      v13 = *(*(&v47 + 1) + 8 * v12);
       v14 = objc_autoreleasePoolPush();
-      v15 = [v44 stringByAppendingPathComponent:v13];
+      v15 = [v43 stringByAppendingPathComponent:v13];
       v16 = [MEMORY[0x277CCA9F8] fileHandleForReadingAtPath:v15];
-      v47 = 0;
-      v17 = [v16 readDataUpToLength:64 error:&v47];
-      v18 = v47;
+      v46 = 0;
+      v17 = [v16 readDataUpToLength:64 error:&v46];
+      v18 = v46;
       [v16 closeFile];
       if (!v17 || [v17 length] != 64)
       {
@@ -844,8 +888,8 @@ LABEL_27:
         goto LABEL_22;
       }
 
-      *v53 = 0;
-      if (Img4DecodeParseLengthFromBuffer([v17 bytes], objc_msgSend(v17, "length"), v53))
+      *v52 = 0;
+      if (Img4DecodeParseLengthFromBuffer([v17 bytes], objc_msgSend(v17, "length"), v52))
       {
         v19 = self->_log;
         if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
@@ -863,37 +907,37 @@ LABEL_22:
         goto LABEL_13;
       }
 
-      v46 = v9;
-      v24 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v15 options:1 error:&v46];
-      v39 = v46;
+      v45 = v9;
+      v24 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v15 options:1 error:&v45];
+      v38 = v45;
 
       if (v24)
       {
-        v55 = 0;
+        v54 = 0;
         memset(buf, 0, sizeof(buf));
-        v40 = v24;
+        v39 = v24;
         Img4DecodeInit([v24 bytes], objc_msgSend(v24, "length"), buf);
         if (v25)
         {
           v26 = self->_log;
-          v9 = v39;
+          v9 = v38;
           if (!os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
           {
             goto LABEL_13;
           }
 
-          *v53 = 138412290;
-          *&v53[4] = v15;
+          *v52 = 138412290;
+          *&v52[4] = v15;
           v27 = v26;
           v28 = "IMG4 decode init failed - %@";
 LABEL_26:
-          _os_log_impl(&dword_240529000, v27, OS_LOG_TYPE_INFO, v28, v53, 0xCu);
+          _os_log_impl(&dword_240529000, v27, OS_LOG_TYPE_INFO, v28, v52, 0xCu);
           goto LABEL_13;
         }
 
-        v45 = 0;
-        v9 = v39;
-        if (Img4DecodeGetPayloadType(buf, &v45))
+        v44 = 0;
+        v9 = v38;
+        if (Img4DecodeGetPayloadType(buf, &v44))
         {
           v30 = self->_log;
           if (!os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
@@ -901,14 +945,14 @@ LABEL_26:
             goto LABEL_13;
           }
 
-          *v53 = 138412290;
-          *&v53[4] = v15;
+          *v52 = 138412290;
+          *&v52[4] = v15;
           v27 = v30;
           v28 = "IMG4 get tag failed - %@";
           goto LABEL_26;
         }
 
-        if (v45 == a4)
+        if (v44 == a4)
         {
           if (sizeCopy)
           {
@@ -918,7 +962,7 @@ LABEL_26:
           v32 = [v15 copy];
 
           objc_autoreleasePoolPop(v14);
-          defaultManager = v37;
+          defaultManager = v36;
           goto LABEL_34;
         }
       }
@@ -931,16 +975,16 @@ LABEL_26:
           LODWORD(buf[0]) = 138543618;
           *(buf + 4) = v15;
           WORD6(buf[0]) = 2114;
-          v9 = v39;
-          *(buf + 14) = v39;
+          v9 = v38;
+          *(buf + 14) = v38;
           _os_log_error_impl(&dword_240529000, v29, OS_LOG_TYPE_ERROR, "Failed to read %{public}@ with error %{public}@ ", buf, 0x16u);
-          v40 = 0;
+          v39 = 0;
         }
 
         else
         {
-          v40 = 0;
-          v9 = v39;
+          v39 = 0;
+          v9 = v38;
         }
       }
 
@@ -951,7 +995,7 @@ LABEL_13:
     }
 
     while (v11 != v12);
-    v31 = [obj countByEnumeratingWithState:&v48 objects:v56 count:16];
+    v31 = [obj countByEnumeratingWithState:&v47 objects:v55 count:16];
     v11 = v31;
     if (v31)
     {
@@ -964,46 +1008,44 @@ LABEL_13:
 LABEL_33:
 
   v32 = 0;
-  defaultManager = v37;
-  v24 = v40;
+  defaultManager = v36;
+  v24 = v39;
 LABEL_34:
-
-  v33 = *MEMORY[0x277D85DE8];
 
   return v32;
 }
 
 - (int64_t)sendFDRData:(unsigned int)data
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   MEMORY[0x245CC32D0](fdrLogHandler, a2);
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   obj = [(AppleFirmwareUpdateController *)self fdrClasses];
-  v4 = [obj countByEnumeratingWithState:&v31 objects:v43 count:16];
+  v4 = [obj countByEnumeratingWithState:&v30 objects:v42 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v32;
-    v25 = 0x8400302uLL;
+    v6 = *v31;
+    v24 = 0x8400302uLL;
     selfCopy = self;
     while (2)
     {
       v7 = 0;
-      v28 = v5;
+      v27 = v5;
       do
       {
-        if (*v32 != v6)
+        if (*v31 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v31 + 1) + 8 * v7);
-        v30 = 0;
-        v9 = [(AppleFirmwareUpdateController *)self extractFDRDataWithClassKey:v8 error:&v30, v25];
-        v10 = v30;
+        v8 = *(*(&v30 + 1) + 8 * v7);
+        v29 = 0;
+        v9 = [(AppleFirmwareUpdateController *)self extractFDRDataWithClassKey:v8 error:&v29, v24];
+        v10 = v29;
         v11 = v10;
         if (v9)
         {
@@ -1024,23 +1066,23 @@ LABEL_34:
           *buf = [v15 bytes];
           *&buf[8] = [v15 length];
           *&buf[16] = [v14 length];
-          v42 = xmmword_240534650;
+          v41 = xmmword_240534650;
           v16 = IOConnectCallScalarMethod(data, 1u, buf, 5u, 0, 0);
           log = self->_log;
           if (os_log_type_enabled(log, OS_LOG_TYPE_INFO))
           {
             v18 = log;
             v19 = [v9 length];
-            *v35 = v25;
-            v36 = v8;
-            v37 = 1024;
-            v38 = v19;
-            v39 = 1024;
-            v40 = v16;
-            _os_log_impl(&dword_240529000, v18, OS_LOG_TYPE_INFO, "LoadFDR class='%@' with %u bytes ret=%d", v35, 0x18u);
+            *v34 = v24;
+            v35 = v8;
+            v36 = 1024;
+            v37 = v19;
+            v38 = 1024;
+            v39 = v16;
+            _os_log_impl(&dword_240529000, v18, OS_LOG_TYPE_INFO, "LoadFDR class='%@' with %u bytes ret=%d", v34, 0x18u);
           }
 
-          v5 = v28;
+          v5 = v27;
           self = selfCopy;
           if (v16 == 1)
           {
@@ -1067,7 +1109,7 @@ LABEL_34:
       }
 
       while (v5 != v7);
-      v5 = [obj countByEnumeratingWithState:&v31 objects:v43 count:16];
+      v5 = [obj countByEnumeratingWithState:&v30 objects:v42 count:16];
       if (v5)
       {
         continue;
@@ -1089,13 +1131,12 @@ LABEL_18:
     _os_log_impl(&dword_240529000, v22, OS_LOG_TYPE_INFO, "LoadFDRDataComplete ret=%d", buf, 8u);
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 - (id)extractFDRDataWithClassKey:(id)key error:(id *)error
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (!keyCopy)
   {
@@ -1103,9 +1144,9 @@ LABEL_18:
     goto LABEL_16;
   }
 
-  v15 = @"CopyAllowUnsealed";
-  v16[0] = MEMORY[0x277CBEC38];
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+  v14 = @"CopyAllowUnsealed";
+  v15[0] = MEMORY[0x277CBEC38];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
   if ([keyCopy containsString:@"/"])
   {
     v8 = [keyCopy componentsSeparatedByString:@"/"];
@@ -1153,16 +1194,15 @@ LABEL_9:
 LABEL_15:
 
 LABEL_16:
-  v13 = *MEMORY[0x277D85DE8];
 
   return Value;
 }
 
 - (BOOL)createFWAssetInfoInternal
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
+  v70 = 0;
   v71 = 0;
-  v72 = 0;
   fwAssetDirectory = self->_fwAssetDirectory;
   if (fwAssetDirectory)
   {
@@ -1174,15 +1214,15 @@ LABEL_16:
   else
   {
     mEMORY[0x277D25710] = [MEMORY[0x277D25710] sharedDataAccessor];
-    v70 = 0;
-    v6 = [mEMORY[0x277D25710] copyPathForPersonalizedData:0 error:&v70];
-    v5 = v70;
+    v69 = 0;
+    v6 = [mEMORY[0x277D25710] copyPathForPersonalizedData:0 error:&v69];
+    v5 = v69;
 
     v8 = OUTLINED_FUNCTION_2();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v74 = v6;
+      *v73 = v6;
       OUTLINED_FUNCTION_1();
       _os_log_impl(v9, v10, OS_LOG_TYPE_DEFAULT, v11, v12, 0xCu);
     }
@@ -1202,12 +1242,12 @@ LABEL_16:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    *v74 = v4;
+    *v73 = v4;
     OUTLINED_FUNCTION_1();
     _os_log_impl(v14, v15, OS_LOG_TYPE_DEFAULT, v16, v17, 0xCu);
   }
 
-  v18 = [(AppleFirmwareUpdateController *)self getServiceForRegistryID:&v72];
+  v18 = [(AppleFirmwareUpdateController *)self getServiceForRegistryID:&v71];
   if (!v18)
   {
     CFProperty = 0;
@@ -1220,31 +1260,31 @@ LABEL_16:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v62 = v20;
-    v63 = v4;
-    v64 = v5;
-    v65 = v6;
+    v61 = v20;
+    v62 = v4;
+    v63 = v5;
+    v64 = v6;
     [(AppleFirmwareUpdateController *)self setFdrClasses:CFProperty];
-    v68 = 0u;
-    v69 = 0u;
-    v66 = 0u;
     v67 = 0u;
+    v68 = 0u;
+    v65 = 0u;
+    v66 = 0u;
     fdrClasses = [(AppleFirmwareUpdateController *)self fdrClasses];
-    v23 = [fdrClasses countByEnumeratingWithState:&v66 objects:v85 count:16];
+    v23 = [fdrClasses countByEnumeratingWithState:&v65 objects:v84 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v67;
+      v25 = *v66;
       while (2)
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v67 != v25)
+          if (*v66 != v25)
           {
             objc_enumerationMutation(fdrClasses);
           }
 
-          v27 = *(*(&v66 + 1) + 8 * i);
+          v27 = *(*(&v65 + 1) + 8 * i);
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
           v29 = OUTLINED_FUNCTION_2();
@@ -1259,21 +1299,21 @@ LABEL_16:
             }
 
             v31 = 0;
-            v5 = v64;
-            v6 = v65;
-            v4 = v63;
+            v5 = v63;
+            v6 = v64;
+            v4 = v62;
             goto LABEL_34;
           }
 
           if (v30)
           {
             *buf = 138412290;
-            *v74 = v27;
+            *v73 = v27;
             _os_log_impl(&dword_240529000, v19, OS_LOG_TYPE_INFO, "FDR class from registry entry='%@'", buf, 0xCu);
           }
         }
 
-        v24 = [fdrClasses countByEnumeratingWithState:&v66 objects:v85 count:16];
+        v24 = [fdrClasses countByEnumeratingWithState:&v65 objects:v84 count:16];
         if (v24)
         {
           continue;
@@ -1283,11 +1323,11 @@ LABEL_16:
       }
     }
 
-    v5 = v64;
-    v6 = v65;
-    v4 = v63;
+    v5 = v63;
+    v6 = v64;
+    v4 = v62;
     v19 = v19;
-    v20 = v62;
+    v20 = v61;
   }
 
   if ([(AppleFirmwareUpdateController *)self shouldSkipImage4Download])
@@ -1313,21 +1353,21 @@ LABEL_41:
 
   if (!unsignedIntValue)
   {
-    v56 = OUTLINED_FUNCTION_2();
-    if (os_log_type_enabled(v56, OS_LOG_TYPE_INFO))
+    v55 = OUTLINED_FUNCTION_2();
+    if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
       OUTLINED_FUNCTION_1();
-      v61 = 2;
+      v60 = 2;
 LABEL_40:
-      _os_log_impl(v57, v58, OS_LOG_TYPE_INFO, v59, v60, v61);
+      _os_log_impl(v56, v57, OS_LOG_TYPE_INFO, v58, v59, v60);
       goto LABEL_41;
     }
 
     goto LABEL_41;
   }
 
-  [(AppleFirmwareUpdateController *)self findFWAssetFromTag:v4 tag:unsignedIntValue size:&v71];
+  [(AppleFirmwareUpdateController *)self findFWAssetFromTag:v4 tag:unsignedIntValue size:&v70];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_0() setFwAssetFile:?];
 
@@ -1339,9 +1379,9 @@ LABEL_40:
     if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      *v74 = unsignedIntValue;
+      *v73 = unsignedIntValue;
       OUTLINED_FUNCTION_1();
-      v61 = 8;
+      v60 = 8;
       goto LABEL_40;
     }
 
@@ -1353,16 +1393,16 @@ LABEL_40:
     img4Tag2 = img4Tag2;
     fwAssetFile2 = [(AppleFirmwareUpdateController *)self fwAssetFile];
     *buf = 67109634;
-    *v74 = unsignedIntValue;
-    *&v74[4] = 2112;
-    *&v74[6] = fwAssetFile2;
-    *&v74[14] = 2048;
-    *&v74[16] = v71;
+    *v73 = unsignedIntValue;
+    *&v73[4] = 2112;
+    *&v73[6] = fwAssetFile2;
+    *&v73[14] = 2048;
+    *&v73[16] = v70;
     OUTLINED_FUNCTION_1();
     _os_log_impl(v38, v39, OS_LOG_TYPE_DEFAULT, v40, v41, 0x1Cu);
   }
 
-  [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v71];
+  [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v70];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_0() setFwAssetSize:?];
 
@@ -1383,27 +1423,26 @@ LABEL_40:
     fwAssetSignatureType = self->_fwAssetSignatureType;
     fwAssetVersion = self->_fwAssetVersion;
     *buf = 136316930;
-    *v74 = "[AppleFirmwareUpdateController createFWAssetInfoInternal]";
-    *&v74[8] = 2112;
-    *&v74[10] = registryEntryID;
-    *&v74[18] = 2112;
-    *&v74[20] = img4Tag;
-    v75 = 2112;
-    v76 = v46;
-    v77 = 2112;
-    v78 = fwAssetFile;
-    v79 = 2112;
-    v80 = fwAssetSignatureType;
-    v81 = 2112;
-    v82 = fwAssetVersion;
-    v83 = 2112;
-    v84 = fwAssetSize;
+    *v73 = "[AppleFirmwareUpdateController createFWAssetInfoInternal]";
+    *&v73[8] = 2112;
+    *&v73[10] = registryEntryID;
+    *&v73[18] = 2112;
+    *&v73[20] = img4Tag;
+    v74 = 2112;
+    v75 = v46;
+    v76 = 2112;
+    v77 = fwAssetFile;
+    v78 = 2112;
+    v79 = fwAssetSignatureType;
+    v80 = 2112;
+    v81 = fwAssetVersion;
+    v82 = 2112;
+    v83 = fwAssetSize;
     _os_log_impl(&dword_240529000, log, OS_LOG_TYPE_INFO, "%s:\n registryID=%@\n fwTag=%@ fwDirectory=%@ fwFile=%@\n fwSignType=%@\n fwVersion=%@\n fwSize=%@", buf, 0x52u);
   }
 
 LABEL_34:
 
-  v54 = *MEMORY[0x277D85DE8];
   return v31;
 }
 
@@ -1459,23 +1498,21 @@ LABEL_34:
 
 - (uint64_t)getEarlyBootListInternal:(uint64_t)a3 .cold.1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = *(a3 + 8);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = errorString[a1];
-    v9 = 136315650;
-    v10 = "[AppleFirmwareUpdateController getEarlyBootListInternal:]";
-    v11 = 2112;
-    v12 = v6;
-    v13 = 2048;
-    v14 = a1;
-    _os_log_impl(&dword_240529000, v5, OS_LOG_TYPE_INFO, "%s: Error:%@ code=0x%0lx", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[AppleFirmwareUpdateController getEarlyBootListInternal:]";
+    v10 = 2112;
+    v11 = v6;
+    v12 = 2048;
+    v13 = a1;
+    _os_log_impl(&dword_240529000, v5, OS_LOG_TYPE_INFO, "%s: Error:%@ code=0x%0lx", &v8, 0x20u);
   }
 
-  result = [a2 removeAllObjects];
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
+  return [a2 removeAllObjects];
 }
 
 - (uint64_t)updateFirmwareWithOptionsInternal:(uint64_t *)a3 .cold.1(void *a1, uint64_t a2, uint64_t *a3, int *a4)
@@ -1503,20 +1540,18 @@ LABEL_34:
 
 - (void)extractFDRDataWithClassKey:error:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_240529000, v0, OS_LOG_TYPE_ERROR, "%s: key (%@) is not valid.", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_240529000, v0, OS_LOG_TYPE_ERROR, "%s: key (%@) is not valid.", v1, 0x16u);
 }
 
 - (void)extractFDRDataWithClassKey:error:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_240529000, v0, OS_LOG_TYPE_ERROR, "%s: localDict is NULL for key (%@).", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_240529000, v0, OS_LOG_TYPE_ERROR, "%s: localDict is NULL for key (%@).", v1, 0x16u);
 }
 
 @end

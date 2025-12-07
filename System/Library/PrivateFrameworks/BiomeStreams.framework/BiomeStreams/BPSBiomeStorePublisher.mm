@@ -48,7 +48,7 @@
 
 - (id)_newEnumerator
 {
-  v55 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   startTime = self->_startTime;
   distantPast = [MEMORY[0x1E695DF00] distantPast];
   [distantPast timeIntervalSinceReferenceDate];
@@ -93,25 +93,14 @@
 
   if (self->_bookmark)
   {
-    if (!self->_indexSearch)
+    if (!self->_indexSearch || ([MEMORY[0x1E696AAA8] currentHandler], v21 = objc_claimAutoreleasedReturnValue(), -[BPSBiomeStorePublisher streamId](self, "streamId"), v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "handleFailureInMethod:object:file:lineNumber:description:", a2, self, @"BPSBiomeStorePublisher.m", 273, @"both bookmark and indexSearch may not both be set. Stream: %@, bookmark: %@, indexSearch: %@", v22, self->_bookmark, self->_indexSearch), v22, v21, self->_bookmark))
     {
-      goto LABEL_11;
-    }
-
-    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    streamId = [(BPSBiomeStorePublisher *)self streamId];
-    bookmark = self->_bookmark;
-    [currentHandler handleFailureInMethod:a2 object:self file:@"BPSBiomeStorePublisher.m" lineNumber:273 description:{@"both bookmark and indexSearch may not both be set. Stream: %@, bookmark: %@, indexSearch: %@", streamId, bookmark, self->_indexSearch}];
-
-    if (self->_bookmark)
-    {
-LABEL_11:
       v18 = [(BMStreamDatastoreReader *)self->_streamDatastoreReader newEnumeratorFromBookmark:?];
       if (v18)
       {
         v19 = v18;
         [v18 setEndTime:self->_maxEvents maxEvents:self->_lastEventCount lastN:self->_reversed reverse:v15];
-        goto LABEL_35;
+        return v19;
       }
 
       v20 = __biome_log_for_category();
@@ -129,66 +118,65 @@ LABEL_11:
   {
     if (self->_lastEventCount != -1)
     {
-      currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-      streamId2 = [(BPSBiomeStorePublisher *)self streamId];
-      v44 = self->_indexSearch;
-      [currentHandler2 handleFailureInMethod:a2 object:self file:@"BPSBiomeStorePublisher.m" lineNumber:287 description:{@"lastN and indexSearch may not both be set. Stream: %@, indexSearch: %@ lastN: %lu", streamId2, v44, self->_lastEventCount}];
+      currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+      streamId = [(BPSBiomeStorePublisher *)self streamId];
+      [currentHandler handleFailureInMethod:a2 object:self file:@"BPSBiomeStorePublisher.m" lineNumber:287 description:{@"lastN and indexSearch may not both be set. Stream: %@, indexSearch: %@ lastN: %lu", streamId, self->_indexSearch, self->_lastEventCount}];
 
       indexSearch = self->_indexSearch;
     }
 
-    v25 = self->_startTime;
-    v26 = self->_endTime;
+    v24 = self->_startTime;
+    v25 = self->_endTime;
     maxEvents = self->_maxEvents;
     reversed = self->_reversed;
-    v46 = 0;
-    v29 = [(BMIndexSearch *)indexSearch performSearchWithStartTime:maxEvents endTime:reversed maxEvents:&v46 reversed:v25 error:v26];
-    v30 = v46;
-    if (v29)
+    v43 = 0;
+    v28 = [(BMIndexSearch *)indexSearch performSearchWithStartTime:maxEvents endTime:reversed maxEvents:&v43 reversed:v24 error:v25];
+    v29 = v43;
+    if (v28)
     {
       streamDatastoreReader = self->_streamDatastoreReader;
-      v45 = v30;
-      v19 = [(BMStreamDatastoreReader *)streamDatastoreReader newEnumeratorFromBookmarkEnumerator:v29 error:&v45];
-      v20 = v45;
+      v42 = v29;
+      v19 = [(BMStreamDatastoreReader *)streamDatastoreReader newEnumeratorFromBookmarkEnumerator:v28 error:&v42];
+      v20 = v42;
 
       if (v19)
       {
 
-        goto LABEL_35;
+        return v19;
       }
 
-      v32 = __biome_log_for_category();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v31 = __biome_log_for_category();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        streamId3 = [(BPSBiomeStorePublisher *)self streamId];
-        v41 = self->_indexSearch;
+        streamId2 = [(BPSBiomeStorePublisher *)self streamId];
+        v39 = self->_indexSearch;
         *buf = 138412802;
-        v48 = streamId3;
-        v49 = 2112;
-        v50 = *&v41;
-        v51 = 2112;
-        v52 = *&v20;
-        _os_log_error_impl(&dword_1848EE000, v32, OS_LOG_TYPE_ERROR, "newEnumeratorFromBookmark nil for stream: %@ and _indexSearch: %@, error: %@. No enumeration performed", buf, 0x20u);
+        v45 = streamId2;
+        v46 = 2112;
+        v47 = *&v39;
+        v48 = 2112;
+        v49 = *&v20;
+        _os_log_error_impl(&dword_1848EE000, v31, OS_LOG_TYPE_ERROR, "newEnumeratorFromBookmark nil for stream: %@ and _indexSearch: %@, error: %@. No enumeration performed", buf, 0x20u);
       }
     }
 
     else
     {
-      v32 = __biome_log_for_category();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+      v31 = __biome_log_for_category();
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        v37 = self->_indexSearch;
-        streamId4 = [(BPSBiomeStorePublisher *)self streamId];
+        v35 = self->_indexSearch;
+        streamId3 = [(BPSBiomeStorePublisher *)self streamId];
         *buf = 138412802;
-        v48 = v37;
-        v49 = 2112;
-        v50 = *&streamId4;
-        v51 = 2112;
-        v52 = *&v30;
-        _os_log_error_impl(&dword_1848EE000, v32, OS_LOG_TYPE_ERROR, "[BMIndexSearch performSearchWithError:] returns a nil BMIndexRowEnumerator for BMIndexSearch: %@ nil on stream: %@. Error: %@, No enumeration performed", buf, 0x20u);
+        v45 = v35;
+        v46 = 2112;
+        v47 = *&streamId3;
+        v48 = 2112;
+        v49 = *&v29;
+        _os_log_error_impl(&dword_1848EE000, v31, OS_LOG_TYPE_ERROR, "[BMIndexSearch performSearchWithError:] returns a nil BMIndexRowEnumerator for BMIndexSearch: %@ nil on stream: %@. Error: %@, No enumeration performed", buf, 0x20u);
       }
 
-      v20 = v30;
+      v20 = v29;
     }
 
 LABEL_28:
@@ -196,44 +184,40 @@ LABEL_28:
 
   if (self->_indexSearch)
   {
-LABEL_30:
-    v19 = 0;
-    goto LABEL_35;
+    return 0;
   }
 
   if (self->_reversed)
   {
-    v33 = 8;
+    v32 = 8;
   }
 
   else
   {
-    v33 = 0;
+    v32 = 0;
   }
 
-  v19 = [(BMStreamDatastoreReader *)self->_streamDatastoreReader newEnumeratorFromStartTime:self->_maxEvents endTime:self->_lastEventCount maxEvents:v33 lastN:v8 options:v15];
+  v19 = [(BMStreamDatastoreReader *)self->_streamDatastoreReader newEnumeratorFromStartTime:self->_maxEvents endTime:self->_lastEventCount maxEvents:v32 lastN:v8 options:v15];
   if (!v19)
   {
-    v36 = __biome_log_for_category();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v34 = __biome_log_for_category();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
     {
-      streamId5 = [(BPSBiomeStorePublisher *)self streamId];
+      streamId4 = [(BPSBiomeStorePublisher *)self streamId];
       *buf = 138413058;
-      v48 = streamId5;
-      v49 = 2048;
-      v50 = v8;
-      v51 = 2048;
-      v52 = v15;
-      v53 = 2048;
-      v54 = v33;
-      _os_log_error_impl(&dword_1848EE000, v36, OS_LOG_TYPE_ERROR, "newEnumeratorFromStartTime nil for stream: %@, start time: %lf endTime: %lf options: %lu", buf, 0x2Au);
+      v45 = streamId4;
+      v46 = 2048;
+      v47 = v8;
+      v48 = 2048;
+      v49 = v15;
+      v50 = 2048;
+      v51 = v32;
+      _os_log_error_impl(&dword_1848EE000, v34, OS_LOG_TYPE_ERROR, "newEnumeratorFromStartTime nil for stream: %@, start time: %lf endTime: %lf options: %lu", buf, 0x2Au);
     }
 
-    goto LABEL_30;
+    return 0;
   }
 
-LABEL_35:
-  v34 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -291,7 +275,7 @@ LABEL_35:
 
 - (id)startWithSubscriber:(id)subscriber
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   _newEnumerator = [(BPSBiomeStorePublisher *)self _newEnumerator];
   if (([(BMStreamDatastoreReader *)self->_streamDatastoreReader isDataAccessible]& 1) != 0)
   {
@@ -309,9 +293,9 @@ LABEL_35:
 
     v19 = MEMORY[0x1E696ABC0];
     v20 = *MEMORY[0x1E698F0B0];
-    v23 = *MEMORY[0x1E696A578];
-    v24 = v9;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x1E696A578];
+    v23 = v9;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
     v13 = v19;
     v14 = v20;
     v15 = 3;
@@ -326,9 +310,9 @@ LABEL_35:
 
     v10 = MEMORY[0x1E696ABC0];
     v11 = *MEMORY[0x1E698F0B0];
-    v25 = *MEMORY[0x1E696A578];
-    v26[0] = v9;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x1E696A578];
+    v25[0] = v9;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
     v13 = v10;
     v14 = v11;
     v15 = 1;
@@ -337,14 +321,13 @@ LABEL_35:
   v5 = [v13 errorWithDomain:v14 code:v15 userInfo:v12];
 
 LABEL_7:
-  v21 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)validateBookmark:(id)bookmark
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   bookmarkCopy = bookmark;
   if (bookmarkCopy && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
@@ -357,9 +340,9 @@ LABEL_7:
 
     v11 = MEMORY[0x1E696ABC0];
     v12 = *MEMORY[0x1E698F0B0];
-    v16 = *MEMORY[0x1E696A578];
-    v17[0] = bookmarkCopy;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+    v15 = *MEMORY[0x1E696A578];
+    v16[0] = bookmarkCopy;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
     v4 = [v11 errorWithDomain:v12 code:2 userInfo:v13];
   }
 
@@ -367,8 +350,6 @@ LABEL_7:
   {
     v4 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

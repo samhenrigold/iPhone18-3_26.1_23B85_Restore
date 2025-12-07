@@ -5,6 +5,7 @@
 - (void)reportSongTransitionInfo:(double)info transitionProvided:(int64_t)provided date:(id)date;
 - (void)reportVocalAttenuationIsActive:(BOOL)active date:(id)date;
 - (void)subscribeToEventStream:(id)stream;
+- (void)unsubscribeFromEventStream:(id)stream;
 @end
 
 @implementation MPCPowerLogConsumer
@@ -99,6 +100,13 @@ uint64_t __59__MPCPowerLogConsumer_reportVocalAttenuationIsActive_date___block_i
 
   +[MPCPowerLogConsumer vocalAttenuationTelemetryID];
   return PPSSendTelemetry();
+}
+
+- (void)unsubscribeFromEventStream:(id)stream
+{
+  subscription = self->_subscription;
+  self->_subscription = 0;
+  MEMORY[0x1EEE66BB8](self, subscription);
 }
 
 - (void)subscribeToEventStream:(id)stream

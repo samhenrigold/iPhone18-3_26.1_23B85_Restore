@@ -9,7 +9,7 @@
 
 - (OrgApacheLuceneUtilIntArrayDocIdSet_IntArrayDocIdSetIterator)initWithIntArray:(id)array withInt:(int)int
 {
-  OrgApacheLuceneSearchDocIdSetIterator_init(self, a2);
+  OrgApacheLuceneSearchDocIdSetIterator_init();
   self->i_ = -1;
   self->doc_ = -1;
   JreStrongAssign(&self->docs_, array);

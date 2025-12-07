@@ -36,19 +36,20 @@
     v7 = [directoryCopy URLByAppendingPathComponent:uUIDString];
 
     data = self->_data;
-    v20 = 0;
-    LOBYTE(uUIDString) = [(NSData *)data writeToURL:v7 options:1 error:&v20];
-    v9 = v20;
+    v22 = 0;
+    LOBYTE(uUIDString) = [(NSData *)data writeToURL:v7 options:1 error:&v22];
+    v9 = v22;
+    v10 = v9;
     if (uUIDString)
     {
-      v19 = v9;
-      v10 = [MEMORY[0x1E696AC00] fileHandleForReadingFromURL:v7 error:&v19];
-      v11 = v19;
+      v21 = v9;
+      v11 = [MEMORY[0x1E696AC00] fileHandleForReadingFromURL:v7 error:&v21];
+      v12 = v21;
 
-      if (v10)
+      if (v11)
       {
-        v9 = v11;
-        v12 = v10;
+        v10 = v12;
+        v14 = v11;
 LABEL_12:
         defaultManager = [MEMORY[0x1E696AC08] defaultManager];
         [defaultManager removeItemAtURL:v7 error:0];
@@ -56,38 +57,38 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      v13 = CHUISLogViewController();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = CHUISLogViewController(v13);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [CHUISWatchComplicationsWidgetSnapshotMetadataLabelData copyForEncodingAtUrlDirectory:];
       }
 
-      v9 = v11;
+      v10 = v12;
     }
 
     else
     {
-      v13 = CHUISLogViewController();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = CHUISLogViewController(v9);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [CHUISWatchComplicationsWidgetSnapshotMetadataLabelData copyForEncodingAtUrlDirectory:];
       }
     }
 
-    v12 = 0;
+    v14 = 0;
     goto LABEL_12;
   }
 
-  v12 = 0;
+  v14 = 0;
 LABEL_13:
-  v15 = [(CHUISWatchComplicationsWidgetSnapshotMetadataLabelData *)self copy];
-  v16 = v15[1];
-  v15[1] = 0;
+  v17 = [(CHUISWatchComplicationsWidgetSnapshotMetadataLabelData *)self copy];
+  v18 = v17[1];
+  v17[1] = 0;
 
-  v17 = v15[2];
-  v15[2] = v12;
+  v19 = v17[2];
+  v17[2] = v14;
 
-  return v15;
+  return v17;
 }
 
 - (NSData)data
@@ -163,16 +164,17 @@ LABEL_5:
 - (void)encodeWithBSXPCCoder:(id)coder
 {
   coderCopy = coder;
+  v5 = coderCopy;
   if (self->_data)
   {
-    v5 = CHUISLogViewController();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+    v6 = CHUISLogViewController(coderCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
-      [CHUISWatchComplicationsWidgetSnapshotMetadataLabelData encodeWithBSXPCCoder:v5];
+      [CHUISWatchComplicationsWidgetSnapshotMetadataLabelData encodeWithBSXPCCoder:v6];
     }
   }
 
-  [coderCopy encodeObject:self->_dataFileHandle forKey:@"dataFileHandle"];
+  [v5 encodeObject:self->_dataFileHandle forKey:@"dataFileHandle"];
 }
 
 - (CHUISWatchComplicationsWidgetSnapshotMetadataLabelData)initWithBSXPCCoder:(id)coder
@@ -193,20 +195,18 @@ LABEL_5:
 
 - (void)copyForEncodingAtUrlDirectory:.cold.1()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_1D928E000, v0, OS_LOG_TYPE_ERROR, "%s: failed to encode: %@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1D928E000, v0, OS_LOG_TYPE_ERROR, "%s: failed to encode: %@", v1, 0x16u);
 }
 
 - (void)copyForEncodingAtUrlDirectory:.cold.2()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x1E69E9840];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0();
-  _os_log_error_impl(&dword_1D928E000, v0, OS_LOG_TYPE_ERROR, "%s: failed to create file handle: %@", v2, 0x16u);
-  v1 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1D928E000, v0, OS_LOG_TYPE_ERROR, "%s: failed to create file handle: %@", v1, 0x16u);
 }
 
 @end

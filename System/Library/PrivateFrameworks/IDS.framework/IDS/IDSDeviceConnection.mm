@@ -40,7 +40,7 @@
     v17 = +[IDSLogging IDSDeviceConnection];
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      sub_195B26A7C();
+      sub_195B26A7C(self, v17);
     }
 
     selfCopy = 0;
@@ -103,7 +103,7 @@
     v17 = +[IDSLogging IDSDeviceConnection];
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
-      sub_195B26A7C();
+      sub_195B26A7C(self, v17);
     }
 
     selfCopy = 0;

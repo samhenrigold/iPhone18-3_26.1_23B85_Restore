@@ -9,7 +9,7 @@
 
 - (uint64_t)hf_isOnForContextType:()HFIncludedContextProtocol
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (a3 == 3)
   {
     applicationData = [self applicationData];
@@ -23,18 +23,16 @@
     v6 = HFLogForCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v12 = 136315138;
-      v13 = "[HMActionSet(HFIncludedContextProtocol) hf_isOnForContextType:]";
-      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "(%s) Action sets are not favoritable", &v12, 0xCu);
+      v10 = 136315138;
+      v11 = "[HMActionSet(HFIncludedContextProtocol) hf_isOnForContextType:]";
+      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "(%s) Action sets are not favoritable", &v10, 0xCu);
     }
 
-    goto LABEL_8;
+    return 0;
   }
 
   if (a3)
   {
-LABEL_8:
-    v7 = *MEMORY[0x277D85DE8];
     return 0;
   }
 
@@ -42,16 +40,15 @@ LABEL_8:
   v4 = applicationData;
   v5 = @"HFApplicationDataActionSetIsFavoriteKey";
 LABEL_10:
-  v9 = [applicationData objectForKeyedSubscript:v5];
-  bOOLValue = [v9 BOOLValue];
+  v8 = [applicationData objectForKeyedSubscript:v5];
+  bOOLValue = [v8 BOOLValue];
 
-  v11 = *MEMORY[0x277D85DE8];
   return bOOLValue;
 }
 
 - (BOOL)hf_hasSetForContextType:()HFIncludedContextProtocol
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   switch(a3)
   {
     case 3:
@@ -63,9 +60,9 @@ LABEL_10:
       v6 = HFLogForCategory(0);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v11 = 136315138;
-        v12 = "[HMActionSet(HFIncludedContextProtocol) hf_hasSetForContextType:]";
-        _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "(%s) Action sets are not favoritable. Returning NO.", &v11, 0xCu);
+        v10 = 136315138;
+        v11 = "[HMActionSet(HFIncludedContextProtocol) hf_hasSetForContextType:]";
+        _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "(%s) Action sets are not favoritable. Returning NO.", &v10, 0xCu);
       }
 
       break;
@@ -77,18 +74,15 @@ LABEL_10:
       v8 = [applicationData objectForKeyedSubscript:v5];
       v7 = v8 != 0;
 
-      goto LABEL_11;
+      return v7;
   }
 
-  v7 = 0;
-LABEL_11:
-  v9 = *MEMORY[0x277D85DE8];
-  return v7;
+  return 0;
 }
 
 - (uint64_t)hf_shouldBeOnForContextType:()HFIncludedContextProtocol
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a3 != 3)
   {
     if (a3 == 2)
@@ -96,9 +90,9 @@ LABEL_11:
       v5 = HFLogForCategory(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        v11 = 136315138;
-        v12 = "[HMActionSet(HFIncludedContextProtocol) hf_shouldBeOnForContextType:]";
-        _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "(%s) Favoriting is not applicable to ActionSets", &v11, 0xCu);
+        v8 = 136315138;
+        v9 = "[HMActionSet(HFIncludedContextProtocol) hf_shouldBeOnForContextType:]";
+        _os_log_error_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_ERROR, "(%s) Favoriting is not applicable to ActionSets", &v8, 0xCu);
       }
     }
 
@@ -106,57 +100,49 @@ LABEL_11:
     {
       if (([self hf_isOnForContextType:?] & 1) == 0)
       {
-        result = [self hf_hasSetForContextType:0] ^ 1;
-LABEL_18:
-        v10 = *MEMORY[0x277D85DE8];
-        return result;
+        return [self hf_hasSetForContextType:0] ^ 1;
       }
 
-LABEL_17:
-      result = 1;
-      goto LABEL_18;
+      return 1;
     }
 
-    result = 0;
-    goto LABEL_18;
+    return 0;
   }
 
   if ([self hf_hasSetForContextType:?])
   {
-    v6 = *MEMORY[0x277D85DE8];
     selfCopy2 = self;
-    v8 = 3;
+    v7 = 3;
   }
 
   else
   {
     if (![self hf_hasSetForContextType:0])
     {
-      goto LABEL_17;
+      return 1;
     }
 
-    v9 = *MEMORY[0x277D85DE8];
     selfCopy2 = self;
-    v8 = 0;
+    v7 = 0;
   }
 
-  return [selfCopy2 hf_isOnForContextType:v8];
+  return [selfCopy2 hf_isOnForContextType:v7];
 }
 
 - (id)hf_updateValue:()HFIncludedContextProtocol forContextType:
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = HFLogForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138413058;
     selfCopy = self;
-    v17 = 2080;
-    v18 = "[HMActionSet(HFIncludedContextProtocol) hf_updateValue:forContextType:]";
-    v19 = 1024;
-    v20 = a3;
-    v21 = 2048;
-    v22 = a4;
+    v16 = 2080;
+    v17 = "[HMActionSet(HFIncludedContextProtocol) hf_updateValue:forContextType:]";
+    v18 = 1024;
+    v19 = a3;
+    v20 = 2048;
+    v21 = a4;
     _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "(%@:%s) Updating value to %{BOOL}d for context %lu", buf, 0x26u);
   }
 
@@ -196,13 +182,12 @@ LABEL_11:
   }
 
 LABEL_13:
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __72__HMActionSet_HFIncludedContextProtocol__hf_updateValue_forContextType___block_invoke;
-  v14[3] = &unk_277DF2C68;
-  v14[4] = self;
-  v11 = [MEMORY[0x277D2C900] futureWithErrorOnlyHandlerAdapterBlock:v14];
-  v12 = *MEMORY[0x277D85DE8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __72__HMActionSet_HFIncludedContextProtocol__hf_updateValue_forContextType___block_invoke;
+  v13[3] = &unk_277DF2C68;
+  v13[4] = self;
+  v11 = [MEMORY[0x277D2C900] futureWithErrorOnlyHandlerAdapterBlock:v13];
 
   return v11;
 }

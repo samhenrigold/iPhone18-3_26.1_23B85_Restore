@@ -115,7 +115,7 @@
 
   else
   {
-    v5 = +[UIColor blackColor];
+    v5 = objc_msgSend_blackColor(UIColor);
   }
 
   v8 = v5;

@@ -48,7 +48,7 @@ void AppleMemCacheModeFunction::~AppleMemCacheModeFunction(AppleMemCacheModeFunc
 
 AppleARMFunction *AppleMemCacheModeFunction::MetaClass::alloc(AppleMemCacheModeFunction::MetaClass *this)
 {
-  v1 = OSObject_typed_operator_new();
+  v1 = OSObject_typed_operator_new(&AppleMemCacheModeFunction_ktv, &stru_20.segname[8]);
   AppleARMFunction::AppleARMFunction(v1, &AppleMemCacheModeFunction::gMetaClass);
   *v2 = off_3ECE0;
   OSMetaClass::instanceConstructed(&AppleMemCacheModeFunction::gMetaClass);
@@ -159,7 +159,7 @@ void AppleMemCachePanicFunction::~AppleMemCachePanicFunction(AppleMemCachePanicF
 
 AppleARMFunction *AppleMemCachePanicFunction::MetaClass::alloc(AppleMemCachePanicFunction::MetaClass *this)
 {
-  v1 = OSObject_typed_operator_new();
+  v1 = OSObject_typed_operator_new(&AppleMemCachePanicFunction_ktv, &stru_20.segname[8]);
   AppleARMFunction::AppleARMFunction(v1, &AppleMemCachePanicFunction::gMetaClass);
   *v2 = off_3EE18;
   OSMetaClass::instanceConstructed(&AppleMemCachePanicFunction::gMetaClass);
@@ -226,7 +226,7 @@ void AppleMemCacheFlushFunction::~AppleMemCacheFlushFunction(AppleMemCacheFlushF
 
 AppleARMFunction *AppleMemCacheFlushFunction::MetaClass::alloc(AppleMemCacheFlushFunction::MetaClass *this)
 {
-  v1 = OSObject_typed_operator_new();
+  v1 = OSObject_typed_operator_new(&AppleMemCacheFlushFunction_ktv, &stru_20.segname[8]);
   AppleARMFunction::AppleARMFunction(v1, &AppleMemCacheFlushFunction::gMetaClass);
   *v2 = off_3EF50;
   OSMetaClass::instanceConstructed(&AppleMemCacheFlushFunction::gMetaClass);

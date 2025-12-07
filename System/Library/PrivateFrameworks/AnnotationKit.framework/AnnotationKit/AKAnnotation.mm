@@ -511,34 +511,35 @@ LABEL_6:
 
   if (context == @"AKAnnotation.annotationPropertyObservationForAppearanceContext")
   {
-    if (![(AKAnnotation *)self editsDisableAppearanceOverride])
+    editsDisableAppearanceOverride = [(AKAnnotation *)self editsDisableAppearanceOverride];
+    if (!editsDisableAppearanceOverride)
     {
       goto LABEL_15;
     }
 
-    sub_23F4ABA3C();
+    sub_23F4ABA3C(editsDisableAppearanceOverride, v17);
     v14 = [v13 objectForKey:*MEMORY[0x277CCA2F0]];
     v15 = [v13 objectForKey:*MEMORY[0x277CCA300]];
-    v16 = [v14 isEqual:v15];
+    v18 = [v14 isEqual:v15];
     if ([pathCopy isEqualToString:@"rectangle"] && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
       [v15 akRectValue];
-      v18 = v17;
       v20 = v19;
+      v22 = v21;
       [v14 akRectValue];
-      v22 = v18 == v21;
-      if (v20 != v23)
+      v24 = v20 == v23;
+      if (v22 != v25)
       {
-        v22 = 0;
+        v24 = 0;
       }
 
-      if ((v22 | v16))
+      if ((v24 | v18))
       {
         goto LABEL_14;
       }
     }
 
-    else if (v16)
+    else if (v18)
     {
 LABEL_14:
 
@@ -549,16 +550,16 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v24.receiver = self;
-  v24.super_class = AKAnnotation;
-  [(AKAnnotation *)&v24 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+  v26.receiver = self;
+  v26.super_class = AKAnnotation;
+  [(AKAnnotation *)&v26 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
 LABEL_15:
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
-  if ((sub_23F4ABA3C() & 1) == 0)
+  if ((sub_23F4ABA3C(coderCopy, v5) & 1) == 0)
   {
     [(AKAnnotation *)self setAkSerializationVersion:2];
     [(AKAnnotation *)self setAkSerializationPlatform:2];
@@ -597,7 +598,7 @@ LABEL_15:
   }
 
   parentAnnotation = [(AKAnnotation *)self parentAnnotation];
-  v12 = parentAnnotation;
+  v13 = parentAnnotation;
   if (parentAnnotation)
   {
     uUID2 = [parentAnnotation UUID];
@@ -605,7 +606,7 @@ LABEL_15:
   }
 
   childAnnotation = [(AKAnnotation *)self childAnnotation];
-  v15 = childAnnotation;
+  v16 = childAnnotation;
   if (childAnnotation)
   {
     uUID3 = [childAnnotation UUID];
@@ -626,34 +627,34 @@ LABEL_15:
       }
 
       appearanceOverride = [MEMORY[0x277CBEB28] data];
-      v19 = CGDataConsumerCreateWithCFData(appearanceOverride);
-      if (v19)
+      v20 = CGDataConsumerCreateWithCFData(appearanceOverride);
+      if (v20)
       {
-        v20 = v19;
+        v21 = v20;
         [(AKAnnotation *)self initialDrawingBoundsForAppearanceOverride];
-        v22 = v21;
-        v24 = v23;
-        v30.origin.x = 0.0;
-        v30.origin.y = 0.0;
-        v30.size.width = v25;
-        v30.size.height = v26;
-        v27 = CGPDFContextCreate(v20, &v30, 0);
-        if (v27)
+        v23 = v22;
+        v25 = v24;
+        v31.origin.x = 0.0;
+        v31.origin.y = 0.0;
+        v31.size.width = v26;
+        v31.size.height = v27;
+        v28 = CGPDFContextCreate(v21, &v31, 0);
+        if (v28)
         {
-          v28 = v27;
-          CGPDFContextBeginPage(v27, 0);
-          CGContextTranslateCTM(v28, -v22, -v24);
+          v29 = v28;
+          CGPDFContextBeginPage(v28, 0);
+          CGContextTranslateCTM(v29, -v23, -v25);
           appearanceOverride2 = [(AKAnnotation *)self appearanceOverride];
-          (appearanceOverride2)[2](appearanceOverride2, v28);
+          (appearanceOverride2)[2](appearanceOverride2, v29);
 
-          CGPDFContextEndPage(v28);
-          CGContextFlush(v28);
-          CGPDFContextClose(v28);
+          CGPDFContextEndPage(v29);
+          CGContextFlush(v29);
+          CGPDFContextClose(v29);
           [coderCopy encodeObject:appearanceOverride forKey:@"appearanceOverridePDF"];
-          CFRelease(v28);
+          CFRelease(v29);
         }
 
-        CFRelease(v20);
+        CFRelease(v21);
       }
     }
   }

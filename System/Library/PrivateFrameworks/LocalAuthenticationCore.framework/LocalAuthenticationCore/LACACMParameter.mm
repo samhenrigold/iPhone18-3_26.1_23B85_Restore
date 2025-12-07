@@ -1,6 +1,9 @@
 @interface LACACMParameter
 + (id)acmParameterDoNotStartDTOTimers;
 + (id)acmParameterSecureIntentSupport;
++ (id)acmParameterWithMaxContinuityAge:(unsigned int)age;
++ (id)acmParameterWithTimeOffset:(unsigned int)offset;
++ (id)acmParameterWithUserId:(unsigned int)id;
 - (LACACMParameter)initWithACMParamType:(unsigned int)type bytes:(void *)bytes length:(unint64_t)length description:(id)description;
 - (id)copyWithZone:(_NSZone *)zone;
 @end
@@ -43,12 +46,45 @@
   return v4;
 }
 
++ (id)acmParameterWithUserId:(unsigned int)id
+{
+  v3 = *&id;
+  idCopy = id;
+  v4 = [LACACMParameter alloc];
+  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"UID:%u", v3];
+  v6 = [(LACACMParameter *)v4 initWithACMParamType:4 bytes:&idCopy length:4 description:v5];
+
+  return v6;
+}
+
++ (id)acmParameterWithTimeOffset:(unsigned int)offset
+{
+  v3 = *&offset;
+  offsetCopy = offset;
+  v4 = [LACACMParameter alloc];
+  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"TimeOffset:%u", v3];
+  v6 = [(LACACMParameter *)v4 initWithACMParamType:5 bytes:&offsetCopy length:4 description:v5];
+
+  return v6;
+}
+
 + (id)acmParameterSecureIntentSupport
 {
   v4 = 1;
   v2 = [[LACACMParameter alloc] initWithACMParamType:8 bytes:&v4 length:1 description:@"SecureIntentSupport"];
 
   return v2;
+}
+
++ (id)acmParameterWithMaxContinuityAge:(unsigned int)age
+{
+  v3 = *&age;
+  ageCopy = age;
+  v4 = [LACACMParameter alloc];
+  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"MaxContinuityAge:%u ms", v3];
+  v6 = [(LACACMParameter *)v4 initWithACMParamType:10 bytes:&ageCopy length:4 description:v5];
+
+  return v6;
 }
 
 + (id)acmParameterDoNotStartDTOTimers

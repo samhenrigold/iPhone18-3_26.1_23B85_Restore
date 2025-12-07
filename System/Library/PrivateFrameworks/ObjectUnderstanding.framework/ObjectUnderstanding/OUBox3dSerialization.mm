@@ -11,7 +11,7 @@
 
 - (id)dictionaryFromBox3d:(OUBox3d *)box3d
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   [dictionary setObject:box3d[1].var5.var0 forKeyedSubscript:@"type"];
   uUIDString = [box3d[1].var5.var2 UUIDString];
@@ -21,21 +21,21 @@
   v6 = [MEMORY[0x277CCABB0] numberWithFloat:v5];
   [dictionary setObject:v6 forKeyedSubscript:@"confidence"];
 
+  v26 = 0;
   v27 = 0;
   v28 = 0;
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v26, box3d[1].var6.var1, box3d[1].var6.var2, (box3d[1].var6.var2 - box3d[1].var6.var1) >> 2);
   v29 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v27, box3d[1].var6.var1, box3d[1].var6.var2, (box3d[1].var6.var2 - box3d[1].var6.var1) >> 2);
   v30 = 0;
   v31 = 0;
-  v32 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v30, v27, v28, (v28 - v27) >> 2);
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&v29, v26, v27, (v27 - v26) >> 2);
   __p = 0;
+  v33 = 0;
   v34 = 0;
-  v35 = 0;
-  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, v30, v31, (v31 - v30) >> 2);
-  v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:(v34 - __p) >> 2];
+  std::vector<float>::__init_with_size[abi:ne200100]<float *,float *>(&__p, v29, v30, (v30 - v29) >> 2);
+  v7 = [MEMORY[0x277CBEB18] arrayWithCapacity:(v33 - __p) >> 2];
   v9 = __p;
-  if (v34 != __p)
+  if (v33 != __p)
   {
     v10 = 0;
     do
@@ -48,47 +48,47 @@
       v9 = __p;
     }
 
-    while (v10 < (v34 - __p) >> 2);
+    while (v10 < (v33 - __p) >> 2);
   }
 
   v12 = [v7 copy];
 
   if (__p)
   {
-    v34 = __p;
+    v33 = __p;
     operator delete(__p);
   }
 
-  if (v30)
+  if (v29)
   {
-    v31 = v30;
-    operator delete(v30);
+    v30 = v29;
+    operator delete(v29);
   }
 
   [dictionary setObject:v12 forKeyedSubscript:@"logits"];
 
-  if (v27)
+  if (v26)
   {
-    v28 = v27;
-    operator delete(v27);
+    v27 = v26;
+    operator delete(v26);
   }
 
   __p = float3ToNSArray(*&box3d->var1);
-  v25 = __p;
+  v24 = __p;
   v13 = float3ToNSArray(*&box3d->var3);
-  v34 = v13;
+  v33 = v13;
   v14 = float3ToNSArray(*&box3d->var5.var0);
-  v35 = v14;
+  v34 = v14;
   v15 = float3ToNSArray(*&box3d->var5.var2);
-  v36 = v15;
+  v35 = v15;
   v16 = float3ToNSArray(*&box3d->var6.var1);
-  v37 = v16;
+  v36 = v16;
   v17 = float3ToNSArray(*&box3d->var7);
-  v38 = v17;
+  v37 = v17;
   v18 = float3ToNSArray(*&box3d[1].var1);
-  v39 = v18;
+  v38 = v18;
   v19 = float3ToNSArray(*&box3d[1].var3);
-  v40 = v19;
+  v39 = v19;
   v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&__p count:8];
 
   [dictionary setObject:v20 forKeyedSubscript:@"bbox"];
@@ -97,7 +97,6 @@
   [dictionary setObject:v21 forKeyedSubscript:@"group_id"];
 
   v22 = [dictionary copy];
-  v23 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
@@ -339,28 +338,28 @@ LABEL_17:
 
 - (id)pointCloudFromDictionary:(id)dictionary
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   allKeys = [dictionaryCopy allKeys];
   v5 = 0;
-  v6 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v9 = *(*(&v16 + 1) + 8 * i);
+        v9 = *(*(&v15 + 1) + 8 * i);
         if ([v9 isEqualToString:@"points"])
         {
           v10 = [OUPointCloud alloc];
@@ -371,110 +370,109 @@ LABEL_17:
         }
       }
 
-      v6 = [allKeys countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
   }
 
   v13 = [v5 copy];
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (vector<OUBox3d,)boxes3dFromDictionary:(OUBox3dSerialization *)self
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v6 = a4;
   retstr->__end_ = 0;
   retstr->__cap_ = 0;
   retstr->__begin_ = 0;
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
-  v30 = v6;
+  v29 = v6;
   allKeys = [v6 allKeys];
-  v8 = [allKeys countByEnumeratingWithState:&v45 objects:v50 count:16];
+  v8 = [allKeys countByEnumeratingWithState:&v44 objects:v49 count:16];
   if (v8)
   {
-    v9 = *v46;
-    v29 = allKeys;
+    v9 = *v45;
+    v28 = allKeys;
     do
     {
-      v31 = v8;
-      for (i = 0; i != v31; ++i)
+      v30 = v8;
+      for (i = 0; i != v30; ++i)
       {
-        if (*v46 != v9)
+        if (*v45 != v9)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v11 = *(*(&v45 + 1) + 8 * i);
+        v11 = *(*(&v44 + 1) + 8 * i);
         if ([v11 isEqualToString:@"boxes"])
         {
-          v43 = 0u;
-          v44 = 0u;
-          v41 = 0u;
           v42 = 0u;
-          v12 = [v30 objectForKeyedSubscript:v11];
-          v13 = [v12 countByEnumeratingWithState:&v41 objects:v49 count:16];
+          v43 = 0u;
+          v40 = 0u;
+          v41 = 0u;
+          v12 = [v29 objectForKeyedSubscript:v11];
+          v13 = [v12 countByEnumeratingWithState:&v40 objects:v48 count:16];
           if (v13)
           {
-            v14 = *v42;
+            v14 = *v41;
             do
             {
               for (j = 0; j != v13; ++j)
               {
-                if (*v42 != v14)
+                if (*v41 != v14)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                [(OUBox3dSerialization *)self box3dFromDictionary:*(*(&v41 + 1) + 8 * j)];
+                objc_msgSend_box3dFromDictionary_(self);
                 end = retstr->__end_;
                 if (end >= retstr->__cap_)
                 {
-                  v26 = std::vector<OUBox3d>::__emplace_back_slow_path<OUBox3d>(retstr, v32);
+                  v26 = std::vector<OUBox3d>::__emplace_back_slow_path<OUBox3d>(retstr, v31);
                 }
 
                 else
                 {
-                  v17 = v32[0];
-                  v18 = v32[1];
-                  v19 = v32[3];
-                  *&end->var5.var0 = v32[2];
+                  v17 = v31[0];
+                  v18 = v31[1];
+                  v19 = v31[3];
+                  *&end->var5.var0 = v31[2];
                   *&end->var5.var2 = v19;
                   *&end->var1 = v17;
                   *&end->var3 = v18;
-                  v20 = v32[4];
-                  v21 = v32[5];
-                  v22 = v32[7];
-                  *&end[1].var1 = v32[6];
+                  v20 = v31[4];
+                  v21 = v31[5];
+                  v22 = v31[7];
+                  *&end[1].var1 = v31[6];
                   *&end[1].var3 = v22;
                   *&end->var6.var1 = v20;
                   *&end->var7 = v21;
-                  v23 = v33;
-                  v33 = 0;
+                  v23 = v32;
+                  v32 = 0;
                   end[1].var5.var0 = v23;
-                  LODWORD(end[1].var5.var1) = v34;
-                  v24 = v35;
-                  v35 = 0u;
+                  LODWORD(end[1].var5.var1) = v33;
+                  v24 = v34;
+                  v34 = 0u;
                   end[1].var7 = 0;
                   *&end[1].var5.var2 = v24;
                   *&end[1].var6.var1 = 0u;
-                  *&end[1].var6.var1 = *v36;
-                  end[1].var7 = v37;
-                  *v36 = 0u;
-                  v37 = 0;
+                  *&end[1].var6.var1 = *v35;
+                  end[1].var7 = v36;
+                  *v35 = 0u;
+                  v36 = 0;
                   *&end[1].var8 = __p[0];
                   *&end[2].var1 = *&__p[1];
                   memset(__p, 0, sizeof(__p));
-                  v25 = v39;
-                  v39 = 0;
+                  v25 = v38;
+                  v38 = 0;
                   end[2].var3 = v25;
-                  LOWORD(end[2].var4) = v40;
+                  LOWORD(end[2].var4) = v39;
                   v26 = (end + 224);
                 }
 
@@ -485,30 +483,29 @@ LABEL_17:
                   operator delete(__p[0]);
                 }
 
-                if (v36[0])
+                if (v35[0])
                 {
-                  v36[1] = v36[0];
-                  operator delete(v36[0]);
+                  v35[1] = v35[0];
+                  operator delete(v35[0]);
                 }
               }
 
-              v13 = [v12 countByEnumeratingWithState:&v41 objects:v49 count:16];
+              v13 = [v12 countByEnumeratingWithState:&v40 objects:v48 count:16];
             }
 
             while (v13);
           }
 
-          allKeys = v29;
+          allKeys = v28;
         }
       }
 
-      v8 = [allKeys countByEnumeratingWithState:&v45 objects:v50 count:16];
+      v8 = [allKeys countByEnumeratingWithState:&v44 objects:v49 count:16];
     }
 
     while (v8);
   }
 
-  v28 = *MEMORY[0x277D85DE8];
   return result;
 }
 

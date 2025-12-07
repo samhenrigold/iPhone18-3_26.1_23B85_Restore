@@ -520,15 +520,15 @@ LABEL_12:
   }
 }
 
-uint64_t __97__MKApplicationStateMonitor__handleApplicationStateChangeForMonitor_handle_update_interestedPid___block_invoke(uint64_t result)
+id *__97__MKApplicationStateMonitor__handleApplicationStateChangeForMonitor_handle_update_interestedPid___block_invoke(id *result)
 {
   v1 = result;
   if (*(result + 40) == 1)
   {
     if ((*(result + 41) & 1) == 0)
     {
-      [*(result + 32) _resignActive];
-      v2 = *(v1 + 32);
+      [result[4] _resignActive];
+      v2 = v1[4];
 
       return [v2 _enterBackground];
     }
@@ -536,8 +536,8 @@ uint64_t __97__MKApplicationStateMonitor__handleApplicationStateChangeForMonitor
 
   else if (*(result + 41))
   {
-    [*(result + 32) _exitBackground];
-    v3 = *(v1 + 32);
+    [result[4] _exitBackground];
+    v3 = v1[4];
 
     return [v3 _becomeActive];
   }

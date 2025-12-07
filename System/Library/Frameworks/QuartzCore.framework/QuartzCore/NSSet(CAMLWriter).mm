@@ -1,10 +1,10 @@
 @interface NSSet(CAMLWriter)
-- (uint64_t)encodeWithCAMLWriter:()CAMLWriter;
+- (char)encodeWithCAMLWriter:()CAMLWriter;
 @end
 
 @implementation NSSet(CAMLWriter)
 
-- (uint64_t)encodeWithCAMLWriter:()CAMLWriter
+- (char)encodeWithCAMLWriter:()CAMLWriter
 {
   allObjects = [self allObjects];
   result = [allObjects count];

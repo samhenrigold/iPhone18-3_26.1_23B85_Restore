@@ -10,38 +10,38 @@
 
 - (void)_updatePhotoLibrary:(id)library withAgeCategoryByPersonLocalIdentifier:(id)identifier
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   libraryCopy = library;
   identifierCopy = identifier;
   if ([identifierCopy count])
   {
     v7 = MEMORY[0x277CD9938];
     allKeys = [identifierCopy allKeys];
-    v31 = libraryCopy;
+    v30 = libraryCopy;
     librarySpecificFetchOptions = [libraryCopy librarySpecificFetchOptions];
     v10 = [v7 fetchPersonsWithLocalIdentifiers:allKeys options:librarySpecificFetchOptions];
 
     v11 = objc_alloc_init(MEMORY[0x277CBEB38]);
+    v34 = 0u;
     v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
     v12 = v10;
-    v13 = [v12 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v36;
+      v15 = *v35;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v36 != v15)
+          if (*v35 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v35 + 1) + 8 * i);
+          v17 = *(*(&v34 + 1) + 8 * i);
           localIdentifier = [v17 localIdentifier];
           v19 = [identifierCopy objectForKeyedSubscript:localIdentifier];
 
@@ -56,7 +56,7 @@
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v34 objects:v42 count:16];
       }
 
       while (v14);
@@ -64,18 +64,18 @@
 
     v22 = v11;
     v23 = [v11 count];
-    libraryCopy = v31;
+    libraryCopy = v30;
     if (v23)
     {
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __102__PGGraphIngestPersonAgeCategoryProcessor__updatePhotoLibrary_withAgeCategoryByPersonLocalIdentifier___block_invoke;
-      v33[3] = &unk_27888A660;
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __102__PGGraphIngestPersonAgeCategoryProcessor__updatePhotoLibrary_withAgeCategoryByPersonLocalIdentifier___block_invoke;
+      v32[3] = &unk_27888A660;
       v24 = v22;
-      v34 = v24;
-      v32 = 0;
-      v25 = [v31 performChangesAndWait:v33 error:&v32];
-      v26 = v32;
+      v33 = v24;
+      v31 = 0;
+      v25 = [v30 performChangesAndWait:v32 error:&v31];
+      v26 = v31;
       if ((v25 & 1) == 0)
       {
         v27 = +[PGLogging sharedLogging];
@@ -85,16 +85,14 @@
         {
           allKeys2 = [v24 allKeys];
           *buf = 138478083;
-          v40 = allKeys2;
-          v41 = 2112;
-          v42 = v26;
+          v39 = allKeys2;
+          v40 = 2112;
+          v41 = v26;
           _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PersonAgeCategoryProcessor] Error setting the age type of persons: %{private}@, error: %@", buf, 0x16u);
         }
       }
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __102__PGGraphIngestPersonAgeCategoryProcessor__updatePhotoLibrary_withAgeCategoryByPersonLocalIdentifier___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -109,12 +107,12 @@ void __102__PGGraphIngestPersonAgeCategoryProcessor__updatePhotoLibrary_withAgeC
 
 - (void)processPersonAgeCategoryForPersonNodes:(id)nodes photoLibrary:(id)library withProgressBlock:(id)block
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
   libraryCopy = library;
   blockCopy = block;
   v9 = _Block_copy(blockCopy);
-  v45 = nodesCopy;
+  v44 = nodesCopy;
   if (v9)
   {
     Current = CFAbsoluteTimeGetCurrent();
@@ -122,9 +120,9 @@ void __102__PGGraphIngestPersonAgeCategoryProcessor__updatePhotoLibrary_withAgeC
     if (Current >= 0.01)
     {
       v12 = Current;
-      v56[0] = 0;
-      v9[2](v9, v56, 0.0);
-      if (v56[0] == 1)
+      v55[0] = 0;
+      v9[2](v9, v55, 0.0);
+      if (v55[0] == 1)
       {
         if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
@@ -150,9 +148,9 @@ void __102__PGGraphIngestPersonAgeCategoryProcessor__updatePhotoLibrary_withAgeC
         goto LABEL_58;
       }
 
-      v56[0] = 0;
-      v9[2](v9, v56, 1.0);
-      if (!v56[0] || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+      v55[0] = 0;
+      v9[2](v9, v55, 1.0);
+      if (!v55[0] || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         goto LABEL_58;
       }
@@ -180,43 +178,43 @@ LABEL_49:
     v11 = 0.0;
   }
 
-  v46 = objc_alloc_init(MEMORY[0x277D3C7A0]);
-  v49 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:v15];
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
+  v45 = objc_alloc_init(MEMORY[0x277D3C7A0]);
+  v48 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:v15];
   v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obj = nodesCopy;
-  v16 = [obj countByEnumeratingWithState:&v52 objects:v64 count:16];
+  v16 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
   if (!v16)
   {
     goto LABEL_37;
   }
 
   v18 = 0.9 / v15;
-  v50 = *v53;
+  v49 = *v52;
   v19 = 0.0;
   *&v17 = 138477827;
-  v43 = v17;
+  v42 = v17;
   while (2)
   {
     for (i = 0; i != v16; ++i)
     {
-      if (*v53 != v50)
+      if (*v52 != v49)
       {
         objc_enumerationMutation(obj);
       }
 
-      v21 = *(*(&v52 + 1) + 8 * i);
+      v21 = *(*(&v51 + 1) + 8 * i);
       v22 = objc_autoreleasePoolPush();
       if (v9)
       {
         v23 = CFAbsoluteTimeGetCurrent();
         if (v23 - v11 >= 0.01)
         {
-          v56[0] = 0;
-          v9[2](v9, v56, v19);
-          if (v56[0])
+          v55[0] = 0;
+          v9[2](v9, v55, v19);
+          if (v55[0])
           {
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
             {
@@ -236,7 +234,7 @@ LABEL_49:
         }
       }
 
-      blockCopy = [(PGGraphIngestPersonAgeCategoryProcessorHelper *)self->_helper ageCategoryFromBirthdayDateForPersonNode:v21, v43, blockCopy];
+      blockCopy = [(PGGraphIngestPersonAgeCategoryProcessorHelper *)self->_helper ageCategoryFromBirthdayDateForPersonNode:v21, v42, blockCopy];
       if (blockCopy)
       {
         v25 = +[PGLogging sharedLogging];
@@ -281,16 +279,16 @@ LABEL_32:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v61 = __Block_byref_object_copy__44152;
-      v62 = __Block_byref_object_dispose__44153;
+      v60 = __Block_byref_object_copy__44152;
+      v61 = __Block_byref_object_dispose__44153;
       distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
-      v51[0] = MEMORY[0x277D85DD0];
-      v51[1] = 3221225472;
-      v51[2] = __113__PGGraphIngestPersonAgeCategoryProcessor_processPersonAgeCategoryForPersonNodes_photoLibrary_withProgressBlock___block_invoke;
-      v51[3] = &unk_278884A38;
-      v51[4] = buf;
-      [v21 enumerateMomentEdgesAndNodesUsingBlock:v51];
-      blockCopy = [(PGGraphIngestPersonAgeCategoryProcessorHelper *)self->_helper ageCategoryFromAssetSamplingScenesForPersonNode:v21 photoLibrary:libraryCopy curationSession:v46];
+      v50[0] = MEMORY[0x277D85DD0];
+      v50[1] = 3221225472;
+      v50[2] = __113__PGGraphIngestPersonAgeCategoryProcessor_processPersonAgeCategoryForPersonNodes_photoLibrary_withProgressBlock___block_invoke;
+      v50[3] = &unk_278884A38;
+      v50[4] = buf;
+      [v21 enumerateMomentEdgesAndNodesUsingBlock:v50];
+      blockCopy = [(PGGraphIngestPersonAgeCategoryProcessorHelper *)self->_helper ageCategoryFromAssetSamplingScenesForPersonNode:v21 photoLibrary:libraryCopy curationSession:v45];
       if (!blockCopy)
       {
         _Block_object_dispose(buf, 8);
@@ -301,7 +299,7 @@ LABEL_32:
         if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
         {
           stringDescription3 = [v21 stringDescription];
-          *buf = v43;
+          *buf = v42;
           *&buf[4] = stringDescription3;
           _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[PersonAgeCategoryProcessor] Person %{private}@ age range could not be classified", buf, 0xCu);
         }
@@ -317,11 +315,11 @@ LABEL_32:
       {
         stringDescription4 = [v21 stringDescription];
         v35 = [(PGGraphIngestPersonAgeCategoryProcessorHelper *)self->_helper ageDescriptionFromAge:blockCopy];
-        *v56 = 138478083;
-        v57 = stringDescription4;
-        v58 = 2112;
-        v59 = v35;
-        _os_log_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_INFO, "[PersonAgeCategoryProcessor] Person %{private}@ classified as %@ based on scenes", v56, 0x16u);
+        *v55 = 138478083;
+        v56 = stringDescription4;
+        v57 = 2112;
+        v58 = v35;
+        _os_log_impl(&dword_22F0FC000, loggingConnection2, OS_LOG_TYPE_INFO, "[PersonAgeCategoryProcessor] Person %{private}@ classified as %@ based on scenes", v55, 0x16u);
       }
 
       _Block_object_dispose(buf, 8);
@@ -331,14 +329,14 @@ LABEL_33:
       if ([localIdentifier length])
       {
         v39 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:blockCopy];
-        [v49 setObject:v39 forKeyedSubscript:localIdentifier];
+        [v48 setObject:v39 forKeyedSubscript:localIdentifier];
       }
 
       objc_autoreleasePoolPop(v22);
       v19 = v18 + v19;
     }
 
-    v16 = [obj countByEnumeratingWithState:&v52 objects:v64 count:16];
+    v16 = [obj countByEnumeratingWithState:&v51 objects:v63 count:16];
     if (v16)
     {
       continue;
@@ -351,16 +349,16 @@ LABEL_37:
 
   if (!v9)
   {
-    [(PGGraphIngestPersonAgeCategoryProcessor *)self _updatePhotoLibrary:libraryCopy withAgeCategoryByPersonLocalIdentifier:v49];
+    [(PGGraphIngestPersonAgeCategoryProcessor *)self _updatePhotoLibrary:libraryCopy withAgeCategoryByPersonLocalIdentifier:v48];
     goto LABEL_57;
   }
 
   v40 = CFAbsoluteTimeGetCurrent();
   if (v40 - v11 >= 0.01)
   {
-    v56[0] = 0;
-    v9[2](v9, v56, 0.9);
-    if (v56[0])
+    v55[0] = 0;
+    v9[2](v9, v55, 0.9);
+    if (v55[0])
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
@@ -378,12 +376,12 @@ LABEL_37:
     v11 = v40;
   }
 
-  [(PGGraphIngestPersonAgeCategoryProcessor *)self _updatePhotoLibrary:libraryCopy withAgeCategoryByPersonLocalIdentifier:v49];
+  [(PGGraphIngestPersonAgeCategoryProcessor *)self _updatePhotoLibrary:libraryCopy withAgeCategoryByPersonLocalIdentifier:v48];
   if (CFAbsoluteTimeGetCurrent() - v11 >= 0.01)
   {
-    v56[0] = 0;
-    v9[2](v9, v56, 1.0);
-    if (v56[0])
+    v55[0] = 0;
+    v9[2](v9, v55, 1.0);
+    if (v55[0])
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
@@ -401,7 +399,6 @@ LABEL_56:
 LABEL_57:
 
 LABEL_58:
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void __113__PGGraphIngestPersonAgeCategoryProcessor_processPersonAgeCategoryForPersonNodes_photoLibrary_withProgressBlock___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -420,7 +417,7 @@ void __113__PGGraphIngestPersonAgeCategoryProcessor_processPersonAgeCategoryForP
 
 - (void)runWithGraphUpdate:(id)update progressBlock:(id)block
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   updateCopy = update;
   graphBuilder = self->_graphBuilder;
   blockCopy = block;
@@ -465,13 +462,11 @@ void __113__PGGraphIngestPersonAgeCategoryProcessor_processPersonAgeCategoryForP
   if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v25 = "PGGraphIngestPersonAgeCategoryProcessor";
-    v26 = 2048;
-    v27 = ((((v17 - v14) * numer) / denom) / 1000000.0);
+    v24 = "PGGraphIngestPersonAgeCategoryProcessor";
+    v25 = 2048;
+    v26 = ((((v17 - v14) * numer) / denom) / 1000000.0);
     _os_log_impl(&dword_22F0FC000, v21, OS_LOG_TYPE_INFO, "[Performance] %s: %f ms", buf, 0x16u);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldRunWithGraphUpdate:(id)update

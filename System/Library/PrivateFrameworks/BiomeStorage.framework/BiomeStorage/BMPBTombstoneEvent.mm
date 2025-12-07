@@ -131,19 +131,18 @@ LABEL_13:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v10 = toCopy;
+  v6 = toCopy;
   if (self->_segmentName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    offset = self->_offset;
     PBDataWriterWriteUint32Field();
-    toCopy = v10;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -162,35 +161,32 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  length = self->_length;
   PBDataWriterWriteUint32Field();
-  toCopy = v10;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_6:
-    reason = self->_reason;
     PBDataWriterWriteInt32Field();
-    toCopy = v10;
+    toCopy = v6;
   }
 
 LABEL_7:
   if (self->_processName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (*&self->_has)
   {
-    eventTimestamp = self->_eventTimestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v10;
+    toCopy = v6;
   }
 
   if (self->_policyID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v10;
+    toCopy = v6;
   }
 }
 
@@ -269,7 +265,6 @@ LABEL_5:
   }
 
   has = self->_has;
-  v7 = *(equalCopy + 56);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 56) & 4) == 0 || self->_offset != *(equalCopy + 5))
@@ -315,14 +310,13 @@ LABEL_5:
     if (![(NSString *)processName isEqual:?])
     {
 LABEL_29:
-      v11 = 0;
+      v9 = 0;
       goto LABEL_30;
     }
 
     has = self->_has;
   }
 
-  v9 = *(equalCopy + 56);
   if (has)
   {
     if ((*(equalCopy + 56) & 1) == 0 || self->_eventTimestamp != *(equalCopy + 1))
@@ -339,17 +333,17 @@ LABEL_29:
   policyID = self->_policyID;
   if (policyID | *(equalCopy + 3))
   {
-    v11 = [(NSString *)policyID isEqual:?];
+    v9 = [(NSString *)policyID isEqual:?];
   }
 
   else
   {
-    v11 = 1;
+    v9 = 1;
   }
 
 LABEL_30:
 
-  return v11;
+  return v9;
 }
 
 - (unint64_t)hash

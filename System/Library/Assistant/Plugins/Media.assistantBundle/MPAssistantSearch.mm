@@ -3,6 +3,7 @@
 - (id)_itemsByTitle:(id)title mediaTypes:(int64_t)types;
 - (id)_perform;
 - (id)_playlistsByDateCreatedOrder:(id)order;
+- (id)_playlistsByName:(id)name isGeniusMix:(BOOL)mix;
 - (id)_songCollectionsWithGroupingType:(int64_t)type searchString:(id)string mediaTypes:(int64_t)types;
 - (id)_stationDictionariesWithParent:(unint64_t)parent;
 - (id)_stationDictionaryForGenreName:(id)name parent:(unint64_t)parent;
@@ -14,67 +15,67 @@
 
 - (id)_stationDictionaryForGenreName:(id)name parent:(unint64_t)parent
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  v7 = [(MPAssistantSearch *)self _stationDictionariesWithParent:parent];
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v8 = [v7 objectForKey:@"children"];
-  v9 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
-  if (v9)
+  v10 = objc_msgSend__stationDictionariesWithParent_(self, v7, parent, v8, v9);
+  v46 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v49 = 0u;
+  v14 = objc_msgSend_objectForKey_(v10, v11, @"children", v12, v13);
+  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v15, &v46, v50, 16);
+  if (v16)
   {
-    v10 = v9;
-    v11 = *v26;
-    v24 = v7;
+    v20 = v16;
+    v21 = *v47;
+    v45 = v10;
     while (2)
     {
-      for (i = 0; i != v10; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v26 != v11)
+        if (*v47 != v21)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v14);
         }
 
-        v13 = *(*(&v25 + 1) + 8 * i);
-        v14 = [v13 objectForKey:@"name"];
-        v15 = [v14 compare:nameCopy options:129];
+        v23 = *(*(&v46 + 1) + 8 * i);
+        v24 = objc_msgSend_objectForKey_(v23, v17, @"name", v18, v19);
+        v27 = objc_msgSend_compare_options_(v24, v25, nameCopy, 129, v26);
 
-        if (!v15)
+        if (!v27)
         {
-          v20 = [v13 objectForKey:@"station-dict"];
+          v42 = objc_msgSend_objectForKey_(v23, v17, @"station-dict", v18, v19);
 LABEL_15:
-          v21 = v20;
-          v7 = v24;
+          v43 = v42;
+          v10 = v45;
           goto LABEL_16;
         }
 
         if (parent)
         {
-          v16 = [v13 objectForKey:@"children"];
-          v17 = [v16 count];
+          v28 = objc_msgSend_objectForKey_(v23, v17, @"children", v18, v19);
+          v33 = objc_msgSend_count(v28, v29, v30, v31, v32);
 
-          if (!v17)
+          if (!v33)
           {
             continue;
           }
         }
 
-        v18 = [v13 objectForKey:@"id"];
-        unsignedLongLongValue = [v18 unsignedLongLongValue];
+        v34 = objc_msgSend_objectForKey_(v23, v17, @"id", v18, v19);
+        v39 = objc_msgSend_unsignedLongLongValue(v34, v35, v36, v37, v38);
 
-        v20 = [(MPAssistantSearch *)self _stationDictionaryForGenreName:nameCopy parent:unsignedLongLongValue];
-        if (v20)
+        v42 = objc_msgSend__stationDictionaryForGenreName_parent_(self, v40, nameCopy, v39, v41);
+        if (v42)
         {
           goto LABEL_15;
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v25 objects:v29 count:16];
-      v21 = 0;
-      v7 = v24;
-      if (v10)
+      v20 = objc_msgSend_countByEnumeratingWithState_objects_count_(v14, v17, &v46, v50, 16);
+      v43 = 0;
+      v10 = v45;
+      if (v20)
       {
         continue;
       }
@@ -85,91 +86,90 @@ LABEL_15:
 
   else
   {
-    v21 = 0;
+    v43 = 0;
   }
 
 LABEL_16:
 
-  v22 = *MEMORY[0x277D85DE8];
-
-  return v21;
+  return v43;
 }
 
 - (id)_stationDictionariesWithParent:(unint64_t)parent
 {
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = sub_2334F3E68;
-  v17 = sub_2334F3E78;
-  v18 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_2334F3E68;
+  v24 = sub_2334F3E78;
+  v25 = 0;
   v4 = dispatch_semaphore_create(0);
-  v5 = [objc_alloc(MEMORY[0x277D44138]) initWithParentNodeID:parent];
-  if (v5)
+  v5 = objc_alloc(MEMORY[0x277D44138]);
+  v9 = objc_msgSend_initWithParentNodeID_(v5, v6, parent, v7, v8);
+  if (v9)
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = sub_2334F3E80;
-    v10[3] = &unk_2789DB5F8;
-    v12 = &v13;
-    v6 = v4;
-    v11 = v6;
-    [v5 startWithCompletionHandler:v10];
-    v7 = dispatch_time(0, 30000000000);
-    dispatch_semaphore_wait(v6, v7);
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = sub_2334F3E80;
+    v17[3] = &unk_2789DB5F8;
+    v19 = &v20;
+    v10 = v4;
+    v18 = v10;
+    objc_msgSend_startWithCompletionHandler_(v9, v11, v17, v12, v13);
+    v14 = dispatch_time(0, 30000000000);
+    dispatch_semaphore_wait(v10, v14);
 
     v4 = 0;
   }
 
-  v8 = v14[5];
+  v15 = v21[5];
 
-  _Block_object_dispose(&v13, 8);
+  _Block_object_dispose(&v20, 8);
 
-  return v8;
+  return v15;
 }
 
 - (id)_stationWithName:(id)name
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   nameCopy = name;
-  if ([nameCopy length])
+  if (objc_msgSend_length(nameCopy, v4, v5, v6, v7))
   {
-    mEMORY[0x277D44140] = [MEMORY[0x277D44140] sharedModel];
-    userStations = [mEMORY[0x277D44140] userStations];
-    featuredStations = [mEMORY[0x277D44140] featuredStations];
-    v7 = [userStations arrayByAddingObjectsFromArray:featuredStations];
+    v12 = objc_msgSend_sharedModel(MEMORY[0x277D44140], v8, v9, v10, v11);
+    v17 = objc_msgSend_userStations(v12, v13, v14, v15, v16);
+    v22 = objc_msgSend_featuredStations(v12, v18, v19, v20, v21);
+    v26 = objc_msgSend_arrayByAddingObjectsFromArray_(v17, v23, v22, v24, v25);
 
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
-    v18 = 0u;
-    v8 = v7;
-    v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
-    if (v9)
+    v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v27 = v26;
+    v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v28, &v42, v46, 16);
+    if (v33)
     {
-      v10 = *v18;
+      v34 = *v43;
       while (2)
       {
-        for (i = 0; i != v9; i = i + 1)
+        for (i = 0; i != v33; i = i + 1)
         {
-          if (*v18 != v10)
+          if (*v43 != v34)
           {
-            objc_enumerationMutation(v8);
+            objc_enumerationMutation(v27);
           }
 
-          v12 = *(*(&v17 + 1) + 8 * i);
-          name = [v12 name];
-          [name rangeOfString:nameCopy options:129];
-          if (v14)
+          v36 = *(*(&v42 + 1) + 8 * i);
+          v37 = objc_msgSend_name(v36, v29, v30, v31, v32, v42);
+          objc_msgSend_rangeOfString_options_(v37, v38, nameCopy, 129, v39);
+          if (v40)
           {
-            v9 = v12;
+            v33 = v36;
 
             goto LABEL_12;
           }
         }
 
-        v9 = [v8 countByEnumeratingWithState:&v17 objects:v21 count:16];
-        if (v9)
+        v33 = objc_msgSend_countByEnumeratingWithState_objects_count_(v27, v29, &v42, v46, 16);
+        if (v33)
         {
           continue;
         }
@@ -183,110 +183,139 @@ LABEL_12:
 
   else
   {
-    v9 = 0;
+    v33 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
-  return v9;
+  return v33;
 }
 
 - (id)_playlistsByDateCreatedOrder:(id)order
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v70[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CD5E30];
   v5 = *MEMORY[0x277CD5928];
   orderCopy = order;
-  v7 = [v4 predicateWithValue:MEMORY[0x277CBEC38] forProperty:v5];
-  v8 = MEMORY[0x277CBEC28];
-  v9 = [MEMORY[0x277CD5E30] predicateWithValue:MEMORY[0x277CBEC28] forProperty:*MEMORY[0x277CD5910]];
-  v10 = [MEMORY[0x277CD5E30] predicateWithValue:v8 forProperty:*MEMORY[0x277CD5920]];
-  v11 = objc_alloc(MEMORY[0x277CD5E38]);
-  v12 = [MEMORY[0x277CBEB98] setWithObjects:{v7, v9, v10, 0}];
-  v13 = [v11 initWithFilterPredicates:v12];
+  v9 = objc_msgSend_predicateWithValue_forProperty_(v4, v7, MEMORY[0x277CBEC38], v5, v8);
+  v10 = MEMORY[0x277CBEC28];
+  v13 = objc_msgSend_predicateWithValue_forProperty_(MEMORY[0x277CD5E30], v11, MEMORY[0x277CBEC28], *MEMORY[0x277CD5910], v12);
+  v16 = objc_msgSend_predicateWithValue_forProperty_(MEMORY[0x277CD5E30], v14, v10, *MEMORY[0x277CD5920], v15);
+  v17 = objc_alloc(MEMORY[0x277CD5E38]);
+  v21 = objc_msgSend_setWithObjects_(MEMORY[0x277CBEB98], v18, v9, v19, v20, v13, v16, 0);
+  v25 = objc_msgSend_initWithFilterPredicates_(v17, v22, v21, v23, v24);
 
-  v14 = *MEMORY[0x277CD5900];
-  v28[0] = *MEMORY[0x277CD5900];
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
-  [v13 _setOrderingProperties:v15];
+  v26 = *MEMORY[0x277CD5900];
+  v70[0] = *MEMORY[0x277CD5900];
+  v29 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v27, v70, 1, v28);
+  objc_msgSend__setOrderingProperties_(v25, v30, v29, v31, v32);
 
-  LODWORD(v15) = [orderCopy isEqualToString:@"Descending"];
-  if (v15)
+  LODWORD(v29) = objc_msgSend_isEqualToString_(orderCopy, v33, @"Descending", v34, v35);
+  if (v29)
   {
-    v26 = v14;
-    v27 = &unk_2848D8C70;
-    v16 = MEMORY[0x277CBEAC0];
-    v17 = &v27;
-    v18 = &v26;
+    v68 = v26;
+    v69 = &unk_2848D8C70;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v36, &v69, &v68, 1);
   }
 
   else
   {
-    v24 = v14;
-    v25 = &unk_2848D8C88;
-    v16 = MEMORY[0x277CBEAC0];
-    v17 = &v25;
-    v18 = &v24;
+    v66 = v26;
+    v67 = &unk_2848D8C88;
+    objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v36, &v67, &v66, 1);
   }
+  v37 = ;
+  objc_msgSend__setOrderingDirectionMappings_(v25, v38, v37, v39, v40);
 
-  v19 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:1];
-  [v13 _setOrderingDirectionMappings:v19];
+  objc_msgSend_setUseSections_(v25, v41, 0, v42, v43);
+  objc_msgSend_setGroupingType_(v25, v44, 6, v45, v46);
+  objc_msgSend_setIgnoreSystemFilterPredicates_(v25, v47, 1, v48, v49);
+  objc_msgSend_setShouldIncludeNonLibraryEntities_(v25, v50, 1, v51, v52);
+  v56 = objc_msgSend_deviceMediaLibraryWithUserIdentity_(MEMORY[0x277CD5E10], v53, self->_userIdentity, v54, v55);
+  objc_msgSend_setMediaLibrary_(v25, v57, v56, v58, v59);
 
-  [v13 setUseSections:0];
-  [v13 setGroupingType:6];
-  [v13 setIgnoreSystemFilterPredicates:1];
-  [v13 setShouldIncludeNonLibraryEntities:1];
-  v20 = [MEMORY[0x277CD5E10] deviceMediaLibraryWithUserIdentity:self->_userIdentity];
-  [v13 setMediaLibrary:v20];
+  v64 = objc_msgSend_collections(v25, v60, v61, v62, v63);
 
-  collections = [v13 collections];
-
-  v22 = *MEMORY[0x277D85DE8];
-
-  return collections;
+  return v64;
 }
 
 - (id)_songCollectionsWithGroupingType:(int64_t)type searchString:(id)string mediaTypes:(int64_t)types
 {
   stringCopy = string;
-  v9 = [MEMORY[0x277CD5DE0] titlePropertyForGroupingType:type];
-  if (v9)
+  v16 = objc_msgSend_titlePropertyForGroupingType_(MEMORY[0x277CD5DE0], v9, type, v10, v11);
+  if (v16)
   {
-    v10 = MEMORY[0x277CD5E30];
-    v11 = [MEMORY[0x277CCABB0] numberWithInteger:types];
-    v12 = [v10 predicateWithValue:v11 forProperty:*MEMORY[0x277CD57C8]];
+    v17 = MEMORY[0x277CD5E30];
+    v18 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v12, types, v14, v15);
+    v21 = objc_msgSend_predicateWithValue_forProperty_(v17, v19, v18, *MEMORY[0x277CD57C8], v20);
 
     if (stringCopy)
     {
-      v13 = [MEMORY[0x277CBEB98] setWithObject:v9];
-      v14 = [MEMORY[0x277CD6120] predicateWithSearchString:stringCopy forProperties:v13];
+      v25 = objc_msgSend_setWithObject_(MEMORY[0x277CBEB98], v22, v16, v23, v24);
+      v28 = objc_msgSend_predicateWithSearchString_forProperties_(MEMORY[0x277CD6120], v26, stringCopy, v25, v27);
     }
 
     else
     {
-      v14 = 0;
+      v28 = 0;
     }
 
-    v16 = objc_alloc(MEMORY[0x277CD5E38]);
-    v17 = [MEMORY[0x277CBEB98] setWithObjects:{v12, v14, 0}];
-    v18 = [v16 initWithFilterPredicates:v17];
+    v30 = objc_alloc(MEMORY[0x277CD5E38]);
+    v34 = objc_msgSend_setWithObjects_(MEMORY[0x277CBEB98], v31, v21, v32, v33, v28, 0);
+    v38 = objc_msgSend_initWithFilterPredicates_(v30, v35, v34, v36, v37);
 
-    [v18 setUseSections:0];
-    [v18 setGroupingType:type];
-    [v18 setIgnoreSystemFilterPredicates:1];
-    [v18 setShouldIncludeNonLibraryEntities:1];
-    v19 = [MEMORY[0x277CD5E10] deviceMediaLibraryWithUserIdentity:self->_userIdentity];
-    [v18 setMediaLibrary:v19];
+    objc_msgSend_setUseSections_(v38, v39, 0, v40, v41);
+    objc_msgSend_setGroupingType_(v38, v42, type, v43, v44);
+    objc_msgSend_setIgnoreSystemFilterPredicates_(v38, v45, 1, v46, v47);
+    objc_msgSend_setShouldIncludeNonLibraryEntities_(v38, v48, 1, v49, v50);
+    v54 = objc_msgSend_deviceMediaLibraryWithUserIdentity_(MEMORY[0x277CD5E10], v51, self->_userIdentity, v52, v53);
+    objc_msgSend_setMediaLibrary_(v38, v55, v54, v56, v57);
 
-    collections = [v18 collections];
+    v29 = objc_msgSend_collections(v38, v58, v59, v60, v61);
   }
 
   else
   {
-    collections = [MEMORY[0x277CBEA60] array];
+    v29 = objc_msgSend_array(MEMORY[0x277CBEA60], v12, v13, v14, v15);
   }
 
-  return collections;
+  return v29;
+}
+
+- (id)_playlistsByName:(id)name isGeniusMix:(BOOL)mix
+{
+  mixCopy = mix;
+  nameCopy = name;
+  v7 = MEMORY[0x277CD5E30];
+  v11 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v8, mixCopy, v9, v10);
+  v14 = objc_msgSend_predicateWithValue_forProperty_(v7, v12, v11, *MEMORY[0x277CD5918], v13);
+
+  v15 = MEMORY[0x277CBEC28];
+  v18 = objc_msgSend_predicateWithValue_forProperty_(MEMORY[0x277CD5E30], v16, MEMORY[0x277CBEC28], *MEMORY[0x277CD5910], v17);
+  v24 = objc_msgSend_predicateWithValue_forProperty_(MEMORY[0x277CD5E30], v19, v15, *MEMORY[0x277CD5920], v20);
+  if (nameCopy)
+  {
+    v25 = objc_msgSend_setWithObject_(MEMORY[0x277CBEB98], v21, *MEMORY[0x277CD5930], v22, v23);
+    v28 = objc_msgSend_predicateWithSearchString_forProperties_(MEMORY[0x277CD6120], v26, nameCopy, v25, v27);
+  }
+
+  else
+  {
+    v28 = 0;
+  }
+
+  v29 = objc_alloc(MEMORY[0x277CD5E38]);
+  v33 = objc_msgSend_setWithObjects_(MEMORY[0x277CBEB98], v30, v14, v31, v32, v18, v24, v28, 0);
+  v37 = objc_msgSend_initWithFilterPredicates_(v29, v34, v33, v35, v36);
+
+  objc_msgSend_setUseSections_(v37, v38, 0, v39, v40);
+  objc_msgSend_setGroupingType_(v37, v41, 6, v42, v43);
+  objc_msgSend_setIgnoreSystemFilterPredicates_(v37, v44, 1, v45, v46);
+  objc_msgSend_setShouldIncludeNonLibraryEntities_(v37, v47, 1, v48, v49);
+  v53 = objc_msgSend_deviceMediaLibraryWithUserIdentity_(MEMORY[0x277CD5E10], v50, self->_userIdentity, v51, v52);
+  objc_msgSend_setMediaLibrary_(v37, v54, v53, v55, v56);
+
+  v61 = objc_msgSend_collections(v37, v57, v58, v59, v60);
+
+  return v61;
 }
 
 - (id)_itemsByTitle:(id)title mediaTypes:(int64_t)types
@@ -294,25 +323,25 @@ LABEL_12:
   v6 = MEMORY[0x277CD5E30];
   v7 = MEMORY[0x277CCABB0];
   titleCopy = title;
-  v9 = [v7 numberWithInteger:types];
-  v10 = [v6 predicateWithValue:v9 forProperty:*MEMORY[0x277CD57C8]];
+  v12 = objc_msgSend_numberWithInteger_(v7, v9, types, v10, v11);
+  v15 = objc_msgSend_predicateWithValue_forProperty_(v6, v13, v12, *MEMORY[0x277CD57C8], v14);
 
-  v11 = [MEMORY[0x277CBEB58] setWithObject:*MEMORY[0x277CD58B8]];
-  v12 = [MEMORY[0x277CD6120] predicateWithSearchString:titleCopy forProperties:v11];
+  v19 = objc_msgSend_setWithObject_(MEMORY[0x277CBEB58], v16, *MEMORY[0x277CD58B8], v17, v18);
+  v22 = objc_msgSend_predicateWithSearchString_forProperties_(MEMORY[0x277CD6120], v20, titleCopy, v19, v21);
 
-  v13 = objc_alloc(MEMORY[0x277CD5E38]);
-  v14 = [MEMORY[0x277CBEB98] setWithObjects:{v10, v12, 0}];
-  v15 = [v13 initWithFilterPredicates:v14];
+  v23 = objc_alloc(MEMORY[0x277CD5E38]);
+  v27 = objc_msgSend_setWithObjects_(MEMORY[0x277CBEB98], v24, v15, v25, v26, v22, 0);
+  v31 = objc_msgSend_initWithFilterPredicates_(v23, v28, v27, v29, v30);
 
-  [v15 setUseSections:0];
-  [v15 setIgnoreSystemFilterPredicates:1];
-  [v15 setShouldIncludeNonLibraryEntities:1];
-  v16 = [MEMORY[0x277CD5E10] deviceMediaLibraryWithUserIdentity:self->_userIdentity];
-  [v15 setMediaLibrary:v16];
+  objc_msgSend_setUseSections_(v31, v32, 0, v33, v34);
+  objc_msgSend_setIgnoreSystemFilterPredicates_(v31, v35, 1, v36, v37);
+  objc_msgSend_setShouldIncludeNonLibraryEntities_(v31, v38, 1, v39, v40);
+  v44 = objc_msgSend_deviceMediaLibraryWithUserIdentity_(MEMORY[0x277CD5E10], v41, self->_userIdentity, v42, v43);
+  objc_msgSend_setMediaLibrary_(v31, v45, v44, v46, v47);
 
-  items = [v15 items];
+  v52 = objc_msgSend_items(v31, v48, v49, v50, v51);
 
-  return items;
+  return v52;
 }
 
 - (id)_audiobooksByName:(id)name
@@ -322,149 +351,145 @@ LABEL_12:
     v4 = MEMORY[0x277CBEB98];
     v5 = *MEMORY[0x277CD56D0];
     nameCopy = name;
-    v7 = [v4 setWithObject:v5];
-    v8 = [MEMORY[0x277CD6120] predicateWithSearchString:nameCopy forProperties:v7];
+    v10 = objc_msgSend_setWithObject_(v4, v7, v5, v8, v9);
+    v13 = objc_msgSend_predicateWithSearchString_forProperties_(MEMORY[0x277CD6120], v11, nameCopy, v10, v12);
   }
 
   else
   {
-    v8 = 0;
+    v13 = 0;
   }
 
-  v9 = objc_alloc(MEMORY[0x277CD5E38]);
-  v10 = [MEMORY[0x277CBEB98] setWithObject:v8];
-  v11 = [v9 initWithFilterPredicates:v10];
+  v14 = objc_alloc(MEMORY[0x277CD5E38]);
+  v18 = objc_msgSend_setWithObject_(MEMORY[0x277CBEB98], v15, v13, v16, v17);
+  v22 = objc_msgSend_initWithFilterPredicates_(v14, v19, v18, v20, v21);
 
-  [v11 setUseSections:0];
-  [v11 setGroupingType:10];
-  [v11 setIgnoreSystemFilterPredicates:1];
-  [v11 setShouldIncludeNonLibraryEntities:1];
-  v12 = [MEMORY[0x277CD5E10] deviceMediaLibraryWithUserIdentity:self->_userIdentity];
-  [v11 setMediaLibrary:v12];
+  objc_msgSend_setUseSections_(v22, v23, 0, v24, v25);
+  objc_msgSend_setGroupingType_(v22, v26, 10, v27, v28);
+  objc_msgSend_setIgnoreSystemFilterPredicates_(v22, v29, 1, v30, v31);
+  objc_msgSend_setShouldIncludeNonLibraryEntities_(v22, v32, 1, v33, v34);
+  v38 = objc_msgSend_deviceMediaLibraryWithUserIdentity_(MEMORY[0x277CD5E10], v35, self->_userIdentity, v36, v37);
+  objc_msgSend_setMediaLibrary_(v22, v39, v38, v40, v41);
 
-  collections = [v11 collections];
+  v46 = objc_msgSend_collections(v22, v42, v43, v44, v45);
 
-  return collections;
+  return v46;
 }
 
 - (id)_perform
 {
-  v44 = *MEMORY[0x277D85DE8];
-  array = [MEMORY[0x277CBEB18] array];
-  maxResults = [(SAMPSearch *)self maxResults];
-  v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v6 = MEMORY[0x277CBEB98];
-  searchTypes = [(SAMPSearch *)self searchTypes];
-  v8 = [v6 setWithArray:searchTypes];
+  v100 = *MEMORY[0x277D85DE8];
+  v6 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, v2, v3, v4);
+  v11 = objc_msgSend_maxResults(self, v7, v8, v9, v10);
+  v12 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v13 = MEMORY[0x277CBEB98];
+  v18 = objc_msgSend_searchTypes(self, v14, v15, v16, v17);
+  v22 = objc_msgSend_setWithArray_(v13, v19, v18, v20, v21);
 
-  v9 = [v8 containsObject:*MEMORY[0x277D486D8]];
-  constraints = [(SAMPSearch *)self constraints];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = sub_2334F4D58;
-  v35[3] = &unk_2789DB580;
-  v11 = v5;
-  v36 = v11;
+  v26 = objc_msgSend_containsObject_(v22, v23, *MEMORY[0x277D486D8], v24, v25);
+  v31 = objc_msgSend_constraints(self, v27, v28, v29, v30);
+  v91[0] = MEMORY[0x277D85DD0];
+  v91[1] = 3221225472;
+  v91[2] = sub_2334F4D58;
+  v91[3] = &unk_2789DB580;
+  v32 = v12;
+  v92 = v32;
   selfCopy = self;
-  v39 = v9;
-  v12 = v8;
-  v38 = v12;
-  [constraints enumerateObjectsUsingBlock:v35];
+  v95 = v26;
+  v33 = v22;
+  v94 = v33;
+  objc_msgSend_enumerateObjectsUsingBlock_(v31, v34, v91, v35, v36);
 
-  v29 = MEMORY[0x277D85DD0];
-  v30 = 3221225472;
-  v31 = sub_2334F57EC;
-  v32 = &unk_2789DB5D0;
-  v13 = array;
-  v33 = v13;
-  v34 = maxResults;
-  [v11 enumerateObjectsUsingBlock:&v29];
-  if ([v13 count] || !sub_2335055C0(self->_userIdentity))
+  v85 = MEMORY[0x277D85DD0];
+  v86 = 3221225472;
+  v87 = sub_2334F57EC;
+  v88 = &unk_2789DB5D0;
+  v37 = v6;
+  v89 = v37;
+  v90 = v11;
+  objc_msgSend_enumerateObjectsUsingBlock_(v32, v38, &v85, v39, v40);
+  if (objc_msgSend_count(v37, v41, v42, v43, v44, v85, v86, v87, v88) || !sub_2335055C0(self->_userIdentity))
   {
-    v20 = objc_alloc_init(MEMORY[0x277D475B0]);
-    [v20 setResults:v13];
-    if (![(NSString *)self->_requestAceHash length])
+    v62 = objc_alloc_init(MEMORY[0x277D475B0]);
+    objc_msgSend_setResults_(v62, v63, v37, v64, v65);
+    if (!objc_msgSend_length(self->_requestAceHash, v66, v67, v68, v69))
     {
-      aceId = [(MPAssistantSearch *)self aceId];
-      v22 = sub_233505670(@"Search", aceId);
+      v74 = objc_msgSend_aceId(self, v70, v71, v72, v73);
+      v75 = sub_233505670(@"Search", v74);
       requestAceHash = self->_requestAceHash;
-      self->_requestAceHash = v22;
+      self->_requestAceHash = v75;
     }
 
-    v24 = _MPLogCategoryAssistant();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v77 = _MPLogCategoryAssistant();
+    if (os_log_type_enabled(v77, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = self->_requestAceHash;
-      v26 = [v13 count];
+      v82 = self->_requestAceHash;
+      v83 = objc_msgSend_count(v37, v78, v79, v80, v81);
       *buf = 138543618;
-      v41 = v25;
-      v42 = 2048;
-      v43 = v26;
-      _os_log_impl(&dword_2334D9000, v24, OS_LOG_TYPE_DEFAULT, "Search (search) <%{public}@>: found %ld results.", buf, 0x16u);
+      v97 = v82;
+      v98 = 2048;
+      v99 = v83;
+      _os_log_impl(&dword_2334D9000, v77, OS_LOG_TYPE_DEFAULT, "Search (search) <%{public}@>: found %ld results.", buf, 0x16u);
     }
   }
 
   else
   {
-    if (![(NSString *)self->_requestAceHash length])
+    if (!objc_msgSend_length(self->_requestAceHash, v45, v46, v47, v48))
     {
-      aceId2 = [(MPAssistantSearch *)self aceId];
-      v15 = sub_233505670(@"Search", aceId2);
-      v16 = self->_requestAceHash;
-      self->_requestAceHash = v15;
+      v53 = objc_msgSend_aceId(self, v49, v50, v51, v52);
+      v54 = sub_233505670(@"Search", v53);
+      v55 = self->_requestAceHash;
+      self->_requestAceHash = v54;
     }
 
-    v17 = _MPLogCategoryAssistant();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v56 = _MPLogCategoryAssistant();
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
-      v18 = self->_requestAceHash;
+      v57 = self->_requestAceHash;
       *buf = 138543362;
-      v41 = v18;
-      _os_log_impl(&dword_2334D9000, v17, OS_LOG_TYPE_ERROR, "Search (search) <%{public}@>: still loading library", buf, 0xCu);
+      v97 = v57;
+      _os_log_impl(&dword_2334D9000, v56, OS_LOG_TYPE_ERROR, "Search (search) <%{public}@>: still loading library", buf, 0xCu);
     }
 
-    v19 = objc_alloc(MEMORY[0x277D47208]);
-    v20 = [v19 initWithErrorCode:*MEMORY[0x277D48630]];
+    v58 = objc_alloc(MEMORY[0x277D47208]);
+    v62 = objc_msgSend_initWithErrorCode_(v58, v59, *MEMORY[0x277D48630], v60, v61);
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
-  return v20;
+  return v62;
 }
 
 - (void)performWithCompletion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  if (![(NSString *)self->_requestAceHash length])
+  if (!objc_msgSend_length(self->_requestAceHash, v5, v6, v7, v8))
   {
-    aceId = [(MPAssistantSearch *)self aceId];
-    v6 = sub_233505670(@"Search", aceId);
+    v13 = objc_msgSend_aceId(self, v9, v10, v11, v12);
+    v14 = sub_233505670(@"Search", v13);
     requestAceHash = self->_requestAceHash;
-    self->_requestAceHash = v6;
+    self->_requestAceHash = v14;
   }
 
-  v8 = _MPLogCategoryAssistant();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v16 = _MPLogCategoryAssistant();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = self->_requestAceHash;
+    v17 = self->_requestAceHash;
     *buf = 138543362;
-    v16 = v9;
-    _os_log_impl(&dword_2334D9000, v8, OS_LOG_TYPE_DEFAULT, "Search (invoke) <%{public}@>: invoked", buf, 0xCu);
+    v27 = v17;
+    _os_log_impl(&dword_2334D9000, v16, OS_LOG_TYPE_DEFAULT, "Search (invoke) <%{public}@>: invoked", buf, 0xCu);
   }
 
-  [(MPAssistantSearch *)self _prepare];
-  v10 = self->_requestAceHash;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = sub_2334F5AA8;
-  v13[3] = &unk_2789DB648;
-  v13[4] = self;
-  v14 = completionCopy;
-  v11 = completionCopy;
-  sub_233506A24(@"Search", v10, 0, 0, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  objc_msgSend__prepare(self, v18, v19, v20, v21);
+  v22 = self->_requestAceHash;
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = sub_2334F5AA8;
+  v24[3] = &unk_2789DB648;
+  v24[4] = self;
+  v25 = completionCopy;
+  v23 = completionCopy;
+  sub_233506A24(@"Search", v22, 0, 0, v24);
 }
 
 @end

@@ -6,7 +6,7 @@
 
 - (void)main
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   configuration = [(HDCloudSyncOperation *)self configuration];
   context = [configuration context];
   options = [context options];
@@ -28,17 +28,17 @@
 
     configuration3 = [(HDCloudSyncOperation *)self configuration];
     cachedCloudState = [configuration3 cachedCloudState];
-    v22 = 0;
-    v13 = [cachedCloudState zonesByIdentifierWithError:&v22];
-    v14 = v22;
+    v21 = 0;
+    v13 = [cachedCloudState zonesByIdentifierWithError:&v21];
+    v14 = v21;
 
     if (v13 || !v14)
     {
       if (![v13 count])
       {
         [legacyRepositoryProfile triggerDeletion];
-        v21 = [MEMORY[0x277CCA9B8] hk_error:714 format:{@"Profile does not have any zones. Deleting profile: %@", legacyRepositoryProfile}];
-        [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v21];
+        v20 = [MEMORY[0x277CCA9B8] hk_error:714 format:{@"Profile does not have any zones. Deleting profile: %@", legacyRepositoryProfile}];
+        [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v20];
 
         goto LABEL_15;
       }
@@ -56,8 +56,8 @@
       {
         *buf = 138543618;
         selfCopy4 = self;
-        v25 = 2114;
-        v26 = v14;
+        v24 = 2114;
+        v25 = v14;
         _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "%{public}@: Failed to retrieve cached zones, %{public}@", buf, 0x16u);
       }
 
@@ -70,7 +70,7 @@
 LABEL_15:
 
 LABEL_17:
-    goto LABEL_18;
+    return;
   }
 
   _HKInitializeLogging();
@@ -83,8 +83,6 @@ LABEL_17:
   }
 
   [(HDCloudSyncOperation *)self finishWithSuccess:1 error:0];
-LABEL_18:
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 @end

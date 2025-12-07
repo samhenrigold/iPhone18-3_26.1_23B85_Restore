@@ -41,7 +41,6 @@
 - (void)_saveCurrentCompetitionList:(id)list archivedCompetitionList:(id)competitionList contact:(id)contact activity:(id)activity cloudKitGroup:(id)group completion:(id)completion;
 - (void)_saveLegacyCompetitionList:(id)list archivedCompetitionList:(id)competitionList contact:(id)contact activity:(id)activity cloudKitGroup:(id)group completion:(id)completion;
 - (void)_saveSecureCloudCompetitionList:(id)list archivedCompetitionList:(id)competitionList contact:(id)contact cloudKitGroup:(id)group completion:(id)completion;
-- (void)_scoreCapCelebrationAnchor;
 - (void)_setScoreCapCelebrationAnchor:(id)anchor;
 - (void)acceptCompetitionRequestFromFriendWithUUID:(id)d completion:(id)completion;
 - (void)activityDataManager:(id)manager didUpdateTodaySummary:(id)summary yesterdaySummary:(id)yesterdaySummary;
@@ -136,9 +135,7 @@
   v15 = objc_loadWeakRetained(&self->_periodicUpdateManager);
   [v15 addProvider:self];
 
-  v16 = [[ASCompetitionStore alloc] initWithDatabaseClient:self->_databaseClient];
-  competitionStore = self->_competitionStore;
-  self->_competitionStore = v16;
+  self->_competitionStore = [[ASCompetitionStore alloc] initWithDatabaseClient:self->_databaseClient];
 
   MEMORY[0x2821F96F8]();
 }
@@ -218,8 +215,8 @@
   v11 = objc_loadWeakRetained(&self->_relationshipManager);
   v12 = [v11 insertPlaceholderRelationshipEvent:6 friendUUID:dCopy];
 
-  v13 = ASCloudKitGroupUserActionExplicit();
-  v14 = objc_loadWeakRetained(&self->_cloudKitManager);
+  v14 = ASCloudKitGroupUserActionExplicit(v13);
+  v15 = objc_loadWeakRetained(&self->_cloudKitManager);
   v21[0] = MEMORY[0x277D85DD0];
   v21[1] = 3221225472;
   v21[2] = __74__ASCompetitionManager_sendCompetitionRequestToFriendWithUUID_completion___block_invoke;
@@ -228,17 +225,15 @@
   v22 = v10;
   v23 = v12;
   v24 = dCopy;
-  v25 = v13;
+  v25 = v14;
   v26 = completionCopy;
   v27 = 10;
-  v15 = v13;
-  v16 = dCopy;
-  v17 = completionCopy;
-  v18 = v12;
-  v19 = v10;
-  [v14 fetchAllChangesWithPriority:2 activity:0 group:v15 completion:v21];
-
-  v20 = *MEMORY[0x277D85DE8];
+  v16 = v14;
+  v17 = dCopy;
+  v18 = completionCopy;
+  v19 = v12;
+  v20 = v10;
+  [v15 fetchAllChangesWithPriority:2 activity:0 group:v16 completion:v21];
 }
 
 void __74__ASCompetitionManager_sendCompetitionRequestToFriendWithUUID_completion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -338,7 +333,7 @@ uint64_t __74__ASCompetitionManager_sendCompetitionRequestToFriendWithUUID_compl
 
 void __74__ASCompetitionManager_sendCompetitionRequestToFriendWithUUID_completion___block_invoke_2_312(uint64_t a1, char a2, void *a3, void *a4)
 {
-  v58 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   ASLoggingInitialize();
@@ -362,14 +357,14 @@ void __74__ASCompetitionManager_sendCompetitionRequestToFriendWithUUID_completio
       _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "CompetitionManager checking friend eligibility", buf, 2u);
     }
 
-    v52 = 0;
+    v51 = 0;
     v11 = ASValidateEligibilityForOutgoingCompetitionRequest();
     v12 = 0;
     if (v11)
     {
       v13 = [*(a1 + 32) _loadOrCreateCurrentCompetitionListForFriendWithUUID:*(a1 + 40)];
       WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 48));
-      v47 = [WeakRetained friendWithUUID:*(a1 + 40)];
+      v46 = [WeakRetained friendWithUUID:*(a1 + 40)];
 
       v15 = [v8 primaryRelationship];
       v16 = [v15 hasCompletedCompetition];
@@ -430,7 +425,7 @@ void __74__ASCompetitionManager_sendCompetitionRequestToFriendWithUUID_completio
         v20 = 0;
       }
 
-      v46 = v12;
+      v45 = v12;
       ASLoggingInitialize();
       v29 = *v9;
       if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
@@ -439,9 +434,9 @@ void __74__ASCompetitionManager_sendCompetitionRequestToFriendWithUUID_completio
         v31 = v29;
         v32 = [v8 displayName];
         *buf = 138543618;
-        v55 = v30;
-        v56 = 2112;
-        v57 = v32;
+        v54 = v30;
+        v55 = 2112;
+        v56 = v32;
         _os_log_impl(&dword_23E5E3000, v31, OS_LOG_TYPE_DEFAULT, "CompetitionManager building competition for friend: %{public}@ - %@", buf, 0x16u);
       }
 
@@ -457,8 +452,8 @@ void __74__ASCompetitionManager_sendCompetitionRequestToFriendWithUUID_completio
 
       [v33 setPreferredVictoryBadgeStyles:v19];
       [v33 setMaximumNumberOfPointsPerDay:ASCompetitionMaximumPointsPerDayForNewCompetitions()];
-      v53 = v33;
-      v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
+      v52 = v33;
+      v37 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
       [v13 setCompetitions:v37];
 
       ASLoggingInitialize();
@@ -466,27 +461,27 @@ void __74__ASCompetitionManager_sendCompetitionRequestToFriendWithUUID_completio
       if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v55 = v33;
+        v54 = v33;
         _os_log_impl(&dword_23E5E3000, v38, OS_LOG_TYPE_DEFAULT, "CompetitionManager built new competition: %@", buf, 0xCu);
       }
 
       v39 = *(a1 + 32);
-      v48[0] = MEMORY[0x277D85DD0];
-      v48[1] = 3221225472;
-      v48[2] = __74__ASCompetitionManager_sendCompetitionRequestToFriendWithUUID_completion___block_invoke_316;
-      v48[3] = &unk_278C4D0E8;
+      v47[0] = MEMORY[0x277D85DD0];
+      v47[1] = 3221225472;
+      v47[2] = __74__ASCompetitionManager_sendCompetitionRequestToFriendWithUUID_completion___block_invoke_316;
+      v47[3] = &unk_278C4D0E8;
       v40 = *(a1 + 48);
       v41 = *(a1 + 56);
-      v51 = *(a1 + 64);
-      v45 = *(a1 + 32);
-      v42 = *(&v45 + 1);
+      v50 = *(a1 + 64);
+      v44 = *(a1 + 32);
+      v42 = *(&v44 + 1);
       *&v43 = *(a1 + 48);
       *(&v43 + 1) = v41;
-      v49 = v45;
-      v50 = v43;
-      [v39 _saveCurrentCompetitionList:v13 archivedCompetitionList:v20 contact:v8 activity:0 cloudKitGroup:v40 completion:v48];
+      v48 = v44;
+      v49 = v43;
+      [v39 _saveCurrentCompetitionList:v13 archivedCompetitionList:v20 contact:v8 activity:0 cloudKitGroup:v40 completion:v47];
 
-      v12 = v46;
+      v12 = v45;
     }
 
     else
@@ -494,18 +489,15 @@ void __74__ASCompetitionManager_sendCompetitionRequestToFriendWithUUID_completio
       (*(*(a1 + 56) + 16))();
     }
   }
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 void __74__ASCompetitionManager_sendCompetitionRequestToFriendWithUUID_completion___block_invoke_316(uint64_t a1, char a2, uint64_t a3)
 {
   if (a3 || (a2 & 1) == 0)
   {
-    v4 = *(a1 + 56);
-    v5 = *(*(a1 + 56) + 16);
+    v4 = *(*(a1 + 56) + 16);
 
-    v5();
+    v4();
   }
 
   else
@@ -538,8 +530,8 @@ void __74__ASCompetitionManager_sendCompetitionRequestToFriendWithUUID_completio
   v13 = objc_loadWeakRetained(&self->_friendListManager);
   [v13 updateFitnessAppBadgeCount];
 
-  v14 = ASCloudKitGroupUserActionExplicit();
-  v15 = objc_loadWeakRetained(&self->_cloudKitManager);
+  v15 = ASCloudKitGroupUserActionExplicit(v14);
+  v16 = objc_loadWeakRetained(&self->_cloudKitManager);
   v22[0] = MEMORY[0x277D85DD0];
   v22[1] = 3221225472;
   v22[2] = __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_completion___block_invoke;
@@ -548,17 +540,15 @@ void __74__ASCompetitionManager_sendCompetitionRequestToFriendWithUUID_completio
   v23 = v10;
   v24 = v12;
   v25 = dCopy;
-  v26 = v14;
+  v26 = v15;
   v27 = completionCopy;
   v28 = 11;
-  v16 = v14;
-  v17 = dCopy;
-  v18 = completionCopy;
-  v19 = v12;
-  v20 = v10;
-  [v15 fetchAllChangesWithPriority:2 activity:0 group:v16 completion:v22];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v17 = v15;
+  v18 = dCopy;
+  v19 = completionCopy;
+  v20 = v12;
+  v21 = v10;
+  [v16 fetchAllChangesWithPriority:2 activity:0 group:v17 completion:v22];
 }
 
 void __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_completion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -650,20 +640,20 @@ void __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_compl
 
 void __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_completion___block_invoke_319(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_completion___block_invoke_2_320;
-  v43[3] = &unk_278C4D0C0;
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_completion___block_invoke_2_320;
+  v42[3] = &unk_278C4D0C0;
   v9 = *(a1 + 40);
-  v43[4] = *(a1 + 32);
-  v44 = v9;
-  v45 = *(a1 + 48);
-  v46 = *(a1 + 72);
-  v47 = *(a1 + 80);
-  v10 = MEMORY[0x23EF0EB00](v43);
+  v42[4] = *(a1 + 32);
+  v43 = v9;
+  v44 = *(a1 + 48);
+  v45 = *(a1 + 72);
+  v46 = *(a1 + 80);
+  v10 = MEMORY[0x23EF0EB00](v42);
   ASLoggingInitialize();
   v11 = MEMORY[0x277CE8FD8];
   v12 = *MEMORY[0x277CE8FD8];
@@ -685,7 +675,7 @@ void __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_compl
       _os_log_impl(&dword_23E5E3000, v12, OS_LOG_TYPE_DEFAULT, "CompetitionManager checking friend eligibility", buf, 2u);
     }
 
-    v42 = 0;
+    v41 = 0;
     v13 = ASValidateEligibilityForAcceptingCompetitionRequest();
     v14 = 0;
     if (v13)
@@ -697,17 +687,17 @@ void __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_compl
         v16 = v15;
         v17 = [v8 displayName];
         *buf = 138412290;
-        v50 = v17;
+        v49 = v17;
         _os_log_impl(&dword_23E5E3000, v16, OS_LOG_TYPE_DEFAULT, "CompetitionManager found friend with incoming request: %@", buf, 0xCu);
       }
 
       v18 = [*(*(a1 + 32) + 80) currentRemoteCompetitionForContact:v8];
       if (v18)
       {
-        v35 = v14;
+        v34 = v14;
         v19 = [*(*(a1 + 32) + 80) currentCompetitionListForFriendWithUUID:*(a1 + 56)];
-        v36 = [v19 currentCompetition];
-        v20 = [v36 UUID];
+        v35 = [v19 currentCompetition];
+        v20 = [v35 UUID];
         v21 = [v18 UUID];
         v22 = [v20 isEqual:v21];
 
@@ -720,7 +710,7 @@ void __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_compl
           }
 
           v23 = [v18 UUID];
-          [v36 setUUID:v23];
+          [v35 setUUID:v23];
         }
 
         ASLoggingInitialize();
@@ -736,28 +726,28 @@ void __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_compl
 
         v27 = [v18 startDateComponents];
         v28 = ASCompetitionCalculateStartDateComponentsForFriendWithProposedStartDate();
-        [v36 setStartDateComponents:v28];
+        [v35 setStartDateComponents:v28];
 
-        v48 = v36;
-        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v48 count:1];
+        v47 = v35;
+        v29 = [MEMORY[0x277CBEA60] arrayWithObjects:&v47 count:1];
         [v19 setCompetitions:v29];
 
         v30 = *(a1 + 32);
         v31 = *(a1 + 64);
-        v37[0] = MEMORY[0x277D85DD0];
-        v37[1] = 3221225472;
-        v37[2] = __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_completion___block_invoke_322;
-        v37[3] = &unk_278C4D0E8;
+        v36[0] = MEMORY[0x277D85DD0];
+        v36[1] = 3221225472;
+        v36[2] = __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_completion___block_invoke_322;
+        v36[3] = &unk_278C4D0E8;
         v32 = v10;
         v33 = *(a1 + 32);
-        v40 = v32;
-        v37[4] = v33;
-        v41 = *(a1 + 88);
-        v38 = *(a1 + 56);
-        v39 = *(a1 + 64);
-        [v30 _saveCurrentCompetitionList:v19 archivedCompetitionList:0 contact:v8 activity:0 cloudKitGroup:v31 completion:v37];
+        v39 = v32;
+        v36[4] = v33;
+        v40 = *(a1 + 88);
+        v37 = *(a1 + 56);
+        v38 = *(a1 + 64);
+        [v30 _saveCurrentCompetitionList:v19 archivedCompetitionList:0 contact:v8 activity:0 cloudKitGroup:v31 completion:v36];
 
-        v14 = v35;
+        v14 = v34;
       }
 
       else
@@ -778,8 +768,6 @@ void __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_compl
       (v10)[2](v10, 0, v14);
     }
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 void __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_completion___block_invoke_2_320(void *a1, uint64_t a2, void *a3)
@@ -803,10 +791,9 @@ void __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_compl
 {
   if (a3 || (a2 & 1) == 0)
   {
-    v8 = *(a1 + 56);
-    v9 = *(*(a1 + 56) + 16);
+    v8 = *(*(a1 + 56) + 16);
 
-    v9();
+    v8();
   }
 
   else
@@ -815,13 +802,13 @@ void __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_compl
     v5 = *(a1 + 64);
     v6 = *(a1 + 40);
     v7 = *(a1 + 48);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_completion___block_invoke_2_323;
-    v10[3] = &unk_278C4BA08;
-    v10[4] = *(a1 + 32);
-    v11 = *(a1 + 56);
-    [WeakRetained updateRelationshipWithCompetitionEvent:v5 friendUUID:v6 activity:0 cloudKitGroup:v7 completion:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_completion___block_invoke_2_323;
+    v9[3] = &unk_278C4BA08;
+    v9[4] = *(a1 + 32);
+    v10 = *(a1 + 56);
+    [WeakRetained updateRelationshipWithCompetitionEvent:v5 friendUUID:v6 activity:0 cloudKitGroup:v7 completion:v9];
   }
 }
 
@@ -855,25 +842,23 @@ void __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_compl
   v11 = objc_loadWeakRetained(&self->_friendListManager);
   [v11 updateFitnessAppBadgeCount];
 
-  v12 = ASCloudKitGroupUserActionExplicit();
-  v13 = objc_loadWeakRetained(&self->_cloudKitManager);
+  v13 = ASCloudKitGroupUserActionExplicit(v12);
+  v14 = objc_loadWeakRetained(&self->_cloudKitManager);
   v19[0] = MEMORY[0x277D85DD0];
   v19[1] = 3221225472;
   v19[2] = __78__ASCompetitionManager_ignoreCompetitionRequestFromFriendWithUUID_completion___block_invoke;
   v19[3] = &unk_278C4D228;
   v19[4] = self;
   v20 = v10;
-  v22 = v12;
+  v22 = v13;
   v23 = completionCopy;
   v24 = 12;
   v21 = dCopy;
-  v14 = v12;
-  v15 = dCopy;
-  v16 = completionCopy;
-  v17 = v10;
-  [v13 fetchAllChangesWithPriority:2 activity:0 group:v14 completion:v19];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v15 = v13;
+  v16 = dCopy;
+  v17 = completionCopy;
+  v18 = v10;
+  [v14 fetchAllChangesWithPriority:2 activity:0 group:v15 completion:v19];
 }
 
 void __78__ASCompetitionManager_ignoreCompetitionRequestFromFriendWithUUID_completion___block_invoke(uint64_t a1, char a2, void *a3)
@@ -1013,7 +998,7 @@ void __83__ASCompetitionManager_activityDataManager_didUpdateTodaySummary_yester
   v1 = a1[4];
   v2 = a1[5];
   v3 = a1[6];
-  v4 = ASCloudKitGroupUserActionImplicit();
+  v4 = ASCloudKitGroupUserActionImplicit(a1);
   [v1 _queue_updateScoresWithTodaySummary:v2 yesterdaySummary:v3 activity:0 cloudKitGroup:v4];
 }
 
@@ -1030,7 +1015,7 @@ void __83__ASCompetitionManager_activityDataManager_didUpdateTodaySummary_yester
 
 void __72__ASCompetitionManager_cloudKitManager_didBeginUpdatesForFetchWithType___block_invoke(uint64_t a1)
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v2 = *MEMORY[0x277CE8FD8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
@@ -1072,26 +1057,26 @@ void __72__ASCompetitionManager_cloudKitManager_didBeginUpdatesForFetchWithType_
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 40));
   v22 = [WeakRetained contacts];
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   v23 = v22;
-  v24 = [v23 countByEnumeratingWithState:&v56 objects:v62 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v55 objects:v61 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v57;
+    v26 = *v56;
     do
     {
       for (i = 0; i != v25; ++i)
       {
-        if (*v57 != v26)
+        if (*v56 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = *(*(&v56 + 1) + 8 * i);
+        v28 = *(*(&v55 + 1) + 8 * i);
         v29 = [v28 primaryRelationship];
         v30 = [v28 primaryRemoteRelationship];
         if ([v30 isAwaitingCompetitionResponse])
@@ -1131,7 +1116,7 @@ void __72__ASCompetitionManager_cloudKitManager_didBeginUpdatesForFetchWithType_
         }
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v56 objects:v62 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v55 objects:v61 count:16];
     }
 
     while (v25);
@@ -1144,7 +1129,7 @@ void __72__ASCompetitionManager_cloudKitManager_didBeginUpdatesForFetchWithType_
   {
     v50 = *(*(a1 + 32) + 120);
     *buf = 138412290;
-    v61 = v50;
+    v60 = v50;
     _os_log_impl(&dword_23E5E3000, v49, OS_LOG_TYPE_DEFAULT, "CompetitionManager existing friends awaiting my response: %@", buf, 0xCu);
   }
 
@@ -1154,7 +1139,7 @@ void __72__ASCompetitionManager_cloudKitManager_didBeginUpdatesForFetchWithType_
   {
     v52 = *(*(a1 + 32) + 128);
     *buf = 138412290;
-    v61 = v52;
+    v60 = v52;
     _os_log_impl(&dword_23E5E3000, v51, OS_LOG_TYPE_DEFAULT, "CompetitionManager existing friends that accepted my request: %@", buf, 0xCu);
   }
 
@@ -1164,11 +1149,9 @@ void __72__ASCompetitionManager_cloudKitManager_didBeginUpdatesForFetchWithType_
   {
     v54 = *(*(a1 + 32) + 136);
     *buf = 138412290;
-    v61 = v54;
+    v60 = v54;
     _os_log_impl(&dword_23E5E3000, v53, OS_LOG_TYPE_DEFAULT, "CompetitionManager existing friends with completed competitions: %@", buf, 0xCu);
   }
-
-  v55 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cloudKitManager:(id)manager didReceiveNewCompetitionListsForSelf:(id)self moreComing:(BOOL)coming changesProcessedHandler:(id)handler
@@ -1198,32 +1181,32 @@ void __72__ASCompetitionManager_cloudKitManager_didBeginUpdatesForFetchWithType_
 
 void __112__ASCompetitionManager_cloudKitManager_didReceiveNewCompetitionListsForSelf_moreComing_changesProcessedHandler___block_invoke(uint64_t a1)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
+  v57 = 0u;
   v58 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v61 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v58 objects:v66 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v57 objects:v65 count:16];
   if (v3)
   {
     v5 = v3;
-    v6 = *v59;
+    v6 = *v58;
     v7 = MEMORY[0x277CE8FD8];
     *&v4 = 134218240;
-    v55 = v4;
-    v56 = v2;
+    v54 = v4;
+    v55 = v2;
     do
     {
       v8 = 0;
       do
       {
-        if (*v59 != v6)
+        if (*v58 != v6)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v58 + 1) + 8 * v8);
+        v9 = *(*(&v57 + 1) + 8 * v8);
         v10 = [v9 friendUUID];
 
         if (v10)
@@ -1277,7 +1260,7 @@ LABEL_17:
             v25 = [v9 friendUUID];
             v26 = [v24 currentCompetitionListForFriendWithUUID:v25];
 
-            v57 = v26;
+            v56 = v26;
             v27 = [v26 currentCompetition];
             v28 = [v9 currentCompetition];
             v29 = [v27 UUID];
@@ -1293,7 +1276,7 @@ LABEL_17:
               if (os_log_type_enabled(*v30, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v63 = v27;
+                v62 = v27;
                 _os_log_debug_impl(&dword_23E5E3000, v33, OS_LOG_TYPE_DEBUG, "CompetitionManager existingCurrentCompetition=%@", buf, 0xCu);
               }
 
@@ -1302,7 +1285,7 @@ LABEL_17:
               if (os_log_type_enabled(*v30, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v63 = v28;
+                v62 = v28;
                 _os_log_debug_impl(&dword_23E5E3000, v34, OS_LOG_TYPE_DEBUG, "CompetitionManager updatedCurrentCompetition=%@", buf, 0xCu);
               }
 
@@ -1316,10 +1299,10 @@ LABEL_17:
                   v37 = v36;
                   v38 = [v27 myTotalScore];
                   v39 = [v28 myTotalScore];
-                  *buf = v55;
-                  v63 = v38;
-                  v64 = 2048;
-                  v65 = v39;
+                  *buf = v54;
+                  v62 = v38;
+                  v63 = 2048;
+                  v64 = v39;
                   _os_log_impl(&dword_23E5E3000, v37, OS_LOG_TYPE_DEFAULT, "CompetitionManager local view of competition has a higher score, keeping the current local value (%lu vs %lu)", buf, 0x16u);
                 }
 
@@ -1337,10 +1320,10 @@ LABEL_17:
                   v43 = v42;
                   v44 = [v27 opponentTotalScore];
                   v45 = [v28 opponentTotalScore];
-                  *buf = v55;
-                  v63 = v44;
-                  v64 = 2048;
-                  v65 = v45;
+                  *buf = v54;
+                  v62 = v44;
+                  v63 = 2048;
+                  v64 = v45;
                   _os_log_impl(&dword_23E5E3000, v43, OS_LOG_TYPE_DEFAULT, "CompetitionManager local view of competition has a higher opponent score, keeping the current local value (%lu vs %lu)", buf, 0x16u);
                 }
 
@@ -1349,7 +1332,7 @@ LABEL_17:
               }
             }
 
-            v2 = v56;
+            v2 = v55;
           }
         }
 
@@ -1360,7 +1343,7 @@ LABEL_17:
           if (os_log_type_enabled(*v7, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v63 = v9;
+            v62 = v9;
             _os_log_error_impl(&dword_23E5E3000, v15, OS_LOG_TYPE_ERROR, "CompetitionManager found competition list missing a friendUUID: %@", buf, 0xCu);
           }
         }
@@ -1370,7 +1353,7 @@ LABEL_18:
       }
 
       while (v5 != v8);
-      v47 = [v2 countByEnumeratingWithState:&v58 objects:v66 count:16];
+      v47 = [v2 countByEnumeratingWithState:&v57 objects:v65 count:16];
       v5 = v47;
     }
 
@@ -1387,8 +1370,6 @@ LABEL_18:
 
   [*(*(a1 + 40) + 80) saveCompetitionLists:v53];
   (*(*(a1 + 48) + 16))();
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cloudKitManager:(id)manager didReceiveNewCompetitionLists:(id)lists moreComing:(BOOL)coming changesProcessedHandler:(id)handler
@@ -1419,34 +1400,34 @@ LABEL_18:
 
 uint64_t __105__ASCompetitionManager_cloudKitManager_didReceiveNewCompetitionLists_moreComing_changesProcessedHandler___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v25 objects:v31 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v24 objects:v30 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v26;
+    v5 = *v25;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v26 != v5)
+        if (*v25 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v25 + 1) + 8 * i);
+        v7 = *(*(&v24 + 1) + 8 * i);
         WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 40));
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __105__ASCompetitionManager_cloudKitManager_didReceiveNewCompetitionLists_moreComing_changesProcessedHandler___block_invoke_2;
-        v24[3] = &unk_278C4B6B8;
-        v24[4] = v7;
-        v9 = [WeakRetained contactMatchingCriteriaBlock:v24];
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __105__ASCompetitionManager_cloudKitManager_didReceiveNewCompetitionLists_moreComing_changesProcessedHandler___block_invoke_2;
+        v23[3] = &unk_278C4B6B8;
+        v23[4] = v7;
+        v9 = [WeakRetained contactMatchingCriteriaBlock:v23];
 
         if (v9)
         {
@@ -1480,13 +1461,13 @@ uint64_t __105__ASCompetitionManager_cloudKitManager_didReceiveNewCompetitionLis
           if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_ERROR))
           {
             *buf = 138412290;
-            v30 = v7;
+            v29 = v7;
             _os_log_error_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_ERROR, "CompetitionManager couldn't find a matching friend for this remote competition list: %@", buf, 0xCu);
           }
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v25 objects:v31 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v24 objects:v30 count:16];
     }
 
     while (v4);
@@ -1504,9 +1485,7 @@ uint64_t __105__ASCompetitionManager_cloudKitManager_didReceiveNewCompetitionLis
     *(v20 + 144) = v19;
   }
 
-  result = (*(*(a1 + 48) + 16))();
-  v23 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 uint64_t __105__ASCompetitionManager_cloudKitManager_didReceiveNewCompetitionLists_moreComing_changesProcessedHandler___block_invoke_2(uint64_t a1, void *a2)
@@ -1565,7 +1544,7 @@ uint64_t __105__ASCompetitionManager_cloudKitManager_didReceiveNewCompetitionLis
 
 void __117__ASCompetitionManager_cloudKitManager_didEndUpdatesForFetchWithType_activity_cloudKitGroup_changesProcessedHandler___block_invoke(uint64_t a1)
 {
-  v91 = *MEMORY[0x277D85DE8];
+  v90 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v2 = *MEMORY[0x277CE8FD8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
@@ -1577,35 +1556,35 @@ void __117__ASCompetitionManager_cloudKitManager_didEndUpdatesForFetchWithType_a
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 40));
   v4 = [WeakRetained contacts];
 
-  v80 = 0u;
-  v81 = 0u;
-  v78 = 0u;
   v79 = 0u;
+  v80 = 0u;
+  v77 = 0u;
+  v78 = 0u;
   obj = v4;
-  v74 = [obj countByEnumeratingWithState:&v78 objects:v90 count:16];
-  if (!v74)
+  v73 = [obj countByEnumeratingWithState:&v77 objects:v89 count:16];
+  if (!v73)
   {
-    v71 = 0;
     v70 = 0;
+    v69 = 0;
     goto LABEL_60;
   }
 
-  v71 = 0;
   v70 = 0;
-  v6 = *v79;
+  v69 = 0;
+  v6 = *v78;
   *&v5 = 138412290;
-  v69 = v5;
-  v72 = *v79;
+  v68 = v5;
+  v71 = *v78;
   do
   {
-    for (i = 0; i != v74; ++i)
+    for (i = 0; i != v73; ++i)
     {
-      if (*v79 != v6)
+      if (*v78 != v6)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v78 + 1) + 8 * i);
+      v8 = *(*(&v77 + 1) + 8 * i);
       v9 = [v8 primaryRelationship];
       v10 = [v8 primaryRemoteRelationship];
       if ([v10 isAwaitingCompetitionResponse])
@@ -1636,13 +1615,13 @@ void __117__ASCompetitionManager_cloudKitManager_didEndUpdatesForFetchWithType_a
             v19 = v18;
             v20 = [v8 displayName];
             *buf = 138413058;
-            v83 = v20;
-            v84 = 1024;
-            v85 = v13;
-            v86 = 1024;
-            v87 = v14;
-            v88 = 1024;
-            v89 = v17 & 1;
+            v82 = v20;
+            v83 = 1024;
+            v84 = v13;
+            v85 = 1024;
+            v86 = v14;
+            v87 = 1024;
+            v88 = v17 & 1;
             _os_log_impl(&dword_23E5E3000, v19, OS_LOG_TYPE_DEFAULT, "CompetitionManager [%@] is awaiting response from me, alreadyProcessed=%d alreadyIgnored=%d alreadyNotified=%d", buf, 0x1Eu);
           }
 
@@ -1650,10 +1629,10 @@ void __117__ASCompetitionManager_cloudKitManager_didEndUpdatesForFetchWithType_a
           {
             ASLoggingInitialize();
             v21 = *MEMORY[0x277CE8FD8];
-            v6 = v72;
+            v6 = v71;
             if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_ERROR))
             {
-              __117__ASCompetitionManager_cloudKitManager_didEndUpdatesForFetchWithType_activity_cloudKitGroup_changesProcessedHandler___block_invoke_cold_1(&v76, v77, v21);
+              __117__ASCompetitionManager_cloudKitManager_didEndUpdatesForFetchWithType_activity_cloudKitGroup_changesProcessedHandler___block_invoke_cold_1(&v75, v76, v21);
             }
 
             v22 = objc_loadWeakRetained((*(a1 + 32) + 32));
@@ -1661,7 +1640,7 @@ void __117__ASCompetitionManager_cloudKitManager_didEndUpdatesForFetchWithType_a
             goto LABEL_24;
           }
 
-          v6 = v72;
+          v6 = v71;
           if (((v13 | v14) & 1) == 0)
           {
             v23 = *(*(a1 + 32) + 120);
@@ -1677,7 +1656,7 @@ LABEL_23:
             v30 = *(a1 + 32);
             v22 = [v8 UUID];
             [v30 _handleCompetitionRequestFromFriendWithUUID:v22 activity:*(a1 + 40) cloudKitGroup:*(a1 + 48)];
-            v70 = 1;
+            v69 = 1;
 LABEL_24:
 
             goto LABEL_25;
@@ -1688,7 +1667,7 @@ LABEL_24:
             goto LABEL_23;
           }
 
-          v70 = 1;
+          v69 = 1;
         }
       }
 
@@ -1715,12 +1694,12 @@ LABEL_25:
           v36 = v35;
           v37 = [v8 displayName];
           *buf = 138412802;
-          v83 = v37;
-          v84 = 1024;
-          v85 = v31 ^ 1;
-          v6 = v72;
-          v86 = 1024;
-          v87 = v34 & 1;
+          v82 = v37;
+          v83 = 1024;
+          v84 = v31 ^ 1;
+          v6 = v71;
+          v85 = 1024;
+          v86 = v34 & 1;
           _os_log_impl(&dword_23E5E3000, v36, OS_LOG_TYPE_DEFAULT, "CompetitionManager [%@] accepted my request, alreadyProcessed=%d alreadyNotified=%d", buf, 0x18u);
         }
 
@@ -1735,7 +1714,7 @@ LABEL_25:
           v44 = *(v43 + 128);
           *(v43 + 128) = v42;
 
-          v6 = v72;
+          v6 = v71;
           goto LABEL_35;
         }
 
@@ -1747,7 +1726,7 @@ LABEL_35:
           [v45 _handleAcceptedCompetitionFromFriendWithUUID:v46 activity:*(a1 + 40) cloudKitGroup:*(a1 + 48)];
         }
 
-        BYTE4(v71) = (v31 | v34) ^ 1;
+        BYTE4(v70) = (v31 | v34) ^ 1;
       }
 
       if ([v9 hasIncomingCompetitionRequest] && objc_msgSend(v10, "isCompetitionActive") && (objc_msgSend(v9, "isAwaitingCompetitionResponse") & 1) == 0)
@@ -1758,12 +1737,12 @@ LABEL_35:
         {
           v48 = v47;
           v49 = [v8 displayName];
-          *buf = v69;
-          v83 = v49;
+          *buf = v68;
+          v82 = v49;
           _os_log_impl(&dword_23E5E3000, v48, OS_LOG_TYPE_DEFAULT, "CompetitionManager accepted [%@] request, requesting template update", buf, 0xCu);
         }
 
-        BYTE4(v71) = 1;
+        BYTE4(v70) = 1;
       }
 
       if ([v9 hasCompletedCompetition] && objc_msgSend(v10, "hasCompletedCompetition"))
@@ -1787,9 +1766,9 @@ LABEL_35:
           v54 = v53;
           v55 = [v8 displayName];
           *buf = 138412546;
-          v83 = v55;
-          v84 = 1024;
-          v85 = v52 & 1;
+          v82 = v55;
+          v83 = 1024;
+          v84 = v52 & 1;
           _os_log_impl(&dword_23E5E3000, v54, OS_LOG_TYPE_DEFAULT, "CompetitionManager [%@] competition complete, alreadyNotified=%d", buf, 0x12u);
         }
 
@@ -1806,7 +1785,7 @@ LABEL_35:
           dispatch_async(v57, block);
         }
 
-        LOBYTE(v71) = 1;
+        LOBYTE(v70) = 1;
       }
 
       if (([v9 isCompetitionActive] & 1) != 0 || ASIgnoredMostRecentCompetitionRequestFromContact())
@@ -1821,10 +1800,10 @@ LABEL_35:
       [v60 _queue_completeCompetitionIfNecessaryForFriendWithUUID:v61 activity:*(a1 + 40) cloudKitGroup:*(a1 + 48)];
     }
 
-    v74 = [obj countByEnumeratingWithState:&v78 objects:v90 count:16];
+    v73 = [obj countByEnumeratingWithState:&v77 objects:v89 count:16];
   }
 
-  while (v74);
+  while (v73);
 LABEL_60:
 
   [*(a1 + 32) _queue_cleanUpLegacyCompetitionLists:*(*(a1 + 32) + 168) activity:*(a1 + 40) cloudKitGroup:*(a1 + 48)];
@@ -1833,19 +1812,19 @@ LABEL_60:
   v63 = [v62[18] copy];
   [v62 _queue_notifyObserversOfCompetitionUpdatesForFriendsWithUUIDs:v63];
 
-  if (v70)
+  if (v69)
   {
     v64 = objc_loadWeakRetained((*(a1 + 32) + 48));
     [v64 updateFitnessAppBadgeCount];
   }
 
-  if ((v71 & 0x100000000) != 0)
+  if ((v70 & 0x100000000) != 0)
   {
     v65 = objc_loadWeakRetained((*(a1 + 32) + 8));
     [v65 requestTemplateUpdate];
   }
 
-  if (v71)
+  if (v70)
   {
     v66 = objc_loadWeakRetained((*(a1 + 32) + 8));
     [v66 requestEarnedInstanceUpdate];
@@ -1855,7 +1834,6 @@ LABEL_60:
   [v67 removeAllUnusedTemplates];
 
   (*(*(a1 + 56) + 16))();
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 void __117__ASCompetitionManager_cloudKitManager_didEndUpdatesForFetchWithType_activity_cloudKitGroup_changesProcessedHandler___block_invoke_327(uint64_t a1)
@@ -1940,22 +1918,22 @@ id __37__ASCompetitionManager_recordsToSave__block_invoke_2(uint64_t a1, void *a
 
 void __70__ASCompetitionManager_periodicUpdateManager_didSaveRecords_activity___block_invoke(uint64_t a1)
 {
-  v2 = ASCloudKitGroupCoreDuetTriggered();
+  v2 = ASCloudKitGroupCoreDuetTriggered(a1);
   [*(a1 + 32) _queue_handleSavedRecords:*(a1 + 40) activity:*(a1 + 48) group:v2];
 }
 
 - (void)database:(id)database protectedDataDidBecomeAvailable:(BOOL)available
 {
   availableCopy = available;
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v6 = MEMORY[0x277CE8FD8];
   v7 = *MEMORY[0x277CE8FD8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 67109120;
-    LODWORD(v14) = availableCopy;
-    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "CompetitionManager observed protected data availability: %{BOOL}d", &v13, 8u);
+    v12 = 67109120;
+    LODWORD(v13) = availableCopy;
+    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "CompetitionManager observed protected data availability: %{BOOL}d", &v12, 8u);
   }
 
   _scoreCapCelebrationAnchor = [(ASCompetitionManager *)self _scoreCapCelebrationAnchor];
@@ -1967,13 +1945,12 @@ void __70__ASCompetitionManager_periodicUpdateManager_didSaveRecords_activity___
   if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
   {
     v11 = self->_scoreCapCelebrationAnchor;
-    v13 = 138412290;
-    v14 = v11;
-    _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "CompetitionManager found protected data available, setting current score cap celebration anchor to %@", &v13, 0xCu);
+    v12 = 138412290;
+    v13 = v11;
+    _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "CompetitionManager found protected data available, setting current score cap celebration anchor to %@", &v12, 0xCu);
   }
 
   [(ASCompetitionManager *)self _loadCachedCompetitionsAndNotifyObservers];
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCompetitionRequestFromFriendWithUUID:(id)d activity:(id)activity cloudKitGroup:(id)group
@@ -2009,7 +1986,7 @@ void __70__ASCompetitionManager_periodicUpdateManager_didSaveRecords_activity___
 
 void __91__ASCompetitionManager__handleCompetitionRequestFromFriendWithUUID_activity_cloudKitGroup___block_invoke(uint64_t a1, void *a2)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 40));
   v5 = [WeakRetained contactWithUUID:*(a1 + 40)];
@@ -2023,9 +2000,9 @@ void __91__ASCompetitionManager__handleCompetitionRequestFromFriendWithUUID_acti
     v9 = v7;
     v10 = [v5 displayName];
     *buf = 138543618;
-    v59 = v8;
-    v60 = 2112;
-    v61 = v10;
+    v58 = v8;
+    v59 = 2112;
+    v60 = v10;
     _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "CompetitionManager handling competition request from friend: %{public}@ - %@", buf, 0x16u);
   }
 
@@ -2082,18 +2059,18 @@ LABEL_13:
     v24 = v23;
     if (v23)
     {
-      v49 = v23;
+      v48 = v23;
       v25 = [v5 primaryRelationship];
       v26 = [v25 hasCompletedCompetition];
 
       if (v26)
       {
-        v48 = [*(a1 + 32) _archivedCompetitionListByMergingCurrentCompetitionList:v15];
+        v47 = [*(a1 + 32) _archivedCompetitionListByMergingCurrentCompetitionList:v15];
       }
 
       else
       {
-        v48 = 0;
+        v47 = 0;
       }
 
       ASLoggingInitialize();
@@ -2101,7 +2078,7 @@ LABEL_13:
       if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v59 = v49;
+        v58 = v48;
         _os_log_impl(&dword_23E5E3000, v28, OS_LOG_TYPE_DEFAULT, "CompetitionManager found remote competition: %@", buf, 0xCu);
       }
 
@@ -2113,31 +2090,31 @@ LABEL_13:
         _os_log_impl(&dword_23E5E3000, v29, OS_LOG_TYPE_DEFAULT, "CompetitionManager building local view of competition", buf, 2u);
       }
 
-      v30 = [*(a1 + 32) _localCompetitionForRemoteCompetition:v49 friendUUID:*(a1 + 40)];
-      v57 = v30;
-      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+      v30 = [*(a1 + 32) _localCompetitionForRemoteCompetition:v48 friendUUID:*(a1 + 40)];
+      v56 = v30;
+      v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v56 count:1];
       [v15 setCompetitions:v31];
 
       v32 = *(a1 + 32);
       v33 = *(a1 + 48);
-      v47 = *(a1 + 56);
-      v50[0] = MEMORY[0x277D85DD0];
-      v50[1] = 3221225472;
-      v50[2] = __91__ASCompetitionManager__handleCompetitionRequestFromFriendWithUUID_activity_cloudKitGroup___block_invoke_330;
-      v50[3] = &unk_278C4D2C8;
-      v54 = v3;
-      v46 = *(a1 + 32);
-      v34 = *(&v46 + 1);
+      v46 = *(a1 + 56);
+      v49[0] = MEMORY[0x277D85DD0];
+      v49[1] = 3221225472;
+      v49[2] = __91__ASCompetitionManager__handleCompetitionRequestFromFriendWithUUID_activity_cloudKitGroup___block_invoke_330;
+      v49[3] = &unk_278C4D2C8;
+      v53 = v3;
+      v45 = *(a1 + 32);
+      v34 = *(&v45 + 1);
       v35 = *(a1 + 48);
       v36 = *(a1 + 56);
       *&v37 = v35;
-      v24 = v49;
+      v24 = v48;
       *(&v37 + 1) = v36;
-      v51 = v46;
-      v52 = v37;
-      v53 = v30;
+      v50 = v45;
+      v51 = v37;
+      v52 = v30;
       v38 = v30;
-      [v32 _saveCurrentCompetitionList:v15 archivedCompetitionList:v48 contact:v5 activity:v33 cloudKitGroup:v47 completion:v50];
+      [v32 _saveCurrentCompetitionList:v15 archivedCompetitionList:v47 contact:v5 activity:v33 cloudKitGroup:v46 completion:v49];
     }
 
     else
@@ -2181,28 +2158,25 @@ LABEL_13:
     v42 = *(a1 + 32);
     v44 = *(a1 + 48);
     v43 = *(a1 + 56);
-    v55[0] = MEMORY[0x277D85DD0];
-    v55[1] = 3221225472;
-    v55[2] = __91__ASCompetitionManager__handleCompetitionRequestFromFriendWithUUID_activity_cloudKitGroup___block_invoke_329;
-    v55[3] = &unk_278C4C178;
-    v56 = v3;
-    [v42 _queue_autoAcceptCompetitionRequestFromContact:v5 activity:v44 cloudKitGroup:v43 completion:v55];
-    v15 = v56;
+    v54[0] = MEMORY[0x277D85DD0];
+    v54[1] = 3221225472;
+    v54[2] = __91__ASCompetitionManager__handleCompetitionRequestFromFriendWithUUID_activity_cloudKitGroup___block_invoke_329;
+    v54[3] = &unk_278C4C178;
+    v55 = v3;
+    [v42 _queue_autoAcceptCompetitionRequestFromContact:v5 activity:v44 cloudKitGroup:v43 completion:v54];
+    v15 = v55;
   }
 
 LABEL_37:
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __91__ASCompetitionManager__handleCompetitionRequestFromFriendWithUUID_activity_cloudKitGroup___block_invoke_330(uint64_t a1, char a2, uint64_t a3)
 {
   if (a3 || (a2 & 1) == 0)
   {
-    v11 = *(a1 + 72);
-    v12 = *(*(a1 + 72) + 16);
+    v11 = *(*(a1 + 72) + 16);
 
-    v12();
+    v11();
   }
 
   else
@@ -2211,18 +2185,18 @@ void __91__ASCompetitionManager__handleCompetitionRequestFromFriendWithUUID_acti
     v5 = *(a1 + 40);
     v6 = *(a1 + 48);
     v7 = *(a1 + 56);
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __91__ASCompetitionManager__handleCompetitionRequestFromFriendWithUUID_activity_cloudKitGroup___block_invoke_2;
-    v14[3] = &unk_278C4D2A0;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __91__ASCompetitionManager__handleCompetitionRequestFromFriendWithUUID_activity_cloudKitGroup___block_invoke_2;
+    v13[3] = &unk_278C4D2A0;
     v8 = *(a1 + 72);
-    v13 = *(a1 + 32);
-    v9 = *(&v13 + 1);
+    v12 = *(a1 + 32);
+    v9 = *(&v12 + 1);
     *&v10 = *(a1 + 64);
     *(&v10 + 1) = v8;
-    v15 = v13;
-    v16 = v10;
-    [WeakRetained updateRelationshipWithCompetitionEvent:105 friendUUID:v5 activity:v6 cloudKitGroup:v7 completion:v14];
+    v14 = v12;
+    v15 = v10;
+    [WeakRetained updateRelationshipWithCompetitionEvent:105 friendUUID:v5 activity:v6 cloudKitGroup:v7 completion:v13];
   }
 }
 
@@ -2286,7 +2260,7 @@ void __91__ASCompetitionManager__handleCompetitionRequestFromFriendWithUUID_acti
 
 void __92__ASCompetitionManager__handleAcceptedCompetitionFromFriendWithUUID_activity_cloudKitGroup___block_invoke(id *a1, void *a2)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained(a1[4] + 5);
   v5 = [WeakRetained contactWithUUID:a1[5]];
@@ -2300,9 +2274,9 @@ void __92__ASCompetitionManager__handleAcceptedCompetitionFromFriendWithUUID_act
     v9 = v7;
     v10 = [v5 displayName];
     *buf = 138543618;
-    v39 = v8;
-    v40 = 2112;
-    v41 = v10;
+    v38 = v8;
+    v39 = 2112;
+    v40 = v10;
     _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "CompetitionManager handling accepted competition from friend: %{public}@ - %@", buf, 0x16u);
   }
 
@@ -2338,7 +2312,7 @@ void __92__ASCompetitionManager__handleAcceptedCompetitionFromFriendWithUUID_act
         if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v39 = v16;
+          v38 = v16;
           _os_log_impl(&dword_23E5E3000, v17, OS_LOG_TYPE_DEFAULT, "CompetitionManager found remote competition: %@", buf, 0xCu);
         }
 
@@ -2360,27 +2334,27 @@ void __92__ASCompetitionManager__handleAcceptedCompetitionFromFriendWithUUID_act
         [v12 setPreferredVictoryBadgeStyles:v22];
 
         [v12 setMaximumNumberOfPointsPerDay:{objc_msgSend(v16, "maximumNumberOfPointsPerDay")}];
-        v37 = v12;
-        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+        v36 = v12;
+        v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
         [v11 setCompetitions:v23];
 
         v24 = a1[4];
         v25 = a1[6];
         v26 = a1[7];
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __92__ASCompetitionManager__handleAcceptedCompetitionFromFriendWithUUID_activity_cloudKitGroup___block_invoke_332;
-        v30[3] = &unk_278C4D318;
+        v29[0] = MEMORY[0x277D85DD0];
+        v29[1] = 3221225472;
+        v29[2] = __92__ASCompetitionManager__handleAcceptedCompetitionFromFriendWithUUID_activity_cloudKitGroup___block_invoke_332;
+        v29[3] = &unk_278C4D318;
         v27 = v3;
         v28 = a1[4];
-        v36 = v27;
-        v30[4] = v28;
-        v31 = v5;
-        v32 = a1[6];
-        v33 = a1[7];
-        v34 = a1[5];
-        v35 = v12;
-        [v24 _saveCurrentCompetitionList:v11 archivedCompetitionList:0 contact:v31 activity:v25 cloudKitGroup:v26 completion:v30];
+        v35 = v27;
+        v29[4] = v28;
+        v30 = v5;
+        v31 = a1[6];
+        v32 = a1[7];
+        v33 = a1[5];
+        v34 = v12;
+        [v24 _saveCurrentCompetitionList:v11 archivedCompetitionList:0 contact:v30 activity:v25 cloudKitGroup:v26 completion:v29];
       }
 
       else
@@ -2405,18 +2379,15 @@ void __92__ASCompetitionManager__handleAcceptedCompetitionFromFriendWithUUID_act
 
     v3[2](v3);
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __92__ASCompetitionManager__handleAcceptedCompetitionFromFriendWithUUID_activity_cloudKitGroup___block_invoke_332(uint64_t a1, char a2, uint64_t a3)
 {
   if (a3 || (a2 & 1) == 0)
   {
-    v10 = *(a1 + 80);
-    v11 = *(*(a1 + 80) + 16);
+    v10 = *(*(a1 + 80) + 16);
 
-    v11();
+    v10();
   }
 
   else
@@ -2425,17 +2396,17 @@ void __92__ASCompetitionManager__handleAcceptedCompetitionFromFriendWithUUID_act
     v5 = [*(a1 + 40) UUID];
     v6 = *(a1 + 48);
     v7 = *(a1 + 56);
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __92__ASCompetitionManager__handleAcceptedCompetitionFromFriendWithUUID_activity_cloudKitGroup___block_invoke_2;
-    v12[3] = &unk_278C4D2A0;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __92__ASCompetitionManager__handleAcceptedCompetitionFromFriendWithUUID_activity_cloudKitGroup___block_invoke_2;
+    v11[3] = &unk_278C4D2A0;
     v8 = *(a1 + 80);
     v9 = *(a1 + 32);
-    v15 = v8;
-    v12[4] = v9;
-    v13 = *(a1 + 64);
-    v14 = *(a1 + 72);
-    [WeakRetained updateRelationshipWithCompetitionEvent:106 friendUUID:v5 activity:v6 cloudKitGroup:v7 completion:v12];
+    v14 = v8;
+    v11[4] = v9;
+    v12 = *(a1 + 64);
+    v13 = *(a1 + 72);
+    [WeakRetained updateRelationshipWithCompetitionEvent:106 friendUUID:v5 activity:v6 cloudKitGroup:v7 completion:v11];
   }
 }
 
@@ -2471,21 +2442,21 @@ void __92__ASCompetitionManager__handleAcceptedCompetitionFromFriendWithUUID_act
 
 - (void)_saveCurrentCompetitionList:(id)list archivedCompetitionList:(id)competitionList contact:(id)contact activity:(id)activity cloudKitGroup:(id)group completion:(id)completion
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   listCopy = list;
   competitionListCopy = competitionList;
   contactCopy = contact;
   activityCopy = activity;
   groupCopy = group;
   completionCopy = completion;
-  v25 = MEMORY[0x277D85DD0];
-  v26 = 3221225472;
-  v27 = __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompetitionList_contact_activity_cloudKitGroup_completion___block_invoke;
-  v28 = &unk_278C4D340;
+  v24 = MEMORY[0x277D85DD0];
+  v25 = 3221225472;
+  v26 = __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompetitionList_contact_activity_cloudKitGroup_completion___block_invoke;
+  v27 = &unk_278C4D340;
   selfCopy = self;
   v20 = completionCopy;
-  v30 = v20;
-  v21 = MEMORY[0x23EF0EB00](&v25);
+  v29 = v20;
+  v21 = MEMORY[0x23EF0EB00](&v24);
   if ([contactCopy cloudType])
   {
     if (ASSecureCloudEnabled() && [contactCopy cloudType] == 1)
@@ -2500,7 +2471,7 @@ void __92__ASCompetitionManager__handleAcceptedCompetitionFromFriendWithUUID_act
       if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v32 = contactCopy;
+        v31 = contactCopy;
         _os_log_impl(&dword_23E5E3000, v22, OS_LOG_TYPE_DEFAULT, "Invalid cloud type to save competition list for contact %@", buf, 0xCu);
       }
 
@@ -2513,8 +2484,6 @@ void __92__ASCompetitionManager__handleAcceptedCompetitionFromFriendWithUUID_act
   {
     [(ASCompetitionManager *)self _saveLegacyCompetitionList:listCopy archivedCompetitionList:competitionListCopy contact:contactCopy activity:activityCopy cloudKitGroup:groupCopy completion:v21];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompetitionList_contact_activity_cloudKitGroup_completion___block_invoke(uint64_t a1, char a2, void *a3, void *a4)
@@ -2548,11 +2517,9 @@ uint64_t __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompeti
   result = *(a1 + 56);
   if (result)
   {
-    v3 = *(a1 + 64);
-    v4 = *(a1 + 32);
-    v5 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v5();
+    return v3();
   }
 
   return result;
@@ -2571,7 +2538,7 @@ uint64_t __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompeti
 
 - (void)_saveLegacyCompetitionList:(id)list archivedCompetitionList:(id)competitionList contact:(id)contact activity:(id)activity cloudKitGroup:(id)group completion:(id)completion
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   listCopy = list;
   competitionListCopy = competitionList;
   contactCopy = contact;
@@ -2584,9 +2551,9 @@ uint64_t __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompeti
   if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v39 = listCopy;
-    v40 = 2112;
-    v41 = competitionListCopy;
+    v38 = listCopy;
+    v39 = 2112;
+    v40 = competitionListCopy;
     _os_log_impl(&dword_23E5E3000, v21, OS_LOG_TYPE_DEFAULT, "CompetitionManager saving competition lists in CloudKit, current: %@ archived: %@", buf, 0x16u);
   }
 
@@ -2604,11 +2571,11 @@ uint64_t __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompeti
   }
 
   v24 = [(ASCompetitionManager *)self recordForCurrentCompetitionList:listCopy contact:contactCopy];
-  v37 = v24;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v37 count:1];
+  v36 = v24;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v36 count:1];
   if (competitionListCopy)
   {
-    v36 = groupCopy;
+    v35 = groupCopy;
     v26 = completionCopy;
     selfCopy = self;
     v28 = contactCopy;
@@ -2634,18 +2601,16 @@ uint64_t __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompeti
     contactCopy = v28;
     self = selfCopy;
     completionCopy = v26;
-    groupCopy = v36;
+    groupCopy = v35;
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_cloudKitManager);
   [WeakRetained saveRecordsIntoPrivateDatabase:v25 priority:2 activity:activityCopy group:groupCopy completion:completionCopy];
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_updateScoresWithTodaySummary:(id)summary yesterdaySummary:(id)yesterdaySummary activity:(id)activity cloudKitGroup:(id)group
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v107 = *MEMORY[0x277D85DE8];
   summaryCopy = summary;
   yesterdaySummaryCopy = yesterdaySummary;
   activityCopy = activity;
@@ -2661,38 +2626,38 @@ uint64_t __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompeti
     {
       v15 = v14;
       *buf = 134218240;
-      v105 = [_contactsWithActiveCompetitions count];
-      v106 = 2048;
+      v104 = [_contactsWithActiveCompetitions count];
+      v105 = 2048;
       _activitySummaryIndex = [summaryCopy _activitySummaryIndex];
       _os_log_impl(&dword_23E5E3000, v15, OS_LOG_TYPE_DEFAULT, "CompetitionManager updating scores for competitions with %lu friends, summaryIndex=%lld", buf, 0x16u);
     }
 
-    v88 = v13;
-    v101 = 0u;
-    v102 = 0u;
-    v99 = 0u;
+    v87 = v13;
     v100 = 0u;
+    v101 = 0u;
+    v98 = 0u;
+    v99 = 0u;
     obj = _contactsWithActiveCompetitions;
     selfCopy = self;
-    v91 = [obj countByEnumeratingWithState:&v99 objects:v103 count:16];
-    if (v91)
+    v90 = [obj countByEnumeratingWithState:&v98 objects:v102 count:16];
+    if (v90)
     {
-      v82 = v94;
-      v87 = MEMORY[0x277CBEBF8];
-      v90 = *v100;
+      v81 = v93;
+      v86 = MEMORY[0x277CBEBF8];
+      v89 = *v99;
       *&v16 = 138543618;
-      v81 = v16;
+      v80 = v16;
       v17 = MEMORY[0x277CE8FD8];
       do
       {
-        for (i = 0; i != v91; ++i)
+        for (i = 0; i != v90; ++i)
         {
-          if (*v100 != v90)
+          if (*v99 != v89)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v99 + 1) + 8 * i);
+          v19 = *(*(&v98 + 1) + 8 * i);
           competitionStore = self->_competitionStore;
           uUID = [v19 UUID];
           v22 = [(ASCompetitionStore *)competitionStore currentCompetitionListForFriendWithUUID:uUID];
@@ -2705,8 +2670,8 @@ uint64_t __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompeti
             v25 = v24;
             displayName = [v19 displayName];
             *buf = 138412546;
-            v105 = displayName;
-            v106 = 2112;
+            v104 = displayName;
+            v105 = 2112;
             _activitySummaryIndex = currentCompetition;
             _os_log_impl(&dword_23E5E3000, v25, OS_LOG_TYPE_DEFAULT, "Current competition for friend %@ is %@", buf, 0x16u);
           }
@@ -2722,8 +2687,8 @@ uint64_t __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompeti
                 v28 = v27;
                 uUID2 = [v19 UUID];
                 *buf = 138412546;
-                v105 = uUID2;
-                v106 = 2112;
+                v104 = uUID2;
+                v105 = 2112;
                 _activitySummaryIndex = currentCompetition;
                 _os_log_impl(&dword_23E5E3000, v28, OS_LOG_TYPE_DEFAULT, "CompetitionManager updating competition score for friend with UUID:%@ with current competition: %@", buf, 0x16u);
               }
@@ -2740,22 +2705,22 @@ uint64_t __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompeti
               {
                 v34 = v33;
                 [currentCompetition scores];
-                v85 = myTotalScore;
+                v84 = myTotalScore;
                 v35 = currentCacheIndex;
                 v36 = yesterdaySummaryCopy;
                 v38 = v37 = summaryCopy;
                 v39 = ASFormattedSequence();
                 myTotalScore2 = [currentCompetition myTotalScore];
                 *buf = 138412546;
-                v105 = v39;
-                v106 = 2048;
+                v104 = v39;
+                v105 = 2048;
                 _activitySummaryIndex = myTotalScore2;
                 _os_log_impl(&dword_23E5E3000, v34, OS_LOG_TYPE_DEFAULT, "CompetitionManager calculated new scores: %@(=%lu)", buf, 0x16u);
 
                 summaryCopy = v37;
                 yesterdaySummaryCopy = v36;
                 currentCacheIndex = v35;
-                myTotalScore = v85;
+                myTotalScore = v84;
 
                 v17 = MEMORY[0x277CE8FD8];
               }
@@ -2774,14 +2739,14 @@ uint64_t __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompeti
 
               else
               {
-                v46 = [v87 arrayByAddingObject:v22];
+                v46 = [v86 arrayByAddingObject:v22];
 
                 uUID3 = [v19 UUID];
-                v48 = [v88 setByAddingObject:uUID3];
+                v48 = [v87 setByAddingObject:uUID3];
 
-                v87 = v46;
+                v86 = v46;
                 v17 = MEMORY[0x277CE8FD8];
-                v88 = v48;
+                v87 = v48;
                 self = selfCopy;
               }
             }
@@ -2802,16 +2767,16 @@ uint64_t __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompeti
               }
 
               transactionQueue = self->_transactionQueue;
-              v93[0] = MEMORY[0x277D85DD0];
-              v93[1] = 3221225472;
-              v94[0] = __100__ASCompetitionManager__queue_updateScoresWithTodaySummary_yesterdaySummary_activity_cloudKitGroup___block_invoke;
-              v94[1] = &unk_278C4D390;
-              v94[2] = self;
-              v95 = v22;
-              v96 = v19;
-              v97 = activityCopy;
-              v98 = groupCopy;
-              [(ASAsyncTransactionQueue *)transactionQueue performTransaction:v93];
+              v92[0] = MEMORY[0x277D85DD0];
+              v92[1] = 3221225472;
+              v93[0] = __100__ASCompetitionManager__queue_updateScoresWithTodaySummary_yesterdaySummary_activity_cloudKitGroup___block_invoke;
+              v93[1] = &unk_278C4D390;
+              v93[2] = self;
+              v94 = v22;
+              v95 = v19;
+              v96 = activityCopy;
+              v97 = groupCopy;
+              [(ASAsyncTransactionQueue *)transactionQueue performTransaction:v92];
 
               v17 = MEMORY[0x277CE8FD8];
             }
@@ -2826,38 +2791,38 @@ uint64_t __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompeti
               v43 = v42;
               uUID4 = [v19 UUID];
               displayName2 = [v19 displayName];
-              *buf = v81;
-              v105 = uUID4;
-              v106 = 2112;
+              *buf = v80;
+              v104 = uUID4;
+              v105 = 2112;
               _activitySummaryIndex = displayName2;
               _os_log_error_impl(&dword_23E5E3000, v43, OS_LOG_TYPE_ERROR, "Competition is active with friend, but couldn't find a current competition: %{public}@ - %@", buf, 0x16u);
             }
           }
         }
 
-        v91 = [obj countByEnumeratingWithState:&v99 objects:v103 count:16];
+        v90 = [obj countByEnumeratingWithState:&v98 objects:v102 count:16];
       }
 
-      while (v91);
+      while (v90);
     }
 
     else
     {
-      v87 = MEMORY[0x277CBEBF8];
+      v86 = MEMORY[0x277CBEBF8];
     }
 
-    v52 = v87;
-    v53 = v88;
-    if ([v87 count])
+    v52 = v86;
+    v53 = v87;
+    if ([v86 count])
     {
       if (self->_deviceParticipatesInAutomaticCompetitionManagement)
       {
-        v92[0] = MEMORY[0x277D85DD0];
-        v92[1] = 3221225472;
-        v92[2] = __100__ASCompetitionManager__queue_updateScoresWithTodaySummary_yesterdaySummary_activity_cloudKitGroup___block_invoke_4;
-        v92[3] = &unk_278C4D3B8;
-        v92[4] = self;
-        v54 = [obj hk_map:v92];
+        v91[0] = MEMORY[0x277D85DD0];
+        v91[1] = 3221225472;
+        v91[2] = __100__ASCompetitionManager__queue_updateScoresWithTodaySummary_yesterdaySummary_activity_cloudKitGroup___block_invoke_4;
+        v91[3] = &unk_278C4D3B8;
+        v91[4] = self;
+        v54 = [obj hk_map:v91];
         v55 = [v54 hk_filter:&__block_literal_global_16];
         if ([v55 count])
         {
@@ -2878,8 +2843,8 @@ uint64_t __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompeti
             v66 = v65;
             uUID6 = [anyObject UUID];
             *buf = 138412546;
-            v105 = uUID6;
-            v106 = 2112;
+            v104 = uUID6;
+            v105 = 2112;
             _activitySummaryIndex = currentCompetition2;
             _os_log_impl(&dword_23E5E3000, v66, OS_LOG_TYPE_DEFAULT, "CompetitionManager is evaluating whether score cap has been hit with friend with UUID: %@, competition: %@", buf, 0x16u);
 
@@ -2892,7 +2857,7 @@ uint64_t __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompeti
           {
             scoreCapCelebrationAnchor = selfCopy->_scoreCapCelebrationAnchor;
             *buf = 138412290;
-            v105 = scoreCapCelebrationAnchor;
+            v104 = scoreCapCelebrationAnchor;
             _os_log_impl(&dword_23E5E3000, v68, OS_LOG_TYPE_DEFAULT, "CompetitionManager current score cap celebration anchor is %@", buf, 0xCu);
           }
 
@@ -2923,8 +2888,8 @@ uint64_t __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompeti
                 v75 = v74;
                 maximumNumberOfPointsPerDay2 = [currentCompetition2 maximumNumberOfPointsPerDay];
                 *buf = 134218240;
-                v105 = v71;
-                v106 = 2048;
+                v104 = v71;
+                v105 = 2048;
                 _activitySummaryIndex = maximumNumberOfPointsPerDay2;
                 _os_log_impl(&dword_23E5E3000, v75, OS_LOG_TYPE_DEFAULT, "CompetitionManager today score of %lu is greater than score cap of %lu, posting score cap celebration", buf, 0x16u);
               }
@@ -2938,8 +2903,8 @@ uint64_t __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompeti
           summaryCopy = v58;
           yesterdaySummaryCopy = v57;
           self = selfCopy;
-          v52 = v87;
-          v53 = v88;
+          v52 = v86;
+          v53 = v87;
         }
 
         else
@@ -2969,8 +2934,6 @@ uint64_t __118__ASCompetitionManager__saveCurrentCompetitionList_archivedCompeti
       _os_log_impl(&dword_23E5E3000, v51, OS_LOG_TYPE_DEFAULT, "CompetitionManager not updating scores, protected data not yet fetched", buf, 2u);
     }
   }
-
-  v80 = *MEMORY[0x277D85DE8];
 }
 
 void __100__ASCompetitionManager__queue_updateScoresWithTodaySummary_yesterdaySummary_activity_cloudKitGroup___block_invoke(void *a1, void *a2)
@@ -2998,10 +2961,9 @@ void __100__ASCompetitionManager__queue_updateScoresWithTodaySummary_yesterdaySu
 {
   if (a3 || !a2)
   {
-    v8 = *(a1 + 64);
-    v9 = *(*(a1 + 64) + 16);
+    v8 = *(*(a1 + 64) + 16);
 
-    v9();
+    v8();
   }
 
   else
@@ -3010,12 +2972,12 @@ void __100__ASCompetitionManager__queue_updateScoresWithTodaySummary_yesterdaySu
     v5 = [*(a1 + 40) UUID];
     v6 = *(a1 + 48);
     v7 = *(a1 + 56);
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __100__ASCompetitionManager__queue_updateScoresWithTodaySummary_yesterdaySummary_activity_cloudKitGroup___block_invoke_3;
-    v10[3] = &unk_278C4C178;
-    v11 = *(a1 + 64);
-    [WeakRetained updateRelationshipWithCompetitionEvent:13 friendUUID:v5 activity:v6 cloudKitGroup:v7 completion:v10];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __100__ASCompetitionManager__queue_updateScoresWithTodaySummary_yesterdaySummary_activity_cloudKitGroup___block_invoke_3;
+    v9[3] = &unk_278C4C178;
+    v10 = *(a1 + 64);
+    [WeakRetained updateRelationshipWithCompetitionEvent:13 friendUUID:v5 activity:v6 cloudKitGroup:v7 completion:v9];
   }
 }
 
@@ -3045,7 +3007,7 @@ BOOL __100__ASCompetitionManager__queue_updateScoresWithTodaySummary_yesterdaySu
 
 - (void)_queue_handleSavedCompetitionListRecords:(id)records
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   serialQueue = self->_serialQueue;
   recordsCopy = records;
   dispatch_assert_queue_V2(serialQueue);
@@ -3057,21 +3019,19 @@ BOOL __100__ASCompetitionManager__queue_updateScoresWithTodaySummary_yesterdaySu
   {
     v8 = v7;
     *buf = 134217984;
-    v14 = [v6 count];
+    v13 = [v6 count];
     _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "CompetitionManager handling %ld competition list records", buf, 0xCu);
   }
 
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __65__ASCompetitionManager__queue_handleSavedCompetitionListRecords___block_invoke_342;
-  v12[3] = &unk_278C4D400;
-  v12[4] = self;
-  v9 = [v6 hk_map:v12];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __65__ASCompetitionManager__queue_handleSavedCompetitionListRecords___block_invoke_342;
+  v11[3] = &unk_278C4D400;
+  v11[4] = self;
+  v9 = [v6 hk_map:v11];
   [(ASCompetitionStore *)self->_competitionStore saveCompetitionLists:v9];
   v10 = [v9 hk_mapToSet:&__block_literal_global_348];
   [(ASCompetitionManager *)self _queue_notifyObserversOfCompetitionUpdatesForFriendsWithUUIDs:v10];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __65__ASCompetitionManager__queue_handleSavedCompetitionListRecords___block_invoke(uint64_t a1, void *a2)
@@ -3084,7 +3044,7 @@ uint64_t __65__ASCompetitionManager__queue_handleSavedCompetitionListRecords___b
 
 id __65__ASCompetitionManager__queue_handleSavedCompetitionListRecords___block_invoke_342(uint64_t a1, uint64_t a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CE90E0] competitionListWithRecord:a2];
   v4 = *(*(a1 + 32) + 80);
   v5 = [v3 friendUUID];
@@ -3110,9 +3070,9 @@ id __65__ASCompetitionManager__queue_handleSavedCompetitionListRecords___block_i
     {
       v14 = v13;
       v15 = [v7 UUID];
-      v18 = 138412290;
-      v19 = v15;
-      _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, "CompetitionManager local view of competition %@ has a more up-to-date opponent score, keeping it", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = v15;
+      _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, "CompetitionManager local view of competition %@ has a more up-to-date opponent score, keeping it", &v17, 0xCu);
     }
 
     v9 = [v8 opponentScores];
@@ -3124,14 +3084,13 @@ id __65__ASCompetitionManager__queue_handleSavedCompetitionListRecords___block_i
   }
 
 LABEL_8:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (void)_queue_handleNewRemoteCompetitionList:(id)list contact:(id)contact
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   listCopy = list;
   contactCopy = contact;
   dispatch_assert_queue_V2(self->_serialQueue);
@@ -3141,7 +3100,7 @@ LABEL_8:
   if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v28 = listCopy;
+    v27 = listCopy;
     _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "CompetitionManager saving remote competition list: %@", buf, 0xCu);
   }
 
@@ -3176,8 +3135,8 @@ LABEL_8:
       [currentCompetition setOpponentScores:scores];
 
       v23 = self->_competitionStore;
-      v26 = v14;
-      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v26 count:1];
+      v25 = v14;
+      v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
       [(ASCompetitionStore *)v23 saveCompetitionLists:v24];
     }
 
@@ -3186,13 +3145,11 @@ LABEL_8:
       [ASCompetitionManager _queue_handleNewRemoteCompetitionList:contact:];
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_showCompetitionRequestFromFriendWithUUID:(id)d competition:(id)competition
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   competitionCopy = competition;
   dispatch_assert_queue_V2(self->_serialQueue);
@@ -3202,9 +3159,9 @@ LABEL_8:
     v8 = *MEMORY[0x277CE8FD8];
     if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = dCopy;
-      _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "Not posting competition request bulletin for friend UUID %@, previously posted", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = dCopy;
+      _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "Not posting competition request bulletin for friend UUID %@, previously posted", &v17, 0xCu);
     }
   }
 
@@ -3223,23 +3180,21 @@ LABEL_8:
     {
       v14 = v13;
       displayName = [v12 displayName];
-      v18 = 138543618;
-      v19 = dCopy;
-      v20 = 2112;
-      v21 = displayName;
-      _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, "CompetitionManager posting competition request bulletin for friend: %{public}@ - %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = dCopy;
+      v19 = 2112;
+      v20 = displayName;
+      _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, "CompetitionManager posting competition request bulletin for friend: %{public}@ - %@", &v17, 0x16u);
     }
 
     v16 = objc_loadWeakRetained(&self->_competitionBulletinManager);
     [v16 showCompetitionRequestNotificationForFriend:v12 competition:competitionCopy withPostingStyle:0];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_showCompetitionAcceptedForFriendWithUUID:(id)d competition:(id)competition
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dCopy = d;
   competitionCopy = competition;
   dispatch_assert_queue_V2(self->_serialQueue);
@@ -3249,9 +3204,9 @@ LABEL_8:
     v8 = *MEMORY[0x277CE8FD8];
     if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412290;
-      v19 = dCopy;
-      _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "Not posting bulletin competition accepted bulletin for friend UUID %@, previously posted", &v18, 0xCu);
+      v17 = 138412290;
+      v18 = dCopy;
+      _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "Not posting bulletin competition accepted bulletin for friend UUID %@, previously posted", &v17, 0xCu);
     }
   }
 
@@ -3270,23 +3225,21 @@ LABEL_8:
     {
       v14 = v13;
       displayName = [v12 displayName];
-      v18 = 138543618;
-      v19 = dCopy;
-      v20 = 2112;
-      v21 = displayName;
-      _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, "CompetitionManager posting competition accepted bulletin for friend: %{public}@ - %@", &v18, 0x16u);
+      v17 = 138543618;
+      v18 = dCopy;
+      v19 = 2112;
+      v20 = displayName;
+      _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, "CompetitionManager posting competition accepted bulletin for friend: %{public}@ - %@", &v17, 0x16u);
     }
 
     v16 = objc_loadWeakRetained(&self->_competitionBulletinManager);
     [v16 showCompetitionAcceptedNotificationForFriend:v12 competition:competitionCopy withPostingStyle:0];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_showCompetitionEndedWithFriendWithUUID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
   dispatch_assert_queue_V2(self->_serialQueue);
   if ([(NSSet *)self->_existingFriendUUIDsWithCompletedCompetitions containsObject:dCopy])
@@ -3295,9 +3248,9 @@ LABEL_8:
     v5 = *MEMORY[0x277CE8FD8];
     if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = dCopy;
-      _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Not posting bulletin competition completed bulletin for friend UUID %@, previously posted", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = dCopy;
+      _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Not posting bulletin competition completed bulletin for friend UUID %@, previously posted", &v15, 0xCu);
     }
   }
 
@@ -3316,44 +3269,40 @@ LABEL_8:
     {
       v11 = v10;
       displayName = [v9 displayName];
-      v16 = 138543618;
-      v17 = dCopy;
-      v18 = 2112;
-      v19 = displayName;
-      _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "CompetitionManager posting competition ended with friend: %{public}@ - %@", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = dCopy;
+      v17 = 2112;
+      v18 = displayName;
+      _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "CompetitionManager posting competition ended with friend: %{public}@ - %@", &v15, 0x16u);
     }
 
     v13 = objc_loadWeakRetained(&self->_competitionBulletinManager);
     mostRecentlyCompletedCompetition = [v9 mostRecentlyCompletedCompetition];
     [v13 showCompetitionEndedNotificationForFriend:v9 competition:mostRecentlyCompletedCompetition withPostingStyle:0];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_showScoreCapCelebrationForFriendsWithCappedInProgressCompetitions:(id)competitions
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   competitionsCopy = competitions;
   dispatch_assert_queue_V2(self->_serialQueue);
   ASLoggingInitialize();
   v5 = *MEMORY[0x277CE8FD8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 138412290;
-    v9 = competitionsCopy;
-    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "CompetitionManager posting score cap celebration with friends %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = competitionsCopy;
+    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "CompetitionManager posting score cap celebration with friends %@", &v7, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_competitionBulletinManager);
   [WeakRetained showCompetitionScoreCapCelebrationForFriends:competitionsCopy withPostingStyle:0];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_autoAcceptCompetitionRequestFromContact:(id)contact activity:(id)activity cloudKitGroup:(id)group completion:(id)completion
 {
-  v44[1] = *MEMORY[0x277D85DE8];
+  v43[1] = *MEMORY[0x277D85DE8];
   contactCopy = contact;
   activityCopy = activity;
   groupCopy = group;
@@ -3373,8 +3322,8 @@ LABEL_8:
     v20 = *MEMORY[0x277CE8FD8];
     if (firstObject)
     {
-      v35 = groupCopy;
-      v36 = activityCopy;
+      v34 = groupCopy;
+      v35 = activityCopy;
       if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -3383,7 +3332,7 @@ LABEL_8:
 
       uUID2 = [v14 UUID];
       uUIDString = [uUID2 UUIDString];
-      v34 = firstObject;
+      v33 = firstObject;
       uUID3 = [firstObject UUID];
       uUIDString2 = [uUID3 UUIDString];
       v25 = [uUIDString compare:uUIDString2];
@@ -3393,7 +3342,7 @@ LABEL_8:
       v27 = os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT);
       if (v25 == -1)
       {
-        activityCopy = v36;
+        activityCopy = v35;
         if (v27)
         {
           *buf = 0;
@@ -3401,31 +3350,31 @@ LABEL_8:
         }
 
         uUID4 = [contactCopy UUID];
-        v32 = [(ASCompetitionManager *)self _localCompetitionForRemoteCompetition:v14 friendUUID:uUID4];
+        v31 = [(ASCompetitionManager *)self _localCompetitionForRemoteCompetition:v14 friendUUID:uUID4];
 
-        v44[0] = v32;
-        v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:1];
+        v43[0] = v31;
+        v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v43 count:1];
         [v17 setCompetitions:v30];
 
-        v37[0] = MEMORY[0x277D85DD0];
-        v37[1] = 3221225472;
-        v37[2] = __105__ASCompetitionManager__queue_autoAcceptCompetitionRequestFromContact_activity_cloudKitGroup_completion___block_invoke;
-        v37[3] = &unk_278C4D2C8;
-        v42 = completionCopy;
-        v37[4] = self;
-        v38 = contactCopy;
-        v39 = v36;
-        groupCopy = v35;
-        v40 = v35;
-        v41 = v32;
-        v33 = v32;
-        [(ASCompetitionManager *)self _saveCurrentCompetitionList:v17 archivedCompetitionList:0 contact:v38 activity:v39 cloudKitGroup:v40 completion:v37];
+        v36[0] = MEMORY[0x277D85DD0];
+        v36[1] = 3221225472;
+        v36[2] = __105__ASCompetitionManager__queue_autoAcceptCompetitionRequestFromContact_activity_cloudKitGroup_completion___block_invoke;
+        v36[3] = &unk_278C4D2C8;
+        v41 = completionCopy;
+        v36[4] = self;
+        v37 = contactCopy;
+        v38 = v35;
+        groupCopy = v34;
+        v39 = v34;
+        v40 = v31;
+        v32 = v31;
+        [(ASCompetitionManager *)self _saveCurrentCompetitionList:v17 archivedCompetitionList:0 contact:v37 activity:v38 cloudKitGroup:v39 completion:v36];
       }
 
       else
       {
-        groupCopy = v35;
-        activityCopy = v36;
+        groupCopy = v34;
+        activityCopy = v35;
         if (v27)
         {
           *buf = 0;
@@ -3435,7 +3384,7 @@ LABEL_8:
         (*(completionCopy + 2))(completionCopy, 1, 0);
       }
 
-      firstObject = v34;
+      firstObject = v33;
     }
 
     else
@@ -3461,18 +3410,15 @@ LABEL_8:
     v17 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CE91F8] code:6 userInfo:0];
     (*(completionCopy + 2))(completionCopy, 0, v17);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __105__ASCompetitionManager__queue_autoAcceptCompetitionRequestFromContact_activity_cloudKitGroup_completion___block_invoke(uint64_t a1, char a2, uint64_t a3)
 {
   if (a3 || (a2 & 1) == 0)
   {
-    v12 = *(a1 + 72);
-    v13 = *(*(a1 + 72) + 16);
+    v12 = *(*(a1 + 72) + 16);
 
-    v13();
+    v12();
   }
 
   else
@@ -3481,19 +3427,19 @@ void __105__ASCompetitionManager__queue_autoAcceptCompetitionRequestFromContact_
     v5 = [*(a1 + 40) UUID];
     v6 = *(a1 + 48);
     v7 = *(a1 + 56);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __105__ASCompetitionManager__queue_autoAcceptCompetitionRequestFromContact_activity_cloudKitGroup_completion___block_invoke_2;
-    v15[3] = &unk_278C4D448;
-    v14 = *(a1 + 32);
-    v8 = *(&v14 + 1);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __105__ASCompetitionManager__queue_autoAcceptCompetitionRequestFromContact_activity_cloudKitGroup_completion___block_invoke_2;
+    v14[3] = &unk_278C4D448;
+    v13 = *(a1 + 32);
+    v8 = *(&v13 + 1);
     v9 = *(a1 + 64);
     v10 = *(a1 + 72);
     *&v11 = v9;
     *(&v11 + 1) = v10;
-    v16 = v14;
-    v17 = v11;
-    [WeakRetained updateRelationshipWithCompetitionEvent:11 friendUUID:v5 activity:v6 cloudKitGroup:v7 completion:v15];
+    v15 = v13;
+    v16 = v11;
+    [WeakRetained updateRelationshipWithCompetitionEvent:11 friendUUID:v5 activity:v6 cloudKitGroup:v7 completion:v14];
   }
 }
 
@@ -3527,7 +3473,7 @@ void __105__ASCompetitionManager__queue_autoAcceptCompetitionRequestFromContact_
 
 - (void)_queue_completeCompetitionIfNecessaryForFriendWithUUID:(id)d activity:(id)activity cloudKitGroup:(id)group
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   dCopy = d;
   activityCopy = activity;
   groupCopy = group;
@@ -3560,26 +3506,26 @@ void __105__ASCompetitionManager__queue_autoAcceptCompetitionRequestFromContact_
             uUID2 = [v12 UUID];
             displayName = [v12 displayName];
             *buf = 138543618;
-            v40 = uUID2;
-            v41 = 2112;
-            v42 = displayName;
+            v39 = uUID2;
+            v40 = 2112;
+            v41 = displayName;
             _os_log_impl(&dword_23E5E3000, log, OS_LOG_TYPE_DEFAULT, "CompetitionManager competition with friend is ready to complete: %{public}@ - %@", buf, 0x16u);
           }
 
           transactionQueue = self->_transactionQueue;
-          v30[0] = MEMORY[0x277D85DD0];
-          v30[1] = 3221225472;
-          v30[2] = __102__ASCompetitionManager__queue_completeCompetitionIfNecessaryForFriendWithUUID_activity_cloudKitGroup___block_invoke;
-          v30[3] = &unk_278C4D498;
-          v31 = currentCompetition;
-          v32 = v15;
+          v29[0] = MEMORY[0x277D85DD0];
+          v29[1] = 3221225472;
+          v29[2] = __102__ASCompetitionManager__queue_completeCompetitionIfNecessaryForFriendWithUUID_activity_cloudKitGroup___block_invoke;
+          v29[3] = &unk_278C4D498;
+          v30 = currentCompetition;
+          v31 = v15;
           selfCopy = self;
-          v34 = v18;
-          v35 = v12;
-          v36 = activityCopy;
-          v37 = groupCopy;
-          v38 = dCopy;
-          [(ASAsyncTransactionQueue *)transactionQueue performTransaction:v30];
+          v33 = v18;
+          v34 = v12;
+          v35 = activityCopy;
+          v36 = groupCopy;
+          v37 = dCopy;
+          [(ASAsyncTransactionQueue *)transactionQueue performTransaction:v29];
         }
       }
 
@@ -3589,24 +3535,22 @@ void __105__ASCompetitionManager__queue_autoAcceptCompetitionRequestFromContact_
         v23 = *MEMORY[0x277CE8FD8];
         if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_ERROR))
         {
-          v25 = v23;
+          v24 = v23;
           uUID3 = [v12 UUID];
           displayName2 = [v12 displayName];
           *buf = 138544130;
-          v40 = uUID3;
-          v41 = 2112;
-          v42 = displayName2;
-          v43 = 2112;
-          v44 = currentCompetition;
-          v45 = 2112;
-          v46 = v15;
-          _os_log_error_impl(&dword_23E5E3000, v25, OS_LOG_TYPE_ERROR, "CompetitionManager tried to check if competition is ready to complete, but couldn't find both a local and remote view of the competition: %{public}@ - %@, localCompetition=%@, remoteCompetition=%@", buf, 0x2Au);
+          v39 = uUID3;
+          v40 = 2112;
+          v41 = displayName2;
+          v42 = 2112;
+          v43 = currentCompetition;
+          v44 = 2112;
+          v45 = v15;
+          _os_log_error_impl(&dword_23E5E3000, v24, OS_LOG_TYPE_ERROR, "CompetitionManager tried to check if competition is ready to complete, but couldn't find both a local and remote view of the competition: %{public}@ - %@, localCompetition=%@, remoteCompetition=%@", buf, 0x2Au);
         }
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __102__ASCompetitionManager__queue_completeCompetitionIfNecessaryForFriendWithUUID_activity_cloudKitGroup___block_invoke(uint64_t a1, void *a2)
@@ -3743,51 +3687,49 @@ uint64_t __102__ASCompetitionManager__queue_completeCompetitionIfNecessaryForFri
 
 void __86__ASCompetitionManager__queue_notifyObserversOfCompetitionUpdatesForFriendsWithUUIDs___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(*(a1 + 32) + 112);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) competitionManager:*(a1 + 32) didUpdateCompetitionsForFriendsWithUUIDs:{*(a1 + 40), v8}];
+        [*(*(&v7 + 1) + 8 * v6++) competitionManager:*(a1 + 32) didUpdateCompetitionsForFriendsWithUUIDs:{*(a1 + 40), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_archivedCompetitionListByMergingCurrentCompetitionList:(id)list
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   listCopy = list;
   ASLoggingInitialize();
   v5 = MEMORY[0x277CE8FD8];
   v6 = *MEMORY[0x277CE8FD8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v26) = 0;
-    _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "CompetitionManager building new archived competition list", &v26, 2u);
+    LOWORD(v25) = 0;
+    _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "CompetitionManager building new archived competition list", &v25, 2u);
   }
 
   currentCompetition = [listCopy currentCompetition];
@@ -3805,9 +3747,9 @@ void __86__ASCompetitionManager__queue_notifyObserversOfCompetitionUpdatesForFri
       {
         v12 = v11;
         friendUUID2 = [listCopy friendUUID];
-        v26 = 138543362;
-        v27 = friendUUID2;
-        _os_log_impl(&dword_23E5E3000, v12, OS_LOG_TYPE_DEFAULT, "CompetitionManager didn't find an existing archived competition list, creating one for friend: %{public}@", &v26, 0xCu);
+        v25 = 138543362;
+        v26 = friendUUID2;
+        _os_log_impl(&dword_23E5E3000, v12, OS_LOG_TYPE_DEFAULT, "CompetitionManager didn't find an existing archived competition list, creating one for friend: %{public}@", &v25, 0xCu);
       }
 
       v14 = objc_alloc(MEMORY[0x277CE90E0]);
@@ -3829,9 +3771,9 @@ void __86__ASCompetitionManager__queue_notifyObserversOfCompetitionUpdatesForFri
     {
       v21 = v20;
       competitions3 = [v10 competitions];
-      v26 = 138412290;
-      v27 = competitions3;
-      _os_log_impl(&dword_23E5E3000, v21, OS_LOG_TYPE_DEFAULT, "CompetitionManager built new archived competition list: %@", &v26, 0xCu);
+      v25 = 138412290;
+      v26 = competitions3;
+      _os_log_impl(&dword_23E5E3000, v21, OS_LOG_TYPE_DEFAULT, "CompetitionManager built new archived competition list: %@", &v25, 0xCu);
     }
   }
 
@@ -3841,21 +3783,19 @@ void __86__ASCompetitionManager__queue_notifyObserversOfCompetitionUpdatesForFri
     v23 = *v5;
     if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v26) = 0;
-      _os_log_impl(&dword_23E5E3000, v23, OS_LOG_TYPE_DEFAULT, "CompetitionManager didn't find an existing competition to archive", &v26, 2u);
+      LOWORD(v25) = 0;
+      _os_log_impl(&dword_23E5E3000, v23, OS_LOG_TYPE_DEFAULT, "CompetitionManager didn't find an existing competition to archive", &v25, 2u);
     }
 
     v10 = 0;
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)_loadOrCreateCurrentCompetitionListForFriendWithUUID:(id)d
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v5 = [(ASCompetitionStore *)self->_competitionStore currentCompetitionListForFriendWithUUID:dCopy];
   if (!v5)
@@ -3864,22 +3804,20 @@ void __86__ASCompetitionManager__queue_notifyObserversOfCompetitionUpdatesForFri
     v6 = *MEMORY[0x277CE8FD8];
     if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
-      v10 = dCopy;
-      _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "CompetitionManager didn't find an existing current competition list, creating one for friend: %{public}@", &v9, 0xCu);
+      v8 = 138543362;
+      v9 = dCopy;
+      _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "CompetitionManager didn't find an existing current competition list, creating one for friend: %{public}@", &v8, 0xCu);
     }
 
     v5 = [objc_alloc(MEMORY[0x277CE90E0]) initWithFriendUUID:dCopy type:0];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
 
 - (id)_localCompetitionForRemoteCompetition:(id)competition friendUUID:(id)d
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CE90D8];
   dCopy = d;
   competitionCopy = competition;
@@ -3904,14 +3842,12 @@ void __86__ASCompetitionManager__queue_notifyObserversOfCompetitionUpdatesForFri
   v19 = ASBestCompetitionVictoryBadgeStyleForPreferredStyles();
 
   v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v19];
-  v25[0] = v20;
-  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:1];
+  v24[0] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:1];
   [v9 setPreferredVictoryBadgeStyles:v21];
 
   maximumNumberOfPointsPerDay = [competitionCopy maximumNumberOfPointsPerDay];
   [v9 setMaximumNumberOfPointsPerDay:maximumNumberOfPointsPerDay];
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -3951,38 +3887,36 @@ void __86__ASCompetitionManager__queue_notifyObserversOfCompetitionUpdatesForFri
 
 void __65__ASCompetitionManager__loadCachedCompetitionsAndNotifyObservers__block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = *(*(a1 + 32) + 112);
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) competitionManagerDidLoadCachedCompetitions:{*(a1 + 32), v8}];
+        [*(*(&v7 + 1) + 8 * v6++) competitionManagerDidLoadCachedCompetitions:{*(a1 + 32), v7}];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_handleSavedRecords:(id)records activity:(id)activity group:(id)group
@@ -4142,12 +4076,12 @@ uint64_t __55__ASCompetitionManager__contactsWithActiveCompetitions__block_invok
 
 - (void)_setScoreCapCelebrationAnchor:(id)anchor
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   anchorCopy = anchor;
   _localUserDefaultsDomain = [(ASCompetitionManager *)self _localUserDefaultsDomain];
-  v10 = 0;
-  [_localUserDefaultsDomain setNumber:anchorCopy forKey:@"ActivitySharingScoreCapCelebrationAnchor" error:&v10];
-  v7 = v10;
+  v9 = 0;
+  [_localUserDefaultsDomain setNumber:anchorCopy forKey:@"ActivitySharingScoreCapCelebrationAnchor" error:&v9];
+  v7 = v9;
   if (v7)
   {
     ASLoggingInitialize();
@@ -4165,12 +4099,10 @@ uint64_t __55__ASCompetitionManager__contactsWithActiveCompetitions__block_invok
     if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = anchorCopy;
+      v11 = anchorCopy;
       _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "CompetitionManager updated score cap celebration anchor is %@", buf, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)secureCloudCompetitionListsToSave
@@ -4197,10 +4129,7 @@ uint64_t __55__ASCompetitionManager__contactsWithActiveCompetitions__block_invok
 
 uint64_t __57__ASCompetitionManager_secureCloudCompetitionListsToSave__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _queue_secureCloudCompetitionListsToSave];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _queue_secureCloudCompetitionListsToSave];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -4221,7 +4150,7 @@ uint64_t __57__ASCompetitionManager_secureCloudCompetitionListsToSave__block_inv
 
 - (void)secureCloudDidFailToSaveRecords:(id)records
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   recordsCopy = records;
   if ([recordsCopy count])
   {
@@ -4230,13 +4159,11 @@ uint64_t __57__ASCompetitionManager_secureCloudCompetitionListsToSave__block_inv
     if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
     {
       v5 = v4;
-      v7 = 134217984;
-      v8 = [recordsCopy count];
-      _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "CompetitionManager failed to save secure cloud %ld records", &v7, 0xCu);
+      v6 = 134217984;
+      v7 = [recordsCopy count];
+      _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "CompetitionManager failed to save secure cloud %ld records", &v6, 0xCu);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)currentCompetitionListForFriendWithUUID:(id)d
@@ -4267,10 +4194,7 @@ uint64_t __57__ASCompetitionManager_secureCloudCompetitionListsToSave__block_inv
 
 uint64_t __64__ASCompetitionManager_currentCompetitionListForFriendWithUUID___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 80) currentCompetitionListForFriendWithUUID:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 80) currentCompetitionListForFriendWithUUID:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -4303,10 +4227,7 @@ uint64_t __64__ASCompetitionManager_currentCompetitionListForFriendWithUUID___bl
 
 uint64_t __65__ASCompetitionManager_archivedCompetitionListForFriendWithUUID___block_invoke(void *a1)
 {
-  v2 = [*(a1[4] + 80) archivedCompetitionListForFriendWithUUID:a1[5]];
-  v3 = *(a1[6] + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(a1[6] + 8) + 40) = [*(a1[4] + 80) archivedCompetitionListForFriendWithUUID:a1[5]];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -4410,7 +4331,7 @@ LABEL_12:
 
 - (void)_queue_cleanUpLegacyCompetitionLists:(id)lists activity:(id)activity cloudKitGroup:(id)group
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   listsCopy = lists;
   activityCopy = activity;
   groupCopy = group;
@@ -4421,17 +4342,15 @@ LABEL_12:
     v12 = *MEMORY[0x277CE8FD8];
     if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
-      v17 = listsCopy;
-      _os_log_impl(&dword_23E5E3000, v12, OS_LOG_TYPE_DEFAULT, "Removing legacy competition lists that have been migrated %@", &v16, 0xCu);
+      v15 = 138412290;
+      v16 = listsCopy;
+      _os_log_impl(&dword_23E5E3000, v12, OS_LOG_TYPE_DEFAULT, "Removing legacy competition lists that have been migrated %@", &v15, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_cloudKitManager);
     allObjects = [v11 allObjects];
     [WeakRetained saveRecordsIntoPrivateDatabase:MEMORY[0x277CBEBF8] recordIDsToDelete:allObjects priority:2 activity:activityCopy group:groupCopy completion:&__block_literal_global_360];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 id __84__ASCompetitionManager__queue_cleanUpLegacyCompetitionLists_activity_cloudKitGroup___block_invoke(uint64_t a1, void *a2)
@@ -4444,20 +4363,18 @@ id __84__ASCompetitionManager__queue_cleanUpLegacyCompetitionLists_activity_clou
 
 void __84__ASCompetitionManager__queue_cleanUpLegacyCompetitionLists_activity_cloudKitGroup___block_invoke_358(uint64_t a1, int a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   ASLoggingInitialize();
   v5 = *MEMORY[0x277CE8FD8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109378;
-    v7[1] = a2;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Removed legacy competitions that have been migrated (success %{BOOL}d, error: %@)", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = a2;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Removed legacy competitions that have been migrated (success %{BOOL}d, error: %@)", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldSkipLocalSecureCloudCompetitionList:(id)list
@@ -4486,7 +4403,7 @@ void __84__ASCompetitionManager__queue_cleanUpLegacyCompetitionLists_activity_cl
 
 - (void)_queue_cleanUpSecureCloudCompetitionLists:(id)lists activity:(id)activity cloudKitGroup:(id)group
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   listsCopy = lists;
   groupCopy = group;
   v9 = [listsCopy hk_map:&__block_literal_global_362];
@@ -4496,16 +4413,14 @@ void __84__ASCompetitionManager__queue_cleanUpLegacyCompetitionLists_activity_cl
     v10 = *MEMORY[0x277CE8FD8];
     if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 138412290;
-      v14 = listsCopy;
-      _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "Removing secure cloud competition lists that have been downgraded %@", &v13, 0xCu);
+      v12 = 138412290;
+      v13 = listsCopy;
+      _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "Removing secure cloud competition lists that have been downgraded %@", &v12, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_secureCloudDelegate);
     [WeakRetained competitionManager:self deleteCompetitionLists:listsCopy group:groupCopy completion:&__block_literal_global_365];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 id __89__ASCompetitionManager__queue_cleanUpSecureCloudCompetitionLists_activity_cloudKitGroup___block_invoke(uint64_t a1, void *a2)
@@ -4518,25 +4433,23 @@ id __89__ASCompetitionManager__queue_cleanUpSecureCloudCompetitionLists_activity
 
 void __89__ASCompetitionManager__queue_cleanUpSecureCloudCompetitionLists_activity_cloudKitGroup___block_invoke_363(uint64_t a1, int a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   ASLoggingInitialize();
   v5 = *MEMORY[0x277CE8FD8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109378;
-    v7[1] = a2;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Removed secure cloud competitions that have been downgraded (success %{BOOL}d, error: %@)", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = a2;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Removed secure cloud competitions that have been downgraded (success %{BOOL}d, error: %@)", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queue_competitionListsToSaveForCloudType:(unint64_t)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v5 = MEMORY[0x277CE8FD8];
   v6 = *MEMORY[0x277CE8FD8];
@@ -4547,13 +4460,13 @@ void __89__ASCompetitionManager__queue_cleanUpSecureCloudCompetitionLists_activi
   }
 
   _contactsWithActiveCompetitions = [(ASCompetitionManager *)self _contactsWithActiveCompetitions];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __66__ASCompetitionManager__queue_competitionListsToSaveForCloudType___block_invoke;
-  v15[3] = &unk_278C4D550;
-  v15[4] = self;
-  v15[5] = type;
-  v8 = [_contactsWithActiveCompetitions hk_map:v15];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __66__ASCompetitionManager__queue_competitionListsToSaveForCloudType___block_invoke;
+  v14[3] = &unk_278C4D550;
+  v14[4] = self;
+  v14[5] = type;
+  v8 = [_contactsWithActiveCompetitions hk_map:v14];
   ASLoggingInitialize();
   v9 = *v5;
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -4562,20 +4475,18 @@ void __89__ASCompetitionManager__queue_cleanUpSecureCloudCompetitionLists_activi
     v11 = [v8 count];
     v12 = NSStringFromASCloudType();
     *buf = 134218242;
-    v17 = v11;
-    v18 = 2112;
-    v19 = v12;
+    v16 = v11;
+    v17 = 2112;
+    v18 = v12;
     _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "CompetitionManager found %lu %@ competition lists to save", buf, 0x16u);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
 
 id __66__ASCompetitionManager__queue_competitionListsToSaveForCloudType___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 relationshipStorage];
   v5 = [v4 primaryRelationship];
@@ -4617,9 +4528,9 @@ LABEL_10:
       {
         v14 = v13;
         v15 = [v9 UUID];
-        v19 = 138543362;
-        v20 = v15;
-        _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, "Competition has ended, not including in competition lists to save: %{public}@", &v19, 0xCu);
+        v18 = 138543362;
+        v19 = v15;
+        _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, "Competition has ended, not including in competition lists to save: %{public}@", &v18, 0xCu);
       }
 
       v16 = 0;
@@ -4637,14 +4548,13 @@ LABEL_10:
   }
 
 LABEL_15:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 - (void)completeCompetitionWithFriendWithUUID:(id)d completion:(id)completion
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   dCopy = d;
   completionCopy = completion;
   ASLoggingInitialize();
@@ -4652,23 +4562,21 @@ LABEL_15:
   if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v17 = dCopy;
+    v16 = dCopy;
     _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "Completing competition with friend: %{public}@", buf, 0xCu);
   }
 
   transactionQueue = self->_transactionQueue;
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __73__ASCompetitionManager_completeCompetitionWithFriendWithUUID_completion___block_invoke;
-  v13[3] = &unk_278C4D5C8;
-  v13[4] = self;
-  v14 = dCopy;
-  v15 = completionCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __73__ASCompetitionManager_completeCompetitionWithFriendWithUUID_completion___block_invoke;
+  v12[3] = &unk_278C4D5C8;
+  v12[4] = self;
+  v13 = dCopy;
+  v14 = completionCopy;
   v10 = completionCopy;
   v11 = dCopy;
-  [(ASAsyncTransactionQueue *)transactionQueue performTransaction:v13];
-
-  v12 = *MEMORY[0x277D85DE8];
+  [(ASAsyncTransactionQueue *)transactionQueue performTransaction:v12];
 }
 
 void __73__ASCompetitionManager_completeCompetitionWithFriendWithUUID_completion___block_invoke(uint64_t a1, void *a2)
@@ -4687,8 +4595,7 @@ void __73__ASCompetitionManager_completeCompetitionWithFriendWithUUID_completion
     v10 = v9;
     if (v9)
     {
-      [v9 setCurrentCacheIndex:{objc_msgSend(v9, "endDateCacheIndex")}];
-      v11 = ASCloudKitGroupUserActionExplicit();
+      v11 = ASCloudKitGroupUserActionExplicit([v9 setCurrentCacheIndex:{objc_msgSend(v9, "endDateCacheIndex")}]);
       v12 = *(a1 + 32);
       v21[0] = MEMORY[0x277D85DD0];
       v21[1] = 3221225472;
@@ -4742,11 +4649,10 @@ void __73__ASCompetitionManager_completeCompetitionWithFriendWithUUID_completion
 {
   if (a3 || (a2 & 1) == 0)
   {
-    v7 = *(a1 + 56);
     (*(*(a1 + 56) + 16))();
-    v8 = *(*(a1 + 64) + 16);
+    v7 = *(*(a1 + 64) + 16);
 
-    v8();
+    v7();
   }
 
   else
@@ -4754,13 +4660,13 @@ void __73__ASCompetitionManager_completeCompetitionWithFriendWithUUID_completion
     WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 64));
     v5 = *(a1 + 40);
     v6 = *(a1 + 48);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __73__ASCompetitionManager_completeCompetitionWithFriendWithUUID_completion___block_invoke_2;
-    v9[3] = &unk_278C4D578;
-    v10 = *(a1 + 56);
-    v11 = *(a1 + 64);
-    [WeakRetained updateRelationshipWithCompetitionEvent:13 friendUUID:v5 activity:0 cloudKitGroup:v6 completion:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __73__ASCompetitionManager_completeCompetitionWithFriendWithUUID_completion___block_invoke_2;
+    v8[3] = &unk_278C4D578;
+    v9 = *(a1 + 56);
+    v10 = *(a1 + 64);
+    [WeakRetained updateRelationshipWithCompetitionEvent:13 friendUUID:v5 activity:0 cloudKitGroup:v6 completion:v8];
   }
 }
 
@@ -4893,7 +4799,7 @@ uint64_t __73__ASCompetitionManager_updateAllActiveCompetitionsWithScores_comple
   v10 = [v9 hk_map:v17];
   WeakRetained = objc_loadWeakRetained(&self->_cloudKitManager);
   allObjects = [v10 allObjects];
-  v13 = ASCloudKitGroupUserActionExplicit();
+  v13 = ASCloudKitGroupUserActionExplicit(allObjects);
   v15[0] = MEMORY[0x277D85DD0];
   v15[1] = 3221225472;
   v15[2] = __89__ASCompetitionManager__queue_updateLegacyCompetitionsWithScores_forContacts_completion___block_invoke_2;
@@ -4950,13 +4856,11 @@ uint64_t __89__ASCompetitionManager__queue_updateLegacyCompetitionsWithScores_fo
   if (*(a1 + 64) == 1 && !*(a1 + 32))
   {
     [*(a1 + 40) _queue_handleSavedCompetitionListRecords:*(a1 + 48)];
-    v2 = *(a1 + 64);
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 56) + 16);
+  v2 = *(*(a1 + 56) + 16);
 
-  return v4();
+  return v2();
 }
 
 - (void)_queue_updateSecureCloudCompetitionsWithScores:(id)scores forContacts:(id)contacts completion:(id)completion
@@ -4968,7 +4872,7 @@ uint64_t __89__ASCompetitionManager__queue_updateLegacyCompetitionsWithScores_fo
   {
     v11 = [(ASCompetitionManager *)self _competitionListsFromContacts:contactsCopy withUpdatedScore:scoresCopy cloudType:1];
     WeakRetained = objc_loadWeakRetained(&self->_secureCloudDelegate);
-    v13 = ASCloudKitGroupUserActionExplicit();
+    v13 = ASCloudKitGroupUserActionExplicit(WeakRetained);
     v14[0] = MEMORY[0x277D85DD0];
     v14[1] = 3221225472;
     v14[2] = __94__ASCompetitionManager__queue_updateSecureCloudCompetitionsWithScores_forContacts_completion___block_invoke;
@@ -5005,13 +4909,11 @@ uint64_t __94__ASCompetitionManager__queue_updateSecureCloudCompetitionsWithScor
   if (*(a1 + 64) == 1 && !*(a1 + 32))
   {
     [*(a1 + 40) _queue_handleSavedCompetitionListRecords:*(a1 + 48)];
-    v2 = *(a1 + 64);
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 56) + 16);
+  v2 = *(*(a1 + 56) + 16);
 
-  return v4();
+  return v2();
 }
 
 - (id)_competitionListsFromContacts:(id)contacts withUpdatedScore:(id)score cloudType:(unint64_t)type
@@ -5081,7 +4983,7 @@ id __81__ASCompetitionManager__competitionListsFromContacts_withUpdatedScore_clo
 void __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = ASCloudKitGroupUserActionExplicit();
+  v4 = ASCloudKitGroupUserActionExplicit(v3);
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 24));
   v8[0] = MEMORY[0x277D85DD0];
   v8[1] = 3221225472;
@@ -5121,41 +5023,41 @@ void __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___b
 
 void __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___block_invoke_3(uint64_t a1)
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v30[1] = *MEMORY[0x277D85DE8];
   if (*(a1 + 80) == 1 && !*(a1 + 32))
   {
     WeakRetained = objc_loadWeakRetained((*(a1 + 40) + 40));
-    v6 = [WeakRetained contactWithUUID:*(a1 + 48)];
+    v3 = [WeakRetained contactWithUUID:*(a1 + 48)];
 
-    v7 = [v6 primaryRelationship];
-    v8 = [v7 isCompetitionActive];
+    v4 = [v3 primaryRelationship];
+    v5 = [v4 isCompetitionActive];
 
-    if (v8)
+    if (v5)
     {
-      v9 = [*(a1 + 40) _queue_rollCompetitionListForwardForContact:v6];
-      v10 = *(a1 + 40);
-      v11 = objc_loadWeakRetained(v10 + 2);
-      v12 = [v11 currentActivitySummary];
-      v13 = objc_loadWeakRetained((*(a1 + 40) + 16));
-      v14 = [v13 yesterdayActivitySummary];
-      [v10 _queue_updateScoresWithTodaySummary:v12 yesterdaySummary:v14 activity:0 cloudKitGroup:*(a1 + 56)];
+      v6 = [*(a1 + 40) _queue_rollCompetitionListForwardForContact:v3];
+      v7 = *(a1 + 40);
+      v8 = objc_loadWeakRetained(v7 + 2);
+      v9 = [v8 currentActivitySummary];
+      v10 = objc_loadWeakRetained((*(a1 + 40) + 16));
+      v11 = [v10 yesterdayActivitySummary];
+      [v7 _queue_updateScoresWithTodaySummary:v9 yesterdaySummary:v11 activity:0 cloudKitGroup:*(a1 + 56)];
 
-      if ([v6 cloudType])
+      if ([v3 cloudType])
       {
-        if (ASSecureCloudEnabled() && [v6 cloudType] == 1)
+        if (ASSecureCloudEnabled() && [v3 cloudType] == 1)
         {
-          v15 = objc_loadWeakRetained((*(a1 + 40) + 184));
-          v16 = *(a1 + 40);
-          v17 = ASCloudKitGroupUserActionExplicit();
-          v26[0] = MEMORY[0x277D85DD0];
-          v26[1] = 3221225472;
-          v26[2] = __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___block_invoke_3_372;
-          v26[3] = &unk_278C4D708;
-          v26[4] = *(a1 + 40);
-          v27 = *(a1 + 56);
-          v28 = *(a1 + 64);
-          v29 = *(a1 + 72);
-          [v15 competitionManager:v16 saveCurrentCompetitionList:v9 archivedCompetitionList:0 contact:v6 group:v17 completion:v26];
+          v12 = objc_loadWeakRetained((*(a1 + 40) + 184));
+          v13 = *(a1 + 40);
+          v14 = ASCloudKitGroupUserActionExplicit(v12);
+          v23[0] = MEMORY[0x277D85DD0];
+          v23[1] = 3221225472;
+          v23[2] = __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___block_invoke_3_372;
+          v23[3] = &unk_278C4D708;
+          v23[4] = *(a1 + 40);
+          v24 = *(a1 + 56);
+          v25 = *(a1 + 64);
+          v26 = *(a1 + 72);
+          [v12 competitionManager:v13 saveCurrentCompetitionList:v6 archivedCompetitionList:0 contact:v3 group:v14 completion:v23];
         }
 
         else
@@ -5166,9 +5068,9 @@ void __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___b
             __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___block_invoke_3_cold_3();
           }
 
-          v20 = *(a1 + 64);
-          v21 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CE91F8] code:9 userInfo:0];
-          (*(v20 + 16))(v20, 0, v21);
+          v17 = *(a1 + 64);
+          v18 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CE91F8] code:9 userInfo:0];
+          (*(v17 + 16))(v17, 0, v18);
 
           (*(*(a1 + 72) + 16))();
         }
@@ -5176,19 +5078,19 @@ void __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___b
 
       else
       {
-        v22 = [*(a1 + 40) recordForCurrentCompetitionList:v9 contact:v6];
-        v23 = objc_loadWeakRetained((*(a1 + 40) + 24));
-        v33[0] = v22;
-        v24 = [MEMORY[0x277CBEA60] arrayWithObjects:v33 count:1];
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___block_invoke_370;
-        v30[3] = &unk_278C4D690;
-        v30[4] = *(a1 + 40);
-        v25 = *(a1 + 56);
-        v31 = *(a1 + 64);
-        v32 = *(a1 + 72);
-        [v23 saveRecordsIntoPrivateDatabase:v24 priority:2 activity:0 group:v25 completion:v30];
+        v19 = [*(a1 + 40) recordForCurrentCompetitionList:v6 contact:v3];
+        v20 = objc_loadWeakRetained((*(a1 + 40) + 24));
+        v30[0] = v19;
+        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___block_invoke_370;
+        v27[3] = &unk_278C4D690;
+        v27[4] = *(a1 + 40);
+        v22 = *(a1 + 56);
+        v28 = *(a1 + 64);
+        v29 = *(a1 + 72);
+        [v20 saveRecordsIntoPrivateDatabase:v21 priority:2 activity:0 group:v22 completion:v27];
       }
     }
 
@@ -5200,9 +5102,9 @@ void __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___b
         __73__ASCompetitionManager_completeCompetitionWithFriendWithUUID_completion___block_invoke_cold_1();
       }
 
-      v18 = *(a1 + 64);
-      v19 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CE91F8] code:4 userInfo:0];
-      (*(v18 + 16))(v18, 0, v19);
+      v15 = *(a1 + 64);
+      v16 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CE91F8] code:4 userInfo:0];
+      (*(v15 + 16))(v15, 0, v16);
 
       (*(*(a1 + 72) + 16))();
     }
@@ -5216,13 +5118,9 @@ void __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___b
       __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___block_invoke_3_cold_1();
     }
 
-    v2 = *(a1 + 80);
-    v3 = *(a1 + 32);
     (*(*(a1 + 64) + 16))();
     (*(*(a1 + 72) + 16))();
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___block_invoke_370(uint64_t a1, char a2, void *a3, void *a4)
@@ -5252,14 +5150,12 @@ uint64_t __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion
   if (*(a1 + 72) == 1 && !*(a1 + 32))
   {
     [*(a1 + 40) _queue_handleSavedCompetitionListRecords:*(a1 + 48)];
-    v2 = *(a1 + 72);
   }
 
-  v3 = *(a1 + 32);
   (*(*(a1 + 56) + 16))();
-  v4 = *(*(a1 + 64) + 16);
+  v2 = *(*(a1 + 64) + 16);
 
-  return v4();
+  return v2();
 }
 
 void __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___block_invoke_3_372(uint64_t a1, char a2, void *a3, void *a4)
@@ -5311,30 +5207,26 @@ void __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___b
 
 void __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___block_invoke_5(uint64_t a1, int a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = a3;
   ASLoggingInitialize();
   v6 = *MEMORY[0x277CE8FD8];
   if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
   {
-    v10[0] = 67109378;
-    v10[1] = a2;
-    v11 = 2112;
-    v12 = v5;
-    _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "Roll competition immediate update (success %{BOOL}d, error: %@)", v10, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = a2;
+    v8 = 2112;
+    v9 = v5;
+    _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "Roll competition immediate update (success %{BOOL}d, error: %@)", v7, 0x12u);
   }
 
-  v7 = *(a1 + 56);
-  v8 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
   (*(*(a1 + 48) + 16))();
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_queue_rollCompetitionListForwardForContact:(id)contact
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEA80];
   contactCopy = contact;
   hk_gregorianCalendar = [v4 hk_gregorianCalendar];
@@ -5352,7 +5244,7 @@ void __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___b
     if (os_log_type_enabled(*MEMORY[0x277CE8FD8], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v23 = currentCompetition;
+      v22 = currentCompetition;
       _os_log_impl(&dword_23E5E3000, v12, OS_LOG_TYPE_DEFAULT, "CompetitionManager found competition to roll: %@ ", buf, 0xCu);
     }
 
@@ -5369,12 +5261,12 @@ void __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___b
     if (os_log_type_enabled(*v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v23 = currentCompetition;
+      v22 = currentCompetition;
       _os_log_impl(&dword_23E5E3000, v16, OS_LOG_TYPE_DEFAULT, "CompetitionManager rolled competition forward: %@", buf, 0xCu);
     }
 
-    v21 = currentCompetition;
-    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+    v20 = currentCompetition;
+    v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
     [v9 setCompetitions:v17];
 
     v18 = v9;
@@ -5384,8 +5276,6 @@ void __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___b
   {
     v18 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -5415,28 +5305,16 @@ void __69__ASCompetitionManager_rollCompetitionWithFriendWithUUID_completion___b
 
 void __74__ASCompetitionManager_sendCompetitionRequestToFriendWithUUID_completion___block_invoke_2_312_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __78__ASCompetitionManager_acceptCompetitionRequestFromFriendWithUUID_completion___block_invoke_319_cold_2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "CompetitionManager UUID mismatch between local and remote competition: %@ vs %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __78__ASCompetitionManager_ignoreCompetitionRequestFromFriendWithUUID_completion___block_invoke_2_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __117__ASCompetitionManager_cloudKitManager_didEndUpdatesForFetchWithType_activity_cloudKitGroup_changesProcessedHandler___block_invoke_cold_1(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -5446,37 +5324,11 @@ void __117__ASCompetitionManager_cloudKitManager_didEndUpdatesForFetchWithType_a
   _os_log_error_impl(&dword_23E5E3000, log, OS_LOG_TYPE_ERROR, "No paired watch supports competitions, showing upgrade notification", buf, 2u);
 }
 
-- (void)_queue_handleNewRemoteCompetitionList:contact:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "CompetitionManager competition UUIDs didn't match, not updating score: local=%@ remote=%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
 void __102__ASCompetitionManager__queue_completeCompetitionIfNecessaryForFriendWithUUID_activity_cloudKitGroup___block_invoke_349_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_scoreCapCelebrationAnchor
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "Error: %{public}@ retrieving score cap celebration anchor data from key value domain. anchor: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_setScoreCapCelebrationAnchor:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_3_0(&dword_23E5E3000, v0, v1, "Error:%{public}@ saving score cap celebration anchor data into key value domain. anchor: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

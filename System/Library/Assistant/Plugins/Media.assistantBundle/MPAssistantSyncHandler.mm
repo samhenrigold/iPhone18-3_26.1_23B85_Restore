@@ -24,44 +24,44 @@
 
 - (void)getChangeAfterAnchor:(id)anchor changeInfo:(id)info
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v84 = *MEMORY[0x277D85DE8];
   anchorCopy = anchor;
   infoCopy = info;
   if (self->_abortSync)
   {
-    v8 = _MPLogCategoryAssistant();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v12 = _MPLogCategoryAssistant();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_2334D9000, v8, OS_LOG_TYPE_ERROR, "Sync Handler (get): sync already ended", buf, 2u);
+      _os_log_impl(&dword_2334D9000, v12, OS_LOG_TYPE_ERROR, "Sync Handler (get): sync already ended", buf, 2u);
     }
   }
 
   else
   {
-    mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
-    isMediaEntitySyncDisabled = [mEMORY[0x277CEF368] isMediaEntitySyncDisabled];
+    v13 = objc_msgSend_sharedPreferences(MEMORY[0x277CEF368], v7, v8, v9, v10);
+    isMediaEntitySyncDisabled = objc_msgSend_isMediaEntitySyncDisabled(v13, v14, v15, v16, v17);
 
     if (isMediaEntitySyncDisabled)
     {
-      v12 = _MPLogCategoryAssistant();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v20 = _MPLogCategoryAssistant();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&dword_2334D9000, v12, OS_LOG_TYPE_DEFAULT, "Sync Handler (get): media entity sync disabled - resetting anchor", buf, 2u);
+        _os_log_impl(&dword_2334D9000, v20, OS_LOG_TYPE_DEFAULT, "Sync Handler (get): media entity sync disabled - resetting anchor", buf, 2u);
       }
 
-      [infoCopy setObject:0];
-      [infoCopy setPostAnchor:@"0"];
+      objc_msgSend_setObject_(infoCopy, v21, 0, v22, v23);
+      objc_msgSend_setPostAnchor_(infoCopy, v24, @"0", v25, v26);
     }
 
     else
     {
-      *&v11 = 138543362;
-      v27 = v11;
+      *&v19 = 138543362;
+      v79 = v19;
       while (1)
       {
-        v13 = objc_autoreleasePoolPush();
+        v27 = objc_autoreleasePoolPush();
         dispatch_semaphore_signal(self->_changeEnumerationSemaphore);
         dispatch_semaphore_wait(self->_resultProcessingSemaphore, 0xFFFFFFFFFFFFFFFFLL);
         if (self->_abortSync)
@@ -72,100 +72,98 @@
         nextChange = self->_nextChange;
         if (nextChange)
         {
-          v15 = nextChange;
-          entity = [v15 entity];
-          anchor = [v15 anchor];
-          deletionType = [v15 deletionType];
+          v29 = nextChange;
+          v34 = objc_msgSend_entity(v29, v30, v31, v32, v33);
+          v39 = objc_msgSend_anchor(v29, v35, v36, v37, v38);
+          v44 = objc_msgSend_deletionType(v29, v40, v41, v42, v43);
           if (self->_deleteNextChange)
           {
             self->_deleteNextChange = 0;
 LABEL_27:
-            v23 = 1;
-            v19 = [entity SAMPMediaEntityRepresentationUsingIdentifierType:1, v27];
+            v66 = 1;
+            v51 = objc_msgSend_SAMPMediaEntityRepresentationUsingIdentifierType_(v34, v45, 1, v46, v47, v79);
 LABEL_28:
-            [infoCopy setPostAnchor:{anchor, v27}];
-            [infoCopy setIsDelete:v23];
-            [infoCopy setObject:v19];
-            v24 = _MPLogCategoryAssistant();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+            objc_msgSend_setPostAnchor_(infoCopy, v62, v39, v63, v64, v79);
+            objc_msgSend_setIsDelete_(infoCopy, v67, v66, v68, v69);
+            objc_msgSend_setObject_(infoCopy, v70, v51, v71, v72);
+            v73 = _MPLogCategoryAssistant();
+            if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
             {
-              persistentID = [entity persistentID];
+              v78 = objc_msgSend_persistentID(v34, v74, v75, v76, v77);
               *buf = 138543618;
-              v29 = anchor;
-              v30 = 2048;
-              v31 = persistentID;
-              _os_log_impl(&dword_2334D9000, v24, OS_LOG_TYPE_DEBUG, "Sync Handler (get): revision %{public}@, pid %lld", buf, 0x16u);
+              v81 = v39;
+              v82 = 2048;
+              v83 = v78;
+              _os_log_impl(&dword_2334D9000, v73, OS_LOG_TYPE_DEBUG, "Sync Handler (get): revision %{public}@, pid %lld", buf, 0x16u);
             }
 
             goto LABEL_31;
           }
 
-          if (deletionType)
+          if (v44)
           {
             goto LABEL_27;
           }
 
-          if (sub_2335046B4(entity))
+          if (sub_2335046B4(v34))
           {
-            v19 = [entity SAMPMediaEntityRepresentationUsingIdentifierType:1];
-            title = [v19 title];
-            v21 = [title length];
+            v51 = objc_msgSend_SAMPMediaEntityRepresentationUsingIdentifierType_(v34, v48, 1, v49, v50);
+            v56 = objc_msgSend_title(v51, v52, v53, v54, v55);
+            v61 = objc_msgSend_length(v56, v57, v58, v59, v60);
 
-            if (v21)
+            if (v61)
             {
-              v23 = 0;
+              v66 = 0;
               goto LABEL_28;
             }
 
-            v22 = _MPLogCategoryAssistant();
-            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+            v65 = _MPLogCategoryAssistant();
+            if (os_log_type_enabled(v65, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v27;
-              v29 = v19;
-              _os_log_impl(&dword_2334D9000, v22, OS_LOG_TYPE_DEFAULT, "Sync Handler (get): no title %{public}@", buf, 0xCu);
+              *buf = v79;
+              v81 = v51;
+              _os_log_impl(&dword_2334D9000, v65, OS_LOG_TYPE_DEFAULT, "Sync Handler (get): no title %{public}@", buf, 0xCu);
             }
           }
 
           else
           {
-            v19 = _MPLogCategoryAssistant();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            v51 = _MPLogCategoryAssistant();
+            if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
             {
-              *buf = v27;
-              v29 = entity;
-              _os_log_impl(&dword_2334D9000, v19, OS_LOG_TYPE_DEFAULT, "Sync Handler (get): not for Assistant %{public}@", buf, 0xCu);
+              *buf = v79;
+              v81 = v34;
+              _os_log_impl(&dword_2334D9000, v51, OS_LOG_TYPE_DEFAULT, "Sync Handler (get): not for Assistant %{public}@", buf, 0xCu);
             }
           }
         }
 
-        objc_autoreleasePoolPop(v13);
+        objc_autoreleasePoolPop(v27);
         if (!self->_nextChange)
         {
           goto LABEL_32;
         }
       }
 
-      v15 = _MPLogCategoryAssistant();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v29 = _MPLogCategoryAssistant();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_impl(&dword_2334D9000, v15, OS_LOG_TYPE_ERROR, "Sync Handler (get): aborted", buf, 2u);
+        _os_log_impl(&dword_2334D9000, v29, OS_LOG_TYPE_ERROR, "Sync Handler (get): aborted", buf, 2u);
       }
 
 LABEL_31:
 
-      objc_autoreleasePoolPop(v13);
+      objc_autoreleasePoolPop(v27);
     }
   }
 
 LABEL_32:
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)beginSyncWithAnchor:(id)anchor validity:(id)validity forKey:(id)key beginInfo:(id)info
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v92 = *MEMORY[0x277D85DE8];
   anchorCopy = anchor;
   validityCopy = validity;
   infoCopy = info;
@@ -173,34 +171,34 @@ LABEL_32:
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138478083;
-    v38 = anchorCopy;
-    v39 = 2114;
-    v40 = validityCopy;
+    v89 = anchorCopy;
+    v90 = 2114;
+    v91 = validityCopy;
     _os_log_impl(&dword_2334D9000, v12, OS_LOG_TYPE_DEFAULT, "Sync Handler (begin): anchor: %{private}@, validity: %{public}@", buf, 0x16u);
   }
 
   if (self->_abortSync)
   {
-    _syncValidity = _MPLogCategoryAssistant();
-    if (os_log_type_enabled(_syncValidity, OS_LOG_TYPE_ERROR))
+    v17 = _MPLogCategoryAssistant();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_2334D9000, _syncValidity, OS_LOG_TYPE_ERROR, "Sync Handler (enumeration): sync already ended", buf, 2u);
+      _os_log_impl(&dword_2334D9000, v17, OS_LOG_TYPE_ERROR, "Sync Handler (enumeration): sync already ended", buf, 2u);
     }
 
     goto LABEL_28;
   }
 
-  _syncValidity = [(MPMediaLibrary *)self->_library _syncValidity];
-  currentEntityRevision = [(MPMediaLibrary *)self->_library currentEntityRevision];
-  v15 = [(MPMediaLibrary *)self->_library valueForDatabaseProperty:@"ForceSiriResetSync"];
-  bOOLValue = [v15 BOOLValue];
+  v17 = objc_msgSend__syncValidity(self->_library, v13, v14, v15, v16);
+  v22 = objc_msgSend_currentEntityRevision(self->_library, v18, v19, v20, v21);
+  v26 = objc_msgSend_valueForDatabaseProperty_(self->_library, v23, @"ForceSiriResetSync", v24, v25);
+  v31 = objc_msgSend_BOOLValue(v26, v27, v28, v29, v30);
 
-  if (([_syncValidity isEqualToString:validityCopy]& 1) != 0)
+  if (objc_msgSend_isEqualToString_(v17, v32, validityCopy, v33, v34))
   {
-    if (currentEntityRevision >= [(__CFString *)anchorCopy longLongValue])
+    if (v22 >= objc_msgSend_longLongValue(anchorCopy, v35, v36, v37, v38))
     {
-      if (!bOOLValue)
+      if (!v31)
       {
         p_resetSync = &self->_resetSync;
         if (!self->_resetSync)
@@ -211,131 +209,131 @@ LABEL_32:
         goto LABEL_15;
       }
 
-      v17 = _MPLogCategoryAssistant();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v43 = _MPLogCategoryAssistant();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v19 = "Sync Handler (validity): forced reset";
-        v20 = v17;
-        v21 = OS_LOG_TYPE_DEFAULT;
-        v22 = 2;
+        v49 = "Sync Handler (validity): forced reset";
+        v50 = v43;
+        v51 = OS_LOG_TYPE_DEFAULT;
+        v52 = 2;
         goto LABEL_13;
       }
     }
 
     else
     {
-      v17 = _MPLogCategoryAssistant();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v43 = _MPLogCategoryAssistant();
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
       {
-        longLongValue = [(__CFString *)anchorCopy longLongValue];
+        v48 = objc_msgSend_longLongValue(anchorCopy, v44, v45, v46, v47);
         *buf = 134218240;
-        v38 = currentEntityRevision;
-        v39 = 2048;
-        v40 = longLongValue;
-        v19 = "Sync Handler (validity): (db revision = %lli, anchor = %lli)";
+        v89 = v22;
+        v90 = 2048;
+        v91 = v48;
+        v49 = "Sync Handler (validity): (db revision = %lli, anchor = %lli)";
 LABEL_12:
-        v20 = v17;
-        v21 = OS_LOG_TYPE_ERROR;
-        v22 = 22;
+        v50 = v43;
+        v51 = OS_LOG_TYPE_ERROR;
+        v52 = 22;
 LABEL_13:
-        _os_log_impl(&dword_2334D9000, v20, v21, v19, buf, v22);
+        _os_log_impl(&dword_2334D9000, v50, v51, v49, buf, v52);
       }
     }
   }
 
   else
   {
-    v17 = _MPLogCategoryAssistant();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v43 = _MPLogCategoryAssistant();
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543618;
-      v38 = _syncValidity;
-      v39 = 2114;
-      v40 = validityCopy;
-      v19 = "Sync Handler (validity): (libraryValidity:%{public}@ != siriValidity:%{public}@)";
+      v89 = v17;
+      v90 = 2114;
+      v91 = validityCopy;
+      v49 = "Sync Handler (validity): (libraryValidity:%{public}@ != siriValidity:%{public}@)";
       goto LABEL_12;
     }
   }
 
-  [infoCopy resetWithValidity:_syncValidity];
+  objc_msgSend_resetWithValidity_(infoCopy, v53, v17, v54, v55);
   self->_resetSync = 1;
   p_resetSync = &self->_resetSync;
   anchorCopy = @"0";
 LABEL_15:
-  [(MPMediaLibrary *)self->_library deleteDatabaseProperty:@"ForceSiriResetSync"];
+  objc_msgSend_deleteDatabaseProperty_(self->_library, v39, @"ForceSiriResetSync", v41, v42);
 LABEL_16:
-  mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
-  isMediaEntitySyncDisabled = [mEMORY[0x277CEF368] isMediaEntitySyncDisabled];
+  v57 = objc_msgSend_sharedPreferences(MEMORY[0x277CEF368], v39, v40, v41, v42);
+  isMediaEntitySyncDisabled = objc_msgSend_isMediaEntitySyncDisabled(v57, v58, v59, v60, v61);
 
   if (isMediaEntitySyncDisabled)
   {
-    intValue = [(__CFString *)anchorCopy intValue];
-    v27 = _MPLogCategoryAssistant();
-    v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
-    if (intValue)
+    v67 = objc_msgSend_intValue(anchorCopy, v63, v64, v65, v66);
+    v68 = _MPLogCategoryAssistant();
+    v69 = os_log_type_enabled(v68, OS_LOG_TYPE_DEFAULT);
+    if (v67)
     {
-      if (v28)
+      if (v69)
       {
         *buf = 0;
-        _os_log_impl(&dword_2334D9000, v27, OS_LOG_TYPE_DEFAULT, "Sync Handler (validity): media entity sync disabled - resetting", buf, 2u);
+        _os_log_impl(&dword_2334D9000, v68, OS_LOG_TYPE_DEFAULT, "Sync Handler (validity): media entity sync disabled - resetting", buf, 2u);
       }
 
       *p_resetSync = 1;
-      [infoCopy resetWithValidity:_syncValidity];
+      objc_msgSend_resetWithValidity_(infoCopy, v70, v17, v71, v72);
 
       anchorCopy = @"0";
     }
 
     else
     {
-      if (v28)
+      if (v69)
       {
         *buf = 0;
-        _os_log_impl(&dword_2334D9000, v27, OS_LOG_TYPE_DEFAULT, "Sync Handler (validity): media entity sync disabled - ignoring sync", buf, 2u);
+        _os_log_impl(&dword_2334D9000, v68, OS_LOG_TYPE_DEFAULT, "Sync Handler (validity): media entity sync disabled - ignoring sync", buf, 2u);
       }
 
       self->_abortSync = 1;
     }
   }
 
-  v29 = dispatch_semaphore_create(0);
+  v73 = dispatch_semaphore_create(0);
   changeEnumerationSemaphore = self->_changeEnumerationSemaphore;
-  self->_changeEnumerationSemaphore = v29;
+  self->_changeEnumerationSemaphore = v73;
 
-  v31 = dispatch_semaphore_create(0);
+  v75 = dispatch_semaphore_create(0);
   resultProcessingSemaphore = self->_resultProcessingSemaphore;
-  self->_resultProcessingSemaphore = v31;
+  self->_resultProcessingSemaphore = v75;
 
-  _widthLimitedOperationQueue = [objc_opt_class() _widthLimitedOperationQueue];
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = sub_233504D4C;
-  v35[3] = &unk_2789DBCF0;
-  v35[4] = self;
+  v77 = objc_opt_class();
+  v82 = objc_msgSend__widthLimitedOperationQueue(v77, v78, v79, v80, v81);
+  v86[0] = MEMORY[0x277D85DD0];
+  v86[1] = 3221225472;
+  v86[2] = sub_233504D4C;
+  v86[3] = &unk_2789DBCF0;
+  v86[4] = self;
   anchorCopy = anchorCopy;
-  v36 = anchorCopy;
-  [_widthLimitedOperationQueue addOperationWithBlock:v35];
+  v87 = anchorCopy;
+  objc_msgSend_addOperationWithBlock_(v82, v83, v86, v84, v85);
 
 LABEL_28:
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (MPAssistantSyncHandler)init
 {
-  v6.receiver = self;
-  v6.super_class = MPAssistantSyncHandler;
-  v2 = [(MPAssistantSyncHandler *)&v6 init];
-  if (v2)
+  v13.receiver = self;
+  v13.super_class = MPAssistantSyncHandler;
+  v6 = [(MPAssistantSyncHandler *)&v13 init];
+  if (v6)
   {
-    defaultMediaLibrary = [MEMORY[0x277CD5E10] defaultMediaLibrary];
-    library = v2->_library;
-    v2->_library = defaultMediaLibrary;
+    v7 = objc_msgSend_defaultMediaLibrary(MEMORY[0x277CD5E10], v2, v3, v4, v5);
+    library = v6->_library;
+    v6->_library = v7;
 
-    [MEMORY[0x277CD5E38] setFilteringDisabled:1];
+    objc_msgSend_setFilteringDisabled_(MEMORY[0x277CD5E38], v9, 1, v10, v11);
   }
 
-  return v2;
+  return v6;
 }
 
 + (id)_widthLimitedOperationQueue

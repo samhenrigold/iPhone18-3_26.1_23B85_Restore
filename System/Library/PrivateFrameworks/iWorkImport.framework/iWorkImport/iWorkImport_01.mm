@@ -783,15 +783,16 @@ void sub_45E14(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-id sub_46384(void *a1, int a2)
+id sub_46384(void *a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = [a1 model];
   v5 = [a1 legend];
   v6 = [a1 style];
   if (v4)
   {
     v7 = v6;
-    if (a2)
+    if (v2)
     {
       v8 = v5;
     }
@@ -822,28 +823,28 @@ id sub_46384(void *a1, int a2)
       v20 = v16;
       Mutable = CFDictionaryCreateMutable(0, 0, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
       sub_4670C(Mutable);
-      sub_467D0(Mutable, v7, a2);
-      if ((a2 & 1) == 0 && [v4 title])
+      sub_467D0(Mutable, v7, v2);
+      if ((v2 & 1) == 0 && [v4 title])
       {
         v22 = [v4 title];
         sub_46904(Mutable, v22, kOIChartTitleKey, v7, 148, 149);
       }
 
-      sub_469CC(Mutable, v7, a2, v18, v20);
+      sub_469CC(Mutable, v7, v2, v18, v20);
       if (v14 == 14)
       {
         v14 = 13;
       }
 
       v23 = (v20 + v18) / 6.0;
-      sub_46B24(Mutable, v19, v4, v14, v7, a2, v23);
-      if ((a2 & 1) == 0)
+      sub_46B24(Mutable, v19, v4, v14, v7, v2, v23);
+      if ((v2 & 1) == 0)
       {
         sub_473C8(Mutable, v14, v7, v4);
       }
 
       sub_47A1C(Mutable, v14);
-      v4 = sub_47AA8();
+      v4 = sub_47AA8(Mutable);
       CFRelease(Mutable);
     }
 
@@ -1962,7 +1963,7 @@ void sub_481C4(__CFDictionary *a1, const void *a2, void *a3, float *a4)
 
 void sub_4827C()
 {
-  qword_A3610 = &stru_85620;
+  qword_A3610[0] = &stru_85620;
   *algn_A3618 = kOIChartPieType;
   qword_A3620 = kOIChartColumnType;
   unk_A3628 = kOIChartStackedColumnType;
@@ -2227,7 +2228,7 @@ double sub_4B7F8@<D0>(_OWORD *a1@<X8>, double a2@<D0>, double a3@<D1>, double a4
   sub_4B6AC(v18, a2, a3, a4, a5, a6, a7, a8, a9);
   if (v18)
   {
-    [v18 transformStruct];
+    objc_msgSend_transformStruct(v18);
   }
 
   *a1 = 0u;
@@ -3233,85 +3234,78 @@ LABEL_7:
   }
 }
 
-float sub_4FD4C(float64x2_t *a1, uint64_t a2, uint64_t a3)
+float sub_4FD4C(float64x2_t *a1, double *a2, uint64_t a3)
 {
-  v6 = *(a2 + 8);
-  v7 = sub_4F99C(*(a2 + 16), *(a2 + 24), *a2);
-  v9 = sub_4F9D8(v7, v8);
-  v11 = v10;
-  v12 = *(a2 + 8);
-  v13 = sub_4F99C(a1->f64[0], a1->f64[1], *a2);
-  v15 = sub_4F9D8(v13, v14);
-  v51.f64[0] = 0.0;
-  v51.f64[1] = sub_4FA00(v9, v11, v15, v16);
-  v17 = *(a2 + 8);
-  v18 = sub_4F99C(a1[1].f64[0], a1[1].f64[1], *a2);
-  v20 = sub_4F9D8(v18, v19);
-  v52 = 0x3FD5555560000000;
-  v53 = sub_4FA00(v9, v11, v20, v21);
-  v22 = *(a2 + 8);
-  v23 = sub_4F99C(a1[2].f64[0], a1[2].f64[1], *a2);
+  v6 = sub_4F99C(a2[2], a2[3], *a2);
+  v8 = sub_4F9D8(v6, v7);
+  v10 = v9;
+  v11 = sub_4F99C(a1->f64[0], a1->f64[1], *a2);
+  v13 = sub_4F9D8(v11, v12);
+  v46.f64[0] = 0.0;
+  v46.f64[1] = sub_4FA00(v8, v10, v13, v14);
+  v15 = sub_4F99C(a1[1].f64[0], a1[1].f64[1], *a2);
+  v17 = sub_4F9D8(v15, v16);
+  v47 = 0x3FD5555560000000;
+  v48 = sub_4FA00(v8, v10, v17, v18);
+  v19 = sub_4F99C(a1[2].f64[0], a1[2].f64[1], *a2);
+  v21 = sub_4F9D8(v19, v20);
+  v49 = 0x3FE5555560000000;
+  v50 = sub_4FA00(v8, v10, v21, v22);
+  v23 = sub_4F99C(a1[3].f64[0], a1[3].f64[1], *a2);
   v25 = sub_4F9D8(v23, v24);
-  v54 = 0x3FE5555560000000;
-  v55 = sub_4FA00(v9, v11, v25, v26);
-  v27 = *(a2 + 8);
-  v28 = sub_4F99C(a1[3].f64[0], a1[3].f64[1], *a2);
-  v30 = sub_4F9D8(v28, v29);
-  v56 = 0x3FF0000000000000;
-  v57 = sub_4FA00(v9, v11, v30, v31);
-  v32 = v53 * 9.0 + v51.f64[1] * -3.0 + v55 * -9.0 + v57 * 3.0;
-  v33 = v53 * -12.0 + v51.f64[1] * 6.0 + v55 * 6.0;
-  v34 = v53 * 3.0 + v51.f64[1] * -3.0;
-  v35 = sqrtf(((v32 * -4.0) * v34) + (v33 * v33));
-  v36 = (-v33 - v35) / (v32 + v32);
-  v37 = sub_4FA18(&v51, (v35 - v33) / (v32 + v32));
-  v39 = v38;
-  v40 = sub_4FA18(&v51, v36);
-  if ((v40 < 0.0 || v39 > v41 || v40 > 1.0) && v37 >= 0.0 && v37 <= 1.0)
+  v51 = 0x3FF0000000000000;
+  v52 = sub_4FA00(v8, v10, v25, v26);
+  v27 = v48 * 9.0 + v46.f64[1] * -3.0 + v50 * -9.0 + v52 * 3.0;
+  v28 = v48 * -12.0 + v46.f64[1] * 6.0 + v50 * 6.0;
+  v29 = v48 * 3.0 + v46.f64[1] * -3.0;
+  v30 = sqrtf(((v27 * -4.0) * v29) + (v28 * v28));
+  v31 = (-v28 - v30) / (v27 + v27);
+  v32 = sub_4FA18(&v46, (v30 - v28) / (v27 + v27));
+  v34 = v33;
+  v35 = sub_4FA18(&v46, v31);
+  if ((v35 < 0.0 || v34 > v36 || v35 > 1.0) && v32 >= 0.0 && v32 <= 1.0)
   {
     goto LABEL_18;
   }
 
-  v45 = -2.0;
-  if (v40 >= 0.0 && v40 <= 1.0)
+  v40 = -2.0;
+  if (v35 >= 0.0 && v35 <= 1.0)
   {
-    v37 = v40;
-    v39 = v41;
+    v32 = v35;
+    v34 = v36;
 LABEL_18:
-    v47 = v37;
-    *a3 = sub_4FA18(a1, v47);
-    *(a3 + 8) = v48;
-    v49 = v39;
-    return fabsf(v49);
+    v42 = v32;
+    *a3 = sub_4FA18(a1, v42);
+    *(a3 + 8) = v43;
+    v44 = v34;
+    return fabsf(v44);
   }
 
-  return v45;
+  return v40;
 }
 
-double sub_4FF9C(const CGPath *a1, uint64_t a2)
+double sub_4FF9C(const CGPath *a1, double *a2)
 {
   valuePtr = 0;
   x = CGPointZero.x;
-  y = CGPointZero.y;
-  v6 = *(a2 + 8);
-  v7 = sub_4F99C(*(a2 + 16), *(a2 + 24), *a2);
-  v9 = sub_4F9D8(v7, v8);
-  v11 = v10;
-  v31 = CGPointZero;
+  v5 = sub_4F99C(a2[2], a2[3], *a2);
+  v7 = sub_4F9D8(v5, v6);
+  v9 = v8;
+  v28 = CGPointZero;
   Mutable = CFArrayCreateMutable(0, 0, &kCFTypeArrayCallBacks);
   CGPathApply(a1, Mutable, sub_4FC20);
   Count = CFArrayGetCount(Mutable);
   if (Count >= 1)
   {
-    v14 = 0;
-    v15 = Count & 0x7FFFFFFF;
-    v16 = -2.0;
+    v12 = 0;
+    v13 = Count & 0x7FFFFFFF;
+    v14 = -2.0;
     while (1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v14);
-      v18 = CFArrayGetValueAtIndex(ValueAtIndex, 0);
-      CFNumberGetValue(v18, kCFNumberIntType, &valuePtr);
-      v19 = valuePtr;
+      ValueAtIndex = CFArrayGetValueAtIndex(Mutable, v12);
+      v16 = CFArrayGetValueAtIndex(ValueAtIndex, 0);
+      CFNumberGetValue(v16, kCFNumberIntType, &valuePtr);
+      v17 = valuePtr;
       if (valuePtr < 2)
       {
         break;
@@ -3319,60 +3313,59 @@ double sub_4FF9C(const CGPath *a1, uint64_t a2)
 
       if (valuePtr == 3)
       {
-        v20 = v34;
+        v18 = v31;
         for (i = 1; i != 7; i += 2)
         {
-          sub_4FBAC(ValueAtIndex, i, v20);
-          v20 += 2;
+          sub_4FBAC(ValueAtIndex, i, v18);
+          v18 += 2;
         }
 
         goto LABEL_8;
       }
 
 LABEL_9:
-      if (v19 == 3)
+      if (v17 == 3)
       {
-        v22 = sub_4FD4C(&v33, a2, &v30);
-        if (v22 > v16)
+        v20 = sub_4FD4C(&v30, a2, &v27);
+        if (v20 > v14)
         {
-          v16 = v22;
-          x = v30;
+          v14 = v20;
+          x = v27;
         }
 
-        v34[0] = v34[2];
+        v31[0] = v31[2];
       }
 
-      else if (v19 == 4)
+      else if (v17 == 4)
       {
-        v34[0] = v31;
+        v31[0] = v28;
         valuePtr = 1;
       }
 
-      v23 = *(a2 + 8);
-      v24 = sub_4F99C(*v34, *(v34 + 1), *a2);
-      v26 = sub_4F9D8(v24, v25);
-      v28 = sub_4FA00(v9, v11, v26, v27);
-      if (v16 < v28)
+      v21 = sub_4F99C(*v31, *(v31 + 1), *a2);
+      v23 = sub_4F9D8(v21, v22);
+      v25 = sub_4FA00(v7, v9, v23, v24);
+      if (v14 < v25)
       {
-        v16 = v28;
-        x = *v34;
+        v14 = v25;
+        x = *v31;
       }
 
-      v33 = v34[0];
+      v30 = v31[0];
       if (!valuePtr)
       {
-        v31 = v34[0];
+        v28 = v31[0];
       }
 
-      if (++v14 == v15)
+      if (++v12 == v13)
       {
         goto LABEL_20;
       }
     }
 
-    sub_4FBAC(ValueAtIndex, 1, v34);
+    sub_4FBAC(ValueAtIndex, 1, v31);
 LABEL_8:
-    v19 = valuePtr;
+    v17 = valuePtr;
     goto LABEL_9;
   }
 
@@ -3567,7 +3560,7 @@ LABEL_15:
   return Mutable;
 }
 
-CGMutablePathRef sub_5091C(const __CFArray *a1)
+CGMutablePathRef sub_5091C(const __CFArray *a1, uint64_t a2)
 {
   Count = CFArrayGetCount(a1);
   if (Count == 1)

@@ -14,7 +14,7 @@
 
   if (v3)
   {
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSObject);
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSObject, 0x1E69E58C0);
     v4.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
@@ -31,7 +31,7 @@
   result = lazy protocol witness table cache variable for type [String : NSObject] and conformance [A : B];
   if (!lazy protocol witness table cache variable for type [String : NSObject] and conformance [A : B])
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySSSo8NSObjectCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSDySSSo8NSObjectCGMd, ":X\b");
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type [String : NSObject] and conformance [A : B]);
   }
@@ -44,7 +44,7 @@
   v3 = *__swift_project_boxed_opaque_existential_1((self + 32), *(self + 56));
   if (a2)
   {
-    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber);
+    type metadata accessor for NSObject(0, &lazy cache variable for type metadata for NSNumber, 0x1E696AD98);
     v4 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   }
 

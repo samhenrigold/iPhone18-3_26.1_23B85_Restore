@@ -62,7 +62,7 @@
 
 - (void)setClientProperties:(id)properties
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   v6 = +[MRUserSettings currentSettings];
   verboseOriginClientLogging = [v6 verboseOriginClientLogging];
@@ -74,9 +74,9 @@
     {
       playerPath = self->_playerPath;
       *buf = 138543618;
-      v18 = playerPath;
-      v19 = 2114;
-      v20 = propertiesCopy;
+      v17 = playerPath;
+      v18 = 2114;
+      v19 = propertiesCopy;
       _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRNowPlayingOriginClientRequests] %{public}@ UpdatingCache: clientProperties %{public}@", buf, 0x16u);
     }
   }
@@ -97,7 +97,6 @@
   selfCopy->_clientProperties = v13;
 
   objc_sync_exit(selfCopy);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (MRClient)clientProperties
@@ -112,7 +111,7 @@
 
 - (id)nowPlayingPlayerClientRequestsForPlayerPath:(id)path
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   player = [pathCopy player];
 
@@ -120,25 +119,25 @@
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    v19 = 0u;
-    v20 = 0u;
-    v17 = 0u;
     v18 = 0u;
+    v19 = 0u;
+    v16 = 0u;
+    v17 = 0u;
     v7 = selfCopy->_playerClients;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v8)
     {
-      v9 = *v18;
+      v9 = *v17;
 LABEL_4:
       v10 = 0;
       while (1)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * v10);
+        v11 = *(*(&v16 + 1) + 8 * v10);
         playerPath = [v11 playerPath];
         v13 = [playerPath isEqual:pathCopy];
 
@@ -149,7 +148,7 @@ LABEL_4:
 
         if (v8 == ++v10)
         {
-          v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+          v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
           if (v8)
           {
             goto LABEL_4;
@@ -183,14 +182,12 @@ LABEL_13:
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-
   return v14;
 }
 
 - (id)existingNowPlayingPlayerClientRequestsForPlayerPath:(id)path
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   player = [pathCopy player];
 
@@ -198,25 +195,25 @@ LABEL_13:
   {
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v7 = selfCopy->_playerClients;
-    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
-      v9 = *v17;
+      v9 = *v16;
       while (2)
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v17 != v9)
+          if (*v16 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v16 + 1) + 8 * i);
+          v11 = *(*(&v15 + 1) + 8 * i);
           playerPath = [v11 playerPath];
           v13 = [playerPath isEqual:pathCopy];
 
@@ -227,7 +224,7 @@ LABEL_13:
           }
         }
 
-        v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v8)
         {
           continue;
@@ -247,36 +244,34 @@ LABEL_12:
     v8 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 - (void)removePlayer:(id)player
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   playerCopy = player;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v6 = selfCopy->_playerClients;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v6);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         playerPath = [v10 playerPath];
         v12 = [playerPath isEqual:playerCopy];
 
@@ -287,7 +282,7 @@ LABEL_12:
         }
       }
 
-      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -300,7 +295,6 @@ LABEL_12:
 LABEL_11:
 
   objc_sync_exit(selfCopy);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleClientPropertiesRequestWithCompletion:(id)completion
@@ -355,7 +349,7 @@ LABEL_11:
 
 void __74__MRNowPlayingClientRequests_handleClientPropertiesRequestWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = a3;
   v8 = *(a1 + 32);
@@ -371,72 +365,69 @@ void __74__MRNowPlayingClientRequests_handleClientPropertiesRequestWithCompletio
   [*(*(a1 + 32) + 24) removeAllObjects];
   objc_sync_exit(v8);
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v12)
   {
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        (*(*(*(&v16 + 1) + 8 * i) + 16))(*(*(&v16 + 1) + 8 * i));
+        (*(*(*(&v15 + 1) + 8 * i) + 16))(*(*(&v15 + 1) + 8 * i));
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)restoreNowPlayingClientState
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v10 = 0u;
-  v11 = 0u;
-  v8 = 0u;
   v9 = 0u;
+  v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   v3 = selfCopy->_playerClients;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v4)
   {
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) restoreNowPlayingClientState];
+        [*(*(&v7 + 1) + 8 * v6++) restoreNowPlayingClientState];
       }
 
       while (v4 != v6);
-      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
 
   objc_sync_exit(selfCopy);
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithPlayerPath:.cold.1()

@@ -132,8 +132,6 @@ uint64_t __33__ASFeatureManager_sharedManager__block_invoke()
   isInternalInstall = [MEMORY[0x1E69C8880] isInternalInstall];
   if (isInternalInstall)
   {
-    v6 = *token->var0;
-    v7 = *&token->var0[4];
     LOBYTE(isInternalInstall) = WBSAuditTokenHasEntitlement();
   }
 
@@ -170,21 +168,21 @@ uint64_t __33__ASFeatureManager_sharedManager__block_invoke()
 {
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
   as_authenticationServicesManagedConfigurationURL = [defaultManager as_authenticationServicesManagedConfigurationURL];
-  v9 = 0;
-  v4 = [_TtC26AuthenticationServicesCore22ASManagedConfiguration loadFromDiskWithPlistURL:as_authenticationServicesManagedConfigurationURL error:&v9];
-  v5 = v9;
+  v11 = 0;
+  v4 = [_TtC26AuthenticationServicesCore22ASManagedConfiguration loadFromDiskWithPlistURL:as_authenticationServicesManagedConfigurationURL error:&v11];
+  v5 = v11;
 
   if (v4)
   {
-    v6 = v4;
+    v8 = v4;
   }
 
   else
   {
-    v7 = WBS_LOG_CHANNEL_PREFIXAuthorization();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v9 = WBS_LOG_CHANNEL_PREFIXAuthorization(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      [(ASFeatureManager *)v7 _fetchCurrentManagedConfiguration];
+      [(ASFeatureManager *)v9 _fetchCurrentManagedConfiguration];
     }
   }
 
@@ -193,14 +191,12 @@ uint64_t __33__ASFeatureManager_sharedManager__block_invoke()
 
 - (void)_fetchCurrentManagedConfiguration
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   safari_privacyPreservingDescription = [a2 safari_privacyPreservingDescription];
-  v6 = 138543362;
-  v7 = safari_privacyPreservingDescription;
-  _os_log_fault_impl(&dword_1C20AD000, selfCopy, OS_LOG_TYPE_FAULT, "Could not not load managed configuration: %{public}@.", &v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 138543362;
+  v6 = safari_privacyPreservingDescription;
+  _os_log_fault_impl(&dword_1C20AD000, selfCopy, OS_LOG_TYPE_FAULT, "Could not not load managed configuration: %{public}@.", &v5, 0xCu);
 }
 
 @end

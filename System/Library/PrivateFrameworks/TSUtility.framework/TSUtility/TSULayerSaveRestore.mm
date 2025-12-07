@@ -33,7 +33,7 @@
 
     v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
     v7 = MEMORY[0x277CCAE60];
-    [layer transform];
+    objc_msgSend_transform(layer);
     [v6 setObject:objc_msgSend(v7 forKey:{"valueWithCATransform3D:", &v15), @"transform"}];
     v8 = MEMORY[0x277CCABB0];
     [layer opacity];
@@ -91,7 +91,7 @@
       v9 = [v6 objectForKey:@"transform"];
       if (v9)
       {
-        [v9 CATransform3DValue];
+        objc_msgSend_CATransform3DValue(v9);
       }
 
       else
@@ -99,7 +99,7 @@
         memset(&v35, 0, sizeof(v35));
       }
 
-      [layer transform];
+      objc_msgSend_transform(layer);
       v33 = v35;
       if (!CATransform3DEqualToTransform(&v33, &b))
       {

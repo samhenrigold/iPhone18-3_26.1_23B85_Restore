@@ -1,3 +1,111 @@
+uint64_t _VCScreenCapture_clearScreenProc(uint64_t a1)
+{
+  v24 = *MEMORY[0x1E69E9840];
+  v21.tv_sec = 0xAAAAAAAAAAAAAAAALL;
+  *&v21.tv_usec = 0xAAAAAAAAAAAAAAAALL;
+  v20.tv_sec = 0;
+  v20.tv_nsec = 0;
+  v18[0] = 0;
+  v18[1] = 0;
+  v19 = 0;
+  pthread_setname_np("com.apple.vcscreencapture.clearscreenproc");
+  if (VRTraceGetErrorLogLevelForModule() >= 7)
+  {
+    v2 = VRTraceErrorLogLevelToCSTR();
+    v3 = *MEMORY[0x1E6986650];
+    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315650;
+      *&buf[4] = v2;
+      *&buf[12] = 2080;
+      *&buf[14] = "_VCScreenCapture_clearScreenProc";
+      *&buf[22] = 1024;
+      v23 = 369;
+      _os_log_impl(&dword_1DB56E000, v3, OS_LOG_TYPE_DEFAULT, "VCScreenCapture [%s] %s:%d Clear Screen Thread Started", buf, 0x1Cu);
+    }
+  }
+
+  pthread_mutex_lock((a1 + 320));
+  if ([a1 isClearScreenThreadRunning])
+  {
+    *&v4 = 136315650;
+    v17 = v4;
+    do
+    {
+      v5 = (a1 + 256);
+      v6 = (a1 + 320);
+      if (*(a1 + 428))
+      {
+        pthread_cond_timedwait(v5, v6, &v20);
+      }
+
+      else
+      {
+        pthread_cond_wait(v5, v6);
+        if (VRTraceGetErrorLogLevelForModule() >= 7)
+        {
+          v7 = VRTraceErrorLogLevelToCSTR();
+          v8 = *MEMORY[0x1E6986650];
+          if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = v17;
+            *&buf[4] = v7;
+            *&buf[12] = 2080;
+            *&buf[14] = "_VCScreenCapture_clearScreenProc";
+            *&buf[22] = 1024;
+            v23 = 381;
+            _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, "VCScreenCapture [%s] %s:%d Clear Screen Signalled", buf, 0x1Cu);
+          }
+        }
+
+        gettimeofday(&v21, 0);
+        v20.tv_sec = v21.tv_sec;
+        v20.tv_nsec = 1000 * v21.tv_usec;
+      }
+
+      v9 = [a1 newIdleBlackFrameWithAttributes:{v18, v17}];
+      v10 = *(a1 + 404);
+      v11 = *(a1 + 412);
+      v12 = *(a1 + 420);
+      pthread_mutex_unlock((a1 + 320));
+      if (v9)
+      {
+        *buf = v10;
+        *&buf[8] = v11;
+        *&buf[16] = v12;
+        VCVideoCapture_DistributeVideoFrame(a1, v9, buf, v18);
+        CFRelease(v9);
+      }
+
+      v13 = v20.tv_nsec + 1000000000 * v20.tv_sec + 33333333;
+      v20.tv_sec = v13 / 0x3B9ACA00;
+      v20.tv_nsec = v13 % 0x3B9ACA00;
+      pthread_mutex_lock((a1 + 320));
+    }
+
+    while (([a1 isClearScreenThreadRunning] & 1) != 0);
+  }
+
+  pthread_mutex_unlock((a1 + 320));
+  if (VRTraceGetErrorLogLevelForModule() > 6)
+  {
+    v14 = VRTraceErrorLogLevelToCSTR();
+    v15 = *MEMORY[0x1E6986650];
+    if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 136315650;
+      *&buf[4] = v14;
+      *&buf[12] = 2080;
+      *&buf[14] = "_VCScreenCapture_clearScreenProc";
+      *&buf[22] = 1024;
+      v23 = 403;
+      _os_log_impl(&dword_1DB56E000, v15, OS_LOG_TYPE_DEFAULT, "VCScreenCapture [%s] %s:%d Clear Screen Thread Ended", buf, 0x1Cu);
+    }
+  }
+
+  return a1;
+}
+
 void OUTLINED_FUNCTION_7_6(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint8_t *a5)
 {
 
@@ -42,7 +150,7 @@ void VCAudioDucker_Destroy(void **a1)
   }
 }
 
-OpaqueAudioComponentInstance *VCAudioDucker_Start(AudioComponentInstance *a1)
+OpaqueAudioComponentInstance *VCAudioDucker_Start(AudioUnit *a1)
 {
   if (!a1)
   {
@@ -286,73 +394,75 @@ BOOL VCAudioDucker_Process(UInt64 a1, uint64_t a2, uint64_t a3)
   return v9;
 }
 
-void OUTLINED_FUNCTION_10_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_10_4(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x28u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x28u);
 }
 
-uint64_t RTPSendH263Packet(uint64_t a1, char a2, int a3, char a4, char a5, int a6, int a7, char a8, double a9, char a10, void *a11, signed int a12, int *a13, const void *a14, unsigned __int8 a15, int a16, int a17, unsigned __int8 a18, _DWORD *a19, int a20, uint64_t a21, int a22, void *a23, uint64_t a24, _OWORD *a25)
+uint64_t RTPSendH263Packet(uint64_t a1, char a2, int a3, char a4, char a5, uint64_t a6, int a7, char a8, double a9, char a10, void *a11, unsigned int a12, int *a13, const void *a14, uint64_t a15, uint64_t a16, _DWORD *a17, uint64_t a18, uint64_t a19, uint64_t a20, void *a21, unsigned __int16 *a22, unsigned __int16 *a23)
 {
-  v25 = a23;
-  v39 = *MEMORY[0x1E69E9840];
-  v26 = 2147549185;
-  v38 = -1431655766;
+  v23 = a21;
+  v37 = *MEMORY[0x1E69E9840];
+  v24 = 2147549185;
+  v36 = -1431655766;
   if (a13)
   {
+    v26 = a6;
     *a13 = 0;
-    v35 = CheckInHandleDebug();
-    if (v35 == 0xFFFFFFFFLL)
+    v33 = CheckInHandleDebug();
+    if (v33 == 0xFFFFFFFFLL)
     {
-      VCMediaControlInfoDispose(a23);
+      VCMediaControlInfoDispose(a21);
       return 2147549190;
     }
 
-    else if (v35)
+    else if (v33)
     {
-      *(v35 + 16) = *(v35 + 16) & 0x80FF | ((a2 & 0x7F) << 8);
+      *(v33 + 16) = *(v33 + 16) & 0x80FF | ((a2 & 0x7F) << 8);
       if ((a2 & 0x7F) == 0x7E)
       {
         if (!a3)
         {
           if (a12 <= 1456)
           {
-            LOBYTE(v38) = a10 & 7 | (8 * (a8 & 7));
-            BYTE1(v38) = (32 * a4) | (16 * (a5 & 1));
-            HIWORD(v38) = 0;
-            v26 = SendRTP(a1, v35, a6, a7, &v38, 4uLL, a11, a12, a9, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23, a24, a25, 0, 0);
-            v25 = 0;
+            LOBYTE(v36) = a10 & 7 | (8 * (a8 & 7));
+            BYTE1(v36) = (32 * a4) | (16 * (a5 & 1));
+            HIWORD(v36) = 0;
+            v24 = SendRTP(a1, v33, v26, a7, &v36, 4uLL, a11, a12, a9, a13, a14, a15, SHIDWORD(a15), a16, SBYTE4(a16), a17, a18, a19, a20, a21, a22, a23, 0, 0);
+            v23 = 0;
           }
 
           else
           {
-            v26 = 2147549198;
+            v24 = 2147549198;
           }
         }
       }
 
       else
       {
-        v26 = 2147549199;
+        v24 = 2147549199;
       }
 
-      VCMediaControlInfoDispose(v25);
+      VCMediaControlInfoDispose(v23);
       CheckOutHandleDebug();
     }
 
     else
     {
-      VCMediaControlInfoDispose(a23);
+      VCMediaControlInfoDispose(a21);
       return 2147549186;
     }
   }
 
   else
   {
-    VCMediaControlInfoDispose(a23);
+    VCMediaControlInfoDispose(a21);
   }
 
-  return v26;
+  return v24;
 }
 
 uint64_t RTPProcessH263Packet(uint64_t a1, int *a2, int *a3, _BYTE *a4, _BYTE *a5, CFAllocatorRef structureAllocator, CMBlockBufferRef *blockBufferOut)
@@ -756,30 +866,32 @@ uint64_t VCTimescale_WarpFrameSize(uint64_t a1)
   }
 }
 
-uint64_t RTPSendH264Packet(uint64_t a1, char a2, unsigned int a3, int a4, int a5, void *a6, signed int a7, int *a8, double a9, const void *a10, unsigned __int8 a11, int a12, int a13, unsigned __int8 a14, _DWORD *a15, int a16, uint64_t a17, int a18, void *a19, uint64_t a20, _OWORD *a21, char a22, int a23)
+uint64_t RTPSendH264Packet(uint64_t a1, char a2, unsigned int a3, uint64_t a4, uint64_t a5, void *a6, uint64_t a7, int *a8, double a9, const void *a10, uint64_t a11, uint64_t a12, _DWORD *a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17, unsigned __int16 *a18, unsigned __int16 *a19, char a20, int a21)
 {
-  v23 = a19;
-  v24 = 2147549198;
+  v21 = a17;
+  v22 = 2147549198;
   if (a8)
   {
+    v27 = a5;
+    v28 = a4;
     *a8 = 0;
-    v34 = CheckInHandleDebug();
-    if (v34 == 0xFFFFFFFFLL)
+    v32 = CheckInHandleDebug();
+    if (v32 == 0xFFFFFFFFLL)
     {
-      VCMediaControlInfoDispose(a19);
+      VCMediaControlInfoDispose(a17);
       return 2147549190;
     }
 
-    else if (v34)
+    else if (v32)
     {
-      if (a7 >= 1 && ((*(v34 + 16) = *(v34 + 16) & 0x80FF | ((a2 & 0x7F) << 8), (a2 & 0x7F) == 0x7B) || (a2 & 0x7F) == 0x64))
+      if (a7 >= 1 && ((*(v32 + 16) = *(v32 + 16) & 0x80FF | ((a2 & 0x7F) << 8), (a2 & 0x7F) == 0x7B) || (a2 & 0x7F) == 0x64))
       {
         if (a3 <= 1)
         {
           if (a7 < 0x5B5)
           {
-            v24 = SendRTP(a1, v34, a4, a5, 0, 0, a6, a7, a9, a8, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, a23);
-            v23 = 0;
+            v22 = SendRTP(a1, v32, v28, v27, 0, 0, a6, a7, a9, a8, a10, a11, SHIDWORD(a11), a12, SBYTE4(a12), a13, a14, a15, a16, a17, a18, a19, a20, a21);
+            v21 = 0;
           }
 
           else if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -794,37 +906,38 @@ uint64_t RTPSendH264Packet(uint64_t a1, char a2, unsigned int a3, int a4, int a5
 
         else
         {
-          v24 = 2147549185;
+          v22 = 2147549185;
         }
       }
 
       else
       {
-        v24 = 2147549199;
+        v22 = 2147549199;
       }
 
-      VCMediaControlInfoDispose(v23);
+      VCMediaControlInfoDispose(v21);
       CheckOutHandleDebug();
     }
 
     else
     {
-      VCMediaControlInfoDispose(a19);
+      VCMediaControlInfoDispose(a17);
       return 2147549186;
     }
   }
 
   else
   {
-    VCMediaControlInfoDispose(a19);
+    VCMediaControlInfoDispose(a17);
     return 2147549185;
   }
 
-  return v24;
+  return v22;
 }
 
-uint64_t RTPProcessH264FragmentationHeader(uint64_t a1, int a2, int *a3, int *a4, _WORD *a5, _BYTE *a6, int *a7, int a8)
+uint64_t RTPProcessH264FragmentationHeader(uint64_t a1, uint64_t a2, int *a3, int *a4, _WORD *a5, _BYTE *a6, int *a7, int a8)
 {
+  v8 = a2;
   v32 = *MEMORY[0x1E69E9840];
   if (a2 > 0)
   {
@@ -917,7 +1030,7 @@ uint64_t RTPProcessH264FragmentationHeader(uint64_t a1, int a2, int *a3, int *a4
           goto LABEL_47;
         }
 
-        if (a2 < 4)
+        if (v8 < 4)
         {
           v14 = 2147549199;
           if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -1021,18 +1134,18 @@ LABEL_47:
   return v14;
 }
 
-void _RTPProcessH264FragmentationHeaderStartEndBits(uint64_t a1, int a2, int *a3, int *a4)
+void _RTPProcessH264FragmentationHeaderStartEndBits(uint64_t result, int a2, int *a3, int *a4)
 {
   if (a2 > 1)
   {
     if (a3)
     {
-      *a3 = *(a1 + 1) >> 7;
+      *a3 = *(result + 1) >> 7;
     }
 
     if (a4)
     {
-      *a4 = (*(a1 + 1) >> 6) & 1;
+      *a4 = (*(result + 1) >> 6) & 1;
     }
   }
 
@@ -1412,26 +1525,26 @@ void OUTLINED_FUNCTION_21_1(void *a1, NSObject *a2, uint64_t a3, const char *a4,
 uint64_t _VCCannedVideoPacketSource_InjectionThread(uint64_t a1)
 {
   v2 = MEMORY[0x1EEE9AC00](a1);
-  v59 = *MEMORY[0x1E69E9840];
-  v41 = 0;
-  bzero(v44, 0x17B8uLL);
-  v40.tv_sec = 0;
-  *&v40.tv_usec = 0;
-  gettimeofday(&v40, 0);
+  v64 = *MEMORY[0x1E69E9840];
+  v46 = 0;
+  bzero(v49, 0x17B8uLL);
+  v45.tv_sec = 0;
+  *&v45.tv_usec = 0;
+  gettimeofday(&v45, 0);
   setRealTimeConstraints(0.0);
-  bzero(&v55, 0x17B8uLL);
-  v42 = 0;
+  bzero(&v60, 0x17B8uLL);
+  v47 = 0;
   do
   {
-    _VCCannedVideoPacketSource_ReadPacketAndAllocateBlockBuffers(v2, &v55, &v42);
-    if (v42 == 1)
+    _VCCannedVideoPacketSource_ReadPacketAndAllocateBlockBuffers(v2, &v60, &v47);
+    if (v47 == 1)
     {
       ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
-      v39 = MEMORY[0x1E6986650];
+      v44 = MEMORY[0x1E6986650];
       if (ErrorLogLevelForModule >= 3)
       {
         VRTraceErrorLogLevelToCSTR();
-        if (os_log_type_enabled(*v39, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(*v44, OS_LOG_TYPE_ERROR))
         {
           _VCCannedVideoPacketSource_InjectionThread_cold_1();
         }
@@ -1441,7 +1554,7 @@ uint64_t _VCCannedVideoPacketSource_InjectionThread(uint64_t a1)
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
         VRTraceErrorLogLevelToCSTR();
-        if (os_log_type_enabled(*v39, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(*v44, OS_LOG_TYPE_ERROR))
         {
           _VCCannedVideoPacketSource_InjectionThread_cold_2();
         }
@@ -1451,61 +1564,61 @@ uint64_t _VCCannedVideoPacketSource_InjectionThread(uint64_t a1)
     }
   }
 
-  while (LOBYTE(v55.value) != 1 || v55.timescale != 0);
-  LODWORD(v1) = v57;
-  memset(&v43, 170, sizeof(v43));
+  while (LOBYTE(v60.value) != 1 || v60.timescale != 0);
+  LODWORD(v1) = v62;
+  memset(&v48, 170, sizeof(v48));
   HostTimeClock = CMClockGetHostTimeClock();
-  CMClockGetTime(&v43, HostTimeClock);
+  CMClockGetTime(&v48, HostTimeClock);
   v5 = +[VCCannedAVSync sharedCannedAVSync];
-  VCCannedAVSync_SetBase(v5, v43.value / v43.timescale);
+  VCCannedAVSync_SetBase(v5, v48.value / v48.timescale);
   v6 = v1 / 90000.0;
-  v7 = VCCannedAVSync_AddDrift(v5, v6);
-  if (LOBYTE(v55.value) == 2)
+  v8 = VCCannedAVSync_AddDrift(v5, v6);
+  if (LOBYTE(v60.value) == 2)
   {
-    v7 = NTPToMicro(*&v55.timescale);
-    v8 = v7;
+    v8 = NTPToMicro(*&v60.timescale, v7);
+    v9 = v8;
   }
 
   else
   {
-    if (LOBYTE(v55.value) != 1)
+    if (LOBYTE(v60.value) != 1)
     {
       goto LABEL_13;
     }
 
-    if (v55.timescale == 1)
+    if (v60.timescale == 1)
     {
-      v8 = v56;
+      v9 = v61;
     }
 
     else
     {
-      if (!v55.timescale)
+      if (!v60.timescale)
       {
-        v8 = v58;
+        v9 = v63;
         goto LABEL_16;
       }
 
 LABEL_13:
-      v8 = NAN;
+      v9 = NAN;
     }
   }
 
 LABEL_16:
-  [*(v2 + 16) seekToFileOffset:{0, v7}];
-  _VCCannedVideoPacketSource_ReadPacketAndAllocateBlockBuffers(v2, v44, &v41);
+  [*(v2 + 16) seekToFileOffset:{0, v8}];
+  _VCCannedVideoPacketSource_ReadPacketAndAllocateBlockBuffers(v2, v49, &v46);
   pthread_mutex_lock((v2 + 88));
   if ((*(v2 + 80) & 1) == 0)
   {
-    tv_sec = v40.tv_sec;
-    tv_usec = v40.tv_usec;
+    tv_sec = v45.tv_sec;
+    tv_usec = v45.tv_usec;
     while (1)
     {
-      v43.value = 0xAAAAAAAAAAAAAAAALL;
-      *&v43.timescale = 0xAAAAAAAAAAAAAAAALL;
-      *&v55.timescale = 0;
-      v55.value = 0;
-      gettimeofday(&v55, 0);
+      v48.value = 0xAAAAAAAAAAAAAAAALL;
+      *&v48.timescale = 0xAAAAAAAAAAAAAAAALL;
+      *&v60.timescale = 0;
+      v60.value = 0;
+      gettimeofday(&v60, 0);
       value = tv_sec;
       do
       {
@@ -1513,35 +1626,36 @@ LABEL_16:
         {
           if (tv_usec <= 979999)
           {
-            v12 = 20000;
+            v13 = 20000;
           }
 
           else
           {
             tv_sec = ++value;
-            v12 = -980000;
+            v13 = -980000;
           }
 
-          tv_usec += v12;
-          v8 = v8 + 0.02;
-          if (value == v55.value)
+          tv_usec += v13;
+          v9 = v9 + 0.02;
+          if (value == v60.value)
           {
             break;
           }
 
-          if (value >= v55.value)
+          if (value >= v60.value)
           {
             goto LABEL_26;
           }
         }
       }
 
-      while (tv_usec < v55.timescale);
-      value = v55.value;
+      while (tv_usec < v60.timescale);
+      value = v60.value;
 LABEL_26:
-      v43.value = value;
-      *&v43.timescale = 1000 * tv_usec;
-      if (pthread_cond_timedwait((v2 + 152), (v2 + 88), &v43) == 60)
+      v48.value = value;
+      *&v48.timescale = 1000 * tv_usec;
+      v14 = pthread_cond_timedwait((v2 + 152), (v2 + 88), &v48);
+      if (v14 == 60)
       {
         break;
       }
@@ -1553,185 +1667,185 @@ LABEL_86:
       }
     }
 
-    v13 = micro();
+    v18 = micro(v14, v15);
     while (2)
     {
-      if (v44[0] == 2)
+      if (v49[0] == 2)
       {
-        v14 = NTPToMicro(v45);
+        v19 = NTPToMicro(v50, v17);
       }
 
       else
       {
-        if (v44[0] != 1)
+        if (v49[0] != 1)
         {
           goto LABEL_86;
         }
 
-        if (v45 == 1)
+        if (v50 == 1)
         {
-          v14 = v47[0];
+          v19 = v52[0];
         }
 
         else
         {
-          if (v45)
+          if (v50)
           {
             goto LABEL_86;
           }
 
-          v14 = v48;
+          v19 = v53;
         }
       }
 
-      if (v14 >= v8)
+      if (v19 >= v9)
       {
         goto LABEL_86;
       }
 
-      v15 = v44[0];
-      if (v44[0] == 2)
+      v20 = v49[0];
+      if (v49[0] == 2)
       {
-        v45 = MicroToNTP(v13);
-        v15 = v44[0];
+        v50 = MicroToNTP(v18, v16, v17);
+        v20 = v49[0];
       }
 
-      else if (v44[0] == 1)
+      else if (v49[0] == 1)
       {
-        v16 = &v48;
-        if (!v45 || (v16 = v47, v45 == 1))
+        v21 = &v53;
+        if (!v50 || (v21 = v52, v50 == 1))
         {
-          *v16 = v13;
+          *v21 = v18;
           goto LABEL_45;
         }
 
 LABEL_51:
-        v18 = 0;
-        v17 = 0;
+        v23 = 0;
+        v22 = 0;
         goto LABEL_52;
       }
 
-      if (v15 == 1)
+      if (v20 == 1)
       {
 LABEL_45:
-        if (v45)
+        if (v50)
         {
-          v18 = 0;
+          v23 = 0;
         }
 
         else
         {
-          v18 = v49;
+          v23 = v54;
         }
 
-        if (v45)
+        if (v50)
         {
-          v17 = 0;
+          v22 = 0;
         }
 
         else
         {
-          v17 = v49[24];
+          v22 = v54[24];
         }
       }
 
       else
       {
-        if (v15 != 2)
+        if (v20 != 2)
         {
           goto LABEL_51;
         }
 
-        v17 = v54[24];
-        v18 = v54;
+        v22 = v59[24];
+        v23 = v59;
       }
 
 LABEL_52:
-      v19 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:0];
-      v20 = [*(v2 + 56) objectForKeyedSubscript:v19];
-      v21 = [*(v2 + 64) objectForKeyedSubscript:v19];
+      v24 = [objc_alloc(MEMORY[0x1E696AD98]) initWithInt:0];
+      v25 = [*(v2 + 56) objectForKeyedSubscript:v24];
+      v26 = [*(v2 + 64) objectForKeyedSubscript:v24];
 
-      v22 = v44[0];
-      if (v44[0] == 2)
+      v27 = v49[0];
+      if (v49[0] == 2)
       {
-        if (!v17)
+        if (!v22)
         {
-          v20 = v21;
-          if (v21)
+          v25 = v26;
+          if (v26)
           {
             goto LABEL_62;
           }
         }
 
-        if (v17)
+        if (v22)
         {
-          v28 = v17;
+          v33 = v22;
           do
           {
-            v29 = objc_alloc(MEMORY[0x1E696AD98]);
-            v30 = *v18;
-            v18 += 2;
-            v31 = [v29 initWithInt:v30];
-            v32 = [*(v2 + 64) objectForKeyedSubscript:v31];
-            (*(v32 + 16))(v32, &v45);
+            v34 = objc_alloc(MEMORY[0x1E696AD98]);
+            v35 = *v23;
+            v23 += 2;
+            v36 = [v34 initWithInt:v35];
+            v37 = [*(v2 + 64) objectForKeyedSubscript:v36];
+            (*(v37 + 16))(v37, &v50);
 
-            --v28;
+            --v33;
           }
 
-          while (v28);
+          while (v33);
         }
 
 LABEL_66:
-        v22 = v44[0];
+        v27 = v49[0];
       }
 
-      else if (v44[0] == 1)
+      else if (v49[0] == 1)
       {
-        if (v17 || !v20)
+        if (v22 || !v25)
         {
-          if (v17)
+          if (v22)
           {
-            v23 = v17;
+            v28 = v22;
             do
             {
-              v24 = objc_alloc(MEMORY[0x1E696AD98]);
-              v25 = *v18;
-              v18 += 2;
-              v26 = [v24 initWithInt:v25];
-              v27 = [*(v2 + 56) objectForKeyedSubscript:v26];
-              (*(v27 + 16))(v27, &v45);
+              v29 = objc_alloc(MEMORY[0x1E696AD98]);
+              v30 = *v23;
+              v23 += 2;
+              v31 = [v29 initWithInt:v30];
+              v32 = [*(v2 + 56) objectForKeyedSubscript:v31];
+              (*(v32 + 16))(v32, &v50);
 
-              --v23;
+              --v28;
             }
 
-            while (v23);
+            while (v28);
           }
 
           goto LABEL_66;
         }
 
 LABEL_62:
-        (*(v20 + 16))(v20, &v45);
+        (*(v25 + 16))(v25, &v50);
         goto LABEL_66;
       }
 
-      if (v22 == 1)
+      if (v27 == 1)
       {
-        if (!v45)
+        if (!v50)
         {
-          VCBlockBuffer_Clear(v51);
-          VCBlockBuffer_Clear(v52);
-          VCBlockBuffer_Clear(v53);
+          VCBlockBuffer_Clear(v56);
+          VCBlockBuffer_Clear(v57);
+          VCBlockBuffer_Clear(v58);
         }
       }
 
-      else if (v22 == 2)
+      else if (v27 == 2)
       {
-        if (v46)
+        if (v51)
         {
-          for (i = 0; i < v46; v47[i++] = 0.0)
+          for (i = 0; i < v51; v52[i++] = 0.0)
           {
-            CFAllocatorDeallocate(*(v2 + 40), *&v47[i]);
+            CFAllocatorDeallocate(*(v2 + 40), *&v52[i]);
           }
         }
 
@@ -1742,46 +1856,46 @@ LABEL_62:
         }
       }
 
-      _VCCannedVideoPacketSource_ReadPacketAndAllocateBlockBuffers(v2, v44, &v41);
-      if (v41 == 1)
+      _VCCannedVideoPacketSource_ReadPacketAndAllocateBlockBuffers(v2, v49, &v46);
+      if (v46 == 1)
       {
-        if (v44[0] == 2)
+        if (v49[0] == 2)
         {
-          v8 = NTPToMicro(v45);
+          v9 = NTPToMicro(v50, v17);
         }
 
         else
         {
-          if (v44[0] != 1)
+          if (v49[0] != 1)
           {
             goto LABEL_82;
           }
 
-          if (v45 == 1)
+          if (v50 == 1)
           {
-            v8 = v47[0];
+            v9 = v52[0];
             goto LABEL_85;
           }
 
-          if (v45)
+          if (v50)
           {
 LABEL_82:
-            v8 = NAN;
+            v9 = NAN;
           }
 
           else
           {
-            v8 = v48;
+            v9 = v53;
           }
         }
 
 LABEL_85:
-        memset(&v55, 170, sizeof(v55));
-        v34 = CMClockGetHostTimeClock();
-        CMClockGetTime(&v55, v34);
-        v35 = +[VCCannedAVSync sharedCannedAVSync];
-        VCCannedAVSync_SetBase(v35, v55.value / v55.timescale);
-        VCCannedAVSync_AddDrift(v35, v6);
+        memset(&v60, 170, sizeof(v60));
+        v39 = CMClockGetHostTimeClock();
+        CMClockGetTime(&v60, v39);
+        v40 = +[VCCannedAVSync sharedCannedAVSync];
+        VCCannedAVSync_SetBase(v40, v60.value / v60.timescale);
+        VCCannedAVSync_AddDrift(v40, v6);
         goto LABEL_86;
       }
 
@@ -1790,23 +1904,23 @@ LABEL_85:
   }
 
 LABEL_87:
-  if (v44[0] == 1)
+  if (v49[0] == 1)
   {
-    if (!v45)
+    if (!v50)
     {
-      VCBlockBuffer_Clear(v51);
-      VCBlockBuffer_Clear(v52);
-      VCBlockBuffer_Clear(v53);
+      VCBlockBuffer_Clear(v56);
+      VCBlockBuffer_Clear(v57);
+      VCBlockBuffer_Clear(v58);
     }
   }
 
-  else if (v44[0] == 2)
+  else if (v49[0] == 2)
   {
-    if (v46)
+    if (v51)
     {
-      for (j = 0; j < v46; v47[j++] = 0.0)
+      for (j = 0; j < v51; v52[j++] = 0.0)
       {
-        CFAllocatorDeallocate(*(v2 + 40), *&v47[j]);
+        CFAllocatorDeallocate(*(v2 + 40), *&v52[j]);
       }
     }
 
@@ -1911,14 +2025,14 @@ uint64_t VCCannedVideoPacketSource_UnregisterForCannedReplay(uint64_t a1, unsign
 
   if (v3 == 2)
   {
-    if ((RTPUnregisterPacketCallback() & 0x80000000) != 0)
+    if ((RTPUnregisterPacketCallback(*(a2 + 6)) & 0x80000000) != 0)
     {
       VCCannedVideoPacketSource_UnregisterForCannedReplay_cold_2();
     }
 
     else
     {
-      result = RTCPUnregisterPacketCallback();
+      result = RTCPUnregisterPacketCallback(*(a2 + 6));
       if ((result & 0x80000000) == 0)
       {
         return result;
@@ -2151,20 +2265,21 @@ LABEL_16:
   *(a3 + 16) = v9;
 }
 
-FILE **LogDump_OpenLog(uint64_t a1, uint64_t a2, uint64_t a3, char a4, char a5, char a6)
+FILE **LogDump_OpenLog(const char *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, const char *a6)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v7 = a5;
+  v27 = *MEMORY[0x1E69E9840];
   keyExistsAndHasValidFormat[0] = 0;
   AppBooleanValue = CFPreferencesGetAppBooleanValue(@"enableTFRCDump", @"com.apple.VideoConference", keyExistsAndHasValidFormat);
   if (!keyExistsAndHasValidFormat[0])
   {
-    if (VCDefaults_DefaultDumpEnablementValue())
+    if (VCDefaults_DefaultDumpEnablementValue(AppBooleanValue, v13))
     {
       goto LABEL_3;
     }
 
 LABEL_5:
-    v13 = 0;
+    v14 = 0;
     goto LABEL_6;
   }
 
@@ -2174,36 +2289,36 @@ LABEL_5:
   }
 
 LABEL_3:
-  v13 = VRLogfileAlloc(0, a1, a2, a3, "com.apple.VideoConference.Jitterlog", a5);
-  VRLogfilePrintSync(v13, "VERSION = %s, DTX Support\n", v14, v15, v16, v17, v18, v19, a6);
-  VRLogfilePrintSync(v13, "CALLID = %s\n", v20, v21, v22, v23, v24, v25, a1);
-  VRLogfilePrintSync(v13, "%s", v26, v27, v28, v29, v30, v31, a4);
+  v14 = VRLogfileAlloc(0, a1, a2, a3, "com.apple.VideoConference.Jitterlog", v7);
+  VRLogfilePrintSync(v14, "VERSION = %s, DTX Support\n", a6);
+  VRLogfilePrintSync(v14, "CALLID = %s\n", a1);
+  VRLogfilePrintSync(v14, "%s", a4);
 LABEL_6:
   if (VRTraceGetErrorLogLevelForModule() >= 7)
   {
-    v32 = VRTraceErrorLogLevelToCSTR();
-    v33 = *MEMORY[0x1E6986650];
+    v15 = VRTraceErrorLogLevelToCSTR();
+    v16 = *MEMORY[0x1E6986650];
     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
     {
-      v34 = "Enabled";
-      v37 = v32;
+      v17 = "Enabled";
+      v20 = v15;
       *keyExistsAndHasValidFormat = 136315906;
-      v39 = "LogDump_OpenLog";
-      v38 = 2080;
-      if (!v13)
+      v22 = "LogDump_OpenLog";
+      v21 = 2080;
+      if (!v14)
       {
-        v34 = "Disabled";
+        v17 = "Disabled";
       }
 
-      v40 = 1024;
-      v41 = 69;
-      v42 = 2080;
-      v43 = v34;
-      _os_log_impl(&dword_1DB56E000, v33, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Log Dump is %s", keyExistsAndHasValidFormat, 0x26u);
+      v23 = 1024;
+      v24 = 69;
+      v25 = 2080;
+      v26 = v17;
+      _os_log_impl(&dword_1DB56E000, v16, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Log Dump is %s", keyExistsAndHasValidFormat, 0x26u);
     }
   }
 
-  return v13;
+  return v14;
 }
 
 uint64_t LogDump_CloseLog(uint64_t a1)
@@ -2214,49 +2329,49 @@ uint64_t LogDump_CloseLog(uint64_t a1)
   return VRLogfileRemoveOldFilesInDefaultLogDumpPath();
 }
 
-unint64_t GetNTPTime()
+unint64_t GetNTPTime(uint64_t a1, uint64_t a2)
 {
-  v0 = micro();
+  v4 = micro(a1, a2);
   if (!dword_1ECC7670C)
   {
-    TimeZeroInit();
+    TimeZeroInit(v2, v3);
   }
 
-  return (TimeZero + v0 * 4294967300.0);
+  return (TimeZero + v4 * 4294967300.0);
 }
 
-unint64_t MicroToNTP(double a1)
+unint64_t MicroToNTP(double a1, uint64_t a2, uint64_t a3)
 {
   if (!dword_1ECC7670C)
   {
-    TimeZeroInit();
+    TimeZeroInit(a2, a3);
   }
 
   return (TimeZero + a1 * 4294967300.0);
 }
 
-void TimeZeroInit()
+void TimeZeroInit(uint64_t a1, uint64_t a2)
 {
-  v3 = *MEMORY[0x1E69E9840];
-  memset(v2, 170, sizeof(v2));
-  v0 = micro();
-  gettimeofday(&v2[1], 0);
-  v1 = micro();
-  gettimeofday(v2, 0);
-  if (micro() - v1 < v1 - v0)
+  v9 = *MEMORY[0x1E69E9840];
+  memset(v8, 170, sizeof(v8));
+  v2 = micro(a1, a2);
+  v3 = gettimeofday(&v8[1], 0);
+  v5 = micro(v3, v4);
+  v6 = gettimeofday(v8, 0);
+  if (micro(v6, v7) - v5 < v5 - v2)
   {
-    v2[1] = v2[0];
-    v0 = v1;
+    v8[1] = v8[0];
+    v2 = v5;
   }
 
-  TimeZero = vcvtd_n_u64_f64(v2[1].tv_sec + v2[1].tv_usec * 0.000001 + 2208988800.0 - v0, 0x20uLL);
+  TimeZero = vcvtd_n_u64_f64(v8[1].tv_sec + v8[1].tv_usec * 0.000001 + 2208988800.0 - v2, 0x20uLL);
 }
 
-double NTPToMicro(uint64_t a1)
+double NTPToMicro(uint64_t a1, uint64_t a2)
 {
   if (!dword_1ECC7670C)
   {
-    TimeZeroInit();
+    TimeZeroInit(a1, a2);
   }
 
   return vcvtd_n_f64_u64(a1 - TimeZero, 0x20uLL);
@@ -2494,10 +2609,11 @@ LABEL_10:
   }
 }
 
-void OUTLINED_FUNCTION_30_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_30_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x36u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x36u);
 }
 
 void VCVirtualAVCaptureDeviceInput_OnMediaSample(uint64_t a1, const void *a2, uint64_t a3)
@@ -2795,8 +2911,8 @@ LABEL_57:
     v27 = &(*a1)[v12 * 2];
     if (v27 < &(*a1)[6 * *(a1 + 2)] && v27 >= *a1)
     {
-      *(v27 + 2) = a2;
-      *(v27 + 4) = a3;
+      *(v27 + 1) = a2;
+      *(v27 + 2) = a3;
       goto LABEL_55;
     }
 
@@ -3041,136 +3157,136 @@ double VCRateControlAlgorithmLayeredContinuousTierPriv_Configure(uint64_t a1, vo
   return result;
 }
 
-BOOL _VCRateControlAlgorithmLayeredContinuousTier_DoRateControl(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, double a9, double a10)
+BOOL _VCRateControlAlgorithmLayeredContinuousTier_DoRateControl(uint64_t a1, int *a2, double a3, double a4)
 {
-  v95 = *MEMORY[0x1E69E9840];
-  v12 = *a2;
+  v66 = *MEMORY[0x1E69E9840];
+  v6 = *a2;
   if (*a2 <= 10)
   {
-    if (v12 == 1)
+    if (v6 == 1)
     {
-      if (VCRateControlAlgorithmLayeredContinuousTierPriv_BasebandStatisticsPreStateTransitionUpdate(a1, a2, a3, a4, a5, a6, a7, a8))
+      if (VCRateControlAlgorithmLayeredContinuousTierPriv_BasebandStatisticsPreStateTransitionUpdate(a1, a2))
       {
-        v50 = 1;
-        VCRateControlAlgorithmLayeredContinuousTierPriv_UpdateTargetBitrate(a1, 1, v52, v53, v54, v55, v56, v57);
+        v27 = 1;
+        VCRateControlAlgorithmLayeredContinuousTierPriv_UpdateTargetBitrate(a1, 1);
         if (*(a1 + 5416) == 1)
         {
           VCRateControlMediaController_UpdateBasebandSuggestion(*(a1 + 1064), a2);
         }
 
-        return v50;
+        return v27;
       }
 
       return 0;
     }
 
-    if (v12 == 2)
+    if (v6 == 2)
     {
       if (VCRateControlAlgorithmLayeredContinuousTierPriv_VCRCStatisticsPreStateTransitionUpdates(a1, a2))
       {
-        VCRateControlAlgorithmLayeredContinuousTierPriv_UpdateTargetBitrate(a1, 2, v13, v14, v15, v16, v17, v18);
-        VCRateControlAlgorithmLayeredContinuousTierPriv_VCRCStatisticsPostStateTransitionUpdates(a1);
+        VCRateControlAlgorithmLayeredContinuousTierPriv_UpdateTargetBitrate(a1, 2);
+        VCRateControlAlgorithmLayeredContinuousTierPriv_VCRCStatisticsPostStateTransitionUpdates(a1, v7);
         if (VCRateControlAlgorithmBase_IsPeriodicLogOrLogDumpEnabled(a1))
         {
-          v93 = 0u;
-          v94 = 0u;
-          v91 = 0u;
-          v92 = 0u;
-          v89 = 0u;
-          v90 = 0u;
-          v87 = 0u;
-          v88 = 0u;
-          v85 = 0u;
-          v86 = 0u;
-          v83 = 0u;
-          v84 = 0u;
-          v81 = 0u;
-          v82 = 0u;
-          v79 = 0u;
-          v80 = 0u;
-          v78 = 0u;
-          v19 = *(a1 + 1144);
-          v76 = 0u;
-          v77 = 0u;
-          v61 = *(a1 + 5320);
-          v20 = *(a1 + 2904);
-          v74 = 0u;
-          v75 = 0u;
-          v21 = *(a1 + 2912);
-          v22 = *(a1 + 2920);
-          v72 = 0u;
-          v73 = 0u;
-          v23 = *(a1 + 2928);
-          v60 = *(a1 + 5152);
+          v64 = 0u;
+          v65 = 0u;
+          v62 = 0u;
+          v63 = 0u;
+          v60 = 0u;
+          v61 = 0u;
+          v58 = 0u;
+          v59 = 0u;
+          v56 = 0u;
+          v57 = 0u;
+          v54 = 0u;
+          v55 = 0u;
+          v52 = 0u;
+          v53 = 0u;
+          v50 = 0u;
+          v51 = 0u;
+          v49 = 0u;
+          v8 = *(a1 + 1144);
+          v47 = 0u;
+          v48 = 0u;
+          v32 = *(a1 + 5320);
+          v9 = *(a1 + 2904);
+          v45 = 0u;
+          v46 = 0u;
+          v10 = *(a1 + 2912);
+          v11 = *(a1 + 2920);
+          v43 = 0u;
+          v44 = 0u;
+          v12 = *(a1 + 2928);
+          v31 = *(a1 + 5152);
           *__str = 0u;
-          v71 = 0u;
-          v24 = *(a1 + 5352);
-          v25 = *(a1 + 5336);
-          v59 = ((v24 + v25) / 1000.0);
-          v26 = (v24 / 1000.0);
-          v27 = (v25 / 1000.0);
-          v30 = "OFF";
+          v42 = 0u;
+          v13 = *(a1 + 5352);
+          v14 = *(a1 + 5336);
+          v30 = ((v13 + v14) / 1000.0);
+          v15 = (v13 / 1000.0);
+          v16 = (v14 / 1000.0);
+          v19 = "OFF";
           if (*(a1 + 5416))
           {
-            v30 = "ON";
+            v19 = "ON";
           }
 
           if (*(a1 + 5322))
           {
-            v31 = "S";
+            v20 = "S";
           }
 
           else
           {
-            v31 = "U";
+            v20 = "U";
           }
 
           if (*(a1 + 1169))
           {
-            v32 = "<";
+            v21 = "<";
           }
 
           else
           {
-            v32 = "-";
+            v21 = "-";
           }
 
-          v33 = 88;
-          if (v60)
+          v22 = 88;
+          if (v31)
           {
-            v33 = 79;
+            v22 = 79;
           }
 
-          v28 = *(a1 + 5360);
-          v29 = *(a1 + 5344);
-          snprintf(__str, 0x190uLL, "%8.3f/%04X:\t%.4f\t%.4f\t%.4f\t%.4f %c\tRTT:%-4u\tPLR:%4.2f@%.1f\tRRx:%u\tMBL:%d %u\t%4u/%4u\t %4u:%4u/%4u  %4u:%4u/%4u  CS: %05X %05X %u BB: %3u\t%4u\t%3u\t%s UAT %u\t%u\t%s\t%s\t%d\t%d\t%d\t%d\t%.3f\t%.3f\t%u\t%u\t%.3f\t%u\t%u", v19, v61, v20, v21, v22, v23, v33, (*(a1 + 5120) * 1000.0), *(a1 + 5040) * 100.0, *(a1 + 5104) * 100.0, *(a1 + 1216), *(a1 + 5032), *(a1 + 1220), *(a1 + 1128) / 0x3E8u, *(a1 + 1120) / 0x3E8u, v59, v26, v27, ((v28 + v29) / 1000.0), (v28 / 1000.0), (v29 / 1000.0), *(a1 + 1092), *(a1 + 1096), *(a1 + 1132), *(a1 + 5392) / 0x3E8u, *(a1 + 5396), (*(a1 + 5400) * 1000.0), v30, *(a1 + 5420), *(a1 + 5424), v31, v32, *(a1 + 1088), *(a1 + 5020) / 0x3E8u, *(a1 + 5024), *(a1 + 5016), *(a1 + 5184), *(a1 + 5432), *(a1 + 5436) / 0x3E8u, *(a1 + 5440) / 0x3E8u, *(a1 + 25736), *(a1 + 25720) / 0x3E8, *(a1 + 25728));
+          v17 = *(a1 + 5360);
+          v18 = *(a1 + 5344);
+          snprintf(__str, 0x190uLL, "%8.3f/%04X:\t%.4f\t%.4f\t%.4f\t%.4f %c\tRTT:%-4u\tPLR:%4.2f@%.1f\tRRx:%u\tMBL:%d %u\t%4u/%4u\t %4u:%4u/%4u  %4u:%4u/%4u  CS: %05X %05X %u BB: %3u\t%4u\t%3u\t%s UAT %u\t%u\t%s\t%s\t%d\t%d\t%d\t%d\t%.3f\t%.3f\t%u\t%u\t%.3f\t%u\t%u", v8, v32, v9, v10, v11, v12, v22, (*(a1 + 5120) * 1000.0), *(a1 + 5040) * 100.0, *(a1 + 5104) * 100.0, *(a1 + 1216), *(a1 + 5032), *(a1 + 1220), *(a1 + 1128) / 0x3E8u, *(a1 + 1120) / 0x3E8u, v30, v15, v16, ((v17 + v18) / 1000.0), (v17 / 1000.0), (v18 / 1000.0), *(a1 + 1092), *(a1 + 1096), *(a1 + 1132), *(a1 + 5392) / 0x3E8u, *(a1 + 5396), (*(a1 + 5400) * 1000.0), v19, *(a1 + 5420), *(a1 + 5424), v20, v21, *(a1 + 1088), *(a1 + 5020) / 0x3E8u, *(a1 + 5024), *(a1 + 5016), *(a1 + 5184), *(a1 + 5432), *(a1 + 5436) / 0x3E8u, *(a1 + 5440) / 0x3E8u, *(a1 + 25736), *(a1 + 25720) / 0x3E8, *(a1 + 25728));
           if (*(a1 + 5176) == 1)
           {
-            v40 = *(a1 + 1136);
-            *(a1 + 1136) = v40 + 1;
-            if ((v40 & 0xF) == 0 && VRTraceGetErrorLogLevelForModule() >= 7)
+            v23 = *(a1 + 1136);
+            *(a1 + 1136) = v23 + 1;
+            if ((v23 & 0xF) == 0 && VRTraceGetErrorLogLevelForModule() >= 7)
             {
-              v41 = VRTraceErrorLogLevelToCSTR();
-              v42 = *MEMORY[0x1E6986650];
+              v24 = VRTraceErrorLogLevelToCSTR();
+              v25 = *MEMORY[0x1E6986650];
               if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 136315906;
-                v63 = v41;
-                v64 = 2080;
-                v65 = "_VCRateControlAlgorithmLayeredContinuousTier_PrintRateControlInfoToLogDump";
-                v66 = 1024;
-                v67 = 701;
-                v68 = 2080;
-                v69 = __str;
-                _os_log_impl(&dword_1DB56E000, v42, OS_LOG_TYPE_DEFAULT, "VCRC [%s] %s:%d %s", buf, 0x26u);
+                v34 = v24;
+                v35 = 2080;
+                v36 = "_VCRateControlAlgorithmLayeredContinuousTier_PrintRateControlInfoToLogDump";
+                v37 = 1024;
+                v38 = 701;
+                v39 = 2080;
+                v40 = __str;
+                _os_log_impl(&dword_1DB56E000, v25, OS_LOG_TYPE_DEFAULT, "VCRC [%s] %s:%d %s", buf, 0x26u);
               }
             }
           }
 
-          v43 = *(a1 + 5160);
-          if (v43)
+          v26 = *(a1 + 5160);
+          if (v26)
           {
-            VRLogfilePrintWithTimestamp(v43, "%s\n", v34, v35, v36, v37, v38, v39, __str);
+            VRLogfilePrintWithTimestamp(v26, "%s\n", __str);
           }
         }
 
@@ -3185,13 +3301,13 @@ BOOL _VCRateControlAlgorithmLayeredContinuousTier_DoRateControl(uint64_t a1, int
     goto LABEL_29;
   }
 
-  if (v12 != 11)
+  if (v6 != 11)
   {
-    if (v12 == 14)
+    if (v6 == 14)
     {
-      if (VCRateControlAlgorithmLayeredContinuousTierPriv_LocalRCEventPreStateTransitionUpdate(a1, a2, a9, a10))
+      if (VCRateControlAlgorithmLayeredContinuousTierPriv_LocalRCEventPreStateTransitionUpdate(a1, a2, a3, a4))
       {
-        VCRateControlAlgorithmLayeredContinuousTierPriv_UpdateTargetBitrate(a1, 14, v44, v45, v46, v47, v48, v49);
+        VCRateControlAlgorithmLayeredContinuousTierPriv_UpdateTargetBitrate(a1, 14);
         return 1;
       }
 
@@ -3201,10 +3317,10 @@ BOOL _VCRateControlAlgorithmLayeredContinuousTier_DoRateControl(uint64_t a1, int
 LABEL_29:
     if (VRTraceGetErrorLogLevelForModule() >= 3)
     {
-      v51 = VRTraceErrorLogLevelToCSTR();
+      v28 = VRTraceErrorLogLevelToCSTR();
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
       {
-        _VCRateControlAlgorithmLayeredContinuousTier_DoRateControl_cold_1(v51);
+        _VCRateControlAlgorithmLayeredContinuousTier_DoRateControl_cold_1(v28);
       }
     }
 
@@ -3214,134 +3330,134 @@ LABEL_29:
   return VCRateControlAlgorithmStabilizedNOWRDPriv_DoRateControlWithNWStatistics(a1, a2);
 }
 
-uint64_t VCRateControlAlgorithmLayeredContinuousTierPriv_UpdateTargetBitrate(uint64_t result, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t VCRateControlAlgorithmLayeredContinuousTierPriv_UpdateTargetBitrate(uint64_t result, uint64_t a2)
 {
-  v8 = result;
-  v42 = *MEMORY[0x1E69E9840];
+  v2 = result;
+  v32 = *MEMORY[0x1E69E9840];
   switch(a2)
   {
     case 1:
       if (!VCRateControlAlgorithmStabilizedNOWRDPriv_ShouldRampDownDueToBaseband(result))
       {
-        if (VCRateControlAlgorithmStabilizedNOWRDPriv_ShouldRampUpDueToBaseband(v8))
+        if (VCRateControlAlgorithmStabilizedNOWRDPriv_ShouldRampUpDueToBaseband(v2))
         {
-          *(v8 + 5412) = VCRateControlAlgorithmStabilizedNOWRDPriv_BasebandAdditionalTiersForRampUp(v8);
+          *(v2 + 5412) = VCRateControlAlgorithmStabilizedNOWRDPriv_BasebandAdditionalTiersForRampUp(v2);
         }
 
         goto LABEL_23;
       }
 
-      *(v8 + 1100) = VCRateControlAlgorithmStabilizedNOWRDPriv_RampDownTierDueToBaseband(v8, *(v8 + 5368));
-      LODWORD(v21) = *(*(v8 + 48) + 4 * *(v8 + 1100));
-      v20 = v21;
+      *(v2 + 1100) = VCRateControlAlgorithmStabilizedNOWRDPriv_RampDownTierDueToBaseband(v2, v10, *(v2 + 5368));
+      LODWORD(v11) = *(*(v2 + 48) + 4 * *(v2 + 1100));
+      v9 = v11;
       break;
-    case 14:
+    case 0xE:
       if (!VCRateControlAlgorithmStabilizedNOWRDPriv_ShouldRampDownDueToLocalRCEvent(result))
       {
-        *(v8 + 5418) = VCRateControlAlgorithmStabilizedNOWRDPriv_ShouldRampUpDueToLocalRCEvent(v8, v18);
+        *(v2 + 5418) = VCRateControlAlgorithmStabilizedNOWRDPriv_ShouldRampUpDueToLocalRCEvent(v2, v6);
         goto LABEL_23;
       }
 
-      v19 = (*(v8 + 5420) - *(v8 + 5424)) / *(v8 + 5424);
-      if (v19 < 0.25)
+      v7 = (*(v2 + 5420) - *(v2 + 5424)) / *(v2 + 5424);
+      if (v7 < 0.25)
       {
-        v19 = 0.25;
+        v7 = 0.25;
       }
 
-      *(v8 + 25752) = v19;
-      VCRateControlAlgorithmBasePriv_LogToDumpFiles(v8, "congestionSeverity=%f, bytesInFlight=%u, bytesInFlightThreshold=%u", v12, v13, v14, v15, v16, v17, SLOBYTE(v19));
-      v20 = _VCRateControlAlgorithmLayeredContinuousTier_RampDown(v8);
+      *(v2 + 25752) = v7;
+      VCRateControlAlgorithmBasePriv_LogToDumpFiles(v2, "congestionSeverity=%f, bytesInFlight=%u, bytesInFlightThreshold=%u", v7, *(v2 + 5420), *(v2 + 5424));
+      v9 = _VCRateControlAlgorithmLayeredContinuousTier_RampDown(v2, v8);
       break;
     case 2:
-      v9 = *(result + 1088);
-      if (v9 <= 1)
+      v3 = *(result + 1088);
+      if (v3 <= 1)
       {
-        if (!v9)
+        if (!v3)
         {
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
-            v24 = VRTraceErrorLogLevelToCSTR();
-            v25 = *MEMORY[0x1E6986650];
+            v14 = VRTraceErrorLogLevelToCSTR();
+            v15 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
               *buf = 136315650;
-              v37 = v24;
-              v38 = 2080;
-              v39 = "_VCRateControlAlgorithmLayeredContinuousTier_UpdateTargetBitrateWithVCRCStatistics";
-              v40 = 1024;
-              v41 = 419;
-              _os_log_impl(&dword_1DB56E000, v25, OS_LOG_TYPE_DEFAULT, "VCRC [%s] %s:%d VCRateControl is paused", buf, 0x1Cu);
+              v27 = v14;
+              v28 = 2080;
+              v29 = "_VCRateControlAlgorithmLayeredContinuousTier_UpdateTargetBitrateWithVCRCStatistics";
+              v30 = 1024;
+              v31 = 419;
+              _os_log_impl(&dword_1DB56E000, v15, OS_LOG_TYPE_DEFAULT, "VCRC [%s] %s:%d VCRateControl is paused", buf, 0x1Cu);
             }
           }
 
-          return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v8, *(v8 + 1112));
+          return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v2, *(v2 + 1112));
         }
 
-        if (v9 == 1)
+        if (v3 == 1)
         {
           if (!*(result + 25761))
           {
             if (!*(result + 25760))
             {
-              return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v8, *(v8 + 1112));
+              return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v2, *(v2 + 1112));
             }
 
-            *(result + 1112) = _VCRateControlAlgorithmLayeredContinuousTier_RampUp(result);
-            v11 = *(v8 + 60);
-            if (v11 >= *(v8 + 76))
+            *(result + 1112) = _VCRateControlAlgorithmLayeredContinuousTier_RampUp(result, a2);
+            v5 = *(v2 + 60);
+            if (v5 >= *(v2 + 76))
             {
-              v11 = *(v8 + 76);
+              v5 = *(v2 + 76);
             }
 
-            LODWORD(v10) = *(*(v8 + 48) + 4 * v11);
-            if (*(v8 + 1112) < v10)
+            LODWORD(v4) = *(*(v2 + 48) + 4 * v5);
+            if (*(v2 + 1112) < v4)
             {
-              return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v8, *(v8 + 1112));
+              return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v2, *(v2 + 1112));
             }
 
             goto LABEL_41;
           }
 
 LABEL_61:
-          *(v8 + 1112) = _VCRateControlAlgorithmLayeredContinuousTier_RampDown(v8);
-          v28 = v8;
-          v29 = 6;
+          *(v2 + 1112) = _VCRateControlAlgorithmLayeredContinuousTier_RampDown(v2, a2);
+          v18 = v2;
+          v19 = 6;
           goto LABEL_62;
         }
 
 LABEL_30:
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v23 = VRTraceErrorLogLevelToCSTR();
+          v13 = VRTraceErrorLogLevelToCSTR();
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
           {
-            VCRateControlAlgorithmLayeredContinuousTierPriv_UpdateTargetBitrate_cold_1(v23);
+            VCRateControlAlgorithmLayeredContinuousTierPriv_UpdateTargetBitrate_cold_1(v13);
           }
         }
 
-        return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v8, *(v8 + 1112));
+        return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v2, *(v2 + 1112));
       }
 
-      if (v9 != 2)
+      if (v3 != 2)
       {
-        if (v9 == 6)
+        if (v3 == 6)
         {
           if (*(result + 25761))
           {
-            *(result + 1112) = _VCRateControlAlgorithmLayeredContinuousTier_RampDown(result);
+            *(result + 1112) = _VCRateControlAlgorithmLayeredContinuousTier_RampDown(result, a2);
           }
 
           else if (*(result + 25760))
           {
-            *(result + 1112) = _VCRateControlAlgorithmLayeredContinuousTier_RampUp(result);
+            *(result + 1112) = _VCRateControlAlgorithmLayeredContinuousTier_RampUp(result, a2);
 LABEL_41:
-            v28 = v8;
-            v29 = 2;
+            v18 = v2;
+            v19 = 2;
 LABEL_62:
-            VCRateControlAlgorithmBasePriv_StateChange(v28, v29);
+            VCRateControlAlgorithmBasePriv_StateChange(v18, v19);
           }
 
-          return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v8, *(v8 + 1112));
+          return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v2, *(v2 + 1112));
         }
 
         goto LABEL_30;
@@ -3351,88 +3467,88 @@ LABEL_62:
       {
         if (!*(result + 25760))
         {
-          return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v8, *(v8 + 1112));
+          return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v2, *(v2 + 1112));
         }
 
-        *(result + 1112) = _VCRateControlAlgorithmLayeredContinuousTier_RampUp(result);
-        if (!VCRateControlAlgorithmStabilizedNOWRDPriv_ShouldFastRampUp(v8))
+        *(result + 1112) = _VCRateControlAlgorithmLayeredContinuousTier_RampUp(result, a2);
+        if (!VCRateControlAlgorithmStabilizedNOWRDPriv_ShouldFastRampUp(v2))
         {
-          return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v8, *(v8 + 1112));
+          return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v2, *(v2 + 1112));
         }
 
-        v31 = *(v8 + 60);
-        if (v31 >= *(v8 + 76))
+        v21 = *(v2 + 60);
+        if (v21 >= *(v2 + 76))
         {
-          v31 = *(v8 + 76);
+          v21 = *(v2 + 76);
         }
 
-        LODWORD(v30) = *(*(v8 + 48) + 4 * v31);
-        if (*(v8 + 1112) >= v30)
+        LODWORD(v20) = *(*(v2 + 48) + 4 * v21);
+        if (*(v2 + 1112) >= v20)
         {
-          return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v8, *(v8 + 1112));
+          return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v2, *(v2 + 1112));
         }
 
-        v28 = v8;
-        v29 = 1;
+        v18 = v2;
+        v19 = 1;
         goto LABEL_62;
       }
 
-      v26 = *(result + 1112);
-      v27 = *(result + 25720);
-      if (v27 == 0.0)
+      v16 = *(result + 1112);
+      v17 = *(result + 25720);
+      if (v17 == 0.0)
       {
-        *(result + 25720) = v26;
+        *(result + 25720) = v16;
         ++*(result + 25728);
         goto LABEL_61;
       }
 
-      v32 = (v26 - v27);
-      if (v32 >= 0)
+      v22 = (v16 - v17);
+      if (v22 >= 0)
       {
-        v33 = (v26 - v27);
+        v23 = (v16 - v17);
       }
 
       else
       {
-        v33 = -v32;
+        v23 = -v22;
       }
 
-      if (v27 * 0.15 <= v33)
+      if (v17 * 0.15 <= v23)
       {
-        if (*(result + 430) != 1 || (v32 & 0x80000000) == 0 || *(result + 1216) - 1 >= *(*(result + 48) + 4 * *(result + 68)) / 0x3E8u)
+        if (*(result + 430) != 1 || (v22 & 0x80000000) == 0 || *(result + 1216) - 1 >= *(*(result + 48) + 4 * *(result + 68)) / 0x3E8u)
         {
           *(result + 25728) = 0;
           goto LABEL_60;
         }
 
-        v34 = --*(result + 25728) & ~(*(result + 25728) >> 31);
+        v24 = --*(result + 25728) & ~(*(result + 25728) >> 31);
       }
 
       else
       {
-        v34 = ++*(result + 25728);
-        if (v34 >= 10)
+        v24 = ++*(result + 25728);
+        if (v24 >= 10)
         {
-          v34 = 10;
+          v24 = 10;
         }
       }
 
-      *(result + 25728) = v34;
+      *(result + 25728) = v24;
 LABEL_60:
-      v35 = vcvtd_n_f64_u32(v26, 1uLL) + *(result + 25720) * 0.5;
-      *(result + 25720) = v35;
-      VCRateControlAlgorithmBasePriv_LogToDumpFiles(result, "VCRC update bandwidthWall=%f, confidence=%u, diff=%d", a3, a4, a5, a6, a7, a8, SLOBYTE(v35));
+      v25 = vcvtd_n_f64_u32(v16, 1uLL) + *(result + 25720) * 0.5;
+      *(result + 25720) = v25;
+      VCRateControlAlgorithmBasePriv_LogToDumpFiles(result, "VCRC update bandwidthWall=%f, confidence=%u, diff=%d", v25, *(result + 25728), v22);
       goto LABEL_61;
     default:
       return result;
   }
 
-  *(v8 + 1112) = v20;
-  VCRateControlAlgorithmBasePriv_StateChange(v8, 6);
+  *(v2 + 1112) = v9;
+  VCRateControlAlgorithmBasePriv_StateChange(v2, 6);
 LABEL_23:
-  v22 = *(v8 + 1112);
+  v12 = *(v2 + 1112);
 
-  return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v8, v22);
+  return VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(v2, v12);
 }
 
 uint64_t VCRateControlAlgorithmLayeredContinuousTierPriv_LocalRCEventPreStateTransitionUpdate(uint64_t a1, uint64_t a2, double a3, double a4)
@@ -3465,7 +3581,7 @@ uint64_t VCRateControlAlgorithmLayeredContinuousTierPriv_LocalRCEventPreStateTra
   return result;
 }
 
-uint64_t VCRateControlAlgorithmLayeredContinuousTierPriv_BasebandStatisticsPreStateTransitionUpdate(uint64_t a1, _DWORD *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t VCRateControlAlgorithmLayeredContinuousTierPriv_BasebandStatisticsPreStateTransitionUpdate(uint64_t a1, _DWORD *a2)
 {
   if (*(a1 + 1088))
   {
@@ -3473,36 +3589,36 @@ uint64_t VCRateControlAlgorithmLayeredContinuousTierPriv_BasebandStatisticsPreSt
     {
       if (*a2 == 1)
       {
-        VCRateControlAlgorithmStabilizedNOWRDPriv_UpdateAlgorithmWithBasebandStatistics(a1, a2, a3, a4, a5, a6, a7, a8);
+        VCRateControlAlgorithmStabilizedNOWRDPriv_UpdateAlgorithmWithBasebandStatistics(a1, a2);
         return 1;
       }
 
       else
       {
         VCRateControlAlgorithmLayeredContinuousTierPriv_BasebandStatisticsPreStateTransitionUpdate_cold_1();
-        return v9;
+        return v3;
       }
     }
 
     else
     {
       VCRateControlAlgorithmLayeredContinuousTierPriv_BasebandStatisticsPreStateTransitionUpdate_cold_2();
-      return v10;
+      return v4;
     }
   }
 
   else
   {
     VCRateControlAlgorithmLayeredContinuousTierPriv_BasebandStatisticsPreStateTransitionUpdate_cold_3();
-    return v11;
+    return v5;
   }
 }
 
-void VCRateControlAlgorithmLayeredContinuousTierPriv_BasebandStatisticsPostStateTransitionUpdate(uint64_t a1, uint64_t a2)
+void VCRateControlAlgorithmLayeredContinuousTierPriv_BasebandStatisticsPostStateTransitionUpdate(uint64_t result, uint64_t a2)
 {
-  if (*(a1 + 5416) == 1)
+  if (*(result + 5416) == 1)
   {
-    VCRateControlMediaController_UpdateBasebandSuggestion(*(a1 + 1064), a2);
+    VCRateControlMediaController_UpdateBasebandSuggestion(*(result + 1064), a2);
   }
 }
 
@@ -3545,22 +3661,22 @@ uint64_t VCRateControlAlgorithmLayeredContinuousTierPriv_VCRCStatisticsPreStateT
   return result;
 }
 
-void VCRateControlAlgorithmLayeredContinuousTierPriv_VCRCStatisticsPostStateTransitionUpdates(uint64_t a1)
+void VCRateControlAlgorithmLayeredContinuousTierPriv_VCRCStatisticsPostStateTransitionUpdates(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 1092) != 2 || *(a1 + 1096))
   {
     *(a1 + 25744) = *(a1 + 1144);
   }
 
-  VCRateControlAlgorithmStabilizedNOWRDPriv_UpdateVCRateControlHistory(a1);
-  v2 = *(a1 + 1064);
-  if (v2)
+  VCRateControlAlgorithmStabilizedNOWRDPriv_UpdateVCRateControlHistory(a1, a2);
+  v3 = *(a1 + 1064);
+  if (v3)
   {
-    v3 = *(a1 + 1169) == 1 && *(a1 + 1144) - *(a1 + 5328) > 0.5;
-    VCRateControlMediaController_SetShouldDisableLargeFrameRequestsWhenInitialRampUp(v2, (*(a1 + 1088) == 1) & (v3 ^ 1));
-    v4 = *(a1 + 1064);
+    v4 = *(a1 + 1169) == 1 && *(a1 + 1144) - *(a1 + 5328) > 0.5;
+    VCRateControlMediaController_SetShouldDisableLargeFrameRequestsWhenInitialRampUp(v3, (*(a1 + 1088) == 1) & (v4 ^ 1));
+    v5 = *(a1 + 1064);
 
-    VCRateControlMediaController_SetRateLimitedMaxTimeExceeded(v4, v3);
+    VCRateControlMediaController_SetRateLimitedMaxTimeExceeded(v5, v4);
   }
 }
 
@@ -3597,99 +3713,99 @@ uint64_t VCRateControlAlgorithmLayeredContinuousTierPriv_SetTargetBitrate(uint64
   return result;
 }
 
-uint64_t _VCRateControlAlgorithmLayeredContinuousTier_RampDown(uint64_t a1)
+uint64_t _VCRateControlAlgorithmLayeredContinuousTier_RampDown(uint64_t a1, uint64_t a2)
 {
-  VCRateControlAlgorithmStabilizedNOWRDPriv_SetBitrateUnstable(a1);
+  VCRateControlAlgorithmStabilizedNOWRDPriv_SetBitrateUnstable(a1, a2);
   VCRateControlAlgorithmBasePriv_UpdateCongestionStatusWhenRampDown(a1, *(a1 + 1144));
-  v2 = *(a1 + 1112);
-  if (v2 <= 228000.0)
+  v3 = *(a1 + 1112);
+  if (v3 <= 228000.0)
   {
-    v14 = _VCRateControlAlgorithmLayeredContinuousTier_RampDownSpeedFactor(a1, 1, 228000.0);
-    *(a1 + 25736) = v14;
-    v15 = *(a1 + 1112);
-    if (v15 >= 50000.0)
+    v9 = _VCRateControlAlgorithmLayeredContinuousTier_RampDownSpeedFactor(a1, 1, 228000.0);
+    *(a1 + 25736) = v9;
+    v10 = *(a1 + 1112);
+    if (v10 >= 50000.0)
     {
-      if (v15 >= 132000.0)
+      if (v10 >= 132000.0)
       {
-        v11 = 32000.0;
+        v6 = 32000.0;
       }
 
       else
       {
-        v11 = 16000.0;
+        v6 = 16000.0;
       }
     }
 
     else
     {
-      v11 = 8000.0;
+      v6 = 8000.0;
     }
 
-    v13 = v2 - v11 * v14;
-    v12 = "[%u] Congestion!!! New bitrate down linearly newTargetBitrate=%f, congestionSeverity=%f";
+    v8 = v3 - v6 * v9;
+    v7 = "[%u] Congestion!!! New bitrate down linearly newTargetBitrate=%f, congestionSeverity=%f";
   }
 
   else
   {
-    v3 = _VCRateControlAlgorithmLayeredContinuousTier_RampDownSpeedFactor(a1, 0, 228000.0);
-    *(a1 + 25736) = v3;
-    v10 = pow(1.159, v3);
-    v12 = "[%u] Congestion!!! New bitrate down exponentially to newTargetBitrate=%f, congestionSeverity=%f";
-    v13 = v2 / v10;
+    v4 = _VCRateControlAlgorithmLayeredContinuousTier_RampDownSpeedFactor(a1, 0, 228000.0);
+    *(a1 + 25736) = v4;
+    v5 = pow(1.159, v4);
+    v7 = "[%u] Congestion!!! New bitrate down exponentially to newTargetBitrate=%f, congestionSeverity=%f";
+    v8 = v3 / v5;
   }
 
-  LODWORD(v11) = vcRateControlTierBitrates[*(a1 + 64)];
-  v16 = *&v11;
-  if (v13 <= v16)
+  LODWORD(v6) = vcRateControlTierBitrates[*(a1 + 64)];
+  v11 = *&v6;
+  if (v8 <= v11)
   {
-    v17 = v16;
+    v12 = v11;
   }
 
   else
   {
-    v17 = v13;
+    v12 = v8;
   }
 
-  VCRateControlAlgorithmBasePriv_LogToDumpFiles(a1, v12, v4, v5, v6, v7, v8, v9, *(a1 + 1132));
-  v19 = v17;
+  VCRateControlAlgorithmBasePriv_LogToDumpFiles(a1, v7, *(a1 + 1132), *&v12, *(a1 + 25752));
+  v14 = v12;
   *(a1 + 25752) = 0x3FF0000000000000;
   if (*(a1 + 430) == 1)
   {
     if ((*(a1 + 1096) & 0x10) != 0)
     {
-      v20 = *(a1 + 1100);
-      if (v20 < *(a1 + 72))
+      v15 = *(a1 + 1100);
+      if (v15 < *(a1 + 72))
       {
-        v21 = v20 - 1;
-        v22 = *(a1 + 64);
-        if (v21 > v22)
+        v16 = v15 - 1;
+        v17 = *(a1 + 64);
+        if (v16 > v17)
         {
-          v22 = v21;
+          v17 = v16;
         }
 
-        v23 = *(a1 + 48);
+        v18 = *(a1 + 48);
 LABEL_24:
-        LODWORD(v19) = *(v23 + 4 * v22);
-        return *&v19;
+        LODWORD(v14) = *(v18 + 4 * v17);
+        return *&v14;
       }
     }
 
     if (*(a1 + 426) == 1)
     {
-      v23 = *(a1 + 48);
-      LODWORD(v18) = *(v23 + 4 * *(a1 + 84));
-      if (v18 > v19)
+      v18 = *(a1 + 48);
+      LODWORD(v13) = *(v18 + 4 * *(a1 + 84));
+      if (v13 > v14)
       {
-        v19 = v18;
-        if (*(a1 + 1112) <= v18)
+        v14 = v13;
+        if (*(a1 + 1112) <= v13)
         {
-          v19 = *(a1 + 1112);
+          v14 = *(a1 + 1112);
           if (*(a1 + 1144) - *(a1 + 1192) >= *(a1 + 600))
           {
-            v22 = *(a1 + 1100) - 1;
-            if (v22 <= *(a1 + 64))
+            v17 = *(a1 + 1100) - 1;
+            if (v17 <= *(a1 + 64))
             {
-              v22 = *(a1 + 64);
+              v17 = *(a1 + 64);
             }
 
             goto LABEL_24;
@@ -3699,7 +3815,7 @@ LABEL_24:
     }
   }
 
-  return v19;
+  return v14;
 }
 
 double _VCRateControlAlgorithmLayeredContinuousTier_RampDownSpeedFactor(uint64_t a1, int a2, double a3)
@@ -3725,34 +3841,34 @@ double _VCRateControlAlgorithmLayeredContinuousTier_RampDownSpeedFactor(uint64_t
   return v5 * *(a1 + 25752);
 }
 
-uint64_t _VCRateControlAlgorithmLayeredContinuousTier_RampUp(uint64_t a1)
+uint64_t _VCRateControlAlgorithmLayeredContinuousTier_RampUp(uint64_t a1, uint64_t a2)
 {
-  VCRateControlAlgorithmStabilizedNOWRDPriv_SetBitrateUnstable(a1);
+  VCRateControlAlgorithmStabilizedNOWRDPriv_SetBitrateUnstable(a1, a2);
   VCRateControlAlgorithmBasePriv_UpdateCongestionStatusWhenRampUp(a1);
   *(a1 + 5016) = 0;
-  v2 = *(a1 + 1112);
-  v3 = *(a1 + 1144) - *(a1 + 25744);
-  v4 = _VCRateControlAlgorithmLayeredContinuousTier_RampUpSpeedFactor(a1);
-  *(a1 + 25736) = v4;
-  v5 = v3 * v4;
-  if (v2 <= 228000.0)
+  v3 = *(a1 + 1112);
+  v4 = *(a1 + 1144) - *(a1 + 25744);
+  v5 = _VCRateControlAlgorithmLayeredContinuousTier_RampUpSpeedFactor(a1);
+  *(a1 + 25736) = v5;
+  v6 = v4 * v5;
+  if (v3 <= 228000.0)
   {
-    v6 = v2 + v5 * 32000.0;
+    v7 = v3 + v6 * 32000.0;
   }
 
   else
   {
-    v6 = v2 * pow(1.159, v5);
+    v7 = v3 * pow(1.159, v6);
   }
 
-  LODWORD(v5) = vcRateControlTierBitrates[*(a1 + 60)];
-  v7 = *&v5;
-  if (v6 >= v7)
+  LODWORD(v6) = vcRateControlTierBitrates[*(a1 + 60)];
+  v8 = *&v6;
+  if (v7 >= v8)
   {
-    return v7;
+    return v8;
   }
 
-  return v6;
+  return v7;
 }
 
 double _VCRateControlAlgorithmLayeredContinuousTier_RampUpSpeedFactor(uint64_t a1)
@@ -3836,21 +3952,22 @@ LABEL_34:
   return fmin(fmax(v17, 0.0166666667), 2.0);
 }
 
-uint64_t RTPGenerateSSRC()
+uint64_t RTPGenerateSSRC(uint64_t result)
 {
   do
   {
-    v0 = vcvtd_n_s64_f64(vcvtd_n_f64_u32(hwrandom(), 0x1FuLL), 0x10uLL);
-    result = vcvtd_n_s64_f64(vcvtd_n_f64_u32(hwrandom(), 0x1FuLL), 0x10uLL) | (v0 << 16);
+    v1 = vcvtd_n_s64_f64(vcvtd_n_f64_u32(hwrandom(), 0x1FuLL), 0x10uLL);
+    v2 = vcvtd_n_s64_f64(vcvtd_n_f64_u32(hwrandom(), 0x1FuLL), 0x10uLL) | (v1 << 16);
   }
 
-  while (!result);
-  return result;
+  while (!v2);
+  return v2;
 }
 
-uint64_t RTPCreateHandle(uint64_t *a1, unsigned int a2, uint64_t a3, int a4, int a5, uint64_t a6, uint64_t a7, unsigned int a8)
+uint64_t RTPCreateHandle(uint64_t *a1, uint64_t a2, uint64_t a3, int a4, int a5, uint64_t a6, uint64_t a7, unsigned int a8)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v8 = a2;
+  v55 = *MEMORY[0x1E69E9840];
   if (a2 > 1)
   {
     if (VRTraceGetErrorLogLevelForModule() < 3)
@@ -3891,7 +4008,7 @@ uint64_t RTPCreateHandle(uint64_t *a1, unsigned int a2, uint64_t a3, int a4, int
   *(v16 + 8) = 128;
   result = RTPMapCreate();
   *(v17 + 8) = result;
-  *(v17 + 7) = a2;
+  *(v17 + 7) = v8;
   *(v17 + 1321) = a6;
   *(v17 + 1322) = a7;
   *(v17 + 38) = -1;
@@ -3921,55 +4038,57 @@ uint64_t RTPCreateHandle(uint64_t *a1, unsigned int a2, uint64_t a3, int a4, int
       while (!v20);
     }
 
-    if (VRTraceGetErrorLogLevelForModule() >= 6)
+    ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+    if (ErrorLogLevelForModule >= 6)
     {
-      v21 = VRTraceErrorLogLevelToCSTR();
-      v22 = *MEMORY[0x1E6986650];
-      if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+      v22 = VRTraceErrorLogLevelToCSTR();
+      v23 = *MEMORY[0x1E6986650];
+      ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+      if (ErrorLogLevelForModule)
       {
-        v23 = *(v17 + 96);
+        v24 = *(v17 + 96);
         *buf = 136316418;
-        v43 = v21;
-        v44 = 2080;
-        v45 = "RTPCreateHandle";
-        v46 = 1024;
-        v47 = 217;
-        v48 = 2048;
-        v49 = v17;
-        v50 = 1024;
-        v51 = a2;
-        v52 = 1024;
-        v53 = v23;
-        _os_log_impl(&dword_1DB56E000, v22, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %p Starting SeqNum for PayloadType %d = %d", buf, 0x32u);
+        v44 = v22;
+        v45 = 2080;
+        v46 = "RTPCreateHandle";
+        v47 = 1024;
+        v48 = 217;
+        v49 = 2048;
+        v50 = v17;
+        v51 = 1024;
+        v52 = v8;
+        v53 = 1024;
+        v54 = v24;
+        _os_log_impl(&dword_1DB56E000, v23, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %p Starting SeqNum for PayloadType %d = %d", buf, 0x32u);
       }
     }
 
     if (!a8)
     {
-      a8 = RTPGenerateSSRC();
+      a8 = RTPGenerateSSRC(ErrorLogLevelForModule);
     }
 
     *(v17 + 50) = a8;
-    v24 = *(v17 + 49);
-    if (a4 && !v24)
+    v25 = *(v17 + 49);
+    if (a4 && !v25)
     {
       do
       {
-        v25 = hwrandom();
-        v24 = vcvtd_n_s64_f64(vcvtd_n_f64_u32(hwrandom(), 0x1FuLL), 0x10uLL) | (vcvtd_n_s64_f64(vcvtd_n_f64_u32(v25, 0x1FuLL), 0x10uLL) << 16);
-        *(v17 + 49) = v24;
+        v26 = hwrandom();
+        v25 = vcvtd_n_s64_f64(vcvtd_n_f64_u32(hwrandom(), 0x1FuLL), 0x10uLL) | (vcvtd_n_s64_f64(vcvtd_n_f64_u32(v26, 0x1FuLL), 0x10uLL) << 16);
+        *(v17 + 49) = v25;
       }
 
-      while (!v24);
+      while (!v25);
       a8 = *(v17 + 50);
     }
 
     *(v17 + 37) = 0;
     *(v17 + 3474) = 0x3FF0000000000000;
-    *(v17 + 29) = v24;
-    *(v17 + 30) = v24;
-    *(v17 + 31) = v24;
-    *(v17 + 32) = v24;
+    *(v17 + 29) = v25;
+    *(v17 + 30) = v25;
+    *(v17 + 31) = v25;
+    *(v17 + 32) = v25;
     *(v17 + 79) = 24000;
     *(v17 + 6) = bswap32(a8);
     pthread_mutex_init((v17 + 7016), 0);
@@ -3977,40 +4096,40 @@ uint64_t RTPCreateHandle(uint64_t *a1, unsigned int a2, uint64_t a3, int a4, int
     *(v17 + 1332) = Typed;
     if (Typed)
     {
-      v27 = *MEMORY[0x1E695E480];
+      v28 = *MEMORY[0x1E695E480];
       if (VCAllocatorFirstCome_Create(*MEMORY[0x1E695E480], "RTCPPacketAllocator", v17 + 1353))
       {
         RTPCreateHandle_cold_1();
       }
 
-      else if (VCAllocatorFirstCome_Create(v27, "RTCPBlockBufferHeaderAllocator", v17 + 1333))
+      else if (VCAllocatorFirstCome_Create(v28, "RTCPBlockBufferHeaderAllocator", v17 + 1333))
       {
         RTPCreateHandle_cold_2();
       }
 
-      else if (VCAllocatorFirstCome_Create(v27, "RTPPacketBlockBufferAllocator", v17 + 1373))
+      else if (VCAllocatorFirstCome_Create(v28, "RTPPacketBlockBufferAllocator", v17 + 1373))
       {
         RTPCreateHandle_cold_3();
       }
 
       else
       {
-        v28 = *(v17 + 1373);
+        v29 = *(v17 + 1373);
         blockBufferOut = 0;
-        v29 = CMBlockBufferCreateWithMemoryBlock(v28, 0, 0x5DCuLL, 0, 0, 0, 0x5DCuLL, 1u, &blockBufferOut);
-        if (v29)
+        v30 = CMBlockBufferCreateWithMemoryBlock(v29, 0, 0x5DCuLL, 0, 0, 0, 0x5DCuLL, 1u, &blockBufferOut);
+        if (v30)
         {
-          if (v29 >= 0)
+          if (v30 >= 0)
           {
-            v33 = v29;
+            v34 = v30;
           }
 
           else
           {
-            v33 = -v29;
+            v34 = -v30;
           }
 
-          v9 = v33 | 0xD0010000;
+          v9 = v34 | 0xD0010000;
           goto LABEL_49;
         }
 
@@ -4020,15 +4139,15 @@ uint64_t RTPCreateHandle(uint64_t *a1, unsigned int a2, uint64_t a3, int a4, int
           blockBufferOut = 0;
         }
 
-        if (VCAllocatorFirstCome_Create(v27, "channelDataFormatAllocator", v17 + 1375))
+        if (VCAllocatorFirstCome_Create(v28, "channelDataFormatAllocator", v17 + 1375))
         {
           RTPCreateHandle_cold_4();
         }
 
         else
         {
-          v41 = xmmword_1DBD478E0;
-          if (VCAllocatorMultiQueue_Create(v27, "RTPPacketMetadataAllocator", 2u, &v41, v17 + 1374))
+          v42 = xmmword_1DBD478E0;
+          if (VCAllocatorMultiQueue_Create(v28, "RTPPacketMetadataAllocator", 2u, &v42, v17 + 1374))
           {
             RTPCreateHandle_cold_5();
           }
@@ -4038,7 +4157,7 @@ uint64_t RTPCreateHandle(uint64_t *a1, unsigned int a2, uint64_t a3, int a4, int
             Handle = CreateHandle();
             if (Handle != 0xFFFFFFFFLL)
             {
-              v31 = Handle;
+              v32 = Handle;
               *(v17 + 1317) = 0xFFFFFFFFLL;
               *(v17 + 1318) = 0xFFFFFFFFLL;
               *(v17 + 1319) = 0;
@@ -4046,15 +4165,15 @@ uint64_t RTPCreateHandle(uint64_t *a1, unsigned int a2, uint64_t a3, int a4, int
               *(v17 + 2662) = -1;
               if (VCDefaults_GetBoolValueForKey(@"enableLTRPLogging", 0))
               {
-                v32 = 7;
+                v33 = 7;
               }
 
               else
               {
-                v32 = 8;
+                v33 = 8;
               }
 
-              *(v17 + 2660) = v32;
+              *(v17 + 2660) = v33;
               *(v17 + 1418) = 0;
               *(v17 + 1419) = v17 + 11344;
               *(v17 + 1420) = 0;
@@ -4062,7 +4181,7 @@ uint64_t RTPCreateHandle(uint64_t *a1, unsigned int a2, uint64_t a3, int a4, int
               *(v17 + 1422) = 0;
               bzero(v17 + 11392, 0x4000uLL);
               v9 = 0;
-              *a1 = v31;
+              *a1 = v32;
               return v9;
             }
 
@@ -4080,40 +4199,40 @@ uint64_t RTPCreateHandle(uint64_t *a1, unsigned int a2, uint64_t a3, int a4, int
     v9 = *buf;
 LABEL_49:
     pthread_mutex_destroy((v17 + 7016));
-    v34 = *(v17 + 1353);
-    if (v34)
-    {
-      CFRelease(v34);
-    }
-
-    v35 = *(v17 + 1332);
+    v35 = *(v17 + 1353);
     if (v35)
     {
-      VCMemoryPool_Destroy(v35);
+      CFRelease(v35);
     }
 
-    v36 = *(v17 + 1333);
+    v36 = *(v17 + 1332);
     if (v36)
     {
-      CFRelease(v36);
+      VCMemoryPool_Destroy(v36);
     }
 
-    v37 = *(v17 + 1373);
+    v37 = *(v17 + 1333);
     if (v37)
     {
       CFRelease(v37);
     }
 
-    v38 = *(v17 + 1375);
+    v38 = *(v17 + 1373);
     if (v38)
     {
       CFRelease(v38);
     }
 
-    v39 = *(v17 + 1374);
+    v39 = *(v17 + 1375);
     if (v39)
     {
       CFRelease(v39);
+    }
+
+    v40 = *(v17 + 1374);
+    if (v40)
+    {
+      CFRelease(v40);
     }
 
     free(v17);
@@ -4124,216 +4243,216 @@ LABEL_49:
   return result;
 }
 
-uint64_t RTPGetTimestampBase()
+uint64_t RTPGetTimestampBase(uint64_t a1)
 {
-  v0 = CheckInHandleDebug();
-  if (!v0)
+  v1 = CheckInHandleDebug();
+  if (!v1)
   {
     return 0;
   }
 
-  v1 = *(v0 + 196);
+  v2 = *(v1 + 196);
   CheckOutHandleDebug();
-  return v1;
+  return v2;
 }
 
-void RTPCloseHandle()
+void RTPCloseHandle(uint64_t a1)
 {
-  v53 = *MEMORY[0x1E69E9840];
-  v0 = CheckInHandleDebug();
-  if (v0)
+  v54 = *MEMORY[0x1E69E9840];
+  v1 = CheckInHandleDebug();
+  if (v1)
   {
-    v1 = v0;
-    _RTPUnregisterPacketCallback(v0);
-    _RTCPUnregisterPacketCallback(v1);
-    v2 = *(v1 + 4);
-    if (v2 != -1)
-    {
-      VTP_Close(v2);
-    }
-
-    v3 = *(v1 + 8);
+    v2 = v1;
+    _RTPUnregisterPacketCallback(v1);
+    _RTCPUnregisterPacketCallback(v2);
+    v3 = *(v2 + 4);
     if (v3 != -1)
     {
       VTP_Close(v3);
     }
 
+    v4 = *(v2 + 8);
+    if (v4 != -1)
+    {
+      VTP_Close(v4);
+    }
+
     CheckOutHandleDebug();
-    if (*(v1 + 10608))
+    if (*(v2 + 10608))
     {
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v4 = VRTraceErrorLogLevelToCSTR();
-        v5 = *MEMORY[0x1E6986650];
+        v5 = VRTraceErrorLogLevelToCSTR();
+        v6 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v6 = *(v1 + 10608);
+          v7 = *(v2 + 10608);
           *buf = 136315906;
-          *&buf[4] = v4;
-          v47 = 2080;
-          v48 = "RTPCloseHandle";
-          v49 = 1024;
-          v50 = 407;
-          v51 = 2048;
-          v52 = v6;
-          _os_log_impl(&dword_1DB56E000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Releasing the statisticsCollector:%p", buf, 0x26u);
+          *&buf[4] = v5;
+          v48 = 2080;
+          v49 = "RTPCloseHandle";
+          v50 = 1024;
+          v51 = 407;
+          v52 = 2048;
+          v53 = v7;
+          _os_log_impl(&dword_1DB56E000, v6, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Releasing the statisticsCollector:%p", buf, 0x26u);
         }
       }
 
-      CFRelease(*(v1 + 10608));
+      CFRelease(*(v2 + 10608));
     }
 
-    if (*(v1 + 10616))
+    if (*(v2 + 10616))
     {
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v7 = VRTraceErrorLogLevelToCSTR();
-        v8 = *MEMORY[0x1E6986650];
+        v8 = VRTraceErrorLogLevelToCSTR();
+        v9 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v9 = *(v1 + 10616);
+          v10 = *(v2 + 10616);
           *buf = 136315906;
-          *&buf[4] = v7;
-          v47 = 2080;
-          v48 = "RTPCloseHandle";
-          v49 = 1024;
-          v50 = 411;
-          v51 = 2048;
-          v52 = v9;
-          _os_log_impl(&dword_1DB56E000, v8, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Releasing the basebandCongestionDetector:%p", buf, 0x26u);
+          *&buf[4] = v8;
+          v48 = 2080;
+          v49 = "RTPCloseHandle";
+          v50 = 1024;
+          v51 = 411;
+          v52 = 2048;
+          v53 = v10;
+          _os_log_impl(&dword_1DB56E000, v9, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Releasing the basebandCongestionDetector:%p", buf, 0x26u);
         }
       }
 
-      CFRelease(*(v1 + 10616));
+      CFRelease(*(v2 + 10616));
     }
 
-    if (*(v1 + 10624))
+    if (*(v2 + 10624))
     {
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
-        v10 = VRTraceErrorLogLevelToCSTR();
-        v11 = *MEMORY[0x1E6986650];
+        v11 = VRTraceErrorLogLevelToCSTR();
+        v12 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v12 = *(v1 + 10624);
+          v13 = *(v2 + 10624);
           *buf = 136315906;
-          *&buf[4] = v10;
-          v47 = 2080;
-          v48 = "RTPCloseHandle";
-          v49 = 1024;
-          v50 = 415;
-          v51 = 2048;
-          v52 = v12;
-          _os_log_impl(&dword_1DB56E000, v11, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Releasing the mediaQueue:%p", buf, 0x26u);
+          *&buf[4] = v11;
+          v48 = 2080;
+          v49 = "RTPCloseHandle";
+          v50 = 1024;
+          v51 = 415;
+          v52 = 2048;
+          v53 = v13;
+          _os_log_impl(&dword_1DB56E000, v12, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Releasing the mediaQueue:%p", buf, 0x26u);
         }
       }
 
-      CFRelease(*(v1 + 10624));
+      CFRelease(*(v2 + 10624));
     }
 
-    if (v1 >= v1 + 27800)
+    if (v2 >= v2 + 27800)
     {
       __break(0x5519u);
     }
 
     else
     {
-      v13 = 0;
+      v14 = 0;
       do
       {
-        v14 = v13;
-        _RTPTransportMediaPacketHistoryCleanUp(v1, v13++);
+        v15 = v14;
+        _RTPTransportMediaPacketHistoryCleanUp(v2, v14++);
       }
 
-      while (v14 < 0x3FF);
-      if (*(v1 + 28) <= 1u)
+      while (v15 < 0x3FF);
+      if (*(v2 + 28) <= 1u)
       {
-        pthread_mutex_destroy((v1 + 7016));
-        SRTPCleanUp(v1 + 7080);
-        SRTPCleanUp(v1 + 7528);
-        SRTPCleanUp(v1 + 7976);
-        SRTPCleanUp(v1 + 8424);
-        v15 = *(v1 + 40);
-        if (v15)
-        {
-          free(v15);
-          *(v1 + 40) = 0;
-          *(v1 + 32) = 0;
-        }
-
-        v16 = *(v1 + 56);
+        pthread_mutex_destroy((v2 + 7016));
+        SRTPCleanUp(v2 + 7080);
+        SRTPCleanUp(v2 + 7528);
+        SRTPCleanUp(v2 + 7976);
+        SRTPCleanUp(v2 + 8424);
+        v16 = *(v2 + 40);
         if (v16)
         {
           free(v16);
-          *(v1 + 56) = 0;
-          *(v1 + 48) = 0;
+          *(v2 + 40) = 0;
+          *(v2 + 32) = 0;
+        }
+
+        v17 = *(v2 + 56);
+        if (v17)
+        {
+          free(v17);
+          *(v2 + 56) = 0;
+          *(v2 + 48) = 0;
         }
       }
 
-      if (*(v1 + 64))
+      if (*(v2 + 64))
       {
-        RTPMapDestroy((v1 + 64));
+        RTPMapDestroy((v2 + 64));
       }
 
-      v17 = *(v1 + 80);
-      if (v17)
-      {
-        free(v17);
-      }
-
-      v18 = *(v1 + 10632);
+      v18 = *(v2 + 80);
       if (v18)
       {
-        CFRelease(v18);
+        free(v18);
       }
 
-      _RTPClearTransportStreamsInternal(v1);
-      v19 = *(v1 + 11312);
+      v19 = *(v2 + 10632);
       if (v19)
       {
         CFRelease(v19);
       }
 
-      v20 = *(v1 + 11320);
+      _RTPClearTransportStreamsInternal(v2);
+      v20 = *(v2 + 11312);
       if (v20)
       {
         CFRelease(v20);
       }
 
-      v21 = *(v1 + 11328);
+      v21 = *(v2 + 11320);
       if (v21)
       {
         CFRelease(v21);
       }
 
-      v22 = *(v1 + 11336);
+      v22 = *(v2 + 11328);
       if (v22)
       {
         CFRelease(v22);
       }
 
-      v23 = *(v1 + 11376);
+      v23 = *(v2 + 11336);
       if (v23)
       {
         CFRelease(v23);
       }
 
-      v24 = *(v1 + 11344);
-      *buf = v24;
+      v24 = *(v2 + 11376);
       if (v24)
       {
-        v25 = (v1 + 11344);
+        CFRelease(v24);
+      }
+
+      v25 = *(v2 + 11344);
+      *buf = v25;
+      if (v25)
+      {
+        v26 = (v2 + 11344);
         do
         {
-          v26 = v24;
-          v24 = *(v24 + 6056);
-          v27 = *v25;
-          if (*v25 == v26)
+          v27 = v25;
+          v25 = *(v25 + 6056);
+          v28 = *v26;
+          if (*v26 == v27)
           {
-            v31 = *(v27 + 6056);
-            *v25 = v31;
-            v29 = v1 + 11344;
-            if (v31)
+            v32 = *(v28 + 6056);
+            *v26 = v32;
+            v30 = v2 + 11344;
+            if (v32)
             {
               goto LABEL_51;
             }
@@ -4343,56 +4462,56 @@ void RTPCloseHandle()
           {
             do
             {
-              v28 = v27;
-              v27 = *(v27 + 6056);
+              v29 = v28;
+              v28 = *(v28 + 6056);
             }
 
-            while (v27 != v26);
-            v29 = v28 + 6056;
-            v30 = *(v27 + 6056);
-            *(v28 + 6056) = v30;
-            if (v30)
+            while (v28 != v27);
+            v30 = v29 + 6056;
+            v31 = *(v28 + 6056);
+            *(v29 + 6056) = v31;
+            if (v31)
             {
               goto LABEL_51;
             }
           }
 
-          *(v1 + 11352) = v29;
+          *(v2 + 11352) = v30;
 LABEL_51:
-          _RTPReleaseRTPPacketInternal(v1, buf);
-          *buf = v24;
+          _RTPReleaseRTPPacketInternal(v2, buf);
+          *buf = v25;
         }
 
-        while (v24);
+        while (v25);
       }
 
-      v32 = *(v1 + 11360);
-      v45 = v32;
-      if (v32)
+      v33 = *(v2 + 11360);
+      v46 = v33;
+      if (v33)
       {
-        v33 = (v1 + 11360);
+        v34 = (v2 + 11360);
         while (1)
         {
-          v34 = v32;
-          v32 = *(v32 + 1632);
-          v35 = *v33;
-          if (*v33 != v34)
+          v35 = v33;
+          v33 = *(v33 + 1632);
+          v36 = *v34;
+          if (*v34 != v35)
           {
             break;
           }
 
-          v39 = *(v35 + 1632);
-          *v33 = v39;
-          v38 = v1 + 11360;
-          if (!v39)
+          v40 = *(v36 + 1632);
+          *v34 = v40;
+          v39 = v2 + 11360;
+          if (!v40)
           {
             goto LABEL_62;
           }
 
 LABEL_63:
-          _RTCPPacketForget(v1, &v45);
-          v45 = v32;
-          if (!v32)
+          _RTCPPacketForget(v2, &v46);
+          v46 = v33;
+          if (!v33)
           {
             goto LABEL_64;
           }
@@ -4400,57 +4519,57 @@ LABEL_63:
 
         do
         {
-          v36 = v35;
-          v35 = *(v35 + 1632);
+          v37 = v36;
+          v36 = *(v36 + 1632);
         }
 
-        while (v35 != v34);
-        v37 = *(v35 + 1632);
-        *(v36 + 1632) = v37;
-        if (v37)
+        while (v36 != v35);
+        v38 = *(v36 + 1632);
+        *(v37 + 1632) = v38;
+        if (v38)
         {
           goto LABEL_63;
         }
 
-        v38 = v36 + 1632;
+        v39 = v37 + 1632;
 LABEL_62:
-        *(v1 + 11368) = v38;
+        *(v2 + 11368) = v39;
         goto LABEL_63;
       }
 
 LABEL_64:
-      v40 = *(v1 + 10824);
-      if (v40)
-      {
-        CFRelease(v40);
-      }
-
-      VCMemoryPool_Destroy(*(v1 + 10656));
-      v41 = *(v1 + 10664);
+      v41 = *(v2 + 10824);
       if (v41)
       {
         CFRelease(v41);
       }
 
-      v42 = *(v1 + 10984);
+      VCMemoryPool_Destroy(*(v2 + 10656));
+      v42 = *(v2 + 10664);
       if (v42)
       {
         CFRelease(v42);
       }
 
-      v43 = *(v1 + 11000);
+      v43 = *(v2 + 10984);
       if (v43)
       {
         CFRelease(v43);
       }
 
-      v44 = *(v1 + 10992);
+      v44 = *(v2 + 11000);
       if (v44)
       {
         CFRelease(v44);
       }
 
-      free(v1);
+      v45 = *(v2 + 10992);
+      if (v45)
+      {
+        CFRelease(v45);
+      }
+
+      free(v2);
     }
   }
 }
@@ -4542,7 +4661,7 @@ uint64_t _RTPClearTransportStreamsInternal(void *a1)
   return v2;
 }
 
-void _RTPReleaseRTPPacketInternal(uint64_t a1, _DWORD **a2)
+void _RTPReleaseRTPPacketInternal(uint64_t result, _DWORD **a2)
 {
   if (a2)
   {
@@ -4564,7 +4683,7 @@ void _RTPReleaseRTPPacketInternal(uint64_t a1, _DWORD **a2)
 
       else
       {
-        v4 = *(a1 + 10656);
+        v4 = *(result + 10656);
 
         VCMemoryPool_Free(v4, v2);
       }
@@ -4738,15 +4857,15 @@ uint64_t RTPGetPacketLossMetrics(uint64_t a1, unsigned int *a2, unsigned int *a3
   return 0;
 }
 
-uint64_t RTPResetHandle()
+uint64_t RTPResetHandle(uint64_t a1)
 {
-  v0 = CheckInHandleDebug();
-  if (!v0)
+  v1 = CheckInHandleDebug();
+  if (!v1)
   {
     return 2147549186;
   }
 
-  RTPReset(v0, *(v0 + 4832));
+  RTPReset(v1, *(v1 + 4832));
   CheckOutHandleDebug();
   return 0;
 }
@@ -4794,15 +4913,15 @@ void RTPReset(uint64_t a1, int a2)
   *(a1 + 7658) = 0;
 }
 
-uint64_t RTPResetDecryptionStatus()
+uint64_t RTPResetDecryptionStatus(uint64_t a1)
 {
-  v0 = CheckInHandleDebug();
-  if (!v0)
+  v1 = CheckInHandleDebug();
+  if (!v1)
   {
     return 2147549186;
   }
 
-  *(v0 + 10648) = -1;
+  *(v1 + 10648) = -1;
   CheckOutHandleDebug();
   return 0;
 }
@@ -4912,7 +5031,7 @@ uint64_t RTPSetDestination(uint64_t a1, int a2, const char *a3, int a4, int a5, 
   ai_addr = v29->ai_addr;
   if (!ai_addr || ai_addr < (ai_addr + v29->ai_addrlen))
   {
-    VTP_SetSourceDestinationWithIPPort(result);
+    VTP_SetSourceDestinationWithIPPort(result, ai_addr);
     freeaddrinfo(v29);
     __sprintf_chk(v31, 0, 6uLL, "%u", a5);
     if (getaddrinfo(a3, v31, &v30, &v29) == -1)
@@ -4954,7 +5073,7 @@ uint64_t RTPSetDestination(uint64_t a1, int a2, const char *a3, int a4, int a5, 
     v19 = v29->ai_addr;
     if (!v19 || v19 < (v19 + v29->ai_addrlen))
     {
-      VTP_SetSourceDestinationWithIPPort(result);
+      VTP_SetSourceDestinationWithIPPort(result, v19);
       freeaddrinfo(v29);
       if (VRTraceGetErrorLogLevelForModule() >= 7)
       {
@@ -5164,7 +5283,7 @@ uint64_t RTPSetTxPayloadList(uint64_t a1, int a2, const void *a3)
   return v3;
 }
 
-uint64_t RTPSetRxPayloadList(uint64_t a1, int a2, const void *a3)
+uint64_t RTPSetRxPayloadList(uint64_t a1, uint64_t a2, const void *a3)
 {
   v3 = 2147549185;
   if (a2 < 1 || !a3)
@@ -5172,6 +5291,7 @@ uint64_t RTPSetRxPayloadList(uint64_t a1, int a2, const void *a3)
     return v3;
   }
 
+  v5 = a2;
   v6 = CheckInHandleDebug();
   if (!v6)
   {
@@ -5187,21 +5307,21 @@ uint64_t RTPSetRxPayloadList(uint64_t a1, int a2, const void *a3)
     *(v7 + 32) = 0;
   }
 
-  v9 = malloc_type_malloc(4 * a2, 0x100004052888210uLL);
+  v9 = malloc_type_malloc(4 * v5, 0x100004052888210uLL);
   if (!v9)
   {
     RTPSetRxPayloadList_cold_3();
-    goto LABEL_30;
+    goto LABEL_29;
   }
 
   v10 = v9;
-  memcpy(v9, a3, 4 * a2);
+  memcpy(v9, a3, 4 * v5);
   *(v7 + 40) = v10;
-  *(v7 + 32) = a2;
+  *(v7 + 32) = v5;
   result = *(v7 + 4);
   if (result != -1)
   {
-    result = VTP_SetPayloadList(result, a2, v10);
+    result = VTP_SetPayloadList(result, v5, v10);
   }
 
   if (v7 < v7 + 27800)
@@ -5216,52 +5336,44 @@ uint64_t RTPSetRxPayloadList(uint64_t a1, int a2, const void *a3)
         if (!Mutable)
         {
           v3 = 2147549187;
-          goto LABEL_24;
-        }
-
-        v16 = Mutable;
-        if (*(v7 + 32) >= 1)
-        {
-          v17 = 0;
-          v18 = 0;
-          do
-          {
-            v19 = CFNumberCreate(v13, kCFNumberIntType, (*(v7 + 40) + v17));
-            CFArrayAppendValue(v16, v19);
-            CFRelease(v19);
-            ++v18;
-            v17 += 4;
-          }
-
-          while (v18 < *(v7 + 32));
-        }
-
-        v20 = *(v7 + 11312);
-        if (!v20)
-        {
-          v21 = VCPacketFilterRTPCreate(v13, (v7 + 11312));
-          if ((v21 & 0x80000000) != 0)
-          {
-            goto LABEL_21;
-          }
-
-          v20 = *(v7 + 11312);
-        }
-
-        CMBaseObject = VCPacketFilterGetCMBaseObject(v20, v15);
-        v23 = *(*(CMBaseObjectGetVTable() + 8) + 56);
-        if (!v23)
-        {
-          v3 = 4294954514;
           goto LABEL_23;
         }
 
-        v21 = v23(CMBaseObject, @"RTPPayloadList", v16);
-LABEL_21:
-        v3 = v21;
+        v15 = Mutable;
+        if (*(v7 + 32) >= 1)
+        {
+          v16 = 0;
+          v17 = 0;
+          do
+          {
+            v18 = CFNumberCreate(v13, kCFNumberIntType, (*(v7 + 40) + v16));
+            CFArrayAppendValue(v15, v18);
+            CFRelease(v18);
+            ++v17;
+            v16 += 4;
+          }
+
+          while (v17 < *(v7 + 32));
+        }
+
+        if (*(v7 + 11312) || (v19 = VCPacketFilterRTPCreate(v13, (v7 + 11312)), (v19 & 0x80000000) == 0))
+        {
+          VCPacketFilterGetCMBaseObject();
+          v21 = v20;
+          v22 = *(*(CMBaseObjectGetVTable() + 8) + 56);
+          if (!v22)
+          {
+            v3 = 4294954514;
+            goto LABEL_22;
+          }
+
+          v19 = v22(v21, @"RTPPayloadList", v15);
+        }
+
+        v3 = v19;
+LABEL_22:
+        CFRelease(v15);
 LABEL_23:
-        CFRelease(v16);
-LABEL_24:
         CheckOutHandleDebug();
         return v3;
       }
@@ -5274,9 +5386,9 @@ LABEL_24:
       RTPSetRxPayloadList_cold_2();
     }
 
-LABEL_30:
-    v3 = v24;
-    goto LABEL_24;
+LABEL_29:
+    v3 = v23;
+    goto LABEL_23;
   }
 
   __break(0x5519u);
@@ -5298,15 +5410,15 @@ uint64_t RTPAddMappingForPayload(uint64_t a1, int a2, int a3, int a4)
   return 0;
 }
 
-uint64_t RTPResetPayloadMapping()
+uint64_t RTPResetPayloadMapping(uint64_t a1)
 {
-  v0 = CheckInHandleDebug();
-  if (!v0)
+  v1 = CheckInHandleDebug();
+  if (!v1)
   {
     return 2147549186;
   }
 
-  RTPMapResetMapping(*(v0 + 64));
+  RTPMapResetMapping(*(v1 + 64));
   CheckOutHandleDebug();
   return 0;
 }
@@ -5397,17 +5509,17 @@ uint64_t RTPSetSourceRate(uint64_t a1, int a2)
   return 0;
 }
 
-uint64_t RTPGetPacketMultiplexMode()
+uint64_t RTPGetPacketMultiplexMode(uint64_t a1)
 {
-  v0 = CheckInHandleDebug();
-  if (!v0)
+  v1 = CheckInHandleDebug();
+  if (!v1)
   {
     return 0;
   }
 
-  v1 = *v0;
+  v2 = *v1;
   CheckOutHandleDebug();
-  return v1;
+  return v2;
 }
 
 uint64_t RTPSetPacketMultiplexMode(uint64_t a1, int a2)
@@ -5423,17 +5535,18 @@ uint64_t RTPSetPacketMultiplexMode(uint64_t a1, int a2)
   return 0;
 }
 
-uint64_t RTPSetThrottlingAudioInterval(double a1)
+uint64_t RTPSetThrottlingAudioInterval(uint64_t a1, double a2)
 {
-  v2 = CheckInHandleDebug();
-  if (!v2)
+  v3 = CheckInHandleDebug();
+  if (!v3)
   {
     return 2147549186;
   }
 
-  if (*(v2 + 10536) != 0xFFFFFFFFLL)
+  v4 = *(v3 + 10536);
+  if (v4 != 0xFFFFFFFFLL)
   {
-    MediaQueue_SetThrottlingAudioInterval(a1);
+    MediaQueue_SetThrottlingAudioInterval(v4, a2);
   }
 
   CheckOutHandleDebug();
@@ -5484,36 +5597,37 @@ uint64_t _RTPSetTransportStreamReceiveHopLimitEnabled(uint64_t a1, uint64_t a2)
     v2 = MEMORY[0x1E695E4C0];
   }
 
-  CMBaseObject = VCPacketFilterGetCMBaseObject(a1, a2);
+  VCPacketFilterGetCMBaseObject();
+  v4 = v3;
   VTable = CMBaseObjectGetVTable();
-  v6 = *(VTable + 8);
+  v7 = *(VTable + 8);
   result = VTable + 8;
-  v7 = *(v6 + 56);
-  if (v7)
+  v8 = *(v7 + 56);
+  if (v8)
   {
-    v8 = *v2;
+    v9 = *v2;
 
-    return v7(CMBaseObject, @"ReceiveHopLimitEnabled", v8);
+    return v8(v4, @"ReceiveHopLimitEnabled", v9);
   }
 
   return result;
 }
 
-uint64_t RTPSetRTCPSendInterval(double a1)
+uint64_t RTPSetRTCPSendInterval(uint64_t a1, double a2)
 {
-  v2 = CheckInHandleDebug();
-  if (!v2)
+  v3 = CheckInHandleDebug();
+  if (!v3)
   {
     return 2147549186;
   }
 
-  v3 = 5.0;
-  if (a1 > 0.0)
+  v4 = 5.0;
+  if (a2 > 0.0)
   {
-    v3 = a1;
+    v4 = a2;
   }
 
-  *(v2 + 176) = v3;
+  *(v3 + 176) = v4;
   CheckOutHandleDebug();
   return 0;
 }
@@ -5591,11 +5705,13 @@ uint64_t RTPGetExtendedSequenceNumber(uint64_t a1, unsigned int a2, unsigned int
   return 0;
 }
 
-unint64_t RTPSendRTP(uint64_t a1, char a2, int a3, int a4, void *a5, unsigned int a6, int *a7, const void *a8, double a9, float a10, unsigned __int8 a11, int a12, void *a13, uint64_t a14, char a15, int a16)
+unint64_t RTPSendRTP(uint64_t a1, char a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, double a7, int *a8, const void *a9, float s1_0, uint64_t a10, void *a11, unsigned __int16 *a13, char a14, int a15)
 {
-  v26 = a13;
-  v33 = *MEMORY[0x1E69E9840];
-  v27 = 2147549186;
+  v21 = a4;
+  v22 = a3;
+  v25 = a11;
+  v32 = *MEMORY[0x1E69E9840];
+  v26 = 2147549186;
   result = CheckInHandleDebug();
   if (!result)
   {
@@ -5604,79 +5720,80 @@ unint64_t RTPSendRTP(uint64_t a1, char a2, int a3, int a4, void *a5, unsigned in
 
   if (result == 0xFFFFFFFF)
   {
-    v27 = 2147549190;
+    v26 = 2147549190;
     goto LABEL_6;
   }
 
   *(result + 16) = *(result + 16) & 0x80FF | ((a2 & 0x7F) << 8);
-  v29[1] = 0;
-  v30 = 0;
-  v29[0] = 0;
-  v32 = 0;
-  v31 = a10;
+  v28[1] = 0;
+  v29 = 0;
+  v28[0] = 0;
+  v31 = 0;
+  v30 = s1_0;
   if ((a6 & 0x80000000) == 0 && result < result + 27800)
   {
-    v27 = SendRTP(a1, result, a3, a4, 0, 0, a5, a6, a9, a7, a8, a11, a12, 0, 0, 0, 0, v29, 0, a13, a14, 0, a15, a16);
+    v26 = SendRTP(a1, result, v22, v21, 0, 0, a5, a6, a7, a8, a9, a10, SHIDWORD(a10), 0, 0, 0, 0, v28, 0, a11, a13, 0, a14, a15);
     CheckOutHandleDebug();
-    v26 = 0;
+    v25 = 0;
 LABEL_6:
-    VCMediaControlInfoDispose(v26);
-    return v27;
+    VCMediaControlInfoDispose(v25);
+    return v26;
   }
 
   __break(0x5519u);
   return result;
 }
 
-uint64_t SendRTP(uint64_t a1, uint64_t a2, int a3, int a4, void *a5, size_t a6, void *a7, unsigned int a8, double a9, int *a10, const void *a11, unsigned __int8 a12, int a13, int a14, unsigned __int8 a15, _DWORD *a16, int a17, uint64_t a18, int a19, void *a20, uint64_t a21, _OWORD *a22, char a23, int a24)
+uint64_t SendRTP(uint64_t a1, uint64_t a2, int a3, int a4, void *a5, size_t a6, void *a7, uint64_t a8, double a9, int *a10, const void *a11, unsigned __int8 a12, int a13, int a14, char a15, _DWORD *a16, int a17, uint64_t a18, int a19, void *a20, unsigned __int16 *a21, unsigned __int16 *a22, char a23, int a24)
 {
-  v234 = *MEMORY[0x1E69E9840];
+  v24 = a8;
+  v236 = *MEMORY[0x1E69E9840];
   dataLength = 12;
-  v214 = 0;
-  v33 = micro();
+  v216 = 0;
+  v35 = micro(a1, a2);
   blockBufferOut = 0;
-  v213 = 0;
-  v217 = 0u;
+  v215 = 0;
+  v219 = 0u;
   memset(dataLength_4, 0, sizeof(dataLength_4));
-  v211 = 0;
+  v213 = 0;
   if (a10)
   {
     *a10 = 0;
   }
 
-  v34 = a20;
+  v36 = a20;
   ++*(a2 + 352);
   if ((a6 & 0x80000000) != 0)
   {
-    v35 = 2147549185;
+    v37 = 2147549185;
     if (VRTraceGetErrorLogLevelForModule() < 8)
     {
       goto LABEL_309;
     }
 
-    v168 = VRTraceErrorLogLevelToCSTR();
-    v37 = *MEMORY[0x1E6986650];
-    v169 = *MEMORY[0x1E6986650];
+    v170 = VRTraceErrorLogLevelToCSTR();
+    v39 = *MEMORY[0x1E6986650];
+    v171 = *MEMORY[0x1E6986650];
     if (*MEMORY[0x1E6986640] == 1)
     {
-      if (!os_log_type_enabled(v169, OS_LOG_TYPE_DEFAULT))
+      if (!os_log_type_enabled(v171, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_309;
       }
 
       *buf = 136315906;
-      *&buf[4] = v168;
+      *&buf[4] = v170;
       *&buf[12] = 2080;
       *&buf[14] = "SendRTP";
       *&buf[22] = 1024;
       *&buf[24] = 1577;
       *&buf[28] = 1024;
-      *&buf[30] = a8;
-      v40 = " [%s] %s:%d Header size is negative: %d";
+      *&buf[30] = v24;
+      v42 = " [%s] %s:%d Header size is negative: %d";
       goto LABEL_10;
     }
 
-    if (os_log_type_enabled(v169, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v171, OS_LOG_TYPE_DEBUG))
     {
       SendRTP_cold_17();
     }
@@ -5684,37 +5801,37 @@ uint64_t SendRTP(uint64_t a1, uint64_t a2, int a3, int a4, void *a5, size_t a6, 
     goto LABEL_309;
   }
 
-  if ((a8 & 0x80000000) == 0)
+  if ((v24 & 0x80000000) == 0)
   {
     if ((*(a2 + 7000) | 2) == 2)
     {
-      v35 = 2147549185;
+      v37 = 2147549185;
       if (VRTraceGetErrorLogLevelForModule() >= 8)
       {
-        v36 = VRTraceErrorLogLevelToCSTR();
-        v37 = *MEMORY[0x1E6986650];
-        v38 = *MEMORY[0x1E6986650];
+        v38 = VRTraceErrorLogLevelToCSTR();
+        v39 = *MEMORY[0x1E6986650];
+        v40 = *MEMORY[0x1E6986650];
         if (*MEMORY[0x1E6986640] == 1)
         {
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
           {
-            v39 = *(a2 + 7000);
+            v41 = *(a2 + 7000);
             *buf = 136315906;
-            *&buf[4] = v36;
+            *&buf[4] = v38;
             *&buf[12] = 2080;
             *&buf[14] = "SendRTP";
             *&buf[22] = 1024;
             *&buf[24] = 1579;
             *&buf[28] = 1024;
-            *&buf[30] = v39;
-            v40 = " [%s] %s:%d RTP SendRTP direction[%d] dropping packet";
+            *&buf[30] = v41;
+            v42 = " [%s] %s:%d RTP SendRTP direction[%d] dropping packet";
 LABEL_10:
-            _os_log_impl(&dword_1DB56E000, v37, OS_LOG_TYPE_DEFAULT, v40, buf, 0x22u);
+            _os_log_impl(&dword_1DB56E000, v39, OS_LOG_TYPE_DEFAULT, v42, buf, 0x22u);
             goto LABEL_309;
           }
         }
 
-        else if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+        else if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
         {
           SendRTP_cold_1();
         }
@@ -5726,20 +5843,20 @@ LABEL_10:
     __src = a5;
     if (!*(a2 + 10624))
     {
-      v41 = *(a2 + 7488);
-      if ((v41 - 3) <= 1)
+      v43 = *(a2 + 7488);
+      if ((v43 - 3) <= 1)
       {
-        v35 = 2149711924;
+        v37 = 2149711924;
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v180 = VRTraceErrorLogLevelToCSTR();
-          v181 = *MEMORY[0x1E6986650];
+          v182 = VRTraceErrorLogLevelToCSTR();
+          v183 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
           {
-            v182 = *(a2 + 10624);
-            v183 = *(a2 + 200);
+            v184 = *(a2 + 10624);
+            v185 = *(a2 + 200);
             *buf = 136316674;
-            *&buf[4] = v180;
+            *&buf[4] = v182;
             *&buf[12] = 2080;
             *&buf[14] = "SendRTP";
             *&buf[22] = 1024;
@@ -5747,12 +5864,12 @@ LABEL_10:
             *&buf[28] = 2048;
             *&buf[30] = a1;
             *&buf[38] = 2048;
-            *&buf[40] = v182;
+            *&buf[40] = v184;
             *&buf[48] = 1024;
-            *&buf[50] = v41;
+            *&buf[50] = v43;
             *&buf[54] = 1024;
-            *&buf[56] = v183;
-            _os_log_error_impl(&dword_1DB56E000, v181, OS_LOG_TYPE_ERROR, " [%s] %s:%d Attempt to send un-encrypted packet with rtpHandle=%p, VCMediaQueue=%p, authenticationMode=%d, and ssrc=%u", buf, 0x3Cu);
+            *&buf[56] = v185;
+            _os_log_error_impl(&dword_1DB56E000, v183, OS_LOG_TYPE_ERROR, " [%s] %s:%d Attempt to send un-encrypted packet with rtpHandle=%p, VCMediaQueue=%p, authenticationMode=%d, and ssrc=%u", buf, 0x3Cu);
           }
         }
 
@@ -5762,35 +5879,7 @@ LABEL_10:
 
     if (a11)
     {
-      v42 = a12;
-    }
-
-    else
-    {
-      v42 = 0;
-    }
-
-    v205 = a7;
-    if (a16 && *a16)
-    {
-      v43 = a16[2];
-      if (v43 >> 30)
-      {
-        if (v43 >> 30 == 1)
-        {
-          v44 = ((v43 >> 22) & 1) == 0;
-        }
-
-        else
-        {
-          v44 = (v43 >> 26) & 1;
-        }
-      }
-
-      else
-      {
-        v44 = ((v43 >> 23) & 1) == 0;
-      }
+      v44 = a12;
     }
 
     else
@@ -5798,94 +5887,122 @@ LABEL_10:
       v44 = 0;
     }
 
-    v45 = MicroToNTP(a9);
-    v46 = *(a2 + 196) + a4;
-    *(a2 + 304) = v45;
-    *(a2 + 312) = v46;
-    if (!*(a2 + 220))
+    v207 = a7;
+    if (a16 && *a16)
     {
-      *(a2 + 216) = v45;
-    }
-
-    v47 = (a2 + 16);
-    *(a2 + 16) = ((a3 != 0) << 15) | (32 * (v42 != 0)) | *(a2 + 16) & 0x7FCF;
-    v48 = *(a2 + 192);
-    if (v44)
-    {
-      *(a2 + 192) = --v48;
-    }
-
-    *(a2 + 18) = bswap32(v48) >> 16;
-    v207 = _RTPSendTimestampWithMediaSampleTime(a2, v46);
-    *(a2 + 20) = bswap32(v207);
-    v49 = *(a2 + 224);
-    v50 = *(a2 + 192);
-    if (v50 >= v49)
-    {
-      v51 = v49 & 0xFFFF0000;
-    }
-
-    else
-    {
-      v51 = (v49 & 0xFFFF0000) + 0x10000;
-    }
-
-    *(a2 + 224) = v51 | v50;
-    *(a2 + 192) = v50 + 1;
-    v52 = *(a2 + 10536);
-    v197 = v52 != 0xFFFFFFFFLL;
-    v204 = a3;
-    v195 = a1;
-    v194 = v44;
-    if (v52 == 0xFFFFFFFFLL)
-    {
-      v53 = *(a2 + 80);
-      if (v53)
+      v45 = a16[2];
+      if (v45 >> 30)
       {
-        v56 = *(a2 + 72);
-        v54 = &v53[v56];
+        if (v45 >> 30 == 1)
+        {
+          v46 = ((v45 >> 22) & 1) == 0;
+        }
+
+        else
+        {
+          v46 = (v45 >> 26) & 1;
+        }
       }
 
       else
       {
-        v56 = 1500;
-        v53 = malloc_type_calloc(0x5DCuLL, 1uLL, 0x100004077774924uLL);
-        if (!v53)
-        {
-          SendRTP_cold_2();
-          v35 = *src;
-          v34 = *buf;
-          goto LABEL_309;
-        }
-
-        v54 = (v53 + 1500);
-        *(a2 + 80) = v53;
-        *(a2 + 72) = 1500;
+        v46 = ((v45 >> 23) & 1) == 0;
       }
-
-      v55 = 12;
     }
 
     else
     {
-      MediaQueue_Malloc(v33, v52, 12, &v214);
-      if (!v214)
+      v46 = 0;
+    }
+
+    v47 = MicroToNTP(a9, v33, v34);
+    v48 = *(a2 + 196) + a4;
+    *(a2 + 304) = v47;
+    *(a2 + 312) = v48;
+    if (!*(a2 + 220))
+    {
+      *(a2 + 216) = v47;
+    }
+
+    v49 = (a2 + 16);
+    *(a2 + 16) = ((a3 != 0) << 15) | (32 * (v44 != 0)) | *(a2 + 16) & 0x7FCF;
+    v50 = *(a2 + 192);
+    if (v46)
+    {
+      *(a2 + 192) = --v50;
+    }
+
+    *(a2 + 18) = bswap32(v50) >> 16;
+    v209 = _RTPSendTimestampWithMediaSampleTime(a2, v48);
+    *(a2 + 20) = bswap32(v209);
+    v51 = *(a2 + 224);
+    v52 = *(a2 + 192);
+    if (v52 >= v51)
+    {
+      v53 = v51 & 0xFFFF0000;
+    }
+
+    else
+    {
+      v53 = (v51 & 0xFFFF0000) + 0x10000;
+    }
+
+    *(a2 + 224) = v53 | v52;
+    *(a2 + 192) = v52 + 1;
+    v54 = *(a2 + 10536);
+    v199 = v54 != 0xFFFFFFFFLL;
+    v206 = a3;
+    v197 = a1;
+    v196 = v46;
+    if (v54 == 0xFFFFFFFFLL)
+    {
+      v55 = *(a2 + 80);
+      if (v55)
       {
-        v35 = 2147549187;
+        v58 = *(a2 + 72);
+        v56 = &v55[v58];
+      }
+
+      else
+      {
+        v58 = 1500;
+        v55 = malloc_type_calloc(0x5DCuLL, 1uLL, 0x100004077774924uLL);
+        if (!v55)
+        {
+          SendRTP_cold_2();
+          v37 = *src;
+          v36 = *buf;
+          goto LABEL_309;
+        }
+
+        v56 = (v55 + 1500);
+        *(a2 + 80) = v55;
+        *(a2 + 72) = 1500;
+      }
+
+      v57 = 12;
+    }
+
+    else
+    {
+      MediaQueue_Malloc(v54, 12, &v216, v35);
+      if (!v216)
+      {
+        v37 = 2147549187;
         goto LABEL_309;
       }
 
-      v53 = v214 + 4;
-      v54 = (v214 + 188);
-      v55 = dataLength;
-      v56 = 1500;
+      v55 = v216 + 4;
+      v56 = (v216 + 188);
+      v57 = dataLength;
+      v58 = 1500;
     }
 
-    v202 = a21;
-    dataLength = v55 + 4 * (*(a2 + 16) & 0xF);
-    sourceBytes = v53;
-    v193 = v52;
-    v203 = dataLength;
+    v204 = a21;
+    dataLength = v57 + 4 * (*(a2 + 16) & 0xF);
+    sourceBytes = v55;
+    v195 = v54;
+    v205 = dataLength;
     if (!*(a2 + 28))
     {
       if (*(a2 + 10608))
@@ -5894,41 +6011,41 @@ LABEL_10:
         {
           if (VCMediaControlInfoHasInfo(a20, 0))
           {
-            v52 = src;
-            *&v227 = 0;
+            v54 = src;
+            *&v229 = 0;
+            v228 = 0u;
+            memset(v227, 0, sizeof(v227));
             v226 = 0u;
-            memset(v225, 0, sizeof(v225));
-            v224 = 0u;
             memset(buf, 0, sizeof(buf));
             VCRateControlGetStatistics(*(a2 + 10608), 2, buf);
-            v213 = *&buf[8];
-            v57 = *&buf[80];
+            v215 = *&buf[8];
+            v59 = *&buf[80];
           }
 
           else
           {
-            v57 = 0x7FF8000000000000;
+            v59 = 0x7FF8000000000000;
           }
 
-          v53 = sourceBytes;
+          v55 = sourceBytes;
 LABEL_42:
-          v58 = (a21 + 24);
+          v60 = a21 + 12;
           if (*(a2 + 10544) == 0xFFFFFFFFLL && !*(a2 + 10608))
           {
 LABEL_47:
             if (a20)
             {
-              *v47 |= 0x10u;
+              *v49 |= 0x10u;
               *buf = 0xAAAAAAAAAAAAAAAALL;
-              v59 = &v53[dataLength];
-              if (v59 && (v59 >= v54 || v59 < sourceBytes))
+              v61 = &v55[dataLength];
+              if (v61 && (v61 >= v56 || v61 < sourceBytes))
               {
                 goto LABEL_325;
               }
 
-              v60 = VCMediaControlInfoSerialize(a20);
+              v62 = VCMediaControlInfoSerialize(a20);
               VCMediaControlInfoDispose(a20);
-              if ((v60 & 0x80000000) == 0)
+              if ((v62 & 0x80000000) == 0)
               {
                 dataLength += *buf;
               }
@@ -5939,7 +6056,7 @@ LABEL_47:
 
           if (a21)
           {
-            if (!a20 || *v58)
+            if (!a20 || *v60)
             {
               goto LABEL_47;
             }
@@ -5948,28 +6065,28 @@ LABEL_47:
           else if (!a20)
           {
 LABEL_63:
-            LOBYTE(v196) = 0;
-            v199 = 0;
+            LOBYTE(v198) = 0;
+            v201 = 0;
             goto LABEL_70;
           }
 
           Size = VCMediaControlInfoGetSize(a20);
-          v52 = Size;
+          v54 = Size;
           if ((Size & 3) != 0)
           {
-            v35 = 2147549227;
-            if (VRTraceGetErrorLogLevelForModule() < 3 || (v54 = VRTraceErrorLogLevelToCSTR(), a6 = *MEMORY[0x1E6986650], !os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR)))
+            v37 = 2147549227;
+            if (VRTraceGetErrorLogLevelForModule() < 3 || (v56 = VRTraceErrorLogLevelToCSTR(), a6 = *MEMORY[0x1E6986650], !os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR)))
             {
               sourceBytesa = 0;
-              v118 = 0;
+              v120 = 0;
 LABEL_323:
-              v112 = v197;
+              v114 = v199;
               goto LABEL_193;
             }
 
 LABEL_326:
             *buf = 136316162;
-            *&buf[4] = v54;
+            *&buf[4] = v56;
             *&buf[12] = 2080;
             *&buf[14] = "SendRTP";
             *&buf[22] = 1024;
@@ -5977,10 +6094,10 @@ LABEL_326:
             *&buf[28] = 1024;
             *&buf[30] = 1660;
             *&buf[34] = 2048;
-            *&buf[36] = v52;
+            *&buf[36] = v54;
             _os_log_error_impl(&dword_1DB56E000, a6, OS_LOG_TYPE_ERROR, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/AVConference.subproj/Sources/Others/RTPTransport.c:%d: Bad RTP extension length (%ld)", buf, 0x2Cu);
-            v35 = 2147549227;
-            if (v193 == 0xFFFFFFFFLL)
+            v37 = 2147549227;
+            if (v195 == 0xFFFFFFFFLL)
             {
               goto LABEL_309;
             }
@@ -5988,38 +6105,38 @@ LABEL_326:
             goto LABEL_290;
           }
 
-          v62 = *(a2 + 28);
-          v199 = a20;
-          if (v62 == 1)
+          v64 = *(a2 + 28);
+          v201 = a20;
+          if (v64 == 1)
           {
             if (!a13 && !Size)
             {
-              v196 = a15 & (a15 >> 7) & 0xB | (16 * a14);
+              v198 = a15 & (a15 >> 7) & 0xB | (16 * a14);
               goto LABEL_70;
             }
           }
 
-          else if (!Size || v62)
+          else if (!Size || v64)
           {
-            LOBYTE(v196) = 0;
+            LOBYTE(v198) = 0;
             goto LABEL_70;
           }
 
-          *v47 |= 0x10u;
-          if (Size + dataLength > v56)
+          *v49 |= 0x10u;
+          if (Size + dataLength > v58)
           {
-            v35 = 2147549198;
+            v37 = 2147549198;
             if (VRTraceGetErrorLogLevelForModule() >= 3)
             {
-              v189 = VRTraceErrorLogLevelToCSTR();
-              v190 = *MEMORY[0x1E6986650];
+              v191 = VRTraceErrorLogLevelToCSTR();
+              v192 = *MEMORY[0x1E6986650];
               if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
               {
-                v175 = SendRTP_cold_3(v189, v190, v193 != 0xFFFFFFFFLL);
+                v177 = SendRTP_cold_3(v191, v192, v195 != 0xFFFFFFFFLL);
 LABEL_316:
-                v35 = 2147549198;
-                v34 = v199;
-                if ((v175 & 1) == 0)
+                v37 = 2147549198;
+                v36 = v201;
+                if ((v177 & 1) == 0)
                 {
                   goto LABEL_308;
                 }
@@ -6031,39 +6148,39 @@ LABEL_316:
             goto LABEL_321;
           }
 
-          LOBYTE(v196) = 0;
+          LOBYTE(v198) = 0;
           dataLength += Size;
 LABEL_70:
-          v52 = dataLength;
+          v54 = dataLength;
           *(a2 + 16) = *(a2 + 16) & 0x80FF | ((RTPMapGetExternalPayload(*(a2 + 64), *(a2 + 17) & 0x7F) & 0x7F) << 8);
-          if (sourceBytes > v54)
+          if (sourceBytes > v56)
           {
             goto LABEL_325;
           }
 
-          v206 = v54 - sourceBytes;
-          if (v54 - sourceBytes < 0xC)
+          v208 = v56 - sourceBytes;
+          if (v56 - sourceBytes < 0xC)
           {
             goto LABEL_325;
           }
 
-          v63 = *v47;
-          v64 = sourceBytes;
+          v65 = *v49;
+          v66 = sourceBytes;
           *(sourceBytes + 2) = *(a2 + 24);
-          *sourceBytes = v63;
-          v65 = dataLength;
+          *sourceBytes = v65;
+          v67 = dataLength;
           if (a6)
           {
-            if (v56 < dataLength + a6)
+            if (v58 < dataLength + a6)
             {
-              v35 = 2147549198;
+              v37 = 2147549198;
               if (VRTraceGetErrorLogLevelForModule() >= 3)
               {
-                v176 = VRTraceErrorLogLevelToCSTR();
-                v177 = *MEMORY[0x1E6986650];
+                v178 = VRTraceErrorLogLevelToCSTR();
+                v179 = *MEMORY[0x1E6986650];
                 if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                 {
-                  v175 = SendRTP_cold_4(v176, v177, v193 != 0xFFFFFFFFLL);
+                  v177 = SendRTP_cold_4(v178, v179, v195 != 0xFFFFFFFFLL);
                   goto LABEL_316;
                 }
               }
@@ -6071,28 +6188,28 @@ LABEL_70:
               goto LABEL_321;
             }
 
-            v66 = &sourceBytes[dataLength];
-            if (v54 < v66 || sourceBytes > v66 || v54 - v66 < a6)
+            v68 = &sourceBytes[dataLength];
+            if (v56 < v68 || sourceBytes > v68 || v56 - v68 < a6)
             {
               goto LABEL_325;
             }
 
-            memcpy(v66, __src, a6);
-            v65 = dataLength + a6;
+            memcpy(v68, __src, a6);
+            v67 = dataLength + a6;
             dataLength += a6;
-            v64 = sourceBytes;
+            v66 = sourceBytes;
           }
 
-          if (v56 < (v65 + a8))
+          if (v58 < (v67 + v24))
           {
-            v35 = 2147549198;
+            v37 = 2147549198;
             if (VRTraceGetErrorLogLevelForModule() >= 3)
             {
-              v173 = VRTraceErrorLogLevelToCSTR();
-              v174 = *MEMORY[0x1E6986650];
+              v175 = VRTraceErrorLogLevelToCSTR();
+              v176 = *MEMORY[0x1E6986650];
               if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
               {
-                v175 = SendRTP_cold_15(v173, v174, v193 != 0xFFFFFFFFLL);
+                v177 = SendRTP_cold_15(v175, v176, v195 != 0xFFFFFFFFLL);
                 goto LABEL_316;
               }
             }
@@ -6100,167 +6217,167 @@ LABEL_70:
 
           else
           {
-            v67 = &v64[v65];
-            if (v54 < v67 || sourceBytes > v67 || v54 - v67 < a8)
+            v69 = &v66[v67];
+            if (v56 < v69 || sourceBytes > v69 || v56 - v69 < v24)
             {
               goto LABEL_325;
             }
 
-            memcpy(v67, v205, a8);
-            v68 = dataLength + a8;
-            dataLength += a8;
-            if (!v42)
+            memcpy(v69, v207, v24);
+            v70 = dataLength + v24;
+            dataLength += v24;
+            if (!v44)
             {
 LABEL_91:
-              v34 = 7080;
+              v36 = 7080;
               if (*(a2 + 28) == 1 && !*(a2 + 7084) && *(a2 + 7080) == 1)
               {
                 sourceBytesa = 0;
-                v118 = 0;
-                v35 = 2147549204;
+                v120 = 0;
+                v37 = 2147549204;
               }
 
               else
               {
-                v74 = *(a2 + 7488) - 3;
-                v75 = SRTPCalculateTotalSuffixBytes(a2 + 7080, *(a2 + 10632), bswap32(*(a2 + 18)) >> 16);
-                if (v75 != -1)
+                v76 = *(a2 + 7488) - 3;
+                v77 = SRTPCalculateTotalSuffixBytes(a2 + 7080, *(a2 + 10632), bswap32(*(a2 + 18)) >> 16);
+                if (v77 != -1)
                 {
-                  a6 = v75;
-                  if (v74 <= 1)
+                  a6 = v77;
+                  if (v76 <= 1)
                   {
-                    dataLength += v75;
+                    dataLength += v77;
 LABEL_107:
-                    v210 = -1;
-                    __srca = _RTPGetRTPSocketForMediaQueue(a2, &v210);
+                    v212 = -1;
+                    __srca = _RTPGetRTPSocketForMediaQueue(a2, &v212);
                     if ((__srca & 0x80000000) != 0)
                     {
                       sourceBytesa = 0;
-                      v118 = 0;
-                      v34 = v199;
-                      v112 = v197;
+                      v120 = 0;
+                      v36 = v201;
+                      v114 = v199;
 LABEL_192:
-                      v35 = __srca;
+                      v37 = __srca;
                       goto LABEL_193;
                     }
 
-                    v80 = v214;
-                    if (v214 && *(a2 + 10536) != 0xFFFFFFFFLL)
+                    v82 = v216;
+                    if (v216 && *(a2 + 10536) != 0xFFFFFFFFLL)
                     {
-                      v81 = a21;
+                      v83 = a21;
                       if (!a21)
                       {
-                        v87 = 0;
-                        v82 = a10;
-                        v83 = v203;
+                        v89 = 0;
+                        v84 = a10;
+                        v85 = v205;
 LABEL_166:
-                        *(v80 + 1621) = v87;
-                        *(v80 + 398) = v83;
-                        *v80 = dataLength;
-                        v119 = *v47;
-                        *(v80 + 378) = *(a2 + 24);
-                        *(v80 + 188) = v119;
-                        *(v80 + 379) = *(a2 + 28);
-                        *(v80 + 380) = *(a2 + 10584);
-                        *(v80 + 381) = v210;
-                        *(v80 + 1528) = *(a2 + 12) != 0;
-                        v80[192] = v33;
-                        *(v80 + 386) = 0;
-                        *(v80 + 194) = v213;
-                        *(v80 + 390) = a17;
-                        *(v80 + 391) = a19;
-                        if (!a16 || (v120 = a16[12], v120 <= 1))
+                        *(v82 + 1621) = v89;
+                        *(v82 + 398) = v85;
+                        *v82 = dataLength;
+                        v121 = *v49;
+                        *(v82 + 378) = *(a2 + 24);
+                        *(v82 + 188) = v121;
+                        *(v82 + 379) = *(a2 + 28);
+                        *(v82 + 380) = *(a2 + 10584);
+                        *(v82 + 381) = v212;
+                        *(v82 + 1528) = *(a2 + 12) != 0;
+                        v82[192] = v35;
+                        *(v82 + 386) = 0;
+                        *(v82 + 194) = v215;
+                        *(v82 + 390) = a17;
+                        *(v82 + 391) = a19;
+                        if (!a16 || (v122 = a16[12], v122 <= 1))
                         {
-                          v120 = 1;
+                          v122 = 1;
                         }
 
-                        *(v80 + 387) = v120;
-                        *(v80 + 198) = v199;
-                        v80[196] = 0.0;
-                        *(v80 + 1578) = a13 != 0;
-                        *(v80 + 1579) = v204 != 0;
-                        Throttling_RTP_SendRTP_SetThrottlingParams(v80, a18);
-                        v121 = v214;
-                        *(v214 + 1620) = v196;
-                        v122 = MediaQueue_AddPacket(*(a2 + 10536), v121);
-                        if ((v122 & 0x80000000) == 0)
+                        *(v82 + 387) = v122;
+                        *(v82 + 198) = v201;
+                        v82[196] = 0.0;
+                        *(v82 + 1578) = a13 != 0;
+                        *(v82 + 1579) = v206 != 0;
+                        Throttling_RTP_SendRTP_SetThrottlingParams(v82, a18);
+                        v123 = v216;
+                        *(v216 + 1620) = v198;
+                        v124 = MediaQueue_AddPacket(*(a2 + 10536), v123);
+                        if ((v124 & 0x80000000) == 0)
                         {
-                          __srca = v122;
+                          __srca = v124;
                           sourceBytesa = 0;
-                          v118 = 0;
-                          v112 = 0;
-                          v34 = 0;
-                          v114 = *(v214 + 387);
-                          v115 = dataLength;
-                          if (v82)
+                          v120 = 0;
+                          v114 = 0;
+                          v36 = 0;
+                          v116 = *(v216 + 387);
+                          v117 = dataLength;
+                          if (v84)
                           {
 LABEL_171:
-                            if (v115 != -1)
+                            if (v117 != -1)
                             {
                               kdebug_trace();
                               if (VRTraceGetErrorLogLevelForModule() >= 8)
                               {
-                                v123 = VRTraceErrorLogLevelToCSTR();
-                                v124 = *MEMORY[0x1E6986650];
-                                v125 = *MEMORY[0x1E6986650];
+                                v125 = VRTraceErrorLogLevelToCSTR();
+                                v126 = *MEMORY[0x1E6986650];
+                                v127 = *MEMORY[0x1E6986650];
                                 if (*MEMORY[0x1E6986640] == 1)
                                 {
-                                  if (os_log_type_enabled(v125, OS_LOG_TYPE_DEFAULT))
+                                  if (os_log_type_enabled(v127, OS_LOG_TYPE_DEFAULT))
                                   {
-                                    v126 = *(a2 + 16);
-                                    v127 = bswap32(*(a2 + 18));
-                                    v128 = *(a2 + 200);
+                                    v128 = *(a2 + 16);
+                                    v129 = bswap32(*(a2 + 18));
+                                    v130 = *(a2 + 200);
                                     *buf = 136316930;
-                                    *&buf[4] = v123;
+                                    *&buf[4] = v125;
                                     *&buf[12] = 2080;
                                     *&buf[14] = "SendRTP";
                                     *&buf[22] = 1024;
                                     *&buf[24] = 1896;
                                     *&buf[28] = 1024;
-                                    *&buf[30] = v126 >> 15;
+                                    *&buf[30] = v128 >> 15;
                                     *&buf[34] = 1024;
-                                    *&buf[36] = (v126 >> 8) & 0x7F;
+                                    *&buf[36] = (v128 >> 8) & 0x7F;
                                     *&buf[40] = 1024;
-                                    *&buf[42] = HIWORD(v127);
+                                    *&buf[42] = HIWORD(v129);
                                     *&buf[46] = 1024;
-                                    *&buf[48] = v207;
+                                    *&buf[48] = v209;
                                     *&buf[52] = 1024;
-                                    *&buf[54] = v128;
-                                    _os_log_impl(&dword_1DB56E000, v124, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Sent RTP packet with marker: %u, payload type: %u, sequence number: %u, timestamp: %u, ssrc: %u", buf, 0x3Au);
+                                    *&buf[54] = v130;
+                                    _os_log_impl(&dword_1DB56E000, v126, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Sent RTP packet with marker: %u, payload type: %u, sequence number: %u, timestamp: %u, ssrc: %u", buf, 0x3Au);
                                   }
                                 }
 
-                                else if (os_log_type_enabled(v125, OS_LOG_TYPE_DEBUG))
+                                else if (os_log_type_enabled(v127, OS_LOG_TYPE_DEBUG))
                                 {
-                                  v165 = *(a2 + 16);
-                                  v166 = bswap32(*(a2 + 18));
-                                  v167 = *(a2 + 200);
+                                  v167 = *(a2 + 16);
+                                  v168 = bswap32(*(a2 + 18));
+                                  v169 = *(a2 + 200);
                                   *buf = 136316930;
-                                  *&buf[4] = v123;
+                                  *&buf[4] = v125;
                                   *&buf[12] = 2080;
                                   *&buf[14] = "SendRTP";
                                   *&buf[22] = 1024;
                                   *&buf[24] = 1896;
                                   *&buf[28] = 1024;
-                                  *&buf[30] = v165 >> 15;
+                                  *&buf[30] = v167 >> 15;
                                   *&buf[34] = 1024;
-                                  *&buf[36] = (v165 >> 8) & 0x7F;
+                                  *&buf[36] = (v167 >> 8) & 0x7F;
                                   *&buf[40] = 1024;
-                                  *&buf[42] = HIWORD(v166);
+                                  *&buf[42] = HIWORD(v168);
                                   *&buf[46] = 1024;
-                                  *&buf[48] = v207;
+                                  *&buf[48] = v209;
                                   *&buf[52] = 1024;
-                                  *&buf[54] = v167;
-                                  _os_log_debug_impl(&dword_1DB56E000, v124, OS_LOG_TYPE_DEBUG, " [%s] %s:%d Sent RTP packet with marker: %u, payload type: %u, sequence number: %u, timestamp: %u, ssrc: %u", buf, 0x3Au);
+                                  *&buf[54] = v169;
+                                  _os_log_debug_impl(&dword_1DB56E000, v126, OS_LOG_TYPE_DEBUG, " [%s] %s:%d Sent RTP packet with marker: %u, payload type: %u, sequence number: %u, timestamp: %u, ssrc: %u", buf, 0x3Au);
                                 }
                               }
 
-                              v129.i32[0] = 1;
-                              v129.i32[1] = dataLength;
-                              *(a2 + 204) = vadd_s32(*(a2 + 204), v129);
-                              if (v81)
+                              v131.i32[0] = 1;
+                              v131.i32[1] = dataLength;
+                              *(a2 + 204) = vadd_s32(*(a2 + 204), v131);
+                              if (v83)
                               {
-                                IDSAttributeSizeWithChannelDataFormat = VCIDSChannelData_GetIDSAttributeSizeWithChannelDataFormat(v81);
+                                IDSAttributeSizeWithChannelDataFormat = VCIDSChannelData_GetIDSAttributeSizeWithChannelDataFormat(v83);
                               }
 
                               else
@@ -6268,54 +6385,54 @@ LABEL_171:
                                 IDSAttributeSizeWithChannelDataFormat = 0;
                               }
 
-                              v131 = *(a2 + 27784);
-                              if (!v131)
+                              v133 = *(a2 + 27784);
+                              if (!v133)
                               {
                                 if (*(a2 + 12))
                                 {
-                                  v131 = 48;
+                                  v133 = 48;
                                 }
 
                                 else
                                 {
-                                  v131 = 28;
+                                  v133 = 28;
                                 }
                               }
 
-                              v132 = IDSAttributeSizeWithChannelDataFormat + v115 + v131;
-                              *v82 = v132;
-                              v133 = *(a2 + 27776);
-                              if (v133)
+                              v134 = IDSAttributeSizeWithChannelDataFormat + v117 + v133;
+                              *v84 = v134;
+                              v135 = *(a2 + 27776);
+                              if (v135)
                               {
                                 *buf = 0xAAAAAAAAAAAAAAAALL;
                                 *buf = *(a2 + 200);
                                 *&buf[4] = bswap32(*(a2 + 18)) >> 16;
-                                *&buf[8] = v33;
-                                *&buf[16] = v132;
-                                VCNACKConsumer_UpdateTransmissionStatus(v133, buf);
+                                *&buf[8] = v35;
+                                *&buf[16] = v134;
+                                VCNACKConsumer_UpdateTransmissionStatus(v135, buf);
                               }
 
                               if (*(a2 + 28) == 1)
                               {
                                 if (*(a2 + 10536) == 0xFFFFFFFFLL)
                                 {
-                                  v134 = 1;
+                                  v136 = 1;
                                 }
 
                                 else
                                 {
-                                  v134 = v114;
+                                  v136 = v116;
                                 }
 
-                                _RTPUpdateAFRCVideoSendingBitrate(a2, v134 * *v82, a13 != 0, v33);
+                                _RTPUpdateAFRCVideoSendingBitrate(a2, v136 * *v84, a13 != 0, v35);
                               }
 
                               goto LABEL_192;
                             }
 
-                            v35 = *__error() | 0xC0010000;
+                            v37 = *__error() | 0xC0010000;
 LABEL_193:
-                            if (!v112)
+                            if (!v114)
                             {
                               goto LABEL_194;
                             }
@@ -6324,51 +6441,51 @@ LABEL_193:
                           }
 
 LABEL_164:
-                          v35 = 2147549185;
+                          v37 = 2147549185;
                           goto LABEL_193;
                         }
 
                         SendRTP_cold_9();
-                        v34 = *buf;
-                        v35 = *src;
+                        v36 = *buf;
+                        v37 = *src;
 LABEL_290:
-                        MediaQueue_FreePacket(*(a2 + 10536), v214);
+                        MediaQueue_FreePacket(*(a2 + 10536), v216);
                         goto LABEL_306;
                       }
 
-                      v82 = a10;
-                      if (!*v58)
+                      v84 = a10;
+                      if (!*v60)
                       {
-                        v83 = v203;
+                        v85 = v205;
                         if (*(a21 + 30) == 1)
                         {
-                          *(v214 + 203) = *a21;
-                          v84 = *(a21 + 16);
-                          v85 = *(a21 + 32);
-                          v86 = *(a21 + 64);
-                          *(v80 + 209) = *(a21 + 48);
-                          *(v80 + 211) = v86;
-                          *(v80 + 205) = v84;
-                          *(v80 + 207) = v85;
-                          v87 = 1;
+                          *(v216 + 203) = *a21;
+                          v86 = *(a21 + 1);
+                          v87 = *(a21 + 2);
+                          v88 = *(a21 + 4);
+                          *(v82 + 209) = *(a21 + 3);
+                          *(v82 + 211) = v88;
+                          *(v82 + 205) = v86;
+                          *(v82 + 207) = v87;
+                          v89 = 1;
                         }
 
                         else
                         {
-                          v87 = 0;
+                          v89 = 0;
                         }
 
                         goto LABEL_166;
                       }
 
-                      v35 = 2147549194;
+                      v37 = 2147549194;
                       if (VRTraceGetErrorLogLevelForModule() >= 3)
                       {
-                        v186 = VRTraceErrorLogLevelToCSTR();
-                        v187 = *MEMORY[0x1E6986650];
+                        v188 = VRTraceErrorLogLevelToCSTR();
+                        v189 = *MEMORY[0x1E6986650];
                         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                         {
-                          v188 = SendRTP_cold_8(v186, v187, v193 != 0xFFFFFFFFLL);
+                          v190 = SendRTP_cold_8(v188, v189, v195 != 0xFFFFFFFFLL);
                           goto LABEL_329;
                         }
                       }
@@ -6382,18 +6499,18 @@ LABEL_290:
                       {
                         if (*(a2 + 28))
                         {
-                          v35 = 2147549194;
+                          v37 = 2147549194;
                           if (VRTraceGetErrorLogLevelForModule() >= 3)
                           {
-                            v191 = VRTraceErrorLogLevelToCSTR();
-                            v192 = *MEMORY[0x1E6986650];
+                            v193 = VRTraceErrorLogLevelToCSTR();
+                            v194 = *MEMORY[0x1E6986650];
                             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                             {
-                              v188 = SendRTP_cold_10(v191, v192, v193 != 0xFFFFFFFFLL);
+                              v190 = SendRTP_cold_10(v193, v194, v195 != 0xFFFFFFFFLL);
 LABEL_329:
-                              v35 = 2147549194;
-                              v34 = v199;
-                              if ((v188 & 1) == 0)
+                              v37 = 2147549194;
+                              v36 = v201;
+                              if ((v190 & 1) == 0)
                               {
                                 goto LABEL_309;
                               }
@@ -6405,37 +6522,37 @@ LABEL_329:
                           goto LABEL_321;
                         }
 
-                        v58 = &dataLength_4[1] + 8;
-                        HIBYTE(v217) = 1;
-                        v202 = dataLength_4;
+                        v60 = &dataLength_4[1] + 4;
+                        HIBYTE(v219) = 1;
+                        v204 = dataLength_4;
                       }
 
                       if (a18)
                       {
-                        v88 = *(a18 + 1);
+                        v90 = *(a18 + 1);
                       }
 
                       else
                       {
-                        v88 = 0;
+                        v90 = 0;
                       }
 
-                      v90 = (*(v202 + 42) & 1) == 0 && (!v199 || *(a2 + 28) || (VCMediaControlInfoHasInfo(v199, 0) & 1) == 0);
-                      v91 = 74;
-                      if (!*(v202 + 72))
+                      v92 = (v204[21] & 1) == 0 && (!v201 || *(a2 + 28) || (VCMediaControlInfoHasInfo(v201, 0) & 1) == 0);
+                      v93 = 37;
+                      if (!*(v204 + 72))
                       {
-                        v91 = 0;
+                        v93 = 0;
                       }
 
-                      v92 = *(v202 + v91);
-                      if (!*v58 && !*(v202 + v91))
+                      v94 = v204[v93];
+                      if (!*v60 && !v204[v93])
                       {
-                        v92 = *(a2 + 200);
+                        v94 = *(a2 + 200);
                       }
 
-                      v93 = VCMediaQueue_AllocMediaPacket(*(a2 + 10624), v92, 0, &v211);
-                      v94 = v93 == 0;
-                      if (v93)
+                      v95 = VCMediaQueue_AllocMediaPacket(*(a2 + 10624), v94, 0, &v213);
+                      v96 = v95 == 0;
+                      if (v95)
                       {
                         sourceBytesa = 0;
                         SendRTP_cold_11();
@@ -6443,28 +6560,28 @@ LABEL_329:
 
                       else
                       {
-                        v95 = CMBlockBufferCreateWithMemoryBlock(*(a2 + 10984), 0, 0x5DCuLL, 0, 0, 0, dataLength, 1u, &blockBufferOut);
-                        if (v95)
+                        v97 = CMBlockBufferCreateWithMemoryBlock(*(a2 + 10984), 0, 0x5DCuLL, 0, 0, 0, dataLength, 1u, &blockBufferOut);
+                        if (v97)
                         {
-                          sourceBytesa = v94;
-                          v118 = 0;
-                          if (v95 >= 0)
+                          sourceBytesa = v96;
+                          v120 = 0;
+                          if (v97 >= 0)
                           {
-                            v184 = v95;
+                            v186 = v97;
                           }
 
                           else
                           {
-                            v184 = -v95;
+                            v186 = -v97;
                           }
 
-                          v35 = v184 | 0xD0010000;
+                          v37 = v186 | 0xD0010000;
 LABEL_299:
-                          v34 = v199;
-                          if (v193 == 0xFFFFFFFFLL)
+                          v36 = v201;
+                          if (v195 == 0xFFFFFFFFLL)
                           {
 LABEL_194:
-                            if (!v118)
+                            if (!v120)
                             {
                               goto LABEL_304;
                             }
@@ -6473,8 +6590,8 @@ LABEL_194:
                           }
 
 LABEL_300:
-                          MediaQueue_FreePacket(*(a2 + 10536), v214);
-                          if ((v118 & 1) == 0)
+                          MediaQueue_FreePacket(*(a2 + 10536), v216);
+                          if ((v120 & 1) == 0)
                           {
                             goto LABEL_304;
                           }
@@ -6496,126 +6613,126 @@ LABEL_304:
                           if (sourceBytesa)
                           {
 LABEL_305:
-                            VCMediaQueue_FreeMediaPacket(*(a2 + 10624), v211);
+                            VCMediaQueue_FreeMediaPacket(*(a2 + 10624), v213);
                           }
 
 LABEL_306:
-                          if (v35 != -2145255410 && v35 != -2147418098)
+                          if (v37 != -2145255410 && v37 != -2147418098)
                           {
                             goto LABEL_309;
                           }
 
 LABEL_308:
-                          VCTerminateProcess(@"Failed to add data into RTP packet", @"SendRTP", 0);
+                          VCTerminateProcess(@"Failed to add data into RTP packet", @"SendRTP", 0, 1);
                           goto LABEL_309;
                         }
 
-                        v97 = v211;
-                        v96 = blockBufferOut;
-                        *(v211 + 8) = blockBufferOut;
-                        *(v97 + 272) = v33;
-                        v98 = v202;
-                        *(v97 + 16) = *v202;
-                        v99 = v202[4];
-                        v101 = v202[1];
-                        v100 = v202[2];
-                        *(v97 + 64) = v202[3];
-                        *(v97 + 80) = v99;
-                        *(v97 + 32) = v101;
-                        *(v97 + 48) = v100;
+                        v99 = v213;
+                        v98 = blockBufferOut;
+                        *(v213 + 8) = blockBufferOut;
+                        *(v99 + 272) = v35;
+                        v100 = v204;
+                        *(v99 + 16) = *v204;
+                        v101 = *(v204 + 4);
+                        v103 = *(v204 + 1);
+                        v102 = *(v204 + 2);
+                        *(v99 + 64) = *(v204 + 3);
+                        *(v99 + 80) = v101;
+                        *(v99 + 32) = v103;
+                        *(v99 + 48) = v102;
                         if (a22)
                         {
-                          v98 = a22;
+                          v100 = a22;
                         }
 
-                        v103 = v98[3];
-                        v102 = v98[4];
-                        v104 = v98[2];
-                        *(v97 + 112) = v98[1];
-                        *(v97 + 128) = v104;
-                        *(v97 + 144) = v103;
-                        *(v97 + 160) = v102;
-                        *(v97 + 96) = *v98;
-                        v105 = dataLength;
-                        *(v97 + 4) = dataLength;
-                        *(v97 + 200) = 0xFFFFFFFFLL;
-                        *(v97 + 297) = v74 < 2;
-                        if (v74 <= 1)
+                        v105 = *(v100 + 3);
+                        v104 = *(v100 + 4);
+                        v106 = *(v100 + 2);
+                        *(v99 + 112) = *(v100 + 1);
+                        *(v99 + 128) = v106;
+                        *(v99 + 144) = v105;
+                        *(v99 + 160) = v104;
+                        *(v99 + 96) = *v100;
+                        v107 = dataLength;
+                        *(v99 + 4) = dataLength;
+                        *(v99 + 200) = 0xFFFFFFFFLL;
+                        *(v99 + 297) = v76 < 2;
+                        if (v76 <= 1)
                         {
-                          *(v97 + 192) = RTPMediaQueueSecurityCallback;
-                          *(v97 + 200) = v195;
-                          *(v97 + 300) = v105 - (a6 + v52);
+                          *(v99 + 192) = RTPMediaQueueSecurityCallback;
+                          *(v99 + 200) = v197;
+                          *(v99 + 300) = v107 - (a6 + v54);
                         }
 
-                        v82 = a10;
-                        if (v105 >= 0x5DDu)
+                        v84 = a10;
+                        if (v107 >= 0x5DDu)
                         {
-                          sourceBytesa = v94;
+                          sourceBytesa = v96;
                           SendRTP_cold_14();
                         }
 
                         else
                         {
-                          v81 = v202;
-                          if (!CMBlockBufferReplaceDataBytes(sourceBytes, v96, 0, v105))
+                          v83 = v204;
+                          if (!CMBlockBufferReplaceDataBytes(sourceBytes, v98, 0, v107))
                           {
-                            IDSHeaderSizeWithChannelDataFormatArray = VCIDSChannelData_GetIDSHeaderSizeWithChannelDataFormatArray(v202, 1u);
-                            v107 = v211;
-                            *v211 = IDSHeaderSizeWithChannelDataFormatArray;
-                            *(v107 + 176) = v90;
-                            v34 = v199;
-                            *(v107 + 184) = v199;
-                            *(v107 + 244) = v203;
-                            v108 = v213;
-                            *(v107 + 208) = v57;
-                            *(v107 + 216) = v108;
-                            *(v107 + 224) = 0;
-                            v109 = *(v202 + 77);
-                            *(v107 + 225) = v109 ^ 1;
-                            *(v107 + 288) = (v88 | v109) & 1;
-                            *(v107 + 226) = v109;
-                            *(v107 + 289) = a23;
-                            *(v107 + 293) = *(a2 + 12) != 0;
+                            IDSHeaderSizeWithChannelDataFormatArray = VCIDSChannelData_GetIDSHeaderSizeWithChannelDataFormatArray(v204, 1u);
+                            v109 = v213;
+                            *v213 = IDSHeaderSizeWithChannelDataFormatArray;
+                            *(v109 + 176) = v92;
+                            v36 = v201;
+                            *(v109 + 184) = v201;
+                            *(v109 + 244) = v205;
+                            v110 = v215;
+                            *(v109 + 208) = v59;
+                            *(v109 + 216) = v110;
+                            *(v109 + 224) = 0;
+                            v111 = *(v204 + 77);
+                            *(v109 + 225) = v111 ^ 1;
+                            *(v109 + 288) = (v90 | v111) & 1;
+                            *(v109 + 226) = v111;
+                            *(v109 + 289) = a23;
+                            *(v109 + 293) = *(a2 + 12) != 0;
                             if (a16)
                             {
-                              v110 = *a16 != 0;
+                              v112 = *a16 != 0;
                             }
 
                             else
                             {
-                              v110 = 0;
+                              v112 = 0;
                             }
 
-                            *(v107 + 290) = v110;
-                            *(v107 + 291) = a13 != 0;
-                            *(v107 + 292) = v204 != 0;
-                            *(v107 + 304) = 0;
-                            *(v107 + 232) = *(a2 + 10584);
-                            *(v107 + 248) = bswap32(*(a2 + 18)) >> 16;
-                            *(v107 + 264) = v210;
-                            *(v107 + 236) = v207;
-                            *(v107 + 240) = *(a2 + 316);
-                            *(v107 + 252) = *(a2 + 200);
-                            *(v107 + 227) = *(a2 + 28) == 0;
-                            *(v107 + 256) = a17;
-                            *(v107 + 260) = a19;
-                            *(v107 + 294) = 1;
-                            if (a16 && (v111 = a16[12], v111 >= 2))
+                            *(v109 + 290) = v112;
+                            *(v109 + 291) = a13 != 0;
+                            *(v109 + 292) = v206 != 0;
+                            *(v109 + 304) = 0;
+                            *(v109 + 232) = *(a2 + 10584);
+                            *(v109 + 248) = bswap32(*(a2 + 18)) >> 16;
+                            *(v109 + 264) = v212;
+                            *(v109 + 236) = v209;
+                            *(v109 + 240) = *(a2 + 316);
+                            *(v109 + 252) = *(a2 + 200);
+                            *(v109 + 227) = *(a2 + 28) == 0;
+                            *(v109 + 256) = a17;
+                            *(v109 + 260) = a19;
+                            *(v109 + 294) = 1;
+                            if (a16 && (v113 = a16[12], v113 >= 2))
                             {
-                              *(v107 + 268) = v111;
-                              *(v107 + 288) = 1;
+                              *(v109 + 268) = v113;
+                              *(v109 + 288) = 1;
                             }
 
                             else
                             {
-                              *(v107 + 268) = 1;
+                              *(v109 + 268) = 1;
                             }
 
-                            v112 = v197;
-                            VCMediaQueue_AddPacket(*(a2 + 10624), v107);
-                            if (v113)
+                            v114 = v199;
+                            VCMediaQueue_AddPacket(*(a2 + 10624), v109);
+                            if (v115)
                             {
-                              __srca = v113;
+                              __srca = v115;
                               if (VRTraceGetErrorLogLevelForModule() >= 3)
                               {
                                 VRTraceErrorLogLevelToCSTR();
@@ -6625,59 +6742,59 @@ LABEL_308:
                                 }
                               }
 
-                              v114 = 0;
-                              v115 = -1;
+                              v116 = 0;
+                              v117 = -1;
                               sourceBytesa = 1;
                             }
 
                             else
                             {
-                              v115 = dataLength;
-                              v116 = v194;
+                              v117 = dataLength;
+                              v118 = v196;
                               if (!*(a2 + 27776))
                               {
-                                v116 = 1;
+                                v118 = 1;
                               }
 
-                              if ((v116 & 1) == 0 && (updated = _RTPTransportUpdateMediaPacketHistory(a2, v211), (updated & 0x80000000) != 0))
+                              if ((v118 & 1) == 0 && (updated = _RTPTransportUpdateMediaPacketHistory(a2, v213), (updated & 0x80000000) != 0))
                               {
                                 __srca = updated;
                                 if (VRTraceGetErrorLogLevelForModule() >= 3)
                                 {
-                                  v163 = VRTraceErrorLogLevelToCSTR();
-                                  v164 = *MEMORY[0x1E6986650];
+                                  v165 = VRTraceErrorLogLevelToCSTR();
+                                  v166 = *MEMORY[0x1E6986650];
                                   if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                                   {
-                                    v172 = *(a2 + 27776);
+                                    v174 = *(a2 + 27776);
                                     *buf = 136316162;
-                                    *&buf[4] = v163;
+                                    *&buf[4] = v165;
                                     *&buf[12] = 2080;
                                     *&buf[14] = "SendRTP";
                                     *&buf[22] = 1024;
                                     *&buf[24] = 1868;
                                     *&buf[28] = 2048;
-                                    *&buf[30] = v211;
+                                    *&buf[30] = v213;
                                     *&buf[38] = 2048;
-                                    *&buf[40] = v172;
-                                    _os_log_error_impl(&dword_1DB56E000, v164, OS_LOG_TYPE_ERROR, " [%s] %s:%d Could not update media packet history for packet=%pfor nackConsumer=%p", buf, 0x30u);
+                                    *&buf[40] = v174;
+                                    _os_log_error_impl(&dword_1DB56E000, v166, OS_LOG_TYPE_ERROR, " [%s] %s:%d Could not update media packet history for packet=%pfor nackConsumer=%p", buf, 0x30u);
                                   }
                                 }
 
                                 sourceBytesa = 0;
-                                v114 = 0;
+                                v116 = 0;
                               }
 
                               else
                               {
                                 sourceBytesa = 0;
-                                v114 = 0;
+                                v116 = 0;
                                 __srca = 0;
                               }
 
-                              v34 = 0;
+                              v36 = 0;
                             }
 
-                            v118 = 1;
+                            v120 = 1;
                             if (a10)
                             {
                               goto LABEL_171;
@@ -6686,49 +6803,49 @@ LABEL_308:
                             goto LABEL_164;
                           }
 
-                          sourceBytesa = v94;
+                          sourceBytesa = v96;
                           SendRTP_cold_12();
                         }
                       }
 
-                      v118 = src[0];
-                      v35 = *buf;
+                      v120 = src[0];
+                      v37 = *buf;
                       goto LABEL_299;
                     }
 
                     if (a16)
                     {
-                      v89 = a16[12];
-                      if (v89 <= 1)
+                      v91 = a16[12];
+                      if (v91 <= 1)
                       {
-                        v34 = 1;
+                        v36 = 1;
                       }
 
                       else
                       {
-                        v34 = v89;
+                        v36 = v91;
                       }
                     }
 
                     else
                     {
-                      v34 = 1;
+                      v36 = 1;
                     }
 
-                    v135 = a21;
-                    v136 = a21 + 80;
-                    v54 = buf;
-                    blockAllocator = *MEMORY[0x1E695E498];
                     v137 = a21;
+                    v138 = a21 + 40;
+                    v56 = buf;
+                    blockAllocator = *MEMORY[0x1E695E498];
+                    v139 = a21;
                     while (1)
                     {
                       a6 = dataLength;
-                      if (v206 < dataLength || v135 && (v135 >= v136 || v135 < v137))
+                      if (v208 < dataLength || v137 && (v137 >= v138 || v137 < v139))
                       {
                         goto LABEL_325;
                       }
 
-                      v138 = bswap32(*(a2 + 18)) >> 16;
+                      v140 = bswap32(*(a2 + 18)) >> 16;
                       if (!*(a2 + 11288))
                       {
                         if (!dataLength)
@@ -6736,56 +6853,56 @@ LABEL_308:
                           goto LABEL_325;
                         }
 
-                        v146 = *(a2 + 4);
+                        v148 = *(a2 + 4);
+                        v234 = 0u;
+                        memset(v235, 0, 48);
                         v232 = 0u;
-                        memset(v233, 0, 48);
+                        v233 = 0u;
                         v230 = 0u;
                         v231 = 0u;
                         v228 = 0u;
                         v229 = 0u;
                         v226 = 0u;
-                        v227 = 0u;
-                        v224 = 0u;
-                        memset(v225, 0, sizeof(v225));
+                        memset(v227, 0, sizeof(v227));
                         memset(buf, 0, sizeof(buf));
                         *&buf[8] = *(a2 + 10584);
-                        if (v135)
+                        if (v137)
                         {
-                          v147 = v135[3];
-                          v228 = v135[2];
-                          v229 = v147;
-                          v230 = v135[4];
-                          v148 = v135[1];
-                          v226 = *v135;
-                          v227 = v148;
-                          BYTE13(v227) = 1;
+                          v149 = *(v137 + 3);
+                          v230 = *(v137 + 2);
+                          v231 = v149;
+                          v232 = *(v137 + 4);
+                          v150 = *(v137 + 1);
+                          v228 = *v137;
+                          v229 = v150;
+                          BYTE13(v229) = 1;
                         }
 
-                        v233[0] = a24;
-                        v149 = *(a2 + 200);
-                        v150 = *(a2 + 17) & 0x7F;
+                        v235[0] = a24;
+                        v151 = *(a2 + 200);
+                        v152 = *(a2 + 17) & 0x7F;
                         *&src[12] = 0;
                         src[0] = 1;
-                        src[1] = v150;
-                        *&src[2] = v138;
-                        *&src[4] = v207;
-                        *&src[8] = v149;
-                        uuid_copy(&v233[1], src);
-                        v52 = 7016;
+                        src[1] = v152;
+                        *&src[2] = v140;
+                        *&src[4] = v209;
+                        *&src[8] = v151;
+                        uuid_copy(&v235[1], src);
+                        v54 = 7016;
                         pthread_mutex_lock((a2 + 7016));
-                        VTP_SetPktTag(buf, 0, v138);
-                        VTP_SetPktTag(buf, 1u, *(a2 + 200));
-                        VTP_SetPktTag(buf, 2u, v207);
-                        v151 = VTP_Send(v146, sourceBytes, a6, 0x320u, buf);
+                        VTP_SetPktTag(buf, 0, v140);
+                        VTP_SetPktTag(buf, 1, *(a2 + 200));
+                        VTP_SetPktTag(buf, 2, v209);
+                        v153 = VTP_Send(v148, sourceBytes, a6, 0x320u, buf);
                         pthread_mutex_unlock((a2 + 7016));
-                        v115 = v151;
+                        v117 = v153;
                         goto LABEL_243;
                       }
 
-                      v54 = buf;
-                      v224 = unk_1DBD47B50;
-                      v225[0] = xmmword_1DBD47B60;
-                      memset(&v225[1], 170, 24);
+                      v56 = buf;
+                      v226 = unk_1DBD47B50;
+                      v227[0] = xmmword_1DBD47B60;
+                      memset(&v227[1], 170, 24);
                       memset(buf, 170, sizeof(buf));
                       VCPacketInitialize(buf);
                       if (!*(a2 + 11288))
@@ -6795,21 +6912,21 @@ LABEL_308:
                           goto LABEL_241;
                         }
 
-                        v52 = VRTraceErrorLogLevelToCSTR();
-                        v157 = *MEMORY[0x1E6986650];
+                        v54 = VRTraceErrorLogLevelToCSTR();
+                        v159 = *MEMORY[0x1E6986650];
                         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                         {
                           goto LABEL_241;
                         }
 
                         *src = 136315650;
-                        *&src[4] = v52;
+                        *&src[4] = v54;
                         *&src[12] = 2080;
                         *&src[14] = "_RTPSendWithTransportStream";
-                        v219 = 1024;
-                        v220 = 5663;
-                        v144 = v157;
-                        v145 = " [%s] %s:%d NULL transportStream";
+                        v221 = 1024;
+                        v222 = 5663;
+                        v146 = v159;
+                        v147 = " [%s] %s:%d NULL transportStream";
                         goto LABEL_239;
                       }
 
@@ -6820,175 +6937,175 @@ LABEL_308:
                           goto LABEL_241;
                         }
 
-                        v52 = VRTraceErrorLogLevelToCSTR();
-                        v158 = *MEMORY[0x1E6986650];
+                        v54 = VRTraceErrorLogLevelToCSTR();
+                        v160 = *MEMORY[0x1E6986650];
                         if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                         {
                           goto LABEL_241;
                         }
 
                         *src = 136315650;
-                        *&src[4] = v52;
+                        *&src[4] = v54;
                         *&src[12] = 2080;
                         *&src[14] = "_RTPSendWithTransportStream";
-                        v219 = 1024;
-                        v220 = 5665;
-                        v144 = v158;
-                        v145 = " [%s] %s:%d data length <= 0";
+                        v221 = 1024;
+                        v222 = 5665;
+                        v146 = v160;
+                        v147 = " [%s] %s:%d data length <= 0";
                         goto LABEL_239;
                       }
 
-                      v139 = *(a2 + 10664);
+                      v141 = *(a2 + 10664);
                       if (*(a2 + 27776))
                       {
-                        v140 = CMBlockBufferCreateWithMemoryBlock(v139, 0, a6, 0, 0, 0, a6, 1u, buf);
-                        if (v140)
+                        v142 = CMBlockBufferCreateWithMemoryBlock(v141, 0, a6, 0, 0, 0, a6, 1u, buf);
+                        if (v142)
                         {
-                          v52 = v140;
+                          v54 = v142;
                           if (VRTraceGetErrorLogLevelForModule() < 3)
                           {
                             goto LABEL_241;
                           }
 
-                          v159 = VRTraceErrorLogLevelToCSTR();
-                          v160 = *MEMORY[0x1E6986650];
+                          v161 = VRTraceErrorLogLevelToCSTR();
+                          v162 = *MEMORY[0x1E6986650];
                           if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                           {
                             goto LABEL_241;
                           }
 
                           *src = 136315906;
-                          *&src[4] = v159;
+                          *&src[4] = v161;
                           *&src[12] = 2080;
                           *&src[14] = "_RTPSendWithTransportStream";
-                          v219 = 1024;
-                          v220 = 5670;
                           v221 = 1024;
-                          v222 = v52;
-                          v144 = v160;
-                          v145 = " [%s] %s:%d Failed to create a CMBlockBuffer. Error=%d!";
+                          v222 = 5670;
+                          v223 = 1024;
+                          v224 = v54;
+                          v146 = v162;
+                          v147 = " [%s] %s:%d Failed to create a CMBlockBuffer. Error=%d!";
 LABEL_235:
-                          v161 = 34;
+                          v163 = 34;
                           goto LABEL_240;
                         }
 
-                        v141 = CMBlockBufferReplaceDataBytes(sourceBytes, *buf, 0, a6);
-                        if (v141)
+                        v143 = CMBlockBufferReplaceDataBytes(sourceBytes, *buf, 0, a6);
+                        if (v143)
                         {
-                          v52 = v141;
+                          v54 = v143;
                           if (VRTraceGetErrorLogLevelForModule() < 3)
                           {
                             goto LABEL_241;
                           }
 
-                          v142 = VRTraceErrorLogLevelToCSTR();
-                          v143 = *MEMORY[0x1E6986650];
+                          v144 = VRTraceErrorLogLevelToCSTR();
+                          v145 = *MEMORY[0x1E6986650];
                           if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                           {
                             goto LABEL_241;
                           }
 
                           *src = 136315906;
-                          *&src[4] = v142;
+                          *&src[4] = v144;
                           *&src[12] = 2080;
                           *&src[14] = "_RTPSendWithTransportStream";
-                          v219 = 1024;
-                          v220 = 5673;
                           v221 = 1024;
-                          v222 = v52;
-                          v144 = v143;
-                          v145 = " [%s] %s:%d Failed to copy data bytes. Error=%d!";
+                          v222 = 5673;
+                          v223 = 1024;
+                          v224 = v54;
+                          v146 = v145;
+                          v147 = " [%s] %s:%d Failed to copy data bytes. Error=%d!";
                           goto LABEL_235;
                         }
                       }
 
-                      else if (CMBlockBufferCreateWithMemoryBlock(v139, sourceBytes, a6, blockAllocator, 0, 0, a6, 0, buf))
+                      else if (CMBlockBufferCreateWithMemoryBlock(v141, sourceBytes, a6, blockAllocator, 0, 0, a6, 0, buf))
                       {
                         goto LABEL_241;
                       }
 
                       *&buf[8] = 257;
-                      *(&v224 + 1) = v33;
-                      v152 = *(a2 + 200);
-                      *&buf[56] = v138;
-                      *&buf[64] = v152;
-                      *&buf[72] = v207;
-                      DWORD1(v225[0]) = a24;
-                      v153 = *(a2 + 17) & 0x7F;
+                      *(&v226 + 1) = v35;
+                      v154 = *(a2 + 200);
+                      *&buf[56] = v140;
+                      *&buf[64] = v154;
+                      *&buf[72] = v209;
+                      DWORD1(v227[0]) = a24;
+                      v155 = *(a2 + 17) & 0x7F;
                       *&src[12] = 0;
                       src[0] = 1;
-                      src[1] = v153;
-                      *&src[2] = v138;
-                      *&src[4] = v207;
-                      *&src[8] = v152;
-                      uuid_copy(v225 + 8, src);
+                      src[1] = v155;
+                      *&src[2] = v140;
+                      *&src[4] = v209;
+                      *&src[8] = v154;
+                      uuid_copy(v227 + 8, src);
                       if ((_RTPEnsureTransportStreamsActivated(a2) & 0x80000000) == 0)
                       {
                         if (*(a2 + 27776))
                         {
-                          LOWORD(v224) = a6;
-                          v154 = VCBoundsSafety_AllocatorAllocate(*(a2 + 10992), 80, 0);
-                          if (!v154)
+                          LOWORD(v226) = a6;
+                          v156 = VCBoundsSafety_AllocatorAllocate(*(a2 + 10992), 80, 0);
+                          if (!v156)
                           {
                             if (VRTraceGetErrorLogLevelForModule() < 3)
                             {
                               goto LABEL_241;
                             }
 
-                            v52 = VRTraceErrorLogLevelToCSTR();
-                            v162 = *MEMORY[0x1E6986650];
+                            v54 = VRTraceErrorLogLevelToCSTR();
+                            v164 = *MEMORY[0x1E6986650];
                             if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                             {
                               goto LABEL_241;
                             }
 
                             *src = 136315650;
-                            *&src[4] = v52;
+                            *&src[4] = v54;
                             *&src[12] = 2080;
                             *&src[14] = "_RTPSendWithTransportStream";
-                            v219 = 1024;
-                            v220 = 5694;
-                            v144 = v162;
-                            v145 = " [%s] %s:%d Could not update media packet history";
+                            v221 = 1024;
+                            v222 = 5694;
+                            v146 = v164;
+                            v147 = " [%s] %s:%d Could not update media packet history";
 LABEL_239:
-                            v161 = 28;
+                            v163 = 28;
 LABEL_240:
-                            _os_log_error_impl(&dword_1DB56E000, v144, OS_LOG_TYPE_ERROR, v145, src, v161);
+                            _os_log_error_impl(&dword_1DB56E000, v146, OS_LOG_TYPE_ERROR, v147, src, v163);
                             goto LABEL_241;
                           }
 
-                          if (v154 >= v155)
+                          if (v156 >= v157)
                           {
                             goto LABEL_325;
                           }
 
-                          *v154 = *&buf[56];
-                          *(v154 + 4) = *&buf[64];
-                          *(v154 + 16) = *&buf[72];
-                          *(v154 + 52) = DWORD1(v225[0]);
-                          *(v154 + 8) = v224;
-                          *(v154 + 56) = 0;
-                          *(v154 + 64) = *(&v224 + 1);
-                          *(v154 + 72) = 0;
-                          *src = v154;
+                          *v156 = *&buf[56];
+                          *(v156 + 4) = *&buf[64];
+                          *(v156 + 16) = *&buf[72];
+                          *(v156 + 52) = DWORD1(v227[0]);
+                          *(v156 + 8) = v226;
+                          *(v156 + 56) = 0;
+                          *(v156 + 64) = *(&v226 + 1);
+                          *(v156 + 72) = 0;
+                          *src = v156;
                           *&src[8] = *buf;
                           _RTPTransportAddMediaPacketHistory(a2, src);
                         }
 
-                        v52 = *(a2 + 11288);
-                        v156 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-                        if (v156)
+                        v54 = *(a2 + 11288);
+                        v158 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+                        if (v158)
                         {
-                          v52 = v156(v52, buf);
+                          v54 = v158(v54, buf);
                           VCPacketInvalidate(buf);
-                          if (v52 < 0)
+                          if (v54 < 0)
                           {
-                            v115 = -1;
+                            v117 = -1;
                           }
 
                           else
                           {
-                            v115 = a6;
+                            v117 = a6;
                           }
 
                           goto LABEL_242;
@@ -6997,27 +7114,27 @@ LABEL_240:
 
 LABEL_241:
                       VCPacketInvalidate(buf);
-                      v115 = -1;
+                      v117 = -1;
 LABEL_242:
-                      v54 = buf;
+                      v56 = buf;
 LABEL_243:
                       if (a22)
                       {
-                        v135 = a22;
-                        v136 = (a22 + 5);
                         v137 = a22;
+                        v138 = a22 + 40;
+                        v139 = a22;
                       }
 
-                      v34 = (v34 - 1);
-                      if (!v34)
+                      v36 = (v36 - 1);
+                      if (!v36)
                       {
                         sourceBytesa = 0;
-                        v118 = 0;
-                        v114 = 0;
-                        v34 = v199;
-                        v112 = v197;
-                        v82 = a10;
-                        v81 = a21;
+                        v120 = 0;
+                        v116 = 0;
+                        v36 = v201;
+                        v114 = v199;
+                        v84 = a10;
+                        v83 = a21;
                         if (a10)
                         {
                           goto LABEL_171;
@@ -7028,33 +7145,33 @@ LABEL_243:
                     }
                   }
 
-                  v76 = &sourceBytes[v52];
-                  if (&sourceBytes[v52] <= v54 && sourceBytes <= v76)
+                  v78 = &sourceBytes[v54];
+                  if (&sourceBytes[v54] <= v56 && sourceBytes <= v78)
                   {
-                    v77 = dataLength - v52;
-                    if ((v77 & 0x80000000) == 0 && (v54 - v76) >= v77)
+                    v79 = dataLength - v54;
+                    if ((v79 & 0x80000000) == 0 && (v56 - v78) >= v79)
                     {
-                      v54 = 2149711924;
-                      SRTPEncrypt(a2 + 7080, bswap32(*(a2 + 18)) >> 16, v76, v77);
-                      if (v78 < 0 && v78 != -2145255368)
+                      v56 = 2149711924;
+                      SRTPEncrypt(a2 + 7080, bswap32(*(a2 + 18)) >> 16, v78, v79);
+                      if (v80 < 0 && v80 != -2145255368)
                       {
                         SendRTP_cold_7();
                         goto LABEL_284;
                       }
 
-                      if ((v56 & 0x8000000000000000) == 0 && v56 <= v206)
+                      if ((v58 & 0x8000000000000000) == 0 && v58 <= v208)
                       {
-                        v79 = SRTPAddAuthenticationTag(a2 + 7080, *(a2 + 10632), bswap32(*(a2 + 18)) >> 16, v56, sourceBytes, dataLength, &dataLength);
-                        if ((v79 & 0x80000000) == 0 || v79 == -2145255368)
+                        v81 = SRTPAddAuthenticationTag(a2 + 7080, *(a2 + 10632), bswap32(*(a2 + 18)) >> 16, v58, sourceBytes, dataLength, &dataLength);
+                        if ((v81 & 0x80000000) == 0 || v81 == -2145255368)
                         {
                           goto LABEL_107;
                         }
 
                         SendRTP_cold_6();
 LABEL_284:
-                        v35 = *buf;
-                        v34 = v199;
-                        if (v193 == 0xFFFFFFFFLL)
+                        v37 = *buf;
+                        v36 = v201;
+                        if (v195 == 0xFFFFFFFFLL)
                         {
                           goto LABEL_306;
                         }
@@ -7068,29 +7185,29 @@ LABEL_284:
                 }
 
                 sourceBytesa = 0;
-                v118 = 0;
-                v35 = 2149711873;
+                v120 = 0;
+                v37 = 2149711873;
               }
 
 LABEL_322:
-              v34 = v199;
+              v36 = v201;
               goto LABEL_323;
             }
 
-            if (v56 >= v42 + v68 + 1)
+            if (v58 >= v44 + v70 + 1)
             {
-              v69 = &sourceBytes[v68];
-              v70 = v54 >= &sourceBytes[v68];
-              v71 = v54 - &sourceBytes[v68];
-              if (v70 && sourceBytes <= v69 && v71 >= v42)
+              v71 = &sourceBytes[v70];
+              v72 = v56 >= &sourceBytes[v70];
+              v73 = v56 - &sourceBytes[v70];
+              if (v72 && sourceBytes <= v71 && v73 >= v44)
               {
-                memcpy(v69, a11, v42);
-                v72 = dataLength + v42;
-                dataLength = v72 + 1;
-                v73 = &sourceBytes[v72];
-                if (v73 < v54 && v73 >= sourceBytes)
+                memcpy(v71, a11, v44);
+                v74 = dataLength + v44;
+                dataLength = v74 + 1;
+                v75 = &sourceBytes[v74];
+                if (v75 < v56 && v75 >= sourceBytes)
                 {
-                  *v73 = v42 + 1;
+                  *v75 = v44 + 1;
                   goto LABEL_91;
                 }
               }
@@ -7100,14 +7217,14 @@ LABEL_325:
               goto LABEL_326;
             }
 
-            v35 = 2147549198;
+            v37 = 2147549198;
             if (VRTraceGetErrorLogLevelForModule() >= 3)
             {
-              v178 = VRTraceErrorLogLevelToCSTR();
-              v179 = *MEMORY[0x1E6986650];
+              v180 = VRTraceErrorLogLevelToCSTR();
+              v181 = *MEMORY[0x1E6986650];
               if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
               {
-                v175 = SendRTP_cold_5(v178, v179, v193 != 0xFFFFFFFFLL);
+                v177 = SendRTP_cold_5(v180, v181, v195 != 0xFFFFFFFFLL);
                 goto LABEL_316;
               }
             }
@@ -7115,58 +7232,58 @@ LABEL_325:
 
 LABEL_321:
           sourceBytesa = 0;
-          v118 = 0;
+          v120 = 0;
           goto LABEL_322;
         }
       }
 
       else
       {
-        AFRCGetPeerArrivalTime(*(a2 + 10544), 0, &v213);
-        v53 = sourceBytes;
+        AFRCGetPeerArrivalTime(*(a2 + 10544), 0, &v215);
+        v55 = sourceBytes;
       }
     }
 
-    v57 = 0x7FF8000000000000;
+    v59 = 0x7FF8000000000000;
     goto LABEL_42;
   }
 
-  v35 = 2147549185;
+  v37 = 2147549185;
   if (VRTraceGetErrorLogLevelForModule() < 8)
   {
     goto LABEL_309;
   }
 
-  v170 = VRTraceErrorLogLevelToCSTR();
-  v37 = *MEMORY[0x1E6986650];
-  v171 = *MEMORY[0x1E6986650];
+  v172 = VRTraceErrorLogLevelToCSTR();
+  v39 = *MEMORY[0x1E6986650];
+  v173 = *MEMORY[0x1E6986650];
   if (*MEMORY[0x1E6986640] == 1)
   {
-    if (!os_log_type_enabled(v171, OS_LOG_TYPE_DEFAULT))
+    if (!os_log_type_enabled(v173, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_309;
     }
 
     *buf = 136315906;
-    *&buf[4] = v170;
+    *&buf[4] = v172;
     *&buf[12] = 2080;
     *&buf[14] = "SendRTP";
     *&buf[22] = 1024;
     *&buf[24] = 1578;
     *&buf[28] = 1024;
-    *&buf[30] = a8;
-    v40 = " [%s] %s:%d Data size is negative: %d";
+    *&buf[30] = v24;
+    v42 = " [%s] %s:%d Data size is negative: %d";
     goto LABEL_10;
   }
 
-  if (os_log_type_enabled(v171, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v173, OS_LOG_TYPE_DEBUG))
   {
     SendRTP_cold_16();
   }
 
 LABEL_309:
-  VCMediaControlInfoDispose(v34);
-  return v35;
+  VCMediaControlInfoDispose(v36);
+  return v37;
 }
 
 uint64_t _RTPUpdateAFRCVideoSendingBitrate(uint64_t a1, int a2, int a3, double a4)
@@ -7248,30 +7365,30 @@ LABEL_26:
 
 uint64_t RTPMediaQueueSecurityCallback(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (a1 == 0xFFFFFFFFLL)
   {
     RTPMediaQueueSecurityCallback_cold_8();
-    return v17;
+    return v18;
   }
 
   if (!a2)
   {
     RTPMediaQueueSecurityCallback_cold_7();
-    return v17;
+    return v18;
   }
 
   if (!a3)
   {
     RTPMediaQueueSecurityCallback_cold_6();
-    return v17;
+    return v18;
   }
 
   v9 = CheckInHandleDebug();
   if (!v9)
   {
     RTPMediaQueueSecurityCallback_cold_5();
-    return v17;
+    return v18;
   }
 
   v10 = v9;
@@ -7279,7 +7396,7 @@ uint64_t RTPMediaQueueSecurityCallback(uint64_t a1, unint64_t a2, uint64_t a3, u
   {
     RTPMediaQueueSecurityCallback_cold_1();
 LABEL_27:
-    v14 = v17;
+    v15 = v18;
     goto LABEL_16;
   }
 
@@ -7289,36 +7406,37 @@ LABEL_28:
     __break(0x5519u);
   }
 
-  v12 = bswap32(*(a2 + 2)) >> 16;
-  SRTPEncrypt(v9 + 7080, v12, v11, a5);
-  if (v13 < 0)
+  v12 = bswap32(*(a2 + 2));
+  v13 = HIWORD(v12);
+  SRTPEncrypt(v9 + 7080, HIWORD(v12), v11, a5);
+  if (v14 < 0)
   {
     RTPMediaQueueSecurityCallback_cold_4();
     goto LABEL_27;
   }
 
-  v16 = 0;
+  v17 = 0;
   if ((a3 & 0x80000000) != 0 || a3 > a3)
   {
     goto LABEL_28;
   }
 
-  v14 = SRTPAddAuthenticationTag(v10 + 7080, *(v10 + 10632), v12, a3, a2, a5 + a4, &v16);
-  if ((v14 & 0x80000000) != 0)
+  v15 = SRTPAddAuthenticationTag(v10 + 7080, *(v10 + 10632), v13, a3, a2, a5 + a4, &v17);
+  if ((v15 & 0x80000000) != 0)
   {
     RTPMediaQueueSecurityCallback_cold_3();
     goto LABEL_27;
   }
 
-  if (v16 != a3)
+  if (v17 != a3)
   {
-    RTPMediaQueueSecurityCallback_cold_2(&v16, a3, v14, &v17);
+    RTPMediaQueueSecurityCallback_cold_2(&v17, a3, v15, &v18);
     goto LABEL_27;
   }
 
 LABEL_16:
   CheckOutHandleDebug();
-  return v14;
+  return v15;
 }
 
 unint64_t _RTPSendTimestampWithMediaSampleTime(uint64_t a1, unsigned int a2)
@@ -7493,271 +7611,271 @@ uint64_t _RTPTransportUpdateMediaPacketHistory(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-uint64_t RTPTransportResendRTP(double a1, uint64_t a2, int a3, int a4, int *a5)
+uint64_t RTPTransportResendRTP(uint64_t a1, int a2, int a3, int *a4, double a5)
 {
-  v79[5] = *MEMORY[0x1E69E9840];
+  v69[5] = *MEMORY[0x1E69E9840];
   v9 = 2147549188;
-  v72 = 0;
+  v62 = 0;
   v10 = CheckInHandleDebug();
   if (!v10)
   {
     return 2147549186;
   }
 
-  v17 = v10;
+  v11 = v10;
   if (v10 != 0xFFFFFFFF)
   {
-    v65 = a5;
+    v59 = a4;
     if (v10 >= v10 + 27800)
     {
       goto LABEL_80;
     }
 
     ++*(v10 + 352);
-    v66 = a3;
-    v67 = a4;
-    v68 = 1;
-    v69 = a1;
-    v70 = 0xAAAAAAAAAAAA0000;
-    v71 = 0;
-    v18 = v10 + 11392 + 16 * (a4 & 0x3FF);
-    if (!v18)
+    LODWORD(v60[0]) = a2;
+    WORD2(v60[0]) = a3;
+    HIWORD(v60[0]) = 1;
+    v60[1] = a5;
+    v60[2] = -3.72066208e-103;
+    v61 = 0;
+    v12 = v10 + 11392 + 16 * (a3 & 0x3FF);
+    if (!v12)
     {
       if (VRTraceGetErrorLogLevelForModule() >= 3)
       {
-        v59 = VRTraceErrorLogLevelToCSTR();
-        v60 = *MEMORY[0x1E6986650];
+        v53 = VRTraceErrorLogLevelToCSTR();
+        v54 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
         {
           *buf = 136316162;
-          *&buf[4] = v59;
+          *&buf[4] = v53;
           *&buf[12] = 2080;
           *&buf[14] = "_RTPTransportRetrieveMediaPacketHistory";
           *&buf[22] = 1024;
           *&buf[24] = 1359;
           *&buf[28] = 2048;
-          *&buf[30] = v17;
+          *&buf[30] = v11;
           *&buf[38] = 1024;
-          *&buf[40] = a4 & 0x3FF;
-          _os_log_error_impl(&dword_1DB56E000, v60, OS_LOG_TYPE_ERROR, " [%s] %s:%d mediaPacketHistory retrieval failed for rtpInfo=%p with seqNumHash=%d", buf, 0x2Cu);
+          *&buf[40] = a3 & 0x3FF;
+          _os_log_error_impl(&dword_1DB56E000, v54, OS_LOG_TYPE_ERROR, " [%s] %s:%d mediaPacketHistory retrieval failed for rtpInfo=%p with seqNumHash=%d", buf, 0x2Cu);
         }
       }
 
       if (VRTraceGetErrorLogLevelForModule() >= 8)
       {
-        v61 = VRTraceErrorLogLevelToCSTR();
-        v62 = *MEMORY[0x1E6986650];
-        v63 = *MEMORY[0x1E6986650];
+        v55 = VRTraceErrorLogLevelToCSTR();
+        v56 = *MEMORY[0x1E6986650];
+        v57 = *MEMORY[0x1E6986650];
         if (*MEMORY[0x1E6986640] == 1)
         {
-          if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315650;
-            *&buf[4] = v61;
+            *&buf[4] = v55;
             *&buf[12] = 2080;
             *&buf[14] = "RTPTransportResendRTP";
             *&buf[22] = 1024;
             *&buf[24] = 1971;
-            _os_log_impl(&dword_1DB56E000, v62, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Couldn't retrieve media packet from cache for retransmission", buf, 0x1Cu);
+            _os_log_impl(&dword_1DB56E000, v56, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Couldn't retrieve media packet from cache for retransmission", buf, 0x1Cu);
           }
         }
 
-        else if (os_log_type_enabled(v63, OS_LOG_TYPE_DEBUG))
+        else if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
         {
           RTPTransportResendRTP_cold_10();
         }
       }
 
-      LOBYTE(v68) = 0;
+      BYTE6(v60[0]) = 0;
       goto LABEL_73;
     }
 
-    if (v18 >= v10 + 27776 || v10 + 11392 > v18 || v18 + 16 > v10 + 27776)
+    if (v12 >= v10 + 27776 || v10 + 11392 > v12 || v12 + 16 > v10 + 27776)
     {
       goto LABEL_80;
     }
 
-    v19 = *v18;
-    if (!*v18)
+    v13 = *v12;
+    if (!*v12)
     {
       RTPTransportResendRTP_cold_9();
       goto LABEL_76;
     }
 
-    v20 = v19 + 40;
-    if (*v19 != a4)
+    v14 = v13 + 40;
+    if (*v13 != a3)
     {
       RTPTransportResendRTP_cold_1();
       goto LABEL_76;
     }
 
-    if (*(v19 + 1) != a3)
+    if (*(v13 + 1) != a2)
     {
       RTPTransportResendRTP_cold_2();
       goto LABEL_76;
     }
 
-    v21 = *(v19 + 56);
-    if (v21 == 1)
+    v15 = *(v13 + 56);
+    if (v15 == 1)
     {
-      v22 = *(v19 + 5);
-      if (v22)
+      v16 = *(v13 + 5);
+      if (v16)
       {
-        *(v22 + 76) = 1;
-        v23 = 74;
-        if (!*(v22 + 72))
+        *(v16 + 76) = 1;
+        v17 = 74;
+        if (!*(v16 + 72))
         {
-          v23 = 0;
+          v17 = 0;
         }
 
-        v24 = *(v22 + v23);
-        if (*(v22 + 24))
+        v18 = *(v16 + v17);
+        if (*(v16 + 24))
         {
-          v25 = 0;
+          v19 = 0;
         }
 
         else
         {
-          v25 = v24 == 0;
+          v19 = v18 == 0;
         }
 
-        if (v25)
+        if (v19)
         {
-          v24 = *(v10 + 200);
+          v18 = *(v10 + 200);
         }
 
         *src = -1;
-        v26 = _RTPGetRTPSocketForMediaQueue(v10, src);
-        if ((v26 & 0x80000000) == 0)
+        v20 = _RTPGetRTPSocketForMediaQueue(v10, src);
+        if ((v20 & 0x80000000) == 0)
         {
-          v27 = (v19 + 4);
-          if (*(v19 + 2) >= 1501)
+          v21 = (v13 + 4);
+          if (*(v13 + 2) >= 1501)
           {
             RTPTransportResendRTP_cold_8();
           }
 
           else
           {
-            if ((VCMediaQueue_AllocMediaPacket(*(v17 + 10624), v24, 2, &v72) & 0x80000000) == 0)
+            if ((VCMediaQueue_AllocMediaPacket(*(v11 + 10624), v18, 2, &v62) & 0x80000000) == 0)
             {
-              v28 = *(v18 + 8);
-              v29 = v72;
-              *(v72 + 8) = v28;
-              *(v29 + 272) = a1;
-              v30 = *(v22 + 16);
-              v31 = *(v22 + 32);
-              v32 = *(v22 + 48);
-              *(v29 + 80) = *(v22 + 64);
-              v33 = *v22;
-              *(v29 + 48) = v31;
-              *(v29 + 64) = v32;
-              *(v29 + 16) = v33;
-              *(v29 + 32) = v30;
-              *(v29 + 176) = 3;
-              *(v29 + 295) = 1;
-              *(v29 + 94) = 0;
-              *(v29 + 248) = a4;
-              *(v29 + 4) = *(v19 + 2);
-              *(v29 + 264) = *src;
-              if (v19 < v20)
+              v22 = *(v12 + 8);
+              v23 = v62;
+              *(v62 + 8) = v22;
+              *(v23 + 272) = a5;
+              v24 = *(v16 + 16);
+              v25 = *(v16 + 32);
+              v26 = *(v16 + 48);
+              *(v23 + 80) = *(v16 + 64);
+              v27 = *v16;
+              *(v23 + 48) = v25;
+              *(v23 + 64) = v26;
+              *(v23 + 16) = v27;
+              *(v23 + 32) = v24;
+              *(v23 + 176) = 3;
+              *(v23 + 295) = 1;
+              *(v23 + 94) = 0;
+              *(v23 + 248) = a3;
+              *(v23 + 4) = *(v13 + 2);
+              *(v23 + 264) = *src;
+              if (v13 < v14)
               {
-                *v29 = VCIDSChannelData_GetIDSHeaderSizeWithChannelDataFormatArray(v29 + 16, 1u);
-                *(v29 + 244) = *(v19 + 3);
-                *(v29 + 208) = xmmword_1DBD478F0;
-                *(v29 + 224) = 0;
-                v34 = *(v29 + 93);
-                *(v29 + 225) = v34 ^ 1;
-                *(v29 + 288) = *(v19 + 28);
-                *(v29 + 226) = v34;
-                *(v29 + 289) = *(v19 + 48);
-                *(v29 + 293) = *(v17 + 12) != 0;
-                *(v29 + 290) = *(v19 + 22);
-                *(v29 + 291) = *(v19 + 20);
-                v36 = (v19 + 8);
-                v35 = *(v19 + 4);
-                *(v29 + 292) = *(v19 + 21);
-                *(v29 + 304) = 0;
-                *(v29 + 232) = *(v17 + 10584);
-                *(v29 + 236) = v35;
-                *(v29 + 240) = *(v17 + 316);
-                *(v29 + 252) = *(v17 + 200);
-                *(v29 + 227) = *(v17 + 28) == 0;
-                *(v29 + 256) = *(v19 + 6);
-                *(v29 + 260) = *(v19 + 8);
-                *(v29 + 294) = 1;
-                VCMediaQueue_AddPacket(*(v17 + 10624), v72);
-                v9 = v37;
-                if ((v37 & 0x80000000) == 0)
+                *v23 = VCIDSChannelData_GetIDSHeaderSizeWithChannelDataFormatArray(v23 + 16, 1u);
+                *(v23 + 244) = *(v13 + 3);
+                *(v23 + 208) = xmmword_1DBD478F0;
+                *(v23 + 224) = 0;
+                v28 = *(v23 + 93);
+                *(v23 + 225) = v28 ^ 1;
+                *(v23 + 288) = *(v13 + 28);
+                *(v23 + 226) = v28;
+                *(v23 + 289) = *(v13 + 48);
+                *(v23 + 293) = *(v11 + 12) != 0;
+                *(v23 + 290) = *(v13 + 22);
+                *(v23 + 291) = *(v13 + 20);
+                v30 = (v13 + 8);
+                v29 = *(v13 + 4);
+                *(v23 + 292) = *(v13 + 21);
+                *(v23 + 304) = 0;
+                *(v23 + 232) = *(v11 + 10584);
+                *(v23 + 236) = v29;
+                *(v23 + 240) = *(v11 + 316);
+                *(v23 + 252) = *(v11 + 200);
+                *(v23 + 227) = *(v11 + 28) == 0;
+                *(v23 + 256) = *(v13 + 6);
+                *(v23 + 260) = *(v13 + 8);
+                *(v23 + 294) = 1;
+                VCMediaQueue_AddPacket(*(v11 + 10624), v62);
+                v9 = v31;
+                if ((v31 & 0x80000000) == 0)
                 {
-                  v38 = *(v72 + 4);
+                  v32 = *(v62 + 4);
 LABEL_37:
                   kdebug_trace();
-                  HIBYTE(v68) = 1;
+                  HIBYTE(v60[0]) = 1;
                   if (VRTraceGetErrorLogLevelForModule() >= 8)
                   {
-                    v44 = VRTraceErrorLogLevelToCSTR();
-                    v45 = *MEMORY[0x1E6986650];
-                    v46 = *MEMORY[0x1E6986650];
+                    v38 = VRTraceErrorLogLevelToCSTR();
+                    v39 = *MEMORY[0x1E6986650];
+                    v40 = *MEMORY[0x1E6986650];
                     if (*MEMORY[0x1E6986640] == 1)
                     {
-                      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+                      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
                       {
-                        v47 = *(v17 + 16);
-                        v48 = bswap32(*(v17 + 18));
-                        v49 = *v36;
-                        v50 = *(v17 + 200);
+                        v41 = *(v11 + 16);
+                        v42 = bswap32(*(v11 + 18));
+                        v43 = *v30;
+                        v44 = *(v11 + 200);
                         *buf = 136316930;
-                        *&buf[4] = v44;
+                        *&buf[4] = v38;
                         *&buf[12] = 2080;
                         *&buf[14] = "RTPTransportResendRTP";
                         *&buf[22] = 1024;
                         *&buf[24] = 2027;
                         *&buf[28] = 1024;
-                        *&buf[30] = v47 >> 15;
+                        *&buf[30] = v41 >> 15;
                         *&buf[34] = 1024;
-                        *&buf[36] = (v47 >> 8) & 0x7F;
+                        *&buf[36] = (v41 >> 8) & 0x7F;
                         *&buf[40] = 1024;
-                        *&buf[42] = HIWORD(v48);
+                        *&buf[42] = HIWORD(v42);
                         *&buf[46] = 1024;
-                        *&buf[48] = v49;
+                        *&buf[48] = v43;
                         *&buf[52] = 1024;
-                        *&buf[54] = v50;
-                        _os_log_impl(&dword_1DB56E000, v45, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Resent RTP packet with marker=%u, payload type=%u, sequence number=%u, timestamp=%u, ssrc=%u", buf, 0x3Au);
+                        *&buf[54] = v44;
+                        _os_log_impl(&dword_1DB56E000, v39, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Resent RTP packet with marker=%u, payload type=%u, sequence number=%u, timestamp=%u, ssrc=%u", buf, 0x3Au);
                       }
                     }
 
-                    else if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
+                    else if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
                     {
-                      v55 = *(v17 + 16);
-                      v56 = bswap32(*(v17 + 18));
-                      v57 = *v36;
-                      v58 = *(v17 + 200);
+                      v49 = *(v11 + 16);
+                      v50 = bswap32(*(v11 + 18));
+                      v51 = *v30;
+                      v52 = *(v11 + 200);
                       *buf = 136316930;
-                      *&buf[4] = v44;
+                      *&buf[4] = v38;
                       *&buf[12] = 2080;
                       *&buf[14] = "RTPTransportResendRTP";
                       *&buf[22] = 1024;
                       *&buf[24] = 2027;
                       *&buf[28] = 1024;
-                      *&buf[30] = v55 >> 15;
+                      *&buf[30] = v49 >> 15;
                       *&buf[34] = 1024;
-                      *&buf[36] = (v55 >> 8) & 0x7F;
+                      *&buf[36] = (v49 >> 8) & 0x7F;
                       *&buf[40] = 1024;
-                      *&buf[42] = HIWORD(v56);
+                      *&buf[42] = HIWORD(v50);
                       *&buf[46] = 1024;
-                      *&buf[48] = v57;
+                      *&buf[48] = v51;
                       *&buf[52] = 1024;
-                      *&buf[54] = v58;
-                      _os_log_debug_impl(&dword_1DB56E000, v45, OS_LOG_TYPE_DEBUG, " [%s] %s:%d Resent RTP packet with marker=%u, payload type=%u, sequence number=%u, timestamp=%u, ssrc=%u", buf, 0x3Au);
+                      *&buf[54] = v52;
+                      _os_log_debug_impl(&dword_1DB56E000, v39, OS_LOG_TYPE_DEBUG, " [%s] %s:%d Resent RTP packet with marker=%u, payload type=%u, sequence number=%u, timestamp=%u, ssrc=%u", buf, 0x3Au);
                     }
                   }
 
-                  v51.i32[0] = 1;
-                  v51.i32[1] = *v27;
-                  *(v17 + 204) = vadd_s32(*(v17 + 204), v51);
-                  if (v21)
+                  v45.i32[0] = 1;
+                  v45.i32[1] = *v21;
+                  *(v11 + 204) = vadd_s32(*(v11 + 204), v45);
+                  if (v15)
                   {
-                    IDSAttributeSizeWithChannelDataFormat = VCIDSChannelData_GetIDSAttributeSizeWithChannelDataFormat(v22);
+                    IDSAttributeSizeWithChannelDataFormat = VCIDSChannelData_GetIDSAttributeSizeWithChannelDataFormat(v16);
                   }
 
                   else
@@ -7765,26 +7883,26 @@ LABEL_37:
                     IDSAttributeSizeWithChannelDataFormat = 0;
                   }
 
-                  if (*(v17 + 12))
+                  if (*(v11 + 12))
                   {
-                    v53 = 48;
+                    v47 = 48;
                   }
 
                   else
                   {
-                    v53 = 28;
+                    v47 = 28;
                   }
 
-                  v54 = IDSAttributeSizeWithChannelDataFormat + v53 + v38;
-                  v71 = v54;
-                  if (v65)
+                  v48 = IDSAttributeSizeWithChannelDataFormat + v47 + v32;
+                  v61 = v48;
+                  if (v59)
                   {
-                    *v65 = v54;
+                    *v59 = v48;
                   }
 
-                  if (*(v17 + 28) == 1)
+                  if (*(v11 + 28) == 1)
                   {
-                    _RTPUpdateAFRCVideoSendingBitrate(v17, v54, *(v19 + 20), a1);
+                    _RTPUpdateAFRCVideoSendingBitrate(v11, v48, *(v13 + 20), a5);
                   }
 
                   goto LABEL_73;
@@ -7806,70 +7924,70 @@ LABEL_76:
           goto LABEL_73;
         }
 
-        v9 = v26;
+        v9 = v20;
       }
 
 LABEL_73:
-      VCNACKConsumer_UpdateRetransmissionStatus(*(v17 + 27776), &v66, v11, v12, v13, v14, v15, v16);
+      VCNACKConsumer_UpdateRetransmissionStatus(*(v11 + 27776), v60);
       CheckOutHandleDebug();
       return v9;
     }
 
-    if (v19 >= v20)
+    if (v13 >= v14)
     {
       goto LABEL_80;
     }
 
-    v39 = *(v18 + 8);
-    v78 = unk_1DBD47B50;
-    *v79 = xmmword_1DBD47B60;
-    memset(&v79[2], 170, 24);
+    v33 = *(v12 + 8);
+    v68 = unk_1DBD47B50;
+    *v69 = xmmword_1DBD47B60;
+    memset(&v69[2], 170, 24);
     memset(buf, 170, sizeof(buf));
     if ((VCPacketInitialize(buf) & 0x80000000) == 0)
     {
-      if (*(v17 + 11288))
+      if (*(v11 + 11288))
       {
-        if (v39)
+        if (v33)
         {
-          v27 = (v19 + 4);
-          if (*(v19 + 2) <= 0)
+          v21 = (v13 + 4);
+          if (*(v13 + 2) <= 0)
           {
             RTPTransportResendRTP_cold_3();
           }
 
           else
           {
-            *buf = v39;
-            CFRetain(v39);
+            *buf = v33;
+            CFRetain(v33);
             *&buf[8] = 257;
-            *&buf[56] = *v19;
-            *&buf[64] = *(v19 + 1);
-            v36 = (v19 + 8);
-            *&buf[72] = *(v19 + 4);
-            HIDWORD(v79[0]) = *(v19 + 13);
-            v40 = *(v17 + 17) & 0x7F;
-            v75 = *&buf[64];
-            v76 = 0;
+            *&buf[56] = *v13;
+            *&buf[64] = *(v13 + 1);
+            v30 = (v13 + 8);
+            *&buf[72] = *(v13 + 4);
+            HIDWORD(v69[0]) = *(v13 + 13);
+            v34 = *(v11 + 17) & 0x7F;
+            v65 = *&buf[64];
+            v66 = 0;
             src[0] = 1;
-            src[1] = v40;
+            src[1] = v34;
             *&src[2] = *&buf[56];
-            v74 = *&buf[72];
-            uuid_copy(&v79[1], src);
-            if ((_RTPEnsureTransportStreamsActivated(v17) & 0x80000000) == 0)
+            v64 = *&buf[72];
+            uuid_copy(&v69[1], src);
+            if ((_RTPEnsureTransportStreamsActivated(v11) & 0x80000000) == 0)
             {
-              v41 = *(v17 + 11288);
-              v42 = *(*(CMBaseObjectGetVTable() + 16) + 16);
-              if (v42)
+              v35 = *(v11 + 11288);
+              v36 = *(*(CMBaseObjectGetVTable() + 16) + 16);
+              if (v36)
               {
-                v43 = v42(v41, buf);
+                v37 = v36(v35, buf);
                 VCPacketInvalidate(buf);
-                if ((v43 & 0x80000000) == 0)
+                if ((v37 & 0x80000000) == 0)
                 {
-                  v38 = *v27;
-                  if (*v27 != -1)
+                  v32 = *v21;
+                  if (*v21 != -1)
                   {
                     v9 = 0;
-                    v22 = 0;
+                    v16 = 0;
                     goto LABEL_37;
                   }
                 }
@@ -8076,15 +8194,16 @@ unint64_t _RTPMediaSampleTimeWithReceiveTimestamp(uint64_t a1, unsigned int a2, 
   return result;
 }
 
-uint64_t RTPProcessDecryptionStatusChange(uint64_t a1, int a2)
+uint64_t RTPProcessDecryptionStatusChange(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v3 = CheckInHandleDebug();
   if (!v3)
   {
     return 2147549186;
   }
 
-  v4 = _RTPProcessDecryptionStatusChange(v3, a2);
+  v4 = _RTPProcessDecryptionStatusChange(v3, v2);
   CheckOutHandleDebug();
   return v4;
 }
@@ -8226,7 +8345,7 @@ uint64_t RTPRecvRTP(uint64_t a1, void *a2)
   return v4;
 }
 
-char *RecvRTP(uint64_t a1, unint64_t a2, char **a3)
+_DWORD *RecvRTP(uint64_t a1, unint64_t a2, void *a3)
 {
   v15[1] = *MEMORY[0x1E69E9840];
   if (*(a2 + 11288))
@@ -8375,8 +8494,8 @@ LABEL_25:
 
 uint64_t _RTPTransport_ParseMediaPacket(unint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v201 = *MEMORY[0x1E69E9840];
-  v3 = a2 + 88;
+  v208 = *MEMORY[0x1E69E9840];
+  v3 = (a2 + 88);
   if (*(a2 + 88) != -1)
   {
     v7 = *(a1 + 4832);
@@ -8388,7 +8507,7 @@ uint64_t _RTPTransport_ParseMediaPacket(unint64_t a1, uint64_t a2, uint64_t a3)
       return *buf;
     }
 
-    v177 = v7;
+    v184 = v7;
     *a3 = 0;
     if (dataPointerOut && !lengthAtOffsetOut)
     {
@@ -8403,14 +8522,14 @@ uint64_t _RTPTransport_ParseMediaPacket(unint64_t a1, uint64_t a2, uint64_t a3)
     }
 
     v10 = *dataPointerOut;
-    v182 = v10;
+    v189 = v10;
     v11 = *(dataPointerOut + 2);
     v12 = WORD1(v10);
     v13 = __rev16(WORD1(v10));
-    WORD1(v182) = v13;
+    WORD1(v189) = v13;
     v14 = bswap32(HIDWORD(v10));
     v15 = bswap32(v11);
-    v183 = v15;
+    v190 = v15;
     if (*(a1 + 7004))
     {
       v16 = *(a1 + 4832) != v15;
@@ -8421,10 +8540,10 @@ uint64_t _RTPTransport_ParseMediaPacket(unint64_t a1, uint64_t a2, uint64_t a3)
       v16 = 1;
     }
 
-    v178 = _RTPMediaSampleTimeWithReceiveTimestamp(a1, v14, v16);
-    HIDWORD(v182) = v178;
-    v17 = v182;
-    if ((v182 & 0xC0) != 0x80)
+    v185 = _RTPMediaSampleTimeWithReceiveTimestamp(a1, v14, v16);
+    HIDWORD(v189) = v185;
+    v17 = v189;
+    if ((v189 & 0xC0) != 0x80)
     {
       v8 = 2147549193;
 LABEL_23:
@@ -8454,21 +8573,21 @@ LABEL_23:
       goto LABEL_23;
     }
 
-    v175 = (a1 + 7962);
-    v161 = BYTE1(v182) & 0x7F;
-    InternalPayload = RTPMapGetInternalPayload(*(a1 + 64), v161);
-    LOWORD(v182) = v17 & 0x80BF | ((InternalPayload & 0x7F) << 8);
+    v182 = (a1 + 7962);
+    v168 = BYTE1(v189) & 0x7F;
+    InternalPayload = RTPMapGetInternalPayload(*(a1 + 64), v168);
+    LOWORD(v189) = v17 & 0x80BF | ((InternalPayload & 0x7F) << 8);
     if (!*(a1 + 28))
     {
       kdebug_trace();
     }
 
-    v173 = v15;
-    v174 = v17;
+    v180 = v15;
+    v181 = v17;
     if (*(a1 + 7004) && *(a1 + 4832) == v15)
     {
-      v159 = 0;
-      v160 = 0;
+      v166 = 0;
+      v167 = 0;
     }
 
     else
@@ -8488,25 +8607,25 @@ LABEL_23:
           *&buf[14] = "_RTPTransport_ReinitializeStream";
           *&buf[22] = 1024;
           *&buf[24] = 2380;
-          LOWORD(v190[0]) = 1024;
-          *(v190 + 2) = v22;
-          WORD3(v190[0]) = 1024;
-          DWORD2(v190[0]) = v15;
-          WORD6(v190[0]) = 1024;
-          *(v190 + 14) = v23;
-          WORD1(v190[1]) = 1024;
-          DWORD1(v190[1]) = InternalPayload & 0x7F;
-          WORD4(v190[1]) = 1024;
-          *(&v190[1] + 10) = v13;
-          HIWORD(v190[1]) = 1024;
-          LODWORD(v191) = v178;
+          LOWORD(v197[0]) = 1024;
+          *(v197 + 2) = v22;
+          WORD3(v197[0]) = 1024;
+          DWORD2(v197[0]) = v15;
+          WORD6(v197[0]) = 1024;
+          *(v197 + 14) = v23;
+          WORD1(v197[1]) = 1024;
+          DWORD1(v197[1]) = InternalPayload & 0x7F;
+          WORD4(v197[1]) = 1024;
+          *(&v197[1] + 10) = v13;
+          HIWORD(v197[1]) = 1024;
+          LODWORD(v198) = v185;
           _os_log_impl(&dword_1DB56E000, v21, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RTP(%d): recv started(%X,%X, %d) SeqNum = %u, TimeStamp = %u", buf, 0x40u);
         }
       }
 
       *(a1 + 688) = v13;
       *(a1 + 692) = v13;
-      *(a1 + 696) = v178;
+      *(a1 + 696) = v185;
       *(a1 + 704) = 0;
       *(a1 + 712) = 0;
       *(a1 + 4816) = 0;
@@ -8514,8 +8633,8 @@ LABEL_23:
       *(a1 + 4832) = v15;
       bzero((a1 + 716), 0x1000uLL);
       *(a1 + 716) = 1;
-      v24 = MicroToNTP(v19);
-      *&v25 = 0;
+      v26 = MicroToNTP(v19, v24, v25);
+      *&v27 = 0;
       *(a1 + 6792) = 0u;
       *(a1 + 6808) = 0u;
       *(a1 + 6824) = 0u;
@@ -8528,8 +8647,8 @@ LABEL_23:
       *(a1 + 6936) = 0u;
       *(a1 + 6952) = 0u;
       *(a1 + 6968) = 0u;
-      *(a1 + 6488) = v24;
-      *(a1 + 6984) = v25;
+      *(a1 + 6488) = v26;
+      *(a1 + 6984) = v27;
       *(a1 + 7004) = 1;
       os_unfair_lock_lock((a1 + 9028));
       *(a1 + 7648) = v15;
@@ -8539,68 +8658,71 @@ LABEL_23:
       *(a1 + 7658) = v13;
       if (VRTraceGetErrorLogLevelForModule() > 6)
       {
-        v26 = VRTraceErrorLogLevelToCSTR();
-        v27 = *MEMORY[0x1E6986650];
+        v28 = VRTraceErrorLogLevelToCSTR();
+        v29 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v28 = *(a1 + 7528);
+          v30 = *(a1 + 7528);
           *buf = 136316162;
-          *&buf[4] = v26;
+          *&buf[4] = v28;
           *&buf[12] = 2080;
           *&buf[14] = "_RTPTransport_ReinitializeStream";
           *&buf[22] = 1024;
           *&buf[24] = 2414;
-          LOWORD(v190[0]) = 1024;
-          *(v190 + 2) = v28 & 1;
-          WORD3(v190[0]) = 1024;
-          DWORD2(v190[0]) = (v28 >> 2) & 1;
-          _os_log_impl(&dword_1DB56E000, v27, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RTPTransport: need to wait for SRTP to init? (%d/%d)", buf, 0x28u);
+          LOWORD(v197[0]) = 1024;
+          *(v197 + 2) = v30 & 1;
+          WORD3(v197[0]) = 1024;
+          DWORD2(v197[0]) = (v30 >> 2) & 1;
+          _os_log_impl(&dword_1DB56E000, v29, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RTPTransport: need to wait for SRTP to init? (%d/%d)", buf, 0x28u);
         }
       }
 
       if (*(a1 + 7528) == 1)
       {
-        if (VRTraceGetErrorLogLevelForModule() >= 7)
-        {
-          v29 = VRTraceErrorLogLevelToCSTR();
-          v30 = *MEMORY[0x1E6986650];
-          if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
-          {
-            *buf = 136315650;
-            *&buf[4] = v29;
-            *&buf[12] = 2080;
-            *&buf[14] = "_RTPTransport_ReinitializeStream";
-            *&buf[22] = 1024;
-            *&buf[24] = 2417;
-            _os_log_impl(&dword_1DB56E000, v30, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RTPTransport: Need to wait for SRTP to init...", buf, 0x1Cu);
-          }
-        }
-
-        blockBufferOut = 0x4034000000000000;
-        v31 = micro();
-        v32 = SRTPWaitUseEncryptionRTP(a1 + 7528, &blockBufferOut);
-        if (VRTraceGetErrorLogLevelForModule() >= 7)
+        ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
+        if (ErrorLogLevelForModule >= 7)
         {
           v33 = VRTraceErrorLogLevelToCSTR();
           v34 = *MEMORY[0x1E6986650];
-          if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
+          ErrorLogLevelForModule = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+          if (ErrorLogLevelForModule)
           {
-            v35 = micro();
-            *buf = 136316162;
+            *buf = 136315650;
             *&buf[4] = v33;
             *&buf[12] = 2080;
             *&buf[14] = "_RTPTransport_ReinitializeStream";
             *&buf[22] = 1024;
-            *&buf[24] = 2423;
-            LOWORD(v190[0]) = 2048;
-            *(v190 + 2) = v35 - v31;
-            WORD5(v190[0]) = 1024;
-            HIDWORD(v190[0]) = v32;
-            _os_log_impl(&dword_1DB56E000, v34, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RTPTransport: end wait SRTP @ %.3f seconds (%08X)", buf, 0x2Cu);
+            *&buf[24] = 2417;
+            _os_log_impl(&dword_1DB56E000, v34, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RTPTransport: Need to wait for SRTP to init...", buf, 0x1Cu);
           }
         }
 
-        if (v32 < 0)
+        blockBufferOut = 0x4034000000000000;
+        v35 = micro(ErrorLogLevelForModule, v32);
+        v36 = SRTPWaitUseEncryptionRTP(a1 + 7528, &blockBufferOut);
+        if (VRTraceGetErrorLogLevelForModule() >= 7)
+        {
+          v37 = VRTraceErrorLogLevelToCSTR();
+          v38 = *MEMORY[0x1E6986650];
+          v39 = os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT);
+          if (v39)
+          {
+            v41 = micro(v39, v40);
+            *buf = 136316162;
+            *&buf[4] = v37;
+            *&buf[12] = 2080;
+            *&buf[14] = "_RTPTransport_ReinitializeStream";
+            *&buf[22] = 1024;
+            *&buf[24] = 2423;
+            LOWORD(v197[0]) = 2048;
+            *(v197 + 2) = v41 - v35;
+            WORD5(v197[0]) = 1024;
+            HIDWORD(v197[0]) = v36;
+            _os_log_impl(&dword_1DB56E000, v38, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RTPTransport: end wait SRTP @ %.3f seconds (%08X)", buf, 0x2Cu);
+          }
+        }
+
+        if (v36 < 0)
         {
           v9 = 2147549199;
           if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -8619,102 +8741,102 @@ LABEL_23:
 
       if (VRTraceGetErrorLogLevelForModule() >= 6)
       {
-        v36 = VRTraceErrorLogLevelToCSTR();
-        v37 = *MEMORY[0x1E6986650];
+        v42 = VRTraceErrorLogLevelToCSTR();
+        v43 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v38 = *(a1 + 7528);
+          v44 = *(a1 + 7528);
           *buf = 136316162;
-          *&buf[4] = v36;
+          *&buf[4] = v42;
           *&buf[12] = 2080;
           *&buf[14] = "_RTPTransport_ReinitializeStream";
           *&buf[22] = 1024;
           *&buf[24] = 2430;
-          LOWORD(v190[0]) = 1024;
-          *(v190 + 2) = v38 & 1;
-          WORD3(v190[0]) = 1024;
-          DWORD2(v190[0]) = (v38 >> 2) & 1;
-          _os_log_impl(&dword_1DB56E000, v37, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RTPTransport: done waiting for SRTP to init. (%d/%d)", buf, 0x28u);
+          LOWORD(v197[0]) = 1024;
+          *(v197 + 2) = v44 & 1;
+          WORD3(v197[0]) = 1024;
+          DWORD2(v197[0]) = (v44 >> 2) & 1;
+          _os_log_impl(&dword_1DB56E000, v43, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d RTPTransport: done waiting for SRTP to init. (%d/%d)", buf, 0x28u);
         }
       }
 
-      v159 = 1;
-      v160 = 1;
+      v166 = 1;
+      v167 = 1;
     }
 
     if (*(a1 + 12))
     {
-      v39 = 48;
+      v45 = 48;
     }
 
     else
     {
-      v39 = 28;
+      v45 = 28;
     }
 
-    v40 = (a1 + 716 + 4 * (v13 & 0x3FF));
-    if (v40 >= a1 + 4812 || v40 < a1 + 716)
+    v46 = (a1 + 716 + 4 * (v13 & 0x3FF));
+    if (v46 >= a1 + 4812 || v46 < a1 + 716)
     {
       goto LABEL_291;
     }
 
-    v41 = *(a2 + 104);
-    v42 = lengthAtOffsetOut;
-    v43 = *v40;
-    if (*v40 == v13)
+    v47 = *(a2 + 104);
+    v48 = lengthAtOffsetOut;
+    v49 = *v46;
+    if (*v46 == v13)
     {
       if (!*(a1 + 28))
       {
         if (*(a1 + 188))
         {
           ++*(a1 + 4840);
-          v44 = (a1 + 6792 + 4 * *(a1 + 6992));
-          if (v44 >= a1 + 6992 || v44 < a1 + 6792)
+          v50 = (a1 + 6792 + 4 * *(a1 + 6992));
+          if (v50 >= a1 + 6992 || v50 < a1 + 6792)
           {
             goto LABEL_291;
           }
 
-          *v44 = v13;
+          *v50 = v13;
           *(a1 + 6992) = (*(a1 + 6992) + 1) % 0x32u;
         }
 
-        v45 = 1;
-        v46 = 1;
+        v51 = 1;
+        v52 = 1;
 LABEL_63:
-        v48 = *v3;
-        v49 = *(a1 + 10592);
-        v50 = *(a1 + 28);
-        if (v49)
+        v54 = *v3;
+        v55 = *(a1 + 10592);
+        v56 = *(a1 + 28);
+        if (v55)
         {
-          if (v50)
+          if (v56)
           {
-            if (v50 == 1)
+            if (v56 == 1)
             {
-              v49[64] = *(a1 + 692) - *(a1 + 688) + 1;
+              v55[64] = *(a1 + 692) - *(a1 + 688) + 1;
             }
 
             goto LABEL_86;
           }
 
-          if (!v48)
+          if (!v54)
           {
-            ++v49[61];
-            v49[65] = *(a1 + 692) - *(a1 + 688) + 1;
+            ++v55[61];
+            v55[65] = *(a1 + 692) - *(a1 + 688) + 1;
           }
 
-          ++v49[63];
+          ++v55[63];
         }
 
-        else if (v50)
+        else if (v56)
         {
           goto LABEL_86;
         }
 
-        if (v48 >= 2)
+        if (v54 >= 2)
         {
           _RTPTransport_ParseMediaPacket_cold_19();
-          v96 = v97;
-          if (!v97)
+          v103 = v104;
+          if (!v104)
           {
             goto LABEL_175;
           }
@@ -8723,61 +8845,61 @@ LABEL_63:
           goto LABEL_173;
         }
 
-        v50 = 0;
+        v56 = 0;
 LABEL_86:
-        v165 = v42 + v41 + v39;
-        if (v43 == v13)
+        v172 = v48 + v47 + v45;
+        if (v49 == v13)
         {
-          v56 = 0;
+          v62 = 0;
         }
 
         else
         {
-          v56 = v42 + v41 + v39;
+          v62 = v48 + v47 + v45;
         }
 
-        v57 = *(a1 + 10536);
-        if (v57 == 0xFFFFFFFFLL)
+        v63 = *(a1 + 10536);
+        if (v63 == 0xFFFFFFFFLL)
         {
-          if (v56)
+          if (v62)
           {
             ++*(a1 + 320);
-            HIDWORD(v58) = 1083129856;
-            LODWORD(v58) = *(a1 + 324);
-            *(a1 + 324) = ((8 * v56) / 1000.0 + v58);
+            HIDWORD(v64) = 1083129856;
+            LODWORD(v64) = *(a1 + 324);
+            *(a1 + 324) = ((8 * v62) / 1000.0 + v64);
           }
         }
 
         else
         {
-          MediaQueue_RecordNewPacketWithSize(v57, v56, v50, (a1 + 320), (a1 + 324));
+          MediaQueue_RecordNewPacketWithSize(v63, v62, v56, (a1 + 320), (a1 + 324));
         }
 
         if (!*(a1 + 10560))
         {
-          AFRCCalcRxEstimate(*(a2 + 128), *(a1 + 10544), *(a1 + 28), v178, v13, v165, 0, 0);
+          AFRCCalcRxEstimate(*(a1 + 10544), *(a1 + 28), v185, v13, v172, 0, 0, *(a2 + 128));
         }
 
-        v59 = *(a1 + 11376);
-        if (v59)
+        v65 = *(a1 + 11376);
+        if (v65)
         {
-          VCConnectionManager_UpdateConnectionHealthWithIndicator(v59, *v3 == 0, v13, v46);
+          VCConnectionManager_UpdateConnectionHealthWithIndicator(v65, *v3 == 0, v13, v52);
         }
 
-        v162 = v46;
-        v158 = v45;
-        v179 = 0;
-        v60 = _RTPTransport_PacketExtensionLength(dataPointerOut, lengthAtOffsetOut, &v182, &v179);
-        if ((v60 & 0x80000000) == 0)
+        v169 = v52;
+        v165 = v51;
+        v186 = 0;
+        v66 = _RTPTransport_PacketExtensionLength(dataPointerOut, lengthAtOffsetOut, &v189, &v186);
+        if ((v66 & 0x80000000) == 0)
         {
-          v61 = v179;
-          v62 = lengthAtOffsetOut;
-          v171 = dataPointerOut;
-          v185 = 0;
-          v184 = 0;
+          v67 = v186;
+          v68 = lengthAtOffsetOut;
+          v178 = dataPointerOut;
+          v192 = 0;
+          v191 = 0;
           if (*(a1 + 7936) == 1)
           {
-            v63 = a1 + 7962;
+            v69 = a1 + 7962;
             if (*(a1 + 11384) == 1)
             {
               if (*(a1 + 11386) + 1 != v13)
@@ -8786,10 +8908,10 @@ LABEL_86:
                 pthread_mutex_lock((a1 + 7816));
                 VCMediaKeyIndex_ReleaseAndCopyNewValue(&blockBufferOut, *(a1 + 7880));
                 pthread_mutex_unlock((a1 + 7816));
-                v64 = *(a1 + 10568);
-                if (v64)
+                v70 = *(a1 + 10568);
+                if (v70)
                 {
-                  if ((v64(6, *(a1 + 10576), blockBufferOut, 0) & 0x80000000) != 0 && VRTraceGetErrorLogLevelForModule() >= 3)
+                  if ((v70(6, *(a1 + 10576), blockBufferOut, 0) & 0x80000000) != 0 && VRTraceGetErrorLogLevelForModule() >= 3)
                   {
                     VRTraceErrorLogLevelToCSTR();
                     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
@@ -8801,36 +8923,36 @@ LABEL_86:
 
                 if (VRTraceGetErrorLogLevelForModule() >= 3)
                 {
-                  v65 = VRTraceErrorLogLevelToCSTR();
-                  v66 = *MEMORY[0x1E6986650];
+                  v71 = VRTraceErrorLogLevelToCSTR();
+                  v72 = *MEMORY[0x1E6986650];
                   if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                   {
-                    v93 = *(a1 + 11386) + 1;
-                    v94 = *(a1 + 10576);
+                    v100 = *(a1 + 11386) + 1;
+                    v101 = *(a1 + 10576);
                     *buf = 136316674;
-                    *&buf[4] = v65;
+                    *&buf[4] = v71;
                     *&buf[12] = 2080;
                     *&buf[14] = "_RTPTransport_DetectSequenceNumberGap";
                     *&buf[22] = 1024;
                     *&buf[24] = 2128;
-                    LOWORD(v190[0]) = 1024;
-                    *(v190 + 2) = v93;
-                    WORD3(v190[0]) = 1024;
-                    DWORD2(v190[0]) = v13;
-                    WORD6(v190[0]) = 2048;
-                    *(v190 + 14) = v94;
-                    WORD3(v190[1]) = 2112;
-                    *(&v190[1] + 1) = blockBufferOut;
-                    _os_log_error_impl(&dword_1DB56E000, v66, OS_LOG_TYPE_ERROR, " [%s] %s:%d Detected gap in RTP sequence number: expected=%u, received=%u, for stream=%p with MKI=%@", buf, 0x3Cu);
+                    LOWORD(v197[0]) = 1024;
+                    *(v197 + 2) = v100;
+                    WORD3(v197[0]) = 1024;
+                    DWORD2(v197[0]) = v13;
+                    WORD6(v197[0]) = 2048;
+                    *(v197 + 14) = v101;
+                    WORD3(v197[1]) = 2112;
+                    *(&v197[1] + 1) = blockBufferOut;
+                    _os_log_error_impl(&dword_1DB56E000, v72, OS_LOG_TYPE_ERROR, " [%s] %s:%d Detected gap in RTP sequence number: expected=%u, received=%u, for stream=%p with MKI=%@", buf, 0x3Cu);
                   }
                 }
 
                 VCMediaKeyIndex_Release(&blockBufferOut);
-                v63 = a1 + 7962;
+                v69 = a1 + 7962;
                 *(a1 + 11384) = 0;
               }
 
-              *(v63 + 3424) = v13;
+              *(v69 + 3424) = v13;
             }
 
             if (!*(a1 + 7880))
@@ -8839,37 +8961,37 @@ LABEL_86:
               *(a1 + 11386) = v13;
               if (VRTraceGetErrorLogLevelForModule() >= 7)
               {
-                v67 = VRTraceErrorLogLevelToCSTR();
-                v68 = *MEMORY[0x1E6986650];
+                v73 = VRTraceErrorLogLevelToCSTR();
+                v74 = *MEMORY[0x1E6986650];
                 if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                 {
-                  v69 = *(a1 + 10576);
+                  v75 = *(a1 + 10576);
                   *buf = 136315906;
-                  *&buf[4] = v67;
+                  *&buf[4] = v73;
                   *&buf[12] = 2080;
                   *&buf[14] = "_RTPTransport_DetectSequenceNumberGap";
                   *&buf[22] = 1024;
                   *&buf[24] = 2139;
-                  LOWORD(v190[0]) = 2048;
-                  *(v190 + 2) = v69;
-                  _os_log_impl(&dword_1DB56E000, v68, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Started RTP sequence number gap detection for stream=%p", buf, 0x26u);
+                  LOWORD(v197[0]) = 2048;
+                  *(v197 + 2) = v75;
+                  _os_log_impl(&dword_1DB56E000, v74, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Started RTP sequence number gap detection for stream=%p", buf, 0x26u);
                 }
               }
             }
           }
 
-          if ((v62 & 0x80000000) != 0 || v62 > v62)
+          if ((v68 & 0x80000000) != 0 || v68 > v68)
           {
             goto LABEL_291;
           }
 
-          offsetToData = 4 * (v174 & 0xF) + 12;
-          v168 = v61 + offsetToData;
-          v70 = SRTPVerifyAuthenticationTag(a1 + 7528, v13, v171, v62, &v184, &v185);
-          if ((v70 & 0x80000000) != 0)
+          offsetToData = 4 * (v181 & 0xF) + 12;
+          v175 = v67 + offsetToData;
+          v76 = SRTPVerifyAuthenticationTag(a1 + 7528, v13, v178, v68, &v191, &v192);
+          if ((v76 & 0x80000000) != 0)
           {
-            v9 = v70;
-            if (v70 != -2145255368)
+            v9 = v76;
+            if (v76 != -2145255368)
             {
               if (VRTraceGetErrorLogLevelForModule() >= 3)
               {
@@ -8880,35 +9002,35 @@ LABEL_86:
                 }
               }
 
-              if (v9 == -2145255361 && (*v175 & 1) == 0)
+              if (v9 == -2145255361 && (*v182 & 1) == 0)
               {
-                *v175 = 1;
-                v71 = *(a1 + 7968);
+                *v182 = 1;
+                v77 = *(a1 + 7968);
                 if (VRTraceGetErrorLogLevelForModule() >= 7)
                 {
-                  v72 = VRTraceErrorLogLevelToCSTR();
-                  v73 = *MEMORY[0x1E6986650];
+                  v78 = VRTraceErrorLogLevelToCSTR();
+                  v79 = *MEMORY[0x1E6986650];
                   if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                   {
-                    v74 = VCSecurityKeyHolder_ParticipantID(*(a1 + 10632));
+                    v80 = VCSecurityKeyHolder_ParticipantID(*(a1 + 10632));
                     *buf = 136316162;
-                    *&buf[4] = v72;
+                    *&buf[4] = v78;
                     *&buf[12] = 2080;
                     *&buf[14] = "_RTPProcessMKICollision";
                     *&buf[22] = 1024;
                     *&buf[24] = 2239;
-                    LOWORD(v190[0]) = 2048;
-                    *(v190 + 2) = v74;
-                    WORD5(v190[0]) = 2048;
-                    *(v190 + 12) = v71;
-                    _os_log_impl(&dword_1DB56E000, v73, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Processing MKI collision: participantID=%llu, MKI size=%lu... Aborting the call", buf, 0x30u);
+                    LOWORD(v197[0]) = 2048;
+                    *(v197 + 2) = v80;
+                    WORD5(v197[0]) = 2048;
+                    *(v197 + 12) = v77;
+                    _os_log_impl(&dword_1DB56E000, v79, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Processing MKI collision: participantID=%llu, MKI size=%lu... Aborting the call", buf, 0x30u);
                   }
                 }
 
-                v75 = *(a1 + 10568);
-                if (v75)
+                v81 = *(a1 + 10568);
+                if (v81)
                 {
-                  if ((v75(7, *(a1 + 10576), 0, 0) & 0x80000000) != 0 && VRTraceGetErrorLogLevelForModule() >= 3)
+                  if ((v81(7, *(a1 + 10576), 0, 0) & 0x80000000) != 0 && VRTraceGetErrorLogLevelForModule() >= 3)
                   {
                     VRTraceErrorLogLevelToCSTR();
                     if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
@@ -8923,7 +9045,7 @@ LABEL_86:
                 else
                 {
                   _RTPTransport_ParseMediaPacket_cold_15();
-                  v62 = *buf;
+                  v68 = *buf;
                   v9 = blockBufferOut;
                 }
 
@@ -8933,57 +9055,57 @@ LABEL_86:
 LABEL_197:
               _RTPProcessDecryptionStatusChange(a1, 0);
 LABEL_201:
-              if (v62 > lengthAtOffsetOut)
+              if (v68 > lengthAtOffsetOut)
               {
                 goto LABEL_291;
               }
 
-              lengthAtOffsetOut = v62;
+              lengthAtOffsetOut = v68;
               if ((v9 & 0x80000000) != 0)
               {
                 goto LABEL_276;
               }
 
-              if ((v174 & 0x20) != 0)
+              if ((v181 & 0x20) != 0)
               {
-                v104 = &dataPointerOut[v62 - 1];
-                if (v104 >= &dataPointerOut[v62] || v104 < dataPointerOut)
+                v111 = &dataPointerOut[v68 - 1];
+                if (v111 >= &dataPointerOut[v68] || v111 < dataPointerOut)
                 {
                   goto LABEL_291;
                 }
 
-                v103 = *v104;
+                v110 = *v111;
               }
 
               else
               {
-                v103 = 0;
+                v110 = 0;
               }
 
-              v105 = v173;
-              if ((v62 - v103 - v168) >= 0x5C1)
+              v112 = v180;
+              if ((v68 - v110 - v175) >= 0x5C1)
               {
                 if (VRTraceGetErrorLogLevelForModule() >= 3)
                 {
-                  v152 = VRTraceErrorLogLevelToCSTR();
-                  v153 = *MEMORY[0x1E6986650];
+                  v159 = VRTraceErrorLogLevelToCSTR();
+                  v160 = *MEMORY[0x1E6986650];
                   if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
                   {
                     *buf = 136316674;
-                    *&buf[4] = v152;
+                    *&buf[4] = v159;
                     *&buf[12] = 2080;
                     *&buf[14] = "_RTPTransport_ParseMediaPacket";
                     *&buf[22] = 1024;
                     *&buf[24] = 2965;
-                    LOWORD(v190[0]) = 1024;
-                    *(v190 + 2) = lengthAtOffsetOut;
-                    WORD3(v190[0]) = 1024;
-                    DWORD2(v190[0]) = lengthAtOffsetOut;
-                    WORD6(v190[0]) = 1024;
-                    *(v190 + 14) = v168;
-                    WORD1(v190[1]) = 1024;
-                    DWORD1(v190[1]) = (v174 >> 5) & 1;
-                    _os_log_error_impl(&dword_1DB56E000, v153, OS_LOG_TYPE_ERROR, " [%s] %s:%d Invalid packet! length:%d iRet:%d iOffset:%d padding:%d, ", buf, 0x34u);
+                    LOWORD(v197[0]) = 1024;
+                    *(v197 + 2) = lengthAtOffsetOut;
+                    WORD3(v197[0]) = 1024;
+                    DWORD2(v197[0]) = lengthAtOffsetOut;
+                    WORD6(v197[0]) = 1024;
+                    *(v197 + 14) = v175;
+                    WORD1(v197[1]) = 1024;
+                    DWORD1(v197[1]) = (v181 >> 5) & 1;
+                    _os_log_error_impl(&dword_1DB56E000, v160, OS_LOG_TYPE_ERROR, " [%s] %s:%d Invalid packet! length:%d iRet:%d iOffset:%d padding:%d, ", buf, 0x34u);
                     v9 = 2147549191;
                     goto LABEL_257;
                   }
@@ -8992,12 +9114,12 @@ LABEL_201:
                 goto LABEL_255;
               }
 
-              if (v162)
+              if (v169)
               {
 LABEL_210:
-                *(a3 + 120) = v165;
+                *(a3 + 120) = v172;
                 *(a3 + 40) = *(a2 + 128);
-                v106 = *(a2 + 34);
+                v113 = *(a2 + 34);
                 if (!*(a2 + 34))
                 {
 LABEL_213:
@@ -9005,29 +9127,29 @@ LABEL_213:
                   *(a3 + 50) = *(a2 + 36);
                   *(a3 + 56) = *(a2 + 40);
                   *(a3 + 89) = *(a2 + 35);
-                  v107 = *v3;
-                  *(a3 + 112) = *(v3 + 16);
-                  *(a3 + 96) = v107;
+                  v114 = *v3;
+                  *(a3 + 112) = *(v3 + 2);
+                  *(a3 + 96) = v114;
                   *(a3 + 49) = *(a2 + 9);
-                  *(a3 + 48) = v159;
-                  *(a3 + 8) = v174 >> 15;
+                  *(a3 + 48) = v166;
+                  *(a3 + 8) = v181 >> 15;
                   *(a3 + 12) = InternalPayload & 0x7F;
-                  *(a3 + 16) = v161;
+                  *(a3 + 16) = v168;
                   *(a3 + 20) = v13;
-                  *(a3 + 24) = v178;
-                  *(a3 + 28) = v105;
-                  *(a3 + 200) = v158;
+                  *(a3 + 24) = v185;
+                  *(a3 + 28) = v112;
+                  *(a3 + 200) = v165;
                   *(a3 + 201) = *(a2 + 88) == 0;
                   *(a3 + 202) = *(a2 + 137);
                   *(a3 + 203) = *(a2 + 138);
                   return v9;
                 }
 
-                *(a3 + 88) = v106;
-                if (v106 <= 0xC)
+                *(a3 + 88) = v113;
+                if (v113 <= 0xC)
                 {
-                  memcpy((a3 + 64), (a2 + 10), 2 * v106);
-                  v105 = v173;
+                  memcpy((a3 + 64), (a2 + 10), 2 * v113);
+                  v112 = v180;
                   goto LABEL_213;
                 }
 
@@ -9035,43 +9157,43 @@ LABEL_291:
                 __break(0x5519u);
               }
 
-              v108 = *(a2 + 128);
-              v109 = *(a1 + 696);
-              v110 = *(a1 + 700);
-              v111 = NTPToMicro(*(a1 + 6488));
-              if (v178 != *(a1 + 4824))
+              v115 = *(a2 + 128);
+              v116 = *(a1 + 696);
+              v117 = *(a1 + 700);
+              v118 = NTPToMicro(*(a1 + 6488), v82);
+              if (v185 != *(a1 + 4824))
               {
-                v112 = (v109 + v110 * (v108 - v111)) - v178;
-                if (v160)
+                v119 = (v116 + v117 * (v115 - v118)) - v185;
+                if (v167)
                 {
-                  v113 = 0;
+                  v120 = 0;
                 }
 
                 else
                 {
-                  v113 = v112 - *(a1 + 4816);
-                  if (v113 < 0)
+                  v120 = v119 - *(a1 + 4816);
+                  if (v120 < 0)
                   {
-                    v113 = *(a1 + 4816) - v112;
+                    v120 = *(a1 + 4816) - v119;
                   }
                 }
 
-                *(a1 + 4816) = v112;
-                v114 = v113 - ((*(a1 + 4828) + 8) >> 4) + *(a1 + 4828);
-                *(a1 + 4828) = v114;
-                *(a1 + 4824) = v178;
-                *(a1 + 6784) = ((v114 >> 4) + *(a1 + 6784) * (*(a1 + 704) - 1)) / *(a1 + 704);
-                if (*(a1 + 6776) <= v114 >> 4)
+                *(a1 + 4816) = v119;
+                v121 = v120 - ((*(a1 + 4828) + 8) >> 4) + *(a1 + 4828);
+                *(a1 + 4828) = v121;
+                *(a1 + 4824) = v185;
+                *(a1 + 6784) = ((v121 >> 4) + *(a1 + 6784) * (*(a1 + 704) - 1)) / *(a1 + 704);
+                if (*(a1 + 6776) <= v121 >> 4)
                 {
-                  v115 = v114 >> 4;
+                  v122 = v121 >> 4;
                 }
 
                 else
                 {
-                  v115 = *(a1 + 6776);
+                  v122 = *(a1 + 6776);
                 }
 
-                *(a1 + 6776) = v115;
+                *(a1 + 6776) = v122;
               }
 
               if (a3 + 8 >= (a3 + 208))
@@ -9079,33 +9201,33 @@ LABEL_291:
                 goto LABEL_291;
               }
 
-              v116 = *a2;
-              v117 = dataPointerOut;
-              v118 = lengthAtOffsetOut;
+              v123 = *a2;
+              v124 = dataPointerOut;
+              v125 = lengthAtOffsetOut;
               VCBlockBuffer_Clear(a3 + 128);
-              v122 = v174;
-              if ((v174 & 0x10) != 0)
+              v129 = v181;
+              if ((v181 & 0x10) != 0)
               {
                 *buf = 0;
-                v123 = _RTPTransport_PacketExtensionLength(v117, v118, &v182, buf);
-                if ((v123 & 0x80000000) != 0)
+                v130 = _RTPTransport_PacketExtensionLength(v124, v125, &v189, buf);
+                if ((v130 & 0x80000000) != 0)
                 {
-                  v9 = v123;
+                  v9 = v130;
                   goto LABEL_257;
                 }
 
-                v124 = *buf;
+                v131 = *buf;
                 if (*buf)
                 {
-                  v125 = &v117[offsetToData];
-                  if (&v117[offsetToData] < v117 || v125 > &v117[v118] || *buf > v118 - offsetToData)
+                  v132 = &v124[offsetToData];
+                  if (&v124[offsetToData] < v124 || v132 > &v124[v125] || *buf > v125 - offsetToData)
                   {
                     goto LABEL_291;
                   }
 
                   *(a3 + 136) = *buf;
-                  *(a3 + 144) = v125;
-                  if (CMBlockBufferCreateWithBufferReference(*(a1 + 10664), v116, offsetToData, v124, 0, (a3 + 128)))
+                  *(a3 + 144) = v132;
+                  if (CMBlockBufferCreateWithBufferReference(*(a1 + 10664), v123, offsetToData, v131, 0, (a3 + 128)))
                   {
                     v9 = 2147549188;
                     if (VRTraceGetErrorLogLevelForModule() >= 3)
@@ -9118,7 +9240,7 @@ LABEL_291:
                     }
 
 LABEL_257:
-                    if ((v160 & 1) == 0)
+                    if ((v167 & 1) == 0)
                     {
                       return v9;
                     }
@@ -9127,86 +9249,86 @@ LABEL_257:
                   }
                 }
 
-                v122 = v174;
+                v129 = v181;
               }
 
-              v126 = *a2;
-              v127 = dataPointerOut;
-              v128 = &dataPointerOut[lengthAtOffsetOut];
-              if ((v122 & 0x20) != 0)
+              v133 = *a2;
+              v134 = dataPointerOut;
+              v135 = &dataPointerOut[lengthAtOffsetOut];
+              if ((v129 & 0x20) != 0)
               {
-                v131 = v128 - 1;
-                v130 = v168;
-                if (!v128 || v131 < dataPointerOut)
+                v138 = v135 - 1;
+                v137 = v175;
+                if (!v135 || v138 < dataPointerOut)
                 {
                   goto LABEL_291;
                 }
 
-                v129 = *v131;
+                v136 = *v138;
               }
 
               else
               {
-                v129 = 0;
-                v130 = v168;
+                v136 = 0;
+                v137 = v175;
               }
 
-              v132 = 0;
-              v133 = 0;
-              v134 = 0;
-              v135 = 0;
-              v136 = v129 + v130;
+              v139 = 0;
+              v140 = 0;
+              v141 = 0;
+              v142 = 0;
+              v143 = v136 + v137;
               blockBufferOut = 0;
-              v137 = lengthAtOffsetOut - v136;
-              if (lengthAtOffsetOut == v136)
+              v144 = lengthAtOffsetOut - v143;
+              if (lengthAtOffsetOut == v143)
               {
 LABEL_243:
-                *(a3 + 152) = v132;
-                if (v134 < v135 || v133 > v135 || v137 > v134 - v135)
+                *(a3 + 152) = v139;
+                if (v141 < v142 || v140 > v142 || v144 > v141 - v142)
                 {
                   goto LABEL_291;
                 }
 
-                *(a3 + 160) = v137;
-                *(a3 + 168) = v135;
-                if ((v174 & 0x20) == 0)
+                *(a3 + 160) = v144;
+                *(a3 + 168) = v142;
+                if ((v181 & 0x20) == 0)
                 {
                   goto LABEL_247;
                 }
 
-                v139 = dataPointerOut;
-                v140 = &dataPointerOut[lengthAtOffsetOut];
-                v141 = &dataPointerOut[lengthAtOffsetOut - 1];
-                if (v141 >= &dataPointerOut[lengthAtOffsetOut] || v141 < dataPointerOut)
+                v146 = dataPointerOut;
+                v147 = &dataPointerOut[lengthAtOffsetOut];
+                v148 = &dataPointerOut[lengthAtOffsetOut - 1];
+                if (v148 >= &dataPointerOut[lengthAtOffsetOut] || v148 < dataPointerOut)
                 {
                   goto LABEL_291;
                 }
 
-                v142 = *v141;
+                v149 = *v148;
                 if (*(a1 + 28))
                 {
-                  if ((v142 - 1) > 3u)
+                  if ((v149 - 1) > 3u)
                   {
 LABEL_255:
                     v9 = 2147549191;
                     goto LABEL_276;
                   }
 
-                  if (v142 != 1)
+                  if (v149 != 1)
                   {
-                    v143 = &dataPointerOut[lengthAtOffsetOut - v142];
-                    v144 = (v142 - 1);
-                    while (v143 < v140 && v143 >= dataPointerOut)
+                    v150 = &dataPointerOut[lengthAtOffsetOut - v149];
+                    v151 = (v149 - 1);
+                    while (v150 < v147 && v150 >= dataPointerOut)
                     {
-                      v145 = *v143;
-                      v147 = v145 == 255 && (v142 - 1) == 3;
-                      if ((v145 - 4) < 0xFB || v147)
+                      v152 = *v150;
+                      v154 = v152 == 255 && (v149 - 1) == 3;
+                      if ((v152 - 4) < 0xFB || v154)
                       {
                         goto LABEL_255;
                       }
 
-                      ++v143;
-                      if (!--v144)
+                      ++v150;
+                      if (!--v151)
                       {
                         goto LABEL_274;
                       }
@@ -9219,10 +9341,10 @@ LABEL_255:
                 else
                 {
                   v9 = 2147549191;
-                  if ((v142 - 1) > 0xAu)
+                  if ((v149 - 1) > 0xAu)
                   {
 LABEL_276:
-                    if (!v160)
+                    if (!v167)
                     {
                       return v9;
                     }
@@ -9232,27 +9354,27 @@ LABEL_276:
                 }
 
 LABEL_274:
-                v148 = lengthAtOffsetOut - v142;
-                if (!CMBlockBufferCreateWithBufferReference(*(a1 + 10664), *a2, lengthAtOffsetOut - v142, (v142 - 1), 0, (a3 + 176)))
+                v155 = lengthAtOffsetOut - v149;
+                if (!CMBlockBufferCreateWithBufferReference(*(a1 + 10664), *a2, lengthAtOffsetOut - v149, (v149 - 1), 0, (a3 + 176)))
                 {
-                  v151 = &v139[v148];
-                  if (&v139[v148] > v140 || v151 < v139 || !v142)
+                  v158 = &v146[v155];
+                  if (&v146[v155] > v147 || v158 < v146 || !v149)
                   {
                     goto LABEL_291;
                   }
 
-                  *(a3 + 184) = (v142 - 1);
-                  *(a3 + 192) = v151;
+                  *(a3 + 184) = (v149 - 1);
+                  *(a3 + 192) = v158;
 LABEL_247:
-                  v105 = v173;
+                  v112 = v180;
                   if (*(a1 + 188))
                   {
-                    if (v160)
+                    if (v167)
                     {
                       *(a1 + 4848) = 0;
                     }
 
-                    _RTPTransport_EstimateRTCPXRSummaryJitter(a1, a2, v160, &v182, v119, v120, v121);
+                    _RTPTransport_EstimateRTCPXRSummaryJitter(a1, a2, v167, &v189, v126, v127, v128);
                   }
 
                   goto LABEL_210;
@@ -9262,19 +9384,19 @@ LABEL_247:
                 goto LABEL_276;
               }
 
-              v138 = v130;
-              if (!CMBlockBufferCreateWithBufferReference(*(a1 + 10664), v126, v130, lengthAtOffsetOut - v136, 0, &blockBufferOut))
+              v145 = v137;
+              if (!CMBlockBufferCreateWithBufferReference(*(a1 + 10664), v133, v137, lengthAtOffsetOut - v143, 0, &blockBufferOut))
               {
-                v135 = &v127[v138];
-                v132 = blockBufferOut;
-                v133 = v127;
-                v134 = v128;
+                v142 = &v134[v145];
+                v139 = blockBufferOut;
+                v140 = v134;
+                v141 = v135;
                 goto LABEL_243;
               }
 
               _RTPTransport_ParseMediaPacket_cold_17();
               v9 = 2147549188;
-              if ((v154 & 1) == 0)
+              if ((v161 & 1) == 0)
               {
                 return v9;
               }
@@ -9282,51 +9404,51 @@ LABEL_247:
 LABEL_277:
               if (VRTraceGetErrorLogLevelForModule() >= 7)
               {
-                v149 = VRTraceErrorLogLevelToCSTR();
-                v150 = *MEMORY[0x1E6986650];
+                v156 = VRTraceErrorLogLevelToCSTR();
+                v157 = *MEMORY[0x1E6986650];
                 if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 136315906;
-                  *&buf[4] = v149;
+                  *&buf[4] = v156;
                   *&buf[12] = 2080;
                   *&buf[14] = "RTPUninitialize";
                   *&buf[22] = 1024;
                   *&buf[24] = 636;
-                  LOWORD(v190[0]) = 1024;
-                  *(v190 + 2) = v9;
-                  _os_log_impl(&dword_1DB56E000, v150, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Uninitializing RTP with error %X", buf, 0x22u);
+                  LOWORD(v197[0]) = 1024;
+                  *(v197 + 2) = v9;
+                  _os_log_impl(&dword_1DB56E000, v157, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Uninitializing RTP with error %X", buf, 0x22u);
                 }
               }
 
-              RTPReset(a1, v177);
+              RTPReset(a1, v184);
               return v9;
             }
           }
 
-          if (v185 != 1)
+          if (v192 != 1)
           {
 LABEL_188:
-            v100 = &v171[v168];
-            if (&v171[v168] > &v171[v62])
+            v107 = &v178[v175];
+            if (&v178[v175] > &v178[v68])
             {
               goto LABEL_291;
             }
 
-            if (v100 < v171)
+            if (v107 < v178)
             {
               goto LABEL_291;
             }
 
-            v101 = v184 - v168;
-            if (v184 - v168 < 0 || (v62 - v168) < v101)
+            v108 = v191 - v175;
+            if (v191 - v175 < 0 || (v68 - v175) < v108)
             {
               goto LABEL_291;
             }
 
-            v102 = SRTPDecrypt(a1 + 7528, v13, v100, v101);
-            if ((v102 & 0x80000000) == 0 || (v9 = v102, v102 == -2145255368))
+            v109 = SRTPDecrypt(a1 + 7528, v13, v107, v108);
+            if ((v109 & 0x80000000) == 0 || (v9 = v109, v109 == -2145255368))
             {
-              v62 = v184;
+              v68 = v191;
               if (*(a1 + 7920))
               {
                 _RTPProcessDecryptionStatusChange(a1, 1);
@@ -9348,25 +9470,25 @@ LABEL_188:
             goto LABEL_197;
           }
 
-          v187 = 0;
+          v194 = 0;
           blockBufferOut = 0;
           theArray = 0;
           pthread_mutex_lock((a1 + 7816));
           VCMediaKeyIndex_ReleaseAndCopyNewValue(&blockBufferOut, *(a1 + 7880));
-          VCMediaKeyIndex_ReleaseAndCopyNewValue(&v187, *(a1 + 7888));
+          VCMediaKeyIndex_ReleaseAndCopyNewValue(&v194, *(a1 + 7888));
           pthread_mutex_unlock((a1 + 7816));
-          v76 = *(a1 + 7936);
-          if (v76 <= 4 && ((1 << v76) & 0x1A) != 0)
+          v83 = *(a1 + 7936);
+          if (v83 <= 4 && ((1 << v83) & 0x1A) != 0)
           {
-            if ((VCSecurityKeyHolder_CopyKeyMaterialForKeyIndex(*(a1 + 10632), v187, &theArray) & 0x80000000) != 0)
+            if ((VCSecurityKeyHolder_CopyKeyMaterialForKeyIndex(*(a1 + 10632), v194, &theArray) & 0x80000000) != 0)
             {
-              _RTPTransport_ParseMediaPacket_cold_11(&v187);
+              _RTPTransport_ParseMediaPacket_cold_11(&v194);
             }
 
             else if (theArray)
             {
-              v77 = *(a1 + 10568);
-              if (v77 && (v77(4, *(a1 + 10576), v187, 0) & 0x80000000) != 0)
+              v84 = *(a1 + 10568);
+              if (v84 && (v84(4, *(a1 + 10576), v194, 0) & 0x80000000) != 0)
               {
                 if (VRTraceGetErrorLogLevelForModule() >= 3)
                 {
@@ -9399,37 +9521,37 @@ LABEL_188:
                 else
                 {
                   SRTPUpdateKeyMaterialForRTPInfo(a1, ValueAtIndex);
-                  v81 = v80;
-                  ErrorLogLevelForModule = VRTraceGetErrorLogLevelForModule();
-                  if (!v81)
+                  v88 = v87;
+                  v89 = VRTraceGetErrorLogLevelForModule();
+                  if (!v88)
                   {
-                    if (ErrorLogLevelForModule >= 7)
+                    if (v89 >= 7)
                     {
-                      v83 = VRTraceErrorLogLevelToCSTR();
-                      v84 = *MEMORY[0x1E6986650];
+                      v90 = VRTraceErrorLogLevelToCSTR();
+                      v91 = *MEMORY[0x1E6986650];
                       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
                       {
-                        v85 = VCMediaKeyIndex_Description(v187);
+                        v92 = VCMediaKeyIndex_Description(v194);
                         *buf = 136316162;
-                        *&buf[4] = v83;
+                        *&buf[4] = v90;
                         *&buf[12] = 2080;
                         *&buf[14] = "_RTPTransport_HandleMKIChanged";
                         *&buf[22] = 1024;
                         *&buf[24] = 2700;
-                        LOWORD(v190[0]) = 2048;
-                        *(v190 + 2) = a1;
-                        WORD5(v190[0]) = 2080;
-                        *(v190 + 12) = v85;
-                        _os_log_impl(&dword_1DB56E000, v84, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d rtpInfo=%p: SRTP has been updated with new key material with index=%s", buf, 0x30u);
+                        LOWORD(v197[0]) = 2048;
+                        *(v197 + 2) = a1;
+                        WORD5(v197[0]) = 2080;
+                        *(v197 + 12) = v92;
+                        _os_log_impl(&dword_1DB56E000, v91, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d rtpInfo=%p: SRTP has been updated with new key material with index=%s", buf, 0x30u);
                       }
                     }
 
                     v9 = 0;
-                    v86 = 1;
+                    v93 = 1;
                     goto LABEL_185;
                   }
 
-                  _RTPTransport_ParseMediaPacket_cold_7(ErrorLogLevelForModule);
+                  _RTPTransport_ParseMediaPacket_cold_7(v89);
                 }
               }
 
@@ -9441,36 +9563,36 @@ LABEL_188:
 
             else
             {
-              _RTPTransport_ParseMediaPacket_cold_10(&v187);
+              _RTPTransport_ParseMediaPacket_cold_10(&v194);
             }
           }
 
           v9 = 2149711929;
           if (VRTraceGetErrorLogLevelForModule() >= 7)
           {
-            v176 = VRTraceErrorLogLevelToCSTR();
-            v98 = *MEMORY[0x1E6986650];
+            v183 = VRTraceErrorLogLevelToCSTR();
+            v105 = *MEMORY[0x1E6986650];
             if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
             {
-              v155 = VCMediaKeyIndex_Description(v187);
-              v99 = VCMediaKeyIndex_Description(blockBufferOut);
+              v162 = VCMediaKeyIndex_Description(v194);
+              v106 = VCMediaKeyIndex_Description(blockBufferOut);
               *buf = 136316418;
-              *&buf[4] = v176;
+              *&buf[4] = v183;
               *&buf[12] = 2080;
               *&buf[14] = "_RTPTransport_HandleMKIChanged";
               *&buf[22] = 1024;
               *&buf[24] = 2703;
-              LOWORD(v190[0]) = 2048;
-              *(v190 + 2) = a1;
-              WORD5(v190[0]) = 2080;
-              *(v190 + 12) = v155;
-              WORD2(v190[1]) = 2080;
-              *(&v190[1] + 6) = v99;
-              _os_log_impl(&dword_1DB56E000, v98, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d rtpInfo=%p: SRTP drop packet due to media key index changed [new:%s, old:%s]", buf, 0x3Au);
+              LOWORD(v197[0]) = 2048;
+              *(v197 + 2) = a1;
+              WORD5(v197[0]) = 2080;
+              *(v197 + 12) = v162;
+              WORD2(v197[1]) = 2080;
+              *(&v197[1] + 6) = v106;
+              _os_log_impl(&dword_1DB56E000, v105, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d rtpInfo=%p: SRTP drop packet due to media key index changed [new:%s, old:%s]", buf, 0x3Au);
             }
           }
 
-          v86 = 0;
+          v93 = 0;
 LABEL_185:
           if (theArray)
           {
@@ -9478,8 +9600,8 @@ LABEL_185:
           }
 
           VCMediaKeyIndex_Release(&blockBufferOut);
-          VCMediaKeyIndex_Release(&v187);
-          if ((v86 & 1) == 0)
+          VCMediaKeyIndex_Release(&v194);
+          if ((v93 & 1) == 0)
           {
             goto LABEL_197;
           }
@@ -9487,10 +9609,10 @@ LABEL_185:
           goto LABEL_188;
         }
 
-        v9 = v60;
+        v9 = v66;
         _RTPTransport_ParseMediaPacket_cold_18();
-        v96 = v95;
-        if (!v95)
+        v103 = v102;
+        if (!v102)
         {
 LABEL_175:
           v9 = *buf;
@@ -9498,7 +9620,7 @@ LABEL_175:
         }
 
 LABEL_173:
-        if (v96 != 1)
+        if (v103 != 1)
         {
           return v9;
         }
@@ -9509,12 +9631,12 @@ LABEL_173:
 
     else
     {
-      *v40 = v13;
+      *v46 = v13;
       ++*(a1 + 704);
-      v47 = *(a1 + 10592);
-      if (v47)
+      v53 = *(a1 + 10592);
+      if (v53)
       {
-        ++*(v47 + 56);
+        ++*(v53 + 56);
       }
 
       ++*(a1 + 328);
@@ -9523,15 +9645,15 @@ LABEL_173:
     if (*(a1 + 11284))
     {
 LABEL_62:
-      v45 = 0;
-      v46 = 0;
+      v51 = 0;
+      v52 = 0;
       goto LABEL_63;
     }
 
-    v51 = *(a1 + 692);
-    if (v13 == v51 || (v13 - v51) > 0x7FFEu)
+    v57 = *(a1 + 692);
+    if (v13 == v57 || (v13 - v57) > 0x7FFEu)
     {
-      if ((v51 - v13) < 0x33u)
+      if ((v57 - v13) < 0x33u)
       {
         goto LABEL_62;
       }
@@ -9539,133 +9661,133 @@ LABEL_62:
 
     else
     {
-      v52 = v51 + 0x10000;
-      if (v13 >= v51)
+      v58 = v57 + 0x10000;
+      if (v13 >= v57)
       {
-        v52 = *(a1 + 692);
+        v58 = *(a1 + 692);
       }
 
-      *(a1 + 692) = v52 & 0xFFFF0000 | v13;
-      v53 = (v13 - v51);
-      if (v53 < 2)
+      *(a1 + 692) = v58 & 0xFFFF0000 | v13;
+      v59 = (v13 - v57);
+      if (v59 < 2)
       {
         goto LABEL_62;
       }
 
-      v164 = v42;
-      v167 = v41;
-      v170 = v39;
+      v171 = v48;
+      v174 = v47;
+      v177 = v45;
       if (VRTraceGetErrorLogLevelForModule() >= 8)
       {
-        v157 = VRTraceErrorLogLevelToCSTR();
-        v54 = *MEMORY[0x1E6986650];
-        v55 = *MEMORY[0x1E6986650];
+        v164 = VRTraceErrorLogLevelToCSTR();
+        v60 = *MEMORY[0x1E6986650];
+        v61 = *MEMORY[0x1E6986650];
         if (*MEMORY[0x1E6986640] == 1)
         {
-          if (os_log_type_enabled(v55, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v61, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 136315906;
-            *&buf[4] = v157;
+            *&buf[4] = v164;
             *&buf[12] = 2080;
             *&buf[14] = "_RTPTransport_DetectPacketLoss";
             *&buf[22] = 1024;
             *&buf[24] = 2729;
-            LOWORD(v190[0]) = 1024;
-            *(v190 + 2) = v53 - 1;
-            _os_log_impl(&dword_1DB56E000, v54, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %d packets lost", buf, 0x22u);
+            LOWORD(v197[0]) = 1024;
+            *(v197 + 2) = v59 - 1;
+            _os_log_impl(&dword_1DB56E000, v60, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %d packets lost", buf, 0x22u);
           }
         }
 
-        else if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
+        else if (os_log_type_enabled(v61, OS_LOG_TYPE_DEBUG))
         {
           _RTPTransport_ParseMediaPacket_cold_3();
         }
       }
 
-      v87 = *(a1 + 10544);
-      v88 = v53 - 1;
+      v94 = *(a1 + 10544);
+      v95 = v59 - 1;
       if (*(a1 + 28) == 1)
       {
-        AFRCRecordMaxBurstyLoss(v87, v88);
+        AFRCRecordMaxBurstyLoss(v94, v95);
         *&buf[11] = 0;
         *&buf[4] = 0;
-        memset(v190, 0, sizeof(v190));
-        v191 = 0u;
-        v193 = 0u;
-        v194 = 0u;
-        v195 = 0u;
-        v196 = 0u;
-        v197 = 0u;
+        memset(v197, 0, sizeof(v197));
         v198 = 0u;
-        v199 = 0u;
-        v200 = 0;
-        v89 = *(a1 + 10608);
+        v200 = 0u;
+        v201 = 0u;
+        v202 = 0u;
+        v203 = 0u;
+        v204 = 0u;
+        v205 = 0u;
+        v206 = 0u;
+        v207 = 0;
+        v96 = *(a1 + 10608);
         *buf = 7;
         buf[19] = 1;
-        v90 = 0x200000000;
+        v97 = 0x200000000;
       }
 
       else
       {
-        AFRCRecordMaxAudioConsecutiveLoss(v87, v88);
+        AFRCRecordMaxAudioConsecutiveLoss(v94, v95);
         *&buf[11] = 0;
         *&buf[4] = 0;
-        memset(v190, 0, sizeof(v190));
-        v191 = 0u;
-        v193 = 0u;
-        v194 = 0u;
-        v195 = 0u;
-        v196 = 0u;
-        v197 = 0u;
+        memset(v197, 0, sizeof(v197));
         v198 = 0u;
-        v199 = 0u;
-        v200 = 0;
-        v89 = *(a1 + 10608);
+        v200 = 0u;
+        v201 = 0u;
+        v202 = 0u;
+        v203 = 0u;
+        v204 = 0u;
+        v205 = 0u;
+        v206 = 0u;
+        v207 = 0;
+        v96 = *(a1 + 10608);
         *buf = 7;
         buf[19] = 1;
-        v90 = 0x100000000;
+        v97 = 0x100000000;
       }
 
-      *&buf[20] = v90;
-      v192 = v88;
-      VCRateControlSetStatistics(v89, buf);
-      v41 = v167;
-      v39 = v170;
-      v42 = v164;
-      if ((v13 - v51) <= 0x5DCu)
+      *&buf[20] = v97;
+      v199 = v95;
+      VCRateControlSetStatistics(v96, buf);
+      v47 = v174;
+      v45 = v177;
+      v48 = v171;
+      if ((v13 - v57) <= 0x5DCu)
       {
         goto LABEL_62;
       }
     }
 
-    v166 = v42;
-    v169 = v41;
-    v172 = v39;
+    v173 = v48;
+    v176 = v47;
+    v179 = v45;
     if (VRTraceGetErrorLogLevelForModule() >= 5)
     {
-      v91 = VRTraceErrorLogLevelToCSTR();
-      v92 = *MEMORY[0x1E6986650];
+      v98 = VRTraceErrorLogLevelToCSTR();
+      v99 = *MEMORY[0x1E6986650];
       if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136316162;
-        *&buf[4] = v91;
+        *&buf[4] = v98;
         *&buf[12] = 2080;
         *&buf[14] = "_RTPTransport_DetectPacketLoss";
         *&buf[22] = 1024;
         *&buf[24] = 2763;
-        LOWORD(v190[0]) = 1024;
-        *(v190 + 2) = v51;
-        WORD3(v190[0]) = 1024;
-        DWORD2(v190[0]) = v13;
-        _os_log_impl(&dword_1DB56E000, v92, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Big jump in sequence Number! LastSeq:%d CurrentSeq:%d", buf, 0x28u);
+        LOWORD(v197[0]) = 1024;
+        *(v197 + 2) = v57;
+        WORD3(v197[0]) = 1024;
+        DWORD2(v197[0]) = v13;
+        _os_log_impl(&dword_1DB56E000, v99, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d Big jump in sequence Number! LastSeq:%d CurrentSeq:%d", buf, 0x28u);
       }
     }
 
-    v45 = 0;
-    v46 = 0;
-    v41 = v169;
-    v39 = v172;
-    v42 = v166;
+    v51 = 0;
+    v52 = 0;
+    v47 = v176;
+    v45 = v179;
+    v48 = v173;
     goto LABEL_63;
   }
 
@@ -9681,91 +9803,4 @@ LABEL_62:
   }
 
   return v9;
-}
-
-unint64_t _RTPTransport_PacketExtensionLength(unint64_t result, unint64_t a2, _WORD *a3, uint64_t *a4)
-{
-  if (a4)
-  {
-    *a4 = 0;
-    if ((*a3 & 0x10) != 0)
-    {
-      v5 = 4 * (*a3 & 0xFLL) + 12;
-      if (v5 >= a2)
-      {
-        v4 = 2147549191;
-        if (VRTraceGetErrorLogLevelForModule() >= 3)
-        {
-          VRTraceErrorLogLevelToCSTR();
-          if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
-          {
-            _RTPTransport_PacketExtensionLength_cold_1();
-          }
-        }
-      }
-
-      else if (4 * (*a3 & 0xFuLL) + 16 <= a2)
-      {
-        v6 = (result + v5 + 2);
-        if (v6 >= result + a2 || v6 < result)
-        {
-          __break(0x5519u);
-          return result;
-        }
-
-        v8 = 4 * (bswap32(*v6) >> 16) + 4;
-        if (v8 + v5 <= a2)
-        {
-          v4 = 0;
-          *a4 = v8;
-        }
-
-        else
-        {
-          v4 = 2147549191;
-          if (VRTraceGetErrorLogLevelForModule() >= 3)
-          {
-            VRTraceErrorLogLevelToCSTR();
-            if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
-            {
-              _RTPTransport_PacketExtensionLength_cold_2();
-            }
-          }
-        }
-      }
-
-      else
-      {
-        v4 = 2147549191;
-        if (VRTraceGetErrorLogLevelForModule() >= 3)
-        {
-          VRTraceErrorLogLevelToCSTR();
-          if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
-          {
-            _RTPTransport_PacketExtensionLength_cold_3();
-          }
-        }
-      }
-    }
-
-    else
-    {
-      return 0;
-    }
-  }
-
-  else
-  {
-    v4 = 2147549188;
-    if (VRTraceGetErrorLogLevelForModule() >= 3)
-    {
-      VRTraceErrorLogLevelToCSTR();
-      if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
-      {
-        _RTPTransport_PacketExtensionLength_cold_4();
-      }
-    }
-  }
-
-  return v4;
 }

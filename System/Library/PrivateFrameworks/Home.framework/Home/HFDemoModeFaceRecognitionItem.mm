@@ -64,8 +64,8 @@ uint64_t __46__HFDemoModeFaceRecognitionItem_dateFormatter__block_invoke()
 {
   v4 = [HFDemoModeFaceRecognitionItem alloc];
   demoRecentsEntry = [(HFDemoModeFaceRecognitionItem *)self demoRecentsEntry];
-  home = [(HFDemoModeFaceRecognitionItem *)self home];
-  v7 = [(HFDemoModeFaceRecognitionItem *)v4 initWithRecentsData:demoRecentsEntry home:home];
+  v6 = objc_msgSend_home(self);
+  v7 = [(HFDemoModeFaceRecognitionItem *)v4 initWithRecentsData:demoRecentsEntry home:v6];
 
   [(HFItem *)v7 copyLatestResultsFromItem:self];
   return v7;
@@ -82,8 +82,8 @@ uint64_t __46__HFDemoModeFaceRecognitionItem_dateFormatter__block_invoke()
 - (HMPersonManager)personManager
 {
   NSLog(&cfstr_DemoModeShould.isa, a2);
-  home = [(HFDemoModeFaceRecognitionItem *)self home];
-  personManager = [home personManager];
+  v3 = objc_msgSend_home(self);
+  personManager = [v3 personManager];
 
   return personManager;
 }

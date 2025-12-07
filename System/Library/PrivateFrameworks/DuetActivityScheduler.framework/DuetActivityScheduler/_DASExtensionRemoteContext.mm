@@ -94,7 +94,7 @@
 
 - (id)createExtensionRunnerWithClassName:(id)name
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   if (!nameCopy)
   {
@@ -117,9 +117,9 @@
         v10 = [(_DASExtensionRemoteContext *)self log];
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
-          v13 = 138543362;
-          v14 = v8;
-          _os_log_impl(&dword_1B6E2F000, v10, OS_LOG_TYPE_INFO, "Created _DASExtensionRunner of class %{public}@", &v13, 0xCu);
+          v12 = 138543362;
+          v13 = v8;
+          _os_log_impl(&dword_1B6E2F000, v10, OS_LOG_TYPE_INFO, "Created _DASExtensionRunner of class %{public}@", &v12, 0xCu);
         }
 
         goto LABEL_15;
@@ -155,14 +155,13 @@
 LABEL_15:
 
 LABEL_16:
-  v11 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
 
 - (void)performActivity:(id)activity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
   infoDictionary = [mainBundle infoDictionary];
@@ -174,9 +173,9 @@ LABEL_16:
   {
     name = [activityCopy name];
     *buf = 138412546;
-    v20 = name;
-    v21 = 2112;
-    v22 = v8;
+    v19 = name;
+    v20 = 2112;
+    v21 = v8;
     _os_log_impl(&dword_1B6E2F000, v9, OS_LOG_TYPE_DEFAULT, "Remote extension performing activity %@ with runner %@.", buf, 0x16u);
   }
 
@@ -188,13 +187,11 @@ LABEL_16:
   block[2] = __46___DASExtensionRemoteContext_performActivity___block_invoke;
   block[3] = &unk_1E7C8F9E8;
   block[4] = self;
-  v17 = v8;
-  v18 = activityCopy;
+  v16 = v8;
+  v17 = activityCopy;
   v13 = activityCopy;
   v14 = v8;
   dispatch_async(v12, block);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)suspend
@@ -212,26 +209,23 @@ LABEL_16:
 
 - (void)createExtensionRunnerWithClassName:.cold.1()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_4(&dword_1B6E2F000, v0, v1, "Info.plist key %{public}@ has value %{public}@, which is not an allowed extension runner class.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_4(&dword_1B6E2F000, v0, v1, "Info.plist key %{public}@ has value %{public}@, which is not an allowed extension runner class.", v2, v3, v4, v5, v6);
 }
 
 - (void)createExtensionRunnerWithClassName:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_4(&dword_1B6E2F000, v0, v1, "Info.plist key %{public}@ has value %{public}@, but that class doesn't conform to the MLBackgroundDataSource protocol", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_4(&dword_1B6E2F000, v0, v1, "Info.plist key %{public}@ has value %{public}@, but that class doesn't conform to the MLBackgroundDataSource protocol", v2, v3, v4, v5, v6);
 }
 
 - (void)createExtensionRunnerWithClassName:.cold.3()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 138543618;
   OUTLINED_FUNCTION_0_3();
-  OUTLINED_FUNCTION_1_4(&dword_1B6E2F000, v0, v1, "Info.plist key %{public}@ has value %{public}@, but no class with that name was found.", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_4(&dword_1B6E2F000, v0, v1, "Info.plist key %{public}@ has value %{public}@, but no class with that name was found.", v2, v3, v4, v5, v6);
 }
 
 @end

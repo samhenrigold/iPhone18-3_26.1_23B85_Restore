@@ -608,15 +608,15 @@ LABEL_7:
   v5 = 1;
   do
   {
-    v6 = begin + 32 * v4;
+    v6 = (begin + 32 * v4);
     v9 = *v6;
     memset(v10, 0, sizeof(v10));
-    sub_100005ADC(v10, *(v6 + 1), *(v6 + 2), (*(v6 + 2) - *(v6 + 1)) >> 3);
+    sub_100005ADC(v10, v6[1], v6[2], v6[2] - v6[1]);
     v7 = sub_100003184(&v9);
     v11 = v10;
     sub_100005B98(&v11);
 
-    if ((v7 & 1) == 0)
+    if (!v7)
     {
       break;
     }
@@ -666,16 +666,16 @@ LABEL_7:
   v59 = v60;
   LODWORD(v52) = 1;
   v55 = &v52;
-  *(sub_1000018CC(&v59, &v52) + 8) = 0;
+  *(sub_1000018CC(&v59, &v52, &unk_100017320, &v55) + 8) = 0;
   LODWORD(v52) = 2;
   v55 = &v52;
-  *(sub_1000018CC(&v59, &v52) + 8) = 0;
+  *(sub_1000018CC(&v59, &v52, &unk_100017320, &v55) + 8) = 0;
   LODWORD(v52) = -1;
   v55 = &v52;
-  *(sub_1000018CC(&v59, &v52) + 8) = 0;
+  *(sub_1000018CC(&v59, &v52, &unk_100017320, &v55) + 8) = 0;
   LODWORD(v52) = 100;
   v55 = &v52;
-  *(sub_1000018CC(&v59, &v52) + 8) = 0;
+  *(sub_1000018CC(&v59, &v52, &unk_100017320, &v55) + 8) = 0;
   v47 = [[NSMutableDictionary alloc] initWithCapacity:50];
   begin = self->m_validationStatusesList.__begin_;
   if (self->m_validationStatusesList.__end_ != begin)
@@ -685,13 +685,13 @@ LABEL_7:
     v43 = 0;
     while (1)
     {
-      v8 = begin + 32 * v6;
+      v8 = (begin + 32 * v6);
       v55 = *v8;
       v57 = 0;
       v58 = 0;
       v56 = 0;
-      sub_100005ADC(&v56, *(v8 + 1), *(v8 + 2), (*(v8 + 2) - *(v8 + 1)) >> 3);
-      if ((sub_100003184(&v55) & 1) == 0)
+      sub_100005ADC(&v56, v8[1], v8[2], v8[2] - v8[1]);
+      if (!sub_100003184(&v55))
       {
         break;
       }
@@ -713,7 +713,7 @@ LABEL_7:
     v52 = 0;
     v53 = 0;
     v54 = 0;
-    sub_100005ADC(&v52, v56, v57, (v57 - v56) >> 3);
+    sub_100005ADC(&v52, v56, v57, v57 - v56);
     v10 = v9;
     v11 = v53 - v52;
     v62 = &v52;
@@ -727,7 +727,7 @@ LABEL_7:
     v52 = 0;
     v53 = 0;
     v54 = 0;
-    sub_100005ADC(&v52, v56, v57, (v57 - v56) >> 3);
+    sub_100005ADC(&v52, v56, v57, v57 - v56);
     v12 = v52[v10];
     allKeys = [v12 allKeys];
     v50 = 0u;
@@ -766,7 +766,7 @@ LABEL_10:
         {
           LODWORD(v62) = 1;
           v61 = &v62;
-          v24 = sub_1000018CC(&v59, &v62);
+          v24 = sub_1000018CC(&v59, &v62, &unk_100017320, &v61);
           ++*(v24 + 8);
           v25 = 1;
           goto LABEL_16;
@@ -776,7 +776,7 @@ LABEL_10:
         {
           LODWORD(v62) = -1;
           v61 = &v62;
-          v31 = sub_1000018CC(&v59, &v62);
+          v31 = sub_1000018CC(&v59, &v62, &unk_100017320, &v61);
           ++*(v31 + 8);
           v25 = 0xFFFFFFFFLL;
           goto LABEL_16;
@@ -787,7 +787,7 @@ LABEL_10:
       {
         LODWORD(v62) = 2;
         v61 = &v62;
-        v32 = sub_1000018CC(&v59, &v62);
+        v32 = sub_1000018CC(&v59, &v62, &unk_100017320, &v61);
         ++*(v32 + 8);
         v25 = 2;
       }
@@ -796,7 +796,7 @@ LABEL_10:
       {
         LODWORD(v62) = 100;
         v61 = &v62;
-        v33 = sub_1000018CC(&v59, &v62);
+        v33 = sub_1000018CC(&v59, &v62, &unk_100017320, &v61);
         ++*(v33 + 8);
         if (!v23)
         {
@@ -842,15 +842,15 @@ LABEL_26:
 LABEL_27:
   LODWORD(v52) = 2;
   v55 = &v52;
-  if (*(sub_1000018CC(&v59, &v52) + 8) <= 0)
+  if (*(sub_1000018CC(&v59, &v52, &unk_100017320, &v55) + 8) <= 0)
   {
     LODWORD(v52) = 1;
     v55 = &v52;
-    if (*(sub_1000018CC(&v59, &v52) + 8) <= 0)
+    if (*(sub_1000018CC(&v59, &v52, &unk_100017320, &v55) + 8) <= 0)
     {
       LODWORD(v52) = -1;
       v55 = &v52;
-      if (*(sub_1000018CC(&v59, &v52) + 8) <= 0)
+      if (*(sub_1000018CC(&v59, &v52, &unk_100017320, &v55) + 8) <= 0)
       {
         v35 = &off_100023E38;
       }

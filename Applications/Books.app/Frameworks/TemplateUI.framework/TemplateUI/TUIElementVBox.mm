@@ -26,7 +26,7 @@
   builderCopy = builder;
   var0 = node.var0;
   v13 = [attributesCopy stringForAttribute:221 node:node.var0];
-  if ([v13 isEqualToString:@"baseline"])
+  if (objc_msgSend_isEqualToString_(v13))
   {
     [builderCopy setPivotChild:boxCopy];
   }

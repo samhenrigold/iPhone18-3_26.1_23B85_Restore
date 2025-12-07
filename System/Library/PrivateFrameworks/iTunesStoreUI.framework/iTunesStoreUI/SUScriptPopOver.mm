@@ -172,7 +172,7 @@ LABEL_3:
   [v9 throwException:@"Invalid argument"];
 }
 
-uint64_t __51__SUScriptPopOver_setContentWidth_height_animated___block_invoke(uint64_t a1)
+void *__51__SUScriptPopOver_setContentWidth_height_animated___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _shouldDisplayAsPopover];
   if (result)
@@ -212,16 +212,22 @@ uint64_t __35__SUScriptPopOver_showFromElement___block_invoke(uint64_t a1)
     v3 = [v2 shouldLog];
     if ([v2 shouldLogToDisk])
     {
-      v4 = v3 | 2;
+      LODWORD(v4) = v3 | 2;
     }
 
     else
     {
-      v4 = v3;
+      LODWORD(v4) = v3;
     }
 
-    result = os_log_type_enabled([v2 OSLogObject], OS_LOG_TYPE_INFO);
-    if (!result)
+    v5 = [v2 OSLogObject];
+    result = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+    if (result)
+    {
+      v4 = v4;
+    }
+
+    else
     {
       v4 &= 2u;
     }
@@ -230,13 +236,12 @@ uint64_t __35__SUScriptPopOver_showFromElement___block_invoke(uint64_t a1)
     {
       v24 = 138412290;
       v25 = objc_opt_class();
-      LODWORD(v22) = 12;
-      result = _os_log_send_and_compose_impl();
+      result = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1C21AF000, v5, 1, "%@: Ignoring showFromElement because already displayed", &v24, 12);
       if (result)
       {
-        v6 = result;
-        [MEMORY[0x1E696AEC0] stringWithCString:result encoding:{4, &v24, v22}];
-        free(v6);
+        v7 = result;
+        [MEMORY[0x1E696AEC0] stringWithCString:result encoding:4];
+        free(v7);
         return SSFileLog();
       }
     }
@@ -244,38 +249,38 @@ uint64_t __35__SUScriptPopOver_showFromElement___block_invoke(uint64_t a1)
 
   else
   {
-    v7 = [*(a1 + 32) _shouldDisplayAsPopover];
-    v8 = *(a1 + 32);
-    if (v7)
+    v8 = [*(a1 + 32) _shouldDisplayAsPopover];
+    v9 = *(a1 + 32);
+    if (v8)
     {
-      v9 = [v8 DOMElementWithElement:*(a1 + 40)];
-      v10 = [*(a1 + 32) nativeObject];
-      [v10 setSourceButtonItem:0];
-      [v10 setSourceDOMElement:v9];
-      v11 = objc_alloc_init(SUScrollViewScroller);
-      v12 = [v9 webView];
-      v13 = [v12 scrollView];
-      [v9 frame];
-      [v13 convertRect:0 fromView:?];
-      v15 = v14;
-      v17 = v16;
-      v19 = v18;
-      v21 = v20;
-      [(SUScrollViewScroller *)v11 attachToScrollView:v13];
+      v10 = [v9 DOMElementWithElement:*(a1 + 40)];
+      v11 = [*(a1 + 32) nativeObject];
+      [v11 setSourceButtonItem:0];
+      [v11 setSourceDOMElement:v10];
+      v12 = objc_alloc_init(SUScrollViewScroller);
+      v13 = [v10 webView];
+      v14 = [v13 scrollView];
+      [v10 frame];
+      [v14 convertRect:0 fromView:?];
+      v16 = v15;
+      v18 = v17;
+      v20 = v19;
+      v22 = v21;
+      [(SUScrollViewScroller *)v12 attachToScrollView:v14];
       v23[0] = MEMORY[0x1E69E9820];
       v23[1] = 3221225472;
       v23[2] = __35__SUScriptPopOver_showFromElement___block_invoke_29;
       v23[3] = &unk_1E8165198;
-      v23[4] = v12;
-      v23[5] = v9;
+      v23[4] = v13;
+      v23[5] = v10;
       v23[6] = *(a1 + 32);
-      v23[7] = v11;
-      [(SUScrollViewScroller *)v11 scrollFrameToVisible:1 animated:v23 completionBlock:v15, v17, v19, v21];
+      v23[7] = v12;
+      [(SUScrollViewScroller *)v12 scrollFrameToVisible:1 animated:v23 completionBlock:v16, v18, v20, v22];
     }
 
     else
     {
-      [v8 _showAsModalViewController];
+      [v9 _showAsModalViewController];
     }
 
     [*(a1 + 32) setVisible:1];
@@ -320,16 +325,22 @@ uint64_t __42__SUScriptPopOver_showFromNavigationItem___block_invoke(uint64_t a1
     v3 = [v2 shouldLog];
     if ([v2 shouldLogToDisk])
     {
-      v4 = v3 | 2;
+      LODWORD(v4) = v3 | 2;
     }
 
     else
     {
-      v4 = v3;
+      LODWORD(v4) = v3;
     }
 
-    result = os_log_type_enabled([v2 OSLogObject], OS_LOG_TYPE_INFO);
-    if (!result)
+    v5 = [v2 OSLogObject];
+    result = os_log_type_enabled(v5, OS_LOG_TYPE_INFO);
+    if (result)
+    {
+      v4 = v4;
+    }
+
+    else
     {
       v4 &= 2u;
     }
@@ -338,13 +349,12 @@ uint64_t __42__SUScriptPopOver_showFromNavigationItem___block_invoke(uint64_t a1
     {
       v11 = 138412290;
       v12 = objc_opt_class();
-      LODWORD(v10) = 12;
-      result = _os_log_send_and_compose_impl();
+      result = _os_log_send_and_compose_impl(v4, 0, 0, 0, &dword_1C21AF000, v5, 1, "%@: Ignoring showFromNavigationItem because already displayed", &v11, 12);
       if (result)
       {
-        v6 = result;
-        [MEMORY[0x1E696AEC0] stringWithCString:result encoding:{4, &v11, v10}];
-        free(v6);
+        v7 = result;
+        [MEMORY[0x1E696AEC0] stringWithCString:result encoding:4];
+        free(v7);
         return SSFileLog();
       }
     }
@@ -357,11 +367,11 @@ uint64_t __42__SUScriptPopOver_showFromNavigationItem___block_invoke(uint64_t a1
     {
       if ([*(a1 + 32) _shouldDisplayAsPopover])
       {
-        v7 = [*(a1 + 40) buttonItem];
+        v8 = [*(a1 + 40) buttonItem];
         [objc_msgSend(*(a1 + 32) "_presentablePopoverController")];
-        v8 = [*(a1 + 32) nativeObject];
-        [v8 setSourceButtonItem:v7];
-        [v8 setSourceDOMElement:0];
+        v9 = [*(a1 + 32) nativeObject];
+        [v9 setSourceButtonItem:v8];
+        [v9 setSourceDOMElement:0];
       }
 
       else
@@ -370,9 +380,9 @@ uint64_t __42__SUScriptPopOver_showFromNavigationItem___block_invoke(uint64_t a1
       }
 
       [*(a1 + 32) setVisible:1];
-      v9 = *(a1 + 32);
+      v10 = *(a1 + 32);
 
-      return [v9 dispatchEvent:0 forName:@"show"];
+      return [v10 dispatchEvent:0 forName:@"show"];
     }
   }
 
@@ -391,7 +401,7 @@ uint64_t __42__SUScriptPopOver_showFromNavigationItem___block_invoke(uint64_t a1
   return v2;
 }
 
-uint64_t __34__SUScriptPopOver_backgroundStyle__block_invoke(uint64_t a1)
+void *__34__SUScriptPopOver_backgroundStyle__block_invoke(uint64_t a1)
 {
   result = [objc_msgSend(*(a1 + 32) "_popOverController")];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -410,7 +420,7 @@ uint64_t __34__SUScriptPopOver_backgroundStyle__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __32__SUScriptPopOver_contentHeight__block_invoke(uint64_t a1)
+void *__32__SUScriptPopOver_contentHeight__block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) _shouldDisplayAsPopover])
   {
@@ -439,7 +449,7 @@ uint64_t __32__SUScriptPopOver_contentHeight__block_invoke(uint64_t a1)
   return v2;
 }
 
-uint64_t __31__SUScriptPopOver_contentWidth__block_invoke(uint64_t a1)
+void *__31__SUScriptPopOver_contentWidth__block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) _shouldDisplayAsPopover])
   {
@@ -482,7 +492,7 @@ uint64_t __31__SUScriptPopOver_contentWidth__block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __43__SUScriptPopOver_presentingViewController__block_invoke(uint64_t a1)
+void *__43__SUScriptPopOver_presentingViewController__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _popOverController];
   if (v2)
@@ -508,7 +518,7 @@ uint64_t __38__SUScriptPopOver_setBackgroundStyle___block_invoke(uint64_t a1)
   return [v2 _setPopoverBackgroundStyle:v3];
 }
 
-uint64_t __36__SUScriptPopOver_setContentHeight___block_invoke(uint64_t a1)
+void *__36__SUScriptPopOver_setContentHeight___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _shouldDisplayAsPopover];
   if (result)
@@ -522,7 +532,7 @@ uint64_t __36__SUScriptPopOver_setContentHeight___block_invoke(uint64_t a1)
   return result;
 }
 
-uint64_t __35__SUScriptPopOver_setContentWidth___block_invoke(uint64_t a1)
+void *__35__SUScriptPopOver_setContentWidth___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _shouldDisplayAsPopover];
   if (result)
@@ -552,7 +562,7 @@ uint64_t __35__SUScriptPopOver_setContentWidth___block_invoke(uint64_t a1)
   }
 }
 
-uint64_t __37__SUScriptPopOver_setViewController___block_invoke(uint64_t a1)
+void *__37__SUScriptPopOver_setViewController___block_invoke(uint64_t a1)
 {
   if ([*(a1 + 32) _shouldDisplayAsPopover])
   {
@@ -616,7 +626,7 @@ uint64_t __37__SUScriptPopOver_setViewController___block_invoke(uint64_t a1)
   return v5;
 }
 
-uint64_t __33__SUScriptPopOver_viewController__block_invoke(uint64_t a1)
+void *__33__SUScriptPopOver_viewController__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) _shouldDisplayAsPopover];
   v3 = *(a1 + 32);

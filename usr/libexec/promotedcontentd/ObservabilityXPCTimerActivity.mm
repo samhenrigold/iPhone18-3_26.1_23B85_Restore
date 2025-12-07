@@ -6,7 +6,7 @@
 
 - (_TtC16promotedcontentd29ObservabilityXPCTimerActivity)init
 {
-  v2 = [objc_allocWithZone(type metadata accessor for ObservabilityXPCTimerActivityDelegate()) init];
+  v2 = [objc_allocWithZone(type metadata accessor for ObservabilityXPCTimerActivityDelegate(0)) init];
   v3 = [objc_allocWithZone(APXPCActivity) initWithDelegate:v2];
   v4 = type metadata accessor for ObservabilityXPCTimerActivity();
   v5 = objc_allocWithZone(v4);

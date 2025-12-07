@@ -1,6 +1,7 @@
 @interface HMDMatterBulletinBoardNotification
 + (id)logCategory;
 - (HMDMatterAccessoryProtocol)accessory;
+- (HMDMatterBulletinBoardNotification)initWithAccessory:(id)accessory endpointID:(id)d enabled:(BOOL)enabled condition:(id)condition;
 - (HMDMatterBulletinBoardNotification)initWithCoder:(id)coder;
 - (id)attributeDescriptions;
 - (id)dumpStateWithPrivacyLevel:(unint64_t)level;
@@ -8,6 +9,7 @@
 - (id)logIdentifier;
 - (void)_handleBulletinBoardNotificationCommitRequest:(id)request;
 - (void)_updateAccessoryBulletinNotificationManagerWithEnabled:(BOOL)enabled condition:(id)condition completion:(id)completion;
+- (void)_updateLocalSettingsWithEnabled:(BOOL)enabled condition:(id)condition forMessage:(id)message;
 - (void)configureWithWorkQueue:(id)queue messageDispatcher:(id)dispatcher;
 - (void)dealloc;
 - (void)encodeWithCoder:(id)coder;
@@ -41,15 +43,15 @@
 
 - (HMDMatterBulletinBoardNotification)initWithCoder:(id)coder
 {
-  v22[2] = *MEMORY[0x277D85DE8];
+  v21[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [(HMDBulletinBoardNotification *)self init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v22[0] = objc_opt_class();
-    v22[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
+    v21[0] = objc_opt_class();
+    v21[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"accessory"];
 
@@ -72,34 +74,31 @@
 
     [(HMDBulletinBoardNotification *)v5 setEnabled:v14];
     v15 = MEMORY[0x277CBEB98];
-    v21[0] = objc_opt_class();
-    v21[1] = objc_opt_class();
-    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+    v20[0] = objc_opt_class();
+    v20[1] = objc_opt_class();
+    v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
     v17 = [v15 setWithArray:v16];
 
     v18 = [coderCopy decodeObjectOfClasses:v17 forKey:*MEMORY[0x277CD20D8]];
     [(HMDBulletinBoardNotification *)v5 setCondition:v18];
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 - (id)attributeDescriptions
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   v4 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMDBulletinBoardNotification isEnabled](self, "isEnabled")}];
   v5 = [v3 initWithName:@"Enabled" value:v4];
-  v13[0] = v5;
+  v12[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   condition = [(HMDBulletinBoardNotification *)self condition];
   predicateFormat = [condition predicateFormat];
   v9 = [v6 initWithName:@"Condition" value:predicateFormat];
-  v13[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
 
   return v10;
 }
@@ -120,7 +119,7 @@
 - (void)_updateAccessoryBulletinNotificationManagerWithEnabled:(BOOL)enabled condition:(id)condition completion:(id)completion
 {
   enabledCopy = enabled;
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   conditionCopy = condition;
   completionCopy = completion;
   home = [(HMDMatterBulletinBoardNotification *)self home];
@@ -136,20 +135,20 @@
     aBlock[1] = 3221225472;
     aBlock[2] = __114__HMDMatterBulletinBoardNotification__updateAccessoryBulletinNotificationManagerWithEnabled_condition_completion___block_invoke;
     aBlock[3] = &unk_278684F98;
-    v45 = enabledCopy;
+    v44 = enabledCopy;
     aBlock[4] = self;
-    v39 = conditionCopy;
-    v34 = completionCopy;
+    v38 = conditionCopy;
+    v33 = completionCopy;
     v16 = completionCopy;
-    v44 = v16;
+    v43 = v16;
     v17 = accessoryBulletinNotificationManager;
-    v40 = v17;
+    v39 = v17;
     v18 = accessory;
-    v41 = v18;
+    v40 = v18;
     v19 = endpointID;
-    v42 = v19;
+    v41 = v19;
     v20 = v15;
-    v43 = v20;
+    v42 = v20;
     v21 = _Block_copy(aBlock);
     if ([v14 count])
     {
@@ -164,7 +163,7 @@
         v23 = 0;
       }
 
-      v33 = accessoryBulletinNotificationManager;
+      v32 = accessoryBulletinNotificationManager;
       v24 = v19;
       v25 = conditionCopy;
       if (v22)
@@ -177,17 +176,17 @@
         v26 = 0;
       }
 
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __114__HMDMatterBulletinBoardNotification__updateAccessoryBulletinNotificationManagerWithEnabled_condition_completion___block_invoke_2;
-      v35[3] = &unk_278687AE8;
-      v36 = v16;
-      v37 = v21;
+      v34[0] = MEMORY[0x277D85DD0];
+      v34[1] = 3221225472;
+      v34[2] = __114__HMDMatterBulletinBoardNotification__updateAccessoryBulletinNotificationManagerWithEnabled_condition_completion___block_invoke_2;
+      v34[3] = &unk_278687AE8;
+      v35 = v16;
+      v36 = v21;
       v27 = v26;
       conditionCopy = v25;
       v19 = v24;
-      accessoryBulletinNotificationManager = v33;
-      [v17 updateRegistrationsWithEnabledMatterPaths:v23 disabledMatterPaths:v27 conditions:v20 completion:v35];
+      accessoryBulletinNotificationManager = v32;
+      [v17 updateRegistrationsWithEnabledMatterPaths:v23 disabledMatterPaths:v27 conditions:v20 completion:v34];
     }
 
     else
@@ -195,7 +194,7 @@
       v21[2](v21);
     }
 
-    completionCopy = v34;
+    completionCopy = v33;
   }
 
   else
@@ -207,7 +206,7 @@
     {
       v31 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v47 = v31;
+      v46 = v31;
       _os_log_impl(&dword_229538000, v30, OS_LOG_TYPE_ERROR, "%{public}@Accessory Bulletin Notification Manager is nil", buf, 0xCu);
     }
 
@@ -215,8 +214,6 @@
     v18 = [MEMORY[0x277CCA9B8] hmErrorWithCode:-1];
     (*(completionCopy + 2))(completionCopy, v18);
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __114__HMDMatterBulletinBoardNotification__updateAccessoryBulletinNotificationManagerWithEnabled_condition_completion___block_invoke(uint64_t a1)
@@ -278,7 +275,7 @@ uint64_t __114__HMDMatterBulletinBoardNotification__updateAccessoryBulletinNotif
 
 void __57__HMDMatterBulletinBoardNotification_updateRegistrations__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -286,15 +283,14 @@ void __57__HMDMatterBulletinBoardNotification_updateRegistrations__block_invoke(
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Updating bulletin notification manager from updateRegistrations finished with error: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Updating bulletin notification manager from updateRegistrations finished with error: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)dumpStateWithPrivacyLevel:(unint64_t)level
@@ -311,9 +307,43 @@ void __57__HMDMatterBulletinBoardNotification_updateRegistrations__block_invoke(
   return dictionary;
 }
 
+- (void)_updateLocalSettingsWithEnabled:(BOOL)enabled condition:(id)condition forMessage:(id)message
+{
+  enabledCopy = enabled;
+  v24[2] = *MEMORY[0x277D85DE8];
+  messageCopy = message;
+  v23[0] = *MEMORY[0x277CD20E0];
+  v9 = MEMORY[0x277CCABB0];
+  conditionCopy = condition;
+  v11 = [v9 numberWithBool:enabledCopy];
+  v24[0] = v11;
+  v23[1] = *MEMORY[0x277CD20D8];
+  v12 = encodeRootObject();
+
+  v24[1] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:2];
+
+  v14 = objc_alloc(MEMORY[0x277D0F820]);
+  messageTargetUUID = [(HMDMatterBulletinBoardNotification *)self messageTargetUUID];
+  v16 = [v14 initWithTarget:messageTargetUUID];
+
+  v17 = [objc_alloc(MEMORY[0x277D0F848]) initWithName:@"kBulletinBoardNotificationUpdateNotificationKey" destination:v16 payload:v13];
+  identifier = [messageCopy identifier];
+  [v17 setIdentifier:identifier];
+
+  msgDispatcher = [(HMDMatterBulletinBoardNotification *)self msgDispatcher];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __91__HMDMatterBulletinBoardNotification__updateLocalSettingsWithEnabled_condition_forMessage___block_invoke;
+  v21[3] = &unk_27868A250;
+  v22 = messageCopy;
+  v20 = messageCopy;
+  [msgDispatcher sendMessage:v17 completionHandler:v21];
+}
+
 - (void)_handleBulletinBoardNotificationCommitRequest:(id)request
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   home = [(HMDMatterBulletinBoardNotification *)self home];
 
@@ -326,7 +356,7 @@ void __57__HMDMatterBulletinBoardNotification_updateRegistrations__block_invoke(
     {
       v26 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v26;
+      v44 = v26;
       _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Ignoring message to disconnected object", buf, 0xCu);
     }
 
@@ -348,7 +378,7 @@ void __57__HMDMatterBulletinBoardNotification_updateRegistrations__block_invoke(
     {
       v32 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v45 = v32;
+      v44 = v32;
       _os_log_impl(&dword_229538000, v31, OS_LOG_TYPE_ERROR, "%{public}@Bulletin board notification cannot be modified when bulletin notifications are not supported.", buf, 0xCu);
     }
 
@@ -372,19 +402,19 @@ LABEL_18:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
       HMFGetLogIdentifier();
-      v14 = v39 = v11;
+      v14 = v38 = v11;
       [(HMDBulletinBoardNotification *)selfCopy3 isEnabled];
       v15 = HMFBooleanToString();
       v16 = HMFBooleanToString();
       *buf = 138543874;
-      v45 = v14;
-      v46 = 2112;
-      v47 = v15;
-      v48 = 2112;
-      v49 = v16;
+      v44 = v14;
+      v45 = 2112;
+      v46 = v15;
+      v47 = 2112;
+      v48 = v16;
       _os_log_impl(&dword_229538000, v13, OS_LOG_TYPE_INFO, "%{public}@Updating bulletin board notification enabled from %@ to %@", buf, 0x20u);
 
-      v11 = v39;
+      v11 = v38;
     }
 
     objc_autoreleasePoolPop(v11);
@@ -403,11 +433,11 @@ LABEL_18:
       v36 = HMFGetLogIdentifier();
       condition2 = [(HMDBulletinBoardNotification *)selfCopy4 condition];
       *buf = 138543874;
-      v45 = v36;
-      v46 = 2112;
-      v47 = condition2;
-      v48 = 2112;
-      v49 = v9;
+      v44 = v36;
+      v45 = 2112;
+      v46 = condition2;
+      v47 = 2112;
+      v48 = v9;
       _os_log_impl(&dword_229538000, v35, OS_LOG_TYPE_INFO, "%{public}@Updating bulletin board notification condition from %@ to %@", buf, 0x20u);
     }
 
@@ -418,16 +448,16 @@ LABEL_18:
   if (v10)
   {
 LABEL_22:
-    v40[0] = MEMORY[0x277D85DD0];
-    v40[1] = 3221225472;
-    v40[2] = __84__HMDMatterBulletinBoardNotification__handleBulletinBoardNotificationCommitRequest___block_invoke;
-    v40[3] = &unk_278684F70;
-    v40[4] = self;
-    v41 = requestCopy;
-    v43 = v8;
+    v39[0] = MEMORY[0x277D85DD0];
+    v39[1] = 3221225472;
+    v39[2] = __84__HMDMatterBulletinBoardNotification__handleBulletinBoardNotificationCommitRequest___block_invoke;
+    v39[3] = &unk_278684F70;
+    v39[4] = self;
+    v40 = requestCopy;
+    v42 = v8;
     v9 = v9;
-    v42 = v9;
-    [(HMDMatterBulletinBoardNotification *)self _updateAccessoryBulletinNotificationManagerWithEnabled:v8 condition:v9 completion:v40];
+    v41 = v9;
+    [(HMDMatterBulletinBoardNotification *)self _updateAccessoryBulletinNotificationManagerWithEnabled:v8 condition:v9 completion:v39];
 
     goto LABEL_23;
   }
@@ -439,20 +469,18 @@ LABEL_22:
   {
     v22 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v45 = v22;
+    v44 = v22;
     _os_log_impl(&dword_229538000, v21, OS_LOG_TYPE_INFO, "%{public}@Updating local bulletin board notification settings with existing values", buf, 0xCu);
   }
 
   objc_autoreleasePoolPop(v19);
   [(HMDMatterBulletinBoardNotification *)selfCopy5 _updateLocalSettingsWithEnabled:v8 condition:v9 forMessage:requestCopy];
 LABEL_23:
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 void __84__HMDMatterBulletinBoardNotification__handleBulletinBoardNotificationCommitRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -464,13 +492,13 @@ void __84__HMDMatterBulletinBoardNotification__handleBulletinBoardNotificationCo
     {
       v8 = HMFGetLogIdentifier();
       v9 = *(a1 + 40);
-      v15 = 138543874;
-      v16 = v8;
-      v17 = 2112;
-      v18 = v9;
-      v19 = 2112;
-      v20 = v3;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Error updating bulletin notification manager for message %@ : %@", &v15, 0x20u);
+      v14 = 138543874;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v9;
+      v18 = 2112;
+      v19 = v3;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Error updating bulletin notification manager for message %@ : %@", &v14, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -485,11 +513,11 @@ void __84__HMDMatterBulletinBoardNotification__handleBulletinBoardNotificationCo
     {
       v12 = HMFGetLogIdentifier();
       v13 = *(a1 + 40);
-      v15 = 138543618;
-      v16 = v12;
-      v17 = 2112;
-      v18 = v13;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Updated bulletin notification manager for message %@", &v15, 0x16u);
+      v14 = 138543618;
+      v15 = v12;
+      v16 = 2112;
+      v17 = v13;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_INFO, "%{public}@Updated bulletin notification manager for message %@", &v14, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -497,8 +525,6 @@ void __84__HMDMatterBulletinBoardNotification__handleBulletinBoardNotificationCo
     [*(a1 + 32) setCondition:*(a1 + 48)];
     [*(a1 + 32) _updateLocalSettingsWithEnabled:*(a1 + 56) condition:*(a1 + 48) forMessage:*(a1 + 40)];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)home
@@ -511,15 +537,13 @@ void __84__HMDMatterBulletinBoardNotification__handleBulletinBoardNotificationCo
 
 - (void)registerNotificationHandlers
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   msgDispatcher = [(HMDMatterBulletinBoardNotification *)self msgDispatcher];
   v4 = *MEMORY[0x277CD20D0];
   v5 = [HMDXPCMessagePolicy policyWithEntitlements:5];
-  v8[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   [msgDispatcher registerForMessage:v4 receiver:self policies:v6 selector:sel__handleBulletinBoardNotificationCommitRequest_];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)configureWithWorkQueue:(id)queue messageDispatcher:(id)dispatcher
@@ -558,7 +582,7 @@ void __84__HMDMatterBulletinBoardNotification__handleBulletinBoardNotificationCo
 
 void __79__HMDMatterBulletinBoardNotification_configureWithWorkQueue_messageDispatcher___block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -566,15 +590,14 @@ void __79__HMDMatterBulletinBoardNotification_configureWithWorkQueue_messageDisp
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     v7 = HMFGetLogIdentifier();
-    v9 = 138543618;
-    v10 = v7;
-    v11 = 2112;
-    v12 = v3;
-    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Updating bulletin notification manager during configure finished with error: %@", &v9, 0x16u);
+    v8 = 138543618;
+    v9 = v7;
+    v10 = 2112;
+    v11 = v3;
+    _os_log_impl(&dword_229538000, v6, OS_LOG_TYPE_INFO, "%{public}@Updating bulletin notification manager during configure finished with error: %@", &v8, 0x16u);
   }
 
   objc_autoreleasePoolPop(v4);
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -585,6 +608,41 @@ void __79__HMDMatterBulletinBoardNotification_configureWithWorkQueue_messageDisp
   v4.receiver = self;
   v4.super_class = HMDMatterBulletinBoardNotification;
   [(HMDBulletinBoardNotification *)&v4 dealloc];
+}
+
+- (HMDMatterBulletinBoardNotification)initWithAccessory:(id)accessory endpointID:(id)d enabled:(BOOL)enabled condition:(id)condition
+{
+  enabledCopy = enabled;
+  v25[3] = *MEMORY[0x277D85DE8];
+  accessoryCopy = accessory;
+  dCopy = d;
+  conditionCopy = condition;
+  v24.receiver = self;
+  v24.super_class = HMDMatterBulletinBoardNotification;
+  v13 = [(HMDBulletinBoardNotification *)&v24 init];
+  v14 = v13;
+  if (v13)
+  {
+    [(HMDBulletinBoardNotification *)v13 setEnabled:enabledCopy];
+    [(HMDBulletinBoardNotification *)v14 setCondition:conditionCopy];
+    objc_storeWeak(&v14->_accessory, accessoryCopy);
+    objc_storeStrong(&v14->_endpointID, d);
+    uuid = [accessoryCopy uuid];
+    uUIDString = [uuid UUIDString];
+    v25[0] = uUIDString;
+    stringValue = [dCopy stringValue];
+    v25[1] = stringValue;
+    v25[2] = @"HM.BulletinBoardNotification";
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:3];
+
+    v19 = MEMORY[0x277CCAD78];
+    uuid2 = [accessoryCopy uuid];
+    v21 = [v19 hm_deriveUUIDFromBaseUUID:uuid2 identifierSalt:0 withSalts:v18];
+    messageTargetUUID = v14->_messageTargetUUID;
+    v14->_messageTargetUUID = v21;
+  }
+
+  return v14;
 }
 
 + (id)logCategory
@@ -601,10 +659,9 @@ void __79__HMDMatterBulletinBoardNotification_configureWithWorkQueue_messageDisp
 
 void __49__HMDMatterBulletinBoardNotification_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v11_249229;
-  logCategory__hmf_once_v11_249229 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v11_249229;
+  logCategory__hmf_once_v11_249229 = v0;
 }
 
 @end

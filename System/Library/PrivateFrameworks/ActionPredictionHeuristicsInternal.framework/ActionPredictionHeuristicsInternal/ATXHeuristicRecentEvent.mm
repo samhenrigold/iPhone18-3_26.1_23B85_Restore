@@ -20,7 +20,7 @@
 {
   v73 = *MEMORY[0x277D85DE8];
   environmentCopy = environment;
-  v4 = __atxlog_handle_context_heuristic();
+  v4 = __atxlog_handle_context_heuristic(environmentCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -79,65 +79,66 @@
 
         v23 = *(*(&v58 + 1) + 8 * v22);
         v24 = [*(v21 + 856) allowSuggestionsForEvent:{v23, v48}];
-        endDate = __atxlog_handle_context_heuristic();
-        v26 = os_log_type_enabled(endDate, OS_LOG_TYPE_DEFAULT);
-        if (v24)
+        v25 = v24;
+        endDate = __atxlog_handle_context_heuristic(v24);
+        v27 = os_log_type_enabled(endDate, OS_LOG_TYPE_DEFAULT);
+        if (v25)
         {
-          if (v26)
+          if (v27)
           {
             eventIdentifier = [v23 eventIdentifier];
             title = [v23 title];
-            v29 = [title hash];
+            v30 = [title hash];
             startDate = [v23 startDate];
             [v23 organizer];
-            v31 = v16;
-            v33 = v32 = environmentCopy;
+            v32 = v16;
+            v34 = v33 = environmentCopy;
             *buf = 138413058;
             v65 = eventIdentifier;
             v66 = 2048;
-            v67 = v29;
+            v67 = v30;
             v68 = 2112;
             v69 = startDate;
             v70 = 1024;
-            v71 = v33 != 0;
+            v71 = v34 != 0;
             _os_log_impl(&dword_23E3EA000, endDate, OS_LOG_TYPE_DEFAULT, "Event id: %@ title.hash: %lu start:%@ has organizer:%{BOOL}i", buf, 0x26u);
 
-            environmentCopy = v32;
-            v16 = v31;
+            environmentCopy = v33;
+            v16 = v32;
             v17 = v55;
           }
 
           endDate = [v23 endDate];
           endDate2 = [v23 endDate];
-          v35 = [endDate2 dateByAddingTimeInterval:600.0];
+          v36 = [endDate2 dateByAddingTimeInterval:600.0];
 
-          v36 = [[ATXContextEventSuggestionProducer alloc] initWithEvent:v23 validFromStartDate:endDate validToEndDate:v35 environment:environmentCopy];
-          v37 = [(ATXContextEventSuggestionProducer *)v36 suggestionForEventOrganizerWithScore:0x400000 predictionReasons:50.0];
-          v38 = __atxlog_handle_context_heuristic();
-          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+          v37 = [[ATXContextEventSuggestionProducer alloc] initWithEvent:v23 validFromStartDate:endDate validToEndDate:v36 environment:environmentCopy];
+          v38 = [(ATXContextEventSuggestionProducer *)v37 suggestionForEventOrganizerWithScore:0x400000 predictionReasons:50.0];
+          v39 = __atxlog_handle_context_heuristic(v38);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v65 = v37;
-            _os_log_impl(&dword_23E3EA000, v38, OS_LOG_TYPE_DEFAULT, "Suggestion: %@", buf, 0xCu);
+            v65 = v38;
+            _os_log_impl(&dword_23E3EA000, v39, OS_LOG_TYPE_DEFAULT, "Suggestion: %@", buf, 0xCu);
           }
 
-          if (v37)
+          if (v38)
           {
-            [v16 addObject:v37];
+            [v16 addObject:v38];
           }
 
-          v39 = [(ATXContextEventSuggestionProducer *)v36 suggestionForEventParticipantWithScore:0x400000 predictionReasons:50.0];
-          v40 = __atxlog_handle_context_heuristic();
-          if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+          v40 = [(ATXContextEventSuggestionProducer *)v37 suggestionForEventParticipantWithScore:0x400000 predictionReasons:50.0];
+          v41 = __atxlog_handle_context_heuristic(v40);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v65 = v39;
-            _os_log_impl(&dword_23E3EA000, v40, OS_LOG_TYPE_DEFAULT, "Suggestion: %@", buf, 0xCu);
+            v65 = v40;
+            _os_log_impl(&dword_23E3EA000, v41, OS_LOG_TYPE_DEFAULT, "Suggestion: %@", buf, 0xCu);
           }
 
-          if (v39)
+          if (v40)
           {
-            [v16 addObject:v39];
+            [v16 addObject:v40];
           }
 
           v20 = v56;
@@ -145,7 +146,7 @@
           v21 = 0x278C3C000;
         }
 
-        else if (v26)
+        else if (v27)
         {
           *buf = 0;
           _os_log_impl(&dword_23E3EA000, endDate, OS_LOG_TYPE_DEFAULT, "Recent Event: Skipping event suggestions, event is unsupported", buf, 2u);
@@ -161,16 +162,14 @@
     while (v19);
   }
 
-  v41 = [[ATXInformationHeuristicRefreshTimeTrigger alloc] initWithFireDate:v50];
-  [v48 addObject:v41];
-  v42 = [ATXContextHeuristicResult alloc];
+  v42 = [[ATXInformationHeuristicRefreshTimeTrigger alloc] initWithFireDate:v50];
+  [v48 addObject:v42];
+  v43 = [ATXContextHeuristicResult alloc];
   [MEMORY[0x277CBEB98] set];
-  v44 = v43 = v17;
-  v45 = [(ATXContextHeuristicResult *)v42 initWithSuggestions:v16 additionalRefreshTriggers:v44];
+  v45 = v44 = v17;
+  v46 = [(ATXContextHeuristicResult *)v43 initWithSuggestions:v16 additionalRefreshTriggers:v45];
 
-  v46 = *MEMORY[0x277D85DE8];
-
-  return v45;
+  return v46;
 }
 
 BOOL __58__ATXHeuristicRecentEvent_heuristicResultWithEnvironment___block_invoke(uint64_t a1, void *a2)

@@ -140,7 +140,6 @@ LABEL_23:
 
   if (country)
   {
-    country = self->_country;
     PBDataWriterWriteStringField();
   }
 
@@ -148,7 +147,6 @@ LABEL_23:
 
   if (deviceModel)
   {
-    deviceModel = self->_deviceModel;
     PBDataWriterWriteStringField();
   }
 
@@ -156,18 +154,16 @@ LABEL_23:
 
   if (locale)
   {
-    locale = self->_locale;
     PBDataWriterWriteStringField();
   }
 
   osVersion = [(_CPDeviceContext *)self osVersion];
 
-  v11 = toCopy;
+  v8 = toCopy;
   if (osVersion)
   {
-    osVersion = self->_osVersion;
     PBDataWriterWriteStringField();
-    v11 = toCopy;
+    v8 = toCopy;
   }
 }
 

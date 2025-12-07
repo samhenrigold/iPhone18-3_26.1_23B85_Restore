@@ -121,7 +121,8 @@
   dataCopy = data;
   topotext::Todo::Todo(v10);
   bytes = [dataCopy bytes];
-  v6 = ICTTBoundedCheckedCastNSUIntegerToUInt32([dataCopy length]);
+  [dataCopy length];
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
   if (google::protobuf::MessageLite::ParseFromArray(v10, bytes, v6))
   {
     self = [(ICTTTodo *)self initWithArchive:v10];
@@ -206,15 +207,17 @@
 
 - (id)serialize
 {
-  topotext::Todo::Todo(v7);
-  [(ICTTTodo *)self saveToArchive:v7];
-  v3 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:topotext::Todo::ByteSize(v7)];
-  mutableBytes = [v3 mutableBytes];
-  v5 = ICTTBoundedCheckedCastNSUIntegerToUInt32([v3 length]);
-  google::protobuf::MessageLite::SerializeToArray(v7, mutableBytes, v5);
-  topotext::Todo::~Todo(v7);
+  topotext::Todo::Todo(v9);
+  [(ICTTTodo *)self saveToArchive:v9];
+  v3 = objc_alloc(MEMORY[0x277CBEB28]);
+  v5 = [v3 initWithLength:{topotext::Todo::ByteSize(v9, v4)}];
+  mutableBytes = [v5 mutableBytes];
+  [v5 length];
+  ICTTBoundedCheckedCastNSUIntegerToUInt32();
+  google::protobuf::MessageLite::SerializeToArray(v9, mutableBytes, v7);
+  topotext::Todo::~Todo(v9);
 
-  return v3;
+  return v5;
 }
 
 @end

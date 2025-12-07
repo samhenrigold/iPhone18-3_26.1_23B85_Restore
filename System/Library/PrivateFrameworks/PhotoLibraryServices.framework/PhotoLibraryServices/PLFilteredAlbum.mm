@@ -244,7 +244,7 @@
 - (unint64_t)countOfFilteredAssets
 {
   filteredIndexes = [(PLFilteredAlbum *)self filteredIndexes];
-  v3 = [filteredIndexes count];
+  v3 = objc_msgSend_count(filteredIndexes);
 
   return v3;
 }
@@ -1170,7 +1170,7 @@
     v8 = [MEMORY[0x1E696AE18] predicateWithFormat:@"kind == %d", 1];
     v9 = [array filteredArrayUsingPredicate:v8];
 
-    v10 = [v9 count];
+    v10 = objc_msgSend_count(v9);
     objc_autoreleasePoolPop(v5);
     return v10;
   }
@@ -1198,7 +1198,7 @@
     v8 = [MEMORY[0x1E696AE18] predicateWithFormat:@"kind == %d", 0];
     v9 = [array filteredArrayUsingPredicate:v8];
 
-    v10 = [v9 count];
+    v10 = objc_msgSend_count(v9);
     objc_autoreleasePoolPop(v5);
     return v10;
   }
@@ -1227,7 +1227,7 @@
 - (unint64_t)assetsCount
 {
   filteredIndexes = [(PLFilteredAlbum *)self filteredIndexes];
-  v3 = [filteredIndexes count];
+  v3 = objc_msgSend_count(filteredIndexes);
 
   return v3;
 }
@@ -1235,7 +1235,7 @@
 - (unint64_t)approximateCount
 {
   filteredIndexes = [(PLFilteredAlbum *)self filteredIndexes];
-  v3 = [filteredIndexes count];
+  v3 = objc_msgSend_count(filteredIndexes);
 
   return v3;
 }
@@ -1353,7 +1353,7 @@
 
     v13 = [array filteredArrayUsingPredicate:predicateCopy];
     indexSet = [MEMORY[0x1E696AD50] indexSet];
-    v15 = [array count];
+    v15 = objc_msgSend_count(array);
     v27[0] = 0;
     v27[1] = v27;
     v27[2] = 0x2020000000;
@@ -1521,7 +1521,7 @@ LABEL_11:
   }
 
 LABEL_12:
-  if ([v7 count])
+  if (objc_msgSend_count(v7))
   {
     v8 = [v7 componentsJoinedByString:@"+"];
     v9 = v8;
@@ -1594,7 +1594,7 @@ LABEL_5:
   }
 
   array = [MEMORY[0x1E695DF70] array];
-  if ((filterCopy & 0x40) != 0 && [parametersCopy count])
+  if ((filterCopy & 0x40) != 0 && objc_msgSend_count(parametersCopy))
   {
     v16 = [parametersCopy objectAtIndex:0];
     objc_opt_class();
@@ -1698,8 +1698,8 @@ LABEL_21:
     [array addObject:v23];
   }
 
-  v24 = [v11 count];
-  v25 = [array count];
+  v24 = objc_msgSend_count(v11);
+  v25 = objc_msgSend_count(array);
   if (v24)
   {
     if (v24 == 1)

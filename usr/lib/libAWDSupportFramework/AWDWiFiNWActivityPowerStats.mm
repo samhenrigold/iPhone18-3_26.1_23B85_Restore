@@ -57,14 +57,12 @@
   has = self->_has;
   if ((has & 2) != 0)
   {
-    kRadioPhyReportTxDur = self->_kRadioPhyReportTxDur;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if (has)
   {
-    kRadioPhyReportRxDur = self->_kRadioPhyReportRxDur;
 
     PBDataWriterWriteUint64Field();
   }

@@ -14,11 +14,12 @@
   v2 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider31AccountDetailCollectionViewCell_selectionHandler);
   if (v2)
   {
+    v3 = *&self->titleLabel[OBJC_IVAR____TtC18ASMessagesProvider31AccountDetailCollectionViewCell_selectionHandler];
     selfCopy = self;
-    v4 = sub_F714(v2);
-    v2(v4);
+    v5 = sub_F714(v2, v3);
+    v2(v5);
 
-    sub_F704(v2);
+    sub_F704(v2, v3);
   }
 }
 
@@ -60,14 +61,15 @@
   v3 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider31AccountDetailCollectionViewCell_accessoryAction);
   if (v3)
   {
-    v8[3] = sub_BE70(0, &unk_948000);
-    v8[0] = view;
+    v6 = *&self->titleLabel[OBJC_IVAR____TtC18ASMessagesProvider31AccountDetailCollectionViewCell_accessoryAction];
+    v10[3] = sub_BE70(0, &unk_948000, UIControl_ptr);
+    v10[0] = view;
     viewCopy = view;
     selfCopy = self;
-    sub_F714(v3);
-    v3(v8);
-    sub_F704(v3);
-    sub_10A2C(v8, &unk_93FBD0);
+    v9 = sub_F714(v3, v6);
+    v3(v10, v9);
+    sub_F704(v3, v6);
+    sub_10A2C(v10, &unk_93FBD0, &qword_77DFA0);
   }
 }
 

@@ -12,12 +12,12 @@
 
 - (_DPPrivacyBudgetProperties)initWithName:(id)name dictionary:(id)dictionary
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   dictionaryCopy = dictionary;
-  v44.receiver = self;
-  v44.super_class = _DPPrivacyBudgetProperties;
-  v9 = [(_DPPrivacyBudgetProperties *)&v44 init];
+  v43.receiver = self;
+  v43.super_class = _DPPrivacyBudgetProperties;
+  v9 = [(_DPPrivacyBudgetProperties *)&v43 init];
   v10 = v9;
   if (!v9)
   {
@@ -52,7 +52,7 @@
   }
 
   v18 = [dictionaryCopy objectForKeyedSubscript:@"SessionChunks"];
-  v43 = v18;
+  v42 = v18;
   if (v18)
   {
     v19 = v18;
@@ -74,10 +74,10 @@
       interval = v10->_interval;
       *buf = 138412802;
       nameCopy2 = name;
-      v47 = 2112;
-      v48 = interval;
-      v49 = 2048;
-      v50 = kSecondsInOneDay;
+      v46 = 2112;
+      v47 = interval;
+      v48 = 2048;
+      v49 = kSecondsInOneDay;
       v24 = "%@: _interval=%@ ; budgetIntervalSecondsMIN()=%lld";
 LABEL_27:
       v33 = v21;
@@ -101,10 +101,10 @@ LABEL_28:
         intervalChunksValue = v10->_intervalChunksValue;
         *buf = 138412802;
         nameCopy2 = v27;
-        v47 = 2112;
-        v48 = intervalChunksValue;
-        v49 = 2048;
-        v50 = 300;
+        v46 = 2112;
+        v47 = intervalChunksValue;
+        v48 = 2048;
+        v49 = 300;
         v24 = "%@: _intervalChunksValue=%@ ; chunksValueInIntervalMAX()=%lld";
         goto LABEL_27;
       }
@@ -122,10 +122,10 @@ LABEL_28:
         refillInterval = v10->_refillInterval;
         *buf = 138412802;
         nameCopy2 = v30;
-        v47 = 2112;
-        v48 = v31;
-        v49 = 2112;
-        v50 = refillInterval;
+        v46 = 2112;
+        v47 = v31;
+        v48 = 2112;
+        v49 = refillInterval;
         v24 = "%@:  _interval=%@ ; _refillInterval=%@";
         goto LABEL_27;
       }
@@ -145,10 +145,10 @@ LABEL_28:
       refillAmount = v10->_refillAmount;
       *buf = 138412802;
       nameCopy2 = v36;
-      v47 = 2048;
-      v48 = 100;
-      v49 = 2112;
-      v50 = refillAmount;
+      v46 = 2048;
+      v47 = 100;
+      v48 = 2112;
+      v49 = refillAmount;
       v24 = "%@: _kDPMaxRefillAmount=%lu ; _refillAmount=%@";
       goto LABEL_27;
     }
@@ -166,8 +166,8 @@ LABEL_28:
       intervalCohortAggregateBudgetValue = v10->_intervalCohortAggregateBudgetValue;
       *buf = 138412546;
       nameCopy2 = v39;
-      v47 = 2112;
-      v48 = intervalCohortAggregateBudgetValue;
+      v46 = 2112;
+      v47 = intervalCohortAggregateBudgetValue;
       v24 = "%@: _intervalCohortAggregateBudgetValue=%@";
       v33 = v21;
       v34 = 22;
@@ -186,10 +186,10 @@ LABEL_38:
     intervalBudgetValue = v10->_intervalBudgetValue;
     *buf = 138412802;
     nameCopy2 = v25;
-    v47 = 2112;
-    v48 = intervalBudgetValue;
-    v49 = 2048;
-    v50 = 20;
+    v46 = 2112;
+    v47 = intervalBudgetValue;
+    v48 = 2048;
+    v49 = 20;
     v24 = "%@: _intervalBudgetValue=%@ ; budgetValueInIntervalMAX()=%lld";
     goto LABEL_27;
   }
@@ -200,7 +200,6 @@ LABEL_30:
   v35 = 0;
 LABEL_39:
 
-  v41 = *MEMORY[0x277D85DE8];
   return v35;
 }
 
@@ -267,28 +266,28 @@ LABEL_39:
 
 + (id)budgetMaintenanceSchedule
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEC10] mutableCopy];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   allValues = [gAllBudgetProperties allValues];
-  v4 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v8 = *(*(&v15 + 1) + 8 * i);
+        v8 = *(*(&v14 + 1) + 8 * i);
         interval = [v8 interval];
         name = [v8 name];
         if (name)
@@ -308,13 +307,11 @@ LABEL_39:
         }
       }
 
-      v5 = [allValues countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

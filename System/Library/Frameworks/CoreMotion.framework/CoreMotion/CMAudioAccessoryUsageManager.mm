@@ -42,26 +42,26 @@
       dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
     }
 
-    v10 = 0;
-    v5 = _os_log_send_and_compose_impl();
+    v10[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 2, "[HeadphoneUsage] CMAudioAccessoryUsageManager init", v10, 2);
+    v6 = v5;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryUsageManager init]", "CoreLocation: %s\n", v5);
-    if (v5 != buf)
+    if (v6 != buf)
     {
-      free(v5);
+      free(v6);
     }
   }
 
   v9.receiver = self;
   v9.super_class = CMAudioAccessoryUsageManager;
-  v6 = [(CMAudioAccessoryUsageManager *)&v9 init];
-  if (v6)
+  v7 = [(CMAudioAccessoryUsageManager *)&v9 init];
+  if (v7)
   {
-    *(v6 + 2) = dispatch_queue_create("com.apple.CoreMotion.CMAudioAccessoryUsage", 0);
-    sub_19B42C54C(v6 + 1, 0);
+    *(v7 + 2) = dispatch_queue_create("com.apple.CoreMotion.CMAudioAccessoryUsage", 0);
+    sub_19B42C54C(v7 + 1, 0);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return v6;
+  return v7;
 }
 
 - (void)dealloc
@@ -88,19 +88,20 @@
       dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
     }
 
-    v12 = 0;
-    v5 = _os_log_send_and_compose_impl();
+    v12[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 2, "[HeadphoneUsage] CMAudioAccessoryUsageManager dealloc", v12, 2);
+    v6 = v5;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryUsageManager dealloc]", "CoreLocation: %s\n", v5);
-    if (v5 != buf)
+    if (v6 != buf)
     {
-      free(v5);
+      free(v6);
     }
   }
 
   dispatch_queue_set_specific(self->_dispatchQueue, &unk_1EAFE38BC, &unk_1EAFE38BC, 0);
   if (dispatch_get_specific(&unk_1EAFE38BC) == &unk_1EAFE38BC)
   {
-    objc_msgSend__disconnect(self, v6, v7);
+    objc_msgSend__disconnect(self, v7, v8);
   }
 
   else
@@ -119,7 +120,6 @@
   v10.receiver = self;
   v10.super_class = CMAudioAccessoryUsageManager;
   [(CMAudioAccessoryUsageManager *)&v10 dealloc];
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDelegate:(id)delegate
@@ -146,12 +146,13 @@
       dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
     }
 
-    v11 = 0;
-    v7 = _os_log_send_and_compose_impl();
+    v11[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 2, "[HeadphoneUsage] CMAudioAccessoryUsageManager setDelegate", v11, 2);
+    v8 = v7;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryUsageManager setDelegate:]", "CoreLocation: %s\n", v7);
-    if (v7 != buf)
+    if (v8 != buf)
     {
-      free(v7);
+      free(v8);
     }
   }
 
@@ -163,12 +164,11 @@
   block[4] = self;
   block[5] = delegate;
   dispatch_async(dispatchQueue, block);
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_connect
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_dispatchQueue);
   if (!self->_locationConnection.__ptr_)
   {
@@ -177,15 +177,15 @@
       dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
     }
 
-    v6 = qword_1ED71C7C8;
+    v7 = qword_1ED71C7C8;
     if (os_log_type_enabled(qword_1ED71C7C8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v6, OS_LOG_TYPE_DEFAULT, "[HeadphoneUsage] CMAudioAccessoryUsageManager - connecting", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v7, OS_LOG_TYPE_DEFAULT, "[HeadphoneUsage] CMAudioAccessoryUsageManager - connecting", buf, 2u);
     }
 
-    v7 = sub_19B420058();
-    if (*(v7 + 160) > 1 || *(v7 + 164) > 1 || *(v7 + 168) > 1 || *(v7 + 152))
+    v8 = sub_19B420058();
+    if (*(v8 + 160) > 1 || *(v8 + 164) > 1 || *(v8 + 168) > 1 || *(v8 + 152))
     {
       bzero(buf, 0x65CuLL);
       if (qword_1ED71C7B8 != -1)
@@ -193,11 +193,13 @@
         dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
       }
 
-      v8 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryUsageManager _connect]", "CoreLocation: %s\n", v8);
-      if (v8 != buf)
+      LOWORD(location) = 0;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 0, "[HeadphoneUsage] CMAudioAccessoryUsageManager - connecting", &location, 2);
+      v10 = v9;
+      sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryUsageManager _connect]", "CoreLocation: %s\n", v9);
+      if (v10 != buf)
       {
-        free(v8);
+        free(v10);
       }
     }
 
@@ -225,21 +227,21 @@
       dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
     }
 
-    v5 = _os_log_send_and_compose_impl();
+    LOWORD(location) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 0, "[HeadphoneUsage] CMAudioAccessoryUsageManager - requested connection, but already registered", &location, 2);
+    v6 = v5;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryUsageManager _connect]", "CoreLocation: %s\n", v5);
-    if (v5 != buf)
+    if (v6 != buf)
     {
-      free(v5);
+      free(v6);
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleMessage:(shared_ptr<CLConnectionMessage>)message
 {
   var0 = message.var0;
-  v48 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   if (qword_1ED71C7B8 != -1)
   {
     dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
@@ -261,18 +263,19 @@
       dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
     }
 
-    v44 = 0;
-    v7 = _os_log_send_and_compose_impl();
+    v49[0] = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 0, "[HeadphoneUsage] CMAudioAccessoryUsageManager handleMessage", v49, 2);
+    v8 = v7;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryUsageManager _handleMessage:]", "CoreLocation: %s\n", v7);
-    if (v7 != buf)
+    if (v8 != buf)
     {
-      free(v7);
+      free(v8);
     }
   }
 
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v8 = CLConnectionMessage::name(*var0);
-  if ((*(v8 + 23) & 0x80000000) == 0 || *(v8 + 8) != 52 || memcmp(*v8, "kCLConnectionMessageAudioAccessoryUsageMetricsUpdate", 0x34uLL))
+  v9 = CLConnectionMessage::name(*var0);
+  if ((*(v9 + 23) & 0x80000000) == 0 || *(v9 + 8) != 52 || memcmp(*v9, "kCLConnectionMessageAudioAccessoryUsageMetricsUpdate", 0x34uLL))
   {
     goto LABEL_16;
   }
@@ -285,182 +288,187 @@
       dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
     }
 
-    v22 = qword_1ED71C7C8;
+    v23 = qword_1ED71C7C8;
     if (os_log_type_enabled(qword_1ED71C7C8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v22, OS_LOG_TYPE_ERROR, "[HeadphoneUsage] CMAudioAccessoryUsageManager: Delegate does not respond to didReceiveUsageMetrics, refuse message.", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v23, OS_LOG_TYPE_ERROR, "[HeadphoneUsage] CMAudioAccessoryUsageManager: Delegate does not respond to didReceiveUsageMetrics, refuse message.", buf, 2u);
     }
 
-    v23 = sub_19B420058();
-    if ((*(v23 + 160) & 0x80000000) != 0 && (*(v23 + 164) & 0x80000000) != 0 && (*(v23 + 168) & 0x80000000) != 0 && !*(v23 + 152))
+    v24 = sub_19B420058();
+    if ((*(v24 + 160) & 0x80000000) == 0 || (*(v24 + 164) & 0x80000000) == 0 || (*(v24 + 168) & 0x80000000) == 0 || *(v24 + 152))
     {
-      goto LABEL_45;
+      bzero(buf, 0x65CuLL);
+      if (qword_1ED71C7B8 != -1)
+      {
+        dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
+      }
+
+      v49[0] = 0;
+      LODWORD(v45) = 2;
+      _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 16, "[HeadphoneUsage] CMAudioAccessoryUsageManager: Delegate does not respond to didReceiveUsageMetrics, refuse message.", v49, v45);
+      v26 = v25;
+      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMAudioAccessoryUsageManager _handleMessage:]", "CoreLocation: %s\n", v25);
+      goto LABEL_44;
     }
 
-    bzero(buf, 0x65CuLL);
-    if (qword_1ED71C7B8 == -1)
-    {
-      goto LABEL_32;
-    }
-
-    goto LABEL_76;
+    return;
   }
 
   Dictionary = CLConnectionMessage::getDictionary(*var0);
-  if (!Dictionary)
+  if (Dictionary)
   {
-    if (qword_1ED71C7B8 != -1)
-    {
-      dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
-    }
-
-    v28 = qword_1ED71C7C8;
-    if (os_log_type_enabled(qword_1ED71C7C8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_19B41C000, v28, OS_LOG_TYPE_ERROR, "[HeadphoneUsage] CMAudioAccessoryUsageManager: Error, nil dictionary received.", buf, 2u);
-    }
-
-    v29 = sub_19B420058();
-    if ((*(v29 + 160) & 0x80000000) == 0 || (*(v29 + 164) & 0x80000000) == 0 || (*(v29 + 168) & 0x80000000) == 0 || *(v29 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1ED71C7B8 != -1)
-      {
-        dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
-      }
-
-      v44 = 0;
-      v30 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMAudioAccessoryUsageManager _handleMessage:]", "CoreLocation: %s\n", v30);
-      if (v30 != buf)
-      {
-        free(v30);
-      }
-    }
-
-    objc_loadWeak(&self->_delegate);
-    if ((objc_opt_respondsToSelector() & 1) == 0)
-    {
-      v45 = *MEMORY[0x1E696A578];
-      v46 = @"No data received from callback.";
-      v34 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v31, &v46, &v45, 1);
-      v36 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v35, 112, v34);
-      v39 = objc_msgSend_mainQueue(MEMORY[0x1E696ADC8], v37, v38);
-      v43[0] = MEMORY[0x1E69E9820];
-      v43[1] = 3221225472;
-      v43[2] = sub_19B5B9600;
-      v43[3] = &unk_1E7532A00;
-      v43[4] = self;
-      v43[5] = v36;
-      objc_msgSend_addOperationWithBlock_(v39, v40, v43);
-      goto LABEL_45;
-    }
-
-    if (qword_1ED71C7B8 != -1)
-    {
-      dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
-    }
-
-    v32 = qword_1ED71C7C8;
-    if (os_log_type_enabled(qword_1ED71C7C8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_19B41C000, v32, OS_LOG_TYPE_ERROR, "[HeadphoneUsage] CMAudioAccessoryUsageManager: Delegate does not respond to errorOccurred.", buf, 2u);
-    }
-
-    v33 = sub_19B420058();
-    if ((*(v33 + 160) & 0x80000000) != 0 && (*(v33 + 164) & 0x80000000) != 0 && (*(v33 + 168) & 0x80000000) != 0 && !*(v33 + 152))
-    {
-      goto LABEL_45;
-    }
-
-    bzero(buf, 0x65CuLL);
-    if (qword_1ED71C7B8 == -1)
-    {
-LABEL_32:
-      v44 = 0;
-      v24 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMAudioAccessoryUsageManager _handleMessage:]", "CoreLocation: %s\n", v24);
-LABEL_43:
-      if (v24 != buf)
-      {
-        free(v24);
-      }
-
-      goto LABEL_45;
-    }
-
-LABEL_76:
-    dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
-    goto LABEL_32;
-  }
-
-  v20 = objc_msgSend_mainQueue(MEMORY[0x1E696ADC8], v17, v18);
-  v42[0] = MEMORY[0x1E69E9820];
-  v42[1] = 3221225472;
-  v42[2] = sub_19B5B9640;
-  v42[3] = &unk_1E7532A00;
-  v42[4] = self;
-  v42[5] = Dictionary;
-  objc_msgSend_addOperationWithBlock_(v20, v21, v42);
+    v21 = objc_msgSend_mainQueue(MEMORY[0x1E696ADC8], v18, v19);
+    v47[0] = MEMORY[0x1E69E9820];
+    v47[1] = 3221225472;
+    v47[2] = sub_19B5B9640;
+    v47[3] = &unk_1E7532A00;
+    v47[4] = self;
+    v47[5] = Dictionary;
+    objc_msgSend_addOperationWithBlock_(v21, v22, v47);
 LABEL_16:
-  v9 = CLConnectionMessage::name(*var0);
-  if (*(v9 + 23) < 0 && *(v9 + 8) == 51 && !memcmp(*v9, "kCLConnectionMessageAudioAccessoryUsageMetricsError", 0x33uLL))
-  {
-    objc_loadWeak(&self->_delegate);
-    if (objc_opt_respondsToSelector())
+    v10 = CLConnectionMessage::name(*var0);
+    if (*(v10 + 23) < 0 && *(v10 + 8) == 51 && !memcmp(*v10, "kCLConnectionMessageAudioAccessoryUsageMetricsError", 0x33uLL))
     {
-      v10 = *var0;
-      v11 = objc_opt_class();
-      ObjectOfClass = CLConnectionMessage::getObjectOfClass(v10, v11);
-      v15 = objc_msgSend_mainQueue(MEMORY[0x1E696ADC8], v13, v14);
-      v41[0] = MEMORY[0x1E69E9820];
-      v41[1] = 3221225472;
-      v41[2] = sub_19B5B9680;
-      v41[3] = &unk_1E7532A00;
-      v41[4] = self;
-      v41[5] = ObjectOfClass;
-      objc_msgSend_addOperationWithBlock_(v15, v16, v41);
-      goto LABEL_45;
-    }
+      objc_loadWeak(&self->_delegate);
+      if (objc_opt_respondsToSelector())
+      {
+        v11 = *var0;
+        v12 = objc_opt_class();
+        ObjectOfClass = CLConnectionMessage::getObjectOfClass(v11, v12);
+        v16 = objc_msgSend_mainQueue(MEMORY[0x1E696ADC8], v14, v15);
+        v46[0] = MEMORY[0x1E69E9820];
+        v46[1] = 3221225472;
+        v46[2] = sub_19B5B9680;
+        v46[3] = &unk_1E7532A00;
+        v46[4] = self;
+        v46[5] = ObjectOfClass;
+        objc_msgSend_addOperationWithBlock_(v16, v17, v46);
+        return;
+      }
 
-    if (qword_1ED71C7B8 != -1)
-    {
-      dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
-    }
-
-    v25 = qword_1ED71C7C8;
-    if (os_log_type_enabled(qword_1ED71C7C8, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 0;
-      _os_log_impl(&dword_19B41C000, v25, OS_LOG_TYPE_ERROR, "[HeadphoneUsage] CMAudioAccessoryUsageManager: Delegate does not respond to errorOccurred, refuse message.", buf, 2u);
-    }
-
-    v26 = sub_19B420058();
-    if ((*(v26 + 160) & 0x80000000) == 0 || (*(v26 + 164) & 0x80000000) == 0 || (*(v26 + 168) & 0x80000000) == 0 || *(v26 + 152))
-    {
-      bzero(buf, 0x65CuLL);
       if (qword_1ED71C7B8 != -1)
       {
         dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
       }
 
-      v44 = 0;
-      v24 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 0, "[CMAudioAccessoryUsageManager _handleMessage:]", "CoreLocation: %s\n", v24);
-      goto LABEL_43;
+      v27 = qword_1ED71C7C8;
+      if (os_log_type_enabled(qword_1ED71C7C8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 0;
+        _os_log_impl(&dword_19B41C000, v27, OS_LOG_TYPE_ERROR, "[HeadphoneUsage] CMAudioAccessoryUsageManager: Delegate does not respond to errorOccurred, refuse message.", buf, 2u);
+      }
+
+      v28 = sub_19B420058();
+      if ((*(v28 + 160) & 0x80000000) == 0 || (*(v28 + 164) & 0x80000000) == 0 || (*(v28 + 168) & 0x80000000) == 0 || *(v28 + 152))
+      {
+        bzero(buf, 0x65CuLL);
+        if (qword_1ED71C7B8 != -1)
+        {
+          dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
+        }
+
+        v49[0] = 0;
+        LODWORD(v45) = 2;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 16, "[HeadphoneUsage] CMAudioAccessoryUsageManager: Delegate does not respond to errorOccurred, refuse message.", v49, v45);
+        v26 = v29;
+        sub_19B6BB7CC("Generic", 1, 0, 0, "[CMAudioAccessoryUsageManager _handleMessage:]", "CoreLocation: %s\n", v29);
+LABEL_44:
+        if (v26 != buf)
+        {
+          free(v26);
+        }
+
+        return;
+      }
+    }
+
+    return;
+  }
+
+  if (qword_1ED71C7B8 != -1)
+  {
+    dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
+  }
+
+  v30 = qword_1ED71C7C8;
+  if (os_log_type_enabled(qword_1ED71C7C8, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_19B41C000, v30, OS_LOG_TYPE_ERROR, "[HeadphoneUsage] CMAudioAccessoryUsageManager: Error, nil dictionary received.", buf, 2u);
+  }
+
+  v31 = sub_19B420058();
+  if ((*(v31 + 160) & 0x80000000) == 0 || (*(v31 + 164) & 0x80000000) == 0 || (*(v31 + 168) & 0x80000000) == 0 || *(v31 + 152))
+  {
+    bzero(buf, 0x65CuLL);
+    if (qword_1ED71C7B8 != -1)
+    {
+      dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
+    }
+
+    v49[0] = 0;
+    LODWORD(v45) = 2;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 16, "[HeadphoneUsage] CMAudioAccessoryUsageManager: Error, nil dictionary received.", v49, v45);
+    v33 = v32;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMAudioAccessoryUsageManager _handleMessage:]", "CoreLocation: %s\n", v32);
+    if (v33 != buf)
+    {
+      free(v33);
     }
   }
 
-LABEL_45:
-  v27 = *MEMORY[0x1E69E9840];
+  objc_loadWeak(&self->_delegate);
+  if ((objc_opt_respondsToSelector() & 1) == 0)
+  {
+    v50 = *MEMORY[0x1E696A578];
+    v51 = @"No data received from callback.";
+    v38 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v34, &v51, &v50, 1);
+    v40 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v39, 112, v38);
+    v43 = objc_msgSend_mainQueue(MEMORY[0x1E696ADC8], v41, v42);
+    v48[0] = MEMORY[0x1E69E9820];
+    v48[1] = 3221225472;
+    v48[2] = sub_19B5B9600;
+    v48[3] = &unk_1E7532A00;
+    v48[4] = self;
+    v48[5] = v40;
+    objc_msgSend_addOperationWithBlock_(v43, v44, v48);
+    return;
+  }
+
+  if (qword_1ED71C7B8 != -1)
+  {
+    dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
+  }
+
+  v35 = qword_1ED71C7C8;
+  if (os_log_type_enabled(qword_1ED71C7C8, OS_LOG_TYPE_ERROR))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_19B41C000, v35, OS_LOG_TYPE_ERROR, "[HeadphoneUsage] CMAudioAccessoryUsageManager: Delegate does not respond to errorOccurred.", buf, 2u);
+  }
+
+  v36 = sub_19B420058();
+  if ((*(v36 + 160) & 0x80000000) == 0 || (*(v36 + 164) & 0x80000000) == 0 || (*(v36 + 168) & 0x80000000) == 0 || *(v36 + 152))
+  {
+    bzero(buf, 0x65CuLL);
+    if (qword_1ED71C7B8 != -1)
+    {
+      dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
+    }
+
+    v49[0] = 0;
+    LODWORD(v45) = 2;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 16, "[HeadphoneUsage] CMAudioAccessoryUsageManager: Delegate does not respond to errorOccurred.", v49, v45);
+    v26 = v37;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMAudioAccessoryUsageManager _handleMessage:]", "CoreLocation: %s\n", v37);
+    goto LABEL_44;
+  }
 }
 
 - (void)_disconnect
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (qword_1ED71C7B8 != -1)
   {
     dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
@@ -482,49 +490,49 @@ LABEL_45:
       dispatch_once(&qword_1ED71C7B8, &unk_1F0E27C80);
     }
 
-    v5 = _os_log_send_and_compose_impl();
+    LOWORD(v8[0]) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1ED71C7C8, 0, "[HeadphoneUsage] CMAudioAccessoryUsageManager _disconnect", v8, 2);
+    v6 = v5;
     sub_19B6BB7CC("Generic", 1, 0, 2, "[CMAudioAccessoryUsageManager _disconnect]", "CoreLocation: %s\n", v5);
-    if (v5 != buf)
+    if (v6 != buf)
     {
-      free(v5);
+      free(v6);
     }
   }
 
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  v7 = @"kCLConnectionMessageSubscribeKey";
-  v8 = MEMORY[0x1E695E110];
-  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v6, &v8, &v7, 1);
+  v9 = @"kCLConnectionMessageSubscribeKey";
+  v10 = MEMORY[0x1E695E110];
+  v8[3] = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v7, &v10, &v9, 1);
   sub_19B5B9C88();
 }
 
 - (void)requestAudioAccessoryUsageUpdatesWithHandler:(id)handler
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v4 = objc_opt_class();
   if ((objc_msgSend_isAvailable(v4, v5, v6) & 1) == 0)
   {
-    v22 = *MEMORY[0x1E696A578];
-    v23[0] = @"CMAudioAccessoryUsageManager not available on this platform";
-    v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v7, v23, &v22, 1);
-    v16 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v15, 109, v14);
+    v20 = *MEMORY[0x1E696A578];
+    v21[0] = @"CMAudioAccessoryUsageManager not available on this platform";
+    v13 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v7, v21, &v20, 1);
+    v15 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v14, 109, v13);
 LABEL_8:
-    (*(handler + 2))(handler, v16);
-    v19 = *MEMORY[0x1E69E9840];
+    (*(handler + 2))(handler, v15);
     return;
   }
 
   v8 = objc_opt_class();
   if (!objc_msgSend_isAuthorized(v8, v9, v10))
   {
-    v20 = *MEMORY[0x1E696A578];
-    v21 = @"Necessary entitlement missing: 'com.apple.bluetooth.system'.";
-    v17 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v11, &v21, &v20, 1);
-    v16 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v18, 110, v17);
+    v18 = *MEMORY[0x1E696A578];
+    v19 = @"Necessary entitlement missing: 'com.apple.bluetooth.system'.";
+    v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v11, &v19, &v18, 1);
+    v15 = objc_msgSend_CMErrorWithCode_userInfo_(CMErrorUtils, v17, 110, v16);
     goto LABEL_8;
   }
 
   v12 = *(handler + 2);
-  v13 = *MEMORY[0x1E69E9840];
 
   v12(handler, 0);
 }

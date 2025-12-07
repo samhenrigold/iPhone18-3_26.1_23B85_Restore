@@ -3,7 +3,7 @@
 
 @implementation CGColorSyncTransformCacheRelease
 
-uint64_t (*__CGColorSyncTransformCacheRelease_block_invoke())()
+uint64_t (*__CGColorSyncTransformCacheRelease_block_invoke())(void)
 {
   if (CGLibraryLoadColorSyncDYLD_once != -1)
   {

@@ -68,7 +68,7 @@
 + (BOOL)isGoogleURL:(id)l
 {
   lCopy = l;
-  v4 = googleSuffixChecker();
+  v4 = googleSuffixChecker(lCopy);
   host = [lCopy host];
   v6 = [v4 hasSuffix:host];
 
@@ -78,7 +78,7 @@
 + (BOOL)isGoogleSearchURL:(id)l
 {
   lCopy = l;
-  v4 = googleSuffixChecker();
+  v4 = googleSuffixChecker(lCopy);
   host = [lCopy host];
   v12 = 0;
   v6 = [v4 hasSuffix:host remainingPrefix:&v12];
@@ -110,7 +110,7 @@
 + (BOOL)isGoogleMapsURL:(id)l
 {
   lCopy = l;
-  v4 = googleSuffixChecker();
+  v4 = googleSuffixChecker(lCopy);
   host = [lCopy host];
   v12 = 0;
   v6 = [v4 hasSuffix:host remainingPrefix:&v12];
@@ -264,26 +264,27 @@ LABEL_24:
     +[LPPresentationSpecializations(Search) searchQueryForURL:];
   }
 
-  if ([duckDuckGoSuffixChecker_checker hasSuffix:host])
+  v26 = [duckDuckGoSuffixChecker_checker hasSuffix:host];
+  if (v26)
   {
-    v26 = searchQueryForDuckDuckGoURL(v5);
+    v27 = searchQueryForDuckDuckGoURL(v5);
   }
 
   else
   {
-    v27 = baiduSuffixChecker();
-    v28 = [v27 hasSuffix:host];
+    v28 = baiduSuffixChecker(v26);
+    v29 = [v28 hasSuffix:host];
 
-    if (!v28)
+    if (!v29)
     {
       v13 = 0;
       goto LABEL_25;
     }
 
-    v26 = searchQueryForBaiduURL(v5);
+    v27 = searchQueryForBaiduURL(v5);
   }
 
-  v13 = v26;
+  v13 = v27;
 LABEL_25:
 
 LABEL_26:

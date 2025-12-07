@@ -22,22 +22,22 @@
   if (v5)
   {
     v6 = [dictionaryCopy PKStringForKey:@"type"];
-    if ([v6 isEqualToString:@"promotion"])
+    if (objc_msgSend_isEqualToString_(v6))
     {
       v7 = 2;
     }
 
-    else if ([v6 isEqualToString:@"feature"])
+    else if (objc_msgSend_isEqualToString_(v6))
     {
       v7 = 1;
     }
 
-    else if ([v6 isEqualToString:@"welcome"])
+    else if (objc_msgSend_isEqualToString_(v6))
     {
       v7 = 0;
     }
 
-    else if ([v6 isEqualToString:@"accountStatus"])
+    else if (objc_msgSend_isEqualToString_(v6))
     {
       v7 = 3;
     }

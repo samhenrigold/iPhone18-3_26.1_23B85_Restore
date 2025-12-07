@@ -543,20 +543,20 @@ void *__97__WBSFormDataController__removeStaleEntriesFromMapOfHighLevelDomainToL
 
       if (v23)
       {
-        v24 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v26 = WBS_LOG_CHANNEL_PREFIXAutoFill(v24, v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           [WBSFormDataController _loadCompletionDBIfNeededOnInternalQueue];
         }
       }
 
-      v25 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v26 = *p_completionDB;
-      *p_completionDB = v25;
-
       v27 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v28 = self->_valuesDB;
-      self->_valuesDB = v27;
+      v28 = *p_completionDB;
+      *p_completionDB = v27;
+
+      v29 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v30 = self->_valuesDB;
+      self->_valuesDB = v29;
 
       [(NSMutableDictionary *)self->_completionDB setObject:self->_valuesDB forKey:@"Values"];
       self->_completionDBSize = 0;
@@ -564,27 +564,27 @@ void *__97__WBSFormDataController__removeStaleEntriesFromMapOfHighLevelDomainToL
 
     if (!self->_preferredLabelsMap)
     {
-      v29 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v30 = self->_preferredLabelsMap;
-      self->_preferredLabelsMap = v29;
+      v31 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v32 = self->_preferredLabelsMap;
+      self->_preferredLabelsMap = v31;
 
       [(NSMutableDictionary *)self->_completionDB setObject:self->_preferredLabelsMap forKey:@"PreferredLabels"];
     }
 
     if (!self->_recentlyUsedAutoFillSets)
     {
-      v31 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v32 = self->_recentlyUsedAutoFillSets;
-      self->_recentlyUsedAutoFillSets = v31;
+      v33 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v34 = self->_recentlyUsedAutoFillSets;
+      self->_recentlyUsedAutoFillSets = v33;
 
       [(NSMutableDictionary *)self->_completionDB setObject:self->_recentlyUsedAutoFillSets forKey:@"RecentlyUsedAutoFillSets"];
     }
 
     if (!self->_preferredLabelForUniqueIDOfPersonMap)
     {
-      v33 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v34 = self->_preferredLabelForUniqueIDOfPersonMap;
-      self->_preferredLabelForUniqueIDOfPersonMap = v33;
+      v35 = objc_alloc_init(MEMORY[0x1E695DF90]);
+      v36 = self->_preferredLabelForUniqueIDOfPersonMap;
+      self->_preferredLabelForUniqueIDOfPersonMap = v35;
 
       [(NSMutableDictionary *)self->_completionDB setObject:self->_preferredLabelForUniqueIDOfPersonMap forKey:@"PreferredLabelsForUniqueIDOfPerson"];
     }
@@ -677,10 +677,10 @@ uint64_t __42__WBSFormDataController_pruneCompletionDB__block_invoke(uint64_t a1
 
                 else
                 {
-                  v12 = v41 + 24 * HIDWORD(v42);
+                  v12 = &v41[3 * HIDWORD(v42)];
                   *v12 = v30;
-                  *(v12 + 8) = v31;
-                  *(v12 + 16) = v32;
+                  v12[1] = v31;
+                  *(v12 + 4) = v32;
                   ++HIDWORD(v42);
                 }
               }
@@ -715,7 +715,7 @@ uint64_t __42__WBSFormDataController_pruneCompletionDB__block_invoke(uint64_t a1
     v15 = 0;
   }
 
-  std::__introsort<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(SortEntry const&,SortEntry const&),SortEntry*,false>(v41, (v41 + 24 * HIDWORD(v42)), &v30, v15, 1);
+  std::__introsort<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(SortEntry const&,SortEntry const&),SortEntry*,false>(v41, &v41[3 * HIDWORD(v42)], &v30, v15, 1);
 
   LODWORD(v1) = vcvtps_s32_f32(HIDWORD(v42) * 0.1);
   if (v1 < 1)
@@ -727,17 +727,17 @@ uint64_t __42__WBSFormDataController_pruneCompletionDB__block_invoke(uint64_t a1
   {
     v16 = 0;
     v17 = 0;
-    v18 = 8;
+    v18 = 1;
     do
     {
-      if (v16 >= HIDWORD(v42) || (v19 = *(v41 + v18 - 8), [*(*(v13 + 32) + 32) safari_dictionaryForKey:v19], v20 = objc_claimAutoreleasedReturnValue(), v16 >= HIDWORD(v42)))
+      if (v16 >= HIDWORD(v42) || (v19 = v41[v18 - 1], [*(*(v13 + 32) + 32) safari_dictionaryForKey:v19], v20 = objc_claimAutoreleasedReturnValue(), v16 >= HIDWORD(v42)))
       {
         __break(0xC471u);
         JUMPOUT(0x1BB7760C8);
       }
 
       v21 = v20;
-      [v20 removeObjectForKey:*(v41 + v18)];
+      [v20 removeObjectForKey:v41[v18]];
       if (![v21 count])
       {
         [*(*(v13 + 32) + 32) removeObjectForKey:v19];
@@ -745,7 +745,7 @@ uint64_t __42__WBSFormDataController_pruneCompletionDB__block_invoke(uint64_t a1
       }
 
       ++v16;
-      v18 += 24;
+      v18 += 3;
     }
 
     while (v1 != v16);
@@ -761,11 +761,11 @@ uint64_t __42__WBSFormDataController_pruneCompletionDB__block_invoke(uint64_t a1
   return WTF::Vector<SortEntry,0ul,WTF::CrashOnOverflow,16ul,WTF::FastMalloc>::~Vector(&v41, v22);
 }
 
-uint64_t __42__WBSFormDataController_pruneCompletionDB__block_invoke_3(uint64_t result)
+id *__42__WBSFormDataController_pruneCompletionDB__block_invoke_3(id *result)
 {
   if (*(result + 40) == 1)
   {
-    return [*(result + 32) domainsWithPreviousDataChanged];
+    return [result[4] domainsWithPreviousDataChanged];
   }
 
   return result;
@@ -810,9 +810,9 @@ void __38__WBSFormDataController__completionDB__block_invoke(uint64_t a1)
 
   v3 = MEMORY[0x1E696AE40];
   _completionDB = [(WBSFormDataController *)self _completionDB];
-  v11 = 0;
-  v5 = [v3 dataWithPropertyList:_completionDB format:200 options:0 error:&v11];
-  v6 = v11;
+  v13 = 0;
+  v5 = [v3 dataWithPropertyList:_completionDB format:200 options:0 error:&v13];
+  v6 = v13;
 
   if (v5)
   {
@@ -821,8 +821,8 @@ void __38__WBSFormDataController__completionDB__block_invoke(uint64_t a1)
 
   else
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = WBS_LOG_CHANNEL_PREFIXAutoFill(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [WBSFormDataController allFormDataForSaving];
     }
@@ -830,9 +830,9 @@ void __38__WBSFormDataController__completionDB__block_invoke(uint64_t a1)
     data = [MEMORY[0x1E695DEF0] data];
   }
 
-  v9 = data;
+  v11 = data;
 
-  return v9;
+  return v11;
 }
 
 - (void)_dropValuesFromRecentlyUsedAutoFillSets
@@ -1140,13 +1140,13 @@ void __70__WBSFormDataController_clearPreviousDataDatabaseItemsAddedAfterDate___
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __70__WBSFormDataController_clearPreviousDataDatabaseItemsAddedAfterDate___block_invoke_2(uint64_t result)
+id *__70__WBSFormDataController_clearPreviousDataDatabaseItemsAddedAfterDate___block_invoke_2(id *result)
 {
   if (*(result + 40) == 1)
   {
     v2 = result;
-    [*(result + 32) saveCompletionDBSoon];
-    v3 = *(v2 + 32);
+    [result[4] saveCompletionDBSoon];
+    v3 = v2[4];
 
     return [v3 domainsWithPreviousDataChanged];
   }
@@ -2994,7 +2994,7 @@ LABEL_33:
 
   else
   {
-    v7 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:{@"xp-, "}];
+    v7 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x1E696AB08]);
     [WBSFormDataController _phoneNumberCandidates:fillingMultipleFields:]::extensionMarkers = v7;
   }
 
@@ -3988,7 +3988,7 @@ LABEL_4:
 
 - (void)getFormFieldValues:(id *)values andFieldToFocus:(id *)focus withSingleCreditCardData:(id)data inField:(id)field inForm:(id)form
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   fieldCopy = field;
   formCopy = form;
@@ -4031,56 +4031,58 @@ LABEL_4:
       goto LABEL_13;
     }
 
-    v38 = value;
-    v39 = WBSLocaleForCreditCardExpirationDate();
-    v41 = dictionary;
+    v44 = value;
+    v45 = WBSLocaleForCreditCardExpirationDate();
+    v47 = dictionary;
     v19 = controls;
-    v42 = v38;
-    v40 = v19;
-    v43 = [WBSFormDataController continuingFieldsInFormControls:v19 startingAtIndex:v16];
-    if ([v43 count] >= 4)
+    v48 = v44;
+    v46 = v19;
+    v49 = [WBSFormDataController continuingFieldsInFormControls:v19 startingAtIndex:v16];
+    v20 = [v49 count];
+    if (v20 >= 4)
     {
-      v20 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v22 = WBS_LOG_CHANNEL_PREFIXAutoFill(v20, v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        -[WBSFormDataController getFormFieldValues:andFieldToFocus:withSingleCreditCardData:inField:inForm:].cold.3(buf, [v43 count], v20);
+        -[WBSFormDataController getFormFieldValues:andFieldToFocus:withSingleCreditCardData:inField:inForm:].cold.3(buf, [v49 count], v22);
       }
 
       goto LABEL_27;
     }
 
-    if (!v42)
+    if (!v48)
     {
 LABEL_27:
-      v28 = [v43 count];
+      v34 = [v49 count];
 LABEL_28:
 
-      v16 = v16 + v28 - 1;
+      v16 = v16 + v34 - 1;
       goto LABEL_29;
     }
 
-    if ([v43 count] == 1)
+    if ([v49 count] == 1)
     {
-      v36 = [v43 objectAtIndexedSubscript:0];
-      if ([(WBSFormControlMetadata *)v36 isTextField])
+      v42 = [v49 objectAtIndexedSubscript:0];
+      isTextField = [(WBSFormControlMetadata *)v42 isTextField];
+      if (isTextField)
       {
-        requiredFormatForDateTimeInput = [(WBSFormControlMetadata *)v36 requiredFormatForDateTimeInput];
-        v24 = [requiredFormatForDateTimeInput length];
+        requiredFormatForDateTimeInput = [(WBSFormControlMetadata *)v42 requiredFormatForDateTimeInput];
+        v28 = [requiredFormatForDateTimeInput length];
 
-        if (v24)
+        if (v28)
         {
-          v25 = objc_alloc_init(MEMORY[0x1E696AB78]);
-          requiredFormatForDateTimeInput2 = [(WBSFormControlMetadata *)v36 requiredFormatForDateTimeInput];
-          [v25 setDateFormat:requiredFormatForDateTimeInput2];
+          v31 = objc_alloc_init(MEMORY[0x1E696AB78]);
+          requiredFormatForDateTimeInput2 = [(WBSFormControlMetadata *)v42 requiredFormatForDateTimeInput];
+          [v31 setDateFormat:requiredFormatForDateTimeInput2];
 
-          v27 = [v25 stringFromDate:v42];
-          recordValueForTextField(v41, v27, v36);
+          v33 = [v31 stringFromDate:v48];
+          recordValueForTextField(v47, v33, v42);
         }
 
         else
         {
-          v33 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v39 = WBS_LOG_CHANNEL_PREFIXAutoFill(v29, v30);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
             [WBSFormDataController getFormFieldValues:andFieldToFocus:withSingleCreditCardData:inField:inForm:];
           }
@@ -4089,65 +4091,65 @@ LABEL_28:
 
       else
       {
-        v32 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v38 = WBS_LOG_CHANNEL_PREFIXAutoFill(isTextField, v26);
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           [WBSFormDataController getFormFieldValues:andFieldToFocus:withSingleCreditCardData:inField:inForm:];
         }
       }
 
-      v28 = 1;
+      v34 = 1;
       goto LABEL_28;
     }
 
-    v47 = 0;
+    v53 = 0;
     *buf = 0;
-    v46 = 0;
-    v30 = identifyDateFields(v43, buf, &v47, &v46);
-    v37 = *buf;
-    v35 = v47;
-    v34 = v46;
-    if (v30)
+    v52 = 0;
+    v36 = identifyDateFields(v49, buf, &v53, &v52);
+    v43 = *buf;
+    v41 = v53;
+    v40 = v52;
+    if (v36)
     {
-      if (v37 && !v35)
+      if (v43 && !v41)
       {
-        v31 = [v43 count];
+        v37 = [v49 count];
 LABEL_46:
-        v28 = v31;
+        v34 = v37;
 
         goto LABEL_28;
       }
 
-      if (v37)
+      if (v43)
       {
-        recordValueForDateField(v41, 0, v42, v37);
+        recordValueForDateField(v47, 0, v48, v43);
       }
 
-      if (v35)
+      if (v41)
       {
-        recordValueForDateField(v41, 1, v42, v35);
+        recordValueForDateField(v47, 1, v48, v41);
       }
 
-      if (v34)
+      if (v40)
       {
-        recordValueForDateField(v41, 2, v42, v34);
+        recordValueForDateField(v47, 2, v48, v40);
       }
     }
 
-    v31 = [v43 count];
+    v37 = [v49 count];
     goto LABEL_46;
   }
 
   if (!type)
   {
-    v21 = value;
-    v22 = [objc_opt_class() continuingFieldsInFormControls:controls startingAtIndex:v16];
-    if (valueFitsInFields(v21, v22))
+    v23 = value;
+    v24 = [objc_opt_class() continuingFieldsInFormControls:controls startingAtIndex:v16];
+    if (valueFitsInFields(v23, v24))
     {
-      fillMultiFieldValue(dictionary, v21, v22, 0);
+      fillMultiFieldValue(dictionary, v23, v24, 0);
     }
 
-    v16 = v16 + [v22 count] - 1;
+    v16 = v16 + [v24 count] - 1;
 
     goto LABEL_29;
   }
@@ -4159,7 +4161,7 @@ LABEL_13:
   }
 
 LABEL_29:
-  v29 = dictionary;
+  v35 = dictionary;
   *values = dictionary;
   if (focus)
   {
@@ -6881,9 +6883,9 @@ LABEL_11:
     v10 = [_passwordCopy substringFromIndex:v7];
     if ([v10 length] >= 2)
     {
-      v11 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"@"];
+      v11 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x1E696AB08]);
       v24[0] = v11;
-      v12 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@"*"];
+      v12 = objc_msgSend_characterSetWithCharactersInString_(MEMORY[0x1E696AB08]);
       v24[1] = v12;
       v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
 

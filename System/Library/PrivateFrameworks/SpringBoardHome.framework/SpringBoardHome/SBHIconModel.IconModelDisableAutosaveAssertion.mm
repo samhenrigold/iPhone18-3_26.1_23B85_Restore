@@ -10,7 +10,7 @@
 - (void)invalidate
 {
   selfCopy = self;
-  sub_1BEE173DC();
+  sub_1BEE173DC(selfCopy, v2);
 }
 
 - (NSString)description

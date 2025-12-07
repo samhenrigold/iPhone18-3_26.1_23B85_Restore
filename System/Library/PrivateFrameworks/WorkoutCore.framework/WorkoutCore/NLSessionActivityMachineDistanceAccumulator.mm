@@ -73,13 +73,12 @@
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)update
 {
   updateHandler = [(NLSessionActivityDataAccumulator *)self updateHandler];
-  MEMORY[0x277D82BD8](updateHandler);
+  *&v2 = MEMORY[0x277D82BD8](updateHandler).n128_u64[0];
   if (updateHandler)
   {
     updateHandler2 = [(NLSessionActivityDataAccumulator *)self updateHandler];

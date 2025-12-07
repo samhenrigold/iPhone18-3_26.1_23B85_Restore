@@ -7,7 +7,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)mutableCopyWithZone:(_NSZone *)zone;
-- (uint64_t)_newCopyWithClass:(uint64_t)class zone:;
+- (void)_newCopyWithClass:(uint64_t)class zone:;
 - (void)encodeWithCoder:(id)coder;
 @end
 
@@ -246,7 +246,7 @@ LABEL_36:
   }
 }
 
-- (uint64_t)_newCopyWithClass:(uint64_t)class zone:
+- (void)_newCopyWithClass:(uint64_t)class zone:
 {
   if (!self)
   {

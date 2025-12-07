@@ -34,30 +34,26 @@
 
 void __28__SiriReaderConnection_init__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[SiriReaderConnection init]_block_invoke";
-    _os_log_impl(&dword_268C60000, v0, OS_LOG_TYPE_DEFAULT, "%s SiriReaderConnection: connection invalidated", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[SiriReaderConnection init]_block_invoke";
+    _os_log_impl(&dword_268C60000, v0, OS_LOG_TYPE_DEFAULT, "%s SiriReaderConnection: connection invalidated", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void __28__SiriReaderConnection_init__block_invoke_58()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v2 = 136315138;
-    v3 = "[SiriReaderConnection init]_block_invoke";
-    _os_log_impl(&dword_268C60000, v0, OS_LOG_TYPE_DEFAULT, "%s SiriReaderConnection: connection invalidated", &v2, 0xCu);
+    v1 = 136315138;
+    v2 = "[SiriReaderConnection init]_block_invoke";
+    _os_log_impl(&dword_268C60000, v0, OS_LOG_TYPE_DEFAULT, "%s SiriReaderConnection: connection invalidated", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -70,19 +66,17 @@ void __28__SiriReaderConnection_init__block_invoke_58()
 
 void __38__SiriReaderConnection_readerProtocol__block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315394;
-    v6 = "[SiriReaderConnection readerProtocol]_block_invoke";
-    v7 = 2112;
-    v8 = v2;
-    _os_log_impl(&dword_268C60000, v3, OS_LOG_TYPE_DEFAULT, "%s %@", &v5, 0x16u);
+    v4 = 136315394;
+    v5 = "[SiriReaderConnection readerProtocol]_block_invoke";
+    v6 = 2112;
+    v7 = v2;
+    _os_log_impl(&dword_268C60000, v3, OS_LOG_TYPE_DEFAULT, "%s %@", &v4, 0x16u);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)readText:(id)text textBody:(id)body textIdentifier:(id)identifier textLocale:(id)locale textLeadingImage:(id)image

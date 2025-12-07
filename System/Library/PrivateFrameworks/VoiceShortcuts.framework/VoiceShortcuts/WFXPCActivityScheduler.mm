@@ -12,7 +12,7 @@
 
 - (void)removeEligibilityChangedHandlerIfNeeded
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   os_unfair_lock_assert_not_owner(&self->_lock);
   os_unfair_lock_lock(&self->_lock);
   aBlock[0] = MEMORY[0x277D85DD0];
@@ -28,9 +28,9 @@
     {
       activityIdentifier = [(WFXPCActivityScheduler *)self activityIdentifier];
       *buf = 136315394;
-      v9 = "[WFXPCActivityScheduler removeEligibilityChangedHandlerIfNeeded]";
-      v10 = 2112;
-      v11 = activityIdentifier;
+      v8 = "[WFXPCActivityScheduler removeEligibilityChangedHandlerIfNeeded]";
+      v9 = 2112;
+      v10 = activityIdentifier;
       _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_INFO, "%s Removing eligibility changed handler for activity: %@", buf, 0x16u);
     }
 
@@ -39,13 +39,11 @@
   }
 
   v3[2](v3);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addEligibilityChangedHandler:(id)handler toActivity:(id)activity
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   activityCopy = activity;
   os_unfair_lock_assert_not_owner(&self->_lock);
@@ -63,9 +61,9 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v15 = "[WFXPCActivityScheduler addEligibilityChangedHandler:toActivity:]";
-      v16 = 2112;
-      v17 = activityIdentifier;
+      v14 = "[WFXPCActivityScheduler addEligibilityChangedHandler:toActivity:]";
+      v15 = 2112;
+      v16 = activityIdentifier;
       _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_FAULT, "%s Eligibility changed handler already set for activity %@", buf, 0x16u);
     }
   }
@@ -76,9 +74,9 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v15 = "[WFXPCActivityScheduler addEligibilityChangedHandler:toActivity:]";
-      v16 = 2112;
-      v17 = activityIdentifier;
+      v14 = "[WFXPCActivityScheduler addEligibilityChangedHandler:toActivity:]";
+      v15 = 2112;
+      v16 = activityIdentifier;
       _os_log_impl(&dword_23103C000, v11, OS_LOG_TYPE_INFO, "%s Setting up eligibility changed handler for activity %@", buf, 0x16u);
     }
 
@@ -86,7 +84,6 @@
   }
 
   v8[2](v8);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)scheduleWithCheckInHandler:(id)handler runHandler:(id)runHandler
@@ -112,7 +109,7 @@
 
 void __64__WFXPCActivityScheduler_scheduleWithCheckInHandler_runHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
   state = xpc_activity_get_state(v3);
   v5 = getWFGeneralLogObject();
@@ -148,7 +145,7 @@ void __64__WFXPCActivityScheduler_scheduleWithCheckInHandler_runHandler___block_
       *&buf[12] = 2112;
       *&buf[14] = v12;
       *&buf[22] = 2048;
-      v23 = state;
+      v22 = state;
       _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_ERROR, "%s Unexpected state of %@ XPC activity: %ld", buf, 0x20u);
     }
 
@@ -187,41 +184,39 @@ LABEL_18:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v23 = __Block_byref_object_copy__6342;
-  v24 = __Block_byref_object_dispose__6343;
+  v22 = __Block_byref_object_copy__6342;
+  v23 = __Block_byref_object_dispose__6343;
   v10 = *(a1 + 56);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __64__WFXPCActivityScheduler_scheduleWithCheckInHandler_runHandler___block_invoke_171;
-  v18[3] = &unk_2788FFC98;
-  v18[4] = *(a1 + 40);
-  objc_copyWeak(&v20, &location);
-  v19 = *(a1 + 32);
-  v25 = (*(v10 + 16))(v10, v3, v18);
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __64__WFXPCActivityScheduler_scheduleWithCheckInHandler_runHandler___block_invoke_171;
+  v17[3] = &unk_2788FFC98;
+  v17[4] = *(a1 + 40);
+  objc_copyWeak(&v19, &location);
+  v18 = *(a1 + 32);
+  v24 = (*(v10 + 16))(v10, v3, v17);
   if (xpc_activity_get_state(v3) != 5)
   {
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __64__WFXPCActivityScheduler_scheduleWithCheckInHandler_runHandler___block_invoke_173;
-    v15[3] = &unk_2788FFCC0;
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __64__WFXPCActivityScheduler_scheduleWithCheckInHandler_runHandler___block_invoke_173;
+    v14[3] = &unk_2788FFCC0;
     v11 = *(a1 + 40);
-    v16 = *(a1 + 32);
-    v17 = buf;
-    [v11 addEligibilityChangedHandler:v15 toActivity:v3];
+    v15 = *(a1 + 32);
+    v16 = buf;
+    [v11 addEligibilityChangedHandler:v14 toActivity:v3];
   }
 
   _Block_object_dispose(buf, 8);
 
-  objc_destroyWeak(&v20);
+  objc_destroyWeak(&v19);
   objc_destroyWeak(&location);
 LABEL_19:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __64__WFXPCActivityScheduler_scheduleWithCheckInHandler_runHandler___block_invoke_171(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   [*(a1 + 32) removeEligibilityChangedHandlerIfNeeded];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
@@ -230,8 +225,8 @@ void __64__WFXPCActivityScheduler_scheduleWithCheckInHandler_runHandler___block_
     v8 = getWFGeneralLogObject();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v15 = 136315138;
-      v16 = "[WFXPCActivityScheduler scheduleWithCheckInHandler:runHandler:]_block_invoke";
+      v14 = 136315138;
+      v15 = "[WFXPCActivityScheduler scheduleWithCheckInHandler:runHandler:]_block_invoke";
       v10 = "%s xpcActivity is nil in completion handler, the activity has likely been deferred";
       v11 = v8;
       v12 = OS_LOG_TYPE_INFO;
@@ -249,13 +244,13 @@ LABEL_13:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = *(a1 + 40);
-    v15 = 136315650;
-    v16 = "[WFXPCActivityScheduler scheduleWithCheckInHandler:runHandler:]_block_invoke";
-    v17 = 2112;
-    v18 = v6;
-    v19 = 1024;
-    LODWORD(v20) = should_defer;
-    _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_INFO, "%s XPC activity %@ finished, shouldDefer = %d", &v15, 0x1Cu);
+    v14 = 136315650;
+    v15 = "[WFXPCActivityScheduler scheduleWithCheckInHandler:runHandler:]_block_invoke";
+    v16 = 2112;
+    v17 = v6;
+    v18 = 1024;
+    LODWORD(v19) = should_defer;
+    _os_log_impl(&dword_23103C000, v5, OS_LOG_TYPE_INFO, "%s XPC activity %@ finished, shouldDefer = %d", &v14, 0x1Cu);
   }
 
   if (should_defer)
@@ -274,18 +269,18 @@ LABEL_13:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = *(a1 + 40);
-      v15 = 136315650;
-      v16 = "[WFXPCActivityScheduler scheduleWithCheckInHandler:runHandler:]_block_invoke";
-      v17 = 2112;
-      v18 = v9;
-      v19 = 2048;
-      v20 = v7;
+      v14 = 136315650;
+      v15 = "[WFXPCActivityScheduler scheduleWithCheckInHandler:runHandler:]_block_invoke";
+      v16 = 2112;
+      v17 = v9;
+      v18 = 2048;
+      v19 = v7;
       v10 = "%s Failed to set %@ XPC activity state to %ld";
       v11 = v8;
       v12 = OS_LOG_TYPE_ERROR;
       v13 = 32;
 LABEL_12:
-      _os_log_impl(&dword_23103C000, v11, v12, v10, &v15, v13);
+      _os_log_impl(&dword_23103C000, v11, v12, v10, &v14, v13);
       goto LABEL_13;
     }
 
@@ -293,13 +288,11 @@ LABEL_12:
   }
 
 LABEL_14:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __64__WFXPCActivityScheduler_scheduleWithCheckInHandler_runHandler___block_invoke_173(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (xpc_activity_should_defer(v3))
   {
@@ -307,11 +300,11 @@ void __64__WFXPCActivityScheduler_scheduleWithCheckInHandler_runHandler___block_
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 32);
-      v13 = 136315394;
-      v14 = "[WFXPCActivityScheduler scheduleWithCheckInHandler:runHandler:]_block_invoke";
-      v15 = 2112;
-      v16 = v5;
-      _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_DEFAULT, "%s XPC activity %@ should defer", &v13, 0x16u);
+      v12 = 136315394;
+      v13 = "[WFXPCActivityScheduler scheduleWithCheckInHandler:runHandler:]_block_invoke";
+      v14 = 2112;
+      v15 = v5;
+      _os_log_impl(&dword_23103C000, v4, OS_LOG_TYPE_DEFAULT, "%s XPC activity %@ should defer", &v12, 0x16u);
     }
 
     if (*(*(*(a1 + 40) + 8) + 40))
@@ -320,11 +313,11 @@ void __64__WFXPCActivityScheduler_scheduleWithCheckInHandler_runHandler___block_
       if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
         v7 = *(a1 + 32);
-        v13 = 136315394;
-        v14 = "[WFXPCActivityScheduler scheduleWithCheckInHandler:runHandler:]_block_invoke";
-        v15 = 2112;
-        v16 = v7;
-        _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_INFO, "%s Calling should defer handler for XPC activity %@", &v13, 0x16u);
+        v12 = 136315394;
+        v13 = "[WFXPCActivityScheduler scheduleWithCheckInHandler:runHandler:]_block_invoke";
+        v14 = 2112;
+        v15 = v7;
+        _os_log_impl(&dword_23103C000, v6, OS_LOG_TYPE_INFO, "%s Calling should defer handler for XPC activity %@", &v12, 0x16u);
       }
 
       (*(*(*(*(a1 + 40) + 8) + 40) + 16))();
@@ -339,16 +332,14 @@ void __64__WFXPCActivityScheduler_scheduleWithCheckInHandler_runHandler___block_
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         v11 = *(a1 + 32);
-        v13 = 136315394;
-        v14 = "[WFXPCActivityScheduler scheduleWithCheckInHandler:runHandler:]_block_invoke";
-        v15 = 2112;
-        v16 = v11;
-        _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_ERROR, "%s Failed to set %@ XPC activity state to deferred", &v13, 0x16u);
+        v12 = 136315394;
+        v13 = "[WFXPCActivityScheduler scheduleWithCheckInHandler:runHandler:]_block_invoke";
+        v14 = 2112;
+        v15 = v11;
+        _os_log_impl(&dword_23103C000, v10, OS_LOG_TYPE_ERROR, "%s Failed to set %@ XPC activity state to deferred", &v12, 0x16u);
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate

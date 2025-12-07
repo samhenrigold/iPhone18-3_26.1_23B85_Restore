@@ -14,50 +14,55 @@
 - (void)_updateSizeWithAnimationFactory:(uint64_t)factory
 {
   v3 = a2;
-  v20 = 0.0;
-  v18 = 0u;
-  v19 = 0u;
-  [(PKExpressBannerLeadingView *)&v18 _metricsForSizeClass:factory, *(factory + 460)];
-  v4 = v18;
-  v5 = *(factory + 512) == *&v18 && *(factory + 520) == *(&v18 + 1);
-  if (!v5 || (*(factory + 528) == *&v19 ? (v6 = *(factory + 536) == *(&v19 + 1)) : (v6 = 0), !v6))
+  v24 = 0.0;
+  v22 = 0u;
+  v23 = 0u;
+  [(PKExpressBannerLeadingView *)&v22 _metricsForSizeClass:factory, *(factory + 460)];
+  v4 = v22;
+  v5 = *(factory + 512) == *&v22 && *(factory + 520) == *(&v22 + 1);
+  if (!v5 || (*(factory + 528) == v23.n128_f64[0] ? (v6 = *(factory + 536) == v23.n128_f64[1]) : (v6 = 0), !v6))
   {
-    memset(&v17, 0, sizeof(v17));
-    CATransform3DMakeScale(&v17, v20, v20, 1.0);
-    memset(&v16, 0, sizeof(v16));
-    v7 = *(factory + 432);
-    if (v7)
+    memset(&v21, 0, sizeof(v21));
+    v7 = v24;
+    CATransform3DMakeScale(&v21, v24, v24, 1.0);
+    memset(&v20, 0, sizeof(v20));
+    v8 = *(factory + 432);
+    if (v8)
     {
-      [v7 transform];
+      objc_msgSend_transform(v8);
     }
 
-    a = v17;
-    v14 = v16;
-    if (!CATransform3DEqualToTransform(&a, &v14))
+    a = v21;
+    v18 = v20;
+    if (!CATransform3DEqualToTransform(&a, &v18))
     {
       if (v3)
       {
-        v8 = [v3 springAnimationWithKeyPath:@"transform"];
-        a = v16;
-        v14 = v17;
-        [v8 pkui_updateForAdditiveAnimationFromTransform:&a toTransform:&v14];
-        v9 = [*(factory + 432) pkui_addAdditiveAnimation:v8];
+        v9 = [v3 springAnimationWithKeyPath:@"transform"];
+        a = v20;
+        v18 = v21;
+        [v9 pkui_updateForAdditiveAnimationFromTransform:&a toTransform:&v18];
+        v10 = [*(factory + 432) pkui_addAdditiveAnimation:v9];
       }
 
-      v10 = *(factory + 432);
-      a = v17;
-      [v10 setTransform:&a];
+      v11 = *(factory + 432);
+      a = v21;
+      [v11 setTransform:&a];
     }
 
-    v11 = v19;
-    *(factory + 512) = v18;
-    *(factory + 528) = v11;
-    PKFloatRoundToPixel();
-    *(factory + 552) = v12;
-    *(factory + 568) = *&v4 - (v12 + *&v19);
-    PKFloatRoundToPixel();
-    *(factory + 544) = v13;
-    *(factory + 560) = *(&v4 + 1) - (v13 + *(&v19 + 1));
+    v12.n128_u64[1] = *(&v22 + 1);
+    v13 = v23;
+    *(factory + 512) = v22;
+    *(factory + 528) = v13;
+    v12.n128_f64[0] = v7 * 35.0;
+    PKFloatRoundToPixel(v12, v13);
+    *(factory + 552) = v14;
+    v15.n128_u64[0] = v23.n128_u64[0];
+    *(factory + 568) = *&v4 - (v14 + v23.n128_f64[0]);
+    v16.n128_f64[0] = v7 * 17.0;
+    PKFloatRoundToPixel(v16, v15);
+    *(factory + 544) = v17;
+    *(factory + 560) = *(&v4 + 1) - (v17 + v23.n128_f64[1]);
     [factory setNeedsLayout];
   }
 }
@@ -123,53 +128,63 @@
 
 - (void)layoutSubviews
 {
-  v11.receiver = self;
-  v11.super_class = PKExpressBannerLeadingView;
-  [(PKExpressBannerLeadingView *)&v11 layoutSubviews];
+  v25.receiver = self;
+  v25.super_class = PKExpressBannerLeadingView;
+  [(PKExpressBannerLeadingView *)&v25 layoutSubviews];
   [(PKExpressBannerLeadingView *)self bounds];
-  PKSizeAlignedInRect();
-  v4 = v3 - self->_targetAlignmentInsets.left;
-  v6 = v5 - self->_targetAlignmentInsets.top;
+  v4 = v3;
+  v6 = v5;
+  v8.n128_u64[0] = v7;
+  v10 = v9;
+  v11.n128_u64[0] = *&self->_targetAlignmentSize.width;
+  v12.n128_u64[0] = *&self->_targetAlignmentSize.height;
+  v13.n128_u64[0] = v4;
+  v14.n128_u64[0] = v6;
+  v15.n128_u64[0] = v8.n128_u64[0];
+  v16.n128_u64[0] = v10;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v11, v12, v13, v14, v15, v16, v8);
+  v18 = v17 - self->_targetAlignmentInsets.left;
+  v20 = v19 - self->_targetAlignmentInsets.top;
   width = self->_targetSize.width;
   height = self->_targetSize.height;
   [(CALayer *)self->_contentLayer anchorPoint];
-  [(CALayer *)self->_contentLayer setPosition:v4 + v9 * width, v6 + v10 * height];
+  [(CALayer *)self->_contentLayer setPosition:v18 + v23 * width, v20 + v24 * height];
 }
 
 - (uint64_t)_metricsForSizeClass:(unsigned int)class
 {
-  v3 = result;
-  v4 = MEMORY[0x1E695F060];
-  v5 = *(MEMORY[0x1E695F060] + 8);
+  v4 = result;
+  v5 = MEMORY[0x1E695F060];
+  v6 = *(MEMORY[0x1E695F060] + 8);
   if (class < 3)
   {
-    v5 = 1.79769313e308;
-    v4 = (&unk_1BE117010 + 8 * class);
+    v6 = 1.79769313e308;
+    v5 = (&unk_1BE117010 + 8 * class);
   }
 
-  if (*v4 <= 0.0 || v5 <= 0.0)
+  if (*v5 <= 0.0 || v6 <= 0.0)
   {
-    v8 = *(a2 + 60);
-    v10 = *(a2 + 61);
-    v11 = *(a2 + 62);
-    v12 = *(a2 + 63);
-    v6 = 1.0;
+    v9 = *(a2 + 60);
+    v11 = *(a2 + 61);
+    v12 = *(a2 + 62);
+    v13 = *(a2 + 63);
+    v7 = 1.0;
   }
 
   else
   {
-    v6 = fmin(*v4 / a2[62], v5 / a2[63]);
-    PKSizeRoundToPixel();
-    v8 = v7;
-    v10 = v9;
-    result = PKSizeRoundToPixel();
+    v7 = fmin(*v5 / a2[62], v6 / a2[63]);
+    PKSizeRoundToPixel(v7 * a2[60], v7 * a2[61]);
+    v9 = v8;
+    v11 = v10;
+    result = PKSizeRoundToPixel(v7 * a2[62], v7 * a2[63]);
   }
 
-  *v3 = v8;
-  *(v3 + 8) = v10;
-  *(v3 + 16) = v11;
-  *(v3 + 24) = v12;
-  *(v3 + 32) = v6;
+  *v4 = v9;
+  *(v4 + 8) = v11;
+  *(v4 + 16) = v12;
+  *(v4 + 24) = v13;
+  *(v4 + 32) = v7;
   return result;
 }
 
@@ -180,7 +195,7 @@
   if (v3 <= 3)
   {
     v4 = off_1E8025D48[v3];
-    v5 = [*(self + 432) stateWithName:v4];
+    v5 = [*(self + 432) stateWithName:{v4, a2}];
     if (v5)
     {
       LODWORD(v6) = 1.0;

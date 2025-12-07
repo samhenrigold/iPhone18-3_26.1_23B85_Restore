@@ -60,7 +60,7 @@ void __98__WFRepeatIndexVariableNameMigration_calculateVariableNamesAtActionInde
   v7 = [*(a1 + 32) actionIdentifierKey];
   v8 = [v16 objectForKey:v7];
 
-  if (([v8 isEqualToString:@"is.workflow.actions.repeat.each"] & 1) != 0 || objc_msgSend(v8, "isEqualToString:", @"is.workflow.actions.repeat.count"))
+  if ((objc_msgSend_isEqualToString_(v8) & 1) != 0 || objc_msgSend_isEqualToString_(v8))
   {
     v9 = [*(a1 + 32) actionParametersKey];
     v10 = [v16 objectForKey:v9];
@@ -132,7 +132,7 @@ void __53__WFRepeatIndexVariableNameMigration_migrateWorkflow__block_invoke(uint
   v6 = [*(a1 + 32) actionIdentifierKey];
   v7 = [v5 objectForKey:v6];
 
-  if ([v7 isEqualToString:@"is.workflow.actions.getvariable"])
+  if (objc_msgSend_isEqualToString_(v7))
   {
     v8 = *(a1 + 32);
     v31 = 0;
@@ -181,10 +181,10 @@ void __53__WFRepeatIndexVariableNameMigration_migrateWorkflow__block_invoke(uint
 
 uint64_t __53__WFRepeatIndexVariableNameMigration_migrateWorkflow__block_invoke_2(uint64_t a1, void *a2)
 {
-  v3 = [a2 objectForKey:@"UUID"];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 objectForKey:@"UUID"];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 @end

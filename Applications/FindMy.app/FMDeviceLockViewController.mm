@@ -54,7 +54,7 @@ LABEL_3:
   }
 
   v17.receiver = self;
-  v17.super_class = type metadata accessor for FMDeviceLockViewController();
+  v17.super_class = type metadata accessor for FMDeviceLockViewController(0);
   v15 = [(FMDeviceActionsViewController *)&v17 initWithTitle:title detailText:v12 icon:icon contentLayout:layout];
 
   return v15;

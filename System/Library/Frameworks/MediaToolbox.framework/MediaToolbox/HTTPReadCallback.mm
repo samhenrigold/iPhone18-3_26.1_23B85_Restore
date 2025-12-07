@@ -3,18 +3,18 @@
 
 @implementation HTTPReadCallback
 
-const void *__fpic_HTTPReadCallback_block_invoke(uint64_t a1)
+const void *__fpic_HTTPReadCallback_block_invoke(void *a1)
 {
-  result = fpic_FindURLReq(*(a1 + 40), @"FPICURLR_HTTPRequest", *(a1 + 48));
+  result = fpic_FindURLReq(a1[5], @"FPICURLR_HTTPRequest", a1[6]);
   if (result != -1)
   {
-    result = CFArrayGetValueAtIndex(*(*(a1 + 56) + 680), result);
+    result = CFArrayGetValueAtIndex(*(a1[7] + 680), result);
     if (result)
     {
       result = CFRetain(result);
     }
 
-    *(*(*(a1 + 32) + 8) + 24) = result;
+    *(*(a1[4] + 8) + 24) = result;
   }
 
   return result;

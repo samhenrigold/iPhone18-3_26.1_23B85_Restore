@@ -56,7 +56,7 @@
 
 - (id)specifiersForPendingInstallPlans
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
   currentDevice = [MEMORY[0x277D75418] currentDevice];
   userInterfaceIdiom = [currentDevice userInterfaceIdiom];
@@ -93,7 +93,7 @@
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v25 = v3;
+      v24 = v3;
       _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Pending install group specifiers: %@", buf, 0xCu);
     }
   }
@@ -108,20 +108,18 @@
     [(PSSpecifier *)groupSpecifier setProperty:v21 forKey:*MEMORY[0x277D3FF88]];
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
 - (void)pendingInstallPlanPressed:(id)pressed
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   pressedCopy = pressed;
   getLogger = [(PSUIPendingInstallPlanGroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = pressedCopy;
+    v15 = pressedCopy;
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%@", buf, 0xCu);
   }
 
@@ -129,12 +127,12 @@
   coreTelephonyClient = self->_coreTelephonyClient;
   plan = [v6 plan];
   carrierName = [v6 carrierName];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __57__PSUIPendingInstallPlanGroup_pendingInstallPlanPressed___block_invoke;
-  v14[3] = &unk_279BAA628;
-  v14[4] = self;
-  [(CoreTelephonyClient *)coreTelephonyClient startPendingPlanInstallationForPlan:plan carrierName:carrierName completionHandler:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __57__PSUIPendingInstallPlanGroup_pendingInstallPlanPressed___block_invoke;
+  v13[3] = &unk_279BAA628;
+  v13[4] = self;
+  [(CoreTelephonyClient *)coreTelephonyClient startPendingPlanInstallationForPlan:plan carrierName:carrierName completionHandler:v13];
 
   planItems = [(PSUICellularPlanManagerCache *)self->_cellularPlanManager planItems];
   v11 = [planItems count];
@@ -144,8 +142,6 @@
     WeakRetained = objc_loadWeakRetained(&self->_listController);
     [WeakRetained dismissViewControllerAnimated:1 completion:0];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __57__PSUIPendingInstallPlanGroup_pendingInstallPlanPressed___block_invoke(uint64_t a1, uint64_t a2)
@@ -165,12 +161,12 @@ void __57__PSUIPendingInstallPlanGroup_pendingInstallPlanPressed___block_invoke(
 
 - (void)simSetupFlowCompleted:(unint64_t)completed
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUIPendingInstallPlanGroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v9 = "[PSUIPendingInstallPlanGroup simSetupFlowCompleted:]";
+    v8 = "[PSUIPendingInstallPlanGroup simSetupFlowCompleted:]";
     _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s", buf, 0xCu);
   }
 
@@ -179,11 +175,10 @@ void __57__PSUIPendingInstallPlanGroup_pendingInstallPlanPressed___block_invoke(
   block[1] = 3221225472;
   block[2] = __53__PSUIPendingInstallPlanGroup_simSetupFlowCompleted___block_invoke;
   block[3] = &unk_279BA9EA0;
-  objc_copyWeak(&v7, buf);
+  objc_copyWeak(&v6, buf);
   dispatch_async(MEMORY[0x277D85CD0], block);
-  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v6);
   objc_destroyWeak(buf);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __53__PSUIPendingInstallPlanGroup_simSetupFlowCompleted___block_invoke(uint64_t a1)

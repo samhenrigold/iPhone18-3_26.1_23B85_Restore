@@ -55,37 +55,37 @@
 
 - (void)enrollDeviceChannelWithURI:(id)i completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   iCopy = i;
   handlerCopy = handler;
   v8 = +[RMLog enrollmentController];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v22 = iCopy;
+    v21 = iCopy;
     _os_log_impl(&dword_1E1168000, v8, OS_LOG_TYPE_DEFAULT, "Starting device channel enrollment for %{public}@", buf, 0xCu);
   }
 
   if ([(RMEnrollmentController *)self _isDeviceOrSupervisedEnrollment])
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler___block_invoke;
-    v18[3] = &unk_1E8706060;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler___block_invoke;
+    v17[3] = &unk_1E8706060;
     v9 = iCopy;
-    v19 = v9;
+    v18 = v9;
     v10 = handlerCopy;
-    v20 = v10;
-    v11 = [(RMEnrollmentController *)self _scopedProxyWithErrorHandler:v18];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler___block_invoke_14;
-    v15[3] = &unk_1E8706088;
-    v16 = v9;
-    v17 = v10;
-    [v11 enrollDeviceChannelWithURI:v16 completionHandler:v15];
+    v19 = v10;
+    v11 = [(RMEnrollmentController *)self _scopedProxyWithErrorHandler:v17];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler___block_invoke_14;
+    v14[3] = &unk_1E8706088;
+    v15 = v9;
+    v16 = v10;
+    [v11 enrollDeviceChannelWithURI:v15 completionHandler:v14];
 
-    v12 = v19;
+    v12 = v18;
   }
 
   else
@@ -99,8 +99,6 @@
 
     (*(handlerCopy + 2))(handlerCopy, 0, v12);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -109,7 +107,7 @@ void __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler__
   v4 = +[RMLog enrollmentController];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler___block_invoke_cold_1(a1);
+    __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -117,7 +115,7 @@ void __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler__
 
 void __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler___block_invoke_14(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[RMLog enrollmentController];
@@ -126,7 +124,7 @@ void __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler__
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler___block_invoke_14_cold_1(a1);
+      __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler___block_invoke_14_cold_1();
     }
 
     v9 = *(*(a1 + 40) + 16);
@@ -137,31 +135,29 @@ void __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler__
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2114;
-      v15 = v5;
-      _os_log_impl(&dword_1E1168000, v8, OS_LOG_TYPE_DEFAULT, "Device channel enrollment for %{public}@ succeeded with identifier: %{public}@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2114;
+      v14 = v5;
+      _os_log_impl(&dword_1E1168000, v8, OS_LOG_TYPE_DEFAULT, "Device channel enrollment for %{public}@ succeeded with identifier: %{public}@", &v11, 0x16u);
     }
 
     v9 = *(*(a1 + 40) + 16);
   }
 
   v9();
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enrollUserChannelWithAccountIdentifier:(id)identifier completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   handlerCopy = handler;
   v8 = +[RMLog enrollmentController];
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v22 = identifierCopy;
+    v21 = identifierCopy;
     _os_log_impl(&dword_1E1168000, v8, OS_LOG_TYPE_DEFAULT, "Starting user channel enrollment for account %{public}@", buf, 0xCu);
   }
 
@@ -179,27 +175,25 @@ void __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler__
 
   else
   {
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_completionHandler___block_invoke;
-    v18[3] = &unk_1E8706060;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_completionHandler___block_invoke;
+    v17[3] = &unk_1E8706060;
     v11 = identifierCopy;
-    v19 = v11;
+    v18 = v11;
     v12 = handlerCopy;
-    v20 = v12;
-    v13 = [(RMEnrollmentController *)self _scopedProxyWithErrorHandler:v18];
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_completionHandler___block_invoke_16;
-    v15[3] = &unk_1E8706088;
-    v16 = v11;
-    v17 = v12;
-    [v13 enrollUserChannelWithAccountIdentifier:v16 completionHandler:v15];
+    v19 = v12;
+    v13 = [(RMEnrollmentController *)self _scopedProxyWithErrorHandler:v17];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_completionHandler___block_invoke_16;
+    v14[3] = &unk_1E8706088;
+    v15 = v11;
+    v16 = v12;
+    [v13 enrollUserChannelWithAccountIdentifier:v15 completionHandler:v14];
 
-    v9 = v19;
+    v9 = v18;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -208,7 +202,7 @@ void __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_complet
   v4 = +[RMLog enrollmentController];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_completionHandler___block_invoke_cold_1(a1);
+    __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_completionHandler___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -216,7 +210,7 @@ void __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_complet
 
 void __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_completionHandler___block_invoke_16(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[RMLog enrollmentController];
@@ -225,7 +219,7 @@ void __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_complet
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_completionHandler___block_invoke_16_cold_1(a1);
+      __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_completionHandler___block_invoke_16_cold_1();
     }
 
     v9 = *(*(a1 + 40) + 16);
@@ -236,24 +230,22 @@ void __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_complet
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2114;
-      v15 = v5;
-      _os_log_impl(&dword_1E1168000, v8, OS_LOG_TYPE_DEFAULT, "User channel enrollment for account %{public}@ succeeded with channel identifier: %{public}@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2114;
+      v14 = v5;
+      _os_log_impl(&dword_1E1168000, v8, OS_LOG_TYPE_DEFAULT, "User channel enrollment for account %{public}@ succeeded with channel identifier: %{public}@", &v11, 0x16u);
     }
 
     v9 = *(*(a1 + 40) + 16);
   }
 
   v9();
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enrollViaMDMWithEnrollmentType:(int64_t)type uri:(id)uri accountIdentifier:(id)identifier personaIdentifier:(id)personaIdentifier completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   uriCopy = uri;
   identifierCopy = identifier;
   personaIdentifierCopy = personaIdentifier;
@@ -262,30 +254,30 @@ void __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_complet
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v30 = uriCopy;
+    v29 = uriCopy;
     _os_log_impl(&dword_1E1168000, v16, OS_LOG_TYPE_DEFAULT, "Starting DDM enrollment for %{public}@", buf, 0xCu);
   }
 
   if ([(RMEnrollmentController *)self enrollmentType]== type)
   {
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIdentifier_personaIdentifier_completionHandler___block_invoke;
-    v26[3] = &unk_1E8706060;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIdentifier_personaIdentifier_completionHandler___block_invoke;
+    v25[3] = &unk_1E8706060;
     v17 = uriCopy;
-    v27 = v17;
+    v26 = v17;
     v18 = handlerCopy;
-    v28 = v18;
-    v19 = [(RMEnrollmentController *)self _scopedProxyWithErrorHandler:v26];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIdentifier_personaIdentifier_completionHandler___block_invoke_17;
-    v23[3] = &unk_1E8706088;
-    v24 = v17;
-    v25 = v18;
-    [v19 enrollViaMDMWithEnrollmentType:type uri:v24 accountIdentifier:identifierCopy personaIdentifier:personaIdentifierCopy completionHandler:v23];
+    v27 = v18;
+    v19 = [(RMEnrollmentController *)self _scopedProxyWithErrorHandler:v25];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIdentifier_personaIdentifier_completionHandler___block_invoke_17;
+    v22[3] = &unk_1E8706088;
+    v23 = v17;
+    v24 = v18;
+    [v19 enrollViaMDMWithEnrollmentType:type uri:v23 accountIdentifier:identifierCopy personaIdentifier:personaIdentifierCopy completionHandler:v22];
 
-    v20 = v27;
+    v20 = v26;
   }
 
   else
@@ -299,8 +291,6 @@ void __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_complet
 
     (*(handlerCopy + 2))(handlerCopy, 0, v20);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIdentifier_personaIdentifier_completionHandler___block_invoke(uint64_t a1, void *a2)
@@ -309,7 +299,7 @@ void __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIde
   v4 = +[RMLog enrollmentController];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIdentifier_personaIdentifier_completionHandler___block_invoke_cold_1(a1);
+    __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIdentifier_personaIdentifier_completionHandler___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -317,7 +307,7 @@ void __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIde
 
 void __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIdentifier_personaIdentifier_completionHandler___block_invoke_17(uint64_t a1, void *a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = +[RMLog enrollmentController];
@@ -326,7 +316,7 @@ void __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIde
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIdentifier_personaIdentifier_completionHandler___block_invoke_17_cold_1(a1);
+      __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIdentifier_personaIdentifier_completionHandler___block_invoke_17_cold_1();
     }
 
     v9 = *(*(a1 + 40) + 16);
@@ -337,19 +327,17 @@ void __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIde
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v10 = *(a1 + 32);
-      v12 = 138543618;
-      v13 = v10;
-      v14 = 2114;
-      v15 = v5;
-      _os_log_impl(&dword_1E1168000, v8, OS_LOG_TYPE_DEFAULT, "DDM channel enrollment for %{public}@ succeeded with identifier: %{public}@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v10;
+      v13 = 2114;
+      v14 = v5;
+      _os_log_impl(&dword_1E1168000, v8, OS_LOG_TYPE_DEFAULT, "DDM channel enrollment for %{public}@ succeeded with identifier: %{public}@", &v11, 0x16u);
     }
 
     v9 = *(*(a1 + 40) + 16);
   }
 
   v9();
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unenrollDeviceChannelWithIdentifier:(id)identifier completionHandler:(id)handler
@@ -469,7 +457,7 @@ void __64__RMEnrollmentController__unenrollIdentifier_completionHandler___block_
   v4 = +[RMLog enrollmentController];
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    __64__RMEnrollmentController__unenrollIdentifier_completionHandler___block_invoke_cold_1(a1);
+    __64__RMEnrollmentController__unenrollIdentifier_completionHandler___block_invoke_cold_1();
   }
 
   (*(*(a1 + 40) + 16))();
@@ -477,7 +465,7 @@ void __64__RMEnrollmentController__unenrollIdentifier_completionHandler___block_
 
 void __64__RMEnrollmentController__unenrollIdentifier_completionHandler___block_invoke_18(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = +[RMLog enrollmentController];
   v6 = v5;
@@ -485,7 +473,7 @@ void __64__RMEnrollmentController__unenrollIdentifier_completionHandler___block_
   {
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __64__RMEnrollmentController__unenrollIdentifier_completionHandler___block_invoke_18_cold_1(a1);
+      __64__RMEnrollmentController__unenrollIdentifier_completionHandler___block_invoke_18_cold_1();
     }
 
     v7 = *(*(a1 + 40) + 16);
@@ -496,17 +484,15 @@ void __64__RMEnrollmentController__unenrollIdentifier_completionHandler___block_
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       v8 = *(a1 + 32);
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_1E1168000, v6, OS_LOG_TYPE_DEFAULT, "Unenrolled from %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_1E1168000, v6, OS_LOG_TYPE_DEFAULT, "Unenrolled from %{public}@", &v9, 0xCu);
     }
 
     v7 = *(*(a1 + 40) + 16);
   }
 
   v7();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)deviceChannelEnrollmentExistsWithCompletionHandler:(id)handler
@@ -565,7 +551,7 @@ void __77__RMEnrollmentController_deviceChannelEnrollmentExistsWithCompletionHan
 
 void __77__RMEnrollmentController_deviceChannelEnrollmentExistsWithCompletionHandler___block_invoke_20(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = +[RMLog enrollmentController];
   v7 = v6;
@@ -584,17 +570,15 @@ void __77__RMEnrollmentController_deviceChannelEnrollmentExistsWithCompletionHan
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [MEMORY[0x1E696AD98] numberWithBool:a2];
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_1E1168000, v7, OS_LOG_TYPE_DEFAULT, "Device channel enrollment check result: %{public}@", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_1E1168000, v7, OS_LOG_TYPE_DEFAULT, "Device channel enrollment check result: %{public}@", &v10, 0xCu);
     }
 
     v8 = *(*(a1 + 32) + 16);
   }
 
   v8();
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)syncWithIdentifier:(id)identifier completionHandler:(id)handler
@@ -844,7 +828,7 @@ void __83__RMEnrollmentController_managementChannelWithAccountIdentifier_complet
 
 void __83__RMEnrollmentController_managementChannelWithAccountIdentifier_completionHandler___block_invoke_25(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v6)
@@ -858,8 +842,8 @@ void __83__RMEnrollmentController_managementChannelWithAccountIdentifier_complet
         goto LABEL_10;
       }
 
-      v13 = 138543362;
-      v14 = v5;
+      v12 = 138543362;
+      v13 = v5;
       v9 = "Found management channel: %{public}@";
       v10 = v7;
       v11 = 12;
@@ -872,13 +856,13 @@ void __83__RMEnrollmentController_managementChannelWithAccountIdentifier_complet
         goto LABEL_10;
       }
 
-      LOWORD(v13) = 0;
+      LOWORD(v12) = 0;
       v9 = "Did not find management channel";
       v10 = v7;
       v11 = 2;
     }
 
-    _os_log_impl(&dword_1E1168000, v10, OS_LOG_TYPE_DEFAULT, v9, &v13, v11);
+    _os_log_impl(&dword_1E1168000, v10, OS_LOG_TYPE_DEFAULT, v9, &v12, v11);
     goto LABEL_10;
   }
 
@@ -891,7 +875,6 @@ void __83__RMEnrollmentController_managementChannelWithAccountIdentifier_complet
 LABEL_10:
 
   (*(*(a1 + 32) + 16))(*(a1 + 32), v5);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)managementChannelWithEnrollmentURL:(id)l completionHandler:(id)handler
@@ -935,7 +918,7 @@ void __79__RMEnrollmentController_managementChannelWithEnrollmentURL_completionH
 
 void __79__RMEnrollmentController_managementChannelWithEnrollmentURL_completionHandler___block_invoke_27(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v6)
@@ -949,8 +932,8 @@ void __79__RMEnrollmentController_managementChannelWithEnrollmentURL_completionH
         goto LABEL_10;
       }
 
-      v13 = 138543362;
-      v14 = v5;
+      v12 = 138543362;
+      v13 = v5;
       v9 = "Found management channel: %{public}@";
       v10 = v7;
       v11 = 12;
@@ -963,13 +946,13 @@ void __79__RMEnrollmentController_managementChannelWithEnrollmentURL_completionH
         goto LABEL_10;
       }
 
-      LOWORD(v13) = 0;
+      LOWORD(v12) = 0;
       v9 = "Did not find management channel";
       v10 = v7;
       v11 = 2;
     }
 
-    _os_log_impl(&dword_1E1168000, v10, OS_LOG_TYPE_DEFAULT, v9, &v13, v11);
+    _os_log_impl(&dword_1E1168000, v10, OS_LOG_TYPE_DEFAULT, v9, &v12, v11);
     goto LABEL_10;
   }
 
@@ -982,7 +965,6 @@ void __79__RMEnrollmentController_managementChannelWithEnrollmentURL_completionH
 LABEL_10:
 
   (*(*(a1 + 32) + 16))(*(a1 + 32), v5);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_scopedProxyWithErrorHandler:(id)handler
@@ -1182,7 +1164,7 @@ void __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandl
     v10 = +[RMLog enrollmentController];
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandler___block_invoke_cold_1(a1);
+      __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandler___block_invoke_cold_1();
     }
 
     v11 = *(a1 + 40);
@@ -1214,7 +1196,7 @@ void __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandl
         v23 = +[RMLog enrollmentController];
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandler___block_invoke_cold_2(a1);
+          __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandler___block_invoke_cold_2();
         }
 
         v24 = *(a1 + 40);
@@ -1229,7 +1211,7 @@ void __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandl
       v21 = +[RMLog enrollmentController];
       if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandler___block_invoke_cold_3(a1);
+        __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandler___block_invoke_cold_3();
       }
 
       v22 = *(a1 + 40);
@@ -1244,7 +1226,7 @@ void __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandl
     v19 = +[RMLog enrollmentController];
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandler___block_invoke_cold_4(a1);
+      __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandler___block_invoke_cold_4();
     }
 
     v20 = *(a1 + 40);
@@ -1261,20 +1243,18 @@ void __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandl
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v1, v2, "Failed XPC connection while starting device channel enrollment for %{public}@: %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Failed XPC connection while starting device channel enrollment for %{public}@: %{public}@");
 }
 
-void __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler___block_invoke_14_cold_1(uint64_t a1)
+void __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler___block_invoke_14_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v1, v2, "Failed device channel enrollment for %{public}@: %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Failed device channel enrollment for %{public}@: %{public}@");
 }
 
 - (void)enrollUserChannelWithAccountIdentifier:completionHandler:.cold.1()
@@ -1284,20 +1264,18 @@ void __71__RMEnrollmentController_enrollDeviceChannelWithURI_completionHandler__
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_completionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v1, v2, "Failed XPC connection while starting user channel enrollment for account %{public}@: %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Failed XPC connection while starting user channel enrollment for account %{public}@: %{public}@");
 }
 
-void __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_completionHandler___block_invoke_16_cold_1(uint64_t a1)
+void __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_completionHandler___block_invoke_16_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v1, v2, "Failed user channel enrollment for account %{public}@: %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Failed user channel enrollment for account %{public}@: %{public}@");
 }
 
 - (void)enrollViaMDMWithEnrollmentType:uri:accountIdentifier:personaIdentifier:completionHandler:.cold.1()
@@ -1307,167 +1285,137 @@ void __83__RMEnrollmentController_enrollUserChannelWithAccountIdentifier_complet
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-void __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIdentifier_personaIdentifier_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIdentifier_personaIdentifier_completionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v1, v2, "Failed XPC connection while starting DDM channel enrollment for %{public}@: %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Failed XPC connection while starting DDM channel enrollment for %{public}@: %{public}@");
 }
 
-void __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIdentifier_personaIdentifier_completionHandler___block_invoke_17_cold_1(uint64_t a1)
+void __115__RMEnrollmentController_enrollViaMDMWithEnrollmentType_uri_accountIdentifier_personaIdentifier_completionHandler___block_invoke_17_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v1, v2, "Failed DDM channel enrollment for %{public}@: %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Failed DDM channel enrollment for %{public}@: %{public}@");
 }
 
-void __64__RMEnrollmentController__unenrollIdentifier_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __64__RMEnrollmentController__unenrollIdentifier_completionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v1, v2, "Failed XPC connection while unenrolling from %{public}@: %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Failed XPC connection while unenrolling from %{public}@: %{public}@");
 }
 
-void __64__RMEnrollmentController__unenrollIdentifier_completionHandler___block_invoke_18_cold_1(uint64_t a1)
+void __64__RMEnrollmentController__unenrollIdentifier_completionHandler___block_invoke_18_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v1, v2, "Failed to unenroll from %{public}@: %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Failed to unenroll from %{public}@: %{public}@");
 }
 
 void __77__RMEnrollmentController_deviceChannelEnrollmentExistsWithCompletionHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __77__RMEnrollmentController_deviceChannelEnrollmentExistsWithCompletionHandler___block_invoke_20_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __63__RMEnrollmentController_syncWithIdentifier_completionHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __63__RMEnrollmentController_syncWithIdentifier_completionHandler___block_invoke_22_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __77__RMEnrollmentController_updateWithIdentifier_pushMessage_completionHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __77__RMEnrollmentController_updateWithIdentifier_pushMessage_completionHandler___block_invoke_23_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __80__RMEnrollmentController_updateWithIdentifier_tokensResponse_completionHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __80__RMEnrollmentController_updateWithIdentifier_tokensResponse_completionHandler___block_invoke_24_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __83__RMEnrollmentController_managementChannelWithAccountIdentifier_completionHandler___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __83__RMEnrollmentController_managementChannelWithAccountIdentifier_completionHandler___block_invoke_25_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)discoverEnrollmentURLForUserIdentifier:completionHandler:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandler___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v1, v2, "Well-known request for %{public}@ failed: %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Well-known request for %{public}@ failed: %{public}@");
 }
 
-void __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandler___block_invoke_cold_2(uint64_t a1)
+void __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandler___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v1, v2, "Invalid well-known servers response for %{public}@: no servers: %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Invalid well-known servers response for %{public}@: no servers: %{public}@");
 }
 
-void __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandler___block_invoke_cold_3(uint64_t a1)
+void __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandler___block_invoke_cold_3()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v1, v2, "Invalid well-known response for %{public}@: JSON error: %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Invalid well-known response for %{public}@: JSON error: %{public}@");
 }
 
-void __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandler___block_invoke_cold_4(uint64_t a1)
+void __75__RMEnrollmentController__enrollmentURLFromWellKnownURL_completionHandler___block_invoke_cold_4()
 {
-  OUTLINED_FUNCTION_4(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_4(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v1, v2, "Invalid well-known response for %{public}@: %{public}@");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_1(&dword_1E1168000, v0, v1, "Invalid well-known response for %{public}@: %{public}@");
 }
 
 @end

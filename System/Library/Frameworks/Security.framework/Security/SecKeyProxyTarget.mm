@@ -13,12 +13,12 @@
 
 - (void)performOperation:(int64_t)operation mode:(int64_t)mode algorithm:(id)algorithm parameters:(id)parameters reply:(id)reply
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   algorithmCopy = algorithm;
   parametersCopy = parameters;
   replyCopy = reply;
-  v26[0] = algorithmCopy;
-  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+  v25[0] = algorithmCopy;
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
   v16 = [v15 mutableCopy];
 
   if ([parametersCopy count])
@@ -41,26 +41,24 @@
     v18 = [parametersCopy objectAtIndexedSubscript:1];
   }
 
-  v24 = 0;
-  v23[0] = [(SecKeyProxyTarget *)self key];
-  v23[1] = operation;
-  v23[2] = v16;
-  v23[3] = mode;
-  v19 = SecKeyRunAlgorithmAndCopyResult(v23, v17, v18, &v24);
+  v23 = 0;
+  v22[0] = [(SecKeyProxyTarget *)self key];
+  v22[1] = operation;
+  v22[2] = v16;
+  v22[3] = mode;
+  v19 = SecKeyRunAlgorithmAndCopyResult(v22, v17, v18, &v23);
   v20 = v19;
   if (v19)
   {
-    v25 = v19;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
-    replyCopy[2](replyCopy, v21, v24);
+    v24 = v19;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+    replyCopy[2](replyCopy, v21, v23);
   }
 
   else
   {
-    replyCopy[2](replyCopy, MEMORY[0x1E695E0F0], v24);
+    replyCopy[2](replyCopy, MEMORY[0x1E695E0F0], v23);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getPublicKey:(id)key

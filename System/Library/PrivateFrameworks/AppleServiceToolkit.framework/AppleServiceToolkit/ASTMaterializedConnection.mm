@@ -6,6 +6,7 @@
 - (unint64_t)_rootOfTrust;
 - (void)addBody:(id)body;
 - (void)addBody:(id)body gzip:(BOOL)gzip;
+- (void)setAllowsCellularAccess:(BOOL)access;
 - (void)setIdentity:(id)identity;
 - (void)setSessionId:(id)id;
 - (void)setSignature:(id)signature;
@@ -154,6 +155,14 @@ void __36__ASTMaterializedConnection_request__block_invoke(uint64_t a1, uint64_t
   [request setValue:signature forHTTPHeaderField:@"Signature"];
 }
 
+- (void)setAllowsCellularAccess:(BOOL)access
+{
+  accessCopy = access;
+  self->_allowsCellularAccess = access;
+  request = [(ASTMaterializedConnection *)self request];
+  [request setAllowsCellularAccess:accessCopy];
+}
+
 - (void)setIdentity:(id)identity
 {
   objc_storeStrong(&self->_identity, identity);
@@ -181,17 +190,17 @@ void __36__ASTMaterializedConnection_request__block_invoke(uint64_t a1, uint64_t
 
 - (void)addBody:(id)body
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v8 = 0;
-  v4 = [ASTEncodingUtilities jsonSerializeObject:body error:&v8];
-  v5 = v8;
+  v10 = *MEMORY[0x277D85DE8];
+  v7 = 0;
+  v4 = [ASTEncodingUtilities jsonSerializeObject:body error:&v7];
+  v5 = v7;
   if (v5)
   {
     v6 = ASTLogHandleForCategory(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v10 = v5;
+      v9 = v5;
       _os_log_impl(&dword_240F3C000, v6, OS_LOG_TYPE_DEFAULT, "Error during json serialization: %@", buf, 0xCu);
     }
   }
@@ -200,14 +209,12 @@ void __36__ASTMaterializedConnection_request__block_invoke(uint64_t a1, uint64_t
   {
     [(ASTMaterializedConnection *)self addBody:v4 gzip:+[ASTConnectionUtilities isGzipEnabled]];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addBody:(id)body gzip:(BOOL)gzip
 {
   gzipCopy = gzip;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   bodyCopy = body;
   v7 = bodyCopy;
   if (gzipCopy)
@@ -219,10 +226,10 @@ void __36__ASTMaterializedConnection_request__block_invoke(uint64_t a1, uint64_t
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v21 = objc_opt_class();
-        v22 = 2112;
-        v23 = v8;
-        v10 = v21;
+        v20 = objc_opt_class();
+        v21 = 2112;
+        v22 = v8;
+        v10 = v20;
         _os_log_impl(&dword_240F3C000, v9, OS_LOG_TYPE_DEFAULT, "[%@] Request Body: %@", buf, 0x16u);
       }
 
@@ -231,9 +238,9 @@ void __36__ASTMaterializedConnection_request__block_invoke(uint64_t a1, uint64_t
 
       if (testAutomationEnabled)
       {
-        v18 = @"payload";
-        v19 = v8;
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+        v17 = @"payload";
+        v18 = v8;
+        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
         [ASTTestAutomation postServerRequest:v13];
       }
     }
@@ -248,8 +255,6 @@ void __36__ASTMaterializedConnection_request__block_invoke(uint64_t a1, uint64_t
 
   request2 = [(ASTMaterializedConnection *)self request];
   [request2 setHTTPBody:v7];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)signBodyWithPayloadSigner:(id)signer
@@ -337,29 +342,27 @@ LABEL_12:
 
 - (id)_acceptLanguage
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
   preferredLanguages = [MEMORY[0x277CBEAF8] preferredLanguages];
   if ([MEMORY[0x277CF97E8] isCheckerBoardActive])
   {
     currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
     languageIdentifier = [currentLocale languageIdentifier];
-    v13[0] = languageIdentifier;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
+    v12[0] = languageIdentifier;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
 
     preferredLanguages = v6;
   }
 
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __44__ASTMaterializedConnection__acceptLanguage__block_invoke;
-  v11[3] = &unk_278CBD428;
-  v12 = array;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __44__ASTMaterializedConnection__acceptLanguage__block_invoke;
+  v10[3] = &unk_278CBD428;
+  v11 = array;
   v7 = array;
-  [preferredLanguages enumerateObjectsUsingBlock:v11];
+  [preferredLanguages enumerateObjectsUsingBlock:v10];
   v8 = [v7 componentsJoinedByString:{@", "}];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -383,20 +386,18 @@ void __44__ASTMaterializedConnection__acceptLanguage__block_invoke(uint64_t a1, 
 
 - (void)signPayload:(uint64_t)a1 withPayloadSigner:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_240F3C000, a2, OS_LOG_TYPE_ERROR, "Unable to serialize payload, error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_240F3C000, a2, OS_LOG_TYPE_ERROR, "Unable to serialize payload, error: %@", &v2, 0xCu);
 }
 
 - (void)signPayload:(uint64_t)a1 withPayloadSigner:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_240F3C000, a2, OS_LOG_TYPE_ERROR, "Unable to create connection signature, error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_240F3C000, a2, OS_LOG_TYPE_ERROR, "Unable to create connection signature, error: %@", &v2, 0xCu);
 }
 
 @end

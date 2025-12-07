@@ -1,15 +1,3 @@
-void sub_22E2FA48C(_Unwind_Exception *a1)
-{
-  if (*(v1 + 127) < 0)
-  {
-    operator delete(*v2);
-  }
-
-  sub_22E2F95C4(v1);
-  MEMORY[0x2318E5730]();
-  _Unwind_Resume(a1);
-}
-
 void sub_22E2FA61C(_Unwind_Exception *a1)
 {
   if (*(v1 + 127) < 0)
@@ -283,7 +271,7 @@ id sub_22E2FA9D0(uint64_t a1)
   return v2;
 }
 
-uint64_t sub_22E2FAA5C@<X0>(char *__s@<X1>, uint64_t a2@<X0>, void *a3@<X8>)
+void *sub_22E2FAA5C@<X0>(char *__s@<X1>, uint64_t a2@<X0>, void *a3@<X8>)
 {
   if (*(a2 + 71) >= 0)
   {
@@ -296,8 +284,8 @@ uint64_t sub_22E2FAA5C@<X0>(char *__s@<X1>, uint64_t a2@<X0>, void *a3@<X8>)
   }
 
   result = strlen(__s);
-  v8 = v6 + result;
-  if (v6 + result >= 0x7FFFFFFFFFFFFFF8)
+  v8 = result + v6;
+  if (result + v6 >= 0x7FFFFFFFFFFFFFF8)
   {
     sub_22E33DEAC();
   }
@@ -333,7 +321,7 @@ uint64_t sub_22E2FAA5C@<X0>(char *__s@<X1>, uint64_t a2@<X0>, void *a3@<X8>)
     result = memmove(v11, __s, v9);
   }
 
-  v11[v9] = 0;
+  *(v9 + v11) = 0;
   return result;
 }
 
@@ -565,15 +553,6 @@ LABEL_6:
 LABEL_11:
   operator delete(a15);
   _Unwind_Resume(exception_object);
-}
-
-void MPSKernelDAG::constantOp()
-{
-  operator new();
-}
-
-{
-  operator new();
 }
 
 void sub_22E2FAF74(_Unwind_Exception *a1)
@@ -845,7 +824,7 @@ id sub_22E2FB440(uint64_t a1)
   return v2;
 }
 
-uint64_t sub_22E2FB4B0@<X0>(char *__s@<X1>, uint64_t a2@<X0>, void *a3@<X8>)
+void *sub_22E2FB4B0@<X0>(char *__s@<X1>, uint64_t a2@<X0>, void *a3@<X8>)
 {
   if (*(a2 + 71) >= 0)
   {
@@ -858,8 +837,8 @@ uint64_t sub_22E2FB4B0@<X0>(char *__s@<X1>, uint64_t a2@<X0>, void *a3@<X8>)
   }
 
   result = strlen(__s);
-  v8 = v6 + result;
-  if (v6 + result >= 0x7FFFFFFFFFFFFFF8)
+  v8 = result + v6;
+  if (result + v6 >= 0x7FFFFFFFFFFFFFF8)
   {
     sub_22E33DEAC();
   }
@@ -895,7 +874,7 @@ uint64_t sub_22E2FB4B0@<X0>(char *__s@<X1>, uint64_t a2@<X0>, void *a3@<X8>)
     result = memmove(v11, __s, v9);
   }
 
-  v11[v9] = 0;
+  *(v9 + v11) = 0;
   return result;
 }
 
@@ -1371,9 +1350,9 @@ void sub_22E2FC41C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_22E2FC44C(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E2FC44C(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -1381,8 +1360,8 @@ void sub_22E2FC44C(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -1626,7 +1605,7 @@ LABEL_15:
   _Unwind_Resume(exception_object);
 }
 
-void sub_22E2FCFF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void **a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, char a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
+void sub_22E2FCFF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void **a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, int a15, __int16 a16, char a17, char a18, void *__p, uint64_t a20, int a21, __int16 a22, char a23, char a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, void *a36, uint64_t a37, int a38, __int16 a39, char a40, char a41)
 {
   sub_22E340340(&a25);
   MEMORY[0x2318E56B0](a12);
@@ -2018,9 +1997,9 @@ void sub_22E2FDC90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E2FDCD8(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E2FDCD8(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -2028,8 +2007,8 @@ void sub_22E2FDCD8(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -2285,9 +2264,9 @@ void sub_22E2FE588(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E2FE5D0(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E2FE5D0(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -2295,8 +2274,8 @@ void sub_22E2FE5D0(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -2552,9 +2531,9 @@ void sub_22E2FEE80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E2FEEC8(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E2FEEC8(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -2562,8 +2541,8 @@ void sub_22E2FEEC8(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -2819,9 +2798,9 @@ void sub_22E2FF774(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E2FF7BC(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E2FF7BC(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -2829,8 +2808,8 @@ void sub_22E2FF7BC(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -3086,9 +3065,9 @@ void sub_22E30006C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E3000B4(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E3000B4(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -3096,8 +3075,8 @@ void sub_22E3000B4(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -3353,9 +3332,9 @@ void sub_22E300964(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E3009AC(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E3009AC(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -3363,8 +3342,8 @@ void sub_22E3009AC(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -3620,9 +3599,9 @@ void sub_22E301258(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E3012A0(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E3012A0(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -3630,8 +3609,8 @@ void sub_22E3012A0(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -3887,9 +3866,9 @@ void sub_22E301B50(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E301B98(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E301B98(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -3897,8 +3876,8 @@ void sub_22E301B98(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -4154,9 +4133,9 @@ void sub_22E302444(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E30248C(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E30248C(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -4164,8 +4143,8 @@ void sub_22E30248C(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -4421,9 +4400,9 @@ void sub_22E302D3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E302D84(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E302D84(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -4431,8 +4410,8 @@ void sub_22E302D84(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -4688,9 +4667,9 @@ void sub_22E303630(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E303678(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E303678(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -4698,8 +4677,8 @@ void sub_22E303678(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -4955,9 +4934,9 @@ void sub_22E303F24(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E303F6C(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E303F6C(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -4965,8 +4944,8 @@ void sub_22E303F6C(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -5222,9 +5201,9 @@ void sub_22E304818(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E304860(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E304860(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -5232,8 +5211,8 @@ void sub_22E304860(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -5489,9 +5468,9 @@ void sub_22E30510C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E305154(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E305154(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -5499,8 +5478,8 @@ void sub_22E305154(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -5756,9 +5735,9 @@ void sub_22E305A00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E305A48(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E305A48(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -5766,8 +5745,8 @@ void sub_22E305A48(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -6023,9 +6002,9 @@ void sub_22E3062F8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E306340(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E306340(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -6033,8 +6012,8 @@ void sub_22E306340(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -6290,9 +6269,9 @@ void sub_22E306BF0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E306C38(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E306C38(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -6300,8 +6279,8 @@ void sub_22E306C38(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -6557,9 +6536,9 @@ void sub_22E3074E4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E30752C(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E30752C(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -6567,8 +6546,8 @@ void sub_22E30752C(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -6824,9 +6803,9 @@ void sub_22E307DD4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E307E1C(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E307E1C(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -6834,8 +6813,8 @@ void sub_22E307E1C(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -7091,9 +7070,9 @@ void sub_22E3086C4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E30870C(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E30870C(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -7101,8 +7080,8 @@ void sub_22E30870C(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -7358,9 +7337,9 @@ void sub_22E308FB4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E308FFC(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E308FFC(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -7368,8 +7347,8 @@ void sub_22E308FFC(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -7625,9 +7604,9 @@ void sub_22E3098A8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E3098F0(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E3098F0(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -7635,8 +7614,8 @@ void sub_22E3098F0(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -7892,9 +7871,9 @@ void sub_22E30A19C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E30A1E4(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E30A1E4(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -7902,8 +7881,8 @@ void sub_22E30A1E4(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -8159,9 +8138,9 @@ void sub_22E30AA90(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E30AAD8(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E30AAD8(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -8169,8 +8148,8 @@ void sub_22E30AAD8(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -8426,9 +8405,9 @@ void sub_22E30B384(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E30B3CC(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E30B3CC(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -8436,8 +8415,8 @@ void sub_22E30B3CC(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -8693,9 +8672,9 @@ void sub_22E30BC78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E30BCC0(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E30BCC0(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -8703,8 +8682,8 @@ void sub_22E30BCC0(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -8960,9 +8939,9 @@ void sub_22E30C56C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E30C5B4(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E30C5B4(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -8970,8 +8949,8 @@ void sub_22E30C5B4(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -9227,9 +9206,9 @@ void sub_22E30CE64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E30CEAC(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E30CEAC(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -9237,8 +9216,8 @@ void sub_22E30CEAC(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -9494,9 +9473,9 @@ void sub_22E30D75C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E30D7A4(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E30D7A4(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -9504,8 +9483,8 @@ void sub_22E30D7A4(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)
@@ -9761,9 +9740,9 @@ void sub_22E30E054(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_22E30E09C(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
+void sub_22E30E09C(const std::string::value_type **a1@<X0>, uint64_t a2@<X1>, const std::string::value_type *a3@<X2>, std::string *a4@<X8>)
 {
-  (*(*a1 + 64))(&v29);
+  (*(*a1 + 8))(&v29);
   v8 = std::string::append(&v29, " : FUNCTION(");
   v9 = *&v8->__r_.__value_.__l.__data_;
   v30.__r_.__value_.__r.__words[2] = v8->__r_.__value_.__r.__words[2];
@@ -9771,8 +9750,8 @@ void sub_22E30E09C(const std::string::value_type *a1@<X0>, uint64_t a2@<X1>, con
   v8->__r_.__value_.__l.__size_ = 0;
   v8->__r_.__value_.__r.__words[2] = 0;
   v8->__r_.__value_.__r.__words[0] = 0;
-  v12 = *(a1 + 6);
-  v11 = a1 + 48;
+  v12 = a1[6];
+  v11 = (a1 + 6);
   v10 = v12;
   v13 = v11[23];
   if (v13 >= 0)

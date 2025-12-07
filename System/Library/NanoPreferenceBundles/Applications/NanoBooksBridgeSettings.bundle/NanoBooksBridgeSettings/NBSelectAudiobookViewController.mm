@@ -113,64 +113,64 @@
     myFamilyMembers = [(NBSelectAudiobookViewController *)self myFamilyMembers];
     v11 = [myFamilyMembers count];
 
-    v12 = NBDefaultLog();
-    v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT);
+    v13 = NBDefaultLog(v12);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
     if (v11)
     {
-      if (v13)
+      if (v14)
       {
         myFamilyMembers2 = [(NBSelectAudiobookViewController *)self myFamilyMembers];
-        v15 = [myFamilyMembers2 valueForKey:@"iTunesDSID"];
+        v16 = [myFamilyMembers2 valueForKey:@"iTunesDSID"];
         *buf = 138412546;
-        v47 = v15;
-        v48 = 1024;
-        v49 = !+[NBBridgeUtilities isExplicitMaterialAllowed];
-        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Creating specifiers for family members (%@). isExplicitRestricted:(%i)", buf, 0x12u);
+        v48 = v16;
+        v49 = 1024;
+        v50 = !+[NBBridgeUtilities isExplicitMaterialAllowed];
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Creating specifiers for family members (%@). isExplicitRestricted:(%i)", buf, 0x12u);
       }
 
-      v42 = 0u;
       v43 = 0u;
-      v40 = 0u;
+      v44 = 0u;
       v41 = 0u;
+      v42 = 0u;
       myFamilyMembers3 = [(NBSelectAudiobookViewController *)self myFamilyMembers];
-      v17 = [myFamilyMembers3 countByEnumeratingWithState:&v40 objects:v45 count:16];
-      if (v17)
+      v18 = [myFamilyMembers3 countByEnumeratingWithState:&v41 objects:v46 count:16];
+      if (v18)
       {
-        v18 = v17;
-        v19 = *v41;
+        v19 = v18;
+        v20 = *v42;
         do
         {
-          v20 = 0;
+          v21 = 0;
           do
           {
-            if (*v41 != v19)
+            if (*v42 != v20)
             {
               objc_enumerationMutation(myFamilyMembers3);
             }
 
-            v21 = [(NBSelectAudiobookViewController *)self _specifierForFamilyMember:*(*(&v40 + 1) + 8 * v20)];
-            if (v21)
+            v22 = [(NBSelectAudiobookViewController *)self _specifierForFamilyMember:*(*(&v41 + 1) + 8 * v21)];
+            if (v22)
             {
-              [v9 addObject:v21];
+              [v9 addObject:v22];
             }
 
-            v20 = v20 + 1;
+            v21 = v21 + 1;
           }
 
-          while (v18 != v20);
-          v18 = [myFamilyMembers3 countByEnumeratingWithState:&v40 objects:v45 count:16];
+          while (v19 != v21);
+          v19 = [myFamilyMembers3 countByEnumeratingWithState:&v41 objects:v46 count:16];
         }
 
-        while (v18);
+        while (v19);
       }
 
       if ([v9 count])
       {
-        v22 = NBBundle();
-        v23 = [v22 localizedStringForKey:@"My Family" value:&stru_20DE8 table:0];
-        v24 = [PSSpecifier groupSpecifierWithID:@"NBMyFamilyGroupSpecifierID" name:v23];
+        v23 = NBBundle();
+        v24 = [v23 localizedStringForKey:@"My Family" value:&stru_20DE8 table:0];
+        v25 = [PSSpecifier groupSpecifierWithID:@"NBMyFamilyGroupSpecifierID" name:v24];
 
-        [v5 addObject:v24];
+        [v5 addObject:v25];
         [v5 addObjectsFromArray:v9];
       }
 
@@ -179,49 +179,49 @@
 
     else
     {
-      if (v13)
+      if (v14)
       {
         *buf = 0;
-        _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "No family members to display", buf, 2u);
+        _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "No family members to display", buf, 2u);
       }
     }
 
     myLibraryAudiobooks = [(NBSelectAudiobookViewController *)self myLibraryAudiobooks];
-    v26 = [myLibraryAudiobooks count];
+    v27 = [myLibraryAudiobooks count];
 
-    if (v26)
+    if (v27)
     {
-      v38 = 0u;
       v39 = 0u;
-      v36 = 0u;
+      v40 = 0u;
       v37 = 0u;
+      v38 = 0u;
       myLibraryAudiobooks2 = [(NBSelectAudiobookViewController *)self myLibraryAudiobooks];
-      v28 = [myLibraryAudiobooks2 countByEnumeratingWithState:&v36 objects:v44 count:16];
-      if (v28)
+      v29 = [myLibraryAudiobooks2 countByEnumeratingWithState:&v37 objects:v45 count:16];
+      if (v29)
       {
-        v29 = v28;
-        v30 = *v37;
+        v30 = v29;
+        v31 = *v38;
         do
         {
-          v31 = 0;
+          v32 = 0;
           do
           {
-            if (*v37 != v30)
+            if (*v38 != v31)
             {
               objc_enumerationMutation(myLibraryAudiobooks2);
             }
 
-            v32 = [(NBSelectAudiobookViewController *)self _specifierForMediaItem:*(*(&v36 + 1) + 8 * v31)];
-            [v5 addObject:v32];
+            v33 = [(NBSelectAudiobookViewController *)self _specifierForMediaItem:*(*(&v37 + 1) + 8 * v32)];
+            [v5 addObject:v33];
 
-            v31 = v31 + 1;
+            v32 = v32 + 1;
           }
 
-          while (v29 != v31);
-          v29 = [myLibraryAudiobooks2 countByEnumeratingWithState:&v36 objects:v44 count:16];
+          while (v30 != v32);
+          v30 = [myLibraryAudiobooks2 countByEnumeratingWithState:&v37 objects:v45 count:16];
         }
 
-        while (v29);
+        while (v30);
       }
     }
 
@@ -230,9 +230,9 @@
       [(NBSelectAudiobookViewController *)self _addAudiobookStoreFooterToSpecifier:v8];
     }
 
-    v33 = [v5 copy];
-    v34 = *&self->PSListController_opaque[v3];
-    *&self->PSListController_opaque[v3] = v33;
+    v34 = [v5 copy];
+    v35 = *&self->PSListController_opaque[v3];
+    *&self->PSListController_opaque[v3] = v34;
 
     v4 = *&self->PSListController_opaque[v3];
   }
@@ -306,7 +306,7 @@
 
         else
         {
-          v13 = NBDefaultLog();
+          v13 = NBDefaultLog(0);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
           {
             *buf = v15;
@@ -395,15 +395,15 @@
   allObjects = [nb_dsids allObjects];
 
   _myLibraryStoreIDs = [(NBSelectAudiobookViewController *)self _myLibraryStoreIDs];
-  v9 = NBDefaultLog();
+  v9 = NBDefaultLog(_myLibraryStoreIDs);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412802;
-    v23 = allObjects;
-    v24 = 2112;
-    v25 = _myLibraryStoreIDs;
-    v26 = 1024;
-    v27 = v5;
+    v24 = allObjects;
+    v25 = 2112;
+    v26 = _myLibraryStoreIDs;
+    v27 = 1024;
+    v28 = v5;
     _os_log_impl(&dword_0, v9, OS_LOG_TYPE_DEFAULT, "Determining if we should create a specifier for family member with DSIDs (%@), excluding the following books (%@), isRestricted (%d)", buf, 0x1Cu);
   }
 
@@ -411,53 +411,53 @@
   v11 = [v10 fetchItemsForDSIDs:allObjects excludeStoreIDs:_myLibraryStoreIDs isExplicitRestricted:v5];
   v12 = [v11 count];
 
-  v13 = NBDefaultLog();
-  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+  v14 = NBDefaultLog(v13);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
   if (v12)
   {
-    if (v14)
+    if (v15)
     {
       *buf = 138412546;
-      v23 = allObjects;
-      v24 = 2048;
-      v25 = v12;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Family member (%@) has audiobooks, creating specifier (%ld)", buf, 0x16u);
+      v24 = allObjects;
+      v25 = 2048;
+      v26 = v12;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Family member (%@) has audiobooks, creating specifier (%ld)", buf, 0x16u);
     }
 
     firstName = [memberCopy firstName];
-    v16 = [PSSpecifier preferenceSpecifierNamed:firstName target:self set:0 get:0 detail:0 cell:3 edit:0];
+    v17 = [PSSpecifier preferenceSpecifierNamed:firstName target:self set:0 get:0 detail:0 cell:3 edit:0];
 
-    [v16 setProperty:objc_opt_class() forKey:PSCellClassKey];
-    [v16 setProperty:&off_21A38 forKey:PSAccessoryKey];
+    [v17 setProperty:objc_opt_class() forKey:PSCellClassKey];
+    [v17 setProperty:&off_21A38 forKey:PSAccessoryKey];
     firstName2 = [memberCopy firstName];
-    [v16 setProperty:firstName2 forKey:NMBUISpecifierTitleKey];
+    [v17 setProperty:firstName2 forKey:NMBUISpecifierTitleKey];
 
-    v18 = [NSNumber numberWithUnsignedInteger:v12];
-    [v16 setProperty:v18 forKey:@"NBUISpecifierAudiobookCountKey"];
+    v19 = [NSNumber numberWithUnsignedInteger:v12];
+    [v17 setProperty:v19 forKey:@"NBUISpecifierAudiobookCountKey"];
 
     nb_profileImage = [memberCopy nb_profileImage];
-    [v16 setProperty:nb_profileImage forKey:PSIconImageKey];
+    [v17 setProperty:nb_profileImage forKey:PSIconImageKey];
 
     nb_dsids2 = [memberCopy nb_dsids];
-    [v16 setProperty:nb_dsids2 forKey:@"NBUISpecifierAccountDSIDsKey"];
+    [v17 setProperty:nb_dsids2 forKey:@"NBUISpecifierAccountDSIDsKey"];
 
-    v13 = [NSNumber numberWithInt:1];
-    [v16 setProperty:v13 forKey:PSEnabledKey];
+    v14 = [NSNumber numberWithInt:1];
+    [v17 setProperty:v14 forKey:PSEnabledKey];
   }
 
   else
   {
-    if (v14)
+    if (v15)
     {
       *buf = 138412290;
-      v23 = allObjects;
-      _os_log_impl(&dword_0, v13, OS_LOG_TYPE_DEFAULT, "Family member with DSIDs (%@), does not have displayable audiobooks in its account", buf, 0xCu);
+      v24 = allObjects;
+      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEFAULT, "Family member with DSIDs (%@), does not have displayable audiobooks in its account", buf, 0xCu);
     }
 
-    v16 = 0;
+    v17 = 0;
   }
 
-  return v16;
+  return v17;
 }
 
 - (id)_specifierForMediaItem:(id)item
@@ -534,7 +534,7 @@
       goto LABEL_6;
     }
 
-    delegate = NBDefaultLog();
+    delegate = NBDefaultLog(0);
     if (os_log_type_enabled(delegate, OS_LOG_TYPE_ERROR))
     {
       sub_11690(delegate);

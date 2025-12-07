@@ -274,14 +274,14 @@ LABEL_11:
     location[0] = 0;
     location[1] = 0;
     v23 = 0;
-    [(PUVideoTileViewController *)self assetKeyFrameSourceTime];
+    objc_msgSend_assetKeyFrameSourceTime(self);
     v20 = 0uLL;
     v21 = 0;
     browsingVideoPlayer = [(PUVideoTileViewController *)self browsingVideoPlayer];
     v12 = browsingVideoPlayer;
     if (browsingVideoPlayer)
     {
-      [browsingVideoPlayer currentTime];
+      objc_msgSend_currentTime(browsingVideoPlayer);
     }
 
     else
@@ -890,7 +890,7 @@ uint64_t __89__PUVideoTileViewController_setPlaceholderVisible_animated_animatio
     {
       if (v6)
       {
-        [v6 videoKeyFrameSourceTime];
+        objc_msgSend_videoKeyFrameSourceTime(v6);
       }
 
       else
@@ -1239,7 +1239,7 @@ void __58__PUVideoTileViewController_observable_didChange_context___block_invoke
     browsingVideoPlayer = [(PUVideoTileViewController *)self browsingVideoPlayer];
     v9 = 0uLL;
     v10 = 0;
-    [infoCopy seekTime];
+    objc_msgSend_seekTime(infoCopy);
 
     if (0 >> 96)
     {
@@ -1296,7 +1296,7 @@ void __56__PUVideoTileViewController_generateAssetTransitionInfo__block_invoke(u
   v5 = *(a1 + 56);
   if (v5)
   {
-    [v5 currentTime];
+    objc_msgSend_currentTime(v5);
     v6 = v8;
     v7 = v9;
     [v3 setSeekTime:&v6];

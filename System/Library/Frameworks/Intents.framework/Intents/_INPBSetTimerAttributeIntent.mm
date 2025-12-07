@@ -255,19 +255,18 @@ LABEL_22:
 
   if ([(_INPBSetTimerAttributeIntent *)self hasToDuration])
   {
-    toDuration = self->_toDuration;
     PBDataWriterWriteDoubleField();
   }
 
   toLabel = [(_INPBSetTimerAttributeIntent *)self toLabel];
 
-  v10 = toCopy;
+  v9 = toCopy;
   if (toLabel)
   {
     toLabel2 = [(_INPBSetTimerAttributeIntent *)self toLabel];
     PBDataWriterWriteSubmessage();
 
-    v10 = toCopy;
+    v9 = toCopy;
   }
 }
 

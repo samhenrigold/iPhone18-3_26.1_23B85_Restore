@@ -8,7 +8,7 @@
 
 + (id)_applyTreatmentsAndCacheResultForResource:()ISPlaceholderImage fallbackTypeID:descriptor:description:
 {
-  v42[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   v9 = a3;
   v10 = a4;
   v11 = a5;
@@ -60,9 +60,9 @@
       [(ISCompositor *)v31 setRenderingMode:2];
     }
 
-    v41 = @"kISPrimaryResourceKey";
-    v42[0] = v9;
-    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+    v40 = @"kISPrimaryResourceKey";
+    v41[0] = v9;
+    v32 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
     [(ISCompositor *)v31 addElementWithRecipe:genericTaggedRecipe resources:v32];
 
     [v11 size];
@@ -76,8 +76,6 @@
       [v38 _addStaticImage:v25 withKey:v23];
     }
   }
-
-  v39 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -93,51 +91,49 @@
 
   if (!v14)
   {
-    v16 = _ISDefaultLog();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v17 = _ISDefaultLog(v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
-      [IFImage(ISPlaceholderImage) _placeholderImageWithImageDescriptor:v11 markAsPlaceholder:v16 fallbackTypeID:? referenceIcon:?];
+      [IFImage(ISPlaceholderImage) _placeholderImageWithImageDescriptor:v11 markAsPlaceholder:v17 fallbackTypeID:? referenceIcon:?];
     }
 
     goto LABEL_12;
   }
 
-  v15 = [self _applyTreatmentsAndCacheResultForResource:v14 fallbackTypeID:v11 descriptor:v10 description:@"placeholder"];
-  v16 = v15;
-  if (!v15 || ![v15 CGImage])
+  v16 = [self _applyTreatmentsAndCacheResultForResource:v14 fallbackTypeID:v11 descriptor:v10 description:@"placeholder"];
+  v17 = v16;
+  if (!v16 || (v16 = [v16 CGImage]) == 0)
   {
-    v18 = _ISDefaultLog();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+    v19 = _ISDefaultLog(v16);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
     {
       v21 = 138413058;
-      v22 = v16;
+      v22 = v17;
       v23 = 2112;
       v24 = v11;
       v25 = 2112;
       v26 = v10;
       v27 = 2112;
       v28 = v12;
-      _os_log_fault_impl(&dword_1A77B8000, v18, OS_LOG_TYPE_FAULT, "Failed to create placeholder image. Image: %@. Fallback type: %@. Descriptor: %@. Icon: %@", &v21, 0x2Au);
+      _os_log_fault_impl(&dword_1A77B8000, v19, OS_LOG_TYPE_FAULT, "Failed to create placeholder image. Image: %@. Fallback type: %@. Descriptor: %@. Icon: %@", &v21, 0x2Au);
     }
 
 LABEL_12:
-    v16 = 0;
+    v17 = 0;
     goto LABEL_13;
   }
 
   if (a4)
   {
-    v17 = [objc_alloc(MEMORY[0x1E69A89A0]) initWithImage:v16];
+    v18 = [objc_alloc(MEMORY[0x1E69A89A0]) initWithImage:v17];
 
-    v16 = v17;
+    v17 = v18;
   }
 
-  [v16 setValidationFlags:[v16 validationFlags]| 2];
+  [v17 setValidationFlags:[v17 validationFlags]| 2];
 LABEL_13:
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v16;
+  return v17;
 }
 
 + (id)_debugPlaceholderImageWithImageDescriptor:()ISPlaceholderImage markAsPlaceholder:fallbackTypeID:referenceIcon:
@@ -157,64 +153,61 @@ LABEL_13:
       [debugGenericAppIconResource setAppearance:{objc_msgSend(v10, "appearance")}];
     }
 
-    v15 = [self _applyTreatmentsAndCacheResultForResource:debugGenericAppIconResource fallbackTypeID:v11 descriptor:v10 description:@"debug_placeholder"];
-    v16 = v15;
-    if (v15 && [v15 CGImage])
+    v16 = [self _applyTreatmentsAndCacheResultForResource:debugGenericAppIconResource fallbackTypeID:v11 descriptor:v10 description:@"debug_placeholder"];
+    v17 = v16;
+    if (v16 && (v16 = [v16 CGImage]) != 0)
     {
       if (a4)
       {
-        v17 = [objc_alloc(MEMORY[0x1E69A89A0]) initWithImage:v16];
+        v18 = [objc_alloc(MEMORY[0x1E69A89A0]) initWithImage:v17];
 
-        v16 = v17;
+        v17 = v18;
       }
 
-      [v16 setValidationFlags:{objc_msgSend(v16, "validationFlags") | 2}];
-      v18 = v16;
+      [v17 setValidationFlags:{objc_msgSend(v17, "validationFlags") | 2}];
+      v19 = v17;
     }
 
     else
     {
-      v19 = _ISDefaultLog();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_FAULT))
+      v20 = _ISDefaultLog(v16);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
       {
         v23 = 138413058;
-        v24 = v16;
+        v24 = v17;
         v25 = 2112;
         v26 = v11;
         v27 = 2112;
         v28 = v10;
         v29 = 2112;
         v30 = v12;
-        _os_log_fault_impl(&dword_1A77B8000, v19, OS_LOG_TYPE_FAULT, "Failed to create debug placeholder image. Image: %@. Fallback type: %@. Descriptor: %@. Icon: %@", &v23, 0x2Au);
+        _os_log_fault_impl(&dword_1A77B8000, v20, OS_LOG_TYPE_FAULT, "Failed to create debug placeholder image. Image: %@. Fallback type: %@. Descriptor: %@. Icon: %@", &v23, 0x2Au);
       }
 
-      v18 = [self _placeholderImageWithImageDescriptor:v10 markAsPlaceholder:a4 fallbackTypeID:v11 referenceIcon:v12];
+      v19 = [self _placeholderImageWithImageDescriptor:v10 markAsPlaceholder:a4 fallbackTypeID:v11 referenceIcon:v12];
     }
   }
 
   else
   {
-    v20 = _ISDefaultLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+    v21 = _ISDefaultLog(v15);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_FAULT))
     {
-      [IFImage(ISPlaceholderImage) _debugPlaceholderImageWithImageDescriptor:v20 markAsPlaceholder:? fallbackTypeID:? referenceIcon:?];
+      [IFImage(ISPlaceholderImage) _debugPlaceholderImageWithImageDescriptor:v21 markAsPlaceholder:? fallbackTypeID:? referenceIcon:?];
     }
 
-    v18 = [self _placeholderImageWithImageDescriptor:v10 markAsPlaceholder:a4 fallbackTypeID:v11 referenceIcon:v12];
+    v19 = [self _placeholderImageWithImageDescriptor:v10 markAsPlaceholder:a4 fallbackTypeID:v11 referenceIcon:v12];
   }
 
-  v21 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v19;
 }
 
 + (void)_placeholderImageWithImageDescriptor:()ISPlaceholderImage markAsPlaceholder:fallbackTypeID:referenceIcon:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_FAULT, "Failed to create placeholder resource. Fallback type: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_1A77B8000, a2, OS_LOG_TYPE_FAULT, "Failed to create placeholder resource. Fallback type: %@", &v2, 0xCu);
 }
 
 @end

@@ -99,14 +99,12 @@
   v3 = *(&self->super.isa + OBJC_IVAR___FavoritesPersistenceServiceWrapper_lock);
   selfCopy = self;
   os_unfair_lock_lock(v3 + 4);
-  sub_100001FE0(&v9);
+  sub_100001FE0(&v7);
   os_unfair_lock_unlock(v3 + 4);
-  v5 = v9;
-  if (v9)
+  v5 = v7;
+  if (v7)
   {
-    v6 = *&v9[OBJC_IVAR____TtC9contactsd27FavoritesPersistenceService_localStore];
     sub_100025944();
-    v8 = *&v5[OBJC_IVAR____TtC9contactsd27FavoritesPersistenceService_remoteStore];
     sub_100017CCC();
   }
 

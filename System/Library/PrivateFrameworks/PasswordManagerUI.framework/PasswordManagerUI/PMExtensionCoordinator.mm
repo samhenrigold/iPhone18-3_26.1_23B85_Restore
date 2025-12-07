@@ -9,16 +9,14 @@
 - (_TtP8Settings20SettingsHostProtocol_)settingsHost
 {
   swift_beginAccess();
-  settingsHost = self->settingsHost;
-  v4 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v4;
+  return v2;
 }
 
 - (void)setSettingsHost:(id)host
 {
   swift_beginAccess();
-  settingsHost = self->settingsHost;
   self->settingsHost = host;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();

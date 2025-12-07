@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)engagementTypeAsString:(int)string;
 - (int)StringAsEngagementType:(id)type;
 - (int)engagementType;
 - (unint64_t)hash;
@@ -93,6 +94,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFBF | v3;
+}
+
+- (id)engagementTypeAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27859AC50[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsEngagementType:(id)type
@@ -385,32 +401,30 @@ LABEL_30:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v17 = toCopy;
+  v7 = toCopy;
   if (self->_anchorType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if ((*&self->_has & 0x10) != 0)
   {
-    score = self->_score;
     PBDataWriterWriteDoubleField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_candidateType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   has = self->_has;
   if ((has & 0x200) != 0)
   {
-    secondsAfterAnchor = self->_secondsAfterAnchor;
     PBDataWriterWriteUint32Field();
-    toCopy = v17;
+    toCopy = v7;
     has = self->_has;
     if ((has & 0x80) == 0)
     {
@@ -429,47 +443,44 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  numPredictionsforAnchor = self->_numPredictionsforAnchor;
   PBDataWriterWriteUint32Field();
-  toCopy = v17;
+  toCopy = v7;
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_10:
-    engagementType = self->_engagementType;
     PBDataWriterWriteInt32Field();
-    toCopy = v17;
+    toCopy = v7;
   }
 
 LABEL_11:
   if (self->_consumerSubType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_abGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
   if (self->_executableObject)
   {
     PBDataWriterWriteStringField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
-  v8 = self->_has;
-  if ((v8 & 8) != 0)
+  v6 = self->_has;
+  if ((v6 & 8) != 0)
   {
-    posteriorProbability = self->_posteriorProbability;
     PBDataWriterWriteDoubleField();
-    toCopy = v17;
-    v8 = self->_has;
-    if ((v8 & 2) == 0)
+    toCopy = v7;
+    v6 = self->_has;
+    if ((v6 & 2) == 0)
     {
 LABEL_19:
-      if ((v8 & 0x20) == 0)
+      if ((v6 & 0x20) == 0)
       {
         goto LABEL_20;
       }
@@ -478,19 +489,18 @@ LABEL_19:
     }
   }
 
-  else if ((v8 & 2) == 0)
+  else if ((v6 & 2) == 0)
   {
     goto LABEL_19;
   }
 
-  classConditionalProbability = self->_classConditionalProbability;
   PBDataWriterWriteDoubleField();
-  toCopy = v17;
-  v8 = self->_has;
-  if ((v8 & 0x20) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x20) == 0)
   {
 LABEL_20:
-    if ((v8 & 0x100) == 0)
+    if ((v6 & 0x100) == 0)
     {
       goto LABEL_21;
     }
@@ -499,14 +509,13 @@ LABEL_20:
   }
 
 LABEL_32:
-  standardDeviationOfOffsetFromAnchor = self->_standardDeviationOfOffsetFromAnchor;
   PBDataWriterWriteDoubleField();
-  toCopy = v17;
-  v8 = self->_has;
-  if ((v8 & 0x100) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 0x100) == 0)
   {
 LABEL_21:
-    if ((v8 & 1) == 0)
+    if ((v6 & 1) == 0)
     {
       goto LABEL_22;
     }
@@ -515,14 +524,13 @@ LABEL_21:
   }
 
 LABEL_33:
-  numUniqueOccurrencesAfterAnchor = self->_numUniqueOccurrencesAfterAnchor;
   PBDataWriterWriteUint32Field();
-  toCopy = v17;
-  v8 = self->_has;
-  if ((v8 & 1) == 0)
+  toCopy = v7;
+  v6 = self->_has;
+  if ((v6 & 1) == 0)
   {
 LABEL_22:
-    if ((v8 & 4) == 0)
+    if ((v6 & 4) == 0)
     {
       goto LABEL_24;
     }
@@ -531,15 +539,13 @@ LABEL_22:
   }
 
 LABEL_34:
-  anchorPopularity = self->_anchorPopularity;
   PBDataWriterWriteDoubleField();
-  toCopy = v17;
+  toCopy = v7;
   if ((*&self->_has & 4) != 0)
   {
 LABEL_23:
-    globalPopularity = self->_globalPopularity;
     PBDataWriterWriteDoubleField();
-    toCopy = v17;
+    toCopy = v7;
   }
 
 LABEL_24:

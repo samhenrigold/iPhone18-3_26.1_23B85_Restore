@@ -25,25 +25,25 @@
 {
   deviceCopy = device;
   dCopy = d;
-  v7 = sub_100004778();
+  v7 = sub_100004778(dCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = deviceCopy;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Enabling relay calling on secondary device %@.", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = deviceCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Enabling relay calling on secondary device %@.", &v12, 0xCu);
   }
 
   uniqueIDOverride = [deviceCopy uniqueIDOverride];
   [TUCallCapabilities setRelayCallingEnabled:1 forDeviceWithID:uniqueIDOverride];
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004778(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = deviceCopy;
-    v13 = 2112;
-    v14 = dCopy;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Activating Thumper calling on secondary device %@ for telephony subscription with UUID %@.", &v11, 0x16u);
+    v12 = 138412546;
+    v13 = deviceCopy;
+    v14 = 2112;
+    v15 = dCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Activating Thumper calling on secondary device %@ for telephony subscription with UUID %@.", &v12, 0x16u);
   }
 
   uniqueIDOverride2 = [deviceCopy uniqueIDOverride];
@@ -107,7 +107,7 @@
 - (void)displayServiceConfirmationWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  v4 = sub_100004778();
+  v4 = sub_100004778(handlerCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -144,7 +144,7 @@
 {
   cancelledCopy = cancelled;
   successfullyCopy = successfully;
-  v8 = sub_100004778();
+  v8 = sub_100004778(self);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     v11[0] = 67109376;
@@ -173,7 +173,7 @@
   codeCopy = code;
   dCopy = d;
   handlerCopy = handler;
-  v10 = sub_100004778();
+  v10 = sub_100004778(handlerCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -183,38 +183,38 @@
   v11 = +[CSDThumperIDSService sharedInstance];
   v12 = [v11 deviceForFromID:dCopy];
 
-  if ([v12 supportsPhoneCalls])
+  supportsPhoneCalls = [v12 supportsPhoneCalls];
+  if (supportsPhoneCalls)
   {
     v36 = 0u;
     v37 = 0u;
     v34 = 0u;
     v35 = 0u;
     linkedUserURIs = [v12 linkedUserURIs];
-    v14 = [linkedUserURIs countByEnumeratingWithState:&v34 objects:v38 count:16];
-    if (v14)
+    v15 = [linkedUserURIs countByEnumeratingWithState:&v34 objects:v38 count:16];
+    if (v15)
     {
-      v15 = v14;
-      v16 = *v35;
+      v16 = v15;
+      v17 = *v35;
 LABEL_6:
-      v17 = 0;
+      v18 = 0;
       while (1)
       {
-        if (*v35 != v16)
+        if (*v35 != v17)
         {
           objc_enumerationMutation(linkedUserURIs);
         }
 
-        v18 = *(*(&v34 + 1) + 8 * v17);
         v19 = IDSCopyRawAddressForDestination();
         if (IMStringIsPhoneNumber())
         {
           break;
         }
 
-        if (v15 == ++v17)
+        if (v16 == ++v18)
         {
-          v15 = [linkedUserURIs countByEnumeratingWithState:&v34 objects:v38 count:16];
-          if (v15)
+          v16 = [linkedUserURIs countByEnumeratingWithState:&v34 objects:v38 count:16];
+          if (v16)
           {
             goto LABEL_6;
           }
@@ -268,7 +268,7 @@ LABEL_17:
 
   else
   {
-    v20 = sub_100004778();
+    v20 = sub_100004778(supportsPhoneCalls);
     if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -280,7 +280,7 @@ LABEL_17:
 
 - (void)displayPinRequestFailure
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v14 = 0;

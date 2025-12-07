@@ -7,6 +7,11 @@
 - (RWIProtocolDOMGridOverlayConfig)initWithGridColor:(id)color;
 - (RWIProtocolDOMRGBAColor)gridColor;
 - (void)setGridColor:(id)color;
+- (void)setShowAreaNames:(BOOL)names;
+- (void)setShowExtendedGridLines:(BOOL)lines;
+- (void)setShowLineNames:(BOOL)names;
+- (void)setShowLineNumbers:(BOOL)numbers;
+- (void)setShowTrackSizes:(BOOL)sizes;
 @end
 
 @implementation RWIProtocolDOMGridOverlayConfig
@@ -49,7 +54,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolDOMGridOverlayConfig;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"gridColor"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -93,11 +98,25 @@
   return v7;
 }
 
+- (void)setShowLineNames:(BOOL)names
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMGridOverlayConfig;
+  [(RWIProtocolJSONObject *)&v3 setBool:names forKey:@"showLineNames"];
+}
+
 - (BOOL)showLineNames
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolDOMGridOverlayConfig;
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"showLineNames"];
+}
+
+- (void)setShowLineNumbers:(BOOL)numbers
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMGridOverlayConfig;
+  [(RWIProtocolJSONObject *)&v3 setBool:numbers forKey:@"showLineNumbers"];
 }
 
 - (BOOL)showLineNumbers
@@ -107,6 +126,13 @@
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"showLineNumbers"];
 }
 
+- (void)setShowExtendedGridLines:(BOOL)lines
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMGridOverlayConfig;
+  [(RWIProtocolJSONObject *)&v3 setBool:lines forKey:@"showExtendedGridLines"];
+}
+
 - (BOOL)showExtendedGridLines
 {
   v3.receiver = self;
@@ -114,11 +140,25 @@
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"showExtendedGridLines"];
 }
 
+- (void)setShowTrackSizes:(BOOL)sizes
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMGridOverlayConfig;
+  [(RWIProtocolJSONObject *)&v3 setBool:sizes forKey:@"showTrackSizes"];
+}
+
 - (BOOL)showTrackSizes
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolDOMGridOverlayConfig;
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"showTrackSizes"];
+}
+
+- (void)setShowAreaNames:(BOOL)names
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMGridOverlayConfig;
+  [(RWIProtocolJSONObject *)&v3 setBool:names forKey:@"showAreaNames"];
 }
 
 - (BOOL)showAreaNames

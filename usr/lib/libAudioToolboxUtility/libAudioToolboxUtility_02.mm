@@ -1,31 +1,6 @@
-const __CFArray *CACFArray::InsertUInt32(CACFArray *this, unsigned int a2, int a3)
+void sub_1DE1F0334(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  if (!*this || *(this + 9) != 1)
-  {
-    return 0;
-  }
-
-  valuePtr = a3;
-  v5 = CFNumberCreate(0, kCFNumberSInt32Type, &valuePtr);
-  v8 = v5;
-  v9 = 1;
-  if (v5)
-  {
-    inserted = CACFArray::InsertCFType(this, a2, v5);
-  }
-
-  else
-  {
-    inserted = 0;
-  }
-
-  CACFNumber::~CACFNumber(&v8);
-  return inserted;
-}
-
-void sub_1DE1F0334(_Unwind_Exception *a1, uint64_t a2, ...)
-{
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -55,9 +30,9 @@ const __CFArray *CACFArray::InsertSInt64(CACFArray *this, unsigned int a2, uint6
   return inserted;
 }
 
-void sub_1DE1F03DC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1F03DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -87,9 +62,9 @@ const __CFArray *CACFArray::InsertUInt64(CACFArray *this, unsigned int a2, uint6
   return inserted;
 }
 
-void sub_1DE1F0484(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1F0484(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -119,9 +94,9 @@ const __CFArray *CACFArray::InsertFloat32(CACFArray *this, unsigned int a2, floa
   return inserted;
 }
 
-void sub_1DE1F052C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1F052C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -151,9 +126,9 @@ const __CFArray *CACFArray::InsertFloat64(CACFArray *this, unsigned int a2, doub
   return inserted;
 }
 
-void sub_1DE1F05D4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1F05D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -236,9 +211,9 @@ const __CFArray *CACFArray::SetSInt32(const __CFArray **this, unsigned int a2, i
   return v7;
 }
 
-void sub_1DE1F07E0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1F07E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -269,9 +244,9 @@ const __CFArray *CACFArray::SetUInt32(const __CFArray **this, unsigned int a2, i
   return v7;
 }
 
-void sub_1DE1F08A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1F08A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -302,9 +277,9 @@ const __CFArray *CACFArray::SetSInt64(const __CFArray **this, unsigned int a2, u
   return v7;
 }
 
-void sub_1DE1F0960(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1F0960(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -335,9 +310,9 @@ const __CFArray *CACFArray::SetUInt64(const __CFArray **this, unsigned int a2, u
   return v7;
 }
 
-void sub_1DE1F0A20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1F0A20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -368,9 +343,9 @@ const __CFArray *CACFArray::SetFloat32(const __CFArray **this, unsigned int a2, 
   return v7;
 }
 
-void sub_1DE1F0AE0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1F0AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
@@ -401,16 +376,16 @@ const __CFArray *CACFArray::SetFloat64(const __CFArray **this, unsigned int a2, 
   return v7;
 }
 
-void sub_1DE1F0BA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1DE1F0BA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CACFNumber::~CACFNumber(va);
   _Unwind_Resume(a1);
 }
 
 void CACFArray::PrintToLog(CACFArray *this, const __CFArray *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   Count = CFArrayGetCount(this);
   if (a2)
   {
@@ -433,13 +408,13 @@ void CACFArray::PrintToLog(CACFArray *this, const __CFArray *a2)
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315906;
-        v14 = "CACFArray.cpp";
-        v15 = 1024;
-        v16 = 795;
-        v17 = 2080;
-        v18 = __b;
-        v19 = 1024;
-        v20 = v6;
+        v11 = "CACFArray.cpp";
+        v12 = 1024;
+        v13 = 795;
+        v14 = 2080;
+        v15 = __b;
+        v16 = 1024;
+        v17 = v6;
         _os_log_impl(&dword_1DE1D2000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d  %sitem %d", buf, 0x22u);
       }
 
@@ -462,12 +437,12 @@ void CACFArray::PrintToLog(CACFArray *this, const __CFArray *a2)
 
       else if (v9 == CFDictionaryGetTypeID())
       {
-        CACFDictionary::PrintToLog(ValueAtIndex, (a2 + 1), v10);
+        CACFDictionary::PrintToLog(ValueAtIndex, (a2 + 1));
       }
 
       else if (v9 == CFArrayGetTypeID())
       {
-        CACFArray::PrintToLog(ValueAtIndex, (a2 + 1), v11);
+        CACFArray::PrintToLog(ValueAtIndex, (a2 + 1));
       }
 
       ++v6;
@@ -475,8 +450,6 @@ void CACFArray::PrintToLog(CACFArray *this, const __CFArray *a2)
 
     while (Count != v6);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 unint64_t MultiRadixFFT::NearestSupportedSizes(MultiRadixFFT *this)
@@ -1104,7 +1077,7 @@ size_t MemoryStream::Write(MemoryStream *this, void *__src, size_t __n)
         goto LABEL_8;
       }
 
-      CAVerboseAbort();
+      CAVerboseAbort("failed assertion: goodToCopy");
     }
 
     exception = __cxa_allocate_exception(4uLL);
@@ -1309,7 +1282,7 @@ void CASmartPreferences::RereadPrefs(CASmartPreferences *this)
 
 uint64_t CACFPreferencesGetAppFourCCValue(const __CFString *a1, const __CFString *a2, BOOL *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = CFPreferencesCopyAppValue(a1, a2);
   if (!v4)
   {
@@ -1317,7 +1290,7 @@ uint64_t CACFPreferencesGetAppFourCCValue(const __CFString *a1, const __CFString
     v9 = 0;
     if (!a3)
     {
-      goto LABEL_11;
+      return v9;
     }
 
     goto LABEL_10;
@@ -1351,8 +1324,6 @@ LABEL_10:
     *a3 = v8;
   }
 
-LABEL_11:
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -1454,7 +1425,7 @@ uint64_t std::allocator_traits<std::allocator<std::unique_ptr<caulk::concurrent:
   return result;
 }
 
-uint64_t OpaqueObjectMgr::lookup(OpaqueObjectMgr *this, unsigned int a2)
+uint64_t OpaqueObjectMgr::lookup(OpaqueObjectMgr *this, uint64_t a2)
 {
   result = caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObject *,(caulk::concurrent::guarded_lookup_hash_table_options)0,OpaqueObjectIdentityHash>::lookup<(caulk::concurrent::guarded_lookup_hash_table_options)0,void>(this, a2);
   if ((v3 & 1) == 0)
@@ -1465,12 +1436,12 @@ uint64_t OpaqueObjectMgr::lookup(OpaqueObjectMgr *this, unsigned int a2)
   return result;
 }
 
-void BaseOpaqueObject::BaseOpaqueObject(BaseOpaqueObject *this, unsigned int a2)
+void BaseOpaqueObject::BaseOpaqueObject(BaseOpaqueObject *this, uint64_t a2)
 {
   *this = &unk_1F595E5E8;
   *(this + 2) = a2;
-  v3 = OpaqueObjectMgrInstance();
-  caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObject *,(caulk::concurrent::guarded_lookup_hash_table_options)0,OpaqueObjectIdentityHash>::_addOrReplace(v3, a2);
+  v4 = OpaqueObjectMgrInstance();
+  caulk::concurrent::guarded_lookup_hash_table<unsigned int,BaseOpaqueObject *,(caulk::concurrent::guarded_lookup_hash_table_options)0,OpaqueObjectIdentityHash>::_addOrReplace(v4, a2, this);
 }
 
 float DFT_split_180_execute(vDSP_DFT_SetupStruct *__Setup, float32x2_t *a2, float32x2_t *a3, float *a4, float *a5, vDSP_DFT_Direction a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, int a44, uint64_t a45, uint64_t a46)
@@ -1519,41 +1490,41 @@ float DFT_split_180_execute(vDSP_DFT_SetupStruct *__Setup, float32x2_t *a2, floa
   v52 = -8;
   do
   {
-    v54 = *&v51[v47 / 4];
-    v53 = *&v51[v47 / 4 + 4];
-    v56 = *v50[v47 / 8].f32;
-    v55 = *v50[v47 / 8 + 2].f32;
-    v58 = *&v51[v47 / 4 + 90];
-    v57 = *&v51[v47 / 4 + 94];
-    v60 = *v50[v47 / 8 + 45].f32;
-    v59 = *v50[v47 / 8 + 47].f32;
-    v62 = *(&DFT_split_180_execute(vDSP_DFT_SetupStruct *,float const*,float const*,float *,float *,vDSP_DFT_Direction)::kCos_2PiOver180 + v47);
-    v61 = *(&DFT_split_180_execute(vDSP_DFT_SetupStruct *,float const*,float const*,float *,float *,vDSP_DFT_Direction)::kCos_2PiOver180 + v47 + 16);
-    v63 = *(&DFT_split_180_execute(vDSP_DFT_SetupStruct *,float const*,float const*,float *,float *,vDSP_DFT_Direction)::kSin_2PiOver180 + v47);
-    v64 = *(&DFT_split_180_execute(vDSP_DFT_SetupStruct *,float const*,float const*,float *,float *,vDSP_DFT_Direction)::kSin_2PiOver180 + v47 + 16);
-    v65 = (&STACK[0x890] + v47);
+    v54 = *v51[v47].f32;
+    v53 = *v51[v47 + 2].f32;
+    v56 = *v50[v47].f32;
+    v55 = *v50[v47 + 2].f32;
+    v58 = *v51[v47 + 45].f32;
+    v57 = *v51[v47 + 47].f32;
+    v60 = *v50[v47 + 45].f32;
+    v59 = *v50[v47 + 47].f32;
+    v62 = *(&DFT_split_180_execute(vDSP_DFT_SetupStruct *,float const*,float const*,float *,float *,vDSP_DFT_Direction)::kCos_2PiOver180 + v47 * 8);
+    v61 = *(&DFT_split_180_execute(vDSP_DFT_SetupStruct *,float const*,float const*,float *,float *,vDSP_DFT_Direction)::kCos_2PiOver180 + v47 * 8 + 16);
+    v63 = *(&DFT_split_180_execute(vDSP_DFT_SetupStruct *,float const*,float const*,float *,float *,vDSP_DFT_Direction)::kSin_2PiOver180 + v47 * 8);
+    v64 = *(&DFT_split_180_execute(vDSP_DFT_SetupStruct *,float const*,float const*,float *,float *,vDSP_DFT_Direction)::kSin_2PiOver180 + v47 * 8 + 16);
+    v65 = (&STACK[0x890] + v47 * 8);
     *v65 = vaddq_f32(v54, v58);
     v65[1] = vaddq_f32(v53, v57);
-    v66 = (&v89 + v47);
+    v66 = (&v89 + v47 * 8);
     *v66 = vaddq_f32(v56, v60);
     v66[1] = vaddq_f32(v55, v59);
     v67 = vsubq_f32(v53, v57);
     v68 = vsubq_f32(v54, v58);
     v69 = vsubq_f32(v56, v60);
     v70 = vsubq_f32(v55, v59);
-    v71 = (&STACK[0x890] + v47 + 360);
+    v71 = (&STACK[0x890] + v47 * 8 + 360);
     *v71 = vmlaq_f32(vmulq_f32(v69, v63), v62, v68);
     v71[1] = vmlaq_f32(vmulq_f32(v70, v64), v61, v67);
-    v72 = (&a44 + v47);
+    v72 = (&a44 + v47 * 8);
     *v72 = vmlaq_f32(vmulq_f32(v63, vnegq_f32(v68)), v62, v69);
     v72[1] = vmlaq_f32(vmulq_f32(v64, vnegq_f32(v67)), v61, v70);
     v52 += 8;
-    v47 += 32;
+    v47 += 4;
   }
 
   while (v52 < 0x4B);
-  v73 = *(v51 + 88);
-  v74 = *(v51 + 178);
+  v73 = v51[44];
+  v74 = v51[89];
   v75 = vsub_f32(v73, v74);
   v76 = vsub_f32(v50[44], v50[89]);
   STACK[0x9F0] = vadd_f32(v73, v74);

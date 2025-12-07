@@ -60,16 +60,16 @@
   {
 LABEL_15:
     [v8 minusSet:v9];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = *(v10 + 412);
-    v29[2] = __49__ATXAppModeModel_scoredEntitiesWithXPCActivity___block_invoke_2;
-    v29[3] = &unk_27859F650;
-    v29[4] = self;
-    v26 = v5;
-    v30 = v26;
-    v31 = v9;
-    [v8 enumerateObjectsUsingBlock:v29];
-    v27 = v26;
+    v32[0] = MEMORY[0x277D85DD0];
+    v32[1] = *(v10 + 412);
+    v32[2] = __49__ATXAppModeModel_scoredEntitiesWithXPCActivity___block_invoke_2;
+    v32[3] = &unk_27859F650;
+    v32[4] = self;
+    v29 = v5;
+    v33 = v29;
+    v34 = v9;
+    [v8 enumerateObjectsUsingBlock:v32];
+    v30 = v29;
 
     goto LABEL_16;
   }
@@ -85,52 +85,55 @@ LABEL_15:
   appInterruptionsEventProvider = self->_appInterruptionsEventProvider;
   self->_appInterruptionsEventProvider = v17;
 
-  if (![(ATXAppInterruptionsEventProvider *)self->_appInterruptionsEventProvider successfullyCalculatedAppSessionInterruptions:activityCopy])
+  v19 = [(ATXAppInterruptionsEventProvider *)self->_appInterruptionsEventProvider successfullyCalculatedAppSessionInterruptions:activityCopy];
+  if ((v19 & 1) == 0)
   {
-    v19 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = __atxlog_handle_modes(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
       [ATXAppModeModel scoredEntitiesWithXPCActivity:];
     }
   }
 
-  if (![activityCopy didDefer])
+  didDefer = [activityCopy didDefer];
+  if (!didDefer)
   {
-    v22 = [[ATXAppNotificationEngagementEventProvider alloc] initWithModeEventProvider:self->_modeEventProvider];
+    v24 = [[ATXAppNotificationEngagementEventProvider alloc] initWithModeEventProvider:self->_modeEventProvider];
     appNotificationEngagementEventProvider = self->_appNotificationEngagementEventProvider;
-    self->_appNotificationEngagementEventProvider = v22;
+    self->_appNotificationEngagementEventProvider = v24;
 
+    successfullyCalculatedNotificationEvents = [(ATXAppNotificationEngagementEventProvider *)self->_appNotificationEngagementEventProvider successfullyCalculatedNotificationEvents];
     v10 = &off_226871000;
-    if (![(ATXAppNotificationEngagementEventProvider *)self->_appNotificationEngagementEventProvider successfullyCalculatedNotificationEvents])
+    if ((successfullyCalculatedNotificationEvents & 1) == 0)
     {
-      v24 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v27 = __atxlog_handle_modes(successfullyCalculatedNotificationEvents);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
         [ATXAppModeModel scoredEntitiesWithXPCActivity:];
       }
     }
 
     entityFeaturesForModeEntityScoring = [(ATXModeEntityCorrelator *)v16 entityFeaturesForModeEntityScoring];
-    v32[0] = MEMORY[0x277D85DD0];
-    v32[1] = 3221225472;
-    v32[2] = __49__ATXAppModeModel_scoredEntitiesWithXPCActivity___block_invoke;
-    v32[3] = &unk_2785970E0;
-    v33 = v8;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __49__ATXAppModeModel_scoredEntitiesWithXPCActivity___block_invoke;
+    v35[3] = &unk_2785970E0;
+    v36 = v8;
     selfCopy = self;
-    v35 = v5;
-    v36 = v9;
-    [entityFeaturesForModeEntityScoring enumerateKeysAndObjectsUsingBlock:v32];
+    v38 = v5;
+    v39 = v9;
+    [entityFeaturesForModeEntityScoring enumerateKeysAndObjectsUsingBlock:v35];
 
     goto LABEL_15;
   }
 
-  v20 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+  v22 = __atxlog_handle_modes(didDefer);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
     [ATXAppModeModel scoredEntitiesWithXPCActivity:];
   }
 
-  v21 = v5;
+  v23 = v5;
 LABEL_16:
 
   return v5;
@@ -163,7 +166,7 @@ void __49__ATXAppModeModel_scoredEntitiesWithXPCActivity___block_invoke_2(uint64
 
 - (id)scoredAppModeEntityWithAppFeatures:(id)features bundleId:(id)id
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   if (!featuresCopy)
   {
@@ -180,8 +183,8 @@ void __49__ATXAppModeModel_scoredEntitiesWithXPCActivity___block_invoke_2(uint64
     v11 = v10;
 
     v12 = objc_alloc(MEMORY[0x277CEB390]);
-    v23[0] = v11;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+    v22[0] = v11;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
 
     v14 = [v12 initWithBundleId:idCopy itunesGenreIds:v13];
     [featuresCopy setEntity:v14];
@@ -199,8 +202,6 @@ void __49__ATXAppModeModel_scoredEntitiesWithXPCActivity___block_invoke_2(uint64
   [entity setScoreMetadata:v17];
 
   entity2 = [featuresCopy entity];
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return entity2;
 }
@@ -408,8 +409,8 @@ void __49__ATXAppModeModel_scoredEntitiesWithXPCActivity___block_invoke_2(uint64
 
   if ((isKindOfClass & 1) == 0)
   {
-    v7 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
+    v8 = __atxlog_handle_modes(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
       [ATXAppModeDenyListModel featuresToModel:];
     }
@@ -417,44 +418,44 @@ void __49__ATXAppModeModel_scoredEntitiesWithXPCActivity___block_invoke_2(uint64
 
   entitySpecificFeatures2 = [modelCopy entitySpecificFeatures];
   appCategoryScore_v2 = [entitySpecificFeatures2 appCategoryScore_v2];
-  v9 = MEMORY[0x277CCABB0];
-  [modelCopy globalPopularity];
-  v62 = [v9 numberWithDouble:?];
-  v61 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(modelCopy, "globalOccurrences")}];
-  v60 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(modelCopy, "entityOccurredGloballyOverLastNDays:", -[ATXModeAffinityModelsConstants numOfDaysToComputeEntityOccurenceFeatures](self->_modeAffinityModelsConstants, "numOfDaysToComputeEntityOccurenceFeatures"))}];
-  v59 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(modelCopy, "entityOccurredInModeOverLastNDays:", -[ATXModeAffinityModelsConstants numOfDaysToComputeEntityOccurenceFeatures](self->_modeAffinityModelsConstants, "numOfDaysToComputeEntityOccurenceFeatures"))}];
   v10 = MEMORY[0x277CCABB0];
-  [modelCopy ratioModeAndGlobalPopularity];
-  v57 = [v10 numberWithDouble:?];
-  v58 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(modelCopy, "localOccurrences")}];
-  v56 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(modelCopy, "uniqueOccurrencesInMode")}];
+  [modelCopy globalPopularity];
+  v63 = [v10 numberWithDouble:?];
+  v62 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(modelCopy, "globalOccurrences")}];
+  v61 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(modelCopy, "entityOccurredGloballyOverLastNDays:", -[ATXModeAffinityModelsConstants numOfDaysToComputeEntityOccurenceFeatures](self->_modeAffinityModelsConstants, "numOfDaysToComputeEntityOccurenceFeatures"))}];
+  v60 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(modelCopy, "entityOccurredInModeOverLastNDays:", -[ATXModeAffinityModelsConstants numOfDaysToComputeEntityOccurenceFeatures](self->_modeAffinityModelsConstants, "numOfDaysToComputeEntityOccurenceFeatures"))}];
   v11 = MEMORY[0x277CCABB0];
+  [modelCopy ratioModeAndGlobalPopularity];
+  v58 = [v11 numberWithDouble:?];
+  v59 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(modelCopy, "localOccurrences")}];
+  v57 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(modelCopy, "uniqueOccurrencesInMode")}];
+  v12 = MEMORY[0x277CCABB0];
   localOccurrences = [modelCopy localOccurrences];
   globalModeAffinityPrior = [entitySpecificFeatures2 globalModeAffinityPrior];
   [globalModeAffinityPrior doubleValue];
-  v15 = v14 + localOccurrences;
+  v16 = v15 + localOccurrences;
   globalOccurrences = [modelCopy globalOccurrences];
   [(ATXModeAffinityModelsConstants *)self->_modeAffinityModelsConstants scalingFactorForModeGlobalPriors];
-  v45 = [v11 numberWithDouble:v15 / (v17 + globalOccurrences + 0.00000001)];
+  v46 = [v12 numberWithDouble:v16 / (v18 + globalOccurrences + 0.00000001)];
 
-  v18 = MEMORY[0x277CCABB0];
+  v19 = MEMORY[0x277CCABB0];
   uniqueOccurrencesInMode = [modelCopy uniqueOccurrencesInMode];
   globalModeAffinityPrior2 = [entitySpecificFeatures2 globalModeAffinityPrior];
   [globalModeAffinityPrior2 doubleValue];
-  v22 = v21 + uniqueOccurrencesInMode;
+  v23 = v22 + uniqueOccurrencesInMode;
   modeOccurrences = [modelCopy modeOccurrences];
   [(ATXModeAffinityModelsConstants *)self->_modeAffinityModelsConstants scalingFactorForModeGlobalPriors];
-  v43 = [v18 numberWithDouble:v22 / (v24 + modeOccurrences + 0.00000001)];
+  v44 = [v19 numberWithDouble:v23 / (v25 + modeOccurrences + 0.00000001)];
 
-  v25 = MEMORY[0x277CCABB0];
+  v26 = MEMORY[0x277CCABB0];
   localOccurrences2 = [modelCopy localOccurrences];
   globalModeAffinityPrior3 = [entitySpecificFeatures2 globalModeAffinityPrior];
   [globalModeAffinityPrior3 doubleValue];
-  v29 = v28 + localOccurrences2;
+  v30 = v29 + localOccurrences2;
   localOccurrencesAcrossAllEntities = [modelCopy localOccurrencesAcrossAllEntities];
 
   [(ATXModeAffinityModelsConstants *)self->_modeAffinityModelsConstants scalingFactorForModeGlobalPriors];
-  v44 = [v25 numberWithDouble:v29 / (v31 + localOccurrencesAcrossAllEntities + 0.00000001)];
+  v45 = [v26 numberWithDouble:v30 / (v32 + localOccurrencesAcrossAllEntities + 0.00000001)];
 
   globalModeAffinityPrior4 = [entitySpecificFeatures2 globalModeAffinityPrior];
   modeAppInterruptionsCountByEntity = [entitySpecificFeatures2 modeAppInterruptionsCountByEntity];
@@ -475,39 +476,39 @@ void __49__ATXAppModeModel_scoredEntitiesWithXPCActivity___block_invoke_2(uint64
   globalCountOfNotificationsClearedForEntity = [entitySpecificFeatures2 globalCountOfNotificationsClearedForEntity];
   ratioOfLocalToGlobalNotificationsClearedRateForEntity = [entitySpecificFeatures2 ratioOfLocalToGlobalNotificationsClearedRateForEntity];
   classConditionalOfNotificationsClearedForEntity = [entitySpecificFeatures2 classConditionalOfNotificationsClearedForEntity];
-  v36 = objc_opt_new();
-  [v36 setObject:v60 forKey:@"entityOccurredGloballyOverTheLastNDays"];
-  [v36 setObject:v59 forKey:@"entityOccurredInModeOverLastNDays"];
-  [v36 setObject:appCategoryScore_v2 forKey:@"appCategoryScore"];
-  [v36 setObject:v45 forKey:@"classConditionalProbabilityOfModeGivenEntity"];
-  [v36 setObject:v61 forKey:@"globalOccurrencesOfEntity"];
-  [v36 setObject:v62 forKey:@"globalPopularityForEntity"];
-  [v36 setObject:v58 forKey:@"localOccurrencesOfEntityInMode"];
-  [v36 setObject:v44 forKey:@"modePopularityForEntity"];
-  [v36 setObject:v43 forKey:@"posteriorProbabilityOfEntityGivenMode"];
-  [v36 setObject:v57 forKey:@"ratioOfModePopularityToGlobalPopularityOfEntity"];
-  [v36 setObject:v56 forKey:@"uniqueOccurrencesOfEntityInMode"];
-  [v36 setObject:globalModeAffinityPrior4 forKey:@"globalModeAffinityPrior"];
-  [v36 setObject:modeAppInterruptionsCountByEntity forKey:@"modeAppInterruptionsCountByEntity"];
-  [v36 setObject:globalAppInterruptionsCountByEntity forKey:@"globalAppInterruptionsCountByEntity"];
-  [v36 setObject:modePopularityOfInterruptingEntity forKey:@"modePopularityOfInterruptingEntity"];
-  [v36 setObject:globalPopularityOfInterruptingEntity forKey:@"globalPopularityOfInterruptingEntity"];
-  [v36 setObject:modeAppInterruptionsClassConditionalProbabilityByEntity forKey:@"modeAppInterruptionsClassConditionalProbabilityByEntity"];
-  [v36 setObject:ratioOfModePopularityToGlobalPopularityOfInterruptingEntity forKey:@"ratioOfModePopularityToGlobalPopularityOfInterruptingEntity"];
-  [v36 setObject:globalCountOfNotificationsReceivedForEntity forKey:@"globalCountOfNotificationsReceivedForEntity"];
-  [v36 setObject:modeCountOfNotificationsReceivedForEntity forKey:@"modeCountOfNotificationsReceivedForEntity"];
-  [v36 setObject:localPopularityOfNotificationsReceivedForEntity forKey:@"localPopularityOfNotificationsReceivedForEntity"];
-  [v36 setObject:globalPopularityOfNotificationsReceivedForEntity forKey:@"globalPopularityOfNotificationsReceivedForEntity"];
-  [v36 setObject:ratioOfLocalToGlobalPopularityOfNotificationsReceivedForEntity forKey:@"ratioOfLocalToGlobalPopularityOfNotificationsReceivedForEntity"];
-  [v36 setObject:classConditionalOfNotificationsReceivedForEntity forKey:@"classConditionalOfNotificationsReceivedForEntity"];
-  [v36 setObject:modeCountOfNotificationsClearedForEntity forKey:@"modeCountOfNotificationsClearedForEntity"];
-  [v36 setObject:localNotificationsClearedRateForEntity forKey:@"localNotificationsClearedRateForEntity"];
-  [v36 setObject:globalNotificationsClearedRateForEntity forKey:@"globalNotificationsClearedRateForEntity"];
-  [v36 setObject:globalCountOfNotificationsClearedForEntity forKey:@"globalCountOfNotificationsClearedForEntity"];
-  [v36 setObject:ratioOfLocalToGlobalNotificationsClearedRateForEntity forKey:@"ratioOfLocalToGlobalNotificationsClearedRateForEntity"];
-  [v36 setObject:classConditionalOfNotificationsClearedForEntity forKey:@"classConditionalOfNotificationsClearedForEntity"];
+  v37 = objc_opt_new();
+  [v37 setObject:v61 forKey:@"entityOccurredGloballyOverTheLastNDays"];
+  [v37 setObject:v60 forKey:@"entityOccurredInModeOverLastNDays"];
+  [v37 setObject:appCategoryScore_v2 forKey:@"appCategoryScore"];
+  [v37 setObject:v46 forKey:@"classConditionalProbabilityOfModeGivenEntity"];
+  [v37 setObject:v62 forKey:@"globalOccurrencesOfEntity"];
+  [v37 setObject:v63 forKey:@"globalPopularityForEntity"];
+  [v37 setObject:v59 forKey:@"localOccurrencesOfEntityInMode"];
+  [v37 setObject:v45 forKey:@"modePopularityForEntity"];
+  [v37 setObject:v44 forKey:@"posteriorProbabilityOfEntityGivenMode"];
+  [v37 setObject:v58 forKey:@"ratioOfModePopularityToGlobalPopularityOfEntity"];
+  [v37 setObject:v57 forKey:@"uniqueOccurrencesOfEntityInMode"];
+  [v37 setObject:globalModeAffinityPrior4 forKey:@"globalModeAffinityPrior"];
+  [v37 setObject:modeAppInterruptionsCountByEntity forKey:@"modeAppInterruptionsCountByEntity"];
+  [v37 setObject:globalAppInterruptionsCountByEntity forKey:@"globalAppInterruptionsCountByEntity"];
+  [v37 setObject:modePopularityOfInterruptingEntity forKey:@"modePopularityOfInterruptingEntity"];
+  [v37 setObject:globalPopularityOfInterruptingEntity forKey:@"globalPopularityOfInterruptingEntity"];
+  [v37 setObject:modeAppInterruptionsClassConditionalProbabilityByEntity forKey:@"modeAppInterruptionsClassConditionalProbabilityByEntity"];
+  [v37 setObject:ratioOfModePopularityToGlobalPopularityOfInterruptingEntity forKey:@"ratioOfModePopularityToGlobalPopularityOfInterruptingEntity"];
+  [v37 setObject:globalCountOfNotificationsReceivedForEntity forKey:@"globalCountOfNotificationsReceivedForEntity"];
+  [v37 setObject:modeCountOfNotificationsReceivedForEntity forKey:@"modeCountOfNotificationsReceivedForEntity"];
+  [v37 setObject:localPopularityOfNotificationsReceivedForEntity forKey:@"localPopularityOfNotificationsReceivedForEntity"];
+  [v37 setObject:globalPopularityOfNotificationsReceivedForEntity forKey:@"globalPopularityOfNotificationsReceivedForEntity"];
+  [v37 setObject:ratioOfLocalToGlobalPopularityOfNotificationsReceivedForEntity forKey:@"ratioOfLocalToGlobalPopularityOfNotificationsReceivedForEntity"];
+  [v37 setObject:classConditionalOfNotificationsReceivedForEntity forKey:@"classConditionalOfNotificationsReceivedForEntity"];
+  [v37 setObject:modeCountOfNotificationsClearedForEntity forKey:@"modeCountOfNotificationsClearedForEntity"];
+  [v37 setObject:localNotificationsClearedRateForEntity forKey:@"localNotificationsClearedRateForEntity"];
+  [v37 setObject:globalNotificationsClearedRateForEntity forKey:@"globalNotificationsClearedRateForEntity"];
+  [v37 setObject:globalCountOfNotificationsClearedForEntity forKey:@"globalCountOfNotificationsClearedForEntity"];
+  [v37 setObject:ratioOfLocalToGlobalNotificationsClearedRateForEntity forKey:@"ratioOfLocalToGlobalNotificationsClearedRateForEntity"];
+  [v37 setObject:classConditionalOfNotificationsClearedForEntity forKey:@"classConditionalOfNotificationsClearedForEntity"];
 
-  return v36;
+  return v37;
 }
 
 - (id)loadAppModeCoreMLModel
@@ -537,48 +538,48 @@ void __49__ATXAppModeModel_scoredEntitiesWithXPCActivity___block_invoke_2(uint64
   {
     v5 = objc_alloc(MEMORY[0x277CBFED0]);
     v6 = [(ATXAppModeModel *)self featuresToModel:featuresCopy];
-    v19 = 0;
-    v7 = [v5 initWithDictionary:v6 error:&v19];
-    v8 = v19;
+    v21 = 0;
+    v7 = [v5 initWithDictionary:v6 error:&v21];
+    v8 = v21;
 
     if (v8)
     {
-      v9 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = __atxlog_handle_modes(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         [ATXAppModeModel scoreFromAppFeatures:];
       }
     }
 
     appModeModel = self->_appModeModel;
-    v18 = v8;
-    v11 = [(MLModel *)appModeModel predictionFromFeatures:v7 error:&v18];
-    v12 = v18;
+    v20 = v8;
+    v12 = [(MLModel *)appModeModel predictionFromFeatures:v7 error:&v20];
+    v13 = v20;
 
-    if (v12)
+    if (v13)
     {
-      v13 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v15 = __atxlog_handle_modes(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         [ATXAppModeModel scoreFromAppFeatures:];
       }
     }
 
-    v14 = [v11 featureValueForName:@"classProbability"];
-    [ATXCoreMLUtilities scoreForModelOutputValue:v14 outputIndexedSubscript:1];
-    v16 = v15;
+    v16 = [v12 featureValueForName:@"classProbability"];
+    [ATXCoreMLUtilities scoreForModelOutputValue:v16 outputIndexedSubscript:1];
+    v18 = v17;
     if ([featuresCopy uniqueOccurrencesInMode] < 2)
     {
-      v16 = v16 * 0.5;
+      v18 = v18 * 0.5;
     }
   }
 
   else
   {
-    v16 = 0.0;
+    v18 = 0.0;
   }
 
-  return v16;
+  return v18;
 }
 
 - (void)scoredEntitiesWithXPCActivity:.cold.1()
@@ -600,22 +601,6 @@ void __49__ATXAppModeModel_scoredEntitiesWithXPCActivity___block_invoke_2(uint64
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_1_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-- (void)scoreFromAppFeatures:.cold.1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)scoreFromAppFeatures:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

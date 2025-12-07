@@ -36,54 +36,47 @@
 
 + (id)valueWithInteger:(int64_t)integer
 {
-  v4 = [self alloc];
-  v6 = objc_msgSend_initWithIntegerValue_(v4, v5, integer);
+  v3 = [[self alloc] initWithIntegerValue:integer];
 
-  return v6;
+  return v3;
 }
 
 + (id)valueWithDouble:(double)double
 {
-  v4 = [self alloc];
-  v7 = objc_msgSend_initWithDoubleValue_(v4, v5, v6, double);
+  v3 = [[self alloc] initWithDoubleValue:double];
 
-  return v7;
+  return v3;
 }
 
 + (id)valueWithBool:(BOOL)bool
 {
-  boolCopy = bool;
-  v4 = [self alloc];
-  v6 = objc_msgSend_initWithBoolValue_(v4, v5, boolCopy);
+  v3 = [[self alloc] initWithBoolValue:bool];
 
-  return v6;
+  return v3;
 }
 
 + (id)valueWithString:(id)string
 {
   stringCopy = string;
-  v5 = [self alloc];
-  v7 = objc_msgSend_initWithStringValue_(v5, v6, stringCopy);
+  v5 = [[self alloc] initWithStringValue:stringCopy];
 
-  return v7;
+  return v5;
 }
 
 + (id)valueWithPathSource:(id)source
 {
   sourceCopy = source;
-  v5 = [self alloc];
-  v7 = objc_msgSend_initWithPathSourceValue_(v5, v6, sourceCopy);
+  v5 = [[self alloc] initWithPathSourceValue:sourceCopy];
 
-  return v7;
+  return v5;
 }
 
 + (id)valueWithColor:(id)color
 {
   colorCopy = color;
-  v5 = [self alloc];
-  v7 = objc_msgSend_initWithColorValue_(v5, v6, colorCopy);
+  v5 = [[self alloc] initWithColorValue:colorCopy];
 
-  return v7;
+  return v5;
 }
 
 - (KNBuildAttributeValue)initWithIntegerValue:(int64_t)value
@@ -144,37 +137,37 @@
 - (KNBuildAttributeValue)initWithStringValue:(id)value
 {
   valueCopy = value;
-  v12.receiver = self;
-  v12.super_class = KNBuildAttributeValue;
-  v5 = [(KNBuildAttributeValue *)&v12 init];
-  v8 = v5;
+  v10.receiver = self;
+  v10.super_class = KNBuildAttributeValue;
+  v5 = [(KNBuildAttributeValue *)&v10 init];
+  v6 = v5;
   if (v5)
   {
     v5->_definedStringValue = 1;
-    v9 = objc_msgSend_copy(valueCopy, v6, v7);
-    stringValue = v8->_stringValue;
-    v8->_stringValue = v9;
+    v7 = [valueCopy copy];
+    stringValue = v6->_stringValue;
+    v6->_stringValue = v7;
   }
 
-  return v8;
+  return v6;
 }
 
 - (KNBuildAttributeValue)initWithPathSourceValue:(id)value
 {
   valueCopy = value;
-  v12.receiver = self;
-  v12.super_class = KNBuildAttributeValue;
-  v5 = [(KNBuildAttributeValue *)&v12 init];
-  v8 = v5;
+  v10.receiver = self;
+  v10.super_class = KNBuildAttributeValue;
+  v5 = [(KNBuildAttributeValue *)&v10 init];
+  v6 = v5;
   if (v5)
   {
     v5->_definedPathSourceValue = 1;
-    v9 = objc_msgSend_copy(valueCopy, v6, v7);
-    pathSourceValue = v8->_pathSourceValue;
-    v8->_pathSourceValue = v9;
+    v7 = [valueCopy copy];
+    pathSourceValue = v6->_pathSourceValue;
+    v6->_pathSourceValue = v7;
   }
 
-  return v8;
+  return v6;
 }
 
 - (KNBuildAttributeValue)initWithColorValue:(id)value
@@ -230,61 +223,61 @@
 
 - (NSObject)objectValue
 {
-  v6 = objc_msgSend_type(self, a2, v2);
-  v7 = 0;
-  if (v6 > 2)
+  type = [(KNBuildAttributeValue *)self type];
+  v4 = 0;
+  if (type > 2)
   {
-    switch(v6)
+    switch(type)
     {
       case 3:
-        v8 = 32;
+        v5 = 32;
         break;
       case 4:
-        v8 = 40;
+        v5 = 40;
         break;
       case 5:
-        v8 = 48;
+        v5 = 48;
         break;
       default:
         goto LABEL_15;
     }
 
-    v7 = *(&self->super.super.isa + v8);
+    v4 = *(&self->super.super.isa + v5);
   }
 
-  else if (v6)
+  else if (type)
   {
-    if (v6 == 1)
+    if (type == 1)
     {
-      v7 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v4, v5, self->_doubleValue);
+      v4 = [MEMORY[0x277CCABB0] numberWithDouble:self->_doubleValue];
     }
 
-    else if (v6 == 2)
+    else if (type == 2)
     {
-      v7 = objc_msgSend_numberWithBool_(MEMORY[0x277CCABB0], v4, self->_BOOLValue);
+      v4 = [MEMORY[0x277CCABB0] numberWithBool:self->_BOOLValue];
     }
   }
 
   else
   {
-    v7 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v4, self->_integerValue);
+    v4 = [MEMORY[0x277CCABB0] numberWithInt:self->_integerValue];
   }
 
 LABEL_15:
 
-  return v7;
+  return v4;
 }
 
 - (int64_t)integerValue
 {
-  if (!self->_definedIntegerValue && (objc_msgSend_p_attributesAreEmpty(self, a2, v2) & 1) == 0)
+  if (!self->_definedIntegerValue && ![(KNBuildAttributeValue *)self p_attributesAreEmpty])
   {
-    v5 = MEMORY[0x277D81150];
-    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[KNBuildAttributeValue integerValue]");
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v9, v6, v8, 161, 0, "Illegal attribute value access.");
+    v3 = MEMORY[0x277D81150];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildAttributeValue integerValue]"];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m"];
+    [v3 handleFailureInFunction:v4 file:v5 lineNumber:161 isFatal:0 description:"Illegal attribute value access."];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   result = self->_integerValue;
@@ -299,14 +292,14 @@ LABEL_15:
 
 - (double)doubleValue
 {
-  if (!self->_definedDoubleValue && (objc_msgSend_p_attributesAreEmpty(self, a2, v2) & 1) == 0)
+  if (!self->_definedDoubleValue && ![(KNBuildAttributeValue *)self p_attributesAreEmpty])
   {
-    v5 = MEMORY[0x277D81150];
-    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[KNBuildAttributeValue doubleValue]");
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v9, v6, v8, 167, 0, "Illegal attribute value access.");
+    v3 = MEMORY[0x277D81150];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildAttributeValue doubleValue]"];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m"];
+    [v3 handleFailureInFunction:v4 file:v5 lineNumber:167 isFatal:0 description:"Illegal attribute value access."];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   return self->_doubleValue;
@@ -314,14 +307,14 @@ LABEL_15:
 
 - (BOOL)BOOLValue
 {
-  if (!self->_definedBoolValue && (objc_msgSend_p_attributesAreEmpty(self, a2, v2) & 1) == 0)
+  if (!self->_definedBoolValue && ![(KNBuildAttributeValue *)self p_attributesAreEmpty])
   {
-    v5 = MEMORY[0x277D81150];
-    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[KNBuildAttributeValue BOOLValue]");
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v9, v6, v8, 173, 0, "Illegal attribute value access.");
+    v3 = MEMORY[0x277D81150];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildAttributeValue BOOLValue]"];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m"];
+    [v3 handleFailureInFunction:v4 file:v5 lineNumber:173 isFatal:0 description:"Illegal attribute value access."];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   return self->_BOOLValue;
@@ -329,14 +322,14 @@ LABEL_15:
 
 - (NSString)stringValue
 {
-  if (!self->_definedStringValue && (objc_msgSend_p_attributesAreEmpty(self, a2, v2) & 1) == 0)
+  if (!self->_definedStringValue && ![(KNBuildAttributeValue *)self p_attributesAreEmpty])
   {
-    v5 = MEMORY[0x277D81150];
-    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[KNBuildAttributeValue stringValue]");
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v9, v6, v8, 179, 0, "Illegal attribute value access.");
+    v3 = MEMORY[0x277D81150];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildAttributeValue stringValue]"];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m"];
+    [v3 handleFailureInFunction:v4 file:v5 lineNumber:179 isFatal:0 description:"Illegal attribute value access."];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   stringValue = self->_stringValue;
@@ -346,14 +339,14 @@ LABEL_15:
 
 - (TSDPathSource)pathSourceValue
 {
-  if (!self->_definedPathSourceValue && (objc_msgSend_p_attributesAreEmpty(self, a2, v2) & 1) == 0)
+  if (!self->_definedPathSourceValue && ![(KNBuildAttributeValue *)self p_attributesAreEmpty])
   {
-    v5 = MEMORY[0x277D81150];
-    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[KNBuildAttributeValue pathSourceValue]");
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v9, v6, v8, 185, 0, "Illegal attribute value access.");
+    v3 = MEMORY[0x277D81150];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildAttributeValue pathSourceValue]"];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m"];
+    [v3 handleFailureInFunction:v4 file:v5 lineNumber:185 isFatal:0 description:"Illegal attribute value access."];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   pathSourceValue = self->_pathSourceValue;
@@ -363,14 +356,14 @@ LABEL_15:
 
 - (TSUColor)colorValue
 {
-  if (!self->_definedColorValue && (objc_msgSend_p_attributesAreEmpty(self, a2, v2) & 1) == 0)
+  if (!self->_definedColorValue && ![(KNBuildAttributeValue *)self p_attributesAreEmpty])
   {
-    v5 = MEMORY[0x277D81150];
-    v6 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "[KNBuildAttributeValue colorValue]");
-    v8 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v7, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v5, v9, v6, v8, 191, 0, "Illegal attribute value access.");
+    v3 = MEMORY[0x277D81150];
+    v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNBuildAttributeValue colorValue]"];
+    v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNBuildAttributeValue.m"];
+    [v3 handleFailureInFunction:v4 file:v5 lineNumber:191 isFatal:0 description:"Illegal attribute value access."];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v10, v11);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
   }
 
   colorValue = self->_colorValue;
@@ -380,63 +373,63 @@ LABEL_15:
 
 - (id)description
 {
-  v4 = objc_msgSend_type(self, a2, v2);
-  v6 = @"(none)";
-  if (v4 > 2)
+  type = [(KNBuildAttributeValue *)self type];
+  v4 = @"(none)";
+  if (type > 2)
   {
-    switch(v4)
+    switch(type)
     {
       case 3:
-        objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v5, @"(string, %@)", self->_stringValue);
+        [MEMORY[0x277CCACA8] stringWithFormat:@"(string, %@)", self->_stringValue];
         break;
       case 4:
-        objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v5, @"(path source, %@)", self->_pathSourceValue);
+        [MEMORY[0x277CCACA8] stringWithFormat:@"(path source, %@)", self->_pathSourceValue];
         break;
       case 5:
-        objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v5, @"(color, %@)", self->_colorValue);
+        [MEMORY[0x277CCACA8] stringWithFormat:@"(color, %@)", self->_colorValue];
         break;
       default:
         goto LABEL_18;
     }
   }
 
-  else if (v4)
+  else if (type)
   {
-    if (v4 == 1)
+    if (type == 1)
     {
-      objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v5, @"(double, %lf)", *&self->_doubleValue);
+      [MEMORY[0x277CCACA8] stringWithFormat:@"(double, %lf)", *&self->_doubleValue];
     }
 
     else
     {
-      if (v4 != 2)
+      if (type != 2)
       {
         goto LABEL_18;
       }
 
       if (self->_BOOLValue)
       {
-        v7 = @"YES";
+        v5 = @"YES";
       }
 
       else
       {
-        v7 = @"NO";
+        v5 = @"NO";
       }
 
-      objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v5, @"(BOOLean, %@)", v7);
+      [MEMORY[0x277CCACA8] stringWithFormat:@"(BOOLean, %@)", v5];
     }
   }
 
   else
   {
-    objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v5, @"(integer, %d)", self->_integerValue);
+    [MEMORY[0x277CCACA8] stringWithFormat:@"(integer, %d)", self->_integerValue];
   }
-  v6 = ;
+  v4 = ;
 LABEL_18:
-  v8 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v5, @"<KNBuildAttributeValue %p : %@>", self, v6);
+  v6 = [MEMORY[0x277CCACA8] stringWithFormat:@"<KNBuildAttributeValue %p : %@>", self, v4];
 
-  return v8;
+  return v6;
 }
 
 - (BOOL)isEqual:(id)equal
@@ -451,30 +444,30 @@ LABEL_18:
   v5 = TSUDynamicCast();
 
   objc_opt_class();
-  v8 = objc_msgSend_objectValue(self, v6, v7);
-  v9 = TSUDynamicCast();
+  objectValue = [(KNBuildAttributeValue *)self objectValue];
+  v7 = TSUDynamicCast();
 
-  if (v9 && (objc_opt_class(), objc_msgSend_pathSourceValue(v5, v12, v13), v14 = objc_claimAutoreleasedReturnValue(), TSUDynamicCast(), v15 = objc_claimAutoreleasedReturnValue(), v14, v15))
+  if (v7 && (objc_opt_class(), [v5 pathSourceValue], v8 = objc_claimAutoreleasedReturnValue(), TSUDynamicCast(), objectValue2 = objc_claimAutoreleasedReturnValue(), v8, objectValue2))
   {
-    isEqualWithStrictComparison = objc_msgSend_isEqualWithStrictComparison_(v9, v10, v15);
+    v10 = [v7 isEqualWithStrictComparison:objectValue2];
   }
 
   else
   {
-    v15 = objc_msgSend_objectValue(self, v10, v11);
-    v19 = objc_msgSend_objectValue(v5, v17, v18);
-    isEqualWithStrictComparison = objc_msgSend_isEqual_(v15, v20, v19);
+    objectValue2 = [(KNBuildAttributeValue *)self objectValue];
+    objectValue3 = [v5 objectValue];
+    v10 = [objectValue2 isEqual:objectValue3];
   }
 
-  return isEqualWithStrictComparison;
+  return v10;
 }
 
 - (unint64_t)hash
 {
-  v3 = objc_msgSend_objectValue(self, a2, v2);
-  v6 = objc_msgSend_hash(v3, v4, v5);
+  objectValue = [(KNBuildAttributeValue *)self objectValue];
+  v3 = [objectValue hash];
 
-  return v6;
+  return v3;
 }
 
 @end

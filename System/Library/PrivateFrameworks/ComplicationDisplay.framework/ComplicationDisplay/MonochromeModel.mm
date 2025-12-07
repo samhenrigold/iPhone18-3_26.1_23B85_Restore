@@ -10,27 +10,7 @@
 {
   viewCopy = view;
   selfCopy = self;
-  v7 = sub_243D99838();
-
-  if (v7)
-  {
-    sub_243D96A78(0, &qword_27EDBB040, 0x277CD9EA0);
-    v8 = sub_243DAE1A0();
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  return v8;
-}
-
-- (id)filtersForView:(id)view style:(int64_t)style fraction:(double)fraction
-{
-  viewCopy = view;
-  selfCopy = self;
-  v8 = sub_243D99994();
+  v8 = sub_243D99838(style);
 
   if (v8)
   {
@@ -46,13 +26,33 @@
   return v9;
 }
 
+- (id)filtersForView:(id)view style:(int64_t)style fraction:(double)fraction
+{
+  viewCopy = view;
+  selfCopy = self;
+  v10 = sub_243D99994(style, fraction);
+
+  if (v10)
+  {
+    sub_243D96A78(0, &qword_27EDBB040, 0x277CD9EA0);
+    v11 = sub_243DAE1A0();
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  return v11;
+}
+
 - (id)colorForView:(id)view accented:(BOOL)accented
 {
   viewCopy = view;
   selfCopy = self;
-  v7 = sub_243D99AFC();
+  v8 = sub_243D99AFC(accented);
 
-  return v7;
+  return v8;
 }
 
 @end

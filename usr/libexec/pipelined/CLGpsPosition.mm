@@ -101,8 +101,8 @@
 
 - (id)description
 {
-  [(CLGpsPosition *)self gpsLocation];
-  [(CLGpsPosition *)self gpsLocation];
+  objc_msgSend_gpsLocation(self, a2);
+  objc_msgSend_gpsLocation(self);
   v3 = [NSString stringWithFormat:@"lat/lon=[%lf, %lf]", v6, v5];
 
   return v3;

@@ -75,24 +75,35 @@
   recognizerCopy = recognizer;
   selfCopy = self;
   sub_1000321F0(likelihood, posterior, score, selfCopy, count, duration, v18, milliseconds);
+
+  v18, v21, v22, v23, v24, v25, v26, v27;
 }
 
 - (void)speechRecognizer:(id)recognizer didReportStatus:(unint64_t)status statusContext:(id)context
 {
   if (context)
   {
-    sub_100046D7C();
+    v8 = sub_100046D7C();
+  }
+
+  else
+  {
+    v8 = 0;
   }
 
   recognizerCopy = recognizer;
   selfCopy = self;
   sub_1000323A0(selfCopy, status);
+
+  v8, v11, v12, v13, v14, v15, v16, v17;
 }
 
 - (void)speechRecognizer:(id)recognizer didRecognizeFinalResults:(id)results
 {
   sub_1000029E4(0, &qword_100070028, _EARSpeechRecognitionResult_ptr);
-  sub_100046EFC();
+  v4 = sub_100046EFC();
+
+  v4, v5, v6, v7, v8, v9, v10, v11;
 }
 
 @end

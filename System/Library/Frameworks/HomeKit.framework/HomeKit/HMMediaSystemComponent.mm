@@ -49,12 +49,11 @@
 
 uint64_t __37__HMMediaSystemComponent_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x1E69A2980];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v1_63459;
-  logCategory__hmf_once_v1_63459 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v1_63459;
+  logCategory__hmf_once_v1_63459 = v0;
 
-  return MEMORY[0x1EEE66BB8](v1, v2);
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)mediaSystemComponentWithDictionary:(id)dictionary home:(id)home
@@ -89,7 +88,7 @@ uint64_t __37__HMMediaSystemComponent_logCategory__block_invoke()
 
 - (BOOL)mergeRoleWithComponent:(id)component
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   componentCopy = component;
   role = [(HMMediaSystemComponent *)self role];
   role2 = [componentCopy role];
@@ -104,11 +103,11 @@ uint64_t __37__HMMediaSystemComponent_logCategory__block_invoke()
     {
       v11 = HMFGetLogIdentifier();
       role3 = [componentCopy role];
-      v16 = 138543618;
-      v17 = v11;
-      v18 = 2112;
-      v19 = role3;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating component role: %@ during merge", &v16, 0x16u);
+      v15 = 138543618;
+      v16 = v11;
+      v17 = 2112;
+      v18 = role3;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_INFO, "%{public}@Updating component role: %@ during merge", &v15, 0x16u);
     }
 
     objc_autoreleasePoolPop(v8);
@@ -116,13 +115,12 @@ uint64_t __37__HMMediaSystemComponent_logCategory__block_invoke()
     [(HMMediaSystemComponent *)selfCopy setRole:role4];
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v7 ^ 1;
 }
 
 - (BOOL)mergeFromNewObject:(id)object
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -150,16 +148,15 @@ uint64_t __37__HMMediaSystemComponent_logCategory__block_invoke()
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       v11 = HMFGetLogIdentifier();
-      v14 = 138543362;
-      v15 = v11;
-      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get component for merge", &v14, 0xCu);
+      v13 = 138543362;
+      v14 = v11;
+      _os_log_impl(&dword_19BB39000, v10, OS_LOG_TYPE_ERROR, "%{public}@Failed to get component for merge", &v13, 0xCu);
     }
 
     objc_autoreleasePoolPop(v8);
     v7 = 0;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

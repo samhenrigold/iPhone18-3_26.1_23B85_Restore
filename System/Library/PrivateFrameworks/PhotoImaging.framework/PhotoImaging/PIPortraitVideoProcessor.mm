@@ -171,7 +171,7 @@ LABEL_38:
   v90 = imageCopy;
   if (imageCopy)
   {
-    [imageCopy extent];
+    objc_msgSend_extent(imageCopy);
     v29 = v28;
     v31 = v30;
     Width = v32;
@@ -181,7 +181,7 @@ LABEL_38:
     {
       v37 = disparityCopy;
       v38 = apertureCopy;
-      [disparityImageCopy extent];
+      objc_msgSend_extent(disparityImageCopy);
       v40 = v39;
       v42 = v41;
       v44 = v43;
@@ -205,7 +205,7 @@ LABEL_9:
     {
       v37 = disparityCopy;
       v38 = apertureCopy;
-      [disparityImageCopy extent];
+      objc_msgSend_extent(disparityImageCopy);
       v40 = v47;
       v42 = v48;
       v44 = v49;

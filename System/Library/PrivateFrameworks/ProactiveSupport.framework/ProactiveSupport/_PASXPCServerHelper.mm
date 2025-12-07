@@ -9,7 +9,7 @@
 + (BOOL)checkForAndLogTrueBooleanEntitlement:(id)entitlement connection:(id)connection serviceName:(id)name logHandle:(id)handle shouldGenerateCrashReport:(BOOL)report
 {
   reportCopy = report;
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   entitlementCopy = entitlement;
   connectionCopy = connection;
   nameCopy = name;
@@ -28,11 +28,11 @@
           if (os_log_type_enabled(handleCopy, OS_LOG_TYPE_FAULT))
           {
             *buf = 138412802;
-            *v29 = v16;
-            *&v29[8] = 2112;
-            *&v29[10] = nameCopy;
-            *&v29[18] = 2112;
-            *&v29[20] = entitlementCopy;
+            *v28 = v16;
+            *&v28[8] = 2112;
+            *&v28[10] = nameCopy;
+            *&v28[18] = 2112;
+            *&v28[20] = entitlementCopy;
             _os_log_fault_impl(&dword_1A7F47000, handleCopy, OS_LOG_TYPE_FAULT, "Connection from %@ to %@ is missing entitlement: %@", buf, 0x20u);
           }
 
@@ -46,11 +46,11 @@
       else if (handleCopy && os_log_type_enabled(handleCopy, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        *v29 = v16;
-        *&v29[8] = 2112;
-        *&v29[10] = nameCopy;
-        *&v29[18] = 2112;
-        *&v29[20] = entitlementCopy;
+        *v28 = v16;
+        *&v28[8] = 2112;
+        *&v28[10] = nameCopy;
+        *&v28[18] = 2112;
+        *&v28[20] = entitlementCopy;
         _os_log_error_impl(&dword_1A7F47000, handleCopy, OS_LOG_TYPE_ERROR, "Connection from %@ to %@ is missing entitlement: %@", buf, 0x20u);
       }
 
@@ -68,15 +68,15 @@
           v19 = __errnum;
           v20 = strerror(__errnum);
           *buf = 67110146;
-          *v29 = processIdentifier;
-          *&v29[4] = 2112;
-          *&v29[6] = nameCopy;
-          *&v29[14] = 2112;
-          *&v29[16] = entitlementCopy;
-          *&v29[24] = 1024;
-          *&v29[26] = v19;
-          v30 = 2080;
-          v31 = v20;
+          *v28 = processIdentifier;
+          *&v28[4] = 2112;
+          *&v28[6] = nameCopy;
+          *&v28[14] = 2112;
+          *&v28[16] = entitlementCopy;
+          *&v28[24] = 1024;
+          *&v28[26] = v19;
+          v29 = 2080;
+          v30 = v20;
           v21 = "Connection from %d to %@ is missing entitlement: %@ (proc_name error: [%i] %s).";
           v22 = v17;
           v23 = 44;
@@ -96,11 +96,11 @@ LABEL_23:
       {
         processIdentifier2 = [connectionCopy processIdentifier];
         *buf = 67109634;
-        *v29 = processIdentifier2;
-        *&v29[4] = 2112;
-        *&v29[6] = nameCopy;
-        *&v29[14] = 2112;
-        *&v29[16] = entitlementCopy;
+        *v28 = processIdentifier2;
+        *&v28[4] = 2112;
+        *&v28[6] = nameCopy;
+        *&v28[14] = 2112;
+        *&v28[16] = entitlementCopy;
         v21 = "Connection from %d to %@ is missing entitlement: %@";
         v22 = v17;
         v23 = 28;
@@ -113,7 +113,6 @@ LABEL_16:
 LABEL_17:
   }
 
-  v24 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
@@ -123,7 +122,7 @@ LABEL_17:
   handleCopy = handle;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -138,7 +137,7 @@ LABEL_17:
 
 + (BOOL)shouldAcceptConnection:(id)connection serviceName:(id)name whitelistedServerInterface:(id)interface whitelistedClientInterface:(id)clientInterface requestHandler:(id)handler validateConnection:(id)validateConnection setupClientProxy:(id)proxy interruptionHandler:(id)self0 invalidationHandler:(id)self1 logHandle:(id)self2
 {
-  v69[2] = *MEMORY[0x1E69E9840];
+  v68[2] = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   nameCopy = name;
   interfaceCopy = interface;
@@ -150,18 +149,18 @@ LABEL_17:
   invalidationHandlerCopy = invalidationHandler;
   handleCopy = handle;
   processIdentifier = [connectionCopy processIdentifier];
-  v63 = 0;
-  v25 = procNameForPid(processIdentifier, &v63);
+  v62 = 0;
+  v25 = procNameForPid(processIdentifier, &v62);
   if ([v25 length])
   {
     if (handleCopy && os_log_type_enabled(handleCopy, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v65 = nameCopy;
-      v66 = 2112;
-      v67 = v25;
-      v68 = 2048;
-      v69[0] = processIdentifier;
+      v64 = nameCopy;
+      v65 = 2112;
+      v66 = v25;
+      v67 = 2048;
+      v68[0] = processIdentifier;
       v26 = "New connection to %@ from %@ (%lu).";
       v27 = handleCopy;
       v28 = 32;
@@ -172,37 +171,37 @@ LABEL_5:
 
   else
   {
-    v29 = v63;
-    if (v63)
+    v29 = v62;
+    if (v62)
     {
       if (handleCopy)
       {
-        v46 = processIdentifier;
+        v45 = processIdentifier;
         v30 = handleCopy;
         if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
         {
           v31 = strerror(v29);
           *buf = 138413058;
-          v65 = nameCopy;
-          v66 = 2048;
-          v67 = v46;
-          v68 = 1024;
-          LODWORD(v69[0]) = v29;
-          WORD2(v69[0]) = 2080;
-          *(v69 + 6) = v31;
+          v64 = nameCopy;
+          v65 = 2048;
+          v66 = v45;
+          v67 = 1024;
+          LODWORD(v68[0]) = v29;
+          WORD2(v68[0]) = 2080;
+          *(v68 + 6) = v31;
           _os_log_impl(&dword_1A7F47000, v30, OS_LOG_TYPE_DEFAULT, "New connection to %@ from unknown process (%lu) (proc_name error: [%i] %s).", buf, 0x26u);
         }
 
-        processIdentifier = v46;
+        processIdentifier = v45;
       }
     }
 
     else if (handleCopy && os_log_type_enabled(handleCopy, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v65 = nameCopy;
-      v66 = 2048;
-      v67 = processIdentifier;
+      v64 = nameCopy;
+      v65 = 2048;
+      v66 = processIdentifier;
       v26 = "New connection to %@ from unknown process (%lu).";
       v27 = handleCopy;
       v28 = 22;
@@ -215,48 +214,48 @@ LABEL_5:
   {
     [connectionCopy setExportedInterface:interfaceCopy];
     [connectionCopy setExportedObject:handlerCopy];
-    v43 = handlerCopy;
-    v47 = processIdentifier;
-    v42 = v32;
+    v42 = handlerCopy;
+    v46 = processIdentifier;
+    v41 = v32;
     if (clientInterfaceCopy)
     {
       [connectionCopy setRemoteObjectInterface:clientInterfaceCopy];
       if (!proxyCopy)
       {
 LABEL_20:
-        v57[0] = MEMORY[0x1E69E9820];
-        v57[1] = 3221225472;
-        v57[2] = __213___PASXPCServerHelper_shouldAcceptConnection_serviceName_whitelistedServerInterface_whitelistedClientInterface_requestHandler_validateConnection_setupClientProxy_interruptionHandler_invalidationHandler_logHandle___block_invoke;
-        v57[3] = &unk_1E77F1A50;
+        v56[0] = MEMORY[0x1E69E9820];
+        v56[1] = 3221225472;
+        v56[2] = __213___PASXPCServerHelper_shouldAcceptConnection_serviceName_whitelistedServerInterface_whitelistedClientInterface_requestHandler_validateConnection_setupClientProxy_interruptionHandler_invalidationHandler_logHandle___block_invoke;
+        v56[3] = &unk_1E77F1A50;
         v32 = handleCopy;
-        v58 = v32;
+        v57 = v32;
         v34 = handleCopy;
         v35 = nameCopy;
-        v59 = v35;
+        v58 = v35;
         v36 = clientInterfaceCopy;
         v37 = v25;
-        v60 = v37;
-        v62 = v47;
-        v61 = interruptionHandlerCopy;
-        [connectionCopy setInterruptionHandler:v57];
-        v51[0] = MEMORY[0x1E69E9820];
-        v51[1] = 3221225472;
-        v51[2] = __213___PASXPCServerHelper_shouldAcceptConnection_serviceName_whitelistedServerInterface_whitelistedClientInterface_requestHandler_validateConnection_setupClientProxy_interruptionHandler_invalidationHandler_logHandle___block_invoke_11;
-        v51[3] = &unk_1E77F1A50;
-        v52 = v32;
+        v59 = v37;
+        v61 = v46;
+        v60 = interruptionHandlerCopy;
+        [connectionCopy setInterruptionHandler:v56];
+        v50[0] = MEMORY[0x1E69E9820];
+        v50[1] = 3221225472;
+        v50[2] = __213___PASXPCServerHelper_shouldAcceptConnection_serviceName_whitelistedServerInterface_whitelistedClientInterface_requestHandler_validateConnection_setupClientProxy_interruptionHandler_invalidationHandler_logHandle___block_invoke_11;
+        v50[3] = &unk_1E77F1A50;
+        v51 = v32;
         v38 = v35;
         handleCopy = v34;
-        v53 = v38;
+        v52 = v38;
         v39 = v37;
         clientInterfaceCopy = v36;
-        v54 = v39;
-        v56 = v47;
-        v55 = invalidationHandlerCopy;
-        [connectionCopy setInvalidationHandler:v51];
+        v53 = v39;
+        v55 = v46;
+        v54 = invalidationHandlerCopy;
+        [connectionCopy setInvalidationHandler:v50];
         [connectionCopy resume];
 
-        handlerCopy = v43;
-        LOBYTE(v32) = v42;
+        handlerCopy = v42;
+        LOBYTE(v32) = v41;
         goto LABEL_21;
       }
 
@@ -280,7 +279,6 @@ LABEL_20:
 
 LABEL_21:
 
-  v40 = *MEMORY[0x1E69E9840];
   return v32;
 }
 

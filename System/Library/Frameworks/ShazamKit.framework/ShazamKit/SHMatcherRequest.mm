@@ -1,12 +1,21 @@
 @interface SHMatcherRequest
 + (id)requestOnceWithAppIntentForRequestID:(id)d;
++ (id)requestOnceWithNotifications:(BOOL)notifications;
++ (id)requestOnceWithNotifications:(BOOL)notifications forRequestID:(id)d;
 + (id)requestSignatureGenerationOnce;
 + (id)requestSignatureGenerationOnceForRequestID:(id)d;
 + (id)requestSignatureGenerationUntilDeadline:(id)deadline;
 + (id)requestSignatureGenerationUntilDeadline:(id)deadline forRequestID:(id)d;
++ (id)requestToMatchSignature:(id)signature installationID:(id)d sendNotifications:(BOOL)notifications;
++ (id)requestToMatchSignature:(id)signature installationID:(id)d sendNotifications:(BOOL)notifications forRequestID:(id)iD;
++ (id)requestToMatchUntilDeadline:(id)deadline sendNotifications:(BOOL)notifications;
++ (id)requestToMatchUntilDeadline:(id)deadline sendNotifications:(BOOL)notifications forRequestID:(id)d;
++ (id)requestUntilMatchWithNotifications:(BOOL)notifications;
++ (id)requestUntilMatchWithNotifications:(BOOL)notifications forRequestID:(id)d;
 - (BOOL)hasHitDeadline;
 - (NSString)installationID;
 - (SHMatcherRequest)initWithCoder:(id)coder;
+- (SHMatcherRequest)initWithSignature:(id)signature deadline:(id)deadline installationID:(id)d sendNotifications:(BOOL)notifications stopCondition:(int64_t)condition requestType:(int64_t)type requestID:(id)iD;
 - (SHMatcherRequest)initWithSignature:(id)signature deadline:(id)deadline sendNotifications:(BOOL)notifications stopCondition:(int64_t)condition requestType:(int64_t)type requestID:(id)d;
 - (double)watchdogTimeout;
 - (void)encodeWithCoder:(id)coder;
@@ -49,6 +58,86 @@
   return v7;
 }
 
++ (id)requestToMatchSignature:(id)signature installationID:(id)d sendNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  v8 = MEMORY[0x277CCAD78];
+  dCopy = d;
+  signatureCopy = signature;
+  uUID = [v8 UUID];
+  v12 = [self requestToMatchSignature:signatureCopy installationID:dCopy sendNotifications:notificationsCopy forRequestID:uUID];
+
+  return v12;
+}
+
++ (id)requestToMatchSignature:(id)signature installationID:(id)d sendNotifications:(BOOL)notifications forRequestID:(id)iD
+{
+  notificationsCopy = notifications;
+  iDCopy = iD;
+  dCopy = d;
+  signatureCopy = signature;
+  v12 = [[SHMatcherRequest alloc] initWithSignature:signatureCopy deadline:0 installationID:dCopy sendNotifications:notificationsCopy stopCondition:1 requestType:0 requestID:iDCopy];
+
+  return v12;
+}
+
++ (id)requestToMatchUntilDeadline:(id)deadline sendNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  v6 = MEMORY[0x277CCAD78];
+  deadlineCopy = deadline;
+  uUID = [v6 UUID];
+  v9 = [self requestToMatchUntilDeadline:deadlineCopy sendNotifications:notificationsCopy forRequestID:uUID];
+
+  return v9;
+}
+
++ (id)requestToMatchUntilDeadline:(id)deadline sendNotifications:(BOOL)notifications forRequestID:(id)d
+{
+  notificationsCopy = notifications;
+  dCopy = d;
+  deadlineCopy = deadline;
+  v9 = [[SHMatcherRequest alloc] initWithSignature:0 deadline:deadlineCopy sendNotifications:notificationsCopy stopCondition:3 requestType:2 requestID:dCopy];
+
+  return v9;
+}
+
++ (id)requestOnceWithNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  uUID = [MEMORY[0x277CCAD78] UUID];
+  v6 = [self requestOnceWithNotifications:notificationsCopy forRequestID:uUID];
+
+  return v6;
+}
+
++ (id)requestOnceWithNotifications:(BOOL)notifications forRequestID:(id)d
+{
+  notificationsCopy = notifications;
+  dCopy = d;
+  v6 = [[SHMatcherRequest alloc] initWithSignature:0 deadline:0 sendNotifications:notificationsCopy stopCondition:0 requestType:2 requestID:dCopy];
+
+  return v6;
+}
+
++ (id)requestUntilMatchWithNotifications:(BOOL)notifications forRequestID:(id)d
+{
+  notificationsCopy = notifications;
+  dCopy = d;
+  v6 = [[SHMatcherRequest alloc] initWithSignature:0 deadline:0 sendNotifications:notificationsCopy stopCondition:2 requestType:2 requestID:dCopy];
+
+  return v6;
+}
+
++ (id)requestUntilMatchWithNotifications:(BOOL)notifications
+{
+  notificationsCopy = notifications;
+  uUID = [MEMORY[0x277CCAD78] UUID];
+  v6 = [self requestUntilMatchWithNotifications:notificationsCopy forRequestID:uUID];
+
+  return v6;
+}
+
 + (id)requestOnceWithAppIntentForRequestID:(id)d
 {
   dCopy = d;
@@ -77,6 +166,20 @@
   }
 
   return v19;
+}
+
+- (SHMatcherRequest)initWithSignature:(id)signature deadline:(id)deadline installationID:(id)d sendNotifications:(BOOL)notifications stopCondition:(int64_t)condition requestType:(int64_t)type requestID:(id)iD
+{
+  notificationsCopy = notifications;
+  dCopy = d;
+  v17 = [(SHMatcherRequest *)self initWithSignature:signature deadline:deadline sendNotifications:notificationsCopy stopCondition:condition requestType:type requestID:iD];
+  v18 = v17;
+  if (v17)
+  {
+    objc_storeStrong(&v17->_installationID, d);
+  }
+
+  return v18;
 }
 
 - (SHMatcherRequest)initWithCoder:(id)coder

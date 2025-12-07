@@ -23,7 +23,7 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFDynamicContentElementObservable.dynamicContentElementService(_:didUpdateUserDismissible:)();
+  CAFDynamicContentElementObservable.dynamicContentElementService(_:didUpdateUserDismissible:)(selfCopy, dismissible);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

@@ -1416,11 +1416,18 @@ LABEL_8:
   return v5;
 }
 
+- (void)_handleClientRegistration:(void *)a1 .cold.1(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 clientPort];
+  OUTLINED_FUNCTION_0_5(&dword_18B15E000, v1, v2, "someone tried to register with a bogus client port (%llx)", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
 - (void)_processValidatedMessage:(const char *)a1 completion:.cold.1(const char *a1)
 {
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1_1();
-  OUTLINED_FUNCTION_0_5(&dword_18B15E000, v2, v3, "target does not respond to selector: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_5(&dword_18B15E000, v2, v3, "target does not respond to selector: %@", v4, v5, v6, v7);
 }
 
 - (void)_handleErrorWithMessage:outError:.cold.1()

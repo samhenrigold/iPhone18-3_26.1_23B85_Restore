@@ -7,7 +7,7 @@
 
 - (void)trackEventWithScalar:(unint64_t)scalar app:(SGMContactDetailUsedApp_)app
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   if (app.var0 >= 0xC)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
@@ -24,31 +24,28 @@
 
   v10 = v7;
   tracker = self->_tracker;
-  v14[0] = v10;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:1];
+  v13[0] = v10;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
   [(PETScalarEventTracker *)tracker trackEventWithPropertyValues:v12 value:scalar];
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (SGMSearchResultsIncludedPureSuggestion)init
 {
-  v11[1] = *MEMORY[0x1E69E9840];
-  v10.receiver = self;
-  v10.super_class = SGMSearchResultsIncludedPureSuggestion;
-  v2 = [(SGMSearchResultsIncludedPureSuggestion *)&v10 init];
+  v10[1] = *MEMORY[0x1E69E9840];
+  v9.receiver = self;
+  v9.super_class = SGMSearchResultsIncludedPureSuggestion;
+  v2 = [(SGMSearchResultsIncludedPureSuggestion *)&v9 init];
   if (v2)
   {
     v3 = [MEMORY[0x1E69C5B40] freeValuedPropertyWithName:@"App"];
     v4 = objc_alloc(MEMORY[0x1E69C5B58]);
-    v11[0] = v3;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
+    v10[0] = v3;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v10 count:1];
     v6 = [v4 initWithFeatureId:@"Found" event:@"SearchResultsIncludedPureSuggestion" registerProperties:v5 propertySubsets:MEMORY[0x1E695E0F0]];
     tracker = v2->_tracker;
     v2->_tracker = v6;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v2;
 }
 

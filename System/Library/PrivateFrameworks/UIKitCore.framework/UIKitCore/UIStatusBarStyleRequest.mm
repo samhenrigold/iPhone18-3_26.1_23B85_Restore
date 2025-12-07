@@ -87,7 +87,7 @@ LABEL_18:
     {
       v11 = self->_foregroundColor;
       foregroundColor2 = [v6 foregroundColor];
-      if (![(UIColor *)v11 isEqual:foregroundColor2])
+      if (!objc_msgSend_isEqual_(v11))
       {
         v12 = 0;
         goto LABEL_16;
@@ -107,7 +107,7 @@ LABEL_18:
     {
       v15 = self->_overrideHeight;
       overrideHeight2 = [v6 overrideHeight];
-      if (([(NSNumber *)v15 isEqual:overrideHeight2]& 1) == 0)
+      if ((objc_msgSend_isEqual_(v15) & 1) == 0)
       {
 
         v12 = 0;

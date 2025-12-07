@@ -296,63 +296,63 @@ LABEL_28:
     _keyEquivalentStringFromKeyEquivalentOrKeyCodes = displayKeyEquivalentOverride2;
   }
 
-  if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputUpArrow"])
+  if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
   {
     v14 = @"↑";
     goto LABEL_24;
   }
 
-  if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputDownArrow"])
+  if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
   {
     v14 = @"↓";
     goto LABEL_24;
   }
 
-  if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputLeftArrow"])
+  if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
   {
     v14 = @"←";
     goto LABEL_24;
   }
 
-  if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputRightArrow"])
+  if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
   {
     v14 = @"→";
     goto LABEL_24;
   }
 
-  if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputEscape"])
+  if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
   {
     v14 = @"esc";
     goto LABEL_24;
   }
 
-  if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputPageUp"])
+  if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
   {
     v14 = @"page up";
     goto LABEL_24;
   }
 
-  if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputPageDown"])
+  if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
   {
     v14 = @"page down";
     goto LABEL_24;
   }
 
-  if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputHome"])
+  if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
   {
     v14 = @"home";
     goto LABEL_24;
   }
 
-  if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputEnd"])
+  if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
   {
     v14 = @"end";
     goto LABEL_24;
   }
 
-  if (![(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@" "])
+  if (!objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
   {
-    if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"\t"])
+    if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
     {
       if (wordsCopy)
       {
@@ -365,7 +365,7 @@ LABEL_28:
       }
     }
 
-    else if (([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"\n"]& 1) != 0 || [(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"\r"])
+    else if ((objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes) & 1) != 0 || objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
     {
       if (wordsCopy)
       {
@@ -380,66 +380,66 @@ LABEL_28:
 
     else
     {
-      if (![(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"\b"])
+      if (!objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
       {
-        if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputF1"])
+        if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
         {
           v20 = @"f1";
         }
 
-        else if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputF2"])
+        else if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
         {
           v20 = @"f2";
         }
 
-        else if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputF3"])
+        else if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
         {
           v20 = @"f3";
         }
 
-        else if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputF4"])
+        else if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
         {
           v20 = @"f4";
         }
 
-        else if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputF5"])
+        else if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
         {
           v20 = @"f5";
         }
 
-        else if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputF6"])
+        else if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
         {
           v20 = @"f6";
         }
 
-        else if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputF7"])
+        else if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
         {
           v20 = @"f7";
         }
 
-        else if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputF8"])
+        else if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
         {
           v20 = @"f8";
         }
 
-        else if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputF9"])
+        else if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
         {
           v20 = @"f9";
         }
 
-        else if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputF10"])
+        else if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
         {
           v20 = @"f10";
         }
 
-        else if ([(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputF11"])
+        else if (objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
         {
           v20 = @"f11";
         }
 
         else
         {
-          if (![(__CFString *)_keyEquivalentStringFromKeyEquivalentOrKeyCodes isEqualToString:@"UIKeyInputF12"])
+          if (!objc_msgSend_isEqualToString_(_keyEquivalentStringFromKeyEquivalentOrKeyCodes))
           {
             v15 = v9;
             v14 = _keyEquivalentStringFromKeyEquivalentOrKeyCodes;
@@ -579,7 +579,7 @@ LABEL_31:
   equalCopy = equal;
   if (equalCopy == self)
   {
-    LOBYTE(v13) = 1;
+    LOBYTE(isEqual) = 1;
   }
 
   else
@@ -593,7 +593,7 @@ LABEL_31:
       v8 = v7;
       if (self->_modifierFlags != v7->_modifierFlags)
       {
-        LOBYTE(v13) = 0;
+        LOBYTE(isEqual) = 0;
 LABEL_28:
 
         goto LABEL_29;
@@ -609,15 +609,15 @@ LABEL_28:
 
       else
       {
-        LOBYTE(v13) = 0;
+        LOBYTE(isEqual) = 0;
         if (!v10 || !v11)
         {
           goto LABEL_27;
         }
 
-        v13 = [(NSIndexSet *)v10 isEqual:v11];
+        isEqual = objc_msgSend_isEqual_(v10);
 
-        if (!v13)
+        if (!isEqual)
         {
           goto LABEL_28;
         }
@@ -633,7 +633,7 @@ LABEL_28:
 LABEL_19:
         if (!self->_hasDisplayKeyEquivalentOverride && !v8->_hasDisplayKeyEquivalentOverride)
         {
-          LOBYTE(v13) = 1;
+          LOBYTE(isEqual) = 1;
           goto LABEL_28;
         }
 
@@ -644,27 +644,27 @@ LABEL_19:
         v12 = v18;
         if (v10 == v18)
         {
-          LOBYTE(v13) = 1;
+          LOBYTE(isEqual) = 1;
         }
 
         else
         {
-          LOBYTE(v13) = 0;
+          LOBYTE(isEqual) = 0;
           if (v10 && v18)
           {
-            LOBYTE(v13) = [(NSIndexSet *)v10 isEqual:v18];
+            LOBYTE(isEqual) = objc_msgSend_isEqual_(v10);
           }
         }
 
         goto LABEL_27;
       }
 
-      LOBYTE(v13) = 0;
+      LOBYTE(isEqual) = 0;
       if (v10 && v15)
       {
-        v13 = [(NSIndexSet *)v10 isEqual:v15];
+        isEqual = objc_msgSend_isEqual_(v10);
 
-        if (!v13)
+        if (!isEqual)
         {
           goto LABEL_28;
         }
@@ -677,12 +677,12 @@ LABEL_27:
       goto LABEL_28;
     }
 
-    LOBYTE(v13) = 0;
+    LOBYTE(isEqual) = 0;
   }
 
 LABEL_29:
 
-  return v13;
+  return isEqual;
 }
 
 - (unint64_t)hash

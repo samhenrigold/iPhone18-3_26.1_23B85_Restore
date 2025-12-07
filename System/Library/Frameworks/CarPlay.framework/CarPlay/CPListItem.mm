@@ -31,20 +31,19 @@
 {
   height = size.height;
   width = size.width;
-  v11 = *MEMORY[0x277D85DE8];
-  v5 = CarPlayFrameworkGeneralLogging();
+  v10 = *MEMORY[0x277D85DE8];
+  v5 = CarPlayFrameworkGeneralLogging(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7 = 134349312;
-    v8 = width;
-    v9 = 2050;
-    v10 = height;
-    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_INFO, "CPListItem setting maxImageSize (%{public}f,%{public}f)", &v7, 0x16u);
+    v6 = 134349312;
+    v7 = width;
+    v8 = 2050;
+    v9 = height;
+    _os_log_impl(&dword_236ED4000, v5, OS_LOG_TYPE_INFO, "CPListItem setting maxImageSize (%{public}f,%{public}f)", &v6, 0x16u);
   }
 
   _maximumImageSize_0 = *&width;
   _maximumImageSize_1 = *&height;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 + (CGSize)maximumImageSize
@@ -113,12 +112,11 @@
 
 id __44__CPListItem_initWithText_detailText_image___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
+  v2 = a2;
   [objc_opt_class() maximumImageSize];
-  v6 = CPImageByScalingImageToSize(v3, v4, v5);
+  v5 = CPImageByScalingImageToSize(v2, v3, v4);
 
-  return v6;
+  return v5;
 }
 
 - (CPListItem)initWithText:(NSString *)text detailText:(NSString *)detailText image:(UIImage *)image accessoryImage:(UIImage *)accessoryImage accessoryType:(CPListItemAccessoryType)accessoryType
@@ -155,12 +153,11 @@ id __44__CPListItem_initWithText_detailText_image___block_invoke(uint64_t a1, vo
 
 id __73__CPListItem_initWithText_detailText_image_accessoryImage_accessoryType___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
+  v2 = a2;
   [objc_opt_class() maximumImageSize];
-  v6 = CPImageByScalingImageToSize(v3, v4, v5);
+  v5 = CPImageByScalingImageToSize(v2, v3, v4);
 
-  return v6;
+  return v5;
 }
 
 - (CPListItem)initWithCoder:(id)coder
@@ -330,12 +327,11 @@ LABEL_6:
 
 id __23__CPListItem_setImage___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
+  v2 = a2;
   [objc_opt_class() maximumImageSize];
-  v6 = CPImageByScalingImageToSize(v3, v4, v5);
+  v5 = CPImageByScalingImageToSize(v2, v3, v4);
 
-  return v6;
+  return v5;
 }
 
 - (void)setAccessoryImage:(UIImage *)accessoryImage
@@ -372,12 +368,11 @@ LABEL_6:
 
 id __32__CPListItem_setAccessoryImage___block_invoke(uint64_t a1, void *a2)
 {
-  v2 = *(a1 + 32);
-  v3 = a2;
+  v2 = a2;
   [objc_opt_class() maximumImageSize];
-  v6 = CPImageByScalingImageToSize(v3, v4, v5);
+  v5 = CPImageByScalingImageToSize(v2, v3, v4);
 
-  return v6;
+  return v5;
 }
 
 - (void)setPlaying:(BOOL)playing

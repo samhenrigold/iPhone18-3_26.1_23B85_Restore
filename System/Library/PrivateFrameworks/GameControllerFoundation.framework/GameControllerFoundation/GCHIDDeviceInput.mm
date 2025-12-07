@@ -40,7 +40,7 @@
 
   else
   {
-    v11 = _gc_log_hid_input();
+    v11 = _gc_log_hid_input(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(GCHIDDeviceInput *)v5 initWithIOHIDDevice:v11];
@@ -169,9 +169,9 @@ void __28__GCHIDDeviceInput_activate__block_invoke(uint64_t a1)
 
 - (void)setInputElements:(id)elements
 {
-  v75 = *MEMORY[0x1E69E9840];
+  v71 = *MEMORY[0x1E69E9840];
   elementsCopy = elements;
-  v5 = _gc_log_hid_input();
+  v5 = _gc_log_hid_input(elementsCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [(GCHIDDeviceInput *)self setInputElements:elementsCopy, v5];
@@ -179,26 +179,26 @@ void __28__GCHIDDeviceInput_activate__block_invoke(uint64_t a1)
 
   Device = IOHIDQueueGetDevice(self->_queue);
   v7 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{objc_msgSend(elementsCopy, "count")}];
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
-  v68 = 0u;
+  v65 = 0u;
+  v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   obj = elementsCopy;
-  v8 = [obj countByEnumeratingWithState:&v67 objects:v74 count:16];
+  v8 = [obj countByEnumeratingWithState:&v63 objects:v70 count:16];
   if (v8)
   {
-    v9 = *v68;
+    v9 = *v64;
     do
     {
       v10 = 0;
       do
       {
-        if (*v68 != v9)
+        if (*v64 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        element = *(*(&v67 + 1) + 8 * v10);
+        element = *(*(&v63 + 1) + 8 * v10);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -236,15 +236,15 @@ LABEL_14:
       }
 
       while (v8 != v10);
-      v14 = [obj countByEnumeratingWithState:&v67 objects:v74 count:16];
+      v14 = [obj countByEnumeratingWithState:&v63 objects:v70 count:16];
       v8 = v14;
     }
 
     while (v14);
   }
 
-  v51 = IOHIDDeviceCopyMatchingElements(Device, &unk_1F4E36A88, 0);
-  if (!v51)
+  v47 = IOHIDDeviceCopyMatchingElements(Device, &unk_1F4E36A88, 0);
+  if (!v47)
   {
     [GCHIDDeviceInput setInputElements:];
   }
@@ -278,126 +278,123 @@ LABEL_14:
 
   v20 = Mutable;
 
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
-  v64 = 0u;
-  queue = self->_queue;
-  v22 = _IOHIDQueueCopyElements();
-  v23 = [v22 countByEnumeratingWithState:&v63 objects:v73 count:16];
-  if (v23)
-  {
-    v24 = *v64;
-    do
-    {
-      for (i = 0; i != v23; ++i)
-      {
-        if (*v64 != v24)
-        {
-          objc_enumerationMutation(v22);
-        }
-
-        v26 = *(*(&v63 + 1) + 8 * i);
-        v27 = [v7 member:v26];
-        v28 = v27 == 0;
-
-        if (v28)
-        {
-          v29 = [(__CFSet *)v20 member:v26];
-          if (!v29 && IOHIDElementGetType(v26) != kIOHIDElementTypeInput_NULL)
-          {
-            currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-            [currentHandler2 handleFailureInMethod:a2 object:selfCopy file:v26 lineNumber:? description:?];
-          }
-
-          [(__CFSet *)v20 removeObject:v26];
-          IOHIDQueueRemoveElement(self->_queue, v26);
-        }
-      }
-
-      v23 = [v22 countByEnumeratingWithState:&v63 objects:v73 count:16];
-    }
-
-    while (v23);
-  }
-
   v61 = 0u;
   v62 = 0u;
   v59 = 0u;
   v60 = 0u;
-  v30 = v7;
-  v31 = [v30 countByEnumeratingWithState:&v59 objects:v72 count:16];
-  if (v31)
+  v21 = _IOHIDQueueCopyElements();
+  v22 = [v21 countByEnumeratingWithState:&v59 objects:v69 count:16];
+  if (v22)
   {
-    v32 = *v60;
+    v23 = *v60;
     do
     {
-      for (j = 0; j != v31; ++j)
+      for (i = 0; i != v22; ++i)
       {
-        if (*v60 != v32)
+        if (*v60 != v23)
         {
-          objc_enumerationMutation(v30);
+          objc_enumerationMutation(v21);
         }
 
-        v34 = *(*(&v59 + 1) + 8 * j);
-        v35 = [(__CFSet *)v20 member:v34];
-        v36 = v35 == 0;
+        v25 = *(*(&v59 + 1) + 8 * i);
+        v26 = [v7 member:v25];
+        v27 = v26 == 0;
 
-        if (v36)
+        if (v27)
         {
-          v37 = [[GCHIDInputElement alloc] initWithElement:v34];
-          [(__CFSet *)v20 addObject:v37];
-          IOHIDQueueAddElement(self->_queue, v34);
+          v28 = [(__CFSet *)v20 member:v25];
+          if (!v28 && IOHIDElementGetType(v25) != kIOHIDElementTypeInput_NULL)
+          {
+            currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
+            [currentHandler2 handleFailureInMethod:a2 object:selfCopy file:v25 lineNumber:? description:?];
+          }
+
+          [(__CFSet *)v20 removeObject:v25];
+          IOHIDQueueRemoveElement(self->_queue, v25);
         }
       }
 
-      v31 = [v30 countByEnumeratingWithState:&v59 objects:v72 count:16];
+      v22 = [v21 countByEnumeratingWithState:&v59 objects:v69 count:16];
     }
 
-    while (v31);
+    while (v22);
   }
 
-  v38 = self->_queue;
-  v39 = _IOHIDQueueCopyElements();
-  v40 = [v39 count];
-  v41 = v40 == [(__CFSet *)v20 count];
+  v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v29 = v7;
+  v30 = [v29 countByEnumeratingWithState:&v55 objects:v68 count:16];
+  if (v30)
+  {
+    v31 = *v56;
+    do
+    {
+      for (j = 0; j != v30; ++j)
+      {
+        if (*v56 != v31)
+        {
+          objc_enumerationMutation(v29);
+        }
 
-  if (!v41)
+        v33 = *(*(&v55 + 1) + 8 * j);
+        v34 = [(__CFSet *)v20 member:v33];
+        v35 = v34 == 0;
+
+        if (v35)
+        {
+          v36 = [[GCHIDInputElement alloc] initWithElement:v33];
+          [(__CFSet *)v20 addObject:v36];
+          IOHIDQueueAddElement(self->_queue, v33);
+        }
+      }
+
+      v30 = [v29 countByEnumeratingWithState:&v55 objects:v68 count:16];
+    }
+
+    while (v30);
+  }
+
+  v37 = _IOHIDQueueCopyElements();
+  v38 = [v37 count];
+  v39 = v38 == [(__CFSet *)v20 count];
+
+  if (!v39)
   {
     currentHandler3 = [MEMORY[0x1E696AAA8] currentHandler];
-    v48 = self->_queue;
-    v49 = _IOHIDQueueCopyElements();
-    [currentHandler3 handleFailureInMethod:a2 object:selfCopy file:objc_msgSend(v49 lineNumber:"count") description:{-[__CFSet count](v20, "count")}];
+    v45 = _IOHIDQueueCopyElements();
+    [currentHandler3 handleFailureInMethod:a2 object:selfCopy file:objc_msgSend(v45 lineNumber:"count") description:{-[__CFSet count](v20, "count")}];
   }
 
   [(GCHIDDeviceInput *)selfCopy willChangeValueForKey:@"elements"];
   objc_setProperty(selfCopy, a2, 56, v20, 1, 1);
   [(GCHIDDeviceInput *)selfCopy didChangeValueForKey:@"elements"];
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
-  v56 = 0u;
-  v42 = v51;
-  v43 = [(__CFArray *)v42 countByEnumeratingWithState:&v55 objects:v71 count:16];
-  if (v43)
+  v53 = 0u;
+  v54 = 0u;
+  v51 = 0u;
+  v52 = 0u;
+  v40 = v47;
+  v41 = [(__CFArray *)v40 countByEnumeratingWithState:&v51 objects:v67 count:16];
+  if (v41)
   {
-    v44 = *v56;
+    v42 = *v52;
     do
     {
-      for (k = 0; k != v43; ++k)
+      for (k = 0; k != v41; ++k)
       {
-        if (*v56 != v44)
+        if (*v52 != v42)
         {
-          objc_enumerationMutation(v42);
+          objc_enumerationMutation(v40);
         }
 
-        IOHIDQueueAddElement(self->_queue, *(*(&v55 + 1) + 8 * k));
+        IOHIDQueueAddElement(self->_queue, *(*(&v51 + 1) + 8 * k));
       }
 
-      v43 = [(__CFArray *)v42 countByEnumeratingWithState:&v55 objects:v71 count:16];
+      v41 = [(__CFArray *)v40 countByEnumeratingWithState:&v51 objects:v67 count:16];
     }
 
-    while (v43);
+    while (v41);
   }
 
   if (selfCopy->_activated && !selfCopy->_suspended)
@@ -406,12 +403,11 @@ LABEL_14:
   }
 
   objc_sync_exit(selfCopy);
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setInputElementMatching:(id)matching
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   matchingCopy = matching;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -432,8 +428,8 @@ LABEL_14:
   {
     if ([matchingCopy count])
     {
-      v29[0] = matchingCopy;
-      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
+      v28[0] = matchingCopy;
+      v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v28 count:1];
       goto LABEL_11;
     }
 
@@ -451,27 +447,27 @@ LABEL_11:
       currentHandler = objc_opt_new();
       if (v8)
       {
-        v26 = 0u;
-        v27 = 0u;
-        v24 = 0u;
         v25 = 0u;
+        v26 = 0u;
+        v23 = 0u;
+        v24 = 0u;
         v10 = v8;
-        v11 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v25;
+          v13 = *v24;
           do
           {
             v14 = 0;
             do
             {
-              if (*v25 != v13)
+              if (*v24 != v13)
               {
                 objc_enumerationMutation(v10);
               }
 
-              v15 = *(*(&v24 + 1) + 8 * v14);
+              v15 = *(*(&v23 + 1) + 8 * v14);
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
@@ -494,7 +490,7 @@ LABEL_11:
             }
 
             while (v12 != v14);
-            v19 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
+            v19 = [v10 countByEnumeratingWithState:&v23 objects:v27 count:16];
             v12 = v19;
           }
 
@@ -532,8 +528,6 @@ LABEL_27:
   currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
   [currentHandler handleFailureInMethod:a2 object:self file:@"GCHIDDeviceInput.m" lineNumber:300 description:{@"Invalid matching criteria: %@", matchingCopy}];
 LABEL_31:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (id)batchInputElementHandler
@@ -549,22 +543,20 @@ LABEL_31:
 
 - (void)initWithIOHIDDevice:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_ERROR, "Failed to create IOHIDQueue for %@.", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1D2C3B000, a2, OS_LOG_TYPE_ERROR, "Failed to create IOHIDQueue for %@.", &v2, 0xCu);
 }
 
 - (void)setInputElements:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v5 = 138412546;
-  v6 = a1;
-  v7 = 2048;
-  v8 = [a2 count];
-  _os_log_debug_impl(&dword_1D2C3B000, a3, OS_LOG_TYPE_DEBUG, "%@: Track %zd elements.", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
+  v4 = 138412546;
+  v5 = a1;
+  v6 = 2048;
+  v7 = [a2 count];
+  _os_log_debug_impl(&dword_1D2C3B000, a3, OS_LOG_TYPE_DEBUG, "%@: Track %zd elements.", &v4, 0x16u);
 }
 
 - (void)setInputElements:(uint64_t)a3 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)

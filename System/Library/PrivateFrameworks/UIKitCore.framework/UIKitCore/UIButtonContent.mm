@@ -202,15 +202,15 @@
   }
 
   v4 = _UIAdaptLocalizedStringForView(self->title, view);
-  v5 = [(NSString *)self->title isEqualToString:v4];
-  if (!v5)
+  isEqualToString = objc_msgSend_isEqualToString_(self->title);
+  if ((isEqualToString & 1) == 0)
   {
     title = self->title;
     self->title = v4;
     v4 = title;
   }
 
-  v7 = !v5;
+  v7 = isEqualToString ^ 1;
 
   return v7;
 }

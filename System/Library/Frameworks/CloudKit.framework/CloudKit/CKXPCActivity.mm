@@ -58,16 +58,15 @@
 
 - (void)dealloc
 {
-  handler = self->_handler;
   xpc_activity_remove_eligibility_changed_handler();
-  v4.receiver = self;
-  v4.super_class = CKXPCActivity;
-  [(CKBackgroundTask *)&v4 dealloc];
+  v3.receiver = self;
+  v3.super_class = CKXPCActivity;
+  [(CKBackgroundTask *)&v3 dealloc];
 }
 
 - (void)_handleActivityUpdate:(id)update
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   updateCopy = update;
   state = xpc_activity_get_state(updateCopy);
   if (ck_log_initialization_predicate != -1)
@@ -78,14 +77,14 @@
   v6 = ck_log_facility_scheduler;
   if (os_log_type_enabled(ck_log_facility_scheduler, OS_LOG_TYPE_DEBUG))
   {
-    v10 = v6;
-    v13 = objc_msgSend_ckShortDescription(self, v11, v12);
-    v14 = CKStringForXPCActivityState(state);
+    v9 = v6;
+    v12 = objc_msgSend_ckShortDescription(self, v10, v11);
+    v13 = CKStringForXPCActivityState(state);
     *buf = 138412546;
-    v18 = v13;
-    v19 = 2112;
-    v20 = v14;
-    _os_log_debug_impl(&dword_1883EA000, v10, OS_LOG_TYPE_DEBUG, "[%@] Handling activity state update: %@", buf, 0x16u);
+    v17 = v12;
+    v18 = 2112;
+    v19 = v13;
+    _os_log_debug_impl(&dword_1883EA000, v9, OS_LOG_TYPE_DEBUG, "[%@] Handling activity state update: %@", buf, 0x16u);
   }
 
   if (state <= 3)
@@ -94,9 +93,9 @@
     {
       if (state == 3)
       {
-        v16.receiver = self;
-        v16.super_class = CKXPCActivity;
-        [(CKBackgroundTask *)&v16 expiredWithRetryAfter:0 error:0.0];
+        v15.receiver = self;
+        v15.super_class = CKXPCActivity;
+        [(CKBackgroundTask *)&v15 expiredWithRetryAfter:0 error:0.0];
       }
 
       goto LABEL_15;
@@ -118,9 +117,9 @@ LABEL_11:
 
   if (state == 5)
   {
-    v15.receiver = self;
-    v15.super_class = CKXPCActivity;
-    [(CKBackgroundTask *)&v15 complete];
+    v14.receiver = self;
+    v14.super_class = CKXPCActivity;
+    [(CKBackgroundTask *)&v14 complete];
     goto LABEL_15;
   }
 
@@ -130,8 +129,6 @@ LABEL_11:
   }
 
 LABEL_15:
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)priority

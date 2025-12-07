@@ -444,47 +444,52 @@ LABEL_7:
 
 uint64_t __69__GKMessageUtilities_contactFromEmailOrPhoneNumber_fromContactStore___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v15 = a2;
-  if (![v15 contactType])
+  v17 = a2;
+  v7 = [v17 contactType];
+  v8 = v17;
+  if (!v7)
   {
-    v7 = [v15 givenName];
-    v8 = [v7 length];
-    v9 = v15;
-    v10 = v8;
-    if (!v8)
+    v9 = [v17 givenName];
+    v10 = [v9 length];
+    v11 = v17;
+    v12 = v10;
+    if (!v10)
     {
-      v3 = [v15 familyName];
+      v3 = [v17 familyName];
       if (![v3 length])
       {
 
+        v8 = v17;
         goto LABEL_13;
       }
 
-      v9 = v15;
+      v11 = v17;
     }
 
-    v11 = [v9 emailAddresses];
-    if ([v11 count])
+    v13 = [v11 emailAddresses];
+    if ([v13 count])
     {
 
-      if (!v10)
+      if (!v12)
       {
       }
 
 LABEL_12:
       objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
+      v8 = v17;
       *a3 = 1;
       goto LABEL_13;
     }
 
-    v12 = [v15 phoneNumbers];
-    v13 = [v12 count];
+    v14 = [v17 phoneNumbers];
+    v15 = [v14 count];
 
-    if (!v10)
+    if (!v12)
     {
     }
 
-    if (v13)
+    v8 = v17;
+    if (v15)
     {
       goto LABEL_12;
     }
@@ -492,7 +497,7 @@ LABEL_12:
 
 LABEL_13:
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v7, v8);
 }
 
 + (void)contactFromEmailOrPhoneNumber:(uint64_t)a1 fromContactStore:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)

@@ -16,7 +16,7 @@
   v5 = [(HFEventBuilder *)&v8 initWithEvent:eventCopy];
   if (v5)
   {
-    [eventCopy duration];
+    objc_msgSend_duration(eventCopy);
     v5->_duration = v6;
   }
 
@@ -27,7 +27,7 @@
 {
   v3 = MEMORY[0x277CBEB98];
   v4 = objc_alloc(MEMORY[0x277CD19D0]);
-  [(HFDurationEventBuilder *)self duration];
+  objc_msgSend_duration(self);
   v5 = [v4 initWithDuration:?];
   v6 = [v3 setWithObject:v5];
 
@@ -37,7 +37,7 @@
 - (id)description
 {
   v3 = [MEMORY[0x277D2C8F8] builderWithObject:self];
-  [(HFDurationEventBuilder *)self duration];
+  objc_msgSend_duration(self);
   v4 = [v3 appendDouble:@"duration" withName:1 decimalPrecision:?];
   build = [v3 build];
 
@@ -50,7 +50,7 @@
   v8.receiver = self;
   v8.super_class = HFDurationEventBuilder;
   comparisonKey = [(HFEventBuilder *)&v8 comparisonKey];
-  [(HFDurationEventBuilder *)self duration];
+  objc_msgSend_duration(self);
   v6 = [v3 stringWithFormat:@"%@-%f", comparisonKey, v5];
 
   return v6;
@@ -65,10 +65,10 @@
   if (([v5 containsCriticalDifference] & 1) == 0)
   {
     v6 = MEMORY[0x277CCABB0];
-    [(HFDurationEventBuilder *)self duration];
+    objc_msgSend_duration(self);
     v7 = [v6 numberWithDouble:?];
     v8 = MEMORY[0x277CCABB0];
-    [objectCopy duration];
+    objc_msgSend_duration(objectCopy);
     v9 = [v8 numberWithDouble:?];
     v10 = [HFPropertyDifference compareObjectA:v7 toObjectB:v9 key:@"duration" priority:3];
     [v5 add:v10];

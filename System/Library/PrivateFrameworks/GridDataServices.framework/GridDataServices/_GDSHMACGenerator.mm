@@ -11,7 +11,7 @@
 
 + (id)HMAC_SHA256Digest:(id)digest key:(id)key
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   keyCopy = key;
   digestCopy = digest;
   v8 = [key cStringUsingEncoding:1];
@@ -23,14 +23,12 @@
   v12 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:macOut length:32];
   v13 = [v12 base64EncodedStringWithOptions:0];
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 + (id)SHA256_HashStringFromData:(id)data
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   CC_SHA256([dataCopy bytes], objc_msgSend(dataCopy, "length"), md);
   v4 = [MEMORY[0x277CCAB68] stringWithCapacity:64];
@@ -39,14 +37,12 @@
     [v4 appendFormat:@"%02x", md[i]];
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 + (id)HMACSignedRequest:(id)request secret:(id)secret secretVersion:(id)version
 {
-  v45[7] = *MEMORY[0x277D85DE8];
+  v44[7] = *MEMORY[0x277D85DE8];
   requestCopy = request;
   versionCopy = version;
   secretCopy = secret;
@@ -58,19 +54,19 @@
   lowercaseString2 = [path lowercaseString];
 
   hTTPBody = [requestCopy HTTPBody];
-  v43 = requestCopy;
+  v42 = requestCopy;
   v16 = [requestCopy URL];
   query = [v16 query];
 
-  v40 = hTTPBody;
+  v39 = hTTPBody;
   v18 = [self SHA256_HashStringFromData:hTTPBody];
   bucketedEpochTimeStamp = [self bucketedEpochTimeStamp];
   array = [MEMORY[0x277CBEB18] array];
-  v44 = lowercaseString;
+  v43 = lowercaseString;
   v21 = [self encodeStringToBase64:lowercaseString];
   [array addObject:v21];
 
-  v42 = lowercaseString2;
+  v41 = lowercaseString2;
   v22 = [self encodeStringToBase64:lowercaseString2];
   [array addObject:v22];
 
@@ -81,31 +77,29 @@
   }
 
   v24 = [self encodeStringToBase64:@"X-Apple-Content-SHA256"];
-  v45[0] = v24;
+  v44[0] = v24;
   v25 = [self encodeStringToBase64:v18];
-  v45[1] = v25;
+  v44[1] = v25;
   [self encodeStringToBase64:@"X-Apple-HMAC-Secret-Version"];
-  v26 = v38 = v18;
-  v45[2] = v26;
+  v26 = v37 = v18;
+  v44[2] = v26;
   v27 = [self encodeStringToBase64:versionCopy];
-  v45[3] = v27;
+  v44[3] = v27;
   [self encodeStringToBase64:@"X-Apple-HMAC-Sent-Timestamp"];
-  v39 = query;
+  v38 = query;
   v29 = v28 = versionCopy;
-  v45[4] = v29;
+  v44[4] = v29;
   [self encodeStringToBase64:bucketedEpochTimeStamp];
-  v30 = v37 = bucketedEpochTimeStamp;
-  v45[5] = v30;
-  v45[6] = &stru_2862C4D88;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v45 count:7];
+  v30 = v36 = bucketedEpochTimeStamp;
+  v44[5] = v30;
+  v44[6] = &stru_2862C4D88;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:7];
   [array addObjectsFromArray:v31];
 
   v32 = [array componentsJoinedByString:@"|"];
   v33 = [self HMAC_SHA256Digest:v32 key:secretCopy];
 
-  v34 = [self generateURLRequest:v43 secretVersion:v28 signature:v33 content:v38 timestamp:v37];
-
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = [self generateURLRequest:v42 secretVersion:v28 signature:v33 content:v37 timestamp:v36];
 
   return v34;
 }

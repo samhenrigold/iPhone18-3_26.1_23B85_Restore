@@ -3,7 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (void)addIndex:(int8x16_t)index;
 - (void)addIndexesInRange:(uint64_t)range;
-- (void)removeIndex:(__n128)index;
+- (void)removeIndex:(int8x16_t)index;
 @end
 
 @implementation _UIMutableFastIndexSet
@@ -1599,16 +1599,7 @@ LABEL_70:
   }
 
   v67 = &v42[v66];
-  if (v42 == v39)
-  {
-    v68 = 0;
-  }
-
-  else
-  {
-    v68 = 8 * (*v67 <= v8);
-  }
-
+  v68 = v42 != v39 && *v67 <= v8;
   v44 = &v67[v68];
   v69 = v42 - v40;
   if (((v44 - v42) & 8) != 0)
@@ -1720,7 +1711,7 @@ LABEL_71:
   }
 }
 
-- (void)removeIndex:(__n128)index
+- (void)removeIndex:(int8x16_t)index
 {
   if (!self)
   {
@@ -1733,9 +1724,9 @@ LABEL_71:
     return;
   }
 
-  v4 = (self + 16);
-  v5 = a2 + 1;
-  v6 = *(self + 64);
+  v4 = self + 1;
+  v5 = a2->u64 + 1;
+  v6 = self[4].i32[0];
   if (v6)
   {
     v7 = 0;
@@ -1743,7 +1734,7 @@ LABEL_71:
 
   else
   {
-    v7 = self + 16;
+    v7 = self + 1;
   }
 
   switch(v6)
@@ -1755,13 +1746,13 @@ LABEL_71:
         v20 = 255;
         if (v5 < 0xFF)
         {
-          v20 = a2 + 1;
+          v20 = a2->u64 + 1;
         }
 
         if (v19 <= v20 >> 6)
         {
           v21 = (v20 >> 6) - v19 + 1;
-          v22 = (v7 + 8 * v19);
+          v22 = &v7->i64[v19];
           v23 = v19 << 6;
           v24 = (v19 << 6) + 64;
           v25 = v24 + a2;
@@ -1787,7 +1778,7 @@ LABEL_71:
             v29 = v25 - v28;
             if (v24 >= v5)
             {
-              v30 = a2 + 1;
+              v30 = a2->u64 + 1;
             }
 
             else
@@ -1820,11 +1811,11 @@ LABEL_71:
 
       return;
     case 1:
-      v8 = *(self + 48);
+      v8 = self[3].u64[0];
       if (v8)
       {
         index = *v4;
-        v9 = *(self + 32);
+        v9 = self[2];
         v117[0] = *v4;
         v117[1] = v9;
         if (*(v117 + ((v8 - 1) & 0xF)) <= a2)
@@ -1832,10 +1823,10 @@ LABEL_71:
           LOWORD(v5) = 0;
           v18 = 0;
           v3 = 0;
-          v126 = (self + 16);
-          v127 = self + 16;
+          v126 = self + 1;
+          v127 = self + 1;
           v128 = v8;
-          v129 = self + 16;
+          v129 = self + 1;
           *&v130 = v8;
           v12 = v8;
           v17 = v8;
@@ -1867,8 +1858,8 @@ LABEL_71:
 
         v15 = vdupq_n_s16(v5);
         index = vuzp1q_s8(vcgtq_u16(index, v15), vcgtq_u16(v9, v15));
-        index.n128_u64[0] = vshrn_n_s16(index, 4uLL);
-        v16 = __clz(__rbit64((-1 << (4 * v12)) & index.n128_u64[0])) >> 2;
+        *index.i8 = vshrn_n_s16(index, 4uLL);
+        v16 = __clz(__rbit64((-1 << (4 * v12)) & index.i64[0])) >> 2;
         if (v16 >= v14)
         {
           v17 = v14;
@@ -1891,10 +1882,10 @@ LABEL_71:
             v3 = a2 + 1;
           }
 
-          v126 = (self + 16);
-          v127 = self + 16;
+          v126 = self + 1;
+          v127 = self + 1;
           v128 = v12;
-          v129 = self + 16;
+          v129 = self + 1;
           *&v130 = v17;
           DWORD2(v130) = v3;
           v18 = 1;
@@ -1903,10 +1894,10 @@ LABEL_71:
 
         else
         {
-          v126 = (self + 16);
-          v127 = self + 16;
+          v126 = self + 1;
+          v127 = self + 1;
           v128 = v12;
-          v129 = self + 16;
+          v129 = self + 1;
           *&v130 = v17;
           if ((v12 & 1) == 0)
           {
@@ -1933,7 +1924,7 @@ LABEL_56:
             switch(v39)
             {
               case 2uLL:
-                v81 = *(self + 32);
+                v81 = self[2];
                 v115 = *v4;
                 v116 = v81;
                 v115.n128_u16[v12 & 0xF] = v3;
@@ -1942,32 +1933,32 @@ LABEL_56:
                 v113.n128_u16[(v12 + 1) & 0xF] = v5;
                 v82 = v114;
                 *v4 = v113;
-                *(self + 32) = v82;
+                self[2] = v82;
                 return;
               case 1uLL:
-                v4->n128_u16[v12 & 0xF] = v3;
+                v4->i16[v12 & 0xF] = v3;
                 v43 = v12 + 1;
                 v40 = &v130 + 5;
-                v41 = (self + 16);
+                i8 = self[1].i8;
                 v42 = v4;
                 goto LABEL_119;
               case 0uLL:
-                _UISmallVector<unsigned short,16ul>::insert<unsigned short *>((self + 16), index, v4, v12, &v130 + 4, &v130 + 6);
+                _UISmallVector<unsigned short,16ul>::insert<unsigned short *>(self[1].i8, index, v4, v12, &v130 + 4, &v130 + 6);
                 return;
             }
 
-            v83 = *(self + 32);
-            v111 = *(self + 16);
+            v83 = self[2];
+            v111 = self[1];
             v112 = v83;
-            v111.n128_u16[v12 & 0xF] = v3;
+            v111.i16[v12 & 0xF] = v3;
             v109 = v111;
             v110 = v112;
-            v109.n128_u16[(v12 + 1) & 0xF] = v5;
+            v109.i16[(v12 + 1) & 0xF] = v5;
             v85 = v109;
             v84 = v110;
-            *(self + 16) = v109;
-            *(self + 32) = v84;
-            v86 = *(self + 48);
+            self[1] = v109;
+            self[2] = v84;
+            v86 = self[3].u64[0];
             if (v17 < v86)
             {
               v87 = v17;
@@ -1979,7 +1970,7 @@ LABEL_56:
                 v89 = *(v108 + (v87 & 0xF));
                 v106 = v85;
                 v107 = v84;
-                v106.n128_u16[v88 & 0xF] = v89;
+                v106.i16[v88 & 0xF] = v89;
                 v85 = v106;
                 v84 = v107;
                 ++v87;
@@ -1988,7 +1979,7 @@ LABEL_56:
 
               while (v86 != v87);
               *v4 = v106;
-              *(self + 32) = v84;
+              self[2] = v84;
             }
 
             v54 = v12 + 2 - v17 + v86;
@@ -1999,29 +1990,29 @@ LABEL_56:
           {
             if (v39 == 1)
             {
-              v4->n128_u16[v12 & 0xF] = v3;
+              v4->i16[v12 & 0xF] = v3;
               return;
             }
 
             if (!v39)
             {
               v40 = &v130 + 4;
-              v41 = (self + 16);
+              i8 = self[1].i8;
               v42 = v4;
               v43 = v12;
 LABEL_119:
-              _UISmallVector<unsigned short,16ul>::insert(v41, v42, v43, v40);
+              _UISmallVector<unsigned short,16ul>::insert(i8, v42, v43, v40);
               return;
             }
 
-            v71 = *(self + 32);
+            v71 = self[2];
             v104 = *v4;
             v105 = v71;
             v104.n128_u16[v12 & 0xF] = v3;
             v73 = v104;
             v72 = v105;
             *v4 = v104;
-            *(self + 32) = v72;
+            self[2] = v72;
             if (v17 < v8)
             {
               v74 = v17;
@@ -2033,7 +2024,7 @@ LABEL_119:
                 v76 = *(v103 + (v74 & 0xF));
                 v101 = v73;
                 v102 = v72;
-                v101.n128_u16[v75 & 0xF] = v76;
+                v101.i16[v75 & 0xF] = v76;
                 v73 = v101;
                 v72 = v102;
                 ++v74;
@@ -2042,7 +2033,7 @@ LABEL_119:
 
               while (v8 != v74);
               *v4 = v101;
-              *(self + 32) = v72;
+              self[2] = v72;
             }
 
             v54 = v12 + 1 - v17 + v8;
@@ -2054,7 +2045,7 @@ LABEL_119:
             if (v17 < v8)
             {
               v50 = *v4;
-              v49 = *(self + 32);
+              v49 = self[2];
               v51 = v17;
               v52 = v12;
               do
@@ -2073,12 +2064,12 @@ LABEL_119:
 
               while (v8 != v51);
               *v4 = v98;
-              *(self + 32) = v49;
+              self[2] = v49;
             }
 
             v54 = v12 + v8 - v17;
 LABEL_129:
-            *(self + 48) = v54;
+            self[3].i64[0] = v54;
             return;
           }
 
@@ -2197,14 +2188,14 @@ LABEL_121:
       v3 = 0;
       v12 = 0;
       v17 = 0;
-      v126 = (self + 16);
-      v127 = self + 16;
+      v126 = self + 1;
+      v127 = self + 1;
       v128 = 0;
-      v129 = self + 16;
+      v129 = self + 1;
       *&v130 = 0;
       goto LABEL_55;
     case 2:
-      v33 = (self + 16);
+      v33 = self + 1;
       break;
     default:
       v33 = 0;
@@ -2216,11 +2207,11 @@ LABEL_121:
     return;
   }
 
-  v34 = *(self + 16);
-  v35 = *(self + 24);
+  v34 = self[1].i64[0];
+  v35 = self[1].u64[1];
   if (v34 == v35 || *(v35 - 8) <= a2)
   {
-    v126 = (self + 16);
+    v126 = self + 1;
     v127 = v35;
     v128 = v35;
     v129 = 0;
@@ -2288,7 +2279,7 @@ LABEL_121:
   v66 = (v57 - v34);
   if (((v64 - v57) & 8) != 0)
   {
-    v68 = ((v66 & 8) == 0) + a2;
+    v68 = (a2 + ((v66 & 8) == 0));
     v126 = v33;
     v127 = v57;
     v128 = v64;
@@ -2334,7 +2325,7 @@ LABEL_151:
 
     v67 = v64;
 LABEL_146:
-    v93 = v33[1];
+    v93 = v33->i64[1];
     v94 = v93 - v67;
     if (v93 != v67)
     {
@@ -2343,12 +2334,12 @@ LABEL_146:
 
     v95 = (v57 + v94);
 LABEL_149:
-    v33[1] = v95;
+    v33->i64[1] = v95;
     return;
   }
 
   v129 = a2;
-  *&v130 = a2 + 1;
+  *&v130 = a2->i64 + 1;
   *(&v130 + 1) = 2;
   v92 = v65 >> 3;
   switch(v92)
@@ -2371,7 +2362,7 @@ LABEL_149:
   *(v57 + 8) = v5;
   if (v64 != v58)
   {
-    v96 = v33[1];
+    v96 = v33->i64[1];
     v97 = v96 - v64;
     if (v96 != v64)
     {

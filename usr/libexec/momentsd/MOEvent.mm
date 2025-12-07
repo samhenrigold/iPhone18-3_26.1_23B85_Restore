@@ -111,7 +111,12 @@
 - (void)setInteractionMechanisms:(id)mechanisms;
 - (void)setInteractionScoredContact:(id)contact;
 - (void)setInteractions:(id)interactions;
+- (void)setIsFitnessPlusSession:(BOOL)session;
+- (void)setIsGComplete:(BOOL)complete;
+- (void)setIsHighConfidence:(BOOL)confidence;
+- (void)setIsInvalid:(BOOL)invalid;
 - (void)setItemAttributionsCount:(id)count;
+- (void)setItemIsPinned:(BOOL)pinned;
 - (void)setItemRecipients:(id)recipients;
 - (void)setItemSenders:(id)senders;
 - (void)setItemShareDirection:(unint64_t)direction;
@@ -710,7 +715,7 @@ LABEL_21:
   v9 = *(&self->super.isa + v7);
   *(&self->super.isa + v7) = v8;
 
-  _objc_release_x1();
+  _objc_release_x1(v8, v9);
 }
 
 + (id)describeProvider:(unint64_t)provider
@@ -1420,89 +1425,97 @@ LABEL_21:
 - (void)setExtendedAttributes:(id)attributes
 {
   attributesCopy = attributes;
+  v5 = attributesCopy;
   if (attributesCopy)
   {
     photoEvent = self->_photoEvent;
-    v8 = attributesCopy;
+    v9 = v5;
     if (!photoEvent)
     {
-      v6 = objc_alloc_init(MOEventPhoto);
-      v7 = self->_photoEvent;
-      self->_photoEvent = v6;
+      v7 = objc_alloc_init(MOEventPhoto);
+      v8 = self->_photoEvent;
+      self->_photoEvent = v7;
 
       photoEvent = self->_photoEvent;
     }
 
-    [(MOEventPhoto *)photoEvent setExtendedAttributes:v8];
+    attributesCopy = [(MOEventPhoto *)photoEvent setExtendedAttributes:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(attributesCopy, v5);
 }
 
 - (void)setPhotoAsset:(id)asset
 {
   assetCopy = asset;
+  v5 = assetCopy;
   if (assetCopy)
   {
     photoEvent = self->_photoEvent;
-    v8 = assetCopy;
+    v9 = v5;
     if (!photoEvent)
     {
-      v6 = objc_alloc_init(MOEventPhoto);
-      v7 = self->_photoEvent;
-      self->_photoEvent = v6;
+      v7 = objc_alloc_init(MOEventPhoto);
+      v8 = self->_photoEvent;
+      self->_photoEvent = v7;
 
       photoEvent = self->_photoEvent;
     }
 
-    [(MOEventPhoto *)photoEvent setPhotoAsset:v8];
+    assetCopy = [(MOEventPhoto *)photoEvent setPhotoAsset:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(assetCopy, v5);
 }
 
 - (void)setPhotoMemoryTitle:(id)title
 {
   titleCopy = title;
+  v5 = titleCopy;
   if (titleCopy)
   {
     photoEvent = self->_photoEvent;
-    v8 = titleCopy;
+    v9 = v5;
     if (!photoEvent)
     {
-      v6 = objc_alloc_init(MOEventPhoto);
-      v7 = self->_photoEvent;
-      self->_photoEvent = v6;
+      v7 = objc_alloc_init(MOEventPhoto);
+      v8 = self->_photoEvent;
+      self->_photoEvent = v7;
 
       photoEvent = self->_photoEvent;
     }
 
-    [(MOEventPhoto *)photoEvent setPhotoMemoryTitle:v8];
+    titleCopy = [(MOEventPhoto *)photoEvent setPhotoMemoryTitle:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(titleCopy, v5);
 }
 
 - (void)setPhotoMemoryAssets:(id)assets
 {
   assetsCopy = assets;
+  v5 = assetsCopy;
   if (assetsCopy)
   {
     photoEvent = self->_photoEvent;
-    v8 = assetsCopy;
+    v9 = v5;
     if (!photoEvent)
     {
-      v6 = objc_alloc_init(MOEventPhoto);
-      v7 = self->_photoEvent;
-      self->_photoEvent = v6;
+      v7 = objc_alloc_init(MOEventPhoto);
+      v8 = self->_photoEvent;
+      self->_photoEvent = v7;
 
       photoEvent = self->_photoEvent;
     }
 
-    [(MOEventPhoto *)photoEvent setPhotoMemoryAssets:v8];
+    assetsCopy = [(MOEventPhoto *)photoEvent setPhotoMemoryAssets:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(assetsCopy, v5);
 }
 
 - (void)setPhotoMemoryCategory:(unint64_t)category
@@ -1533,6 +1546,38 @@ LABEL_21:
   }
 
   [(MOEventAnalytics *)analyticsEvent setTimeAtHomeSubType:type];
+}
+
+- (void)setIsHighConfidence:(BOOL)confidence
+{
+  confidenceCopy = confidence;
+  routineEvent = self->_routineEvent;
+  if (!routineEvent)
+  {
+    v6 = objc_alloc_init(MOEventRoutine);
+    v7 = self->_routineEvent;
+    self->_routineEvent = v6;
+
+    routineEvent = self->_routineEvent;
+  }
+
+  [(MOEventRoutine *)routineEvent setIsHighConfidence:confidenceCopy];
+}
+
+- (void)setIsInvalid:(BOOL)invalid
+{
+  invalidCopy = invalid;
+  routineEvent = self->_routineEvent;
+  if (!routineEvent)
+  {
+    v6 = objc_alloc_init(MOEventRoutine);
+    v7 = self->_routineEvent;
+    self->_routineEvent = v6;
+
+    routineEvent = self->_routineEvent;
+  }
+
+  [(MOEventRoutine *)routineEvent setIsInvalid:invalidCopy];
 }
 
 - (void)setPlaceType:(unint64_t)type
@@ -1568,23 +1613,25 @@ LABEL_21:
 - (void)setPlaceName:(id)name
 {
   nameCopy = name;
+  v5 = nameCopy;
   if (nameCopy)
   {
     routineEvent = self->_routineEvent;
-    v8 = nameCopy;
+    v9 = v5;
     if (!routineEvent)
     {
-      v6 = objc_alloc_init(MOEventRoutine);
-      v7 = self->_routineEvent;
-      self->_routineEvent = v6;
+      v7 = objc_alloc_init(MOEventRoutine);
+      v8 = self->_routineEvent;
+      self->_routineEvent = v7;
 
       routineEvent = self->_routineEvent;
     }
 
-    [(MOEventRoutine *)routineEvent setPlaceName:v8];
+    nameCopy = [(MOEventRoutine *)routineEvent setPlaceName:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(nameCopy, v5);
 }
 
 - (void)setPlaceNameConfidence:(double)confidence
@@ -1620,67 +1667,73 @@ LABEL_21:
 - (void)setLocation:(id)location
 {
   locationCopy = location;
+  v5 = locationCopy;
   if (locationCopy)
   {
     routineEvent = self->_routineEvent;
-    v8 = locationCopy;
+    v9 = v5;
     if (!routineEvent)
     {
-      v6 = objc_alloc_init(MOEventRoutine);
-      v7 = self->_routineEvent;
-      self->_routineEvent = v6;
+      v7 = objc_alloc_init(MOEventRoutine);
+      v8 = self->_routineEvent;
+      self->_routineEvent = v7;
 
       routineEvent = self->_routineEvent;
     }
 
-    [(MOEventRoutine *)routineEvent setLocation:v8];
+    locationCopy = [(MOEventRoutine *)routineEvent setLocation:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(locationCopy, v5);
 }
 
 - (void)setAddress:(id)address
 {
   addressCopy = address;
+  v5 = addressCopy;
   if (addressCopy)
   {
     routineEvent = self->_routineEvent;
-    v8 = addressCopy;
+    v9 = v5;
     if (!routineEvent)
     {
-      v6 = objc_alloc_init(MOEventRoutine);
-      v7 = self->_routineEvent;
-      self->_routineEvent = v6;
+      v7 = objc_alloc_init(MOEventRoutine);
+      v8 = self->_routineEvent;
+      self->_routineEvent = v7;
 
       routineEvent = self->_routineEvent;
     }
 
-    [(MOEventRoutine *)routineEvent setAddress:v8];
+    addressCopy = [(MOEventRoutine *)routineEvent setAddress:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(addressCopy, v5);
 }
 
 - (void)setGeoAddressObject:(id)object
 {
   objectCopy = object;
+  v5 = objectCopy;
   if (objectCopy)
   {
     routineEvent = self->_routineEvent;
-    v8 = objectCopy;
+    v9 = v5;
     if (!routineEvent)
     {
-      v6 = objc_alloc_init(MOEventRoutine);
-      v7 = self->_routineEvent;
-      self->_routineEvent = v6;
+      v7 = objc_alloc_init(MOEventRoutine);
+      v8 = self->_routineEvent;
+      self->_routineEvent = v7;
 
       routineEvent = self->_routineEvent;
     }
 
-    [(MOEventRoutine *)routineEvent setGeoAddressObject:v8];
+    objectCopy = [(MOEventRoutine *)routineEvent setGeoAddressObject:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(objectCopy, v5);
 }
 
 - (void)setMode:(unint64_t)mode
@@ -1701,67 +1754,73 @@ LABEL_21:
 - (void)setPlaceMapItem:(id)item
 {
   itemCopy = item;
+  v5 = itemCopy;
   if (itemCopy)
   {
     routineEvent = self->_routineEvent;
-    v8 = itemCopy;
+    v9 = v5;
     if (!routineEvent)
     {
-      v6 = objc_alloc_init(MOEventRoutine);
-      v7 = self->_routineEvent;
-      self->_routineEvent = v6;
+      v7 = objc_alloc_init(MOEventRoutine);
+      v8 = self->_routineEvent;
+      self->_routineEvent = v7;
 
       routineEvent = self->_routineEvent;
     }
 
-    [(MOEventRoutine *)routineEvent setPlaceMapItem:v8];
+    itemCopy = [(MOEventRoutine *)routineEvent setPlaceMapItem:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(itemCopy, v5);
 }
 
 - (void)setPoiCategory:(id)category
 {
   categoryCopy = category;
+  v5 = categoryCopy;
   if (categoryCopy)
   {
     routineEvent = self->_routineEvent;
-    v8 = categoryCopy;
+    v9 = v5;
     if (!routineEvent)
     {
-      v6 = objc_alloc_init(MOEventRoutine);
-      v7 = self->_routineEvent;
-      self->_routineEvent = v6;
+      v7 = objc_alloc_init(MOEventRoutine);
+      v8 = self->_routineEvent;
+      self->_routineEvent = v7;
 
       routineEvent = self->_routineEvent;
     }
 
-    [(MOEventRoutine *)routineEvent setPoiCategory:v8];
+    categoryCopy = [(MOEventRoutine *)routineEvent setPoiCategory:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(categoryCopy, v5);
 }
 
 - (void)setCategoryMuid:(id)muid
 {
   muidCopy = muid;
+  v5 = muidCopy;
   if (muidCopy)
   {
     routineEvent = self->_routineEvent;
-    v8 = muidCopy;
+    v9 = v5;
     if (!routineEvent)
     {
-      v6 = objc_alloc_init(MOEventRoutine);
-      v7 = self->_routineEvent;
-      self->_routineEvent = v6;
+      v7 = objc_alloc_init(MOEventRoutine);
+      v8 = self->_routineEvent;
+      self->_routineEvent = v7;
 
       routineEvent = self->_routineEvent;
     }
 
-    [(MOEventRoutine *)routineEvent setCategoryMuid:v8];
+    muidCopy = [(MOEventRoutine *)routineEvent setCategoryMuid:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(muidCopy, v5);
 }
 
 - (void)setPlaceSource:(unint64_t)source
@@ -1797,199 +1856,233 @@ LABEL_21:
 - (void)setWorkoutType:(id)type
 {
   typeCopy = type;
+  v5 = typeCopy;
   if (typeCopy)
   {
     workoutEvent = self->_workoutEvent;
-    v8 = typeCopy;
+    v9 = v5;
     if (!workoutEvent)
     {
-      v6 = objc_alloc_init(MOEventWorkout);
-      v7 = self->_workoutEvent;
-      self->_workoutEvent = v6;
+      v7 = objc_alloc_init(MOEventWorkout);
+      v8 = self->_workoutEvent;
+      self->_workoutEvent = v7;
 
       workoutEvent = self->_workoutEvent;
     }
 
-    [(MOEventWorkout *)workoutEvent setWorkoutType:v8];
+    typeCopy = [(MOEventWorkout *)workoutEvent setWorkoutType:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(typeCopy, v5);
 }
 
 - (void)setWorkoutTotalDistance:(id)distance
 {
   distanceCopy = distance;
+  v5 = distanceCopy;
   if (distanceCopy)
   {
     workoutEvent = self->_workoutEvent;
-    v8 = distanceCopy;
+    v9 = v5;
     if (!workoutEvent)
     {
-      v6 = objc_alloc_init(MOEventWorkout);
-      v7 = self->_workoutEvent;
-      self->_workoutEvent = v6;
+      v7 = objc_alloc_init(MOEventWorkout);
+      v8 = self->_workoutEvent;
+      self->_workoutEvent = v7;
 
       workoutEvent = self->_workoutEvent;
     }
 
-    [(MOEventWorkout *)workoutEvent setWorkoutTotalDistance:v8];
+    distanceCopy = [(MOEventWorkout *)workoutEvent setWorkoutTotalDistance:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(distanceCopy, v5);
 }
 
 - (void)setWorkoutTotalEnergyBurned:(id)burned
 {
   burnedCopy = burned;
+  v5 = burnedCopy;
   if (burnedCopy)
   {
     workoutEvent = self->_workoutEvent;
-    v8 = burnedCopy;
+    v9 = v5;
     if (!workoutEvent)
     {
-      v6 = objc_alloc_init(MOEventWorkout);
-      v7 = self->_workoutEvent;
-      self->_workoutEvent = v6;
+      v7 = objc_alloc_init(MOEventWorkout);
+      v8 = self->_workoutEvent;
+      self->_workoutEvent = v7;
 
       workoutEvent = self->_workoutEvent;
     }
 
-    [(MOEventWorkout *)workoutEvent setWorkoutTotalEnergyBurned:v8];
+    burnedCopy = [(MOEventWorkout *)workoutEvent setWorkoutTotalEnergyBurned:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(burnedCopy, v5);
 }
 
 - (void)setWorkoutDuration:(id)duration
 {
   durationCopy = duration;
+  v5 = durationCopy;
   if (durationCopy)
   {
     workoutEvent = self->_workoutEvent;
-    v8 = durationCopy;
+    v9 = v5;
     if (!workoutEvent)
     {
-      v6 = objc_alloc_init(MOEventWorkout);
-      v7 = self->_workoutEvent;
-      self->_workoutEvent = v6;
+      v7 = objc_alloc_init(MOEventWorkout);
+      v8 = self->_workoutEvent;
+      self->_workoutEvent = v7;
 
       workoutEvent = self->_workoutEvent;
     }
 
-    [(MOEventWorkout *)workoutEvent setWorkoutDuration:v8];
+    durationCopy = [(MOEventWorkout *)workoutEvent setWorkoutDuration:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(durationCopy, v5);
 }
 
 - (void)setWorkoutLocationStart:(id)start
 {
   startCopy = start;
+  v5 = startCopy;
   if (startCopy)
   {
     workoutEvent = self->_workoutEvent;
-    v8 = startCopy;
+    v9 = v5;
     if (!workoutEvent)
     {
-      v6 = objc_alloc_init(MOEventWorkout);
-      v7 = self->_workoutEvent;
-      self->_workoutEvent = v6;
+      v7 = objc_alloc_init(MOEventWorkout);
+      v8 = self->_workoutEvent;
+      self->_workoutEvent = v7;
 
       workoutEvent = self->_workoutEvent;
     }
 
-    [(MOEventWorkout *)workoutEvent setWorkoutLocationStart:v8];
+    startCopy = [(MOEventWorkout *)workoutEvent setWorkoutLocationStart:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(startCopy, v5);
 }
 
 - (void)setWorkoutLocationRoute:(id)route
 {
   routeCopy = route;
+  v5 = routeCopy;
   if (routeCopy)
   {
     workoutEvent = self->_workoutEvent;
-    v8 = routeCopy;
+    v9 = v5;
     if (!workoutEvent)
     {
-      v6 = objc_alloc_init(MOEventWorkout);
-      v7 = self->_workoutEvent;
-      self->_workoutEvent = v6;
+      v7 = objc_alloc_init(MOEventWorkout);
+      v8 = self->_workoutEvent;
+      self->_workoutEvent = v7;
 
       workoutEvent = self->_workoutEvent;
     }
 
-    [(MOEventWorkout *)workoutEvent setWorkoutLocationRoute:v8];
+    routeCopy = [(MOEventWorkout *)workoutEvent setWorkoutLocationRoute:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(routeCopy, v5);
 }
 
 - (void)setMotionStepCount:(id)count
 {
   countCopy = count;
+  v5 = countCopy;
   if (countCopy)
   {
     motionActivityEvent = self->_motionActivityEvent;
-    v8 = countCopy;
+    v9 = v5;
     if (!motionActivityEvent)
     {
-      v6 = objc_alloc_init(MOEventMotionActivity);
-      v7 = self->_motionActivityEvent;
-      self->_motionActivityEvent = v6;
+      v7 = objc_alloc_init(MOEventMotionActivity);
+      v8 = self->_motionActivityEvent;
+      self->_motionActivityEvent = v7;
 
       motionActivityEvent = self->_motionActivityEvent;
     }
 
-    [(MOEventMotionActivity *)motionActivityEvent setMotionStepCount:v8];
+    countCopy = [(MOEventMotionActivity *)motionActivityEvent setMotionStepCount:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(countCopy, v5);
+}
+
+- (void)setIsFitnessPlusSession:(BOOL)session
+{
+  sessionCopy = session;
+  workoutEvent = self->_workoutEvent;
+  if (!workoutEvent)
+  {
+    v6 = objc_alloc_init(MOEventWorkout);
+    v7 = self->_workoutEvent;
+    self->_workoutEvent = v6;
+
+    workoutEvent = self->_workoutEvent;
+  }
+
+  [(MOEventWorkout *)workoutEvent setIsFitnessPlusSession:sessionCopy];
 }
 
 - (void)setSuggestedEventTitle:(id)title
 {
   titleCopy = title;
+  v5 = titleCopy;
   if (titleCopy)
   {
     proactiveSuggestedEvent = self->_proactiveSuggestedEvent;
-    v8 = titleCopy;
+    v9 = v5;
     if (!proactiveSuggestedEvent)
     {
-      v6 = objc_alloc_init(MOEventProactiveSuggested);
-      v7 = self->_proactiveSuggestedEvent;
-      self->_proactiveSuggestedEvent = v6;
+      v7 = objc_alloc_init(MOEventProactiveSuggested);
+      v8 = self->_proactiveSuggestedEvent;
+      self->_proactiveSuggestedEvent = v7;
 
       proactiveSuggestedEvent = self->_proactiveSuggestedEvent;
     }
 
-    [(MOEventProactiveSuggested *)proactiveSuggestedEvent setSuggestedEventTitle:v8];
+    titleCopy = [(MOEventProactiveSuggested *)proactiveSuggestedEvent setSuggestedEventTitle:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(titleCopy, v5);
 }
 
 - (void)setSuggestedEventIdentifier:(id)identifier
 {
   identifierCopy = identifier;
+  v5 = identifierCopy;
   if (identifierCopy)
   {
     proactiveSuggestedEvent = self->_proactiveSuggestedEvent;
-    v8 = identifierCopy;
+    v9 = v5;
     if (!proactiveSuggestedEvent)
     {
-      v6 = objc_alloc_init(MOEventProactiveSuggested);
-      v7 = self->_proactiveSuggestedEvent;
-      self->_proactiveSuggestedEvent = v6;
+      v7 = objc_alloc_init(MOEventProactiveSuggested);
+      v8 = self->_proactiveSuggestedEvent;
+      self->_proactiveSuggestedEvent = v7;
 
       proactiveSuggestedEvent = self->_proactiveSuggestedEvent;
     }
 
-    [(MOEventProactiveSuggested *)proactiveSuggestedEvent setSuggestedEventIdentifier:v8];
+    identifierCopy = [(MOEventProactiveSuggested *)proactiveSuggestedEvent setSuggestedEventIdentifier:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(identifierCopy, v5);
 }
 
 - (void)setSuggestedEventCategory:(unint64_t)category
@@ -2010,375 +2103,409 @@ LABEL_21:
 - (void)setSuggestedEvent:(id)event
 {
   eventCopy = event;
+  v5 = eventCopy;
   if (eventCopy)
   {
     proactiveSuggestedEvent = self->_proactiveSuggestedEvent;
-    v8 = eventCopy;
+    v9 = v5;
     if (!proactiveSuggestedEvent)
     {
-      v6 = objc_alloc_init(MOEventProactiveSuggested);
-      v7 = self->_proactiveSuggestedEvent;
-      self->_proactiveSuggestedEvent = v6;
+      v7 = objc_alloc_init(MOEventProactiveSuggested);
+      v8 = self->_proactiveSuggestedEvent;
+      self->_proactiveSuggestedEvent = v7;
 
       proactiveSuggestedEvent = self->_proactiveSuggestedEvent;
     }
 
-    [(MOEventProactiveSuggested *)proactiveSuggestedEvent setSuggestedEvent:v8];
+    eventCopy = [(MOEventProactiveSuggested *)proactiveSuggestedEvent setSuggestedEvent:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(eventCopy, v5);
 }
 
 - (void)setTripTitle:(id)title
 {
   titleCopy = title;
+  v5 = titleCopy;
   if (titleCopy)
   {
     travelEvent = self->_travelEvent;
-    v8 = titleCopy;
+    v9 = v5;
     if (!travelEvent)
     {
-      v6 = objc_alloc_init(MOEventTravel);
-      v7 = self->_travelEvent;
-      self->_travelEvent = v6;
+      v7 = objc_alloc_init(MOEventTravel);
+      v8 = self->_travelEvent;
+      self->_travelEvent = v7;
 
       travelEvent = self->_travelEvent;
     }
 
-    [(MOEventTravel *)travelEvent setTripTitle:v8];
+    titleCopy = [(MOEventTravel *)travelEvent setTripTitle:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(titleCopy, v5);
 }
 
 - (void)setTripParts:(id)parts
 {
   partsCopy = parts;
+  v5 = partsCopy;
   if (partsCopy)
   {
     travelEvent = self->_travelEvent;
-    v8 = partsCopy;
+    v9 = v5;
     if (!travelEvent)
     {
-      v6 = objc_alloc_init(MOEventTravel);
-      v7 = self->_travelEvent;
-      self->_travelEvent = v6;
+      v7 = objc_alloc_init(MOEventTravel);
+      v8 = self->_travelEvent;
+      self->_travelEvent = v7;
 
       travelEvent = self->_travelEvent;
     }
 
-    [(MOEventTravel *)travelEvent setTripParts:v8];
+    partsCopy = [(MOEventTravel *)travelEvent setTripParts:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(partsCopy, v5);
 }
 
 - (void)setMediaTitle:(id)title
 {
   titleCopy = title;
+  v5 = titleCopy;
   if (titleCopy)
   {
     mediaEvent = self->_mediaEvent;
-    v8 = titleCopy;
+    v9 = v5;
     if (!mediaEvent)
     {
-      v6 = objc_alloc_init(MOEventMedia);
-      v7 = self->_mediaEvent;
-      self->_mediaEvent = v6;
+      v7 = objc_alloc_init(MOEventMedia);
+      v8 = self->_mediaEvent;
+      self->_mediaEvent = v7;
 
       mediaEvent = self->_mediaEvent;
     }
 
-    [(MOEventMedia *)mediaEvent setMediaTitle:v8];
+    titleCopy = [(MOEventMedia *)mediaEvent setMediaTitle:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(titleCopy, v5);
 }
 
 - (void)setMediaAlbum:(id)album
 {
   albumCopy = album;
+  v5 = albumCopy;
   if (albumCopy)
   {
     mediaEvent = self->_mediaEvent;
-    v8 = albumCopy;
+    v9 = v5;
     if (!mediaEvent)
     {
-      v6 = objc_alloc_init(MOEventMedia);
-      v7 = self->_mediaEvent;
-      self->_mediaEvent = v6;
+      v7 = objc_alloc_init(MOEventMedia);
+      v8 = self->_mediaEvent;
+      self->_mediaEvent = v7;
 
       mediaEvent = self->_mediaEvent;
     }
 
-    [(MOEventMedia *)mediaEvent setMediaAlbum:v8];
+    albumCopy = [(MOEventMedia *)mediaEvent setMediaAlbum:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(albumCopy, v5);
 }
 
 - (void)setMediaPlayerBundleId:(id)id
 {
   idCopy = id;
+  v5 = idCopy;
   if (idCopy)
   {
     mediaEvent = self->_mediaEvent;
-    v8 = idCopy;
+    v9 = v5;
     if (!mediaEvent)
     {
-      v6 = objc_alloc_init(MOEventMedia);
-      v7 = self->_mediaEvent;
-      self->_mediaEvent = v6;
+      v7 = objc_alloc_init(MOEventMedia);
+      v8 = self->_mediaEvent;
+      self->_mediaEvent = v7;
 
       mediaEvent = self->_mediaEvent;
     }
 
-    [(MOEventMedia *)mediaEvent setMediaPlayerBundleId:v8];
+    idCopy = [(MOEventMedia *)mediaEvent setMediaPlayerBundleId:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(idCopy, v5);
 }
 
 - (void)setMediaProductId:(id)id
 {
   idCopy = id;
+  v5 = idCopy;
   if (idCopy)
   {
     mediaEvent = self->_mediaEvent;
-    v8 = idCopy;
+    v9 = v5;
     if (!mediaEvent)
     {
-      v6 = objc_alloc_init(MOEventMedia);
-      v7 = self->_mediaEvent;
-      self->_mediaEvent = v6;
+      v7 = objc_alloc_init(MOEventMedia);
+      v8 = self->_mediaEvent;
+      self->_mediaEvent = v7;
 
       mediaEvent = self->_mediaEvent;
     }
 
-    [(MOEventMedia *)mediaEvent setMediaProductId:v8];
+    idCopy = [(MOEventMedia *)mediaEvent setMediaProductId:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(idCopy, v5);
 }
 
 - (void)setMediaGenre:(id)genre
 {
   genreCopy = genre;
+  v5 = genreCopy;
   if (genreCopy)
   {
     mediaEvent = self->_mediaEvent;
-    v8 = genreCopy;
+    v9 = v5;
     if (!mediaEvent)
     {
-      v6 = objc_alloc_init(MOEventMedia);
-      v7 = self->_mediaEvent;
-      self->_mediaEvent = v6;
+      v7 = objc_alloc_init(MOEventMedia);
+      v8 = self->_mediaEvent;
+      self->_mediaEvent = v7;
 
       mediaEvent = self->_mediaEvent;
     }
 
-    [(MOEventMedia *)mediaEvent setMediaGenre:v8];
+    genreCopy = [(MOEventMedia *)mediaEvent setMediaGenre:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(genreCopy, v5);
 }
 
 - (void)setMediaType:(id)type
 {
   typeCopy = type;
+  v5 = typeCopy;
   if (typeCopy)
   {
     mediaEvent = self->_mediaEvent;
-    v8 = typeCopy;
+    v9 = v5;
     if (!mediaEvent)
     {
-      v6 = objc_alloc_init(MOEventMedia);
-      v7 = self->_mediaEvent;
-      self->_mediaEvent = v6;
+      v7 = objc_alloc_init(MOEventMedia);
+      v8 = self->_mediaEvent;
+      self->_mediaEvent = v7;
 
       mediaEvent = self->_mediaEvent;
     }
 
-    [(MOEventMedia *)mediaEvent setMediaType:v8];
+    typeCopy = [(MOEventMedia *)mediaEvent setMediaType:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(typeCopy, v5);
 }
 
 - (void)setMediaArtist:(id)artist
 {
   artistCopy = artist;
+  v5 = artistCopy;
   if (artistCopy)
   {
     mediaEvent = self->_mediaEvent;
-    v8 = artistCopy;
+    v9 = v5;
     if (!mediaEvent)
     {
-      v6 = objc_alloc_init(MOEventMedia);
-      v7 = self->_mediaEvent;
-      self->_mediaEvent = v6;
+      v7 = objc_alloc_init(MOEventMedia);
+      v8 = self->_mediaEvent;
+      self->_mediaEvent = v7;
 
       mediaEvent = self->_mediaEvent;
     }
 
-    [(MOEventMedia *)mediaEvent setMediaArtist:v8];
+    artistCopy = [(MOEventMedia *)mediaEvent setMediaArtist:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(artistCopy, v5);
 }
 
 - (void)setMediaRepetitions:(id)repetitions
 {
   repetitionsCopy = repetitions;
+  v5 = repetitionsCopy;
   if (repetitionsCopy)
   {
     mediaEvent = self->_mediaEvent;
-    v8 = repetitionsCopy;
+    v9 = v5;
     if (!mediaEvent)
     {
-      v6 = objc_alloc_init(MOEventMedia);
-      v7 = self->_mediaEvent;
-      self->_mediaEvent = v6;
+      v7 = objc_alloc_init(MOEventMedia);
+      v8 = self->_mediaEvent;
+      self->_mediaEvent = v7;
 
       mediaEvent = self->_mediaEvent;
     }
 
-    [(MOEventMedia *)mediaEvent setMediaRepetitions:v8];
+    repetitionsCopy = [(MOEventMedia *)mediaEvent setMediaRepetitions:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(repetitionsCopy, v5);
 }
 
 - (void)setMediaSumTimePlayed:(id)played
 {
   playedCopy = played;
+  v5 = playedCopy;
   if (playedCopy)
   {
     mediaEvent = self->_mediaEvent;
-    v8 = playedCopy;
+    v9 = v5;
     if (!mediaEvent)
     {
-      v6 = objc_alloc_init(MOEventMedia);
-      v7 = self->_mediaEvent;
-      self->_mediaEvent = v6;
+      v7 = objc_alloc_init(MOEventMedia);
+      v8 = self->_mediaEvent;
+      self->_mediaEvent = v7;
 
       mediaEvent = self->_mediaEvent;
     }
 
-    [(MOEventMedia *)mediaEvent setMediaSumTimePlayed:v8];
+    playedCopy = [(MOEventMedia *)mediaEvent setMediaSumTimePlayed:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(playedCopy, v5);
 }
 
 - (void)setMediaPlaySessions:(id)sessions
 {
   sessionsCopy = sessions;
+  v5 = sessionsCopy;
   if (sessionsCopy)
   {
     mediaEvent = self->_mediaEvent;
-    v8 = sessionsCopy;
+    v9 = v5;
     if (!mediaEvent)
     {
-      v6 = objc_alloc_init(MOEventMedia);
-      v7 = self->_mediaEvent;
-      self->_mediaEvent = v6;
+      v7 = objc_alloc_init(MOEventMedia);
+      v8 = self->_mediaEvent;
+      self->_mediaEvent = v7;
 
       mediaEvent = self->_mediaEvent;
     }
 
-    [(MOEventMedia *)mediaEvent setMediaPlaySessions:v8];
+    sessionsCopy = [(MOEventMedia *)mediaEvent setMediaPlaySessions:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(sessionsCopy, v5);
 }
 
 - (void)setPredominantWeather:(id)weather
 {
   weatherCopy = weather;
+  v5 = weatherCopy;
   if (weatherCopy)
   {
     routineEvent = self->_routineEvent;
-    v8 = weatherCopy;
+    v9 = v5;
     if (!routineEvent)
     {
-      v6 = objc_alloc_init(MOEventRoutine);
-      v7 = self->_routineEvent;
-      self->_routineEvent = v6;
+      v7 = objc_alloc_init(MOEventRoutine);
+      v8 = self->_routineEvent;
+      self->_routineEvent = v7;
 
       routineEvent = self->_routineEvent;
     }
 
-    [(MOEventRoutine *)routineEvent setPredominantWeather:v8];
+    weatherCopy = [(MOEventRoutine *)routineEvent setPredominantWeather:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(weatherCopy, v5);
 }
 
 - (void)setItemURL:(id)l
 {
   lCopy = l;
+  v5 = lCopy;
   if (lCopy)
   {
     sharedWithYouEvent = self->_sharedWithYouEvent;
-    v8 = lCopy;
+    v9 = v5;
     if (!sharedWithYouEvent)
     {
-      v6 = objc_alloc_init(MOEventSharedWithYou);
-      v7 = self->_sharedWithYouEvent;
-      self->_sharedWithYouEvent = v6;
+      v7 = objc_alloc_init(MOEventSharedWithYou);
+      v8 = self->_sharedWithYouEvent;
+      self->_sharedWithYouEvent = v7;
 
       sharedWithYouEvent = self->_sharedWithYouEvent;
     }
 
-    [(MOEventSharedWithYou *)sharedWithYouEvent setItemURL:v8];
+    lCopy = [(MOEventSharedWithYou *)sharedWithYouEvent setItemURL:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(lCopy, v5);
 }
 
 - (void)setItemSenders:(id)senders
 {
   sendersCopy = senders;
+  v5 = sendersCopy;
   if (sendersCopy)
   {
     sharedWithYouEvent = self->_sharedWithYouEvent;
-    v8 = sendersCopy;
+    v9 = v5;
     if (!sharedWithYouEvent)
     {
-      v6 = objc_alloc_init(MOEventSharedWithYou);
-      v7 = self->_sharedWithYouEvent;
-      self->_sharedWithYouEvent = v6;
+      v7 = objc_alloc_init(MOEventSharedWithYou);
+      v8 = self->_sharedWithYouEvent;
+      self->_sharedWithYouEvent = v7;
 
       sharedWithYouEvent = self->_sharedWithYouEvent;
     }
 
-    [(MOEventSharedWithYou *)sharedWithYouEvent setItemSenders:v8];
+    sendersCopy = [(MOEventSharedWithYou *)sharedWithYouEvent setItemSenders:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(sendersCopy, v5);
 }
 
 - (void)setItemRecipients:(id)recipients
 {
   recipientsCopy = recipients;
+  v5 = recipientsCopy;
   if (recipientsCopy)
   {
     sharedWithYouEvent = self->_sharedWithYouEvent;
-    v8 = recipientsCopy;
+    v9 = v5;
     if (!sharedWithYouEvent)
     {
-      v6 = objc_alloc_init(MOEventSharedWithYou);
-      v7 = self->_sharedWithYouEvent;
-      self->_sharedWithYouEvent = v6;
+      v7 = objc_alloc_init(MOEventSharedWithYou);
+      v8 = self->_sharedWithYouEvent;
+      self->_sharedWithYouEvent = v7;
 
       sharedWithYouEvent = self->_sharedWithYouEvent;
     }
 
-    [(MOEventSharedWithYou *)sharedWithYouEvent setItemRecipients:v8];
+    recipientsCopy = [(MOEventSharedWithYou *)sharedWithYouEvent setItemRecipients:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(recipientsCopy, v5);
 }
 
 - (void)setItemShareDirection:(unint64_t)direction
@@ -2394,6 +2521,22 @@ LABEL_21:
   }
 
   [(MOEventSharedWithYou *)sharedWithYouEvent setItemShareDirection:direction];
+}
+
+- (void)setItemIsPinned:(BOOL)pinned
+{
+  pinnedCopy = pinned;
+  sharedWithYouEvent = self->_sharedWithYouEvent;
+  if (!sharedWithYouEvent)
+  {
+    v6 = objc_alloc_init(MOEventSharedWithYou);
+    v7 = self->_sharedWithYouEvent;
+    self->_sharedWithYouEvent = v6;
+
+    sharedWithYouEvent = self->_sharedWithYouEvent;
+  }
+
+  [(MOEventSharedWithYou *)sharedWithYouEvent setItemIsPinned:pinnedCopy];
 }
 
 - (void)setItemSyndicationStatus:(unint64_t)status
@@ -2414,177 +2557,209 @@ LABEL_21:
 - (void)setItemAttributionsCount:(id)count
 {
   countCopy = count;
+  v5 = countCopy;
   if (countCopy)
   {
     sharedWithYouEvent = self->_sharedWithYouEvent;
-    v8 = countCopy;
+    v9 = v5;
     if (!sharedWithYouEvent)
     {
-      v6 = objc_alloc_init(MOEventSharedWithYou);
-      v7 = self->_sharedWithYouEvent;
-      self->_sharedWithYouEvent = v6;
+      v7 = objc_alloc_init(MOEventSharedWithYou);
+      v8 = self->_sharedWithYouEvent;
+      self->_sharedWithYouEvent = v7;
 
       sharedWithYouEvent = self->_sharedWithYouEvent;
     }
 
-    [(MOEventSharedWithYou *)sharedWithYouEvent setItemAttributionsCount:v8];
+    countCopy = [(MOEventSharedWithYou *)sharedWithYouEvent setItemAttributionsCount:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(countCopy, v5);
 }
 
 - (void)setInteractionContactScore:(id)score
 {
   scoreCopy = score;
+  v5 = scoreCopy;
   if (scoreCopy)
   {
     significantContactEvent = self->_significantContactEvent;
-    v8 = scoreCopy;
+    v9 = v5;
     if (!significantContactEvent)
     {
-      v6 = objc_alloc_init(MOEventSignificantContact);
-      v7 = self->_significantContactEvent;
-      self->_significantContactEvent = v6;
+      v7 = objc_alloc_init(MOEventSignificantContact);
+      v8 = self->_significantContactEvent;
+      self->_significantContactEvent = v7;
 
       significantContactEvent = self->_significantContactEvent;
     }
 
-    [(MOEventSignificantContact *)significantContactEvent setInteractionContactScore:v8];
+    scoreCopy = [(MOEventSignificantContact *)significantContactEvent setInteractionContactScore:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(scoreCopy, v5);
 }
 
 - (void)setInteractionScoredContact:(id)contact
 {
   contactCopy = contact;
+  v5 = contactCopy;
   if (contactCopy)
   {
     significantContactEvent = self->_significantContactEvent;
-    v8 = contactCopy;
+    v9 = v5;
     if (!significantContactEvent)
     {
-      v6 = objc_alloc_init(MOEventSignificantContact);
-      v7 = self->_significantContactEvent;
-      self->_significantContactEvent = v6;
+      v7 = objc_alloc_init(MOEventSignificantContact);
+      v8 = self->_significantContactEvent;
+      self->_significantContactEvent = v7;
 
       significantContactEvent = self->_significantContactEvent;
     }
 
-    [(MOEventSignificantContact *)significantContactEvent setInteractionScoredContact:v8];
+    contactCopy = [(MOEventSignificantContact *)significantContactEvent setInteractionScoredContact:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(contactCopy, v5);
 }
 
 - (void)setInteractionGroupName:(id)name
 {
   nameCopy = name;
+  v5 = nameCopy;
   if (nameCopy)
   {
     significantContactEvent = self->_significantContactEvent;
-    v8 = nameCopy;
+    v9 = v5;
     if (!significantContactEvent)
     {
-      v6 = objc_alloc_init(MOEventSignificantContact);
-      v7 = self->_significantContactEvent;
-      self->_significantContactEvent = v6;
+      v7 = objc_alloc_init(MOEventSignificantContact);
+      v8 = self->_significantContactEvent;
+      self->_significantContactEvent = v7;
 
       significantContactEvent = self->_significantContactEvent;
     }
 
-    [(MOEventSignificantContact *)significantContactEvent setInteractionGroupName:v8];
+    nameCopy = [(MOEventSignificantContact *)significantContactEvent setInteractionGroupName:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(nameCopy, v5);
 }
 
 - (void)setInteractionContacts:(id)contacts
 {
   contactsCopy = contacts;
+  v5 = contactsCopy;
   if (contactsCopy)
   {
     significantContactEvent = self->_significantContactEvent;
-    v8 = contactsCopy;
+    v9 = v5;
     if (!significantContactEvent)
     {
-      v6 = objc_alloc_init(MOEventSignificantContact);
-      v7 = self->_significantContactEvent;
-      self->_significantContactEvent = v6;
+      v7 = objc_alloc_init(MOEventSignificantContact);
+      v8 = self->_significantContactEvent;
+      self->_significantContactEvent = v7;
 
       significantContactEvent = self->_significantContactEvent;
     }
 
-    [(MOEventSignificantContact *)significantContactEvent setInteractionContacts:v8];
+    contactsCopy = [(MOEventSignificantContact *)significantContactEvent setInteractionContacts:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(contactsCopy, v5);
 }
 
 - (void)setContactClassificationMap:(id)map
 {
   mapCopy = map;
+  v5 = mapCopy;
   if (mapCopy)
   {
     significantContactEvent = self->_significantContactEvent;
-    v8 = mapCopy;
+    v9 = v5;
     if (!significantContactEvent)
     {
-      v6 = objc_alloc_init(MOEventSignificantContact);
-      v7 = self->_significantContactEvent;
-      self->_significantContactEvent = v6;
+      v7 = objc_alloc_init(MOEventSignificantContact);
+      v8 = self->_significantContactEvent;
+      self->_significantContactEvent = v7;
 
       significantContactEvent = self->_significantContactEvent;
     }
 
-    [(MOEventSignificantContact *)significantContactEvent setContactClassificationMap:v8];
+    mapCopy = [(MOEventSignificantContact *)significantContactEvent setContactClassificationMap:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(mapCopy, v5);
 }
 
 - (void)setInteractionMechanisms:(id)mechanisms
 {
   mechanismsCopy = mechanisms;
+  v5 = mechanismsCopy;
   if (mechanismsCopy)
   {
     significantContactEvent = self->_significantContactEvent;
-    v8 = mechanismsCopy;
+    v9 = v5;
     if (!significantContactEvent)
     {
-      v6 = objc_alloc_init(MOEventSignificantContact);
-      v7 = self->_significantContactEvent;
-      self->_significantContactEvent = v6;
+      v7 = objc_alloc_init(MOEventSignificantContact);
+      v8 = self->_significantContactEvent;
+      self->_significantContactEvent = v7;
 
       significantContactEvent = self->_significantContactEvent;
     }
 
-    [(MOEventSignificantContact *)significantContactEvent setInteractionMechanisms:v8];
+    mechanismsCopy = [(MOEventSignificantContact *)significantContactEvent setInteractionMechanisms:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(mechanismsCopy, v5);
 }
 
 - (void)setInteractions:(id)interactions
 {
   interactionsCopy = interactions;
+  v5 = interactionsCopy;
   if (interactionsCopy)
   {
     significantContactEvent = self->_significantContactEvent;
-    v8 = interactionsCopy;
+    v9 = v5;
     if (!significantContactEvent)
     {
-      v6 = objc_alloc_init(MOEventSignificantContact);
-      v7 = self->_significantContactEvent;
-      self->_significantContactEvent = v6;
+      v7 = objc_alloc_init(MOEventSignificantContact);
+      v8 = self->_significantContactEvent;
+      self->_significantContactEvent = v7;
 
       significantContactEvent = self->_significantContactEvent;
     }
 
-    [(MOEventSignificantContact *)significantContactEvent setInteractions:v8];
+    interactionsCopy = [(MOEventSignificantContact *)significantContactEvent setInteractions:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(interactionsCopy, v5);
+}
+
+- (void)setIsGComplete:(BOOL)complete
+{
+  completeCopy = complete;
+  peopleDiscoveryEvent = self->_peopleDiscoveryEvent;
+  if (!peopleDiscoveryEvent)
+  {
+    v6 = objc_alloc_init(MOEventPeopleDiscovery);
+    v7 = self->_peopleDiscoveryEvent;
+    self->_peopleDiscoveryEvent = v6;
+
+    peopleDiscoveryEvent = self->_peopleDiscoveryEvent;
+  }
+
+  [(MOEventPeopleDiscovery *)peopleDiscoveryEvent setIsGComplete:completeCopy];
 }
 
 - (void)setGaPR:(int64_t)r
@@ -2605,89 +2780,97 @@ LABEL_21:
 - (void)setPCount:(id)count
 {
   countCopy = count;
+  v5 = countCopy;
   if (countCopy)
   {
     peopleDiscoveryEvent = self->_peopleDiscoveryEvent;
-    v8 = countCopy;
+    v9 = v5;
     if (!peopleDiscoveryEvent)
     {
-      v6 = objc_alloc_init(MOEventPeopleDiscovery);
-      v7 = self->_peopleDiscoveryEvent;
-      self->_peopleDiscoveryEvent = v6;
+      v7 = objc_alloc_init(MOEventPeopleDiscovery);
+      v8 = self->_peopleDiscoveryEvent;
+      self->_peopleDiscoveryEvent = v7;
 
       peopleDiscoveryEvent = self->_peopleDiscoveryEvent;
     }
 
-    [(MOEventPeopleDiscovery *)peopleDiscoveryEvent setPCount:v8];
+    countCopy = [(MOEventPeopleDiscovery *)peopleDiscoveryEvent setPCount:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(countCopy, v5);
 }
 
 - (void)setDensityScore:(id)score
 {
   scoreCopy = score;
+  v5 = scoreCopy;
   if (scoreCopy)
   {
     peopleDiscoveryEvent = self->_peopleDiscoveryEvent;
-    v8 = scoreCopy;
+    v9 = v5;
     if (!peopleDiscoveryEvent)
     {
-      v6 = objc_alloc_init(MOEventPeopleDiscovery);
-      v7 = self->_peopleDiscoveryEvent;
-      self->_peopleDiscoveryEvent = v6;
+      v7 = objc_alloc_init(MOEventPeopleDiscovery);
+      v8 = self->_peopleDiscoveryEvent;
+      self->_peopleDiscoveryEvent = v7;
 
       peopleDiscoveryEvent = self->_peopleDiscoveryEvent;
     }
 
-    [(MOEventPeopleDiscovery *)peopleDiscoveryEvent setDensityScore:v8];
+    scoreCopy = [(MOEventPeopleDiscovery *)peopleDiscoveryEvent setDensityScore:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(scoreCopy, v5);
 }
 
 - (void)setDensityScanDuration:(id)duration
 {
   durationCopy = duration;
+  v5 = durationCopy;
   if (durationCopy)
   {
     peopleDiscoveryEvent = self->_peopleDiscoveryEvent;
-    v8 = durationCopy;
+    v9 = v5;
     if (!peopleDiscoveryEvent)
     {
-      v6 = objc_alloc_init(MOEventPeopleDiscovery);
-      v7 = self->_peopleDiscoveryEvent;
-      self->_peopleDiscoveryEvent = v6;
+      v7 = objc_alloc_init(MOEventPeopleDiscovery);
+      v8 = self->_peopleDiscoveryEvent;
+      self->_peopleDiscoveryEvent = v7;
 
       peopleDiscoveryEvent = self->_peopleDiscoveryEvent;
     }
 
-    [(MOEventPeopleDiscovery *)peopleDiscoveryEvent setDensityScanDuration:v8];
+    durationCopy = [(MOEventPeopleDiscovery *)peopleDiscoveryEvent setDensityScanDuration:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(durationCopy, v5);
 }
 
 - (void)setScoredTopics:(id)topics
 {
   topicsCopy = topics;
+  v5 = topicsCopy;
   if (topicsCopy)
   {
     portraitEvent = self->_portraitEvent;
-    v8 = topicsCopy;
+    v9 = v5;
     if (!portraitEvent)
     {
-      v6 = objc_alloc_init(MOEventPortrait);
-      v7 = self->_portraitEvent;
-      self->_portraitEvent = v6;
+      v7 = objc_alloc_init(MOEventPortrait);
+      v8 = self->_portraitEvent;
+      self->_portraitEvent = v7;
 
       portraitEvent = self->_portraitEvent;
     }
 
-    [(MOEventPortrait *)portraitEvent setScoredTopics:v8];
+    topicsCopy = [(MOEventPortrait *)portraitEvent setScoredTopics:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(topicsCopy, v5);
 }
 
 - (void)setMotionType:(unint64_t)type
@@ -2708,45 +2891,49 @@ LABEL_21:
 - (void)setTrends:(id)trends
 {
   trendsCopy = trends;
+  v5 = trendsCopy;
   if (trendsCopy)
   {
     analyticsEvent = self->_analyticsEvent;
-    v8 = trendsCopy;
+    v9 = v5;
     if (!analyticsEvent)
     {
-      v6 = objc_alloc_init(MOEventAnalytics);
-      v7 = self->_analyticsEvent;
-      self->_analyticsEvent = v6;
+      v7 = objc_alloc_init(MOEventAnalytics);
+      v8 = self->_analyticsEvent;
+      self->_analyticsEvent = v7;
 
       analyticsEvent = self->_analyticsEvent;
     }
 
-    [(MOEventAnalytics *)analyticsEvent setTrends:v8];
+    trendsCopy = [(MOEventAnalytics *)analyticsEvent setTrends:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(trendsCopy, v5);
 }
 
 - (void)setPatterns:(id)patterns
 {
   patternsCopy = patterns;
+  v5 = patternsCopy;
   if (patternsCopy)
   {
     analyticsEvent = self->_analyticsEvent;
-    v8 = patternsCopy;
+    v9 = v5;
     if (!analyticsEvent)
     {
-      v6 = objc_alloc_init(MOEventAnalytics);
-      v7 = self->_analyticsEvent;
-      self->_analyticsEvent = v6;
+      v7 = objc_alloc_init(MOEventAnalytics);
+      v8 = self->_analyticsEvent;
+      self->_analyticsEvent = v7;
 
       analyticsEvent = self->_analyticsEvent;
     }
 
-    [(MOEventAnalytics *)analyticsEvent setPatterns:v8];
+    patternsCopy = [(MOEventAnalytics *)analyticsEvent setPatterns:v9];
+    v5 = v9;
   }
 
-  _objc_release_x1();
+  _objc_release_x1(patternsCopy, v5);
 }
 
 - (void)setLifeEventCategory:(unint64_t)category

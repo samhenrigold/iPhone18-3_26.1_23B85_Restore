@@ -18,17 +18,17 @@
 
 + (id)mostUsedAppBundleIdsUsingPredicate:(id)predicate knowledgeStore:(id)store
 {
-  v54[1] = *MEMORY[0x1E69E9840];
+  v53[1] = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
   storeCopy = store;
   v7 = MEMORY[0x1E6997968];
   appUsageStream = [MEMORY[0x1E69979E8] appUsageStream];
-  v54[0] = appUsageStream;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:1];
+  v53[0] = appUsageStream;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v53 count:1];
   v10 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-  v53 = v10;
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v53 count:1];
-  v37 = predicateCopy;
+  v52 = v10;
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v52 count:1];
+  v36 = predicateCopy;
   v12 = [v7 eventQueryWithPredicate:predicateCopy eventStreams:v9 offset:0 limit:5000 sortDescriptors:v11];
 
   v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"_PSAppUsageUtilities.m"];
@@ -39,61 +39,61 @@
   [v12 setExecuteConcurrently:1];
   [v12 setResultType:5];
   [v12 setGroupByProperties:&unk_1F2D8C3A8];
-  v50 = 0;
-  v35 = v12;
-  v36 = storeCopy;
-  v15 = [storeCopy executeQuery:v12 error:&v50];
-  v34 = v50;
-  v41 = v15;
+  v49 = 0;
+  v34 = v12;
+  v35 = storeCopy;
+  v15 = [storeCopy executeQuery:v12 error:&v49];
+  v33 = v49;
+  v40 = v15;
   v16 = [v15 valueForKeyPath:@"@distinctUnionOfObjects.valueString"];
-  v40 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v39 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v45 = 0u;
   v46 = 0u;
   v47 = 0u;
   v48 = 0u;
-  v49 = 0u;
   obj = v16;
-  v17 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
+  v17 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
   if (v17)
   {
     v18 = v17;
-    v39 = *v47;
+    v38 = *v46;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v47 != v39)
+        if (*v46 != v38)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v46 + 1) + 8 * i);
+        v20 = *(*(&v45 + 1) + 8 * i);
         v21 = [MEMORY[0x1E696AE18] predicateWithFormat:@"valueString == %@", v20];
-        v22 = [v41 filteredArrayUsingPredicate:v21];
+        v22 = [v40 filteredArrayUsingPredicate:v21];
+        v41 = 0u;
         v42 = 0u;
         v43 = 0u;
         v44 = 0u;
-        v45 = 0u;
-        v23 = [v22 countByEnumeratingWithState:&v42 objects:v51 count:16];
+        v23 = [v22 countByEnumeratingWithState:&v41 objects:v50 count:16];
         if (v23)
         {
           v24 = v23;
-          v25 = *v43;
+          v25 = *v42;
           v26 = 0.0;
           do
           {
             for (j = 0; j != v24; ++j)
             {
-              if (*v43 != v25)
+              if (*v42 != v25)
               {
                 objc_enumerationMutation(v22);
               }
 
-              v28 = [*(*(&v42 + 1) + 8 * j) objectForKeyedSubscript:@"duration"];
+              v28 = [*(*(&v41 + 1) + 8 * j) objectForKeyedSubscript:@"duration"];
               [v28 doubleValue];
               v26 = v26 + v29;
             }
 
-            v24 = [v22 countByEnumeratingWithState:&v42 objects:v51 count:16];
+            v24 = [v22 countByEnumeratingWithState:&v41 objects:v50 count:16];
           }
 
           while (v24);
@@ -105,25 +105,23 @@
         }
 
         v30 = [MEMORY[0x1E696AD98] numberWithDouble:v26];
-        [v40 setObject:v30 forKey:v20];
+        [v39 setObject:v30 forKey:v20];
       }
 
-      v18 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
+      v18 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
     }
 
     while (v18);
   }
 
-  v31 = [v40 keysSortedByValueUsingComparator:&__block_literal_global_39_0];
-
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = [v39 keysSortedByValueUsingComparator:&__block_literal_global_39_0];
 
   return v31;
 }
 
 + (id)shareExtensionsUsedAndInstalledDaysAgo:(int64_t)ago appBundleIdsToShareExtensionBundleIdsMapping:(id)mapping knowledgeStore:(id)store
 {
-  v105[2] = *MEMORY[0x1E69E9840];
+  v104[2] = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
   storeCopy = store;
   v9 = MEMORY[0x1E69979D0];
@@ -137,15 +135,15 @@
 
   v16 = MEMORY[0x1E6997968];
   v17 = MEMORY[0x1E696AB28];
-  v71 = v15;
-  v72 = v12;
-  v105[0] = v12;
-  v105[1] = v15;
-  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v105 count:2];
+  v70 = v15;
+  v71 = v12;
+  v104[0] = v12;
+  v104[1] = v15;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v104 count:2];
   v19 = [v17 andPredicateWithSubpredicates:v18];
   appInstallStream = [MEMORY[0x1E69979E8] appInstallStream];
-  v104 = appInstallStream;
-  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v104 count:1];
+  v103 = appInstallStream;
+  v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v103 count:1];
   v22 = [v16 eventQueryWithPredicate:v19 eventStreams:v21 offset:0 limit:8 sortDescriptors:0];
 
   v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"_PSAppUsageUtilities.m"];
@@ -154,32 +152,32 @@
 
   [v22 setTracker:&__block_literal_global_44];
   [v22 setExecuteConcurrently:1];
-  v97 = 0;
-  v78 = storeCopy;
-  v70 = v22;
-  v25 = [storeCopy executeQuery:v22 error:&v97];
-  v69 = v97;
+  v96 = 0;
+  v77 = storeCopy;
+  v69 = v22;
+  v25 = [storeCopy executeQuery:v22 error:&v96];
+  v68 = v96;
   v26 = [MEMORY[0x1E695DFA8] set];
+  v92 = 0u;
   v93 = 0u;
   v94 = 0u;
   v95 = 0u;
-  v96 = 0u;
   obj = v25;
-  v27 = [obj countByEnumeratingWithState:&v93 objects:v103 count:16];
+  v27 = [obj countByEnumeratingWithState:&v92 objects:v102 count:16];
   if (v27)
   {
     v28 = v27;
-    v29 = *v94;
+    v29 = *v93;
     do
     {
       for (i = 0; i != v28; ++i)
       {
-        if (*v94 != v29)
+        if (*v93 != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        value = [*(*(&v93 + 1) + 8 * i) value];
+        value = [*(*(&v92 + 1) + 8 * i) value];
         stringValue = [value stringValue];
 
         if (stringValue)
@@ -193,7 +191,7 @@
         }
       }
 
-      v28 = [obj countByEnumeratingWithState:&v93 objects:v103 count:16];
+      v28 = [obj countByEnumeratingWithState:&v92 objects:v102 count:16];
     }
 
     while (v28);
@@ -202,14 +200,14 @@
   if ([v26 count] && objc_msgSend(v26, "count") <= 2)
   {
     v35 = [MEMORY[0x1E69979D0] startDateSortDescriptorAscending:0];
-    v102 = v35;
-    v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v102 count:1];
+    v101 = v35;
+    v36 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v101 count:1];
 
     v37 = MEMORY[0x1E6997968];
     appUsageStream = [MEMORY[0x1E69979E8] appUsageStream];
-    v101 = appUsageStream;
-    v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v101 count:1];
-    v67 = v36;
+    v100 = appUsageStream;
+    v39 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v100 count:1];
+    v66 = v36;
     v40 = [v37 eventQueryWithPredicate:0 eventStreams:v39 offset:0 limit:1 sortDescriptors:v36];
 
     v41 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"_PSAppUsageUtilities.m"];
@@ -218,99 +216,99 @@
 
     [v40 setTracker:&__block_literal_global_47];
     [v40 setExecuteConcurrently:1];
-    v77 = v40;
+    v76 = v40;
     [v40 setResultType:2];
-    v74 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v26, "count")}];
+    v73 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v26, "count")}];
+    v88 = 0u;
     v89 = 0u;
     v90 = 0u;
     v91 = 0u;
-    v92 = 0u;
-    v75 = v26;
-    v43 = [v75 countByEnumeratingWithState:&v89 objects:v100 count:16];
-    v68 = v26;
+    v74 = v26;
+    v43 = [v74 countByEnumeratingWithState:&v88 objects:v99 count:16];
+    v67 = v26;
     if (v43)
     {
       v44 = v43;
-      v45 = *v90;
+      v45 = *v89;
       do
       {
         for (j = 0; j != v44; ++j)
         {
-          if (*v90 != v45)
+          if (*v89 != v45)
           {
-            objc_enumerationMutation(v75);
+            objc_enumerationMutation(v74);
           }
 
-          v47 = *(*(&v89 + 1) + 8 * j);
+          v47 = *(*(&v88 + 1) + 8 * j);
           v48 = [MEMORY[0x1E69979D0] predicateForEventsWithStringValue:v47];
-          [v77 setPredicate:v48];
-          v88 = 0;
-          v49 = [v78 executeQuery:v77 error:&v88];
-          v50 = v88;
+          [v76 setPredicate:v48];
+          v87 = 0;
+          v49 = [v77 executeQuery:v76 error:&v87];
+          v50 = v87;
           firstObject = [v49 firstObject];
           v52 = firstObject;
           if (firstObject)
           {
             startDate = [firstObject startDate];
-            [v74 setObject:startDate forKeyedSubscript:v47];
+            [v73 setObject:startDate forKeyedSubscript:v47];
           }
         }
 
-        v44 = [v75 countByEnumeratingWithState:&v89 objects:v100 count:16];
+        v44 = [v74 countByEnumeratingWithState:&v88 objects:v99 count:16];
       }
 
       while (v44);
     }
 
-    v54 = [v74 keysSortedByValueUsingComparator:&__block_literal_global_49];
+    v54 = [v73 keysSortedByValueUsingComparator:&__block_literal_global_49];
     array = [MEMORY[0x1E695DF70] array];
+    v83 = 0u;
     v84 = 0u;
     v85 = 0u;
     v86 = 0u;
-    v87 = 0u;
-    v73 = v54;
-    v55 = [v73 countByEnumeratingWithState:&v84 objects:v99 count:16];
+    v72 = v54;
+    v55 = [v72 countByEnumeratingWithState:&v83 objects:v98 count:16];
     if (v55)
     {
       v56 = v55;
-      v76 = *v85;
+      v75 = *v84;
       do
       {
         for (k = 0; k != v56; ++k)
         {
-          if (*v85 != v76)
+          if (*v84 != v75)
           {
-            objc_enumerationMutation(v73);
+            objc_enumerationMutation(v72);
           }
 
           v58 = mappingCopy;
-          v59 = [mappingCopy objectForKeyedSubscript:*(*(&v84 + 1) + 8 * k)];
+          v59 = [mappingCopy objectForKeyedSubscript:*(*(&v83 + 1) + 8 * k)];
+          v79 = 0u;
           v80 = 0u;
           v81 = 0u;
           v82 = 0u;
-          v83 = 0u;
-          v60 = [v59 countByEnumeratingWithState:&v80 objects:v98 count:16];
+          v60 = [v59 countByEnumeratingWithState:&v79 objects:v97 count:16];
           if (v60)
           {
             v61 = v60;
-            v62 = *v81;
+            v62 = *v80;
             do
             {
               for (m = 0; m != v61; ++m)
               {
-                if (*v81 != v62)
+                if (*v80 != v62)
                 {
                   objc_enumerationMutation(v59);
                 }
 
-                v64 = [[_PSSuggestion alloc] initWithBundleID:*(*(&v80 + 1) + 8 * m) conversationIdentifier:0 groupName:0 recipients:0];
+                v64 = [[_PSSuggestion alloc] initWithBundleID:*(*(&v79 + 1) + 8 * m) conversationIdentifier:0 groupName:0 recipients:0];
                 if (v64)
                 {
                   [array addObject:v64];
                 }
               }
 
-              v61 = [v59 countByEnumeratingWithState:&v80 objects:v98 count:16];
+              v61 = [v59 countByEnumeratingWithState:&v79 objects:v97 count:16];
             }
 
             while (v61);
@@ -319,13 +317,13 @@
           mappingCopy = v58;
         }
 
-        v56 = [v73 countByEnumeratingWithState:&v84 objects:v99 count:16];
+        v56 = [v72 countByEnumeratingWithState:&v83 objects:v98 count:16];
       }
 
       while (v56);
     }
 
-    v26 = v68;
+    v26 = v67;
   }
 
   else
@@ -333,153 +331,149 @@
     array = MEMORY[0x1E695E0F0];
   }
 
-  v65 = *MEMORY[0x1E69E9840];
-
   return array;
 }
 
 + (id)suggestionsFromAppBundleIds:(id)ids appBundleIdsToShareExtensionBundleIdsMapping:(id)mapping
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   idsCopy = ids;
   mappingCopy = mapping;
   v7 = objc_opt_new();
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = idsCopy;
-  v8 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+  v8 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v31;
-    v23 = *v31;
+    v10 = *v30;
+    v22 = *v30;
     do
     {
       v11 = 0;
-      v24 = v9;
+      v23 = v9;
       do
       {
-        if (*v31 != v10)
+        if (*v30 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = [mappingCopy objectForKeyedSubscript:*(*(&v30 + 1) + 8 * v11)];
+        v12 = [mappingCopy objectForKeyedSubscript:*(*(&v29 + 1) + 8 * v11)];
         v13 = v12;
         if (v12 && [v12 count])
         {
           v14 = mappingCopy;
-          v28 = 0u;
-          v29 = 0u;
-          v26 = 0u;
           v27 = 0u;
+          v28 = 0u;
+          v25 = 0u;
+          v26 = 0u;
           v15 = v13;
-          v16 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v27;
+            v18 = *v26;
             do
             {
               for (i = 0; i != v17; ++i)
               {
-                if (*v27 != v18)
+                if (*v26 != v18)
                 {
                   objc_enumerationMutation(v15);
                 }
 
-                v20 = [[_PSSuggestion alloc] initWithBundleID:*(*(&v26 + 1) + 8 * i) conversationIdentifier:0 groupName:0 recipients:0];
+                v20 = [[_PSSuggestion alloc] initWithBundleID:*(*(&v25 + 1) + 8 * i) conversationIdentifier:0 groupName:0 recipients:0];
                 if (v20)
                 {
                   [v7 addObject:v20];
                 }
               }
 
-              v17 = [v15 countByEnumeratingWithState:&v26 objects:v34 count:16];
+              v17 = [v15 countByEnumeratingWithState:&v25 objects:v33 count:16];
             }
 
             while (v17);
           }
 
           mappingCopy = v14;
-          v10 = v23;
-          v9 = v24;
+          v10 = v22;
+          v9 = v23;
         }
 
         ++v11;
       }
 
       while (v11 != v9);
-      v9 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+      v9 = [obj countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
     while (v9);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)suggestionsFromShareBundleIds:(id)ids appBundleIdsToShareExtensionBundleIdsMapping:(id)mapping
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   idsCopy = ids;
   mappingCopy = mapping;
   v7 = objc_opt_new();
   v8 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   v9 = mappingCopy;
-  v10 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v29;
+    v12 = *v28;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [v9 objectForKeyedSubscript:*(*(&v28 + 1) + 8 * i)];
+        v14 = [v9 objectForKeyedSubscript:*(*(&v27 + 1) + 8 * i)];
         [v8 addObjectsFromArray:v14];
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v11);
   }
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v15 = idsCopy;
-  v16 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v25;
+    v18 = *v24;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v25 != v18)
+        if (*v24 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v24 + 1) + 8 * j);
-        if ([v8 containsObject:{v20, v24}])
+        v20 = *(*(&v23 + 1) + 8 * j);
+        if ([v8 containsObject:{v20, v23}])
         {
           v21 = [[_PSSuggestion alloc] initWithBundleID:v20 conversationIdentifier:0 groupName:0 recipients:0];
           if (v21)
@@ -489,20 +483,18 @@
         }
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v17);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 + (id)boostAppsForSourceBundleId:(id)id
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   idCopy = id;
   v4 = objc_autoreleasePoolPush();
   v5 = objc_alloc(MEMORY[0x1E695DFD8]);
@@ -519,21 +511,21 @@
     if (v10)
     {
       *buf = 138412290;
-      v23 = idCopy;
+      v22 = idCopy;
       _os_log_impl(&dword_1B5ED1000, v9, OS_LOG_TYPE_INFO, "Rank default (Journal > Reminders) apps for source bundleId: %@", buf, 0xCu);
     }
 
     v11 = +[_PSConstants notesBundleId];
-    v21[0] = v11;
+    v20[0] = v11;
     v12 = +[_PSConstants journalBundleId];
-    v21[1] = v12;
+    v20[1] = v12;
     v13 = +[_PSConstants remindersBundleId];
-    v21[2] = v13;
+    v20[2] = v13;
     v14 = +[_PSConstants freeformBundleId];
-    v21[3] = v14;
+    v20[3] = v14;
     v15 = +[_PSConstants booksBundleId];
-    v21[4] = v15;
-    v16 = v21;
+    v20[4] = v15;
+    v16 = v20;
   }
 
   else
@@ -541,33 +533,31 @@
     if (v10)
     {
       *buf = 138412290;
-      v23 = idCopy;
+      v22 = idCopy;
       _os_log_impl(&dword_1B5ED1000, v9, OS_LOG_TYPE_INFO, "Rank default (Reminders > Journal) apps for source bundleId: %@", buf, 0xCu);
     }
 
     v11 = +[_PSConstants notesBundleId];
-    v20[0] = v11;
+    v19[0] = v11;
     v12 = +[_PSConstants remindersBundleId];
-    v20[1] = v12;
+    v19[1] = v12;
     v13 = +[_PSConstants journalBundleId];
-    v20[2] = v13;
+    v19[2] = v13;
     v14 = +[_PSConstants booksBundleId];
-    v20[3] = v14;
+    v19[3] = v14;
     v15 = +[_PSConstants freeformBundleId];
-    v20[4] = v15;
-    v16 = v20;
+    v19[4] = v15;
+    v16 = v19;
   }
 
   v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:5];
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
 
 + (id)mostUsedAppShareExtensionsWithAppBundleIdsToShareExtensionBundleIdsMapping:(id)mapping sourceBundleId:(id)id sharesFromSourceToTargetBundle:(id)bundle appUsageDurations:(id)durations
 {
-  v46[3] = *MEMORY[0x1E69E9840];
+  v45[3] = *MEMORY[0x1E69E9840];
   mappingCopy = mapping;
   idCopy = id;
   bundleCopy = bundle;
@@ -583,28 +573,28 @@
     if (durationsCopy)
     {
 LABEL_3:
-      v37 = bundleCopy;
+      v36 = bundleCopy;
       v18 = [durationsCopy keysSortedByValueUsingComparator:&__block_literal_global_59];
       v19 = [self suggestionsFromAppBundleIds:v18 appBundleIdsToShareExtensionBundleIdsMapping:mappingCopy];
-      v34 = [self boostAppsForSourceBundleId:idCopy];
-      v38 = mappingCopy;
+      v33 = [self boostAppsForSourceBundleId:idCopy];
+      v37 = mappingCopy;
       v20 = [self suggestionsFromAppBundleIds:? appBundleIdsToShareExtensionBundleIdsMapping:?];
-      v35 = v19;
-      v36 = v17;
-      v46[0] = v17;
-      v46[1] = v20;
-      v33 = v20;
-      v46[2] = v19;
-      [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:3];
+      v34 = v19;
+      v35 = v17;
+      v45[0] = v17;
+      v45[1] = v20;
+      v32 = v20;
+      v45[2] = v19;
+      [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:3];
+      v38 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v41 = 0u;
-      v21 = v42 = 0u;
-      v22 = [v21 countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v21 = v41 = 0u;
+      v22 = [v21 countByEnumeratingWithState:&v38 objects:v44 count:16];
       if (v22)
       {
         v23 = v22;
-        v24 = *v40;
+        v24 = *v39;
         v25 = MEMORY[0x1E695E0F0];
         do
         {
@@ -612,19 +602,19 @@ LABEL_3:
           v27 = v25;
           do
           {
-            if (*v40 != v24)
+            if (*v39 != v24)
             {
               objc_enumerationMutation(v21);
             }
 
-            v25 = [self suggestionArrayWithArray:v27 appendingUniqueElementsByBundleIdFromArray:*(*(&v39 + 1) + 8 * v26)];
+            v25 = [self suggestionArrayWithArray:v27 appendingUniqueElementsByBundleIdFromArray:*(*(&v38 + 1) + 8 * v26)];
 
             ++v26;
             v27 = v25;
           }
 
           while (v23 != v26);
-          v23 = [v21 countByEnumeratingWithState:&v39 objects:v45 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v38 objects:v44 count:16];
         }
 
         while (v23);
@@ -640,13 +630,13 @@ LABEL_3:
       {
         v30 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{objc_msgSend(v25, "count")}];
         *buf = 138412290;
-        v44 = v30;
+        v43 = v30;
         _os_log_impl(&dword_1B5ED1000, v29, OS_LOG_TYPE_INFO, "Returning %@ share extension suggestions based on sharing app usage and most shared apps", buf, 0xCu);
       }
 
-      bundleCopy = v37;
-      mappingCopy = v38;
-      v17 = v36;
+      bundleCopy = v36;
+      mappingCopy = v37;
+      v17 = v35;
       goto LABEL_21;
     }
   }
@@ -677,14 +667,12 @@ LABEL_3:
   v25 = MEMORY[0x1E695E0F0];
 LABEL_21:
 
-  v31 = *MEMORY[0x1E69E9840];
-
   return v25;
 }
 
 + (id)relativeAppUsageProbabilitiesForCandidateBundleIds:(id)ids daysAgo:(int64_t)ago knowledgeStore:(id)store
 {
-  v86[2] = *MEMORY[0x1E69E9840];
+  v85[2] = *MEMORY[0x1E69E9840];
   idsCopy = ids;
   storeCopy = store;
   if (idsCopy && [idsCopy count])
@@ -694,22 +682,22 @@ LABEL_21:
     date = [MEMORY[0x1E695DF00] date];
     v12 = [v9 predicateForEventsWithStartInDateRangeFrom:v10 to:date];
 
-    v62 = idsCopy;
+    v61 = idsCopy;
     v13 = [MEMORY[0x1E69979D0] predicateForEventsWithStringValueInValues:idsCopy];
     v14 = MEMORY[0x1E696AB28];
-    v86[0] = v12;
-    v86[1] = v13;
-    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v86 count:2];
+    v85[0] = v12;
+    v85[1] = v13;
+    v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v85 count:2];
     v16 = [v14 andPredicateWithSubpredicates:v15];
 
     v17 = MEMORY[0x1E6997968];
     appUsageStream = [MEMORY[0x1E69979E8] appUsageStream];
-    v85 = appUsageStream;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v85 count:1];
+    v84 = appUsageStream;
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v84 count:1];
     v20 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-    v84 = v20;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v84 count:1];
-    v58 = v16;
+    v83 = v20;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v83 count:1];
+    v57 = v16;
     v22 = [v17 eventQueryWithPredicate:v16 eventStreams:v19 offset:0 limit:5000 sortDescriptors:v21];
 
     v23 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"_PSAppUsageUtilities.m"];
@@ -720,66 +708,66 @@ LABEL_21:
     [v22 setResultType:5];
     [v22 setGroupByProperties:&unk_1F2D8C3C0];
     [v22 setExecuteConcurrently:1];
-    v80 = 0;
-    v61 = storeCopy;
-    v57 = v22;
-    v25 = [storeCopy executeQuery:v22 error:&v80];
-    v26 = v80;
-    v66 = v25;
+    v79 = 0;
+    v60 = storeCopy;
+    v56 = v22;
+    v25 = [storeCopy executeQuery:v22 error:&v79];
+    v26 = v79;
+    v65 = v25;
     v27 = [v25 valueForKeyPath:@"@distinctUnionOfObjects.valueString"];
-    v65 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v64 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v75 = 0u;
     v76 = 0u;
     v77 = 0u;
     v78 = 0u;
-    v79 = 0u;
     obj = v27;
     v28 = 0x1E696A000uLL;
-    v67 = [obj countByEnumeratingWithState:&v76 objects:v83 count:16];
-    v59 = v13;
-    v60 = v12;
-    v56 = v26;
-    if (v67)
+    v66 = [obj countByEnumeratingWithState:&v75 objects:v82 count:16];
+    v58 = v13;
+    v59 = v12;
+    v55 = v26;
+    if (v66)
     {
-      v64 = *v77;
+      v63 = *v76;
       v29 = 0.0;
       do
       {
-        for (i = 0; i != v67; ++i)
+        for (i = 0; i != v66; ++i)
         {
-          if (*v77 != v64)
+          if (*v76 != v63)
           {
             objc_enumerationMutation(obj);
           }
 
           v31 = v28;
-          v32 = *(*(&v76 + 1) + 8 * i);
+          v32 = *(*(&v75 + 1) + 8 * i);
           v33 = [MEMORY[0x1E696AE18] predicateWithFormat:@"valueString == %@", v32];
-          v34 = [v66 filteredArrayUsingPredicate:v33];
+          v34 = [v65 filteredArrayUsingPredicate:v33];
+          v71 = 0u;
           v72 = 0u;
           v73 = 0u;
           v74 = 0u;
-          v75 = 0u;
-          v35 = [v34 countByEnumeratingWithState:&v72 objects:v82 count:16];
+          v35 = [v34 countByEnumeratingWithState:&v71 objects:v81 count:16];
           if (v35)
           {
             v36 = v35;
-            v37 = *v73;
+            v37 = *v72;
             v38 = 0.0;
             do
             {
               for (j = 0; j != v36; ++j)
               {
-                if (*v73 != v37)
+                if (*v72 != v37)
                 {
                   objc_enumerationMutation(v34);
                 }
 
-                v40 = [*(*(&v72 + 1) + 8 * j) objectForKeyedSubscript:@"duration"];
+                v40 = [*(*(&v71 + 1) + 8 * j) objectForKeyedSubscript:@"duration"];
                 [v40 doubleValue];
                 v38 = v38 + v41;
               }
 
-              v36 = [v34 countByEnumeratingWithState:&v72 objects:v82 count:16];
+              v36 = [v34 countByEnumeratingWithState:&v71 objects:v81 count:16];
             }
 
             while (v36);
@@ -793,13 +781,13 @@ LABEL_21:
           v29 = v29 + v38;
           v28 = v31;
           v42 = [*(v31 + 3480) numberWithDouble:v38];
-          [v65 setObject:v42 forKey:v32];
+          [v64 setObject:v42 forKey:v32];
         }
 
-        v67 = [obj countByEnumeratingWithState:&v76 objects:v83 count:16];
+        v66 = [obj countByEnumeratingWithState:&v75 objects:v82 count:16];
       }
 
-      while (v67);
+      while (v66);
     }
 
     else
@@ -807,27 +795,27 @@ LABEL_21:
       v29 = 0.0;
     }
 
-    v43 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v65, "count")}];
+    v43 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v64, "count")}];
+    v67 = 0u;
     v68 = 0u;
     v69 = 0u;
     v70 = 0u;
-    v71 = 0u;
-    v44 = v65;
-    v45 = [v44 countByEnumeratingWithState:&v68 objects:v81 count:16];
+    v44 = v64;
+    v45 = [v44 countByEnumeratingWithState:&v67 objects:v80 count:16];
     if (v45)
     {
       v46 = v45;
-      v47 = *v69;
+      v47 = *v68;
       do
       {
         for (k = 0; k != v46; ++k)
         {
-          if (*v69 != v47)
+          if (*v68 != v47)
           {
             objc_enumerationMutation(v44);
           }
 
-          v49 = *(*(&v68 + 1) + 8 * k);
+          v49 = *(*(&v67 + 1) + 8 * k);
           v50 = *(v28 + 3480);
           v51 = [v44 objectForKeyedSubscript:v49];
           [v51 doubleValue];
@@ -835,22 +823,20 @@ LABEL_21:
           [v43 setObject:v53 forKeyedSubscript:v49];
         }
 
-        v46 = [v44 countByEnumeratingWithState:&v68 objects:v81 count:16];
+        v46 = [v44 countByEnumeratingWithState:&v67 objects:v80 count:16];
       }
 
       while (v46);
     }
 
-    storeCopy = v61;
-    idsCopy = v62;
+    storeCopy = v60;
+    idsCopy = v61;
   }
 
   else
   {
     v43 = 0;
   }
-
-  v54 = *MEMORY[0x1E69E9840];
 
   return v43;
 }
@@ -875,7 +861,7 @@ LABEL_21:
 
 + (void)cacheAppUsageDurations:(id)durations
 {
-  v70[1] = *MEMORY[0x1E69E9840];
+  v69[1] = *MEMORY[0x1E69E9840];
   durationsCopy = durations;
   userContext = [MEMORY[0x1E6997A60] userContext];
   v5 = [MEMORY[0x1E6997A78] keyPathWithKey:@"/appUsage/durations"];
@@ -889,26 +875,26 @@ LABEL_21:
   [date timeIntervalSinceDate:distantPast];
   if (v8 <= 0.0 || v8 >= 72000.0)
   {
-    v49 = durationsCopy;
-    v43 = distantPast;
-    v44 = date;
-    v45 = v5;
-    v46 = userContext;
-    v53 = objc_alloc_init(MEMORY[0x1E695DF90]);
+    v48 = durationsCopy;
+    v42 = distantPast;
+    v43 = date;
+    v44 = v5;
+    v45 = userContext;
+    v52 = objc_alloc_init(MEMORY[0x1E695DF90]);
     v10 = 0;
-    v51 = 0x7FFFFFFFFFFFFFFFLL;
+    v50 = 0x7FFFFFFFFFFFFFFFLL;
     v11 = 0x1E6997000uLL;
     v12 = 0x1E6997000uLL;
     do
     {
-      v50 = objc_autoreleasePoolPush();
+      v49 = objc_autoreleasePoolPush();
       v13 = *(v11 + 2408);
       appUsageStream = [*(v12 + 2536) appUsageStream];
-      v70[0] = appUsageStream;
-      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v70 count:1];
+      v69[0] = appUsageStream;
+      v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v69 count:1];
       v16 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"startDate" ascending:0];
-      v69 = v16;
-      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v69 count:1];
+      v68 = v16;
+      v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v68 count:1];
       v18 = [v13 eventQueryWithPredicate:0 eventStreams:v15 offset:v10 limit:500 sortDescriptors:v17];
 
       v19 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"_PSAppUsageUtilities.m"];
@@ -919,75 +905,75 @@ LABEL_21:
       [v18 setResultType:5];
       [v18 setGroupByProperties:&unk_1F2D8C3D8];
       [v18 setExecuteConcurrently:1];
-      v64 = 0;
-      v21 = [v49 executeQuery:v18 error:&v64];
-      v22 = v64;
+      v63 = 0;
+      v21 = [v48 executeQuery:v18 error:&v63];
+      v22 = v63;
       if (v22)
       {
         obj = +[_PSLogging generalChannel];
         if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v68 = v22;
+          v67 = v22;
           _os_log_error_impl(&dword_1B5ED1000, obj, OS_LOG_TYPE_ERROR, "_PSAppUsageUtilities: Error fetching app usage %@", buf, 0xCu);
         }
 
-        v23 = v50;
+        v23 = v49;
       }
 
       else
       {
-        v47 = v18;
-        v48 = v10;
-        v51 = [v21 count];
+        v46 = v18;
+        v47 = v10;
+        v50 = [v21 count];
         v24 = [v21 valueForKeyPath:@"@distinctUnionOfObjects.valueString"];
+        v59 = 0u;
         v60 = 0u;
         v61 = 0u;
         v62 = 0u;
-        v63 = 0u;
         obj = v24;
-        v55 = [v24 countByEnumeratingWithState:&v60 objects:v66 count:16];
-        if (v55)
+        v54 = [v24 countByEnumeratingWithState:&v59 objects:v65 count:16];
+        if (v54)
         {
-          v54 = *v61;
+          v53 = *v60;
           do
           {
-            for (i = 0; i != v55; ++i)
+            for (i = 0; i != v54; ++i)
             {
-              if (*v61 != v54)
+              if (*v60 != v53)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v26 = *(*(&v60 + 1) + 8 * i);
+              v26 = *(*(&v59 + 1) + 8 * i);
               v27 = [MEMORY[0x1E696AE18] predicateWithFormat:@"valueString == %@", v26];
               v28 = v21;
               v29 = [v21 filteredArrayUsingPredicate:v27];
+              v55 = 0u;
               v56 = 0u;
               v57 = 0u;
               v58 = 0u;
-              v59 = 0u;
-              v30 = [v29 countByEnumeratingWithState:&v56 objects:v65 count:16];
+              v30 = [v29 countByEnumeratingWithState:&v55 objects:v64 count:16];
               if (v30)
               {
                 v31 = v30;
-                v32 = *v57;
+                v32 = *v56;
                 v33 = 0.0;
                 do
                 {
                   for (j = 0; j != v31; ++j)
                   {
-                    if (*v57 != v32)
+                    if (*v56 != v32)
                     {
                       objc_enumerationMutation(v29);
                     }
 
-                    v35 = [*(*(&v56 + 1) + 8 * j) objectForKeyedSubscript:@"duration"];
+                    v35 = [*(*(&v55 + 1) + 8 * j) objectForKeyedSubscript:@"duration"];
                     [v35 doubleValue];
                     v33 = v33 + v36;
                   }
 
-                  v31 = [v29 countByEnumeratingWithState:&v56 objects:v65 count:16];
+                  v31 = [v29 countByEnumeratingWithState:&v55 objects:v64 count:16];
                 }
 
                 while (v31);
@@ -999,22 +985,22 @@ LABEL_21:
               }
 
               v37 = [MEMORY[0x1E696AD98] numberWithDouble:v33];
-              [v53 setObject:v37 forKey:v26];
+              [v52 setObject:v37 forKey:v26];
 
               v21 = v28;
             }
 
-            v55 = [obj countByEnumeratingWithState:&v60 objects:v66 count:16];
+            v54 = [obj countByEnumeratingWithState:&v59 objects:v65 count:16];
           }
 
-          while (v55);
+          while (v54);
         }
 
-        v18 = v47;
-        v10 = v48 + 500;
+        v18 = v46;
+        v10 = v47 + 500;
         v11 = 0x1E6997000;
         v12 = 0x1E6997000;
-        v23 = v50;
+        v23 = v49;
         v22 = 0;
       }
 
@@ -1024,29 +1010,29 @@ LABEL_21:
         break;
       }
 
-      v38 = v51 == 500;
-      v51 = 500;
+      v38 = v50 == 500;
+      v50 = 500;
     }
 
     while (v38);
     v39 = +[_PSLogging heuristicsChannel];
-    v9 = v53;
+    v9 = v52;
     if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = [v53 count];
+      v40 = [v52 count];
       *buf = 134217984;
-      v68 = v40;
+      v67 = v40;
       _os_log_impl(&dword_1B5ED1000, v39, OS_LOG_TYPE_DEFAULT, "Caching sharing app usage durations for %tu apps", buf, 0xCu);
     }
 
-    v41 = [v53 copy];
-    v5 = v45;
-    userContext = v46;
-    [v46 setObject:v41 forKeyedSubscript:v45];
+    v41 = [v52 copy];
+    v5 = v44;
+    userContext = v45;
+    [v45 setObject:v41 forKeyedSubscript:v44];
 
-    distantPast = v43;
-    date = v44;
-    durationsCopy = v49;
+    distantPast = v42;
+    date = v43;
+    durationsCopy = v48;
   }
 
   else
@@ -1058,8 +1044,6 @@ LABEL_21:
       _os_log_impl(&dword_1B5ED1000, v9, OS_LOG_TYPE_INFO, "Sharing app usage is still fresh, skipping refresh.", buf, 2u);
     }
   }
-
-  v42 = *MEMORY[0x1E69E9840];
 }
 
 + (id)addBiomeDataToCache:(id)cache event:(id)event
@@ -1219,30 +1203,30 @@ LABEL_21:
 
 + (id)suggestionArrayWithArray:(id)array appendingUniqueElementsByBundleIdFromArray:(id)fromArray
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = [array arrayByAddingObjectsFromArray:fromArray];
   array = [MEMORY[0x1E695DF70] array];
   v6 = [MEMORY[0x1E695DFA8] set];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v7 = v4;
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         bundleID = [v12 bundleID];
         v14 = [v6 containsObject:bundleID];
 
@@ -1254,35 +1238,27 @@ LABEL_21:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return array;
 }
 
 + (void)addBiomeDataToCache:(void *)a1 event:.cold.1(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 eventBody];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1B5ED1000, v2, v3, "Event was missing targetBundleID: %{private}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1B5ED1000, v2, v3, "Event was missing targetBundleID: %{private}@", v4, v5, v6, v7);
 }
 
 + (void)addBiomeDataToCache:(void *)a1 event:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v1 = [a1 eventBody];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_4(&dword_1B5ED1000, v2, v3, "Event was missing sourceBundleID: %{private}@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_4(&dword_1B5ED1000, v2, v3, "Event was missing sourceBundleID: %{private}@", v4, v5, v6, v7);
 }
 
 @end

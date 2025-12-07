@@ -80,7 +80,6 @@ uint64_t __42__SUSUIMockedSUPreferences_sharedInstance__block_invoke()
   }
 
   objc_storeStrong(&v14, 0);
-  *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
@@ -124,7 +123,6 @@ uint64_t __42__SUSUIMockedSUPreferences_sharedInstance__block_invoke()
   preferences = [(SUSUIMockedSUPreferences *)selfCopy preferences];
   [preferences setAutomaticDownloadEnabled:v5];
   MEMORY[0x277D82BD8](preferences);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isAutomaticUpdateV2Enabled
@@ -166,7 +164,6 @@ uint64_t __42__SUSUIMockedSUPreferences_sharedInstance__block_invoke()
   }
 
   objc_storeStrong(&v14, 0);
-  *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
@@ -210,7 +207,6 @@ uint64_t __42__SUSUIMockedSUPreferences_sharedInstance__block_invoke()
   preferences = [(SUSUIMockedSUPreferences *)selfCopy preferences];
   [preferences setAutomaticUpdateV2Enabled:v5];
   MEMORY[0x277D82BD8](preferences);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)previousUserSpecifiedAutomaticUpdateV2Enabled
@@ -252,7 +248,6 @@ uint64_t __42__SUSUIMockedSUPreferences_sharedInstance__block_invoke()
   }
 
   objc_storeStrong(&v14, 0);
-  *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
@@ -296,7 +291,6 @@ uint64_t __42__SUSUIMockedSUPreferences_sharedInstance__block_invoke()
   preferences = [(SUSUIMockedSUPreferences *)selfCopy preferences];
   [preferences setPreviousUserSpecifiedAutomaticUpdateV2Enabled:v5];
   MEMORY[0x277D82BD8](preferences);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)autoInstallSecurityResponse
@@ -338,7 +332,6 @@ uint64_t __42__SUSUIMockedSUPreferences_sharedInstance__block_invoke()
   }
 
   objc_storeStrong(&v14, 0);
-  *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
@@ -382,7 +375,6 @@ uint64_t __42__SUSUIMockedSUPreferences_sharedInstance__block_invoke()
   preferences = [(SUSUIMockedSUPreferences *)selfCopy preferences];
   [preferences setAutoInstallSecurityResponse:v5];
   MEMORY[0x277D82BD8](preferences);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)previousUserSpecifiedAutoInstallSecurityResponse
@@ -424,7 +416,6 @@ uint64_t __42__SUSUIMockedSUPreferences_sharedInstance__block_invoke()
   }
 
   objc_storeStrong(&v14, 0);
-  *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
@@ -468,7 +459,6 @@ uint64_t __42__SUSUIMockedSUPreferences_sharedInstance__block_invoke()
   preferences = [(SUSUIMockedSUPreferences *)selfCopy preferences];
   [preferences setPreviousUserSpecifiedAutoInstallSecurityResponse:v5];
   MEMORY[0x277D82BD8](preferences);
-  *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)autoInstallSystemAndDataFiles
@@ -510,7 +500,6 @@ uint64_t __42__SUSUIMockedSUPreferences_sharedInstance__block_invoke()
   }
 
   objc_storeStrong(&v14, 0);
-  *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
@@ -554,7 +543,6 @@ uint64_t __42__SUSUIMockedSUPreferences_sharedInstance__block_invoke()
   preferences = [(SUSUIMockedSUPreferences *)selfCopy preferences];
   [preferences setAutoInstallSystemAndDataFiles:v5];
   MEMORY[0x277D82BD8](preferences);
-  *MEMORY[0x277D85DE8];
 }
 
 - (id)preferences
@@ -634,7 +622,6 @@ uint64_t __42__SUSUIMockedSUPreferences_sharedInstance__block_invoke()
   }
 
   objc_storeStrong(v30, 0);
-  *MEMORY[0x277D85DE8];
   v4 = preferences;
 
   return v4;

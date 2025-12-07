@@ -169,8 +169,7 @@
     v2 = @"YES";
   }
 
-  keyCreatedOnBuild = self->_keyCreatedOnBuild;
-  return [MEMORY[0x1E696AEC0] stringWithFormat:@"<TrustedContact: CustodianID: %@, status: %ld, handle: %@ acceptedAndShared: %@, serverConfirmed: %@, build: %@, localContactRepresentation: %@>", *&self->_custodianID, self->_handle, v3, v2, keyCreatedOnBuild, self->_localContactRepresentation];
+  return [MEMORY[0x1E696AEC0] stringWithFormat:@"<TrustedContact: CustodianID: %@, status: %ld, handle: %@ acceptedAndShared: %@, serverConfirmed: %@, build: %@, localContactRepresentation: %@>", *&self->_custodianID, self->_handle, v3, v2, self->_keyCreatedOnBuild, self->_localContactRepresentation];
 }
 
 @end

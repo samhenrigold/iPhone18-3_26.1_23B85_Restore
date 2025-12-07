@@ -21,6 +21,7 @@
 - (NSMeasurement)batteryLevelMarkerCriticalLow;
 - (NSMeasurement)batteryLevelMarkerLow;
 - (unsigned)batteryLevelState;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -285,6 +286,101 @@
   v3 = batteryLevelMarkerCriticalLowCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000030000031"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    batteryLevelCharacteristic = [(CAFBatteryLevel *)self batteryLevelCharacteristic];
+    uniqueIdentifier2 = [batteryLevelCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      batteryLevel = [(CAFBatteryLevel *)self batteryLevel];
+      [observers batteryLevelService:self didUpdateBatteryLevel:batteryLevel];
+LABEL_16:
+
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000030000035"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    batteryLevelStateCharacteristic = [(CAFBatteryLevel *)self batteryLevelStateCharacteristic];
+    uniqueIdentifier4 = [batteryLevelStateCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      [observers batteryLevelService:self didUpdateBatteryLevelState:{-[CAFBatteryLevel batteryLevelState](self, "batteryLevelState")}];
+      goto LABEL_17;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x000000003000004C"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    batteryLevelMarkerLowCharacteristic = [(CAFBatteryLevel *)self batteryLevelMarkerLowCharacteristic];
+    uniqueIdentifier6 = [batteryLevelMarkerLowCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      batteryLevel = [(CAFBatteryLevel *)self batteryLevelMarkerLow];
+      [observers batteryLevelService:self didUpdateBatteryLevelMarkerLow:batteryLevel];
+      goto LABEL_16;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x000000003000004D"])
+  {
+LABEL_17:
+
+    goto LABEL_18;
+  }
+
+  uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+  batteryLevelMarkerCriticalLowCharacteristic = [(CAFBatteryLevel *)self batteryLevelMarkerCriticalLowCharacteristic];
+  uniqueIdentifier8 = [batteryLevelMarkerCriticalLowCharacteristic uniqueIdentifier];
+  v27 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+  if (v27)
+  {
+    observers = [(CAFService *)self observers];
+    batteryLevel = [(CAFBatteryLevel *)self batteryLevelMarkerCriticalLow];
+    [observers batteryLevelService:self didUpdateBatteryLevelMarkerCriticalLow:batteryLevel];
+    goto LABEL_16;
+  }
+
+LABEL_18:
+  v28.receiver = self;
+  v28.super_class = CAFBatteryLevel;
+  [(CAFService *)&v28 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForBatteryLevel

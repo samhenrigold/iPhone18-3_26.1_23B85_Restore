@@ -1,6 +1,6 @@
 @interface UIView(MKAdditions)
 + (id)_mapkit_currentAnimationTimingFunction;
-+ (uint64_t)_mapkit_shouldAdoptImplicitAnimationParameters;
++ (void)_mapkit_shouldAdoptImplicitAnimationParameters;
 - (BOOL)_mapkit_hasPointerInteraction;
 - (BOOL)_mapkit_isDarkModeEnabled;
 - (double)_mapkit_translateRect:()MKAdditions ifNeededFromSingleEdge:;
@@ -13,7 +13,7 @@
 
 @implementation UIView(MKAdditions)
 
-+ (uint64_t)_mapkit_shouldAdoptImplicitAnimationParameters
++ (void)_mapkit_shouldAdoptImplicitAnimationParameters
 {
   result = [MEMORY[0x1E69DD250] _isInAnimationBlock];
   if (result)

@@ -15,11 +15,10 @@
     swift_task_reportUnexpectedExecutor();
   }
 
-  v4 = *(&self->super.isa + OBJC_IVAR____TtCV12FinanceKitUI18AddOrderButtonView11Coordinator_action);
-  v3 = *&self->action[OBJC_IVAR____TtCV12FinanceKitUI18AddOrderButtonView11Coordinator_action];
+  v3 = *(&self->super.isa + OBJC_IVAR____TtCV12FinanceKitUI18AddOrderButtonView11Coordinator_action);
   selfCopy = self;
 
-  v4(v5);
+  v3(v4);
 }
 
 - (_TtCV12FinanceKitUI18AddOrderButtonView11Coordinator)init

@@ -18,103 +18,14 @@
   {
     v6 = v5;
     v7 = v6;
-    if (self->_alternativeRecord)
+    if ((!self->_alternativeRecord || (([(STSCHNdefRecordBundle *)v6 alternativeRecord], (v8 = objc_claimAutoreleasedReturnValue()) == 0) || (v9 = v8, alternativeRecord = self->_alternativeRecord, [(STSCHNdefRecordBundle *)v7 alternativeRecord], v11 = objc_claimAutoreleasedReturnValue(), LODWORD(alternativeRecord) = [(STSNDEFRecord *)alternativeRecord isEqual:v11], v11, v9, alternativeRecord)) && !self->_alternativeRecord) && ([(STSCHNdefRecordBundle *)v7 alternativeRecord], v12 = objc_claimAutoreleasedReturnValue(), v12, !v12) && self->_configurationRecord && (([(STSCHNdefRecordBundle *)v7 configurationRecord], (v15 = objc_claimAutoreleasedReturnValue()) == 0) || (v16 = v15, configurationRecord = self->_configurationRecord, [(STSCHNdefRecordBundle *)v7 configurationRecord], v18 = objc_claimAutoreleasedReturnValue(), LODWORD(configurationRecord) = [(STSNDEFRecord *)configurationRecord isEqual:v18], v18, v16, configurationRecord)) && self->_configurationRecord && ([(STSCHNdefRecordBundle *)v7 configurationRecord], v19 = objc_claimAutoreleasedReturnValue(), v19, v19) && (auxiliaryRecords = self->_auxiliaryRecords, [(STSCHNdefRecordBundle *)v7 auxiliaryRecords], v21 = objc_claimAutoreleasedReturnValue(), LODWORD(auxiliaryRecords) = [(NSArray *)auxiliaryRecords isEqualToArray:v21], v21, auxiliaryRecords) && self->_errorRecord && (([(STSCHNdefRecordBundle *)v7 errorRecord], (v22 = objc_claimAutoreleasedReturnValue()) == 0) || (v23 = v22, v24 = self->_configurationRecord, [(STSCHNdefRecordBundle *)v7 errorRecord], v25 = objc_claimAutoreleasedReturnValue(), LODWORD(v24) = [(STSNDEFRecord *)v24 isEqual:v25], v25, v23, v24)) && self->_errorRecord)
     {
-      alternativeRecord = [(STSCHNdefRecordBundle *)v6 alternativeRecord];
-      if (alternativeRecord)
-      {
-        v9 = alternativeRecord;
-        alternativeRecord = self->_alternativeRecord;
-        alternativeRecord2 = [(STSCHNdefRecordBundle *)v7 alternativeRecord];
-        LODWORD(alternativeRecord) = [(STSNDEFRecord *)alternativeRecord isEqual:alternativeRecord2];
-
-        if (!alternativeRecord)
-        {
-          goto LABEL_9;
-        }
-      }
-
-      if (self->_alternativeRecord)
-      {
-        goto LABEL_9;
-      }
-    }
-
-    alternativeRecord3 = [(STSCHNdefRecordBundle *)v7 alternativeRecord];
-
-    if (alternativeRecord3)
-    {
-      goto LABEL_9;
-    }
-
-    if (!self->_configurationRecord)
-    {
-      goto LABEL_9;
-    }
-
-    configurationRecord = [(STSCHNdefRecordBundle *)v7 configurationRecord];
-    if (configurationRecord)
-    {
-      v16 = configurationRecord;
-      configurationRecord = self->_configurationRecord;
-      configurationRecord2 = [(STSCHNdefRecordBundle *)v7 configurationRecord];
-      LODWORD(configurationRecord) = [(STSNDEFRecord *)configurationRecord isEqual:configurationRecord2];
-
-      if (!configurationRecord)
-      {
-        goto LABEL_9;
-      }
-    }
-
-    if (!self->_configurationRecord)
-    {
-      goto LABEL_9;
-    }
-
-    configurationRecord3 = [(STSCHNdefRecordBundle *)v7 configurationRecord];
-
-    if (!configurationRecord3)
-    {
-      goto LABEL_9;
-    }
-
-    auxiliaryRecords = self->_auxiliaryRecords;
-    auxiliaryRecords = [(STSCHNdefRecordBundle *)v7 auxiliaryRecords];
-    LODWORD(auxiliaryRecords) = [(NSArray *)auxiliaryRecords isEqualToArray:auxiliaryRecords];
-
-    if (!auxiliaryRecords)
-    {
-      goto LABEL_9;
-    }
-
-    if (!self->_errorRecord)
-    {
-      goto LABEL_9;
-    }
-
-    errorRecord = [(STSCHNdefRecordBundle *)v7 errorRecord];
-    if (errorRecord)
-    {
-      v23 = errorRecord;
-      v24 = self->_configurationRecord;
-      errorRecord2 = [(STSCHNdefRecordBundle *)v7 errorRecord];
-      LODWORD(v24) = [(STSNDEFRecord *)v24 isEqual:errorRecord2];
-
-      if (!v24)
-      {
-        goto LABEL_9;
-      }
-    }
-
-    if (self->_errorRecord)
-    {
-      errorRecord3 = [(STSCHNdefRecordBundle *)v7 errorRecord];
-      v13 = errorRecord3 != 0;
+      errorRecord = [(STSCHNdefRecordBundle *)v7 errorRecord];
+      v13 = errorRecord != 0;
     }
 
     else
     {
-LABEL_9:
       v13 = 0;
     }
   }

@@ -27,7 +27,7 @@
 
 - (HFAccessorySettingManagedConfigurationAdapter)initWithHomeKitSettingsVendor:(id)vendor mode:(unint64_t)mode
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   vendorCopy = vendor;
   if (!vendorCopy)
   {
@@ -35,12 +35,12 @@
     [currentHandler handleFailureInMethod:a2 object:self file:@"HFAccessorySettingManagedConfigurationAdapter.m" lineNumber:49 description:{@"Invalid parameter not satisfying: %@", @"homeKitSettingsVendor"}];
   }
 
-  v17[0] = @"root.general.profiles.managedConfigurationProfiles";
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+  v16[0] = @"root.general.profiles.managedConfigurationProfiles";
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
   v9 = [MEMORY[0x277CBEB98] setWithArray:v8];
-  v16.receiver = self;
-  v16.super_class = HFAccessorySettingManagedConfigurationAdapter;
-  v10 = [(HFAccessorySettingAdapter *)&v16 initWithHomeKitSettingsVendor:vendorCopy keyPaths:v9 mode:mode updateHandler:0];
+  v15.receiver = self;
+  v15.super_class = HFAccessorySettingManagedConfigurationAdapter;
+  v10 = [(HFAccessorySettingAdapter *)&v15 initWithHomeKitSettingsVendor:vendorCopy keyPaths:v9 mode:mode updateHandler:0];
 
   if (v10)
   {
@@ -52,7 +52,6 @@
     [(HFAccessorySettingManagedConfigurationAdapter *)v10 _setupDebugHandler];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -94,13 +93,13 @@
 
 - (id)removeProfileFromHomeKit:(id)kit
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   kitCopy = kit;
   v6 = HFLogForCategory(0x3EuLL);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v21 = kitCopy;
+    v20 = kitCopy;
     _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Preparing to remove profile %@", buf, 0xCu);
   }
 
@@ -112,26 +111,24 @@
 
   objc_initWeak(buf, self);
   profilesSettingFuture = [(HFAccessorySettingManagedConfigurationAdapter *)self profilesSettingFuture];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __74__HFAccessorySettingManagedConfigurationAdapter_removeProfileFromHomeKit___block_invoke;
-  v17[3] = &unk_277DFC5D8;
-  objc_copyWeak(&v19, buf);
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __74__HFAccessorySettingManagedConfigurationAdapter_removeProfileFromHomeKit___block_invoke;
+  v16[3] = &unk_277DFC5D8;
+  objc_copyWeak(&v18, buf);
   v8 = kitCopy;
-  v18 = v8;
-  v9 = [profilesSettingFuture flatMap:v17];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __74__HFAccessorySettingManagedConfigurationAdapter_removeProfileFromHomeKit___block_invoke_3;
-  v15[3] = &unk_277DF4700;
+  v17 = v8;
+  v9 = [profilesSettingFuture flatMap:v16];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __74__HFAccessorySettingManagedConfigurationAdapter_removeProfileFromHomeKit___block_invoke_3;
+  v14[3] = &unk_277DF4700;
   v10 = v8;
-  v16 = v10;
-  v11 = [v9 addCompletionBlock:v15];
+  v15 = v10;
+  v11 = [v9 addCompletionBlock:v14];
 
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
   objc_destroyWeak(buf);
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -171,7 +168,7 @@ uint64_t __74__HFAccessorySettingManagedConfigurationAdapter_removeProfileFromHo
 
 void __74__HFAccessorySettingManagedConfigurationAdapter_removeProfileFromHomeKit___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = HFLogForCategory(0x3EuLL);
   v6 = v5;
@@ -180,28 +177,26 @@ void __74__HFAccessorySettingManagedConfigurationAdapter_removeProfileFromHomeKi
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       v7 = *(a1 + 32);
-      v10 = 138412546;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v4;
-      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "Removal of '%@' failed with error: %@", &v10, 0x16u);
+      v9 = 138412546;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v4;
+      _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "Removal of '%@' failed with error: %@", &v9, 0x16u);
     }
   }
 
   else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v8 = *(a1 + 32);
-    v10 = 138412290;
-    v11 = v8;
-    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Removal of '%@' finished successfully", &v10, 0xCu);
+    v9 = 138412290;
+    v10 = v8;
+    _os_log_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_DEFAULT, "Removal of '%@' finished successfully", &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)removeProfileDataFromHomeKit:(id)kit
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   kitCopy = kit;
   if (!kitCopy)
   {
@@ -209,16 +204,16 @@ void __74__HFAccessorySettingManagedConfigurationAdapter_removeProfileFromHomeKi
     [currentHandler handleFailureInMethod:a2 object:self file:@"HFAccessorySettingManagedConfigurationAdapter.m" lineNumber:121 description:{@"Invalid parameter not satisfying: %@", @"profileData"}];
   }
 
-  v14 = 0;
-  v6 = [MEMORY[0x277D26290] profileWithData:kitCopy outError:&v14];
-  v7 = v14;
+  v13 = 0;
+  v6 = [MEMORY[0x277D26290] profileWithData:kitCopy outError:&v13];
+  v7 = v13;
   if (v7)
   {
     v8 = HFLogForCategory(0x3EuLL);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v16 = v7;
+      v15 = v7;
       _os_log_error_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_ERROR, "Unable to reconstitute data into a profile: %@", buf, 0xCu);
     }
 
@@ -231,8 +226,6 @@ void __74__HFAccessorySettingManagedConfigurationAdapter_removeProfileFromHomeKi
   }
 
   v10 = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -268,25 +261,25 @@ id __57__HFAccessorySettingManagedConfigurationAdapter_profiles__block_invoke(ui
 
 id __57__HFAccessorySettingManagedConfigurationAdapter_profiles__block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v11 = 0;
-  v4 = [MEMORY[0x277D26290] profileWithData:v3 outError:&v11];
-  v5 = v11;
+  v10 = 0;
+  v4 = [MEMORY[0x277D26290] profileWithData:v3 outError:&v10];
+  v5 = v10;
   if (v5)
   {
     v6 = HFLogForCategory(0x3EuLL);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 32);
+      v9 = *(a1 + 32);
       *buf = 136315906;
-      v13 = "[HFAccessorySettingManagedConfigurationAdapter profiles]_block_invoke_2";
-      v14 = 2112;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v5;
-      v18 = 2112;
-      v19 = v3;
+      v12 = "[HFAccessorySettingManagedConfigurationAdapter profiles]_block_invoke_2";
+      v13 = 2112;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v5;
+      v17 = 2112;
+      v18 = v3;
       _os_log_error_impl(&dword_20D9BF000, v6, OS_LOG_TYPE_ERROR, "%s(%@): Error (%@), ignoring profile data %@.", buf, 0x2Au);
     }
 
@@ -297,8 +290,6 @@ id __57__HFAccessorySettingManagedConfigurationAdapter_profiles__block_invoke_2(
   {
     v7 = v4;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -383,7 +374,7 @@ LABEL_8:
 
 - (id)_installedProfileData
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ([(HFAccessorySettingAdapter *)self mode])
   {
     profileConnectionForSynchronization = [(HFAccessorySettingManagedConfigurationAdapter *)self profileConnectionForSynchronization];
@@ -393,22 +384,22 @@ LABEL_8:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v15 = "[HFAccessorySettingManagedConfigurationAdapter _installedProfileData]";
-      v16 = 2112;
-      v17 = installedProfileIdentifiers;
+      v14 = "[HFAccessorySettingManagedConfigurationAdapter _installedProfileData]";
+      v15 = 2112;
+      v16 = installedProfileIdentifiers;
       _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%s: Current set of installed profiles %@", buf, 0x16u);
     }
 
     v6 = objc_opt_new();
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __70__HFAccessorySettingManagedConfigurationAdapter__installedProfileData__block_invoke;
-    v12[3] = &unk_277DF7060;
-    v12[4] = self;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __70__HFAccessorySettingManagedConfigurationAdapter__installedProfileData__block_invoke;
+    v11[3] = &unk_277DF7060;
+    v11[4] = self;
     v7 = v6;
-    v13 = v7;
-    [installedProfileIdentifiers na_each:v12];
-    v8 = v13;
+    v12 = v7;
+    [installedProfileIdentifiers na_each:v11];
+    v8 = v12;
     v9 = v7;
   }
 
@@ -416,8 +407,6 @@ LABEL_8:
   {
     v9 = MEMORY[0x277CBEC10];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -594,28 +583,28 @@ id __90__HFAccessorySettingManagedConfigurationAdapter__synchronizeManagedConfig
 
 id __90__HFAccessorySettingManagedConfigurationAdapter__synchronizeManagedConfigurationToHomeKit__block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v5 = HFLogForCategory(0x3EuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315394;
-    v17 = "[HFAccessorySettingManagedConfigurationAdapter _synchronizeManagedConfigurationToHomeKit]_block_invoke_2";
-    v18 = 2112;
-    v19 = v3;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%s: set of HomeKit profiles: %@", &v16, 0x16u);
+    v15 = 136315394;
+    v16 = "[HFAccessorySettingManagedConfigurationAdapter _synchronizeManagedConfigurationToHomeKit]_block_invoke_2";
+    v17 = 2112;
+    v18 = v3;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%s: set of HomeKit profiles: %@", &v15, 0x16u);
   }
 
   v6 = [WeakRetained _installedProfileData];
   v7 = HFLogForCategory(0x3EuLL);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v16 = 136315394;
-    v17 = "[HFAccessorySettingManagedConfigurationAdapter _synchronizeManagedConfigurationToHomeKit]_block_invoke";
-    v18 = 2112;
-    v19 = v6;
-    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "%s: set of Managed Configuration profiles: %@", &v16, 0x16u);
+    v15 = 136315394;
+    v16 = "[HFAccessorySettingManagedConfigurationAdapter _synchronizeManagedConfigurationToHomeKit]_block_invoke";
+    v17 = 2112;
+    v18 = v6;
+    _os_log_impl(&dword_20D9BF000, v7, OS_LOG_TYPE_DEFAULT, "%s: set of Managed Configuration profiles: %@", &v15, 0x16u);
   }
 
   if ([v6 isEqual:v3])
@@ -623,9 +612,9 @@ id __90__HFAccessorySettingManagedConfigurationAdapter__synchronizeManagedConfig
     v8 = HFLogForCategory(0x3EuLL);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315138;
-      v17 = "[HFAccessorySettingManagedConfigurationAdapter _synchronizeManagedConfigurationToHomeKit]_block_invoke";
-      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "%s: profiles match, no work needed", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "[HFAccessorySettingManagedConfigurationAdapter _synchronizeManagedConfigurationToHomeKit]_block_invoke";
+      _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "%s: profiles match, no work needed", &v15, 0xCu);
     }
 
     v9 = [MEMORY[0x277D2C900] futureWithNoResult];
@@ -639,18 +628,16 @@ id __90__HFAccessorySettingManagedConfigurationAdapter__synchronizeManagedConfig
     v12 = HFLogForCategory(0x3EuLL);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315394;
-      v17 = "[HFAccessorySettingManagedConfigurationAdapter _synchronizeManagedConfigurationToHomeKit]_block_invoke_2";
-      v18 = 2112;
-      v19 = v11;
-      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "%s: replace HomeKit profiles with Managed Configuration profiles %@", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[HFAccessorySettingManagedConfigurationAdapter _synchronizeManagedConfigurationToHomeKit]_block_invoke_2";
+      v17 = 2112;
+      v18 = v11;
+      _os_log_impl(&dword_20D9BF000, v12, OS_LOG_TYPE_DEFAULT, "%s: replace HomeKit profiles with Managed Configuration profiles %@", &v15, 0x16u);
     }
 
     v13 = [WeakRetained valueManager];
     v9 = [v13 changeValueForSetting:*(a1 + 32) toValue:v11 changeType:0];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -686,30 +673,30 @@ void __90__HFAccessorySettingManagedConfigurationAdapter__synchronizeManagedConf
 
 - (void)_dispatchWasUpdated
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   profileObservers = [(HFAccessorySettingManagedConfigurationAdapter *)self profileObservers];
   v4 = [profileObservers copy];
 
-  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = *v11;
     do
     {
       v8 = 0;
       do
       {
-        if (*v12 != v7)
+        if (*v11 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v11 + 1) + 8 * v8);
+        v9 = *(*(&v10 + 1) + 8 * v8);
         if (objc_opt_respondsToSelector())
         {
           [v9 managedConfigurationAdapterSettingsWereUpdated:self];
@@ -719,32 +706,29 @@ void __90__HFAccessorySettingManagedConfigurationAdapter__synchronizeManagedConf
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)profileConnectionDidReceiveProfileListChangedNotification:(id)notification userInfo:(id)info
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   infoCopy = info;
   v8 = HFLogForCategory(0x3EuLL);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412546;
-    v12 = notificationCopy;
-    v13 = 2112;
-    v14 = infoCopy;
-    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "received notification from MobileConfig that profile lists changed: connection: %@ userInfo: %@", &v11, 0x16u);
+    v10 = 138412546;
+    v11 = notificationCopy;
+    v12 = 2112;
+    v13 = infoCopy;
+    _os_log_impl(&dword_20D9BF000, v8, OS_LOG_TYPE_DEFAULT, "received notification from MobileConfig that profile lists changed: connection: %@ userInfo: %@", &v10, 0x16u);
   }
 
   _synchronizeManagedConfigurationToHomeKit = [(HFAccessorySettingManagedConfigurationAdapter *)self _synchronizeManagedConfigurationToHomeKit];
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)shouldShowSettingsEntity:(id)entity

@@ -45,122 +45,122 @@
 
 - (void)_initializeBarButtonItems
 {
-  v47[6] = *MEMORY[0x1E69E9840];
+  v49[6] = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E69DCCE0]);
   managedNavigationItem = self->_managedNavigationItem;
   self->_managedNavigationItem = v3;
 
-  [(UINavigationBar *)self->_topBar pushNavigationItem:self->_managedNavigationItem animated:0];
-  if (_SSScreenshotsRedesign2025Enabled())
+  v5 = [(UINavigationBar *)self->_topBar pushNavigationItem:self->_managedNavigationItem animated:0];
+  if (_SSScreenshotsRedesign2025Enabled(v5, v6))
   {
-    v5 = +[SSChromeFactory closeBarButtonItem];
+    v7 = +[SSChromeFactory closeBarButtonItem];
     closeItem = self->_closeItem;
-    self->_closeItem = v5;
+    self->_closeItem = v7;
   }
 
-  v7 = [MEMORY[0x1E69DC708] _sss_shareItemWithTarget:self action:0];
+  v9 = [MEMORY[0x1E69DC708] _sss_shareItemWithTarget:self action:0];
   shareItem = self->_shareItem;
-  self->_shareItem = v7;
+  self->_shareItem = v9;
 
-  v9 = objc_alloc(MEMORY[0x1E69DC708]);
-  v10 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"checkmark"];
-  v11 = [v9 initWithImage:v10 menu:0];
+  v11 = objc_alloc(MEMORY[0x1E69DC708]);
+  v12 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"checkmark"];
+  v13 = [v11 initWithImage:v12 menu:0];
   doneItem = self->_doneItem;
-  self->_doneItem = v11;
+  self->_doneItem = v13;
 
   [(UIBarButtonItem *)self->_doneItem setStyle:2];
-  v13 = [MEMORY[0x1E69DC888] colorWithWhite:1.0 alpha:0.8];
-  [(UIBarButtonItem *)self->_doneItem setTintColor:v13];
+  v15 = [MEMORY[0x1E69DC888] colorWithWhite:1.0 alpha:0.8];
+  [(UIBarButtonItem *)self->_doneItem setTintColor:v15];
 
-  v14 = [MEMORY[0x1E69DC708] _sss_undoItemWithTarget:self action:0];
+  v16 = [MEMORY[0x1E69DC708] _sss_undoItemWithTarget:self action:0];
   undoItem = self->_undoItem;
-  self->_undoItem = v14;
+  self->_undoItem = v16;
 
-  v16 = [MEMORY[0x1E69DC708] _sss_redoItemWithTarget:self action:0];
+  v18 = [MEMORY[0x1E69DC708] _sss_redoItemWithTarget:self action:0];
   redoItem = self->_redoItem;
-  self->_redoItem = v16;
+  self->_redoItem = v18;
 
-  v18 = [MEMORY[0x1E69DC708] _sss_trashItemWithTarget:self action:0];
+  v20 = [MEMORY[0x1E69DC708] _sss_trashItemWithTarget:self action:0];
   deleteItem = self->_deleteItem;
-  self->_deleteItem = v18;
+  self->_deleteItem = v20;
 
-  v20 = objc_alloc_init(SSVellumOpacityControl);
+  v22 = objc_alloc_init(SSVellumOpacityControl);
   opacityControl = self->_opacityControl;
-  self->_opacityControl = v20;
+  self->_opacityControl = v22;
 
-  v22 = self->_opacityControl;
+  v24 = self->_opacityControl;
   +[SSVellumOpacityControl preferredWidth];
-  v24 = v23;
+  v26 = v25;
   [(SSVellumOpacityControl *)self->_opacityControl intrinsicContentSize];
-  [(SSVellumOpacityControl *)v22 setFrame:0.0, 0.0, v24, v25];
-  v26 = [objc_alloc(MEMORY[0x1E69DC708]) initWithCustomView:self->_opacityControl];
+  [(SSVellumOpacityControl *)v24 setFrame:0.0, 0.0, v26, v27];
+  v28 = [objc_alloc(MEMORY[0x1E69DC708]) initWithCustomView:self->_opacityControl];
   opacityItem = self->_opacityItem;
-  self->_opacityItem = v26;
+  self->_opacityItem = v28;
 
-  v28 = objc_alloc_init(MEMORY[0x1E69DC708]);
+  v30 = objc_alloc_init(MEMORY[0x1E69DC708]);
   annotationEnabledButton = self->_annotationEnabledButton;
-  self->_annotationEnabledButton = v28;
+  self->_annotationEnabledButton = v30;
 
-  v30 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"pencil.tip.crop.circle"];
-  [(UIBarButtonItem *)self->_annotationEnabledButton setImage:v30];
+  v32 = [MEMORY[0x1E69DCAB8] systemImageNamed:@"pencil.tip.crop.circle"];
+  [(UIBarButtonItem *)self->_annotationEnabledButton setImage:v32];
 
-  v43 = 0;
-  v44 = &v43;
-  v45 = 0x2050000000;
-  v31 = getVKImageAnalysisBarButtonItemClass_softClass;
-  v46 = getVKImageAnalysisBarButtonItemClass_softClass;
+  v45 = 0;
+  v46 = &v45;
+  v47 = 0x2050000000;
+  v33 = getVKImageAnalysisBarButtonItemClass_softClass;
+  v48 = getVKImageAnalysisBarButtonItemClass_softClass;
   if (!getVKImageAnalysisBarButtonItemClass_softClass)
   {
-    v42[0] = MEMORY[0x1E69E9820];
-    v42[1] = 3221225472;
-    v42[2] = __getVKImageAnalysisBarButtonItemClass_block_invoke;
-    v42[3] = &unk_1E8590188;
-    v42[4] = &v43;
-    __getVKImageAnalysisBarButtonItemClass_block_invoke(v42);
-    v31 = v44[3];
+    v44[0] = MEMORY[0x1E69E9820];
+    v44[1] = 3221225472;
+    v44[2] = __getVKImageAnalysisBarButtonItemClass_block_invoke;
+    v44[3] = &unk_1E8590188;
+    v44[4] = &v45;
+    __getVKImageAnalysisBarButtonItemClass_block_invoke(v44);
+    v33 = v46[3];
   }
 
-  v32 = v31;
-  _Block_object_dispose(&v43, 8);
-  v33 = [v31 analysisButtonWithTarget:self action:0 mode:0];
+  v34 = v33;
+  _Block_object_dispose(&v45, 8);
+  v35 = [v33 analysisButtonWithTarget:self action:0 mode:0];
   aaBarButtonItem = self->_aaBarButtonItem;
-  self->_aaBarButtonItem = v33;
+  self->_aaBarButtonItem = v35;
 
   [(VKImageAnalysisBarButtonItem *)self->_aaBarButtonItem setEnabled:0];
-  v35 = self->_doneItem;
-  v47[0] = self->_shareItem;
-  v47[1] = v35;
-  v36 = self->_redoItem;
-  v47[2] = self->_undoItem;
-  v47[3] = v36;
-  v37 = self->_opacityItem;
-  v47[4] = self->_deleteItem;
-  v47[5] = v37;
-  v38 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:6];
+  v37 = self->_doneItem;
+  v49[0] = self->_shareItem;
+  v49[1] = v37;
+  v38 = self->_redoItem;
+  v49[2] = self->_undoItem;
+  v49[3] = v38;
+  v39 = self->_opacityItem;
+  v49[4] = self->_deleteItem;
+  v49[5] = v39;
+  v40 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:6];
   barItems = self->_barItems;
-  self->_barItems = v38;
+  self->_barItems = v40;
 
   if ([getVKCImageAnalyzerClass() supportedAnalysisTypes])
   {
-    v40 = [(NSArray *)self->_barItems arrayByAddingObject:self->_aaBarButtonItem];
-    v41 = self->_barItems;
-    self->_barItems = v40;
+    v42 = [(NSArray *)self->_barItems arrayByAddingObject:self->_aaBarButtonItem];
+    v43 = self->_barItems;
+    self->_barItems = v42;
   }
 }
 
 - (void)_updateBarButtonItemPositionsAnimated:(BOOL)animated
 {
   animatedCopy = animated;
-  v46[4] = *MEMORY[0x1E69E9840];
+  v51[4] = *MEMORY[0x1E69E9840];
   array = [MEMORY[0x1E695DF70] array];
   array2 = [MEMORY[0x1E695DF70] array];
   +[SSChromeHelper defaultBarButtonSpacing];
   v7 = [SSChromeHelper createFixedSpaceBarButtonItemWithWidth:?];
   v8 = 0.0;
-  if ((_SSScreenshotsRedesign2025Enabled() & 1) == 0)
+  if ((_SSScreenshotsRedesign2025Enabled(v7, v9) & 1) == 0)
   {
     +[SSChromeHelper defaultBarButtonSpacing];
-    v8 = v9;
+    v8 = v10;
   }
 
   traitCollection = [(SSChromePlaceholderView *)self traitCollection];
@@ -170,44 +170,44 @@
   {
     [(UIBarButtonItem *)self->_opacityItem _setFlexible:0];
     [SSChromeHelper widthForOpacityControlInView:self withContentSwitcher:0];
-    v13 = v12;
+    v14 = v13;
     opacityControl = self->_opacityControl;
     [(SSVellumOpacityControl *)opacityControl intrinsicContentSize];
-    [(SSVellumOpacityControl *)opacityControl setFrame:0.0, 0.0, v13, v15];
-    v16 = _SSScreenshotsRedesign2025Enabled();
-    v17 = &OBJC_IVAR___SSChromePlaceholderView__doneItem;
-    if (v16)
+    v17 = [(SSVellumOpacityControl *)opacityControl setFrame:0.0, 0.0, v14, v16];
+    v19 = _SSScreenshotsRedesign2025Enabled(v17, v18);
+    v20 = &OBJC_IVAR___SSChromePlaceholderView__doneItem;
+    if (v19)
     {
-      v17 = &OBJC_IVAR___SSChromePlaceholderView__closeItem;
+      v20 = &OBJC_IVAR___SSChromePlaceholderView__closeItem;
     }
 
-    [array addObject:*(&self->super.super.super.isa + *v17)];
-    v18 = [MEMORY[0x1E69DC708] fixedSpaceItemOfWidth:v8];
-    [array addObject:v18];
+    [array addObject:*(&self->super.super.super.isa + *v20)];
+    v21 = [MEMORY[0x1E69DC708] fixedSpaceItemOfWidth:v8];
+    [array addObject:v21];
 
-    [array addObject:self->_opacityItem];
-    if (_SSScreenshotsRedesign2025Enabled())
+    v22 = [array addObject:self->_opacityItem];
+    if (_SSScreenshotsRedesign2025Enabled(v22, v23))
     {
-      v46[0] = self->_doneItem;
-      v19 = [MEMORY[0x1E69DC708] fixedSpaceItemOfWidth:0.0];
+      v51[0] = self->_doneItem;
+      v24 = [MEMORY[0x1E69DC708] fixedSpaceItemOfWidth:0.0];
       shareItem = self->_shareItem;
-      v46[1] = v19;
-      v46[2] = shareItem;
-      v46[3] = self->_annotationEnabledButton;
-      v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:4];
-      [array2 addObjectsFromArray:v21];
+      v51[1] = v24;
+      v51[2] = shareItem;
+      v51[3] = self->_annotationEnabledButton;
+      v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:v51 count:4];
+      [array2 addObjectsFromArray:v26];
 
       if (([getVKCImageAnalyzerClass() supportedAnalysisTypes] & 1) == 0)
       {
         goto LABEL_14;
       }
 
-      v22 = [MEMORY[0x1E69DC708] fixedSpaceItemOfWidth:0.0];
+      v27 = [MEMORY[0x1E69DC708] fixedSpaceItemOfWidth:0.0];
       aaBarButtonItem = self->_aaBarButtonItem;
-      v45[0] = v22;
-      v45[1] = aaBarButtonItem;
-      v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
-      [array2 addObjectsFromArray:v24];
+      v50[0] = v27;
+      v50[1] = aaBarButtonItem;
+      v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:2];
+      [array2 addObjectsFromArray:v29];
     }
 
     else
@@ -216,46 +216,46 @@
       {
         deleteItem = self->_deleteItem;
         annotationEnabledButton = self->_annotationEnabledButton;
-        v31 = self->_aaBarButtonItem;
-        v40 = self->_shareItem;
-        v41 = deleteItem;
-        v42 = annotationEnabledButton;
-        v43 = v31;
-        v44 = v7;
-        v26 = MEMORY[0x1E695DEC8];
-        v27 = &v40;
-        v28 = 5;
+        v36 = self->_aaBarButtonItem;
+        v45 = self->_shareItem;
+        v46 = deleteItem;
+        v47 = annotationEnabledButton;
+        v48 = v36;
+        v49 = v7;
+        v31 = MEMORY[0x1E695DEC8];
+        v32 = &v45;
+        v33 = 5;
       }
 
       else
       {
-        v25 = self->_deleteItem;
-        v36 = self->_shareItem;
-        v37 = v25;
-        v38 = self->_annotationEnabledButton;
-        v39 = v7;
-        v26 = MEMORY[0x1E695DEC8];
-        v27 = &v36;
-        v28 = 4;
+        v30 = self->_deleteItem;
+        v41 = self->_shareItem;
+        v42 = v30;
+        v43 = self->_annotationEnabledButton;
+        v44 = v7;
+        v31 = MEMORY[0x1E695DEC8];
+        v32 = &v41;
+        v33 = 4;
       }
 
-      v22 = [v26 arrayWithObjects:v27 count:{v28, v36, v37, v38, v39, v40, v41, v42, v43, v44}];
-      [array2 addObjectsFromArray:v22];
+      v27 = [v31 arrayWithObjects:v32 count:{v33, v41, v42, v43, v44, v45, v46, v47, v48, v49}];
+      [array2 addObjectsFromArray:v27];
     }
   }
 
 LABEL_14:
-  v32 = self->_topBar;
+  v37 = self->_topBar;
   [(UINavigationItem *)self->_managedNavigationItem setLeftBarButtonItems:array animated:animatedCopy];
   [(UINavigationItem *)self->_managedNavigationItem setRightBarButtonItems:array2 animated:animatedCopy];
   [(UINavigationItem *)self->_managedNavigationItem setTitleView:0];
-  topItem = [(UINavigationBar *)v32 topItem];
+  topItem = [(UINavigationBar *)v37 topItem];
   managedNavigationItem = self->_managedNavigationItem;
 
   if (topItem != managedNavigationItem)
   {
-    v35 = [(UINavigationBar *)v32 popNavigationItemAnimated:0];
-    [(UINavigationBar *)v32 pushNavigationItem:self->_managedNavigationItem animated:0];
+    v40 = [(UINavigationBar *)v37 popNavigationItemAnimated:0];
+    [(UINavigationBar *)v37 pushNavigationItem:self->_managedNavigationItem animated:0];
   }
 }
 
@@ -290,68 +290,68 @@ LABEL_14:
     [(UINavigationBar *)self->_topBar setBackgroundImage:v10 forBarMetrics:1];
     [(UINavigationBar *)self->_topBar setBackgroundImage:v10 forBarMetrics:0];
     [(UINavigationBar *)self->_topBar setShadowImage:v10];
-    [(SSChromePlaceholderView *)self addSubview:self->_topBar];
-    if ((_SSScreenshotsRedesign2025Enabled() & 1) == 0)
+    v11 = [(SSChromePlaceholderView *)self addSubview:self->_topBar];
+    if ((_SSScreenshotsRedesign2025Enabled(v11, v12) & 1) == 0)
     {
-      v11 = +[SSChromeHelper separatorView];
+      v13 = +[SSChromeHelper separatorView];
       topBarSeparatorLine = self->_topBarSeparatorLine;
-      self->_topBarSeparatorLine = v11;
+      self->_topBarSeparatorLine = v13;
 
       [(UINavigationBar *)self->_topBar addSubview:self->_topBarSeparatorLine];
     }
   }
 
   [(SSChromePlaceholderView *)self bounds];
-  [(UINavigationBar *)self->_topBar sizeThatFits:v13, v14];
-  v16 = v15;
+  [(UINavigationBar *)self->_topBar sizeThatFits:v15, v16];
   v18 = v17;
-  [(SSChromePlaceholderView *)self safeAreaInsets];
   v20 = v19;
-  +[SSChromeHelper barSeparatorSize];
+  [(SSChromePlaceholderView *)self safeAreaInsets];
   v22 = v21;
-  [(SSChromePlaceholderView *)self bounds];
+  +[SSChromeHelper barSeparatorSize];
   v24 = v23;
-  if ((_SSScreenshotsRedesign2025Enabled() & 1) == 0)
+  bounds = [(SSChromePlaceholderView *)self bounds];
+  v27 = v26;
+  if ((_SSScreenshotsRedesign2025Enabled(bounds, v28) & 1) == 0)
   {
     [(UINavigationBar *)self->_topBar bringSubviewToFront:self->_topBarSeparatorLine];
   }
 
   [(UINavigationBar *)self->_topBar frame];
-  v29.origin.x = 0.0;
-  v29.origin.y = v20;
-  v29.size.width = v16;
-  v29.size.height = v18;
-  if (!CGRectEqualToRect(v26, v29) || ([(UINavigationBar *)self->_topBarBackground frame], v30.origin.x = 0.0, v30.origin.y = v20, v30.size.width = v16, v30.size.height = v18, !CGRectEqualToRect(v27, v30)) || ([(UIView *)self->_topBarSeparatorLine frame], v31.origin.x = 0.0, v31.origin.y = v18 - v22, v31.size.width = v24, v31.size.height = v22, !CGRectEqualToRect(v28, v31)))
+  v33.origin.x = 0.0;
+  v33.origin.y = v22;
+  v33.size.width = v18;
+  v33.size.height = v20;
+  if (!CGRectEqualToRect(v30, v33) || ([(UINavigationBar *)self->_topBarBackground frame], v34.origin.x = 0.0, v34.origin.y = v22, v34.size.width = v18, v34.size.height = v20, !CGRectEqualToRect(v31, v34)) || ([(UIView *)self->_topBarSeparatorLine frame], v35.origin.x = 0.0, v35.origin.y = v20 - v24, v35.size.width = v27, v35.size.height = v24, !CGRectEqualToRect(v32, v35)))
   {
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __40__SSChromePlaceholderView__layoutTopBar__block_invoke_2;
-    v25[3] = &unk_1E8590160;
-    v25[4] = self;
-    v25[5] = 0;
-    *&v25[6] = v20;
-    *&v25[7] = v16;
-    *&v25[8] = v18;
-    v25[9] = 0;
-    *&v25[10] = v18 - v22;
-    *&v25[11] = v24;
-    *&v25[12] = v22;
-    [MEMORY[0x1E69DD250] performWithoutAnimation:v25];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __40__SSChromePlaceholderView__layoutTopBar__block_invoke_2;
+    v29[3] = &unk_1E8590160;
+    v29[4] = self;
+    v29[5] = 0;
+    *&v29[6] = v22;
+    *&v29[7] = v18;
+    *&v29[8] = v20;
+    v29[9] = 0;
+    *&v29[10] = v20 - v24;
+    *&v29[11] = v27;
+    *&v29[12] = v24;
+    [MEMORY[0x1E69DD250] performWithoutAnimation:v29];
   }
 }
 
 uint64_t __40__SSChromePlaceholderView__layoutTopBar__block_invoke_2(uint64_t a1)
 {
   [*(*(a1 + 32) + 496) setFrame:{*(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64)}];
-  [*(*(a1 + 32) + 504) setFrame:{*(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64)}];
-  if ((_SSScreenshotsRedesign2025Enabled() & 1) == 0)
+  v2 = [*(*(a1 + 32) + 504) setFrame:{*(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64)}];
+  if ((_SSScreenshotsRedesign2025Enabled(v2, v3) & 1) == 0)
   {
     [*(*(a1 + 32) + 512) setFrame:{*(a1 + 72), *(a1 + 80), *(a1 + 88), *(a1 + 96)}];
   }
 
-  v2 = *(a1 + 32);
+  v4 = *(a1 + 32);
 
-  return [v2 layoutIfNeeded];
+  return [v4 layoutIfNeeded];
 }
 
 - (int64_t)positionForBar:(id)bar

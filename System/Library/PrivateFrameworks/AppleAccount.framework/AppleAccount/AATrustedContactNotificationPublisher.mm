@@ -7,7 +7,7 @@
 
 + (void)postRecoveryContactChangedNotification
 {
-  v2 = _AALogSystem();
+  v2 = _AALogSystem(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -20,7 +20,7 @@
 
 + (void)postInheritanceContactChangedNotification
 {
-  v2 = _AALogSystem();
+  v2 = _AALogSystem(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;

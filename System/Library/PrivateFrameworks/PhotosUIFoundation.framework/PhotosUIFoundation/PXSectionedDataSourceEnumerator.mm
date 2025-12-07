@@ -15,36 +15,36 @@
 
 - (id)firstObject
 {
+  v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   indexPathSet = [(PXSectionedDataSourceEnumerator *)self indexPathSet];
   dataSource = [(PXSectionedDataSourceEnumerator *)self dataSource];
-  identifier = [dataSource identifier];
+  [dataSource identifier];
   if (indexPathSet)
   {
-    [indexPathSet firstItemIndexPathForDataSourceIdentifier:identifier];
+    objc_msgSend_firstItemIndexPathForDataSourceIdentifier_(indexPathSet);
   }
 
   else
   {
+    v9 = 0u;
     v10 = 0u;
-    v11 = 0u;
   }
 
-  if (v10)
+  if (v9)
   {
     dataSource2 = [(PXSectionedDataSourceEnumerator *)self dataSource];
-    v9[0] = v10;
-    v9[1] = v11;
-    v7 = [dataSource2 objectAtIndexPath:v9];
+    v8[0] = v9;
+    v8[1] = v10;
+    v6 = [dataSource2 objectAtIndexPath:v8];
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (id)nextObject
@@ -69,14 +69,14 @@
       v4 = *&self->_lastIndexPath.item;
       v11 = *&self->_lastIndexPath.dataSourceIdentifier;
       v12 = v4;
-      [(PXSectionedDataSourceEnumerator *)self _nextItemIndexPathFromIndexPath:&v11];
+      objc_msgSend__nextItemIndexPathFromIndexPath_(self, a2, &v11);
       goto LABEL_8;
     }
 
     v7 = *&self->_lastIndexPath.item;
     v11 = *&self->_lastIndexPath.dataSourceIdentifier;
     v12 = v7;
-    [(PXSectionedDataSourceEnumerator *)self _nextSectionIndexPathFromIndexPath:&v11];
+    objc_msgSend__nextSectionIndexPathFromIndexPath_(self, a2, &v11);
     v6 = v13;
     v16 = v14;
     v17 = v15;
@@ -101,7 +101,7 @@ LABEL_13:
     v5 = *&self->_lastIndexPath.item;
     v11 = *&self->_lastIndexPath.dataSourceIdentifier;
     v12 = v5;
-    [(PXSectionedDataSourceEnumerator *)self _nextSubitemIndexPathFromIndexPath:&v11];
+    objc_msgSend__nextSubitemIndexPathFromIndexPath_(self, a2, &v11);
 LABEL_8:
     v6 = v13;
     v16 = v14;

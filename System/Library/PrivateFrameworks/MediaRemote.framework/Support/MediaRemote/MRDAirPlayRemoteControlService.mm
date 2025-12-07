@@ -55,28 +55,28 @@
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = objc_alloc_init(NSMutableArray);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   objectEnumerator = [(NSMapTable *)selfCopy->_connections objectEnumerator];
-  v5 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [objectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
-    v6 = *v17;
+    v6 = *v16;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v17 != v6)
+        if (*v16 != v6)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        [v3 addObject:*(*(&v16 + 1) + 8 * i)];
+        [v3 addObject:*(*(&v15 + 1) + 8 * i)];
       }
 
-      v5 = [objectEnumerator countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v5 = [objectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v5);
@@ -95,13 +95,12 @@
   }
 
   v11 = MRCreateIndentedDebugDescriptionFromArray();
-  mrRelayConnectionManager = selfCopy->_mrRelayConnectionManager;
-  v13 = MRCreateIndentedDebugDescriptionFromObject();
-  v14 = [v8 initWithFormat:@"<%@:%p {\n  started = %@\n  connections = %@\n  relayConnectionManager = %@\n}>", v9, selfCopy, v10, v11, v13];
+  v12 = MRCreateIndentedDebugDescriptionFromObject();
+  v13 = [v8 initWithFormat:@"<%@:%p {\n  started = %@\n  connections = %@\n  relayConnectionManager = %@\n}>", v9, selfCopy, v10, v11, v12];
 
   objc_sync_exit(selfCopy);
 
-  return v14;
+  return v13;
 }
 
 - (void)_startImmediately

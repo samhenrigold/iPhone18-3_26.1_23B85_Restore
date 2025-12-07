@@ -180,7 +180,7 @@
       v5 = [(LookupRequestOperation *)self _performPlatformLookup:&v16];
     }
 
-    v13 = v5;
+    v14 = v5;
   }
 
   else
@@ -194,44 +194,48 @@
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v6 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      v9 = objc_opt_class();
+      v10 = objc_opt_class();
       v17 = 138412546;
-      v18 = v9;
+      v18 = v10;
       v19 = 2112;
       v20 = v16;
-      LODWORD(v15) = 22;
-      v14 = &v17;
-      v10 = _os_log_send_and_compose_impl();
-      if (v10)
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%@: Could not load URL bag: %@", &v17, 22);
+      if (v11)
       {
-        v11 = v10;
-        v12 = [NSString stringWithCString:v10 encoding:4, &v17, v15];
-        free(v11);
-        v14 = v12;
+        v12 = v11;
+        v13 = [NSString stringWithCString:v11 encoding:4];
+        free(v12);
+        v15 = v13;
         SSFileLog();
       }
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  [(LookupRequestOperation *)self setError:v16, v14];
-  [(LookupRequestOperation *)self setSuccess:v13];
+  [(LookupRequestOperation *)self setError:v16, v15];
+  [(LookupRequestOperation *)self setSuccess:v14];
 }
 
 - (void)operation:(id)operation willSendRequest:(id)request
@@ -411,46 +415,50 @@ LABEL_7:
     v5 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog = [v5 shouldLog];
+  LODWORD(v6) = [v5 shouldLog];
   shouldLogToDisk = [v5 shouldLogToDisk];
   oSLogObject = [v5 OSLogObject];
+  v9 = oSLogObject;
   if (shouldLogToDisk)
   {
-    shouldLog |= 2u;
+    LODWORD(v6) = v6 | 2;
   }
 
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
   {
-    shouldLog &= 2u;
+    v6 = v6;
   }
 
-  if (shouldLog)
+  else
   {
-    v9 = objc_opt_class();
+    v6 &= 2u;
+  }
+
+  if (v6)
+  {
+    v10 = objc_opt_class();
     v33 = 138412290;
-    v34 = v9;
-    LODWORD(v21) = 12;
-    v20 = &v33;
-    v10 = _os_log_send_and_compose_impl();
-    if (v10)
+    v34 = v10;
+    v11 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, v9, 1, "%@: Performing location lookup", &v33, 12);
+    if (v11)
     {
-      v11 = v10;
-      v12 = [NSString stringWithCString:v10 encoding:4, &v33, v21];
-      free(v11);
-      v20 = v12;
+      v12 = v11;
+      v13 = [NSString stringWithCString:v11 encoding:4];
+      free(v12);
+      v21 = v13;
       SSFileLog();
     }
   }
 
   _URLBagContext = [(LookupRequestOperation *)self _URLBagContext];
-  v14 = [-[LookupRequestOperation loadedURLBagWithContext:returningError:](self loadedURLBagWithContext:_URLBagContext returningError:{v24 + 5), "valueForKey:", @"nearby-apps"}];
+  v15 = [-[LookupRequestOperation loadedURLBagWithContext:returningError:](self loadedURLBagWithContext:_URLBagContext returningError:{v24 + 5), "valueForKey:", @"nearby-apps"}];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v15 = [[SSVLoadNearbyAppsOperation alloc] initWithBaseURL:v14 location:{-[SSLookupProperties location](self->_properties, "location")}];
-    [v15 setPointOfInterestIdentifier:{-[SSLookupProperties valueForRequestParameter:](self->_properties, "valueForRequestParameter:", SSLookupParameterPointOfInterestIdentifier)}];
-    [v15 setPointOfInterestProviderIdentifier:{-[SSLookupProperties valueForRequestParameter:](self->_properties, "valueForRequestParameter:", SSLookupParameterPointOfInterestProviderIdentifier)}];
-    [v15 setPointOfInterestProviderURL:{-[SSLookupProperties valueForRequestParameter:](self->_properties, "valueForRequestParameter:", SSLookupParameterPointOfInterestProviderURLString)}];
+    v16 = [[SSVLoadNearbyAppsOperation alloc] initWithBaseURL:v15 location:{-[SSLookupProperties location](self->_properties, "location")}];
+    [v16 setPointOfInterestIdentifier:{-[SSLookupProperties valueForRequestParameter:](self->_properties, "valueForRequestParameter:", SSLookupParameterPointOfInterestIdentifier)}];
+    [v16 setPointOfInterestProviderIdentifier:{-[SSLookupProperties valueForRequestParameter:](self->_properties, "valueForRequestParameter:", SSLookupParameterPointOfInterestProviderIdentifier)}];
+    [v16 setPointOfInterestProviderURL:{-[SSLookupProperties valueForRequestParameter:](self->_properties, "valueForRequestParameter:", SSLookupParameterPointOfInterestProviderURLString)}];
     v22[0] = _NSConcreteStackBlock;
     v22[1] = 3221225472;
     v22[2] = sub_1001AB090;
@@ -458,27 +466,27 @@ LABEL_7:
     v22[4] = self;
     v22[5] = &v23;
     v22[6] = &v29;
-    [v15 setResponseBlock:v22];
-    [v15 main];
-    v16 = v24[5];
+    [v16 setResponseBlock:v22];
+    [v16 main];
+    v17 = v24[5];
   }
 
-  v17 = v30;
-  v18 = *(v30 + 24);
+  v18 = v30;
+  v19 = *(v30 + 24);
   if (lookup && (v30[3] & 1) == 0)
   {
     *lookup = v24[5];
-    v18 = *(v17 + 24);
+    v19 = *(v18 + 24);
   }
 
   _Block_object_dispose(&v23, 8);
   _Block_object_dispose(&v29, 8);
-  return v18 & 1;
+  return v19 & 1;
 }
 
 - (BOOL)_performPlatformLookup:(id *)lookup
 {
-  v54 = 0;
+  v59 = 0;
   v5 = [(LookupRequestOperation *)self _newStoreURLOperationWithBagKey:@"storeplatform-lookup-url"];
   [v5 setDelegate:self];
   v6 = +[SSLogConfig sharedDaemonConfig];
@@ -490,223 +498,247 @@ LABEL_7:
   shouldLog = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v8 = shouldLog | 2;
+    LODWORD(v8) = shouldLog | 2;
   }
 
   else
   {
-    v8 = shouldLog;
+    LODWORD(v8) = shouldLog;
   }
 
-  if (!os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_INFO))
+  oSLogObject = [v6 OSLogObject];
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v8 = v8;
+  }
+
+  else
   {
     v8 &= 2u;
   }
 
   if (v8)
   {
-    v55 = 138412290;
-    v56 = objc_opt_class();
-    LODWORD(v51) = 12;
-    v48 = &v55;
-    v9 = _os_log_send_and_compose_impl();
-    if (v9)
+    v60 = 138412290;
+    v61 = objc_opt_class();
+    v10 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "%@: Performing platform lookup", &v60, 12);
+    if (v10)
     {
-      v10 = v9;
-      v11 = [NSString stringWithCString:v9 encoding:4, &v55, v51];
-      free(v10);
-      v48 = v11;
+      v11 = v10;
+      v12 = [NSString stringWithCString:v10 encoding:4];
+      free(v11);
+      v53 = v12;
       SSFileLog();
     }
   }
 
-  v12 = [(LookupRequestOperation *)self runSubOperation:v5 returningError:&v54, v48];
-  if (v12)
+  v13 = [(LookupRequestOperation *)self runSubOperation:v5 returningError:&v59, v53];
+  if (v13)
   {
-    v13 = [(LookupRequestOperation *)self _newLookupResponseWithResultsFromOperation:v5];
-    [(LookupRequestOperation *)self _setLookupResponse:v13];
-    v14 = [v13 valueForProperty:SSLookupPropertyIsAuthenticated];
-    if (-[LookupRequestOperation personalizationStyle](self, "personalizationStyle") == 1 && (objc_opt_respondsToSelector() & 1) != 0 && ([v14 BOOLValue] & 1) == 0)
+    v14 = [(LookupRequestOperation *)self _newLookupResponseWithResultsFromOperation:v5];
+    [(LookupRequestOperation *)self _setLookupResponse:v14];
+    v15 = [v14 valueForProperty:SSLookupPropertyIsAuthenticated];
+    if (-[LookupRequestOperation personalizationStyle](self, "personalizationStyle") == 1 && (objc_opt_respondsToSelector() & 1) != 0 && ([v15 BOOLValue] & 1) == 0)
     {
-      v15 = +[SSLogConfig sharedDaemonConfig];
-      if (!v15)
+      v16 = +[SSLogConfig sharedDaemonConfig];
+      if (!v16)
       {
-        v15 = +[SSLogConfig sharedConfig];
+        v16 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog2 = [v15 shouldLog];
-      if ([v15 shouldLogToDisk])
+      shouldLog2 = [v16 shouldLog];
+      if ([v16 shouldLogToDisk])
       {
-        v17 = shouldLog2 | 2;
+        LODWORD(v18) = shouldLog2 | 2;
       }
 
       else
       {
-        v17 = shouldLog2;
+        LODWORD(v18) = shouldLog2;
       }
 
-      if (!os_log_type_enabled([v15 OSLogObject], OS_LOG_TYPE_INFO))
+      oSLogObject2 = [v16 OSLogObject];
+      if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
       {
-        v17 &= 2u;
+        v18 = v18;
       }
 
-      if (v17)
+      else
       {
-        v18 = objc_opt_class();
-        v55 = 138412290;
-        v56 = v18;
-        LODWORD(v51) = 12;
-        v49 = &v55;
-        v19 = _os_log_send_and_compose_impl();
-        if (v19)
+        v18 &= 2u;
+      }
+
+      if (v18)
+      {
+        v20 = objc_opt_class();
+        v60 = 138412290;
+        v61 = v20;
+        LODWORD(v56) = 12;
+        v21 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%@: Authenticating to personalize response", &v60, v56);
+        if (v21)
         {
-          v20 = v19;
-          v21 = [NSString stringWithCString:v19 encoding:4, &v55, v51];
-          free(v20);
-          v49 = v21;
+          v22 = v21;
+          v23 = [NSString stringWithCString:v21 encoding:4];
+          free(v22);
+          v54 = v23;
           SSFileLog();
         }
       }
 
-      v53 = 0;
-      v52 = 0;
-      v22 = [(LookupRequestOperation *)self copyAccountID:&v53 credentialSource:0 byAuthenticatingWithContext:[(LookupRequestOperation *)self _authenticationContext] returningError:&v52];
-      v23 = +[SSLogConfig sharedDaemonConfig];
-      v24 = v23;
-      if (v22)
+      v58 = 0;
+      v57 = 0;
+      v24 = [(LookupRequestOperation *)self copyAccountID:&v58 credentialSource:0 byAuthenticatingWithContext:[(LookupRequestOperation *)self _authenticationContext] returningError:&v57];
+      v25 = +[SSLogConfig sharedDaemonConfig];
+      v26 = v25;
+      if (v24)
       {
-        if (!v23)
+        if (!v25)
         {
-          v24 = +[SSLogConfig sharedConfig];
+          v26 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog3 = [v24 shouldLog];
-        if ([v24 shouldLogToDisk])
+        shouldLog3 = [v26 shouldLog];
+        if ([v26 shouldLogToDisk])
         {
-          v26 = shouldLog3 | 2;
-        }
-
-        else
-        {
-          v26 = shouldLog3;
-        }
-
-        if (!os_log_type_enabled([v24 OSLogObject], OS_LOG_TYPE_INFO))
-        {
-          v26 &= 2u;
-        }
-
-        if (v26)
-        {
-          v27 = objc_opt_class();
-          v55 = 138412546;
-          v56 = v27;
-          v57 = 2112;
-          v58 = v53;
-          LODWORD(v51) = 22;
-          v49 = &v55;
-          v28 = _os_log_send_and_compose_impl();
-          if (v28)
-          {
-            v29 = v28;
-            v30 = [NSString stringWithCString:v28 encoding:4, &v55, v51];
-            free(v29);
-            v49 = v30;
-            SSFileLog();
-          }
-        }
-
-        [(LookupRequestOperation *)self _setAccountID:v53, v49];
-        v31 = [(LookupRequestOperation *)self _newStoreURLOperationWithBagKey:@"storeplatform-lookup-url"];
-        [v31 setDelegate:self];
-        v32 = +[SSLogConfig sharedDaemonConfig];
-        if (!v32)
-        {
-          v32 = +[SSLogConfig sharedConfig];
-        }
-
-        shouldLog4 = [v32 shouldLog];
-        if ([v32 shouldLogToDisk])
-        {
-          v34 = shouldLog4 | 2;
+          LODWORD(v28) = shouldLog3 | 2;
         }
 
         else
         {
-          v34 = shouldLog4;
+          LODWORD(v28) = shouldLog3;
         }
 
-        if (!os_log_type_enabled([v32 OSLogObject], OS_LOG_TYPE_INFO))
+        oSLogObject3 = [v26 OSLogObject];
+        if (os_log_type_enabled(oSLogObject3, OS_LOG_TYPE_INFO))
         {
-          v34 &= 2u;
+          v28 = v28;
         }
 
-        if (v34)
+        else
         {
-          v35 = objc_opt_class();
-          v55 = 138412290;
-          v56 = v35;
-          LODWORD(v51) = 12;
-          v50 = &v55;
-          v36 = _os_log_send_and_compose_impl();
-          if (v36)
+          v28 &= 2u;
+        }
+
+        if (v28)
+        {
+          v30 = objc_opt_class();
+          v60 = 138412546;
+          v61 = v30;
+          v62 = 2112;
+          v63 = v58;
+          LODWORD(v56) = 22;
+          v31 = _os_log_send_and_compose_impl(v28, 0, 0, 0, &_mh_execute_header, oSLogObject3, 1, "%@: Authenticated for account: %@", &v60, v56);
+          if (v31)
           {
-            v37 = v36;
-            v38 = [NSString stringWithCString:v36 encoding:4, &v55, v51];
-            free(v37);
-            v50 = v38;
+            v32 = v31;
+            v33 = [NSString stringWithCString:v31 encoding:4];
+            free(v32);
+            v54 = v33;
             SSFileLog();
           }
         }
 
-        if ([(LookupRequestOperation *)self runSubOperation:v31 returningError:0, v50])
+        [(LookupRequestOperation *)self _setAccountID:v58, v54];
+        v34 = [(LookupRequestOperation *)self _newStoreURLOperationWithBagKey:@"storeplatform-lookup-url"];
+        [v34 setDelegate:self];
+        v35 = +[SSLogConfig sharedDaemonConfig];
+        if (!v35)
         {
-          v39 = [(LookupRequestOperation *)self _newLookupResponseWithResultsFromOperation:v31];
-          [(LookupRequestOperation *)self _setLookupResponse:v39];
+          v35 = +[SSLogConfig sharedConfig];
         }
 
-        [v31 setDelegate:0];
+        shouldLog4 = [v35 shouldLog];
+        if ([v35 shouldLogToDisk])
+        {
+          LODWORD(v37) = shouldLog4 | 2;
+        }
+
+        else
+        {
+          LODWORD(v37) = shouldLog4;
+        }
+
+        oSLogObject4 = [v35 OSLogObject];
+        if (os_log_type_enabled(oSLogObject4, OS_LOG_TYPE_INFO))
+        {
+          v37 = v37;
+        }
+
+        else
+        {
+          v37 &= 2u;
+        }
+
+        if (v37)
+        {
+          v39 = objc_opt_class();
+          v60 = 138412290;
+          v61 = v39;
+          LODWORD(v56) = 12;
+          v40 = _os_log_send_and_compose_impl(v37, 0, 0, 0, &_mh_execute_header, oSLogObject4, 1, "%@: Performing personalization lookup", &v60, v56);
+          if (v40)
+          {
+            v41 = v40;
+            v42 = [NSString stringWithCString:v40 encoding:4];
+            free(v41);
+            v55 = v42;
+            SSFileLog();
+          }
+        }
+
+        if ([(LookupRequestOperation *)self runSubOperation:v34 returningError:0, v55])
+        {
+          v43 = [(LookupRequestOperation *)self _newLookupResponseWithResultsFromOperation:v34];
+          [(LookupRequestOperation *)self _setLookupResponse:v43];
+        }
+
+        [v34 setDelegate:0];
       }
 
       else
       {
-        if (!v23)
+        if (!v25)
         {
-          v24 = +[SSLogConfig sharedConfig];
+          v26 = +[SSLogConfig sharedConfig];
         }
 
-        shouldLog5 = [v24 shouldLog];
-        if ([v24 shouldLogToDisk])
+        shouldLog5 = [v26 shouldLog];
+        if ([v26 shouldLogToDisk])
         {
-          v41 = shouldLog5 | 2;
+          LODWORD(v45) = shouldLog5 | 2;
         }
 
         else
         {
-          v41 = shouldLog5;
+          LODWORD(v45) = shouldLog5;
         }
 
-        if (!os_log_type_enabled([v24 OSLogObject], OS_LOG_TYPE_DEFAULT))
+        oSLogObject5 = [v26 OSLogObject];
+        if (os_log_type_enabled(oSLogObject5, OS_LOG_TYPE_DEFAULT))
         {
-          v41 &= 2u;
+          v45 = v45;
         }
 
-        if (v41)
+        else
         {
-          v42 = objc_opt_class();
-          v55 = 138412546;
-          v56 = v42;
-          v57 = 2112;
-          v58 = v52;
-          LODWORD(v51) = 22;
-          v49 = &v55;
-          v43 = _os_log_send_and_compose_impl();
-          if (v43)
+          v45 &= 2u;
+        }
+
+        if (v45)
+        {
+          v47 = objc_opt_class();
+          v60 = 138412546;
+          v61 = v47;
+          v62 = 2112;
+          v63 = v57;
+          LODWORD(v56) = 22;
+          v48 = _os_log_send_and_compose_impl(v45, 0, 0, 0, &_mh_execute_header, oSLogObject5, 0, "%@: Authentication failed: %@", &v60, v56);
+          if (v48)
           {
-            v44 = v43;
-            v45 = [NSString stringWithCString:v43 encoding:4, &v55, v51];
-            free(v44);
-            v49 = v45;
+            v49 = v48;
+            v50 = [NSString stringWithCString:v48 encoding:4];
+            free(v49);
+            v54 = v50;
             SSFileLog();
           }
         }
@@ -714,24 +746,24 @@ LABEL_7:
     }
   }
 
-  [v5 setDelegate:{0, v49}];
+  [v5 setDelegate:{0, v54}];
 
   if (lookup)
   {
-    v46 = v12;
+    v51 = v13;
   }
 
   else
   {
-    v46 = 1;
+    v51 = 1;
   }
 
-  if ((v46 & 1) == 0)
+  if ((v51 & 1) == 0)
   {
-    *lookup = v54;
+    *lookup = v59;
   }
 
-  return v12;
+  return v13;
 }
 
 - (void)_setAccountID:(id)d

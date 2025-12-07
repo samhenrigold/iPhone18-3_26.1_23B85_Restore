@@ -15,6 +15,7 @@
 - (void)_accessibilityStartJiggleMode:(id)mode;
 - (void)_axUpdateIconElements;
 - (void)hexAppGraph:(id)graph addedNodes:(id)nodes removedNodes:(id)removedNodes movedNodes:(id)movedNodes;
+- (void)setLayout:(id)layout percentComplete:(double)complete animated:(BOOL)animated options:(unint64_t)options;
 @end
 
 @implementation CSLUIFieldOfIconsViewAccessibility
@@ -114,7 +115,7 @@ uint64_t __63__CSLUIFieldOfIconsViewAccessibility_accessibilityScrollUpPage__blo
   return [v1 setContentOffset:0 animated:{v2, v4}];
 }
 
-uint64_t __63__CSLUIFieldOfIconsViewAccessibility_accessibilityScrollUpPage__block_invoke_2(uint64_t a1)
+void *__63__CSLUIFieldOfIconsViewAccessibility_accessibilityScrollUpPage__block_invoke_2(uint64_t a1)
 {
   v2 = *(a1 + 32);
   [v2 _accessibilityScrollSize];
@@ -147,7 +148,7 @@ void __63__CSLUIFieldOfIconsViewAccessibility_accessibilityScrollUpPage__block_i
   return 1;
 }
 
-uint64_t __65__CSLUIFieldOfIconsViewAccessibility_accessibilityScrollDownPage__block_invoke(uint64_t a1)
+void *__65__CSLUIFieldOfIconsViewAccessibility_accessibilityScrollDownPage__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   [v2 _accessibilityScrollSize];
@@ -182,43 +183,43 @@ void __65__CSLUIFieldOfIconsViewAccessibility_accessibilityScrollDownPage__block
 
 - (void)_axUpdateIconElements
 {
-  v40 = *MEMORY[0x29EDCA608];
+  v39 = *MEMORY[0x29EDCA608];
   if (([(CSLUIFieldOfIconsViewAccessibility *)self safeBoolForKey:@"_didPanDrag"]& 1) == 0)
   {
     v3 = [(CSLUIFieldOfIconsViewAccessibility *)self safeValueForKey:@"_iconViewDict"];
     allValues = [v3 allValues];
-    v36[0] = MEMORY[0x29EDCA5F8];
-    v36[1] = 3221225472;
-    v36[2] = __59__CSLUIFieldOfIconsViewAccessibility__axUpdateIconElements__block_invoke;
-    v36[3] = &unk_29F2B45D8;
-    v36[4] = self;
-    v5 = [allValues sortedArrayUsingComparator:v36];
+    v35[0] = MEMORY[0x29EDCA5F8];
+    v35[1] = 3221225472;
+    v35[2] = __59__CSLUIFieldOfIconsViewAccessibility__axUpdateIconElements__block_invoke;
+    v35[3] = &unk_29F2B45D8;
+    v35[4] = self;
+    v5 = [allValues sortedArrayUsingComparator:v35];
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     obj = v5;
-    v6 = [obj countByEnumeratingWithState:&v32 objects:v39 count:16];
+    v6 = [obj countByEnumeratingWithState:&v31 objects:v38 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v33;
+      v8 = *v32;
       v9 = @"isEditing";
       v10 = 0x29EDC7000uLL;
       do
       {
         v11 = 0;
-        v30 = sel__accessibilityMoveIconRight_;
+        v29 = sel__accessibilityMoveIconRight_;
         do
         {
-          if (*v33 != v8)
+          if (*v32 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v32 + 1) + 8 * v11);
-          v13 = [(CSLUIFieldOfIconsViewAccessibility *)self safeBoolForKey:v9, v30];
+          v12 = *(*(&v31 + 1) + 8 * v11);
+          v13 = [(CSLUIFieldOfIconsViewAccessibility *)self safeBoolForKey:v9, v29];
           v14 = objc_alloc(*(v10 + 2272));
           if (v13)
           {
@@ -232,12 +233,12 @@ void __65__CSLUIFieldOfIconsViewAccessibility_accessibilityScrollDownPage__block
             v19 = v8;
             v20 = v10;
             v22 = v21 = v9;
-            v23 = [v17 initWithName:v22 target:self selector:v30];
+            v23 = [v17 initWithName:v22 target:self selector:v29];
 
             [v23 _accessibilitySetAssignedValue:v12 forKey:@"kAXOwningElement"];
-            v38[0] = v16;
-            v38[1] = v23;
-            v24 = [MEMORY[0x29EDB8D80] arrayWithObjects:v38 count:2];
+            v37[0] = v16;
+            v37[1] = v23;
+            v24 = [MEMORY[0x29EDB8D80] arrayWithObjects:v37 count:2];
             [v12 setAccessibilityCustomActions:v24];
 
             v9 = v21;
@@ -251,8 +252,8 @@ void __65__CSLUIFieldOfIconsViewAccessibility_accessibilityScrollDownPage__block
             v25 = accessibilityLocalizedString(@"apps.arrange");
             v16 = [v14 initWithName:v25 target:self selector:sel__accessibilityStartJiggleMode_];
 
-            v37 = v16;
-            v26 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v37 count:1];
+            v36 = v16;
+            v26 = [MEMORY[0x29EDB8D80] arrayWithObjects:&v36 count:1];
             [v12 setAccessibilityCustomActions:v26];
 
             [v16 _accessibilitySetAssignedValue:v12 forKey:@"kAXOwningElement"];
@@ -262,7 +263,7 @@ void __65__CSLUIFieldOfIconsViewAccessibility_accessibilityScrollDownPage__block
         }
 
         while (v7 != v11);
-        v7 = [obj countByEnumeratingWithState:&v32 objects:v39 count:16];
+        v7 = [obj countByEnumeratingWithState:&v31 objects:v38 count:16];
       }
 
       while (v7);
@@ -275,8 +276,6 @@ void __65__CSLUIFieldOfIconsViewAccessibility_accessibilityScrollDownPage__block
 
     UIAccessibilityPostNotification(*MEMORY[0x29EDC7ED8], 0);
   }
-
-  v29 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t __59__CSLUIFieldOfIconsViewAccessibility__axUpdateIconElements__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -356,44 +355,42 @@ uint64_t __59__CSLUIFieldOfIconsViewAccessibility__axUpdateIconElements__block_i
 
 - (id)_accessibilityHitTestSubviews
 {
-  v18 = *MEMORY[0x29EDCA608];
+  v17 = *MEMORY[0x29EDCA608];
   array = [MEMORY[0x29EDB8DE8] array];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   objc_opt_class();
   v4 = [(CSLUIFieldOfIconsViewAccessibility *)self safeValueForKey:@"subviews"];
   v5 = __UIAccessibilityCastAsClass();
 
-  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        subviews = [*(*(&v13 + 1) + 8 * i) subviews];
+        subviews = [*(*(&v12 + 1) + 8 * i) subviews];
         if (subviews)
         {
           [array addObjectsFromArray:subviews];
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x29EDCA608];
 
   return array;
 }
@@ -506,6 +503,20 @@ LABEL_6:
     v15 = *MEMORY[0x29EDC7EA8];
     v16 = __UIAXStringForVariables();
     UIAccessibilityPostNotification(v15, v16);
+  }
+}
+
+- (void)setLayout:(id)layout percentComplete:(double)complete animated:(BOOL)animated options:(unint64_t)options
+{
+  v10.receiver = self;
+  v10.super_class = CSLUIFieldOfIconsViewAccessibility;
+  [(CSLUIFieldOfIconsViewAccessibility *)&v10 setLayout:layout percentComplete:animated animated:options options:?];
+  [(CSLUIFieldOfIconsViewAccessibility *)self _axUpdateIconElements];
+  if (complete == 1.0)
+  {
+    v8 = *MEMORY[0x29EDC7ED8];
+    _accessibilityFirstElementForFocus = [(CSLUIFieldOfIconsViewAccessibility *)self _accessibilityFirstElementForFocus];
+    UIAccessibilityPostNotification(v8, _accessibilityFirstElementForFocus);
   }
 }
 

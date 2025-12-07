@@ -169,32 +169,28 @@ LABEL_6:
 
 - (void)initWithHeadline:cacheExpirationDate:actionURL:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "headline"];
   *buf = 136315906;
-  v3 = "[NTFeedTransformationHeadlineItem initWithHeadline:cacheExpirationDate:actionURL:]";
-  v4 = 2080;
-  v5 = "NTFeedTransformationHeadlineItem.m";
-  v6 = 1024;
+  v2 = "[NTFeedTransformationHeadlineItem initWithHeadline:cacheExpirationDate:actionURL:]";
+  v3 = 2080;
+  v4 = "NTFeedTransformationHeadlineItem.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initWithHeadline:cacheExpirationDate:actionURL:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"Invalid parameter not satisfying %s", "cacheExpirationDate"];
   *buf = 136315906;
-  v3 = "[NTFeedTransformationHeadlineItem initWithHeadline:cacheExpirationDate:actionURL:]";
-  v4 = 2080;
-  v5 = "NTFeedTransformationHeadlineItem.m";
-  v6 = 1024;
+  v2 = "[NTFeedTransformationHeadlineItem initWithHeadline:cacheExpirationDate:actionURL:]";
+  v3 = 2080;
+  v4 = "NTFeedTransformationHeadlineItem.m";
+  v5 = 1024;
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(&dword_25BF21000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

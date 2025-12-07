@@ -267,43 +267,43 @@
   scriptMessageHandler = self->_scriptMessageHandler;
   self->_scriptMessageHandler = v3;
 
-  v38 = objc_alloc_init(MEMORY[0x1E69853A8]);
+  v39 = objc_alloc_init(MEMORY[0x1E69853A8]);
   v5 = objc_alloc_init(MEMORY[0x1E69853F0]);
-  v6 = linkPresentationBundle();
+  v6 = linkPresentationBundle(v5);
   builtInPlugInsURL = [v6 builtInPlugInsURL];
   v8 = [builtInPlugInsURL URLByAppendingPathComponent:@"YouTubePlayer.wkbundle"];
   [v5 setInjectedBundleURL:v8];
 
   v9 = [objc_alloc(MEMORY[0x1E6985340]) _initWithConfiguration:v5];
-  [v38 setProcessPool:v9];
+  [v39 setProcessPool:v9];
 
-  processPool = [v38 processPool];
+  processPool = [v39 processPool];
   v11 = [MEMORY[0x1E696AD98] numberWithBool:{+[LPApplicationIdentification isMessagesOrMessagesViewService](LPApplicationIdentification, "isMessagesOrMessagesViewService")}];
   [processPool _setObject:v11 forBundleParameter:@"isMessagesOrMessagesViewService"];
 
   initNonPersistentConfiguration = [objc_alloc(MEMORY[0x1E6985430]) initNonPersistentConfiguration];
   [initNonPersistentConfiguration setDeviceManagementRestrictionsEnabled:1];
   v13 = [objc_alloc(MEMORY[0x1E69853B8]) _initWithConfiguration:initNonPersistentConfiguration];
-  [v38 setWebsiteDataStore:v13];
+  [v39 setWebsiteDataStore:v13];
 
-  [v38 _setIgnoresAppBoundDomains:1];
-  [v38 setMediaTypesRequiringUserActionForPlayback:0];
-  [v38 setAllowsInlineMediaPlayback:1];
-  [v38 _setInlineMediaPlaybackRequiresPlaysInlineAttribute:0];
-  [v38 setAllowsPictureInPictureMediaPlayback:0];
+  [v39 _setIgnoresAppBoundDomains:1];
+  [v39 setMediaTypesRequiringUserActionForPlayback:0];
+  [v39 setAllowsInlineMediaPlayback:1];
+  [v39 _setInlineMediaPlaybackRequiresPlaysInlineAttribute:0];
+  [v39 setAllowsPictureInPictureMediaPlayback:0];
   if (+[LPSettings showDebugIndicators])
   {
-    preferences = [v38 preferences];
+    preferences = [v39 preferences];
     [preferences _setCompositingBordersVisible:1];
   }
 
   if ([(LPYouTubePlayerView *)self _shouldUseElementFullScreen])
   {
-    preferences2 = [v38 preferences];
+    preferences2 = [v39 preferences];
     [preferences2 setElementFullscreenEnabled:1];
   }
 
-  userContentController = [v38 userContentController];
+  userContentController = [v39 userContentController];
   [userContentController addScriptMessageHandler:self->_scriptMessageHandler name:@"playerContainer"];
   v17 = objc_alloc(MEMORY[0x1E6985358]);
   _parameterScript = [(LPYouTubePlayerView *)self _parameterScript];
@@ -312,7 +312,7 @@
 
   v20 = [LPYouTubePlayerWebView alloc];
   [(LPYouTubePlayerView *)self bounds];
-  v21 = [(LPYouTubePlayerWebView *)v20 initWithFrame:v38 configuration:?];
+  v21 = [(LPYouTubePlayerWebView *)v20 initWithFrame:v39 configuration:?];
   webView = self->_webView;
   self->_webView = v21;
 
@@ -333,7 +333,8 @@
   self->_fullScreenDelegate = v26;
 
   [(LPYouTubePlayerWebView *)self->_webView _setFullscreenDelegate:self->_fullScreenDelegate];
-  if (+[LPSettings showDebugIndicators])
+  v28 = +[LPSettings showDebugIndicators];
+  if (v28)
   {
     greenColor = [MEMORY[0x1E69DC888] greenColor];
     cGColor = [greenColor CGColor];
@@ -344,20 +345,20 @@
     [layer2 setBorderWidth:9.0];
   }
 
-  v32 = linkPresentationBundle();
-  v33 = [v32 URLForResource:@"YouTubeContainer" withExtension:@"html"];
+  v33 = linkPresentationBundle(v28);
+  v34 = [v33 URLForResource:@"YouTubeContainer" withExtension:@"html"];
 
-  v34 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v33 encoding:4 error:0];
-  v35 = self->_webView;
-  v36 = [MEMORY[0x1E695DFF8] URLWithString:@"https://www.youtube.com/"];
-  v37 = [(LPYouTubePlayerWebView *)v35 loadHTMLString:v34 baseURL:v36];
+  v35 = [MEMORY[0x1E696AEC0] stringWithContentsOfURL:v34 encoding:4 error:0];
+  v36 = self->_webView;
+  v37 = [MEMORY[0x1E695DFF8] URLWithString:@"https://www.youtube.com/"];
+  v38 = [(LPYouTubePlayerWebView *)v36 loadHTMLString:v35 baseURL:v37];
 
   [(LPYouTubePlayerView *)self addSubview:self->_webView];
 }
 
 - (void)webViewWebContentProcessDidTerminate:(id)terminate
 {
-  v4 = LPLogChannelVideo();
+  v4 = LPLogChannelVideo(self, a2);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     [LPYouTubePlayerView webViewWebContentProcessDidTerminate:v4];

@@ -6,6 +6,7 @@
 - (BOOL)_scanDomain:(id)domain error:(id *)error;
 - (BOOL)_scanDomain:(id)domain snapshotPathForDomain:(id)forDomain error:(id *)error;
 - (BOOL)_shouldPackFile:(id)file;
+- (BOOL)fileScanner:(id)scanner failedToStatFile:(id)file withErrno:(int)errno;
 - (BOOL)fileScanner:(id)scanner isFileAddedOrModified:(id)modified;
 - (BOOL)scanDomains:(id)domains pendingSnapshotDB:(id)b progress:(id)progress summary:(id)summary error:(id *)error;
 - (MBDomainTranscriber)initWithPendingCommitID:(id)d snapshotDatabaseDirectory:(id)directory scanMode:(unint64_t)mode enginePolicy:(unint64_t)policy snapshotFormat:(int64_t)format device:(id)device volumeMap:(id)map shouldRepairEncryptionKeys:(BOOL)self0 snapshotTracker:(id)self1 attemptSummary:(id)self2 compatibilityDelegate:(id)self3 delegate:(id)self4;
@@ -178,55 +179,54 @@
 
     scanner2 = [(MBDomainTranscriber *)self scanner];
     loggableStats2 = [scanner2 loggableStats];
-    _MBLog();
+    _MBLog(@"Df", "=transcribing= Finished transcribing all domains - %@", loggableStats2);
   }
 
-  v27 = [v17 countMissedEncryptionKeysWithError:error];
-  v28 = v27;
-  if (!v27)
+  v28 = [v17 countMissedEncryptionKeysWithError:error];
+  v29 = v28;
+  if (!v28)
   {
     summary = [(MBDomainTranscriber *)self summary];
     [summary setSuccess:1];
 
-    v30 = 1;
+    v31 = 1;
     goto LABEL_24;
   }
 
-  if (v27 == 0x7FFFFFFFFFFFFFFFLL)
+  if (v28 == 0x7FFFFFFFFFFFFFFFLL)
   {
     goto LABEL_23;
   }
 
-  v29 = MBGetDefaultLog();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+  v30 = MBGetDefaultLog();
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
-    v40 = v28;
-    _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_ERROR, "=transcribing= Could not fetch encryption keys for %llu files during transcription", buf, 0xCu);
-    loggableStats2 = v28;
-    _MBLog();
+    v40 = v29;
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "=transcribing= Could not fetch encryption keys for %llu files during transcription", buf, 0xCu);
+    _MBLog(@"E ", "=transcribing= Could not fetch encryption keys for %llu files during transcription", v29);
   }
 
   if (error)
   {
-    [MBError errorWithCode:209 format:@"Could not fetch encryption keys for %lu files during transcription", v28];
-    *error = v30 = 0;
+    [MBError errorWithCode:209 format:@"Could not fetch encryption keys for %lu files during transcription", v29];
+    *error = v31 = 0;
   }
 
   else
   {
 LABEL_23:
-    v30 = 0;
+    v31 = 0;
   }
 
 LABEL_24:
-  if (([bCopy setUseFullSynchronization:0 error:{error, loggableStats2}] & 1) == 0 || !objc_msgSend(v17, "close:", error))
+  if (([bCopy setUseFullSynchronization:0 error:error] & 1) == 0 || !objc_msgSend(v17, "close:", error))
   {
 LABEL_26:
-    v30 = 0;
+    v31 = 0;
   }
 
-  return v30;
+  return v31;
 }
 
 - (BOOL)_scanDomain:(id)domain error:(id *)error
@@ -248,23 +248,22 @@ LABEL_26:
   v13 = openedFileListDB;
   if (openedFileListDB)
   {
-    v19 = 0;
-    v14 = [openedFileListDB close:&v19];
-    v15 = v19;
+    v18 = 0;
+    v14 = [openedFileListDB close:&v18];
+    v15 = v18;
     if ((v14 & 1) == 0)
     {
       v16 = MBGetDefaultLog();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v21 = v15;
+        v20 = v15;
         _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, "=transcribing= Failed to close file list database: %@", buf, 0xCu);
-        v18 = v15;
-        _MBLog();
+        _MBLog(@"E ", "=transcribing= Failed to close file list database: %@", v15);
       }
     }
 
-    [(MBDomainTranscriber *)self setOpenedFileListDB:0, v18];
+    [(MBDomainTranscriber *)self setOpenedFileListDB:0];
   }
 
   return v11;
@@ -331,9 +330,9 @@ LABEL_10:
     if (!v13)
     {
       v12 = 0;
-LABEL_53:
+LABEL_52:
 
-      goto LABEL_54;
+      goto LABEL_53;
     }
 
     [(MBDomainTranscriber *)self setVolumeIdentifierForCurrentlyScannedDomain:v13];
@@ -346,28 +345,27 @@ LABEL_53:
     scanner = [(MBDomainTranscriber *)self scanner];
     v15 = [scanner scanDomain:domainCopy snapshotMountPoint:forDomainCopy];
 
-    snapshotFormat = self->_snapshotFormat;
     if (!MBSnapshotFormatContainsFileLists())
     {
       v12 = 1;
-LABEL_52:
+LABEL_51:
 
-      goto LABEL_53;
+      goto LABEL_52;
     }
 
     openedFileListDB = [(MBDomainTranscriber *)self openedFileListDB];
-    v18 = openedFileListDB;
+    v17 = openedFileListDB;
     if (v15)
     {
-      v19 = MBGetDefaultLog();
-      if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v18 = MBGetDefaultLog();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_19;
+        *buf = 138412290;
+        v59 = v15;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "=transcribing= Failed to scan for changes: %@", buf, 0xCu);
+        _MBLog(@"E ", "=transcribing= Failed to scan for changes: %@", v15);
       }
 
-      *buf = 138412290;
-      v61 = v15;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "=transcribing= Failed to scan for changes: %@", buf, 0xCu);
       goto LABEL_18;
     }
 
@@ -389,91 +387,88 @@ LABEL_52:
       snapshotDatabaseDirectory = [(MBDomainTranscriber *)self snapshotDatabaseDirectory];
       pendingCommitID = [(MBDomainTranscriber *)self pendingCommitID];
       name = [domainCopy name];
-      v27 = MBFileListDBPath(snapshotDatabaseDirectory, pendingCommitID, name);
+      v26 = MBFileListDBPath(snapshotDatabaseDirectory, pendingCommitID, name);
 
-      v28 = +[NSFileManager defaultManager];
-      v29 = [v28 fileExistsAtPath:v27];
+      v27 = +[NSFileManager defaultManager];
+      v28 = [v27 fileExistsAtPath:v26];
 
-      if (!v29)
+      if (!v28)
       {
-        goto LABEL_30;
+        goto LABEL_29;
       }
 
-      v55 = v27;
-      v30 = MBGetDefaultLog();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      v53 = v26;
+      v29 = MBGetDefaultLog();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v61 = domainCopy;
-        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "=transcribing= Found domain that went from populated to empty %{public}@", buf, 0xCu);
-        v52 = domainCopy;
-        _MBLog();
+        v59 = domainCopy;
+        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "=transcribing= Found domain that went from populated to empty %{public}@", buf, 0xCu);
+        _MBLog(@"Df", "=transcribing= Found domain that went from populated to empty %{public}@", domainCopy);
       }
 
       snapshotDatabaseDirectory2 = [(MBDomainTranscriber *)self snapshotDatabaseDirectory];
       pendingCommitID2 = [(MBDomainTranscriber *)self pendingCommitID];
       name2 = [domainCopy name];
-      v18 = [MBFileListDB openOrCreateDatabaseIn:snapshotDatabaseDirectory2 commitID:pendingCommitID2 domainName:name2 error:error];
+      v17 = [MBFileListDB openOrCreateDatabaseIn:snapshotDatabaseDirectory2 commitID:pendingCommitID2 domainName:name2 error:error];
 
-      v27 = v55;
-      if (!v18)
+      v26 = v53;
+      if (!v17)
       {
-LABEL_30:
-        v12 = v29 ^ 1;
+LABEL_29:
+        v12 = v28 ^ 1;
 
-        v18 = 0;
+        v17 = 0;
         v15 = 0;
-        goto LABEL_51;
+        goto LABEL_50;
       }
 
-      [(MBDomainTranscriber *)self setOpenedFileListDB:v18];
+      [(MBDomainTranscriber *)self setOpenedFileListDB:v17];
       volumeIdentifierForCurrentlyScannedDomain = [(MBDomainTranscriber *)self volumeIdentifierForCurrentlyScannedDomain];
       backupVolumeUUID = [volumeIdentifierForCurrentlyScannedDomain backupVolumeUUID];
-      v36 = [v18 beginTranscriptionForVolumeUUID:backupVolumeUUID error:error];
+      v35 = [v17 beginTranscriptionForVolumeUUID:backupVolumeUUID error:error];
 
-      if (!v36)
+      if (!v35)
       {
         v15 = 0;
-        goto LABEL_29;
+        goto LABEL_28;
       }
     }
 
-    v59 = 0;
-    v20 = [v18 countFilesMarkedAsDeleted:{&v59, v52}];
-    v21 = v59;
-    if (v21)
+    v57 = 0;
+    v19 = [v17 countFilesMarkedAsDeleted:&v57];
+    v20 = v57;
+    if (v20)
     {
-      v15 = v21;
-      v19 = MBGetDefaultLog();
-      if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+      v15 = v20;
+      v18 = MBGetDefaultLog();
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        goto LABEL_19;
+        *buf = 138412290;
+        v59 = v15;
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "=transcribing= Failed to count files marked as deleted: %@", buf, 0xCu);
+        _MBLog(@"E ", "=transcribing= Failed to count files marked as deleted: %@", v15);
       }
 
-      *buf = 138412290;
-      v61 = v15;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "=transcribing= Failed to count files marked as deleted: %@", buf, 0xCu);
 LABEL_18:
-      _MBLog();
-LABEL_19:
 
       if (error)
       {
-        v22 = v15;
+        v21 = v15;
         v12 = 0;
         *error = v15;
-LABEL_51:
+LABEL_50:
 
-        goto LABEL_52;
+        goto LABEL_51;
       }
 
-LABEL_29:
+LABEL_28:
       v12 = 0;
-      goto LABEL_51;
+      goto LABEL_50;
     }
 
     summary2 = [(MBDomainTranscriber *)self summary];
-    [summary2 setDeletedFileCount:{objc_msgSend(summary2, "deletedFileCount") + v20}];
+    [summary2 setDeletedFileCount:{objc_msgSend(summary2, "deletedFileCount") + v19}];
 
     pendingSnapshotDB = [(MBDomainTranscriber *)self pendingSnapshotDB];
     if (!pendingSnapshotDB)
@@ -481,48 +476,48 @@ LABEL_29:
       __assert_rtn("[MBDomainTranscriber _scanDomain:snapshotPathForDomain:error:]", "MBDomainTranscriber.m", 288, "pendingSnapshotDB");
     }
 
-    v39 = pendingSnapshotDB;
-    if (v20)
+    v38 = pendingSnapshotDB;
+    if (v19)
     {
       name3 = [domainCopy name];
-      v56 = v39;
-      v58 = 0;
-      v41 = [v39 markDomainRequiringFileListCopy:name3 error:&v58];
-      v15 = v58;
+      v54 = v38;
+      v56 = 0;
+      v40 = [v38 markDomainRequiringFileListCopy:name3 error:&v56];
+      v15 = v56;
 
-      if ((v41 & 1) == 0)
+      if ((v40 & 1) == 0)
       {
         if (error)
         {
-          v49 = v15;
+          v48 = v15;
           *error = v15;
         }
 
-        v48 = MBGetDefaultLog();
-        v39 = v56;
-        if (!os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v47 = MBGetDefaultLog();
+        v38 = v54;
+        if (!os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
           v12 = 0;
-          goto LABEL_49;
+          goto LABEL_48;
         }
 
         name4 = [domainCopy name];
         *buf = 138412546;
-        v61 = name4;
-        v62 = 2112;
-        v63 = v15;
-        _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_ERROR, "=transcribing= Failed to mark domain %@ as requiring upload after scanning: %@", buf, 0x16u);
+        v59 = name4;
+        v60 = 2112;
+        v61 = v15;
+        _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_ERROR, "=transcribing= Failed to mark domain %@ as requiring upload after scanning: %@", buf, 0x16u);
 
         name5 = [domainCopy name];
-        _MBLog();
+        _MBLog(@"E ", "=transcribing= Failed to mark domain %@ as requiring upload after scanning: %@", name5, v15);
         v12 = 0;
-LABEL_45:
+LABEL_44:
 
-LABEL_49:
-        goto LABEL_50;
+LABEL_48:
+        goto LABEL_49;
       }
 
-      v39 = v56;
+      v38 = v54;
     }
 
     else
@@ -530,46 +525,44 @@ LABEL_49:
       v15 = 0;
     }
 
-    if ([v18 finishTranscription:error])
+    if ([v17 finishTranscription:error])
     {
-      if ([(MBDomainTranscriber *)self modifiedFileCountInCurrentlyScannedDomain]| v20)
+      if ([(MBDomainTranscriber *)self modifiedFileCountInCurrentlyScannedDomain]| v19)
       {
-        v57 = v39;
+        v55 = v38;
         attemptSummary = [(MBDomainTranscriber *)self attemptSummary];
         name6 = [domainCopy name];
         [attemptSummary trackModifiedDomainInTranscription:name6];
 
-        v44 = MBGetDefaultLog();
+        v43 = MBGetDefaultLog();
         v12 = 1;
-        if (!os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
+        if (!os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
         {
-          v39 = v57;
-          v48 = v44;
-          goto LABEL_49;
+          v38 = v55;
+          v47 = v43;
+          goto LABEL_48;
         }
 
         name7 = [domainCopy name];
-        v54 = v44;
+        v52 = v43;
         modifiedFileCountInCurrentlyScannedDomain = [(MBDomainTranscriber *)self modifiedFileCountInCurrentlyScannedDomain];
         unmodifiedFileCountInCurrentlyScannedDomain = [(MBDomainTranscriber *)self unmodifiedFileCountInCurrentlyScannedDomain];
         *buf = 138544130;
-        v61 = name7;
+        v59 = name7;
+        v60 = 2048;
+        v61 = modifiedFileCountInCurrentlyScannedDomain;
         v62 = 2048;
-        v63 = modifiedFileCountInCurrentlyScannedDomain;
+        v63 = unmodifiedFileCountInCurrentlyScannedDomain;
         v64 = 2048;
-        v65 = unmodifiedFileCountInCurrentlyScannedDomain;
-        v66 = 2048;
-        v67 = v20;
+        v65 = v19;
         v12 = 1;
-        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_INFO, "=transcribing= Changes found for %{public}@ modifications:%llu unmodified:%llu deletions:%llu", buf, 0x2Au);
+        _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_INFO, "=transcribing= Changes found for %{public}@ modifications:%llu unmodified:%llu deletions:%llu", buf, 0x2Au);
 
         name5 = [domainCopy name];
-        [(MBDomainTranscriber *)self modifiedFileCountInCurrentlyScannedDomain];
-        [(MBDomainTranscriber *)self unmodifiedFileCountInCurrentlyScannedDomain];
-        _MBLog();
-        v48 = v54;
-        v39 = v57;
-        goto LABEL_45;
+        _MBLog(@"I ", "=transcribing= Changes found for %{public}@ modifications:%llu unmodified:%llu deletions:%llu", name5, [(MBDomainTranscriber *)self modifiedFileCountInCurrentlyScannedDomain], [(MBDomainTranscriber *)self unmodifiedFileCountInCurrentlyScannedDomain], v19);
+        v47 = v52;
+        v38 = v55;
+        goto LABEL_44;
       }
 
       v12 = 1;
@@ -580,9 +573,9 @@ LABEL_49:
       v12 = 0;
     }
 
-LABEL_50:
+LABEL_49:
 
-    goto LABEL_51;
+    goto LABEL_50;
   }
 
   [(MBDomainTranscriber *)self _cancel];
@@ -597,7 +590,7 @@ LABEL_50:
     v12 = 0;
   }
 
-LABEL_54:
+LABEL_53:
 
   return v12;
 }
@@ -718,7 +711,7 @@ LABEL_5:
       _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "=transcribing= Failed to get link target for file %@: %@", buf, 0x16u);
 
       absolutePath2 = [fileCopy absolutePath];
-      _MBLog();
+      _MBLog(@"E ", "=transcribing= Failed to get link target for file %@: %@", absolutePath2, v8);
     }
   }
 
@@ -858,17 +851,17 @@ LABEL_4:
   }
 
   openedFileListDB2 = [(MBDomainTranscriber *)self openedFileListDB];
-  v34 = 0;
-  v12 = [openedFileListDB2 fetchAssetMetdataWithInode:objc_msgSend(fileCopy genCount:"inodeNumber") outAssetMetadata:objc_msgSend(fileCopy error:{"genCount"), &v34, error}];
-  v13 = v34;
+  v33 = 0;
+  v12 = [openedFileListDB2 fetchAssetMetdataWithInode:objc_msgSend(fileCopy genCount:"inodeNumber") outAssetMetadata:objc_msgSend(fileCopy error:{"genCount"), &v33, error}];
+  v13 = v33;
 
   v8 = 0;
   if (v12 && v13)
   {
     encryptionKey = [v13 encryptionKey];
-    v33 = 0;
-    v15 = [(MBDomainTranscriber *)self _encryptionKeyForFile:fileCopy existingEncryptionKey:encryptionKey outEncryptionKey:&v33 error:error];
-    v16 = v33;
+    v32 = 0;
+    v15 = [(MBDomainTranscriber *)self _encryptionKeyForFile:fileCopy existingEncryptionKey:encryptionKey outEncryptionKey:&v32 error:error];
+    v16 = v32;
 
     if (v15)
     {
@@ -887,15 +880,14 @@ LABEL_4:
             domain = [fileCopy domain];
             relativePath = [fileCopy relativePath];
             *buf = 138412546;
-            v36 = domain;
-            v37 = 2112;
-            v38 = relativePath;
+            v35 = domain;
+            v36 = 2112;
+            v37 = relativePath;
             _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "=transcribing= Reusing encryption key for renamed or hardlinked file %@:%@", buf, 0x16u);
 
             domain2 = [fileCopy domain];
-            [fileCopy relativePath];
-            v32 = v31 = domain2;
-            _MBLog();
+            relativePath2 = [fileCopy relativePath];
+            _MBLog(@"I ", "=transcribing= Reusing encryption key for renamed or hardlinked file %@:%@", domain2, relativePath2);
           }
         }
 
@@ -909,15 +901,16 @@ LABEL_4:
       if (os_log_type_enabled(recordIDSuffix, OS_LOG_TYPE_DEFAULT))
       {
         domain3 = [fileCopy domain];
-        relativePath2 = [fileCopy relativePath];
+        relativePath3 = [fileCopy relativePath];
         *buf = 138412546;
-        v36 = domain3;
-        v37 = 2112;
-        v38 = relativePath2;
+        v35 = domain3;
+        v36 = 2112;
+        v37 = relativePath3;
         _os_log_impl(&_mh_execute_header, recordIDSuffix, OS_LOG_TYPE_DEFAULT, "=transcribing= Cannot reuse asset for renamed or hardlinked file %@:%@ - encryption key changed", buf, 0x16u);
 
         assetSignature = [fileCopy domain];
-        relativePath3 = [fileCopy relativePath];
+        relativePath4 = [fileCopy relativePath];
+        _MBLog(@"Df", "=transcribing= Cannot reuse asset for renamed or hardlinked file %@:%@ - encryption key changed", assetSignature, relativePath4);
         goto LABEL_22;
       }
     }
@@ -928,17 +921,17 @@ LABEL_4:
       if (os_log_type_enabled(recordIDSuffix, OS_LOG_TYPE_DEFAULT))
       {
         domain4 = [fileCopy domain];
-        relativePath4 = [fileCopy relativePath];
+        relativePath5 = [fileCopy relativePath];
         *buf = 138412546;
-        v36 = domain4;
-        v37 = 2112;
-        v38 = relativePath4;
+        v35 = domain4;
+        v36 = 2112;
+        v37 = relativePath5;
         _os_log_impl(&_mh_execute_header, recordIDSuffix, OS_LOG_TYPE_DEFAULT, "=transcribing= Cannot reuse asset for renamed or hardlinked file %@:%@ - failed to fetch encryption key", buf, 0x16u);
 
         assetSignature = [fileCopy domain];
-        relativePath3 = [fileCopy relativePath];
+        relativePath4 = [fileCopy relativePath];
+        _MBLog(@"Df", "=transcribing= Cannot reuse asset for renamed or hardlinked file %@:%@ - failed to fetch encryption key", assetSignature, relativePath4);
 LABEL_22:
-        _MBLog();
 
         v8 = 0;
 LABEL_23:
@@ -972,44 +965,26 @@ LABEL_5:
   if ((isTransitioningVolumes & 1) == 0 && !v12)
   {
     assetMetadata = [metadataCopy assetMetadata];
-    if (![(MBDomainTranscriber *)self shouldRepairEncryptionKeys])
-    {
-      goto LABEL_23;
-    }
-
-    encryptionKey = [assetMetadata encryptionKey];
-    if (!encryptionKey)
-    {
-      goto LABEL_23;
-    }
-
-    v18 = encryptionKey;
-    device = [(MBDomainTranscriber *)self device];
-    keybagManager = [device keybagManager];
-    encryptionKey2 = [assetMetadata encryptionKey];
-    v22 = [keybagManager hasKeybagForEncryptionKey:encryptionKey2];
-
-    if ((v22 & 1) == 0)
+    if (-[MBDomainTranscriber shouldRepairEncryptionKeys](self, "shouldRepairEncryptionKeys") && ([assetMetadata encryptionKey], (v17 = objc_claimAutoreleasedReturnValue()) != 0) && (v18 = v17, -[MBDomainTranscriber device](self, "device"), v19 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "keybagManager"), v20 = objc_claimAutoreleasedReturnValue(), objc_msgSend(assetMetadata, "encryptionKey"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v20, "hasKeybagForEncryptionKey:", v21), v21, v20, v19, v18, (v22 & 1) == 0))
     {
       v29 = MBGetDefaultLog();
       if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
       {
         domain = [fileCopy domain];
         relativePath = [fileCopy relativePath];
-        encryptionKey3 = [assetMetadata encryptionKey];
+        encryptionKey = [assetMetadata encryptionKey];
         *buf = 138412802;
         v44 = domain;
         v45 = 2112;
         v46 = relativePath;
         v47 = 2048;
-        v48 = [encryptionKey3 length];
+        v48 = [encryptionKey length];
         _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "=transcribing= Found file requiring encryption key repair %@:%@ (sz: %llu)", buf, 0x20u);
 
         domain2 = [fileCopy domain];
         relativePath2 = [fileCopy relativePath];
-        encryptionKey4 = [assetMetadata encryptionKey];
-        [encryptionKey4 length];
-        _MBLog();
+        encryptionKey2 = [assetMetadata encryptionKey];
+        _MBLog(@"Df", "=transcribing= Found file requiring encryption key repair %@:%@ (sz: %llu)", domain2, relativePath2, [encryptionKey2 length]);
       }
 
       summary = [(MBDomainTranscriber *)self summary];
@@ -1019,7 +994,6 @@ LABEL_5:
 
     else
     {
-LABEL_23:
       if (![assetMetadata isPendingUpload] || (objc_msgSend(assetMetadata, "encryptionKey"), v23 = objc_claimAutoreleasedReturnValue(), v23, !v23))
       {
         v15 = 1;
@@ -1028,23 +1002,23 @@ LABEL_19:
         goto LABEL_20;
       }
 
-      encryptionKey5 = [assetMetadata encryptionKey];
+      encryptionKey3 = [assetMetadata encryptionKey];
       v41 = 0;
       v42 = 0;
-      v25 = [(MBDomainTranscriber *)self _encryptionKeyForFile:fileCopy existingEncryptionKey:encryptionKey5 outEncryptionKey:&v42 error:&v41];
+      v25 = [(MBDomainTranscriber *)self _encryptionKeyForFile:fileCopy existingEncryptionKey:encryptionKey3 outEncryptionKey:&v42 error:&v41];
       v26 = v42;
       summary = v41;
 
       if (v25)
       {
-        encryptionKey6 = [assetMetadata encryptionKey];
-        v15 = sub_1001C50E0(encryptionKey6, v26);
+        encryptionKey4 = [assetMetadata encryptionKey];
+        v15 = sub_1001C50E0(encryptionKey4, v26);
       }
 
       else
       {
-        encryptionKey6 = MBGetDefaultLog();
-        if (os_log_type_enabled(encryptionKey6, OS_LOG_TYPE_DEFAULT))
+        encryptionKey4 = MBGetDefaultLog();
+        if (os_log_type_enabled(encryptionKey4, OS_LOG_TYPE_DEFAULT))
         {
           domain3 = [fileCopy domain];
           relativePath3 = [fileCopy relativePath];
@@ -1054,11 +1028,11 @@ LABEL_19:
           v46 = relativePath3;
           v47 = 2112;
           v48 = summary;
-          _os_log_impl(&_mh_execute_header, encryptionKey6, OS_LOG_TYPE_DEFAULT, "=transcribing= Could not determine if encryption key in file list for %@:%@ is still valid: %@", buf, 0x20u);
+          _os_log_impl(&_mh_execute_header, encryptionKey4, OS_LOG_TYPE_DEFAULT, "=transcribing= Could not determine if encryption key in file list for %@:%@ is still valid: %@", buf, 0x20u);
 
           domain4 = [fileCopy domain];
           relativePath4 = [fileCopy relativePath];
-          _MBLog();
+          _MBLog(@"Df", "=transcribing= Could not determine if encryption key in file list for %@:%@ is still valid: %@", domain4, relativePath4, summary);
         }
 
         v15 = 0;
@@ -1108,7 +1082,7 @@ LABEL_20:
       domain2 = [fileCopy domain];
       name2 = [domain2 name];
       relativePath2 = [fileCopy relativePath];
-      _MBLog();
+      _MBLog(@"I ", "=transcribing= Not reusing encryption key for file %@:%@ (inode:%llu) during volume transition", name2, relativePath2, inodeNumber);
     }
   }
 
@@ -1117,7 +1091,7 @@ LABEL_20:
     if (inodeNumber != [v12 inode])
     {
       openedFileListDB2 = [(MBDomainTranscriber *)self openedFileListDB];
-      v23 = [openedFileListDB2 fetchEncryptionKeyForInode:inodeNumber outEncryptionKey:key error:error];
+      v24 = [openedFileListDB2 fetchEncryptionKeyForInode:inodeNumber outEncryptionKey:key error:error];
 
       goto LABEL_10;
     }
@@ -1126,10 +1100,10 @@ LABEL_20:
     *key = [assetMetadata encryptionKey];
   }
 
-  v23 = 1;
+  v24 = 1;
 LABEL_10:
 
-  return v23;
+  return v24;
 }
 
 - (id)_assetMetadataFromFile:(id)file oldMetadata:(id)metadata modificationType:(unint64_t)type outRequiresInvalidation:(BOOL *)invalidation error:(id *)error
@@ -1150,9 +1124,9 @@ LABEL_10:
     goto LABEL_10;
   }
 
-  v74 = 0;
-  v17 = [(MBDomainTranscriber *)self _assetMetadataForRenamedOrHardlinkedFile:fileCopy error:&v74];
-  v18 = v74;
+  v73 = 0;
+  v17 = [(MBDomainTranscriber *)self _assetMetadataForRenamedOrHardlinkedFile:fileCopy error:&v73];
+  v18 = v73;
   if (!v18)
   {
     if (v17)
@@ -1165,22 +1139,20 @@ LABEL_10:
         inodeNumber = [fileCopy inodeNumber];
         genCount = [fileCopy genCount];
         *buf = 138413314;
-        v76 = v17;
-        v77 = 2112;
-        v78 = domain;
-        v79 = 2112;
-        v80 = relativePath;
-        v81 = 2048;
-        v82 = inodeNumber;
-        v83 = 1024;
+        v75 = v17;
+        v76 = 2112;
+        v77 = domain;
+        v78 = 2112;
+        v79 = relativePath;
+        v80 = 2048;
+        v81 = inodeNumber;
+        v82 = 1024;
         LODWORD(typeCopy2) = genCount;
         _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "=transcribing= Reusing asset %@ for renamed or hardlinked file %@:%@ (inode:%llu gc:%d)", buf, 0x30u);
 
         domain2 = [fileCopy domain];
         relativePath2 = [fileCopy relativePath];
-        [fileCopy inodeNumber];
-        [fileCopy genCount];
-        _MBLog();
+        _MBLog(@"I ", "=transcribing= Reusing asset %@ for renamed or hardlinked file %@:%@ (inode:%llu gc:%d)", v17, domain2, relativePath2, [fileCopy inodeNumber], objc_msgSend(fileCopy, "genCount"));
       }
 
       summary = [(MBDomainTranscriber *)self summary];
@@ -1200,9 +1172,9 @@ LABEL_10:
 
     else
     {
-      v73 = 0;
-      v29 = [(MBDomainTranscriber *)self _fetchPreviouslyBackedUpEncryptionKeyForFile:fileCopy oldMetadata:v14 outEncryptionKey:&v73 error:error];
-      v19 = v73;
+      v72 = 0;
+      v29 = [(MBDomainTranscriber *)self _fetchPreviouslyBackedUpEncryptionKeyForFile:fileCopy oldMetadata:v14 outEncryptionKey:&v72 error:error];
+      v19 = v72;
       v28 = 0;
       if (!v29)
       {
@@ -1210,9 +1182,9 @@ LABEL_10:
       }
     }
 
-    v72 = 0;
-    v30 = [(MBDomainTranscriber *)self _encryptionKeyForFile:fileCopy existingEncryptionKey:v19 outEncryptionKey:&v72 error:error];
-    v17 = v72;
+    v71 = 0;
+    v30 = [(MBDomainTranscriber *)self _encryptionKeyForFile:fileCopy existingEncryptionKey:v19 outEncryptionKey:&v71 error:error];
+    v17 = v71;
     if (!v30)
     {
       goto LABEL_23;
@@ -1225,30 +1197,30 @@ LABEL_10:
       goto LABEL_29;
     }
 
-    v70 = assetMetadata;
+    v69 = assetMetadata;
     encryptionKey = [assetMetadata encryptionKey];
     v34 = fileCopy;
     v35 = v17;
     if (type != 1)
     {
-      v66 = v35;
-      v68 = v34;
+      v65 = v35;
+      v67 = v34;
       if (sub_1001C50E0(v35, encryptionKey))
       {
         if (!isTransitioningVolumes)
         {
           hasOverriddenModifiedDate = [v34 hasOverriddenModifiedDate];
-          v48 = 2560;
+          v49 = 2560;
           if (hasOverriddenModifiedDate)
           {
-            v48 = 2562;
+            v49 = 2562;
           }
 
-          v65 = v48 & type;
+          v64 = v49 & type;
           *invalidation = hasOverriddenModifiedDate & ((type & 0xFE) >> 1);
 
-          v32 = v70;
-          if (!v65)
+          v32 = v69;
+          if (!v64)
           {
 LABEL_41:
             if (*invalidation)
@@ -1256,72 +1228,70 @@ LABEL_41:
               __assert_rtn("[MBDomainTranscriber _assetMetadataFromFile:oldMetadata:modificationType:outRequiresInvalidation:error:]", "MBDomainTranscriber.m", 567, "*outRequiresInvalidation == NO");
             }
 
-            v49 = MBGetDefaultLog();
-            v50 = os_log_type_enabled(v49, OS_LOG_TYPE_INFO);
+            v50 = MBGetDefaultLog();
+            v51 = os_log_type_enabled(v50, OS_LOG_TYPE_INFO);
             if (isTransitioningVolumes)
             {
-              if (v50)
+              if (v51)
               {
                 domain3 = [v34 domain];
                 relativePath3 = [v34 relativePath];
-                v71 = v49;
+                v70 = v50;
                 inode = [v14 inode];
                 inodeNumber2 = [v34 inodeNumber];
                 *buf = 138413570;
-                v76 = v32;
-                v77 = 2112;
-                v78 = domain3;
-                v79 = 2112;
-                v80 = relativePath3;
-                v81 = 2048;
-                v82 = inode;
-                v83 = 2048;
+                v75 = v32;
+                v76 = 2112;
+                v77 = domain3;
+                v78 = 2112;
+                v79 = relativePath3;
+                v80 = 2048;
+                v81 = inode;
+                v82 = 2048;
                 typeCopy2 = inodeNumber2;
-                v85 = 2048;
+                v84 = 2048;
                 typeCopy = type;
-                _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_INFO, "=transcribing= Reusing asset %@ for %@:%@ across volume transition (old inode: %llu, new inode: %llu) because of metadata-only change 0x%lx", buf, 0x3Eu);
+                _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_INFO, "=transcribing= Reusing asset %@ for %@:%@ across volume transition (old inode: %llu, new inode: %llu) because of metadata-only change 0x%lx", buf, 0x3Eu);
 
                 domain4 = [v34 domain];
                 relativePath4 = [v34 relativePath];
-                [v14 inode];
-                [v34 inodeNumber];
+                _MBLog(@"I ", "=transcribing= Reusing asset %@ for %@:%@ across volume transition (old inode: %llu, new inode: %llu) because of metadata-only change 0x%lx", v32, domain4, relativePath4, [v14 inode], objc_msgSend(v34, "inodeNumber"), type);
 LABEL_48:
-                _MBLog();
 
-                v49 = v71;
+                v50 = v70;
               }
             }
 
-            else if (v50)
+            else if (v51)
             {
               [v34 domain];
-              v55 = v71 = v49;
+              v56 = v70 = v50;
               relativePath5 = [v34 relativePath];
               inodeNumber3 = [v34 inodeNumber];
               *buf = 138413314;
-              v76 = v32;
-              v77 = 2112;
-              v78 = v55;
-              v79 = 2112;
-              v80 = relativePath5;
-              v81 = 2048;
-              v82 = inodeNumber3;
-              v83 = 2048;
+              v75 = v32;
+              v76 = 2112;
+              v77 = v56;
+              v78 = 2112;
+              v79 = relativePath5;
+              v80 = 2048;
+              v81 = inodeNumber3;
+              v82 = 2048;
               typeCopy2 = type;
-              _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_INFO, "=transcribing= Reusing asset %@ for %@:%@ (inode: %llu) because of metadata-only change 0x%lx", buf, 0x34u);
+              _os_log_impl(&_mh_execute_header, v70, OS_LOG_TYPE_INFO, "=transcribing= Reusing asset %@ for %@:%@ (inode: %llu) because of metadata-only change 0x%lx", buf, 0x34u);
 
               domain4 = [v34 domain];
               relativePath4 = [v34 relativePath];
-              [v34 inodeNumber];
+              _MBLog(@"I ", "=transcribing= Reusing asset %@ for %@:%@ (inode: %llu) because of metadata-only change 0x%lx", v32, domain4, relativePath4, [v34 inodeNumber], type);
               goto LABEL_48;
             }
 
             summary2 = [(MBDomainTranscriber *)self summary];
             [summary2 setReusedAssetRecords:{objc_msgSend(summary2, "reusedAssetRecords") + 1}];
 
-            v45 = v32;
+            v46 = v32;
 LABEL_33:
-            v28 = v45;
+            v28 = v46;
 
             goto LABEL_34;
           }
@@ -1336,14 +1306,14 @@ LABEL_29:
           {
             [MBAssetMetadata assetMetadataForEmptyFileWithEncryptionKey:v17];
           }
-          v45 = ;
+          v46 = ;
           goto LABEL_33;
         }
 
         inodeNumber4 = [v34 inodeNumber];
         if ((type & 0xCE) == 0 && (inodeNumber4 & 0x8000000000000000) == 0)
         {
-          v64 = encryptionKey;
+          v63 = encryptionKey;
           v37 = MBGetDefaultLog();
           if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
           {
@@ -1351,22 +1321,22 @@ LABEL_29:
             domain5 = [v34 domain];
             relativePath6 = [v34 relativePath];
             *buf = 138412546;
-            v76 = domain5;
-            v77 = 2112;
-            v78 = relativePath6;
+            v75 = domain5;
+            v76 = 2112;
+            v77 = relativePath6;
             v39 = relativePath6;
             _os_log_impl(&_mh_execute_header, log, OS_LOG_TYPE_INFO, "=transcribing= Can re-use asset for file %@:%@ across volumeUUID transition", buf, 0x16u);
 
             domain6 = [v34 domain];
             v37 = log;
-            relativePath7 = [v68 relativePath];
-            _MBLog();
+            relativePath7 = [v67 relativePath];
+            _MBLog(@"I ", "=transcribing= Can re-use asset for file %@:%@ across volumeUUID transition", domain6, relativePath7);
           }
 
           *invalidation = 0;
-          v34 = v68;
+          v34 = v67;
 
-          v32 = v70;
+          v32 = v69;
           goto LABEL_41;
         }
 
@@ -1381,22 +1351,21 @@ LABEL_29:
           domain7 = [v34 domain];
           relativePath8 = [v34 relativePath];
           *buf = 138412546;
-          v76 = domain7;
-          v77 = 2112;
-          v78 = relativePath8;
+          v75 = domain7;
+          v76 = 2112;
+          v77 = relativePath8;
           _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_INFO, "=transcribing= File %@:%@ requires asset upload - encryption keys are not equal", buf, 0x16u);
 
           domain8 = [v34 domain];
-          [v34 relativePath];
-          v60 = v59 = domain8;
-          _MBLog();
+          relativePath9 = [v34 relativePath];
+          _MBLog(@"I ", "=transcribing= File %@:%@ requires asset upload - encryption keys are not equal", domain8, relativePath9);
         }
       }
 
-      v35 = v66;
+      v35 = v65;
     }
 
-    v32 = v70;
+    v32 = v69;
     goto LABEL_29;
   }
 
@@ -1442,9 +1411,9 @@ LABEL_35:
 
 LABEL_2:
       relativePath = [bCopy relativePath];
-      v122 = 0;
-      v9 = [openedFileListDB fileMetadataForPath:relativePath fetchXattrs:0 error:&v122];
-      v10 = v122;
+      v114 = 0;
+      v9 = [openedFileListDB fileMetadataForPath:relativePath fetchXattrs:0 error:&v114];
+      v10 = v114;
 
       if (v10)
       {
@@ -1452,11 +1421,11 @@ LABEL_2:
         if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v124 = bCopy;
-          v125 = 2112;
-          v126 = v10;
+          v116 = bCopy;
+          v117 = 2112;
+          v118 = v10;
           _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_ERROR, "=transcribing= Failed to fetch old metadata for file %@: %@", buf, 0x16u);
-          _MBLog();
+          _MBLog(@"E ", "=transcribing= Failed to fetch old metadata for file %@: %@", bCopy, v10);
         }
 
         if (error)
@@ -1474,9 +1443,9 @@ LABEL_2:
         goto LABEL_85;
       }
 
-      v121 = 0;
-      v22 = [(MBDomainTranscriber *)self _metadataFromFile:bCopy error:&v121];
-      v23 = v121;
+      v113 = 0;
+      v22 = [(MBDomainTranscriber *)self _metadataFromFile:bCopy error:&v113];
+      v23 = v113;
       v10 = v23;
       if (!v22)
       {
@@ -1490,19 +1459,19 @@ LABEL_2:
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v124 = bCopy;
-          v125 = 2112;
-          v126 = v10;
+          v116 = bCopy;
+          v117 = 2112;
+          v118 = v10;
           _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "=transcribing= Failed to create metadata from file %@: %@", buf, 0x16u);
-          _MBLog();
+          _MBLog(@"E ", "=transcribing= Failed to create metadata from file %@: %@", bCopy, v10);
         }
 
         v13 = 0;
         goto LABEL_84;
       }
 
-      v120 = 0;
-      if ([(MBDomainTranscriber *)self _fileListContainsValidFileMetadata:v9 forFile:bCopy metadata:v22 outModificationType:&v120])
+      v112 = 0;
+      if ([(MBDomainTranscriber *)self _fileListContainsValidFileMetadata:v9 forFile:bCopy metadata:v22 outModificationType:&v112])
       {
         relativePath2 = [bCopy relativePath];
         [openedFileListDB markFileAsPresent:relativePath2 error:error];
@@ -1518,9 +1487,9 @@ LABEL_85:
       absolutePath = [bCopy absolutePath];
       if ([bCopy hasXattrs])
       {
-        v119 = 0;
-        v27 = +[MBExtendedAttributes attributesForPathFSR:error:](MBExtendedAttributes, "attributesForPathFSR:error:", [bCopy absolutePathFSR], &v119);
-        v28 = v119;
+        v111 = 0;
+        v27 = +[MBExtendedAttributes attributesForPathFSR:error:](MBExtendedAttributes, "attributesForPathFSR:error:", [bCopy absolutePathFSR], &v111);
+        v28 = v111;
         if (v28)
         {
           v29 = v28;
@@ -1528,11 +1497,11 @@ LABEL_85:
           if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v124 = absolutePath;
-            v125 = 2112;
-            v126 = v29;
+            v116 = absolutePath;
+            v117 = 2112;
+            v118 = v29;
             _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "=transcribing= Failed to fetch xattrs for %{public}@: %@", buf, 0x16u);
-            _MBLog();
+            _MBLog(@"E ", "=transcribing= Failed to fetch xattrs for %{public}@: %@", absolutePath, v29);
           }
 
           if (error)
@@ -1551,37 +1520,34 @@ LABEL_85:
         {
           domain2 = [bCopy domain];
           [bCopy relativePath];
-          v34 = v104 = v27;
+          v34 = v96 = v27;
           xattrs = [v22 xattrs];
           v35 = [xattrs count];
           *buf = 138412802;
-          v124 = domain2;
-          v125 = 2114;
-          v126 = v34;
-          v127 = 2048;
-          v128 = v35;
+          v116 = domain2;
+          v117 = 2114;
+          v118 = v34;
+          v119 = 2048;
+          v120 = v35;
           _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "=transcribing= Fetched xattrs for %@:%{public}@ count:%llu", buf, 0x20u);
 
-          v27 = v104;
+          v27 = v96;
           domain3 = [bCopy domain];
           relativePath3 = [bCopy relativePath];
           [v22 xattrs];
-          v37 = v105 = v32;
-          v96 = relativePath3;
-          v100 = [v37 count];
-          v93 = domain3;
-          _MBLog();
+          v37 = v97 = v32;
+          _MBLog(@"I ", "=transcribing= Fetched xattrs for %@:%{public}@ count:%llu", domain3, relativePath3, [v37 count]);
 
-          v32 = v105;
+          v32 = v97;
         }
       }
 
-      v118 = 0;
+      v110 = 0;
       if ([bCopy isRegularFile])
       {
-        v117 = v10;
-        v38 = [(MBDomainTranscriber *)self _assetMetadataFromFile:bCopy oldMetadata:v9 modificationType:v120 outRequiresInvalidation:&v118 error:&v117];
-        v39 = v117;
+        v109 = v10;
+        v38 = [(MBDomainTranscriber *)self _assetMetadataFromFile:bCopy oldMetadata:v9 modificationType:v112 outRequiresInvalidation:&v110 error:&v109];
+        v39 = v109;
 
         if (!v38)
         {
@@ -1598,49 +1564,49 @@ LABEL_85:
               [(MBDomainTranscriptionSummary *)self->_summary setClassAFilesMissingEncryptionKeys:[(MBDomainTranscriptionSummary *)self->_summary classAFilesMissingEncryptionKeys]+ 1];
             }
 
-            v86 = MBGetDefaultLog();
-            if (os_log_type_enabled(v86, OS_LOG_TYPE_DEFAULT))
+            v88 = MBGetDefaultLog();
+            if (os_log_type_enabled(v88, OS_LOG_TYPE_DEFAULT))
             {
               domain4 = [bCopy domain];
               name2 = [domain4 name];
               relativePath4 = [bCopy relativePath];
               *buf = 138412546;
-              v124 = name2;
-              v125 = 2112;
-              v126 = relativePath4;
-              _os_log_impl(&_mh_execute_header, v86, OS_LOG_TYPE_DEFAULT, "=transcribing= Not updating metadata for file %@:%@ with missing encryption key", buf, 0x16u);
+              v116 = name2;
+              v117 = 2112;
+              v118 = relativePath4;
+              _os_log_impl(&_mh_execute_header, v88, OS_LOG_TYPE_DEFAULT, "=transcribing= Not updating metadata for file %@:%@ with missing encryption key", buf, 0x16u);
 
               domain5 = [bCopy domain];
               name3 = [domain5 name];
               relativePath5 = [bCopy relativePath];
-              _MBLog();
+              _MBLog(@"Df", "=transcribing= Not updating metadata for file %@:%@ with missing encryption key", name3, relativePath5);
             }
 
             v13 = 1;
             goto LABEL_82;
           }
 
-          v79 = MBGetDefaultLog();
-          if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
+          v80 = MBGetDefaultLog();
+          if (os_log_type_enabled(v80, OS_LOG_TYPE_ERROR))
           {
             domain6 = [bCopy domain];
             name4 = [domain6 name];
             absolutePath2 = [bCopy absolutePath];
             *buf = 138412546;
-            v124 = name4;
-            v125 = 2112;
-            v126 = absolutePath2;
-            _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_ERROR, "=transcribing= Failed to fetch asset metadata for %@:%@", buf, 0x16u);
+            v116 = name4;
+            v117 = 2112;
+            v118 = absolutePath2;
+            _os_log_impl(&_mh_execute_header, v80, OS_LOG_TYPE_ERROR, "=transcribing= Failed to fetch asset metadata for %@:%@", buf, 0x16u);
 
             domain7 = [bCopy domain];
             name5 = [domain7 name];
             absolutePath3 = [bCopy absolutePath];
-            _MBLog();
+            _MBLog(@"E ", "=transcribing= Failed to fetch asset metadata for %@:%@", name5, absolutePath3);
           }
 
           if (error)
           {
-            v85 = v39;
+            v87 = v39;
             v13 = 0;
             *error = v39;
             goto LABEL_82;
@@ -1669,61 +1635,53 @@ LABEL_37:
             domain8 = [bCopy domain];
             name6 = [domain8 name];
             v49 = isPendingUpload;
-            v110 = isPendingUpload;
+            v102 = isPendingUpload;
             v50 = name6;
             *buf = 138413314;
-            v124 = v22;
-            v125 = 2112;
-            v126 = name6;
-            v127 = 2112;
-            v128 = absolutePath;
-            v129 = 2048;
-            v130 = v120;
-            v131 = 1024;
-            v132 = v49;
+            v116 = v22;
+            v117 = 2112;
+            v118 = name6;
+            v119 = 2112;
+            v120 = absolutePath;
+            v121 = 2048;
+            v122 = v112;
+            v123 = 1024;
+            v124 = v49;
             _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_INFO, "=transcribing= Updating metadata %@ for file %@:%@ m:0x%lx u:%d", buf, 0x30u);
 
             domain9 = [bCopy domain];
             name7 = [domain9 name];
-            v102 = v120;
-            v103 = v110;
-            v97 = name7;
-            v101 = absolutePath;
-            v94 = v22;
-            _MBLog();
+            _MBLog(@"I ", "=transcribing= Updating metadata %@ for file %@:%@ m:0x%lx u:%d", v22, name7, absolutePath, v112, v102);
           }
         }
 
-        if (v118 == 1)
+        if (v110 == 1)
         {
-          v111 = v22;
+          v103 = v22;
           v53 = MBGetDefaultLog();
           if (os_log_type_enabled(v53, OS_LOG_TYPE_INFO))
           {
             domain10 = [bCopy domain];
             name8 = [domain10 name];
             *buf = 138412802;
-            v124 = name8;
-            v125 = 2112;
-            v126 = absolutePath;
-            v127 = 2048;
-            v128 = v120;
+            v116 = name8;
+            v117 = 2112;
+            v118 = absolutePath;
+            v119 = 2048;
+            v120 = v112;
             _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_INFO, "=transcribing= Invalidating upload state in pending snapshot database for %@:%@ m:0x%lx", buf, 0x20u);
 
             domain11 = [bCopy domain];
             name9 = [domain11 name];
-            v97 = absolutePath;
-            v101 = v120;
-            v94 = name9;
-            _MBLog();
+            _MBLog(@"I ", "=transcribing= Invalidating upload state in pending snapshot database for %@:%@ m:0x%lx", name9, absolutePath, v112);
           }
 
           pendingSnapshotDB = [(MBDomainTranscriber *)self pendingSnapshotDB];
           domain12 = [bCopy domain];
           name10 = [domain12 name];
-          v115 = v10;
-          v61 = [pendingSnapshotDB invalidateUploadedAssetForDomain:name10 inode:objc_msgSend(bCopy error:{"inodeNumber"), &v115}];
-          v62 = v115;
+          v107 = v10;
+          v61 = [pendingSnapshotDB invalidateUploadedAssetForDomain:name10 inode:objc_msgSend(bCopy error:{"inodeNumber"), &v107}];
+          v62 = v107;
 
           if ((v61 & 1) == 0)
           {
@@ -1741,25 +1699,25 @@ LABEL_37:
               v39 = v62;
             }
 
-            v22 = v111;
+            v22 = v103;
             goto LABEL_82;
           }
 
           v10 = v62;
-          v22 = v111;
+          v22 = v103;
         }
 
         relativePath6 = [bCopy relativePath];
-        v114 = v10;
-        v64 = [openedFileListDB setFileMetadata:v22 forPath:relativePath6 error:&v114];
-        v39 = v114;
+        v106 = v10;
+        v64 = [openedFileListDB setFileMetadata:v22 forPath:relativePath6 error:&v106];
+        v39 = v106;
 
         if (v64)
         {
           relativePath7 = [bCopy relativePath];
-          v113 = v39;
-          v66 = [openedFileListDB markFileAsPresent:relativePath7 error:&v113];
-          v67 = v113;
+          v105 = v39;
+          v66 = [openedFileListDB markFileAsPresent:relativePath7 error:&v105];
+          v67 = v105;
 
           if (v66)
           {
@@ -1770,19 +1728,19 @@ LABEL_37:
           {
             if (error)
             {
-              v77 = v67;
+              v78 = v67;
               *error = v67;
             }
 
-            v78 = MBGetDefaultLog();
-            if (os_log_type_enabled(v78, OS_LOG_TYPE_ERROR))
+            v79 = MBGetDefaultLog();
+            if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412546;
-              v124 = bCopy;
-              v125 = 2112;
-              v126 = v67;
-              _os_log_impl(&_mh_execute_header, v78, OS_LOG_TYPE_ERROR, "=transcribing= Failed to mark file %@ as unmodified: %@", buf, 0x16u);
-              _MBLog();
+              v116 = bCopy;
+              v117 = 2112;
+              v118 = v67;
+              _os_log_impl(&_mh_execute_header, v79, OS_LOG_TYPE_ERROR, "=transcribing= Failed to mark file %@ as unmodified: %@", buf, 0x16u);
+              _MBLog(@"E ", "=transcribing= Failed to mark file %@ as unmodified: %@", bCopy, v67);
             }
 
             v13 = 0;
@@ -1802,28 +1760,28 @@ LABEL_37:
         if (os_log_type_enabled(v69, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v124 = bCopy;
-          v125 = 2112;
-          v126 = v39;
+          v116 = bCopy;
+          v117 = 2112;
+          v118 = v39;
           _os_log_impl(&_mh_execute_header, v69, OS_LOG_TYPE_ERROR, "=transcribing= Failed to add file %@ to FileListDB: %@", buf, 0x16u);
-          _MBLog();
+          _MBLog(@"E ", "=transcribing= Failed to add file %@ to FileListDB: %@", bCopy, v39);
         }
 
         goto LABEL_65;
       }
 
-      v109 = v22;
+      v101 = v22;
       pendingSnapshotDB2 = [(MBDomainTranscriber *)self pendingSnapshotDB];
       domain13 = [bCopy domain];
       name11 = [domain13 name];
-      v116 = v10;
-      v106 = [pendingSnapshotDB2 markDomainRequiringFileListCopy:name11 error:&v116];
-      v43 = v116;
+      v108 = v10;
+      v98 = [pendingSnapshotDB2 markDomainRequiringFileListCopy:name11 error:&v108];
+      v43 = v108;
 
-      if (v106)
+      if (v98)
       {
         v10 = v43;
-        v22 = v109;
+        v22 = v101;
         goto LABEL_37;
       }
 
@@ -1835,20 +1793,20 @@ LABEL_37:
       }
 
       v73 = MBGetDefaultLog();
-      v22 = v109;
+      v22 = v101;
       if (os_log_type_enabled(v73, OS_LOG_TYPE_ERROR))
       {
         domain14 = [bCopy domain];
         name12 = [domain14 name];
         *buf = 138412546;
-        v124 = name12;
-        v125 = 2112;
-        v126 = v39;
+        v116 = name12;
+        v117 = 2112;
+        v118 = v39;
         _os_log_impl(&_mh_execute_header, v73, OS_LOG_TYPE_ERROR, "=transcribing= Failed to mark domain %@ as requiring upload during scanning: %@", buf, 0x16u);
 
         domain15 = [bCopy domain];
         name13 = [domain15 name];
-        _MBLog();
+        _MBLog(@"E ", "=transcribing= Failed to mark domain %@ as requiring upload during scanning: %@", name13, v39);
       }
 
 LABEL_65:
@@ -1865,6 +1823,26 @@ LABEL_83:
 LABEL_86:
 
   return v13;
+}
+
+- (BOOL)fileScanner:(id)scanner failedToStatFile:(id)file withErrno:(int)errno
+{
+  v5 = *&errno;
+  scannerCopy = scanner;
+  fileCopy = file;
+  compatibilityDelegate = [(MBDomainTranscriber *)self compatibilityDelegate];
+  if (compatibilityDelegate && (objc_opt_respondsToSelector() & 1) != 0)
+  {
+    compatibilityDelegate2 = [(MBDomainTranscriber *)self compatibilityDelegate];
+    v12 = [compatibilityDelegate2 fileScanner:scannerCopy failedToStatFile:fileCopy withErrno:v5];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
 }
 
 - (BOOL)fileScanner:(id)scanner isFileAddedOrModified:(id)modified

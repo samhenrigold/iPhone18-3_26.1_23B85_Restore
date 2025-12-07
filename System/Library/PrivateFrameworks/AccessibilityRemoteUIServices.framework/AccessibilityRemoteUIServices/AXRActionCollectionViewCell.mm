@@ -11,10 +11,10 @@
 
 - (AXRActionCollectionViewCell)initWithFrame:(CGRect)frame
 {
-  v29[4] = *MEMORY[0x277D85DE8];
-  v28.receiver = self;
-  v28.super_class = AXRActionCollectionViewCell;
-  v3 = [(AXRActionCollectionViewCell *)&v28 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v28[4] = *MEMORY[0x277D85DE8];
+  v27.receiver = self;
+  v27.super_class = AXRActionCollectionViewCell;
+  v3 = [(AXRActionCollectionViewCell *)&v27 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = objc_opt_new();
@@ -33,32 +33,31 @@
     contentView2 = [(AXRActionCollectionViewCell *)v3 contentView];
     [contentView2 addSubview:v3->_imageView];
 
-    v22 = MEMORY[0x277CCAAD0];
+    v21 = MEMORY[0x277CCAAD0];
     centerXAnchor = [(UIImageView *)v3->_imageView centerXAnchor];
     contentView3 = [(AXRActionCollectionViewCell *)v3 contentView];
     centerXAnchor2 = [contentView3 centerXAnchor];
-    v24 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-    v29[0] = v24;
+    v23 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
+    v28[0] = v23;
     centerYAnchor = [(UIImageView *)v3->_imageView centerYAnchor];
     contentView4 = [(AXRActionCollectionViewCell *)v3 contentView];
     centerYAnchor2 = [contentView4 centerYAnchor];
     v12 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v29[1] = v12;
+    v28[1] = v12;
     heightAnchor = [(UIImageView *)v3->_imageView heightAnchor];
     v14 = [heightAnchor constraintEqualToConstant:40.0];
-    v29[2] = v14;
+    v28[2] = v14;
     widthAnchor = [(UIImageView *)v3->_imageView widthAnchor];
     heightAnchor2 = [(UIImageView *)v3->_imageView heightAnchor];
     v17 = [widthAnchor constraintEqualToAnchor:heightAnchor2];
-    v29[3] = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:4];
-    [v22 activateConstraints:v18];
+    v28[3] = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:4];
+    [v21 activateConstraints:v18];
 
     v19 = objc_opt_new();
     [(AXRActionCollectionViewCell *)v3 addInteraction:v19];
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
@@ -115,7 +114,7 @@
     v6 = &v7;
   }
 
-  [MEMORY[0x277D75D18] animateWithDuration:6 delay:v6 options:0 animations:v5 completion:{0.0, v7, v8, v9, v10, selfCopy2, *&v12.a, *&v12.c, *&v12.tx, v13, v14, v15, v16, selfCopy, *&v18.a, *&v18.c, *&v18.d, *&v18.ty}];
+  [MEMORY[0x277D75D18] animateWithDuration:6 delay:v6 options:0 animations:v5 completion:{0.0, v7, v8, v9, v10, selfCopy2, *&v12.a, *&v12.c, *&v12.tx, v13, v14, v15, v16, selfCopy, *&v18.a, *&v18.c, *&v18.tx}];
 }
 
 uint64_t __46__AXRActionCollectionViewCell_setHighlighted___block_invoke(uint64_t a1)

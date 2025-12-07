@@ -1,577 +1,3 @@
-id sub_10014863C(uint64_t a1)
-{
-  v2 = sub_100004778();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 48);
-    v4 = *(a1 + 32);
-    v6[0] = 67109378;
-    v6[1] = v3;
-    v7 = 2112;
-    v8 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "TUCallCapabilitiesXPCServer - setWiFiCallingEnabled: %d senderIdentityUUID: %@", v6, 0x12u);
-  }
-
-  return [*(a1 + 40) _setWiFiCallingEnabled:*(a1 + 48) forSenderIdentityWithUUID:*(a1 + 32)];
-}
-
-id sub_1001487F0(uint64_t a1)
-{
-  v2 = sub_100004778();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 48);
-    v4 = *(a1 + 32);
-    v6[0] = 67109378;
-    v6[1] = v3;
-    v7 = 2112;
-    v8 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "TUCallCapabilitiesXPCServer - setWiFiCallingRoamingEnabled: %d senderIdentityUUID: %@", v6, 0x12u);
-  }
-
-  return [*(a1 + 40) _setWiFiCallingRoamingEnabled:*(a1 + 48) forSenderIdentityWithUUID:*(a1 + 32)];
-}
-
-id sub_1001489A4(uint64_t a1)
-{
-  v2 = sub_100004778();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 48);
-    v4 = *(a1 + 32);
-    v6[0] = 67109378;
-    v6[1] = v3;
-    v7 = 2112;
-    v8 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "TUCallCapabilitiesXPCServer - setVoLTECallingEnabled: %d senderIdentityUUID: %@", v6, 0x12u);
-  }
-
-  return [*(a1 + 40) _setVoLTECallingEnabled:*(a1 + 48) forSenderIdentityWithUUID:*(a1 + 32)];
-}
-
-id sub_100148B58(uint64_t a1)
-{
-  v2 = sub_100004778();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 48);
-    v4 = *(a1 + 32);
-    v6[0] = 67109378;
-    v6[1] = v3;
-    v7 = 2112;
-    v8 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "TUCallCapabilitiesXPCServer - setThumperCallingEnabled: %d senderIdentityUUID: %@", v6, 0x12u);
-  }
-
-  return [*(a1 + 40) _setThumperCallingEnabled:*(a1 + 48) forSenderIdentityWithUUID:*(a1 + 32)];
-}
-
-id sub_100148D30(uint64_t a1)
-{
-  v2 = sub_100004778();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 56);
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v7[0] = 67109634;
-    v7[1] = v3;
-    v8 = 2112;
-    v9 = v4;
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "TUCallCapabilitiesXPCServer - setThumperCallingAllowed: %d secondaryDeviceID: %@ senderIdentityUUID: %@", v7, 0x1Cu);
-  }
-
-  return [*(a1 + 48) _setThumperCallingAllowed:*(a1 + 56) onSecondaryDeviceWithID:*(a1 + 32) forSenderIdentityWithUUID:*(a1 + 40)];
-}
-
-id sub_100148EF0(uint64_t a1)
-{
-  v2 = sub_100004778();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 48);
-    v4 = *(a1 + 32);
-    v6[0] = 67109378;
-    v6[1] = v3;
-    v7 = 2112;
-    v8 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "TUCallCapabilitiesXPCServer - setThumperCallingAllowedOnDefaultPairedDevice: %d senderIdentityUUID: %@", v6, 0x12u);
-  }
-
-  return [*(a1 + 40) _setThumperCallingAllowedOnDefaultPairedDevice:*(a1 + 48) forSenderIdentityWithUUID:*(a1 + 32)];
-}
-
-void sub_100149088(uint64_t a1)
-{
-  v2 = sub_100004778();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "TUCallCapabilitiesXPCServer - endEmergencyCallbackMode", v4, 2u);
-  }
-
-  v3 = [*(a1 + 32) telephonyCallCapabilities];
-  [v3 endEmergencyCallbackMode];
-}
-
-void sub_1001491EC(uint64_t a1)
-{
-  v2 = sub_100004778();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "TUCallCapabilitiesXPCServer - invalidateAndRefreshWiFiCallingProvisioningURLForSenderIdentityUUID: %@", &v5, 0xCu);
-  }
-
-  v4 = [*(a1 + 40) telephonyCallCapabilities];
-  [v4 invalidateAndRefreshWiFiCallingCapabilitiesForSenderIdentityWithUUID:*(a1 + 32)];
-}
-
-void sub_100149390(uint64_t a1)
-{
-  v2 = sub_100004778();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 32);
-    v5 = 138412290;
-    v6 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "TUCallCapabilitiesXPCServer - invalidateAndRefreshThumperCallingProvisioningURLForSenderIdentityUUID: %@", &v5, 0xCu);
-  }
-
-  v4 = [*(a1 + 40) telephonyCallCapabilities];
-  [v4 invalidateAndRefreshThumperCallingCapabilitiesForSenderIdentityWithUUID:*(a1 + 32)];
-}
-
-void sub_100149510(uint64_t a1)
-{
-  v2 = sub_100004778();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    LOWORD(v14) = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "TUCallCapabilitiesXPCServer - requestPinFromPrimaryDevice", &v14, 2u);
-  }
-
-  v4 = *(a1 + 32);
-  v3 = (a1 + 32);
-  v5 = [v4 _primaryThumperAccountRequiringAvailableDeviceSlots];
-  v6 = sub_100004778();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (v5)
-  {
-    if (v7)
-    {
-      v14 = 138412290;
-      v15 = v5;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Using the following account for the PIN request: %@", &v14, 0xCu);
-    }
-
-    v8 = [*v3 thumperService];
-    v9 = [v5 primaryDeviceID];
-    v10 = [v8 deviceWithUniqueID:v9];
-
-    if (v10)
-    {
-      v11 = [*v3 thumperPinExchangeController];
-      [v11 requestPinFromDevice:v10];
-    }
-
-    else
-    {
-      v11 = sub_100004778();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
-      {
-        sub_1004762EC(v5, v3, v11);
-      }
-    }
-  }
-
-  else
-  {
-    if (v7)
-    {
-      v12 = [*v3 telephonyCallCapabilities];
-      v13 = [v12 secondaryThumperAccounts];
-      v14 = 138412290;
-      v15 = v13;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[WARN] No primary Thumper account found for PIN request. This should only happen because an account exists but has no empty device slots. All accounts: %@", &v14, 0xCu);
-    }
-
-    v10 = [*v3 thumperPinExchangeController];
-    [v10 displaySlotsFullNotification];
-  }
-}
-
-void sub_1001497E4(uint64_t a1)
-{
-  v2 = sub_100004778();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    *v4 = 0;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "TUCallCapabilitiesXPCServer - cancelPinRequestFromPrimaryDevice", v4, 2u);
-  }
-
-  v3 = [*(a1 + 32) thumperPinExchangeController];
-  [v3 cancelPinRequests];
-}
-
-void sub_10014991C(uint64_t a1)
-{
-  v2 = [*(a1 + 32) clientManager];
-  [v2 addLocalClientObject:*(a1 + 40)];
-}
-
-void sub_100149A24(uint64_t a1)
-{
-  v2 = [*(a1 + 32) clientManager];
-  [v2 removeLocalClientObject:*(a1 + 40)];
-}
-
-id sub_100149CB8(uint64_t a1)
-{
-  [*(a1 + 32) _updateHostingAndDisplayingSupport];
-  v2 = *(a1 + 32);
-
-  return [v2 _updateClientsWithState];
-}
-
-void sub_100149F74(uint64_t a1)
-{
-  v2 = [*(a1 + 32) _outgoingCallerID];
-  if ([v2 length])
-  {
-    v18 = v2;
-    v3 = [*(a1 + 32) state];
-    v4 = [v3 senderIdentityCapabilitiesStateByUUID];
-
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
-    v20 = 0u;
-    v17 = v4;
-    v5 = [v4 allValues];
-    v6 = [v5 countByEnumeratingWithState:&v19 objects:v25 count:16];
-    if (v6)
-    {
-      v7 = v6;
-      v8 = *v20;
-      do
-      {
-        for (i = 0; i != v7; i = i + 1)
-        {
-          if (*v20 != v8)
-          {
-            objc_enumerationMutation(v5);
-          }
-
-          v10 = *(*(&v19 + 1) + 8 * i);
-          v11 = [v10 thumperCallingCapabilitiesState];
-          v12 = [v11 accountID];
-
-          if (v12)
-          {
-            v13 = [*(a1 + 32) telephonyCallCapabilities];
-            v14 = [v13 secondaryThumperAccountForAccountID:v12];
-
-            if (v14)
-            {
-              v15 = [v10 senderIdentityUUID];
-              v16 = sub_100004778();
-              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-              {
-                *buf = 138412290;
-                v24 = v15;
-                _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Disabling Thumper for subscription with UUID %@", buf, 0xCu);
-              }
-
-              [*(a1 + 32) _setThumperCallingEnabled:0 forSenderIdentityWithUUID:v15];
-            }
-          }
-        }
-
-        v7 = [v5 countByEnumeratingWithState:&v19 objects:v25 count:16];
-      }
-
-      while (v7);
-    }
-
-    v2 = v18;
-  }
-
-  [*(a1 + 32) _updateDynamicCapabilitiesAndUpdateClients];
-}
-
-void sub_10014A93C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_10014A954(uint64_t a1)
-{
-  v5 = [*(a1 + 32) telephonyCallCapabilities];
-  v2 = [v5 localThumperAccounts];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
-}
-
-void sub_10014AAC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_10014AAD8(uint64_t a1)
-{
-  v5 = [*(a1 + 32) telephonyCallCapabilities];
-  v2 = [v5 secondaryThumperAccounts];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
-}
-
-void sub_10014AC6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_10014AC84(uint64_t a1)
-{
-  v5 = [*(a1 + 32) telephonyCallCapabilities];
-  v2 = [v5 secondaryThumperAccountForAccountID:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
-}
-
-void sub_10014AFC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_10014AFDC(uint64_t a1)
-{
-  v2 = [*(a1 + 32) telephonyCallCapabilities];
-  v3 = [v2 senderIdentityCapabilitiesStateByUUID];
-
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
-  v13 = 0u;
-  v4 = [v3 allKeys];
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
-  if (v5)
-  {
-    v6 = v5;
-    v7 = *v13;
-    do
-    {
-      for (i = 0; i != v6; i = i + 1)
-      {
-        if (*v13 != v7)
-        {
-          objc_enumerationMutation(v4);
-        }
-
-        v9 = *(*(&v12 + 1) + 8 * i);
-        v10 = [v3 objectForKeyedSubscript:v9];
-        v11 = [v10 thumperCallingCapabilitiesState];
-        [*(*(*(a1 + 40) + 8) + 40) setObject:v11 forKeyedSubscript:v9];
-      }
-
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
-    }
-
-    while (v6);
-  }
-}
-
-void sub_10014B1C8(uint64_t a1)
-{
-  [*(a1 + 32) _updateState];
-  v2 = sub_100004778();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = [*(a1 + 32) state];
-    v4 = 138412290;
-    v5 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "updateState: capability state: %@", &v4, 0xCu);
-  }
-}
-
-id sub_10014B650(uint64_t a1)
-{
-  result = [*(a1 + 32) _defaultOverrideForDisableDefault:@"disableSupportsPrimaryCalling" forceDefault:@"forceSupportsPrimaryCalling"];
-  byte_1006ACD68 = result;
-  return result;
-}
-
-id sub_10014B744(uint64_t a1)
-{
-  result = [*(a1 + 32) _defaultOverrideForDisableDefault:@"disableSupportsBasebandCalling" forceDefault:@"forceSupportsBasebandCalling"];
-  byte_1006ACD78 = result;
-  return result;
-}
-
-id sub_10014B858(uint64_t a1)
-{
-  result = [*(a1 + 32) _defaultOverrideForDisableDefault:@"disableSupportsCellularData" forceDefault:@"forceSupportsCellularData"];
-  byte_1006ACD88 = result;
-  return result;
-}
-
-id sub_10014B924(uint64_t a1)
-{
-  result = [*(a1 + 32) _defaultOverrideForDisableDefault:@"disableDisplayingTelephonyCallSupport" forceDefault:@"forceDisplayingTelephonyCallSupport"];
-  byte_1006ACD98 = result;
-  return result;
-}
-
-id sub_10014BA38(uint64_t a1)
-{
-  result = [*(a1 + 32) _defaultOverrideForDisableDefault:@"disableDisplayingFaceTimeAudioCallSupport" forceDefault:@"forceDisplayingFaceTimeAudioCallSupport"];
-  byte_1006ACDA8 = result;
-  return result;
-}
-
-id sub_10014BB4C(uint64_t a1)
-{
-  result = [*(a1 + 32) _defaultOverrideForDisableDefault:@"disableDisplayingFaceTimeVideoCallSupport" forceDefault:@"forceDisplayingFaceTimeVideoCallSupport"];
-  byte_1006ACDB8 = result;
-  return result;
-}
-
-id sub_10014C274(uint64_t a1)
-{
-  byte_1006ACDC8 = [*(a1 + 32) _defaultOverrideForDisableDefault:@"disableCanEnableWiFiCalling" forceDefault:@"forceCanEnableWiFiCalling"];
-  byte_1006ACDC9 = [*(a1 + 32) _defaultOverrideForDisableDefault:@"disableCanEnableVoLTECalling" forceDefault:@"forceCanEnableVoLTECalling"];
-  result = [*(a1 + 32) _defaultOverrideForDisableDefault:@"disableCanEnableThumperCalling" forceDefault:@"forceCanEnableThumperCalling"];
-  byte_1006ACDCA = result;
-  return result;
-}
-
-int64_t sub_10014DD10(id a1, TUCloudCallingDevice *a2, TUCloudCallingDevice *a3)
-{
-  v4 = a3;
-  v5 = [(TUCloudCallingDevice *)a2 uniqueID];
-  v6 = [(TUCloudCallingDevice *)v4 uniqueID];
-
-  v7 = [v5 compare:v6];
-  return v7;
-}
-
-void sub_10014EFAC(id a1, BOOL a2, NSError *a3)
-{
-  v3 = a3;
-  v4 = sub_100004778();
-  v5 = v4;
-  if (v3)
-  {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
-    {
-      sub_1004763B0(v3, v5);
-    }
-  }
-
-  else if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
-  {
-    *v6 = 0;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Successfully set no handler for Default Calling category", v6, 2u);
-  }
-}
-
-void sub_10014F040(uint64_t a1, uint64_t a2, void *a3)
-{
-  v4 = a3;
-  v5 = sub_100004778();
-  v6 = v5;
-  if (v4)
-  {
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
-    {
-      sub_100476428(a1, v4, v6);
-    }
-  }
-
-  else if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
-  {
-    v7 = *(a1 + 32);
-    v8 = 138412290;
-    v9 = v7;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Successfully set Default Calling app to %@", &v8, 0xCu);
-  }
-}
-
-void sub_100150188(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location)
-{
-  objc_destroyWeak((v16 + 40));
-  objc_destroyWeak(&location);
-  _Unwind_Resume(a1);
-}
-
-void sub_1001501B4(uint64_t a1, void *a2, char a3, void *a4)
-{
-  v7 = a2;
-  v8 = a4;
-  WeakRetained = objc_loadWeakRetained((a1 + 40));
-  v10 = WeakRetained;
-  if (WeakRetained)
-  {
-    v11 = [WeakRetained queue];
-
-    if (v11)
-    {
-      v12 = [v10 queue];
-      block[0] = _NSConcreteStackBlock;
-      block[1] = 3221225472;
-      block[2] = sub_1001502D4;
-      block[3] = &unk_10061C7D8;
-      v18 = a3;
-      v14 = v8;
-      v15 = v7;
-      v16 = v10;
-      v17 = *(a1 + 32);
-      dispatch_async(v12, block);
-    }
-  }
-}
-
-id sub_1001502D4(uint64_t a1)
-{
-  v2 = sub_100004778();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 64);
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v7[0] = 67109634;
-    v7[1] = v3;
-    v8 = 2112;
-    v9 = v4;
-    v10 = 2112;
-    v11 = v5;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Coordinated alert request came back with bestIsMe: %d info: %@ error: %@", v7, 0x1Cu);
-  }
-
-  if (*(a1 + 64) == 1)
-  {
-    [*(a1 + 48) setShouldSuppressRingtone:0];
-  }
-
-  [*(a1 + 56) invalidate];
-  return [*(a1 + 56) setCompletionHandler:0];
-}
-
 id sub_100150904(uint64_t a1)
 {
   v1 = *(a1 + 40);
@@ -754,12 +180,13 @@ void sub_1001545F4(uint64_t a1)
 void sub_100154634(id a1, NSError *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_100004778();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100004778(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      sub_1004765FC(v2, v3);
+      sub_1004765FC(v3, v4);
     }
   }
 }
@@ -770,17 +197,17 @@ void sub_10015468C(uint64_t a1)
   [*(a1 + 32) _initializeAutomaticCarDNDStatusIfNecessary];
   [*(a1 + 32) _updatePickableRoutes];
   [*(a1 + 32) _updateCarPlayDeviceConnected];
-  v11[0] = AVSystemController_PickableRoutesDidChangeNotification;
-  v11[1] = AVSystemController_PreferredExternalRouteDidChangeNotification;
-  v11[2] = AVSystemController_CarPlayIsConnectedDidChangeNotification;
-  v2 = [NSArray arrayWithObjects:v11 count:3];
+  v12[0] = AVSystemController_PickableRoutesDidChangeNotification;
+  v12[1] = AVSystemController_PreferredExternalRouteDidChangeNotification;
+  v12[2] = AVSystemController_CarPlayIsConnectedDidChangeNotification;
+  v2 = [NSArray arrayWithObjects:v12 count:3];
   v3 = +[AVSystemController sharedAVSystemController];
   [v3 setAttribute:v2 forKey:AVSystemController_SubscribeToNotificationsAttribute error:0];
 
   v4 = +[NSNotificationCenter defaultCenter];
   [v4 addObserver:*(a1 + 32) selector:"pickableRoutesDidChangeNotification:" name:AVSystemController_PickableRoutesDidChangeNotification object:0];
   [v4 addObserver:*(a1 + 32) selector:"preferredExternalRouteDidChangeNotification:" name:AVSystemController_PreferredExternalRouteDidChangeNotification object:0];
-  [v4 addObserver:*(a1 + 32) selector:"carPlayIsConnectedChanged:" name:AVSystemController_CarPlayIsConnectedDidChangeNotification object:0];
+  v5 = [v4 addObserver:*(a1 + 32) selector:"carPlayIsConnectedChanged:" name:AVSystemController_CarPlayIsConnectedDidChangeNotification object:0];
   if (qword_1006ACDF0 != -1)
   {
     sub_100476688();
@@ -788,21 +215,21 @@ void sub_10015468C(uint64_t a1)
 
   if (qword_1006ACDE8)
   {
-    v5 = +[NSNotificationCenter defaultCenter];
-    v6 = *(a1 + 32);
-    v7 = qword_1006ACDE8;
-    v8 = +[AVAudioSession sharedInstance];
-    [v5 addObserver:v6 selector:"mediaServicesWereResetNotification:" name:v7 object:v8];
+    v6 = +[NSNotificationCenter defaultCenter];
+    v7 = *(a1 + 32);
+    v8 = qword_1006ACDE8;
+    v9 = +[AVAudioSession sharedInstance];
+    [v6 addObserver:v7 selector:"mediaServicesWereResetNotification:" name:v8 object:v9];
   }
 
   else
   {
-    v5 = sub_100004778();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004778(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138412290;
-      v10 = @"AVAudioSessionMediaServicesWereResetNotification";
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v9, 0xCu);
+      v10 = 138412290;
+      v11 = @"AVAudioSessionMediaServicesWereResetNotification";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[WARN] Could not weak link notification string '%@'. Not observing notifications for it.", &v10, 0xCu);
     }
   }
 }
@@ -823,9 +250,9 @@ void sub_1001548CC(id a1)
   objc_storeStrong(&qword_1006ACDE8, v2);
 }
 
-void sub_100154A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100154A90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -836,9 +263,9 @@ void sub_100154AA8(uint64_t a1)
   *(*(*(a1 + 56) + 8) + 24) = [v2 isAnyRouteAvailableWithUniqueIdentifier:*(a1 + 48)];
 }
 
-void sub_100154C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100154C58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -852,9 +279,9 @@ void sub_100154C70(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_100154D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100154D9C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -906,9 +333,9 @@ LABEL_12:
   }
 }
 
-void sub_100154FB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100154FB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -956,9 +383,9 @@ void sub_100154FD0(uint64_t a1)
 LABEL_11:
 }
 
-void sub_1001551D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001551D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -996,9 +423,9 @@ LABEL_6:
   }
 }
 
-void sub_100155414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100155414(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1012,9 +439,9 @@ void sub_10015542C(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_100155580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100155580(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1035,9 +462,9 @@ void sub_100155598(uint64_t a1)
   *(*(*(a1 + 48) + 8) + 24) = v2;
 }
 
-void sub_1001556D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001556D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1085,9 +512,9 @@ void sub_1001556EC(uint64_t a1)
 LABEL_11:
 }
 
-void sub_1001558D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001558D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1099,9 +526,9 @@ id sub_1001558E8(uint64_t a1)
   return result;
 }
 
-void sub_1001559DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001559DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1149,9 +576,9 @@ void sub_1001559F4(uint64_t a1)
 LABEL_11:
 }
 
-void sub_100155BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100155BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1263,7 +690,7 @@ void sub_100156D08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 void sub_100156D40(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
-  v6 = sub_100004778();
+  v6 = sub_100004778(v5);
   v7 = v6;
   if (v5)
   {
@@ -1307,7 +734,7 @@ void sub_100156E38(uint64_t a1, char a2)
 
 id sub_100156EE4(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
@@ -2150,26 +1577,27 @@ void sub_10015DC30(uint64_t a1)
 void sub_10015DD08(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = sub_100004778();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = sub_100004778(WeakRetained);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Device first unlock block invoked, attempting to retrieve active conversations", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Device first unlock block invoked, attempting to retrieve active conversations", buf, 2u);
     }
 
-    [WeakRetained retreiveActiveConversations];
-    [WeakRetained removeNonIndefiniteLinks];
-    v3 = WeakRetained[33];
+    [v2 retreiveActiveConversations];
+    [v2 removeNonIndefiniteLinks];
+    v4 = v2[33];
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10015DE0C;
     block[3] = &unk_100619D38;
-    v4 = WeakRetained;
-    v6 = v4;
-    dispatch_async(v3, block);
-    [v4 setupPendingConversationCleanupTimer];
+    v5 = v2;
+    v7 = v5;
+    dispatch_async(v4, block);
+    [v5 setupPendingConversationCleanupTimer];
   }
 }
 
@@ -2238,7 +1666,7 @@ CSDConversation *sub_10015DFE4(uint64_t a1, void *a2, void *a3, void *a4, void *
 
 id sub_10015E2A4(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, void *a7, void *a8, void *a9)
 {
-  v68 = a2;
+  v72 = a2;
   v15 = a3;
   v16 = a4;
   v17 = a5;
@@ -2249,7 +1677,7 @@ id sub_10015E2A4(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, 
   v22 = WeakRetained;
   if (WeakRetained)
   {
-    v66 = v19;
+    v70 = v19;
     v23 = [WeakRetained featureFlags];
     v24 = [v23 groupFacetimeAsAServiceEnabled];
 
@@ -2264,7 +1692,7 @@ id sub_10015E2A4(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, 
       v26 = [v22 service];
     }
 
-    v62 = v18;
+    v66 = v18;
     v29 = [v18 mutableCopy];
     v30 = v29;
     if (v29)
@@ -2282,151 +1710,152 @@ id sub_10015E2A4(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6, 
     v33 = [v17 idsFromID];
     [v32 setObject:v33 forKeyedSubscript:IDSSendMessageOptionFromIDKey];
 
-    v34 = sub_100004778();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v35 = sub_100004778(v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      *v74 = v32;
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "sendDataBlock options: %@", buf, 0xCu);
+      *v78 = v32;
+      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "sendDataBlock options: %@", buf, 0xCu);
     }
 
-    v35 = [v32 objectForKeyedSubscript:@"kCSDConversationGroupUUID"];
+    v36 = [v32 objectForKeyedSubscript:@"kCSDConversationGroupUUID"];
 
-    if (v35)
+    if (v36)
     {
-      v67 = [v32 objectForKeyedSubscript:@"kCSDConversationGroupUUID"];
+      v71 = [v32 objectForKeyedSubscript:@"kCSDConversationGroupUUID"];
       [v32 removeObjectForKey:@"kCSDConversationGroupUUID"];
     }
 
     else
     {
-      v36 = sub_100004778();
-      if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+      v38 = sub_100004778(v37);
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "invalid conversationGroupUUID", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "invalid conversationGroupUUID", buf, 2u);
       }
 
-      v67 = 0;
+      v71 = 0;
     }
 
-    v63 = v17;
-    v64 = v15;
-    v69 = 0;
-    v70 = 0;
-    v61 = v26;
-    v37 = v26;
-    v28 = v68;
-    v27 = [v37 sendData:v68 fromAccount:v15 toDestinations:v16 priority:300 options:v32 identifier:&v70 error:&v69];
-    v38 = v70;
-    v39 = v69;
-    v40 = v39;
-    v19 = v66;
+    v67 = v17;
+    v68 = v15;
+    v73 = 0;
+    v74 = 0;
+    v65 = v26;
+    v39 = v26;
+    v28 = v72;
+    v27 = [v39 sendData:v72 fromAccount:v15 toDestinations:v16 priority:300 options:v32 identifier:&v74 error:&v73];
+    v40 = v74;
+    v41 = v73;
+    v42 = v41;
+    v19 = v70;
     if (v27)
     {
-      v59 = v39;
-      v60 = v16;
-      if (v66)
+      v63 = v41;
+      v64 = v16;
+      if (v70)
       {
-        v41 = [v22 mutableSendDataCallbacksByRequestIdentifiers];
-        v42 = [v66 copy];
-        v43 = objc_retainBlock(v42);
-        [v41 setObject:v43 forKey:v38];
+        v43 = [v22 mutableSendDataCallbacksByRequestIdentifiers];
+        v44 = [v70 copy];
+        v45 = objc_retainBlock(v44);
+        [v43 setObject:v45 forKey:v40];
       }
 
-      v44 = sub_100004778();
-      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+      v46 = sub_100004778(v41);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
       {
-        v45 = [v60 allObjects];
-        v46 = TULoggableStringForHandles();
+        v47 = [v64 allObjects];
+        v48 = TULoggableStringForHandles();
         *buf = 138412546;
-        *v74 = v38;
-        *&v74[8] = 2112;
-        *&v74[10] = v46;
-        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "Sent message with identifier %@ to %@", buf, 0x16u);
+        *v78 = v40;
+        *&v78[8] = 2112;
+        *&v78[10] = v48;
+        _os_log_impl(&_mh_execute_header, v46, OS_LOG_TYPE_DEFAULT, "Sent message with identifier %@ to %@", buf, 0x16u);
       }
 
-      v47 = [[CSDMessagingConversationMessage alloc] initWithData:v68];
-      v48 = [v32 objectForKeyedSubscript:@"kCSDConversationIsLetMeInApproved"];
+      v49 = [[CSDMessagingConversationMessage alloc] initWithData:v72];
+      v50 = [v32 objectForKeyedSubscript:@"kCSDConversationIsLetMeInApproved"];
 
-      if (v48)
+      if (v50)
       {
-        v49 = [v32 objectForKeyedSubscript:@"kCSDConversationIsLetMeInApproved"];
-        v48 = [v49 BOOLValue];
+        v51 = [v32 objectForKeyedSubscript:@"kCSDConversationIsLetMeInApproved"];
+        v50 = [v51 BOOLValue];
 
         [v32 removeObjectForKey:@"kCSDConversationIsLetMeInApproved"];
       }
 
-      if ([(CSDMessagingConversationMessage *)v47 enclosedEncryptedType]== 16 && v67)
+      v52 = [(CSDMessagingConversationMessage *)v49 enclosedEncryptedType];
+      if (v52 == 16 && v71)
       {
-        v71[1] = @"kCSDConversationIsLetMeInApproved";
-        v72[0] = v67;
-        v71[0] = @"kCSDConversationGroupUUID";
-        v50 = [NSNumber numberWithBool:v48];
-        v72[1] = v50;
-        v51 = [NSDictionary dictionaryWithObjects:v72 forKeys:v71 count:2];
-        v52 = [v22 outIdentifierToConversationInfo];
-        [v52 setObject:v51 forKeyedSubscript:v38];
+        v75[1] = @"kCSDConversationIsLetMeInApproved";
+        v76[0] = v71;
+        v75[0] = @"kCSDConversationGroupUUID";
+        v53 = [NSNumber numberWithBool:v50];
+        v76[1] = v53;
+        v54 = [NSDictionary dictionaryWithObjects:v76 forKeys:v75 count:2];
+        v55 = [v22 outIdentifierToConversationInfo];
+        [v55 setObject:v54 forKeyedSubscript:v40];
 
-        v53 = sub_100004778();
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+        v57 = sub_100004778(v56);
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
         {
-          v54 = [v22 outIdentifierToConversationInfo];
+          v58 = [v22 outIdentifierToConversationInfo];
           *buf = 138412290;
-          *v74 = v54;
-          _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "outIdentifierToConversationInfo: %@", buf, 0xCu);
+          *v78 = v58;
+          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "outIdentifierToConversationInfo: %@", buf, 0xCu);
         }
 
-        v28 = v68;
-        v55 = a7;
-        v19 = v66;
+        v28 = v72;
+        v59 = a7;
+        v19 = v70;
       }
 
       else
       {
-        v53 = sub_100004778();
-        v28 = v68;
-        v55 = a7;
-        v19 = v66;
-        if (os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
+        v57 = sub_100004778(v52);
+        v28 = v72;
+        v59 = a7;
+        v19 = v70;
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
         {
-          v56 = [(CSDMessagingConversationMessage *)v47 enclosedEncryptedType];
+          v60 = [(CSDMessagingConversationMessage *)v49 enclosedEncryptedType];
           *buf = 67109378;
-          *v74 = v56;
-          *&v74[4] = 2112;
-          *&v74[6] = v67;
-          _os_log_impl(&_mh_execute_header, v53, OS_LOG_TYPE_DEFAULT, "message type: %d, groupUUID: %@", buf, 0x12u);
+          *v78 = v60;
+          *&v78[4] = 2112;
+          *&v78[6] = v71;
+          _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "message type: %d, groupUUID: %@", buf, 0x12u);
         }
       }
 
-      if (v55)
+      if (v59)
       {
-        v57 = v38;
-        *v55 = v38;
+        v61 = v40;
+        *v59 = v40;
       }
 
-      v40 = v59;
-      v16 = v60;
+      v42 = v63;
+      v16 = v64;
     }
 
     else
     {
-      v47 = sub_100004778();
-      if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
+      v49 = sub_100004778(v41);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
         sub_100476778();
       }
     }
 
-    v17 = v63;
-    v15 = v64;
-    v18 = v62;
+    v17 = v67;
+    v15 = v68;
+    v18 = v66;
   }
 
   else
   {
     v27 = 0;
-    v28 = v68;
+    v28 = v72;
   }
 
   return v27;
@@ -2459,7 +1888,7 @@ id sub_10015E988(uint64_t a1, void *a2)
     v7 = [WeakRetained featureFlags];
     v8 = [v7 groupFacetimeAsAServiceEnabled];
 
-    v23 = v3;
+    v22 = v3;
     if (v3 && v8)
     {
       v9 = +[CSDConversationProviderManager sharedInstance];
@@ -2471,49 +1900,48 @@ id sub_10015E988(uint64_t a1, void *a2)
       v10 = [WeakRetained service];
     }
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     v11 = [v10 aliases];
-    v12 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v25;
+      v14 = *v24;
       do
       {
-        for (i = 0; i != v13; i = i + 1)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v25 != v14)
+          if (*v24 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v24 + 1) + 8 * i);
-          v17 = TUHandleForIDSCanonicalAddress();
-          if (v17)
+          v16 = TUHandleForIDSCanonicalAddress();
+          if (v16)
           {
-            [v5 addObject:v17];
+            [v5 addObject:v16];
           }
 
-          v18 = TUCopyIDSCanonicalAddressForHandle();
-          v19 = IDSCopyIDForTokenWithID();
+          v17 = TUCopyIDSCanonicalAddressForHandle();
+          v18 = IDSCopyIDForTokenWithID();
 
-          v20 = TUHandleForIDSCanonicalAddress();
-          if (v20)
+          v19 = TUHandleForIDSCanonicalAddress();
+          if (v19)
           {
-            [v5 addObject:v20];
+            [v5 addObject:v19];
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
       }
 
       while (v13);
     }
 
-    v3 = v23;
+    v3 = v22;
   }
 
   return v5;
@@ -2549,7 +1977,7 @@ id sub_10015EC54(uint64_t a1)
 
   else
   {
-    v5 = sub_100004778();
+    v5 = sub_100004778(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *v7 = 0;
@@ -2620,7 +2048,7 @@ id sub_10015ED94(uint64_t a1, void *a2)
     v10 = 0;
   }
 
-  v20 = sub_100004778();
+  v20 = sub_100004778(WeakRetained);
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     v22 = 138412290;
@@ -2640,49 +2068,49 @@ uint64_t sub_10015EFE0(uint64_t a1, void *a2)
     v5 = TUNormalizedHandleForTUHandle();
     if (v5 && ([WeakRetained activeLocalHandles], v6 = objc_claimAutoreleasedReturnValue(), v6[2](), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "containsObject:", v5), v7, v6, v8))
     {
-      v9 = sub_100004778();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = sub_100004778(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
-        v17 = 138412290;
-        v18 = v3;
-        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "%@ is eligible for screen sharing because it's a local handle", &v17, 0xCu);
+        v18 = 138412290;
+        v19 = v3;
+        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "%@ is eligible for screen sharing because it's a local handle", &v18, 0xCu);
       }
 
-      v10 = 1;
+      v11 = 1;
     }
 
     else
     {
-      v11 = [TUContactsDataProvider alloc];
-      v12 = +[TUCallCenter sharedInstance];
-      v13 = [v12 contactStore];
-      v9 = [v11 initWithContactsDataSource:v13];
+      v12 = [TUContactsDataProvider alloc];
+      v13 = +[TUCallCenter sharedInstance];
+      v14 = [v13 contactStore];
+      v10 = [v12 initWithContactsDataSource:v14];
 
-      v10 = [v9 isHandleEligibleForScreenSharingRequests:v3];
-      v14 = sub_100004778();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v11 = [v10 isHandleEligibleForScreenSharingRequests:v3];
+      v15 = sub_100004778(v11);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = @"NO";
-        if (v10)
+        v16 = @"NO";
+        if (v11)
         {
-          v15 = @"YES";
+          v16 = @"YES";
         }
 
-        v17 = 138412546;
-        v18 = v3;
-        v19 = 2112;
-        v20 = v15;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%@ is eligible for screen sharing: %@", &v17, 0x16u);
+        v18 = 138412546;
+        v19 = v3;
+        v20 = 2112;
+        v21 = v16;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@ is eligible for screen sharing: %@", &v18, 0x16u);
       }
     }
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 void sub_10016038C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, id location)
@@ -2707,9 +2135,20 @@ void sub_1001603B0(uint64_t a1)
   [WeakRetained sendInvitationMessageToMember:v3 destinationID:0 invitationContext:0 forConversation:v6 includeAllAttributes:1 invitationPreferences:v7 additionalOptions:v9];
 }
 
-void sub_100162440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+CSDAVCSession *__cdecl sub_100162288(id a1, NSString *a2, CSDAVCSessionDelegate *a3, OS_dispatch_queue *a4, BOOL a5, BOOL a6, TUConversationReport *a7)
 {
-  va_start(va, a9);
+  v7 = a6;
+  v8 = a5;
+  v10 = a4;
+  v11 = a3;
+  v12 = [[CSDSimulatedAVCSession alloc] initWithDelegate:v11 queue:v10 videoEnabled:v8 oneToOneModeEnabled:v7];
+
+  return v12;
+}
+
+void sub_100162440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2766,9 +2205,9 @@ void sub_100162458(uint64_t a1)
 LABEL_11:
 }
 
-void sub_1001626F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001626F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2787,9 +2226,9 @@ void sub_100162A4C(uint64_t a1)
   [v1 removeAllObjects];
 }
 
-void sub_1001632D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001632D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2838,9 +2277,9 @@ void sub_1001632EC(uint64_t a1)
 LABEL_11:
 }
 
-void sub_10016354C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10016354C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2900,9 +2339,9 @@ void sub_100163564(uint64_t a1)
 LABEL_13:
 }
 
-void sub_100163B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100163B14(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2917,22 +2356,20 @@ void sub_100163B2C(uint64_t a1)
 
 void sub_100164660(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_respondsToSelector();
-  v4 = *(a1 + 32);
-  if (v3)
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
   {
-    v5 = [*(a1 + 40) provider];
-    if ([v4 shouldHandleUpdateForProvider:v5])
+    v4 = [*(a1 + 40) provider];
+    if ([v3 shouldHandleUpdateForProvider:v4])
     {
     }
 
     else
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_respondsToSelector();
+      v6 = objc_opt_respondsToSelector();
 
-      if (v8)
+      if (v6)
       {
         return;
       }
@@ -2941,23 +2378,23 @@ void sub_100164660(uint64_t a1)
 
   else
   {
-    v6 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
+    v5 = objc_opt_respondsToSelector();
+    if (v5)
     {
       return;
     }
   }
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = [*(a1 + 40) provider];
-    v12 = 138412546;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v12, 0x16u);
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) provider];
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
   }
 
   [*(a1 + 32) conversationManager:*(a1 + 48) conversation:*(a1 + 40) receivedMessage:*(a1 + 56) fromHandle:*(a1 + 64) withUpdate:*(a1 + 72) shouldRing:*(a1 + 80)];
@@ -2965,22 +2402,20 @@ void sub_100164660(uint64_t a1)
 
 void sub_1001649CC(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_respondsToSelector();
-  v4 = *(a1 + 32);
-  if (v3)
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
   {
-    v5 = [*(a1 + 40) provider];
-    if ([v4 shouldHandleUpdateForProvider:v5])
+    v4 = [*(a1 + 40) provider];
+    if ([v3 shouldHandleUpdateForProvider:v4])
     {
     }
 
     else
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_respondsToSelector();
+      v6 = objc_opt_respondsToSelector();
 
-      if (v8)
+      if (v6)
       {
         return;
       }
@@ -2989,23 +2424,23 @@ void sub_1001649CC(uint64_t a1)
 
   else
   {
-    v6 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
+    v5 = objc_opt_respondsToSelector();
+    if (v5)
     {
       return;
     }
   }
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = [*(a1 + 40) provider];
-    v12 = 138412546;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v12, 0x16u);
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) provider];
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
   }
 
   [*(a1 + 32) conversationManager:*(a1 + 48) reportedNewIncomingConversation:*(a1 + 40) fromHandle:*(a1 + 56)];
@@ -3013,22 +2448,20 @@ void sub_1001649CC(uint64_t a1)
 
 void sub_100164D08(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_respondsToSelector();
-  v4 = *(a1 + 32);
-  if (v3)
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
   {
-    v5 = [*(a1 + 40) provider];
-    if ([v4 shouldHandleUpdateForProvider:v5])
+    v4 = [*(a1 + 40) provider];
+    if ([v3 shouldHandleUpdateForProvider:v4])
     {
     }
 
     else
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_respondsToSelector();
+      v6 = objc_opt_respondsToSelector();
 
-      if (v8)
+      if (v6)
       {
         return;
       }
@@ -3037,23 +2470,23 @@ void sub_100164D08(uint64_t a1)
 
   else
   {
-    v6 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
+    v5 = objc_opt_respondsToSelector();
+    if (v5)
     {
       return;
     }
   }
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = [*(a1 + 40) provider];
-    v12 = 138412546;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v12, 0x16u);
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) provider];
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
   }
 
   [*(a1 + 32) conversationManager:*(a1 + 48) createdNewConversation:*(a1 + 40)];
@@ -3061,22 +2494,20 @@ void sub_100164D08(uint64_t a1)
 
 void sub_100165050(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_respondsToSelector();
-  v4 = *(a1 + 32);
-  if (v3)
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
   {
-    v5 = [*(a1 + 40) provider];
-    if ([v4 shouldHandleUpdateForProvider:v5])
+    v4 = [*(a1 + 40) provider];
+    if ([v3 shouldHandleUpdateForProvider:v4])
     {
     }
 
     else
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_respondsToSelector();
+      v6 = objc_opt_respondsToSelector();
 
-      if (v8)
+      if (v6)
       {
         return;
       }
@@ -3085,23 +2516,23 @@ void sub_100165050(uint64_t a1)
 
   else
   {
-    v6 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
+    v5 = objc_opt_respondsToSelector();
+    if (v5)
     {
       return;
     }
   }
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = [*(a1 + 40) provider];
-    v12 = 138412546;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v12, 0x16u);
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) provider];
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
   }
 
   [*(a1 + 32) conversationManager:*(a1 + 48) avModeChanged:*(a1 + 56) toAVMode:*(a1 + 64) forConversation:*(a1 + 40)];
@@ -3130,7 +2561,8 @@ void sub_100165BD8(uint64_t a1)
   v2 = *(a1 + 32);
   if (v2)
   {
-    v3 = [v2 tuConversation];
+    v2 = [v2 tuConversation];
+    v3 = v2;
   }
 
   else
@@ -3140,26 +2572,26 @@ void sub_100165BD8(uint64_t a1)
 
   if (*(a1 + 40))
   {
-    v22 = 0u;
-    v23 = 0u;
     v20 = 0u;
     v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     obj = [*(a1 + 48) delegateToQueue];
-    v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v21;
+      v6 = *v19;
       do
       {
         for (i = 0; i != v5; i = i + 1)
         {
-          if (*v21 != v6)
+          if (*v19 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v20 + 1) + 8 * i);
+          v8 = *(*(&v18 + 1) + 8 * i);
           v9 = [*(a1 + 48) delegateToQueue];
           v10 = [v9 objectForKey:v8];
 
@@ -3167,15 +2599,15 @@ void sub_100165BD8(uint64_t a1)
           block[1] = 3221225472;
           block[2] = sub_100165DF0;
           block[3] = &unk_10061A450;
-          v17 = v3;
-          v18 = v8;
-          v15 = *(a1 + 40);
-          v11 = v15.i64[0];
-          v19 = vextq_s8(v15, v15, 8uLL);
+          v15 = v3;
+          v16 = v8;
+          v13 = *(a1 + 40);
+          v11 = v13.i64[0];
+          v17 = vextq_s8(v13, v13, 8uLL);
           dispatch_async(v10, block);
         }
 
-        v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v5 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v5);
@@ -3186,14 +2618,12 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v13 = *(a1 + 56);
-  v12 = (a1 + 56);
-  if (v13)
+  if (*(a1 + 56))
   {
-    obj = sub_100004778();
+    obj = sub_100004778(v2);
     if (os_log_type_enabled(obj, OS_LOG_TYPE_ERROR))
     {
-      sub_100476964(v12);
+      sub_100476964();
     }
 
     goto LABEL_16;
@@ -3209,31 +2639,29 @@ uint64_t sub_100165DF0(uint64_t a1)
     goto LABEL_13;
   }
 
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v16 = 138412290;
-    v17 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "activatedLinksWithCompleted: tuconversation: %@", &v16, 0xCu);
+    v13 = 138412290;
+    v14 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "activatedLinksWithCompleted: tuconversation: %@", &v13, 0xCu);
   }
 
-  v4 = *(a1 + 40);
-  v5 = objc_opt_respondsToSelector();
-  v6 = *(a1 + 40);
-  if (v5)
+  v4 = objc_opt_respondsToSelector();
+  v5 = *(a1 + 40);
+  if (v4)
   {
-    v7 = [*(a1 + 32) provider];
-    if ([v6 shouldHandleUpdateForProvider:v7])
+    v6 = [*(a1 + 32) provider];
+    if ([v5 shouldHandleUpdateForProvider:v6])
     {
     }
 
     else
     {
-      v9 = *(a1 + 40);
-      v10 = objc_opt_respondsToSelector();
+      v8 = objc_opt_respondsToSelector();
 
-      if (v10)
+      if (v8)
       {
         goto LABEL_13;
       }
@@ -3242,28 +2670,27 @@ uint64_t sub_100165DF0(uint64_t a1)
 
   else
   {
-    v8 = *(a1 + 40);
-    if (objc_opt_respondsToSelector())
+    v7 = objc_opt_respondsToSelector();
+    if (v7)
     {
       goto LABEL_13;
     }
   }
 
-  v11 = sub_100004778();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100004778(v7);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = *(a1 + 40);
-    v13 = [*(a1 + 32) provider];
-    v16 = 138412546;
-    v17 = v12;
-    v18 = 2112;
-    v19 = v13;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v16, 0x16u);
+    v10 = *(a1 + 40);
+    v11 = [*(a1 + 32) provider];
+    v13 = 138412546;
+    v14 = v10;
+    v15 = 2112;
+    v16 = v11;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v13, 0x16u);
   }
 
   [*(a1 + 40) conversationManager:*(a1 + 48) conversationChanged:*(a1 + 32)];
 LABEL_13:
-  v14 = *(a1 + 40);
   result = objc_opt_respondsToSelector();
   if (result)
   {
@@ -3275,16 +2702,15 @@ LABEL_13:
 
 uint64_t sub_10016619C(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 56);
+    v3 = *(a1 + 32);
+    v4 = *(a1 + 40);
+    v5 = *(a1 + 48);
+    v6 = *(a1 + 56);
 
-    return [v4 conversationManager:v5 remoteScreenShareAttributesChanged:v6 isLocallySharing:v7];
+    return [v3 conversationManager:v4 remoteScreenShareAttributesChanged:v5 isLocallySharing:v6];
   }
 
   return result;
@@ -3292,15 +2718,14 @@ uint64_t sub_10016619C(uint64_t a1)
 
 uint64_t sub_1001663D8(void *a1)
 {
-  v2 = a1[4];
   result = objc_opt_respondsToSelector();
   if (result)
   {
-    v4 = a1[4];
-    v5 = a1[5];
-    v6 = a1[6];
+    v3 = a1[4];
+    v4 = a1[5];
+    v5 = a1[6];
 
-    return [v4 conversationManager:v5 remoteScreenShareEndedWithReason:v6];
+    return [v3 conversationManager:v4 remoteScreenShareEndedWithReason:v5];
   }
 
   return result;
@@ -3308,25 +2733,22 @@ uint64_t sub_1001663D8(void *a1)
 
 void sub_10016660C(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
+    v2 = objc_opt_respondsToSelector();
     v3 = *(a1 + 32);
-    v4 = objc_opt_respondsToSelector();
-    v5 = *(a1 + 32);
-    if (v4)
+    if (v2)
     {
-      v6 = [*(a1 + 40) provider];
-      if ([v5 shouldHandleUpdateForProvider:v6])
+      v4 = [*(a1 + 40) provider];
+      if ([v3 shouldHandleUpdateForProvider:v4])
       {
       }
 
       else
       {
-        v8 = *(a1 + 32);
-        v9 = objc_opt_respondsToSelector();
+        v6 = objc_opt_respondsToSelector();
 
-        if (v9)
+        if (v6)
         {
           return;
         }
@@ -3335,23 +2757,23 @@ void sub_10016660C(uint64_t a1)
 
     else
     {
-      v7 = *(a1 + 32);
-      if (objc_opt_respondsToSelector())
+      v5 = objc_opt_respondsToSelector();
+      if (v5)
       {
         return;
       }
     }
 
-    v10 = sub_100004778();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004778(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 32);
-      v12 = [*(a1 + 40) provider];
-      v13 = 138412546;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v12;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v13, 0x16u);
+      v8 = *(a1 + 32);
+      v9 = [*(a1 + 40) provider];
+      v10 = 138412546;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
     }
 
     [*(a1 + 32) conversationManager:*(a1 + 48) reportedLetMeInRejectedForPendingConversation:*(a1 + 40)];
@@ -3360,25 +2782,22 @@ void sub_10016660C(uint64_t a1)
 
 void sub_100166944(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   if (objc_opt_respondsToSelector())
   {
+    v2 = objc_opt_respondsToSelector();
     v3 = *(a1 + 32);
-    v4 = objc_opt_respondsToSelector();
-    v5 = *(a1 + 32);
-    if (v4)
+    if (v2)
     {
-      v6 = [*(a1 + 40) provider];
-      if ([v5 shouldHandleUpdateForProvider:v6])
+      v4 = [*(a1 + 40) provider];
+      if ([v3 shouldHandleUpdateForProvider:v4])
       {
       }
 
       else
       {
-        v8 = *(a1 + 32);
-        v9 = objc_opt_respondsToSelector();
+        v6 = objc_opt_respondsToSelector();
 
-        if (v9)
+        if (v6)
         {
           return;
         }
@@ -3387,23 +2806,23 @@ void sub_100166944(uint64_t a1)
 
     else
     {
-      v7 = *(a1 + 32);
-      if (objc_opt_respondsToSelector())
+      v5 = objc_opt_respondsToSelector();
+      if (v5)
       {
         return;
       }
     }
 
-    v10 = sub_100004778();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004778(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = *(a1 + 32);
-      v12 = [*(a1 + 40) provider];
-      v13 = 138412546;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v12;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v13, 0x16u);
+      v8 = *(a1 + 32);
+      v9 = [*(a1 + 40) provider];
+      v10 = 138412546;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
     }
 
     [*(a1 + 32) conversationManager:*(a1 + 48) reportedInvalidLinkForPendingConversation:*(a1 + 40)];
@@ -3412,22 +2831,20 @@ void sub_100166944(uint64_t a1)
 
 void sub_100166D18(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_respondsToSelector();
-  v4 = *(a1 + 32);
-  if (v3)
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
   {
-    v5 = [*(a1 + 40) provider];
-    if ([v4 shouldHandleUpdateForProvider:v5])
+    v4 = [*(a1 + 40) provider];
+    if ([v3 shouldHandleUpdateForProvider:v4])
     {
     }
 
     else
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_respondsToSelector();
+      v6 = objc_opt_respondsToSelector();
 
-      if (v8)
+      if (v6)
       {
         return;
       }
@@ -3436,23 +2853,23 @@ void sub_100166D18(uint64_t a1)
 
   else
   {
-    v6 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
+    v5 = objc_opt_respondsToSelector();
+    if (v5)
     {
       return;
     }
   }
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = [*(a1 + 40) provider];
-    v12 = 138412546;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v12, 0x16u);
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) provider];
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
   }
 
   [*(a1 + 32) conversationManager:*(a1 + 48) conversation:*(a1 + 40) removedScreenShareRequest:*(a1 + 56)];
@@ -3460,22 +2877,20 @@ void sub_100166D18(uint64_t a1)
 
 void sub_100167AAC(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_respondsToSelector();
-  v4 = *(a1 + 32);
-  if (v3)
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
   {
-    v5 = [*(a1 + 40) provider];
-    if ([v4 shouldHandleUpdateForProvider:v5])
+    v4 = [*(a1 + 40) provider];
+    if ([v3 shouldHandleUpdateForProvider:v4])
     {
     }
 
     else
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_respondsToSelector();
+      v6 = objc_opt_respondsToSelector();
 
-      if (v8)
+      if (v6)
       {
         return;
       }
@@ -3484,23 +2899,23 @@ void sub_100167AAC(uint64_t a1)
 
   else
   {
-    v6 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
+    v5 = objc_opt_respondsToSelector();
+    if (v5)
     {
       return;
     }
   }
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = [*(a1 + 40) provider];
-    v12 = 138412546;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v12, 0x16u);
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) provider];
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
   }
 
   [*(a1 + 32) conversationManager:*(a1 + 48) conversationChanged:*(a1 + 40)];
@@ -3512,29 +2927,29 @@ void sub_100167CE4(uint64_t a1)
   if (WeakRetained)
   {
     v3 = [*(a1 + 32) object];
-    v65 = 0u;
-    v66 = 0u;
     v67 = 0u;
     v68 = 0u;
+    v69 = 0u;
+    v70 = 0u;
     v4 = [WeakRetained mutableConversationsByUUID];
     v5 = [v4 allValues];
 
-    v6 = [v5 countByEnumeratingWithState:&v65 objects:v74 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v67 objects:v76 count:16];
     if (v6)
     {
       v7 = v6;
       v8 = 0;
-      v9 = *v66;
+      v9 = *v68;
       do
       {
         for (i = 0; i != v7; i = i + 1)
         {
-          if (*v66 != v9)
+          if (*v68 != v9)
           {
             objc_enumerationMutation(v5);
           }
 
-          v11 = *(*(&v65 + 1) + 8 * i);
+          v11 = *(*(&v67 + 1) + 8 * i);
           if ([v11 state] == 3)
           {
             v12 = v11;
@@ -3543,143 +2958,143 @@ void sub_100167CE4(uint64_t a1)
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v65 objects:v74 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v67 objects:v76 count:16];
       }
 
       while (v7);
 
       if (v8)
       {
-        v13 = sub_100004778();
-        v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+        v14 = sub_100004778(v13);
+        v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
         if (v3)
         {
-          if (!v14)
+          if (!v15)
           {
             goto LABEL_21;
           }
 
-          v15 = [v8 UUID];
+          v16 = [v8 UUID];
           *buf = 138412546;
-          v71 = v3;
-          v72 = 2112;
-          v73 = v15;
-          v16 = "Conversation manager alerted to new selected audio route ID %@, letting my other devices know for conversation UUID %@";
-          v17 = v13;
-          v18 = 22;
+          v73 = v3;
+          v74 = 2112;
+          v75 = v16;
+          v17 = "Conversation manager alerted to new selected audio route ID %@, letting my other devices know for conversation UUID %@";
+          v18 = v14;
+          v19 = 22;
         }
 
         else
         {
-          if (!v14)
+          if (!v15)
           {
             goto LABEL_21;
           }
 
-          v15 = [v8 UUID];
+          v16 = [v8 UUID];
           *buf = 138412290;
-          v71 = v15;
-          v16 = "Conversation manager alerted to unselected audio route, letting my other devices know for conversation UUID %@";
-          v17 = v13;
-          v18 = 12;
+          v73 = v16;
+          v17 = "Conversation manager alerted to unselected audio route, letting my other devices know for conversation UUID %@";
+          v18 = v14;
+          v19 = 12;
         }
 
-        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, v16, buf, v18);
+        _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, v17, buf, v19);
 
 LABEL_21:
-        v19 = [CSDMessagingConversationMessage alloc];
-        v20 = [v8 groupUUID];
-        v21 = [(CSDMessagingConversationMessage *)v19 initWithType:32 groupUUID:v20 link:0];
+        v20 = [CSDMessagingConversationMessage alloc];
+        v21 = [v8 groupUUID];
+        v22 = [(CSDMessagingConversationMessage *)v20 initWithType:32 groupUUID:v21 link:0];
 
-        v22 = objc_alloc_init(CSDMessagingConversationJoinedMetadata);
-        v60 = v3;
-        [(CSDMessagingConversationJoinedMetadata *)v22 setAudioRouteUniqueIdentifier:v3];
-        v23 = [CSDConversationParticipant alloc];
-        v24 = [v8 localParticipantIdentifier];
-        v25 = [v8 localMember];
-        v26 = [v25 handle];
-        v27 = +[NSData data];
-        v28 = [(CSDConversationParticipant *)v23 initWithIdentifier:v24 handle:v26 avcData:v27];
+        v23 = objc_alloc_init(CSDMessagingConversationJoinedMetadata);
+        v62 = v3;
+        [(CSDMessagingConversationJoinedMetadata *)v23 setAudioRouteUniqueIdentifier:v3];
+        v24 = [CSDConversationParticipant alloc];
+        v25 = [v8 localParticipantIdentifier];
+        v26 = [v8 localMember];
+        v27 = [v26 handle];
+        v28 = +[NSData data];
+        v29 = [(CSDConversationParticipant *)v24 initWithIdentifier:v25 handle:v27 avcData:v28];
 
-        v58 = v28;
-        v29 = [CSDMessagingConversationParticipant participantWithCSDConversationParticipant:v28];
-        [(CSDMessagingConversationJoinedMetadata *)v22 setSender:v29];
+        v60 = v29;
+        v30 = [CSDMessagingConversationParticipant participantWithCSDConversationParticipant:v29];
+        [(CSDMessagingConversationJoinedMetadata *)v23 setSender:v30];
 
-        v30 = v21;
-        v59 = v22;
-        [(CSDMessagingConversationMessage *)v21 setJoinedMetadata:v22];
-        v31 = +[NSMutableSet set];
-        v61 = 0u;
-        v62 = 0u;
+        v31 = v22;
+        v61 = v23;
+        [(CSDMessagingConversationMessage *)v22 setJoinedMetadata:v23];
+        v32 = +[NSMutableSet set];
         v63 = 0u;
         v64 = 0u;
-        v32 = [WeakRetained service];
-        v33 = [v32 devices];
+        v65 = 0u;
+        v66 = 0u;
+        v33 = [WeakRetained service];
+        v34 = [v33 devices];
 
-        v34 = [v33 countByEnumeratingWithState:&v61 objects:v69 count:16];
-        if (v34)
+        v35 = [v34 countByEnumeratingWithState:&v63 objects:v71 count:16];
+        if (v35)
         {
-          v35 = v34;
-          v36 = *v62;
+          v36 = v35;
+          v37 = *v64;
           do
           {
-            for (j = 0; j != v35; j = j + 1)
+            for (j = 0; j != v36; j = j + 1)
             {
-              if (*v62 != v36)
+              if (*v64 != v37)
               {
-                objc_enumerationMutation(v33);
+                objc_enumerationMutation(v34);
               }
 
-              v38 = [*(*(&v61 + 1) + 8 * j) destination];
-              v39 = [v38 destinationURIs];
-              [(CSDMessagingConversationMessage *)v31 unionSet:v39];
+              v39 = [*(*(&v63 + 1) + 8 * j) destination];
+              v40 = [v39 destinationURIs];
+              [(CSDMessagingConversationMessage *)v32 unionSet:v40];
             }
 
-            v35 = [v33 countByEnumeratingWithState:&v61 objects:v69 count:16];
+            v36 = [v34 countByEnumeratingWithState:&v63 objects:v71 count:16];
           }
 
-          while (v35);
+          while (v36);
         }
 
-        v40 = sub_100004778();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+        v42 = sub_100004778(v41);
+        if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          v71 = v30;
-          v72 = 2112;
           v73 = v31;
-          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "Sending UpdateJoinedMetadata message %@ to my other devices: %@", buf, 0x16u);
+          v74 = 2112;
+          v75 = v32;
+          _os_log_impl(&_mh_execute_header, v42, OS_LOG_TYPE_DEFAULT, "Sending UpdateJoinedMetadata message %@ to my other devices: %@", buf, 0x16u);
         }
 
-        v41 = [WeakRetained featureFlags];
-        if ([v41 groupFacetimeAsAServiceEnabled])
+        v43 = [WeakRetained featureFlags];
+        if ([v43 groupFacetimeAsAServiceEnabled])
         {
-          v42 = [v8 provider];
+          v44 = [v8 provider];
 
-          if (v42)
+          if (v44)
           {
-            v43 = +[CSDConversationProviderManager sharedInstance];
-            v44 = [v8 provider];
-            v45 = [v43 serviceForProvider:v44];
+            v45 = +[CSDConversationProviderManager sharedInstance];
+            v46 = [v8 provider];
+            v47 = [v45 serviceForProvider:v46];
 
 LABEL_35:
-            v46 = [v8 localMember];
-            v47 = [v46 handle];
-            v48 = [v47 value];
-            v49 = [v45 accountWithCallerID:v48];
+            v48 = [v8 localMember];
+            v49 = [v48 handle];
+            v50 = [v49 value];
+            v51 = [v47 accountWithCallerID:v50];
 
-            v50 = [WeakRetained sendDataBlock];
-            v51 = v30;
-            v52 = [(CSDMessagingConversationMessage *)v30 data];
-            v53 = [v8 localMember];
-            v54 = [v8 capabilitySendMessageOptions];
+            v52 = [WeakRetained sendDataBlock];
+            v53 = v31;
+            v54 = [(CSDMessagingConversationMessage *)v31 data];
+            v55 = [v8 localMember];
+            v56 = [v8 capabilitySendMessageOptions];
             [v8 provider];
-            v57 = WeakRetained;
-            v56 = v55 = v45;
-            (v50)[2](v50, v52, v49, v31, v53, v54, 0, 0, v56);
+            v59 = WeakRetained;
+            v58 = v57 = v47;
+            (v52)[2](v52, v54, v51, v32, v55, v56, 0, 0, v58);
 
-            WeakRetained = v57;
-            v3 = v60;
+            WeakRetained = v59;
+            v3 = v62;
 LABEL_36:
 
             goto LABEL_37;
@@ -3690,7 +3105,7 @@ LABEL_36:
         {
         }
 
-        v45 = [WeakRetained service];
+        v47 = [WeakRetained service];
         goto LABEL_35;
       }
     }
@@ -3699,7 +3114,7 @@ LABEL_36:
     {
     }
 
-    v8 = sub_100004778();
+    v8 = sub_100004778(v13);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -3739,41 +3154,41 @@ void sub_100168D78(id *a1, void *a2, void *a3, void *a4)
   dispatch_async(v10, block);
 }
 
-void sub_100168EC4(uint64_t a1)
+void sub_100168EC4(void *a1)
 {
-  v1 = (a1 + 32);
-  if (!*(a1 + 32) && (v4 = *(a1 + 40)) != 0 && *(a1 + 48))
+  if (!a1[4] && (v2 = a1, (a1 = a1[5]) != 0) && v2[6])
   {
-    if ([v4 type] == 10)
+    v3 = [a1 type];
+    if (v3 == 10)
     {
-      v5 = *(a1 + 56);
-      v6 = *(a1 + 64);
-      v7 = *(a1 + 40);
-      v8 = *(a1 + 48);
-      v9 = *(a1 + 72);
-      v12 = [*(a1 + 80) serverReceivedTime];
-      [v5 handleReceivedLetMeInRequest:v7 toPseudonym:v6 fromHandle:v9 responseKeyData:v8 dateInitiated:?];
+      v4 = v2[7];
+      v5 = v2[8];
+      v6 = v2[5];
+      v7 = v2[6];
+      v8 = v2[9];
+      v11 = [v2[10] serverReceivedTime];
+      [v4 handleReceivedLetMeInRequest:v6 toPseudonym:v5 fromHandle:v8 responseKeyData:v7 dateInitiated:?];
     }
 
     else
     {
-      v10 = sub_100004778();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v9 = sub_100004778(v3);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = [*(a1 + 40) type];
+        v10 = [v2[5] type];
         *buf = 67109120;
-        v14 = v11;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[WARN] Decrypted conversation message but was not a let me in request: messageType: %d", buf, 8u);
+        v13 = v10;
+        _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[WARN] Decrypted conversation message but was not a let me in request: messageType: %d", buf, 8u);
       }
     }
   }
 
   else
   {
-    v2 = sub_100004778();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v1 = sub_100004778(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
-      sub_1004769D4(v1);
+      sub_1004769D4();
     }
   }
 }
@@ -3813,33 +3228,33 @@ void sub_1001697E8(uint64_t a1)
     v7 = [*(a1 + 56) activeLocalHandles];
     v8 = v7[2]();
 
-    v42 = 0u;
+    v45 = 0u;
+    v46 = 0u;
     v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
+    v44 = 0u;
     v9 = v8;
-    v10 = [v9 countByEnumeratingWithState:&v40 objects:v44 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v43 objects:v47 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v41;
+      v12 = *v44;
 LABEL_4:
       v13 = 0;
       while (1)
       {
-        if (*v41 != v12)
+        if (*v44 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        if ([*(*(&v40 + 1) + 8 * v13) isEquivalentToHandle:{v6, v40}])
+        if ([*(*(&v43 + 1) + 8 * v13) isEquivalentToHandle:{v6, v43}])
         {
           break;
         }
 
         if (v11 == ++v13)
         {
-          v11 = [v9 countByEnumeratingWithState:&v40 objects:v44 count:16];
+          v11 = [v9 countByEnumeratingWithState:&v43 objects:v47 count:16];
           if (v11)
           {
             goto LABEL_4;
@@ -3849,37 +3264,37 @@ LABEL_4:
         }
       }
 
-      v15 = *(a1 + 56);
-      v16 = [*(a1 + 32) groupUUID];
-      v14 = [v15 conversationWithGroupUUID:v16];
+      v16 = *(a1 + 56);
+      v17 = [*(a1 + 32) groupUUID];
+      v15 = [v16 conversationWithGroupUUID:v17];
 
-      [v14 setHasReceivedLetMeInRequest:1];
-      v17 = [*(a1 + 56) featureFlags];
+      [v15 setHasReceivedLetMeInRequest:1];
+      v18 = [*(a1 + 56) featureFlags];
       if (TUGreenTeaLagunaEnabled())
       {
-        v18 = [v14 tuConversation];
-        v19 = [v18 mergedRemoteMembers];
-        v20 = [v19 count];
+        v19 = [v15 tuConversation];
+        v20 = [v19 mergedRemoteMembers];
+        v21 = [v20 count];
       }
 
       else
       {
-        v18 = [v14 remoteMembers];
-        v20 = [v18 count];
+        v19 = [v15 remoteMembers];
+        v21 = [v19 count];
       }
 
-      v23 = [*(a1 + 56) deviceSupport];
-      v24 = [v23 isGreenTea];
+      v24 = [*(a1 + 56) deviceSupport];
+      v25 = [v24 isGreenTea];
 
-      if (v24 && v20 >= 1)
+      if (v25 && v21 >= 1)
       {
-        v25 = sub_100004778();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+        v27 = sub_100004778(v26);
+        if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          v26 = [v14 remoteMembers];
+          v28 = [v15 remoteMembers];
           *buf = 138412290;
-          v46 = v26;
-          _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "[WARN] GreenTea device does not support multiple remote members. remoteMembers = %@", buf, 0xCu);
+          v49 = v28;
+          _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "[WARN] GreenTea device does not support multiple remote members. remoteMembers = %@", buf, 0xCu);
         }
 
 LABEL_32:
@@ -3887,21 +3302,22 @@ LABEL_32:
         goto LABEL_33;
       }
 
-      if (v14)
+      if (v15)
       {
-        v27 = [*(a1 + 56) reportingController];
-        v28 = [v14 tuConversation];
-        [v27 receivedLetMeInRequestForConversation:v28];
+        v29 = [*(a1 + 56) reportingController];
+        v30 = [v15 tuConversation];
+        [v29 receivedLetMeInRequestForConversation:v30];
 
-        if ([*(a1 + 56) _shouldSkipManualApprovalForHandle:*(a1 + 64) conversation:v14 responseKeyData:*(a1 + 72)])
+        v31 = [*(a1 + 56) _shouldSkipManualApprovalForHandle:*(a1 + 64) conversation:v15 responseKeyData:*(a1 + 72)];
+        if (v31)
         {
-          v25 = sub_100004778();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+          v27 = sub_100004778(v31);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
-            v29 = *(a1 + 64);
+            v32 = *(a1 + 64);
             *buf = 138412290;
-            v46 = v29;
-            _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "skip manual approval for handle: %@", buf, 0xCu);
+            v49 = v32;
+            _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "skip manual approval for handle: %@", buf, 0xCu);
           }
 
           goto LABEL_32;
@@ -3910,50 +3326,50 @@ LABEL_32:
 
       else
       {
-        v30 = sub_100004778();
-        if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+        v33 = sub_100004778(v26);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
         {
-          v31 = *(a1 + 32);
+          v34 = *(a1 + 32);
           *buf = 138412290;
-          v46 = v31;
-          _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "Couldn't find existing conversation: %@", buf, 0xCu);
+          v49 = v34;
+          _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Couldn't find existing conversation: %@", buf, 0xCu);
         }
       }
 
-      v25 = [*(a1 + 80) nickname];
-      v32 = [v25 length];
-      if (v32)
+      v27 = [*(a1 + 80) nickname];
+      v35 = [v27 length];
+      if (v35)
       {
-        v33 = v32;
-        v34 = [*(a1 + 56) serverBag];
-        v35 = [v34 webNicknameLengthLimit];
+        v36 = v35;
+        v37 = [*(a1 + 56) serverBag];
+        v38 = [v37 webNicknameLengthLimit];
 
-        if (v33 > v35)
+        if (v36 > v38)
         {
-          v36 = [v25 substringToIndex:v35];
+          v39 = [v27 substringToIndex:v38];
 
-          v25 = v36;
+          v27 = v39;
         }
       }
 
-      v37 = [[TUConversationMember alloc] initWithHandle:*(a1 + 64) nickname:v25 joinedFromLetMeIn:1];
-      v38 = [[TUConversationLink alloc] initWithDescriptor:*(a1 + 32)];
-      v39 = [*(a1 + 56) pendingMembershipTracker];
-      [v39 handleNewPendingMember:v37 responseKey:*(a1 + 72) forConversation:v14 withLink:v38 dateInitiatedLMI:*(a1 + 88)];
+      v40 = [[TUConversationMember alloc] initWithHandle:*(a1 + 64) nickname:v27 joinedFromLetMeIn:1];
+      v41 = [[TUConversationLink alloc] initWithDescriptor:*(a1 + 32)];
+      v42 = [*(a1 + 56) pendingMembershipTracker];
+      [v42 handleNewPendingMember:v40 responseKey:*(a1 + 72) forConversation:v15 withLink:v41 dateInitiatedLMI:*(a1 + 88)];
 
       goto LABEL_32;
     }
 
 LABEL_10:
 
-    v14 = sub_100004778();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = sub_100004778(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v46 = v6;
-      v47 = 2112;
-      v48 = v9;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Dismissing let me in because link has originator handle of %@, which is not one of our active local handles %@", buf, 0x16u);
+      v49 = v6;
+      v50 = 2112;
+      v51 = v9;
+      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Dismissing let me in because link has originator handle of %@, which is not one of our active local handles %@", buf, 0x16u);
     }
 
 LABEL_33:
@@ -3961,15 +3377,15 @@ LABEL_33:
 
   else
   {
-    v6 = sub_100004778();
+    v6 = sub_100004778(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v21 = *(a1 + 40);
-      v22 = *(a1 + 48);
+      v22 = *(a1 + 40);
+      v23 = *(a1 + 48);
       *buf = 138412546;
-      v46 = v21;
-      v47 = 2112;
-      v48 = v22;
+      v49 = v22;
+      v50 = 2112;
+      v51 = v23;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Could not find link for pseudonym %@, dropping let me in request. Error: %@", buf, 0x16u);
     }
   }
@@ -3977,177 +3393,178 @@ LABEL_33:
 
 void sub_10016A2C4(id *a1)
 {
-  if ([a1[4] type] == 11 || objc_msgSend(a1[4], "type") == 26)
+  if ([a1[4] type] == 11 || (v2 = objc_msgSend(a1[4], "type"), v2 == 26))
   {
-    if ([a1[4] hasLink])
+    v2 = [a1[4] hasLink];
+    if (v2)
     {
-      v2 = [a1[4] conversationGroupUUID];
-      v3 = [a1[4] link];
-      v4 = [v3 groupUUID];
-      v5 = [v2 isEqual:v4];
+      v3 = [a1[4] conversationGroupUUID];
+      v4 = [a1[4] link];
+      v5 = [v4 groupUUID];
+      v6 = [v3 isEqual:v5];
 
-      if (v5)
+      if (v6)
       {
-        v6 = [a1[4] type];
-        v7 = v6 == 26;
-        v8 = [a1[4] link];
-        v9 = [v8 tuConversationLink];
+        v7 = [a1[4] type];
+        v8 = v7 == 26;
+        v9 = [a1[4] link];
+        v10 = [v9 tuConversationLink];
 
-        if (!v9)
+        if (!v10)
         {
-          v14 = sub_100004778();
-          if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v17 = sub_100004778(v11);
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[WARN] Invalid TUConversationLink for link created/changed message (it was nil)", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[WARN] Invalid TUConversationLink for link created/changed message (it was nil)", buf, 2u);
           }
 
           goto LABEL_46;
         }
 
-        v10 = a1[5];
-        v11 = [v9 originatorHandle];
-        LOBYTE(v10) = [v10 isEquivalentToHandle:v11];
+        v12 = a1[5];
+        v13 = [v10 originatorHandle];
+        LOBYTE(v12) = [v12 isEquivalentToHandle:v13];
 
-        if ((v10 & 1) == 0)
+        if ((v12 & 1) == 0)
         {
-          v14 = sub_100004778();
-          if (!os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+          v17 = sub_100004778(v14);
+          if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
 LABEL_46:
 
             goto LABEL_47;
           }
 
-          v24 = a1[5];
-          v16 = [v9 originatorHandle];
-          v25 = a1[4];
+          v29 = a1[5];
+          v21 = [v10 originatorHandle];
+          v30 = a1[4];
           *buf = 138412802;
-          *v69 = v24;
-          *&v69[8] = 2112;
-          *v70 = v16;
-          *&v70[8] = 2112;
-          v71[0] = v25;
-          v26 = "[WARN] Sender %@ did not match link's originator handle %@ for link created/changed message %@";
-          v27 = v14;
-          v28 = 32;
+          *v77 = v29;
+          *&v77[8] = 2112;
+          *v78 = v21;
+          *&v78[8] = 2112;
+          v79[0] = v30;
+          v31 = "[WARN] Sender %@ did not match link's originator handle %@ for link created/changed message %@";
+          v32 = v17;
+          v33 = 32;
           goto LABEL_32;
         }
 
-        v12 = a1[6];
-        v13 = [a1[4] conversationGroupUUID];
-        v14 = [v12 conversationWithGroupUUID:v13];
+        v15 = a1[6];
+        v16 = [a1[4] conversationGroupUUID];
+        v17 = [v15 conversationWithGroupUUID:v16];
 
-        if (v14)
+        if (v17)
         {
-          if (v6 != 26)
+          if (v7 != 26)
           {
-            v15 = [v14 link];
+            v19 = [v17 link];
 
-            if (v15)
+            if (v19)
             {
-              v16 = sub_100004778();
-              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+              v21 = sub_100004778(v20);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
               {
-                v17 = [v14 UUID];
-                v18 = a1[4];
+                v22 = [v17 UUID];
+                v23 = a1[4];
                 *buf = 138412546;
-                *v69 = v17;
-                *&v69[8] = 2112;
-                *v70 = v18;
-                _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[WARN] Link already exists on conversation %@ for link created message %@", buf, 0x16u);
+                *v77 = v22;
+                *&v77[8] = 2112;
+                *v78 = v23;
+                _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[WARN] Link already exists on conversation %@ for link created message %@", buf, 0x16u);
               }
 
               goto LABEL_33;
             }
           }
 
-          v29 = [a1[6] featureFlags];
-          v57 = v6 == 26;
+          v34 = [a1[6] featureFlags];
+          v65 = v7 == 26;
           if (TUGreenTeaLagunaEnabled())
           {
-            v30 = [v14 tuConversation];
-            v31 = [v30 mergedRemoteMembers];
-            v32 = [v31 count];
+            v35 = [v17 tuConversation];
+            v36 = [v35 mergedRemoteMembers];
+            v37 = [v36 count];
           }
 
           else
           {
-            v30 = [v14 remoteMembers];
-            v32 = [v30 count];
+            v35 = [v17 remoteMembers];
+            v37 = [v35 count];
           }
 
-          v39 = [a1[6] deviceSupport];
-          v40 = [v39 isGreenTea];
+          v45 = [a1[6] deviceSupport];
+          v46 = [v45 isGreenTea];
 
-          if (v40 && v32 >= 1)
+          if (v46 && v37 >= 1)
           {
-            v16 = sub_100004778();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            v21 = sub_100004778(v47);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
-              v41 = a1[4];
+              v48 = a1[4];
               *buf = 138412290;
-              *v69 = v41;
-              v26 = "[WARN] GreenTea device does not support link created/changed message because invitedMemberHandles > 1, message: %@";
+              *v77 = v48;
+              v31 = "[WARN] GreenTea device does not support link created/changed message because invitedMemberHandles > 1, message: %@";
               goto LABEL_31;
             }
 
             goto LABEL_33;
           }
 
-          v55 = v6;
-          v65 = 0u;
-          v66 = 0u;
-          v63 = 0u;
-          v64 = 0u;
-          v56 = v14;
-          v42 = [v14 remoteMembers];
-          v43 = [v42 countByEnumeratingWithState:&v63 objects:v67 count:16];
-          if (!v43)
+          v63 = v7;
+          v73 = 0u;
+          v74 = 0u;
+          v71 = 0u;
+          v72 = 0u;
+          v64 = v17;
+          v49 = [v17 remoteMembers];
+          v50 = [v49 countByEnumeratingWithState:&v71 objects:v75 count:16];
+          if (!v50)
           {
 LABEL_42:
 
-            v14 = v56;
+            v17 = v64;
 LABEL_48:
-            v16 = sub_100004778();
-            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+            v21 = sub_100004778(v57);
+            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
             {
-              v53 = a1[5];
-              v54 = [v14 UUID];
+              v61 = a1[5];
+              v62 = [v17 UUID];
               *buf = 138412546;
-              *v69 = v53;
-              *&v69[8] = 2112;
-              *v70 = v54;
-              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[WARN] Sender %@ is not part of conversation UUID %@.", buf, 0x16u);
+              *v77 = v61;
+              *&v77[8] = 2112;
+              *v78 = v62;
+              _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "[WARN] Sender %@ is not part of conversation UUID %@.", buf, 0x16u);
             }
 
             goto LABEL_33;
           }
 
-          v44 = v43;
-          v45 = *v64;
+          v51 = v50;
+          v52 = *v72;
 LABEL_36:
-          v46 = 0;
+          v53 = 0;
           while (1)
           {
-            if (*v64 != v45)
+            if (*v72 != v52)
             {
-              objc_enumerationMutation(v42);
+              objc_enumerationMutation(v49);
             }
 
-            v47 = *(*(&v63 + 1) + 8 * v46);
-            v48 = [v47 handle];
-            v49 = [v48 isEqualToHandle:a1[5]];
+            v54 = *(*(&v71 + 1) + 8 * v53);
+            v55 = [v54 handle];
+            v56 = [v55 isEqualToHandle:a1[5]];
 
-            if (v49)
+            if (v56)
             {
               break;
             }
 
-            if (v44 == ++v46)
+            if (v51 == ++v53)
             {
-              v44 = [v42 countByEnumeratingWithState:&v63 objects:v67 count:16];
-              if (v44)
+              v51 = [v49 countByEnumeratingWithState:&v71 objects:v75 count:16];
+              if (v51)
               {
                 goto LABEL_36;
               }
@@ -4156,12 +3573,12 @@ LABEL_36:
             }
           }
 
-          v35 = v47;
+          v40 = v54;
 
-          v14 = v56;
-          v7 = v57;
-          v6 = v55;
-          if (!v35)
+          v17 = v64;
+          v8 = v65;
+          v7 = v63;
+          if (!v40)
           {
             goto LABEL_48;
           }
@@ -4169,37 +3586,37 @@ LABEL_36:
 
         else
         {
-          v33 = sub_100004778();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+          v38 = sub_100004778(v18);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
           {
-            v34 = a1[5];
+            v39 = a1[5];
             *buf = 138412546;
-            *v69 = v34;
-            *&v69[8] = 2112;
-            *v70 = v9;
-            _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "[In-Advance] Received link created/changed message from %@ with link %@", buf, 0x16u);
+            *v77 = v39;
+            *&v77[8] = 2112;
+            *v78 = v10;
+            _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "[In-Advance] Received link created/changed message from %@ with link %@", buf, 0x16u);
           }
 
-          v35 = [a1[6] deviceSupport];
-          if ([v35 isGreenTea])
+          v40 = [a1[6] deviceSupport];
+          if ([v40 isGreenTea])
           {
-            v36 = [v9 invitedMemberHandles];
-            v37 = [v36 count];
+            v41 = [v10 invitedMemberHandles];
+            v42 = [v41 count];
 
-            if (v37 >= 2)
+            if (v42 >= 2)
             {
-              v16 = sub_100004778();
-              if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+              v21 = sub_100004778(v43);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
               {
-                v38 = a1[4];
+                v44 = a1[4];
                 *buf = 138412290;
-                *v69 = v38;
-                v26 = "[WARN] GreenTea device does not support link creation message %@ because invitedMemberHandles > 1";
+                *v77 = v44;
+                v31 = "[WARN] GreenTea device does not support link creation message %@ because invitedMemberHandles > 1";
 LABEL_31:
-                v27 = v16;
-                v28 = 12;
+                v32 = v21;
+                v33 = 12;
 LABEL_32:
-                _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, v26, buf, v28);
+                _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, v31, buf, v33);
               }
 
 LABEL_33:
@@ -4208,20 +3625,20 @@ LABEL_33:
             }
 
 LABEL_45:
-            v50 = v6 == 26;
-            v51 = [a1[6] linkManager];
-            v58[0] = _NSConcreteStackBlock;
-            v58[1] = 3221225472;
-            v58[2] = sub_10016AA38;
-            v58[3] = &unk_10061CE08;
-            v52 = a1[5];
-            v58[4] = a1[6];
-            v14 = v14;
-            v59 = v14;
-            v62 = v7;
+            v58 = v7 == 26;
+            v59 = [a1[6] linkManager];
+            v66[0] = _NSConcreteStackBlock;
+            v66[1] = 3221225472;
+            v66[2] = sub_10016AA38;
+            v66[3] = &unk_10061CE08;
             v60 = a1[5];
-            v61 = v9;
-            [v51 storeReceivedLink:v61 fromHandle:v52 isUpdate:v50 completionHandler:v58];
+            v66[4] = a1[6];
+            v17 = v17;
+            v67 = v17;
+            v70 = v8;
+            v68 = a1[5];
+            v69 = v10;
+            [v59 storeReceivedLink:v69 fromHandle:v60 isUpdate:v58 completionHandler:v66];
 
             goto LABEL_46;
           }
@@ -4232,23 +3649,23 @@ LABEL_45:
     }
   }
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = sub_100004778(v2);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v19 = [a1[4] type];
-    v20 = [a1[4] hasLink];
-    v21 = [a1[4] link];
-    v22 = [v21 groupUUID];
-    v23 = [a1[4] conversationGroupUUID];
+    v24 = [a1[4] type];
+    v25 = [a1[4] hasLink];
+    v26 = [a1[4] link];
+    v27 = [v26 groupUUID];
+    v28 = [a1[4] conversationGroupUUID];
     *buf = 67109890;
-    *v69 = v19;
-    *&v69[4] = 1024;
-    *&v69[6] = v20;
-    *v70 = 2112;
-    *&v70[2] = v22;
-    LOWORD(v71[0]) = 2112;
-    *(v71 + 2) = v23;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Not sufficiently formed link created/changed message, type: %d hasLink: %d linkGroupUUID: %@ conversationGroupUUID: %@", buf, 0x22u);
+    *v77 = v24;
+    *&v77[4] = 1024;
+    *&v77[6] = v25;
+    *v78 = 2112;
+    *&v78[2] = v27;
+    LOWORD(v79[0]) = 2112;
+    *(v79 + 2) = v28;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Not sufficiently formed link created/changed message, type: %d hasLink: %d linkGroupUUID: %@ conversationGroupUUID: %@", buf, 0x22u);
   }
 
 LABEL_47:
@@ -4279,22 +3696,21 @@ void sub_10016AA38(uint64_t a1, void *a2, void *a3)
 
 void sub_10016AB54(uint64_t a1)
 {
-  v1 = (a1 + 32);
   if (*(a1 + 32))
   {
-    v2 = sub_100004778();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v1 = sub_100004778(a1);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
-      sub_100476A44(v1);
+      sub_100476A44();
     }
 
     return;
   }
 
-  v4 = *(a1 + 40);
-  if (!v4)
+  v3 = *(a1 + 40);
+  if (!v3)
   {
-    v6 = sub_100004778();
+    v6 = sub_100004778(a1);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       if (*(a1 + 80))
@@ -4309,25 +3725,26 @@ void sub_10016AB54(uint64_t a1)
 
       v13 = *(a1 + 56);
       v14 = *(a1 + 64);
-      v18 = 138543874;
-      v19 = v12;
-      v20 = 2112;
-      v21 = v13;
-      v22 = 2112;
-      v23 = v14;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[In-Advance] Link successfully stored (update: %{public}@) from %@ with linkDescriptor %@", &v18, 0x20u);
+      v19 = 138543874;
+      v20 = v12;
+      v21 = 2112;
+      v22 = v13;
+      v23 = 2112;
+      v24 = v14;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[In-Advance] Link successfully stored (update: %{public}@) from %@ with linkDescriptor %@", &v19, 0x20u);
     }
 
     goto LABEL_17;
   }
 
-  v5 = [NSSet setWithObject:IDSRegistrationPropertySupportsGondola];
-  [v4 addRequiredCapabilities:v5 requiredLackOfCapabilities:0];
+  v4 = [NSSet setWithObject:IDSRegistrationPropertySupportsGondola];
+  [v3 addRequiredCapabilities:v4 requiredLackOfCapabilities:0];
 
-  LODWORD(v5) = [*(a1 + 40) setConversationLink:*(a1 + 48) allowUpdate:*(a1 + 80)];
-  v6 = sub_100004778();
+  v5 = [*(a1 + 40) setConversationLink:*(a1 + 48) allowUpdate:*(a1 + 80)];
+  LODWORD(v4) = v5;
+  v6 = sub_100004778(v5);
   v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (v5)
+  if (v4)
   {
     if (v7)
     {
@@ -4344,24 +3761,24 @@ void sub_10016AB54(uint64_t a1)
       v9 = [*(a1 + 40) UUID];
       v10 = *(a1 + 56);
       v11 = *(a1 + 64);
-      v18 = 138544130;
-      v19 = v8;
-      v20 = 2112;
-      v21 = v9;
-      v22 = 2112;
-      v23 = v10;
-      v24 = 2112;
-      v25 = v11;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[Ongoing] Received link created/changed (update: %{public}@) message for conversation UUID %@ from %@ with linkDescriptor %@", &v18, 0x2Au);
+      v19 = 138544130;
+      v20 = v8;
+      v21 = 2112;
+      v22 = v9;
+      v23 = 2112;
+      v24 = v10;
+      v25 = 2112;
+      v26 = v11;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[Ongoing] Received link created/changed (update: %{public}@) message for conversation UUID %@ from %@ with linkDescriptor %@", &v19, 0x2Au);
     }
 
 LABEL_17:
 
-    v15 = sub_100004778();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100004778(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "store received link", &v18, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "store received link", &v19, 2u);
     }
 
     [*(a1 + 72) notifyDelegatesOfChangedLink:*(a1 + 48) conversation:*(a1 + 40)];
@@ -4370,44 +3787,45 @@ LABEL_17:
 
   if (v7)
   {
-    v16 = *(a1 + 48);
-    v17 = [*(a1 + 40) UUID];
-    v18 = 138412546;
-    v19 = v16;
-    v20 = 2112;
-    v21 = v17;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[WARN] Did not set conversation link %@ to conversation UUID %@", &v18, 0x16u);
+    v17 = *(a1 + 48);
+    v18 = [*(a1 + 40) UUID];
+    v19 = 138412546;
+    v20 = v17;
+    v21 = 2112;
+    v22 = v18;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[WARN] Did not set conversation link %@ to conversation UUID %@", &v19, 0x16u);
   }
 }
 
 void sub_10016AEE8(uint64_t a1)
 {
-  if ([*(a1 + 32) type] == 24 && (objc_msgSend(*(a1 + 32), "hasLink") & 1) != 0)
+  v2 = [*(a1 + 32) type];
+  if (v2 == 24 && (v2 = [*(a1 + 32) hasLink], (v2 & 1) != 0))
   {
-    v2 = [*(a1 + 32) link];
-    v3 = [v2 tuConversationLink];
+    v3 = [*(a1 + 32) link];
+    v4 = [v3 tuConversationLink];
 
-    if (v3)
+    if (v4)
     {
-      v4 = *(a1 + 40);
-      v5 = [v3 originatorHandle];
-      LOBYTE(v4) = [v4 isEquivalentToHandle:v5];
+      v6 = *(a1 + 40);
+      v7 = [v4 originatorHandle];
+      LOBYTE(v6) = [v6 isEquivalentToHandle:v7];
 
-      if (v4)
+      if (v6)
       {
-        v6 = *(a1 + 48);
-        v7 = [*(a1 + 32) conversationGroupUUID];
-        v8 = [v6 conversationWithGroupUUID:v7];
+        v9 = *(a1 + 48);
+        v10 = [*(a1 + 32) conversationGroupUUID];
+        v11 = [v9 conversationWithGroupUUID:v10];
 
-        v9 = [*(a1 + 48) linkManager];
-        v31 = 0;
-        v10 = [v9 fetchActivatedLinksWithError:&v31];
-        v11 = v31;
+        v12 = [*(a1 + 48) linkManager];
+        v36 = 0;
+        v13 = [v12 fetchActivatedLinksWithError:&v36];
+        v14 = v36;
 
-        if (v11)
+        if (v14)
         {
-          v12 = sub_100004778();
-          if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+          v16 = sub_100004778(v15);
+          if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
           {
             sub_100476AB4();
           }
@@ -4415,36 +3833,36 @@ void sub_10016AEE8(uint64_t a1)
 
         else
         {
-          v29 = 0u;
-          v30 = 0u;
-          v27 = 0u;
-          v28 = 0u;
-          v26 = v10;
-          v18 = v10;
-          v19 = [v18 countByEnumeratingWithState:&v27 objects:v32 count:16];
-          if (v19)
+          v34 = 0u;
+          v35 = 0u;
+          v32 = 0u;
+          v33 = 0u;
+          v31 = v13;
+          v22 = v13;
+          v23 = [v22 countByEnumeratingWithState:&v32 objects:v37 count:16];
+          if (v23)
           {
-            v20 = v19;
-            v21 = *v28;
+            v24 = v23;
+            v25 = *v33;
 LABEL_16:
-            v22 = 0;
+            v26 = 0;
             while (1)
             {
-              if (*v28 != v21)
+              if (*v33 != v25)
               {
-                objc_enumerationMutation(v18);
+                objc_enumerationMutation(v22);
               }
 
-              v23 = *(*(&v27 + 1) + 8 * v22);
-              if ([v23 isEquivalentToConversationLink:v3])
+              v27 = *(*(&v32 + 1) + 8 * v26);
+              if ([v27 isEquivalentToConversationLink:v4])
               {
                 break;
               }
 
-              if (v20 == ++v22)
+              if (v24 == ++v26)
               {
-                v20 = [v18 countByEnumeratingWithState:&v27 objects:v32 count:16];
-                if (v20)
+                v24 = [v22 countByEnumeratingWithState:&v32 objects:v37 count:16];
+                if (v24)
                 {
                   goto LABEL_16;
                 }
@@ -4453,22 +3871,22 @@ LABEL_16:
               }
             }
 
-            v12 = v23;
+            v16 = v27;
 
-            if (!v12)
+            if (!v16)
             {
               goto LABEL_27;
             }
 
-            v24 = sub_100004778();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+            v29 = sub_100004778(v28);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412290;
-              v34 = v12;
-              _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "handleReceivedLinkInvalidatedMessage: remove link: %@", buf, 0xCu);
+              v39 = v16;
+              _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "handleReceivedLinkInvalidatedMessage: remove link: %@", buf, 0xCu);
             }
 
-            [*(a1 + 48) removeLink:v12 reason:8 withConversation:v8];
+            [*(a1 + 48) removeLink:v16 reason:8 withConversation:v11];
           }
 
           else
@@ -4476,61 +3894,61 @@ LABEL_16:
 LABEL_22:
 
 LABEL_27:
-            v12 = sub_100004778();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+            v16 = sub_100004778(v28);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
-              v25 = *(a1 + 32);
+              v30 = *(a1 + 32);
               *buf = 138412290;
-              v34 = v25;
-              _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "We are not tracking any stored link for link invalidation message %@", buf, 0xCu);
+              v39 = v30;
+              _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "We are not tracking any stored link for link invalidation message %@", buf, 0xCu);
             }
           }
 
-          v10 = v26;
+          v13 = v31;
         }
       }
 
       else
       {
-        v8 = sub_100004778();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+        v11 = sub_100004778(v8);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
-          v15 = *(a1 + 40);
-          v16 = [v3 originatorHandle];
-          v17 = *(a1 + 32);
+          v19 = *(a1 + 40);
+          v20 = [v4 originatorHandle];
+          v21 = *(a1 + 32);
           *buf = 138412802;
-          v34 = v15;
-          v35 = 2112;
-          v36 = v16;
-          v37 = 2112;
-          v38 = v17;
-          _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Sender %@ did not match link's originator handle %@ for link invalidation message %@", buf, 0x20u);
+          v39 = v19;
+          v40 = 2112;
+          v41 = v20;
+          v42 = 2112;
+          v43 = v21;
+          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[WARN] Sender %@ did not match link's originator handle %@ for link invalidation message %@", buf, 0x20u);
         }
       }
     }
 
     else
     {
-      v8 = sub_100004778();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v11 = sub_100004778(v5);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = *(a1 + 32);
+        v18 = *(a1 + 32);
         *buf = 138412290;
-        v34 = v14;
-        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Invalid TUConversationLink for link invalidation message %@", buf, 0xCu);
+        v39 = v18;
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "[WARN] Invalid TUConversationLink for link invalidation message %@", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v3 = sub_100004778();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100004778(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = *(a1 + 32);
+      v17 = *(a1 + 32);
       *buf = 138412290;
-      v34 = v13;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Not sufficiently formed link invalidation message %@", buf, 0xCu);
+      v39 = v17;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Not sufficiently formed link invalidation message %@", buf, 0xCu);
     }
   }
 }
@@ -4555,26 +3973,25 @@ void sub_10016B3F0(id *a1, uint64_t a2, void *a3)
 
 void sub_10016B4D0(uint64_t a1)
 {
-  v2 = (a1 + 32);
-  v3 = *(a1 + 32);
-  v4 = sub_100004778();
-  v5 = v4;
-  if (v3)
+  v2 = *(a1 + 32);
+  v3 = sub_100004778(a1);
+  v4 = v3;
+  if (v2)
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      sub_100476B28(v2);
+      sub_100476B28();
     }
   }
 
   else
   {
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = *(a1 + 40);
-      v7 = 138412290;
-      v8 = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "removeLink completed for %@ ", &v7, 0xCu);
+      v5 = *(a1 + 40);
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "removeLink completed for %@ ", &v6, 0xCu);
     }
 
     [*(a1 + 48) notifyDelegatesOfChangedLink:*(a1 + 40) conversation:*(a1 + 56)];
@@ -4589,9 +4006,9 @@ id sub_10016CFD0(uint64_t a1, void *a2)
   return v4;
 }
 
-void sub_100171074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100171074(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4676,9 +4093,9 @@ void sub_10017108C(uint64_t a1)
   }
 }
 
-void sub_10017141C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10017141C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4725,9 +4142,9 @@ void sub_100171434(uint64_t a1)
   }
 }
 
-void sub_1001716C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1001716C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4740,9 +4157,9 @@ void sub_1001716D8(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_100171BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100171BD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4756,9 +4173,9 @@ void sub_100171BF0(uint64_t a1)
   *(v3 + 40) = v2;
 }
 
-void sub_100171D74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100171D74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4857,13 +4274,13 @@ void sub_1001723B0(uint64_t a1)
 
 void sub_100172534(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 32) service];
     v4 = [v3 description];
     *buf = 138412290;
-    v16 = v4;
+    v18 = v4;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "[CSDConversationManager] Beginning to listen on service:%@", buf, 0xCu);
   }
 
@@ -4878,256 +4295,257 @@ void sub_100172534(uint64_t a1)
 
   if ((v7 & 1) == 0)
   {
-    v9 = [*(a1 + 40) listeningOnIDSServiceIdentifiers];
-    [v9 addObject:v5];
+    v10 = [*(a1 + 40) listeningOnIDSServiceIdentifiers];
+    [v10 addObject:v5];
 
-    v10 = sub_100004778();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v12 = sub_100004778(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v16 = v5;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[CSDConversationManager] Adding self as a delegate for IDSService with identifier: %@", buf, 0xCu);
+      v18 = v5;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[CSDConversationManager] Adding self as a delegate for IDSService with identifier: %@", buf, 0xCu);
     }
 
 LABEL_10:
-    v11 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    v8 = [v12 queue];
-    [v11 addServiceDelegate:v12 queue:v8];
+    v13 = *(a1 + 32);
+    v14 = *(a1 + 40);
+    v9 = [v14 queue];
+    [v13 addServiceDelegate:v14 queue:v9];
     goto LABEL_11;
   }
 
-  v8 = sub_100004778();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = sub_100004778(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = v5;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[CSDConversationManager] Skipping adding self as a delegate for IDSService with identifier: %@", buf, 0xCu);
+    v18 = v5;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "[CSDConversationManager] Skipping adding self as a delegate for IDSService with identifier: %@", buf, 0xCu);
   }
 
 LABEL_11:
 
-  v13 = [*(a1 + 40) lockStateObserver];
-  v14[0] = _NSConcreteStackBlock;
-  v14[1] = 3221225472;
-  v14[2] = sub_100172794;
-  v14[3] = &unk_100619D38;
-  v14[4] = *(a1 + 40);
-  [v13 performBlockAfterFirstUnlock:v14];
+  v15 = [*(a1 + 40) lockStateObserver];
+  v16[0] = _NSConcreteStackBlock;
+  v16[1] = 3221225472;
+  v16[2] = sub_100172794;
+  v16[3] = &unk_100619D38;
+  v16[4] = *(a1 + 40);
+  [v15 performBlockAfterFirstUnlock:v16];
 }
 
 void sub_1001728F0(uint64_t a1, void *a2, void *a3, void *a4, unsigned int a5, void *a6, void *a7, void *a8, void *a9, void *a10, void *a11, void *a12, void *a13, void *a14, void *a15, void *a16, uint64_t a17, uint64_t a18)
 {
-  v84 = a2;
+  v87 = a2;
   v24 = a3;
-  v82 = a4;
+  v85 = a4;
   v25 = a6;
-  v81 = a7;
+  v84 = a7;
   v26 = a8;
   v27 = v24;
-  v83 = a9;
-  v80 = a10;
+  v86 = a9;
+  v83 = a10;
   v28 = v26;
-  v79 = a11;
+  v82 = a11;
   v29 = a12;
   v30 = a13;
-  v78 = a14;
-  v77 = a15;
-  v76 = a16;
+  v81 = a14;
+  v80 = a15;
+  v79 = a16;
   v31 = *(a1 + 32);
   v32 = [NSSet setWithArray:v28];
   v33 = [v31 conversationWithGroupUUID:v27 orRepresentedByRemoteMembers:v32 andLink:v29];
 
   if (v33)
   {
-    v34 = sub_100004778();
-    if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+    v35 = sub_100004778(v34);
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       [v33 UUID];
-      v36 = v35 = v33;
+      v37 = v36 = v33;
       *buf = 138412546;
-      v96 = v84;
-      v97 = 2112;
-      v98 = v36;
-      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "[WARN] Not adding cached conversation with UUID %@ because we already added equivalent conversation with UUID %@", buf, 0x16u);
+      v99 = v87;
+      v100 = 2112;
+      v101 = v37;
+      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "[WARN] Not adding cached conversation with UUID %@ because we already added equivalent conversation with UUID %@", buf, 0x16u);
 
-      v33 = v35;
+      v33 = v36;
     }
 
-    v37 = v76;
+    v38 = v79;
   }
 
   else
   {
-    v38 = a5;
-    v72 = v30;
-    v73 = v29;
+    v39 = a5;
+    v75 = v30;
+    v76 = v29;
     if (v29)
     {
-      v39 = [*(a1 + 32) pendingMembershipTracker];
-      v71 = [v39 retrievePendingMembersFor:v27];
+      v40 = [*(a1 + 32) pendingMembershipTracker];
+      v74 = [v40 retrievePendingMembersFor:v27];
     }
 
     else
     {
-      v71 = +[NSSet set];
+      v74 = +[NSSet set];
     }
 
-    v75 = v25;
-    v40 = [*(a1 + 32) conversationProviderManager];
-    v70 = [v40 tuConversationProviderForIdentifier:v77];
+    v78 = v25;
+    v41 = [*(a1 + 32) conversationProviderManager];
+    v73 = [v41 tuConversationProviderForIdentifier:v80];
 
-    v41 = sub_100004778();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+    v43 = sub_100004778(v42);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412802;
-      v96 = v27;
-      v97 = 2112;
-      v98 = v28;
-      v99 = 2112;
-      v100 = v83;
-      _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Reviving cached conversation with groupUUID: %@ remoteMembers: %@ lightweightMembers: %@", buf, 0x20u);
+      v99 = v27;
+      v100 = 2112;
+      v101 = v28;
+      v102 = 2112;
+      v103 = v86;
+      _os_log_impl(&_mh_execute_header, v43, OS_LOG_TYPE_DEFAULT, "Reviving cached conversation with groupUUID: %@ remoteMembers: %@ lightweightMembers: %@", buf, 0x20u);
     }
 
-    v42 = *(a1 + 32);
-    v43 = [NSSet setWithArray:v28];
-    v44 = [NSSet setWithArray:v80];
-    v45 = [NSSet setWithArray:v83];
-    LOWORD(v67) = 1;
-    LOBYTE(v66) = 1;
-    v69 = v27;
-    v46 = [v42 createConversationWithUUID:v84 groupUUID:v27 messagesGroupUUID:v82 locallyCreated:v38 localMember:v75 initiator:v81 remoteMembers:v43 pendingMembers:v71 otherInvitedHandles:v44 remotePushTokens:0 lightweightMembers:v45 activity:0 link:v29 report:v30 fromStorage:v66 avMode:a17 presentationMode:a18 provider:v70 screenSharingRequest:0 isInitiator:v67 isOldMessage:?];
+    v44 = *(a1 + 32);
+    v45 = [NSSet setWithArray:v28];
+    v46 = [NSSet setWithArray:v83];
+    v47 = [NSSet setWithArray:v86];
+    LOWORD(v70) = 1;
+    LOBYTE(v69) = 1;
+    v72 = v27;
+    v48 = [v44 createConversationWithUUID:v87 groupUUID:v27 messagesGroupUUID:v85 locallyCreated:v39 localMember:v78 initiator:v84 remoteMembers:v45 pendingMembers:v74 otherInvitedHandles:v46 remotePushTokens:0 lightweightMembers:v47 activity:0 link:v29 report:v30 fromStorage:v69 avMode:a17 presentationMode:a18 provider:v73 screenSharingRequest:0 isInitiator:v70 isOldMessage:?];
 
-    v91 = 0u;
+    v94 = 0u;
+    v95 = 0u;
     v92 = 0u;
-    v89 = 0u;
-    v90 = 0u;
-    v47 = v79;
-    v48 = [v47 countByEnumeratingWithState:&v89 objects:v94 count:16];
-    if (v48)
+    v93 = 0u;
+    v49 = v82;
+    v50 = [v49 countByEnumeratingWithState:&v92 objects:v97 count:16];
+    if (v50)
     {
-      v49 = v48;
-      v50 = *v90;
+      v51 = v50;
+      v52 = *v93;
       do
       {
-        for (i = 0; i != v49; i = i + 1)
+        for (i = 0; i != v51; i = i + 1)
         {
-          if (*v90 != v50)
+          if (*v93 != v52)
           {
-            objc_enumerationMutation(v47);
+            objc_enumerationMutation(v49);
           }
 
-          [v46 addActiveParticipant:*(*(&v89 + 1) + 8 * i)];
+          [v48 addActiveParticipant:*(*(&v92 + 1) + 8 * i)];
         }
 
-        v49 = [v47 countByEnumeratingWithState:&v89 objects:v94 count:16];
+        v51 = [v49 countByEnumeratingWithState:&v92 objects:v97 count:16];
       }
 
-      while (v49);
+      while (v51);
     }
 
-    v68 = v28;
+    v71 = v28;
 
-    v87 = 0u;
+    v90 = 0u;
+    v91 = 0u;
     v88 = 0u;
-    v85 = 0u;
-    v86 = 0u;
-    v52 = v78;
-    v53 = [v52 countByEnumeratingWithState:&v85 objects:v93 count:16];
-    if (v53)
+    v89 = 0u;
+    v54 = v81;
+    v55 = [v54 countByEnumeratingWithState:&v88 objects:v96 count:16];
+    if (v55)
     {
-      v54 = v53;
-      v55 = *v86;
+      v56 = v55;
+      v57 = *v89;
       do
       {
-        for (j = 0; j != v54; j = j + 1)
+        for (j = 0; j != v56; j = j + 1)
         {
-          if (*v86 != v55)
+          if (*v89 != v57)
           {
-            objc_enumerationMutation(v52);
+            objc_enumerationMutation(v54);
           }
 
-          v57 = *(*(&v85 + 1) + 8 * j);
-          v58 = [v57 activity];
-          v59 = [v58 fromHandle];
-          v60 = [v59 tuHandle];
+          v59 = *(*(&v88 + 1) + 8 * j);
+          v60 = [v59 activity];
+          v61 = [v60 fromHandle];
+          v62 = [v61 tuHandle];
 
-          if (v60 || ([v57 locallyPersistedMetadata], v61 = objc_claimAutoreleasedReturnValue(), v62 = objc_msgSend(v61, "locallyInitiated"), v61, v62))
+          if (v62 || ([v59 locallyPersistedMetadata], v63 = objc_claimAutoreleasedReturnValue(), v64 = objc_msgSend(v63, "locallyInitiated"), v63, v64))
           {
-            v63 = [*(a1 + 32) createActivitySession:v57 onConversation:v46 fromHandle:v60];
-            if (!v63)
+            v66 = [*(a1 + 32) createActivitySession:v59 onConversation:v48 fromHandle:v62];
+            if (!v66)
             {
-              v64 = sub_100004778();
-              if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
+              v67 = sub_100004778(0);
+              if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v96 = v57;
-                _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "[WARN] Failed to create newActivitySession for activitySession %@", buf, 0xCu);
+                v99 = v59;
+                _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "[WARN] Failed to create newActivitySession for activitySession %@", buf, 0xCu);
               }
             }
           }
 
           else
           {
-            v63 = sub_100004778();
-            if (os_log_type_enabled(v63, OS_LOG_TYPE_ERROR))
+            v66 = sub_100004778(v65);
+            if (os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v96 = v57;
-              _os_log_error_impl(&_mh_execute_header, v63, OS_LOG_TYPE_ERROR, "Failed to create activitySession from persistence since we couldn't find the trusted fromHandle on activitySession: %@", buf, 0xCu);
+              v99 = v59;
+              _os_log_error_impl(&_mh_execute_header, v66, OS_LOG_TYPE_ERROR, "Failed to create activitySession from persistence since we couldn't find the trusted fromHandle on activitySession: %@", buf, 0xCu);
             }
           }
         }
 
-        v54 = [v52 countByEnumeratingWithState:&v85 objects:v93 count:16];
+        v56 = [v54 countByEnumeratingWithState:&v88 objects:v96 count:16];
       }
 
-      while (v54);
+      while (v56);
     }
 
-    v37 = v76;
-    if (v76)
+    v38 = v79;
+    if (v79)
     {
-      v65 = [v76 tuConversationActivitySession];
-      [v46 setStagedActivitySessionForActivitySession:v65];
+      v68 = [v79 tuConversationActivitySession];
+      [v48 setStagedActivitySessionForActivitySession:v68];
     }
 
-    v28 = v68;
-    v27 = v69;
-    v29 = v73;
-    v25 = v75;
-    v34 = v71;
-    v30 = v72;
+    v28 = v71;
+    v27 = v72;
+    v29 = v76;
+    v25 = v78;
+    v35 = v74;
+    v30 = v75;
     v33 = 0;
   }
 }
 
 void sub_100173278(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v1 = a1;
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = *(a1 + 40);
-    v5 = *(a1 + 48);
+    v3 = *(v1 + 32);
+    v4 = *(v1 + 40);
+    v5 = *(v1 + 48);
     *buf = 138412802;
-    *v76 = v3;
-    *&v76[8] = 2112;
-    v77 = v4;
-    v78 = 2112;
-    v79 = v5;
+    *v79 = v3;
+    *&v79[8] = 2112;
+    v80 = v4;
+    v81 = 2112;
+    v82 = v5;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "groupUUID: %@ remoteMembers: %@, conversationProvider: %@", buf, 0x20u);
   }
 
-  v6 = [*(a1 + 56) conversationWithGroupUUID:*(a1 + 32) orRepresentedByRemoteMembers:*(a1 + 40) andLink:*(a1 + 64)];
-  if ([v6 state] == 4 && objc_msgSend(*(a1 + 40), "count") == 1 && !*(a1 + 64))
+  v6 = [*(v1 + 56) conversationWithGroupUUID:*(v1 + 32) orRepresentedByRemoteMembers:*(v1 + 40) andLink:*(v1 + 64)];
+  if ([v6 state] == 4 && objc_msgSend(*(v1 + 40), "count") == 1 && !*(v1 + 64))
   {
-    v7 = sub_100004778();
+    v7 = sub_100004778(1);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v8 = [v6 UUID];
       *buf = 138412290;
-      *v76 = v8;
+      *v79 = v8;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Found existing conversation %@ but not reusing it since it's leaving and we're trying to join a U+1 call", buf, 0xCu);
     }
 
@@ -5143,67 +4561,68 @@ void sub_100173278(uint64_t a1)
     v6 = 0;
   }
 
-  if ([v6 state] == 3)
+  v11 = [v6 state];
+  if (v11 == 3)
   {
-    v11 = [v6 remoteMembers];
-    if ([v11 count] == 1 && objc_msgSend(*(a1 + 40), "count") == 1 && *(a1 + 128) == 2)
+    v12 = [v6 remoteMembers];
+    if ([v12 count] == 1 && objc_msgSend(*(v1 + 40), "count") == 1 && *(v1 + 128) == 2)
     {
-      v12 = [v6 isVideo] ^ 1;
+      v13 = [v6 isVideo] ^ 1;
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
   }
 
   else
   {
-    v12 = 0;
+    v13 = 0;
   }
 
-  v13 = sub_100004778();
-  v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
-  if (!v6 || v12)
+  v14 = sub_100004778(v11);
+  v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+  if (!v6 || v13)
   {
-    if (v14)
+    if (v15)
     {
       *buf = 67109376;
-      *v76 = v6 == 0;
-      *&v76[4] = 1024;
-      *&v76[6] = v12;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "No conversation currently exists to join: %d, so creating a new one isConversationVideoUpgrade: %d", buf, 0xEu);
+      *v79 = v6 == 0;
+      *&v79[4] = 1024;
+      *&v79[6] = v13;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "No conversation currently exists to join: %d, so creating a new one isConversationVideoUpgrade: %d", buf, 0xEu);
     }
 
-    v21 = [*(a1 + 56) activeLocalHandlesForProvider];
-    v22 = v21[2](v21, *(a1 + 48));
+    v23 = [*(v1 + 56) activeLocalHandlesForProvider];
+    v24 = v23[2](v23, *(v1 + 48));
 
-    v23 = [*(a1 + 56) localCallerIDForProvider];
-    v24 = v23[2](v23, *(a1 + 48));
+    v25 = [*(v1 + 56) localCallerIDForProvider];
+    v26 = v25[2](v25, *(v1 + 48));
 
-    v25 = *(a1 + 72);
-    v26 = v25;
-    if (v25 || !v24)
+    v27 = *(v1 + 72);
+    v28 = v27;
+    if (v27 || !v26)
     {
-      if (!v25)
+      if (!v27)
       {
         goto LABEL_51;
       }
 
-      v27 = *(a1 + 56);
-      v28 = [v25 handle];
-      LOBYTE(v27) = [v27 isValidLocalHandle:v28 forProvider:*(a1 + 48)];
+      v29 = *(v1 + 56);
+      v30 = [v27 handle];
+      LOBYTE(v29) = [v29 isValidLocalHandle:v30 forProvider:*(v1 + 48)];
 
-      if ((v27 & 1) == 0)
+      if ((v29 & 1) == 0)
       {
-        v36 = sub_100004778();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+        v40 = sub_100004778(v31);
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412546;
-          *v76 = v26;
-          *&v76[8] = 2112;
-          v77 = v22;
-          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "[WARN] The request specified that local member %@ should be used, but the useable handles for FaceTime are %@. We cannot proceed with a handle that's not registered for FaceTime on this device.", buf, 0x16u);
+          *v79 = v28;
+          *&v79[8] = 2112;
+          v80 = v24;
+          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "[WARN] The request specified that local member %@ should be used, but the useable handles for FaceTime are %@. We cannot proceed with a handle that's not registered for FaceTime on this device.", buf, 0x16u);
         }
 
         goto LABEL_51;
@@ -5212,12 +4631,13 @@ void sub_100173278(uint64_t a1)
 
     else
     {
-      v26 = [[TUConversationMember alloc] initWithHandle:v24 nickname:0];
-      if (!v26)
+      v27 = [[TUConversationMember alloc] initWithHandle:v26 nickname:0];
+      v28 = v27;
+      if (!v27)
       {
 LABEL_51:
-        v26 = sub_100004778();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v28 = sub_100004778(v27);
+        if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           sub_100477770();
         }
@@ -5228,139 +4648,138 @@ LABEL_77:
       }
     }
 
-    v29 = [*(a1 + 56) featureFlags];
-    v67 = v6;
-    if (![v29 nameAndPhotoEnabled])
+    v32 = [*(v1 + 56) featureFlags];
+    v70 = v6;
+    if (![v32 nameAndPhotoEnabled])
     {
       goto LABEL_56;
     }
 
-    v30 = [*(a1 + 56) featureFlags];
-    if ([v30 nameAndPhotoBackwardsCompatibilityEnabled])
+    v33 = [*(v1 + 56) featureFlags];
+    if ([v33 nameAndPhotoBackwardsCompatibilityEnabled])
     {
-      v31 = [v26 nickname];
+      v34 = [v28 nickname];
 
-      if (v31)
+      if (v34)
       {
 LABEL_57:
-        v41 = [*(a1 + 40) mutableCopy];
-        v68 = a1;
-        v65 = v24;
-        v66 = v22;
+        v45 = [*(v1 + 40) mutableCopy];
+        v71 = v1;
+        v68 = v26;
+        v69 = v24;
         if (_TUIsInternalInstall())
         {
-          v42 = +[NSUserDefaults tu_defaults];
-          v69 = [v42 stringForKey:@"DefaultsRemovedURI"];
+          v46 = +[NSUserDefaults tu_defaults];
+          v72 = [v46 stringForKey:@"DefaultsRemovedURI"];
         }
 
         else
         {
-          v69 = 0;
+          v72 = 0;
         }
 
-        v43 = objc_alloc_init(NSMutableSet);
-        v70 = 0u;
-        v71 = 0u;
-        v72 = 0u;
+        v47 = objc_alloc_init(NSMutableSet);
         v73 = 0u;
-        v44 = v41;
-        v45 = [v44 countByEnumeratingWithState:&v70 objects:v74 count:16];
-        if (v45)
+        v74 = 0u;
+        v75 = 0u;
+        v76 = 0u;
+        v48 = v45;
+        v49 = [v48 countByEnumeratingWithState:&v73 objects:v77 count:16];
+        if (v49)
         {
-          v46 = v45;
-          v47 = *v71;
+          v50 = v49;
+          v51 = *v74;
           do
           {
-            for (i = 0; i != v46; i = i + 1)
+            for (i = 0; i != v50; i = i + 1)
             {
-              if (*v71 != v47)
+              if (*v74 != v51)
               {
-                objc_enumerationMutation(v44);
+                objc_enumerationMutation(v48);
               }
 
-              v49 = *(*(&v70 + 1) + 8 * i);
-              v50 = [v49 handle];
-              v51 = [v26 handle];
-              v52 = [v50 isEqualToHandle:v51];
+              v53 = *(*(&v73 + 1) + 8 * i);
+              v54 = [v53 handle];
+              v55 = [v28 handle];
+              v56 = [v54 isEqualToHandle:v55];
 
-              if ((v52 & 1) == 0)
+              if ((v56 & 1) == 0)
               {
                 if (!_TUIsInternalInstall())
                 {
                   continue;
                 }
 
-                v53 = [v49 handle];
-                v54 = [v53 value];
-                v55 = [v69 isEqualToString:v54];
+                v57 = [v53 handle];
+                v58 = [v57 value];
+                v59 = [v72 isEqualToString:v58];
 
-                if (!v55)
+                if (!v59)
                 {
                   continue;
                 }
               }
 
-              [v43 addObject:v49];
+              [v47 addObject:v53];
             }
 
-            v46 = [v44 countByEnumeratingWithState:&v70 objects:v74 count:16];
+            v50 = [v48 countByEnumeratingWithState:&v73 objects:v77 count:16];
           }
 
-          while (v46);
+          while (v50);
         }
 
-        if ([v43 count])
+        if ([v47 count])
         {
-          [v44 minusSet:v43];
+          [v48 minusSet:v47];
         }
 
-        a1 = v68;
-        v22 = v66;
-        if (*(v68 + 64))
+        v1 = v71;
+        v24 = v69;
+        if (*(v71 + 64))
         {
-          v56 = [*(v68 + 56) pendingMembershipTracker];
-          v57 = [v56 retrievePendingMembersFor:*(v68 + 32)];
+          v60 = [*(v71 + 56) pendingMembershipTracker];
+          v61 = [v60 retrievePendingMembersFor:*(v71 + 32)];
         }
 
         else
         {
-          v57 = +[NSSet set];
+          v61 = +[NSSet set];
         }
 
-        v58 = *(v68 + 56);
-        v59 = +[NSUUID UUID];
-        v60 = *(v68 + 48);
-        v61 = [v58 createConversationIfNecessaryWithUUID:v59 groupUUID:*(v68 + 32) messagesGroupUUID:*(v68 + 80) locallyCreated:1 localMember:v26 remoteMembers:v44 pendingMembers:v57 otherInvitedHandles:*(v68 + 88) remotePushTokens:*(v68 + 96) lightweightMembers:0 link:*(v68 + 64) activity:*(v68 + 104) avMode:*(v68 + 128) presentationMode:*(v68 + 136) provider:v60 screenSharingRequest:*(v68 + 112)];
+        v62 = *(v71 + 56);
+        v63 = +[NSUUID UUID];
+        v64 = [v62 createConversationIfNecessaryWithUUID:v63 groupUUID:*(v71 + 32) messagesGroupUUID:*(v71 + 80) locallyCreated:1 localMember:v28 remoteMembers:v48 pendingMembers:v61 otherInvitedHandles:*(v71 + 88) remotePushTokens:*(v71 + 96) lightweightMembers:0 link:*(v71 + 64) activity:*(v71 + 104) avMode:*(v71 + 128) presentationMode:*(v71 + 136) provider:*(v71 + 48) screenSharingRequest:*(v71 + 112)];
 
-        v6 = v61;
-        v24 = v65;
+        v6 = v64;
+        v26 = v68;
         goto LABEL_77;
       }
 
-      v32 = [*(a1 + 56) getPersonalNicknameBlock];
-      v29 = v32[2]();
+      v35 = [*(v1 + 56) getPersonalNicknameBlock];
+      v32 = v35[2]();
 
-      v33 = sub_100004778();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      v37 = sub_100004778(v36);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        *v76 = v26;
-        *&v76[8] = 2112;
-        v77 = v29;
-        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Attempting to update localMember: %@ with nickname: %@", buf, 0x16u);
+        *v79 = v28;
+        *&v79[8] = 2112;
+        v80 = v32;
+        _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "Attempting to update localMember: %@ with nickname: %@", buf, 0x16u);
       }
 
-      v34 = [v29 firstName];
-      if ([v34 length])
+      v38 = [v32 firstName];
+      if ([v38 length])
       {
       }
 
       else
       {
-        v37 = [v29 lastName];
-        v38 = [v37 length];
+        v41 = [v32 lastName];
+        v42 = [v41 length];
 
-        if (!v38)
+        if (!v42)
         {
 LABEL_56:
 
@@ -5368,75 +4787,76 @@ LABEL_56:
         }
       }
 
-      v30 = [v29 firstName];
-      v39 = [v29 lastName];
-      v40 = [NSString stringWithFormat:@"%@ %@", v30, v39];
-      [v26 setNickname:v40];
+      v33 = [v32 firstName];
+      v43 = [v32 lastName];
+      v44 = [NSString stringWithFormat:@"%@ %@", v33, v43];
+      [v28 setNickname:v44];
     }
 
     goto LABEL_56;
   }
 
-  if (v14)
+  if (v15)
   {
-    v15 = [v6 UUID];
-    v16 = [v6 groupUUID];
+    v16 = [v6 UUID];
+    v17 = [v6 groupUUID];
     *buf = 138412546;
-    *v76 = v15;
-    *&v76[8] = 2112;
-    v77 = v16;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Found existing conversation with UUID: %@, groupUUID: %@", buf, 0x16u);
+    *v79 = v16;
+    *&v79[8] = 2112;
+    v80 = v17;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Found existing conversation with UUID: %@, groupUUID: %@", buf, 0x16u);
   }
 
-  if ([v6 isFromStorage])
+  v18 = [v6 isFromStorage];
+  if (v18)
   {
-    v17 = sub_100004778();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = sub_100004778(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = [v6 UUID];
+      v20 = [v6 UUID];
       *buf = 138412290;
-      *v76 = v18;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Activating cached conversation from storage with UUID: %@ as someone seems to be interested in it.", buf, 0xCu);
+      *v79 = v20;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Activating cached conversation from storage with UUID: %@ as someone seems to be interested in it.", buf, 0xCu);
     }
 
     [v6 setFromStorage:0];
   }
 
-  v19 = [*(a1 + 56) featureFlags];
-  if ([v19 groupFacetimeAsAServiceEnabled])
+  v21 = [*(v1 + 56) featureFlags];
+  if ([v21 groupFacetimeAsAServiceEnabled])
   {
-    v20 = [*(a1 + 48) supportsSharePlay] ^ 1;
+    v22 = [*(v1 + 48) supportsSharePlay] ^ 1;
   }
 
   else
   {
-    v20 = 0;
+    v22 = 0;
   }
 
-  if (*(a1 + 104) && (v20 & 1) == 0)
+  if (*(v1 + 104) && (v22 & 1) == 0)
   {
-    v35 = [v6 createStagedActivitySessionForActivity:?];
+    v39 = [v6 createStagedActivitySessionForActivity:?];
   }
 
 LABEL_78:
-  [v6 setProvider:*(a1 + 48)];
-  v62 = [v6 tuConversation];
-  v63 = *(*(a1 + 120) + 8);
-  v64 = *(v63 + 40);
-  *(v63 + 40) = v62;
+  [v6 setProvider:*(v1 + 48)];
+  v65 = [v6 tuConversation];
+  v66 = *(*(v1 + 120) + 8);
+  v67 = *(v66 + 40);
+  *(v66 + 40) = v65;
 }
 
 void sub_100173C8C(id *a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     v4 = a1[5];
     *buf = 138412546;
-    v55 = v3;
-    v56 = 2112;
-    v57 = v4;
+    v59 = v3;
+    v60 = 2112;
+    v61 = v4;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "joinExistingConversationWithUUID: %@ context: %@", buf, 0x16u);
   }
 
@@ -5445,13 +4865,13 @@ void sub_100173C8C(id *a1)
 
   if (!v6)
   {
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100004778(v7);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = a1[4];
+      v17 = a1[4];
       *buf = 138412290;
-      v55 = v15;
-      v14 = "[WARN] Could not find conversation with UUID: %@";
+      v59 = v17;
+      v16 = "[WARN] Could not find conversation with UUID: %@";
       goto LABEL_14;
     }
 
@@ -5462,50 +4882,50 @@ LABEL_15:
 
   if ([v6 state] == 2 || objc_msgSend(v6, "state") == 3)
   {
-    v7 = [a1[6] featureFlags];
-    v8 = [v7 avLessSharePlayEnabled];
+    v8 = [a1[6] featureFlags];
+    v9 = [v8 avLessSharePlayEnabled];
 
-    if ((v8 & 1) == 0)
+    if ((v9 & 1) == 0)
     {
-      v11 = sub_100004778();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v13 = sub_100004778(v10);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
-        v16 = a1[4];
+        v18 = a1[4];
         *buf = 138412290;
-        v55 = v16;
-        v14 = "Ignoring request to join conversation with UUID: %@ since conversation is already joined";
+        v59 = v18;
+        v16 = "Ignoring request to join conversation with UUID: %@ since conversation is already joined";
         goto LABEL_14;
       }
 
       goto LABEL_15;
     }
 
-    v9 = [a1[5] avMode];
-    v10 = [v6 avMode];
-    v11 = sub_100004778();
-    v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
-    if (v9 == v10)
+    v11 = [a1[5] avMode];
+    v12 = [v6 avMode];
+    v13 = sub_100004778(v12);
+    v14 = os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+    if (v11 == v12)
     {
-      if (v12)
+      if (v14)
       {
-        v13 = a1[4];
+        v15 = a1[4];
         *buf = 138412290;
-        v55 = v13;
-        v14 = "Ignoring request to join conversation with UUID: %@ since conversation is already joined";
+        v59 = v15;
+        v16 = "Ignoring request to join conversation with UUID: %@ since conversation is already joined";
 LABEL_14:
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, v14, buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v16, buf, 0xCu);
         goto LABEL_15;
       }
 
       goto LABEL_15;
     }
 
-    if (v12)
+    if (v14)
     {
-      v40 = a1[4];
+      v44 = a1[4];
       *buf = 138412290;
-      v55 = v40;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Request to join conversation is trying to change avMode on conversation UUID: %@", buf, 0xCu);
+      v59 = v44;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Request to join conversation is trying to change avMode on conversation UUID: %@", buf, 0xCu);
     }
 
     [v6 setVideoEnabled:{objc_msgSend(a1[5], "isVideoEnabled")}];
@@ -5514,108 +4934,109 @@ LABEL_14:
 
   else
   {
-    v17 = [a1[5] collaborationIdentifier];
+    v19 = [a1[5] collaborationIdentifier];
 
-    if (v17)
+    if (v19)
     {
-      v18 = [a1[5] collaborationIdentifier];
-      v19 = [NSMutableSet setWithObjects:v18, 0];
+      v20 = [a1[5] collaborationIdentifier];
+      v21 = [NSMutableSet setWithObjects:v20, 0];
 
-      [v6 setHighlightIdentifiers:v19];
+      [v6 setHighlightIdentifiers:v21];
     }
 
-    v20 = [a1[6] mutableConversationsByUUID];
-    v50[0] = _NSConcreteStackBlock;
-    v50[1] = 3221225472;
-    v50[2] = sub_100174318;
-    v50[3] = &unk_10061CEA8;
-    v21 = v6;
-    v51 = v21;
-    v52 = a1[4];
-    [v20 enumerateKeysAndObjectsUsingBlock:v50];
+    v22 = [a1[6] mutableConversationsByUUID];
+    v54[0] = _NSConcreteStackBlock;
+    v54[1] = 3221225472;
+    v54[2] = sub_100174318;
+    v54[3] = &unk_10061CEA8;
+    v23 = v6;
+    v55 = v23;
+    v56 = a1[4];
+    [v22 enumerateKeysAndObjectsUsingBlock:v54];
 
-    [a1[5] setOneToOneModeEnabled:{objc_msgSend(v21, "isOneToOneModeEnabled")}];
-    v22 = [v21 provider];
-    [a1[5] setProvider:v22];
+    [a1[5] setOneToOneModeEnabled:{objc_msgSend(v23, "isOneToOneModeEnabled")}];
+    v24 = [v23 provider];
+    [a1[5] setProvider:v24];
 
-    if ([a1[5] isOneToOneModeEnabled])
+    v25 = [a1[5] isOneToOneModeEnabled];
+    if (v25)
     {
-      v23 = sub_100004778();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+      v26 = sub_100004778(v25);
+      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
       {
-        v24 = a1[5];
+        v27 = a1[5];
         *buf = 138412290;
-        v55 = v24;
-        _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Updating context to use isOneToOneModeEnabled=true %@", buf, 0xCu);
+        v59 = v27;
+        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Updating context to use isOneToOneModeEnabled=true %@", buf, 0xCu);
       }
     }
 
-    [a1[5] setVideoPaused:{objc_msgSend(v21, "isVideoPaused")}];
-    v25 = [a1[6] featureFlags];
-    [a1[5] setGftDowngradeToOneToOneAvailable:{objc_msgSend(v25, "gftDowngradeToOneToOne")}];
-
-    v26 = [a1[6] featureFlags];
-    [a1[5] setUPlusNDowngradeAvailable:{objc_msgSend(v26, "uPlusNDowngrade")}];
-
-    v27 = [a1[6] featureFlags];
-    [a1[5] setUPlusOneScreenShareAvailable:{objc_msgSend(v27, "uPlusOneScreenSharing")}];
-
+    [a1[5] setVideoPaused:{objc_msgSend(v23, "isVideoPaused")}];
     v28 = [a1[6] featureFlags];
-    [v21 isRelaying];
+    [a1[5] setGftDowngradeToOneToOneAvailable:{objc_msgSend(v28, "gftDowngradeToOneToOne")}];
+
+    v29 = [a1[6] featureFlags];
+    [a1[5] setUPlusNDowngradeAvailable:{objc_msgSend(v29, "uPlusNDowngrade")}];
+
+    v30 = [a1[6] featureFlags];
+    [a1[5] setUPlusOneScreenShareAvailable:{objc_msgSend(v30, "uPlusOneScreenSharing")}];
+
+    v31 = [a1[6] featureFlags];
+    [v23 isRelaying];
     [a1[6] isScreenSharingInitiationAvailable];
     [a1[5] setSupportsRequestToScreenShare:TUIsRequestToScreenShareAvailable()];
 
-    [v21 joinUsingContext:a1[5]];
-    v29 = [a1[5] activity];
+    [v23 joinUsingContext:a1[5]];
+    v32 = [a1[5] activity];
 
-    if (v29)
+    if (v32)
     {
-      v43 = v21;
-      v44 = v6;
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
-      v47 = 0u;
-      obj = [v21 tuActivitySessions];
-      v30 = [obj countByEnumeratingWithState:&v46 objects:v53 count:16];
-      if (v30)
+      v47 = v23;
+      v48 = v6;
+      v52 = 0u;
+      v53 = 0u;
+      v50 = 0u;
+      v51 = 0u;
+      obj = [v23 tuActivitySessions];
+      v33 = [obj countByEnumeratingWithState:&v50 objects:v57 count:16];
+      if (v33)
       {
-        v31 = v30;
-        v32 = *v47;
+        v34 = v33;
+        v35 = *v51;
         while (2)
         {
-          for (i = 0; i != v31; i = i + 1)
+          for (i = 0; i != v34; i = i + 1)
           {
-            if (*v47 != v32)
+            if (*v51 != v35)
             {
               objc_enumerationMutation(obj);
             }
 
-            v34 = *(*(&v46 + 1) + 8 * i);
-            v35 = [v34 activity];
-            v36 = [v35 UUID];
-            v37 = [a1[5] activity];
-            v38 = [v37 UUID];
-            v39 = [v36 isEqual:v38];
+            v37 = *(*(&v50 + 1) + 8 * i);
+            v38 = [v37 activity];
+            v39 = [v38 UUID];
+            v40 = [a1[5] activity];
+            v41 = [v40 UUID];
+            v42 = [v39 isEqual:v41];
 
-            if (v39)
+            if (v42)
             {
-              v41 = sub_100004778();
-              if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+              v45 = sub_100004778(v43);
+              if (os_log_type_enabled(v45, OS_LOG_TYPE_DEFAULT))
               {
-                v42 = [a1[5] activity];
+                v46 = [a1[5] activity];
                 *buf = 138412290;
-                v55 = v42;
-                _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "Conversation join is for a new activity: %@, broadcasting image.", buf, 0xCu);
+                v59 = v46;
+                _os_log_impl(&_mh_execute_header, v45, OS_LOG_TYPE_DEFAULT, "Conversation join is for a new activity: %@, broadcasting image.", buf, 0xCu);
               }
 
-              [a1[6] broadcastImageForSession:v34 onConversation:v43];
+              [a1[6] broadcastImageForSession:v37 onConversation:v47];
               goto LABEL_39;
             }
           }
 
-          v31 = [obj countByEnumeratingWithState:&v46 objects:v53 count:16];
-          if (v31)
+          v34 = [obj countByEnumeratingWithState:&v50 objects:v57 count:16];
+          if (v34)
           {
             continue;
           }
@@ -5626,7 +5047,7 @@ LABEL_14:
 
 LABEL_39:
 
-      v6 = v44;
+      v6 = v48;
     }
   }
 
@@ -5651,10 +5072,11 @@ void sub_100174318(uint64_t a1, void *a2, void *a3)
       v8 = [v9 count] != 0;
     }
 
-    if ([v6 state] == 3 && objc_msgSend(v6, "isOneToOneModeEnabled") && (v10 = objc_msgSend(*(a1 + 32), "isOneToOneModeEnabled"), !v8 && (v10 & 1) != 0))
+    v10 = [v6 state];
+    if (v10 == 3 && (v10 = [v6 isOneToOneModeEnabled], v10) && (v10 = objc_msgSend(*(a1 + 32), "isOneToOneModeEnabled"), !v8 && (v10 & 1) != 0))
     {
       v13 = v10;
-      v14 = sub_100004778();
+      v14 = sub_100004778(v10);
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
         v15 = @"YES";
@@ -5673,7 +5095,7 @@ void sub_100174318(uint64_t a1, void *a2, void *a3)
 
     else
     {
-      v11 = sub_100004778();
+      v11 = sub_100004778(v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         v12 = *(a1 + 40);
@@ -5689,16 +5111,16 @@ void sub_100174318(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_100174664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_100174664(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void sub_10017467C(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -5794,22 +5216,20 @@ void sub_10017467C(uint64_t a1)
 
 void sub_100174A08(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_respondsToSelector();
-  v4 = *(a1 + 32);
-  if (v3)
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
   {
-    v5 = [*(a1 + 40) provider];
-    if ([v4 shouldHandleUpdateForProvider:v5])
+    v4 = [*(a1 + 40) provider];
+    if ([v3 shouldHandleUpdateForProvider:v4])
     {
     }
 
     else
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_respondsToSelector();
+      v6 = objc_opt_respondsToSelector();
 
-      if (v8)
+      if (v6)
       {
         return;
       }
@@ -5818,23 +5238,23 @@ void sub_100174A08(uint64_t a1)
 
   else
   {
-    v6 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
+    v5 = objc_opt_respondsToSelector();
+    if (v5)
     {
       return;
     }
   }
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = [*(a1 + 40) provider];
-    v12 = 138412546;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v12, 0x16u);
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) provider];
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
   }
 
   [*(a1 + 32) conversationManager:*(a1 + 48) conversationChanged:*(a1 + 40)];
@@ -5844,28 +5264,28 @@ void sub_100174C04(uint64_t a1)
 {
   if ([*(a1 + 32) _linksEnabled])
   {
-    v25 = 0u;
     v26 = 0u;
-    v23 = 0u;
+    v27 = 0u;
     v24 = 0u;
+    v25 = 0u;
     v2 = [*(a1 + 32) mutablePendingConversationsByPseudonym];
     v3 = [v2 allValues];
 
-    v4 = [v3 countByEnumeratingWithState:&v23 objects:v29 count:16];
+    v4 = [v3 countByEnumeratingWithState:&v24 objects:v30 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v24;
+      v6 = *v25;
 LABEL_4:
       v7 = 0;
       while (1)
       {
-        if (*v24 != v6)
+        if (*v25 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v23 + 1) + 8 * v7);
+        v8 = *(*(&v24 + 1) + 8 * v7);
         v9 = [v8 link];
         v10 = [v9 pseudonym];
         v11 = [v10 isEqualToString:*(a1 + 40)];
@@ -5877,7 +5297,7 @@ LABEL_4:
 
         if (v5 == ++v7)
         {
-          v5 = [v3 countByEnumeratingWithState:&v23 objects:v29 count:16];
+          v5 = [v3 countByEnumeratingWithState:&v24 objects:v30 count:16];
           if (v5)
           {
             goto LABEL_4;
@@ -5887,36 +5307,36 @@ LABEL_4:
         }
       }
 
-      v12 = v8;
+      v13 = v8;
 
-      if (!v12)
+      if (!v13)
       {
         goto LABEL_15;
       }
 
-      v13 = sub_100004778();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v14 = sub_100004778(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = [v12 link];
+        v15 = [v13 link];
         *buf = 138412290;
-        v28 = v14;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "LMI: Requesting membership in pending conversation for link %@", buf, 0xCu);
+        v29 = v15;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "LMI: Requesting membership in pending conversation for link %@", buf, 0xCu);
       }
 
-      v15 = [CSDMessagingConversationMessage alloc];
-      v16 = [v12 link];
-      v17 = [(CSDMessagingConversationMessage *)v15 initWithType:10 groupUUID:0 link:v16];
+      v16 = [CSDMessagingConversationMessage alloc];
+      v17 = [v13 link];
+      v18 = [(CSDMessagingConversationMessage *)v16 initWithType:10 groupUUID:0 link:v17];
 
-      v18 = [*(a1 + 32) linkManager];
-      v19 = [v12 link];
-      v21[0] = _NSConcreteStackBlock;
-      v21[1] = 3221225472;
-      v21[2] = sub_100174ED8;
-      v21[3] = &unk_10061CEF8;
-      v21[4] = *(a1 + 32);
-      v22 = v12;
-      v20 = v12;
-      [v18 encryptLetMeInRequest:v17 link:v19 completionHandler:v21];
+      v19 = [*(a1 + 32) linkManager];
+      v20 = [v13 link];
+      v22[0] = _NSConcreteStackBlock;
+      v22[1] = 3221225472;
+      v22[2] = sub_100174ED8;
+      v22[3] = &unk_10061CEF8;
+      v22[4] = *(a1 + 32);
+      v23 = v13;
+      v21 = v13;
+      [v19 encryptLetMeInRequest:v18 link:v20 completionHandler:v22];
     }
 
     else
@@ -5924,10 +5344,10 @@ LABEL_4:
 LABEL_10:
 
 LABEL_15:
-      v20 = sub_100004778();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = sub_100004778(v12);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        sub_1004777E0(a1);
+        sub_1004777E0();
       }
     }
   }
@@ -5958,42 +5378,41 @@ void sub_100174ED8(uint64_t a1, void *a2, void *a3, void *a4)
 
 void sub_100174FF0(uint64_t a1)
 {
-  v1 = (a1 + 32);
   if (!*(a1 + 32) && *(a1 + 40) && *(a1 + 48))
   {
     [*(a1 + 56) setLetMeInKeyAgreement:?];
-    v4 = [CSDMessagingConversationMessage alloc];
-    v5 = *(a1 + 40);
-    v6 = [*(a1 + 56) link];
-    v2 = [(CSDMessagingConversationMessage *)v4 initWithEncryptedMessage:v5 enclosedType:10 link:v6];
+    v3 = [CSDMessagingConversationMessage alloc];
+    v4 = *(a1 + 40);
+    v5 = [*(a1 + 56) link];
+    v1 = [(CSDMessagingConversationMessage *)v3 initWithEncryptedMessage:v4 enclosedType:10 link:v5];
 
-    v7 = [v2 data];
-    v8 = [*(a1 + 56) localMember];
-    v9 = [*(a1 + 64) service];
-    v10 = [v8 handle];
-    v11 = [v10 value];
-    v12 = [v9 accountWithCallerID:v11];
+    v6 = [v1 data];
+    v7 = [*(a1 + 56) localMember];
+    v8 = [*(a1 + 64) service];
+    v9 = [v7 handle];
+    v10 = [v9 value];
+    v11 = [v8 accountWithCallerID:v10];
 
-    v13 = [*(a1 + 56) link];
-    v14 = [v13 pseudonym];
-    v15 = v8;
-    v16 = [TUHandle normalizedGenericHandleForValue:v14];
+    v12 = [*(a1 + 56) link];
+    v13 = [v12 pseudonym];
+    v14 = v7;
+    v15 = [TUHandle normalizedGenericHandleForValue:v13];
 
-    v17 = v12;
-    v18 = [NSDictionary alloc];
-    v19 = [v18 initWithObjectsAndKeys:{&off_10063ECF0, IDSSendMessageOptionForceQuery, 0}];
-    v20 = [*(a1 + 64) sendDataBlock];
-    v45 = v16;
-    v21 = TUCopyIDSCanonicalAddressForHandle();
-    v22 = v19;
-    v23 = [NSSet setWithObject:v21];
+    v16 = v11;
+    v17 = [NSDictionary alloc];
+    v18 = [v17 initWithObjectsAndKeys:{&off_10063ECF0, IDSSendMessageOptionForceQuery, 0}];
+    v19 = [*(a1 + 64) sendDataBlock];
+    v45 = v15;
+    v20 = TUCopyIDSCanonicalAddressForHandle();
+    v21 = v18;
+    v22 = [NSSet setWithObject:v20];
     v54 = 0;
-    LOBYTE(v19) = (v20)[2](v20, v7, v17, v23, v15, v19, &v54, 0, 0);
+    LOBYTE(v18) = (v19)[2](v19, v6, v16, v22, v14, v18, &v54, 0, 0);
     v46 = v54;
 
-    v24 = sub_100004778();
+    v24 = sub_100004778(v23);
     v25 = v24;
-    if (v19)
+    if (v18)
     {
       if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
       {
@@ -6021,10 +5440,10 @@ void sub_100174FF0(uint64_t a1)
       if (v30)
       {
         v31 = v30;
-        v41 = v22;
-        v42 = v17;
-        v43 = v15;
-        v44 = v7;
+        v41 = v21;
+        v42 = v16;
+        v43 = v14;
+        v44 = v6;
         v32 = *v51;
         do
         {
@@ -6055,12 +5474,12 @@ void sub_100174FF0(uint64_t a1)
         }
 
         while (v31);
-        v7 = v44;
-        v17 = v42;
-        v15 = v43;
+        v6 = v44;
+        v16 = v42;
+        v14 = v43;
         v39 = v45;
         v40 = v46;
-        v22 = v41;
+        v21 = v41;
         goto LABEL_23;
       }
     }
@@ -6077,10 +5496,10 @@ LABEL_23:
     goto LABEL_4;
   }
 
-  v2 = sub_100004778();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v1 = sub_100004778(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    sub_100477890(v1);
+    sub_100477890();
   }
 
 LABEL_4:
@@ -6088,22 +5507,20 @@ LABEL_4:
 
 void sub_1001754C8(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_respondsToSelector();
-  v4 = *(a1 + 32);
-  if (v3)
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
   {
-    v5 = [*(a1 + 40) provider];
-    if ([v4 shouldHandleUpdateForProvider:v5])
+    v4 = [*(a1 + 40) provider];
+    if ([v3 shouldHandleUpdateForProvider:v4])
     {
     }
 
     else
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_respondsToSelector();
+      v6 = objc_opt_respondsToSelector();
 
-      if (v8)
+      if (v6)
       {
         return;
       }
@@ -6112,23 +5529,23 @@ void sub_1001754C8(uint64_t a1)
 
   else
   {
-    v6 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
+    v5 = objc_opt_respondsToSelector();
+    if (v5)
     {
       return;
     }
   }
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = [*(a1 + 40) provider];
-    v12 = 138412546;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v12, 0x16u);
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) provider];
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
   }
 
   [*(a1 + 32) conversationManager:*(a1 + 48) conversationChanged:*(a1 + 40)];
@@ -6136,12 +5553,12 @@ void sub_1001754C8(uint64_t a1)
 
 void sub_100175C28(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v29 = v3;
+    v30 = v3;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "UUID: %@", buf, 0xCu);
   }
 
@@ -6152,87 +5569,85 @@ void sub_100175C28(uint64_t a1)
   {
     [v5 setLetMeInRequestState:*(a1 + 56)];
     [v5 setLink:*(a1 + 48)];
-    v26 = 0u;
     v27 = 0u;
-    v24 = 0u;
+    v28 = 0u;
     v25 = 0u;
-    v6 = [*(a1 + 40) delegateToQueue];
-    v7 = [v6 countByEnumeratingWithState:&v24 objects:v32 count:16];
-    if (v7)
+    v26 = 0u;
+    v7 = [*(a1 + 40) delegateToQueue];
+    v8 = [v7 countByEnumeratingWithState:&v25 objects:v33 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = *v25;
-      obj = v6;
+      v9 = v8;
+      v10 = *v26;
+      obj = v7;
       do
       {
-        for (i = 0; i != v8; i = i + 1)
+        for (i = 0; i != v9; i = i + 1)
         {
-          if (*v25 != v9)
+          if (*v26 != v10)
           {
             objc_enumerationMutation(obj);
           }
 
-          v11 = *(*(&v24 + 1) + 8 * i);
-          v12 = [v5 tuConversation];
-          v13 = [*(a1 + 40) delegateToQueue];
-          v14 = [v13 objectForKey:v11];
+          v12 = *(*(&v25 + 1) + 8 * i);
+          v13 = [v5 tuConversation];
+          v14 = [*(a1 + 40) delegateToQueue];
+          v15 = [v14 objectForKey:v12];
 
           block[0] = _NSConcreteStackBlock;
           block[1] = 3221225472;
           block[2] = sub_100175F04;
           block[3] = &unk_100619E58;
-          block[4] = v11;
-          v22 = v12;
-          v23 = *(a1 + 40);
-          v15 = v12;
-          dispatch_async(v14, block);
+          block[4] = v12;
+          v23 = v13;
+          v24 = *(a1 + 40);
+          v16 = v13;
+          dispatch_async(v15, block);
         }
 
-        v6 = obj;
-        v8 = [obj countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v7 = obj;
+        v9 = [obj countByEnumeratingWithState:&v25 objects:v33 count:16];
       }
 
-      while (v8);
+      while (v9);
     }
   }
 
   else
   {
-    v6 = sub_100004778();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004778(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = v6;
-      v17 = *(a1 + 32);
-      v18 = [*(a1 + 40) mutableConversationsByUUID];
-      v19 = [v18 allKeys];
+      v17 = v7;
+      v18 = *(a1 + 32);
+      v19 = [*(a1 + 40) mutableConversationsByUUID];
+      v20 = [v19 allKeys];
       *buf = 138412546;
-      v29 = v17;
-      v6 = v16;
-      v30 = 2112;
-      v31 = v19;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with UUID %@. All conversation UUIDs: %@", buf, 0x16u);
+      v30 = v18;
+      v7 = v17;
+      v31 = 2112;
+      v32 = v20;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with UUID %@. All conversation UUIDs: %@", buf, 0x16u);
     }
   }
 }
 
 void sub_100175F04(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_respondsToSelector();
-  v4 = *(a1 + 32);
-  if (v3)
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
   {
-    v5 = [*(a1 + 40) provider];
-    if ([v4 shouldHandleUpdateForProvider:v5])
+    v4 = [*(a1 + 40) provider];
+    if ([v3 shouldHandleUpdateForProvider:v4])
     {
     }
 
     else
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_respondsToSelector();
+      v6 = objc_opt_respondsToSelector();
 
-      if (v8)
+      if (v6)
       {
         return;
       }
@@ -6241,23 +5656,23 @@ void sub_100175F04(uint64_t a1)
 
   else
   {
-    v6 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
+    v5 = objc_opt_respondsToSelector();
+    if (v5)
     {
       return;
     }
   }
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = [*(a1 + 40) provider];
-    v12 = 138412546;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v12, 0x16u);
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) provider];
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
   }
 
   [*(a1 + 32) conversationManager:*(a1 + 48) conversationChanged:*(a1 + 40)];
@@ -6265,13 +5680,13 @@ void sub_100175F04(uint64_t a1)
 
 void sub_1001766B8(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v10 = 138412290;
-    v11 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "UUID: %@", &v10, 0xCu);
+    v11 = 138412290;
+    v12 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "UUID: %@", &v11, 0xCu);
   }
 
   v4 = [*(a1 + 40) mutableConversationsByUUID];
@@ -6284,17 +5699,17 @@ void sub_1001766B8(uint64_t a1)
 
   else
   {
-    v6 = sub_100004778();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004778(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
-      v8 = [*(a1 + 40) mutableConversationsByUUID];
-      v9 = [v8 allKeys];
-      v10 = 138412546;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v9;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with UUID %@. All conversations UUIDs: %@", &v10, 0x16u);
+      v8 = *(a1 + 32);
+      v9 = [*(a1 + 40) mutableConversationsByUUID];
+      v10 = [v9 allKeys];
+      v11 = 138412546;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v10;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with UUID %@. All conversations UUIDs: %@", &v11, 0x16u);
     }
   }
 }
@@ -6391,27 +5806,27 @@ void sub_100177254(uint64_t a1)
 
   if (v5 == 1)
   {
-    v6 = [TUConversationMember alloc];
-    v7 = [v3 activeRemoteParticipants];
-    v8 = [v7 allObjects];
-    v9 = [v8 firstObject];
-    v10 = [v9 tuConversationParticipant];
-    v11 = [v10 handle];
-    v12 = [v6 initWithHandle:v11];
+    v7 = [TUConversationMember alloc];
+    v8 = [v3 activeRemoteParticipants];
+    v9 = [v8 allObjects];
+    v10 = [v9 firstObject];
+    v11 = [v10 tuConversationParticipant];
+    v12 = [v11 handle];
+    v13 = [v7 initWithHandle:v12];
 
-    v13 = [CSDMessagingConversationMessage alloc];
-    v14 = [v3 groupUUID];
-    v15 = [(CSDMessagingConversationMessage *)v13 initWithType:22 groupUUID:v14 link:0];
+    v14 = [CSDMessagingConversationMessage alloc];
+    v15 = [v3 groupUUID];
+    v16 = [(CSDMessagingConversationMessage *)v14 initWithType:22 groupUUID:v15 link:0];
 
-    v16 = *(a1 + 32);
-    v17 = [(CSDMessagingConversationMessage *)v15 data];
-    [v16 sendData:v17 onConversation:v3 toMember:v12];
+    v17 = *(a1 + 32);
+    v18 = [(CSDMessagingConversationMessage *)v16 data];
+    [v17 sendData:v18 onConversation:v3 toMember:v13];
   }
 
   else
   {
-    v18 = sub_100004778();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = sub_100004778(v6);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       sub_10047793C();
     }
@@ -6428,29 +5843,29 @@ void sub_1001774A4(uint64_t a1)
 
 void sub_1001775CC(uint64_t a1)
 {
-  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
   v2 = [*(a1 + 32) mutablePendingConversationsByPseudonym];
   v3 = [v2 allValues];
 
-  v4 = [v3 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v23;
+    v7 = *v24;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v23 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * i);
+        v9 = *(*(&v23 + 1) + 8 * i);
         v10 = [v9 temporaryGroupUUID];
         v11 = [v10 isEqual:*(a1 + 40)];
 
@@ -6463,7 +5878,7 @@ void sub_1001775CC(uint64_t a1)
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v5);
@@ -6479,51 +5894,51 @@ void sub_1001775CC(uint64_t a1)
 
   if (v14)
   {
-    v15 = sub_100004778();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100004778(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = [v6 link];
-      v17 = [v16 pseudonym];
-      v18 = [v6 conversationGroupUUID];
+      v17 = [v6 link];
+      v18 = [v17 pseudonym];
+      v19 = [v6 conversationGroupUUID];
       *buf = 138412546;
-      v27 = v17;
-      v28 = 2112;
-      v29 = v18;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Updating pending conversation with pseudonym: %@, conversation group UUID: %@", buf, 0x16u);
+      v28 = v18;
+      v29 = 2112;
+      v30 = v19;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Updating pending conversation with pseudonym: %@, conversation group UUID: %@", buf, 0x16u);
     }
 
-    v19 = [*(a1 + 32) mutablePendingConversationsByPseudonym];
-    v20 = [v6 link];
-    v21 = [v20 pseudonym];
-    [v19 setObject:v6 forKeyedSubscript:v21];
+    v20 = [*(a1 + 32) mutablePendingConversationsByPseudonym];
+    v21 = [v6 link];
+    v22 = [v21 pseudonym];
+    [v20 setObject:v6 forKeyedSubscript:v22];
   }
 }
 
 void sub_1001778F0(uint64_t a1)
 {
-  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
   v2 = [*(a1 + 32) mutablePendingConversationsByPseudonym];
   v3 = [v2 allValues];
 
-  v4 = [v3 countByEnumeratingWithState:&v22 objects:v30 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v23;
+    v7 = *v24;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v23 != v7)
+        if (*v24 != v7)
         {
           objc_enumerationMutation(v3);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * i);
+        v9 = *(*(&v23 + 1) + 8 * i);
         v10 = [v9 temporaryGroupUUID];
         v11 = [v10 isEqual:*(a1 + 40)];
 
@@ -6536,7 +5951,7 @@ void sub_1001778F0(uint64_t a1)
         }
       }
 
-      v5 = [v3 countByEnumeratingWithState:&v22 objects:v30 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v5);
@@ -6552,35 +5967,35 @@ void sub_1001778F0(uint64_t a1)
 
   if (v14)
   {
-    v15 = sub_100004778();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = sub_100004778(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = [v6 link];
-      v17 = [v16 pseudonym];
-      v18 = [v6 conversationGroupUUID];
+      v17 = [v6 link];
+      v18 = [v17 pseudonym];
+      v19 = [v6 conversationGroupUUID];
       *buf = 138412546;
-      v27 = v17;
-      v28 = 2112;
-      v29 = v18;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Updating pending conversation with pseudonym: %@, conversation group UUID: %@", buf, 0x16u);
+      v28 = v18;
+      v29 = 2112;
+      v30 = v19;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Updating pending conversation with pseudonym: %@, conversation group UUID: %@", buf, 0x16u);
     }
 
-    v19 = [*(a1 + 32) mutablePendingConversationsByPseudonym];
-    v20 = [v6 link];
-    v21 = [v20 pseudonym];
-    [v19 setObject:v6 forKeyedSubscript:v21];
+    v20 = [*(a1 + 32) mutablePendingConversationsByPseudonym];
+    v21 = [v6 link];
+    v22 = [v21 pseudonym];
+    [v20 setObject:v6 forKeyedSubscript:v22];
   }
 }
 
 void sub_100177C78(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v15 = 138412290;
-    v16 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Asked for participant to share their screen: %@", &v15, 0xCu);
+    v17 = 138412290;
+    v18 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Asked for participant to share their screen: %@", &v17, 0xCu);
   }
 
   v4 = [*(a1 + 40) mutableConversationsByUUID];
@@ -6588,16 +6003,17 @@ void sub_100177C78(uint64_t a1)
 
   if (v5)
   {
-    v6 = [*(a1 + 32) handle];
-    v7 = TUNormalizedHandleForTUHandle();
+    v7 = [*(a1 + 32) handle];
+    v8 = TUNormalizedHandleForTUHandle();
 
-    v8 = [v5 remoteParticipantForHandle:v7];
-    if (v8)
+    v9 = [v5 remoteParticipantForHandle:v8];
+    if (v9)
     {
-      if ([*(a1 + 40) conversationContainsScreenShareRequest:v5 localRequest:1 requestHandle:v7])
+      v10 = [*(a1 + 40) conversationContainsScreenShareRequest:v5 localRequest:1 requestHandle:v8];
+      if (v10)
       {
-        v9 = sub_100004778();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v11 = sub_100004778(v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           sub_1004779B4();
         }
@@ -6606,19 +6022,19 @@ void sub_100177C78(uint64_t a1)
       else
       {
         [*(a1 + 40) cancelPreviouslySentScreenShareRequests:v5];
-        v13 = [TUScreenSharingRequest alloc];
-        v14 = +[NSUUID UUID];
-        v9 = [v13 initWithHandle:v7 type:1 originType:2 UUID:v14 participantIdentifier:objc_msgSend(*(a1 + 32) metadata:{"identifier"), 0}];
+        v15 = [TUScreenSharingRequest alloc];
+        v16 = +[NSUUID UUID];
+        v11 = [v15 initWithHandle:v8 type:1 originType:2 UUID:v16 participantIdentifier:objc_msgSend(*(a1 + 32) metadata:{"identifier"), 0}];
 
-        [v5 addScreenSharingRequest:v9];
-        [*(a1 + 40) requestParticipant:*(a1 + 32) toScreenShareWithRequest:v9 conversation:v5];
+        [v5 addScreenSharingRequest:v11];
+        [*(a1 + 40) requestParticipant:*(a1 + 32) toScreenShareWithRequest:v11 conversation:v5];
       }
     }
 
     else
     {
-      v9 = sub_100004778();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = sub_100004778(0);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_100477A24();
       }
@@ -6627,17 +6043,17 @@ void sub_100177C78(uint64_t a1)
 
   else
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 48);
-      v11 = [*(a1 + 40) mutableConversationsByUUID];
-      v12 = [v11 allKeys];
-      v15 = 138412546;
-      v16 = v10;
-      v17 = 2112;
+      v12 = *(a1 + 48);
+      v13 = [*(a1 + 40) mutableConversationsByUUID];
+      v14 = [v13 allKeys];
+      v17 = 138412546;
       v18 = v12;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", &v15, 0x16u);
+      v19 = 2112;
+      v20 = v14;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", &v17, 0x16u);
     }
   }
 }
@@ -6649,36 +6065,36 @@ void sub_100177FDC(uint64_t a1)
 
   if (!v3)
   {
-    v5 = sub_100004778();
-    if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100004778(v4);
+    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_18;
     }
 
-    v10 = *(a1 + 40);
-    v11 = [*(a1 + 32) mutableConversationsByUUID];
-    v12 = [v11 allKeys];
-    v18 = 138412546;
-    v19 = v10;
-    v20 = 2112;
-    v21 = v12;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", &v18, 0x16u);
+    v12 = *(a1 + 40);
+    v13 = [*(a1 + 32) mutableConversationsByUUID];
+    v14 = [v13 allKeys];
+    v21 = 138412546;
+    v22 = v12;
+    v23 = 2112;
+    v24 = v14;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", &v21, 0x16u);
 
     goto LABEL_17;
   }
 
-  v4 = [*(a1 + 48) handle];
-  v5 = [v3 remoteParticipantForHandle:v4];
+  v5 = [*(a1 + 48) handle];
+  v6 = [v3 remoteParticipantForHandle:v5];
 
-  if (!v5)
+  if (!v6)
   {
-    v13 = [*(a1 + 32) featureFlags];
-    if ([v13 sharePlayInCallsEnabled])
+    v15 = [*(a1 + 32) featureFlags];
+    if ([v15 sharePlayInCallsEnabled])
     {
-      v14 = [v3 provider];
-      v15 = [v14 isTelephonyWithSharePlayProvider];
+      v16 = [v3 provider];
+      v17 = [v16 isTelephonyWithSharePlayProvider];
 
-      if (v15)
+      if (v17)
       {
         goto LABEL_3;
       }
@@ -6688,8 +6104,8 @@ void sub_100177FDC(uint64_t a1)
     {
     }
 
-    v11 = sub_100004778();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v13 = sub_100004778(v18);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       sub_100477A94();
     }
@@ -6700,29 +6116,29 @@ LABEL_17:
   }
 
 LABEL_3:
-  v6 = [*(a1 + 48) isLocallyOriginated];
-  v7 = *(a1 + 32);
-  v8 = *(a1 + 48);
-  v9 = v5 == 0;
-  if (v6)
+  v7 = [*(a1 + 48) isLocallyOriginated];
+  v8 = *(a1 + 32);
+  v9 = *(a1 + 48);
+  v10 = v6 == 0;
+  if (v7)
   {
-    [v7 requestParticipant:v5 toCancelScreenShareRequest:v8 conversation:v3 allowMemberFallbackForMessage:v9];
+    v11 = [v8 requestParticipant:v6 toCancelScreenShareRequest:v9 conversation:v3 allowMemberFallbackForMessage:v10];
   }
 
   else
   {
-    [v7 denyScreenShareRequestFrom:v5 screenShareRequest:v8 conversation:v3 allowMemberFallbackForMessage:v9];
+    v11 = [v8 denyScreenShareRequestFrom:v6 screenShareRequest:v9 conversation:v3 allowMemberFallbackForMessage:v10];
   }
 
-  v16 = sub_100004778();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v19 = sub_100004778(v11);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = *(a1 + 48);
-    v18 = 138412546;
-    v19 = v17;
-    v20 = 2112;
-    v21 = v3;
-    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Cancel screen share request: %@ from conversation: %@", &v18, 0x16u);
+    v20 = *(a1 + 48);
+    v21 = 138412546;
+    v22 = v20;
+    v23 = 2112;
+    v24 = v3;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Cancel screen share request: %@ from conversation: %@", &v21, 0x16u);
   }
 
   [v3 removeScreenSharingRequest:*(a1 + 48)];
@@ -6736,40 +6152,41 @@ void sub_100178394(uint64_t a1)
 
   if (!v3)
   {
-    v5 = sub_100004778();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004778(v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 40);
+      v10 = *(a1 + 40);
       *buf = 138412290;
-      v42 = v8;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Unable to find conversation with UUID: %@", buf, 0xCu);
+      v48 = v10;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Unable to find conversation with UUID: %@", buf, 0xCu);
     }
 
     goto LABEL_8;
   }
 
-  v4 = *(a1 + 56);
-  if (v4 == [v3 isScreenEnabled])
+  v5 = *(a1 + 56);
+  v6 = [v3 isScreenEnabled];
+  if (v5 == v6)
   {
-    v5 = sub_100004778();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004778(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       if (*(a1 + 56))
       {
-        v6 = @"YES";
+        v8 = @"YES";
       }
 
       else
       {
-        v6 = @"NO";
+        v8 = @"NO";
       }
 
-      v7 = [v3 UUID];
+      v9 = [v3 UUID];
       *buf = 138412546;
-      v42 = v6;
-      v43 = 2112;
-      v44 = v7;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Not setting screenEnabled to %@ because conversation %@ is already in that state", buf, 0x16u);
+      v48 = v8;
+      v49 = 2112;
+      v50 = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Not setting screenEnabled to %@ because conversation %@ is already in that state", buf, 0x16u);
     }
 
 LABEL_8:
@@ -6778,93 +6195,94 @@ LABEL_8:
   }
 
   objc_initWeak(&location, *(a1 + 32));
-  v31 = _NSConcreteStackBlock;
-  v32 = 3221225472;
-  v33 = sub_1001788D4;
-  v34 = &unk_10061CF20;
-  objc_copyWeak(&v38, &location);
-  v9 = v3;
-  v35 = v9;
-  v39 = *(a1 + 56);
-  v36 = *(a1 + 48);
-  v37 = *(a1 + 40);
-  v10 = objc_retainBlock(&v31);
+  v37 = _NSConcreteStackBlock;
+  v38 = 3221225472;
+  v39 = sub_1001788D4;
+  v40 = &unk_10061CF20;
+  objc_copyWeak(&v44, &location);
+  v11 = v3;
+  v41 = v11;
+  v45 = *(a1 + 56);
+  v42 = *(a1 + 48);
+  v43 = *(a1 + 40);
+  v12 = objc_retainBlock(&v37);
+  v13 = v12;
   if (*(a1 + 56) != 1)
   {
-    v18 = sub_100004778();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    v22 = sub_100004778(v12);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Removing all pending screenEnabled blocks since screenEnabled=NO", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Removing all pending screenEnabled blocks since screenEnabled=NO", buf, 2u);
     }
 
-    v19 = [*(a1 + 32) screenCaptureQueue];
-    [v19 setObject:0 forKeyedSubscript:*(a1 + 40)];
+    v23 = [*(a1 + 32) screenCaptureQueue];
+    [v23 setObject:0 forKeyedSubscript:*(a1 + 40)];
 
     goto LABEL_20;
   }
 
-  v11 = [*(a1 + 32) screenCaptureQueue];
-  v12 = [v11 objectForKeyedSubscript:*(a1 + 40)];
-  v13 = v12 == 0;
+  v14 = [*(a1 + 32) screenCaptureQueue];
+  v15 = [v14 objectForKeyedSubscript:*(a1 + 40)];
+  v16 = v15 == 0;
 
-  if (v13)
+  if (v16)
   {
-    v20 = [v9 localParticipant];
-    v21 = [v20 audioVideoMode] == 0;
+    v24 = [v11 localParticipant];
+    v25 = [v24 audioVideoMode] == 0;
 
-    if (v21)
+    if (v25)
     {
-      v22 = sub_100004778();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Upgrading to Audio mode since screenEnabled is YES", buf, 2u);
-      }
-
-      v23 = *(a1 + 32);
-      v24 = [v9 UUID];
-      [v23 setLocalParticipantAudioVideoMode:1 forConversationUUID:v24];
-
-      v25 = objc_retainBlock(v10);
-      v26 = [*(a1 + 32) screenCaptureQueue];
-      [v26 setObject:v25 forKeyedSubscript:*(a1 + 40)];
-
-      v27 = sub_100004778();
+      v27 = sub_100004778(v26);
       if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = [*(a1 + 32) screenCaptureQueue];
-        v29 = [v28 objectForKeyedSubscript:*(a1 + 40)];
-        v30 = objc_retainBlock(v29);
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Upgrading to Audio mode since screenEnabled is YES", buf, 2u);
+      }
+
+      v28 = *(a1 + 32);
+      v29 = [v11 UUID];
+      [v28 setLocalParticipantAudioVideoMode:1 forConversationUUID:v29];
+
+      v30 = objc_retainBlock(v13);
+      v31 = [*(a1 + 32) screenCaptureQueue];
+      [v31 setObject:v30 forKeyedSubscript:*(a1 + 40)];
+
+      v33 = sub_100004778(v32);
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+      {
+        v34 = [*(a1 + 32) screenCaptureQueue];
+        v35 = [v34 objectForKeyedSubscript:*(a1 + 40)];
+        v36 = objc_retainBlock(v35);
         *buf = 138412290;
-        v42 = v30;
-        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Queued up screenEnable request: %@", buf, 0xCu);
+        v48 = v36;
+        _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Queued up screenEnable request: %@", buf, 0xCu);
       }
 
       goto LABEL_21;
     }
 
 LABEL_20:
-    (v10[2])(v10);
+    (v13[2])(v13);
 LABEL_21:
 
-    objc_destroyWeak(&v38);
+    objc_destroyWeak(&v44);
     objc_destroyWeak(&location);
     goto LABEL_22;
   }
 
-  v14 = sub_100004778();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+  v18 = sub_100004778(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
-    v15 = [*(a1 + 32) screenCaptureQueue];
-    v16 = [v15 objectForKeyedSubscript:*(a1 + 40)];
-    v17 = objc_retainBlock(v16);
+    v19 = [*(a1 + 32) screenCaptureQueue];
+    v20 = [v19 objectForKeyedSubscript:*(a1 + 40)];
+    v21 = objc_retainBlock(v20);
     *buf = 138412290;
-    v42 = v17;
-    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Not enabling ScreenSharing because we already have a queued up request %@", buf, 0xCu);
+    v48 = v21;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "Not enabling ScreenSharing because we already have a queued up request %@", buf, 0xCu);
   }
 
-  objc_destroyWeak(&v38);
+  objc_destroyWeak(&v44);
   objc_destroyWeak(&location);
 LABEL_22:
 }
@@ -6881,8 +6299,7 @@ void sub_1001788D4(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   if (WeakRetained)
   {
-    [*(a1 + 32) setScreenEnabled:*(a1 + 64) attributes:*(a1 + 40)];
-    v3 = sub_100004778();
+    v3 = sub_100004778([*(a1 + 32) setScreenEnabled:*(a1 + 64) attributes:*(a1 + 40)]);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       if (*(a1 + 64))
@@ -6966,9 +6383,9 @@ void sub_100178FBC(uint64_t a1)
   [v3 setAudioInjectionAllowed:*(a1 + 48)];
 }
 
-void sub_100179168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100179168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6981,9 +6398,9 @@ void sub_100179180(uint64_t a1)
   *(*(*(a1 + 48) + 8) + 24) = [v3 isRelaying];
 }
 
-void sub_1001792DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1001792DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6996,9 +6413,9 @@ void sub_1001792F4(uint64_t a1)
   *(*(*(a1 + 48) + 8) + 24) = [v3 isScreening];
 }
 
-void sub_100179454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100179454(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7053,67 +6470,67 @@ void sub_100179B20(uint64_t a1)
   if (v3)
   {
     [v3 setIsNearbySharePlay:*(a1 + 48)];
-    v15 = v3;
-    v4 = [v3 tuConversation];
-    v21 = 0u;
+    v16 = v3;
+    v5 = [v3 tuConversation];
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
     obj = [*(a1 + 32) delegateToQueue];
-    v5 = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
-    if (v5)
+    v6 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
+    if (v6)
     {
-      v6 = v5;
-      v7 = *v22;
+      v7 = v6;
+      v8 = *v23;
       do
       {
-        v8 = 0;
+        v9 = 0;
         do
         {
-          if (*v22 != v7)
+          if (*v23 != v8)
           {
             objc_enumerationMutation(obj);
           }
 
-          v9 = *(*(&v21 + 1) + 8 * v8);
-          v10 = [*(a1 + 32) delegateToQueue];
-          v11 = [v10 objectForKey:v9];
+          v10 = *(*(&v22 + 1) + 8 * v9);
+          v11 = [*(a1 + 32) delegateToQueue];
+          v12 = [v11 objectForKey:v10];
 
           block[0] = _NSConcreteStackBlock;
           block[1] = 3221225472;
           block[2] = sub_100179D94;
           block[3] = &unk_100619E58;
-          v18 = v4;
-          v19 = v9;
-          v20 = *(a1 + 32);
-          dispatch_async(v11, block);
+          v19 = v5;
+          v20 = v10;
+          v21 = *(a1 + 32);
+          dispatch_async(v12, block);
 
-          v8 = v8 + 1;
+          v9 = v9 + 1;
         }
 
-        while (v6 != v8);
-        v6 = [obj countByEnumeratingWithState:&v21 objects:v29 count:16];
+        while (v7 != v9);
+        v7 = [obj countByEnumeratingWithState:&v22 objects:v30 count:16];
       }
 
-      while (v6);
+      while (v7);
     }
 
-    v3 = v15;
+    v3 = v16;
   }
 
   else
   {
-    v4 = sub_100004778();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = sub_100004778(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(a1 + 40);
-      v13 = [*(a1 + 32) mutableConversationsByUUID];
-      v14 = [v13 allKeys];
+      v13 = *(a1 + 40);
+      v14 = [*(a1 + 32) mutableConversationsByUUID];
+      v15 = [v14 allKeys];
       *buf = 138412546;
-      v26 = v12;
-      v27 = 2112;
-      v28 = v14;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "[WARN] Cannot set isNearbySharePlay. Could not find conversation with conversationUUID %@. All conversation UUIDs: %@", buf, 0x16u);
+      v27 = v13;
+      v28 = 2112;
+      v29 = v15;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "[WARN] Cannot set isNearbySharePlay. Could not find conversation with conversationUUID %@. All conversation UUIDs: %@", buf, 0x16u);
     }
   }
 }
@@ -7122,22 +6539,20 @@ void sub_100179D94(uint64_t a1)
 {
   if (*(a1 + 32))
   {
-    v2 = *(a1 + 40);
-    v3 = objc_opt_respondsToSelector();
-    v4 = *(a1 + 40);
-    if (v3)
+    v2 = objc_opt_respondsToSelector();
+    v3 = *(a1 + 40);
+    if (v2)
     {
-      v5 = [*(a1 + 32) provider];
-      if ([v4 shouldHandleUpdateForProvider:v5])
+      v4 = [*(a1 + 32) provider];
+      if ([v3 shouldHandleUpdateForProvider:v4])
       {
       }
 
       else
       {
-        v7 = *(a1 + 40);
-        v8 = objc_opt_respondsToSelector();
+        v6 = objc_opt_respondsToSelector();
 
-        if (v8)
+        if (v6)
         {
           return;
         }
@@ -7146,23 +6561,23 @@ void sub_100179D94(uint64_t a1)
 
     else
     {
-      v6 = *(a1 + 40);
-      if (objc_opt_respondsToSelector())
+      v5 = objc_opt_respondsToSelector();
+      if (v5)
       {
         return;
       }
     }
 
-    v9 = sub_100004778();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100004778(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = *(a1 + 40);
-      v11 = [*(a1 + 32) provider];
-      v12 = 138412546;
-      v13 = v10;
-      v14 = 2112;
-      v15 = v11;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v12, 0x16u);
+      v8 = *(a1 + 40);
+      v9 = [*(a1 + 32) provider];
+      v10 = 138412546;
+      v11 = v8;
+      v12 = 2112;
+      v13 = v9;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
     }
 
     [*(a1 + 40) conversationManager:*(a1 + 48) conversationChanged:*(a1 + 32)];
@@ -7171,16 +6586,16 @@ void sub_100179D94(uint64_t a1)
 
 void sub_100179FBC(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v11 = 138412546;
-    v12 = v3;
-    v13 = 2112;
-    v14 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "conversationUUID: %@ remoteMembers: %@", &v11, 0x16u);
+    v12 = 138412546;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "conversationUUID: %@ remoteMembers: %@", &v12, 0x16u);
   }
 
   v5 = [*(a1 + 48) mutableConversationsByUUID];
@@ -7193,67 +6608,67 @@ void sub_100179FBC(uint64_t a1)
 
   else
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = [*(a1 + 48) mutableConversationsByUUID];
-      v10 = [v9 allKeys];
-      v11 = 138412546;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v10;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", &v11, 0x16u);
+      v9 = *(a1 + 32);
+      v10 = [*(a1 + 48) mutableConversationsByUUID];
+      v11 = [v10 allKeys];
+      v12 = 138412546;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v11;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", &v12, 0x16u);
     }
   }
 }
 
 void sub_10017A4B8(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     *buf = 138412546;
-    v28 = v3;
-    v29 = 2112;
-    v30 = v4;
+    v31 = v3;
+    v32 = 2112;
+    v33 = v4;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "conversationUUID: %@ remoteMembers: %@", buf, 0x16u);
   }
 
-  v5 = sub_100004778();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_100004778(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = *(a1 + 32);
-    v7 = *(a1 + 48);
+    v7 = *(a1 + 32);
+    v8 = *(a1 + 48);
     *buf = 138412546;
-    v28 = v6;
-    v29 = 2112;
-    v30 = v7;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "conversationUUID: %@ otherInvitedHandles: %@", buf, 0x16u);
+    v31 = v7;
+    v32 = 2112;
+    v33 = v8;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "conversationUUID: %@ otherInvitedHandles: %@", buf, 0x16u);
   }
 
-  v8 = [*(a1 + 56) mutableConversationsByUUID];
-  v9 = [v8 objectForKeyedSubscript:*(a1 + 32)];
+  v9 = [*(a1 + 56) mutableConversationsByUUID];
+  v10 = [v9 objectForKeyedSubscript:*(a1 + 32)];
 
-  if (v9)
+  if (v10)
   {
-    v10 = [*(a1 + 56) deviceSupport];
-    if ([v10 isGreenTea])
+    v12 = [*(a1 + 56) deviceSupport];
+    if ([v12 isGreenTea])
     {
-      v11 = [*(a1 + 56) _conversationIsOverGreenTeaCapacity:v9 addingMembers:*(a1 + 40)];
+      v13 = [*(a1 + 56) _conversationIsOverGreenTeaCapacity:v10 addingMembers:*(a1 + 40)];
 
-      if (v11)
+      if (v13)
       {
-        v12 = sub_100004778();
-        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+        v15 = sub_100004778(v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          sub_100477B04(v9);
+          sub_100477B04(v10);
         }
 
-        v13 = +[CSDConversationLeaveContext greenTeaLeaveContext];
-        [v9 leaveUsingContext:v13];
+        v16 = +[CSDConversationLeaveContext greenTeaLeaveContext];
+        [v10 leaveUsingContext:v16];
         goto LABEL_15;
       }
     }
@@ -7262,38 +6677,38 @@ void sub_10017A4B8(uint64_t a1)
     {
     }
 
-    v17 = *(a1 + 56);
-    v18 = *(a1 + 40);
-    v23[0] = _NSConcreteStackBlock;
-    v23[1] = 3221225472;
-    v23[2] = sub_10017A7E4;
-    v23[3] = &unk_10061A428;
-    v24 = v9;
-    v19 = *(a1 + 40);
-    v20 = *(a1 + 48);
-    *&v21 = *(a1 + 64);
-    *(&v21 + 1) = *(a1 + 56);
-    *&v22 = v19;
-    *(&v22 + 1) = v20;
-    v25 = v22;
-    v26 = v21;
-    [v17 maybeAddComplementaryAssociationVoucherFor:v18 toLocalMemberOf:v24 completion:v23];
+    v20 = *(a1 + 56);
+    v21 = *(a1 + 40);
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_10017A7E4;
+    v26[3] = &unk_10061A428;
+    v27 = v10;
+    v22 = *(a1 + 40);
+    v23 = *(a1 + 48);
+    *&v24 = *(a1 + 64);
+    *(&v24 + 1) = *(a1 + 56);
+    *&v25 = v22;
+    *(&v25 + 1) = v23;
+    v28 = v25;
+    v29 = v24;
+    [v20 maybeAddComplementaryAssociationVoucherFor:v21 toLocalMemberOf:v27 completion:v26];
 
-    v13 = v24;
+    v16 = v27;
     goto LABEL_15;
   }
 
-  v13 = sub_100004778();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+  v16 = sub_100004778(v11);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
-    v14 = *(a1 + 32);
-    v15 = [*(a1 + 56) mutableConversationsByUUID];
-    v16 = [v15 allKeys];
+    v17 = *(a1 + 32);
+    v18 = [*(a1 + 56) mutableConversationsByUUID];
+    v19 = [v18 allKeys];
     *buf = 138412546;
-    v28 = v14;
-    v29 = 2112;
-    v30 = v16;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", buf, 0x16u);
+    v31 = v17;
+    v32 = 2112;
+    v33 = v19;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", buf, 0x16u);
   }
 
 LABEL_15:
@@ -7359,22 +6774,20 @@ void sub_10017A7E4(uint64_t a1)
 
 void sub_10017AA04(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_respondsToSelector();
-  v4 = *(a1 + 32);
-  if (v3)
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
   {
-    v5 = [*(a1 + 40) provider];
-    if ([v4 shouldHandleUpdateForProvider:v5])
+    v4 = [*(a1 + 40) provider];
+    if ([v3 shouldHandleUpdateForProvider:v4])
     {
     }
 
     else
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_respondsToSelector();
+      v6 = objc_opt_respondsToSelector();
 
-      if (v8)
+      if (v6)
       {
         return;
       }
@@ -7383,23 +6796,23 @@ void sub_10017AA04(uint64_t a1)
 
   else
   {
-    v6 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
+    v5 = objc_opt_respondsToSelector();
+    if (v5)
     {
       return;
     }
   }
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = [*(a1 + 40) provider];
-    v12 = 138412546;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v12, 0x16u);
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) provider];
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
   }
 
   [*(a1 + 32) conversationManager:*(a1 + 48) conversation:*(a1 + 40) addedMembersLocally:*(a1 + 56)];
@@ -7407,15 +6820,15 @@ void sub_10017AA04(uint64_t a1)
 
 void sub_10017AC24(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     *buf = 138412546;
-    v37 = v3;
-    v38 = 2112;
-    v39 = v4;
+    v38 = v3;
+    v39 = 2112;
+    v40 = v4;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "conversationUUID: %@ context: %@", buf, 0x16u);
   }
 
@@ -7424,103 +6837,101 @@ void sub_10017AC24(uint64_t a1)
 
   if (v6)
   {
-    v7 = [*(a1 + 40) presentationContext];
-    v8 = v7;
-    if (v7)
+    v8 = [*(a1 + 40) presentationContext];
+    v9 = v8;
+    if (v8)
     {
-      [v6 setPresentationMode:{-[NSObject mode](v7, "mode")}];
+      [v6 setPresentationMode:{-[NSObject mode](v8, "mode")}];
     }
 
     [v6 setHandoffContext:*(a1 + 40)];
-    v9 = [*(a1 + 48) mutableConversationsRequestingUpgradeWithPreferences];
-    v10 = [*(a1 + 40) invitationPreferences];
-    [v9 setObject:v10 forKey:*(a1 + 32)];
-
+    v10 = [*(a1 + 48) mutableConversationsRequestingUpgradeWithPreferences];
     v11 = [*(a1 + 40) invitationPreferences];
-    [v6 setInvitationPreferences:v11];
+    [v10 setObject:v11 forKey:*(a1 + 32)];
 
-    v33 = 0u;
+    v12 = [*(a1 + 40) invitationPreferences];
+    [v6 setInvitationPreferences:v12];
+
     v34 = 0u;
-    v31 = 0u;
+    v35 = 0u;
     v32 = 0u;
+    v33 = 0u;
     obj = [*(a1 + 48) delegateToQueue];
-    v12 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
-    if (v12)
+    v13 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = *v32;
+      v14 = v13;
+      v15 = *v33;
       do
       {
-        for (i = 0; i != v13; i = i + 1)
+        for (i = 0; i != v14; i = i + 1)
         {
-          if (*v32 != v14)
+          if (*v33 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v31 + 1) + 8 * i);
+          v17 = *(*(&v32 + 1) + 8 * i);
           [v6 tuConversation];
-          v18 = v17 = v6;
-          v19 = [*(a1 + 48) delegateToQueue];
-          v20 = [v19 objectForKey:v16];
+          v19 = v18 = v6;
+          v20 = [*(a1 + 48) delegateToQueue];
+          v21 = [v20 objectForKey:v17];
 
           block[0] = _NSConcreteStackBlock;
           block[1] = 3221225472;
           block[2] = sub_10017AF90;
           block[3] = &unk_100619E58;
-          block[4] = v16;
-          v29 = v18;
-          v30 = *(a1 + 48);
-          v21 = v18;
-          v6 = v17;
-          v22 = v21;
-          dispatch_async(v20, block);
+          block[4] = v17;
+          v30 = v19;
+          v31 = *(a1 + 48);
+          v22 = v19;
+          v6 = v18;
+          v23 = v22;
+          dispatch_async(v21, block);
         }
 
-        v13 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v14 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
-    v23 = v8;
+    v24 = v9;
   }
 
   else
   {
-    v23 = sub_100004778();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = sub_100004778(v7);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      v24 = *(a1 + 32);
-      v25 = [*(a1 + 48) mutableConversationsByUUID];
-      v26 = [v25 allKeys];
+      v25 = *(a1 + 32);
+      v26 = [*(a1 + 48) mutableConversationsByUUID];
+      v27 = [v26 allKeys];
       *buf = 138412546;
-      v37 = v24;
-      v38 = 2112;
-      v39 = v26;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", buf, 0x16u);
+      v38 = v25;
+      v39 = 2112;
+      v40 = v27;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", buf, 0x16u);
     }
   }
 }
 
 void sub_10017AF90(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_respondsToSelector();
-  v4 = *(a1 + 32);
-  if (v3)
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
   {
-    v5 = [*(a1 + 40) provider];
-    if ([v4 shouldHandleUpdateForProvider:v5])
+    v4 = [*(a1 + 40) provider];
+    if ([v3 shouldHandleUpdateForProvider:v4])
     {
     }
 
     else
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_respondsToSelector();
+      v6 = objc_opt_respondsToSelector();
 
-      if (v8)
+      if (v6)
       {
         return;
       }
@@ -7529,23 +6940,23 @@ void sub_10017AF90(uint64_t a1)
 
   else
   {
-    v6 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
+    v5 = objc_opt_respondsToSelector();
+    if (v5)
     {
       return;
     }
   }
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = [*(a1 + 40) provider];
-    v12 = 138412546;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v12, 0x16u);
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) provider];
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
   }
 
   [*(a1 + 32) conversationManager:*(a1 + 48) conversationChanged:*(a1 + 40)];
@@ -7553,16 +6964,16 @@ void sub_10017AF90(uint64_t a1)
 
 void sub_10017B194(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 48);
     v4 = *(a1 + 32);
-    v11 = 67109378;
-    *v12 = v3;
-    *&v12[4] = 2112;
-    *&v12[6] = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "setSharePlayHandedOff: %d onConversationWithUUID: %@", &v11, 0x12u);
+    v12 = 67109378;
+    *v13 = v3;
+    *&v13[4] = 2112;
+    *&v13[6] = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "setSharePlayHandedOff: %d onConversationWithUUID: %@", &v12, 0x12u);
   }
 
   v5 = [*(a1 + 40) mutableConversationsByUUID];
@@ -7575,17 +6986,17 @@ void sub_10017B194(uint64_t a1)
 
   else
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = [*(a1 + 40) mutableConversationsByUUID];
-      v10 = [v9 allKeys];
-      v11 = 138412546;
-      *v12 = v8;
-      *&v12[8] = 2112;
-      *&v12[10] = v10;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", &v11, 0x16u);
+      v9 = *(a1 + 32);
+      v10 = [*(a1 + 40) mutableConversationsByUUID];
+      v11 = [v10 allKeys];
+      v12 = 138412546;
+      *v13 = v9;
+      *&v13[8] = 2112;
+      *&v13[10] = v11;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", &v12, 0x16u);
     }
   }
 }
@@ -7594,7 +7005,7 @@ void sub_10017B75C(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
-  v7 = sub_100004778();
+  v7 = sub_100004778(v6);
   v8 = v7;
   if (v5)
   {
@@ -7631,9 +7042,9 @@ void sub_10017B75C(uint64_t a1, void *a2, void *a3)
   dispatch_group_leave(*(a1 + 56));
 }
 
-void sub_10017BF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10017BF10(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7659,15 +7070,15 @@ void sub_10017C33C(uint64_t a1)
 
 void sub_10017C494(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
     *buf = 138412546;
-    v31 = v3;
-    v32 = 2112;
-    v33 = v4;
+    v32 = v3;
+    v33 = 2112;
+    v34 = v4;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "conversationUUID: %@ update messagesGroupName: %@", buf, 0x16u);
   }
 
@@ -7677,46 +7088,174 @@ void sub_10017C494(uint64_t a1)
   if (v6)
   {
     [v6 updateMessagesGroupName:*(a1 + 40)];
-    v27 = 0u;
     v28 = 0u;
-    v25 = 0u;
+    v29 = 0u;
     v26 = 0u;
-    v7 = [*(a1 + 48) delegateToQueue];
-    v8 = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
-    if (v8)
+    v27 = 0u;
+    v8 = [*(a1 + 48) delegateToQueue];
+    v9 = [v8 countByEnumeratingWithState:&v26 objects:v30 count:16];
+    if (v9)
     {
-      v9 = v8;
-      v10 = *v26;
-      obj = v7;
+      v10 = v9;
+      v11 = *v27;
+      obj = v8;
       do
       {
-        for (i = 0; i != v9; i = i + 1)
+        for (i = 0; i != v10; i = i + 1)
         {
-          if (*v26 != v10)
+          if (*v27 != v11)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v25 + 1) + 8 * i);
-          v13 = [v6 tuConversation];
+          v13 = *(*(&v26 + 1) + 8 * i);
+          v14 = [v6 tuConversation];
           [*(a1 + 48) delegateToQueue];
-          v15 = v14 = v6;
-          v16 = [v15 objectForKey:v12];
+          v16 = v15 = v6;
+          v17 = [v16 objectForKey:v13];
 
-          v6 = v14;
+          v6 = v15;
           block[0] = _NSConcreteStackBlock;
           block[1] = 3221225472;
           block[2] = sub_10017C778;
           block[3] = &unk_100619E58;
-          block[4] = v12;
-          v23 = v13;
-          v24 = *(a1 + 48);
-          v17 = v13;
-          dispatch_async(v16, block);
+          block[4] = v13;
+          v24 = v14;
+          v25 = *(a1 + 48);
+          v18 = v14;
+          dispatch_async(v17, block);
         }
 
-        v7 = obj;
-        v9 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v8 = obj;
+        v10 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      }
+
+      while (v10);
+    }
+  }
+
+  else
+  {
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v19 = *(a1 + 32);
+      v20 = [*(a1 + 48) mutableConversationsByUUID];
+      v21 = [v20 allKeys];
+      *buf = 138412546;
+      v32 = v19;
+      v33 = 2112;
+      v34 = v21;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", buf, 0x16u);
+    }
+  }
+}
+
+void sub_10017C778(uint64_t a1)
+{
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
+  {
+    v4 = [*(a1 + 40) provider];
+    if ([v3 shouldHandleUpdateForProvider:v4])
+    {
+    }
+
+    else
+    {
+      v6 = objc_opt_respondsToSelector();
+
+      if (v6)
+      {
+        return;
+      }
+    }
+  }
+
+  else
+  {
+    v5 = objc_opt_respondsToSelector();
+    if (v5)
+    {
+      return;
+    }
+  }
+
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) provider];
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
+  }
+
+  [*(a1 + 32) conversationManager:*(a1 + 48) conversationChanged:*(a1 + 40)];
+}
+
+void sub_10017C974(uint64_t a1)
+{
+  v2 = sub_100004778(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = *(a1 + 32);
+    *buf = 138412290;
+    v31 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "conversationUUID: %@ update group photo", buf, 0xCu);
+  }
+
+  v4 = [*(a1 + 40) mutableConversationsByUUID];
+  v5 = [v4 objectForKeyedSubscript:*(a1 + 32)];
+
+  v22 = v5;
+  if (v5)
+  {
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v7 = [*(a1 + 40) delegateToQueue];
+    v8 = [v7 countByEnumeratingWithState:&v26 objects:v34 count:16];
+    if (v8)
+    {
+      v9 = v8;
+      v10 = *v27;
+      do
+      {
+        for (i = 0; i != v9; i = i + 1)
+        {
+          if (*v27 != v10)
+          {
+            objc_enumerationMutation(v7);
+          }
+
+          v12 = *(*(&v26 + 1) + 8 * i);
+          if (objc_opt_respondsToSelector())
+          {
+            [v22 tuConversation];
+            v14 = v13 = v7;
+            v15 = [*(a1 + 40) delegateToQueue];
+            v16 = [v15 objectForKey:v12];
+
+            block[0] = _NSConcreteStackBlock;
+            block[1] = 3221225472;
+            block[2] = sub_10017CC58;
+            block[3] = &unk_100619E58;
+            block[4] = v12;
+            v24 = v14;
+            v25 = *(a1 + 40);
+            v17 = v14;
+            v7 = v13;
+            v18 = v17;
+            dispatch_async(v16, block);
+          }
+        }
+
+        v9 = [v7 countByEnumeratingWithState:&v26 objects:v34 count:16];
       }
 
       while (v9);
@@ -7725,169 +7264,37 @@ void sub_10017C494(uint64_t a1)
 
   else
   {
-    v7 = sub_100004778();
+    v7 = sub_100004778(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = *(a1 + 32);
-      v19 = [*(a1 + 48) mutableConversationsByUUID];
-      v20 = [v19 allKeys];
+      v19 = *(a1 + 32);
+      v20 = [*(a1 + 40) mutableConversationsByUUID];
+      v21 = [v20 allKeys];
       *buf = 138412546;
-      v31 = v18;
+      v31 = v19;
       v32 = 2112;
-      v33 = v20;
+      v33 = v21;
       _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", buf, 0x16u);
-    }
-  }
-}
-
-void sub_10017C778(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = objc_opt_respondsToSelector();
-  v4 = *(a1 + 32);
-  if (v3)
-  {
-    v5 = [*(a1 + 40) provider];
-    if ([v4 shouldHandleUpdateForProvider:v5])
-    {
-    }
-
-    else
-    {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_respondsToSelector();
-
-      if (v8)
-      {
-        return;
-      }
-    }
-  }
-
-  else
-  {
-    v6 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
-    {
-      return;
-    }
-  }
-
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-  {
-    v10 = *(a1 + 32);
-    v11 = [*(a1 + 40) provider];
-    v12 = 138412546;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v12, 0x16u);
-  }
-
-  [*(a1 + 32) conversationManager:*(a1 + 48) conversationChanged:*(a1 + 40)];
-}
-
-void sub_10017C974(uint64_t a1)
-{
-  v2 = sub_100004778();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = *(a1 + 32);
-    *buf = 138412290;
-    v30 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "conversationUUID: %@ update group photo", buf, 0xCu);
-  }
-
-  v4 = [*(a1 + 40) mutableConversationsByUUID];
-  v5 = [v4 objectForKeyedSubscript:*(a1 + 32)];
-
-  v21 = v5;
-  if (v5)
-  {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v26 = 0u;
-    v6 = [*(a1 + 40) delegateToQueue];
-    v7 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
-    if (v7)
-    {
-      v8 = v7;
-      v9 = *v26;
-      do
-      {
-        for (i = 0; i != v8; i = i + 1)
-        {
-          if (*v26 != v9)
-          {
-            objc_enumerationMutation(v6);
-          }
-
-          v11 = *(*(&v25 + 1) + 8 * i);
-          if (objc_opt_respondsToSelector())
-          {
-            [v21 tuConversation];
-            v13 = v12 = v6;
-            v14 = [*(a1 + 40) delegateToQueue];
-            v15 = [v14 objectForKey:v11];
-
-            block[0] = _NSConcreteStackBlock;
-            block[1] = 3221225472;
-            block[2] = sub_10017CC58;
-            block[3] = &unk_100619E58;
-            block[4] = v11;
-            v23 = v13;
-            v24 = *(a1 + 40);
-            v16 = v13;
-            v6 = v12;
-            v17 = v16;
-            dispatch_async(v15, block);
-          }
-        }
-
-        v8 = [v6 countByEnumeratingWithState:&v25 objects:v33 count:16];
-      }
-
-      while (v8);
-    }
-  }
-
-  else
-  {
-    v6 = sub_100004778();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-    {
-      v18 = *(a1 + 32);
-      v19 = [*(a1 + 40) mutableConversationsByUUID];
-      v20 = [v19 allKeys];
-      *buf = 138412546;
-      v30 = v18;
-      v31 = 2112;
-      v32 = v20;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", buf, 0x16u);
     }
   }
 }
 
 void sub_10017CC58(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_respondsToSelector();
-  v4 = *(a1 + 32);
-  if (v3)
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
   {
-    v5 = [*(a1 + 40) provider];
-    if ([v4 shouldHandleUpdateForProvider:v5])
+    v4 = [*(a1 + 40) provider];
+    if ([v3 shouldHandleUpdateForProvider:v4])
     {
     }
 
     else
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_respondsToSelector();
+      v6 = objc_opt_respondsToSelector();
 
-      if (v8)
+      if (v6)
       {
         return;
       }
@@ -7896,23 +7303,23 @@ void sub_10017CC58(uint64_t a1)
 
   else
   {
-    v6 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
+    v5 = objc_opt_respondsToSelector();
+    if (v5)
     {
       return;
     }
   }
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = [*(a1 + 40) provider];
-    v12 = 138412546;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v12, 0x16u);
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) provider];
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
   }
 
   [*(a1 + 32) conversationManager:*(a1 + 48) conversationUpdateMessagesGroupPhoto:*(a1 + 40)];
@@ -7920,7 +7327,7 @@ void sub_10017CC58(uint64_t a1)
 
 void sub_10017CE78(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -7963,16 +7370,16 @@ uint64_t sub_10017D654(uint64_t a1)
 
 void sub_10017D8A8(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v11 = 138412546;
-    v12 = v3;
-    v13 = 2112;
-    v14 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "leave conversationUUID: %@ activitySession: %@", &v11, 0x16u);
+    v12 = 138412546;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "leave conversationUUID: %@ activitySession: %@", &v12, 0x16u);
   }
 
   v5 = [*(a1 + 48) mutableConversationsByUUID];
@@ -7980,39 +7387,39 @@ void sub_10017D8A8(uint64_t a1)
 
   if (v6)
   {
-    v7 = [*(a1 + 40) UUID];
-    [v6 leaveActivitySessionWithUUID:v7];
+    v8 = [*(a1 + 40) UUID];
+    [v6 leaveActivitySessionWithUUID:v8];
   }
 
   else
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = [*(a1 + 48) mutableConversationsByUUID];
-      v10 = [v9 allKeys];
-      v11 = 138412546;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v10;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", &v11, 0x16u);
+      v9 = *(a1 + 32);
+      v10 = [*(a1 + 48) mutableConversationsByUUID];
+      v11 = [v10 allKeys];
+      v12 = 138412546;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v11;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", &v12, 0x16u);
     }
   }
 }
 
 void sub_10017DB14(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v11 = 138412546;
-    v12 = v3;
-    v13 = 2112;
-    v14 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "end conversationUUID: %@ activitySession: %@", &v11, 0x16u);
+    v12 = 138412546;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "end conversationUUID: %@ activitySession: %@", &v12, 0x16u);
   }
 
   v5 = [*(a1 + 48) mutableConversationsByUUID];
@@ -8020,39 +7427,39 @@ void sub_10017DB14(uint64_t a1)
 
   if (v6)
   {
-    v7 = [*(a1 + 40) UUID];
-    [v6 removeActivitySessionWithUUID:v7 usingTerminatingHandle:0];
+    v8 = [*(a1 + 40) UUID];
+    [v6 removeActivitySessionWithUUID:v8 usingTerminatingHandle:0];
   }
 
   else
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v9 = [*(a1 + 48) mutableConversationsByUUID];
-      v10 = [v9 allKeys];
-      v11 = 138412546;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v10;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", &v11, 0x16u);
+      v9 = *(a1 + 32);
+      v10 = [*(a1 + 48) mutableConversationsByUUID];
+      v11 = [v10 allKeys];
+      v12 = 138412546;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v11;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", &v12, 0x16u);
     }
   }
 }
 
 void sub_10017DD84(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = *(a1 + 40);
-    v11 = 138412546;
-    v12 = v3;
-    v13 = 2112;
-    v14 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Asked to present dismissal alert for activitySessionUUID: %@ conversationUUID: %@", &v11, 0x16u);
+    v12 = 138412546;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Asked to present dismissal alert for activitySessionUUID: %@ conversationUUID: %@", &v12, 0x16u);
   }
 
   v5 = [*(a1 + 48) mutableConversationsByUUID];
@@ -8065,17 +7472,17 @@ void sub_10017DD84(uint64_t a1)
 
   else
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 40);
-      v9 = [*(a1 + 48) mutableConversationsByUUID];
-      v10 = [v9 allKeys];
-      v11 = 138412546;
-      v12 = v8;
-      v13 = 2112;
-      v14 = v10;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", &v11, 0x16u);
+      v9 = *(a1 + 40);
+      v10 = [*(a1 + 48) mutableConversationsByUUID];
+      v11 = [v10 allKeys];
+      v12 = 138412546;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v11;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", &v12, 0x16u);
     }
   }
 }
@@ -8085,61 +7492,61 @@ void sub_10017E184(uint64_t a1)
   v2 = [*(a1 + 32) featureFlags];
   v3 = [v2 sharePlayWithAirplayEnabled];
 
-  v4 = sub_100004778();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  v5 = sub_100004778(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
   if (v3)
   {
-    if (v5)
+    if (v6)
     {
-      v6 = *(a1 + 40);
+      v7 = *(a1 + 40);
       if (*(a1 + 56))
       {
-        v7 = @"YES";
+        v8 = @"YES";
       }
 
       else
       {
-        v7 = @"NO";
+        v8 = @"NO";
       }
 
-      v14 = 138543618;
-      v15 = v7;
-      v16 = 2112;
-      v17 = v6;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Setting using airplay: %{public}@ on activity session: %@", &v14, 0x16u);
+      v16 = 138543618;
+      v17 = v8;
+      v18 = 2112;
+      v19 = v7;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Setting using airplay: %{public}@ on activity session: %@", &v16, 0x16u);
     }
 
-    v8 = [*(a1 + 32) mutableConversationsByUUID];
-    v4 = [v8 objectForKeyedSubscript:*(a1 + 48)];
+    v9 = [*(a1 + 32) mutableConversationsByUUID];
+    v5 = [v9 objectForKeyedSubscript:*(a1 + 48)];
 
-    if (v4)
+    if (v5)
     {
-      v9 = *(a1 + 56);
-      v10 = [*(a1 + 40) UUID];
-      [v4 setUsingAirplay:v9 forActivitySessionUUID:v10];
+      v11 = *(a1 + 56);
+      v12 = [*(a1 + 40) UUID];
+      [v5 setUsingAirplay:v11 forActivitySessionUUID:v12];
     }
 
     else
     {
-      v10 = sub_100004778();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v12 = sub_100004778(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
-        v11 = *(a1 + 48);
-        v12 = [*(a1 + 32) mutableConversationsByUUID];
-        v13 = [v12 allKeys];
-        v14 = 138412546;
-        v15 = v11;
-        v16 = 2112;
+        v13 = *(a1 + 48);
+        v14 = [*(a1 + 32) mutableConversationsByUUID];
+        v15 = [v14 allKeys];
+        v16 = 138412546;
         v17 = v13;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", &v14, 0x16u);
+        v18 = 2112;
+        v19 = v15;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", &v16, 0x16u);
       }
     }
   }
 
-  else if (v5)
+  else if (v6)
   {
-    LOWORD(v14) = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "SharePlayWithAirplay ff is turned off, not changing activity session airplay state", &v14, 2u);
+    LOWORD(v16) = 0;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "SharePlayWithAirplay ff is turned off, not changing activity session airplay state", &v16, 2u);
   }
 }
 
@@ -8196,7 +7603,7 @@ void sub_10017E880(uint64_t a1)
 
 void sub_10017EB34(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -8211,91 +7618,91 @@ void sub_10017EB34(uint64_t a1)
     }
 
     *buf = 138412546;
-    v85 = v3;
-    v86 = 2112;
-    v87 = v4;
+    v89 = v3;
+    v90 = 2112;
+    v91 = v4;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Received launchApplication request for UUID: %@ forceBackground: %@", buf, 0x16u);
   }
 
-  v76 = 0u;
-  v77 = 0u;
-  v74 = 0u;
-  v75 = 0u;
+  v80 = 0u;
+  v81 = 0u;
+  v78 = 0u;
+  v79 = 0u;
   obj = [*(a1 + 40) mutableConversationsByUUID];
-  v62 = [obj countByEnumeratingWithState:&v74 objects:v83 count:16];
+  v66 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
   v6 = 0;
-  if (!v62)
+  if (!v66)
   {
 LABEL_36:
 
-    v39 = sub_100004778();
-    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+    v42 = sub_100004778(v41);
+    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
     {
-      sub_100477CEC(a1);
+      sub_100477CEC();
     }
 
-    v40 = *(a1 + 48);
-    if (v40)
+    v43 = *(a1 + 48);
+    if (v43)
     {
-      v41 = TUErrorDomain;
-      v80 = NSLocalizedDescriptionKey;
-      v81 = @"Failed to find conversation with activitySession";
-      v42 = [NSDictionary dictionaryWithObjects:&v81 forKeys:&v80 count:1];
-      v43 = [NSError errorWithDomain:v41 code:1 userInfo:v42];
-      (*(v40 + 16))(v40, v43);
+      v44 = TUErrorDomain;
+      v84 = NSLocalizedDescriptionKey;
+      v85 = @"Failed to find conversation with activitySession";
+      v45 = [NSDictionary dictionaryWithObjects:&v85 forKeys:&v84 count:1];
+      v46 = [NSError errorWithDomain:v44 code:1 userInfo:v45];
+      (*(v43 + 16))(v43, v46);
 
       v20 = 0;
-      v44 = 0;
+      v47 = 0;
 LABEL_49:
     }
 
     else
     {
       v20 = 0;
-      v44 = 0;
+      v47 = 0;
     }
 
     goto LABEL_50;
   }
 
-  v60 = *v75;
+  v64 = *v79;
   *&v5 = 138412546;
-  v58 = v5;
+  v62 = v5;
 LABEL_8:
   v7 = 0;
   while (1)
   {
-    if (*v75 != v60)
+    if (*v79 != v64)
     {
       objc_enumerationMutation(obj);
     }
 
-    v8 = *(*(&v74 + 1) + 8 * v7);
+    v8 = *(*(&v78 + 1) + 8 * v7);
     v9 = [*(a1 + 40) mutableConversationsByUUID];
-    v61 = v8;
+    v65 = v8;
     v10 = [v9 objectForKeyedSubscript:v8];
 
-    v72 = 0u;
-    v73 = 0u;
-    v70 = 0u;
-    v71 = 0u;
-    v63 = v10;
+    v76 = 0u;
+    v77 = 0u;
+    v74 = 0u;
+    v75 = 0u;
+    v67 = v10;
     v11 = [v10 activitySessions];
-    v12 = [v11 countByEnumeratingWithState:&v70 objects:v82 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v74 objects:v86 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v71;
+      v14 = *v75;
       do
       {
         for (i = 0; i != v13; i = i + 1)
         {
-          if (*v71 != v14)
+          if (*v75 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v70 + 1) + 8 * i);
+          v16 = *(*(&v74 + 1) + 8 * i);
           v17 = [v16 identifier];
           v18 = [v17 isEqual:*(a1 + 32)];
 
@@ -8307,92 +7714,81 @@ LABEL_8:
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v70 objects:v82 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v74 objects:v86 count:16];
       }
 
       while (v13);
     }
 
-    v20 = v63;
+    v20 = v67;
     if (!v6)
     {
       v21 = [*(a1 + 40) featureFlags];
       v22 = [v21 mochiEnabled];
 
-      if (!v22)
+      if (!v22 || (v23 = *(a1 + 32), [v67 stagedActivitySession], v24 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "UUID"), v25 = objc_claimAutoreleasedReturnValue(), LODWORD(v23) = objc_msgSend(v23, "isEqual:", v25), v25, v24, !v23))
       {
-        goto LABEL_30;
-      }
-
-      v23 = *(a1 + 32);
-      v24 = [v63 stagedActivitySession];
-      v25 = [v24 UUID];
-      LODWORD(v23) = [v23 isEqual:v25];
-
-      if (!v23)
-      {
-LABEL_30:
         v6 = 0;
         goto LABEL_31;
       }
 
-      v26 = sub_100004778();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+      v27 = sub_100004778(v26);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
       {
-        v27 = *(a1 + 32);
-        v28 = [v63 stagedActivitySession];
-        *buf = v58;
-        v85 = v27;
-        v86 = 2112;
-        v87 = v28;
-        _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "Launch request for UUID: %@ is trying to activate a staged activitySession. %@", buf, 0x16u);
+        v28 = *(a1 + 32);
+        v29 = [v67 stagedActivitySession];
+        *buf = v62;
+        v89 = v28;
+        v90 = 2112;
+        v91 = v29;
+        _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEFAULT, "Launch request for UUID: %@ is trying to activate a staged activitySession. %@", buf, 0x16u);
       }
 
-      v29 = [v63 stagedActivitySession];
-      v30 = [v29 activity];
-      v31 = [v30 isPlaceholderActivity];
+      v30 = [v67 stagedActivitySession];
+      v31 = [v30 activity];
+      v32 = [v31 isPlaceholderActivity];
 
-      if (!v31)
+      if (!v32)
       {
-        v34 = [v63 stagedActivitySession];
-        v35 = [v34 mutableCopy];
+        v36 = [v67 stagedActivitySession];
+        v37 = [v36 mutableCopy];
 
-        [v35 setIsLocallyInitiated:1];
-        [v35 setIsStageInitiated:1];
-        v36 = *(a1 + 40);
-        v37 = [v35 copy];
-        v6 = [v36 createCPActivitySessionForActivitySession:v37 onConversationWithUUID:v61];
+        [v37 setIsLocallyInitiated:1];
+        [v37 setIsStageInitiated:1];
+        v38 = *(a1 + 40);
+        v39 = [v37 copy];
+        v6 = [v38 createCPActivitySessionForActivitySession:v39 onConversationWithUUID:v65];
 
         goto LABEL_31;
       }
 
-      v32 = sub_100004778();
-      if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+      v34 = sub_100004778(v33);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Tried to launch placeholder activity.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Tried to launch placeholder activity.", buf, 2u);
       }
 
-      v33 = [v63 stagedActivitySession];
+      v35 = [v67 stagedActivitySession];
       v6 = 0;
-      if (v33)
+      if (v35)
       {
         break;
       }
     }
 
 LABEL_31:
-    v33 = [v6 tuConversationActivitySession];
-    if (v33)
+    v35 = [v6 tuConversationActivitySession];
+    if (v35)
     {
       break;
     }
 
-    if (++v7 == v62)
+    if (++v7 == v66)
     {
-      v38 = [obj countByEnumeratingWithState:&v74 objects:v83 count:16];
-      v62 = v38;
-      if (v38)
+      v40 = [obj countByEnumeratingWithState:&v78 objects:v87 count:16];
+      v66 = v40;
+      if (v40)
       {
         goto LABEL_8;
       }
@@ -8401,65 +7797,65 @@ LABEL_31:
     }
   }
 
-  v44 = v33;
+  v47 = v35;
 
-  v45 = [*(a1 + 40) sharePlaySystemStateObserver];
-  v46 = [v45 allowSharePlay];
+  v48 = [*(a1 + 40) sharePlaySystemStateObserver];
+  v49 = [v48 allowSharePlay];
 
-  if (v46)
+  if (v49)
   {
-    [CSDAnalyticsReporter sendManualLaunchAttemptEventWithActivitySession:v44];
-    v64[0] = _NSConcreteStackBlock;
-    v64[1] = 3221225472;
-    v64[2] = sub_10017F280;
-    v64[3] = &unk_10061CFC0;
-    v47 = *(a1 + 48);
-    v48 = *(a1 + 40);
-    v68 = v47;
-    v64[4] = v48;
+    [CSDAnalyticsReporter sendManualLaunchAttemptEventWithActivitySession:v47];
+    v68[0] = _NSConcreteStackBlock;
+    v68[1] = 3221225472;
+    v68[2] = sub_10017F280;
+    v68[3] = &unk_10061CFC0;
+    v51 = *(a1 + 48);
+    v52 = *(a1 + 40);
+    v72 = v51;
+    v68[4] = v52;
     v6 = v6;
-    v65 = v6;
-    v44 = v44;
-    v66 = v44;
-    v69 = *(a1 + 57);
-    v67 = *(a1 + 32);
-    v49 = objc_retainBlock(v64);
+    v69 = v6;
+    v47 = v47;
+    v70 = v47;
+    v73 = *(a1 + 57);
+    v71 = *(a1 + 32);
+    v53 = objc_retainBlock(v68);
     [v6 updateApplicationState:0];
-    v50 = [v63 activitySessionManager];
-    v51 = [v50 applicationLauncher];
-    v52 = v51;
+    v54 = [v67 activitySessionManager];
+    v55 = [v54 applicationLauncher];
+    v56 = v55;
     if (v6)
     {
-      v53 = v6;
+      v57 = v6;
     }
 
     else
     {
-      v53 = v44;
+      v57 = v47;
     }
 
-    [v51 launchAppForActivitySession:v53 options:0 completion:v49];
+    [v55 launchAppForActivitySession:v57 options:0 completion:v53];
 
-    v42 = v68;
+    v45 = v72;
     goto LABEL_49;
   }
 
-  v54 = sub_100004778();
-  if (os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+  v58 = sub_100004778(v50);
+  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "Not launching application because SharePlay is not allowed", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v58, OS_LOG_TYPE_DEFAULT, "Not launching application because SharePlay is not allowed", buf, 2u);
   }
 
-  v55 = *(a1 + 48);
-  if (v55)
+  v59 = *(a1 + 48);
+  if (v59)
   {
-    v56 = TUErrorDomain;
-    v78 = NSLocalizedDescriptionKey;
-    v79 = @"SharePlay not allowed";
-    v42 = [NSDictionary dictionaryWithObjects:&v79 forKeys:&v78 count:1];
-    v57 = [NSError errorWithDomain:v56 code:1 userInfo:v42];
-    (*(v55 + 16))(v55, v57);
+    v60 = TUErrorDomain;
+    v82 = NSLocalizedDescriptionKey;
+    v83 = @"SharePlay not allowed";
+    v45 = [NSDictionary dictionaryWithObjects:&v83 forKeys:&v82 count:1];
+    v61 = [NSError errorWithDomain:v60 code:1 userInfo:v45];
+    (*(v59 + 16))(v59, v61);
 
     goto LABEL_49;
   }
@@ -8473,7 +7869,7 @@ void sub_10017F280(uint64_t a1, char a2, void *a3)
   v6 = *(a1 + 64);
   if (v6)
   {
-    (*(v6 + 16))(v6, v5);
+    v6 = (*(v6 + 16))(v6, v5);
   }
 
   if ((a2 & 1) == 0)
@@ -8496,7 +7892,7 @@ LABEL_14:
   {
     if (*(a1 + 72) == 1)
     {
-      v7 = sub_100004778();
+      v7 = sub_100004778(v6);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
         v8 = *(a1 + 56);
@@ -8540,7 +7936,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v15 = sub_100004778();
+  v15 = sub_100004778(v6);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     v16 = *(a1 + 48);
@@ -8572,10 +7968,11 @@ void sub_10017F5B4(id *a1)
 void sub_10017F688(uint64_t a1, int a2, void *a3)
 {
   v5 = a3;
+  v6 = v5;
   if (v5)
   {
-    v6 = sub_100004778();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_100004778(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100477D60();
     }
@@ -8583,17 +7980,17 @@ void sub_10017F688(uint64_t a1, int a2, void *a3)
 
   else if (a2)
   {
-    v7 = sub_100004778();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_100004778(0);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 32);
-      v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Authorizing session UUID: %@", &v10, 0xCu);
+      v9 = *(a1 + 32);
+      v11 = 138412290;
+      v12 = v9;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Authorizing session UUID: %@", &v11, 0xCu);
     }
 
-    v9 = [*(a1 + 40) queue];
-    dispatch_assert_queue_V2(v9);
+    v10 = [*(a1 + 40) queue];
+    dispatch_assert_queue_V2(v10);
 
     [*(a1 + 48) permitJoin];
   }
@@ -8611,7 +8008,7 @@ void sub_10017F91C(uint64_t a1)
 
 void sub_10017FA70(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -8659,7 +8056,7 @@ void sub_10017FA70(uint64_t a1)
 
 void sub_10017FCAC(uint64_t a1)
 {
-  v2 = sub_100004778();
+  v2 = sub_100004778(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -8678,22 +8075,20 @@ void sub_10017FCAC(uint64_t a1)
 
 void sub_100180CC4(uint64_t a1)
 {
-  v2 = *(a1 + 32);
-  v3 = objc_opt_respondsToSelector();
-  v4 = *(a1 + 32);
-  if (v3)
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
   {
-    v5 = [*(a1 + 40) provider];
-    if ([v4 shouldHandleUpdateForProvider:v5])
+    v4 = [*(a1 + 40) provider];
+    if ([v3 shouldHandleUpdateForProvider:v4])
     {
     }
 
     else
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_respondsToSelector();
+      v6 = objc_opt_respondsToSelector();
 
-      if (v8)
+      if (v6)
       {
         return;
       }
@@ -8702,24 +8097,606 @@ void sub_100180CC4(uint64_t a1)
 
   else
   {
-    v6 = *(a1 + 32);
-    if (objc_opt_respondsToSelector())
+    v5 = objc_opt_respondsToSelector();
+    if (v5)
     {
       return;
     }
   }
 
-  v9 = sub_100004778();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = *(a1 + 32);
-    v11 = [*(a1 + 40) provider];
-    v12 = 138412546;
-    v13 = v10;
-    v14 = 2112;
-    v15 = v11;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v12, 0x16u);
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) provider];
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
   }
 
   [*(a1 + 32) conversationManager:*(a1 + 48) avModeChanged:*(a1 + 64) toAVMode:*(a1 + 72) forParticipantWithHandle:*(a1 + 56) forConversation:*(a1 + 40)];
+}
+
+void sub_100180E10(uint64_t a1)
+{
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
+  {
+    v4 = [*(a1 + 40) provider];
+    if ([v3 shouldHandleUpdateForProvider:v4])
+    {
+    }
+
+    else
+    {
+      v6 = objc_opt_respondsToSelector();
+
+      if (v6)
+      {
+        return;
+      }
+    }
+  }
+
+  else
+  {
+    v5 = objc_opt_respondsToSelector();
+    if (v5)
+    {
+      return;
+    }
+  }
+
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) provider];
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
+  }
+
+  [*(a1 + 32) conversationManager:*(a1 + 48) conversationChanged:*(a1 + 40)];
+}
+
+void sub_1001813AC(id *a1)
+{
+  v2 = +[TUCallCenter sharedInstance];
+  v3 = [v2 currentCalls];
+
+  v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  obj = v3;
+  v4 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+  if (v4)
+  {
+    v5 = v4;
+    v6 = *v27;
+    while (2)
+    {
+      v7 = 0;
+      do
+      {
+        if (*v27 != v6)
+        {
+          objc_enumerationMutation(obj);
+        }
+
+        v8 = *(*(&v26 + 1) + 8 * v7);
+        v9 = sub_100004778(v4);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+        {
+          v10 = [v8 callGroupUUID];
+          v11 = [a1[4] groupUUID];
+          *buf = 138412546;
+          v31 = v10;
+          v32 = 2112;
+          v33 = v11;
+          _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "removeActivitySession: callGroupUUID: %@, convesation groupUUID: %@", buf, 0x16u);
+        }
+
+        v12 = [v8 callGroupUUID];
+        v13 = [a1[4] groupUUID];
+        v14 = [v12 isEqual:v13];
+
+        if (v14)
+        {
+          v15 = [a1[5] identifierUUIDString];
+          v16 = [a1[6] groupUUIDToActivityIdentifierUUIDString];
+          v17 = [v8 callGroupUUID];
+          v18 = [v16 objectForKeyedSubscript:v17];
+          v19 = [v15 isEqual:v18];
+
+          if (v19)
+          {
+            [v8 setRemoteActiveTranslating:0];
+            v20 = [a1[6] groupUUIDToActivityIdentifierUUIDString];
+            v21 = [v8 callGroupUUID];
+            [v20 setObject:0 forKeyedSubscript:v21];
+
+            v23 = sub_100004778(v22);
+            if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+            {
+              v24 = [a1[5] identifierUUIDString];
+              *buf = 138412290;
+              v31 = v24;
+              _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "activitySessionChanged setting remoteActiveTranslating to false for identifierUUIDString: %@", buf, 0xCu);
+            }
+
+            goto LABEL_16;
+          }
+        }
+
+        v7 = v7 + 1;
+      }
+
+      while (v5 != v7);
+      v4 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
+      v5 = v4;
+      if (v4)
+      {
+        continue;
+      }
+
+      break;
+    }
+  }
+
+LABEL_16:
+}
+
+void sub_100181F94(uint64_t a1)
+{
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
+  {
+    v4 = [*(a1 + 40) provider];
+    if ([v3 shouldHandleUpdateForProvider:v4])
+    {
+    }
+
+    else
+    {
+      v6 = objc_opt_respondsToSelector();
+
+      if (v6)
+      {
+        return;
+      }
+    }
+  }
+
+  else
+  {
+    v5 = objc_opt_respondsToSelector();
+    if (v5)
+    {
+      return;
+    }
+  }
+
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) provider];
+    v15 = 138412546;
+    v16 = v8;
+    v17 = 2112;
+    v18 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v15, 0x16u);
+  }
+
+  v10 = *(a1 + 48);
+  v11 = *(a1 + 56);
+  v12 = *(a1 + 32);
+  v13 = *(a1 + 40);
+  v14 = [*(a1 + 64) highlightIdentifier];
+  [v12 conversationManager:v10 activeParticipant:v11 removedHighlightFrom:v13 highlightIdentifier:v14];
+}
+
+void sub_100182FC4(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a2;
+  v6 = a3;
+  v7 = v6;
+  if (v5)
+  {
+    v8 = *(a1 + 32);
+    if (!v8)
+    {
+LABEL_7:
+      if (*(a1 + 64))
+      {
+        v17 = sub_100004778(v8);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+        {
+          v18 = *(a1 + 64);
+          v27 = 138412290;
+          v28 = v18;
+          _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Updating activity image for staged activity session: %@", &v27, 0xCu);
+        }
+
+        v19 = *(a1 + 56);
+        v20 = [*(a1 + 64) activity];
+        v21 = [v20 metadata];
+        [v21 setImageData:v19];
+
+        v22 = [*(a1 + 64) activity];
+        v23 = [v22 metadata];
+        [v23 saveImageToDisk];
+
+        [*(a1 + 72) conversationChanged:*(a1 + 80)];
+      }
+
+      goto LABEL_17;
+    }
+
+    v9 = [v8 activity];
+    v10 = *(a1 + 40);
+    v11 = [v9 UUID];
+    v12 = [v10 isEqual:v11];
+
+    v14 = sub_100004778(v13);
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+    if (v12)
+    {
+      if (v15)
+      {
+        v16 = *(a1 + 48);
+        v27 = 138412290;
+        v28 = v16;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Updating activity image for activity session with UUID: %@", &v27, 0xCu);
+      }
+
+      [*(a1 + 32) updateActivityImage:*(a1 + 56)];
+      goto LABEL_7;
+    }
+
+    if (v15)
+    {
+      v25 = *(a1 + 40);
+      v26 = [v9 UUID];
+      v27 = 138412546;
+      v28 = v25;
+      v29 = 2112;
+      v30 = v26;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "[WARN] Not updating image for activity UUID: %@ activity session currently has different activity UUID: %@", &v27, 0x16u);
+    }
+  }
+
+  else
+  {
+    v24 = sub_100004778(v6);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    {
+      sub_100477F04();
+    }
+  }
+
+LABEL_17:
+}
+
+void sub_100183240(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a2;
+  v6 = a3;
+  v7 = [*(a1 + 32) queue];
+  block[0] = _NSConcreteStackBlock;
+  block[1] = 3221225472;
+  block[2] = sub_100183328;
+  block[3] = &unk_10061C440;
+  v8 = *(a1 + 40);
+  v13 = v6;
+  v14 = v8;
+  v12 = v5;
+  v9 = v6;
+  v10 = v5;
+  dispatch_async(v7, block);
+}
+
+void sub_100183934(uint64_t a1)
+{
+  v2 = [*(a1 + 32) activity];
+  v3 = [v2 activityIdentifier];
+  v4 = [v3 isEqual:@"com.apple.FaceTime.Translation.Interaction"];
+
+  if (v4)
+  {
+    v5 = +[TUCallCenter sharedInstance];
+    v6 = [v5 currentCalls];
+
+    v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
+    v7 = v6;
+    v8 = [v7 countByEnumeratingWithState:&v26 objects:v36 count:16];
+    if (v8)
+    {
+      v9 = v8;
+      v10 = *v27;
+      while (2)
+      {
+        v11 = 0;
+        do
+        {
+          if (*v27 != v10)
+          {
+            objc_enumerationMutation(v7);
+          }
+
+          v12 = *(*(&v26 + 1) + 8 * v11);
+          v13 = sub_100004778(v8);
+          if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+          {
+            v14 = [v12 callGroupUUID];
+            v15 = [*(a1 + 40) groupUUID];
+            *buf = 138412546;
+            v31 = v14;
+            v32 = 2112;
+            v33 = v15;
+            _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "receivedActivitySession: callGroupUUID: %@, convesation groupUUID: %@", buf, 0x16u);
+          }
+
+          v16 = [v12 callGroupUUID];
+          v17 = [*(a1 + 40) groupUUID];
+          v18 = [v16 isEqual:v17];
+
+          if (v18)
+          {
+            v19 = [*(a1 + 32) identifierUUIDString];
+            v20 = *(*(a1 + 48) + 128);
+            v21 = [v12 callGroupUUID];
+            [v20 setObject:v19 forKeyedSubscript:v21];
+
+            v22 = sub_100004778([v12 setRemoteActiveTranslating:1]);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+            {
+              v23 = [*(a1 + 32) identifierUUIDString];
+              v24 = [v12 callGroupUUID];
+              v25 = [v12 callUUID];
+              *buf = 138412802;
+              v31 = v23;
+              v32 = 2112;
+              v33 = v24;
+              v34 = 2112;
+              v35 = v25;
+              _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "setting remoteActiveTranslating to true for %@, groupUUID: %@, callUUID: %@", buf, 0x20u);
+            }
+
+            goto LABEL_16;
+          }
+
+          v11 = v11 + 1;
+        }
+
+        while (v9 != v11);
+        v8 = [v7 countByEnumeratingWithState:&v26 objects:v36 count:16];
+        v9 = v8;
+        if (v8)
+        {
+          continue;
+        }
+
+        break;
+      }
+    }
+
+LABEL_16:
+  }
+}
+
+void sub_100184088(uint64_t a1)
+{
+  v2 = objc_opt_respondsToSelector();
+  v3 = *(a1 + 32);
+  if (v2)
+  {
+    v4 = [*(a1 + 40) provider];
+    if ([v3 shouldHandleUpdateForProvider:v4])
+    {
+    }
+
+    else
+    {
+      v6 = objc_opt_respondsToSelector();
+
+      if (v6)
+      {
+        return;
+      }
+    }
+  }
+
+  else
+  {
+    v5 = objc_opt_respondsToSelector();
+    if (v5)
+    {
+      return;
+    }
+  }
+
+  v7 = sub_100004778(v5);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = *(a1 + 32);
+    v9 = [*(a1 + 40) provider];
+    v10 = 138412546;
+    v11 = v8;
+    v12 = 2112;
+    v13 = v9;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Delegate should handle conversation update: %@ for provider: %@", &v10, 0x16u);
+  }
+
+  [*(a1 + 32) conversationManager:*(a1 + 48) conversationChanged:*(a1 + 40)];
+}
+
+void sub_1001842A8(uint64_t a1)
+{
+  v2 = sub_100004778(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = *(a1 + 32);
+    v4 = *(a1 + 40);
+    v12 = 138412546;
+    v13 = v3;
+    v14 = 2112;
+    v15 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "conversationUUID: %@ presentationContexts: %@", &v12, 0x16u);
+  }
+
+  v5 = [*(a1 + 48) mutableConversationsByUUID];
+  v6 = [v5 objectForKeyedSubscript:*(a1 + 32)];
+
+  if (v6)
+  {
+    [v6 updateParticipantPresentationContexts:*(a1 + 40)];
+  }
+
+  else
+  {
+    v8 = sub_100004778(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    {
+      v9 = *(a1 + 32);
+      v10 = [*(a1 + 48) mutableConversationsByUUID];
+      v11 = [v10 allKeys];
+      v12 = 138412546;
+      v13 = v9;
+      v14 = 2112;
+      v15 = v11;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", &v12, 0x16u);
+    }
+  }
+}
+
+void sub_100184550(uint64_t a1)
+{
+  v1 = a1;
+  v2 = sub_100004778(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = *(v1 + 32);
+    v4 = *(v1 + 40);
+    *buf = 138412546;
+    v45 = v3;
+    v46 = 2112;
+    v47 = v4;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "conversationUUID: %@ buzzMember: %@", buf, 0x16u);
+  }
+
+  v5 = [*(v1 + 48) mutableConversationsByUUID];
+  v6 = [v5 objectForKeyedSubscript:*(v1 + 32)];
+
+  if (v6)
+  {
+    v8 = [*(v1 + 48) featureFlags];
+    if ([v8 nearbyFaceTimeEnabled])
+    {
+      v9 = [*(v1 + 56) nearbyStableDeviceIdentifiers];
+      v10 = [v9 count];
+
+      if (!v10)
+      {
+        v11 = 0;
+        goto LABEL_11;
+      }
+
+      v42 = IDSSendMessageOptionRequireAllRegistrationPropertiesKey;
+      v8 = [NSSet setWithObject:IDSRegistrationPropertySupportsNearbyFaceTime];
+      v43 = v8;
+      v11 = [NSDictionary dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+    }
+
+    else
+    {
+      v11 = 0;
+    }
+
+LABEL_11:
+    v17 = *(v1 + 40);
+    v16 = *(v1 + 48);
+    v19 = *(v1 + 56);
+    v18 = *(v1 + 64);
+    v20 = +[TUConversationInvitationPreference incomingCallInvitationPreferences];
+    v31 = v11;
+    [v16 sendInvitationMessageToMember:v17 destinationID:v18 invitationContext:v19 forConversation:v6 includeAllAttributes:0 invitationPreferences:v20 additionalOptions:v11];
+
+    v32 = [v6 tuConversation];
+    v37 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v21 = [*(v1 + 48) delegateToQueue];
+    v22 = [v21 countByEnumeratingWithState:&v37 objects:v41 count:16];
+    if (v22)
+    {
+      v23 = v22;
+      v24 = *v38;
+      do
+      {
+        for (i = 0; i != v23; i = i + 1)
+        {
+          if (*v38 != v24)
+          {
+            objc_enumerationMutation(v21);
+          }
+
+          v26 = *(*(&v37 + 1) + 8 * i);
+          if (objc_opt_respondsToSelector())
+          {
+            [*(v1 + 48) delegateToQueue];
+            v28 = v27 = v1;
+            v29 = [v28 objectForKey:v26];
+
+            v1 = v27;
+            block[0] = _NSConcreteStackBlock;
+            block[1] = 3221225472;
+            block[2] = sub_100184960;
+            block[3] = &unk_10061A450;
+            block[4] = v26;
+            v35 = v32;
+            v33 = *(v27 + 40);
+            v30 = v33.i64[0];
+            v36 = vextq_s8(v33, v33, 8uLL);
+            dispatch_async(v29, block);
+          }
+        }
+
+        v23 = [v21 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      }
+
+      while (v23);
+    }
+
+    v12 = v31;
+    goto LABEL_21;
+  }
+
+  v12 = sub_100004778(v7);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  {
+    v13 = *(v1 + 32);
+    v14 = [*(v1 + 48) mutableConversationsByUUID];
+    v15 = [v14 allKeys];
+    *buf = 138412546;
+    v45 = v13;
+    v6 = 0;
+    v46 = 2112;
+    v47 = v15;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "[WARN] Could not find conversation with conversationUUID %@. All conversations UUIDs: %@", buf, 0x16u);
+  }
+
+LABEL_21:
 }

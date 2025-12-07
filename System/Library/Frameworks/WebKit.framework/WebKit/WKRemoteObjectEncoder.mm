@@ -31,7 +31,7 @@
   if (!v2->_rootDictionary.m_ptr)
   {
     v2->_rootDictionary.m_ptr = v3;
-    CFRetain(v3[1]);
+    CFRetain(v3->var1);
     m_ptr = v2->_currentDictionary.m_ptr;
     v2->_currentDictionary.m_ptr = v3;
     if (m_ptr)
@@ -204,7 +204,7 @@ LABEL_35:
   }
 
   MEMORY[0x19EB02040](&v16, key);
-  API::Data::create(length, bytes, &v14);
+  API::Data::create(bytes, length, &v14);
   v9 = v14;
   v14 = 0;
   v15 = v9;
@@ -220,7 +220,7 @@ LABEL_35:
   v14 = 0;
   if (v12)
   {
-    CFRelease(*(v12 + 1));
+    CFRelease(*(v12 + 8));
   }
 
   v13 = v16;
@@ -244,7 +244,7 @@ LABEL_35:
 
   MEMORY[0x19EB02040](&v13, key);
   v7 = API::Object::newObject(0x18uLL, 31);
-  *(v7 + 16) = bool;
+  LOBYTE(v7[1].var0) = bool;
   v8 = API::Object::Object(v7);
   *v8 = &unk_1F10E82D8;
   v12 = v8;

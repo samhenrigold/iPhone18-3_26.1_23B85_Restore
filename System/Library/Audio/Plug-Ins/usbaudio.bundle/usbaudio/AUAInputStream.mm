@@ -14,13 +14,12 @@
     *&self->super.ASDStream_opaque[OBJC_IVAR___AUAInputStream_startCount] = v6;
     if (!v6)
     {
-      v10 = v2;
-      v11 = v3;
-      v9.receiver = self;
-      v9.super_class = type metadata accessor for AUAInputStream(0);
-      v7 = v9.receiver;
-      [(AUAStream *)&v9 stopStream];
-      v8 = *&v7[OBJC_IVAR___AUAInputStream_lockDelay];
+      v9 = v2;
+      v10 = v3;
+      v8.receiver = self;
+      v8.super_class = type metadata accessor for AUAInputStream(0);
+      v7 = v8.receiver;
+      [(AUAStream *)&v8 stopStream];
       *&v7[OBJC_IVAR___AUAInputStream_lockDelay] = 0;
     }
   }

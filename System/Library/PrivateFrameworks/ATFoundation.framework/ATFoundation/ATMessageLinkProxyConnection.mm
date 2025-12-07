@@ -94,18 +94,17 @@
 
 void __62__ATMessageLinkProxyConnection_messageLink_didReceiveRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = _ATLogCategoryXPC();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_ERROR, "%{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_22392A000, v4, OS_LOG_TYPE_ERROR, "%{public}@", &v5, 0xCu);
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageLinkWasClosed:(id)closed
@@ -119,17 +118,15 @@ void __62__ATMessageLinkProxyConnection_messageLink_didReceiveRequest___block_in
 
 void __53__ATMessageLinkProxyConnection_messageLinkWasClosed___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = _ATLogCategoryXPC();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_22392A000, v3, OS_LOG_TYPE_ERROR, "%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_22392A000, v3, OS_LOG_TYPE_ERROR, "%{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageLinkWasInitialized:(id)initialized
@@ -141,17 +138,15 @@ void __53__ATMessageLinkProxyConnection_messageLinkWasClosed___block_invoke(uint
 
 void __58__ATMessageLinkProxyConnection_messageLinkWasInitialized___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = _ATLogCategoryXPC();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_22392A000, v3, OS_LOG_TYPE_ERROR, "%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_22392A000, v3, OS_LOG_TYPE_ERROR, "%{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)messageLinkWasOpened:(id)opened
@@ -163,34 +158,30 @@ void __58__ATMessageLinkProxyConnection_messageLinkWasInitialized___block_invoke
 
 void __53__ATMessageLinkProxyConnection_messageLinkWasOpened___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   v3 = _ATLogCategoryXPC();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_22392A000, v3, OS_LOG_TYPE_ERROR, "%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_22392A000, v3, OS_LOG_TYPE_ERROR, "%{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = _ATLogCategoryDeviceSync();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_22392A000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Stopping .. ", &v6, 0xCu);
+    _os_log_impl(&dword_22392A000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ Stopping .. ", &v5, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_messageLink);
   [WeakRetained removeObserver:self];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (ATMessageLinkProxyConnection)initWithMessageLink:(id)link connection:(id)connection

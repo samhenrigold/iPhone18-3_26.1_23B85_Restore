@@ -15,27 +15,29 @@
 
 - (id)icon:(id)icon imageWithInfo:(SBIconImageInfo *)info
 {
-  v7 = v6;
-  v8 = v5;
-  v9 = v4;
-  v10 = [(SBHFakeApplicationPlaceholder *)self applicationBundleIdentifier:icon];
-  v11 = SBHGetApplicationIconImage(v10, 0, v9, v8, v7);
+  v8 = v7;
+  v9 = v6;
+  v10 = v5;
+  v11 = v4;
+  v12 = [(SBHFakeApplicationPlaceholder *)self applicationBundleIdentifier:icon];
+  v13 = SBHGetApplicationIconImage(v12, 0, v11, v10, v9, v8);
 
-  return v11;
+  return v13;
 }
 
 - (id)icon:(id)icon imageWithInfo:(SBIconImageInfo *)info traitCollection:(id)collection options:(unint64_t)options
 {
   collectionCopy = collection;
-  v10 = v8;
-  v11 = v7;
-  v12 = v6;
+  v11 = v9;
+  v12 = v8;
+  v13 = v7;
+  v14 = v6;
   infoCopy = info;
-  v15 = SBHIconServicesOptionsForImageOptions(collectionCopy);
+  v17 = SBHIconServicesOptionsForImageOptions(collectionCopy);
   applicationBundleIdentifier = [(SBHFakeApplicationPlaceholder *)self applicationBundleIdentifier];
-  v17 = SBHGetApplicationIconImageWithTraitCollection(applicationBundleIdentifier, infoCopy, v15, v12, v11, v10);
+  v19 = SBHGetApplicationIconImageWithTraitCollection(applicationBundleIdentifier, infoCopy, v17, v14, v13, v12, v11);
 
-  return v17;
+  return v19;
 }
 
 @end

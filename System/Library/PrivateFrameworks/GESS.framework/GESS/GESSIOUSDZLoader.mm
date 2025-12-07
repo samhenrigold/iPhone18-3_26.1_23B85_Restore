@@ -26,7 +26,7 @@
 
 - (BOOL)run:(id)run output:(id)output
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   runCopy = run;
   outputCopy = output;
@@ -37,9 +37,9 @@
 
   if (selfCopy->_error_cb)
   {
-    v22 = *MEMORY[0x277CCA450];
-    v23 = @"Only support triangle/quad mesh currently.";
-    v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, &v23, &v22, 1);
+    v21 = *MEMORY[0x277CCA450];
+    v22 = @"Only support triangle/quad mesh currently.";
+    v14 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, &v22, &v21, 1);
     v15 = MEMORY[0x277CCA9B8];
     v16 = sub_24BE7C890();
     v18 = objc_msgSend_errorWithDomain_code_userInfo_(v15, v17, v16, 304, v14);
@@ -47,7 +47,6 @@
     (*(selfCopy->_error_cb + 2))();
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return 0;
 }
 

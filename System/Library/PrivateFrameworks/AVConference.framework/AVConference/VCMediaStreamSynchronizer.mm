@@ -110,12 +110,11 @@ uint64_t __VCMediaStreamSynchronizer_resetDestinationState_block_invoke(uint64_t
   return result;
 }
 
-uint64_t __VCMediaStreamSynchronizer_scheduleTimeForDestinationRTPTimestamp_block_invoke(uint64_t a1)
+double __VCMediaStreamSynchronizer_scheduleTimeForDestinationRTPTimestamp_block_invoke(uint64_t a1)
 {
   v32 = *MEMORY[0x1E69E9840];
   v19 = 0;
-  result = _VCMediaStreamSynchronizer_sourceRTPTimestampFromDestinationRTPTimestampInternal(*(a1 + 32), *(a1 + 48), &v19);
-  if (result)
+  if (_VCMediaStreamSynchronizer_sourceRTPTimestampFromDestinationRTPTimestampInternal(*(a1 + 32), *(a1 + 48), &v19))
   {
     v3 = *(a1 + 32);
     v4 = *(v3 + 16);
@@ -183,7 +182,7 @@ uint64_t __VCMediaStreamSynchronizer_scheduleTimeForDestinationRTPTimestamp_bloc
       }
     }
 
-    return kdebug_trace();
+    kdebug_trace();
   }
 
   return result;

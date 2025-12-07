@@ -9,6 +9,7 @@
 - (void)_skipButtonTapped;
 - (void)tableView:(id)view didDeselectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLayoutSubviews;
 - (void)viewDidLoad;
 @end
@@ -152,6 +153,14 @@
   }
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = SSCrossPlatformTransferSourceSelectionViewController;
+  [(OBBaseWelcomeController *)&v4 viewDidAppear:appear];
+  [(SSCrossPlatformTransferSourceSelectionViewController *)self _preselectPlanIfNeeded];
+}
+
 - (void)viewDidLayoutSubviews
 {
   view = [(SSCrossPlatformTransferSourceSelectionViewController *)self view];
@@ -164,7 +173,7 @@
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v6 = [[TSCellularPlanItemCell alloc] initWithStyle:0 reuseIdentifier:@"device"];
   [(TSCellularPlanItemCell *)v6 setSelectedBackgroundView:0];
@@ -180,26 +189,26 @@
 
   v10 = pathCopy;
   v11 = -[NSArray objectAtIndex:](self->_plans, "objectAtIndex:", [pathCopy row]);
+  v51 = 0u;
   v52 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v55 = 0u;
   v12 = self->_planItems;
-  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v52 objects:v56 count:16];
+  v13 = [(NSArray *)v12 countByEnumeratingWithState:&v51 objects:v55 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v53;
+    v15 = *v52;
 LABEL_5:
     v16 = 0;
     while (1)
     {
-      if (*v53 != v15)
+      if (*v52 != v15)
       {
         objc_enumerationMutation(v12);
       }
 
-      v17 = *(*(&v52 + 1) + 8 * v16);
+      v17 = *(*(&v51 + 1) + 8 * v16);
       iccid = [v17 iccid];
       v19 = [v11 isPlanWithIccid:iccid];
 
@@ -210,7 +219,7 @@ LABEL_5:
 
       if (v14 == ++v16)
       {
-        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v52 objects:v56 count:16];
+        v14 = [(NSArray *)v12 countByEnumeratingWithState:&v51 objects:v55 count:16];
         if (v14)
         {
           goto LABEL_5;
@@ -394,8 +403,6 @@ LABEL_45:
     [planInfo3 setText:v48];
   }
 
-  v50 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
@@ -430,31 +437,31 @@ LABEL_45:
 
 - (void)_continueButtonTapped:(id)tapped
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   tableView = [(OBTableWelcomeController *)self tableView];
   indexPathsForSelectedRows = [tableView indexPathsForSelectedRows];
 
-  v7 = [indexPathsForSelectedRows countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [indexPathsForSelectedRows countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       v10 = 0;
       do
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(indexPathsForSelectedRows);
         }
 
-        v11 = -[NSArray objectAtIndexedSubscript:](self->_plans, "objectAtIndexedSubscript:", [*(*(&v16 + 1) + 8 * v10) row]);
+        v11 = -[NSArray objectAtIndexedSubscript:](self->_plans, "objectAtIndexedSubscript:", [*(*(&v15 + 1) + 8 * v10) row]);
         plan = [v11 plan];
         [v4 addObject:plan];
 
@@ -463,7 +470,7 @@ LABEL_45:
       }
 
       while (v8 != v10);
-      v8 = [indexPathsForSelectedRows countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [indexPathsForSelectedRows countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -481,15 +488,13 @@ LABEL_45:
     delegate = [(SSCrossPlatformTransferSourceSelectionViewController *)self delegate];
     [delegate viewControllerDidComplete:self];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __78__SSCrossPlatformTransferSourceSelectionViewController__continueButtonTapped___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (!a2)
   {
-    v2 = _TSLogDomain();
+    v2 = _TSLogDomain(a1);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __78__SSCrossPlatformTransferSourceSelectionViewController__continueButtonTapped___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -499,28 +504,27 @@ void __78__SSCrossPlatformTransferSourceSelectionViewController__continueButtonT
 
 - (void)_skipButtonTapped
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v3 = _TSLogDomain();
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = _TSLogDomain(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 136315138;
-    v7 = "[SSCrossPlatformTransferSourceSelectionViewController _skipButtonTapped]";
-    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "skip button tapped, cancel the flow, send empty selection @%s", &v6, 0xCu);
+    v5 = 136315138;
+    v6 = "[SSCrossPlatformTransferSourceSelectionViewController _skipButtonTapped]";
+    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "skip button tapped, cancel the flow, send empty selection @%s", &v5, 0xCu);
   }
 
   v4 = objc_opt_new();
   [(CoreTelephonyClient *)self->_client selectTransferPlans:v4 completion:&__block_literal_global_85_0];
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __73__SSCrossPlatformTransferSourceSelectionViewController__skipButtonTapped__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _TSLogDomain();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _TSLogDomain(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __73__SSCrossPlatformTransferSourceSelectionViewController__skipButtonTapped__block_invoke_cold_1();
     }
@@ -529,30 +533,29 @@ void __73__SSCrossPlatformTransferSourceSelectionViewController__skipButtonTappe
 
 - (void)_cancelButtonTapped
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v3 = _TSLogDomain();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = _TSLogDomain(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "[SSCrossPlatformTransferSourceSelectionViewController _cancelButtonTapped]";
-    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "cancel button tapped, cancel the flow, send empty selection @%s", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "[SSCrossPlatformTransferSourceSelectionViewController _cancelButtonTapped]";
+    _os_log_impl(&dword_262AA8000, v3, OS_LOG_TYPE_DEFAULT, "cancel button tapped, cancel the flow, send empty selection @%s", &v6, 0xCu);
   }
 
   v4 = objc_opt_new();
   [(CoreTelephonyClient *)self->_client selectTransferPlans:v4 completion:&__block_literal_global_87];
   delegate = [(SSCrossPlatformTransferSourceSelectionViewController *)self delegate];
   [delegate viewControllerDidComplete:self];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __75__SSCrossPlatformTransferSourceSelectionViewController__cancelButtonTapped__block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
+  v3 = v2;
   if (v2)
   {
-    v3 = _TSLogDomain();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = _TSLogDomain(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __75__SSCrossPlatformTransferSourceSelectionViewController__cancelButtonTapped__block_invoke_cold_1();
     }
@@ -606,25 +609,10 @@ unint64_t __78__SSCrossPlatformTransferSourceSelectionViewController__preselectP
 
 void __78__SSCrossPlatformTransferSourceSelectionViewController__continueButtonTapped___block_invoke_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_2(&dword_262AA8000, a1, a3, "[E]select tranasfer plans failed : %@ @%s", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __73__SSCrossPlatformTransferSourceSelectionViewController__skipButtonTapped__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_2(&dword_262AA8000, v0, v1, "[E]select tranasfer plans failed : %@ @%s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __75__SSCrossPlatformTransferSourceSelectionViewController__cancelButtonTapped__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2_2(&dword_262AA8000, v0, v1, "[E]select tranasfer plans failed : %@ @%s", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 0;
+  WORD2(v8) = 2080;
+  *(&v8 + 6) = "[SSCrossPlatformTransferSourceSelectionViewController _continueButtonTapped:]_block_invoke";
+  OUTLINED_FUNCTION_2_2(&dword_262AA8000, a1, a3, "[E]select tranasfer plans failed : %@ @%s", a5, a6, a7, a8, 138412546, v8, *MEMORY[0x277D85DE8]);
 }
 
 @end

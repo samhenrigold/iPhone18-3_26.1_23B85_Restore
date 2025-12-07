@@ -38,37 +38,36 @@
 - (BOOL)_useRightHandDriveFocusGuide
 {
   selfCopy = self;
-  v13[1] = a2;
-  v13[0] = 0;
-  v8 = objc_opt_class();
+  v14[1] = a2;
+  v14[0] = 0;
+  v9 = objc_opt_class();
   topViewController = [(CPSOverlayViewController *)selfCopy topViewController];
-  location = CPSSafeCast_2(v8, topViewController);
-  MEMORY[0x277D82BD8](topViewController);
+  location = CPSSafeCast_2(v9, topViewController);
   topViewController2 = [(CPSOverlayViewController *)selfCopy topViewController];
-  v11 = [topViewController2 conformsToProtocol:&unk_2855E1980];
-  MEMORY[0x277D82BD8](topViewController2);
-  if (v11)
+  v12 = [topViewController2 conformsToProtocol:&unk_2855E1980];
+  *&v2 = MEMORY[0x277D82BD8](topViewController2).n128_u64[0];
+  if (v12)
   {
     topViewController3 = [(CPSOverlayViewController *)selfCopy topViewController];
-    v3 = v13[0];
-    v13[0] = topViewController3;
-    MEMORY[0x277D82BD8](v3);
+    v4 = v14[0];
+    v14[0] = topViewController3;
+    MEMORY[0x277D82BD8](v4);
   }
 
   else if (location)
   {
     selectedViewController = [location selectedViewController];
-    v4 = [(CPSOverlayViewController *)selfCopy _firstFocusProvidingForViewController:?];
-    v5 = v13[0];
-    v13[0] = v4;
-    MEMORY[0x277D82BD8](v5);
+    v5 = [(CPSOverlayViewController *)selfCopy _firstFocusProvidingForViewController:?];
+    v6 = v14[0];
+    v14[0] = v5;
+    MEMORY[0x277D82BD8](v6);
     MEMORY[0x277D82BD8](selectedViewController);
   }
 
-  v15 = (objc_opt_respondsToSelector() & 1) != 0 && ([v13[0] useRightHandDriveFocusGuide] & 1) != 0;
+  v16 = (objc_opt_respondsToSelector() & 1) != 0 && ([v14[0] useRightHandDriveFocusGuide] & 1) != 0;
   objc_storeStrong(&location, 0);
-  objc_storeStrong(v13, 0);
-  return v15;
+  objc_storeStrong(v14, 0);
+  return v16;
 }
 
 - (void)invalidate

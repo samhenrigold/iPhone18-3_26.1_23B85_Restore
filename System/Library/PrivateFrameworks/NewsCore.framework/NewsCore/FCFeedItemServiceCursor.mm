@@ -33,20 +33,20 @@
 
 - (FCFeedItemServiceCursor)initWithLastRefreshed:(id)refreshed feedItems:(id)items
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   refreshedCopy = refreshed;
   itemsCopy = items;
   if (!refreshedCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "lastRefreshed"];
+    v14 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "lastRefreshed"];
     *buf = 136315906;
-    v19 = "[FCFeedItemServiceCursor initWithLastRefreshed:feedItems:]";
-    v20 = 2080;
-    v21 = "FCFeedItemServiceCursor.m";
-    v22 = 1024;
-    v23 = 25;
-    v24 = 2114;
-    v25 = v15;
+    v18 = "[FCFeedItemServiceCursor initWithLastRefreshed:feedItems:]";
+    v19 = 2080;
+    v20 = "FCFeedItemServiceCursor.m";
+    v21 = 1024;
+    v22 = 25;
+    v23 = 2114;
+    v24 = v14;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (itemsCopy)
@@ -62,22 +62,22 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "feedItems"];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "feedItems"];
     *buf = 136315906;
-    v19 = "[FCFeedItemServiceCursor initWithLastRefreshed:feedItems:]";
-    v20 = 2080;
-    v21 = "FCFeedItemServiceCursor.m";
-    v22 = 1024;
-    v23 = 26;
-    v24 = 2114;
-    v25 = v16;
+    v18 = "[FCFeedItemServiceCursor initWithLastRefreshed:feedItems:]";
+    v19 = 2080;
+    v20 = "FCFeedItemServiceCursor.m";
+    v21 = 1024;
+    v22 = 26;
+    v23 = 2114;
+    v24 = v15;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v17.receiver = self;
-  v17.super_class = FCFeedItemServiceCursor;
-  v8 = [(FCFeedItemServiceCursor *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = FCFeedItemServiceCursor;
+  v8 = [(FCFeedItemServiceCursor *)&v16 init];
   if (v8)
   {
     v9 = [refreshedCopy copy];
@@ -89,7 +89,6 @@ LABEL_6:
     v8->_feedItems = v11;
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

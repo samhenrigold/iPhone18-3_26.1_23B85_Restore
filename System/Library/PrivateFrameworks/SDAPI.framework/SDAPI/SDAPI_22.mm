@@ -554,7 +554,7 @@ void sub_26269B3E8(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t TLocaleInfo::valueToString(uint64_t a1, unint64_t a2, uint64_t a3, int a4)
+const void **TLocaleInfo::valueToString(uint64_t a1, unint64_t a2, uint64_t a3, int a4)
 {
   v5 = a2;
   if (a4)
@@ -759,11 +759,11 @@ void Voc::Voc(Voc *this, __int16 a2)
 
 void sub_26269BBD8(_Unwind_Exception *a1)
 {
-  DgnString::~DgnString((v1 + 504));
-  DgnString::~DgnString((v1 + 488));
-  DgnString::~DgnString((v1 + 464));
-  DgnString::~DgnString((v1 + 448));
-  DgnString::~DgnString((v1 + 416));
+  DgnString::~DgnString(v1 + 504);
+  DgnString::~DgnString(v1 + 488);
+  DgnString::~DgnString(v1 + 464);
+  DgnString::~DgnString(v1 + 448);
+  DgnString::~DgnString(v1 + 416);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v1 + 400);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v1 + 384);
   DgnPrimArray<unsigned int>::~DgnPrimArray(v1 + 368);
@@ -773,61 +773,50 @@ void sub_26269BBD8(_Unwind_Exception *a1)
   DgnPrimArray<unsigned int>::~DgnPrimArray(v1 + 272);
   PhnMgr::~PhnMgr((v1 + 184));
   FileHistory::~FileHistory((v1 + 144));
-  FileSpec::~FileSpec((v2 + 24));
+  FileSpec::~FileSpec(v2 + 24);
   DgnIOwnArray<WordNgramTemplate *>::releaseAll(v2);
   SvcCompatData::SvcCompatData((v1 + 40));
   _Unwind_Resume(a1);
 }
 
-void Voc::~Voc(Voc *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void Voc::~Voc(Voc *this)
 {
   if (*(this + 85))
   {
-    v17 = *(this + 85);
-    v10 = *(this + 84);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 196, "voc/voc", 1, "%.500s %d %.500s %d", a7, a8, "delete voc");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 196, "voc/voc", 1, "%.500s %d %.500s %d", "delete voc", *(this + 84), "mVocReferringLatticeCount", *(this + 85));
   }
 
   if (*(this + 86))
   {
-    v18 = *(this + 86);
-    v11 = *(this + 84);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 200, "voc/voc", 1, "%.500s %d %.500s %d", a7, a8, "delete voc");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 200, "voc/voc", 1, "%.500s %d %.500s %d", "delete voc", *(this + 84), "mVocReferringPrefilterResultCount", *(this + 86));
   }
 
   if (*(this + 87))
   {
-    v19 = *(this + 87);
-    v12 = *(this + 84);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 203, "voc/voc", 1, "%.500s %d %.500s %d", a7, a8, "delete voc");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 203, "voc/voc", 1, "%.500s %d %.500s %d", "delete voc", *(this + 84), "mVocReferringSausageCount", *(this + 87));
   }
 
   if (*(this + 88))
   {
-    v20 = *(this + 88);
-    v13 = *(this + 84);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 206, "voc/voc", 1, "%.500s %d %.500s %d", a7, a8, "delete voc");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 206, "voc/voc", 1, "%.500s %d %.500s %d", "delete voc", *(this + 84), "mVocReferringReproCount", *(this + 88));
   }
 
-  if (*(this + 62))
+  v2 = *(this + 62);
+  if (v2)
   {
-    v21 = *(this + 62);
-    v14 = *(this + 84);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 210, "voc/voc", 1, "%.500s %d %.500s %d", a7, a8, "delete voc");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 210, "voc/voc", 1, "%.500s %d %.500s %d", "delete voc", *(this + 84), "mnPrefilterers", v2);
   }
 
-  if (*(this + 63))
+  v3 = *(this + 63);
+  if (v3)
   {
-    v22 = *(this + 63);
-    v15 = *(this + 84);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 214, "voc/voc", 1, "%.500s %d %.500s %d", a7, a8, "delete voc");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 214, "voc/voc", 1, "%.500s %d %.500s %d", "delete voc", *(this + 84), "mnTransducers", v3);
   }
 
-  if (*(this + 64))
+  v4 = *(this + 64);
+  if (v4)
   {
-    v23 = *(this + 64);
-    v16 = *(this + 84);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 218, "voc/voc", 1, "%.500s %d %.500s %d", a7, a8, "delete voc");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 218, "voc/voc", 1, "%.500s %d %.500s %d", "delete voc", *(this + 84), "mnTransducerGrammars", v4);
   }
 
   DgnDelete<RuleMgr>(*(this + 8));
@@ -848,20 +837,20 @@ void Voc::~Voc(Voc *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ui
   *(this + 6) = 0;
   DgnDelete<CharInfo>(*(this + 4));
   *(this + 4) = 0;
-  v9 = *(this + 15);
-  if (v9)
+  v5 = *(this + 15);
+  if (v5)
   {
-    DgnSharedMemSet::unrefDSMEx(v9, *(this + 32));
+    DgnSharedMemSet::unrefDSMEx(v5, *(this + 32));
   }
 
   DgnPrimArray<unsigned int>::~DgnPrimArray(this + 560);
   DgnPrimArray<unsigned int>::~DgnPrimArray(this + 544);
   DgnArray<DgnString>::releaseAll(this + 528);
-  DgnString::~DgnString((this + 504));
-  DgnString::~DgnString((this + 488));
-  DgnString::~DgnString((this + 464));
-  DgnString::~DgnString((this + 448));
-  DgnString::~DgnString((this + 416));
+  DgnString::~DgnString(this + 504);
+  DgnString::~DgnString(this + 488);
+  DgnString::~DgnString(this + 464);
+  DgnString::~DgnString(this + 448);
+  DgnString::~DgnString(this + 416);
   DgnPrimArray<unsigned int>::~DgnPrimArray(this + 400);
   DgnPrimArray<unsigned int>::~DgnPrimArray(this + 384);
   DgnPrimArray<unsigned int>::~DgnPrimArray(this + 368);
@@ -871,7 +860,7 @@ void Voc::~Voc(Voc *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ui
   DgnPrimArray<unsigned int>::~DgnPrimArray(this + 272);
   PhnMgr::~PhnMgr((this + 184));
   FileHistory::~FileHistory((this + 144));
-  FileSpec::~FileSpec((this + 104));
+  FileSpec::~FileSpec(this + 104);
   DgnIOwnArray<WordNgramTemplate *>::releaseAll(this + 80);
   SvcCompatData::SvcCompatData((this + 40));
 }
@@ -913,7 +902,7 @@ void (***DgnDelete<LanguageModel>(void (***result)(void)))(void)
   return result;
 }
 
-WordList *DgnDelete<WordList>(WordList *result)
+EnvMgr **DgnDelete<WordList>(EnvMgr **result)
 {
   if (result)
   {
@@ -925,146 +914,146 @@ WordList *DgnDelete<WordList>(WordList *result)
   return result;
 }
 
-uint64_t Voc::computePrefLmScores(Voc *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Voc::computePrefLmScores(Voc *this)
 {
-  v34 = 0;
-  v35 = 0;
-  v9 = *(this + 66);
-  if (!v9)
+  v27 = 0;
+  v28 = 0;
+  v2 = *(this + 66);
+  if (!v2)
   {
-    v20 = *(*(this + 6) + 388);
-    v21 = *(this + 71);
-    if (v20 <= v21)
+    v13 = *(*(this + 6) + 388);
+    v14 = *(this + 71);
+    if (v13 <= v14)
     {
-      *(this + 70) = v20;
-      if (!v20)
+      *(this + 70) = v13;
+      if (!v13)
       {
 LABEL_25:
-        v11 = &v34;
+        v4 = &v27;
         goto LABEL_26;
       }
     }
 
     else
     {
-      DgnPrimArray<short>::reallocElts(this + 272, v20 - v21, 0);
-      *(this + 70) = v20;
+      DgnPrimArray<short>::reallocElts(this + 272, v13 - v14, 0);
+      *(this + 70) = v13;
     }
 
-    v22 = 0;
+    v15 = 0;
     do
     {
-      v23 = *(this + 6);
-      if (v22 < *(v23 + 388) && *(*(v23 + 104) + v22))
+      v16 = *(this + 6);
+      if (v15 < *(v16 + 388) && *(*(v16 + 104) + v15))
       {
-        v24 = v35;
-        if (v35 == HIDWORD(v35))
+        v17 = v28;
+        if (v28 == HIDWORD(v28))
         {
-          DgnPrimArray<unsigned int>::reallocElts(&v34, 1, 1);
-          v24 = v35;
+          DgnPrimArray<unsigned int>::reallocElts(&v27, 1, 1);
+          v17 = v28;
         }
 
-        *(v34 + 4 * v24) = v22;
-        LODWORD(v35) = v35 + 1;
+        *(v27 + 4 * v17) = v15;
+        LODWORD(v28) = v28 + 1;
       }
 
       else
       {
-        *(*(this + 34) + 2 * v22) = 20000;
+        *(*(this + 34) + 2 * v15) = 20000;
       }
 
-      ++v22;
+      ++v15;
     }
 
-    while (v20 != v22);
+    while (v13 != v15);
     goto LABEL_25;
   }
 
-  CollWords = StateMgr::getCollWords(*(this + 7), v9, 0xFFFFu, 1, a5, a6, a7, a8);
-  v11 = CollWords;
-  v12 = *(CollWords + 8);
-  if (!v12)
+  CollWords = StateMgr::getCollWords(*(this + 7), v2, 0xFFFFu, 1);
+  v4 = CollWords;
+  v5 = *(CollWords + 8);
+  if (!v5)
   {
-    v18 = (this + 272);
-    v19 = *(this + 71);
-    v17 = 1;
-    if (v19)
+    v11 = (this + 272);
+    v12 = *(this + 71);
+    v10 = 1;
+    if (v12)
     {
 LABEL_14:
-      *(this + 70) = v17;
+      *(this + 70) = v10;
       goto LABEL_15;
     }
 
 LABEL_13:
-    DgnPrimArray<short>::reallocElts(v18, v17 - v19, 0);
+    DgnPrimArray<short>::reallocElts(v11, v10 - v12, 0);
     goto LABEL_14;
   }
 
-  v13 = 0;
-  v14 = *CollWords;
+  v6 = 0;
+  v7 = *CollWords;
   do
   {
-    v16 = *v14++;
-    v15 = v16;
-    if (v13 <= v16)
+    v9 = *v7++;
+    v8 = v9;
+    if (v6 <= v9)
     {
-      v13 = v15;
+      v6 = v8;
     }
 
-    --v12;
+    --v5;
   }
 
-  while (v12);
-  v17 = v13 + 1;
-  v18 = (this + 272);
-  v19 = *(this + 71);
-  if (v19 < v13 + 1)
+  while (v5);
+  v10 = v6 + 1;
+  v11 = (this + 272);
+  v12 = *(this + 71);
+  if (v12 < v6 + 1)
   {
     goto LABEL_13;
   }
 
-  *(this + 70) = v17;
-  if (v13 != -1)
+  *(this + 70) = v10;
+  if (v6 != -1)
   {
 LABEL_15:
-    memset_pattern16(*v18, &unk_262888330, 2 * v17);
+    memset_pattern16(*v11, &unk_262888330, 2 * v10);
   }
 
 LABEL_26:
-  if (*(v11 + 2))
+  if (*(v4 + 2))
   {
-    v33[0] = 0;
-    v33[1] = 0;
-    (*(**(this + 9) + 520))(*(this + 9), v11, v33);
-    v25 = *(v11 + 2);
-    if (v25)
+    v26[0] = 0;
+    v26[1] = 0;
+    (*(**(this + 9) + 520))(*(this + 9), v4, v26);
+    v18 = *(v4 + 2);
+    if (v18)
     {
-      v26 = *v11;
-      v27 = v33[0];
-      v28 = **(this + 4);
-      v29 = *(this + 34);
+      v19 = *v4;
+      v20 = v26[0];
+      v21 = **(this + 4);
+      v22 = *(this + 34);
       do
       {
-        v31 = *v26++;
-        v30 = v31;
-        LOWORD(v31) = *v27++;
-        *(v29 + 2 * v30) = v31 + v28;
-        --v25;
+        v24 = *v19++;
+        v23 = v24;
+        LOWORD(v24) = *v20++;
+        *(v22 + 2 * v23) = v24 + v21;
+        --v18;
       }
 
-      while (v25);
+      while (v18);
     }
 
-    DgnPrimArray<unsigned int>::~DgnPrimArray(v33);
+    DgnPrimArray<unsigned int>::~DgnPrimArray(v26);
   }
 
   *(this + 260) = 1;
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v34);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v27);
 }
 
-void sub_26269C2FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_26269C2FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -1108,47 +1097,47 @@ uint64_t Voc::getPrefPron(uint64_t this, unsigned int a2, const unsigned __int16
   return this;
 }
 
-uint64_t Voc::computePrefWordIdsSortedByPron(Voc *this, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Voc::computePrefWordIdsSortedByPron(Voc *this)
 {
-  CollWords = StateMgr::getCollWords(*(this + 7), *(this + 76), 0xFFFFu, 1, a5, a6, a7, a8);
-  v17 = 0;
-  v18 = 0;
-  v10 = *(CollWords + 8);
-  if (v10)
+  CollWords = StateMgr::getCollWords(*(this + 7), *(this + 76), 0xFFFFu, 1);
+  v10 = 0;
+  v11 = 0;
+  v3 = *(CollWords + 8);
+  if (v3)
   {
-    v11 = CollWords;
-    v12 = 0;
-    v13 = 0;
-    for (i = 0; i < v10; ++i)
+    v4 = CollWords;
+    v5 = 0;
+    v6 = 0;
+    for (i = 0; i < v3; ++i)
     {
-      v15 = *(*v11 + 4 * i);
-      if (*(*(*(this + 6) + 32) + 2 * v15))
+      v8 = *(*v4 + 4 * i);
+      if (*(*(*(this + 6) + 32) + 2 * v8))
       {
-        if (v13 == HIDWORD(v18))
+        if (v6 == HIDWORD(v11))
         {
-          DgnPrimArray<unsigned int>::reallocElts(&v17, 1, 1);
-          v13 = v18;
-          v12 = v17;
+          DgnPrimArray<unsigned int>::reallocElts(&v10, 1, 1);
+          v6 = v11;
+          v5 = v10;
         }
 
-        *(v12 + 4 * v13) = v15;
-        v13 = v18 + 1;
-        LODWORD(v18) = v18 + 1;
-        v10 = *(v11 + 8);
+        *(v5 + 4 * v6) = v8;
+        v6 = v11 + 1;
+        LODWORD(v11) = v11 + 1;
+        v3 = *(v4 + 8);
       }
     }
   }
 
-  PrefiltererWordIdPronCollArray::addArray(this + 104, &v17);
+  PrefiltererWordIdPronCollArray::addArray(this + 104, &v10);
   *(this + 288) = 1;
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v17);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v10);
 }
 
 void *Voc::notifyPrefWordIdsSortedByPronBad(Voc *this)
 {
   *(this + 288) = 0;
   PrefiltererWordIdPronCollArray::removeAll(this + 416);
-  PrefiltererWordIdPronCollArray::compact((this + 416));
+  PrefiltererWordIdPronCollArray::compact(this + 416);
 
   return Voc::clearPrefPicModels(this);
 }
@@ -1203,71 +1192,71 @@ void *Voc::clearPrefPicModels(Voc *this)
   return result;
 }
 
-void *Voc::loadPrefLmScores(Voc *this, char **a2, DFileChecksums *a3)
+void (***Voc::loadPrefLmScores(Voc *this, const char **a2, DFileChecksums *a3))(void)
 {
-  v22 = 0;
-  v8 = OpenAndReadMrecHeader(a2, 0x40u, 1, "MRPRLM!?", &v22 + 1, &v22);
-  if (HIDWORD(v22) == 17 && v22 == 2)
+  v20 = 0;
+  v6 = OpenAndReadMrecHeader(a2, 0x40u, 1, "MRPRLM!?", &v20 + 1, &v20);
+  if (HIDWORD(v20) == 17 && v20 == 2)
   {
-    MrecHeaderCheckLatestVersionIfShared(a2, "MRPRLM!?", 17, 2, 23, 4, v6, v7);
-    v21 = 0;
-    v14 = (this + 272);
-    readObject<short>(v8, this + 272, &v21);
-    v20 = 0;
-    readObject(v8, &v20, &v21);
-    readObjectChecksumAndVerify(v8, v21);
+    MrecHeaderCheckLatestVersionIfShared(a2, "MRPRLM!?", 17, 2, 23, 4);
+    v19 = 0;
+    v12 = (this + 272);
+    readObject<short>(v6, this + 272, &v19);
+    v18 = 0;
+    readObject(v6, &v18, &v19);
+    readObjectChecksumAndVerify(v6, v19);
     CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-    DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x40u, v21);
-    DgnDelete<DgnStream>(v8);
+    DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 64, v19);
+    DgnDelete<DgnStream>(v6);
     *(this + 260) = 0;
-    v16 = *(this + 34);
-    if (v16)
+    v14 = *(this + 34);
+    if (v14)
     {
-      MemChunkFree(v16, 0);
-      *v14 = 0;
+      MemChunkFree(v14, 0);
+      *v12 = 0;
     }
 
     *(this + 35) = 0;
     goto LABEL_22;
   }
 
-  v10 = HIDWORD(v22) == 23 && v22 == 3;
-  v11 = v10;
-  if (v10)
+  v8 = HIDWORD(v20) == 23 && v20 == 3;
+  v9 = v8;
+  if (v8)
   {
-    v12 = 23;
-    v13 = 3;
+    v10 = 23;
+    v11 = 3;
   }
 
   else
   {
     if (*(a2 + 6))
     {
-      v17 = a2[2];
+      v15 = a2[2];
     }
 
     else
     {
-      v17 = &unk_26288830E;
+      v15 = &unk_26288830E;
     }
 
-    MrecHeaderCheckVersions(v17, "MRPRLM!?", HIDWORD(v22), v22, 0x17u, 4u);
-    v13 = v22;
-    v12 = HIDWORD(v22);
+    MrecHeaderCheckVersions(v15, "MRPRLM!?", HIDWORD(v20), v20, 0x17u, 4u);
+    v11 = v20;
+    v10 = HIDWORD(v20);
   }
 
-  MrecHeaderCheckLatestVersionIfShared(a2, "MRPRLM!?", v12, v13, 23, 4, v6, v7);
-  v21 = 0;
-  readObject(v8, this + 66, &v21);
-  v14 = (this + 272);
-  readObject<short>(v8, this + 272, &v21);
-  v20 = 0;
-  readObjectChecksumAndVerify(v8, v21);
-  v18 = DFile::getCurrentSubDirComponents(a2);
-  DFileChecksums::addChecksum(a3, v18, 0x40u, v21);
-  result = DgnDelete<DgnStream>(v8);
+  MrecHeaderCheckLatestVersionIfShared(a2, "MRPRLM!?", v10, v11, 23, 4);
+  v19 = 0;
+  readObject(v6, this + 66, &v19);
+  v12 = (this + 272);
+  readObject<short>(v6, this + 272, &v19);
+  v18 = 0;
+  readObjectChecksumAndVerify(v6, v19);
+  v16 = DFile::getCurrentSubDirComponents(a2);
+  DFileChecksums::addChecksum(a3, v16, 64, v19);
+  result = DgnDelete<DgnStream>(v6);
   *(this + 260) = *(this + 70) != 0;
-  if (v11)
+  if (v9)
   {
 LABEL_22:
     *(this + 66) = 0;
@@ -1276,7 +1265,7 @@ LABEL_22:
     if (result)
     {
       result = MemChunkFree(result, 0);
-      *v14 = 0;
+      *v12 = 0;
     }
 
     *(this + 35) = 0;
@@ -1285,7 +1274,7 @@ LABEL_22:
   return result;
 }
 
-void (***Voc::savePrefLmScores(Voc *this, DFile *a2, DFileChecksums *a3, int a4))(void)
+void (***Voc::savePrefLmScores(Voc *this, DFile *a2, DFileChecksums *a3, uint64_t a4))(void)
 {
   v7 = OpenAndWriteMrecHeader(a2, 0x40u, a4, "MRPRLM!?", 23, 4);
   v10 = 0;
@@ -1293,88 +1282,88 @@ void (***Voc::savePrefLmScores(Voc *this, DFile *a2, DFileChecksums *a3, int a4)
   writeObject<short>(v7, this + 272, &v10);
   writeObjectChecksum(v7, &v10);
   CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x40u, v10);
+  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 64, v10);
   return DgnDelete<DgnStream>(v7);
 }
 
-void *Voc::loadPrefWordIdsSortedByPron(Voc *this, DFile *a2, DFileChecksums *a3)
+void (***Voc::loadPrefWordIdsSortedByPron(Voc *this, const char **a2, DFileChecksums *a3))(void)
 {
-  v21 = 0;
-  v8 = OpenAndReadMrecHeader(a2, 0x48u, 1, "MRPRWD!?", &v21 + 1, &v21);
-  v9 = v21;
-  v10 = v21 == 2 && HIDWORD(v21) == 23;
-  v11 = (v21 & 0xFFFFFFFE) == 2 && HIDWORD(v21) == 23;
-  if (v11 || v21 == 0x1700000004)
+  v19 = 0;
+  v6 = OpenAndReadMrecHeader(a2, 0x48u, 1, "MRPRWD!?", &v19 + 1, &v19);
+  v7 = v19;
+  v8 = v19 == 2 && HIDWORD(v19) == 23;
+  v9 = (v19 & 0xFFFFFFFE) == 2 && HIDWORD(v19) == 23;
+  if (v9 || v19 == 0x1700000004)
   {
-    v12 = 0;
-    v13 = 23;
+    v10 = 0;
+    v11 = 23;
   }
 
   else
   {
     if (*(a2 + 6))
     {
-      v14 = *(a2 + 2);
+      v12 = a2[2];
     }
 
     else
     {
-      v14 = &unk_26288830E;
+      v12 = &unk_26288830E;
     }
 
-    MrecHeaderCheckVersions(v14, "MRPRWD!?", HIDWORD(v21), v21, 0x18u, 5u);
-    v9 = v21;
-    v13 = HIDWORD(v21);
-    v12 = 1;
+    MrecHeaderCheckVersions(v12, "MRPRWD!?", HIDWORD(v19), v19, 0x18u, 5u);
+    v7 = v19;
+    v11 = HIDWORD(v19);
+    v10 = 1;
   }
 
-  MrecHeaderCheckLatestVersionIfShared(a2, "MRPRWD!?", v13, v9, 24, 5, v6, v7);
-  v20 = 0;
-  if (!v10)
+  MrecHeaderCheckLatestVersionIfShared(a2, "MRPRWD!?", v11, v7, 24, 5);
+  v18 = 0;
+  if (!v8)
   {
-    v19 = 0;
-    readObject(v8, &v19, &v20);
-    v15 = v19 - 1;
-    if ((v19 - 2) >= 4)
+    v17 = 0;
+    readObject(v6, &v17, &v18);
+    v13 = v17 - 1;
+    if ((v17 - 2) >= 4)
     {
-      v15 = 0;
+      v13 = 0;
     }
 
-    *(this + 73) = v15;
+    *(this + 73) = v13;
   }
 
-  if (v12)
+  if (v10)
   {
-    v19 = 0;
-    readObject(v8, &v19, &v20);
-    v16 = v19 - 1;
-    if ((v19 - 2) >= 3)
+    v17 = 0;
+    readObject(v6, &v17, &v18);
+    v14 = v17 - 1;
+    if ((v17 - 2) >= 3)
     {
-      v16 = 0;
+      v14 = 0;
     }
 
-    *(this + 74) = v16;
+    *(this + 74) = v14;
   }
 
-  readObject(v8, this + 75, &v20);
-  readObject(v8, this + 76, &v20);
-  if (!v10)
+  readObject(v6, this + 75, &v18);
+  readObject(v6, this + 76, &v18);
+  if (!v8)
   {
-    readObject(v8, this + 77, &v20);
-    readObject<unsigned int,DgnArray<OpaquePelIdAndDurId>,Voc>(v8, this + 78, &v20);
-    readObject<OpaquePelIdAndDurId>(v8, this + 352, &v20);
-    readObject<unsigned short>(v8, this + 368, &v20);
-    readObject<unsigned int>(v8, this + 384, &v20);
-    readObject<unsigned int>(v8, this + 400, &v20);
+    readObject(v6, this + 77, &v18);
+    readObject<unsigned int,DgnArray<OpaquePelIdAndDurId>,Voc>(v6, this + 78, &v18);
+    readObject<OpaquePelIdAndDurId>(v6, this + 352, &v18);
+    readObject<unsigned short>(v6, this + 368, &v18);
+    readObject<unsigned int>(v6, this + 384, &v18);
+    readObject<unsigned int>(v6, this + 400, &v18);
   }
 
-  PrefiltererWordIdPronCollArray::readObject((this + 416), v8, &v20);
-  readObjectChecksumAndVerify(v8, v20);
+  PrefiltererWordIdPronCollArray::readObject((this + 416), v6, &v18);
+  readObjectChecksumAndVerify(v6, v18);
   CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x48u, v20);
-  result = DgnDelete<DgnStream>(v8);
+  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 72, v18);
+  result = DgnDelete<DgnStream>(v6);
   *(this + 288) = 1;
-  if (v11)
+  if (v9)
   {
     *(this + 76) = 0;
     return Voc::notifyPrefWordIdsSortedByPronBad(this);
@@ -1426,7 +1415,7 @@ uint64_t readObject<OpaquePelIdAndDurId>(uint64_t a1, uint64_t a2, _DWORD *a3)
   return result;
 }
 
-void (***Voc::savePrefWordIdsSortedByPron(Voc *this, DFile *a2, DFileChecksums *a3, int a4))(void)
+void (***Voc::savePrefWordIdsSortedByPron(Voc *this, DFile *a2, DFileChecksums *a3, uint64_t a4))(void)
 {
   v7 = OpenAndWriteMrecHeader(a2, 0x48u, a4, "MRPRWD!?", 24, 5);
   v8 = v7;
@@ -1468,11 +1457,11 @@ void (***Voc::savePrefWordIdsSortedByPron(Voc *this, DFile *a2, DFileChecksums *
   PrefiltererWordIdPronCollArray::writeObject((this + 416), v8, &v17);
   writeObjectChecksum(v8, &v17);
   CurrentSubDirComponents = DFile::getCurrentSubDirComponents(a2);
-  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 0x48u, v17);
+  DFileChecksums::addChecksum(a3, CurrentSubDirComponents, 72, v17);
   return DgnDelete<DgnStream>(v8);
 }
 
-uint64_t writeObject<unsigned int,DgnArray<OpaquePelIdAndDurId>,Voc>(uint64_t a1, int *a2, _DWORD *a3)
+uint64_t writeObject<unsigned int,DgnArray<OpaquePelIdAndDurId>,Voc>(DgnStream *a1, int *a2, unsigned int *a3)
 {
   v9 = *a2;
   writeObject(a1, &v9, a3);
@@ -1504,53 +1493,53 @@ uint64_t writeObject<OpaquePelIdAndDurId>(uint64_t a1, uint64_t a2, _DWORD *a3)
   return result;
 }
 
-void Voc::loadAndDiscardReproData(Voc *this, DFile *a2)
+void Voc::loadAndDiscardReproData(Voc *this, FileSpec **a2)
 {
   DgnTextFileParser::DgnTextFileParser(v3);
-  DgnTextFileParser::openDgnTextFileParser(v3, a2, 0x4Cu, 1);
+  DgnTextFileParser::openDgnTextFileParser(v3, a2, 76, 1);
   DgnTextFileParser::verifyMatchingFileType(v3, "ReproData");
   DgnTextFileParser::~DgnTextFileParser(v3);
 }
 
-void sub_26269CE64(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26269CE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnTextFileParser::~DgnTextFileParser(va);
   _Unwind_Resume(a1);
 }
 
-void Voc::loadAndDiscardReproResult(Voc *this, DFile *a2)
+void Voc::loadAndDiscardReproResult(Voc *this, FileSpec **a2)
 {
-  DgnTextFileParser::DgnTextFileParser(v6);
-  DgnTextFileParser::openDgnTextFileParser(v6, a2, 0x4Du, 1);
-  DgnTextFileParser::verifyMatchingFileType(v6, "ResultData");
-  FileVersion = DgnTextFile::getFileVersion(v6);
+  DgnTextFileParser::DgnTextFileParser(v4);
+  DgnTextFileParser::openDgnTextFileParser(v4, a2, 77, 1);
+  DgnTextFileParser::verifyMatchingFileType(v4, "ResultData");
+  FileVersion = DgnTextFile::getFileVersion(v4);
   if (FileVersion != 19 || (HIDWORD(FileVersion) - 5) >= 7)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 692, "voc/voc", 31, "%s", v4, v5, &errStr_voc_voc_E_RSD_PRESENT);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 692, "voc/voc", 31, "%s", &errStr_voc_voc_E_RSD_PRESENT);
   }
 
-  DgnTextFileParser::~DgnTextFileParser(v6);
+  DgnTextFileParser::~DgnTextFileParser(v4);
 }
 
-void sub_26269CF28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26269CF28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnTextFileParser::~DgnTextFileParser(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t Voc::getVocSvcCompatibility(Voc *this, DFile *a2, DFile *a3)
+uint64_t Voc::getVocSvcCompatibility(const char **this, const char **a2, DFile *a3)
 {
   v3 = a3;
   if (DFile::subFileExists(this, 0x2Fu))
   {
-    v8 = DFile::subFileExists(this, 0x51u);
-    v11 = v8;
+    v6 = DFile::subFileExists(this, 0x51u);
+    v7 = v6;
     if (a2)
     {
-      v12 = DFile::subFileExists(a2, 0x51u);
-      if (v11)
+      v8 = DFile::subFileExists(a2, 0x51u);
+      if (v7)
       {
         goto LABEL_4;
       }
@@ -1558,273 +1547,265 @@ uint64_t Voc::getVocSvcCompatibility(Voc *this, DFile *a2, DFile *a3)
 
     else
     {
-      v12 = 0;
-      if (v8)
+      v8 = 0;
+      if (v6)
       {
 LABEL_4:
-        SvcCompatData::SvcCompatData(&v38);
-        SvcCompatData::loadSvcCompatData(&v38, this, 0);
-        if (v38 != 2)
+        SvcCompatData::SvcCompatData(&v26);
+        SvcCompatData::loadSvcCompatData(&v26, this, 0);
+        if (v26 != 2)
         {
-          if (v38 != 1)
+          if (v26 != 1)
           {
-            if (v38)
+            if (v26)
             {
               if (v3)
               {
                 if (*(this + 6))
                 {
-                  v25 = *(this + 2);
+                  v14 = this[2];
                 }
 
                 else
                 {
-                  v25 = &unk_26288830E;
+                  v14 = &unk_26288830E;
                 }
 
-                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 837, "voc/voc", 18, "%.500s", v13, v14, v25);
+                errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 837, "voc/voc", 18, "%.500s", v14);
               }
 
-              goto LABEL_80;
+              goto LABEL_71;
             }
 
             if (a2)
             {
-              v15 = 3;
+              v9 = 3;
             }
 
             else
             {
-              v15 = 1;
+              v9 = 1;
             }
 
             if (!a2 || !v3)
             {
-              goto LABEL_81;
+              goto LABEL_72;
             }
 
             if (*(this + 6))
             {
-              v16 = *(this + 2);
+              v10 = this[2];
             }
 
             else
             {
-              v16 = &unk_26288830E;
+              v10 = &unk_26288830E;
             }
 
-            v29 = "%.500s %.500s";
-            v30 = 20;
-            v31 = 758;
-            if (!*(a2 + 6))
+            v17 = "%.500s %.500s";
+            v18 = 20;
+            v19 = 758;
+            if (*(a2 + 6))
             {
-              goto LABEL_79;
+              goto LABEL_63;
             }
 
-            goto LABEL_73;
+            goto LABEL_69;
           }
 
           if (a2)
           {
-            v21 = v12 & v3;
-            if (v12)
+            v12 = v8 & v3;
+            if (v8)
             {
-              v15 = 3;
+              v9 = 3;
             }
 
             else
             {
-              v15 = 4;
+              v9 = 4;
             }
 
-            if (v21 != 1)
+            if (v12 != 1)
             {
-              goto LABEL_81;
+              goto LABEL_72;
             }
 
             if (*(this + 6))
             {
-              v16 = *(this + 2);
+              v10 = this[2];
             }
 
             else
             {
-              v16 = &unk_26288830E;
+              v10 = &unk_26288830E;
             }
 
-            v29 = "%.500s %.500s";
-            v30 = 19;
-            v31 = 781;
-            if (!*(a2 + 6))
+            v17 = "%.500s %.500s";
+            v18 = 19;
+            v19 = 781;
+            if (*(a2 + 6))
             {
-              goto LABEL_79;
+LABEL_63:
+              v20 = a2[2];
+LABEL_70:
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", v19, "voc/voc", v18, v17, v10, v20);
+              goto LABEL_71;
             }
 
-            goto LABEL_73;
+LABEL_69:
+            v20 = &unk_26288830E;
+            goto LABEL_70;
           }
 
           if (v3)
           {
-            v27 = 772;
+            v15 = 772;
             if (*(this + 6))
             {
-LABEL_60:
-              v28 = *(this + 2);
-LABEL_64:
-              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", v27, "voc/voc", 21, "%.500s", v13, v14, v28);
-              goto LABEL_65;
+LABEL_50:
+              v16 = this[2];
+LABEL_54:
+              errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", v15, "voc/voc", 21, "%.500s", v16);
+              goto LABEL_55;
             }
 
-LABEL_63:
-            v28 = &unk_26288830E;
-            goto LABEL_64;
+LABEL_53:
+            v16 = &unk_26288830E;
+            goto LABEL_54;
           }
 
-          goto LABEL_65;
+          goto LABEL_55;
         }
 
         if (!a2)
         {
           if (v3)
           {
-            v27 = 795;
+            v15 = 795;
             if (*(this + 6))
             {
-              goto LABEL_60;
+              goto LABEL_50;
             }
 
-            goto LABEL_63;
+            goto LABEL_53;
           }
 
-LABEL_65:
-          v15 = 2;
-LABEL_81:
-          SvcCompatData::SvcCompatData(&v38);
-          return v15;
+LABEL_55:
+          v9 = 2;
+LABEL_72:
+          SvcCompatData::SvcCompatData(&v26);
+          return v9;
         }
 
-        if ((v12 & 1) == 0)
+        if ((v8 & 1) == 0)
         {
           if (!v3)
           {
-LABEL_80:
-            v15 = 3;
-            goto LABEL_81;
+LABEL_71:
+            v9 = 3;
+            goto LABEL_72;
           }
 
           if (*(this + 6))
           {
-            v16 = *(this + 2);
+            v10 = this[2];
           }
 
           else
           {
-            v16 = &unk_26288830E;
+            v10 = &unk_26288830E;
           }
 
-          v29 = "%.500s %.500s";
-          v30 = 19;
-          v31 = 804;
-          if (!*(a2 + 6))
+          v17 = "%.500s %.500s";
+          v18 = 19;
+          v19 = 804;
+          if (*(a2 + 6))
           {
-LABEL_79:
-            errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", v31, "voc/voc", v30, v29, v13, v14, v16);
-            goto LABEL_80;
+            goto LABEL_63;
           }
 
-LABEL_73:
-          v32 = *(a2 + 2);
-          goto LABEL_79;
+          goto LABEL_69;
         }
 
-        SvcCompatData::SvcCompatData(&v36);
-        SvcCompatData::loadSvcCompatData(&v36, a2, 0);
-        if (v36 == 3)
+        SvcCompatData::SvcCompatData(&v24);
+        SvcCompatData::loadSvcCompatData(&v24, a2, 0);
+        if (v24 == 3)
         {
-          if (v39 == v37)
+          if (v27 == v25)
           {
-            v15 = 0;
+            v9 = 0;
           }
 
           else
           {
-            v15 = 3;
+            v9 = 3;
           }
 
-          if (v39 == v37 || !v3)
+          if (v27 == v25 || !v3)
           {
-            goto LABEL_93;
+            goto LABEL_85;
           }
 
           if (*(this + 6))
           {
-            v24 = *(this + 2);
+            v13 = this[2];
           }
 
           else
           {
-            v24 = &unk_26288830E;
+            v13 = &unk_26288830E;
           }
 
           if (*(a2 + 6))
           {
-            v35 = *(a2 + 2);
+            v23 = a2[2];
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 824, "voc/voc", 17, "%.500s %.500s", v22, v23, v24);
+          else
+          {
+            v23 = &unk_26288830E;
+          }
+
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 824, "voc/voc", 17, "%.500s %.500s", v13, v23);
         }
 
         else if (v3)
         {
           if (*(a2 + 6))
           {
-            v33 = *(a2 + 2);
+            v21 = a2[2];
           }
 
           else
           {
-            v33 = &unk_26288830E;
+            v21 = &unk_26288830E;
           }
 
-          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 814, "voc/voc", 18, "%.500s", v22, v23, v33);
+          errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 814, "voc/voc", 18, "%.500s", v21);
         }
 
-        v15 = 3;
-LABEL_93:
-        SvcCompatData::SvcCompatData(&v36);
-        goto LABEL_81;
+        v9 = 3;
+LABEL_85:
+        SvcCompatData::SvcCompatData(&v24);
+        goto LABEL_72;
       }
     }
 
-    v18 = a2 == 0 || (v12 & 1) == 0;
-    if (a2 == 0 || (v12 & 1) == 0)
+    v11 = a2 == 0 || (v8 & 1) == 0;
+    if (a2 == 0 || (v8 & 1) == 0)
     {
-      v15 = 4;
+      v9 = 4;
     }
 
     else
     {
-      v15 = 3;
+      v9 = 3;
     }
 
-    if (!v18 && v3)
+    if (!v11 && v3)
     {
-      if (*(this + 6))
-      {
-        v19 = *(this + 2);
-      }
-
-      else
-      {
-        v19 = &unk_26288830E;
-      }
-
-      if (*(a2 + 6))
-      {
-        v26 = *(a2 + 2);
-      }
-
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 741, "voc/voc", 19, "%.500s %.500s", v9, v10, v19);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 741, "voc/voc", 19, "%.500s %.500s");
       return 3;
     }
   }
@@ -1833,51 +1814,37 @@ LABEL_93:
   {
     if (a2)
     {
-      v15 = 3;
+      v9 = 3;
     }
 
     else
     {
-      v15 = 1;
+      v9 = 1;
     }
 
     if (a2 && v3)
     {
-      if (*(this + 6))
-      {
-        v17 = *(this + 2);
-      }
-
-      else
-      {
-        v17 = &unk_26288830E;
-      }
-
-      if (*(a2 + 6))
-      {
-        v20 = *(a2 + 2);
-      }
-
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 715, "voc/voc", 19, "%.500s %.500s", v6, v7, v17);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 715, "voc/voc", 19, "%.500s %.500s");
       return 3;
     }
   }
 
-  return v15;
+  return v9;
 }
 
-void sub_26269D38C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+void sub_26269D38C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
 {
-  va_start(va, a4);
+  va_start(va, a7);
   SvcCompatData::SvcCompatData(va);
   _Unwind_Resume(a1);
 }
 
-void *Voc::loadVoc(Voc *this, DFile *a2, DFile *a3, DgnSharedMemSet *a4, uint64_t a5, uint64_t a6, int a7, char a8, BOOL *a9, DFileChecksums *a10, BOOL *a11)
+void *Voc::loadVoc(Voc *this, const char **a2, DFile *a3, DgnSharedMemSet *a4, uint64_t a5, uint64_t a6, _BOOL4 a7, BOOL a8, BOOL *a9, DFileChecksums *a10, BOOL *a11)
 {
-  v105 = 0u;
-  v106 = 0u;
-  SnapTime::recordTime(&v105, 1, 1, 1, 1);
+  v14 = a5;
+  v80 = 0u;
+  v81 = 0u;
+  SnapTime::recordTime(&v80, 1, 1, 1, 1);
   EnvHolder::errorIfFileObviouslyIsNotOfTypeVoc(a2, v19);
   *(this + 6) = 0;
   if (a8)
@@ -1886,217 +1853,294 @@ void *Voc::loadVoc(Voc *this, DFile *a2, DFile *a3, DgnSharedMemSet *a4, uint64_
     {
       if (*(a3 + 6))
       {
-        v23 = *(a3 + 2);
+        v21 = *(a3 + 2);
       }
 
       else
       {
-        v23 = &unk_26288830E;
+        v21 = &unk_26288830E;
       }
 
       if (*(a2 + 6))
       {
-        v26 = *(a2 + 2);
+        v24 = a2[2];
       }
 
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 866, "voc/voc", 22, "%.500s %.500s", v21, v22, v23);
+      else
+      {
+        v24 = &unk_26288830E;
+      }
+
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 866, "voc/voc", 22, "%.500s %.500s", v21, v24);
       *(this + 12) = a6;
-      v24 = (this + 96);
-      goto LABEL_18;
+      v22 = (this + 96);
+      goto LABEL_20;
     }
 
     *(this + 12) = a6;
-    v24 = (this + 96);
+    v22 = (this + 96);
     if (a6)
     {
       goto LABEL_10;
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   Voc::getVocSvcCompatibility(a2, a3, 1);
   *(this + 12) = a6;
-  v24 = (this + 96);
+  v22 = (this + 96);
   if (!a3 && a6)
   {
 LABEL_10:
     if (*(a2 + 6))
     {
-      v25 = *(a2 + 2);
+      v23 = a2[2];
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 872, "voc/voc", 28, "%lld %.500s", v21, v22, a6);
-    goto LABEL_13;
+    else
+    {
+      v23 = &unk_26288830E;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 872, "voc/voc", 28, "%lld %.500s", a6, v23);
+    goto LABEL_14;
   }
 
   if (!a3)
   {
-LABEL_13:
-    v97 = 1;
-    goto LABEL_25;
+LABEL_14:
+    v72 = 1;
+    goto LABEL_29;
   }
 
-LABEL_18:
+LABEL_20:
   if (a6 <= -2)
   {
     if (*(a2 + 6))
     {
-      v27 = *(a2 + 2);
+      v25 = a2[2];
+    }
+
+    else
+    {
+      v25 = &unk_26288830E;
     }
 
     if (*(a3 + 6))
     {
-      v28 = *(a3 + 2);
+      v26 = *(a3 + 2);
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 877, "voc/voc", 27, "%lld %.500s %.500s", v21, v22, a6);
+    else
+    {
+      v26 = &unk_26288830E;
+    }
+
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 877, "voc/voc", 27, "%lld %.500s %.500s", a6, v25, v26);
   }
 
-  v97 = 0;
-LABEL_25:
+  v72 = 0;
+LABEL_29:
   if (a7)
   {
-    *v24 = 0;
+    *v22 = 0;
   }
 
   WordListInTextFormat = WordList::willLoadWordListInTextFormat(a2, v20);
   if (WordListInTextFormat && *(this + 32) != -1 && *(DgnSharedMemSet::getSetCacheDir(*(this + 15)) + 8) <= 1u)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 884, "voc/voc", 32, "%s", v30, v31, &errStr_voc_voc_E_VOC_UNSHARABLE);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 884, "voc/voc", 32, "%s", &errStr_voc_voc_E_VOC_UNSHARABLE);
   }
 
-  v32 = MemChunkAlloc(0x110uLL, 0);
-  v33 = EnvMgr::EnvMgr(v32, 2u);
-  *this = v33;
-  EnvMgr::loadEnvMgr(v33, a2, a10);
-  v34 = MemChunkAlloc(4uLL, 0);
-  CharInfo::CharInfo(v34);
-  *(this + 1) = v35;
-  CharInfo::loadCharInfo(v35, a2, a10, WordListInTextFormat);
-  v36 = MemChunkAlloc(0x148uLL, 0);
-  v37 = CollMgr::CollMgr(v36, *(this + 1));
-  *(this + 2) = v37;
-  CollMgr::loadCollMgr(v37, a2, a10, WordListInTextFormat);
+  v28 = MemChunkAlloc(0x110uLL, 0);
+  EnvMgr::EnvMgr(v28, 2);
+  *this = v29;
+  EnvMgr::loadEnvMgr(v29, a2, a10);
+  v30 = MemChunkAlloc(4uLL, 0);
+  CharInfo::CharInfo(v30);
+  *(this + 1) = v31;
+  CharInfo::loadCharInfo(v31, a2, a10, WordListInTextFormat);
+  v32 = MemChunkAlloc(0x148uLL, 0);
+  CollMgr::CollMgr(v32, *(this + 1));
+  *(this + 2) = v33;
+  CollMgr::loadCollMgr(v33, a2, a10, WordListInTextFormat);
   PhnMgr::loadPhnMgr((this + 184), a2, a10, WordListInTextFormat);
-  v38 = MemChunkAlloc(0x18uLL, 0);
-  v39 = TRegExp::TRegExp(v38, this + 184);
-  *(this + 3) = v39;
-  PronCollMgr::loadPronCollMgr(v39, a2, a10, WordListInTextFormat);
-  v40 = MemChunkAlloc(0x10uLL, 0);
-  DgnString::DgnString(v40);
-  *(this + 4) = v41;
-  VocCompatData::loadVocCompatData(v41, a2, a10, WordListInTextFormat);
-  v42 = MemChunkAlloc(0x290uLL, 0);
-  v43 = WordList::WordList(v42, *(this + 2), *(this + 3), (this + 184));
-  *(this + 6) = v43;
-  WordList::loadWordList(v43, a2, a10);
-  v103 = 0;
-  v104 = 0;
-  v98[0] = 0;
-  HIDWORD(v104) = realloc_array(0, v98, 8uLL, 0, 0, 1) >> 3;
-  v103 = v98[0];
-  if (v104 <= 1)
+  v34 = MemChunkAlloc(0x18uLL, 0);
+  v35 = TRegExp::TRegExp(v34, this + 184);
+  *(this + 3) = v35;
+  PronCollMgr::loadPronCollMgr(v35, a2, a10, WordListInTextFormat);
+  v36 = MemChunkAlloc(0x10uLL, 0);
+  DgnString::DgnString(v36);
+  *(this + 4) = v37;
+  VocCompatData::loadVocCompatData(v37, a2, a10, WordListInTextFormat);
+  v38 = MemChunkAlloc(0x290uLL, 0);
+  WordList::WordList(v38, *(this + 2), *(this + 3), (this + 184));
+  *(this + 6) = v39;
+  WordList::loadWordList(v39, a2, a10);
+  v78 = 0;
+  v79 = 0;
+  v73[0] = 0;
+  HIDWORD(v79) = realloc_array(0, v73, 8uLL, 0, 0, 1) >> 3;
+  v78 = v73[0];
+  if (v79 <= 1)
   {
-    if (!v104)
+    if (!v79)
     {
-      *v98[0] = 0;
+      *v73[0] = 0;
     }
   }
 
-  else if (v104 >= 2)
+  else if (v79 >= 2)
   {
-    v44 = v104 - 1;
+    v40 = v79 - 1;
     do
     {
-      DgnDelete<DgnStream>(v103[v44]);
-      v103[v44] = 0;
-      v45 = v44-- + 1;
+      DgnDelete<DgnStream>(v78[v40]);
+      v78[v40] = 0;
+      v41 = v40-- + 1;
     }
 
-    while (v45 > 2);
+    while (v41 > 2);
   }
 
-  LODWORD(v104) = 1;
+  LODWORD(v79) = 1;
   if (a4)
   {
-    v46 = MemChunkAlloc(0x50uLL, 0);
-    v47 = DgnSharedMemStream::DgnSharedMemStream(v46, a4, a5, 0);
-    *v103 = v47;
+    v42 = MemChunkAlloc(0x50uLL, 0);
+    v43 = DgnSharedMemStream::DgnSharedMemStream(v42, a4, v14, 0);
+    *v78 = v43;
   }
 
-  v102 = 0;
-  v48 = *v103;
+  v77 = 0;
+  v44 = *v78;
   if (*(this + 32) == -1)
   {
-    v49 = 0;
+    v45 = 0;
   }
 
   else
   {
-    v49 = (*(DgnSharedMemSet::getSetCacheDir(*(this + 15)) + 8) < 2u);
+    v45 = (*(DgnSharedMemSet::getSetCacheDir(*(this + 15)) + 8) < 2u);
   }
 
-  HIBYTE(v96) = a8;
-  LOBYTE(v96) = a7;
-  v50 = LanguageModel::CreateAndLoadLanguageModel(a2, a3, a10, v48, v49, WordListInTextFormat, 1, 0, *(*(this + 4) + 4), v94, *(this + 6), 0, 0xFFFFFFu, 0xFFFFFFu, v96, a9, &v102, 0);
-  *(this + 9) = v50;
+  HIBYTE(v71) = a8;
+  LOBYTE(v71) = a7;
+  v46 = LanguageModel::CreateAndLoadLanguageModel(a2, a3, a10, v44, v45, WordListInTextFormat, 1, 0, *(*(this + 4) + 4), v69, *(this + 6), 0, 0xFFFFFFu, 0xFFFFFFu, v71, a9, &v77, 0);
+  *(this + 9) = v46;
   if (a4)
   {
-    v51 = 0;
+    v47 = 0;
   }
 
   else
   {
-    v51 = (*(*v50 + 32))(v50);
-    v50 = *(this + 9);
+    v47 = (*(*v46 + 32))(v46);
+    v46 = *(this + 9);
   }
 
-  v100 = 0;
-  v101 = 0;
-  (*(*v50 + 152))(v50, &v101, &v100);
-  v58 = 0;
+  v75 = 0;
+  v76 = 0;
+  (*(*v46 + 152))(v46, &v76, &v75);
+  v48 = 0;
   do
   {
-    LODWORD(v98[0]) = 4;
-    HIDWORD(v98[0]) = v58;
-    DFile::pushCurrentSubDirComponent(a2, v98, v52, v53, v54, v55, v56, v57);
+    LODWORD(v73[0]) = 4;
+    HIDWORD(v73[0]) = v48;
+    DFile::pushCurrentSubDirComponent(a2, v73);
     if ((DFile::subFileExists(a2, 0x76u) & 1) != 0 || DFile::subFileExists(a2, 0x75u))
     {
-      v59 = MemChunkAlloc(0xB0uLL, 0);
-      WordNgramTemplate::WordNgramTemplate(v59, *(this + 6), v101, v100);
-      v60 = *(this + 22);
-      if (v60 == *(this + 23))
+      v49 = MemChunkAlloc(0xB0uLL, 0);
+      WordNgramTemplate::WordNgramTemplate(v49, *(this + 6), v76, v75);
+      v50 = *(this + 22);
+      if (v50 == *(this + 23))
       {
         DgnPrimArray<unsigned long long>::reallocElts(this + 80, 1, 1);
-        v60 = *(this + 22);
+        v50 = *(this + 22);
       }
 
-      *(*(this + 10) + 8 * v60) = v59;
-      *(this + 22) = v60 + 1;
-      WordNgramTemplate::loadWordNgramTemplate(*(*(this + 10) + 8 * v58), a2, a10, WordListInTextFormat);
-      v61 = 1;
+      *(*(this + 10) + 8 * v50) = v49;
+      *(this + 22) = v50 + 1;
+      WordNgramTemplate::loadWordNgramTemplate(*(*(this + 10) + 8 * v48), a2, a10, WordListInTextFormat);
+      v51 = 1;
     }
 
     else
     {
-      v61 = 0;
+      v51 = 0;
     }
 
     DFile::popCurrentSubDirComponent(a2);
-    ++v58;
+    ++v48;
   }
 
-  while ((v61 & 1) != 0);
-  LOBYTE(v95) = *a9;
-  v93[4] = *(this + 22) != 0;
-  *v93 = 0xFFFFFF;
-  (*(**(this + 9) + 48))(*(this + 9), *(this + 9), a2, a10, *v103, WordListInTextFormat, 0, 0xFFFFFFLL, *v93, this + 80, v95, v51, *(this + 12));
+  while ((v51 & 1) != 0);
+  LOBYTE(v70) = *a9;
+  v68[4] = *(this + 22) != 0;
+  *v68 = 0xFFFFFF;
+  (*(**(this + 9) + 48))(*(this + 9), *(this + 9), a2, a10, *v78, WordListInTextFormat, 0, 0xFFFFFFLL, *v68, this + 80, v70, v47, *(this + 12));
   if (WordListInTextFormat)
   {
     if (*(a2 + 6))
     {
-      v62 = *(a2 + 2);
+      v52 = a2[2];
+    }
+
+    else
+    {
+      v52 = &unk_26288830E;
+    }
+
+    (*(**(this + 9) + 216))(*(this + 9), 1, v52);
+  }
+
+  if (((v72 | a7) & 1) == 0 && !v77 && !a8 && !*a9)
+  {
+    FileSpec::operator=((this + 104), (a3 + 16));
+  }
+
+  if (v79 >= 1)
+  {
+    v53 = 8 * v79 - 8;
+    do
+    {
+      DgnDelete<DgnStream>(*(v78 + v53));
+      *(v78 + v53) = 0;
+      v53 -= 8;
+    }
+
+    while (v53 != -8);
+  }
+
+  LODWORD(v79) = 0;
+  if (v77 || *a9 || a8)
+  {
+    if (!DFile::subFileExists(a2, 0x51u))
+    {
+      goto LABEL_75;
+    }
+
+    SvcCompatData::SvcCompatData(v73);
+    SvcCompatData::loadSvcCompatData(v73, a2, a10);
+    goto LABEL_74;
+  }
+
+  if (!DFile::subFileExists(a2, 0x51u))
+  {
+    if (v72)
+    {
+      goto LABEL_75;
+    }
+
+    if ((DFile::subFileExists(a3, 0x51u) & 1) == 0)
+    {
+      *(this + 10) = 1;
+      goto LABEL_75;
+    }
+
+    if (*(a2 + 6))
+    {
+      v62 = a2[2];
     }
 
     else
@@ -2104,178 +2148,130 @@ LABEL_25:
       v62 = &unk_26288830E;
     }
 
-    (*(**(this + 9) + 216))(*(this + 9), 1, v62);
-  }
-
-  if (((v97 | a7) & 1) == 0 && !v102 && (a8 & 1) == 0 && !*a9)
-  {
-    FileSpec::operator=((this + 104), (a3 + 16));
-  }
-
-  if (v104 >= 1)
-  {
-    v63 = 8 * v104 - 8;
-    do
-    {
-      DgnDelete<DgnStream>(*(v103 + v63));
-      *(v103 + v63) = 0;
-      v63 -= 8;
-    }
-
-    while (v63 != -8);
-  }
-
-  LODWORD(v104) = 0;
-  if (v102 || *a9 || (a8 & 1) != 0)
-  {
-    if (!DFile::subFileExists(a2, 0x51u))
-    {
-      goto LABEL_71;
-    }
-
-    SvcCompatData::SvcCompatData(v98);
-    SvcCompatData::loadSvcCompatData(v98, a2, a10);
-    goto LABEL_70;
-  }
-
-  if (!DFile::subFileExists(a2, 0x51u))
-  {
-    if (v97)
-    {
-      goto LABEL_71;
-    }
-
-    if ((DFile::subFileExists(a3, 0x51u) & 1) == 0)
-    {
-      *(this + 10) = 1;
-      goto LABEL_71;
-    }
-
-    if (*(a2 + 6))
-    {
-      v85 = *(a2 + 2);
-    }
-
-    else
-    {
-      v85 = &unk_26288830E;
-    }
-
-    v89 = 1061;
+    v64 = 1061;
     if (!*(a3 + 6))
     {
-      goto LABEL_118;
+LABEL_122:
+      v65 = &unk_26288830E;
+      goto LABEL_123;
     }
 
-    goto LABEL_115;
+LABEL_119:
+    v65 = *(a3 + 2);
+LABEL_123:
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", v64, "voc/voc", 19, "%.500s %.500s", v62, v65);
+    goto LABEL_75;
   }
 
   SvcCompatData::loadSvcCompatData((this + 40), a2, a10);
-  if ((v97 & 1) == 0)
+  if ((v72 & 1) == 0)
   {
     if (DFile::subFileExists(a3, 0x51u))
     {
-      SvcCompatData::SvcCompatData(v98);
-      SvcCompatData::loadSvcCompatData(v98, a3, 0);
-      if (LODWORD(v98[0]) != 3)
+      SvcCompatData::SvcCompatData(v73);
+      SvcCompatData::loadSvcCompatData(v73, a3, 0);
+      if (LODWORD(v73[0]) != 3)
       {
         if (*(a3 + 6))
         {
-          v88 = *(a3 + 2);
+          v63 = *(a3 + 2);
         }
 
         else
         {
-          v88 = &unk_26288830E;
+          v63 = &unk_26288830E;
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1028, "voc/voc", 18, "%.500s", v86, v87, v88);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1028, "voc/voc", 18, "%.500s", v63);
       }
 
-      if (HIDWORD(v98[0]) != *(this + 11))
+      if (HIDWORD(v73[0]) != *(this + 11))
       {
         if (*(a2 + 6))
         {
-          v91 = *(a2 + 2);
+          v66 = a2[2];
         }
 
         else
         {
-          v91 = &unk_26288830E;
+          v66 = &unk_26288830E;
         }
 
         if (*(a3 + 6))
         {
-          v92 = *(a3 + 2);
+          v67 = *(a3 + 2);
         }
 
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1032, "voc/voc", 17, "%.500s %.500s", v86, v87, v91);
+        else
+        {
+          v67 = &unk_26288830E;
+        }
+
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1032, "voc/voc", 17, "%.500s %.500s", v66, v67);
       }
 
-LABEL_70:
-      SvcCompatData::SvcCompatData(v98);
-      goto LABEL_71;
+LABEL_74:
+      SvcCompatData::SvcCompatData(v73);
+      goto LABEL_75;
     }
 
     if (*(this + 10) == 1)
     {
-      goto LABEL_71;
+      goto LABEL_75;
     }
 
     if (*(a2 + 6))
     {
-      v85 = *(a2 + 2);
+      v62 = a2[2];
     }
 
     else
     {
-      v85 = &unk_26288830E;
+      v62 = &unk_26288830E;
     }
 
-    v89 = 1039;
+    v64 = 1039;
     if (!*(a3 + 6))
     {
-LABEL_118:
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", v89, "voc/voc", 19, "%.500s %.500s", v83, v84, v85);
-      goto LABEL_71;
+      goto LABEL_122;
     }
 
-LABEL_115:
-    v90 = *(a3 + 2);
-    goto LABEL_118;
+    goto LABEL_119;
   }
 
   if (*(this + 10))
   {
     if (*(a2 + 6))
     {
-      v82 = *(a2 + 2);
+      v61 = a2[2];
     }
 
     else
     {
-      v82 = &unk_26288830E;
+      v61 = &unk_26288830E;
     }
 
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1046, "voc/voc", 21, "%.500s", v80, v81, v82);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1046, "voc/voc", 21, "%.500s", v61);
   }
 
-LABEL_71:
-  v64 = MemChunkAlloc(0x300uLL, 0);
-  *(this + 7) = StateMgr::StateMgr(v64, this);
+LABEL_75:
+  v54 = MemChunkAlloc(0x300uLL, 0);
+  StateMgr::StateMgr(v54, this);
+  *(this + 7) = v55;
   if (DFile::subFileExists(a2, 0x59u))
   {
     StateMgr::loadStateMgr(*(this + 7), a2, a10, WordListInTextFormat, *(this + 84));
   }
 
-  v65 = MemChunkAlloc(0x58uLL, 0);
-  *(this + 8) = RuleMgr::RuleMgr(v65, this);
+  v56 = MemChunkAlloc(0x58uLL, 0);
+  RuleMgr::RuleMgr(v56, this);
+  *(this + 8) = v57;
   if (DFile::subFileExists(a2, 0x4Eu))
   {
-    v73 = *(this + 7);
-    if (!*(v73 + 181))
+    v58 = *(this + 7);
+    if (!*(v58 + 181))
     {
-      StateMgr::makeSpecialEouStateId(v73, v66, v67, v68, v69, v70, v71, v72);
+      StateMgr::makeSpecialEouStateId(v58);
     }
 
     RuleMgr::loadRuleMgr(*(this + 8), a2, a10, WordListInTextFormat, a11, *(this + 84));
@@ -2285,7 +2281,7 @@ LABEL_71:
   {
     if (WordListInTextFormat)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1103, "voc/voc", 16, "%s", v74, v75, &errStr_voc_voc_E_LOADING_MIXED_TEXT_AND_BINARY_SUBFILES);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1103, "voc/voc", 16, "%s", &errStr_voc_voc_E_LOADING_MIXED_TEXT_AND_BINARY_SUBFILES);
     }
 
     Voc::loadPrefLmScores(this, a2, a10);
@@ -2295,7 +2291,7 @@ LABEL_71:
   {
     if (WordListInTextFormat)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1110, "voc/voc", 16, "%s", v76, v77, &errStr_voc_voc_E_LOADING_MIXED_TEXT_AND_BINARY_SUBFILES);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1110, "voc/voc", 16, "%s", &errStr_voc_voc_E_LOADING_MIXED_TEXT_AND_BINARY_SUBFILES);
     }
 
     Voc::loadPrefWordIdsSortedByPron(this, a2, a10);
@@ -2309,44 +2305,51 @@ LABEL_71:
   }
 
   FileHistory::loadFileHistory((this + 144), a2, WordListInTextFormat);
-  *v98 = 0u;
-  v99 = 0u;
-  SnapTime::recordTime(v98, 1, 1, 1, 1);
-  *v98 = vsubq_s64(*v98, v105);
-  v99 = vsubq_s64(v99, v106);
-  FileHistory::addEntryWithElapsedTime((this + 144), " loadVoc time: ", v98);
+  *v73 = 0u;
+  v74 = 0u;
+  SnapTime::recordTime(v73, 1, 1, 1, 1);
+  *v73 = vsubq_s64(*v73, v80);
+  v74 = vsubq_s64(v74, v81);
+  FileHistory::addEntryWithElapsedTime((this + 144), " loadVoc time: ", v73);
   if (*a9)
   {
     FileHistory::addEntry((this + 144), " Lobotomized one or more LMs without matching static components");
   }
 
-  if (v102)
+  if (v77)
   {
     FileHistory::addEntry((this + 144), " Reabsorbed one or more static LM components into dynamic LM");
   }
 
   *(this + 178) = WordListInTextFormat;
-  return DgnIOwnArray<DgnSharedMemStream *>::releaseAll(&v103);
+  return DgnIOwnArray<DgnSharedMemStream *>::releaseAll(&v78);
+}
+
+void sub_26269DF04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  DgnIOwnArray<DgnSharedMemStream *>::releaseAll(va);
+  _Unwind_Resume(a1);
 }
 
 void Voc::saveVocShared(Voc *this, DgnSharedMemSet *a2, uint64_t a3, const FileSpec *a4, uint64_t a5)
 {
-  DgnSharedMemStream::DgnSharedMemStream(v32, a2, a3);
-  DgnSharedMemStream::openDSM(v32, 0, -1, v9, v10, v11, v12, v13);
-  (*(**(this + 9) + 80))(*(this + 9), v32, a5);
-  v21 = DgnSharedMemStream::tell(v32, v14, v15, v16, v17, v18, v19, v20);
-  DgnSharedMemStream::closeDSM(v32);
-  DgnSharedMemStream::openDSM(v32, 1, v21, v22, v23, v24, v25, v26);
-  (*(**(this + 9) + 80))(*(this + 9), v32, a5);
-  DgnSharedMemStream::closeDSM(v32);
+  DgnSharedMemStream::DgnSharedMemStream(v10, a2, a3);
+  DgnSharedMemStream::openDSM(v10, 0, -1);
+  (*(**(this + 9) + 80))(*(this + 9), v10, a5);
+  v9 = DgnSharedMemStream::tell(v10);
+  DgnSharedMemStream::closeDSM(v10);
+  DgnSharedMemStream::openDSM(v10, 1, v9);
+  (*(**(this + 9) + 80))(*(this + 9), v10, a5);
+  DgnSharedMemStream::closeDSM(v10);
   if (DgnSharedMemSet::createMaybeRemapDSMEx(a2, a3, 0))
   {
-    DgnSharedMemStream::openDSM(v32, 3, -1, v27, v28, v29, v30, v31);
-    (*(**(this + 9) + 88))(*(this + 9), v32, a5);
-    DgnSharedMemStream::closeDSM(v32);
+    DgnSharedMemStream::openDSM(v10, 3, -1);
+    (*(**(this + 9) + 88))(*(this + 9), v10, a5);
+    DgnSharedMemStream::closeDSM(v10);
   }
 
-  DgnSharedMemStream::~DgnSharedMemStream(v32);
+  DgnSharedMemStream::~DgnSharedMemStream(v10);
 }
 
 void Voc::writeVocGroupInfo(uint64_t a1, VocGroupInfo *a2, uint64_t a3)
@@ -2366,7 +2369,7 @@ uint64_t Voc::shouldSaveSubFilesInTextFormat(uint64_t a1, int a2)
     {
       if (a2 == 1 && ((*(**(a1 + 72) + 64))(*(a1 + 72)) & 1) == 0)
       {
-        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1207, "voc/voc", 23, "%s", v2, v3, &errStr_voc_voc_E_LM_SAVE_TEXT);
+        errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1207, "voc/voc", 23, "%s", &errStr_voc_voc_E_LM_SAVE_TEXT);
       }
 
       return 1;
@@ -2380,34 +2383,34 @@ uint64_t Voc::shouldSaveSubFilesInTextFormat(uint64_t a1, int a2)
     return 0;
   }
 
-  v5 = *(**(a1 + 72) + 64);
+  v3 = *(**(a1 + 72) + 64);
 
-  return v5();
+  return v3();
 }
 
 void Voc::saveVoc(uint64_t a1, uint64_t a2, char **a3, _DWORD *a4, DFileChecksums *a5, uint64_t a6, DFileChecksums *a7, unsigned int a8, unsigned int a9)
 {
-  v53 = *MEMORY[0x277D85DE8];
-  v49 = 0u;
-  v50 = 0u;
-  SnapTime::recordTime(&v49, 1, 1, 1, 1);
-  DFileOwner::DFileOwner(v48);
-  DFileOwner::DFileOwner(v47);
+  v38 = *MEMORY[0x277D85DE8];
+  v34 = 0u;
+  v35 = 0u;
+  SnapTime::recordTime(&v34, 1, 1, 1, 1);
+  DFileOwner::DFileOwner(v33);
+  DFileOwner::DFileOwner(v32);
   *a4 = 1;
-  v17 = DFile::openDFile(a2, 1, 2, v48);
+  v17 = DFile::openDFile(a2, 1, 2, v33);
   if (FileSpec::isValid(a3))
   {
     if (a6)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1260, "voc/voc", 26, "%s", v18, v19, &errStr_voc_voc_E_NO_TEXT_SVC);
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1260, "voc/voc", 26, "%s", &errStr_voc_voc_E_NO_TEXT_SVC);
     }
 
-    v20 = DFile::openDFile(a3, 1, 9, v47);
+    v18 = DFile::openDFile(a3, 1, 9, v32);
   }
 
   else
   {
-    v20 = 0;
+    v18 = 0;
   }
 
   (*(*v17 + 96))(v17, a1 + 520);
@@ -2420,18 +2423,18 @@ void Voc::saveVoc(uint64_t a1, uint64_t a2, char **a3, _DWORD *a4, DFileChecksum
   PronCollMgr::savePronCollMgr(*(a1 + 24), v17, a5, a6, a7);
   VocCompatData::saveVocCompatData(*(a1 + 32), v17, a5, a6, a7);
   WordList::saveWordList(*(a1 + 48), v17, a5, a6, a7);
-  SvcCompatData::SvcCompatData(v46, (a1 + 40));
-  if (v20)
+  SvcCompatData::SvcCompatData(v31, (a1 + 40));
+  if (v18)
   {
     DFileChecksums::DFileChecksums(__str);
-    v21 = *(a1 + 72);
-    v22 = (*(*v21 + 40))(v21);
-    (*(*v21 + 96))(v21, v17, v20, a5, __str, a7, v22, *(*(a1 + 32) + 8), __PAIR64__(a9, a8));
-    v46[0] = 2;
-    v46[1] = v52.i32[0];
-    SvcCompatData::SvcCompatData(&v44, 3, v52.i32[0]);
-    SvcCompatData::saveSvcCompatData(&v44, v20, 0);
-    SvcCompatData::SvcCompatData(&v44);
+    v19 = *(a1 + 72);
+    v20 = (*(*v19 + 40))(v19);
+    (*(*v19 + 96))(v19, v17, v18, a5, __str, a7, v20, *(*(a1 + 32) + 8), __PAIR64__(a9, a8));
+    v31[0] = 2;
+    v31[1] = v37.i32[0];
+    SvcCompatData::SvcCompatData(&v29, 3, v37.i32[0]);
+    SvcCompatData::saveSvcCompatData(&v29, v18, 0);
+    SvcCompatData::SvcCompatData(&v29);
     DFileChecksums::~DFileChecksums(__str);
   }
 
@@ -2442,25 +2445,25 @@ void Voc::saveVoc(uint64_t a1, uint64_t a2, char **a3, _DWORD *a4, DFileChecksum
 
   if (*(a1 + 88))
   {
-    v29 = 0;
+    v21 = 0;
     do
     {
       *__str = 4;
-      *&__str[4] = v29;
-      DFile::pushCurrentSubDirComponent(v17, __str, v23, v24, v25, v26, v27, v28);
-      WordNgramTemplate::saveWordNgramTemplate(*(*(a1 + 80) + 8 * v29), v17, a5, a6, a7);
+      *&__str[4] = v21;
+      DFile::pushCurrentSubDirComponent(v17, __str);
+      WordNgramTemplate::saveWordNgramTemplate(*(*(a1 + 80) + 8 * v21), v17, a5, a6, a7);
       DFile::popCurrentSubDirComponent(v17);
-      ++v29;
+      ++v21;
     }
 
-    while (v29 < *(a1 + 88));
+    while (v21 < *(a1 + 88));
   }
 
   if ((a6 & 1) == 0)
   {
-    SvcCompatData::saveSvcCompatData(v46, v17, a5);
-    StateMgr::saveStateMgr(*(a1 + 56), v17, a5, 0, a7, v30, v31, v32);
-    RuleMgr::saveRuleMgr(*(a1 + 64), v17, a5, 0, a7, v33, v34, v35);
+    SvcCompatData::saveSvcCompatData(v31, v17, a5);
+    StateMgr::saveStateMgr(*(a1 + 56), v17, a5, 0, a7);
+    RuleMgr::saveRuleMgr(*(a1 + 64), v17, a5, 0, a7);
     if (*(a1 + 260) == 1)
     {
       Voc::savePrefLmScores(a1, v17, a5, a7);
@@ -2472,71 +2475,71 @@ void Voc::saveVoc(uint64_t a1, uint64_t a2, char **a3, _DWORD *a4, DFileChecksum
     }
   }
 
-  v36 = *(a1 + 480);
-  if (*(a1 + 440) | v36)
+  v22 = *(a1 + 480);
+  if (*(a1 + 440) | v22)
   {
-    snprintf(__str, 0x64uLL, " %u words added, %u words deleted since last save", *(a1 + 440), v36);
+    snprintf(__str, 0x64uLL, " %u words added, %u words deleted since last save", *(a1 + 440), v22);
     FileHistory::addEntry((a1 + 144), __str);
     if (*(a1 + 440))
     {
-      DgnString::DgnString(&v44, " First added word: ");
-      DgnString::operator+=(&v44, a1 + 448);
-      if (v45)
+      DgnString::DgnString(&v29, " First added word: ");
+      DgnString::operator+=(&v29, a1 + 448);
+      if (v30)
       {
-        v37 = v44;
+        v23 = v29;
       }
 
       else
       {
-        v37 = &unk_26288830E;
+        v23 = &unk_26288830E;
       }
 
-      FileHistory::addEntry((a1 + 144), v37);
-      DgnString::operator=(&v44, " Last added word: ");
-      DgnString::operator+=(&v44, a1 + 464);
-      if (v45)
+      FileHistory::addEntry((a1 + 144), v23);
+      DgnString::operator=(&v29, " Last added word: ");
+      DgnString::operator+=(&v29, a1 + 464);
+      if (v30)
       {
-        v38 = v44;
+        v24 = v29;
       }
 
       else
       {
-        v38 = &unk_26288830E;
+        v24 = &unk_26288830E;
       }
 
-      FileHistory::addEntry((a1 + 144), v38);
-      DgnString::~DgnString(&v44);
+      FileHistory::addEntry((a1 + 144), v24);
+      DgnString::~DgnString(&v29);
     }
 
     if (*(a1 + 480))
     {
-      DgnString::DgnString(&v44, " First deleted word: ");
-      DgnString::operator+=(&v44, a1 + 488);
-      if (v45)
+      DgnString::DgnString(&v29, " First deleted word: ");
+      DgnString::operator+=(&v29, a1 + 488);
+      if (v30)
       {
-        v39 = v44;
+        v25 = v29;
       }
 
       else
       {
-        v39 = &unk_26288830E;
+        v25 = &unk_26288830E;
       }
 
-      FileHistory::addEntry((a1 + 144), v39);
-      DgnString::operator=(&v44, " Last deleted word: ");
-      DgnString::operator+=(&v44, a1 + 504);
-      if (v45)
+      FileHistory::addEntry((a1 + 144), v25);
+      DgnString::operator=(&v29, " Last deleted word: ");
+      DgnString::operator+=(&v29, a1 + 504);
+      if (v30)
       {
-        v40 = v44;
+        v26 = v29;
       }
 
       else
       {
-        v40 = &unk_26288830E;
+        v26 = &unk_26288830E;
       }
 
-      FileHistory::addEntry((a1 + 144), v40);
-      DgnString::~DgnString(&v44);
+      FileHistory::addEntry((a1 + 144), v26);
+      DgnString::~DgnString(&v29);
     }
   }
 
@@ -2546,39 +2549,38 @@ void Voc::saveVoc(uint64_t a1, uint64_t a2, char **a3, _DWORD *a4, DFileChecksum
   *(a1 + 472) = 0;
   *(a1 + 496) = 0;
   *(a1 + 512) = 0;
-  if (v20)
+  if (v18)
   {
     FileHistory::addEntry((a1 + 144), " Saved voc as static and dynamic parts");
   }
 
   *__str = 0u;
-  v52 = 0u;
+  v37 = 0u;
   SnapTime::recordTime(__str, 1, 1, 1, 1);
-  *__str = vsubq_s64(*__str, v49);
-  v52 = vsubq_s64(v52, v50);
+  *__str = vsubq_s64(*__str, v34);
+  v37 = vsubq_s64(v37, v35);
   FileHistory::addEntryWithElapsedTime((a1 + 144), " saveVoc time: ", __str);
   FileHistory::saveFileHistory((a1 + 144), v17, a6);
-  DFileOwner::setRemoveFileOnDestruction(v48, 0);
-  DFileOwner::setRemoveFileOnDestruction(v47, 0);
+  DFileOwner::setRemoveFileOnDestruction(v33, 0);
+  DFileOwner::setRemoveFileOnDestruction(v32, 0);
   *a4 = 0;
-  SvcCompatData::SvcCompatData(v46);
-  DFileOwner::~DFileOwner(v47, v41);
-  DFileOwner::~DFileOwner(v48, v42);
-  v43 = *MEMORY[0x277D85DE8];
+  SvcCompatData::SvcCompatData(v31);
+  DFileOwner::~DFileOwner(v32, v27);
+  DFileOwner::~DFileOwner(v33, v28);
 }
 
-void sub_26269E824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_26269E824(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va2, a6);
-  va_start(va1, a6);
-  va_start(va, a6);
-  v9 = va_arg(va1, void);
+  va_start(va2, a11);
+  va_start(va1, a11);
+  va_start(va, a11);
+  v14 = va_arg(va1, void);
   va_copy(va2, va1);
-  v11 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
+  v18 = va_arg(va2, void);
   SvcCompatData::SvcCompatData(va);
-  DFileOwner::~DFileOwner(va1, v7);
-  DFileOwner::~DFileOwner(va2, v8);
+  DFileOwner::~DFileOwner(va1, v12);
+  DFileOwner::~DFileOwner(va2, v13);
   _Unwind_Resume(a1);
 }
 
@@ -2587,95 +2589,206 @@ void Voc::printSize(Voc *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1445, &v377);
-  if (v378)
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1445);
+  if (v215)
   {
-    v16 = v377;
+    v13 = v214;
   }
 
   else
   {
-    v16 = &unk_26288830E;
+    v13 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &unk_26288830E, a3, &unk_26288830E, v16);
-  DgnString::~DgnString(&v377);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &unk_26288830E, a3, &unk_26288830E, v13);
+  DgnString::~DgnString(&v214);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &unk_26288830E);
-  v21 = *this;
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &unk_26288830E);
+  v15 = *this;
   if (*this)
   {
-    v376 = 0;
-    v377 = 0;
-    v22 = (a3 + 1);
-    v375 = 0;
-    EnvMgr::printSize(v21, 0xFFFFFFFFLL, v22, &v377, &v376, &v375);
-    *a4 += v377;
-    *a5 += v376;
-    *a6 += v375;
+    v213 = 0;
+    v214 = 0;
+    v16 = (a3 + 1);
+    v212 = 0;
+    EnvMgr::printSize(v15, 0xFFFFFFFFLL, v16, &v214, &v213, &v212);
+    *a4 += v214;
+    *a5 += v213;
+    *a6 += v212;
   }
 
   else
   {
-    v22 = (a3 + 1);
+    v16 = (a3 + 1);
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v23 = 4;
+    v17 = 4;
   }
 
   else
   {
-    v23 = 8;
+    v17 = 8;
   }
 
-  v24 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1446, &v377);
-  if (v378)
+  v18 = (34 - a3);
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1446);
+  if (v215)
   {
-    v29 = v377;
+    v20 = v214;
   }
 
   else
   {
-    v29 = &unk_26288830E;
+    v20 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v25, v26, v27, v28, v22, &unk_26288830E, (34 - a3), (34 - a3), v29, v23, v23, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += v23;
-  *a5 += v23;
-  v30 = *(this + 1);
-  if (v30)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v19, v16, &unk_26288830E, (34 - a3), (34 - a3), v20, v17, v17, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += v17;
+  *a5 += v17;
+  v21 = *(this + 1);
+  if (v21)
   {
-    v376 = 0;
-    v377 = 0;
-    v375 = 0;
-    CharInfo::printSize(v30, 0xFFFFFFFFLL, v22, &v377, &v376, &v375);
-    *a4 += v377;
-    *a5 += v376;
-    *a6 += v375;
+    v213 = 0;
+    v214 = 0;
+    v212 = 0;
+    CharInfo::printSize(v21, 0xFFFFFFFFLL, v16, &v214, &v213, &v212);
+    *a4 += v214;
+    *a5 += v213;
+    *a6 += v212;
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v31 = 4;
+    v22 = 4;
   }
 
   else
   {
-    v31 = 8;
+    v22 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1448, &v377);
-  if (v378)
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1448);
+  if (v215)
   {
-    v36 = v377;
+    v24 = v214;
+  }
+
+  else
+  {
+    v24 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, v16, &unk_26288830E, (34 - a3), (34 - a3), v24, v22, v22, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += v22;
+  *a5 += v22;
+  v25 = *(this + 2);
+  if (v25)
+  {
+    v213 = 0;
+    v214 = 0;
+    v212 = 0;
+    CollMgr::printSize(v25, 0xFFFFFFFFLL, v16, &v214, &v213, &v212);
+    *a4 += v214;
+    *a5 += v213;
+    *a6 += v212;
+  }
+
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v26 = 4;
+  }
+
+  else
+  {
+    v26 = 8;
+  }
+
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1449);
+  if (v215)
+  {
+    v28 = v214;
+  }
+
+  else
+  {
+    v28 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v27, v16, &unk_26288830E, (34 - a3), (34 - a3), v28, v26, v26, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += v26;
+  *a5 += v26;
+  v29 = *(this + 3);
+  if (v29)
+  {
+    v213 = 0;
+    v214 = 0;
+    v212 = 0;
+    PronCollMgr::printSize(v29, 0xFFFFFFFFLL, v16, &v214, &v213, &v212);
+    *a4 += v214;
+    *a5 += v213;
+    *a6 += v212;
+  }
+
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v30 = 4;
+  }
+
+  else
+  {
+    v30 = 8;
+  }
+
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1451);
+  if (v215)
+  {
+    v32 = v214;
+  }
+
+  else
+  {
+    v32 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v31, v16, &unk_26288830E, (34 - a3), (34 - a3), v32, v30, v30, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += v30;
+  *a5 += v30;
+  v33 = *(this + 4);
+  if (v33)
+  {
+    v213 = 0;
+    v214 = 0;
+    v212 = 0;
+    VocCompatData::printSize(v33, 0xFFFFFFFFLL, v16, &v214, &v213, &v212);
+    *a4 += v214;
+    *a5 += v213;
+    *a6 += v212;
+  }
+
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v34 = 4;
+  }
+
+  else
+  {
+    v34 = 8;
+  }
+
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1453);
+  if (v215)
+  {
+    v36 = v214;
   }
 
   else
@@ -2683,20 +2796,20 @@ void Voc::printSize(Voc *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_
     v36 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v32, v33, v34, v35, v22, &unk_26288830E, (34 - a3), (34 - a3), v36, v31, v31, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += v31;
-  *a5 += v31;
-  v37 = *(this + 2);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v35, v16, &unk_26288830E, (34 - a3), (34 - a3), v36, v34, v34, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += v34;
+  *a5 += v34;
+  v37 = *(this + 6);
   if (v37)
   {
-    v376 = 0;
-    v377 = 0;
-    v375 = 0;
-    CollMgr::printSize(v37, 0xFFFFFFFFLL, v22, &v377, &v376, &v375);
-    *a4 += v377;
-    *a5 += v376;
-    *a6 += v375;
+    v213 = 0;
+    v214 = 0;
+    v212 = 0;
+    WordList::printSize(v37, 0xFFFFFFFFLL, v16, &v214, &v213, &v212);
+    *a4 += v214;
+    *a5 += v213;
+    *a6 += v212;
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
@@ -2709,84 +2822,93 @@ void Voc::printSize(Voc *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_
     v38 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1449, &v377);
-  if (v378)
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1455);
+  if (v215)
   {
-    v43 = v377;
+    v40 = v214;
   }
 
   else
   {
-    v43 = &unk_26288830E;
+    v40 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v39, v40, v41, v42, v22, &unk_26288830E, (34 - a3), (34 - a3), v43, v38, v38, 0);
-  DgnString::~DgnString(&v377);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v39, v16, &unk_26288830E, (34 - a3), (34 - a3), v40, v38, v38, 0);
+  DgnString::~DgnString(&v214);
   *a4 += v38;
   *a5 += v38;
-  v44 = *(this + 3);
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1457);
+  if (v215)
+  {
+    v42 = v214;
+  }
+
+  else
+  {
+    v42 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v41, v16, &unk_26288830E, v16, &unk_26288830E, v42);
+  v210 = a6;
+  v211 = a3;
+  DgnString::~DgnString(&v214);
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v43, v16, &unk_26288830E);
+  v44 = *(this + 22);
   if (v44)
   {
-    v376 = 0;
-    v377 = 0;
-    v375 = 0;
-    PronCollMgr::printSize(v44, 0xFFFFFFFFLL, v22, &v377, &v376, &v375);
-    *a4 += v377;
-    *a5 += v376;
-    *a6 += v375;
+    v45 = 0;
+    v46 = 0;
+    v47 = 0;
+    v48 = 0;
+    do
+    {
+      v49 = *(this + 10);
+      if (*(v49 + 8 * v45))
+      {
+        v213 = 0;
+        v214 = 0;
+        v212 = 0;
+        WordNgramTemplate::printSize(*(v49 + 8 * v45), v45, (v211 + 2), &v214, &v213, &v212);
+        v46 += v214;
+        v47 += v213;
+        v48 += v212;
+        v44 = *(this + 22);
+      }
+
+      ++v45;
+    }
+
+    while (v45 < v44);
   }
 
+  else
+  {
+    v48 = 0;
+    v47 = 0;
+    v46 = 0;
+    v44 = 0;
+  }
+
+  v50 = 16;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v45 = 4;
+    v50 = 12;
   }
 
-  else
+  v51 = v50 + v46;
+  v52 = v50 + v47;
+  v53 = 2;
+  if ((gShadowDiagnosticShowIdealizedObjectSizes & 1) == 0)
   {
-    v45 = 8;
+    v53 = 3;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1451, &v377);
-  if (v378)
+  v54 = v51 + (*(this + 23) << v53);
+  v55 = v52 + (v44 << v53);
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1457);
+  if (v215)
   {
-    v50 = v377;
-  }
-
-  else
-  {
-    v50 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v46, v47, v48, v49, v22, &unk_26288830E, (34 - a3), (34 - a3), v50, v45, v45, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += v45;
-  *a5 += v45;
-  v51 = *(this + 4);
-  if (v51)
-  {
-    v376 = 0;
-    v377 = 0;
-    v375 = 0;
-    VocCompatData::printSize(v51, 0xFFFFFFFFLL, v22, &v377, &v376, &v375);
-    *a4 += v377;
-    *a5 += v376;
-    *a6 += v375;
-  }
-
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v52 = 4;
-  }
-
-  else
-  {
-    v52 = 8;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1453, &v377);
-  if (v378)
-  {
-    v57 = v377;
+    v57 = v214;
   }
 
   else
@@ -2794,20 +2916,21 @@ void Voc::printSize(Voc *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_
     v57 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v53, v54, v55, v56, v22, &unk_26288830E, (34 - a3), (34 - a3), v57, v52, v52, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += v52;
-  *a5 += v52;
-  v58 = *(this + 6);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v56, v16, &unk_26288830E, v18, v18, v57, v54, v55, v48);
+  DgnString::~DgnString(&v214);
+  *a4 += v54;
+  *a5 += v55;
+  *v210 += v48;
+  v58 = *(this + 7);
   if (v58)
   {
-    v376 = 0;
-    v377 = 0;
-    v375 = 0;
-    WordList::printSize(v58, 0xFFFFFFFFLL, v22, &v377, &v376, &v375);
-    *a4 += v377;
-    *a5 += v376;
-    *a6 += v375;
+    v213 = 0;
+    v214 = 0;
+    v212 = 0;
+    StateMgr::printSize(v58, 0xFFFFFFFFLL, v16, &v214, &v213, &v212);
+    *a4 += v214;
+    *a5 += v213;
+    *v210 += v212;
   }
 
   if (gShadowDiagnosticShowIdealizedObjectSizes)
@@ -2820,25 +2943,84 @@ void Voc::printSize(Voc *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_
     v59 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1455, &v377);
-  if (v378)
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1459);
+  if (v215)
   {
-    v64 = v377;
+    v61 = v214;
   }
 
   else
   {
-    v64 = &unk_26288830E;
+    v61 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v60, v61, v62, v63, v22, &unk_26288830E, (34 - a3), (34 - a3), v64, v59, v59, 0);
-  DgnString::~DgnString(&v377);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v60, v16, &unk_26288830E, v18, v18, v61, v59, v59, 0);
+  DgnString::~DgnString(&v214);
   *a4 += v59;
   *a5 += v59;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1457, &v377);
-  if (v378)
+  v62 = *(this + 8);
+  if (v62)
   {
-    v69 = v377;
+    v213 = 0;
+    v214 = 0;
+    v212 = 0;
+    RuleMgr::printSize(v62, 0xFFFFFFFFLL, v16, &v214, &v213, &v212);
+    *a4 += v214;
+    *a5 += v213;
+    *v210 += v212;
+  }
+
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v63 = 4;
+  }
+
+  else
+  {
+    v63 = 8;
+  }
+
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1460);
+  if (v215)
+  {
+    v65 = v214;
+  }
+
+  else
+  {
+    v65 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v64, v16, &unk_26288830E, v18, v18, v65, v63, v63, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += v63;
+  *a5 += v63;
+  v66 = *(this + 9);
+  if (v66)
+  {
+    v213 = 0;
+    v214 = 0;
+    v212 = 0;
+    (*(*v66 + 16))(v66, 0xFFFFFFFFLL, v16, &v214, &v213, &v212);
+    *a4 += v214;
+    *a5 += v213;
+    *v210 += v212;
+  }
+
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v67 = 4;
+  }
+
+  else
+  {
+    v67 = 8;
+  }
+
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1462);
+  if (v215)
+  {
+    v69 = v214;
   }
 
   else
@@ -2846,105 +3028,179 @@ void Voc::printSize(Voc *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_
     v69 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v65, v66, v67, v68, v22, &unk_26288830E, v22, &unk_26288830E, v69);
-  v373 = a6;
-  v374 = a3;
-  DgnString::~DgnString(&v377);
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v70, v71, v72, v73, v22, &unk_26288830E);
-  v74 = *(this + 22);
-  if (v74)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v68, v16, &unk_26288830E, v18, v18, v69, v67, v67, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += v67;
+  *a5 += v67;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1464);
+  if (v215)
   {
-    v75 = 0;
-    v76 = 0;
-    v77 = 0;
-    v78 = 0;
-    do
-    {
-      v79 = *(this + 10);
-      if (*(v79 + 8 * v75))
-      {
-        v376 = 0;
-        v377 = 0;
-        v375 = 0;
-        WordNgramTemplate::printSize(*(v79 + 8 * v75), v75, (v374 + 2), &v377, &v376, &v375);
-        v76 += v377;
-        v77 += v376;
-        v78 += v375;
-        v74 = *(this + 22);
-      }
-
-      ++v75;
-    }
-
-    while (v75 < v74);
+    v71 = v214;
   }
 
   else
   {
-    v78 = 0;
-    v77 = 0;
-    v76 = 0;
-    v74 = 0;
+    v71 = &unk_26288830E;
   }
 
-  v80 = 16;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v70, v16, &unk_26288830E, v18, v18, v71, 8, 8, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += 8;
+  *a5 += 8;
+  v213 = 0;
+  v214 = 0;
+  v212 = 0;
+  PhnMgr::printSize((this + 184), 0xFFFFFFFFLL, v16, &v214, &v213, &v212);
+  *a4 += v214;
+  *a5 += v213;
+  *v210 += v212;
+  v72 = FileSpec::sizeObject(this + 104, 0);
+  v73 = FileSpec::sizeObject(this + 104, 1);
+  v74 = FileSpec::sizeObject(this + 104, 3);
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1467);
+  if (v215)
   {
-    v80 = 12;
-  }
-
-  v81 = v80 + v76;
-  v82 = v80 + v77;
-  v83 = 2;
-  if ((gShadowDiagnosticShowIdealizedObjectSizes & 1) == 0)
-  {
-    v83 = 3;
-  }
-
-  v84 = v81 + (*(this + 23) << v83);
-  v85 = v82 + (v74 << v83);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1457, &v377);
-  if (v378)
-  {
-    v90 = v377;
+    v76 = v214;
   }
 
   else
   {
-    v90 = &unk_26288830E;
+    v76 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v86, v87, v88, v89, v22, &unk_26288830E, v24, v24, v90, v84, v85, v78);
-  DgnString::~DgnString(&v377);
-  *a4 += v84;
-  *a5 += v85;
-  *v373 += v78;
-  v91 = *(this + 7);
-  if (v91)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v75, v16, &unk_26288830E, v18, v18, v76, v72, v73, v74);
+  DgnString::~DgnString(&v214);
+  *a4 += v72;
+  *a5 += v73;
+  *v210 += v74;
+  v77 = sizeObject(this + 144, 0);
+  v78 = sizeObject(this + 144, 1);
+  v79 = sizeObject(this + 144, 3);
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1468);
+  if (v215)
   {
-    v376 = 0;
-    v377 = 0;
-    v375 = 0;
-    StateMgr::printSize(v91, 0xFFFFFFFFLL, v22, &v377, &v376, &v375);
-    *a4 += v377;
-    *a5 += v376;
-    *v373 += v375;
-  }
-
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v92 = 4;
+    v81 = v214;
   }
 
   else
   {
-    v92 = 8;
+    v81 = &unk_26288830E;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1459, &v377);
-  if (v378)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v80, v16, &unk_26288830E, v18, v18, v81, v77, v78, v79);
+  DgnString::~DgnString(&v214);
+  *a4 += v77;
+  *a5 += v78;
+  *v210 += v79;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1469);
+  if (v215)
   {
-    v97 = v377;
+    v83 = v214;
+  }
+
+  else
+  {
+    v83 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v82, v16, &unk_26288830E, v18, v18, v83, 2, 2, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += 2;
+  *a5 += 2;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1471);
+  if (v215)
+  {
+    v85 = v214;
+  }
+
+  else
+  {
+    v85 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v84, v16, &unk_26288830E, v18, v18, v85, 2, 2, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += 2;
+  *a5 += 2;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1473);
+  if (v215)
+  {
+    v87 = v214;
+  }
+
+  else
+  {
+    v87 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v86, v16, &unk_26288830E, v18, v18, v87, 2, 2, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += 2;
+  *a5 += 2;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1475);
+  if (v215)
+  {
+    v89 = v214;
+  }
+
+  else
+  {
+    v89 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v88, v16, &unk_26288830E, v18, v18, v89, 2, 2, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += 2;
+  *a5 += 2;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1477);
+  if (v215)
+  {
+    v91 = v214;
+  }
+
+  else
+  {
+    v91 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v90, v16, &unk_26288830E, v18, v18, v91, 2, 2, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += 2;
+  *a5 += 2;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1479);
+  if (v215)
+  {
+    v93 = v214;
+  }
+
+  else
+  {
+    v93 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v92, v16, &unk_26288830E, v18, v18, v93, 4, 4, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1481);
+  if (v215)
+  {
+    v95 = v214;
+  }
+
+  else
+  {
+    v95 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v94, v16, &unk_26288830E, v18, v18, v95, 4, 4, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1483);
+  if (v215)
+  {
+    v97 = v214;
   }
 
   else
@@ -2952,88 +3208,134 @@ void Voc::printSize(Voc *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_
     v97 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v93, v94, v95, v96, v22, &unk_26288830E, v24, v24, v97, v92, v92, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += v92;
-  *a5 += v92;
-  v98 = *(this + 8);
-  if (v98)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v96, v16, &unk_26288830E, v18, v18, v97, 4, 4, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1485);
+  if (v215)
   {
-    v376 = 0;
-    v377 = 0;
-    v375 = 0;
-    RuleMgr::printSize(v98, 0xFFFFFFFFLL, v22, &v377, &v376, &v375);
-    *a4 += v377;
-    *a5 += v376;
-    *v373 += v375;
+    v99 = v214;
   }
 
+  else
+  {
+    v99 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v98, v16, &unk_26288830E, v18, v18, v99, 1, 1, 0);
+  DgnString::~DgnString(&v214);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1487);
+  if (v215)
+  {
+    v101 = v214;
+  }
+
+  else
+  {
+    v101 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v100, v16, &unk_26288830E, v18, v18, v101, 4, 4, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += 4;
+  *a5 += 4;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v99 = 4;
+    v102 = 12;
   }
 
   else
   {
-    v99 = 8;
+    v102 = 16;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1460, &v377);
-  if (v378)
+  v103 = *(this + 70);
+  v104 = *(this + 71);
+  if (v104 >= v103)
   {
-    v104 = v377;
+    v105 = 0;
+    if (v103 > 0)
+    {
+      v102 += 2 * (v103 - 1) + 2;
+    }
+
+    v106 = v102 + 2 * (v104 - v103);
   }
 
   else
   {
-    v104 = &unk_26288830E;
+    v105 = 2 * v103;
+    v106 = v102;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v100, v101, v102, v103, v22, &unk_26288830E, v24, v24, v104, v99, v99, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += v99;
-  *a5 += v99;
-  v105 = *(this + 9);
-  if (v105)
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1489);
+  if (v215)
   {
-    v376 = 0;
-    v377 = 0;
-    v375 = 0;
-    (*(*v105 + 16))(v105, 0xFFFFFFFFLL, v22, &v377, &v376, &v375);
-    *a4 += v377;
-    *a5 += v376;
-    *v373 += v375;
-  }
-
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v106 = 4;
+    v108 = v214;
   }
 
   else
   {
-    v106 = 8;
+    v108 = &unk_26288830E;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1462, &v377);
-  if (v378)
-  {
-    v111 = v377;
-  }
-
-  else
-  {
-    v111 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v107, v108, v109, v110, v22, &unk_26288830E, v24, v24, v111, v106, v106, 0);
-  DgnString::~DgnString(&v377);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v107, v16, &unk_26288830E, v18, v18, v108, v106, v102, v105);
+  DgnString::~DgnString(&v214);
   *a4 += v106;
-  *a5 += v106;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1464, &v377);
-  if (v378)
+  *a5 += v102;
+  *v210 += v105;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1491);
+  if (v215)
   {
-    v116 = v377;
+    v110 = v214;
+  }
+
+  else
+  {
+    v110 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v109, v16, &unk_26288830E, v18, v18, v110, 1, 1, 0);
+  DgnString::~DgnString(&v214);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1493);
+  if (v215)
+  {
+    v112 = v214;
+  }
+
+  else
+  {
+    v112 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v111, v16, &unk_26288830E, v18, v18, v112, 4, 4, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1495);
+  if (v215)
+  {
+    v114 = v214;
+  }
+
+  else
+  {
+    v114 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v113, v16, &unk_26288830E, v18, v18, v114, 4, 4, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1497);
+  if (v215)
+  {
+    v116 = v214;
   }
 
   else
@@ -3041,74 +3343,147 @@ void Voc::printSize(Voc *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_
     v116 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v112, v113, v114, v115, v22, &unk_26288830E, v24, v24, v116, 8, 8, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += 8;
-  *a5 += 8;
-  v376 = 0;
-  v377 = 0;
-  v375 = 0;
-  PhnMgr::printSize((this + 184), 0xFFFFFFFFLL, v22, &v377, &v376, &v375);
-  *a4 += v377;
-  *a5 += v376;
-  *v373 += v375;
-  v117 = FileSpec::sizeObject(this + 104);
-  v118 = FileSpec::sizeObject(this + 104);
-  v119 = FileSpec::sizeObject(this + 104);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1467, &v377);
-  if (v378)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v115, v16, &unk_26288830E, v18, v18, v116, 4, 4, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1499);
+  if (v215)
   {
-    v124 = v377;
+    v118 = v214;
   }
 
   else
   {
-    v124 = &unk_26288830E;
+    v118 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v120, v121, v122, v123, v22, &unk_26288830E, v24, v24, v124, v117, v118, v119);
-  DgnString::~DgnString(&v377);
-  *a4 += v117;
-  *a5 += v118;
-  *v373 += v119;
-  v125 = sizeObject(this + 144, 0);
-  v126 = sizeObject(this + 144, 1);
-  v127 = sizeObject(this + 144, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1468, &v377);
-  if (v378)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v117, v16, &unk_26288830E, v18, v18, v118, 4, 4, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1501);
+  if (v215)
   {
-    v132 = v377;
+    v120 = v214;
   }
 
   else
   {
-    v132 = &unk_26288830E;
+    v120 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v128, v129, v130, v131, v22, &unk_26288830E, v24, v24, v132, v125, v126, v127);
-  DgnString::~DgnString(&v377);
-  *a4 += v125;
-  *a5 += v126;
-  *v373 += v127;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1469, &v377);
-  if (v378)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v119, v16, &unk_26288830E, v18, v18, v120, 4, 4, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += 4;
+  *a5 += 4;
+  v121 = 12;
+  if ((gShadowDiagnosticShowIdealizedObjectSizes & 1) == 0)
   {
-    v137 = v377;
+    v121 = 16;
+  }
+
+  v122 = *(this + 84);
+  v123 = *(this + 85);
+  if (v123 >= v122)
+  {
+    v126 = 0;
+    if (v122 > 0)
+    {
+      v121 += 4 * (v122 - 1) + 4;
+    }
+
+    v128 = v123 - v122;
+    v129 = 20;
+    if (gShadowDiagnosticShowIdealizedObjectSizes)
+    {
+      v129 = 16;
+    }
+
+    v125 = v129 + v121;
+    v127 = v129 + v121 + 4 * v128;
   }
 
   else
   {
-    v137 = &unk_26288830E;
+    v124 = 8;
+    if (gShadowDiagnosticShowIdealizedObjectSizes)
+    {
+      v124 = 4;
+    }
+
+    v125 = v121 + v124 + 12;
+    v126 = 4 * v122;
+    v127 = v125;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v133, v134, v135, v136, v22, &unk_26288830E, v24, v24, v137, 2, 2, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += 2;
-  *a5 += 2;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1471, &v377);
-  if (v378)
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1503);
+  if (v215)
   {
-    v142 = v377;
+    v131 = v214;
+  }
+
+  else
+  {
+    v131 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v130, v16, &unk_26288830E, v18, v18, v131, v127, v125, v126);
+  DgnString::~DgnString(&v214);
+  *a4 += v127;
+  *a5 += v125;
+  *v210 += v126;
+  v132 = sizeObject<ParseToken>(this + 352, 0);
+  v133 = sizeObject<ParseToken>(this + 352, 1);
+  sizeObject(&v214, 2);
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1505);
+  if (v215)
+  {
+    v135 = v214;
+  }
+
+  else
+  {
+    v135 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v134, v16, &unk_26288830E, v18, v18, v135, v132, v133, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += v132;
+  *a5 += v133;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v136 = 12;
+  }
+
+  else
+  {
+    v136 = 16;
+  }
+
+  v137 = *(this + 94);
+  v138 = *(this + 95);
+  if (v138 >= v137)
+  {
+    v139 = 0;
+    if (v137 > 0)
+    {
+      v136 += 2 * (v137 - 1) + 2;
+    }
+
+    v140 = v136 + 2 * (v138 - v137);
+  }
+
+  else
+  {
+    v139 = 2 * v137;
+    v140 = v136;
+  }
+
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1507);
+  if (v215)
+  {
+    v142 = v214;
   }
 
   else
@@ -3116,194 +3491,329 @@ void Voc::printSize(Voc *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_
     v142 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v138, v139, v140, v141, v22, &unk_26288830E, v24, v24, v142, 2, 2, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += 2;
-  *a5 += 2;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1473, &v377);
-  if (v378)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v141, v16, &unk_26288830E, v18, v18, v142, v140, v136, v139);
+  DgnString::~DgnString(&v214);
+  *a4 += v140;
+  *a5 += v136;
+  *v210 += v139;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v147 = v377;
+    v143 = 12;
   }
 
   else
   {
-    v147 = &unk_26288830E;
+    v143 = 16;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v143, v144, v145, v146, v22, &unk_26288830E, v24, v24, v147, 2, 2, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += 2;
-  *a5 += 2;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1475, &v377);
-  if (v378)
+  v144 = *(this + 98);
+  v145 = *(this + 99);
+  if (v145 >= v144)
   {
-    v152 = v377;
+    v146 = 0;
+    if (v144 > 0)
+    {
+      v143 += 4 * (v144 - 1) + 4;
+    }
+
+    v147 = v143 + 4 * (v145 - v144);
   }
 
   else
   {
-    v152 = &unk_26288830E;
+    v146 = 4 * v144;
+    v147 = v143;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v148, v149, v150, v151, v22, &unk_26288830E, v24, v24, v152, 2, 2, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += 2;
-  *a5 += 2;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1477, &v377);
-  if (v378)
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1509);
+  if (v215)
   {
-    v157 = v377;
+    v149 = v214;
   }
 
   else
   {
-    v157 = &unk_26288830E;
+    v149 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v153, v154, v155, v156, v22, &unk_26288830E, v24, v24, v157, 2, 2, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += 2;
-  *a5 += 2;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1479, &v377);
-  if (v378)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v148, v16, &unk_26288830E, v18, v18, v149, v147, v143, v146);
+  DgnString::~DgnString(&v214);
+  *a4 += v147;
+  *a5 += v143;
+  *v210 += v146;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v162 = v377;
+    v150 = 12;
   }
 
   else
   {
-    v162 = &unk_26288830E;
+    v150 = 16;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v158, v159, v160, v161, v22, &unk_26288830E, v24, v24, v162, 4, 4, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1481, &v377);
-  if (v378)
+  v151 = *(this + 102);
+  v152 = *(this + 103);
+  if (v152 >= v151)
   {
-    v167 = v377;
+    v153 = 0;
+    if (v151 > 0)
+    {
+      v150 += 4 * (v151 - 1) + 4;
+    }
+
+    v154 = v150 + 4 * (v152 - v151);
   }
 
   else
   {
-    v167 = &unk_26288830E;
+    v153 = 4 * v151;
+    v154 = v150;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v163, v164, v165, v166, v22, &unk_26288830E, v24, v24, v167, 4, 4, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1483, &v377);
-  if (v378)
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1511);
+  if (v215)
   {
-    v172 = v377;
+    v156 = v214;
   }
 
   else
   {
-    v172 = &unk_26288830E;
+    v156 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v168, v169, v170, v171, v22, &unk_26288830E, v24, v24, v172, 4, 4, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1485, &v377);
-  if (v378)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v155, v16, &unk_26288830E, v18, v18, v156, v154, v150, v153);
+  DgnString::~DgnString(&v214);
+  *a4 += v154;
+  *a5 += v150;
+  *v210 += v153;
+  v157 = PrefiltererWordIdPronCollArray::sizeObject(this + 416, 0);
+  v158 = PrefiltererWordIdPronCollArray::sizeObject(this + 416, 1);
+  v159 = PrefiltererWordIdPronCollArray::sizeObject(this + 416, 3);
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1513);
+  if (v215)
   {
-    v177 = v377;
+    v161 = v214;
   }
 
   else
   {
-    v177 = &unk_26288830E;
+    v161 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v173, v174, v175, v176, v22, &unk_26288830E, v24, v24, v177, 1, 1, 0);
-  DgnString::~DgnString(&v377);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v160, v16, &unk_26288830E, v18, v18, v161, v157, v158, v159);
+  DgnString::~DgnString(&v214);
+  *a4 += v157;
+  *a5 += v158;
+  *v210 += v159;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1515);
+  if (v215)
+  {
+    v163 = v214;
+  }
+
+  else
+  {
+    v163 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v162, v16, &unk_26288830E, v18, v18, v163, 1, 1, 0);
+  DgnString::~DgnString(&v214);
   ++*a4;
   ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1487, &v377);
-  if (v378)
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v182 = v377;
+    v164 = 4;
   }
 
   else
   {
-    v182 = &unk_26288830E;
+    v164 = 8;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v178, v179, v180, v181, v22, &unk_26288830E, v24, v24, v182, 4, 4, 0);
-  DgnString::~DgnString(&v377);
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1516);
+  if (v215)
+  {
+    v166 = v214;
+  }
+
+  else
+  {
+    v166 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v165, v16, &unk_26288830E, v18, v18, v166, v164, v164, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += v164;
+  *a5 += v164;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1517);
+  if (v215)
+  {
+    v168 = v214;
+  }
+
+  else
+  {
+    v168 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v167, v16, &unk_26288830E, v18, v18, v168, 4, 4, 0);
+  DgnString::~DgnString(&v214);
   *a4 += 4;
   *a5 += 4;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v183 = 12;
+    v169 = 4;
   }
 
   else
   {
-    v183 = 16;
+    v169 = 8;
   }
 
-  v184 = *(this + 70);
-  v185 = *(this + 71);
-  if (v185 >= v184)
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1519);
+  if (v215)
   {
-    v186 = 0;
-    if (v184 > 0)
-    {
-      v183 += 2 * (v184 - 1) + 2;
-    }
-
-    v187 = v183 + 2 * (v185 - v184);
+    v171 = v214;
   }
 
   else
   {
-    v186 = 2 * v184;
-    v187 = v183;
+    v171 = &unk_26288830E;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1489, &v377);
-  if (v378)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v170, v16, &unk_26288830E, v18, v18, v171, v169, v169, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += v169;
+  *a5 += v169;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1521);
+  if (v215)
   {
-    v192 = v377;
-  }
-
-  else
-  {
-    v192 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v188, v189, v190, v191, v22, &unk_26288830E, v24, v24, v192, v187, v183, v186);
-  DgnString::~DgnString(&v377);
-  *a4 += v187;
-  *a5 += v183;
-  *v373 += v186;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1491, &v377);
-  if (v378)
-  {
-    v197 = v377;
+    v173 = v214;
   }
 
   else
   {
-    v197 = &unk_26288830E;
+    v173 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v193, v194, v195, v196, v22, &unk_26288830E, v24, v24, v197, 1, 1, 0);
-  DgnString::~DgnString(&v377);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1493, &v377);
-  if (v378)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v172, v16, &unk_26288830E, v18, v18, v173, 4, 4, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += 4;
+  *a5 += 4;
+  v174 = sizeObject(this + 448, 0);
+  v175 = sizeObject(this + 448, 1);
+  v176 = sizeObject(this + 448, 3);
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1523);
+  if (v215)
   {
-    v202 = v377;
+    v178 = v214;
+  }
+
+  else
+  {
+    v178 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v177, v16, &unk_26288830E, v18, v18, v178, v174, v175, v176);
+  DgnString::~DgnString(&v214);
+  *a4 += v174;
+  *a5 += v175;
+  *v210 += v176;
+  v179 = sizeObject(this + 464, 0);
+  v180 = sizeObject(this + 464, 1);
+  v181 = sizeObject(this + 464, 3);
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1525);
+  if (v215)
+  {
+    v183 = v214;
+  }
+
+  else
+  {
+    v183 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v182, v16, &unk_26288830E, v18, v18, v183, v179, v180, v181);
+  DgnString::~DgnString(&v214);
+  *a4 += v179;
+  *a5 += v180;
+  *v210 += v181;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1527);
+  if (v215)
+  {
+    v185 = v214;
+  }
+
+  else
+  {
+    v185 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v184, v16, &unk_26288830E, v18, v18, v185, 4, 4, 0);
+  DgnString::~DgnString(&v214);
+  *a4 += 4;
+  *a5 += 4;
+  v186 = sizeObject(this + 488, 0);
+  v187 = sizeObject(this + 488, 1);
+  v188 = sizeObject(this + 488, 3);
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1529);
+  if (v215)
+  {
+    v190 = v214;
+  }
+
+  else
+  {
+    v190 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v189, v16, &unk_26288830E, v18, v18, v190, v186, v187, v188);
+  DgnString::~DgnString(&v214);
+  *a4 += v186;
+  *a5 += v187;
+  *v210 += v188;
+  v191 = sizeObject(this + 504, 0);
+  v192 = sizeObject(this + 504, 1);
+  v193 = sizeObject(this + 504, 3);
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1531);
+  if (v215)
+  {
+    v195 = v214;
+  }
+
+  else
+  {
+    v195 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v194, v16, &unk_26288830E, v18, v18, v195, v191, v192, v193);
+  DgnString::~DgnString(&v214);
+  *a4 += v191;
+  *a5 += v192;
+  *v210 += v193;
+  v196 = sizeObject(this + 520, 0);
+  v197 = sizeObject(this + 520, 1);
+  v198 = sizeObject(this + 520, 3);
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1533);
+  if (v215)
+  {
+    v200 = v214;
+  }
+
+  else
+  {
+    v200 = &unk_26288830E;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v199, v16, &unk_26288830E, v18, v18, v200, v196, v197, v198);
+  DgnString::~DgnString(&v214);
+  *a4 += v196;
+  *a5 += v197;
+  *v210 += v198;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1535);
+  if (v215)
+  {
+    v202 = v214;
   }
 
   else
@@ -3311,14 +3821,17 @@ void Voc::printSize(Voc *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_
     v202 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v198, v199, v200, v201, v22, &unk_26288830E, v24, v24, v202, 4, 4, 0);
-  DgnString::~DgnString(&v377);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v201, v16, &unk_26288830E, v18, v18, v202, 4, 4, 0);
+  DgnString::~DgnString(&v214);
   *a4 += 4;
   *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1495, &v377);
-  if (v378)
+  v203 = sizeObject(this + 40, 0);
+  v204 = sizeObject(this + 40, 1);
+  v205 = sizeObject(this + 40, 3);
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1537);
+  if (v215)
   {
-    v207 = v377;
+    v207 = v214;
   }
 
   else
@@ -3326,541 +3839,29 @@ void Voc::printSize(Voc *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_
     v207 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v203, v204, v205, v206, v22, &unk_26288830E, v24, v24, v207, 4, 4, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1497, &v377);
-  if (v378)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v206, v16, &unk_26288830E, v18, v18, v207, v203, v204, v205);
+  DgnString::~DgnString(&v214);
+  *a4 += v203;
+  *a5 += v204;
+  *v210 += v205;
+  getShipObjectSizeDescription(&v214, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1538);
+  if (v215)
   {
-    v212 = v377;
+    v209 = v214;
   }
 
   else
   {
-    v212 = &unk_26288830E;
+    v209 = &unk_26288830E;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v208, v209, v210, v211, v22, &unk_26288830E, v24, v24, v212, 4, 4, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1499, &v377);
-  if (v378)
-  {
-    v217 = v377;
-  }
-
-  else
-  {
-    v217 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v213, v214, v215, v216, v22, &unk_26288830E, v24, v24, v217, 4, 4, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1501, &v377);
-  if (v378)
-  {
-    v222 = v377;
-  }
-
-  else
-  {
-    v222 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v218, v219, v220, v221, v22, &unk_26288830E, v24, v24, v222, 4, 4, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += 4;
-  *a5 += 4;
-  v223 = 12;
-  if ((gShadowDiagnosticShowIdealizedObjectSizes & 1) == 0)
-  {
-    v223 = 16;
-  }
-
-  v224 = *(this + 84);
-  v225 = *(this + 85);
-  if (v225 >= v224)
-  {
-    v228 = 0;
-    if (v224 > 0)
-    {
-      v223 += 4 * (v224 - 1) + 4;
-    }
-
-    v230 = v225 - v224;
-    v231 = 20;
-    if (gShadowDiagnosticShowIdealizedObjectSizes)
-    {
-      v231 = 16;
-    }
-
-    v227 = v231 + v223;
-    v229 = v231 + v223 + 4 * v230;
-  }
-
-  else
-  {
-    v226 = 8;
-    if (gShadowDiagnosticShowIdealizedObjectSizes)
-    {
-      v226 = 4;
-    }
-
-    v227 = v223 + v226 + 12;
-    v228 = 4 * v224;
-    v229 = v227;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1503, &v377);
-  if (v378)
-  {
-    v236 = v377;
-  }
-
-  else
-  {
-    v236 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v232, v233, v234, v235, v22, &unk_26288830E, v24, v24, v236, v229, v227, v228);
-  DgnString::~DgnString(&v377);
-  *a4 += v229;
-  *a5 += v227;
-  *v373 += v228;
-  v237 = sizeObject<ParseToken>(this + 352, 0);
-  v238 = sizeObject<ParseToken>(this + 352, 1);
-  sizeObject(&v377, 2);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1505, &v377);
-  if (v378)
-  {
-    v243 = v377;
-  }
-
-  else
-  {
-    v243 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v239, v240, v241, v242, v22, &unk_26288830E, v24, v24, v243, v237, v238, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += v237;
-  *a5 += v238;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v244 = 12;
-  }
-
-  else
-  {
-    v244 = 16;
-  }
-
-  v245 = *(this + 94);
-  v246 = *(this + 95);
-  if (v246 >= v245)
-  {
-    v247 = 0;
-    if (v245 > 0)
-    {
-      v244 += 2 * (v245 - 1) + 2;
-    }
-
-    v248 = v244 + 2 * (v246 - v245);
-  }
-
-  else
-  {
-    v247 = 2 * v245;
-    v248 = v244;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1507, &v377);
-  if (v378)
-  {
-    v253 = v377;
-  }
-
-  else
-  {
-    v253 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v249, v250, v251, v252, v22, &unk_26288830E, v24, v24, v253, v248, v244, v247);
-  DgnString::~DgnString(&v377);
-  *a4 += v248;
-  *a5 += v244;
-  *v373 += v247;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v254 = 12;
-  }
-
-  else
-  {
-    v254 = 16;
-  }
-
-  v255 = *(this + 98);
-  v256 = *(this + 99);
-  if (v256 >= v255)
-  {
-    v257 = 0;
-    if (v255 > 0)
-    {
-      v254 += 4 * (v255 - 1) + 4;
-    }
-
-    v258 = v254 + 4 * (v256 - v255);
-  }
-
-  else
-  {
-    v257 = 4 * v255;
-    v258 = v254;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1509, &v377);
-  if (v378)
-  {
-    v263 = v377;
-  }
-
-  else
-  {
-    v263 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v259, v260, v261, v262, v22, &unk_26288830E, v24, v24, v263, v258, v254, v257);
-  DgnString::~DgnString(&v377);
-  *a4 += v258;
-  *a5 += v254;
-  *v373 += v257;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v264 = 12;
-  }
-
-  else
-  {
-    v264 = 16;
-  }
-
-  v265 = *(this + 102);
-  v266 = *(this + 103);
-  if (v266 >= v265)
-  {
-    v267 = 0;
-    if (v265 > 0)
-    {
-      v264 += 4 * (v265 - 1) + 4;
-    }
-
-    v268 = v264 + 4 * (v266 - v265);
-  }
-
-  else
-  {
-    v267 = 4 * v265;
-    v268 = v264;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1511, &v377);
-  if (v378)
-  {
-    v273 = v377;
-  }
-
-  else
-  {
-    v273 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v269, v270, v271, v272, v22, &unk_26288830E, v24, v24, v273, v268, v264, v267);
-  DgnString::~DgnString(&v377);
-  *a4 += v268;
-  *a5 += v264;
-  *v373 += v267;
-  v274 = PrefiltererWordIdPronCollArray::sizeObject(this + 416, 0);
-  v275 = PrefiltererWordIdPronCollArray::sizeObject(this + 416, 1);
-  v276 = PrefiltererWordIdPronCollArray::sizeObject(this + 416, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1513, &v377);
-  if (v378)
-  {
-    v281 = v377;
-  }
-
-  else
-  {
-    v281 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v277, v278, v279, v280, v22, &unk_26288830E, v24, v24, v281, v274, v275, v276);
-  DgnString::~DgnString(&v377);
-  *a4 += v274;
-  *a5 += v275;
-  *v373 += v276;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1515, &v377);
-  if (v378)
-  {
-    v286 = v377;
-  }
-
-  else
-  {
-    v286 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v282, v283, v284, v285, v22, &unk_26288830E, v24, v24, v286, 1, 1, 0);
-  DgnString::~DgnString(&v377);
-  ++*a4;
-  ++*a5;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v287 = 4;
-  }
-
-  else
-  {
-    v287 = 8;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1516, &v377);
-  if (v378)
-  {
-    v292 = v377;
-  }
-
-  else
-  {
-    v292 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v288, v289, v290, v291, v22, &unk_26288830E, v24, v24, v292, v287, v287, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += v287;
-  *a5 += v287;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1517, &v377);
-  if (v378)
-  {
-    v297 = v377;
-  }
-
-  else
-  {
-    v297 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v293, v294, v295, v296, v22, &unk_26288830E, v24, v24, v297, 4, 4, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += 4;
-  *a5 += 4;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v298 = 4;
-  }
-
-  else
-  {
-    v298 = 8;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1519, &v377);
-  if (v378)
-  {
-    v303 = v377;
-  }
-
-  else
-  {
-    v303 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v299, v300, v301, v302, v22, &unk_26288830E, v24, v24, v303, v298, v298, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += v298;
-  *a5 += v298;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1521, &v377);
-  if (v378)
-  {
-    v308 = v377;
-  }
-
-  else
-  {
-    v308 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v304, v305, v306, v307, v22, &unk_26288830E, v24, v24, v308, 4, 4, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += 4;
-  *a5 += 4;
-  v309 = sizeObject(this + 448);
-  v310 = sizeObject(this + 448);
-  v311 = sizeObject(this + 448);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1523, &v377);
-  if (v378)
-  {
-    v316 = v377;
-  }
-
-  else
-  {
-    v316 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v312, v313, v314, v315, v22, &unk_26288830E, v24, v24, v316, v309, v310, v311);
-  DgnString::~DgnString(&v377);
-  *a4 += v309;
-  *a5 += v310;
-  *v373 += v311;
-  v317 = sizeObject(this + 464);
-  v318 = sizeObject(this + 464);
-  v319 = sizeObject(this + 464);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1525, &v377);
-  if (v378)
-  {
-    v324 = v377;
-  }
-
-  else
-  {
-    v324 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v320, v321, v322, v323, v22, &unk_26288830E, v24, v24, v324, v317, v318, v319);
-  DgnString::~DgnString(&v377);
-  *a4 += v317;
-  *a5 += v318;
-  *v373 += v319;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1527, &v377);
-  if (v378)
-  {
-    v329 = v377;
-  }
-
-  else
-  {
-    v329 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v325, v326, v327, v328, v22, &unk_26288830E, v24, v24, v329, 4, 4, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += 4;
-  *a5 += 4;
-  v330 = sizeObject(this + 488);
-  v331 = sizeObject(this + 488);
-  v332 = sizeObject(this + 488);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1529, &v377);
-  if (v378)
-  {
-    v337 = v377;
-  }
-
-  else
-  {
-    v337 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v333, v334, v335, v336, v22, &unk_26288830E, v24, v24, v337, v330, v331, v332);
-  DgnString::~DgnString(&v377);
-  *a4 += v330;
-  *a5 += v331;
-  *v373 += v332;
-  v338 = sizeObject(this + 504);
-  v339 = sizeObject(this + 504);
-  v340 = sizeObject(this + 504);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1531, &v377);
-  if (v378)
-  {
-    v345 = v377;
-  }
-
-  else
-  {
-    v345 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v341, v342, v343, v344, v22, &unk_26288830E, v24, v24, v345, v338, v339, v340);
-  DgnString::~DgnString(&v377);
-  *a4 += v338;
-  *a5 += v339;
-  *v373 += v340;
-  v346 = sizeObject(this + 520, 0);
-  v347 = sizeObject(this + 520, 1);
-  v348 = sizeObject(this + 520, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1533, &v377);
-  if (v378)
-  {
-    v353 = v377;
-  }
-
-  else
-  {
-    v353 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v349, v350, v351, v352, v22, &unk_26288830E, v24, v24, v353, v346, v347, v348);
-  DgnString::~DgnString(&v377);
-  *a4 += v346;
-  *a5 += v347;
-  *v373 += v348;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1535, &v377);
-  if (v378)
-  {
-    v358 = v377;
-  }
-
-  else
-  {
-    v358 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v354, v355, v356, v357, v22, &unk_26288830E, v24, v24, v358, 4, 4, 0);
-  DgnString::~DgnString(&v377);
-  *a4 += 4;
-  *a5 += 4;
-  v359 = sizeObject(this + 40, 0);
-  v360 = sizeObject(this + 40, 1);
-  v361 = sizeObject(this + 40, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1537, &v377);
-  if (v378)
-  {
-    v366 = v377;
-  }
-
-  else
-  {
-    v366 = &unk_26288830E;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v362, v363, v364, v365, v22, &unk_26288830E, v24, v24, v366, v359, v360, v361);
-  DgnString::~DgnString(&v377);
-  *a4 += v359;
-  *a5 += v360;
-  *v373 += v361;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1538, &v377);
-  if (v378)
-  {
-    v371 = v377;
-  }
-
-  else
-  {
-    v371 = &unk_26288830E;
-  }
-
-  v372 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v367, v368, v369, v370, v374, &unk_26288830E, (35 - v374), (35 - v374), v371, *a4, *a5, *v373);
-  DgnString::~DgnString(&v377);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v208, v211, &unk_26288830E, (35 - v211), (35 - v211), v209, *a4, *a5, *v210);
+  DgnString::~DgnString(&v214);
 }
 
-void sub_2626A07F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_2626A07F0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -3876,13 +3877,13 @@ DgnSharedMemSet *Voc::canUnloadCachedLM(Voc *this)
   return result;
 }
 
-uint64_t Voc::isPhonemeSetCompatibleWithVoc(Voc *this, const Voc *a2, int a3)
+BOOL Voc::isPhonemeSetCompatibleWithVoc(Voc *this, const Voc *a2, int a3)
 {
-  if ((PhnMgr::operator==(this + 184, a2 + 184) & 1) == 0)
+  if (!PhnMgr::operator==(this + 184, a2 + 184))
   {
     if (a3)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1655, "voc/voc", 25, "%.500s", v6, v7, "phoneme sets");
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1655, "voc/voc", 25, "%.500s");
     }
 
     return 0;
@@ -3892,26 +3893,26 @@ uint64_t Voc::isPhonemeSetCompatibleWithVoc(Voc *this, const Voc *a2, int a3)
   {
     if (a3)
     {
-      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1661, "voc/voc", 25, "%.500s", v8, v9, "liaison seed tables");
+      errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1661, "voc/voc", 25, "%.500s");
     }
 
     return 0;
   }
 
   result = PronCollMgr::operator==(*(this + 3), *(a2 + 3));
-  if ((result & 1) == 0 && a3)
+  if (!result && a3)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1666, "voc/voc", 25, "%.500s", v11, v12, "pron collations");
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1666, "voc/voc", 25, "%.500s");
     return 0;
   }
 
   return result;
 }
 
-uint64_t Voc::removePrefWordIdsSortedByPron(uint64_t a1, uint64_t a2)
+uint64_t Voc::removePrefWordIdsSortedByPron(uint64_t a1, uint64_t *a2)
 {
   result = PrefiltererWordIdPronCollArray::removeArray(a1 + 416, a2);
-  if (*(a1 + 376) && *(a2 + 8))
+  if (*(a1 + 376) && *(a2 + 2))
   {
     v5 = 0;
     v6 = *a2;
@@ -3925,105 +3926,105 @@ uint64_t Voc::removePrefWordIdsSortedByPron(uint64_t a1, uint64_t a2)
       ++v5;
     }
 
-    while (v5 < *(a2 + 8));
+    while (v5 < *(a2 + 2));
   }
 
   return result;
 }
 
-uint64_t Voc::notifyWordFamilyAdded(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Voc::notifyWordFamilyAdded(uint64_t a1, unsigned int a2, uint64_t a3, uint64_t a4)
 {
-  StateMgr::addWordIdsToStatesWithId(*(a1 + 56), a3, a2, a4, a5, a6, a7, a8);
-  v12 = *(a1 + 48);
-  v13 = (*(v12 + 28) + *(*(v12 + 25) + 4 * a2));
-  result = WordList::numAltProns(v12, v13);
+  StateMgr::addWordIdsToStatesWithId(*(a1 + 56), a3, a2);
+  v8 = *(a1 + 48);
+  v9 = (*(v8 + 28) + *(*(v8 + 25) + 4 * a2));
+  result = WordList::numAltProns(v8, v9);
   if (*(a3 + 8))
   {
-    v15 = result;
-    v16 = 0;
+    v11 = result;
+    v12 = 0;
     do
     {
-      v17 = *(*a3 + 4 * v16);
-      result = (*(**(a1 + 72) + 360))(*(a1 + 72), v17, a4);
+      v13 = *(*a3 + 4 * v12);
+      result = (*(**(a1 + 72) + 360))(*(a1 + 72), v13, a4);
       if (*(a1 + 88))
       {
-        v24 = 0;
+        v14 = 0;
         do
         {
-          result = WordNgramTemplate::addWord(*(*(a1 + 80) + 8 * v24++), v17, a4);
+          result = WordNgramTemplate::addWord(*(*(a1 + 80) + 8 * v14++), v13, a4);
         }
 
-        while (v24 < *(a1 + 88));
+        while (v14 < *(a1 + 88));
       }
 
-      ++v16;
-      v25 = *(a3 + 8);
+      ++v12;
+      v15 = *(a3 + 8);
     }
 
-    while (v16 < v25);
-    if (v25)
+    while (v12 < v15);
+    if (v15)
     {
       if (*(a1 + 260))
       {
-        v26 = *(a1 + 264);
-        if (!v26 || (result = StateMgr::isWordIdInState(*(a1 + 56), v26, a2, 1, v20, v21, v22, v23), result))
+        v16 = *(a1 + 264);
+        if (!v16 || (result = StateMgr::isWordIdInState(*(a1 + 56), v16, a2, 1), result))
         {
-          v34[0] = 0;
-          v34[1] = 0;
-          (*(**(a1 + 72) + 520))(*(a1 + 72), a3, v34);
-          v27 = *(a3 + 8);
-          if (v27)
+          v24[0] = 0;
+          v24[1] = 0;
+          (*(**(a1 + 72) + 520))(*(a1 + 72), a3, v24);
+          v17 = *(a3 + 8);
+          if (v17)
           {
-            v28 = 0;
-            v29 = *(a1 + 280);
+            v18 = 0;
+            v19 = *(a1 + 280);
             do
             {
-              v30 = *(*a3 + 4 * v28);
-              if (v30 >= v29)
+              v20 = *(*a3 + 4 * v18);
+              if (v20 >= v19)
               {
                 do
                 {
-                  if (v29 == *(a1 + 284))
+                  if (v19 == *(a1 + 284))
                   {
                     DgnPrimArray<short>::reallocElts(a1 + 272, 1, 1);
-                    v29 = *(a1 + 280);
+                    v19 = *(a1 + 280);
                   }
 
-                  v31 = *(a1 + 272);
-                  *(v31 + 2 * v29++) = 20000;
-                  *(a1 + 280) = v29;
+                  v21 = *(a1 + 272);
+                  *(v21 + 2 * v19++) = 20000;
+                  *(a1 + 280) = v19;
                 }
 
-                while (v30 >= v29);
-                v27 = *(a3 + 8);
+                while (v20 >= v19);
+                v17 = *(a3 + 8);
               }
 
               else
               {
-                v31 = *(a1 + 272);
+                v21 = *(a1 + 272);
               }
 
-              *(v31 + 2 * v30) = *(v34[0] + 2 * v28++) + **(a1 + 32);
+              *(v21 + 2 * v20) = *(v24[0] + 2 * v18++) + **(a1 + 32);
             }
 
-            while (v28 < v27);
+            while (v18 < v17);
           }
 
-          result = DgnPrimArray<unsigned int>::~DgnPrimArray(v34);
+          result = DgnPrimArray<unsigned int>::~DgnPrimArray(v24);
         }
       }
     }
 
-    v32 = *(a3 + 8);
-    if (v32)
+    v22 = *(a3 + 8);
+    if (v22)
     {
-      v33 = *(a1 + 440);
-      if (v33)
+      v23 = *(a1 + 440);
+      if (v23)
       {
-        *(a1 + 440) = v33 + v32;
+        *(a1 + 440) = v23 + v22;
         if (a4 != 0xFFFFFF)
         {
-          return DgnString::stringPrintf((a1 + 464), "%.500s pron %u (cloned from %u)", v18, v19, v20, v13, (v15 + v32 - 1), a4);
+          return DgnString::stringPrintf((a1 + 464), "%.500s pron %u (cloned from %u)");
         }
       }
 
@@ -4031,146 +4032,143 @@ uint64_t Voc::notifyWordFamilyAdded(uint64_t a1, unsigned int a2, uint64_t a3, u
       {
         if (a4 != 0xFFFFFF)
         {
-          DgnString::stringPrintf((a1 + 448), "%.500s pron %u (cloned from %u)", v18, v19, v20, v13, v15, a4);
-          v32 = *(a3 + 8);
-          *(a1 + 440) += v32;
-          return DgnString::stringPrintf((a1 + 464), "%.500s pron %u (cloned from %u)", v18, v19, v20, v13, (v15 + v32 - 1), a4);
+          DgnString::stringPrintf((a1 + 448), "%.500s pron %u (cloned from %u)", v9, v11, a4);
+          *(a1 + 440) += *(a3 + 8);
+          return DgnString::stringPrintf((a1 + 464), "%.500s pron %u (cloned from %u)");
         }
 
-        DgnString::stringPrintf((a1 + 448), "%.500s pron %u", v18, v19, v20, v13, v15);
-        v32 = *(a3 + 8);
-        *(a1 + 440) += v32;
+        DgnString::stringPrintf((a1 + 448), "%.500s pron %u", v9, v11);
+        *(a1 + 440) += *(a3 + 8);
       }
 
-      return DgnString::stringPrintf((a1 + 464), "%.500s pron %u", v18, v19, v20, v13, (v15 + v32 - 1));
+      return DgnString::stringPrintf((a1 + 464), "%.500s pron %u");
     }
   }
 
   return result;
 }
 
-void sub_2626A0D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_2626A0D4C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t Voc::notifyWordFamilyAboutToDeleteProns(uint64_t result, uint64_t a2, unsigned int a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Voc::notifyWordFamilyAboutToDeleteProns(uint64_t result, uint64_t a2, unsigned int a3)
 {
   if (*(result + 288) == 1)
   {
-    v8 = result;
+    v3 = result;
     if (*(*(*(result + 48) + 32) + 2 * a3))
     {
-      v13 = 0;
-      v14 = 0;
+      v8 = 0;
+      v9 = 0;
       if (*(a2 + 8))
       {
-        v10 = 0;
+        v5 = 0;
         do
         {
-          if (StateMgr::isWordIdInState(*(v8 + 56), *(v8 + 304), *(*a2 + 4 * v10), 1, a5, a6, a7, a8))
+          if (StateMgr::isWordIdInState(*(v3 + 56), *(v3 + 304), *(*a2 + 4 * v5), 1))
           {
-            v11 = *(*a2 + 4 * v10);
-            v12 = v14;
-            if (v14 == HIDWORD(v14))
+            v6 = *(*a2 + 4 * v5);
+            v7 = v9;
+            if (v9 == HIDWORD(v9))
             {
-              DgnPrimArray<unsigned int>::reallocElts(&v13, 1, 1);
-              v12 = v14;
+              DgnPrimArray<unsigned int>::reallocElts(&v8, 1, 1);
+              v7 = v9;
             }
 
-            *(v13 + 4 * v12) = v11;
-            LODWORD(v14) = v14 + 1;
+            *(v8 + 4 * v7) = v6;
+            LODWORD(v9) = v9 + 1;
           }
 
-          ++v10;
+          ++v5;
         }
 
-        while (v10 < *(a2 + 8));
+        while (v5 < *(a2 + 8));
       }
 
-      Voc::removePrefWordIdsSortedByPron(v8, &v13);
-      return DgnPrimArray<unsigned int>::~DgnPrimArray(&v13);
+      Voc::removePrefWordIdsSortedByPron(v3, &v8);
+      return DgnPrimArray<unsigned int>::~DgnPrimArray(&v8);
     }
   }
 
   return result;
 }
 
-void Voc::notifyWordFamilyDeleted(uint64_t a1, unsigned int **a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void Voc::notifyWordFamilyDeleted(uint64_t a1, unsigned int **a2, unsigned int a3, uint64_t a4, uint64_t a5)
 {
-  v7 = a3;
-  DgnString::stringPrintf((a1 + 504), "%.500s pron %u", a3, a4, a5, *(*(a1 + 48) + 224) + *(*(*(a1 + 48) + 200) + 4 * a3), *(*(*(a1 + 48) + 104) + **a2));
-  v15 = *(a1 + 480);
-  if (!v15)
+  DgnString::stringPrintf((a1 + 504), "%.500s pron %u", (*(*(a1 + 48) + 224) + *(*(*(a1 + 48) + 200) + 4 * a3)), *(*(*(a1 + 48) + 104) + **a2));
+  v10 = *(a1 + 480);
+  if (!v10)
   {
     DgnString::operator=((a1 + 488), (a1 + 504));
-    v15 = *(a1 + 480);
+    v10 = *(a1 + 480);
   }
 
-  *(a1 + 480) = v15 + *(a2 + 2);
-  StateMgr::deleteWordIdsFromStatesWithId(*(a1 + 56), a2, v7, v10, v11, v12, v13, v14);
-  LODWORD(v20) = *(a2 + 2);
-  if (v20)
+  *(a1 + 480) = v10 + *(a2 + 2);
+  StateMgr::deleteWordIdsFromStatesWithId(*(a1 + 56), a2, a3);
+  LODWORD(v11) = *(a2 + 2);
+  if (v11)
   {
-    v21 = 0;
+    v12 = 0;
     do
     {
-      v22 = (*a2)[v21];
-      (*(**(a1 + 72) + 376))(*(a1 + 72), v22, a4, a5);
+      v13 = (*a2)[v12];
+      (*(**(a1 + 72) + 376))(*(a1 + 72), v13, a4, a5);
       if (*(a1 + 88))
       {
-        v23 = 0;
+        v14 = 0;
         do
         {
-          WordNgramTemplate::deleteWord(*(*(a1 + 80) + 8 * v23++), v22);
+          WordNgramTemplate::deleteWord(*(*(a1 + 80) + 8 * v14++), v13);
         }
 
-        while (v23 < *(a1 + 88));
+        while (v14 < *(a1 + 88));
       }
 
-      ++v21;
-      v20 = *(a2 + 2);
+      ++v12;
+      v11 = *(a2 + 2);
     }
 
-    while (v21 < v20);
+    while (v12 < v11);
   }
 
   if (*(a1 + 260))
   {
-    v24 = *(a1 + 264);
-    if (v24)
+    v15 = *(a1 + 264);
+    if (v15)
     {
-      if (!StateMgr::isWordIdInState(*(a1 + 56), v24, v7, 1, v16, v17, v18, v19))
+      if (!StateMgr::isWordIdInState(*(a1 + 56), v15, a3, 1))
       {
         return;
       }
 
-      LODWORD(v20) = *(a2 + 2);
+      LODWORD(v11) = *(a2 + 2);
     }
 
-    if (v20)
+    if (v11)
     {
-      v25 = *a2;
-      v26 = *(a1 + 272);
-      v20 = v20;
+      v16 = *a2;
+      v17 = *(a1 + 272);
+      v11 = v11;
       do
       {
-        v27 = *v25++;
-        *(v26 + 2 * v27) = 20000;
-        --v20;
+        v18 = *v16++;
+        *(v17 + 2 * v18) = 20000;
+        --v11;
       }
 
-      while (v20);
+      while (v11);
     }
   }
 }
 
-unint64_t Voc::addPrefPicModelIdPron(unint64_t result, unsigned int a2, uint64_t *a3)
+uint64_t *Voc::addPrefPicModelIdPron(uint64_t *result, unsigned int a2, uint64_t *a3)
 {
   v5 = result;
-  v6 = *(result + 376);
+  v6 = *(result + 94);
   if (v6 <= a2)
   {
     do
@@ -4201,7 +4199,7 @@ unint64_t Voc::addPrefPicModelIdPron(unint64_t result, unsigned int a2, uint64_t
 
   else
   {
-    v7 = *(result + 384);
+    v7 = result[48];
   }
 
   *(*(v5 + 368) + 2 * a2) = *(a3 + 2);
@@ -4247,7 +4245,7 @@ void *Voc::getPrefPicModelIdPron(void *this, unsigned int a2, const unsigned int
   return this;
 }
 
-uint64_t Voc::findOrAddPrefPicModel(uint64_t a1, _DWORD *a2)
+uint64_t Voc::findOrAddPrefPicModel(uint64_t a1, unsigned int *a2)
 {
   v4 = *(a1 + 360) | (a2[2] << 24);
   v5 = HashProbeKEV<unsigned int,DgnArray<OpaquePelIdAndDurId>,Voc>::insert(a1 + 312, v4, a2);
@@ -4286,7 +4284,7 @@ uint64_t Voc::findOrAddPrefPicModel(uint64_t a1, _DWORD *a2)
   return v5;
 }
 
-uint64_t HashProbeKEV<unsigned int,DgnArray<OpaquePelIdAndDurId>,Voc>::insert(uint64_t a1, unsigned int a2, _DWORD *a3)
+uint64_t HashProbeKEV<unsigned int,DgnArray<OpaquePelIdAndDurId>,Voc>::insert(uint64_t a1, unsigned int a2, unsigned int *a3)
 {
   v6 = *(a1 + 4);
   if (*a1 >= v6 >> 1)
@@ -4359,157 +4357,157 @@ LABEL_18:
   return *v19;
 }
 
-void Voc::deleteWordsFromWordList(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void Voc::deleteWordsFromWordList(uint64_t a1, uint64_t a2)
 {
-  v9 = 0;
-  WordList::deleteWords(*(a1 + 48), a2, &v9, a4, a5, a6, a7, a8);
-  if (v9)
+  v3 = 0;
+  WordList::deleteWords(*(a1 + 48), a2, &v3);
+  if (v3)
   {
     (*(**(a1 + 72) + 400))(*(a1 + 72));
   }
 }
 
-void Voc::verifyCanDeleteWords(Voc *this, unsigned int a2)
+double Voc::verifyCanDeleteWords(Voc *this, unsigned int a2)
 {
   if ((*(**(this + 9) + 192))(*(this + 9)))
   {
-    v6 = *(*(this + 6) + 224) + *(*(*(this + 6) + 200) + 4 * a2);
-    v7 = *(this + 84);
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1970, "voc/voc", 2, "%d %.500s %d", v4, v5, a2);
+    return errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 1970, "voc/voc", 2, "%d %.500s %d", a2, (*(*(this + 6) + 224) + *(*(*(this + 6) + 200) + 4 * a2)), *(this + 84));
   }
+
+  return result;
 }
 
 uint64_t Voc::deleteWordIdArrayFamily(Voc *a1, uint64_t a2, void *a3)
 {
   Voc::verifyCanDeleteWords(a1, **a2);
-  v12 = *(a2 + 8);
-  v27 = 0;
-  v28 = 0;
-  v25 = 0;
-  v26 = 0;
-  v24 = 0;
-  if (v12)
+  v6 = *(a2 + 8);
+  v21 = 0;
+  v22 = 0;
+  v19 = 0;
+  v20 = 0;
+  v18 = 0;
+  if (v6)
   {
-    v13 = 0;
-    v14 = 0;
+    v7 = 0;
+    v8 = 0;
     while (1)
     {
-      v15 = *(*a3 + 16 * v14 + 8);
-      if (HIDWORD(v26) < v15)
+      v9 = *(*a3 + 16 * v8 + 8);
+      if (HIDWORD(v20) < v9)
       {
         break;
       }
 
-      LODWORD(v26) = *(*a3 + 16 * v14 + 8);
-      if (v15)
+      LODWORD(v20) = *(*a3 + 16 * v8 + 8);
+      if (v9)
       {
         goto LABEL_6;
       }
 
 LABEL_8:
-      Voc::notifyWordFamilyAboutToDeleteProns(a1, &v25, *(*a2 + 4 * v14), v7, v8, v9, v10, v11);
-      Voc::notifyWordFamilyDeleted(a1, &v25, *(*a2 + 4 * v14), &v24 + 1, &v24);
-      v13 = v26;
-      if ((v28 + v26) > HIDWORD(v28))
+      Voc::notifyWordFamilyAboutToDeleteProns(a1, &v19, *(*a2 + 4 * v8));
+      Voc::notifyWordFamilyDeleted(a1, &v19, *(*a2 + 4 * v8), &v18 + 1, &v18);
+      v7 = v20;
+      if ((v22 + v20) > HIDWORD(v22))
       {
-        DgnPrimArray<unsigned int>::reallocElts(&v27, (v28 + v26 - HIDWORD(v28)), 1);
-        v13 = v26;
+        DgnPrimArray<unsigned int>::reallocElts(&v21, (v22 + v20 - HIDWORD(v22)), 1);
+        v7 = v20;
       }
 
-      if (v13)
+      if (v7)
       {
-        v20 = 0;
-        v21 = v25;
-        v22 = v27;
+        v14 = 0;
+        v15 = v19;
+        v16 = v21;
         do
         {
-          *(v22 + 4 * (v20 + v28)) = v21[v20];
-          ++v20;
+          *(v16 + 4 * (v14 + v22)) = v15[v14];
+          ++v14;
         }
 
-        while (v20 < v26);
-        v13 = v26;
+        while (v14 < v20);
+        v7 = v20;
       }
 
-      LODWORD(v28) = v28 + v13;
-      if (++v14 == v12)
+      LODWORD(v22) = v22 + v7;
+      if (++v8 == v6)
       {
         goto LABEL_15;
       }
     }
 
-    v29 = 0;
-    v16 = realloc_array(v25, &v29, 4 * v15, 4 * v13, 4 * v13, 1);
-    v25 = v29;
-    LODWORD(v26) = v15;
-    HIDWORD(v26) = v16 >> 2;
+    v23 = 0;
+    v10 = realloc_array(v19, &v23, 4 * v9, 4 * v7, 4 * v7, 1);
+    v19 = v23;
+    LODWORD(v20) = v9;
+    HIDWORD(v20) = v10 >> 2;
 LABEL_6:
-    v17 = *(*a3 + 16 * v14);
-    v18 = v25;
-    v19 = v15 - 1;
+    v11 = *(*a3 + 16 * v8);
+    v12 = v19;
+    v13 = v9 - 1;
     do
     {
-      *v18++ = *(v17 + 4 * v19--);
-      --v15;
+      *v12++ = *(v11 + 4 * v13--);
+      --v9;
     }
 
-    while (v15);
+    while (v9);
     goto LABEL_8;
   }
 
 LABEL_15:
-  Voc::deleteWordsFromWordList(a1, &v27, v6, v7, v8, v9, v10, v11);
-  if (HIBYTE(v24) == 1)
+  Voc::deleteWordsFromWordList(a1, &v21);
+  if (HIBYTE(v18) == 1)
   {
     (*(**(a1 + 9) + 384))(*(a1 + 9));
   }
 
-  if (v24 == 1)
+  if (v18 == 1)
   {
     (*(**(a1 + 9) + 392))(*(a1 + 9));
   }
 
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v25);
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v27);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v19);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(&v21);
 }
 
-void sub_2626A164C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2626A164C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va1);
   _Unwind_Resume(a1);
 }
 
-uint64_t Voc::createWord(Voc *this, char *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Voc::createWord(WordList **this, char *a2, uint64_t a3, const char *a4)
 {
   if (!a2 || !*a2)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 2020, "voc/voc", 15, "%s", a7, a8, &errStr_voc_voc_E_BAD_WORDNAME);
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 2020, "voc/voc", 15, "%s", &errStr_voc_voc_E_BAD_WORDNAME);
   }
 
-  if (WordList::lookupWord(*(this + 6), a2) != 0xFFFFFF)
+  if (WordList::lookupWord(this[6], a2) != 0xFFFFFF)
   {
-    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 2023, "voc/voc", 5, "%d %.500s", v12, v13, *(this + 84));
+    errThrowInternal(0, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/voc.cpp", 2023, "voc/voc", 5, "%d %.500s", *(this + 84), a2);
   }
 
-  v14 = WordList::addWord(*(this + 6), a2, 1, 1, 1, a4);
-  v20 = 0;
-  v21 = 0;
-  DgnPrimArray<unsigned int>::reallocElts(&v20, 1, 1);
-  *(v20 + 4 * v21) = v14;
-  LODWORD(v21) = v21 + 1;
-  Voc::notifyWordFamilyAdded(this, v14, &v20, a3, v15, v16, v17, v18);
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v20);
-  return v14;
+  v8 = WordList::addWord(this[6], a2, 1, 1, 1, a4);
+  v10 = 0;
+  v11 = 0;
+  DgnPrimArray<unsigned int>::reallocElts(&v10, 1, 1);
+  *(v10 + 4 * v11) = v8;
+  LODWORD(v11) = v11 + 1;
+  Voc::notifyWordFamilyAdded(this, v8, &v10, a3);
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v10);
+  return v8;
 }
 
-void sub_2626A179C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2626A179C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -4521,41 +4519,42 @@ uint64_t Voc::addClientPronsAvoidDuplicates(uint64_t a1, unsigned int *a2, uint6
   return WordList::addClientPronsAvoidDuplicates(*(a1 + 48), a2, a3, a4, a5, a6, a7, a8, a9, a10);
 }
 
-uint64_t Voc::deleteWordClientProns(WordList **a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t Voc::deleteWordClientProns(WordList **a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  WordList::verifyModifiable(a1[6], a2, a3, a4, a5, a6, a7, a8);
-  v12 = a1[6];
-  v13 = *(v12[25] + 4 * a2);
-  v14 = v12[28];
-  v37[0] = 0;
-  v37[1] = 0;
-  WordList::lookupAllClientAddedProns(v12, v14 + v13, v37);
-  Voc::notifyWordFamilyAboutToDeleteProns(a1, v37, a2, v15, v16, v17, v18, v19);
-  WordList::deleteWordClientProns(a1[6], a2, v37, a3, a4, v20, v21, v22);
+  v6 = a2;
+  WordList::verifyModifiable(a1[6], a2);
+  v8 = a1[6];
+  v9 = *(v8[25] + 4 * v6);
+  v10 = v8[28];
+  v13[0] = 0;
+  v13[1] = 0;
+  WordList::lookupAllClientAddedProns(v8, v10 + v9, v13);
+  Voc::notifyWordFamilyAboutToDeleteProns(a1, v13, v6);
+  WordList::deleteWordClientProns(a1[6], v6, v13, a3, a4);
   if (*(a4 + 8))
   {
-    Voc::verifyCanDeleteWords(a1, a2);
-    v36 = 0;
-    Voc::notifyWordFamilyDeleted(a1, a4, a2, &v36 + 1, &v36);
-    Voc::deleteWordsFromWordList(a1, a4, v29, v30, v31, v32, v33, v34);
+    Voc::verifyCanDeleteWords(a1, v6);
+    v12 = 0;
+    Voc::notifyWordFamilyDeleted(a1, a4, v6, &v12 + 1, &v12);
+    Voc::deleteWordsFromWordList(a1, a4);
   }
 
   if (*(a3 + 8))
   {
-    StateMgr::notifyPronsChanged(a1[7], a3, v23, v24, v25, v26, v27, v28);
+    StateMgr::notifyPronsChanged(a1[7], a3);
   }
 
-  return DgnPrimArray<unsigned int>::~DgnPrimArray(v37);
+  return DgnPrimArray<unsigned int>::~DgnPrimArray(v13);
 }
 
-void sub_2626A18AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2626A18AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t Voc::getPics(uint64_t a1, _DWORD *a2, int a3, __int16 *a4, __int16 *a5, char a6, _DWORD *a7)
+uint64_t Voc::getPics(uint64_t a1, _DWORD *a2, unsigned int a3, __int16 *a4, __int16 *a5, char a6, _DWORD *a7)
 {
   result = *a2 & 0xFFFFFF;
   v12 = a4[1];
@@ -4857,15 +4856,15 @@ void sub_2626A1D90(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-_DWORD *HashProbeKEV<unsigned int,DgnArray<OpaquePelIdAndDurId>,Voc>::initBuckets(_DWORD *result)
+uint64_t *HashProbeKEV<unsigned int,DgnArray<OpaquePelIdAndDurId>,Voc>::initBuckets(uint64_t *result)
 {
   v1 = result;
-  v2 = result[1];
-  v3 = result[7];
+  v2 = *(result + 1);
+  v3 = *(result + 7);
   if (v2 <= v3)
   {
-    result[6] = v2;
-    v4 = result + 6;
+    *(result + 6) = v2;
+    v4 = (result + 3);
     if (!v2)
     {
       return result;
@@ -4874,13 +4873,13 @@ _DWORD *HashProbeKEV<unsigned int,DgnArray<OpaquePelIdAndDurId>,Voc>::initBucket
 
   else
   {
-    result = DgnPrimArray<unsigned int>::reallocElts((result + 4), v2 - v3, 0);
-    v1[6] = v2;
-    v4 = v1 + 6;
+    result = DgnPrimArray<unsigned int>::reallocElts((result + 2), v2 - v3, 0);
+    *(v1 + 6) = v2;
+    v4 = (v1 + 3);
   }
 
   v5 = 0;
-  v6 = *(v1 + 2);
+  v6 = v1[2];
   do
   {
     *(v6 + 4 * v5++) = -1;
@@ -4917,12 +4916,12 @@ void *DgnIOwnArray<WordNgramTemplate *>::releaseAll(uint64_t a1)
   return result;
 }
 
-uint64_t DgnDelete<WordNgramTemplate>(uint64_t result)
+void *DgnDelete<WordNgramTemplate>(void *result)
 {
   if (result)
   {
     v1 = result;
-    DgnPrimArray<unsigned int>::~DgnPrimArray(result + 144);
+    DgnPrimArray<unsigned int>::~DgnPrimArray((result + 18));
     Hash<unsigned int,unsigned int,WordIdScope,unsigned int>::~Hash((v1 + 4));
 
     return MemChunkFree(v1, 0);
@@ -4931,7 +4930,7 @@ uint64_t DgnDelete<WordNgramTemplate>(uint64_t result)
   return result;
 }
 
-uint64_t Hash<unsigned int,unsigned int,WordIdScope,unsigned int>::~Hash(uint64_t a1)
+void Hash<unsigned int,unsigned int,WordIdScope,unsigned int>::~Hash(uint64_t a1)
 {
   *a1 = &unk_287523F78;
   if (*(a1 + 8))
@@ -4942,7 +4941,13 @@ uint64_t Hash<unsigned int,unsigned int,WordIdScope,unsigned int>::~Hash(uint64_
   DgnPrimFixArray<double>::~DgnPrimFixArray(a1 + 80);
   DgnPool::~DgnPool((a1 + 24));
 
-  return MrecInitModule_sdpres_sdapi();
+  MrecInitModule_sdpres_sdapi();
+}
+
+{
+  Hash<unsigned int,unsigned int,WordIdScope,unsigned int>::~Hash(a1);
+
+  JUMPOUT(0x26672B1B0);
 }
 
 uint64_t Hash<unsigned int,unsigned int,WordIdScope,unsigned int>::removeAll(uint64_t result)
@@ -4988,13 +4993,6 @@ uint64_t Hash<unsigned int,unsigned int,WordIdScope,unsigned int>::removeAll(uin
 
   *(v1 + 8) = 0;
   return result;
-}
-
-void Hash<unsigned int,unsigned int,WordIdScope,unsigned int>::~Hash(uint64_t a1)
-{
-  Hash<unsigned int,unsigned int,WordIdScope,unsigned int>::~Hash(a1);
-
-  JUMPOUT(0x26672B1B0);
 }
 
 uint64_t HashProbeKEV<unsigned int,DgnArray<OpaquePelIdAndDurId>,Voc>::upSize(uint64_t a1, int a2)
@@ -5087,9 +5085,9 @@ uint64_t HashProbeKEV<unsigned int,DgnArray<OpaquePelIdAndDurId>,Voc>::upSize(ui
   return DgnPrimArray<unsigned int>::~DgnPrimArray(&v20);
 }
 
-void sub_2626A2168(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2626A2168(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   DgnPrimArray<unsigned int>::~DgnPrimArray(va);
   _Unwind_Resume(a1);
 }
@@ -5131,69 +5129,68 @@ void TransducerGrammarMgr::printSize(TransducerGrammarMgr *this, uint64_t a2, ui
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/trgrmmgr.cpp", 67, &v32);
-  if (v33)
+  getShipObjectSizeDescription(&v19, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/trgrmmgr.cpp", 67);
+  if (v20)
   {
-    v15 = v32;
+    v12 = v19;
   }
 
   else
   {
-    v15 = &byte_262899963;
+    v12 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v11, v12, v13, v14, a3, &byte_262899963, a3, &byte_262899963, v15);
-  DgnString::~DgnString(&v32);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v11, a3, &byte_262899963, a3, &byte_262899963, v12);
+  DgnString::~DgnString(&v19);
   if (a2 != -1)
   {
-    xlprintf("%d ", v16, v17, v18, v19, a2);
+    xlprintf("%d ", v13, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v16, v17, v18, v19, a3, &byte_262899963);
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v13, a3, &byte_262899963);
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v20 = 4;
+    v14 = 4;
   }
 
   else
   {
-    v20 = 8;
+    v14 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/trgrmmgr.cpp", 69, &v32);
-  if (v33)
+  getShipObjectSizeDescription(&v19, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/trgrmmgr.cpp", 69);
+  if (v20)
   {
-    v25 = v32;
+    v16 = v19;
   }
 
   else
   {
-    v25 = &byte_262899963;
+    v16 = &byte_262899963;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v21, v22, v23, v24, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v25, v20, v20, 0);
-  DgnString::~DgnString(&v32);
-  *a4 += v20;
-  *a5 += v20;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/trgrmmgr.cpp", 71, &v32);
-  if (v33)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v15, (a3 + 1), &byte_262899963, (34 - a3), (34 - a3), v16, v14, v14, 0);
+  DgnString::~DgnString(&v19);
+  *a4 += v14;
+  *a5 += v14;
+  getShipObjectSizeDescription(&v19, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/voc/trgrmmgr.cpp", 71);
+  if (v20)
   {
-    v30 = v32;
+    v18 = v19;
   }
 
   else
   {
-    v30 = &byte_262899963;
+    v18 = &byte_262899963;
   }
 
-  v31 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v26, v27, v28, v29, a3, &byte_262899963, (35 - a3), (35 - a3), v30, *a4, *a5, *a6);
-  DgnString::~DgnString(&v32);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v17, a3, &byte_262899963, (35 - a3), (35 - a3), v18, *a4, *a5, *a6);
+  DgnString::~DgnString(&v19);
 }
 
-void sub_2626A23D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2626A23D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -5244,11 +5241,12 @@ double OnePhonemeSyncNet::addEpsilonNode(OnePhonemeSyncNet *this)
   return result;
 }
 
-uint64_t OnePhonemeSyncNet::scoreNetInternal(OnePhonemeSyncNet *this, int a2, int a3, int a4, int a5, int a6)
+uint64_t OnePhonemeSyncNet::scoreNetInternal(OnePhonemeSyncNet *this, int a2, uint64_t a3, uint64_t a4, int a5, int a6)
 {
+  v6 = a4;
   v8 = *(this + 26);
-  v49 = *(this + 38);
-  v50 = 0;
+  v46 = *(this + 38);
+  v47 = 0;
   if (v8)
   {
     v9 = *(this + 71) <= a3;
@@ -5261,7 +5259,7 @@ uint64_t OnePhonemeSyncNet::scoreNetInternal(OnePhonemeSyncNet *this, int a2, in
 
   *(this + 282) = v9;
   *(this + 71) = 20000;
-  v10 = BaseSyncNet::scoreIntSilNode1<false>(this, v9, *(this + 114), a3, a4, a5, a6, &v50);
+  v10 = BaseSyncNet::scoreIntSilNode1<false>(this, v9, *(this + 114), a3, a4, a5, a6, &v47);
   v11 = v10;
   if (v10 != 20000)
   {
@@ -5294,29 +5292,26 @@ uint64_t OnePhonemeSyncNet::scoreNetInternal(OnePhonemeSyncNet *this, int a2, in
 LABEL_10:
     *(v18 + (v19 | 0x40000u)) += v16;
     v20 = v15 >> 1;
-    v46 = v17;
-    v47 = v17;
+    v43 = v17;
+    v44 = v17;
     do
     {
       v22 = *v14++;
       v21 = v22;
       if (v15)
       {
-        v23 = *(*(v21 + v20) + v46);
+        v23 = *(*(v21 + v20) + v43);
       }
 
       else
       {
-        v23 = v47;
+        v23 = v44;
       }
 
-      v24 = *(*v21 + 8) != 20000;
-      v25 = *(this + 1);
-      v26 = *(this + 29);
-      v27 = v23(v21 + v20);
-      if (v27 < *(this + 71))
+      v24 = v23(v21 + v20);
+      if (v24 < *(this + 71))
       {
-        *(this + 71) = v27;
+        *(this + 71) = v24;
       }
 
       --v16;
@@ -5324,51 +5319,51 @@ LABEL_10:
 
     while (v16);
     *(this + 281) = 1;
-    v28 = *(this + 20);
+    v25 = *(this + 20);
     if (*(this + 114) == 1)
     {
-      if (v28 >= 1)
+      if (v25 >= 1)
       {
-        v29 = v28 - 1;
+        v26 = v25 - 1;
         do
         {
-          v30 = *(*(this + 9) + 8 * v29);
-          v31 = *(this + 1);
-          LODWORD(v48) = 0;
-          BestPredWithTrace = PredStruct::getBestPredWithTrace((v30 + 16), &v48, v31 + 302936, a4);
-          v33 = *(BestPredWithTrace + 4);
-          *(v30 + 8) = *(BestPredWithTrace + 4);
-          *v30 = *BestPredWithTrace;
-          *(v30 + 4) = v48;
-          if (v11 >= v33)
+          v27 = *(*(this + 9) + 8 * v26);
+          v28 = *(this + 1);
+          LODWORD(v45) = 0;
+          BestPredWithTrace = PredStruct::getBestPredWithTrace((v27 + 16), &v45, v28 + 302936, v6);
+          v30 = *(BestPredWithTrace + 4);
+          *(v27 + 8) = *(BestPredWithTrace + 4);
+          *v27 = *BestPredWithTrace;
+          *(v27 + 4) = v45;
+          if (v11 >= v30)
           {
-            v11 = v33;
+            v11 = v30;
           }
 
-          v34 = v29-- + 1;
+          v31 = v26-- + 1;
         }
 
-        while (v34 > 1);
+        while (v31 > 1);
       }
     }
 
-    else if (v28 >= 1)
+    else if (v25 >= 1)
     {
-      v35 = v28 - 1;
+      v32 = v25 - 1;
       do
       {
-        v36 = *(*(this + 9) + 8 * v35);
-        v48 = 0;
-        v37 = ExternalOutPort::seedOutPort<false>(v36, &v48);
-        if (v37 < v11)
+        v33 = *(*(this + 9) + 8 * v32);
+        v45 = 0;
+        v34 = ExternalOutPort::seedOutPort<false>(v33, &v45);
+        if (v34 < v11)
         {
-          v11 = v37;
+          v11 = v34;
         }
 
-        v38 = v35-- + 1;
+        v35 = v32-- + 1;
       }
 
-      while (v38 > 1);
+      while (v35 > 1);
     }
 
     goto LABEL_34;
@@ -5377,40 +5372,40 @@ LABEL_10:
   if (*(this + 281) == 1)
   {
     *(this + 281) = 0;
-    v39 = *(this + 20);
-    if (v39 >= 2)
+    v36 = *(this + 20);
+    if (v36 >= 2)
     {
-      v40 = v39 + 1;
-      v41 = (*(this + 9) + 8 * v39 - 8);
+      v37 = v36 + 1;
+      v38 = (*(this + 9) + 8 * v36 - 8);
       do
       {
-        v42 = *v41--;
-        *(v42 + 8) = 20000;
-        --v40;
+        v39 = *v38--;
+        *(v39 + 8) = 20000;
+        --v37;
       }
 
-      while (v40 > 2);
+      while (v37 > 2);
     }
   }
 
 LABEL_34:
-  v43 = *(this + 1) + 299008;
-  *(v43 + 3572) = *(*(this + 1) + 302580) + 1;
-  *(v43 + 3592) += v50;
-  *(this + 26) = v49;
+  v40 = *(this + 1) + 299008;
+  *(v40 + 3572) = *(*(this + 1) + 302580) + 1;
+  *(v40 + 3592) += v47;
+  *(this + 26) = v46;
   result = (*(*this + 328))(this);
   *(this + 55) = result;
   *(this + 54) = v11;
-  v45 = *(this + 1);
-  if (v11 < *(v45 + 246))
+  v42 = *(this + 1);
+  if (v11 < *(v42 + 246))
   {
-    *(v45 + 246) = v11;
+    *(v42 + 246) = v11;
   }
 
   return result;
 }
 
-uint64_t BaseSyncNet::scoreIntSilNode1<false>(uint64_t a1, int a2, int a3, int a4, int a5, int a6, int a7, _DWORD *a8)
+uint64_t BaseSyncNet::scoreIntSilNode1<false>(uint64_t a1, int a2, int a3, uint64_t a4, int a5, int a6, int a7, _DWORD *a8)
 {
   *(a1 + 113) = 0;
   v14 = (a1 + 113);
@@ -5422,6 +5417,7 @@ uint64_t BaseSyncNet::scoreIntSilNode1<false>(uint64_t a1, int a2, int a3, int a
     goto LABEL_12;
   }
 
+  v16 = a4;
   if (a3)
   {
     BestPredWithTrace = PredStruct::getBestPredWithTrace((a1 + 264), &v25, *(a1 + 8) + 302936, a4);
@@ -5457,7 +5453,7 @@ uint64_t BaseSyncNet::scoreIntSilNode1<false>(uint64_t a1, int a2, int a3, int a
     }
   }
 
-  if (*(BestPredWithTrace + 4) > a4)
+  if (*(BestPredWithTrace + 4) > v16)
   {
 LABEL_12:
     if (!v15)
@@ -5744,38 +5740,38 @@ uint64_t isValidRestrictedName(const char *a1)
 
 uint64_t SDColl_StringCompare(unint64_t a1, unint64_t a2, CharInfo *a3, CharInfo *a4)
 {
-  v8 = SdapiInsurance::SdapiInsurance(v26, "SDColl_StringCompare", 1, 1, 39);
-  if (v26[97] == 1)
+  SdapiInsurance::SdapiInsurance(v15, "SDColl_StringCompare", 1, 1, 39);
+  if (v15[97] == 1)
   {
     if (!a3)
     {
-      throwBadStringPointer(v8, v9, v10, v11, v12, v13, v14, v15);
+      v9 = throwBadStringPointer();
     }
 
-    v27 = 0;
+    v16 = 0;
     if (!a4)
     {
-      throwBadStringPointer(v8, v9, v10, v11, v12, v13, v14, v15);
+      v9 = throwBadStringPointer();
     }
 
-    v27 = 0;
+    v16 = 0;
     if (gbShowCalls == 1)
     {
-      xlprintf("Entering sdapi call %.500s(<SDh %lld>, <SDh %lld>, '%.500s', '%.500s')\n", v9, v10, v11, v12, "SDColl_StringCompare", a1, a2, a3, a4);
+      xlprintf("Entering sdapi call %.500s(<SDh %lld>, <SDh %lld>, '%.500s', '%.500s')\n", v8, v9, "SDColl_StringCompare", a1, a2, a3, a4);
     }
 
-    v16 = ModelMgr::smpModelMgr;
+    v10 = ModelMgr::smpModelMgr;
     if (HIDWORD(a1) || (a1 & 0xFFFF0000) != 0)
     {
-      throwBadSdapiArgument("SDhVoc", a1, v10, v11, v12, v13, v14, v15);
+      throwBadSdapiArgument("SDhVoc", a1);
     }
 
     if (a1 - 1 >= 0x7B)
     {
-      throwBadSdapiArgument("SDhVoc", a1, v10, v11, v12, v13, v14, v15);
+      throwBadSdapiArgument("SDhVoc", a1);
     }
 
-    v23 = *(ModelMgr::getVocOrThrow(v16, a1, v10, v11, v12, v13, v14, v15) + 16);
+    v11 = *(ModelMgr::getVocOrThrow(v10, a1) + 16);
     if (a2 == -1)
     {
       LOWORD(a2) = -1;
@@ -5790,25 +5786,25 @@ uint64_t SDColl_StringCompare(unint64_t a1, unint64_t a2, CharInfo *a3, CharInfo
     {
       if (HIDWORD(a2) || (a2 & 0xFFFF0000) != 0)
       {
-        throwBadSdapiArgument("SDhColl", a2, v17, v18, v19, v20, v21, v22);
+        v12 = throwBadSdapiArgument("SDhColl", a2);
       }
 
       if (a2 == 0xFFFF || !a2)
       {
-        throwBadSdapiArgument("SDhColl", a2, v17, v18, v19, v20, v21, v22);
+        v12 = throwBadSdapiArgument("SDhColl", a2);
       }
     }
 
-    v24 = CollMgr::collStrcmpUns8(v23, a2, a3, a4, v19, v20, v21, v22);
+    v13 = CollMgr::collStrcmpUns8(v11, a2, a3, a4, v12);
   }
 
   else
   {
-    v24 = 0;
+    v13 = 0;
   }
 
-  SdapiInsurance::~SdapiInsurance(v26);
-  return v24;
+  SdapiInsurance::~SdapiInsurance(v15);
+  return v13;
 }
 
 void MrecInitModule_wavedata_frame(void)
@@ -5871,7 +5867,7 @@ uint64_t *DgnPrimFixArray<short>::copyArraySlice(uint64_t *result, uint64_t *a2,
   {
     result = MemChunkAlloc(2 * a4, 0);
     *v7 = result;
-    *(v7 + 2) = a4;
+    *(v7 + 8) = a4;
   }
 
   v8 = *a2;
@@ -5943,7 +5939,7 @@ void IntruderSet::~IntruderSet(IntruderSet *this)
   DgnArray<DgnPrimArray<unsigned char>>::releaseAll(this);
 }
 
-uint64_t writeObject<DgnPrimArray<unsigned char>>(uint64_t a1, uint64_t a2, _DWORD *a3)
+uint64_t writeObject<DgnPrimArray<unsigned char>>(DgnStream *a1, uint64_t a2, unsigned int *a3)
 {
   v9 = *(a2 + 8);
   result = writeObject(a1, &v9, a3);
@@ -6104,7 +6100,7 @@ void IntruderMgr::~IntruderMgr(IntruderMgr *this)
   DgnPrimArray<unsigned int>::~DgnPrimArray(this + 96);
   DgnIOwnArray<IntruderSet *>::releaseAll(this + 72);
   AdaptConfig::clear(this + 5);
-  FileSpec::~FileSpec((this + 24));
+  FileSpec::~FileSpec(this + 24);
 }
 
 void IntruderMgr::printSize(IntruderMgr *this, uint64_t a2, uint64_t a3, unint64_t *a4, unint64_t *a5, unint64_t *a6)
@@ -6112,175 +6108,352 @@ void IntruderMgr::printSize(IntruderMgr *this, uint64_t a2, uint64_t a3, unint64
   *a4 = 0;
   *a5 = 0;
   *a6 = 0;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 388, &v154);
-  if (v155)
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 388);
+  if (v88)
   {
-    v16 = v154;
+    v13 = v87;
   }
 
   else
   {
-    v16 = &unk_262888448;
+    v13 = &unk_262888448;
   }
 
-  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, v13, v14, v15, a3, &unk_262888448, a3, &unk_262888448, v16);
-  DgnString::~DgnString(&v154);
+  xlprintf("ObSize: %*s*************************************************************\nObSize: %*sBegin %s ", v12, a3, &unk_262888448, a3, &unk_262888448, v13);
+  DgnString::~DgnString(&v87);
   if (a2 != -1)
   {
-    xlprintf("%d ", v17, v18, v19, v20, a2);
+    xlprintf("%d ", v14, a2);
   }
 
-  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v17, v18, v19, v20, a3, &unk_262888448);
-  v21 = (a3 + 1);
-  v22 = (34 - a3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 389, &v154);
-  if (v155)
+  xlprintf("(alloc, used, shared)\nObSize: %*s*************************************************************\n", v14, a3, &unk_262888448);
+  v15 = (a3 + 1);
+  v16 = (34 - a3);
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 389);
+  if (v88)
   {
-    v27 = v154;
+    v18 = v87;
   }
 
   else
   {
-    v27 = &unk_262888448;
+    v18 = &unk_262888448;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v23, v24, v25, v26, (a3 + 1), &unk_262888448, (34 - a3), (34 - a3), v27, 2, 2, 0);
-  DgnString::~DgnString(&v154);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v17, (a3 + 1), &unk_262888448, (34 - a3), (34 - a3), v18, 2, 2, 0);
+  DgnString::~DgnString(&v87);
   *a4 += 2;
   *a5 += 2;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 390, &v154);
-  if (v155)
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 390);
+  if (v88)
   {
-    v32 = v154;
+    v20 = v87;
   }
 
   else
   {
-    v32 = &unk_262888448;
+    v20 = &unk_262888448;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v28, v29, v30, v31, (a3 + 1), &unk_262888448, (34 - a3), (34 - a3), v32, 4, 4, 0);
-  DgnString::~DgnString(&v154);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v19, (a3 + 1), &unk_262888448, (34 - a3), (34 - a3), v20, 4, 4, 0);
+  DgnString::~DgnString(&v87);
   *a4 += 4;
   *a5 += 4;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v33 = 4;
+    v21 = 4;
   }
 
   else
   {
-    v33 = 8;
+    v21 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 391, &v154);
-  if (v155)
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 391);
+  if (v88)
   {
-    v38 = v154;
+    v23 = v87;
   }
 
   else
   {
-    v38 = &unk_262888448;
+    v23 = &unk_262888448;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v34, v35, v36, v37, (a3 + 1), &unk_262888448, (34 - a3), (34 - a3), v38, v33, v33, 0);
-  DgnString::~DgnString(&v154);
-  *a4 += v33;
-  *a5 += v33;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v22, (a3 + 1), &unk_262888448, (34 - a3), (34 - a3), v23, v21, v21, 0);
+  DgnString::~DgnString(&v87);
+  *a4 += v21;
+  *a5 += v21;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v39 = 4;
+    v24 = 4;
   }
 
   else
   {
-    v39 = 8;
+    v24 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 392, &v154);
-  if (v155)
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 392);
+  if (v88)
   {
-    v44 = v154;
+    v26 = v87;
   }
 
   else
   {
-    v44 = &unk_262888448;
+    v26 = &unk_262888448;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v40, v41, v42, v43, (a3 + 1), &unk_262888448, (34 - a3), (34 - a3), v44, v39, v39, 0);
-  v153 = a3;
-  DgnString::~DgnString(&v154);
-  *a4 += v39;
-  *a5 += v39;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v25, (a3 + 1), &unk_262888448, (34 - a3), (34 - a3), v26, v24, v24, 0);
+  v86 = a3;
+  DgnString::~DgnString(&v87);
+  *a4 += v24;
+  *a5 += v24;
   if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v45 = 4;
+    v27 = 4;
   }
 
   else
   {
-    v45 = 8;
+    v27 = 8;
   }
 
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 393, &v154);
-  if (v155)
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 393);
+  if (v88)
   {
-    v50 = v154;
+    v29 = v87;
   }
 
   else
   {
-    v50 = &unk_262888448;
+    v29 = &unk_262888448;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v46, v47, v48, v49, (a3 + 1), &unk_262888448, (34 - a3), (34 - a3), v50, v45, v45, 0);
-  DgnString::~DgnString(&v154);
-  *a4 += v45;
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v28, (a3 + 1), &unk_262888448, (34 - a3), (34 - a3), v29, v27, v27, 0);
+  DgnString::~DgnString(&v87);
+  *a4 += v27;
+  *a5 += v27;
+  v30 = sizeObject(this + 40, 0);
+  v31 = sizeObject(this + 40, 1);
+  v32 = sizeObject(this + 40, 3);
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 394);
+  if (v88)
+  {
+    v34 = v87;
+  }
+
+  else
+  {
+    v34 = &unk_262888448;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v33, v15, &unk_262888448, v16, v16, v34, v30, v31, v32);
+  DgnString::~DgnString(&v87);
+  *a4 += v30;
+  *a5 += v31;
+  *a6 += v32;
+  v35 = FileSpec::sizeObject(this + 24, 0);
+  v36 = FileSpec::sizeObject(this + 24, 1);
+  v37 = FileSpec::sizeObject(this + 24, 3);
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 395);
+  if (v88)
+  {
+    v39 = v87;
+  }
+
+  else
+  {
+    v39 = &unk_262888448;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v38, v15, &unk_262888448, v16, v16, v39, v35, v36, v37);
+  DgnString::~DgnString(&v87);
+  *a4 += v35;
+  *a5 += v36;
+  *a6 += v37;
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 397);
+  if (v88)
+  {
+    v41 = v87;
+  }
+
+  else
+  {
+    v41 = &unk_262888448;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v40, v15, &unk_262888448, v16, v16, v41, 4, 4, 0);
+  DgnString::~DgnString(&v87);
+  *a4 += 4;
+  *a5 += 4;
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 399);
+  if (v88)
+  {
+    v43 = v87;
+  }
+
+  else
+  {
+    v43 = &unk_262888448;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v42, v15, &unk_262888448, v16, v16, v43, 4, 4, 0);
+  DgnString::~DgnString(&v87);
+  *a4 += 4;
+  *a5 += 4;
+  v44 = sizeObject<IntruderSet *>(this + 72, 0);
+  v45 = sizeObject<IntruderSet *>(this + 72, 1);
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 401);
+  if (v88)
+  {
+    v47 = v87;
+  }
+
+  else
+  {
+    v47 = &unk_262888448;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v46, v15, &unk_262888448, v16, v16, v47, v44, v45, 0);
+  DgnString::~DgnString(&v87);
+  *a4 += v44;
   *a5 += v45;
-  v51 = sizeObject(this + 40, 0);
-  v52 = sizeObject(this + 40, 1);
-  v53 = sizeObject(this + 40, 3);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 394, &v154);
-  if (v155)
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
   {
-    v58 = v154;
+    v48 = 12;
   }
 
   else
   {
-    v58 = &unk_262888448;
+    v48 = 16;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v54, v55, v56, v57, v21, &unk_262888448, v22, v22, v58, v51, v52, v53);
-  DgnString::~DgnString(&v154);
-  *a4 += v51;
-  *a5 += v52;
-  *a6 += v53;
-  v59 = FileSpec::sizeObject(this + 24);
-  v60 = FileSpec::sizeObject(this + 24);
-  v61 = FileSpec::sizeObject(this + 24);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 395, &v154);
-  if (v155)
+  v49 = *(this + 26);
+  v50 = *(this + 27);
+  if (v50 >= v49)
   {
-    v66 = v154;
+    v51 = 0;
+    if (v49 > 0)
+    {
+      v48 += 8 * (v49 - 1) + 8;
+    }
+
+    v52 = v48 + 8 * (v50 - v49);
   }
 
   else
   {
-    v66 = &unk_262888448;
+    v51 = 8 * v49;
+    v52 = v48;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v62, v63, v64, v65, v21, &unk_262888448, v22, v22, v66, v59, v60, v61);
-  DgnString::~DgnString(&v154);
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 403);
+  if (v88)
+  {
+    v54 = v87;
+  }
+
+  else
+  {
+    v54 = &unk_262888448;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v53, v15, &unk_262888448, v16, v16, v54, v52, v48, v51);
+  DgnString::~DgnString(&v87);
+  *a4 += v52;
+  *a5 += v48;
+  *a6 += v51;
+  if (gShadowDiagnosticShowIdealizedObjectSizes)
+  {
+    v55 = 12;
+  }
+
+  else
+  {
+    v55 = 16;
+  }
+
+  v56 = *(this + 30);
+  v57 = *(this + 31);
+  if (v57 >= v56)
+  {
+    v58 = 0;
+    if (v56 > 0)
+    {
+      v55 += 8 * (v56 - 1) + 8;
+    }
+
+    v59 = v55 + 8 * (v57 - v56);
+  }
+
+  else
+  {
+    v58 = 8 * v56;
+    v59 = v55;
+  }
+
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 405);
+  if (v88)
+  {
+    v61 = v87;
+  }
+
+  else
+  {
+    v61 = &unk_262888448;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v60, v15, &unk_262888448, v16, v16, v61, v59, v55, v58);
+  DgnString::~DgnString(&v87);
   *a4 += v59;
-  *a5 += v60;
-  *a6 += v61;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 397, &v154);
-  if (v155)
+  *a5 += v55;
+  *a6 += v58;
+  v62 = sizeObject<DgnPrimArray<double>>(this + 128, 0);
+  v63 = sizeObject<DgnPrimArray<double>>(this + 128, 1);
+  v87 = 0;
+  v88 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v87);
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 407);
+  if (v88)
   {
-    v71 = v154;
+    v65 = v87;
+  }
+
+  else
+  {
+    v65 = &unk_262888448;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v64, v15, &unk_262888448, v16, v16, v65, v62, v63, 0);
+  DgnString::~DgnString(&v87);
+  *a4 += v62;
+  *a5 += v63;
+  v66 = sizeObject<DgnPrimArray<double>>(this + 144, 0);
+  v67 = sizeObject<DgnPrimArray<double>>(this + 144, 1);
+  v87 = 0;
+  v88 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v87);
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 409);
+  if (v88)
+  {
+    v69 = v87;
+  }
+
+  else
+  {
+    v69 = &unk_262888448;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v68, v15, &unk_262888448, v16, v16, v69, v66, v67, 0);
+  DgnString::~DgnString(&v87);
+  *a4 += v66;
+  *a5 += v67;
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 411);
+  if (v88)
+  {
+    v71 = v87;
   }
 
   else
@@ -6288,31 +6461,69 @@ void IntruderMgr::printSize(IntruderMgr *this, uint64_t a2, uint64_t a3, unint64
     v71 = &unk_262888448;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v67, v68, v69, v70, v21, &unk_262888448, v22, v22, v71, 4, 4, 0);
-  DgnString::~DgnString(&v154);
-  *a4 += 4;
-  *a5 += 4;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 399, &v154);
-  if (v155)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v70, v15, &unk_262888448, v16, v16, v71, 1, 1, 0);
+  DgnString::~DgnString(&v87);
+  ++*a4;
+  ++*a5;
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 413);
+  if (v88)
   {
-    v76 = v154;
+    v73 = v87;
   }
 
   else
   {
-    v76 = &unk_262888448;
+    v73 = &unk_262888448;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v72, v73, v74, v75, v21, &unk_262888448, v22, v22, v76, 4, 4, 0);
-  DgnString::~DgnString(&v154);
-  *a4 += 4;
-  *a5 += 4;
-  v77 = sizeObject<IntruderSet *>(this + 72, 0);
-  v78 = sizeObject<IntruderSet *>(this + 72, 1);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 401, &v154);
-  if (v155)
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v72, v15, &unk_262888448, v16, v16, v73, 1, 1, 0);
+  DgnString::~DgnString(&v87);
+  ++*a4;
+  ++*a5;
+  v74 = sizeObject<DgnPrimArray<unsigned int>>(this + 160, 0);
+  v75 = sizeObject<DgnPrimArray<unsigned int>>(this + 160, 1);
+  v87 = 0;
+  v88 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v87);
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 414);
+  if (v88)
   {
-    v83 = v154;
+    v77 = v87;
+  }
+
+  else
+  {
+    v77 = &unk_262888448;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v76, v15, &unk_262888448, v16, v16, v77, v74, v75, 0);
+  DgnString::~DgnString(&v87);
+  *a4 += v74;
+  *a5 += v75;
+  v78 = sizeObject<DgnPrimArray<unsigned int>>(this + 176, 0);
+  v79 = sizeObject<DgnPrimArray<unsigned int>>(this + 176, 1);
+  v87 = 0;
+  v88 = 0;
+  DgnPrimArray<unsigned int>::~DgnPrimArray(&v87);
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 415);
+  if (v88)
+  {
+    v81 = v87;
+  }
+
+  else
+  {
+    v81 = &unk_262888448;
+  }
+
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v80, v15, &unk_262888448, v16, v16, v81, v78, v79, 0);
+  DgnString::~DgnString(&v87);
+  *a4 += v78;
+  *a5 += v79;
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 416);
+  if (v88)
+  {
+    v83 = v87;
   }
 
   else
@@ -6320,244 +6531,28 @@ void IntruderMgr::printSize(IntruderMgr *this, uint64_t a2, uint64_t a3, unint64
     v83 = &unk_262888448;
   }
 
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v79, v80, v81, v82, v21, &unk_262888448, v22, v22, v83, v77, v78, 0);
-  DgnString::~DgnString(&v154);
-  *a4 += v77;
-  *a5 += v78;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v84 = 12;
-  }
-
-  else
-  {
-    v84 = 16;
-  }
-
-  v85 = *(this + 26);
-  v86 = *(this + 27);
-  if (v86 >= v85)
-  {
-    v87 = 0;
-    if (v85 > 0)
-    {
-      v84 += 8 * (v85 - 1) + 8;
-    }
-
-    v88 = v84 + 8 * (v86 - v85);
-  }
-
-  else
-  {
-    v87 = 8 * v85;
-    v88 = v84;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 403, &v154);
-  if (v155)
-  {
-    v93 = v154;
-  }
-
-  else
-  {
-    v93 = &unk_262888448;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v89, v90, v91, v92, v21, &unk_262888448, v22, v22, v93, v88, v84, v87);
-  DgnString::~DgnString(&v154);
-  *a4 += v88;
-  *a5 += v84;
-  *a6 += v87;
-  if (gShadowDiagnosticShowIdealizedObjectSizes)
-  {
-    v94 = 12;
-  }
-
-  else
-  {
-    v94 = 16;
-  }
-
-  v95 = *(this + 30);
-  v96 = *(this + 31);
-  if (v96 >= v95)
-  {
-    v97 = 0;
-    if (v95 > 0)
-    {
-      v94 += 8 * (v95 - 1) + 8;
-    }
-
-    v98 = v94 + 8 * (v96 - v95);
-  }
-
-  else
-  {
-    v97 = 8 * v95;
-    v98 = v94;
-  }
-
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 405, &v154);
-  if (v155)
-  {
-    v103 = v154;
-  }
-
-  else
-  {
-    v103 = &unk_262888448;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v99, v100, v101, v102, v21, &unk_262888448, v22, v22, v103, v98, v94, v97);
-  DgnString::~DgnString(&v154);
-  *a4 += v98;
-  *a5 += v94;
-  *a6 += v97;
-  v104 = sizeObject<DgnPrimArray<double>>(this + 128, 0);
-  v105 = sizeObject<DgnPrimArray<double>>(this + 128, 1);
-  v154 = 0;
-  v155 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v154);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 407, &v154);
-  if (v155)
-  {
-    v110 = v154;
-  }
-
-  else
-  {
-    v110 = &unk_262888448;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v106, v107, v108, v109, v21, &unk_262888448, v22, v22, v110, v104, v105, 0);
-  DgnString::~DgnString(&v154);
-  *a4 += v104;
-  *a5 += v105;
-  v111 = sizeObject<DgnPrimArray<double>>(this + 144, 0);
-  v112 = sizeObject<DgnPrimArray<double>>(this + 144, 1);
-  v154 = 0;
-  v155 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v154);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 409, &v154);
-  if (v155)
-  {
-    v117 = v154;
-  }
-
-  else
-  {
-    v117 = &unk_262888448;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v113, v114, v115, v116, v21, &unk_262888448, v22, v22, v117, v111, v112, 0);
-  DgnString::~DgnString(&v154);
-  *a4 += v111;
-  *a5 += v112;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 411, &v154);
-  if (v155)
-  {
-    v122 = v154;
-  }
-
-  else
-  {
-    v122 = &unk_262888448;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v118, v119, v120, v121, v21, &unk_262888448, v22, v22, v122, 1, 1, 0);
-  DgnString::~DgnString(&v154);
-  ++*a4;
-  ++*a5;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 413, &v154);
-  if (v155)
-  {
-    v127 = v154;
-  }
-
-  else
-  {
-    v127 = &unk_262888448;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v123, v124, v125, v126, v21, &unk_262888448, v22, v22, v127, 1, 1, 0);
-  DgnString::~DgnString(&v154);
-  ++*a4;
-  ++*a5;
-  v128 = sizeObject<DgnPrimArray<unsigned int>>(this + 160, 0);
-  v129 = sizeObject<DgnPrimArray<unsigned int>>(this + 160, 1);
-  v154 = 0;
-  v155 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v154);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 414, &v154);
-  if (v155)
-  {
-    v134 = v154;
-  }
-
-  else
-  {
-    v134 = &unk_262888448;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v130, v131, v132, v133, v21, &unk_262888448, v22, v22, v134, v128, v129, 0);
-  DgnString::~DgnString(&v154);
-  *a4 += v128;
-  *a5 += v129;
-  v135 = sizeObject<DgnPrimArray<unsigned int>>(this + 176, 0);
-  v136 = sizeObject<DgnPrimArray<unsigned int>>(this + 176, 1);
-  v154 = 0;
-  v155 = 0;
-  DgnPrimArray<unsigned int>::~DgnPrimArray(&v154);
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 415, &v154);
-  if (v155)
-  {
-    v141 = v154;
-  }
-
-  else
-  {
-    v141 = &unk_262888448;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v137, v138, v139, v140, v21, &unk_262888448, v22, v22, v141, v135, v136, 0);
-  DgnString::~DgnString(&v154);
-  *a4 += v135;
-  *a5 += v136;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 416, &v154);
-  if (v155)
-  {
-    v146 = v154;
-  }
-
-  else
-  {
-    v146 = &unk_262888448;
-  }
-
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v142, v143, v144, v145, v21, &unk_262888448, v22, v22, v146, 8, 8, 0);
-  DgnString::~DgnString(&v154);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v82, v15, &unk_262888448, v16, v16, v83, 8, 8, 0);
+  DgnString::~DgnString(&v87);
   *a4 += 8;
   *a5 += 8;
-  getShipObjectSizeDescription("/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 417, &v154);
-  if (v155)
+  getShipObjectSizeDescription(&v87, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/libmrec/src/recogctl/intruder.cpp", 417);
+  if (v88)
   {
-    v151 = v154;
+    v85 = v87;
   }
 
   else
   {
-    v151 = &unk_262888448;
+    v85 = &unk_262888448;
   }
 
-  v152 = *a5;
-  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v147, v148, v149, v150, v153, &unk_262888448, (35 - v153), (35 - v153), v151, *a4, *a5, *a6);
-  DgnString::~DgnString(&v154);
+  xlprintf("ObSize: %*s%-*.*s: %10llu, %10llu, %10llu\n", v84, v86, &unk_262888448, (35 - v86), (35 - v86), v85, *a4, *a5, *a6);
+  DgnString::~DgnString(&v87);
 }
 
-void sub_2626A4224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2626A4224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   DgnString::~DgnString(va);
   _Unwind_Resume(a1);
 }
@@ -6628,7 +6623,7 @@ uint64_t sizeObject<IntruderSet *>(uint64_t a1, int a2)
   return v2;
 }
 
-uint64_t DgnArray<DgnPrimArray<unsigned char>>::copyArraySlice(uint64_t result, void *a2, unsigned int a3, unsigned int a4)
+uint64_t DgnArray<DgnPrimArray<unsigned char>>::copyArraySlice(uint64_t result, void *a2, unsigned int a3, int a4)
 {
   v7 = result;
   v8 = *(result + 8);
@@ -6749,39 +6744,39 @@ void *DgnIOwnArray<IntruderSet *>::releaseAll(uint64_t a1)
 uint64_t TInputStream::verifyVersion(TInputStream *this, char *a2, unint64_t a3, unint64_t a4, unint64_t a5)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, a2);
-  v14 = std::__tree<std::__value_type<std::string,std::wstring>,std::__map_value_compare<std::string,std::__value_type<std::string,std::wstring>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::wstring>>>::find<std::string>(this + 152, __p);
-  if (v21 < 0)
+  v11 = std::__tree<std::__value_type<std::string,std::wstring>,std::__map_value_compare<std::string,std::__value_type<std::string,std::wstring>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::wstring>>>::find<std::string>(this + 152, __p);
+  if (v18 < 0)
   {
     operator delete(__p[0]);
   }
 
-  if (this + 160 != v14)
+  if (this + 160 != v11)
   {
     LOBYTE(__p[0]) = 0;
-    v15 = (v14 + 56);
-    if (v14[79] < 0)
+    v12 = (v11 + 56);
+    if (v11[79] < 0)
     {
-      v15 = *v15;
+      v12 = *v12;
     }
 
     {
       operator new();
     }
 
-    v16 = TLocaleInfo::stringToUInt(TLocaleInfo::getGlobalLocaleInfo(void)::s_localeInfo, v15, __p);
+    v13 = TLocaleInfo::stringToUInt(TLocaleInfo::getGlobalLocaleInfo(void)::s_localeInfo, v12, __p);
     if (LOBYTE(__p[0]) == 1)
     {
-      v17 = (this + 16);
+      v14 = (this + 16);
       if (*(this + 39) < 0)
       {
-        v17 = *v17;
+        v14 = *v14;
       }
 
-      tknPrintf("Error: %s : Expected %s in range [%llu,%llu]\n", v10, v11, v12, v13, v17, a2, a3, a4);
+      tknPrintf("Error: %s : Expected %s in range [%llu,%llu]\n", v10, v14, a2, a3, a4);
       return 1;
     }
 
-    a5 = v16;
+    a5 = v13;
   }
 
   if (a5 >= a3 && a5 <= a4)
@@ -6789,19 +6784,19 @@ uint64_t TInputStream::verifyVersion(TInputStream *this, char *a2, unint64_t a3,
     return 0;
   }
 
-  v19 = (this + 16);
+  v16 = (this + 16);
   if (*(this + 39) < 0)
   {
-    v19 = *v19;
+    v16 = *v16;
   }
 
-  tknPrintf("Error: %s : %llu : Expected %s in range [%llu,%llu]\n", v10, v11, v12, v13, v19, a5, a2, a3, a4);
+  tknPrintf("Error: %s : %llu : Expected %s in range [%llu,%llu]\n", v10, v16, a5, a2, a3, a4);
   return 1;
 }
 
-void sub_2626A46A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
+void sub_2626A46A4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, int a16, __int16 a17, char a18, char a19)
 {
-  MEMORY[0x26672B1B0](v19, 0x1070C40ADD13FEBLL);
+  MEMORY[0x26672B1B0](v19, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
@@ -6809,9 +6804,9 @@ uint64_t TInputStream::verifyHeader(uint64_t a1, char *__s, uint64_t a3, uint64_
 {
   v8 = (a1 + 40);
   v9 = strlen(__s);
-  v13 = v9;
-  v14 = *(a1 + 63);
-  if (v14 < 0)
+  v11 = v9;
+  v12 = *(a1 + 63);
+  if (v12 < 0)
   {
     if (v9 != *(a1 + 48))
     {
@@ -6823,29 +6818,29 @@ uint64_t TInputStream::verifyHeader(uint64_t a1, char *__s, uint64_t a3, uint64_
       std::wstring::__throw_out_of_range[abi:ne200100]();
     }
 
-    v15 = *v8;
+    v13 = *v8;
   }
 
   else
   {
-    v15 = v8;
-    if (v13 != v14)
+    v13 = v8;
+    if (v11 != v12)
     {
 LABEL_8:
-      v16 = (a1 + 16);
+      v14 = (a1 + 16);
       if (*(a1 + 39) < 0)
       {
-        v16 = *v16;
-        if ((v14 & 0x80000000) == 0)
+        v14 = *v14;
+        if ((v12 & 0x80000000) == 0)
         {
           goto LABEL_10;
         }
       }
 
-      else if ((v14 & 0x80000000) == 0)
+      else if ((v12 & 0x80000000) == 0)
       {
 LABEL_10:
-        tknPrintf("Error: File '%s' : '%s' : Bad file type, expected '%s'\n", v10, v13, v11, v12, v16, v8, __s);
+        tknPrintf("Error: File '%s' : '%s' : Bad file type, expected '%s'\n", v10, v14, v8, __s);
         return 1;
       }
 
@@ -6854,7 +6849,7 @@ LABEL_10:
     }
   }
 
-  if (memcmp(v15, __s, v13))
+  if (memcmp(v13, __s, v11))
   {
     goto LABEL_8;
   }
@@ -6862,42 +6857,42 @@ LABEL_10:
   if (!a4)
   {
 LABEL_36:
-    v28 = (a1 + 16);
+    v27 = (a1 + 16);
     if (*(a1 + 39) < 0)
+    {
+      v27 = *v27;
+    }
+
+    v28 = (a1 + 72);
+    if (*(a1 + 95) < 0)
     {
       v28 = *v28;
     }
 
-    v29 = (a1 + 72);
-    if (*(a1 + 95) < 0)
-    {
-      v29 = *v29;
-    }
-
-    tknPrintf("Error: File '%s' : '%s' : Unsupported file version prefix. Supported file versions: ", v10, v13, v11, v12, v28, v29);
+    tknPrintf("Error: File '%s' : '%s' : Unsupported file version prefix. Supported file versions: ", v10, v27, v28);
     if (a4)
     {
-      v34 = (a3 + 24);
-      v35 = 1;
+      v30 = (a3 + 24);
+      v31 = 1;
       do
       {
-        if (!*(v34 - 2))
+        if (!*(v30 - 2))
         {
-          if ((v35 & 1) == 0)
+          if ((v31 & 1) == 0)
           {
             tknPrintString(", ");
           }
 
-          if (**(v34 - 1))
+          if (**(v30 - 1))
           {
-            tknPrintf("%s.", v30, v31, v32, v33, *(v34 - 1));
+            tknPrintf("%s.", v29, *(v30 - 1));
           }
 
-          tknPrintf("%llu", v30, v31, v32, v33, *v34);
-          v35 = 0;
+          tknPrintf("%llu", v29, *v30);
+          v31 = 0;
         }
 
-        v34 += 4;
+        v30 += 4;
         --a4;
       }
 
@@ -6908,99 +6903,99 @@ LABEL_36:
     return 1;
   }
 
+  v16 = 0;
+  v17 = 0;
   v18 = 0;
-  v19 = 0;
-  v20 = 0;
-  v21 = *(a1 + 95);
-  v38 = a3;
-  v22 = (a3 + 24);
-  v23 = a4;
+  v19 = *(a1 + 95);
+  v34 = a3;
+  v20 = (a3 + 24);
+  v21 = a4;
   do
   {
-    v24 = strlen(*(v22 - 1));
-    v13 = v24;
-    if ((v21 & 0x80) != 0)
+    v22 = strlen(*(v20 - 1));
+    v23 = v22;
+    if ((v19 & 0x80) != 0)
     {
-      if (v24 != *(a1 + 80))
+      if (v22 != *(a1 + 80))
       {
         goto LABEL_30;
       }
 
-      if (v24 == -1)
+      if (v22 == -1)
       {
         std::wstring::__throw_out_of_range[abi:ne200100]();
       }
 
-      v25 = *(a1 + 72);
+      v24 = *(a1 + 72);
     }
 
     else
     {
-      v25 = (a1 + 72);
-      if (v13 != v21)
+      v24 = (a1 + 72);
+      if (v23 != v19)
       {
         goto LABEL_30;
       }
     }
 
-    if (!memcmp(v25, *(v22 - 1), v13))
+    if (!memcmp(v24, *(v20 - 1), v23))
     {
-      if (*(a1 + 96) == *v22)
+      if (*(a1 + 96) == *v20)
       {
-        v23 = v18;
+        v21 = v16;
       }
 
-      if (v20)
+      if (v18)
       {
-        v26 = v20;
+        v25 = v18;
       }
 
       else
       {
-        v26 = *v22;
+        v25 = *v20;
       }
 
-      if (!*(v22 - 2))
+      if (!*(v20 - 2))
       {
-        v20 = v26;
-        v19 = *v22;
+        v18 = v25;
+        v17 = *v20;
       }
     }
 
 LABEL_30:
-    ++v18;
-    v22 += 4;
+    ++v16;
+    v20 += 4;
   }
 
-  while (a4 != v18);
-  a3 = v38;
-  if (!v20)
+  while (a4 != v16);
+  a3 = v34;
+  if (!v18)
   {
     goto LABEL_36;
   }
 
-  if (v23 == a4)
+  if (v21 == a4)
   {
-    v27 = (a1 + 16);
+    v26 = (a1 + 16);
     if (*(a1 + 39) < 0)
     {
-      v27 = *v27;
+      v26 = *v26;
     }
 
-    tknPrintf("Error: %s : %llu : Expected file version in range [%llu,%llu]\n", v10, v13, v11, v12, v27, *(a1 + 96), v20, v19);
+    tknPrintf("Error: %s : %llu : Expected file version in range [%llu,%llu]\n", v10, v26, *(a1 + 96), v18, v17);
     return 1;
   }
 
-  v36 = *(v38 + 32 * v23 + 8);
-  if (v36)
+  v32 = *(v34 + 32 * v21 + 8);
+  if (v32)
   {
-    v37 = (a1 + 16);
+    v33 = (a1 + 16);
     if (*(a1 + 39) < 0)
     {
-      v37 = *v37;
+      v33 = *v33;
     }
 
-    tknPrintf("Error: %s : %llu : Deprecated in or around TextProc version %s. Expected file version in range [%llu,%llu]\n", v10, v13, v11, v12, v37, *(a1 + 96), v36, v20, v19);
+    tknPrintf("Error: %s : %llu : Deprecated in or around TextProc version %s. Expected file version in range [%llu,%llu]\n", v10, v33, *(a1 + 96), v32, v18, v17);
     return 1;
   }
 
@@ -7009,11 +7004,10 @@ LABEL_30:
 
 uint64_t TInputStream::readHeader(std::string *this)
 {
-  v254 = *MEMORY[0x277D85DE8];
+  v177 = *MEMORY[0x277D85DE8];
   if (this->__r_.__value_.__s.__data_[8] != 1)
   {
-    v2 = 0;
-    goto LABEL_269;
+    return 0;
   }
 
   MEMORY[0x26672AEC0](&this[3], &byte_262899963);
@@ -7034,68 +7028,67 @@ uint64_t TInputStream::readHeader(std::string *this)
   this[6].__r_.__value_.__l.__size_ = &this[6].__r_.__value_.__r.__words[2];
   this[7].__r_.__value_.__r.__words[0] = 0;
   this[6].__r_.__value_.__r.__words[2] = 0;
-  v3 = this->__r_.__value_.__r.__words[0];
   std::istream::tellg();
-  v4 = v241;
-  __s1 = v252;
-  v251 = xmmword_26286B6F0;
-  v253 = 1;
+  v3 = v164;
+  __s1 = v175;
+  v174 = xmmword_26286B6F0;
+  v176 = 1;
   TInputStream::getNextLine(this, &__s1);
-  if (*(&v251 + 1) >= v251)
+  if (*(&v174 + 1) >= v174)
   {
-    if (v253)
+    if (v176)
     {
       __str[0].__r_.__value_.__s.__data_[0] = 0;
-      TBuffer<char>::insert(&__s1, *(&v251 + 1), __str, 1uLL);
-      --*(&v251 + 1);
+      TBuffer<char>::insert(&__s1, *(&v174 + 1), __str, 1uLL);
+      --*(&v174 + 1);
     }
 
-    else if (v251)
+    else if (v174)
     {
-      __s1[v251 - 1] = 0;
+      __s1[v174 - 1] = 0;
     }
   }
 
   else
   {
-    __s1[*(&v251 + 1)] = 0;
+    __s1[*(&v174 + 1)] = 0;
   }
 
-  v5 = __s1;
+  v4 = __s1;
   if (!strncmp(__s1, "TKNHEADER_", 0xAuLL))
   {
     __str[0].__r_.__value_.__r.__words[0] = &__str[1];
     *&__str[0].__r_.__value_.__r.__words[1] = xmmword_26286B6F0;
-    v242 = 1;
+    v165 = 1;
     while (1)
     {
-      if (*(&v251 + 1) >= v251)
+      if (*(&v174 + 1) >= v174)
       {
-        if (v253)
+        if (v176)
         {
-          v247[0] = 0;
-          TBuffer<char>::insert(&__s1, *(&v251 + 1), v247, 1uLL);
-          --*(&v251 + 1);
+          v170[0] = 0;
+          TBuffer<char>::insert(&__s1, *(&v174 + 1), v170, 1uLL);
+          --*(&v174 + 1);
         }
 
-        else if (v251)
+        else if (v174)
         {
-          __s1[v251 - 1] = 0;
+          __s1[v174 - 1] = 0;
         }
       }
 
       else
       {
-        __s1[*(&v251 + 1)] = 0;
+        __s1[*(&v174 + 1)] = 0;
       }
 
-      NextToken = getNextToken(__s1, __str, " ");
+      NextToken = getNextToken(__s1, &__str[0].__r_.__value_.__l.__data_, " ");
       if (__str[0].__r_.__value_.__r.__words[2] >= __str[0].__r_.__value_.__l.__size_)
       {
-        if (v242)
+        if (v165)
         {
-          v247[0] = 0;
-          TBuffer<char>::insert(__str, __str[0].__r_.__value_.__r.__words[2]--, v247, 1uLL);
+          v170[0] = 0;
+          TBuffer<char>::insert(&__str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__r.__words[2]--, v170, 1uLL);
         }
 
         else if (__str[0].__r_.__value_.__l.__size_)
@@ -7109,7 +7102,7 @@ uint64_t TInputStream::readHeader(std::string *this)
         *(__str[0].__r_.__value_.__r.__words[0] + __str[0].__r_.__value_.__r.__words[2]) = 0;
       }
 
-      v7 = __str[0].__r_.__value_.__r.__words[0];
+      v6 = __str[0].__r_.__value_.__r.__words[0];
       if (!strcmp(__str[0].__r_.__value_.__l.__data_, "TKNHEADER_END"))
       {
         break;
@@ -7117,43 +7110,43 @@ uint64_t TInputStream::readHeader(std::string *this)
 
       if (!NextToken)
       {
-        v88 = &this->__r_.__value_.__r.__words[2];
+        v59 = &this->__r_.__value_.__r.__words[2];
         if (this[1].__r_.__value_.__s.__data_[15] < 0)
         {
-          v88 = *v88;
+          v59 = *v59;
         }
 
-        v89 = TBuffer<char>::c_str(&__s1);
-        tknPrintf("Error: File '%s' : '%s' : Bad entry in file header\n", v90, v91, v92, v93, v88, v89);
+        v60 = TBuffer<char>::c_str(&__s1);
+        tknPrintf("Error: File '%s' : '%s' : Bad entry in file header\n", v61, v59, v60);
         std::string::basic_string[abi:ne200100]<0>(__s, &byte_262899963);
-        *v247 = byte_287529580;
+        *v170 = byte_287529580;
         if ((__s[23] & 0x80000000) != 0)
         {
-          std::string::__init_copy_ctor_external(&v247[8], *__s, *&__s[8]);
+          std::string::__init_copy_ctor_external(&v170[8], *__s, *&__s[8]);
         }
 
         else
         {
-          *&v247[8] = *__s;
-          v248[0] = *&__s[16];
+          *&v170[8] = *__s;
+          v171[0] = *&__s[16];
         }
 
-        *v247 = &unk_287527330;
-        if (v248[0] >= 0)
+        *v170 = &unk_287527330;
+        if (v171[0] >= 0)
         {
-          v141 = &v247[8];
+          v83 = &v170[8];
         }
 
         else
         {
-          v141 = *&v247[8];
+          v83 = *&v170[8];
         }
 
-        conditionalAssert(v141, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 239, v94, v95);
-        *v247 = byte_287529580;
-        if (SHIBYTE(v248[0]) < 0)
+        conditionalAssert(v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 239);
+        *v170 = byte_287529580;
+        if (SHIBYTE(v171[0]) < 0)
         {
-          operator delete(*&v247[8]);
+          operator delete(*&v170[8]);
         }
 
         if ((__s[23] & 0x80000000) != 0)
@@ -7162,19 +7155,19 @@ uint64_t TInputStream::readHeader(std::string *this)
         }
 
         exception = __cxa_allocate_exception(0x20uLL);
-        std::string::basic_string[abi:ne200100]<0>(v247, &byte_262899963);
+        std::string::basic_string[abi:ne200100]<0>(v170, &byte_262899963);
         *exception = byte_287529580;
-        v143 = (exception + 1);
-        if ((v247[23] & 0x80000000) != 0)
+        v85 = (exception + 1);
+        if ((v170[23] & 0x80000000) != 0)
         {
-          std::string::__init_copy_ctor_external(v143, *v247, *&v247[8]);
+          std::string::__init_copy_ctor_external(v85, *v170, *&v170[8]);
         }
 
         else
         {
-          v179 = *v247;
-          exception[3] = *&v247[16];
-          *&v143->__r_.__value_.__l.__data_ = v179;
+          v107 = *v170;
+          exception[3] = *&v170[16];
+          *&v85->__r_.__value_.__l.__data_ = v107;
         }
 
         *exception = &unk_287527330;
@@ -7182,33 +7175,33 @@ uint64_t TInputStream::readHeader(std::string *this)
 
       if (__str[0].__r_.__value_.__r.__words[2] >= __str[0].__r_.__value_.__l.__size_)
       {
-        if (v242)
+        if (v165)
         {
-          v247[0] = 0;
-          TBuffer<char>::insert(__str, __str[0].__r_.__value_.__r.__words[2]--, v247, 1uLL);
+          v170[0] = 0;
+          TBuffer<char>::insert(&__str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__r.__words[2]--, v170, 1uLL);
         }
 
         else if (__str[0].__r_.__value_.__l.__size_)
         {
-          v7->__r_.__value_.__s.__data_[__str[0].__r_.__value_.__l.__size_ - 1] = 0;
+          v6->__r_.__value_.__s.__data_[__str[0].__r_.__value_.__l.__size_ - 1] = 0;
         }
       }
 
       else
       {
-        v7->__r_.__value_.__s.__data_[__str[0].__r_.__value_.__r.__words[2]] = 0;
+        v6->__r_.__value_.__s.__data_[__str[0].__r_.__value_.__r.__words[2]] = 0;
       }
 
-      v12 = __str[0].__r_.__value_.__r.__words[0];
+      v8 = __str[0].__r_.__value_.__r.__words[0];
       if (!strcmp(__str[0].__r_.__value_.__l.__data_, "TKNHEADER_FILETYPE"))
       {
-        getNextToken(NextToken, __str, " ");
+        getNextToken(NextToken, &__str[0].__r_.__value_.__l.__data_, " ");
         if (__str[0].__r_.__value_.__r.__words[2] >= __str[0].__r_.__value_.__l.__size_)
         {
-          if (v242)
+          if (v165)
           {
-            v247[0] = 0;
-            TBuffer<char>::insert(__str, __str[0].__r_.__value_.__r.__words[2]--, v247, 1uLL);
+            v170[0] = 0;
+            TBuffer<char>::insert(&__str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__r.__words[2]--, v170, 1uLL);
           }
 
           else if (__str[0].__r_.__value_.__l.__size_)
@@ -7229,62 +7222,62 @@ uint64_t TInputStream::readHeader(std::string *this)
       {
         if (__str[0].__r_.__value_.__r.__words[2] >= __str[0].__r_.__value_.__l.__size_)
         {
-          if (v242)
+          if (v165)
           {
-            v247[0] = 0;
-            TBuffer<char>::insert(__str, __str[0].__r_.__value_.__r.__words[2]--, v247, 1uLL);
+            v170[0] = 0;
+            TBuffer<char>::insert(&__str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__r.__words[2]--, v170, 1uLL);
           }
 
           else if (__str[0].__r_.__value_.__l.__size_)
           {
-            *(v12 + __str[0].__r_.__value_.__l.__size_ - 1) = 0;
+            *(v8 + __str[0].__r_.__value_.__l.__size_ - 1) = 0;
           }
         }
 
         else
         {
-          *(v12 + __str[0].__r_.__value_.__r.__words[2]) = 0;
+          *(v8 + __str[0].__r_.__value_.__r.__words[2]) = 0;
         }
 
         if (strcmp(__str[0].__r_.__value_.__l.__data_, "TKNHEADER_FILEVERSION"))
         {
-          v99 = &this->__r_.__value_.__r.__words[2];
+          v63 = &this->__r_.__value_.__r.__words[2];
           if (this[1].__r_.__value_.__s.__data_[15] < 0)
           {
-            v99 = *v99;
+            v63 = *v63;
           }
 
-          v100 = TBuffer<char>::c_str(__str);
-          tknPrintf("Error: File '%s' : '%s' : Bad entry in file header\n", v101, v102, v103, v104, v99, v100);
+          v64 = TBuffer<char>::c_str(__str);
+          tknPrintf("Error: File '%s' : '%s' : Bad entry in file header\n", v65, v63, v64);
           std::string::basic_string[abi:ne200100]<0>(__s, &byte_262899963);
-          *v247 = byte_287529580;
+          *v170 = byte_287529580;
           if ((__s[23] & 0x80000000) != 0)
           {
-            std::string::__init_copy_ctor_external(&v247[8], *__s, *&__s[8]);
+            std::string::__init_copy_ctor_external(&v170[8], *__s, *&__s[8]);
           }
 
           else
           {
-            *&v247[8] = *__s;
-            v248[0] = *&__s[16];
+            *&v170[8] = *__s;
+            v171[0] = *&__s[16];
           }
 
-          *v247 = &unk_287527330;
-          if (v248[0] >= 0)
+          *v170 = &unk_287527330;
+          if (v171[0] >= 0)
           {
-            v147 = &v247[8];
+            v89 = &v170[8];
           }
 
           else
           {
-            v147 = *&v247[8];
+            v89 = *&v170[8];
           }
 
-          conditionalAssert(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 255, v105, v106);
-          *v247 = byte_287529580;
-          if (SHIBYTE(v248[0]) < 0)
+          conditionalAssert(v89, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 255);
+          *v170 = byte_287529580;
+          if (SHIBYTE(v171[0]) < 0)
           {
-            operator delete(*&v247[8]);
+            operator delete(*&v170[8]);
           }
 
           if ((__s[23] & 0x80000000) != 0)
@@ -7292,23 +7285,23 @@ uint64_t TInputStream::readHeader(std::string *this)
             operator delete(*__s);
           }
 
-          v148 = __cxa_allocate_exception(0x20uLL);
-          std::string::basic_string[abi:ne200100]<0>(v247, &byte_262899963);
-          *v148 = byte_287529580;
-          v149 = (v148 + 1);
-          if ((v247[23] & 0x80000000) != 0)
+          v90 = __cxa_allocate_exception(0x20uLL);
+          std::string::basic_string[abi:ne200100]<0>(v170, &byte_262899963);
+          *v90 = byte_287529580;
+          v91 = (v90 + 1);
+          if ((v170[23] & 0x80000000) != 0)
           {
-            std::string::__init_copy_ctor_external(v149, *v247, *&v247[8]);
+            std::string::__init_copy_ctor_external(v91, *v170, *&v170[8]);
           }
 
           else
           {
-            v181 = *v247;
-            v148[3] = *&v247[16];
-            *&v149->__r_.__value_.__l.__data_ = v181;
+            v109 = *v170;
+            v90[3] = *&v170[16];
+            *&v91->__r_.__value_.__l.__data_ = v109;
           }
 
-          *v148 = &unk_287527330;
+          *v90 = &unk_287527330;
         }
 
         this[4].__r_.__value_.__r.__words[0] = atol(NextToken);
@@ -7316,42 +7309,42 @@ uint64_t TInputStream::readHeader(std::string *this)
 
       if (!TInputStream::getNextLine(this, &__s1))
       {
-        v17 = &this->__r_.__value_.__r.__words[2];
+        v10 = &this->__r_.__value_.__r.__words[2];
         if (this[1].__r_.__value_.__s.__data_[15] < 0)
         {
-          v17 = *v17;
+          v10 = *v10;
         }
 
-        tknPrintf("Error: File '%s' : Missing TKNHEADER_END\n", v13, v14, v15, v16, v17);
+        tknPrintf("Error: File '%s' : Missing TKNHEADER_END\n", v9, v10);
         std::string::basic_string[abi:ne200100]<0>(__s, &byte_262899963);
-        *v247 = byte_287529580;
+        *v170 = byte_287529580;
         if ((__s[23] & 0x80000000) != 0)
         {
-          std::string::__init_copy_ctor_external(&v247[8], *__s, *&__s[8]);
+          std::string::__init_copy_ctor_external(&v170[8], *__s, *&__s[8]);
         }
 
         else
         {
-          *&v247[8] = *__s;
-          v248[0] = *&__s[16];
+          *&v170[8] = *__s;
+          v171[0] = *&__s[16];
         }
 
-        *v247 = &unk_287527330;
-        if (v248[0] >= 0)
+        *v170 = &unk_287527330;
+        if (v171[0] >= 0)
         {
-          v127 = &v247[8];
+          v74 = &v170[8];
         }
 
         else
         {
-          v127 = *&v247[8];
+          v74 = *&v170[8];
         }
 
-        conditionalAssert(v127, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 263, v18, v19);
-        *v247 = byte_287529580;
-        if (SHIBYTE(v248[0]) < 0)
+        conditionalAssert(v74, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 263);
+        *v170 = byte_287529580;
+        if (SHIBYTE(v171[0]) < 0)
         {
-          operator delete(*&v247[8]);
+          operator delete(*&v170[8]);
         }
 
         if ((__s[23] & 0x80000000) != 0)
@@ -7359,64 +7352,64 @@ uint64_t TInputStream::readHeader(std::string *this)
           operator delete(*__s);
         }
 
-        v128 = __cxa_allocate_exception(0x20uLL);
-        std::string::basic_string[abi:ne200100]<0>(v247, &byte_262899963);
-        *v128 = byte_287529580;
-        v129 = (v128 + 1);
-        if ((v247[23] & 0x80000000) != 0)
+        v75 = __cxa_allocate_exception(0x20uLL);
+        std::string::basic_string[abi:ne200100]<0>(v170, &byte_262899963);
+        *v75 = byte_287529580;
+        v76 = (v75 + 1);
+        if ((v170[23] & 0x80000000) != 0)
         {
-          std::string::__init_copy_ctor_external(v129, *v247, *&v247[8]);
+          std::string::__init_copy_ctor_external(v76, *v170, *&v170[8]);
         }
 
         else
         {
-          v162 = *v247;
-          v128[3] = *&v247[16];
-          *&v129->__r_.__value_.__l.__data_ = v162;
+          v100 = *v170;
+          v75[3] = *&v170[16];
+          *&v76->__r_.__value_.__l.__data_ = v100;
         }
 
-        *v128 = &unk_287527330;
+        *v75 = &unk_287527330;
       }
     }
 
     if (!NextToken)
     {
-      v156 = &this->__r_.__value_.__r.__words[2];
+      v98 = &this->__r_.__value_.__r.__words[2];
       if (this[1].__r_.__value_.__s.__data_[15] < 0)
       {
-        v156 = *v156;
+        v98 = *v98;
       }
 
-      tknPrintf("Error: '%s' : TKNHEADER_END does not take a parameter\n", v8, v9, v10, v11, v156);
+      tknPrintf("Error: '%s' : TKNHEADER_END does not take a parameter\n", v7, v98);
       std::string::basic_string[abi:ne200100]<0>(__s, &byte_262899963);
-      *v247 = byte_287529580;
+      *v170 = byte_287529580;
       if ((__s[23] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(&v247[8], *__s, *&__s[8]);
+        std::string::__init_copy_ctor_external(&v170[8], *__s, *&__s[8]);
       }
 
       else
       {
-        *&v247[8] = *__s;
-        v248[0] = *&__s[16];
+        *&v170[8] = *__s;
+        v171[0] = *&__s[16];
       }
 
-      *v247 = &unk_287527330;
-      if (v248[0] >= 0)
+      *v170 = &unk_287527330;
+      if (v171[0] >= 0)
       {
-        v195 = &v247[8];
+        v118 = &v170[8];
       }
 
       else
       {
-        v195 = *&v247[8];
+        v118 = *&v170[8];
       }
 
-      conditionalAssert(v195, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 228, v157, v158);
-      *v247 = byte_287529580;
-      if (SHIBYTE(v248[0]) < 0)
+      conditionalAssert(v118, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 228);
+      *v170 = byte_287529580;
+      if (SHIBYTE(v171[0]) < 0)
       {
-        operator delete(*&v247[8]);
+        operator delete(*&v170[8]);
       }
 
       if ((__s[23] & 0x80000000) != 0)
@@ -7424,23 +7417,23 @@ uint64_t TInputStream::readHeader(std::string *this)
         operator delete(*__s);
       }
 
-      v196 = __cxa_allocate_exception(0x20uLL);
-      std::string::basic_string[abi:ne200100]<0>(v247, &byte_262899963);
-      *v196 = byte_287529580;
-      v197 = (v196 + 1);
-      if ((v247[23] & 0x80000000) != 0)
+      v119 = __cxa_allocate_exception(0x20uLL);
+      std::string::basic_string[abi:ne200100]<0>(v170, &byte_262899963);
+      *v119 = byte_287529580;
+      v120 = (v119 + 1);
+      if ((v170[23] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v197, *v247, *&v247[8]);
+        std::string::__init_copy_ctor_external(v120, *v170, *&v170[8]);
       }
 
       else
       {
-        v217 = *v247;
-        v196[3] = *&v247[16];
-        *&v197->__r_.__value_.__l.__data_ = v217;
+        v140 = *v170;
+        v119[3] = *&v170[16];
+        *&v120->__r_.__value_.__l.__data_ = v140;
       }
 
-      *v196 = &unk_287527330;
+      *v119 = &unk_287527330;
     }
 
     data = this[2].__r_.__value_.__s.__data_[15];
@@ -7451,42 +7444,42 @@ uint64_t TInputStream::readHeader(std::string *this)
 
     if (!data)
     {
-      v159 = &this->__r_.__value_.__r.__words[2];
+      v99 = &this->__r_.__value_.__r.__words[2];
       if (this[1].__r_.__value_.__s.__data_[15] < 0)
       {
-        v159 = *v159;
+        v99 = *v99;
       }
 
-      tknPrintf("Error: File '%s' : Missing TKNHEADER_FILETYPE\n", v8, v9, v10, v11, v159);
+      tknPrintf("Error: File '%s' : Missing TKNHEADER_FILETYPE\n", v7, v99);
       std::string::basic_string[abi:ne200100]<0>(__s, &byte_262899963);
-      *v247 = byte_287529580;
+      *v170 = byte_287529580;
       if ((__s[23] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(&v247[8], *__s, *&__s[8]);
+        std::string::__init_copy_ctor_external(&v170[8], *__s, *&__s[8]);
       }
 
       else
       {
-        *&v247[8] = *__s;
-        v248[0] = *&__s[16];
+        *&v170[8] = *__s;
+        v171[0] = *&__s[16];
       }
 
-      *v247 = &unk_287527330;
-      if (v248[0] >= 0)
+      *v170 = &unk_287527330;
+      if (v171[0] >= 0)
       {
-        v198 = &v247[8];
+        v121 = &v170[8];
       }
 
       else
       {
-        v198 = *&v247[8];
+        v121 = *&v170[8];
       }
 
-      conditionalAssert(v198, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 269, v160, v161);
-      *v247 = byte_287529580;
-      if (SHIBYTE(v248[0]) < 0)
+      conditionalAssert(v121, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 269);
+      *v170 = byte_287529580;
+      if (SHIBYTE(v171[0]) < 0)
       {
-        operator delete(*&v247[8]);
+        operator delete(*&v170[8]);
       }
 
       if ((__s[23] & 0x80000000) != 0)
@@ -7494,28 +7487,28 @@ uint64_t TInputStream::readHeader(std::string *this)
         operator delete(*__s);
       }
 
-      v199 = __cxa_allocate_exception(0x20uLL);
-      std::string::basic_string[abi:ne200100]<0>(v247, &byte_262899963);
-      *v199 = byte_287529580;
-      v200 = (v199 + 1);
-      if ((v247[23] & 0x80000000) != 0)
+      v122 = __cxa_allocate_exception(0x20uLL);
+      std::string::basic_string[abi:ne200100]<0>(v170, &byte_262899963);
+      *v122 = byte_287529580;
+      v123 = (v122 + 1);
+      if ((v170[23] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v200, *v247, *&v247[8]);
+        std::string::__init_copy_ctor_external(v123, *v170, *&v170[8]);
       }
 
       else
       {
-        v218 = *v247;
-        v199[3] = *&v247[16];
-        *&v200->__r_.__value_.__l.__data_ = v218;
+        v141 = *v170;
+        v122[3] = *&v170[16];
+        *&v123->__r_.__value_.__l.__data_ = v141;
       }
 
-      *v199 = &unk_287527330;
+      *v122 = &unk_287527330;
     }
 
-    if (v242 == 1 && v7 != &__str[1] && v7)
+    if (v165 == 1 && v6 != &__str[1] && v6)
     {
-      v21 = v7;
+      v12 = v6;
       goto LABEL_263;
     }
 
@@ -7524,61 +7517,61 @@ LABEL_264:
     goto LABEL_265;
   }
 
-  if (*(&v251 + 1) >= v251)
+  if (*(&v174 + 1) >= v174)
   {
-    if (v253)
+    if (v176)
     {
       __str[0].__r_.__value_.__s.__data_[0] = 0;
-      TBuffer<char>::insert(&__s1, *(&v251 + 1), __str, 1uLL);
-      --*(&v251 + 1);
+      TBuffer<char>::insert(&__s1, *(&v174 + 1), __str, 1uLL);
+      --*(&v174 + 1);
     }
 
-    else if (v251)
+    else if (v174)
     {
-      v5[v251 - 1] = 0;
+      v4[v174 - 1] = 0;
     }
   }
 
   else
   {
-    v5[*(&v251 + 1)] = 0;
+    v4[*(&v174 + 1)] = 0;
   }
 
   if (!strcmp(__s1, "HEADER_BEGIN"))
   {
-    *v247 = v248;
-    *&v247[8] = xmmword_26286B6F0;
-    v23 = 1;
-    v249 = 1;
-    *__s = v245;
+    *v170 = v171;
+    *&v170[8] = xmmword_26286B6F0;
+    v13 = 1;
+    v172 = 1;
+    *__s = v168;
     *&__s[8] = xmmword_26286B6F0;
-    v246 = 1;
-    v228 = *(this[7].__r_.__value_.__l.__size_ + 64);
-    v231 = 0;
-    v232 = 0;
-    v233 = 0;
+    v169 = 1;
+    v151 = *(this[7].__r_.__value_.__l.__size_ + 64);
+    v154 = 0;
+    v155 = 0;
+    v156 = 0;
     while (1)
     {
       if (!TInputStream::getNextLine(this, &__s1))
       {
-        v96 = &this->__r_.__value_.__r.__words[2];
+        v62 = &this->__r_.__value_.__r.__words[2];
         if (this[1].__r_.__value_.__s.__data_[15] < 0)
         {
-          v96 = *v96;
+          v62 = *v62;
         }
 
-        tknPrintf("Error: File '%s' : Missing HEADER_END\n", v24, v25, v26, v27, v96);
-        std::string::basic_string[abi:ne200100]<0>(&v234, &byte_262899963);
+        tknPrintf("Error: File '%s' : Missing HEADER_END\n", v14, v62);
+        std::string::basic_string[abi:ne200100]<0>(&v157, &byte_262899963);
         __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
-        if (SHIBYTE(v234.__end_) < 0)
+        if (SHIBYTE(v157.__end_) < 0)
         {
-          std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v234.__first_, v234.__begin_);
+          std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v157.__first_, v157.__begin_);
         }
 
         else
         {
-          *&__str[0].__r_.__value_.__r.__words[1] = *&v234.__first_;
-          __str[1].__r_.__value_.__r.__words[0] = v234.__end_;
+          *&__str[0].__r_.__value_.__r.__words[1] = *&v157.__first_;
+          __str[1].__r_.__value_.__r.__words[0] = v157.__end_;
         }
 
         __str[0].__r_.__value_.__r.__words[0] = &unk_287527330;
@@ -7592,389 +7585,389 @@ LABEL_264:
           size = __str[0].__r_.__value_.__l.__size_;
         }
 
-        conditionalAssert(size, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 384, v97, v98);
+        conditionalAssert(size, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 384);
         __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
         if (__str[1].__r_.__value_.__s.__data_[7] < 0)
         {
           operator delete(__str[0].__r_.__value_.__l.__size_);
         }
 
-        if (SHIBYTE(v234.__end_) < 0)
+        if (SHIBYTE(v157.__end_) < 0)
         {
-          operator delete(v234.__first_);
+          operator delete(v157.__first_);
         }
 
-        v131 = __cxa_allocate_exception(0x20uLL);
+        v78 = __cxa_allocate_exception(0x20uLL);
         std::string::basic_string[abi:ne200100]<0>(__str, &byte_262899963);
-        *v131 = byte_287529580;
-        v132 = (v131 + 1);
+        *v78 = byte_287529580;
+        v79 = (v78 + 1);
         if (SHIBYTE(__str[0].__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(v132, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(v79, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v178 = *&__str[0].__r_.__value_.__l.__data_;
-          v131[3] = *(&__str[0].__r_.__value_.__l + 2);
-          *&v132->__r_.__value_.__l.__data_ = v178;
+          v106 = *&__str[0].__r_.__value_.__l.__data_;
+          v78[3] = *(&__str[0].__r_.__value_.__l + 2);
+          *&v79->__r_.__value_.__l.__data_ = v106;
         }
 
-        *v131 = &unk_287527330;
+        *v78 = &unk_287527330;
       }
 
-      if (*(&v251 + 1) >= v251)
+      if (*(&v174 + 1) >= v174)
       {
-        if (v253)
+        if (v176)
         {
-          LOBYTE(v234.__first_) = 0;
-          TBuffer<char>::insert(&__s1, *(&v251 + 1), &v234, 1uLL);
-          --*(&v251 + 1);
+          LOBYTE(v157.__first_) = 0;
+          TBuffer<char>::insert(&__s1, *(&v174 + 1), &v157, 1uLL);
+          --*(&v174 + 1);
         }
 
-        else if (v251)
+        else if (v174)
         {
-          __s1[v251 - 1] = 0;
-        }
-      }
-
-      else
-      {
-        __s1[*(&v251 + 1)] = 0;
-      }
-
-      v28 = getNextToken(__s1, v247, " ");
-      v29 = getNextToken(v28, __s, " ");
-      if (*&v247[16] >= *&v247[8])
-      {
-        if (v249)
-        {
-          LOBYTE(v234.__first_) = 0;
-          TBuffer<char>::insert(v247, *&v247[16], &v234, 1uLL);
-          --*&v247[16];
-        }
-
-        else if (*&v247[8])
-        {
-          *(*v247 + *&v247[8] - 1) = 0;
+          __s1[v174 - 1] = 0;
         }
       }
 
       else
       {
-        *(*v247 + *&v247[16]) = 0;
+        __s1[*(&v174 + 1)] = 0;
       }
 
-      v30 = *v247;
-      if (!strcmp(*v247, "HEADER_END"))
+      v15 = getNextToken(__s1, v170, " ");
+      v16 = getNextToken(v15, __s, " ");
+      if (*&v170[16] >= *&v170[8])
       {
-        if (v29)
+        if (v172)
         {
-          v163 = &this->__r_.__value_.__r.__words[2];
+          LOBYTE(v157.__first_) = 0;
+          TBuffer<char>::insert(v170, *&v170[16], &v157, 1uLL);
+          --*&v170[16];
+        }
+
+        else if (*&v170[8])
+        {
+          *(*v170 + *&v170[8] - 1) = 0;
+        }
+      }
+
+      else
+      {
+        *(*v170 + *&v170[16]) = 0;
+      }
+
+      v17 = *v170;
+      if (!strcmp(*v170, "HEADER_END"))
+      {
+        if (v16)
+        {
+          v101 = &this->__r_.__value_.__r.__words[2];
           if (this[1].__r_.__value_.__s.__data_[15] < 0)
           {
-            v163 = *v163;
+            v101 = *v101;
           }
 
-          tknPrintf("Error: '%s' : HEADER_END does not take a parameter\n", v31, v32, v33, v34, v163);
-          std::string::basic_string[abi:ne200100]<0>(&v234, &byte_262899963);
+          tknPrintf("Error: '%s' : HEADER_END does not take a parameter\n", v18, v101);
+          std::string::basic_string[abi:ne200100]<0>(&v157, &byte_262899963);
           __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
-          if (SHIBYTE(v234.__end_) < 0)
+          if (SHIBYTE(v157.__end_) < 0)
           {
-            std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v234.__first_, v234.__begin_);
+            std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v157.__first_, v157.__begin_);
           }
 
           else
           {
-            *&__str[0].__r_.__value_.__r.__words[1] = *&v234.__first_;
-            __str[1].__r_.__value_.__r.__words[0] = v234.__end_;
+            *&__str[0].__r_.__value_.__r.__words[1] = *&v157.__first_;
+            __str[1].__r_.__value_.__r.__words[0] = v157.__end_;
           }
 
           __str[0].__r_.__value_.__r.__words[0] = &unk_287527330;
           if (__str[1].__r_.__value_.__s.__data_[7] >= 0)
           {
-            v201 = &__str[0].__r_.__value_.__s.__data_[8];
+            v124 = &__str[0].__r_.__value_.__s.__data_[8];
           }
 
           else
           {
-            v201 = __str[0].__r_.__value_.__l.__size_;
+            v124 = __str[0].__r_.__value_.__l.__size_;
           }
 
-          conditionalAssert(v201, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 297, v164, v165);
+          conditionalAssert(v124, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 297);
           __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
           if (__str[1].__r_.__value_.__s.__data_[7] < 0)
           {
             operator delete(__str[0].__r_.__value_.__l.__size_);
           }
 
-          if (SHIBYTE(v234.__end_) < 0)
+          if (SHIBYTE(v157.__end_) < 0)
           {
-            operator delete(v234.__first_);
+            operator delete(v157.__first_);
           }
 
-          v202 = __cxa_allocate_exception(0x20uLL);
+          v125 = __cxa_allocate_exception(0x20uLL);
           std::string::basic_string[abi:ne200100]<0>(__str, &byte_262899963);
-          *v202 = byte_287529580;
-          v203 = (v202 + 1);
+          *v125 = byte_287529580;
+          v126 = (v125 + 1);
           if (SHIBYTE(__str[0].__r_.__value_.__r.__words[2]) < 0)
           {
-            std::string::__init_copy_ctor_external(v203, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
+            std::string::__init_copy_ctor_external(v126, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
           }
 
           else
           {
-            v219 = *&__str[0].__r_.__value_.__l.__data_;
-            v202[3] = *(&__str[0].__r_.__value_.__l + 2);
-            *&v203->__r_.__value_.__l.__data_ = v219;
+            v142 = *&__str[0].__r_.__value_.__l.__data_;
+            v125[3] = *(&__str[0].__r_.__value_.__l + 2);
+            *&v126->__r_.__value_.__l.__data_ = v142;
           }
 
-          *v202 = &unk_287527330;
+          *v125 = &unk_287527330;
         }
 
-        v75 = this[2].__r_.__value_.__s.__data_[15];
-        if ((v75 & 0x8000000000000000) != 0)
+        v50 = this[2].__r_.__value_.__s.__data_[15];
+        if ((v50 & 0x8000000000000000) != 0)
         {
-          v75 = this[2].__r_.__value_.__l.__data_;
+          v50 = this[2].__r_.__value_.__l.__data_;
         }
 
-        if (!v75)
+        if (!v50)
         {
-          v166 = &this->__r_.__value_.__r.__words[2];
+          v102 = &this->__r_.__value_.__r.__words[2];
           if (this[1].__r_.__value_.__s.__data_[15] < 0)
           {
-            v166 = *v166;
+            v102 = *v102;
           }
 
-          tknPrintf("Error: File '%s' : Missing FILE_TYPE\n", v31, v32, v33, v34, v166);
-          std::string::basic_string[abi:ne200100]<0>(&v234, &byte_262899963);
+          tknPrintf("Error: File '%s' : Missing FILE_TYPE\n", v18, v102);
+          std::string::basic_string[abi:ne200100]<0>(&v157, &byte_262899963);
           __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
-          if (SHIBYTE(v234.__end_) < 0)
+          if (SHIBYTE(v157.__end_) < 0)
           {
-            std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v234.__first_, v234.__begin_);
+            std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v157.__first_, v157.__begin_);
           }
 
           else
           {
-            *&__str[0].__r_.__value_.__r.__words[1] = *&v234.__first_;
-            __str[1].__r_.__value_.__r.__words[0] = v234.__end_;
+            *&__str[0].__r_.__value_.__r.__words[1] = *&v157.__first_;
+            __str[1].__r_.__value_.__r.__words[0] = v157.__end_;
           }
 
           __str[0].__r_.__value_.__r.__words[0] = &unk_287527330;
           if (__str[1].__r_.__value_.__s.__data_[7] >= 0)
           {
-            v204 = &__str[0].__r_.__value_.__s.__data_[8];
+            v127 = &__str[0].__r_.__value_.__s.__data_[8];
           }
 
           else
           {
-            v204 = __str[0].__r_.__value_.__l.__size_;
+            v127 = __str[0].__r_.__value_.__l.__size_;
           }
 
-          conditionalAssert(v204, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 390, v167, v168);
+          conditionalAssert(v127, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 390);
           __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
           if (__str[1].__r_.__value_.__s.__data_[7] < 0)
           {
             operator delete(__str[0].__r_.__value_.__l.__size_);
           }
 
-          if (SHIBYTE(v234.__end_) < 0)
+          if (SHIBYTE(v157.__end_) < 0)
           {
-            operator delete(v234.__first_);
+            operator delete(v157.__first_);
           }
 
-          v205 = __cxa_allocate_exception(0x20uLL);
+          v128 = __cxa_allocate_exception(0x20uLL);
           std::string::basic_string[abi:ne200100]<0>(__str, &byte_262899963);
-          *v205 = byte_287529580;
-          v206 = (v205 + 1);
+          *v128 = byte_287529580;
+          v129 = (v128 + 1);
           if (SHIBYTE(__str[0].__r_.__value_.__r.__words[2]) < 0)
           {
-            std::string::__init_copy_ctor_external(v206, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
+            std::string::__init_copy_ctor_external(v129, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
           }
 
           else
           {
-            v220 = *&__str[0].__r_.__value_.__l.__data_;
-            v205[3] = *(&__str[0].__r_.__value_.__l + 2);
-            *&v206->__r_.__value_.__l.__data_ = v220;
+            v143 = *&__str[0].__r_.__value_.__l.__data_;
+            v128[3] = *(&__str[0].__r_.__value_.__l + 2);
+            *&v129->__r_.__value_.__l.__data_ = v143;
           }
 
-          *v205 = &unk_287527330;
+          *v128 = &unk_287527330;
         }
 
-        if (*(this[7].__r_.__value_.__l.__size_ + 64) != v228)
+        if (*(this[7].__r_.__value_.__l.__size_ + 64) != v151)
         {
-          v169 = &this->__r_.__value_.__r.__words[2];
+          v103 = &this->__r_.__value_.__r.__words[2];
           if (this[1].__r_.__value_.__s.__data_[15] < 0)
           {
-            v169 = *v169;
+            v103 = *v103;
           }
 
-          tknPrintf("Error: File '%s' : File codepage does not match the voc codepage\n", v31, v32, v33, v34, v169);
-          std::string::basic_string[abi:ne200100]<0>(&v234, &byte_262899963);
+          tknPrintf("Error: File '%s' : File codepage does not match the voc codepage\n", v18, v103);
+          std::string::basic_string[abi:ne200100]<0>(&v157, &byte_262899963);
           __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
-          if (SHIBYTE(v234.__end_) < 0)
+          if (SHIBYTE(v157.__end_) < 0)
           {
-            std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v234.__first_, v234.__begin_);
+            std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v157.__first_, v157.__begin_);
           }
 
           else
           {
-            *&__str[0].__r_.__value_.__r.__words[1] = *&v234.__first_;
-            __str[1].__r_.__value_.__r.__words[0] = v234.__end_;
+            *&__str[0].__r_.__value_.__r.__words[1] = *&v157.__first_;
+            __str[1].__r_.__value_.__r.__words[0] = v157.__end_;
           }
 
           __str[0].__r_.__value_.__r.__words[0] = &unk_287526298;
           if (__str[1].__r_.__value_.__s.__data_[7] >= 0)
           {
-            v207 = &__str[0].__r_.__value_.__s.__data_[8];
+            v130 = &__str[0].__r_.__value_.__s.__data_[8];
           }
 
           else
           {
-            v207 = __str[0].__r_.__value_.__l.__size_;
+            v130 = __str[0].__r_.__value_.__l.__size_;
           }
 
-          conditionalAssert(v207, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 397, v170, v171);
+          conditionalAssert(v130, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 397);
           __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
           if (__str[1].__r_.__value_.__s.__data_[7] < 0)
           {
             operator delete(__str[0].__r_.__value_.__l.__size_);
           }
 
-          if (SHIBYTE(v234.__end_) < 0)
+          if (SHIBYTE(v157.__end_) < 0)
           {
-            operator delete(v234.__first_);
+            operator delete(v157.__first_);
           }
 
-          v208 = __cxa_allocate_exception(0x20uLL);
+          v131 = __cxa_allocate_exception(0x20uLL);
           std::string::basic_string[abi:ne200100]<0>(__str, &byte_262899963);
-          *v208 = byte_287529580;
-          v209 = (v208 + 1);
+          *v131 = byte_287529580;
+          v132 = (v131 + 1);
           if (SHIBYTE(__str[0].__r_.__value_.__r.__words[2]) < 0)
           {
-            std::string::__init_copy_ctor_external(v209, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
+            std::string::__init_copy_ctor_external(v132, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
           }
 
           else
           {
-            v221 = *&__str[0].__r_.__value_.__l.__data_;
-            v208[3] = *(&__str[0].__r_.__value_.__l + 2);
-            *&v209->__r_.__value_.__l.__data_ = v221;
+            v144 = *&__str[0].__r_.__value_.__l.__data_;
+            v131[3] = *(&__str[0].__r_.__value_.__l + 2);
+            *&v132->__r_.__value_.__l.__data_ = v144;
           }
 
-          *v208 = &unk_287526298;
+          *v131 = &unk_287526298;
         }
 
         __str[0].__r_.__value_.__r.__words[0] = &__str[1];
         *&__str[0].__r_.__value_.__r.__words[1] = xmmword_26286B6F0;
-        v243 = 1;
-        if (v232 == v231)
+        v166 = 1;
+        if (v155 == v154)
         {
           goto LABEL_254;
         }
 
-        v76 = 0;
-        v77 = 0;
+        v51 = 0;
+        v52 = 0;
         do
         {
           TBuffer<wchar_t>::resize(__str, 0);
-          p_second = &v231[v76].second;
-          if (SHIBYTE(v231[v76].second.__r_.__value_.__r.__words[2]) < 0)
+          p_second = &v154[v51].second;
+          if (SHIBYTE(v154[v51].second.__r_.__value_.__r.__words[2]) < 0)
           {
             p_second = *p_second;
           }
 
           TLocaleInfo::multiByteToUnicode(this[7].__r_.__value_.__l.__size_, p_second, __str);
-          v79 = &v231[v76];
-          if (SHIBYTE(v231[v76].first.__r_.__value_.__r.__words[2]) < 0)
+          v54 = &v154[v51];
+          if (SHIBYTE(v154[v51].first.__r_.__value_.__r.__words[2]) < 0)
           {
-            v79 = *v79;
+            v54 = *v54;
           }
 
-          if (TInputStream::isParameter(this, v79))
+          if (TInputStream::isParameter(this, v54))
           {
-            v123 = &this->__r_.__value_.__r.__words[2];
+            v72 = &this->__r_.__value_.__r.__words[2];
             if (this[1].__r_.__value_.__s.__data_[15] < 0)
             {
-              v123 = *v123;
+              v72 = *v72;
             }
 
-            v124 = &v231[v76];
-            if (SHIBYTE(v231[v76].first.__r_.__value_.__r.__words[2]) < 0)
+            v73 = &v154[v51];
+            if (SHIBYTE(v154[v51].first.__r_.__value_.__r.__words[2]) < 0)
             {
-              v124 = *v124;
+              v73 = *v73;
             }
 
-            tknPrintf("Error: %s : Duplicate setting for %s parameter\n", v80, v81, v82, v83, v123, v124);
-            std::string::basic_string[abi:ne200100]<0>(v229, &byte_262899963);
-            v234.__first_ = byte_287529580;
-            if (SHIBYTE(v230) < 0)
+            tknPrintf("Error: %s : Duplicate setting for %s parameter\n", v55, v72, v73);
+            std::string::basic_string[abi:ne200100]<0>(v152, &byte_262899963);
+            v157.__first_ = byte_287529580;
+            if (SHIBYTE(v153) < 0)
             {
-              std::string::__init_copy_ctor_external(&v234.__begin_, v229[0], v229[1]);
+              std::string::__init_copy_ctor_external(&v157.__begin_, v152[0], v152[1]);
             }
 
             else
             {
-              *&v234.__begin_ = *v229;
-              v234.__end_cap_.__value_ = v230;
+              *&v157.__begin_ = *v152;
+              v157.__end_cap_.__value_ = v153;
             }
 
-            v234.__first_ = &unk_287528000;
-            if (SHIBYTE(v234.__end_cap_.__value_) >= 0)
+            v157.__first_ = &unk_287528000;
+            if (SHIBYTE(v157.__end_cap_.__value_) >= 0)
             {
-              p_begin = &v234.__begin_;
+              p_begin = &v157.__begin_;
             }
 
             else
             {
-              p_begin = v234.__begin_;
+              p_begin = v157.__begin_;
             }
 
-            conditionalAssert(p_begin, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 414, v125, v126);
-            v234.__first_ = byte_287529580;
-            if (SHIBYTE(v234.__end_cap_.__value_) < 0)
+            conditionalAssert(p_begin, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 414);
+            v157.__first_ = byte_287529580;
+            if (SHIBYTE(v157.__end_cap_.__value_) < 0)
             {
-              operator delete(v234.__begin_);
+              operator delete(v157.__begin_);
             }
 
-            if (SHIBYTE(v230) < 0)
+            if (SHIBYTE(v153) < 0)
             {
-              operator delete(v229[0]);
+              operator delete(v152[0]);
             }
 
-            v145 = __cxa_allocate_exception(0x20uLL);
-            std::string::basic_string[abi:ne200100]<0>(&v234, &byte_262899963);
-            *v145 = byte_287529580;
-            v146 = (v145 + 1);
-            if (SHIBYTE(v234.__end_) < 0)
+            v87 = __cxa_allocate_exception(0x20uLL);
+            std::string::basic_string[abi:ne200100]<0>(&v157, &byte_262899963);
+            *v87 = byte_287529580;
+            v88 = (v87 + 1);
+            if (SHIBYTE(v157.__end_) < 0)
             {
-              std::string::__init_copy_ctor_external(v146, v234.__first_, v234.__begin_);
+              std::string::__init_copy_ctor_external(v88, v157.__first_, v157.__begin_);
             }
 
             else
             {
-              v180 = *&v234.__first_;
-              v145[3] = v234.__end_;
-              *&v146->__r_.__value_.__l.__data_ = v180;
+              v108 = *&v157.__first_;
+              v87[3] = v157.__end_;
+              *&v88->__r_.__value_.__l.__data_ = v108;
             }
 
-            *v145 = &unk_287528000;
+            *v87 = &unk_287528000;
           }
 
           if (__str[0].__r_.__value_.__r.__words[2] >= __str[0].__r_.__value_.__l.__size_)
           {
-            if (v243)
+            if (v166)
             {
-              LODWORD(v234.__first_) = 0;
-              TBuffer<wchar_t>::insert(__str, __str[0].__r_.__value_.__r.__words[2], &v234, 1uLL);
-              v84 = __str[0].__r_.__value_.__r.__words[0];
+              LODWORD(v157.__first_) = 0;
+              TBuffer<wchar_t>::insert(&__str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__r.__words[2], &v157, 1uLL);
+              v56 = __str[0].__r_.__value_.__r.__words[0];
               --__str[0].__r_.__value_.__r.__words[2];
             }
 
             else
             {
-              v84 = __str[0].__r_.__value_.__r.__words[0];
+              v56 = __str[0].__r_.__value_.__r.__words[0];
               if (__str[0].__r_.__value_.__l.__size_)
               {
                 *(__str[0].__r_.__value_.__r.__words[0] + 4 * __str[0].__r_.__value_.__l.__size_ - 4) = 0;
@@ -7984,19 +7977,19 @@ LABEL_264:
 
           else
           {
-            v84 = __str[0].__r_.__value_.__r.__words[0];
+            v56 = __str[0].__r_.__value_.__r.__words[0];
             *(__str[0].__r_.__value_.__r.__words[0] + 4 * __str[0].__r_.__value_.__r.__words[2]) = 0;
           }
 
-          v234.__first_ = &v231[v76];
-          v85 = std::__tree<std::__value_type<std::string,std::wstring>,std::__map_value_compare<std::string,std::__value_type<std::string,std::wstring>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::wstring>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&this[6].__r_.__value_.__l.__size_, &v231[v76].first.__r_.__value_.__l.__data_);
-          MEMORY[0x26672AF30](v85 + 56, v84);
-          ++v77;
-          ++v76;
+          v157.__first_ = &v154[v51];
+          v57 = std::__tree<std::__value_type<std::string,std::wstring>,std::__map_value_compare<std::string,std::__value_type<std::string,std::wstring>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::wstring>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(&this[6].__r_.__value_.__l.__size_, &v154[v51].first.__r_.__value_.__l.__data_, &std::piecewise_construct, &v157, v152);
+          MEMORY[0x26672AF30](v57 + 7, v56);
+          ++v52;
+          ++v51;
         }
 
-        while (v77 < 0xAAAAAAAAAAAAAAABLL * ((v232 - v231) >> 4));
-        if (v243)
+        while (v52 < 0xAAAAAAAAAAAAAAABLL * ((v155 - v154) >> 4));
+        if (v166)
         {
 LABEL_254:
           if (__str[0].__r_.__value_.__l.__data_ != &__str[1] && __str[0].__r_.__value_.__r.__words[0])
@@ -8005,22 +7998,22 @@ LABEL_254:
           }
         }
 
-        __str[0].__r_.__value_.__r.__words[0] = &v231;
+        __str[0].__r_.__value_.__r.__words[0] = &v154;
         std::vector<std::pair<std::string,std::string>>::__destroy_vector::operator()[abi:ne200100](__str);
-        if (v246 == 1 && *__s != v245 && *__s)
+        if (v169 == 1 && *__s != v168 && *__s)
         {
           MEMORY[0x26672B1B0]();
         }
 
-        if (v249 == 1)
+        if (v172 == 1)
         {
-          v21 = *v247;
-          if (*v247 != v248)
+          v12 = *v170;
+          if (*v170 != v171)
           {
-            if (*v247)
+            if (*v170)
             {
 LABEL_263:
-              MEMORY[0x26672B1B0](v21, 0x1000C4077774924);
+              MEMORY[0x26672B1B0](v12, 0x1000C4077774924);
             }
           }
         }
@@ -8028,126 +8021,126 @@ LABEL_263:
         goto LABEL_264;
       }
 
-      if (!v29)
+      if (!v16)
       {
-        v107 = &this->__r_.__value_.__r.__words[2];
+        v66 = &this->__r_.__value_.__r.__words[2];
         if (this[1].__r_.__value_.__s.__data_[15] < 0)
         {
-          v107 = *v107;
+          v66 = *v66;
         }
 
-        v108 = TBuffer<char>::c_str(&__s1);
-        tknPrintf("Error: File '%s' : %s : Syntax error in header\n", v109, v110, v111, v112, v107, v108);
-        std::string::basic_string[abi:ne200100]<0>(&v234, &byte_262899963);
+        v67 = TBuffer<char>::c_str(&__s1);
+        tknPrintf("Error: File '%s' : %s : Syntax error in header\n", v68, v66, v67);
+        std::string::basic_string[abi:ne200100]<0>(&v157, &byte_262899963);
         __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
-        if (SHIBYTE(v234.__end_) < 0)
+        if (SHIBYTE(v157.__end_) < 0)
         {
-          std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v234.__first_, v234.__begin_);
+          std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v157.__first_, v157.__begin_);
         }
 
         else
         {
-          *&__str[0].__r_.__value_.__r.__words[1] = *&v234.__first_;
-          __str[1].__r_.__value_.__r.__words[0] = v234.__end_;
+          *&__str[0].__r_.__value_.__r.__words[1] = *&v157.__first_;
+          __str[1].__r_.__value_.__r.__words[0] = v157.__end_;
         }
 
         __str[0].__r_.__value_.__r.__words[0] = &unk_287527330;
         if (__str[1].__r_.__value_.__s.__data_[7] >= 0)
         {
-          v150 = &__str[0].__r_.__value_.__s.__data_[8];
+          v92 = &__str[0].__r_.__value_.__s.__data_[8];
         }
 
         else
         {
-          v150 = __str[0].__r_.__value_.__l.__size_;
+          v92 = __str[0].__r_.__value_.__l.__size_;
         }
 
-        conditionalAssert(v150, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 308, v113, v114);
+        conditionalAssert(v92, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 308);
         __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
         if (__str[1].__r_.__value_.__s.__data_[7] < 0)
         {
           operator delete(__str[0].__r_.__value_.__l.__size_);
         }
 
-        if (SHIBYTE(v234.__end_) < 0)
+        if (SHIBYTE(v157.__end_) < 0)
         {
-          operator delete(v234.__first_);
+          operator delete(v157.__first_);
         }
 
-        v151 = __cxa_allocate_exception(0x20uLL);
+        v93 = __cxa_allocate_exception(0x20uLL);
         std::string::basic_string[abi:ne200100]<0>(__str, &byte_262899963);
-        *v151 = byte_287529580;
-        v152 = (v151 + 1);
+        *v93 = byte_287529580;
+        v94 = (v93 + 1);
         if (SHIBYTE(__str[0].__r_.__value_.__r.__words[2]) < 0)
         {
-          std::string::__init_copy_ctor_external(v152, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
+          std::string::__init_copy_ctor_external(v94, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
         }
 
         else
         {
-          v182 = *&__str[0].__r_.__value_.__l.__data_;
-          v151[3] = *(&__str[0].__r_.__value_.__l + 2);
-          *&v152->__r_.__value_.__l.__data_ = v182;
+          v110 = *&__str[0].__r_.__value_.__l.__data_;
+          v93[3] = *(&__str[0].__r_.__value_.__l + 2);
+          *&v94->__r_.__value_.__l.__data_ = v110;
         }
 
-        *v151 = &unk_287527330;
+        *v93 = &unk_287527330;
       }
 
-      if (*&v247[16] >= *&v247[8])
+      if (*&v170[16] >= *&v170[8])
       {
-        if (v249)
+        if (v172)
         {
-          LOBYTE(v234.__first_) = 0;
-          TBuffer<char>::insert(v247, *&v247[16], &v234, 1uLL);
-          --*&v247[16];
+          LOBYTE(v157.__first_) = 0;
+          TBuffer<char>::insert(v170, *&v170[16], &v157, 1uLL);
+          --*&v170[16];
         }
 
-        else if (*&v247[8])
+        else if (*&v170[8])
         {
-          *(v30 + *&v247[8] - 1) = 0;
+          *(v17 + *&v170[8] - 1) = 0;
         }
       }
 
       else
       {
-        *(v30 + *&v247[16]) = 0;
+        *(v17 + *&v170[16]) = 0;
       }
 
-      v35 = *v247;
-      if (!strcmp(*v247, "VERSION"))
+      v19 = *v170;
+      if (!strcmp(*v170, "VERSION"))
       {
         break;
       }
 
-      if (*&v247[16] >= *&v247[8])
+      if (*&v170[16] >= *&v170[8])
       {
-        if (v249)
+        if (v172)
         {
-          LOBYTE(v234.__first_) = 0;
-          TBuffer<char>::insert(v247, *&v247[16], &v234, 1uLL);
-          --*&v247[16];
+          LOBYTE(v157.__first_) = 0;
+          TBuffer<char>::insert(v170, *&v170[16], &v157, 1uLL);
+          --*&v170[16];
         }
 
-        else if (*&v247[8])
+        else if (*&v170[8])
         {
-          *(v35 + *&v247[8] - 1) = 0;
+          *(v19 + *&v170[8] - 1) = 0;
         }
       }
 
       else
       {
-        *(v35 + *&v247[16]) = 0;
+        *(v19 + *&v170[16]) = 0;
       }
 
-      v40 = *v247;
-      if (!strcmp(*v247, "FILE_TYPE"))
+      v21 = *v170;
+      if (!strcmp(*v170, "FILE_TYPE"))
       {
         if (*&__s[16] >= *&__s[8])
         {
-          if (v246)
+          if (v169)
           {
-            LOBYTE(v234.__first_) = 0;
-            TBuffer<char>::insert(__s, *&__s[16], &v234, 1uLL);
+            LOBYTE(v157.__first_) = 0;
+            TBuffer<char>::insert(__s, *&__s[16], &v157, 1uLL);
             --*&__s[16];
           }
 
@@ -8166,35 +8159,35 @@ LABEL_263:
         goto LABEL_194;
       }
 
-      if (*&v247[16] >= *&v247[8])
+      if (*&v170[16] >= *&v170[8])
       {
-        if (v249)
+        if (v172)
         {
-          LOBYTE(v234.__first_) = 0;
-          TBuffer<char>::insert(v247, *&v247[16], &v234, 1uLL);
-          --*&v247[16];
+          LOBYTE(v157.__first_) = 0;
+          TBuffer<char>::insert(v170, *&v170[16], &v157, 1uLL);
+          --*&v170[16];
         }
 
-        else if (*&v247[8])
+        else if (*&v170[8])
         {
-          *(v40 + *&v247[8] - 1) = 0;
+          *(v21 + *&v170[8] - 1) = 0;
         }
       }
 
       else
       {
-        *(v40 + *&v247[16]) = 0;
+        *(v21 + *&v170[16]) = 0;
       }
 
-      v41 = *v247;
-      if (!strcmp(*v247, "FILE_VERSION"))
+      v22 = *v170;
+      if (!strcmp(*v170, "FILE_VERSION"))
       {
         if (*&__s[16] >= *&__s[8])
         {
-          if (v246)
+          if (v169)
           {
-            LOBYTE(v234.__first_) = 0;
-            TBuffer<char>::insert(__s, *&__s[16], &v234, 1uLL);
+            LOBYTE(v157.__first_) = 0;
+            TBuffer<char>::insert(__s, *&__s[16], &v157, 1uLL);
             --*&__s[16];
           }
 
@@ -8209,38 +8202,38 @@ LABEL_263:
           *(*__s + *&__s[16]) = 0;
         }
 
-        v60 = *__s;
-        v61 = strrchr(*__s, 46);
-        if (v61)
+        v38 = *__s;
+        v39 = strrchr(*__s, 46);
+        if (v39)
         {
-          v62 = v61;
+          v40 = v39;
           if (*&__s[16] >= *&__s[8])
           {
-            if (v246)
+            if (v169)
             {
-              LOBYTE(v234.__first_) = 0;
-              TBuffer<char>::insert(__s, *&__s[16], &v234, 1uLL);
+              LOBYTE(v157.__first_) = 0;
+              TBuffer<char>::insert(__s, *&__s[16], &v157, 1uLL);
               --*&__s[16];
             }
 
             else if (*&__s[8])
             {
-              *(v60 + *&__s[8] - 1) = 0;
+              *(v38 + *&__s[8] - 1) = 0;
             }
           }
 
           else
           {
-            *(v60 + *&__s[16]) = 0;
+            *(v38 + *&__s[16]) = 0;
           }
 
           std::string::basic_string[abi:ne200100]<0>(__str, *__s);
           if (*&__s[16] >= *&__s[8])
           {
-            if (v246)
+            if (v169)
             {
-              LOBYTE(v234.__first_) = 0;
-              TBuffer<char>::insert(__s, *&__s[16], &v234, 1uLL);
+              LOBYTE(v157.__first_) = 0;
+              TBuffer<char>::insert(__s, *&__s[16], &v157, 1uLL);
               --*&__s[16];
             }
 
@@ -8255,209 +8248,209 @@ LABEL_263:
             *(*__s + *&__s[16]) = 0;
           }
 
-          std::string::assign(this + 3, __str, 0, &v62[-*__s]);
+          std::string::assign(this + 3, __str, 0, &v40[-*__s]);
           if (SHIBYTE(__str[0].__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str[0].__r_.__value_.__l.__data_);
           }
 
-          v63 = v62 + 1;
+          v41 = v40 + 1;
         }
 
         else
         {
           if (*&__s[16] >= *&__s[8])
           {
-            if (v246)
+            if (v169)
             {
-              LOBYTE(v234.__first_) = 0;
-              TBuffer<char>::insert(__s, *&__s[16], &v234, 1uLL);
+              LOBYTE(v157.__first_) = 0;
+              TBuffer<char>::insert(__s, *&__s[16], &v157, 1uLL);
               --*&__s[16];
             }
 
             else if (*&__s[8])
             {
-              *(v60 + *&__s[8] - 1) = 0;
+              *(v38 + *&__s[8] - 1) = 0;
             }
           }
 
           else
           {
-            *(v60 + *&__s[16]) = 0;
+            *(v38 + *&__s[16]) = 0;
           }
 
-          v63 = *__s;
+          v41 = *__s;
         }
 
-        this[4].__r_.__value_.__r.__words[0] = atol(v63);
+        this[4].__r_.__value_.__r.__words[0] = atol(v41);
         goto LABEL_194;
       }
 
-      if (*&v247[16] >= *&v247[8])
+      if (*&v170[16] >= *&v170[8])
       {
-        if (v249)
+        if (v172)
         {
-          LOBYTE(v234.__first_) = 0;
-          TBuffer<char>::insert(v247, *&v247[16], &v234, 1uLL);
-          --*&v247[16];
+          LOBYTE(v157.__first_) = 0;
+          TBuffer<char>::insert(v170, *&v170[16], &v157, 1uLL);
+          --*&v170[16];
         }
 
-        else if (*&v247[8])
+        else if (*&v170[8])
         {
-          *(v41 + *&v247[8] - 1) = 0;
+          *(v22 + *&v170[8] - 1) = 0;
         }
       }
 
       else
       {
-        *(v41 + *&v247[16]) = 0;
+        *(v22 + *&v170[16]) = 0;
       }
 
-      v42 = *v247;
-      if (!strcmp(*v247, "PARAMETER"))
+      v23 = *v170;
+      if (!strcmp(*v170, "PARAMETER"))
       {
-        v43 = getNextToken(v28 + 1, v247, "=");
-        if (!v43)
+        v24 = getNextToken(v15 + 1, v170, "=");
+        if (!v24)
         {
-          v115 = &this->__r_.__value_.__r.__words[2];
+          v69 = &this->__r_.__value_.__r.__words[2];
           if (this[1].__r_.__value_.__s.__data_[15] < 0)
           {
-            v115 = *v115;
+            v69 = *v69;
           }
 
-          v116 = TBuffer<char>::c_str(&__s1);
-          tknPrintf("Error: File '%s' : %s : PARAMETER must contain 'name=value'\n", v117, v118, v119, v120, v115, v116);
-          std::string::basic_string[abi:ne200100]<0>(&v234, &byte_262899963);
+          v70 = TBuffer<char>::c_str(&__s1);
+          tknPrintf("Error: File '%s' : %s : PARAMETER must contain 'name=value'\n", v71, v69, v70);
+          std::string::basic_string[abi:ne200100]<0>(&v157, &byte_262899963);
           __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
-          if (SHIBYTE(v234.__end_) < 0)
+          if (SHIBYTE(v157.__end_) < 0)
           {
-            std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v234.__first_, v234.__begin_);
+            std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v157.__first_, v157.__begin_);
           }
 
           else
           {
-            *&__str[0].__r_.__value_.__r.__words[1] = *&v234.__first_;
-            __str[1].__r_.__value_.__r.__words[0] = v234.__end_;
+            *&__str[0].__r_.__value_.__r.__words[1] = *&v157.__first_;
+            __str[1].__r_.__value_.__r.__words[0] = v157.__end_;
           }
 
           __str[0].__r_.__value_.__r.__words[0] = &unk_287527330;
           if (__str[1].__r_.__value_.__s.__data_[7] >= 0)
           {
-            v153 = &__str[0].__r_.__value_.__s.__data_[8];
+            v95 = &__str[0].__r_.__value_.__s.__data_[8];
           }
 
           else
           {
-            v153 = __str[0].__r_.__value_.__l.__size_;
+            v95 = __str[0].__r_.__value_.__l.__size_;
           }
 
-          conditionalAssert(v153, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 353, v121, v122);
+          conditionalAssert(v95, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 353);
           __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
           if (__str[1].__r_.__value_.__s.__data_[7] < 0)
           {
             operator delete(__str[0].__r_.__value_.__l.__size_);
           }
 
-          if (SHIBYTE(v234.__end_) < 0)
+          if (SHIBYTE(v157.__end_) < 0)
           {
-            operator delete(v234.__first_);
+            operator delete(v157.__first_);
           }
 
-          v154 = __cxa_allocate_exception(0x20uLL);
+          v96 = __cxa_allocate_exception(0x20uLL);
           std::string::basic_string[abi:ne200100]<0>(__str, &byte_262899963);
-          *v154 = byte_287529580;
-          v155 = (v154 + 1);
+          *v96 = byte_287529580;
+          v97 = (v96 + 1);
           if (SHIBYTE(__str[0].__r_.__value_.__r.__words[2]) < 0)
           {
-            std::string::__init_copy_ctor_external(v155, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
+            std::string::__init_copy_ctor_external(v97, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
           }
 
           else
           {
-            v183 = *&__str[0].__r_.__value_.__l.__data_;
-            v154[3] = *(&__str[0].__r_.__value_.__l + 2);
-            *&v155->__r_.__value_.__l.__data_ = v183;
+            v111 = *&__str[0].__r_.__value_.__l.__data_;
+            v96[3] = *(&__str[0].__r_.__value_.__l + 2);
+            *&v97->__r_.__value_.__l.__data_ = v111;
           }
 
-          *v154 = &unk_287527330;
+          *v96 = &unk_287527330;
         }
 
-        if (*&v247[16] >= *&v247[8])
+        if (*&v170[16] >= *&v170[8])
         {
-          if (v249)
+          if (v172)
           {
-            LOBYTE(v234.__first_) = 0;
-            TBuffer<char>::insert(v247, *&v247[16], &v234, 1uLL);
-            --*&v247[16];
+            LOBYTE(v157.__first_) = 0;
+            TBuffer<char>::insert(v170, *&v170[16], &v157, 1uLL);
+            --*&v170[16];
           }
 
-          else if (*&v247[8])
+          else if (*&v170[8])
           {
-            *(*v247 + *&v247[8] - 1) = 0;
+            *(*v170 + *&v170[8] - 1) = 0;
           }
         }
 
         else
         {
-          *(*v247 + *&v247[16]) = 0;
+          *(*v170 + *&v170[16]) = 0;
         }
 
-        v229[0] = *v247;
-        v229[1] = v43 + 1;
-        std::pair<std::string,std::string>::pair[abi:ne200100]<char const*,char const*,0>(__str, v229);
-        v44 = v232;
-        if (v232 >= v233)
+        v152[0] = *v170;
+        v152[1] = v24 + 1;
+        std::pair<std::string,std::string>::pair[abi:ne200100]<char const*,char const*,0>(__str, v152);
+        v25 = v155;
+        if (v155 >= v156)
         {
-          v47 = 0xAAAAAAAAAAAAAAABLL * ((v232 - v231) >> 4);
-          v48 = v47 + 1;
-          if (v47 + 1 > 0x555555555555555)
+          v28 = 0xAAAAAAAAAAAAAAABLL * ((v155 - v154) >> 4);
+          v29 = v28 + 1;
+          if (v28 + 1 > 0x555555555555555)
           {
             std::vector<std::wstring>::__throw_length_error[abi:ne200100]();
           }
 
-          if (0x5555555555555556 * ((v233 - v231) >> 4) > v48)
+          if (0x5555555555555556 * ((v156 - v154) >> 4) > v29)
           {
-            v48 = 0x5555555555555556 * ((v233 - v231) >> 4);
+            v29 = 0x5555555555555556 * ((v156 - v154) >> 4);
           }
 
-          if (0xAAAAAAAAAAAAAAABLL * ((v233 - v231) >> 4) >= 0x2AAAAAAAAAAAAAALL)
+          if (0xAAAAAAAAAAAAAAABLL * ((v156 - v154) >> 4) >= 0x2AAAAAAAAAAAAAALL)
           {
-            v49 = 0x555555555555555;
+            v30 = 0x555555555555555;
           }
 
           else
           {
-            v49 = v48;
+            v30 = v29;
           }
 
-          v234.__end_cap_.__value_ = &v231;
-          if (v49)
+          v157.__end_cap_.__value_ = &v154;
+          if (v30)
           {
-            std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string,std::string>>>(&v231, v49);
+            std::__allocate_at_least[abi:ne200100]<std::allocator<std::pair<std::string,std::string>>>(&v154, v30);
           }
 
-          v50 = 16 * ((v232 - v231) >> 4);
-          v51 = *&__str[0].__r_.__value_.__l.__data_;
-          *(v50 + 16) = *(&__str[0].__r_.__value_.__l + 2);
-          *v50 = v51;
+          v31 = 16 * ((v155 - v154) >> 4);
+          v32 = *&__str[0].__r_.__value_.__l.__data_;
+          *(v31 + 16) = *(&__str[0].__r_.__value_.__l + 2);
+          *v31 = v32;
           memset(__str, 0, 24);
-          v52 = *&__str[1].__r_.__value_.__l.__data_;
-          *(v50 + 40) = *(&__str[1].__r_.__value_.__l + 2);
-          *(v50 + 24) = v52;
+          v33 = *&__str[1].__r_.__value_.__l.__data_;
+          *(v31 + 40) = *(&__str[1].__r_.__value_.__l + 2);
+          *(v31 + 24) = v33;
           memset(&__str[1], 0, sizeof(std::string));
-          v53 = (48 * v47 - (v232 - v231));
-          memcpy(v53, v231, v232 - v231);
-          v54 = v231;
-          v55 = v233;
-          v231 = v53;
-          v232 = (48 * v47 + 48);
-          v233 = 0;
-          v234.__first_ = v54;
-          v234.__end_ = v54;
-          v234.__end_cap_.__value_ = v55;
-          v234.__begin_ = v54;
-          std::__split_buffer<std::pair<std::string,std::string>>::~__split_buffer(&v234);
-          v232 = (48 * v47 + 48);
+          v34 = (48 * v28 - (v155 - v154));
+          memcpy(v34, v154, v155 - v154);
+          v35 = v154;
+          v36 = v156;
+          v154 = v34;
+          v155 = (48 * v28 + 48);
+          v156 = 0;
+          v157.__first_ = v35;
+          v157.__end_ = v35;
+          v157.__end_cap_.__value_ = v36;
+          v157.__begin_ = v35;
+          std::__split_buffer<std::pair<std::string,std::string>>::~__split_buffer(&v157);
+          v155 = (48 * v28 + 48);
           if (SHIBYTE(__str[1].__r_.__value_.__r.__words[2]) < 0)
           {
             operator delete(__str[1].__r_.__value_.__l.__data_);
@@ -8466,15 +8459,15 @@ LABEL_263:
 
         else
         {
-          v45 = *&__str[0].__r_.__value_.__l.__data_;
-          *(v232 + 2) = *(&__str[0].__r_.__value_.__l + 2);
-          *v44 = v45;
+          v26 = *&__str[0].__r_.__value_.__l.__data_;
+          *(v155 + 2) = *(&__str[0].__r_.__value_.__l + 2);
+          *v25 = v26;
           memset(__str, 0, 24);
-          v46 = __str[1].__r_.__value_.__r.__words[2];
-          *(v44 + 24) = *&__str[1].__r_.__value_.__l.__data_;
-          *(v44 + 5) = v46;
+          v27 = __str[1].__r_.__value_.__r.__words[2];
+          *(v25 + 24) = *&__str[1].__r_.__value_.__l.__data_;
+          *(v25 + 5) = v27;
           memset(&__str[1], 0, sizeof(std::string));
-          v232 = v44 + 48;
+          v155 = v25 + 48;
         }
 
         if (SHIBYTE(__str[0].__r_.__value_.__r.__words[2]) < 0)
@@ -8482,39 +8475,39 @@ LABEL_263:
           operator delete(__str[0].__r_.__value_.__l.__data_);
         }
 
-        v23 = 0;
+        v13 = 0;
       }
 
       else
       {
-        if (*&v247[16] >= *&v247[8])
+        if (*&v170[16] >= *&v170[8])
         {
-          if (v249)
+          if (v172)
           {
-            LOBYTE(v234.__first_) = 0;
-            TBuffer<char>::insert(v247, *&v247[16], &v234, 1uLL);
-            --*&v247[16];
+            LOBYTE(v157.__first_) = 0;
+            TBuffer<char>::insert(v170, *&v170[16], &v157, 1uLL);
+            --*&v170[16];
           }
 
-          else if (*&v247[8])
+          else if (*&v170[8])
           {
-            *(v42 + *&v247[8] - 1) = 0;
+            *(v23 + *&v170[8] - 1) = 0;
           }
         }
 
         else
         {
-          *(v42 + *&v247[16]) = 0;
+          *(v23 + *&v170[16]) = 0;
         }
 
-        if (!strcmp(*v247, "CODEPAGE"))
+        if (!strcmp(*v170, "CODEPAGE"))
         {
           if (*&__s[16] >= *&__s[8])
           {
-            if (v246)
+            if (v169)
             {
-              LOBYTE(v234.__first_) = 0;
-              TBuffer<char>::insert(__s, *&__s[16], &v234, 1uLL);
+              LOBYTE(v157.__first_) = 0;
+              TBuffer<char>::insert(__s, *&__s[16], &v157, 1uLL);
               --*&__s[16];
             }
 
@@ -8536,19 +8529,19 @@ LABEL_263:
             {
               if (__str[0].__r_.__value_.__l.__size_ == 7)
               {
-                v69 = __str[0].__r_.__value_.__r.__words[0];
+                v44 = __str[0].__r_.__value_.__r.__words[0];
                 if (*__str[0].__r_.__value_.__l.__data_ != 1769234764 || *(__str[0].__r_.__value_.__r.__words[0] + 3) != 1227714153)
                 {
                   goto LABEL_414;
                 }
 
 LABEL_224:
-                v73 = 1;
+                v48 = 1;
               }
 
               else
               {
-                v69 = __str[0].__r_.__value_.__r.__words[0];
+                v44 = __str[0].__r_.__value_.__r.__words[0];
                 if (__str[0].__r_.__value_.__l.__size_ != 5)
                 {
                   goto LABEL_414;
@@ -8559,15 +8552,15 @@ LABEL_224:
                   goto LABEL_414;
                 }
 
-                v73 = 2;
+                v48 = 2;
               }
 
-              v228 = v73;
+              v151 = v48;
               operator delete(__str[0].__r_.__value_.__l.__data_);
               goto LABEL_194;
             }
 
-            v69 = __str[0].__r_.__value_.__r.__words[0];
+            v44 = __str[0].__r_.__value_.__r.__words[0];
             if (*__str[0].__r_.__value_.__l.__data_ != 842347057)
             {
               goto LABEL_414;
@@ -8583,78 +8576,78 @@ LABEL_224:
               if (LODWORD(__str[0].__r_.__value_.__l.__data_) != 759583829 || __str[0].__r_.__value_.__s.__data_[4] != 56)
               {
 LABEL_413:
-                v69 = __str;
+                v44 = __str;
 LABEL_414:
-                tknPrintf("Error: '%s' : Invalid codepage.\n", v64, v65, v66, v67, v69);
+                tknPrintf("Error: '%s' : Invalid codepage.\n", v42, v44);
                 if (SHIBYTE(__str[0].__r_.__value_.__r.__words[2]) < 0)
                 {
                   operator delete(__str[0].__r_.__value_.__l.__data_);
                 }
 
-                v184 = &this->__r_.__value_.__r.__words[2];
+                v112 = &this->__r_.__value_.__r.__words[2];
                 if (this[1].__r_.__value_.__s.__data_[15] < 0)
                 {
-                  v184 = *v184;
+                  v112 = *v112;
                 }
 
-                v185 = TBuffer<char>::c_str(__s);
-                tknPrintf("Error: File '%s' : '%s' : Invalid codepage\n", v186, v187, v188, v189, v184, v185);
-                std::string::basic_string[abi:ne200100]<0>(&v234, &byte_262899963);
+                v113 = TBuffer<char>::c_str(__s);
+                tknPrintf("Error: File '%s' : '%s' : Invalid codepage\n", v114, v112, v113);
+                std::string::basic_string[abi:ne200100]<0>(&v157, &byte_262899963);
                 __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
-                if (SHIBYTE(v234.__end_) < 0)
+                if (SHIBYTE(v157.__end_) < 0)
                 {
-                  std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v234.__first_, v234.__begin_);
+                  std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v157.__first_, v157.__begin_);
                 }
 
                 else
                 {
-                  *&__str[0].__r_.__value_.__r.__words[1] = *&v234.__first_;
-                  __str[1].__r_.__value_.__r.__words[0] = v234.__end_;
+                  *&__str[0].__r_.__value_.__r.__words[1] = *&v157.__first_;
+                  __str[1].__r_.__value_.__r.__words[0] = v157.__end_;
                 }
 
                 __str[0].__r_.__value_.__r.__words[0] = &unk_287526298;
                 if (__str[1].__r_.__value_.__s.__data_[7] >= 0)
                 {
-                  v224 = &__str[0].__r_.__value_.__s.__data_[8];
+                  v147 = &__str[0].__r_.__value_.__s.__data_[8];
                 }
 
                 else
                 {
-                  v224 = __str[0].__r_.__value_.__l.__size_;
+                  v147 = __str[0].__r_.__value_.__l.__size_;
                 }
 
-                conditionalAssert(v224, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 367, v190, v191);
+                conditionalAssert(v147, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 367);
                 __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
                 if (__str[1].__r_.__value_.__s.__data_[7] < 0)
                 {
                   operator delete(__str[0].__r_.__value_.__l.__size_);
                 }
 
-                if (SHIBYTE(v234.__end_) < 0)
+                if (SHIBYTE(v157.__end_) < 0)
                 {
-                  operator delete(v234.__first_);
+                  operator delete(v157.__first_);
                 }
 
-                v225 = __cxa_allocate_exception(0x20uLL);
+                v148 = __cxa_allocate_exception(0x20uLL);
                 std::string::basic_string[abi:ne200100]<0>(__str, &byte_262899963);
-                *v225 = byte_287529580;
-                v226 = (v225 + 1);
+                *v148 = byte_287529580;
+                v149 = (v148 + 1);
                 if (SHIBYTE(__str[0].__r_.__value_.__r.__words[2]) < 0)
                 {
-                  std::string::__init_copy_ctor_external(v226, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
+                  std::string::__init_copy_ctor_external(v149, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
                 }
 
                 else
                 {
-                  v227 = *&__str[0].__r_.__value_.__l.__data_;
-                  v225[3] = *(&__str[0].__r_.__value_.__l + 2);
-                  *&v226->__r_.__value_.__l.__data_ = v227;
+                  v150 = *&__str[0].__r_.__value_.__l.__data_;
+                  v148[3] = *(&__str[0].__r_.__value_.__l + 2);
+                  *&v149->__r_.__value_.__l.__data_ = v150;
                 }
 
-                *v225 = &unk_287526298;
+                *v148 = &unk_287526298;
               }
 
-              v72 = 2;
+              v47 = 2;
             }
 
             else
@@ -8670,10 +8663,10 @@ LABEL_414:
               }
 
 LABEL_221:
-              v72 = 1;
+              v47 = 1;
             }
 
-            v228 = v72;
+            v151 = v47;
             goto LABEL_194;
           }
 
@@ -8686,144 +8679,144 @@ LABEL_221:
         }
 
 LABEL_194:
-        v23 = 0;
-        if (getNextToken(v29, __s, " "))
+        v13 = 0;
+        if (getNextToken(v16, __s, " "))
         {
-          v133 = &this->__r_.__value_.__r.__words[2];
+          v80 = &this->__r_.__value_.__r.__words[2];
           if (this[1].__r_.__value_.__s.__data_[15] < 0)
           {
-            v133 = *v133;
+            v80 = *v80;
           }
 
-          v134 = TBuffer<char>::c_str(&__s1);
-          tknPrintf("Error: File '%s' : %s : Syntax error in header\n", v135, v136, v137, v138, v133, v134);
-          std::string::basic_string[abi:ne200100]<0>(&v234, &byte_262899963);
+          v81 = TBuffer<char>::c_str(&__s1);
+          tknPrintf("Error: File '%s' : %s : Syntax error in header\n", v82, v80, v81);
+          std::string::basic_string[abi:ne200100]<0>(&v157, &byte_262899963);
           __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
-          if (SHIBYTE(v234.__end_) < 0)
+          if (SHIBYTE(v157.__end_) < 0)
           {
-            std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v234.__first_, v234.__begin_);
+            std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v157.__first_, v157.__begin_);
           }
 
           else
           {
-            *&__str[0].__r_.__value_.__r.__words[1] = *&v234.__first_;
-            __str[1].__r_.__value_.__r.__words[0] = v234.__end_;
+            *&__str[0].__r_.__value_.__r.__words[1] = *&v157.__first_;
+            __str[1].__r_.__value_.__r.__words[0] = v157.__end_;
           }
 
           __str[0].__r_.__value_.__r.__words[0] = &unk_287527330;
           if (__str[1].__r_.__value_.__s.__data_[7] >= 0)
           {
-            v192 = &__str[0].__r_.__value_.__s.__data_[8];
+            v115 = &__str[0].__r_.__value_.__s.__data_[8];
           }
 
           else
           {
-            v192 = __str[0].__r_.__value_.__l.__size_;
+            v115 = __str[0].__r_.__value_.__l.__size_;
           }
 
-          conditionalAssert(v192, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 375, v139, v140);
+          conditionalAssert(v115, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 375);
           __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
           if (__str[1].__r_.__value_.__s.__data_[7] < 0)
           {
             operator delete(__str[0].__r_.__value_.__l.__size_);
           }
 
-          if (SHIBYTE(v234.__end_) < 0)
+          if (SHIBYTE(v157.__end_) < 0)
           {
-            operator delete(v234.__first_);
+            operator delete(v157.__first_);
           }
 
-          v193 = __cxa_allocate_exception(0x20uLL);
+          v116 = __cxa_allocate_exception(0x20uLL);
           std::string::basic_string[abi:ne200100]<0>(__str, &byte_262899963);
-          *v193 = byte_287529580;
-          v194 = (v193 + 1);
+          *v116 = byte_287529580;
+          v117 = (v116 + 1);
           if (SHIBYTE(__str[0].__r_.__value_.__r.__words[2]) < 0)
           {
-            std::string::__init_copy_ctor_external(v194, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
+            std::string::__init_copy_ctor_external(v117, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
           }
 
           else
           {
-            v216 = *&__str[0].__r_.__value_.__l.__data_;
-            v193[3] = *(&__str[0].__r_.__value_.__l + 2);
-            *&v194->__r_.__value_.__l.__data_ = v216;
+            v139 = *&__str[0].__r_.__value_.__l.__data_;
+            v116[3] = *(&__str[0].__r_.__value_.__l + 2);
+            *&v117->__r_.__value_.__l.__data_ = v139;
           }
 
-          *v193 = &unk_287527330;
+          *v116 = &unk_287527330;
         }
       }
     }
 
-    if ((v23 & 1) == 0)
+    if ((v13 & 1) == 0)
     {
-      v172 = &this->__r_.__value_.__r.__words[2];
+      v104 = &this->__r_.__value_.__r.__words[2];
       if (this[1].__r_.__value_.__s.__data_[15] < 0)
       {
-        v172 = *v172;
+        v104 = *v104;
       }
 
-      tknPrintf("Error: '%s' : VERSION must be the first line in header\n", v36, v37, v38, v39, v172);
-      std::string::basic_string[abi:ne200100]<0>(&v234, &byte_262899963);
+      tknPrintf("Error: '%s' : VERSION must be the first line in header\n", v20, v104);
+      std::string::basic_string[abi:ne200100]<0>(&v157, &byte_262899963);
       __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
-      if (SHIBYTE(v234.__end_) < 0)
+      if (SHIBYTE(v157.__end_) < 0)
       {
-        std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v234.__first_, v234.__begin_);
+        std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v157.__first_, v157.__begin_);
       }
 
       else
       {
-        *&__str[0].__r_.__value_.__r.__words[1] = *&v234.__first_;
-        __str[1].__r_.__value_.__r.__words[0] = v234.__end_;
+        *&__str[0].__r_.__value_.__r.__words[1] = *&v157.__first_;
+        __str[1].__r_.__value_.__r.__words[0] = v157.__end_;
       }
 
       __str[0].__r_.__value_.__r.__words[0] = &unk_287527330;
       if (__str[1].__r_.__value_.__s.__data_[7] >= 0)
       {
-        v210 = &__str[0].__r_.__value_.__s.__data_[8];
+        v133 = &__str[0].__r_.__value_.__s.__data_[8];
       }
 
       else
       {
-        v210 = __str[0].__r_.__value_.__l.__size_;
+        v133 = __str[0].__r_.__value_.__l.__size_;
       }
 
-      conditionalAssert(v210, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 317, v173, v174);
+      conditionalAssert(v133, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 317);
       __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
       if (__str[1].__r_.__value_.__s.__data_[7] < 0)
       {
         operator delete(__str[0].__r_.__value_.__l.__size_);
       }
 
-      if (SHIBYTE(v234.__end_) < 0)
+      if (SHIBYTE(v157.__end_) < 0)
       {
-        operator delete(v234.__first_);
+        operator delete(v157.__first_);
       }
 
-      v211 = __cxa_allocate_exception(0x20uLL);
+      v134 = __cxa_allocate_exception(0x20uLL);
       std::string::basic_string[abi:ne200100]<0>(__str, &byte_262899963);
-      *v211 = byte_287529580;
-      v212 = (v211 + 1);
+      *v134 = byte_287529580;
+      v135 = (v134 + 1);
       if (SHIBYTE(__str[0].__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(v212, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(v135, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v222 = *&__str[0].__r_.__value_.__l.__data_;
-        v211[3] = *(&__str[0].__r_.__value_.__l + 2);
-        *&v212->__r_.__value_.__l.__data_ = v222;
+        v145 = *&__str[0].__r_.__value_.__l.__data_;
+        v134[3] = *(&__str[0].__r_.__value_.__l + 2);
+        *&v135->__r_.__value_.__l.__data_ = v145;
       }
 
-      *v211 = &unk_287527330;
+      *v134 = &unk_287527330;
     }
 
     if (*&__s[16] >= *&__s[8])
     {
-      if (v246)
+      if (v169)
       {
-        LOBYTE(v234.__first_) = 0;
-        TBuffer<char>::insert(__s, *&__s[16], &v234, 1uLL);
+        LOBYTE(v157.__first_) = 0;
+        TBuffer<char>::insert(__s, *&__s[16], &v157, 1uLL);
         --*&__s[16];
       }
 
@@ -8840,93 +8833,90 @@ LABEL_194:
 
     if (atol(*__s) != 1)
     {
-      v175 = &this->__r_.__value_.__r.__words[2];
+      v105 = &this->__r_.__value_.__r.__words[2];
       if (this[1].__r_.__value_.__s.__data_[15] < 0)
       {
-        v175 = *v175;
+        v105 = *v105;
       }
 
-      tknPrintf("Error: '%s' : VERSION must be 1\n", v56, v57, v58, v59, v175);
-      std::string::basic_string[abi:ne200100]<0>(&v234, &byte_262899963);
+      tknPrintf("Error: '%s' : VERSION must be 1\n", v37, v105);
+      std::string::basic_string[abi:ne200100]<0>(&v157, &byte_262899963);
       __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
-      if (SHIBYTE(v234.__end_) < 0)
+      if (SHIBYTE(v157.__end_) < 0)
       {
-        std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v234.__first_, v234.__begin_);
+        std::string::__init_copy_ctor_external(&__str[0].__r_.__value_.__r.__words[1], v157.__first_, v157.__begin_);
       }
 
       else
       {
-        *&__str[0].__r_.__value_.__r.__words[1] = *&v234.__first_;
-        __str[1].__r_.__value_.__r.__words[0] = v234.__end_;
+        *&__str[0].__r_.__value_.__r.__words[1] = *&v157.__first_;
+        __str[1].__r_.__value_.__r.__words[0] = v157.__end_;
       }
 
       __str[0].__r_.__value_.__r.__words[0] = &unk_287526298;
       if (__str[1].__r_.__value_.__s.__data_[7] >= 0)
       {
-        v213 = &__str[0].__r_.__value_.__s.__data_[8];
+        v136 = &__str[0].__r_.__value_.__s.__data_[8];
       }
 
       else
       {
-        v213 = __str[0].__r_.__value_.__l.__size_;
+        v136 = __str[0].__r_.__value_.__l.__size_;
       }
 
-      conditionalAssert(v213, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 325, v176, v177);
+      conditionalAssert(v136, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 325);
       __str[0].__r_.__value_.__r.__words[0] = byte_287529580;
       if (__str[1].__r_.__value_.__s.__data_[7] < 0)
       {
         operator delete(__str[0].__r_.__value_.__l.__size_);
       }
 
-      if (SHIBYTE(v234.__end_) < 0)
+      if (SHIBYTE(v157.__end_) < 0)
       {
-        operator delete(v234.__first_);
+        operator delete(v157.__first_);
       }
 
-      v214 = __cxa_allocate_exception(0x20uLL);
+      v137 = __cxa_allocate_exception(0x20uLL);
       std::string::basic_string[abi:ne200100]<0>(__str, &byte_262899963);
-      *v214 = byte_287529580;
-      v215 = (v214 + 1);
+      *v137 = byte_287529580;
+      v138 = (v137 + 1);
       if (SHIBYTE(__str[0].__r_.__value_.__r.__words[2]) < 0)
       {
-        std::string::__init_copy_ctor_external(v215, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
+        std::string::__init_copy_ctor_external(v138, __str[0].__r_.__value_.__l.__data_, __str[0].__r_.__value_.__l.__size_);
       }
 
       else
       {
-        v223 = *&__str[0].__r_.__value_.__l.__data_;
-        v214[3] = *(&__str[0].__r_.__value_.__l + 2);
-        *&v215->__r_.__value_.__l.__data_ = v223;
+        v146 = *&__str[0].__r_.__value_.__l.__data_;
+        v137[3] = *(&__str[0].__r_.__value_.__l + 2);
+        *&v138->__r_.__value_.__l.__data_ = v146;
       }
 
-      *v214 = &unk_287526298;
+      *v137 = &unk_287526298;
     }
 
     goto LABEL_194;
   }
 
-  v22 = this->__r_.__value_.__r.__words[0];
-  v239 = 0u;
-  v240 = 0u;
-  v237 = 0u;
-  v238 = 0u;
-  v236 = 0u;
+  v162 = 0u;
+  v163 = 0u;
+  v160 = 0u;
+  v161 = 0u;
+  v159 = 0u;
   memset(__str, 0, sizeof(__str));
-  v241 = v4;
+  v164 = v3;
   std::istream::seekg();
   v2 = 0;
 LABEL_265:
-  if (v253 == 1 && __s1 != v252 && __s1)
+  if (v176 == 1 && __s1 != v175 && __s1)
   {
     MEMORY[0x26672B1B0]();
   }
 
-LABEL_269:
-  v86 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
-void sub_2626A73D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, void *a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, void *__p, void *a30, int a31, __int16 a32, char a33, char a34)
+void sub_2626A73D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, void *a24, void *a25, uint64_t a26, uint64_t a27, uint64_t a28, char *__p, void *a30, int a31, __int16 a32, char a33, char a34)
 {
   if (a34 < 0)
   {
@@ -8978,23 +8968,23 @@ LABEL_6:
   goto LABEL_6;
 }
 
-BOOL TInputStream::getNextLine(uint64_t a1, uint64_t a2)
+BOOL TInputStream::getNextLine(uint64_t a1, const void **a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = (a1 + 104);
   v4 = MEMORY[0x277D82680];
   v5 = MEMORY[0x277D85DE0];
   while (1)
   {
     std::ios_base::getloc((*a1 + *(**a1 - 24)));
-    v6 = std::locale::use_facet(&v24, v4);
+    v6 = std::locale::use_facet(&v23, v4);
     (v6->__vftable[2].~facet_0)(v6, 10);
-    std::locale::~locale(&v24);
+    std::locale::~locale(&v23);
     v7 = std::istream::getline();
     v8 = *(v7 + *(*v7 - 24) + 32) & 5;
     if (v8)
     {
-      break;
+      return v8 == 0;
     }
 
     ++*(a1 + 64);
@@ -9076,27 +9066,23 @@ LABEL_8:
     {
       TBuffer<char>::resize(a2, 0);
       TBuffer<char>::insert(a2, 0, v12, v18);
-      break;
+      return v8 == 0;
     }
   }
-
-  result = v8 == 0;
-  v22 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 {
-  v30 = *MEMORY[0x277D85DE8];
-  v23 = (a1 + 128);
-  __s1 = v26;
-  v25 = xmmword_26286B6F0;
-  v27 = 1;
+  v29 = *MEMORY[0x277D85DE8];
+  v22 = (a1 + 128);
+  __s1 = v25;
+  v24 = xmmword_26286B6F0;
+  v26 = 1;
   while (1)
   {
     std::ios_base::getloc((*a1 + *(**a1 - 24)));
-    v3 = std::locale::use_facet(&v28, MEMORY[0x277D82680]);
+    v3 = std::locale::use_facet(&v27, MEMORY[0x277D82680]);
     (v3->__vftable[2].~facet_0)(v3, 10);
-    std::locale::~locale(&v28);
+    std::locale::~locale(&v27);
     v4 = std::istream::getline();
     v5 = *(v4 + *(*v4 - 24) + 32) & 5;
     if (v5)
@@ -9106,28 +9092,28 @@ LABEL_8:
 
     ++*(a1 + 64);
     TBuffer<wchar_t>::resize(&__s1, 0);
-    TLocaleInfo::multiByteToUnicode(*(a1 + 176), v29, &__s1);
+    TLocaleInfo::multiByteToUnicode(*(a1 + 176), v28, &__s1);
     if ((*(a1 + 151) & 0x8000000000000000) != 0)
     {
       if (*(a1 + 136))
       {
 LABEL_7:
-        if (*(&v25 + 1) >= v25)
+        if (*(&v24 + 1) >= v24)
         {
-          if (v27)
+          if (v26)
           {
-            LODWORD(v28.__locale_) = 0;
-            TBuffer<wchar_t>::insert(&__s1, *(&v25 + 1), &v28, 1uLL);
+            LODWORD(v27.__locale_) = 0;
+            TBuffer<wchar_t>::insert(&__s1, *(&v24 + 1), &v27, 1uLL);
             v6 = __s1;
-            --*(&v25 + 1);
+            --*(&v24 + 1);
           }
 
           else
           {
             v6 = __s1;
-            if (v25)
+            if (v24)
             {
-              __s1[v25 - 1] = 0;
+              __s1[v24 - 1] = 0;
             }
           }
         }
@@ -9135,34 +9121,34 @@ LABEL_7:
         else
         {
           v6 = __s1;
-          __s1[*(&v25 + 1)] = 0;
+          __s1[*(&v24 + 1)] = 0;
         }
 
-        v7 = v23;
+        v7 = v22;
         if (*(a1 + 151) < 0)
         {
-          v7 = *v23;
+          v7 = *v22;
         }
 
         v8 = wcsstr(v6, v7);
         if (v8)
         {
-          if (*(&v25 + 1) >= v25)
+          if (*(&v24 + 1) >= v24)
           {
-            if (v27)
+            if (v26)
             {
-              LODWORD(v28.__locale_) = 0;
-              TBuffer<wchar_t>::insert(&__s1, *(&v25 + 1), &v28, 1uLL);
+              LODWORD(v27.__locale_) = 0;
+              TBuffer<wchar_t>::insert(&__s1, *(&v24 + 1), &v27, 1uLL);
               v9 = __s1;
-              --*(&v25 + 1);
+              --*(&v24 + 1);
             }
 
             else
             {
               v9 = __s1;
-              if (v25)
+              if (v24)
               {
-                __s1[v25 - 1] = 0;
+                __s1[v24 - 1] = 0;
               }
             }
           }
@@ -9170,7 +9156,7 @@ LABEL_7:
           else
           {
             v9 = __s1;
-            __s1[*(&v25 + 1)] = 0;
+            __s1[*(&v24 + 1)] = 0;
           }
 
           TBuffer<wchar_t>::resize(&__s1, v8 - v9);
@@ -9183,7 +9169,7 @@ LABEL_7:
       goto LABEL_7;
     }
 
-    if (*(&v25 + 1))
+    if (*(&v24 + 1))
     {
       v10 = 0;
       while (1)
@@ -9215,8 +9201,8 @@ LABEL_7:
 
 LABEL_44:
         ++v10;
-        v15 = *(&v25 + 1);
-        if (v10 >= *(&v25 + 1))
+        v15 = *(&v24 + 1);
+        if (v10 >= *(&v24 + 1))
         {
           goto LABEL_49;
         }
@@ -9228,7 +9214,7 @@ LABEL_44:
       }
 
 LABEL_48:
-      v15 = *(&v25 + 1);
+      v15 = *(&v24 + 1);
 LABEL_49:
       if (v15 > v10)
       {
@@ -9275,22 +9261,22 @@ LABEL_70:
     }
   }
 
-  if (*(&v25 + 1) >= v25)
+  if (*(&v24 + 1) >= v24)
   {
-    if (v27)
+    if (v26)
     {
-      LODWORD(v28.__locale_) = 0;
-      TBuffer<wchar_t>::insert(&__s1, *(&v25 + 1), &v28, 1uLL);
+      LODWORD(v27.__locale_) = 0;
+      TBuffer<wchar_t>::insert(&__s1, *(&v24 + 1), &v27, 1uLL);
       v19 = __s1;
-      --*(&v25 + 1);
+      --*(&v24 + 1);
     }
 
     else
     {
       v19 = __s1;
-      if (v25)
+      if (v24)
       {
-        __s1[v25 - 1] = 0;
+        __s1[v24 - 1] = 0;
       }
     }
   }
@@ -9298,20 +9284,18 @@ LABEL_70:
   else
   {
     v19 = __s1;
-    __s1[*(&v25 + 1)] = 0;
+    __s1[*(&v24 + 1)] = 0;
   }
 
   TBuffer<wchar_t>::resize(a2, 0);
   TBuffer<wchar_t>::insert(a2, 0, &v19[v10], v15 - v10);
 LABEL_78:
-  if (v27 == 1 && __s1 != v26 && __s1)
+  if (v26 == 1 && __s1 != v25 && __s1)
   {
     MEMORY[0x26672B1B0]();
   }
 
-  result = v5 == 0;
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
+  return v5 == 0;
 }
 
 BOOL TInputStream::isParameter(TInputStream *this, char *a2)
@@ -9338,7 +9322,7 @@ void sub_2626A7A54(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void sub_2626A7F18(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
 {
-  MEMORY[0x26672B1B0](a10, 0x1070C40ADD13FEBLL);
+  MEMORY[0x26672B1B0](a10, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   if (LOBYTE(STACK[0x440]) == 1 && a14 != a11 && a14 != 0)
   {
     MEMORY[0x26672B1B0]();
@@ -9358,8 +9342,8 @@ uint64_t TInputStream::getBoolParameter(TInputStream *this, char *a2, uint64_t a
 
   if (this + 160 != v6)
   {
-    v24 = 0;
-    v7 = v6 + 56;
+    v19 = 0;
+    v7 = (v6 + 56);
     if (v6[79] < 0)
     {
       v7 = *v7;
@@ -9369,60 +9353,60 @@ uint64_t TInputStream::getBoolParameter(TInputStream *this, char *a2, uint64_t a
       operator new();
     }
 
-    v8 = TLocaleInfo::stringToBool(TLocaleInfo::getGlobalLocaleInfo(void)::s_localeInfo, v7, &v24);
-    if (v24)
+    v8 = TLocaleInfo::stringToBool(TLocaleInfo::getGlobalLocaleInfo(void)::s_localeInfo, v7, &v19);
+    if (v19)
     {
-      tknPrintf("Error: Expected Boolean value for '%s'\n", v9, v10, v11, v12, a2);
-      std::string::basic_string[abi:ne200100]<0>(v20, &byte_262899963);
+      tknPrintf("Error: Expected Boolean value for '%s'\n", v9, a2);
+      std::string::basic_string[abi:ne200100]<0>(v15, &byte_262899963);
       *__p = byte_287529580;
-      if (SHIBYTE(v21) < 0)
+      if (SHIBYTE(v16) < 0)
       {
-        std::string::__init_copy_ctor_external(&__p[8], v20[0], v20[1]);
+        std::string::__init_copy_ctor_external(&__p[8], v15[0], v15[1]);
       }
 
       else
       {
-        *&__p[8] = *v20;
-        v23 = v21;
+        *&__p[8] = *v15;
+        v18 = v16;
       }
 
       *__p = &unk_287528000;
-      if (v23 >= 0)
+      if (v18 >= 0)
       {
-        v16 = &__p[8];
+        v11 = &__p[8];
       }
 
       else
       {
-        v16 = *&__p[8];
+        v11 = *&__p[8];
       }
 
-      conditionalAssert(v16, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 525, v14, v15);
+      conditionalAssert(v11, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 525);
       *__p = byte_287529580;
-      if (SHIBYTE(v23) < 0)
+      if (SHIBYTE(v18) < 0)
       {
         operator delete(*&__p[8]);
       }
 
-      if (SHIBYTE(v21) < 0)
+      if (SHIBYTE(v16) < 0)
       {
-        operator delete(v20[0]);
+        operator delete(v15[0]);
       }
 
       exception = __cxa_allocate_exception(0x20uLL);
       std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
       *exception = byte_287529580;
-      v18 = (exception + 1);
+      v13 = (exception + 1);
       if ((__p[23] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v18, *__p, *&__p[8]);
+        std::string::__init_copy_ctor_external(v13, *__p, *&__p[8]);
       }
 
       else
       {
-        v19 = *__p;
+        v14 = *__p;
         exception[3] = *&__p[16];
-        *&v18->__r_.__value_.__l.__data_ = v19;
+        *&v13->__r_.__value_.__l.__data_ = v14;
       }
 
       *exception = &unk_287528000;
@@ -9434,13 +9418,13 @@ uint64_t TInputStream::getBoolParameter(TInputStream *this, char *a2, uint64_t a
   return a3;
 }
 
-void sub_2626A8240(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, void *a18, int a19, __int16 a20, char a21, char a22, int a23, __int16 a24, char a25, char a26)
+void sub_2626A8240(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, int a13, __int16 a14, char a15, char a16, void *__p, void *a18, int a19, __int16 a20, char a21, char a22, int a23, __int16 a24, char a25, char a26)
 {
-  MEMORY[0x26672B1B0](v26, 0x1070C40ADD13FEBLL);
+  MEMORY[0x26672B1B0](v26, 0x1070C40ADD13FEBLL, a3, a4, a5, a6, a7, a8);
   _Unwind_Resume(a1);
 }
 
-uint64_t TInputStream::getStringParameter(uint64_t a1, char *a2, uint64_t a3, int *a4)
+const void **TInputStream::getStringParameter(uint64_t a1, char *a2, const void **a3, int *a4)
 {
   std::string::basic_string[abi:ne200100]<0>(__p, a2);
   v7 = std::__tree<std::__value_type<std::string,std::wstring>,std::__map_value_compare<std::string,std::__value_type<std::string,std::wstring>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,std::wstring>>>::find<std::string>(a1 + 152, __p);
@@ -9473,40 +9457,39 @@ void sub_2626A837C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t TOutputStream::operator<<(uint64_t a1, unsigned int *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  __s = v10;
-  v9 = xmmword_26286B6F0;
-  v11 = 1;
+  v11 = *MEMORY[0x277D85DE8];
+  __s = v9;
+  v8 = xmmword_26286B6F0;
+  v10 = 1;
   TLocaleInfo::unicodeToMultiByte(*(a1 + 16), a2, &__s);
   v3 = *a1;
-  if (*(&v9 + 1) >= v9)
+  if (*(&v8 + 1) >= v8)
   {
-    if (v11)
+    if (v10)
     {
-      v7 = 0;
-      TBuffer<char>::insert(&__s, *(&v9 + 1), &v7, 1uLL);
-      --*(&v9 + 1);
+      v6 = 0;
+      TBuffer<char>::insert(&__s, *(&v8 + 1), &v6, 1uLL);
+      --*(&v8 + 1);
     }
 
-    else if (v9)
+    else if (v8)
     {
-      __s[v9 - 1] = 0;
+      __s[v8 - 1] = 0;
     }
   }
 
   else
   {
-    __s[*(&v9 + 1)] = 0;
+    __s[*(&v8 + 1)] = 0;
   }
 
   v4 = strlen(__s);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v3, __s, v4);
-  if (v11 == 1 && __s != v10 && __s)
+  if (v10 == 1 && __s != v9 && __s)
   {
     MEMORY[0x26672B1B0]();
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return a1;
 }
 
@@ -9522,7 +9505,7 @@ void sub_2626A84D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 void *TOutputStream::writeHeader(void **a1, const char *a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v8 = a3 + 32 * a4;
   v10 = *(v8 - 16);
   v9 = *(v8 - 8);
@@ -9554,7 +9537,7 @@ void *TOutputStream::writeHeader(void **a1, const char *a2, uint64_t a3, uint64_
   }
 
   std::string::basic_string[abi:ne200100]<0>(&__p, v18);
-  if (v41 >= 0)
+  if (v40 >= 0)
   {
     p_p = &__p;
   }
@@ -9564,38 +9547,38 @@ void *TOutputStream::writeHeader(void **a1, const char *a2, uint64_t a3, uint64_
     p_p = __p;
   }
 
-  if (v41 >= 0)
+  if (v40 >= 0)
   {
-    v20 = HIBYTE(v41);
+    v20 = HIBYTE(v40);
   }
 
   else
   {
-    v20 = v41;
+    v20 = v40;
   }
 
   v21 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v17, p_p, v20);
   std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v21, "\n", 1);
-  if (SHIBYTE(v41) < 0)
+  if (SHIBYTE(v40) < 0)
   {
     operator delete(__p);
     if (!a5)
     {
-      goto LABEL_43;
+      return std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*a1, "HEADER_END\n", 11);
     }
   }
 
   else if (!a5)
   {
-    goto LABEL_43;
+    return std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*a1, "HEADER_END\n", 11);
   }
 
   v24 = *a5;
   v22 = a5 + 1;
   v23 = v24;
-  __p = v42;
-  v41 = xmmword_26286B6F0;
-  v43 = 1;
+  __p = v41;
+  v40 = xmmword_26286B6F0;
+  v42 = 1;
   if (v24 == v22)
   {
     goto LABEL_38;
@@ -9635,24 +9618,24 @@ void *TOutputStream::writeHeader(void **a1, const char *a2, uint64_t a3, uint64_
 
     v30 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v26, v28, v29);
     v31 = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v30, "=", 1);
-    if (*(&v41 + 1) >= v41)
+    if (*(&v40 + 1) >= v40)
     {
-      if (v43)
+      if (v42)
       {
-        v39 = 0;
-        TBuffer<char>::insert(&__p, *(&v41 + 1), &v39, 1uLL);
-        --*(&v41 + 1);
+        v38 = 0;
+        TBuffer<char>::insert(&__p, *(&v40 + 1), &v38, 1uLL);
+        --*(&v40 + 1);
       }
 
-      else if (v41)
+      else if (v40)
       {
-        *(__p + v41 - 1) = 0;
+        *(__p + v40 - 1) = 0;
       }
     }
 
     else
     {
-      *(__p + *(&v41 + 1)) = 0;
+      *(__p + *(&v40 + 1)) = 0;
     }
 
     v32 = strlen(__p);
@@ -9686,20 +9669,17 @@ void *TOutputStream::writeHeader(void **a1, const char *a2, uint64_t a3, uint64_
   }
 
   while (v35 != v22);
-  if (v43)
+  if (v42)
   {
 LABEL_38:
-    v36 = __p == v42 || __p == 0;
+    v36 = __p == v41 || __p == 0;
     if (!v36)
     {
       MEMORY[0x26672B1B0]();
     }
   }
 
-LABEL_43:
-  result = std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*a1, "HEADER_END\n", 11);
-  v38 = *MEMORY[0x277D85DE8];
-  return result;
+  return std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(*a1, "HEADER_END\n", 11);
 }
 
 void sub_2626A887C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, char a48)
@@ -9720,57 +9700,57 @@ void TInputModel::TInputModel(TInputModel *this, const TDataManager *a2, const T
   *(this + 2) = IntVar;
   if ((IntVar - 3) <= 0xFFFFFFFD)
   {
-    tknPrintf("Error: %llu : Expected %s in range [%llu,%llu]\n", v9, v10, v11, v12, IntVar, "Version", 1, 2);
+    tknPrintf("Error: %llu : Expected %s in range [%llu,%llu]\n", v9, IntVar, "Version", 1, 2);
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-    *v139 = byte_287529580;
-    if (SHIBYTE(v138) < 0)
+    *v113 = byte_287529580;
+    if (SHIBYTE(v112) < 0)
     {
-      std::string::__init_copy_ctor_external(&v139[8], __p[0], __p[1]);
+      std::string::__init_copy_ctor_external(&v113[8], __p[0], __p[1]);
     }
 
     else
     {
-      *&v139[8] = *__p;
-      v140 = v138;
+      *&v113[8] = *__p;
+      v114 = v112;
     }
 
-    *v139 = &unk_287528000;
-    if (v140 >= 0)
+    *v113 = &unk_287528000;
+    if (v114 >= 0)
     {
-      v49 = &v139[8];
+      v43 = &v113[8];
     }
 
     else
     {
-      v49 = *&v139[8];
+      v43 = *&v113[8];
     }
 
-    conditionalAssert(v49, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 609, v45, v46);
-    *v139 = byte_287529580;
-    if (SHIBYTE(v140) < 0)
+    conditionalAssert(v43, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 609);
+    *v113 = byte_287529580;
+    if (SHIBYTE(v114) < 0)
     {
-      operator delete(*&v139[8]);
+      operator delete(*&v113[8]);
     }
 
-    if (SHIBYTE(v138) < 0)
+    if (SHIBYTE(v112) < 0)
     {
       operator delete(__p[0]);
     }
 
     exception = __cxa_allocate_exception(0x20uLL);
-    std::string::basic_string[abi:ne200100]<0>(v139, &byte_262899963);
+    std::string::basic_string[abi:ne200100]<0>(v113, &byte_262899963);
     *exception = byte_287529580;
-    v51 = (exception + 1);
-    if ((v139[23] & 0x80000000) != 0)
+    v45 = (exception + 1);
+    if ((v113[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v51, *v139, *&v139[8]);
+      std::string::__init_copy_ctor_external(v45, *v113, *&v113[8]);
     }
 
     else
     {
-      v106 = *v139;
-      exception[3] = *&v139[16];
-      *&v51->__r_.__value_.__l.__data_ = v106;
+      v76 = *v113;
+      exception[3] = *&v113[16];
+      *&v45->__r_.__value_.__l.__data_ = v76;
     }
 
     *exception = &unk_287528000;
@@ -9778,122 +9758,122 @@ void TInputModel::TInputModel(TInputModel *this, const TDataManager *a2, const T
 
   if (IntVar != 1)
   {
-    v17 = *(this + 1);
-    if (v17)
+    v16 = *(this + 1);
+    if (v16)
     {
-      if (!(*(*v17 + 40))(v17, "Version", 0, 0))
+      if (!(*(*v16 + 40))(v16, "Version", 0, 0))
       {
-        tknPrintf("Error: bad model. Couldn't locate %s in static component.\n", v18, v19, v20, v21, "Version");
+        tknPrintf("Error: bad model. Couldn't locate %s in static component.\n", v17, "Version");
         std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-        *v139 = byte_287529580;
-        if (SHIBYTE(v138) < 0)
+        *v113 = byte_287529580;
+        if (SHIBYTE(v112) < 0)
         {
-          std::string::__init_copy_ctor_external(&v139[8], __p[0], __p[1]);
+          std::string::__init_copy_ctor_external(&v113[8], __p[0], __p[1]);
         }
 
         else
         {
-          *&v139[8] = *__p;
-          v140 = v138;
+          *&v113[8] = *__p;
+          v114 = v112;
         }
 
-        *v139 = &unk_287528000;
-        if (v140 >= 0)
+        *v113 = &unk_287528000;
+        if (v114 >= 0)
         {
-          v83 = &v139[8];
+          v55 = &v113[8];
         }
 
         else
         {
-          v83 = *&v139[8];
+          v55 = *&v113[8];
         }
 
-        conditionalAssert(v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 683, v58, v59);
-        *v139 = byte_287529580;
-        if (SHIBYTE(v140) < 0)
+        conditionalAssert(v55, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 683);
+        *v113 = byte_287529580;
+        if (SHIBYTE(v114) < 0)
         {
-          operator delete(*&v139[8]);
+          operator delete(*&v113[8]);
         }
 
-        if (SHIBYTE(v138) < 0)
+        if (SHIBYTE(v112) < 0)
         {
           operator delete(__p[0]);
         }
 
-        v84 = __cxa_allocate_exception(0x20uLL);
-        std::string::basic_string[abi:ne200100]<0>(v139, &byte_262899963);
-        *v84 = byte_287529580;
-        v85 = (v84 + 1);
-        if ((v139[23] & 0x80000000) != 0)
+        v56 = __cxa_allocate_exception(0x20uLL);
+        std::string::basic_string[abi:ne200100]<0>(v113, &byte_262899963);
+        *v56 = byte_287529580;
+        v57 = (v56 + 1);
+        if ((v113[23] & 0x80000000) != 0)
         {
-          std::string::__init_copy_ctor_external(v85, *v139, *&v139[8]);
+          std::string::__init_copy_ctor_external(v57, *v113, *&v113[8]);
         }
 
         else
         {
-          v122 = *v139;
-          v84[3] = *&v139[16];
-          *&v85->__r_.__value_.__l.__data_ = v122;
+          v95 = *v113;
+          v56[3] = *&v113[16];
+          *&v57->__r_.__value_.__l.__data_ = v95;
         }
 
-        *v84 = &unk_287528000;
+        *v56 = &unk_287528000;
       }
 
       if ((TDataManager::getBoolVar(*(this + 1), "IsStaticComponent", 0) & 1) == 0)
       {
         std::string::basic_string[abi:ne200100]<0>(__p, "Bad static data spec");
-        *v139 = byte_287529580;
-        if (SHIBYTE(v138) < 0)
+        *v113 = byte_287529580;
+        if (SHIBYTE(v112) < 0)
         {
-          std::string::__init_copy_ctor_external(&v139[8], __p[0], __p[1]);
+          std::string::__init_copy_ctor_external(&v113[8], __p[0], __p[1]);
         }
 
         else
         {
-          *&v139[8] = *__p;
-          v140 = v138;
+          *&v113[8] = *__p;
+          v114 = v112;
         }
 
-        *v139 = &unk_287528000;
-        if (v140 >= 0)
+        *v113 = &unk_287528000;
+        if (v114 >= 0)
         {
-          v86 = &v139[8];
+          v58 = &v113[8];
         }
 
         else
         {
-          v86 = *&v139[8];
+          v58 = *&v113[8];
         }
 
-        conditionalAssert(v86, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 689, v60, v61);
-        *v139 = byte_287529580;
-        if (SHIBYTE(v140) < 0)
+        conditionalAssert(v58, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 689);
+        *v113 = byte_287529580;
+        if (SHIBYTE(v114) < 0)
         {
-          operator delete(*&v139[8]);
+          operator delete(*&v113[8]);
         }
 
-        if (SHIBYTE(v138) < 0)
+        if (SHIBYTE(v112) < 0)
         {
           operator delete(__p[0]);
         }
 
-        v87 = __cxa_allocate_exception(0x20uLL);
-        std::string::basic_string[abi:ne200100]<0>(v139, "Bad static data spec");
-        *v87 = byte_287529580;
-        v88 = (v87 + 1);
-        if ((v139[23] & 0x80000000) != 0)
+        v59 = __cxa_allocate_exception(0x20uLL);
+        std::string::basic_string[abi:ne200100]<0>(v113, "Bad static data spec");
+        *v59 = byte_287529580;
+        v60 = (v59 + 1);
+        if ((v113[23] & 0x80000000) != 0)
         {
-          std::string::__init_copy_ctor_external(v88, *v139, *&v139[8]);
+          std::string::__init_copy_ctor_external(v60, *v113, *&v113[8]);
         }
 
         else
         {
-          v123 = *v139;
-          v87[3] = *&v139[16];
-          *&v88->__r_.__value_.__l.__data_ = v123;
+          v96 = *v113;
+          v59[3] = *&v113[16];
+          *&v60->__r_.__value_.__l.__data_ = v96;
         }
 
-        *v87 = &unk_287528000;
+        *v59 = &unk_287528000;
       }
     }
 
@@ -9901,247 +9881,276 @@ void TInputModel::TInputModel(TInputModel *this, const TDataManager *a2, const T
     {
       if (!(*(**this + 40))(*this, "Version", 0, 0))
       {
-        tknPrintf("Error: bad model. Couldn't locate %s in dynamic component.\n", v22, v23, v24, v25, "Version");
+        tknPrintf("Error: bad model. Couldn't locate %s in dynamic component.\n", v18, "Version");
         std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-        *v139 = byte_287529580;
-        if (SHIBYTE(v138) < 0)
+        *v113 = byte_287529580;
+        if (SHIBYTE(v112) < 0)
         {
-          std::string::__init_copy_ctor_external(&v139[8], __p[0], __p[1]);
+          std::string::__init_copy_ctor_external(&v113[8], __p[0], __p[1]);
         }
 
         else
         {
-          *&v139[8] = *__p;
-          v140 = v138;
+          *&v113[8] = *__p;
+          v114 = v112;
         }
 
-        *v139 = &unk_287528000;
-        if (v140 >= 0)
+        *v113 = &unk_287528000;
+        if (v114 >= 0)
         {
-          v89 = &v139[8];
+          v61 = &v113[8];
         }
 
         else
         {
-          v89 = *&v139[8];
+          v61 = *&v113[8];
         }
 
-        conditionalAssert(v89, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 699, v62, v63);
-        *v139 = byte_287529580;
-        if (SHIBYTE(v140) < 0)
+        conditionalAssert(v61, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 699);
+        *v113 = byte_287529580;
+        if (SHIBYTE(v114) < 0)
         {
-          operator delete(*&v139[8]);
+          operator delete(*&v113[8]);
         }
 
-        if (SHIBYTE(v138) < 0)
+        if (SHIBYTE(v112) < 0)
         {
           operator delete(__p[0]);
         }
 
-        v90 = __cxa_allocate_exception(0x20uLL);
-        std::string::basic_string[abi:ne200100]<0>(v139, &byte_262899963);
-        *v90 = byte_287529580;
-        v91 = (v90 + 1);
-        if ((v139[23] & 0x80000000) != 0)
+        v62 = __cxa_allocate_exception(0x20uLL);
+        std::string::basic_string[abi:ne200100]<0>(v113, &byte_262899963);
+        *v62 = byte_287529580;
+        v63 = (v62 + 1);
+        if ((v113[23] & 0x80000000) != 0)
         {
-          std::string::__init_copy_ctor_external(v91, *v139, *&v139[8]);
+          std::string::__init_copy_ctor_external(v63, *v113, *&v113[8]);
         }
 
         else
         {
-          v124 = *v139;
-          v90[3] = *&v139[16];
-          *&v91->__r_.__value_.__l.__data_ = v124;
+          v97 = *v113;
+          v62[3] = *&v113[16];
+          *&v63->__r_.__value_.__l.__data_ = v97;
         }
 
-        *v90 = &unk_287528000;
+        *v62 = &unk_287528000;
       }
 
       if (TDataManager::getBoolVar(*this, "IsStaticComponent", 0))
       {
         std::string::basic_string[abi:ne200100]<0>(__p, "Bad dynamic data spec");
-        *v139 = byte_287529580;
-        if (SHIBYTE(v138) < 0)
+        *v113 = byte_287529580;
+        if (SHIBYTE(v112) < 0)
         {
-          std::string::__init_copy_ctor_external(&v139[8], __p[0], __p[1]);
+          std::string::__init_copy_ctor_external(&v113[8], __p[0], __p[1]);
         }
 
         else
         {
-          *&v139[8] = *__p;
-          v140 = v138;
+          *&v113[8] = *__p;
+          v114 = v112;
         }
 
-        *v139 = &unk_287528000;
-        if (v140 >= 0)
+        *v113 = &unk_287528000;
+        if (v114 >= 0)
         {
-          v92 = &v139[8];
+          v64 = &v113[8];
         }
 
         else
         {
-          v92 = *&v139[8];
+          v64 = *&v113[8];
         }
 
-        conditionalAssert(v92, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 705, v64, v65);
-        *v139 = byte_287529580;
-        if (SHIBYTE(v140) < 0)
+        conditionalAssert(v64, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 705);
+        *v113 = byte_287529580;
+        if (SHIBYTE(v114) < 0)
         {
-          operator delete(*&v139[8]);
+          operator delete(*&v113[8]);
         }
 
-        if (SHIBYTE(v138) < 0)
+        if (SHIBYTE(v112) < 0)
         {
           operator delete(__p[0]);
         }
 
-        v93 = __cxa_allocate_exception(0x20uLL);
-        std::string::basic_string[abi:ne200100]<0>(v139, "Bad dynamic data spec");
-        *v93 = byte_287529580;
-        v94 = (v93 + 1);
-        if ((v139[23] & 0x80000000) != 0)
+        v65 = __cxa_allocate_exception(0x20uLL);
+        std::string::basic_string[abi:ne200100]<0>(v113, "Bad dynamic data spec");
+        *v65 = byte_287529580;
+        v66 = (v65 + 1);
+        if ((v113[23] & 0x80000000) != 0)
         {
-          std::string::__init_copy_ctor_external(v94, *v139, *&v139[8]);
+          std::string::__init_copy_ctor_external(v66, *v113, *&v113[8]);
         }
 
         else
         {
-          v125 = *v139;
-          v93[3] = *&v139[16];
-          *&v94->__r_.__value_.__l.__data_ = v125;
+          v98 = *v113;
+          v65[3] = *&v113[16];
+          *&v66->__r_.__value_.__l.__data_ = v98;
         }
 
-        *v93 = &unk_287528000;
+        *v65 = &unk_287528000;
       }
 
       if (*this)
       {
-        v26 = *(this + 1);
-        if (v26)
+        v19 = *(this + 1);
+        if (v19)
         {
-          v27 = TDataManager::getIntVar(v26, "Version", 1);
-          if (v27 != TDataManager::getIntVar(*this, "Version", 1))
+          v20 = TDataManager::getIntVar(v19, "Version", 1);
+          if (v20 != TDataManager::getIntVar(*this, "Version", 1))
           {
-            tknPrintf("Error: %s : Unmatched dynamic and static data specs\n", v28, v29, v30, v31, "Version");
+            tknPrintf("Error: %s : Unmatched dynamic and static data specs\n", v21, "Version");
             std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-            *v139 = byte_287529580;
-            if (SHIBYTE(v138) < 0)
+            *v113 = byte_287529580;
+            if (SHIBYTE(v112) < 0)
             {
-              std::string::__init_copy_ctor_external(&v139[8], __p[0], __p[1]);
+              std::string::__init_copy_ctor_external(&v113[8], __p[0], __p[1]);
             }
 
             else
             {
-              *&v139[8] = *__p;
-              v140 = v138;
+              *&v113[8] = *__p;
+              v114 = v112;
             }
 
-            *v139 = &unk_287528000;
-            if (v140 >= 0)
+            *v113 = &unk_287528000;
+            if (v114 >= 0)
             {
-              v110 = &v139[8];
+              v80 = &v113[8];
             }
 
             else
             {
-              v110 = *&v139[8];
+              v80 = *&v113[8];
             }
 
-            conditionalAssert(v110, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 715, v104, v105);
-            *v139 = byte_287529580;
-            if (SHIBYTE(v140) < 0)
+            conditionalAssert(v80, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 715);
+            *v113 = byte_287529580;
+            if (SHIBYTE(v114) < 0)
             {
-              operator delete(*&v139[8]);
+              operator delete(*&v113[8]);
             }
 
-            if (SHIBYTE(v138) < 0)
+            if (SHIBYTE(v112) < 0)
             {
               operator delete(__p[0]);
             }
 
-            v111 = __cxa_allocate_exception(0x20uLL);
-            std::string::basic_string[abi:ne200100]<0>(v139, &byte_262899963);
-            *v111 = byte_287529580;
-            v112 = (v111 + 1);
-            if ((v139[23] & 0x80000000) != 0)
+            v81 = __cxa_allocate_exception(0x20uLL);
+            std::string::basic_string[abi:ne200100]<0>(v113, &byte_262899963);
+            *v81 = byte_287529580;
+            v82 = (v81 + 1);
+            if ((v113[23] & 0x80000000) != 0)
             {
-              std::string::__init_copy_ctor_external(v112, *v139, *&v139[8]);
+              std::string::__init_copy_ctor_external(v82, *v113, *&v113[8]);
             }
 
             else
             {
-              v130 = *v139;
-              v111[3] = *&v139[16];
-              *&v112->__r_.__value_.__l.__data_ = v130;
+              v103 = *v113;
+              v81[3] = *&v113[16];
+              *&v82->__r_.__value_.__l.__data_ = v103;
             }
 
-            *v111 = &unk_287528000;
+            *v81 = &unk_287528000;
           }
 
           __p[0] = 0;
           __p[1] = 0;
-          v138 = 0;
-          TDataManager::getStringVar(*this);
-          v135[0] = 0;
-          v135[1] = 0;
-          v136 = 0;
-          TDataManager::getStringVar(*(this + 1));
-          if (memcmp(__p, v135, 0))
+          v112 = 0;
+          TDataManager::getStringVar(*this, "EnhVersion", __p);
+          v109[0] = 0;
+          v109[1] = 0;
+          v110 = 0;
+          TDataManager::getStringVar(*(this + 1), "EnhVersion", v109);
+          v23 = HIBYTE(v112);
+          if (v112 >= 0)
           {
-            tknPrintf("Error: %s : Unmatched dynamic and static data specs\n", v32, v33, v34, v35, "EnhVersion");
-            std::string::basic_string[abi:ne200100]<0>(v133, &byte_262899963);
-            *v139 = byte_287529580;
-            if (SHIBYTE(v134) < 0)
+            v24 = HIBYTE(v112);
+          }
+
+          else
+          {
+            v24 = __p[1];
+          }
+
+          v25 = HIBYTE(v110);
+          v26 = SHIBYTE(v110);
+          if (v110 < 0)
+          {
+            v25 = v109[1];
+          }
+
+          if (v24 != v25 || (v112 >= 0 ? (v27 = __p) : (v27 = __p[0]), (v28 = v109[0], v110 >= 0) ? (v29 = v109) : (v29 = v109[0]), memcmp(v27, v29, v24)))
+          {
+            tknPrintf("Error: %s : Unmatched dynamic and static data specs\n", v22, "EnhVersion");
+            std::string::basic_string[abi:ne200100]<0>(v107, &byte_262899963);
+            *v113 = byte_287529580;
+            if (SHIBYTE(v108) < 0)
             {
-              std::string::__init_copy_ctor_external(&v139[8], v133[0], v133[1]);
+              std::string::__init_copy_ctor_external(&v113[8], v107[0], v107[1]);
             }
 
             else
             {
-              *&v139[8] = *v133;
-              v140 = v134;
+              *&v113[8] = *v107;
+              v114 = v108;
             }
 
-            *v139 = &unk_287528000;
-            if (v140 >= 0)
+            *v113 = &unk_287528000;
+            if (v114 >= 0)
             {
-              v119 = &v139[8];
+              v92 = &v113[8];
             }
 
             else
             {
-              v119 = *&v139[8];
+              v92 = *&v113[8];
             }
 
-            conditionalAssert(v119, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 726, v79, v80);
-            *v139 = byte_287529580;
-            if (SHIBYTE(v140) < 0)
+            conditionalAssert(v92, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 726);
+            *v113 = byte_287529580;
+            if (SHIBYTE(v114) < 0)
             {
-              operator delete(*&v139[8]);
+              operator delete(*&v113[8]);
             }
 
-            if (SHIBYTE(v134) < 0)
+            if (SHIBYTE(v108) < 0)
             {
-              operator delete(v133[0]);
+              operator delete(v107[0]);
             }
 
-            v120 = __cxa_allocate_exception(0x20uLL);
-            std::string::basic_string[abi:ne200100]<0>(v139, &byte_262899963);
-            *v120 = byte_287529580;
-            v121 = (v120 + 1);
-            if ((v139[23] & 0x80000000) != 0)
+            v93 = __cxa_allocate_exception(0x20uLL);
+            std::string::basic_string[abi:ne200100]<0>(v113, &byte_262899963);
+            *v93 = byte_287529580;
+            v94 = (v93 + 1);
+            if ((v113[23] & 0x80000000) != 0)
             {
-              std::string::__init_copy_ctor_external(v121, *v139, *&v139[8]);
+              std::string::__init_copy_ctor_external(v94, *v113, *&v113[8]);
             }
 
             else
             {
-              v132 = *v139;
-              v120[3] = *&v139[16];
-              *&v121->__r_.__value_.__l.__data_ = v132;
+              v106 = *v113;
+              v93[3] = *&v113[16];
+              *&v94->__r_.__value_.__l.__data_ = v106;
             }
 
-            *v120 = &unk_287528000;
+            *v93 = &unk_287528000;
+          }
+
+          if (v26 < 0)
+          {
+            operator delete(v28);
+            v23 = HIBYTE(v112);
+          }
+
+          if (v23 < 0)
+          {
+            operator delete(__p[0]);
           }
         }
       }
@@ -10154,23 +10163,23 @@ void TInputModel::TInputModel(TInputModel *this, const TDataManager *a2, const T
 
     __p[0] = 0;
     __p[1] = 0;
-    v138 = 0;
-    TInputModel::getStringVar(this, "VocVersionID");
-    v36 = HIBYTE(v138);
-    if (v138 >= 0)
+    v112 = 0;
+    TInputModel::getStringVar(this, "VocVersionID", __p, &byte_262899963);
+    v30 = HIBYTE(v112);
+    if (v112 >= 0)
     {
-      v37 = HIBYTE(v138);
+      v31 = HIBYTE(v112);
     }
 
     else
     {
-      v37 = __p[1];
+      v31 = __p[1];
     }
 
-    if (!v37 || !*a5)
+    if (!v31 || !*a5)
     {
-LABEL_40:
-      if (v36 < 0)
+LABEL_82:
+      if (v30 < 0)
       {
         operator delete(__p[0]);
       }
@@ -10178,13 +10187,13 @@ LABEL_40:
       return;
     }
 
-    v38 = strlen(a5);
-    v39 = v38;
-    if (v138 < 0)
+    v32 = strlen(a5);
+    v33 = v32;
+    if (v112 < 0)
     {
-      if (v38 != __p[1])
+      if (v32 != __p[1])
       {
-        goto LABEL_107;
+        goto LABEL_151;
       }
 
       if (__p[1] == -1)
@@ -10192,502 +10201,634 @@ LABEL_40:
         std::wstring::__throw_out_of_range[abi:ne200100]();
       }
 
-      v40 = __p[0];
+      v34 = __p[0];
     }
 
     else
     {
-      if (v38 != HIBYTE(v138))
+      if (v32 != HIBYTE(v112))
       {
-        goto LABEL_107;
+        goto LABEL_151;
       }
 
-      v40 = __p;
+      v34 = __p;
     }
 
-    if (!memcmp(v40, a5, v39))
+    if (!memcmp(v34, a5, v33))
     {
-      goto LABEL_40;
+      goto LABEL_82;
     }
 
-LABEL_107:
-    std::string::basic_string[abi:ne200100]<0>(v135, "The model and lexicon are incompatible (different VocVersionID)");
-    *v139 = byte_287529580;
-    if (SHIBYTE(v136) < 0)
+LABEL_151:
+    std::string::basic_string[abi:ne200100]<0>(v109, "The model and lexicon are incompatible (different VocVersionID)");
+    *v113 = byte_287529580;
+    if (SHIBYTE(v110) < 0)
     {
-      std::string::__init_copy_ctor_external(&v139[8], v135[0], v135[1]);
+      std::string::__init_copy_ctor_external(&v113[8], v109[0], v109[1]);
     }
 
     else
     {
-      *&v139[8] = *v135;
-      v140 = v136;
+      *&v113[8] = *v109;
+      v114 = v110;
     }
 
-    *v139 = &unk_287528000;
-    if (v140 >= 0)
+    *v113 = &unk_287528000;
+    if (v114 >= 0)
     {
-      v113 = &v139[8];
+      v86 = &v113[8];
     }
 
     else
     {
-      v113 = *&v139[8];
+      v86 = *&v113[8];
     }
 
-    conditionalAssert(v113, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 740, v81, v82);
-    *v139 = byte_287529580;
-    if (SHIBYTE(v140) < 0)
+    conditionalAssert(v86, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 740);
+    *v113 = byte_287529580;
+    if (SHIBYTE(v114) < 0)
     {
-      operator delete(*&v139[8]);
+      operator delete(*&v113[8]);
     }
 
-    if (SHIBYTE(v136) < 0)
+    if (SHIBYTE(v110) < 0)
     {
-      operator delete(v135[0]);
+      operator delete(v109[0]);
     }
 
-    v114 = __cxa_allocate_exception(0x20uLL);
-    std::string::basic_string[abi:ne200100]<0>(v139, "The model and lexicon are incompatible (different VocVersionID)");
-    *v114 = byte_287529580;
-    v115 = (v114 + 1);
-    if ((v139[23] & 0x80000000) != 0)
+    v87 = __cxa_allocate_exception(0x20uLL);
+    std::string::basic_string[abi:ne200100]<0>(v113, "The model and lexicon are incompatible (different VocVersionID)");
+    *v87 = byte_287529580;
+    v88 = (v87 + 1);
+    if ((v113[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v115, *v139, *&v139[8]);
+      std::string::__init_copy_ctor_external(v88, *v113, *&v113[8]);
     }
 
     else
     {
-      v131 = *v139;
-      v114[3] = *&v139[16];
-      *&v115->__r_.__value_.__l.__data_ = v131;
+      v105 = *v113;
+      v87[3] = *&v113[16];
+      *&v88->__r_.__value_.__l.__data_ = v105;
     }
 
-    *v114 = &unk_287528000;
+    *v87 = &unk_287528000;
   }
 
   if (!*this)
   {
-    tknPrintf("Error: Bad model. %s is 1 but there is not dynamic component.\n", v9, v10, v11, v12, "Version");
+    tknPrintf("Error: Bad model. %s is 1 but there is not dynamic component.\n", v9, "Version");
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-    *v139 = byte_287529580;
-    if (SHIBYTE(v138) < 0)
+    *v113 = byte_287529580;
+    if (SHIBYTE(v112) < 0)
     {
-      std::string::__init_copy_ctor_external(&v139[8], __p[0], __p[1]);
+      std::string::__init_copy_ctor_external(&v113[8], __p[0], __p[1]);
     }
 
     else
     {
-      *&v139[8] = *__p;
-      v140 = v138;
+      *&v113[8] = *__p;
+      v114 = v112;
     }
 
-    *v139 = &unk_287528000;
-    if (v140 >= 0)
+    *v113 = &unk_287528000;
+    if (v114 >= 0)
     {
-      v70 = &v139[8];
+      v46 = &v113[8];
     }
 
     else
     {
-      v70 = *&v139[8];
+      v46 = *&v113[8];
     }
 
-    conditionalAssert(v70, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 617, v52, v53);
-    *v139 = byte_287529580;
-    if (SHIBYTE(v140) < 0)
+    conditionalAssert(v46, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 617);
+    *v113 = byte_287529580;
+    if (SHIBYTE(v114) < 0)
     {
-      operator delete(*&v139[8]);
+      operator delete(*&v113[8]);
     }
 
-    if (SHIBYTE(v138) < 0)
+    if (SHIBYTE(v112) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v71 = __cxa_allocate_exception(0x20uLL);
-    std::string::basic_string[abi:ne200100]<0>(v139, &byte_262899963);
-    *v71 = byte_287529580;
-    v72 = (v71 + 1);
-    if ((v139[23] & 0x80000000) != 0)
+    v47 = __cxa_allocate_exception(0x20uLL);
+    std::string::basic_string[abi:ne200100]<0>(v113, &byte_262899963);
+    *v47 = byte_287529580;
+    v48 = (v47 + 1);
+    if ((v113[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v72, *v139, *&v139[8]);
+      std::string::__init_copy_ctor_external(v48, *v113, *&v113[8]);
     }
 
     else
     {
-      v116 = *v139;
-      v71[3] = *&v139[16];
-      *&v72->__r_.__value_.__l.__data_ = v116;
+      v89 = *v113;
+      v47[3] = *&v113[16];
+      *&v48->__r_.__value_.__l.__data_ = v89;
     }
 
-    *v71 = &unk_287528000;
+    *v47 = &unk_287528000;
   }
 
   if (!(*(**this + 40))(*this, "Version", 0, 0))
   {
-    tknPrintf("Error: Bad model. Couldn't locate %s\n", v13, v14, v15, v16, "Version");
+    tknPrintf("Error: Bad model. Couldn't locate %s\n", v10, "Version");
     std::string::basic_string[abi:ne200100]<0>(__p, &byte_262899963);
-    *v139 = byte_287529580;
-    if (SHIBYTE(v138) < 0)
+    *v113 = byte_287529580;
+    if (SHIBYTE(v112) < 0)
     {
-      std::string::__init_copy_ctor_external(&v139[8], __p[0], __p[1]);
+      std::string::__init_copy_ctor_external(&v113[8], __p[0], __p[1]);
     }
 
     else
     {
-      *&v139[8] = *__p;
-      v140 = v138;
+      *&v113[8] = *__p;
+      v114 = v112;
     }
 
-    *v139 = &unk_287528000;
-    if (v140 >= 0)
+    *v113 = &unk_287528000;
+    if (v114 >= 0)
     {
-      v73 = &v139[8];
+      v49 = &v113[8];
     }
 
     else
     {
-      v73 = *&v139[8];
+      v49 = *&v113[8];
     }
 
-    conditionalAssert(v73, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 624, v54, v55);
-    *v139 = byte_287529580;
-    if (SHIBYTE(v140) < 0)
+    conditionalAssert(v49, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 624);
+    *v113 = byte_287529580;
+    if (SHIBYTE(v114) < 0)
     {
-      operator delete(*&v139[8]);
+      operator delete(*&v113[8]);
     }
 
-    if (SHIBYTE(v138) < 0)
+    if (SHIBYTE(v112) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v74 = __cxa_allocate_exception(0x20uLL);
-    std::string::basic_string[abi:ne200100]<0>(v139, &byte_262899963);
-    *v74 = byte_287529580;
-    v75 = (v74 + 1);
-    if ((v139[23] & 0x80000000) != 0)
+    v50 = __cxa_allocate_exception(0x20uLL);
+    std::string::basic_string[abi:ne200100]<0>(v113, &byte_262899963);
+    *v50 = byte_287529580;
+    v51 = (v50 + 1);
+    if ((v113[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v75, *v139, *&v139[8]);
+      std::string::__init_copy_ctor_external(v51, *v113, *&v113[8]);
     }
 
     else
     {
-      v117 = *v139;
-      v74[3] = *&v139[16];
-      *&v75->__r_.__value_.__l.__data_ = v117;
+      v90 = *v113;
+      v50[3] = *&v113[16];
+      *&v51->__r_.__value_.__l.__data_ = v90;
     }
 
-    *v74 = &unk_287528000;
+    *v50 = &unk_287528000;
   }
 
-  if (g_bCheckVocCompatibility == 1)
+  if (g_bCheckVocCompatibility != 1)
   {
-    __p[0] = 0;
-    __p[1] = 0;
-    v138 = 0;
-    TDataManager::getStringVar(*this);
+    goto LABEL_55;
   }
 
+  __p[0] = 0;
+  __p[1] = 0;
+  v112 = 0;
+  TDataManager::getStringVar(*this, "VocVersionID", __p);
+  v11 = HIBYTE(v112);
+  if (v112 >= 0)
+  {
+    v12 = HIBYTE(v112);
+  }
+
+  else
+  {
+    v12 = __p[1];
+  }
+
+  if (v12 && *a5)
+  {
+    v13 = strlen(a5);
+    v14 = v13;
+    if (v112 < 0)
+    {
+      if (v13 != __p[1])
+      {
+        goto LABEL_149;
+      }
+
+      if (__p[1] == -1)
+      {
+        std::wstring::__throw_out_of_range[abi:ne200100]();
+      }
+
+      v15 = __p[0];
+    }
+
+    else
+    {
+      if (v13 != HIBYTE(v112))
+      {
+        goto LABEL_149;
+      }
+
+      v15 = __p;
+    }
+
+    if (!memcmp(v15, a5, v14))
+    {
+      goto LABEL_53;
+    }
+
+LABEL_149:
+    std::string::basic_string[abi:ne200100]<0>(v109, "The model and lexicon are incompatible (different VocVersionID)");
+    *v113 = byte_287529580;
+    if (SHIBYTE(v110) < 0)
+    {
+      std::string::__init_copy_ctor_external(&v113[8], v109[0], v109[1]);
+    }
+
+    else
+    {
+      *&v113[8] = *v109;
+      v114 = v110;
+    }
+
+    *v113 = &unk_287528000;
+    if (v114 >= 0)
+    {
+      v83 = &v113[8];
+    }
+
+    else
+    {
+      v83 = *&v113[8];
+    }
+
+    conditionalAssert(v83, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 635);
+    *v113 = byte_287529580;
+    if (SHIBYTE(v114) < 0)
+    {
+      operator delete(*&v113[8]);
+    }
+
+    if (SHIBYTE(v110) < 0)
+    {
+      operator delete(v109[0]);
+    }
+
+    v84 = __cxa_allocate_exception(0x20uLL);
+    std::string::basic_string[abi:ne200100]<0>(v113, "The model and lexicon are incompatible (different VocVersionID)");
+    *v84 = byte_287529580;
+    v85 = (v84 + 1);
+    if ((v113[23] & 0x80000000) != 0)
+    {
+      std::string::__init_copy_ctor_external(v85, *v113, *&v113[8]);
+    }
+
+    else
+    {
+      v104 = *v113;
+      v84[3] = *&v113[16];
+      *&v85->__r_.__value_.__l.__data_ = v104;
+    }
+
+    *v84 = &unk_287528000;
+  }
+
+LABEL_53:
+  if (v11 < 0)
+  {
+    operator delete(__p[0]);
+  }
+
+LABEL_55:
   if (TDataManager::getBoolVar(*this, "IsStaticComponent", 0))
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "Bad data spec");
-    *v139 = byte_287529580;
-    if (SHIBYTE(v138) < 0)
+    *v113 = byte_287529580;
+    if (SHIBYTE(v112) < 0)
     {
-      std::string::__init_copy_ctor_external(&v139[8], __p[0], __p[1]);
+      std::string::__init_copy_ctor_external(&v113[8], __p[0], __p[1]);
     }
 
     else
     {
-      *&v139[8] = *__p;
-      v140 = v138;
+      *&v113[8] = *__p;
+      v114 = v112;
     }
 
-    *v139 = &unk_287528000;
-    if (v140 >= 0)
+    *v113 = &unk_287528000;
+    if (v114 >= 0)
     {
-      v76 = &v139[8];
+      v52 = &v113[8];
     }
 
     else
     {
-      v76 = *&v139[8];
+      v52 = *&v113[8];
     }
 
-    conditionalAssert(v76, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 641, v56, v57);
-    *v139 = byte_287529580;
-    if (SHIBYTE(v140) < 0)
+    conditionalAssert(v52, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 641);
+    *v113 = byte_287529580;
+    if (SHIBYTE(v114) < 0)
     {
-      operator delete(*&v139[8]);
+      operator delete(*&v113[8]);
     }
 
-    if (SHIBYTE(v138) < 0)
+    if (SHIBYTE(v112) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v77 = __cxa_allocate_exception(0x20uLL);
-    std::string::basic_string[abi:ne200100]<0>(v139, "Bad data spec");
-    *v77 = byte_287529580;
-    v78 = (v77 + 1);
-    if ((v139[23] & 0x80000000) != 0)
+    v53 = __cxa_allocate_exception(0x20uLL);
+    std::string::basic_string[abi:ne200100]<0>(v113, "Bad data spec");
+    *v53 = byte_287529580;
+    v54 = (v53 + 1);
+    if ((v113[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v78, *v139, *&v139[8]);
+      std::string::__init_copy_ctor_external(v54, *v113, *&v113[8]);
     }
 
     else
     {
-      v118 = *v139;
-      v77[3] = *&v139[16];
-      *&v78->__r_.__value_.__l.__data_ = v118;
+      v91 = *v113;
+      v53[3] = *&v113[16];
+      *&v54->__r_.__value_.__l.__data_ = v91;
     }
 
-    *v77 = &unk_287528000;
+    *v53 = &unk_287528000;
   }
 
-  v41 = *(this + 1);
+  v35 = *(this + 1);
   BoolVar = TDataManager::getBoolVar(*this, "HasStaticComponent", 0);
-  if (v41)
+  if (v35)
   {
     if ((BoolVar & 1) == 0)
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "Bad static data spec");
-      *v139 = byte_287529580;
-      if (SHIBYTE(v138) < 0)
+      *v113 = byte_287529580;
+      if (SHIBYTE(v112) < 0)
       {
-        std::string::__init_copy_ctor_external(&v139[8], __p[0], __p[1]);
+        std::string::__init_copy_ctor_external(&v113[8], __p[0], __p[1]);
       }
 
       else
       {
-        *&v139[8] = *__p;
-        v140 = v138;
+        *&v113[8] = *__p;
+        v114 = v112;
       }
 
-      *v139 = &unk_287528000;
-      if (v140 >= 0)
+      *v113 = &unk_287528000;
+      if (v114 >= 0)
       {
-        v95 = &v139[8];
+        v67 = &v113[8];
       }
 
       else
       {
-        v95 = *&v139[8];
+        v67 = *&v113[8];
       }
 
-      conditionalAssert(v95, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 657, v66, v67);
-      *v139 = byte_287529580;
-      if (SHIBYTE(v140) < 0)
+      conditionalAssert(v67, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 657);
+      *v113 = byte_287529580;
+      if (SHIBYTE(v114) < 0)
       {
-        operator delete(*&v139[8]);
+        operator delete(*&v113[8]);
       }
 
-      if (SHIBYTE(v138) < 0)
+      if (SHIBYTE(v112) < 0)
       {
         operator delete(__p[0]);
       }
 
-      v96 = __cxa_allocate_exception(0x20uLL);
-      std::string::basic_string[abi:ne200100]<0>(v139, "Bad static data spec");
-      *v96 = byte_287529580;
-      v97 = (v96 + 1);
-      if ((v139[23] & 0x80000000) != 0)
+      v68 = __cxa_allocate_exception(0x20uLL);
+      std::string::basic_string[abi:ne200100]<0>(v113, "Bad static data spec");
+      *v68 = byte_287529580;
+      v69 = (v68 + 1);
+      if ((v113[23] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v97, *v139, *&v139[8]);
+        std::string::__init_copy_ctor_external(v69, *v113, *&v113[8]);
       }
 
       else
       {
-        v126 = *v139;
-        v96[3] = *&v139[16];
-        *&v97->__r_.__value_.__l.__data_ = v126;
+        v99 = *v113;
+        v68[3] = *&v113[16];
+        *&v69->__r_.__value_.__l.__data_ = v99;
       }
 
-      *v96 = &unk_287528000;
+      *v68 = &unk_287528000;
     }
 
     if ((TDataManager::getBoolVar(*(this + 1), "IsStaticComponent", 0) & 1) == 0)
     {
       std::string::basic_string[abi:ne200100]<0>(__p, "Bad static data spec");
-      *v139 = byte_287529580;
-      if (SHIBYTE(v138) < 0)
+      *v113 = byte_287529580;
+      if (SHIBYTE(v112) < 0)
       {
-        std::string::__init_copy_ctor_external(&v139[8], __p[0], __p[1]);
+        std::string::__init_copy_ctor_external(&v113[8], __p[0], __p[1]);
       }
 
       else
       {
-        *&v139[8] = *__p;
-        v140 = v138;
+        *&v113[8] = *__p;
+        v114 = v112;
       }
 
-      *v139 = &unk_287528000;
-      if (v140 >= 0)
+      *v113 = &unk_287528000;
+      if (v114 >= 0)
       {
-        v98 = &v139[8];
+        v70 = &v113[8];
       }
 
       else
       {
-        v98 = *&v139[8];
+        v70 = *&v113[8];
       }
 
-      conditionalAssert(v98, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 662, v68, v69);
-      *v139 = byte_287529580;
-      if (SHIBYTE(v140) < 0)
+      conditionalAssert(v70, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 662);
+      *v113 = byte_287529580;
+      if (SHIBYTE(v114) < 0)
       {
-        operator delete(*&v139[8]);
+        operator delete(*&v113[8]);
       }
 
-      if (SHIBYTE(v138) < 0)
+      if (SHIBYTE(v112) < 0)
       {
         operator delete(__p[0]);
       }
 
-      v99 = __cxa_allocate_exception(0x20uLL);
-      std::string::basic_string[abi:ne200100]<0>(v139, "Bad static data spec");
-      *v99 = byte_287529580;
-      v100 = (v99 + 1);
-      if ((v139[23] & 0x80000000) != 0)
+      v71 = __cxa_allocate_exception(0x20uLL);
+      std::string::basic_string[abi:ne200100]<0>(v113, "Bad static data spec");
+      *v71 = byte_287529580;
+      v72 = (v71 + 1);
+      if ((v113[23] & 0x80000000) != 0)
       {
-        std::string::__init_copy_ctor_external(v100, *v139, *&v139[8]);
+        std::string::__init_copy_ctor_external(v72, *v113, *&v113[8]);
       }
 
       else
       {
-        v127 = *v139;
-        v99[3] = *&v139[16];
-        *&v100->__r_.__value_.__l.__data_ = v127;
+        v100 = *v113;
+        v71[3] = *&v113[16];
+        *&v72->__r_.__value_.__l.__data_ = v100;
       }
 
-      *v99 = &unk_287528000;
+      *v71 = &unk_287528000;
     }
 
     __p[0] = 0;
     __p[1] = 0;
-    v138 = 0;
-    TDataManager::getStringVar(*this);
-    v135[0] = 0;
-    v135[1] = 0;
-    v136 = 0;
-    TDataManager::getStringVar(*(this + 1));
-    v36 = 0;
-    if (memcmp(__p, v135, 0))
+    v112 = 0;
+    TDataManager::getStringVar(*this, "EnhVersion", __p);
+    v109[0] = 0;
+    v109[1] = 0;
+    v110 = 0;
+    TDataManager::getStringVar(*(this + 1), "EnhVersion", v109);
+    v30 = HIBYTE(v112);
+    if (v112 >= 0)
     {
-      std::string::basic_string[abi:ne200100]<0>(v133, "Unmatched data spec and static data spec");
-      *v139 = byte_287529580;
-      if (SHIBYTE(v134) < 0)
-      {
-        std::string::__init_copy_ctor_external(&v139[8], v133[0], v133[1]);
-      }
-
-      else
-      {
-        *&v139[8] = *v133;
-        v140 = v134;
-      }
-
-      *v139 = &unk_287528000;
-      if (v140 >= 0)
-      {
-        v101 = &v139[8];
-      }
-
-      else
-      {
-        v101 = *&v139[8];
-      }
-
-      conditionalAssert(v101, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 671, v47, v48);
-      *v139 = byte_287529580;
-      if (SHIBYTE(v140) < 0)
-      {
-        operator delete(*&v139[8]);
-      }
-
-      if (SHIBYTE(v134) < 0)
-      {
-        operator delete(v133[0]);
-      }
-
-      v102 = __cxa_allocate_exception(0x20uLL);
-      std::string::basic_string[abi:ne200100]<0>(v139, "Unmatched data spec and static data spec");
-      *v102 = byte_287529580;
-      v103 = (v102 + 1);
-      if ((v139[23] & 0x80000000) != 0)
-      {
-        std::string::__init_copy_ctor_external(v103, *v139, *&v139[8]);
-      }
-
-      else
-      {
-        v128 = *v139;
-        v102[3] = *&v139[16];
-        *&v103->__r_.__value_.__l.__data_ = v128;
-      }
-
-      *v102 = &unk_287528000;
+      v37 = HIBYTE(v112);
     }
 
-    goto LABEL_40;
+    else
+    {
+      v37 = __p[1];
+    }
+
+    v38 = HIBYTE(v110);
+    v39 = SHIBYTE(v110);
+    if (v110 < 0)
+    {
+      v38 = v109[1];
+    }
+
+    if (v37 != v38 || (v112 >= 0 ? (v40 = __p) : (v40 = __p[0]), (v41 = v109[0], v110 >= 0) ? (v42 = v109) : (v42 = v109[0]), memcmp(v40, v42, v37)))
+    {
+      std::string::basic_string[abi:ne200100]<0>(v107, "Unmatched data spec and static data spec");
+      *v113 = byte_287529580;
+      if (SHIBYTE(v108) < 0)
+      {
+        std::string::__init_copy_ctor_external(&v113[8], v107[0], v107[1]);
+      }
+
+      else
+      {
+        *&v113[8] = *v107;
+        v114 = v108;
+      }
+
+      *v113 = &unk_287528000;
+      if (v114 >= 0)
+      {
+        v73 = &v113[8];
+      }
+
+      else
+      {
+        v73 = *&v113[8];
+      }
+
+      conditionalAssert(v73, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 671);
+      *v113 = byte_287529580;
+      if (SHIBYTE(v114) < 0)
+      {
+        operator delete(*&v113[8]);
+      }
+
+      if (SHIBYTE(v108) < 0)
+      {
+        operator delete(v107[0]);
+      }
+
+      v74 = __cxa_allocate_exception(0x20uLL);
+      std::string::basic_string[abi:ne200100]<0>(v113, "Unmatched data spec and static data spec");
+      *v74 = byte_287529580;
+      v75 = (v74 + 1);
+      if ((v113[23] & 0x80000000) != 0)
+      {
+        std::string::__init_copy_ctor_external(v75, *v113, *&v113[8]);
+      }
+
+      else
+      {
+        v101 = *v113;
+        v74[3] = *&v113[16];
+        *&v75->__r_.__value_.__l.__data_ = v101;
+      }
+
+      *v74 = &unk_287528000;
+    }
+
+    if (v39 < 0)
+    {
+      operator delete(v41);
+      v30 = HIBYTE(v112);
+    }
+
+    goto LABEL_82;
   }
 
   if ((a4 & 1) == 0 && ((BoolVar ^ 1) & 1) == 0)
   {
     std::string::basic_string[abi:ne200100]<0>(__p, "The data spec has a static component but it was not specified");
-    *v139 = byte_287529580;
-    if (SHIBYTE(v138) < 0)
+    *v113 = byte_287529580;
+    if (SHIBYTE(v112) < 0)
     {
-      std::string::__init_copy_ctor_external(&v139[8], __p[0], __p[1]);
+      std::string::__init_copy_ctor_external(&v113[8], __p[0], __p[1]);
     }
 
     else
     {
-      *&v139[8] = *__p;
-      v140 = v138;
+      *&v113[8] = *__p;
+      v114 = v112;
     }
 
-    *v139 = &unk_287528000;
-    if (v140 >= 0)
+    *v113 = &unk_287528000;
+    if (v114 >= 0)
     {
-      v107 = &v139[8];
+      v77 = &v113[8];
     }
 
     else
     {
-      v107 = *&v139[8];
+      v77 = *&v113[8];
     }
 
-    conditionalAssert(v107, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 649, v43, v44);
-    *v139 = byte_287529580;
-    if (SHIBYTE(v140) < 0)
+    conditionalAssert(v77, "/Library/Caches/com.apple.xbs/Sources/SDAPI/libtextproc/shared/misc.cpp", 649);
+    *v113 = byte_287529580;
+    if (SHIBYTE(v114) < 0)
     {
-      operator delete(*&v139[8]);
+      operator delete(*&v113[8]);
     }
 
-    if (SHIBYTE(v138) < 0)
+    if (SHIBYTE(v112) < 0)
     {
       operator delete(__p[0]);
     }
 
-    v108 = __cxa_allocate_exception(0x20uLL);
-    std::string::basic_string[abi:ne200100]<0>(v139, "The data spec has a static component but it was not specified");
-    *v108 = byte_287529580;
-    v109 = (v108 + 1);
-    if ((v139[23] & 0x80000000) != 0)
+    v78 = __cxa_allocate_exception(0x20uLL);
+    std::string::basic_string[abi:ne200100]<0>(v113, "The data spec has a static component but it was not specified");
+    *v78 = byte_287529580;
+    v79 = (v78 + 1);
+    if ((v113[23] & 0x80000000) != 0)
     {
-      std::string::__init_copy_ctor_external(v109, *v139, *&v139[8]);
+      std::string::__init_copy_ctor_external(v79, *v113, *&v113[8]);
     }
 
     else
     {
-      v129 = *v139;
-      v108[3] = *&v139[16];
-      *&v109->__r_.__value_.__l.__data_ = v129;
+      v102 = *v113;
+      v78[3] = *&v113[16];
+      *&v79->__r_.__value_.__l.__data_ = v102;
     }
 
-    *v108 = &unk_287528000;
+    *v78 = &unk_287528000;
   }
 }

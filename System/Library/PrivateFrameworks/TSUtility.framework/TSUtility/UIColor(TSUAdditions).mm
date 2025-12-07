@@ -2,7 +2,7 @@
 + (id)grayCheckerboardColor;
 + (id)transparentGrayCheckerboardColor;
 + (uint64_t)checkerboardColorWithColor:()TSUAdditions andColor:squareSize:;
-+ (uint64_t)tableViewCellDarkBlueTextColor;
++ (void)tableViewCellDarkBlueTextColor;
 @end
 
 @implementation UIColor(TSUAdditions)
@@ -69,7 +69,7 @@
   return result;
 }
 
-+ (uint64_t)tableViewCellDarkBlueTextColor
++ (void)tableViewCellDarkBlueTextColor
 {
   result = tableViewCellDarkBlueTextColor_sColor;
   if (!tableViewCellDarkBlueTextColor_sColor)

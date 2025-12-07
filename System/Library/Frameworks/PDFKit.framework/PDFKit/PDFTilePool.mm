@@ -439,7 +439,7 @@ LABEL_23:
   }
 }
 
-uint64_t __37__PDFTilePool__renderTileForRequest___block_invoke(uint64_t a1, CGContextRef c)
+void *__37__PDFTilePool__renderTileForRequest___block_invoke(uint64_t a1, CGContextRef c)
 {
   CGContextSetFillColorWithColor(c, *(a1 + 64));
   v10.size.width = (*(a1 + 80) + 2 * *(a1 + 84));

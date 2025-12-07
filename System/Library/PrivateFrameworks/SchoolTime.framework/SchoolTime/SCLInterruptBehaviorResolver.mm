@@ -51,19 +51,17 @@
 
 void __52__SCLInterruptBehaviorResolver_initWithTargetQueue___block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v5 = scl_interrupt_log();
+  v5 = scl_interrupt_log(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109378;
-    v7[1] = a2;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_264829000, v5, OS_LOG_TYPE_DEFAULT, "Access to contacts store: granted=%{BOOL}u, error=%@", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = a2;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_264829000, v5, OS_LOG_TYPE_DEFAULT, "Access to contacts store: granted=%{BOOL}u, error=%@", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -76,14 +74,14 @@ void __52__SCLInterruptBehaviorResolver_initWithTargetQueue___block_invoke(uint6
 
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
-  v6 = scl_interrupt_log();
+  v6 = scl_interrupt_log(connectionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v11[0] = 67109120;
-    v11[1] = [connectionCopy processIdentifier];
-    _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_INFO, "Accepting new connection from pid %d", v11, 8u);
+    v10[0] = 67109120;
+    v10[1] = [connectionCopy processIdentifier];
+    _os_log_impl(&dword_264829000, v6, OS_LOG_TYPE_INFO, "Accepting new connection from pid %d", v10, 8u);
   }
 
   v7 = SCLInterruptBehaviorResolutionXPCServerInterface();
@@ -94,7 +92,6 @@ void __52__SCLInterruptBehaviorResolver_initWithTargetQueue___block_invoke(uint6
   [connectionCopy _setQueue:queue];
 
   [connectionCopy resume];
-  v9 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -110,51 +107,50 @@ void __52__SCLInterruptBehaviorResolver_initWithTargetQueue___block_invoke(uint6
 
 - (void)resolveBehaviorForEvent:(id)event clientIdentifier:(id)identifier completion:(id)completion
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   identifierCopy = identifier;
   completionCopy = completion;
   queue = [(SCLInterruptBehaviorResolver *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v12 = scl_interrupt_log();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v13 = scl_interrupt_log(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v18 = 138543362;
-    v19 = eventCopy;
-    _os_log_impl(&dword_264829000, v12, OS_LOG_TYPE_INFO, "Resolving behavior for event: %{public}@", &v18, 0xCu);
+    v19 = 138543362;
+    v20 = eventCopy;
+    _os_log_impl(&dword_264829000, v13, OS_LOG_TYPE_INFO, "Resolving behavior for event: %{public}@", &v19, 0xCu);
   }
 
-  if ([(SCLInterruptBehaviorResolver *)self _isEntitledWithClientIdentifier:identifierCopy])
+  v14 = [(SCLInterruptBehaviorResolver *)self _isEntitledWithClientIdentifier:identifierCopy];
+  if (v14)
   {
     date = [MEMORY[0x277CBEAA8] date];
-    v14 = [(SCLInterruptBehaviorResolver *)self _resolveInterruptBehaviorForEvent:eventCopy date:date clientIdentifier:identifierCopy];
-    v15 = scl_interrupt_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = [(SCLInterruptBehaviorResolver *)self _resolveInterruptBehaviorForEvent:eventCopy date:date clientIdentifier:identifierCopy];
+    v17 = scl_interrupt_log(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = 138412546;
-      v19 = v14;
-      v20 = 2114;
-      v21 = eventCopy;
-      _os_log_impl(&dword_264829000, v15, OS_LOG_TYPE_DEFAULT, "Result behavior:%@ for event: %{public}@", &v18, 0x16u);
+      v19 = 138412546;
+      v20 = v16;
+      v21 = 2114;
+      v22 = eventCopy;
+      _os_log_impl(&dword_264829000, v17, OS_LOG_TYPE_DEFAULT, "Result behavior:%@ for event: %{public}@", &v19, 0x16u);
     }
 
-    completionCopy[2](completionCopy, v14, 0);
+    completionCopy[2](completionCopy, v16, 0);
   }
 
   else
   {
-    v16 = scl_interrupt_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = scl_interrupt_log(v14);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      [SCLInterruptBehaviorResolver resolveBehaviorForEvent:v16 clientIdentifier:? completion:?];
+      [SCLInterruptBehaviorResolver resolveBehaviorForEvent:v18 clientIdentifier:? completion:?];
     }
 
     date = SCLEntitlementError(0x2876227A8);
     (completionCopy)[2](completionCopy, 0, date);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isEntitledWithClientIdentifier:(id)identifier
@@ -168,22 +164,23 @@ void __52__SCLInterruptBehaviorResolver_initWithTargetQueue___block_invoke(uint6
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v8 = [v7 containsObject:identifierCopy];
+    isKindOfClass = [v7 containsObject:identifierCopy];
 LABEL_5:
-    v9 = v8;
+    v9 = isKindOfClass;
     goto LABEL_7;
   }
 
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v8 = [v7 isEqualToString:identifierCopy];
+    isKindOfClass = [v7 isEqualToString:identifierCopy];
     goto LABEL_5;
   }
 
   v9 = 0;
 LABEL_7:
-  v10 = scl_interrupt_log();
+  v10 = scl_interrupt_log(isKindOfClass);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [(SCLInterruptBehaviorResolver *)identifierCopy _isEntitledWithClientIdentifier:v9, v10];
@@ -271,39 +268,39 @@ LABEL_7:
   v18[3] = &unk_279B6C6D8;
   LODWORD(v10) = [(CNContactStore *)contactStore enumerateContactsWithFetchRequest:v9 error:&v19 usingBlock:v18];
   v12 = v19;
+  v13 = v12;
   if (v10)
   {
-    v13 = scl_interrupt_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = scl_interrupt_log(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = *(v21 + 24);
+      v15 = *(v21 + 24);
       *buf = 138543618;
       v25 = contactCopy;
       v26 = 1024;
-      v27 = v14;
-      _os_log_impl(&dword_264829000, v13, OS_LOG_TYPE_DEFAULT, "sender=%{public}@, isEmergencyBypassEnabled=%{BOOL}u", buf, 0x12u);
+      v27 = v15;
+      _os_log_impl(&dword_264829000, v14, OS_LOG_TYPE_DEFAULT, "sender=%{public}@, isEmergencyBypassEnabled=%{BOOL}u", buf, 0x12u);
     }
   }
 
   else
   {
-    v13 = scl_interrupt_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = scl_interrupt_log(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [(SCLInterruptBehaviorResolver *)v12 _isEmergencyBypassEnabledForContact:v13];
+      [(SCLInterruptBehaviorResolver *)v13 _isEmergencyBypassEnabledForContact:v14];
     }
   }
 
-  v15 = *(v21 + 24);
+  v16 = *(v21 + 24);
   _Block_object_dispose(&v20, 8);
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v15 & 1;
+  return v16 & 1;
 }
 
 void __68__SCLInterruptBehaviorResolver__isEmergencyBypassEnabledForContact___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   if ([v5 isUnified])
   {
@@ -312,15 +309,13 @@ void __68__SCLInterruptBehaviorResolver__isEmergencyBypassEnabledForContact___bl
 
   else
   {
-    v9[0] = v5;
-    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
+    v8[0] = v5;
+    v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   }
 
   v7 = v6;
   *(*(*(a1 + 32) + 8) + 24) = [v6 bs_containsObjectPassingTest:&__block_literal_global_21];
   *a3 = *(*(*(a1 + 32) + 8) + 24);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __68__SCLInterruptBehaviorResolver__isEmergencyBypassEnabledForContact___block_invoke_2(uint64_t a1, void *a2)
@@ -333,7 +328,7 @@ uint64_t __68__SCLInterruptBehaviorResolver__isEmergencyBypassEnabledForContact_
 
 - (BOOL)_isRepeatSender:(id)sender date:(id)date clientIdentifier:(id)identifier
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   senderCopy = sender;
   identifierCopy = identifier;
   dateCopy = date;
@@ -343,28 +338,27 @@ uint64_t __68__SCLInterruptBehaviorResolver__isEmergencyBypassEnabledForContact_
   v12 = [dateCopy dateByAddingTimeInterval:-180.0];
 
   resolutionRecords = self->_resolutionRecords;
-  v21[0] = MEMORY[0x277D85DD0];
-  v21[1] = 3221225472;
-  v21[2] = __70__SCLInterruptBehaviorResolver__isRepeatSender_date_clientIdentifier___block_invoke;
-  v21[3] = &unk_279B6C700;
-  v22 = v12;
-  v23 = identifierCopy;
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __70__SCLInterruptBehaviorResolver__isRepeatSender_date_clientIdentifier___block_invoke;
+  v20[3] = &unk_279B6C700;
+  v21 = v12;
+  v22 = identifierCopy;
   v14 = senderCopy;
-  v24 = v14;
+  v23 = v14;
   v15 = identifierCopy;
   v16 = v12;
-  v17 = [(NSMutableArray *)resolutionRecords bs_containsObjectPassingTest:v21];
-  v18 = scl_interrupt_log();
+  v17 = [(NSMutableArray *)resolutionRecords bs_containsObjectPassingTest:v20];
+  v18 = scl_interrupt_log(v17);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
-    v26 = v14;
-    v27 = 1024;
-    v28 = v17;
+    v25 = v14;
+    v26 = 1024;
+    v27 = v17;
     _os_log_impl(&dword_264829000, v18, OS_LOG_TYPE_DEFAULT, "Checked if event sender is a repeat: sender=%{public}@, repeat=%{BOOL}u", buf, 0x12u);
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -397,8 +391,7 @@ uint64_t __70__SCLInterruptBehaviorResolver__isRepeatSender_date_clientIdentifie
 
   if (recordCopy)
   {
-    [(NSMutableArray *)self->_resolutionRecords addObject:recordCopy];
-    v6 = scl_interrupt_log();
+    v6 = scl_interrupt_log([(NSMutableArray *)self->_resolutionRecords addObject:recordCopy]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
@@ -421,21 +414,20 @@ uint64_t __70__SCLInterruptBehaviorResolver__isRepeatSender_date_clientIdentifie
       v17 = v11;
       v12 = [v10 predicateWithBlock:v16];
       [(NSMutableArray *)self->_resolutionRecords filterUsingPredicate:v12];
-      v13 = v7 - [(NSMutableArray *)self->_resolutionRecords count];
-      if (v13)
+      v13 = [(NSMutableArray *)self->_resolutionRecords count];
+      v14 = v7 - v13;
+      if (v14)
       {
-        v14 = scl_interrupt_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v15 = scl_interrupt_log(v13);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134217984;
-          v19 = v13;
-          _os_log_impl(&dword_264829000, v14, OS_LOG_TYPE_DEFAULT, "Pruned %lu resolution records", buf, 0xCu);
+          v19 = v14;
+          _os_log_impl(&dword_264829000, v15, OS_LOG_TYPE_DEFAULT, "Pruned %lu resolution records", buf, 0xCu);
         }
       }
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 BOOL __53__SCLInterruptBehaviorResolver__addResolutionRecord___block_invoke(uint64_t a1, void *a2)
@@ -449,22 +441,20 @@ BOOL __53__SCLInterruptBehaviorResolver__addResolutionRecord___block_invoke(uint
 
 - (void)_isEntitledWithClientIdentifier:(os_log_t)log .cold.1(uint64_t a1, char a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 1024;
-  v7 = a2 & 1;
-  _os_log_debug_impl(&dword_264829000, log, OS_LOG_TYPE_DEBUG, "Client %@ entitled %{BOOL}u", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 1024;
+  v6 = a2 & 1;
+  _os_log_debug_impl(&dword_264829000, log, OS_LOG_TYPE_DEBUG, "Client %@ entitled %{BOOL}u", &v3, 0x12u);
 }
 
 - (void)_isEmergencyBypassEnabledForContact:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_264829000, a2, OS_LOG_TYPE_ERROR, "Error checking emergency bypass contacts: error=%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_264829000, a2, OS_LOG_TYPE_ERROR, "Error checking emergency bypass contacts: error=%@", &v2, 0xCu);
 }
 
 @end

@@ -56,7 +56,7 @@
 
 - (void)URLSession:(id)session downloadTask:(id)task didFinishDownloadingToURL:(id)l
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   lCopy = l;
   taskCopy = task;
   response = [taskCopy response];
@@ -68,37 +68,37 @@
     shardRegistry = [updateCoordinator shardRegistry];
 
     entry = self->_entry;
-    v29 = 0;
-    v14 = [shardRegistry stageShardFileWithLocalURL:lCopy entry:entry error:&v29];
-    v15 = v29;
+    v28 = 0;
+    v14 = [shardRegistry stageShardFileWithLocalURL:lCopy entry:entry error:&v28];
+    v15 = v28;
     if (v14)
     {
-      v20 = [(HKOntologyShardRegistryEntry *)self->_entry copyWithAvailableState:2];
+      v19 = [(HKOntologyShardRegistryEntry *)self->_entry copyWithAvailableState:2];
       downloader = self->_downloader;
-      v30 = v20;
-      v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v30 count:1];
-      v28 = 0;
-      v23 = [(HDOntologyShardDownloader *)downloader _persistStagedEntries:v22 error:&v28];
-      v18 = v28;
+      v29 = v19;
+      v21 = [MEMORY[0x277CBEA60] arrayWithObjects:&v29 count:1];
+      v27 = 0;
+      v22 = [(HDOntologyShardDownloader *)downloader _persistStagedEntries:v21 error:&v27];
+      v18 = v27;
 
-      if ((v23 & 1) == 0)
+      if ((v22 & 1) == 0)
       {
         _HKInitializeLogging();
-        v24 = HKLogHealthOntology();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v23 = HKLogHealthOntology();
+        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543874;
           selfCopy2 = self;
-          v33 = 2114;
-          v34 = v20;
-          v35 = 2114;
-          v36 = v18;
-          _os_log_error_impl(&dword_2514A1000, v24, OS_LOG_TYPE_ERROR, "%{public}@: Failed to insert updated entry %{public}@: %{public}@", buf, 0x20u);
+          v32 = 2114;
+          v33 = v19;
+          v34 = 2114;
+          v35 = v18;
+          _os_log_error_impl(&dword_2514A1000, v23, OS_LOG_TYPE_ERROR, "%{public}@: Failed to insert updated entry %{public}@: %{public}@", buf, 0x20u);
         }
 
-        v25 = [(NSError *)v18 copy];
+        v24 = [(NSError *)v18 copy];
         error = self->_error;
-        self->_error = v25;
+        self->_error = v24;
       }
     }
 
@@ -108,13 +108,13 @@
       v16 = HKLogHealthOntology();
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
-        v27 = self->_entry;
+        v26 = self->_entry;
         *buf = 138543874;
         selfCopy2 = self;
-        v33 = 2114;
-        v34 = v27;
-        v35 = 2114;
-        v36 = v15;
+        v32 = 2114;
+        v33 = v26;
+        v34 = 2114;
+        v35 = v15;
         _os_log_error_impl(&dword_2514A1000, v16, OS_LOG_TYPE_ERROR, "%{public}@: Failed to stage shard file for entry %{public}@: %{public}@", buf, 0x20u);
       }
 
@@ -123,8 +123,6 @@
       self->_error = v17;
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session task:(id)task didCompleteWithError:(id)error
@@ -182,28 +180,25 @@
 
 - (void)URLSession:(uint64_t)a1 task:(uint64_t)a2 didCompleteWithError:(os_log_t)log .cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138543618;
-  v5 = a1;
-  v6 = 2114;
-  v7 = a2;
-  _os_log_error_impl(&dword_2514A1000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch shard file with error: %{public}@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138543618;
+  v4 = a1;
+  v5 = 2114;
+  v6 = a2;
+  _os_log_error_impl(&dword_2514A1000, log, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch shard file with error: %{public}@", &v3, 0x16u);
 }
 
 - (void)_handleResponse:(NSObject *)a3 task:.cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = [MEMORY[0x277CCAA40] localizedStringForStatusCode:a2];
-  v8 = 138543874;
-  v9 = a1;
-  v10 = 2048;
-  v11 = a2;
-  v12 = 2114;
-  v13 = v6;
-  _os_log_error_impl(&dword_2514A1000, a3, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch shard file with status code %ld, %{public}@", &v8, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138543874;
+  v8 = a1;
+  v9 = 2048;
+  v10 = a2;
+  v11 = 2114;
+  v12 = v6;
+  _os_log_error_impl(&dword_2514A1000, a3, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch shard file with status code %ld, %{public}@", &v7, 0x20u);
 }
 
 @end

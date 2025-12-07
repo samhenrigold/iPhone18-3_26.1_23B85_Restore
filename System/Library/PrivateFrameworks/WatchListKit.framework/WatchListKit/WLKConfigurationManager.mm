@@ -28,24 +28,24 @@
   return v3;
 }
 
-void __41__WLKConfigurationManager_sharedInstance__block_invoke()
+void __41__WLKConfigurationManager_sharedInstance__block_invoke(uint64_t a1)
 {
-  v0 = WLKStartupSignpostLogObject();
-  if (os_signpost_enabled(v0))
+  v1 = WLKStartupSignpostLogObject(a1);
+  if (os_signpost_enabled(v1))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v0, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Config.Init", &unk_272A8884E, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v1, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Config.Init", &unk_272A8884E, buf, 2u);
   }
 
-  v1 = [[WLKConfigurationManager alloc] _init];
-  v2 = sharedInstance_sharedInstance;
-  sharedInstance_sharedInstance = v1;
+  v2 = [[WLKConfigurationManager alloc] _init];
+  v3 = sharedInstance_sharedInstance;
+  sharedInstance_sharedInstance = v2;
 
-  v3 = WLKStartupSignpostLogObject();
-  if (os_signpost_enabled(v3))
+  v5 = WLKStartupSignpostLogObject(v4);
+  if (os_signpost_enabled(v5))
   {
-    *v4 = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v3, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Config.Init", &unk_272A8884E, v4, 2u);
+    *v6 = 0;
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v5, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Config.Init", &unk_272A8884E, v6, 2u);
   }
 }
 
@@ -92,7 +92,7 @@ void __41__WLKConfigurationManager_sharedInstance__block_invoke()
 
 - (void)fetchConfigurationWithOptions:(int64_t)options cachePolicy:(unint64_t)policy queryParameters:(id)parameters completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   completionCopy = completion;
   if (!completionCopy)
@@ -120,11 +120,11 @@ void __41__WLKConfigurationManager_sharedInstance__block_invoke()
       {
         v18 = [(WLKConfigurationManager *)self _stringForCachePolicy:5];
         [(WLKConfigurationManager *)self extendedCacheExpireDuration];
-        v23 = 138412546;
-        v24 = v18;
-        v25 = 2048;
-        v26 = v19;
-        _os_log_impl(&dword_272A0F000, v17, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - PreCheck: cachePolicy=%@, extendedCacheExpireDuration=%f", &v23, 0x16u);
+        v22 = 138412546;
+        v23 = v18;
+        v24 = 2048;
+        v25 = v19;
+        _os_log_impl(&dword_272A0F000, v17, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - PreCheck: cachePolicy=%@, extendedCacheExpireDuration=%f", &v22, 0x16u);
       }
 
       if (v14)
@@ -153,9 +153,9 @@ LABEL_5:
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = [(WLKConfigurationManager *)self _stringForCachePolicy:policy];
-      v23 = 138412290;
-      v24 = v16;
-      _os_log_impl(&dword_272A0F000, v15, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - PreCheck: Use memory cache immediately, cachePolicy: %@", &v23, 0xCu);
+      v22 = 138412290;
+      v23 = v16;
+      _os_log_impl(&dword_272A0F000, v15, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - PreCheck: Use memory cache immediately, cachePolicy: %@", &v22, 0xCu);
     }
 
     (v12)[2](v12, v14, 0);
@@ -166,15 +166,13 @@ LABEL_5:
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     v21 = [(WLKConfigurationManager *)self _stringForCachePolicy:policy];
-    v23 = 138412290;
-    v24 = v21;
-    _os_log_impl(&dword_272A0F000, v20, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - PreCheck: Enter fetchQueue to fetch configuration, cachePolicy: %@", &v23, 0xCu);
+    v22 = 138412290;
+    v23 = v21;
+    _os_log_impl(&dword_272A0F000, v20, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - PreCheck: Enter fetchQueue to fetch configuration, cachePolicy: %@", &v22, 0xCu);
   }
 
   [(WLKConfigurationManager *)self _fetchConfigurationWithOptions:options cachePolicy:policy queryParameters:parametersCopy completion:v12];
 LABEL_24:
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchConfigurationWithOptions:(int64_t)options cachePolicy:(unint64_t)policy queryParameters:(id)parameters completion:(id)completion
@@ -210,23 +208,24 @@ LABEL_24:
 
 void __97__WLKConfigurationManager__fetchConfigurationWithOptions_cachePolicy_queryParameters_completion___block_invoke_2(uint64_t a1)
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v2 = [WeakRetained _config];
-  v48 = [v2 utsk];
-  v3 = 0;
-  v4 = *(a1 + 64);
-  v5 = 1;
-  if (v4 > 2)
+  v3 = [v2 utsk];
+  v47 = v3;
+  v4 = 0;
+  v5 = *(a1 + 64);
+  v6 = 1;
+  if (v5 > 2)
   {
-    if (v4 == 3)
+    if (v5 == 3)
     {
       goto LABEL_20;
     }
 
-    if (v4 != 4)
+    if (v5 != 4)
     {
-      if (v4 != 5)
+      if (v5 != 5)
       {
         goto LABEL_30;
       }
@@ -239,11 +238,11 @@ void __97__WLKConfigurationManager__fetchConfigurationWithOptions_cachePolicy_qu
       [*(a1 + 32) extendedCacheExpireDuration];
       if (([v2 isValidWithinExtendedExpiration:?] & 1) == 0)
       {
-        v6 = WLKNetworkingLogObject();
-        if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+        v7 = WLKNetworkingLogObject();
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(buf) = 0;
-          _os_log_impl(&dword_272A0F000, v6, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Memory cache is not valid within extended expiration duration, try to load another one", &buf, 2u);
+          _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Memory cache is not valid within extended expiration duration, try to load another one", &buf, 2u);
         }
 
         goto LABEL_29;
@@ -256,106 +255,106 @@ void __97__WLKConfigurationManager__fetchConfigurationWithOptions_cachePolicy_qu
     {
       if (([v2 isValid] & 1) == 0)
       {
-        v47 = WLKNetworkingLogObject();
-        if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
+        v46 = WLKNetworkingLogObject();
+        if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
         {
           LOWORD(buf) = 0;
-          _os_log_impl(&dword_272A0F000, v47, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Memory cache is no good. If fails to load, use expired.", &buf, 2u);
+          _os_log_impl(&dword_272A0F000, v46, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Memory cache is no good. If fails to load, use expired.", &buf, 2u);
         }
 
-        v3 = 0;
-        v5 = 0;
+        v4 = 0;
+        v6 = 0;
 LABEL_30:
-        v12 = WLKStartupSignpostLogObject();
-        if (os_signpost_enabled(v12))
+        v13 = WLKStartupSignpostLogObject(v3);
+        if (os_signpost_enabled(v13))
         {
           LOWORD(buf) = 0;
-          _os_signpost_emit_with_name_impl(&dword_272A0F000, v12, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync", &unk_272A8884E, &buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_272A0F000, v13, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync", &unk_272A8884E, &buf, 2u);
         }
 
         [WLKSettingsCloudUtilities synchronizeSettingsFromCloudIfNeededWithCompletion:&__block_literal_global_31];
-        v13 = WLKNetworkingLogObject();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v14 = WLKNetworkingLogObject();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = [*(a1 + 32) _stringForCachePolicy:*(a1 + 64)];
+          v15 = [*(a1 + 32) _stringForCachePolicy:*(a1 + 64)];
           LODWORD(buf) = 138412290;
-          *(&buf + 4) = v14;
-          _os_log_impl(&dword_272A0F000, v13, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - fetchConfiguration with cachePolicy: %@", &buf, 0xCu);
+          *(&buf + 4) = v15;
+          _os_log_impl(&dword_272A0F000, v14, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - fetchConfiguration with cachePolicy: %@", &buf, 0xCu);
         }
 
-        v15 = [*(a1 + 40) mutableCopy];
-        if (!v15)
+        v16 = [*(a1 + 40) mutableCopy];
+        if (!v16)
         {
-          v15 = [MEMORY[0x277CBEB38] dictionary];
+          v16 = [MEMORY[0x277CBEB38] dictionary];
         }
 
         *&buf = 0;
         *(&buf + 1) = &buf;
-        v63 = 0x3032000000;
-        v64 = __Block_byref_object_copy__1;
-        v65 = __Block_byref_object_dispose__1;
-        v66 = 0;
-        v54 = 0;
-        v55 = &v54;
-        v56 = 0x3032000000;
-        v57 = __Block_byref_object_copy__1;
-        v58 = __Block_byref_object_dispose__1;
-        v59 = 0;
-        v16 = dispatch_semaphore_create(0);
-        v17 = *(a1 + 64);
-        v18 = *(a1 + 72);
+        v62 = 0x3032000000;
+        v63 = __Block_byref_object_copy__1;
+        v64 = __Block_byref_object_dispose__1;
+        v65 = 0;
+        v53 = 0;
+        v54 = &v53;
+        v55 = 0x3032000000;
+        v56 = __Block_byref_object_copy__1;
+        v57 = __Block_byref_object_dispose__1;
+        v58 = 0;
+        v17 = dispatch_semaphore_create(0);
+        v18 = *(a1 + 64);
+        v19 = *(a1 + 72);
         [*(a1 + 32) extendedCacheExpireDuration];
-        v20 = v19;
-        if (v17 == 1)
+        v21 = v20;
+        if (v18 == 1)
         {
-          v21 = 2;
+          v22 = 2;
         }
 
         else
         {
-          v21 = v3;
+          v22 = v4;
         }
 
-        v22 = *(*(a1 + 32) + 24);
-        v50[0] = MEMORY[0x277D85DD0];
-        v50[1] = 3221225472;
-        v50[2] = __97__WLKConfigurationManager__fetchConfigurationWithOptions_cachePolicy_queryParameters_completion___block_invoke_34;
-        v50[3] = &unk_279E5F018;
-        v52 = &v54;
+        v23 = *(*(a1 + 32) + 24);
+        v49[0] = MEMORY[0x277D85DD0];
+        v49[1] = 3221225472;
+        v49[2] = __97__WLKConfigurationManager__fetchConfigurationWithOptions_cachePolicy_queryParameters_completion___block_invoke_34;
+        v49[3] = &unk_279E5F018;
+        v51 = &v53;
         p_buf = &buf;
-        v23 = v16;
-        v51 = v23;
-        v24 = v15;
-        [WLKConfigurationRequest fetchWithOptions:v18 cachePolicy:v21 wlkCachePolicy:v17 extendedCacheExpireDuration:0 sessionConfiguration:v15 queryParameters:v22 fileStorage:v20 completion:v50];
-        dispatch_semaphore_wait(v23, 0xFFFFFFFFFFFFFFFFLL);
+        v24 = v17;
+        v50 = v24;
+        v25 = v16;
+        [WLKConfigurationRequest fetchWithOptions:v19 cachePolicy:v22 wlkCachePolicy:v18 extendedCacheExpireDuration:0 sessionConfiguration:v16 queryParameters:v23 fileStorage:v21 completion:v49];
+        dispatch_semaphore_wait(v24, 0xFFFFFFFFFFFFFFFFLL);
         if (v2)
         {
-          v25 = [v2 isValidIgnoringExpiration];
-          v26 = v55;
-          if (v25)
+          v26 = [v2 isValidIgnoringExpiration];
+          v27 = v54;
+          if (v26)
           {
-            v27 = v5;
-            if (v55[5])
+            v28 = v6;
+            if (v54[5])
             {
-              v27 = 1;
+              v28 = 1;
             }
 
-            if ((v27 & 1) == 0)
+            if ((v28 & 1) == 0)
             {
-              v28 = WLKNetworkingLogObject();
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+              v29 = WLKNetworkingLogObject();
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
               {
-                *v60 = 0;
-                _os_log_impl(&dword_272A0F000, v28, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Current init/config is valid and new init/config is nil. Policy allows the use of expired init/config.", v60, 2u);
+                *v59 = 0;
+                _os_log_impl(&dword_272A0F000, v29, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Current init/config is valid and new init/config is nil. Policy allows the use of expired init/config.", v59, 2u);
               }
 
               (*(*(a1 + 48) + 16))();
 LABEL_68:
 
-              _Block_object_dispose(&v54, 8);
+              _Block_object_dispose(&v53, 8);
               _Block_object_dispose(&buf, 8);
 
-              v11 = 0;
+              v12 = 0;
               goto LABEL_69;
             }
           }
@@ -363,81 +362,80 @@ LABEL_68:
 
         else
         {
-          v26 = v55;
+          v27 = v54;
         }
 
-        [WeakRetained _setConfig:v26[5]];
-        v29 = [v55[5] utsk];
-        if (v48 && ([v48 isEqualToString:v29] & 1) == 0)
+        [WeakRetained _setConfig:v27[5]];
+        v30 = [v54[5] utsk];
+        if (v47 && ([v47 isEqualToString:v30] & 1) == 0)
         {
-          v30 = WLKNetworkingLogObject();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+          v31 = WLKNetworkingLogObject();
+          if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
           {
-            *v60 = 0;
-            _os_log_impl(&dword_272A0F000, v30, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Posting UTSK didChange notification", v60, 2u);
+            *v59 = 0;
+            _os_log_impl(&dword_272A0F000, v31, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Posting UTSK didChange notification", v59, 2u);
           }
 
-          v31 = [MEMORY[0x277CCAB98] defaultCenter];
-          v32 = [v55[5] responseDictionary];
-          [v31 postNotificationName:@"WLKServerConfigurationUTSKDidChangeNotification" object:v32];
+          v32 = [MEMORY[0x277CCAB98] defaultCenter];
+          v33 = [v54[5] responseDictionary];
+          [v32 postNotificationName:@"WLKServerConfigurationUTSKDidChangeNotification" object:v33];
         }
 
         if (v2)
         {
-          v33 = [v2 responseDictionary];
-          v34 = [v55[5] responseDictionary];
-          v35 = [v33 isEqualToDictionary:v34];
+          v34 = [v2 responseDictionary];
+          v35 = [v54[5] responseDictionary];
+          v36 = [v34 isEqualToDictionary:v35];
 
-          if ((v35 & 1) == 0)
+          if ((v36 & 1) == 0)
           {
-            v36 = WLKNetworkingLogObject();
-            if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+            v37 = WLKNetworkingLogObject();
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
             {
-              *v60 = 0;
-              _os_log_impl(&dword_272A0F000, v36, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Posting in-process didChange notification", v60, 2u);
+              *v59 = 0;
+              _os_log_impl(&dword_272A0F000, v37, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Posting in-process didChange notification", v59, 2u);
             }
 
-            v37 = [MEMORY[0x277CCAB98] defaultCenter];
-            v38 = [v55[5] responseDictionary];
-            [v37 postNotificationName:@"WLKServerConfigurationDidChangeNotification" object:v38];
+            v38 = [MEMORY[0x277CCAB98] defaultCenter];
+            v39 = [v54[5] responseDictionary];
+            [v38 postNotificationName:@"WLKServerConfigurationDidChangeNotification" object:v39];
           }
         }
 
-        v39 = v55[5];
-        v40 = WLKNetworkingLogObject();
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
+        v40 = v54[5];
+        v41 = WLKNetworkingLogObject();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
         {
-          v41 = @"success";
-          if (!v39)
+          v42 = @"success";
+          if (!v40)
           {
-            v41 = @"failure";
+            v42 = @"failure";
           }
 
-          *v60 = 138412290;
-          v61 = v41;
-          _os_log_impl(&dword_272A0F000, v40, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Firing completion handler %@", v60, 0xCu);
+          *v59 = 138412290;
+          v60 = v42;
+          _os_log_impl(&dword_272A0F000, v41, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Firing completion handler %@", v59, 0xCu);
         }
 
-        if (v39)
+        if (v40)
         {
-          v42 = 0;
+          v43 = 0;
         }
 
         else
         {
-          v43 = WLKNetworkingLogObject();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+          v44 = WLKNetworkingLogObject();
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
           {
-            v44 = *(*(&buf + 1) + 40);
-            *v60 = 138412290;
-            v61 = v44;
-            _os_log_impl(&dword_272A0F000, v43, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Error: %@", v60, 0xCu);
+            v45 = *(*(&buf + 1) + 40);
+            *v59 = 138412290;
+            v60 = v45;
+            _os_log_impl(&dword_272A0F000, v44, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Error: %@", v59, 0xCu);
           }
 
-          v42 = *(*(&buf + 1) + 40);
+          v43 = *(*(&buf + 1) + 40);
         }
 
-        v45 = v55[5];
         (*(*(a1 + 48) + 16))();
 
         goto LABEL_68;
@@ -449,7 +447,7 @@ LABEL_68:
     goto LABEL_29;
   }
 
-  if (!v4)
+  if (!v5)
   {
     if (v2)
     {
@@ -458,24 +456,24 @@ LABEL_68:
         goto LABEL_25;
       }
 
-      v7 = WLKNetworkingLogObject();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = WLKNetworkingLogObject();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf) = 0;
-        _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Memory cache is no good. Load new one then replace the cache later when response comes", &buf, 2u);
+        _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Memory cache is no good. Load new one then replace the cache later when response comes", &buf, 2u);
       }
 
 LABEL_20:
-      v3 = 1;
+      v4 = 1;
       goto LABEL_30;
     }
 
 LABEL_29:
-    v3 = 0;
+    v4 = 0;
     goto LABEL_30;
   }
 
-  if (v4 == 1)
+  if (v5 == 1)
   {
     if (!v2)
     {
@@ -483,54 +481,55 @@ LABEL_29:
     }
 
 LABEL_25:
-    v8 = v2;
+    v9 = v2;
     goto LABEL_26;
   }
 
-  if (v4 != 2)
+  if (v5 != 2)
   {
     goto LABEL_30;
   }
 
-  if (!v2)
+  v3 = v2;
+  if (!v3)
   {
     goto LABEL_29;
   }
 
 LABEL_26:
-  v9 = WLKNetworkingLogObject();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = WLKNetworkingLogObject();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [*(a1 + 32) _stringForCachePolicy:*(a1 + 64)];
+    v11 = [*(a1 + 32) _stringForCachePolicy:*(a1 + 64)];
     LODWORD(buf) = 138412290;
-    *(&buf + 4) = v10;
-    _os_log_impl(&dword_272A0F000, v9, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Memory cache can be used for this policy, return it now, cachePolicy=%@", &buf, 0xCu);
+    *(&buf + 4) = v11;
+    _os_log_impl(&dword_272A0F000, v10, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Memory cache can be used for this policy, return it now, cachePolicy=%@", &buf, 0xCu);
   }
 
   (*(*(a1 + 48) + 16))();
-  v11 = v2;
+  v12 = v2;
 LABEL_69:
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
-void __97__WLKConfigurationManager__fetchConfigurationWithOptions_cachePolicy_queryParameters_completion___block_invoke_28(uint64_t a1, char a2, void *a3)
+void __97__WLKConfigurationManager__fetchConfigurationWithOptions_cachePolicy_queryParameters_completion___block_invoke_28(uint64_t a1, uint64_t a2, void *a3)
 {
+  v3 = a2;
   v4 = a3;
+  v5 = v4;
   if (v4)
   {
-    v5 = WLKNetworkingLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = WLKNetworkingLogObject();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      __97__WLKConfigurationManager__fetchConfigurationWithOptions_cachePolicy_queryParameters_completion___block_invoke_28_cold_1(a2, v4, v5);
+      __97__WLKConfigurationManager__fetchConfigurationWithOptions_cachePolicy_queryParameters_completion___block_invoke_28_cold_1(v3, v5, v6);
     }
   }
 
-  v6 = WLKStartupSignpostLogObject();
-  if (os_signpost_enabled(v6))
+  v7 = WLKStartupSignpostLogObject(v4);
+  if (os_signpost_enabled(v7))
   {
-    *v7 = 0;
-    _os_signpost_emit_with_name_impl(&dword_272A0F000, v6, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync", &unk_272A8884E, v7, 2u);
+    *v8 = 0;
+    _os_signpost_emit_with_name_impl(&dword_272A0F000, v7, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Config.Fetch.SettingsSync", &unk_272A8884E, v8, 2u);
   }
 }
 
@@ -603,7 +602,7 @@ void __81__WLKConfigurationManager__configurationWithOptions_cachePolicy_queryPa
 
 - (void)_setUtsk:(id)utsk
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   utskCopy = utsk;
   os_unfair_lock_lock(&__accessLock);
   utsk = [(WLKServerConfigurationResponse *)self->_config utsk];
@@ -613,11 +612,11 @@ void __81__WLKConfigurationManager__configurationWithOptions_cachePolicy_queryPa
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       utsk2 = [(WLKServerConfigurationResponse *)self->_config utsk];
-      v17 = 138412546;
-      v18 = utsk2;
-      v19 = 2112;
-      v20 = utskCopy;
-      _os_log_impl(&dword_272A0F000, v9, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Handling UTSK change: %@ -> %@", &v17, 0x16u);
+      v16 = 138412546;
+      v17 = utsk2;
+      v18 = 2112;
+      v19 = utskCopy;
+      _os_log_impl(&dword_272A0F000, v9, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Handling UTSK change: %@ -> %@", &v16, 0x16u);
     }
 
     v11 = [(WLKServerConfigurationResponse *)self->_config configurationResponseByReplacingUTSK:utskCopy];
@@ -637,8 +636,6 @@ void __81__WLKConfigurationManager__configurationWithOptions_cachePolicy_queryPa
   {
     os_unfair_lock_unlock(&__accessLock);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setConfig:(id)config
@@ -687,19 +684,17 @@ void __81__WLKConfigurationManager__configurationWithOptions_cachePolicy_queryPa
 
 void __50__WLKConfigurationManager__invalidateNetworkCache__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = WLKNetworkingLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109378;
-    v7[1] = a2;
-    v8 = 2112;
-    v9 = v4;
-    _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Invalidating disk cache success: %d Err: %@", v7, 0x12u);
+    v6[0] = 67109378;
+    v6[1] = a2;
+    v7 = 2112;
+    v8 = v4;
+    _os_log_impl(&dword_272A0F000, v5, OS_LOG_TYPE_DEFAULT, "WLKConfigurationManager - Invalidating disk cache success: %d Err: %@", v6, 0x12u);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_stringForCachePolicy:(unint64_t)policy
@@ -717,16 +712,14 @@ void __50__WLKConfigurationManager__invalidateNetworkCache__block_invoke(uint64_
 
 void __97__WLKConfigurationManager__fetchConfigurationWithOptions_cachePolicy_queryParameters_completion___block_invoke_28_cold_1(char a1, void *a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v4 = a1 & 1;
   v5 = [a2 description];
-  v7[0] = 67109378;
-  v7[1] = v4;
-  v8 = 2112;
-  v9 = v5;
-  _os_log_error_impl(&dword_272A0F000, a3, OS_LOG_TYPE_ERROR, "WLKConfigurationManager - fetchConfiguration SettingsSync success: %d error: %@", v7, 0x12u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6[0] = 67109378;
+  v6[1] = v4;
+  v7 = 2112;
+  v8 = v5;
+  _os_log_error_impl(&dword_272A0F000, a3, OS_LOG_TYPE_ERROR, "WLKConfigurationManager - fetchConfiguration SettingsSync success: %d error: %@", v6, 0x12u);
 }
 
 @end

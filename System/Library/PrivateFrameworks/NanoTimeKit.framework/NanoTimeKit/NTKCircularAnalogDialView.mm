@@ -280,7 +280,7 @@
   circularDialFillColor = [paletteCopy circularDialFillColor];
   circularDialFillColor2 = [colorPaletteCopy circularDialFillColor];
   v34 = circularDialFillColor;
-  v11 = NTKInterpolateBetweenColors();
+  v11 = NTKInterpolateBetweenColors(fraction);
   dialBackgroundLayer = self->_dialBackgroundLayer;
   v32 = v11;
   -[CALayer setBackgroundColor:](dialBackgroundLayer, "setBackgroundColor:", [v32 CGColor]);
@@ -307,7 +307,7 @@
   v16 = _Block_copy(aBlock);
   circularDialSubtickColor = [v14 circularDialSubtickColor];
   circularDialSubtickColor2 = [v15 circularDialSubtickColor];
-  v18 = NTKInterpolateBetweenColors();
+  v18 = NTKInterpolateBetweenColors(fraction);
   allSmallTicks = self->_allSmallTicks;
   v45[0] = MEMORY[0x277D85DD0];
   v45[1] = 3221225472;
@@ -331,7 +331,7 @@
   v22 = _Block_copy(v41);
   circularDialTickColor = [v21 circularDialTickColor];
   circularDialTickColor2 = [v20 circularDialTickColor];
-  v25 = NTKInterpolateBetweenColors();
+  v25 = NTKInterpolateBetweenColors(fraction);
   allHourTicks = self->_allHourTicks;
   v37[0] = MEMORY[0x277D85DD0];
   v37[1] = 3221225472;
@@ -366,7 +366,7 @@ id __90__NTKCircularAnalogDialView_applyColorTransitionFraction_fromColorPalette
 
   v5 = [*(a1 + 40) colorForCircularTicksForMinute:v2];
   v6 = [*(a1 + 48) colorForCircularTicksForMinute:v2];
-  v7 = NTKInterpolateBetweenColors();
+  v7 = NTKInterpolateBetweenColors(*(a1 + 56));
 
   return v7;
 }
@@ -395,7 +395,7 @@ id __90__NTKCircularAnalogDialView_applyColorTransitionFraction_fromColorPalette
 {
   v4 = [*(a1 + 32) colorForCircularTicksForHour:a2];
   v5 = [*(a1 + 40) colorForCircularTicksForHour:a2];
-  v6 = NTKInterpolateBetweenColors();
+  v6 = NTKInterpolateBetweenColors(*(a1 + 48));
 
   return v6;
 }
@@ -422,101 +422,101 @@ void __90__NTKCircularAnalogDialView_applyColorTransitionFraction_fromColorPalet
 
 - (void)applyColorTransitionFraction:(double)fraction fromFaceColorPalette:(id)palette toFaceColorPalette:(id)colorPalette
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   paletteCopy = palette;
   colorPaletteCopy = colorPalette;
-  v9 = [(NTKWhistlerAnalogColorPalette *)self->_colorPalette dialFillColorForColorPalette:paletteCopy];
-  v33 = [(NTKWhistlerAnalogColorPalette *)self->_colorPalette dialFillColorForColorPalette:colorPaletteCopy];
-  v34 = v9;
-  v10 = NTKInterpolateBetweenColors();
+  v10 = [(NTKWhistlerAnalogColorPalette *)self->_colorPalette dialFillColorForColorPalette:paletteCopy];
+  v34 = [(NTKWhistlerAnalogColorPalette *)self->_colorPalette dialFillColorForColorPalette:colorPaletteCopy];
+  v35 = v10;
+  v11 = NTKInterpolateBetweenColors(fraction);
   dialBackgroundLayer = self->_dialBackgroundLayer;
-  v32 = v10;
-  -[CALayer setBackgroundColor:](dialBackgroundLayer, "setBackgroundColor:", [v32 CGColor]);
-  v12 = [(NTKWhistlerAnalogColorPalette *)self->_colorPalette minuteTicksColorForColorPalette:paletteCopy];
-  v30 = [(NTKWhistlerAnalogColorPalette *)self->_colorPalette minuteTicksColorForColorPalette:colorPaletteCopy];
-  v31 = v12;
-  v13 = NTKInterpolateBetweenColors();
-  v47 = 0u;
+  v33 = v11;
+  -[CALayer setBackgroundColor:](dialBackgroundLayer, "setBackgroundColor:", [v33 CGColor]);
+  v13 = [(NTKWhistlerAnalogColorPalette *)self->_colorPalette minuteTicksColorForColorPalette:paletteCopy];
+  v31 = [(NTKWhistlerAnalogColorPalette *)self->_colorPalette minuteTicksColorForColorPalette:colorPaletteCopy];
+  v32 = v13;
+  v14 = NTKInterpolateBetweenColors(fraction);
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
-  v14 = self->_allSmallTicks;
-  v15 = [(NSArray *)v14 countByEnumeratingWithState:&v47 objects:v52 count:16];
-  if (v15)
+  v51 = 0u;
+  v15 = self->_allSmallTicks;
+  v16 = [(NSArray *)v15 countByEnumeratingWithState:&v48 objects:v53 count:16];
+  if (v16)
   {
-    v16 = v15;
-    v17 = *v48;
+    v17 = v16;
+    v18 = *v49;
     do
     {
-      v18 = 0;
+      v19 = 0;
       do
       {
-        if (*v48 != v17)
+        if (*v49 != v18)
         {
-          objc_enumerationMutation(v14);
+          objc_enumerationMutation(v15);
         }
 
-        [*(*(&v47 + 1) + 8 * v18++) setBackgroundColor:{objc_msgSend(v13, "CGColor")}];
+        [*(*(&v48 + 1) + 8 * v19++) setBackgroundColor:{objc_msgSend(v14, "CGColor")}];
       }
 
-      while (v16 != v18);
-      v16 = [(NSArray *)v14 countByEnumeratingWithState:&v47 objects:v52 count:16];
+      while (v17 != v19);
+      v17 = [(NSArray *)v15 countByEnumeratingWithState:&v48 objects:v53 count:16];
     }
 
-    while (v16);
+    while (v17);
   }
 
-  v35 = paletteCopy;
-  v19 = [(NTKWhistlerAnalogColorPalette *)self->_colorPalette hourTicksColorForColorPalette:paletteCopy];
-  v20 = [(NTKWhistlerAnalogColorPalette *)self->_colorPalette hourTicksColorForColorPalette:colorPaletteCopy];
-  v29 = v19;
-  v21 = NTKInterpolateBetweenColors();
-  v43 = 0u;
+  v36 = paletteCopy;
+  v20 = [(NTKWhistlerAnalogColorPalette *)self->_colorPalette hourTicksColorForColorPalette:paletteCopy];
+  v21 = [(NTKWhistlerAnalogColorPalette *)self->_colorPalette hourTicksColorForColorPalette:colorPaletteCopy];
+  v30 = v20;
+  v22 = NTKInterpolateBetweenColors(fraction);
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  v22 = self->_allHourTicks;
-  v23 = [(NSArray *)v22 countByEnumeratingWithState:&v43 objects:v51 count:16];
-  if (v23)
+  v47 = 0u;
+  v23 = self->_allHourTicks;
+  v24 = [(NSArray *)v23 countByEnumeratingWithState:&v44 objects:v52 count:16];
+  if (v24)
   {
-    v24 = v23;
-    v25 = *v44;
+    v25 = v24;
+    v26 = *v45;
     do
     {
-      v26 = 0;
+      v27 = 0;
       do
       {
-        if (*v44 != v25)
+        if (*v45 != v26)
         {
-          objc_enumerationMutation(v22);
+          objc_enumerationMutation(v23);
         }
 
-        [*(*(&v43 + 1) + 8 * v26++) setBackgroundColor:{objc_msgSend(v21, "CGColor")}];
+        [*(*(&v44 + 1) + 8 * v27++) setBackgroundColor:{objc_msgSend(v22, "CGColor")}];
       }
 
-      while (v24 != v26);
-      v24 = [(NSArray *)v22 countByEnumeratingWithState:&v43 objects:v51 count:16];
+      while (v25 != v27);
+      v25 = [(NSArray *)v23 countByEnumeratingWithState:&v44 objects:v52 count:16];
     }
 
-    while (v24);
+    while (v25);
   }
 
-  v41 = 0u;
   v42 = 0u;
-  v40 = 0u;
-  ___LayoutConstants_block_invoke_35(self->_device, &v40);
+  v43 = 0u;
+  v41 = 0u;
+  ___LayoutConstants_block_invoke_35(self->_device, &v41);
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __98__NTKCircularAnalogDialView_applyColorTransitionFraction_fromFaceColorPalette_toFaceColorPalette___block_invoke;
   aBlock[3] = &__block_descriptor_80_e29_d16__0__NTKFaceColorPalette_8l;
-  v37 = v40;
   v38 = v41;
   v39 = v42;
-  v27 = _Block_copy(aBlock);
-  v27[2](v27, v35);
-  v27[2](v27, colorPaletteCopy);
+  v40 = v43;
+  v28 = _Block_copy(aBlock);
+  v28[2](v28, v36);
+  v28[2](v28, colorPaletteCopy);
   CLKInterpolateBetweenFloatsClipped();
-  self->_tickPadding = v28;
+  self->_tickPadding = v29;
   [(NTKCircularAnalogDialView *)self setNeedsLayout];
 }
 

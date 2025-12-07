@@ -1,8 +1,10 @@
 @interface BWLearnedNRInferenceProvider
 + (int32x2_t)numTilesForFullImageSize:(unsigned int)size tileSize:(unsigned int)tileSize tileOverlap:;
+- (BOOL)_verifyInputFormat;
 - (BOOL)_verifyOutputFormatForRequirement:(_BOOL8)result;
 - (BWLearnedNRInferenceProvider)initWithConfiguration:(id)configuration resourceProvider:(id)provider;
 - (__CFString)_networkName;
+- (id)_tuningParametersForPortType:(id *)result;
 - (id)outputRequirementsToProduceForInputSampleBuffer:(opaqueCMSampleBuffer *)buffer;
 - (int)createInputTiles:(id)tiles withInputs:(id)inputs atPosition:(id *)position cmdBuffer:;
 - (int)preProcessOutputBuffer:(__CVBuffer *)buffer forMediaKey:(id)key;
@@ -14,8 +16,6 @@
 - (uint64_t)_maxTileOverlap;
 - (uint64_t)_tileOverlapForGain:(float)gain value:;
 - (uint64_t)_tileOverlapForMetadata:(uint64_t)result;
-- (uint64_t)_tuningParametersForPortType:(uint64_t)result;
-- (uint64_t)_verifyInputFormat;
 - (void)dealloc;
 @end
 
@@ -33,57 +33,57 @@
   v7 = [[BWInferenceLazyVideoRequirement alloc] initWithAttachedMediaKey:@"PrimaryFormat" preparedByAttachedMediaKey:@"PrimaryFormat" videoFormatProvider:&__block_literal_global_38];
   if (!v7)
   {
-    [BWLearnedNRInferenceProvider initWithConfiguration:resourceProvider:];
+    [(BWLearnedNRInferenceProvider *)0 initWithConfiguration:v8 resourceProvider:v9, v10, v11, v12, v13, v14, v24[0]];
 LABEL_14:
 
     return 0;
   }
 
-  v8 = v7;
-  v23 = v7;
-  v22.receiver = selfCopy;
-  v22.super_class = BWLearnedNRInferenceProvider;
-  v9 = -[BWTiledEspressoInferenceProvider initWithConfiguration:inputVideoRequirements:outputVideoRequirements:resourceProvider:](&v22, sel_initWithConfiguration_inputVideoRequirements_outputVideoRequirements_resourceProvider_, configuration, [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1], objc_msgSend(configuration, "outputVideoRequirements"), provider);
-  if (!v9)
+  v15 = v7;
+  v30 = v7;
+  v29.receiver = selfCopy;
+  v29.super_class = BWLearnedNRInferenceProvider;
+  v16 = -[BWTiledEspressoInferenceProvider initWithConfiguration:inputVideoRequirements:outputVideoRequirements:resourceProvider:](&v29, sel_initWithConfiguration_inputVideoRequirements_outputVideoRequirements_resourceProvider_, configuration, [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1], objc_msgSend(configuration, "outputVideoRequirements"), provider);
+  if (!v16)
   {
     [BWLearnedNRInferenceProvider initWithConfiguration:resourceProvider:];
     selfCopy = 0;
     goto LABEL_14;
   }
 
-  v10 = v9;
-  v9->_inputVideoRequirement = &v8->super;
-  v9->_outputVideoRequirements = [configuration outputVideoRequirements];
-  v10->_outputFormatDescriptionByAttachedMediaKey = objc_alloc_init(MEMORY[0x1E695DF90]);
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
-  v19 = 0u;
+  v17 = v16;
+  v16->_inputVideoRequirement = &v15->super;
+  v16->_outputVideoRequirements = [configuration outputVideoRequirements];
+  v17->_outputFormatDescriptionByAttachedMediaKey = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v27 = 0u;
+  v28 = 0u;
+  v25 = 0u;
+  v26 = 0u;
   outputVideoRequirements = [configuration outputVideoRequirements];
-  v12 = [outputVideoRequirements countByEnumeratingWithState:&v18 objects:v17 count:16];
-  if (v12)
+  v19 = [outputVideoRequirements countByEnumeratingWithState:&v25 objects:v24 count:16];
+  if (v19)
   {
-    v13 = v12;
-    v14 = *v19;
+    v20 = v19;
+    v21 = *v26;
     do
     {
-      for (i = 0; i != v13; ++i)
+      for (i = 0; i != v20; ++i)
       {
-        if (*v19 != v14)
+        if (*v26 != v21)
         {
           objc_enumerationMutation(outputVideoRequirements);
         }
 
-        -[NSMutableDictionary setObject:forKeyedSubscript:](v10->_outputFormatDescriptionByAttachedMediaKey, "setObject:forKeyedSubscript:", [objc_msgSend(objc_msgSend(*(*(&v18 + 1) + 8 * i) "videoFormat")], objc_msgSend(*(*(&v18 + 1) + 8 * i), "attachedMediaKey"));
+        -[NSMutableDictionary setObject:forKeyedSubscript:](v17->_outputFormatDescriptionByAttachedMediaKey, "setObject:forKeyedSubscript:", [objc_msgSend(objc_msgSend(*(*(&v25 + 1) + 8 * i) "videoFormat")], objc_msgSend(*(*(&v25 + 1) + 8 * i), "attachedMediaKey"));
       }
 
-      v13 = [outputVideoRequirements countByEnumeratingWithState:&v18 objects:v17 count:16];
+      v20 = [outputVideoRequirements countByEnumeratingWithState:&v25 objects:v24 count:16];
     }
 
-    while (v13);
+    while (v20);
   }
 
-  return v10;
+  return v17;
 }
 
 id __71__BWLearnedNRInferenceProvider_initWithConfiguration_resourceProvider___block_invoke(uint64_t a1, void *a2)
@@ -105,37 +105,37 @@ id __71__BWLearnedNRInferenceProvider_initWithConfiguration_resourceProvider___b
 - (id)outputRequirementsToProduceForInputSampleBuffer:(opaqueCMSampleBuffer *)buffer
 {
   array = [MEMORY[0x1E695DF70] array];
-  v6 = [(BWLearnedNRInferenceConfiguration *)self->_configuration outputAttachedMediaKeyForInputDimensions:BWPixelBufferDimensionsFromSampleBuffer(buffer)];
+  [(BWLearnedNRInferenceConfiguration *)self->_configuration outputAttachedMediaKeyForInputDimensions:BWPixelBufferDimensionsFromSampleBuffer(buffer)];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   outputVideoRequirements = self->_outputVideoRequirements;
-  v8 = [(NSArray *)outputVideoRequirements countByEnumeratingWithState:&v15 objects:v14 count:16];
-  if (v8)
+  v7 = [(NSArray *)outputVideoRequirements countByEnumeratingWithState:&v14 objects:v13 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v10 = *v16;
+    v8 = v7;
+    v9 = *v15;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(outputVideoRequirements);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * i);
-        if ([objc_msgSend(v12 "attachedMediaKey")])
+        v11 = *(*(&v14 + 1) + 8 * i);
+        if (objc_msgSend_isEqualToString_([v11 attachedMediaKey]))
         {
-          [array addObject:v12];
+          [array addObject:v11];
         }
       }
 
-      v9 = [(NSArray *)outputVideoRequirements countByEnumeratingWithState:&v15 objects:v14 count:16];
+      v8 = [(NSArray *)outputVideoRequirements countByEnumeratingWithState:&v14 objects:v13 count:16];
     }
 
-    while (v9);
+    while (v8);
   }
 
   return array;
@@ -163,43 +163,44 @@ id __71__BWLearnedNRInferenceProvider_initWithConfiguration_resourceProvider___b
 {
   v6 = v5;
   positionCopy = position;
-  if ([tiles count] != 1)
+  v11 = [tiles count];
+  if (v11 != 1)
   {
-    [BWLearnedNRInferenceProvider createInputTiles:withInputs:atPosition:cmdBuffer:];
+    [(BWLearnedNRInferenceProvider *)v11 createInputTiles:v12 withInputs:v13 atPosition:v14 cmdBuffer:v15, v16, v17, v18, v42];
     return 0;
   }
 
-  v19 = [(BWLearnedNRInferenceProvider *)self computeTileParametersForPosition:positionCopy, v11, v12, v13, v14, v15, v16, v17, v18];
-  if (!self || ((v20 = v19, [(BWInferenceConfiguration *)self->_configuration inferenceType]!= 171) ? (v21 = 1) : (v21 = 3), (v21 & (v20 | (v20 >> 16))) != 0))
+  v27 = [(BWLearnedNRInferenceProvider *)self computeTileParametersForPosition:positionCopy, v19, v20, v21, v22, v23, v24, v25, v26];
+  if (!self || ((v28 = v27, [(BWInferenceConfiguration *)self->_configuration inferenceType]!= 171) ? (v29 = 1) : (v29 = 3), (v29 & (v28 | (v28 >> 16))) != 0))
   {
     [BWLearnedNRInferenceProvider createInputTiles:? withInputs:? atPosition:? cmdBuffer:?];
-    return v28;
+    return v44;
   }
 
-  v22 = [inputs objectForKeyedSubscript:@"PrimaryFormat"];
-  v23 = [tiles objectForKeyedSubscript:@"input"];
-  if (!v23)
+  v30 = [inputs objectForKeyedSubscript:@"PrimaryFormat"];
+  v31 = [tiles objectForKeyedSubscript:@"input"];
+  if (!v31)
   {
-    [BWLearnedNRInferenceProvider createInputTiles:withInputs:atPosition:cmdBuffer:];
+    [(BWLearnedNRInferenceProvider *)0 createInputTiles:v32 withInputs:v33 atPosition:v34 cmdBuffer:v35, v36, v37, v38, v42];
     return 0;
   }
 
-  v24 = v23;
+  v39 = v31;
   metalStage = self->_metalStage;
   if (self->_isInputFormatRaw)
   {
-    result = [(LearnedNRMetalStage *)metalStage createRawTile:v24 fromInputRaw:v22 tileStart:v20 cmdBuffer:v6];
+    result = [(LearnedNRMetalStage *)metalStage createRawTile:v39 fromInputRaw:v30 tileStart:v28 cmdBuffer:v6];
   }
 
   else
   {
-    result = [(LearnedNRMetalStage *)metalStage createRawTile:v24 fromInputYuv:v22 tileStart:v20 cmdBuffer:v6];
+    result = [(LearnedNRMetalStage *)metalStage createRawTile:v39 fromInputYuv:v30 tileStart:v28 cmdBuffer:v6];
   }
 
   if (result)
   {
     [BWLearnedNRInferenceProvider createInputTiles:? withInputs:? atPosition:? cmdBuffer:?];
-    return v27;
+    return v43;
   }
 
   return result;
@@ -277,7 +278,7 @@ LABEL_18:
   self->_renderROI.size.depth = 0;
   if (v24.i64[0] <= self->_preparedOutputDimensions.width && v24.i64[1] <= self->_preparedOutputDimensions.height)
   {
-    v25 = [BWLearnedNRInferenceProvider _tileOverlapForMetadata:?];
+    v25 = [(BWLearnedNRInferenceProvider *)self _tileOverlapForMetadata:v13];
     self->_tileOverlap = v25;
     v26 = vmovn_s64(*&self->_renderROI.size.width);
     HIWORD(v31) = v26.i16[2];
@@ -304,12 +305,12 @@ LABEL_19:
   return v28;
 }
 
-- (uint64_t)_tuningParametersForPortType:(uint64_t)result
+- (id)_tuningParametersForPortType:(id *)result
 {
   if (result)
   {
     v3 = result;
-    if ([*(result + 144) inferenceType] == 171)
+    if ([result[18] inferenceType] == 171)
     {
       v4 = @"QuadraLearnedNRParameters";
     }
@@ -319,7 +320,7 @@ LABEL_19:
       v4 = @"LearnedNRParameters";
     }
 
-    v5 = [objc_msgSend(objc_msgSend(objc_msgSend(*(v3 + 144) "sensorConfigurationsByPortType")];
+    v5 = [objc_msgSend(objc_msgSend(objc_msgSend(v3[18] "sensorConfigurationsByPortType")];
 
     return [v5 objectForKeyedSubscript:v4];
   }
@@ -340,12 +341,10 @@ LABEL_19:
       if (v6 < 1 || (v6 & 1) != 0)
       {
         fig_log_get_emitter();
-        v17 = v3;
-        LODWORD(v16) = 0;
-        FigDebugAssert3();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v3, v16, v17, v18, v19, v20, v21);
       }
 
-      [objc_msgSend(a2 objectAtIndexedSubscript:{0, v16, v17), "floatValue"}];
+      [objc_msgSend(a2 objectAtIndexedSubscript:{0), "floatValue"}];
       if (v8 >= gain)
       {
         v11 = 1;
@@ -417,7 +416,7 @@ LABEL_19:
   v16 = 0u;
   v13 = 0u;
   v14 = 0u;
-  sensorConfigurationsByPortType = [*(self + 144) sensorConfigurationsByPortType];
+  sensorConfigurationsByPortType = [self[18] sensorConfigurationsByPortType];
   v3 = [sensorConfigurationsByPortType countByEnumeratingWithState:&v13 objects:v12 count:16];
   if (!v3)
   {
@@ -508,11 +507,57 @@ LABEL_19:
 - (int)writeOutputFor:(id)for to:(__CVBuffer *)to fromNetworkOutputTiles:(id)tiles withAdditionalPixelBuffers:(id)buffers withInputTilePixelBuffers:(id)pixelBuffers withInputFullPixelBuffers:(id)fullPixelBuffers atPosition:(id *)position cmdBuffer:
 {
   v20 = [(BWLearnedNRInferenceProvider *)self computeTileParametersForPosition:position, v9, v10, v11, v12, v13, v14, v15, v16];
-  if (!self || ((v21 = v20, -[BWInferenceConfiguration inferenceType](self->_configuration, "inferenceType") != 171) ? (v22 = 1) : (v22 = 3), (v22 & (v21 | HIWORD(v21))) != 0 || ![tiles objectForKeyedSubscript:@"output"] || !objc_msgSend(fullPixelBuffers, "objectForKeyedSubscript:", @"PrimaryFormat") || (objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"intermediateLumaTile_%i", -[BWInferenceConfiguration inferenceType](self->_configuration, "inferenceType")), !objc_msgSend(OUTLINED_FUNCTION_36(), "objectForKeyedSubscript:")) || (objc_msgSend(MEMORY[0x1E696AEC0], "stringWithFormat:", @"intermediateDeltaTile_%i", -[BWInferenceConfiguration inferenceType](self->_configuration, "inferenceType")), !objc_msgSend(OUTLINED_FUNCTION_36(), "objectForKeyedSubscript:")) || (!self->_isInputFormatRaw ? (OUTLINED_FUNCTION_2_39(), result = objc_msgSend(v25, "writeRgbTile:toYuvBuffer:intermediateLumaBuffer:intermediateDeltaBuffer:origYuvInputBuffer:srcStart:dstStart:size:cmdBuffer:")) : (OUTLINED_FUNCTION_2_39(), result = objc_msgSend(v23, "writeRgbTile:toYuvBuffer:intermediateLumaBuffer:intermediateDeltaBuffer:origRawInputBuffer:srcStart:dstStart:size:cmdBuffer:")), result)))
+  if (!self || ((v21 = v20, [(BWInferenceConfiguration *)self->_configuration inferenceType]!= 171) ? (v22 = 1) : (v22 = 3), (v22 & (v21 | HIWORD(v21))) != 0))
   {
-    fig_log_get_emitter();
+    v26 = 335;
+LABEL_21:
+    emitter = fig_log_get_emitter();
 
-    return FigSignalErrorAtGM();
+    return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", emitter, 0xFFFF8422, "<<<< BWLearnedNRInferenceProvider >>>>", v26, v30, v28, v29, position);
+  }
+
+  if (![tiles objectForKeyedSubscript:@"output"])
+  {
+    v26 = 341;
+    goto LABEL_21;
+  }
+
+  if (![fullPixelBuffers objectForKeyedSubscript:@"PrimaryFormat"])
+  {
+    v26 = 344;
+    goto LABEL_21;
+  }
+
+  [MEMORY[0x1E696AEC0] stringWithFormat:@"intermediateLumaTile_%i", -[BWInferenceConfiguration inferenceType](self->_configuration, "inferenceType")];
+  if (![OUTLINED_FUNCTION_36() objectForKeyedSubscript:?])
+  {
+    v26 = 348;
+    goto LABEL_21;
+  }
+
+  [MEMORY[0x1E696AEC0] stringWithFormat:@"intermediateDeltaTile_%i", -[BWInferenceConfiguration inferenceType](self->_configuration, "inferenceType")];
+  if (![OUTLINED_FUNCTION_36() objectForKeyedSubscript:?])
+  {
+    v26 = 351;
+    goto LABEL_21;
+  }
+
+  if (self->_isInputFormatRaw)
+  {
+    OUTLINED_FUNCTION_2_39();
+    result = [v23 writeRgbTile:? toYuvBuffer:? intermediateLumaBuffer:? intermediateDeltaBuffer:? origRawInputBuffer:? srcStart:? dstStart:? size:? cmdBuffer:?];
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_2_39();
+    result = [v25 writeRgbTile:? toYuvBuffer:? intermediateLumaBuffer:? intermediateDeltaBuffer:? origYuvInputBuffer:? srcStart:? dstStart:? size:? cmdBuffer:?];
+  }
+
+  if (result)
+  {
+    v26 = 378;
+    goto LABEL_21;
   }
 
   return result;
@@ -520,46 +565,49 @@ LABEL_19:
 
 - (int)propagateInferenceResultForOutputRequirement:(id)requirement storage:(id)storage propagationSampleBuffer:(opaqueCMSampleBuffer *)buffer
 {
-  v22 = 0;
+  v26 = 0;
   cf = 0;
   attachedMediaKey = [requirement attachedMediaKey];
-  v10 = [storage pixelBufferForRequirement:requirement];
-  if (v10)
+  v11 = [storage pixelBufferForRequirement:requirement];
+  if (v11)
   {
-    v11 = v10;
-    v12 = [(NSMutableDictionary *)self->_outputFormatDescriptionByAttachedMediaKey objectForKeyedSubscript:attachedMediaKey];
-    if (v12)
-    {
-      v12 = CFRetain(v12);
-    }
-
-    v22 = v12;
-    v13 = BWCMSampleBufferCreateDeepCopyWithNewPixelBuffer(buffer, v11, 0, &v22, &cf);
+    v12 = v11;
+    v13 = [(NSMutableDictionary *)self->_outputFormatDescriptionByAttachedMediaKey objectForKeyedSubscript:attachedMediaKey];
     if (v13)
     {
+      v13 = CFRetain(v13);
+    }
+
+    v26 = v13;
+    v14 = BWCMSampleBufferCreateDeepCopyWithNewPixelBuffer(buffer, v12, 0, &v26, &cf);
+    if (v14)
+    {
       fig_log_get_emitter();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v14, v5, v26, cf, v28, v29, v30, v31);
     }
 
     else
     {
-      [(NSMutableDictionary *)self->_outputFormatDescriptionByAttachedMediaKey setObject:v22 forKeyedSubscript:attachedMediaKey];
+      [(NSMutableDictionary *)self->_outputFormatDescriptionByAttachedMediaKey setObject:v26 forKeyedSubscript:attachedMediaKey];
       BWCMSampleBufferCopyReattachAndReturnMutableMetadata(cf);
       BWSampleBufferSetAttachedMedia(buffer, attachedMediaKey, cf);
-      v14 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
+      v15 = CMGetAttachment(buffer, *off_1E798A3C8, 0);
       x = self->_renderROI.origin.x;
       y = self->_renderROI.origin.y;
       width = self->_renderROI.size.width;
       height = self->_renderROI.size.height;
-      v19 = CVPixelBufferGetWidth(v11);
-      v20 = CVPixelBufferGetHeight(v11);
-      FigCaptureMetadataUtilitiesUpdateMetadataForStillImageCrop(v14, v19 | (v20 << 32), v19 | (v20 << 32), x, y, width, height, x, y, width, height);
+      v20 = CVPixelBufferGetWidth(v12);
+      v21 = CVPixelBufferGetHeight(v12);
+      v22.n128_f64[0] = x;
+      v23.n128_f64[0] = y;
+      v24.n128_f64[0] = width;
+      FigCaptureMetadataUtilitiesUpdateMetadataForStillImageCrop(v15, v20 | (v21 << 32), v20 | (v21 << 32), v22, v23, v24, height, x, y, width, height);
     }
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
   if (cf)
@@ -567,15 +615,15 @@ LABEL_19:
     CFRelease(cf);
   }
 
-  if (v22)
+  if (v26)
   {
-    CFRelease(v22);
+    CFRelease(v26);
   }
 
-  return v13;
+  return v14;
 }
 
-- (uint64_t)_verifyInputFormat
+- (BOOL)_verifyInputFormat
 {
   if (result)
   {
@@ -651,62 +699,103 @@ LABEL_19:
 
 - (int)prepareForSubmissionWithWorkQueue:(id)queue
 {
-  if (!-[FigCaptureCameraParameters commonNRFParameters](+[FigCaptureCameraParameters sharedInstance](FigCaptureCameraParameters, "sharedInstance"), "commonNRFParameters") || (v6 = -[FigCaptureCameraParameters nrfVersion](+[FigCaptureCameraParameters sharedInstance](FigCaptureCameraParameters, "sharedInstance"), "nrfVersion"), !v6) || (v7 = BWLoadProcessorBundle(@"NRF", v6)) == 0 || (v8 = [v7 classNamed:@"LearnedNRMetalStage"]) == 0)
+  if (![+[FigCaptureCameraParameters commonNRFParameters] sharedInstance]
   {
     fig_log_get_emitter();
     OUTLINED_FUNCTION_0_4();
+    v73 = 4294935586;
+    v74 = 559;
+LABEL_43:
+    FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v69, v73, "<<<< BWLearnedNRInferenceProvider >>>>", v74, v70, v71, v72, v76);
+    return 0;
+  }
+
+  nrfVersion = [+[FigCaptureCameraParameters sharedInstance](FigCaptureCameraParameters nrfVersion];
+  if (!nrfVersion)
+  {
+    fig_log_get_emitter();
+    OUTLINED_FUNCTION_0_4();
+    v73 = 4294935594;
+    v74 = 562;
     goto LABEL_43;
   }
 
-  v87 = v8;
+  v7 = BWLoadProcessorBundle(@"NRF", nrfVersion);
+  if (!v7)
+  {
+    fig_log_get_emitter();
+    OUTLINED_FUNCTION_0_4();
+    v73 = 4294935586;
+    v74 = 566;
+    goto LABEL_43;
+  }
+
+  v8 = [v7 classNamed:@"LearnedNRMetalStage"];
+  if (!v8)
+  {
+    fig_log_get_emitter();
+    OUTLINED_FUNCTION_0_4();
+    v73 = 4294935586;
+    v74 = 569;
+    goto LABEL_43;
+  }
+
+  v93 = v8;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-  v118 = 0u;
-  v119 = 0u;
-  v120 = 0u;
-  v121 = 0u;
+  v124 = 0u;
+  v125 = 0u;
+  v126 = 0u;
+  v127 = 0u;
   sensorConfigurationsByPortType = [(BWLearnedNRInferenceConfiguration *)self->_configuration sensorConfigurationsByPortType];
-  v12 = [(NSDictionary *)sensorConfigurationsByPortType countByEnumeratingWithState:&v118 objects:v117 count:16];
+  v12 = [(NSDictionary *)sensorConfigurationsByPortType countByEnumeratingWithState:&v124 objects:v123 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v119;
-LABEL_7:
-    v15 = 0;
-    while (1)
+    v14 = *v125;
+    while (2)
     {
-      if (*v119 != v14)
+      for (i = 0; i != v13; ++i)
       {
-        objc_enumerationMutation(sensorConfigurationsByPortType);
-      }
-
-      v16 = *(*(&v118 + 1) + 8 * v15);
-      v17 = [(NSDictionary *)[(BWLearnedNRInferenceConfiguration *)self->_configuration sensorConfigurationsByPortType] objectForKeyedSubscript:v16];
-      if (![v17 cameraInfo])
-      {
-        goto LABEL_42;
-      }
-
-      [dictionary setObject:objc_msgSend(v17 forKeyedSubscript:{"cameraInfo"), v16}];
-      [dictionary2 setObject:-[BWLearnedNRInferenceProvider _tuningParametersForPortType:](self forKeyedSubscript:{v16), v16}];
-      if (v13 == ++v15)
-      {
-        v13 = [(NSDictionary *)sensorConfigurationsByPortType countByEnumeratingWithState:&v118 objects:v117 count:16];
-        if (v13)
+        if (*v125 != v14)
         {
-          goto LABEL_7;
+          objc_enumerationMutation(sensorConfigurationsByPortType);
         }
 
-        break;
+        v16 = *(*(&v124 + 1) + 8 * i);
+        v17 = [(NSDictionary *)[(BWLearnedNRInferenceConfiguration *)self->_configuration sensorConfigurationsByPortType] objectForKeyedSubscript:v16];
+        if (![v17 cameraInfo])
+        {
+          fig_log_get_emitter();
+          OUTLINED_FUNCTION_1_41();
+          v73 = 4294935586;
+          v74 = 578;
+          goto LABEL_43;
+        }
+
+        [dictionary setObject:objc_msgSend(v17 forKeyedSubscript:{"cameraInfo"), v16}];
+        [dictionary2 setObject:-[BWLearnedNRInferenceProvider _tuningParametersForPortType:](&self->super.super.isa forKeyedSubscript:{v16), v16}];
       }
+
+      v13 = [(NSDictionary *)sensorConfigurationsByPortType countByEnumeratingWithState:&v124 objects:v123 count:16];
+      if (v13)
+      {
+        continue;
+      }
+
+      break;
     }
   }
 
-  v18 = [[v87 alloc] initWithCommandQueue:-[BWTiledEspressoInferenceConfiguration metalCommandQueue](self->_configuration cameraInfo:"metalCommandQueue") tuningParameters:dictionary isQuadra:{dictionary2, -[BWInferenceConfiguration inferenceType](self->_configuration, "inferenceType") == 171}];
+  v18 = [[v93 alloc] initWithCommandQueue:-[BWTiledEspressoInferenceConfiguration metalCommandQueue](self->_configuration cameraInfo:"metalCommandQueue") tuningParameters:dictionary isQuadra:{dictionary2, -[BWInferenceConfiguration inferenceType](self->_configuration, "inferenceType") == 171}];
   self->_metalStage = v18;
   if (!v18)
   {
-    goto LABEL_42;
+    fig_log_get_emitter();
+    OUTLINED_FUNCTION_1_41();
+    v73 = 4294935586;
+    v74 = 587;
+    goto LABEL_43;
   }
 
   -[LearnedNRMetalStage setDeviceGeneration:](self->_metalStage, "setDeviceGeneration:", [+[FigCaptureCameraParameters sharedInstance](FigCaptureCameraParameters deviceGeneration]);
@@ -716,21 +805,21 @@ LABEL_7:
     return -31711;
   }
 
-  v115 = 0u;
-  v116 = 0u;
-  v113 = 0u;
-  v114 = 0u;
+  v121 = 0u;
+  v122 = 0u;
+  v119 = 0u;
+  v120 = 0u;
   outputVideoRequirements = self->_outputVideoRequirements;
-  v28 = OUTLINED_FUNCTION_6_25(_verifyInputFormat, v20, v21, v22, v23, v24, v25, v26, v70, v72, v74, v76, v79, v82, v3, queue, v87, 144, v90, v92, v95.receiver, v95.super_class, v96.receiver, v96.super_class, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, 0);
+  v28 = OUTLINED_FUNCTION_6_25(_verifyInputFormat, v20, v21, v22, v23, v24, v25, v26, v76, v78, v80, v82, v85, v88, v3, queue, v93, 144, v96, v98, v101.receiver, v101.super_class, v102.receiver, v102.super_class, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118);
   if (v28)
   {
     v29 = v28;
-    v30 = *v114;
+    v30 = *v120;
 LABEL_17:
     v31 = 0;
     while (1)
     {
-      if (*v114 != v30)
+      if (*v120 != v30)
       {
         objc_enumerationMutation(outputVideoRequirements);
       }
@@ -743,7 +832,7 @@ LABEL_17:
 
       if (v29 == ++v31)
       {
-        v29 = OUTLINED_FUNCTION_6_25(v32, v33, v34, v35, v36, v37, v38, v39, v71, v73, v75, v77, v80, v83, v85, v86, v88, v89, v91, v93, v95.receiver, v95.super_class, v96.receiver, v96.super_class, v97, v98, v99, v100, v101, v102, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113);
+        v29 = OUTLINED_FUNCTION_6_25(v32, v33, v34, v35, v36, v37, v38, v39, v76, v79, v81, v83, v86, v89, v91, v92, v94, v95, v97, v99, v101.receiver, v101.super_class, v102.receiver, v102.super_class, v103, v104, v105, v106, v107, v108, v109, v110, v111, v112, v113, v114, v115, v116, v117, v118);
         if (v29)
         {
           goto LABEL_17;
@@ -755,38 +844,47 @@ LABEL_17:
   }
 
   v40 = [BWEspressoInferenceAdapter espressoNetworkURLForPlatformedResourceBaseName:[(BWLearnedNRInferenceProvider *)self _networkName] embedPlatformOrDeviceID:1];
-  if (!v40 || (v41 = v40, ([objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")] & 1) == 0))
+  if (!v40)
   {
-LABEL_42:
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_41();
-LABEL_43:
-    FigSignalErrorAtGM();
-    return 0;
+    v73 = 4294935586;
+    v74 = 599;
+    goto LABEL_43;
+  }
+
+  v41 = v40;
+  if (([objc_msgSend(MEMORY[0x1E696AC08] "defaultManager")] & 1) == 0)
+  {
+    fig_log_get_emitter();
+    OUTLINED_FUNCTION_1_41();
+    v73 = 4294935586;
+    v74 = 600;
+    goto LABEL_43;
   }
 
   v42 = self->_outputVideoRequirements;
-  v122 = 0u;
-  v123 = 0u;
-  v124 = 0u;
-  v125 = 0u;
+  v128 = 0u;
+  v129 = 0u;
+  v130 = 0u;
+  v131 = 0u;
   v43 = OUTLINED_FUNCTION_5_32();
   if (v43)
   {
     v46 = v43;
     v47 = 0;
     v48 = 0;
-    v49 = *v123;
+    v49 = *v129;
     do
     {
-      for (i = 0; i != v46; ++i)
+      for (j = 0; j != v46; ++j)
       {
-        if (*v123 != v49)
+        if (*v129 != v49)
         {
           objc_enumerationMutation(v42);
         }
 
-        v51 = *(*(&v122 + 1) + 8 * i);
+        v51 = *(*(&v128 + 1) + 8 * j);
         if ([objc_msgSend(v51 "videoFormat")] > v48)
         {
           v48 = [objc_msgSend(v51 "videoFormat")];
@@ -812,53 +910,54 @@ LABEL_43:
 
   self->_renderROI.origin.x = 0;
   self->_renderROI.origin.y = 0;
-  v78 = v44;
+  v84 = v44;
   self->_renderROI.origin.z = 0;
   self->_renderROI.size.width = v44;
   self->_renderROI.size.height = v44 >> 32;
   self->_renderROI.size.depth = 0;
   *self->_tileSize = 48235296;
-  _maxTileOverlap = [(BWLearnedNRInferenceProvider *)self _maxTileOverlap];
+  _maxTileOverlap = [(BWLearnedNRInferenceProvider *)&self->super.super.isa _maxTileOverlap];
   self->_tileOverlap = _maxTileOverlap;
   v53 = vmovn_s64(*&self->_renderROI.size.width);
-  HIWORD(v94) = v53.i16[2];
-  LOWORD(v94) = v53.i16[0];
-  v54 = [BWLearnedNRInferenceProvider numTilesForFullImageSize:v94 tileSize:*self->_tileSize tileOverlap:_maxTileOverlap];
+  HIWORD(v100) = v53.i16[2];
+  LOWORD(v100) = v53.i16[0];
+  v54 = [BWLearnedNRInferenceProvider numTilesForFullImageSize:v100 tileSize:*self->_tileSize tileOverlap:_maxTileOverlap];
   *self->_numTiles = v54.i16[0];
   *&self->_numTiles[2] = v54.i16[2];
-  v84 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{OUTLINED_FUNCTION_7_23(BWTiledEspressoInferenceProvider, v55), @"input", 0}];
-  v81 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{OUTLINED_FUNCTION_7_23(BWTiledEspressoInferenceProvider, v56), @"output", 0}];
+  v90 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{OUTLINED_FUNCTION_7_23(BWTiledEspressoInferenceProvider, v55), @"input", 0}];
+  v87 = [MEMORY[0x1E695DF20] dictionaryWithObjectsAndKeys:{OUTLINED_FUNCTION_7_23(BWTiledEspressoInferenceProvider, v56), @"output", 0}];
   array = [MEMORY[0x1E695DF70] array];
   v59 = OUTLINED_FUNCTION_7_23(BWTiledEspressoInferenceProvider, v58);
   v60 = [BWInferenceVideoRequirement alloc];
-  v61 = -[BWInferenceVideoRequirement initWithAttachedMediaKey:videoFormat:](v60, "initWithAttachedMediaKey:videoFormat:", [MEMORY[0x1E696AEC0] stringWithFormat:@"intermediateLumaTile_%i", objc_msgSend(*(&self->super.super.isa + v89), "inferenceType")], v59);
+  v61 = -[BWInferenceVideoRequirement initWithAttachedMediaKey:videoFormat:](v60, "initWithAttachedMediaKey:videoFormat:", [MEMORY[0x1E696AEC0] stringWithFormat:@"intermediateLumaTile_%i", objc_msgSend(*(&self->super.super.isa + v95), "inferenceType")], v59);
   [OUTLINED_FUNCTION_36() addObject:?];
   v63 = OUTLINED_FUNCTION_7_23(BWTiledEspressoInferenceProvider, v62);
   v64 = [BWInferenceVideoRequirement alloc];
-  v65 = -[BWInferenceVideoRequirement initWithAttachedMediaKey:videoFormat:](v64, "initWithAttachedMediaKey:videoFormat:", [MEMORY[0x1E696AEC0] stringWithFormat:@"intermediateDeltaTile_%i", objc_msgSend(*(&self->super.super.isa + v89), "inferenceType")], v63);
+  v65 = -[BWInferenceVideoRequirement initWithAttachedMediaKey:videoFormat:](v64, "initWithAttachedMediaKey:videoFormat:", [MEMORY[0x1E696AEC0] stringWithFormat:@"intermediateDeltaTile_%i", objc_msgSend(*(&self->super.super.isa + v95), "inferenceType")], v63);
   [OUTLINED_FUNCTION_36() addObject:?];
   type = [(BWLearnedNRInferenceProvider *)self type];
   v67 = *self->_numTiles;
-  v96.receiver = self;
-  v96.super_class = BWLearnedNRInferenceProvider;
-  v68 = [(BWTiledEspressoInferenceProvider *)&v96 loadNetworkWithURL:v41 configName:0 inferenceType:type maxTileCount:v67 inputFormatsByBindingName:v84 outputFormatsByBindingName:v81 additionalVideoRequirements:array];
+  v102.receiver = self;
+  v102.super_class = BWLearnedNRInferenceProvider;
+  v68 = [(BWTiledEspressoInferenceProvider *)&v102 loadNetworkWithURL:v41 configName:0 inferenceType:type maxTileCount:v67 inputFormatsByBindingName:v90 outputFormatsByBindingName:v87 additionalVideoRequirements:array];
   if (v68)
   {
     return v68;
   }
 
-  v95.receiver = self;
-  v95.super_class = BWLearnedNRInferenceProvider;
-  v45 = [(BWTiledEspressoInferenceProvider *)&v95 prepareForSubmissionWithWorkQueue:v86];
+  v101.receiver = self;
+  v101.super_class = BWLearnedNRInferenceProvider;
+  v45 = [(BWTiledEspressoInferenceProvider *)&v101 prepareForSubmissionWithWorkQueue:v92];
   if (v45)
   {
     fig_log_get_emitter();
-    FigDebugAssert3();
+    LODWORD(v77) = v45;
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v77, v91, v81, v84, v87, v90, v91, v92);
   }
 
   else
   {
-    self->_preparedOutputDimensions = v78;
+    self->_preparedOutputDimensions = v84;
   }
 
   return v45;
@@ -868,47 +967,47 @@ LABEL_43:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v0, 0xFFFF8422, "<<<< BWLearnedNRInferenceProvider >>>>", 0x63, v1, v2, v3, v5);
 }
 
-- (uint64_t)initWithConfiguration:resourceProvider:.cold.2()
+- (uint64_t)initWithConfiguration:(uint64_t)a3 resourceProvider:(uint64_t)a4 .cold.2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id *a9)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v9, 0xFFFF8421, "<<<< BWLearnedNRInferenceProvider >>>>", 0x60, v10, v11, v12, a9);
 }
 
-- (uint64_t)createInputTiles:withInputs:atPosition:cmdBuffer:.cold.1()
+- (uint64_t)createInputTiles:(uint64_t)a3 withInputs:(uint64_t)a4 atPosition:(uint64_t)a5 cmdBuffer:(uint64_t)a6 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id *a9)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v9, 0xFFFF8422, "<<<< BWLearnedNRInferenceProvider >>>>", 0x12E, v10, v11, v12, a9);
 }
 
 - (uint64_t)createInputTiles:(_DWORD *)a1 withInputs:atPosition:cmdBuffer:.cold.2(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWLearnedNRInferenceProvider >>>>", 0x13D, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
 
-- (uint64_t)createInputTiles:withInputs:atPosition:cmdBuffer:.cold.3()
+- (uint64_t)createInputTiles:(uint64_t)a3 withInputs:(uint64_t)a4 atPosition:(uint64_t)a5 cmdBuffer:(uint64_t)a6 .cold.3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id *a9)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
 
-  return FigSignalErrorAtGM();
+  return FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v9, 0xFFFF8422, "<<<< BWLearnedNRInferenceProvider >>>>", 0x134, v10, v11, v12, a9);
 }
 
 - (uint64_t)createInputTiles:(_DWORD *)a1 withInputs:atPosition:cmdBuffer:.cold.4(_DWORD *a1)
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWLearnedNRInferenceProvider >>>>", 0x131, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -917,7 +1016,7 @@ LABEL_43:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWLearnedNRInferenceProvider >>>>", 0x2A0, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -926,7 +1025,7 @@ LABEL_43:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWLearnedNRInferenceProvider >>>>", 0x2A7, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }
@@ -935,7 +1034,7 @@ LABEL_43:
 {
   fig_log_get_emitter();
   OUTLINED_FUNCTION_0_4();
-  result = FigSignalErrorAtGM();
+  result = FigSignalErrorAtGM("%s signalled err=%d at <>:%d", v2, 0xFFFF8422, "<<<< BWLearnedNRInferenceProvider >>>>", 0x2A4, v3, v4, v5, v7);
   *a1 = result;
   return result;
 }

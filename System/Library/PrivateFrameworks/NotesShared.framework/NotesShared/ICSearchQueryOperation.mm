@@ -1954,28 +1954,28 @@ void __101__ICSearchQueryOperation_fetchModernNoteSearchableItemAttributesFromCo
 
 + (void)suggestionSearchResultsWithLinkSuggestionQuery:(ICLinkSuggestionQuery *)query completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41E50);
-  MEMORY[0x28223BE20](v7 - 8);
-  v9 = &v16 - v8;
-  v10 = _Block_copy(handler);
-  v11 = swift_allocObject();
-  v11[2] = query;
-  v11[3] = v10;
-  v11[4] = self;
-  v12 = sub_2150A5120();
-  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
-  v13 = swift_allocObject();
-  v13[2] = 0;
-  v13[3] = 0;
-  v13[4] = &unk_2150C8ED0;
-  v13[5] = v11;
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CA41E50, &qword_2150C3710);
+  MEMORY[0x28223BE20](v7 - 8, v8);
+  v10 = &v17 - v9;
+  v11 = _Block_copy(handler);
+  v12 = swift_allocObject();
+  v12[2] = query;
+  v12[3] = v11;
+  v12[4] = self;
+  v13 = sub_2150A5120();
+  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_2150C8AD0;
-  v14[5] = v13;
+  v14[4] = &unk_2150C8ED0;
+  v14[5] = v12;
+  v15 = swift_allocObject();
+  v15[2] = 0;
+  v15[3] = 0;
+  v15[4] = &unk_2150C8AD0;
+  v15[5] = v14;
   queryCopy = query;
-  sub_21501779C(0, 0, v9, &unk_2150C8AD8, v14);
+  sub_21501779C(0, 0, v10, &unk_2150C8AD8, v15);
 }
 
 void __101__ICSearchQueryOperation_fetchModernNoteSearchableItemAttributesFromCoreDataForObjectIDURIs_context___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)

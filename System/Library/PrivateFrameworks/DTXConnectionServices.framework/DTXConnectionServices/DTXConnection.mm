@@ -18,9 +18,12 @@
 - (int)remoteCapabilityVersion:(id)version;
 - (void)_cancelInternal:(id)internal;
 - (void)_channelCanceled:(unsigned int)canceled;
+- (void)_handleMessageParseException:(id)exception forChannelCode:(unsigned int)code messageID:(unsigned int)d fragmentCount:(unsigned int)count withPayloadBytes:(const void *)bytes ofLength:(unint64_t)length;
 - (void)_handleMissingRemoteCapabilities;
 - (void)_handleProxyRequestForInterface:(id)interface interfaceName:(id)name peerInterface:(id)peerInterface peerInterfaceName:(id)interfaceName handler:(id)handler;
+- (void)_notifyCompressionHint:(unsigned int)hint forChannelCode:(unsigned int)code;
 - (void)_notifyOfPublishedCapabilities:(id)capabilities;
+- (void)_receiveQueueSetCompressionHint:(unsigned int)hint onChannel:(id)channel;
 - (void)_requestChannelWithCode:(unsigned int)code identifier:(id)identifier;
 - (void)_routeMessage:(id)message;
 - (void)_scheduleMessage:(id)message toChannel:(id)channel;
@@ -29,11 +32,13 @@
 - (void)cancelWithSerializedTransport:(id)transport;
 - (void)dealloc;
 - (void)handleProxyRequestForInterface:(id)interface peerInterface:(id)peerInterface handler:(id)handler;
+- (void)publishCapability:(id)capability withVersion:(int)version forClass:(Class)class;
 - (void)publishServicesInImagePath:(id)path;
 - (void)registerCapabilityOverrideBlock:(id)block;
 - (void)replaceCompressorForDecompression:(id)decompression;
 - (void)resume;
 - (void)setChannelHandler:(id)handler;
+- (void)setCompressionHint:(int)hint forChannel:(id)channel;
 - (void)setMaximumEnqueueSize:(unint64_t)size;
 - (void)setRemoteTracer:(BOOL)tracer;
 - (void)suspend;
@@ -43,7 +48,7 @@
 
 + (void)initialize
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   if (objc_opt_class() == self)
   {
     objc_opt_class();
@@ -95,19 +100,17 @@
       {
         v37 = v36;
         *buf = 136315650;
-        v40 = getprogname();
-        v41 = 1024;
-        v42 = getpid();
-        v43 = 2080;
-        v44 = v34;
+        v39 = getprogname();
+        v40 = 1024;
+        v41 = getpid();
+        v42 = 2080;
+        v43 = v34;
         _os_log_impl(&dword_247F3D000, v37, OS_LOG_TYPE_ERROR, "%s[%d]: Global DTXConnection log enabled - also written to '%s'", buf, 0x1Cu);
       }
 
       free(v34);
     }
   }
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 + (void)registerTransport:(Class)transport forScheme:(id)scheme
@@ -129,7 +132,7 @@
 
 - (void)publishServicesInImagePath:(id)path
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v7 = pathCopy;
   if (pathCopy && objc_msgSend_length(pathCopy, v5, v6))
@@ -138,27 +141,27 @@
     if (os_log_type_enabled(qword_2814DB5E8, OS_LOG_TYPE_INFO))
     {
       *buf = 138543362;
-      v38 = v7;
+      v37 = v7;
       _os_log_impl(&dword_247F3D000, v8, OS_LOG_TYPE_INFO, "registering capabilities in image: %{public}@", buf, 0xCu);
     }
 
     v9 = v7;
     v12 = objc_msgSend_UTF8String(v9, v10, v11);
     v13 = objc_opt_class();
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = sub_247F45BD8;
-    v35[3] = &unk_278EEE9F8;
-    v35[4] = self;
-    sub_247F45920(v12, sel_registerCapabilities_, v13, v35);
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = sub_247F45BD8;
+    v34[3] = &unk_278EEE9F8;
+    v34[4] = self;
+    sub_247F45920(v12, sel_registerCapabilities_, v13, v34);
     v14 = v7;
     v17 = objc_msgSend_UTF8String(v14, v15, v16);
-    v31[0] = MEMORY[0x277D85DD0];
-    v31[1] = 3221225472;
-    v32 = sub_247F45CC4;
-    v33 = &unk_278EEE9F8;
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v31 = sub_247F45CC4;
+    v32 = &unk_278EEE9F8;
     selfCopy = self;
-    v30 = v31;
+    v29 = v30;
     v18 = objc_getProtocol("DTTapServiceDelegate");
     if (!v18)
     {
@@ -178,9 +181,9 @@
       }
 
       *buf = 136315394;
-      v38 = v22;
-      v39 = 1024;
-      v40 = outCount;
+      v37 = v22;
+      v38 = 1024;
+      v39 = outCount;
       _os_log_impl(&dword_247F3D000, v21, OS_LOG_TYPE_DEBUG, "scanning image %s (%u classes)", buf, 0x12u);
     }
 
@@ -198,7 +201,7 @@
           }
 
           *buf = 136315138;
-          v38 = v25;
+          v37 = v25;
           _os_log_impl(&dword_247F3D000, v24, OS_LOG_TYPE_DEBUG, "checking class %s", buf, 0xCu);
         }
 
@@ -215,7 +218,7 @@
               _os_log_impl(&dword_247F3D000, v28, OS_LOG_TYPE_DEBUG, "protocol matched for class, calling block", buf, 2u);
             }
 
-            v32(v30, Class);
+            v31(v29, Class);
           }
         }
       }
@@ -233,8 +236,34 @@ LABEL_25:
   }
 
 LABEL_26:
+}
 
-  v29 = *MEMORY[0x277D85DE8];
+- (void)setCompressionHint:(int)hint forChannel:(id)channel
+{
+  v4 = *&hint;
+  channelCopy = channel;
+  handler_queue = self->_handler_queue;
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = sub_247F45EC0;
+  block[3] = &unk_278EEEA20;
+  block[4] = self;
+  v16 = v4;
+  v8 = channelCopy;
+  v15 = v8;
+  dispatch_sync(handler_queue, block);
+  if (v8)
+  {
+    v11 = objc_msgSend_channelCode(v8, v9, v10);
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v12 = objc_msgSend_messageWithSelector_typesAndArguments_(DTXMessage, v9, sel__notifyCompressionHint_forChannelCode_, 3, v4, 3, v11, 0);
+  objc_msgSend_sendMessage_fromChannel_sendMode_syncWithReply_replyHandler_(self, v13, v12, 0, 2, 0, 0);
 }
 
 + (id)connectionToAddress:(id)address
@@ -263,6 +292,221 @@ LABEL_26:
   v16 = objc_msgSend_initWithTransport_(v5, v15, v14);
 
   return v16;
+}
+
+- (void)_handleMessageParseException:(id)exception forChannelCode:(unsigned int)code messageID:(unsigned int)d fragmentCount:(unsigned int)count withPayloadBytes:(const void *)bytes ofLength:(unint64_t)length
+{
+  v10 = *&count;
+  v11 = *&d;
+  v12 = *&code;
+  v104[6] = *MEMORY[0x277D85DE8];
+  exceptionCopy = exception;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    *buf = 67109376;
+    LODWORD(v102[0]) = v12;
+    WORD2(v102[0]) = 2048;
+    *(v102 + 6) = length;
+    _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "exception handler called for message parsing: channel code:%u, payload length:%llu", buf, 0x12u);
+  }
+
+  if (!exceptionCopy || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  {
+LABEL_38:
+    objc_exception_throw(exceptionCopy);
+  }
+
+  v104[0] = &unk_285A15D58;
+  v103[0] = @"Version";
+  v103[1] = @"ChannelCode";
+  v15 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v14, v12);
+  v104[1] = v15;
+  v103[2] = @"MessageID";
+  v17 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v16, v11);
+  v104[2] = v17;
+  v103[3] = @"FragmentCount";
+  v19 = objc_msgSend_numberWithUnsignedInt_(MEMORY[0x277CCABB0], v18, v10);
+  v104[3] = v19;
+  v103[4] = @"SerializedDataRawLength";
+  v21 = objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x277CCABB0], v20, length);
+  v104[4] = v21;
+  v103[5] = @"SerializedDataBase64";
+  v23 = objc_msgSend_dataWithBytesNoCopy_length_freeWhenDone_(MEMORY[0x277CBEA90], v22, bytes, length, 0);
+  v25 = objc_msgSend_base64EncodedStringWithOptions_(v23, v24, 0);
+  v104[5] = v25;
+  v27 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v26, v104, v103, 6);
+
+  v96 = 0;
+  v29 = objc_msgSend_dataWithJSONObject_options_error_(MEMORY[0x277CCAAA0], v28, v27, 1, &v96);
+  v30 = v96;
+  v33 = v30;
+  if (!v29 || v30)
+  {
+    v66 = MEMORY[0x277D86220];
+    v67 = MEMORY[0x277D86220];
+    if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_37;
+    }
+
+    if (v33)
+    {
+      v66 = objc_msgSend_localizedDescription(v33, v68, v69);
+      v70 = v66;
+      v73 = objc_msgSend_UTF8String(v70, v71, v72);
+    }
+
+    else
+    {
+      v73 = "{no error available}";
+    }
+
+    *buf = 136315138;
+    v102[0] = v73;
+    _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed to serialize log content to JSON: %s", buf, 0xCu);
+    if (!v33)
+    {
+      goto LABEL_37;
+    }
+
+LABEL_36:
+
+LABEL_37:
+    goto LABEL_38;
+  }
+
+  v34 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v31, v32);
+  v95 = 0;
+  v36 = objc_msgSend_URLForDirectory_inDomain_appropriateForURL_create_error_(v34, v35, 5, 1, 0, 0, &v95);
+  v37 = v95;
+
+  if (v37)
+  {
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      v76 = objc_msgSend_localizedDescription(v37, v74, v75);
+      v77 = v76;
+      v80 = objc_msgSend_UTF8String(v77, v78, v79);
+      *buf = 136315138;
+      v102[0] = v80;
+      _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed to get ~/Library NSURL, nowhere to write to failure log: %s", buf, 0xCu);
+    }
+
+    goto LABEL_38;
+  }
+
+  v39 = objc_msgSend_URLWithString_relativeToURL_(MEMORY[0x277CBEBC0], v38, @"Logs/DTXConnection", v36);
+  if (!v39)
+  {
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_38;
+    }
+
+    *buf = 0;
+    v81 = MEMORY[0x277D86220];
+    v82 = "failed to build DTXConnection log dir URL, nowhere to write to failure log";
+    v83 = buf;
+    v84 = 2;
+LABEL_33:
+    _os_log_impl(&dword_247F3D000, v81, OS_LOG_TYPE_ERROR, v82, v83, v84);
+    goto LABEL_38;
+  }
+
+  v42 = v39;
+  v43 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v40, v41);
+  v94 = 0;
+  v45 = objc_msgSend_createDirectoryAtURL_withIntermediateDirectories_attributes_error_(v43, v44, v42, 1, 0, &v94);
+  v46 = v94;
+
+  if (!v45 || v46)
+  {
+    v66 = MEMORY[0x277D86220];
+    v85 = MEMORY[0x277D86220];
+    if (!os_log_type_enabled(v66, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_37;
+    }
+
+    if (v46)
+    {
+      v66 = objc_msgSend_localizedDescription(v46, v86, v87);
+      v91 = v66;
+      v88 = objc_msgSend_UTF8String(v91, v92, v93);
+    }
+
+    else
+    {
+      v88 = "<no error returned>";
+    }
+
+    *buf = 136315138;
+    v102[0] = v88;
+    _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed to create DTXConnection log dir, nowhere to write to failure log: %s", buf, 0xCu);
+    if (!v46)
+    {
+      goto LABEL_37;
+    }
+
+    goto LABEL_36;
+  }
+
+  v49 = objc_msgSend_path(v42, v47, v48);
+  v50 = v49;
+  v53 = objc_msgSend_UTF8String(v50, v51, v52);
+  v54 = getpid();
+  snprintf(buf, 0x400uLL, "%s/FailedDecompression-%d-XXXXXX.log", v53, v54);
+
+  v55 = mkstemps(buf, 4);
+  if (v55 == -1)
+  {
+    if (!os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_38;
+    }
+
+    v89 = __error();
+    v90 = strerror(*v89);
+    *v97 = 136315394;
+    v98 = buf;
+    v99 = 2080;
+    v100 = v90;
+    v81 = MEMORY[0x277D86220];
+    v82 = "failed to create file '%s': %s";
+    v83 = v97;
+    v84 = 22;
+    goto LABEL_33;
+  }
+
+  v56 = v55;
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
+  {
+    *v97 = 136315138;
+    v98 = buf;
+    _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "writing failed decompression log to '%s'", v97, 0xCu);
+  }
+
+  v57 = objc_alloc(MEMORY[0x277CCACA8]);
+  v59 = objc_msgSend_initWithData_encoding_(v57, v58, v29, 4);
+  v60 = v59;
+  v63 = objc_msgSend_UTF8String(v60, v61, v62);
+  dprintf(v56, "%s", v63);
+
+  if ((v56 & 0x80000000) == 0 && close(v56) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    v64 = __error();
+    v65 = strerror(*v64);
+    *v97 = 136315394;
+    v98 = buf;
+    v99 = 2080;
+    v100 = v65;
+    _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failed to close file '%s': %s", v97, 0x16u);
+  }
+
+  if (!qword_27EE80D38 || (*(qword_27EE80D38 + 16))())
+  {
+    goto LABEL_38;
+  }
 }
 
 - (void)_setupWireProtocols
@@ -478,44 +722,67 @@ LABEL_26:
   objc_msgSend_setTotalSize_(v9, v8, sizeCopy);
 }
 
+- (void)publishCapability:(id)capability withVersion:(int)version forClass:(Class)class
+{
+  v16 = *MEMORY[0x277D85DE8];
+  v13 = 0;
+  v5 = objc_msgSend_publishCapability_withVersion_forClass_error_(self, a2, capability, *&version, class, &v13);
+  v6 = v13;
+  v7 = v6;
+  if ((v5 & 1) == 0)
+  {
+    if (v6)
+    {
+      v8 = qword_2814DB5B8;
+      if (os_log_type_enabled(qword_2814DB5B8, OS_LOG_TYPE_ERROR))
+      {
+        v9 = v8;
+        v12 = objc_msgSend_localizedDescription(v7, v10, v11);
+        *buf = 138543362;
+        v15 = v12;
+        _os_log_impl(&dword_247F3D000, v9, OS_LOG_TYPE_ERROR, "Failed to publish capability: %{public}@", buf, 0xCu);
+      }
+    }
+  }
+}
+
 - (BOOL)publishCapability:(id)capability withVersion:(int)version forClass:(Class)class error:(id *)error
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   capabilityCopy = capability;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = sub_247F468E0;
-  v34 = sub_247F468F0;
-  v35 = 0;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = sub_247F468E0;
+  v33 = sub_247F468F0;
+  v34 = 0;
   handler_queue = self->_handler_queue;
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 3221225472;
-  v23 = sub_247F47170;
-  v24 = &unk_278EEEAC0;
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = sub_247F47170;
+  v23 = &unk_278EEEAC0;
   selfCopy = self;
-  v27 = &v30;
+  v26 = &v29;
   versionCopy = version;
   v12 = capabilityCopy;
-  v26 = v12;
+  v25 = v12;
   classCopy = class;
-  dispatch_sync(handler_queue, &v21);
-  v14 = v31[5];
+  dispatch_sync(handler_queue, &v20);
+  v14 = v30[5];
   if (error && v14)
   {
     v15 = MEMORY[0x277CCA9B8];
-    v36 = *MEMORY[0x277CCA450];
-    v37[0] = v14;
-    v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v37, &v36, 1, v21, v22, v23, v24, selfCopy);
+    v35 = *MEMORY[0x277CCA450];
+    v36[0] = v14;
+    v16 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v13, v36, &v35, 1, v20, v21, v22, v23, selfCopy);
     *error = objc_msgSend_errorWithDomain_code_userInfo_(v15, v17, @"DTXConnection", 2, v16);
 
-    v14 = v31[5];
+    v14 = v30[5];
   }
 
   v18 = v14 == 0;
 
-  _Block_object_dispose(&v30, 8);
-  v19 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v29, 8);
   return v18;
 }
 
@@ -753,14 +1020,14 @@ LABEL_26:
 - (BOOL)sendMessage:(id)message fromChannel:(id)channel sendMode:(int)mode syncWithReply:(BOOL)reply replyHandler:(id)handler
 {
   replyCopy = reply;
-  v98 = *MEMORY[0x277D85DE8];
+  v97 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   channelCopy = channel;
   handlerCopy = handler;
   v17 = 0;
   if (messageCopy && kDTXInterruptionMessage != messageCopy)
   {
-    v83 = replyCopy;
+    v82 = replyCopy;
     v18 = objc_msgSend_serializedLength(messageCopy, v14, v15);
     v21 = v18;
     logMessageCallstackSizeThreshold = self->_logMessageCallstackSizeThreshold;
@@ -770,9 +1037,9 @@ LABEL_26:
       v25 = objc_msgSend_componentsJoinedByString_(v23, v24, @"\n");
       v26 = v25;
       *buf = 134218242;
-      v95 = vcvtd_n_f64_u64(v21, 0x14uLL);
-      v96 = 2080;
-      v97 = objc_msgSend_UTF8String(v26, v27, v28);
+      v94 = vcvtd_n_f64_u64(v21, 0x14uLL);
+      v95 = 2080;
+      v96 = objc_msgSend_UTF8String(v26, v27, v28);
       _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "large message (%.2lf MB) from:\n%s", buf, 0x16u);
     }
 
@@ -842,13 +1109,13 @@ LABEL_26:
     if (v45)
     {
       v48 = v45;
-      v82 = channelCopy;
+      v81 = channelCopy;
       if (objc_msgSend_conversationIndex(messageCopy, v46, v47))
       {
         if (objc_msgSend_deserialized(messageCopy, v49, v50))
         {
           v53 = 0;
-          v54 = objc_msgSend_channelCode(v82, v51, v52);
+          v54 = objc_msgSend_channelCode(v81, v51, v52);
         }
 
         else
@@ -868,8 +1135,8 @@ LABEL_26:
 
       v62 = v54;
       v63 = 0x100000000;
-      v81 = handlerCopy;
-      if (!handlerCopy && (objc_msgSend_isDispatch(messageCopy, v55, v56) & v83) == 0)
+      v80 = handlerCopy;
+      if (!handlerCopy && (objc_msgSend_isDispatch(messageCopy, v55, v56) & v82) == 0)
       {
         v63 = 0;
       }
@@ -886,36 +1153,36 @@ LABEL_26:
       }
 
       v67 = messageCopy == kDTXBarrierMessage || messageCopy == kDTXHeartbeatMessage;
-      v84[0] = MEMORY[0x277D85DD0];
-      v84[1] = 3221225472;
-      v84[2] = sub_247F49054;
-      v84[3] = &unk_278EEEC78;
-      v84[4] = self;
-      v88 = v42;
-      v92 = mode == 2;
-      v93 = v67;
+      v83[0] = MEMORY[0x277D85DD0];
+      v83[1] = 3221225472;
+      v83[2] = sub_247F49054;
+      v83[3] = &unk_278EEEC78;
+      v83[4] = self;
+      v87 = v42;
+      v91 = mode == 2;
+      v92 = v67;
       messageCopy = messageCopy;
       v68 = v53 | v48;
-      v85 = messageCopy;
-      v90 = v68;
-      v91 = v64;
-      channelCopy = v82;
-      v69 = v82;
-      v86 = v69;
-      v89 = v44;
+      v84 = messageCopy;
+      v89 = v68;
+      v90 = v64;
+      channelCopy = v81;
+      v69 = v81;
+      v85 = v69;
+      v88 = v44;
       v70 = v65;
-      v87 = v70;
-      v72 = MEMORY[0x24C1C0D80](v84);
+      v86 = v70;
+      v72 = MEMORY[0x24C1C0D80](v83);
       if (self->_tracer)
       {
         v73 = objc_msgSend_descriptionWithRoutingInformation_(messageCopy, v71, v68, v64);
         sub_247F48190("  sent  ", self, v69, v73);
       }
 
-      if (v83 && v63)
+      if (v82 && v63)
       {
         v76 = pthread_getspecific(qword_2814DB5E0);
-        handlerCopy = v81;
+        handlerCopy = v80;
         if (v76 == v69 && messageCopy != kDTXBarrierMessage)
         {
           objc_msgSend_raise_format_(MEMORY[0x277CBEAD8], v74, @"DTXConnectionException", @"API misuse: client attempted to synchronously send a message and wait for response while already executing in channel's asynchronous handler context.");
@@ -924,13 +1191,13 @@ LABEL_26:
         if (v76)
         {
           objc_msgSend_suspendLimits(self->_incomingResourceTracker, v74, v75);
-          sub_247F495A4(v81, v72);
+          sub_247F495A4(v80, v72);
           objc_msgSend_resumeLimits(self->_incomingResourceTracker, v77, v78);
         }
 
         else
         {
-          sub_247F495A4(v81, v72);
+          sub_247F495A4(v80, v72);
         }
 
         if (!v70)
@@ -941,8 +1208,8 @@ LABEL_26:
 
       else
       {
-        handlerCopy = v81;
-        (v72)[2](v72, v81);
+        handlerCopy = v80;
+        (v72)[2](v72, v80);
         if (!v70)
         {
 LABEL_55:
@@ -961,7 +1228,6 @@ LABEL_55:
 
 LABEL_56:
 
-  v79 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -1070,7 +1336,7 @@ LABEL_56:
 
 - (void)_scheduleMessage:(id)message toChannel:(id)channel
 {
-  v98[1] = *MEMORY[0x277D85DE8];
+  v97[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   channelCopy = channel;
   if (self->_tracer)
@@ -1084,13 +1350,13 @@ LABEL_56:
     if (objc_msgSend_isBarrier(messageCopy, v7, v8))
     {
       incomingResourceTracker = self->_incomingResourceTracker;
-      v93[0] = MEMORY[0x277D85DD0];
-      v93[1] = 3221225472;
-      v93[2] = sub_247F4A0F0;
-      v93[3] = &unk_278EEE6E0;
-      v93[4] = self;
-      v94 = channelCopy;
-      objc_msgSend__scheduleMessage_tracker_withHandler_(v94, v14, messageCopy, incomingResourceTracker, v93);
+      v92[0] = MEMORY[0x277D85DD0];
+      v92[1] = 3221225472;
+      v92[2] = sub_247F4A0F0;
+      v92[3] = &unk_278EEE6E0;
+      v92[4] = self;
+      v93 = channelCopy;
+      objc_msgSend__scheduleMessage_tracker_withHandler_(v93, v14, messageCopy, incomingResourceTracker, v92);
     }
 
     else if (objc_msgSend_isDispatch(messageCopy, v11, v12))
@@ -1145,10 +1411,10 @@ LABEL_56:
         {
           v69 = objc_msgSend_exceptionWithName_reason_userInfo_(MEMORY[0x277CBEAD8], v67, @"DTXMissingReplyBlockException", @"Peer was not expecting a reply for the provided message and dropped it", 0);
           v70 = MEMORY[0x277CCA9B8];
-          v95 = *MEMORY[0x277CCA450];
+          v94 = *MEMORY[0x277CCA450];
           v73 = objc_msgSend_description(v69, v71, v72);
-          v96 = v73;
-          v75 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v74, &v96, &v95, 1);
+          v95 = v73;
+          v75 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v74, &v95, &v94, 1);
           v77 = objc_msgSend_errorWithDomain_code_userInfo_(v70, v76, @"DTXConnection", 1, v75);
           v79 = objc_msgSend_newReplyWithError_(messageCopy, v78, v77);
 
@@ -1167,22 +1433,22 @@ LABEL_56:
       {
         v61 = objc_msgSend_mutableCopy(self->_handlersByIdentifier, v43, v44);
         handlersByIdentifier = self->_handlersByIdentifier;
-        v85 = MEMORY[0x277D85DD0];
-        v86 = 3221225472;
-        v87 = sub_247F4A150;
-        v88 = &unk_278EEECC8;
-        v89 = channelCopy;
+        v84 = MEMORY[0x277D85DD0];
+        v85 = 3221225472;
+        v86 = sub_247F4A150;
+        v87 = &unk_278EEECC8;
+        v88 = channelCopy;
         v63 = v61;
-        v90 = v63;
+        v89 = v63;
         selfCopy = self;
-        v92 = 0;
-        objc_msgSend_enumerateKeysAndObjectsUsingBlock_(handlersByIdentifier, v64, &v85);
+        v91 = 0;
+        objc_msgSend_enumerateKeysAndObjectsUsingBlock_(handlersByIdentifier, v64, &v84);
         v65 = self->_handlersByIdentifier;
         self->_handlersByIdentifier = v63;
         v66 = v63;
       }
 
-      objc_msgSend__scheduleMessage_tracker_withHandler_(channelCopy, v43, messageCopy, self->_incomingResourceTracker, 0, v85, v86, v87, v88);
+      objc_msgSend__scheduleMessage_tracker_withHandler_(channelCopy, v43, messageCopy, self->_incomingResourceTracker, 0, v84, v85, v86, v87);
     }
   }
 
@@ -1192,10 +1458,10 @@ LABEL_56:
     {
       v17 = objc_msgSend_exceptionWithName_reason_userInfo_(MEMORY[0x277CBEAD8], v15, @"DTXMissingChannelException", @"Unable to invoke message sent to invalid channel", 0);
       v18 = MEMORY[0x277CCA9B8];
-      v97 = *MEMORY[0x277CCA450];
+      v96 = *MEMORY[0x277CCA450];
       v21 = objc_msgSend_description(v17, v19, v20);
-      v98[0] = v21;
-      v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v22, v98, &v97, 1);
+      v97[0] = v21;
+      v23 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v22, v97, &v96, 1);
       v25 = objc_msgSend_errorWithDomain_code_userInfo_(v18, v24, @"DTXConnection", 1, v23);
       v27 = objc_msgSend_newReplyWithError_(messageCopy, v26, v25);
 
@@ -1206,8 +1472,6 @@ LABEL_56:
     v30 = objc_msgSend_cost(messageCopy, v15, v16);
     objc_msgSend_releaseSize_(v29, v31, v30);
   }
-
-  v84 = *MEMORY[0x277D85DE8];
 }
 
 - (id)makeChannelWithIdentifier:(id)identifier
@@ -1284,7 +1548,7 @@ LABEL_56:
 
 - (void)_requestChannelWithCode:(unsigned int)code identifier:(id)identifier
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v7 = objc_autoreleasePoolPush();
   v8 = -code;
@@ -1294,7 +1558,7 @@ LABEL_56:
   objc_msgSend_setCompressionTypeHint_(v11, v14, self->_newChannelCompressionHint);
   v16 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], v15, v8);
   objc_msgSend_setObject_forKey_(self->_unconfiguredChannelsByCode, v17, v11, v16);
-  v55 = MEMORY[0x24C1C0D80](self->_channelHandler);
+  v54 = MEMORY[0x24C1C0D80](self->_channelHandler);
   v19 = objc_msgSend_componentsSeparatedByString_(identifierCopy, v18, @":");
   if (objc_msgSend_count(v19, v20, v21) == 3 && (objc_msgSend_objectAtIndex_(v19, v22, 0), v23 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v23, v24, @"dtxproxy"), v23, isEqualToString))
   {
@@ -1320,34 +1584,34 @@ LABEL_56:
   v36 = v32;
   if (v34)
   {
-    v54 = v16;
+    v53 = v16;
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v72 = 0x3032000000;
-    v73 = sub_247F468E0;
-    v74 = sub_247F468F0;
-    v75 = 0;
+    v71 = 0x3032000000;
+    v72 = sub_247F468E0;
+    v73 = sub_247F468F0;
+    v74 = 0;
+    v63 = 0u;
     v64 = 0u;
     v65 = 0u;
     v66 = 0u;
-    v67 = 0u;
     v37 = self->_protocolHandlers;
-    v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v37, v38, &v64, v70, 16);
+    v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v37, v38, &v63, v69, 16);
     if (v40)
     {
-      v41 = *v65;
+      v41 = *v64;
       while (2)
       {
         v42 = v7;
         for (i = 0; i != v40; ++i)
         {
-          if (*v65 != v41)
+          if (*v64 != v41)
           {
             objc_enumerationMutation(v37);
           }
 
-          v44 = *(*(&v64 + 1) + 8 * i);
-          if (objc_msgSend_matchesPublishedProtocolName_peerProtocolName_(v44, v39, v36, v35, v54))
+          v44 = *(*(&v63 + 1) + 8 * i);
+          if (objc_msgSend_matchesPublishedProtocolName_peerProtocolName_(v44, v39, v36, v35, v53))
           {
             objc_storeStrong((*(&buf + 1) + 40), v44);
             v7 = v42;
@@ -1355,7 +1619,7 @@ LABEL_56:
           }
         }
 
-        v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v37, v39, &v64, v70, 16);
+        v40 = objc_msgSend_countByEnumeratingWithState_objects_count_(v37, v39, &v63, v69, 16);
         v7 = v42;
         if (v40)
         {
@@ -1368,16 +1632,16 @@ LABEL_56:
 
 LABEL_18:
 
-    v16 = v54;
+    v16 = v53;
     if (*(*(&buf + 1) + 40))
     {
-      v61[0] = MEMORY[0x277D85DD0];
-      v61[1] = 3221225472;
-      v61[2] = sub_247F4AD5C;
-      v61[3] = &unk_278EEE668;
-      v62 = v11;
+      v60[0] = MEMORY[0x277D85DD0];
+      v60[1] = 3221225472;
+      v60[2] = sub_247F4AD5C;
+      v60[3] = &unk_278EEE668;
+      v61 = v11;
       p_buf = &buf;
-      objc_msgSend__scheduleBlock_(v62, v46, v61);
+      objc_msgSend__scheduleBlock_(v61, v46, v60);
     }
 
     else
@@ -1385,28 +1649,28 @@ LABEL_18:
       v50 = qword_2814DB5B8;
       if (os_log_type_enabled(qword_2814DB5B8, OS_LOG_TYPE_ERROR))
       {
-        *v68 = 138543362;
-        v69 = identifierCopy;
-        _os_log_impl(&dword_247F3D000, v50, OS_LOG_TYPE_ERROR, "Protocol handler unavailable for specified channel: %{public}@", v68, 0xCu);
+        *v67 = 138543362;
+        v68 = identifierCopy;
+        _os_log_impl(&dword_247F3D000, v50, OS_LOG_TYPE_ERROR, "Protocol handler unavailable for specified channel: %{public}@", v67, 0xCu);
       }
 
-      objc_msgSend_cancel(v11, v51, v52, v54);
+      objc_msgSend_cancel(v11, v51, v52, v53);
     }
 
     _Block_object_dispose(&buf, 8);
   }
 
-  else if (v55)
+  else if (v54)
   {
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v56[2] = sub_247F4AE34;
-    v56[3] = &unk_278EEED40;
-    v60 = v55;
-    v57 = v11;
-    v58 = identifierCopy;
+    v55[0] = MEMORY[0x277D85DD0];
+    v55[1] = 3221225472;
+    v55[2] = sub_247F4AE34;
+    v55[3] = &unk_278EEED40;
+    v59 = v54;
+    v56 = v11;
+    v57 = identifierCopy;
     selfCopy = self;
-    objc_msgSend__scheduleBlock_(v57, v45, v56);
+    objc_msgSend__scheduleBlock_(v56, v45, v55);
   }
 
   else
@@ -1423,7 +1687,6 @@ LABEL_18:
   }
 
   objc_autoreleasePoolPop(v7);
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_notifyOfPublishedCapabilities:(id)capabilities
@@ -1493,6 +1756,75 @@ LABEL_18:
   objc_msgSend_removeObjectForKey_(*p_channelsByCode, v9, v14);
 
 LABEL_6:
+}
+
+- (void)_receiveQueueSetCompressionHint:(unsigned int)hint onChannel:(id)channel
+{
+  v4 = *&hint;
+  if (channel)
+  {
+
+    sub_247F4B1A4(channel, *&hint);
+  }
+
+  else
+  {
+    channelsByCode = self->_channelsByCode;
+    v9 = MEMORY[0x277D85DD0];
+    v10 = 3221225472;
+    v11 = sub_247F4D468;
+    v12 = &unk_278EEEF10;
+    hintCopy = hint;
+    objc_msgSend_enumerateKeysAndObjectsUsingBlock_(channelsByCode, a2, &v9);
+    unconfiguredChannelsByCode = self->_unconfiguredChannelsByCode;
+    v9 = MEMORY[0x277D85DD0];
+    v10 = 3221225472;
+    v11 = sub_247F4D468;
+    v12 = &unk_278EEEF10;
+    hintCopy = v4;
+    objc_msgSend_enumerateKeysAndObjectsUsingBlock_(unconfiguredChannelsByCode, v8, &v9);
+    sub_247F4B1A4(self->_defaultChannel, v4);
+    self->_newChannelCompressionHint = v4;
+  }
+}
+
+- (void)_notifyCompressionHint:(unsigned int)hint forChannelCode:(unsigned int)code
+{
+  v4 = *&hint;
+  v17 = *MEMORY[0x277D85DE8];
+  if (hint - 11 > 0xFFFFFFF5)
+  {
+    if (code)
+    {
+      v6 = objc_msgSend_numberWithInt_(MEMORY[0x277CCABB0], a2, -code);
+      v8 = objc_msgSend_objectForKey_(self->_channelsByCode, v7, v6);
+      if (!v8)
+      {
+        v8 = objc_msgSend_objectForKey_(self->_unconfiguredChannelsByCode, v9, v6);
+      }
+
+      v11 = v8;
+
+      v10 = v11;
+    }
+
+    else
+    {
+      v10 = 0;
+    }
+
+    v12 = v10;
+    objc_msgSend__receiveQueueSetCompressionHint_onChannel_(self, v10, v4, v10);
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
+  {
+    *buf = 67109376;
+    v14 = v4;
+    v15 = 1024;
+    v16 = 10;
+    _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "attempted to set the compression type hint to an unknown compression method: specified=%u, max valid=%u", buf, 0xEu);
+  }
 }
 
 - (void)handleProxyRequestForInterface:(id)interface peerInterface:(id)peerInterface handler:(id)handler

@@ -3,6 +3,8 @@
 - (PBADeviceBlockOverlayViewControllerDelegate)delegate;
 - (void)dealloc;
 - (void)loadView;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation PBADeviceBlockOverlayViewController
@@ -59,6 +61,24 @@
   [(PBADeviceBlockOverlayViewController *)self setView:v8];
   objc_destroyWeak(&v16);
   objc_destroyWeak(&location);
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  [(SBFDeviceBlockTimer *)self->_blockTimer start];
+  v5.receiver = self;
+  v5.super_class = PBADeviceBlockOverlayViewController;
+  [(PBADeviceBlockOverlayViewController *)&v5 viewWillAppear:appearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  [(SBFDeviceBlockTimer *)self->_blockTimer invalidate];
+  v5.receiver = self;
+  v5.super_class = PBADeviceBlockOverlayViewController;
+  [(PBADeviceBlockOverlayViewController *)&v5 viewDidDisappear:disappearCopy];
 }
 
 - (PBADeviceBlockOverlayViewControllerDelegate)delegate

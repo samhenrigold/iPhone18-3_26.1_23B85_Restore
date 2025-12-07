@@ -16,7 +16,7 @@
   v6 = mEMORY[0x277CCDD30]3;
   if (mEMORY[0x277CCDD30]3)
   {
-    [mEMORY[0x277CCDD30]3 currentOSVersionStruct];
+    objc_msgSend_currentOSVersionStruct(mEMORY[0x277CCDD30]3);
   }
 
   else
@@ -31,35 +31,35 @@
 
 + (id)deviceInfoFromStorageGroup:()HealthMedicationsDaemonPlugin syncIdentityManager:
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   v5 = a3;
-  v35 = a4;
+  v34 = a4;
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v39 = 0u;
   v40 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v43 = 0u;
   storageEntries = [v5 storageEntries];
-  v8 = [storageEntries countByEnumeratingWithState:&v40 objects:v44 count:16];
+  v8 = [storageEntries countByEnumeratingWithState:&v39 objects:v43 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v41;
+    v10 = *v40;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v41 != v10)
+        if (*v40 != v10)
         {
           objc_enumerationMutation(storageEntries);
         }
 
-        v12 = *(*(&v40 + 1) + 8 * i);
+        v12 = *(*(&v39 + 1) + 8 * i);
         v13 = [v12 key];
         [v6 setObject:v12 forKeyedSubscript:v13];
       }
 
-      v9 = [storageEntries countByEnumeratingWithState:&v40 objects:v44 count:16];
+      v9 = [storageEntries countByEnumeratingWithState:&v39 objects:v43 count:16];
     }
 
     while (v9);
@@ -84,24 +84,22 @@
   v25 = 0;
   if (hardwareIdentifier && v18 && v20 && v22 && v24)
   {
-    v38 = 0uLL;
-    v39 = 0;
+    v37 = 0uLL;
+    v38 = 0;
     HKNSOperatingSystemVersionFromString();
     integerValue = [v24 integerValue];
     [v5 deviceContext];
-    v26 = v34 = v5;
+    v26 = v33 = v5;
     syncIdentity2 = [v26 syncIdentity];
-    currentSyncIdentity = [v35 currentSyncIdentity];
+    currentSyncIdentity = [v34 currentSyncIdentity];
     identity = [currentSyncIdentity identity];
-    v32 = [syncIdentity2 isEqual:identity];
+    v31 = [syncIdentity2 isEqual:identity];
 
-    v5 = v34;
-    v36 = 0uLL;
-    v37 = 0;
-    v25 = [objc_alloc(MEMORY[0x277D115E0]) initWithHardwareIdentifier:hardwareIdentifier name:v18 model:v20 operatingSystemVersion:&v36 scheduleCompatibilityVersion:integerValue localDevice:v32];
+    v5 = v33;
+    v35 = 0uLL;
+    v36 = 0;
+    v25 = [objc_alloc(MEMORY[0x277D115E0]) initWithHardwareIdentifier:hardwareIdentifier name:v18 model:v20 operatingSystemVersion:&v35 scheduleCompatibilityVersion:integerValue localDevice:v31];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 
   return v25;
 }

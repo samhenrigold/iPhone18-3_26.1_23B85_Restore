@@ -81,8 +81,7 @@ void sub_298084A20(_Unwind_Exception *exception_object)
 void ctu::hex0(ctu *this@<X0>, std::string *a2@<X8>)
 {
   v2 = this;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::resize(a2, 2uLL, 48);
   if (v2)
@@ -123,8 +122,7 @@ void ctu::hex0(ctu *this@<X0>, std::string *a2@<X8>)
 
 {
   v2 = this;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::resize(a2, 4uLL, 48);
   if (v2)
@@ -177,8 +175,7 @@ void ctu::hex0(ctu *this@<X0>, std::string *a2@<X8>)
 
 {
   v2 = this;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::resize(a2, 8uLL, 48);
   if (v2)
@@ -231,8 +228,7 @@ void ctu::hex0(ctu *this@<X0>, std::string *a2@<X8>)
 
 {
   v2 = this;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::resize(a2, 2uLL, 48);
   if (v2)
@@ -277,54 +273,7 @@ void ctu::hex0(ctu *this@<X0>, std::string *a2@<X8>)
 
 {
   v2 = this;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
-  a2->__r_.__value_.__r.__words[2] = 0;
-  std::string::resize(a2, 2uLL, 48);
-  if (v2)
-  {
-    size = SHIBYTE(a2->__r_.__value_.__r.__words[2]);
-    v5 = a2->__r_.__value_.__r.__words[0];
-    if (size >= 0)
-    {
-      v5 = a2;
-    }
-
-    if (size < 0)
-    {
-      size = a2->__r_.__value_.__l.__size_;
-    }
-
-    v6 = v5 + size;
-    if ((v2 & 0xFu) >= 0xA)
-    {
-      v7 = (v2 & 0xF) + 87;
-    }
-
-    else
-    {
-      v7 = v2 & 0xF | 0x30;
-    }
-
-    *(v6 - 1) = v7;
-    if (v2 >= 0xA0u)
-    {
-      v8 = (v2 >> 4) + 87;
-    }
-
-    else
-    {
-      v8 = (v2 >> 4) | 0x30;
-    }
-
-    *(v6 - 2) = v8;
-  }
-}
-
-{
-  v2 = this;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::resize(a2, 4uLL, 48);
   if (v2)
@@ -377,8 +326,7 @@ void ctu::hex0(ctu *this@<X0>, std::string *a2@<X8>)
 
 {
   v2 = this;
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::resize(a2, 8uLL, 48);
   if (v2)
@@ -461,8 +409,7 @@ void sub_298084C64(_Unwind_Exception *exception_object)
 
 void ctu::hex0(unint64_t this@<X0>, std::string *a2@<X8>)
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::resize(a2, 0x10uLL, 48);
   if (this)
@@ -514,8 +461,7 @@ void ctu::hex0(unint64_t this@<X0>, std::string *a2@<X8>)
 }
 
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::resize(a2, 0x10uLL, 48);
   if (this)
@@ -567,8 +513,7 @@ void ctu::hex0(unint64_t this@<X0>, std::string *a2@<X8>)
 }
 
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::resize(a2, 0x10uLL, 48);
   if (this)
@@ -620,8 +565,7 @@ void ctu::hex0(unint64_t this@<X0>, std::string *a2@<X8>)
 }
 
 {
-  a2->__r_.__value_.__r.__words[0] = 0;
-  a2->__r_.__value_.__l.__size_ = 0;
+  *&a2->__r_.__value_.__l.__data_ = 0uLL;
   a2->__r_.__value_.__r.__words[2] = 0;
   std::string::resize(a2, 0x10uLL, 48);
   if (this)
@@ -702,6 +646,52 @@ void sub_298084EAC(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
+void ctu::hex0(std::string *__return_ptr a1@<X8>, ctu *this@<X0>)
+{
+  v2 = this;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  std::string::resize(a1, 2uLL, 48);
+  if (v2)
+  {
+    size = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
+    v5 = a1->__r_.__value_.__r.__words[0];
+    if (size >= 0)
+    {
+      v5 = a1;
+    }
+
+    if (size < 0)
+    {
+      size = a1->__r_.__value_.__l.__size_;
+    }
+
+    v6 = v5 + size;
+    if ((v2 & 0xFu) >= 0xA)
+    {
+      v7 = (v2 & 0xF) + 87;
+    }
+
+    else
+    {
+      v7 = v2 & 0xF | 0x30;
+    }
+
+    *(v6 - 1) = v7;
+    if (v2 >= 0xA0u)
+    {
+      v8 = (v2 >> 4) + 87;
+    }
+
+    else
+    {
+      v8 = (v2 >> 4) | 0x30;
+    }
+
+    *(v6 - 2) = v8;
+  }
+}
+
 void sub_298084F5C(_Unwind_Exception *exception_object)
 {
   if (*(v1 + 23) < 0)
@@ -752,8 +742,9 @@ void sub_29808528C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-double ctu::parse_hex@<D0>(ctu *a1@<X0>, int a2@<W1>, void *a3@<X8>)
+double ctu::parse_hex@<D0>(ctu *a1@<X0>, uint64_t a2@<X1>, void *a3@<X8>)
 {
+  v3 = a2;
   v4 = *(a1 + 1);
   if (*(a1 + 23) >= 0)
   {
@@ -766,19 +757,19 @@ double ctu::parse_hex@<D0>(ctu *a1@<X0>, int a2@<W1>, void *a3@<X8>)
     v5 = v4;
   }
 
-  return ctu::parse_hex(a1, v5, a2, a3);
+  return ctu::parse_hex(a1, v5, v3, a3);
 }
 
-double ctu::parse_hex@<D0>(ctu *a1@<X0>, const char *a2@<X1>, int a3@<W2>, void *a4@<X8>)
+double ctu::parse_hex@<D0>(ctu *a1@<X0>, const char *a2@<X1>, int a3@<W2>, void *a5@<X8>)
 {
-  *a4 = 0;
-  a4[1] = 0;
-  a4[2] = 0;
+  *a5 = 0;
+  a5[1] = 0;
+  a5[2] = 0;
   if (a3 == 2)
   {
-    v5 = 0;
-LABEL_7:
     v6 = 0;
+LABEL_7:
+    v7 = 0;
     goto LABEL_8;
   }
 
@@ -789,34 +780,34 @@ LABEL_7:
       return result;
     }
 
-    v5 = 1;
+    v6 = 1;
     goto LABEL_7;
   }
 
-  v5 = 0;
-  v6 = 1;
+  v6 = 0;
+  v7 = 1;
 LABEL_8:
-  ctu::parse_hex_impl(a1, a2, v5, v6, &v8);
-  result = *&v8;
-  *a4 = v8;
-  a4[2] = v9;
+  ctu::parse_hex_impl(&v9, a1, a2, v6, v7);
+  result = *&v9;
+  *a5 = v9;
+  a5[2] = v10;
   return result;
 }
 
-void ctu::parse_hex_impl(ctu *this@<X0>, const char *a2@<X1>, int a3@<W2>, int a4@<W3>, void *a5@<X8>)
+void ctu::parse_hex_impl(uint64_t *__return_ptr a1@<X8>, ctu *this@<X0>, const char *a3@<X1>, int a4@<W2>, int a5@<W3>)
 {
   v5 = this;
   v7 = 0;
   v8 = 0;
   v9 = 0;
-  *a5 = 0;
-  a5[1] = 0;
-  a5[2] = 0;
-  v10 = &a2[this];
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
+  v10 = &a3[this];
   v11 = MEMORY[0x29EDCA600];
   while (1)
   {
-    if (!a3 || v5 == v10)
+    if (!a4 || v5 == v10)
     {
       if (v5 == v10)
       {
@@ -896,7 +887,7 @@ void ctu::parse_hex_impl(ctu *this@<X0>, const char *a2@<X1>, int a3@<W2>, int a
       v24 = v21;
     }
 
-    if (a4)
+    if (a5)
     {
       if (v19 != v10)
       {
@@ -933,7 +924,7 @@ void ctu::parse_hex_impl(ctu *this@<X0>, const char *a2@<X1>, int a3@<W2>, int a
         v27 = 2 * (v8 - v7);
       }
 
-      if ((v8 - v7) >= 0x3FFFFFFFFFFFFFFFLL)
+      if (v8 - v7 >= 0x3FFFFFFFFFFFFFFFLL)
       {
         v28 = 0x7FFFFFFFFFFFFFFFLL;
       }
@@ -957,9 +948,9 @@ void ctu::parse_hex_impl(ctu *this@<X0>, const char *a2@<X1>, int a3@<W2>, int a
       v29[v26] = v25;
       v9 = &v29[v26 + 1];
       memcpy(v29, v7, v26);
-      *a5 = v29;
-      a5[1] = v9;
-      a5[2] = v8;
+      *a1 = v29;
+      a1[1] = v9;
+      a1[2] = v8;
       if (v7)
       {
         operator delete(v7);
@@ -973,11 +964,11 @@ void ctu::parse_hex_impl(ctu *this@<X0>, const char *a2@<X1>, int a3@<W2>, int a
       *v9++ = v25;
     }
 
-    a5[1] = v9;
+    a1[1] = v9;
     v5 = v19;
   }
 
-  a5[1] = *a5;
+  a1[1] = *a1;
 }
 
 void sub_29808555C(_Unwind_Exception *exception_object)
@@ -1157,27 +1148,27 @@ uint64_t *tlv::writeV<ctl::tlv::PowerSaveDescriptor>(uint64_t *result, uint64_t 
   return result;
 }
 
-const unsigned __int8 *ctl::tlv::parseField(_BYTE *a1, const unsigned __int8 *a2, char **a3)
+const unsigned __int8 *ctl::tlv::parseField(tlv *a1, const unsigned __int8 *a2, char **a3, unint64_t a4)
 {
   tlv::throwIfNotAligned(a1, a2, 2uLL);
-  v6 = (a2 - a1) >> 1;
-  v7 = *a3;
-  v8 = (a3[1] - *a3) >> 1;
-  if (v6 <= v8)
+  v7 = (a2 - a1) >> 1;
+  v8 = *a3;
+  v9 = (a3[1] - *a3) >> 1;
+  if (v7 <= v9)
   {
-    if (v6 < v8)
+    if (v7 < v9)
     {
-      a3[1] = &v7[2 * v6];
+      a3[1] = &v8[2 * v7];
     }
   }
 
   else
   {
-    std::vector<unsigned short>::__append(a3, v6 - v8);
-    v7 = *a3;
+    std::vector<unsigned short>::__append(a3, v7 - v9);
+    v8 = *a3;
   }
 
-  memcpy(v7, a1, a2 - a1);
+  memcpy(v8, a1, a2 - a1);
   return a2;
 }
 
@@ -1198,28 +1189,28 @@ uint64_t ctl::tlv::getFieldSize(void *a1)
   return a1[1] - *a1 + 1;
 }
 
-void *tlv::parseV<ctl::tlv::IndicationSet>@<X0>(unint64_t *a1@<X0>, signed int a2@<W1>, void **a3@<X8>)
+void *tlv::parseV<ctl::tlv::IndicationSet>@<X0>(tlv **a1@<X0>, unsigned int a2@<W1>, void **a4@<X8>)
 {
-  *a3 = 0;
-  a3[1] = 0;
-  a3[2] = 0;
-  v6 = *a1;
-  v7 = a2;
-  v8 = (*a1 + a2);
-  tlv::throwIfNotAligned(*a1, v8, 2uLL);
+  *a4 = 0;
+  a4[1] = 0;
+  a4[2] = 0;
+  v7 = *a1;
+  v8 = a2;
+  v9 = *a1 + a2;
+  tlv::throwIfNotAligned(*a1, v9, 2uLL);
   if (a2 >= 2)
   {
-    std::vector<unsigned short>::__append(a3, v7 >> 1);
-    v9 = *a3;
+    std::vector<unsigned short>::__append(a4, v8 >> 1);
+    v10 = *a4;
   }
 
   else
   {
-    v9 = 0;
+    v10 = 0;
   }
 
-  result = memcpy(v9, v6, v7);
-  *a1 = v8;
+  result = memcpy(v10, v7, v8);
+  *a1 = v9;
   return result;
 }
 
@@ -1257,7 +1248,7 @@ char *ctl::tlv::parseField(unsigned __int8 *a1, const unsigned __int8 *a2, char 
 {
   tlv::throwIfNotEnoughBytes(a1, a2, 1uLL);
   v8 = *a1;
-  v6 = (a1 + 1);
+  v6 = a1 + 1;
   v7 = v8;
   v9 = 2 * v8;
   tlv::throwIfNotEnoughBytes(v6, a2, v9);

@@ -43,7 +43,7 @@
   self->_committingFinalResults = 0;
   v8 = [words componentsJoinedByString:&stru_1EFB14550];
   previousHypothesis = [(_UICharacterStreamingManager *)self previousHypothesis];
-  if (!previousHypothesis || (v5 = previousHypothesis, -[_UICharacterStreamingManager previousHypothesis](self, "previousHypothesis"), v6 = objc_claimAutoreleasedReturnValue(), v7 = [v8 isEqualToString:v6], v6, v5, (v7 & 1) == 0))
+  if (!previousHypothesis || (v5 = previousHypothesis, [(_UICharacterStreamingManager *)self previousHypothesis], v6 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v8), v6, v5, (isEqualToString & 1) == 0))
   {
     [(_UICharacterStreamingManager *)self setupToInsertResultForNewHypothesis:v8];
     [(_UICharacterStreamingManager *)self setPreviousHypothesis:v8];
@@ -120,7 +120,7 @@
 LABEL_4:
   targetHypothesis = [(_UICharacterStreamingManager *)self targetHypothesis];
   lastHypothesis2 = [(_UICharacterStreamingManager *)self lastHypothesis];
-  if ([targetHypothesis isEqualToString:lastHypothesis2])
+  if (objc_msgSend_isEqualToString_(targetHypothesis))
   {
     pendingEdits2 = [(_UICharacterStreamingManager *)self pendingEdits];
     v13 = [pendingEdits2 count];

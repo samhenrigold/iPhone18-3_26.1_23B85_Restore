@@ -42,12 +42,20 @@
 - (void)_setupSoftwareUpdateReserveDisabled;
 - (void)addObserver:(id)observer;
 - (void)dealloc;
+- (void)disableSoftwareUpdateReserve:(BOOL)reserve;
+- (void)enableAutoInstallSecurityResponse:(BOOL)response;
+- (void)enableAutoInstallSystemAndDataFiles:(BOOL)files;
 - (void)enableAutomaticDownload:(BOOL)download;
+- (void)enableAutomaticUpdateV2:(BOOL)v2;
+- (void)enablePreviousUserSpecifiedAutoInstallSecurityResponse:(BOOL)response;
+- (void)enablePreviousUserSpecifiedAutomaticUpdateV2:(BOOL)v2;
 - (void)preference:(id)preference didChangeTo:(id)to;
 - (void)removeObserver:(id)observer;
+- (void)setEnableRapidReturnToService:(BOOL)service;
 - (void)setSoftwareUpdateReserveSize:(id)size;
 - (void)setSplatFollowUpDelayOverride:(id)override;
 - (void)setSystemGrowthMarginSize:(id)size;
+- (void)setTestGetOffSampleRate:(int)rate;
 @end
 
 @implementation SUPreferences
@@ -469,28 +477,28 @@ void __32__SUPreferences_removeObserver___block_invoke(uint64_t a1)
 
 void __40__SUPreferences_preference_didChangeTo___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = [*(a1 + 32) observers];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v9 + 1) + 8 * v6);
+        v7 = *(*(&v8 + 1) + 8 * v6);
         if (objc_opt_respondsToSelector())
         {
           [v7 preferences:*(a1 + 32) didChangePreference:*(a1 + 40) toValue:*(a1 + 48)];
@@ -500,13 +508,11 @@ void __40__SUPreferences_preference_didChangeTo___block_invoke(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)disableAutoDownload
@@ -639,30 +645,30 @@ void __40__SUPreferences_preference_didChangeTo___block_invoke(uint64_t a1)
 
 void __34__SUPreferences__loadPreferences___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   SULogInfo(@"%s: loading preferences", a2, a3, a4, a5, a6, a7, a8, "[SUPreferences _loadPreferences:]_block_invoke");
   v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v67 = 0u;
-  v68 = 0u;
   v65 = 0u;
   v66 = 0u;
+  v63 = 0u;
+  v64 = 0u;
   v10 = [*(*(a1 + 32) + 16) allValues];
-  v11 = [v10 countByEnumeratingWithState:&v65 objects:v70 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v63 objects:v68 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v66;
-    v60 = a1;
+    v13 = *v64;
+    v58 = a1;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v66 != v13)
+        if (*v64 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v65 + 1) + 8 * i);
+        v15 = *(*(&v63 + 1) + 8 * i);
         v16 = *(*(a1 + 32) + 24);
         v17 = [v15 preferenceKey];
         v18 = [v16 valueForKey:v17];
@@ -691,7 +697,7 @@ void __34__SUPreferences__loadPreferences___block_invoke(uint64_t a1, uint64_t a
             v10 = v27;
             v13 = v26;
             v12 = v25;
-            a1 = v60;
+            a1 = v58;
           }
 
           v30 = [v15 preferenceKey];
@@ -716,7 +722,7 @@ void __34__SUPreferences__loadPreferences___block_invoke(uint64_t a1, uint64_t a
 LABEL_13:
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v65 objects:v70 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v63 objects:v68 count:16];
     }
 
     while (v12);
@@ -730,28 +736,27 @@ LABEL_13:
     if (v47 && [v47 count])
     {
       v48 = v9;
-      v59 = *(*(*(a1 + 40) + 8) + 40);
       SULogInfo(@"%s: Iterating over all the change preferences, ChangePref: %@", v40, v41, v42, v43, v44, v45, v46, "[SUPreferences _loadPreferences:]_block_invoke");
-      v63 = 0u;
-      v64 = 0u;
       v61 = 0u;
       v62 = 0u;
+      v59 = 0u;
+      v60 = 0u;
       v49 = [*(*(*(a1 + 40) + 8) + 40) allKeys];
-      v50 = [v49 countByEnumeratingWithState:&v61 objects:v69 count:16];
+      v50 = [v49 countByEnumeratingWithState:&v59 objects:v67 count:16];
       if (v50)
       {
         v51 = v50;
-        v52 = *v62;
+        v52 = *v60;
         do
         {
           for (j = 0; j != v51; ++j)
           {
-            if (*v62 != v52)
+            if (*v60 != v52)
             {
               objc_enumerationMutation(v49);
             }
 
-            v54 = *(*(&v61 + 1) + 8 * j);
+            v54 = *(*(&v59 + 1) + 8 * j);
             v55 = [*(*(*(a1 + 40) + 8) + 40) valueForKey:v54];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
@@ -769,7 +774,7 @@ LABEL_13:
             [*(a1 + 32) preference:v54 didChangeTo:v57];
           }
 
-          v51 = [v49 countByEnumeratingWithState:&v61 objects:v69 count:16];
+          v51 = [v49 countByEnumeratingWithState:&v59 objects:v67 count:16];
         }
 
         while (v51);
@@ -783,48 +788,46 @@ LABEL_13:
       SULogInfo(@"%s: reloaded preferences after getting, but nothing seems to have changed.", v40, v41, v42, v43, v44, v45, v46, "[SUPreferences _loadPreferences:]_block_invoke");
     }
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_mandatorySUFlagsForPreferences
 {
-  v25[4] = *MEMORY[0x277D85DE8];
-  v24[0] = @"SUUpdateRequiredFromFactory";
+  v24[4] = *MEMORY[0x277D85DE8];
+  v23[0] = @"SUUpdateRequiredFromFactory";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:1];
-  v25[0] = v3;
-  v24[1] = @"SUCheckForUpdateFromFactory";
+  v24[0] = v3;
+  v23[1] = @"SUCheckForUpdateFromFactory";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:2];
-  v25[1] = v4;
-  v24[2] = @"SUUpdateRequiredOnErase";
+  v24[1] = v4;
+  v23[2] = @"SUUpdateRequiredOnErase";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:4];
-  v25[2] = v5;
-  v24[3] = @"SUCheckForUpdateOnErase";
+  v24[2] = v5;
+  v23[3] = @"SUCheckForUpdateOnErase";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:8];
-  v25[3] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:4];
+  v24[3] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:4];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   allKeys = [v7 allKeys];
-  v9 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v9 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v9)
   {
     v10 = v9;
     v11 = 0;
-    v12 = *v20;
+    v12 = *v19;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v20 != v12)
+        if (*v19 != v12)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v14 = *(*(&v19 + 1) + 8 * i);
+        v14 = *(*(&v18 + 1) + 8 * i);
         if ([(SUPreferences *)self _getBooleanPreferenceForKey:v14 withDefaultValue:0])
         {
           v15 = [v7 objectForKey:v14];
@@ -832,7 +835,7 @@ LABEL_13:
         }
       }
 
-      v10 = [allKeys countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [allKeys countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v10);
@@ -844,8 +847,6 @@ LABEL_13:
   }
 
   v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v11];
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -950,12 +951,12 @@ void __57__SUPreferences__setCachedBooleanPreferenceForKey_value___block_invoke(
 {
   logCopy = log;
   keyCopy = key;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__20;
-  v30 = __Block_byref_object_dispose__20;
-  v31 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__20;
+  v29 = __Block_byref_object_dispose__20;
+  v30 = 0;
   preferencesWorkloop = self->_preferencesWorkloop;
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
@@ -963,21 +964,20 @@ void __57__SUPreferences__setCachedBooleanPreferenceForKey_value___block_invoke(
   block[3] = &unk_279CAD098;
   block[4] = self;
   v10 = keyCopy;
-  v24 = &v26;
+  v23 = &v25;
   classCopy = class;
-  v23 = v10;
+  v22 = v10;
   dispatch_async_and_wait(preferencesWorkloop, block);
-  v18 = v27[5];
+  v18 = v26[5];
   if (v18 && logCopy)
   {
-    v21 = v27[5];
     SULogDebug(@"[SUPreferences] %@ is set to %@", v11, v12, v13, v14, v15, v16, v17, v10);
-    v18 = v27[5];
+    v18 = v26[5];
   }
 
   v19 = v18;
 
-  _Block_object_dispose(&v26, 8);
+  _Block_object_dispose(&v25, 8);
 
   return v19;
 }
@@ -987,7 +987,6 @@ uint64_t __49__SUPreferences__cachedObjectForKey_ofClass_log___block_invoke(void
   v2 = [*(a1[4] + 24) valueForKey:a1[5]];
   if (v2)
   {
-    v3 = a1[7];
     obj = v2;
     if (objc_opt_isKindOfClass())
     {
@@ -1121,6 +1120,102 @@ uint64_t __49__SUPreferences__cachedObjectForKey_ofClass_log___block_invoke(void
   return v6;
 }
 
+- (void)enableAutomaticUpdateV2:(BOOL)v2
+{
+  v2Copy = v2;
+  if ([(SUPreferences *)self isAutomaticUpdateV2Enabled]!= v2)
+  {
+    if (v2Copy && [(SUPreferences *)self disableAutoDownload])
+    {
+
+      SULogInfo(@"Unable to enabled auto update while auto download is disabled", v5, v6, v7, v8, v9, v10, v11, v14);
+    }
+
+    else
+    {
+      [(SUPreferences *)self _setCachedBooleanPreferenceForKey:@"SUAutomaticUpdateV2Enabled" value:v2Copy];
+      [(SUPreferences *)self _setBooleanPreferenceForKey:@"SUAutomaticUpdateV2Enabled" value:v2Copy];
+      uTF8String = [@"SUPreferencesChangedNotificationAutoUpdate" UTF8String];
+
+      notify_post(uTF8String);
+    }
+  }
+}
+
+- (void)enablePreviousUserSpecifiedAutomaticUpdateV2:(BOOL)v2
+{
+  v2Copy = v2;
+  if ([(SUPreferences *)self previousUserSpecifiedAutomaticUpdateV2Enabled]!= v2)
+  {
+    if (v2Copy && [(SUPreferences *)self disableAutoDownload])
+    {
+
+      SULogInfo(@"Unable to enabled auto update while auto download is disabled", v5, v6, v7, v8, v9, v10, v11, v13);
+    }
+
+    else
+    {
+      [(SUPreferences *)self _setCachedBooleanPreferenceForKey:@"SUAutomaticUpdateV2Enabled_prev" value:v2Copy];
+
+      [(SUPreferences *)self _setBooleanPreferenceForKey:@"SUAutomaticUpdateV2Enabled_prev" value:v2Copy];
+    }
+  }
+}
+
+- (void)enableAutoInstallSystemAndDataFiles:(BOOL)files
+{
+  filesCopy = files;
+  if ([(SUPreferences *)self autoInstallSystemAndDataFiles]!= files)
+  {
+    v12 = @"disabled";
+    if (filesCopy)
+    {
+      v12 = @"enabled";
+    }
+
+    SULogInfo(@"Setting auto install system and data files to %@", v5, v6, v7, v8, v9, v10, v11, v12);
+    [(SUPreferences *)self _setCachedBooleanPreferenceForKey:@"SUAutoInstallSystemDataFiles" value:filesCopy];
+
+    [(SUPreferences *)self _setBooleanPreferenceForKey:@"SUAutoInstallSystemDataFiles" value:filesCopy];
+  }
+}
+
+- (void)enableAutoInstallSecurityResponse:(BOOL)response
+{
+  responseCopy = response;
+  if ([(SUPreferences *)self autoInstallSecurityResponse]!= response)
+  {
+    v12 = @"disabled";
+    if (responseCopy)
+    {
+      v12 = @"enabled";
+    }
+
+    SULogInfo(@"Setting auto install Rapid Security Response to %@", v5, v6, v7, v8, v9, v10, v11, v12);
+    [(SUPreferences *)self _setCachedBooleanPreferenceForKey:@"SUAutoInstallSecurityResponse" value:responseCopy];
+
+    [(SUPreferences *)self _setBooleanPreferenceForKey:@"SUAutoInstallSecurityResponse" value:responseCopy];
+  }
+}
+
+- (void)enablePreviousUserSpecifiedAutoInstallSecurityResponse:(BOOL)response
+{
+  responseCopy = response;
+  if ([(SUPreferences *)self previousUserSpecifiedAutoInstallSecurityResponse]!= response)
+  {
+    v12 = @"disabled";
+    if (responseCopy)
+    {
+      v12 = @"enabled";
+    }
+
+    SULogInfo(@"Setting auto install Rapid Security Response (previous user specified) to %@", v5, v6, v7, v8, v9, v10, v11, v12);
+    [(SUPreferences *)self _setCachedBooleanPreferenceForKey:@"SUAutoInstallSecurityResponse_prev" value:responseCopy];
+
+    [(SUPreferences *)self _setBooleanPreferenceForKey:@"SUAutoInstallSecurityResponse_prev" value:responseCopy];
+  }
+}
+
 - (void)enableAutomaticDownload:(BOOL)download
 {
   downloadCopy = download;
@@ -1237,6 +1332,24 @@ uint64_t __49__SUPreferences__cachedObjectForKey_ofClass_log___block_invoke(void
   return v3 & 1;
 }
 
+- (void)disableSoftwareUpdateReserve:(BOOL)reserve
+{
+  reserveCopy = reserve;
+  if ([(SUPreferences *)self softwareUpdateReserveDisabled]!= reserve)
+  {
+    v12 = @"enabled";
+    if (reserveCopy)
+    {
+      v12 = @"disabled";
+    }
+
+    SULogInfo(@"Setting software update reserve space to %@", v5, v6, v7, v8, v9, v10, v11, v12);
+    [(SUPreferences *)self _setCachedBooleanPreferenceForKey:@"SUSoftwareUpdateReserveDisabled" value:reserveCopy];
+
+    [(SUPreferences *)self _setBooleanPreferenceForKey:@"SUSoftwareUpdateReserveDisabled" value:reserveCopy];
+  }
+}
+
 - (void)setSoftwareUpdateReserveSize:(id)size
 {
   sizeCopy = size;
@@ -1270,12 +1383,28 @@ uint64_t __49__SUPreferences__cachedObjectForKey_ofClass_log___block_invoke(void
   return intValue;
 }
 
+- (void)setTestGetOffSampleRate:(int)rate
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:*&rate];
+  [(SUPreferences *)self _setCachedObjectPreferenceForKey:@"SUTestGetOffSampleRate" value:v4];
+  [(SUPreferences *)self _setObjectPreferenceForKey:@"SUTestGetOffSampleRate" value:v4];
+}
+
 - (void)setSplatFollowUpDelayOverride:(id)override
 {
   overrideCopy = override;
   SULogInfo(@"Override splat follow up delay: %@", v4, v5, v6, v7, v8, v9, v10, overrideCopy);
   [(SUPreferences *)self _setCachedObjectPreferenceForKey:@"SUSplatFollowUpDelayOverride" value:overrideCopy];
   [(SUPreferences *)self _setObjectPreferenceForKey:@"SUSplatFollowUpDelayOverride" value:overrideCopy];
+}
+
+- (void)setEnableRapidReturnToService:(BOOL)service
+{
+  serviceCopy = service;
+  SULogInfo(@"Enabling Rapid Return to Service", a2, service, v3, v4, v5, v6, v7, v10);
+  [(SUPreferences *)self _setCachedBooleanPreferenceForKey:@"SUEnableRapidReturnToService" value:serviceCopy];
+
+  [(SUPreferences *)self _setBooleanPreferenceForKey:@"SUEnableRapidReturnToService" value:serviceCopy];
 }
 
 @end

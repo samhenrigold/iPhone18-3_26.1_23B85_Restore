@@ -20,7 +20,7 @@ void __51__TUCall_PHUIUtilities__sendMessageIntentExtension__block_invoke_38(uin
   v6 = v5;
   if (!a2 || v5)
   {
-    v10 = PHDefaultLog();
+    v10 = PHDefaultLog(v5);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __51__TUCall_PHUIUtilities__sendMessageIntentExtension__block_invoke_38_cold_1();
@@ -36,14 +36,6 @@ void __51__TUCall_PHUIUtilities__sendMessageIntentExtension__block_invoke_38(uin
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-}
-
-void __51__TUCall_PHUIUtilities__sendMessageIntentExtension__block_invoke_38_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_0(&dword_2429BC000, v0, v1, "Error retrieving extensions: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

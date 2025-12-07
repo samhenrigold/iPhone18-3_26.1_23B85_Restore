@@ -122,86 +122,96 @@
 
 - (id)description
 {
-  NSAppendPrintF();
-  v3 = 0;
+  v33 = 0;
+  NSAppendPrintF(&v33, "<SFRemoteHotspotTrafficFilterParams %{ptr}", self);
+  v3 = v33;
   v4 = v3;
-  if (self->_srcIPAddress)
+  srcIPAddress = self->_srcIPAddress;
+  if (srcIPAddress)
   {
-    v23 = v3;
-    srcIPAddress = self->_srcIPAddress;
-    NSAppendPrintF();
-    v5 = v23;
-
-    v4 = v5;
-  }
-
-  if (self->_srcPort)
-  {
-    srcPort = self->_srcPort;
-    NSAppendPrintF();
-    v6 = v4;
+    v32 = v3;
+    NSAppendPrintF(&v32, ", srcIP %@", srcIPAddress);
+    v6 = v32;
 
     v4 = v6;
   }
 
-  if (self->_destIPAddress)
+  srcPort = self->_srcPort;
+  if (self->_srcPort)
   {
-    destIPAddress = self->_destIPAddress;
-    NSAppendPrintF();
-    v7 = v4;
-
-    v4 = v7;
-  }
-
-  if (self->_destPort)
-  {
-    destPort = self->_destPort;
-    NSAppendPrintF();
-    v8 = v4;
+    v31 = v4;
+    NSAppendPrintF(&v31, ", srcPort %hu", srcPort);
+    v8 = v31;
 
     v4 = v8;
   }
 
-  if (self->_ipProtocol)
+  destIPAddress = self->_destIPAddress;
+  if (destIPAddress)
   {
-    ipProtocol = self->_ipProtocol;
-    NSAppendPrintF();
-    v9 = v4;
-
-    v4 = v9;
-  }
-
-  if (self->_trafficClass)
-  {
-    trafficClass = self->_trafficClass;
-    NSAppendPrintF();
-    v10 = v4;
+    v30 = v4;
+    NSAppendPrintF(&v30, ", destIP %@", destIPAddress);
+    v10 = v30;
 
     v4 = v10;
   }
 
-  if (self->_ipVersion)
+  destPort = self->_destPort;
+  if (self->_destPort)
   {
-    ipVersion = self->_ipVersion;
-    NSAppendPrintF();
-    v11 = v4;
-
-    v4 = v11;
-  }
-
-  if (self->_idleTimeout)
-  {
-    idleTimeout = self->_idleTimeout;
-    NSAppendPrintF();
-    v12 = v4;
+    v29 = v4;
+    NSAppendPrintF(&v29, ", destPort %hu", destPort);
+    v12 = v29;
 
     v4 = v12;
   }
 
-  NSAppendPrintF();
-  v13 = v4;
+  ipProtocol = self->_ipProtocol;
+  if (self->_ipProtocol)
+  {
+    v28 = v4;
+    NSAppendPrintF(&v28, ", ipProto %hu", ipProtocol);
+    v14 = v28;
 
-  return v4;
+    v4 = v14;
+  }
+
+  trafficClass = self->_trafficClass;
+  if (trafficClass)
+  {
+    v27 = v4;
+    NSAppendPrintF(&v27, ", traffic %@", trafficClass);
+    v16 = v27;
+
+    v4 = v16;
+  }
+
+  ipVersion = self->_ipVersion;
+  if (ipVersion)
+  {
+    v26 = v4;
+    NSAppendPrintF(&v26, ", ipVersion %hu", ipVersion);
+    v18 = v26;
+
+    v4 = v18;
+  }
+
+  idleTimeout = self->_idleTimeout;
+  if (idleTimeout)
+  {
+    v25 = v4;
+    NSAppendPrintF(&v25, ", Timeout %hu", idleTimeout);
+    v20 = v25;
+
+    v4 = v20;
+  }
+
+  v24 = v4;
+  NSAppendPrintF(&v24, ">");
+  v21 = v24;
+  v22 = v24;
+
+  return v21;
 }
 
 @end

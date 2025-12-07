@@ -56,7 +56,7 @@
 
 void __46__C2MultipeerClientContext_startTimerOnQueue___block_invoke(uint64_t a1)
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   if (*(*(a1 + 32) + 40))
   {
     if (C2_MULTIPEER_LOG_BLOCK != -1)
@@ -67,17 +67,17 @@ void __46__C2MultipeerClientContext_startTimerOnQueue___block_invoke(uint64_t a1
     v2 = C2_MULTIPEER_LOG_INTERNAL;
     if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL, OS_LOG_TYPE_INFO))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_242158000, v2, OS_LOG_TYPE_INFO, "timeout triggered while waiting for chunk data response.", v12, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_242158000, v2, OS_LOG_TYPE_INFO, "timeout triggered while waiting for chunk data response.", v11, 2u);
     }
 
     v3 = *(*(a1 + 32) + 56);
     if (v3)
     {
       v4 = MEMORY[0x277CCA9B8];
-      v15 = *MEMORY[0x277CCA450];
-      v16[0] = @"timeout triggered while waiting for chunk data response.";
-      v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v14 = *MEMORY[0x277CCA450];
+      v15[0] = @"timeout triggered while waiting for chunk data response.";
+      v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       v6 = v4;
       v7 = 201;
 LABEL_14:
@@ -96,24 +96,22 @@ LABEL_14:
     v8 = C2_MULTIPEER_LOG_INTERNAL;
     if (os_log_type_enabled(C2_MULTIPEER_LOG_INTERNAL, OS_LOG_TYPE_INFO))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_242158000, v8, OS_LOG_TYPE_INFO, "timeout triggered while waiting for discovery response.", v12, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_242158000, v8, OS_LOG_TYPE_INFO, "timeout triggered while waiting for discovery response.", v11, 2u);
     }
 
     v3 = *(*(a1 + 32) + 56);
     if (v3)
     {
       v9 = MEMORY[0x277CCA9B8];
-      v13 = *MEMORY[0x277CCA450];
-      v14 = @"timeout triggered while waiting for discovery response.";
-      v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v14 forKeys:&v13 count:1];
+      v12 = *MEMORY[0x277CCA450];
+      v13 = @"timeout triggered while waiting for discovery response.";
+      v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
       v6 = v9;
       v7 = 200;
       goto LABEL_14;
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __46__C2MultipeerClientContext_startTimerOnQueue___block_invoke_2()
@@ -157,33 +155,26 @@ uint64_t __46__C2MultipeerClientContext_startTimerOnQueue___block_invoke_9()
 
 - (BOOL)hadFailedToDiscover
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   if ([(NSMutableSet *)self->_discoveryPeers count]|| self->_chunkDataRequestedFromPeer)
   {
-    v3 = 0;
+    return 0;
   }
 
-  else
+  chunkDataCallback = self->_chunkDataCallback;
+  if (!chunkDataCallback)
   {
-    chunkDataCallback = self->_chunkDataCallback;
-    if (chunkDataCallback)
-    {
-      v7 = MEMORY[0x277CCA9B8];
-      v10 = *MEMORY[0x277CCA450];
-      v11[0] = @"no peers had requested chunk data.";
-      v3 = 1;
-      v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-      v9 = [v7 errorWithDomain:@"C2MultipeerErrorDomain" code:101 userInfo:v8];
-      chunkDataCallback[2](chunkDataCallback, 0, v9);
-    }
-
-    else
-    {
-      v3 = 1;
-    }
+    return 1;
   }
 
-  v4 = *MEMORY[0x277D85DE8];
+  v6 = MEMORY[0x277CCA9B8];
+  v9 = *MEMORY[0x277CCA450];
+  v10[0] = @"no peers had requested chunk data.";
+  v3 = 1;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = [v6 errorWithDomain:@"C2MultipeerErrorDomain" code:101 userInfo:v7];
+  chunkDataCallback[2](chunkDataCallback, 0, v8);
+
   return v3;
 }
 

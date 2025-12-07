@@ -30,7 +30,7 @@
     objc_storeStrong(&v14->_model, model);
     objc_storeStrong(&v15->_modelDisplayName, displayName);
     objc_storeStrong(&v15->_softwareVersion, version);
-    [(ICFullDeviceInfo *)v15 hardwareInfoFromModelId:modelCopy];
+    objc_msgSend_hardwareInfoFromModelId_(v15);
     v15->_hardwareInfo.subVersion = v18;
     *&v15->_hardwareInfo.modelName = v17;
   }
@@ -664,9 +664,9 @@ LABEL_12:
     v4 = 0;
   }
 
-  else if ([softwareVersion hasPrefix:@"iOS"] && (-[ICFullDeviceInfo hardwareInfo](self, "hardwareInfo"), v7 != 12))
+  else if ([softwareVersion hasPrefix:@"iOS"] && (objc_msgSend_hardwareInfo(self), v7 != 12))
   {
-    [(ICFullDeviceInfo *)self hardwareInfo];
+    objc_msgSend_hardwareInfo(self);
     v4 = v6 == 13;
   }
 

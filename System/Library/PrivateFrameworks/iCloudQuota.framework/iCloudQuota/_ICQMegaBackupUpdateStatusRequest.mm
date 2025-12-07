@@ -29,11 +29,11 @@
 
 - (id)additionalRequestHeaders
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CF0168]);
-  v9 = 0;
-  v3 = [v2 anisetteDataWithError:&v9];
-  v4 = v9;
+  v8 = 0;
+  v3 = [v2 anisetteDataWithError:&v8];
+  v4 = v8;
   if (v3)
   {
     v5 = [MEMORY[0x277CCAB70] ak_anisetteHeadersWithData:v3];
@@ -45,21 +45,19 @@
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = v4;
+      v10 = v4;
       _os_log_impl(&dword_275572000, v6, OS_LOG_TYPE_DEFAULT, "Failed to get anisette data: %@", buf, 0xCu);
     }
 
     v5 = MEMORY[0x277CBEC10];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (id)bodyJSON
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   status = [(_ICQMegaBackupUpdateStatusRequest *)self status];
   v4 = @"end";
   if (status != 1)
@@ -73,12 +71,11 @@
   }
 
   deviceBackupUUID = self->_deviceBackupUUID;
-  v9[0] = @"deviceBackupUdid";
-  v9[1] = @"status";
-  v10[0] = deviceBackupUUID;
-  v10[1] = v4;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = @"deviceBackupUdid";
+  v8[1] = @"status";
+  v9[0] = deviceBackupUUID;
+  v9[1] = v4;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
 
   return v6;
 }
@@ -96,7 +93,7 @@
 
 - (id)handleResponse:(id)response body:(id)body
 {
-  v5 = [body objectForKeyedSubscript:@"expirationDate"];
+  v5 = objc_msgSend_objectForKeyedSubscript_(body, a2, @"expirationDate");
   v6 = v5;
   if (v5)
   {

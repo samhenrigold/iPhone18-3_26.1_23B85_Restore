@@ -34,7 +34,7 @@ void __38___UIUpdateCycleDebugOverlay_instance__block_invoke()
 
         v4 = qword_1ED49C890;
 
-        _UIUpdateCompletionObservationAddObserver(&mainCompletionObservation, v4, 0);
+        _UIUpdateCompletionObservationAddObserver(mainCompletionObservation, v4, 0);
       }
     }
   }

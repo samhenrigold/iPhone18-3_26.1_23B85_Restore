@@ -93,7 +93,7 @@
   return v9;
 }
 
-uint64_t __67__NNMKSQLiteConnection_preparedStatementForPattern_cacheStatement___block_invoke(uint64_t a1)
+void *__67__NNMKSQLiteConnection_preparedStatementForPattern_cacheStatement___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _preparedStatementForPattern:*(a1 + 40) cacheStatement:*(a1 + 56)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -120,7 +120,7 @@ uint64_t __67__NNMKSQLiteConnection_preparedStatementForPattern_cacheStatement__
   return v4;
 }
 
-uint64_t __46__NNMKSQLiteConnection_stepPreparedStatement___block_invoke(uint64_t a1)
+void *__46__NNMKSQLiteConnection_stepPreparedStatement___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _stepPreparedStatement:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -150,7 +150,7 @@ uint64_t __46__NNMKSQLiteConnection_stepPreparedStatement___block_invoke(uint64_
   return dbQueue;
 }
 
-uint64_t __35__NNMKSQLiteConnection_executeSQL___block_invoke(uint64_t a1)
+void *__35__NNMKSQLiteConnection_executeSQL___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _executeSQL:*(a1 + 40)];
   *(*(*(a1 + 48) + 8) + 24) = result;
@@ -299,7 +299,7 @@ void __43__NNMKSQLiteConnection_rollbackTransaction__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __37__NNMKSQLiteConnection_lastErrorCode__block_invoke(uint64_t a1)
+void *__37__NNMKSQLiteConnection_lastErrorCode__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _lastErrorCode];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -330,10 +330,7 @@ uint64_t __37__NNMKSQLiteConnection_lastErrorCode__block_invoke(uint64_t a1)
 
 uint64_t __40__NNMKSQLiteConnection_lastErrorMessage__block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _lastErrorMessage];
-  v3 = *(*(a1 + 40) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 40) + 8) + 40) = [*(a1 + 32) _lastErrorMessage];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -389,7 +386,7 @@ void __47__NNMKSQLiteConnection_tableExists_inDatabase___block_invoke(uint64_t a
 
 - (BOOL)_openDatabaseWithPath:(id)path errorCode:(int *)code
 {
-  *&v29[13] = *MEMORY[0x277D85DE8];
+  *&v28[13] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   stringByDeletingLastPathComponent = [pathCopy stringByDeletingLastPathComponent];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
@@ -398,9 +395,9 @@ void __47__NNMKSQLiteConnection_tableExists_inDatabase___block_invoke(uint64_t a
   if ((v9 & 1) == 0)
   {
     defaultManager2 = [MEMORY[0x277CCAA00] defaultManager];
-    v25 = 0;
-    v11 = [defaultManager2 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v25];
-    pathCopy = v25;
+    v24 = 0;
+    v11 = [defaultManager2 createDirectoryAtPath:stringByDeletingLastPathComponent withIntermediateDirectories:1 attributes:0 error:&v24];
+    pathCopy = v24;
 
     if ((v11 & 1) == 0)
     {
@@ -417,20 +414,8 @@ void __47__NNMKSQLiteConnection_tableExists_inDatabase___block_invoke(uint64_t a
 
   pathCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"file:%@", pathCopy];
   v13 = sqlite3_open_v2([pathCopy UTF8String], &self->_db, 4194310, 0);
-  if (v13)
+  if (v13 || (v23[0] = MEMORY[0x277D85DD0], v23[1] = 3221225472, v23[2] = __56__NNMKSQLiteConnection__openDatabaseWithPath_errorCode___block_invoke, v23[3] = &unk_279936330, v23[4] = self, (v13 = [(NNMKSQLiteConnection *)self _runRetryingIfNeeded:v23]) != 0) || (v13 = [(NNMKSQLiteConnection *)self _executeSQL:@"PRAGMA page_size = 4096;"]) != 0 || (v13 = [(NNMKSQLiteConnection *)self _executeSQL:@"PRAGMA auto_vacuum = 1;"]) != 0 || (v13 = [(NNMKSQLiteConnection *)self _executeSQL:@"PRAGMA cache_size = 100;"]) != 0 || (v13 = [(NNMKSQLiteConnection *)self _executeSQL:@"PRAGMA journal_mode = WAL;"]) != 0)
   {
-    goto LABEL_10;
-  }
-
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __56__NNMKSQLiteConnection__openDatabaseWithPath_errorCode___block_invoke;
-  v24[3] = &unk_279936330;
-  v24[4] = self;
-  v13 = [(NNMKSQLiteConnection *)self _runRetryingIfNeeded:v24];
-  if (v13 || (v13 = [(NNMKSQLiteConnection *)self _executeSQL:@"PRAGMA page_size = 4096;"]) != 0 || (v13 = [(NNMKSQLiteConnection *)self _executeSQL:@"PRAGMA auto_vacuum = 1;"]) != 0 || (v13 = [(NNMKSQLiteConnection *)self _executeSQL:@"PRAGMA cache_size = 100;"]) != 0 || (v13 = [(NNMKSQLiteConnection *)self _executeSQL:@"PRAGMA journal_mode = WAL;"]) != 0)
-  {
-LABEL_10:
     v14 = v13;
     v15 = qword_28144D620;
     v16 = os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_FAULT);
@@ -444,15 +429,15 @@ LABEL_10:
 
     else if (v16)
     {
-      v21 = v15;
+      v20 = v15;
       _lastErrorMessage = [(NNMKSQLiteConnection *)self _lastErrorMessage];
       *buf = 138543874;
-      v27 = pathCopy;
-      v28 = 1024;
-      *v29 = v14;
-      v29[2] = 2114;
-      *&v29[3] = _lastErrorMessage;
-      _os_log_fault_impl(&dword_25B19F000, v21, OS_LOG_TYPE_FAULT, "Error opening database (Path: %{public}@, Error Code: %d, Error Message: %{public}@). Closing... and retrying", buf, 0x1Cu);
+      v26 = pathCopy;
+      v27 = 1024;
+      *v28 = v14;
+      v28[2] = 2114;
+      *&v28[3] = _lastErrorMessage;
+      _os_log_fault_impl(&dword_25B19F000, v20, OS_LOG_TYPE_FAULT, "Error opening database (Path: %{public}@, Error Code: %d, Error Message: %{public}@). Closing... and retrying", buf, 0x1Cu);
     }
 
     [(NNMKSQLiteConnection *)self _closeDatabase];
@@ -465,14 +450,14 @@ LABEL_10:
 
   else
   {
-    v23 = qword_28144D620;
+    v22 = qword_28144D620;
     if (os_log_type_enabled(qword_28144D620, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v27 = pathCopy;
-      v28 = 2114;
-      *v29 = self;
-      _os_log_impl(&dword_25B19F000, v23, OS_LOG_TYPE_DEFAULT, "Database opened (%{public}@, %{public}@).", buf, 0x16u);
+      v26 = pathCopy;
+      v27 = 2114;
+      *v28 = self;
+      _os_log_impl(&dword_25B19F000, v22, OS_LOG_TYPE_DEFAULT, "Database opened (%{public}@, %{public}@).", buf, 0x16u);
     }
 
     v17 = 1;
@@ -486,7 +471,6 @@ LABEL_16:
 
 LABEL_20:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -499,7 +483,6 @@ uint64_t __56__NNMKSQLiteConnection__openDatabaseWithPath_errorCode___block_invo
 
 - (void)_closeDatabase
 {
-  v11 = *MEMORY[0x277D85DE8];
   if (self)
   {
     v9 = 0;
@@ -507,15 +490,15 @@ uint64_t __56__NNMKSQLiteConnection__openDatabaseWithPath_errorCode___block_invo
 
   else
   {
-    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2];
+    v9 = [MEMORY[0x277CCACA8] stringWithUTF8String:{a2, a4, a5, a6, a7, a8}];
   }
 
-  OUTLINED_FUNCTION_0_0(&dword_25B19F000, a2, a3, "Error closing database. File no longer exists. (Path: %{public}@).", a5, a6, a7, a8, 2u);
+  LODWORD(v10) = 138543362;
+  HIDWORD(v10) = v9;
+  OUTLINED_FUNCTION_0_0(&dword_25B19F000, a2, a3, "Error closing database. File no longer exists. (Path: %{public}@).", a5, a6, a7, a8, v10, HIDWORD(v9));
   if ((self & 1) == 0)
   {
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __38__NNMKSQLiteConnection__closeDatabase__block_invoke(uint64_t a1, _DWORD *a2)
@@ -528,37 +511,37 @@ uint64_t __38__NNMKSQLiteConnection__closeDatabase__block_invoke(uint64_t a1, _D
 - (sqlite3_stmt)_preparedStatementForPattern:(id)pattern cacheStatement:(BOOL)statement
 {
   statementCopy = statement;
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   patternCopy = pattern;
   if (self->_db)
   {
-    v19 = 0;
-    v20 = &v19;
-    v21 = 0x2020000000;
+    v18 = 0;
+    v19 = &v18;
+    v20 = 0x2020000000;
     v7 = [(NSMutableDictionary *)self->_cachedPreparedStatementsBySQLPattern objectForKey:patternCopy];
     pointerValue = [v7 pointerValue];
 
-    v22 = pointerValue;
-    v9 = v20[3];
+    v21 = pointerValue;
+    v9 = v19[3];
     if (v9)
     {
 LABEL_13:
-      _Block_object_dispose(&v19, 8);
+      _Block_object_dispose(&v18, 8);
       goto LABEL_14;
     }
 
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __68__NNMKSQLiteConnection__preparedStatementForPattern_cacheStatement___block_invoke;
-    v16[3] = &unk_279936358;
-    v16[4] = self;
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __68__NNMKSQLiteConnection__preparedStatementForPattern_cacheStatement___block_invoke;
+    v15[3] = &unk_279936358;
+    v15[4] = self;
     v10 = patternCopy;
-    v17 = v10;
-    v18 = &v19;
-    if ([(NNMKSQLiteConnection *)self _runRetryingIfNeeded:v16])
+    v16 = v10;
+    v17 = &v18;
+    if ([(NNMKSQLiteConnection *)self _runRetryingIfNeeded:v15])
     {
-      sqlite3_finalize(v20[3]);
-      v20[3] = 0;
+      sqlite3_finalize(v19[3]);
+      v19[3] = 0;
       v11 = qword_28144D620;
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
@@ -573,12 +556,12 @@ LABEL_13:
       {
 LABEL_12:
 
-        v9 = v20[3];
+        v9 = v19[3];
         goto LABEL_13;
       }
 
       cachedPreparedStatementsBySQLPattern = self->_cachedPreparedStatementsBySQLPattern;
-      v11 = [MEMORY[0x277CCAE60] valueWithPointer:v20[3]];
+      v11 = [MEMORY[0x277CCAE60] valueWithPointer:v19[3]];
       [(NSMutableDictionary *)cachedPreparedStatementsBySQLPattern setObject:v11 forKey:v10];
     }
 
@@ -593,7 +576,6 @@ LABEL_12:
   v9 = 0;
 LABEL_14:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -743,72 +725,59 @@ uint64_t __36__NNMKSQLiteConnection__executeSQL___block_invoke(uint64_t a1, _DWO
 
 void __40__NNMKSQLiteConnection_beginTransaction__block_invoke_cold_1(void **a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = a2;
   v4 = [v2 _lastErrorMessage];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_0(&dword_25B19F000, v5, v6, "Failed to begin transaction. (%{public}@)", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_25B19F000, v5, v6, "Failed to begin transaction. (%{public}@)", v7, v8, v9, v10);
 }
 
 void __41__NNMKSQLiteConnection_commitTransaction__block_invoke_cold_1(void **a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = a2;
   v4 = [v2 _lastErrorMessage];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_0(&dword_25B19F000, v5, v6, "Failed to commit transaction. (%{public}@)", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_25B19F000, v5, v6, "Failed to commit transaction. (%{public}@)", v7, v8, v9, v10);
 }
 
 void __43__NNMKSQLiteConnection_rollbackTransaction__block_invoke_cold_1(void **a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = a2;
   v4 = [v2 _lastErrorMessage];
   OUTLINED_FUNCTION_4();
-  OUTLINED_FUNCTION_0_0(&dword_25B19F000, v5, v6, "Failed to rollback transaction. (%{public}@)", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_25B19F000, v5, v6, "Failed to rollback transaction. (%{public}@)", v7, v8, v9, v10);
 }
 
 - (void)_openDatabaseWithPath:(void *)a3 errorCode:.cold.1(void *a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCAA00];
   v6 = a3;
   v7 = [v5 defaultManager];
   v8 = [a1 stringByDeletingLastPathComponent];
-  v10 = 138543874;
-  v11 = a1;
-  v12 = 2114;
-  v13 = a2;
-  v14 = 1024;
-  v15 = [v7 fileExistsAtPath:v8] ^ 1;
-  _os_log_error_impl(&dword_25B19F000, v6, OS_LOG_TYPE_ERROR, "Error creating database directory. (Path: %{public}@, Error: %{public}@, Parent Exists: %d)", &v10, 0x1Cu);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138543874;
+  v10 = a1;
+  v11 = 2114;
+  v12 = a2;
+  v13 = 1024;
+  v14 = [v7 fileExistsAtPath:v8] ^ 1;
+  _os_log_error_impl(&dword_25B19F000, v6, OS_LOG_TYPE_ERROR, "Error creating database directory. (Path: %{public}@, Error: %{public}@, Parent Exists: %d)", &v9, 0x1Cu);
 }
 
 - (void)_openDatabaseWithPath:(void *)a3 errorCode:.cold.2(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [a3 _lastErrorMessage];
-  v8 = 138543874;
-  v9 = a1;
-  v10 = 1024;
-  v11 = 14;
-  v12 = 2114;
-  v13 = v6;
-  _os_log_fault_impl(&dword_25B19F000, v5, OS_LOG_TYPE_FAULT, "Error opening database. Check sandbox permissions. Closing... (Path: %{public}@, Error Code: %d, Error Message: %{public}@).", &v8, 0x1Cu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 138543874;
+  v8 = a1;
+  v9 = 1024;
+  v10 = 14;
+  v11 = 2114;
+  v12 = v6;
+  _os_log_fault_impl(&dword_25B19F000, v5, OS_LOG_TYPE_FAULT, "Error opening database. Check sandbox permissions. Closing... (Path: %{public}@, Error Code: %d, Error Message: %{public}@).", &v7, 0x1Cu);
 }
 
 - (void)_preparedStatementForPattern:(uint8_t *)buf cacheStatement:(os_log_t)log .cold.1(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)
@@ -822,10 +791,9 @@ void __43__NNMKSQLiteConnection_rollbackTransaction__block_invoke_cold_1(void **
 
 - (void)_preparedStatementForPattern:cacheStatement:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_4();
-  _os_log_error_impl(&dword_25B19F000, v0, OS_LOG_TYPE_ERROR, "Error preparing statement - db doesn't seem to be open (pattern: %{public}@).", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25B19F000, v0, OS_LOG_TYPE_ERROR, "Error preparing statement - db doesn't seem to be open (pattern: %{public}@).", v1, 0xCu);
 }
 
 - (void)_runRetryingIfNeeded:(os_log_t)log .cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)

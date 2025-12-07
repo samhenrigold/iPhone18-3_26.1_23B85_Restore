@@ -71,7 +71,8 @@
 
     else
     {
-      if (![v4 isEqualToString:@"xrOS"])
+      v3 = [v4 isEqualToString:@"xrOS"];
+      if (!v3)
       {
         goto LABEL_13;
       }
@@ -81,11 +82,11 @@
       v5 = @"xrOS";
     }
 
-    [(MSDPlatform *)v2 setPlatformType:v5];
+    v3 = [(MSDPlatform *)v2 setPlatformType:v5];
   }
 
 LABEL_13:
-  v6 = sub_100021268();
+  v6 = sub_100021268(v3);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     platformType = [(MSDPlatform *)v2 platformType];
@@ -238,7 +239,7 @@ LABEL_26:
 - (void)raiseInvalidProductListExceptionWithReason:(id)reason
 {
   v3 = [NSException exceptionWithName:@"InvalidManifestProductList" reason:reason userInfo:0];
-  v4 = sub_100021268();
+  v4 = sub_100021268(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315394;

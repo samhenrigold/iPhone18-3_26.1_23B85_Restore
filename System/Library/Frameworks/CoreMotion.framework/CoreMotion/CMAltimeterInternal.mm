@@ -62,18 +62,17 @@
 
 - (void)_teardown
 {
-  fAppQueue = self->fAppQueue;
   sub_19B428B50(&__p, "kCLConnectionMessageSignificantElevationUpdate");
   CLConnectionClient::setHandlerForMessage();
-  if (v6 < 0)
+  if (v5 < 0)
   {
     operator delete(__p);
   }
 
   if (self->fAppQueue)
   {
-    v4 = MEMORY[0x19EAE71C0]();
-    MEMORY[0x19EAE76F0](v4, 0xB0C40BC2CC919);
+    v3 = MEMORY[0x19EAE71C0]();
+    MEMORY[0x19EAE76F0](v3, 0xB0C40BC2CC919);
   }
 
   self->fAppQueue = 0;
@@ -181,67 +180,71 @@
 
 + (BOOL)_bundleBeforeTCCCheck:(id)check
 {
-  v33 = *MEMORY[0x1E69E9840];
-  if (check)
+  v36 = *MEMORY[0x1E69E9840];
+  if (!check)
   {
+    return 1;
+  }
+
+  if (qword_1EAFE2850 != -1)
+  {
+    dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
+  }
+
+  v4 = qword_1EAFE2870;
+  if (os_log_type_enabled(qword_1EAFE2870, OS_LOG_TYPE_DEBUG))
+  {
+    *buf = 136315138;
+    v35 = objc_msgSend_UTF8String(check, v5, v6);
+    _os_log_impl(&dword_19B41C000, v4, OS_LOG_TYPE_DEBUG, "app sdk version, %s", buf, 0xCu);
+  }
+
+  v7 = sub_19B420058();
+  if (*(v7 + 160) > 1 || *(v7 + 164) > 1 || *(v7 + 168) > 1 || *(v7 + 152))
+  {
+    bzero(buf, 0x65CuLL);
     if (qword_1EAFE2850 != -1)
     {
       dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
     }
 
-    v4 = qword_1EAFE2870;
-    if (os_log_type_enabled(qword_1EAFE2870, OS_LOG_TYPE_DEBUG))
+    v11 = qword_1EAFE2870;
+    v32 = 136315138;
+    v33 = objc_msgSend_UTF8String(check, v9, v10);
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v11, 2, "app sdk version, %s", &v32);
+    v13 = v12;
+    sub_19B6BB7CC("Generic", 1, 0, 2, "+[CMAltimeterInternal _bundleBeforeTCCCheck:]", "CoreLocation: %s\n", v12);
+    if (v13 != buf)
     {
-      *buf = 136315138;
-      v32 = objc_msgSend_UTF8String(check, v5, v6);
-      _os_log_impl(&dword_19B41C000, v4, OS_LOG_TYPE_DEBUG, "app sdk version, %s", buf, 0xCu);
-    }
-
-    v7 = sub_19B420058();
-    if (*(v7 + 160) > 1 || *(v7 + 164) > 1 || *(v7 + 168) > 1 || *(v7 + 152))
-    {
-      bzero(buf, 0x65CuLL);
-      if (qword_1EAFE2850 != -1)
-      {
-        dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
-      }
-
-      objc_msgSend_UTF8String(check, v9, v10);
-      v11 = _os_log_send_and_compose_impl();
-      sub_19B6BB7CC("Generic", 1, 0, 2, "+[CMAltimeterInternal _bundleBeforeTCCCheck:]", "CoreLocation: %s\n", v11);
-      if (v11 != buf)
-      {
-        free(v11);
-      }
-    }
-
-    v12 = objc_msgSend_componentsSeparatedByString_(check, v8, @".");
-    if (objc_msgSend_count(v12, v13, v14))
-    {
-      v16 = objc_msgSend_objectAtIndexedSubscript_(v12, v15, 0);
-      if (objc_msgSend_intValue(v16, v17, v18) >= 17)
-      {
-        v22 = objc_msgSend_objectAtIndexedSubscript_(v12, v19, 0);
-        if (objc_msgSend_intValue(v22, v23, v24) > 17)
-        {
-          result = 0;
-          goto LABEL_17;
-        }
-
-        if (objc_msgSend_count(v12, v25, v26) >= 2)
-        {
-          v28 = objc_msgSend_objectAtIndexedSubscript_(v12, v27, 1);
-          result = objc_msgSend_intValue(v28, v29, v30) < 5;
-          goto LABEL_17;
-        }
-      }
+      free(v13);
     }
   }
 
-  result = 1;
-LABEL_17:
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  v14 = objc_msgSend_componentsSeparatedByString_(check, v8, @".");
+  if (!objc_msgSend_count(v14, v15, v16))
+  {
+    return 1;
+  }
+
+  v18 = objc_msgSend_objectAtIndexedSubscript_(v14, v17, 0);
+  if (objc_msgSend_intValue(v18, v19, v20) < 17)
+  {
+    return 1;
+  }
+
+  v23 = objc_msgSend_objectAtIndexedSubscript_(v14, v21, 0);
+  if (objc_msgSend_intValue(v23, v24, v25) > 17)
+  {
+    return 0;
+  }
+
+  if (objc_msgSend_count(v14, v26, v27) < 2)
+  {
+    return 1;
+  }
+
+  v29 = objc_msgSend_objectAtIndexedSubscript_(v14, v28, 1);
+  return objc_msgSend_intValue(v29, v30, v31) < 5;
 }
 
 - (void)_startRelativeAltitudeUpdates
@@ -304,7 +307,7 @@ LABEL_17:
 
 - (void)_handleAbsoluteAltitudeUpdate:(shared_ptr<CLConnectionMessage>)update
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   if (!*update.var0)
   {
     if (qword_1EAFE2840 != -1)
@@ -312,17 +315,17 @@ LABEL_17:
       dispatch_once(&qword_1EAFE2840, &unk_1F0E3B6E8);
     }
 
-    v24 = qword_1EAFE2860;
+    v26 = qword_1EAFE2860;
     if (os_log_type_enabled(qword_1EAFE2860, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_ERROR, "Error; NULL message received in AbsoluteAltimeter update", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_ERROR, "Error; NULL message received in AbsoluteAltimeter update", buf, 2u);
     }
 
-    v25 = sub_19B420058();
-    if ((*(v25 + 160) & 0x80000000) != 0 && (*(v25 + 164) & 0x80000000) != 0 && (*(v25 + 168) & 0x80000000) != 0 && !*(v25 + 152))
+    v27 = sub_19B420058();
+    if ((*(v27 + 160) & 0x80000000) != 0 && (*(v27 + 164) & 0x80000000) != 0 && (*(v27 + 168) & 0x80000000) != 0 && !*(v27 + 152))
     {
-      goto LABEL_37;
+      return;
     }
 
     bzero(buf, 0x65CuLL);
@@ -331,13 +334,14 @@ LABEL_17:
       dispatch_once(&qword_1EAFE2840, &unk_1F0E3B6E8);
     }
 
-    LOWORD(v34) = 0;
+    LOWORD(v37[0]) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2860, 16, "Error; NULL message received in AbsoluteAltimeter update", v37, 2);
 LABEL_35:
-    v23 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMAltimeterInternal _handleAbsoluteAltitudeUpdate:]", "CoreLocation: %s\n", v23);
-    if (v23 == buf)
+    v25 = v28;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMAltimeterInternal _handleAbsoluteAltitudeUpdate:]", "CoreLocation: %s\n", v28);
+    if (v25 == buf)
     {
-      goto LABEL_37;
+      return;
     }
 
     goto LABEL_36;
@@ -357,17 +361,17 @@ LABEL_35:
       dispatch_once(&qword_1EAFE2840, &unk_1F0E3B6E8);
     }
 
-    v26 = qword_1EAFE2860;
+    v29 = qword_1EAFE2860;
     if (os_log_type_enabled(qword_1EAFE2860, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_ERROR, "Error; NULL dictionary received in AbsoluteAltimeter update", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v29, OS_LOG_TYPE_ERROR, "Error; NULL dictionary received in AbsoluteAltimeter update", buf, 2u);
     }
 
-    v27 = sub_19B420058();
-    if ((*(v27 + 160) & 0x80000000) != 0 && (*(v27 + 164) & 0x80000000) != 0 && (*(v27 + 168) & 0x80000000) != 0 && !*(v27 + 152))
+    v30 = sub_19B420058();
+    if ((*(v30 + 160) & 0x80000000) != 0 && (*(v30 + 164) & 0x80000000) != 0 && (*(v30 + 168) & 0x80000000) != 0 && !*(v30 + 152))
     {
-      goto LABEL_37;
+      return;
     }
 
     bzero(buf, 0x65CuLL);
@@ -376,7 +380,9 @@ LABEL_35:
       dispatch_once(&qword_1EAFE2840, &unk_1F0E3B6E8);
     }
 
-    LOWORD(v34) = 0;
+    LOWORD(v37[0]) = 0;
+    LODWORD(v35) = 2;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2860, 16, "Error; NULL dictionary received in AbsoluteAltimeter update", v37, v35);
     goto LABEL_35;
   }
 
@@ -394,14 +400,14 @@ LABEL_35:
     if (os_log_type_enabled(qword_1EAFE2860, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v37 = objc_msgSend_intValue(v16, v18, v19);
+      v39 = objc_msgSend_intValue(v16, v18, v19);
       _os_log_impl(&dword_19B41C000, v17, OS_LOG_TYPE_ERROR, "Error %d received in AbsoluteAltimeter update", buf, 8u);
     }
 
     v20 = sub_19B420058();
     if ((*(v20 + 160) & 0x80000000) != 0 && (*(v20 + 164) & 0x80000000) != 0 && (*(v20 + 168) & 0x80000000) != 0 && !*(v20 + 152))
     {
-      goto LABEL_37;
+      return;
     }
 
     bzero(buf, 0x65CuLL);
@@ -410,22 +416,24 @@ LABEL_35:
       dispatch_once(&qword_1EAFE2840, &unk_1F0E3B6E8);
     }
 
-    v34 = 67109120;
-    v35 = objc_msgSend_intValue(v16, v21, v22);
-    v23 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMAltimeterInternal _handleAbsoluteAltitudeUpdate:]", "CoreLocation: %s\n", v23);
-    if (v23 == buf)
+    v23 = qword_1EAFE2860;
+    v37[0] = 67109120;
+    v37[1] = objc_msgSend_intValue(v16, v21, v22);
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v23, 16, "Error %d received in AbsoluteAltimeter update", v37);
+    v25 = v24;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMAltimeterInternal _handleAbsoluteAltitudeUpdate:]", "CoreLocation: %s\n", v24);
+    if (v25 == buf)
     {
-      goto LABEL_37;
+      return;
     }
 
 LABEL_36:
-    free(v23);
-    goto LABEL_37;
+    free(v25);
+    return;
   }
 
-  v29 = objc_msgSend_objectForKeyedSubscript_(v13, v15, @"CMAbsoluteAltitudeKey");
-  if (v29)
+  v31 = objc_msgSend_objectForKeyedSubscript_(v13, v15, @"CMAbsoluteAltitudeKey");
+  if (v31)
   {
     size = self->fPressureSamples.__size_;
     block[0] = MEMORY[0x1E69E9820];
@@ -433,9 +441,9 @@ LABEL_36:
     block[2] = sub_19B773AD4;
     block[3] = &unk_1E7532A00;
     block[4] = self;
-    block[5] = v29;
+    block[5] = v31;
     dispatch_async(size, block);
-    goto LABEL_37;
+    return;
   }
 
   if (qword_1EAFE2840 != -1)
@@ -443,15 +451,15 @@ LABEL_36:
     dispatch_once(&qword_1EAFE2840, &unk_1F0E3B6E8);
   }
 
-  v31 = qword_1EAFE2860;
+  v33 = qword_1EAFE2860;
   if (os_log_type_enabled(qword_1EAFE2860, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_19B41C000, v31, OS_LOG_TYPE_ERROR, "Error; NULL data received in AbsoluteAltimeter update", buf, 2u);
+    _os_log_impl(&dword_19B41C000, v33, OS_LOG_TYPE_ERROR, "Error; NULL data received in AbsoluteAltimeter update", buf, 2u);
   }
 
-  v32 = sub_19B420058();
-  if ((*(v32 + 160) & 0x80000000) == 0 || (*(v32 + 164) & 0x80000000) == 0 || (*(v32 + 168) & 0x80000000) == 0 || *(v32 + 152))
+  v34 = sub_19B420058();
+  if ((*(v34 + 160) & 0x80000000) == 0 || (*(v34 + 164) & 0x80000000) == 0 || (*(v34 + 168) & 0x80000000) == 0 || *(v34 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2840 != -1)
@@ -459,12 +467,11 @@ LABEL_36:
       dispatch_once(&qword_1EAFE2840, &unk_1F0E3B6E8);
     }
 
-    LOWORD(v34) = 0;
+    LOWORD(v37[0]) = 0;
+    LODWORD(v35) = 2;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2860, 16, "Error; NULL data received in AbsoluteAltimeter update", v37, v35);
     goto LABEL_35;
   }
-
-LABEL_37:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startCompanionRelativeElevationUpdatesToQueue:(id)queue withHandler:(id)handler
@@ -491,7 +498,7 @@ LABEL_37:
 
 - (void)_handleCompanionRelativeElevationUpdate:(shared_ptr<CLConnectionMessage>)update
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   if (!*update.var0)
   {
     if (qword_1EAFE2850 != -1)
@@ -499,17 +506,17 @@ LABEL_37:
       dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
     }
 
-    v24 = qword_1EAFE2870;
+    v26 = qword_1EAFE2870;
     if (os_log_type_enabled(qword_1EAFE2870, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v24, OS_LOG_TYPE_ERROR, "Error; NULL message received in CompanionRelativeElevation update", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_ERROR, "Error; NULL message received in CompanionRelativeElevation update", buf, 2u);
     }
 
-    v25 = sub_19B420058();
-    if ((*(v25 + 160) & 0x80000000) != 0 && (*(v25 + 164) & 0x80000000) != 0 && (*(v25 + 168) & 0x80000000) != 0 && !*(v25 + 152))
+    v27 = sub_19B420058();
+    if ((*(v27 + 160) & 0x80000000) != 0 && (*(v27 + 164) & 0x80000000) != 0 && (*(v27 + 168) & 0x80000000) != 0 && !*(v27 + 152))
     {
-      goto LABEL_37;
+      return;
     }
 
     bzero(buf, 0x65CuLL);
@@ -518,13 +525,14 @@ LABEL_37:
       dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
     }
 
-    LOWORD(v34) = 0;
+    LOWORD(v37[0]) = 0;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2870, 16, "Error; NULL message received in CompanionRelativeElevation update", v37, 2);
 LABEL_35:
-    v23 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMAltimeterInternal _handleCompanionRelativeElevationUpdate:]", "CoreLocation: %s\n", v23);
-    if (v23 == buf)
+    v25 = v28;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMAltimeterInternal _handleCompanionRelativeElevationUpdate:]", "CoreLocation: %s\n", v28);
+    if (v25 == buf)
     {
-      goto LABEL_37;
+      return;
     }
 
     goto LABEL_36;
@@ -544,17 +552,17 @@ LABEL_35:
       dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
     }
 
-    v26 = qword_1EAFE2870;
+    v29 = qword_1EAFE2870;
     if (os_log_type_enabled(qword_1EAFE2870, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_19B41C000, v26, OS_LOG_TYPE_ERROR, "Error; NULL dictionary received in CompanionRelativeElevation update", buf, 2u);
+      _os_log_impl(&dword_19B41C000, v29, OS_LOG_TYPE_ERROR, "Error; NULL dictionary received in CompanionRelativeElevation update", buf, 2u);
     }
 
-    v27 = sub_19B420058();
-    if ((*(v27 + 160) & 0x80000000) != 0 && (*(v27 + 164) & 0x80000000) != 0 && (*(v27 + 168) & 0x80000000) != 0 && !*(v27 + 152))
+    v30 = sub_19B420058();
+    if ((*(v30 + 160) & 0x80000000) != 0 && (*(v30 + 164) & 0x80000000) != 0 && (*(v30 + 168) & 0x80000000) != 0 && !*(v30 + 152))
     {
-      goto LABEL_37;
+      return;
     }
 
     bzero(buf, 0x65CuLL);
@@ -563,7 +571,9 @@ LABEL_35:
       dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
     }
 
-    LOWORD(v34) = 0;
+    LOWORD(v37[0]) = 0;
+    LODWORD(v35) = 2;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2870, 16, "Error; NULL dictionary received in CompanionRelativeElevation update", v37, v35);
     goto LABEL_35;
   }
 
@@ -581,14 +591,14 @@ LABEL_35:
     if (os_log_type_enabled(qword_1EAFE2870, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v37 = objc_msgSend_intValue(v16, v18, v19);
+      v39 = objc_msgSend_intValue(v16, v18, v19);
       _os_log_impl(&dword_19B41C000, v17, OS_LOG_TYPE_ERROR, "Error %d received in CompanionRelativeElevation update", buf, 8u);
     }
 
     v20 = sub_19B420058();
     if ((*(v20 + 160) & 0x80000000) != 0 && (*(v20 + 164) & 0x80000000) != 0 && (*(v20 + 168) & 0x80000000) != 0 && !*(v20 + 152))
     {
-      goto LABEL_37;
+      return;
     }
 
     bzero(buf, 0x65CuLL);
@@ -597,22 +607,24 @@ LABEL_35:
       dispatch_once(&qword_1EAFE2850, &unk_1F0E3B708);
     }
 
-    v34 = 67109120;
-    v35 = objc_msgSend_intValue(v16, v21, v22);
-    v23 = _os_log_send_and_compose_impl();
-    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMAltimeterInternal _handleCompanionRelativeElevationUpdate:]", "CoreLocation: %s\n", v23);
-    if (v23 == buf)
+    v23 = qword_1EAFE2870;
+    v37[0] = 67109120;
+    v37[1] = objc_msgSend_intValue(v16, v21, v22);
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, v23, 16, "Error %d received in CompanionRelativeElevation update", v37);
+    v25 = v24;
+    sub_19B6BB7CC("Generic", 1, 0, 0, "[CMAltimeterInternal _handleCompanionRelativeElevationUpdate:]", "CoreLocation: %s\n", v24);
+    if (v25 == buf)
     {
-      goto LABEL_37;
+      return;
     }
 
 LABEL_36:
-    free(v23);
-    goto LABEL_37;
+    free(v25);
+    return;
   }
 
-  v29 = objc_msgSend_objectForKeyedSubscript_(v13, v15, @"CMCompanionRelativeElevationKey");
-  if (v29)
+  v31 = objc_msgSend_objectForKeyedSubscript_(v13, v15, @"CMCompanionRelativeElevationKey");
+  if (v31)
   {
     size = self->fPressureSamples.__size_;
     block[0] = MEMORY[0x1E69E9820];
@@ -620,9 +632,9 @@ LABEL_36:
     block[2] = sub_19B774604;
     block[3] = &unk_1E7532A00;
     block[4] = self;
-    block[5] = v29;
+    block[5] = v31;
     dispatch_async(size, block);
-    goto LABEL_37;
+    return;
   }
 
   if (qword_1EAFE2840 != -1)
@@ -630,15 +642,15 @@ LABEL_36:
     dispatch_once(&qword_1EAFE2840, &unk_1F0E3B6E8);
   }
 
-  v31 = qword_1EAFE2860;
+  v33 = qword_1EAFE2860;
   if (os_log_type_enabled(qword_1EAFE2860, OS_LOG_TYPE_ERROR))
   {
     *buf = 0;
-    _os_log_impl(&dword_19B41C000, v31, OS_LOG_TYPE_ERROR, "Error; NULL data received in CompanionRelativeElevation update", buf, 2u);
+    _os_log_impl(&dword_19B41C000, v33, OS_LOG_TYPE_ERROR, "Error; NULL data received in CompanionRelativeElevation update", buf, 2u);
   }
 
-  v32 = sub_19B420058();
-  if ((*(v32 + 160) & 0x80000000) == 0 || (*(v32 + 164) & 0x80000000) == 0 || (*(v32 + 168) & 0x80000000) == 0 || *(v32 + 152))
+  v34 = sub_19B420058();
+  if ((*(v34 + 160) & 0x80000000) == 0 || (*(v34 + 164) & 0x80000000) == 0 || (*(v34 + 168) & 0x80000000) == 0 || *(v34 + 152))
   {
     bzero(buf, 0x65CuLL);
     if (qword_1EAFE2840 != -1)
@@ -646,12 +658,11 @@ LABEL_36:
       dispatch_once(&qword_1EAFE2840, &unk_1F0E3B6E8);
     }
 
-    LOWORD(v34) = 0;
+    LOWORD(v37[0]) = 0;
+    LODWORD(v35) = 2;
+    _os_log_send_and_compose_impl(2, 0, buf, 1628, &dword_19B41C000, qword_1EAFE2860, 16, "Error; NULL data received in CompanionRelativeElevation update", v37, v35);
     goto LABEL_35;
   }
-
-LABEL_37:
-  v28 = *MEMORY[0x1E69E9840];
 }
 
 - (id).cxx_construct

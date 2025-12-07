@@ -20,11 +20,14 @@
 - (void)publishDailyNetworkStatus;
 - (void)publishDailyServiceStatus;
 - (void)reportActiveOnCellularName:(id)name;
+- (void)reportActiveOnInterfaceName:(id)name displayName:(id)displayName type:(int)type;
 - (void)reportActiveOnWiFiName:(id)name;
 - (void)reportActivityForApp:(id)app path:(id)path;
 - (void)reportBlockedOnCellularName:(id)name;
+- (void)reportBlockedOnInterfaceName:(id)name displayName:(id)displayName type:(int)type;
 - (void)reportBlockedOnWiFiName:(id)name;
 - (void)reportDisabledOnCellularName:(id)name;
+- (void)reportDisabledOnInterfaceName:(id)name displayName:(id)displayName type:(int)type;
 - (void)reportDisabledOnWiFiName:(id)name;
 - (void)reportFraudAlert;
 - (void)reportServiceActiveShouldReport:(BOOL)report;
@@ -527,20 +530,8 @@ LABEL_24:
 
         v10 = *(*(&v19 + 1) + 8 * v9);
         serviceStatusEndTime = [v10 serviceStatusEndTime];
-        if (!serviceStatusEndTime)
+        if (!serviceStatusEndTime || (v12 = serviceStatusEndTime, +[NSDate now](NSDate, "now"), v13 = objc_claimAutoreleasedReturnValue(), [v10 serviceStatusEndTime], v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "timeIntervalSinceDate:", v14), v16 = v15, v14, v13, v12, v16 <= 86400.0))
         {
-          goto LABEL_14;
-        }
-
-        v12 = serviceStatusEndTime;
-        v13 = +[NSDate now];
-        serviceStatusEndTime2 = [v10 serviceStatusEndTime];
-        [v13 timeIntervalSinceDate:serviceStatusEndTime2];
-        v16 = v15;
-
-        if (v16 <= 86400.0)
-        {
-LABEL_14:
           serviceStatus = [v10 serviceStatus];
           if (serviceStatus > 3)
           {
@@ -1394,6 +1385,94 @@ LABEL_21:
     if (self)
     {
       objc_setProperty_atomic(self, v14, v15, 56);
+    }
+  }
+}
+
+- (void)reportActiveOnInterfaceName:(id)name displayName:(id)displayName type:(int)type
+{
+  v5 = *&type;
+  nameCopy = name;
+  displayNameCopy = displayName;
+  v10 = nplog_obj();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 138412546;
+    v12 = displayNameCopy;
+    v13 = 2112;
+    v14 = nameCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Interface %@ (%@) is active", &v11, 0x16u);
+  }
+
+  sub_10009DF8C(self, 1, v5, nameCopy);
+}
+
+- (void)reportDisabledOnInterfaceName:(id)name displayName:(id)displayName type:(int)type
+{
+  v5 = *&type;
+  nameCopy = name;
+  displayNameCopy = displayName;
+  v10 = nplog_obj();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v11 = 138412546;
+    v12 = displayNameCopy;
+    v13 = 2112;
+    v14 = nameCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Interface %@ (%@) is disabled", &v11, 0x16u);
+  }
+
+  sub_10009DF8C(self, 0, v5, nameCopy);
+}
+
+- (void)reportBlockedOnInterfaceName:(id)name displayName:(id)displayName type:(int)type
+{
+  v5 = *&type;
+  nameCopy = name;
+  displayNameCopy = displayName;
+  v10 = nplog_obj();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    v27 = displayNameCopy;
+    v28 = 2112;
+    v29 = nameCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Interface %@ (%@) is blocked", buf, 0x16u);
+  }
+
+  if (sub_10009DF8C(self, 2, v5, nameCopy))
+  {
+    if (self)
+    {
+      Property = objc_getProperty(self, v11, 56, 1);
+    }
+
+    else
+    {
+      Property = 0;
+    }
+
+    sub_1000AE3DC(Property);
+    v13 = sub_10003A340(@"WARNING_TITLE", @"WARNING_TITLE");
+    displayNameCopy = [NSString stringWithValidatedFormat:v13 validFormatSpecifiers:@"%@" error:0, displayNameCopy];
+
+    v14 = [NSPUserNotification alloc];
+    v15 = sub_10003A340(@"WIFI_WARNING", @"WIFI_WARNING");
+    v16 = sub_10003A340(@"USE_WITHOUT_PROXY", @"USE_WITHOUT_PROXY");
+    v17 = sub_10003A340(@"USE_OTHER_NETWORK", @"USE_OTHER_NETWORK");
+    v18 = sub_100054464(self);
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_10009F6E4;
+    v22[3] = &unk_10010ABA0;
+    v22[4] = self;
+    v23 = nameCopy;
+    v24 = displayNameCopy;
+    v25 = v5;
+    v20 = sub_1000ADECC(v14, displayNameCopy, v15, v16, v17, 0, 0, v18, v22);
+    if (self)
+    {
+      objc_setProperty_atomic(self, v19, v20, 56);
     }
   }
 }

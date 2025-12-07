@@ -444,7 +444,6 @@ LABEL_32:
 {
   if (*&self->_has)
   {
-    type = self->_type;
     PBDataWriterWriteInt32Field();
   }
 }

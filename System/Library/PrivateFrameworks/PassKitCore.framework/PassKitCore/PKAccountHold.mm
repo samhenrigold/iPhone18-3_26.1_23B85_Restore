@@ -37,9 +37,9 @@
     goto LABEL_27;
   }
 
-  v10 = [(__CFString *)v8 isEqualToString:@"floatHold"];
+  isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-  if (v10)
+  if (isEqualToString)
   {
 LABEL_5:
     v11 = 1;
@@ -47,49 +47,49 @@ LABEL_5:
   }
 
   v12 = v9;
-  if (v12 == @"checkHold" || (v13 = v12, v14 = [(__CFString *)v12 isEqualToString:@"checkHold"], v13, (v14 & 1) != 0))
+  if (v12 == @"checkHold" || (v13 = v12, v14 = objc_msgSend_isEqualToString_(v12), v13, (v14 & 1) != 0))
   {
     v11 = 2;
     goto LABEL_28;
   }
 
   v15 = v13;
-  if (v15 == @"exceptionReviewHold" || (v16 = v15, v17 = [(__CFString *)v15 isEqualToString:@"exceptionReviewHold"], v16, (v17 & 1) != 0))
+  if (v15 == @"exceptionReviewHold" || (v16 = v15, v17 = objc_msgSend_isEqualToString_(v15), v16, (v17 & 1) != 0))
   {
     v11 = 3;
     goto LABEL_28;
   }
 
   v18 = v16;
-  if (v18 == @"childSupportObligationHold" || (v19 = v18, v20 = [(__CFString *)v18 isEqualToString:@"childSupportObligationHold"], v19, (v20 & 1) != 0))
+  if (v18 == @"childSupportObligationHold" || (v19 = v18, v20 = objc_msgSend_isEqualToString_(v18), v19, (v20 & 1) != 0))
   {
     v11 = 4;
     goto LABEL_28;
   }
 
   v21 = v19;
-  if (v21 == @"permanentHold" || (v22 = v21, v23 = [(__CFString *)v21 isEqualToString:@"permanentHold"], v22, (v23 & 1) != 0))
+  if (v21 == @"permanentHold" || (v22 = v21, v23 = objc_msgSend_isEqualToString_(v21), v22, (v23 & 1) != 0))
   {
     v11 = 5;
     goto LABEL_28;
   }
 
   v24 = v22;
-  if (v24 == @"fdicHold" || (v25 = v24, v26 = [(__CFString *)v24 isEqualToString:@"fdicHold"], v25, (v26 & 1) != 0))
+  if (v24 == @"fdicHold" || (v25 = v24, v26 = objc_msgSend_isEqualToString_(v24), v25, (v26 & 1) != 0))
   {
     v11 = 6;
     goto LABEL_28;
   }
 
   v27 = v25;
-  if (v27 == @"garnishmentHold" || (v28 = v27, v29 = [(__CFString *)v27 isEqualToString:@"garnishmentHold"], v28, (v29 & 1) != 0))
+  if (v27 == @"garnishmentHold" || (v28 = v27, v29 = objc_msgSend_isEqualToString_(v27), v28, (v29 & 1) != 0))
   {
     v11 = 7;
     goto LABEL_28;
   }
 
   v30 = v28;
-  if (v30 == @"provisionalHold" || (v31 = v30, v32 = [(__CFString *)v30 isEqualToString:@"provisionalHold"], v31, v32))
+  if (v30 == @"provisionalHold" || (v31 = v30, v32 = objc_msgSend_isEqualToString_(v30), v31, v32))
   {
     v11 = 8;
   }
@@ -117,7 +117,7 @@ LABEL_31:
     goto LABEL_35;
   }
 
-  v35 = [(__CFString *)v33 isEqualToString:@"placed"];
+  v35 = objc_msgSend_isEqualToString_(v33);
 
   if (v35)
   {
@@ -125,7 +125,7 @@ LABEL_31:
   }
 
   v37 = v34;
-  if (v37 == @"removed" || (v38 = v37, v39 = [(__CFString *)v37 isEqualToString:@"removed"], v38, v39))
+  if (v37 == @"removed" || (v38 = v37, v39 = objc_msgSend_isEqualToString_(v37), v38, v39))
   {
     v36 = 2;
   }

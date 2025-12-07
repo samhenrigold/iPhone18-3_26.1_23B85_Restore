@@ -15,25 +15,31 @@
 
   if (description)
   {
-    sub_1D9849DF4();
-  }
-
-  v12 = _sSo22AirPodsCrashReportObjcC15CoreDiagnosticsE08generateD010withBinary8testMode9productId15applicationInfo11description10Foundation4DataVSgSDySSALG_Sbs6UInt32VSDyS2SGSgSSSgtFZ_0(v11, mode, id, info);
-  v14 = v13;
-
-  if (v14 >> 60 == 15)
-  {
-    v15 = 0;
+    v12 = sub_1D9849DF4();
+    description = v13;
   }
 
   else
   {
-    v16 = sub_1D98499F4();
-    sub_1D98279AC(v12, v14);
-    v15 = v16;
+    v12 = 0;
   }
 
-  return v15;
+  v14 = _sSo22AirPodsCrashReportObjcC15CoreDiagnosticsE08generateD010withBinary8testMode9productId15applicationInfo11description10Foundation4DataVSgSDySSALG_Sbs6UInt32VSDyS2SGSgSSSgtFZ_0(v11, mode, id, info, v12, description);
+  v16 = v15;
+
+  if (v16 >> 60 == 15)
+  {
+    v17 = 0;
+  }
+
+  else
+  {
+    v18 = sub_1D98499F4();
+    sub_1D98279AC(v14, v16);
+    v17 = v18;
+  }
+
+  return v17;
 }
 
 - (AirPodsCrashReportObjc)init

@@ -7,7 +7,7 @@
 
 - (id)predictionFromFeatures:(id)features options:(id)options error:(id *)error
 {
-  v48[2] = *MEMORY[0x277D85DE8];
+  v47[2] = *MEMORY[0x277D85DE8];
   featuresCopy = features;
   optionsCopy = options;
   v10 = [featuresCopy featureValueForName:self->_inputName];
@@ -15,10 +15,10 @@
 
   v12 = objc_alloc(MEMORY[0x277CBFF48]);
   v13 = objc_autoreleasePoolPush();
-  v48[0] = &unk_284785280;
+  v47[0] = &unk_284785280;
   v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSMutableDictionary count](self->_vocabulary, "count")}];
-  v48[1] = v14;
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
+  v47[1] = v14;
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
 
   objc_autoreleasePoolPop(v13);
   v16 = [v12 initWithShape:v15 dataType:65568 error:error];
@@ -26,29 +26,29 @@
   if (v16)
   {
     errorCopy = error;
-    v37 = sequenceValue;
-    v38 = optionsCopy;
-    v39 = featuresCopy;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
+    v36 = sequenceValue;
+    v37 = optionsCopy;
+    v38 = featuresCopy;
     v41 = 0u;
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
     stringValues = [sequenceValue stringValues];
-    v18 = [stringValues countByEnumeratingWithState:&v40 objects:v47 count:16];
+    v18 = [stringValues countByEnumeratingWithState:&v39 objects:v46 count:16];
     if (v18)
     {
       v19 = v18;
-      v20 = *v41;
+      v20 = *v40;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v41 != v20)
+          if (*v40 != v20)
           {
             objc_enumerationMutation(stringValues);
           }
 
-          v22 = *(*(&v40 + 1) + 8 * i);
+          v22 = *(*(&v39 + 1) + 8 * i);
           v23 = objc_autoreleasePoolPush();
           vocabulary = self->_vocabulary;
           lowercaseString = [v22 lowercaseString];
@@ -65,7 +65,7 @@
           objc_autoreleasePoolPop(v23);
         }
 
-        v19 = [stringValues countByEnumeratingWithState:&v40 objects:v47 count:16];
+        v19 = [stringValues countByEnumeratingWithState:&v39 objects:v46 count:16];
       }
 
       while (v19);
@@ -74,13 +74,13 @@
     v30 = objc_alloc(MEMORY[0x277CBFED0]);
     v31 = objc_autoreleasePoolPush();
     outputName = self->_outputName;
-    v46 = v16;
-    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&outputName count:1];
+    v45 = v16;
+    v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&outputName count:1];
     objc_autoreleasePoolPop(v31);
     v33 = [v30 initWithDictionary:v32 error:errorCopy];
-    optionsCopy = v38;
-    featuresCopy = v39;
-    sequenceValue = v37;
+    optionsCopy = v37;
+    featuresCopy = v38;
+    sequenceValue = v36;
   }
 
   else
@@ -94,8 +94,6 @@
 
     v33 = 0;
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v33;
 }

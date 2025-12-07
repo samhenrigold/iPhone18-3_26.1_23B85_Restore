@@ -55,7 +55,7 @@
 {
   v4 = type metadata accessor for UIContentUnavailableConfigurationState();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
+  __chkstk_darwin();
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   static UIContentUnavailableConfigurationState._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;

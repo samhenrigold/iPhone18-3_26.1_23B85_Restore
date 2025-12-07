@@ -10,69 +10,69 @@
 + (id)headingsRotor
 {
   objc_opt_self();
-  v0 = headingsRotor_rotorName;
+  v1 = headingsRotor_rotorName;
   if (!headingsRotor_rotorName)
   {
-    v1 = SXBundle();
-    v2 = [v1 localizedStringForKey:@"Headings" value:&stru_1F532F6C0 table:0];
-    v3 = headingsRotor_rotorName;
-    headingsRotor_rotorName = v2;
+    v2 = SXBundle(0);
+    v3 = [v2 localizedStringForKey:@"Headings" value:&stru_1F532F6C0 table:0];
+    v4 = headingsRotor_rotorName;
+    headingsRotor_rotorName = v3;
 
-    v0 = headingsRotor_rotorName;
+    v1 = headingsRotor_rotorName;
   }
 
-  return v0;
+  return v1;
 }
 
 + (id)linksRotor
 {
   objc_opt_self();
-  v0 = linksRotor_rotorName;
+  v1 = linksRotor_rotorName;
   if (!linksRotor_rotorName)
   {
-    v1 = SXBundle();
-    v2 = [v1 localizedStringForKey:@"Links" value:&stru_1F532F6C0 table:0];
-    v3 = linksRotor_rotorName;
-    linksRotor_rotorName = v2;
+    v2 = SXBundle(0);
+    v3 = [v2 localizedStringForKey:@"Links" value:&stru_1F532F6C0 table:0];
+    v4 = linksRotor_rotorName;
+    linksRotor_rotorName = v3;
 
-    v0 = linksRotor_rotorName;
+    v1 = linksRotor_rotorName;
   }
 
-  return v0;
+  return v1;
 }
 
 + (id)imagesRotor
 {
   objc_opt_self();
-  v0 = imagesRotor_rotorName;
+  v1 = imagesRotor_rotorName;
   if (!imagesRotor_rotorName)
   {
-    v1 = SXBundle();
-    v2 = [v1 localizedStringForKey:@"Images" value:&stru_1F532F6C0 table:0];
-    v3 = imagesRotor_rotorName;
-    imagesRotor_rotorName = v2;
+    v2 = SXBundle(0);
+    v3 = [v2 localizedStringForKey:@"Images" value:&stru_1F532F6C0 table:0];
+    v4 = imagesRotor_rotorName;
+    imagesRotor_rotorName = v3;
 
-    v0 = imagesRotor_rotorName;
+    v1 = imagesRotor_rotorName;
   }
 
-  return v0;
+  return v1;
 }
 
 + (id)audioVideoRotor
 {
   objc_opt_self();
-  v0 = audioVideoRotor_rotorName;
+  v1 = audioVideoRotor_rotorName;
   if (!audioVideoRotor_rotorName)
   {
-    v1 = SXBundle();
-    v2 = [v1 localizedStringForKey:@"Audio/Video" value:&stru_1F532F6C0 table:0];
-    v3 = audioVideoRotor_rotorName;
-    audioVideoRotor_rotorName = v2;
+    v2 = SXBundle(0);
+    v3 = [v2 localizedStringForKey:@"Audio/Video" value:&stru_1F532F6C0 table:0];
+    v4 = audioVideoRotor_rotorName;
+    audioVideoRotor_rotorName = v3;
 
-    v0 = audioVideoRotor_rotorName;
+    v1 = audioVideoRotor_rotorName;
   }
 
-  return v0;
+  return v1;
 }
 
 @end

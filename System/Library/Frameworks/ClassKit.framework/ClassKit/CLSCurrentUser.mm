@@ -14,28 +14,28 @@
 
 + (unint64_t)userRolesFromUserLocationIDsByAXMRoleType:(id)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v3 = objc_msgSend_allKeys(type, a2, type, 0);
-  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v15, v19, 16);
+  v5 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v4, &v14, v18, 16);
   if (v5)
   {
     v8 = v5;
     v9 = 0;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(v3);
         }
 
-        v12 = objc_msgSend_integerValue(*(*(&v15 + 1) + 8 * i), v6, v7);
+        v12 = objc_msgSend_integerValue(*(*(&v14 + 1) + 8 * i), v6, v7);
         switch(v12)
         {
           case 6:
@@ -50,7 +50,7 @@
         }
       }
 
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v6, &v15, v19, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(v3, v6, &v14, v18, 16);
     }
 
     while (v8);
@@ -61,7 +61,6 @@
     v9 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

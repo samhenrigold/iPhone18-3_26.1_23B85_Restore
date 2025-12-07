@@ -21,6 +21,7 @@
 - (void)addNumberingSystemSpecifier:(id)specifier;
 - (void)changeLanguage:(id)language;
 - (void)handleLocalesInfo:(id)info error:(id)error;
+- (void)inflectionSettingViewController:(id)controller shareSettingDidChange:(BOOL)change;
 - (void)inflectionSettingsViewController:(id)controller inflectionDidChange:(id)change;
 - (void)queryGizmoForLocalesInfo;
 - (void)reloadNumberingSystemSpecifier;
@@ -670,6 +671,15 @@ LABEL_5:
   changeCopy = change;
   inflectionSelector = [(COSInternationalController *)self inflectionSelector];
   [inflectionSelector setInflection:changeCopy];
+
+  [(COSInternationalController *)self reloadSpecifiers];
+}
+
+- (void)inflectionSettingViewController:(id)controller shareSettingDidChange:(BOOL)change
+{
+  changeCopy = change;
+  inflectionSelector = [(COSInternationalController *)self inflectionSelector];
+  [inflectionSelector setCanShareInflectionWithApps:changeCopy];
 
   [(COSInternationalController *)self reloadSpecifiers];
 }

@@ -48,7 +48,7 @@
   controllerCopy = controller;
   selfCopy = self;
   sub_78E0C(controllerCopy, animated, v8, v9);
-  sub_77BDC(v8);
+  sub_77BDC(v8, v9);
 }
 
 - (void)dismissViewControllerAnimated:(BOOL)animated completion:(id)completion
@@ -68,7 +68,7 @@
 
   selfCopy = self;
   sub_790C0(animated, v6, v7);
-  sub_77BDC(v6);
+  sub_77BDC(v6, v7);
 }
 
 - (BOOL)bc_analyticsVisibilityOfSelf
@@ -111,7 +111,7 @@
 
 - (Class)jsaFeedControllerClass
 {
-  sub_66278(0, &unk_3BCFC0);
+  sub_66278(0, &unk_3BCFC0, JSASearchFeedController_ptr);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -134,13 +134,13 @@
   controllerCopy = controller;
   selfCopy = self;
   sub_795AC(controllerCopy, v6, v7);
-  sub_77BDC(v6);
+  sub_77BDC(v6, v7);
 }
 
 - (void)feedController:(id)controller wantsToPresentCardsWithCardArray:(id)array focusedIndex:(unint64_t)index animated:(BOOL)animated options:(id)options completion:(id)completion
 {
   v12 = _Block_copy(completion);
-  sub_6620C(&qword_3BC1F8);
+  sub_6620C(&qword_3BC1F8, &qword_2E2ED0);
   v13 = sub_2C5B28();
   v14 = sub_2C57E8();
   if (v12)
@@ -158,7 +158,7 @@
   controllerCopy = controller;
   selfCopy = self;
   sub_798D4(controllerCopy, v13, index, animated, v14, v12, v15);
-  sub_77BDC(v12);
+  sub_77BDC(v12, v15);
 }
 
 - (void)feedController:(id)controller wantsToUpdateSearchText:(id)text

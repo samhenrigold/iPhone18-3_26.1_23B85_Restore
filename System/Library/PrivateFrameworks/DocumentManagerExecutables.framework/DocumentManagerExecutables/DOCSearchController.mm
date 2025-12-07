@@ -138,7 +138,7 @@
     (*((*MEMORY[0x277D85000] & *selfCopy) + 0x360))(v8, v7, animatedCopy);
 LABEL_8:
 
-    outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v8);
+    outlined consume of (@escaping @callee_guaranteed () -> (@owned DOCCopyableBarButtonItem))?(v8, v7);
     return;
   }
 

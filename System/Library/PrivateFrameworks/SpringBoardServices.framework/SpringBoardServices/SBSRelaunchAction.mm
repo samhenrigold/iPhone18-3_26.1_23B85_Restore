@@ -25,12 +25,12 @@
   NSClassFromString(&cfstr_Nsstring.isa);
   if (!v11)
   {
-    [SBSRelaunchAction initWithReason:a2 options:? targetURL:?];
+    [SBSRelaunchAction initWithReason:a2 options:self targetURL:?];
   }
 
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    [SBSRelaunchAction initWithReason:a2 options:? targetURL:?];
+    [SBSRelaunchAction initWithReason:a2 options:self targetURL:?];
   }
 
   v12 = lCopy;
@@ -39,7 +39,7 @@
     NSClassFromString(&cfstr_Nsurl.isa);
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      [SBSRelaunchAction initWithReason:a2 options:? targetURL:?];
+      [SBSRelaunchAction initWithReason:a2 options:self targetURL:?];
     }
   }
 
@@ -87,53 +87,53 @@
   return v3;
 }
 
-- (void)initWithReason:(const char *)a1 options:targetURL:.cold.1(const char *a1)
+- (void)initWithReason:(const char *)a1 options:(uint64_t)a2 targetURL:.cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSStringClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_19169D000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[_bs_assert_object isKindOfClass:NSStringClass]", v11, v12);
+    OUTLINED_FUNCTION_1_0(&dword_19169D000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initWithReason:(const char *)a1 options:targetURL:.cold.2(const char *a1)
+- (void)initWithReason:(const char *)a1 options:(uint64_t)a2 targetURL:.cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[_bs_assert_object isKindOfClass:NSURLClass]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_19169D000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[_bs_assert_object isKindOfClass:NSURLClass]", v11, v12);
+    OUTLINED_FUNCTION_1_0(&dword_19169D000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)initWithReason:(const char *)a1 options:targetURL:.cold.3(const char *a1)
+- (void)initWithReason:(const char *)a1 options:(uint64_t)a2 targetURL:.cold.3(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"_bs_assert_object != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_19169D000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"_bs_assert_object != nil", v11, v12);
+    OUTLINED_FUNCTION_1_0(&dword_19169D000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

@@ -4,6 +4,7 @@
 - (id)degreeLabels;
 - (id)directionLabels;
 - (void)layoutSubviews;
+- (void)setBearing:(double)bearing animated:(BOOL)animated;
 - (void)setCompassHeading:(double)heading;
 - (void)updateLabelsAnimated:(BOOL)animated;
 @end
@@ -70,7 +71,7 @@
   directionLabelRadius = self->_directionLabelRadius;
   v25 = __sincos_stret(v23 * 3.14159265 / 180.0);
   directionLabels = [(CompassLabelsView *)self directionLabels];
-  v27 = WebLocalizedString();
+  v27 = WebLocalizedString(0, "N");
   v28 = [directionLabels objectForKeyedSubscript:v27];
 
   [v28 setCenter:{MidX + directionLabelRadius * v25.__cosval, MidY + directionLabelRadius * v25.__sinval}];
@@ -79,7 +80,7 @@
   v31 = self->_directionLabelRadius;
   v32 = __sincos_stret(v30 * 3.14159265 / 180.0);
   directionLabels2 = [(CompassLabelsView *)self directionLabels];
-  v34 = WebLocalizedString();
+  v34 = WebLocalizedString(0, "E");
   v35 = [directionLabels2 objectForKeyedSubscript:v34];
 
   [v35 setCenter:{MidX + v31 * v32.__cosval, MidY + v31 * v32.__sinval}];
@@ -88,7 +89,7 @@
   v38 = self->_directionLabelRadius;
   v39 = __sincos_stret(v37 * 3.14159265 / 180.0);
   directionLabels3 = [(CompassLabelsView *)self directionLabels];
-  v41 = WebLocalizedString();
+  v41 = WebLocalizedString(0, "S");
   v42 = [directionLabels3 objectForKeyedSubscript:v41];
 
   [v42 setCenter:{MidX + v38 * v39.__cosval, MidY + v38 * v39.__sinval}];
@@ -97,7 +98,7 @@
   v45 = self->_directionLabelRadius;
   v46 = __sincos_stret(v44 * 3.14159265 / 180.0);
   directionLabels4 = [(CompassLabelsView *)self directionLabels];
-  v48 = WebLocalizedString();
+  v48 = WebLocalizedString(0, "W");
   v49 = [directionLabels4 objectForKeyedSubscript:v48];
 
   [v49 setCenter:{MidX + v45 * v46.__cosval, MidY + v45 * v46.__sinval}];
@@ -185,39 +186,38 @@
   directionLabels = self->_directionLabels;
   if (!directionLabels)
   {
-    v28 = 16;
-    v4 = WebLocalizedString();
-    v37[0] = v4;
-    v5 = WebLocalizedString();
-    v37[1] = v5;
-    v6 = WebLocalizedString();
-    v37[2] = v6;
-    v7 = WebLocalizedString();
-    v37[3] = v7;
-    v8 = [NSArray arrayWithObjects:v37 count:4];
+    v4 = WebLocalizedString(0, "N");
+    v36[0] = v4;
+    v5 = WebLocalizedString(0, "S");
+    v36[1] = v5;
+    v6 = WebLocalizedString(0, "E");
+    v36[2] = v6;
+    v7 = WebLocalizedString(0, "W");
+    v36[3] = v7;
+    v8 = [NSArray arrayWithObjects:v36 count:4];
 
-    v31 = [NSMutableDictionary dictionaryWithCapacity:4];
+    v30 = [NSMutableDictionary dictionaryWithCapacity:4];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     obj = v8;
-    v9 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v9 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v9)
     {
       v10 = v9;
-      v30 = *v33;
+      v29 = *v32;
       do
       {
         for (i = 0; i != v10; i = i + 1)
         {
-          if (*v33 != v30)
+          if (*v32 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v32 + 1) + 8 * i);
-          v13 = [UIFont preferredFontForTextStyle:UIFontTextStyleBody, v28];
+          v12 = *(*(&v31 + 1) + 8 * i);
+          v13 = [UIFont preferredFontForTextStyle:UIFontTextStyleBody];
           [v13 pointSize];
           v15 = v14;
 
@@ -230,8 +230,8 @@
           v19 = +[UIScreen mainScreen];
           [v19 bounds];
           v21 = v20;
-          v38 = xmmword_10000C3D8;
-          v39 = -798153473;
+          v37 = xmmword_10000C3D8;
+          v38 = -798153473;
           if (MGIsDeviceOfType())
           {
             v22 = 0.850000024;
@@ -251,21 +251,21 @@
 
           [v17 setAdjustsFontSizeToFitWidth:1];
           [v17 sizeToFit];
-          [v31 setObject:v17 forKey:v12];
+          [v30 setObject:v17 forKey:v12];
           [(CompassLabelsView *)self addSubview:v17];
         }
 
-        v10 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v10 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v10);
     }
 
-    v25 = [[NSDictionary alloc] initWithDictionary:v31];
-    v26 = *&self->CompassRotatingView_opaque[v28];
-    *&self->CompassRotatingView_opaque[v28] = v25;
+    v25 = [[NSDictionary alloc] initWithDictionary:v30];
+    v26 = self->_directionLabels;
+    self->_directionLabels = v25;
 
-    directionLabels = *&self->CompassRotatingView_opaque[v28];
+    directionLabels = self->_directionLabels;
   }
 
   return directionLabels;
@@ -282,6 +282,24 @@
   }
 
   return result;
+}
+
+- (void)setBearing:(double)bearing animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  self->_bearing = bearing;
+  if (bearing != 1.79769313e308)
+  {
+    v6 = [NSNumber numberWithInt:bearing];
+    v7 = [NSNumberFormatter localizedStringFromNumber:v6 numberStyle:0];
+    bearingLabel = [(CompassLabelsView *)self bearingLabel];
+    [bearingLabel setText:v7];
+
+    [(UILabel *)self->_bearingLabel sizeToFit];
+    [(CompassLabelsView *)self setNeedsLayout];
+  }
+
+  [(CompassLabelsView *)self updateLabelsAnimated:animatedCopy];
 }
 
 - (void)updateLabelsAnimated:(BOOL)animated

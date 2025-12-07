@@ -1,4 +1,5 @@
 @interface BiometricKitXPCExportedObject
+- (BOOL)isClient:(unint64_t)client entitled:(int)entitled forMethod:(const char *)method;
 - (BiometricKitXPCExportedObject)init;
 - (id)client:(unint64_t)client;
 - (id)clients;
@@ -10,19 +11,34 @@
 - (void)connect:(id)connect client:(unint64_t)client replyBlock:(id)block;
 - (void)dealloc;
 - (void)detectPresenceWithOptions:(id)options async:(BOOL)async client:(unint64_t)client replyBlock:(id)block;
+- (void)diagnostics:(int)diagnostics options:(id)options client:(unint64_t)client replyBlock:(id)block;
 - (void)disconnect:(unint64_t)disconnect replyBlock:(id)block;
 - (void)dropUnlockToken:(unint64_t)token replyBlock:(id)block;
+- (void)enableBackgroundFdet:(BOOL)fdet client:(unint64_t)client replyBlock:(id)block;
+- (void)enableMatchAutoRetry:(BOOL)retry client:(unint64_t)client replyBlock:(id)block;
 - (void)enroll:(int)enroll user:(unsigned int)user options:(id)options async:(BOOL)async client:(unint64_t)client replyBlock:(id)block;
 - (void)enrollContinue:(unint64_t)continue replyBlock:(id)block;
 - (void)fileRadarWithLogs:(id)logs description:(id)description client:(unint64_t)client replyBlock:(id)block;
+- (void)forceBioLockoutForUser:(unsigned int)user options:(id)options client:(unint64_t)client replyBlock:(id)block;
+- (void)getBioLockoutStateForUser:(unsigned int)user client:(unint64_t)client replyBlock:(id)block;
+- (void)getBiometryAvailabilityForUser:(unsigned int)user client:(unint64_t)client replyBlock:(id)block;
 - (void)getCalibrationDataInfo:(unint64_t)info replyBlock:(id)block;
 - (void)getCountersignedStoreToken:(unint64_t)token replyBlock:(id)block;
 - (void)getDeviceHardwareState:(unint64_t)state replyBlock:(id)block;
 - (void)getDeviceState:(unint64_t)state replyBlock:(id)block;
+- (void)getExpressModeStateForUser:(unsigned int)user client:(unint64_t)client replyBlock:(id)block;
+- (void)getFreeIdentityCount:(int)count user:(unsigned int)user client:(unint64_t)client replyBlock:(id)block;
+- (void)getFreeIdentityCountForUser:(unsigned int)user accessoryGroup:(id)group client:(unint64_t)client replyBlock:(id)block;
+- (void)getIdentitiesDatabaseHashForUser:(unsigned int)user client:(unint64_t)client replyBlock:(id)block;
+- (void)getIdentitiesDatabaseUUIDForUser:(unsigned int)user client:(unint64_t)client replyBlock:(id)block;
 - (void)getIdentityFromUUID:(id)d client:(unint64_t)client replyBlock:(id)block;
 - (void)getLastMatchEvent:(unint64_t)event replyBlock:(id)block;
+- (void)getLogs:(BOOL)logs client:(unint64_t)client replyBlock:(id)block;
+- (void)getMaxIdentityCount:(int)count client:(unint64_t)client replyBlock:(id)block;
 - (void)getNodeTopologyForIdentity:(id)identity client:(unint64_t)client replyBlock:(id)block;
+- (void)getPeriocularMatchState:(unsigned int)state client:(unint64_t)client replyBlock:(id)block;
 - (void)getPreferencesValueForKey:(id)key client:(unint64_t)client replyBlock:(id)block;
+- (void)getProtectedConfigurationForUser:(unsigned int)user client:(unint64_t)client replyBlock:(id)block;
 - (void)getProvisioningState:(unint64_t)state replyBlock:(id)block;
 - (void)getSensorCalibrationStatus:(unint64_t)status replyBlock:(id)block;
 - (void)getSensorInfo:(unint64_t)info replyBlock:(id)block;
@@ -37,23 +53,29 @@
 - (void)match:(id)match options:(id)options async:(BOOL)async client:(unint64_t)client replyBlock:(id)block;
 - (void)notifyAppIsBackground:(BOOL)background client:(unint64_t)client;
 - (void)notifyAppIsInactive:(BOOL)inactive client:(unint64_t)client;
+- (void)pauseFaceDetectTimer:(BOOL)timer client:(unint64_t)client replyBlock:(id)block;
 - (void)prewarmCamera:(unint64_t)camera client:(unint64_t)client replyBlock:(id)block;
 - (void)pullAlignmentData:(unint64_t)data replyBlock:(id)block;
 - (void)pullCalibrationData:(unint64_t)data replyBlock:(id)block;
 - (void)pullCaptureBuffer:(unint64_t)buffer replyBlock:(id)block;
+- (void)pullDebugImageData:(BOOL)data rotated:(BOOL)rotated client:(unint64_t)client replyBlock:(id)block;
 - (void)pullMatchPolicyInfoData:(unint64_t)data replyBlock:(id)block;
+- (void)queryIdentityMigrationFailureForUser:(unsigned int)user clear:(BOOL)clear client:(unint64_t)client replyBlock:(id)block;
 - (void)registerDSID:(unint64_t)d options:(id)options client:(unint64_t)client replyBlock:(id)block;
+- (void)registerDelegate:(BOOL)delegate client:(unint64_t)client replyBlock:(id)block;
 - (void)registerStoreToken:(id)token client:(unint64_t)client replyBlock:(id)block;
 - (void)removeAllIdentitiesForUser:(unsigned int)user options:(id)options async:(BOOL)async client:(unint64_t)client replyBlock:(id)block;
 - (void)removeIdentity:(id)identity options:(id)options async:(BOOL)async client:(unint64_t)client replyBlock:(id)block;
 - (void)removePeriocularTemplatesWithOptions:(id)options async:(BOOL)async client:(unint64_t)client replyBlock:(id)block;
 - (void)resetAppleConnectCounter:(unint64_t)counter replyBlock:(id)block;
+- (void)setDebugImages:(BOOL)images client:(unint64_t)client replyBlock:(id)block;
 - (void)setPreferencesValue:(id)value forKey:(id)key client:(unint64_t)client replyBlock:(id)block;
 - (void)setProtectedConfiguration:(id)configuration user:(unsigned int)user options:(id)options async:(BOOL)async client:(unint64_t)client replyBlock:(id)block;
 - (void)setSystemProtectedConfiguration:(id)configuration options:(id)options async:(BOOL)async client:(unint64_t)client replyBlock:(id)block;
 - (void)setTemplate:(id)template forIdentity:(id)identity client:(unint64_t)client replyBlock:(id)block;
 - (void)setUserDSID:(unint64_t)d options:(id)options client:(unint64_t)client replyBlock:(id)block;
 - (void)startNewMatchAttempt:(unint64_t)attempt replyBlock:(id)block;
+- (void)suspendEnrollment:(BOOL)enrollment client:(unint64_t)client replyBlock:(id)block;
 - (void)terminate;
 - (void)timestampEvent:(unint64_t)event absoluteTime:(unint64_t)time client:(unint64_t)client replyBlock:(id)block;
 - (void)updateIdentity:(id)identity options:(id)options async:(BOOL)async client:(unint64_t)client replyBlock:(id)block;
@@ -86,7 +108,7 @@
 
 - (unsigned)hashClientName:(id)name
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   v4 = [nameCopy cStringUsingEncoding:1];
   if (v4)
@@ -126,21 +148,20 @@
 
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = nameCopy;
-      _os_log_impl(&dword_223E00000, v9, OS_LOG_TYPE_ERROR, "Invalid bundleId %@\n", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = nameCopy;
+      _os_log_impl(&dword_223E00000, v9, OS_LOG_TYPE_ERROR, "Invalid bundleId %@\n", &v11, 0xCu);
     }
 
     v7 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (int64_t)clientThrottleRatio:(id)ratio
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   ratioCopy = ratio;
   if (clientThrottleRatio__once != -1)
   {
@@ -158,26 +179,26 @@
     if (v9)
     {
       [v9 componentsSeparatedByString:{@", "}];
+      v22 = 0u;
       v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
-      v10 = v26 = 0u;
-      v11 = [v10 countByEnumeratingWithState:&v23 objects:v33 count:16];
+      v10 = v25 = 0u;
+      v11 = [v10 countByEnumeratingWithState:&v22 objects:v32 count:16];
       if (v11)
       {
         v12 = v11;
-        v22 = v9;
-        v13 = *v24;
+        v21 = v9;
+        v13 = *v23;
         while (2)
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v24 != v13)
+            if (*v23 != v13)
             {
               objc_enumerationMutation(v10);
             }
 
-            v15 = [*(*(&v23 + 1) + 8 * i) componentsSeparatedByString:@"|"];
+            v15 = [*(*(&v22 + 1) + 8 * i) componentsSeparatedByString:@"|"];
             if ([v15 count] == 2)
             {
               v16 = [v15 objectAtIndexedSubscript:0];
@@ -191,7 +212,7 @@
             }
           }
 
-          v12 = [v10 countByEnumeratingWithState:&v23 objects:v33 count:16];
+          v12 = [v10 countByEnumeratingWithState:&v22 objects:v32 count:16];
           if (v12)
           {
             continue;
@@ -202,7 +223,7 @@
 
         integerValue = 0;
 LABEL_19:
-        v9 = v22;
+        v9 = v21;
       }
 
       else
@@ -235,298 +256,440 @@ LABEL_19:
   if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
   {
     *buf = 138412802;
-    v28 = ratioCopy;
-    v29 = 2112;
-    v30 = currentPlatform;
-    v31 = 1024;
-    v32 = integerValue;
+    v27 = ratioCopy;
+    v28 = 2112;
+    v29 = currentPlatform;
+    v30 = 1024;
+    v31 = integerValue;
     _os_log_impl(&dword_223E00000, v19, OS_LOG_TYPE_INFO, "Client %@/%@ throttling value=%d\n", buf, 0x1Cu);
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return integerValue;
 }
 
 void __53__BiometricKitXPCExportedObject_clientThrottleRatio___block_invoke()
 {
-  v4[136] = *MEMORY[0x277D85DE8];
-  v3[0] = &unk_28374B7F0;
-  v3[1] = &unk_28374B808;
-  v4[0] = @"iOS|1,macOS|10,visionOS|1";
-  v4[1] = @"iOS|1";
-  v3[2] = &unk_28374B820;
-  v3[3] = &unk_28374B838;
-  v4[2] = @"iOS|1,macOS|1,visionOS|1";
-  v4[3] = @"iOS|1,visionOS|1";
-  v3[4] = &unk_28374B850;
-  v3[5] = &unk_28374B868;
-  v4[4] = @"macOS|1";
-  v4[5] = @"visionOS|1";
-  v3[6] = &unk_28374B880;
-  v3[7] = &unk_28374B898;
-  v4[6] = @"iOS|1";
-  v4[7] = @"iOS|1";
-  v3[8] = &unk_28374B8B0;
-  v3[9] = &unk_28374B8C8;
-  v4[8] = @"iOS|1";
-  v4[9] = @"macOS|100";
-  v3[10] = &unk_28374B8E0;
-  v3[11] = &unk_28374B8F8;
-  v4[10] = @"iOS|10,visionOS|1";
-  v4[11] = @"iOS|1,macOS|1";
-  v3[12] = &unk_28374B910;
-  v3[13] = &unk_28374B928;
-  v4[12] = @"macOS|100";
-  v4[13] = @"iOS|1";
-  v3[14] = &unk_28374B940;
-  v3[15] = &unk_28374B958;
-  v4[14] = @"iOS|1";
-  v4[15] = @"iOS|1000,visionOS|100";
-  v3[16] = &unk_28374B970;
-  v3[17] = &unk_28374B988;
-  v4[16] = @"iOS|1";
-  v4[17] = @"iOS|1,visionOS|1";
-  v3[18] = &unk_28374B9A0;
-  v3[19] = &unk_28374B9B8;
-  v4[18] = @"iOS|1,visionOS|1";
-  v4[19] = @"iOS|1";
-  v3[20] = &unk_28374B9D0;
-  v3[21] = &unk_28374B9E8;
-  v4[20] = @"iOS|10,macOS|1,visionOS|1";
-  v4[21] = @"iOS|1,visionOS|1";
-  v3[22] = &unk_28374BA00;
-  v3[23] = &unk_28374BA18;
-  v4[22] = @"iOS|1,visionOS|1";
-  v4[23] = @"macOS|100";
-  v3[24] = &unk_28374BA30;
-  v3[25] = &unk_28374BA48;
-  v4[24] = @"iOS|1";
-  v4[25] = @"macOS|1";
-  v3[26] = &unk_28374BA60;
-  v3[27] = &unk_28374BA78;
-  v4[26] = @"iOS|1";
-  v4[27] = @"iOS|1";
-  v3[28] = &unk_28374BA90;
-  v3[29] = &unk_28374BAA8;
-  v4[28] = @"iOS|1,visionOS|1";
-  v4[29] = @"visionOS|1";
-  v3[30] = &unk_28374BAC0;
-  v3[31] = &unk_28374BAD8;
-  v4[30] = @"macOS|1";
-  v4[31] = @"iOS|1";
-  v3[32] = &unk_28374BAF0;
-  v3[33] = &unk_28374BB08;
-  v4[32] = @"macOS|1";
-  v4[33] = @"iOS|10";
-  v3[34] = &unk_28374BB20;
-  v3[35] = &unk_28374BB38;
-  v4[34] = @"iOS|10,visionOS|1";
-  v4[35] = @"iOS|1";
-  v3[36] = &unk_28374BB50;
-  v3[37] = &unk_28374BB68;
-  v4[36] = @"iOS|1";
-  v4[37] = @"iOS|10";
-  v3[38] = &unk_28374BB80;
-  v3[39] = &unk_28374BB98;
-  v4[38] = @"iOS|1,macOS|1,visionOS|1";
-  v4[39] = @"iOS|1";
-  v3[40] = &unk_28374BBB0;
-  v3[41] = &unk_28374BBC8;
-  v4[40] = @"macOS|1";
-  v4[41] = @"macOS|1";
-  v3[42] = &unk_28374BBE0;
-  v3[43] = &unk_28374BBF8;
-  v4[42] = @"macOS|1";
-  v4[43] = @"iOS|1,visionOS|1";
-  v3[44] = &unk_28374BC10;
-  v3[45] = &unk_28374BC28;
-  v4[44] = @"iOS|1";
-  v4[45] = @"iOS|1";
-  v3[46] = &unk_28374BC40;
-  v3[47] = &unk_28374BC58;
-  v4[46] = @"visionOS|1";
-  v4[47] = @"iOS|10,macOS|10,visionOS|1";
-  v3[48] = &unk_28374BC70;
-  v3[49] = &unk_28374BC88;
-  v4[48] = @"macOS|1";
-  v4[49] = @"iOS|1,visionOS|1";
-  v3[50] = &unk_28374BCA0;
-  v3[51] = &unk_28374BCB8;
-  v4[50] = @"iOS|1";
-  v4[51] = @"visionOS|1";
-  v3[52] = &unk_28374BCD0;
-  v3[53] = &unk_28374BCE8;
-  v4[52] = @"iOS|1";
-  v4[53] = @"iOS|1";
-  v3[54] = &unk_28374BD00;
-  v3[55] = &unk_28374BD18;
-  v4[54] = @"iOS|1";
-  v4[55] = @"iOS|1";
-  v3[56] = &unk_28374BD30;
-  v3[57] = &unk_28374BD48;
-  v4[56] = @"iOS|100,visionOS|10";
-  v4[57] = @"iOS|1000,visionOS|10000";
-  v3[58] = &unk_28374BD60;
-  v3[59] = &unk_28374BD78;
-  v4[58] = @"visionOS|10";
-  v4[59] = @"visionOS|1";
-  v3[60] = &unk_28374BD90;
-  v3[61] = &unk_28374BDA8;
-  v4[60] = @"iOS|1,visionOS|1";
-  v4[61] = @"macOS|1";
-  v3[62] = &unk_28374BDC0;
-  v3[63] = &unk_28374BDD8;
-  v4[62] = @"iOS|1,visionOS|1";
-  v4[63] = @"visionOS|1";
-  v3[64] = &unk_28374BDF0;
-  v4[64] = @"iOS|1";
-  v3[65] = &unk_28374BE08;
-  v4[65] = @"macOS|10";
-  v3[66] = &unk_28374BE20;
-  v4[66] = @"macOS|10";
-  v3[67] = &unk_28374BE38;
-  v4[67] = @"visionOS|1";
-  v3[68] = &unk_28374BE50;
-  v4[68] = @"macOS|1";
-  v3[69] = &unk_28374BE68;
-  v4[69] = @"iOS|1";
-  v3[70] = &unk_28374BE80;
-  v4[70] = @"visionOS|10";
-  v3[71] = &unk_28374BE98;
-  v4[71] = @"visionOS|10";
-  v3[72] = &unk_28374BEB0;
-  v4[72] = @"macOS|1";
-  v3[73] = &unk_28374BEC8;
-  v4[73] = @"iOS|1";
-  v3[74] = &unk_28374BEE0;
-  v4[74] = @"iOS|1";
-  v3[75] = &unk_28374BEF8;
-  v4[75] = @"iOS|10,visionOS|10";
-  v3[76] = &unk_28374BF10;
-  v4[76] = @"iOS|100,visionOS|100";
-  v3[77] = &unk_28374BF28;
-  v3[78] = &unk_28374BF40;
-  v4[77] = @"visionOS|1";
-  v4[78] = @"iOS|1000000,visionOS|10000";
-  v3[79] = &unk_28374BF58;
-  v4[79] = @"iOS|10,visionOS|1";
-  v3[80] = &unk_28374BF70;
-  v4[80] = @"iOS|10";
-  v3[81] = &unk_28374BF88;
-  v3[82] = &unk_28374BFA0;
-  v4[81] = @"iOS|100,visionOS|10";
-  v4[82] = @"iOS|100,macOS|10";
-  v3[83] = &unk_28374BFB8;
-  v4[83] = @"iOS|1,visionOS|1";
-  v3[84] = &unk_28374BFD0;
-  v4[84] = @"visionOS|1";
-  v3[85] = &unk_28374BFE8;
-  v4[85] = @"iOS|10,visionOS|1";
-  v3[86] = &unk_28374C000;
-  v4[86] = @"iOS|1";
-  v3[87] = &unk_28374C018;
-  v4[87] = @"iOS|1";
-  v3[88] = &unk_28374C030;
-  v4[88] = @"iOS|1";
-  v3[89] = &unk_28374C048;
-  v4[89] = @"iOS|1,visionOS|1";
-  v3[90] = &unk_28374C060;
-  v4[90] = @"iOS|1,visionOS|1";
-  v3[91] = &unk_28374C078;
-  v3[92] = &unk_28374C090;
-  v4[91] = @"iOS|1,visionOS|1";
-  v4[92] = @"iOS|1000000,macOS|1000,visionOS|10000";
-  v3[93] = &unk_28374C0A8;
-  v4[93] = @"iOS|1";
-  v3[94] = &unk_28374C0C0;
-  v4[94] = @"macOS|1";
-  v3[95] = &unk_28374C0D8;
-  v3[96] = &unk_28374C0F0;
-  v4[95] = @"macOS|1";
-  v4[96] = @"iOS|100,macOS|1,visionOS|10";
-  v3[97] = &unk_28374C108;
-  v4[97] = @"iOS|10,visionOS|1";
-  v3[98] = &unk_28374C120;
-  v4[98] = @"macOS|10";
-  v3[99] = &unk_28374C138;
-  v4[99] = @"macOS|10";
-  v3[100] = &unk_28374C150;
-  v3[101] = &unk_28374C168;
-  v4[100] = @"iOS|10000,visionOS|1000";
-  v4[101] = @"macOS|1000";
-  v3[102] = &unk_28374C180;
-  v4[102] = @"macOS|1";
-  v3[103] = &unk_28374C198;
-  v4[103] = @"iOS|10000,visionOS|1000";
-  v3[104] = &unk_28374C1B0;
-  v4[104] = @"iOS|1000,visionOS|10";
-  v3[105] = &unk_28374C1C8;
-  v4[105] = @"iOS|10,visionOS|1";
-  v3[106] = &unk_28374C1E0;
-  v4[106] = @"visionOS|1";
-  v3[107] = &unk_28374C1F8;
-  v4[107] = @"iOS|1";
-  v3[108] = &unk_28374C210;
-  v4[108] = @"iOS|1000,visionOS|1000";
-  v3[109] = &unk_28374C228;
-  v4[109] = @"iOS|1,visionOS|1";
-  v3[110] = &unk_28374C240;
-  v4[110] = @"visionOS|10";
-  v3[111] = &unk_28374C258;
-  v4[111] = @"iOS|10,visionOS|1";
-  v3[112] = &unk_28374C270;
-  v4[112] = @"macOS|1";
-  v3[113] = &unk_28374C288;
-  v4[113] = @"visionOS|100";
-  v3[114] = &unk_28374C2A0;
-  v4[114] = @"iOS|1,visionOS|1";
-  v3[115] = &unk_28374C2B8;
-  v4[115] = @"visionOS|1000";
-  v3[116] = &unk_28374C2D0;
-  v4[116] = @"iOS|10000,visionOS|10000";
-  v3[117] = &unk_28374C2E8;
-  v4[117] = @"iOS|1,visionOS|1";
-  v3[118] = &unk_28374C300;
-  v4[118] = @"iOS|1";
-  v3[119] = &unk_28374C318;
-  v4[119] = @"iOS|1000000";
-  v3[120] = &unk_28374C330;
-  v4[120] = @"iOS|1";
-  v3[121] = &unk_28374C348;
-  v4[121] = @"iOS|1";
-  v3[122] = &unk_28374C360;
-  v4[122] = @"iOS|1";
-  v3[123] = &unk_28374C378;
-  v4[123] = @"iOS|100,visionOS|1";
-  v3[124] = &unk_28374C390;
-  v4[124] = @"iOS|1";
-  v3[125] = &unk_28374C3A8;
-  v4[125] = @"iOS|100,visionOS|10";
-  v3[126] = &unk_28374C3C0;
-  v4[126] = @"macOS|10000";
-  v3[127] = &unk_28374C3D8;
-  v4[127] = @"iOS|10,visionOS|1";
-  v3[128] = &unk_28374C3F0;
-  v4[128] = @"iOS|1";
-  v3[129] = &unk_28374C408;
-  v4[129] = @"iOS|1,visionOS|1";
-  v3[130] = &unk_28374C420;
-  v4[130] = @"iOS|10";
-  v3[131] = &unk_28374C438;
-  v4[131] = @"visionOS|1";
-  v3[132] = &unk_28374C450;
-  v4[132] = @"iOS|1,visionOS|1";
-  v3[133] = &unk_28374C468;
-  v4[133] = @"iOS|1";
-  v3[134] = &unk_28374C480;
-  v4[134] = @"iOS|1,macOS|1,visionOS|1";
-  v3[135] = &unk_28374C498;
-  v4[135] = @"iOS|1,macOS|1,visionOS|1";
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:136];
+  v3[136] = *MEMORY[0x277D85DE8];
+  v2[0] = &unk_28374B7F0;
+  v2[1] = &unk_28374B808;
+  v3[0] = @"iOS|1,macOS|10,visionOS|1";
+  v3[1] = @"iOS|1";
+  v2[2] = &unk_28374B820;
+  v2[3] = &unk_28374B838;
+  v3[2] = @"iOS|1,macOS|1,visionOS|1";
+  v3[3] = @"iOS|1,visionOS|1";
+  v2[4] = &unk_28374B850;
+  v2[5] = &unk_28374B868;
+  v3[4] = @"macOS|1";
+  v3[5] = @"visionOS|1";
+  v2[6] = &unk_28374B880;
+  v2[7] = &unk_28374B898;
+  v3[6] = @"iOS|1";
+  v3[7] = @"iOS|1";
+  v2[8] = &unk_28374B8B0;
+  v2[9] = &unk_28374B8C8;
+  v3[8] = @"iOS|1";
+  v3[9] = @"macOS|100";
+  v2[10] = &unk_28374B8E0;
+  v2[11] = &unk_28374B8F8;
+  v3[10] = @"iOS|10,visionOS|1";
+  v3[11] = @"iOS|1,macOS|1";
+  v2[12] = &unk_28374B910;
+  v2[13] = &unk_28374B928;
+  v3[12] = @"macOS|100";
+  v3[13] = @"iOS|1";
+  v2[14] = &unk_28374B940;
+  v2[15] = &unk_28374B958;
+  v3[14] = @"iOS|1";
+  v3[15] = @"iOS|1000,visionOS|100";
+  v2[16] = &unk_28374B970;
+  v2[17] = &unk_28374B988;
+  v3[16] = @"iOS|1";
+  v3[17] = @"iOS|1,visionOS|1";
+  v2[18] = &unk_28374B9A0;
+  v2[19] = &unk_28374B9B8;
+  v3[18] = @"iOS|1,visionOS|1";
+  v3[19] = @"iOS|1";
+  v2[20] = &unk_28374B9D0;
+  v2[21] = &unk_28374B9E8;
+  v3[20] = @"iOS|10,macOS|1,visionOS|1";
+  v3[21] = @"iOS|1,visionOS|1";
+  v2[22] = &unk_28374BA00;
+  v2[23] = &unk_28374BA18;
+  v3[22] = @"iOS|1,visionOS|1";
+  v3[23] = @"macOS|100";
+  v2[24] = &unk_28374BA30;
+  v2[25] = &unk_28374BA48;
+  v3[24] = @"iOS|1";
+  v3[25] = @"macOS|1";
+  v2[26] = &unk_28374BA60;
+  v2[27] = &unk_28374BA78;
+  v3[26] = @"iOS|1";
+  v3[27] = @"iOS|1";
+  v2[28] = &unk_28374BA90;
+  v2[29] = &unk_28374BAA8;
+  v3[28] = @"iOS|1,visionOS|1";
+  v3[29] = @"visionOS|1";
+  v2[30] = &unk_28374BAC0;
+  v2[31] = &unk_28374BAD8;
+  v3[30] = @"macOS|1";
+  v3[31] = @"iOS|1";
+  v2[32] = &unk_28374BAF0;
+  v2[33] = &unk_28374BB08;
+  v3[32] = @"macOS|1";
+  v3[33] = @"iOS|10";
+  v2[34] = &unk_28374BB20;
+  v2[35] = &unk_28374BB38;
+  v3[34] = @"iOS|10,visionOS|1";
+  v3[35] = @"iOS|1";
+  v2[36] = &unk_28374BB50;
+  v2[37] = &unk_28374BB68;
+  v3[36] = @"iOS|1";
+  v3[37] = @"iOS|10";
+  v2[38] = &unk_28374BB80;
+  v2[39] = &unk_28374BB98;
+  v3[38] = @"iOS|1,macOS|1,visionOS|1";
+  v3[39] = @"iOS|1";
+  v2[40] = &unk_28374BBB0;
+  v2[41] = &unk_28374BBC8;
+  v3[40] = @"macOS|1";
+  v3[41] = @"macOS|1";
+  v2[42] = &unk_28374BBE0;
+  v2[43] = &unk_28374BBF8;
+  v3[42] = @"macOS|1";
+  v3[43] = @"iOS|1,visionOS|1";
+  v2[44] = &unk_28374BC10;
+  v2[45] = &unk_28374BC28;
+  v3[44] = @"iOS|1";
+  v3[45] = @"iOS|1";
+  v2[46] = &unk_28374BC40;
+  v2[47] = &unk_28374BC58;
+  v3[46] = @"visionOS|1";
+  v3[47] = @"iOS|10,macOS|10,visionOS|1";
+  v2[48] = &unk_28374BC70;
+  v2[49] = &unk_28374BC88;
+  v3[48] = @"macOS|1";
+  v3[49] = @"iOS|1,visionOS|1";
+  v2[50] = &unk_28374BCA0;
+  v2[51] = &unk_28374BCB8;
+  v3[50] = @"iOS|1";
+  v3[51] = @"visionOS|1";
+  v2[52] = &unk_28374BCD0;
+  v2[53] = &unk_28374BCE8;
+  v3[52] = @"iOS|1";
+  v3[53] = @"iOS|1";
+  v2[54] = &unk_28374BD00;
+  v2[55] = &unk_28374BD18;
+  v3[54] = @"iOS|1";
+  v3[55] = @"iOS|1";
+  v2[56] = &unk_28374BD30;
+  v2[57] = &unk_28374BD48;
+  v3[56] = @"iOS|100,visionOS|10";
+  v3[57] = @"iOS|1000,visionOS|10000";
+  v2[58] = &unk_28374BD60;
+  v2[59] = &unk_28374BD78;
+  v3[58] = @"visionOS|10";
+  v3[59] = @"visionOS|1";
+  v2[60] = &unk_28374BD90;
+  v2[61] = &unk_28374BDA8;
+  v3[60] = @"iOS|1,visionOS|1";
+  v3[61] = @"macOS|1";
+  v2[62] = &unk_28374BDC0;
+  v2[63] = &unk_28374BDD8;
+  v3[62] = @"iOS|1,visionOS|1";
+  v3[63] = @"visionOS|1";
+  v2[64] = &unk_28374BDF0;
+  v3[64] = @"iOS|1";
+  v2[65] = &unk_28374BE08;
+  v3[65] = @"macOS|10";
+  v2[66] = &unk_28374BE20;
+  v3[66] = @"macOS|10";
+  v2[67] = &unk_28374BE38;
+  v3[67] = @"visionOS|1";
+  v2[68] = &unk_28374BE50;
+  v3[68] = @"macOS|1";
+  v2[69] = &unk_28374BE68;
+  v3[69] = @"iOS|1";
+  v2[70] = &unk_28374BE80;
+  v3[70] = @"visionOS|10";
+  v2[71] = &unk_28374BE98;
+  v3[71] = @"visionOS|10";
+  v2[72] = &unk_28374BEB0;
+  v3[72] = @"macOS|1";
+  v2[73] = &unk_28374BEC8;
+  v3[73] = @"iOS|1";
+  v2[74] = &unk_28374BEE0;
+  v3[74] = @"iOS|1";
+  v2[75] = &unk_28374BEF8;
+  v3[75] = @"iOS|10,visionOS|10";
+  v2[76] = &unk_28374BF10;
+  v3[76] = @"iOS|100,visionOS|100";
+  v2[77] = &unk_28374BF28;
+  v2[78] = &unk_28374BF40;
+  v3[77] = @"visionOS|1";
+  v3[78] = @"iOS|1000000,visionOS|10000";
+  v2[79] = &unk_28374BF58;
+  v3[79] = @"iOS|10,visionOS|1";
+  v2[80] = &unk_28374BF70;
+  v3[80] = @"iOS|10";
+  v2[81] = &unk_28374BF88;
+  v2[82] = &unk_28374BFA0;
+  v3[81] = @"iOS|100,visionOS|10";
+  v3[82] = @"iOS|100,macOS|10";
+  v2[83] = &unk_28374BFB8;
+  v3[83] = @"iOS|1,visionOS|1";
+  v2[84] = &unk_28374BFD0;
+  v3[84] = @"visionOS|1";
+  v2[85] = &unk_28374BFE8;
+  v3[85] = @"iOS|10,visionOS|1";
+  v2[86] = &unk_28374C000;
+  v3[86] = @"iOS|1";
+  v2[87] = &unk_28374C018;
+  v3[87] = @"iOS|1";
+  v2[88] = &unk_28374C030;
+  v3[88] = @"iOS|1";
+  v2[89] = &unk_28374C048;
+  v3[89] = @"iOS|1,visionOS|1";
+  v2[90] = &unk_28374C060;
+  v3[90] = @"iOS|1,visionOS|1";
+  v2[91] = &unk_28374C078;
+  v2[92] = &unk_28374C090;
+  v3[91] = @"iOS|1,visionOS|1";
+  v3[92] = @"iOS|1000000,macOS|1000,visionOS|10000";
+  v2[93] = &unk_28374C0A8;
+  v3[93] = @"iOS|1";
+  v2[94] = &unk_28374C0C0;
+  v3[94] = @"macOS|1";
+  v2[95] = &unk_28374C0D8;
+  v2[96] = &unk_28374C0F0;
+  v3[95] = @"macOS|1";
+  v3[96] = @"iOS|100,macOS|1,visionOS|10";
+  v2[97] = &unk_28374C108;
+  v3[97] = @"iOS|10,visionOS|1";
+  v2[98] = &unk_28374C120;
+  v3[98] = @"macOS|10";
+  v2[99] = &unk_28374C138;
+  v3[99] = @"macOS|10";
+  v2[100] = &unk_28374C150;
+  v2[101] = &unk_28374C168;
+  v3[100] = @"iOS|10000,visionOS|1000";
+  v3[101] = @"macOS|1000";
+  v2[102] = &unk_28374C180;
+  v3[102] = @"macOS|1";
+  v2[103] = &unk_28374C198;
+  v3[103] = @"iOS|10000,visionOS|1000";
+  v2[104] = &unk_28374C1B0;
+  v3[104] = @"iOS|1000,visionOS|10";
+  v2[105] = &unk_28374C1C8;
+  v3[105] = @"iOS|10,visionOS|1";
+  v2[106] = &unk_28374C1E0;
+  v3[106] = @"visionOS|1";
+  v2[107] = &unk_28374C1F8;
+  v3[107] = @"iOS|1";
+  v2[108] = &unk_28374C210;
+  v3[108] = @"iOS|1000,visionOS|1000";
+  v2[109] = &unk_28374C228;
+  v3[109] = @"iOS|1,visionOS|1";
+  v2[110] = &unk_28374C240;
+  v3[110] = @"visionOS|10";
+  v2[111] = &unk_28374C258;
+  v3[111] = @"iOS|10,visionOS|1";
+  v2[112] = &unk_28374C270;
+  v3[112] = @"macOS|1";
+  v2[113] = &unk_28374C288;
+  v3[113] = @"visionOS|100";
+  v2[114] = &unk_28374C2A0;
+  v3[114] = @"iOS|1,visionOS|1";
+  v2[115] = &unk_28374C2B8;
+  v3[115] = @"visionOS|1000";
+  v2[116] = &unk_28374C2D0;
+  v3[116] = @"iOS|10000,visionOS|10000";
+  v2[117] = &unk_28374C2E8;
+  v3[117] = @"iOS|1,visionOS|1";
+  v2[118] = &unk_28374C300;
+  v3[118] = @"iOS|1";
+  v2[119] = &unk_28374C318;
+  v3[119] = @"iOS|1000000";
+  v2[120] = &unk_28374C330;
+  v3[120] = @"iOS|1";
+  v2[121] = &unk_28374C348;
+  v3[121] = @"iOS|1";
+  v2[122] = &unk_28374C360;
+  v3[122] = @"iOS|1";
+  v2[123] = &unk_28374C378;
+  v3[123] = @"iOS|100,visionOS|1";
+  v2[124] = &unk_28374C390;
+  v3[124] = @"iOS|1";
+  v2[125] = &unk_28374C3A8;
+  v3[125] = @"iOS|100,visionOS|10";
+  v2[126] = &unk_28374C3C0;
+  v3[126] = @"macOS|10000";
+  v2[127] = &unk_28374C3D8;
+  v3[127] = @"iOS|10,visionOS|1";
+  v2[128] = &unk_28374C3F0;
+  v3[128] = @"iOS|1";
+  v2[129] = &unk_28374C408;
+  v3[129] = @"iOS|1,visionOS|1";
+  v2[130] = &unk_28374C420;
+  v3[130] = @"iOS|10";
+  v2[131] = &unk_28374C438;
+  v3[131] = @"visionOS|1";
+  v2[132] = &unk_28374C450;
+  v3[132] = @"iOS|1,visionOS|1";
+  v2[133] = &unk_28374C468;
+  v3[133] = @"iOS|1";
+  v2[134] = &unk_28374C480;
+  v3[134] = @"iOS|1,macOS|1,visionOS|1";
+  v2[135] = &unk_28374C498;
+  v3[135] = @"iOS|1,macOS|1,visionOS|1";
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:136];
   v1 = clientThrottleRatio__graylisted;
   clientThrottleRatio__graylisted = v0;
+}
 
-  v2 = *MEMORY[0x277D85DE8];
+- (BOOL)isClient:(unint64_t)client entitled:(int)entitled forMethod:(const char *)method
+{
+  v6 = *&entitled;
+  v32 = *MEMORY[0x277D85DE8];
+  if (entitled <= 3)
+  {
+    if (entitled > 1)
+    {
+      if (entitled == 2)
+      {
+        if (([(BiometricKitXPCExportedObject *)self clientEntitlement]& 4) != 0)
+        {
+          return 1;
+        }
+      }
+
+      else if (([(BiometricKitXPCExportedObject *)self clientEntitlement]& 8) != 0)
+      {
+        return 1;
+      }
+
+      goto LABEL_26;
+    }
+
+    if (!entitled)
+    {
+      return 1;
+    }
+
+    if (entitled == 1)
+    {
+      if ([(BiometricKitXPCExportedObject *)self clientEntitlement])
+      {
+        return 1;
+      }
+
+      goto LABEL_26;
+    }
+
+    goto LABEL_16;
+  }
+
+  if (entitled <= 5)
+  {
+    if (entitled == 4)
+    {
+      if (([(BiometricKitXPCExportedObject *)self clientEntitlement]& 0x10) != 0)
+      {
+        return 1;
+      }
+    }
+
+    else if (([(BiometricKitXPCExportedObject *)self clientEntitlement]& 0x20) != 0)
+    {
+      return 1;
+    }
+
+    goto LABEL_26;
+  }
+
+  if (entitled == 6)
+  {
+    if (([(BiometricKitXPCExportedObject *)self clientEntitlement]& 0x40) != 0)
+    {
+      return 1;
+    }
+
+    goto LABEL_26;
+  }
+
+  if (entitled != 7)
+  {
+LABEL_16:
+    if (__osLog)
+    {
+      v9 = __osLog;
+    }
+
+    else
+    {
+      v9 = MEMORY[0x277D86220];
+    }
+
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 67109120;
+      LODWORD(v25) = v6;
+      _os_log_impl(&dword_223E00000, v9, OS_LOG_TYPE_ERROR, "Unexpected value %d of permission group\n", buf, 8u);
+    }
+  }
+
+LABEL_26:
+  if (isInternalBuild())
+  {
+    v10 = [(BiometricKitXPCExportedObject *)self client:client];
+    if ([(BiometricKitXPCExportedObject *)self clientEntitlement]!= 1)
+    {
+      name = [v10 name];
+      processName = [v10 processName];
+      uuid = [v10 uuid];
+      currentPlatform = [(BiometricKitXPCExportedObject *)self currentPlatform];
+      if (!processName)
+      {
+        processName = @"<uknown_process_name>";
+      }
+
+      if (__osLog)
+      {
+        v15 = __osLog;
+      }
+
+      else
+      {
+        v15 = MEMORY[0x277D86220];
+      }
+
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        log = v15;
+        connection = [(BiometricKitXPCExportedObject *)self connection];
+        processIdentifier = [connection processIdentifier];
+        [(BiometricKitXPCExportedObject *)self entitlementsNeededForPermissionGroup:v6];
+        v18 = v23 = uuid;
+        *buf = 138413058;
+        v25 = name;
+        v26 = 1024;
+        v27 = processIdentifier;
+        v28 = 2080;
+        methodCopy = method;
+        v30 = 2112;
+        v31 = v18;
+        _os_log_impl(&dword_223E00000, log, OS_LOG_TYPE_ERROR, "Client %@ with PID %d calls %s which needs entitlement '%@'.\n", buf, 0x26u);
+
+        uuid = v23;
+      }
+
+      server = [(BiometricKitXPCExportedObject *)self server];
+      reporter = [server reporter];
+      [reporter reportMissingPermission:v6 forClientName:name processName:processName clientUUID:uuid platform:currentPlatform];
+    }
+  }
+
+  return 1;
 }
 
 - (BiometricKitXPCExportedObject)init
@@ -570,35 +733,35 @@ void __53__BiometricKitXPCExportedObject_clientThrottleRatio___block_invoke()
 
 - (void)terminate
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   v4 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject terminate]"];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   allValues = [(NSMutableDictionary *)selfCopy->_clients allValues];
-  v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v7 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v7)
   {
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [(BiometricKitXPCServer *)selfCopy->_server cancelWithClient:*(*(&v11 + 1) + 8 * v9++)];
+        [(BiometricKitXPCServer *)selfCopy->_server cancelWithClient:*(*(&v10 + 1) + 8 * v9++)];
       }
 
       while (v7 != v9);
-      v7 = [allValues countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
@@ -608,12 +771,11 @@ void __53__BiometricKitXPCExportedObject_clientThrottleRatio___block_invoke()
   objc_sync_exit(selfCopy);
 
   objc_autoreleasePoolPop(v3);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connect:(id)connect client:(unint64_t)client replyBlock:(id)block
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   connectCopy = connect;
   blockCopy = block;
   v10 = objc_autoreleasePoolPush();
@@ -638,10 +800,10 @@ void __53__BiometricKitXPCExportedObject_clientThrottleRatio___block_invoke()
 
     if ((v17 & 1) == 0)
     {
-      [BiometricKitXPCExportedObject connect:v15 client:buf replyBlock:&v34];
+      [BiometricKitXPCExportedObject connect:v15 client:buf replyBlock:&v33];
 LABEL_26:
       v15 = *buf;
-      v30 = v34;
+      v30 = v33;
       goto LABEL_22;
     }
   }
@@ -672,7 +834,7 @@ LABEL_26:
       v23 = processName;
     }
 
-    v32 = v23;
+    v31 = v23;
     v24 = __osLog;
     if (!__osLog)
     {
@@ -685,9 +847,9 @@ LABEL_26:
       connection = [(BiometricKitXPCExportedObject *)selfCopy connection];
       *buf = 138412802;
       *&buf[4] = name;
-      v36 = 2112;
-      v37 = uuid;
-      v38 = 1024;
+      v35 = 2112;
+      v36 = uuid;
+      v37 = 1024;
       processIdentifier = [connection processIdentifier];
       _os_log_impl(&dword_223E00000, v25, OS_LOG_TYPE_ERROR, "Client %@[uuid=%@] with PID %d does have legacy entitlement com.apple.private.bmk.allow, please set one of fine grained entitlements com.apple.private.biometrickit.allow-*\n", buf, 0x1Cu);
     }
@@ -705,14 +867,14 @@ LABEL_21:
 
       server = [(BiometricKitXPCExportedObject *)selfCopy server];
       reporter = [server reporter];
-      [reporter reportGraylistedClient:name withProcessName:v32 clientUUID:uuid platform:currentPlatform];
+      [reporter reportGraylistedClient:name withProcessName:v31 clientUUID:uuid platform:currentPlatform];
     }
 
     else
     {
       server = [(BiometricKitXPCExportedObject *)selfCopy server];
       reporter = [server reporter];
-      [reporter reportLegacyClient:name withProcessName:v32 clientUUID:uuid platform:currentPlatform];
+      [reporter reportLegacyClient:name withProcessName:v31 clientUUID:uuid platform:currentPlatform];
     }
 
     goto LABEL_21;
@@ -726,8 +888,6 @@ LABEL_23:
 
   objc_autoreleasePoolPop(v10);
   blockCopy[2](blockCopy, v30);
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnect:(unint64_t)disconnect replyBlock:(id)block
@@ -796,6 +956,44 @@ void __55__BiometricKitXPCExportedObject_disconnect_replyBlock___block_invoke(ui
   *(v3 + 40) = 0;
 
   objc_autoreleasePoolPop(v2);
+}
+
+- (void)registerDelegate:(BOOL)delegate client:(unint64_t)client replyBlock:(id)block
+{
+  delegateCopy = delegate;
+  blockCopy = block;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject registerDelegate:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:1 forMethod:"[BiometricKitXPCExportedObject registerDelegate:client:replyBlock:]"])
+  {
+    v11 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v11)
+    {
+      v12 = v11;
+      [v11 setDelegateRegistered:delegateCopy];
+      v13 = os_transaction_create();
+      v14 = objc_autoreleasePoolPush();
+      [(BiometricKitXPCServer *)self->_server registerDelegate:delegateCopy withClient:v12];
+
+      objc_autoreleasePoolPop(v14);
+      v15 = 0;
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject registerDelegate:client:replyBlock:];
+      v15 = v17;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject registerDelegate:client:replyBlock:];
+    v15 = v16;
+  }
+
+  objc_autoreleasePoolPop(v9);
+  blockCopy[2](blockCopy, v15);
 }
 
 - (void)notifyAppIsBackground:(BOOL)background client:(unint64_t)client
@@ -1427,6 +1625,79 @@ uint64_t __92__BiometricKitXPCExportedObject_removeAllIdentitiesForUser_options_
   blockCopy[2](blockCopy, v13);
 }
 
+- (void)getMaxIdentityCount:(int)count client:(unint64_t)client replyBlock:(id)block
+{
+  v6 = *&count;
+  blockCopy = block;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject getMaxIdentityCount:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:1 forMethod:"[BiometricKitXPCExportedObject getMaxIdentityCount:client:replyBlock:]"])
+  {
+    v11 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v11)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject getMaxIdentityCount:client:replyBlock:];
+      }
+
+      v12 = [(BiometricKitXPCServer *)self->_server getMaxIdentityCount:v6 withClient:v11];
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject getMaxIdentityCount:client:replyBlock:];
+      v12 = v13;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject getMaxIdentityCount:client:replyBlock:];
+    v12 = v13;
+  }
+
+  objc_autoreleasePoolPop(v9);
+  blockCopy[2](blockCopy, v12);
+}
+
+- (void)getFreeIdentityCount:(int)count user:(unsigned int)user client:(unint64_t)client replyBlock:(id)block
+{
+  v7 = *&user;
+  v8 = *&count;
+  blockCopy = block;
+  v11 = objc_autoreleasePoolPush();
+  v12 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject getFreeIdentityCount:user:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:1 forMethod:"[BiometricKitXPCExportedObject getFreeIdentityCount:user:client:replyBlock:]"])
+  {
+    v13 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v13)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject getFreeIdentityCount:user:client:replyBlock:];
+      }
+
+      v14 = [(BiometricKitXPCServer *)self->_server getFreeIdentityCount:v8 forUser:v7 withClient:v13];
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject getFreeIdentityCount:user:client:replyBlock:];
+      v14 = v15;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject getFreeIdentityCount:user:client:replyBlock:];
+    v14 = v15;
+  }
+
+  objc_autoreleasePoolPop(v11);
+  blockCopy[2](blockCopy, v14);
+}
+
 - (void)registerDSID:(unint64_t)d options:(id)options client:(unint64_t)client replyBlock:(id)block
 {
   optionsCopy = options;
@@ -1539,6 +1810,49 @@ uint64_t __92__BiometricKitXPCExportedObject_removeAllIdentitiesForUser_options_
   blockCopy[2](blockCopy, v11, v12);
 }
 
+- (void)diagnostics:(int)diagnostics options:(id)options client:(unint64_t)client replyBlock:(id)block
+{
+  v8 = *&diagnostics;
+  optionsCopy = options;
+  blockCopy = block;
+  v19 = 0;
+  v12 = objc_autoreleasePoolPush();
+  v13 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject diagnostics:options:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:1 forMethod:"[BiometricKitXPCExportedObject diagnostics:options:client:replyBlock:]"])
+  {
+    v14 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v14)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject diagnostics:options:client:replyBlock:];
+      }
+
+      server = self->_server;
+      v18 = 0;
+      v16 = [(BiometricKitXPCServer *)server diagnostics:v8 withOptions:optionsCopy passed:&v19 withDetails:&v18 withClient:v14];
+      v17 = v18;
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject diagnostics:options:client:replyBlock:];
+      v17 = v20;
+      v16 = v21;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject diagnostics:options:client:replyBlock:];
+    v17 = v20;
+    v16 = v21;
+  }
+
+  objc_autoreleasePoolPop(v12);
+  blockCopy[2](blockCopy, v16, v19, v17);
+}
+
 - (void)timestampEvent:(unint64_t)event absoluteTime:(unint64_t)time client:(unint64_t)client replyBlock:(id)block
 {
   blockCopy = block;
@@ -1646,6 +1960,78 @@ uint64_t __92__BiometricKitXPCExportedObject_removeAllIdentitiesForUser_options_
   blockCopy[2](blockCopy, v10);
 }
 
+- (void)getIdentitiesDatabaseUUIDForUser:(unsigned int)user client:(unint64_t)client replyBlock:(id)block
+{
+  v6 = *&user;
+  blockCopy = block;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject getIdentitiesDatabaseUUIDForUser:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:1 forMethod:"[BiometricKitXPCExportedObject getIdentitiesDatabaseUUIDForUser:client:replyBlock:]"])
+  {
+    v11 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v11)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject getIdentitiesDatabaseUUIDForUser:client:replyBlock:];
+      }
+
+      v12 = [(BiometricKitXPCServer *)self->_server getIdentitiesDatabaseUUIDForUser:v6 withClient:v11];
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject getIdentitiesDatabaseUUIDForUser:client:replyBlock:];
+      v12 = v13;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject getIdentitiesDatabaseUUIDForUser:client:replyBlock:];
+    v12 = v13;
+  }
+
+  objc_autoreleasePoolPop(v9);
+  blockCopy[2](blockCopy, v12);
+}
+
+- (void)getIdentitiesDatabaseHashForUser:(unsigned int)user client:(unint64_t)client replyBlock:(id)block
+{
+  v6 = *&user;
+  blockCopy = block;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject getIdentitiesDatabaseHashForUser:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:1 forMethod:"[BiometricKitXPCExportedObject getIdentitiesDatabaseHashForUser:client:replyBlock:]"])
+  {
+    v11 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v11)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject getIdentitiesDatabaseHashForUser:client:replyBlock:];
+      }
+
+      v12 = [(BiometricKitXPCServer *)self->_server getIdentitiesDatabaseHashForUser:v6 withClient:v11];
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject getIdentitiesDatabaseHashForUser:client:replyBlock:];
+      v12 = v13;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject getIdentitiesDatabaseHashForUser:client:replyBlock:];
+    v12 = v13;
+  }
+
+  objc_autoreleasePoolPop(v9);
+  blockCopy[2](blockCopy, v12);
+}
+
 - (void)dropUnlockToken:(unint64_t)token replyBlock:(id)block
 {
   blockCopy = block;
@@ -1679,6 +2065,43 @@ uint64_t __92__BiometricKitXPCExportedObject_removeAllIdentitiesForUser_options_
 
   objc_autoreleasePoolPop(v7);
   blockCopy[2](blockCopy, v10);
+}
+
+- (void)forceBioLockoutForUser:(unsigned int)user options:(id)options client:(unint64_t)client replyBlock:(id)block
+{
+  v8 = *&user;
+  optionsCopy = options;
+  blockCopy = block;
+  v12 = objc_autoreleasePoolPush();
+  v13 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject forceBioLockoutForUser:options:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:1 forMethod:"[BiometricKitXPCExportedObject forceBioLockoutForUser:options:client:replyBlock:]"])
+  {
+    v14 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v14)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject forceBioLockoutForUser:options:client:replyBlock:];
+      }
+
+      v15 = [(BiometricKitXPCServer *)self->_server forceBioLockoutForUser:v8 withOptions:optionsCopy withClient:v14];
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject forceBioLockoutForUser:options:client:replyBlock:];
+      v15 = v17;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject forceBioLockoutForUser:options:client:replyBlock:];
+    v15 = v16;
+  }
+
+  objc_autoreleasePoolPop(v12);
+  blockCopy[2](blockCopy, v15);
 }
 
 - (void)enrollContinue:(unint64_t)continue replyBlock:(id)block
@@ -1820,6 +2243,42 @@ uint64_t __92__BiometricKitXPCExportedObject_removeAllIdentitiesForUser_options_
 
   objc_autoreleasePoolPop(v10);
   blockCopy[2](blockCopy, v13);
+}
+
+- (void)getProtectedConfigurationForUser:(unsigned int)user client:(unint64_t)client replyBlock:(id)block
+{
+  v6 = *&user;
+  blockCopy = block;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject getProtectedConfigurationForUser:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:1 forMethod:"[BiometricKitXPCExportedObject getProtectedConfigurationForUser:client:replyBlock:]"])
+  {
+    v11 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v11)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject getProtectedConfigurationForUser:client:replyBlock:];
+      }
+
+      v12 = [(BiometricKitXPCServer *)self->_server getProtectedConfigurationForUser:v6 withClient:v11];
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject getProtectedConfigurationForUser:client:replyBlock:];
+      v12 = v13;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject getProtectedConfigurationForUser:client:replyBlock:];
+    v12 = v13;
+  }
+
+  objc_autoreleasePoolPop(v9);
+  blockCopy[2](blockCopy, v12);
 }
 
 - (void)getSystemProtectedConfiguration:(unint64_t)configuration replyBlock:(id)block
@@ -2045,12 +2504,88 @@ uint64_t __97__BiometricKitXPCExportedObject_setSystemProtectedConfiguration_opt
   blockCopy[2](blockCopy, v10);
 }
 
+- (void)getBioLockoutStateForUser:(unsigned int)user client:(unint64_t)client replyBlock:(id)block
+{
+  v6 = *&user;
+  blockCopy = block;
+  v15 = -1;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject getBioLockoutStateForUser:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:1 forMethod:"[BiometricKitXPCExportedObject getBioLockoutStateForUser:client:replyBlock:]"])
+  {
+    v11 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v11)
+    {
+      v12 = [(BiometricKitXPCServer *)self->_server getBioLockoutState:&v15 forUser:v6 withClient:v11];
+      v13 = dispatch_get_global_queue(0, 0);
+      block[0] = MEMORY[0x277D85DD0];
+      block[1] = 3221225472;
+      block[2] = __77__BiometricKitXPCExportedObject_getBioLockoutStateForUser_client_replyBlock___block_invoke;
+      block[3] = &unk_2784FA338;
+      block[4] = self;
+      dispatch_async(v13, block);
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject getBioLockoutStateForUser:client:replyBlock:];
+      v12 = v16;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject getBioLockoutStateForUser:client:replyBlock:];
+    v12 = v16;
+  }
+
+  objc_autoreleasePoolPop(v9);
+  blockCopy[2](blockCopy, v12, v15);
+}
+
 void __77__BiometricKitXPCExportedObject_getBioLockoutStateForUser_client_replyBlock___block_invoke(uint64_t a1)
 {
   if ([*(*(a1 + 32) + 24) loadCatacombAfterFirstUnlock])
   {
     __77__BiometricKitXPCExportedObject_getBioLockoutStateForUser_client_replyBlock___block_invoke_cold_1();
   }
+}
+
+- (void)getExpressModeStateForUser:(unsigned int)user client:(unint64_t)client replyBlock:(id)block
+{
+  v6 = *&user;
+  blockCopy = block;
+  v13 = -1;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject getExpressModeStateForUser:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:1 forMethod:"[BiometricKitXPCExportedObject getExpressModeStateForUser:client:replyBlock:]"])
+  {
+    v11 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v11)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject getExpressModeStateForUser:client:replyBlock:];
+      }
+
+      v12 = [(BiometricKitXPCServer *)self->_server getExpressModeState:&v13 forUser:v6 withClient:v11];
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject getExpressModeStateForUser:client:replyBlock:];
+      v12 = v14;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject getExpressModeStateForUser:client:replyBlock:];
+    v12 = v14;
+  }
+
+  objc_autoreleasePoolPop(v9);
+  blockCopy[2](blockCopy, v12, v13);
 }
 
 - (void)getSensorCalibrationStatus:(unint64_t)status replyBlock:(id)block
@@ -2158,6 +2693,42 @@ void __77__BiometricKitXPCExportedObject_getBioLockoutStateForUser_client_replyB
   blockCopy[2](blockCopy, v10);
 }
 
+- (void)setDebugImages:(BOOL)images client:(unint64_t)client replyBlock:(id)block
+{
+  imagesCopy = images;
+  blockCopy = block;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject setDebugImages:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:6 forMethod:"[BiometricKitXPCExportedObject setDebugImages:client:replyBlock:]"])
+  {
+    v11 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v11)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject setDebugImages:client:replyBlock:];
+      }
+
+      v12 = [(BiometricKitXPCServer *)self->_server setDebugImages:imagesCopy withClient:v11];
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject setDebugImages:client:replyBlock:];
+      v12 = v14;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject setDebugImages:client:replyBlock:];
+    v12 = v13;
+  }
+
+  objc_autoreleasePoolPop(v9);
+  blockCopy[2](blockCopy, v12);
+}
+
 - (void)pullCalibrationData:(unint64_t)data replyBlock:(id)block
 {
   blockCopy = block;
@@ -2226,6 +2797,85 @@ void __77__BiometricKitXPCExportedObject_getBioLockoutStateForUser_client_replyB
 
   objc_autoreleasePoolPop(v7);
   blockCopy[2](blockCopy, v10);
+}
+
+- (void)pullDebugImageData:(BOOL)data rotated:(BOOL)rotated client:(unint64_t)client replyBlock:(id)block
+{
+  rotatedCopy = rotated;
+  dataCopy = data;
+  blockCopy = block;
+  v15 = 0;
+  v11 = objc_autoreleasePoolPush();
+  v12 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject pullDebugImageData:rotated:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:6 forMethod:"[BiometricKitXPCExportedObject pullDebugImageData:rotated:client:replyBlock:]"])
+  {
+    v13 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v13)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject pullDebugImageData:rotated:client:replyBlock:];
+      }
+
+      v14 = [(BiometricKitXPCServer *)self->_server pullDebugImageData:dataCopy rotated:rotatedCopy hasWidth:&v15 + 4 hasHeight:&v15 withClient:v13];
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject pullDebugImageData:rotated:client:replyBlock:];
+      v14 = v16;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject pullDebugImageData:rotated:client:replyBlock:];
+    v14 = v16;
+  }
+
+  objc_autoreleasePoolPop(v11);
+  (*(blockCopy + 2))(blockCopy, v14, HIDWORD(v15), v15);
+}
+
+- (void)getLogs:(BOOL)logs client:(unint64_t)client replyBlock:(id)block
+{
+  logsCopy = logs;
+  blockCopy = block;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject getLogs:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:6 forMethod:"[BiometricKitXPCExportedObject getLogs:client:replyBlock:]"])
+  {
+    v11 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v11)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject getLogs:client:replyBlock:];
+      }
+
+      server = self->_server;
+      v15 = 0;
+      v13 = [(BiometricKitXPCServer *)server getLogs:logsCopy withDetails:&v15];
+      v14 = v15;
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject getLogs:client:replyBlock:];
+      v13 = v16;
+      v14 = v17;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject getLogs:client:replyBlock:];
+    v13 = v16;
+    v14 = v17;
+  }
+
+  objc_autoreleasePoolPop(v9);
+  blockCopy[2](blockCopy, v13, v14);
 }
 
 - (void)fileRadarWithLogs:(id)logs description:(id)description client:(unint64_t)client replyBlock:(id)block
@@ -2298,6 +2948,44 @@ void __77__BiometricKitXPCExportedObject_getBioLockoutStateForUser_client_replyB
 
   objc_autoreleasePoolPop(v7);
   blockCopy[2](blockCopy, v10);
+}
+
+- (void)enableBackgroundFdet:(BOOL)fdet client:(unint64_t)client replyBlock:(id)block
+{
+  fdetCopy = fdet;
+  blockCopy = block;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject enableBackgroundFdet:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:1 forMethod:"[BiometricKitXPCExportedObject enableBackgroundFdet:client:replyBlock:]"])
+  {
+    v11 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v11)
+    {
+      v12 = [(BiometricKitXPCServer *)self->_server enableBackgroundFdet:fdetCopy withClient:v11];
+      v13 = dispatch_get_global_queue(0, 0);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __72__BiometricKitXPCExportedObject_enableBackgroundFdet_client_replyBlock___block_invoke;
+      v14[3] = &unk_2784FA338;
+      v14[4] = self;
+      dispatch_async(v13, v14);
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject enableBackgroundFdet:client:replyBlock:];
+      v12 = v15;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject enableBackgroundFdet:client:replyBlock:];
+    v12 = v15;
+  }
+
+  objc_autoreleasePoolPop(v9);
+  blockCopy[2](blockCopy, v12);
 }
 
 void __72__BiometricKitXPCExportedObject_enableBackgroundFdet_client_replyBlock___block_invoke(uint64_t a1)
@@ -2448,6 +3136,43 @@ void __72__BiometricKitXPCExportedObject_enableBackgroundFdet_client_replyBlock_
   blockCopy[2](blockCopy, v10);
 }
 
+- (void)getBiometryAvailabilityForUser:(unsigned int)user client:(unint64_t)client replyBlock:(id)block
+{
+  v6 = *&user;
+  blockCopy = block;
+  v13 = 0;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject getBiometryAvailabilityForUser:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:1 forMethod:"[BiometricKitXPCExportedObject getBiometryAvailabilityForUser:client:replyBlock:]"])
+  {
+    v11 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v11)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject getBiometryAvailabilityForUser:client:replyBlock:];
+      }
+
+      v12 = [(BiometricKitXPCServer *)self->_server getBiometryAvailability:&v13 forUser:v6 withClient:v11];
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject getBiometryAvailabilityForUser:client:replyBlock:];
+      v12 = v14;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject getBiometryAvailabilityForUser:client:replyBlock:];
+    v12 = v14;
+  }
+
+  objc_autoreleasePoolPop(v9);
+  blockCopy[2](blockCopy, v12, v13);
+}
+
 - (void)completeEnrollment:(unint64_t)enrollment replyBlock:(id)block
 {
   blockCopy = block;
@@ -2481,6 +3206,42 @@ void __72__BiometricKitXPCExportedObject_enableBackgroundFdet_client_replyBlock_
 
   objc_autoreleasePoolPop(v7);
   blockCopy[2](blockCopy, v10);
+}
+
+- (void)suspendEnrollment:(BOOL)enrollment client:(unint64_t)client replyBlock:(id)block
+{
+  enrollmentCopy = enrollment;
+  blockCopy = block;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject suspendEnrollment:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:2 forMethod:"[BiometricKitXPCExportedObject suspendEnrollment:client:replyBlock:]"])
+  {
+    v11 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v11)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject suspendEnrollment:client:replyBlock:];
+      }
+
+      v12 = [(BiometricKitXPCServer *)self->_server suspendEnrollment:enrollmentCopy withClient:v11];
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject suspendEnrollment:client:replyBlock:];
+      v12 = v14;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject suspendEnrollment:client:replyBlock:];
+    v12 = v13;
+  }
+
+  objc_autoreleasePoolPop(v9);
+  blockCopy[2](blockCopy, v12);
 }
 
 - (void)setTemplate:(id)template forIdentity:(id)identity client:(unint64_t)client replyBlock:(id)block
@@ -2554,6 +3315,43 @@ void __72__BiometricKitXPCExportedObject_enableBackgroundFdet_client_replyBlock_
 
   objc_autoreleasePoolPop(v7);
   blockCopy[2](blockCopy, v10, v11);
+}
+
+- (void)getPeriocularMatchState:(unsigned int)state client:(unint64_t)client replyBlock:(id)block
+{
+  v6 = *&state;
+  blockCopy = block;
+  v13 = 0;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject getPeriocularMatchState:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:1 forMethod:"[BiometricKitXPCExportedObject getPeriocularMatchState:client:replyBlock:]"])
+  {
+    v11 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v11)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject getPeriocularMatchState:client:replyBlock:];
+      }
+
+      v12 = [(BiometricKitXPCServer *)self->_server getPeriocularMatchStateForUser:v6 state:&v13 withClient:v11];
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject getPeriocularMatchState:client:replyBlock:];
+      v12 = v14;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject getPeriocularMatchState:client:replyBlock:];
+    v12 = v14;
+  }
+
+  objc_autoreleasePoolPop(v9);
+  blockCopy[2](blockCopy, v12, v13);
 }
 
 - (void)removePeriocularTemplatesWithOptions:(id)options async:(BOOL)async client:(unint64_t)client replyBlock:(id)block
@@ -2630,6 +3428,44 @@ uint64_t __94__BiometricKitXPCExportedObject_removePeriocularTemplatesWithOption
   return (*(*(a1 + 56) + 16))();
 }
 
+- (void)queryIdentityMigrationFailureForUser:(unsigned int)user clear:(BOOL)clear client:(unint64_t)client replyBlock:(id)block
+{
+  clearCopy = clear;
+  v8 = *&user;
+  blockCopy = block;
+  v15 = 0;
+  v11 = objc_autoreleasePoolPush();
+  v12 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject queryIdentityMigrationFailureForUser:clear:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:7 forMethod:"[BiometricKitXPCExportedObject queryIdentityMigrationFailureForUser:clear:client:replyBlock:]"])
+  {
+    v13 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v13)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject queryIdentityMigrationFailureForUser:clear:client:replyBlock:];
+      }
+
+      v14 = [(BiometricKitXPCServer *)self->_server queryIdentityMigrationFailureForUser:v8 failed:&v15 clear:clearCopy withClient:v13];
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject queryIdentityMigrationFailureForUser:clear:client:replyBlock:];
+      v14 = v17;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject queryIdentityMigrationFailureForUser:clear:client:replyBlock:];
+    v14 = v16;
+  }
+
+  objc_autoreleasePoolPop(v11);
+  blockCopy[2](blockCopy, v14, v15);
+}
+
 - (void)logEventOrCode:(unint64_t)code
 {
   v4 = objc_autoreleasePoolPush();
@@ -2645,6 +3481,78 @@ uint64_t __94__BiometricKitXPCExportedObject_removePeriocularTemplatesWithOption
   }
 
   objc_autoreleasePoolPop(v4);
+}
+
+- (void)enableMatchAutoRetry:(BOOL)retry client:(unint64_t)client replyBlock:(id)block
+{
+  retryCopy = retry;
+  blockCopy = block;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject enableMatchAutoRetry:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:4 forMethod:"[BiometricKitXPCExportedObject enableMatchAutoRetry:client:replyBlock:]"])
+  {
+    v11 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v11)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject enableMatchAutoRetry:client:replyBlock:];
+      }
+
+      v12 = [(BiometricKitXPCServer *)self->_server enableMatchAutoRetry:retryCopy withClient:v11];
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject enableMatchAutoRetry:client:replyBlock:];
+      v12 = v14;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject enableMatchAutoRetry:client:replyBlock:];
+    v12 = v13;
+  }
+
+  objc_autoreleasePoolPop(v9);
+  blockCopy[2](blockCopy, v12);
+}
+
+- (void)pauseFaceDetectTimer:(BOOL)timer client:(unint64_t)client replyBlock:(id)block
+{
+  timerCopy = timer;
+  blockCopy = block;
+  v9 = objc_autoreleasePoolPush();
+  v10 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject pauseFaceDetectTimer:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:4 forMethod:"[BiometricKitXPCExportedObject pauseFaceDetectTimer:client:replyBlock:]"])
+  {
+    v11 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v11)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject pauseFaceDetectTimer:client:replyBlock:];
+      }
+
+      v12 = [(BiometricKitXPCServer *)self->_server pauseFaceDetectTimer:timerCopy withClient:v11];
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject pauseFaceDetectTimer:client:replyBlock:];
+      v12 = v14;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject pauseFaceDetectTimer:client:replyBlock:];
+    v12 = v13;
+  }
+
+  objc_autoreleasePoolPop(v9);
+  blockCopy[2](blockCopy, v12);
 }
 
 - (void)getLastMatchEvent:(unint64_t)event replyBlock:(id)block
@@ -2758,6 +3666,44 @@ uint64_t __94__BiometricKitXPCExportedObject_removePeriocularTemplatesWithOption
   blockCopy[2](blockCopy, v11, v12);
 }
 
+- (void)getFreeIdentityCountForUser:(unsigned int)user accessoryGroup:(id)group client:(unint64_t)client replyBlock:(id)block
+{
+  v8 = *&user;
+  groupCopy = group;
+  blockCopy = block;
+  v16 = 0;
+  v12 = objc_autoreleasePoolPush();
+  v13 = [WatchdogTimer watchdogWithName:"[BiometricKitXPCExportedObject getFreeIdentityCountForUser:accessoryGroup:client:replyBlock:]"];
+  if ([(BiometricKitXPCExportedObject *)self isClient:client entitled:1 forMethod:"[BiometricKitXPCExportedObject getFreeIdentityCountForUser:accessoryGroup:client:replyBlock:]"])
+  {
+    v14 = [(BiometricKitXPCExportedObject *)self client:client];
+    if (v14)
+    {
+      if ([(BiometricKitXPCServer *)self->_server loadCatacombAfterFirstUnlock])
+      {
+        [BiometricKitXPCExportedObject getFreeIdentityCountForUser:accessoryGroup:client:replyBlock:];
+      }
+
+      v15 = [(BiometricKitXPCServer *)self->_server getFreeIdentityCount:&v16 forUser:v8 accessoryGroup:groupCopy client:v14];
+    }
+
+    else
+    {
+      [BiometricKitXPCExportedObject getFreeIdentityCountForUser:accessoryGroup:client:replyBlock:];
+      v15 = v17;
+    }
+  }
+
+  else
+  {
+    [BiometricKitXPCExportedObject getFreeIdentityCountForUser:accessoryGroup:client:replyBlock:];
+    v15 = v17;
+  }
+
+  objc_autoreleasePoolPop(v12);
+  blockCopy[2](blockCopy, v15, v16);
+}
+
 - (void)getPreferencesValueForKey:(id)key client:(unint64_t)client replyBlock:(id)block
 {
   keyCopy = key;
@@ -2868,116 +3814,98 @@ uint64_t __94__BiometricKitXPCExportedObject_removePeriocularTemplatesWithOption
 
 - (void)connect:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connect:(uint64_t)a1 client:(void *)a2 replyBlock:(_DWORD *)a3 .cold.2(uint64_t a1, void *a2, _DWORD *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_7_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_8(&dword_223E00000, v6, v7, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v8, v9, v10, v11, v13);
+    OUTLINED_FUNCTION_8(&dword_223E00000, v6, v7, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v8, v9, v10, v11);
   }
 
   *a3 = 258;
   *a2 = a1;
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connect:client:replyBlock:.cold.3()
 {
   OUTLINED_FUNCTION_16();
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_5(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9_0(260);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnect:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)disconnect:(void *)a1 replyBlock:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
   objc_sync_exit(a1);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerDelegate:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerDelegate:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyAppIsBackground:client:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyAppIsBackground:(char)a3 client:.cold.2(void *a1, uint64_t a2, char a3)
@@ -2993,15 +3921,12 @@ uint64_t __94__BiometricKitXPCExportedObject_removePeriocularTemplatesWithOption
 
 - (void)notifyAppIsInactive:client:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)notifyAppIsInactive:(char)a3 client:.cold.2(id *a1, uint64_t a2, char a3)
@@ -3018,2694 +3943,2230 @@ uint64_t __94__BiometricKitXPCExportedObject_removePeriocularTemplatesWithOption
 
 - (void)enroll:user:options:async:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enroll:user:options:async:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __77__BiometricKitXPCExportedObject_enroll_user_options_async_client_replyBlock___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)match:options:async:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)match:options:async:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __71__BiometricKitXPCExportedObject_match_options_async_client_replyBlock___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)detectPresenceWithOptions:async:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)detectPresenceWithOptions:async:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __83__BiometricKitXPCExportedObject_detectPresenceWithOptions_async_client_replyBlock___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __51__BiometricKitXPCExportedObject_cancel_replyBlock___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)updateIdentity:options:async:client:replyBlock:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v10);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_21();
   v6 = OUTLINED_FUNCTION_20();
-  result = v7(v6);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v7(v6);
 }
 
 - (void)updateIdentity:options:async:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __80__BiometricKitXPCExportedObject_updateIdentity_options_async_client_replyBlock___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)removeIdentity:options:async:client:replyBlock:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v10);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_21();
   v6 = OUTLINED_FUNCTION_20();
-  result = v7(v6);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v7(v6);
 }
 
 - (void)removeIdentity:options:async:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __80__BiometricKitXPCExportedObject_removeIdentity_options_async_client_replyBlock___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)removeAllIdentitiesForUser:options:async:client:replyBlock:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v10);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_21();
   v6 = OUTLINED_FUNCTION_20();
-  result = v7(v6);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v7(v6);
 }
 
 - (void)removeAllIdentitiesForUser:options:async:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __92__BiometricKitXPCExportedObject_removeAllIdentitiesForUser_options_async_client_replyBlock___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getIdentityFromUUID:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getIdentityFromUUID:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getIdentityFromUUID:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)identities:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)identities:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)identities:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getMaxIdentityCount:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_12_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getMaxIdentityCount:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getMaxIdentityCount:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getFreeIdentityCount:user:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_12_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getFreeIdentityCount:user:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getFreeIdentityCount:user:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerDSID:options:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerDSID:options:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerDSID:options:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerStoreToken:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerStoreToken:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerStoreToken:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getCountersignedStoreToken:replyBlock:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_5(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9_0(257);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getCountersignedStoreToken:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getCountersignedStoreToken:replyBlock:.cold.3()
 {
   OUTLINED_FUNCTION_16();
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_5(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9_0(22);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)diagnostics:options:client:replyBlock:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_5(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9_0(257);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)diagnostics:options:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)diagnostics:options:client:replyBlock:.cold.3()
 {
   OUTLINED_FUNCTION_16();
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_5(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9_0(22);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timestampEvent:absoluteTime:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timestampEvent:absoluteTime:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timestampEvent:absoluteTime:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUserDSID:options:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUserDSID:options:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setUserDSID:options:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetAppleConnectCounter:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetAppleConnectCounter:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetAppleConnectCounter:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getIdentitiesDatabaseUUIDForUser:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getIdentitiesDatabaseUUIDForUser:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getIdentitiesDatabaseUUIDForUser:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getIdentitiesDatabaseHashForUser:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getIdentitiesDatabaseHashForUser:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getIdentitiesDatabaseHashForUser:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dropUnlockToken:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dropUnlockToken:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dropUnlockToken:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forceBioLockoutForUser:options:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forceBioLockoutForUser:options:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)forceBioLockoutForUser:options:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enrollContinue:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enrollContinue:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enrollContinue:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pullAlignmentData:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pullAlignmentData:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pullAlignmentData:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pullMatchPolicyInfoData:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pullMatchPolicyInfoData:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pullMatchPolicyInfoData:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getNodeTopologyForIdentity:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getNodeTopologyForIdentity:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getNodeTopologyForIdentity:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getProtectedConfigurationForUser:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getProtectedConfigurationForUser:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getProtectedConfigurationForUser:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSystemProtectedConfiguration:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSystemProtectedConfiguration:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSystemProtectedConfiguration:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)setProtectedConfiguration:user:options:async:client:replyBlock:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v10);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_21();
   v6 = OUTLINED_FUNCTION_20();
-  result = v7(v6);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v7(v6);
 }
 
 - (void)setProtectedConfiguration:user:options:async:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __96__BiometricKitXPCExportedObject_setProtectedConfiguration_user_options_async_client_replyBlock___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)setSystemProtectedConfiguration:options:async:client:replyBlock:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v10);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_21();
   v6 = OUTLINED_FUNCTION_20();
-  result = v7(v6);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v7(v6);
 }
 
 - (void)setSystemProtectedConfiguration:options:async:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __97__BiometricKitXPCExportedObject_setSystemProtectedConfiguration_options_async_client_replyBlock___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getProvisioningState:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getProvisioningState:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getProvisioningState:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_12_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getBioLockoutStateForUser:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getBioLockoutStateForUser:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __77__BiometricKitXPCExportedObject_getBioLockoutStateForUser_client_replyBlock___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getExpressModeStateForUser:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getExpressModeStateForUser:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getExpressModeStateForUser:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSensorCalibrationStatus:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_12_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSensorCalibrationStatus:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSensorCalibrationStatus:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_12_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getCalibrationDataInfo:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getCalibrationDataInfo:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getCalibrationDataInfo:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSensorInfo:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSensorInfo:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getSensorInfo:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDebugImages:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDebugImages:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDebugImages:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pullCalibrationData:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pullCalibrationData:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pullCalibrationData:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pullCaptureBuffer:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pullCaptureBuffer:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pullCaptureBuffer:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pullDebugImageData:rotated:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pullDebugImageData:rotated:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pullDebugImageData:rotated:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_13();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getLogs:client:replyBlock:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v10 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_5(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_6(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_6(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
   *v1 = 0;
   *v0 = 0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getLogs:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getLogs:client:replyBlock:.cold.3()
 {
   OUTLINED_FUNCTION_16();
-  v10 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_5(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_6(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_6(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
   *v1 = 0;
   *v0 = 0;
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fileRadarWithLogs:description:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_19();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fileRadarWithLogs:description:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fileRadarWithLogs:description:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_19();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isFingerOn:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_19();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isFingerOn:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isFingerOn:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_19();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableBackgroundFdet:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableBackgroundFdet:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __72__BiometricKitXPCExportedObject_enableBackgroundFdet_client_replyBlock___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isAriadneSignpostsEnabled:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_19();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isAriadneSignpostsEnabled:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isAriadneSignpostsEnabled:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_19();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isXARTAvailable:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_19();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isXARTAvailable:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isXARTAvailable:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_19();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getDeviceState:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_12_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getDeviceState:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getDeviceState:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_12_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startNewMatchAttempt:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startNewMatchAttempt:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)startNewMatchAttempt:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getBiometryAvailabilityForUser:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getBiometryAvailabilityForUser:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getBiometryAvailabilityForUser:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)completeEnrollment:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)completeEnrollment:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)completeEnrollment:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)suspendEnrollment:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)suspendEnrollment:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)suspendEnrollment:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTemplate:forIdentity:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTemplate:forIdentity:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTemplate:forIdentity:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isPeriocularEnrollmentSupported:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isPeriocularEnrollmentSupported:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)isPeriocularEnrollmentSupported:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPeriocularMatchState:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPeriocularMatchState:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPeriocularMatchState:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (uint64_t)removePeriocularTemplatesWithOptions:async:client:replyBlock:.cold.1()
 {
-  v11 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v10);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_21();
   v6 = OUTLINED_FUNCTION_20();
-  result = v7(v6);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return v7(v6);
 }
 
 - (void)removePeriocularTemplatesWithOptions:async:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __94__BiometricKitXPCExportedObject_removePeriocularTemplatesWithOptions_async_client_replyBlock___block_invoke_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queryIdentityMigrationFailureForUser:clear:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queryIdentityMigrationFailureForUser:clear:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queryIdentityMigrationFailureForUser:clear:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logEventOrCode:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableMatchAutoRetry:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableMatchAutoRetry:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enableMatchAutoRetry:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pauseFaceDetectTimer:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pauseFaceDetectTimer:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pauseFaceDetectTimer:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getLastMatchEvent:replyBlock:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_5(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9_0(257);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getLastMatchEvent:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getLastMatchEvent:replyBlock:.cold.3()
 {
   OUTLINED_FUNCTION_16();
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_5(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9_0(22);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getDeviceHardwareState:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getDeviceHardwareState:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listAccessories:replyBlock:.cold.1()
 {
   OUTLINED_FUNCTION_16();
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_5(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9_0(257);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listAccessories:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)listAccessories:replyBlock:.cold.3()
 {
   OUTLINED_FUNCTION_16();
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_5(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_6(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_9_0(22);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getFreeIdentityCountForUser:accessoryGroup:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getFreeIdentityCountForUser:accessoryGroup:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getFreeIdentityCountForUser:accessoryGroup:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPreferencesValueForKey:client:replyBlock:.cold.1()
 {
   OUTLINED_FUNCTION_18();
-  v12 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_7_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_8(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v11);
+    OUTLINED_FUNCTION_8(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
   v8 = OUTLINED_FUNCTION_17();
   v9(v8, 3758097122, 0);
 
   objc_autoreleasePoolPop(v0);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getPreferencesValueForKey:client:replyBlock:.cold.2()
 {
   OUTLINED_FUNCTION_18();
-  v12 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_7_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_8(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v11);
+    OUTLINED_FUNCTION_8(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
   v8 = OUTLINED_FUNCTION_17();
   v9(v8, 22, 0);
 
   objc_autoreleasePoolPop(v0);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPreferencesValue:forKey:client:replyBlock:.cold.1()
 {
   OUTLINED_FUNCTION_18();
-  v12 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_7_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_8(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v11);
+    OUTLINED_FUNCTION_8(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
   v8 = OUTLINED_FUNCTION_17();
   v9(v8, 3758097122);
 
   objc_autoreleasePoolPop(v0);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPreferencesValue:forKey:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setPreferencesValue:forKey:client:replyBlock:.cold.3()
 {
   OUTLINED_FUNCTION_18();
-  v12 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_7_0(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_8(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v11);
+    OUTLINED_FUNCTION_8(&dword_223E00000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
   v8 = OUTLINED_FUNCTION_17();
   v9(v8, 22);
 
   objc_autoreleasePoolPop(v0);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prewarmCamera:client:replyBlock:.cold.1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_3_0();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prewarmCamera:client:replyBlock:.cold.2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_8_0(__osLog))
   {
     OUTLINED_FUNCTION_1_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_7_1(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prewarmCamera:client:replyBlock:.cold.3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (OUTLINED_FUNCTION_2(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_3(&dword_223E00000, v0, v1, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, v3, v4, v5);
   }
 
   OUTLINED_FUNCTION_4();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

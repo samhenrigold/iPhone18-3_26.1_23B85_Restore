@@ -23,7 +23,7 @@
 - (NSString)profile
 {
   selfCopy = self;
-  sub_100239878();
+  sub_100239878(selfCopy);
 
   v3 = String._bridgeToObjectiveC()();
 
@@ -47,7 +47,7 @@
 
 - (NSDate)expirationDate
 {
-  v3 = sub_100080FB4(&qword_1003CD9A0);
+  v3 = sub_100080FB4(&qword_1003CD9A0, &qword_1002F0F80);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   selfCopy = self;
@@ -66,21 +66,21 @@
 
 + (AMSBagProtocol)defaultBag
 {
-  v2 = sub_100239D08(&qword_1003CC0C8);
+  v2 = sub_100239D08(&qword_1003CC0C8, &qword_1003F2930, sub_100239AD4);
 
   return v2;
 }
 
 + (AMSBagProtocol)sandboxBag
 {
-  v2 = sub_100239D08(&qword_1003CC0D0);
+  v2 = sub_100239D08(&qword_1003CC0D0, &qword_1003F2938, sub_100239BB4);
 
   return v2;
 }
 
 + (AMSBagProtocol)testflightBag
 {
-  v2 = sub_100239D08(&qword_1003CC0D8);
+  v2 = sub_100239D08(&qword_1003CC0D8, &qword_1003F2940, sub_100239C94);
 
   return v2;
 }

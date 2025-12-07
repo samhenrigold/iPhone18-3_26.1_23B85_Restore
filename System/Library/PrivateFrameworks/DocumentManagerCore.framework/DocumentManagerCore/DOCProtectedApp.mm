@@ -56,16 +56,7 @@
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0)
-  {
-    goto LABEL_6;
-  }
-
-  appContainerBundleID = [(DOCProtectedApp *)self appContainerBundleID];
-  appContainerBundleID2 = [(DOCProtectedApp *)v5 appContainerBundleID];
-  v8 = [appContainerBundleID isEqualToString:appContainerBundleID2];
-
-  if (v8)
+  if ((objc_opt_isKindOfClass() & 1) != 0 && (-[DOCProtectedApp appContainerBundleID](self, "appContainerBundleID"), v6 = objc_claimAutoreleasedReturnValue(), -[DOCProtectedApp appContainerBundleID](v5, "appContainerBundleID"), v7 = objc_claimAutoreleasedReturnValue(), v8 = [v6 isEqualToString:v7], v7, v6, v8))
   {
     oids = [(DOCProtectedApp *)self oids];
     oids2 = [(DOCProtectedApp *)v5 oids];

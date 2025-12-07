@@ -1,51 +1,50 @@
 void sub_22F4(uint64_t a1)
 {
-  v2 = +[PSListController appearance];
-  v3 = [v2 textColor];
+  v1 = +[PSListController appearance];
+  v2 = [v1 textColor];
 
-  v4 = +[PSListController appearance];
-  v5 = [v4 altTextColor];
+  v3 = +[PSListController appearance];
+  v4 = [v3 altTextColor];
 
-  v6 = +[PSListController appearance];
-  v7 = [v6 footerHyperlinkColor];
+  v5 = +[PSListController appearance];
+  v6 = [v5 footerHyperlinkColor];
 
-  v8 = +[PSListController appearance];
-  v9 = [v8 cellAccessoryColor];
+  v7 = +[PSListController appearance];
+  v8 = [v7 cellAccessoryColor];
+
+  v9 = +[PKTableViewCell appearance];
+  [v9 setCheckmarkAccessoryColor:v6];
 
   v10 = +[PKTableViewCell appearance];
-  [v10 setCheckmarkAccessoryColor:v7];
+  [v10 setCustomAccessoryColor:v8];
 
-  v11 = +[PKTableViewCell appearance];
-  [v11 setCustomAccessoryColor:v9];
+  v11 = +[PKPaymentTransactionTableCell appearance];
+  [v11 setPrimaryColor:v2];
 
   v12 = +[PKPaymentTransactionTableCell appearance];
-  [v12 setPrimaryColor:v3];
+  [v12 setSecondaryColor:v4];
 
-  v13 = +[PKPaymentTransactionTableCell appearance];
-  [v13 setSecondaryColor:v5];
+  v13 = +[PKLinkedAppView appearance];
+  [v13 setMainLabelColor:v2];
 
   v14 = +[PKLinkedAppView appearance];
-  [v14 setMainLabelColor:v3];
+  [v14 setSubTextLabelColor:v4];
 
-  v15 = +[PKLinkedAppView appearance];
-  [v15 setSubTextLabelColor:v5];
+  v22 = objc_opt_class();
+  v15 = [NSArray arrayWithObjects:&v22 count:1];
+  v16 = [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:v15];
+  [v16 setColor:v2];
 
-  v16 = *(a1 + 32);
-  v24 = objc_opt_class();
-  v17 = [NSArray arrayWithObjects:&v24 count:1];
+  v21 = objc_opt_class();
+  v17 = [NSArray arrayWithObjects:&v21 count:1];
   v18 = [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:v17];
-  [v18 setColor:v3];
+  [v18 setColor:v2];
 
-  v23 = objc_opt_class();
-  v19 = [NSArray arrayWithObjects:&v23 count:1];
-  v20 = [UIActivityIndicatorView appearanceWhenContainedInInstancesOfClasses:v19];
-  [v20 setColor:v3];
+  v19 = +[PKSoftwareUpdateTableView appearance];
+  [v19 setLinkColor:v6];
 
-  v21 = +[PKSoftwareUpdateTableView appearance];
-  [v21 setLinkColor:v7];
-
-  v22 = +[PKSoftwareUpdateTableView appearance];
-  [v22 setTextColor:v3];
+  v20 = +[PKSoftwareUpdateTableView appearance];
+  [v20 setTextColor:v2];
 }
 
 void sub_36D8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, id location)
@@ -81,28 +80,27 @@ void sub_3AFC(uint64_t a1)
   [v1 refreshPasses];
 }
 
-void sub_3E30(uint64_t a1)
+void sub_3E30(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = pk_Payment_log();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+  v4 = pk_Payment_log();
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-  if (v3)
+  if (v5)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      *v6 = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Notice: Telling settings controller to refresh passes following reload", v6, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Notice: Telling settings controller to refresh passes following reload", v8, 2u);
     }
   }
 
-  v5 = [*(a1 + 32) settingsController];
-  [v5 refreshPasses];
+  v7 = [*(a1 + 32) settingsController];
+  [v7 refreshPasses];
 }
 
 uint64_t sub_4614(uint64_t a1)
 {
-  v2 = *(a1 + 32);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -112,9 +110,9 @@ uint64_t sub_4614(uint64_t a1)
   result = *(a1 + 48);
   if (result)
   {
-    v4 = *(result + 16);
+    v3 = *(result + 16);
 
-    return v4();
+    return v3();
   }
 
   return result;
@@ -217,9 +215,9 @@ LABEL_11:
 LABEL_13:
 }
 
-void sub_59B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_59B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -272,17 +270,16 @@ void sub_5CE0(uint64_t a1, uint64_t a2, void *a3)
 
 void sub_5E68(uint64_t a1, uint64_t a2)
 {
-  v4 = *(a1 + 48);
-  v5 = *(a1 + 32);
+  v4 = *(a1 + 32);
   if (a2)
   {
-    v7 = v5;
-    v6 = PKDisplayableErrorForCommonType();
+    v6 = v4;
+    v5 = PKDisplayableErrorForCommonType();
 
-    v5 = v6;
+    v4 = v5;
   }
 
-  v8 = v5;
+  v7 = v4;
   (*(*(a1 + 40) + 16))();
 }
 
@@ -350,40 +347,40 @@ void sub_6758(uint64_t a1, char a2)
   (*(*(a1 + 32) + 16))();
 }
 
-uint64_t sub_6BF8(uint64_t a1)
+uint64_t sub_6BF8(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = pk_Payment_log();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+  v4 = pk_Payment_log();
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-  if (v3)
+  if (v5)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassbookBridgeSettingsController: user accepted disabling express mode for conflicting pass with unique ID %@", &v7, 0xCu);
+      v7 = *(a1 + 32);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassbookBridgeSettingsController: user accepted disabling express mode for conflicting pass with unique ID %@", &v9, 0xCu);
     }
   }
 
   return (*(*(a1 + 40) + 16))();
 }
 
-uint64_t sub_6CDC(uint64_t a1)
+uint64_t sub_6CDC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = pk_Payment_log();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+  v4 = pk_Payment_log();
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-  if (v3)
+  if (v5)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v6 = pk_Payment_log();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 32);
-      v7 = 138412290;
-      v8 = v5;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassbookBridgeSettingsController: user rejected disabling express mode for conflicting pass with unique ID %@", &v7, 0xCu);
+      v7 = *(a1 + 32);
+      v9 = 138412290;
+      v10 = v7;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_DEFAULT, "Notice: NPKPassbookBridgeSettingsController: user rejected disabling express mode for conflicting pass with unique ID %@", &v9, 0xCu);
     }
   }
 
@@ -463,87 +460,87 @@ void sub_7B84(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_7BD0(uint64_t a1)
+void sub_7BD0(uint64_t a1, uint64_t a2)
 {
-  v2 = pk_Payment_log();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+  v3 = pk_Payment_log();
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
-  if (v3)
+  if (v4)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_Payment_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v17 = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Notice: [PendingTransactionHandler] User confirmed the pending transaction alert.", v17, 2u);
+      *v18 = 0;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Notice: [PendingTransactionHandler] User confirmed the pending transaction alert.", v18, 2u);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v20 = PKAnalyticsSubjectBridge;
-    v6 = [NSArray arrayWithObjects:&v20 count:1];
-    v18[0] = PKAnalyticsReportEventKey;
-    v18[1] = PKAnalyticsReportButtonTagKey;
-    v7 = *(a1 + 32);
-    v19[0] = PKAnalyticsReportEventTypeButtonTap;
-    v19[1] = v7;
-    v8 = [NSDictionary dictionaryWithObjects:v19 forKeys:v18 count:2];
-    [PKAnalyticsReporter subjects:v6 sendEvent:v8];
+    v21 = PKAnalyticsSubjectBridge;
+    v7 = [NSArray arrayWithObjects:&v21 count:1];
+    v19[0] = PKAnalyticsReportEventKey;
+    v19[1] = PKAnalyticsReportButtonTagKey;
+    v8 = *(a1 + 32);
+    v20[0] = PKAnalyticsReportEventTypeButtonTap;
+    v20[1] = v8;
+    v9 = [NSDictionary dictionaryWithObjects:v20 forKeys:v19 count:2];
+    [PKAnalyticsReporter subjects:v7 sendEvent:v9];
 
     if (*(a1 + 48) == 1)
     {
-      v9 = [WeakRetained transaction];
-      v10 = [WeakRetained pass];
-      v11 = [WeakRetained appLaunchToken];
-      v12 = [PKPaymentNotificationAppURLHelper appURLForTransactionNotification:v9 excludeTransactionIdentifier:0 pass:v10 pathSuffix:@"/authenticate" appLaunchToken:v11];
+      v10 = [WeakRetained transaction];
+      v11 = [WeakRetained pass];
+      v12 = [WeakRetained appLaunchToken];
+      v13 = [PKPaymentNotificationAppURLHelper appURLForTransactionNotification:v10 excludeTransactionIdentifier:0 pass:v11 pathSuffix:@"/authenticate" appLaunchToken:v12];
     }
 
     else
     {
-      v12 = 0;
+      v13 = 0;
     }
 
-    v13 = [WeakRetained delegate];
-    v14 = [v13 presentingViewControllerForPendingTransactionHandler:WeakRetained];
+    v14 = [WeakRetained delegate];
+    v15 = [v14 presentingViewControllerForPendingTransactionHandler:WeakRetained];
 
-    v15 = [WeakRetained linkedApplication];
-    [v15 openApplication:v14 withLaunchOptions:0 launchURL:v12];
+    v16 = [WeakRetained linkedApplication];
+    [v16 openApplication:v15 withLaunchOptions:0 launchURL:v13];
 
-    v16 = [WeakRetained delegate];
-    [v16 pendingTransactionHandlerDidComplete:WeakRetained];
+    v17 = [WeakRetained delegate];
+    [v17 pendingTransactionHandlerDidComplete:WeakRetained];
   }
 }
 
-void sub_7E34(uint64_t a1)
+void sub_7E34(uint64_t a1, uint64_t a2)
 {
-  v2 = pk_Payment_log();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+  v3 = pk_Payment_log();
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
-  if (v3)
+  if (v4)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_Payment_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Notice: [PendingTransactionHandler] User canceled the pending transaction alert.", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Notice: [PendingTransactionHandler] User canceled the pending transaction alert.", v10, 2u);
     }
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
-    v12 = PKAnalyticsSubjectBridge;
-    v6 = [NSArray arrayWithObjects:&v12 count:1];
-    v10[0] = PKAnalyticsReportEventKey;
-    v10[1] = PKAnalyticsReportButtonTagKey;
-    v11[0] = PKAnalyticsReportEventTypeButtonTap;
-    v11[1] = PKAnalyticsReportApplicationRedirectCancelButtonTag;
-    v7 = [NSDictionary dictionaryWithObjects:v11 forKeys:v10 count:2];
-    [PKAnalyticsReporter subjects:v6 sendEvent:v7];
+    v13 = PKAnalyticsSubjectBridge;
+    v7 = [NSArray arrayWithObjects:&v13 count:1];
+    v11[0] = PKAnalyticsReportEventKey;
+    v11[1] = PKAnalyticsReportButtonTagKey;
+    v12[0] = PKAnalyticsReportEventTypeButtonTap;
+    v12[1] = PKAnalyticsReportApplicationRedirectCancelButtonTag;
+    v8 = [NSDictionary dictionaryWithObjects:v12 forKeys:v11 count:2];
+    [PKAnalyticsReporter subjects:v7 sendEvent:v8];
 
-    v8 = [WeakRetained delegate];
-    [v8 pendingTransactionHandlerDidComplete:WeakRetained];
+    v9 = [WeakRetained delegate];
+    [v9 pendingTransactionHandlerDidComplete:WeakRetained];
   }
 }
 
@@ -659,9 +656,9 @@ uint64_t sub_9304(uint64_t a1)
   return result;
 }
 
-void sub_9450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_9450(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -696,10 +693,11 @@ uint64_t sub_9F08(uint64_t a1)
   v3 = *(a1 + 40);
   if (v3)
   {
-    (*(v3 + 16))(v3, WeakRetained);
+    v3 = (*(v3 + 16))(v3, WeakRetained);
+    WeakRetained = v5;
   }
 
-  return _objc_release_x1();
+  return _objc_release_x1(v3, WeakRetained);
 }
 
 void sub_A030(uint64_t a1)
@@ -711,11 +709,12 @@ void sub_A030(uint64_t a1)
   [*(a1 + 40) presentViewController:v3 animated:1 completion:0];
 }
 
-void sub_A844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_A844(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
-  _Block_object_dispose((v33 - 176), 8);
+  va_start(va, a32);
+  _Block_object_dispose((v32 - 176), 8);
   _Block_object_dispose(&a29, 8);
-  _Block_object_dispose(&a33, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -726,31 +725,29 @@ uint64_t sub_A894(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_A8AC(uint64_t a1)
+void sub_A8AC(uint64_t a1, uint64_t a2)
 {
   if ((*(*(*(a1 + 56) + 8) + 24) & 1) == 0)
   {
-    v2 = pk_Payment_log();
-    v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+    v3 = pk_Payment_log();
+    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
-    if (v3)
+    if (v4)
     {
-      v4 = pk_Payment_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = pk_Payment_log();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        *v9 = 0;
-        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Notice: setExpressWithPassInformation: instruction view controller cancellation handler called", v9, 2u);
+        *v8 = 0;
+        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Notice: setExpressWithPassInformation: instruction view controller cancellation handler called", v8, 2u);
       }
     }
 
-    v5 = *(*(*(a1 + 64) + 8) + 24);
-    v6 = *(*(*(a1 + 72) + 8) + 40);
     (*(*(a1 + 48) + 16))();
     *(*(*(a1 + 56) + 8) + 24) = 1;
-    v7 = [*(a1 + 32) paymentSetupDelegate];
-    v8 = [v7 targetDevice];
+    v6 = [*(a1 + 32) paymentSetupDelegate];
+    v7 = [v6 targetDevice];
 
-    [v8 cancelOutstandingSetDefaultExpressPassRequestsWithExpressMode:*(a1 + 40)];
+    [v7 cancelOutstandingSetDefaultExpressPassRequestsWithExpressMode:*(a1 + 40)];
   }
 }
 
@@ -787,9 +784,9 @@ id sub_AA8C(uint64_t a1)
       if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         v5 = *(*(*(a1 + 56) + 8) + 40);
-        v8 = 138412290;
-        v9 = v5;
-        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Notice: setExpressWithPassInformation: updated pendingExpressPassesInformation: %@", &v8, 0xCu);
+        v7 = 138412290;
+        v8 = v5;
+        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Notice: setExpressWithPassInformation: updated pendingExpressPassesInformation: %@", &v7, 0xCu);
       }
     }
 
@@ -797,31 +794,36 @@ id sub_AA8C(uint64_t a1)
   }
 
   *(*(*(a1 + 64) + 8) + 24) = *(a1 + 72) == 1;
-  v6 = *(a1 + 48);
   return [*(a1 + 40) _handleSetExpressPassResult:? forInstructionViewController:?];
 }
 
-uint64_t sub_B230(uint64_t result)
+void sub_B1F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
+{
+  va_start(va, a52);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_B230(uint64_t result, uint64_t a2)
 {
   if ((*(*(*(result + 48) + 8) + 24) & 1) == 0)
   {
-    v1 = result;
-    v2 = pk_Payment_log();
-    v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+    v2 = result;
+    v3 = pk_Payment_log();
+    v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
-    if (v3)
+    if (v4)
     {
-      v4 = pk_Payment_log();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = pk_Payment_log();
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
         *v6 = 0;
-        _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Notice: removeExpressPassesWithUniqueIdentifiers: instruction view controller cancellation handler called", v6, 2u);
+        _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Notice: removeExpressPassesWithUniqueIdentifiers: instruction view controller cancellation handler called", v6, 2u);
       }
     }
 
-    v5 = v1[4];
-    result = (*(v1[5] + 16))();
-    *(*(v1[6] + 8) + 24) = 1;
+    result = (*(*(v2 + 40) + 16))();
+    *(*(*(v2 + 48) + 8) + 24) = 1;
   }
 
   return result;
@@ -960,35 +962,35 @@ void sub_BD54(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_BE40(uint64_t a1)
+void sub_BE40(uint64_t a1, uint64_t a2)
 {
-  v2 = pk_Payment_log();
-  v3 = os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT);
+  v3 = pk_Payment_log();
+  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
 
-  if (v3)
+  if (v4)
   {
-    v4 = pk_Payment_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = pk_Payment_log();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = [*(a1 + 32) uniqueID];
-      v11 = 138412290;
-      v12 = v5;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_DEFAULT, "Notice: User canceled upgrade request for pass with uniqueID:%@", &v11, 0xCu);
+      v6 = [*(a1 + 32) uniqueID];
+      v12 = 138412290;
+      v13 = v6;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_DEFAULT, "Notice: User canceled upgrade request for pass with uniqueID:%@", &v12, 0xCu);
     }
   }
 
-  v6 = [NSError errorWithDomain:NPKErrorDomain code:-1005 userInfo:0];
+  v7 = [NSError errorWithDomain:NPKErrorDomain code:-1005 userInfo:0];
   (*(*(a1 + 56) + 16))();
-  objc_copyWeak(&v11, (a1 + 64));
-  v7 = *(a1 + 40);
-  WeakRetained = objc_loadWeakRetained(&v11);
-  [v7 _dismissInstructionViewController:WeakRetained];
+  objc_copyWeak(&v12, (a1 + 64));
+  v8 = *(a1 + 40);
+  WeakRetained = objc_loadWeakRetained(&v12);
+  [v8 _dismissInstructionViewController:WeakRetained];
 
-  v9 = [*(a1 + 40) paymentSetupDelegate];
-  v10 = [v9 targetDevice];
-  [v10 cancelOutstandingRemotePassUpdateRequest:*(a1 + 48) pass:*(a1 + 32)];
+  v10 = [*(a1 + 40) paymentSetupDelegate];
+  v11 = [v10 targetDevice];
+  [v11 cancelOutstandingRemotePassUpdateRequest:*(a1 + 48) pass:*(a1 + 32)];
 
-  objc_destroyWeak(&v11);
+  objc_destroyWeak(&v12);
 }
 
 void sub_BFE4(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5)
@@ -1536,9 +1538,9 @@ void sub_FB2C(uint64_t a1)
   [v3 _updateSnapshotForBackgroundApplication:1];
 }
 
-void sub_106D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_106D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1557,9 +1559,9 @@ void sub_10D6C(uint64_t a1)
   objc_destroyWeak(&v1);
 }
 
-void sub_10DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_10DF4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   objc_destroyWeak(va);
   _Unwind_Resume(a1);
 }
@@ -1739,7 +1741,7 @@ Class sub_120F4(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -1759,7 +1761,6 @@ LABEL_4:
 
 uint64_t sub_12238(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_34D00 = result;
   return result;
@@ -1801,58 +1802,58 @@ void sub_12D58(uint64_t a1, char a2, void *a3)
   objc_destroyWeak(&v13);
 }
 
-id sub_12E40(uint64_t a1)
+id sub_12E40(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 72);
-  v3 = pk_Payment_log();
-  v4 = v3;
-  if (v2 == 1)
+  v3 = *(a1 + 72);
+  v4 = pk_Payment_log();
+  v5 = v4;
+  if (v3 == 1)
   {
-    v5 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    v6 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
 
-    if (!v5)
+    if (!v6)
     {
       goto LABEL_10;
     }
 
-    v6 = pk_Payment_log();
-    if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = pk_Payment_log();
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_9;
     }
 
-    v7 = [*(a1 + 32) uniqueID];
-    *v17 = 138412290;
-    *&v17[4] = v7;
-    v8 = "Notice: Remove payment pass %@ successful";
-    v9 = v6;
-    v10 = OS_LOG_TYPE_DEFAULT;
-    v11 = 12;
+    v8 = [*(a1 + 32) uniqueID];
+    *v18 = 138412290;
+    *&v18[4] = v8;
+    v9 = "Notice: Remove payment pass %@ successful";
+    v10 = v7;
+    v11 = OS_LOG_TYPE_DEFAULT;
+    v12 = 12;
     goto LABEL_8;
   }
 
-  v12 = os_log_type_enabled(v3, OS_LOG_TYPE_ERROR);
+  v13 = os_log_type_enabled(v4, OS_LOG_TYPE_ERROR);
 
-  if (!v12)
+  if (!v13)
   {
     goto LABEL_10;
   }
 
-  v6 = pk_Payment_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = pk_Payment_log();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    v7 = [*(a1 + 32) uniqueID];
-    v13 = *(a1 + 40);
-    *v17 = 138412546;
-    *&v17[4] = v7;
-    *&v17[12] = 2112;
-    *&v17[14] = v13;
-    v8 = "Error: Remove payment pass %@ failed: %@";
-    v9 = v6;
-    v10 = OS_LOG_TYPE_ERROR;
-    v11 = 22;
+    v8 = [*(a1 + 32) uniqueID];
+    v14 = *(a1 + 40);
+    *v18 = 138412546;
+    *&v18[4] = v8;
+    *&v18[12] = 2112;
+    *&v18[14] = v14;
+    v9 = "Error: Remove payment pass %@ failed: %@";
+    v10 = v7;
+    v11 = OS_LOG_TYPE_ERROR;
+    v12 = 22;
 LABEL_8:
-    _os_log_impl(&dword_0, v9, v10, v8, v17, v11);
+    _os_log_impl(&dword_0, v10, v11, v9, v18, v12);
   }
 
 LABEL_9:
@@ -1861,10 +1862,10 @@ LABEL_10:
   if (*(a1 + 72) == 1)
   {
     WeakRetained = objc_loadWeakRetained((a1 + 64));
-    v15 = [WeakRetained popViewControllerAnimated:1];
+    v16 = [WeakRetained popViewControllerAnimated:1];
   }
 
-  return [*(a1 + 48) _setDeletionInProgress:0 forPassWithUniqueID:{*(a1 + 56), *v17, *&v17[16]}];
+  return [*(a1 + 48) _setDeletionInProgress:0 forPassWithUniqueID:{*(a1 + 56), *v18, *&v18[8]}];
 }
 
 void sub_132D4(uint64_t a1, void *a2)
@@ -1906,9 +1907,9 @@ void sub_13364(uint64_t a1, void *a2)
   }
 }
 
-void sub_1379C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1379C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1931,9 +1932,9 @@ void sub_137CC(uint64_t a1, void *a2)
   }
 }
 
-void sub_13998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_13998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1945,9 +1946,9 @@ void sub_139B0(uint64_t a1, void *a2)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_13B5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_13B5C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1959,9 +1960,9 @@ void sub_13B74(uint64_t a1, void *a2)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_13CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_13CC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1973,16 +1974,16 @@ id sub_13CD8(uint64_t a1, void *a2)
   return result;
 }
 
-void sub_14040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_14040(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_14164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_14164(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2193,9 +2194,9 @@ uint64_t sub_14C1C(uint64_t a1, int a2, void *a3)
   return _objc_release_x2();
 }
 
-void sub_14EEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_14EEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2207,9 +2208,9 @@ void sub_14F04(uint64_t a1, void *a2)
   dispatch_semaphore_signal(*(a1 + 32));
 }
 
-void sub_15098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_15098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2221,9 +2222,9 @@ id sub_150B0(uint64_t a1, void *a2)
   return result;
 }
 
-void sub_156D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_156D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2261,7 +2262,7 @@ uint64_t sub_159C4()
   v1 = v3[0];
   if (!qword_34D20)
   {
-    v1 = abort_report_np();
+    v1 = abort_report_np("%s", v3[0]);
     goto LABEL_7;
   }
 
@@ -2276,7 +2277,6 @@ LABEL_7:
 
 uint64_t sub_15AC4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_34D20 = result;
   return result;
@@ -2334,7 +2334,7 @@ id sub_15D48(void *a1, uint64_t a2)
 
 void sub_166B0()
 {
-  dlerror();
-  abort_report_np();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
   sub_166D4();
 }

@@ -12,7 +12,7 @@
 
 - (id)extensionIdentityWithExtensionPointIdentifier:(id)identifier error:(id *)error
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   queue = [(LNConnection *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -40,9 +40,9 @@
         firstObject = [v13 firstObject];
         v17 = [firstObject url];
         *buf = 138412546;
-        v26 = bundleIdentifier2;
-        v27 = 2112;
-        v28 = v17;
+        v25 = bundleIdentifier2;
+        v26 = 2112;
+        v27 = v17;
       }
     }
 
@@ -52,25 +52,22 @@
   else if (error)
   {
     v18 = MEMORY[0x1E696ABC0];
-    v29 = *MEMORY[0x1E696A578];
+    v28 = *MEMORY[0x1E696A578];
     v19 = MEMORY[0x1E696AEC0];
-    bundleIdentifier3 = [(LNConnection *)self bundleIdentifier];
-    v21 = objc_claimAutoreleasedReturnValue();
-    v30[0] = v21;
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v21 = bundleIdentifier3 = [(LNConnection *)self bundleIdentifier];
+    v29[0] = v21;
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
     *error = [v18 errorWithDomain:@"LNConnectionErrorDomain" code:1100 userInfo:v22];
 
     error = 0;
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return error;
 }
 
 - (void)connectUsingMediatorWithOptions:(id)options
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v5 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
@@ -95,32 +92,31 @@
   queue2 = [(LNConnection *)self queue];
   [v8 _setQueue:queue2];
 
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __57__LNExtensionConnection_connectUsingMediatorWithOptions___block_invoke;
-  v20[3] = &unk_1E74B2318;
-  v20[4] = activity;
-  [v8 setInterruptionHandler:v20];
   v19[0] = MEMORY[0x1E69E9820];
   v19[1] = 3221225472;
-  v19[2] = __57__LNExtensionConnection_connectUsingMediatorWithOptions___block_invoke_16;
+  v19[2] = __57__LNExtensionConnection_connectUsingMediatorWithOptions___block_invoke;
   v19[3] = &unk_1E74B2318;
   v19[4] = activity;
-  [v8 setInvalidationHandler:v19];
+  [v8 setInterruptionHandler:v19];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __57__LNExtensionConnection_connectUsingMediatorWithOptions___block_invoke_16;
+  v18[3] = &unk_1E74B2318;
+  v18[4] = activity;
+  [v8 setInvalidationHandler:v18];
   [v8 resume];
   remoteObjectProxy = [v8 remoteObjectProxy];
   bundleIdentifier = [(LNConnection *)self bundleIdentifier];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __57__LNExtensionConnection_connectUsingMediatorWithOptions___block_invoke_17;
-  v16[3] = &unk_1E74B1EF0;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __57__LNExtensionConnection_connectUsingMediatorWithOptions___block_invoke_17;
+  v15[3] = &unk_1E74B1EF0;
   v14 = v8;
-  v17 = v14;
+  v16 = v14;
   selfCopy = self;
-  [remoteObjectProxy getConnectionHostInterfaceForBundleIdentifier:bundleIdentifier completionHandler:v16];
+  [remoteObjectProxy getConnectionHostInterfaceForBundleIdentifier:bundleIdentifier completionHandler:v15];
 
   os_activity_scope_leave(&buf);
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __57__LNExtensionConnection_connectUsingMediatorWithOptions___block_invoke(uint64_t a1)
@@ -174,7 +170,7 @@ void __57__LNExtensionConnection_connectUsingMediatorWithOptions___block_invoke_
   {
     if (v8)
     {
-      [v8 if_auditToken];
+      objc_msgSend_if_auditToken(v8);
     }
 
     else
@@ -190,7 +186,7 @@ void __57__LNExtensionConnection_connectUsingMediatorWithOptions___block_invoke_
 
 - (void)connectDirectlyWithOptions:(id)options
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v4 = getLNLogCategoryConnection();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
@@ -204,16 +200,16 @@ void __57__LNExtensionConnection_connectUsingMediatorWithOptions___block_invoke_
 
   v7 = objc_alloc(MEMORY[0x1E69635D0]);
   bundleIdentifier = [(LNConnection *)self bundleIdentifier];
-  v32 = 0;
-  v9 = [v7 initWithBundleIdentifier:bundleIdentifier error:&v32];
-  v10 = v32;
+  v31 = 0;
+  v9 = [v7 initWithBundleIdentifier:bundleIdentifier error:&v31];
+  v10 = v31;
 
   if (v9)
   {
-    v30 = v10;
-    v31 = 0;
-    v11 = [LNExtensionHostConfigurator extensionProcessWithExtensionRecord:v9 extensionType:&v31 error:&v30];
-    v12 = v30;
+    v29 = v10;
+    v30 = 0;
+    v11 = [LNExtensionHostConfigurator extensionProcessWithExtensionRecord:v9 extensionType:&v30 error:&v29];
+    v12 = v29;
 
     [(LNExtensionConnection *)self setExtensionProcess:v11];
     extensionProcess = [(LNExtensionConnection *)self extensionProcess];
@@ -224,23 +220,23 @@ void __57__LNExtensionConnection_connectUsingMediatorWithOptions___block_invoke_
       v15 = extensionProcess2;
       if (extensionProcess2)
       {
-        [extensionProcess2 auditToken];
+        objc_msgSend_auditToken(extensionProcess2);
       }
 
       else
       {
+        v27 = 0u;
         v28 = 0u;
-        v29 = 0u;
       }
 
-      *buf = v28;
-      *&buf[16] = v29;
+      *buf = v27;
+      *&buf[16] = v28;
       [(LNConnection *)self setAuditToken:buf];
 
       extensionProcess3 = [(LNExtensionConnection *)self extensionProcess];
-      v27 = v12;
-      v19 = [extensionProcess3 makeXPCConnectionWithError:&v27];
-      v20 = v27;
+      v26 = v12;
+      v19 = [extensionProcess3 makeXPCConnectionWithError:&v26];
+      v20 = v26;
 
       [(LNConnection *)self setXPCConnection:v19];
       xpcConnection = [(LNConnection *)self xpcConnection];
@@ -289,8 +285,6 @@ void __57__LNExtensionConnection_connectUsingMediatorWithOptions___block_invoke_
   {
     [(LNConnection *)self setDisconnectedWithError:v10];
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc
@@ -303,7 +297,7 @@ void __57__LNExtensionConnection_connectUsingMediatorWithOptions___block_invoke_
 
 - (void)invalidateExtensionProcess
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   extensionProcess = self->_extensionProcess;
   if (extensionProcess)
   {
@@ -315,13 +309,11 @@ void __57__LNExtensionConnection_connectUsingMediatorWithOptions___block_invoke_
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       logPrefix = [(LNConnection *)self logPrefix];
-      v8 = 138543362;
-      v9 = logPrefix;
-      _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "%{public}@ Invalidated extension process on dealloc", &v8, 0xCu);
+      v7 = 138543362;
+      v8 = logPrefix;
+      _os_log_impl(&dword_19763D000, v5, OS_LOG_TYPE_INFO, "%{public}@ Invalidated extension process on dealloc", &v7, 0xCu);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)refreshWithOptions:(id)options
@@ -340,13 +332,12 @@ void __57__LNExtensionConnection_connectUsingMediatorWithOptions___block_invoke_
 - (void)connectWithOptions:(id)options
 {
   optionsCopy = options;
-  v6.receiver = self;
-  v6.super_class = LNExtensionConnection;
-  [(LNConnection *)&v6 connectWithOptions:optionsCopy];
+  v5.receiver = self;
+  v5.super_class = LNExtensionConnection;
+  [(LNConnection *)&v5 connectWithOptions:optionsCopy];
   if (![(LNConnection *)self connectUsingProcessIdentifierWithOptions:optionsCopy])
   {
     getpid();
-    v5 = *MEMORY[0x1E69E9BD0];
     if (sandbox_check())
     {
       [(LNExtensionConnection *)self connectDirectlyWithOptions:optionsCopy, "com.apple.linkd.extension"];

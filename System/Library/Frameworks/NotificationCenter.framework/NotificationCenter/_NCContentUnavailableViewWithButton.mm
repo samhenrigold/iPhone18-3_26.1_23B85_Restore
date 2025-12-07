@@ -58,7 +58,7 @@
 
 - (void)_configureTitleLabelWithTitle:(id)title
 {
-  v21[2] = *MEMORY[0x277D85DE8];
+  v20[2] = *MEMORY[0x277D85DE8];
   if (!self->_titleLabel)
   {
     v4 = MEMORY[0x277D756B8];
@@ -85,21 +85,19 @@
     centerYAnchor = [layoutMarginsGuide centerYAnchor];
     centerYAnchor2 = [(UILabel *)self->_titleLabel centerYAnchor];
     v16 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v21[0] = v16;
+    v20[0] = v16;
     heightAnchor = [(UILabel *)self->_titleLabel heightAnchor];
     v18 = [heightAnchor constraintEqualToConstant:30.0];
-    v21[1] = v18;
-    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:2];
+    v20[1] = v18;
+    v19 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
 
     [(_NCContentUnavailableViewWithButton *)self addConstraints:v19];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureBackgroundView
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   if (!self->_backgroundView)
   {
     v3 = objc_alloc_init(MEMORY[0x277D75D18]);
@@ -120,16 +118,14 @@
     centerYAnchor = [layoutMarginsGuide centerYAnchor];
     centerYAnchor2 = [(UIView *)self->_backgroundView centerYAnchor];
     v12 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-    v17[0] = v12;
+    v16[0] = v12;
     heightAnchor = [(UIView *)self->_backgroundView heightAnchor];
     v14 = [heightAnchor constraintEqualToConstant:30.0];
-    v17[1] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v16[1] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
 
     [(_NCContentUnavailableViewWithButton *)self addConstraints:v15];
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_visualStylingProviderForCategory:(int64_t)category

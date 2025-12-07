@@ -8,7 +8,7 @@
 
 + (double)alertHoldoffTimeWithWorkoutConfiguration:(id)configuration
 {
-  type metadata accessor for IntervalWorkoutConfiguration();
+  type metadata accessor for IntervalWorkoutConfiguration(0);
   v3 = swift_dynamicCastClass();
   result = 60.0;
   if (v3)
@@ -21,11 +21,10 @@
 
 + (double)alertHoldoffTimeWithLiveWorkoutConfiguration:(id)configuration
 {
-  v3 = *(configuration + OBJC_IVAR___WOCoreLiveWorkoutConfiguration_configuration);
-  type metadata accessor for IntervalWorkoutConfiguration();
-  v4 = swift_dynamicCastClass();
+  type metadata accessor for IntervalWorkoutConfiguration(0);
+  v3 = swift_dynamicCastClass();
   result = 60.0;
-  if (v4)
+  if (v3)
   {
     return 10.0;
   }

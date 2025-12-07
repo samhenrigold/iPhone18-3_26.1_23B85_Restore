@@ -177,7 +177,7 @@ void __33__RecognizeDrawingOperation_main__block_invoke_2(uint64_t a1, void *a2)
 
 + (id)recognitionResultsForDrawing:(id)drawing withRecognizer:(id)recognizer history:(id)history shouldCancel:(id)cancel
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   drawingCopy = drawing;
   recognizerCopy = recognizer;
   historyCopy = history;
@@ -204,9 +204,9 @@ void __33__RecognizeDrawingOperation_main__block_invoke_2(uint64_t a1, void *a2)
   [recognizerCopy setRecognitionMode:v15];
   if (historyCopy)
   {
-    v20 = *MEMORY[0x277CFEE28];
-    v21[0] = historyCopy;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x277CFEE28];
+    v20[0] = historyCopy;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
   }
 
   else
@@ -215,8 +215,6 @@ void __33__RecognizeDrawingOperation_main__block_invoke_2(uint64_t a1, void *a2)
   }
 
   v17 = [recognizerCopy recognitionResultsForDrawing:drawingCopy options:v16 shouldCancel:cancelCopy];
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }

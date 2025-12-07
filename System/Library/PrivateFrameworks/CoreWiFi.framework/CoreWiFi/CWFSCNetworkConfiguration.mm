@@ -42,29 +42,8 @@
   v12.receiver = self;
   v12.super_class = CWFSCNetworkConfiguration;
   v2 = [(CWFSCNetworkConfiguration *)&v12 init];
-  if (!v2)
+  if (!v2 || (dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v3 = objc_claimAutoreleasedReturnValue(), v4 = dispatch_queue_create("com.apple.corewifi.SC-global-mutex", v3), mutexQueue = v2->_mutexQueue, v2->_mutexQueue = v4, mutexQueue, v3, !v2->_mutexQueue) || (dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM), v6 = objc_claimAutoreleasedReturnValue(), v7 = dispatch_queue_create("com.apple.corewifi.SC-global-event", v6), eventQueue = v2->_eventQueue, v2->_eventQueue = v7, eventQueue, v6, !v2->_eventQueue) || (v11.version = 0, memset(&v11.retain, 0, 24), v11.info = v2, v9 = SCDynamicStoreCreate(*MEMORY[0x1E695E480], @"com.apple.corewifi.SC-global", sub_1E0D123D8, &v11), (v2->_storeRef = v9) == 0) || !SCDynamicStoreSetDisconnectCallBack())
   {
-    goto LABEL_6;
-  }
-
-  v3 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v4 = dispatch_queue_create("com.apple.corewifi.SC-global-mutex", v3);
-  mutexQueue = v2->_mutexQueue;
-  v2->_mutexQueue = v4;
-
-  if (!v2->_mutexQueue)
-  {
-    goto LABEL_6;
-  }
-
-  v6 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v7 = dispatch_queue_create("com.apple.corewifi.SC-global-event", v6);
-  eventQueue = v2->_eventQueue;
-  v2->_eventQueue = v7;
-
-  if (!v2->_eventQueue || (v11.version = 0, memset(&v11.retain, 0, 24), v11.info = v2, v9 = SCDynamicStoreCreate(*MEMORY[0x1E695E480], @"com.apple.corewifi.SC-global", sub_1E0D123D8, &v11), (v2->_storeRef = v9) == 0) || !SCDynamicStoreSetDisconnectCallBack())
-  {
-LABEL_6:
 
     return 0;
   }
@@ -87,7 +66,7 @@ LABEL_6:
 
 - (void)__startEventMonitoring
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v3 = *MEMORY[0x1E695E480];
   v4 = *MEMORY[0x1E69822F0];
   NetworkGlobalEntity = SCDynamicStoreKeyCreateNetworkGlobalEntity(*MEMORY[0x1E695E480], *MEMORY[0x1E69822F0], *MEMORY[0x1E6982338]);
@@ -127,14 +106,14 @@ LABEL_18:
   v12 = NetworkInterface;
   if (NetworkInterface)
   {
-    v17[0] = NetworkInterface;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
-    v16[0] = v6;
-    v16[1] = v8;
-    v16[2] = v9;
-    v16[3] = v10;
-    v16[4] = *MEMORY[0x1E69822E8];
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:5];
+    v16[0] = NetworkInterface;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
+    v15[0] = v6;
+    v15[1] = v8;
+    v15[2] = v9;
+    v15[3] = v10;
+    v15[4] = *MEMORY[0x1E69822E8];
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:5];
     if (SCDynamicStoreSetNotificationKeys(self->_storeRef, v13, v14))
     {
       SCDynamicStoreSetDispatchQueue(self->_storeRef, self->_eventQueue);
@@ -165,8 +144,6 @@ LABEL_8:
   }
 
 LABEL_14:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)restartEventMonitoring
@@ -652,27 +629,27 @@ LABEL_14:
 
 - (BOOL)__isIEEE80211NetworkInterfaceName:(id)name
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   v4 = nameCopy;
-  memset(v12, 0, 44);
-  v11[0] = 0;
-  v11[1] = 0;
+  memset(v11, 0, 44);
+  v10[0] = 0;
+  v10[1] = 0;
   if (nameCopy && [nameCopy length] && objc_msgSend(v4, "length") <= 0x10 && (v5 = socket(2, 2, 0), v5 != -1))
   {
     v6 = v5;
-    [v4 getCString:v11 maxLength:16 encoding:30];
-    if (LOBYTE(v11[0]))
+    [v4 getCString:v10 maxLength:16 encoding:30];
+    if (LOBYTE(v10[0]))
     {
       __strlcpy_chk();
-      if (ioctl(v6, 0xC02C6938uLL, v12))
+      if (ioctl(v6, 0xC02C6938uLL, v11))
       {
         v7 = 0;
       }
 
       else
       {
-        v7 = (v12[1] & 0xE0) == 128;
+        v7 = (v11[1] & 0xE0) == 128;
       }
 
       v8 = v7;
@@ -691,34 +668,33 @@ LABEL_14:
     v8 = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (id)IEEE80211NetworkInterfacesNames
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   networkInterfaceNames = [(CWFSCNetworkConfiguration *)self networkInterfaceNames];
-  v4 = [networkInterfaceNames countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [networkInterfaceNames countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
     array = 0;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(networkInterfaceNames);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         if ([(CWFSCNetworkConfiguration *)self __isIEEE80211NetworkInterfaceName:v9])
         {
           if (!array)
@@ -730,7 +706,7 @@ LABEL_14:
         }
       }
 
-      v5 = [networkInterfaceNames countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [networkInterfaceNames countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
@@ -742,7 +718,6 @@ LABEL_14:
   }
 
   v10 = [array copy];
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

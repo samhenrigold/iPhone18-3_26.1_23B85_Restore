@@ -1,6 +1,7 @@
 @interface MSHistoryMarkedLocation
 + (Class)managedClass;
 - (GEOMapItemStorage)mapItemStorage;
+- (MSHistoryMarkedLocation)initWithCustomName:(id)name floorOrdinal:(int)ordinal latitude:(id)latitude longitude:(id)longitude mapItemStorage:(id)storage muid:(id)muid;
 - (MSHistoryMarkedLocation)initWithObject:(id)object store:(id)store lazyLoad:(BOOL)load parent:(BOOL)parent;
 - (MSHistoryMarkedLocation)initWithStore:(id)store customName:(id)name floorOrdinal:(int)ordinal latitude:(id)latitude longitude:(id)longitude mapItemStorage:(id)storage muid:(id)muid;
 - (NSNumber)latitude;
@@ -18,6 +19,46 @@
 @end
 
 @implementation MSHistoryMarkedLocation
+
+- (MSHistoryMarkedLocation)initWithCustomName:(id)name floorOrdinal:(int)ordinal latitude:(id)latitude longitude:(id)longitude mapItemStorage:(id)storage muid:(id)muid
+{
+  v12 = *&ordinal;
+  if (name)
+  {
+    sub_1B63BEBD4();
+    v15 = v14;
+  }
+
+  else
+  {
+    v15 = 0;
+  }
+
+  v16 = qword_1EDB0F2A0;
+  latitudeCopy = latitude;
+  longitudeCopy = longitude;
+  storageCopy = storage;
+  muidCopy = muid;
+  if (v16 != -1)
+  {
+    swift_once();
+  }
+
+  v21 = qword_1EDB0F2A8;
+  if (v15)
+  {
+    v22 = sub_1B63BEBC4();
+  }
+
+  else
+  {
+    v22 = 0;
+  }
+
+  v23 = [(MSHistoryMarkedLocation *)self initWithStore:v21 customName:v22 floorOrdinal:v12 latitude:latitudeCopy longitude:longitudeCopy mapItemStorage:storageCopy muid:muidCopy];
+
+  return v23;
+}
 
 - (MSHistoryMarkedLocation)initWithStore:(id)store customName:(id)name floorOrdinal:(int)ordinal latitude:(id)latitude longitude:(id)longitude mapItemStorage:(id)storage muid:(id)muid
 {
@@ -58,20 +99,20 @@
 - (NSString)customName
 {
   selfCopy = self;
-  sub_1B62F1900();
-  v4 = v3;
+  sub_1B62F1900(selfCopy, v3);
+  v5 = v4;
 
-  if (v4)
+  if (v5)
   {
-    v5 = sub_1B63BEBC4();
+    v6 = sub_1B63BEBC4();
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)setCustomName:(id)name
@@ -113,9 +154,9 @@
 - (NSNumber)latitude
 {
   selfCopy = self;
-  v3 = sub_1B62F2568();
+  v4 = sub_1B62F2568(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setLatitude:(id)latitude
@@ -128,9 +169,9 @@
 - (NSNumber)longitude
 {
   selfCopy = self;
-  v3 = sub_1B62F2A04();
+  v4 = sub_1B62F2A04(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setLongitude:(id)longitude
@@ -143,9 +184,9 @@
 - (GEOMapItemStorage)mapItemStorage
 {
   selfCopy = self;
-  v3 = sub_1B62F2F20();
+  v4 = sub_1B62F2F20(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setMapItemStorage:(id)storage
@@ -162,9 +203,9 @@
 - (NSNumber)muid
 {
   selfCopy = self;
-  v3 = sub_1B62F3CD0();
+  v4 = sub_1B62F3CD0(selfCopy, v3);
 
-  return v3;
+  return v4;
 }
 
 - (void)setMuid:(id)muid

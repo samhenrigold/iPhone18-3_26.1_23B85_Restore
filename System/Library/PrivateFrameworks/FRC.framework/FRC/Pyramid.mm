@@ -113,11 +113,11 @@
 
 - (void)createResiduePyramidFromBuffer:(__CVBuffer *)buffer toBuffer:(__CVBuffer *)toBuffer levels:(unint64_t)levels
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v8 = createTexturesFromCVPixelBuffer(buffer, self->super._device, 1, 3uLL);
-  v24 = 0;
+  v23 = 0;
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v9 = levels + 1;
   if (levels != -1)
   {
@@ -126,8 +126,8 @@
     do
     {
       v12 = createTexturesFromCVPixelBuffer(toBuffer[v10], self->super._device, 1, 3uLL);
-      v13 = *(&v22 + v10);
-      *(&v22 + v10) = v12;
+      v13 = *(&v21 + v10);
+      *(&v21 + v10) = v12;
 
       v10 = v11;
       v14 = v9 > v11++;
@@ -137,14 +137,14 @@
     if (levels == 2)
     {
       v15 = createTexturesFromCVPixelBuffer(toBuffer[3], self->super._device, 1, 3uLL);
-      v16 = *(&v23 + 1);
-      *(&v23 + 1) = v15;
+      v16 = *(&v22 + 1);
+      *(&v22 + 1) = v15;
     }
   }
 
-  v17 = [(MTLCommandQueue *)self->super._commandQueue commandBuffer:v22];
+  v17 = [(MTLCommandQueue *)self->super._commandQueue commandBuffer:v21];
   [v17 enqueue];
-  [(Pyramid *)self encodeResiduePyramidToCommandBuffer:v17 fromTexture:v8 toTexture:&v22 levels:levels];
+  [(Pyramid *)self encodeResiduePyramidToCommandBuffer:v17 fromTexture:v8 toTexture:&v21 levels:levels];
   [v17 commit];
   [v17 waitUntilCompleted];
   if (levels != -1)
@@ -153,9 +153,9 @@
     v19 = 1;
     do
     {
-      if (isBufferCopyNecessaryForCVtoTextureConversion([*(&v22 + v18) width], objc_msgSend(*(&v22 + v18), "height"), objc_msgSend(*(&v22 + v18), "arrayLength")))
+      if (isBufferCopyNecessaryForCVtoTextureConversion([*(&v21 + v18) width], objc_msgSend(*(&v21 + v18), "height"), objc_msgSend(*(&v21 + v18), "arrayLength")))
       {
-        copyTextureToBuffer(*(&v22 + v18), toBuffer[v18]);
+        copyTextureToBuffer(*(&v21 + v18), toBuffer[v18]);
       }
 
       v18 = v19;
@@ -168,8 +168,6 @@
   for (i = 32; i != -8; i -= 8)
   {
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)encodeResiduePyramidToCommandBuffer:(id)buffer fromTexture:(id)texture toTexture:(const void *)toTexture levels:(unint64_t)levels

@@ -284,7 +284,7 @@ uint64_t __34__VCNetworkSimulator_setupNetwork__block_invoke(uint64_t a1)
 
 - (int)processNetwork
 {
-  [(VCEmulatedNetwork *)self->_network runUntilTime:micro()];
+  [(VCEmulatedNetwork *)self->_network runUntilTime:micro(self, a2)];
   while ([(VCEmulatedNetwork *)self->_network numberOfPacketsWaitingInOutputQueue])
   {
   }

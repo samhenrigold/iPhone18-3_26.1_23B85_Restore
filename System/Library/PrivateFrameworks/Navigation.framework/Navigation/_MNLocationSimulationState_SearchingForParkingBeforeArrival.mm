@@ -18,7 +18,7 @@
 
 - (void)_findRouteToParkingLocation:(id)location finishedHandler:(id)handler
 {
-  v32[2] = *MEMORY[0x1E69E9840];
+  v31[2] = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v7 = MEMORY[0x1E69A1E70];
   locationCopy = location;
@@ -36,9 +36,9 @@
   [v15 setRequestType:1];
   [v15 setCurrentLocation:locationCopy];
 
-  v32[0] = v13;
-  v32[1] = v14;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
+  v31[0] = v13;
+  v31[1] = v14;
+  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
   [v15 setWaypoints:v17];
 
   [v15 setTransportType:0];
@@ -58,57 +58,61 @@
   [v15 setRequestingAppIdentifier:requestingAppIdentifier];
 
   mEMORY[0x1E69A1D18] = [MEMORY[0x1E69A1D18] sharedService];
-  v30[0] = MEMORY[0x1E69E9820];
-  v30[1] = 3221225472;
-  v30[2] = __107___MNLocationSimulationState_SearchingForParkingBeforeArrival__findRouteToParkingLocation_finishedHandler___block_invoke;
-  v30[3] = &unk_1E842EF50;
-  v31 = handlerCopy;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __107___MNLocationSimulationState_SearchingForParkingBeforeArrival__findRouteToParkingLocation_finishedHandler___block_invoke;
+  v29[3] = &unk_1E842EF50;
+  v30 = handlerCopy;
   v27 = handlerCopy;
-  v28 = [mEMORY[0x1E69A1D18] requestRoutes:v15 handler:v30];
-
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = [mEMORY[0x1E69A1D18] requestRoutes:v15 handler:v29];
 }
 
 - (double)_scoreForRoad:(id)road coordinate:(id)coordinate
 {
+  var1 = coordinate.var1;
+  var0 = coordinate.var0;
   roadCopy = road;
   internalRoadName = [roadCopy internalRoadName];
 
-  v7 = 0.0;
+  v9 = 0.0;
   if (internalRoadName)
   {
     if ([roadCopy roadClass] != 9)
     {
       coordinates3d = [roadCopy coordinates3d];
-      v9 = coordinates3d + 24 * [roadCopy coordinateCount];
-      v10 = *(v9 - 24);
-      v11 = *(v9 - 16);
-      if ([roadCopy travelDirection] != 1 || (GEOCalculateDistance(), v13 = v12, v14 = objc_msgSend(roadCopy, "coordinates3d"), v15 = *v14, v16 = v14[1], GEOCalculateDistance(), v17 < v13))
+      v11 = coordinates3d + 24 * [roadCopy coordinateCount];
+      v12 = *(v11 - 24);
+      v13 = *(v11 - 16);
+      travelDirection = [roadCopy travelDirection];
+      if (travelDirection != 1 || (v38.var0 = var0, v38.var1 = var1, v38.var2 = v12, v18 = v13, v19 = GEOCalculateDistance(travelDirection, v15, v38, *(&v16 - 1)), v20 = [roadCopy coordinates3d], *&v39.var2 = v20->super.isa, v41.var0 = v20->_toleranceMeters, v39.var0 = var0, v39.var1 = var1, GEOCalculateDistance(v20, v21, v39, v41) < v19))
       {
-        v18 = objc_alloc(MEMORY[0x1E69A2548]);
+        v22 = objc_alloc(MEMORY[0x1E69A2548]);
         data = [(_MNLocationSimulationState *)self data];
         routeInfo = [data routeInfo];
         route = [routeInfo route];
         data2 = [(_MNLocationSimulationState *)self data];
         auditToken = [data2 auditToken];
-        v24 = [v18 initWithRoute:route auditToken:auditToken];
+        v28 = [v22 initWithRoute:route auditToken:auditToken];
 
-        [v24 distanceToRouteFrom:{v10, v11}];
-        if (v25 >= 50.0 && v25 <= 75.0)
+        [v28 distanceToRouteFrom:{v12, v13}];
+        if (v29 >= 50.0 && v29 <= 75.0)
         {
           data3 = [(_MNLocationSimulationState *)self data];
           routeInfo2 = [data3 routeInfo];
           route2 = [routeInfo2 route];
 
-          [route2 pointAt:{objc_msgSend(route2, "pointCount") - 1}];
-          GEOCalculateDistance();
-          v7 = v29;
+          v33 = [route2 pointAt:{objc_msgSend(route2, "pointCount") - 1}];
+          v40.var2 = v34;
+          v42.var0 = v35;
+          v40.var0 = v12;
+          v40.var1 = v13;
+          v9 = GEOCalculateDistance(v33, v36, v40, v42);
         }
       }
     }
   }
 
-  return v7;
+  return v9;
 }
 
 - (void)_findParkingLocation:(id)location

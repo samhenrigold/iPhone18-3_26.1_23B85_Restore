@@ -22,17 +22,17 @@
 
 - (PHFetchResult)moments
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v3 = self->_momentLocalIdentifiers;
   objc_sync_enter(v3);
   if (!self->_moments)
   {
     librarySpecificFetchOptions = [(PHPhotoLibrary *)self->_photoLibrary librarySpecificFetchOptions];
     v5 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"startDate" ascending:1];
-    v18[0] = v5;
+    v17[0] = v5;
     v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:1];
-    v18[1] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+    v17[1] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
     [librarySpecificFetchOptions setSortDescriptors:v7];
 
     v8 = [MEMORY[0x277CD97B8] fetchAssetCollectionsWithLocalIdentifiers:self->_momentLocalIdentifiers options:librarySpecificFetchOptions];
@@ -47,9 +47,9 @@
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
       {
         momentLocalIdentifiers = self->_momentLocalIdentifiers;
-        v16 = 138412290;
-        v17 = momentLocalIdentifiers;
-        _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[Sharing Suggestion] No moments found for %@, photo library might be out-of-date", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = momentLocalIdentifiers;
+        _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[Sharing Suggestion] No moments found for %@, photo library might be out-of-date", &v15, 0xCu);
       }
     }
   }
@@ -57,24 +57,23 @@
   objc_sync_exit(v3);
 
   v13 = self->_moments;
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (PHFetchResult)assets
 {
-  v18[2] = *MEMORY[0x277D85DE8];
+  v17[2] = *MEMORY[0x277D85DE8];
   v3 = self->_assetLocalIdentifiers;
   objc_sync_enter(v3);
   if (!self->_assets && [(NSArray *)self->_assetLocalIdentifiers count])
   {
     librarySpecificFetchOptions = [(PHPhotoLibrary *)self->_photoLibrary librarySpecificFetchOptions];
     v5 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"creationDate" ascending:1];
-    v18[0] = v5;
+    v17[0] = v5;
     v6 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"uuid" ascending:1];
-    v18[1] = v6;
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:2];
+    v17[1] = v6;
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
     [librarySpecificFetchOptions setSortDescriptors:v7];
 
     [librarySpecificFetchOptions setIncludeGuestAssets:1];
@@ -90,9 +89,9 @@
       if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_INFO))
       {
         v12 = self->_assets;
-        v16 = 138412290;
-        v17 = v12;
-        _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[Sharing Suggestion] No assets found for %@, photo library might be out-of-date", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = v12;
+        _os_log_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_INFO, "[Sharing Suggestion] No assets found for %@, photo library might be out-of-date", &v15, 0xCu);
       }
     }
   }
@@ -100,46 +99,45 @@
   objc_sync_exit(v3);
 
   v13 = self->_assets;
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
 
 - (NSArray)momentNodes
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v3 = self->_momentLocalIdentifiers;
   objc_sync_enter(v3);
   if (!self->_momentNodes)
   {
     v4 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSArray count](self->_momentLocalIdentifiers, "count")}];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     v5 = self->_momentLocalIdentifiers;
-    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    v6 = [(NSArray *)v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
     if (v6)
     {
-      v7 = *v29;
+      v7 = *v28;
       do
       {
         v8 = 0;
         do
         {
-          if (*v29 != v7)
+          if (*v28 != v7)
           {
             objc_enumerationMutation(v5);
           }
 
-          v9 = [MEMORY[0x277CD97B8] uuidFromLocalIdentifier:{*(*(&v28 + 1) + 8 * v8), v28}];
+          v9 = [MEMORY[0x277CD97B8] uuidFromLocalIdentifier:{*(*(&v27 + 1) + 8 * v8), v27}];
           [v4 addObject:v9];
 
           ++v8;
         }
 
         while (v6 != v8);
-        v6 = [(NSArray *)v5 countByEnumeratingWithState:&v28 objects:v32 count:16];
+        v6 = [(NSArray *)v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
       }
 
       while (v6);
@@ -183,7 +181,7 @@
     v20 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"universalEndDate" ascending:1];
     *(&buf + 1) = v20;
     v21 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"UUID" ascending:1];
-    v34 = v21;
+    v33 = v21;
     v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&buf count:3];
 
     v23 = [v10 sortedArrayUsingDescriptors:v22];
@@ -194,18 +192,17 @@
   objc_sync_exit(v3);
 
   v25 = self->_momentNodes;
-  v26 = *MEMORY[0x277D85DE8];
 
   return v25;
 }
 
 - (PGSharingSuggestionInput)initWithMomentNodes:(id)nodes
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   nodesCopy = nodes;
-  v25.receiver = self;
-  v25.super_class = PGSharingSuggestionInput;
-  v5 = [(PGSharingSuggestionInput *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = PGSharingSuggestionInput;
+  v5 = [(PGSharingSuggestionInput *)&v24 init];
   if (v5)
   {
     v6 = [nodesCopy copy];
@@ -218,34 +215,34 @@
     v5->_graph = graph;
 
     v11 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(nodesCopy, "count")}];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v12 = nodesCopy;
-    v13 = [v12 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v22;
+      v15 = *v21;
       do
       {
         v16 = 0;
         do
         {
-          if (*v22 != v15)
+          if (*v21 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          localIdentifier = [*(*(&v21 + 1) + 8 * v16) localIdentifier];
+          localIdentifier = [*(*(&v20 + 1) + 8 * v16) localIdentifier];
           [(NSArray *)v11 addObject:localIdentifier];
 
           ++v16;
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v21 objects:v26 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
       }
 
       while (v14);
@@ -255,7 +252,6 @@
     v5->_momentLocalIdentifiers = v11;
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

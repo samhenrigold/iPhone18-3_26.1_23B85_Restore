@@ -75,31 +75,31 @@
 
 - (NSArray)deviceSwitchSpecifiers
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   deviceSwitchSpecifiers = self->_deviceSwitchSpecifiers;
   if (!deviceSwitchSpecifiers)
   {
-    v19 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v18 = objc_alloc_init(MEMORY[0x277CBEB18]);
     [MEMORY[0x277D6EDE8] cloudCallingDevices];
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    obj = v24 = 0u;
-    v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+    obj = v23 = 0u;
+    v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v22;
+      v6 = *v21;
       do
       {
         for (i = 0; i != v5; ++i)
         {
-          if (*v22 != v6)
+          if (*v21 != v6)
           {
             objc_enumerationMutation(obj);
           }
 
-          v8 = *(*(&v21 + 1) + 8 * i);
+          v8 = *(*(&v20 + 1) + 8 * i);
           if ([v8 supportsRestrictingSecondaryCalling])
           {
             v9 = MEMORY[0x277CCACA8];
@@ -111,24 +111,22 @@
             uniqueID = [v8 uniqueID];
             [v13 setIdentifier:uniqueID];
 
-            [v19 addObject:v13];
+            [v18 addObject:v13];
           }
         }
 
-        v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v5);
     }
 
-    v15 = [v19 copy];
+    v15 = [v18 copy];
     v16 = self->_deviceSwitchSpecifiers;
     self->_deviceSwitchSpecifiers = v15;
 
     deviceSwitchSpecifiers = self->_deviceSwitchSpecifiers;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return deviceSwitchSpecifiers;
 }
@@ -204,7 +202,7 @@
 
 - (void)cloudCallingDeviceController:(id)controller didChangeDevices:(id)devices
 {
-  v5 = TPSLog();
+  v5 = TPSLog(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;

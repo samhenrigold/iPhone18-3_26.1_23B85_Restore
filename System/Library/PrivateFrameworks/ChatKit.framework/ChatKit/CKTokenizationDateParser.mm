@@ -531,7 +531,7 @@ LABEL_14:
             {
               v47 = [CKSearchTokenFilter alloc];
               v27 = MEMORY[0x1E696AEC0];
-              v28 = CKFrameworkBundle();
+              v28 = CKFrameworkBundle(v47);
               v29 = [v28 localizedStringForKey:@"SEARCH_AFTER_DATE_TOKEN" value:&stru_1F04268F8 table:@"ChatKit"];
               v30 = [v27 stringWithFormat:v29, v23];
 
@@ -560,7 +560,7 @@ LABEL_14:
             {
               v36 = [CKSearchTokenFilter alloc];
               v37 = MEMORY[0x1E696AEC0];
-              v38 = CKFrameworkBundle();
+              v38 = CKFrameworkBundle(v36);
               v39 = [v38 localizedStringForKey:@"SEARCH_BEFORE_DATE_TOKEN" value:&stru_1F04268F8 table:@"ChatKit"];
               v40 = [v37 stringWithFormat:v39, v23];
 

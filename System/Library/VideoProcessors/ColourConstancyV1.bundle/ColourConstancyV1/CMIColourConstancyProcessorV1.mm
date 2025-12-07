@@ -108,7 +108,7 @@
 
   if (self->_allocatorSetupComplete)
   {
-    v4 = 0;
+    LODWORD(v4) = 0;
     goto LABEL_19;
   }
 
@@ -120,8 +120,8 @@
     v7 = v6;
     if (!v6)
     {
-      sub_18924(&v15);
-      v4 = v15;
+      sub_18924(&v22);
+      LODWORD(v4) = v22;
       goto LABEL_18;
     }
 
@@ -147,7 +147,7 @@
 
       if (v4)
       {
-        sub_188F8();
+        sub_188F8(v4, v13, v14, v15, v16, v17, v18, v19, v21, v22, v23[0], v23[1]);
         goto LABEL_18;
       }
 
@@ -176,31 +176,31 @@
           {
 
 LABEL_17:
-            v4 = 0;
+            LODWORD(v4) = 0;
             self->_allocatorSetupComplete = 1;
 LABEL_18:
 
             goto LABEL_19;
           }
 
-          sub_18798();
+          sub_18798(v4);
 LABEL_30:
 
           goto LABEL_18;
         }
       }
 
-      v4 = 0;
+      LODWORD(v4) = 0;
       goto LABEL_30;
     }
 
-    sub_188A8(&v14);
-    v4 = v14;
+    sub_188A8(&v21 + 1);
+    LODWORD(v4) = HIDWORD(v21);
     goto LABEL_30;
   }
 
-  sub_189CC(&v16);
-  v4 = v16;
+  sub_189CC(v23);
+  LODWORD(v4) = v23[0];
 LABEL_19:
   if (gGMFigKTraceEnabled == 1)
   {
@@ -212,155 +212,156 @@ LABEL_19:
 
 - (int)process
 {
+  selfCopy = self;
   if (gGMFigKTraceEnabled == 1)
   {
-    kdebug_trace();
+    self = kdebug_trace();
   }
 
-  if (!self->_allocatorSetupComplete)
+  if (!selfCopy->_allocatorSetupComplete)
   {
-    sub_18A1C();
-    v63 = 6;
+    sub_18A1C(self);
+    v57 = 6;
     goto LABEL_60;
   }
 
-  ambientPixelBuffer = self->_ambientPixelBuffer;
+  ambientPixelBuffer = selfCopy->_ambientPixelBuffer;
   if (!ambientPixelBuffer)
   {
     sub_197F8();
     goto LABEL_64;
   }
 
-  if (!self->_processorData.brackets[0].bracketMetadata)
+  if (!selfCopy->_processorData.brackets[0].bracketMetadata)
   {
     sub_19798();
     goto LABEL_64;
   }
 
-  if (!self->_processorData.brackets[0].lumaTexture)
+  if (!selfCopy->_processorData.brackets[0].lumaTexture)
   {
     sub_19738();
     goto LABEL_64;
   }
 
-  if (!self->_processorData.brackets[0].chromaTexture)
+  if (!selfCopy->_processorData.brackets[0].chromaTexture)
   {
     sub_196D8();
     goto LABEL_64;
   }
 
-  if (!self->_flashPixelBuffer)
+  if (!selfCopy->_flashPixelBuffer)
   {
     sub_19678();
     goto LABEL_64;
   }
 
-  if (!self->_processorData.brackets[1].bracketMetadata)
+  if (!selfCopy->_processorData.brackets[1].bracketMetadata)
   {
     sub_19618();
     goto LABEL_64;
   }
 
-  if (!self->_processorData.brackets[1].lumaTexture)
+  if (!selfCopy->_processorData.brackets[1].lumaTexture)
   {
     sub_195B8();
     goto LABEL_64;
   }
 
-  if (!self->_processorData.brackets[1].chromaTexture)
+  if (!selfCopy->_processorData.brackets[1].chromaTexture)
   {
     sub_19558();
     goto LABEL_64;
   }
 
-  if (!self->_outputImagePixelBuffer)
+  if (!selfCopy->_outputImagePixelBuffer)
   {
     sub_194F8();
     goto LABEL_64;
   }
 
-  if (!self->_outputColourAccuracyConfidenceImagePixelBuffer)
+  if (!selfCopy->_outputColourAccuracyConfidenceImagePixelBuffer)
   {
     sub_19498();
     goto LABEL_64;
   }
 
   PixelFormatType = CVPixelBufferGetPixelFormatType(ambientPixelBuffer);
-  if (PixelFormatType != CVPixelBufferGetPixelFormatType(self->_flashPixelBuffer))
+  if (PixelFormatType != CVPixelBufferGetPixelFormatType(selfCopy->_flashPixelBuffer))
   {
     sub_18A7C();
     goto LABEL_59;
   }
 
-  Width = CVPixelBufferGetWidth(self->_ambientPixelBuffer);
-  if (Width != CVPixelBufferGetWidth(self->_flashPixelBuffer))
+  Width = CVPixelBufferGetWidth(selfCopy->_ambientPixelBuffer);
+  if (Width != CVPixelBufferGetWidth(selfCopy->_flashPixelBuffer))
   {
     sub_18AE0();
     goto LABEL_64;
   }
 
-  Height = CVPixelBufferGetHeight(self->_ambientPixelBuffer);
-  if (Height != CVPixelBufferGetHeight(self->_flashPixelBuffer))
+  Height = CVPixelBufferGetHeight(selfCopy->_ambientPixelBuffer);
+  if (Height != CVPixelBufferGetHeight(selfCopy->_flashPixelBuffer))
   {
     sub_18B40();
     goto LABEL_64;
   }
 
-  v7 = CVPixelBufferGetWidth(self->_outputImagePixelBuffer);
-  if (v7 != CVPixelBufferGetWidth(self->_flashPixelBuffer))
+  v7 = CVPixelBufferGetWidth(selfCopy->_outputImagePixelBuffer);
+  if (v7 != CVPixelBufferGetWidth(selfCopy->_flashPixelBuffer))
   {
     sub_18BA0();
     goto LABEL_64;
   }
 
-  v8 = CVPixelBufferGetHeight(self->_outputImagePixelBuffer);
-  if (v8 != CVPixelBufferGetHeight(self->_flashPixelBuffer))
+  v8 = CVPixelBufferGetHeight(selfCopy->_outputImagePixelBuffer);
+  if (v8 != CVPixelBufferGetHeight(selfCopy->_flashPixelBuffer))
   {
     sub_18C00();
     goto LABEL_64;
   }
 
-  CVPixelBufferGetPixelFormatType(self->_outputImagePixelBuffer);
+  CVPixelBufferGetPixelFormatType(selfCopy->_outputImagePixelBuffer);
   if (FigCaptureUncompressedPixelFormatForPixelFormat() != 875704422)
   {
     sub_18C60();
     goto LABEL_64;
   }
 
-  CVPixelBufferGetPixelFormatType(self->_outputColourAccuracyConfidenceImagePixelBuffer);
+  CVPixelBufferGetPixelFormatType(selfCopy->_outputColourAccuracyConfidenceImagePixelBuffer);
   if (FigCaptureUncompressedPixelFormatForPixelFormat() != 1278226488)
   {
     sub_18CC4();
     goto LABEL_64;
   }
 
-  v9 = [(FigMetalContext *)self->_metalContext bindPixelBufferToMTL2DTexture:self->_outputImagePixelBuffer pixelFormat:10 usage:7 plane:0];
-  outputLumaTexture = self->_processorData.outputLumaTexture;
-  self->_processorData.outputLumaTexture = v9;
+  v9 = [(FigMetalContext *)selfCopy->_metalContext bindPixelBufferToMTL2DTexture:selfCopy->_outputImagePixelBuffer pixelFormat:10 usage:7 plane:0];
+  outputLumaTexture = selfCopy->_processorData.outputLumaTexture;
+  selfCopy->_processorData.outputLumaTexture = v9;
 
-  if (!self->_processorData.outputLumaTexture)
+  if (!selfCopy->_processorData.outputLumaTexture)
   {
     sub_19438();
 LABEL_97:
-    v63 = 4;
+    v57 = 4;
     goto LABEL_60;
   }
 
-  v11 = [(FigMetalContext *)self->_metalContext bindPixelBufferToMTL2DTexture:self->_outputImagePixelBuffer pixelFormat:30 usage:7 plane:1];
-  outputChromaTexture = self->_processorData.outputChromaTexture;
-  self->_processorData.outputChromaTexture = v11;
+  v11 = [(FigMetalContext *)selfCopy->_metalContext bindPixelBufferToMTL2DTexture:selfCopy->_outputImagePixelBuffer pixelFormat:30 usage:7 plane:1];
+  outputChromaTexture = selfCopy->_processorData.outputChromaTexture;
+  selfCopy->_processorData.outputChromaTexture = v11;
 
-  if (!self->_processorData.outputChromaTexture)
+  if (!selfCopy->_processorData.outputChromaTexture)
   {
     sub_193D8();
     goto LABEL_97;
   }
 
-  v13 = [(FigMetalContext *)self->_metalContext bindPixelBufferToMTL2DTexture:self->_outputColourAccuracyConfidenceImagePixelBuffer pixelFormat:10 usage:7 plane:0];
-  outputColourAccuracyConfidenceTexture = self->_processorData.outputColourAccuracyConfidenceTexture;
-  self->_processorData.outputColourAccuracyConfidenceTexture = v13;
+  v13 = [(FigMetalContext *)selfCopy->_metalContext bindPixelBufferToMTL2DTexture:selfCopy->_outputColourAccuracyConfidenceImagePixelBuffer pixelFormat:10 usage:7 plane:0];
+  outputColourAccuracyConfidenceTexture = selfCopy->_processorData.outputColourAccuracyConfidenceTexture;
+  selfCopy->_processorData.outputColourAccuracyConfidenceTexture = v13;
 
-  if (!self->_processorData.outputColourAccuracyConfidenceTexture)
+  if (!selfCopy->_processorData.outputColourAccuracyConfidenceTexture)
   {
     sub_19378();
     goto LABEL_97;
@@ -383,8 +384,8 @@ LABEL_97:
     }
   }
 
-  v15 = [(NSDictionary *)self->_processorData.brackets[1].bracketMetadata objectForKeyedSubscript:kFigCaptureSampleBufferMetadata_MinimumValidBufferRectForGDC];
-  v16 = [(NSDictionary *)self->_processorData.brackets[1].bracketMetadata objectForKeyedSubscript:kFigCaptureSampleBufferMetadata_FinalCropRect];
+  v15 = [(NSDictionary *)selfCopy->_processorData.brackets[1].bracketMetadata objectForKeyedSubscript:kFigCaptureSampleBufferMetadata_MinimumValidBufferRectForGDC];
+  v16 = [(NSDictionary *)selfCopy->_processorData.brackets[1].bracketMetadata objectForKeyedSubscript:kFigCaptureSampleBufferMetadata_FinalCropRect];
   v17 = v16;
   if (v15)
   {
@@ -404,9 +405,9 @@ LABEL_97:
 
   if (!v16)
   {
-    width = [(MTLTexture *)self->_processorData.brackets[1].lumaTexture width];
+    width = [(MTLTexture *)selfCopy->_processorData.brackets[1].lumaTexture width];
     v19 = 0;
-    height = [(MTLTexture *)self->_processorData.brackets[1].lumaTexture height];
+    height = [(MTLTexture *)selfCopy->_processorData.brackets[1].lumaTexture height];
     goto LABEL_38;
   }
 
@@ -419,18 +420,18 @@ LABEL_100:
     goto LABEL_101;
   }
 
-  v23 = [(NSDictionary *)self->_processorData.brackets[1].bracketMetadata objectForKeyedSubscript:kFigCaptureSampleBufferMetadata_StillImageProcessingMetadata];
+  v23 = [(NSDictionary *)selfCopy->_processorData.brackets[1].bracketMetadata objectForKeyedSubscript:kFigCaptureSampleBufferMetadata_StillImageProcessingMetadata];
   v24 = [v23 objectForKeyedSubscript:kFigCaptureStillImageProcessingMetadataKey_FinalAspectRatio];
   [v24 doubleValue];
 
-  [(MTLTexture *)self->_processorData.brackets[1].lumaTexture width];
-  [(MTLTexture *)self->_processorData.brackets[1].lumaTexture height];
+  [(MTLTexture *)selfCopy->_processorData.brackets[1].lumaTexture width];
+  [(MTLTexture *)selfCopy->_processorData.brackets[1].lumaTexture height];
   FigCaptureMetadataUtilitiesComputeDenormalizedStillImageCropRect();
-  v25 = v69.origin.x;
-  v26 = v69.origin.y;
-  v27 = v69.size.width;
-  v28 = v69.size.height;
-  if (CGRectIsNull(v69))
+  v25 = v63.origin.x;
+  v26 = v63.origin.y;
+  v27 = v63.size.width;
+  v28 = v63.size.height;
+  if (CGRectIsNull(v63))
   {
     sub_18E00();
     goto LABEL_100;
@@ -443,34 +444,34 @@ LABEL_100:
 LABEL_37:
   v19 = x | (y << 32);
 LABEL_38:
-  outputLinearRGBPixelBuffer = self->_outputLinearRGBPixelBuffer;
+  outputLinearRGBPixelBuffer = selfCopy->_outputLinearRGBPixelBuffer;
   if (!outputLinearRGBPixelBuffer)
   {
     goto LABEL_45;
   }
 
   v30 = CVPixelBufferGetWidth(outputLinearRGBPixelBuffer);
-  v31 = CVPixelBufferGetHeight(self->_outputLinearRGBPixelBuffer);
+  v31 = CVPixelBufferGetHeight(selfCopy->_outputLinearRGBPixelBuffer);
   if ((v30 != width || v31 != height) && (v30 != width / 2 || v31 != height / 2))
   {
     sub_18E60(v17, v15);
 LABEL_64:
-    v63 = 1;
+    v57 = 1;
     goto LABEL_60;
   }
 
-  CVPixelBufferGetPixelFormatType(self->_outputLinearRGBPixelBuffer);
+  CVPixelBufferGetPixelFormatType(selfCopy->_outputLinearRGBPixelBuffer);
   if (FigCaptureUncompressedPixelFormatForPixelFormat() != 1380410945)
   {
     sub_18ED8(v17, v15);
     goto LABEL_64;
   }
 
-  v32 = [(FigMetalContext *)self->_metalContext bindPixelBufferToMTL2DTexture:self->_outputLinearRGBPixelBuffer pixelFormat:125 usage:7 plane:0];
-  outputLinearRGBTexture = self->_processorData.outputLinearRGBTexture;
-  self->_processorData.outputLinearRGBTexture = v32;
+  v32 = [(FigMetalContext *)selfCopy->_metalContext bindPixelBufferToMTL2DTexture:selfCopy->_outputLinearRGBPixelBuffer pixelFormat:125 usage:7 plane:0];
+  outputLinearRGBTexture = selfCopy->_processorData.outputLinearRGBTexture;
+  selfCopy->_processorData.outputLinearRGBTexture = v32;
 
-  if (!self->_processorData.outputLinearRGBTexture)
+  if (!selfCopy->_processorData.outputLinearRGBTexture)
   {
     sub_18F54(v17, v15);
     goto LABEL_97;
@@ -479,136 +480,130 @@ LABEL_64:
 LABEL_45:
   if (v15)
   {
-    bracketMetadata = self->_processorData.brackets[1].bracketMetadata;
-    confidenceMapMetadata = self->_confidenceMapMetadata;
     FigCaptureMetadataUtilitiesCopyZoomRelatedMetadata();
-    [(MTLTexture *)self->_processorData.brackets[1].lumaTexture width];
-    [(MTLTexture *)self->_processorData.brackets[1].lumaTexture height];
-    CVPixelBufferGetWidth(self->_outputColourAccuracyConfidenceImagePixelBuffer);
-    CVPixelBufferGetHeight(self->_outputColourAccuracyConfidenceImagePixelBuffer);
-    v37 = self->_confidenceMapMetadata;
-    v38 = CGRectNull.origin.y;
-    v39 = CGRectNull.size.width;
-    v40 = CGRectNull.size.height;
+    [(MTLTexture *)selfCopy->_processorData.brackets[1].lumaTexture width];
+    [(MTLTexture *)selfCopy->_processorData.brackets[1].lumaTexture height];
+    CVPixelBufferGetWidth(selfCopy->_outputColourAccuracyConfidenceImagePixelBuffer);
+    CVPixelBufferGetHeight(selfCopy->_outputColourAccuracyConfidenceImagePixelBuffer);
     FigCaptureMetadataUtilitiesUpdateMetadataForStillImageCrop();
   }
 
   else
   {
-    v34 = self->_confidenceMapMetadata;
-    self->_confidenceMapMetadata = 0;
+    confidenceMapMetadata = selfCopy->_confidenceMapMetadata;
+    selfCopy->_confidenceMapMetadata = 0;
   }
 
-  v41 = [(NSDictionary *)self->_processorData.brackets[1].bracketMetadata objectForKeyedSubscript:kFigCaptureStreamMetadata_SensorCropRect];
-  if (!v41)
+  v35 = [(NSDictionary *)selfCopy->_processorData.brackets[1].bracketMetadata objectForKeyedSubscript:kFigCaptureStreamMetadata_SensorCropRect];
+  if (!v35)
   {
     sub_19300(v17, v15);
 LABEL_101:
-    v63 = 2;
+    v57 = 2;
     goto LABEL_60;
   }
 
-  v42 = v41;
-  memset(&v67, 0, sizeof(v67));
-  if (!CGRectMakeWithDictionaryRepresentation(v41, &v67))
+  v36 = v35;
+  memset(&v61, 0, sizeof(v61));
+  if (!CGRectMakeWithDictionaryRepresentation(v35, &v61))
   {
-    sub_18FCC(v42, v17, v15);
+    sub_18FCC(v36, v17, v15);
     goto LABEL_101;
   }
 
-  v66 = 0;
-  v43 = [(NSDictionary *)self->_processorData.brackets[1].bracketMetadata cmi_intValueForKey:kFigCaptureStreamMetadata_RawSensorWidth defaultValue:0 found:&v66];
-  if ((v66 & 1) == 0)
+  v60 = 0;
+  v37 = [(NSDictionary *)selfCopy->_processorData.brackets[1].bracketMetadata cmi_intValueForKey:kFigCaptureStreamMetadata_RawSensorWidth defaultValue:0 found:&v60];
+  if ((v60 & 1) == 0)
   {
-    sub_19054(v42, v17, v15);
+    sub_19054(v36, v17, v15);
     goto LABEL_101;
   }
 
-  v44 = v43;
-  v45 = [(NSDictionary *)self->_processorData.brackets[1].bracketMetadata cmi_intValueForKey:kFigCaptureStreamMetadata_RawSensorHeight defaultValue:0 found:&v66];
-  if ((v66 & 1) == 0)
+  v38 = v37;
+  v39 = [(NSDictionary *)selfCopy->_processorData.brackets[1].bracketMetadata cmi_intValueForKey:kFigCaptureStreamMetadata_RawSensorHeight defaultValue:0 found:&v60];
+  if ((v60 & 1) == 0)
   {
-    sub_190DC(v42, v17, v15);
+    sub_190DC(v36, v17, v15);
     goto LABEL_101;
   }
 
-  v46 = v45;
-  v47 = v44 - [(MTLTexture *)self->_processorData.brackets[1].lumaTexture width];
-  if (v47 < 0)
+  v40 = v39;
+  v41 = v38 - [(MTLTexture *)selfCopy->_processorData.brackets[1].lumaTexture width];
+  if (v41 < 0)
   {
-    sub_19278(v42, v17, v15);
+    sub_19278(v36, v17, v15);
 LABEL_92:
-    v63 = 2;
+    v57 = 2;
     goto LABEL_60;
   }
 
-  v65 = v15;
-  v48 = v17;
-  v49 = v46 - [(MTLTexture *)self->_processorData.brackets[1].lumaTexture height];
-  if (v49 < 0)
+  v59 = v15;
+  v42 = v17;
+  v43 = v40 - [(MTLTexture *)selfCopy->_processorData.brackets[1].lumaTexture height];
+  if (v43 < 0)
   {
-    sub_191F0(v42, v48, v65);
+    sub_191F0(v36, v42, v59);
     goto LABEL_92;
   }
 
-  if ([(NSDictionary *)self->_processorData.brackets[1].bracketMetadata cmi_intValueForKey:kFigCaptureStreamMetadata_QuadraBinningFactor defaultValue:0 found:0]== 1)
+  if ([(NSDictionary *)selfCopy->_processorData.brackets[1].bracketMetadata cmi_intValueForKey:kFigCaptureStreamMetadata_QuadraBinningFactor defaultValue:0 found:0]== 1)
   {
-    v50 = v67.origin.x + v19;
-    v51 = v67.origin.y + HIDWORD(v19);
-    v52 = 1;
-    v53 = vadd_s32(__PAIR64__(v46, v44), __PAIR64__(v46, v44));
+    v44 = v61.origin.x + v19;
+    v45 = v61.origin.y + HIDWORD(v19);
+    v46 = 1;
+    v47 = vadd_s32(__PAIR64__(v40, v38), __PAIR64__(v40, v38));
   }
 
   else
   {
-    v52 = 0;
-    v50 = v19 + (v47 >> 1);
-    v51 = HIDWORD(v19) + (v49 >> 1);
-    v53 = __PAIR64__(v46, v44);
+    v46 = 0;
+    v44 = v19 + (v41 >> 1);
+    v45 = HIDWORD(v19) + (v43 >> 1);
+    v47 = __PAIR64__(v40, v38);
   }
 
   *&rect.origin.x = __PAIR64__(height, width);
-  *&rect.origin.y = __PAIR64__(v51, v50);
-  LOBYTE(rect.size.width) = v52;
+  *&rect.origin.y = __PAIR64__(v45, v44);
+  LOBYTE(rect.size.width) = v46;
   *(&rect.size.width + 1) = 0;
   BYTE3(rect.size.width) = 0;
-  v54 = sub_14B9C(self, width | (height << 32), v19, &rect, *&v53);
-  if (!v54)
+  v48 = sub_14B9C(selfCopy, width | (height << 32), v19, &rect, *&v47);
+  if (!v48)
   {
-    [(NSMutableDictionary *)self->_outputImageMetadata setObject:&__kCFBooleanTrue forKeyedSubscript:kFigCaptureSampleBufferMetadata_ConstantColorApplied];
-    *&v55 = self->_outputCenterWeightedMeanColourAccuracyConfidenceLevel;
+    [(NSMutableDictionary *)selfCopy->_outputImageMetadata setObject:&__kCFBooleanTrue forKeyedSubscript:kFigCaptureSampleBufferMetadata_ConstantColorApplied];
+    *&v49 = selfCopy->_outputCenterWeightedMeanColourAccuracyConfidenceLevel;
+    v50 = [NSNumber numberWithFloat:v49];
+    [(NSMutableDictionary *)selfCopy->_outputImageMetadata setObject:v50 forKeyedSubscript:kFigCaptureSampleBufferMetadata_ConstantColorCenterWeightedMeanConfidenceLevel];
+
+    [(NSMutableDictionary *)selfCopy->_outputImageMetadata setObject:&off_357B0 forKeyedSubscript:kFigCaptureSampleBufferMetadata_ConstantColorAnalyticsVersion];
+    LODWORD(v51) = *selfCopy->_strobeWhitePoint;
+    v52 = [NSNumber numberWithFloat:v51];
+    [(NSMutableDictionary *)selfCopy->_outputImageMetadata setObject:v52 forKeyedSubscript:kFigCaptureSampleBufferMetadata_ConstantColorStrobeWhitePointRGain];
+
+    LODWORD(v53) = *&selfCopy->_strobeWhitePoint[4];
+    v54 = [NSNumber numberWithFloat:v53];
+    [(NSMutableDictionary *)selfCopy->_outputImageMetadata setObject:v54 forKeyedSubscript:kFigCaptureSampleBufferMetadata_ConstantColorStrobeWhitePointGGain];
+
+    LODWORD(v55) = *&selfCopy->_strobeWhitePoint[8];
     v56 = [NSNumber numberWithFloat:v55];
-    [(NSMutableDictionary *)self->_outputImageMetadata setObject:v56 forKeyedSubscript:kFigCaptureSampleBufferMetadata_ConstantColorCenterWeightedMeanConfidenceLevel];
+    [(NSMutableDictionary *)selfCopy->_outputImageMetadata setObject:v56 forKeyedSubscript:kFigCaptureSampleBufferMetadata_ConstantColorStrobeWhitePointBGain];
 
-    [(NSMutableDictionary *)self->_outputImageMetadata setObject:&off_357B0 forKeyedSubscript:kFigCaptureSampleBufferMetadata_ConstantColorAnalyticsVersion];
-    LODWORD(v57) = *self->_strobeWhitePoint;
-    v58 = [NSNumber numberWithFloat:v57];
-    [(NSMutableDictionary *)self->_outputImageMetadata setObject:v58 forKeyedSubscript:kFigCaptureSampleBufferMetadata_ConstantColorStrobeWhitePointRGain];
-
-    LODWORD(v59) = *&self->_strobeWhitePoint[4];
-    v60 = [NSNumber numberWithFloat:v59];
-    [(NSMutableDictionary *)self->_outputImageMetadata setObject:v60 forKeyedSubscript:kFigCaptureSampleBufferMetadata_ConstantColorStrobeWhitePointGGain];
-
-    LODWORD(v61) = *&self->_strobeWhitePoint[8];
-    v62 = [NSNumber numberWithFloat:v61];
-    [(NSMutableDictionary *)self->_outputImageMetadata setObject:v62 forKeyedSubscript:kFigCaptureSampleBufferMetadata_ConstantColorStrobeWhitePointBGain];
-
-    [(CMIColourConstancyCoreV1 *)self->_colourConstancyCoreProcessor figProcessorDebugDump];
+    [(CMIColourConstancyCoreV1 *)selfCopy->_colourConstancyCoreProcessor figProcessorDebugDump];
 LABEL_59:
-    v63 = 0;
+    v57 = 0;
     goto LABEL_60;
   }
 
-  v63 = v54;
-  sub_19164(v42, v48, v65);
+  v57 = v48;
+  sub_19164(v36, v42, v59);
 LABEL_60:
-  [(CMIColourConstancyCoreV1 *)self->_colourConstancyCoreProcessor purgeResources];
+  [(CMIColourConstancyCoreV1 *)selfCopy->_colourConstancyCoreProcessor purgeResources];
   if (gGMFigKTraceEnabled == 1)
   {
     kdebug_trace();
   }
 
-  return v63;
+  return v57;
 }
 
 - (int)purgeResources
@@ -618,7 +613,7 @@ LABEL_60:
 
   if (usedSizeAll)
   {
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", -1, v2, v9, v10, v11, v12, vars0, vars8);
   }
 
   else
@@ -886,13 +881,13 @@ LABEL_35:
 {
   if (gGMFigKTraceEnabled == 1)
   {
-    sub_98EC();
+    sub_98EC(822153733);
   }
 
   v3 = sub_14A0C(self);
   if (gGMFigKTraceEnabled == 1)
   {
-    sub_98EC();
+    sub_98EC(822153734);
   }
 
   return v3;

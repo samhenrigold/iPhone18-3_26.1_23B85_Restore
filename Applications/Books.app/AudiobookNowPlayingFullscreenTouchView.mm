@@ -11,7 +11,7 @@
 
 - (void)dealloc
 {
-  v3 = type metadata accessor for AudiobookNowPlayingFullscreenTouchView();
+  v3 = type metadata accessor for AudiobookNowPlayingFullscreenTouchView(0);
   v6[3] = v3;
   v6[0] = self;
   selfCopy = self;
@@ -31,7 +31,7 @@
   swift_unknownObjectRelease();
   sub_100397148(collection);
 
-  sub_1000074E0(&v8);
+  sub_1000074E0(v8);
 }
 
 - (void)layoutSubviews
@@ -63,7 +63,7 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_10039F4EC();
+  sub_10039F4EC(progress);
   swift_unknownObjectRelease();
 }
 

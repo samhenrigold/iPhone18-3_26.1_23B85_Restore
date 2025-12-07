@@ -23,15 +23,15 @@
 {
   forCopy = for;
   selfCopy = self;
-  v6 = sub_199B73ABC(forCopy);
-  sub_199A7A02C(0, &unk_1EAF75580);
-  v7 = sub_199B2B2CC(v6);
-  v9 = v8;
+  v7 = sub_199B73ABC(forCopy, v6);
+  sub_199A7A02C(0, &unk_1EAF75580, off_1E74DEC78);
+  v8 = sub_199B2B2CC(v7);
+  v10 = v9;
 
-  v10 = sub_199DF71DC();
-  sub_199A9EF34(v7, v9);
+  v11 = sub_199DF71DC();
+  sub_199A9EF34(v8, v10);
 
-  return v10;
+  return v11;
 }
 
 - (BOOL)isCleanStatePosterData:(id)data contact:(id)contact

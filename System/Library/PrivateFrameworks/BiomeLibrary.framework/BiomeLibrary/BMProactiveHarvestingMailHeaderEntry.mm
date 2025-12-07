@@ -68,26 +68,26 @@ LABEL_12:
 
 - (id)jsonDictionary
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v3 = [(BMProactiveHarvestingMailHeaderEntry *)self key];
   value = [(BMProactiveHarvestingMailHeaderEntry *)self value];
-  v10[0] = @"key";
+  v9[0] = @"key";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v10[1] = @"value";
-  v11[0] = null;
+  v9[1] = @"value";
+  v10[0] = null;
   null2 = value;
   if (!value)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (value)
   {
     if (v3)
@@ -106,14 +106,13 @@ LABEL_12:
   }
 
 LABEL_7:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
 
 - (BMProactiveHarvestingMailHeaderEntry)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"key"];
   if (v7 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
@@ -128,16 +127,16 @@ LABEL_7:
         goto LABEL_9;
       }
 
-      v14 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v15 = *MEMORY[0x1E698F240];
-      v23 = *MEMORY[0x1E696A578];
+      v13 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v14 = *MEMORY[0x1E698F240];
+      v22 = *MEMORY[0x1E696A578];
       v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"key"];
-      v24[0] = v10;
-      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
-      v16 = [v14 initWithDomain:v15 code:2 userInfo:v9];
+      v23[0] = v10;
+      v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v15 = [v13 initWithDomain:v14 code:2 userInfo:v9];
       v8 = 0;
       selfCopy = 0;
-      *error = v16;
+      *error = v15;
       goto LABEL_8;
     }
 
@@ -157,13 +156,13 @@ LABEL_7:
     {
       if (error)
       {
-        v17 = objc_alloc(MEMORY[0x1E696ABC0]);
-        v18 = *MEMORY[0x1E698F240];
-        v21 = *MEMORY[0x1E696A578];
-        v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"value"];
-        v22 = v19;
-        v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
-        *error = [v17 initWithDomain:v18 code:2 userInfo:v20];
+        v16 = objc_alloc(MEMORY[0x1E696ABC0]);
+        v17 = *MEMORY[0x1E698F240];
+        v20 = *MEMORY[0x1E696A578];
+        v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"value"];
+        v21 = v18;
+        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+        *error = [v16 initWithDomain:v17 code:2 userInfo:v19];
       }
 
       v10 = 0;
@@ -184,7 +183,6 @@ LABEL_7:
 LABEL_8:
 
 LABEL_9:
-  v12 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -352,28 +350,24 @@ LABEL_27:
 
 + (id)protoFields
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"key" number:1 type:13 subMessageClass:0];
-  v7[0] = v2;
+  v6[0] = v2;
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"value" number:2 type:13 subMessageClass:0];
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }
 
 + (id)columns
 {
-  v7[2] = *MEMORY[0x1E69E9840];
+  v6[2] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"key" dataType:2 requestOnly:0 fieldNumber:1 protoDataType:13 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"value" dataType:2 requestOnly:0 fieldNumber:2 protoDataType:13 convertedType:0];
-  v7[0] = v2;
-  v7[1] = v3;
-  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6[0] = v2;
+  v6[1] = v3;
+  v4 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:2];
 
   return v4;
 }

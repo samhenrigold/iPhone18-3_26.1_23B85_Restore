@@ -12,14 +12,14 @@
 
 - (id)newNativeViewController
 {
-  v3 = ISUIMobileStoreUIFramework();
+  v3 = ISUIMobileStoreUIFramework(self, a2);
   v4 = ISUIWeakLinkedClassForString(&cfstr_Suuiredeemview.isa, v3);
   [(SUScriptObject *)self lock];
   v5 = [[v4 alloc] initWithRedeemCategory:self->_category];
   [v5 setInitialCode:self->_initialCode];
-  [(SUScriptObject *)self unlock];
-  v6 = ISUIMobileStoreUIFramework();
-  [v5 setClientContext:{objc_msgSend(ISUIWeakLinkedClassForString(&cfstr_Suuiclientcont.isa, v6), "defaultContext")}];
+  unlock = [(SUScriptObject *)self unlock];
+  v8 = ISUIMobileStoreUIFramework(unlock, v7);
+  [v5 setClientContext:{objc_msgSend(ISUIWeakLinkedClassForString(&cfstr_Suuiclientcont.isa, v8), "defaultContext")}];
   return v5;
 }
 

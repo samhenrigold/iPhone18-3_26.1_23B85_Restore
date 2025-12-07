@@ -20,25 +20,23 @@
   if (v4)
   {
     v5 = v4;
-    v13 = 0;
+    v10 = 0;
     if (CFArrayGetCount(v4) >= 1)
     {
       v6 = 0;
       do
       {
         v7 = objc_autoreleasePoolPush();
-        ValueAtIndex = CFArrayGetValueAtIndex(v5, v6);
-        v9 = [IMSPIChat alloc];
-        v11 = objc_msgSend_initWithChatRecord_(v9, v10, ValueAtIndex);
-        if (v11)
+        v8 = [[IMSPIChat alloc] initWithChatRecord:CFArrayGetValueAtIndex(v5, v6)];
+        if (v8)
         {
-          blockCopy[2](blockCopy, v11, &v13);
+          blockCopy[2](blockCopy, v8, &v10);
         }
 
-        v12 = v13;
+        v9 = v10;
 
         objc_autoreleasePoolPop(v7);
-        if (v12 == 1)
+        if (v9 == 1)
         {
           break;
         }
@@ -55,71 +53,71 @@
 
 - (void)enumerateAllAttachmentsWithBlock:(id)block
 {
-  v56[1] = *MEMORY[0x1E69E9840];
+  v42[1] = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  v6 = objc_msgSend_chatIdentifier(self, v4, v5);
-  v56[0] = v6;
-  v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v7, v56, 1);
+  chatIdentifier = [(IMSPIChat *)self chatIdentifier];
+  v42[0] = chatIdentifier;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v42 count:1];
 
-  v11 = objc_msgSend_serviceName(self, v9, v10);
-  v55 = v11;
-  v13 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v12, &v55, 1);
+  serviceName = [(IMSPIChat *)self serviceName];
+  v41 = serviceName;
+  v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v41 count:1];
 
   if (qword_1EB2EA320 != -1)
   {
     sub_1A84E10B4();
   }
 
-  v14 = off_1EB2EA318(v8, v13);
-  if (v14)
+  v8 = off_1EB2EA318(v5, v7);
+  if (v8)
   {
-    v15 = v14;
-    v39 = v13;
-    v40 = v8;
-    v54 = 0;
-    if (CFArrayGetCount(v14) >= 1)
+    v9 = v8;
+    v25 = v7;
+    v26 = v5;
+    v40 = 0;
+    if (CFArrayGetCount(v8) >= 1)
     {
-      v16 = 0;
-      v41 = v15;
+      v10 = 0;
+      v27 = v9;
       while (1)
       {
-        v17 = objc_autoreleasePoolPush();
-        v18 = CFArrayGetValueAtIndex(v15, v16);
-        v20 = objc_msgSend_objectForKeyedSubscript_(v18, v19, @"guid");
-        if (objc_msgSend_length(v20, v21, v22))
+        v11 = objc_autoreleasePoolPush();
+        v12 = CFArrayGetValueAtIndex(v9, v10);
+        v13 = [v12 objectForKeyedSubscript:@"guid"];
+        if ([v13 length])
         {
-          v23 = IMDAttachmentRecordCopyAttachmentForGUID();
-          v52 = 0;
-          v53 = 0;
-          v50 = 0;
-          v51 = 0;
-          v49 = 0;
-          v48 = 0;
-          v47 = 0;
-          v45 = v17;
+          v14 = IMDAttachmentRecordCopyAttachmentForGUID();
+          v38 = 0;
+          v39 = 0;
+          v36 = 0;
+          v37 = 0;
+          v35 = 0;
+          v34 = 0;
+          v33 = 0;
+          v31 = v11;
           cf = 0;
-          v44 = v18;
+          v30 = v12;
           if (qword_1EB2EA330 != -1)
           {
             sub_1A84E10DC();
           }
 
-          v43 = v23;
-          off_1EB2EA328(v23, 0, &v52, 0, 0, &v53, &v50, 0, &v51, &v48, 0, 0, &v48 + 1, 0, &v49, 0, 0, 0, 0, 0, 0, &v47, &cf);
-          v25 = objc_msgSend_URLWithString_(MEMORY[0x1E695DFF8], v24, v53);
-          v26 = [IMSPIAttachment alloc];
-          v27 = v50;
-          v28 = v51;
-          v29 = HIBYTE(v48) != 0;
-          v30 = v48 != 0;
-          v31 = v49;
-          v34 = objc_msgSend___im_dateWithNanosecondTimeIntervalSinceReferenceDate_(MEMORY[0x1E695DF00], v32, v33, v52);
-          isOutgoing_attributionInfo_creationDate_adaptiveImageGlyphContentIdentifier_adaptiveImageGlyphContentDescription = objc_msgSend_initWithGuid_fileUrl_transferState_uti_isSticker_isOutgoing_attributionInfo_creationDate_adaptiveImageGlyphContentIdentifier_adaptiveImageGlyphContentDescription_(v26, v35, v20, v25, v28, v27, v29, v30, v31, v34, v47, cf);
+          v29 = v14;
+          off_1EB2EA328(v14, 0, &v38, 0, 0, &v39, &v36, 0, &v37, &v34, 0, 0, &v34 + 1, 0, &v35, 0, 0, 0, 0, 0, 0, &v33, &cf);
+          v15 = [MEMORY[0x1E695DFF8] URLWithString:v39];
+          v16 = [IMSPIAttachment alloc];
+          v17 = v36;
+          v18 = v37;
+          v19 = HIBYTE(v34) != 0;
+          v20 = v34 != 0;
+          v21 = v35;
+          v22 = [MEMORY[0x1E695DF00] __im_dateWithNanosecondTimeIntervalSinceReferenceDate:v38];
+          v23 = [(IMSPIAttachment *)v16 initWithGuid:v13 fileUrl:v15 transferState:v18 uti:v17 isSticker:v19 isOutgoing:v20 attributionInfo:v21 creationDate:v22 adaptiveImageGlyphContentIdentifier:v33 adaptiveImageGlyphContentDescription:cf];
 
-          if (v47)
+          if (v33)
           {
-            CFRelease(v47);
-            v47 = 0;
+            CFRelease(v33);
+            v33 = 0;
           }
 
           if (cf)
@@ -128,215 +126,211 @@
             cf = 0;
           }
 
-          v18 = v44;
-          if (v53)
+          v12 = v30;
+          if (v39)
           {
-            CFRelease(v53);
-            v53 = 0;
+            CFRelease(v39);
+            v39 = 0;
           }
 
-          if (v50)
+          if (v36)
           {
-            CFRelease(v50);
-            v50 = 0;
+            CFRelease(v36);
+            v36 = 0;
           }
 
-          if (v49)
+          if (v35)
           {
-            CFRelease(v49);
-            v49 = 0;
+            CFRelease(v35);
+            v35 = 0;
           }
 
-          CFRelease(v43);
-          blockCopy[2](blockCopy, isOutgoing_attributionInfo_creationDate_adaptiveImageGlyphContentIdentifier_adaptiveImageGlyphContentDescription, &v54);
-          v37 = v54;
+          CFRelease(v29);
+          blockCopy[2](blockCopy, v23, &v40);
+          v24 = v40;
 
-          v15 = v41;
-          v17 = v45;
-          if (v37)
+          v9 = v27;
+          v11 = v31;
+          if (v24)
           {
             break;
           }
         }
 
-        objc_autoreleasePoolPop(v17);
-        if (++v16 >= CFArrayGetCount(v15))
+        objc_autoreleasePoolPop(v11);
+        if (++v10 >= CFArrayGetCount(v9))
         {
           goto LABEL_23;
         }
       }
 
-      objc_autoreleasePoolPop(v45);
+      objc_autoreleasePoolPop(v31);
     }
 
 LABEL_23:
-    CFRelease(v15);
-    v13 = v39;
-    v8 = v40;
+    CFRelease(v9);
+    v7 = v25;
+    v5 = v26;
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateAllMessagesWithBlock:(id)block
 {
-  v48[1] = *MEMORY[0x1E69E9840];
+  v35[1] = *MEMORY[0x1E69E9840];
   blockCopy = block;
-  v7 = objc_msgSend_chatIdentifier(self, v5, v6);
-  v48[0] = v7;
-  v9 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v8, v48, 1);
+  chatIdentifier = [(IMSPIChat *)self chatIdentifier];
+  v35[0] = chatIdentifier;
+  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
 
-  v12 = objc_msgSend_serviceName(self, v10, v11);
-  v47 = v12;
-  v14 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v13, &v47, 1);
+  serviceName = [(IMSPIChat *)self serviceName];
+  v34 = serviceName;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
 
-  v15 = objc_alloc_init(MEMORY[0x1E695DEE0]);
-  v16 = IMDMessageRecordCopyMessagesWithChatIdentifiersOnServicesWithOnlyUnreadAndLimit();
-  if (v16)
+  v9 = objc_alloc_init(MEMORY[0x1E695DEE0]);
+  v10 = IMDMessageRecordCopyMessagesWithChatIdentifiersOnServicesWithOnlyUnreadAndLimit();
+  if (v10)
   {
-    v17 = v16;
-    if (CFArrayGetCount(v16) >= 1)
+    v11 = v10;
+    if (CFArrayGetCount(v10) >= 1)
     {
-      ValueAtIndex = CFArrayGetValueAtIndex(v17, 0);
-      v19 = _IMSPIMessageFromRecord(ValueAtIndex, 0, 0, v15, QOS_CLASS_DEFAULT);
-      if (v19)
+      ValueAtIndex = CFArrayGetValueAtIndex(v11, 0);
+      v13 = _IMSPIMessageFromRecord(ValueAtIndex, 0, 0, v9, QOS_CLASS_DEFAULT);
+      if (v13)
       {
-        v41 = v19;
-        v42 = v17;
-        v22 = objc_msgSend_guid(v19, v20, v21);
-        v23 = 0;
-        v46 = 0;
-        v43 = v14;
-        v44 = v9;
+        v28 = v13;
+        v29 = v11;
+        guid = [v13 guid];
+        v15 = 0;
+        v33 = 0;
+        v30 = v8;
+        v31 = v6;
         while (1)
         {
-          v24 = objc_autoreleasePoolPush();
-          v25 = IMDMessageRecordCopyMessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifier();
-          if (!v25)
+          v16 = objc_autoreleasePoolPush();
+          v17 = IMDMessageRecordCopyMessagesWithChatIdentifiersOnServicesBeforeAndAfterGUIDWithOptionalThreadIdentifier();
+          if (!v17)
           {
             goto LABEL_19;
           }
 
-          v26 = v25;
-          Count = CFArrayGetCount(v25);
-          if (CFArrayGetCount(v26) < 1)
+          v18 = v17;
+          Count = CFArrayGetCount(v17);
+          if (CFArrayGetCount(v18) < 1)
           {
             goto LABEL_18;
           }
 
-          v27 = 0;
+          v19 = 0;
           while (1)
           {
-            v28 = objc_autoreleasePoolPush();
-            v29 = CFArrayGetValueAtIndex(v26, v27);
-            v30 = _IMSPIMessageFromRecord(v29, 0, 0, v15, QOS_CLASS_DEFAULT);
-            v33 = v30;
-            if (!v30)
+            v20 = objc_autoreleasePoolPush();
+            v21 = CFArrayGetValueAtIndex(v18, v19);
+            v22 = _IMSPIMessageFromRecord(v21, 0, 0, v9, QOS_CLASS_DEFAULT);
+            v23 = v22;
+            if (!v22)
             {
               goto LABEL_13;
             }
 
-            v34 = objc_msgSend_text(v30, v31, v32);
-            if (v34)
+            text = [v22 text];
+            if (text)
             {
               break;
             }
 
-            v37 = objc_msgSend_attributedText(v33, v35, v36);
+            attributedText = [v23 attributedText];
 
-            if (v37)
+            if (attributedText)
             {
               goto LABEL_12;
             }
 
 LABEL_13:
-            if (!v27)
+            if (!v19)
             {
-              v38 = objc_msgSend_guid(v33, v31, v32);
+              guid2 = [v23 guid];
 
-              v22 = v38;
+              guid = guid2;
             }
 
-            objc_autoreleasePoolPop(v28);
-            if (++v27 >= CFArrayGetCount(v26))
+            objc_autoreleasePoolPop(v20);
+            if (++v19 >= CFArrayGetCount(v18))
             {
               goto LABEL_18;
             }
           }
 
 LABEL_12:
-          blockCopy[2](blockCopy, v33, &v46);
-          if ((v46 & 1) == 0)
+          blockCopy[2](blockCopy, v23, &v33);
+          if ((v33 & 1) == 0)
           {
             goto LABEL_13;
           }
 
-          objc_autoreleasePoolPop(v28);
+          objc_autoreleasePoolPop(v20);
 LABEL_18:
-          CFRelease(v26);
-          v14 = v43;
-          v9 = v44;
-          v23 = Count;
+          CFRelease(v18);
+          v8 = v30;
+          v6 = v31;
+          v15 = Count;
 LABEL_19:
-          v39 = v46;
-          objc_autoreleasePoolPop(v24);
-          if ((v39 & 1) != 0 || v23 <= 999)
+          v27 = v33;
+          objc_autoreleasePoolPop(v16);
+          if ((v27 & 1) != 0 || v15 <= 999)
           {
 
-            v17 = v42;
+            v11 = v29;
             break;
           }
         }
       }
     }
 
-    CFRelease(v17);
+    CFRelease(v11);
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (IMSPIChat)initWithChatRecord:(_IMDChatRecordStruct *)record
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v34.receiver = self;
-  v34.super_class = IMSPIChat;
-  v4 = [(IMSPIChat *)&v34 init];
+  v31 = *MEMORY[0x1E69E9840];
+  v26.receiver = self;
+  v26.super_class = IMSPIChat;
+  v4 = [(IMSPIChat *)&v26 init];
   if (!v4)
   {
 LABEL_14:
-    v20 = v4;
+    v13 = v4;
     goto LABEL_20;
   }
 
-  v32 = 0;
-  v33 = 0;
-  v30 = 0;
-  v31 = 0;
-  v28 = 0;
-  v29 = 0;
-  v26 = 0;
-  v27 = 0;
+  v24 = 0;
+  v25 = 0;
+  v22 = 0;
+  v23 = 0;
+  v20 = 0;
+  v21 = 0;
+  v18 = 0;
+  v19 = 0;
   if (qword_1EB2EA4D0 != -1)
   {
     sub_1A84E440C();
   }
 
-  off_1EB2EA4C8(record, &v29, 0, 0, 0, &v31, &v33, &v32, 0, &v30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, &v28, 0, 0, &v27, &v26);
+  off_1EB2EA4C8(record, &v21, 0, 0, 0, &v23, &v25, &v24, 0, &v22, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, &v20, 0, 0, &v19, &v18);
   serviceName = v4->_serviceName;
-  v4->_serviceName = v33;
+  v4->_serviceName = v25;
 
   guid = v4->_guid;
-  v4->_guid = v32;
+  v4->_guid = v24;
 
   chatIdentifier = v4->_chatIdentifier;
-  v4->_chatIdentifier = v31;
+  v4->_chatIdentifier = v23;
 
   displayName = v4->_displayName;
-  v4->_displayName = v30;
+  v4->_displayName = v22;
 
-  v4->_isGroup = v29 != 45;
-  v4->_isBlackholed = v28 != 0;
+  v4->_isGroup = v21 != 45;
+  v4->_isBlackholed = v20 != 0;
   if (v4->_guid && v4->_serviceName)
   {
     if (qword_1EB2EA4E0 != -1)
@@ -346,70 +340,66 @@ LABEL_14:
 
     v9 = off_1EB2EA4D8(record);
     v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    if (objc_msgSend_count(v9, v11, v12))
+    if ([v9 count])
     {
-      v14 = 0;
+      v11 = 0;
       do
       {
-        v15 = objc_msgSend_objectAtIndex_(v9, v13, v14);
-        v17 = sub_1A8262D14(v15);
-        if (v17)
+        v12 = sub_1A8262D14([v9 objectAtIndex:v11]);
+        if (v12)
         {
-          objc_msgSend_addObject_(v10, v16, v17);
+          [v10 addObject:v12];
         }
 
-        ++v14;
+        ++v11;
       }
 
-      while (v14 < objc_msgSend_count(v9, v18, v19));
+      while (v11 < [v9 count]);
     }
 
-    objc_msgSend_setHandles_(v4, v13, v10);
+    [(IMSPIChat *)v4 setHandles:v10];
 
     goto LABEL_14;
   }
 
   if (IMOSLoggingEnabled())
   {
-    v21 = OSLogHandleForIMFoundationCategory();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v14 = OSLogHandleForIMFoundationCategory();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v22 = v4->_guid;
-      v23 = v4->_serviceName;
+      v15 = v4->_guid;
+      v16 = v4->_serviceName;
       *buf = 138412546;
-      v36 = v22;
-      v37 = 2112;
-      v38 = v23;
-      _os_log_impl(&dword_1A823F000, v21, OS_LOG_TYPE_INFO, "Cannot initialize chat with record: guid: %@ service: %@.", buf, 0x16u);
+      v28 = v15;
+      v29 = 2112;
+      v30 = v16;
+      _os_log_impl(&dword_1A823F000, v14, OS_LOG_TYPE_INFO, "Cannot initialize chat with record: guid: %@ service: %@.", buf, 0x16u);
     }
   }
 
-  v20 = 0;
+  v13 = 0;
 LABEL_20:
 
-  v24 = *MEMORY[0x1E69E9840];
-  return v20;
+  return v13;
 }
 
 - (id)description
 {
-  v4 = MEMORY[0x1E696AEC0];
-  v5 = objc_msgSend_chatIdentifier(self, a2, v2);
-  v8 = objc_msgSend_guid(self, v6, v7);
-  v11 = objc_msgSend_serviceName(self, v9, v10);
-  v14 = objc_msgSend_displayName(self, v12, v13);
-  if (objc_msgSend_isGroup(self, v15, v16))
+  v3 = MEMORY[0x1E696AEC0];
+  chatIdentifier = [(IMSPIChat *)self chatIdentifier];
+  guid = [(IMSPIChat *)self guid];
+  serviceName = [(IMSPIChat *)self serviceName];
+  displayName = [(IMSPIChat *)self displayName];
+  isGroup = [(IMSPIChat *)self isGroup];
+  v9 = @"NO";
+  if (isGroup)
   {
-    objc_msgSend_stringWithFormat_(v4, v17, @"IMSPIChat: %p [ChatIdentifier: %@  guid: %@, serviceName: %@, displayName: %@, isGroup: %@]", self, v5, v8, v11, v14, @"YES");
+    v9 = @"YES";
   }
 
-  else
-  {
-    objc_msgSend_stringWithFormat_(v4, v17, @"IMSPIChat: %p [ChatIdentifier: %@  guid: %@, serviceName: %@, displayName: %@, isGroup: %@]", self, v5, v8, v11, v14, @"NO");
-  }
-  v18 = ;
+  v10 = [v3 stringWithFormat:@"IMSPIChat: %p [ChatIdentifier: %@  guid: %@, serviceName: %@, displayName: %@, isGroup: %@]", self, chatIdentifier, guid, serviceName, displayName, v9];
 
-  return v18;
+  return v10;
 }
 
 @end

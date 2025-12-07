@@ -40,7 +40,7 @@
   ptr = self->_quasarEuclid.__ptr_;
   if (neighborsCopy)
   {
-    [neighborsCopy ear_toString];
+    objc_msgSend_ear_toString(neighborsCopy);
   }
 
   else
@@ -104,11 +104,11 @@
   ptr = self->_quasarEuclid.__ptr_;
   if (sourceCopy)
   {
-    [sourceCopy ear_toString];
+    objc_msgSend_ear_toString(sourceCopy);
     if (v8)
     {
 LABEL_3:
-      [v8 ear_toString];
+      objc_msgSend_ear_toString(v8);
       goto LABEL_6;
     }
   }
@@ -152,7 +152,7 @@ LABEL_6:
     ptr = self->_quasarEuclid.__ptr_;
     if (embeddingCopy)
     {
-      [embeddingCopy ear_toString];
+      objc_msgSend_ear_toString(embeddingCopy);
     }
 
     else
@@ -264,7 +264,7 @@ LABEL_14:
 - (id)majorVersion
 {
   v2 = MEMORY[0x1E696AEC0];
-  quasar::QuasarEuclid::getAssetVersionInVector(self->_quasarEuclid.__ptr_, v5);
+  quasar::QuasarEuclid::getAssetVersionInVector(v5, self->_quasarEuclid.__ptr_);
   v3 = [v2 stringWithUTF8String:?];
   v6 = v5;
   std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v6);
@@ -275,7 +275,7 @@ LABEL_14:
 - (id)minorVersion
 {
   v2 = MEMORY[0x1E696AEC0];
-  quasar::QuasarEuclid::getAssetVersionInVector(self->_quasarEuclid.__ptr_, v6);
+  quasar::QuasarEuclid::getAssetVersionInVector(v6, self->_quasarEuclid.__ptr_);
   v3 = (v6[0] + 24);
   if (*(v6[0] + 47) < 0)
   {
@@ -292,7 +292,7 @@ LABEL_14:
 - (id)patchVersion
 {
   v2 = MEMORY[0x1E696AEC0];
-  quasar::QuasarEuclid::getAssetVersionInVector(self->_quasarEuclid.__ptr_, v6);
+  quasar::QuasarEuclid::getAssetVersionInVector(v6, self->_quasarEuclid.__ptr_);
   v3 = (v6[0] + 48);
   if (*(v6[0] + 71) < 0)
   {

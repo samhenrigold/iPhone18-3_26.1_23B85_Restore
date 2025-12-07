@@ -33,52 +33,50 @@
 
 - (id)executeRequest:(id)request completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
-  v8 = CNALoggingContextDebug();
+  v8 = CNALoggingContextDebug(handlerCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v29 = requestCopy;
+    v28 = requestCopy;
     _os_log_impl(&dword_2155FE000, v8, OS_LOG_TYPE_DEFAULT, "Executing request %p against recent contacts", buf, 0xCu);
   }
 
   library = [(CNAutocompleteRecentsSearch *)self library];
   v10 = [CNAutocompleteRecentContactsLibrary library:library recentContactsWithRequest:requestCopy];
 
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __64__CNAutocompleteRecentsSearch_executeRequest_completionHandler___block_invoke;
-  v26[3] = &unk_2781C51F8;
-  v26[4] = self;
-  v27 = requestCopy;
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __64__CNAutocompleteRecentsSearch_executeRequest_completionHandler___block_invoke;
+  v25[3] = &unk_2781C51F8;
+  v25[4] = self;
+  v26 = requestCopy;
   v11 = requestCopy;
-  v12 = [v10 flatMap:v26];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __64__CNAutocompleteRecentsSearch_executeRequest_completionHandler___block_invoke_2;
-  v24[3] = &unk_2781C4218;
+  v12 = [v10 flatMap:v25];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __64__CNAutocompleteRecentsSearch_executeRequest_completionHandler___block_invoke_2;
+  v23[3] = &unk_2781C4218;
   v13 = handlerCopy;
-  v25 = v13;
-  [v12 addSuccessBlock:v24];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __64__CNAutocompleteRecentsSearch_executeRequest_completionHandler___block_invoke_3;
-  v22[3] = &unk_2781C4240;
-  v23 = v13;
+  v24 = v13;
+  [v12 addSuccessBlock:v23];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __64__CNAutocompleteRecentsSearch_executeRequest_completionHandler___block_invoke_3;
+  v21[3] = &unk_2781C4240;
+  v22 = v13;
   v14 = v13;
-  [v12 addFailureBlock:v22];
+  [v12 addFailureBlock:v21];
   v15 = MEMORY[0x277CFBDC8];
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __64__CNAutocompleteRecentsSearch_executeRequest_completionHandler___block_invoke_4;
-  v20[3] = &unk_2781C3FB0;
-  v21 = v12;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __64__CNAutocompleteRecentsSearch_executeRequest_completionHandler___block_invoke_4;
+  v19[3] = &unk_2781C3FB0;
+  v20 = v12;
   v16 = v12;
-  v17 = [v15 tokenWithCancelationBlock:v20];
-
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = [v15 tokenWithCancelationBlock:v19];
 
   return v17;
 }

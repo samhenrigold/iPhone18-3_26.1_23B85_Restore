@@ -1,7 +1,605 @@
+uint64_t xmlSchemaAddSchemaDoc(uint64_t a1, unsigned int a2, const xmlChar *a3, xmlDoc *a4, const char *a5, int a6, uint64_t a7, const xmlChar *a8, xmlChar *a9, const xmlChar ***a10)
+{
+  v14 = a3;
+  if (a10)
+  {
+    *a10 = 0;
+  }
+
+  if (a2 > 1)
+  {
+    if (a2 == 2)
+    {
+      v17 = 3050;
+    }
+
+    else
+    {
+      v17 = 3081;
+    }
+  }
+
+  else
+  {
+    if (!a2)
+    {
+      goto LABEL_16;
+    }
+
+    v17 = 3082;
+  }
+
+  v18 = *(a1 + 48);
+  v19 = *(v18 + 24);
+  if (!v19)
+  {
+LABEL_17:
+    v22 = 0;
+    goto LABEL_18;
+  }
+
+  v20 = *(v19 + 2);
+  if (v20 < 1)
+  {
+LABEL_16:
+    v19 = 0;
+    goto LABEL_17;
+  }
+
+  if (a3)
+  {
+    v21 = *v19;
+    while (1)
+    {
+      v22 = *v21;
+      if (*(*v21 + 8) == a3)
+      {
+        break;
+      }
+
+      ++v21;
+      if (!--v20)
+      {
+        goto LABEL_15;
+      }
+    }
+
+    if (*(v18 + 32) == v22)
+    {
+      xmlSchemaCustomErr4(a1, v17, a7, 0, "The schema must not import/include/redefine itself", 0, 0, 0, 0);
+      goto LABEL_131;
+    }
+  }
+
+  else
+  {
+LABEL_15:
+    v22 = 0;
+  }
+
+  v44 = malloc_type_malloc(0x20uLL, 0x107004054400B9BuLL);
+  if (!v44)
+  {
+    v52 = "allocating schema relation";
+LABEL_95:
+    __xmlSimpleError(0x10u, 2, 0, 0, v52);
+    return 0xFFFFFFFFLL;
+  }
+
+  v19 = v44;
+  *v44 = 0u;
+  v44[1] = 0u;
+  v45 = *(*(a1 + 48) + 32);
+  v48 = *(v45 + 40);
+  v46 = (v45 + 40);
+  for (i = v48; i; i = *i)
+  {
+    v46 = i;
+  }
+
+  *v46 = v44;
+  *(v44 + 2) = a2;
+  if (a2 != 1)
+  {
+    if (!v22)
+    {
+      goto LABEL_18;
+    }
+
+    if (*(v22 + 56))
+    {
+      v73 = v44;
+      if (!v14)
+      {
+        v14 = "in_memory_buffer";
+      }
+
+      if (!xmlStrEqual(v14, *(v22 + 8)))
+      {
+        v51 = "The schema document '%s' cannot be included or redefined, since it was already imported";
+        goto LABEL_120;
+      }
+
+      v19 = v73;
+    }
+
+    if (*(v22 + 16) || *(v22 + 24) == a8)
+    {
+LABEL_93:
+      *(v19 + 3) = v22;
+      goto LABEL_131;
+    }
+
+    v62 = v19;
+    ChameleonSchemaBucket = xmlSchemaGetChameleonSchemaBucket(a1, v14, a8);
+    if (ChameleonSchemaBucket)
+    {
+      *(v62 + 3) = ChameleonSchemaBucket;
+      goto LABEL_131;
+    }
+
+    v22 = 0;
+    goto LABEL_141;
+  }
+
+  *(v44 + 2) = a9;
+  if (!v14)
+  {
+    goto LABEL_131;
+  }
+
+  if (v22)
+  {
+    if (!*(v22 + 56))
+    {
+      v49 = v44;
+      v50 = xmlStrEqual(v14, *(v22 + 8));
+      v19 = v49;
+      if (!v50)
+      {
+        v51 = "The schema document '%s' cannot be imported, since it was already included or redefined";
+LABEL_120:
+        xmlSchemaCustomErr4(a1, v17, a7, 0, v51, v14, 0, 0, 0);
+        goto LABEL_131;
+      }
+    }
+
+    goto LABEL_93;
+  }
+
+  v62 = v44;
+  SchemaBucketByTNS = xmlSchemaGetSchemaBucketByTNS(a1, a9);
+  v22 = SchemaBucketByTNS;
+  if (!SchemaBucketByTNS)
+  {
+LABEL_141:
+    v19 = v62;
+    goto LABEL_18;
+  }
+
+  *(v62 + 3) = SchemaBucketByTNS;
+  v64 = *(SchemaBucketByTNS + 8);
+  if (v64)
+  {
+    if (!xmlStrEqual(v14, v64))
+    {
+      xmlSchemaCustomWarning(a1, 0xC0Bu, a7, "Skipping import of schema located at '%s' for the namespace '%s', since this namespace was already imported with the schema located at '%s'", v14, a9, *(v22 + 8));
+    }
+
+    goto LABEL_131;
+  }
+
+  v19 = v62;
+  *(SchemaBucketByTNS + 8) = v14;
+  if (*(SchemaBucketByTNS + 32))
+  {
+    xmlSchemaInternalErr2(a1, "xmlSchemaAddSchemaDoc", "trying to load a schema doc, but a doc is already assigned to the schema bucket", 0);
+    return 0xFFFFFFFFLL;
+  }
+
+LABEL_18:
+  if (a4)
+  {
+    v72 = v19;
+    URL = a4->URL;
+    if (URL)
+    {
+      v14 = xmlDictLookup(*(a1 + 152), URL, -1);
+    }
+
+    else
+    {
+      v14 = "in_memory_buffer";
+    }
+
+    File = a4;
+    goto LABEL_31;
+  }
+
+  if (!(a5 | v14))
+  {
+    xmlSchemaPErr(a1, 0, 1758, "No information for parsing was provided with the given schema parser context.\n", 0, 0);
+    return 0xFFFFFFFFLL;
+  }
+
+  v72 = v19;
+  v24 = xmlNewParserCtxt();
+  if (!v24)
+  {
+    v52 = "xmlSchemaGetDoc, allocating a parser context";
+    goto LABEL_95;
+  }
+
+  v25 = v24;
+  if (*(a1 + 152))
+  {
+    dict = v24->dict;
+    if (dict)
+    {
+      xmlDictFree(dict);
+      v27 = *(a1 + 152);
+      v25->dict = v27;
+      xmlDictReference(v27);
+    }
+  }
+
+  if (v14)
+  {
+    File = xmlCtxtReadFile(v25, v14, 0, 2);
+    if (!File)
+    {
+LABEL_123:
+      LastError = xmlGetLastError();
+      if (LastError && LastError->domain == 8)
+      {
+        xmlFreeParserCtxt(v25);
+        if (v22)
+        {
+          *(v22 + 8) = v14;
+          *(v22 + 48) = 0;
+          goto LABEL_127;
+        }
+
+LABEL_131:
+        result = 0;
+        if (a10)
+        {
+          *a10 = v22;
+        }
+
+        return result;
+      }
+
+      xmlSchemaCustomErr4(a1, 0xBFBu, a7, 0, "Failed to parse the XML resource '%s'", v14, 0, 0, 0);
+      xmlFreeParserCtxt(v25);
+      return *(a1 + 32);
+    }
+  }
+
+  else
+  {
+    if (!a5)
+    {
+      v14 = 0;
+      goto LABEL_123;
+    }
+
+    Memory = xmlCtxtReadMemory(v25, a5, a6, 0, 0, 2);
+    if (!Memory)
+    {
+      v14 = "in_memory_buffer";
+      goto LABEL_123;
+    }
+
+    File = Memory;
+    v14 = "in_memory_buffer";
+    Memory->URL = xmlStrdup("in_memory_buffer");
+  }
+
+  xmlFreeParserCtxt(v25);
+LABEL_31:
+  RootElement = xmlDocGetRootElement(File);
+  if (!RootElement)
+  {
+    xmlSchemaCustomErr4(a1, 0x6DFu, a7, 0, "The document '%s' has no document element", v14, 0, 0, 0);
+    if (!a4)
+    {
+      goto LABEL_72;
+    }
+
+    return *(a1 + 32);
+  }
+
+  v30 = RootElement;
+  v31 = 0;
+  children = RootElement;
+  do
+  {
+LABEL_33:
+    v33 = children;
+    if (v31)
+    {
+      xmlUnlinkNode(v31);
+      xmlFreeNode(v31);
+    }
+
+    type = v33->type;
+    if (type != XML_ELEMENT_NODE && type != XML_CDATA_SECTION_NODE)
+    {
+      v31 = v33;
+      if (type != XML_TEXT_NODE)
+      {
+        goto LABEL_55;
+      }
+
+      content = v33->content;
+      if (!content)
+      {
+LABEL_47:
+        if (xmlNodeGetSpacePreserve(v33) == 1)
+        {
+          v31 = 0;
+        }
+
+        else
+        {
+          v31 = v33;
+        }
+
+        goto LABEL_50;
+      }
+
+      while (1)
+      {
+        v37 = *content;
+        if (v37 > 0x20)
+        {
+          break;
+        }
+
+        if (((1 << v37) & 0x100002600) == 0)
+        {
+          if (*content)
+          {
+            break;
+          }
+
+          goto LABEL_47;
+        }
+
+        ++content;
+      }
+    }
+
+    v31 = 0;
+LABEL_50:
+    children = v33->children;
+    if (!children)
+    {
+      break;
+    }
+
+    v38 = children->type;
+    v39 = v38 > 0x11;
+    v40 = (1 << v38) & 0x20060;
+  }
+
+  while (v39 || v40 == 0);
+  do
+  {
+LABEL_55:
+    children = v33->next;
+    if (children)
+    {
+      goto LABEL_33;
+    }
+
+    v33 = v33->parent;
+    if (v33)
+    {
+      v42 = v33 == v30;
+    }
+
+    else
+    {
+      v42 = 1;
+    }
+  }
+
+  while (!v42);
+  if (v31)
+  {
+    xmlUnlinkNode(v31);
+    xmlFreeNode(v31);
+  }
+
+  if (!v30->ns || !xmlStrEqual(v30->name, "schema") || !xmlStrEqual(v30->ns->href, "http://www.w3.org/2001/XMLSchema"))
+  {
+    xmlSchemaCustomErr4(a1, 0x6ECu, a7, 0, "The XML document '%s' is not a schema document", v14, 0, 0, 0);
+    if (!a4)
+    {
+LABEL_72:
+      xmlFreeDoc(File);
+      if (v22)
+      {
+        *(v22 + 32) = 0;
+      }
+    }
+
+    return *(a1 + 32);
+  }
+
+  Prop = xmlSchemaGetProp(a1, v30, "targetNamespace");
+  if (v22)
+  {
+LABEL_67:
+    *(v22 + 48) = 1;
+    *(v22 + 24) = Prop;
+    *(v22 + 32) = File;
+    *(v22 + 8) = v14;
+    *(v22 + 16) = Prop;
+    if (a4)
+    {
+      *(v22 + 60) = 1;
+    }
+
+LABEL_127:
+    if (a2 <= 1)
+    {
+      ++*(v22 + 56);
+    }
+
+    if (v72)
+    {
+      *(v72 + 3) = v22;
+    }
+
+    goto LABEL_131;
+  }
+
+  v55 = **(a1 + 48);
+  if (!v55)
+  {
+    xmlSchemaInternalErr2(a1, "xmlSchemaBucketCreate", "no main schema on constructor", 0);
+    goto LABEL_161;
+  }
+
+  v56 = malloc_type_malloc(0x58uLL, 0x10700403F790832uLL);
+  if (!v56)
+  {
+    __xmlSimpleError(0x10u, 2, 0, 0, "allocating schema bucket");
+    goto LABEL_161;
+  }
+
+  v22 = v56;
+  *(v56 + 20) = 0u;
+  *(v56 + 21) = 0;
+  *(v56 + 68) = 0u;
+  *(v56 + 52) = 0u;
+  *(v56 + 36) = 0u;
+  *(v56 + 4) = 0u;
+  *(v56 + 3) = Prop;
+  *v56 = a2;
+  v57 = xmlSchemaItemListCreate();
+  *(v22 + 64) = v57;
+  if (!v57 || (v58 = xmlSchemaItemListCreate(), (*(v22 + 72) = v58) == 0))
+  {
+    free(v22);
+    goto LABEL_161;
+  }
+
+  v59 = *(a1 + 48);
+  v60 = v59[3];
+  if (!v60 || *(v60 + 8) <= 0)
+  {
+    if ((a2 & 0xFFFFFFFE) == 2)
+    {
+      v61 = "first bucket but it's an include or redefine";
+LABEL_159:
+      xmlSchemaInternalErr2(a1, "xmlSchemaBucketCreate", v61, 0);
+      goto LABEL_160;
+    }
+
+    *v22 = 0;
+    v59[1] = v22;
+    *(v22 + 80) = v55;
+    v55[1] = Prop;
+    if (a2 > 1)
+    {
+      goto LABEL_145;
+    }
+
+LABEL_152:
+    v70 = v55[12];
+    if (!v70)
+    {
+      v70 = xmlHashCreateDict(5, *(*(a1 + 48) + 16));
+      v55[12] = v70;
+      if (!v70)
+      {
+        goto LABEL_160;
+      }
+    }
+
+    if (Prop)
+    {
+      v71 = Prop;
+    }
+
+    else
+    {
+      v71 = "##";
+    }
+
+    if (!xmlHashAddEntry(v70, v71, v22))
+    {
+      goto LABEL_163;
+    }
+
+    v61 = "failed to add the schema bucket to the hash";
+    goto LABEL_159;
+  }
+
+  if (a2 == 1)
+  {
+    v69 = xmlSchemaNewSchema(a1);
+    *(v22 + 80) = v69;
+    if (!v69)
+    {
+LABEL_160:
+      xmlSchemaBucketFree(v22);
+      goto LABEL_161;
+    }
+
+    *(v69 + 1) = Prop;
+    goto LABEL_152;
+  }
+
+  if (!a2)
+  {
+    v61 = "main bucket but it's not the first one";
+    goto LABEL_159;
+  }
+
+LABEL_145:
+  v67 = v59[4];
+  if (*v67 >= 2u)
+  {
+    v67 = *(v67 + 80);
+  }
+
+  *(v22 + 80) = v67;
+  v68 = v55[16];
+  if (!v68)
+  {
+    v68 = xmlSchemaItemListCreate();
+    v55[16] = v68;
+    if (!v68)
+    {
+      goto LABEL_160;
+    }
+  }
+
+  xmlSchemaItemListAddSize(v68, 20, v22);
+LABEL_163:
+  if (xmlSchemaItemListAddSize(*(*(a1 + 48) + 24), 20, v22) != -1)
+  {
+    goto LABEL_67;
+  }
+
+LABEL_161:
+  if (!a4)
+  {
+    xmlFreeDoc(File);
+  }
+
+  return 0xFFFFFFFFLL;
+}
+
 uint64_t xmlSchemaParseNewDocWithContext(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v6 = *(a1 + 48);
-  v88 = *(v6 + 32);
+  v84 = *(v6 + 32);
   v7 = (a2 + 48);
   v8 = *(a2 + 48);
   if ((v8 & 0x1FF) != 0)
@@ -156,13 +754,13 @@ LABEL_13:
     {
       if (!children->ns || (!xmlStrEqual(children->name, v36) || !xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema")) && (!children->ns || (!xmlStrEqual(children->name, v37) || !xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema")) && (!children->ns || (!xmlStrEqual(children->name, "redefine") || !xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema")) && (!children->ns || !xmlStrEqual(children->name, "annotation") || !xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema")))))
       {
-LABEL_114:
+LABEL_113:
         if (children->ns)
         {
           if (xmlStrEqual(children->name, "complexType") && xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema"))
           {
             xmlSchemaParseComplexType(a1, a2, children, 1);
-            goto LABEL_158;
+            goto LABEL_157;
           }
 
           if (children->ns)
@@ -170,7 +768,7 @@ LABEL_114:
             if (xmlStrEqual(children->name, "simpleType") && xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema"))
             {
               xmlSchemaParseSimpleType(a1, a2, children, 1);
-              goto LABEL_158;
+              goto LABEL_157;
             }
 
             if (children->ns)
@@ -178,65 +776,65 @@ LABEL_114:
               if (xmlStrEqual(children->name, "element") && xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema"))
               {
                 xmlSchemaParseElement(a1, a2, children, 0, 1);
-                goto LABEL_158;
+                goto LABEL_157;
               }
 
               if (children->ns)
               {
                 if (xmlStrEqual(children->name, "attribute") && xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema"))
                 {
-                  v63 = xmlSchemaGetPropNode(children, "name");
-                  if (!v63)
+                  v59 = xmlSchemaGetPropNode(children, "name");
+                  if (!v59)
                   {
                     xmlSchemaPMissingAttrErr(a1, children, "name");
-                    goto LABEL_158;
+                    goto LABEL_157;
                   }
 
-                  v64 = v63;
+                  v60 = v59;
                   str2 = 0;
-                  v65 = xmlSchemaGetBuiltInType(XML_SCHEMAS_NCNAME);
-                  if (xmlSchemaPValAttrNode(a1, v64, v65, &str2))
+                  v61 = xmlSchemaGetBuiltInType(XML_SCHEMAS_NCNAME);
+                  if (xmlSchemaPValAttrNode(a1, v60, v61, &str2))
                   {
-                    goto LABEL_158;
+                    goto LABEL_157;
                   }
 
                   if (xmlStrEqual(str2, "xmlns"))
                   {
-                    v66 = xmlSchemaGetBuiltInType(XML_SCHEMAS_NCNAME);
-                    xmlSchemaPSimpleTypeErr(a1, 3056, v64, v66, 0, 0, "The value of the attribute must not match 'xmlns'", 0);
-                    goto LABEL_158;
+                    v62 = xmlSchemaGetBuiltInType(XML_SCHEMAS_NCNAME);
+                    xmlSchemaPSimpleTypeErr(a1, 3056, v60, v62, 0, 0, "The value of the attribute must not match 'xmlns'", 0);
+                    goto LABEL_157;
                   }
 
                   if (xmlStrEqual(*(a1 + 200), "http://www.w3.org/2001/XMLSchema-instance"))
                   {
-                    xmlSchemaCustomErr4(a1, 3057, children, 0, "The target namespace must not match '%s'", "http://www.w3.org/2001/XMLSchema-instance", 0, 0, 0);
+                    xmlSchemaCustomErr4(a1, 0xBF1u, children, 0, "The target namespace must not match '%s'", "http://www.w3.org/2001/XMLSchema-instance", 0, 0, 0);
                   }
 
-                  v79 = xmlSchemaAddAttribute(a1, str2, *(a1 + 200), children, 1);
-                  if (!v79)
+                  v75 = xmlSchemaAddAttribute(a1, str2, *(a1 + 200), children, 1);
+                  if (!v75)
                   {
-                    goto LABEL_158;
+                    goto LABEL_157;
                   }
 
-                  v80 = v79;
-                  v79[30] |= 1u;
+                  v76 = v75;
+                  v75[30] |= 1u;
                   properties = children->properties;
                   if (properties)
                   {
                     while (2)
                     {
-                      v82 = *(properties + 72);
-                      if (v82)
+                      v78 = *(properties + 72);
+                      if (v78)
                       {
-                        if (xmlStrEqual(*(v82 + 16), "http://www.w3.org/2001/XMLSchema"))
+                        if (xmlStrEqual(*(v78 + 16), "http://www.w3.org/2001/XMLSchema"))
                         {
-                          goto LABEL_171;
+                          goto LABEL_170;
                         }
                       }
 
                       else if (!xmlStrEqual(*(properties + 16), "id") && !xmlStrEqual(*(properties + 16), "default") && !xmlStrEqual(*(properties + 16), "fixed") && !xmlStrEqual(*(properties + 16), "name") && !xmlStrEqual(*(properties + 16), "type"))
                       {
-LABEL_171:
+LABEL_170:
                         xmlSchemaPIllegalAttrErr(a1, properties);
                       }
 
@@ -250,83 +848,83 @@ LABEL_171:
                     }
                   }
 
-                  xmlSchemaPValAttrQName(a1, a2, children, "type", (v80 + 56), (v80 + 48));
-                  v83 = xmlSchemaGetPropNode(children, "id");
-                  if (v83)
+                  xmlSchemaPValAttrQName(a1, a2, children, "type", (v76 + 56), (v76 + 48));
+                  v79 = xmlSchemaGetPropNode(children, "id");
+                  if (v79)
                   {
-                    xmlSchemaPValAttrNodeID(a1, v83);
+                    xmlSchemaPValAttrNodeID(a1, v79);
                   }
 
                   Prop = xmlSchemaGetProp(a1, children, "fixed");
-                  *(v80 + 88) = Prop;
+                  *(v76 + 88) = Prop;
                   if (Prop)
                   {
-                    *(v80 + 120) |= 0x200u;
+                    *(v76 + 120) |= 0x200u;
                   }
 
-                  v85 = xmlSchemaGetPropNode(children, "default");
-                  if (v85)
+                  v81 = xmlSchemaGetPropNode(children, "default");
+                  if (v81)
                   {
-                    if ((*(v80 + 121) & 2) != 0)
+                    if ((*(v76 + 121) & 2) != 0)
                     {
-                      xmlSchemaPMutualExclAttrErr(a1, 3051, v80, v85);
+                      xmlSchemaPMutualExclAttrErr(a1, 3051, v76, v81);
                     }
 
                     else
                     {
-                      *(v80 + 88) = xmlSchemaGetNodeContent(a1, v85);
+                      *(v76 + 88) = xmlSchemaGetNodeContent(a1, v81);
                     }
                   }
 
-                  v73 = children->children;
-                  if (!v73)
+                  v69 = children->children;
+                  if (!v69)
                   {
-                    goto LABEL_158;
+                    goto LABEL_157;
                   }
 
-                  if (v73->ns)
+                  if (v69->ns)
                   {
-                    if (xmlStrEqual(v73->name, "annotation"))
+                    if (xmlStrEqual(v69->name, "annotation"))
                     {
-                      if (xmlStrEqual(v73->ns->href, "http://www.w3.org/2001/XMLSchema"))
+                      if (xmlStrEqual(v69->ns->href, "http://www.w3.org/2001/XMLSchema"))
                       {
-                        *(v80 + 64) = xmlSchemaParseAnnotation(a1, v73, 1);
-                        v73 = v73->next;
-                        if (!v73)
+                        *(v76 + 64) = xmlSchemaParseAnnotation(a1, v69, 1);
+                        v69 = v69->next;
+                        if (!v69)
                         {
-                          goto LABEL_158;
+                          goto LABEL_157;
                         }
                       }
                     }
                   }
 
-                  if (v73->ns && xmlStrEqual(v73->name, "simpleType") && xmlStrEqual(v73->ns->href, "http://www.w3.org/2001/XMLSchema"))
+                  if (v69->ns && xmlStrEqual(v69->name, "simpleType") && xmlStrEqual(v69->ns->href, "http://www.w3.org/2001/XMLSchema"))
                   {
-                    if (*(v80 + 48))
+                    if (*(v76 + 48))
                     {
-                      xmlSchemaPContentErr(a1, 3055, children, v73, "The attribute 'type' and the <simpleType> child are mutually exclusive", 0);
+                      xmlSchemaPContentErr(a1, 3055, children, v69, "The attribute 'type' and the <simpleType> child are mutually exclusive", 0);
                     }
 
                     else
                     {
-                      *(v80 + 96) = xmlSchemaParseSimpleType(a1, a2, v73, 0);
+                      *(v76 + 96) = xmlSchemaParseSimpleType(a1, a2, v69, 0);
                     }
 
-                    v73 = v73->next;
-                    if (!v73)
+                    v69 = v69->next;
+                    if (!v69)
                     {
-                      goto LABEL_158;
+                      goto LABEL_157;
                     }
                   }
 
-                  v75 = "(annotation?, simpleType?)";
-LABEL_203:
-                  v76 = a1;
+                  v71 = "(annotation?, simpleType?)";
+LABEL_202:
+                  v72 = a1;
                   parent = children;
-                  v77 = v73;
-LABEL_157:
-                  xmlSchemaPContentErr(v76, 3033, parent, v77, 0, v75);
-                  goto LABEL_158;
+                  v73 = v69;
+LABEL_156:
+                  xmlSchemaPContentErr(v72, 3033, parent, v73, 0, v71);
+                  goto LABEL_157;
                 }
 
                 if (children->ns)
@@ -334,7 +932,7 @@ LABEL_157:
                   if (xmlStrEqual(children->name, "attributeGroup") && xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema"))
                   {
                     xmlSchemaParseAttributeGroupDefinition(a1, a2, children);
-                    goto LABEL_158;
+                    goto LABEL_157;
                   }
 
                   if (children->ns)
@@ -342,82 +940,82 @@ LABEL_157:
                     if (xmlStrEqual(children->name, "group") && xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema"))
                     {
                       xmlSchemaParseModelGroupDefinition(a1, a2, children);
-                      goto LABEL_158;
+                      goto LABEL_157;
                     }
 
                     if (children->ns && xmlStrEqual(children->name, "notation") && xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema"))
                     {
-                      v67 = xmlSchemaGetProp(a1, children, "name");
-                      if (!v67)
+                      v63 = xmlSchemaGetProp(a1, children, "name");
+                      if (!v63)
                       {
                         xmlSchemaPErr(a1, children, 1723, "Notation has no name\n", 0, 0);
-                        goto LABEL_158;
+                        goto LABEL_157;
                       }
 
-                      v68 = v67;
-                      v69 = *(a1 + 200);
-                      v70 = malloc_type_malloc(0x28uLL, 0x1070040B7007A56uLL);
-                      if (!v70)
+                      v64 = v63;
+                      v65 = *(a1 + 200);
+                      v66 = malloc_type_malloc(0x28uLL, 0x1070040B7007A56uLL);
+                      if (!v66)
                       {
                         ++*(a1 + 36);
                         __xmlSimpleError(0x10u, 2, 0, 0, "add annotation");
-                        goto LABEL_158;
+                        goto LABEL_157;
                       }
 
-                      v71 = v70;
-                      *(v70 + 12) = 0;
-                      *(v70 + 4) = 0;
-                      *(v70 + 7) = 0;
-                      *(v70 + 20) = 0;
-                      *v70 = 18;
-                      v70[1] = v68;
-                      v70[4] = v69;
-                      if ((xmlSchemaAddItemSize((*(*(a1 + 48) + 32) + 64), 5, v70) & 0x80000000) != 0)
+                      v67 = v66;
+                      *(v66 + 12) = 0;
+                      *(v66 + 4) = 0;
+                      *(v66 + 7) = 0;
+                      *(v66 + 20) = 0;
+                      *v66 = 18;
+                      v66[1] = v64;
+                      v66[4] = v65;
+                      if ((xmlSchemaAddItemSize((*(*(a1 + 48) + 32) + 64), 5, v66) & 0x80000000) != 0)
                       {
                         ++*(a1 + 36);
                         __xmlSimpleError(0x10u, 2, 0, 0, 0);
-                        free(v71);
-                        goto LABEL_158;
+                        free(v67);
+                        goto LABEL_157;
                       }
 
-                      v72 = xmlSchemaGetPropNode(children, "id");
-                      if (v72)
+                      v68 = xmlSchemaGetPropNode(children, "id");
+                      if (v68)
                       {
-                        xmlSchemaPValAttrNodeID(a1, v72);
+                        xmlSchemaPValAttrNodeID(a1, v68);
                       }
 
-                      v73 = children->children;
-                      if (!v73 || v73->ns && xmlStrEqual(v73->name, "annotation") && xmlStrEqual(v73->ns->href, "http://www.w3.org/2001/XMLSchema") && (v71[2] = xmlSchemaParseAnnotation(a1, v73, 1), (v73 = v73->next) == 0))
+                      v69 = children->children;
+                      if (!v69 || v69->ns && xmlStrEqual(v69->name, "annotation") && xmlStrEqual(v69->ns->href, "http://www.w3.org/2001/XMLSchema") && (v67[2] = xmlSchemaParseAnnotation(a1, v69, 1), (v69 = v69->next) == 0))
                       {
-LABEL_158:
+LABEL_157:
                         while (1)
                         {
                           children = children->next;
                           if (!children)
                           {
-                            goto LABEL_209;
+                            goto LABEL_208;
                           }
 
                           if (!children->ns || !xmlStrEqual(children->name, "annotation") || !xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema"))
                           {
-                            goto LABEL_114;
+                            goto LABEL_113;
                           }
 
-                          v78 = xmlSchemaParseAnnotation(a1, children, 1);
+                          v74 = xmlSchemaParseAnnotation(a1, children, 1);
                           if (*(a2 + 40))
                           {
-                            xmlSchemaFreeAnnot(v78);
+                            xmlSchemaFreeAnnot(v74);
                           }
 
                           else
                           {
-                            *(a2 + 40) = v78;
+                            *(a2 + 40) = v74;
                           }
                         }
                       }
 
-                      v75 = "(annotation?)";
-                      goto LABEL_203;
+                      v71 = "(annotation?)";
+                      goto LABEL_202;
                     }
                   }
                 }
@@ -427,10 +1025,10 @@ LABEL_158:
         }
 
         parent = children->parent;
-        v75 = "((include | import | redefine | annotation)*, (((simpleType | complexType | group | attributeGroup) | element | attribute | notation), annotation*)*)";
-        v76 = a1;
-        v77 = children;
-        goto LABEL_157;
+        v71 = "((include | import | redefine | annotation)*, (((simpleType | complexType | group | attributeGroup) | element | attribute | notation), annotation*)*)";
+        v72 = a1;
+        v73 = children;
+        goto LABEL_156;
       }
 
       if (children->ns)
@@ -455,10 +1053,10 @@ LABEL_158:
         {
           if (xmlStrEqual(children->name, v37) && xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema"))
           {
-            v86 = *(a1 + 36);
-            *v90 = 0;
+            v82 = *(a1 + 36);
+            *v86 = 0;
             str2 = 0;
-            v89 = 0;
+            v85 = 0;
             v39 = children->properties;
             if (v39)
             {
@@ -503,21 +1101,15 @@ LABEL_64:
               goto LABEL_83;
             }
 
-            if (xmlSchemaPValAttr(a1, children, "schemaLocation", v43, v90))
+            if (xmlSchemaPValAttr(a1, children, "schemaLocation", v43, v86))
             {
               v43 = xmlSchemaGetBuiltInType(XML_SCHEMAS_ANYURI);
-              v44 = *v90;
+              v44 = *v86;
 LABEL_83:
               xmlSchemaPSimpleTypeErr(a1, 3037, children, v43, 0, v44, 0, 0);
 LABEL_84:
               v14 = *(a1 + 32);
-LABEL_85:
-              if (v14 == -1)
-              {
-                break;
-              }
-
-              goto LABEL_86;
+              goto LABEL_85;
             }
 
             v54 = children->children;
@@ -535,60 +1127,59 @@ LABEL_85:
             {
               if (xmlStrEqual(*(v55 + 16), str2))
               {
-                v57 = a1;
-                v58 = 3064;
-                v59 = children;
-                v60 = "The value of the attribute 'namespace' must not match the target namespace '%s' of the importing schema";
-LABEL_112:
-                xmlSchemaPCustomErrExt(v57, v58, 0, v59, v60);
+                xmlSchemaPCustomErrExt(a1, 3064, 0, children, "The value of the attribute 'namespace' must not match the target namespace '%s' of the importing schema", v56);
                 goto LABEL_84;
               }
             }
 
             else if (!v56)
             {
-              v57 = a1;
-              v58 = 3065;
-              v59 = children;
-              v60 = "The attribute 'namespace' must be existent if the importing schema has no target namespace";
-              goto LABEL_112;
+              xmlSchemaPCustomErrExt(a1, 3065, 0, children, "The attribute 'namespace' must be existent if the importing schema has no target namespace");
+              goto LABEL_84;
             }
 
-            if (*v90)
+            if (*v86)
             {
-              v61 = xmlSchemaBuildAbsoluteURI(*(a1 + 152), *v90, children);
-              *v90 = v61;
+              v57 = xmlSchemaBuildAbsoluteURI(*(a1 + 152), *v86, children);
+              *v86 = v57;
             }
 
             else
             {
-              v61 = 0;
+              v57 = 0;
             }
 
-            v14 = xmlSchemaAddSchemaDoc(a1, 1, v61, 0, 0, 0, children, v56, str2, &v89);
+            v14 = xmlSchemaAddSchemaDoc(a1, 1u, v57, 0, 0, 0, children, v56, str2, &v85);
             if (v14)
             {
-              goto LABEL_85;
+LABEL_85:
+              if (v14 == -1)
+              {
+                break;
+              }
             }
 
-            v62 = v89;
-            if (!v89 && *v90)
+            else
             {
-              xmlSchemaCustomWarning(a1, 3084, children, "Failed to locate a schema at location '%s'. Skipping the import", *v90, 0, 0);
-              v62 = v89;
+              v58 = v85;
+              if (!v85 && *v86)
+              {
+                xmlSchemaCustomWarning(a1, 0xC0Cu, children, "Failed to locate a schema at location '%s'. Skipping the import", *v86, 0, 0);
+                v58 = v85;
+              }
+
+              if (v58 && v58[4] && !*(v58 + 13))
+              {
+                v14 = xmlSchemaParseNewDoc(a1, a2, v58);
+                goto LABEL_85;
+              }
+
+              v14 = 0;
             }
 
-            if (v62 && v62[4] && !*(v62 + 13))
+            if (*(a1 + 196) || v82 != *(a1 + 36))
             {
-              v14 = xmlSchemaParseNewDoc(a1, a2, v62);
-              goto LABEL_85;
-            }
-
-            v14 = 0;
-LABEL_86:
-            if (*(a1 + 196) || v86 != *(a1 + 36))
-            {
-LABEL_209:
+LABEL_208:
               *(a1 + 160) = 0;
               if (v33 != *(a1 + 36))
               {
@@ -605,12 +1196,12 @@ LABEL_209:
           {
             if (xmlStrEqual(children->name, v36) && xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema"))
             {
-              v87 = v8;
+              v83 = v8;
               v45 = v9;
               v46 = v33;
               v47 = v37;
               v48 = *(a1 + 36);
-              v14 = xmlSchemaParseIncludeOrRedefine(a1, a2, children, 2);
+              v14 = xmlSchemaParseIncludeOrRedefine(a1, a2, children, 2u);
               if (v14 != -1)
               {
                 if (!*(a1 + 196))
@@ -622,7 +1213,7 @@ LABEL_209:
                 }
 
                 LODWORD(v33) = v46;
-                goto LABEL_208;
+                goto LABEL_207;
               }
             }
 
@@ -633,13 +1224,13 @@ LABEL_209:
                 goto LABEL_88;
               }
 
-              v87 = v8;
+              v83 = v8;
               v45 = v9;
               v50 = v36;
               v51 = v33;
               v52 = v37;
               v53 = *(a1 + 36);
-              v14 = xmlSchemaParseIncludeOrRedefine(a1, a2, children, 3);
+              v14 = xmlSchemaParseIncludeOrRedefine(a1, a2, children, 3u);
               if (v14 != -1)
               {
                 if (!*(a1 + 196))
@@ -650,25 +1241,25 @@ LABEL_209:
                   v36 = v50;
 LABEL_79:
                   v9 = v45;
-                  v8 = v87;
+                  v8 = v83;
                   if (!v49)
                   {
-                    goto LABEL_209;
+                    goto LABEL_208;
                   }
 
                   goto LABEL_88;
                 }
 
                 LODWORD(v33) = v51;
-LABEL_208:
+LABEL_207:
                 v9 = v45;
-                v8 = v87;
-                goto LABEL_209;
+                v8 = v83;
+                goto LABEL_208;
               }
             }
 
             v9 = v45;
-            v8 = v87;
+            v8 = v83;
             break;
           }
         }
@@ -678,13 +1269,13 @@ LABEL_88:
       children = children->next;
       if (!children)
       {
-        goto LABEL_209;
+        goto LABEL_208;
       }
     }
   }
 
 LABEL_33:
-  *(*(a1 + 48) + 32) = v88;
+  *(*(a1 + 48) + 32) = v84;
   *(a2 + 32) = v9;
   *(a2 + 48) = v8;
   return v14;
@@ -699,8 +1290,8 @@ uint64_t xmlSchemaFixupComponents(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v145 = v2[4];
-  if (!v145)
+  v146 = v2[4];
+  if (!v146)
   {
     v2[4] = a2;
   }
@@ -711,7 +1302,7 @@ uint64_t xmlSchemaFixupComponents(uint64_t a1, uint64_t a2)
     RedefCompInGraph = xmlSchemaFindRedefCompInGraph(i[6], *v7, i[4], i[5]);
     if (!RedefCompInGraph)
     {
-      v147 = 0;
+      v148 = 0;
       if (i[2])
       {
         v13 = i[2];
@@ -725,7 +1316,7 @@ uint64_t xmlSchemaFixupComponents(uint64_t a1, uint64_t a2)
       ComponentNode = xmlSchemaGetComponentNode(v13);
       if (*v7 == 1)
       {
-        if (*(v7 + 160) == 45)
+        if (v7[40] == 45)
         {
           v15 = "complex type definition";
         }
@@ -741,13 +1332,13 @@ uint64_t xmlSchemaFixupComponents(uint64_t a1, uint64_t a2)
         v15 = xmlSchemaItemTypeToStr(*v7);
       }
 
-      v17 = xmlSchemaFormatQName(&v147, i[5], i[4]);
-      xmlSchemaCustomErr4(a1, 3081, ComponentNode, 0, "The %s '%s' to be redefined could not be found in the redefined schema", v15, v17, 0, 0);
+      v17 = xmlSchemaFormatQName(&v148, i[5], i[4]);
+      xmlSchemaCustomErr4(a1, 0xC09u, ComponentNode, 0, "The %s '%s' to be redefined could not be found in the redefined schema", v15, v17, 0, 0);
 LABEL_30:
-      if (v147)
+      if (v148)
       {
-        free(v147);
-        v147 = 0;
+        free(v148);
+        v148 = 0;
       }
 
       continue;
@@ -764,7 +1355,7 @@ LABEL_30:
       }
 
       RedefCompInGraph[22] = v16 | 0x40000000;
-      *(v7 + 112) = RedefCompInGraph;
+      *(v7 + 14) = RedefCompInGraph;
     }
 
     else
@@ -781,7 +1372,7 @@ LABEL_30:
         if ((v11 & 2) != 0)
         {
 LABEL_27:
-          v147 = 0;
+          v148 = 0;
           v20 = i[2];
           if (!v20)
           {
@@ -789,8 +1380,8 @@ LABEL_27:
           }
 
           v21 = xmlSchemaGetComponentNode(v20);
-          ComponentDesignation = xmlSchemaGetComponentDesignation(&v147, v9);
-          xmlSchemaCustomErr4(a1, 3081, v21, 0, "The referenced %s was already redefined. Multiple redefinition of the same component is not supported", ComponentDesignation, 0, 0, 0);
+          ComponentDesignation = xmlSchemaGetComponentDesignation(&v148, v9);
+          xmlSchemaCustomErr4(a1, 0xC09u, v21, 0, "The referenced %s was already redefined. Multiple redefinition of the same component is not supported", ComponentDesignation, 0, 0, 0);
           goto LABEL_30;
         }
 
@@ -832,8 +1423,8 @@ LABEL_34:
   {
     v28 = 0;
     v29 = *v26;
-    v144 = (a1 + 36);
-    v146 = v2;
+    v145 = (a1 + 36);
+    v147 = v2;
     while (1)
     {
       v30 = v29[v28];
@@ -871,7 +1462,7 @@ LABEL_34:
                 if (*v52 == 8)
                 {
                   v53 = xmlSchemaGetComponentNode(v49);
-                  xmlSchemaCustomErr4(a1, 3091, v53, 0, "A model group definition is referenced, but it contains an 'all' model group, which cannot be contained by model groups", 0, 0, 0, 0);
+                  xmlSchemaCustomErr4(a1, 0xC13u, v53, 0, "A model group definition is referenced, but it contains an 'all' model group, which cannot be contained by model groups", 0, 0, 0, 0);
                 }
 
                 else
@@ -935,7 +1526,7 @@ LABEL_54:
                   if (*v41 == 8 && *(v42 + 36) != 1)
                   {
                     v43 = xmlSchemaGetComponentNode(v42);
-                    xmlSchemaCustomErr4(a1, 3091, v43, 0, "The particle's {max occurs} must be 1, since the reference resolves to an 'all' model group", 0, 0, 0, 0);
+                    xmlSchemaCustomErr4(a1, 0xC13u, v43, 0, "The particle's {max occurs} must be 1, since the reference resolves to an 'all' model group", 0, 0, 0, 0);
                   }
 
                   goto LABEL_166;
@@ -1033,7 +1624,7 @@ LABEL_54:
                   }
                 }
 
-                ++*v144;
+                ++*v145;
                 __xmlSimpleError(0x10u, 2, 0, 0, "allocating a type link");
               }
             }
@@ -1081,7 +1672,7 @@ LABEL_134:
           }
 
 LABEL_166:
-          v2 = v146;
+          v2 = v147;
           if (*(a1 + 32) == 3069)
           {
             goto LABEL_167;
@@ -1258,18 +1849,18 @@ LABEL_155:
 LABEL_141:
               if (*v36 == 24)
               {
-                xmlSchemaCustomErr4(a1, 3080, 0, v30, "The keyref references a keyref", 0, 0, 0, 0);
+                xmlSchemaCustomErr4(a1, 0xC08u, 0, v30, "The keyref references a keyref", 0, 0, 0, 0);
                 *(*(v30 + 72) + 8) = 0;
               }
 
               else if (*(v30 + 64) != *(v36 + 16))
               {
-                v147 = 0;
-                v91 = xmlSchemaFormatQName(&v147, *(v36 + 5), *(v36 + 4));
-                xmlSchemaCustomErr4(a1, 3080, 0, v30, "The cardinality of the keyref differs from the cardinality of the referenced key/unique '%s'", v91, 0, 0, 0);
-                if (v147)
+                v148 = 0;
+                v91 = xmlSchemaFormatQName(&v148, *(v36 + 5), *(v36 + 4));
+                xmlSchemaCustomErr4(a1, 0xC08u, 0, v30, "The cardinality of the keyref differs from the cardinality of the referenced key/unique '%s'", v91, 0, 0, 0);
+                if (v148)
                 {
-                  free(v147);
+                  free(v148);
                 }
               }
 
@@ -1301,7 +1892,7 @@ LABEL_156:
       if (++v28 == v27)
       {
         v103 = (a1 + 36);
-        if (*v144)
+        if (*v145)
         {
           goto LABEL_191;
         }
@@ -1337,13 +1928,13 @@ LABEL_156:
               if (CircModelGrDefRef)
               {
                 v114 = CircModelGrDefRef;
-                v147 = 0;
+                v148 = 0;
                 v115 = xmlSchemaGetComponentNode(CircModelGrDefRef);
-                xmlSchemaFormatQName(&v147, *(v110 + 5), *(v110 + 4));
-                xmlSchemaPCustomErrExt(a1, 3075, 0, v115, "Circular reference to the model group definition '%s' defined");
-                if (v147)
+                xmlSchemaFormatQName(&v148, *(v110 + 5), *(v110 + 4));
+                xmlSchemaPCustomErrExt(a1, 3075, 0, v115, "Circular reference to the model group definition '%s' defined", v144);
+                if (v148)
                 {
-                  free(v147);
+                  free(v148);
                 }
 
                 *(v114 + 3) = 0;
@@ -1391,7 +1982,7 @@ LABEL_218:
               ++v125;
               if (!--v124)
               {
-                if (*v144)
+                if (*v145)
                 {
                   goto LABEL_191;
                 }
@@ -1413,7 +2004,7 @@ LABEL_218:
                   ++v128;
                   if (!--v127)
                   {
-                    if (*v144)
+                    if (*v145)
                     {
                       goto LABEL_191;
                     }
@@ -1443,7 +2034,7 @@ LABEL_218:
                       ++v131;
                       if (!--v130)
                       {
-                        if (*v144)
+                        if (*v145)
                         {
                           goto LABEL_191;
                         }
@@ -1465,7 +2056,7 @@ LABEL_218:
                           ++v134;
                           if (!--v133)
                           {
-                            if (*v144)
+                            if (*v145)
                             {
                               goto LABEL_191;
                             }
@@ -1486,7 +2077,7 @@ LABEL_218:
                               ++v137;
                               if (!--v136)
                               {
-                                if (*v144)
+                                if (*v145)
                                 {
                                   goto LABEL_191;
                                 }
@@ -1511,8 +2102,8 @@ LABEL_218:
                                   ++v139;
                                   if (!--v138)
                                   {
-                                    v2 = v146;
-                                    if (*v144)
+                                    v2 = v147;
+                                    if (*v145)
                                     {
                                       goto LABEL_191;
                                     }
@@ -1541,8 +2132,8 @@ LABEL_218:
                                       if (!--v141)
                                       {
                                         v93 = (a1 + 36);
-                                        v2 = v146;
-                                        if (*v144)
+                                        v2 = v147;
+                                        if (*v145)
                                         {
                                           goto LABEL_191;
                                         }
@@ -1555,7 +2146,7 @@ LABEL_218:
 
 LABEL_272:
                                 v23 = 0xFFFFFFFFLL;
-                                v2 = v146;
+                                v2 = v147;
                                 goto LABEL_192;
                               }
                             }
@@ -1583,13 +2174,13 @@ LABEL_167:
             if (v117)
             {
               v118 = v117;
-              v147 = 0;
+              v148 = 0;
               v119 = xmlSchemaGetComponentNode(v117);
-              xmlSchemaGetComponentQName(&v147, v110);
-              xmlSchemaPCustomErrExt(a1, 3073, 0, v119, "Circular reference to the attribute group '%s' defined");
-              if (v147)
+              xmlSchemaGetComponentQName(&v148, v110);
+              xmlSchemaPCustomErrExt(a1, 3073, 0, v119, "Circular reference to the attribute group '%s' defined", v144);
+              if (v148)
               {
-                free(v147);
+                free(v148);
               }
 
               *(v118 + 1) = 0;
@@ -1713,7 +2304,7 @@ LABEL_169:
 
   v23 = 0;
 LABEL_192:
-  v2[4] = v145;
+  v2[4] = v146;
   *(v2[5] + 8) = 0;
   v104 = v2[6];
   if (v104)
@@ -2334,7 +2925,7 @@ LABEL_46:
     if (!RootElement)
     {
       v18 = 1;
-      xmlSchemaCustomErr4(a1, 1, 0, 0, "The document has no document element", 0, 0, 0, 0);
+      xmlSchemaCustomErr4(a1, 1u, 0, 0, "The document has no document element", 0, 0, 0, 0);
       goto LABEL_55;
     }
   }
@@ -2518,7 +3109,7 @@ int xmlSchemaValidateDoc(xmlSchemaValidCtxtPtr ctxt, xmlDocPtr instance)
 
     else
     {
-      xmlSchemaCustomErr4(ctxt, 1872, instance, 0, "The document has no document element", 0, 0, 0, 0);
+      xmlSchemaCustomErr4(ctxt, 0x750u, instance, 0, "The document has no document element", 0, 0, 0, 0);
       return *(ctxt + 26);
     }
   }
@@ -3477,7 +4068,7 @@ void startElementNsSplit(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
       v16 = *(v15 + 232);
       if (v16)
       {
-        v16(a1[4], a2, a3, a4, a5, a6, a7);
+        v16(a1[4], a2, a3, a4, a5, a6, a7, a8, a9);
       }
     }
 
@@ -3513,39 +4104,39 @@ void endElementNsSplit(void *a1, const xmlChar *a2, uint64_t a3, const xmlChar *
   }
 }
 
-uint64_t xmlSchemaPreRun(void *data)
+uint64_t xmlSchemaPreRun(xmlError *data)
 {
-  data[13] = 0;
-  *(data + 43) = -1;
-  *(data + 76) = -1;
-  data[40] = 0;
-  v2 = data[5];
-  if (v2)
+  *&data[1].level = 0;
+  HIDWORD(data[1].node) = -1;
+  LODWORD(data[3].str1) = -1;
+  data[3].str3 = 0;
+  str1 = data->str1;
+  if (str1)
   {
     goto LABEL_2;
   }
 
-  *(data + 42) = 1;
-  v4 = data[20];
-  if (!v4)
+  LODWORD(data[1].node) = 1;
+  ctxt = data[1].ctxt;
+  if (!ctxt)
   {
     v5 = xmlSchemaNewParserCtxt("*");
-    data[20] = v5;
+    data[1].ctxt = v5;
     if (!v5)
     {
       xmlSchemaInternalErr2(data, "xmlSchemaCreatePCtxtOnVCtxt", "failed to create a temp. parser context", 0);
       return 0xFFFFFFFFLL;
     }
 
-    v7 = data[2];
-    v6 = data[3];
+    v7 = *&data->level;
+    file = data->file;
     v8 = v5;
-    v9 = data[1];
+    message = data->message;
     do
     {
       v8[2] = v7;
-      v8[3] = v6;
-      v8[1] = v9;
+      v8[3] = file;
+      v8[1] = message;
       v10 = v8[22];
       if (!v10)
       {
@@ -3553,14 +4144,14 @@ uint64_t xmlSchemaPreRun(void *data)
       }
 
       v10[2] = v7;
-      v10[3] = v6;
-      v10[1] = v9;
+      v10[3] = file;
+      v10[1] = message;
       v8 = v10[20];
     }
 
     while (v8);
-    v11 = data[4];
-    v12 = data[1];
+    v11 = *&data->line;
+    v12 = data->message;
     do
     {
       *(v5 + 5) = v11;
@@ -3579,23 +4170,23 @@ uint64_t xmlSchemaPreRun(void *data)
     }
 
     while (v5);
-    v4 = data[20];
+    ctxt = data[1].ctxt;
   }
 
-  *(v4 + 192) = 1;
-  v14 = xmlSchemaNewSchema(v4);
-  data[5] = v14;
+  *(ctxt + 192) = 1;
+  v14 = xmlSchemaNewSchema(ctxt);
+  data->str1 = v14;
   if (v14)
   {
-    v15 = xmlSchemaConstructionCtxtCreate(*(v4 + 152));
-    *(v4 + 48) = v15;
+    v15 = xmlSchemaConstructionCtxtCreate(*(ctxt + 152));
+    *(ctxt + 48) = v15;
     if (v15)
     {
-      v2 = data[5];
-      *v15 = v2;
-      *(v4 + 56) = 1;
+      str1 = data->str1;
+      *v15 = str1;
+      *(ctxt + 56) = 1;
 LABEL_2:
-      xmlHashScan(*(v2 + 96), xmlSchemaAugmentImportedIDC, data);
+      xmlHashScan(*(str1 + 12), xmlSchemaAugmentImportedIDC, data);
       return 0;
     }
   }
@@ -4273,14 +4864,14 @@ LABEL_5:
   return result;
 }
 
-void xmlSchemaTypeDump(_DWORD *a1, FILE *__stream)
+void xmlSchemaTypeDump(const char **a1, FILE *__stream)
 {
   if (a1)
   {
     fwrite("Type: ", 6uLL, 1uLL, __stream);
-    if (*(a1 + 2))
+    if (a1[2])
     {
-      fprintf(__stream, "'%s' ", *(a1 + 2));
+      fprintf(__stream, "'%s' ", a1[2]);
     }
 
     else
@@ -4288,9 +4879,9 @@ void xmlSchemaTypeDump(_DWORD *a1, FILE *__stream)
       fwrite("(no name) ", 0xAuLL, 1uLL, __stream);
     }
 
-    if (*(a1 + 26))
+    if (a1[26])
     {
-      fprintf(__stream, "ns '%s' ", *(a1 + 26));
+      fprintf(__stream, "ns '%s' ", a1[26]);
     }
 
     v4 = *a1;
@@ -4366,7 +4957,7 @@ LABEL_75:
         fprintf(__stream, "[unknown type %d] ", *a1);
 LABEL_32:
         fwrite("content: ", 9uLL, 1uLL, __stream);
-        v7 = a1[23];
+        v7 = *(a1 + 23);
         if (v7 > 2)
         {
           if (v7 > 5)
@@ -4382,12 +4973,12 @@ LABEL_32:
 
 LABEL_51:
               fputc(10, __stream);
-              if (*(a1 + 12))
+              if (a1[12])
               {
-                fprintf(__stream, "  base type: '%s'", *(a1 + 12));
-                if (*(a1 + 13))
+                fprintf(__stream, "  base type: '%s'", a1[12]);
+                if (a1[13])
                 {
-                  fprintf(__stream, " ns '%s'\n", *(a1 + 13));
+                  fprintf(__stream, " ns '%s'\n", a1[13]);
                 }
 
                 else
@@ -4396,14 +4987,14 @@ LABEL_51:
                 }
               }
 
-              v10 = *(a1 + 27);
+              v10 = a1[27];
               if (v10)
               {
                 v19 = 0;
-                if (*(v10 + 8))
+                if (*(v10 + 2))
                 {
                   fwrite("  attributes:\n", 0xEuLL, 1uLL, __stream);
-                  if (*(v10 + 8) >= 1)
+                  if (*(v10 + 2) >= 1)
                   {
                     v11 = 0;
                     do
@@ -4442,12 +5033,12 @@ LABEL_51:
                       ++v11;
                     }
 
-                    while (v11 < *(v10 + 8));
+                    while (v11 < *(v10 + 2));
                   }
                 }
               }
 
-              v17 = *(a1 + 6);
+              v17 = a1[6];
               if (v17)
               {
                 xmlSchemaAnnotDump(__stream, v17);
@@ -4455,7 +5046,7 @@ LABEL_51:
 
               if (*a1 == 5)
               {
-                v18 = *(a1 + 7);
+                v18 = a1[7];
                 if (v18)
                 {
 
@@ -4535,9 +5126,9 @@ size_t xmlSchemaContentModelDump(size_t result, FILE *a2, uint64_t a3)
     v3 = a3;
     v4 = a2;
     v5 = result;
-    v24 = *MEMORY[0x1E69E9840];
-    v21 = 0;
-    v23 = 0;
+    v20 = *MEMORY[0x1E69E9840];
+    v17 = 0;
+    v19 = 0;
     memset(__b, 0, sizeof(__b));
     v6 = a3 - 1;
     if (a3 < 1)
@@ -4561,9 +5152,8 @@ size_t xmlSchemaContentModelDump(size_t result, FILE *a2, uint64_t a3)
     v8 = *(v5 + 24);
     if (!v8)
     {
-      v11 = *MEMORY[0x1E69E9840];
-      v12 = "MISSING particle term\n";
-      v13 = 22;
+      v11 = "MISSING particle term\n";
+      v12 = 22;
       goto LABEL_37;
     }
 
@@ -4575,14 +5165,14 @@ size_t xmlSchemaContentModelDump(size_t result, FILE *a2, uint64_t a3)
 
     if (v9 == 7)
     {
-      v14 = "CHOICE";
-      v15 = 6;
+      v13 = "CHOICE";
+      v14 = 6;
       goto LABEL_21;
     }
 
     if (v9 == 8)
     {
-      v14 = "ALL";
+      v13 = "ALL";
       goto LABEL_20;
     }
 
@@ -4591,11 +5181,11 @@ size_t xmlSchemaContentModelDump(size_t result, FILE *a2, uint64_t a3)
       goto LABEL_36;
     }
 
-    v10 = xmlSchemaFormatQName(&v21, *(v8 + 96), *(v8 + 16));
+    v10 = xmlSchemaFormatQName(&v17, *(v8 + 96), *(v8 + 16));
     fprintf(v4, "ELEM '%s'", v10);
-    if (v21)
+    if (v17)
     {
-      free(v21);
+      free(v17);
     }
 
 LABEL_22:
@@ -4604,10 +5194,10 @@ LABEL_22:
       fprintf(v4, " min: %d", *(v5 + 32));
     }
 
-    v16 = *(v5 + 36);
-    if (v16 < 0x40000000)
+    v15 = *(v5 + 36);
+    if (v15 < 0x40000000)
     {
-      if (v16 != 1)
+      if (v15 != 1)
       {
         fprintf(v4, " max: %d", *(v5 + 36));
       }
@@ -4621,49 +5211,46 @@ LABEL_22:
     fputc(10, v4);
     if ((*v8 - 6) <= 2)
     {
-      v17 = *(v8 + 24);
-      if (v17)
+      v16 = *(v8 + 24);
+      if (v16)
       {
-        xmlSchemaContentModelDump(v17, v4, (v3 + 1));
+        xmlSchemaContentModelDump(v16, v4, (v3 + 1));
       }
     }
 
     result = *(v5 + 16);
     if (!result)
     {
-      v19 = *MEMORY[0x1E69E9840];
       return result;
     }
 
-    v18 = *MEMORY[0x1E69E9840];
     a2 = v4;
     a3 = v3;
   }
 
   if (v9 == 2)
   {
-    v14 = "ANY";
+    v13 = "ANY";
 LABEL_20:
-    v15 = 3;
+    v14 = 3;
 LABEL_21:
-    fwrite(v14, v15, 1uLL, v4);
+    fwrite(v13, v14, 1uLL, v4);
     goto LABEL_22;
   }
 
   if (v9 == 6)
   {
-    v14 = "SEQUENCE";
-    v15 = 8;
+    v13 = "SEQUENCE";
+    v14 = 8;
     goto LABEL_21;
   }
 
 LABEL_36:
-  v20 = *MEMORY[0x1E69E9840];
-  v12 = "UNKNOWN\n";
-  v13 = 8;
+  v11 = "UNKNOWN\n";
+  v12 = 8;
 LABEL_37:
 
-  return fwrite(v12, v13, 1uLL, v4);
+  return fwrite(v11, v12, 1uLL, v4);
 }
 
 void xmlSchemaSubstGroupFree(void *a1)
@@ -4680,7 +5267,7 @@ void xmlSchemaSubstGroupFree(void *a1)
   }
 }
 
-void xmlSchemaInternalErr2(_DWORD *a1, const xmlChar *a2, const xmlChar *a3, xmlChar *a4)
+void xmlSchemaInternalErr2(xmlError *a1, const xmlChar *a2, const xmlChar *a3, xmlChar *a4)
 {
   if (!a1)
   {
@@ -4690,14 +5277,14 @@ void xmlSchemaInternalErr2(_DWORD *a1, const xmlChar *a2, const xmlChar *a3, xml
   v8 = xmlStrdup("Internal error: %s, ");
   v9 = xmlStrcat(v8, a3);
   v10 = xmlStrcat(v9, ".\n");
-  if (*a1 == 2)
+  if (a1->domain == 2)
   {
     v11 = 1818;
   }
 
   else
   {
-    if (*a1 != 1)
+    if (a1->domain != 1)
     {
       goto LABEL_7;
     }
@@ -4714,7 +5301,7 @@ LABEL_7:
   }
 }
 
-_DWORD *xmlSchemaErr4Line(_DWORD *result, int a2, int a3, uint64_t a4, int a5, const char *a6, const xmlChar *a7, xmlChar *cur, xmlChar *a9, uint64_t a10)
+xmlError *xmlSchemaErr4Line(xmlError *result, int a2, unsigned __int32 a3, uint64_t a4, int a5, const char *a6, const xmlChar *a7, xmlChar *cur, xmlChar *a9, uint64_t a10)
 {
   if (result)
   {
@@ -4722,9 +5309,9 @@ _DWORD *xmlSchemaErr4Line(_DWORD *result, int a2, int a3, uint64_t a4, int a5, c
     v13 = a3;
     v15 = result;
     v16 = a9;
-    if (*result != 1)
+    if (result->domain != 1)
     {
-      if (*result != 2)
+      if (result->domain != 2)
       {
         v20 = *__xmlGenericError();
         v21 = __xmlGenericErrorContext();
@@ -4734,35 +5321,35 @@ _DWORD *xmlSchemaErr4Line(_DWORD *result, int a2, int a3, uint64_t a4, int a5, c
       v17 = a5;
       if (a2 == 1)
       {
-        v18 = 6;
+        v18 = 24;
       }
 
       else
       {
-        v22 = result[27] + 1;
-        result[26] = a3;
-        result[27] = v22;
-        v18 = 4;
+        v22 = *(&result[1].level + 1) + 1;
+        result[1].level = a3;
+        *(&result[1].level + 1) = v22;
+        v18 = 16;
       }
 
-      v23 = *&result[v18];
-      v24 = *(result + 4);
-      v25 = *(v15 + 1);
+      v23 = *(&result->domain + v18);
+      v24 = *&result->line;
+      message = v15->message;
       if (a5)
       {
-        v26 = *(v15 + 6);
-        if (v26)
+        str2 = v15->str2;
+        if (str2)
         {
           v27 = 0;
           v12 = 0;
-          v28 = *(v26 + 136);
+          v28 = *(str2 + 17);
           goto LABEL_28;
         }
 
-        v30 = *(v15 + 10);
-        if (v30)
+        node = v15->node;
+        if (node)
         {
-          v31 = *(v30 + 56);
+          v31 = node[7];
           if (v31)
           {
             v27 = 0;
@@ -4775,7 +5362,7 @@ _DWORD *xmlSchemaErr4Line(_DWORD *result, int a2, int a3, uint64_t a4, int a5, c
 
       else
       {
-        if (a4 || (v15[43] & 0x80000000) == 0 && (v32 = *(v15 + 24)) != 0 && (v12 = *(v32 + 8)) != 0)
+        if (a4 || (HIDWORD(v15[1].node) & 0x80000000) == 0 && (v32 = *&v15[2].level) != 0 && (v12 = *(v32 + 8)) != 0)
         {
           v17 = 0;
           v28 = 0;
@@ -4783,10 +5370,10 @@ _DWORD *xmlSchemaErr4Line(_DWORD *result, int a2, int a3, uint64_t a4, int a5, c
           goto LABEL_28;
         }
 
-        v33 = *(v15 + 10);
+        v33 = v15->node;
         if (v33)
         {
-          v34 = *(v33 + 56);
+          v34 = v33[7];
           if (v34)
           {
             v12 = 0;
@@ -4804,26 +5391,26 @@ _DWORD *xmlSchemaErr4Line(_DWORD *result, int a2, int a3, uint64_t a4, int a5, c
       v27 = 0;
       v12 = 0;
 LABEL_28:
-      v35 = *(v15 + 42);
-      if (v35)
+      ctxt = v15[3].ctxt;
+      if (ctxt)
       {
         if (v28 && v17)
         {
-          return __xmlRaiseError(v24, v23, v25, v15, v12, 0x11u, v13, a2, v28, v17, a7, cur, v16, 0, v27, a6, a7);
+          return __xmlRaiseError(v24, v23, message, v15, v12, 0x11u, v13, a2, v28, v17, a7, cur, v16, 0, v27, a6, a7);
         }
 
         v42 = 0;
         v43 = 0;
         v39 = v24;
-        v40 = v25;
+        v40 = message;
         *v41 = v23;
         v36 = a6;
         v37 = v13;
         v38 = v27;
-        v35(*(v15 + 43), &v42, &v43);
+        ctxt(v15[3].node, &v42, &v43);
         v27 = v38;
         v24 = v39;
-        v25 = v40;
+        message = v40;
         v23 = *v41;
         v13 = v37;
         v16 = a9;
@@ -4841,26 +5428,26 @@ LABEL_28:
 
       if (!v28)
       {
-        v28 = *(v15 + 12);
+        v28 = v15[1].message;
       }
 
-      return __xmlRaiseError(v24, v23, v25, v15, v12, 0x11u, v13, a2, v28, v17, a7, cur, v16, 0, v27, a6, a7);
+      return __xmlRaiseError(v24, v23, message, v15, v12, 0x11u, v13, a2, v28, v17, a7, cur, v16, 0, v27, a6, a7);
     }
 
     if (a2 == 1)
     {
-      v19 = 6;
+      v19 = 24;
     }
 
     else
     {
-      v29 = result[9] + 1;
-      result[8] = a3;
-      result[9] = v29;
-      v19 = 4;
+      v29 = *(&result->line + 1) + 1;
+      result->line = a3;
+      *(&result->line + 1) = v29;
+      v19 = 16;
     }
 
-    return __xmlRaiseError(*(result + 5), *&result[v19], *(result + 1), result, a4, 0x10u, a3, a2, 0, 0, a7, cur, a9, 0, 0, a6, a7);
+    return __xmlRaiseError(result->str1, *(&result->domain + v19), result->message, result, a4, 0x10u, a3, a2, 0, 0, a7, cur, a9, 0, 0, a6, a7);
   }
 
   return result;
@@ -5272,7 +5859,7 @@ LABEL_34:
   return xmlEscapeFormatString(a1);
 }
 
-unsigned __int8 *xmlSchemaFormatNodeForError(unsigned __int8 **a1, uint64_t a2, uint64_t a3)
+xmlChar *xmlSchemaFormatNodeForError(xmlChar **a1, uint64_t a2, uint64_t a3)
 {
   v32 = 0;
   *a1 = 0;
@@ -5398,7 +5985,7 @@ LABEL_30:
   return xmlEscapeFormatString(a1);
 }
 
-xmlChar *xmlSchemaGetComponentQName(void **a1, uint64_t a2)
+xmlChar *xmlSchemaGetComponentQName(xmlChar **a1, uint64_t a2)
 {
   v2 = "http://www.w3.org/2001/XMLSchema";
   v3 = a2;
@@ -5593,7 +6180,7 @@ uint64_t xmlSchemaGetSchemaBucketByTNS(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  for (i = *v2; ; ++i)
+  for (i = *v2; ; i += 8)
   {
     result = *i;
     if ((*(*i + 32) || !*(result + 8)) && *(result + 16) == a2 && *(result + 56))
@@ -5610,7 +6197,7 @@ uint64_t xmlSchemaGetSchemaBucketByTNS(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void xmlSchemaCustomWarning(_DWORD *a1, int a2, uint64_t a3, const xmlChar *a4, const xmlChar *a5, xmlChar *a6, xmlChar *a7)
+void xmlSchemaCustomWarning(xmlError *a1, unsigned __int32 a2, uint64_t a3, const xmlChar *a4, const xmlChar *a5, xmlChar *a6, xmlChar *a7, ...)
 {
   cur = 0;
   xmlSchemaFormatNodeForError(&cur, a1, a3);
@@ -5632,7 +6219,7 @@ uint64_t xmlSchemaGetChameleonSchemaBucket(uint64_t a1, uint64_t a2, uint64_t a3
     return 0;
   }
 
-  for (i = *v3; ; ++i)
+  for (i = *v3; ; i += 8)
   {
     result = *i;
     if (!*(*i + 16) && *(result + 8) == a2 && *(result + 24) == a3)
@@ -5649,7 +6236,7 @@ uint64_t xmlSchemaGetChameleonSchemaBucket(uint64_t a1, uint64_t a2, uint64_t a3
   return result;
 }
 
-_DWORD *xmlSchemaPErr(uint64_t a1, uint64_t a2, int a3, const char *a4, const xmlChar *a5, xmlChar *a6)
+xmlError *xmlSchemaPErr(uint64_t a1, uint64_t a2, int a3, const char *a4, const xmlChar *a5, xmlChar *a6)
 {
   v8 = a1;
   if (a1)
@@ -5685,21 +6272,21 @@ xmlChar *xmlSchemaGetProp(uint64_t a1, xmlNode *node, xmlChar *name)
   return result;
 }
 
-uint64_t xmlSchemaItemListAddSize(uint64_t a1, int a2, uint64_t a3)
+uint64_t xmlSchemaItemListAddSize(uint64_t *a1, uint64_t a2, uint64_t a3)
 {
-  v5 = *(a1 + 8);
-  if (*(a1 + 12) > v5)
+  v5 = *(a1 + 2);
+  if (*(a1 + 3) > v5)
   {
     goto LABEL_4;
   }
 
   if ((xmlSchemaItemListGrow(a1, a2) & 0x80000000) == 0)
   {
-    v5 = *(a1 + 8);
+    v5 = *(a1 + 2);
 LABEL_4:
     result = 0;
     v7 = *a1;
-    *(a1 + 8) = v5 + 1;
+    *(a1 + 2) = v5 + 1;
     *(v7 + 8 * v5) = a3;
     return result;
   }
@@ -5772,7 +6359,7 @@ uint64_t xmlSchemaGetPropNode(uint64_t a1, xmlChar *str2)
   return i;
 }
 
-uint64_t xmlSchemaPValAttrNode(_DWORD *a1, xmlNode *a2, xmlSchemaType *a3, xmlChar **a4)
+uint64_t xmlSchemaPValAttrNode(xmlError *a1, xmlNode *a2, xmlSchemaType *a3, xmlChar **a4)
 {
   if (!a2 || !a3)
   {
@@ -6214,7 +6801,7 @@ LABEL_9:
   return v6;
 }
 
-uint64_t xmlSchemaPValAttrNodeValue(_DWORD *a1, xmlNodePtr node, xmlChar *value, xmlSchemaTypePtr type)
+uint64_t xmlSchemaPValAttrNodeValue(xmlError *a1, xmlNodePtr node, xmlChar *value, xmlSchemaTypePtr type)
 {
   if (!type)
   {
@@ -6291,7 +6878,7 @@ BOOL xmlSchemaIsGlobalItem(int *a1)
   return 1;
 }
 
-_DWORD *xmlSchemaPErrExt(uint64_t a1, uint64_t a2, int a3, const char *a4, char a5)
+xmlError *xmlSchemaPErrExt(uint64_t a1, uint64_t a2, int a3, const char *a4, char a5)
 {
   v7 = a1;
   if (a1)
@@ -6313,7 +6900,7 @@ _DWORD *xmlSchemaPErrExt(uint64_t a1, uint64_t a2, int a3, const char *a4, char 
   return __xmlRaiseError(a1, v9, v10, v7, a2, 0x10u, a3, 2, 0, 0, 0, 0, 0, 0, 0, a4, a5);
 }
 
-void *xmlSchemaParseAnnotation(_DWORD *a1, uint64_t a2, int a3)
+void *xmlSchemaParseAnnotation(uint64_t a1, uint64_t a2, int a3)
 {
   if (!a2)
   {
@@ -6333,7 +6920,7 @@ void *xmlSchemaParseAnnotation(_DWORD *a1, uint64_t a2, int a3)
 
     if (a1)
     {
-      ++a1[9];
+      ++*(a1 + 36);
     }
 
     __xmlSimpleError(0x10u, 2, a2, 0, "allocating annotation");
@@ -7078,7 +7665,7 @@ LABEL_153:
 LABEL_154:
   if (a4 && !v46 && *(a1 + 188))
   {
-    xmlSchemaPCustomErrExt(a1, 3081, 0, a3, "This is a redefinition, thus the <complexType> must have a <restriction> or <extension> grand-child");
+    xmlSchemaPCustomErrExt(a1, 3081, 0, a3, "This is a redefinition, thus the <complexType> must have a <restriction> or <extension> grand-child", 0, 0, 0);
   }
 
   *(a1 + 160) = v8;
@@ -7112,26 +7699,26 @@ uint64_t xmlSchemaParseSimpleType(uint64_t a1, uint64_t a2, xmlNode *a3, int a4)
 
     while (1)
     {
-      v12 = *(properties + 72);
-      if (!v12)
+      ns = properties->ns;
+      if (!ns)
       {
         break;
       }
 
-      if (xmlStrEqual(*(v12 + 16), "http://www.w3.org/2001/XMLSchema"))
+      if (xmlStrEqual(ns->href, "http://www.w3.org/2001/XMLSchema"))
       {
         goto LABEL_10;
       }
 
 LABEL_11:
-      properties = *(properties + 48);
+      properties = properties->next;
       if (!properties)
       {
         goto LABEL_36;
       }
     }
 
-    if (xmlStrEqual(*(properties + 16), "id"))
+    if (xmlStrEqual(properties->name, "id"))
     {
       goto LABEL_11;
     }
@@ -7158,7 +7745,7 @@ LABEL_10:
   {
     if (*(a1 + 188))
     {
-      xmlSchemaPCustomErrExt(a1, 3081, 0, a3, "Redefinition of built-in simple types is not supported");
+      xmlSchemaPCustomErrExt(a1, 3081, 0, a3, "Redefinition of built-in simple types is not supported", 0, 0, 0);
       return 0;
     }
 
@@ -7185,26 +7772,26 @@ LABEL_10:
   {
     while (1)
     {
-      v16 = *(v15 + 72);
+      v16 = v15->ns;
       if (!v16)
       {
         break;
       }
 
-      if (xmlStrEqual(*(v16 + 16), "http://www.w3.org/2001/XMLSchema"))
+      if (xmlStrEqual(v16->href, "http://www.w3.org/2001/XMLSchema"))
       {
         goto LABEL_24;
       }
 
 LABEL_28:
-      v15 = *(v15 + 48);
+      v15 = v15->next;
       if (!v15)
       {
         goto LABEL_29;
       }
     }
 
-    if (xmlStrEqual(*(v15 + 16), "id") || xmlStrEqual(*(v15 + 16), "name") || xmlStrEqual(*(v15 + 16), "final"))
+    if (xmlStrEqual(v15->name, "id") || xmlStrEqual(v15->name, "name") || xmlStrEqual(v15->name, "final"))
     {
       goto LABEL_28;
     }
@@ -7270,33 +7857,33 @@ LABEL_36:
   v21 = *(a1 + 160);
   *(a1 + 160) = PropNode;
   children = a3->children;
-  if (!children || *(children + 72) && xmlStrEqual(*(children + 16), "annotation") && xmlStrEqual(*(*(children + 72) + 16), "http://www.w3.org/2001/XMLSchema") && (*(PropNode + 48) = xmlSchemaParseAnnotation(a1, children, 1), (children = *(children + 48)) == 0))
+  if (!children || children->ns && xmlStrEqual(children->name, "annotation") && xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema") && (*(PropNode + 48) = xmlSchemaParseAnnotation(a1, children, 1), (children = children->next) == 0))
   {
     xmlSchemaPContentErr(a1, 3034, a3, 0, 0, "(annotation?, (restriction | list | union))");
     v23 = 0;
     goto LABEL_91;
   }
 
-  if (!*(children + 72))
+  if (!children->ns)
   {
     goto LABEL_74;
   }
 
-  if (xmlStrEqual(*(children + 16), "restriction") && xmlStrEqual(*(*(children + 72) + 16), "http://www.w3.org/2001/XMLSchema"))
+  if (xmlStrEqual(children->name, "restriction") && xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema"))
   {
     xmlSchemaParseRestriction(a1, a2, children, 4);
     v23 = 1;
     goto LABEL_89;
   }
 
-  if (!*(children + 72))
+  if (!children->ns)
   {
     goto LABEL_74;
   }
 
-  if (!xmlStrEqual(*(children + 16), "list") || !xmlStrEqual(*(*(children + 72) + 16), "http://www.w3.org/2001/XMLSchema"))
+  if (!xmlStrEqual(children->name, "list") || !xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema"))
   {
-    if (*(children + 72) && xmlStrEqual(*(children + 16), "union") && xmlStrEqual(*(*(children + 72) + 16), "http://www.w3.org/2001/XMLSchema"))
+    if (children->ns && xmlStrEqual(children->name, "union") && xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema"))
     {
       xmlSchemaParseUnion(a1, a2, children);
       goto LABEL_88;
@@ -7313,7 +7900,7 @@ LABEL_90:
   *(v24 + 88) |= 0x40u;
   v32 = v24;
   *(v24 + 112) = xmlSchemaGetBuiltInType(XML_SCHEMAS_ANYSIMPLETYPE);
-  v25 = *(children + 88);
+  v25 = children->properties;
   if (v25)
   {
     while (1)
@@ -7355,12 +7942,12 @@ LABEL_58:
   }
 
   xmlSchemaPValAttrQName(a1, a2, children, "itemType", (v32 + 104), (v32 + 96));
-  v28 = *(children + 24);
-  if (v28 && (!*(v28 + 72) || !xmlStrEqual(*(v28 + 16), "annotation") || !xmlStrEqual(*(*(v28 + 72) + 16), "http://www.w3.org/2001/XMLSchema") || (v29 = xmlSchemaParseAnnotation(a1, v28, 1), xmlSchemaAddAnnotation(v32, v29), (v28 = *(v28 + 48)) != 0)) && *(v28 + 72) && xmlStrEqual(*(v28 + 16), "simpleType") && xmlStrEqual(*(*(v28 + 72) + 16), "http://www.w3.org/2001/XMLSchema"))
+  v28 = children->children;
+  if (v28 && (!v28->ns || !xmlStrEqual(v28->name, "annotation") || !xmlStrEqual(v28->ns->href, "http://www.w3.org/2001/XMLSchema") || (v29 = xmlSchemaParseAnnotation(a1, v28, 1), xmlSchemaAddAnnotation(v32, v29), (v28 = v28->next) != 0)) && v28->ns && xmlStrEqual(v28->name, "simpleType") && xmlStrEqual(v28->ns->href, "http://www.w3.org/2001/XMLSchema"))
   {
     if (*(v32 + 96))
     {
-      xmlSchemaPCustomErrExt(a1, 3000, 0, children, "The attribute 'itemType' and the <simpleType> child are mutually exclusive");
+      xmlSchemaPCustomErrExt(a1, 3000, 0, children, "The attribute 'itemType' and the <simpleType> child are mutually exclusive", 0, 0, 0);
     }
 
     else
@@ -7368,12 +7955,12 @@ LABEL_58:
       *(v32 + 56) = xmlSchemaParseSimpleType(a1, a2, v28, 0);
     }
 
-    v28 = *(v28 + 48);
+    v28 = v28->next;
   }
 
   else if (!*(v32 + 96))
   {
-    xmlSchemaPCustomErrExt(a1, 3000, 0, children, "Either the attribute 'itemType' or the <simpleType> child must be present");
+    xmlSchemaPCustomErrExt(a1, 3000, 0, children, "Either the attribute 'itemType' or the <simpleType> child must be present", 0, 0, 0);
   }
 
   if (v28)
@@ -7383,13 +7970,13 @@ LABEL_58:
 
   if (!*(v32 + 96) && !*(v32 + 56) && !xmlSchemaGetPropNode(children, "itemType"))
   {
-    xmlSchemaPCustomErrExt(a1, 3000, 0, children, "Either the attribute 'itemType' or the <simpleType> child must be present");
+    xmlSchemaPCustomErrExt(a1, 3000, 0, children, "Either the attribute 'itemType' or the <simpleType> child must be present", 0, 0, 0);
   }
 
 LABEL_88:
   v23 = 0;
 LABEL_89:
-  children = *(children + 48);
+  children = children->next;
   if (children)
   {
     goto LABEL_90;
@@ -7410,7 +7997,7 @@ LABEL_91:
 
     if ((v30 & 1) == 0)
     {
-      xmlSchemaPCustomErrExt(a1, 3081, 0, a3, "This is a redefinition, thus the <simpleType> must have a <restriction> child");
+      xmlSchemaPCustomErrExt(a1, 3081, 0, a3, "This is a redefinition, thus the <simpleType> must have a <restriction> child", 0, 0, 0);
     }
   }
 
@@ -7576,12 +8163,12 @@ LABEL_48:
             __xmlSimpleError(0x10u, 2, 0, 0, 0);
           }
 
-          for (i = a3->properties; i; i = *(i + 48))
+          for (i = a3->properties; i; i = i->next)
           {
-            v39 = *(i + 72);
-            if (v39)
+            ns = i->ns;
+            if (ns)
             {
-              if (xmlStrEqual(*(v39 + 16), "http://www.w3.org/2001/XMLSchema"))
+              if (xmlStrEqual(ns->href, "http://www.w3.org/2001/XMLSchema"))
               {
                 goto LABEL_72;
               }
@@ -7589,31 +8176,31 @@ LABEL_48:
 
             else
             {
-              if (xmlStrEqual(*(i + 16), "name") || xmlStrEqual(*(i + 16), "type") || xmlStrEqual(*(i + 16), "id") || xmlStrEqual(*(i + 16), "default") || xmlStrEqual(*(i + 16), "fixed") || xmlStrEqual(*(i + 16), "block") || xmlStrEqual(*(i + 16), "nillable"))
+              if (xmlStrEqual(i->name, "name") || xmlStrEqual(i->name, "type") || xmlStrEqual(i->name, "id") || xmlStrEqual(i->name, "default") || xmlStrEqual(i->name, "fixed") || xmlStrEqual(i->name, "block") || xmlStrEqual(i->name, "nillable"))
               {
                 continue;
               }
 
-              v40 = *(i + 16);
+              name = i->name;
               if (a5)
               {
-                if (xmlStrEqual(v40, "final") || xmlStrEqual(*(i + 16), "abstract"))
+                if (xmlStrEqual(name, "final") || xmlStrEqual(i->name, "abstract"))
                 {
                   continue;
                 }
 
-                v41 = *(i + 16);
+                v41 = i->name;
                 v42 = "substitutionGroup";
               }
 
               else
               {
-                if (xmlStrEqual(v40, "maxOccurs") || xmlStrEqual(*(i + 16), "minOccurs"))
+                if (xmlStrEqual(name, "maxOccurs") || xmlStrEqual(i->name, "minOccurs"))
                 {
                   continue;
                 }
 
-                v41 = *(i + 16);
+                v41 = i->name;
                 v42 = "form";
               }
 
@@ -7721,7 +8308,7 @@ LABEL_130:
                   goto LABEL_137;
                 }
 
-                v59 = xmlSchemaParseComplexType(a1, a2, children);
+                v59 = xmlSchemaParseComplexType(a1, a2, children, 0);
                 goto LABEL_136;
               }
 
@@ -8162,10 +8749,10 @@ LABEL_33:
 
   while (1)
   {
-    v23 = *(v22 + 72);
+    v23 = v22->ns;
     if (v23)
     {
-      if (xmlStrEqual(*(v23 + 16), "http://www.w3.org/2001/XMLSchema"))
+      if (xmlStrEqual(v23->href, "http://www.w3.org/2001/XMLSchema"))
       {
         xmlSchemaPIllegalAttrErr(a1, v22);
       }
@@ -8173,13 +8760,13 @@ LABEL_33:
       goto LABEL_32;
     }
 
-    if (!xmlStrEqual(*(v22 + 16), "ref") && !xmlStrEqual(*(v22 + 16), "name") && !xmlStrEqual(*(v22 + 16), "id") && !xmlStrEqual(*(v22 + 16), "maxOccurs") && !xmlStrEqual(*(v22 + 16), "minOccurs"))
+    if (!xmlStrEqual(v22->name, "ref") && !xmlStrEqual(v22->name, "name") && !xmlStrEqual(v22->name, "id") && !xmlStrEqual(v22->name, "maxOccurs") && !xmlStrEqual(v22->name, "minOccurs"))
     {
       break;
     }
 
 LABEL_32:
-    v22 = *(v22 + 48);
+    v22 = v22->next;
     if (!v22)
     {
       goto LABEL_33;
@@ -8577,7 +9164,7 @@ void xmlSchemaPContentErr(uint64_t a1, int a2, uint64_t a3, uint64_t a4, xmlChar
   }
 }
 
-void xmlSchemaPIllegalAttrErr(_DWORD *a1, uint64_t a2)
+void xmlSchemaPIllegalAttrErr(xmlError *a1, uint64_t a2)
 {
   v8 = 0;
   v9 = 0;
@@ -8595,7 +9182,7 @@ void xmlSchemaPIllegalAttrErr(_DWORD *a1, uint64_t a2)
   }
 
   v7 = xmlSchemaFormatQName(&v8, v6, *(a2 + 16));
-  xmlSchemaErr4Line(a1, 2, 3035, a2, 0, "%sThe attribute '%s' is not allowed.\n", v4, v7, 0, 0);
+  xmlSchemaErr4Line(a1, 2, 0xBDBu, a2, 0, "%sThe attribute '%s' is not allowed.\n", v4, v7, 0, 0);
   if (v9)
   {
     free(v9);
@@ -8608,7 +9195,7 @@ void xmlSchemaPIllegalAttrErr(_DWORD *a1, uint64_t a2)
   }
 }
 
-uint64_t xmlSchemaPValAttr(_DWORD *a1, uint64_t a2, xmlChar *str2, xmlSchemaType *a4, xmlChar **a5)
+uint64_t xmlSchemaPValAttr(xmlError *a1, uint64_t a2, xmlChar *str2, xmlSchemaType *a4, xmlChar **a5)
 {
   if (!a4)
   {
@@ -8777,7 +9364,7 @@ LABEL_4:
   return v3;
 }
 
-void xmlSchemaPCustomErrExt(uint64_t a1, int a2, int *a3, uint64_t a4, const xmlChar *a5)
+void xmlSchemaPCustomErrExt(uint64_t a1, int a2, int *a3, uint64_t a4, const xmlChar *a5, ...)
 {
   ComponentNode = a4;
   v13 = 0;
@@ -8820,35 +9407,35 @@ void *xmlSchemaNewParserCtxtUseDict(const xmlChar *a1, xmlDict *a2)
   return v5;
 }
 
-uint64_t xmlSchemaParseIncludeOrRedefine(uint64_t a1, uint64_t a2, const xmlNode *a3, int a4)
+uint64_t xmlSchemaParseIncludeOrRedefine(uint64_t a1, uint64_t a2, const xmlNode *a3, unsigned int a4)
 {
-  v32 = 0;
+  v29 = 0;
   URI = 0;
   properties = a3->properties;
   if (properties)
   {
     while (1)
     {
-      v9 = *(properties + 72);
-      if (!v9)
+      ns = properties->ns;
+      if (!ns)
       {
         break;
       }
 
-      if (xmlStrEqual(*(v9 + 16), "http://www.w3.org/2001/XMLSchema"))
+      if (xmlStrEqual(ns->href, "http://www.w3.org/2001/XMLSchema"))
       {
         goto LABEL_4;
       }
 
 LABEL_7:
-      properties = *(properties + 48);
+      properties = properties->next;
       if (!properties)
       {
         goto LABEL_8;
       }
     }
 
-    if (xmlStrEqual(*(properties + 16), "id") || xmlStrEqual(*(properties + 16), "schemaLocation"))
+    if (xmlStrEqual(properties->name, "id") || xmlStrEqual(properties->name, "schemaLocation"))
     {
       goto LABEL_7;
     }
@@ -8895,19 +9482,14 @@ LABEL_14:
 
         if (a4 == 3)
         {
-          v18 = "The schema document '%s' cannot redefine itself.";
-          v19 = a1;
-          v20 = 3081;
+          xmlSchemaPCustomErrExt(a1, 3081, 0, a3, "The schema document '%s' cannot redefine itself.", URI);
         }
 
         else
         {
-          v18 = "The schema document '%s' cannot include itself.";
-          v19 = a1;
-          v20 = 3050;
+          xmlSchemaPCustomErrExt(a1, 3050, 0, a3, "The schema document '%s' cannot include itself.", URI);
         }
 
-        xmlSchemaPCustomErrExt(v19, v20, 0, a3, v18);
         goto LABEL_18;
       }
     }
@@ -8926,78 +9508,76 @@ LABEL_14:
   }
 
 LABEL_18:
-  v21 = *(a1 + 32);
-  if (v21)
+  v18 = *(a1 + 32);
+  if (v18)
   {
-    return v21;
+    return v18;
   }
 
   v17 = URI;
 LABEL_20:
-  v21 = xmlSchemaAddSchemaDoc(a1, a4, v17, 0, 0, 0, a3, *(a1 + 200), 0, &v32);
-  if (v21)
+  v18 = xmlSchemaAddSchemaDoc(a1, a4, v17, 0, 0, 0, a3, *(a1 + 200), 0, &v29);
+  if (v18)
   {
-    return v21;
+    return v18;
   }
 
-  if (v32 && v32[4])
+  if (v29 && v29[4])
   {
-    v22 = v32[2];
-    v23 = *(a1 + 200);
-    if (v22)
+    v19 = v29[2];
+    v20 = *(a1 + 200);
+    if (v19)
     {
-      if (!v23)
+      if (!v20)
       {
-        xmlSchemaCustomErr4(a1, 3050, a3, 0, "The target namespace of the included/redefined schema '%s' has to be absent, since the including/redefining schema has no target namespace", URI, 0, 0, 0);
+        xmlSchemaCustomErr4(a1, 0xBEAu, a3, 0, "The target namespace of the included/redefined schema '%s' has to be absent, since the including/redefining schema has no target namespace", URI, 0, 0, 0);
         return *(a1 + 32);
       }
 
-      if (!xmlStrEqual(v22, v23))
+      if (!xmlStrEqual(v19, v20))
       {
-        v24 = v32[2];
-        v25 = *(a1 + 200);
-        xmlSchemaPCustomErrExt(a1, 3050, 0, a3, "The target namespace '%s' of the included/redefined schema '%s' differs from '%s' of the including/redefining schema");
+        xmlSchemaPCustomErrExt(a1, 3050, 0, a3, "The target namespace '%s' of the included/redefined schema '%s' differs from '%s' of the including/redefining schema", v27, v28, v29);
         return *(a1 + 32);
       }
     }
 
-    else if (v23)
+    else if (v20)
     {
+      v18 = 0;
       v21 = 0;
-      v26 = 0;
-      v32[3] = v23;
+      v29[3] = v20;
       goto LABEL_35;
     }
 
-    v21 = 0;
+    v18 = 0;
   }
 
   else if (a4 == 2)
   {
-    v21 = 3050;
-    xmlSchemaCustomErr4(a1, 3050, a3, 0, "Failed to load the document '%s' for inclusion", URI, 0, 0, 0);
+    v18 = 3050;
+    xmlSchemaCustomErr4(a1, 0xBEAu, a3, 0, "Failed to load the document '%s' for inclusion", URI, 0, 0, 0);
   }
 
   else
   {
-    v21 = 3081;
-    xmlSchemaCustomErr4(a1, 3081, a3, 0, "Failed to load the document '%s' for redefinition", URI, 0, 0, 0);
+    v18 = 3081;
+    xmlSchemaCustomErr4(a1, 0xC09u, a3, 0, "Failed to load the document '%s' for redefinition", URI, 0, 0, 0);
   }
 
-  v26 = 1;
+  v21 = 1;
 LABEL_35:
-  v27 = v32;
-  if (v32 && !*(v32 + 13) && v32[4])
+  v22 = v29;
+  if (v29 && !*(v29 + 13) && v29[4])
   {
-    if ((v26 & 1) != 0 || (v28 = *(a2 + 48), (v28 & 0x200) != 0))
+    if ((v21 & 1) != 0 || (v23 = *(a2 + 48), (v23 & 0x200) != 0))
     {
-      xmlSchemaParseNewDoc(a1, a2, v32);
+      xmlSchemaParseNewDoc(a1, a2, v29);
     }
 
     else
     {
-      *(a2 + 48) = v28 | 0x200;
-      xmlSchemaParseNewDoc(a1, a2, v27);
+      *(a2 + 48) = v23 | 0x200;
+      xmlSchemaParseNewDoc(a1, a2, v22);
       *(a2 + 48) ^= 0x200u;
     }
   }
@@ -9005,7 +9585,7 @@ LABEL_35:
   children = a3->children;
   if (a4 == 3)
   {
-    *(a1 + 208) = v32;
+    *(a1 + 208) = v29;
     *(a1 + 188) = 1;
     if (children)
     {
@@ -9049,7 +9629,7 @@ LABEL_35:
 
       *(a1 + 208) = 0;
       *(a1 + 188) = 0;
-      v30 = "(annotation | (simpleType | complexType | group | attributeGroup))*";
+      v25 = "(annotation | (simpleType | complexType | group | attributeGroup))*";
       goto LABEL_90;
     }
 
@@ -9062,14 +9642,14 @@ LABEL_82:
   {
     if (!children->ns || !xmlStrEqual(children->name, "annotation") || !xmlStrEqual(children->ns->href, "http://www.w3.org/2001/XMLSchema") || (children = children->next) != 0)
     {
-      v30 = "(annotation?)";
+      v25 = "(annotation?)";
 LABEL_90:
-      v21 = 3033;
-      xmlSchemaPContentErr(a1, 3033, a3, children, 0, v30);
+      v18 = 3033;
+      xmlSchemaPContentErr(a1, 3033, a3, children, 0, v25);
     }
   }
 
-  return v21;
+  return v18;
 }
 
 void xmlSchemaPMissingAttrErr(uint64_t a1, uint64_t a2, xmlChar *a3)
@@ -9161,533 +9741,4 @@ LABEL_16:
   }
 
   return v7;
-}
-
-uint64_t xmlSchemaPGetBoolNodeValue(uint64_t a1, xmlNode *cur)
-{
-  Content = xmlNodeGetContent(cur);
-  if (!xmlStrEqual(Content, "true"))
-  {
-    if (!xmlStrEqual(Content, "false"))
-    {
-      if (xmlStrEqual(Content, "1"))
-      {
-        goto LABEL_2;
-      }
-
-      if (!xmlStrEqual(Content, "0"))
-      {
-        BuiltInType = xmlSchemaGetBuiltInType(XML_SCHEMAS_BOOLEAN);
-        xmlSchemaPSimpleTypeErr(a1, 1714, cur, BuiltInType, 0, Content, 0, 0);
-      }
-    }
-
-    v5 = 0;
-    if (!Content)
-    {
-      return v5;
-    }
-
-    goto LABEL_3;
-  }
-
-LABEL_2:
-  v5 = 1;
-  if (Content)
-  {
-LABEL_3:
-    free(Content);
-  }
-
-  return v5;
-}
-
-void *xmlSchemaParseModelGroup(uint64_t a1, uint64_t a2, uint64_t a3, int a4, int a5)
-{
-  if (!a3)
-  {
-    return 0;
-  }
-
-  v10 = xmlSchemaAddModelGroup(a1, a2, a4, a3);
-  if (!v10)
-  {
-    return 0;
-  }
-
-  v11 = v10;
-  if (!a5)
-  {
-    v18 = *(a3 + 88);
-    if (!v18)
-    {
-LABEL_14:
-      v64 = 0x100000001;
-      v20 = v11;
-LABEL_25:
-      PropNode = xmlSchemaGetPropNode(a3, "id");
-      if (PropNode)
-      {
-        xmlSchemaPValAttrNodeID(a1, PropNode);
-      }
-
-      v67 = 0;
-      v26 = *(a3 + 24);
-      v63 = v11;
-      if (!v26)
-      {
-        goto LABEL_143;
-      }
-
-      if (v26->ns && xmlStrEqual(v26->name, "annotation") && xmlStrEqual(v26->ns->href, "http://www.w3.org/2001/XMLSchema"))
-      {
-        v11[1] = xmlSchemaParseAnnotation(a1, v26, 1);
-        v26 = v26->next;
-      }
-
-      if (a4 == 8)
-      {
-        if (v26)
-        {
-          v27 = 0;
-          v65 = 0;
-          while (v26->ns && xmlStrEqual(v26->name, "element") && xmlStrEqual(v26->ns->href, "http://www.w3.org/2001/XMLSchema"))
-          {
-            v28 = xmlSchemaParseElement(a1, a2, v26, &v67, 0);
-            if (v28)
-            {
-              v29 = v28;
-              v30 = v65;
-              if (v67)
-              {
-                v30 = v65 + 1;
-              }
-
-              v65 = v30;
-              if (SLODWORD(v28->last) >= 2)
-              {
-                xmlSchemaPCustomErrExt(a1, 3091, 0, v26, "Invalid value for minOccurs (must be 0 or 1)");
-                LODWORD(v29->last) = 1;
-              }
-
-              if (SHIDWORD(v29->last) >= 2)
-              {
-                xmlSchemaPCustomErrExt(a1, 3091, 0, v26, "Invalid value for maxOccurs (must be 0 or 1)");
-                HIDWORD(v29->last) = 1;
-              }
-
-              p_name = &v27->name;
-              if (!v27)
-              {
-                p_name = (v63 + 24);
-              }
-
-              *p_name = v29;
-              v27 = v29;
-            }
-
-            v26 = v26->next;
-            if (!v26)
-            {
-              goto LABEL_147;
-            }
-          }
-
-          v58 = "(annotation?, (annotation?, element*)";
-          goto LABEL_146;
-        }
-
-LABEL_143:
-        v65 = 0;
-        goto LABEL_147;
-      }
-
-      if (!v26)
-      {
-        goto LABEL_143;
-      }
-
-      v32 = 0;
-      v33 = 0;
-      v65 = 0;
-      v34 = v11 + 3;
-      while (1)
-      {
-        if (!v26->ns || (!xmlStrEqual(v26->name, "element") || !xmlStrEqual(v26->ns->href, "http://www.w3.org/2001/XMLSchema")) && (!v26->ns || (!xmlStrEqual(v26->name, "group") || !xmlStrEqual(v26->ns->href, "http://www.w3.org/2001/XMLSchema")) && (!v26->ns || (!xmlStrEqual(v26->name, "any") || !xmlStrEqual(v26->ns->href, "http://www.w3.org/2001/XMLSchema")) && (!v26->ns || (!xmlStrEqual(v26->name, "choice") || !xmlStrEqual(v26->ns->href, "http://www.w3.org/2001/XMLSchema")) && (!v26->ns || !xmlStrEqual(v26->name, "sequence") || !xmlStrEqual(v26->ns->href, "http://www.w3.org/2001/XMLSchema"))))))
-        {
-          v58 = "(annotation?, (element | group | choice | sequence | any)*)";
-LABEL_146:
-          xmlSchemaPContentErr(a1, 3033, a3, v26, 0, v58);
-          goto LABEL_147;
-        }
-
-        if (v26->ns)
-        {
-          if (xmlStrEqual(v26->name, "element") && xmlStrEqual(v26->ns->href, "http://www.w3.org/2001/XMLSchema"))
-          {
-            v35 = xmlSchemaParseElement(a1, a2, v26, &v67, 0);
-            v33 = v35;
-            if (v35)
-            {
-              v36 = v67 == 0;
-            }
-
-            else
-            {
-              v36 = 1;
-            }
-
-            v37 = v65;
-            if (!v36)
-            {
-              v37 = v65 + 1;
-            }
-
-            v65 = v37;
-            if (!v35)
-            {
-              goto LABEL_126;
-            }
-
-            goto LABEL_123;
-          }
-
-          if (v26->ns)
-          {
-            if (xmlStrEqual(v26->name, "group") && xmlStrEqual(v26->ns->href, "http://www.w3.org/2001/XMLSchema"))
-            {
-              v38 = xmlSchemaParseModelGroupDefRef(a1, a2, v26);
-              v33 = v38;
-              v39 = v65;
-              if (v38)
-              {
-                v39 = v65 + 1;
-              }
-
-              v65 = v39;
-              if (*(a1 + 188))
-              {
-                v40 = *(a1 + 216);
-                if (v40)
-                {
-                  if (v38 && **(v40 + 8) == 17)
-                  {
-                    v41 = v38[3];
-                    if (!v41)
-                    {
-                      goto LABEL_123;
-                    }
-
-                    v42 = *(v40 + 32);
-                    if (*(v41 + 24) != v42)
-                    {
-                      goto LABEL_123;
-                    }
-
-                    v43 = *(v40 + 40);
-                    if (*(v41 + 32) != v43)
-                    {
-                      goto LABEL_123;
-                    }
-
-                    if (*(a1 + 224))
-                    {
-                      v66 = 0;
-                      v44 = xmlSchemaFormatQName(&v66, v43, v42);
-                      xmlSchemaCustomErr4(a1, 3081, v26, 0, "The redefining model group definition '%s' must not contain more than one reference to the redefined definition", v44, 0, 0, 0);
-                    }
-
-                    else
-                    {
-                      if (*(v38 + 8) == 1 && *(v38 + 9) == 1)
-                      {
-                        goto LABEL_141;
-                      }
-
-                      v66 = 0;
-                      v57 = xmlSchemaFormatQName(&v66, v43, v42);
-                      xmlSchemaCustomErr4(a1, 3081, v26, 0, "The redefining model group definition '%s' must not contain a reference to the redefined definition with a maxOccurs/minOccurs other than 1", v57, 0, 0, 0);
-                    }
-
-                    if (v66)
-                    {
-                      free(v66);
-                    }
-
-                    v33 = 0;
-LABEL_141:
-                    *(*(a1 + 216) + 16) = v33;
-                    ++*(a1 + 224);
-                    if (!v33)
-                    {
-                      goto LABEL_126;
-                    }
-
-LABEL_123:
-                    v55 = (v32 + 16);
-                    if (!v32)
-                    {
-                      v55 = v34;
-                    }
-
-                    *v55 = v33;
-                    v32 = v33;
-                    goto LABEL_126;
-                  }
-                }
-              }
-
-              goto LABEL_122;
-            }
-
-            if (v26->ns)
-            {
-              if (xmlStrEqual(v26->name, "any") && xmlStrEqual(v26->ns->href, "http://www.w3.org/2001/XMLSchema"))
-              {
-                properties = v26->properties;
-                if (properties)
-                {
-                  while (1)
-                  {
-                    v46 = *(properties + 72);
-                    if (!v46)
-                    {
-                      break;
-                    }
-
-                    if (xmlStrEqual(*(v46 + 16), "http://www.w3.org/2001/XMLSchema"))
-                    {
-                      goto LABEL_97;
-                    }
-
-LABEL_103:
-                    properties = *(properties + 48);
-                    if (!properties)
-                    {
-                      goto LABEL_104;
-                    }
-                  }
-
-                  if (xmlStrEqual(*(properties + 16), "id") || xmlStrEqual(*(properties + 16), "minOccurs") || xmlStrEqual(*(properties + 16), "maxOccurs") || xmlStrEqual(*(properties + 16), "namespace") || xmlStrEqual(*(properties + 16), "processContents"))
-                  {
-                    goto LABEL_103;
-                  }
-
-LABEL_97:
-                  xmlSchemaPIllegalAttrErr(a1, properties);
-                  goto LABEL_103;
-                }
-
-LABEL_104:
-                v47 = xmlSchemaGetPropNode(v26, "id");
-                if (v47)
-                {
-                  xmlSchemaPValAttrNodeID(a1, v47);
-                }
-
-                MaxOccurs = xmlGetMaxOccurs(a1, v26, 0, 0x40000000, "(xs:nonNegativeInteger | unbounded)");
-                HIDWORD(v62) = xmlGetMinOccurs(a1, v26, -1, "xs:nonNegativeInteger");
-                xmlSchemaPCheckParticleCorrect_2(a1, v26, SHIDWORD(v62), MaxOccurs);
-                v49 = xmlSchemaAddWildcard(a1, a2, 2, v26);
-                if (v49)
-                {
-                  LODWORD(v62) = MaxOccurs;
-                  v60 = v49;
-                  xmlSchemaParseWildcardNs(a1, v49, v26);
-                  children = v26->children;
-                  if (children)
-                  {
-                    if (*(children + 72) && xmlStrEqual(*(children + 16), "annotation") && xmlStrEqual(*(*(children + 72) + 16), "http://www.w3.org/2001/XMLSchema"))
-                    {
-                      v61 = xmlSchemaParseAnnotation(a1, children, 1);
-                      children = *(children + 48);
-                      if (!children)
-                      {
-                        goto LABEL_131;
-                      }
-                    }
-
-                    else
-                    {
-                      v61 = 0;
-                    }
-
-                    xmlSchemaPContentErr(a1, 3033, v26, children, 0, "(annotation?)");
-                  }
-
-                  else
-                  {
-                    v61 = 0;
-                  }
-
-LABEL_131:
-                  if (v62)
-                  {
-                    v56 = xmlSchemaAddParticle(a1, v26, SHIDWORD(v62), v62);
-                    v33 = v56;
-                    if (v56)
-                    {
-                      v56[1] = v61;
-                      v56[3] = v60;
-                      goto LABEL_123;
-                    }
-
-                    goto LABEL_126;
-                  }
-                }
-
-                v33 = 0;
-                goto LABEL_126;
-              }
-
-              if (v26->ns)
-              {
-                if (xmlStrEqual(v26->name, "choice") && xmlStrEqual(v26->ns->href, "http://www.w3.org/2001/XMLSchema"))
-                {
-                  v51 = a1;
-                  v52 = a2;
-                  v53 = v26;
-                  v54 = 7;
-LABEL_121:
-                  v33 = xmlSchemaParseModelGroup(v51, v52, v53, v54, 1);
-                  goto LABEL_122;
-                }
-
-                if (v26->ns && xmlStrEqual(v26->name, "sequence") && xmlStrEqual(v26->ns->href, "http://www.w3.org/2001/XMLSchema"))
-                {
-                  v51 = a1;
-                  v52 = a2;
-                  v53 = v26;
-                  v54 = 6;
-                  goto LABEL_121;
-                }
-              }
-            }
-          }
-        }
-
-LABEL_122:
-        if (v33)
-        {
-          goto LABEL_123;
-        }
-
-LABEL_126:
-        v26 = v26->next;
-        if (!v26)
-        {
-LABEL_147:
-          if (v64)
-          {
-            if (v65 && (xmlSchemaAddItemSize((*(a1 + 48) + 40), 10, v63) & 0x80000000) != 0)
-            {
-              ++*(a1 + 36);
-              __xmlSimpleError(0x10u, 2, 0, 0, 0);
-            }
-
-            return v20;
-          }
-
-          return 0;
-        }
-      }
-    }
-
-    while (1)
-    {
-      v19 = *(v18 + 72);
-      if (!v19)
-      {
-        break;
-      }
-
-      if (xmlStrEqual(*(v19 + 16), "http://www.w3.org/2001/XMLSchema"))
-      {
-        goto LABEL_9;
-      }
-
-LABEL_10:
-      v18 = *(v18 + 48);
-      if (!v18)
-      {
-        goto LABEL_14;
-      }
-    }
-
-    if (xmlStrEqual(*(v18 + 16), "id"))
-    {
-      goto LABEL_10;
-    }
-
-LABEL_9:
-    xmlSchemaPIllegalAttrErr(a1, v18);
-    goto LABEL_10;
-  }
-
-  if (a4 == 8)
-  {
-    MinOccurs = xmlGetMinOccurs(a1, a3, 1, "(0 | 1)");
-    v13 = "1";
-    v14 = a1;
-    v15 = a3;
-    v16 = 1;
-    v17 = 1;
-  }
-
-  else
-  {
-    MinOccurs = xmlGetMinOccurs(a1, a3, -1, "xs:nonNegativeInteger");
-    v13 = "(xs:nonNegativeInteger | unbounded)";
-    v14 = a1;
-    v15 = a3;
-    v16 = 0;
-    v17 = 0x40000000;
-  }
-
-  v21 = xmlGetMaxOccurs(v14, v15, v16, v17, v13);
-  xmlSchemaPCheckParticleCorrect_2(a1, a3, MinOccurs, v21);
-  v22 = xmlSchemaAddParticle(a1, a3, MinOccurs, v21);
-  v20 = v22;
-  if (v22)
-  {
-    v64 = __PAIR64__(MinOccurs, v21);
-    v22[3] = v11;
-    v23 = *(a3 + 88);
-    if (v23)
-    {
-      while (1)
-      {
-        v24 = *(v23 + 72);
-        if (!v24)
-        {
-          break;
-        }
-
-        if (xmlStrEqual(*(v24 + 16), "http://www.w3.org/2001/XMLSchema"))
-        {
-          goto LABEL_20;
-        }
-
-LABEL_24:
-        v23 = *(v23 + 48);
-        if (!v23)
-        {
-          goto LABEL_25;
-        }
-      }
-
-      if (xmlStrEqual(*(v23 + 16), "id") || xmlStrEqual(*(v23 + 16), "maxOccurs") || xmlStrEqual(*(v23 + 16), "minOccurs"))
-      {
-        goto LABEL_24;
-      }
-
-LABEL_20:
-      xmlSchemaPIllegalAttrErr(a1, v23);
-      goto LABEL_24;
-    }
-
-    goto LABEL_25;
-  }
-
-  return v20;
 }

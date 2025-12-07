@@ -94,7 +94,7 @@ uint64_t __111__PKPeerPaymentWebServiceTargetDevice_peerPaymentReRegisterWithURL
     }
 
     v5 = v4;
-    return (*(result + 16))(result, v5);
+    return (*(result + 16))(result, v5, a3);
   }
 
   return result;
@@ -250,9 +250,9 @@ LABEL_19:
         goto LABEL_20;
       }
 
-      v12 = [(__CFString *)v10 isEqualToString:@"PKPeerPaymentWebServiceErrorDomain"];
+      isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-      if ((v12 & 1) == 0)
+      if ((isEqualToString & 1) == 0)
       {
         goto LABEL_19;
       }

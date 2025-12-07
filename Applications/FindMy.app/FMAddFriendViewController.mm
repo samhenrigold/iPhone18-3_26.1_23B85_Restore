@@ -23,7 +23,7 @@
 - (_TtC6FindMy25FMAddFriendViewController)initWithCoder:(id)coder
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for FMAddFriendViewController();
+  v7.super_class = type metadata accessor for FMAddFriendViewController(0);
   coderCopy = coder;
   v5 = [(FMRecipientsViewController *)&v7 initWithCoder:coderCopy];
 

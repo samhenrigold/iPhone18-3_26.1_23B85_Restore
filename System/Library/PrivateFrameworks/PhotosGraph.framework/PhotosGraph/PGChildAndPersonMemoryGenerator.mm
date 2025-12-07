@@ -36,38 +36,38 @@
 
 - (id)relevantFeederForTriggeredMemory:(id)memory inGraph:(id)graph allowGuestAsset:(BOOL)asset progressReporter:(id)reporter
 {
-  v89 = *MEMORY[0x277D85DE8];
+  v88 = *MEMORY[0x277D85DE8];
   memoryCopy = memory;
   graphCopy = graph;
   reporterCopy = reporter;
-  v57 = memoryCopy;
+  v56 = memoryCopy;
   memoryFeatureNodes = [memoryCopy memoryFeatureNodes];
-  v60 = [(PGGraphNodeCollection *)PGGraphPersonNodeCollection subsetInCollection:memoryFeatureNodes];
+  v59 = [(PGGraphNodeCollection *)PGGraphPersonNodeCollection subsetInCollection:memoryFeatureNodes];
 
-  if ([v60 count] == 2)
+  if ([v59 count] == 2)
   {
-    localIdentifiers = [v60 localIdentifiers];
+    localIdentifiers = [v59 localIdentifiers];
     oslog = [localIdentifiers allObjects];
 
     if ([oslog count]== 2)
     {
       memoryMomentNodes = [memoryCopy memoryMomentNodes];
       *buf = 0;
-      v84 = buf;
-      v85 = 0x3032000000;
-      v86 = __Block_byref_object_copy__51458;
-      v87 = __Block_byref_object_dispose__51459;
-      v88 = 0;
-      v77[0] = MEMORY[0x277D85DD0];
-      v77[1] = 3221225472;
-      v77[2] = __109__PGChildAndPersonMemoryGenerator_relevantFeederForTriggeredMemory_inGraph_allowGuestAsset_progressReporter___block_invoke;
-      v77[3] = &unk_278885760;
+      v83 = buf;
+      v84 = 0x3032000000;
+      v85 = __Block_byref_object_copy__51458;
+      v86 = __Block_byref_object_dispose__51459;
+      v87 = 0;
+      v76[0] = MEMORY[0x277D85DD0];
+      v76[1] = 3221225472;
+      v76[2] = __109__PGChildAndPersonMemoryGenerator_relevantFeederForTriggeredMemory_inGraph_allowGuestAsset_progressReporter___block_invoke;
+      v76[3] = &unk_278885760;
       log = memoryMomentNodes;
-      v78 = log;
+      v77 = log;
       selfCopy = self;
-      v80 = buf;
-      [v60 enumerateIdentifiersAsCollectionsWithBlock:v77];
-      if ([*(v84 + 5) count])
+      v79 = buf;
+      [v59 enumerateIdentifiersAsCollectionsWithBlock:v76];
+      if ([*(v83 + 5) count])
       {
         firstObject = [oslog firstObject];
         lastObject = [oslog lastObject];
@@ -76,39 +76,39 @@
         defaultAssetFetchOptionsForMemories = [curationManager defaultAssetFetchOptionsForMemories];
 
         v16 = MEMORY[0x277CD97A8];
-        allObjects = [*(v84 + 5) allObjects];
-        v53 = [v16 fetchAssetsWithLocalIdentifiers:allObjects options:defaultAssetFetchOptionsForMemories];
+        allObjects = [*(v83 + 5) allObjects];
+        v52 = [v16 fetchAssetsWithLocalIdentifiers:allObjects options:defaultAssetFetchOptionsForMemories];
 
         v18 = MEMORY[0x277CD97A8];
         memoryCurationSession2 = [(PGMemoryGenerator *)self memoryCurationSession];
         curationContext = [memoryCurationSession2 curationContext];
-        v21 = [v18 clsAllAssetsFromFetchResult:v53 prefetchOptions:8 curationContext:curationContext];
+        v21 = [v18 clsAllAssetsFromFetchResult:v52 prefetchOptions:8 curationContext:curationContext];
 
-        v51 = [(PGGraphNodeCollection *)PGGraphMeNodeCollection nodesInGraph:graphCopy];
-        localIdentifiers2 = [v51 localIdentifiers];
+        v50 = [(PGGraphNodeCollection *)PGGraphMeNodeCollection nodesInGraph:graphCopy];
+        localIdentifiers2 = [v50 localIdentifiers];
         anyObject = [localIdentifiers2 anyObject];
 
-        v61 = objc_alloc_init(MEMORY[0x277CBEB18]);
-        v74 = 0u;
-        v75 = 0u;
-        v72 = 0u;
+        v60 = objc_alloc_init(MEMORY[0x277CBEB18]);
         v73 = 0u;
+        v74 = 0u;
+        v71 = 0u;
+        v72 = 0u;
         obj = v21;
-        v64 = [obj countByEnumeratingWithState:&v72 objects:v82 count:16];
-        if (v64)
+        v63 = [obj countByEnumeratingWithState:&v71 objects:v81 count:16];
+        if (v63)
         {
-          v63 = *v73;
+          v62 = *v72;
           do
           {
-            for (i = 0; i != v64; ++i)
+            for (i = 0; i != v63; ++i)
             {
-              if (*v73 != v63)
+              if (*v72 != v62)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v65 = *(*(&v72 + 1) + 8 * i);
-              clsFaceInformationSummary = [v65 clsFaceInformationSummary];
+              v64 = *(*(&v71 + 1) + 8 * i);
+              clsFaceInformationSummary = [v64 clsFaceInformationSummary];
               faceInformationByPersonLocalIdentifier = [clsFaceInformationSummary faceInformationByPersonLocalIdentifier];
 
               v25 = [faceInformationByPersonLocalIdentifier objectForKeyedSubscript:firstObject];
@@ -148,26 +148,26 @@
                   v27 = v30;
                 }
 
-                v70 = 0u;
-                v71 = 0u;
-                v68 = 0u;
                 v69 = 0u;
+                v70 = 0u;
+                v67 = 0u;
+                v68 = 0u;
                 v35 = faceInformationByPersonLocalIdentifier;
-                v36 = [v35 countByEnumeratingWithState:&v68 objects:v81 count:16];
+                v36 = [v35 countByEnumeratingWithState:&v67 objects:v80 count:16];
                 if (v36)
                 {
-                  v37 = *v69;
+                  v37 = *v68;
                   v38 = 0.0;
                   while (1)
                   {
                     for (j = 0; j != v36; ++j)
                     {
-                      if (*v69 != v37)
+                      if (*v68 != v37)
                       {
                         objc_enumerationMutation(v35);
                       }
 
-                      v40 = *(*(&v68 + 1) + 8 * j);
+                      v40 = *(*(&v67 + 1) + 8 * j);
                       v41 = [v35 objectForKeyedSubscript:v40];
                       if ([v40 isEqualToString:firstObject])
                       {
@@ -201,7 +201,7 @@ LABEL_28:
                       }
                     }
 
-                    v36 = [v35 countByEnumeratingWithState:&v68 objects:v81 count:16];
+                    v36 = [v35 countByEnumeratingWithState:&v67 objects:v80 count:16];
                     if (!v36)
                     {
                       goto LABEL_35;
@@ -214,21 +214,21 @@ LABEL_35:
 
                 if (v38 < v27 * 0.5)
                 {
-                  objectID = [v65 objectID];
-                  [v61 addObject:objectID];
+                  objectID = [v64 objectID];
+                  [v60 addObject:objectID];
                 }
               }
             }
 
-            v64 = [obj countByEnumeratingWithState:&v72 objects:v82 count:16];
+            v63 = [obj countByEnumeratingWithState:&v71 objects:v81 count:16];
           }
 
-          while (v64);
+          while (v63);
         }
 
-        if ([v61 count])
+        if ([v60 count])
         {
-          loggingConnection = [objc_alloc(MEMORY[0x277CD9888]) initWithExistingFetchResult:v53 filteredObjectIDs:v61];
+          loggingConnection = [objc_alloc(MEMORY[0x277CD9888]) initWithExistingFetchResult:v52 filteredObjectIDs:v60];
           memoryCurationSession3 = [(PGMemoryGenerator *)self memoryCurationSession];
           v48 = [PGMemoryGenerationHelper feederForMemoriesWithAssetFetchResult:loggingConnection memoryCurationSession:memoryCurationSession3 graph:graphCopy];
         }
@@ -238,8 +238,8 @@ LABEL_35:
           loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
           if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
           {
-            *v76 = 0;
-            _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGChildAndPersonMemoryGenerator] Filtered out all relevant assets due to face sizes for memory", v76, 2u);
+            *v75 = 0;
+            _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[PGChildAndPersonMemoryGenerator] Filtered out all relevant assets due to face sizes for memory", v75, 2u);
           }
 
           v48 = 0;
@@ -251,8 +251,8 @@ LABEL_35:
         firstObject = [(PGMemoryGenerator *)self loggingConnection];
         if (os_log_type_enabled(firstObject, OS_LOG_TYPE_ERROR))
         {
-          *v76 = 0;
-          _os_log_error_impl(&dword_22F0FC000, firstObject, OS_LOG_TYPE_ERROR, "[PGChildAndPersonMemoryGenerator] No relevantAssetLocalIdentifiers found", v76, 2u);
+          *v75 = 0;
+          _os_log_error_impl(&dword_22F0FC000, firstObject, OS_LOG_TYPE_ERROR, "[PGChildAndPersonMemoryGenerator] No relevantAssetLocalIdentifiers found", v75, 2u);
         }
 
         v48 = 0;
@@ -281,14 +281,12 @@ LABEL_35:
     if (os_log_type_enabled(oslog, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      *&buf[4] = [v60 count];
+      *&buf[4] = [v59 count];
       _os_log_error_impl(&dword_22F0FC000, oslog, OS_LOG_TYPE_ERROR, "[PGChildAndPersonMemoryGenerator] Two person nodes expected, found %d", buf, 8u);
     }
 
     v48 = 0;
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 
   return v48;
 }
@@ -404,7 +402,7 @@ void __94__PGChildAndPersonMemoryGenerator__twoPersonNodeCollectionsFromSocialGr
 
 void __89__PGChildAndPersonMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke(uint64_t a1, void *a2, void *a3, uint64_t a4)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   context = objc_autoreleasePoolPush();
@@ -416,26 +414,26 @@ void __89__PGChildAndPersonMemoryGenerator_enumerateMomentNodesAndFeatureNodesIn
   v11 = [v10 subtractingSourcesWith:v6];
 
   v12 = [*(a1 + 32) mutableCopy];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   v13 = *(a1 + 48);
-  v14 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
   if (v14)
   {
     v15 = v14;
-    v16 = *v31;
+    v16 = *v30;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v31 != v16)
+        if (*v30 != v16)
         {
           objc_enumerationMutation(v13);
         }
 
-        v18 = *(*(&v30 + 1) + 8 * i);
+        v18 = *(*(&v29 + 1) + 8 * i);
         if ([v6 isSubsetOfCollection:v18])
         {
           v19 = [v18 elementIdentifiers];
@@ -443,7 +441,7 @@ void __89__PGChildAndPersonMemoryGenerator_enumerateMomentNodesAndFeatureNodesIn
         }
       }
 
-      v15 = [v13 countByEnumeratingWithState:&v30 objects:v34 count:16];
+      v15 = [v13 countByEnumeratingWithState:&v29 objects:v33 count:16];
     }
 
     while (v15);
@@ -452,18 +450,17 @@ void __89__PGChildAndPersonMemoryGenerator_enumerateMomentNodesAndFeatureNodesIn
   v20 = [(MAElementCollection *)[PGGraphPersonNodeCollection alloc] initWithGraph:*(a1 + 56) elementIdentifiers:v12];
   v21 = [v11 subtractingSourcesWith:v20];
 
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = __89__PGChildAndPersonMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke_2;
-  v26[3] = &unk_278889A78;
-  v28 = *(a1 + 64);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = __89__PGChildAndPersonMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke_2;
+  v25[3] = &unk_278889A78;
+  v27 = *(a1 + 64);
   v22 = v6;
-  v27 = v22;
-  v29 = a4;
-  [v21 enumerateTargetsBySourceWithBlock:v26];
+  v26 = v22;
+  v28 = a4;
+  [v21 enumerateTargetsBySourceWithBlock:v25];
 
   objc_autoreleasePoolPop(context);
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __89__PGChildAndPersonMemoryGenerator_enumerateMomentNodesAndFeatureNodesInGraph_usingBlock___block_invoke_2(uint64_t a1, uint64_t a2, void *a3, _BYTE *a4)
@@ -480,40 +477,31 @@ void __89__PGChildAndPersonMemoryGenerator_enumerateMomentNodesAndFeatureNodesIn
 
 - (unint64_t)memoryCategorySubcategoryForOverTimeType:(unint64_t)type
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (type == 1)
   {
-    result = 15003;
+    return 15003;
   }
 
-  else
+  typeCopy = type;
+  if (type == 3)
   {
-    typeCopy = type;
-    if (type == 3)
-    {
-      result = 15004;
-    }
-
-    else
-    {
-      loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
-      if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
-      {
-        v7 = objc_opt_class();
-        v8 = NSStringFromClass(v7);
-        v9 = 138412546;
-        v10 = v8;
-        v11 = 1024;
-        v12 = typeCopy;
-        _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v9, 0x12u);
-      }
-
-      result = 0;
-    }
+    return 15004;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  loggingConnection = [(PGMemoryGenerator *)self loggingConnection];
+  if (os_log_type_enabled(loggingConnection, OS_LOG_TYPE_ERROR))
+  {
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    v8 = 138412546;
+    v9 = v7;
+    v10 = 1024;
+    v11 = typeCopy;
+    _os_log_error_impl(&dword_22F0FC000, loggingConnection, OS_LOG_TYPE_ERROR, "[%@] Returning PHMemoryCategorySubcategoryNone for PGOverTimeMemoryType %d, this should never happen", &v8, 0x12u);
+  }
+
+  return 0;
 }
 
 - (PGChildAndPersonMemoryGenerator)initWithMemoryGenerationContext:(id)context

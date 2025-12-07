@@ -13,19 +13,19 @@
   if (v5)
   {
     v6 = [dictionaryCopy PKStringForKey:@"identifier"];
-    if ([v6 isEqualToString:@"makeDefaultCard"])
+    if (objc_msgSend_isEqualToString_(v6))
     {
       v7 = 1;
     }
 
-    else if ([v6 isEqualToString:@"applePayEducation"])
+    else if (objc_msgSend_isEqualToString_(v6))
     {
       v7 = 2;
     }
 
     else
     {
-      if (![v6 isEqualToString:@"orderPhysicalCard"])
+      if (!objc_msgSend_isEqualToString_(v6))
       {
         v5->_type = 0;
         goto LABEL_9;

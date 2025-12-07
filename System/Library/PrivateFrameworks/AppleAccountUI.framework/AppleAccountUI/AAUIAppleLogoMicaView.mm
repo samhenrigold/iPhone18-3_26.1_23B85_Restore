@@ -60,7 +60,7 @@
 
 - (void)_updateColors
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   objc_opt_class();
   micaPlayer = [(AAUIAppleLogoMicaView *)self micaPlayer];
   v4 = [micaPlayer publishedLayerWithKey:@"Transparency Gradient" required:1];
@@ -79,34 +79,34 @@
     disableActions = [MEMORY[0x1E6979518] disableActions];
     [MEMORY[0x1E6979518] setDisableActions:1];
     systemBlueColor = [MEMORY[0x1E69DC888] systemBlueColor];
-    v8 = [systemBlueColor colorWithAlphaComponent:0.7];
+    v9 = [systemBlueColor colorWithAlphaComponent:0.7];
     traitCollection = [(AAUIAppleLogoMicaView *)self traitCollection];
     userInterfaceStyle = [traitCollection userInterfaceStyle];
 
     if (userInterfaceStyle == 1)
     {
-      v15[0] = [v8 CGColor];
-      v11 = v15;
-      v12 = systemBlueColor;
+      v16[0] = [v9 CGColor];
+      v12 = v16;
+      v13 = systemBlueColor;
     }
 
     else
     {
       cGColor = [systemBlueColor CGColor];
-      v11 = &cGColor;
-      v12 = v8;
+      v12 = &cGColor;
+      v13 = v9;
     }
 
-    v11[1] = [v12 CGColor];
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:2];
-    [v5 setColors:v13];
+    v12[1] = [v13 CGColor];
+    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:2];
+    [v5 setColors:v14];
 
     [MEMORY[0x1E6979518] setDisableActions:disableActions];
   }
 
   else
   {
-    systemBlueColor = _AAUILogSystem();
+    systemBlueColor = _AAUILogSystem(v6);
     if (os_log_type_enabled(systemBlueColor, OS_LOG_TYPE_ERROR))
     {
       [(AAUIAppleLogoMicaView *)systemBlueColor _updateColors];

@@ -49,7 +49,7 @@
   return v5;
 }
 
-uint64_t __70__SearchUIPersonHeaderCardSectionViewAccessibility_accessibilityLabel__block_invoke(uint64_t a1)
+void *__70__SearchUIPersonHeaderCardSectionViewAccessibility_accessibilityLabel__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) userIsUnavailable];
   *(*(*(a1 + 40) + 8) + 24) = result;

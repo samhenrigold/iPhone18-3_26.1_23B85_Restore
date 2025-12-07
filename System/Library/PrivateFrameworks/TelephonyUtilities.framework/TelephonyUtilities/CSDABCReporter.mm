@@ -55,22 +55,22 @@
 
   if (v11)
   {
-    v12 = [reportCopy objectForKeyedSubscript:v10];
-    v17 = @"CallUUID";
-    v18 = dCopy;
-    v13 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v13 = [reportCopy objectForKeyedSubscript:v10];
+    v18 = @"CallUUID";
+    v19 = dCopy;
+    v14 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     block = [(CSDABCReporter *)self block];
-    (block)[2](block, v9, @"StartCallAction duration unexpected", v12, v13);
+    (block)[2](block, v9, @"StartCallAction duration unexpected", v13, v14);
   }
 
   else
   {
-    v12 = sub_100004778();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = sub_100004778(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 138412290;
-      v16 = reportCopy;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Unknown report: %@", &v15, 0xCu);
+      v16 = 138412290;
+      v17 = reportCopy;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Unknown report: %@", &v16, 0xCu);
     }
   }
 }

@@ -95,58 +95,58 @@ uint64_t __36__NRMutableStateBase_parentDelegate__block_invoke(uint64_t a1)
 
 - (void)notifyObserversWithDiff:(id)diff
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   diffCopy = diff;
-  v28 = 0;
-  v29 = &v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__1;
-  v32 = __Block_byref_object_dispose__1;
-  v33 = 0;
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v24 = __46__NRMutableStateBase_notifyObserversWithDiff___block_invoke;
-  v25 = &unk_1E86DB8F0;
+  v27 = 0;
+  v28 = &v27;
+  v29 = 0x3032000000;
+  v30 = __Block_byref_object_copy__1;
+  v31 = __Block_byref_object_dispose__1;
+  v32 = 0;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v23 = __46__NRMutableStateBase_notifyObserversWithDiff___block_invoke;
+  v24 = &unk_1E86DB8F0;
   selfCopy = self;
-  v27 = &v28;
-  v5 = v23;
+  v26 = &v27;
+  v5 = v22;
   selfCopy2 = self;
   os_unfair_lock_lock_with_options();
-  v24(v5);
+  v23(v5);
 
   os_unfair_lock_unlock(&self->_lock);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
-  v7 = v29[5];
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v34 count:16];
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v7 = v28[5];
+  v8 = [v7 countByEnumeratingWithState:&v18 objects:v33 count:16];
   if (v8)
   {
-    v9 = *v20;
+    v9 = *v19;
     do
     {
       v10 = 0;
       do
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * v10);
+        v11 = *(*(&v18 + 1) + 8 * v10);
         if (v11)
         {
           v12 = *(v11 + 16);
           if (v12)
           {
-            v17[0] = MEMORY[0x1E69E9820];
-            v17[1] = 3221225472;
-            v17[2] = __46__NRMutableStateBase_notifyObserversWithDiff___block_invoke_2;
-            v17[3] = &unk_1E86DAF10;
-            v17[4] = v11;
-            v18 = diffCopy;
-            dispatch_async(v12, v17);
+            v16[0] = MEMORY[0x1E69E9820];
+            v16[1] = 3221225472;
+            v16[2] = __46__NRMutableStateBase_notifyObserversWithDiff___block_invoke_2;
+            v16[3] = &unk_1E86DAF10;
+            v16[4] = v11;
+            v17 = diffCopy;
+            dispatch_async(v12, v16);
 
             goto LABEL_11;
           }
@@ -167,15 +167,14 @@ LABEL_11:
       }
 
       while (v8 != v10);
-      v15 = [v7 countByEnumeratingWithState:&v19 objects:v34 count:16];
+      v15 = [v7 countByEnumeratingWithState:&v18 objects:v33 count:16];
       v8 = v15;
     }
 
     while (v15);
   }
 
-  _Block_object_dispose(&v28, 8);
-  v16 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v27, 8);
 }
 
 uint64_t __46__NRMutableStateBase_notifyObserversWithDiff___block_invoke(uint64_t a1)

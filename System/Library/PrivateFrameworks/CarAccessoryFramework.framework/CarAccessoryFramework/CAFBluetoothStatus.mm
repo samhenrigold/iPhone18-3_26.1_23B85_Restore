@@ -7,6 +7,7 @@
 - (CAFStringCharacteristic)contentURLActionCharacteristic;
 - (NSString)contentURLAction;
 - (unsigned)moduleStatus;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -130,6 +131,58 @@
   v3 = contentURLActionCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000036100001"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    moduleStatusCharacteristic = [(CAFBluetoothStatus *)self moduleStatusCharacteristic];
+    uniqueIdentifier2 = [moduleStatusCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      [observers bluetoothStatusService:self didUpdateModuleStatus:{-[CAFBluetoothStatus moduleStatus](self, "moduleStatus")}];
+LABEL_8:
+
+      goto LABEL_9;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000066"])
+  {
+    goto LABEL_8;
+  }
+
+  uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+  contentURLActionCharacteristic = [(CAFBluetoothStatus *)self contentURLActionCharacteristic];
+  uniqueIdentifier4 = [contentURLActionCharacteristic uniqueIdentifier];
+  v16 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+  if (v16)
+  {
+    observers = [(CAFService *)self observers];
+    contentURLAction = [(CAFBluetoothStatus *)self contentURLAction];
+    [observers bluetoothStatusService:self didUpdateContentURLAction:contentURLAction];
+
+    goto LABEL_8;
+  }
+
+LABEL_9:
+  v18.receiver = self;
+  v18.super_class = CAFBluetoothStatus;
+  [(CAFService *)&v18 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForModuleStatus

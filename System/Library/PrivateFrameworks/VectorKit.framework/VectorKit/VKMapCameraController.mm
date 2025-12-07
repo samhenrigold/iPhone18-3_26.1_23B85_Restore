@@ -134,28 +134,28 @@
         v11 = 0.0;
       }
 
-      vkCamera = [(VKCameraController *)self vkCamera];
-      [(VKCameraController *)self camera];
-      if (vkCamera)
+      v12 = objc_msgSend_vkCamera(self);
+      objc_msgSend_camera(self);
+      if (v12)
       {
-        [vkCamera cameraFrame:*v14 == 0];
+        objc_msgSend_cameraFrame_(v12);
       }
 
       else
       {
-        v19 = 0.0;
-        v17 = 0u;
-        v18 = 0u;
+        v18 = 0.0;
         v16 = 0u;
+        v17 = 0u;
+        v15 = 0u;
       }
 
-      *&self->_resumeTourPosition._target.latitude._value = v16;
-      *&self->_resumeTourPosition._target.altitude._value = v17;
-      *&self->_resumeTourPosition._pitch._value = v18;
-      self->_resumeTourPosition._roll._value = v19;
-      if (v15)
+      *&self->_resumeTourPosition._target.latitude._value = v15;
+      *&self->_resumeTourPosition._target.altitude._value = v16;
+      *&self->_resumeTourPosition._pitch._value = v17;
+      self->_resumeTourPosition._roll._value = v18;
+      if (v14)
       {
-        std::__shared_weak_count::__release_shared[abi:nn200100](v15);
+        std::__shared_weak_count::__release_shared[abi:nn200100](v14);
       }
 
       self->_resumeTourPosition._target.altitude._value = v11;
@@ -189,11 +189,11 @@
 
 - (void)updateCameraZBounds
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   if (v148)
   {
-    vkCamera = [(VKCameraController *)self vkCamera];
-    v6 = vkCamera == 0;
+    v5 = objc_msgSend_vkCamera(self);
+    v6 = v5 == 0;
   }
 
   else
@@ -208,22 +208,22 @@
 
   if (!v6)
   {
-    vkCamera2 = [(VKCameraController *)self vkCamera];
-    position = [vkCamera2 position];
-    v159 = *position;
-    v160 = *(position + 16);
+    v7 = objc_msgSend_vkCamera(self);
+    v8 = objc_msgSend_position(v7);
+    v159 = *v8;
+    v160 = *(v8 + 16);
 
-    vkCamera3 = [(VKCameraController *)self vkCamera];
-    [vkCamera3 forwardVector];
+    v9 = objc_msgSend_vkCamera(self);
+    [v9 forwardVector];
     v158[0] = v10;
     v158[1] = v11;
     v158[2] = v12;
 
-    vkCamera4 = [(VKCameraController *)self vkCamera];
-    v14 = vkCamera4;
-    if (vkCamera4)
+    v13 = objc_msgSend_vkCamera(self);
+    v14 = v13;
+    if (v13)
     {
-      [vkCamera4 groundPointFromScreenPoint:{0.5, 0.5}];
+      objc_msgSend_groundPointFromScreenPoint_(v13, 0.5, 0.5);
     }
 
     else
@@ -248,8 +248,8 @@
       }
 
       while (v16 != 3);
-      vkCamera5 = [(VKCameraController *)self vkCamera];
-      [vkCamera5 widthOfViewAtDepth:v17];
+      v18 = objc_msgSend_vkCamera(self);
+      [v18 widthOfViewAtDepth:v17];
       v20 = 0.0;
       if (v19 > 0.0)
       {
@@ -275,7 +275,7 @@
       mapEngine = selfCopy->_mapEngine;
       if (mapEngine && (v32 = mapEngine[5253]) != 0 && *(v32 + 608) == 1)
       {
-        [(VKCameraController *)selfCopy camera];
+        objc_msgSend_camera(selfCopy);
         *&v141 = v26 + v20;
         v33 = *(v32 + 600);
         if (!v33)
@@ -321,12 +321,12 @@
       *&v38 = v29;
       [(VKMapCameraController *)selfCopy minimumPitchForNormalizedZoomLevel:v38];
       v43 = v42;
-      vkCamera6 = [(VKCameraController *)selfCopy vkCamera];
-      [vkCamera6 maxPitch];
+      v44 = objc_msgSend_vkCamera(selfCopy);
+      [v44 maxPitch];
       v46 = v45;
 
-      vkCamera7 = [(VKCameraController *)selfCopy vkCamera];
-      [vkCamera7 setMaxPitch:v41];
+      v47 = objc_msgSend_vkCamera(selfCopy);
+      [v47 setMaxPitch:v41];
       v48 = v43;
 
       if (v41 > v48 == v46 <= v48)
@@ -448,14 +448,14 @@
         }
       }
 
-      vkCamera8 = [(VKCameraController *)v62 vkCamera];
-      minDistanceToGroundRestriction = [vkCamera8 minDistanceToGroundRestriction];
+      v100 = objc_msgSend_vkCamera(v62);
+      minDistanceToGroundRestriction = [v100 minDistanceToGroundRestriction];
       v103 = v102;
       v153 = *&minDistanceToGroundRestriction;
       LOBYTE(v154) = v102;
 
-      vkCamera9 = [(VKCameraController *)v62 vkCamera];
-      maxDistanceToGroundRestriction = [vkCamera9 maxDistanceToGroundRestriction];
+      v104 = objc_msgSend_vkCamera(v62);
+      maxDistanceToGroundRestriction = [v104 maxDistanceToGroundRestriction];
       v156 = v105;
 
       if (v103)
@@ -496,11 +496,11 @@
 
       [(VKMapCameraController *)v62 centerCoordinate];
       v141 = v124 * 0.0174532925;
-      vkCamera10 = [(VKCameraController *)v62 vkCamera];
-      v126 = vkCamera10;
-      if (vkCamera10)
+      v125 = objc_msgSend_vkCamera(v62);
+      v126 = v125;
+      if (v125)
       {
-        [vkCamera10 verticalFieldOfView];
+        objc_msgSend_verticalFieldOfView(v125);
       }
 
       else
@@ -508,11 +508,11 @@
         v147 = 0;
       }
 
-      vkCamera11 = [(VKCameraController *)v62 vkCamera];
-      v128 = vkCamera11;
-      if (vkCamera11)
+      v127 = objc_msgSend_vkCamera(v62);
+      v128 = v127;
+      if (v127)
       {
-        [vkCamera11 horizontalFieldOfView];
+        objc_msgSend_horizontalFieldOfView(v127);
       }
 
       else
@@ -520,8 +520,8 @@
         v146 = 0;
       }
 
-      vkCamera12 = [(VKCameraController *)v62 vkCamera];
-      [vkCamera12 pitch];
+      v129 = objc_msgSend_vkCamera(v62);
+      [v129 pitch];
       v144 = v41;
       v145 = v130;
       LODWORD(v130) = v159;
@@ -530,18 +530,18 @@
       gdc::CameraLimits::CameraLimits(&v148, &v141, &v147, &v146, &v145, &v144, &v143, &v159, v48, v158, &v153);
 
       v132 = v150;
-      vkCamera13 = [(VKCameraController *)v62 vkCamera];
-      [vkCamera13 setMinHeight:v132];
+      v133 = objc_msgSend_vkCamera(v62);
+      [v133 setMinHeight:v132];
 
       v134 = v151;
-      vkCamera14 = [(VKCameraController *)v62 vkCamera];
-      [vkCamera14 setMaxHeight:v134];
+      v135 = objc_msgSend_vkCamera(v62);
+      [v135 setMaxHeight:v134];
 
       v136 = v152;
-      vkCamera15 = [(VKCameraController *)v62 vkCamera];
-      [vkCamera15 setMaxHeightNoPitch:v136];
+      v137 = objc_msgSend_vkCamera(v62);
+      [v137 setMaxHeightNoPitch:v136];
 
-      [(VKCameraController *)v62 camera];
+      objc_msgSend_camera(v62);
       *&v138 = gdc::Camera::setLimits(*&v141, &v148).n128_u64[0];
       if (v142)
       {
@@ -618,11 +618,11 @@
   [(VKCameraController *)self centerScreenPoint];
   v4 = v3;
   v6 = v5;
-  vkCamera = [(VKCameraController *)self vkCamera];
-  v9 = vkCamera;
-  if (vkCamera)
+  v7 = objc_msgSend_vkCamera(self);
+  v9 = v7;
+  if (v7)
   {
-    [vkCamera cameraState];
+    objc_msgSend_cameraState(v7);
   }
 
   else
@@ -663,8 +663,8 @@
     return self->_finalYaw;
   }
 
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera yaw];
+  v5 = objc_msgSend_vkCamera(self, a2);
+  [v5 yaw];
   v4 = v6 * 57.2957795;
 
   return v4;
@@ -672,8 +672,8 @@
 
 - (BOOL)isPitched
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera pitch];
+  v2 = objc_msgSend_vkCamera(self, a2);
+  [v2 pitch];
   v4 = v3 > 0.0001;
 
   return v4;
@@ -701,20 +701,20 @@
 
 - (float)currentDisplayZoomLevel
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  footprint = [vkCamera footprint];
+  v3 = objc_msgSend_vkCamera(self, a2);
+  footprint = [v3 footprint];
   [footprint nearestGroundPoint];
   v25[0] = v5;
   v25[1] = v6;
   v25[2] = v7;
 
-  vkCamera2 = [(VKCameraController *)self vkCamera];
-  position = [vkCamera2 position];
-  v23 = *position;
-  v24 = *(position + 16);
+  v8 = objc_msgSend_vkCamera(self);
+  v9 = objc_msgSend_position(v8);
+  v23 = *v9;
+  v24 = *(v9 + 16);
 
-  vkCamera3 = [(VKCameraController *)self vkCamera];
-  [vkCamera3 forwardVector];
+  v10 = objc_msgSend_vkCamera(self);
+  [v10 forwardVector];
   v22[0] = v11;
   v22[1] = v12;
   v22[2] = v13;
@@ -733,8 +733,8 @@
   }
 
   while (v15 != 3);
-  vkCamera4 = [(VKCameraController *)self vkCamera];
-  [vkCamera4 widthOfViewAtDepth:v16];
+  v17 = objc_msgSend_vkCamera(self);
+  [v17 widthOfViewAtDepth:v16];
   v19 = 0.0;
   if (v18 > 0.0)
   {
@@ -747,8 +747,8 @@
 
 - (BOOL)canEnter3DMode
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  v4 = *([vkCamera position] + 16);
+  v3 = objc_msgSend_vkCamera(self, a2);
+  v4 = *(objc_msgSend_position(v3) + 16);
 
   if (v4 > 1.0)
   {
@@ -767,7 +767,7 @@
 
 - (float)currentTopDownMinimumNormalizedZoomLevel
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v7);
@@ -778,7 +778,7 @@
     return 1.0;
   }
 
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self);
   LabelingPoint = grl::IconMetricsRenderResult::getLabelingPoint(v6);
   v4 = ceilf(*gdc::Camera::altitude(LabelingPoint) * 1000.0);
   if (v7)
@@ -791,7 +791,7 @@
 
 - (float)currentMaximumNormalizedZoomLevel
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   if (v7)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v7);
@@ -802,7 +802,7 @@
     return 25.0;
   }
 
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self);
   LabelingPoint = grl::IconMetricsRenderResult::getLabelingPoint(v6);
   v4 = floorf(*grl::IconMetricsRenderResult::getFillRect(LabelingPoint) * 1000.0);
   if (v7)
@@ -821,8 +821,8 @@
     return self->_finalPitch;
   }
 
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera pitch];
+  v5 = objc_msgSend_vkCamera(self, a2);
+  [v5 pitch];
   v4 = v6 * 57.2957795;
 
   return v4;
@@ -830,8 +830,8 @@
 
 - (double)altitude
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  v4 = *([vkCamera position] + 16);
+  v3 = objc_msgSend_vkCamera(self, a2);
+  v4 = *(objc_msgSend_position(v3) + 16);
 
   [(VKMapCameraController *)self centerCoordinate];
   return v4 / geo::WGS84::unitsPerMeterAtLatitude<geo::Degrees,double>(v5);
@@ -946,7 +946,7 @@
 
 - (float)currentMinimumNormalizedZoomLevel
 {
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, a2);
   if (v8)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v8);
@@ -954,7 +954,7 @@
 
   if (v7)
   {
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     LabelingPoint = grl::IconMetricsRenderResult::getLabelingPoint(v7);
     v4 = ceilf(*gdc::CameraLimits::minZoom(LabelingPoint) * 1000.0);
     if (v8)
@@ -1094,7 +1094,7 @@
     }
   }
 
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self);
   if (v43)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v43);
@@ -1184,7 +1184,7 @@ LABEL_33:
     }
 
     [(VKTimedAnimation *)self->super._moveToTourPositionAnimation setTimingFunction:v26];
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     v27 = gdc::Camera::cameraFrame(*buf);
     v31 = *(v27 + 24);
     v29 = *v27;
@@ -1248,14 +1248,14 @@ void __88__VKMapCameraController_animateToTourPosition_timingFunction_animationS
       md::VKFlyoverTour::interpolateFrames(&v13, (a1 + 40), v15, a2);
       *(v6 + 152) = v14;
       v14 = 0;
-      [v5 camera];
+      objc_msgSend_camera(v5);
       v8 = gdc::CameraFrame<geo::Radians,double>::toRigidTransformMercator(v12, v13.f64, *v10 == 0);
       if (v11)
       {
         std::__shared_weak_count::__release_shared[abi:nn200100](v11);
       }
 
-      v9 = [v5 vkCamera];
+      v9 = objc_msgSend_vkCamera(v5, v8);
       [v9 setTransform:v12];
     }
   }
@@ -1300,7 +1300,7 @@ void __88__VKMapCameraController_animateToTourPosition_timingFunction_animationS
   [(VKMapCameraController *)self stopFlyoverTourAnimation];
   if (animationCopy && !self->super._flyoverAnimation)
   {
-    _ZNSt3__115allocate_sharedB8nn200100IN2md13VKFlyoverTourENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
+    _ZNSt3__115allocate_sharedB8nn200100IN2md13VKFlyoverTourENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(buf);
   }
 
   if (changeCopy)
@@ -1668,14 +1668,14 @@ LABEL_58:
 
   *(*&v4[16].f64[1] + 152) = v65;
   v77.f64[0] = 0.0;
-  [(float64x2_t *)v4 camera];
+  objc_msgSend_camera(v4, *&v71);
   v68 = gdc::CameraFrame<geo::Radians,double>::toRigidTransformMercator(v74, v76.f64, *v72 == 0);
   if (v73)
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v73);
   }
 
-  v69 = [(float64x2_t *)v4 vkCamera];
+  v69 = objc_msgSend_vkCamera(v4, v68);
   [v69 setTransform:v74];
 
 LABEL_74:
@@ -2064,7 +2064,7 @@ void __86__VKMapCameraController_flyoverTourAnimation_animateToStart_labelChange
   changeCopy = change;
   if (!self->_flyoverTour.__ptr_)
   {
-    _ZNSt3__115allocate_sharedB8nn200100IN2md13VKFlyoverTourENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_();
+    _ZNSt3__115allocate_sharedB8nn200100IN2md13VKFlyoverTourENS_9allocatorIS2_EEJELi0EEENS_10shared_ptrIT_EERKT0_DpOT1_(location);
   }
 
   objc_initWeak(location, self);
@@ -2115,14 +2115,14 @@ void __86__VKMapCameraController_flyoverTourAnimation_animateToStart_labelChange
   v20 = 0u;
   if (animationCopy)
   {
-    [animationCopy cameraPathAtIndex:0];
+    objc_msgSend_cameraPathAtIndex_(animationCopy);
   }
 
   cameraDelegate = [(VKCameraController *)self cameraDelegate];
   v9 = cameraDelegate;
   if (cameraDelegate)
   {
-    [cameraDelegate willBeginRegionChangeAccess:1];
+    objc_msgSend_willBeginRegionChangeAccess_(cameraDelegate);
   }
 
   else
@@ -2130,7 +2130,7 @@ void __86__VKMapCameraController_flyoverTourAnimation_animateToStart_labelChange
     memset(v25, 0, sizeof(v25));
   }
 
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self);
   v16 = *(v21 + 8);
   v17 = *&v21[0];
   *&v10 = gdc::Camera::setTarget(v18, &v16).n128_u64[0];
@@ -2139,21 +2139,21 @@ void __86__VKMapCameraController_flyoverTourAnimation_animateToStart_labelChange
     std::__shared_weak_count::__release_shared[abi:nn200100](v19);
   }
 
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self, v10);
   gdc::Camera::setDistanceFromTarget(v16.n128_i64[0], *(&v23 + 1));
   if (v16.n128_u64[1])
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16.n128_u64[1]);
   }
 
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self);
   gdc::Camera::setPitch(v16.n128_i64[0], v23);
   if (v16.n128_u64[1])
   {
     std::__shared_weak_count::__release_shared[abi:nn200100](v16.n128_u64[1]);
   }
 
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self);
   v11 = v16.n128_u64[0];
   v12 = fmod(*&v22 + 3.14159265, 6.28318531);
   v13 = fmod(v12 + 6.28318531, 6.28318531);
@@ -2163,7 +2163,7 @@ void __86__VKMapCameraController_flyoverTourAnimation_animateToStart_labelChange
     std::__shared_weak_count::__release_shared[abi:nn200100](v16.n128_u64[1]);
   }
 
-  [(VKCameraController *)self camera];
+  objc_msgSend_camera(self);
   gdc::Camera::setRoll(v16.n128_i64[0], *(&v21[1] + 1));
   if (v16.n128_u64[1])
   {
@@ -2193,10 +2193,10 @@ void __86__VKMapCameraController_flyoverTourAnimation_animateToStart_labelChange
   v37 = 0u;
   if (v9)
   {
-    [v9 cameraPathAtIndex:0];
+    objc_msgSend_cameraPathAtIndex_(v9);
   }
 
-  [v7 camera];
+  objc_msgSend_camera(v7);
   v11 = gdc::Camera::cameraFrame(v41[0]);
   v12 = *v11;
   v13 = *(v11 + 16);
@@ -2387,25 +2387,25 @@ void __86__VKMapCameraController_flyoverTourAnimation_animateToStart_labelChange
   return v41;
 }
 
-long double __73__VKMapCameraController_createMoveToZoomOutZoomInFrameFunction_toLatLon___block_invoke@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, float a10@<S0>)
+long double __73__VKMapCameraController_createMoveToZoomOutZoomInFrameFunction_toLatLon___block_invoke@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>, float a3@<S0>, uint64_t a4@<X1>, uint64_t a5@<X2>, uint64_t a6@<X3>, uint64_t a7@<X4>, uint64_t a8@<X5>, uint64_t a9@<X6>, uint64_t a10@<X7>)
 {
-  v34[0] = gm::cubicBezier<gm::Matrix<double,3,1>,float>(*(a1 + 32), *(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 96), a1, a2, a3, a4, a5, a6, a7, a8, *(a1 + 80), *(a1 + 96), *(a1 + 104), *(a1 + 120), a10);
+  v34[0] = gm::cubicBezier<gm::Matrix<double,3,1>,float>(*(a1 + 32), *(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 96), a1, a4, a5, a6, a7, a8, a9, a10, *(a1 + 80), *(a1 + 96), *(a1 + 104), *(a1 + 120), a3);
   v34[1] = v13;
   v34[2] = v14;
   geo::Coordinate3D<geo::Radians,double>::Coordinate3D<double>(&v33, v34);
-  *(a9 + 48) = 0;
-  v15 = (((1.0 - a10) * (1.0 - a10)) * (1.0 - a10));
-  v16 = (1.0 - a10) * 3.0;
-  v30 = ((a10 * a10) * a10);
-  v31 = (v16 * (a10 * a10));
+  *(a2 + 48) = 0;
+  v15 = (((1.0 - a3) * (1.0 - a3)) * (1.0 - a3));
+  v16 = (1.0 - a3) * 3.0;
+  v30 = ((a3 * a3) * a3);
+  v31 = (v16 * (a3 * a3));
   v17 = *(a1 + 168);
   v18 = *(a1 + 224);
-  v32 = (((1.0 - a10) * a10) * v16);
+  v32 = (((1.0 - a3) * a3) * v16);
   v19 = v33;
-  *(a9 + 32) = *(a1 + 160) * v15 + *(a1 + 216) * v32 + *(a1 + 272) * v31 + *(a1 + 328) * v30;
+  *(a2 + 32) = *(a1 + 160) * v15 + *(a1 + 216) * v32 + *(a1 + 272) * v31 + *(a1 + 328) * v30;
   v20 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(*(a1 + 144), v15), *(a1 + 200), v32), *(a1 + 256), v31), *(a1 + 312), v30);
-  *a9 = v19;
-  *(a9 + 16) = v20;
+  *a2 = v19;
+  *(a2 + 16) = v20;
   v21 = fmod(3.14159265 - v17 + v18, 6.28318531);
   v22 = fmod(v21 + 6.28318531, 6.28318531) + -3.14159265;
   v23 = *(a1 + 280);
@@ -2415,7 +2415,7 @@ long double __73__VKMapCameraController_createMoveToZoomOutZoomInFrameFunction_t
   v27 = fmod(v26 + 6.28318531, 6.28318531);
   v28 = fmod(v17 + 3.14159265 + v22 * v32 + (v25 + v22) * v31 + (v27 + -3.14159265 + v25 + v22) * v30, 6.28318531);
   result = fmod(v28 + 6.28318531, 6.28318531) + -3.14159265;
-  *(a9 + 40) = result;
+  *(a2 + 40) = result;
   return result;
 }
 
@@ -2549,7 +2549,7 @@ void __96__VKMapCameraController_animateRegionWithDuration_timingFunction_stepHa
   v43 = 0;
   v44 = 0.0;
   v45 = 0;
-  [(VKScreenCameraController *)self centerCoordinateDistanceRange];
+  objc_msgSend_centerCoordinateDistanceRange(self);
   var0 = range->var0;
   if (range->var0 != 0.0 || (var0 = range->var1, var0 != v44) || range->var2 != v45)
   {
@@ -2574,8 +2574,8 @@ void __96__VKMapCameraController_animateRegionWithDuration_timingFunction_stepHa
         v17 = v21 + 20.0;
       }
 
-      vkCamera = [(VKCameraController *)selfCopy vkCamera];
-      v23 = VKCameraDistanceForDisplayZoomLevel(v17, vkCamera);
+      v22 = objc_msgSend_vkCamera(selfCopy);
+      v23 = VKCameraDistanceForDisplayZoomLevel(v17, v22);
 
       [(VKMapCameraController *)selfCopy centerCoordinate];
       v12 = v23 / geo::WGS84::unitsPerMeterAtLatitude<geo::Degrees,double>(v24);
@@ -2594,7 +2594,7 @@ void __96__VKMapCameraController_animateRegionWithDuration_timingFunction_stepHa
         v28 = cameraDelegate;
         if (cameraDelegate)
         {
-          [cameraDelegate willBeginRegionChangeAccess:0];
+          objc_msgSend_willBeginRegionChangeAccess_(cameraDelegate);
         }
 
         else
@@ -2693,8 +2693,8 @@ id __82__VKMapCameraController_setCenterCoordinateDistanceRange_duration_timingF
 {
   [(VKMapCameraController *)self altitude];
   v4 = v3;
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera pitch];
+  v5 = objc_msgSend_vkCamera(self);
+  [v5 pitch];
   v7 = v4 / cos(v6);
 
   return v7;
@@ -2749,95 +2749,96 @@ id __82__VKMapCameraController_setCenterCoordinateDistanceRange_duration_timingF
 
 - (void)_jumpToCenterPoint:()Matrix<double pitchRadians:()3 yawRadians:(1>)radians
 {
-  v62 = *MEMORY[0x1E69E9840];
-  *&v57 = radians._e[0];
-  *(&v57 + 1) = *&radians._e[1];
-  v58 = radians._e[2];
+  v63 = *MEMORY[0x1E69E9840];
+  *&v58 = radians._e[0];
+  *(&v58 + 1) = *&radians._e[1];
+  v59 = radians._e[2];
   cameraDelegate = [(VKCameraController *)self cameraDelegate];
   v9 = cameraDelegate;
   if (cameraDelegate)
   {
-    [cameraDelegate willBeginRegionChangeAccess:0];
+    objc_msgSend_willBeginRegionChangeAccess_(cameraDelegate);
   }
 
   else
   {
-    memset(v61, 0, sizeof(v61));
+    memset(v62, 0, sizeof(v62));
   }
 
   isPitched = [(VKMapCameraController *)self isPitched];
-  v55 = v57;
-  v56 = 0;
+  v56 = v58;
+  v57 = 0;
   v11 = a4 * 0.5;
   v12 = sin(v11);
   for (i = 0; i != 3; ++i)
   {
-    *(&v49 + i * 8) = *&VKVectorXAxis[i] * v12;
+    *(&v50 + i * 8) = *&VKVectorXAxis[i] * v12;
   }
 
-  v38 = v49;
-  v14 = v50;
+  v39 = v50;
+  v14 = v51;
   v15 = cos(v11);
-  v52 = v38;
-  v53 = v14;
-  v54 = v15;
+  v53 = v39;
+  v54 = v14;
+  v55 = v15;
   v16 = a5 * 0.5;
   v17 = sin(v16);
   for (j = 0; j != 24; j += 8)
   {
-    *(&v47 + j) = *(&VKVectorZAxis + j) * v17;
+    *(&v48 + j) = *(&VKVectorZAxis + j) * v17;
   }
 
-  v39 = v47;
-  v19 = v48;
+  v40 = v48;
+  v19 = v49;
   v20 = cos(v16);
-  v49 = v39;
-  v50 = v19;
-  v51 = v20;
-  v21 = [(VKCameraController *)self vkCamera:gm::Quaternion<double>::operator*(&v47];
-  [v21 setOrientation:&v47];
+  v50 = v40;
+  v51 = v19;
+  v52 = v20;
+  v21 = gm::Quaternion<double>::operator*(&v48, &v50, &v53);
+  v22 = objc_msgSend_vkCamera(self, v21);
+  [v22 setOrientation:&v48];
 
-  v46[0] = gm::rotateAboutPoint<double>(&v57, &v47, &v55);
-  v46[1] = v22;
-  v46[2] = v23;
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera setPosition:v46];
+  v47[0] = gm::rotateAboutPoint<double>(&v58, &v48, &v56);
+  v47[1] = v23;
+  v47[2] = v24;
+  v25 = objc_msgSend_vkCamera(self);
+  [v25 setPosition:v47];
 
-  vkCamera2 = [(VKCameraController *)self vkCamera];
+  v26 = objc_msgSend_vkCamera(self);
   [(VKCameraController *)self centerScreenPoint];
-  if (vkCamera2)
+  if (v26)
   {
-    [vkCamera2 groundPointFromScreenPoint:?];
+    objc_msgSend_groundPointFromScreenPoint_(v26);
   }
 
   else
   {
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
   }
 
-  v59 = vdupq_n_s64(0x7FF8000000000000uLL);
-  v27 = v57 == v59.i64[0] && *(&v57 + 1) == v59.i64[1] && *&v58 == 0x7FF8000000000000;
-  if (!v27 && BYTE8(v45) == 1)
+  v60 = vdupq_n_s64(0x7FF8000000000000uLL);
+  v28 = v58 == v60.i64[0] && *(&v58 + 1) == v60.i64[1] && *&v59 == 0x7FF8000000000000;
+  if (!v28 && BYTE8(v46) == 1)
   {
     for (k = 0; k != 3; ++k)
     {
-      *&v59.i64[k] = *(&v55 + k * 8) - *(&v44 + k * 8);
+      *&v60.i64[k] = *(&v56 + k * 8) - *(&v45 + k * 8);
     }
 
-    v42 = v59;
     v43 = v60;
-    vkCamera3 = [(VKCameraController *)self vkCamera];
-    position = [vkCamera3 position];
+    v44 = v61;
+    v30 = objc_msgSend_vkCamera(self);
+    v31 = objc_msgSend_position(v30);
     for (m = 0; m != 3; ++m)
     {
-      *&v59.i64[m] = *&v42.i64[m] + *(position + m * 8);
+      *&v60.i64[m] = *&v43.i64[m] + *(v31 + m * 8);
     }
 
-    v40 = v59;
     v41 = v60;
-    vkCamera4 = [(VKCameraController *)self vkCamera];
-    [vkCamera4 setPosition:&v40];
+    v42 = v61;
+    v33 = objc_msgSend_vkCamera(self);
+    [v33 setPosition:&v41];
   }
 
   [(VKMapCameraController *)self updateCameraZBounds];
@@ -2845,11 +2846,11 @@ id __82__VKMapCameraController_setCenterCoordinateDistanceRange_duration_timingF
   cameraDelegate2 = [(VKCameraController *)self cameraDelegate];
   [cameraDelegate2 mapLayerDidChangeVisibleRegion];
 
-  v34 = *[(VKCameraController *)self runLoopController];
-  if (v34)
+  v35 = *[(VKCameraController *)self runLoopController];
+  if (v35)
   {
-    v59.i8[0] = 4;
-    md::MapEngine::setNeedsTick(v34, &v59);
+    v60.i8[0] = 4;
+    md::MapEngine::setNeedsTick(v35, &v60);
   }
 
   isPitched2 = [(VKMapCameraController *)self isPitched];
@@ -2860,9 +2861,9 @@ id __82__VKMapCameraController_setCenterCoordinateDistanceRange_duration_timingF
   }
 
   cameraDelegate4 = [(VKCameraController *)self cameraDelegate];
-  [cameraDelegate4 didEndRegionChangeAccess:v61];
+  [cameraDelegate4 didEndRegionChangeAccess:v62];
 
-  gdc::ReferenceCountedAccess<md::VKCameraRegionChange>::~ReferenceCountedAccess(v61);
+  gdc::ReferenceCountedAccess<md::VKCameraRegionChange>::~ReferenceCountedAccess(v62);
 }
 
 - (void)_animateToPosition:()Matrix<double pitch:()3 yaw:(1>)yaw duration:(double)duration timingCurve:(double)curve forceDestination:(double)destination completion:(id)completion
@@ -2891,14 +2892,14 @@ id __82__VKMapCameraController_setCenterCoordinateDistanceRange_duration_timingF
   *&v133 = v18;
   *(&v133 + 1) = v22;
   v134 = v20;
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera minDistanceToGroundRestriction];
+  v23 = objc_msgSend_vkCamera(self);
+  [v23 minDistanceToGroundRestriction];
   canvas = v24;
 
   if (canvas)
   {
-    vkCamera2 = [(VKCameraController *)self vkCamera];
-    *&v27 = COERCE_DOUBLE([vkCamera2 minDistanceToGroundRestriction]);
+    v26 = objc_msgSend_vkCamera(self);
+    *&v27 = COERCE_DOUBLE([v26 minDistanceToGroundRestriction]);
     if ((v28 & 1) == 0)
     {
       goto LABEL_64;
@@ -2926,11 +2927,11 @@ id __82__VKMapCameraController_setCenterCoordinateDistanceRange_duration_timingF
       v33 = v37;
     }
 
-    vkCamera3 = [(VKCameraController *)selfCopy vkCamera];
-    vkCamera2 = vkCamera3;
-    if (vkCamera3)
+    v38 = objc_msgSend_vkCamera(selfCopy);
+    v26 = v38;
+    if (v38)
     {
-      [vkCamera3 verticalFieldOfView];
+      objc_msgSend_verticalFieldOfView(v38);
       v39 = *&v125 * 0.5;
     }
 
@@ -2939,9 +2940,9 @@ id __82__VKMapCameraController_setCenterCoordinateDistanceRange_duration_timingF
       v39 = 0.0;
     }
 
-    [vkCamera2 depthForViewWidth:exp2(-v33)];
+    [v26 depthForViewWidth:exp2(-v33)];
     v41 = v40;
-    [vkCamera2 maxPitch];
+    [v26 maxPitch];
     v43 = v42;
     *&v42 = v39;
     v44 = cosf(*&v42);
@@ -2949,12 +2950,12 @@ id __82__VKMapCameraController_setCenterCoordinateDistanceRange_duration_timingF
     v29 = v41 * cosf(v45) / v44;
   }
 
-  vkCamera2 = [(VKCameraController *)self vkCamera];
-  [vkCamera2 maxDistanceToGroundRestriction];
+  v26 = objc_msgSend_vkCamera(self);
+  [v26 maxDistanceToGroundRestriction];
   v47 = v46;
   if (v46)
   {
-    canvas = [(VKCameraController *)self vkCamera];
+    canvas = objc_msgSend_vkCamera(self);
     *&v48 = COERCE_DOUBLE([canvas maxDistanceToGroundRestriction]);
     if ((v49 & 1) == 0)
     {
@@ -2972,8 +2973,8 @@ id __82__VKMapCameraController_setCenterCoordinateDistanceRange_duration_timingF
   v51 = v29;
   if (v50 > v29)
   {
-    vkCamera4 = [(VKCameraController *)self vkCamera];
-    [vkCamera4 maxDistanceToGroundRestriction];
+    v52 = objc_msgSend_vkCamera(self);
+    [v52 maxDistanceToGroundRestriction];
     v51 = 1.0;
     if ((v53 & 1) == 0)
     {
@@ -2982,8 +2983,8 @@ LABEL_21:
       goto LABEL_22;
     }
 
-    vkCamera5 = [(VKCameraController *)self vkCamera];
-    *&v55 = COERCE_DOUBLE([vkCamera5 maxDistanceToGroundRestriction]);
+    v54 = objc_msgSend_vkCamera(self);
+    *&v55 = COERCE_DOUBLE([v54 maxDistanceToGroundRestriction]);
     if (v56)
     {
       v51 = *&v55;
@@ -3006,18 +3007,18 @@ LABEL_22:
   v134 = v57;
   v129 = v133;
   v130 = v57;
-  vkCamera6 = [(VKCameraController *)self vkCamera];
-  position = [vkCamera6 position];
-  v127 = *position;
-  v128 = *(position + 16);
+  v58 = objc_msgSend_vkCamera(self);
+  v59 = objc_msgSend_position(v58);
+  v127 = *v59;
+  v128 = *(v59 + 16);
 
-  vkCamera7 = [(VKCameraController *)self vkCamera];
-  v61 = *[vkCamera7 position];
+  v60 = objc_msgSend_vkCamera(self);
+  v61 = *objc_msgSend_position(v60);
 
   if (v61 - v19 != 0.0)
   {
-    vkCamera8 = [(VKCameraController *)self vkCamera];
-    *&v129 = (*[vkCamera8 position] - v19) / vabdd_f64(v61, v19) + *&v129;
+    v62 = objc_msgSend_vkCamera(self);
+    *&v129 = (*objc_msgSend_position(v62) - v19) / vabdd_f64(v61, v19) + *&v129;
   }
 
   for (i = 0; i != 24; i += 8)
@@ -3077,11 +3078,11 @@ LABEL_22:
 
   else
   {
-    vkCamera9 = [(VKCameraController *)self vkCamera];
+    v73 = objc_msgSend_vkCamera(self);
     [(VKCameraController *)self centerScreenPoint];
-    if (vkCamera9)
+    if (v73)
     {
-      [vkCamera9 groundPointFromScreenPoint:?];
+      objc_msgSend_groundPointFromScreenPoint_(v73);
     }
 
     else
@@ -3092,11 +3093,11 @@ LABEL_22:
 
     if (BYTE8(v126))
     {
-      vkCamera10 = [(VKCameraController *)self vkCamera];
-      v75 = vkCamera10;
-      if (vkCamera10)
+      v74 = objc_msgSend_vkCamera(self);
+      v75 = v74;
+      if (v74)
       {
-        [vkCamera10 groundPointFromScreenPoint:{0.5, 0.5}];
+        objc_msgSend_groundPointFromScreenPoint_(v74, 0.5, 0.5);
       }
 
       else
@@ -3125,8 +3126,8 @@ LABEL_22:
         v76 = sqrt(v79);
       }
 
-      vkCamera11 = [(VKCameraController *)self vkCamera];
-      [vkCamera11 upVector];
+      v80 = objc_msgSend_vkCamera(self);
+      [v80 upVector];
       v82 = v81;
       v84 = v83;
       v86 = v85;
@@ -3154,8 +3155,8 @@ LABEL_22:
         v91 = v90;
       }
 
-      vkCamera12 = [(VKCameraController *)self vkCamera];
-      [vkCamera12 pitch];
+      v92 = objc_msgSend_vkCamera(self);
+      [v92 pitch];
       v94 = v93;
 
       v95 = [[VKTimedAnimation alloc] initWithDuration:destination];
@@ -3230,17 +3231,17 @@ void __103__VKMapCameraController__animateToPosition_pitch_yaw_duration_timingCu
     v6 = [WeakRetained isPitched];
     v7 = 0;
     v8 = a2;
-    v53 = *(a1 + 40);
-    v54 = *(a1 + 56);
+    v54 = *(a1 + 40);
+    v55 = *(a1 + 56);
     do
     {
-      *(&v53 + v7) = *(&v53 + v7) + (*(a1 + 72 + v7) - *(&v53 + v7)) * v8;
+      *(&v54 + v7) = *(&v54 + v7) + (*(a1 + 72 + v7) - *(&v54 + v7)) * v8;
       v7 += 8;
     }
 
     while (v7 != 24);
-    v56 = v53;
     v57 = v54;
+    v58 = v55;
     v9 = *(a1 + 96);
     v10 = fmod(3.14159265 - v9 + *(a1 + 104), 6.28318531);
     v11 = fmod(v10 + 6.28318531, 6.28318531);
@@ -3249,85 +3250,86 @@ void __103__VKMapCameraController__animateToPosition_pitch_yaw_duration_timingCu
     v14 = sin(v13);
     for (i = 0; i != 3; ++i)
     {
-      *(&v50 + i * 8) = *&VKVectorXAxis[i] * v14;
+      *(&v51 + i * 8) = *&VKVectorXAxis[i] * v14;
     }
 
     v16 = fmod(v12 + 6.28318531, 6.28318531);
-    v37 = v50;
-    v17 = v51;
+    v38 = v51;
+    v17 = v52;
     v18 = cos(v13);
-    v53 = v37;
-    v54 = v17;
-    v55 = v18;
+    v54 = v38;
+    v55 = v17;
+    v56 = v18;
     v19 = v16 * 0.5 + -1.57079633;
     v20 = sin(v19);
     for (j = 0; j != 24; j += 8)
     {
-      *(&v48 + j) = *(&VKVectorZAxis + j) * v20;
+      *(&v49 + j) = *(&VKVectorZAxis + j) * v20;
     }
 
-    v38 = v48;
-    v22 = v49;
+    v39 = v49;
+    v22 = v50;
     v23 = cos(v19);
-    v50 = v38;
-    v51 = v22;
-    v52 = v23;
-    v24 = [v5 vkCamera];
-    [v24 setOrientation:&v48];
+    v51 = v39;
+    v52 = v22;
+    v53 = v23;
+    v24 = gm::Quaternion<double>::operator*(&v49, &v51, &v54);
+    v25 = objc_msgSend_vkCamera(v5, v24);
+    [v25 setOrientation:&v49];
 
-    v46 = v56;
-    v47 = *(a1 + 128) + (*(a1 + 136) - *(a1 + 128)) * v8;
-    v45[0] = gm::rotateAboutPoint<double>(&v46, &v48, &v56);
-    v45[1] = v25;
-    v45[2] = v26;
-    v27 = [v5 vkCamera];
-    [v27 setPosition:v45];
+    v47 = v57;
+    v48 = *(a1 + 128) + (*(a1 + 136) - *(a1 + 128)) * v8;
+    v46[0] = gm::rotateAboutPoint<double>(&v47, &v49, &v57);
+    v46[1] = v26;
+    v46[2] = v27;
+    v28 = objc_msgSend_vkCamera(v5);
+    [v28 setPosition:v46];
 
     [v5 clampZoomLevelIfNecessary];
-    v28 = [v5 vkCamera];
+    v29 = objc_msgSend_vkCamera(v5);
     [v5 centerScreenPoint];
-    if (v28)
+    if (v29)
     {
-      [v28 groundPointFromScreenPoint:?];
+      objc_msgSend_groundPointFromScreenPoint_(v29);
     }
 
     else
     {
-      v43 = 0u;
       v44 = 0u;
+      v45 = 0u;
     }
 
-    if (BYTE8(v44) == 1)
+    if (BYTE8(v45) == 1)
     {
       for (k = 0; k != 24; k += 8)
       {
-        *(&v58 + k) = *(&v56 + k) - *(&v43 + k);
+        *(&v59 + k) = *(&v57 + k) - *(&v44 + k);
       }
 
-      v41 = v58;
       v42 = v59;
-      v30 = [v5 vkCamera];
-      v31 = [v30 position];
+      v43 = v60;
+      v31 = objc_msgSend_vkCamera(v5);
+      v32 = objc_msgSend_position(v31);
       for (m = 0; m != 24; m += 8)
       {
-        *(&v58 + m) = *(&v41 + m) + *(v31 + m);
+        *(&v59 + m) = *(&v42 + m) + *(v32 + m);
       }
 
-      v39 = v58;
       v40 = v59;
-      v33 = [v5 vkCamera];
-      [v33 setPosition:&v39];
+      v41 = v60;
+      v34 = objc_msgSend_vkCamera(v5);
+      [v34 setPosition:&v40];
     }
 
     [v5 clampZoomLevelIfNecessary];
-    v34 = [v5 cameraDelegate];
-    [v34 mapLayerDidChangeVisibleRegion];
+    v35 = [v5 cameraDelegate];
+    [v35 mapLayerDidChangeVisibleRegion];
 
-    v35 = [v5 isPitched];
-    if (v6 != v35)
+    v36 = [v5 isPitched];
+    if (v6 != v36)
     {
-      v36 = [v5 cameraDelegate];
-      [v36 mapLayerDidBecomePitched:v35];
+      v37 = [v5 cameraDelegate];
+      [v37 mapLayerDidBecomePitched:v36];
     }
   }
 }
@@ -3420,15 +3422,15 @@ void __103__VKMapCameraController__animateToPosition_pitch_yaw_duration_timingCu
       v28 = v30;
     }
 
-    vkCamera = [(VKCameraController *)self vkCamera];
-    [vkCamera tanHalfHorizFOV];
+    v31 = objc_msgSend_vkCamera(self);
+    [v31 tanHalfHorizFOV];
     v33 = v32;
 
-    vkCamera2 = [(VKCameraController *)self vkCamera];
+    v34 = objc_msgSend_vkCamera(self);
     v45 = v33;
     yawCopy = yaw;
     durationCopy = duration;
-    [vkCamera2 tanHalfVerticalFOV];
+    [v34 tanHalfVerticalFOV];
     v36 = v35;
 
     v38 = *MEMORY[0x1E69A1690];
@@ -3447,11 +3449,11 @@ void __103__VKMapCameraController__animateToPosition_pitch_yaw_duration_timingCu
 - (double)durationToAnimateToMapRegion:(id)region
 {
   regionCopy = region;
-  vkCamera = [(VKCameraController *)self vkCamera];
+  v5 = objc_msgSend_vkCamera(self);
   [(VKCameraController *)self centerScreenPoint];
-  if (vkCamera)
+  if (v5)
   {
-    [vkCamera groundPointFromScreenPoint:?];
+    objc_msgSend_groundPointFromScreenPoint_(v5);
   }
 
   else
@@ -3463,10 +3465,10 @@ void __103__VKMapCameraController__animateToPosition_pitch_yaw_duration_timingCu
   v6 = 0.0;
   if (BYTE8(v16))
   {
-    vkCamera2 = [(VKCameraController *)self vkCamera];
-    position = [vkCamera2 position];
-    v13 = *position;
-    v14 = *(position + 16);
+    v7 = objc_msgSend_vkCamera(self);
+    v8 = objc_msgSend_position(v7);
+    v13 = *v8;
+    v14 = *(v8 + 16);
 
     for (i = 0; i != 24; i += 8)
     {
@@ -3515,13 +3517,13 @@ void __103__VKMapCameraController__animateToPosition_pitch_yaw_duration_timingCu
       self->_finalPitch = v10;
       v11 = fmod((v9 - yaw) * 0.0174532925 + 3.14159265, 6.28318531);
       v12 = fmod(v11 + 6.28318531, 6.28318531);
-      vkCamera = [(VKCameraController *)self vkCamera];
-      position = [vkCamera position];
-      v49 = *position;
-      v50 = *(position + 16);
+      v13 = objc_msgSend_vkCamera(self);
+      v14 = objc_msgSend_position(v13);
+      v49 = *v14;
+      v50 = *(v14 + 16);
 
-      vkCamera2 = [(VKCameraController *)self vkCamera];
-      orientation = [vkCamera2 orientation];
+      v15 = objc_msgSend_vkCamera(self);
+      orientation = [v15 orientation];
       v47 = *orientation;
       v48 = *(orientation + 16);
       v17 = *(orientation + 24);
@@ -3577,7 +3579,7 @@ void __103__VKMapCameraController__animateToPosition_pitch_yaw_duration_timingCu
         v25 = cameraDelegate2;
         if (cameraDelegate2)
         {
-          [cameraDelegate2 willBeginRegionChangeAccess:0];
+          objc_msgSend_willBeginRegionChangeAccess_(cameraDelegate2);
         }
 
         else
@@ -3610,42 +3612,43 @@ void __41__VKMapCameraController_setYaw_animated___block_invoke(uint64_t a1, dou
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained)
   {
-    v5 = [*(a1 + 32) vkCamera];
+    v5 = objc_msgSend_vkCamera(*(a1 + 32));
     [*(a1 + 32) centerScreenPoint];
     if (v5)
     {
-      [v5 groundPointFromScreenPoint:?];
+      objc_msgSend_groundPointFromScreenPoint_(v5);
     }
 
     else
     {
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
     }
 
-    if (BYTE8(v19))
+    if (BYTE8(v20))
     {
       v6 = a2 * 0.5;
       v7 = sin(v6);
       for (i = 0; i != 24; i += 8)
       {
-        *(&v20 + i) = *(&VKVectorZAxis + i) * v7;
+        *(&v21 + i) = *(&VKVectorZAxis + i) * v7;
       }
 
-      v15 = v20;
       v16 = v21;
-      v17 = cos(v6);
-      *&v20 = gm::rotateAboutPoint<double>(a1 + 48, &v15, &v18);
-      *(&v20 + 1) = v9;
-      v21 = v10;
-      v11 = [*(a1 + 32) vkCamera];
-      [v11 setPosition:&v20];
+      v17 = v22;
+      v18 = cos(v6);
+      *&v21 = gm::rotateAboutPoint<double>(a1 + 48, &v16, &v19);
+      *(&v21 + 1) = v9;
+      v22 = v10;
+      v11 = objc_msgSend_vkCamera(*(a1 + 32));
+      [v11 setPosition:&v21];
 
-      v12 = [*(a1 + 32) vkCamera];
-      [v12 setOrientation:v14];
+      v12 = gm::Quaternion<double>::operator*(v15, &v16, a1 + 72);
+      v13 = objc_msgSend_vkCamera(*(a1 + 32), v12);
+      [v13 setOrientation:v15];
 
-      v13 = [WeakRetained cameraDelegate];
-      [v13 mapLayerDidChangeVisibleRegion];
+      v14 = [WeakRetained cameraDelegate];
+      [v14 mapLayerDidChangeVisibleRegion];
     }
   }
 }
@@ -3679,8 +3682,8 @@ void __41__VKMapCameraController_setYaw_animated___block_invoke_2(uint64_t a1, i
     return self->_finalYaw;
   }
 
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera yaw];
+  v5 = objc_msgSend_vkCamera(self, a2);
+  [v5 yaw];
   v4 = v6 * 57.2957795;
 
   return v4;
@@ -3688,8 +3691,8 @@ void __41__VKMapCameraController_setYaw_animated___block_invoke_2(uint64_t a1, i
 
 - (double)presentationYaw
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera yaw];
+  v2 = objc_msgSend_vkCamera(self, a2);
+  [v2 yaw];
   v4 = v3 * 57.2957795;
 
   return v4;
@@ -3709,19 +3712,19 @@ void __41__VKMapCameraController_setYaw_animated___block_invoke_2(uint64_t a1, i
   [(VKMapCameraController *)self updateCameraZBounds];
   if (![(VKGestureCameraBehavior *)self->super._gestureCameraControllerBehavior isPinching]|| ![(VKGestureCameraBehavior *)self->super._gestureCameraControllerBehavior allowsZoomRubberbanding])
   {
-    vkCamera = [(VKCameraController *)self vkCamera];
-    if (vkCamera)
+    v5 = objc_msgSend_vkCamera(self);
+    if (v5)
     {
-      vkCamera2 = [(VKCameraController *)self vkCamera];
-      v7 = *([vkCamera2 position] + 16);
-      vkCamera3 = [(VKCameraController *)self vkCamera];
-      [vkCamera3 minHeight];
+      v6 = objc_msgSend_vkCamera(self);
+      v7 = *(objc_msgSend_position(v6) + 16);
+      v8 = objc_msgSend_vkCamera(self);
+      [v8 minHeight];
       if (v7 >= v9)
       {
-        vkCamera4 = [(VKCameraController *)self vkCamera];
-        v11 = *([vkCamera4 position] + 16);
-        vkCamera5 = [(VKCameraController *)self vkCamera];
-        [vkCamera5 maxHeight];
+        v10 = objc_msgSend_vkCamera(self);
+        v11 = *(objc_msgSend_position(v10) + 16);
+        v12 = objc_msgSend_vkCamera(self);
+        [v12 maxHeight];
         v14 = v13;
 
         if (v11 <= v14)
@@ -3734,25 +3737,25 @@ void __41__VKMapCameraController_setYaw_animated___block_invoke_2(uint64_t a1, i
       {
       }
 
-      vkCamera6 = [(VKCameraController *)self vkCamera];
-      position = [vkCamera6 position];
-      v17 = *position;
-      v49 = *(position + 16);
+      v15 = objc_msgSend_vkCamera(self);
+      v16 = objc_msgSend_position(v15);
+      v17 = *v16;
+      v49 = *(v16 + 16);
       v48 = v17;
 
-      vkCamera7 = [(VKCameraController *)self vkCamera];
-      [vkCamera7 minHeight];
+      v18 = objc_msgSend_vkCamera(self);
+      [v18 minHeight];
       v20 = v19;
       if ([(VKMapCameraController *)self isPitched])
       {
-        vkCamera8 = [(VKCameraController *)self vkCamera];
-        [vkCamera8 maxHeight];
+        v21 = objc_msgSend_vkCamera(self);
+        [v21 maxHeight];
       }
 
       else
       {
-        vkCamera8 = [(VKCameraController *)self vkCamera];
-        [vkCamera8 maxHeightNoPitch];
+        v21 = objc_msgSend_vkCamera(self);
+        [v21 maxHeightNoPitch];
       }
 
       v23 = fmin(v22, v49);
@@ -3775,10 +3778,10 @@ void __41__VKMapCameraController_setYaw_animated___block_invoke_2(uint64_t a1, i
         cameraDelegate2 = [(VKCameraController *)self cameraDelegate];
         [cameraDelegate2 mapLayerWillPerformZoomBounceAnimation];
 
-        vkCamera9 = [(VKCameraController *)self vkCamera];
-        position2 = [vkCamera9 position];
-        v50 = *position2;
-        v51 = *(position2 + 16);
+        v27 = objc_msgSend_vkCamera(self);
+        v28 = objc_msgSend_position(v27);
+        v50 = *v28;
+        v51 = *(v28 + 16);
 
         v29 = [VKSpringAnimation alloc];
         GEOConfigGetDouble();
@@ -3818,8 +3821,8 @@ void __41__VKMapCameraController_setYaw_animated___block_invoke_2(uint64_t a1, i
 
       else
       {
-        vkCamera10 = [(VKCameraController *)self vkCamera];
-        [vkCamera10 setPosition:&v48];
+        v36 = objc_msgSend_vkCamera(self);
+        [v36 setPosition:&v48];
       }
 
       [(VKMapCameraController *)self updateCameraZBounds];
@@ -3835,7 +3838,7 @@ void __59__VKMapCameraController_clampZoomLevelIfNecessaryAnimated___block_invok
     v9[0] = gm::lerp<gm::Matrix<double,3,1>,float>(*(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80), a2);
     v9[1] = v5;
     v9[2] = v6;
-    v7 = [WeakRetained vkCamera];
+    v7 = objc_msgSend_vkCamera(WeakRetained);
     [v7 setPosition:v9];
 
     v8 = [WeakRetained cameraDelegate];
@@ -3911,13 +3914,13 @@ void __59__VKMapCameraController_clampZoomLevelIfNecessaryAnimated___block_invok
   [canvas4 size];
   v27 = v26;
 
-  vkCamera = [(VKCameraController *)self vkCamera];
-  v29 = vkCamera;
+  v28 = objc_msgSend_vkCamera(self);
+  v29 = v28;
   v30 = x / v18;
   v31 = 1.0 - y / v21;
-  if (vkCamera)
+  if (v28)
   {
-    [vkCamera groundPointFromScreenPoint:{v12 / v24 + v30, v31 - v11 / v27}];
+    objc_msgSend_groundPointFromScreenPoint_(v28, v12 / v24 + v30, v31 - v11 / v27);
   }
 
   else
@@ -3926,11 +3929,11 @@ void __59__VKMapCameraController_clampZoomLevelIfNecessaryAnimated___block_invok
     v76 = 0u;
   }
 
-  vkCamera2 = [(VKCameraController *)self vkCamera];
-  v33 = vkCamera2;
-  if (vkCamera2)
+  v32 = objc_msgSend_vkCamera(self);
+  v33 = v32;
+  if (v32)
   {
-    [vkCamera2 groundPointFromScreenPoint:{v30, v31}];
+    objc_msgSend_groundPointFromScreenPoint_(v32, v30, v31);
   }
 
   else
@@ -3943,16 +3946,16 @@ void __59__VKMapCameraController_clampZoomLevelIfNecessaryAnimated___block_invok
   {
     v71 = vsubq_f64(v73, v75);
     v72 = 0;
-    vkCamera3 = [(VKCameraController *)self vkCamera];
-    position = [vkCamera3 position];
-    v69 = *position;
-    v70 = *(position + 16);
+    v34 = objc_msgSend_vkCamera(self);
+    v35 = objc_msgSend_position(v34);
+    v69 = *v35;
+    v70 = *(v35 + 16);
 
-    vkCamera4 = [(VKCameraController *)self vkCamera];
+    v36 = objc_msgSend_vkCamera(self);
     [(VKCameraController *)self centerScreenPoint];
-    if (vkCamera4)
+    if (v36)
     {
-      [vkCamera4 groundPointFromScreenPoint:?];
+      objc_msgSend_groundPointFromScreenPoint_(v36);
     }
 
     else
@@ -4037,7 +4040,7 @@ void __59__VKMapCameraController_clampZoomLevelIfNecessaryAnimated___block_invok
       v46 = cameraDelegate2;
       if (cameraDelegate2)
       {
-        [cameraDelegate2 willBeginRegionChangeAccess:0];
+        objc_msgSend_willBeginRegionChangeAccess_(cameraDelegate2);
       }
 
       else
@@ -4049,8 +4052,8 @@ void __59__VKMapCameraController_clampZoomLevelIfNecessaryAnimated___block_invok
         *location = 0u;
       }
 
-      vkCamera5 = [(VKCameraController *)self vkCamera];
-      [vkCamera5 setPosition:&v65];
+      v47 = objc_msgSend_vkCamera(self);
+      [v47 setPosition:&v65];
 
       cameraDelegate3 = [(VKCameraController *)self cameraDelegate];
       [cameraDelegate3 mapLayerDidChangeVisibleRegion];
@@ -4096,7 +4099,7 @@ void __97__VKMapCameraController_panWithOffset_relativeToScreenPoint_animated_du
     }
 
     while (v6 != 24);
-    v7 = [WeakRetained vkCamera];
+    v7 = objc_msgSend_vkCamera(WeakRetained, v10, v11);
     [v7 setPosition:&v9];
 
     v8 = [v5 cameraDelegate];
@@ -4139,11 +4142,11 @@ void __97__VKMapCameraController_panWithOffset_relativeToScreenPoint_animated_du
 
 - (BOOL)isFullyPitched
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera pitch];
+  v3 = objc_msgSend_vkCamera(self, a2);
+  [v3 pitch];
   v5 = v4;
-  vkCamera2 = [(VKCameraController *)self vkCamera];
-  [vkCamera2 maxPitch];
+  v6 = objc_msgSend_vkCamera(self);
+  [v6 maxPitch];
   v8 = v5 >= v7;
 
   return v8;
@@ -4151,18 +4154,18 @@ void __97__VKMapCameraController_panWithOffset_relativeToScreenPoint_animated_du
 
 - (void)exit3DMode
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera maxPitch];
+  v4 = objc_msgSend_vkCamera(self, a2);
+  [v4 maxPitch];
   [(VKMapCameraController *)self rotateToPitch:0 withPoint:0 preserveAltitude:1 animated:1 exaggerate:0.0 maxPitch:v3];
 }
 
 - (void)enter3DMode
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
-  v4 = vkCamera;
-  if (vkCamera)
+  v3 = objc_msgSend_vkCamera(self, a2);
+  v4 = v3;
+  if (v3)
   {
-    [vkCamera groundPointFromScreenPoint:{0.5, 0.5}];
+    objc_msgSend_groundPointFromScreenPoint_(v3, 0.5, 0.5);
   }
 
   else
@@ -4173,13 +4176,13 @@ void __97__VKMapCameraController_panWithOffset_relativeToScreenPoint_animated_du
 
   if (BYTE8(v41))
   {
-    vkCamera2 = [(VKCameraController *)self vkCamera];
-    position = [vkCamera2 position];
-    v38 = *position;
-    v39 = *(position + 16);
+    v5 = objc_msgSend_vkCamera(self);
+    v6 = objc_msgSend_position(v5);
+    v38 = *v6;
+    v39 = *(v6 + 16);
 
-    vkCamera3 = [(VKCameraController *)self vkCamera];
-    [vkCamera3 forwardVector];
+    v7 = objc_msgSend_vkCamera(self);
+    [v7 forwardVector];
     v37[0] = v8;
     v37[1] = v9;
     v37[2] = v10;
@@ -4198,8 +4201,8 @@ void __97__VKMapCameraController_panWithOffset_relativeToScreenPoint_animated_du
     }
 
     while (v12 != 3);
-    vkCamera4 = [(VKCameraController *)self vkCamera];
-    [vkCamera4 widthOfViewAtDepth:v13];
+    v14 = objc_msgSend_vkCamera(self);
+    [v14 widthOfViewAtDepth:v13];
     v16 = 0.0;
     if (v15 > 0.0)
     {
@@ -4249,11 +4252,11 @@ LABEL_20:
       goto LABEL_21;
     }
 
-    vkCamera5 = (*(v28 + 8) - 5);
+    v30 = (*(v28 + 8) - 5);
     *&v26 = v25;
     [(VKMapCameraController *)selfCopy idealPitchForNormalizedZoomLevel:v26];
     v32 = v31;
-    if (vkCamera5 > 0xFFFFFFFD)
+    if (v30 > 0xFFFFFFFD)
     {
       v33 = 0;
       v34 = v31;
@@ -4261,8 +4264,8 @@ LABEL_20:
     }
 
 LABEL_21:
-    vkCamera5 = [(VKCameraController *)selfCopy vkCamera];
-    [vkCamera5 maxPitch];
+    v30 = objc_msgSend_vkCamera(selfCopy);
+    [v30 maxPitch];
     v34 = v36;
     v33 = 1;
 LABEL_22:
@@ -4277,11 +4280,11 @@ LABEL_22:
 {
   y = point.y;
   x = point.x;
-  vkCamera = [(VKCameraController *)self vkCamera];
+  v8 = objc_msgSend_vkCamera(self, a2);
   [(VKCameraController *)self scaledScreenPointForPoint:x, y];
-  if (vkCamera)
+  if (v8)
   {
-    [vkCamera groundPointFromScreenPoint:?];
+    objc_msgSend_groundPointFromScreenPoint_(v8);
   }
 
   else
@@ -4310,8 +4313,8 @@ LABEL_22:
     v9 = *yaw;
   }
 
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera tanHalfHorizFOV];
+  v11 = objc_msgSend_vkCamera(self, a2);
+  [v11 tanHalfHorizFOV];
   *&v12 = v12 * z;
   v13 = log2f(*&v12);
 
@@ -4391,39 +4394,39 @@ LABEL_22:
 - (BOOL)snapMapIfNecessary:(BOOL)necessary
 {
   necessaryCopy = necessary;
-  vkCamera = [(VKCameraController *)self vkCamera];
+  v5 = objc_msgSend_vkCamera(self, a2);
 
-  if (vkCamera)
+  if (v5)
   {
     annotationTrackingCameraController = self->super._annotationTrackingCameraController;
     if (annotationTrackingCameraController && [(VKAnnotationTrackingCameraController *)annotationTrackingCameraController isAnimating]&& ![(VKCameraController *)self->super._annotationTrackingCameraController isGesturing])
     {
-      LOBYTE(vkCamera) = 0;
+      LOBYTE(v5) = 0;
     }
 
     else
     {
       [(VKMapCameraController *)self updateCameraZBounds];
-      vkCamera2 = [(VKCameraController *)self vkCamera];
-      [vkCamera2 pitch];
+      v7 = objc_msgSend_vkCamera(self);
+      [v7 pitch];
       v9 = v8;
 
-      vkCamera3 = [(VKCameraController *)self vkCamera];
-      [vkCamera3 yaw];
+      v10 = objc_msgSend_vkCamera(self);
+      [v10 yaw];
       v12 = v11;
 
       [(VKMapCameraController *)self currentNormalizedZoomLevel];
       [(VKMapCameraController *)self minimumPitchForNormalizedZoomLevel:?];
       v14 = v13;
-      if ((v9 >= v13 || v9 <= 0.0001) && (-[VKCameraController vkCamera](self, "vkCamera"), v15 = objc_claimAutoreleasedReturnValue(), [v15 maxPitch], v17 = v16, v15, v9 <= v17))
+      if ((v9 >= v13 || v9 <= 0.0001) && (objc_msgSend_vkCamera(self), v15 = objc_claimAutoreleasedReturnValue(), [v15 maxPitch], v17 = v16, v15, v9 <= v17))
       {
-        LOBYTE(vkCamera) = 0;
+        LOBYTE(v5) = 0;
       }
 
       else
       {
-        vkCamera4 = [(VKCameraController *)self vkCamera];
-        [vkCamera4 maxPitch];
+        v18 = objc_msgSend_vkCamera(self);
+        [v18 maxPitch];
         v20 = v19;
 
         if (v9 <= v20)
@@ -4441,16 +4444,16 @@ LABEL_22:
 
         else
         {
-          vkCamera5 = [(VKCameraController *)self vkCamera];
-          [vkCamera5 maxPitch];
+          v21 = objc_msgSend_vkCamera(self);
+          [v21 maxPitch];
           v23 = v22;
         }
 
-        vkCamera = [(VKCameraController *)self vkCamera];
-        [vkCamera maxPitch];
+        v5 = objc_msgSend_vkCamera(self);
+        [v5 maxPitch];
         [(VKMapCameraController *)self rotateToPitch:0 withPoint:0 preserveAltitude:necessaryCopy animated:0 exaggerate:v23 maxPitch:v24];
 
-        LOBYTE(vkCamera) = 1;
+        LOBYTE(v5) = 1;
       }
 
       v25 = fabs(v12);
@@ -4458,12 +4461,12 @@ LABEL_22:
       if (v25 > v25 * 2.22044605e-14 && v25 >= 2.22507386e-308 && v26 <= 6.0)
       {
         [(VKMapCameraController *)self rotateToYaw:0 withPoint:necessaryCopy animated:0.0];
-        LOBYTE(vkCamera) = 1;
+        LOBYTE(v5) = 1;
       }
     }
   }
 
-  return vkCamera;
+  return v5;
 }
 
 - (void)startTrackingAnnotation:(id)annotation trackHeading:(BOOL)heading animated:(BOOL)animated duration:(double)duration timingFunction:(id)function
@@ -4485,8 +4488,8 @@ LABEL_22:
     v21 = self->super._annotationTrackingCameraController;
     self->super._annotationTrackingCameraController = v20;
 
-    vkCamera = [(VKCameraController *)self vkCamera];
-    [(VKCameraController *)self->super._annotationTrackingCameraController setVkCamera:vkCamera];
+    v22 = objc_msgSend_vkCamera(self);
+    [(VKCameraController *)self->super._annotationTrackingCameraController setVkCamera:v22];
 
     v23 = std::unordered_map<gdc::TypeInfo,std::unique_ptr<gdc::BaseObjectHolder>>::find[abi:nn200100]((*(self->_mapEngine + 5241) + 16), 0x17767EADC5B287BuLL);
     if (v23)
@@ -4501,7 +4504,7 @@ LABEL_22:
 
     [(VKAnnotationTrackingCameraController *)self->super._annotationTrackingCameraController setElevationLogic:v24];
     v25 = self->super._annotationTrackingCameraController;
-    [(VKCameraController *)self camera];
+    objc_msgSend_camera(self);
     [(VKCameraController *)v25 setCamera:v30];
     if (v31)
     {
@@ -4563,17 +4566,17 @@ LABEL_22:
 
   v23 = v19 + v14;
   v24 = exp2(-v23);
-  vkCamera = [(VKCameraController *)selfCopy vkCamera];
-  [vkCamera depthForViewWidth:v24];
+  v25 = objc_msgSend_vkCamera(selfCopy);
+  [v25 depthForViewWidth:v24];
   v27 = v26;
 
-  vkCamera2 = [(VKCameraController *)selfCopy vkCamera];
-  footprint = [vkCamera2 footprint];
+  v28 = objc_msgSend_vkCamera(selfCopy);
+  footprint = [v28 footprint];
   [footprint maxDepth];
   v31 = v30;
 
-  vkCamera3 = [(VKCameraController *)selfCopy vkCamera];
-  v33 = *[vkCamera3 position];
+  v32 = objc_msgSend_vkCamera(selfCopy);
+  v33 = *objc_msgSend_position(v32);
 
   *v34.i64 = v33 - v6;
   v35.f64[0] = NAN;
@@ -4589,11 +4592,11 @@ LABEL_22:
   v74[0] = v38;
   v74[1] = v39;
   v74[2] = v40;
-  vkCamera4 = [(VKCameraController *)selfCopy vkCamera];
-  position = [vkCamera4 position];
+  v41 = objc_msgSend_vkCamera(selfCopy);
+  v42 = objc_msgSend_position(v41);
   v43 = 0;
-  v75 = *position;
-  v76 = *(position + 16);
+  v75 = *v42;
+  v76 = *(v42 + 16);
   do
   {
     *(&v75 + v43 * 8) = *(&v75 + v43 * 8) + (*&v74[v43] - *(&v75 + v43 * 8)) * (1.0 - v27 / v31);
@@ -4605,47 +4608,47 @@ LABEL_22:
   v72 = v75;
   v73 = v76;
 
-  v45 = [(VKCameraController *)selfCopy vkCamera:v72];
-  v46 = *([v45 position] + 16);
+  v45 = objc_msgSend_vkCamera(selfCopy, v72, *&v73);
+  v46 = *(objc_msgSend_position(v45) + 16);
 
-  vkCamera5 = [(VKCameraController *)selfCopy vkCamera];
-  [vkCamera5 minHeight];
+  v47 = objc_msgSend_vkCamera(selfCopy);
+  [v47 minHeight];
   v49 = v48;
 
-  vkCamera6 = [(VKCameraController *)selfCopy vkCamera];
-  [vkCamera6 maxHeight];
+  v50 = objc_msgSend_vkCamera(selfCopy);
+  [v50 maxHeight];
   v52 = v51;
 
   if (v44 < v49 && v46 >= v44 || v44 > v52 && v46 < v44)
   {
-    vkCamera7 = [(VKCameraController *)selfCopy vkCamera];
-    [vkCamera7 minHeight];
+    v53 = objc_msgSend_vkCamera(selfCopy);
+    [v53 minHeight];
     v55 = v54;
-    vkCamera8 = [(VKCameraController *)selfCopy vkCamera];
-    [vkCamera8 maxHeight];
+    v56 = objc_msgSend_vkCamera(selfCopy);
+    [v56 maxHeight];
     v73 = fmin(fmax(v44, v55), v57);
   }
 
-  vkCamera9 = [(VKCameraController *)selfCopy vkCamera];
-  [vkCamera9 setPosition:&v72];
+  v58 = objc_msgSend_vkCamera(selfCopy);
+  [v58 setPosition:&v72];
 
   selfCopy->super._userChangedZoomSinceLastProgrammaticRegionChange = 1;
   [(VKAnnotationTrackingCameraController *)selfCopy->super._annotationTrackingCameraController setHasUserSpecifiedZoomLevel:1];
   [(VKMapCameraController *)selfCopy updateCameraZBounds];
-  vkCamera10 = [(VKCameraController *)selfCopy vkCamera];
-  [vkCamera10 pitch];
+  v59 = objc_msgSend_vkCamera(selfCopy);
+  [v59 pitch];
   v61 = v60;
-  vkCamera11 = [(VKCameraController *)selfCopy vkCamera];
-  [vkCamera11 maxPitch];
+  v62 = objc_msgSend_vkCamera(selfCopy);
+  [v62 maxPitch];
   v64 = v63;
 
   if (v61 > v64)
   {
-    vkCamera12 = [(VKCameraController *)selfCopy vkCamera];
-    [vkCamera12 maxPitch];
+    v65 = objc_msgSend_vkCamera(selfCopy);
+    [v65 maxPitch];
     v67 = v66;
-    vkCamera13 = [(VKCameraController *)selfCopy vkCamera];
-    [vkCamera13 maxPitch];
+    v68 = objc_msgSend_vkCamera(selfCopy);
+    [v68 maxPitch];
     [(VKMapCameraController *)selfCopy rotateToPitch:v74 withPoint:1 preserveAltitude:0 animated:0 exaggerate:v67 maxPitch:v69];
   }
 
@@ -4666,11 +4669,11 @@ LABEL_22:
   v6 = a4._e[1];
   v7 = a4._e[0];
   v10 = a5;
-  vkCamera = [(VKCameraController *)self vkCamera];
-  vkCamera2 = [(VKCameraController *)self vkCamera];
-  footprint = [vkCamera2 footprint];
+  v11 = objc_msgSend_vkCamera(self);
+  v12 = objc_msgSend_vkCamera(self);
+  footprint = [v12 footprint];
   [footprint maxDepth];
-  [vkCamera widthOfViewAtDepth:?];
+  [v11 widthOfViewAtDepth:?];
   v15 = log2(v14);
 
   selfCopy = self;
@@ -4754,11 +4757,11 @@ void __58__VKMapCameraController_zoom_withPoint_completionHandler___block_invoke
   y = zoom.y;
   x = zoom.x;
   handlerCopy = handler;
-  vkCamera = [(VKCameraController *)self vkCamera];
-  v11 = vkCamera;
-  if (vkCamera)
+  v10 = objc_msgSend_vkCamera(self);
+  v11 = v10;
+  if (v10)
   {
-    [vkCamera groundPointFromScreenPoint:{x, y}];
+    objc_msgSend_groundPointFromScreenPoint_(v10, x, y);
   }
 
   else
@@ -4769,11 +4772,11 @@ void __58__VKMapCameraController_zoom_withPoint_completionHandler___block_invoke
 
   if (BYTE8(v58) == 1)
   {
-    vkCamera2 = [(VKCameraController *)self vkCamera];
-    vkCamera3 = [(VKCameraController *)self vkCamera];
-    footprint = [vkCamera3 footprint];
+    v12 = objc_msgSend_vkCamera(self);
+    v13 = objc_msgSend_vkCamera(self);
+    footprint = [v13 footprint];
     [footprint maxDepth];
-    [vkCamera2 widthOfViewAtDepth:?];
+    [v12 widthOfViewAtDepth:?];
     v16 = log2(v15);
 
     selfCopy = self;
@@ -4803,16 +4806,16 @@ void __58__VKMapCameraController_zoom_withPoint_completionHandler___block_invoke
       v28 = log2(tileSize / v31);
     }
 
-    vkCamera4 = [(VKCameraController *)v24 vkCamera];
+    v32 = objc_msgSend_vkCamera(v24);
     v33 = v16;
     v34 = v21 + -v33;
     v35 = levels + 0.8 + v34;
     v36 = v28 + v35;
-    [vkCamera4 depthForViewWidth:exp2(-v36)];
+    [v32 depthForViewWidth:exp2(-v36)];
     v38 = v37;
 
-    vkCamera5 = [(VKCameraController *)v24 vkCamera];
-    footprint2 = [vkCamera5 footprint];
+    v39 = objc_msgSend_vkCamera(v24);
+    footprint2 = [v39 footprint];
     [footprint2 maxDepth];
     v42 = v41;
 
@@ -4822,11 +4825,11 @@ void __58__VKMapCameraController_zoom_withPoint_completionHandler___block_invoke
       v56[0] = v43;
       v56[1] = v44;
       v56[2] = v45;
-      vkCamera6 = [(VKCameraController *)v24 vkCamera];
-      position = [vkCamera6 position];
+      v46 = objc_msgSend_vkCamera(v24);
+      v47 = objc_msgSend_position(v46);
       v48 = 0;
-      v59 = *position;
-      v60 = *(position + 16);
+      v59 = *v47;
+      v60 = *(v47 + 16);
       do
       {
         *(&v59 + v48 * 8) = *(&v59 + v48 * 8) + (*&v56[v48] - *(&v59 + v48 * 8)) * (1.0 - v38 / v42);
@@ -4836,12 +4839,12 @@ void __58__VKMapCameraController_zoom_withPoint_completionHandler___block_invoke
       while (v48 != 3);
       v49 = v60;
 
-      vkCamera7 = [(VKCameraController *)v24 vkCamera];
-      [vkCamera7 minHeight];
+      v50 = objc_msgSend_vkCamera(v24);
+      [v50 minHeight];
       v52 = v49 < v51;
 
-      vkCamera5 = [(VKCameraController *)v24 vkCamera];
-      [vkCamera5 maxHeight];
+      v39 = objc_msgSend_vkCamera(v24);
+      [v39 maxHeight];
       v54 = v53;
 
       if (v52 && levels > 0.0 || v49 > v54 && levels < 0.0)
@@ -4896,18 +4899,18 @@ LABEL_21:
 {
   animatedCopy = animated;
   v51 = *MEMORY[0x1E69E9840];
-  vkCamera = [(VKCameraController *)self vkCamera];
-  [vkCamera yaw];
+  v9 = objc_msgSend_vkCamera(self, a2);
+  [v9 yaw];
   v11 = fmod(3.14159265 - yaw + v10, 6.28318531);
   v12 = fmod(v11 + 6.28318531, 6.28318531);
 
-  vkCamera2 = [(VKCameraController *)self vkCamera];
-  position = [vkCamera2 position];
-  v49 = *position;
-  v50 = *(position + 16);
+  v13 = objc_msgSend_vkCamera(self);
+  v14 = objc_msgSend_position(v13);
+  v49 = *v14;
+  v50 = *(v14 + 16);
 
-  vkCamera3 = [(VKCameraController *)self vkCamera];
-  orientation = [vkCamera3 orientation];
+  v15 = objc_msgSend_vkCamera(self);
+  orientation = [v15 orientation];
   v47 = *orientation;
   v48 = *(orientation + 16);
   v17 = *(orientation + 24);
@@ -4921,11 +4924,11 @@ LABEL_21:
 
   else
   {
-    vkCamera4 = [(VKCameraController *)self vkCamera];
+    v18 = objc_msgSend_vkCamera(self);
     [(VKCameraController *)self centerScreenPoint];
-    if (vkCamera4)
+    if (v18)
     {
-      [vkCamera4 groundPointFromScreenPoint:?];
+      objc_msgSend_groundPointFromScreenPoint_(v18);
     }
 
     else
@@ -4989,7 +4992,7 @@ LABEL_21:
     v26 = cameraDelegate2;
     if (cameraDelegate2)
     {
-      [cameraDelegate2 willBeginRegionChangeAccess:0];
+      objc_msgSend_willBeginRegionChangeAccess_(cameraDelegate2);
     }
 
     else
@@ -5020,26 +5023,27 @@ void __56__VKMapCameraController_rotateToYaw_withPoint_animated___block_invoke(u
     v4 = sin(a2 * 0.5);
     for (i = 0; i != 24; i += 8)
     {
-      *(&v14 + i) = *(&VKVectorZAxis + i) * v4;
+      *(&v15 + i) = *(&VKVectorZAxis + i) * v4;
     }
 
-    v13 = v14;
-    v6 = v15;
+    v14 = v15;
+    v6 = v16;
     v7 = cos(v3);
-    v17 = v13;
-    v18 = v6;
-    v19 = v7;
-    v16[0] = gm::rotateAboutPoint<double>(a1 + 72, &v17, a1 + 40);
-    v16[1] = v8;
-    v16[2] = v9;
-    v10 = [*(a1 + 32) vkCamera];
-    [v10 setPosition:v16];
+    v18 = v14;
+    v19 = v6;
+    v20 = v7;
+    v17[0] = gm::rotateAboutPoint<double>(a1 + 72, &v18, a1 + 40);
+    v17[1] = v8;
+    v17[2] = v9;
+    v10 = gm::Quaternion<double>::operator*(&v15, &v18, a1 + 96);
+    v11 = objc_msgSend_vkCamera(*(a1 + 32), v10);
+    [v11 setPosition:v17];
 
-    v11 = [*(a1 + 32) vkCamera];
-    [v11 setOrientation:&v14];
+    v12 = objc_msgSend_vkCamera(*(a1 + 32));
+    [v12 setOrientation:&v15];
 
-    v12 = [*(a1 + 32) cameraDelegate];
-    [v12 mapLayerDidChangeVisibleRegion];
+    v13 = [*(a1 + 32) cameraDelegate];
+    [v13 mapLayerDidChangeVisibleRegion];
   }
 }
 
@@ -5070,45 +5074,45 @@ void __56__VKMapCameraController_rotateToYaw_withPoint_animated___block_invoke_2
 - (void)rotateToPitch:(double)pitch withPoint:(const void *)point preserveAltitude:(BOOL)altitude animated:(BOOL)animated exaggerate:(BOOL)exaggerate maxPitch:(double)maxPitch
 {
   altitudeCopy = altitude;
-  v83 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   v11 = fmin(fmax(pitch, 0.0), maxPitch + 0.0698131701);
   if (!animated)
   {
     v22 = [(VKMapCameraController *)self isPitched:point];
-    vkCamera = [(VKCameraController *)self vkCamera];
-    [vkCamera pitch];
+    v23 = objc_msgSend_vkCamera(self);
+    [v23 pitch];
     v25 = v24;
 
-    vkCamera2 = [(VKCameraController *)self vkCamera];
-    [vkCamera2 rightVector];
+    v26 = objc_msgSend_vkCamera(self);
+    [v26 rightVector];
     *&location = v27;
     *(&location + 1) = v28;
-    *&v79 = v29;
-    gm::quaternionFromAngleAxis<double>(v70, &location, v11 - v25);
+    *&v80 = v29;
+    gm::quaternionFromAngleAxis<double>(v71, &location, v11 - v25);
 
-    vkCamera3 = [(VKCameraController *)self vkCamera];
-    gm::Quaternion<double>::operator*(v69, v70, [vkCamera3 orientation]);
+    v30 = objc_msgSend_vkCamera(self);
+    gm::Quaternion<double>::operator*(v70, v71, [v30 orientation]);
 
     if (point)
     {
-      v67 = *point;
-      *&v68 = *(point + 2);
-      BYTE8(v68) = 1;
+      v68 = *point;
+      *&v69 = *(point + 2);
+      BYTE8(v69) = 1;
     }
 
     else
     {
-      vkCamera4 = [(VKCameraController *)self vkCamera];
+      v31 = objc_msgSend_vkCamera(self);
       [(VKCameraController *)self centerScreenPoint];
-      if (vkCamera4)
+      if (v31)
       {
-        [vkCamera4 groundPointFromScreenPoint:?];
+        objc_msgSend_groundPointFromScreenPoint_(v31);
       }
 
       else
       {
-        v67 = 0u;
         v68 = 0u;
+        v69 = 0u;
       }
     }
 
@@ -5116,109 +5120,110 @@ void __56__VKMapCameraController_rotateToYaw_withPoint_animated___block_invoke_2
     v33 = cameraDelegate;
     if (cameraDelegate)
     {
-      [cameraDelegate willBeginRegionChangeAccess:0];
+      objc_msgSend_willBeginRegionChangeAccess_(cameraDelegate);
     }
 
     else
     {
-      v81 = 0u;
       v82 = 0u;
-      v79 = 0u;
+      v83 = 0u;
       v80 = 0u;
+      v81 = 0u;
       location = 0u;
     }
 
-    if (BYTE8(v68))
+    if (BYTE8(v69))
     {
-      vkCamera5 = [(VKCameraController *)self vkCamera];
-      *&v65 = gm::rotateAboutPoint<double>([vkCamera5 position], v70, &v67);
-      *(&v65 + 1) = v35;
-      *&v66 = v36;
+      v34 = objc_msgSend_vkCamera(self);
+      v35 = objc_msgSend_position(v34);
+      *&v66 = gm::rotateAboutPoint<double>(v35, v71, &v68);
+      *(&v66 + 1) = v36;
+      *&v67 = v37;
 
       if (altitudeCopy)
       {
-        vkCamera6 = [(VKCameraController *)self vkCamera];
-        v38 = *([vkCamera6 position] + 16);
-        v39 = *&v68;
+        v38 = objc_msgSend_vkCamera(self);
+        v39 = *(objc_msgSend_position(v38) + 16);
+        v40 = *&v69;
 
-        if ((BYTE8(v68) & 1) == 0)
+        if ((BYTE8(v69) & 1) == 0)
         {
-          v63 = std::__throw_bad_optional_access[abi:nn200100]();
+          v64 = std::__throw_bad_optional_access[abi:nn200100]();
 
           gdc::ReferenceCountedAccess<md::VKCameraRegionChange>::~ReferenceCountedAccess(&location);
-          _Unwind_Resume(v63);
+          _Unwind_Resume(v64);
         }
 
-        v40 = 0;
-        v41 = v38 / (v39 - *&v66) + 1.0;
+        v41 = 0;
+        v42 = v39 / (v40 - *&v67) + 1.0;
         do
         {
-          *(&v65 + v40) = *(&v65 + v40) + (*(&v67 + v40) - *(&v65 + v40)) * v41;
-          v40 += 8;
+          *(&v66 + v41) = *(&v66 + v41) + (*(&v68 + v41) - *(&v66 + v41)) * v42;
+          v41 += 8;
         }
 
-        while (v40 != 24);
+        while (v41 != 24);
       }
 
-      vkCamera7 = [(VKCameraController *)self vkCamera];
-      [vkCamera7 setPosition:&v65];
+      v43 = objc_msgSend_vkCamera(self);
+      [v43 setPosition:&v66];
 
-      vkCamera8 = [(VKCameraController *)self vkCamera];
-      [vkCamera8 setOrientation:v69];
+      v44 = objc_msgSend_vkCamera(self);
+      [v44 setOrientation:v70];
     }
 
     else
     {
-      vkCamera9 = [(VKCameraController *)self vkCamera];
-      [vkCamera9 setOrientation:v69];
+      v45 = objc_msgSend_vkCamera(self);
+      [v45 setOrientation:v70];
 
-      vkCamera10 = [(VKCameraController *)self vkCamera];
+      v46 = objc_msgSend_vkCamera(self);
       [(VKCameraController *)self centerScreenPoint];
-      if (vkCamera10)
+      if (v46)
       {
-        [vkCamera10 groundPointFromScreenPoint:?];
+        objc_msgSend_groundPointFromScreenPoint_(v46);
       }
 
       else
       {
-        v65 = 0u;
         v66 = 0u;
+        v67 = 0u;
       }
 
-      if (BYTE8(v66))
+      if (BYTE8(v67))
       {
-        vkCamera11 = [(VKCameraController *)self vkCamera];
-        position = [vkCamera11 position];
+        v47 = objc_msgSend_vkCamera(self);
+        v48 = objc_msgSend_position(v47);
         for (i = 0; i != 3; ++i)
         {
-          *&v77[i] = *(&v65 + i * 8) - *(position + i * 8);
+          *&v78[i] = *(&v66 + i * 8) - *(v48 + i * 8);
         }
 
-        v50 = *v77;
-        v49 = *&v77[1];
+        v51 = *v78;
+        v50 = *&v78[1];
 
-        vkCamera12 = [(VKCameraController *)self vkCamera];
-        v52 = *[vkCamera12 position];
-        vkCamera13 = [(VKCameraController *)self vkCamera];
-        v54 = *([vkCamera13 position] + 8);
-        vkCamera14 = [(VKCameraController *)self vkCamera];
-        v56 = *([vkCamera14 position] + 16);
-        v64[0] = v52 - v50;
-        v64[1] = v54 - v49;
-        v64[2] = v56;
-        vkCamera15 = [(VKCameraController *)self vkCamera];
-        [vkCamera15 setPosition:v64];
+        v52 = objc_msgSend_vkCamera(self);
+        v53 = *objc_msgSend_position(v52);
+        v54 = objc_msgSend_vkCamera(self);
+        v55 = *(objc_msgSend_position(v54) + 8);
+        v56 = objc_msgSend_vkCamera(self);
+        v57 = *(objc_msgSend_position(v56) + 16);
+        v65[0] = v53 - v51;
+        v65[1] = v55 - v50;
+        v65[2] = v57;
+        v58 = objc_msgSend_vkCamera(self);
+        [v58 setPosition:v65];
       }
     }
 
     cameraDelegate2 = [(VKCameraController *)self cameraDelegate];
     [cameraDelegate2 mapLayerDidChangeVisibleRegion];
 
-    v59 = *[(VKCameraController *)self runLoopController];
-    if (v59)
+    v60 = *[(VKCameraController *)self runLoopController];
+    if (v60)
     {
-      LOBYTE(v65) = 4;
-      md::MapEngine::setNeedsTick(v59, &v65);
+      LOBYTE(v66) = 4;
+      md::MapEngine::setNeedsTick(v60, &v66);
     }
 
     isPitched = [(VKMapCameraController *)self isPitched];
@@ -5248,8 +5253,8 @@ LABEL_34:
   }
 
   exaggerateCopy = exaggerate;
-  vkCamera16 = [(VKCameraController *)self vkCamera];
-  [vkCamera16 pitch];
+  v13 = objc_msgSend_vkCamera(self, a2, point);
+  [v13 pitch];
   v15 = v14;
 
   [(VKAnimation *)self->super._pitchAnimation stop];
@@ -5266,32 +5271,32 @@ LABEL_34:
 
   [(VKTimedAnimation *)self->super._pitchAnimation setTimingFunction:VKAnimationCurveEaseOut];
   objc_initWeak(&location, self);
-  v74[0] = MEMORY[0x1E69E9820];
-  v74[1] = 3221225472;
-  v74[2] = __95__VKMapCameraController_rotateToPitch_withPoint_preserveAltitude_animated_exaggerate_maxPitch___block_invoke;
-  v74[3] = &unk_1E7B32328;
-  objc_copyWeak(v75, &location);
-  v75[1] = v15;
-  v75[2] = *&v11;
-  v76 = altitudeCopy;
-  v75[3] = *&maxPitch;
-  [(VKTimedAnimation *)self->super._pitchAnimation setStepHandler:v74];
-  v71[0] = MEMORY[0x1E69E9820];
-  v71[1] = 3221225472;
-  v71[2] = __95__VKMapCameraController_rotateToPitch_withPoint_preserveAltitude_animated_exaggerate_maxPitch___block_invoke_2;
-  v71[3] = &unk_1E7B32350;
-  objc_copyWeak(v72, &location);
-  v71[4] = self;
-  v72[1] = *&maxPitch;
-  v73 = altitudeCopy;
-  [(VKAnimation *)self->super._pitchAnimation setCompletionHandler:v71];
+  v75[0] = MEMORY[0x1E69E9820];
+  v75[1] = 3221225472;
+  v75[2] = __95__VKMapCameraController_rotateToPitch_withPoint_preserveAltitude_animated_exaggerate_maxPitch___block_invoke;
+  v75[3] = &unk_1E7B32328;
+  objc_copyWeak(v76, &location);
+  v76[1] = v15;
+  v76[2] = *&v11;
+  v77 = altitudeCopy;
+  v76[3] = *&maxPitch;
+  [(VKTimedAnimation *)self->super._pitchAnimation setStepHandler:v75];
+  v72[0] = MEMORY[0x1E69E9820];
+  v72[1] = 3221225472;
+  v72[2] = __95__VKMapCameraController_rotateToPitch_withPoint_preserveAltitude_animated_exaggerate_maxPitch___block_invoke_2;
+  v72[3] = &unk_1E7B32350;
+  objc_copyWeak(v73, &location);
+  v72[4] = self;
+  v73[1] = *&maxPitch;
+  v74 = altitudeCopy;
+  [(VKAnimation *)self->super._pitchAnimation setCompletionHandler:v72];
   [(VKAnnotationTrackingCameraController *)self->super._annotationTrackingCameraController pauseAnimation];
   cameraDelegate5 = [(VKCameraController *)self cameraDelegate];
   [cameraDelegate5 willBeginAnimatingAccess];
 
   md::AnimationRunner::runAnimation([(VKCameraController *)self animationRunner], &self->super._pitchAnimation->super);
-  objc_destroyWeak(v72);
-  objc_destroyWeak(v75);
+  objc_destroyWeak(v73);
+  objc_destroyWeak(v76);
   objc_destroyWeak(&location);
 }
 
@@ -5312,14 +5317,14 @@ void __95__VKMapCameraController_rotateToPitch_withPoint_preserveAltitude_animat
     v11 = WeakRetained;
     if ([WeakRetained mapEngine])
     {
-      v3 = [*(a1 + 32) vkCamera];
+      v3 = objc_msgSend_vkCamera(*(a1 + 32));
       [v3 pitch];
       v5 = v4;
       v6 = *(a1 + 48);
 
       if (v5 > v6)
       {
-        v7 = [v11 vkCamera];
+        v7 = objc_msgSend_vkCamera(v11);
         [v7 maxPitch];
         [v11 rotateToPitch:0 withPoint:*(a1 + 56) preserveAltitude:0 animated:0 exaggerate:? maxPitch:?];
       }
@@ -5343,34 +5348,35 @@ void __95__VKMapCameraController_rotateToPitch_withPoint_preserveAltitude_animat
 {
   ptr = camera.__ptr_;
   v5 = *(camera.__ptr_ + 1);
-  v17 = *camera.__ptr_;
-  v18 = v5;
+  v18 = *camera.__ptr_;
+  v19 = v5;
   if (v5)
   {
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v16.receiver = self;
-  v16.super_class = VKMapCameraController;
-  [(VKScreenCameraController *)&v16 setCamera:&v17, camera.__cntrl_];
-  if (v18)
+  v17.receiver = self;
+  v17.super_class = VKMapCameraController;
+  [(VKScreenCameraController *)&v17 setCamera:&v18, camera.__cntrl_];
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v18);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v19);
   }
 
   v6 = *ptr;
   if (v6)
   {
     v7 = gdc::Camera::cameraFrame(v6);
-    v12 = *v7;
-    v14 = *(v7 + 24);
-    v15 = *(v7 + 40);
-    v13 = 0;
-    v8 = [(VKCameraController *)self vkCamera:gdc::CameraFrame<geo::Radians];
-    [v8 setPosition:v10];
+    v13 = *v7;
+    v15 = *(v7 + 24);
+    v16 = *(v7 + 40);
+    v14 = 0;
+    v8 = gdc::CameraFrame<geo::Radians,double>::toRigidTransformMercator(v11, &v13, *v6 == 0);
+    v9 = objc_msgSend_vkCamera(self, v8);
+    [v9 setPosition:v11];
 
-    vkCamera = [(VKCameraController *)self vkCamera];
-    [vkCamera setOrientation:&v11];
+    v10 = objc_msgSend_vkCamera(self);
+    [v10 setOrientation:&v12];
   }
 }
 
@@ -5484,7 +5490,7 @@ void __95__VKMapCameraController_rotateToPitch_withPoint_preserveAltitude_animat
 
 - (void)willBecomeActive
 {
-  vkCamera = [(VKCameraController *)self vkCamera];
+  v3 = objc_msgSend_vkCamera(self, a2);
   [(VKMapCameraController *)self activateBehaviorWithMoveableCamera:?];
 }
 
@@ -5524,8 +5530,8 @@ void __95__VKMapCameraController_rotateToPitch_withPoint_preserveAltitude_animat
       v15[22] = v17;
     }
 
-    vkCamera = [(VKCameraController *)v16 vkCamera];
-    [(VKMapCameraController *)v16 activateBehaviorWithMoveableCamera:vkCamera];
+    v19 = objc_msgSend_vkCamera(v16);
+    [(VKMapCameraController *)v16 activateBehaviorWithMoveableCamera:v19];
 
     v16->_tourShouldResumeWhenDoneGesturing = 1;
     v20 = v16;

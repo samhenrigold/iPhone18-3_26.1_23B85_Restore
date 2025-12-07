@@ -482,41 +482,41 @@ LABEL_18:
 
 - (BOOL)rollCurrentSyncIdentityWithReason:(id)reason error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   reasonCopy = reason;
-  v7 = [(HDConcreteSyncIdentity *)self->_currentSyncIdentity copy];
-  v18 = 0;
-  v19 = &v18;
-  v20 = 0x3032000000;
-  v21 = __Block_byref_object_copy__174;
-  v22 = __Block_byref_object_dispose__174;
-  v23 = 0;
+  v7 = objc_msgSend_copy(self->_currentSyncIdentity);
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__174;
+  v21 = __Block_byref_object_dispose__174;
+  v22 = 0;
   _HKInitializeLogging();
   v8 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v26 = 2114;
-    v27 = reasonCopy;
+    v25 = 2114;
+    v26 = reasonCopy;
     _os_log_impl(&dword_228986000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@: sync identity rollover required: %{public}@", buf, 0x16u);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   database = [WeakRetained database];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __65__HDSyncIdentityManager_rollCurrentSyncIdentityWithReason_error___block_invoke;
-  v17[3] = &unk_278614110;
-  v17[4] = self;
-  v17[5] = &v18;
-  v11 = [(HDHealthEntity *)HDSyncIdentityEntity performWriteTransactionWithHealthDatabase:database error:error block:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __65__HDSyncIdentityManager_rollCurrentSyncIdentityWithReason_error___block_invoke;
+  v16[3] = &unk_278614110;
+  v16[4] = self;
+  v16[5] = &v17;
+  v11 = [(HDHealthEntity *)HDSyncIdentityEntity performWriteTransactionWithHealthDatabase:database error:error block:v16];
 
   if (v11)
   {
     v12 = objc_loadWeakRetained(&self->_profile);
     deviceKeyValueStoreManager = [v12 deviceKeyValueStoreManager];
-    v14 = [deviceKeyValueStoreManager replaceOldSyncIdentity:v7 newSyncIdentity:v19[5] error:error];
+    v14 = [deviceKeyValueStoreManager replaceOldSyncIdentity:v7 newSyncIdentity:v18[5] error:error];
   }
 
   else
@@ -524,15 +524,14 @@ LABEL_18:
     v14 = 0;
   }
 
-  _Block_object_dispose(&v18, 8);
+  _Block_object_dispose(&v17, 8);
 
-  v15 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
 BOOL __65__HDSyncIdentityManager_rollCurrentSyncIdentityWithReason_error___block_invoke(uint64_t a1, void *a2, uint64_t *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = [HDKeyValueDomain alloc];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 48));
@@ -560,13 +559,13 @@ BOOL __65__HDSyncIdentityManager_rollCurrentSyncIdentityWithReason_error___block
     v22 = v21 != 0;
     if (v21)
     {
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __65__HDSyncIdentityManager_rollCurrentSyncIdentityWithReason_error___block_invoke_353;
-      v29[3] = &unk_278617198;
-      v29[4] = *(a1 + 32);
-      v29[5] = v20;
-      [v5 onCommit:v29 orRollback:0];
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __65__HDSyncIdentityManager_rollCurrentSyncIdentityWithReason_error___block_invoke_353;
+      v28[3] = &unk_278617198;
+      v28[4] = *(a1 + 32);
+      v28[5] = v20;
+      [v5 onCommit:v28 orRollback:0];
     }
 
     else
@@ -575,9 +574,9 @@ BOOL __65__HDSyncIdentityManager_rollCurrentSyncIdentityWithReason_error___block
       v24 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v28 = *a3;
+        v27 = *a3;
         *buf = 138543362;
-        v31 = v28;
+        v30 = v27;
         _os_log_error_impl(&dword_228986000, v24, OS_LOG_TYPE_ERROR, "Failed to create rolled current sync identity: %{public}@", buf, 0xCu);
       }
     }
@@ -589,16 +588,15 @@ BOOL __65__HDSyncIdentityManager_rollCurrentSyncIdentityWithReason_error___block
     v23 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
     {
-      v27 = *a3;
+      v26 = *a3;
       *buf = 138543362;
-      v31 = v27;
+      v30 = v26;
       _os_log_error_impl(&dword_228986000, v23, OS_LOG_TYPE_ERROR, "Failed to save new instance discriminator in key-value domain: %{public}@", buf, 0xCu);
     }
 
     v22 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
@@ -621,7 +619,7 @@ BOOL __65__HDSyncIdentityManager_rollCurrentSyncIdentityWithReason_error___block
 
 uint64_t __46__HDSyncIdentityManager_profileDidInitialize___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = +[HDSyncIdentity legacySyncIdentity];
   v7 = [HDSyncIdentityEntity insertOrLookupConcreteIdentityForIdentity:v6 transaction:v5 error:a3];
@@ -632,9 +630,9 @@ uint64_t __46__HDSyncIdentityManager_profileDidInitialize___block_invoke(uint64_
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     v10 = [(HDKeyValueDomain *)v8 initWithCategory:0 domainName:@"sync-identity" profile:WeakRetained];
 
-    v99 = 0;
-    v11 = [(HDKeyValueDomain *)v10 dataForKey:@"database-identifier" error:&v99];
-    v12 = v99;
+    v98 = 0;
+    v11 = [(HDKeyValueDomain *)v10 dataForKey:@"database-identifier" error:&v98];
+    v12 = v98;
     v13 = v12;
     if (v11)
     {
@@ -654,9 +652,9 @@ uint64_t __46__HDSyncIdentityManager_profileDidInitialize___block_invoke(uint64_
       {
         v44 = *(a1 + 32);
         *buf = 138543618;
-        v104 = v44;
-        v105 = 2114;
-        v106 = v13;
+        v103 = v44;
+        v104 = 2114;
+        v105 = v13;
         _os_log_error_impl(&dword_228986000, v18, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch fetch raw database identifier: %{public}@", buf, 0x16u);
       }
 
@@ -698,38 +696,38 @@ uint64_t __46__HDSyncIdentityManager_profileDidInitialize___block_invoke(uint64_
     }
 
     v23 = v22;
-    v91 = v23;
+    v90 = v23;
     if (!v15)
     {
       _HKInitializeLogging();
       v24 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
       {
-        v72 = *(a1 + 32);
+        v71 = *(a1 + 32);
         *buf = 138543362;
-        v104 = v72;
+        v103 = v71;
         _os_log_fault_impl(&dword_228986000, v24, OS_LOG_TYPE_FAULT, "%{public}@: Failed to decode existing database identifier data; creating a fresh database identifier. This will roll sync identity.", buf, 0xCu);
       }
 
       v21 = [MEMORY[0x277CCAD78] UUID];
     }
 
-    v98 = 0;
-    v25 = [(HDKeyValueDomain *)v10 stringForKey:@"instance-discriminator" error:&v98];
-    v26 = v98;
+    v97 = 0;
+    v25 = [(HDKeyValueDomain *)v10 stringForKey:@"instance-discriminator" error:&v97];
+    v26 = v97;
     v13 = v26;
-    v92 = v25;
+    v91 = v25;
     if (!v25 && v26)
     {
       _HKInitializeLogging();
       v27 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v71 = *(a1 + 32);
+        v70 = *(a1 + 32);
         *buf = 138543618;
-        v104 = v71;
-        v105 = 2114;
-        v106 = v13;
+        v103 = v70;
+        v104 = 2114;
+        v105 = v13;
         _os_log_error_impl(&dword_228986000, v27, OS_LOG_TYPE_ERROR, "%{public}@: Failed to fetch fetch instance discriminator: %{public}@", buf, 0x16u);
       }
 
@@ -750,14 +748,14 @@ uint64_t __46__HDSyncIdentityManager_profileDidInitialize___block_invoke(uint64_
       goto LABEL_84;
     }
 
-    v87 = [HDSyncIdentity alloc];
-    v85 = a1;
-    v88 = objc_loadWeakRetained((a1 + 40));
-    v30 = [v88 daemon];
+    v86 = [HDSyncIdentity alloc];
+    v84 = a1;
+    v87 = objc_loadWeakRetained((a1 + 40));
+    v30 = [v87 daemon];
     v31 = objc_opt_self();
     os_unfair_lock_lock(&_MergedGlobals_220);
-    v90 = v10;
-    v86 = v30;
+    v89 = v10;
+    v85 = v30;
     if (qword_280D67DF8)
     {
       os_unfair_lock_unlock(&_MergedGlobals_220);
@@ -766,13 +764,13 @@ uint64_t __46__HDSyncIdentityManager_profileDidInitialize___block_invoke(uint64_
 
     else
     {
-      v82 = v31;
+      v81 = v31;
       v33 = objc_alloc_init(MEMORY[0x277CCAA00]);
       v34 = [v30 localContentURL];
-      v100 = 0;
-      v78 = v33;
-      LOBYTE(v33) = [v33 createDirectoryAtURL:v34 withIntermediateDirectories:1 attributes:0 error:&v100];
-      v79 = v100;
+      v99 = 0;
+      v77 = v33;
+      LOBYTE(v33) = [v33 createDirectoryAtURL:v34 withIntermediateDirectories:1 attributes:0 error:&v99];
+      v78 = v99;
       if ((v33 & 1) == 0)
       {
         _HKInitializeLogging();
@@ -780,28 +778,28 @@ uint64_t __46__HDSyncIdentityManager_profileDidInitialize___block_invoke(uint64_
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v104 = v31;
-          v105 = 2114;
-          v106 = v79;
+          v103 = v31;
+          v104 = 2114;
+          v105 = v78;
           _os_log_error_impl(&dword_228986000, v35, OS_LOG_TYPE_ERROR, "%{public}@: Failed to create local content directory: %{public}@", buf, 0x16u);
         }
       }
 
-      v77 = v34;
+      v76 = v34;
       v36 = [v34 URLByAppendingPathComponent:@"SyncIdentityHardwareIdentifier.uuid" isDirectory:0];
       v37 = objc_opt_self();
-      v102 = 0;
-      v38 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:v36 error:&v102];
-      v83 = v36;
+      v101 = 0;
+      v38 = [MEMORY[0x277CCA9F8] fileHandleForReadingFromURL:v36 error:&v101];
+      v82 = v36;
 
-      v39 = v102;
+      v39 = v101;
       v40 = v39;
       if (v38)
       {
-        v101 = 0;
-        v80 = v38;
-        v41 = [v38 readDataUpToLength:16 error:&v101];
-        v75 = v101;
+        v100 = 0;
+        v79 = v38;
+        v41 = [v38 readDataUpToLength:16 error:&v100];
+        v74 = v100;
 
         if (v41)
         {
@@ -815,17 +813,17 @@ uint64_t __46__HDSyncIdentityManager_profileDidInitialize___block_invoke(uint64_
           if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
           {
             *buf = 138543618;
-            v104 = v37;
-            v105 = 2114;
-            v106 = v75;
+            v103 = v37;
+            v104 = 2114;
+            v105 = v74;
             _os_log_error_impl(&dword_228986000, v45, OS_LOG_TYPE_ERROR, "%{public}@: Failed to read from existing hardware identifier file: %{public}@", buf, 0x16u);
           }
 
           v42 = 0;
         }
 
-        v38 = v80;
-        v40 = v75;
+        v38 = v79;
+        v40 = v74;
       }
 
       else if ([v39 hk_isCocoaNoSuchFileError])
@@ -840,9 +838,9 @@ uint64_t __46__HDSyncIdentityManager_profileDidInitialize___block_invoke(uint64_
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
         {
           *buf = 138543618;
-          v104 = v37;
-          v105 = 2114;
-          v106 = v40;
+          v103 = v37;
+          v104 = 2114;
+          v105 = v40;
           _os_log_error_impl(&dword_228986000, v46, OS_LOG_TYPE_ERROR, "%{public}@: Failed to open existing hardware identifier file for reading: %{public}@", buf, 0x16u);
         }
 
@@ -860,9 +858,9 @@ uint64_t __46__HDSyncIdentityManager_profileDidInitialize___block_invoke(uint64_
         v48 = 0;
       }
 
-      v76 = v48;
+      v75 = v48;
       v49 = [MEMORY[0x277CCAD78] hk_UUIDWithData:v48];
-      v81 = v42;
+      v80 = v42;
       if (v49 && [v42 isEqual:v49])
       {
         v50 = v49;
@@ -884,13 +882,13 @@ uint64_t __46__HDSyncIdentityManager_profileDidInitialize___block_invoke(uint64_
         if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138544130;
-          v104 = v82;
-          v105 = 2112;
-          v106 = v81;
-          v107 = 2112;
-          v108 = v49;
-          v109 = 2112;
-          v110 = qword_280D67DF8;
+          v103 = v81;
+          v104 = 2112;
+          v105 = v80;
+          v106 = 2112;
+          v107 = v49;
+          v108 = 2112;
+          v109 = qword_280D67DF8;
           _os_log_impl(&dword_228986000, v54, OS_LOG_TYPE_DEFAULT, "%{public}@: File identifier (%@) and defaults identifier (%@) do not match. Generating fresh hardware identifier: %@", buf, 0x2Au);
         }
 
@@ -898,14 +896,14 @@ uint64_t __46__HDSyncIdentityManager_profileDidInitialize___block_invoke(uint64_
         v56 = [MEMORY[0x277CBEBD0] standardUserDefaults];
         [v56 setObject:v55 forKey:@"SyncIdentityHardwareIdentifier"];
 
-        if (([v55 writeToURL:v83 atomically:1] & 1) == 0)
+        if (([v55 writeToURL:v82 atomically:1] & 1) == 0)
         {
           _HKInitializeLogging();
           v57 = *v53;
           if (os_log_type_enabled(*v53, OS_LOG_TYPE_ERROR))
           {
             *buf = 138543362;
-            v104 = v82;
+            v103 = v81;
             _os_log_error_impl(&dword_228986000, v57, OS_LOG_TYPE_ERROR, "%{public}@: Failed to write hardware identifier to file", buf, 0xCu);
           }
         }
@@ -915,11 +913,11 @@ uint64_t __46__HDSyncIdentityManager_profileDidInitialize___block_invoke(uint64_
       }
     }
 
-    v28 = v92;
+    v28 = v91;
 
-    if (v92)
+    if (v91)
     {
-      v58 = v92;
+      v58 = v91;
     }
 
     else
@@ -927,30 +925,30 @@ uint64_t __46__HDSyncIdentityManager_profileDidInitialize___block_invoke(uint64_
       v58 = &stru_283BF39C8;
     }
 
-    v59 = [(HDSyncIdentity *)v87 initWithHardwareIdentifier:v32 databaseIdentifier:v21 instanceDiscriminator:v58];
+    v59 = [(HDSyncIdentity *)v86 initWithHardwareIdentifier:v32 databaseIdentifier:v21 instanceDiscriminator:v58];
 
-    v97 = v13;
-    v89 = v59;
-    v60 = [HDSyncIdentityEntity insertOrLookupConcreteIdentityForIdentity:v59 transaction:v5 error:&v97];
-    v61 = v97;
+    v96 = v13;
+    v88 = v59;
+    v60 = [HDSyncIdentityEntity insertOrLookupConcreteIdentityForIdentity:v59 transaction:v5 error:&v96];
+    v61 = v96;
 
     if (v60)
     {
-      if (!v91)
+      if (!v90)
       {
 LABEL_71:
-        v93[0] = MEMORY[0x277D85DD0];
-        v93[1] = 3221225472;
-        v93[2] = __46__HDSyncIdentityManager_profileDidInitialize___block_invoke_359;
-        v93[3] = &unk_278613830;
-        v93[4] = *(v85 + 32);
-        v94 = v60;
-        v95 = v7;
-        [v5 onCommit:v93 orRollback:0];
+        v92[0] = MEMORY[0x277D85DD0];
+        v92[1] = 3221225472;
+        v92[2] = __46__HDSyncIdentityManager_profileDidInitialize___block_invoke_359;
+        v92[3] = &unk_278613830;
+        v92[4] = *(v84 + 32);
+        v93 = v60;
+        v94 = v7;
+        [v5 onCommit:v92 orRollback:0];
 
         v17 = 1;
         v13 = v61;
-        v10 = v90;
+        v10 = v89;
 LABEL_83:
 
 LABEL_84:
@@ -959,18 +957,18 @@ LABEL_85:
         goto LABEL_86;
       }
 
-      v84 = v21;
+      v83 = v21;
       v62 = [v21 hk_dataForUUIDBytes];
       v63 = [v60 entity];
-      v96 = v61;
-      v64 = -[HDKeyValueDomain setData:forKey:syncIdentity:error:](v90, "setData:forKey:syncIdentity:error:", v62, @"database-identifier", [v63 persistentID], &v96);
-      v65 = v96;
+      v95 = v61;
+      v64 = -[HDKeyValueDomain setData:forKey:syncIdentity:error:](v89, "setData:forKey:syncIdentity:error:", v62, @"database-identifier", [v63 persistentID], &v95);
+      v65 = v95;
 
       if (v64)
       {
         v61 = v65;
-        v21 = v84;
-        v28 = v92;
+        v21 = v83;
+        v28 = v91;
         goto LABEL_71;
       }
 
@@ -978,18 +976,18 @@ LABEL_85:
       v67 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v74 = *(v85 + 32);
+        v73 = *(v84 + 32);
         *buf = 138543618;
-        v104 = v74;
-        v105 = 2114;
-        v106 = v65;
+        v103 = v73;
+        v104 = 2114;
+        v105 = v65;
         _os_log_error_impl(&dword_228986000, v67, OS_LOG_TYPE_ERROR, "%{public}@: Failed to store updated database identifier: %{public}@", buf, 0x16u);
       }
 
       v13 = v65;
-      v10 = v90;
-      v21 = v84;
-      v28 = v92;
+      v10 = v89;
+      v21 = v83;
+      v28 = v91;
       if (!v13)
       {
 LABEL_82:
@@ -1005,16 +1003,16 @@ LABEL_82:
       v66 = *MEMORY[0x277CCC328];
       if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_ERROR))
       {
-        v73 = *(v85 + 32);
+        v72 = *(v84 + 32);
         *buf = 138543618;
-        v104 = v73;
-        v105 = 2114;
-        v106 = v61;
+        v103 = v72;
+        v104 = 2114;
+        v105 = v61;
         _os_log_error_impl(&dword_228986000, v66, OS_LOG_TYPE_ERROR, "%{public}@: Failed to create or read current sync identity: %{public}@", buf, 0x16u);
       }
 
       v13 = v61;
-      v10 = v90;
+      v10 = v89;
       if (!v13)
       {
         goto LABEL_82;
@@ -1041,9 +1039,9 @@ LABEL_82:
   {
     v43 = *(a1 + 32);
     *buf = 138543618;
-    v104 = v43;
-    v105 = 2114;
-    v106 = 0;
+    v103 = v43;
+    v104 = 2114;
+    v105 = 0;
     _os_log_error_impl(&dword_228986000, v16, OS_LOG_TYPE_ERROR, "%{public}@: Failed to create or read legacy sync identity: %{public}@", buf, 0x16u);
   }
 
@@ -1051,7 +1049,6 @@ LABEL_82:
   v17 = 0;
 LABEL_86:
 
-  v69 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

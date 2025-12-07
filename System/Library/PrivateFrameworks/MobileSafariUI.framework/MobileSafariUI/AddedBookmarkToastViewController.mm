@@ -66,7 +66,7 @@
 - (NSArray)suggestedFolders
 {
   swift_beginAccess();
-  sub_2159F7DA8(0, &unk_2811A28A0);
+  sub_2159F7DA8(0, &unk_2811A28A0, 0x277D7B5A0);
 
   v2 = sub_215A705D0();
 
@@ -75,7 +75,7 @@
 
 - (void)setSuggestedFolders:(id)folders
 {
-  sub_2159F7DA8(0, &unk_2811A28A0);
+  sub_2159F7DA8(0, &unk_2811A28A0, 0x277D7B5A0);
   v4 = sub_215A705E0();
   v5 = OBJC_IVAR___AddedBookmarkToastViewController_suggestedFolders;
   swift_beginAccess();

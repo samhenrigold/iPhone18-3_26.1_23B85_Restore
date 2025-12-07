@@ -33,18 +33,24 @@
   v8 = _Block_copy(block);
   if (v8)
   {
-    *(swift_allocObject() + 16) = v8;
+    v9 = swift_allocObject();
+    *(v9 + 16) = v8;
     v8 = sub_21AEB390C;
+  }
+
+  else
+  {
+    v9 = 0;
   }
 
   swift_unknownObjectRetain();
   metadataCopy = metadata;
   selfCopy = self;
-  v11 = sub_21AF02C44(signals);
-  sub_21AE9678C(v8);
+  v12 = sub_21AF02C44(signals);
+  sub_21AE9678C(v8, v9);
   swift_unknownObjectRelease();
 
-  return v11;
+  return v12;
 }
 
 @end

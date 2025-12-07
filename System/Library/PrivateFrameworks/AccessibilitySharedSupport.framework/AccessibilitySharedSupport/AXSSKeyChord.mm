@@ -18,6 +18,7 @@
 - (id)_normalizeKeys:(id)keys;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
+- (id)displayValueWithStyle:(int64_t)style isUSKeyboard:(BOOL)keyboard;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
 @end
@@ -105,31 +106,31 @@
 
 - (id)_normalizeKeys:(id)keys
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   uppercaseLetterCharacterSet = [MEMORY[0x1E696AB08] uppercaseLetterCharacterSet];
   array = [MEMORY[0x1E695DF70] array];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v6 = keysCopy;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v20 + 1) + 8 * i);
-        if (-[__CFString length](v11, "length", v20) == 1 && [uppercaseLetterCharacterSet characterIsMember:{-[__CFString characterAtIndex:](v11, "characterAtIndex:", 0)}])
+        v11 = *(*(&v19 + 1) + 8 * i);
+        if (-[__CFString length](v11, "length", v19) == 1 && [uppercaseLetterCharacterSet characterIsMember:{-[__CFString characterAtIndex:](v11, "characterAtIndex:", 0)}])
         {
           lowercaseString = [(__CFString *)v11 lowercaseString];
           [array addObject:lowercaseString];
@@ -152,7 +153,7 @@
         [v13 addObject:v14];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v8);
@@ -162,41 +163,38 @@
   reverseObjectEnumerator = [v15 reverseObjectEnumerator];
   allObjects = [reverseObjectEnumerator allObjects];
 
-  v18 = *MEMORY[0x1E69E9840];
-
   return allObjects;
 }
 
 - (AXSSKeyChord)initWithCoder:(id)coder
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = MEMORY[0x1E695DFD8];
   v6 = objc_opt_class();
   v7 = [v5 setWithObjects:{v6, objc_opt_class(), 0}];
   v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"keys"];
 
-  v20 = 0u;
-  v21 = 0u;
   v18 = 0u;
   v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v9 = v8;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v17;
     while (2)
     {
       v13 = 0;
       do
       {
-        if (*v19 != v12)
+        if (*v17 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * v13);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -209,7 +207,7 @@
       }
 
       while (v11 != v13);
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v11)
       {
         continue;
@@ -223,7 +221,6 @@
   selfCopy = self;
 LABEL_11:
 
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -283,30 +280,30 @@ LABEL_11:
 
 - (NSArray)orderedKeys
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   keys = [(AXSSKeyChord *)self keys];
-  v5 = [keys countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [keys countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v5)
   {
     v6 = v5;
-    v16 = 0;
+    v15 = 0;
     v7 = 0;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(keys);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         v11 = [v10 isEqualToString:@"⇥"];
         v12 = [&unk_1F4066510 containsObject:v10];
         if (v11)
@@ -322,21 +319,21 @@ LABEL_11:
         else
         {
           [v3 addObject:v10];
-          v16 = 1;
+          v15 = 1;
         }
       }
 
-      v6 = [keys countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v6 = [keys countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v6);
 
-    if (v7 & v16)
+    if (v7 & v15)
     {
       [v3 insertObject:@"⇥" atIndex:0];
     }
 
-    if (((v7 ^ 1 | v16) & 1) == 0)
+    if (((v7 ^ 1 | v15) & 1) == 0)
     {
       [v3 addObject:@"⇥"];
     }
@@ -348,56 +345,52 @@ LABEL_11:
 
   v13 = [v3 copy];
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return v13;
 }
 
 - (BOOL)isFunctionKeyChord
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   cachedIsFunctionKey = self->_cachedIsFunctionKey;
   if (cachedIsFunctionKey)
   {
-    v4 = *MEMORY[0x1E69E9840];
 
     return [(NSNumber *)cachedIsFunctionKey BOOLValue];
   }
 
   else
   {
-    v17 = 0u;
-    v18 = 0u;
     v15 = 0u;
     v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     keys = [(AXSSKeyChord *)self keys];
-    v7 = [keys countByEnumeratingWithState:&v15 objects:v19 count:16];
-    if (v7)
+    v6 = [keys countByEnumeratingWithState:&v13 objects:v17 count:16];
+    if (v6)
     {
-      v8 = v7;
-      v9 = *v16;
+      v7 = v6;
+      v8 = *v14;
       while (2)
       {
-        for (i = 0; i != v8; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v16 != v9)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(keys);
           }
 
-          v11 = *(*(&v15 + 1) + 8 * i);
-          if ([v11 isEqualToString:@"Fn"] & 1) != 0 || (objc_msgSend(&unk_1F4066528, "containsObject:", v11))
+          v10 = *(*(&v13 + 1) + 8 * i);
+          if ([v10 isEqualToString:@"Fn"] & 1) != 0 || (objc_msgSend(&unk_1F4066528, "containsObject:", v10))
           {
-            v13 = self->_cachedIsFunctionKey;
+            v12 = self->_cachedIsFunctionKey;
             self->_cachedIsFunctionKey = MEMORY[0x1E695E118];
 
-            result = 1;
-            goto LABEL_16;
+            return 1;
           }
         }
 
-        v8 = [keys countByEnumeratingWithState:&v15 objects:v19 count:16];
-        if (v8)
+        v7 = [keys countByEnumeratingWithState:&v13 objects:v17 count:16];
+        if (v7)
         {
           continue;
         }
@@ -406,65 +399,59 @@ LABEL_11:
       }
     }
 
-    v12 = self->_cachedIsFunctionKey;
+    v11 = self->_cachedIsFunctionKey;
     self->_cachedIsFunctionKey = MEMORY[0x1E695E110];
 
-    result = 0;
-LABEL_16:
-    v14 = *MEMORY[0x1E69E9840];
+    return 0;
   }
-
-  return result;
 }
 
 - (BOOL)containsModifier
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   cachedContainsModifier = self->_cachedContainsModifier;
   if (cachedContainsModifier)
   {
-    v4 = *MEMORY[0x1E69E9840];
 
     return [(NSNumber *)cachedContainsModifier BOOLValue];
   }
 
   else
   {
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     keys = [(AXSSKeyChord *)self keys];
-    v7 = [keys countByEnumeratingWithState:&v14 objects:v18 count:16];
-    if (v7)
+    v6 = [keys countByEnumeratingWithState:&v12 objects:v16 count:16];
+    if (v6)
     {
-      v8 = v7;
-      v9 = *v15;
+      v7 = v6;
+      v8 = *v13;
       while (2)
       {
-        v10 = 0;
+        v9 = 0;
         do
         {
-          if (*v15 != v9)
+          if (*v13 != v8)
           {
             objc_enumerationMutation(keys);
           }
 
-          if ([&unk_1F4066540 containsObject:*(*(&v14 + 1) + 8 * v10)])
+          if ([&unk_1F4066540 containsObject:*(*(&v12 + 1) + 8 * v9)])
           {
-            v12 = self->_cachedContainsModifier;
+            v11 = self->_cachedContainsModifier;
             self->_cachedContainsModifier = MEMORY[0x1E695E118];
 
-            result = 1;
-            goto LABEL_15;
+            return 1;
           }
 
-          ++v10;
+          ++v9;
         }
 
-        while (v8 != v10);
-        v8 = [keys countByEnumeratingWithState:&v14 objects:v18 count:16];
-        if (v8)
+        while (v7 != v9);
+        v7 = [keys countByEnumeratingWithState:&v12 objects:v16 count:16];
+        if (v7)
         {
           continue;
         }
@@ -473,15 +460,11 @@ LABEL_16:
       }
     }
 
-    v11 = self->_cachedContainsModifier;
+    v10 = self->_cachedContainsModifier;
     self->_cachedContainsModifier = MEMORY[0x1E695E110];
 
-    result = 0;
-LABEL_15:
-    v13 = *MEMORY[0x1E69E9840];
+    return 0;
   }
-
-  return result;
 }
 
 - (BOOL)isTextInputChord
@@ -571,6 +554,40 @@ uint64_t __35__AXSSKeyChord_isTextInputTabChord__block_invoke()
   v3 = [keys count] == 0;
 
   return v3;
+}
+
+- (id)displayValueWithStyle:(int64_t)style isUSKeyboard:(BOOL)keyboard
+{
+  keyboardCopy = keyboard;
+  if (style == 1)
+  {
+    keys = [(AXSSKeyChord *)self keys];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __51__AXSSKeyChord_displayValueWithStyle_isUSKeyboard___block_invoke;
+    v11[3] = &unk_1E8134AE8;
+    v12 = &unk_1F40665B8;
+    v7 = [keys indexOfObjectPassingTest:v11];
+
+    if (v7 == 0x7FFFFFFFFFFFFFFFLL)
+    {
+      v8 = &unk_1F40665D0;
+    }
+
+    else
+    {
+      v8 = &unk_1F40665B8;
+    }
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  v9 = [(AXSSKeyChord *)self _displayValueWithSortedModifiers:v8 isUSKeyboard:keyboardCopy];
+
+  return v9;
 }
 
 - (id)_displayValueWithSortedModifiers:(id)modifiers isUSKeyboard:(BOOL)keyboard
@@ -672,11 +689,10 @@ id __62__AXSSKeyChord__displayValueWithSortedModifiers_isUSKeyboard___block_invo
 
 void __62__AXSSKeyChord__displayValueWithSortedModifiers_isUSKeyboard___block_invoke_2_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_ERROR, "Error getting value from key %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1C0E8A000, a2, OS_LOG_TYPE_ERROR, "Error getting value from key %@", &v2, 0xCu);
 }
 
 @end

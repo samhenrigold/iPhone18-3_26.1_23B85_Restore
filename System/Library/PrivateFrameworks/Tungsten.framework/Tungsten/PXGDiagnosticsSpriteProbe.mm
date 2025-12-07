@@ -250,7 +250,7 @@ uint64_t __87__PXGDiagnosticsSpriteProbe_shouldUseDoubleSidedAnimationForSprites
   v14 = spriteDataStore;
   if (spriteDataStore)
   {
-    [spriteDataStore sprites];
+    objc_msgSend_sprites(spriteDataStore);
   }
 
   else
@@ -427,7 +427,7 @@ uint64_t __87__PXGDiagnosticsSpriteProbe_shouldUseDoubleSidedAnimationForSprites
   v9 = spriteDataStore;
   if (spriteDataStore)
   {
-    [spriteDataStore sprites];
+    objc_msgSend_sprites(spriteDataStore);
   }
 
   else

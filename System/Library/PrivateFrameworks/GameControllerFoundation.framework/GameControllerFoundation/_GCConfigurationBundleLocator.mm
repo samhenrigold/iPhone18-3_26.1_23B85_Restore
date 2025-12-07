@@ -176,7 +176,7 @@
 - (uint64_t)_onqueue_filesystem_updateBundles
 {
   selfCopy = self;
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 24));
@@ -190,10 +190,10 @@
         v6 = *(selfCopy + 8);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
-          v17 = v6;
+          v16 = v6;
           error = [OUTLINED_FUNCTION_2_5() error];
           *buf = 138543362;
-          v26 = error;
+          v25 = error;
           _os_log_error_impl(&dword_1D2C3B000, v6, OS_LOG_TYPE_ERROR, "[Source/FS] Error fetching bundle URLs: %{public}@", buf, 0xCu);
         }
 
@@ -204,16 +204,17 @@
       {
         result = [v5 result];
         OUTLINED_FUNCTION_7_0();
-        v21 = 3221225472;
-        v22 = __66___GCConfigurationBundleLocator__onqueue_filesystem_updateBundles__block_invoke;
-        v23 = &unk_1E8414CA8;
-        v24 = selfCopy;
-        [v8 gc_arrayByTransformingElementsWithOptions:1 usingBlock:&v20];
+        v20 = 3221225472;
+        v21 = __66___GCConfigurationBundleLocator__onqueue_filesystem_updateBundles__block_invoke;
+        v22 = &unk_1E8414CA8;
+        v23 = selfCopy;
+        [v8 gc_arrayByTransformingElementsWithOptions:1 usingBlock:&v19];
         objc_claimAutoreleasedReturnValue();
         if (OUTLINED_FUNCTION_7_2())
         {
-          HIDWORD(v26) = HIDWORD(v1);
-          OUTLINED_FUNCTION_3_3(&dword_1D2C3B000, v9, v10, "[Source/FS] New bundles: %@.", v11, v12, v13, v14, v19, v20, v21, v22, v23, v24, 2u);
+          *buf = 138412290;
+          v25 = v1;
+          OUTLINED_FUNCTION_3_3(&dword_1D2C3B000, v9, v10, "[Source/FS] New bundles: %@.", v11, v12, v13, v14, v18, v19, v20, v21, v22, v23);
         }
 
         if (([v1 count] || objc_msgSend(*(selfCopy + 56), "count")) && (objc_msgSend(v1, "isEqual:", *(selfCopy + 56)) & 1) == 0)
@@ -235,13 +236,12 @@
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (void)_onqueue_rebuildBundleCollection
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self)
   {
     v2 = objc_getProperty(self, sel__onqueue_rebuildBundleCollection, 56, 1);
@@ -263,27 +263,24 @@
     {
       v7 = v6;
       *buf = 134217984;
-      v17 = [v5 count];
+      v15 = [v5 count];
       _os_log_impl(&dword_1D2C3B000, v7, OS_LOG_TYPE_INFO, "Now tracking %llu bundles.", buf, 0xCu);
     }
 
     objc_setProperty_atomic(self, sel__onqueue_rebuildBundleCollection, v5, 32);
-    v8 = self[2];
     OUTLINED_FUNCTION_7_0();
-    v12 = 3221225472;
-    v13 = __65___GCConfigurationBundleLocator__onqueue_rebuildBundleCollection__block_invoke;
-    v14 = &unk_1E8413DA0;
+    v10 = 3221225472;
+    v11 = __65___GCConfigurationBundleLocator__onqueue_rebuildBundleCollection__block_invoke;
+    v12 = &unk_1E8413DA0;
     selfCopy = self;
-    dispatch_async(v9, block);
+    dispatch_async(v8, block);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)_onqueue_asset_updateBundles
 {
   selfCopy = self;
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   if (self)
   {
     dispatch_assert_queue_V2(*(self + 24));
@@ -297,12 +294,12 @@
         v6 = *(selfCopy + 8);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
-          v17 = v6;
+          v16 = v6;
           error = [OUTLINED_FUNCTION_2_5() error];
           *buf = 138412546;
-          v26 = v4;
-          v27 = 2114;
-          v28 = error;
+          v25 = v4;
+          v26 = 2114;
+          v27 = error;
           _os_log_error_impl(&dword_1D2C3B000, v6, OS_LOG_TYPE_ERROR, "[Source/Asset] Error fetching bundle URLs from '%@': %{public}@", buf, 0x16u);
         }
 
@@ -313,16 +310,17 @@
       {
         result = [v5 result];
         OUTLINED_FUNCTION_7_0();
-        v21 = 3221225472;
-        v22 = __61___GCConfigurationBundleLocator__onqueue_asset_updateBundles__block_invoke;
-        v23 = &unk_1E8414CA8;
-        v24 = selfCopy;
-        [v8 gc_arrayByTransformingElementsWithOptions:1 usingBlock:&v20];
+        v20 = 3221225472;
+        v21 = __61___GCConfigurationBundleLocator__onqueue_asset_updateBundles__block_invoke;
+        v22 = &unk_1E8414CA8;
+        v23 = selfCopy;
+        [v8 gc_arrayByTransformingElementsWithOptions:1 usingBlock:&v19];
         objc_claimAutoreleasedReturnValue();
         if (OUTLINED_FUNCTION_7_2())
         {
-          HIDWORD(v26) = HIDWORD(v1);
-          OUTLINED_FUNCTION_3_3(&dword_1D2C3B000, v9, v10, "[Source/Asset] New configuration bundles: %@.", v11, v12, v13, v14, v19, v20, v21, v22, v23, v24, 2u);
+          *buf = 138412290;
+          v25 = v1;
+          OUTLINED_FUNCTION_3_3(&dword_1D2C3B000, v9, v10, "[Source/Asset] New configuration bundles: %@.", v11, v12, v13, v14, v18, v19, v20, v21, v22, v23);
         }
 
         if (([v1 count] || objc_msgSend(*(selfCopy + 80), "count")) && (objc_msgSend(v1, "isEqual:", *(selfCopy + 80)) & 1) == 0)
@@ -344,7 +342,6 @@
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -384,7 +381,8 @@
 {
   if (os_log_type_enabled(*a1, OS_LOG_TYPE_DEBUG))
   {
-    OUTLINED_FUNCTION_6_1(&dword_1D2C3B000, v1, v2, "No file system source.", v3, v4, v5, v6, 0);
+    v7 = 0;
+    OUTLINED_FUNCTION_6_1(&dword_1D2C3B000, v1, v2, "No file system source.", v3, v4, v5, v6, v7);
   }
 }
 
@@ -392,7 +390,8 @@
 {
   if (os_log_type_enabled(*a1, OS_LOG_TYPE_DEBUG))
   {
-    OUTLINED_FUNCTION_6_1(&dword_1D2C3B000, v1, v2, "No asset source.", v3, v4, v5, v6, 0);
+    v7 = 0;
+    OUTLINED_FUNCTION_6_1(&dword_1D2C3B000, v1, v2, "No asset source.", v3, v4, v5, v6, v7);
   }
 }
 

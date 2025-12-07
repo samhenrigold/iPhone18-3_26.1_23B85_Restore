@@ -56,44 +56,44 @@
 
 - (ChipError)_encodeToTLVReader:(PacketBufferTLVReader *)reader
 {
-  unsignedShortValue = 0;
-  unsignedCharValue = 0;
-  LOBYTE(v53) = 0;
-  v54 = 0;
+  LOWORD(v51) = 0;
+  BYTE2(v51) = 0;
+  LOBYTE(v52) = 0;
+  v53 = 0;
   LOBYTE(unsignedLongLongValue) = 0;
-  v56 = 0;
-  LOBYTE(v57) = 0;
-  v58 = 0;
+  v55 = 0;
+  LOBYTE(v56) = 0;
+  v57 = 0;
   LOBYTE(unsignedLongLongValue2) = 0;
-  v60 = 0;
-  LOBYTE(v61) = 0;
-  v62 = 0;
+  v59 = 0;
+  LOBYTE(v60) = 0;
+  v61 = 0;
   LOBYTE(unsignedLongLongValue3) = 0;
-  v64 = 0;
-  unsignedCharValue2 = 0;
+  v63 = 0;
+  unsignedCharValue = 0;
   v50[0] = 0;
   v50[1] = 0;
   v49 = v50;
   groupKeySet = [(MTRJointFabricDatastoreClusterAddKeySetParams *)self groupKeySet];
   groupKeySetID = [groupKeySet groupKeySetID];
-  unsignedShortValue = [groupKeySetID unsignedShortValue];
+  LOWORD(v51) = [groupKeySetID unsignedShortValue];
 
   groupKeySet2 = [(MTRJointFabricDatastoreClusterAddKeySetParams *)self groupKeySet];
   groupKeySecurityPolicy = [groupKeySet2 groupKeySecurityPolicy];
-  unsignedCharValue = [groupKeySecurityPolicy unsignedCharValue];
+  BYTE2(v51) = [groupKeySecurityPolicy unsignedCharValue];
 
   groupKeySet3 = [(MTRJointFabricDatastoreClusterAddKeySetParams *)self groupKeySet];
   epochKey0 = [groupKeySet3 epochKey0];
 
   if (epochKey0)
   {
-    v53 = 0uLL;
-    v54 = 1;
+    v52 = 0uLL;
+    v53 = 1;
     groupKeySet4 = [(MTRJointFabricDatastoreClusterAddKeySetParams *)self groupKeySet];
     epochKey02 = [groupKeySet4 epochKey0];
     sub_238DB6950(v43, [epochKey02 bytes], objc_msgSend(epochKey02, "length"));
 
-    v53 = v43[0];
+    v52 = v43[0];
   }
 
   groupKeySet5 = [(MTRJointFabricDatastoreClusterAddKeySetParams *)self groupKeySet];
@@ -102,7 +102,7 @@
   if (epochStartTime0)
   {
     unsignedLongLongValue = 0;
-    v56 = 1;
+    v55 = 1;
     groupKeySet6 = [(MTRJointFabricDatastoreClusterAddKeySetParams *)self groupKeySet];
     epochStartTime02 = [groupKeySet6 epochStartTime0];
     unsignedLongLongValue = [epochStartTime02 unsignedLongLongValue];
@@ -113,13 +113,13 @@
 
   if (epochKey1)
   {
-    v57 = 0uLL;
-    v58 = 1;
+    v56 = 0uLL;
+    v57 = 1;
     groupKeySet8 = [(MTRJointFabricDatastoreClusterAddKeySetParams *)self groupKeySet];
     epochKey12 = [groupKeySet8 epochKey1];
     sub_238DB6950(v43, [epochKey12 bytes], objc_msgSend(epochKey12, "length"));
 
-    v57 = v43[0];
+    v56 = v43[0];
   }
 
   groupKeySet9 = [(MTRJointFabricDatastoreClusterAddKeySetParams *)self groupKeySet];
@@ -128,7 +128,7 @@
   if (epochStartTime1)
   {
     unsignedLongLongValue2 = 0;
-    v60 = 1;
+    v59 = 1;
     groupKeySet10 = [(MTRJointFabricDatastoreClusterAddKeySetParams *)self groupKeySet];
     epochStartTime12 = [groupKeySet10 epochStartTime1];
     unsignedLongLongValue2 = [epochStartTime12 unsignedLongLongValue];
@@ -139,13 +139,13 @@
 
   if (epochKey2)
   {
-    v61 = 0uLL;
-    v62 = 1;
+    v60 = 0uLL;
+    v61 = 1;
     groupKeySet12 = [(MTRJointFabricDatastoreClusterAddKeySetParams *)self groupKeySet];
     epochKey22 = [groupKeySet12 epochKey2];
     sub_238DB6950(v43, [epochKey22 bytes], objc_msgSend(epochKey22, "length"));
 
-    v61 = v43[0];
+    v60 = v43[0];
   }
 
   groupKeySet13 = [(MTRJointFabricDatastoreClusterAddKeySetParams *)self groupKeySet];
@@ -154,7 +154,7 @@
   if (epochStartTime2)
   {
     unsignedLongLongValue3 = 0;
-    v64 = 1;
+    v63 = 1;
     groupKeySet14 = [(MTRJointFabricDatastoreClusterAddKeySetParams *)self groupKeySet];
     epochStartTime22 = [groupKeySet14 epochStartTime2];
     unsignedLongLongValue3 = [epochStartTime22 unsignedLongLongValue];
@@ -162,7 +162,7 @@
 
   groupKeySet15 = [(MTRJointFabricDatastoreClusterAddKeySetParams *)self groupKeySet];
   groupKeyMulticastPolicy = [groupKeySet15 groupKeyMulticastPolicy];
-  unsignedCharValue2 = [groupKeyMulticastPolicy unsignedCharValue];
+  unsignedCharValue = [groupKeyMulticastPolicy unsignedCharValue];
 
   sub_2393D9C18(0x62FuLL, 0, &v48);
   if (v48)
@@ -174,7 +174,7 @@
     v47 = 0;
     sub_238EA16C4(&v44, &v48, 0);
     sub_2393C7BF0(v43, &v44, 0xFFFFFFFF);
-    v35 = sub_238F1AED4(&unsignedShortValue, v43, 0x100uLL);
+    v35 = sub_238F1AED4(&v51, v43, 0x100uLL);
     v37 = v35;
     if (v35 || (v35 = sub_238DD2EFC(v43, &v48), v37 = v35, v35))
     {

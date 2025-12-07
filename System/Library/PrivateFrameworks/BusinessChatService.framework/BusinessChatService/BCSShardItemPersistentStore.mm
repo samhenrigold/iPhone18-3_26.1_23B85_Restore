@@ -51,15 +51,15 @@
 
 - (void)schemaVersionWillChangeForDatabase:(sqlite3 *)database fromSchemaVersion:(int64_t)version toSchemaVersion:(int64_t)schemaVersion
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v8 = ABSLogCommon();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v14 = "[BCSShardItemPersistentStore schemaVersionWillChangeForDatabase:fromSchemaVersion:toSchemaVersion:]";
-    v15 = 2048;
+    v13 = "[BCSShardItemPersistentStore schemaVersionWillChangeForDatabase:fromSchemaVersion:toSchemaVersion:]";
+    v14 = 2048;
     versionCopy = version;
-    v17 = 2048;
+    v16 = 2048;
     schemaVersionCopy = schemaVersion;
     _os_log_impl(&dword_242072000, v8, OS_LOG_TYPE_DEFAULT, "%s schema version will change from '%ld' to '%ld', dropping shard_items table", buf, 0x20u);
   }
@@ -72,22 +72,20 @@
       v9 = ABSLogCommon();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
-        v11 = sqlite3_errmsg(database);
+        v10 = sqlite3_errmsg(database);
         *buf = 136315138;
-        v14 = v11;
+        v13 = v10;
         _os_log_error_impl(&dword_242072000, v9, OS_LOG_TYPE_ERROR, "error while dropping shard_items table: %s", buf, 0xCu);
       }
     }
 
     sqlite3_finalize(ppStmt);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateShardItem:(id)item withShardIdentifier:(id)identifier
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   itemCopy = item;
   [(BCSPersistentStore *)self beginBatch];
@@ -102,27 +100,27 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       [v8 base64EncodedString];
-      v11 = v26 = identifierCopy;
+      v11 = v25 = identifierCopy;
       v12 = [v11 length];
       startIndex = [v8 startIndex];
       shardCount = [v8 shardCount];
       type = [v8 type];
       expirationDate = [v8 expirationDate];
       *buf = 136316418;
-      v29 = "[BCSShardItemPersistentStore _updateShardItem:withShardIdentifier:]";
-      v30 = 2048;
-      v31 = v12;
-      v32 = 2048;
-      v33 = startIndex;
-      v34 = 2048;
-      v35 = shardCount;
-      v36 = 2048;
-      v37 = type;
-      v38 = 2112;
-      v39 = expirationDate;
+      v28 = "[BCSShardItemPersistentStore _updateShardItem:withShardIdentifier:]";
+      v29 = 2048;
+      v30 = v12;
+      v31 = 2048;
+      v32 = startIndex;
+      v33 = 2048;
+      v34 = shardCount;
+      v35 = 2048;
+      v36 = type;
+      v37 = 2112;
+      v38 = expirationDate;
       _os_log_impl(&dword_242072000, v10, OS_LOG_TYPE_DEFAULT, "%s Inserting shard into DB Shard Item of length %lu startIndex %lld shardCount %lld type %ld %@", buf, 0x3Eu);
 
-      identifierCopy = v26;
+      identifierCopy = v25;
     }
 
     if (!sqlite3_prepare_v2([(BCSPersistentStore *)self openedDatabase], start_index, -1, &ppStmt, 0))
@@ -146,11 +144,11 @@
         v23 = ABSLogCommon();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
         {
-          v25 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
+          v24 = sqlite3_errmsg([(BCSPersistentStore *)self openedDatabase]);
           *buf = 134218242;
-          v29 = v22;
-          v30 = 2080;
-          v31 = v25;
+          v28 = v22;
+          v29 = 2080;
+          v30 = v24;
           _os_log_error_impl(&dword_242072000, v23, OS_LOG_TYPE_ERROR, "Error while finalizing insert shard item %lu %s", buf, 0x16u);
         }
       }
@@ -159,25 +157,23 @@
     [(BCSPersistentStore *)self endBatch];
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   [(BCSPersistentStore *)self endBatch];
 }
 
 - (id)shardItemMatching:(id)matching
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   matchingCopy = matching;
   v5 = ABSLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315906;
     *&buf[4] = "[BCSShardItemPersistentStore shardItemMatching:]";
-    v18 = 2048;
+    v17 = 2048;
     startIndex = [matchingCopy startIndex];
-    v20 = 2048;
+    v19 = 2048;
     shardCount = [matchingCopy shardCount];
-    v22 = 2048;
+    v21 = 2048;
     type = [matchingCopy type];
     _os_log_impl(&dword_242072000, v5, OS_LOG_TYPE_DEFAULT, "%s Fetching shard from DB Shard Item from startIndex %lld shardCount %lld type %ld", buf, 0x2Au);
   }
@@ -227,8 +223,6 @@
   {
     v8 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

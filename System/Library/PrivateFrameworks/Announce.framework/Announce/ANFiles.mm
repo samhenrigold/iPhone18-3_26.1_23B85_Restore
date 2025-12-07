@@ -31,9 +31,8 @@
   return v2;
 }
 
-uint64_t __17__ANFiles_shared__block_invoke(uint64_t a1)
+uint64_t __17__ANFiles_shared__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v1 = *(a1 + 32);
   shared_shared = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -85,7 +84,7 @@ uint64_t __17__ANFiles_shared__block_invoke(uint64_t a1)
 
 - (id)createTemporaryFileWithData:(id)data extension:(id)extension directory:(id)directory
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   v9 = [(ANFiles *)self createDirectory:directory andFileURLWithExtension:extension];
   if (!v9)
@@ -93,9 +92,9 @@ uint64_t __17__ANFiles_shared__block_invoke(uint64_t a1)
     goto LABEL_4;
   }
 
-  v17 = 0;
-  v10 = [dataCopy writeToURL:v9 options:1 error:&v17];
-  v11 = v17;
+  v16 = 0;
+  v10 = [dataCopy writeToURL:v9 options:1 error:&v16];
+  v11 = v16;
   v12 = v11;
   if (v10)
   {
@@ -105,27 +104,25 @@ LABEL_4:
     goto LABEL_8;
   }
 
-  v14 = ANLogHandleFiles();
+  v14 = ANLogHandleFiles(v11);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412546;
-    v19 = &stru_2836DAA20;
-    v20 = 2112;
-    v21 = v12;
+    v18 = &stru_2836DAA20;
+    v19 = 2112;
+    v20 = v12;
     _os_log_impl(&dword_2237C8000, v14, OS_LOG_TYPE_ERROR, "%@ANFiles: failed to write to temporary file: %@", buf, 0x16u);
   }
 
   v13 = 0;
 LABEL_8:
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (void)purgeTemporarySubDirectory:(id)directory
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   directoryCopy = directory;
   v4 = +[ANFiles temporaryDirectoryUrl];
   v5 = [v4 URLByAppendingPathComponent:directoryCopy isDirectory:1];
@@ -141,35 +138,36 @@ LABEL_8:
   rename(fileSystemRepresentation, fileSystemRepresentation2, v12);
   if (v13)
   {
-    v14 = *__error();
-    v15 = ANLogHandleFiles();
-    v16 = v15;
-    if (v14 == 2)
+    v14 = __error();
+    v15 = *v14;
+    v16 = ANLogHandleFiles(v14);
+    v17 = v16;
+    if (v15 == 2)
     {
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v27 = &stru_2836DAA20;
-        v17 = "%@ANFiles: skipping purge, directory does not exist";
-        v18 = v16;
-        v19 = OS_LOG_TYPE_DEFAULT;
-        v20 = 12;
+        v28 = &stru_2836DAA20;
+        v18 = "%@ANFiles: skipping purge, directory does not exist";
+        v19 = v17;
+        v20 = OS_LOG_TYPE_DEFAULT;
+        v21 = 12;
 LABEL_11:
-        _os_log_impl(&dword_2237C8000, v18, v19, v17, buf, v20);
+        _os_log_impl(&dword_2237C8000, v19, v20, v18, buf, v21);
       }
     }
 
-    else if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      v23 = *__error();
+      v25 = *__error();
       *buf = 138412546;
-      v27 = &stru_2836DAA20;
-      v28 = 1024;
-      LODWORD(v29) = v23;
-      v17 = "%@ANFiles: failed to rename directory before safely purging: %d";
-      v18 = v16;
-      v19 = OS_LOG_TYPE_ERROR;
-      v20 = 18;
+      v28 = &stru_2836DAA20;
+      v29 = 1024;
+      LODWORD(v30) = v25;
+      v18 = "%@ANFiles: failed to rename directory before safely purging: %d";
+      v19 = v17;
+      v20 = OS_LOG_TYPE_ERROR;
+      v21 = 18;
       goto LABEL_11;
     }
   }
@@ -177,27 +175,25 @@ LABEL_11:
   else
   {
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-    v25 = 0;
-    [defaultManager removeItemAtURL:v9 error:&v25];
-    v16 = v25;
+    v26 = 0;
+    [defaultManager removeItemAtURL:v9 error:&v26];
+    v17 = v26;
 
-    if (v16)
+    if (v17)
     {
-      v22 = ANLogHandleFiles();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = ANLogHandleFiles(v23);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412802;
-        v27 = &stru_2836DAA20;
-        v28 = 2112;
-        v29 = v9;
-        v30 = 2112;
-        v31 = v16;
-        _os_log_impl(&dword_2237C8000, v22, OS_LOG_TYPE_ERROR, "%@ANFiles: failed to remove temporary sub directory at %@: %@", buf, 0x20u);
+        v28 = &stru_2836DAA20;
+        v29 = 2112;
+        v30 = v9;
+        v31 = 2112;
+        v32 = v17;
+        _os_log_impl(&dword_2237C8000, v24, OS_LOG_TYPE_ERROR, "%@ANFiles: failed to remove temporary sub directory at %@: %@", buf, 0x20u);
       }
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeItem:(id)item
@@ -211,7 +207,7 @@ LABEL_11:
 
   if (v6)
   {
-    uRLByDeletingLastPathComponent = ANLogHandleFiles();
+    uRLByDeletingLastPathComponent = ANLogHandleFiles(v7);
     if (os_log_type_enabled(uRLByDeletingLastPathComponent, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412802;
@@ -229,128 +225,124 @@ LABEL_11:
     uRLByDeletingLastPathComponent = [itemCopy URLByDeletingLastPathComponent];
     [(ANFiles *)self removeDirectoryIfEmpty:uRLByDeletingLastPathComponent];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createDirectory:(id)directory andFileURLWithExtension:(id)extension
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   extensionCopy = extension;
   directoryCopy = directory;
   v7 = +[ANFiles temporaryDirectoryUrl];
   v8 = [v7 URLByAppendingPathComponent:directoryCopy isDirectory:1];
 
-  v9 = ANLogHandleFiles();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v10 = ANLogHandleFiles(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412546;
-    v23 = &stru_2836DAA20;
-    v24 = 2112;
-    v25 = v8;
-    _os_log_impl(&dword_2237C8000, v9, OS_LOG_TYPE_DEFAULT, "%@ANFiles: creating directory at: %@", buf, 0x16u);
+    v24 = &stru_2836DAA20;
+    v25 = 2112;
+    v26 = v8;
+    _os_log_impl(&dword_2237C8000, v10, OS_LOG_TYPE_DEFAULT, "%@ANFiles: creating directory at: %@", buf, 0x16u);
   }
 
-  if (mkdir([v8 fileSystemRepresentation], 0x1EDu) && *__error() != 17)
+  if (mkdir([v8 fileSystemRepresentation], 0x1EDu) && (v11 = __error(), *v11 != 17))
   {
-    v16 = ANLogHandleFiles();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v18 = ANLogHandleFiles(v11);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v19 = *__error();
+      v21 = *__error();
       *buf = 138412546;
-      v23 = &stru_2836DAA20;
-      v24 = 1024;
-      LODWORD(v25) = v19;
-      _os_log_impl(&dword_2237C8000, v16, OS_LOG_TYPE_ERROR, "%@ANFiles: failed to create directory: %d", buf, 0x12u);
+      v24 = &stru_2836DAA20;
+      v25 = 1024;
+      LODWORD(v26) = v21;
+      _os_log_impl(&dword_2237C8000, v18, OS_LOG_TYPE_ERROR, "%@ANFiles: failed to create directory: %d", buf, 0x12u);
     }
 
-    v17 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v10 = MEMORY[0x277CCACA8];
-    v11 = objc_opt_new();
-    uUIDString = [v11 UUIDString];
-    v13 = +[ANUtils an_dateFormatterForFilename];
+    v12 = MEMORY[0x277CCACA8];
+    v13 = objc_opt_new();
+    uUIDString = [v13 UUIDString];
+    v15 = +[ANUtils an_dateFormatterForFilename];
     date = [MEMORY[0x277CBEAA8] date];
-    v15 = [v13 stringFromDate:date];
-    v16 = [v10 stringWithFormat:@"%@--%@", uUIDString, v15];
+    v17 = [v15 stringFromDate:date];
+    v18 = [v12 stringWithFormat:@"%@--%@", uUIDString, v17];
 
-    v17 = [v8 URLByAppendingPathComponent:v16 isDirectory:0];
+    v19 = [v8 URLByAppendingPathComponent:v18 isDirectory:0];
     if ([extensionCopy length])
     {
-      v18 = [v17 URLByAppendingPathExtension:extensionCopy];
+      v20 = [v19 URLByAppendingPathExtension:extensionCopy];
 
-      v17 = v18;
+      v19 = v20;
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
-  return v17;
+  return v19;
 }
 
 - (void)removeDirectoryIfEmpty:(id)empty
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   emptyCopy = empty;
   if (rmdir([emptyCopy fileSystemRepresentation]))
   {
-    if (*__error() == 66)
+    v4 = __error();
+    if (*v4 == 66)
     {
-      v4 = ANLogHandleFiles();
-      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+      v5 = ANLogHandleFiles(v4);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v13 = 138412290;
-        v14 = &stru_2836DAA20;
-        v5 = "%@ANFiles: failed to remove directory because it is not empty";
-        v6 = v4;
-        v7 = OS_LOG_TYPE_DEFAULT;
-        v8 = 12;
+        v14 = 138412290;
+        v15 = &stru_2836DAA20;
+        v6 = "%@ANFiles: failed to remove directory because it is not empty";
+        v7 = v5;
+        v8 = OS_LOG_TYPE_DEFAULT;
+        v9 = 12;
 LABEL_10:
-        _os_log_impl(&dword_2237C8000, v6, v7, v5, &v13, v8);
+        _os_log_impl(&dword_2237C8000, v7, v8, v6, &v14, v9);
       }
     }
 
     else
     {
-      v9 = *__error();
-      v10 = ANLogHandleFiles();
-      v4 = v10;
-      if (v9 == 20)
+      v10 = __error();
+      v11 = *v10;
+      v12 = ANLogHandleFiles(v10);
+      v5 = v12;
+      if (v11 == 20)
       {
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          v13 = 138412546;
-          v14 = &stru_2836DAA20;
-          v15 = 2112;
-          v16 = emptyCopy;
-          v5 = "%@ANFiles: failed to remove item. %@ is not a directory";
-          v6 = v4;
-          v7 = OS_LOG_TYPE_DEFAULT;
-          v8 = 22;
+          v14 = 138412546;
+          v15 = &stru_2836DAA20;
+          v16 = 2112;
+          v17 = emptyCopy;
+          v6 = "%@ANFiles: failed to remove item. %@ is not a directory";
+          v7 = v5;
+          v8 = OS_LOG_TYPE_DEFAULT;
+          v9 = 22;
           goto LABEL_10;
         }
       }
 
-      else if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      else if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v11 = *__error();
-        v13 = 138412546;
-        v14 = &stru_2836DAA20;
-        v15 = 1024;
-        LODWORD(v16) = v11;
-        v5 = "%@ANFiles: failed to remove directory: %d";
-        v6 = v4;
-        v7 = OS_LOG_TYPE_ERROR;
-        v8 = 18;
+        v13 = *__error();
+        v14 = 138412546;
+        v15 = &stru_2836DAA20;
+        v16 = 1024;
+        LODWORD(v17) = v13;
+        v6 = "%@ANFiles: failed to remove directory: %d";
+        v7 = v5;
+        v8 = OS_LOG_TYPE_ERROR;
+        v9 = 18;
         goto LABEL_10;
       }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 @end

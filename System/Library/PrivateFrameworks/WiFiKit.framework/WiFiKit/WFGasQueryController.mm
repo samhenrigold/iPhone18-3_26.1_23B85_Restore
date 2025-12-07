@@ -76,36 +76,36 @@ LABEL_6:
 
 - (void)resolveProfilesForNetworks:(id)networks
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   networksCopy = networks;
   v5 = networksCopy;
   if (networksCopy && [networksCopy count])
   {
     v6 = [v5 mutableCopy];
-    v23 = 0u;
-    v24 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     resolvedNetworks = [(WFGasQueryController *)self resolvedNetworks];
-    v8 = [resolvedNetworks countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v8 = [resolvedNetworks countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v8)
     {
-      v9 = *v24;
+      v9 = *v27;
       do
       {
         v10 = 0;
         do
         {
-          if (*v24 != v9)
+          if (*v27 != v9)
           {
             objc_enumerationMutation(resolvedNetworks);
           }
 
-          [v6 removeObject:*(*(&v23 + 1) + 8 * v10++)];
+          [v6 removeObject:*(*(&v26 + 1) + 8 * v10++)];
         }
 
         while (v8 != v10);
-        v8 = [resolvedNetworks countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v8 = [resolvedNetworks countByEnumeratingWithState:&v26 objects:v30 count:16];
       }
 
       while (v8);
@@ -114,40 +114,41 @@ LABEL_6:
     v11 = [v6 count]== 0;
     v12 = WFLogForCategory(0);
     v13 = OSLogForWFLogLevel(3uLL);
-    v15 = WFCurrentLogLevel() > 2 && v12 != 0;
+    v14 = v13;
+    v17 = WFCurrentLogLevel(v13, v15) > 2 && v12 != 0;
     if (v11)
     {
-      if (v15 && os_log_type_enabled(v12, v13))
+      if (v17 && os_log_type_enabled(v12, v14))
       {
         *buf = 136315138;
-        v29 = "[WFGasQueryController resolveProfilesForNetworks:]";
-        _os_log_impl(&dword_273ECD000, v12, v13, "%s: no new HS20 networks to resolve", buf, 0xCu);
+        v32 = "[WFGasQueryController resolveProfilesForNetworks:]";
+        _os_log_impl(&dword_273ECD000, v12, v14, "%s: no new HS20 networks to resolve", buf, 0xCu);
       }
     }
 
     else
     {
-      if (v15 && os_log_type_enabled(v12, v13))
+      if (v17 && os_log_type_enabled(v12, v14))
       {
         *buf = 138412290;
-        v29 = v6;
-        _os_log_impl(&dword_273ECD000, v12, v13, "Starting GAS query for %@", buf, 0xCu);
+        v32 = v6;
+        _os_log_impl(&dword_273ECD000, v12, v14, "Starting GAS query for %@", buf, 0xCu);
       }
 
       objc_initWeak(buf, self);
-      v16 = [(WFGasQueryController *)self _defaultANQPParameterForNetworks:v6];
+      v18 = [(WFGasQueryController *)self _defaultANQPParameterForNetworks:v6];
       cInterface = [(WFGasQueryController *)self cInterface];
-      v20[0] = MEMORY[0x277D85DD0];
-      v20[1] = 3221225472;
-      v20[2] = __51__WFGasQueryController_resolveProfilesForNetworks___block_invoke;
-      v20[3] = &unk_279EBDB88;
-      v20[4] = self;
-      objc_copyWeak(&v22, buf);
+      v23[0] = MEMORY[0x277D85DD0];
+      v23[1] = 3221225472;
+      v23[2] = __51__WFGasQueryController_resolveProfilesForNetworks___block_invoke;
+      v23[3] = &unk_279EBDB88;
+      v23[4] = self;
+      objc_copyWeak(&v25, buf);
       v6 = v6;
-      v21 = v6;
-      [cInterface performANQPWithParameters:v16 reply:v20];
+      v24 = v6;
+      [cInterface performANQPWithParameters:v18 reply:v23];
 
-      objc_destroyWeak(&v22);
+      objc_destroyWeak(&v25);
       objc_destroyWeak(buf);
     }
   }
@@ -155,55 +156,54 @@ LABEL_6:
   else
   {
     v6 = WFLogForCategory(0);
-    v18 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v6 && os_log_type_enabled(v6, v18))
+    v20 = OSLogForWFLogLevel(3uLL);
+    v21 = v20;
+    if (WFCurrentLogLevel(v20, v22) >= 3 && v6 && os_log_type_enabled(v6, v21))
     {
       *buf = 136315138;
-      v29 = "[WFGasQueryController resolveProfilesForNetworks:]";
-      _os_log_impl(&dword_273ECD000, v6, v18, "%s: nil networks", buf, 0xCu);
+      v32 = "[WFGasQueryController resolveProfilesForNetworks:]";
+      _os_log_impl(&dword_273ECD000, v6, v21, "%s: nil networks", buf, 0xCu);
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __51__WFGasQueryController_resolveProfilesForNetworks___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x3032000000;
-  v16 = __Block_byref_object_copy__3;
-  v17 = __Block_byref_object_dispose__3;
-  v18 = objc_alloc_init(MEMORY[0x277CBEB58]);
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __51__WFGasQueryController_resolveProfilesForNetworks___block_invoke_3;
-  v12[3] = &unk_279EBDB60;
-  v12[4] = *(a1 + 32);
-  v12[5] = &v13;
-  [v6 enumerateObjectsUsingBlock:v12];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__3;
+  v18 = __Block_byref_object_dispose__3;
+  v19 = objc_alloc_init(MEMORY[0x277CBEB58]);
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __51__WFGasQueryController_resolveProfilesForNetworks___block_invoke_3;
+  v13[3] = &unk_279EBDB60;
+  v13[4] = *(a1 + 32);
+  v13[5] = &v14;
+  [v6 enumerateObjectsUsingBlock:v13];
   v7 = WFLogForCategory(0);
   v8 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v7 && os_log_type_enabled(v7, v8))
+  v9 = v8;
+  if (WFCurrentLogLevel(v8, v10) >= 3 && v7 && os_log_type_enabled(v7, v9))
   {
-    v9 = v14[5];
+    v11 = v15[5];
     *buf = 136315650;
-    v20 = "[WFGasQueryController resolveProfilesForNetworks:]_block_invoke_2";
-    v21 = 2112;
-    v22 = v9;
-    v23 = 2112;
-    v24 = v5;
-    _os_log_impl(&dword_273ECD000, v7, v8, "%s: responses %@ error %@", buf, 0x20u);
+    v21 = "[WFGasQueryController resolveProfilesForNetworks:]_block_invoke_2";
+    v22 = 2112;
+    v23 = v11;
+    v24 = 2112;
+    v25 = v5;
+    _os_log_impl(&dword_273ECD000, v7, v9, "%s: responses %@ error %@", buf, 0x20u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 48));
-  [WeakRetained _processANQPResults:v14[5] scanRecords:*(a1 + 40) error:v5];
+  [WeakRetained _processANQPResults:v15[5] scanRecords:*(a1 + 40) error:v5];
 
-  _Block_object_dispose(&v13, 8);
-  v11 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v14, 8);
 }
 
 void __51__WFGasQueryController_resolveProfilesForNetworks___block_invoke_3(uint64_t a1, void *a2)
@@ -279,82 +279,83 @@ void __57__WFGasQueryController__defaultANQPParameterForNetworks___block_invoke(
 
 - (void)resolveProfileForNetwork:(id)network handler:(id)handler force:(BOOL)force
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   handlerCopy = handler;
   if (force)
   {
     v10 = WFLogForCategory(0);
     v11 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v10 && os_log_type_enabled(v10, v11))
+    v12 = v11;
+    if (WFCurrentLogLevel(v11, v13) >= 3 && v10 && os_log_type_enabled(v10, v12))
     {
       *buf = 136315138;
-      v27 = "[WFGasQueryController resolveProfileForNetwork:handler:force:]";
-      _os_log_impl(&dword_273ECD000, v10, v11, "%s: skipping cache, forcing resolution", buf, 0xCu);
+      v32 = "[WFGasQueryController resolveProfileForNetwork:handler:force:]";
+      _os_log_impl(&dword_273ECD000, v10, v12, "%s: skipping cache, forcing resolution", buf, 0xCu);
     }
 
     goto LABEL_14;
   }
 
   gasResponseCache = [(WFGasQueryController *)self gasResponseCache];
-  v13 = [gasResponseCache objectForKey:networkCopy];
+  v15 = [gasResponseCache objectForKey:networkCopy];
 
-  if (!v13)
+  if (!v15)
   {
 LABEL_14:
-    v16 = WFLogForCategory(0);
-    v17 = OSLogForWFLogLevel(3uLL);
-    if (WFCurrentLogLevel() >= 3 && v16 && os_log_type_enabled(v16, v17))
+    v20 = WFLogForCategory(0);
+    v21 = OSLogForWFLogLevel(3uLL);
+    v22 = v21;
+    if (WFCurrentLogLevel(v21, v23) >= 3 && v20 && os_log_type_enabled(v20, v22))
     {
       *buf = 136315394;
-      v27 = "[WFGasQueryController resolveProfileForNetwork:handler:force:]";
-      v28 = 2112;
-      v29 = networkCopy;
-      _os_log_impl(&dword_273ECD000, v16, v17, "%s: resolving profile for %@", buf, 0x16u);
+      v32 = "[WFGasQueryController resolveProfileForNetwork:handler:force:]";
+      v33 = 2112;
+      v34 = networkCopy;
+      _os_log_impl(&dword_273ECD000, v20, v22, "%s: resolving profile for %@", buf, 0x16u);
     }
 
     objc_initWeak(buf, self);
-    v18 = [MEMORY[0x277CBEB98] setWithObject:networkCopy];
-    v19 = [(WFGasQueryController *)self _defaultANQPParameterForNetworks:v18];
+    v24 = [MEMORY[0x277CBEB98] setWithObject:networkCopy];
+    v25 = [(WFGasQueryController *)self _defaultANQPParameterForNetworks:v24];
 
     cInterface = [(WFGasQueryController *)self cInterface];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __63__WFGasQueryController_resolveProfileForNetwork_handler_force___block_invoke;
-    v22[3] = &unk_279EBDC00;
-    v22[4] = self;
-    objc_copyWeak(&v25, buf);
-    v23 = networkCopy;
-    v24 = handlerCopy;
-    [cInterface performANQPWithParameters:v19 reply:v22];
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __63__WFGasQueryController_resolveProfileForNetwork_handler_force___block_invoke;
+    v27[3] = &unk_279EBDC00;
+    v27[4] = self;
+    objc_copyWeak(&v30, buf);
+    v28 = networkCopy;
+    v29 = handlerCopy;
+    [cInterface performANQPWithParameters:v25 reply:v27];
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v30);
     objc_destroyWeak(buf);
-    v13 = 0;
+    v15 = 0;
     goto LABEL_19;
   }
 
-  v14 = WFLogForCategory(0);
-  v15 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v14 && os_log_type_enabled(v14, v15))
+  v16 = WFLogForCategory(0);
+  v17 = OSLogForWFLogLevel(3uLL);
+  v18 = v17;
+  if (WFCurrentLogLevel(v17, v19) >= 3 && v16 && os_log_type_enabled(v16, v18))
   {
     *buf = 136315650;
-    v27 = "[WFGasQueryController resolveProfileForNetwork:handler:force:]";
-    v28 = 2112;
-    v29 = v13;
-    v30 = 2112;
-    v31 = networkCopy;
-    _os_log_impl(&dword_273ECD000, v14, v15, "%s: found cached profile %@ for %@", buf, 0x20u);
+    v32 = "[WFGasQueryController resolveProfileForNetwork:handler:force:]";
+    v33 = 2112;
+    v34 = v15;
+    v35 = 2112;
+    v36 = networkCopy;
+    _os_log_impl(&dword_273ECD000, v16, v18, "%s: found cached profile %@ for %@", buf, 0x20u);
   }
 
   if (handlerCopy)
   {
-    (*(handlerCopy + 2))(handlerCopy, v13, 0);
+    (*(handlerCopy + 2))(handlerCopy, v15, 0);
   }
 
 LABEL_19:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __63__WFGasQueryController_resolveProfileForNetwork_handler_force___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -381,118 +382,109 @@ void __63__WFGasQueryController_resolveProfileForNetwork_handler_force___block_i
 
 void __63__WFGasQueryController_resolveProfileForNetwork_handler_force___block_invoke_2(uint64_t a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v25 = 0;
-  v26 = &v25;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__3;
-  v29 = __Block_byref_object_dispose__3;
-  v30 = [MEMORY[0x277CBEB58] set];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __63__WFGasQueryController_resolveProfileForNetwork_handler_force___block_invoke_3;
-  v24[3] = &unk_279EBDB60;
+  v42 = *MEMORY[0x277D85DE8];
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__3;
+  v34 = __Block_byref_object_dispose__3;
+  v35 = [MEMORY[0x277CBEB58] set];
+  v29[0] = MEMORY[0x277D85DD0];
+  v29[1] = 3221225472;
+  v29[2] = __63__WFGasQueryController_resolveProfileForNetwork_handler_force___block_invoke_3;
+  v29[3] = &unk_279EBDB60;
   v2 = *(a1 + 32);
-  v24[4] = *(a1 + 40);
-  v24[5] = &v25;
-  [v2 enumerateObjectsUsingBlock:v24];
+  v29[4] = *(a1 + 40);
+  v29[5] = &v30;
+  [v2 enumerateObjectsUsingBlock:v29];
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v3 && os_log_type_enabled(v3, v4))
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && v3 && os_log_type_enabled(v3, v5))
   {
-    v5 = v26[5];
-    v6 = *(a1 + 48);
+    v7 = v31[5];
+    v8 = *(a1 + 48);
     *buf = 136315650;
-    v32 = "[WFGasQueryController resolveProfileForNetwork:handler:force:]_block_invoke_2";
-    v33 = 2112;
-    v34 = v5;
-    v35 = 2112;
-    v36 = v6;
-    _os_log_impl(&dword_273ECD000, v3, v4, "%s: responses %@ error %@", buf, 0x20u);
+    v37 = "[WFGasQueryController resolveProfileForNetwork:handler:force:]_block_invoke_2";
+    v38 = 2112;
+    v39 = v7;
+    v40 = 2112;
+    v41 = v8;
+    _os_log_impl(&dword_273ECD000, v3, v5, "%s: responses %@ error %@", buf, 0x20u);
   }
 
-  if ([v26[5] count] && !*(a1 + 48))
+  if ([v31[5] count] && !*(a1 + 48))
   {
-    v8 = [v26[5] anyObject];
-    v9 = [v8 scanResult];
-    v10 = [v9 matchingKnownNetworkProfile];
+    v10 = [v31[5] anyObject];
+    v11 = [v10 scanResult];
+    v12 = [v11 matchingKnownNetworkProfile];
 
-    if (v10)
+    if (v12 || ([*(a1 + 40) cInterface], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v10, "scanResult"), v14 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v13, "knownNetworkProfileMatchingScanResult:", v14), v12 = objc_claimAutoreleasedReturnValue(), v14, v13, v12))
     {
-      goto LABEL_10;
-    }
-
-    v11 = [*(a1 + 40) cInterface];
-    v12 = [v8 scanResult];
-    v10 = [v11 knownNetworkProfileMatchingScanResult:v12];
-
-    if (v10)
-    {
-LABEL_10:
-      v13 = [[WFNetworkProfile alloc] initWithCoreWiFiProfile:v10];
-      v7 = [[WFHotspotProfile alloc] initWithProfile:v13 anqpResponse:v8];
+      v15 = [[WFNetworkProfile alloc] initWithCoreWiFiProfile:v12];
+      v9 = [[WFHotspotProfile alloc] initWithProfile:v15 anqpResponse:v10];
       WeakRetained = objc_loadWeakRetained((a1 + 72));
-      v15 = [WeakRetained gasResponseCache];
-      [v15 setObject:v7 forKey:*(a1 + 56)];
+      v17 = [WeakRetained gasResponseCache];
+      [v17 setObject:v9 forKey:*(a1 + 56)];
     }
 
     else
     {
-      v10 = WFLogForCategory(0);
-      v21 = OSLogForWFLogLevel(1uLL);
-      v7 = 0;
-      if (!WFCurrentLogLevel() || !v10)
+      v12 = WFLogForCategory(0);
+      v24 = OSLogForWFLogLevel(1uLL);
+      v25 = v24;
+      v9 = 0;
+      if (!WFCurrentLogLevel(v24, v26) || !v12)
       {
         goto LABEL_12;
       }
 
-      v13 = v10;
-      if (os_log_type_enabled(&v13->super, v21))
+      v15 = v12;
+      if (os_log_type_enabled(&v15->super, v25))
       {
-        v22 = *(a1 + 56);
-        v23 = [v8 ssid];
+        v27 = *(a1 + 56);
+        v28 = [v10 ssid];
         *buf = 136315650;
-        v32 = "[WFGasQueryController resolveProfileForNetwork:handler:force:]_block_invoke";
-        v33 = 2112;
-        v34 = v22;
-        v35 = 2112;
-        v36 = v23;
-        _os_log_impl(&dword_273ECD000, &v13->super, v21, "%s: no existing profile for network %@ (response %@)", buf, 0x20u);
+        v37 = "[WFGasQueryController resolveProfileForNetwork:handler:force:]_block_invoke";
+        v38 = 2112;
+        v39 = v27;
+        v40 = 2112;
+        v41 = v28;
+        _os_log_impl(&dword_273ECD000, &v15->super, v25, "%s: no existing profile for network %@ (response %@)", buf, 0x20u);
       }
 
-      v7 = 0;
-      v10 = v13;
+      v9 = 0;
+      v12 = v15;
     }
 
 LABEL_12:
     goto LABEL_13;
   }
 
-  v7 = 0;
+  v9 = 0;
 LABEL_13:
-  v16 = WFLogForCategory(0);
-  v17 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v16 && os_log_type_enabled(v16, v17))
+  v18 = WFLogForCategory(0);
+  v19 = OSLogForWFLogLevel(3uLL);
+  v20 = v19;
+  if (WFCurrentLogLevel(v19, v21) >= 3 && v18 && os_log_type_enabled(v18, v20))
   {
-    v18 = *(a1 + 48);
+    v22 = *(a1 + 48);
     *buf = 136315650;
-    v32 = "[WFGasQueryController resolveProfileForNetwork:handler:force:]_block_invoke";
-    v33 = 2112;
-    v34 = v7;
-    v35 = 2112;
-    v36 = v18;
-    _os_log_impl(&dword_273ECD000, v16, v17, "%s: profile %@ error %@", buf, 0x20u);
+    v37 = "[WFGasQueryController resolveProfileForNetwork:handler:force:]_block_invoke";
+    v38 = 2112;
+    v39 = v9;
+    v40 = 2112;
+    v41 = v22;
+    _os_log_impl(&dword_273ECD000, v18, v20, "%s: profile %@ error %@", buf, 0x20u);
   }
 
-  v19 = *(a1 + 64);
-  if (v19)
+  v23 = *(a1 + 64);
+  if (v23)
   {
-    (*(v19 + 16))(v19, v7, *(a1 + 48));
+    (*(v23 + 16))(v23, v9, *(a1 + 48));
   }
 
-  _Block_object_dispose(&v25, 8);
-
-  v20 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
 }
 
 void __63__WFGasQueryController_resolveProfileForNetwork_handler_force___block_invoke_3(uint64_t a1, void *a2)
@@ -507,36 +499,36 @@ void __63__WFGasQueryController_resolveProfileForNetwork_handler_force___block_i
 
 - (void)_processANQPResults:(id)results scanRecords:(id)records error:(id)error
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   resultsCopy = results;
   recordsCopy = records;
   v10 = [resultsCopy count];
   if (!error && v10)
   {
-    v38 = objc_opt_new();
-    v40 = objc_opt_new();
-    v44 = 0u;
-    v45 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v37 = resultsCopy;
+    v45 = objc_opt_new();
+    v47 = objc_opt_new();
+    v51 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v44 = resultsCopy;
     obj = resultsCopy;
-    v11 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
+    v11 = [obj countByEnumeratingWithState:&v51 objects:v61 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v45;
+      v13 = *v52;
       do
       {
         v14 = 0;
         do
         {
-          if (*v45 != v13)
+          if (*v52 != v13)
           {
             objc_enumerationMutation(obj);
           }
 
-          v15 = *(*(&v44 + 1) + 8 * v14);
+          v15 = *(*(&v51 + 1) + 8 * v14);
           ssid = [v15 ssid];
           v17 = [recordsCopy scanRecordWithSSID:ssid];
 
@@ -544,13 +536,14 @@ void __63__WFGasQueryController_resolveProfileForNetwork_handler_force___block_i
           if (v17)
           {
             v19 = OSLogForWFLogLevel(3uLL);
-            if (WFCurrentLogLevel() >= 3 && matchingKnownNetworkProfile && os_log_type_enabled(matchingKnownNetworkProfile, v19))
+            v20 = v19;
+            if (WFCurrentLogLevel(v19, v21) >= 3 && matchingKnownNetworkProfile && os_log_type_enabled(matchingKnownNetworkProfile, v20))
             {
               *buf = 136315394;
-              v49 = "[WFGasQueryController _processANQPResults:scanRecords:error:]";
-              v50 = 2112;
-              v51 = v17;
-              _os_log_impl(&dword_273ECD000, matchingKnownNetworkProfile, v19, "%s: resolved %@", buf, 0x16u);
+              v56 = "[WFGasQueryController _processANQPResults:scanRecords:error:]";
+              v57 = 2112;
+              v58 = v17;
+              _os_log_impl(&dword_273ECD000, matchingKnownNetworkProfile, v20, "%s: resolved %@", buf, 0x16u);
             }
 
             resolvedNetworks = [(WFGasQueryController *)self resolvedNetworks];
@@ -559,62 +552,54 @@ void __63__WFGasQueryController_resolveProfileForNetwork_handler_force___block_i
             scanResult = [v15 scanResult];
             matchingKnownNetworkProfile = [scanResult matchingKnownNetworkProfile];
 
-            if (matchingKnownNetworkProfile)
+            if (matchingKnownNetworkProfile || (-[WFGasQueryController cInterface](self, "cInterface"), v24 = objc_claimAutoreleasedReturnValue(), [v15 scanResult], v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v24, "knownNetworkProfileMatchingScanResult:", v25), matchingKnownNetworkProfile = objc_claimAutoreleasedReturnValue(), v25, v24, matchingKnownNetworkProfile))
             {
-              goto LABEL_15;
-            }
-
-            cInterface = [(WFGasQueryController *)self cInterface];
-            scanResult2 = [v15 scanResult];
-            matchingKnownNetworkProfile = [cInterface knownNetworkProfileMatchingScanResult:scanResult2];
-
-            if (matchingKnownNetworkProfile)
-            {
-LABEL_15:
-              v24 = WFLogForCategory(0);
-              v25 = OSLogForWFLogLevel(3uLL);
-              if (WFCurrentLogLevel() >= 3 && v24 && os_log_type_enabled(v24, v25))
+              v26 = WFLogForCategory(0);
+              v27 = OSLogForWFLogLevel(3uLL);
+              v28 = v27;
+              if (WFCurrentLogLevel(v27, v29) >= 3 && v26 && os_log_type_enabled(v26, v28))
               {
                 *buf = 136315650;
-                v49 = "[WFGasQueryController _processANQPResults:scanRecords:error:]";
-                v50 = 2112;
-                v51 = matchingKnownNetworkProfile;
-                v52 = 2112;
-                v53 = v17;
-                _os_log_impl(&dword_273ECD000, v24, v25, "%s: resolved profile %@ for %@", buf, 0x20u);
+                v56 = "[WFGasQueryController _processANQPResults:scanRecords:error:]";
+                v57 = 2112;
+                v58 = matchingKnownNetworkProfile;
+                v59 = 2112;
+                v60 = v17;
+                _os_log_impl(&dword_273ECD000, v26, v28, "%s: resolved profile %@ for %@", buf, 0x20u);
               }
 
-              v26 = [[WFNetworkProfile alloc] initWithCoreWiFiProfile:matchingKnownNetworkProfile];
-              v27 = [[WFHotspotProfile alloc] initWithProfile:v26 anqpResponse:v15];
+              v30 = [[WFNetworkProfile alloc] initWithCoreWiFiProfile:matchingKnownNetworkProfile];
+              v31 = [[WFHotspotProfile alloc] initWithProfile:v30 anqpResponse:v15];
               gasResponseCache = [(WFGasQueryController *)self gasResponseCache];
-              [gasResponseCache setObject:v27 forKey:v17];
+              [gasResponseCache setObject:v31 forKey:v17];
 
-              if (v26)
+              if (v30)
               {
-                [v38 addObject:v26];
+                [v45 addObject:v30];
               }
 
               ssid2 = [v17 ssid];
-              [v40 addObject:ssid2];
+              [v47 addObject:ssid2];
             }
 
             else
             {
               matchingKnownNetworkProfile = WFLogForCategory(0);
-              v31 = OSLogForWFLogLevel(1uLL);
-              if (WFCurrentLogLevel() && matchingKnownNetworkProfile)
+              v37 = OSLogForWFLogLevel(1uLL);
+              v38 = v37;
+              if (WFCurrentLogLevel(v37, v39) && matchingKnownNetworkProfile)
               {
                 matchingKnownNetworkProfile = matchingKnownNetworkProfile;
-                if (os_log_type_enabled(matchingKnownNetworkProfile, v31))
+                if (os_log_type_enabled(matchingKnownNetworkProfile, v38))
                 {
                   ssid3 = [v15 ssid];
                   *buf = 136315650;
-                  v49 = "[WFGasQueryController _processANQPResults:scanRecords:error:]";
-                  v50 = 2112;
-                  v51 = v17;
-                  v52 = 2112;
-                  v53 = ssid3;
-                  _os_log_impl(&dword_273ECD000, matchingKnownNetworkProfile, v31, "%s: no existing profile for network %@ (response %@)", buf, 0x20u);
+                  v56 = "[WFGasQueryController _processANQPResults:scanRecords:error:]";
+                  v57 = 2112;
+                  v58 = v17;
+                  v59 = 2112;
+                  v60 = ssid3;
+                  _os_log_impl(&dword_273ECD000, matchingKnownNetworkProfile, v38, "%s: no existing profile for network %@ (response %@)", buf, 0x20u);
                 }
               }
             }
@@ -622,12 +607,13 @@ LABEL_15:
 
           else
           {
-            v30 = OSLogForWFLogLevel(2uLL);
-            if (WFCurrentLogLevel() >= 2 && matchingKnownNetworkProfile && os_log_type_enabled(matchingKnownNetworkProfile, v30))
+            v34 = OSLogForWFLogLevel(2uLL);
+            v35 = v34;
+            if (WFCurrentLogLevel(v34, v36) >= 2 && matchingKnownNetworkProfile && os_log_type_enabled(matchingKnownNetworkProfile, v35))
             {
               *buf = 138412290;
-              v49 = v15;
-              _os_log_impl(&dword_273ECD000, matchingKnownNetworkProfile, v30, "Missing scanRecord for ANQP response %@", buf, 0xCu);
+              v56 = v15;
+              _os_log_impl(&dword_273ECD000, matchingKnownNetworkProfile, v35, "Missing scanRecord for ANQP response %@", buf, 0xCu);
             }
           }
 
@@ -635,11 +621,11 @@ LABEL_15:
         }
 
         while (v12 != v14);
-        v33 = [obj countByEnumeratingWithState:&v44 objects:v54 count:16];
-        v12 = v33;
+        v41 = [obj countByEnumeratingWithState:&v51 objects:v61 count:16];
+        v12 = v41;
       }
 
-      while (v33);
+      while (v41);
     }
 
     block[0] = MEMORY[0x277D85DD0];
@@ -647,16 +633,14 @@ LABEL_15:
     block[2] = __62__WFGasQueryController__processANQPResults_scanRecords_error___block_invoke;
     block[3] = &unk_279EBD268;
     block[4] = self;
-    v42 = v38;
-    v43 = v40;
-    v34 = v40;
-    v35 = v38;
+    v49 = v45;
+    v50 = v47;
+    v42 = v47;
+    v43 = v45;
     dispatch_async(MEMORY[0x277D85CD0], block);
 
-    resultsCopy = v37;
+    resultsCopy = v44;
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 void __62__WFGasQueryController__processANQPResults_scanRecords_error___block_invoke(uint64_t a1)
@@ -667,24 +651,25 @@ void __62__WFGasQueryController__processANQPResults_scanRecords_error___block_in
 
 - (void)removeProfileForNetwork:(id)network
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   networkCopy = network;
   v5 = WFLogForCategory(0);
   v6 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v5 && os_log_type_enabled(v5, v6))
+  v7 = v6;
+  if (WFCurrentLogLevel(v6, v8) >= 3 && v5 && os_log_type_enabled(v5, v7))
   {
-    *v12 = 136315394;
-    *&v12[4] = "[WFGasQueryController removeProfileForNetwork:]";
-    v13 = 2112;
-    v14 = networkCopy;
-    _os_log_impl(&dword_273ECD000, v5, v6, "%s: removing profile for network %@", v12, 0x16u);
+    *v13 = 136315394;
+    *&v13[4] = "[WFGasQueryController removeProfileForNetwork:]";
+    v14 = 2112;
+    v15 = networkCopy;
+    _os_log_impl(&dword_273ECD000, v5, v7, "%s: removing profile for network %@", v13, 0x16u);
   }
 
   if (!networkCopy)
   {
-    [WFGasQueryController removeProfileForNetwork:v12];
+    [WFGasQueryController removeProfileForNetwork:v13];
 LABEL_11:
-    gasResponseCache2 = *v12;
+    gasResponseCache2 = *v13;
     goto LABEL_8;
   }
 
@@ -692,37 +677,36 @@ LABEL_11:
   [resolvedNetworks removeObject:networkCopy];
 
   gasResponseCache = [(WFGasQueryController *)self gasResponseCache];
-  v9 = [gasResponseCache objectForKey:networkCopy];
+  v11 = [gasResponseCache objectForKey:networkCopy];
 
-  if (!v9)
+  if (!v11)
   {
-    [WFGasQueryController removeProfileForNetwork:v12];
+    [WFGasQueryController removeProfileForNetwork:v13];
     goto LABEL_11;
   }
 
   gasResponseCache2 = [(WFGasQueryController *)self gasResponseCache];
   [gasResponseCache2 removeObjectForKey:networkCopy];
 LABEL_8:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeAllProfiles
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = WFLogForCategory(0);
   v4 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v3)
+  v5 = v4;
+  if (WFCurrentLogLevel(v4, v6) >= 3 && v3)
   {
-    v5 = v3;
-    if (os_log_type_enabled(v5, v4))
+    v7 = v3;
+    if (os_log_type_enabled(v7, v5))
     {
       gasResponseCache = [(WFGasQueryController *)self gasResponseCache];
-      v10 = 136315394;
-      v11 = "[WFGasQueryController removeAllProfiles]";
-      v12 = 2112;
-      v13 = gasResponseCache;
-      _os_log_impl(&dword_273ECD000, v5, v4, "%s: removing profiles %@", &v10, 0x16u);
+      v11 = 136315394;
+      v12 = "[WFGasQueryController removeAllProfiles]";
+      v13 = 2112;
+      v14 = gasResponseCache;
+      _os_log_impl(&dword_273ECD000, v7, v5, "%s: removing profiles %@", &v11, 0x16u);
     }
   }
 
@@ -731,8 +715,6 @@ LABEL_8:
 
   resolvedNetworks = [(WFGasQueryController *)self resolvedNetworks];
   [resolvedNetworks removeAllObjects];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (WFGasQueryControllerDelegate)delegate
@@ -744,45 +726,46 @@ LABEL_8:
 
 - (void)initWithInterface:.cold.1()
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v0 = WFLogForCategory(0);
   v1 = OSLogForWFLogLevel(1uLL);
-  if (WFCurrentLogLevel() && v0 && os_log_type_enabled(v0, v1))
+  v2 = v1;
+  if (WFCurrentLogLevel(v1, v3) && v0 && os_log_type_enabled(v0, v2))
   {
-    v3 = 136315138;
-    v4 = "[WFGasQueryController initWithInterface:]";
-    _os_log_impl(&dword_273ECD000, v0, v1, "%s: nil interface", &v3, 0xCu);
+    v4 = 136315138;
+    v5 = "[WFGasQueryController initWithInterface:]";
+    _os_log_impl(&dword_273ECD000, v0, v2, "%s: nil interface", &v4, 0xCu);
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeProfileForNetwork:(NSObject *)a1 .cold.1(NSObject **a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = WFLogForCategory(0);
   v3 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v2 && os_log_type_enabled(v2, v3))
+  v4 = v3;
+  if (WFCurrentLogLevel(v3, v5) >= 3 && v2 && os_log_type_enabled(v2, v4))
   {
-    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v4, v5, "%s: no existing profile for network", v6, v7, v8, v9, 2u);
+    LODWORD(v12) = 136315138;
+    *(&v12 + 4) = "[WFGasQueryController removeProfileForNetwork:]";
+    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v6, v7, "%s: no existing profile for network", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   *a1 = v2;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeProfileForNetwork:(NSObject *)a1 .cold.2(NSObject **a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v2 = WFLogForCategory(0);
   v3 = OSLogForWFLogLevel(3uLL);
-  if (WFCurrentLogLevel() >= 3 && v2 && os_log_type_enabled(v2, v3))
+  v4 = v3;
+  if (WFCurrentLogLevel(v3, v5) >= 3 && v2 && os_log_type_enabled(v2, v4))
   {
-    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v4, v5, "%s: nil network", v6, v7, v8, v9, 2u);
+    LODWORD(v12) = 136315138;
+    *(&v12 + 4) = "[WFGasQueryController removeProfileForNetwork:]";
+    OUTLINED_FUNCTION_4_1(&dword_273ECD000, v6, v7, "%s: nil network", v8, v9, v10, v11, v12, DWORD2(v12));
   }
 
   *a1 = v2;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

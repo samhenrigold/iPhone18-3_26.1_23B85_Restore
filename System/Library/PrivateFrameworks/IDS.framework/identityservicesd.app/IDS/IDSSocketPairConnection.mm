@@ -650,39 +650,40 @@ LABEL_31:
 
 - (void)_processBytesAvailable
 {
-  v2 = __chkstk_darwin(self);
+  __chkstk_darwin(self);
+  v3 = v2;
   memset(__b, 170, sizeof(__b));
-  v3 = [v2 _read:__b maxLength:0x2000];
-  v4 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v4 = [v3 _read:__b maxLength:0x2000];
+  v5 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    *v41 = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "_processBytesAvailable: read %d bytes", buf, 8u);
+    *v42 = v4;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "_processBytesAvailable: read %d bytes", buf, 8u);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     if (MarcoShouldLog())
     {
-      v37 = v3;
+      v38 = v4;
       MarcoLog();
     }
 
     if (IMShouldLog())
     {
-      v37 = v3;
+      v38 = v4;
       IMLogString();
     }
   }
 
-  if ((v3 & 0x8000000000000000) != 0)
+  if ((v4 & 0x8000000000000000) != 0)
   {
-    v31 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
+    v32 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEFAULT, "Error when receiving bytes, closing connection", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Error when receiving bytes, closing connection", buf, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
@@ -701,13 +702,13 @@ LABEL_31:
     goto LABEL_55;
   }
 
-  if (!v3)
+  if (!v4)
   {
-    v32 = OSLogHandleForIDSCategory();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = OSLogHandleForIDSCategory();
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEFAULT, "Remote side closed the connection, cleaning up", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_DEFAULT, "Remote side closed the connection, cleaning up", buf, 2u);
     }
 
     if (os_log_shim_legacy_logging_enabled())
@@ -724,7 +725,7 @@ LABEL_31:
     }
 
 LABEL_55:
-    [v2 _endSession];
+    [v3 _endSession];
     return;
   }
 
@@ -733,109 +734,109 @@ LABEL_55:
     sub_1009172C8();
   }
 
-  *(v2 + 192) = *&qword_100CBD098 * mach_continuous_time();
-  if (*(v2 + 152) == 1)
+  *(v3 + 192) = *&qword_100CBD098 * mach_continuous_time();
+  if (*(v3 + 152) == 1)
   {
-    *(v2 + 152) = 0;
-    v39[0] = _NSConcreteStackBlock;
-    v39[1] = 3221225472;
-    v39[2] = sub_100350260;
-    v39[3] = &unk_100BD8A98;
-    v39[4] = v2;
-    [v2 _callDelegateWithBlock:v39];
+    *(v3 + 152) = 0;
+    v40[0] = _NSConcreteStackBlock;
+    v40[1] = 3221225472;
+    v40[2] = sub_100350260;
+    v40[3] = &unk_100BD8A98;
+    v40[4] = v3;
+    [v3 _callDelegateWithBlock:v40];
   }
 
-  *(v2 + 120) += v3;
-  if (!*(v2 + 8))
+  *(v3 + 120) += v4;
+  if (!*(v3 + 8))
   {
-    v5 = [[NSMutableData alloc] initWithCapacity:{+[IDSSocketPairMessage headerDataSize](IDSSocketPairMessage, "headerDataSize")}];
-    v6 = *(v2 + 8);
-    *(v2 + 8) = v5;
+    v6 = [[NSMutableData alloc] initWithCapacity:{+[IDSSocketPairMessage headerDataSize](IDSSocketPairMessage, "headerDataSize")}];
+    v7 = *(v3 + 8);
+    *(v3 + 8) = v6;
   }
 
-  v7 = 0;
   v8 = 0;
+  v9 = 0;
   while (1)
   {
-    v9 = [IDSSocketPairMessage headerDataSize:v37];
-    v10 = [*(v2 + 8) length];
-    v11 = v9 - v10;
-    if (v9 == v10)
+    v10 = [IDSSocketPairMessage headerDataSize:v38];
+    v11 = [*(v3 + 8) length];
+    v12 = v10 - v11;
+    if (v10 == v11)
     {
       goto LABEL_20;
     }
 
-    v12 = *(v2 + 8);
-    if (v3 - v8 < v11)
+    v13 = *(v3 + 8);
+    if (v4 - v9 < v12)
     {
-      [v12 appendBytes:&__b[v7] length:?];
-      v8 = v3;
+      [v13 appendBytes:&__b[v8] length:?];
+      v9 = v4;
 LABEL_20:
-      v13 = *(v2 + 112);
+      v14 = *(v3 + 112);
       goto LABEL_23;
     }
 
-    [v12 appendBytes:&__b[v7] length:v11];
-    v13 = [IDSSocketPairMessage dataLengthFromHeaderData:*(v2 + 8)];
-    *(v2 + 112) = v13;
-    if (v13 > *(v2 + 184))
+    [v13 appendBytes:&__b[v8] length:v12];
+    v14 = [IDSSocketPairMessage dataLengthFromHeaderData:*(v3 + 8)];
+    *(v3 + 112) = v14;
+    if (v14 > *(v3 + 184))
     {
       break;
     }
 
-    v8 += v11;
+    v9 += v12;
 LABEL_23:
-    v14 = *(v2 + 16);
-    if (!v14)
+    v15 = *(v3 + 16);
+    if (!v15)
     {
-      if (v13)
+      if (v14)
       {
-        v15 = [[NSMutableData alloc] initWithCapacity:*(v2 + 112)];
-        v16 = *(v2 + 16);
-        *(v2 + 16) = v15;
+        v16 = [[NSMutableData alloc] initWithCapacity:*(v3 + 112)];
+        v17 = *(v3 + 16);
+        *(v3 + 16) = v16;
 
-        v13 = *(v2 + 112);
-        v14 = *(v2 + 16);
+        v14 = *(v3 + 112);
+        v15 = *(v3 + 16);
       }
 
       else
       {
-        v14 = 0;
+        v15 = 0;
       }
     }
 
-    v17 = v13 - [v14 length];
-    if (v17)
+    v18 = v14 - [v15 length];
+    if (v18)
     {
-      v18 = *(v2 + 16);
-      v19 = &__b[v8];
-      if (v3 - v8 >= v17)
+      v19 = *(v3 + 16);
+      v20 = &__b[v9];
+      if (v4 - v9 >= v18)
       {
-        [v18 appendBytes:v19 length:v17];
-        v8 += v17;
+        [v19 appendBytes:v20 length:v18];
+        v9 += v18;
       }
 
       else
       {
-        [v18 appendBytes:v19 length:?];
-        v8 = v3;
+        [v19 appendBytes:v20 length:?];
+        v9 = v4;
       }
     }
 
-    v20 = *(v2 + 112);
-    if (v20 == [*(v2 + 16) length])
+    v21 = *(v3 + 112);
+    if (v21 == [*(v3 + 16) length])
     {
-      v21 = [*(v2 + 8) length];
-      if (v21 == +[IDSSocketPairMessage headerDataSize])
+      v22 = [*(v3 + 8) length];
+      if (v22 == +[IDSSocketPairMessage headerDataSize])
       {
-        v22 = [IDSSocketPairMessage messageWithHeaderData:*(v2 + 8) data:*(v2 + 16)];
-        if (([v2 _processIncomingMessage:v22] & 1) == 0)
+        v23 = [IDSSocketPairMessage messageWithHeaderData:*(v3 + 8) data:*(v3 + 16)];
+        if (([v3 _processIncomingMessage:v23] & 1) == 0)
         {
-          v36 = OSLogHandleForTransportCategory();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+          v37 = OSLogHandleForTransportCategory();
+          if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 0;
-            _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "_processIncomingMessage failed.", buf, 2u);
+            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "_processIncomingMessage failed.", buf, 2u);
           }
 
           if (os_log_shim_legacy_logging_enabled())
@@ -853,88 +854,88 @@ LABEL_23:
           return;
         }
 
-        v23 = *(v2 + 16);
-        *(v2 + 16) = 0;
+        v24 = *(v3 + 16);
+        *(v3 + 16) = 0;
 
-        [*(v2 + 8) setLength:0];
-        *(v2 + 112) = 0;
+        [*(v3 + 8) setLength:0];
+        *(v3 + 112) = 0;
       }
     }
 
-    if (*(v2 + 144) == 0.0)
+    if (*(v3 + 144) == 0.0)
     {
       IMTimeOfDay();
-      *(v2 + 144) = v24;
+      *(v3 + 144) = v25;
     }
 
     IMTimeOfDay();
-    v26 = v25;
-    v27 = v25 - *(v2 + 144);
-    if (v27 >= 1.0)
+    v27 = v26;
+    v28 = v26 - *(v3 + 144);
+    if (v28 >= 1.0)
     {
-      v28 = (8 * *(v2 + 120)) / v27;
-      *(v2 + 128) = v28 * 0.1 + *(v2 + 128) * 0.9;
-      v29 = OSLogHandleForIDSCategory();
-      if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+      v29 = (8 * *(v3 + 120)) / v28;
+      *(v3 + 128) = v29 * 0.1 + *(v3 + 128) * 0.9;
+      v30 = OSLogHandleForIDSCategory();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
       {
-        v30 = *(v2 + 128);
+        v31 = *(v3 + 128);
         *buf = 134218240;
-        *v41 = v30;
-        *&v41[8] = 2048;
-        v42 = v28;
-        _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEFAULT, "BPS: avg %f instant %f", buf, 0x16u);
+        *v42 = v31;
+        *&v42[8] = 2048;
+        v43 = v29;
+        _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "BPS: avg %f instant %f", buf, 0x16u);
       }
 
       if (os_log_shim_legacy_logging_enabled())
       {
         if (MarcoShouldLog())
         {
-          v37 = *(v2 + 128);
-          v38 = v28;
+          v38 = *(v3 + 128);
+          v39 = v29;
           MarcoLog();
         }
 
         if (IMShouldLog())
         {
-          v37 = *(v2 + 128);
-          v38 = v28;
+          v38 = *(v3 + 128);
+          v39 = v29;
           IMLogString();
         }
       }
 
-      *(v2 + 120) = 0;
-      *(v2 + 144) = v26;
+      *(v3 + 120) = 0;
+      *(v3 + 144) = v27;
     }
 
-    v7 = v8;
-    if (v3 <= v8)
+    v8 = v9;
+    if (v4 <= v9)
     {
       return;
     }
   }
 
-  v33 = OSLogHandleForIDSCategory();
-  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+  v34 = OSLogHandleForIDSCategory();
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
   {
-    v34 = *(v2 + 112);
-    v35 = *(v2 + 184);
+    v35 = *(v3 + 112);
+    v36 = *(v3 + 184);
     *buf = 67109376;
-    *v41 = v34;
-    *&v41[4] = 1024;
-    *&v41[6] = v35;
-    _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Received message size: %u, maximum allowed size: %u", buf, 0xEu);
+    *v42 = v35;
+    *&v42[4] = 1024;
+    *&v42[6] = v36;
+    _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Received message size: %u, maximum allowed size: %u", buf, 0xEu);
   }
 
   if (os_log_shim_legacy_logging_enabled())
   {
     _IDSWarnV();
     _IDSLogV();
-    v37 = *(v2 + 112);
-    *&v38 = *(v2 + 184);
+    v38 = *(v3 + 112);
+    *&v39 = *(v3 + 184);
     _IDSLogTransport();
   }
 
-  [v2 _endSession];
+  [v3 _endSession];
 }
 
 - (BOOL)_queueNextOutgoingData

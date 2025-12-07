@@ -46,24 +46,25 @@
 - (RBSAttribute)initWithRBSXPCCoder:(id)coder
 {
   selfCopy = self;
-  if ([(RBSAttribute *)self isMemberOfClass:objc_opt_class()])
+  v4 = [(RBSAttribute *)self isMemberOfClass:objc_opt_class()];
+  if (v4)
   {
-    v4 = rbs_assertion_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v5 = rbs_assertion_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
-      [RBSAttribute initWithRBSXPCCoder:v4];
+      [RBSAttribute initWithRBSXPCCoder:v5];
     }
 
-    v5 = 0;
+    v6 = 0;
   }
 
   else
   {
     selfCopy = [(RBSAttribute *)selfCopy _init];
-    v5 = selfCopy;
+    v6 = selfCopy;
   }
 
-  return v5;
+  return v6;
 }
 
 @end

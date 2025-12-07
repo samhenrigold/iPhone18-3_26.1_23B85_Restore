@@ -18,6 +18,7 @@
 - (void)_notifyDelegateOfInvalidation;
 - (void)_notifyDelegateOfNewResponse:(id)response;
 - (void)_notifyDelegateOfPlaybackQueueChange:(id)change;
+- (void)_notifyDelegateOfPlaybackStateChange:(unsigned int)change;
 - (void)_notifyDelegateOfPlayerPathChange:(id)change;
 - (void)_notifyDelegateOfSupportedCommandsChange:(id)change;
 - (void)_notifyDelegateOfUpdatedArtwork:(id)artwork;
@@ -72,7 +73,7 @@
 
 - (void)dealloc
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = _MRLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -82,17 +83,16 @@
   }
 
   queue = [(MRV3NowPlayingController *)self queue];
-  v7 = MEMORY[0x1E69E9820];
-  v8 = 3221225472;
-  v9 = __35__MRV3NowPlayingController_dealloc__block_invoke;
-  v10 = &unk_1E769A228;
+  v6 = MEMORY[0x1E69E9820];
+  v7 = 3221225472;
+  v8 = __35__MRV3NowPlayingController_dealloc__block_invoke;
+  v9 = &unk_1E769A228;
   selfCopy2 = self;
   msv_dispatch_sync_on_queue();
 
-  v6.receiver = self;
-  v6.super_class = MRV3NowPlayingController;
-  [(MRV3NowPlayingController *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = MRV3NowPlayingController;
+  [(MRV3NowPlayingController *)&v5 dealloc];
 }
 
 - (NSString)description
@@ -154,18 +154,16 @@ void __42__MRV3NowPlayingController_beginResolving__block_invoke(uint64_t a1)
     *(v2 + 18) = 1;
     v4 = [MRDestinationResolver alloc];
     v5 = [*(*(a1 + 32) + 40) destination];
-    v6 = objc_alloc(MEMORY[0x1E696AEC0]);
-    v7 = *(a1 + 32);
-    v8 = [v6 initWithFormat:@"%@<%p>", objc_opt_class(), v7];
-    v9 = [(MRDestinationResolver *)v4 initWithDestination:v5 label:v8];
-    [*(a1 + 32) setDestinationResolver:v9];
+    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%@<%p>", objc_opt_class(), *(a1 + 32)];
+    v7 = [(MRDestinationResolver *)v4 initWithDestination:v5 label:v6];
+    [*(a1 + 32) setDestinationResolver:v7];
 
-    v10 = *(a1 + 32);
-    v11 = [v10 destinationResolver];
-    [v11 setDelegate:v10];
+    v8 = *(a1 + 32);
+    v9 = [v8 destinationResolver];
+    [v9 setDelegate:v8];
 
-    v12 = [*(a1 + 32) destinationResolver];
-    [v12 beginResolving];
+    v10 = [*(a1 + 32) destinationResolver];
+    [v10 beginResolving];
   }
 }
 
@@ -175,28 +173,27 @@ void __42__MRV3NowPlayingController_beginResolving__block_invoke(uint64_t a1)
   msv_dispatch_sync_on_queue();
 }
 
-uint64_t __47__MRV3NowPlayingController_beginLoadingUpdates__block_invoke(uint64_t result)
+void *__47__MRV3NowPlayingController_beginLoadingUpdates__block_invoke(void *result)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = *(result + 32);
+  v7 = *MEMORY[0x1E69E9840];
+  v1 = *(result + 4);
   if ((*(v1 + 17) & 1) == 0)
   {
     v2 = result;
     *(v1 + 17) = 1;
-    [*(result + 32) beginResolving];
+    [*(result + 4) beginResolving];
     v3 = _MRLogForCategory(1uLL);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(v2 + 32);
-      v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[MRV3NowPlayingController] <%@> Begin loading updates", &v6, 0xCu);
+      v4 = *(v2 + 4);
+      v5 = 138412290;
+      v6 = v4;
+      _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[MRV3NowPlayingController] <%@> Begin loading updates", &v5, 0xCu);
     }
 
-    result = [*(v2 + 32) _reloadWithReason:@"Begin"];
+    return [*(v2 + 4) _reloadWithReason:@"Begin"];
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -213,7 +210,7 @@ uint64_t __47__MRV3NowPlayingController_beginLoadingUpdates__block_invoke(uint64
 
 void __45__MRV3NowPlayingController_endLoadingUpdates__block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   if (*(v2 + 17) == 1)
   {
@@ -227,9 +224,9 @@ void __45__MRV3NowPlayingController_endLoadingUpdates__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 32);
-      v9 = 138412290;
-      v10 = v5;
-      _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[MRV3NowPlayingController] <%@> End loading updates", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v5;
+      _os_log_impl(&dword_1A2860000, v4, OS_LOG_TYPE_DEFAULT, "[MRV3NowPlayingController] <%@> End loading updates", &v8, 0xCu);
     }
 
     [*(a1 + 32) _onQueue_clearStateForResolvedPlayerPath];
@@ -241,13 +238,11 @@ void __45__MRV3NowPlayingController_endLoadingUpdates__block_invoke(uint64_t a1)
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v7 = *(a1 + 32);
-      v9 = 138412290;
-      v10 = v7;
-      _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[MRV3NowPlayingController] <%@> Unbalanced calls to endLoadingUpdates", &v9, 0xCu);
+      v8 = 138412290;
+      v9 = v7;
+      _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[MRV3NowPlayingController] <%@> Unbalanced calls to endLoadingUpdates", &v8, 0xCu);
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendCommand:(unsigned int)command options:(id)options appOptions:(unsigned int)appOptions completion:(id)completion
@@ -379,7 +374,7 @@ void __54__MRV3NowPlayingController_destinationWithCompletion___block_invoke(uin
 
 void __46__MRV3NowPlayingController__reloadWithReason___block_invoke(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v2 = (a1 + 32);
   v3 = [*(a1 + 32) destination];
   v4 = [v3 playerPath];
@@ -392,24 +387,24 @@ void __46__MRV3NowPlayingController__reloadWithReason___block_invoke(uint64_t a1
       v6 = *(a1 + 32);
       v7 = *(a1 + 40);
       *buf = 138412546;
-      v36 = v6;
-      v37 = 2112;
-      v38 = v7;
+      v35 = v6;
+      v36 = 2112;
+      v37 = v7;
       _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "[MRV3NowPlayingController] <%@> reloading for reason %@", buf, 0x16u);
     }
 
     [*v2 _registerNotificationHandlersForResolvedPlayerPath:v4];
     v8 = *v2;
-    v34 = 0;
-    v9 = [v8 _loadNowPlayingStateForPlayerPath:v4 error:&v34];
-    v10 = v34;
+    v33 = 0;
+    v9 = [v8 _loadNowPlayingStateForPlayerPath:v4 error:&v33];
+    v10 = v33;
     v11 = _MRLogForCategory(1uLL);
     v12 = v11;
     if (v10)
     {
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        __46__MRV3NowPlayingController__reloadWithReason___block_invoke_cold_1(v2);
+        __46__MRV3NowPlayingController__reloadWithReason___block_invoke_cold_1();
       }
 
       v13 = [*v2 loadRetryTimer];
@@ -424,9 +419,9 @@ void __46__MRV3NowPlayingController__reloadWithReason___block_invoke(uint64_t a1
           v28 = [*v2 loadRetryTimer];
           [v28 timeUntilNextInterval];
           *buf = 138412546;
-          v36 = v27;
-          v37 = 2048;
-          v38 = v29;
+          v35 = v27;
+          v36 = 2048;
+          v37 = v29;
           _os_log_impl(&dword_1A2860000, v26, OS_LOG_TYPE_DEFAULT, "[MRV3NowPlayingController] <%@> LoadetryTimer is already scheduled to retry in %lf more seconds", buf, 0x16u);
         }
       }
@@ -439,12 +434,12 @@ void __46__MRV3NowPlayingController__reloadWithReason___block_invoke(uint64_t a1
         v17 = +[MRUserSettings currentSettings];
         v18 = [v17 destinationResolverReconRetryIntervals];
         v19 = [*v2 queue];
-        v31[0] = MEMORY[0x1E69E9820];
-        v31[1] = 3221225472;
-        v31[2] = __46__MRV3NowPlayingController__reloadWithReason___block_invoke_36;
-        v31[3] = &unk_1E769B178;
-        objc_copyWeak(&v32, &location);
-        v20 = [v16 initWithIntervals:v18 name:v15 queue:v19 block:v31];
+        v30[0] = MEMORY[0x1E69E9820];
+        v30[1] = 3221225472;
+        v30[2] = __46__MRV3NowPlayingController__reloadWithReason___block_invoke_36;
+        v30[3] = &unk_1E769B178;
+        objc_copyWeak(&v31, &location);
+        v20 = [v16 initWithIntervals:v18 name:v15 queue:v19 block:v30];
         [*v2 setLoadRetryTimer:v20];
 
         v21 = _MRLogForCategory(1uLL);
@@ -454,14 +449,14 @@ void __46__MRV3NowPlayingController__reloadWithReason___block_invoke(uint64_t a1
           v23 = [*v2 loadRetryTimer];
           [v23 timeUntilNextInterval];
           *buf = 138412546;
-          v36 = v22;
-          v37 = 2048;
-          v38 = v24;
+          v35 = v22;
+          v36 = 2048;
+          v37 = v24;
           _os_log_impl(&dword_1A2860000, v21, OS_LOG_TYPE_DEFAULT, "[MRV3NowPlayingController] <%@> Starting ReconRetryTimer to fire in %lf seconds", buf, 0x16u);
         }
 
         [*v2 _notifyDelegateOfError:v10];
-        objc_destroyWeak(&v32);
+        objc_destroyWeak(&v31);
 
         objc_destroyWeak(&location);
       }
@@ -473,9 +468,9 @@ void __46__MRV3NowPlayingController__reloadWithReason___block_invoke(uint64_t a1
       {
         v25 = *v2;
         *buf = 138412546;
-        v36 = v25;
-        v37 = 2112;
-        v38 = v9;
+        v35 = v25;
+        v36 = 2112;
+        v37 = v9;
         _os_log_impl(&dword_1A2860000, v12, OS_LOG_TYPE_DEFAULT, "[MRV3NowPlayingController] <%@> End loading data. Response: %@.", buf, 0x16u);
       }
 
@@ -483,8 +478,6 @@ void __46__MRV3NowPlayingController__reloadWithReason___block_invoke(uint64_t a1
       [*v2 _notifyDelegateOfNewResponse:v9];
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __46__MRV3NowPlayingController__reloadWithReason___block_invoke_36(uint64_t a1)
@@ -724,66 +717,48 @@ void __68__MRV3NowPlayingController__loadNowPlayingStateForPlayerPath_error___bl
   v14 = [requestCopy copy];
   [v14 setCachingPolicy:2];
   date = [MEMORY[0x1E695DF00] date];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __88__MRV3NowPlayingController__requestPlaybackQueueForPlayerPath_request_queue_completion___block_invoke;
-  v18[3] = &unk_1E769F820;
-  v18[4] = self;
-  v19 = date;
-  v20 = completionCopy;
+  v18 = completionCopy;
   v16 = completionCopy;
   v17 = date;
-  MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync(requestCopy, pathCopy, queueCopy, v18);
+  MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync();
 }
 
 void __88__MRV3NowPlayingController__requestPlaybackQueueForPlayerPath_request_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v4 = [*(a1 + 32) lastQueueRequestDate];
-  if (!v4)
+  if (!v4 || (v5 = v4, v6 = *(a1 + 40), [*(a1 + 32) lastQueueRequestDate], v7 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "timeIntervalSinceDate:", v7), v9 = v8, v7, v5, v9 >= 0.0))
   {
-    goto LABEL_3;
-  }
-
-  v5 = v4;
-  v6 = *(a1 + 40);
-  v7 = [*(a1 + 32) lastQueueRequestDate];
-  [v6 timeIntervalSinceDate:v7];
-  v9 = v8;
-
-  if (v9 >= 0.0)
-  {
-LABEL_3:
     [*(a1 + 32) setRequestingQueue:0];
     [*(a1 + 32) setLastQueueRequestDate:*(a1 + 40)];
     v10 = a2;
+    v20 = 0u;
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v24 = 0u;
     v11 = [*(a1 + 32) deferredContentItemsToMerge];
-    v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v22;
+      v14 = *v21;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v22 != v14)
+          if (*v21 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v21 + 1) + 8 * i);
+          v16 = *(*(&v20 + 1) + 8 * i);
           v17 = [v16 identifier];
           v18 = [v10 contentItemForIdentifier:v17];
 
           [v18 mergeFrom:v16];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
       }
 
       while (v13);
@@ -794,8 +769,6 @@ LABEL_3:
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_requestContentItemArtwork:(id)artwork forPlayerPath:(id)path queue:(id)queue completion:(id)completion
@@ -808,13 +781,9 @@ LABEL_3:
 
   [(MRPlaybackQueueRequest *)v13 setArtworkHeight:600.0];
   [(MRPlaybackQueueRequest *)v13 setArtworkWidth:600.0];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __86__MRV3NowPlayingController__requestContentItemArtwork_forPlayerPath_queue_completion___block_invoke;
-  v15[3] = &unk_1E769C298;
-  v16 = completionCopy;
+  v15 = completionCopy;
   v14 = completionCopy;
-  MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync(v13, pathCopy, queueCopy, v15);
+  MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync();
 }
 
 - (void)_requestSupportedCommandsForPlayerPath:(id)path queue:(id)queue completion:(id)completion
@@ -854,7 +823,7 @@ void __88__MRV3NowPlayingController__requestPlayerLastPlayingDateForPlayerPath_q
     v5 = _MRLogForCategory(1uLL);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __88__MRV3NowPlayingController__requestPlayerLastPlayingDateForPlayerPath_queue_completion___block_invoke_cold_1(a1);
+      __88__MRV3NowPlayingController__requestPlayerLastPlayingDateForPlayerPath_queue_completion___block_invoke_cold_1();
     }
 
     v6 = *(a1 + 40);
@@ -948,6 +917,19 @@ uint64_t __72__MRV3NowPlayingController_destinationResolverDestinationDidInvalid
     helper2 = [(MRV3NowPlayingController *)self helper];
     didLoadResponse = [helper2 didLoadResponse];
     (didLoadResponse)[2](didLoadResponse, responseCopy);
+  }
+}
+
+- (void)_notifyDelegateOfPlaybackStateChange:(unsigned int)change
+{
+  v3 = *&change;
+  helper = [(MRV3NowPlayingController *)self helper];
+
+  if (helper)
+  {
+    helper2 = [(MRV3NowPlayingController *)self helper];
+    playbackStateDidChange = [helper2 playbackStateDidChange];
+    playbackStateDidChange[2](playbackStateDidChange, v3);
   }
 }
 
@@ -1083,7 +1065,7 @@ uint64_t __72__MRV3NowPlayingController_destinationResolverDestinationDidInvalid
 
 void __68__MRV3NowPlayingController__handlePlaybackQueueChangedNotification___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"kMRNowPlayingPlayerPathUserInfoKey"];
 
@@ -1109,7 +1091,7 @@ void __68__MRV3NowPlayingController__handlePlaybackQueueChangedNotification___bl
   {
     v9 = *(a1 + 40);
     *buf = 138412290;
-    v20 = v9;
+    v19 = v9;
     _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRV3NowPlayingController] <%@> processing PlaybackQueueDidChangeNotification.", buf, 0xCu);
   }
 
@@ -1125,15 +1107,14 @@ void __68__MRV3NowPlayingController__handlePlaybackQueueChangedNotification___bl
   v14 = [v13 destination];
   v15 = [v14 playerPath];
   v16 = [*(a1 + 40) queue];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __68__MRV3NowPlayingController__handlePlaybackQueueChangedNotification___block_invoke_58;
-  v18[3] = &unk_1E769C3B0;
-  v18[4] = *(a1 + 40);
-  [v13 _requestPlaybackQueueForPlayerPath:v15 request:v12 queue:v16 completion:v18];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __68__MRV3NowPlayingController__handlePlaybackQueueChangedNotification___block_invoke_58;
+  v17[3] = &unk_1E769C3B0;
+  v17[4] = *(a1 + 40);
+  [v13 _requestPlaybackQueueForPlayerPath:v15 request:v12 queue:v16 completion:v17];
 
 LABEL_8:
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __68__MRV3NowPlayingController__handlePlaybackQueueChangedNotification___block_invoke_58(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -1198,7 +1179,7 @@ void __80__MRV3NowPlayingController__handlePlaybackQueueContentItemsChangedNotif
   {
     if (v14)
     {
-      __80__MRV3NowPlayingController__handlePlaybackQueueContentItemsChangedNotification___block_invoke_cold_2(v4);
+      __80__MRV3NowPlayingController__handlePlaybackQueueContentItemsChangedNotification___block_invoke_cold_2();
     }
 
     v15 = [*v4 deferredContentItemsToMerge];
@@ -1209,7 +1190,7 @@ void __80__MRV3NowPlayingController__handlePlaybackQueueContentItemsChangedNotif
   {
     if (v14)
     {
-      __80__MRV3NowPlayingController__handlePlaybackQueueContentItemsChangedNotification___block_invoke_cold_1(v4);
+      __80__MRV3NowPlayingController__handlePlaybackQueueContentItemsChangedNotification___block_invoke_cold_1();
     }
 
     [*v4 _notifyDelegateOfUpdatedContentItemsWithContentItems:v10];
@@ -1262,7 +1243,7 @@ void __87__MRV3NowPlayingController__handlePlaybackQueueContentItemsArtworkChang
   v12 = _MRLogForCategory(1uLL);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    __87__MRV3NowPlayingController__handlePlaybackQueueContentItemsArtworkChangedNotification___block_invoke_cold_1(v4);
+    __87__MRV3NowPlayingController__handlePlaybackQueueContentItemsArtworkChangedNotification___block_invoke_cold_1();
   }
 
   v13 = *v4;
@@ -1281,7 +1262,7 @@ LABEL_8:
 
 void __87__MRV3NowPlayingController__handlePlaybackQueueContentItemsArtworkChangedNotification___block_invoke_62(uint64_t a1, void *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a2;
   if (a3)
   {
@@ -1295,19 +1276,17 @@ void __87__MRV3NowPlayingController__handlePlaybackQueueContentItemsArtworkChang
     {
       v7 = *(a1 + 32);
       v8 = [v5 contentItems];
-      v12 = 138412546;
-      v13 = v7;
-      v14 = 2112;
-      v15 = v8;
-      _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[MRV3NowPlayingController] <%@> updated artwork for content items %@.", &v12, 0x16u);
+      v11 = 138412546;
+      v12 = v7;
+      v13 = 2112;
+      v14 = v8;
+      _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "[MRV3NowPlayingController] <%@> updated artwork for content items %@.", &v11, 0x16u);
     }
 
     v9 = *(a1 + 32);
     v10 = [v5 contentItems];
     [v9 _notifyDelegateOfUpdatedArtwork:v10];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handlePlaybackStateChangedNotification:(id)notification
@@ -1326,7 +1305,7 @@ void __87__MRV3NowPlayingController__handlePlaybackQueueContentItemsArtworkChang
 
 void __68__MRV3NowPlayingController__handlePlaybackStateChangedNotification___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"kMRNowPlayingPlayerPathUserInfoKey"];
 
@@ -1355,9 +1334,9 @@ void __68__MRV3NowPlayingController__handlePlaybackStateChangedNotification___bl
   {
     v11 = *(a1 + 40);
     *buf = 138412546;
-    v21 = v11;
-    v22 = 2112;
-    v23 = MRMediaRemoteCopyPlaybackStateDescription([v9 intValue]);
+    v20 = v11;
+    v21 = 2112;
+    v22 = MRMediaRemoteCopyPlaybackStateDescription([v9 intValue]);
     _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "[MRV3NowPlayingController] <%@> processing PlaybackStateDidChangeNotification with new PlaybackState %@.", buf, 0x16u);
   }
 
@@ -1370,16 +1349,15 @@ void __68__MRV3NowPlayingController__handlePlaybackStateChangedNotification___bl
     v15 = [v14 destination];
     v16 = [v15 playerPath];
     v17 = [*(a1 + 40) queue];
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __68__MRV3NowPlayingController__handlePlaybackStateChangedNotification___block_invoke_63;
-    v19[3] = &unk_1E769C3F8;
-    v19[4] = *(a1 + 40);
-    [v14 _requestPlayerLastPlayingDateForPlayerPath:v16 queue:v17 completion:v19];
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __68__MRV3NowPlayingController__handlePlaybackStateChangedNotification___block_invoke_63;
+    v18[3] = &unk_1E769C3F8;
+    v18[4] = *(a1 + 40);
+    [v14 _requestPlayerLastPlayingDateForPlayerPath:v16 queue:v17 completion:v18];
   }
 
 LABEL_10:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handleSupportedCommandsChangedNotification:(id)notification
@@ -1423,7 +1401,7 @@ void __72__MRV3NowPlayingController__handleSupportedCommandsChangedNotification_
   v10 = _MRLogForCategory(1uLL);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    __72__MRV3NowPlayingController__handleSupportedCommandsChangedNotification___block_invoke_cold_1(v4);
+    __72__MRV3NowPlayingController__handleSupportedCommandsChangedNotification___block_invoke_cold_1();
   }
 
   v11 = *v4;
@@ -1493,7 +1471,7 @@ void __61__MRV3NowPlayingController__handleClientPropertiesDidChange___block_inv
       v15 = _MRLogForCategory(1uLL);
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        __61__MRV3NowPlayingController__handleClientPropertiesDidChange___block_invoke_cold_1(v6);
+        __61__MRV3NowPlayingController__handleClientPropertiesDidChange___block_invoke_cold_1();
       }
 
       v16 = *v6;
@@ -1662,64 +1640,49 @@ void __36__MRV3NowPlayingController_response__block_invoke(uint64_t a1)
   return v2;
 }
 
-void __46__MRV3NowPlayingController__reloadWithReason___block_invoke_cold_1(uint64_t *a1)
+void __46__MRV3NowPlayingController__reloadWithReason___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_3_0(&dword_1A2860000, v1, v2, "[MRV3NowPlayingController] <%@> Error loading data %@.");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_0(&dword_1A2860000, v0, v1, "[MRV3NowPlayingController] <%@> Error loading data %@.");
 }
 
-void __88__MRV3NowPlayingController__requestPlayerLastPlayingDateForPlayerPath_queue_completion___block_invoke_cold_1(uint64_t a1)
+void __80__MRV3NowPlayingController__handlePlaybackQueueContentItemsChangedNotification___block_invoke_cold_1()
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_3_0(&dword_1A2860000, v2, v3, "[MRV3NowPlayingController] <%@> Failed to retrieve player last playing date with error: %@");
-  v4 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_7(&dword_1A2860000, v0, v1, "[MRV3NowPlayingController] <%@> processing PlaybackQueueContentItemsChangedNotification for content items %@.");
 }
 
-void __80__MRV3NowPlayingController__handlePlaybackQueueContentItemsChangedNotification___block_invoke_cold_1(uint64_t *a1)
+void __80__MRV3NowPlayingController__handlePlaybackQueueContentItemsChangedNotification___block_invoke_cold_2()
 {
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_1_7(&dword_1A2860000, v1, v2, "[MRV3NowPlayingController] <%@> processing PlaybackQueueContentItemsChangedNotification for content items %@.");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_7(&dword_1A2860000, v0, v1, "[MRV3NowPlayingController] <%@> deferring PlaybackQueueContentItemsChangedNotification for content items %@ because we are requesting a new playback queue.");
 }
 
-void __80__MRV3NowPlayingController__handlePlaybackQueueContentItemsChangedNotification___block_invoke_cold_2(uint64_t *a1)
+void __87__MRV3NowPlayingController__handlePlaybackQueueContentItemsArtworkChangedNotification___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x1E69E9840]);
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_1_7(&dword_1A2860000, v1, v2, "[MRV3NowPlayingController] <%@> deferring PlaybackQueueContentItemsChangedNotification for content items %@ because we are requesting a new playback queue.");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_1_7(&dword_1A2860000, v0, v1, "[MRV3NowPlayingController] <%@> processing PlaybackQueueContentItemsArtworkChangedNotification for content items %@.");
 }
 
-void __87__MRV3NowPlayingController__handlePlaybackQueueContentItemsArtworkChangedNotification___block_invoke_cold_1(uint64_t *a1)
+void __72__MRV3NowPlayingController__handleSupportedCommandsChangedNotification___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x1E69E9840]);
-  OUTLINED_FUNCTION_3_1();
-  OUTLINED_FUNCTION_1_7(&dword_1A2860000, v1, v2, "[MRV3NowPlayingController] <%@> processing PlaybackQueueContentItemsArtworkChangedNotification for content items %@.");
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x1E69E9840]);
+  v2 = 138412290;
+  v3 = v0;
+  _os_log_debug_impl(&dword_1A2860000, v1, OS_LOG_TYPE_DEBUG, "[MRV3NowPlayingController] <%@> processing SupportedCommandsDidChangeNotification.", &v2, 0xCu);
 }
 
-void __72__MRV3NowPlayingController__handleSupportedCommandsChangedNotification___block_invoke_cold_1(uint64_t *a1)
+void __61__MRV3NowPlayingController__handleClientPropertiesDidChange___block_invoke_cold_1()
 {
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x1E69E9840]);
-  v4 = 138412290;
-  v5 = v1;
-  _os_log_debug_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEBUG, "[MRV3NowPlayingController] <%@> processing SupportedCommandsDidChangeNotification.", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __61__MRV3NowPlayingController__handleClientPropertiesDidChange___block_invoke_cold_1(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_5_0(a1, *MEMORY[0x1E69E9840]);
-  v2 = *(v1 + 40);
-  v5 = 138412290;
-  v6 = v2;
-  _os_log_debug_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEBUG, "[MRV3NowPlayingController] <%@> processing ClientPropertiesDidChangeNotification.", &v5, 0xCu);
-  v4 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_0(*MEMORY[0x1E69E9840]);
+  v1 = *(v0 + 40);
+  v3 = 138412290;
+  v4 = v1;
+  _os_log_debug_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEBUG, "[MRV3NowPlayingController] <%@> processing ClientPropertiesDidChangeNotification.", &v3, 0xCu);
 }
 
 @end

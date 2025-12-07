@@ -7,6 +7,11 @@
 - (unsigned)lengthByte;
 - (unsigned)nodeAddressByte;
 - (unsigned)protocolControlByte;
+- (void)setBMsgIndex2:(unsigned __int8)index2;
+- (void)setBMsgIndex3:(unsigned __int8)index3;
+- (void)setLengthByte:(unsigned __int8)byte;
+- (void)setNodeAddressByte:(unsigned __int8)byte;
+- (void)setProtocolControlByte:(unsigned __int8)byte;
 @end
 
 @implementation PINModificationDataView
@@ -162,6 +167,17 @@ LABEL_14:
   return [(TKDataView *)self uint8:15];
 }
 
+- (void)setBMsgIndex2:(unsigned __int8)index2
+{
+  index2Copy = index2;
+  if (![(PINModificationDataView *)self bNumberMessage])
+  {
+    sub_1000179A0();
+  }
+
+  [(TKDataView *)self setUint8:index2Copy at:15];
+}
+
 - (unsigned)bMsgIndex3
 {
   if ([(PINModificationDataView *)self bNumberMessage]!= 3)
@@ -172,11 +188,30 @@ LABEL_14:
   return [(TKDataView *)self uint8:16];
 }
 
+- (void)setBMsgIndex3:(unsigned __int8)index3
+{
+  index3Copy = index3;
+  if ([(PINModificationDataView *)self bNumberMessage]!= 3)
+  {
+    sub_100017A78();
+  }
+
+  [(TKDataView *)self setUint8:index3Copy at:16];
+}
+
 - (unsigned)nodeAddressByte
 {
   v3 = [PINModificationDataView lengthFromNumberMessage:[(PINModificationDataView *)self bNumberMessage]]- 3;
 
   return [(TKDataView *)self uint8:v3];
+}
+
+- (void)setNodeAddressByte:(unsigned __int8)byte
+{
+  byteCopy = byte;
+  v5 = [PINModificationDataView lengthFromNumberMessage:[(PINModificationDataView *)self bNumberMessage]]- 3;
+
+  [(TKDataView *)self setUint8:byteCopy at:v5];
 }
 
 - (unsigned)protocolControlByte
@@ -186,11 +221,27 @@ LABEL_14:
   return [(TKDataView *)self uint8:v3];
 }
 
+- (void)setProtocolControlByte:(unsigned __int8)byte
+{
+  byteCopy = byte;
+  v5 = [PINModificationDataView lengthFromNumberMessage:[(PINModificationDataView *)self bNumberMessage]]- 2;
+
+  [(TKDataView *)self setUint8:byteCopy at:v5];
+}
+
 - (unsigned)lengthByte
 {
   v3 = [PINModificationDataView lengthFromNumberMessage:[(PINModificationDataView *)self bNumberMessage]]- 1;
 
   return [(TKDataView *)self uint8:v3];
+}
+
+- (void)setLengthByte:(unsigned __int8)byte
+{
+  byteCopy = byte;
+  v5 = [PINModificationDataView lengthFromNumberMessage:[(PINModificationDataView *)self bNumberMessage]]- 1;
+
+  [(TKDataView *)self setUint8:byteCopy at:v5];
 }
 
 @end

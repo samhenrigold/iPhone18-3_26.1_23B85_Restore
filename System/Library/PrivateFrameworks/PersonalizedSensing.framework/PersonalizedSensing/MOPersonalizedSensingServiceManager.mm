@@ -154,7 +154,7 @@ uint64_t __90__MOPersonalizedSensingServiceManager__fetchPersonalizedSyncContext
 
 - (void)fetchPersonalizedContextWithOptions:(id)options withReply:(id)reply
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   replyCopy = reply;
   v8 = _mo_log_facility_get_os_log(MOLogFacilityPersonalizedSensing);
@@ -168,21 +168,21 @@ uint64_t __90__MOPersonalizedSensingServiceManager__fetchPersonalizedSyncContext
   {
     if (+[MOPersonalizedSensingServiceManager isServiceDeployed])
     {
-      v29[0] = MEMORY[0x277D85DD0];
-      v29[1] = 3221225472;
-      v29[2] = __85__MOPersonalizedSensingServiceManager_fetchPersonalizedContextWithOptions_withReply___block_invoke;
-      v29[3] = &unk_279A1EFB8;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __85__MOPersonalizedSensingServiceManager_fetchPersonalizedContextWithOptions_withReply___block_invoke;
+      v28[3] = &unk_279A1EFB8;
       v9 = optionsCopy;
-      v30 = v9;
+      v29 = v9;
       v10 = replyCopy;
-      v31 = v10;
-      v11 = MEMORY[0x25F8B4BE0](v29);
-      v24 = MEMORY[0x277D85DD0];
-      v25 = 3221225472;
-      v26 = __85__MOPersonalizedSensingServiceManager_fetchPersonalizedContextWithOptions_withReply___block_invoke_65;
-      v27 = &unk_279A1EFE0;
-      v28 = v10;
-      v12 = MEMORY[0x25F8B4BE0](&v24);
+      v30 = v10;
+      v11 = MEMORY[0x25F8B4BE0](v28);
+      v23 = MEMORY[0x277D85DD0];
+      v24 = 3221225472;
+      v25 = __85__MOPersonalizedSensingServiceManager_fetchPersonalizedContextWithOptions_withReply___block_invoke_65;
+      v26 = &unk_279A1EFE0;
+      v27 = v10;
+      v12 = MEMORY[0x25F8B4BE0](&v23);
       v13 = _mo_log_facility_get_os_log(MOLogFacilityPersonalizedSensing);
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
@@ -202,12 +202,12 @@ uint64_t __90__MOPersonalizedSensingServiceManager__fetchPersonalizedSyncContext
 
       else
       {
-        v33 = *MEMORY[0x277CCA450];
+        v32 = *MEMORY[0x277CCA450];
         v18 = MEMORY[0x277CCACA8];
         contextRetrieval = [v9 contextRetrieval];
-        v20 = [v18 stringWithFormat:@"fetch Context: invalid contextRetrieval: %u", contextRetrieval, v24, v25, v26, v27];
-        v34 = v20;
-        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
+        v20 = [v18 stringWithFormat:@"fetch Context: invalid contextRetrieval: %u", contextRetrieval, v23, v24, v25, v26];
+        v33 = v20;
+        v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
 
         v22 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277CCA5B8] code:22 userInfo:v21];
         (v12)[2](v12, v22);
@@ -230,14 +230,12 @@ uint64_t __90__MOPersonalizedSensingServiceManager__fetchPersonalizedSyncContext
     }
 
     v15 = MEMORY[0x277CCA9B8];
-    v35 = *MEMORY[0x277CCA450];
-    v36[0] = @"Personalized Sensing unavailable";
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
+    v34 = *MEMORY[0x277CCA450];
+    v35[0] = @"Personalized Sensing unavailable";
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:&v34 count:1];
     v17 = [v15 errorWithDomain:@"MOContextErrorDomain" code:1287 userInfo:v16];
     (*(replyCopy + 2))(replyCopy, 0, v17);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 void __85__MOPersonalizedSensingServiceManager_fetchPersonalizedContextWithOptions_withReply___block_invoke(uint64_t a1, void *a2)
@@ -253,65 +251,65 @@ void __85__MOPersonalizedSensingServiceManager_fetchPersonalizedContextWithOptio
 
 void __85__MOPersonalizedSensingServiceManager_fetchPersonalizedContextWithOptions_withReply___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v4 = a2;
-  v17 = a3;
+  v16 = a3;
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = v4;
-  v21 = [v4 countByEnumeratingWithState:&v27 objects:v34 count:16];
-  if (v21)
+  v20 = [v4 countByEnumeratingWithState:&v26 objects:v33 count:16];
+  if (v20)
   {
-    v20 = *v28;
+    v19 = *v27;
     do
     {
       v5 = 0;
       do
       {
-        if (*v28 != v20)
+        if (*v27 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v22 = v5;
-        v6 = *(*(&v27 + 1) + 8 * v5);
+        v21 = v5;
+        v6 = *(*(&v26 + 1) + 8 * v5);
         v7 = _mo_log_facility_get_os_log(MOLogFacilityPersonalizedSensing);
         if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
         {
           v8 = [v6 contextIdentifier];
           *buf = 138412290;
-          v33 = v8;
+          v32 = v8;
           _os_log_impl(&dword_25E48F000, v7, OS_LOG_TYPE_INFO, "PSServiceMgr, id, %@", buf, 0xCu);
         }
 
-        v25 = 0u;
-        v26 = 0u;
-        v23 = 0u;
         v24 = 0u;
+        v25 = 0u;
+        v22 = 0u;
+        v23 = 0u;
         v9 = [v6 contextStrings];
-        v10 = [v9 countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v24;
+          v12 = *v23;
           do
           {
             v13 = 0;
             do
             {
-              if (*v24 != v12)
+              if (*v23 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              v14 = *(*(&v23 + 1) + 8 * v13);
+              v14 = *(*(&v22 + 1) + 8 * v13);
               v15 = _mo_log_facility_get_os_log(MOLogFacilityPersonalizedSensing);
               if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v33 = v14;
+                v32 = v14;
                 _os_log_debug_impl(&dword_25E48F000, v15, OS_LOG_TYPE_DEBUG, "contextString, %@", buf, 0xCu);
               }
 
@@ -319,25 +317,23 @@ void __85__MOPersonalizedSensingServiceManager_fetchPersonalizedContextWithOptio
             }
 
             while (v11 != v13);
-            v11 = [v9 countByEnumeratingWithState:&v23 objects:v31 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v22 objects:v30 count:16];
           }
 
           while (v11);
         }
 
-        v5 = v22 + 1;
+        v5 = v21 + 1;
       }
 
-      while (v22 + 1 != v21);
-      v21 = [obj countByEnumeratingWithState:&v27 objects:v34 count:16];
+      while (v21 + 1 != v20);
+      v20 = [obj countByEnumeratingWithState:&v26 objects:v33 count:16];
     }
 
-    while (v21);
+    while (v20);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __85__MOPersonalizedSensingServiceManager_fetchPersonalizedContextWithOptions_withReply___block_invoke_65(uint64_t a1, void *a2)
@@ -403,46 +399,44 @@ void __100__MOPersonalizedSensingServiceManager_fetchContextWithOptions_predicat
 
 void __100__MOPersonalizedSensingServiceManager_fetchContextWithOptions_predicates_authorizedTypes_withReply___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v6 = [v4 countByEnumeratingWithState:&v14 objects:v20 count:16];
+  v6 = [v4 countByEnumeratingWithState:&v13 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         v11 = _mo_log_facility_get_os_log(MOLogFacilityPersonalizedSensing);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
         {
           *buf = 138412290;
-          v19 = v10;
+          v18 = v10;
           _os_log_impl(&dword_25E48F000, v11, OS_LOG_TYPE_INFO, "PSServiceMgr, id, %@", buf, 0xCu);
         }
       }
 
-      v7 = [v4 countByEnumeratingWithState:&v14 objects:v20 count:16];
+      v7 = [v4 countByEnumeratingWithState:&v13 objects:v19 count:16];
     }
 
     while (v7);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __100__MOPersonalizedSensingServiceManager_fetchContextWithOptions_predicates_authorizedTypes_withReply___block_invoke_70(uint64_t a1, void *a2)
@@ -459,7 +453,7 @@ void __100__MOPersonalizedSensingServiceManager_fetchContextWithOptions_predicat
 
 - (void)notifyContextFeedback:(id)feedback withReply:(id)reply
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   feedbackCopy = feedback;
   replyCopy = reply;
   v8 = _mo_log_facility_get_os_log(MOLogFacilityPersonalizedSensing);
@@ -481,20 +475,20 @@ void __100__MOPersonalizedSensingServiceManager_fetchContextWithOptions_predicat
     }
 
     connectionManager = self->connectionManager;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __71__MOPersonalizedSensingServiceManager_notifyContextFeedback_withReply___block_invoke;
-    v19[3] = &unk_279A1F058;
-    v20 = feedbackCopy;
-    v21 = replyCopy;
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __71__MOPersonalizedSensingServiceManager_notifyContextFeedback_withReply___block_invoke_73;
-    v17[3] = &unk_279A1EFE0;
-    v18 = v21;
-    [(MOConnectionManager *)connectionManager callAsyncProxyUsingBlock:v19 onError:v17];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __71__MOPersonalizedSensingServiceManager_notifyContextFeedback_withReply___block_invoke;
+    v18[3] = &unk_279A1F058;
+    v19 = feedbackCopy;
+    v20 = replyCopy;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __71__MOPersonalizedSensingServiceManager_notifyContextFeedback_withReply___block_invoke_73;
+    v16[3] = &unk_279A1EFE0;
+    v17 = v20;
+    [(MOConnectionManager *)connectionManager callAsyncProxyUsingBlock:v18 onError:v16];
 
-    v13 = v20;
+    v13 = v19;
   }
 
   else
@@ -506,14 +500,12 @@ void __100__MOPersonalizedSensingServiceManager_fetchContextWithOptions_predicat
     }
 
     v14 = MEMORY[0x277CCA9B8];
-    v23 = *MEMORY[0x277CCA450];
-    v24[0] = @"Personalized Sensing unavailable";
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v22 = *MEMORY[0x277CCA450];
+    v23[0] = @"Personalized Sensing unavailable";
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
     v15 = [v14 errorWithDomain:@"MOContextErrorDomain" code:1287 userInfo:v13];
     (*(replyCopy + 2))(replyCopy, 0, v15);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __71__MOPersonalizedSensingServiceManager_notifyContextFeedback_withReply___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -532,18 +524,18 @@ void __71__MOPersonalizedSensingServiceManager_notifyContextFeedback_withReply__
 
 void __71__MOPersonalizedSensingServiceManager_notifyContextFeedback_withReply___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if ((*(*(a1 + 32) + 16))())
   {
     v6 = _mo_log_facility_get_os_log(MOLogFacilityPersonalizedSensing);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 134218242;
-      v10 = a2;
-      v11 = 2112;
-      v12 = v5;
-      _os_log_impl(&dword_25E48F000, v6, OS_LOG_TYPE_DEFAULT, "PSServiceMgr, notifyContextFeedback, result, %lu, error, %@", &v9, 0x16u);
+      v8 = 134218242;
+      v9 = a2;
+      v10 = 2112;
+      v11 = v5;
+      _os_log_impl(&dword_25E48F000, v6, OS_LOG_TYPE_DEFAULT, "PSServiceMgr, notifyContextFeedback, result, %lu, error, %@", &v8, 0x16u);
     }
 
     v7 = *(a1 + 40);
@@ -552,8 +544,6 @@ void __71__MOPersonalizedSensingServiceManager_notifyContextFeedback_withReply__
       (*(v7 + 16))(v7, a2, v5);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __71__MOPersonalizedSensingServiceManager_notifyContextFeedback_withReply___block_invoke_73(uint64_t a1, void *a2)
@@ -659,10 +649,15 @@ void __93__MOPersonalizedSensingServiceManager_requestDBAccessForPersonalizedSen
 
 + (void)primeService
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_25E48F000, v0, v1, "[primeService] Failed to record MOCheckpointAssertionTaskSubmitted Checkpoint, error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  selfCopy = @"Unknown";
+  if (self)
+  {
+    selfCopy = self;
+  }
+
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = selfCopy;
+  OUTLINED_FUNCTION_4(&dword_25E48F000, a2, a3, "[primeService] Failed to submit task with error: %@", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 + (void)handleDbAccessRenewalTask:(id)task
@@ -774,23 +769,21 @@ LABEL_22:
 
 intptr_t __65__MOPersonalizedSensingServiceManager_handleDbAccessRenewalTask___block_invoke_2(uint64_t a1, int a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = _mo_log_facility_get_os_log(MOLogFacilityPersonalizedSensing);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7[0] = 67109120;
-    v7[1] = a2;
-    _os_log_impl(&dword_25E48F000, v4, OS_LOG_TYPE_DEFAULT, "DB access token renewal succeeded: %d", v7, 8u);
+    v6[0] = 67109120;
+    v6[1] = a2;
+    _os_log_impl(&dword_25E48F000, v4, OS_LOG_TYPE_DEFAULT, "DB access token renewal succeeded: %d", v6, 8u);
   }
 
-  result = dispatch_semaphore_signal(*(a1 + 32));
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return dispatch_semaphore_signal(*(a1 + 32));
 }
 
 + (id)generatePromptSuggestionWithTemplate:(id)template context:(id)context options:(id)options
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   templateCopy = template;
   contextCopy = context;
   optionsCopy = options;
@@ -802,22 +795,22 @@ intptr_t __65__MOPersonalizedSensingServiceManager_handleDbAccessRenewalTask___b
     firstObject = [associatedContacts firstObject];
     associatedLocations = [contextCopy associatedLocations];
     [associatedLocations firstObject];
-    v79 = v10;
+    v78 = v10;
     v16 = v15 = optionsCopy;
     associatedTime = [contextCopy associatedTime];
     firstObject2 = [associatedTime firstObject];
     *buf = 138413058;
-    v81 = templateCopy;
-    v82 = 2112;
-    v83 = firstObject;
-    v84 = 2112;
-    v85 = v16;
-    v86 = 2112;
-    v87 = firstObject2;
+    v80 = templateCopy;
+    v81 = 2112;
+    v82 = firstObject;
+    v83 = 2112;
+    v84 = v16;
+    v85 = 2112;
+    v86 = firstObject2;
     _os_log_impl(&dword_25E48F000, v11, OS_LOG_TYPE_INFO, "generatePromptSuggestionWithTemplate, input context string: %@, contact meta data, %@, location meta data, %@, time meta data, %@", buf, 0x2Au);
 
     optionsCopy = v15;
-    v10 = v79;
+    v10 = v78;
   }
 
   if ([templateCopy contentType])
@@ -1059,21 +1052,19 @@ LABEL_53:
   v76 = v10;
 LABEL_54:
 
-  v77 = *MEMORY[0x277D85DE8];
-
   return v76;
 }
 
 - (void)refreshMomentsContextWithReply:(id)reply
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   if (+[MOPlatformInfo isIpad])
   {
     v5 = MEMORY[0x277CCA9B8];
-    v20 = *MEMORY[0x277CCA450];
-    v21 = @"Refresh is not supported on iPad";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x277CCA450];
+    v20 = @"Refresh is not supported on iPad";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
     v7 = v5;
     v8 = 263;
 LABEL_12:
@@ -1105,32 +1096,30 @@ LABEL_12:
     }
 
     v12 = MEMORY[0x277CCA9B8];
-    v22 = *MEMORY[0x277CCA450];
-    v23[0] = @"Personalized Sensing unavailable";
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+    v21 = *MEMORY[0x277CCA450];
+    v22[0] = @"Personalized Sensing unavailable";
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:&v21 count:1];
     v7 = v12;
     v8 = 1287;
     goto LABEL_12;
   }
 
   connectionManager = self->connectionManager;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __70__MOPersonalizedSensingServiceManager_refreshMomentsContextWithReply___block_invoke_100;
-  v17[3] = &unk_279A1F0A8;
-  v18 = replyCopy;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __70__MOPersonalizedSensingServiceManager_refreshMomentsContextWithReply___block_invoke_2;
-  v15[3] = &unk_279A1EFE0;
-  replyCopy = v18;
-  v16 = replyCopy;
-  [(MOConnectionManager *)connectionManager callAsyncProxyUsingBlock:v17 onError:v15];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __70__MOPersonalizedSensingServiceManager_refreshMomentsContextWithReply___block_invoke_100;
+  v16[3] = &unk_279A1F0A8;
+  v17 = replyCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __70__MOPersonalizedSensingServiceManager_refreshMomentsContextWithReply___block_invoke_2;
+  v14[3] = &unk_279A1EFE0;
+  replyCopy = v17;
+  v15 = replyCopy;
+  [(MOConnectionManager *)connectionManager callAsyncProxyUsingBlock:v16 onError:v14];
 
-  v6 = v18;
+  v6 = v17;
 LABEL_13:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __70__MOPersonalizedSensingServiceManager_refreshMomentsContextWithReply___block_invoke_100(uint64_t a1, void *a2, void *a3)
@@ -1178,144 +1167,58 @@ void __70__MOPersonalizedSensingServiceManager_refreshMomentsContextWithReply___
 void __85__MOPersonalizedSensingServiceManager_fetchPersonalizedContextWithOptions_withReply___block_invoke_65_cold_1()
 {
   OUTLINED_FUNCTION_5();
-  v11 = *MEMORY[0x277D85DE8];
   [v1 code];
   [OUTLINED_FUNCTION_7() domain];
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_6() localizedDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25E48F000, v3, v4, "PSServiceMgr,fetchPersonalizedContextWithOptions,XPCService synchronous error,%{public}lld,domain,%{public}@,description,%{private}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_25E48F000, v3, v4, "PSServiceMgr,fetchPersonalizedContextWithOptions,XPCService synchronous error,%{public}lld,domain,%{public}@,description,%{private}@", v5, v6, v7, v8);
 }
 
 void __71__MOPersonalizedSensingServiceManager_notifyContextFeedback_withReply___block_invoke_73_cold_1()
 {
   OUTLINED_FUNCTION_5();
-  v11 = *MEMORY[0x277D85DE8];
   [v1 code];
   [OUTLINED_FUNCTION_7() domain];
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_6() localizedDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25E48F000, v3, v4, "PSServiceMgr,notifyContextFeedback,XPCService synchronous error,%{public}lld,domain,%{public}@,description,%{private}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_25E48F000, v3, v4, "PSServiceMgr,notifyContextFeedback,XPCService synchronous error,%{public}lld,domain,%{public}@,description,%{private}@", v5, v6, v7, v8);
 }
 
 void __93__MOPersonalizedSensingServiceManager_requestDBAccessForPersonalizedSensingServiceWithReply___block_invoke_75_cold_1()
 {
   OUTLINED_FUNCTION_5();
-  v11 = *MEMORY[0x277D85DE8];
   [v1 code];
   [OUTLINED_FUNCTION_7() domain];
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_6() localizedDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25E48F000, v3, v4, "PSServiceMgr,requestDBAccessForPersonalizedSensingServiceWithReply,XPCService  error,%{public}lld,domain,%{public}@,description,%{private}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_25E48F000, v3, v4, "PSServiceMgr,requestDBAccessForPersonalizedSensingServiceWithReply,XPCService  error,%{public}lld,domain,%{public}@,description,%{private}@", v5, v6, v7, v8);
 }
 
-+ (void)handleDbAccessRenewalTask:.cold.1()
++ (void)handleDbAccessRenewalTask:(uint64_t)a3 .cold.3(__CFString *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_25E48F000, v0, v1, "Failed to record MOCheckpointAssertionTaskStarted Checkpoint, error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
+  v8 = @"Unknown";
+  if (a1)
+  {
+    v8 = a1;
+  }
 
-+ (void)handleDbAccessRenewalTask:(uint64_t)a3 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_4(&dword_25E48F000, a2, a3, "Failed to expire task with error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)handleDbAccessRenewalTask:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_4(&dword_25E48F000, v0, v1, "Failed to record MOCheckpointAssertionTaskCompleted Checkpoint, error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)generatePromptSuggestionWithTemplate:context:options:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_25E48F000, v0, v1, "generatePromptSuggestionWithTemplate, replace person name,  %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)generatePromptSuggestionWithTemplate:context:options:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_25E48F000, v0, v1, "generatePromptSuggestionWithTemplate, replace place name,  %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)generatePromptSuggestionWithTemplate:context:options:.cold.4()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_25E48F000, v0, v1, "generatePromptSuggestionWithTemplate, replace city name,  %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)generatePromptSuggestionWithTemplate:context:options:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_25E48F000, v0, v1, "generatePromptSuggestionWithTemplate, replace time reference,  %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)generatePromptSuggestionWithTemplate:context:options:.cold.6()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_3(&dword_25E48F000, v0, v1, "generatePromptSuggestionWithTemplate, output prompt string  %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)generatePromptSuggestionWithTemplate:context:options:.cold.7()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_8(&dword_25E48F000, v0, v1, "fail to replace time reference placeholder for context string  %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)generatePromptSuggestionWithTemplate:context:options:.cold.8()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_8(&dword_25E48F000, v0, v1, "fail to replace city name placeholder for context string  %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)generatePromptSuggestionWithTemplate:context:options:.cold.9()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_8(&dword_25E48F000, v0, v1, "fail to replace place name placeholder for context string  %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v9) = 138412290;
+  *(&v9 + 4) = v8;
+  OUTLINED_FUNCTION_4(&dword_25E48F000, a2, a3, "Failed to expire task with error: %@", a5, a6, a7, a8, v9, DWORD2(v9));
 }
 
 void __70__MOPersonalizedSensingServiceManager_refreshMomentsContextWithReply___block_invoke_2_cold_1()
 {
   OUTLINED_FUNCTION_5();
-  v11 = *MEMORY[0x277D85DE8];
   [v1 code];
   [OUTLINED_FUNCTION_7() domain];
   objc_claimAutoreleasedReturnValue();
   v2 = [OUTLINED_FUNCTION_6() localizedDescription];
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_25E48F000, v3, v4, "PersonalizedSensingServiceManager,refreshMomentsContext,XPCService asynchronous error,%{public}lld,domain,%{public}@,description,%{private}@", v5, v6, v7, v8, v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_25E48F000, v3, v4, "PersonalizedSensingServiceManager,refreshMomentsContext,XPCService asynchronous error,%{public}lld,domain,%{public}@,description,%{private}@", v5, v6, v7, v8);
 }
 
 @end

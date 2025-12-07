@@ -17,36 +17,36 @@
 
 - (void)dealloc
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   v3 = MEMORY[0x1E695DEC8];
   allKeys = [(NSMutableDictionary *)selfCopy->_handlerMap allKeys];
   v5 = [v3 arrayWithArray:allKeys];
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
+  v6 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
   if (v6)
   {
-    v28 = *v36;
+    v27 = *v35;
     *&v7 = 136315394;
-    v25 = v7;
+    v24 = v7;
     do
     {
-      v29 = v6;
-      for (i = 0; i != v29; ++i)
+      v28 = v6;
+      for (i = 0; i != v28; ++i)
       {
-        if (*v36 != v28)
+        if (*v35 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v35 + 1) + 8 * i);
-        v10 = [(NSMutableDictionary *)selfCopy->_handlerMap objectForKey:v9, v25];
+        v9 = *(*(&v34 + 1) + 8 * i);
+        v10 = [(NSMutableDictionary *)selfCopy->_handlerMap objectForKey:v9, v24];
         v11 = v10;
         if (v10 && [v10 getHandlerState] == 1)
         {
@@ -54,10 +54,10 @@
           if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
           {
             handlerId = [v11 handlerId];
-            *buf = v25;
-            v41 = "[CDMServiceGraphRunner dealloc]";
-            v42 = 2112;
-            v43 = handlerId;
+            *buf = v24;
+            v40 = "[CDMServiceGraphRunner dealloc]";
+            v41 = 2112;
+            v42 = handlerId;
             _os_log_debug_impl(&dword_1DC287000, v12, OS_LOG_TYPE_DEBUG, "%s CDMServiceGraphRunner: dealloc. Removing observers for running handler with id:%@ .", buf, 0x16u);
           }
 
@@ -71,25 +71,25 @@
           getServiceGraph3 = [v11 getServiceGraph];
           getNodesWithName = [getServiceGraph3 getNodesWithName];
 
-          v33 = 0u;
-          v34 = 0u;
-          v31 = 0u;
           v32 = 0u;
+          v33 = 0u;
+          v30 = 0u;
+          v31 = 0u;
           v17 = [(NSMutableDictionary *)selfCopy->_handlerSkipMap objectForKeyedSubscript:v9];
-          v18 = [v17 countByEnumeratingWithState:&v31 objects:v39 count:16];
+          v18 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
           if (v18)
           {
-            v19 = *v32;
+            v19 = *v31;
             do
             {
               for (j = 0; j != v18; ++j)
               {
-                if (*v32 != v19)
+                if (*v31 != v19)
                 {
                   objc_enumerationMutation(v17);
                 }
 
-                v21 = [getNodesWithName objectForKeyedSubscript:*(*(&v31 + 1) + 8 * j)];
+                v21 = [getNodesWithName objectForKeyedSubscript:*(*(&v30 + 1) + 8 * j)];
                 v22 = v21;
                 if (v21)
                 {
@@ -97,7 +97,7 @@
                 }
               }
 
-              v18 = [v17 countByEnumeratingWithState:&v31 objects:v39 count:16];
+              v18 = [v17 countByEnumeratingWithState:&v30 objects:v38 count:16];
             }
 
             while (v18);
@@ -105,31 +105,30 @@
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
+      v6 = [obj countByEnumeratingWithState:&v34 objects:v43 count:16];
     }
 
     while (v6);
   }
 
   objc_sync_exit(selfCopy);
-  v30.receiver = selfCopy;
-  v30.super_class = CDMServiceGraphRunner;
-  [(CDMServiceGraphRunner *)&v30 dealloc];
-  v24 = *MEMORY[0x1E69E9840];
+  v29.receiver = selfCopy;
+  v29.super_class = CDMServiceGraphRunner;
+  [(CDMServiceGraphRunner *)&v29 dealloc];
 }
 
 - (void)dumpServiceGraphNodeQueue
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   [(CDMServiceGraphRunner *)self getServiceGraphNodeQueue];
+  v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  obj = v42 = 0u;
-  v3 = [obj countByEnumeratingWithState:&v41 objects:v51 count:16];
+  v40 = 0u;
+  obj = v41 = 0u;
+  v3 = [obj countByEnumeratingWithState:&v40 objects:v50 count:16];
   if (v3)
   {
-    v4 = *v42;
+    v4 = *v41;
     v5 = @"\nQueue:\n";
     do
     {
@@ -137,12 +136,12 @@
       v7 = v5;
       do
       {
-        if (*v42 != v4)
+        if (*v41 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v41 + 1) + 8 * v6);
+        v8 = *(*(&v40 + 1) + 8 * v6);
         v9 = [(CDMServiceGraphRunner *)self getOperationState:v8];
         getNodeName = [v8 getNodeName];
 
@@ -153,7 +152,7 @@
       }
 
       while (v3 != v6);
-      v3 = [obj countByEnumeratingWithState:&v41 objects:v51 count:16];
+      v3 = [obj countByEnumeratingWithState:&v40 objects:v50 count:16];
     }
 
     while (v3);
@@ -168,51 +167,51 @@
 
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
-  v27 = selfCopy->_operationMap;
-  v13 = [(NSMutableDictionary *)v27 countByEnumeratingWithState:&v37 objects:v50 count:16];
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v26 = selfCopy->_operationMap;
+  v13 = [(NSMutableDictionary *)v26 countByEnumeratingWithState:&v36 objects:v49 count:16];
   if (v13)
   {
-    v28 = *v38;
-    v29 = v13;
+    v27 = *v37;
+    v28 = v13;
     do
     {
-      for (i = 0; i != v29; ++i)
+      for (i = 0; i != v28; ++i)
       {
-        if (*v38 != v28)
+        if (*v37 != v27)
         {
-          objc_enumerationMutation(v27);
+          objc_enumerationMutation(v26);
         }
 
-        v14 = *(*(&v37 + 1) + 8 * i);
-        v31 = [(NSMutableDictionary *)selfCopy->_handlerMap objectForKeyedSubscript:v14];
-        v15 = [v11 stringByAppendingFormat:@"{%@, %lu, [", v14, objc_msgSend(v31, "getHandlerState")];
+        v14 = *(*(&v36 + 1) + 8 * i);
+        v30 = [(NSMutableDictionary *)selfCopy->_handlerMap objectForKeyedSubscript:v14];
+        v15 = [v11 stringByAppendingFormat:@"{%@, %lu, [", v14, objc_msgSend(v30, "getHandlerState")];
 
         v16 = [(NSMutableDictionary *)selfCopy->_operationMap objectForKey:v14];
-        v35 = 0u;
-        v36 = 0u;
-        v33 = 0u;
         v34 = 0u;
+        v35 = 0u;
+        v32 = 0u;
+        v33 = 0u;
         v17 = v16;
-        v18 = [v17 countByEnumeratingWithState:&v33 objects:v49 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v32 objects:v48 count:16];
         if (v18)
         {
-          v19 = *v34;
+          v19 = *v33;
           do
           {
             v20 = 0;
             v21 = v15;
             do
             {
-              if (*v34 != v19)
+              if (*v33 != v19)
               {
                 objc_enumerationMutation(v17);
               }
 
-              v22 = *(*(&v33 + 1) + 8 * v20);
+              v22 = *(*(&v32 + 1) + 8 * v20);
               v23 = [(CDMServiceGraphRunner *)selfCopy getOperationState:v22];
               getNodeName2 = [v22 getNodeName];
               v15 = [v21 stringByAppendingFormat:@"{%@, %@}, ", getNodeName2, v23];
@@ -222,7 +221,7 @@
             }
 
             while (v18 != v20);
-            v18 = [v17 countByEnumeratingWithState:&v33 objects:v49 count:16];
+            v18 = [v17 countByEnumeratingWithState:&v32 objects:v48 count:16];
           }
 
           while (v18);
@@ -231,10 +230,10 @@
         v11 = [v15 stringByAppendingString:@"]}\n"];
       }
 
-      v29 = [(NSMutableDictionary *)v27 countByEnumeratingWithState:&v37 objects:v50 count:16];
+      v28 = [(NSMutableDictionary *)v26 countByEnumeratingWithState:&v36 objects:v49 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
 
   objc_sync_exit(selfCopy);
@@ -242,13 +241,11 @@
   if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v46 = "[CDMServiceGraphRunner dumpServiceGraphNodeQueue]";
-    v47 = 2112;
-    v48 = v11;
+    v45 = "[CDMServiceGraphRunner dumpServiceGraphNodeQueue]";
+    v46 = 2112;
+    v47 = v11;
     _os_log_debug_impl(&dword_1DC287000, v25, OS_LOG_TYPE_DEBUG, "%s %@", buf, 0x16u);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (id)getOperationState:(id)state
@@ -279,7 +276,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v57 = *MEMORY[0x1E69E9840];
+  v56 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -287,11 +284,11 @@
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v52 = "[CDMServiceGraphRunner observeValueForKeyPath:ofObject:change:context:]";
-    v53 = 2112;
-    v54 = pathCopy;
-    v55 = 2112;
-    v56 = objectCopy;
+    v51 = "[CDMServiceGraphRunner observeValueForKeyPath:ofObject:change:context:]";
+    v52 = 2112;
+    v53 = pathCopy;
+    v54 = 2112;
+    v55 = objectCopy;
     _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s %@ observed from %@", buf, 0x20u);
   }
 
@@ -343,7 +340,7 @@
       if (v18)
       {
         *buf = 136315138;
-        v52 = "[CDMServiceGraphRunner observeValueForKeyPath:ofObject:change:context:]";
+        v51 = "[CDMServiceGraphRunner observeValueForKeyPath:ofObject:change:context:]";
         v20 = "%s System is ready, resume queue";
         v21 = v17;
         v22 = 12;
@@ -355,9 +352,9 @@
     {
       systemState2 = [v15 systemState];
       *buf = 136315394;
-      v52 = "[CDMServiceGraphRunner observeValueForKeyPath:ofObject:change:context:]";
-      v53 = 2048;
-      v54 = systemState2;
+      v51 = "[CDMServiceGraphRunner observeValueForKeyPath:ofObject:change:context:]";
+      v52 = 2048;
+      v53 = systemState2;
       v20 = "%s System is not ready, suspend queue. Current state:%zd";
       v21 = v17;
       v22 = 22;
@@ -384,16 +381,16 @@ LABEL_43:
   if (v23)
   {
 LABEL_32:
-    v45.receiver = self;
-    v45.super_class = CDMServiceGraphRunner;
-    [(CDMServiceGraphRunner *)&v45 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+    v44.receiver = self;
+    v44.super_class = CDMServiceGraphRunner;
+    [(CDMServiceGraphRunner *)&v44 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   }
 
   else
   {
-    v40 = objectCopy;
-    getNodeName = [v40 getNodeName];
-    getHandlerId3 = [v40 getHandlerId];
+    v39 = objectCopy;
+    getNodeName = [v39 getNodeName];
+    getHandlerId3 = [v39 getHandlerId];
     selfCopy = self;
     objc_sync_enter(selfCopy);
     v26 = [(NSMutableDictionary *)selfCopy->_handlerSkipMap objectForKey:getHandlerId3];
@@ -405,9 +402,9 @@ LABEL_32:
       if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v52 = "[CDMServiceGraphRunner observeValueForKeyPath:ofObject:change:context:]";
-        v53 = 2112;
-        v54 = getHandlerId3;
+        v51 = "[CDMServiceGraphRunner observeValueForKeyPath:ofObject:change:context:]";
+        v52 = 2112;
+        v53 = getHandlerId3;
         _os_log_impl(&dword_1DC287000, v38, OS_LOG_TYPE_INFO, "%s [WARN]: Handler ID %@ not found for skip", buf, 0x16u);
       }
 
@@ -426,40 +423,40 @@ LABEL_32:
         if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v52 = "[CDMServiceGraphRunner observeValueForKeyPath:ofObject:change:context:]";
-          v53 = 2112;
-          v54 = getNodeName;
+          v51 = "[CDMServiceGraphRunner observeValueForKeyPath:ofObject:change:context:]";
+          v52 = 2112;
+          v53 = getNodeName;
           _os_log_impl(&dword_1DC287000, v31, OS_LOG_TYPE_INFO, "%s [WARN]: Node %@ not found for checking skip", buf, 0x16u);
         }
       }
 
       else
       {
-        v48 = 0u;
-        v49 = 0u;
-        v46 = 0u;
         v47 = 0u;
+        v48 = 0u;
+        v45 = 0u;
+        v46 = 0u;
         v31 = [v28 objectForKeyedSubscript:getNodeName];
-        v32 = [v31 countByEnumeratingWithState:&v46 objects:v50 count:16];
+        v32 = [v31 countByEnumeratingWithState:&v45 objects:v49 count:16];
         if (v32)
         {
-          v33 = *v47;
+          v33 = *v46;
           do
           {
             for (i = 0; i != v32; ++i)
             {
-              if (*v47 != v33)
+              if (*v46 != v33)
               {
                 objc_enumerationMutation(v31);
               }
 
-              v35 = *(*(&v46 + 1) + 8 * i);
+              v35 = *(*(&v45 + 1) + 8 * i);
               v36 = [v28 objectForKeyedSubscript:getNodeName];
               v37 = [v36 objectForKeyedSubscript:v35];
               [(CDMServiceGraphRunner *)selfCopy skipNode:v35 forCondition:v37 withHandlerId:getHandlerId3];
             }
 
-            v32 = [v31 countByEnumeratingWithState:&v46 objects:v50 count:16];
+            v32 = [v31 countByEnumeratingWithState:&v45 objects:v49 count:16];
           }
 
           while (v32);
@@ -471,13 +468,11 @@ LABEL_32:
   }
 
 LABEL_41:
-
-  v39 = *MEMORY[0x1E69E9840];
 }
 
 - (void)skipNode:(id)node forCondition:(id)condition withHandlerId:(id)id
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   nodeCopy = node;
   conditionCopy = condition;
   idCopy = id;
@@ -501,34 +496,34 @@ LABEL_41:
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315650;
-        v33 = "[CDMServiceGraphRunner skipNode:forCondition:withHandlerId:]";
-        v34 = 2112;
-        v35 = nodeCopy;
-        v36 = 2112;
-        v37 = idCopy;
+        v32 = "[CDMServiceGraphRunner skipNode:forCondition:withHandlerId:]";
+        v33 = 2112;
+        v34 = nodeCopy;
+        v35 = 2112;
+        v36 = idCopy;
         _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s Skip node %@ in handler %@", buf, 0x20u);
       }
 
       [v12 cancel];
-      v29 = 0u;
-      v30 = 0u;
-      v27 = 0u;
       v28 = 0u;
+      v29 = 0u;
+      v26 = 0u;
+      v27 = 0u;
       getSuccessors = [v12 getSuccessors];
-      v15 = [getSuccessors countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v15 = [getSuccessors countByEnumeratingWithState:&v26 objects:v30 count:16];
       if (v15)
       {
-        v16 = *v28;
+        v16 = *v27;
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v28 != v16)
+            if (*v27 != v16)
             {
               objc_enumerationMutation(getSuccessors);
             }
 
-            v18 = *(*(&v27 + 1) + 8 * i);
+            v18 = *(*(&v26 + 1) + 8 * i);
             getNodeName = [v18 getNodeName];
             v20 = [getNodeName isEqualToString:@"metricsNode"];
 
@@ -539,11 +534,11 @@ LABEL_41:
               {
                 getNodeName2 = [v18 getNodeName];
                 *buf = 136315650;
-                v33 = "[CDMServiceGraphRunner skipNode:forCondition:withHandlerId:]";
-                v34 = 2112;
-                v35 = getNodeName2;
-                v36 = 2112;
-                v37 = nodeCopy;
+                v32 = "[CDMServiceGraphRunner skipNode:forCondition:withHandlerId:]";
+                v33 = 2112;
+                v34 = getNodeName2;
+                v35 = 2112;
+                v36 = nodeCopy;
                 _os_log_debug_impl(&dword_1DC287000, v21, OS_LOG_TYPE_DEBUG, "%s Remove dependency: %@ ==> %@", buf, 0x20u);
               }
 
@@ -551,7 +546,7 @@ LABEL_41:
             }
           }
 
-          v15 = [getSuccessors countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v15 = [getSuccessors countByEnumeratingWithState:&v26 objects:v30 count:16];
         }
 
         while (v15);
@@ -564,9 +559,9 @@ LABEL_41:
       if (os_log_type_enabled(getSuccessors, OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v33 = "[CDMServiceGraphRunner skipNode:forCondition:withHandlerId:]";
-        v34 = 2112;
-        v35 = nodeCopy;
+        v32 = "[CDMServiceGraphRunner skipNode:forCondition:withHandlerId:]";
+        v33 = 2112;
+        v34 = nodeCopy;
         _os_log_impl(&dword_1DC287000, getSuccessors, OS_LOG_TYPE_INFO, "%s [WARN]: Node %@ not found for skip", buf, 0x16u);
       }
     }
@@ -574,13 +569,11 @@ LABEL_41:
 LABEL_24:
     objc_sync_exit(obj);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)finishHandlerById:(id)id
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   idCopy = id;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -592,9 +585,9 @@ LABEL_24:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v30 = "[CDMServiceGraphRunner finishHandlerById:]";
-      v31 = 2112;
-      v32 = idCopy;
+      v29 = "[CDMServiceGraphRunner finishHandlerById:]";
+      v30 = 2112;
+      v31 = idCopy;
       _os_log_error_impl(&dword_1DC287000, v19, OS_LOG_TYPE_ERROR, "%s [ERR]: Handler with ID %@ is not found", buf, 0x16u);
     }
 
@@ -608,10 +601,10 @@ LABEL_24:
     {
       handlerId = [v7 handlerId];
       *buf = 136315650;
-      v30 = "[CDMServiceGraphRunner finishHandlerById:]";
-      v31 = 2112;
-      v32 = handlerId;
-      v33 = 2048;
+      v29 = "[CDMServiceGraphRunner finishHandlerById:]";
+      v30 = 2112;
+      v31 = handlerId;
+      v32 = 2048;
       getHandlerState = [v7 getHandlerState];
       _os_log_error_impl(&dword_1DC287000, v19, OS_LOG_TYPE_ERROR, "%s [ERR]: Skip finish handler %@ with invalid state %zu", buf, 0x20u);
     }
@@ -639,29 +632,29 @@ LABEL_18:
   getServiceGraph3 = [v7 getServiceGraph];
   getNodesWithName = [getServiceGraph3 getNodesWithName];
 
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
   v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
   v14 = [(NSMutableDictionary *)selfCopy->_handlerSkipMap objectForKeyedSubscript:idCopy];
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v15)
   {
-    v16 = *v25;
+    v16 = *v24;
     do
     {
       for (i = 0; i != v15; ++i)
       {
-        if (*v25 != v16)
+        if (*v24 != v16)
         {
           objc_enumerationMutation(v14);
         }
 
-        v18 = [getNodesWithName objectForKeyedSubscript:*(*(&v24 + 1) + 8 * i)];
+        v18 = [getNodesWithName objectForKeyedSubscript:*(*(&v23 + 1) + 8 * i)];
         [v18 removeObserver:selfCopy forKeyPath:@"isFinished"];
       }
 
-      v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v15);
@@ -678,25 +671,23 @@ LABEL_18:
   if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v30 = "[CDMServiceGraphRunner finishHandlerById:]";
-    v31 = 2112;
-    v32 = idCopy;
+    v29 = "[CDMServiceGraphRunner finishHandlerById:]";
+    v30 = 2112;
+    v31 = idCopy;
     _os_log_debug_impl(&dword_1DC287000, &selfCopy->super, OS_LOG_TYPE_DEBUG, "%s %@ finished", buf, 0x16u);
   }
 
 LABEL_19:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelHandlerById:(id)id causeByError:(BOOL)error
 {
   errorCopy = error;
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   idCopy = id;
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v33 = idCopy;
+  v32 = idCopy;
   v8 = [(NSMutableDictionary *)selfCopy->_handlerMap objectForKey:idCopy];
   v9 = v8;
   if (!v8)
@@ -705,9 +696,9 @@ LABEL_19:
     if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v45 = "[CDMServiceGraphRunner cancelHandlerById:causeByError:]";
-      v46 = 2112;
-      v47 = idCopy;
+      v44 = "[CDMServiceGraphRunner cancelHandlerById:causeByError:]";
+      v45 = 2112;
+      v46 = idCopy;
       _os_log_error_impl(&dword_1DC287000, v28, OS_LOG_TYPE_ERROR, "%s [ERR]: Handler with ID %@ is not found", buf, 0x16u);
     }
 
@@ -721,10 +712,10 @@ LABEL_19:
     {
       handlerId = [v9 handlerId];
       *buf = 136315650;
-      v45 = "[CDMServiceGraphRunner cancelHandlerById:causeByError:]";
-      v46 = 2112;
-      v47 = handlerId;
-      v48 = 2048;
+      v44 = "[CDMServiceGraphRunner cancelHandlerById:causeByError:]";
+      v45 = 2112;
+      v46 = handlerId;
+      v47 = 2048;
       getHandlerState = [v9 getHandlerState];
       _os_log_error_impl(&dword_1DC287000, v28, OS_LOG_TYPE_ERROR, "%s [ERR]: Skip cancel handler %@ with invalid state %zu", buf, 0x20u);
     }
@@ -749,42 +740,42 @@ LABEL_28:
   v11 = [(NSMutableDictionary *)selfCopy->_operationMap objectForKey:idCopy];
   isSuspended = [(NSOperationQueue *)selfCopy->_queue isSuspended];
   [(NSOperationQueue *)selfCopy->_queue setSuspended:1];
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v13 = v11;
-  v14 = [v13 countByEnumeratingWithState:&v38 objects:v43 count:16];
+  v14 = [v13 countByEnumeratingWithState:&v37 objects:v42 count:16];
   if (v14)
   {
-    v15 = *v39;
+    v15 = *v38;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v39 != v15)
+        if (*v38 != v15)
         {
           objc_enumerationMutation(v13);
         }
 
-        [*(*(&v38 + 1) + 8 * i) cancel];
+        [*(*(&v37 + 1) + 8 * i) cancel];
       }
 
-      v14 = [v13 countByEnumeratingWithState:&v38 objects:v43 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v37 objects:v42 count:16];
     }
 
     while (v14);
   }
 
   [(NSOperationQueue *)selfCopy->_queue setSuspended:isSuspended];
-  v17 = [(NSMutableDictionary *)selfCopy->_callbackMap objectForKeyedSubscript:v33];
+  v17 = [(NSMutableDictionary *)selfCopy->_callbackMap objectForKeyedSubscript:v32];
   v18 = v17;
   if (v17)
   {
     (*(v17 + 16))(v17);
   }
 
-  v31 = v18;
+  v30 = v18;
   getServiceGraph = [v9 getServiceGraph];
   getEndNode = [getServiceGraph getEndNode];
 
@@ -795,54 +786,52 @@ LABEL_28:
   getServiceGraph3 = [v9 getServiceGraph];
   getNodesWithName = [getServiceGraph3 getNodesWithName];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
-  v23 = [(NSMutableDictionary *)selfCopy->_handlerSkipMap objectForKeyedSubscript:v33];
-  v24 = [v23 countByEnumeratingWithState:&v34 objects:v42 count:16];
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
+  v23 = [(NSMutableDictionary *)selfCopy->_handlerSkipMap objectForKeyedSubscript:v32];
+  v24 = [v23 countByEnumeratingWithState:&v33 objects:v41 count:16];
   if (v24)
   {
-    v25 = *v35;
+    v25 = *v34;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v35 != v25)
+        if (*v34 != v25)
         {
           objc_enumerationMutation(v23);
         }
 
-        v27 = [getNodesWithName objectForKeyedSubscript:*(*(&v34 + 1) + 8 * j)];
+        v27 = [getNodesWithName objectForKeyedSubscript:*(*(&v33 + 1) + 8 * j)];
         [v27 removeObserver:selfCopy forKeyPath:@"isFinished"];
       }
 
-      v24 = [v23 countByEnumeratingWithState:&v34 objects:v42 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v33 objects:v41 count:16];
     }
 
     while (v24);
   }
 
-  [(NSMutableDictionary *)selfCopy->_handlerSkipMap removeObjectForKey:v33];
-  [(NSMutableDictionary *)selfCopy->_callbackMap removeObjectForKey:v33];
-  [(NSMutableDictionary *)selfCopy->_operationMap removeObjectForKey:v33];
-  [(NSMutableDictionary *)selfCopy->_operationMapWithNodeName removeObjectForKey:v33];
-  [(NSMutableDictionary *)selfCopy->_handlerMap removeObjectForKey:v33];
+  [(NSMutableDictionary *)selfCopy->_handlerSkipMap removeObjectForKey:v32];
+  [(NSMutableDictionary *)selfCopy->_callbackMap removeObjectForKey:v32];
+  [(NSMutableDictionary *)selfCopy->_operationMap removeObjectForKey:v32];
+  [(NSMutableDictionary *)selfCopy->_operationMapWithNodeName removeObjectForKey:v32];
+  [(NSMutableDictionary *)selfCopy->_handlerMap removeObjectForKey:v32];
 
   objc_sync_exit(selfCopy);
   selfCopy = CDMOSLoggerForCategory(2);
   if (os_log_type_enabled(&selfCopy->super, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v45 = "[CDMServiceGraphRunner cancelHandlerById:causeByError:]";
-    v46 = 2112;
-    v47 = v33;
+    v44 = "[CDMServiceGraphRunner cancelHandlerById:causeByError:]";
+    v45 = 2112;
+    v46 = v32;
     _os_log_debug_impl(&dword_1DC287000, &selfCopy->super, OS_LOG_TYPE_DEBUG, "%s %@ cancelled", buf, 0x16u);
   }
 
 LABEL_29:
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelHandler:(id)handler
@@ -853,12 +842,12 @@ LABEL_29:
 
 - (void)cancelAllHandlers
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = CDMOSLoggerForCategory(2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v19 = "[CDMServiceGraphRunner cancelAllHandlers]";
+    v18 = "[CDMServiceGraphRunner cancelAllHandlers]";
     _os_log_debug_impl(&dword_1DC287000, v3, OS_LOG_TYPE_DEBUG, "%s Cancel all handlers", buf, 0xCu);
   }
 
@@ -868,45 +857,44 @@ LABEL_29:
   allKeys = [(NSMutableDictionary *)selfCopy->_handlerMap allKeys];
   v7 = [v5 arrayWithArray:allKeys];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v9)
   {
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        [(CDMServiceGraphRunner *)selfCopy cancelHandlerById:*(*(&v13 + 1) + 8 * v11++), v13];
+        [(CDMServiceGraphRunner *)selfCopy cancelHandlerById:*(*(&v12 + 1) + 8 * v11++), v12];
       }
 
       while (v9 != v11);
-      v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
 
   objc_sync_exit(selfCopy);
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)runHandlerAsync:(id)async withCompletion:(id)completion
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   asyncCopy = async;
   aBlock = completion;
-  v24 = asyncCopy;
+  v23 = asyncCopy;
   if ([asyncCopy getHandlerState])
   {
     getServiceGraph = CDMOSLoggerForCategory(2);
@@ -914,10 +902,10 @@ LABEL_29:
     {
       handlerId = [asyncCopy handlerId];
       *buf = 136315650;
-      v31 = "[CDMServiceGraphRunner runHandlerAsync:withCompletion:]";
-      v32 = 2112;
-      v33 = handlerId;
-      v34 = 2048;
+      v30 = "[CDMServiceGraphRunner runHandlerAsync:withCompletion:]";
+      v31 = 2112;
+      v32 = handlerId;
+      v33 = 2048;
       getHandlerState = [asyncCopy getHandlerState];
       _os_log_error_impl(&dword_1DC287000, getServiceGraph, OS_LOG_TYPE_ERROR, "%s [ERR]: Skip running handler %@ with invalid state %zu", buf, 0x20u);
     }
@@ -931,28 +919,28 @@ LABEL_29:
     handlerId2 = [asyncCopy handlerId];
     getEndNode = [getServiceGraph getEndNode];
     [getServiceGraph getSkippedNodes];
+    v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
-    v10 = v26 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v24 = 0u;
+    v10 = v25 = 0u;
+    v11 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v11)
     {
-      v12 = *v26;
+      v12 = *v25;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v26 != v12)
+          if (*v25 != v12)
           {
             objc_enumerationMutation(v10);
           }
 
-          v14 = [getNodesWithName objectForKeyedSubscript:*(*(&v25 + 1) + 8 * i)];
+          v14 = [getNodesWithName objectForKeyedSubscript:*(*(&v24 + 1) + 8 * i)];
           [v14 addObserver:self forKeyPath:@"isFinished" options:0 context:&kQueueSkipNode];
         }
 
-        v11 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v11);
@@ -972,23 +960,21 @@ LABEL_29:
 
     [(NSMutableDictionary *)v16->_operationMap setValue:getNodes forKey:handlerId2];
     [(NSMutableDictionary *)v16->_operationMapWithNodeName setValue:getNodesWithName forKey:handlerId2];
-    [(NSMutableDictionary *)v16->_handlerMap setValue:v24 forKey:handlerId2];
+    [(NSMutableDictionary *)v16->_handlerMap setValue:v23 forKey:handlerId2];
     objc_sync_exit(v16);
 
     [getEndNode addObserver:v16 forKeyPath:@"isFinished" options:0 context:&kQueueOperationsChanged];
-    [v24 setHandlerState:1];
+    [v23 setHandlerState:1];
     [(NSOperationQueue *)v16->_queue addOperations:getNodes waitUntilFinished:0];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (CDMServiceGraphRunner)initWithMaxConcurrentCount:(int)count
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v20.receiver = self;
-  v20.super_class = CDMServiceGraphRunner;
-  v4 = [(CDMServiceGraphRunner *)&v20 init];
+  v24 = *MEMORY[0x1E69E9840];
+  v19.receiver = self;
+  v19.super_class = CDMServiceGraphRunner;
+  v4 = [(CDMServiceGraphRunner *)&v19 init];
   if (v4)
   {
     v5 = objc_alloc_init(MEMORY[0x1E696ADC8]);
@@ -1021,8 +1007,8 @@ LABEL_29:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v22 = "[CDMServiceGraphRunner initWithMaxConcurrentCount:]";
-      v23 = 1024;
+      v21 = "[CDMServiceGraphRunner initWithMaxConcurrentCount:]";
+      v22 = 1024;
       countCopy = count;
       _os_log_debug_impl(&dword_1DC287000, v17, OS_LOG_TYPE_DEBUG, "%s initWithMaxConcurrentCount=%d", buf, 0x12u);
     }
@@ -1030,7 +1016,6 @@ LABEL_29:
     [(NSOperationQueue *)v4->_queue setSuspended:1];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

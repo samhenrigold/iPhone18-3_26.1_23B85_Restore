@@ -112,7 +112,7 @@
 - (id)_augmentVehicleInfo:(id)info
 {
   v4 = [NSMutableDictionary dictionaryWithDictionary:info];
-  v5 = sub_10000333C();
+  v5 = sub_10000333C(v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     v8 = 138412290;
@@ -120,8 +120,7 @@
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "pre-augment vehicleInfo=%@", &v8, 0xCu);
   }
 
-  [(MapsExternalAccessoryState *)self _augmentMutableVehicleInfo:v4];
-  v6 = sub_10000333C();
+  v6 = sub_10000333C([(MapsExternalAccessoryState *)self _augmentMutableVehicleInfo:v4]);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     v8 = 138412290;
@@ -135,7 +134,7 @@
 - (void)updateWithInfo:(id)info
 {
   infoCopy = info;
-  v5 = sub_10000333C();
+  v5 = sub_10000333C(infoCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
@@ -160,7 +159,7 @@
     if (v14)
     {
       v15 = [infoCopy objectForKeyedSubscript:v13];
-      [(MapsExternalAccessoryState *)self setYear:v15];
+      objc_msgSend_setYear_(self);
     }
 
     v16 = EAVehicleInfoMapsDisplayNameKey;

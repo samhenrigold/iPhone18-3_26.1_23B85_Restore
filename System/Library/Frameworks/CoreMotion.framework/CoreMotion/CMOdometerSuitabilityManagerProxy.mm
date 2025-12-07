@@ -47,9 +47,7 @@
 
 - (void)_startDaemonConnection
 {
-  fLocationdConnection = self->fLocationdConnection;
   CLConnectionClient::setDefaultMessageHandler();
-  v4 = self->fLocationdConnection;
   CLConnectionClient::setInterruptionHandler();
   CLConnectionClient::start(self->fLocationdConnection);
 }
@@ -59,8 +57,12 @@
   v12[1] = *MEMORY[0x1E69E9840];
 
   self->fHandler = objc_msgSend_copy(handler, v5, v6);
-  fLocationdConnection = self->fLocationdConnection;
   sub_19B428B50(&__p, "kCLConnectionMessageOdometerSuitabilityUpdate");
+  v8[1] = MEMORY[0x1E69E9820];
+  v8[2] = 3221225472;
+  v8[3] = sub_19B68DB58;
+  v8[4] = &unk_1E7532DC8;
+  v8[5] = self;
   CLConnectionClient::setHandlerForMessage();
   if (v10 < 0)
   {
@@ -69,17 +71,17 @@
 
   v11 = @"kCLConnectionMessageSubscribeKey";
   v12[0] = MEMORY[0x1E695E118];
-  objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v8, v12, &v11, 1);
-  sub_19B68E434();
+  v8[0] = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], v7, v12, &v11, 1);
+  sub_19B68E434(&__p, v8);
 }
 
 - (void)_stopOdometerSuitabilityUpdates
 {
-  v4[1] = *MEMORY[0x1E69E9840];
-  v3 = @"kCLConnectionMessageSubscribeKey";
-  v4[0] = MEMORY[0x1E695E110];
-  __p = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v4, &v3, 1);
-  sub_19B68E434();
+  v5[1] = *MEMORY[0x1E69E9840];
+  v4 = @"kCLConnectionMessageSubscribeKey";
+  v5[0] = MEMORY[0x1E695E110];
+  __p = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x1E695DF20], a2, v5, &v4, 1);
+  sub_19B68E434(&v3, &__p);
 }
 
 @end

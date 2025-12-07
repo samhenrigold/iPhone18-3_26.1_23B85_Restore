@@ -20,7 +20,7 @@
     layer = [(UIView *)v4 layer];
     [layer setCornerRadius:23.0];
 
-    v7 = +[UIColor blackColor];
+    v7 = objc_msgSend_blackColor(UIColor);
     cGColor = [v7 CGColor];
     layer2 = [(UIView *)v4 layer];
     [layer2 setShadowColor:cGColor];

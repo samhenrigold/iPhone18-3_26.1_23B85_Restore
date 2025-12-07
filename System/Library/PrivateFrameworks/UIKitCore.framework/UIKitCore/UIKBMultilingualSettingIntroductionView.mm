@@ -22,9 +22,9 @@
   }
 
   languageWithRegion = [modeCopy languageWithRegion];
-  v6 = [languageWithRegion isEqualToString:@"en_IN"];
+  isEqualToString = objc_msgSend_isEqualToString_(languageWithRegion);
 
-  if (v6)
+  if (isEqualToString)
   {
     if (_os_feature_enabled_impl() && _os_feature_enabled_impl())
     {
@@ -60,7 +60,7 @@ LABEL_8:
       }
 
       v15 = TIInputModeGetBaseLanguage();
-      v16 = [v15 isEqualToString:{@"en", v23}];
+      v16 = objc_msgSend_isEqualToString_(v15, v23);
 
       if (v16)
       {
@@ -80,7 +80,7 @@ LABEL_8:
     }
 
     languageWithRegion2 = [modeCopy languageWithRegion];
-    v18 = [languageWithRegion2 isEqualToString:@"ko_KR"];
+    v18 = objc_msgSend_isEqualToString_(languageWithRegion2);
 
     if (v18)
     {
@@ -94,7 +94,7 @@ LABEL_8:
     else
     {
       languageWithRegion3 = [modeCopy languageWithRegion];
-      v20 = [languageWithRegion3 isEqualToString:@"ar"];
+      v20 = objc_msgSend_isEqualToString_(languageWithRegion3);
 
       if (!v20)
       {
@@ -105,7 +105,7 @@ LABEL_8:
       if (_os_feature_enabled_impl() && _os_feature_enabled_impl())
       {
         softwareLayout = [modeCopy softwareLayout];
-        LOBYTE(v7) = ([softwareLayout isEqualToString:@"Arabic-With-QWERTY"] & 1) == 0 && (UIKeyboardGetSafeDeviceIdiom() & 0xFFFFFFFFFFFFFFFBLL) != 1;
+        LOBYTE(v7) = (objc_msgSend_isEqualToString_(softwareLayout) & 1) == 0 && (UIKeyboardGetSafeDeviceIdiom() & 0xFFFFFFFFFFFFFFFBLL) != 1;
 
         goto LABEL_26;
       }
@@ -128,9 +128,9 @@ LABEL_29:
 {
   titleCopy = title;
   languageWithRegion = [titleCopy languageWithRegion];
-  v5 = [languageWithRegion isEqualToString:@"ko_KR"];
+  isEqualToString = objc_msgSend_isEqualToString_(languageWithRegion);
 
-  if (v5)
+  if (isEqualToString)
   {
     v6 = @"Type Korean and English";
   }
@@ -138,7 +138,7 @@ LABEL_29:
   else
   {
     languageWithRegion2 = [titleCopy languageWithRegion];
-    v8 = [languageWithRegion2 isEqualToString:@"ar"];
+    v8 = objc_msgSend_isEqualToString_(languageWithRegion2);
 
     if (v8)
     {
@@ -160,9 +160,9 @@ LABEL_29:
 {
   descriptionCopy = description;
   languageWithRegion = [descriptionCopy languageWithRegion];
-  v5 = [languageWithRegion isEqualToString:@"ko_KR"];
+  isEqualToString = objc_msgSend_isEqualToString_(languageWithRegion);
 
-  if (v5)
+  if (isEqualToString)
   {
     v6 = @"Type both Korean and English on the same keyboard";
   }
@@ -170,7 +170,7 @@ LABEL_29:
   else
   {
     languageWithRegion2 = [descriptionCopy languageWithRegion];
-    v8 = [languageWithRegion2 isEqualToString:@"ar"];
+    v8 = objc_msgSend_isEqualToString_(languageWithRegion2);
 
     if (v8)
     {
@@ -218,7 +218,7 @@ LABEL_29:
     v146 = _inheritedRenderConfig;
     if ([_inheritedRenderConfig lightKeyboard])
     {
-      +[UIColor blackColor];
+      objc_msgSend_blackColor(UIColor);
     }
 
     else
@@ -445,7 +445,7 @@ LABEL_29:
 {
   artworkCopy = artwork;
   languageWithRegion = [artworkCopy languageWithRegion];
-  if ([languageWithRegion isEqualToString:@"ko_KR"])
+  if (objc_msgSend_isEqualToString_(languageWithRegion))
   {
 
 LABEL_4:
@@ -456,9 +456,9 @@ LABEL_4:
   }
 
   languageWithRegion3 = [artworkCopy languageWithRegion];
-  v6 = [languageWithRegion3 isEqualToString:@"ar"];
+  isEqualToString = objc_msgSend_isEqualToString_(languageWithRegion3);
 
-  if (v6)
+  if (isEqualToString)
   {
     goto LABEL_4;
   }

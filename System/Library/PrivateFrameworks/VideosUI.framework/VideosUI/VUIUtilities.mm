@@ -65,7 +65,7 @@ void __28__VUIUtilities_getOSVersion__block_invoke()
 {
   v6 = *MEMORY[0x1E69E9840];
   isRunningInStoreDemoMode = [MEMORY[0x1E698C8A8] isRunningInStoreDemoMode];
-  v3 = VUIDefaultLogObject();
+  v3 = VUIDefaultLogObject(isRunningInStoreDemoMode);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     v5[0] = 67109120;

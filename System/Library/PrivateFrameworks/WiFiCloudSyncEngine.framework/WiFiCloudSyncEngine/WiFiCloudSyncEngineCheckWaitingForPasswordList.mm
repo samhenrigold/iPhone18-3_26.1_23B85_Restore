@@ -3,36 +3,32 @@
 
 @implementation WiFiCloudSyncEngineCheckWaitingForPasswordList
 
-const void *____WiFiCloudSyncEngineCheckWaitingForPasswordList_block_invoke_51(uint64_t a1)
+void ____WiFiCloudSyncEngineCheckWaitingForPasswordList_block_invoke_51(uint64_t a1)
 {
-  result = *(*(a1 + 40) + 248);
-  if (result)
+  v2 = *(*(a1 + 40) + 248);
+  if (v2)
   {
-    CFRelease(result);
+    CFRelease(v2);
     *(*(a1 + 40) + 248) = 0;
     v4 = *(a1 + 32);
     v3 = *(a1 + 40);
 
-    return __WiFiCloudSyncEngineCheckWaitingForPasswordList(v3, v4);
+    __WiFiCloudSyncEngineCheckWaitingForPasswordList(v3, v4);
   }
-
-  return result;
 }
 
-NSObject *____WiFiCloudSyncEngineCheckWaitingForPasswordList_block_invoke_2_53(uint64_t a1)
+void ____WiFiCloudSyncEngineCheckWaitingForPasswordList_block_invoke_2_53(uint64_t a1)
 {
-  result = *(*(a1 + 40) + 256);
-  if (result)
+  v2 = *(*(a1 + 40) + 256);
+  if (v2)
   {
-    dispatch_release(result);
+    dispatch_release(v2);
     v3 = *(a1 + 40);
     *(v3 + 256) = 0;
     v4 = *(a1 + 32);
 
-    return __WiFiCloudSyncEngineCheckWaitingForPasswordList(v3, v4);
+    __WiFiCloudSyncEngineCheckWaitingForPasswordList(v3, v4);
   }
-
-  return result;
 }
 
 @end

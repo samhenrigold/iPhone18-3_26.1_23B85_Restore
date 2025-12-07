@@ -54,7 +54,7 @@
       v14 = off_1E73A3B58[state];
     }
 
-    LogPrintF(ucat, "[CURangingSession session:didChangeProximitySensorState:]", 0x1Eu, "PR sensor state changed: %s\n", v9, v10, v11, v12, v14);
+    LogPrintF(ucat, "[CURangingSession session:didChangeProximitySensorState:]", 30, "PR sensor state changed: %s\n", v9, v10, v11, v12, v14);
   }
 
 LABEL_11:
@@ -87,7 +87,7 @@ LABEL_11:
       v17 = self->_ucat;
     }
 
-    LogPrintF(v17, "[CURangingSession session:didChangeProximitySensorState:]", 0xAu, "Status unchanged: %#{flags}\n", v9, v10, v11, v12, statusFlags);
+    LogPrintF(v17, "[CURangingSession session:didChangeProximitySensorState:]", 10, "Status unchanged: %#{flags}\n", v9, v10, v11, v12, statusFlags);
     return;
   }
 
@@ -108,7 +108,7 @@ LABEL_11:
     v18 = self->_ucat;
   }
 
-  LogPrintF(v18, "[CURangingSession session:didChangeProximitySensorState:]", 0x1Eu, "Status changed: %#{flags} -> %#{flags}\n", v9, v10, v11, v12, statusFlags);
+  LogPrintF(v18, "[CURangingSession session:didChangeProximitySensorState:]", 30, "Status changed: %#{flags} -> %#{flags}\n", v9, v10, v11, v12, statusFlags);
 LABEL_24:
   v19 = _Block_copy(self->_statusChangedHandler);
   if (v19)
@@ -149,7 +149,7 @@ LABEL_24:
       v15 = errorCopy;
     }
 
-    LogPrintF(ucat, "[CURangingSession session:didFailwithError:]", 0x5Au, "### PR Ranging failed: %{error}\n", v9, v10, v11, v12, v15);
+    LogPrintF(ucat, "[CURangingSession session:didFailwithError:]", 90, "### PR Ranging failed: %{error}\n", v9, v10, v11, v12, v15);
   }
 
 LABEL_6:
@@ -271,7 +271,7 @@ LABEL_9:
           ucat = selfCopy->_ucat;
 LABEL_18:
           deviceAddress = [(CURangingPeer *)v13 deviceAddress];
-          LogPrintF(ucat, "[CURangingSession session:didEstimateScores:]", 0xAu, "Ranging measurement: peer %@, %@\n", v25, v26, v27, v28, deviceAddress);
+          LogPrintF(ucat, "[CURangingSession session:didEstimateScores:]", 10, "Ranging measurement: peer %@, %@\n", v25, v26, v27, v28, deviceAddress);
         }
       }
 
@@ -303,7 +303,7 @@ LABEL_24:
       {
         v34 = selfCopy->_ucat;
 LABEL_27:
-        LogPrintF(v34, "[CURangingSession session:didEstimateScores:]", 0xAu, "Ranging measurement: no devices\n", v30, v31, v32, v33, v35);
+        LogPrintF(v34, "[CURangingSession session:didEstimateScores:]", 10, "Ranging measurement: no devices\n", v30, v31, v32, v33, v35);
       }
     }
   }
@@ -426,7 +426,7 @@ LABEL_19:
         deviceAddress2 = [*(*(&v78 + 1) + 8 * k) deviceAddress];
         if (deviceAddress2)
         {
-          v19 = [objc_alloc(getPRTrustedContactClass[0]()) initWithContactKey:deviceAddress2];
+          v19 = [objc_alloc(getPRTrustedContactClass()) initWithContactKey:deviceAddress2];
           if (v19)
           {
             [(NSArray *)v56 addObject:v19];
@@ -530,7 +530,7 @@ LABEL_40:
         {
           p_var0 = &v63->_ucat->var0;
 LABEL_50:
-          LogPrintF(p_var0, "[CURangingSession _updatePeers]", 0x1Eu, "Responder remove peer: %@\n", v34, v35, v36, v37, contactKey3);
+          LogPrintF(p_var0, "[CURangingSession _updatePeers]", 30, "Responder remove peer: %@\n", v34, v35, v36, v37, contactKey3);
         }
       }
 
@@ -590,7 +590,7 @@ LABEL_56:
         {
           v52 = &v63->_ucat->var0;
 LABEL_63:
-          LogPrintF(v52, "[CURangingSession _updatePeers]", 0x1Eu, "Responder add peer: %@\n", v47, v48, v49, v50, contactKey4);
+          LogPrintF(v52, "[CURangingSession _updatePeers]", 30, "Responder add peer: %@\n", v47, v48, v49, v50, contactKey4);
         }
       }
 
@@ -651,7 +651,7 @@ uint64_t __32__CURangingSession__updatePeers__block_invoke(uint64_t a1, char a2,
   {
     v5 = *(*(a1 + 32) + 48);
 LABEL_5:
-    v5 = LogPrintF(v5, "[CURangingSession _updatePeers]_block_invoke", 0x5Au, "### Responder remove peer failed: %@, %{error}\n", v6, v7, v8, v9, *(a1 + 40));
+    v5 = LogPrintF(v5, "[CURangingSession _updatePeers]_block_invoke", 90, "### Responder remove peer failed: %@, %{error}\n", v6, v7, v8, v9, *(a1 + 40));
     v10 = v12;
   }
 
@@ -687,7 +687,7 @@ uint64_t __32__CURangingSession__updatePeers__block_invoke_2(uint64_t a1, char a
   {
     v5 = *(*(a1 + 32) + 48);
 LABEL_5:
-    v5 = LogPrintF(v5, "[CURangingSession _updatePeers]_block_invoke_2", 0x5Au, "### Responder add peer failed: %@, %{error}\n", v6, v7, v8, v9, *(a1 + 40));
+    v5 = LogPrintF(v5, "[CURangingSession _updatePeers]_block_invoke_2", 90, "### Responder add peer failed: %@, %{error}\n", v6, v7, v8, v9, *(a1 + 40));
     v10 = v12;
   }
 
@@ -701,11 +701,12 @@ LABEL_7:
   if (!self->_prResponder)
   {
     ucat = self->_ucat;
-    if (ucat->var0 <= 30)
+    if (*ucat <= 30)
     {
-      if (ucat->var0 == -1)
+      if (*ucat == -1)
       {
-        if (!_LogCategory_Initialize(ucat, 0x1Eu))
+        ucat = _LogCategory_Initialize(ucat, 0x1Eu);
+        if (!ucat)
         {
           goto LABEL_6;
         }
@@ -713,11 +714,11 @@ LABEL_7:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CURangingSession _updateResponder]", 0x1Eu, "PR ranging responder start\n", v2, v3, v4, v5, v10);
+      ucat = LogPrintF(ucat, "[CURangingSession _updateResponder]", 30, "PR ranging responder start\n", v2, v3, v4, v5, v10);
     }
 
 LABEL_6:
-    v8 = objc_alloc_init(getPRContactAllowlistClass[0]());
+    v8 = objc_alloc_init(getPRContactAllowlistClass(ucat));
     prResponder = self->_prResponder;
     self->_prResponder = v8;
   }
@@ -736,11 +737,12 @@ LABEL_6:
   if (!prRangingSession)
   {
     ucat = self->_ucat;
-    if (ucat->var0 <= 30)
+    if (*ucat <= 30)
     {
-      if (ucat->var0 == -1)
+      if (*ucat == -1)
       {
-        if (!_LogCategory_Initialize(ucat, 0x1Eu))
+        ucat = _LogCategory_Initialize(ucat, 0x1Eu);
+        if (!ucat)
         {
           goto LABEL_6;
         }
@@ -748,11 +750,11 @@ LABEL_6:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CURangingSession _updateInitiator]", 0x1Eu, "PR ranging initiator start\n", v2, v3, v4, v5, v12);
+      ucat = LogPrintF(ucat, "[CURangingSession _updateInitiator]", 30, "PR ranging initiator start\n", v2, v3, v4, v5, v12);
     }
 
 LABEL_6:
-    v9 = [objc_alloc(getPRSharingSessionClass[0]()) initWithDelegate:self delegateQueue:self->_dispatchQueue];
+    v9 = [objc_alloc(getPRSharingSessionClass(ucat)) initWithDelegate:self delegateQueue:self->_dispatchQueue];
     v10 = self->_prRangingSession;
     self->_prRangingSession = v9;
   }
@@ -780,7 +782,7 @@ LABEL_6:
       v11 = self->_ucat;
     }
 
-    LogPrintF(v11, "[CURangingSession _updateInitiator]", 0x1Eu, "PR ranging initiator restart\n", v2, v3, v4, v5, v12);
+    LogPrintF(v11, "[CURangingSession _updateInitiator]", 30, "PR ranging initiator restart\n", v2, v3, v4, v5, v12);
 LABEL_14:
     [(PRSharingSession *)self->_prRangingSession startInitiating];
     self->_prRangingInitiated = 1;
@@ -843,7 +845,7 @@ LABEL_14:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CURangingSession _invalidated]", 0x1Eu, "Invalidated\n", v9, v10, v11, v12, v15);
+      LogPrintF(ucat, "[CURangingSession _invalidated]", 30, "Invalidated\n", v9, v10, v11, v12, v15);
     }
   }
 }
@@ -866,7 +868,7 @@ LABEL_14:
         ucat = self->_ucat;
       }
 
-      LogPrintF(ucat, "[CURangingSession _invalidate]", 0x1Eu, "PR ranging initiator stop\n", v2, v3, v4, v5, v25);
+      LogPrintF(ucat, "[CURangingSession _invalidate]", 30, "PR ranging initiator stop\n", v2, v3, v4, v5, v25);
     }
 
 LABEL_6:
@@ -916,7 +918,7 @@ LABEL_6:
           {
             v20 = self->_ucat;
 LABEL_15:
-            LogPrintF(v20, "[CURangingSession _invalidate]", 0x1Eu, "Responder remove peer on invalidate: %@\n", v15, v16, v17, v18, contactKey);
+            LogPrintF(v20, "[CURangingSession _invalidate]", 30, "Responder remove peer on invalidate: %@\n", v15, v16, v17, v18, contactKey);
           }
         }
 
@@ -980,7 +982,7 @@ uint64_t __31__CURangingSession__invalidate__block_invoke(uint64_t a1, char a2, 
   {
     v5 = *(*(a1 + 32) + 48);
 LABEL_5:
-    v5 = LogPrintF(v5, "[CURangingSession _invalidate]_block_invoke", 0x5Au, "### Responder remove peer failed: %@, %{error}\n", v6, v7, v8, v9, *(a1 + 40));
+    v5 = LogPrintF(v5, "[CURangingSession _invalidate]_block_invoke", 90, "### Responder remove peer failed: %@, %{error}\n", v6, v7, v8, v9, *(a1 + 40));
     v10 = v12;
   }
 
@@ -1000,9 +1002,9 @@ LABEL_7:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __30__CURangingSession_invalidate__block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *__30__CURangingSession_invalidate__block_invoke(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *(result + 32);
+  v10 = result[4];
   if (*(v10 + 9))
   {
     return result;
@@ -1010,14 +1012,14 @@ uint64_t __30__CURangingSession_invalidate__block_invoke(uint64_t result, uint64
 
   v11 = result;
   *(v10 + 9) = 1;
-  v12 = *(result + 32);
+  v12 = result[4];
   v13 = v12[6];
   if (*v13 <= 30)
   {
     if (*v13 == -1)
     {
       v14 = _LogCategory_Initialize(v13, 0x1Eu);
-      v12 = *(v11 + 32);
+      v12 = v11[4];
       if (!v14)
       {
         goto LABEL_6;
@@ -1026,8 +1028,8 @@ uint64_t __30__CURangingSession_invalidate__block_invoke(uint64_t result, uint64
       v13 = v12[6];
     }
 
-    LogPrintF(v13, "[CURangingSession invalidate]_block_invoke", 0x1Eu, "Invalidate\n", a5, a6, a7, a8, v8);
-    v12 = *(v11 + 32);
+    LogPrintF(v13, "[CURangingSession invalidate]_block_invoke", 30, "Invalidate\n", a5, a6, a7, a8, v8);
+    v12 = v11[4];
   }
 
 LABEL_6:
@@ -1055,7 +1057,7 @@ uint64_t __28__CURangingSession_activate__block_invoke(uint64_t a1, uint64_t a2,
     if (*v10 != -1)
     {
 LABEL_3:
-      LogPrintF(v10, "[CURangingSession activate]_block_invoke", 0x1Eu, "Activate\n", a5, a6, a7, a8, v14);
+      LogPrintF(v10, "[CURangingSession activate]_block_invoke", 30, "Activate\n", a5, a6, a7, a8, v14);
       v9 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -1098,7 +1100,7 @@ void __30__CURangingSession_addSample___block_invoke(uint64_t a1, uint64_t a2, u
     if (*v9 != -1)
     {
 LABEL_3:
-      LogPrintF(v9, "[CURangingSession addSample:]_block_invoke", 0xAu, "Add sample: %@\n", a5, a6, a7, a8, *(a1 + 40));
+      LogPrintF(v9, "[CURangingSession addSample:]_block_invoke", 10, "Add sample: %@\n", a5, a6, a7, a8, *(a1 + 40));
       goto LABEL_5;
     }
 
@@ -1142,7 +1144,7 @@ LABEL_13:
           v21 = *(*(a1 + 32) + 48);
         }
 
-        LogPrintF(v21, "[CURangingSession addSample:]_block_invoke", 0x5Au, "### Add sample failed: %@, %{error}\n", v16, v17, v18, v19, *(a1 + 40));
+        LogPrintF(v21, "[CURangingSession addSample:]_block_invoke", 90, "### Add sample failed: %@, %{error}\n", v16, v17, v18, v19, *(a1 + 40));
       }
     }
 
@@ -1199,7 +1201,7 @@ LABEL_14:
 
     v13 = [(NSArray *)selfCopy->_peers count];
     [(NSArray *)v8 count];
-    LogPrintF(ucat, "[CURangingSession setPeers:]", 0x1Eu, "Update peers: %d -> %d total\n", v14, v15, v16, v17, v13);
+    LogPrintF(ucat, "[CURangingSession setPeers:]", 30, "Update peers: %d -> %d total\n", v14, v15, v16, v17, v13);
   }
 
 LABEL_11:

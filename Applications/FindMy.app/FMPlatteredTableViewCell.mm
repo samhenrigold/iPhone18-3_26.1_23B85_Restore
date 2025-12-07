@@ -13,15 +13,15 @@
   if (identifier)
   {
     identifier = static String._unconditionallyBridgeFromObjectiveC(_:)();
-    v6 = v5;
+    v7 = v6;
   }
 
   else
   {
-    v6 = 0;
+    v7 = 0;
   }
 
-  return sub_1001CBDBC(style, identifier, v6);
+  return sub_1001CBDBC(style, v4, identifier, v7);
 }
 
 - (_TtC6FindMy24FMPlatteredTableViewCell)initWithCoder:(id)coder

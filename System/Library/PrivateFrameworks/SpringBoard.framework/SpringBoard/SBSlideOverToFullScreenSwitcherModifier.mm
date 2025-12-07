@@ -51,7 +51,7 @@
   v7.super_class = SBSlideOverToFullScreenSwitcherModifier;
   v3 = [(SBSwitcherModifier *)&v7 handleSceneReadyEvent:event];
   v4 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:64 updateMode:2];
-  v5 = SBAppendSwitcherModifierResponse(v4, v3);
+  v5 = SBAppendSwitcherModifierResponse();
 
   return v5;
 }
@@ -62,7 +62,7 @@
   v6.super_class = SBSlideOverToFullScreenSwitcherModifier;
   transitionWillBegin = [(SBTransitionSwitcherModifier *)&v6 transitionWillBegin];
   v3 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:2 updateMode:2];
-  v4 = SBAppendSwitcherModifierResponse(v3, transitionWillBegin);
+  v4 = SBAppendSwitcherModifierResponse();
 
   return v4;
 }

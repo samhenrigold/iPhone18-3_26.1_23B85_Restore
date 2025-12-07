@@ -456,7 +456,7 @@ LABEL_14:
   v5 = swift_unknownObjectRelease();
   CRLWPShapeEditor.toggleItalics(_:)(v5);
 
-  sub_100005070(&v6);
+  sub_100005070(v6);
 }
 
 - (void)addContextualMenuElementsToArray:(id)array atPoint:(CGPoint)point
@@ -493,26 +493,26 @@ LABEL_14:
 
   else
   {
-    memset(v11, 0, sizeof(v11));
+    memset(v12, 0, sizeof(v12));
     selfCopy2 = self;
   }
 
-  swift_getKeyPath();
-  sub_1012E8D64();
-  v7 = v6;
+  KeyPath = swift_getKeyPath();
+  sub_1012E8D64(KeyPath);
+  v8 = v7;
 
-  if (v7 == 2)
+  if (v8 == 2)
   {
   }
 
   else
   {
-    KeyPath = swift_getKeyPath();
-    v9 = sub_100AD5FEC(0x657A69736F747541, 0xED00007478655420, 0, 0);
-    sub_1012E8F08((v7 & 1) == 0, KeyPath, v9, v10);
+    v9 = swift_getKeyPath();
+    v10 = sub_100AD5FEC(0x657A69736F747541, 0xED00007478655420, 0, 0);
+    sub_1012E8F08((v8 & 1) == 0, v9, v10, v11);
   }
 
-  sub_10000CAAC(v11, &unk_1019F4D00);
+  sub_10000CAAC(v12, &unk_1019F4D00, &unk_10146E7F0);
 }
 
 - (CRLPlatformControlState)shrinkToFitControlState

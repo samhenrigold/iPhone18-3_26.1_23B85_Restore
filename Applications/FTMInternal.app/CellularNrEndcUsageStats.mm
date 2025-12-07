@@ -1,6 +1,7 @@
 @interface CellularNrEndcUsageStats
 - (BOOL)isEqual:(id)equal;
 - (id)copyWithZone:(_NSZone *)zone;
+- (id)deploymentAsString:(int)string;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (int)StringAsDeployment:(id)deployment;
@@ -153,6 +154,29 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFD | v3;
+}
+
+- (id)deploymentAsString:(int)string
+{
+  if (string)
+  {
+    if (string == 1)
+    {
+      v4 = @"DEPLOYMENT_NSA";
+    }
+
+    else
+    {
+      v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+    }
+  }
+
+  else
+  {
+    v4 = @"DEPLOYMENT_SA";
+  }
+
+  return v4;
 }
 
 - (int)StringAsDeployment:(id)deployment
@@ -364,7 +388,6 @@ LABEL_18:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -384,12 +407,10 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  mcgTput = self->_mcgTput;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_4:
-    scgTput = self->_scgTput;
     PBDataWriterWriteUint32Field();
   }
 
@@ -399,16 +420,15 @@ LABEL_5:
     PBDataWriterWriteSubmessage();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x200) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x200) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
-    v6 = self->_has;
-    if ((v6 & 0x10) == 0)
+    v5 = self->_has;
+    if ((v5 & 0x10) == 0)
     {
 LABEL_9:
-      if ((v6 & 0x20) == 0)
+      if ((v5 & 0x20) == 0)
       {
         goto LABEL_11;
       }
@@ -417,17 +437,15 @@ LABEL_9:
     }
   }
 
-  else if ((v6 & 0x10) == 0)
+  else if ((v5 & 0x10) == 0)
   {
     goto LABEL_9;
   }
 
-  numSubs = self->_numSubs;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_10:
-    psPref = self->_psPref;
     PBDataWriterWriteUint32Field();
   }
 
@@ -437,16 +455,15 @@ LABEL_11:
     PBDataWriterWriteDataField();
   }
 
-  v8 = self->_has;
-  if ((v8 & 4) != 0)
+  v6 = self->_has;
+  if ((v6 & 4) != 0)
   {
-    mcgDuration = self->_mcgDuration;
     PBDataWriterWriteUint32Field();
-    v8 = self->_has;
-    if ((v8 & 0x80) == 0)
+    v6 = self->_has;
+    if ((v6 & 0x80) == 0)
     {
 LABEL_15:
-      if ((v8 & 2) == 0)
+      if ((v6 & 2) == 0)
       {
         goto LABEL_16;
       }
@@ -455,18 +472,17 @@ LABEL_15:
     }
   }
 
-  else if ((v8 & 0x80) == 0)
+  else if ((v6 & 0x80) == 0)
   {
     goto LABEL_15;
   }
 
-  scgDuration = self->_scgDuration;
   PBDataWriterWriteUint32Field();
-  v8 = self->_has;
-  if ((v8 & 2) == 0)
+  v6 = self->_has;
+  if ((v6 & 2) == 0)
   {
 LABEL_16:
-    if ((v8 & 0x40) == 0)
+    if ((v6 & 0x40) == 0)
     {
       goto LABEL_18;
     }
@@ -475,12 +491,10 @@ LABEL_16:
   }
 
 LABEL_29:
-  deployment = self->_deployment;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_17:
-    releaseTech = self->_releaseTech;
     PBDataWriterWriteUint32Field();
   }
 

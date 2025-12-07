@@ -57,9 +57,9 @@
 {
   objc_opt_self();
   standardUserDefaults = [MEMORY[0x1E695E000] standardUserDefaults];
-  v1 = [standardUserDefaults BOOLForKey:@"com.apple.CoreRecognition.enable_recent_peak_reset"];
+  v2 = [standardUserDefaults BOOLForKey:@"com.apple.CoreRecognition.enable_recent_peak_reset"];
 
-  return v1;
+  return v2;
 }
 
 - (void)_addMetricWithKey:(void *)key name:(void *)name unit:(uint64_t)unit denominator:(double)denominator pcMetricID:

@@ -121,14 +121,14 @@ LABEL_5:
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v15[6] = *MEMORY[0x1E69E9840];
+  v14[6] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v6 = MEMORY[0x1E696AEC0];
-  v14.receiver = self;
-  v14.super_class = _MTLDepthStencilState;
-  v7 = [(_MTLDepthStencilState *)&v14 description];
-  v15[0] = v5;
-  v15[1] = @"label =";
+  v13.receiver = self;
+  v13.super_class = _MTLDepthStencilState;
+  v7 = [(_MTLDepthStencilState *)&v13 description];
+  v14[0] = v5;
+  v14[1] = @"label =";
   label = @"<none>";
   device = self->_device;
   if (self->_label)
@@ -136,9 +136,9 @@ LABEL_5:
     label = self->_label;
   }
 
-  v15[2] = label;
-  v15[3] = v5;
-  v15[4] = @"device =";
+  v14[2] = label;
+  v14[3] = v5;
+  v14[4] = @"device =";
   v10 = [(MTLDevice *)device formattedDescription:description + 4];
   v11 = @"<null>";
   if (v10)
@@ -146,10 +146,8 @@ LABEL_5:
     v11 = v10;
   }
 
-  v15[5] = v11;
-  result = [v6 stringWithFormat:@"%@%@", v7, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v15, 6), "componentsJoinedByString:", @" "];
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  v14[5] = v11;
+  return [v6 stringWithFormat:@"%@%@", v7, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v14, 6), "componentsJoinedByString:", @" "];
 }
 
 - (MTLResourceID)gpuResourceID

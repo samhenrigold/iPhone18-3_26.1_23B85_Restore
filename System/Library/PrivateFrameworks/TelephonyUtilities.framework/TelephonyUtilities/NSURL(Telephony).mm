@@ -67,7 +67,7 @@
 + (id)telephonyURLWithDestinationID:()Telephony addressBookUID:
 {
   v5 = MEMORY[0x1E696AD60];
-  v6 = [self telephonyURLWithDestinationID:?];
+  v6 = [self telephonyURLWithDestinationID:a3];
   v7 = [v5 stringWithFormat:@"%@", v6];
 
   if (a4 != -1)
@@ -701,7 +701,7 @@ LABEL_5:
 
 - (id)_mobilePhonePathParameters
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   absoluteString = [self absoluteString];
   v2 = [absoluteString componentsSeparatedByString:@"/"];
   v3 = v2;
@@ -711,28 +711,28 @@ LABEL_5:
     dictionary = [MEMORY[0x1E695DF90] dictionary];
     if ([v4 length])
     {
-      v16 = v4;
-      v17 = absoluteString;
+      v15 = v4;
+      v16 = absoluteString;
       v6 = [v4 componentsSeparatedByString:@"&"];
+      v17 = 0u;
       v18 = 0u;
       v19 = 0u;
       v20 = 0u;
-      v21 = 0u;
-      v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v7)
       {
         v8 = v7;
-        v9 = *v19;
+        v9 = *v18;
         do
         {
           for (i = 0; i != v8; ++i)
           {
-            if (*v19 != v9)
+            if (*v18 != v9)
             {
               objc_enumerationMutation(v6);
             }
 
-            v11 = [*(*(&v18 + 1) + 8 * i) componentsSeparatedByString:@"="];
+            v11 = [*(*(&v17 + 1) + 8 * i) componentsSeparatedByString:@"="];
             if ([v11 count] == 2)
             {
               v12 = [v11 objectAtIndex:1];
@@ -741,14 +741,14 @@ LABEL_5:
             }
           }
 
-          v8 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+          v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
         }
 
         while (v8);
       }
 
-      v4 = v16;
-      absoluteString = v17;
+      v4 = v15;
+      absoluteString = v16;
     }
   }
 
@@ -757,14 +757,12 @@ LABEL_5:
     dictionary = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
-
   return dictionary;
 }
 
 - (id)_mobilePhoneQueryParameters
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v2 = objc_getAssociatedObject(self, "_TelephonyUtilities_telURLQueryParameters");
   if (v2)
   {
@@ -805,48 +803,47 @@ LABEL_19:
   v4 = v9;
 LABEL_8:
   [MEMORY[0x1E695DF90] dictionary];
-  v24 = v23 = v4;
+  v23 = v22 = v4;
   v10 = [v4 componentsSeparatedByString:@"&"];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v11 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v26;
+    v13 = *v25;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v26 != v13)
+        if (*v25 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [*(*(&v25 + 1) + 8 * i) componentsSeparatedByString:@"="];
+        v15 = [*(*(&v24 + 1) + 8 * i) componentsSeparatedByString:@"="];
         if ([v15 count] == 2)
         {
           v16 = [v15 objectAtIndex:1];
           stringByRemovingPercentEncoding = [v16 stringByRemovingPercentEncoding];
           v18 = [v15 objectAtIndex:0];
           stringByRemovingPercentEncoding2 = [v18 stringByRemovingPercentEncoding];
-          [v24 setObject:stringByRemovingPercentEncoding forKey:stringByRemovingPercentEncoding2];
+          [v23 setObject:stringByRemovingPercentEncoding forKey:stringByRemovingPercentEncoding2];
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v12);
   }
 
-  v2 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v24];
+  v2 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v23];
   objc_setAssociatedObject(object, "_TelephonyUtilities_telURLQueryParameters", v2, 0x301);
 
 LABEL_20:
-  v20 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -967,27 +964,25 @@ LABEL_9:
 
 + (id)phoneAppVoicemailURLForRecordID:()Telephony
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v4 = objc_alloc_init(MEMORY[0x1E696AF20]);
   [v4 setScheme:@"vmshow"];
   v5 = MEMORY[0x1E696AF60];
   v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:a3];
   stringValue = [v6 stringValue];
   v8 = [v5 queryItemWithName:@"recordID" value:stringValue];
-  v13[0] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   [v4 setQueryItems:v9];
 
   v10 = [v4 URL];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)phoneAppVoicemailURLForMessageUUID:()Telephony
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AF20];
   v4 = a3;
   v5 = objc_alloc_init(v3);
@@ -996,20 +991,18 @@ LABEL_9:
   uUIDString = [v4 UUIDString];
 
   v8 = [v6 queryItemWithName:@"uuid" value:uUIDString];
-  v13[0] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   [v5 setQueryItems:v9];
 
   v10 = [v5 URL];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 + (id)facetimeAppVoicemailURLForMessageUUID:()Telephony
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   v3 = MEMORY[0x1E696AF20];
   v4 = a3;
   v5 = objc_alloc_init(v3);
@@ -1018,13 +1011,11 @@ LABEL_9:
   uUIDString = [v4 UUIDString];
 
   v8 = [v6 queryItemWithName:@"uuid" value:uUIDString];
-  v13[0] = v8;
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v13 count:1];
+  v12[0] = v8;
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
   [v5 setQueryItems:v9];
 
   v10 = [v5 URL];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

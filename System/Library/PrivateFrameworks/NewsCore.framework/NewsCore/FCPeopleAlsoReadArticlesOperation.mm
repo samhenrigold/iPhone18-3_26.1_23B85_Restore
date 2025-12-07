@@ -43,22 +43,22 @@
 
 - (FCPeopleAlsoReadArticlesOperation)initWithContentContext:(id)context configuration:(id)configuration readingHistory:(id)history cursor:(id)cursor
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   configurationCopy = configuration;
   historyCopy = history;
   cursorCopy = cursor;
   if (!contextCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentContext"];
+    v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "contentContext"];
     *buf = 136315906;
-    v26 = "[FCPeopleAlsoReadArticlesOperation initWithContentContext:configuration:readingHistory:cursor:]";
-    v27 = 2080;
-    v28 = "FCPeopleAlsoReadArticlesOperation.m";
-    v29 = 1024;
-    v30 = 54;
-    v31 = 2114;
-    v32 = v21;
+    v25 = "[FCPeopleAlsoReadArticlesOperation initWithContentContext:configuration:readingHistory:cursor:]";
+    v26 = 2080;
+    v27 = "FCPeopleAlsoReadArticlesOperation.m";
+    v28 = 1024;
+    v29 = 54;
+    v30 = 2114;
+    v31 = v20;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (configurationCopy)
@@ -74,36 +74,36 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "configuration"];
+    v21 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "configuration"];
     *buf = 136315906;
-    v26 = "[FCPeopleAlsoReadArticlesOperation initWithContentContext:configuration:readingHistory:cursor:]";
-    v27 = 2080;
-    v28 = "FCPeopleAlsoReadArticlesOperation.m";
-    v29 = 1024;
-    v30 = 55;
-    v31 = 2114;
-    v32 = v22;
+    v25 = "[FCPeopleAlsoReadArticlesOperation initWithContentContext:configuration:readingHistory:cursor:]";
+    v26 = 2080;
+    v27 = "FCPeopleAlsoReadArticlesOperation.m";
+    v28 = 1024;
+    v29 = 55;
+    v30 = 2114;
+    v31 = v21;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   if (!historyCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "readingHistory"];
+    v22 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "readingHistory"];
     *buf = 136315906;
-    v26 = "[FCPeopleAlsoReadArticlesOperation initWithContentContext:configuration:readingHistory:cursor:]";
-    v27 = 2080;
-    v28 = "FCPeopleAlsoReadArticlesOperation.m";
-    v29 = 1024;
-    v30 = 56;
-    v31 = 2114;
-    v32 = v23;
+    v25 = "[FCPeopleAlsoReadArticlesOperation initWithContentContext:configuration:readingHistory:cursor:]";
+    v26 = 2080;
+    v27 = "FCPeopleAlsoReadArticlesOperation.m";
+    v28 = 1024;
+    v29 = 56;
+    v30 = 2114;
+    v31 = v22;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v24.receiver = self;
-  v24.super_class = FCPeopleAlsoReadArticlesOperation;
-  v15 = [(FCOperation *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = FCPeopleAlsoReadArticlesOperation;
+  v15 = [(FCOperation *)&v23 init];
   v16 = v15;
   if (v15)
   {
@@ -115,32 +115,29 @@ LABEL_6:
     v16->_cursor = v17;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (BOOL)validateOperation
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   feedItemHandler = [(FCPeopleAlsoReadArticlesOperation *)self feedItemHandler];
 
   if (!feedItemHandler && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"People Also Read operation must have a feed item handler"];
-    v6 = 136315906;
-    v7 = "[FCPeopleAlsoReadArticlesOperation validateOperation]";
-    v8 = 2080;
-    v9 = "FCPeopleAlsoReadArticlesOperation.m";
-    v10 = 1024;
-    v11 = 76;
-    v12 = 2114;
-    v13 = v5;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
+    v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"People Also Read operation must have a feed item handler"];
+    v5 = 136315906;
+    v6 = "[FCPeopleAlsoReadArticlesOperation validateOperation]";
+    v7 = 2080;
+    v8 = "FCPeopleAlsoReadArticlesOperation.m";
+    v9 = 1024;
+    v10 = 76;
+    v11 = 2114;
+    v12 = v4;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v5, 0x26u);
   }
 
-  result = feedItemHandler != 0;
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return feedItemHandler != 0;
 }
 
 - (void)prepareOperation
@@ -185,7 +182,7 @@ LABEL_6:
 
 uint64_t __55__FCPeopleAlsoReadArticlesOperation__continueOperation__block_invoke(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 lastVisitedAt];
   v5 = [v4 fc_isLaterThanOrEqualTo:*(a1 + 32)];
@@ -201,25 +198,24 @@ uint64_t __55__FCPeopleAlsoReadArticlesOperation__continueOperation__block_invok
       v10 = [v3 articleID];
       v11 = [v3 lastVisitedAt];
       v12 = *(a1 + 32);
-      v15 = 138544130;
-      v16 = v9;
-      v17 = 2114;
-      v18 = v10;
-      v19 = 2114;
-      v20 = v11;
-      v21 = 2114;
-      v22 = v12;
-      _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ excluding as a seed %{public}@ because it was last visited at %{public}@, which is prior to the earliest allowed date of %{public}@", &v15, 0x2Au);
+      v14 = 138544130;
+      v15 = v9;
+      v16 = 2114;
+      v17 = v10;
+      v18 = 2114;
+      v19 = v11;
+      v20 = 2114;
+      v21 = v12;
+      _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ excluding as a seed %{public}@ because it was last visited at %{public}@, which is prior to the earliest allowed date of %{public}@", &v14, 0x2Au);
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)_continueOperationWithCandidateSeedArticleIDs:(id)ds
 {
-  v39[1] = *MEMORY[0x1E69E9840];
+  v38[1] = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   if ([dsCopy count])
   {
@@ -241,8 +237,8 @@ uint64_t __55__FCPeopleAlsoReadArticlesOperation__continueOperation__block_invok
         objc_setProperty_nonatomic_copy(v8, v12, v13, 384);
       }
 
-      v39[0] = @"publishDate";
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v39 count:1];
+      v38[0] = @"publishDate";
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v38 count:1];
       v16 = v14;
       if (v8)
       {
@@ -260,9 +256,9 @@ uint64_t __55__FCPeopleAlsoReadArticlesOperation__continueOperation__block_invok
       newValue[1] = 3221225472;
       newValue[2] = __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedArticleIDs___block_invoke_2;
       newValue[3] = &unk_1E7C36C30;
-      v35 = v7;
+      v34 = v7;
       v18 = v17;
-      v36 = v18;
+      v35 = v18;
       selfCopy = self;
       v20 = v7;
       if (v8)
@@ -270,16 +266,16 @@ uint64_t __55__FCPeopleAlsoReadArticlesOperation__continueOperation__block_invok
         objc_setProperty_nonatomic_copy(v8, v19, newValue, 416);
       }
 
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedArticleIDs___block_invoke_34;
-      v32[3] = &unk_1E7C36C80;
-      v32[4] = self;
-      v33 = v18;
+      v31[0] = MEMORY[0x1E69E9820];
+      v31[1] = 3221225472;
+      v31[2] = __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedArticleIDs___block_invoke_34;
+      v31[3] = &unk_1E7C36C80;
+      v31[4] = self;
+      v32 = v18;
       v22 = v18;
       if (v8)
       {
-        objc_setProperty_nonatomic_copy(v8, v21, v32, 424);
+        objc_setProperty_nonatomic_copy(v8, v21, v31, 424);
       }
 
       [(FCOperation *)self associateChildOperation:v8];
@@ -292,49 +288,45 @@ uint64_t __55__FCPeopleAlsoReadArticlesOperation__continueOperation__block_invok
       contentContext2 = [(FCPeopleAlsoReadArticlesOperation *)self contentContext];
       v8 = [(FCArticleHeadlinesFetchOperation *)v23 initWithContext:contentContext2 articleIDs:dsCopy ignoreCacheForArticleIDs:MEMORY[0x1E695E0F0]];
 
-      v26 = MEMORY[0x1E69E9820];
-      v27 = 3221225472;
-      v28 = __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedArticleIDs___block_invoke_3_38;
-      v29 = &unk_1E7C36CD0;
+      v25 = MEMORY[0x1E69E9820];
+      v26 = 3221225472;
+      v27 = __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedArticleIDs___block_invoke_3_38;
+      v28 = &unk_1E7C36CD0;
       selfCopy2 = self;
-      v31 = v7;
+      v30 = v7;
       v22 = v7;
-      [(FCCKContentFetchOperation *)v8 setFetchCompletionBlock:&v26];
-      [(FCOperation *)self associateChildOperation:v8, v26, v27, v28, v29, selfCopy2];
+      [(FCCKContentFetchOperation *)v8 setFetchCompletionBlock:&v25];
+      [(FCOperation *)self associateChildOperation:v8, v25, v26, v27, v28, selfCopy2];
       [(FCOperation *)v8 start];
     }
   }
 
   else
   {
-    v38[0] = MEMORY[0x1E69E9820];
-    v38[1] = 3221225472;
-    v38[2] = __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedArticleIDs___block_invoke;
-    v38[3] = &unk_1E7C36EA0;
-    v38[4] = self;
-    __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedArticleIDs___block_invoke(v38);
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedArticleIDs___block_invoke;
+    v37[3] = &unk_1E7C36EA0;
+    v37[4] = self;
+    __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedArticleIDs___block_invoke(v37);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedArticleIDs___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 shortOperationDescription];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ finishing early because there are no candidate seed article IDs", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ finishing early because there are no candidate seed article IDs", &v7, 0xCu);
   }
 
-  result = [*(a1 + 32) finishedPerformingOperationWithError:0];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) finishedPerformingOperationWithError:0];
 }
 
 id __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedArticleIDs___block_invoke_24(uint64_t a1, void *a2)
@@ -348,7 +340,7 @@ id __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedAr
 
 void __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedArticleIDs___block_invoke_2(void *a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (a2)
   {
@@ -375,23 +367,21 @@ LABEL_7:
       v11 = [v10 shortOperationDescription];
       v12 = [v5 recordName];
       v13 = a1[4];
-      v15 = 138544130;
-      v16 = v11;
-      v17 = 2114;
-      v18 = v12;
-      v19 = 2114;
-      v20 = v6;
-      v21 = 2114;
-      v22 = v13;
-      _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ excluding as a seed %{public}@ because it was published at %{public}@, which is prior to the earliest allowed date of %{public}@", &v15, 0x2Au);
+      v14 = 138544130;
+      v15 = v11;
+      v16 = 2114;
+      v17 = v12;
+      v18 = 2114;
+      v19 = v6;
+      v20 = 2114;
+      v21 = v13;
+      _os_log_impl(&dword_1B63EF000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ excluding as a seed %{public}@ because it was published at %{public}@, which is prior to the earliest allowed date of %{public}@", &v14, 0x2Au);
     }
 
     goto LABEL_7;
   }
 
 LABEL_8:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedArticleIDs___block_invoke_34(uint64_t a1, void *a2)
@@ -452,7 +442,7 @@ void __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeed
 
 id __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedArticleIDs___block_invoke_5(uint64_t a1, void *a2)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 publishDate];
   v5 = [v4 fc_isLaterThanOrEqualTo:*(a1 + 32)];
@@ -473,28 +463,26 @@ id __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedAr
       v11 = [v3 articleID];
       v12 = [v3 publishDate];
       v13 = *(a1 + 32);
-      v16 = 138544130;
-      v17 = v10;
-      v18 = 2114;
-      v19 = v11;
-      v20 = 2114;
-      v21 = v12;
-      v22 = 2114;
-      v23 = v13;
-      _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ excluding as a seed %{public}@ because it was published at %{public}@, which is prior to the earliest allowed date of %{public}@", &v16, 0x2Au);
+      v15 = 138544130;
+      v16 = v10;
+      v17 = 2114;
+      v18 = v11;
+      v19 = 2114;
+      v20 = v12;
+      v21 = 2114;
+      v22 = v13;
+      _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ excluding as a seed %{public}@ because it was published at %{public}@, which is prior to the earliest allowed date of %{public}@", &v15, 0x2Au);
     }
 
     v6 = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 - (void)_continueOperationWithSeedArticleIDs:(id)ds
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   if ([dsCopy count])
   {
@@ -504,9 +492,9 @@ id __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedAr
       v6 = v5;
       shortOperationDescription = [(FCOperation *)self shortOperationDescription];
       *buf = 138543618;
-      v26 = shortOperationDescription;
-      v27 = 2048;
-      v28 = [dsCopy count];
+      v25 = shortOperationDescription;
+      v26 = 2048;
+      v27 = [dsCopy count];
       _os_log_impl(&dword_1B63EF000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ querying using %ld seeds", buf, 0x16u);
     }
 
@@ -515,34 +503,34 @@ id __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedAr
     contentStoreFrontID = [v9 contentStoreFrontID];
 
     array = [MEMORY[0x1E695DF70] array];
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
     v12 = dsCopy;
-    v13 = [v12 countByEnumeratingWithState:&v19 objects:v24 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v18 objects:v23 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v20;
+      v15 = *v19;
       do
       {
         v16 = 0;
         do
         {
-          if (*v20 != v15)
+          if (*v19 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = [configuration candidateArticleListIDForSeedArticleID:*(*(&v19 + 1) + 8 * v16) storeFrontID:{contentStoreFrontID, v19}];
+          v17 = [configuration candidateArticleListIDForSeedArticleID:*(*(&v18 + 1) + 8 * v16) storeFrontID:{contentStoreFrontID, v18}];
           [array addObject:v17];
 
           ++v16;
         }
 
         while (v14 != v16);
-        v14 = [v12 countByEnumeratingWithState:&v19 objects:v24 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v18 objects:v23 count:16];
       }
 
       while (v14);
@@ -561,34 +549,30 @@ id __83__FCPeopleAlsoReadArticlesOperation__continueOperationWithCandidateSeedAr
 
   else
   {
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithSeedArticleIDs___block_invoke;
-    v23[3] = &unk_1E7C36EA0;
-    v23[4] = self;
-    __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithSeedArticleIDs___block_invoke(v23);
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithSeedArticleIDs___block_invoke;
+    v22[3] = &unk_1E7C36EA0;
+    v22[4] = self;
+    __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithSeedArticleIDs___block_invoke(v22);
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithSeedArticleIDs___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 shortOperationDescription];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ finishing early because there are no seed article IDs", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ finishing early because there are no seed article IDs", &v7, 0xCu);
   }
 
-  result = [*(a1 + 32) finishedPerformingOperationWithError:0];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) finishedPerformingOperationWithError:0];
 }
 
 - (void)_continueOperationWithArticleListIDs:(id)ds
@@ -686,26 +670,24 @@ uint64_t __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithSeedArtic
 
 uint64_t __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDs___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 shortOperationDescription];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ finishing early because there are no coreads article list IDs", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ finishing early because there are no coreads article list IDs", &v7, 0xCu);
   }
 
-  result = [*(a1 + 32) finishedPerformingOperationWithError:0];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) finishedPerformingOperationWithError:0];
 }
 
 void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDs___block_invoke_2(id *a1, void *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [a1[4] contentContext];
   v5 = [v4 internalContentContext];
@@ -716,55 +698,55 @@ void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
   v8 = [a1[4] configuration];
   [v7 setMaximumCachedAge:{objc_msgSend(v8, "candidateArticleListMaxCachedAgeSeconds")}];
 
-  v34 = 0u;
-  v35 = 0u;
-  v32 = 0u;
   v33 = 0u;
+  v34 = 0u;
+  v31 = 0u;
+  v32 = 0u;
   obj = a1[5];
-  v9 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v9 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v33;
-    v24 = v7;
-    v25 = v6;
-    v23 = *v33;
+    v11 = *v32;
+    v23 = v7;
+    v24 = v6;
+    v22 = *v32;
     do
     {
       v12 = 0;
-      v26 = v10;
+      v25 = v10;
       do
       {
-        if (*v33 != v11)
+        if (*v32 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v32 + 1) + 8 * v12);
+        v13 = *(*(&v31 + 1) + 8 * v12);
         v14 = [v6 cachedRecordWithID:v13];
         if (v14 && ![v6 isRecordStale:v14 withCachePolicy:v7])
         {
           [a1[6] setObject:v14 forKeyedSubscript:v13];
-          v30 = 0u;
-          v31 = 0u;
-          v28 = 0u;
           v29 = 0u;
+          v30 = 0u;
+          v27 = 0u;
+          v28 = 0u;
           v15 = [v14 articleIDs];
-          v16 = [v15 countByEnumeratingWithState:&v28 objects:v36 count:16];
+          v16 = [v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
           if (v16)
           {
             v17 = v16;
-            v18 = *v29;
+            v18 = *v28;
             do
             {
               for (i = 0; i != v17; ++i)
               {
-                if (*v29 != v18)
+                if (*v28 != v18)
                 {
                   objc_enumerationMutation(v15);
                 }
 
-                v20 = *(*(&v28 + 1) + 8 * i);
+                v20 = *(*(&v27 + 1) + 8 * i);
                 [a1[7] setObject:v14 forKeyedSubscript:v20];
                 v21 = [a1[8] objectForKeyedSubscript:v20];
                 if (v21)
@@ -778,16 +760,16 @@ void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
                 }
               }
 
-              v17 = [v15 countByEnumeratingWithState:&v28 objects:v36 count:16];
+              v17 = [v15 countByEnumeratingWithState:&v27 objects:v35 count:16];
             }
 
             while (v17);
           }
 
-          v7 = v24;
-          v6 = v25;
-          v11 = v23;
-          v10 = v26;
+          v7 = v23;
+          v6 = v24;
+          v11 = v22;
+          v10 = v25;
         }
 
         else
@@ -799,18 +781,16 @@ void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
       }
 
       while (v12 != v10);
-      v10 = [obj countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v10 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v10);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDs___block_invoke_3(uint64_t a1, void *a2)
 {
-  v24[3] = *MEMORY[0x1E69E9840];
+  v23[3] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = objc_opt_new();
   v6 = v4;
@@ -819,17 +799,17 @@ void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
     objc_setProperty_nonatomic_copy(v4, v5, @"ArticleList", 16);
   }
 
-  v24[0] = @"articleIDs";
-  v24[1] = @"type";
-  v24[2] = @"metadata";
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:3];
+  v23[0] = @"articleIDs";
+  v23[1] = @"type";
+  v23[2] = @"metadata";
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:3];
   if (v6)
   {
     objc_setProperty_nonatomic_copy(v6, v7, v8, 24);
   }
 
-  v23 = @"articleIDs";
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v23 count:1];
+  v22 = @"articleIDs";
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v22 count:1];
   if (v6)
   {
     objc_setProperty_nonatomic_copy(v6, v9, v10, 32);
@@ -861,25 +841,23 @@ void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
   }
 
   [v3 addObject:v13];
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDs___block_invoke_5(id *a1, uint64_t a2, void *a3)
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   v4 = a3;
   v5 = v4;
   if (v4)
   {
-    v76 = MEMORY[0x1E69E9820];
-    v77 = 3221225472;
-    v78 = __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDs___block_invoke_6;
-    v79 = &unk_1E7C36C58;
-    v80 = a1[4];
-    v81 = v4;
-    [v80 finishedPerformingOperationWithError:v81];
-    v6 = v81;
+    v75 = MEMORY[0x1E69E9820];
+    v76 = 3221225472;
+    v77 = __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDs___block_invoke_6;
+    v78 = &unk_1E7C36C58;
+    v79 = a1[4];
+    v80 = v4;
+    [v79 finishedPerformingOperationWithError:v80];
+    v6 = v80;
   }
 
   else
@@ -889,39 +867,39 @@ void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
     v9 = [a1[4] contentContext];
     v10 = [v9 internalContentContext];
     v11 = [v10 articleListRecordSource];
-    v57 = v8;
+    v56 = v8;
     v12 = [v11 saveRecords:v8];
 
     v13 = MEMORY[0x1E695DEC8];
     v14 = [a1[6] allValues];
-    v56 = v12;
+    v55 = v12;
     v15 = [v12 allRecords];
     v16 = [v13 fc_arrayByAddingObjectsFromArray:v14 toArray:v15];
 
     v17 = MEMORY[0x1E695DF20];
-    v74[0] = MEMORY[0x1E69E9820];
-    v74[1] = 3221225472;
-    v74[2] = __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDs___block_invoke_8;
-    v74[3] = &unk_1E7C36EC8;
+    v73[0] = MEMORY[0x1E69E9820];
+    v73[1] = 3221225472;
+    v73[2] = __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDs___block_invoke_8;
+    v73[3] = &unk_1E7C36EC8;
     v18 = v16;
-    v75 = v18;
-    v19 = [v17 fc_dictionary:v74];
-    v58 = v7;
+    v74 = v18;
+    v19 = [v17 fc_dictionary:v73];
+    v57 = v7;
     v20 = [v7 fc_arrayOfObjectsPassingTest:&__block_literal_global_62];
     v21 = MEMORY[0x1E695DF20];
-    v69[0] = MEMORY[0x1E69E9820];
-    v69[1] = 3221225472;
-    v69[2] = __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDs___block_invoke_10;
-    v69[3] = &unk_1E7C36DB0;
-    v70 = a1[7];
+    v68[0] = MEMORY[0x1E69E9820];
+    v68[1] = 3221225472;
+    v68[2] = __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDs___block_invoke_10;
+    v68[3] = &unk_1E7C36DB0;
+    v69 = a1[7];
     v22 = v20;
     v23 = a1[4];
-    v54 = v22;
-    v71 = v22;
-    v72 = v23;
-    v53 = v19;
-    v73 = v53;
-    v24 = [v21 fc_dictionary:v69];
+    v53 = v22;
+    v70 = v22;
+    v71 = v23;
+    v52 = v19;
+    v72 = v52;
+    v24 = [v21 fc_dictionary:v68];
     v25 = FCOperationLog;
     if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
     {
@@ -930,9 +908,9 @@ void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
       v28 = [v26 shortOperationDescription];
       v29 = [a1[8] count];
       *buf = 138543618;
-      v84 = v28;
-      v85 = 2048;
-      v86 = v29;
+      v83 = v28;
+      v84 = 2048;
+      v85 = v29;
       _os_log_impl(&dword_1B63EF000, v27, OS_LOG_TYPE_DEFAULT, "%{public}@ accepted %ld seeds", buf, 0x16u);
     }
 
@@ -941,21 +919,21 @@ void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
     v32 = [v30 dateByAddingTimeInterval:{-objc_msgSend(v31, "candidateMaxAgeSeconds")}];
 
     v33 = [MEMORY[0x1E695DF70] array];
-    v63[0] = MEMORY[0x1E69E9820];
-    v63[1] = 3221225472;
-    v63[2] = __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDs___block_invoke_63;
-    v63[3] = &unk_1E7C36DD8;
-    v64 = a1[8];
+    v62[0] = MEMORY[0x1E69E9820];
+    v62[1] = 3221225472;
+    v62[2] = __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDs___block_invoke_63;
+    v62[3] = &unk_1E7C36DD8;
+    v63 = a1[8];
     v34 = v24;
-    v65 = v34;
+    v64 = v34;
     v35 = v32;
-    v66 = v35;
+    v65 = v35;
     v36 = v33;
     v37 = a1[4];
-    v67 = v36;
-    v68 = v37;
-    v55 = v18;
-    [v18 enumerateObjectsUsingBlock:v63];
+    v66 = v36;
+    v67 = v37;
+    v54 = v18;
+    [v18 enumerateObjectsUsingBlock:v62];
     v38 = FCOperationLog;
     if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
     {
@@ -964,9 +942,9 @@ void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
       v41 = [v39 shortOperationDescription];
       v42 = [v36 count];
       *buf = 138543618;
-      v84 = v41;
-      v85 = 2048;
-      v86 = v42;
+      v83 = v41;
+      v84 = 2048;
+      v85 = v42;
       _os_log_impl(&dword_1B63EF000, v40, OS_LOG_TYPE_DEFAULT, "%{public}@ accepted %ld co-reads", buf, 0x16u);
     }
 
@@ -974,41 +952,39 @@ void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
     v44 = [(FCCKBatchedMultiFetchQueryOperation *)WeakRetained networkEvents];
     [a1[4] setNetworkEvents:v44];
 
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     v45 = v36;
-    v46 = [v45 countByEnumeratingWithState:&v59 objects:v82 count:16];
+    v46 = [v45 countByEnumeratingWithState:&v58 objects:v81 count:16];
     if (v46)
     {
       v47 = v46;
-      v48 = *v60;
+      v48 = *v59;
       do
       {
         for (i = 0; i != v47; ++i)
         {
-          if (*v60 != v48)
+          if (*v59 != v48)
           {
             objc_enumerationMutation(v45);
           }
 
-          v50 = *(*(&v59 + 1) + 8 * i);
+          v50 = *(*(&v58 + 1) + 8 * i);
           v51 = [a1[4] feedItemHandler];
           v51[2](v51, v50);
         }
 
-        v47 = [v45 countByEnumeratingWithState:&v59 objects:v82 count:16];
+        v47 = [v45 countByEnumeratingWithState:&v58 objects:v81 count:16];
       }
 
       while (v47);
     }
 
     [a1[4] finishedPerformingOperationWithError:0];
-    v6 = v58;
+    v6 = v57;
   }
-
-  v52 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDs___block_invoke_7(uint64_t a1, void *a2)
@@ -1021,54 +997,54 @@ uint64_t __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleLi
 
 void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDs___block_invoke_8(uint64_t a1, void *a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = *(a1 + 32);
-  v4 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v4 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       v7 = 0;
       do
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = [[FCArticleList alloc] initWithRecord:*(*(&v20 + 1) + 8 * v7) interestToken:0];
+        v8 = [[FCArticleList alloc] initWithRecord:*(*(&v19 + 1) + 8 * v7) interestToken:0];
+        v15 = 0u;
         v16 = 0u;
         v17 = 0u;
         v18 = 0u;
-        v19 = 0u;
         v9 = [(FCArticleList *)v8 articleIDs];
-        v10 = [v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
+        v10 = [v9 countByEnumeratingWithState:&v15 objects:v23 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v17;
+          v12 = *v16;
           do
           {
             v13 = 0;
             do
             {
-              if (*v17 != v12)
+              if (*v16 != v12)
               {
                 objc_enumerationMutation(v9);
               }
 
-              [v3 setObject:v8 forKeyedSubscript:*(*(&v16 + 1) + 8 * v13++)];
+              [v3 setObject:v8 forKeyedSubscript:*(*(&v15 + 1) + 8 * v13++)];
             }
 
             while (v11 != v13);
-            v11 = [v9 countByEnumeratingWithState:&v16 objects:v24 count:16];
+            v11 = [v9 countByEnumeratingWithState:&v15 objects:v23 count:16];
           }
 
           while (v11);
@@ -1078,13 +1054,11 @@ void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
       }
 
       while (v7 != v5);
-      v5 = [obj countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v5 = [obj countByEnumeratingWithState:&v19 objects:v24 count:16];
     }
 
     while (v5);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDs___block_invoke_9(uint64_t a1, void *a2)
@@ -1097,77 +1071,75 @@ uint64_t __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleLi
 
 void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDs___block_invoke_10(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   [v3 addEntriesFromDictionary:*(a1 + 32)];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v4 = *(a1 + 40);
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        v10 = [*(a1 + 48) _feedItemFromArticleRecord:v9 articleListsByArticleID:{*(a1 + 56), v14}];
+        v9 = *(*(&v13 + 1) + 8 * i);
+        v10 = [*(a1 + 48) _feedItemFromArticleRecord:v9 articleListsByArticleID:{*(a1 + 56), v13}];
         v11 = [v9 recordID];
         v12 = [v11 recordName];
         [v3 setObject:v10 forKeyedSubscript:v12];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDs___block_invoke_63(uint64_t a1, void *a2)
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 base];
   v5 = [v4 identifier];
 
   if ([*(a1 + 32) containsObject:v5])
   {
-    v25 = v5;
-    v26 = v3;
+    v24 = v5;
+    v25 = v3;
     v6 = [v3 articleIDs];
+    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v31 = 0u;
-    v7 = [v6 countByEnumeratingWithState:&v28 objects:v40 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v27 objects:v39 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v29;
+      v9 = *v28;
       v10 = &FCOperationLog;
-      v27 = v6;
+      v26 = v6;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v29 != v9)
+          if (*v28 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v12 = [*(a1 + 40) objectForKeyedSubscript:*(*(&v28 + 1) + 8 * i)];
+          v12 = [*(a1 + 40) objectForKeyedSubscript:*(*(&v27 + 1) + 8 * i)];
           v13 = [v12 publishDate];
           v14 = [v13 fc_isLaterThanOrEqualTo:*(a1 + 48)];
 
@@ -1190,34 +1162,32 @@ void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
               v22 = v21 = v10;
               v23 = *(a1 + 48);
               *buf = 138544130;
-              v33 = v18;
-              v34 = 2114;
-              v35 = v19;
-              v36 = 2114;
-              v37 = v22;
-              v38 = 2114;
-              v39 = v23;
+              v32 = v18;
+              v33 = 2114;
+              v34 = v19;
+              v35 = 2114;
+              v36 = v22;
+              v37 = 2114;
+              v38 = v23;
               _os_log_impl(&dword_1B63EF000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ excluding as a co-read %{public}@ because it was published at %{public}@, which is prior to the earliest allowed date of %{public}@", buf, 0x2Au);
 
               v10 = v21;
               v9 = v20;
 
-              v6 = v27;
+              v6 = v26;
             }
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v28 objects:v40 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v27 objects:v39 count:16];
       }
 
       while (v8);
     }
 
-    v5 = v25;
-    v3 = v26;
+    v5 = v24;
+    v3 = v25;
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_continueOperationWithArticleListIDsNoCache:(id)cache
@@ -1301,21 +1271,19 @@ void __74__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
 
 uint64_t __81__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDsNoCache___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 shortOperationDescription];
-    v8 = 138543362;
-    v9 = v5;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ finishing early because there are no coreads article list IDs", &v8, 0xCu);
+    v7 = 138543362;
+    v8 = v5;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ finishing early because there are no coreads article list IDs", &v7, 0xCu);
   }
 
-  result = [*(a1 + 32) finishedPerformingOperationWithError:0];
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 32) finishedPerformingOperationWithError:0];
 }
 
 id __81__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDsNoCache___block_invoke_66(uint64_t a1, void *a2)
@@ -1329,7 +1297,7 @@ id __81__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDsN
 
 void __81__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDsNoCache___block_invoke_2(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -1339,38 +1307,36 @@ void __81__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
     v7 = [v6 convertRecord:v3];
 
     v8 = [[FCArticleList alloc] initWithRecord:v7 interestToken:0];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     v9 = [(FCArticleList *)v8 articleIDs];
-    v10 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         v13 = 0;
         do
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          [*(a1 + 40) setObject:v8 forKeyedSubscript:*(*(&v15 + 1) + 8 * v13++)];
+          [*(a1 + 40) setObject:v8 forKeyedSubscript:*(*(&v14 + 1) + 8 * v13++)];
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v11);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __81__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDsNoCache___block_invoke_4(id *a1, void *a2)
@@ -1462,19 +1428,17 @@ void __81__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
 
 void __81__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDsNoCache___block_invoke_6(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = FCOperationLog;
   if (os_log_type_enabled(FCOperationLog, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = v2;
     v5 = [v3 shortOperationDescription];
-    v7 = 138543362;
-    v8 = v5;
-    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ finishing early because none of the coreads article lists exist", &v7, 0xCu);
+    v6 = 138543362;
+    v7 = v5;
+    _os_log_impl(&dword_1B63EF000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ finishing early because none of the coreads article lists exist", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 id __81__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDsNoCache___block_invoke_71(uint64_t a1, void *a2)
@@ -1488,7 +1452,7 @@ id __81__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDsN
 
 void __81__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDsNoCache___block_invoke_2_74(uint64_t a1, uint64_t a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v3 = [*(a1 + 32) _feedItemFromArticleRecord:a2 articleListsByArticleID:*(a1 + 40)];
   v4 = [v3 publishDate];
   v5 = [v4 fc_isLaterThanOrEqualTo:*(a1 + 48)];
@@ -1510,19 +1474,17 @@ void __81__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
       v11 = [v3 articleID];
       v12 = [v3 publishDate];
       v13 = *(a1 + 48);
-      v15 = 138544130;
-      v16 = v10;
-      v17 = 2114;
-      v18 = v11;
-      v19 = 2114;
-      v20 = v12;
-      v21 = 2114;
-      v22 = v13;
-      _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ excluding as a co-read %{public}@ because it was published at %{public}@, which is prior to the earliest allowed date of %{public}@", &v15, 0x2Au);
+      v14 = 138544130;
+      v15 = v10;
+      v16 = 2114;
+      v17 = v11;
+      v18 = 2114;
+      v19 = v12;
+      v20 = 2114;
+      v21 = v13;
+      _os_log_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_DEFAULT, "%{public}@ excluding as a co-read %{public}@ because it was published at %{public}@, which is prior to the earliest allowed date of %{public}@", &v14, 0x2Au);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __81__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListIDsNoCache___block_invoke_75(uint64_t a1, void *a2)
@@ -1580,7 +1542,7 @@ void __81__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
 
 - (BOOL)_shouldBypassCache
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   IsMemoryConstrained = FCProcessIsMemoryConstrained();
   if (IsMemoryConstrained)
   {
@@ -1590,21 +1552,20 @@ void __81__FCPeopleAlsoReadArticlesOperation__continueOperationWithArticleListID
     {
       if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"People Also Read operation should have no cursor if bypassing the cache"];
-        v8 = 136315906;
-        v9 = "[FCPeopleAlsoReadArticlesOperation _shouldBypassCache]";
-        v10 = 2080;
-        v11 = "FCPeopleAlsoReadArticlesOperation.m";
-        v12 = 1024;
-        v13 = 512;
-        v14 = 2114;
-        v15 = v7;
-        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v8, 0x26u);
+        v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"People Also Read operation should have no cursor if bypassing the cache"];
+        v7 = 136315906;
+        v8 = "[FCPeopleAlsoReadArticlesOperation _shouldBypassCache]";
+        v9 = 2080;
+        v10 = "FCPeopleAlsoReadArticlesOperation.m";
+        v11 = 1024;
+        v12 = 512;
+        v13 = 2114;
+        v14 = v6;
+        _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v7, 0x26u);
       }
     }
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return IsMemoryConstrained;
 }
 

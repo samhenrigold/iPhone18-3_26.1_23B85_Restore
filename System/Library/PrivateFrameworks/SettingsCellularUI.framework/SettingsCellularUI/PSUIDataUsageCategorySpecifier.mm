@@ -102,7 +102,7 @@ LABEL_21:
 
 - (unint64_t)dataUsage
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   billingPeriodSource = [(PSUIDataUsageCategorySpecifier *)self billingPeriodSource];
   v4 = billingPeriodSource;
   appType = self->_appType;
@@ -182,9 +182,9 @@ LABEL_31:
           if (os_log_type_enabled(getLogger, OS_LOG_TYPE_INFO))
           {
             *buf = 134218240;
-            v39 = v32;
-            v40 = 2048;
-            v41 = v18;
+            v38 = v32;
+            v39 = 2048;
+            v40 = v18;
             _os_log_impl(&dword_2658DE000, v34, OS_LOG_TYPE_INFO, "Removing %zu bytes of hotspot usage from %zu bytes of system services", buf, 0x16u);
           }
 
@@ -196,9 +196,9 @@ LABEL_31:
           if (os_log_type_enabled(getLogger, OS_LOG_TYPE_FAULT))
           {
             *buf = 134218240;
-            v39 = v32;
-            v40 = 2048;
-            v41 = v18;
+            v38 = v32;
+            v39 = 2048;
+            v40 = v18;
             _os_log_fault_impl(&dword_2658DE000, v34, OS_LOG_TYPE_FAULT, "Hotspot usage %zu is greater than system services usage %zu", buf, 0x16u);
           }
         }
@@ -263,9 +263,9 @@ LABEL_28:
   getLogger2 = [(PSUIDataUsageCategorySpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger2, OS_LOG_TYPE_ERROR))
   {
-    v37 = self->_appType;
+    v36 = self->_appType;
     *buf = 134217984;
-    v39 = v37;
+    v38 = v36;
     _os_log_error_impl(&dword_2658DE000, getLogger2, OS_LOG_TYPE_ERROR, "Unhandled usage category %lu", buf, 0xCu);
   }
 
@@ -273,7 +273,6 @@ LABEL_28:
   v18 = 0;
 LABEL_45:
 
-  v35 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -369,33 +368,29 @@ void __49__PSUIDataUsageCategorySpecifier_showHiddenApps___block_invoke(uint64_t
 
 void __49__PSUIDataUsageCategorySpecifier_showHiddenApps___block_invoke_2(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (*(a1 + 56) == 1)
   {
-    v8 = objc_alloc_init(PSUIDataUsageCategoryListController);
+    v6 = objc_alloc_init(PSUIDataUsageCategoryListController);
     v2 = [*(a1 + 32) hostController];
-    [(PSUIDataUsageCategoryListController *)v8 setParentController:v2];
+    [(PSUIDataUsageCategoryListController *)v6 setParentController:v2];
 
-    [(PSUIDataUsageCategoryListController *)v8 setSpecifier:*(a1 + 40)];
-    [(PSUIDataUsageCategoryListController *)v8 setParentSpecifier:*(a1 + 40)];
+    [(PSUIDataUsageCategoryListController *)v6 setSpecifier:*(a1 + 40)];
+    [(PSUIDataUsageCategoryListController *)v6 setParentSpecifier:*(a1 + 40)];
     v3 = [*(a1 + 32) hostController];
-    [v3 showController:v8];
-
-    v4 = *MEMORY[0x277D85DE8];
+    [v3 showController:v6];
   }
 
   else
   {
-    v5 = [*(a1 + 32) getLogger];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = [*(a1 + 32) getLogger];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = [*(a1 + 48) localizedDescription];
+      v5 = [*(a1 + 48) localizedDescription];
       *buf = 138412290;
-      v10 = v7;
-      _os_log_error_impl(&dword_2658DE000, v5, OS_LOG_TYPE_ERROR, "Failed to authenticate, error: %@", buf, 0xCu);
+      v8 = v5;
+      _os_log_error_impl(&dword_2658DE000, v4, OS_LOG_TYPE_ERROR, "Failed to authenticate, error: %@", buf, 0xCu);
     }
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 }
 

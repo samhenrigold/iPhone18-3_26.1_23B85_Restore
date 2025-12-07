@@ -33,11 +33,11 @@ uint64_t __46__MCDBrowsableContentUtilities_sharedInstance__block_invoke()
   if (![(NSArray *)nowPlayingIdentifiers isEqualToArray:identifiersCopy])
   {
     objc_storeStrong(p_nowPlayingIdentifiers, identifiers);
-    v8 = MCDGeneralLogging();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = MCDGeneralLogging(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_25AD8E000, v8, OS_LOG_TYPE_DEFAULT, "Posting MCDBrowsableContentNowPlayingIdentifiersUpdatedNotification", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_25AD8E000, v9, OS_LOG_TYPE_DEFAULT, "Posting MCDBrowsableContentNowPlayingIdentifiersUpdatedNotification", v11, 2u);
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
@@ -47,12 +47,11 @@ uint64_t __46__MCDBrowsableContentUtilities_sharedInstance__block_invoke()
 
 - (NSArray)firstPartyAppBundleIDs
 {
-  v5[3] = *MEMORY[0x277D85DE8];
-  v5[0] = @"com.apple.podcasts";
-  v5[1] = @"com.apple.iBooks";
-  v5[2] = @"com.apple.Music";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:3];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[3] = *MEMORY[0x277D85DE8];
+  v4[0] = @"com.apple.podcasts";
+  v4[1] = @"com.apple.iBooks";
+  v4[2] = @"com.apple.Music";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:3];
 
   return v2;
 }

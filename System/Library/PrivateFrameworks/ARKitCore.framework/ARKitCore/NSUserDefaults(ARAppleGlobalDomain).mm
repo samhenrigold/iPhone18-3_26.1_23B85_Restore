@@ -13,9 +13,9 @@
     +[NSUserDefaults(ARAppleGlobalDomain) appleGlobalDomain];
   }
 
-  v1 = appleGlobalDomain_defaults;
+  v2 = appleGlobalDomain_defaults;
 
-  return v1;
+  return v2;
 }
 
 + (id)appleGlobalDomainARKitKeys

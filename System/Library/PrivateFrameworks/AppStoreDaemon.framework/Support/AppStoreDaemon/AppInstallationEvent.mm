@@ -61,7 +61,7 @@
 
 + (id)additionalMetricsWithRestoreInstalls:(id)installs
 {
-  sub_10009FAD4(0, &qword_10059E848);
+  sub_10009FAD4(0, &qword_10059E848, off_100506440);
   v3 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sub_10016FE40(v3);
 

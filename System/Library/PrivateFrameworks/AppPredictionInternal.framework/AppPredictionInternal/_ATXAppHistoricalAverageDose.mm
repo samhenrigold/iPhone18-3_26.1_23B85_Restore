@@ -48,22 +48,26 @@
     self->_currentDuration = v10 + self->_currentDuration;
   }
 
-  else if ([v8 compare:*p_currentDay] == 1)
-  {
-    for (i = *p_currentDay; [v8 compare:i] == 1; i = self->_currentDay)
-    {
-      [(_ATXAppHistoricalAverageDose *)self _finishCurrentDay];
-    }
-
-    self->_currentDuration = v10;
-  }
-
   else
   {
-    v13 = __atxlog_handle_default();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v12 = [v8 compare:*p_currentDay];
+    if (v12 == 1)
     {
-      [_ATXAppHistoricalAverageDose addDuration:v8 endDate:p_currentDay];
+      for (i = *p_currentDay; [v8 compare:i] == 1; i = self->_currentDay)
+      {
+        [(_ATXAppHistoricalAverageDose *)self _finishCurrentDay];
+      }
+
+      self->_currentDuration = v10;
+    }
+
+    else
+    {
+      v14 = __atxlog_handle_default(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+      {
+        [_ATXAppHistoricalAverageDose addDuration:endDate:];
+      }
     }
   }
 }
@@ -92,15 +96,13 @@
   self->_currentDuration = 0.0;
 }
 
-- (void)addDuration:(uint64_t)a1 endDate:(uint64_t *)a2 .cold.1(uint64_t a1, uint64_t *a2)
+- (void)addDuration:endDate:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
-  OUTLINED_FUNCTION_2();
-  v7 = 2112;
-  v8 = v3;
-  _os_log_fault_impl(&dword_2263AA000, v4, OS_LOG_TYPE_FAULT, "Received a corrupt app launch event from the app launch stream. LaunchDay is %@, which is earlier than currentDay: %@", v6, 0x16u);
   v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2();
+  v3 = 2112;
+  v4 = v0;
+  _os_log_fault_impl(&dword_2263AA000, v1, OS_LOG_TYPE_FAULT, "Received a corrupt app launch event from the app launch stream. LaunchDay is %@, which is earlier than currentDay: %@", v2, 0x16u);
 }
 
 - (void)skipTo:.cold.1()

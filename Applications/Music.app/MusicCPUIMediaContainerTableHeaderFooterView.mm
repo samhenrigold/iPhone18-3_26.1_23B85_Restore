@@ -10,26 +10,26 @@
 
 - (void)setArtworkCatalog:(id)catalog
 {
-  v5 = sub_10010FC20(&unk_101188920);
-  __chkstk_darwin(v5 - 8);
-  v7 = &v13 - v6;
+  sub_10010FC20(&unk_101188920, &qword_100EBCC50);
+  __chkstk_darwin();
+  v6 = &v12 - v5;
   if (catalog)
   {
     catalogCopy = catalog;
     selfCopy = self;
     Artwork.init(_:)();
-    v10 = type metadata accessor for Artwork();
-    (*(*(v10 - 8) + 56))(v7, 0, 1, v10);
+    v9 = type metadata accessor for Artwork();
+    (*(*(v9 - 8) + 56))(v6, 0, 1, v9);
   }
 
   else
   {
-    v11 = type metadata accessor for Artwork();
-    (*(*(v11 - 8) + 56))(v7, 1, 1, v11);
+    v10 = type metadata accessor for Artwork();
+    (*(*(v10 - 8) + 56))(v6, 1, 1, v10);
     selfCopy2 = self;
   }
 
-  sub_100261718(v7);
+  sub_100261718(v6);
 }
 
 - (_TtC5Music44MusicCPUIMediaContainerTableHeaderFooterView)initWithReuseIdentifier:(id)identifier

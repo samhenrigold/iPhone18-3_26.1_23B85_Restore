@@ -1,13 +1,13 @@
-void sub_10007F0F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10007F0F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcRTSetScanFreqRspCbV3_SDK::~ARI_UtaIdcRTSetScanFreqRspCbV3_SDK(va);
   _Unwind_Resume(a1);
 }
 
-void sub_10007F29C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_10007F29C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   AriSdk::ARI_UtaIdcConfigMiscParamReqV3_SDK::~ARI_UtaIdcConfigMiscParamReqV3_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -53,9 +53,9 @@ LABEL_6:
   AriSdk::ARI_UtaIdcConfigMiscParamRspCbV3_SDK::~ARI_UtaIdcConfigMiscParamRspCbV3_SDK(v11);
 }
 
-void sub_10007F3C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10007F3C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   AriSdk::ARI_UtaIdcConfigMiscParamRspCbV3_SDK::~ARI_UtaIdcConfigMiscParamRspCbV3_SDK(va);
   _Unwind_Resume(a1);
 }
@@ -1107,43 +1107,42 @@ void sub_10008796C(uint64_t a1)
     [v2 setResultType:4];
     [v2 setFetchLimit:1];
     v4 = [*(a1 + 40) private_queue_context];
-    v14 = 0;
-    v5 = [v4 executeFetchRequest:v2 error:&v14];
-    v6 = v14;
+    v13 = 0;
+    v5 = [v4 executeFetchRequest:v2 error:&v13];
+    v6 = v13;
 
     [WCM_Logging logLevel:22 message:@"CellStationManager: Created fetch request"];
     v7 = [v5 firstObject];
     v8 = [v7 BOOLValue];
 
-    v9 = *(a1 + 32);
     if (v8)
     {
-      v10 = @"CellStationManager: The given cellID %@ is FR2 Capable";
+      v9 = @"CellStationManager: The given cellID %@ is FR2 Capable";
     }
 
     else
     {
-      v10 = @"CellStationManager: The given cellID %@ is not FR2 Capable";
+      v9 = @"CellStationManager: The given cellID %@ is not FR2 Capable";
     }
 
-    [WCM_Logging logLevel:22 message:v10, *(a1 + 32)];
-    v11 = [*(a1 + 40) private_queue_context];
-    [v11 reset];
+    [WCM_Logging logLevel:22 message:v9, *(a1 + 32)];
+    v10 = [*(a1 + 40) private_queue_context];
+    [v10 reset];
 
-    v12 = *(a1 + 48);
-    if (v12)
+    v11 = *(a1 + 48);
+    if (v11)
     {
-      (*(v12 + 16))(v12, v8);
+      (*(v11 + 16))(v11, v8);
     }
   }
 
   else
   {
     [WCM_Logging logLevel:22 message:@"CellStationManager: Error creating fetch request"];
-    v13 = *(a1 + 48);
-    if (v13)
+    v12 = *(a1 + 48);
+    if (v12)
     {
-      (*(v13 + 16))(v13, 0);
+      (*(v12 + 16))(v12, 0);
     }
   }
 }
@@ -4619,7 +4618,7 @@ uint64_t sub_10008FA88(void *a1, int a2)
   return v6;
 }
 
-NSMutableArray *sub_100090054(int a1, unsigned int a2, unsigned int a3)
+NSMutableArray *sub_100090054(int a1, unsigned int a2, int a3)
 {
   v4 = a2;
   if (a2 <= a3 && (a2 - 1) <= 0xE8u && (a3 - 1) <= 0xE8u && a1)
@@ -4920,9 +4919,9 @@ NSData *sub_10009D018(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-void sub_10009D3B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10009D3B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5042,7 +5041,7 @@ void sub_10009D500(uint64_t a1, void *a2, uint64_t a3)
   }
 }
 
-uint64_t sub_10009D964()
+uint64_t sub_10009D964(uint64_t a1)
 {
   if (!qword_1002B7E98)
   {
@@ -5054,7 +5053,6 @@ uint64_t sub_10009D964()
 
 uint64_t sub_10009DA34(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1002B7E98 = result;
   return result;
@@ -5077,9 +5075,14 @@ Class sub_10009DAC4(uint64_t a1)
 void sub_10009DB1C()
 {
   v0 = 0;
-  if (!sub_10009D964())
+  if (!sub_10009D964(&v0))
   {
     sub_10015F59C(&v0);
+  }
+
+  if (v0)
+  {
+    free(v0);
   }
 }
 
@@ -5949,50 +5952,48 @@ void sub_1000A9FA4(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = *(a1 + 40);
-  v22[0] = _NSConcreteStackBlock;
-  v22[1] = 3221225472;
-  v22[2] = sub_1000AA3AC;
-  v22[3] = &unk_1002403C0;
-  v22[4] = v2;
-  v23 = *(a1 + 48);
-  [v2 fetchObjectsForCellID:v3 completionHandler:v22];
+  v20[0] = _NSConcreteStackBlock;
+  v20[1] = 3221225472;
+  v20[2] = sub_1000AA3AC;
+  v20[3] = &unk_1002403C0;
+  v20[4] = v2;
+  v21 = *(a1 + 48);
+  [v2 fetchObjectsForCellID:v3 completionHandler:v20];
   if ([*(*(a1 + 32) + 24) count])
   {
-    v4 = [*(*(a1 + 32) + 24) count];
-    v5 = *(a1 + 40);
-    if (v4 == 1)
+    if ([*(*(a1 + 32) + 24) count] == 1)
     {
       [WCM_Logging logLevel:22 message:@"DataStoreManager: Record for given cellID %@ found", *(a1 + 40)];
-      v6 = [*(*(a1 + 32) + 24) lastObject];
-      v7 = [v6 valueForKey:@"cellID"];
-      v8 = [v6 valueForKey:@"bssid"];
-      v9 = [v6 valueForKey:@"cell_backhaul"];
+      v4 = [*(*(a1 + 32) + 24) lastObject];
+      v5 = [v4 valueForKey:@"cellID"];
+      v6 = [v4 valueForKey:@"bssid"];
+      v7 = [v4 valueForKey:@"cell_backhaul"];
+      v8 = [v7 intValue];
+      v9 = [v4 valueForKey:@"wifi_backhaul"];
       v10 = [v9 intValue];
-      v11 = [v6 valueForKey:@"wifi_backhaul"];
-      v12 = [v11 intValue];
-      v13 = [v6 valueForKey:@"tcpRTT"];
-      +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 22, @"DataStoreManager: the current record for given cellID is %@, %@, %d, %d, %d", v7, v8, v10, v12, [v13 intValue]);
+      v11 = [v4 valueForKey:@"tcpRTT"];
+      +[WCM_Logging logLevel:message:](WCM_Logging, "logLevel:message:", 22, @"DataStoreManager: the current record for given cellID is %@, %@, %d, %d, %d", v5, v6, v8, v10, [v11 intValue]);
 
-      v14 = *(a1 + 48);
-      if (v14)
+      v12 = *(a1 + 48);
+      if (v12)
       {
-        v24[0] = @"cellID";
-        v15 = [v6 valueForKey:?];
-        v25[0] = v15;
-        v24[1] = @"bssid";
-        v16 = [v6 valueForKey:?];
-        v25[1] = v16;
-        v24[2] = @"cell_backhaul";
-        v17 = [v6 valueForKey:?];
-        v25[2] = v17;
-        v24[3] = @"wifi_backhaul";
-        v18 = [v6 valueForKey:?];
-        v25[3] = v18;
-        v24[4] = @"tcpRTT";
-        v19 = [v6 valueForKey:?];
-        v25[4] = v19;
-        v20 = [NSDictionary dictionaryWithObjects:v25 forKeys:v24 count:5];
-        (*(v14 + 16))(v14, v20);
+        v22[0] = @"cellID";
+        v13 = [v4 valueForKey:?];
+        v23[0] = v13;
+        v22[1] = @"bssid";
+        v14 = [v4 valueForKey:?];
+        v23[1] = v14;
+        v22[2] = @"cell_backhaul";
+        v15 = [v4 valueForKey:?];
+        v23[2] = v15;
+        v22[3] = @"wifi_backhaul";
+        v16 = [v4 valueForKey:?];
+        v23[3] = v16;
+        v22[4] = @"tcpRTT";
+        v17 = [v4 valueForKey:?];
+        v23[4] = v17;
+        v18 = [NSDictionary dictionaryWithObjects:v23 forKeys:v22 count:5];
+        (*(v12 + 16))(v12, v18);
       }
 
       goto LABEL_10;
@@ -6006,10 +6007,10 @@ void sub_1000A9FA4(uint64_t a1)
     [WCM_Logging logLevel:22 message:@"DataStoreManager: The given cellID %@ not found", *(a1 + 40)];
   }
 
-  v21 = *(a1 + 48);
-  if (v21)
+  v19 = *(a1 + 48);
+  if (v19)
   {
-    (*(v21 + 16))(v21, 0);
+    (*(v19 + 16))(v19, 0);
   }
 
 LABEL_10:
@@ -6090,9 +6091,9 @@ id sub_1000AB6BC()
   return v1;
 }
 
-void sub_1000AB784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AB784(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6121,23 +6122,23 @@ id sub_1000ABBDC()
   return v1;
 }
 
-void sub_1000ABCA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000ABCA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000ABE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000ABE64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1000AC22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AC22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6184,7 +6185,6 @@ void sub_1000AC2B0()
 
 uint64_t sub_1000AC3A4(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   qword_1002B7ED0 = result;
   return result;
@@ -6319,7 +6319,7 @@ void sub_1000AC6F4(void *a1)
   JUMPOUT(0x1000AC6E8);
 }
 
-std::string::value_type *sub_1000AC708(tlv *a1, const unsigned __int8 *a2, uint64_t a3, unint64_t a4)
+char *sub_1000AC708(tlv *a1, const unsigned __int8 *a2, uint64_t a3, unint64_t a4)
 {
   v6 = a1;
   tlv::throwIfNotEnoughBytes(a1, a2, 1, a4);
@@ -6394,7 +6394,7 @@ uint64_t sub_1000AC8B8(uint64_t a1)
   return v1 + 34;
 }
 
-std::string::value_type *sub_1000AC8D4@<X0>(tlv **a1@<X0>, int a2@<W1>, unint64_t a3@<X3>, _OWORD *a4@<X8>)
+char *sub_1000AC8D4@<X0>(tlv **a1@<X0>, int a2@<W1>, unint64_t a3@<X3>, _OWORD *a4@<X8>)
 {
   *(a4 + 41) = 0u;
   a4[1] = 0u;
@@ -6441,7 +6441,7 @@ _BYTE *sub_1000AC964(_BYTE **a1, _BYTE *a2)
   return result;
 }
 
-std::string::value_type *sub_1000AC990(tlv *a1, const unsigned __int8 *a2, uint64_t *a3, unint64_t a4)
+char *sub_1000AC990(tlv *a1, const unsigned __int8 *a2, char **a3, unint64_t a4)
 {
   tlv::throwIfNotEnoughBytes(a1, a2, 1, a4);
   v8 = *a1;
@@ -6505,7 +6505,7 @@ uint64_t sub_1000ACA48(uint64_t *a1)
   return v3 + 1;
 }
 
-std::string::value_type *sub_1000ACA90@<X0>(tlv **a1@<X0>, int a2@<W1>, unint64_t a3@<X3>, uint64_t *a4@<X8>)
+char *sub_1000ACA90@<X0>(tlv **a1@<X0>, int a2@<W1>, unint64_t a3@<X3>, char **a4@<X8>)
 {
   *a4 = 0;
   a4[1] = 0;
@@ -6523,9 +6523,9 @@ void sub_1000ACAD8(void *a1)
   JUMPOUT(0x1000ACAC8);
 }
 
-void sub_1000ACAE8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000ACAE8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1000ADB70(va);
   _Unwind_Resume(a1);
 }
@@ -6896,7 +6896,7 @@ void sub_1000AD440(void *a1)
   JUMPOUT(0x1000AD434);
 }
 
-unint64_t sub_1000AD454(tlv *a1, const unsigned __int8 *a2, uint64_t a3, unint64_t a4)
+char *sub_1000AD454(tlv *a1, const unsigned __int8 *a2, uint64_t a3, unint64_t a4)
 {
   tlv::throwIfNotEnoughBytes(a1, a2, 1, a4);
   v9 = *a1;
@@ -6998,7 +6998,7 @@ unint64_t sub_1000AD5B8(uint64_t a1)
   }
 }
 
-unint64_t sub_1000AD5D0@<X0>(tlv **a1@<X0>, int a2@<W1>, unint64_t a3@<X3>, uint64_t a4@<X8>)
+char *sub_1000AD5D0@<X0>(tlv **a1@<X0>, int a2@<W1>, unint64_t a3@<X3>, uint64_t a4@<X8>)
 {
   *a4 = 0;
   *(a4 + 8) = 0;
@@ -7348,7 +7348,7 @@ void sub_1000ADBC4(void ***a1)
   a1[1] = v2;
 }
 
-void sub_1000ADC14(void *a1, unint64_t a2)
+void sub_1000ADC14(char **a1, unint64_t a2)
 {
   v3 = a1[1];
   v4 = (v3 - *a1) >> 6;
@@ -7356,7 +7356,7 @@ void sub_1000ADC14(void *a1, unint64_t a2)
   {
     if (a2 < v4)
     {
-      v6 = (*a1 + (a2 << 6));
+      v6 = &(*a1)[64 * a2];
       while (v3 != v6)
       {
         v7 = *(v3 - 41);
@@ -7379,19 +7379,19 @@ void sub_1000ADC14(void *a1, unint64_t a2)
   }
 }
 
-void sub_1000ADCA8(uint64_t a1, unint64_t a2)
+void sub_1000ADCA8(char **a1, unint64_t a2)
 {
-  v5 = *(a1 + 8);
-  v4 = *(a1 + 16);
+  v5 = a1[1];
+  v4 = a1[2];
   if (a2 <= (v4 - v5) >> 6)
   {
     if (a2)
     {
-      bzero(*(a1 + 8), a2 << 6);
-      v5 += a2 << 6;
+      bzero(a1[1], a2 << 6);
+      v5 += 64 * a2;
     }
 
-    *(a1 + 8) = v5;
+    a1[1] = v5;
   }
 
   else
@@ -7427,16 +7427,16 @@ void sub_1000ADCA8(uint64_t a1, unint64_t a2)
     }
 
     v15 = 0;
-    v16 = (v8 << 6);
+    v16 = v8 << 6;
     bzero((v8 << 6), a2 << 6);
     v17 = (v8 << 6) + (a2 << 6);
-    v11 = *(a1 + 8);
-    v12 = (v8 << 6) + *a1 - v11;
+    v11 = a1[1];
+    v12 = ((v8 << 6) + *a1 - v11);
     sub_1000ADE18(a1, *a1, v11, v12);
     v13 = *a1;
     *a1 = v12;
-    v14 = *(a1 + 16);
-    *(a1 + 8) = v17;
+    v14 = a1[2];
+    *(a1 + 1) = v17;
     *&v17 = v13;
     *(&v17 + 1) = v14;
     v15 = v13;
@@ -7445,9 +7445,9 @@ void sub_1000ADCA8(uint64_t a1, unint64_t a2)
   }
 }
 
-void sub_1000ADDBC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1000ADDBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_1000ADF64(va);
   _Unwind_Resume(a1);
 }
@@ -7580,30 +7580,30 @@ void sub_1000ADFF8(uint64_t a1, unint64_t a2)
   sub_100049E98();
 }
 
-void sub_1000AE3E0()
+void sub_1000AE3E0(_Unwind_Exception *a1)
 {
-  if (*(v0 - 89) < 0)
+  if (*(v1 - 89) < 0)
   {
-    operator delete(*(v0 - 112));
+    operator delete(*(v1 - 112));
   }
 
-  if (*(v0 - 65) < 0)
+  if (*(v1 - 65) < 0)
   {
-    operator delete(*(v0 - 88));
+    operator delete(*(v1 - 88));
   }
 
   operator delete();
 }
 
-void sub_1000AE7C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AE7C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
   sub_100054008(va);
   qmi::MutableMessageBase::~MutableMessageBase(va1);
   _Unwind_Resume(a1);
@@ -7613,24 +7613,26 @@ id sub_1000AE7F0(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 4);
   v3 = *(a1 + 32);
-  if (!v2)
+  if (v2)
   {
-    return [WCM_Logging logLevel:22 message:@"QMI.NAS.%d: set NAS Indication Register successful.", *(v3 + 32), v6, v7];
+    return [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: failed to set NAS Indication Register. Error %d %s", *(v3 + 32), v2, qmi::asString()];
   }
 
-  v4 = *(a2 + 4);
-  return [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: failed to set NAS Indication Register. Error %d %s", *(v3 + 32), v2, qmi::asString()];
+  else
+  {
+    return [WCM_Logging logLevel:22 message:@"QMI.NAS.%d: set NAS Indication Register successful.", *(v3 + 32), v5, v6];
+  }
 }
 
-void sub_1000AE9AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AE9AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
   sub_100054008(va);
   qmi::MutableMessageBase::~MutableMessageBase(va1);
   _Unwind_Resume(a1);
@@ -7640,30 +7642,32 @@ id sub_1000AE9D8(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 4);
   v3 = *(a1 + 32);
-  if (!v2)
+  if (v2)
   {
-    return [WCM_Logging logLevel:22 message:@"QMI.NAS.%d: nas::SisNrAvailable::Response successful.", *(v3 + 32), v6, v7];
+    return [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: nas::SisNrAvailable::Response Error %d %s", *(v3 + 32), v2, qmi::asString()];
   }
 
-  v4 = *(a2 + 4);
-  return [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: nas::SisNrAvailable::Response Error %d %s", *(v3 + 32), v2, qmi::asString()];
+  else
+  {
+    return [WCM_Logging logLevel:22 message:@"QMI.NAS.%d: nas::SisNrAvailable::Response successful.", *(v3 + 32), v5, v6];
+  }
 }
 
-void sub_1000AEC78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000AEC78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
   sub_100054008(va);
   qmi::MutableMessageBase::~MutableMessageBase(va1);
   _Unwind_Resume(a1);
 }
 
-void sub_1000AECA4(const void **a1, _WORD *a2)
+void sub_1000AECA4(const void **a1, unsigned __int16 *a2)
 {
   v5 = a1[1];
   v4 = a1[2];
@@ -7719,7 +7723,7 @@ void sub_1000AECA4(const void **a1, _WORD *a2)
   else
   {
     *v5 = *a2;
-    v6 = v5 + 1;
+    v6 = v5 + 2;
   }
 
   a1[1] = v6;
@@ -7793,13 +7797,15 @@ id sub_1000AEFFC(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 4);
   v3 = *(a1 + 32);
-  if (!v2)
+  if (v2)
   {
-    return [WCM_Logging logLevel:22 message:@"QMI.NAS.%d: set NAS Config Info2 successful.", *(v3 + 32), v6, v7];
+    return [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: failed to set NAS Config Info2. Error %d %s", *(v3 + 32), v2, qmi::asString()];
   }
 
-  v4 = *(a2 + 4);
-  return [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: failed to set NAS Config Info2. Error %d %s", *(v3 + 32), v2, qmi::asString()];
+  else
+  {
+    return [WCM_Logging logLevel:22 message:@"QMI.NAS.%d: set NAS Config Info2 successful.", *(v3 + 32), v5, v6];
+  }
 }
 
 id sub_1000AF214(uint64_t a1, char *a2)
@@ -7859,11 +7865,11 @@ void sub_1000AF528(id a1, const void *a2)
   _Block_object_dispose(v7, 8);
 }
 
-void sub_1000AF620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000AF620(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -7908,20 +7914,20 @@ id sub_1000AF64C(void *a1, unsigned __int8 *a2)
   return [v13 processVoiceLqmQMI:v12 VLQM:v14 IMSPreference:v15 AudioErasure:v16 RSRP:v17];
 }
 
-void sub_1000AF928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1000AF928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va1, a6);
-  va_start(va, a6);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  va_start(va1, a11);
+  va_start(va, a11);
   v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
   v16 = va_arg(va1, void);
   v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
   sub_100054008(va);
   qmi::MutableMessageBase::~MutableMessageBase(va1);
   _Unwind_Resume(a1);
@@ -7941,10 +7947,11 @@ id sub_1000AF968(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_1000AFB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14)
+void sub_1000AFB04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
+  va_start(va, a13);
   sub_100054008(&a9);
-  qmi::MutableMessageBase::~MutableMessageBase(&a14);
+  qmi::MutableMessageBase::~MutableMessageBase(va);
   _Unwind_Resume(a1);
 }
 
@@ -7953,17 +7960,17 @@ void sub_1000AFB30(id a1, const void *a2)
   v2 = *(a2 + 1);
   if (v2)
   {
-    v3 = *(a2 + 1);
     [WCM_Logging logLevel:16 message:@"QMI: failed to query SINR. Error %d %s", v2, qmi::asString()];
   }
 
   [WCM_Logging logLevel:22 message:@"QMI: query SINR successful."];
 }
 
-void sub_1000AFD50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_1000AFD50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   sub_100054008(&a15);
-  qmi::MutableMessageBase::~MutableMessageBase(&a26);
+  qmi::MutableMessageBase::~MutableMessageBase(va);
   _Unwind_Resume(a1);
 }
 
@@ -7985,18 +7992,17 @@ id sub_1000AFDE8(uint64_t a1, uint64_t a2)
   v3 = *(a2 + 4);
   if (v3)
   {
-    v4 = *(*(a1 + 32) + 32);
-    v5 = *(a2 + 4);
-    [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: failed to send VoIP message. Error %d %s", v4, v3, qmi::asString()];
+    [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: failed to send VoIP message. Error %d %s", *(*(a1 + 32) + 32), v3, qmi::asString()];
   }
 
   return [WCM_Logging logLevel:22 message:@"QMI.NAS.%d: Send VoIP message.", *(*(a1 + 32) + 32)];
 }
 
-void sub_1000B0008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_1000B0008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   sub_100054008(&a15);
-  qmi::MutableMessageBase::~MutableMessageBase(&a26);
+  qmi::MutableMessageBase::~MutableMessageBase(va);
   _Unwind_Resume(a1);
 }
 
@@ -8014,18 +8020,17 @@ id sub_1000B008C(uint64_t a1, uint64_t a2)
   v3 = *(a2 + 4);
   if (v3)
   {
-    v4 = *(*(a1 + 32) + 32);
-    v5 = *(a2 + 4);
-    [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: failed to send lock status message. Error %d %s", v4, v3, qmi::asString()];
+    [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: failed to send lock status message. Error %d %s", *(*(a1 + 32) + 32), v3, qmi::asString()];
   }
 
   return [WCM_Logging logLevel:22 message:@"QMI.NAS.%d: Send SDM lock/unlock message.", *(*(a1 + 32) + 32)];
 }
 
-void sub_1000B02AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+void sub_1000B02AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, ...)
 {
+  va_start(va, a25);
   sub_100054008(&a15);
-  qmi::MutableMessageBase::~MutableMessageBase(&a26);
+  qmi::MutableMessageBase::~MutableMessageBase(va);
   _Unwind_Resume(a1);
 }
 
@@ -8043,19 +8048,17 @@ id sub_1000B0330(uint64_t a1, uint64_t a2)
   v3 = *(a2 + 4);
   if (v3)
   {
-    v4 = *(*(a1 + 32) + 32);
-    v5 = *(a2 + 4);
-    [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: failed to send AV status message. Error %d %s", v4, v3, qmi::asString()];
+    [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: failed to send AV status message. Error %d %s", *(*(a1 + 32) + 32), v3, qmi::asString()];
   }
 
   return [WCM_Logging logLevel:22 message:@"QMI.NAS.%d: Send AVStatus message state.", *(*(a1 + 32) + 32)];
 }
 
-void sub_1000B053C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000B053C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   sub_100054008(va);
-  qmi::MutableMessageBase::~MutableMessageBase((v7 - 120));
+  qmi::MutableMessageBase::~MutableMessageBase((v13 - 120));
   _Unwind_Resume(a1);
 }
 
@@ -8071,19 +8074,17 @@ id sub_1000B05B4(uint64_t a1, uint64_t a2)
   v3 = *(a2 + 4);
   if (v3)
   {
-    v4 = *(*(a1 + 32) + 32);
-    v5 = *(a2 + 4);
-    [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: failed to send Dupe status message. Error %d %s", v4, v3, qmi::asString()];
+    [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: failed to send Dupe status message. Error %d %s", *(*(a1 + 32) + 32), v3, qmi::asString()];
   }
 
   return [WCM_Logging logLevel:22 message:@"QMI.NAS.%d: Send FTDDupeState message state.", *(*(a1 + 32) + 32)];
 }
 
-void sub_1000B07C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000B07C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   sub_100054008(va);
-  qmi::MutableMessageBase::~MutableMessageBase((v7 - 120));
+  qmi::MutableMessageBase::~MutableMessageBase((v13 - 120));
   _Unwind_Resume(a1);
 }
 
@@ -8099,19 +8100,17 @@ id sub_1000B0838(uint64_t a1, uint64_t a2)
   v3 = *(a2 + 4);
   if (v3)
   {
-    v4 = *(*(a1 + 32) + 32);
-    v5 = *(a2 + 4);
-    [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: failed to send EBH status message. Error %d %s", v4, v3, qmi::asString()];
+    [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: failed to send EBH status message. Error %d %s", *(*(a1 + 32) + 32), v3, qmi::asString()];
   }
 
   return [WCM_Logging logLevel:22 message:@"QMI.NAS.%d: Send fEBH message state.", *(*(a1 + 32) + 32)];
 }
 
-void sub_1000B0AC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000B0AC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   sub_100054008(va);
-  qmi::MutableMessageBase::~MutableMessageBase((v7 - 136));
+  qmi::MutableMessageBase::~MutableMessageBase((v13 - 136));
   _Unwind_Resume(a1);
 }
 
@@ -8134,23 +8133,21 @@ id sub_1000B0B84(uint64_t a1, uint64_t a2)
   v3 = *(a2 + 4);
   if (v3)
   {
-    v4 = *(*(a1 + 32) + 32);
-    v5 = *(a2 + 4);
-    [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: failed to send setBBSAState message. Error %d %s", v4, v3, qmi::asString()];
+    [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: failed to send setBBSAState message. Error %d %s", *(*(a1 + 32) + 32), v3, qmi::asString()];
   }
 
   return [WCM_Logging logLevel:22 message:@"QMI.NAS.%d: Send setBBSAState message state.", *(*(a1 + 32) + 32)];
 }
 
-void sub_1000B0E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000B0E50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va1, a7);
-  va_start(va, a7);
-  v8 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
+  va_start(va1, a13);
+  va_start(va, a13);
+  v14 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
   sub_100054008(va);
   qmi::MutableMessageBase::~MutableMessageBase(va1);
   _Unwind_Resume(a1);
@@ -8214,12 +8211,12 @@ void sub_1000B0F6C(uint64_t a1, qmi::MessageBase *a2)
   _Block_object_dispose(&v16, 8);
 }
 
-void sub_1000B1124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_1000B1124(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v17 - 112), 8);
-  _Block_object_dispose((v17 - 80), 8);
+  _Block_object_dispose((v24 - 112), 8);
+  _Block_object_dispose((v24 - 80), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8235,21 +8232,16 @@ id sub_1000B1194(uint64_t a1, unsigned int *a2)
   v2 = a2[1];
   if (v2)
   {
-    v3 = *(*(a1 + 32) + 32);
-    v4 = a2[1];
-    return [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: WrmSdmLocationDbInfoRegister::Response Error %d %s", v3, v2, qmi::asString()];
+    return [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: WrmSdmLocationDbInfoRegister::Response Error %d %s", *(*(a1 + 32) + 32), v2, qmi::asString()];
   }
 
-  else
-  {
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_1000B1260;
-    v6[3] = &unk_100240718;
-    v6[4] = *(a1 + 32);
-    v7 = v6;
-    return sub_1000B8E8C(a2, 16, &v7);
-  }
+  v4[0] = _NSConcreteStackBlock;
+  v4[1] = 3221225472;
+  v4[2] = sub_1000B1260;
+  v4[3] = &unk_100240718;
+  v4[4] = *(a1 + 32);
+  v5 = v4;
+  return sub_1000B8E8C(a2, 16, &v5);
 }
 
 id sub_1000B1260(uint64_t a1, unsigned __int8 *a2)
@@ -8442,7 +8434,7 @@ void sub_1000B16C8(uint64_t a1)
   {
     v11 = *(v9 + 72);
     v10 = *(v9 + 80);
-    v12 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * ((v10 - v11) >> 2));
+    v12 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * (&v10[-v11] >> 2));
     if (v10 == v11)
     {
       v13 = 0;
@@ -8457,7 +8449,7 @@ void sub_1000B16C8(uint64_t a1)
     v15 = *(a1 + 32);
     v17 = *(v15 + 96);
     v16 = *(v15 + 104);
-    v18 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * ((v16 - v17) >> 2));
+    v18 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * (&v16[-v17] >> 2));
     if (v16 == v17)
     {
       v19 = 0;
@@ -8472,7 +8464,7 @@ void sub_1000B16C8(uint64_t a1)
     v21 = *(a1 + 32);
     v23 = *(v21 + 120);
     v22 = *(v21 + 128);
-    v24 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * ((v22 - v23) >> 2));
+    v24 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * (&v22[-v23] >> 2));
     if (v22 == v23)
     {
       v25 = 0;
@@ -8487,7 +8479,7 @@ void sub_1000B16C8(uint64_t a1)
     v27 = *(a1 + 32);
     v29 = *(v27 + 144);
     v28 = *(v27 + 152);
-    v30 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * ((v28 - v29) >> 2));
+    v30 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * (&v28[-v29] >> 2));
     if (v28 == v29)
     {
       v31 = 0;
@@ -8574,11 +8566,11 @@ void sub_1000B16C8(uint64_t a1)
   qmi::MutableMessageBase::~MutableMessageBase(v47);
 }
 
-void sub_1000B1BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_1000B1BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   sub_100054008(va);
-  qmi::MutableMessageBase::~MutableMessageBase((v6 - 120));
+  qmi::MutableMessageBase::~MutableMessageBase((v11 - 120));
   _Unwind_Resume(a1);
 }
 
@@ -8635,13 +8627,12 @@ id sub_1000B1D80(uint64_t a1, uint64_t a2)
   v4 = *(a1 + 32);
   if (v3)
   {
-    v5 = *(a2 + 4);
     result = [WCM_Logging logLevel:16 message:@"QMI.NAS.%d: WrmSdmLocationDbInfo::Response Error %d %s", *(v4 + 32), v3, qmi::asString()];
   }
 
   else
   {
-    result = [WCM_Logging logLevel:22 message:@"QMI.NAS.%d: WrmSdmLocationDbInfo::Response Successful", *(v4 + 32), v7, v8];
+    result = [WCM_Logging logLevel:22 message:@"QMI.NAS.%d: WrmSdmLocationDbInfo::Response Successful", *(v4 + 32), v6, v7];
   }
 
   *(*(a1 + 32) + 80) = *(*(a1 + 32) + 72);
@@ -8651,15 +8642,15 @@ id sub_1000B1D80(uint64_t a1, uint64_t a2)
   return result;
 }
 
-__n128 sub_1000B1ECC(uint64_t a1, uint64_t i, uint64_t a3, unint64_t a4, uint64_t a5, char a6, __n128 result)
+__n128 sub_1000B1ECC(uint64_t a1, char *i, uint64_t a3, unint64_t a4, uint64_t a5, char a6, __n128 result)
 {
 LABEL_1:
   v12 = i;
 LABEL_2:
   for (i = v12; ; i = v93)
   {
-    v13 = i - a4;
-    v14 = 0xCCCCCCCCCCCCCCCDLL * ((i - a4) >> 2);
+    v13 = &i[-a4];
+    v14 = 0xCCCCCCCCCCCCCCCDLL * (&i[-a4] >> 2);
     if (v14 <= 2)
     {
       if (v14 < 2)
@@ -8669,12 +8660,12 @@ LABEL_2:
 
       if (v14 == 2)
       {
-        if (*(a4 + 16) < *(i - 4))
+        if (*(a4 + 16) < *(i - 1))
         {
-          v240 = *(i - 4);
+          v240 = *(i - 1);
           v221 = *(i - 20);
           v133 = *a4;
-          *(i - 4) = *(a4 + 16);
+          *(i - 1) = *(a4 + 16);
           *(i - 20) = v133;
 LABEL_111:
           result = v221;
@@ -8695,43 +8686,43 @@ LABEL_111:
 
     if (v14 == 4)
     {
-      v128 = (i - 20);
+      v128 = i - 20;
       v129 = (i - 40);
-      v134 = *(i - 24);
-      if (v134 >= *(i - 4))
+      v134 = *(i - 6);
+      if (v134 >= *(i - 1))
       {
-        if (*(i - 44) < v134)
+        if (*(i - 11) < v134)
         {
-          v188 = *(i - 24);
+          v188 = *(i - 6);
           result = *v129;
-          v189 = *(i - 44);
+          v189 = *(i - 11);
           *(i - 40) = *(i - 60);
-          *(i - 24) = v189;
+          *(i - 6) = v189;
           *(i - 60) = result;
-          *(i - 44) = v188;
-          if (*(i - 24) < *(i - 4))
+          *(i - 11) = v188;
+          if (*(i - 6) < *(i - 1))
           {
-            v243 = *(i - 4);
+            v243 = *(i - 1);
             v226 = *v128;
             v190 = *v129;
-            *(i - 4) = *(i - 24);
+            *(i - 1) = *(i - 6);
             *v128 = v190;
             result = v226;
             *v129 = v226;
-            *(i - 24) = v243;
+            *(i - 6) = v243;
           }
         }
       }
 
       else
       {
-        v135 = (i - 60);
-        if (*(i - 44) < v134)
+        v135 = i - 60;
+        if (*(i - 11) < v134)
         {
-          v241 = *(i - 4);
+          v241 = *(i - 1);
           v222 = *v128;
           v136 = *v135;
-          *(i - 4) = *(i - 44);
+          *(i - 1) = *(i - 11);
           *v128 = v136;
           result = v222;
           *v135 = v222;
@@ -8739,59 +8730,59 @@ LABEL_111:
           goto LABEL_186;
         }
 
-        v245 = *(i - 4);
+        v245 = *(i - 1);
         v229 = *v128;
         v201 = *v129;
-        *(i - 4) = *(i - 24);
+        *(i - 1) = *(i - 6);
         *v128 = v201;
         result = v229;
         *v129 = v229;
-        *(i - 24) = v245;
-        if (*(i - 44) < *(i - 24))
+        *(i - 6) = v245;
+        if (*(i - 11) < *(i - 6))
         {
-          v137 = *(i - 24);
+          v137 = *(i - 6);
           result = *v129;
-          v202 = *(i - 44);
+          v202 = *(i - 11);
           *v129 = *v135;
-          *(i - 24) = v202;
+          *(i - 6) = v202;
           *v135 = result;
 LABEL_186:
-          *(i - 44) = v137;
+          *(i - 11) = v137;
         }
       }
 
-      if (*(a4 + 16) >= *(i - 44))
+      if (*(a4 + 16) >= *(i - 11))
       {
         return result;
       }
 
-      v203 = (i - 60);
-      v204 = *(i - 44);
+      v203 = i - 60;
+      v204 = *(i - 11);
       result = *(i - 60);
       v205 = *(a4 + 16);
       *v203 = *a4;
-      v203[1].n128_u32[0] = v205;
+      *(v203 + 4) = v205;
       *a4 = result;
       *(a4 + 16) = v204;
-      if (*(i - 44) >= *(i - 24))
+      if (*(i - 11) >= *(i - 6))
       {
         return result;
       }
 
-      v206 = *(i - 24);
+      v206 = *(i - 6);
       result = *v129;
-      v207 = *(i - 44);
+      v207 = *(i - 11);
       *v129 = *v203;
-      *(i - 24) = v207;
+      *(i - 6) = v207;
       *v203 = result;
-      *(i - 44) = v206;
+      *(i - 11) = v206;
 LABEL_190:
-      if (*(i - 24) < *(i - 4))
+      if (*(i - 6) < *(i - 1))
       {
-        v246 = v128[1].n128_u32[0];
+        v246 = *(v128 + 4);
         v230 = *v128;
         v208 = *v129;
-        v128[1].n128_u32[0] = v129[1].n128_u32[0];
+        *(v128 + 4) = v129[1].n128_u32[0];
         *v128 = v208;
         result = v230;
         *v129 = v230;
@@ -8803,7 +8794,7 @@ LABEL_190:
 
     if (v14 == 5)
     {
-      result.n128_u64[0] = sub_1000B2E54(result, a1, i, i - 20, i - 20, i - 40, i - 40, i - 60, i - 60, a3, a4 + 20).n128_u64[0];
+      result.n128_u64[0] = sub_1000B2E54(result, a1, i, (i - 20), (i - 20), (i - 40), (i - 40), (i - 60), (i - 60), a3, a4 + 20).n128_u64[0];
       return result;
     }
 
@@ -8814,16 +8805,16 @@ LABEL_10:
       {
         if (i != a4)
         {
-          v138 = (i - 20);
+          v138 = i - 20;
           if (i - 20 != a4)
           {
             v139 = 0;
-            v140 = (i - 4);
+            v140 = i - 4;
             do
             {
-              v141 = v138[-1].n128_u32[3];
-              v142 = v138[1].n128_u32[0];
-              v138 = (v138 - 20);
+              v141 = *(v138 - 1);
+              v142 = *(v138 + 4);
+              v138 -= 20;
               if (v141 < v142)
               {
                 v223 = *v138;
@@ -8832,14 +8823,14 @@ LABEL_10:
                 do
                 {
                   v145 = v143;
-                  *(v143 - 36) = v143[-1];
-                  v143[-2].n128_u32[3] = v143->n128_u32[0];
+                  *(v143 - 36) = *(v143 - 1);
+                  *(v143 - 5) = *v143;
                   if (!v144)
                   {
                     break;
                   }
 
-                  v143 = (v143 + 20);
+                  v143 += 20;
                   v144 -= 20;
                 }
 
@@ -8850,7 +8841,7 @@ LABEL_10:
               }
 
               v139 += 20;
-              v140 = (v140 - 20);
+              v140 -= 20;
             }
 
             while (v138 != a4);
@@ -8860,27 +8851,27 @@ LABEL_10:
 
       else if (i != a4)
       {
-        v191 = (i - 20);
+        v191 = i - 20;
         if (i - 20 != a4)
         {
           do
           {
             v192 = (v191 - 20);
-            v193 = v191[-1].n128_u32[3];
-            if (v193 < v191[1].n128_u32[0])
+            v193 = *(v191 - 1);
+            if (v193 < *(v191 + 4))
             {
-              v194 = (v191 + 20);
+              v194 = v191 + 20;
               v227 = *v192;
-              v195 = &v191[-2].n128_i8[12];
+              v195 = v191 - 20;
               do
               {
                 v196 = *(v195 + 20);
-                v191[-1].n128_u32[3] = *(v195 + 9);
+                *(v191 - 1) = *(v195 + 9);
                 *(v191 - 20) = v196;
                 v197 = *(v195 + 14);
                 v195 += 20;
                 v191 = v194;
-                v194 = (v194 + 20);
+                v194 += 20;
               }
 
               while (v193 < v197);
@@ -8913,12 +8904,12 @@ LABEL_10:
           {
             v150 = 2 * v149;
             v151 = (2 * v149) | 1;
-            v152 = i - 20 * v151;
+            v152 = &i[-20 * v151];
             v153 = v150 + 2;
             if (v153 < v14)
             {
-              v154 = *(v152 - 4);
-              v155 = *(v152 - 24);
+              v154 = *(v152 - 1);
+              v155 = *(v152 - 6);
               v156 = v154 >= v155;
               v157 = v154 >= v155 ? 0 : -20;
               v152 += v157;
@@ -8928,9 +8919,9 @@ LABEL_10:
               }
             }
 
-            v158 = i - 20 * v148;
-            v159 = *(v158 - 4);
-            if (*(v152 - 4) >= v159)
+            v158 = &i[-20 * v148];
+            v159 = *(v158 - 1);
+            if (*(v152 - 1) >= v159)
             {
               v224 = *(v158 - 20);
               do
@@ -8938,7 +8929,7 @@ LABEL_10:
                 v160 = v158;
                 v158 = v152;
                 v161 = *(v152 - 20);
-                *(v160 - 4) = *(v152 - 4);
+                *(v160 - 1) = *(v152 - 1);
                 *(v160 - 20) = v161;
                 if (v146 < v151)
                 {
@@ -8946,7 +8937,7 @@ LABEL_10:
                 }
 
                 v162 = (2 * v151) | 1;
-                v152 = i - 20 * v162;
+                v152 = &i[-20 * v162];
                 v151 = 2 * v151 + 2;
                 if (v151 >= v14)
                 {
@@ -8955,8 +8946,8 @@ LABEL_10:
 
                 else
                 {
-                  v163 = *(v152 - 4);
-                  v164 = *(v152 - 24);
+                  v163 = *(v152 - 1);
+                  v164 = *(v152 - 6);
                   v165 = v163 >= v164;
                   if (v163 >= v164)
                   {
@@ -8976,9 +8967,9 @@ LABEL_10:
                 }
               }
 
-              while (*(v152 - 4) >= v159);
+              while (*(v152 - 1) >= v159);
               *(v158 - 20) = v224;
-              *(v158 - 4) = v159;
+              *(v158 - 1) = v159;
             }
           }
 
@@ -8990,18 +8981,18 @@ LABEL_10:
         do
         {
           v168 = 0;
-          v242 = *(i - 4);
+          v242 = *(i - 1);
           v225 = *(i - 20);
           v169 = i;
           do
           {
-            v170 = v169 + 20 * ~v168;
+            v170 = &v169[20 * ~v168];
             v171 = (2 * v168) | 1;
             v172 = 2 * v168 + 2;
             if (v172 < v167)
             {
-              v173 = *(v170 - 4);
-              v174 = *(v170 - 24);
+              v173 = *(v170 - 1);
+              v174 = *(v170 - 6);
               v175 = v173 >= v174;
               v176 = v173 >= v174 ? 0 : -20;
               v170 += v176;
@@ -9012,7 +9003,7 @@ LABEL_10:
             }
 
             v177 = *(v170 - 20);
-            *(v169 - 4) = *(v170 - 4);
+            *(v169 - 1) = *(v170 - 1);
             *(v169 - 20) = v177;
             v169 = v170;
             v168 = v171;
@@ -9020,17 +9011,17 @@ LABEL_10:
 
           while (v171 <= ((v167 - 2) >> 1));
           v178 = (v170 - 20);
-          if (v170 == a4 + 20)
+          if (v170 == (a4 + 20))
           {
             result = v225;
-            *(v170 - 4) = v242;
+            *(v170 - 1) = v242;
             *v178 = v225;
           }
 
           else
           {
             v179 = *a4;
-            *(v170 - 4) = *(a4 + 16);
+            *(v170 - 1) = *(a4 + 16);
             *v178 = v179;
             result = v225;
             *a4 = v225;
@@ -9038,16 +9029,16 @@ LABEL_10:
             if (i - v178 >= 21)
             {
               v180 = (-2 - 0x3333333333333333 * ((i - v178) >> 2)) >> 1;
-              v181 = i - 20 * v180;
-              v182 = *(v170 - 4);
-              if (*(v181 - 4) < v182)
+              v181 = &i[-20 * v180];
+              v182 = *(v170 - 1);
+              if (*(v181 - 1) < v182)
               {
                 v212 = *v178;
                 do
                 {
                   v183 = v181;
                   v184 = *(v181 - 20);
-                  *(v170 - 4) = *(v181 - 4);
+                  *(v170 - 1) = *(v181 - 1);
                   *(v170 - 20) = v184;
                   if (!v180)
                   {
@@ -9055,14 +9046,14 @@ LABEL_10:
                   }
 
                   v180 = (v180 - 1) >> 1;
-                  v181 = i - 20 * v180;
+                  v181 = &i[-20 * v180];
                   v170 = v183;
                 }
 
-                while (*(v181 - 4) < v182);
+                while (*(v181 - 1) < v182);
                 result = v212;
                 *(v183 - 20) = v212;
-                *(v183 - 4) = v182;
+                *(v183 - 1) = v182;
               }
             }
           }
@@ -9077,32 +9068,32 @@ LABEL_10:
     }
 
     v15 = -20 * (v14 >> 1);
-    v16 = v15 + i;
+    v16 = &i[v15];
     if (v14 >= 0x81)
     {
       v17 = v16 - 20;
-      v18 = (i - 20);
-      v19 = *(v16 - 4);
-      if (v19 >= *(i - 4))
+      v18 = i - 20;
+      v19 = *(v16 - 1);
+      if (v19 >= *(i - 1))
       {
         if (*(a4 + 16) < v19)
         {
-          v28 = *(v16 - 4);
+          v28 = *(v16 - 1);
           v29 = *v17;
           v30 = *(a4 + 16);
           *v17 = *a4;
-          *(v16 - 4) = v30;
+          *(v16 - 1) = v30;
           *a4 = v29;
           *(a4 + 16) = v28;
-          if (*(v16 - 4) < *(i - 4))
+          if (*(v16 - 1) < *(i - 1))
           {
-            v232 = *(i - 4);
+            v232 = *(i - 1);
             v214 = *v18;
             v31 = *v17;
-            *(i - 4) = *(v16 - 4);
+            *(i - 1) = *(v16 - 1);
             *v18 = v31;
             *v17 = v214;
-            *(v16 - 4) = v232;
+            *(v16 - 1) = v232;
           }
         }
       }
@@ -9111,59 +9102,59 @@ LABEL_10:
       {
         if (*(a4 + 16) < v19)
         {
-          v231 = *(i - 4);
+          v231 = *(i - 1);
           v213 = *v18;
           v20 = *a4;
-          *(i - 4) = *(a4 + 16);
+          *(i - 1) = *(a4 + 16);
           *v18 = v20;
           *a4 = v213;
           v21 = v231;
           goto LABEL_27;
         }
 
-        v235 = *(i - 4);
+        v235 = *(i - 1);
         v216 = *v18;
         v35 = *v17;
-        *(i - 4) = *(v16 - 4);
+        *(i - 1) = *(v16 - 1);
         *v18 = v35;
         *v17 = v216;
-        *(v16 - 4) = v235;
-        if (*(a4 + 16) < *(v16 - 4))
+        *(v16 - 1) = v235;
+        if (*(a4 + 16) < *(v16 - 1))
         {
-          v21 = *(v16 - 4);
+          v21 = *(v16 - 1);
           v36 = *v17;
           v37 = *(a4 + 16);
           *v17 = *a4;
-          *(v16 - 4) = v37;
+          *(v16 - 1) = v37;
           *a4 = v36;
 LABEL_27:
           *(a4 + 16) = v21;
         }
       }
 
-      v38 = i + v15;
-      v39 = (i - 40);
-      v40 = *(i + v15 + 16);
-      if (v40 >= *(i - 24))
+      v38 = &i[v15];
+      v39 = i - 40;
+      v40 = *&i[v15 + 16];
+      if (v40 >= *(i - 6))
       {
         if (*(a4 + 36) < v40)
         {
-          v44 = *(v38 + 16);
+          v44 = *(v38 + 4);
           v45 = *v38;
           v46 = *(a4 + 36);
           *v38 = *(a4 + 20);
-          *(v38 + 16) = v46;
+          *(v38 + 4) = v46;
           *(a4 + 20) = v45;
           *(a4 + 36) = v44;
-          if (*(v38 + 16) < *(i - 24))
+          if (*(v38 + 4) < *(i - 6))
           {
-            v47 = *(i - 24);
+            v47 = *(i - 6);
             v48 = *v39;
-            v49 = *(v38 + 16);
+            v49 = *(v38 + 4);
             *v39 = *v38;
-            *(i - 24) = v49;
+            *(i - 6) = v49;
             *v38 = v48;
-            *(v38 + 16) = v47;
+            *(v38 + 4) = v47;
           }
         }
       }
@@ -9172,39 +9163,39 @@ LABEL_27:
       {
         if (*(a4 + 36) < v40)
         {
-          v41 = *(i - 24);
+          v41 = *(i - 6);
           v42 = *v39;
           v43 = *(a4 + 36);
           *v39 = *(a4 + 20);
-          *(i - 24) = v43;
+          *(i - 6) = v43;
           goto LABEL_39;
         }
 
-        v54 = *(i - 24);
+        v54 = *(i - 6);
         v55 = *v39;
-        v56 = *(v38 + 16);
+        v56 = *(v38 + 4);
         *v39 = *v38;
-        *(i - 24) = v56;
+        *(i - 6) = v56;
         *v38 = v55;
-        *(v38 + 16) = v54;
-        if (*(a4 + 36) < *(v38 + 16))
+        *(v38 + 4) = v54;
+        if (*(a4 + 36) < *(v38 + 4))
         {
-          v41 = *(v38 + 16);
+          v41 = *(v38 + 4);
           v42 = *v38;
           v57 = *(a4 + 36);
           *v38 = *(a4 + 20);
-          *(v38 + 16) = v57;
+          *(v38 + 4) = v57;
 LABEL_39:
           *(a4 + 20) = v42;
           *(a4 + 36) = v41;
         }
       }
 
-      v58 = v18 + v15;
-      v59 = &v18[-1] + v15 - 4;
-      v60 = (i - 60);
+      v58 = &v18[v15];
+      v59 = &v18[v15 - 20];
+      v60 = i - 60;
       v61 = *(v58 - 1);
-      if (v61 >= *(i - 44))
+      if (v61 >= *(i - 11))
       {
         if (*(a4 + 56) < v61)
         {
@@ -9215,13 +9206,13 @@ LABEL_39:
           *(v59 + 16) = v67;
           *(a4 + 40) = v66;
           *(a4 + 56) = v65;
-          if (*(v58 - 1) < *(i - 44))
+          if (*(v58 - 1) < *(i - 11))
           {
-            v68 = *(i - 44);
+            v68 = *(i - 11);
             v69 = *v60;
             v70 = *(v59 + 16);
             *v60 = *v59;
-            *(i - 44) = v70;
+            *(i - 11) = v70;
             *v59 = v69;
             *(v59 + 16) = v68;
           }
@@ -9232,19 +9223,19 @@ LABEL_39:
       {
         if (*(a4 + 56) < v61)
         {
-          v62 = *(i - 44);
+          v62 = *(i - 11);
           v63 = *v60;
           v64 = *(a4 + 56);
           *v60 = *(a4 + 40);
-          *(i - 44) = v64;
+          *(i - 11) = v64;
           goto LABEL_48;
         }
 
-        v71 = *(i - 44);
+        v71 = *(i - 11);
         v72 = *v60;
         v73 = *(v59 + 16);
         *v60 = *v59;
-        *(i - 44) = v73;
+        *(i - 11) = v73;
         *v59 = v72;
         *(v59 + 16) = v71;
         if (*(a4 + 56) < *(v58 - 1))
@@ -9260,28 +9251,28 @@ LABEL_48:
         }
       }
 
-      v75 = *(v16 - 4);
+      v75 = *(v16 - 1);
       v76 = *(v58 - 1);
-      if (v75 >= *(v38 + 16))
+      if (v75 >= *(v38 + 4))
       {
         if (v76 < v75)
         {
-          v80 = *(v16 - 4);
+          v80 = *(v16 - 1);
           v81 = *v17;
           v82 = *(v59 + 16);
           *v17 = *v59;
-          *(v16 - 4) = v82;
+          *(v16 - 1) = v82;
           *v59 = v81;
           *(v59 + 16) = v80;
-          if (*(v16 - 4) < *(v38 + 16))
+          if (*(v16 - 1) < *(v38 + 4))
           {
-            v83 = *(v38 + 16);
+            v83 = *(v38 + 4);
             v84 = *v38;
-            v85 = *(v17 + 16);
+            v85 = *(v17 + 4);
             *v38 = *v17;
-            *(v38 + 16) = v85;
+            *(v38 + 4) = v85;
             *v17 = v84;
-            *(v17 + 16) = v83;
+            *(v17 + 4) = v83;
           }
         }
       }
@@ -9290,66 +9281,66 @@ LABEL_48:
       {
         if (v76 < v75)
         {
-          v77 = *(v38 + 16);
+          v77 = *(v38 + 4);
           v78 = *v38;
           v79 = *(v59 + 16);
           *v38 = *v59;
-          *(v38 + 16) = v79;
+          *(v38 + 4) = v79;
           goto LABEL_57;
         }
 
-        v86 = *(v38 + 16);
+        v86 = *(v38 + 4);
         v87 = *v38;
-        v88 = *(v16 - 4);
+        v88 = *(v16 - 1);
         *v38 = *v17;
-        *(v38 + 16) = v88;
+        *(v38 + 4) = v88;
         *v17 = v87;
-        *(v16 - 4) = v86;
-        if (*(v58 - 1) < *(v16 - 4))
+        *(v16 - 1) = v86;
+        if (*(v58 - 1) < *(v16 - 1))
         {
-          v77 = *(v16 - 4);
+          v77 = *(v16 - 1);
           v78 = *v17;
           v89 = *(v59 + 16);
           *v17 = *v59;
-          *(v17 + 16) = v89;
+          *(v17 + 4) = v89;
 LABEL_57:
           *v59 = v78;
           *(v59 + 16) = v77;
         }
       }
 
-      v237 = *(i - 4);
+      v237 = *(i - 1);
       v218 = *v18;
       v90 = *v17;
-      *(i - 4) = *(v17 + 16);
+      *(i - 1) = *(v17 + 4);
       *v18 = v90;
       *v17 = v218;
-      *(v17 + 16) = v237;
+      *(v17 + 4) = v237;
       goto LABEL_59;
     }
 
-    v22 = (i - 20);
+    v22 = i - 20;
     v23 = v16 - 20;
-    v24 = *(i - 4);
-    if (v24 >= *(v16 - 4))
+    v24 = *(i - 1);
+    if (v24 >= *(v16 - 1))
     {
       if (*(a4 + 16) < v24)
       {
-        v233 = *(i - 4);
+        v233 = *(i - 1);
         v215 = *v22;
         v32 = *a4;
-        *(i - 4) = *(a4 + 16);
+        *(i - 1) = *(a4 + 16);
         *v22 = v32;
         *a4 = v215;
         *(a4 + 16) = v233;
-        if (*(i - 4) < *(v16 - 4))
+        if (*(i - 1) < *(v16 - 1))
         {
           v33 = *v23;
-          v234 = *(v16 - 4);
-          v34 = *(i - 4);
+          v234 = *(v16 - 1);
+          v34 = *(i - 1);
           *v23 = *v22;
-          *(v16 - 4) = v34;
-          *(i - 4) = v234;
+          *(v16 - 1) = v34;
+          *(i - 1) = v234;
           *v22 = v33;
         }
       }
@@ -9359,11 +9350,11 @@ LABEL_57:
     {
       if (*(a4 + 16) < v24)
       {
-        v25 = *(v16 - 4);
+        v25 = *(v16 - 1);
         v26 = *v23;
         v27 = *(a4 + 16);
         *v23 = *a4;
-        *(v23 + 16) = v27;
+        *(v23 + 4) = v27;
         *a4 = v26;
 LABEL_36:
         *(a4 + 16) = v25;
@@ -9371,18 +9362,18 @@ LABEL_36:
       }
 
       v50 = *v23;
-      v51 = *(v16 - 4);
-      v52 = *(i - 4);
+      v51 = *(v16 - 1);
+      v52 = *(i - 1);
       *v23 = *v22;
-      *(v23 + 16) = v52;
-      *(i - 4) = v51;
+      *(v23 + 4) = v52;
+      *(i - 1) = v51;
       *v22 = v50;
-      if (*(a4 + 16) < *(i - 4))
+      if (*(a4 + 16) < *(i - 1))
       {
-        v236 = *(i - 4);
+        v236 = *(i - 1);
         v217 = *v22;
         v53 = *a4;
-        *(i - 4) = *(a4 + 16);
+        *(i - 1) = *(a4 + 16);
         *v22 = v53;
         *a4 = v217;
         v25 = v236;
@@ -9392,20 +9383,20 @@ LABEL_36:
 
 LABEL_59:
     --a5;
-    if ((a6 & 1) != 0 || *(i + 16) < *(i - 4))
+    if ((a6 & 1) != 0 || *(i + 4) < *(i - 1))
     {
       v104 = 0;
       v105 = a1;
       v211 = *(i - 20);
-      v106 = *(i - 4);
+      v106 = *(i - 1);
       do
       {
-        v107 = *(i + v104 - 24);
+        v107 = *&i[v104 - 24];
         v104 -= 20;
       }
 
       while (v107 < v106);
-      v108 = i + v104;
+      v108 = &i[v104];
       v109 = a4;
       if (v104 == -20)
       {
@@ -9448,17 +9439,17 @@ LABEL_89:
         v115 = v111;
         do
         {
-          v239 = *(v114 - 4);
+          v239 = *(v114 - 1);
           v220 = *(v114 - 20);
           v116 = *(v115 - 20);
-          *(v114 - 4) = *(v115 - 4);
+          *(v114 - 1) = *(v115 - 4);
           *(v114 - 20) = v116;
           *(v115 - 4) = v239;
           *(v115 - 20) = v220;
           v117 = v114 + 20;
           do
           {
-            v118 = *(v114 - 24);
+            v118 = *(v114 - 6);
             v114 -= 20;
             v117 -= 20;
           }
@@ -9479,20 +9470,21 @@ LABEL_89:
       if (v117 != i)
       {
         v120 = *(v117 - 20);
-        *(i - 4) = *(v117 - 4);
+        *(i - 1) = *(v117 - 1);
         *(i - 20) = v120;
       }
 
       v12 = v117 - 20;
+      result = v211;
       *(v117 - 20) = v211;
-      *(v117 - 4) = v106;
+      *(v117 - 1) = v106;
       if (v108 > v111)
       {
 LABEL_102:
         v125 = v105;
         v126 = i;
         v127 = a3;
-        sub_1000B1ECC(v125, v126, v117, v117, a5, a6 & 1);
+        result = sub_1000B1ECC(v125, v126, v117, v117, a5, a6 & 1, result);
         a3 = v127;
         a6 = 0;
         a1 = v117;
@@ -9503,7 +9495,7 @@ LABEL_102:
       v121 = a1;
       v122 = a3;
       v123 = sub_1000B30B8(a1, i, v117, v117, v211);
-      if (!sub_1000B30B8(v117 - 20, v117 - 20, v122, a4, v124))
+      if (!sub_1000B30B8((v117 - 20), (v117 - 20), v122, a4, v124))
       {
         a1 = v117;
         a3 = v122;
@@ -9528,20 +9520,20 @@ LABEL_102:
     }
 
     v210 = *(i - 20);
-    v91 = *(i - 4);
+    v91 = *(i - 1);
     if (v91 >= *(a4 + 16))
     {
-      v95 = (i - 24);
+      v95 = i - 24;
       do
       {
-        v93 = (v95 + 1);
-        if ((v95 + 1) <= a4)
+        v93 = (v95 + 4);
+        if ((v95 + 4) <= a4)
         {
           break;
         }
 
         v96 = *v95;
-        v95 -= 5;
+        v95 -= 20;
       }
 
       while (v91 >= v96);
@@ -9553,7 +9545,7 @@ LABEL_102:
       do
       {
         v93 = (v92 - 20);
-        v94 = *(v92 - 24);
+        v94 = *(v92 - 6);
         v92 -= 20;
       }
 
@@ -9576,17 +9568,17 @@ LABEL_102:
 
     while (v93 > v97)
     {
-      v238 = v93[-1].n128_i32[3];
-      v219 = *(&v93[-2] + 12);
+      v238 = *(v93 - 4);
+      v219 = *(v93 - 20);
       v100 = *(v97 - 20);
-      v93[-1].n128_u32[3] = *(v97 - 4);
+      *(v93 - 4) = *(v97 - 4);
       *(v93 - 20) = v100;
       *(v97 - 4) = v238;
       *(v97 - 20) = v219;
       do
       {
-        v101 = v93[-2].n128_u32[2];
-        v93 = (v93 - 20);
+        v101 = *(v93 - 24);
+        v93 -= 20;
       }
 
       while (v91 >= v101);
@@ -9599,35 +9591,35 @@ LABEL_102:
       while (v91 < v102);
     }
 
-    if (&v93[1].n128_u8[4] != i)
+    if ((v93 + 20) != i)
     {
       v103 = *v93;
-      *(i - 4) = v93[1].n128_u32[0];
+      *(i - 1) = *(v93 + 16);
       *(i - 20) = v103;
     }
 
     a6 = 0;
     result = v210;
     *v93 = v210;
-    v93[1].n128_u32[0] = v91;
+    *(v93 + 16) = v91;
   }
 
-  v128 = (i - 20);
+  v128 = i - 20;
   v129 = (i - 40);
-  v130 = *(i - 24);
+  v130 = *(i - 6);
   v131 = *(a4 + 16);
-  if (v130 >= *(i - 4))
+  if (v130 >= *(i - 1))
   {
     if (v131 >= v130)
     {
       return result;
     }
 
-    v186 = *(i - 24);
+    v186 = *(i - 6);
     result = *v129;
     v187 = *(a4 + 16);
     *v129 = *a4;
-    *(i - 24) = v187;
+    *(i - 6) = v187;
     *a4 = result;
     *(a4 + 16) = v186;
     goto LABEL_190;
@@ -9635,29 +9627,29 @@ LABEL_102:
 
   if (v131 < v130)
   {
-    v240 = *(i - 4);
+    v240 = *(i - 1);
     v221 = *v128;
     v132 = *a4;
-    *(i - 4) = *(a4 + 16);
+    *(i - 1) = *(a4 + 16);
     *v128 = v132;
     goto LABEL_111;
   }
 
-  v244 = *(i - 4);
+  v244 = *(i - 1);
   v228 = *v128;
   v198 = *v129;
-  *(i - 4) = *(i - 24);
+  *(i - 1) = *(i - 6);
   *v128 = v198;
   result = v228;
   *v129 = v228;
-  *(i - 24) = v244;
-  if (*(a4 + 16) < *(i - 24))
+  *(i - 6) = v244;
+  if (*(a4 + 16) < *(i - 6))
   {
-    v199 = *(i - 24);
+    v199 = *(i - 6);
     result = *v129;
     v200 = *(a4 + 16);
     *v129 = *a4;
-    *(i - 24) = v200;
+    *(i - 6) = v200;
     *a4 = result;
     *(a4 + 16) = v199;
   }

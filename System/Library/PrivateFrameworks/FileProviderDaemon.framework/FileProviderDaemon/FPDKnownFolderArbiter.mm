@@ -74,7 +74,7 @@
 
 - (void)claimKnownFolders:(id)folders domain:(id)domain localizedReason:(id)reason request:(id)request completionHandler:(id)handler
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   foldersCopy = folders;
   domainCopy = domain;
   reasonCopy = reason;
@@ -86,11 +86,11 @@
     providerDomainID = [domainCopy providerDomainID];
     fp_obfuscatedProviderDomainID = [providerDomainID fp_obfuscatedProviderDomainID];
     *buf = 138412802;
-    v41 = foldersCopy;
-    v42 = 2114;
-    v43 = fp_obfuscatedProviderDomainID;
-    v44 = 2114;
-    v45 = requestCopy;
+    v40 = foldersCopy;
+    v41 = 2114;
+    v42 = fp_obfuscatedProviderDomainID;
+    v43 = 2114;
+    v44 = requestCopy;
     _os_log_debug_impl(&dword_1CEFC7000, v17, OS_LOG_TYPE_DEBUG, "[DEBUG] 🖥️  claiming known folders %@ from %{public}@ for %{public}@", buf, 0x20u);
   }
 
@@ -107,12 +107,12 @@
       v25 = [(FPDClaimKnownFolderOperation *)v23 initWithKnownFolderLocations:foldersCopy domain:domainCopy server:WeakRetained localizedReason:reasonCopy request:requestCopy];
 
       -[FPDClaimKnownFolderOperation setQualityOfService:](v25, "setQualityOfService:", [requestCopy qos]);
-      v36[0] = MEMORY[0x1E69E9820];
-      v36[1] = 3221225472;
-      v36[2] = __92__FPDKnownFolderArbiter_claimKnownFolders_domain_localizedReason_request_completionHandler___block_invoke;
-      v36[3] = &unk_1E83C17B8;
-      v37 = handlerCopy;
-      [(FPOperation *)v25 setFinishedBlock:v36];
+      v35[0] = MEMORY[0x1E69E9820];
+      v35[1] = 3221225472;
+      v35[2] = __92__FPDKnownFolderArbiter_claimKnownFolders_domain_localizedReason_request_completionHandler___block_invoke;
+      v35[3] = &unk_1E83C17B8;
+      v36 = handlerCopy;
+      [(FPOperation *)v25 setFinishedBlock:v35];
       [(NSOperationQueue *)self->_operationQueue addOperation:v25];
     }
 
@@ -134,9 +134,9 @@
 
       v28 = MEMORY[0x1E696ABC0];
       v29 = *MEMORY[0x1E696A798];
-      v38 = *MEMORY[0x1E696A578];
-      v39 = v27;
-      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:{1, domainFullDisplayName}];
+      v37 = *MEMORY[0x1E696A578];
+      v38 = v27;
+      v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:{1, domainFullDisplayName}];
       v31 = [v28 errorWithDomain:v29 code:18 userInfo:v30];
       (*(handlerCopy + 2))(handlerCopy, v31);
     }
@@ -147,13 +147,11 @@
     v25 = [MEMORY[0x1E696ABC0] fp_invalidArgumentError:@"Desktop and Documents must be claimed"];
     (*(handlerCopy + 2))(handlerCopy, v25);
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 - (void)releaseKnownFolders:(unint64_t)folders domain:(id)domain localizedReason:(id)reason options:(unint64_t)options request:(id)request completionHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   requestCopy = request;
   handlerCopy = handler;
@@ -164,10 +162,10 @@
     fp_obfuscatedProviderDomainID = [providerDomainID fp_obfuscatedProviderDomainID];
     *buf = 67109634;
     foldersCopy = folders;
-    v27 = 2114;
-    v28 = fp_obfuscatedProviderDomainID;
-    v29 = 2114;
-    v30 = requestCopy;
+    v26 = 2114;
+    v27 = fp_obfuscatedProviderDomainID;
+    v28 = 2114;
+    v29 = requestCopy;
     _os_log_debug_impl(&dword_1CEFC7000, v16, OS_LOG_TYPE_DEBUG, "[DEBUG] 🖥️  releasing known folders %x from %{public}@ for %{public}@", buf, 0x1Cu);
   }
 
@@ -184,22 +182,20 @@
     v19 = [(FPDAttachKnownFolderOperation *)v17 initWithKnownFolders:folders onlyForDomain:domainCopy server:WeakRetained options:options request:requestCopy];
 
     -[FPDAttachKnownFolderOperation setQualityOfService:](v19, "setQualityOfService:", [requestCopy qos]);
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __102__FPDKnownFolderArbiter_releaseKnownFolders_domain_localizedReason_options_request_completionHandler___block_invoke;
-    v23[3] = &unk_1E83C17B8;
-    v24 = handlerCopy;
-    [(FPOperation *)v19 setFinishedBlock:v23];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __102__FPDKnownFolderArbiter_releaseKnownFolders_domain_localizedReason_options_request_completionHandler___block_invoke;
+    v22[3] = &unk_1E83C17B8;
+    v23 = handlerCopy;
+    [(FPOperation *)v19 setFinishedBlock:v22];
     [(NSOperationQueue *)self->_operationQueue addOperation:v19];
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)selectNewDomain:(id)domain knownFolders:(unint64_t)folders skipReleasePrompt:(BOOL)prompt request:(id)request completionHandler:(id)handler
 {
   promptCopy = prompt;
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   domainCopy = domain;
   requestCopy = request;
   handlerCopy = handler;
@@ -209,11 +205,11 @@
     identifier = [domainCopy identifier];
     fp_obfuscatedProviderDomainID = [identifier fp_obfuscatedProviderDomainID];
     *buf = 138543874;
-    v34 = fp_obfuscatedProviderDomainID;
-    v35 = 1024;
+    v33 = fp_obfuscatedProviderDomainID;
+    v34 = 1024;
     foldersCopy = folders;
-    v37 = 2112;
-    v38 = requestCopy;
+    v36 = 2112;
+    v37 = requestCopy;
     _os_log_debug_impl(&dword_1CEFC7000, v15, OS_LOG_TYPE_DEBUG, "[DEBUG] 🖥️  select %{public}@ to back known folders %x for %@", buf, 0x1Cu);
   }
 
@@ -242,14 +238,14 @@
       v19 = [(FPDClaimKnownFolderOperation *)v17 initWithKnownFolders:folders domain:domainCopy server:WeakRetained attachOptions:v16 request:requestCopy];
 
       -[FPDClaimKnownFolderOperation setQualityOfService:](v19, "setQualityOfService:", [requestCopy qos]);
-      v26 = MEMORY[0x1E69E9820];
-      v27 = 3221225472;
-      v28 = __98__FPDKnownFolderArbiter_selectNewDomain_knownFolders_skipReleasePrompt_request_completionHandler___block_invoke_2;
-      v29 = &unk_1E83C17B8;
-      v30 = handlerCopy;
-      [(FPOperation *)v19 setFinishedBlock:&v26];
-      [(NSOperationQueue *)self->_operationQueue addOperation:v19, v26, v27, v28, v29];
-      v20 = v30;
+      v25 = MEMORY[0x1E69E9820];
+      v26 = 3221225472;
+      v27 = __98__FPDKnownFolderArbiter_selectNewDomain_knownFolders_skipReleasePrompt_request_completionHandler___block_invoke_2;
+      v28 = &unk_1E83C17B8;
+      v29 = handlerCopy;
+      [(FPOperation *)v19 setFinishedBlock:&v25];
+      [(NSOperationQueue *)self->_operationQueue addOperation:v19, v25, v26, v27, v28];
+      v20 = v29;
     }
 
     else
@@ -259,18 +255,16 @@
       v19 = [(FPDAttachKnownFolderOperation *)v21 initWithKnownFolders:folders onlyForDomain:0 server:v22 options:v16 | 1 request:requestCopy];
 
       -[FPDClaimKnownFolderOperation setQualityOfService:](v19, "setQualityOfService:", [requestCopy qos]);
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = __98__FPDKnownFolderArbiter_selectNewDomain_knownFolders_skipReleasePrompt_request_completionHandler___block_invoke;
-      v31[3] = &unk_1E83C17B8;
-      v32 = handlerCopy;
-      [(FPOperation *)v19 setFinishedBlock:v31];
+      v30[0] = MEMORY[0x1E69E9820];
+      v30[1] = 3221225472;
+      v30[2] = __98__FPDKnownFolderArbiter_selectNewDomain_knownFolders_skipReleasePrompt_request_completionHandler___block_invoke;
+      v30[3] = &unk_1E83C17B8;
+      v31 = handlerCopy;
+      [(FPOperation *)v19 setFinishedBlock:v30];
       [(NSOperationQueue *)self->_operationQueue addOperation:v19];
-      v20 = v32;
+      v20 = v31;
     }
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 @end

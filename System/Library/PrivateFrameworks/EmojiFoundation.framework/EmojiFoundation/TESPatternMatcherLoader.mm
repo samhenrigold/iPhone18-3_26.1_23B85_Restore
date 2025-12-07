@@ -119,7 +119,7 @@ LABEL_16:
 
           else
           {
-            v12 = emf_logging_get_default_log();
+            v12 = emf_logging_get_default_log(0);
             if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
             {
               *buf = 138543362;

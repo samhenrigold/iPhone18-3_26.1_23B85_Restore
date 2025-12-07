@@ -136,7 +136,7 @@
       objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v41, v42, v43, v44);
     }
 
-    objc_msgSend_value4(v25, v26, v27, v28, v29);
+    objc_msgSend_value4(v25, v27, v28, v29);
     LODWORD(v48) = HIDWORD(v58);
     if (*(&v58 + 3) == 0.0)
     {

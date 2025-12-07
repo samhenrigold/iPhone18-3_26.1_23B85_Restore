@@ -51,7 +51,7 @@ id __45__PPSpotlightScoringFeatureVector_qidStrings__block_invoke(uint64_t a1, v
 
 - (id)encodeAsData
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v4 = [(NSMutableSet *)self->_features count];
   if (v4 >= 0xC8)
   {
@@ -64,30 +64,30 @@ id __45__PPSpotlightScoringFeatureVector_qidStrings__block_invoke(uint64_t a1, v
   }
 
   v6 = [objc_alloc(MEMORY[0x1E695DF88]) initWithCapacity:4 * v5];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v7 = self->_features;
-  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        unsignedIntValue = [*(*(&v18 + 1) + 8 * i) unsignedIntValue];
+        unsignedIntValue = [*(*(&v17 + 1) + 8 * i) unsignedIntValue];
         [v6 appendBytes:&unsignedIntValue length:4];
       }
 
-      v9 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [(NSMutableSet *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
@@ -96,12 +96,10 @@ id __45__PPSpotlightScoringFeatureVector_qidStrings__block_invoke(uint64_t a1, v
   if (([v6 length] & 3) != 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v15 = [v6 length];
-    v16 = NSStringFromSelector(a2);
-    [currentHandler handleFailureInMethod:a2 object:self file:@"PPSpotlightScoringFeatureVector.m" lineNumber:38 description:{@"Invalid NSData size of %tu in %@", v15, v16}];
+    v14 = [v6 length];
+    v15 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:@"PPSpotlightScoringFeatureVector.m" lineNumber:38 description:{@"Invalid NSData size of %tu in %@", v14, v15}];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -123,7 +121,7 @@ id __45__PPSpotlightScoringFeatureVector_qidStrings__block_invoke(uint64_t a1, v
 
 + (id)decodeFeatureVectorFromData:(id)data version:(id)version
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   dataCopy = data;
   versionCopy = version;
   if (![dataCopy length])
@@ -133,7 +131,7 @@ id __45__PPSpotlightScoringFeatureVector_qidStrings__block_invoke(uint64_t a1, v
     {
       v13 = NSStringFromSelector(a2);
       *buf = 138412290;
-      v38 = v13;
+      v37 = v13;
       _os_log_debug_impl(&dword_1A7FD3000, v12, OS_LOG_TYPE_DEBUG, "%@: attempt to decode empty feature vector", buf, 0xCu);
       goto LABEL_13;
     }
@@ -150,12 +148,12 @@ LABEL_14:
     v10 = pp_universal_search_log_handle();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v33 = NSStringFromSelector(a2);
+      v32 = NSStringFromSelector(a2);
       [versionCopy doubleValue];
       *buf = 138412546;
-      v38 = v33;
-      v39 = 2048;
-      v40 = v34;
+      v37 = v32;
+      v38 = 2048;
+      v39 = v33;
       _os_log_debug_impl(&dword_1A7FD3000, v10, OS_LOG_TYPE_DEBUG, "%@: decoding feature vector of deprecated version: %f", buf, 0x16u);
     }
 
@@ -168,9 +166,9 @@ LABEL_14:
         v13 = NSStringFromSelector(a2);
         v14 = [dataCopy length];
         *buf = 138412546;
-        v38 = v13;
-        v39 = 2048;
-        v40 = v14;
+        v37 = v13;
+        v38 = 2048;
+        v39 = v14;
         _os_log_fault_impl(&dword_1A7FD3000, v12, OS_LOG_TYPE_FAULT, "%@: Invalid V1 NSData size of %tu", buf, 0x16u);
 LABEL_13:
 
@@ -183,20 +181,20 @@ LABEL_13:
     v21 = objc_opt_new();
     if (v11 >= 6)
     {
-      v24 = 0;
-      v25 = 6 * (v11 / 6uLL);
+      v23 = 0;
+      v24 = 6 * (v11 / 6uLL);
       do
       {
         *buf = 0;
-        [dataCopy getBytes:buf range:{v24, 4}];
-        v26 = v21[1];
-        v27 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*buf];
-        [v26 addObject:v27];
+        [dataCopy getBytes:buf range:{v23, 4}];
+        v25 = v21[1];
+        v26 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*buf];
+        [v25 addObject:v26];
 
-        v24 += 6;
+        v23 += 6;
       }
 
-      while (v25 != v24);
+      while (v24 != v23);
     }
   }
 
@@ -216,9 +214,9 @@ LABEL_13:
         v13 = NSStringFromSelector(a2);
         [versionCopy doubleValue];
         *buf = 138412546;
-        v38 = v13;
-        v39 = 2048;
-        v40 = v20;
+        v37 = v13;
+        v38 = 2048;
+        v39 = v20;
         _os_log_error_impl(&dword_1A7FD3000, v12, OS_LOG_TYPE_ERROR, "%@: attempt to decode feature vector of unsupported version: %f", buf, 0x16u);
         goto LABEL_13;
       }
@@ -226,37 +224,35 @@ LABEL_13:
       goto LABEL_14;
     }
 
-    v28 = [dataCopy length];
+    v27 = [dataCopy length];
     if (([dataCopy length] & 3) != 0)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v36 = NSStringFromSelector(a2);
-      [currentHandler handleFailureInMethod:a2 object:self file:@"PPSpotlightScoringFeatureVector.m" lineNumber:81 description:{@"%@: Invalid NSData size of %tu", v36, objc_msgSend(dataCopy, "length")}];
+      v35 = NSStringFromSelector(a2);
+      [currentHandler handleFailureInMethod:a2 object:self file:@"PPSpotlightScoringFeatureVector.m" lineNumber:81 description:{@"%@: Invalid NSData size of %tu", v35, objc_msgSend(dataCopy, "length")}];
     }
 
     v21 = objc_opt_new();
-    if (v28 >> 2)
+    if (v27 >> 2)
     {
-      v29 = 0;
-      v30 = 4 * (v28 >> 2);
+      v28 = 0;
+      v29 = 4 * (v27 >> 2);
       do
       {
         *buf = 0;
-        [dataCopy getBytes:buf range:{v29, 4}];
-        v31 = v21[1];
-        v32 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*buf];
-        [v31 addObject:v32];
+        [dataCopy getBytes:buf range:{v28, 4}];
+        v30 = v21[1];
+        v31 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:*buf];
+        [v30 addObject:v31];
 
-        v29 += 4;
+        v28 += 4;
       }
 
-      while (v30 != v29);
+      while (v29 != v28);
     }
   }
 
 LABEL_15:
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }

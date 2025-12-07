@@ -105,9 +105,9 @@
 - (BOOL)isUserEnrolledInBiometricAuthentication
 {
   context = self->_context;
-  v11 = 0;
-  v3 = [(LAContext *)context canEvaluatePolicy:4 error:&v11];
-  v4 = v11;
+  v13 = 0;
+  v3 = [(LAContext *)context canEvaluatePolicy:4 error:&v13];
+  v4 = v13;
   v5 = v4;
   if (!v3)
   {
@@ -122,10 +122,10 @@
         goto LABEL_9;
       }
 
-      v9 = WBS_LOG_CHANNEL_PREFIXAutoFillAuthentication();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = WBS_LOG_CHANNEL_PREFIXAutoFillAuthentication(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        [(_SFManagedFeatureObserver *)v9 isUserEnrolledInBiometricAuthentication];
+        [(_SFManagedFeatureObserver *)v11 isUserEnrolledInBiometricAuthentication];
       }
     }
 

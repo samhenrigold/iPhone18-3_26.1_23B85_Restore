@@ -23,33 +23,33 @@
 
 - (void)migrateWorkflow
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   actions = [(WFWorkflowMigration *)self actions];
-  v4 = [actions countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [actions countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v19;
+    v6 = *v18;
     do
     {
       v7 = 0;
       do
       {
-        if (*v19 != v6)
+        if (*v18 != v6)
         {
           objc_enumerationMutation(actions);
         }
 
-        v8 = *(*(&v18 + 1) + 8 * v7);
+        v8 = *(*(&v17 + 1) + 8 * v7);
         actionIdentifierKey = [(WFWorkflowMigration *)self actionIdentifierKey];
         v10 = [v8 objectForKeyedSubscript:actionIdentifierKey];
-        v11 = [v10 isEqualToString:@"is.workflow.actions.text.changecase"];
+        isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-        if (v11)
+        if (isEqualToString)
         {
           actionParametersKey = [(WFWorkflowMigration *)self actionParametersKey];
           v13 = [v8 objectForKey:actionParametersKey];
@@ -59,7 +59,7 @@
           if (objc_opt_isKindOfClass())
           {
             v15 = [v13 objectForKeyedSubscript:@"WFCaseType"];
-            v16 = [v15 isEqualToString:@"Capitalize"];
+            v16 = objc_msgSend_isEqualToString_(v15);
 
             if (v16)
             {
@@ -76,14 +76,13 @@
       }
 
       while (v5 != v7);
-      v5 = [actions countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [actions countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
   }
 
   [(WFWorkflowMigration *)self finish];
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 @end

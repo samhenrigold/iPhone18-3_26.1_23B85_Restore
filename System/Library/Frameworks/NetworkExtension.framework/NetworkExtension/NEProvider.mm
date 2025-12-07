@@ -2,6 +2,7 @@
 + (BOOL)isNEProviderBundle:(id)bundle forExtensionPoint:(id)point;
 + (BOOL)isRunningInProvider;
 + (void)startSystemExtensionMode;
+- (NWTCPConnection)createTCPConnectionToEndpoint:(NWEndpoint *)remoteEndpoint enableTLS:(BOOL)enableTLS TLSParameters:(NWTLSParameters *)TLSParameters delegate:(id)delegate;
 - (NWUDPSession)createUDPSessionToEndpoint:(NWEndpoint *)remoteEndpoint fromEndpoint:(NWHostEndpoint *)localEndpoint;
 - (id)initAllowUnentitled:(BOOL)unentitled;
 - (int64_t)_callSwiftHandleNewUDPFlow:(id)flow initialRemoteFlowEndpoint:(id)endpoint;
@@ -21,10 +22,10 @@
   flowCopy = flow;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_1BA854638(flowCopy);
+  v8 = sub_1BA854638(flowCopy, endpoint);
 
   swift_unknownObjectRelease();
-  return v7;
+  return v8;
 }
 
 - (void)displayMessage:(NSString *)message completionHandler:(void *)completionHandler
@@ -66,34 +67,57 @@
   return v13;
 }
 
+- (NWTCPConnection)createTCPConnectionToEndpoint:(NWEndpoint *)remoteEndpoint enableTLS:(BOOL)enableTLS TLSParameters:(NWTLSParameters *)TLSParameters delegate:(id)delegate
+{
+  v7 = enableTLS;
+  v9 = TLSParameters;
+  v10 = MEMORY[0x1E6977E40];
+  v11 = delegate;
+  v12 = remoteEndpoint;
+  v13 = objc_alloc_init(v10);
+  [v13 setEnableTLS:v7];
+  if (v9 && v7)
+  {
+    tLSSessionID = [(NWTLSParameters *)v9 TLSSessionID];
+    [v13 setTLSSessionID:tLSSessionID];
+
+    sSLCipherSuites = [(NWTLSParameters *)v9 SSLCipherSuites];
+    [v13 setSSLCipherSuites:sSLCipherSuites];
+
+    [v13 setMinimumSSLProtocolVersion:{-[NWTLSParameters minimumSSLProtocolVersion](v9, "minimumSSLProtocolVersion")}];
+    [v13 setMaximumSSLProtocolVersion:{-[NWTLSParameters maximumSSLProtocolVersion](v9, "maximumSSLProtocolVersion")}];
+  }
+
+  v16 = [objc_alloc(MEMORY[0x1E6977E68]) initWithEndpoint:v12 parameters:v13 delegate:v11];
+
+  return v16;
+}
+
 - (void)wake
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = ne_log_obj();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "%@: Waking", &v5, 0xCu);
+    _os_log_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_INFO, "%@: Waking", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sleepWithCompletionHandler:(void *)completionHandler
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = completionHandler;
   v5 = ne_log_obj();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v7 = 138412290;
+    v6 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@: Sleeping", &v7, 0xCu);
+    _os_log_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_INFO, "%@: Sleeping", &v6, 0xCu);
   }
 
   v4[2](v4);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)observerHelperHandler:(id)handler ofObject:(id)object change:(id)change context:(void *)context
@@ -111,7 +135,7 @@
     Property = 0;
   }
 
-  if (Property == objectCopy && [handlerCopy isEqualToString:@"path"])
+  if (Property == objectCopy && objc_msgSend_isEqualToString_(handlerCopy))
   {
     if (self)
     {
@@ -195,7 +219,7 @@
 
 - (id)initAllowUnentitled:(BOOL)unentitled
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = SecTaskCreateFromSelf(0);
   if (!v5)
   {
@@ -256,7 +280,7 @@ LABEL_11:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v22 = "com.apple.developer.networking.networkextension";
+      v21 = "com.apple.developer.networking.networkextension";
       v12 = "NEProvider creation failed, caller does not have the %s entitlement";
       v13 = v11;
       v14 = 12;
@@ -274,9 +298,9 @@ LABEL_24:
   }
 
 LABEL_15:
-  v20.receiver = self;
-  v20.super_class = NEProvider;
-  v15 = [(NEProvider *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = NEProvider;
+  v15 = [(NEProvider *)&v19 init];
   if (!v15)
   {
     self = ne_log_obj();
@@ -295,7 +319,6 @@ LABEL_15:
   v16[2] = mEMORY[0x1E6977E50];
 LABEL_20:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -306,7 +329,7 @@ LABEL_20:
   if (isa_nsdictionary(infoDictionary))
   {
     v7 = [infoDictionary objectForKeyedSubscript:@"CFBundlePackageType"];
-    if (!isa_nsstring(v7) || ![v7 isEqualToString:@"XPC!"])
+    if (!isa_nsstring(v7) || !objc_msgSend_isEqualToString_(v7))
     {
       v10 = 0;
 LABEL_16:
@@ -328,7 +351,7 @@ LABEL_15:
     {
       if (pointCopy)
       {
-        if ([v9 isEqualToString:pointCopy])
+        if (objc_msgSend_isEqualToString_(v9))
         {
 LABEL_8:
           v10 = 1;

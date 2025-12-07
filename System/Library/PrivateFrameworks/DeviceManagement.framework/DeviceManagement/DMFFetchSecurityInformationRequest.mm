@@ -66,13 +66,11 @@
 
 void __65__DMFFetchSecurityInformationRequest_allPlatformSecurityInfoKeys__block_invoke()
 {
-  v3[1] = *MEMORY[0x1E69E9840];
-  v3[0] = @"DMFSecurityPasscodeIsSetKey";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:1];
+  v2[1] = *MEMORY[0x1E69E9840];
+  v2[0] = @"DMFSecurityPasscodeIsSetKey";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:1];
   v1 = allPlatformSecurityInfoKeys_result;
   allPlatformSecurityInfoKeys_result = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (NSArray)iOSSecurityInfoKeys
@@ -89,18 +87,16 @@ void __65__DMFFetchSecurityInformationRequest_allPlatformSecurityInfoKeys__block
 
 void __57__DMFFetchSecurityInformationRequest_iOSSecurityInfoKeys__block_invoke()
 {
-  v3[6] = *MEMORY[0x1E69E9840];
-  v3[0] = @"DMFSecurityPasscodeIsCompliantWithGlobalRestrictionsKey";
-  v3[1] = @"DMFSecurityPasscodeIsCompliantWithProfileRestrictionsKey";
-  v3[2] = @"DMFSecurityPasscodeLockGracePeriodEnforcedKey";
-  v3[3] = @"DMFSecurityPasscodeLockGracePeriodKey";
-  v3[4] = @"DMFSecuritySupportsBlockLevelEncryptionKey";
-  v3[5] = @"DMFSecuirtySupportsFileLevelEncryptionKey";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:6];
+  v2[6] = *MEMORY[0x1E69E9840];
+  v2[0] = @"DMFSecurityPasscodeIsCompliantWithGlobalRestrictionsKey";
+  v2[1] = @"DMFSecurityPasscodeIsCompliantWithProfileRestrictionsKey";
+  v2[2] = @"DMFSecurityPasscodeLockGracePeriodEnforcedKey";
+  v2[3] = @"DMFSecurityPasscodeLockGracePeriodKey";
+  v2[4] = @"DMFSecuritySupportsBlockLevelEncryptionKey";
+  v2[5] = @"DMFSecuirtySupportsFileLevelEncryptionKey";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:6];
   v1 = iOSSecurityInfoKeys_result;
   iOSSecurityInfoKeys_result = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (NSArray)macOSSecurityInfoKeys
@@ -117,18 +113,16 @@ void __57__DMFFetchSecurityInformationRequest_iOSSecurityInfoKeys__block_invoke(
 
 void __59__DMFFetchSecurityInformationRequest_macOSSecurityInfoKeys__block_invoke()
 {
-  v3[6] = *MEMORY[0x1E69E9840];
-  v3[0] = @"DMFSecurityFirmwarePasswordStatusKey";
-  v3[1] = @"DMFSecurityFirewallSettingsKey";
-  v3[2] = @"DMFSecurityFullDiskEncryptionEnabledKey";
-  v3[3] = @"DMFSecurityFullDiskEncryptionHasInstitutionalRecoveryKey";
-  v3[4] = @"DMFSecurityFullDiskEncryptionHasPersonalRecoveryKey";
-  v3[5] = @"DMFSecuritySystemIntegrityProtectionEnabledKey";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:6];
+  v2[6] = *MEMORY[0x1E69E9840];
+  v2[0] = @"DMFSecurityFirmwarePasswordStatusKey";
+  v2[1] = @"DMFSecurityFirewallSettingsKey";
+  v2[2] = @"DMFSecurityFullDiskEncryptionEnabledKey";
+  v2[3] = @"DMFSecurityFullDiskEncryptionHasInstitutionalRecoveryKey";
+  v2[4] = @"DMFSecurityFullDiskEncryptionHasPersonalRecoveryKey";
+  v2[5] = @"DMFSecuritySystemIntegrityProtectionEnabledKey";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:6];
   v1 = macOSSecurityInfoKeys_result;
   macOSSecurityInfoKeys_result = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (NSArray)tvOSSecurityInfoKeys
@@ -163,16 +157,14 @@ void __58__DMFFetchSecurityInformationRequest_tvOSSecurityInfoKeys__block_invoke
 
 void __61__DMFFetchSecurityInformationRequest_watchOSSecurityInfoKeys__block_invoke()
 {
-  v3[4] = *MEMORY[0x1E69E9840];
-  v3[0] = @"DMFSecurityPasscodeIsCompliantWithGlobalRestrictionsKey";
-  v3[1] = @"DMFSecurityPasscodeIsCompliantWithProfileRestrictionsKey";
-  v3[2] = @"DMFSecurityPasscodeLockGracePeriodEnforcedKey";
-  v3[3] = @"DMFSecurityPasscodeLockGracePeriodKey";
-  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:4];
+  v2[4] = *MEMORY[0x1E69E9840];
+  v2[0] = @"DMFSecurityPasscodeIsCompliantWithGlobalRestrictionsKey";
+  v2[1] = @"DMFSecurityPasscodeIsCompliantWithProfileRestrictionsKey";
+  v2[2] = @"DMFSecurityPasscodeLockGracePeriodEnforcedKey";
+  v2[3] = @"DMFSecurityPasscodeLockGracePeriodKey";
+  v0 = [MEMORY[0x1E695DEC8] arrayWithObjects:v2 count:4];
   v1 = watchOSSecurityInfoKeys_result;
   watchOSSecurityInfoKeys_result = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

@@ -9,14 +9,11 @@
 - (void)appendDescriptionToFormatter:(id)formatter
 {
   formatterCopy = formatter;
-  v6[0] = MEMORY[0x1E69E9820];
-  v6[1] = 3221225472;
-  v6[2] = __57__BKSSceneHostRegistration_appendDescriptionToFormatter___block_invoke;
-  v6[3] = &unk_1E6F47C78;
+  v6 = MEMORY[0x1E69E9820];
   v7 = formatterCopy;
   selfCopy = self;
   v5 = formatterCopy;
-  [v5 appendProem:self block:v6];
+  [v5 appendProem:v6 block:{3221225472, __57__BKSSceneHostRegistration_appendDescriptionToFormatter___block_invoke, &unk_1E6F47C78}];
 }
 
 - (void)invalidate
@@ -27,17 +24,17 @@
   {
     v12 = selfCopy;
     os_unfair_lock_lock(&service->_registrationLock);
-    v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v12->_contextID];
-    v5 = [(NSMutableDictionary *)service->_registrationLock_registrationsByContextID objectForKey:v4];
+    v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:?];
+    v5 = [(NSMutableDictionary *)service->_registrationLock_registrationsByContextID objectForKey:?];
     v6 = v5;
     if (v5)
     {
-      [v5 removeObject:v12];
+      [v5 removeObject:?];
     }
 
     if (![v6 count])
     {
-      [(NSMutableDictionary *)service->_registrationLock_registrationsByContextID removeObjectForKey:v4];
+      [(NSMutableDictionary *)service->_registrationLock_registrationsByContextID removeObjectForKey:?];
     }
 
     lastObject = [v6 lastObject];
@@ -56,7 +53,7 @@
 
     os_unfair_lock_unlock(&service->_registrationLock);
     remoteTarget = [(BSServiceInitiatingConnection *)service->_connection remoteTarget];
-    [remoteTarget setSceneHostSettings:v10 forContextID:v4];
+    [remoteTarget setSceneHostSettings:? forContextID:?];
 
     selfCopy = v12;
   }

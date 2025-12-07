@@ -35,7 +35,7 @@
 - (id)_initWithFacadeTemplate:(id)template elementsTemplates:(id)templates attributes:(id)attributes context:(id)context
 {
   contextCopy = context;
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   if (template)
   {
     if (context)
@@ -55,9 +55,9 @@
 
   [_GCDevicePhysicalInputBase _initWithFacadeTemplate:elementsTemplates:attributes:context:];
 LABEL_3:
-  v42.receiver = self;
-  v42.super_class = _GCDevicePhysicalInputBase;
-  v11 = [(_GCDevicePhysicalInputBase *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = _GCDevicePhysicalInputBase;
+  v11 = [(_GCDevicePhysicalInputBase *)&v41 init];
   v12 = [attributes copy];
   if (!v12)
   {
@@ -74,53 +74,53 @@ LABEL_3:
   v11->_elementCount = [v13 count];
   v11->_indexedElements = malloc_type_calloc([v13 count], 8uLL, 0x80040B8603338uLL);
   v14 = objc_opt_new();
+  v37 = 0u;
   v38 = 0u;
   v39 = 0u;
   v40 = 0u;
-  v41 = 0u;
   obj = v13;
-  v33 = [v13 countByEnumeratingWithState:&v38 objects:v44 count:16];
-  if (v33)
+  v32 = [v13 countByEnumeratingWithState:&v37 objects:v43 count:16];
+  if (v32)
   {
     v15 = 0;
-    v31 = *v39;
-    v32 = contextCopy;
+    v30 = *v38;
+    v31 = contextCopy;
     do
     {
-      for (i = 0; i != v33; ++i)
+      for (i = 0; i != v32; ++i)
       {
-        if (*v39 != v31)
+        if (*v38 != v30)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v38 + 1) + 8 * i);
+        v17 = *(*(&v37 + 1) + 8 * i);
         v11->_indexedElements[v15] = [objc_opt_class() withTemplate:v17 context:contextCopy];
         if (!v11->_indexedElements[v15])
         {
           [_GCDevicePhysicalInputBase _initWithFacadeTemplate:elementsTemplates:attributes:context:];
         }
 
-        v36 = 0u;
-        v37 = 0u;
-        v34 = 0u;
         v35 = 0u;
+        v36 = 0u;
+        v33 = 0u;
+        v34 = 0u;
         aliases = [v17 aliases];
-        v19 = [aliases countByEnumeratingWithState:&v34 objects:v43 count:16];
+        v19 = [aliases countByEnumeratingWithState:&v33 objects:v42 count:16];
         if (v19)
         {
           v20 = v19;
-          v21 = *v35;
+          v21 = *v34;
           do
           {
             for (j = 0; j != v20; ++j)
             {
-              if (*v35 != v21)
+              if (*v34 != v21)
               {
                 objc_enumerationMutation(aliases);
               }
 
-              v23 = *(*(&v34 + 1) + 8 * j);
+              v23 = *(*(&v33 + 1) + 8 * j);
               if ([v14 objectForKey:v23])
               {
                 [_GCDevicePhysicalInputBase _initWithFacadeTemplate:elementsTemplates:attributes:context:];
@@ -129,20 +129,20 @@ LABEL_3:
               [v14 setObject:objc_msgSend(MEMORY[0x1E696AD98] forKey:{"numberWithUnsignedInteger:", v15), v23}];
             }
 
-            v20 = [aliases countByEnumeratingWithState:&v34 objects:v43 count:16];
+            v20 = [aliases countByEnumeratingWithState:&v33 objects:v42 count:16];
           }
 
           while (v20);
         }
 
         ++v15;
-        contextCopy = v32;
+        contextCopy = v31;
       }
 
-      v33 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
+      v32 = [obj countByEnumeratingWithState:&v37 objects:v43 count:16];
     }
 
-    while (v33);
+    while (v32);
   }
 
   v11->_elementIndexByAlias = [v14 copy];
@@ -154,7 +154,7 @@ LABEL_3:
   v25 = [_GCDevicePhysicalInputElementsCollection alloc];
   v11->_elementCollection = v25;
   v25->_implementation = v11;
-  v26 = [objc_opt_class() withTemplate:v29 context:contextCopy];
+  v26 = [objc_opt_class() withTemplate:v28 context:contextCopy];
   v11->_facade = v26;
   if (!v26)
   {
@@ -164,56 +164,47 @@ LABEL_3:
   v11->_viewConfiguration = [*(contextCopy + 3) copy];
   v11->_viewProperties = [*(contextCopy + 4) copy];
   v11->_viewState = [*(contextCopy + 5) copy];
-  v27 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (void)dealloc
 {
-  facade = self->_facade;
   if (_objc_rootRetainCount() != 1)
   {
     [_GCDevicePhysicalInputBase dealloc];
   }
 
-  v4 = self->_facade;
   _objc_rootRelease();
   self->_facade = 0;
-  elementCollection = self->_elementCollection;
   if (_objc_rootRetainCount() != 1)
   {
     [_GCDevicePhysicalInputBase dealloc];
   }
 
-  v6 = self->_elementCollection;
   _objc_rootRelease();
   self->_elementCollection = 0;
-  indexedElementViews = self->_indexedElementViews;
   if (_objc_rootRetainCount() != 1)
   {
     [_GCDevicePhysicalInputBase dealloc];
   }
 
-  v8 = self->_indexedElementViews;
   _objc_rootRelease();
   self->_indexedElementViews = 0;
   if (self->_elementCount)
   {
-    v9 = 0;
+    v3 = 0;
     do
     {
-      v10 = self->_indexedElements[v9];
       if (_objc_rootRetainCount() != 1)
       {
         [_GCDevicePhysicalInputBase dealloc];
       }
 
-      v11 = self->_indexedElements[v9];
       _objc_rootRelease();
-      self->_indexedElements[v9++] = 0;
+      self->_indexedElements[v3++] = 0;
     }
 
-    while (v9 < self->_elementCount);
+    while (v3 < self->_elementCount);
   }
 
   free(self->_indexedElements);
@@ -221,20 +212,20 @@ LABEL_3:
   objc_storeStrong(&self->_elementIndexByAlias, 0);
   if (CFArrayGetCount(self->_additionalViews) >= 1)
   {
-    v12 = 0;
+    v4 = 0;
     do
     {
-      CFArrayGetValueAtIndex(self->_additionalViews, v12);
+      CFArrayGetValueAtIndex(self->_additionalViews, v4);
       if (_objc_rootRetainCount() != 1)
       {
         [_GCDevicePhysicalInputBase dealloc];
       }
 
       _objc_rootRelease();
-      ++v12;
+      ++v4;
     }
 
-    while (v12 < CFArrayGetCount(self->_additionalViews));
+    while (v4 < CFArrayGetCount(self->_additionalViews));
   }
 
   CFRelease(self->_additionalViews);
@@ -245,9 +236,9 @@ LABEL_3:
   objc_storeStrong(&self->_attributes, 0);
   objc_storeWeak(&self->_dataSource, 0);
   objc_storeWeak(&self->_device, 0);
-  v13.receiver = self;
-  v13.super_class = _GCDevicePhysicalInputBase;
-  [(_GCDevicePhysicalInputBase *)&v13 dealloc];
+  v5.receiver = self;
+  v5.super_class = _GCDevicePhysicalInputBase;
+  [(_GCDevicePhysicalInputBase *)&v5 dealloc];
 }
 
 - (GCDevice)device
@@ -352,7 +343,6 @@ LABEL_11:
   v5 = *slot;
   if ((*slot & 0xFF0000000000) != 0x10000000000)
   {
-    v8 = *slot;
     [_GCDevicePhysicalInputBase view:primitiveValueForSlot:];
   }
 
@@ -371,7 +361,6 @@ LABEL_11:
   v7 = *slot;
   if ((*slot & 0xFF0000000000) != 0x10000000000)
   {
-    v9 = *slot;
     [_GCDevicePhysicalInputBase view:setPrimitiveValue:forSlot:];
   }
 
@@ -385,7 +374,6 @@ LABEL_11:
   v7 = *slot;
   if ((*slot & 0xFF0000000000) != 0x10000000000)
   {
-    v10 = *slot;
     [_GCDevicePhysicalInputBase view:testAndSetPrimitiveValue:forSlot:];
   }
 
@@ -399,7 +387,6 @@ LABEL_11:
   v5 = *slot;
   if ((*slot & 0xFF0000000000) != 0x20000000000)
   {
-    v8 = *slot;
     [_GCDevicePhysicalInputBase view:objectValueForSlot:];
   }
 
@@ -426,7 +413,6 @@ LABEL_11:
   {
     if ((v9 & 0xFF0000000000) != 0x20000000000)
     {
-      v11 = *slot;
       [_GCDevicePhysicalInputBase view:setObjectValue:forSlot:policy:];
     }
 
@@ -441,7 +427,6 @@ LABEL_11:
   v9 = *slot;
   if ((*slot & 0xFF0000000000) != 0x20000000000)
   {
-    v12 = *slot;
     [_GCDevicePhysicalInputBase view:testAndSetObjectValue:forSlot:policy:];
   }
 
@@ -455,7 +440,6 @@ LABEL_11:
   v5 = *slot;
   if ((*slot & 0xFF0000000000) != 0x30000000000)
   {
-    v8 = *slot;
     [_GCDevicePhysicalInputBase view:viewForSlot:];
   }
 
@@ -464,8 +448,8 @@ LABEL_11:
   {
     if (v5 >= CFArrayGetCount(result))
     {
-      v9 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA20] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"*** %s: index %u beyond bounds [0 .. %lu]", "-[_GCDevicePhysicalInputBase view:viewForSlot:]", v5, CFArrayGetCount(self->_additionalViews)), 0}];
-      objc_exception_throw(v9);
+      v8 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695DA20] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"*** %s: index %u beyond bounds [0 .. %lu]", "-[_GCDevicePhysicalInputBase view:viewForSlot:]", v5, CFArrayGetCount(self->_additionalViews)), 0}];
+      objc_exception_throw(v8);
     }
 
     additionalViews = self->_additionalViews;
@@ -486,7 +470,7 @@ LABEL_11:
 - (NSString)debugDescription
 {
   selfCopy = self;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (self)
   {
     if ([(NSSet *)self->_attributes count])
@@ -512,10 +496,10 @@ LABEL_7:
   if (selfCopy)
   {
     [v7 appendFormat:@"\n\t%@", objc_msgSend(-[_GCDevicePhysicalInputFacade debugDescription](selfCopy->_facade, "debugDescription"), "stringByReplacingOccurrencesOfString:withString:", @"\n", @"\n\t"];
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
     selfCopy = selfCopy->_indexedElementViews;
   }
 
@@ -524,31 +508,30 @@ LABEL_7:
     [_GCDevicePhysicalInputBase debugDescription];
   }
 
-  v8 = [(_GCDevicePhysicalInputBase *)selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v8 = [(_GCDevicePhysicalInputBase *)selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v15;
+    v10 = *v14;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(selfCopy);
         }
 
-        [v7 appendFormat:@"\n\t%@", objc_msgSend(objc_msgSend(*(*(&v14 + 1) + 8 * i), "debugDescription"), "stringByReplacingOccurrencesOfString:withString:", @"\n", @"\n\t"];
+        [v7 appendFormat:@"\n\t%@", objc_msgSend(objc_msgSend(*(*(&v13 + 1) + 8 * i), "debugDescription"), "stringByReplacingOccurrencesOfString:withString:", @"\n", @"\n\t"];
       }
 
-      v9 = [(_GCDevicePhysicalInputBase *)selfCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v9 = [(_GCDevicePhysicalInputBase *)selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v9);
   }
 
   [v7 appendString:@"\n}"];
-  v12 = *MEMORY[0x1E69E9840];
   return v7;
 }
 

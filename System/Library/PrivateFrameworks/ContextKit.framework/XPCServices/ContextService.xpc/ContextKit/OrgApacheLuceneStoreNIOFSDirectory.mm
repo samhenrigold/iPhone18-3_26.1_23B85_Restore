@@ -27,7 +27,7 @@
     sub_1000280F8();
   }
 
-  v21 = OrgLukhnosPortmobileFileStandardOpenOptionEnum_values_;
+  v21 = OrgLukhnosPortmobileFileStandardOpenOptionEnum_values_[0];
   v9 = [IOSObjectArray arrayWithObjects:&v21 count:1 type:OrgLukhnosPortmobileFileStandardOpenOptionEnum_class_()];
   v10 = OrgLukhnosPortmobileChannelsUtilsFileChannelUtils_openWithOrgLukhnosPortmobileFilePath_withOrgLukhnosPortmobileFileStandardOpenOptionEnumArray_(v8, v9);
   v18 = JreStrcat("$@$", v11, v12, v13, v14, v15, v16, v17, @"NIOFSIndexInput(path=");

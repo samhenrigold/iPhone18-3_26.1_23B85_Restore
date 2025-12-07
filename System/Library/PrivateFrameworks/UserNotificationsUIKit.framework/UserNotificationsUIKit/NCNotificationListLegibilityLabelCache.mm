@@ -23,9 +23,10 @@
 
 uint64_t __56__NCNotificationListLegibilityLabelCache_sharedInstance__block_invoke()
 {
-  sharedInstance___sharedInstance = objc_alloc_init(NCNotificationListLegibilityLabelCache);
+  v0 = objc_alloc_init(NCNotificationListLegibilityLabelCache);
+  sharedInstance___sharedInstance = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0);
 }
 
 - (NCNotificationListLegibilityLabelCache)init

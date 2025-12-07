@@ -1,5 +1,6 @@
 @interface PGGraphLocationNumberNode
 + (id)filter;
+- (PGGraphLocationNumberNode)initWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties;
 - (PGGraphLocationNumberNodeCollection)collection;
 @end
 
@@ -10,6 +11,13 @@
   v2 = [(MANodeCollection *)[PGGraphLocationNumberNodeCollection alloc] initWithNode:self];
 
   return v2;
+}
+
+- (PGGraphLocationNumberNode)initWithLabel:(id)label domain:(unsigned __int16)domain properties:(id)properties
+{
+  v6.receiver = self;
+  v6.super_class = PGGraphLocationNumberNode;
+  return [(PGGraphNamedLocationNode *)&v6 initWithLabel:label domain:domain properties:properties];
 }
 
 + (id)filter

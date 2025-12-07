@@ -257,7 +257,7 @@ LABEL_10:
 
 - (void)dealloc
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_impl(self, a2, v2, v3, v4);
   v11 = objc_msgSend_endpointName(v6, v7, v8, v9, v10);
   v12 = v11;
@@ -274,7 +274,7 @@ LABEL_10:
     if (os_log_type_enabled(qword_28144B278, OS_LOG_TYPE_INFO))
     {
       *buf = 136446210;
-      v31 = v17;
+      v30 = v17;
       _os_log_impl(&dword_245A2E000, v21, OS_LOG_TYPE_INFO, "dealloc connection to %{public}s", buf, 0xCu);
     }
 
@@ -305,10 +305,9 @@ LABEL_10:
     dispatch_sync(frameworkQueue, block);
   }
 
-  v27.receiver = self;
-  v27.super_class = CLIndoorXPCProvider;
-  [(CLIndoorXPCProvider *)&v27 dealloc];
-  v26 = *MEMORY[0x277D85DE8];
+  v26.receiver = self;
+  v26.super_class = CLIndoorXPCProvider;
+  [(CLIndoorXPCProvider *)&v26 dealloc];
 }
 
 - (void)invalidate
@@ -325,7 +324,7 @@ LABEL_10:
 
 - (void)withinQueueInvalidate
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   if (qword_28144B270 != -1)
   {
     sub_245A8E5C8();
@@ -337,11 +336,11 @@ LABEL_10:
     connection = self->_connection;
     v9 = objc_msgSend_impl(self, v4, v5, v6, v7);
     v14 = objc_msgSend_endpointName(v9, v10, v11, v12, v13);
-    v39 = 134349314;
-    v40 = connection;
-    v41 = 2114;
-    v42 = v14;
-    _os_log_impl(&dword_245A2E000, v3, OS_LOG_TYPE_INFO, "About to invalidate connection %{public}p to %{public}@", &v39, 0x16u);
+    v38 = 134349314;
+    v39 = connection;
+    v40 = 2114;
+    v41 = v14;
+    _os_log_impl(&dword_245A2E000, v3, OS_LOG_TYPE_INFO, "About to invalidate connection %{public}p to %{public}@", &v38, 0x16u);
   }
 
   objc_msgSend_setInterruptionHandler_(self->_connection, v15, v16, v17, v18, 0);
@@ -358,13 +357,11 @@ LABEL_10:
 
   v33 = objc_msgSend_impl(self, v29, v30, v31, v32);
   objc_msgSend_withinQueueInvalidateState(v33, v34, v35, v36, v37);
-
-  v38 = *MEMORY[0x277D85DE8];
 }
 
 - (void)withinQueueInterruptionHandler
 {
-  v53 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_impl(self, a2, v2, v3, v4);
   v11 = objc_msgSend_withinQueuePermanentShutdownReason(v6, v7, v8, v9, v10);
 
@@ -381,11 +378,11 @@ LABEL_10:
       v17 = objc_msgSend_impl(self, v13, v14, v15, v16);
       v22 = objc_msgSend_endpointName(v17, v18, v19, v20, v21);
       v27 = objc_msgSend_description(v11, v23, v24, v25, v26);
-      v49 = 138543618;
-      v50 = v22;
-      v51 = 2114;
-      v52 = v27;
-      _os_log_impl(&dword_245A2E000, v12, OS_LOG_TYPE_INFO, "XPC connection invalidated by daemon to %{public}@: %{public}@", &v49, 0x16u);
+      v48 = 138543618;
+      v49 = v22;
+      v50 = 2114;
+      v51 = v27;
+      _os_log_impl(&dword_245A2E000, v12, OS_LOG_TYPE_INFO, "XPC connection invalidated by daemon to %{public}@: %{public}@", &v48, 0x16u);
     }
 
     objc_msgSend_withinQueueInvalidate(self, v28, v29, v30, v31);
@@ -403,16 +400,14 @@ LABEL_10:
     {
       v37 = objc_msgSend_impl(self, v33, v34, v35, v36);
       v42 = objc_msgSend_endpointName(v37, v38, v39, v40, v41);
-      v49 = 138543362;
-      v50 = v42;
-      _os_log_impl(&dword_245A2E000, v32, OS_LOG_TYPE_INFO, "pipelined interruption handler for %{public}@", &v49, 0xCu);
+      v48 = 138543362;
+      v49 = v42;
+      _os_log_impl(&dword_245A2E000, v32, OS_LOG_TYPE_INFO, "pipelined interruption handler for %{public}@", &v48, 0xCu);
     }
 
     v43.__d_.__rep_ = std::chrono::steady_clock::now().__d_.__rep_;
     objc_msgSend_withinQueueHandleReconnect_(self, v44, v45, v46, v47, v43.__d_.__rep_);
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (void)withinQueueHandleReconnect:()time_point<std:(std:()std:(1000000000>>>)std :ratio<1 :chrono::duration<long)long :chrono::steady_clock
@@ -446,7 +441,7 @@ LABEL_6:
 
 - (int)withinQueueShouldReinitializeRemote:()time_point<std:(std:()std:(1000000000>>>)std :ratio<1 :chrono::duration<long)long :chrono::steady_clock
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v8 = objc_msgSend_impl(self, a2, v3, v4, v5);
   CanReinitializeRemoteState = objc_msgSend_withinQueueCanReinitializeRemoteState(v8, v9, v10, v11, v12);
 
@@ -454,14 +449,12 @@ LABEL_6:
   {
     if (self->_lastReconnectTime.m_initialized && std.var0.__rep_ - *(&self->_lastReconnectTime.m_storage.dummy_.aligner_ + 7) < 10000000000)
     {
-      result = 2;
-      v28 = *MEMORY[0x277D85DE8];
+      return 2;
     }
 
     else
     {
-      result = 1;
-      v15 = *MEMORY[0x277D85DE8];
+      return 1;
     }
   }
 
@@ -472,26 +465,23 @@ LABEL_6:
       sub_245A8E5C8();
     }
 
-    v16 = qword_28144B278;
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+    v15 = qword_28144B278;
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
     {
-      v21 = objc_msgSend_impl(self, v17, v18, v19, v20);
-      v26 = objc_msgSend_endpointName(v21, v22, v23, v24, v25);
-      v29 = 138543362;
-      v30 = v26;
-      _os_log_impl(&dword_245A2E000, v16, OS_LOG_TYPE_INFO, "Already invalidated/no remote state - ignoring request to re-initialize %{public}@", &v29, 0xCu);
+      v20 = objc_msgSend_impl(self, v16, v17, v18, v19);
+      v25 = objc_msgSend_endpointName(v20, v21, v22, v23, v24);
+      v26 = 138543362;
+      v27 = v25;
+      _os_log_impl(&dword_245A2E000, v15, OS_LOG_TYPE_INFO, "Already invalidated/no remote state - ignoring request to re-initialize %{public}@", &v26, 0xCu);
     }
 
-    result = 0;
-    v27 = *MEMORY[0x277D85DE8];
+    return 0;
   }
-
-  return result;
 }
 
 - (void)withinQueueReinitializeRemoteState
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   if (qword_28144B270 != -1)
   {
     sub_245A8E5C8();
@@ -502,20 +492,18 @@ LABEL_6:
   {
     v8 = objc_msgSend_impl(self, v4, v5, v6, v7);
     v13 = objc_msgSend_endpointName(v8, v9, v10, v11, v12);
-    v24 = 138543362;
-    v25 = v13;
-    _os_log_impl(&dword_245A2E000, v3, OS_LOG_TYPE_DEBUG, "re-initializing pipelined connection to %{public}@ with existing state", &v24, 0xCu);
+    v23 = 138543362;
+    v24 = v13;
+    _os_log_impl(&dword_245A2E000, v3, OS_LOG_TYPE_DEBUG, "re-initializing pipelined connection to %{public}@ with existing state", &v23, 0xCu);
   }
 
   v18 = objc_msgSend_impl(self, v14, v15, v16, v17);
   objc_msgSend_withinQueueReinitializeRemoteState(v18, v19, v20, v21, v22);
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)withinQueueScheduleReconnect:(duration<long)long reason:()std:(1000000000>>)std :(id)a4 ratio<1
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v6 = a4;
   if (qword_28144B270 != -1)
   {
@@ -527,19 +515,17 @@ LABEL_6:
   {
     v12 = objc_msgSend_impl(self, v8, v9, v10, v11);
     v17 = objc_msgSend_endpointName(v12, v13, v14, v15, v16);
-    v20 = 138543874;
-    v21 = v17;
-    v22 = 2114;
-    v23 = v6;
-    v24 = 2048;
-    v25 = std.__rep_ / 1000000;
-    _os_log_impl(&dword_245A2E000, v7, OS_LOG_TYPE_INFO, "Connection to %{public}@ %{public}@ - retrying in %lld milliseconds", &v20, 0x20u);
+    v19 = 138543874;
+    v20 = v17;
+    v21 = 2114;
+    v22 = v6;
+    v23 = 2048;
+    v24 = std.__rep_ / 1000000;
+    _os_log_impl(&dword_245A2E000, v7, OS_LOG_TYPE_INFO, "Connection to %{public}@ %{public}@ - retrying in %lld milliseconds", &v19, 0x20u);
   }
 
   v18 = dispatch_time(0, std.__rep_);
   dispatch_source_set_timer(self->_interruptReconnection, v18, 0xFFFFFFFFFFFFFFFFLL, 0x77359400uLL);
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_defaultErrHandlerForCaller:(id)caller

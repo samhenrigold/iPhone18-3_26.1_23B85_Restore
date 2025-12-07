@@ -1,4 +1,52 @@
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *_ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+{
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, *(a2 + 136)}];
+  if (result)
+  {
+    v7 = result;
+    if (*(a4 + 23) >= 0)
+    {
+      v8 = a4;
+    }
+
+    else
+    {
+      v8 = *a4;
+    }
+
+    v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v8];
+
+    return [a1 setValue:v7 forKey:v9];
+  }
+
+  return result;
+}
+
+void *_ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+{
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, *(a2 + 144)}];
+  if (result)
+  {
+    v7 = result;
+    if (*(a4 + 23) >= 0)
+    {
+      v8 = a4;
+    }
+
+    else
+    {
+      v8 = *a4;
+    }
+
+    v9 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v8];
+
+    return [a1 setValue:v7 forKey:v9];
+  }
+
+  return result;
+}
+
+CALayer *_ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_(CALayer *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   v5 = *(a2 + 120);
   if (v5)
@@ -10,14 +58,14 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE1_
       v7 = result;
       v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"toValue"];
 
-      return [v6 setValue:v7 forKey:v8];
+      return [(CALayer *)v6 setValue:v7 forKey:v8];
     }
   }
 
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+CALayer *_ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_(CALayer *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   v5 = *(a2 + 112);
   if (v5)
@@ -29,14 +77,14 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE1_
       v7 = result;
       v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"fromValue"];
 
-      return [v6 setValue:v7 forKey:v8];
+      return [(CALayer *)v6 setValue:v7 forKey:v8];
     }
   }
 
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+CALayer *_ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_(CALayer *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   v5 = *(a2 + 128);
   if (v5)
@@ -48,63 +96,63 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE1_
       v7 = result;
       v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"byValue"];
 
-      return [v6 setValue:v7 forKey:v8];
+      return [(CALayer *)v6 setValue:v7 forKey:v8];
     }
   }
 
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2, __int128 **a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -112,44 +160,44 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
 
-  return v14;
+  return v15;
 }
 
 void _ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
@@ -172,7 +220,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE0_
   return [a1 setPreferredFrameRateRange:{a3, a4, a5}];
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:*(a2 + 88)];
   if (result)
@@ -186,7 +234,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE0_
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 12) >> 9) & 1];
   if (result)
@@ -238,7 +286,7 @@ CAValueFunction *id_from_value<void,CA::Render::Function *>(uint64_t *a1)
   return [CAValueFunction functionWithName:?];
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 12) >> 15) & 1];
   if (result)
@@ -262,56 +310,56 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE0_
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2, __int128 **a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -319,96 +367,96 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
 
-  return v14;
+  return v15;
 }
 
-BOOL std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)> const&>(void *a1, uint64_t a2)
+void std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)> const&>(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -416,45 +464,42 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2);
-  if (!result)
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
-
-  return result;
 }
 
 uint64_t _ZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEv()
@@ -477,7 +522,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationE
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -497,7 +542,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationE
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -517,7 +562,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationE
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -537,7 +582,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationE
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -557,7 +602,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationE
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -577,7 +622,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationE
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -597,7 +642,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationE
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -617,7 +662,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationE
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::SpringAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -638,7 +683,7 @@ void sub_183C731D0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
@@ -647,28 +692,28 @@ void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDa
     {
       v3 = *(v2 + 24);
       *&v3 = v3;
-      return [a1 setRepeatCount:v3];
+      return [result setRepeatCount:v3];
     }
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
   {
     if ((*(v2 + 13) & 8) != 0)
     {
-      return [a1 setRepeatDuration:*(v2 + 24)];
+      return [result setRepeatDuration:*(v2 + 24)];
     }
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
@@ -691,75 +736,75 @@ void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDa
     {
       if ((v3 & 0x400) == 0)
       {
-        return a1;
+        return result;
       }
 
       v4 = &kCAFillModeBackwards;
     }
 
-    return [a1 setFillMode:*v4];
+    return [result setFillMode:*v4];
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
   {
-    return [a1 setAutoreverses:(*(v2 + 12) >> 8) & 1];
+    return [result setAutoreverses:(*(v2 + 12) >> 8) & 1];
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
   {
-    return [a1 setTimeOffset:*(v2 + 48)];
+    return [result setTimeOffset:*(v2 + 48)];
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
   {
-    return [a1 setDuration:*(v2 + 32)];
+    return [result setDuration:*(v2 + 32)];
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2, double a3)
+void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2, double a3)
 {
   v3 = *(a2 + 5);
   if (v3)
   {
     LODWORD(a3) = *(v3 + 16);
-    return [a1 setSpeed:a3];
+    return [result setSpeed:a3];
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render15SpringAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
   {
-    return [a1 setBeginTime:*(v2 + 40)];
+    return [result setBeginTime:*(v2 + 40)];
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render15SpringAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 32);
@@ -841,7 +886,7 @@ uint64_t _ZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE_
 
   std::string::basic_string[abi:nn200100]<0>(__p, v8);
   v5 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6, __p, &v5)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_;
   if (v4 < 0)
   {
     operator delete(__p[0]);
@@ -860,7 +905,7 @@ uint64_t _ZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE_
 
   std::string::basic_string[abi:nn200100]<0>(v8, "preferredFrameRateRange");
   __p[0] = v8;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6, v8)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6, v8, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_;
   if (SBYTE7(v9) < 0)
   {
     operator delete(v8[0]);
@@ -880,7 +925,7 @@ uint64_t _ZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE_
 
   std::string::basic_string[abi:nn200100]<0>(__p, v8);
   v5 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6, __p, &v5)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_;
   if (v4 < 0)
   {
     operator delete(__p[0]);
@@ -901,7 +946,7 @@ uint64_t _ZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE_
   {
     do
     {
-      std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)> const&>(v8, (v0 + 2));
+      std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)> const&>(v8, (v0 + 2), (v0 + 2));
       v0 = *v0;
     }
 
@@ -910,7 +955,7 @@ uint64_t _ZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE_
 
   for (i = v9; i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)> const&>(v6, (i + 2));
+    std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)> const&>(v6, (i + 2), (i + 2));
   }
 
   std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__hash_table(&_ZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavE13animation_map, v6);
@@ -918,7 +963,7 @@ uint64_t _ZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE_
   return std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::~__hash_table(v6);
 }
 
-void sub_183C73838(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_183C73838(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   __cxa_guard_abort(&_ZGVZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavE10timing_map);
   std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::~__hash_table(&a16);
@@ -1040,7 +1085,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, v22);
   v18 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -1059,7 +1104,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "valueFunction");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -1078,7 +1123,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "additive");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -1097,7 +1142,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "highFrameRateReason");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -1117,7 +1162,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, v22);
   v18 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -1136,7 +1181,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "preferredFrameRateRangeMaximum");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -1155,7 +1200,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "preferredFrameRateRangePreferred");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -1175,7 +1220,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, v22);
   v18 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -1195,7 +1240,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, v22);
   v18 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -1214,7 +1259,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "beginTimeMode");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -1233,7 +1278,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "delegate");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE9_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE9_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -1252,7 +1297,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "keyPath");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE10_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE10_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -1271,7 +1316,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "frameInterval");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE11_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE11_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -1290,7 +1335,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "preferredFramesPerSecond");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE12_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE12_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -1324,7 +1369,7 @@ LABEL_24:
   return std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::~__hash_table(&v19);
 }
 
-void sub_183C744BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_183C744BC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (a27 < 0)
   {
@@ -1450,7 +1495,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, v22);
   v18 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -1470,7 +1515,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, v22);
   v18 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -1490,7 +1535,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, v22);
   v18 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -1510,7 +1555,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, v22);
   v18 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -1530,7 +1575,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, v22);
   v18 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -1550,7 +1595,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, v22);
   v18 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -1569,7 +1614,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "keyTimes");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -1588,7 +1633,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "calculationMode");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -1608,7 +1653,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, v22);
   v18 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -1642,7 +1687,7 @@ LABEL_24:
   return std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::~__hash_table(&v19);
 }
 
-void sub_183C74F08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_183C74F08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (a14 < 0)
   {
@@ -1653,56 +1698,56 @@ void sub_183C74F08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAKeyframeAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2, __int128 **a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -1710,65 +1755,65 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
 
-  return v14;
+  return v15;
 }
 
-void *_ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES8_SA_SD_SM_SP_(void *a1, const char *a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES8_SA_SD_SM_SP_(void *result, const char *a2)
 {
   v2 = *(a2 + 3);
   if ((v2 & 0x2000000) != 0)
   {
     v3 = &kCAAnimationRotateAuto;
-    return [a1 setRotationMode:*v3];
+    return [result setRotationMode:*v3];
   }
 
   if ((v2 & 0x4000000) != 0)
   {
     v3 = &kCAAnimationRotateAutoReverse;
-    return [a1 setRotationMode:*v3];
+    return [result setRotationMode:*v3];
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES8_SA_SD_SM_SP_(uint64_t result, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES8_SA_SD_SM_SP_(void *result, uint64_t a2)
 {
   v2 = result;
   v3 = *(a2 + 144);
@@ -1832,7 +1877,7 @@ void *id_from_value<NSArray,CA::Render::Vector *>(uint64_t a1)
   return v3;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES8_SA_SD_SM_SP_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5)
+void *_ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES8_SA_SD_SM_SP_(void *result, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
 {
   v5 = *(a2 + 112);
   if (v5)
@@ -1884,7 +1929,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES8_SA_SD_SM_SP_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_clEvENUlP19CAKeyframeAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES8_SA_SD_SM_SP_(void *result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = *(a2 + 128);
   if (v4)
@@ -2052,56 +2097,56 @@ void *_ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE1_c
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2, __int128 **a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -2109,44 +2154,44 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
 
-  return v14;
+  return v15;
 }
 
 void _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
@@ -2169,7 +2214,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE
   return [a1 setPreferredFrameRateRange:{a3, a4, a5}];
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:*(a2 + 88)];
   if (result)
@@ -2183,7 +2228,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 12) >> 9) & 1];
   if (result)
@@ -2213,7 +2258,7 @@ CAValueFunction *_ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDa
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 12) >> 15) & 1];
   if (result)
@@ -2237,56 +2282,56 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2, __int128 **a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -2294,96 +2339,96 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
 
-  return v14;
+  return v15;
 }
 
-BOOL std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)> const&>(void *a1, uint64_t a2)
+void std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)> const&>(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -2391,45 +2436,42 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2);
-  if (!result)
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
-
-  return result;
 }
 
 uint64_t _ZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEv()
@@ -2452,7 +2494,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimatio
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -2472,7 +2514,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimatio
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -2492,7 +2534,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimatio
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -2512,7 +2554,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimatio
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -2532,7 +2574,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimatio
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -2552,7 +2594,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimatio
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -2572,7 +2614,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimatio
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -2592,7 +2634,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimatio
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::KeyframeAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -2613,7 +2655,7 @@ void sub_183C76964(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
@@ -2622,28 +2664,28 @@ void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationE
     {
       v3 = *(v2 + 24);
       *&v3 = v3;
-      return [a1 setRepeatCount:v3];
+      return [result setRepeatCount:v3];
     }
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
   {
     if ((*(v2 + 13) & 8) != 0)
     {
-      return [a1 setRepeatDuration:*(v2 + 24)];
+      return [result setRepeatDuration:*(v2 + 24)];
     }
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
@@ -2666,75 +2708,75 @@ void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationE
     {
       if ((v3 & 0x400) == 0)
       {
-        return a1;
+        return result;
       }
 
       v4 = &kCAFillModeBackwards;
     }
 
-    return [a1 setFillMode:*v4];
+    return [result setFillMode:*v4];
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
   {
-    return [a1 setAutoreverses:(*(v2 + 12) >> 8) & 1];
+    return [result setAutoreverses:(*(v2 + 12) >> 8) & 1];
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
   {
-    return [a1 setTimeOffset:*(v2 + 48)];
+    return [result setTimeOffset:*(v2 + 48)];
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
   {
-    return [a1 setDuration:*(v2 + 32)];
+    return [result setDuration:*(v2 + 32)];
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2, double a3)
+void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2, double a3)
 {
   v3 = *(a2 + 5);
   if (v3)
   {
     LODWORD(a3) = *(v3 + 16);
-    return [a1 setSpeed:a3];
+    return [result setSpeed:a3];
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render17KeyframeAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
   {
-    return [a1 setBeginTime:*(v2 + 40)];
+    return [result setBeginTime:*(v2 + 40)];
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render17KeyframeAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 32);
@@ -2797,7 +2839,7 @@ uint64_t _ZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE_clE
 
   std::string::basic_string[abi:nn200100]<0>(__p, v8);
   v5 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6, __p, &v5)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_;
   if (v4 < 0)
   {
     operator delete(__p[0]);
@@ -2816,7 +2858,7 @@ uint64_t _ZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE_clE
 
   std::string::basic_string[abi:nn200100]<0>(v8, "preferredFrameRateRange");
   __p[0] = v8;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6, v8)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6, v8, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_;
   if (SBYTE7(v9) < 0)
   {
     operator delete(v8[0]);
@@ -2836,7 +2878,7 @@ uint64_t _ZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE_clE
 
   std::string::basic_string[abi:nn200100]<0>(__p, v8);
   v5 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v6, __p, &v5)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_;
   if (v4 < 0)
   {
     operator delete(__p[0]);
@@ -2857,7 +2899,7 @@ uint64_t _ZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE_clE
   {
     do
     {
-      std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)> const&>(v8, (v0 + 2));
+      std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)> const&>(v8, (v0 + 2), (v0 + 2));
       v0 = *v0;
     }
 
@@ -2866,7 +2908,7 @@ uint64_t _ZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE_clE
 
   for (i = v9; i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)> const&>(v6, (i + 2));
+    std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)> const&>(v6, (i + 2), (i + 2));
   }
 
   std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__hash_table(&_ZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavE13animation_map, v6);
@@ -2874,7 +2916,7 @@ uint64_t _ZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE_clE
   return std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::~__hash_table(v6);
 }
 
-void sub_183C76F64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_183C76F64(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   __cxa_guard_abort(&_ZGVZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavE10timing_map);
   std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::~__hash_table(&a16);
@@ -2996,7 +3038,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, v22);
   v18 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -3015,7 +3057,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "valueFunction");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -3034,7 +3076,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "additive");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -3053,7 +3095,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "highFrameRateReason");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -3073,7 +3115,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, v22);
   v18 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -3092,7 +3134,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "preferredFrameRateRangeMaximum");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -3111,7 +3153,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "preferredFrameRateRangePreferred");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -3131,7 +3173,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, v22);
   v18 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -3151,7 +3193,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, v22);
   v18 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(__p[0]);
@@ -3170,7 +3212,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "beginTimeMode");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -3189,7 +3231,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "delegate");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE9_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE9_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -3208,7 +3250,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "keyPath");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE10_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE10_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -3227,7 +3269,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "frameInterval");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE11_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE11_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -3246,7 +3288,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v22, "preferredFramesPerSecond");
   __p[0] = v22;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE12_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v22, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE12_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(v22[0]);
@@ -3280,7 +3322,7 @@ LABEL_24:
   return std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::~__hash_table(&v19);
 }
 
-void sub_183C77BE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_183C77BE8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (a27 < 0)
   {
@@ -3405,7 +3447,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, "byValue");
   v16[0] = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, v16)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(__p[0]);
@@ -3424,7 +3466,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, "fromValue");
   v16[0] = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, v16)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(__p[0]);
@@ -3443,7 +3485,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(__p, "toValue");
   v16[0] = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, __p, v16)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_;
   if (v23 < 0)
   {
     operator delete(__p[0]);
@@ -3463,7 +3505,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v16, __p);
   v18 = v16;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v16)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v16, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(v16[0]);
@@ -3483,7 +3525,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v16, __p);
   v18 = v16;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v16)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v16, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(v16[0]);
@@ -3503,7 +3545,7 @@ LABEL_24:
 
   std::string::basic_string[abi:nn200100]<0>(v16, __p);
   v18 = v16;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v16)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES8_SA_SD_SM_SP_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(&v19, v16, &v18)[5] = _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES8_SA_SD_SM_SP_;
   if (v17 < 0)
   {
     operator delete(v16[0]);
@@ -3537,7 +3579,7 @@ LABEL_24:
   return std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::~__hash_table(&v19);
 }
 
-void sub_183C78430(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, char a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
+void sub_183C78430(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, int a24, __int16 a25, char a26, char a27)
 {
   if (a14 < 0)
   {
@@ -3548,56 +3590,56 @@ void sub_183C78430(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABasicAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2, __int128 **a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -3605,49 +3647,49 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
 
-  return v14;
+  return v15;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  result = [MEMORY[0x1E696AD98] numberWithDouble:*(a2 + 136)];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, *(a2 + 136)}];
   if (result)
   {
     v7 = result;
@@ -3669,9 +3711,9 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_c
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  result = [MEMORY[0x1E696AD98] numberWithDouble:*(a2 + 144)];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, *(a2 + 144)}];
   if (result)
   {
     v7 = result;
@@ -3693,7 +3735,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_c
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+CALayer *_ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_(CALayer *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   v5 = *(a2 + 120);
   if (v5)
@@ -3705,14 +3747,14 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_c
       v7 = result;
       v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"toValue"];
 
-      return [v6 setValue:v7 forKey:v8];
+      return [(CALayer *)v6 setValue:v7 forKey:v8];
     }
   }
 
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+CALayer *_ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_(CALayer *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   v5 = *(a2 + 112);
   if (v5)
@@ -3724,14 +3766,14 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_c
       v7 = result;
       v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"fromValue"];
 
-      return [v6 setValue:v7 forKey:v8];
+      return [(CALayer *)v6 setValue:v7 forKey:v8];
     }
   }
 
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+CALayer *_ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_clEvENUlP16CABasicAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_(CALayer *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   v5 = *(a2 + 128);
   if (v5)
@@ -3743,63 +3785,63 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE1_c
       v7 = result;
       v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"byValue"];
 
-      return [v6 setValue:v7 forKey:v8];
+      return [(CALayer *)v6 setValue:v7 forKey:v8];
     }
   }
 
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAPropertyAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2, __int128 **a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -3807,44 +3849,44 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
 
-  return v14;
+  return v15;
 }
 
 void _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
@@ -3867,7 +3909,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_c
   return [a1 setPreferredFrameRateRange:{a3, a4, a5}];
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:*(a2 + 88)];
   if (result)
@@ -3881,7 +3923,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_c
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 12) >> 9) & 1];
   if (result)
@@ -3911,7 +3953,7 @@ CAValueFunction *_ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavEN
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_clEvENUlP19CAPropertyAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 12) >> 15) & 1];
   if (result)
@@ -3935,56 +3977,56 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE0_c
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2)
+void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(void *a1, uint64_t a2, __int128 **a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -3992,96 +4034,96 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
 
-  return v14;
+  return v15;
 }
 
-BOOL std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)> const&>(void *a1, uint64_t a2)
+void std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::pair<std::string const,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)> const&>(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -4089,45 +4131,42 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2);
-  if (!result)
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
-
-  return result;
 }
 
 uint64_t _ZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEv()
@@ -4150,7 +4189,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationED
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -4170,7 +4209,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationED
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -4190,7 +4229,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationED
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -4210,7 +4249,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationED
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -4230,7 +4269,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationED
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -4250,7 +4289,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationED
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -4270,7 +4309,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationED
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -4290,7 +4329,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationED
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES6_S8_SB_SK_SN_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAAnimation *,CA::Render::BasicAnimation const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES6_S8_SB_SK_SN_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -4311,7 +4350,7 @@ void sub_183C79A00(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
@@ -4320,28 +4359,28 @@ void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDav
     {
       v3 = *(v2 + 24);
       *&v3 = v3;
-      return [a1 setRepeatCount:v3];
+      return [result setRepeatCount:v3];
     }
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
   {
     if ((*(v2 + 13) & 8) != 0)
     {
-      return [a1 setRepeatDuration:*(v2 + 24)];
+      return [result setRepeatDuration:*(v2 + 24)];
     }
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
@@ -4364,75 +4403,75 @@ void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDav
     {
       if ((v3 & 0x400) == 0)
       {
-        return a1;
+        return result;
       }
 
       v4 = &kCAFillModeBackwards;
     }
 
-    return [a1 setFillMode:*v4];
+    return [result setFillMode:*v4];
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
   {
-    return [a1 setAutoreverses:(*(v2 + 12) >> 8) & 1];
+    return [result setAutoreverses:(*(v2 + 12) >> 8) & 1];
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
   {
-    return [a1 setTimeOffset:*(v2 + 48)];
+    return [result setTimeOffset:*(v2 + 48)];
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
   {
-    return [a1 setDuration:*(v2 + 32)];
+    return [result setDuration:*(v2 + 32)];
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2, double a3)
+void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2, double a3)
 {
   v3 = *(a2 + 5);
   if (v3)
   {
     LODWORD(a3) = *(v3 + 16);
-    return [a1 setSpeed:a3];
+    return [result setSpeed:a3];
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES6_S8_SB_SK_SN_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render14BasicAnimationE11CAAnimationEDavENKUlvE_clEvENUlPS3_PKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSC_11char_traitsIcEENSC_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES6_S8_SB_SK_SN_(void *result, const char *a2)
 {
   v2 = *(a2 + 5);
   if (v2)
   {
-    return [a1 setBeginTime:*(v2 + 40)];
+    return [result setBeginTime:*(v2 + 40)];
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render14BasicAnimationEERKDavENKUlvE_clEvENUlP11CAAnimationPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSE_11char_traitsIcEENSE_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SD_SM_SP_(void *a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
   v3 = *(a2 + 32);
@@ -4494,7 +4533,7 @@ void ___Z20get_setters_for_typeIN2CA6Render6FilterEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -4513,7 +4552,7 @@ void ___Z20get_setters_for_typeIN2CA6Render6FilterEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(v3, "enabled");
   __p[0] = v3;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3)[5] = _ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(v3[0]);
@@ -4533,7 +4572,7 @@ void ___Z20get_setters_for_typeIN2CA6Render6FilterEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -4553,7 +4592,7 @@ void ___Z20get_setters_for_typeIN2CA6Render6FilterEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -4573,7 +4612,7 @@ void ___Z20get_setters_for_typeIN2CA6Render6FilterEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -4749,48 +4788,48 @@ void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAFilter *,C
   return v11;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1)
+void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAFilter *,CA::Render::Filter const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, __int128 **a2)
 {
-  v1 = a1;
-  v2 = *(a1 + 8);
+  v2 = a1;
+  v3 = *(a1 + 8);
   if (*(a1 + 23) >= 0)
   {
-    v3 = *(a1 + 23);
+    v4 = *(a1 + 23);
   }
 
   else
   {
     a1 = *a1;
-    v3 = v2;
+    v4 = v3;
   }
 
-  v4 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](a1, v3);
-  v5 = v4;
-  v6 = *(&_ZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavE3map + 1);
+  v5 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](a1, v4);
+  v6 = v5;
+  v7 = *(&_ZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavE3map + 1);
   if (!*(&_ZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavE3map + 1))
   {
     goto LABEL_21;
   }
 
-  v7 = vcnt_s8(*(&_ZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavE3map + 8));
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(*(&_ZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavE3map + 8));
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *(&_ZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavE3map + 1))
+    v10 = v5;
+    if (v5 >= *(&_ZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavE3map + 1))
     {
-      v9 = v4 % *(&_ZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavE3map + 1);
+      v10 = v5 % *(&_ZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavE3map + 1);
     }
   }
 
   else
   {
-    v9 = (*(&_ZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavE3map + 1) - 1) & v4;
+    v10 = (*(&_ZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavE3map + 1) - 1) & v5;
   }
 
-  v10 = *(_ZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavE3map + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(_ZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavE3map + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_21:
     operator new();
@@ -4798,47 +4837,47 @@ LABEL_21:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= v6)
+      if (v13 >= v7)
       {
-        v12 %= v6;
+        v13 %= v7;
       }
     }
 
     else
     {
-      v12 &= v6 - 1;
+      v13 &= v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_21;
     }
 
 LABEL_20:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_21;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](v11 + 2, v1))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v12 + 2, v2))
   {
     goto LABEL_20;
   }
 
-  return v11;
+  return v12;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, CGColorSpace **a5)
+void *_ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t *a5)
 {
   v5 = *(a2 + 40);
   if (v5 && *(v5 + 16))
@@ -4865,7 +4904,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterP
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 12) >> 8) & 1];
   if (result)
@@ -4879,7 +4918,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterP
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_(void *result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = *(a2 + 32);
   if (v4)
@@ -4908,7 +4947,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render6FilterEERKDavEUb_ENUlP8CAFilterP
   return result;
 }
 
-CGColorRef _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE91_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, float32x4_t *a3, uint64_t a4, CGColorSpace **a5)
+CGColorRef _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE91_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, float32x4_t *a3, uint64_t a4, uint64_t *a5)
 {
   v6 = a3[8].i64[1];
   if (v6)
@@ -4921,7 +4960,7 @@ CGColorRef _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7
     v7 = 0;
   }
 
-  result = cg_color_from_pattern_or_color(a5, v7, a3[1]);
+  result = cg_color_from_pattern_or_color(a5, v7, a3[1], a3[2].f32[0]);
   if (result)
   {
 
@@ -4931,7 +4970,7 @@ CGColorRef _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE90_8__invokeES8_SA_SA_SJ_SM_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE90_8__invokeES8_SA_SA_SJ_SM_(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v5 = *(a3 + 144);
   if (v5)
@@ -4955,7 +4994,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE89_8__invokeES8_SA_SA_SJ_SM_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE89_8__invokeES8_SA_SA_SJ_SM_(void *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v6 = result;
   v12[1] = *MEMORY[0x1E69E9840];
@@ -4971,7 +5010,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
 
   else if (v7)
   {
-    v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:*(v7 + 16)];
+    v8 = [MEMORY[0x1E695DF70] arrayWithCapacity:{*(v7 + 16), a4}];
     if (*(v7 + 16))
     {
       v9 = 0;
@@ -5001,7 +5040,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE88_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE88_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 48) >> 23) & 1];
   if (result)
@@ -5015,7 +5054,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE87_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE87_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
 {
   v3 = *(a2 + 136);
   if (v3)
@@ -5040,7 +5079,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE86_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE86_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
 {
   v3 = *(a2 + 136);
   if (v3)
@@ -5065,7 +5104,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE85_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE85_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
 {
   v3 = *(a2 + 136);
   if (v3)
@@ -5090,7 +5129,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE84_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE84_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
 {
   v3 = *(a2 + 136);
   if (v3)
@@ -5115,7 +5154,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE83_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE83_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 48) >> 1) & 1];
   if (result)
@@ -5129,7 +5168,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE82_8__invokeES8_SA_SA_SJ_SM_(uint64_t result, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE82_8__invokeES8_SA_SA_SJ_SM_(void *result, uint64_t a2)
 {
   v9 = *MEMORY[0x1E69E9840];
   v2 = *(a2 + 136);
@@ -5178,7 +5217,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE81_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE81_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
 {
   v3 = *(a2 + 136);
   if (v3)
@@ -5203,7 +5242,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE80_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE80_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 42) & 1];
   if (result)
@@ -5217,7 +5256,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE79_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE79_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 43) & 1];
   if (result)
@@ -5231,7 +5270,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE78_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE78_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 44) & 1];
   if (result)
@@ -5245,7 +5284,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE77_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE77_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
 {
   v3 = *(a2 + 136);
   if (v3)
@@ -5270,7 +5309,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE76_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE76_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:*(a2 + 40) >> 63];
   if (result)
@@ -5284,7 +5323,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE75_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE75_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 62) & 1];
   if (result)
@@ -5298,7 +5337,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE74_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE74_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v6 = *(a2 + 136);
   if (v6)
@@ -5311,7 +5350,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
     v7 = 0.0;
   }
 
-  result = [MEMORY[0x1E696AD98] numberWithDouble:v7];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, v7}];
   if (result)
   {
     v9 = result;
@@ -5333,7 +5372,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE73_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+char *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE73_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v6 = *(a2 + 136);
   if (v6)
@@ -5368,12 +5407,12 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t id_from_value<CATransform3D,CA::Render::Vector *>(uint64_t result)
+char *id_from_value<CATransform3D,CA::Render::Vector *>(char *result)
 {
   v9 = *MEMORY[0x1E69E9840];
   if (result)
   {
-    if (*(result + 16) <= 0xFu)
+    if (*(result + 4) <= 0xFu)
     {
       __assert_rtn("nsobject_from_values", "CAReverseSerialization.mm", 267, "count >= 16");
     }
@@ -5399,7 +5438,7 @@ uint64_t id_from_value<CATransform3D,CA::Render::Vector *>(uint64_t result)
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE72_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+char *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE72_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v6 = *(a2 + 136);
   if (v6)
@@ -5434,7 +5473,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE71_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE71_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 46) & 1];
   if (result)
@@ -5458,7 +5497,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE70_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE70_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 45) & 1];
   if (result)
@@ -5482,7 +5521,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE69_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE69_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 48) >> 13) & 1];
   if (result)
@@ -5506,7 +5545,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE68_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE68_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 54) & 1];
   if (result)
@@ -5530,7 +5569,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE67_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE67_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 53) & 1];
   if (result)
@@ -5554,7 +5593,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE66_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE66_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 52) & 1];
   if (result)
@@ -5578,7 +5617,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE65_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE65_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v6 = *(a2 + 136);
   if (v6)
@@ -5591,7 +5630,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
     v7 = 3.0;
   }
 
-  result = [MEMORY[0x1E696AD98] numberWithDouble:v7];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, v7}];
   if (result)
   {
     v9 = result;
@@ -5613,7 +5652,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE64_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE64_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 48) >> 8) & 1];
   if (result)
@@ -5669,10 +5708,10 @@ CGPath *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CAL
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE62_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, float a3, uint64_t a4, uint64_t *a5)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE62_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, float a3, uint64_t a4, uint64_t *a5)
 {
   LOBYTE(a3) = *(a2 + 37);
-  result = [MEMORY[0x1E696AD98] numberWithDouble:(LODWORD(a3) * 0.0039216)];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a4, (LODWORD(a3) * 0.0039216)}];
   if (result)
   {
     v8 = result;
@@ -5694,7 +5733,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE61_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE61_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v11 = *MEMORY[0x1E69E9840];
   v6 = *(a2 + 136);
@@ -5734,36 +5773,38 @@ id _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerP
   if (v7)
   {
     v8 = *(v7 + 200);
+    v9 = *(v7 + 216);
   }
 
   else
   {
     v8 = xmmword_183E20E40;
+    v9 = 0.0;
   }
 
-  result = cg_color_from_values<CA::Render::Color>(*a5, v8);
+  result = cg_color_from_values<CA::Render::Color>(*a5, v8, v9);
   if (result)
   {
-    v10 = result;
+    v11 = result;
     if (*(a4 + 23) >= 0)
     {
-      v11 = a4;
+      v12 = a4;
     }
 
     else
     {
-      v11 = *a4;
+      v12 = *a4;
     }
 
-    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v11];
+    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v12];
 
-    return [a1 setValue:v10 forKey:v12];
+    return [a1 setValue:v11 forKey:v13];
   }
 
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE59_8__invokeES8_SA_SA_SJ_SM_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE59_8__invokeES8_SA_SA_SJ_SM_(void *result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = *off_1E6DED0A0[(*(a2 + 40) >> 34) & 3];
   if (v4)
@@ -5787,7 +5828,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE58_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE58_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v6 = *(a2 + 136);
   if (v6)
@@ -5800,7 +5841,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
     v7 = 0.0;
   }
 
-  result = [MEMORY[0x1E696AD98] numberWithDouble:v7];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, v7}];
   if (result)
   {
     v9 = result;
@@ -5822,7 +5863,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE57_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE57_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 48) >> 11) & 1];
   if (result)
@@ -5846,7 +5887,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE56_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE56_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v6 = *(a2 + 136);
   if (v6)
@@ -5859,7 +5900,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
     v7 = 0.0;
   }
 
-  result = [MEMORY[0x1E696AD98] numberWithDouble:v7];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, v7}];
   if (result)
   {
     v9 = result;
@@ -5887,36 +5928,38 @@ id _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerP
   if (v7)
   {
     v8 = *(v7 + 324);
+    v9 = *(v7 + 340);
   }
 
   else
   {
     v8 = xmmword_183E20E40;
+    v9 = 0.0;
   }
 
-  result = cg_color_from_values<CA::Render::Color>(*a5, v8);
+  result = cg_color_from_values<CA::Render::Color>(*a5, v8, v9);
   if (result)
   {
-    v10 = result;
+    v11 = result;
     if (*(a4 + 23) >= 0)
     {
-      v11 = a4;
+      v12 = a4;
     }
 
     else
     {
-      v11 = *a4;
+      v12 = *a4;
     }
 
-    v12 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v11];
+    v13 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v12];
 
-    return [a1 setValue:v10 forKey:v12];
+    return [a1 setValue:v11 forKey:v13];
   }
 
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE54_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, float a3, uint64_t a4, uint64_t *a5)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE54_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, float a3, uint64_t a4, uint64_t *a5)
 {
   v7 = *(a2 + 136);
   if (v7)
@@ -5930,7 +5973,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
     v8 = LODWORD(a3);
   }
 
-  result = [MEMORY[0x1E696AD98] numberWithDouble:v8];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a4, v8}];
   if (result)
   {
     v10 = result;
@@ -5952,7 +5995,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE53_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE53_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 57) & 1];
   if (result)
@@ -5976,7 +6019,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE52_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE52_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:HIBYTE(*(a2 + 40)) & 1];
   if (result)
@@ -6000,7 +6043,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE51_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE51_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 48) >> 10) & 1];
   if (result)
@@ -6024,7 +6067,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE50_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE50_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 58) & 1];
   if (result)
@@ -6048,7 +6091,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE49_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE49_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v9 = *MEMORY[0x1E69E9840];
   v8 = *(a2 + 56);
@@ -6071,10 +6114,10 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE48_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, float a3, uint64_t a4, uint64_t *a5)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE48_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, float a3, uint64_t a4, uint64_t *a5)
 {
   LOBYTE(a3) = *(a2 + 36);
-  result = [MEMORY[0x1E696AD98] numberWithDouble:(LODWORD(a3) * 0.0039216)];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a4, (LODWORD(a3) * 0.0039216)}];
   if (result)
   {
     v8 = result;
@@ -6096,7 +6139,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE47_8__invokeES8_SA_SA_SJ_SM_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE47_8__invokeES8_SA_SA_SJ_SM_(void *result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = *(a2 + 128);
   if (v4)
@@ -6262,7 +6305,7 @@ void sub_183C7C794(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE44_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE44_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 40) & 1];
   if (result)
@@ -6286,7 +6329,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE43_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE43_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 16) & 0xFLL];
   if (result)
@@ -6310,7 +6353,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE42_8__invokeES8_SA_SA_SJ_SM_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5)
+CALayer *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE42_8__invokeES8_SA_SA_SJ_SM_(CALayer *result, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5)
 {
   v5 = *(a2 + 120);
   if (v5)
@@ -6332,7 +6375,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
 
       v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v9];
 
-      return [v7 setValue:v8 forKey:v10];
+      return [(CALayer *)v7 setValue:v8 forKey:v10];
     }
   }
 
@@ -6363,7 +6406,7 @@ __CFString *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE40_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE40_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 48) >> 15) & 1];
   if (result)
@@ -6387,7 +6430,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE39_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE39_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 48) >> 7) & 1];
   if (result)
@@ -6411,7 +6454,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE38_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE38_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 41) & 1];
   if (result)
@@ -6435,7 +6478,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE37_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE37_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 48) >> 20) & 1];
   if (result)
@@ -6459,7 +6502,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE36_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE36_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 48) >> 6) & 1];
   if (result)
@@ -6483,7 +6526,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE35_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE35_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 48) >> 14) & 1];
   if (result)
@@ -6507,7 +6550,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE34_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE34_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 47) & 1];
   if (result)
@@ -6599,7 +6642,7 @@ void *id_from_value<void,CA::Render::TypedArray<CA::Render::Filter> *>(uint64_t 
   return v4;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE32_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE32_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 8) & 0xFLL];
   if (result)
@@ -6623,7 +6666,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE31_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE31_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 20) & 0x7FFLL];
   if (result)
@@ -6647,7 +6690,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE30_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE30_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 59) & 1];
   if (result)
@@ -6671,7 +6714,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE29_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE29_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v6 = *(a2 + 136);
   v7 = 0.0;
@@ -6680,7 +6723,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
     v7 = *(v6 + 232);
   }
 
-  result = [MEMORY[0x1E696AD98] numberWithDouble:v7];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, v7}];
   if (result)
   {
     v9 = result;
@@ -6702,7 +6745,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE28_8__invokeES8_SA_SA_SJ_SM_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE28_8__invokeES8_SA_SA_SJ_SM_(void *result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v13 = *MEMORY[0x1E69E9840];
   v4 = *(a2 + 136);
@@ -6745,7 +6788,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE27_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE27_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 48) >> 16) & 1];
   if (result)
@@ -6769,7 +6812,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE26_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+char *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE26_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v6 = *(a2 + 136);
   if (v6)
@@ -6804,12 +6847,12 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t id_from_value<CGRect,CA::Render::Vector *>(uint64_t result)
+char *id_from_value<CGRect,CA::Render::Vector *>(char *result)
 {
   v3 = *MEMORY[0x1E69E9840];
   if (result)
   {
-    if (*(result + 16) <= 3u)
+    if (*(result + 4) <= 3u)
     {
       __assert_rtn("id_from_value", "CAReverseSerialization.mm", 325, "count >= 4");
     }
@@ -6823,7 +6866,7 @@ uint64_t id_from_value<CGRect,CA::Render::Vector *>(uint64_t result)
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE25_8__invokeES8_SA_SA_SJ_SM_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5)
+CALayer *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE25_8__invokeES8_SA_SA_SJ_SM_(CALayer *result, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
 {
   v5 = *(a2 + 136);
   if (v5)
@@ -6848,7 +6891,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
 
         v11 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v10];
 
-        return [v8 setValue:v9 forKey:v11];
+        return [(CALayer *)v8 setValue:v9 forKey:v11];
       }
     }
   }
@@ -6856,7 +6899,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE24_8__invokeES8_SA_SA_SJ_SM_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE24_8__invokeES8_SA_SA_SJ_SM_(void *result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v11 = *MEMORY[0x1E69E9840];
   v4 = *(a2 + 136);
@@ -6896,7 +6939,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE23_8__invokeES8_SA_SA_SJ_SM_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE23_8__invokeES8_SA_SA_SJ_SM_(void *result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = result;
   v5 = *(a2 + 136);
@@ -6927,7 +6970,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE22_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, float a3, uint64_t a4, uint64_t *a5)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE22_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, float a3, uint64_t a4, uint64_t *a5)
 {
   v7 = *(a2 + 136);
   if (v7)
@@ -6941,7 +6984,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
     v8 = LODWORD(a3);
   }
 
-  result = [MEMORY[0x1E696AD98] numberWithDouble:v8];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a4, v8}];
   if (result)
   {
     v10 = result;
@@ -6963,7 +7006,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE21_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+char *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE21_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v6 = *(a2 + 136);
   if (v6)
@@ -6998,7 +7041,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE20_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE20_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 51) & 1];
   if (result)
@@ -7028,36 +7071,39 @@ id _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerP
   if (v7)
   {
     _Q0 = *(v7 + 284);
+    v9 = *(v7 + 300);
   }
 
   else
   {
     __asm { FMOV            V0.4S, #1.0 }
+
+    v9 = 0.0;
   }
 
-  result = cg_color_from_values<CA::Render::Color>(*a5, _Q0);
+  result = cg_color_from_values<CA::Render::Color>(*a5, _Q0, v9);
   if (result)
   {
-    v14 = result;
+    v15 = result;
     if (*(a4 + 23) >= 0)
     {
-      v15 = a4;
+      v16 = a4;
     }
 
     else
     {
-      v15 = *a4;
+      v16 = *a4;
     }
 
-    v16 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v15];
+    v17 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v16];
 
-    return [a1 setValue:v14 forKey:v16];
+    return [a1 setValue:v15 forKey:v17];
   }
 
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE18_8__invokeES8_SA_SA_SJ_SM_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE18_8__invokeES8_SA_SA_SJ_SM_(void *result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   if ((*(a2 + 40) >> 12) <= 0xCu)
   {
@@ -7083,7 +7129,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE17_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE17_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:HIWORD(*(a2 + 40)) & 1];
   if (result)
@@ -7107,7 +7153,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE16_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE16_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 48) >> 18) & 1];
   if (result)
@@ -7131,7 +7177,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE15_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+char *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE15_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v6 = *(a2 + 136);
   if (v6)
@@ -7166,7 +7212,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE14_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE14_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 50) & 1];
   if (result)
@@ -7190,7 +7236,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE13_8__invokeES8_SA_SA_SJ_SM_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t a5)
+CALayer *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE13_8__invokeES8_SA_SA_SJ_SM_(CALayer *result, uint64_t a2, uint64_t a3, uint64_t *a4, uint64_t *a5)
 {
   v5 = *(a2 + 104);
   if (v5)
@@ -7212,7 +7258,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
 
       v10 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v9];
 
-      return [v7 setValue:v8 forKey:v10];
+      return [(CALayer *)v7 setValue:v8 forKey:v10];
     }
   }
 
@@ -7252,7 +7298,7 @@ CAFilter *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7C
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE11_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE11_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v10 = *MEMORY[0x1E69E9840];
   v6 = *(a2 + 88);
@@ -7277,7 +7323,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE10_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE10_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v6 = *(a2 + 136);
   if (v6)
@@ -7290,7 +7336,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
     v7 = 0.0;
   }
 
-  result = [MEMORY[0x1E696AD98] numberWithDouble:v7];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, v7}];
   if (result)
   {
     v9 = result;
@@ -7312,7 +7358,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE9_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE9_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 48) >> 12) & 1];
   if (result)
@@ -7336,7 +7382,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v6 = *(a2 + 136);
   if (v6)
@@ -7349,7 +7395,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
     v7 = 0.0;
   }
 
-  result = [MEMORY[0x1E696AD98] numberWithDouble:v7];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, v7}];
   if (result)
   {
     v9 = result;
@@ -7403,7 +7449,7 @@ void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALay
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v11 = *MEMORY[0x1E69E9840];
   v6 = *(a2 + 136);
@@ -7437,7 +7483,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v6 = *(a2 + 136);
   if (v6)
@@ -7450,7 +7496,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
     v7 = 0.0;
   }
 
-  result = [MEMORY[0x1E696AD98] numberWithDouble:v7];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, v7}];
   if (result)
   {
     v9 = result;
@@ -7472,7 +7518,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v12 = *MEMORY[0x1E69E9840];
   v6 = *(a2 + 136);
@@ -7512,7 +7558,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 48) >> 4) & 1];
   if (result)
@@ -7536,7 +7582,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 48) >> 2) & 1];
   if (result)
@@ -7560,7 +7606,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 48) >> 3) & 1];
   if (result)
@@ -7584,7 +7630,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 61) & 1];
   if (result)
@@ -7608,7 +7654,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CA
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render5LayerEERKDavENKUlvE_clEvENUlP7CALayerPKS2_SA_RKNSt3__112basic_stringIcNSB_11char_traitsIcEENSB_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES8_SA_SA_SJ_SM_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 40) >> 60) & 1];
   if (result)
@@ -7652,7 +7698,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEv(
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES6_S8_S8_SH_SK_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES6_S8_S8_SH_SK_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -7672,7 +7718,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEv(
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES6_S8_S8_SH_SK_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES6_S8_S8_SH_SK_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -7692,7 +7738,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEv(
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES6_S8_S8_SH_SK_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES6_S8_S8_SH_SK_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -7712,7 +7758,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEv(
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES6_S8_S8_SH_SK_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES6_S8_S8_SH_SK_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -7732,7 +7778,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEv(
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES6_S8_S8_SH_SK_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES6_S8_S8_SH_SK_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -7752,7 +7798,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEv(
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES6_S8_S8_SH_SK_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES6_S8_S8_SH_SK_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -7772,7 +7818,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEv(
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES6_S8_S8_SH_SK_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES6_S8_S8_SH_SK_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -7792,7 +7838,7 @@ uint64_t _ZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEv(
 
   std::string::basic_string[abi:nn200100]<0>(__p, __s);
   v3 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p)[5] = _ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES6_S8_S8_SH_SK_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CALayer *,CA::Render::Layer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v4, __p, &v3)[5] = _ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES6_S8_S8_SH_SK_;
   if (v2 < 0)
   {
     operator delete(__p[0]);
@@ -7813,7 +7859,7 @@ void sub_183C7EB5C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES6_S8_S8_SH_SK_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES6_S8_S8_SH_SK_(void *result, const char *a2)
 {
   v2 = *(a2 + 17);
   if (v2)
@@ -7825,15 +7871,15 @@ void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENU
       {
         v4 = *(v3 + 24);
         *&v4 = v4;
-        return [a1 setRepeatCount:v4];
+        return [result setRepeatCount:v4];
       }
     }
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES6_S8_S8_SH_SK_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES6_S8_S8_SH_SK_(void *result, const char *a2)
 {
   v2 = *(a2 + 17);
   if (v2)
@@ -7843,15 +7889,15 @@ void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENU
     {
       if ((*(v3 + 13) & 8) != 0)
       {
-        return [a1 setRepeatDuration:*(v3 + 24)];
+        return [result setRepeatDuration:*(v3 + 24)];
       }
     }
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES6_S8_S8_SH_SK_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES6_S8_S8_SH_SK_(void *result, const char *a2)
 {
   v2 = *(a2 + 17);
   if (v2)
@@ -7877,20 +7923,20 @@ void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENU
       {
         if ((v4 & 0x400) == 0)
         {
-          return a1;
+          return result;
         }
 
         v5 = &kCAFillModeBackwards;
       }
 
-      return [a1 setFillMode:*v5];
+      return [result setFillMode:*v5];
     }
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES6_S8_S8_SH_SK_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES6_S8_S8_SH_SK_(void *result, const char *a2)
 {
   v2 = *(a2 + 17);
   if (v2)
@@ -7898,14 +7944,14 @@ void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENU
     v3 = *(v2 + 8);
     if (v3)
     {
-      return [a1 setAutoreverses:(*(v3 + 12) >> 8) & 1];
+      return [result setAutoreverses:(*(v3 + 12) >> 8) & 1];
     }
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES6_S8_S8_SH_SK_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES6_S8_S8_SH_SK_(void *result, const char *a2)
 {
   v2 = *(a2 + 17);
   if (v2)
@@ -7913,14 +7959,14 @@ void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENU
     v3 = *(v2 + 8);
     if (v3)
     {
-      return [a1 setTimeOffset:*(v3 + 48)];
+      return [result setTimeOffset:*(v3 + 48)];
     }
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES6_S8_S8_SH_SK_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES6_S8_S8_SH_SK_(void *result, const char *a2)
 {
   v2 = *(a2 + 17);
   if (v2)
@@ -7928,14 +7974,14 @@ void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENU
     v3 = *(v2 + 8);
     if (v3)
     {
-      return [a1 setDuration:*(v3 + 32)];
+      return [result setDuration:*(v3 + 32)];
     }
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES6_S8_S8_SH_SK_(void *a1, const char *a2, double a3)
+void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES6_S8_S8_SH_SK_(void *result, const char *a2, double a3)
 {
   v3 = *(a2 + 17);
   if (v3)
@@ -7944,14 +7990,14 @@ void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENU
     if (v4)
     {
       LODWORD(a3) = *(v4 + 16);
-      return [a1 setSpeed:a3];
+      return [result setSpeed:a3];
     }
   }
 
-  return a1;
+  return result;
 }
 
-void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES6_S8_S8_SH_SK_(void *a1, const char *a2)
+void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENUlPS3_PKS2_S8_RKNSt3__112basic_stringIcNS9_11char_traitsIcEENS9_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES6_S8_S8_SH_SK_(void *result, const char *a2)
 {
   v2 = *(a2 + 17);
   if (v2)
@@ -7959,11 +8005,11 @@ void *_ZZZ22get_setters_for_timingIN2CA6Render5LayerE7CALayerEDavENKUlvE_clEvENU
     v3 = *(v2 + 8);
     if (v3)
     {
-      return [a1 setBeginTime:*(v3 + 40)];
+      return [result setBeginTime:*(v3 + 40)];
     }
   }
 
-  return a1;
+  return result;
 }
 
 void ___Z20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDav_block_invoke()
@@ -7983,7 +8029,7 @@ void ___Z20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDav_block_invoke
 
   std::string::basic_string[abi:nn200100]<0>(__p, "instanceAlphaOffset");
   v0[0] = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, v0)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(__p[0]);
@@ -8002,7 +8048,7 @@ void ___Z20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDav_block_invoke
 
   std::string::basic_string[abi:nn200100]<0>(__p, "instanceBlueOffset");
   v0[0] = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, v0)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(__p[0]);
@@ -8021,7 +8067,7 @@ void ___Z20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDav_block_invoke
 
   std::string::basic_string[abi:nn200100]<0>(__p, "instanceCount");
   v0[0] = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, v0)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(__p[0]);
@@ -8040,7 +8086,7 @@ void ___Z20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDav_block_invoke
 
   std::string::basic_string[abi:nn200100]<0>(__p, "instanceDelay");
   v0[0] = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, v0)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(__p[0]);
@@ -8059,7 +8105,7 @@ void ___Z20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDav_block_invoke
 
   std::string::basic_string[abi:nn200100]<0>(__p, "instanceGreenOffset");
   v0[0] = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, v0)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(__p[0]);
@@ -8078,7 +8124,7 @@ void ___Z20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDav_block_invoke
 
   std::string::basic_string[abi:nn200100]<0>(__p, "instanceRedOffset");
   v0[0] = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, v0)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(__p[0]);
@@ -8097,7 +8143,7 @@ void ___Z20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDav_block_invoke
 
   std::string::basic_string[abi:nn200100]<0>(__p, "instanceColor");
   v0[0] = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, v0)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(__p[0]);
@@ -8116,7 +8162,7 @@ void ___Z20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDav_block_invoke
 
   std::string::basic_string[abi:nn200100]<0>(__p, "instanceTransform");
   v0[0] = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, v0)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(__p[0]);
@@ -8136,7 +8182,7 @@ void ___Z20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDav_block_invoke
 
   std::string::basic_string[abi:nn200100]<0>(v0, __p);
   v2 = v0;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v0)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v0, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(v0[0]);
@@ -8312,48 +8358,48 @@ void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicator
   return v11;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1)
+void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAReplicatorLayer *,CA::Render::ReplicatorLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, __int128 **a2)
 {
-  v1 = a1;
-  v2 = *(a1 + 8);
+  v2 = a1;
+  v3 = *(a1 + 8);
   if (*(a1 + 23) >= 0)
   {
-    v3 = *(a1 + 23);
+    v4 = *(a1 + 23);
   }
 
   else
   {
     a1 = *a1;
-    v3 = v2;
+    v4 = v3;
   }
 
-  v4 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](a1, v3);
-  v5 = v4;
-  v6 = *(&_ZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavE3map_3 + 1);
+  v5 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](a1, v4);
+  v6 = v5;
+  v7 = *(&_ZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavE3map_3 + 1);
   if (!*(&_ZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavE3map_3 + 1))
   {
     goto LABEL_21;
   }
 
-  v7 = vcnt_s8(*(&_ZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavE3map_3 + 8));
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(*(&_ZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavE3map_3 + 8));
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *(&_ZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavE3map_3 + 1))
+    v10 = v5;
+    if (v5 >= *(&_ZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavE3map_3 + 1))
     {
-      v9 = v4 % *(&_ZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavE3map_3 + 1);
+      v10 = v5 % *(&_ZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavE3map_3 + 1);
     }
   }
 
   else
   {
-    v9 = (*(&_ZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavE3map_3 + 1) - 1) & v4;
+    v10 = (*(&_ZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavE3map_3 + 1) - 1) & v5;
   }
 
-  v10 = *(_ZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavE3map_3 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(_ZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavE3map_3 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_21:
     operator new();
@@ -8361,57 +8407,57 @@ LABEL_21:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= v6)
+      if (v13 >= v7)
       {
-        v12 %= v6;
+        v13 %= v7;
       }
     }
 
     else
     {
-      v12 &= v6 - 1;
+      v13 &= v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_21;
     }
 
 LABEL_20:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_21;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](v11 + 2, v1))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v12 + 2, v2))
   {
     goto LABEL_20;
   }
 
-  return v11;
+  return v12;
 }
 
-void *_ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES7_S9_SC_SL_SO_(void *a1, const char *a2, uint64_t a3)
+void *_ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES7_S9_SC_SL_SO_(void *result, const char *a2, uint64_t a3)
 {
   if (*(a3 + 13))
   {
-    return [a1 setPreservesDepth:1];
+    return [result setPreservesDepth:1];
   }
 
-  return a1;
+  return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
 {
   v15 = *MEMORY[0x1E69E9840];
   v13 = 445;
@@ -8440,7 +8486,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, CGColorSpace **a5)
+void *_ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, CGColorSpace **a5)
 {
   v11 = *MEMORY[0x1E69E9840];
   v9 = 440;
@@ -8448,13 +8494,13 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP
   result = (*(*a2 + 136))(a2, 1, &v9, 4, v10, &v8);
   if (result == 4)
   {
-    return [a1 setInstanceColor:{cg_color_from_values<double const*>(*a5, *v8, v8[1])}];
+    return [a1 setInstanceColor:{cg_color_from_values<double const*>(*a5, *v8, v8[1], v8[2].f64[0])}];
   }
 
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
 {
   v8 = *MEMORY[0x1E69E9840];
   v6 = 444;
@@ -8470,7 +8516,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
 {
   v8 = *MEMORY[0x1E69E9840];
   v6 = 443;
@@ -8486,7 +8532,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
   v5 = 442;
@@ -8500,7 +8546,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
 {
   v7 = *MEMORY[0x1E69E9840];
   v5 = 441;
@@ -8514,7 +8560,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
 {
   v8 = *MEMORY[0x1E69E9840];
   v6 = 439;
@@ -8530,7 +8576,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render15ReplicatorLayerEERKDavEUb_ENUlP17CAReplicatorLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
 {
   v8 = *MEMORY[0x1E69E9840];
   v6 = 438;
@@ -8564,7 +8610,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -8584,7 +8630,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -8604,7 +8650,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -8624,7 +8670,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -8644,7 +8690,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -8664,7 +8710,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -8684,7 +8730,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -8704,7 +8750,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -8724,7 +8770,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -8744,7 +8790,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -8763,7 +8809,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(v3, "enabled");
   __p[0] = v3;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE9_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE9_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(v3[0]);
@@ -8782,7 +8828,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(v3, "tracksLuma");
   __p[0] = v3;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE10_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE10_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(v3[0]);
@@ -8801,7 +8847,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(v3, "tracksLumaWhileHidden");
   __p[0] = v3;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE11_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE11_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(v3[0]);
@@ -8820,7 +8866,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(v3, "bleedAmount");
   __p[0] = v3;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE12_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE12_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(v3[0]);
@@ -8839,7 +8885,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(v3, "delegate");
   __p[0] = v3;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE13_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE13_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(v3[0]);
@@ -8858,7 +8904,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(v3, "disablesOccludedBackdropBlurs");
   __p[0] = v3;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE14_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE14_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(v3[0]);
@@ -8877,7 +8923,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(v3, "ignoresOffscreenGroups");
   __p[0] = v3;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE15_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE15_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(v3[0]);
@@ -8896,7 +8942,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(v3, "substituteColor");
   __p[0] = v3;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE16_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE16_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(v3[0]);
@@ -8915,7 +8961,7 @@ void ___Z20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(v3, "usesGlobalGroupNamespace");
   __p[0] = v3;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE17_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE17_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(v3[0]);
@@ -9091,48 +9137,48 @@ void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLa
   return v11;
 }
 
-void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1)
+void *std::__hash_table<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CABackdropLayer *,CA::Render::BackdropLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(uint64_t a1, __int128 **a2)
 {
-  v1 = a1;
-  v2 = *(a1 + 8);
+  v2 = a1;
+  v3 = *(a1 + 8);
   if (*(a1 + 23) >= 0)
   {
-    v3 = *(a1 + 23);
+    v4 = *(a1 + 23);
   }
 
   else
   {
     a1 = *a1;
-    v3 = v2;
+    v4 = v3;
   }
 
-  v4 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](a1, v3);
-  v5 = v4;
-  v6 = *(&_ZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavE3map_2 + 1);
+  v5 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](a1, v4);
+  v6 = v5;
+  v7 = *(&_ZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavE3map_2 + 1);
   if (!*(&_ZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavE3map_2 + 1))
   {
     goto LABEL_21;
   }
 
-  v7 = vcnt_s8(*(&_ZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavE3map_2 + 8));
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(*(&_ZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavE3map_2 + 8));
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *(&_ZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavE3map_2 + 1))
+    v10 = v5;
+    if (v5 >= *(&_ZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavE3map_2 + 1))
     {
-      v9 = v4 % *(&_ZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavE3map_2 + 1);
+      v10 = v5 % *(&_ZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavE3map_2 + 1);
     }
   }
 
   else
   {
-    v9 = (*(&_ZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavE3map_2 + 1) - 1) & v4;
+    v10 = (*(&_ZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavE3map_2 + 1) - 1) & v5;
   }
 
-  v10 = *(_ZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavE3map_2 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(_ZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavE3map_2 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_21:
     operator new();
@@ -9140,47 +9186,47 @@ LABEL_21:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= v6)
+      if (v13 >= v7)
       {
-        v12 %= v6;
+        v13 %= v7;
       }
     }
 
     else
     {
-      v12 &= v6 - 1;
+      v13 &= v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_21;
     }
 
 LABEL_20:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_21;
     }
   }
 
-  if (!std::equal_to<std::string>::operator()[abi:nn200100](v11 + 2, v1))
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v12 + 2, v2))
   {
     goto LABEL_20;
   }
 
-  return v11;
+  return v12;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE11_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE11_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(~*(a2 + 12) & 0x80400) == 0];
   if (result)
@@ -9194,7 +9240,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE10_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE10_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 12) >> 10) & 1];
   if (result)
@@ -9208,7 +9254,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE9_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE9_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 12) >> 8) & 1];
   if (result)
@@ -9222,9 +9268,9 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  result = [MEMORY[0x1E696AD98] numberWithDouble:*(a2 + 40)];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, *(a2 + 40)}];
   if (result)
   {
     v7 = result;
@@ -9246,9 +9292,9 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  result = [MEMORY[0x1E696AD98] numberWithDouble:*(a2 + 32)];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, *(a2 + 32)}];
   if (result)
   {
     v7 = result;
@@ -9270,7 +9316,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 12) >> 13) & 1];
   if (result)
@@ -9294,9 +9340,9 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
-  result = [MEMORY[0x1E696AD98] numberWithDouble:*(a2 + 36)];
+  result = [MEMORY[0x1E696AD98] numberWithDouble:{a3, *(a2 + 36)}];
   if (result)
   {
     v7 = result;
@@ -9318,7 +9364,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 12) >> 16) & 1];
   if (result)
@@ -9342,7 +9388,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_(uint64_t result, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_(void *result, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v4 = *(a2 + 24);
   if (v4)
@@ -9371,7 +9417,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 12) >> 12) & 1];
   if (result)
@@ -9395,7 +9441,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   v10 = *MEMORY[0x1E69E9840];
   v6 = *(a2 + 112);
@@ -9420,7 +9466,7 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15
   return result;
 }
 
-uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_(void *a1, uint64_t a2, uint64_t a3, uint64_t *a4)
 {
   result = [MEMORY[0x1E696AD98] numberWithLongLong:(*(a2 + 12) >> 9) & 1];
   if (result)
@@ -9444,15 +9490,15 @@ uint64_t _ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15
   return result;
 }
 
-void *_ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_(void *a1, const char *a2)
+void *_ZZZ20get_setters_for_typeIN2CA6Render13BackdropLayerEERKDavEUb_ENUlP15CABackdropLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_(void *result, const char *a2)
 {
   v2 = *(a2 + 128);
   if (v2 <= 2)
   {
-    return [a1 setGroupNamespace:*off_1E6DED130[v2]];
+    return [result setGroupNamespace:*off_1E6DED130[v2]];
   }
 
-  return a1;
+  return result;
 }
 
 void ___Z20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDav_block_invoke()
@@ -9473,7 +9519,7 @@ void ___Z20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -9493,7 +9539,7 @@ void ___Z20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE0_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -9513,7 +9559,7 @@ void ___Z20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE1_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -9533,7 +9579,7 @@ void ___Z20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE2_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -9553,7 +9599,7 @@ void ___Z20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE3_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -9572,7 +9618,7 @@ void ___Z20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(v3, "lineDashPhase");
   __p[0] = v3;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE4_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(v3[0]);
@@ -9591,7 +9637,7 @@ void ___Z20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(v3, "lineDashPattern");
   __p[0] = v3;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(v3, __p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE5_8__invokeES7_S9_SC_SL_SO_;
   if (v4 < 0)
   {
     operator delete(v3[0]);
@@ -9611,7 +9657,7 @@ void ___Z20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE6_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -9631,7 +9677,7 @@ void ___Z20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE7_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -9651,7 +9697,7 @@ void ___Z20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE8_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -9671,7 +9717,7 @@ void ___Z20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE9_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE9_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);
@@ -9691,7 +9737,7 @@ void ___Z20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDav_block_invoke()
 
   std::string::basic_string[abi:nn200100]<0>(__p, v3);
   v2 = __p;
-  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE10_8__invokeES7_S9_SC_SL_SO_;
+  std::__hash_table<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,void (*)(CAShapeLayer *,CA::Render::ShapeLayer const*,CA::Render::Layer const*,std::string const&,ReverseSerializationState const&)>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string&&>,std::tuple<>>(__p, &v2)[5] = _ZZZ20get_setters_for_typeIN2CA6Render10ShapeLayerEERKDavEUb_ENUlP12CAShapeLayerPKS2_PKNS1_5LayerERKNSt3__112basic_stringIcNSD_11char_traitsIcEENSD_9allocatorIcEEEERK25ReverseSerializationStateE10_8__invokeES7_S9_SC_SL_SO_;
   if (v1 < 0)
   {
     operator delete(__p[0]);

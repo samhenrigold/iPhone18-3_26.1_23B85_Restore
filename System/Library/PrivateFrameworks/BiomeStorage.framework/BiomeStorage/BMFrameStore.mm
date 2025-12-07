@@ -11,16 +11,23 @@
 - (BOOL)getSegmentHeader:(id *)header fromFileV1:(id)v1 fileSize:(unint64_t *)size;
 - (BOOL)getSegmentHeader:(id *)header fromFileV2:(id)v2 fileSize:(unint64_t *)size;
 - (BOOL)isCheckSumValidAtOffsetV1:(unint64_t)v1;
+- (BOOL)isCheckSumValidAtOffsetV2:(unint64_t)v2 frameNumber:(int)number;
 - (BOOL)isValidFrameV1:(void *)v1 expectedState:(unsigned int)state copyOfData:(id *)data frameStatus:(id)status validations:(BOOL)validations enumerationOptions:(unint64_t)options errorCode:(int *)code;
+- (BOOL)isValidFrameV2:(void *)v2 currentFrame:(unsigned int)frame expectedState:(unsigned int)state copyOfData:(id *)data frameState:(unsigned int)frameState frameSize:(unsigned int)size validations:(BOOL)validations enumerationOptions:(unint64_t)self0 errorCode:(int *)self1;
 - (BOOL)offsetIsStartOfFrameStore:(unint64_t)store;
 - (BOOL)validOffsetTableEntry:(id)entry frameNumber:(int)number;
+- (BOOL)validOffsetTableEntryAtFrame:(int)frame;
 - (NSString)segmentName;
 - (NSString)segmentPath;
 - (double)creationTimeOfFrameV2:(unsigned int)v2;
 - (id)_printablePath;
 - (id)_printablePathV2;
+- (id)frameWithOffset:(unint64_t)offset expectedState:(unsigned int)state;
+- (id)frameWithOffsetV1:(unint64_t)v1 expectedState:(unsigned int)state;
+- (id)frameWithOffsetV2:(unint64_t)v2 expectedState:(unsigned int)state;
 - (int)eraseFrameAtOffsetTableV2:(id *)v2;
 - (int)findValidOffsetTableEntryToReplaceMidFrame:(int)frame bottomFrame:(int)bottomFrame topFrame:(int)topFrame reverse:(BOOL)reverse;
+- (int)firstFrameNumberForTimestampV2:(double)v2 reverse:(BOOL)reverse;
 - (int)frameCount;
 - (int)frameCountFromStartTime:(double)time endTime:(double)endTime;
 - (int)frameCountFromStartTimeV2:(double)v2 endTime:(double)time;
@@ -37,6 +44,7 @@
 - (unsigned)bytesUsedV1;
 - (unsigned)bytesUsedV2;
 - (unsigned)checkBoundsLength:(unint64_t)length;
+- (unsigned)countFrameStateInOffsetTable:(unsigned int)table startingFrame:(int)frame endingFrame:(int)endingFrame;
 - (unsigned)determineFrameNumberToBeWritten:(unsigned int *)written;
 - (unsigned)frameOffsetFromOffsetTableV2:(id *)v2;
 - (unsigned)offsetOfFrameV2:(unsigned int)v2;
@@ -45,7 +53,9 @@
 - (unsigned)sizeOfFrameV2:(unsigned int)v2;
 - (unsigned)stateOfFrameV2:(unsigned int)v2;
 - (unsigned)validateOrUpdateTimestamp:(double *)timestamp frameNumberToBeWritten:(unsigned int)written;
+- (unsigned)writeFrameForBytes:(const void *)bytes length:(unint64_t)length dataVersion:(unsigned int)version timestamp:(double)timestamp outOffset:(unint64_t *)offset;
 - (unsigned)writeFrameV1ForBytes:(const void *)bytes length:(unint64_t)length dataVersion:(unsigned int)version timestamp:(double)timestamp outOffset:(unint64_t *)offset;
+- (unsigned)writeFrameV2ForBytes:(const void *)bytes length:(unint64_t)length dataVersion:(unsigned int)version timestamp:(double)timestamp outOffset:(unint64_t *)offset;
 - (void)addToValueAtOffset:(unsigned int)offset increment:(unsigned int)increment;
 - (void)dealloc;
 - (void)enumerateWithOptions:(unint64_t)options fromOffset:(unint64_t)offset usingBlock:(id)block;
@@ -59,6 +69,7 @@
 - (void)updateFrameStoreIndex;
 - (void)updateHeader;
 - (void)updateHighestDeletedFrame:(id)frame;
+- (void)updateHighestDeletedFrameV2:(id)v2 addToDeletedFrameCount:(unsigned int)count;
 - (void)updateToMaxOfValueAtOffset:(unsigned int)offset newValue:(int)value;
 @end
 
@@ -74,49 +85,43 @@
 
 - (unsigned)atomicReadTotalFramesV2
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   header = [(BMFrameStore *)self header];
   start = [header start];
 
   if (*(start + 16) == 10)
   {
-    result = atomic_load((start + 4));
+    return atomic_load((start + 4));
   }
 
-  else
+  v6 = __biome_log_for_category();
+  *&buf = 0;
+  *(&buf + 1) = &buf;
+  v13 = 0x2020000000;
+  v14 = 16;
+  block[0] = MEMORY[0x1E69E9820];
+  block[1] = 3221225472;
+  block[2] = __43__BMFrameStore_V2__atomicReadTotalFramesV2__block_invoke;
+  block[3] = &unk_1E8338B28;
+  block[4] = &buf;
+  if (atomicReadTotalFramesV2_onceToken != -1)
   {
-    v6 = __biome_log_for_category();
-    *&buf = 0;
-    *(&buf + 1) = &buf;
-    v14 = 0x2020000000;
-    v15 = 16;
-    block[0] = MEMORY[0x1E69E9820];
-    block[1] = 3221225472;
-    block[2] = __43__BMFrameStore_V2__atomicReadTotalFramesV2__block_invoke;
-    block[3] = &unk_1E8338B28;
-    block[4] = &buf;
-    if (atomicReadTotalFramesV2_onceToken != -1)
-    {
-      dispatch_once(&atomicReadTotalFramesV2_onceToken, block);
-    }
-
-    v7 = *(*(&buf + 1) + 24);
-    _Block_object_dispose(&buf, 8);
-    if (os_log_type_enabled(v6, v7))
-    {
-      v8 = MEMORY[0x1E698E9C8];
-      segmentPath = [(BMFrameStore *)self segmentPath];
-      v10 = [v8 privacyPathname:segmentPath];
-      LODWORD(buf) = 138543362;
-      *(&buf + 4) = v10;
-      _os_log_impl(&dword_1C928A000, v6, v7, "Seeking totalFrames but not a V2 frameStore: %{public}@", &buf, 0xCu);
-    }
-
-    result = 0;
+    dispatch_once(&atomicReadTotalFramesV2_onceToken, block);
   }
 
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  v7 = *(*(&buf + 1) + 24);
+  _Block_object_dispose(&buf, 8);
+  if (os_log_type_enabled(v6, v7))
+  {
+    v8 = MEMORY[0x1E698E9C8];
+    segmentPath = [(BMFrameStore *)self segmentPath];
+    v10 = [v8 privacyPathname:segmentPath];
+    LODWORD(buf) = 138543362;
+    *(&buf + 4) = v10;
+    _os_log_impl(&dword_1C928A000, v6, v7, "Seeking totalFrames but not a V2 frameStore: %{public}@", &buf, 0xCu);
+  }
+
+  return 0;
 }
 
 - (NSString)segmentPath
@@ -185,7 +190,7 @@
 
 + (unsigned)getSegmentVersion:(id)version config:(id)config stream:(id)stream
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   configCopy = config;
   versionCopy = version;
   v9 = [configCopy resolvedPathWithStreamIdentifier:stream];
@@ -206,33 +211,32 @@
 
   v17 = [v13 fileHandleForFileAtPath:v16 flags:0 protection:objc_msgSend(MEMORY[0x1E698E998] error:{"biomeProtectionClassToOSProtectionClass:", objc_msgSend(configCopy, "protectionClass")), 0}];
 
-  v24 = 0;
+  v23 = 0;
+  v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  if (pread([v17 fd], &v21, 0x38uLL, 0) < 0)
+  if (pread([v17 fd], &v20, 0x38uLL, 0) < 0)
   {
     v18 = -1;
   }
 
   else
   {
-    v18 = v22;
+    v18 = v21;
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (BOOL)getSegmentHeader:(id *)header fromFileV1:(id)v1 fileSize:(unint64_t *)size
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v1Copy = v1;
-  memset(&v18.st_size, 0, 48);
-  if (fstat([v1Copy fd], &v18))
+  memset(&v15.st_size, 0, 48);
+  if (fstat([v1Copy fd], &v15))
   {
-    v8 = *__error();
-    v9 = __biome_log_for_category();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    __error();
+    v8 = __biome_log_for_category();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [BMFrameStore getSegmentHeader:fromFileV1:fileSize:];
     }
@@ -240,14 +244,14 @@
 LABEL_4:
 
 LABEL_24:
-    v14 = 0;
+    v12 = 0;
     goto LABEL_25;
   }
 
-  if (!v18.st_size)
+  if (!v15.st_size)
   {
-    v10 = __biome_log_for_category();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = __biome_log_for_category();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BMFrameStore getSegmentHeader:v1Copy fromFileV1:? fileSize:?];
     }
@@ -255,10 +259,10 @@ LABEL_24:
     goto LABEL_23;
   }
 
-  if (v18.st_size <= 0x37uLL)
+  if (v15.st_size <= 0x37uLL)
   {
-    v10 = __biome_log_for_category();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = __biome_log_for_category();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BMFrameStore getSegmentHeader:v1Copy fromFileV1:? fileSize:?];
     }
@@ -268,16 +272,16 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v22 = 0;
-  v20 = 0u;
-  v21 = 0u;
+  v19 = 0;
+  v17 = 0u;
+  v18 = 0u;
   __buf = 0u;
-  v11 = pread([v1Copy fd], &__buf, 0x38uLL, 0);
-  if (v11 < 0)
+  v10 = pread([v1Copy fd], &__buf, 0x38uLL, 0);
+  if (v10 < 0)
   {
-    v13 = *__error();
-    v9 = __biome_log_for_category();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    __error();
+    v8 = __biome_log_for_category();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [BMFrameStore getSegmentHeader:fromFileV1:fileSize:];
     }
@@ -285,10 +289,10 @@ LABEL_23:
     goto LABEL_4;
   }
 
-  if (v11 != 56)
+  if (v10 != 56)
   {
-    v10 = __biome_log_for_category();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = __biome_log_for_category();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BMFrameStore getSegmentHeader:v1Copy fromFileV1:? fileSize:?];
     }
@@ -296,22 +300,22 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  if (v20 == 9)
+  if (v17 == 9)
   {
-    v12 = 52;
+    v11 = 52;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  if (*(&__buf + v12) != 1111967059)
+  if (*(&__buf + v11) != 1111967059)
   {
-    v10 = __biome_log_for_category();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = __biome_log_for_category();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [BMFrameStore getSegmentHeader:v1Copy fromFileV1:v10 fileSize:?];
+      [BMFrameStore getSegmentHeader:v1Copy fromFileV1:v9 fileSize:?];
     }
 
     goto LABEL_23;
@@ -319,39 +323,38 @@ LABEL_23:
 
   if (size)
   {
-    *size = v18.st_size;
+    *size = v15.st_size;
   }
 
   if (header)
   {
-    v17 = v20;
+    v14 = v17;
     *header->var0.var0 = __buf;
-    *&header->var2.var3 = v17;
-    *(&header->var2 + 2) = v21;
-    *(&header->var2 + 6) = v22;
+    *&header->var2.var3 = v14;
+    *(&header->var2 + 2) = v18;
+    *(&header->var2 + 6) = v19;
   }
 
-  v14 = 1;
+  v12 = 1;
 LABEL_25:
 
-  v15 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v12;
 }
 
 + (BOOL)writeEmptyFrameStoreWithFileHandle:(id)handle fileSize:(unint64_t)size datastoreVersion:(unint64_t)version
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
-  memset(&v32, 0, sizeof(v32));
-  if (!fstat([handleCopy fd], &v32))
+  memset(&v29, 0, sizeof(v29));
+  if (!fstat([handleCopy fd], &v29))
   {
-    if (v32.st_size)
+    if (v29.st_size)
     {
-      v10 = __biome_log_for_category();
+      v9 = __biome_log_for_category();
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      v34 = 16;
+      v31 = 16;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __77__BMFrameStore_writeEmptyFrameStoreWithFileHandle_fileSize_datastoreVersion___block_invoke;
@@ -362,17 +365,17 @@ LABEL_25:
         dispatch_once(&writeEmptyFrameStoreWithFileHandle_fileSize_datastoreVersion__onceToken, block);
       }
 
-      v11 = *(*&buf[8] + 24);
+      v10 = *(*&buf[8] + 24);
       _Block_object_dispose(buf, 8);
-      if (os_log_type_enabled(v10, v11))
+      if (os_log_type_enabled(v9, v10))
       {
-        v12 = MEMORY[0x1E698E9C8];
+        v11 = MEMORY[0x1E698E9C8];
         attributes = [handleCopy attributes];
         path = [attributes path];
-        v15 = [v12 privacyPathname:path];
+        v14 = [v11 privacyPathname:path];
         *buf = 138543362;
-        *&buf[4] = v15;
-        _os_log_impl(&dword_1C928A000, v10, v11, "Attempted to write a non-empty file %{public}@ with an empty frame store", buf, 0xCu);
+        *&buf[4] = v14;
+        _os_log_impl(&dword_1C928A000, v9, v10, "Attempted to write a non-empty file %{public}@ with an empty frame store", buf, 0xCu);
       }
     }
 
@@ -380,50 +383,50 @@ LABEL_25:
     {
       if (version - 11 <= 0xFFFFFFFFFFFFFFFDLL)
       {
-        v9 = __biome_log_for_category();
+        v8 = __biome_log_for_category();
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
-        v34 = 16;
-        v26 = MEMORY[0x1E69E9820];
-        v27 = 3221225472;
-        v28 = __77__BMFrameStore_writeEmptyFrameStoreWithFileHandle_fileSize_datastoreVersion___block_invoke_32;
-        v29 = &unk_1E8338B28;
-        v30 = buf;
+        v31 = 16;
+        v23 = MEMORY[0x1E69E9820];
+        v24 = 3221225472;
+        v25 = __77__BMFrameStore_writeEmptyFrameStoreWithFileHandle_fileSize_datastoreVersion___block_invoke_32;
+        v26 = &unk_1E8338B28;
+        v27 = buf;
         if (writeEmptyFrameStoreWithFileHandle_fileSize_datastoreVersion__onceToken_31 != -1)
         {
-          dispatch_once(&writeEmptyFrameStoreWithFileHandle_fileSize_datastoreVersion__onceToken_31, &v26);
+          dispatch_once(&writeEmptyFrameStoreWithFileHandle_fileSize_datastoreVersion__onceToken_31, &v23);
         }
 
-        v19 = *(*&buf[8] + 24);
+        v17 = *(*&buf[8] + 24);
         _Block_object_dispose(buf, 8);
-        if (os_log_type_enabled(v9, v19))
+        if (os_log_type_enabled(v8, v17))
         {
-          v20 = MEMORY[0x1E698E9C8];
+          v18 = MEMORY[0x1E698E9C8];
           attributes2 = [handleCopy attributes];
           path2 = [attributes2 path];
-          v23 = [v20 privacyPathname:path2];
+          v21 = [v18 privacyPathname:path2];
           *buf = 138543618;
-          *&buf[4] = v23;
+          *&buf[4] = v21;
           *&buf[12] = 2048;
           *&buf[14] = version;
-          _os_log_impl(&dword_1C928A000, v9, v19, "Segment version of %{public}@ doesn't match expected versions: %lu.", buf, 0x16u);
+          _os_log_impl(&dword_1C928A000, v8, v17, "Segment version of %{public}@ doesn't match expected versions: %lu.", buf, 0x16u);
         }
 
         goto LABEL_4;
       }
 
       *buf = -1;
-      v24 = objc_opt_class();
+      v22 = objc_opt_class();
       if (version == 9)
       {
-        if (([v24 writeEmptySegmentHeaderWithFileHandleV1:handleCopy segmentHeaderSize:buf] & 1) == 0)
+        if (([v22 writeEmptySegmentHeaderWithFileHandleV1:handleCopy segmentHeaderSize:buf] & 1) == 0)
         {
           goto LABEL_11;
         }
       }
 
-      else if (![v24 writeEmptySegmentHeaderWithFileHandleV2:handleCopy segmentHeaderSize:buf])
+      else if (![v22 writeEmptySegmentHeaderWithFileHandleV2:handleCopy segmentHeaderSize:buf])
       {
         goto LABEL_11;
       }
@@ -432,13 +435,13 @@ LABEL_25:
       {
         if (!ftruncate([handleCopy fd], size))
         {
-          v16 = 1;
+          v15 = 1;
           goto LABEL_12;
         }
 
-        v25 = *__error();
-        v10 = __biome_log_for_category();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        __error();
+        v9 = __biome_log_for_category();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           +[BMFrameStore writeEmptyFrameStoreWithFileHandle:fileSize:datastoreVersion:];
         }
@@ -446,8 +449,8 @@ LABEL_25:
 
       else
       {
-        v10 = __biome_log_for_category();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+        v9 = __biome_log_for_category();
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
         {
           [BMFrameStore writeEmptyFrameStoreWithFileHandle:handleCopy fileSize:? datastoreVersion:?];
         }
@@ -457,9 +460,9 @@ LABEL_25:
     goto LABEL_11;
   }
 
-  v8 = *__error();
-  v9 = __biome_log_for_category();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+  __error();
+  v8 = __biome_log_for_category();
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [BMFrameStore getSegmentHeader:fromFileV1:fileSize:];
   }
@@ -467,16 +470,15 @@ LABEL_25:
 LABEL_4:
 
 LABEL_11:
-  v16 = 0;
+  v15 = 0;
 LABEL_12:
 
-  v17 = *MEMORY[0x1E69E9840];
-  return v16;
+  return v15;
 }
 
 + (BOOL)writeEmptySegmentHeaderWithFileHandleV1:(id)v1 segmentHeaderSize:(unint64_t *)size
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v1Copy = v1;
   v6 = v1Copy;
   if (size)
@@ -487,11 +489,11 @@ LABEL_12:
   attributes = [v1Copy attributes];
   filename = [attributes filename];
   v9 = filename;
-  memset(v23, 0, sizeof(v23));
-  v24 = 1111967059;
-  v21[0] = 56;
-  v21[1] = 0;
-  v22 = 9;
+  memset(v22, 0, sizeof(v22));
+  v23 = 1111967059;
+  v20[0] = 56;
+  v20[1] = 0;
+  v21 = 9;
   if (filename)
   {
     v10 = strlen([filename UTF8String]);
@@ -507,7 +509,7 @@ LABEL_12:
     }
 
     __memcpy_chk();
-    bzero(v23 + v10, 32 - v10);
+    bzero(v22 + v10, 32 - v10);
   }
 
   else
@@ -520,10 +522,10 @@ LABEL_12:
     }
   }
 
-  v13 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v21 length:56];
-  v19 = 0;
-  v14 = [v6 overwriteWithData:v13 error:&v19];
-  v15 = v19;
+  v13 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v20 length:56];
+  v18 = 0;
+  v14 = [v6 overwriteWithData:v13 error:&v18];
+  v15 = v18;
   if (v15)
   {
     v14 = 0;
@@ -538,13 +540,12 @@ LABEL_12:
     }
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BMFrameStore)initWithFileHandle:(id)handle permission:(unint64_t)permission datastoreVersion:(unint64_t)version
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   handleCopy = handle;
   if (version == 10)
   {
@@ -565,7 +566,7 @@ LABEL_5:
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
-  v21 = 16;
+  v20 = 16;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __63__BMFrameStore_initWithFileHandle_permission_datastoreVersion___block_invoke;
@@ -594,37 +595,36 @@ LABEL_5:
   selfCopy = 0;
 LABEL_11:
 
-  v17 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 - (BMFrameStore)initWithFileHandleV1:(id)v1 permission:(unint64_t)permission
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   v1Copy = v1;
-  v47.receiver = self;
-  v47.super_class = BMFrameStore;
-  v7 = [(BMFrameStore *)&v47 init];
+  v45.receiver = self;
+  v45.super_class = BMFrameStore;
+  v7 = [(BMFrameStore *)&v45 init];
   v8 = v7;
   if (!v7)
   {
-    goto LABEL_52;
+    goto LABEL_51;
   }
 
   [(BMFrameStore *)v7 setBackingFile:v1Copy];
   *(v8 + 28) = 9;
-  v46 = 0;
-  v53 = 0;
-  v51 = 0u;
-  v52 = 0u;
+  v44 = 0;
+  v51 = 0;
+  v49 = 0u;
   v50 = 0u;
-  if (([v8 getSegmentHeader:&v50 fromFileV1:v1Copy fileSize:&v46] & 1) == 0)
+  v48 = 0u;
+  if (([v8 getSegmentHeader:&v48 fromFileV1:v1Copy fileSize:&v44] & 1) == 0)
   {
     v11 = __biome_log_for_category();
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v49) = 16;
+    LOBYTE(v47) = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __48__BMFrameStore_initWithFileHandleV1_permission___block_invoke;
@@ -655,32 +655,32 @@ LABEL_11:
     goto LABEL_17;
   }
 
-  v9 = v51;
-  *(v8 + 28) = v51;
+  v9 = v49;
+  *(v8 + 28) = v49;
   if (v9 != 9)
   {
     if (v9 == 10)
     {
       v10 = [v8 initWithFileHandleV2:v1Copy permission:permission];
-LABEL_53:
+LABEL_52:
       v8 = v10;
       v29 = v10;
-      goto LABEL_54;
+      goto LABEL_53;
     }
 
     v11 = __biome_log_for_category();
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v49) = 16;
-    v44[0] = MEMORY[0x1E69E9820];
-    v44[1] = 3221225472;
-    v44[2] = __48__BMFrameStore_initWithFileHandleV1_permission___block_invoke_35;
-    v44[3] = &unk_1E8338B28;
-    v44[4] = buf;
+    LOBYTE(v47) = 16;
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __48__BMFrameStore_initWithFileHandleV1_permission___block_invoke_35;
+    v42[3] = &unk_1E8338B28;
+    v42[4] = buf;
     if (initWithFileHandleV1_permission__onceToken_34 != -1)
     {
-      dispatch_once(&initWithFileHandleV1_permission__onceToken_34, v44);
+      dispatch_once(&initWithFileHandleV1_permission__onceToken_34, v42);
     }
 
     v26 = *(*&buf[8] + 24);
@@ -698,7 +698,7 @@ LABEL_53:
     *buf = 138543874;
     *&buf[4] = v16;
     *&buf[12] = 1026;
-    *&buf[14] = v51;
+    *&buf[14] = v49;
     *&buf[18] = 1026;
     *&buf[20] = v28;
     v17 = "Segment version of %{public}@ doesn't match expected versions. Header set to %{public}d, preferred %{public}d.";
@@ -711,10 +711,10 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v21 = v46;
-  if (v50 <= v46)
+  v21 = v44;
+  if (v48 <= v44)
   {
-    if (permission == 1 && v46 - 1 < v50)
+    if (permission == 1 && v44 - 1 < v48)
     {
       v11 = __biome_log_for_category();
       if (!os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
@@ -729,16 +729,16 @@ LABEL_17:
       *buf = 138543874;
       *&buf[4] = v25;
       *&buf[12] = 2048;
-      *&buf[14] = v50;
+      *&buf[14] = v48;
       *&buf[22] = 2048;
-      v49 = v46;
+      v47 = v44;
       _os_log_impl(&dword_1C928A000, v11, OS_LOG_TYPE_INFO, "Attempted to open %{public}@ for writing but the file is already full, byteUsed:%llu, fileSize:%zu", buf, 0x20u);
 LABEL_24:
 
       goto LABEL_18;
     }
 
-    if (!(v50 | permission & 0xFFFFFFFFFFFFFFFDLL))
+    if (!(v48 | permission & 0xFFFFFFFFFFFFFFFDLL))
     {
       v11 = __biome_log_for_category();
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -749,9 +749,9 @@ LABEL_24:
       goto LABEL_18;
     }
 
-    *(v8 + 40) = v46;
+    *(v8 + 40) = v44;
     *(v8 + 72) = permission;
-    v31 = memoryMappingsForPermissionV1(permission, &v50, v21);
+    v31 = memoryMappingsForPermissionV1(permission, &v48, v21);
     lastObject = [v31 lastObject];
     v33 = *(v8 + 56);
     *(v8 + 56) = lastObject;
@@ -775,7 +775,7 @@ LABEL_24:
       v36 = *(v8 + 48);
     }
 
-    if (v36 && ([v36 mapWithFileHandle:*(v8 + 64) fileSize:v46] & 1) == 0)
+    if (v36 && ([v36 mapWithFileHandle:*(v8 + 64) fileSize:v44] & 1) == 0)
     {
       v38 = __biome_log_for_category();
       if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
@@ -784,7 +784,7 @@ LABEL_24:
       }
     }
 
-    if (([*(v8 + 56) mapWithFileHandle:*(v8 + 64) fileSize:v46] & 1) == 0)
+    if (([*(v8 + 56) mapWithFileHandle:*(v8 + 64) fileSize:v44] & 1) == 0)
     {
       v39 = __biome_log_for_category();
       if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
@@ -797,18 +797,13 @@ LABEL_24:
 
     if (*(v8 + 28) == 9)
     {
-      *(v8 + 80) = *(&v50 + 1);
-    }
-
-    else
-    {
-      v40 = *(v8 + 80);
+      *(v8 + 80) = *(&v48 + 1);
     }
 
     if (![BMFrameStore expectedTimestamp:?])
     {
-      v41 = __biome_log_for_category();
-      if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+      v40 = __biome_log_for_category();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         [BMFrameStore initWithFileHandleV1:permission:];
       }
@@ -816,9 +811,9 @@ LABEL_24:
       *(v8 + 80) = CFAbsoluteTimeGetCurrent();
     }
 
-LABEL_52:
+LABEL_51:
     v10 = v8;
-    goto LABEL_53;
+    goto LABEL_52;
   }
 
   v11 = __biome_log_for_category();
@@ -831,9 +826,9 @@ LABEL_52:
     *buf = 138543874;
     *&buf[4] = v25;
     *&buf[12] = 2050;
-    *&buf[14] = v50;
+    *&buf[14] = v48;
     *&buf[22] = 2050;
-    v49 = v46;
+    v47 = v44;
     _os_log_error_impl(&dword_1C928A000, v11, OS_LOG_TYPE_ERROR, "Segment header in %{public}@ says file size is %{public}llu but that is larger than the actual file size(%{public}lu).", buf, 0x20u);
     goto LABEL_24;
   }
@@ -842,9 +837,8 @@ LABEL_18:
 
 LABEL_19:
   v29 = 0;
-LABEL_54:
+LABEL_53:
 
-  v42 = *MEMORY[0x1E69E9840];
   return v29;
 }
 
@@ -899,14 +893,14 @@ LABEL_54:
 {
   optionsCopy = options;
   selfCopy3 = self;
-  v64[1] = *MEMORY[0x1E69E9840];
+  v63[1] = *MEMORY[0x1E69E9840];
   if ((v1 & 7) != 0)
   {
     v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"isValidFrame: Frame is not 8-byte aligned:%d", v1];
     v12 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v63 = *MEMORY[0x1E696A578];
-    v64[0] = v11;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:&v63 count:1];
+    v62 = *MEMORY[0x1E696A578];
+    v63[0] = v11;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:&v62 count:1];
     v14 = [v12 initWithDomain:@"com.apple.Biome.BMFramestore" code:1 userInfo:v13];
 
     p_frames = &selfCopy3->_frames;
@@ -922,9 +916,9 @@ LABEL_54:
     v23 = (v1 - [(BMMemoryMapping *)*p_frames start]);
     v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"isValidFrame: Frame size:%d runs past the remaining free space in the segment:%td, frame intended to start at offset:%td", status, v20, v23];
     v25 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v61 = *MEMORY[0x1E696A578];
-    v62 = v24;
-    [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+    v60 = *MEMORY[0x1E696A578];
+    v61 = v24;
+    [MEMORY[0x1E695DF20] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
     v26 = selfCopy3 = self;
     v14 = [v25 initWithDomain:@"com.apple.Biome.BMFramestore" code:2 userInfo:v26];
 
@@ -959,9 +953,9 @@ LABEL_54:
     v34 = [v21 initWithFormat:@"isValidFrame: Unexpected frame state. Expected: %@, found: %@", v22, v33];
 
     v35 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v59 = *MEMORY[0x1E696A578];
-    v60 = v34;
-    v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v60 forKeys:&v59 count:1];
+    v58 = *MEMORY[0x1E696A578];
+    v59 = v34;
+    v36 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v59 forKeys:&v58 count:1];
     v14 = [v35 initWithDomain:@"com.apple.Biome.BMFramestore" code:3 userInfo:v36];
 
     goto LABEL_19;
@@ -989,16 +983,16 @@ LABEL_40:
         goto LABEL_36;
       }
 
-      v48 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Checksums don't match. Header: %u, Generated checksum: %u. Skipping frame.", *(v1 + 6), v32];
-      v49 = objc_alloc(MEMORY[0x1E696ABC0]);
-      v57 = *MEMORY[0x1E696A578];
-      v58 = v48;
-      v50 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
-      v14 = [v49 initWithDomain:@"com.apple.Biome.BMFramestore" code:5 userInfo:v50];
+      v47 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Checksums don't match. Header: %u, Generated checksum: %u. Skipping frame.", *(v1 + 6), v32];
+      v48 = objc_alloc(MEMORY[0x1E696ABC0]);
+      v56 = *MEMORY[0x1E696A578];
+      v57 = v47;
+      v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+      v14 = [v48 initWithDomain:@"com.apple.Biome.BMFramestore" code:5 userInfo:v49];
 
       if (data)
       {
-        v51 = *data;
+        v50 = *data;
         *data = 0;
       }
 
@@ -1039,7 +1033,7 @@ LABEL_35:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
-      LOBYTE(v56) = 16;
+      LOBYTE(v55) = 16;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __109__BMFrameStore_isValidFrameV1_expectedState_copyOfData_frameStatus_validations_enumerationOptions_errorCode___block_invoke;
@@ -1060,7 +1054,7 @@ LABEL_35:
         *&buf[12] = 2048;
         *&buf[14] = v1 - start;
         *&buf[22] = 2112;
-        v56 = v14;
+        v55 = v14;
         _os_log_impl(&dword_1C928A000, v42, v43, "isValidFrame failed, path:%{public}@, offset:%td error:%@", buf, 0x20u);
       }
 
@@ -1071,9 +1065,9 @@ LABEL_35:
   else
   {
     v14 = 0;
-    v47 = state - 1;
+    v46 = state - 1;
     v30 = 1;
-    if (v47 <= 1 && validationsCopy)
+    if (v46 <= 1 && validationsCopy)
     {
       v32 = crc32(0, v1 + 32, status.var0);
       goto LABEL_40;
@@ -1082,13 +1076,136 @@ LABEL_35:
 
 LABEL_36:
 
-  v45 = *MEMORY[0x1E69E9840];
   return v30;
+}
+
+- (id)frameWithOffsetV1:(unint64_t)v1 expectedState:(unsigned int)state
+{
+  if ((v1 & 7) != 0)
+  {
+    v5 = __biome_log_for_category();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      [BMFrameStore frameWithOffsetV1:expectedState:];
+    }
+
+LABEL_10:
+
+    v9 = 0;
+    goto LABEL_11;
+  }
+
+  v6 = *&state;
+  p_frames = &self->_frames;
+  if ([(BMMemoryMapping *)self->_frames size]< v1)
+  {
+    v5 = __biome_log_for_category();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      [BMFrameStore frameWithOffsetV1:expectedState:];
+    }
+
+    goto LABEL_10;
+  }
+
+  if ([(BMMemoryMapping *)*p_frames size]- v1 <= 0x1F)
+  {
+    v5 = __biome_log_for_category();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      [BMFrameStore frameWithOffsetV1:expectedState:];
+    }
+
+    goto LABEL_10;
+  }
+
+  v11 = ([(BMMemoryMapping *)self->_frames start]+ v1);
+  v12 = atomic_load(v11);
+  v13 = *(v11 + 1);
+  v26 = *(v11 + 1);
+  v25 = 0;
+  if (v6 == 3)
+  {
+    v14 = 1;
+  }
+
+  else
+  {
+    v14 = 2 * (v6 == 2);
+  }
+
+  v9 = 0;
+  if ([(BMFrameStore *)self isValidFrameV1:v11 expectedState:v6 copyOfData:&v25 frameStatus:v12 validations:1 enumerationOptions:v14 errorCode:0])
+  {
+    v15 = &v11[[(BMFrameStore *)self sizeToNextWord:v12]];
+    v16 = [BMFrame alloc];
+    attributes = [(BMFileHandle *)self->_backingFile attributes];
+    path = [attributes path];
+    v19 = v25;
+    v20 = &v11[[(BMMemoryMapping *)self->_frames]];
+    start = [(BMMemoryMapping *)self->_frames start];
+    v23[0] = v12;
+    *&v23[1] = v13;
+    v24 = v26;
+    LODWORD(v22) = HIDWORD(v12);
+    v9 = [(BMFrame *)v16 initWithHeader:v23 storePath:path data:v19 framePtr:v11 offset:v20 nextOffset:v15 - start + 32 timestamp:v13 datastoreVersion:9 state:v22];
+  }
+
+LABEL_11:
+
+  return v9;
+}
+
+- (id)frameWithOffset:(unint64_t)offset expectedState:(unsigned int)state
+{
+  v16 = *MEMORY[0x1E69E9840];
+  datastoreVersion = self->_datastoreVersion;
+  if (datastoreVersion == 10)
+  {
+    v6 = [(BMFrameStore *)self frameWithOffsetV2:offset expectedState:*&state];
+  }
+
+  else if (datastoreVersion == 9)
+  {
+    v6 = [(BMFrameStore *)self frameWithOffsetV1:offset expectedState:*&state];
+  }
+
+  else
+  {
+    v7 = __biome_log_for_category();
+    *buf = 0;
+    v13 = buf;
+    v14 = 0x2020000000;
+    v15 = 16;
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __46__BMFrameStore_frameWithOffset_expectedState___block_invoke;
+    block[3] = &unk_1E8338B28;
+    block[4] = buf;
+    if (frameWithOffset_expectedState__onceToken != -1)
+    {
+      dispatch_once(&frameWithOffset_expectedState__onceToken, block);
+    }
+
+    v8 = v13[24];
+    _Block_object_dispose(buf, 8);
+    if (os_log_type_enabled(v7, v8))
+    {
+      v9 = self->_datastoreVersion;
+      *buf = 67109120;
+      *&buf[4] = v9;
+      _os_log_impl(&dword_1C928A000, v7, v8, "[BMFrameStore frameWithOffset:expectedState:] with unexpected dataVersion:%d", buf, 8u);
+    }
+
+    v6 = 0;
+  }
+
+  return v6;
 }
 
 - (void)updateFrameStoreIndex
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (self->_datastoreVersion == 9)
   {
     p_framePointers = &self->_framePointers;
@@ -1100,13 +1217,13 @@ LABEL_36:
         [BMFrameStore updateFrameStoreIndex];
         v5 = *buf;
 LABEL_12:
-        v12[0] = MEMORY[0x1E69E9820];
-        v12[1] = 3221225472;
-        v12[2] = __37__BMFrameStore_updateFrameStoreIndex__block_invoke_65;
-        v12[3] = &unk_1E8338BC8;
-        v12[4] = self;
-        [(BMFrameStore *)self enumerateWithOptions:35 fromOffset:v5 usingBlock:v12];
-        goto LABEL_13;
+        v11[0] = MEMORY[0x1E69E9820];
+        v11[1] = 3221225472;
+        v11[2] = __37__BMFrameStore_updateFrameStoreIndex__block_invoke_65;
+        v11[3] = &unk_1E8338BC8;
+        v11[4] = self;
+        [(BMFrameStore *)self enumerateWithOptions:35 fromOffset:v5 usingBlock:v11];
+        return;
       }
     }
 
@@ -1123,9 +1240,9 @@ LABEL_12:
 
   v6 = __biome_log_for_category();
   *buf = 0;
-  v15 = buf;
-  v16 = 0x2020000000;
-  v17 = 16;
+  v14 = buf;
+  v15 = 0x2020000000;
+  v16 = 16;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
   block[2] = __37__BMFrameStore_updateFrameStoreIndex__block_invoke;
@@ -1136,7 +1253,7 @@ LABEL_12:
     dispatch_once(&updateFrameStoreIndex_onceToken, block);
   }
 
-  v7 = v15[24];
+  v7 = v14[24];
   _Block_object_dispose(buf, 8);
   if (os_log_type_enabled(v6, v7))
   {
@@ -1145,9 +1262,6 @@ LABEL_12:
     *&buf[4] = datastoreVersion;
     _os_log_impl(&dword_1C928A000, v6, v7, "updateFrameStoreIndex called with unexpected dataVersion:%d", buf, 8u);
   }
-
-LABEL_13:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __37__BMFrameStore_updateFrameStoreIndex__block_invoke_65(uint64_t a1, void *a2)
@@ -1159,14 +1273,14 @@ void __37__BMFrameStore_updateFrameStoreIndex__block_invoke_65(uint64_t a1, void
 
 - (int64_t)getReverseOffsetIndex:(unint64_t)index
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (self->_datastoreVersion != 9)
   {
     v8 = __biome_log_for_category();
     *buf = 0;
-    v16 = buf;
-    v17 = 0x2020000000;
-    v18 = 16;
+    v15 = buf;
+    v16 = 0x2020000000;
+    v17 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __38__BMFrameStore_getReverseOffsetIndex___block_invoke;
@@ -1177,7 +1291,7 @@ void __37__BMFrameStore_updateFrameStoreIndex__block_invoke_65(uint64_t a1, void
       dispatch_once(&getReverseOffsetIndex__onceToken, block);
     }
 
-    v9 = v16[24];
+    v9 = v15[24];
     _Block_object_dispose(buf, 8);
     if (os_log_type_enabled(v8, v9))
     {
@@ -1187,48 +1301,39 @@ void __37__BMFrameStore_updateFrameStoreIndex__block_invoke_65(uint64_t a1, void
       _os_log_impl(&dword_1C928A000, v8, v9, "updateFrameStoreIndex called with unexpected dataVersion:%d", buf, 8u);
     }
 
-    goto LABEL_11;
+    return -1;
   }
 
   [(BMFrameStore *)self updateFrameStoreIndex];
   framePointers = self->_framePointers;
   if (!framePointers || ![(NSMutableOrderedSet *)framePointers count])
   {
-LABEL_11:
-    result = -1;
-    goto LABEL_12;
+    return -1;
   }
 
   v6 = self->_framePointers;
   if (index == 0xFFFFFFFF)
   {
-    result = [(NSMutableOrderedSet *)self->_framePointers count]- 1;
+    return [(NSMutableOrderedSet *)self->_framePointers count]- 1;
+  }
+
+  v11 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:{-[BMMemoryMapping start](self->_frames, "start") + index}];
+  v12 = [(NSMutableOrderedSet *)v6 indexOfObject:v11];
+
+  if (v12 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    return -1;
   }
 
   else
   {
-    v12 = [MEMORY[0x1E696AD98] numberWithUnsignedLong:{-[BMMemoryMapping start](self->_frames, "start") + index}];
-    v13 = [(NSMutableOrderedSet *)v6 indexOfObject:v12];
-
-    if (v13 == 0x7FFFFFFFFFFFFFFFLL)
-    {
-      result = -1;
-    }
-
-    else
-    {
-      result = v13;
-    }
+    return v12;
   }
-
-LABEL_12:
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 - (void)enumerateWithOptions:(unint64_t)options fromOffset:(unint64_t)offset usingBlock:(id)block
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   datastoreVersion = self->_datastoreVersion;
   if (datastoreVersion == 10)
@@ -1245,9 +1350,9 @@ LABEL_12:
   {
     v10 = __biome_log_for_category();
     *buf = 0;
-    v16 = buf;
-    v17 = 0x2020000000;
-    v18 = 16;
+    v15 = buf;
+    v16 = 0x2020000000;
+    v17 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __59__BMFrameStore_enumerateWithOptions_fromOffset_usingBlock___block_invoke;
@@ -1258,7 +1363,7 @@ LABEL_12:
       dispatch_once(&enumerateWithOptions_fromOffset_usingBlock__onceToken, block);
     }
 
-    v11 = v16[24];
+    v11 = v15[24];
     _Block_object_dispose(buf, 8);
     if (os_log_type_enabled(v10, v11))
     {
@@ -1268,13 +1373,11 @@ LABEL_12:
       _os_log_impl(&dword_1C928A000, v10, v11, "[BMFrameStore enumerateWithOptions:fromOffset:usingBlock:] called with unexpected dataVersion:%d", buf, 8u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)enumerateWithOptionsV1:(unint64_t)v1 fromOffset:(unint64_t)offset usingBlock:(id)block
 {
-  v135 = *MEMORY[0x1E69E9840];
+  v134 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (!blockCopy)
   {
@@ -1303,14 +1406,14 @@ LABEL_12:
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
         buf[24] = 16;
-        v121[0] = MEMORY[0x1E69E9820];
-        v121[1] = 3221225472;
-        v121[2] = __61__BMFrameStore_enumerateWithOptionsV1_fromOffset_usingBlock___block_invoke;
-        v121[3] = &unk_1E8338B28;
-        v121[4] = buf;
+        v120[0] = MEMORY[0x1E69E9820];
+        v120[1] = 3221225472;
+        v120[2] = __61__BMFrameStore_enumerateWithOptionsV1_fromOffset_usingBlock___block_invoke;
+        v120[3] = &unk_1E8338B28;
+        v120[4] = buf;
         if (enumerateWithOptionsV1_fromOffset_usingBlock__onceToken != -1)
         {
-          dispatch_once(&enumerateWithOptionsV1_fromOffset_usingBlock__onceToken, v121);
+          dispatch_once(&enumerateWithOptionsV1_fromOffset_usingBlock__onceToken, v120);
         }
 
         v13 = *(*&buf[8] + 24);
@@ -1338,14 +1441,14 @@ LABEL_12:
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
         buf[24] = 16;
-        v120[0] = MEMORY[0x1E69E9820];
-        v120[1] = 3221225472;
-        v120[2] = __61__BMFrameStore_enumerateWithOptionsV1_fromOffset_usingBlock___block_invoke_79;
-        v120[3] = &unk_1E8338B28;
-        v120[4] = buf;
+        v119[0] = MEMORY[0x1E69E9820];
+        v119[1] = 3221225472;
+        v119[2] = __61__BMFrameStore_enumerateWithOptionsV1_fromOffset_usingBlock___block_invoke_79;
+        v119[3] = &unk_1E8338B28;
+        v119[4] = buf;
         if (enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_78 != -1)
         {
-          dispatch_once(&enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_78, v120);
+          dispatch_once(&enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_78, v119);
         }
 
         v16 = *(*&buf[8] + 24);
@@ -1378,14 +1481,14 @@ LABEL_25:
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
         buf[24] = 16;
-        v119[0] = MEMORY[0x1E69E9820];
-        v119[1] = 3221225472;
-        v119[2] = __61__BMFrameStore_enumerateWithOptionsV1_fromOffset_usingBlock___block_invoke_81;
-        v119[3] = &unk_1E8338B28;
-        v119[4] = buf;
+        v118[0] = MEMORY[0x1E69E9820];
+        v118[1] = 3221225472;
+        v118[2] = __61__BMFrameStore_enumerateWithOptionsV1_fromOffset_usingBlock___block_invoke_81;
+        v118[3] = &unk_1E8338B28;
+        v118[4] = buf;
         if (enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_80 != -1)
         {
-          dispatch_once(&enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_80, v119);
+          dispatch_once(&enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_80, v118);
         }
 
         v22 = *(*&buf[8] + 24);
@@ -1412,56 +1515,56 @@ LABEL_25:
         goto LABEL_26;
       }
 
-      v118 = 0;
+      v117 = 0;
       distantPast = [MEMORY[0x1E695DF00] distantPast];
       [distantPast timeIntervalSinceReferenceDate];
-      v29 = v28;
+      v28 = v27;
 
       start = [(BMMemoryMapping *)self->_frames start];
-      v31 = v1 & 8;
+      v30 = v1 & 8;
       if (!self->_permission && self->_pruneOnAccess && self->_filterByAgeOnRead && self->_maxAge > 0.0)
       {
-        v96 = 0;
-        v29 = CFAbsoluteTimeGetCurrent() - self->_maxAge;
+        v95 = 0;
+        v28 = CFAbsoluteTimeGetCurrent() - self->_maxAge;
       }
 
       else
       {
-        v96 = 1;
+        v95 = 1;
       }
 
       if ((v1 & 8) == 0)
       {
-        v32 = -1;
+        v31 = -1;
 LABEL_44:
-        if (v118)
+        if (v117)
         {
           goto LABEL_26;
         }
 
-        v106 = 0;
-        v102 = 0;
-        v89 = v31 >> 3;
-        v101 = 1;
+        v105 = 0;
+        v101 = 0;
+        v88 = v30 >> 3;
+        v100 = 1;
         while (1)
         {
-          v39 = objc_autoreleasePoolPush();
-          v116 = 0;
-          if (v31)
+          v38 = objc_autoreleasePoolPush();
+          v115 = 0;
+          if (v30)
           {
-            if (v32 < 0)
+            if (v31 < 0)
             {
               goto LABEL_156;
             }
 
-            v41 = v32--;
-            v42 = [(NSMutableOrderedSet *)self->_framePointers objectAtIndexedSubscript:v41];
-            integerValue = [v42 integerValue];
+            v40 = v31--;
+            v41 = [(NSMutableOrderedSet *)self->_framePointers objectAtIndexedSubscript:v40];
+            integerValue = [v41 integerValue];
           }
 
-          else if (v106)
+          else if (v105)
           {
-            integerValue = v102 + offsetCopy;
+            integerValue = v101 + offsetCopy;
           }
 
           else
@@ -1469,59 +1572,59 @@ LABEL_44:
             integerValue = start + offsetCopy;
           }
 
-          v43 = integerValue - [(BMMemoryMapping *)self->_frames start];
-          if (v43 >= v21 || ([(BMMemoryMapping *)self->_frames end]- integerValue) < 0x20)
+          v42 = integerValue - [(BMMemoryMapping *)self->_frames start];
+          if (v42 >= v21 || ([(BMMemoryMapping *)self->_frames end]- integerValue) < 0x20)
           {
 LABEL_156:
 
-            objc_autoreleasePoolPop(v39);
+            objc_autoreleasePoolPop(v38);
             goto LABEL_26;
           }
 
-          v100 = v32;
-          v44 = atomic_load(integerValue);
-          v45 = HIDWORD(v44);
-          v115 = 0uLL;
-          v46 = *(integerValue + 8);
-          v115 = *(integerValue + 16);
-          v47 = [(BMFrameStore *)self sizeToNextWord:v44];
-          v48 = v45;
-          v49 = 0;
-          v97 = v47;
-          v99 = v39;
-          v93 = v48;
-          if (v48 > 2)
+          v99 = v31;
+          v43 = atomic_load(integerValue);
+          v44 = HIDWORD(v43);
+          v114 = 0uLL;
+          v45 = *(integerValue + 8);
+          v114 = *(integerValue + 16);
+          v46 = [(BMFrameStore *)self sizeToNextWord:v43];
+          v47 = v44;
+          v48 = 0;
+          v96 = v46;
+          v98 = v38;
+          v92 = v47;
+          if (v47 > 2)
           {
             break;
           }
 
-          if (!v48)
+          if (!v47)
           {
+            v48 = 1;
             v49 = 1;
-            v50 = 1;
-            if (v47)
+            if (v46)
             {
               goto LABEL_77;
             }
 
 LABEL_75:
-            v50 = 0;
+            v49 = 0;
 LABEL_76:
-            v118 = 1;
+            v117 = 1;
             goto LABEL_77;
           }
 
-          if (v48 == 1)
+          if (v47 == 1)
           {
-            v53 = v96;
-            if (v46 >= v29)
+            v52 = v95;
+            if (v45 >= v28)
             {
-              v53 = 1;
+              v52 = 1;
             }
 
-            v50 = v53 ^ 1;
-            v49 = 1;
-            if ((v1 & 8) != 0 && (v53 & 1) == 0)
+            v49 = v52 ^ 1;
+            v48 = 1;
+            if ((v1 & 8) != 0 && (v52 & 1) == 0)
             {
               goto LABEL_75;
             }
@@ -1529,90 +1632,90 @@ LABEL_76:
 
           else
           {
-            v50 = 0;
-            if (v48 == 2)
+            v49 = 0;
+            if (v47 == 2)
             {
-              v49 = 1;
-              v50 = (v1 & 2) == 0;
+              v48 = 1;
+              v49 = (v1 & 2) == 0;
             }
           }
 
 LABEL_77:
-          v105 = integerValue + 32;
+          v104 = integerValue + 32;
           frameStoreSize = [(BMFrameStore *)self frameStoreSize];
-          v55 = 8;
-          v56 = v97;
-          if ((v106 & 1) == 0)
+          v54 = 8;
+          v55 = v96;
+          if ((v105 & 1) == 0)
           {
-            v55 = v97;
+            v54 = v96;
           }
 
-          if (frameStoreSize >= v97)
+          if (frameStoreSize >= v96)
           {
-            v55 = v97;
+            v54 = v96;
           }
 
-          v92 = v55;
-          if (!v49 || frameStoreSize < v97)
+          v91 = v54;
+          if (!v48 || frameStoreSize < v96)
           {
-            if (v106)
+            if (v105)
             {
-              v39 = v99;
-              v32 = v100;
+              v38 = v98;
+              v31 = v99;
               start = (integerValue + 32);
-              v58 = v93;
+              v57 = v92;
             }
 
             else
             {
-              v39 = v99;
-              v87 = frameStoreSize;
-              if (v102)
+              v38 = v98;
+              v86 = frameStoreSize;
+              if (v101)
               {
-                v78 = atomic_load(v102);
-                v86 = [(BMFrameStore *)self sizeToNextWord:v78];
-                v85 = HIDWORD(v78);
-                if (HIDWORD(v78) == 1)
+                v77 = atomic_load(v101);
+                v85 = [(BMFrameStore *)self sizeToNextWord:v77];
+                v84 = HIDWORD(v77);
+                if (HIDWORD(v77) == 1)
                 {
                   *buf = 0;
-                  v79 = [(BMFrameStore *)self isValidFrameV1:v102 expectedState:1 copyOfData:buf frameStatus:v78 validations:1 enumerationOptions:v1 errorCode:0];
-                  v80 = @"Not Valid";
-                  if (v79)
+                  v78 = [(BMFrameStore *)self isValidFrameV1:v101 expectedState:1 copyOfData:buf frameStatus:v77 validations:1 enumerationOptions:v1 errorCode:0];
+                  v79 = @"Not Valid";
+                  if (v78)
                   {
-                    v80 = @"Valid";
+                    v79 = @"Valid";
                   }
 
-                  v88 = v80;
-                  v81 = *buf;
+                  v87 = v79;
+                  v80 = *buf;
                   *buf = 0;
 
-                  v85 = 1;
+                  v84 = 1;
                 }
 
                 else
                 {
-                  v88 = @"Not Checked";
+                  v87 = @"Not Checked";
                 }
 
-                v39 = v99;
+                v38 = v98;
               }
 
               else
               {
-                v86 = 0;
-                v88 = @"Not Checked";
-                v85 = 5;
+                v85 = 0;
+                v87 = @"Not Checked";
+                v84 = 5;
               }
 
-              v59 = __biome_log_for_category();
-              if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+              v58 = __biome_log_for_category();
+              if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
               {
                 osloga = [(BMFrameStore *)self _printablePath];
                 *buf = 67109378;
-                *&buf[4] = v93;
+                *&buf[4] = v92;
                 *&buf[8] = 2114;
                 *&buf[10] = osloga;
-                _os_log_error_impl(&dword_1C928A000, v59, OS_LOG_TYPE_ERROR, "Unrecognized frame state:%d in segment: %{public}@", buf, 0x12u);
+                _os_log_error_impl(&dword_1C928A000, v58, OS_LOG_TYPE_ERROR, "Unrecognized frame state:%d in segment: %{public}@", buf, 0x12u);
               }
 
               oslog = __biome_log_for_category();
@@ -1620,113 +1723,113 @@ LABEL_77:
               *&buf[8] = buf;
               *&buf[16] = 0x2020000000;
               buf[24] = 16;
-              v113[0] = MEMORY[0x1E69E9820];
-              v113[1] = 3221225472;
-              v113[2] = __61__BMFrameStore_enumerateWithOptionsV1_fromOffset_usingBlock___block_invoke_97;
-              v113[3] = &unk_1E8338B28;
-              v113[4] = buf;
+              v112[0] = MEMORY[0x1E69E9820];
+              v112[1] = 3221225472;
+              v112[2] = __61__BMFrameStore_enumerateWithOptionsV1_fromOffset_usingBlock___block_invoke_97;
+              v112[3] = &unk_1E8338B28;
+              v112[4] = buf;
               if (enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_96 != -1)
               {
-                dispatch_once(&enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_96, v113);
+                dispatch_once(&enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_96, v112);
               }
 
-              v60 = *(*&buf[8] + 24);
+              v59 = *(*&buf[8] + 24);
               _Block_object_dispose(buf, 8);
-              if (os_log_type_enabled(oslog, v60))
+              if (os_log_type_enabled(oslog, v59))
               {
                 _printablePath = [(BMFrameStore *)self _printablePath];
-                v84 = _printablePath;
-                if (v102)
+                v83 = _printablePath;
+                if (v101)
                 {
-                  if (v85 >= 6)
+                  if (v84 >= 6)
                   {
-                    v83 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BMFrameStateUnknown(%lu)", v85];
-                    v62 = v83;
-                    _printablePath = v84;
+                    v82 = [MEMORY[0x1E696AEC0] stringWithFormat:@"BMFrameStateUnknown(%lu)", v84];
+                    v61 = v82;
+                    _printablePath = v83;
                   }
 
                   else
                   {
-                    v62 = off_1E8338C90[v85];
-                    v83 = v62;
+                    v61 = off_1E8338C90[v84];
+                    v82 = v61;
                   }
                 }
 
                 else
                 {
-                  v62 = @"no prev frame";
+                  v61 = @"no prev frame";
                 }
 
                 *buf = 67111426;
-                *&buf[4] = v93;
+                *&buf[4] = v92;
                 *&buf[8] = 2114;
                 *&buf[10] = _printablePath;
                 *&buf[18] = 2048;
-                *&buf[20] = v43;
+                *&buf[20] = v42;
                 *&buf[28] = 2048;
-                *&buf[30] = v92;
-                v123 = 1024;
-                v124 = v89;
-                v125 = 1024;
-                v126 = v101;
-                v127 = 2114;
-                v128 = v62;
-                v129 = 2114;
-                v130 = v88;
-                v131 = 2048;
-                v132 = offsetCopy;
-                v133 = 2048;
-                v134 = v86;
-                _os_log_impl(&dword_1C928A000, oslog, v60, "Unrecognized frame state: %d, segment:%{public}@ frame offset:%td frame size:%zu reverse:%d, frameCount=%d, prevFrameState:%{public}@, prevFrameValid:%{public}@ prevLastSize/offset:%zu prevStateSize:%zu", buf, 0x5Au);
-                if (v102)
+                *&buf[30] = v91;
+                v122 = 1024;
+                v123 = v88;
+                v124 = 1024;
+                v125 = v100;
+                v126 = 2114;
+                v127 = v61;
+                v128 = 2114;
+                v129 = v87;
+                v130 = 2048;
+                v131 = offsetCopy;
+                v132 = 2048;
+                v133 = v85;
+                _os_log_impl(&dword_1C928A000, oslog, v59, "Unrecognized frame state: %d, segment:%{public}@ frame offset:%td frame size:%zu reverse:%d, frameCount=%d, prevFrameState:%{public}@, prevFrameValid:%{public}@ prevLastSize/offset:%zu prevStateSize:%zu", buf, 0x5Au);
+                if (v101)
                 {
                 }
               }
 
-              v32 = v100;
+              v31 = v99;
               start = (integerValue + 32);
 
-              v58 = v93;
-              v56 = v97;
-              frameStoreSize = v87;
+              v57 = v92;
+              v55 = v96;
+              frameStoreSize = v86;
             }
 
-            v118 = 1;
+            v117 = 1;
             goto LABEL_128;
           }
 
-          if (v106)
+          if (v105)
           {
-            v57 = 0;
+            v56 = 0;
           }
 
           else
           {
-            v57 = v106;
+            v56 = v105;
           }
 
-          if (v118)
+          if (v117)
           {
-            v106 = v57;
-            v39 = v99;
-            v32 = v100;
+            v105 = v56;
+            v38 = v98;
+            v31 = v99;
             start = (integerValue + 32);
-            v58 = v93;
+            v57 = v92;
 LABEL_128:
-            if ((v1 & 0x10) != 0 || frameStoreSize >= v56 && (v58 == 1 || v58 == 4) || start - [(BMMemoryMapping *)self->_frames start]+ 8 >= v21)
+            if ((v1 & 0x10) != 0 || frameStoreSize >= v55 && (v57 == 1 || v57 == 4) || start - [(BMMemoryMapping *)self->_frames start]+ 8 >= v21)
             {
               goto LABEL_156;
             }
 
-            v118 = 0;
-            if (v106)
+            v117 = 0;
+            if (v105)
             {
               offsetCopy = 8;
             }
 
             else
             {
-              v69 = __biome_log_for_category();
+              v68 = __biome_log_for_category();
               *buf = 0;
               *&buf[8] = buf;
               *&buf[16] = 0x2020000000;
@@ -1741,302 +1844,298 @@ LABEL_128:
                 dispatch_once(&enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_101, block);
               }
 
-              v70 = *(*&buf[8] + 24);
+              v69 = *(*&buf[8] + 24);
               _Block_object_dispose(buf, 8);
-              if (os_log_type_enabled(v69, v70))
+              if (os_log_type_enabled(v68, v69))
               {
                 _printablePath2 = [(BMFrameStore *)self _printablePath];
                 *buf = 138543362;
                 *&buf[4] = _printablePath2;
-                _os_log_impl(&dword_1C928A000, v69, v70, "After unrecognized frame in %{public}@, skipping ahead to find valid frames", buf, 0xCu);
+                _os_log_impl(&dword_1C928A000, v68, v69, "After unrecognized frame in %{public}@, skipping ahead to find valid frames", buf, 0xCu);
               }
 
-              v106 = 1;
+              v105 = 1;
               offsetCopy = 8;
-              v39 = v99;
-              v32 = v100;
+              v38 = v98;
+              v31 = v99;
             }
 
             goto LABEL_140;
           }
 
-          v32 = v100;
-          if ((v50 & 1) == 0)
+          v31 = v99;
+          if ((v49 & 1) == 0)
           {
-            v63 = atomic_load(integerValue);
-            v64 = HIDWORD(v63);
-            v111 = 0;
-            if ((v1 & 0x20) == 0 && HIDWORD(v63) == 1)
+            v62 = atomic_load(integerValue);
+            v63 = HIDWORD(v62);
+            v110 = 0;
+            if ((v1 & 0x20) == 0 && HIDWORD(v62) == 1)
             {
-              v65 = &v116;
+              v64 = &v115;
             }
 
             else
             {
-              v65 = 0;
+              v64 = 0;
             }
 
-            v103 = v63;
-            if ([BMFrameStore isValidFrameV1:"isValidFrameV1:expectedState:copyOfData:frameStatus:validations:enumerationOptions:errorCode:" expectedState:integerValue copyOfData:1 frameStatus:v65 validations:&v111 enumerationOptions:? errorCode:?])
+            v102 = v62;
+            if ([BMFrameStore isValidFrameV1:"isValidFrameV1:expectedState:copyOfData:frameStatus:validations:enumerationOptions:errorCode:" expectedState:integerValue copyOfData:1 frameStatus:v64 validations:&v110 enumerationOptions:? errorCode:?])
             {
-              v98 = v64;
-              if (v106)
+              v97 = v63;
+              if (v105)
               {
                 start2 = [(BMMemoryMapping *)self->_frames start];
-                v66 = __biome_log_for_category();
+                v65 = __biome_log_for_category();
                 *buf = 0;
                 *&buf[8] = buf;
                 *&buf[16] = 0x2020000000;
                 buf[24] = 16;
-                v110[0] = MEMORY[0x1E69E9820];
-                v110[1] = 3221225472;
-                v110[2] = __61__BMFrameStore_enumerateWithOptionsV1_fromOffset_usingBlock___block_invoke_104;
-                v110[3] = &unk_1E8338B28;
-                v110[4] = buf;
+                v109[0] = MEMORY[0x1E69E9820];
+                v109[1] = 3221225472;
+                v109[2] = __61__BMFrameStore_enumerateWithOptionsV1_fromOffset_usingBlock___block_invoke_104;
+                v109[3] = &unk_1E8338B28;
+                v109[4] = buf;
                 if (enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_103 != -1)
                 {
-                  dispatch_once(&enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_103, v110);
+                  dispatch_once(&enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_103, v109);
                 }
 
-                v67 = *(*&buf[8] + 24);
+                v66 = *(*&buf[8] + 24);
                 _Block_object_dispose(buf, 8);
-                if (os_log_type_enabled(v66, v67))
+                if (os_log_type_enabled(v65, v66))
                 {
-                  v94 = integerValue - start2;
+                  v93 = integerValue - start2;
                   _printablePath3 = [(BMFrameStore *)self _printablePath];
                   *buf = 138543618;
                   *&buf[4] = _printablePath3;
                   *&buf[12] = 2048;
-                  *&buf[14] = v94;
-                  _os_log_impl(&dword_1C928A000, v66, v67, "After a corrupted frame found a valid frame in %{public}@ at offset: %td", buf, 0x16u);
+                  *&buf[14] = v93;
+                  _os_log_impl(&dword_1C928A000, v65, v66, "After a corrupted frame found a valid frame in %{public}@ at offset: %td", buf, 0x16u);
                 }
 
-                v32 = v100;
+                v31 = v99;
               }
 
               if ((v1 & 8) != 0)
               {
-                if (v32 < 0)
+                if (v31 < 0)
                 {
                   goto LABEL_145;
                 }
 
-                v72 = [(NSMutableOrderedSet *)self->_framePointers objectAtIndexedSubscript:v32];
-                integerValue2 = [v72 integerValue];
-                v109 = integerValue2 - [(BMMemoryMapping *)self->_frames start];
+                v71 = [(NSMutableOrderedSet *)self->_framePointers objectAtIndexedSubscript:v31];
+                integerValue2 = [v71 integerValue];
+                v108 = integerValue2 - [(BMMemoryMapping *)self->_frames start];
               }
 
               else
               {
-                if (v105 < [(BMMemoryMapping *)self->_frames end]- v92)
+                if (v104 < [(BMMemoryMapping *)self->_frames end]- v91)
                 {
-                  v68 = v105 + v92 - [(BMMemoryMapping *)self->_frames start];
+                  v67 = v104 + v91 - [(BMMemoryMapping *)self->_frames start];
                   goto LABEL_146;
                 }
 
 LABEL_145:
-                v68 = 4294967294;
+                v67 = 4294967294;
 LABEL_146:
-                v109 = v68;
+                v108 = v67;
               }
 
-              v74 = [BMFrame alloc];
+              v73 = [BMFrame alloc];
               attributes = [(BMFileHandle *)self->_backingFile attributes];
               path = [attributes path];
-              *buf = v103;
-              *&buf[8] = v46;
-              *&buf[16] = v115;
-              LODWORD(v82) = v98;
-              v76 = [(BMFrame *)v74 initWithHeader:buf storePath:path data:v116 framePtr:integerValue offset:v43 nextOffset:v109 timestamp:v46 datastoreVersion:9 state:v82];
+              *buf = v102;
+              *&buf[8] = v45;
+              *&buf[16] = v114;
+              LODWORD(v81) = v97;
+              v75 = [(BMFrame *)v73 initWithHeader:buf storePath:path data:v115 framePtr:integerValue offset:v42 nextOffset:v108 timestamp:v45 datastoreVersion:9 state:v81];
 
-              v77 = v116;
-              v116 = 0;
+              v76 = v115;
+              v115 = 0;
 
-              blockCopy[2](blockCopy, v76, &v118);
-              v32 = v100;
+              blockCopy[2](blockCopy, v75, &v117);
+              v31 = v99;
 LABEL_148:
               start = (integerValue + 32);
-              v39 = v99;
+              v38 = v98;
             }
 
             else
             {
-              if ((v1 & 0x10) != 0 || v111 > 5)
+              if ((v1 & 0x10) != 0 || v110 > 5)
               {
                 goto LABEL_148;
               }
 
               start = (integerValue + 32);
-              v39 = v99;
-              if (((1 << v111) & 0x2C) != 0)
+              v38 = v98;
+              if (((1 << v110) & 0x2C) != 0)
               {
-                if ((v57 & 1) == 0)
+                if ((v56 & 1) == 0)
                 {
-                  v57 = 1;
+                  v56 = 1;
                 }
 
-                v92 = 8;
+                v91 = 8;
               }
             }
 
-            v106 = v57;
-            offsetCopy = v92;
+            v105 = v56;
+            offsetCopy = v91;
             goto LABEL_141;
           }
 
-          v106 = v57;
+          v105 = v56;
           start = (integerValue + 32);
-          v39 = v99;
-          offsetCopy = v55;
+          v38 = v98;
+          offsetCopy = v54;
 LABEL_140:
 
 LABEL_141:
-          objc_autoreleasePoolPop(v39);
-          ++v101;
-          v102 = integerValue;
-          v31 = v1 & 8;
-          if (v118)
+          objc_autoreleasePoolPop(v38);
+          ++v100;
+          v101 = integerValue;
+          v30 = v1 & 8;
+          if (v117)
           {
             goto LABEL_26;
           }
         }
 
-        if (v48 == 3)
+        if (v47 == 3)
         {
-          v49 = 1;
-          v50 = v1 ^ 1;
+          v48 = 1;
+          v49 = v1 ^ 1;
           goto LABEL_77;
         }
 
-        if (v48 != 4)
+        if (v47 != 4)
         {
-          v50 = 0;
-          if (v48 != 5)
+          v49 = 0;
+          if (v47 != 5)
           {
             goto LABEL_77;
           }
 
-          v51 = __biome_log_for_category();
+          v50 = __biome_log_for_category();
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x2020000000;
           buf[24] = 16;
-          v114[0] = MEMORY[0x1E69E9820];
-          v114[1] = 3221225472;
-          v114[2] = __61__BMFrameStore_enumerateWithOptionsV1_fromOffset_usingBlock___block_invoke_86;
-          v114[3] = &unk_1E8338B28;
-          v114[4] = buf;
+          v113[0] = MEMORY[0x1E69E9820];
+          v113[1] = 3221225472;
+          v113[2] = __61__BMFrameStore_enumerateWithOptionsV1_fromOffset_usingBlock___block_invoke_86;
+          v113[3] = &unk_1E8338B28;
+          v113[4] = buf;
           if (enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_85 != -1)
           {
-            dispatch_once(&enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_85, v114);
+            dispatch_once(&enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_85, v113);
           }
 
-          v52 = *(*&buf[8] + 24);
+          v51 = *(*&buf[8] + 24);
           _Block_object_dispose(buf, 8);
-          if (os_log_type_enabled(v51, v52))
+          if (os_log_type_enabled(v50, v51))
           {
             *buf = 0;
-            _os_log_impl(&dword_1C928A000, v51, v52, "Found frame with state: BMFrameStateUnknown", buf, 2u);
+            _os_log_impl(&dword_1C928A000, v50, v51, "Found frame with state: BMFrameStateUnknown", buf, 2u);
           }
         }
 
-        v50 = 0;
-        v49 = 1;
+        v49 = 0;
+        v48 = 1;
         goto LABEL_76;
       }
 
       if (self->_permission)
       {
-        v104 = start;
-        v33 = __biome_log_for_category();
+        v103 = start;
+        v32 = __biome_log_for_category();
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
         buf[24] = 16;
-        v117[0] = MEMORY[0x1E69E9820];
-        v117[1] = 3221225472;
-        v117[2] = __61__BMFrameStore_enumerateWithOptionsV1_fromOffset_usingBlock___block_invoke_84;
-        v117[3] = &unk_1E8338B28;
-        v117[4] = buf;
+        v116[0] = MEMORY[0x1E69E9820];
+        v116[1] = 3221225472;
+        v116[2] = __61__BMFrameStore_enumerateWithOptionsV1_fromOffset_usingBlock___block_invoke_84;
+        v116[3] = &unk_1E8338B28;
+        v116[4] = buf;
         if (enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_83 != -1)
         {
-          dispatch_once(&enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_83, v117);
+          dispatch_once(&enumerateWithOptionsV1_fromOffset_usingBlock__onceToken_83, v116);
         }
 
-        v34 = *(*&buf[8] + 24);
+        v33 = *(*&buf[8] + 24);
         _Block_object_dispose(buf, 8);
-        if (!os_log_type_enabled(v33, v34))
+        if (!os_log_type_enabled(v32, v33))
         {
           goto LABEL_42;
         }
 
         *buf = 0;
-        v35 = "Use of reverse enumeration is only supported for reading.";
+        v34 = "Use of reverse enumeration is only supported for reading.";
+        v35 = v32;
         v36 = v33;
-        v37 = v34;
-        v38 = 2;
+        v37 = 2;
       }
 
       else
       {
-        v32 = [(BMFrameStore *)self getReverseOffsetIndex:offset];
-        if (v32 != -1)
+        v31 = [(BMFrameStore *)self getReverseOffsetIndex:offset];
+        if (v31 != -1)
         {
           goto LABEL_44;
         }
 
-        v104 = start;
-        v33 = __biome_log_for_category();
-        if (!os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+        v103 = start;
+        v32 = __biome_log_for_category();
+        if (!os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
           goto LABEL_42;
         }
 
         *buf = 134217984;
         *&buf[4] = offset;
-        v35 = "Reverse enumeration offset not found %zu.";
-        v36 = v33;
-        v37 = OS_LOG_TYPE_INFO;
-        v38 = 12;
+        v34 = "Reverse enumeration offset not found %zu.";
+        v35 = v32;
+        v36 = OS_LOG_TYPE_INFO;
+        v37 = 12;
       }
 
-      _os_log_impl(&dword_1C928A000, v36, v37, v35, buf, v38);
+      _os_log_impl(&dword_1C928A000, v35, v36, v34, buf, v37);
 LABEL_42:
 
-      v32 = -1;
-      start = v104;
+      v31 = -1;
+      start = v103;
       goto LABEL_44;
     }
   }
 
 LABEL_26:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateHeader
 {
   OUTLINED_FUNCTION_1_1();
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   attributes = [*(v2 + 64) attributes];
   filename = [attributes filename];
   OUTLINED_FUNCTION_3_0();
-  v7 = v1;
-  _os_log_debug_impl(&dword_1C928A000, v0, OS_LOG_TYPE_DEBUG, "Frame store: %@, bytesUsed: %llu", v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v6 = v1;
+  _os_log_debug_impl(&dword_1C928A000, v0, OS_LOG_TYPE_DEBUG, "Frame store: %@, bytesUsed: %llu", v5, 0x16u);
 }
 
 - (unsigned)appendFrameHeaderV1:(id *)v1 offset:(unint64_t *)offset
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   if (self->_datastoreVersion != 9)
   {
     v5 = __biome_log_for_category();
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v30) = 16;
+    LOBYTE(v29) = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __43__BMFrameStore_appendFrameHeaderV1_offset___block_invoke;
@@ -2057,97 +2156,92 @@ LABEL_26:
       _os_log_impl(&dword_1C928A000, v5, v6, "[BMFrameStore appendFrameHeaderV1:offset:] called with unexpected dataVersion:%d", buf, 8u);
     }
 
-LABEL_7:
-    result = 1;
-    goto LABEL_8;
+    return 1;
   }
 
-  v27 = 0;
-  v12 = [(BMFrameStore *)self sizeToNextWord:?]+ 32;
-  if ([(BMMemoryMapping *)self->_frames atomicWriteEightBytes:v1->var0.var1 toOffset:*offset expected:&v27]== 1)
+  v26 = 0;
+  v11 = [(BMFrameStore *)self sizeToNextWord:?]+ 32;
+  if ([(BMMemoryMapping *)self->_frames atomicWriteEightBytes:v1->var0.var1 toOffset:*offset expected:&v26]== 1)
   {
-LABEL_10:
-    [(BMMemoryMapping *)self->_frames updateToMaxOfCurrentWriteOffsetAnd:v12 + *offset];
+LABEL_9:
+    [(BMMemoryMapping *)self->_frames updateToMaxOfCurrentWriteOffsetAnd:v11 + *offset];
     self->_lastAbsoluteTimestamp = v1->var1.var0;
     var0 = v1->var1.var0;
     start = [(BMMemoryMapping *)self->_frames start];
-    v15 = *offset;
-    v16 = *&start[*offset + 8];
-    v26 = v16;
-    v17 = [(BMMemoryMapping *)self->_frames atomicWriteEightBytes:*&var0 toOffset:v15 + 8 expected:&v26];
-    if (v17 == 1)
+    v14 = *offset;
+    v15 = *&start[*offset + 8];
+    v25 = v15;
+    v16 = [(BMMemoryMapping *)self->_frames atomicWriteEightBytes:*&var0 toOffset:v14 + 8 expected:&v25];
+    if (v16 != 1)
     {
-      [(BMMemoryMapping *)self->_frames writeBytes:&v1->var1.var1 toOffset:*offset + 16 length:16];
-      result = 2 * (v1->var0.var0.var1 == 4);
-      goto LABEL_8;
-    }
-
-    v23 = v17;
-    v24 = __biome_log_for_category();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 134218496;
-      *&buf[4] = v16;
-      *&buf[12] = 2048;
-      *&buf[14] = v26;
-      *&buf[22] = 1024;
-      v30 = v23;
-      _os_log_error_impl(&dword_1C928A000, v24, OS_LOG_TYPE_ERROR, "Unable to update creationTimestamp. We expect to see %llu, but instead are seeing %llu. The write status is %d", buf, 0x1Cu);
-    }
-
-    goto LABEL_7;
-  }
-
-  while (1)
-  {
-    v18 = *([(BMMemoryMapping *)self->_frames start]+ *offset + 8);
-    Current = CFAbsoluteTimeGetCurrent();
-    if (v18 >= Current)
-    {
-      Current = v18;
-    }
-
-    v1->var1.var0 = Current;
-    v1->var1.var1 = Current;
-    if (HIDWORD(v27) == 4)
-    {
-      break;
-    }
-
-    v20 = *offset;
-    *offset = v20 + [(BMFrameStore *)self sizeToNextWord:v27]+ 32;
-    v27 = 0;
-    if (![BMMemoryMapping isValidReadFromOffset:"isValidReadFromOffset:withLength:" withLength:?])
-    {
-      if (![(BMMemoryMapping *)self->_frames isValidReadFromOffset:*offset withLength:32])
+      v22 = v16;
+      v23 = __biome_log_for_category();
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
-        v25 = __biome_log_for_category();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
-        {
-          [BMFrameStore appendFrameHeaderV1:offset:];
-        }
-
-        break;
+        *buf = 134218496;
+        *&buf[4] = v15;
+        *&buf[12] = 2048;
+        *&buf[14] = v25;
+        *&buf[22] = 1024;
+        v29 = v22;
+        _os_log_error_impl(&dword_1C928A000, v23, OS_LOG_TYPE_ERROR, "Unable to update creationTimestamp. We expect to see %llu, but instead are seeing %llu. The write status is %d", buf, 0x1Cu);
       }
 
-      v21 = [(BMMemoryMapping *)self->_frames size]- *offset - 32;
-      v22 = v1->var1.var0;
-      v1->var0.var0.var0 = v21;
-      v1->var0.var0.var1 = 4;
-      v1->var1.var1 = v22;
-      *&v1->var1.var2 = 0;
+      return 1;
     }
 
-    if ([(BMMemoryMapping *)self->_frames atomicWriteEightBytes:v1->var0.var1 toOffset:*offset expected:&v27]== 1)
-    {
-      goto LABEL_10;
-    }
+    [(BMMemoryMapping *)self->_frames writeBytes:&v1->var1.var1 toOffset:*offset + 16 length:16];
+    return 2 * (v1->var0.var0.var1 == 4);
   }
 
-  result = 2;
-LABEL_8:
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  else
+  {
+    while (1)
+    {
+      v17 = *([(BMMemoryMapping *)self->_frames start]+ *offset + 8);
+      Current = CFAbsoluteTimeGetCurrent();
+      if (v17 >= Current)
+      {
+        Current = v17;
+      }
+
+      v1->var1.var0 = Current;
+      v1->var1.var1 = Current;
+      if (HIDWORD(v26) == 4)
+      {
+        return 2;
+      }
+
+      v19 = *offset;
+      *offset = v19 + [(BMFrameStore *)self sizeToNextWord:v26]+ 32;
+      v26 = 0;
+      if (![BMMemoryMapping isValidReadFromOffset:"isValidReadFromOffset:withLength:" withLength:?])
+      {
+        if (![(BMMemoryMapping *)self->_frames isValidReadFromOffset:*offset withLength:32])
+        {
+          v24 = __biome_log_for_category();
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
+          {
+            [BMFrameStore appendFrameHeaderV1:offset:];
+          }
+
+          return 2;
+        }
+
+        v20 = [(BMMemoryMapping *)self->_frames size]- *offset - 32;
+        v21 = v1->var1.var0;
+        v1->var0.var0.var0 = v20;
+        v1->var0.var0.var1 = 4;
+        v1->var1.var1 = v21;
+        *&v1->var1.var2 = 0;
+      }
+
+      if ([(BMMemoryMapping *)self->_frames atomicWriteEightBytes:v1->var0.var1 toOffset:*offset expected:&v26]== 1)
+      {
+        goto LABEL_9;
+      }
+    }
+  }
 }
 
 - (BOOL)offsetIsStartOfFrameStore:(unint64_t)store
@@ -2162,7 +2256,7 @@ LABEL_8:
 
 - (unsigned)writeFrameV1ForBytes:(const void *)bytes length:(unint64_t)length dataVersion:(unsigned int)version timestamp:(double)timestamp outOffset:(unint64_t *)offset
 {
-  v63 = *MEMORY[0x1E69E9840];
+  v62 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if (length >> 31)
@@ -2211,32 +2305,32 @@ LABEL_28:
       {
         if ([(BMFrameStore *)selfCopy isRemoteSegment]&& ![(BMFrameStore *)selfCopy isTombstoneSegment])
         {
-          v22 = objc_alloc_init(MEMORY[0x1E696AB78]);
-          [v22 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
-          v23 = __biome_log_for_category();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v21 = objc_alloc_init(MEMORY[0x1E696AB78]);
+          [v21 setDateFormat:@"yyyy-MM-dd HH:mm:ss"];
+          v22 = __biome_log_for_category();
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             lastAbsoluteTimestamp = selfCopy->_lastAbsoluteTimestamp;
-            v45 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:timestamp];
-            v46 = [v22 stringFromDate:v45];
-            v44 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:selfCopy->_lastAbsoluteTimestamp];
-            v39 = [v22 stringFromDate:v44];
-            v40 = MEMORY[0x1E698E9C8];
+            v44 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:timestamp];
+            v45 = [v21 stringFromDate:v44];
+            v43 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:selfCopy->_lastAbsoluteTimestamp];
+            v38 = [v21 stringFromDate:v43];
+            v39 = MEMORY[0x1E698E9C8];
             segmentPath = [(BMFrameStore *)selfCopy segmentPath];
-            v42 = [v40 privacyPathname:segmentPath];
+            v41 = [v39 privacyPathname:segmentPath];
             *buf = 136316418;
             *&buf[4] = "[BMFrameStore writeFrameV1ForBytes:length:dataVersion:timestamp:outOffset:]";
             *&buf[12] = 2048;
             *&buf[14] = timestamp;
             *&buf[22] = 2048;
-            v56 = *&lastAbsoluteTimestamp;
-            v57 = 2112;
-            v58 = v46;
-            v59 = 2112;
-            v60 = v39;
-            v61 = 2114;
-            v62 = v42;
-            _os_log_error_impl(&dword_1C928A000, v23, OS_LOG_TYPE_ERROR, "[%s] WARNING (remote data) frame should come in chronological order. Input %f < last %f, (%@ < %@) segment:%{public}@", buf, 0x3Eu);
+            v55 = *&lastAbsoluteTimestamp;
+            v56 = 2112;
+            v57 = v45;
+            v58 = 2112;
+            v59 = v38;
+            v60 = 2114;
+            v61 = v41;
+            _os_log_error_impl(&dword_1C928A000, v22, OS_LOG_TYPE_ERROR, "[%s] WARNING (remote data) frame should come in chronological order. Input %f < last %f, (%@ < %@) segment:%{public}@", buf, 0x3Eu);
           }
         }
 
@@ -2261,26 +2355,26 @@ LABEL_22:
             v18 = __biome_log_for_category();
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
-              v31 = selfCopy->_lastAbsoluteTimestamp;
-              v32 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:timestamp];
-              v33 = [v17 stringFromDate:v32];
-              v34 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:selfCopy->_lastAbsoluteTimestamp];
-              v35 = [v17 stringFromDate:v34];
-              v36 = MEMORY[0x1E698E9C8];
+              v30 = selfCopy->_lastAbsoluteTimestamp;
+              v31 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:timestamp];
+              v32 = [v17 stringFromDate:v31];
+              v33 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:selfCopy->_lastAbsoluteTimestamp];
+              v34 = [v17 stringFromDate:v33];
+              v35 = MEMORY[0x1E698E9C8];
               segmentPath2 = [(BMFrameStore *)selfCopy segmentPath];
-              v38 = [v36 privacyPathname:segmentPath2];
+              v37 = [v35 privacyPathname:segmentPath2];
               *buf = 136316418;
               *&buf[4] = "[BMFrameStore writeFrameV1ForBytes:length:dataVersion:timestamp:outOffset:]";
               *&buf[12] = 2048;
               *&buf[14] = timestamp;
               *&buf[22] = 2048;
-              v56 = *&v31;
-              v57 = 2112;
-              v58 = v33;
-              v59 = 2112;
-              v60 = v35;
-              v61 = 2114;
-              v62 = v38;
+              v55 = *&v30;
+              v56 = 2112;
+              v57 = v32;
+              v58 = 2112;
+              v59 = v34;
+              v60 = 2114;
+              v61 = v37;
               _os_log_error_impl(&dword_1C928A000, v18, OS_LOG_TYPE_ERROR, "[%s] Frame should come in chronological order. Input %f < last %f, (%@ < %@) segment:%{public}@", buf, 0x3Eu);
             }
 
@@ -2291,43 +2385,43 @@ LABEL_22:
         }
       }
 
-      v24 = crc32(0, bytes, length);
+      v23 = crc32(0, bytes, length);
       *buf = length;
       *&buf[4] = 0;
       *&buf[8] = timestamp;
       *&buf[16] = timestamp;
-      v56 = __PAIR64__(version, v24);
+      v55 = __PAIR64__(version, v23);
       v15 = [(BMFrameStore *)selfCopy appendFrameHeaderV1:buf offset:&currentWriteOffset];
       if (v15)
       {
-        v25 = __biome_log_for_category();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+        v24 = __biome_log_for_category();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEBUG))
         {
-          v26 = NSStringFromBMFrameWriteStatus(v15);
-          [BMFrameStore writeFrameV1ForBytes:v26 length:v49 dataVersion:v25 timestamp:? outOffset:?];
+          v25 = NSStringFromBMFrameWriteStatus(v15);
+          [BMFrameStore writeFrameV1ForBytes:v25 length:v48 dataVersion:v24 timestamp:? outOffset:?];
         }
       }
 
       else
       {
         [(BMMemoryMapping *)selfCopy->_frames writeBytes:bytes toOffset:currentWriteOffset + 32 length:length];
-        v47 = *buf;
+        v46 = *buf;
         *&buf[4] = 1;
-        v27 = *buf;
-        v28 = [(BMMemoryMapping *)selfCopy->_frames atomicWriteEightBytes:*buf toOffset:currentWriteOffset expected:&v47];
+        v26 = *buf;
+        v27 = [(BMMemoryMapping *)selfCopy->_frames atomicWriteEightBytes:*buf toOffset:currentWriteOffset expected:&v46];
         [(BMFrameStore *)selfCopy updateHeader];
-        if (v28 != 1)
+        if (v27 != 1)
         {
-          v30 = __biome_log_for_category();
-          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
+          v29 = __biome_log_for_category();
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
-            *v49 = 134218496;
-            v50 = v47;
-            v51 = 2048;
-            v52 = v27;
-            v53 = 1024;
-            v54 = v28;
-            _os_log_error_impl(&dword_1C928A000, v30, OS_LOG_TYPE_ERROR, "Unable to update status to written, someone else seems to have overwritten the value. We expect to see %llu, but instead are seeing %llu. The write status is %d", v49, 0x1Cu);
+            *v48 = 134218496;
+            v49 = v46;
+            v50 = 2048;
+            v51 = v26;
+            v52 = 1024;
+            v53 = v27;
+            _os_log_error_impl(&dword_1C928A000, v29, OS_LOG_TYPE_ERROR, "Unable to update status to written, someone else seems to have overwritten the value. We expect to see %llu, but instead are seeing %llu. The write status is %d", v48, 0x1Cu);
           }
 
           goto LABEL_28;
@@ -2355,12 +2449,12 @@ LABEL_22:
         *&buf[4] = 4;
         *&buf[8] = timestamp;
         *&buf[16] = timestamp;
-        v56 = 0;
+        v55 = 0;
         [(BMFrameStore *)selfCopy appendFrameHeaderV1:buf offset:&currentWriteOffset];
       }
 
-      v21 = __biome_log_for_category();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+      v20 = __biome_log_for_category();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
       {
         [BMFrameStore appendFrameHeaderV1:offset:];
       }
@@ -2383,8 +2477,54 @@ LABEL_22:
 LABEL_29:
   objc_sync_exit(selfCopy);
 
-  v19 = *MEMORY[0x1E69E9840];
   return v15;
+}
+
+- (unsigned)writeFrameForBytes:(const void *)bytes length:(unint64_t)length dataVersion:(unsigned int)version timestamp:(double)timestamp outOffset:(unint64_t *)offset
+{
+  v18 = *MEMORY[0x1E69E9840];
+  datastoreVersion = self->_datastoreVersion;
+  if (datastoreVersion == 10)
+  {
+
+    return [(BMFrameStore *)self writeFrameV2ForBytes:bytes length:length dataVersion:*&version timestamp:offset outOffset:timestamp];
+  }
+
+  else if (datastoreVersion == 9)
+  {
+
+    return [(BMFrameStore *)self writeFrameV1ForBytes:bytes length:length dataVersion:*&version timestamp:offset outOffset:timestamp];
+  }
+
+  else
+  {
+    v10 = __biome_log_for_category();
+    *buf = 0;
+    v15 = buf;
+    v16 = 0x2020000000;
+    v17 = 16;
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __74__BMFrameStore_writeFrameForBytes_length_dataVersion_timestamp_outOffset___block_invoke;
+    block[3] = &unk_1E8338B28;
+    block[4] = buf;
+    if (writeFrameForBytes_length_dataVersion_timestamp_outOffset__onceToken != -1)
+    {
+      dispatch_once(&writeFrameForBytes_length_dataVersion_timestamp_outOffset__onceToken, block);
+    }
+
+    v11 = v15[24];
+    _Block_object_dispose(buf, 8);
+    if (os_log_type_enabled(v10, v11))
+    {
+      v12 = self->_datastoreVersion;
+      *buf = 67109120;
+      *&buf[4] = v12;
+      _os_log_impl(&dword_1C928A000, v10, v11, "writeFrameForBytes with unexpected dataVersion:%d", buf, 8u);
+    }
+
+    return 1;
+  }
 }
 
 - (int)frameCountFromStartTime:(double)time endTime:(double)endTime
@@ -2437,7 +2577,7 @@ void __48__BMFrameStore_frameCountFromStartTime_endTime___block_invoke(uint64_t 
 
 - (void)markFrameAsRemoved:(id)removed
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   removedCopy = removed;
   datastoreVersion = self->_datastoreVersion;
   if (datastoreVersion == 10)
@@ -2456,7 +2596,7 @@ void __48__BMFrameStore_frameCountFromStartTime_endTime___block_invoke(uint64_t 
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v16 = 16;
+    v15 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __35__BMFrameStore_markFrameAsRemoved___block_invoke;
@@ -2483,13 +2623,11 @@ void __48__BMFrameStore_frameCountFromStartTime_endTime___block_invoke(uint64_t 
       _os_log_impl(&dword_1C928A000, v6, v7, "Segment version of %{public}@ doesn't match expected versions: %lu.", buf, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markFrameAsRemovedV1:(id)v1
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v1Copy = v1;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -2508,9 +2646,9 @@ void __48__BMFrameStore_frameCountFromStartTime_endTime___block_invoke(uint64_t 
     {
       v13 = __biome_log_for_category();
       *buf = 0;
-      v19 = buf;
-      v20 = 0x2020000000;
-      v21 = 16;
+      v18 = buf;
+      v19 = 0x2020000000;
+      v20 = 16;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __37__BMFrameStore_markFrameAsRemovedV1___block_invoke;
@@ -2521,7 +2659,7 @@ void __48__BMFrameStore_frameCountFromStartTime_endTime___block_invoke(uint64_t 
         dispatch_once(&markFrameAsRemovedV1__onceToken, block);
       }
 
-      v14 = v19[24];
+      v14 = v18[24];
       _Block_object_dispose(buf, 8);
       if (os_log_type_enabled(v13, v14))
       {
@@ -2533,9 +2671,9 @@ void __48__BMFrameStore_frameCountFromStartTime_endTime___block_invoke(uint64_t 
 
     else
     {
-      v16 = v6 | 0x200000000;
-      atomic_compare_exchange_strong(framePtr, &v16, v6 | 0x300000000);
-      if (v16 == v8)
+      v15 = v6 | 0x200000000;
+      atomic_compare_exchange_strong(framePtr, &v15, v6 | 0x300000000);
+      if (v15 == v8)
       {
         goto LABEL_10;
       }
@@ -2559,8 +2697,6 @@ void __48__BMFrameStore_frameCountFromStartTime_endTime___block_invoke(uint64_t 
 
 LABEL_10:
   objc_sync_exit(selfCopy);
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (unint64_t)maxEventsPerFrameStoreVersion:(unint64_t)version averageEventSize:(unint64_t)size segmentSize:(unint64_t)segmentSize
@@ -2594,28 +2730,26 @@ LABEL_10:
 
 - (unsigned)bytesUsed
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if ([(BMFrameStore *)self datastoreVersion]== 9)
   {
-    v3 = *MEMORY[0x1E69E9840];
 
     return [(BMFrameStore *)self bytesUsedV1];
   }
 
   else if ([(BMFrameStore *)self datastoreVersion]== 10)
   {
-    v5 = *MEMORY[0x1E69E9840];
 
     return [(BMFrameStore *)self bytesUsedV2];
   }
 
   else
   {
-    v6 = __biome_log_for_category();
+    v4 = __biome_log_for_category();
     *buf = 0;
-    v12 = buf;
-    v13 = 0x2020000000;
-    v14 = 16;
+    v9 = buf;
+    v10 = 0x2020000000;
+    v11 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __37__BMFrameStore_Inspection__bytesUsed__block_invoke;
@@ -2626,66 +2760,57 @@ LABEL_10:
       dispatch_once(&bytesUsed_onceToken, block);
     }
 
-    v7 = v12[24];
+    v5 = v9[24];
     _Block_object_dispose(buf, 8);
-    if (os_log_type_enabled(v6, v7))
+    if (os_log_type_enabled(v4, v5))
     {
       datastoreVersion = self->_datastoreVersion;
       *buf = 67109120;
       *&buf[4] = datastoreVersion;
-      _os_log_impl(&dword_1C928A000, v6, v7, "bytesUsed called with a framestore with an unexpected datastoreVersion:%d", buf, 8u);
+      _os_log_impl(&dword_1C928A000, v4, v5, "bytesUsed called with a framestore with an unexpected datastoreVersion:%d", buf, 8u);
     }
 
-    result = [(BMFrameStore *)self frameStoreSize];
-    v9 = *MEMORY[0x1E69E9840];
+    return [(BMFrameStore *)self frameStoreSize];
   }
-
-  return result;
 }
 
 - (unsigned)bytesUsedV1
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v9 = 0;
-  if ([(BMMemoryMapping *)self->_header atomicReadAtOffset:0 value:&v9]== 1)
+  v11 = *MEMORY[0x1E69E9840];
+  v8 = 0;
+  if ([(BMMemoryMapping *)self->_header atomicReadAtOffset:0 value:&v8]== 1)
   {
-    result = v9;
+    return v8;
   }
 
-  else
+  v4 = __biome_log_for_category();
+  *buf = 0;
+  *&buf[8] = buf;
+  *&buf[16] = 0x2020000000;
+  v10 = 16;
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __39__BMFrameStore_Inspection__bytesUsedV1__block_invoke;
+  v7[3] = &unk_1E8338B28;
+  v7[4] = buf;
+  if (bytesUsedV1_onceToken != -1)
   {
-    v4 = __biome_log_for_category();
-    *buf = 0;
-    *&buf[8] = buf;
-    *&buf[16] = 0x2020000000;
-    v11 = 16;
-    v8[0] = MEMORY[0x1E69E9820];
-    v8[1] = 3221225472;
-    v8[2] = __39__BMFrameStore_Inspection__bytesUsedV1__block_invoke;
-    v8[3] = &unk_1E8338B28;
-    v8[4] = buf;
-    if (bytesUsedV1_onceToken != -1)
-    {
-      dispatch_once(&bytesUsedV1_onceToken, v8);
-    }
-
-    v5 = *(*&buf[8] + 24);
-    _Block_object_dispose(buf, 8);
-    if (os_log_type_enabled(v4, v5))
-    {
-      header = self->_header;
-      *buf = 138412546;
-      *&buf[4] = self;
-      *&buf[12] = 2112;
-      *&buf[14] = header;
-      _os_log_impl(&dword_1C928A000, v4, v5, "Unable to atomically read the bytesUsed value from the frame header %@ %@", buf, 0x16u);
-    }
-
-    result = 0;
+    dispatch_once(&bytesUsedV1_onceToken, v7);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  v5 = *(*&buf[8] + 24);
+  _Block_object_dispose(buf, 8);
+  if (os_log_type_enabled(v4, v5))
+  {
+    header = self->_header;
+    *buf = 138412546;
+    *&buf[4] = self;
+    *&buf[12] = 2112;
+    *&buf[14] = header;
+    _os_log_impl(&dword_1C928A000, v4, v5, "Unable to atomically read the bytesUsed value from the frame header %@ %@", buf, 0x16u);
+  }
+
+  return 0;
 }
 
 - (unsigned)bytesUsedV2
@@ -2699,14 +2824,14 @@ LABEL_10:
 
 - (BOOL)isCheckSumValidAtOffsetV1:(unint64_t)v1
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (self->_datastoreVersion != 9)
   {
     v8 = __biome_log_for_category();
     *buf = 0;
-    v14 = buf;
-    v15 = 0x2020000000;
-    v16 = 16;
+    v13 = buf;
+    v14 = 0x2020000000;
+    v15 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __54__BMFrameStore_Inspection__isCheckSumValidAtOffsetV1___block_invoke;
@@ -2717,7 +2842,7 @@ LABEL_10:
       dispatch_once(&isCheckSumValidAtOffsetV1__onceToken, block);
     }
 
-    v9 = v14[24];
+    v9 = v13[24];
     _Block_object_dispose(buf, 8);
     if (os_log_type_enabled(v8, v9))
     {
@@ -2727,20 +2852,27 @@ LABEL_10:
       _os_log_impl(&dword_1C928A000, v8, v9, "isCheckSumValidAtOffsetV1 called with unexpected dataVersion:%d", buf, 8u);
     }
 
-    goto LABEL_12;
+    return 0;
   }
 
-  if ((v1 & 7) != 0 || (v5 = [(BMMemoryMapping *)self->_frames start]+ v1, (v5 + 8) > [(BMMemoryMapping *)self->_frames end]) || (v6 = atomic_load(v5), v1 + v6 > [(BMMemoryMapping *)self->_frames size]))
+  if ((v1 & 7) != 0)
   {
-LABEL_12:
-    result = 0;
-    goto LABEL_13;
+    return 0;
   }
 
-  result = HIDWORD(v6) != 1 || *(v5 + 6) == crc32(0, v5 + 32, v6);
-LABEL_13:
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  v5 = [(BMMemoryMapping *)self->_frames start]+ v1;
+  if ((v5 + 8) > [(BMMemoryMapping *)self->_frames end])
+  {
+    return 0;
+  }
+
+  v6 = atomic_load(v5);
+  if (v1 + v6 > [(BMMemoryMapping *)self->_frames size])
+  {
+    return 0;
+  }
+
+  return HIDWORD(v6) != 1 || *(v5 + 6) == crc32(0, v5 + 32, v6);
 }
 
 - (uint64_t)atomicReadSixteenByteValueAtAddress:
@@ -2800,114 +2932,156 @@ LABEL_13:
 
 - (BOOL)validOffsetTableEntry:(id)entry frameNumber:(int)number
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (!(entry.var0.var0.var0.var1 | *&entry.var0.var0.var1))
   {
-    goto LABEL_15;
+    return 0;
   }
 
   var0 = entry.var0.var0.var0.var0.var0;
   var1 = entry.var0.var0.var0.var0.var1;
-  if (entry.var0.var0.var0.var0.var1 < 5)
-  {
-    v13 = entry.var0.var0.var1;
-    if ([(BMFrameStore *)self frameStoreSize]>= entry.var0.var0.var0.var0.var0)
-    {
-      if (CFAbsoluteTimeGetCurrent() + 315360000.0 >= v13)
-      {
-        if (v13 >= 599558401.0)
-        {
-          result = 1;
-          goto LABEL_16;
-        }
-
-        v8 = __biome_log_for_category();
-        if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_14;
-        }
-
-        v21 = MEMORY[0x1E698E9C8];
-        segmentPath = [(BMFrameStore *)self segmentPath];
-        v17 = [v21 privacyPathname:segmentPath];
-        v22 = 134218498;
-        *v23 = v13;
-        *&v23[8] = 1024;
-        *v24 = number;
-        *&v24[4] = 2112;
-        *&v24[6] = v17;
-        v18 = "Invalid timestamp (%f), too far in the past, for frame %d in segment: %@";
-      }
-
-      else
-      {
-        v8 = __biome_log_for_category();
-        if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-        {
-          goto LABEL_14;
-        }
-
-        v15 = MEMORY[0x1E698E9C8];
-        segmentPath = [(BMFrameStore *)self segmentPath];
-        v17 = [v15 privacyPathname:segmentPath];
-        v22 = 134218498;
-        *v23 = v13;
-        *&v23[8] = 1024;
-        *v24 = number;
-        *&v24[4] = 2112;
-        *&v24[6] = v17;
-        v18 = "Invalid timestamp (%f), too far in the future, for frame %d in segment: %@";
-      }
-
-      _os_log_error_impl(&dword_1C928A000, v8, OS_LOG_TYPE_ERROR, v18, &v22, 0x1Cu);
-
-      goto LABEL_14;
-    }
-
-    v8 = __biome_log_for_category();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      v14 = MEMORY[0x1E698E9C8];
-      segmentPath2 = [(BMFrameStore *)self segmentPath];
-      v11 = [v14 privacyPathname:segmentPath2];
-      v22 = 67109634;
-      *v23 = var0;
-      *&v23[4] = 1024;
-      *&v23[6] = number;
-      *v24 = 2112;
-      *&v24[2] = v11;
-      v12 = "Invalid offset (%d) for frame %d in segment: %@";
-      goto LABEL_8;
-    }
-  }
-
-  else
+  if (entry.var0.var0.var0.var0.var1 >= 5)
   {
     v8 = __biome_log_for_category();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = MEMORY[0x1E698E9C8];
-      segmentPath2 = [(BMFrameStore *)self segmentPath];
-      v11 = [v9 privacyPathname:segmentPath2];
-      v22 = 67109634;
-      *v23 = var1;
-      *&v23[4] = 1024;
-      *&v23[6] = number;
-      *v24 = 2112;
-      *&v24[2] = v11;
+      segmentPath = [(BMFrameStore *)self segmentPath];
+      v11 = [v9 privacyPathname:segmentPath];
+      v21 = 67109634;
+      *v22 = var1;
+      *&v22[4] = 1024;
+      *&v22[6] = number;
+      *v23 = 2112;
+      *&v23[2] = v11;
       v12 = "Invalid BMFrameState (%d) for frame %d in segment: %@";
 LABEL_8:
-      _os_log_error_impl(&dword_1C928A000, v8, OS_LOG_TYPE_ERROR, v12, &v22, 0x18u);
+      _os_log_error_impl(&dword_1C928A000, v8, OS_LOG_TYPE_ERROR, v12, &v21, 0x18u);
+
+      goto LABEL_14;
     }
+
+    goto LABEL_14;
   }
+
+  v13 = entry.var0.var0.var1;
+  if ([(BMFrameStore *)self frameStoreSize]< entry.var0.var0.var0.var0.var0)
+  {
+    v8 = __biome_log_for_category();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      v14 = MEMORY[0x1E698E9C8];
+      segmentPath = [(BMFrameStore *)self segmentPath];
+      v11 = [v14 privacyPathname:segmentPath];
+      v21 = 67109634;
+      *v22 = var0;
+      *&v22[4] = 1024;
+      *&v22[6] = number;
+      *v23 = 2112;
+      *&v23[2] = v11;
+      v12 = "Invalid offset (%d) for frame %d in segment: %@";
+      goto LABEL_8;
+    }
 
 LABEL_14:
 
-LABEL_15:
-  result = 0;
-LABEL_16:
-  v20 = *MEMORY[0x1E69E9840];
-  return result;
+    return 0;
+  }
+
+  if (CFAbsoluteTimeGetCurrent() + 315360000.0 < v13)
+  {
+    v8 = __biome_log_for_category();
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_14;
+    }
+
+    v15 = MEMORY[0x1E698E9C8];
+    segmentPath2 = [(BMFrameStore *)self segmentPath];
+    v17 = [v15 privacyPathname:segmentPath2];
+    v21 = 134218498;
+    *v22 = v13;
+    *&v22[8] = 1024;
+    *v23 = number;
+    *&v23[4] = 2112;
+    *&v23[6] = v17;
+    v18 = "Invalid timestamp (%f), too far in the future, for frame %d in segment: %@";
+LABEL_18:
+    _os_log_error_impl(&dword_1C928A000, v8, OS_LOG_TYPE_ERROR, v18, &v21, 0x1Cu);
+
+    goto LABEL_14;
+  }
+
+  if (v13 < 599558401.0)
+  {
+    v8 = __biome_log_for_category();
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_14;
+    }
+
+    v20 = MEMORY[0x1E698E9C8];
+    segmentPath2 = [(BMFrameStore *)self segmentPath];
+    v17 = [v20 privacyPathname:segmentPath2];
+    v21 = 134218498;
+    *v22 = v13;
+    *&v22[8] = 1024;
+    *v23 = number;
+    *&v23[4] = 2112;
+    *&v23[6] = v17;
+    v18 = "Invalid timestamp (%f), too far in the past, for frame %d in segment: %@";
+    goto LABEL_18;
+  }
+
+  return 1;
+}
+
+- (BOOL)validOffsetTableEntryAtFrame:(int)frame
+{
+  v3 = *&frame;
+  v18 = *MEMORY[0x1E69E9840];
+  v5 = [(BMFrameStore *)self offsetTablePtrFromFrameNumberV2:?];
+  if (v5)
+  {
+    var1 = v5->var0.var0.var0.var1;
+    v7 = v5->var0.var0.var1;
+
+    return [(BMFrameStore *)self validOffsetTableEntry:var1 frameNumber:*&v7, v3];
+  }
+
+  else
+  {
+    v9 = __biome_log_for_category();
+    *buf = 0;
+    *&v16 = buf;
+    *(&v16 + 1) = 0x2020000000;
+    v17 = 16;
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __49__BMFrameStore_V2__validOffsetTableEntryAtFrame___block_invoke;
+    block[3] = &unk_1E8338B28;
+    block[4] = buf;
+    if (validOffsetTableEntryAtFrame__onceToken != -1)
+    {
+      dispatch_once(&validOffsetTableEntryAtFrame__onceToken, block);
+    }
+
+    v10 = *(v16 + 24);
+    _Block_object_dispose(buf, 8);
+    if (os_log_type_enabled(v9, v10))
+    {
+      v11 = MEMORY[0x1E698E9C8];
+      segmentPath = [(BMFrameStore *)self segmentPath];
+      v13 = [v11 privacyPathname:segmentPath];
+      *buf = 67109378;
+      *&buf[4] = v3;
+      LOWORD(v16) = 2114;
+      *(&v16 + 2) = v13;
+      _os_log_impl(&dword_1C928A000, v9, v10, "validOffsetTableEntryAtFrame: offsetTableEntryPtr:NULL outside of range for frames, frameNumber=%d for segment: %{public}@", buf, 0x12u);
+    }
+
+    return 0;
+  }
 }
 
 - (int)findValidOffsetTableEntryToReplaceMidFrame:(int)frame bottomFrame:(int)bottomFrame topFrame:(int)topFrame reverse:(BOOL)reverse
@@ -2959,6 +3133,383 @@ LABEL_16:
 
   LODWORD(v12) = frame;
   return v12;
+}
+
+- (int)firstFrameNumberForTimestampV2:(double)v2 reverse:(BOOL)reverse
+{
+  reverseCopy = reverse;
+  v60 = *MEMORY[0x1E69E9840];
+  atomicReadTotalFramesV2 = [(BMFrameStore *)self atomicReadTotalFramesV2];
+  if (!atomicReadTotalFramesV2)
+  {
+    return -1;
+  }
+
+  v8 = atomicReadTotalFramesV2;
+  v9 = atomicReadTotalFramesV2 - 1;
+  v10 = [(BMFrameStore *)self offsetTablePtrFromFrameNumberV2:v9];
+  if (!v10)
+  {
+    v14 = __biome_log_for_category();
+    *buf = 0;
+    *&v58 = buf;
+    *(&v58 + 1) = 0x2020000000;
+    v59 = 16;
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __59__BMFrameStore_V2__firstFrameNumberForTimestampV2_reverse___block_invoke;
+    block[3] = &unk_1E8338B28;
+    block[4] = buf;
+    if (firstFrameNumberForTimestampV2_reverse__onceToken != -1)
+    {
+      dispatch_once(&firstFrameNumberForTimestampV2_reverse__onceToken, block);
+    }
+
+    v15 = *(v58 + 24);
+    _Block_object_dispose(buf, 8);
+    if (os_log_type_enabled(v14, v15))
+    {
+      v16 = MEMORY[0x1E698E9C8];
+      segmentPath = [(BMFrameStore *)self segmentPath];
+      v18 = [v16 privacyPathname:segmentPath];
+      *buf = 67109378;
+      *&buf[4] = v9;
+      LOWORD(v58) = 2114;
+      *(&v58 + 2) = v18;
+      _os_log_impl(&dword_1C928A000, v14, v15, "firstFrameNumberForTimestampV2: offsetTableEntryPtr:NULL outside of range for frames, frameNumber=%d for segment: %{public}@", buf, 0x12u);
+    }
+
+    goto LABEL_27;
+  }
+
+  v11 = v10;
+  v12 = [(BMFrameStore *)self atomicReadFourByteValueAtAddress:&v10->var0.var0.var0.var1 + 4];
+  if (v12 == 4)
+  {
+    v9 = v8 - 2;
+  }
+
+  else
+  {
+    v9 = v9;
+  }
+
+  if ((v9 & 0x80000000) != 0)
+  {
+    if (v9 == -1)
+    {
+      return -1;
+    }
+  }
+
+  else
+  {
+    v13 = &v11[v12 == 4];
+    while (![(BMFrameStore *)self atomicReadEightByteValueAtAddress:v13])
+    {
+      ++v13;
+      v46 = v9 <= 0;
+      v9 = (v9 - 1);
+      if (v46)
+      {
+        return -1;
+      }
+    }
+  }
+
+  v19 = [(BMFrameStore *)self offsetTablePtrFromFrameNumberV2:0];
+  if (!v19)
+  {
+    v14 = __biome_log_for_category();
+    *buf = 0;
+    *&v58 = buf;
+    *(&v58 + 1) = 0x2020000000;
+    v59 = 16;
+    v51 = MEMORY[0x1E69E9820];
+    v52 = 3221225472;
+    v53 = __59__BMFrameStore_V2__firstFrameNumberForTimestampV2_reverse___block_invoke_2;
+    v54 = &unk_1E8338B28;
+    v55 = buf;
+    if (firstFrameNumberForTimestampV2_reverse__onceToken_1 != -1)
+    {
+      dispatch_once(&firstFrameNumberForTimestampV2_reverse__onceToken_1, &v51);
+    }
+
+    v22 = *(v58 + 24);
+    _Block_object_dispose(buf, 8);
+    if (os_log_type_enabled(v14, v22))
+    {
+      v23 = MEMORY[0x1E698E9C8];
+      v24 = [(BMFrameStore *)self segmentPath:v51];
+      v25 = [v23 privacyPathname:v24];
+      *buf = 67109378;
+      *&buf[4] = 0;
+      LOWORD(v58) = 2114;
+      *(&v58 + 2) = v25;
+      _os_log_impl(&dword_1C928A000, v14, v22, "firstFrameNumberForTimestampV2: offsetTableEntryPtr:NULL outside of range for frames, frameNumber=%d for segment: %{public}@", buf, 0x12u);
+    }
+
+LABEL_27:
+
+    return -1;
+  }
+
+  if (v9 < 1)
+  {
+    v21 = 0;
+  }
+
+  else
+  {
+    v20 = v19;
+    v21 = 0;
+    while (![(BMFrameStore *)self atomicReadEightByteValueAtAddress:v20])
+    {
+      --v20;
+      v21 = (v21 + 1);
+      if (v9 == v21)
+      {
+        v21 = v9;
+        break;
+      }
+    }
+  }
+
+  [(BMFrameStore *)self creationTimeOfFrameV2:v21];
+  if (v28 > v2)
+  {
+    if (reverseCopy)
+    {
+      return -1;
+    }
+
+    else
+    {
+      return v21;
+    }
+  }
+
+  if (v28 == v2)
+  {
+    if (reverseCopy)
+    {
+      v29 = v28;
+      if (v9 <= v21)
+      {
+        v26 = v21;
+      }
+
+      else
+      {
+        v26 = v9;
+      }
+
+      v30 = (v21 + 1);
+      while (v30 - v26 != 1)
+      {
+        [(BMFrameStore *)self creationTimeOfFrameV2:v30];
+        v30 = (v30 + 1);
+        if (v31 != v29)
+        {
+          return v30 - 2;
+        }
+      }
+    }
+
+    else
+    {
+      return v21;
+    }
+  }
+
+  else
+  {
+    [(BMFrameStore *)self creationTimeOfFrameV2:v9];
+    if (v32 < v2)
+    {
+      if (reverseCopy)
+      {
+        return v9;
+      }
+
+      else
+      {
+        return -1;
+      }
+    }
+
+    if (v32 == v2)
+    {
+      if (reverseCopy)
+      {
+        return v9;
+      }
+
+      v35 = v32;
+      do
+      {
+        v26 = v9;
+        v36 = __OFSUB__(v9, 1);
+        v9 = (v9 - 1);
+        if (v9 < 0 != v36)
+        {
+          break;
+        }
+
+        [(BMFrameStore *)self creationTimeOfFrameV2:v9];
+      }
+
+      while (v37 == v35);
+      return v26;
+    }
+
+    if (v9 >= v21)
+    {
+      v38 = v21;
+      v39 = v9;
+      do
+      {
+        v33 = (v38 + (v39 - v38) / 2);
+        [(BMFrameStore *)self creationTimeOfFrameV2:v33];
+        v34 = v40;
+        if (v40 == v2)
+        {
+          break;
+        }
+
+        if (v40 == 0.0)
+        {
+          v41 = [(BMFrameStore *)self findValidOffsetTableEntryToReplaceMidFrame:(v38 + (v39 - v38) / 2) bottomFrame:v38 topFrame:v39 reverse:reverseCopy];
+          [(BMFrameStore *)self creationTimeOfFrameV2:v41];
+          v34 = v42;
+          v43 = v42 == v2 ? v41 : v33;
+          v33 = v42 == 0.0 ? v33 : v43;
+          if (v42 == 0.0 || v42 == v2)
+          {
+            break;
+          }
+        }
+
+        v39 = v34 >= v2 ? (v33 - 1) : v39;
+        v38 = v34 < v2 ? (v33 + 1) : v38;
+      }
+
+      while (v39 >= v38);
+      if (v34 != v2)
+      {
+        if (v34 != 0.0)
+        {
+          v33 = (v38 - reverseCopy);
+          [(BMFrameStore *)self creationTimeOfFrameV2:v33];
+          v26 = v38 - reverseCopy;
+          if (v48 != 0.0)
+          {
+            return v26;
+          }
+        }
+
+        goto LABEL_97;
+      }
+    }
+
+    else
+    {
+      v33 = 0;
+      v34 = 0.0;
+      if (v2 != 0.0)
+      {
+LABEL_97:
+        if (reverseCopy)
+        {
+          if (v33 >= v21)
+          {
+            while (1)
+            {
+              [(BMFrameStore *)self creationTimeOfFrameV2:v33];
+              if (v49 != 0.0)
+              {
+                break;
+              }
+
+              v26 = v33 - 1;
+              v46 = v33 <= v21;
+              v33 = (v33 - 1);
+              if (v46)
+              {
+                return v26;
+              }
+            }
+          }
+        }
+
+        else if (v33 <= v9)
+        {
+          v26 = v9 + 1;
+          while (1)
+          {
+            [(BMFrameStore *)self creationTimeOfFrameV2:v33];
+            if (v50 != 0.0)
+            {
+              break;
+            }
+
+            v33 = (v33 + 1);
+            if (v26 == v33)
+            {
+              return v26;
+            }
+          }
+        }
+
+        return v33;
+      }
+    }
+
+    if (reverseCopy)
+    {
+      if (v9 <= v33)
+      {
+        v26 = v33;
+      }
+
+      else
+      {
+        v26 = v9;
+      }
+
+      v30 = (v33 + 1);
+      while (v30 - v26 != 1)
+      {
+        [(BMFrameStore *)self creationTimeOfFrameV2:v30];
+        v30 = (v30 + 1);
+        v46 = v45 != 0.0 && v45 <= v34;
+        if (!v46)
+        {
+          return v30 - 2;
+        }
+      }
+    }
+
+    else
+    {
+      do
+      {
+        v26 = v33;
+        v36 = __OFSUB__(v33, 1);
+        v33 = (v33 - 1);
+        if (v33 < 0 != v36)
+        {
+          break;
+        }
+
+        [(BMFrameStore *)self creationTimeOfFrameV2:v33];
+      }
+
+      while (v47 >= v34);
+    }
+  }
+
+  return v26;
 }
 
 - (unsigned)frameOffsetFromOffsetTableV2:(id *)v2
@@ -3102,16 +3653,16 @@ LABEL_16:
 
 - (unsigned)stateOfFrameV2:(unsigned int)v2
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   atomicReadTotalFramesV2 = [(BMFrameStore *)self atomicReadTotalFramesV2];
   if (atomicReadTotalFramesV2 <= v2)
   {
-    v13 = atomicReadTotalFramesV2;
-    v14 = __biome_log_for_category();
+    v12 = atomicReadTotalFramesV2;
+    v13 = __biome_log_for_category();
     *buf = 0;
-    v22 = buf;
-    v23 = 0x2020000000;
-    v24 = 16;
+    v20 = buf;
+    v21 = 0x2020000000;
+    v22 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __35__BMFrameStore_V2__stateOfFrameV2___block_invoke;
@@ -3122,23 +3673,23 @@ LABEL_16:
       dispatch_once(&stateOfFrameV2__onceToken, block);
     }
 
-    v15 = v22[24];
+    v14 = v20[24];
     _Block_object_dispose(buf, 8);
-    if (os_log_type_enabled(v14, v15))
+    if (os_log_type_enabled(v13, v14))
     {
-      v16 = MEMORY[0x1E698E9C8];
+      v15 = MEMORY[0x1E698E9C8];
       segmentPath = [(BMFrameStore *)self segmentPath];
-      v18 = [v16 privacyPathname:segmentPath];
+      v17 = [v15 privacyPathname:segmentPath];
       *buf = 67109634;
       *&buf[4] = v2;
-      LOWORD(v22) = 1024;
-      *(&v22 + 2) = v13;
-      HIWORD(v22) = 2114;
-      v23 = v18;
-      _os_log_impl(&dword_1C928A000, v14, v15, "stateOfFrame requested for frame:%u is beyond totalFrames:%u: %{public}@", buf, 0x18u);
+      LOWORD(v20) = 1024;
+      *(&v20 + 2) = v12;
+      HIWORD(v20) = 2114;
+      v21 = v17;
+      _os_log_impl(&dword_1C928A000, v13, v14, "stateOfFrame requested for frame:%u is beyond totalFrames:%u: %{public}@", buf, 0x18u);
     }
 
-    goto LABEL_11;
+    return 5;
   }
 
   v6 = 16 * (v2 + 1);
@@ -3147,31 +3698,27 @@ LABEL_16:
 
   if (v6 > v8)
   {
-LABEL_11:
-    v19 = *MEMORY[0x1E69E9840];
     return 5;
   }
 
   frames2 = [(BMFrameStore *)self frames];
   v10 = [frames2 end];
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return [(BMFrameStore *)self atomicReadFourByteValueAtAddress:v10 - v6 + 4];
 }
 
 - (double)creationTimeOfFrameV2:(unsigned int)v2
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   atomicReadTotalFramesV2 = [(BMFrameStore *)self atomicReadTotalFramesV2];
   if (atomicReadTotalFramesV2 <= v2)
   {
     v12 = atomicReadTotalFramesV2;
     v13 = __biome_log_for_category();
     *buf = 0;
-    v24 = buf;
-    v25 = 0x2020000000;
-    v26 = 16;
+    v23 = buf;
+    v24 = 0x2020000000;
+    v25 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __42__BMFrameStore_V2__creationTimeOfFrameV2___block_invoke;
@@ -3182,7 +3729,7 @@ LABEL_11:
       dispatch_once(&creationTimeOfFrameV2__onceToken, block);
     }
 
-    v14 = v24[24];
+    v14 = v23[24];
     _Block_object_dispose(buf, 8);
     if (os_log_type_enabled(v13, v14))
     {
@@ -3191,10 +3738,10 @@ LABEL_11:
       v17 = [v15 privacyPathname:segmentPath];
       *buf = 67109634;
       *&buf[4] = v2;
-      LOWORD(v24) = 1024;
-      *(&v24 + 2) = v12;
-      HIWORD(v24) = 2114;
-      v25 = v17;
+      LOWORD(v23) = 1024;
+      *(&v23 + 2) = v12;
+      HIWORD(v23) = 2114;
+      v24 = v17;
       _os_log_impl(&dword_1C928A000, v13, v14, "creationTimeOfFrame requested for frame:%u is beyond totalFrames:%u: %{public}@", buf, 0x18u);
     }
 
@@ -3215,26 +3762,25 @@ LABEL_11:
       frames2 = [(BMFrameStore *)self frames];
       v11 = [frames2 end] - v6;
 
-      v9 = *(v11 + 8);
+      return *(v11 + 8);
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (unsigned)sizeOfFrameV2:(unsigned int)v2
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   atomicReadTotalFramesV2 = [(BMFrameStore *)self atomicReadTotalFramesV2];
   if (atomicReadTotalFramesV2 <= v2)
   {
     v12 = atomicReadTotalFramesV2;
     v13 = __biome_log_for_category();
     *buf = 0;
-    v21 = buf;
-    v22 = 0x2020000000;
-    v23 = 16;
+    v20 = buf;
+    v21 = 0x2020000000;
+    v22 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __34__BMFrameStore_V2__sizeOfFrameV2___block_invoke;
@@ -3245,7 +3791,7 @@ LABEL_11:
       dispatch_once(&sizeOfFrameV2__onceToken, block);
     }
 
-    v14 = v21[24];
+    v14 = v20[24];
     _Block_object_dispose(buf, 8);
     if (os_log_type_enabled(v13, v14))
     {
@@ -3254,14 +3800,14 @@ LABEL_11:
       v17 = [v15 privacyPathname:segmentPath];
       *buf = 67109634;
       *&buf[4] = v2;
-      LOWORD(v21) = 1024;
-      *(&v21 + 2) = v12;
-      HIWORD(v21) = 2114;
-      v22 = v17;
+      LOWORD(v20) = 1024;
+      *(&v20 + 2) = v12;
+      HIWORD(v20) = 2114;
+      v21 = v17;
       _os_log_impl(&dword_1C928A000, v13, v14, "sizeOfFrame requested for frame:%u is beyond totalFrames:%u: %{public}@", buf, 0x18u);
     }
 
-    goto LABEL_10;
+    return 0;
   }
 
   v6 = 16 * (v2 + 1);
@@ -3270,9 +3816,7 @@ LABEL_11:
 
   if (v6 > v8)
   {
-LABEL_10:
-    result = 0;
-    goto LABEL_11;
+    return 0;
   }
 
   frames2 = [(BMFrameStore *)self frames];
@@ -3284,17 +3828,15 @@ LABEL_10:
     result -= (v10[4] + 3) & 0xFFFFFFFC;
   }
 
-LABEL_11:
-  v18 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (unsigned)offsetOfFrameV2:(unsigned int)v2
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   if (!v2)
   {
-    goto LABEL_9;
+    return 0;
   }
 
   atomicReadTotalFramesV2 = [(BMFrameStore *)self atomicReadTotalFramesV2];
@@ -3303,9 +3845,9 @@ LABEL_11:
     v6 = atomicReadTotalFramesV2;
     v7 = __biome_log_for_category();
     *buf = 0;
-    v22 = buf;
-    v23 = 0x2020000000;
-    v24 = 16;
+    v21 = buf;
+    v22 = 0x2020000000;
+    v23 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __36__BMFrameStore_V2__offsetOfFrameV2___block_invoke;
@@ -3316,7 +3858,7 @@ LABEL_11:
       dispatch_once(&offsetOfFrameV2__onceToken, block);
     }
 
-    v8 = v22[24];
+    v8 = v21[24];
     _Block_object_dispose(buf, 8);
     if (os_log_type_enabled(v7, v8))
     {
@@ -3325,14 +3867,14 @@ LABEL_11:
       v11 = [v9 privacyPathname:segmentPath];
       *buf = 67109634;
       *&buf[4] = v2;
-      LOWORD(v22) = 1024;
-      *(&v22 + 2) = v6;
-      HIWORD(v22) = 2114;
-      v23 = v11;
+      LOWORD(v21) = 1024;
+      *(&v21 + 2) = v6;
+      HIWORD(v21) = 2114;
+      v22 = v11;
       _os_log_impl(&dword_1C928A000, v7, v8, "offsetOfFrame requested for frame:%u is beyond totalFrames:%u: %{public}@", buf, 0x18u);
     }
 
-    goto LABEL_9;
+    return 0;
   }
 
   v12 = 16 * v2;
@@ -3341,44 +3883,39 @@ LABEL_11:
 
   if (v12 > v14)
   {
-LABEL_9:
-    result = 0;
-    goto LABEL_10;
+    return 0;
   }
 
   frames2 = [(BMFrameStore *)self frames];
-  v18 = ([frames2 end] - v12);
+  v17 = ([frames2 end] - v12);
 
-  v19 = *v18;
-  if (!*v18)
+  v18 = *v17;
+  if (!*v17)
   {
-    if ([(BMFrameStore *)self atomicReadFourByteValueAtAddress:v18 + 1]== 4)
+    if ([(BMFrameStore *)self atomicReadFourByteValueAtAddress:v17 + 1]== 4)
     {
-      v19 = [(BMFrameStore *)self offsetOfFrameV2:v2 - 1];
+      v18 = [(BMFrameStore *)self offsetOfFrameV2:v2 - 1];
     }
 
     else
     {
-      v19 = 0;
+      v18 = 0;
     }
   }
 
-  result = (v19 + 3) & 0xFFFFFFFC;
-LABEL_10:
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  return (v18 + 3) & 0xFFFFFFFC;
 }
 
 - (BOOL)getSegmentHeader:(id *)header fromFileV2:(id)v2 fileSize:(unint64_t *)size
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2Copy = v2;
-  memset(&v18.st_size, 0, 48);
-  if (fstat([v2Copy fd], &v18))
+  memset(&v15.st_size, 0, 48);
+  if (fstat([v2Copy fd], &v15))
   {
-    v8 = *__error();
-    v9 = __biome_log_for_category();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    __error();
+    v8 = __biome_log_for_category();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [BMFrameStore(V2) getSegmentHeader:v2Copy fromFileV2:? fileSize:?];
     }
@@ -3386,14 +3923,14 @@ LABEL_10:
 LABEL_4:
 
 LABEL_24:
-    v14 = 0;
+    v12 = 0;
     goto LABEL_25;
   }
 
-  if (!v18.st_size)
+  if (!v15.st_size)
   {
-    v10 = __biome_log_for_category();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = __biome_log_for_category();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BMFrameStore getSegmentHeader:v2Copy fromFileV1:? fileSize:?];
     }
@@ -3401,10 +3938,10 @@ LABEL_24:
     goto LABEL_23;
   }
 
-  if (v18.st_size <= 0x37uLL)
+  if (v15.st_size <= 0x37uLL)
   {
-    v10 = __biome_log_for_category();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = __biome_log_for_category();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BMFrameStore(V2) getSegmentHeader:v2Copy fromFileV2:? fileSize:?];
     }
@@ -3414,16 +3951,16 @@ LABEL_23:
     goto LABEL_24;
   }
 
-  v22 = 0;
-  v20 = 0u;
-  v21 = 0u;
+  v19 = 0;
+  v17 = 0u;
+  v18 = 0u;
   __buf = 0u;
-  v11 = pread([v2Copy fd], &__buf, 0x38uLL, 0);
-  if (v11 < 0)
+  v10 = pread([v2Copy fd], &__buf, 0x38uLL, 0);
+  if (v10 < 0)
   {
-    v13 = *__error();
-    v9 = __biome_log_for_category();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    __error();
+    v8 = __biome_log_for_category();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [BMFrameStore(V2) getSegmentHeader:v2Copy fromFileV2:? fileSize:?];
     }
@@ -3431,10 +3968,10 @@ LABEL_23:
     goto LABEL_4;
   }
 
-  if (v11 != 56)
+  if (v10 != 56)
   {
-    v10 = __biome_log_for_category();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = __biome_log_for_category();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [BMFrameStore(V2) getSegmentHeader:v2Copy fromFileV2:? fileSize:?];
     }
@@ -3442,22 +3979,22 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  if (v20 == 9)
+  if (v17 == 9)
   {
-    v12 = 52;
+    v11 = 52;
   }
 
   else
   {
-    v12 = 0;
+    v11 = 0;
   }
 
-  if (*(&__buf + v12) != *"SEGB")
+  if (*(&__buf + v11) != *"SEGB")
   {
-    v10 = __biome_log_for_category();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = __biome_log_for_category();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [BMFrameStore(V2) getSegmentHeader:v2Copy fromFileV2:v10 fileSize:?];
+      [BMFrameStore(V2) getSegmentHeader:v2Copy fromFileV2:v9 fileSize:?];
     }
 
     goto LABEL_23;
@@ -3465,23 +4002,22 @@ LABEL_23:
 
   if (size)
   {
-    *size = v18.st_size;
+    *size = v15.st_size;
   }
 
   if (header)
   {
-    v17 = v20;
+    v14 = v17;
     *header->var0.var0 = __buf;
-    *&header->var2.var3 = v17;
-    *(&header->var2 + 2) = v21;
-    *(&header->var2 + 6) = v22;
+    *&header->var2.var3 = v14;
+    *(&header->var2 + 2) = v18;
+    *(&header->var2 + 6) = v19;
   }
 
-  v14 = 1;
+  v12 = 1;
 LABEL_25:
 
-  v15 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v12;
 }
 
 + (BOOL)writeEmptySegmentHeaderWithFileHandleV2:(id)v2 segmentHeaderSize:(unint64_t *)size
@@ -3519,11 +4055,11 @@ LABEL_25:
 
 - (BMFrameStore)initWithFileHandleV2:(id)v2 permission:(unint64_t)permission
 {
-  v90 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   v2Copy = v2;
-  v82.receiver = self;
-  v82.super_class = BMFrameStore;
-  v8 = [(BMFrameStore *)&v82 init];
+  v81.receiver = self;
+  v81.super_class = BMFrameStore;
+  v8 = [(BMFrameStore *)&v81 init];
   v9 = v8;
   if (!v8)
   {
@@ -3532,12 +4068,12 @@ LABEL_25:
 
   [(BMFrameStore *)v8 setBackingFile:v2Copy];
   [(BMFrameStore *)v9 setDatastoreVersion:10];
-  v81 = 0;
-  v89 = 0;
-  v87 = 0u;
-  v88 = 0u;
+  v80 = 0;
+  v88 = 0;
   v86 = 0u;
-  if (![(BMFrameStore *)v9 getSegmentHeader:&v86 fromFileV2:v2Copy fileSize:&v81])
+  v87 = 0u;
+  v85 = 0u;
+  if (![(BMFrameStore *)v9 getSegmentHeader:&v85 fromFileV2:v2Copy fileSize:&v80])
   {
     v4 = __biome_log_for_category();
     *buf = 0;
@@ -3572,7 +4108,7 @@ LABEL_25:
     goto LABEL_9;
   }
 
-  [(BMFrameStore *)v9 setDatastoreVersion:v87];
+  [(BMFrameStore *)v9 setDatastoreVersion:v86];
   if ([(BMFrameStore *)v9 datastoreVersion]== 9)
   {
     v10 = [(BMFrameStore *)v9 initWithFileHandleV1:v2Copy permission:permission];
@@ -3582,21 +4118,21 @@ LABEL_58:
     goto LABEL_59;
   }
 
-  if (v87 != 10)
+  if (v86 != 10)
   {
     v4 = __biome_log_for_category();
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
     buf[24] = 16;
-    v79[0] = MEMORY[0x1E69E9820];
-    v79[1] = 3221225472;
-    v79[2] = __52__BMFrameStore_V2__initWithFileHandleV2_permission___block_invoke_6;
-    v79[3] = &unk_1E8338B28;
-    v79[4] = buf;
+    v78[0] = MEMORY[0x1E69E9820];
+    v78[1] = 3221225472;
+    v78[2] = __52__BMFrameStore_V2__initWithFileHandleV2_permission___block_invoke_6;
+    v78[3] = &unk_1E8338B28;
+    v78[4] = buf;
     if (initWithFileHandleV2_permission__onceToken_5 != -1)
     {
-      dispatch_once(&initWithFileHandleV2_permission__onceToken_5, v79);
+      dispatch_once(&initWithFileHandleV2_permission__onceToken_5, v78);
     }
 
     v17 = *(*&buf[8] + 24);
@@ -3608,7 +4144,7 @@ LABEL_58:
       attributes2 = [backingFile attributes];
       path2 = [attributes2 path];
       v22 = [v18 privacyPathname:path2];
-      v23 = v87;
+      v23 = v86;
       datastoreVersion = [(BMFrameStore *)v9 datastoreVersion];
       *buf = 138543874;
       *&buf[4] = v22;
@@ -3622,7 +4158,7 @@ LABEL_58:
     goto LABEL_11;
   }
 
-  if ((permission & 0xFFFFFFFFFFFFFFFDLL) == 0 && !DWORD1(v86))
+  if ((permission & 0xFFFFFFFFFFFFFFFDLL) == 0 && !DWORD1(v85))
   {
     v4 = __biome_log_for_category();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
@@ -3633,7 +4169,7 @@ LABEL_58:
     goto LABEL_11;
   }
 
-  v25 = (v81 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v25 = (v80 + 7) & 0xFFFFFFFFFFFFFFF8;
   [(BMFrameStore *)v9 setFrameStoreSize:v25];
   [(BMFrameStore *)v9 setPermission:permission];
   if (permission == 2 || permission == 1)
@@ -3711,26 +4247,26 @@ LABEL_26:
     goto LABEL_10;
   }
 
-  if (permission != 1 || !DWORD1(v86))
+  if (permission != 1 || !DWORD1(v85))
   {
     goto LABEL_56;
   }
 
-  if (v25 < 16 * DWORD1(v86))
+  if (v25 < 16 * DWORD1(v85))
   {
     v15 = __biome_log_for_category();
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
     buf[24] = 16;
-    v78[0] = MEMORY[0x1E69E9820];
-    v78[1] = 3221225472;
-    v78[2] = __52__BMFrameStore_V2__initWithFileHandleV2_permission___block_invoke_8;
-    v78[3] = &unk_1E8338B28;
-    v78[4] = buf;
+    v77[0] = MEMORY[0x1E69E9820];
+    v77[1] = 3221225472;
+    v77[2] = __52__BMFrameStore_V2__initWithFileHandleV2_permission___block_invoke_8;
+    v77[3] = &unk_1E8338B28;
+    v77[4] = buf;
     if (initWithFileHandleV2_permission__onceToken_7 != -1)
     {
-      dispatch_once(&initWithFileHandleV2_permission__onceToken_7, v78);
+      dispatch_once(&initWithFileHandleV2_permission__onceToken_7, v77);
     }
 
     v44 = *(*&buf[8] + 24);
@@ -3745,16 +4281,16 @@ LABEL_26:
       *buf = 138543874;
       *&buf[4] = v49;
       *&buf[12] = 2048;
-      *&buf[14] = v81;
+      *&buf[14] = v80;
       *&buf[22] = 1024;
-      *&buf[24] = DWORD1(v86);
+      *&buf[24] = DWORD1(v85);
       _os_log_impl(&dword_1C928A000, v15, v44, "Attempted to open %{public}@ for writing but the file size is: %zu, which lacks space for an offsetTable with %d frames", buf, 0x1Cu);
     }
 
     goto LABEL_10;
   }
 
-  v50 = 16 * DWORD1(v86);
+  v50 = 16 * DWORD1(v85);
   frames2 = [(BMFrameStore *)v9 frames];
   v52 = ([frames2 end] - v50);
 
@@ -3774,7 +4310,7 @@ LABEL_26:
     *buf = 138543618;
     *&buf[4] = attributes;
     *&buf[12] = 2048;
-    *&buf[14] = v81;
+    *&buf[14] = v80;
     v57 = "Attempted to open %{public}@ for writing but the file is already full, and has an EOF, fileSize:%zu";
     v58 = v15;
     v59 = 22;
@@ -3793,36 +4329,36 @@ LABEL_26:
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
     buf[24] = 16;
-    v77[0] = MEMORY[0x1E69E9820];
-    v77[1] = 3221225472;
-    v77[2] = __52__BMFrameStore_V2__initWithFileHandleV2_permission___block_invoke_10;
-    v77[3] = &unk_1E8338B28;
-    v77[4] = buf;
+    v76[0] = MEMORY[0x1E69E9820];
+    v76[1] = 3221225472;
+    v76[2] = __52__BMFrameStore_V2__initWithFileHandleV2_permission___block_invoke_10;
+    v76[3] = &unk_1E8338B28;
+    v76[4] = buf;
     if (initWithFileHandleV2_permission__onceToken_9 != -1)
     {
-      dispatch_once(&initWithFileHandleV2_permission__onceToken_9, v77);
+      dispatch_once(&initWithFileHandleV2_permission__onceToken_9, v76);
     }
 
-    v68 = *(*&buf[8] + 24);
+    v67 = *(*&buf[8] + 24);
     _Block_object_dispose(buf, 8);
-    if (os_log_type_enabled(v15, v68))
+    if (os_log_type_enabled(v15, v67))
     {
-      v69 = MEMORY[0x1E698E9C8];
+      v68 = MEMORY[0x1E698E9C8];
       backingFile6 = [(BMFrameStore *)v9 backingFile];
       attributes5 = [backingFile6 attributes];
       path5 = [attributes5 path];
-      v70 = [v69 privacyPathname:path5];
+      v69 = [v68 privacyPathname:path5];
       frames4 = [(BMFrameStore *)v9 frames];
       start = [frames4 start];
       *buf = 138544130;
-      *&buf[4] = v70;
+      *&buf[4] = v69;
       *&buf[12] = 1024;
       *&buf[14] = v61;
       *&buf[18] = 2048;
       *&buf[20] = v52 - start;
-      v84 = 2048;
-      v85 = v81;
-      _os_log_impl(&dword_1C928A000, v15, v68, "Segment %{public}@ indicates an endOfFrames value: %d in the last offsetTableEntry (offset): %ld beyond the data space size: %zu", buf, 0x26u);
+      v83 = 2048;
+      v84 = v80;
+      _os_log_impl(&dword_1C928A000, v15, v67, "Segment %{public}@ indicates an endOfFrames value: %d in the last offsetTableEntry (offset): %ld beyond the data space size: %zu", buf, 0x26u);
     }
 
     goto LABEL_10;
@@ -3846,17 +4382,17 @@ LABEL_57:
     goto LABEL_10;
   }
 
-  v73 = MEMORY[0x1E698E9C8];
+  v72 = MEMORY[0x1E698E9C8];
   backingFile5 = [(BMFrameStore *)v9 backingFile];
   attributes4 = [backingFile5 attributes];
   path4 = [attributes4 path];
-  attributes = [v73 privacyPathname:path4];
+  attributes = [v72 privacyPathname:path4];
   *buf = 138543874;
   *&buf[4] = attributes;
   *&buf[12] = 1024;
   *&buf[14] = v65;
   *&buf[18] = 2048;
-  *&buf[20] = v81;
+  *&buf[20] = v80;
   v57 = "Attempted to open %{public}@ for writing but the file is already full, remaining space:%d, fileSize:%zu";
   v58 = v15;
   v59 = 28;
@@ -3870,7 +4406,6 @@ LABEL_11:
   v16 = 0;
 LABEL_59:
 
-  v66 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
@@ -3891,9 +4426,284 @@ LABEL_59:
   return [(BMFrameStore *)self cachedPrintablePathV2];
 }
 
+- (BOOL)isValidFrameV2:(void *)v2 currentFrame:(unsigned int)frame expectedState:(unsigned int)state copyOfData:(id *)data frameState:(unsigned int)frameState frameSize:(unsigned int)size validations:(BOOL)validations enumerationOptions:(unint64_t)self0 errorCode:(int *)self1
+{
+  v11 = *&size;
+  v68[1] = *MEMORY[0x1E69E9840];
+  v15 = v2 & 3;
+  if ((v2 & 3) != 0)
+  {
+    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"isValidFrameV2: Frame is not 4-byte aligned:%d", v2];
+    v17 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v67 = *MEMORY[0x1E696A578];
+    v68[0] = v16;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v68 forKeys:&v67 count:1];
+    v19 = [v17 initWithDomain:@"com.apple.Biome.BMFramestore" code:1 userInfo:v18];
+  }
+
+  else
+  {
+    v19 = 0;
+  }
+
+  v20 = v15 == 0;
+  frames = [(BMFrameStore *)self frames];
+  v22 = [frames end];
+
+  if (!v20)
+  {
+    goto LABEL_23;
+  }
+
+  v23 = v22 - (v2 + 8);
+  if ((v23 & 0x8000000000000000) != 0 || v23 < v11)
+  {
+    frames2 = [(BMFrameStore *)self frames];
+    start = [frames2 start];
+
+    v28 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"isValidFrameV2: Frame size:%d runs past the remaining free space in the segment:%td, frame intended to start at offset:%td", v11, v23, v2 - start];
+    v29 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v65 = *MEMORY[0x1E696A578];
+    v66 = v28;
+    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v66 forKeys:&v65 count:1];
+    v31 = [v29 initWithDomain:@"com.apple.Biome.BMFramestore" code:2 userInfo:v30];
+
+LABEL_22:
+    v19 = v31;
+    goto LABEL_23;
+  }
+
+  if (frameState != state && validations)
+  {
+    v24 = objc_alloc(MEMORY[0x1E696AEC0]);
+    if (state >= 6)
+    {
+      state = [MEMORY[0x1E696AEC0] stringWithFormat:@"BMFrameStateUnknown(%lu)", state];
+    }
+
+    else
+    {
+      state = *(&off_1E8338F30 + state);
+    }
+
+    if (frameState >= 6)
+    {
+      frameState = [MEMORY[0x1E696AEC0] stringWithFormat:@"BMFrameStateUnknown(%lu)", frameState];
+    }
+
+    else
+    {
+      frameState = *(&off_1E8338F30 + frameState);
+    }
+
+    v38 = [v24 initWithFormat:@"isValidFrame: Unexpected frame state. Expected: %@, found: %@", state, frameState];
+
+    v39 = objc_alloc(MEMORY[0x1E696ABC0]);
+    v63 = *MEMORY[0x1E696A578];
+    v64 = v38;
+    v40 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+    v31 = [v39 initWithDomain:@"com.apple.Biome.BMFramestore" code:3 userInfo:v40];
+
+    goto LABEL_22;
+  }
+
+  if (!data)
+  {
+    goto LABEL_16;
+  }
+
+  v32 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:v2 + 8 length:v11 - 8];
+  v33 = *data;
+  *data = v32;
+
+  v34 = 1;
+  if (state - 1 > 1 || !validations)
+  {
+    goto LABEL_40;
+  }
+
+  v35 = *data;
+  Checksum = bm_generateChecksum([v35 bytes], v11 - 8);
+
+  if (Checksum == *v2)
+  {
+LABEL_16:
+    v34 = 1;
+    goto LABEL_40;
+  }
+
+  checksum = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Checksums don't match. Header: %u, Generated checksum: %u. Skipping frame.", *v2, Checksum];
+  v51 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v61 = *MEMORY[0x1E696A578];
+  v62 = checksum;
+  v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+  v53 = [v51 initWithDomain:@"com.apple.Biome.BMFramestore" code:5 userInfo:v52];
+
+  v54 = *data;
+  *data = 0;
+
+  v19 = v53;
+LABEL_23:
+  code = [v19 code];
+  if (code)
+  {
+    *code = code;
+  }
+
+  if (code == 5 || code == 3)
+  {
+    v42 = [(BMFrameStore *)self stateOfFrameV2:frame];
+    if ((options & 1) != 0 && v42 == 3 || (options & 2) != 0 && v42 == 2)
+    {
+      v43 = 0;
+      v34 = 1;
+    }
+
+    else
+    {
+      v34 = 0;
+      v43 = (v42 & 0xFFFFFFFE) != 2;
+    }
+  }
+
+  else
+  {
+    v34 = 0;
+    v43 = 1;
+  }
+
+  frames3 = [(BMFrameStore *)self frames];
+  start2 = [frames3 start];
+
+  if (v43)
+  {
+    v46 = __biome_log_for_category();
+    *buf = 0;
+    *&buf[8] = buf;
+    *&buf[16] = 0x2020000000;
+    LOBYTE(v60) = 16;
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __135__BMFrameStore_V2__isValidFrameV2_currentFrame_expectedState_copyOfData_frameState_frameSize_validations_enumerationOptions_errorCode___block_invoke;
+    block[3] = &unk_1E8338B28;
+    block[4] = buf;
+    if (isValidFrameV2_currentFrame_expectedState_copyOfData_frameState_frameSize_validations_enumerationOptions_errorCode__onceToken != -1)
+    {
+      dispatch_once(&isValidFrameV2_currentFrame_expectedState_copyOfData_frameState_frameSize_validations_enumerationOptions_errorCode__onceToken, block);
+    }
+
+    v47 = *(*&buf[8] + 24);
+    _Block_object_dispose(buf, 8);
+    if (os_log_type_enabled(v46, v47))
+    {
+      _printablePathV2 = [(BMFrameStore *)self _printablePathV2];
+      *buf = 138543874;
+      *&buf[4] = _printablePathV2;
+      *&buf[12] = 2048;
+      *&buf[14] = v2 - start2;
+      *&buf[22] = 2112;
+      v60 = v19;
+      _os_log_impl(&dword_1C928A000, v46, v47, "isValidFrame failed, path:%{public}@, offset:%td error:%@", buf, 0x20u);
+    }
+  }
+
+LABEL_40:
+
+  return v34;
+}
+
+- (id)frameWithOffsetV2:(unint64_t)v2 expectedState:(unsigned int)state
+{
+  v40 = *MEMORY[0x1E69E9840];
+  if ((v2 & 3) != 0)
+  {
+    v5 = __biome_log_for_category();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    {
+      [BMFrameStore(V2) frameWithOffsetV2:expectedState:];
+    }
+
+LABEL_11:
+    v14 = 0;
+    goto LABEL_12;
+  }
+
+  v6 = *&state;
+  atomicReadTotalFramesV2 = [(BMFrameStore *)self atomicReadTotalFramesV2];
+  v2Copy = v2;
+  if (!v2)
+  {
+    frames = [(BMFrameStore *)self frames];
+    v2Copy = [frames size] - 16;
+  }
+
+  frames2 = [(BMFrameStore *)self frames];
+  v12 = [frames2 size] - 16 * atomicReadTotalFramesV2;
+
+  if (v2Copy < v12)
+  {
+    v13 = __biome_log_for_category();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      frames3 = [(BMFrameStore *)self frames];
+      *buf = 134218496;
+      *&buf[4] = v2;
+      *&buf[12] = 2048;
+      *&buf[14] = [frames3 size] - 16 * atomicReadTotalFramesV2;
+      *&buf[22] = 1024;
+      LODWORD(v39) = atomicReadTotalFramesV2;
+      _os_log_error_impl(&dword_1C928A000, v13, OS_LOG_TYPE_ERROR, "frameWithOffsetV2: offset (%lu) is above the offset table (%lu), totalFrames:%d", buf, 0x1Cu);
+    }
+
+    goto LABEL_11;
+  }
+
+  v16 = [(BMFrameStore *)self frameNumberFromOffsetToOffsetTableEntryV2:v2Copy];
+  v17 = [(BMFrameStore *)self offsetOfFrameV2:v16];
+  frames4 = [(BMFrameStore *)self frames];
+  v19 = ([frames4 start] + v17);
+
+  frames5 = [(BMFrameStore *)self frames];
+  v21 = [frames5 start] + v2Copy;
+
+  v37 = 0;
+  v22 = 2 * (v6 == 2);
+  if (v6 == 3)
+  {
+    v22 = 1;
+  }
+
+  LOBYTE(v35) = 1;
+  v23 = [(BMFrameStore *)self isValidFrameV2:v19 currentFrame:v16 expectedState:v6 copyOfData:&v37 frameState:*(v21 + 4) frameSize:*v21 - v17 validations:v35 enumerationOptions:v22 errorCode:0];
+  v14 = 0;
+  if (v23)
+  {
+    v24 = *v19;
+    v25 = [BMFrame alloc];
+    backingFile = [(BMFrameStore *)self backingFile];
+    attributes = [backingFile attributes];
+    path = [attributes path];
+    v29 = v37;
+    frames6 = [(BMFrameStore *)self frames];
+    start = [frames6 start];
+    v32 = *(v21 + 8);
+    v33 = *(v21 + 4);
+    *buf = v24;
+    *&buf[16] = 0;
+    v39 = 0;
+    *&buf[8] = 0;
+    LODWORD(v36) = v33;
+    v14 = [(BMFrame *)v25 initWithHeader:buf storePath:path data:v29 framePtr:v21 offset:v2 nextOffset:v21 - start + 16 timestamp:v32 datastoreVersion:10 state:v36];
+  }
+
+LABEL_12:
+
+  return v14;
+}
+
 - (void)enumerateWithOptionsV2:(unint64_t)v2 fromOffset:(unint64_t)offset usingBlock:(id)block
 {
-  v151 = *MEMORY[0x1E69E9840];
+  v150 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (!blockCopy)
   {
@@ -3919,14 +4729,14 @@ LABEL_59:
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
     buf[24] = 16;
-    v149[0] = MEMORY[0x1E69E9820];
-    v149[1] = 3221225472;
-    v149[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke;
-    v149[3] = &unk_1E8338B28;
-    v149[4] = buf;
+    v148[0] = MEMORY[0x1E69E9820];
+    v148[1] = 3221225472;
+    v148[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke;
+    v148[3] = &unk_1E8338B28;
+    v148[4] = buf;
     if (enumerateWithOptionsV2_fromOffset_usingBlock__onceToken != -1)
     {
-      dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken, v149);
+      dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken, v148);
     }
 
     v13 = *(*&buf[8] + 24);
@@ -3980,14 +4790,14 @@ LABEL_59:
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
       buf[24] = 16;
-      v148[0] = MEMORY[0x1E69E9820];
-      v148[1] = 3221225472;
-      v148[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_42;
-      v148[3] = &unk_1E8338B28;
-      v148[4] = buf;
+      v147[0] = MEMORY[0x1E69E9820];
+      v147[1] = 3221225472;
+      v147[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_42;
+      v147[3] = &unk_1E8338B28;
+      v147[4] = buf;
       if (enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_41 != -1)
       {
-        dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_41, v148);
+        dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_41, v147);
       }
 
       v33 = *(*&buf[8] + 24);
@@ -4035,14 +4845,14 @@ LABEL_39:
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
     buf[24] = 16;
-    v147[0] = MEMORY[0x1E69E9820];
-    v147[1] = 3221225472;
-    v147[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_44;
-    v147[3] = &unk_1E8338B28;
-    v147[4] = buf;
+    v146[0] = MEMORY[0x1E69E9820];
+    v146[1] = 3221225472;
+    v146[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_44;
+    v146[3] = &unk_1E8338B28;
+    v146[4] = buf;
     if (enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_43 != -1)
     {
-      dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_43, v147);
+      dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_43, v146);
     }
 
     v29 = *(*&buf[8] + 24);
@@ -4075,14 +4885,14 @@ LABEL_39:
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
     buf[24] = 16;
-    v146[0] = MEMORY[0x1E69E9820];
-    v146[1] = 3221225472;
-    v146[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_46;
-    v146[3] = &unk_1E8338B28;
-    v146[4] = buf;
+    v145[0] = MEMORY[0x1E69E9820];
+    v145[1] = 3221225472;
+    v145[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_46;
+    v145[3] = &unk_1E8338B28;
+    v145[4] = buf;
     if (enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_45 != -1)
     {
-      dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_45, v146);
+      dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_45, v145);
     }
 
     v41 = *(*&buf[8] + 24);
@@ -4143,9 +4953,9 @@ LABEL_50:
   while (![(BMFrameStore *)self atomicReadEightByteValueAtAddress:v24])
   {
     v24 += 16;
-    v77 = v22 <= 0;
+    v76 = v22 <= 0;
     LODWORD(v22) = v22 - 1;
-    if (v77)
+    if (v76)
     {
       goto LABEL_65;
     }
@@ -4172,14 +4982,14 @@ LABEL_46:
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
       buf[24] = 16;
-      v145[0] = MEMORY[0x1E69E9820];
-      v145[1] = 3221225472;
-      v145[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_48;
-      v145[3] = &unk_1E8338B28;
-      v145[4] = buf;
+      v144[0] = MEMORY[0x1E69E9820];
+      v144[1] = 3221225472;
+      v144[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_48;
+      v144[3] = &unk_1E8338B28;
+      v144[4] = buf;
       if (enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_47 != -1)
       {
-        dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_47, v145);
+        dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_47, v144);
       }
 
       v44 = *(*&buf[8] + 24);
@@ -4215,14 +5025,14 @@ LABEL_46:
       *&buf[8] = buf;
       *&buf[16] = 0x2020000000;
       buf[24] = 16;
-      v144[0] = MEMORY[0x1E69E9820];
-      v144[1] = 3221225472;
-      v144[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_50;
-      v144[3] = &unk_1E8338B28;
-      v144[4] = buf;
+      v143[0] = MEMORY[0x1E69E9820];
+      v143[1] = 3221225472;
+      v143[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_50;
+      v143[3] = &unk_1E8338B28;
+      v143[4] = buf;
       if (enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_49 != -1)
       {
-        dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_49, v144);
+        dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_49, v143);
       }
 
       v49 = *(*&buf[8] + 24);
@@ -4244,120 +5054,120 @@ LABEL_46:
       goto LABEL_64;
     }
 
-    v143 = 0;
+    v142 = 0;
     distantPast = [MEMORY[0x1E695DF00] distantPast];
     [distantPast timeIntervalSinceReferenceDate];
-    v56 = v55;
+    v55 = v54;
 
-    if (![(BMFrameStore *)self permission]&& [(BMFrameStore *)self pruneOnAccess]&& [(BMFrameStore *)self filterByAgeOnRead]&& ([(BMFrameStore *)self maxAge], v57 > 0.0))
+    if (![(BMFrameStore *)self permission]&& [(BMFrameStore *)self pruneOnAccess]&& [(BMFrameStore *)self filterByAgeOnRead]&& ([(BMFrameStore *)self maxAge], v56 > 0.0))
     {
       Current = CFAbsoluteTimeGetCurrent();
       [(BMFrameStore *)self maxAge];
-      v56 = Current - v59;
-      v117 = 1;
+      v55 = Current - v58;
+      v116 = 1;
     }
 
     else
     {
-      v117 = 0;
+      v116 = 0;
     }
 
-    v127 = v43;
-    v123 = v43 - 1;
-    v60 = v22 - 1;
+    v126 = v43;
+    v122 = v43 - 1;
+    v59 = v22 - 1;
     if ((v2 & 8) != 0)
     {
-      v61 = -16;
+      v60 = -16;
     }
 
     else
+    {
+      v60 = 16;
+    }
+
+    v61 = -16;
+    if ((v2 & 8) != 0)
     {
       v61 = 16;
-    }
-
-    v62 = -16;
-    if ((v2 & 8) != 0)
-    {
-      v62 = 16;
-      v63 = -1;
+      v62 = -1;
     }
 
     else
     {
-      v63 = 1;
+      v62 = 1;
     }
 
     if ((v2 & 8) != 0)
     {
-      v60 = v22 + 1;
+      v59 = v22 + 1;
     }
 
-    v64 = v60 + v63;
-    v124 = v63;
-    v65 = v60 + 2 * v63;
-    v125 = v62;
-    v129 = v24 + 2 * v62;
-    v131 = v24 + v62;
-    v135 = v24 + v62;
-    v126 = v61;
+    v63 = v59 + v62;
+    v123 = v62;
+    v64 = v59 + 2 * v62;
+    v124 = v61;
+    v128 = v24 + 2 * v61;
+    v130 = v24 + v61;
+    v134 = v24 + v61;
+    v125 = v60;
     do
     {
-      v130 = v65;
+      v129 = v64;
       context = objc_autoreleasePoolPush();
-      if ((v64 & 0x80000000) != 0 || v64 >= v26)
+      if ((v63 & 0x80000000) != 0 || v63 >= v26)
       {
 LABEL_161:
         objc_autoreleasePoolPop(context);
         break;
       }
 
-      v134 = v64;
-      if (v64)
+      v133 = v63;
+      if (v63)
       {
-        v66 = *(v135 + v61 + 16);
-        v67 = (v66 + 3) & 0xFFFFFFFC;
-        if (v123 < v67)
+        v65 = *(v134 + v60 + 16);
+        v66 = (v65 + 3) & 0xFFFFFFFC;
+        if (v122 < v66)
         {
-          if (v67 == v127)
+          if (v66 == v126)
           {
             goto LABEL_161;
           }
 
-          v68 = __biome_log_for_category();
+          v67 = __biome_log_for_category();
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x2020000000;
           buf[24] = 16;
-          v142[0] = MEMORY[0x1E69E9820];
-          v142[1] = 3221225472;
-          v142[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_52;
-          v142[3] = &unk_1E8338B28;
-          v142[4] = buf;
+          v141[0] = MEMORY[0x1E69E9820];
+          v141[1] = 3221225472;
+          v141[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_52;
+          v141[3] = &unk_1E8338B28;
+          v141[4] = buf;
           if (enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_51 != -1)
           {
-            dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_51, v142);
+            dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_51, v141);
           }
 
-          v69 = *(*&buf[8] + 24);
+          v68 = *(*&buf[8] + 24);
           _Block_object_dispose(buf, 8);
-          if (os_log_type_enabled(v68, v69))
+          if (os_log_type_enabled(v67, v68))
           {
-            v70 = MEMORY[0x1E698E9C8];
+            v69 = MEMORY[0x1E698E9C8];
             segmentPath5 = [(BMFrameStore *)self segmentPath];
-            v72 = [v70 privacyPathname:segmentPath5];
+            v71 = [v69 privacyPathname:segmentPath5];
             *buf = 67109890;
-            *&buf[4] = (v66 + 3) & 0xFFFFFFFC;
+            *&buf[4] = (v65 + 3) & 0xFFFFFFFC;
             *&buf[8] = 1024;
-            *&buf[10] = v127;
+            *&buf[10] = v126;
             *&buf[14] = 1024;
             *&buf[16] = v26;
             *&buf[20] = 2112;
-            *&buf[22] = v72;
-            _os_log_impl(&dword_1C928A000, v68, v69, "enumerateWithOptions: offset (%u) beyond the space used:%u by the currentFrameCount:%d  segment:%@", buf, 0x1Eu);
+            *&buf[22] = v71;
+            _os_log_impl(&dword_1C928A000, v67, v68, "enumerateWithOptions: offset (%u) beyond the space used:%u by the currentFrameCount:%d  segment:%@", buf, 0x1Eu);
           }
 
-          v61 = v126;
-          v67 = (v66 + 3) & 0xFFFFFFFC;
+          v60 = v125;
+          v66 = (v65 + 3) & 0xFFFFFFFC;
           if ((v2 & 8) == 0)
           {
             goto LABEL_157;
@@ -4367,39 +5177,39 @@ LABEL_161:
 
       else
       {
+        v65 = 0;
         v66 = 0;
-        v67 = 0;
       }
 
-      v73 = v135 + v61 + 4;
-      v132 = v67;
-      v74 = *(v135 + v61) - v67;
-      v75 = [(BMFrameStore *)self atomicReadFourByteValueAtAddress:v73];
-      v76 = v75;
-      if (v127)
+      v72 = v134 + v60 + 4;
+      v131 = v66;
+      v73 = *(v134 + v60) - v66;
+      v74 = [(BMFrameStore *)self atomicReadFourByteValueAtAddress:v72];
+      v75 = v74;
+      if (v126)
       {
-        v77 = v74 > v127;
-      }
-
-      else
-      {
-        v77 = 0;
-      }
-
-      v78 = v77;
-      if (v66)
-      {
-        v79 = 1;
+        v76 = v73 > v126;
       }
 
       else
       {
-        v79 = v134 == 0;
+        v76 = 0;
       }
 
-      if (!v79 || v78)
+      v77 = v76;
+      if (v65)
       {
-        v81 = __biome_log_for_category();
+        v78 = 1;
+      }
+
+      else
+      {
+        v78 = v133 == 0;
+      }
+
+      if (!v78 || v77)
+      {
+        v80 = __biome_log_for_category();
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
@@ -4414,42 +5224,42 @@ LABEL_161:
           dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_53, block);
         }
 
-        v82 = *(*&buf[8] + 24);
+        v81 = *(*&buf[8] + 24);
         _Block_object_dispose(buf, 8);
-        if (os_log_type_enabled(v81, v82))
+        if (os_log_type_enabled(v80, v81))
         {
-          v83 = MEMORY[0x1E698E9C8];
+          v82 = MEMORY[0x1E698E9C8];
           [(BMFrameStore *)self segmentPath];
-          v84 = loga = v81;
-          v85 = [v83 privacyPathname:v84];
+          v83 = loga = v80;
+          v84 = [v82 privacyPathname:v83];
           *buf = 67110402;
-          *&buf[4] = v132;
+          *&buf[4] = v131;
           *&buf[8] = 1024;
-          *&buf[10] = v127;
+          *&buf[10] = v126;
           *&buf[14] = 1024;
           *&buf[16] = v26;
           *&buf[20] = 1024;
-          *&buf[22] = v76;
+          *&buf[22] = v75;
           *&buf[26] = 1024;
-          *&buf[28] = v66;
+          *&buf[28] = v65;
           *&buf[32] = 2112;
-          *&buf[34] = v85;
-          _os_log_impl(&dword_1C928A000, loga, v82, "enumerateWithOptions: offset (%u) beyond the space used:%u by the currentFrameCount:%d, state:%d prevOffsetToByteAFterFrame:%d  segment:%@", buf, 0x2Au);
+          *&buf[34] = v84;
+          _os_log_impl(&dword_1C928A000, loga, v81, "enumerateWithOptions: offset (%u) beyond the space used:%u by the currentFrameCount:%d, state:%d prevOffsetToByteAFterFrame:%d  segment:%@", buf, 0x2Au);
 
-          v81 = loga;
+          v80 = loga;
         }
 
 LABEL_115:
-        v61 = v126;
+        v60 = v125;
 LABEL_116:
 
         goto LABEL_157;
       }
 
-      if (v75 > 2)
+      if (v74 > 2)
       {
-        v80 = v132;
-        switch(v75)
+        v79 = v131;
+        switch(v74)
         {
           case 3:
             if ((v2 & 1) == 0)
@@ -4461,217 +5271,217 @@ LABEL_116:
           case 4:
             goto LABEL_134;
           case 5:
-            v86 = __biome_log_for_category();
+            v85 = __biome_log_for_category();
             *buf = 0;
             *&buf[8] = buf;
             *&buf[16] = 0x2020000000;
             buf[24] = 16;
-            v140[0] = MEMORY[0x1E69E9820];
-            v140[1] = 3221225472;
-            v140[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_56;
-            v140[3] = &unk_1E8338B28;
-            v140[4] = buf;
+            v139[0] = MEMORY[0x1E69E9820];
+            v139[1] = 3221225472;
+            v139[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_56;
+            v139[3] = &unk_1E8338B28;
+            v139[4] = buf;
             if (enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_55 != -1)
             {
-              dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_55, v140);
+              dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_55, v139);
             }
 
-            v87 = *(*&buf[8] + 24);
+            v86 = *(*&buf[8] + 24);
             _Block_object_dispose(buf, 8);
-            if (os_log_type_enabled(v86, v87))
+            if (os_log_type_enabled(v85, v86))
             {
-              v88 = MEMORY[0x1E698E9C8];
+              v87 = MEMORY[0x1E698E9C8];
               segmentPath6 = [(BMFrameStore *)self segmentPath];
-              v90 = [v88 privacyPathname:segmentPath6];
+              v89 = [v87 privacyPathname:segmentPath6];
               *buf = 67109378;
-              *&buf[4] = v132;
+              *&buf[4] = v131;
               *&buf[8] = 2114;
-              *&buf[10] = v90;
-              _os_log_impl(&dword_1C928A000, v86, v87, "Found frame with state: BMFrameStateUnknown at offset:%u in segment: %{public}@", buf, 0x12u);
+              *&buf[10] = v89;
+              _os_log_impl(&dword_1C928A000, v85, v86, "Found frame with state: BMFrameStateUnknown at offset:%u in segment: %{public}@", buf, 0x12u);
             }
 
-            v61 = v126;
-            v81 = v86;
+            v60 = v125;
+            v80 = v85;
             goto LABEL_116;
         }
 
 LABEL_127:
-        v81 = __biome_log_for_category();
+        v80 = __biome_log_for_category();
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x2020000000;
         buf[24] = 16;
-        v139[0] = MEMORY[0x1E69E9820];
-        v139[1] = 3221225472;
-        v139[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_58;
-        v139[3] = &unk_1E8338B28;
-        v139[4] = buf;
+        v138[0] = MEMORY[0x1E69E9820];
+        v138[1] = 3221225472;
+        v138[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_58;
+        v138[3] = &unk_1E8338B28;
+        v138[4] = buf;
         if (enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_57 != -1)
         {
-          dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_57, v139);
+          dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_57, v138);
         }
 
-        v91 = *(*&buf[8] + 24);
+        v90 = *(*&buf[8] + 24);
         _Block_object_dispose(buf, 8);
-        if (os_log_type_enabled(v81, v91))
+        if (os_log_type_enabled(v80, v90))
         {
           _printablePathV2 = [(BMFrameStore *)self _printablePathV2];
           *buf = 67110402;
-          *&buf[4] = v76;
+          *&buf[4] = v75;
           *&buf[8] = 1024;
-          *&buf[10] = v134;
+          *&buf[10] = v133;
           *&buf[14] = 2114;
           *&buf[16] = _printablePathV2;
           *&buf[24] = 1024;
-          *&buf[26] = v132;
+          *&buf[26] = v131;
           *&buf[30] = 1024;
-          *&buf[32] = v74;
+          *&buf[32] = v73;
           *&buf[36] = 1024;
           *&buf[38] = (v2 & 8) >> 3;
-          _os_log_impl(&dword_1C928A000, v81, v91, "Unrecognized frame state: %d, frame number:%d, segment:%{public}@ offset:%u frame size:%u reverse:%d", buf, 0x2Au);
+          _os_log_impl(&dword_1C928A000, v80, v90, "Unrecognized frame state: %d, frame number:%d, segment:%{public}@ offset:%u frame size:%u reverse:%d", buf, 0x2Au);
         }
 
         goto LABEL_115;
       }
 
-      v80 = v132;
-      if (v75)
+      v79 = v131;
+      if (v74)
       {
-        if (v75 == 1)
+        if (v74 == 1)
         {
-          if (v117)
+          if (v116)
           {
-            v93 = *(v135 + v61 + 8);
-            if ((v2 & 8) != 0 && v93 < v56)
+            v92 = *(v134 + v60 + 8);
+            if ((v2 & 8) != 0 && v92 < v55)
             {
 LABEL_134:
-              v143 = 1;
+              v142 = 1;
             }
 
-            else if (v93 < v56)
+            else if (v92 < v55)
             {
               goto LABEL_157;
             }
           }
 
 LABEL_135:
-          if (v143)
+          if (v142)
           {
             goto LABEL_161;
           }
 
-          v94 = v74;
-          v95 = v80;
-          log = [(BMFrameStore *)self atomicReadFourByteValueAtAddress:v73];
-          v138 = 0;
-          frames2 = [(BMFrameStore *)self frames];
-          v97 = [frames2 start] + v95;
-
-          v98 = v97;
+          v93 = v73;
+          v94 = v79;
+          log = [(BMFrameStore *)self atomicReadFourByteValueAtAddress:v72];
           v137 = 0;
+          frames2 = [(BMFrameStore *)self frames];
+          v96 = [frames2 start] + v94;
+
+          v97 = v96;
+          v136 = 0;
           if (log == 1)
           {
-            v99 = &v138;
+            v98 = &v137;
           }
 
           else
           {
-            v99 = 0;
+            v98 = 0;
           }
 
-          LOBYTE(v115) = log == 1;
-          if ([(BMFrameStore *)self isValidFrameV2:v97 currentFrame:v134 expectedState:1 copyOfData:v99 frameState:log frameSize:v94 validations:v115 enumerationOptions:v2 errorCode:&v137])
+          LOBYTE(v114) = log == 1;
+          if ([(BMFrameStore *)self isValidFrameV2:v96 currentFrame:v133 expectedState:1 copyOfData:v98 frameState:log frameSize:v93 validations:v114 enumerationOptions:v2 errorCode:&v136])
           {
             frames3 = [(BMFrameStore *)self frames];
             start = [frames3 start];
 
-            if ((v130 & 0x80000000) != 0 || v130 > v26)
+            if ((v129 & 0x80000000) != 0 || v129 > v26)
             {
               if ((v2 & 8) != 0)
               {
-                v109 = 4294967294;
+                v108 = 4294967294;
               }
 
               else
               {
-                v109 = [(BMFrameStore *)self offsetTableOffsetFromFrameNumberV2:v26];
+                v108 = [(BMFrameStore *)self offsetTableOffsetFromFrameNumberV2:v26];
               }
 
-              v133 = v109;
-              v102 = v126;
+              v132 = v108;
+              v101 = v125;
             }
 
             else
             {
-              v102 = v126;
-              v133 = v126 + v129 - start;
+              v101 = v125;
+              v132 = v125 + v128 - start;
             }
 
-            v120 = v102 + v131 - start;
-            v118 = *v98;
-            v119 = [BMFrame alloc];
+            v119 = v101 + v130 - start;
+            v117 = *v97;
+            v118 = [BMFrame alloc];
             backingFile = [(BMFrameStore *)self backingFile];
             attributes = [backingFile attributes];
             path = [attributes path];
-            v113 = *(v135 + v102 + 8);
-            *buf = v118;
+            v112 = *(v134 + v101 + 8);
+            *buf = v117;
             memset(&buf[8], 0, 24);
-            LODWORD(v116) = log;
-            v103 = [(BMFrame *)v119 initWithHeader:buf storePath:path data:v138 framePtr:v135 + v102 offset:v120 nextOffset:v133 timestamp:v113 datastoreVersion:10 state:v116];
+            LODWORD(v115) = log;
+            v102 = [(BMFrame *)v118 initWithHeader:buf storePath:path data:v137 framePtr:v134 + v101 offset:v119 nextOffset:v132 timestamp:v112 datastoreVersion:10 state:v115];
 
-            v114 = v138;
-            v138 = 0;
+            v113 = v137;
+            v137 = 0;
 
-            blockCopy[2](blockCopy, v103, &v143);
-            v61 = v102;
+            blockCopy[2](blockCopy, v102, &v142);
+            v60 = v101;
             goto LABEL_155;
           }
 
-          v61 = v126;
-          if (v137 != 5 || [(BMFrameStore *)self atomicReadFourByteValueAtAddress:v73]== 1)
+          v60 = v125;
+          if (v136 != 5 || [(BMFrameStore *)self atomicReadFourByteValueAtAddress:v72]== 1)
           {
-            v103 = __biome_log_for_category();
+            v102 = __biome_log_for_category();
             *buf = 0;
             *&buf[8] = buf;
             *&buf[16] = 0x2020000000;
             buf[24] = 16;
-            v136[0] = MEMORY[0x1E69E9820];
-            v136[1] = 3221225472;
-            v136[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_60;
-            v136[3] = &unk_1E8338B28;
-            v136[4] = buf;
+            v135[0] = MEMORY[0x1E69E9820];
+            v135[1] = 3221225472;
+            v135[2] = __65__BMFrameStore_V2__enumerateWithOptionsV2_fromOffset_usingBlock___block_invoke_60;
+            v135[3] = &unk_1E8338B28;
+            v135[4] = buf;
             if (enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_59 != -1)
             {
-              dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_59, v136);
+              dispatch_once(&enumerateWithOptionsV2_fromOffset_usingBlock__onceToken_59, v135);
             }
 
-            v104 = *(*&buf[8] + 24);
+            v103 = *(*&buf[8] + 24);
             _Block_object_dispose(buf, 8);
-            if (os_log_type_enabled(v103, v104))
+            if (os_log_type_enabled(v102, v103))
             {
-              v105 = v137;
-              v106 = MEMORY[0x1E698E9C8];
+              v104 = v136;
+              v105 = MEMORY[0x1E698E9C8];
               segmentPath7 = [(BMFrameStore *)self segmentPath];
-              v108 = [v106 privacyPathname:segmentPath7];
+              v107 = [v105 privacyPathname:segmentPath7];
               *buf = 67109890;
-              *&buf[4] = v105;
+              *&buf[4] = v104;
               *&buf[8] = 1024;
-              *&buf[10] = v134;
+              *&buf[10] = v133;
               *&buf[14] = 1024;
-              *&buf[16] = v132;
+              *&buf[16] = v131;
               *&buf[20] = 2114;
-              *&buf[22] = v108;
-              _os_log_impl(&dword_1C928A000, v103, v104, "isValidFrame returned a %d error for frame number:%d at offset %u, skipping frame in segment: %{public}@", buf, 0x1Eu);
+              *&buf[22] = v107;
+              _os_log_impl(&dword_1C928A000, v102, v103, "isValidFrame returned a %d error for frame number:%d at offset %u, skipping frame in segment: %{public}@", buf, 0x1Eu);
             }
 
-            v61 = v126;
+            v60 = v125;
 LABEL_155:
           }
 
           goto LABEL_157;
         }
 
-        if (v75 == 2)
+        if (v74 == 2)
         {
           if ((v2 & 2) == 0)
           {
@@ -4686,24 +5496,22 @@ LABEL_155:
 
 LABEL_157:
       objc_autoreleasePoolPop(context);
-      v64 = v134 + v124;
-      v65 = v130 + v124;
-      v135 += v125;
-      v131 += v125;
-      v129 += v125;
+      v63 = v133 + v123;
+      v64 = v129 + v123;
+      v134 += v124;
+      v130 += v124;
+      v128 += v124;
     }
 
-    while (!v143);
+    while (!v142);
   }
 
 LABEL_65:
-
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateToMaxOfValueAtOffset:(unsigned int)offset newValue:(int)value
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ([(BMFrameStore *)self datastoreVersion]== 10)
   {
     header = [(BMFrameStore *)self header];
@@ -4732,9 +5540,9 @@ LABEL_65:
   {
     v11 = __biome_log_for_category();
     *buf = 0;
-    v17 = buf;
-    v18 = 0x2020000000;
-    v19 = 16;
+    v16 = buf;
+    v17 = 0x2020000000;
+    v18 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __56__BMFrameStore_V2__updateToMaxOfValueAtOffset_newValue___block_invoke;
@@ -4745,7 +5553,7 @@ LABEL_65:
       dispatch_once(&updateToMaxOfValueAtOffset_newValue__onceToken, block);
     }
 
-    v12 = v17[24];
+    v12 = v16[24];
     _Block_object_dispose(buf, 8);
     if (os_log_type_enabled(v11, v12))
     {
@@ -4755,13 +5563,11 @@ LABEL_65:
       _os_log_impl(&dword_1C928A000, v11, v12, "updateToMaxOfValueAtOffset called with unexpected datastoreVersion:%d", buf, 8u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addToValueAtOffset:(unsigned int)offset increment:(unsigned int)increment
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   if ([(BMFrameStore *)self datastoreVersion]== 10)
   {
     header = [(BMFrameStore *)self header];
@@ -4786,9 +5592,9 @@ LABEL_65:
   {
     v12 = __biome_log_for_category();
     *buf = 0;
-    v18 = buf;
-    v19 = 0x2020000000;
-    v20 = 16;
+    v17 = buf;
+    v18 = 0x2020000000;
+    v19 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __49__BMFrameStore_V2__addToValueAtOffset_increment___block_invoke;
@@ -4799,7 +5605,7 @@ LABEL_65:
       dispatch_once(&addToValueAtOffset_increment__onceToken, block);
     }
 
-    v13 = v18[24];
+    v13 = v17[24];
     _Block_object_dispose(buf, 8);
     if (os_log_type_enabled(v12, v13))
     {
@@ -4809,13 +5615,11 @@ LABEL_65:
       _os_log_impl(&dword_1C928A000, v12, v13, "addToValueAtOffset called with unexpected datastoreVersion:%d", buf, 8u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (unsigned)determineFrameNumberToBeWritten:(unsigned int *)written
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   if (!written)
   {
     v13 = __biome_log_for_category();
@@ -4831,7 +5635,7 @@ LABEL_65:
   if (!atomicReadTotalFramesV2)
   {
     *written = 0;
-    goto LABEL_25;
+    return atomicReadTotalFramesV2;
   }
 
   v6 = atomicReadTotalFramesV2;
@@ -4841,9 +5645,9 @@ LABEL_65:
   {
     v14 = __biome_log_for_category();
     *buf = 0;
-    *&v24 = buf;
-    *(&v24 + 1) = 0x2020000000;
-    v25 = 16;
+    *&v23 = buf;
+    *(&v23 + 1) = 0x2020000000;
+    v24 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __52__BMFrameStore_V2__determineFrameNumberToBeWritten___block_invoke;
@@ -4854,7 +5658,7 @@ LABEL_65:
       dispatch_once(&determineFrameNumberToBeWritten__onceToken, block);
     }
 
-    v15 = *(v24 + 24);
+    v15 = *(v23 + 24);
     _Block_object_dispose(buf, 8);
     if (os_log_type_enabled(v14, v15))
     {
@@ -4863,14 +5667,14 @@ LABEL_65:
       v18 = [v16 privacyPathname:segmentPath];
       *buf = 67109378;
       *&buf[4] = v7;
-      LOWORD(v24) = 2114;
-      *(&v24 + 2) = v18;
+      LOWORD(v23) = 2114;
+      *(&v23 + 2) = v18;
       _os_log_impl(&dword_1C928A000, v14, v15, "determineFrameNumberToBeWritten: offsetTableEntryPtr:NULL outside of range for frames, frameNumber=%d for segment: %{public}@", buf, 0x12u);
     }
 
 LABEL_19:
     LOBYTE(atomicReadTotalFramesV2) = 1;
-    goto LABEL_25;
+    return atomicReadTotalFramesV2;
   }
 
   if ((v7 & 0x80000000) != 0)
@@ -4921,17 +5725,15 @@ LABEL_21:
     LOBYTE(atomicReadTotalFramesV2) = 2;
   }
 
-LABEL_25:
-  v20 = *MEMORY[0x1E69E9840];
   return atomicReadTotalFramesV2;
 }
 
 - (unsigned)validateOrUpdateTimestamp:(double *)timestamp frameNumberToBeWritten:(unsigned int)written
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   if (!written)
   {
-    goto LABEL_23;
+    return 0;
   }
 
   v6 = written - 1;
@@ -4942,7 +5744,7 @@ LABEL_25:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    LOBYTE(v41) = 16;
+    LOBYTE(v40) = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __69__BMFrameStore_V2__validateOrUpdateTimestamp_frameNumberToBeWritten___block_invoke;
@@ -4967,24 +5769,20 @@ LABEL_25:
       _os_log_impl(&dword_1C928A000, v15, v16, "validateOrUpdateTimestamp: offsetTableEntryPtr:NULL outside of range for frames, frameNumber=%d for segment: %{public}@", buf, 0x12u);
     }
 
-    goto LABEL_19;
+    return 2;
   }
 
   v8 = v7;
   if ([(BMFrameStore *)self atomicReadFourByteValueAtAddress:&v7->var0.var0.var0.var1 + 4]== 4)
   {
-LABEL_19:
-    result = 2;
-    goto LABEL_24;
+    return 2;
   }
 
   [(BMFrameStore *)self atomicReadDoubleByteValueAtAddress:&v8->var0.var0.var1];
   v10 = v9;
   if (*timestamp >= v9)
   {
-LABEL_23:
-    result = 0;
-    goto LABEL_24;
+    return 0;
   }
 
   if ([(BMFrameStore *)self isRemoteSegment]&& ![(BMFrameStore *)self isTombstoneSegment])
@@ -4994,30 +5792,30 @@ LABEL_23:
     v21 = __biome_log_for_category();
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v31 = *timestamp;
-      v32 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:*timestamp];
-      v33 = [v20 stringFromDate:v32];
-      v34 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:v10];
-      v35 = [v20 stringFromDate:v34];
-      v36 = MEMORY[0x1E698E9C8];
+      v30 = *timestamp;
+      v31 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:*timestamp];
+      v32 = [v20 stringFromDate:v31];
+      v33 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:v10];
+      v34 = [v20 stringFromDate:v33];
+      v35 = MEMORY[0x1E698E9C8];
       segmentPath2 = [(BMFrameStore *)self segmentPath];
-      v38 = [v36 privacyPathname:segmentPath2];
+      v37 = [v35 privacyPathname:segmentPath2];
       *buf = 136316418;
       *&buf[4] = "[BMFrameStore(V2) validateOrUpdateTimestamp:frameNumberToBeWritten:]";
       *&buf[12] = 2048;
-      *&buf[14] = v31;
+      *&buf[14] = v30;
       *&buf[22] = 2048;
-      v41 = v10;
-      v42 = 2112;
-      v43 = v33;
-      v44 = 2112;
-      v45 = v35;
-      v46 = 2114;
-      v47 = v38;
+      v40 = v10;
+      v41 = 2112;
+      v42 = v32;
+      v43 = 2112;
+      v44 = v34;
+      v45 = 2114;
+      v46 = v37;
       _os_log_error_impl(&dword_1C928A000, v21, OS_LOG_TYPE_ERROR, "[%s] WARNING (remote data) frame should come in chronological order. Input %f < last %f, (%@ < %@) segment:%{public}@", buf, 0x3Eu);
     }
 
-    goto LABEL_23;
+    return 0;
   }
 
   if (v10 - *timestamp >= 3.0)
@@ -5045,49 +5843,47 @@ LABEL_11:
     v13 = __biome_log_for_category();
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v23 = *timestamp;
-      v24 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:*timestamp];
-      v25 = [v12 stringFromDate:v24];
-      v26 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:v10];
-      v27 = [v12 stringFromDate:v26];
-      v28 = MEMORY[0x1E698E9C8];
+      v22 = *timestamp;
+      v23 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:*timestamp];
+      v24 = [v12 stringFromDate:v23];
+      v25 = [objc_alloc(MEMORY[0x1E695DF00]) initWithTimeIntervalSinceReferenceDate:v10];
+      v26 = [v12 stringFromDate:v25];
+      v27 = MEMORY[0x1E698E9C8];
       segmentPath3 = [(BMFrameStore *)self segmentPath];
-      v30 = [v28 privacyPathname:segmentPath3];
+      v29 = [v27 privacyPathname:segmentPath3];
       *buf = 136316418;
       *&buf[4] = "[BMFrameStore(V2) validateOrUpdateTimestamp:frameNumberToBeWritten:]";
       *&buf[12] = 2048;
-      *&buf[14] = v23;
+      *&buf[14] = v22;
       *&buf[22] = 2048;
-      v41 = v10;
-      v42 = 2112;
-      v43 = v25;
-      v44 = 2112;
-      v45 = v27;
-      v46 = 2114;
-      v47 = v30;
+      v40 = v10;
+      v41 = 2112;
+      v42 = v24;
+      v43 = 2112;
+      v44 = v26;
+      v45 = 2114;
+      v46 = v29;
       _os_log_error_impl(&dword_1C928A000, v13, OS_LOG_TYPE_ERROR, "[%s] Frame should come in chronological order. Input %f < last %f, (%@ < %@) segment:%{public}@", buf, 0x3Eu);
     }
 
-    result = 1;
+    return 1;
   }
 
-LABEL_24:
-  v22 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (unsigned)reserveSpaceAndAssignAnOffsetTableEntryForTimestamp:(double)timestamp state:(unsigned int)state length:(unsigned int)length outFrameNumber:(unsigned int *)number
 {
   LODWORD(v8) = state;
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   timestampCopy = timestamp;
   if ([(BMFrameStore *)self datastoreVersion]!= 10)
   {
     v27 = __biome_log_for_category();
     *buf = 0;
-    v38 = COERCE_DOUBLE(buf);
-    v39 = 0x2020000000;
-    v40 = 16;
+    v37 = COERCE_DOUBLE(buf);
+    v38 = 0x2020000000;
+    v39 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __100__BMFrameStore_V2__reserveSpaceAndAssignAnOffsetTableEntryForTimestamp_state_length_outFrameNumber___block_invoke;
@@ -5098,7 +5894,7 @@ LABEL_24:
       dispatch_once(&reserveSpaceAndAssignAnOffsetTableEntryForTimestamp_state_length_outFrameNumber__onceToken, block);
     }
 
-    v28 = *(*&v38 + 24);
+    v28 = *(*&v37 + 24);
     _Block_object_dispose(buf, 8);
     if (os_log_type_enabled(v27, v28))
     {
@@ -5110,7 +5906,7 @@ LABEL_24:
 
 LABEL_36:
     LOBYTE(v11) = 1;
-    goto LABEL_37;
+    return v11;
   }
 
   if (!number)
@@ -5126,14 +5922,14 @@ LABEL_35:
     goto LABEL_36;
   }
 
-  v34 = -1;
-  v11 = [(BMFrameStore *)self determineFrameNumberToBeWritten:&v34];
+  v33 = -1;
+  v11 = [(BMFrameStore *)self determineFrameNumberToBeWritten:&v33];
   if (!v11)
   {
-    v11 = [(BMFrameStore *)self validateOrUpdateTimestamp:&timestampCopy frameNumberToBeWritten:v34];
+    v11 = [(BMFrameStore *)self validateOrUpdateTimestamp:&timestampCopy frameNumberToBeWritten:v33];
     if (!v11)
     {
-      v12 = [(BMFrameStore *)self offsetOfFrameV2:v34];
+      v12 = [(BMFrameStore *)self offsetOfFrameV2:v33];
       v13 = timestampCopy - timestamp;
       if (timestampCopy - timestamp > 3.0)
       {
@@ -5141,7 +5937,7 @@ LABEL_26:
         v26 = __biome_log_for_category();
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
-          [BMFrameStore(V2) reserveSpaceAndAssignAnOffsetTableEntryForTimestamp:? state:? length:? outFrameNumber:?];
+          [BMFrameStore(V2) reserveSpaceAndAssignAnOffsetTableEntryForTimestamp:state:length:outFrameNumber:];
         }
 
         goto LABEL_35;
@@ -5153,7 +5949,7 @@ LABEL_26:
       while (1)
       {
         frames = [(BMFrameStore *)self frames];
-        v18 = [frames isValidReadFromOffsetV2:v14 withLength:(length + 3) & 0xFFFFFFFC currentFrameCount:v34];
+        v18 = [frames isValidReadFromOffsetV2:v14 withLength:(length + 3) & 0xFFFFFFFC currentFrameCount:v33];
 
         if (v18)
         {
@@ -5177,19 +5973,19 @@ LABEL_26:
         else
         {
           frames2 = [(BMFrameStore *)self frames];
-          v21 = [frames2 isValidReadFromOffsetV2:v14 withLength:0 currentFrameCount:v34];
+          v21 = [frames2 isValidReadFromOffsetV2:v14 withLength:0 currentFrameCount:v33];
 
           if ((v21 & 1) == 0)
           {
-            v31 = __biome_log_for_category();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+            v30 = __biome_log_for_category();
+            if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
             {
               [BMFrameStore(V2) reserveSpaceAndAssignAnOffsetTableEntryForTimestamp:state:length:outFrameNumber:];
             }
 
 LABEL_43:
             LOBYTE(v11) = 2;
-            break;
+            return v11;
           }
 
           v15 = 0;
@@ -5197,9 +5993,9 @@ LABEL_43:
           v8 = 4;
         }
 
-        v22 = v34 + 1;
+        v22 = v33 + 1;
         *buf = 0;
-        v38 = 0.0;
+        v37 = 0.0;
         frames3 = [(BMFrameStore *)self frames];
         frames4 = [(BMFrameStore *)self frames];
         v25 = [frames3 atomicWriteSixteenBytes:v15 | (v8 << 32) toOffset:*&v16 expected:{objc_msgSend(frames4, "size") - 16 * v22, buf}];
@@ -5213,12 +6009,12 @@ LABEL_43:
 
           if (v25 == 1)
           {
-            v32 = v34;
-            *number = v34;
-            v34 = v32 + 1;
+            v31 = v33;
+            *number = v33;
+            v33 = v31 + 1;
             [(BMFrameStore *)self updateToMaxOfTotalFramesAnd:?];
             LOBYTE(v11) = 2 * (v8 == 4);
-            break;
+            return v11;
           }
         }
 
@@ -5242,10 +6038,10 @@ LABEL_38:
           goto LABEL_35;
         }
 
-        ++v34;
-        if (v16 < v38)
+        ++v33;
+        if (v16 < v37)
         {
-          v16 = v38;
+          v16 = v37;
         }
 
         v14 = (*buf + 3) & 0xFFFFFFFC;
@@ -5258,14 +6054,12 @@ LABEL_38:
     }
   }
 
-LABEL_37:
-  v30 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (unsigned)checkBoundsLength:(unint64_t)length
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (length >> 31)
   {
     v3 = __biome_log_for_category();
@@ -5278,7 +6072,7 @@ LABEL_20:
     v5 = 1;
 LABEL_21:
 
-    goto LABEL_22;
+    return v5;
   }
 
   if (!length)
@@ -5322,9 +6116,9 @@ LABEL_21:
   {
     v3 = __biome_log_for_category();
     *buf = 0;
-    v17 = buf;
-    v18 = 0x2020000000;
-    v19 = 16;
+    v16 = buf;
+    v17 = 0x2020000000;
+    v18 = 16;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __38__BMFrameStore_V2__checkBoundsLength___block_invoke;
@@ -5335,7 +6129,7 @@ LABEL_21:
       dispatch_once(&checkBoundsLength__onceToken, block);
     }
 
-    v8 = v17[24];
+    v8 = v16[24];
     _Block_object_dispose(buf, 8);
     if (os_log_type_enabled(v3, v8))
     {
@@ -5345,20 +6139,137 @@ LABEL_21:
       v12 = [v10 privacyPathname:segmentPath];
       *buf = 67109634;
       *&buf[4] = 10;
-      LOWORD(v17) = 1024;
-      *(&v17 + 2) = v9;
-      HIWORD(v17) = 2114;
-      v18 = v12;
+      LOWORD(v16) = 1024;
+      *(&v16 + 2) = v9;
+      HIWORD(v16) = 2114;
+      v17 = v12;
       _os_log_impl(&dword_1C928A000, v3, v8, "Segment is the wrong version, expected: %d, found %d in segment: %{public}@", buf, 0x18u);
     }
 
     goto LABEL_20;
   }
 
-  v5 = 0;
-LABEL_22:
-  v13 = *MEMORY[0x1E69E9840];
-  return v5;
+  return 0;
+}
+
+- (unsigned)writeFrameV2ForBytes:(const void *)bytes length:(unint64_t)length dataVersion:(unsigned int)version timestamp:(double)timestamp outOffset:(unint64_t *)offset
+{
+  v9 = *&version;
+  v41 = *MEMORY[0x1E69E9840];
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v13 = [(BMFrameStore *)selfCopy checkBoundsLength:length];
+  if (v13)
+  {
+    goto LABEL_20;
+  }
+
+  v38 = -1;
+  v13 = [(BMFrameStore *)selfCopy reserveSpaceAndAssignAnOffsetTableEntryForTimestamp:0 state:length length:&v38 outFrameNumber:timestamp];
+  if (!v13 && v38 != -1)
+  {
+    v14 = [(BMFrameStore *)selfCopy offsetTablePtrFromFrameNumberV2:?];
+    if (v14)
+    {
+      var0 = v14->var0.var0.var0.var0.var0;
+      *buf = bm_generateChecksum(bytes, length) | (v9 << 32);
+      frames = [(BMFrameStore *)selfCopy frames];
+      v17 = var0 - length - 8;
+      [frames writeBytes:buf toOffset:v17 length:8];
+
+      frames2 = [(BMFrameStore *)selfCopy frames];
+      [frames2 writeBytes:bytes toOffset:v17 + 8 length:length];
+
+      LODWORD(v17) = [(BMFrameStore *)selfCopy offsetTableOffsetFromFrameNumberV2:v38];
+      v36 = 0;
+      frames3 = [(BMFrameStore *)selfCopy frames];
+      v20 = v17;
+      v21 = [frames3 atomicWriteFourBytes:1 toOffset:v17 + 4 expected:&v36];
+
+      if (v21 == 1)
+      {
+        LOBYTE(v13) = 0;
+        if (offset)
+        {
+          *offset = v20;
+        }
+
+        goto LABEL_20;
+      }
+
+      v29 = __biome_log_for_category();
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+      {
+        [BMFrameStore(V2) writeFrameV2ForBytes:v21 length:v29 dataVersion:? timestamp:? outOffset:?];
+      }
+    }
+
+    else
+    {
+      v23 = __biome_log_for_category();
+      *buf = 0;
+      *v40 = buf;
+      *&v40[8] = 0x2020000000;
+      v40[16] = 16;
+      block[0] = MEMORY[0x1E69E9820];
+      block[1] = 3221225472;
+      block[2] = __80__BMFrameStore_V2__writeFrameV2ForBytes_length_dataVersion_timestamp_outOffset___block_invoke;
+      block[3] = &unk_1E8338B28;
+      block[4] = buf;
+      if (writeFrameV2ForBytes_length_dataVersion_timestamp_outOffset__onceToken != -1)
+      {
+        dispatch_once(&writeFrameV2ForBytes_length_dataVersion_timestamp_outOffset__onceToken, block);
+      }
+
+      v24 = *(*v40 + 24);
+      _Block_object_dispose(buf, 8);
+      if (os_log_type_enabled(v23, v24))
+      {
+        v25 = v38;
+        v26 = MEMORY[0x1E698E9C8];
+        segmentPath = [(BMFrameStore *)selfCopy segmentPath];
+        v28 = [v26 privacyPathname:segmentPath];
+        *buf = 67109378;
+        *&buf[4] = v25;
+        *v40 = 2114;
+        *&v40[2] = v28;
+        _os_log_impl(&dword_1C928A000, v23, v24, "writeFrameV2ForBytes: offsetTableEntryPtr:NULL outside of range for frames, frameNumber=%d for segment: %{public}@", buf, 0x12u);
+      }
+    }
+
+    LOBYTE(v13) = 1;
+    goto LABEL_20;
+  }
+
+  v22 = __biome_log_for_category();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+  {
+    v31 = v38;
+    v32 = NSStringFromBMFrameWriteStatus(v13);
+    v33 = MEMORY[0x1E698E9C8];
+    segmentName = [(BMFrameStore *)selfCopy segmentName];
+    v35 = [v33 privacyPathname:segmentName];
+    *buf = 67109634;
+    *&buf[4] = v31;
+    *v40 = 2112;
+    *&v40[2] = v32;
+    *&v40[10] = 2112;
+    *&v40[12] = v35;
+    _os_log_debug_impl(&dword_1C928A000, v22, OS_LOG_TYPE_DEBUG, "Unable to write frame (%d) for reason: %@ for segment: %@", buf, 0x1Cu);
+  }
+
+LABEL_20:
+  objc_sync_exit(selfCopy);
+
+  return v13;
+}
+
+- (void)updateHighestDeletedFrameV2:(id)v2 addToDeletedFrameCount:(unsigned int)count
+{
+  v4 = *&count;
+  [(BMFrameStore *)self updateHighestDeletedFrame:v2];
+
+  [(BMFrameStore *)self addToDeletedFrameCount:v4];
 }
 
 - (void)updateHighestDeletedFrame:(id)frame
@@ -5376,7 +6287,7 @@ LABEL_22:
 
 - (void)markFrameAsRemovedV2:(id)v2
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2Copy = v2;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -5392,9 +6303,9 @@ LABEL_22:
     {
       v11 = __biome_log_for_category();
       *buf = 0;
-      v17 = buf;
-      v18 = 0x2020000000;
-      v19 = 16;
+      v16 = buf;
+      v17 = 0x2020000000;
+      v18 = 16;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __41__BMFrameStore_V2__markFrameAsRemovedV2___block_invoke;
@@ -5405,7 +6316,7 @@ LABEL_22:
         dispatch_once(&markFrameAsRemovedV2__onceToken, block);
       }
 
-      v12 = v17[24];
+      v12 = v16[24];
       _Block_object_dispose(buf, 8);
       if (os_log_type_enabled(v11, v12))
       {
@@ -5417,9 +6328,9 @@ LABEL_22:
 
     else
     {
-      v14 = v8;
-      atomic_compare_exchange_strong(framePtr, &v14, v7 | 0x300000000);
-      if (v14 == v8)
+      v13 = v8;
+      atomic_compare_exchange_strong(framePtr, &v13, v7 | 0x300000000);
+      if (v13 == v8)
       {
         goto LABEL_10;
       }
@@ -5443,13 +6354,106 @@ LABEL_22:
 
 LABEL_10:
   objc_sync_exit(selfCopy);
+}
 
-  v13 = *MEMORY[0x1E69E9840];
+- (unsigned)countFrameStateInOffsetTable:(unsigned int)table startingFrame:(int)frame endingFrame:(int)endingFrame
+{
+  v6 = *&frame;
+  atomicReadTotalFramesV2 = [(BMFrameStore *)self atomicReadTotalFramesV2];
+  v10 = 0;
+  if ((v6 & 0x80000000) == 0 && atomicReadTotalFramesV2)
+  {
+    endingFrameCopy = atomicReadTotalFramesV2 - 1;
+    if (atomicReadTotalFramesV2 > endingFrame)
+    {
+      endingFrameCopy = endingFrame;
+    }
+
+    if (endingFrameCopy >= v6)
+    {
+      v10 = 0;
+      v12 = endingFrameCopy + 1;
+      do
+      {
+        if ([(BMFrameStore *)self stateOfFrameV2:v6]== table)
+        {
+          ++v10;
+        }
+
+        v6 = (v6 + 1);
+      }
+
+      while (v12 != v6);
+    }
+
+    else
+    {
+      return 0;
+    }
+  }
+
+  return v10;
+}
+
+- (BOOL)isCheckSumValidAtOffsetV2:(unint64_t)v2 frameNumber:(int)number
+{
+  v4 = *&number;
+  v2Copy = v2;
+  v22 = *MEMORY[0x1E69E9840];
+  if ([(BMFrameStore *)self datastoreVersion]!= 10)
+  {
+    v14 = __biome_log_for_category();
+    *buf = 0;
+    v19 = buf;
+    v20 = 0x2020000000;
+    v21 = 16;
+    block[0] = MEMORY[0x1E69E9820];
+    block[1] = 3221225472;
+    block[2] = __58__BMFrameStore_V2__isCheckSumValidAtOffsetV2_frameNumber___block_invoke;
+    block[3] = &unk_1E8338B28;
+    block[4] = buf;
+    if (isCheckSumValidAtOffsetV2_frameNumber__onceToken != -1)
+    {
+      dispatch_once(&isCheckSumValidAtOffsetV2_frameNumber__onceToken, block);
+    }
+
+    v15 = v19[24];
+    _Block_object_dispose(buf, 8);
+    if (os_log_type_enabled(v14, v15))
+    {
+      datastoreVersion = [(BMFrameStore *)self datastoreVersion];
+      *buf = 67109120;
+      *&buf[4] = datastoreVersion;
+      _os_log_impl(&dword_1C928A000, v14, v15, "isCheckSumValidAtOffsetV2 called with unexpected dataVersion:%d", buf, 8u);
+    }
+
+    return 0;
+  }
+
+  if ((v2Copy & 7) != 0)
+  {
+    return 0;
+  }
+
+  v7 = [(BMFrameStore *)self offsetOfFrameV2:v4];
+  v8 = [(BMFrameStore *)self sizeOfFrameV2:v4];
+  frames = [(BMFrameStore *)self frames];
+  v10 = [frames size];
+
+  if (v10 < v8 + v7)
+  {
+    return 0;
+  }
+
+  frames2 = [(BMFrameStore *)self frames];
+  start = [frames2 start];
+
+  return [(BMFrameStore *)self stateOfFrameV2:v4]!= 1 || bm_generateChecksum((start + v7 + 8), v8 - 8) == *(start + v7);
 }
 
 - (uint64_t)sizeToNextWord:(uint64_t)result
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v3 = result;
@@ -5457,9 +6461,9 @@ LABEL_10:
     {
       v4 = __biome_log_for_category();
       *buf = 0;
-      v10 = buf;
-      v11 = 0x2020000000;
-      v12 = 16;
+      v9 = buf;
+      v10 = 0x2020000000;
+      v11 = 16;
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __31__BMFrameStore_sizeToNextWord___block_invoke;
@@ -5470,7 +6474,7 @@ LABEL_10:
         dispatch_once(&sizeToNextWord__onceToken, block);
       }
 
-      v5 = v10[24];
+      v5 = v9[24];
       _Block_object_dispose(buf, 8);
       if (os_log_type_enabled(v4, v5))
       {
@@ -5481,17 +6485,15 @@ LABEL_10:
       }
     }
 
-    result = (a2 + 7) & 0xFFFFFFF8;
+    return (a2 + 7) & 0xFFFFFFF8;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)getSegmentHeader:fromFileV1:fileSize:.cold.1()
 {
   OUTLINED_FUNCTION_1_1();
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [v1 attributes];
   [v2 path];
   objc_claimAutoreleasedReturnValue();
@@ -5499,13 +6501,10 @@ LABEL_10:
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getSegmentHeader:(void *)a1 fromFileV1:fileSize:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [a1 attributes];
   [v2 path];
   objc_claimAutoreleasedReturnValue();
@@ -5513,39 +6512,34 @@ LABEL_10:
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getSegmentHeader:(_DWORD *)a1 fromFileV1:(void *)a2 fileSize:(NSObject *)a3 .cold.3(_DWORD *a1, void *a2, NSObject *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v5 = *a1;
   v6 = MEMORY[0x1E698E9C8];
   v7 = [a2 attributes];
   v8 = [v7 path];
   v9 = [v6 privacyPathname:v8];
-  v11[0] = 68290050;
-  v11[1] = 4;
-  v12 = 2082;
-  v13 = a1;
-  v14 = 1024;
-  v15 = v5;
-  v16 = 2114;
-  v17 = v9;
-  v18 = 1042;
-  v19 = 4;
-  v20 = 2082;
-  v21 = "SEGB";
-  _os_log_error_impl(&dword_1C928A000, a3, OS_LOG_TYPE_ERROR, "Segment header magic '%{public}.4s' (0x%04X) in file %{public}@ doesn't match expected magic '%{public}.4s'.", v11, 0x32u);
-
-  v10 = *MEMORY[0x1E69E9840];
+  v10[0] = 68290050;
+  v10[1] = 4;
+  v11 = 2082;
+  v12 = a1;
+  v13 = 1024;
+  v14 = v5;
+  v15 = 2114;
+  v16 = v9;
+  v17 = 1042;
+  v18 = 4;
+  v19 = 2082;
+  v20 = "SEGB";
+  _os_log_error_impl(&dword_1C928A000, a3, OS_LOG_TYPE_ERROR, "Segment header magic '%{public}.4s' (0x%04X) in file %{public}@ doesn't match expected magic '%{public}.4s'.", v10, 0x32u);
 }
 
 - (void)getSegmentHeader:fromFileV1:fileSize:.cold.4()
 {
   OUTLINED_FUNCTION_1_1();
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [v1 attributes];
   [v2 path];
   objc_claimAutoreleasedReturnValue();
@@ -5553,13 +6547,10 @@ LABEL_10:
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getSegmentHeader:(void *)a1 fromFileV1:fileSize:.cold.5(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [a1 attributes];
   [v2 path];
   objc_claimAutoreleasedReturnValue();
@@ -5567,13 +6558,10 @@ LABEL_10:
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getSegmentHeader:(void *)a1 fromFileV1:fileSize:.cold.6(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [a1 attributes];
   [v2 path];
   objc_claimAutoreleasedReturnValue();
@@ -5581,14 +6569,11 @@ LABEL_10:
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)writeEmptyFrameStoreWithFileHandle:fileSize:datastoreVersion:.cold.2()
 {
   OUTLINED_FUNCTION_1_1();
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [v1 attributes];
   [v2 path];
   objc_claimAutoreleasedReturnValue();
@@ -5596,13 +6581,10 @@ LABEL_10:
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x12u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)writeEmptyFrameStoreWithFileHandle:(void *)a1 fileSize:datastoreVersion:.cold.3(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [a1 attributes];
   [v2 path];
   objc_claimAutoreleasedReturnValue();
@@ -5610,22 +6592,17 @@ LABEL_10:
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)writeEmptySegmentHeaderWithFileHandleV1:segmentHeaderSize:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 + (void)writeEmptySegmentHeaderWithFileHandleV1:(void *)a1 segmentHeaderSize:.cold.2(void *a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [a1 attributes];
   [v2 path];
   objc_claimAutoreleasedReturnValue();
@@ -5633,8 +6610,6 @@ LABEL_10:
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithFileHandleV1:permission:.cold.1()
@@ -5647,7 +6622,6 @@ LABEL_10:
 - (void)initWithFileHandleV1:permission:.cold.2()
 {
   OUTLINED_FUNCTION_1_1();
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [*v1 attributes];
   [v2 path];
   objc_claimAutoreleasedReturnValue();
@@ -5655,40 +6629,30 @@ LABEL_10:
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithFileHandleV1:permission:.cold.3()
 {
   OUTLINED_FUNCTION_1_1();
-  v10 = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E698E9C8];
   v2 = [v1 segmentPath];
   v3 = [v0 privacyPathname:v2];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initWithFileHandleV1:permission:.cold.4()
 {
   OUTLINED_FUNCTION_1_1();
-  v10 = *MEMORY[0x1E69E9840];
-  v2 = [v1 _printablePath];
-  v3 = *v0;
+  v1 = [v0 _printablePath];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
 - (void)initWithFileHandleV1:(uint64_t)a1 permission:.cold.5(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 64) attributes];
   [v2 path];
   objc_claimAutoreleasedReturnValue();
@@ -5696,39 +6660,31 @@ LABEL_10:
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0xCu);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)frameWithOffsetV1:expectedState:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)frameWithOffsetV1:expectedState:.cold.2()
 {
   OUTLINED_FUNCTION_1_1();
-  v7 = *MEMORY[0x1E69E9840];
   [*v0 size];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)frameWithOffsetV1:expectedState:.cold.3()
 {
   OUTLINED_FUNCTION_1_1();
-  v7 = *MEMORY[0x1E69E9840];
   [*v0 size];
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_0_2();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (uint64_t)updateFrameStoreIndex
@@ -5780,11 +6736,9 @@ LABEL_10:
 
 - (void)writeFrameV1ForBytes:length:dataVersion:timestamp:outOffset:.cold.6()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)markFrameAsRemovedV1:.cold.1()

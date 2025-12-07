@@ -88,7 +88,7 @@
     itemManager3 = [(HUQuickControlGridLayoutManager *)self itemManager];
     v12 = [itemManager3 displayedSectionIdentifierForSectionIndex:section];
 
-    v13 = [(HUQuickControlGridLayoutManager *)self _mostImportantItemTypeForSection:section];
+    v13 = objc_msgSend__mostImportantItemTypeForSection_(self);
     if ([v12 hasSuffix:@"supplementary"])
     {
       if (v13 == 4)
@@ -271,7 +271,7 @@ uint64_t __54__HUQuickControlGridLayoutManager_itemSizeForSection___block_invoke
       layoutOptions = [(HUQuickControlGridLayoutManager *)self layoutOptions];
       v14 = [v12 isEqualToString:@"sensors"];
       v15 = off_277DB10D8;
-      if ((v14 & 1) != 0 || (v16 = [(HUQuickControlGridLayoutManager *)self _mostImportantItemTypeForSection:i], v15 = off_277DB0FC8, v16 == 6))
+      if ((v14 & 1) != 0 || (v16 = objc_msgSend__mostImportantItemTypeForSection_(self), v15 = off_277DB0FC8, v16 == 6))
       {
         v17 = *v15;
         layoutOptions2 = [(HUQuickControlGridLayoutManager *)self layoutOptions];
@@ -401,8 +401,8 @@ LABEL_10:
 
     if ([v11 hasSuffix:@"supplementary"])
     {
-      v12 = [(HUQuickControlGridLayoutManager *)self _mostImportantItemTypeForSection:section];
-      v13 = [(HUQuickControlGridLayoutManager *)self _mostImportantItemTypeForSection:section - 1];
+      v12 = objc_msgSend__mostImportantItemTypeForSection_(self);
+      v13 = objc_msgSend__mostImportantItemTypeForSection_(self);
       if (v12 == 3 && v13 == 2)
       {
         [v7 thermostatSectionSpacingOverride];
@@ -413,22 +413,20 @@ LABEL_10:
     else
     {
       v16 = [v11 isEqualToString:@"sensors"];
-      v17 = section - 1;
       if (section != 1 && v16)
       {
         itemManager2 = [(HUQuickControlGridLayoutManager *)self itemManager];
-        v19 = [itemManager2 displayedSectionIdentifierForSectionIndex:section - 1];
+        v18 = [itemManager2 displayedSectionIdentifierForSectionIndex:section - 1];
 
         itemManager3 = [(HUQuickControlGridLayoutManager *)self itemManager];
-        v21 = section - 2;
-        v22 = [itemManager3 displayedSectionIdentifierForSectionIndex:section - 2];
+        v20 = [itemManager3 displayedSectionIdentifierForSectionIndex:section - 2];
 
-        v23 = [(HUQuickControlGridLayoutManager *)self _mostImportantItemTypeForSection:v17];
-        v24 = [(HUQuickControlGridLayoutManager *)self _mostImportantItemTypeForSection:v21];
-        if ([v19 hasSuffix:@"supplementary"] && objc_msgSend(v22, "hasSuffix:", @"grid") && v23 == 3 && v24 == 2)
+        v21 = objc_msgSend__mostImportantItemTypeForSection_(self);
+        v22 = objc_msgSend__mostImportantItemTypeForSection_(self);
+        if ([v18 hasSuffix:@"supplementary"] && objc_msgSend(v20, "hasSuffix:", @"grid") && v21 == 3 && v22 == 2)
         {
           [v7 thermostatSectionSpacingOverride];
-          v9 = v25;
+          v9 = v23;
         }
       }
     }
@@ -454,7 +452,7 @@ LABEL_10:
 
   if ([v9 hasSuffix:@"grid"])
   {
-    v10 = [(HUQuickControlGridLayoutManager *)self _mostImportantItemTypeForSection:section];
+    v10 = objc_msgSend__mostImportantItemTypeForSection_(self);
     v11 = 2;
     if (v7 < 2)
     {
@@ -493,7 +491,7 @@ LABEL_10:
 
   else
   {
-    v13 = [(HUQuickControlGridLayoutManager *)self _mostImportantItemTypeForSection:section]- 3;
+    v13 = objc_msgSend__mostImportantItemTypeForSection_(self) - 3;
     v14 = 3;
     if (v7 < 3)
     {

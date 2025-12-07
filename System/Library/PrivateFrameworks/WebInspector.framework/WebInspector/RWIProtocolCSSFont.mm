@@ -5,6 +5,8 @@
 - (NSString)displayName;
 - (RWIProtocolCSSFont)initWithDisplayName:(id)name variationAxes:(id)axes;
 - (void)setDisplayName:(id)name;
+- (void)setSynthesizedBold:(BOOL)bold;
+- (void)setSynthesizedOblique:(BOOL)oblique;
 - (void)setVariationAxes:(id)axes;
 @end
 
@@ -12,12 +14,12 @@
 
 - (RWIProtocolCSSFont)initWithDisplayName:(id)name variationAxes:(id)axes
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   axesCopy = axes;
-  v26.receiver = self;
-  v26.super_class = RWIProtocolCSSFont;
-  v6 = [(RWIProtocolJSONObject *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = RWIProtocolCSSFont;
+  v6 = [(RWIProtocolJSONObject *)&v25 init];
   if (v6)
   {
     if (!nameCopy)
@@ -30,28 +32,28 @@
       [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE660] format:{@"required property '%@' cannot be nil", @"variationAxes"}];
     }
 
-    v19 = v6;
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
+    v18 = v6;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v7 = axesCopy;
-    v8 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v8)
     {
-      v9 = *v23;
+      v9 = *v22;
       v10 = *MEMORY[0x277CBE660];
       do
       {
         v11 = 0;
         do
         {
-          if (*v23 != v9)
+          if (*v22 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v12 = *(*(&v22 + 1) + 8 * v11);
+          v12 = *(*(&v21 + 1) + 8 * v11);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -65,19 +67,18 @@
         }
 
         while (v8 != v11);
-        v8 = [v7 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
       while (v8);
     }
 
-    v6 = v19;
-    [(RWIProtocolCSSFont *)v19 setDisplayName:nameCopy];
-    [(RWIProtocolCSSFont *)v19 setVariationAxes:v7];
-    v16 = v19;
+    v6 = v18;
+    [(RWIProtocolCSSFont *)v18 setDisplayName:nameCopy];
+    [(RWIProtocolCSSFont *)v18 setVariationAxes:v7];
+    v16 = v18;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -99,27 +100,27 @@
 
 - (void)setVariationAxes:(id)axes
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   obj = axes;
-  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v3)
   {
-    v4 = *v18;
+    v4 = *v17;
     v5 = *MEMORY[0x277CBE660];
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v18 != v4)
+        if (*v17 != v4)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -130,18 +131,18 @@
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v3 = [obj countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v3);
   }
 
-  Inspector::toJSONObjectArray(obj, &v16);
-  v15.receiver = self;
-  v15.super_class = RWIProtocolCSSFont;
-  [(RWIProtocolJSONObject *)&v15 setJSONArray:&v16 forKey:@"variationAxes"];
-  v11 = v16;
-  v16 = 0;
+  Inspector::toJSONObjectArray(obj, &v15);
+  v14.receiver = self;
+  v14.super_class = RWIProtocolCSSFont;
+  [(RWIProtocolJSONObject *)&v14 setJSONArray:&v15 forKey:@"variationAxes"];
+  v11 = v15;
+  v15 = 0;
   if (v11)
   {
     if (*v11 == 1)
@@ -154,8 +155,6 @@
       --*v11;
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)variationAxes
@@ -168,11 +167,25 @@
   return v2;
 }
 
+- (void)setSynthesizedBold:(BOOL)bold
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolCSSFont;
+  [(RWIProtocolJSONObject *)&v3 setBool:bold forKey:@"synthesizedBold"];
+}
+
 - (BOOL)synthesizedBold
 {
   v3.receiver = self;
   v3.super_class = RWIProtocolCSSFont;
   return [(RWIProtocolJSONObject *)&v3 BOOLForKey:@"synthesizedBold"];
+}
+
+- (void)setSynthesizedOblique:(BOOL)oblique
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolCSSFont;
+  [(RWIProtocolJSONObject *)&v3 setBool:oblique forKey:@"synthesizedOblique"];
 }
 
 - (BOOL)synthesizedOblique

@@ -9,7 +9,7 @@
 + (id)DSIDForIDSAccount:(id)account
 {
   accountCopy = account;
-  v4 = sub_10002C8C8();
+  v4 = sub_10002C8C8(accountCopy);
   v5 = [v4 DSIDForAccount:accountCopy service:AIDAServiceTypeMessages];
 
   return v5;
@@ -17,7 +17,7 @@
 
 + (id)iMessageAccountInAccountStore
 {
-  v2 = sub_10002C8C8();
+  v2 = sub_10002C8C8(self);
   v3 = [v2 accountForService:AIDAServiceTypeMessages];
 
   return v3;
@@ -25,7 +25,7 @@
 
 + (id)faceTimeAccountInAccountStore
 {
-  v2 = sub_10002C8C8();
+  v2 = sub_10002C8C8(self);
   v3 = [v2 accountForService:AIDAServiceTypeFaceTime];
 
   return v3;

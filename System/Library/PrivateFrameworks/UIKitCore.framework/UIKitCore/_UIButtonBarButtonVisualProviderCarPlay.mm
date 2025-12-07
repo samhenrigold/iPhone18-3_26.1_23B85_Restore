@@ -834,7 +834,7 @@ LABEL_10:
           v20 = *(*(&v40 + 1) + 8 * i);
           v21 = [(_UIButtonBarButtonVisualProviderCarPlay *)self _titleAlternativeForTitle:v20];
           [v21 width];
-          if (v22 < v13 && ([v20 isEqualToString:title] & 1) == 0)
+          if (v22 < v13 && (objc_msgSend_isEqualToString_(v20) & 1) == 0)
           {
             [v8 addObject:v21];
           }

@@ -19,7 +19,7 @@
 void __63__IPGlobalInstallableStateSourceDefaultBehavior_sharedInstance__block_invoke()
 {
   v0 = [IPXPCEventStateUpdateStream alloc];
-  v1 = defaultBehaviorQueue();
+  v1 = defaultBehaviorQueue(v0);
   v8 = [(IPXPCEventStateUpdateStream *)v0 initWithStreamName:@"com.apple.InstallProgress.events" queue:v1];
 
   v2 = [(IPXPCEventStateUpdateStream *)v8 source];
@@ -30,7 +30,7 @@ void __63__IPGlobalInstallableStateSourceDefaultBehavior_sharedInstance__block_i
   }
 
   v4 = MEMORY[0x259C29600](defaultConnectionProvider_provider);
-  v5 = defaultBehaviorQueue();
+  v5 = defaultBehaviorQueue(v4);
   v6 = [(IPGlobalInstallableStateSourceXPCBehavior *)v3 initWithXPCConnectionProvider:v4 stateStreamSource:v2 queue:v5];
   v7 = sharedInstance_shared;
   sharedInstance_shared = v6;

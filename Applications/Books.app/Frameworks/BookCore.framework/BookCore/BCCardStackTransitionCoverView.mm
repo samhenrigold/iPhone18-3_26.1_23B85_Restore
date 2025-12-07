@@ -42,7 +42,7 @@
 
   BCNormalizedInsetsForRects(v6, v8, v10, v12, v6 + v16, v8 + v14, v10 - (v16 + v20), v12 - (v14 + v18));
 
-  v33 = BCRectByUnapplyingNormalizedInsets(v21, v22, v23, v24, v25, v26, v27, v28, bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height, v29, v30, v31, v32);
+  v33 = BCRectByUnapplyingNormalizedInsets(bounds.origin.x, bounds.origin.y, bounds.size.width, bounds.size.height, v29, v30, v31, v32, v21, v22, v23, v24, v25, v26, v27, v28);
   result.size.height = v36;
   result.size.width = v35;
   result.origin.y = v34;

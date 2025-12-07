@@ -114,30 +114,30 @@ LABEL_7:
 
 - (id)applyEffectStack:(id)stack presentationRange:(id *)range toInput:(id)input
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   stackCopy = stack;
   inputCopy = input;
+  v23 = 0u;
+  v24 = 0u;
+  v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v9 = [stackCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v9 = [stackCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
   v10 = inputCopy;
   if (v9)
   {
     v11 = v9;
-    v12 = *v27;
+    v12 = *v24;
     v10 = inputCopy;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v27 != v12)
+        if (*v24 != v12)
         {
           objc_enumerationMutation(stackCopy);
         }
 
-        v14 = *(*(&v26 + 1) + 8 * i);
+        v14 = *(*(&v23 + 1) + 8 * i);
         if (([v14 isNone] & 1) == 0)
         {
           renderEffect = [v14 renderEffect];
@@ -149,34 +149,30 @@ LABEL_7:
             {
               if (v14)
               {
-                v17 = *&range->var0.var3;
-                v20 = *&range->var0.var0;
-                v21 = v17;
-                v22 = *&range->var1.var1;
-                [v14 rangeForPresentationRange:&v20];
+                objc_msgSend_rangeForPresentationRange_(v14, range->var0.var0, *&range->var0.var1, range->var0.var3, range->var1.var0, *&range->var1.var1, range->var1.var3);
               }
 
               else
               {
-                v24 = 0u;
-                v25 = 0u;
-                v23 = 0u;
+                v21 = 0u;
+                v22 = 0u;
+                v20 = 0u;
               }
 
-              v20 = v23;
-              v21 = v24;
-              v22 = v25;
-              [renderEffect2 setEffectRange:&v20];
+              v19[0] = v20;
+              v19[1] = v21;
+              v19[2] = v22;
+              [renderEffect2 setEffectRange:v19];
             }
 
-            v18 = [MEMORY[0x277D41620] newEffectNodeToFilterInput:v10 effect:renderEffect2];
+            v17 = [MEMORY[0x277D41620] newEffectNodeToFilterInput:v10 effect:renderEffect2];
 
-            v10 = v18;
+            v10 = v17;
           }
         }
       }
 
-      v11 = [stackCopy countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v11 = [stackCopy countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v11);
@@ -774,11 +770,11 @@ LABEL_31:
   v6 = nodeCopy;
   if (fabs(scale + -1.0) >= 0.0001)
   {
-    memset(&v10, 0, sizeof(v10));
-    CGAffineTransformMakeScale(&v10, scale, scale);
-    v9 = v10;
-    v7 = [MEMORY[0x277D41658] newTransformNode:v6 transform:&v9];
-    [v7 setIsDebugDrawingEnabled:JFX_isDrawInstructionGraphNodesEnabled()];
+    memset(&v11, 0, sizeof(v11));
+    CGAffineTransformMakeScale(&v11, scale, scale);
+    v10 = v11;
+    v7 = [MEMORY[0x277D41658] newTransformNode:v6 transform:&v10];
+    [v7 setIsDebugDrawingEnabled:{JFX_isDrawInstructionGraphNodesEnabled(v7, v8)}];
   }
 
   else
@@ -792,7 +788,7 @@ LABEL_31:
 + (id)JFX_maskNode:(id)node maskRect:(CGRect)rect basisSize:(CGSize)size
 {
   v5 = [MEMORY[0x277D41640] newMaskNode:node normalizedMaskRect:{rect.origin.x / size.width, rect.origin.y / size.height, rect.size.width / size.width, rect.size.height / size.height}];
-  [v5 setIsDebugDrawingEnabled:JFX_isDrawInstructionGraphNodesEnabled()];
+  [v5 setIsDebugDrawingEnabled:{JFX_isDrawInstructionGraphNodesEnabled(v5, v6)}];
 
   return v5;
 }
@@ -828,7 +824,7 @@ LABEL_31:
       v34 = 0u;
       v35 = 0u;
       v33 = 0u;
-      [(JFXInstructionGraphBuilder *)self JFX_calculateCompositeNodeTransformForCropWithCompositeNodeOutputSize:v22 mediaScale:v24, scale];
+      objc_msgSend_JFX_calculateCompositeNodeTransformForCropWithCompositeNodeOutputSize_mediaScale_(self, v22, v24, scale);
       v32[0] = v33;
       v32[1] = v34;
       v32[2] = v35;

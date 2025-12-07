@@ -64,25 +64,7 @@
     v7 = [v6 stringByAppendingPathComponent:@"Temp"];
     v8 = [v7 stringByAppendingPathComponent:suffixCopy];
 
-    if (!v8)
-    {
-      goto LABEL_6;
-    }
-
-    v9 = +[NSFileManager defaultManager];
-    v10 = [v9 fileExistsAtPath:v8];
-
-    if (v10)
-    {
-      goto LABEL_6;
-    }
-
-    v11 = +[NSFileManager defaultManager];
-    v17 = 0;
-    v12 = [v11 createDirectoryAtPath:v8 withIntermediateDirectories:1 attributes:0 error:&v17];
-    v13 = v17;
-
-    if (!v12 || v13)
+    if (v8 && (+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v9 = objc_claimAutoreleasedReturnValue(), v10 = [v9 fileExistsAtPath:v8], v9, (v10 & 1) == 0) && ((+[NSFileManager defaultManager](NSFileManager, "defaultManager"), v11 = objc_claimAutoreleasedReturnValue(), v17 = 0, v12 = objc_msgSend(v11, "createDirectoryAtPath:withIntermediateDirectories:attributes:error:", v8, 1, 0, &v17), v13 = v17, v11, !v12) || v13))
     {
       v16 = _mo_log_facility_get_os_log(&MOLogFacilityPersistenceManager);
       if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
@@ -95,7 +77,6 @@
 
     else
     {
-LABEL_6:
       v14 = v8;
     }
   }

@@ -14,14 +14,33 @@ void __AirPlayReceiverUI_GetShared_block_invoke()
   *(v0 + 40) = v2;
   if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 50)
   {
-    if (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize())
+    if (gLogCategory_AirPlayReceiverUIXPCServerCore == -1)
     {
-      LogPrintF();
+      if (!_LogCategory_Initialize())
+      {
+LABEL_8:
+        v2 = *(v0 + 40);
+        goto LABEL_9;
+      }
+
+      v2 = *(v0 + 40);
     }
 
-    v2 = *(v0 + 40);
+    if (v2)
+    {
+      v3 = "S";
+    }
+
+    else
+    {
+      v3 = "Not s";
+    }
+
+    LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "AirPlayReceiverUIRef _AirPlayReceiverUI_Create(void)", 33554482, "%starting AirPlayReceiverUI server\n", v3);
+    goto LABEL_8;
   }
 
+LABEL_9:
   if (v2)
   {
     if (!v0[2])
@@ -37,14 +56,14 @@ void __AirPlayReceiverUI_GetShared_block_invoke()
       xpc_connection_resume(v0[2]);
       if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 30 && (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "OSStatus _AirPlayReceiverUI_StartServer(AirPlayReceiverUIRef)", 33554462, "Started\n");
       }
     }
   }
 
   if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 30 && (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "AirPlayReceiverUIRef _AirPlayReceiverUI_Create(void)", 33554462, "Created   %p\n", v0);
   }
 
   AirPlayReceiverUI_GetShared_ui = v0;
@@ -55,30 +74,28 @@ void ___AirPlayReceiverUI_StartServer_block_invoke(uint64_t a1, void *a2)
   v3 = *(a1 + 32);
   if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 10 && (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "void _AirPlayReceiverUI_XPCListenerEventHandler(AirPlayReceiverUIRef, xpc_object_t)", 33554442, "Event\n%1{xpc}\n", a2);
   }
 
-  if (!*(v3 + 16))
+  if (*(v3 + 16))
   {
-    APSLogErrorAt();
-    if (gLogCategory_AirPlayReceiverUIXPCServerCore > 90 || gLogCategory_AirPlayReceiverUIXPCServerCore == -1 && !_LogCategory_Initialize())
+    v4 = MEMORY[0x23EF1BE90](a2);
+    if (v4 != MEMORY[0x277D86450])
     {
-      return;
-    }
-
-    goto LABEL_25;
-  }
-
-  v4 = MEMORY[0x23EF1BE90](a2);
-  if (v4 != MEMORY[0x277D86450])
-  {
-    if (v4 != MEMORY[0x277D86480])
-    {
-      if (a2 == MEMORY[0x277D863F0] || a2 == MEMORY[0x277D863F8])
+      if (v4 == MEMORY[0x277D86480])
       {
         if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 60 && (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize()))
         {
-          LogPrintF();
+          xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
+          LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "void _AirPlayReceiverUI_XPCListenerEventHandler(AirPlayReceiverUIRef, xpc_object_t)", 33554492, "### XPC listener error event: %s\n");
+        }
+      }
+
+      else if (a2 == MEMORY[0x277D863F0] || a2 == MEMORY[0x277D863F8])
+      {
+        if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 60 && (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize()))
+        {
+          LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "void _AirPlayReceiverUI_XPCListenerEventHandler(AirPlayReceiverUIRef, xpc_object_t)", 33554492, "### Client unloaded or crashed\n");
         }
 
         xpc_connection_cancel(*(v3 + 32));
@@ -91,54 +108,63 @@ void ___AirPlayReceiverUI_StartServer_block_invoke(uint64_t a1, void *a2)
       return;
     }
 
-    if (gLogCategory_AirPlayReceiverUIXPCServerCore > 60 || gLogCategory_AirPlayReceiverUIXPCServerCore == -1 && !_LogCategory_Initialize())
+    v5 = *(v3 + 32);
+    if (!v5)
     {
-      return;
+      goto LABEL_23;
     }
 
-    xpc_dictionary_get_string(a2, *MEMORY[0x277D86400]);
-LABEL_25:
-    LogPrintF();
-    return;
-  }
-
-  v5 = *(v3 + 32);
-  if (v5)
-  {
     if (gLogCategory_AirPlayReceiverUIXPCServerCore > 90)
     {
       goto LABEL_22;
     }
 
-    if (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize())
+    if (gLogCategory_AirPlayReceiverUIXPCServerCore == -1)
     {
-      LogPrintF();
+      if (!_LogCategory_Initialize())
+      {
+LABEL_21:
+        v5 = *(v3 + 32);
+        if (!v5)
+        {
+LABEL_23:
+          xpc_retain(a2);
+          *(v3 + 32) = a2;
+          xpc_connection_set_target_queue(a2, *v3);
+          handler[0] = MEMORY[0x277D85DD0];
+          handler[1] = 3221225472;
+          handler[2] = ___AirPlayReceiverUI_XPCListenerEventHandler_block_invoke;
+          handler[3] = &__block_descriptor_40_e33_v16__0__NSObject_OS_xpc_object__8l;
+          handler[4] = v3;
+          xpc_connection_set_event_handler(a2, handler);
+          xpc_connection_resume(a2);
+          *(v3 + 24) = 1;
+          if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 40 && (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize()))
+          {
+            LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "void _AirPlayReceiverUI_XPCListenerEventHandler(AirPlayReceiverUIRef, xpc_object_t)", 33554472, "XPC connection started\n", v6);
+          }
+
+          return;
+        }
+
+LABEL_22:
+        xpc_connection_cancel(v5);
+        xpc_release(v5);
+        *(v3 + 32) = 0;
+        goto LABEL_23;
+      }
+
+      v5 = *(v3 + 32);
     }
 
-    v5 = *(v3 + 32);
-    if (v5)
-    {
-LABEL_22:
-      xpc_connection_cancel(v5);
-      xpc_release(v5);
-      *(v3 + 32) = 0;
-    }
+    LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "void _AirPlayReceiverUI_XPCListenerEventHandler(AirPlayReceiverUIRef, xpc_object_t)", 33554522, "### XPC Connection is not NULL (%p)", v5);
+    goto LABEL_21;
   }
 
-  xpc_retain(a2);
-  *(v3 + 32) = a2;
-  xpc_connection_set_target_queue(a2, *v3);
-  handler[0] = MEMORY[0x277D85DD0];
-  handler[1] = 3221225472;
-  handler[2] = ___AirPlayReceiverUI_XPCListenerEventHandler_block_invoke;
-  handler[3] = &__block_descriptor_40_e33_v16__0__NSObject_OS_xpc_object__8l;
-  handler[4] = v3;
-  xpc_connection_set_event_handler(a2, handler);
-  xpc_connection_resume(a2);
-  *(v3 + 24) = 1;
-  if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 40 && (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize()))
+  APSLogErrorAt();
+  if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 90 && (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize()))
   {
-    goto LABEL_25;
+    LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "void _AirPlayReceiverUI_XPCListenerEventHandler(AirPlayReceiverUIRef, xpc_object_t)", 33554522, "### Listener connection is NULL\n%1{xpc}\n", a2);
   }
 }
 
@@ -147,8 +173,7 @@ void ___AirPlayReceiverUI_XPCListenerEventHandler_block_invoke(uint64_t a1, void
   v3 = *(a1 + 32);
   if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 10 && (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize()))
   {
-    v13 = a2;
-    LogPrintF();
+    LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "void _AirPlayReceiverUI_XPCEventHandler(AirPlayReceiverUIRef, xpc_object_t)", 33554442, "Event\n%1{xpc}\n", a2);
   }
 
   if (!*(v3 + 32))
@@ -160,7 +185,7 @@ void ___AirPlayReceiverUI_XPCListenerEventHandler_block_invoke(uint64_t a1, void
   {
     if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 60 && (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "void _AirPlayReceiverUI_XPCEventHandler(AirPlayReceiverUIRef, xpc_object_t)", 33554492, "### Server process crashed\n");
     }
 
     goto LABEL_49;
@@ -170,7 +195,7 @@ void ___AirPlayReceiverUI_XPCListenerEventHandler_block_invoke(uint64_t a1, void
   {
     if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 60 && (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "void _AirPlayReceiverUI_XPCEventHandler(AirPlayReceiverUIRef, xpc_object_t)", 33554492, "### Server unloaded\n");
     }
 
     xpc_connection_cancel(*(v3 + 32));
@@ -187,7 +212,7 @@ LABEL_49:
     APSLogErrorAt();
     if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 90 && (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize()))
     {
-      goto LABEL_41;
+      LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "void _AirPlayReceiverUI_XPCEventHandler(AirPlayReceiverUIRef, xpc_object_t)", 33554522, "### Bad XPC event\n%1{xpc}\n", a2);
     }
 
     return;
@@ -207,15 +232,13 @@ LABEL_49:
     {
       if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 10 && (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize()))
       {
-        goto LABEL_41;
+        LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "void _AirPlayReceiverUI_XPCEventHandler(AirPlayReceiverUIRef, xpc_object_t)", 33554442, "Ping message received %p");
       }
     }
 
     else if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 60 && (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize()))
     {
-LABEL_41:
-      LogPrintF();
-      return;
+      LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "void _AirPlayReceiverUI_XPCEventHandler(AirPlayReceiverUIRef, xpc_object_t)", 33554492, "### Unknown receiver UI function: %s\n");
     }
 
     return;
@@ -224,10 +247,7 @@ LABEL_41:
   v6 = xpc_dictionary_get_string(a2, "eventType");
   if (!strcmp(v6, "ended"))
   {
-LABEL_42:
-
-    _AirPlayReceiverUI_HandleStateEvent(a2);
-    return;
+    goto LABEL_42;
   }
 
   if (!strcmp(v6, "error"))
@@ -280,7 +300,7 @@ LABEL_87:
   if (!strcmp(v6, "failedURLRequest"))
   {
 
-    _AirPlayReceiverUI_HandleFailedURLRequest();
+    _AirPlayReceiverUI_HandleFailedURLRequest(a2);
     return;
   }
 
@@ -292,7 +312,7 @@ LABEL_87:
   if (!strcmp(v6, "metaDataChanged"))
   {
 
-    _AirPlayReceiverUI_HandleMetaDataEvent();
+    _AirPlayReceiverUI_HandleMetaDataEvent(a2);
     return;
   }
 
@@ -304,32 +324,36 @@ LABEL_87:
   if (!strcmp(v6, "stopAudio"))
   {
 
-    _AirPlayReceiverUI_HandleAudioStop(v3);
+    _AirPlayReceiverUI_HandleAudioStop(v3, a2);
     return;
   }
 
   if (!strcmp(v6, "stopped"))
   {
-    goto LABEL_42;
+LABEL_42:
+
+    _AirPlayReceiverUI_HandleStateEvent(a2);
+    return;
   }
 
   if (strcmp_prefix())
   {
-    if (strcmp(v6, "currentItemChanged"))
+    if (!strcmp(v6, "currentItemChanged"))
     {
-      if (!strcmp(v6, "dateRange"))
-      {
+LABEL_73:
 
-        _AirPlayReceiverUI_HandleDateRangeEvent();
-        return;
-      }
+      _AirPlayReceiverUI_HandlePlaylistEvent(a2);
+      return;
+    }
 
+    if (strcmp(v6, "dateRange"))
+    {
       if (strcmp(v6, "itemPlayedToEnd") && strcmp(v6, "itemRemoved"))
       {
         if (!strcmp(v6, "fpsSecureStopGenerated"))
         {
 
-          _AirPlayReceiverUI_HandleFPSSecureStopGenerated();
+          _AirPlayReceiverUI_HandleFPSSecureStopGenerated(a2);
         }
 
         else
@@ -340,83 +364,108 @@ LABEL_87:
 
         return;
       }
+
+      goto LABEL_73;
     }
 
-    _AirPlayReceiverUI_HandlePlaylistEvent(a2);
-    return;
+    _AirPlayReceiverUI_HandleDateRangeEvent(a2);
   }
 
-  _AirPlayReceiverUI_HandleUserEvent(a2);
+  else
+  {
+
+    _AirPlayReceiverUI_HandleUserEvent(a2);
+  }
 }
 
 void ___AirPlayReceiverUI_HandleServerReset_block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = *(v2 + 128);
-  if (!*(v2 + 112))
+  v3 = *(v2 + 112);
+  v4 = *(v2 + 128);
+  if (v3)
   {
-    if (!v3)
+    if (!v4)
     {
-      if (!*(v2 + 160))
+LABEL_12:
+      if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 50)
       {
-        goto LABEL_29;
-      }
+        if (gLogCategory_AirPlayReceiverUIXPCServerCore == -1)
+        {
+          v6 = _LogCategory_Initialize();
+          v2 = *(a1 + 32);
+          if (!v6)
+          {
+            goto LABEL_16;
+          }
 
-      goto LABEL_17;
-    }
+          v3 = *(v2 + 112);
+        }
 
-LABEL_5:
-    if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 50)
-    {
-      if (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || (v4 = _LogCategory_Initialize(), v2 = *(a1 + 32), v4))
-      {
-        LogPrintF();
+        LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "void _AirPlayReceiverUI_HandleServerReset(AirPlayReceiverUIRef)_block_invoke", 33554482, "Stopped audio session %u, device 0x%llx because presentation server died.\n", v3, *(v2 + 104));
         v2 = *(a1 + 32);
       }
-    }
 
-    _AirPlayReceiverUI_CleanupPresentation(v2, 0, 0);
-    v2 = *(a1 + 32);
-    if (!*(v2 + 112))
-    {
+LABEL_16:
+      *(v2 + 104) = 0;
+      *(v2 + 112) = 0;
       goto LABEL_17;
     }
+  }
 
+  else if (!v4)
+  {
+    if (!*(v2 + 160))
+    {
+      goto LABEL_29;
+    }
+
+    goto LABEL_17;
+  }
+
+  if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 50)
+  {
+    if (gLogCategory_AirPlayReceiverUIXPCServerCore != -1)
+    {
+LABEL_7:
+      LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "void _AirPlayReceiverUI_HandleServerReset(AirPlayReceiverUIRef)_block_invoke", 33554482, "Stopped presentation session %u, device 0x%llx because presentation server died.\n", v4, v4);
+      v2 = *(a1 + 32);
+      goto LABEL_11;
+    }
+
+    v5 = _LogCategory_Initialize();
+    v2 = *(a1 + 32);
+    if (v5)
+    {
+      v4 = *(v2 + 128);
+      goto LABEL_7;
+    }
+  }
+
+LABEL_11:
+  _AirPlayReceiverUI_CleanupPresentation(v2, 0, 0);
+  v2 = *(a1 + 32);
+  v3 = *(v2 + 112);
+  if (v3)
+  {
     goto LABEL_12;
   }
 
-  if (v3)
-  {
-    goto LABEL_5;
-  }
-
-LABEL_12:
-  if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 50)
-  {
-    if (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || (v5 = _LogCategory_Initialize(), v2 = *(a1 + 32), v5))
-    {
-      LogPrintF();
-      v2 = *(a1 + 32);
-    }
-  }
-
-  *(v2 + 104) = 0;
-  *(v2 + 112) = 0;
 LABEL_17:
   if (*(v2 + 160))
   {
     if (*(v2 + 176))
     {
-      v6 = *(v2 + 48);
-      if (v6)
+      v7 = *(v2 + 48);
+      if (v7)
       {
         do
         {
-          (v6[2])("stopPlayingOverP2P", 0, v6[3]);
-          v6 = *v6;
+          (v7[2])("stopPlayingOverP2P", 0, v7[3]);
+          v7 = *v7;
         }
 
-        while (v6);
+        while (v7);
         v2 = *(a1 + 32);
       }
 
@@ -425,9 +474,9 @@ LABEL_17:
 
     if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 50)
     {
-      if (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || (v7 = _LogCategory_Initialize(), v2 = *(a1 + 32), v7))
+      if (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || (v8 = _LogCategory_Initialize(), v2 = *(a1 + 32), v8))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "void _AirPlayReceiverUI_HandleServerReset(AirPlayReceiverUIRef)_block_invoke", 33554482, "Stopped video session %u, device 0x%llx because presentation server died.\n", *(v2 + 160), *(v2 + 152));
         v2 = *(a1 + 32);
       }
     }
@@ -442,22 +491,22 @@ LABEL_17:
   _AirPlayReceiverUI_ActiveSessionsStopped(v2);
   v2 = *(a1 + 32);
 LABEL_29:
-  v8 = *(v2 + 48);
-  if (v8)
+  v9 = *(v2 + 48);
+  if (v9)
   {
     do
     {
-      (v8[2])("serverDied", 0, v8[3]);
-      v8 = *v8;
+      (v9[2])("serverDied", 0, v9[3]);
+      v9 = *v9;
     }
 
-    while (v8);
+    while (v9);
     v2 = *(a1 + 32);
   }
 
-  v9 = *v2;
+  v10 = *v2;
 
-  dispatch_release(v9);
+  dispatch_release(v10);
 }
 
 void ___AirPlayReceiverUI_SendMessageWithReplySync_block_invoke(void *a1)
@@ -471,7 +520,7 @@ void ___AirPlayReceiverUI_SendMessageWithReplySync_block_invoke(void *a1)
   {
     if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 50 && (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "OSStatus _AirPlayReceiverUI_SendMessageWithReplySync(AirPlayReceiverUIRef, xpc_object_t, xpc_object_t *)_block_invoke", 33554482, "### Could not post message, no connection: \n%1{xpc}\n", a1[4]);
     }
 
     v2 = a1[5];
@@ -483,7 +532,7 @@ void ___AirPlayReceiverUI_SendMessageWithReplySync_block_invoke(void *a1)
   {
     if (gLogCategory_AirPlayReceiverUIXPCServerCore <= 30 && (gLogCategory_AirPlayReceiverUIXPCServerCore != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_AirPlayReceiverUIXPCServerCore, "OSStatus _AirPlayReceiverUI_SendMessageWithReplySync(AirPlayReceiverUIRef, xpc_object_t, xpc_object_t *)_block_invoke", 33554462, "Posting message");
     }
 
     v3 = a1[8];
@@ -620,7 +669,7 @@ void ___AirPlayReceiverUI_HandleUserEvent_block_invoke(uint64_t a1)
 
 void ___AirPlayReceiverUI_HandleAudioStop_block_invoke(uint64_t a1)
 {
-  _AirPlayReceiverUI_NotifyObserversF(*(a1 + 32), "stopAudio", "{%kO=%i}");
+  _AirPlayReceiverUI_NotifyObserversF(*(a1 + 32), "stopAudio", "{%kO=%i}", @"sessionID", *(a1 + 40));
   v2 = **(a1 + 32);
 
   dispatch_release(v2);

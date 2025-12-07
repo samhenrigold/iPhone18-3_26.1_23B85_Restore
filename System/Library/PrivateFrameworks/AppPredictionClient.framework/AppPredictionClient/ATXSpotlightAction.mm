@@ -113,7 +113,7 @@ LABEL_7:
   coderCopy = coder;
   v5 = MEMORY[0x1E69C5D78];
   v6 = objc_opt_class();
-  v7 = __atxlog_handle_default();
+  v7 = __atxlog_handle_default(v6);
   v8 = [v5 robustDecodeObjectOfClass:v6 forKey:@"KEY_TOPIC" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXSpotlightAction" errorCode:-1 logHandle:v7];
 
   error = [coderCopy error];
@@ -123,7 +123,7 @@ LABEL_7:
   {
     v11 = MEMORY[0x1E69C5D78];
     v12 = objc_opt_class();
-    v13 = __atxlog_handle_default();
+    v13 = __atxlog_handle_default(v12);
     v14 = [v11 robustDecodeObjectOfClass:v12 forKey:@"KEY_ACTION_DESCRIPTION" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXSpotlightAction" errorCode:-1 logHandle:v13];
 
     error2 = [coderCopy error];
@@ -133,7 +133,7 @@ LABEL_7:
     {
       v16 = MEMORY[0x1E69C5D78];
       v17 = objc_opt_class();
-      v18 = __atxlog_handle_default();
+      v18 = __atxlog_handle_default(v17);
       v19 = [v16 robustDecodeObjectOfClass:v17 forKey:@"KEY_ACTION_IDENTIFIER" withCoder:coderCopy expectNonNull:1 errorDomain:@"com.apple.duetexpertd.ATXSpotlightAction" errorCode:-1 logHandle:v18];
 
       error3 = [coderCopy error];
@@ -143,7 +143,7 @@ LABEL_7:
       {
         v21 = MEMORY[0x1E69C5D78];
         v22 = objc_opt_class();
-        v23 = __atxlog_handle_default();
+        v23 = __atxlog_handle_default(v22);
         v24 = [v21 robustDecodeObjectOfClass:v22 forKey:@"KEY_ACTION_CRITERIA" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.duetexpertd.ATXSpotlightAction" errorCode:-1 logHandle:v23];
 
         error4 = [coderCopy error];
@@ -310,12 +310,13 @@ LABEL_14:
 {
   locationCopy = location;
   criteriaCopy = criteria;
+  v12 = criteriaCopy;
   if (latitude == 0.0 || longitude == 0.0)
   {
-    v18 = __atxlog_handle_default();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v19 = __atxlog_handle_default(criteriaCopy);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      [ATXSpotlightAction initWithWeatherLocation:v18 latitude:latitude longitude:longitude criteria:?];
+      [ATXSpotlightAction initWithWeatherLocation:v19 latitude:latitude longitude:longitude criteria:?];
     }
 
     selfCopy = 0;
@@ -323,15 +324,15 @@ LABEL_14:
 
   else
   {
-    v12 = objc_alloc_init(MEMORY[0x1E69CA190]);
-    [v12 setLat:latitude];
-    [v12 setLng:longitude];
-    v13 = [objc_alloc(MEMORY[0x1E69CA5C0]) initWithQuery:locationCopy location:v12];
-    v14 = locationCopy;
-    v15 = [objc_opt_class() actionIdentifierFromTopic:v13];
-    v16 = [(ATXSpotlightAction *)self initWithTopic:v13 criteria:criteriaCopy actionDescription:v14 actionIdentifier:v15];
+    v13 = objc_alloc_init(MEMORY[0x1E69CA190]);
+    [v13 setLat:latitude];
+    [v13 setLng:longitude];
+    v14 = [objc_alloc(MEMORY[0x1E69CA5C0]) initWithQuery:locationCopy location:v13];
+    v15 = locationCopy;
+    v16 = [objc_opt_class() actionIdentifierFromTopic:v14];
+    v17 = [(ATXSpotlightAction *)self initWithTopic:v14 criteria:v12 actionDescription:v15 actionIdentifier:v16];
 
-    self = v16;
+    self = v17;
     selfCopy = self;
   }
 
@@ -444,19 +445,20 @@ LABEL_14:
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = __atxlog_handle_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = __atxlog_handle_default(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        +[ATXSpotlightAction spotlightActionTypeFromTopic:];
+        [ATXSpotlightAction spotlightActionTypeFromTopic:topicCopy];
       }
 
       goto LABEL_21;
     }
 
-    v5 = topicCopy;
-    queryType = [v5 queryType];
+    v6 = topicCopy;
+    queryType = [v6 queryType];
     if (queryType > 4)
     {
       if ((queryType - 7) >= 2)
@@ -476,10 +478,10 @@ LABEL_22:
         }
 
 LABEL_26:
-        v7 = __atxlog_handle_default();
-        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        v8 = __atxlog_handle_default(queryType);
+        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          [ATXSpotlightAction spotlightActionTypeFromTopic:v5];
+          [ATXSpotlightAction spotlightActionTypeFromTopic:v6];
         }
 
         goto LABEL_20;
@@ -521,10 +523,10 @@ LABEL_26:
     }
 
 LABEL_18:
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_default(queryType);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [ATXSpotlightAction spotlightActionTypeFromTopic:v5];
+      [ATXSpotlightAction spotlightActionTypeFromTopic:v6];
     }
 
 LABEL_20:
@@ -637,12 +639,12 @@ LABEL_23:
   _os_log_error_impl(&dword_1BF549000, log, OS_LOG_TYPE_ERROR, "ATXSpotlightAction Weather: received 0 lat or long. %f, %f", &v3, 0x16u);
 }
 
-+ (void)spotlightActionTypeFromTopic:.cold.1()
++ (void)spotlightActionTypeFromTopic:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_2();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 + (void)spotlightActionTypeFromTopic:(void *)a1 .cold.2(void *a1)

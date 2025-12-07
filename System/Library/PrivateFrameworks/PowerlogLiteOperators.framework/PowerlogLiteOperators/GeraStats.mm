@@ -135,7 +135,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    duration = self->_duration;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -155,7 +154,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  sleepDuration = self->_sleepDuration;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -170,12 +168,10 @@ LABEL_4:
   }
 
 LABEL_11:
-  sleepCycleCount = self->_sleepCycleCount;
   PBDataWriterWriteUint32Field();
   if (*&self->_has)
   {
 LABEL_5:
-    startTime = self->_startTime;
     PBDataWriterWriteUint64Field();
   }
 

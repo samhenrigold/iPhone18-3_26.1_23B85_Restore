@@ -162,7 +162,7 @@ void __83__SBSystemAperturePlatformElementHost_requestUrgentAndImportantPriority
   if (!v10)
   {
     v9 = objc_alloc_init(MEMORY[0x277D6B898]);
-    v11 = SBLogSystemApertureController();
+    v11 = SBLogSystemApertureController(v9);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = MEMORY[0x223D6CED0](WeakRetained);
@@ -273,7 +273,7 @@ void __87__SBSystemAperturePlatformElementHost__urgencyAssertionWithReason_creat
 
 void __82__SBSystemAperturePlatformElementHost_requestRequiredPriorityAssertionWithReason___block_invoke(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
   v5 = WeakRetained;
@@ -283,23 +283,23 @@ void __82__SBSystemAperturePlatformElementHost_requestRequiredPriorityAssertionW
 
     if (v6 == v3)
     {
-      v7 = SBLogSystemApertureController();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = SBLogSystemApertureController(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = *(a1 + 32);
-        v9 = MEMORY[0x223D6CED0](*(a1 + 40));
-        v11 = 138543874;
-        v12 = v3;
-        v13 = 2114;
-        v14 = v8;
-        v15 = 2114;
-        v16 = v9;
-        _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "Invalidating required priority assertion (%{public}@) with reason '%{public}@' for element: %{public}@", &v11, 0x20u);
+        v9 = *(a1 + 32);
+        v10 = MEMORY[0x223D6CED0](*(a1 + 40));
+        v12 = 138543874;
+        v13 = v3;
+        v14 = 2114;
+        v15 = v9;
+        v16 = 2114;
+        v17 = v10;
+        _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "Invalidating required priority assertion (%{public}@) with reason '%{public}@' for element: %{public}@", &v12, 0x20u);
       }
 
       objc_storeWeak(v5 + 6, 0);
-      v10 = objc_loadWeakRetained((*(a1 + 48) + 32));
-      [v10 invalidateElementUrgencyPreferences];
+      v11 = objc_loadWeakRetained((*(a1 + 48) + 32));
+      [v11 invalidateElementUrgencyPreferences];
     }
   }
 }
@@ -326,7 +326,7 @@ void __82__SBSystemAperturePlatformElementHost_requestRequiredPriorityAssertionW
   if (!v10)
   {
     v9 = objc_alloc_init(MEMORY[0x277D6B898]);
-    v11 = SBLogSystemApertureController();
+    v11 = SBLogSystemApertureController(v9);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       v12 = MEMORY[0x223D6CED0](WeakRetained);

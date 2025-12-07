@@ -33,7 +33,7 @@
         goto LABEL_7;
       }
 
-      v11 = ARCreateNonFixedPriorityDispatchQueue("com.apple.arkit.technique.faceTracking");
+      v11 = ARCreateNonFixedPriorityDispatchQueue("com.apple.arkit.technique.faceTracking", 33, 4294967285);
       processDataQueue = v8->_processDataQueue;
       v8->_processDataQueue = v11;
 
@@ -123,7 +123,7 @@ intptr_t __75__ARFaceTrackingInternalTechnique__enqueueImageForFaceTrackingNonBl
   v5 = [(ARFaceTrackingManager *)self->_faceTrackingManger processData:backgoundCopy];
   v7[0] = v5;
   v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
-  [backgoundCopy timestamp];
+  objc_msgSend_timestamp(backgoundCopy);
   [(ARImageBasedTechnique *)self pushResultData:v6 forTimestamp:?];
 }
 

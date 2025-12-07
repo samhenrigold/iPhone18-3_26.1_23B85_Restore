@@ -716,38 +716,38 @@ LABEL_3:
 
 id __64__SFStartPageCollectionViewController__makeCollectionViewLayout__block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v20[1] = *MEMORY[0x1E69E9840];
   v5 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v7 = WeakRetained;
+  v8 = WeakRetained;
   if (WeakRetained)
   {
-    v8 = [WeakRetained _layoutForSectionAtIndex:a2 inEnvironment:v5];
+    v9 = [WeakRetained _layoutForSectionAtIndex:a2 inEnvironment:v5];
   }
 
   else
   {
-    v9 = WBS_LOG_CHANNEL_PREFIXStartPage();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = WBS_LOG_CHANNEL_PREFIXStartPage(0, v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      __64__SFStartPageCollectionViewController__makeCollectionViewLayout__block_invoke_cold_1(v9);
+      __64__SFStartPageCollectionViewController__makeCollectionViewLayout__block_invoke_cold_1(v10);
     }
 
-    v10 = MEMORY[0x1E6995588];
-    v11 = [MEMORY[0x1E6995558] fractionalWidthDimension:1.0];
-    v12 = [MEMORY[0x1E6995558] estimatedDimension:100.0];
-    v13 = [v10 sizeWithWidthDimension:v11 heightDimension:v12];
+    v11 = MEMORY[0x1E6995588];
+    v12 = [MEMORY[0x1E6995558] fractionalWidthDimension:1.0];
+    v13 = [MEMORY[0x1E6995558] estimatedDimension:100.0];
+    v14 = [v11 sizeWithWidthDimension:v12 heightDimension:v13];
 
-    v14 = [MEMORY[0x1E6995578] itemWithLayoutSize:v13];
-    v15 = MEMORY[0x1E6995568];
-    v19[0] = v14;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:1];
-    v17 = [v15 horizontalGroupWithLayoutSize:v13 subitems:v16];
+    v15 = [MEMORY[0x1E6995578] itemWithLayoutSize:v14];
+    v16 = MEMORY[0x1E6995568];
+    v20[0] = v15;
+    v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:1];
+    v18 = [v16 horizontalGroupWithLayoutSize:v14 subitems:v17];
 
-    v8 = [MEMORY[0x1E6995580] sectionWithGroup:v17];
+    v9 = [MEMORY[0x1E6995580] sectionWithGroup:v18];
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)sections
@@ -1142,17 +1142,18 @@ uint64_t __83__SFStartPageCollectionViewController_viewDidMoveToWindow_shouldApp
   _appearState = [(SFStartPageCollectionViewController *)self _appearState];
   if (!self->_isPresentingContextMenu && (v6 = _appearState, -[SFStartPageCollectionViewController viewIfLoaded](self, "viewIfLoaded"), v7 = objc_claimAutoreleasedReturnValue(), [v7 window], v8 = objc_claimAutoreleasedReturnValue(), v8, v7, v8) && v6)
   {
-    if (([MEMORY[0x1E696AF00] isMainThread] & 1) == 0)
+    isMainThread = [MEMORY[0x1E696AF00] isMainThread];
+    if ((isMainThread & 1) == 0)
     {
-      v9 = WBS_LOG_CHANNEL_PREFIXStartPage();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v11 = WBS_LOG_CHANNEL_PREFIXStartPage(isMainThread, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
       {
-        [SFStartPageCollectionViewController reloadDataAnimatingDifferences:v9];
+        [SFStartPageCollectionViewController reloadDataAnimatingDifferences:v11];
       }
     }
 
-    v10 = v6 == 2 && differencesCopy;
-    [(SFStartPageCollectionViewController *)self _applyCurrentSnapshotAnimatingDifferences:v10];
+    v12 = v6 == 2 && differencesCopy;
+    [(SFStartPageCollectionViewController *)self _applyCurrentSnapshotAnimatingDifferences:v12];
   }
 
   else
@@ -1749,12 +1750,12 @@ LABEL_31:
   {
     if ((contentVariant - 4) < 2)
     {
-      v10 = off_1E7218CD8;
+      v12 = off_1E7218CD8;
     }
 
     else if (contentVariant == 3)
     {
-      v10 = off_1E7218CE0;
+      v12 = off_1E7218CE0;
     }
 
     else
@@ -1764,7 +1765,7 @@ LABEL_31:
         goto LABEL_29;
       }
 
-      v10 = off_1E7218AE0;
+      v12 = off_1E7218AE0;
     }
   }
 
@@ -1774,14 +1775,15 @@ LABEL_31:
     {
       if (contentVariant == 2)
       {
-        if ([MEMORY[0x1E69C8880] is2024PrivacyReportEnabled] && _SFDeviceIsPad() && !objc_msgSend(contentBanner, "isPrivateBrowsingEnabled"))
+        is2024PrivacyReportEnabled = [MEMORY[0x1E69C8880] is2024PrivacyReportEnabled];
+        if (is2024PrivacyReportEnabled && _SFDeviceIsPad(is2024PrivacyReportEnabled, v11) && ![contentBanner isPrivateBrowsingEnabled])
         {
-          v10 = off_1E7218CC0;
+          v12 = off_1E7218CC0;
         }
 
         else
         {
-          v10 = off_1E7218CC8;
+          v12 = off_1E7218CC8;
         }
 
         goto LABEL_36;
@@ -1792,16 +1794,16 @@ LABEL_29:
       goto LABEL_30;
     }
 
-    v10 = off_1E7218C48;
+    v12 = off_1E7218C48;
   }
 
   else
   {
-    v10 = off_1E7218AD8;
+    v12 = off_1E7218AD8;
   }
 
 LABEL_36:
-  reuseIdentifier = [(__objc2_class *)*v10 reuseIdentifier];
+  reuseIdentifier = [(__objc2_class *)*v12 reuseIdentifier];
 
 LABEL_32:
 
@@ -2540,7 +2542,7 @@ void __81__SFStartPageCollectionViewController__toggleExpandedActionForSectionId
   v8 = v7;
   v10 = v9;
   v12 = v11;
-  [(SFStartPageCollectionViewController *)self _siteIconLayoutForEnvironment:environmentCopy sectionInsets:v5];
+  objc_msgSend__siteIconLayoutForEnvironment_sectionInsets_(self, v5);
 
   v13 = [MEMORY[0x1E6995558] absoluteDimension:0.0];
   v14 = MEMORY[0x1E6995588];
@@ -2668,7 +2670,7 @@ void __81__SFStartPageCollectionViewController__toggleExpandedActionForSectionId
     v39 = v30;
   }
 
-  [(SFStartPageCollectionViewController *)self _siteIconLayoutForEnvironment:v53 sectionInsets:v8, v10, v12, v14];
+  objc_msgSend__siteIconLayoutForEnvironment_sectionInsets_(self, v8, v10, v12, v14);
   if ([MEMORY[0x1E69C8880] is2024ReadingListEnabled])
   {
     [(SFStartPageCollectionViewController *)self _applyStylingToLayoutGroup:v32 withSectionItemType:3 defaultInterItemSpacing:0.0];
@@ -2731,7 +2733,7 @@ void __81__SFStartPageCollectionViewController__toggleExpandedActionForSectionId
 
   v49 = v26;
   v27 = [MEMORY[0x1E6995578] itemWithLayoutSize:v26];
-  [(SFStartPageCollectionViewController *)self _siteIconLayoutForEnvironment:environmentCopy sectionInsets:v8, v10, v12, v14];
+  objc_msgSend__siteIconLayoutForEnvironment_sectionInsets_(self, v8, v10, v12, v14);
 
   _supportsPaginatedSectionLayouts = [(SFStartPageCollectionViewController *)self _supportsPaginatedSectionLayouts];
   v29 = MEMORY[0x1E6995588];
@@ -2827,7 +2829,7 @@ void __81__SFStartPageCollectionViewController__toggleExpandedActionForSectionId
   traitCollection = [environmentCopy traitCollection];
   v26 = [(SFStartPageVisualStyleProviding *)visualStyleProvider numberOfColumnsForSectionItemType:5 sectionWidth:traitCollection traitCollection:v23];
 
-  [(SFStartPageCollectionViewController *)self _siteIconLayoutForEnvironment:environmentCopy sectionInsets:v12, v14, v16, v18, 0, 0];
+  objc_msgSend__siteIconLayoutForEnvironment_sectionInsets_(self, v12, v14, v16, v18, 0, 0);
   v27 = MEMORY[0x1E6995588];
   v28 = [MEMORY[0x1E6995558] fractionalWidthDimension:1.0];
   v29 = [MEMORY[0x1E6995558] estimatedDimension:40.0];
@@ -2945,17 +2947,18 @@ LABEL_20:
 - (BOOL)_supportsPaginatedSectionLayouts
 {
   traitCollection = [(SFStartPageCollectionViewController *)self traitCollection];
-  if ([traitCollection horizontalSizeClass] == 1)
+  horizontalSizeClass = [traitCollection horizontalSizeClass];
+  if (horizontalSizeClass == 1)
   {
-    LOBYTE(v3) = 1;
+    LOBYTE(v5) = 1;
   }
 
   else
   {
-    v3 = _SFDeviceIsPad() ^ 1;
+    v5 = _SFDeviceIsPad(horizontalSizeClass, v4) ^ 1;
   }
 
-  return v3;
+  return v5;
 }
 
 - (id)collectionView:(id)view itemsForBeginningDragSession:(id)session atIndexPath:(id)path

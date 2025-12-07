@@ -136,7 +136,6 @@ LABEL_6:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    dhcpLatencyMilliSecs = self->_dhcpLatencyMilliSecs;
     PBDataWriterWriteUint32Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -156,7 +155,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  securityType = self->_securityType;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -171,12 +169,10 @@ LABEL_4:
   }
 
 LABEL_12:
-  timestamp = self->_timestamp;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 4) != 0)
   {
 LABEL_5:
-    dhcpLeaseMins = self->_dhcpLeaseMins;
     PBDataWriterWriteUint32Field();
   }
 
@@ -307,7 +303,6 @@ LABEL_6:
   v5 = [equal isMemberOfClass:objc_opt_class()];
   if (v5)
   {
-    v6 = *(equal + 36);
     if ((*&self->_has & 2) != 0)
     {
       if ((*(equal + 36) & 2) == 0 || self->_dhcpLatencyMilliSecs != *(equal + 4))

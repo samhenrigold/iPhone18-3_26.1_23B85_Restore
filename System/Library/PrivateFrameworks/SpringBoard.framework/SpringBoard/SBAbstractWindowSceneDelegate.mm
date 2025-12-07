@@ -686,7 +686,7 @@ void __40__SBAbstractWindowSceneDelegate_dealloc__block_invoke(void *a1)
 {
   v20 = *MEMORY[0x277D85DE8];
   sceneCopy = scene;
-  v7 = SBLogStartup();
+  v7 = SBLogStartup(sceneCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = _SBFLoggingMethodProem();

@@ -29,7 +29,7 @@
   return v2;
 }
 
-uint64_t __33__CRKMobileGestalt_sharedGestalt__block_invoke()
+uint64_t __33__CRKMobileGestalt_sharedGestalt__block_invoke(uint64_t a1, uint64_t a2)
 {
   sharedGestalt_result = objc_opt_new();
 

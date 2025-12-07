@@ -141,32 +141,30 @@ uint64_t __26__SCROServer_sharedServer__block_invoke()
 
     else
     {
-      serverPort = self->_serverPort;
-      v12 = MSHCreateMIGServerSource();
-      if (v12)
+      v11 = MSHCreateMIGServerSource();
+      if (v11)
       {
-        v13 = v12;
+        v12 = v11;
         [(NSLock *)self->_contentLock lock];
-        self->_serverSource = v13;
+        self->_serverSource = v12;
         [(NSLock *)self->_contentLock unlock];
         mach_port_deallocate(*v7, special_port);
         v3 = 1;
-        v14 = MSHCreateMachServerSource();
-        self->_deathSource = v14;
-        if (v14)
+        v13 = MSHCreateMachServerSource();
+        self->_deathSource = v13;
+        if (v13)
         {
           context.version = 0;
           memset(&context.retain, 0, 24);
           context.info = self;
           [(NSLock *)self->_contentLock lock];
-          deathSource = self->_deathSource;
           self->_deathPort = MSHGetMachPortFromSource();
-          v16 = *MEMORY[0x277CBF048];
+          v14 = *MEMORY[0x277CBF048];
           CFRunLoopAddSource(Current, self->_deathSource, *MEMORY[0x277CBF048]);
-          v17 = CFAbsoluteTimeGetCurrent();
-          v18 = CFRunLoopTimerCreate(0, v17 + 3.0, 3.0, 0, 0, _deathTimerHandler, &context);
-          self->_deathTimer = v18;
-          CFRunLoopAddTimer(Current, v18, v16);
+          v15 = CFAbsoluteTimeGetCurrent();
+          v16 = CFRunLoopTimerCreate(0, v15 + 3.0, 3.0, 0, 0, _deathTimerHandler, &context);
+          self->_deathTimer = v16;
+          CFRunLoopAddTimer(Current, v16, v14);
           [(NSLock *)self->_contentLock unlock];
           self->_isRegisteredWithMach = 1;
           return v3;
@@ -255,7 +253,7 @@ uint64_t __26__SCROServer_sharedServer__block_invoke()
 
 - (BOOL)_ensureResourcesExist
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = NSHomeDirectory();
   v3 = [v2 stringByAppendingPathComponent:@"/Library/Accessibility/ktoa_u_kwa_v5.dic"];
 
@@ -270,33 +268,35 @@ uint64_t __26__SCROServer_sharedServer__block_invoke()
     v9 = [resourcePath stringByAppendingString:@"/ktoa_u_kwa"];
     [v9 UTF8String];
 
-    if (archive_read_support_format_zip())
+    support_format_zip = archive_read_support_format_zip();
+    if (support_format_zip)
     {
-      v10 = _SCROD_LOG();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = _SCROD_LOG(support_format_zip);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v26 = archive_error_string();
-        v11 = "NBSC Braille for text: (init) archive_read unable to set supported formats: %s.";
-        v12 = v10;
-        v13 = 12;
+        v29 = archive_error_string();
+        v12 = "NBSC Braille for text: (init) archive_read unable to set supported formats: %s.";
+        v13 = v11;
+        v14 = 12;
 LABEL_9:
-        _os_log_impl(&dword_26490B000, v12, OS_LOG_TYPE_DEFAULT, v11, buf, v13);
+        _os_log_impl(&dword_26490B000, v13, OS_LOG_TYPE_DEFAULT, v12, buf, v14);
         goto LABEL_10;
       }
 
       goto LABEL_10;
     }
 
-    if (archive_read_open_filename())
+    open_filename = archive_read_open_filename();
+    if (open_filename)
     {
-      v10 = _SCROD_LOG();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = _SCROD_LOG(open_filename);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v11 = "NBSC Braille for text: (init) failed to unzip.";
-        v12 = v10;
-        v13 = 2;
+        v12 = "NBSC Braille for text: (init) failed to unzip.";
+        v13 = v11;
+        v14 = 2;
         goto LABEL_9;
       }
 
@@ -306,10 +306,11 @@ LABEL_10:
       goto LABEL_11;
     }
 
-    v24 = 0;
-    if (archive_read_next_header())
+    v27 = 0;
+    next_header = archive_read_next_header();
+    if (next_header)
     {
-      data = _SCROD_LOG();
+      data = _SCROD_LOG(next_header);
       if (os_log_type_enabled(data, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -321,9 +322,9 @@ LABEL_10:
     }
 
     data = [MEMORY[0x277CBEB28] data];
-    v22 = 0;
-    v23 = 0;
-    v21[1] = 0;
+    v25 = 0;
+    v26 = 0;
+    v24[1] = 0;
     while (1)
     {
       data_block = archive_read_data_block();
@@ -332,16 +333,17 @@ LABEL_10:
         break;
       }
 
-      [data appendBytes:v23 length:v22];
+      [data appendBytes:v26 length:v25];
     }
 
     if (data_block == 1)
     {
-      v21[0] = 0;
-      [data writeToFile:v3 options:1 error:v21];
-      v18 = v21[0];
-      v6 = v18 == 0;
-      if (!v18)
+      v24[0] = 0;
+      [data writeToFile:v3 options:1 error:v24];
+      v20 = v24[0];
+      v21 = v20;
+      v6 = v20 == 0;
+      if (!v20)
       {
 LABEL_27:
 
@@ -349,24 +351,24 @@ LABEL_28:
         goto LABEL_11;
       }
 
-      v19 = _SCROD_LOG();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+      v22 = _SCROD_LOG(v20);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
       {
-        localizedDescription = [v18 localizedDescription];
+        localizedDescription = [v21 localizedDescription];
         *buf = 138412290;
-        v26 = localizedDescription;
-        _os_log_impl(&dword_26490B000, v19, OS_LOG_TYPE_DEFAULT, "NBSC Braille for text: writing the unzipped file of ktoa_u_kwa.zip failed: %@", buf, 0xCu);
+        v29 = localizedDescription;
+        _os_log_impl(&dword_26490B000, v22, OS_LOG_TYPE_DEFAULT, "NBSC Braille for text: writing the unzipped file of ktoa_u_kwa.zip failed: %@", buf, 0xCu);
       }
     }
 
     else
     {
-      v18 = _SCROD_LOG();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+      v21 = _SCROD_LOG(data_block);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v26 = archive_error_string();
-        _os_log_impl(&dword_26490B000, v18, OS_LOG_TYPE_DEFAULT, "NBSC Braille for text: can't read ktoa_u_kwp.zip: %s", buf, 0xCu);
+        v29 = archive_error_string();
+        _os_log_impl(&dword_26490B000, v21, OS_LOG_TYPE_DEFAULT, "NBSC Braille for text: can't read ktoa_u_kwp.zip: %s", buf, 0xCu);
       }
     }
 
@@ -377,7 +379,6 @@ LABEL_28:
   v6 = 1;
 LABEL_11:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

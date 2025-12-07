@@ -139,32 +139,32 @@
 
 - (BOOL)loadModelFromURL:(id)l error:(id *)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   lCopy = l;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [lCopy path];
   v9 = [defaultManager contentsOfDirectoryAtPath:path error:error];
 
   obj = v9;
-  v10 = [v9 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v23;
+    v12 = *v22;
     while (2)
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v23 != v12)
+        if (*v22 != v12)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v22 + 1) + 8 * i);
+        v14 = *(*(&v21 + 1) + 8 * i);
         os_unfair_lock_lock(&self->_lock);
         v15 = [(_REMLMultipleWeightedModel *)self _modelForKey:v14];
         v16 = [lCopy URLByAppendingPathComponent:v14];
@@ -180,7 +180,7 @@
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v11 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v11)
       {
         continue;
@@ -193,7 +193,6 @@
   v18 = 1;
 LABEL_11:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v18;
 }
 

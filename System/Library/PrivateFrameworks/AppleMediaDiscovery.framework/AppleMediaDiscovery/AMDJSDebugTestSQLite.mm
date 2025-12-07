@@ -138,45 +138,8 @@
 
   v78 = [location[0] objectForKey:TEST_CREATE_TEST_TABLE];
   MEMORY[0x277D82BD8](v78);
-  if (!v78)
+  if (!v78 || ((v76 = [AMDSQLiteSchema alloc], v77 = [selfCopy getTestSchemaDict], v166 = -[AMDSQLiteSchema initWithDict:error:](v76, "initWithDict:error:"), MEMORY[0x277D82BD8](v77), !*errorCopy) ? (v12 = +[AMDSQLite getSharedInstance](AMDSQLite, "getSharedInstance"), v13 = v170, v170 = v12, MEMORY[0x277D82BD8](v13), v74 = objc_msgSend(location[0], "objectForKey:", TEST_CREATE_TEST_TABLE), v164 = objc_msgSend(v74, "objectForKey:", 0x2852AF668), MEMORY[0x277D82BD8](v74), v163 = objc_msgSend(v170, "createTable:usingSchema:error:", v164, v166, errorCopy), objc_msgSend(v169, "setObject:forKey:", v163, TEST_CREATE_TEST_TABLE), objc_storeStrong(&v163, 0), objc_storeStrong(&v164, 0), v165 = 0) : (v193 = TEST_CREATE_TEST_TABLE, v75 = objc_msgSend(*errorCopy, "localizedDescription"), v194[0] = v75, v174 = objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v194, &v193, 1), MEMORY[0x277D82BD8](v75), v165 = 1), objc_storeStrong(&v166, 0), !v165))
   {
-    goto LABEL_20;
-  }
-
-  v76 = [AMDSQLiteSchema alloc];
-  getTestSchemaDict2 = [selfCopy getTestSchemaDict];
-  v166 = [AMDSQLiteSchema initWithDict:v76 error:"initWithDict:error:"];
-  MEMORY[0x277D82BD8](getTestSchemaDict2);
-  if (*errorCopy)
-  {
-    v193 = TEST_CREATE_TEST_TABLE;
-    localizedDescription = [*errorCopy localizedDescription];
-    v194[0] = localizedDescription;
-    v174 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v194 forKeys:&v193 count:1];
-    MEMORY[0x277D82BD8](localizedDescription);
-    v165 = 1;
-  }
-
-  else
-  {
-    v12 = +[AMDSQLite getSharedInstance];
-    v13 = v170;
-    v170 = v12;
-    MEMORY[0x277D82BD8](v13);
-    v74 = [location[0] objectForKey:TEST_CREATE_TEST_TABLE];
-    v164 = [v74 objectForKey:0x2852AF668];
-    MEMORY[0x277D82BD8](v74);
-    v163 = [v170 createTable:v164 usingSchema:v166 error:errorCopy];
-    [v169 setObject:v163 forKey:TEST_CREATE_TEST_TABLE];
-    objc_storeStrong(&v163, 0);
-    objc_storeStrong(&v164, 0);
-    v165 = 0;
-  }
-
-  objc_storeStrong(&v166, 0);
-  if (!v165)
-  {
-LABEL_20:
     v73 = [location[0] objectForKey:TEST_CREATE_TABLE];
     MEMORY[0x277D82BD8](v73);
     if (v73)
@@ -208,9 +171,9 @@ LABEL_20:
       if (*errorCopy)
       {
         v65 = v169;
-        localizedDescription2 = [*errorCopy localizedDescription];
+        localizedDescription = [*errorCopy localizedDescription];
         [v65 setObject:? forKey:?];
-        MEMORY[0x277D82BD8](localizedDescription2);
+        MEMORY[0x277D82BD8](localizedDescription);
       }
 
       else
@@ -238,10 +201,10 @@ LABEL_20:
     if (*errorCopy)
     {
       v191 = TEST_FETCH_ROWS;
-      localizedDescription3 = [*errorCopy localizedDescription];
-      v192 = localizedDescription3;
+      localizedDescription2 = [*errorCopy localizedDescription];
+      v192 = localizedDescription2;
       v174 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v192 forKeys:&v191 count:1];
-      MEMORY[0x277D82BD8](localizedDescription3);
+      MEMORY[0x277D82BD8](localizedDescription2);
       v165 = 1;
     }
 
@@ -271,9 +234,9 @@ LABEL_20:
       else
       {
         v189 = @"failure";
-        localizedDescription4 = [*errorCopy localizedDescription];
+        localizedDescription3 = [*errorCopy localizedDescription];
         v152 = 1;
-        v190 = localizedDescription4;
+        v190 = localizedDescription3;
         v151 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v190 forKeys:&v189 count:1];
         v150 = 1;
         v60 = v151;
@@ -287,7 +250,7 @@ LABEL_20:
 
       if (v152)
       {
-        MEMORY[0x277D82BD8](localizedDescription4);
+        MEMORY[0x277D82BD8](localizedDescription3);
       }
 
       objc_storeStrong(&v154, 0);
@@ -324,9 +287,9 @@ LABEL_42:
         else
         {
           v187 = @"failure";
-          localizedDescription5 = [*errorCopy localizedDescription];
+          localizedDescription4 = [*errorCopy localizedDescription];
           v147 = 1;
-          v188 = localizedDescription5;
+          v188 = localizedDescription4;
           v146 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v188 forKeys:&v187 count:1];
           v145 = 1;
           v55 = v146;
@@ -340,7 +303,7 @@ LABEL_42:
 
         if (v147)
         {
-          MEMORY[0x277D82BD8](localizedDescription5);
+          MEMORY[0x277D82BD8](localizedDescription4);
         }
 
         objc_storeStrong(&v149, 0);
@@ -364,9 +327,9 @@ LABEL_42:
         else
         {
           v185 = @"failure";
-          localizedDescription6 = [*errorCopy localizedDescription];
+          localizedDescription5 = [*errorCopy localizedDescription];
           v140 = 1;
-          v186 = localizedDescription6;
+          v186 = localizedDescription5;
           v139 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v186 forKeys:&v185 count:1];
           v138 = 1;
           v52 = v139;
@@ -380,7 +343,7 @@ LABEL_42:
 
         if (v140)
         {
-          MEMORY[0x277D82BD8](localizedDescription6);
+          MEMORY[0x277D82BD8](localizedDescription5);
         }
 
         objc_storeStrong(&v142, 0);
@@ -405,9 +368,9 @@ LABEL_42:
         else
         {
           v183 = @"failure";
-          localizedDescription7 = [*errorCopy localizedDescription];
+          localizedDescription6 = [*errorCopy localizedDescription];
           v134 = 1;
-          v184 = localizedDescription7;
+          v184 = localizedDescription6;
           v133 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v184 forKeys:&v183 count:1];
           v132 = 1;
           v49 = v133;
@@ -421,7 +384,7 @@ LABEL_42:
 
         if (v134)
         {
-          MEMORY[0x277D82BD8](localizedDescription7);
+          MEMORY[0x277D82BD8](localizedDescription6);
         }
 
         objc_storeStrong(&v136, 0);
@@ -451,9 +414,9 @@ LABEL_42:
         else
         {
           v181 = @"failure";
-          localizedDescription8 = [*errorCopy localizedDescription];
+          localizedDescription7 = [*errorCopy localizedDescription];
           v126 = 1;
-          v182 = localizedDescription8;
+          v182 = localizedDescription7;
           v125 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v182 forKeys:&v181 count:1];
           v124 = 1;
           v46 = v125;
@@ -467,7 +430,7 @@ LABEL_42:
 
         if (v126)
         {
-          MEMORY[0x277D82BD8](localizedDescription8);
+          MEMORY[0x277D82BD8](localizedDescription7);
         }
 
         objc_storeStrong(&v128, 0);
@@ -493,9 +456,9 @@ LABEL_42:
         else
         {
           v179 = @"failure";
-          localizedDescription9 = [*errorCopy localizedDescription];
+          localizedDescription8 = [*errorCopy localizedDescription];
           v120 = 1;
-          v180 = localizedDescription9;
+          v180 = localizedDescription8;
           v119 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v180 forKeys:&v179 count:1];
           v118 = 1;
           v43 = v119;
@@ -509,7 +472,7 @@ LABEL_42:
 
         if (v120)
         {
-          MEMORY[0x277D82BD8](localizedDescription9);
+          MEMORY[0x277D82BD8](localizedDescription8);
         }
 
         objc_storeStrong(&v122, 0);
@@ -533,9 +496,9 @@ LABEL_42:
         else
         {
           v177 = @"failure";
-          localizedDescription10 = [*errorCopy localizedDescription];
+          localizedDescription9 = [*errorCopy localizedDescription];
           v114 = 1;
-          v178 = localizedDescription10;
+          v178 = localizedDescription9;
           v113 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v178 forKeys:&v177 count:1];
           v112 = 1;
           v40 = v113;
@@ -549,7 +512,7 @@ LABEL_42:
 
         if (v114)
         {
-          MEMORY[0x277D82BD8](localizedDescription10);
+          MEMORY[0x277D82BD8](localizedDescription9);
         }
 
         objc_storeStrong(&v116, 0);
@@ -666,9 +629,9 @@ LABEL_42:
         else
         {
           v175 = @"failure";
-          localizedDescription11 = [*errorCopy localizedDescription];
+          localizedDescription10 = [*errorCopy localizedDescription];
           v94 = 1;
-          v176 = localizedDescription11;
+          v176 = localizedDescription10;
           v93 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v176 forKeys:&v175 count:1];
           v92 = 1;
           v28 = v93;
@@ -682,7 +645,7 @@ LABEL_42:
 
         if (v94)
         {
-          MEMORY[0x277D82BD8](localizedDescription11);
+          MEMORY[0x277D82BD8](localizedDescription10);
         }
 
         objc_storeStrong(&v96, 0);
@@ -698,7 +661,6 @@ LABEL_42:
   objc_storeStrong(&v169, 0);
   objc_storeStrong(&v170, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v26 = v174;
 
   return v26;
@@ -723,7 +685,6 @@ LABEL_42:
   v7[0] = v3;
   v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   MEMORY[0x277D82BD8](v3);
-  *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -1213,7 +1174,6 @@ LABEL_42:
   MEMORY[0x277D82BD8](v66);
   MEMORY[0x277D82BD8](v67);
   MEMORY[0x277D82BD8](v68);
-  *MEMORY[0x277D85DE8];
 
   return v5;
 }

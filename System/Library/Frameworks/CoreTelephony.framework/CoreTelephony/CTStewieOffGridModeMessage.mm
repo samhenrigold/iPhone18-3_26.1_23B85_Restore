@@ -12,7 +12,7 @@
 
 - (CTStewieOffGridModeMessage)initWithOffGridModeKey:(id)key error:(id *)p_isa
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   keyCopy = key;
   v8 = keyCopy;
   if (!keyCopy)
@@ -23,9 +23,9 @@
     }
 
     v10 = MEMORY[0x1E696ABC0];
-    v19 = *MEMORY[0x1E696A578];
-    v20[0] = @"offGridModeKey is missing";
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x1E696A578];
+    v19[0] = @"offGridModeKey is missing";
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
     *p_isa = [v10 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v11];
 
 LABEL_10:
@@ -41,17 +41,17 @@ LABEL_10:
     }
 
     v12 = MEMORY[0x1E696ABC0];
-    v17 = *MEMORY[0x1E696A578];
-    v18 = @"offGridModeKey size is incorrect.";
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v18 forKeys:&v17 count:1];
+    v16 = *MEMORY[0x1E696A578];
+    v17 = @"offGridModeKey size is incorrect.";
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v17 forKeys:&v16 count:1];
     *p_isa = [v12 errorWithDomain:*MEMORY[0x1E696A798] code:22 userInfo:v13];
 
     goto LABEL_10;
   }
 
-  v16.receiver = self;
-  v16.super_class = CTStewieOffGridModeMessage;
-  v9 = [(CTStewieOffGridModeMessage *)&v16 init];
+  v15.receiver = self;
+  v15.super_class = CTStewieOffGridModeMessage;
+  v9 = [(CTStewieOffGridModeMessage *)&v15 init];
   p_isa = &v9->super.isa;
   if (v9)
   {
@@ -67,7 +67,6 @@ LABEL_10:
 
 LABEL_12:
 
-  v14 = *MEMORY[0x1E69E9840];
   return p_isa;
 }
 

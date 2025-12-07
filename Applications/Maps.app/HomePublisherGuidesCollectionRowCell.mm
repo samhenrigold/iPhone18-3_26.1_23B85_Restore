@@ -7,7 +7,7 @@
 
 - (void)_bridgedUpdateConfigurationUsingState:(id)state
 {
-  v4 = sub_1000CE6B8(&qword_1019112A8);
+  v4 = sub_1000CE6B8(&qword_1019112A8, &unk_1011EF580);
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
   v7 = &v15[-v6];
@@ -24,12 +24,12 @@
   [(HomePublisherGuidesCollectionRowCell *)&v18 _bridgedUpdateConfigurationUsingState:isa];
 
   v16 = selfCopy;
-  sub_1000CE6B8(&qword_1019112C0);
-  sub_1000414C8(&qword_1019112C8, &qword_1019112C0);
+  sub_1000CE6B8(&qword_1019112C0, &qword_1011EF598);
+  sub_1000414C8(&qword_1019112C8, &qword_1019112C0, &qword_1011EF598, &protocol conformance descriptor for ColumnView<A>);
   UIHostingConfiguration<>.init(content:)();
   static Edge.Set.all.getter();
   v17[3] = v4;
-  v17[4] = sub_1000414C8(&qword_1019112D0, &qword_1019112A8);
+  v17[4] = sub_1000414C8(&qword_1019112D0, &qword_1019112A8, &unk_1011EF580, &protocol conformance descriptor for UIHostingConfiguration<A, B>);
   sub_10001A848(v17);
   UIHostingConfiguration.margins(_:_:)();
   (*(v5 + 8))(v7, v4);

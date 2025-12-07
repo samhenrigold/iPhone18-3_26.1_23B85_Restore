@@ -36,7 +36,7 @@
 
 - (void)performOperation
 {
-  v88 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CCAB70]);
   v4 = [(RCURLFetchOperation *)self URL];
   v5 = [v3 initWithURL:v4];
@@ -77,19 +77,18 @@
   }
 
   [v5 addValue:uUIDString forHTTPHeaderField:@"X-Request-ID"];
-  [(RCURLFetchOperation *)self setRequestUUID:uUIDString];
-  v17 = RCSharedLog();
+  v17 = RCSharedLog([(RCURLFetchOperation *)self setRequestUUID:uUIDString]);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     shortOperationDescription = [(RCOperation *)self shortOperationDescription];
     urlString = [(RCURLFetchOperation *)self urlString];
     requestUUID = [(RCURLFetchOperation *)self requestUUID];
     *buf = 138543874;
-    v77 = shortOperationDescription;
-    v78 = 2112;
-    v79 = urlString;
-    v80 = 2112;
-    v81 = requestUUID;
+    v78 = shortOperationDescription;
+    v79 = 2112;
+    v80 = urlString;
+    v81 = 2112;
+    v82 = requestUUID;
     _os_log_impl(&dword_2179FC000, v17, OS_LOG_TYPE_DEFAULT, "%{public}@ will perform operation to fetch config from URL: %@ with X-Request-ID: %@", buf, 0x20u);
   }
 
@@ -100,16 +99,15 @@
     if (v22 != 1.79769313e308)
     {
       [(RCURLFetchOperation *)self URLRequestTimeoutDuration];
-      [v5 setTimeoutInterval:?];
-      v23 = RCSharedLog();
+      v23 = RCSharedLog([v5 setTimeoutInterval:?]);
       if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
       {
         shortOperationDescription2 = [(RCOperation *)self shortOperationDescription];
         [(RCURLFetchOperation *)self URLRequestTimeoutDuration];
         *buf = 138543618;
-        v77 = shortOperationDescription2;
-        v78 = 2048;
-        v79 = v25;
+        v78 = shortOperationDescription2;
+        v79 = 2048;
+        v80 = v25;
         _os_log_impl(&dword_2179FC000, v23, OS_LOG_TYPE_DEFAULT, "%{public}@ applying URLRequestTimeoutDuration: %.1f", buf, 0x16u);
       }
     }
@@ -127,64 +125,64 @@
   }
 
   [v5 setAllHTTPHeaderFields:dictionary];
-  v70 = 0;
-  v71 = &v70;
-  v72 = 0x3032000000;
-  v73 = __Block_byref_object_copy__5;
-  v74 = __Block_byref_object_dispose__5;
-  v75 = 0;
+  v71 = 0;
+  v72 = &v71;
+  v73 = 0x3032000000;
+  v74 = __Block_byref_object_copy__5;
+  v75 = __Block_byref_object_dispose__5;
+  v76 = 0;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 3221225472;
   aBlock[2] = __39__RCURLFetchOperation_performOperation__block_invoke;
   aBlock[3] = &unk_278230048;
-  v69 = &v70;
+  v70 = &v71;
   aBlock[4] = self;
-  v63 = uUIDString;
-  v68 = v63;
-  v64 = _Block_copy(aBlock);
+  v64 = uUIDString;
+  v69 = v64;
+  v65 = _Block_copy(aBlock);
   backgroundFetchConfiguration2 = [(RCURLFetchOperation *)self backgroundFetchConfiguration];
 
   if (backgroundFetchConfiguration2)
   {
     backgroundFetchConfiguration3 = [(RCURLFetchOperation *)self backgroundFetchConfiguration];
-    v66 = 0;
-    v31 = [RCURLSession backgroundSessionForFetchConfig:backgroundFetchConfiguration3 delegateReference:&v66];
-    v32 = v66;
+    v67 = 0;
+    v31 = [RCURLSession backgroundSessionForFetchConfig:backgroundFetchConfiguration3 delegateReference:&v67];
+    v32 = v67;
     v33 = [v31 downloadTaskWithRequest:v5];
-    v34 = v71[5];
-    v71[5] = v33;
+    v34 = v72[5];
+    v72[5] = v33;
 
     requestUUID2 = [(RCURLFetchOperation *)self requestUUID];
-    [v71[5] setTaskDescription:requestUUID2];
+    [v72[5] setTaskDescription:requestUUID2];
 
     earliestBeginDate = [backgroundFetchConfiguration3 earliestBeginDate];
-    [v71[5] setEarliestBeginDate:earliestBeginDate];
+    [v72[5] setEarliestBeginDate:earliestBeginDate];
 
     requestUUID3 = [(RCURLFetchOperation *)self requestUUID];
-    [v32 observeCompletionOfTaskWithIdentifier:requestUUID3 completion:v64];
+    [v32 observeCompletionOfTaskWithIdentifier:requestUUID3 completion:v65];
   }
 
   else
   {
     v38 = +[RCURLSession sharedForegroundSession];
-    v39 = [v38 dataTaskWithRequest:v5 completionHandler:v64];
-    v40 = v71[5];
-    v71[5] = v39;
+    v39 = [v38 dataTaskWithRequest:v5 completionHandler:v65];
+    v40 = v72[5];
+    v72[5] = v39;
 
     backgroundFetchConfiguration3 = [(RCURLFetchOperation *)self requestUUID];
-    [v71[5] setTaskDescription:backgroundFetchConfiguration3];
+    [v72[5] setTaskDescription:backgroundFetchConfiguration3];
   }
 
-  [(RCURLFetchOperation *)self setRequestTask:v71[5]];
+  [(RCURLFetchOperation *)self setRequestTask:v72[5]];
   relativePriority = [(RCOperation *)self relativePriority];
-  [v71[5] setRelativePriority:relativePriority];
-  [(RCOperation *)self associateChildOperation:v71[5]];
+  [v72[5] setRelativePriority:relativePriority];
+  [(RCOperation *)self associateChildOperation:v72[5]];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-  [(RCURLFetchOperation *)self setTaskStartTime:?];
+  v42 = [(RCURLFetchOperation *)self setTaskStartTime:?];
   if (backgroundFetchConfiguration2)
   {
-    v42 = RCSharedLog();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v43 = RCSharedLog(v42);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
       shortOperationDescription3 = [(RCOperation *)self shortOperationDescription];
       loggingKey = [(RCURLFetchOperation *)self loggingKey];
@@ -193,78 +191,77 @@
       backgroundFetchConfiguration4 = [(RCURLFetchOperation *)self backgroundFetchConfiguration];
       earliestBeginDate2 = [backgroundFetchConfiguration4 earliestBeginDate];
       rc_stringForLogging = [earliestBeginDate2 rc_stringForLogging];
-      v48 = rc_stringForLogging;
+      v49 = rc_stringForLogging;
       if (rc_stringForLogging)
       {
-        v49 = rc_stringForLogging;
+        v50 = rc_stringForLogging;
       }
 
       else
       {
-        v49 = @"<nil>";
+        v50 = @"<nil>";
       }
 
       backgroundFetchConfiguration5 = [(RCURLFetchOperation *)self backgroundFetchConfiguration];
       [backgroundFetchConfiguration5 timeout];
       *buf = 138544642;
-      v77 = shortOperationDescription3;
-      v78 = 2112;
-      v79 = loggingKey;
-      v80 = 2112;
-      v81 = requestUUID4;
-      v82 = 2112;
-      v83 = urlString2;
-      v84 = 2114;
-      v85 = v49;
-      v86 = 2048;
-      v87 = v51;
-      _os_log_impl(&dword_2179FC000, v42, OS_LOG_TYPE_DEFAULT, "%{public}@ will send background request for configuration: %@ with UUID: %@, URL: %@, earliestBeginDate: %{public}@, timeout: %.2f.", buf, 0x3Eu);
+      v78 = shortOperationDescription3;
+      v79 = 2112;
+      v80 = loggingKey;
+      v81 = 2112;
+      v82 = requestUUID4;
+      v83 = 2112;
+      v84 = urlString2;
+      v85 = 2114;
+      v86 = v50;
+      v87 = 2048;
+      v88 = v52;
+      _os_log_impl(&dword_2179FC000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@ will send background request for configuration: %@ with UUID: %@, URL: %@, earliestBeginDate: %{public}@, timeout: %.2f.", buf, 0x3Eu);
     }
   }
 
   else
   {
-    v42 = RCSharedLog();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_DEFAULT))
+    v43 = RCSharedLog(v42);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
     {
       shortOperationDescription4 = [(RCOperation *)self shortOperationDescription];
       loggingKey2 = [(RCURLFetchOperation *)self loggingKey];
       requestUUID5 = [(RCURLFetchOperation *)self requestUUID];
       urlString3 = [(RCURLFetchOperation *)self urlString];
       *buf = 138544130;
-      v77 = shortOperationDescription4;
-      v78 = 2112;
-      v79 = loggingKey2;
-      v80 = 2112;
-      v81 = requestUUID5;
-      v82 = 2112;
-      v83 = urlString3;
-      _os_log_impl(&dword_2179FC000, v42, OS_LOG_TYPE_DEFAULT, "%{public}@ will send foreground request for configuration: %@ with UUID: %@, URL: %@", buf, 0x2Au);
+      v78 = shortOperationDescription4;
+      v79 = 2112;
+      v80 = loggingKey2;
+      v81 = 2112;
+      v82 = requestUUID5;
+      v83 = 2112;
+      v84 = urlString3;
+      _os_log_impl(&dword_2179FC000, v43, OS_LOG_TYPE_DEFAULT, "%{public}@ will send foreground request for configuration: %@ with UUID: %@, URL: %@", buf, 0x2Au);
     }
   }
 
-  v56 = RCSharedLog();
-  if (os_log_type_enabled(v56, OS_LOG_TYPE_DEFAULT))
+  v58 = RCSharedLog(v57);
+  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEFAULT))
   {
-    longOperationDescription = [v71[5] longOperationDescription];
+    longOperationDescription = [v72[5] longOperationDescription];
     *buf = 138543362;
-    v77 = longOperationDescription;
-    _os_log_impl(&dword_2179FC000, v56, OS_LOG_TYPE_DEFAULT, "%{public}@ started", buf, 0xCu);
+    v78 = longOperationDescription;
+    _os_log_impl(&dword_2179FC000, v58, OS_LOG_TYPE_DEFAULT, "%{public}@ started", buf, 0xCu);
   }
 
   networkActivity = [(RCURLFetchOperation *)self networkActivity];
 
   if (networkActivity)
   {
-    [v71[5] setDelegate:self];
+    [v72[5] setDelegate:self];
     networkActivity2 = [(RCURLFetchOperation *)self networkActivity];
-    [networkActivity2 attachActivityToTask:v71[5]];
+    [networkActivity2 attachActivityToTask:v72[5]];
   }
 
-  [v71[5] resume];
+  [v72[5] resume];
 
-  _Block_object_dispose(&v70, 8);
-  v60 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v71, 8);
 }
 
 void __39__RCURLFetchOperation_performOperation__block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
@@ -273,7 +270,7 @@ void __39__RCURLFetchOperation_performOperation__block_invoke(uint64_t a1, void 
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = RCSharedLog();
+  v10 = RCSharedLog(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = [*(*(*(a1 + 48) + 8) + 40) shortOperationDescription];
@@ -336,18 +333,18 @@ void __39__RCURLFetchOperation_performOperation__block_invoke(uint64_t a1, void 
   v29 = [v28 objectForKeyedSubscript:@"Cache-Control"];
   v30 = [v29 rc_numberFollowingString:@"max-age="];
 
-  if (!v30 || ([v30 doubleValue], v31 == 0.0))
+  if (!v30 || (v31 = [v30 doubleValue], v32 == 0.0))
   {
-    v32 = RCSharedLog();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
+    v33 = RCSharedLog(v31);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
     {
-      v33 = [*(a1 + 32) shortOperationDescription];
-      v34 = [*(a1 + 32) urlString];
+      v34 = [*(a1 + 32) shortOperationDescription];
+      v35 = [*(a1 + 32) urlString];
       *buf = 138543618;
-      v38 = v33;
+      v38 = v34;
       v39 = 2112;
-      v40 = v34;
-      _os_log_impl(&dword_2179FC000, v32, OS_LOG_TYPE_DEFAULT, "%{public}@ max-age missing from Cache-Control header for URL: %@", buf, 0x16u);
+      v40 = v35;
+      _os_log_impl(&dword_2179FC000, v33, OS_LOG_TYPE_DEFAULT, "%{public}@ max-age missing from Cache-Control header for URL: %@", buf, 0x16u);
     }
 
     v30 = 0;
@@ -361,29 +358,28 @@ void __39__RCURLFetchOperation_performOperation__block_invoke(uint64_t a1, void 
 
   [*(a1 + 32) setHttpResponse:v14];
   [*(a1 + 32) setResponseSize:{objc_msgSend(*(*(*(a1 + 48) + 8) + 40), "countOfBytesReceived")}];
-  v35 = [v8 MIMEType];
-  [*(a1 + 32) setResponseMIMEType:v35];
+  v36 = [v8 MIMEType];
+  [*(a1 + 32) setResponseMIMEType:v36];
 
   [*(a1 + 32) setError:v9];
   [*(a1 + 32) finishedPerformingOperationWithError:v9];
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)operationWillFinishWithError:(id)error
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   [(RCURLFetchOperation *)self setRequestTask:0];
   [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
   v6 = v5;
-  [(RCURLFetchOperation *)self taskStartTime];
+  taskStartTime = [(RCURLFetchOperation *)self taskStartTime];
   if (errorCopy)
   {
-    if ([errorCopy rc_isCancellationError])
+    rc_isCancellationError = [errorCopy rc_isCancellationError];
+    if (rc_isCancellationError)
     {
-      v8 = RCSharedLog();
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = RCSharedLog(rc_isCancellationError);
+      if (!os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_13;
       }
@@ -391,81 +387,81 @@ void __39__RCURLFetchOperation_performOperation__block_invoke(uint64_t a1, void 
       shortOperationDescription = [(RCOperation *)self shortOperationDescription];
       loggingKey = [(RCURLFetchOperation *)self loggingKey];
       *buf = 138543618;
-      v59 = shortOperationDescription;
-      v60 = 2112;
-      v61 = loggingKey;
-      _os_log_impl(&dword_2179FC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ cancelled configuration request %@", buf, 0x16u);
+      v62 = shortOperationDescription;
+      v63 = 2112;
+      v64 = loggingKey;
+      _os_log_impl(&dword_2179FC000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ cancelled configuration request %@", buf, 0x16u);
 
       goto LABEL_5;
     }
 
     userInfo = [errorCopy userInfo];
-    v16 = [userInfo objectForKeyedSubscript:@"RCErrorHTTPStatusCode"];
+    v18 = [userInfo objectForKeyedSubscript:@"RCErrorHTTPStatusCode"];
 
-    v8 = RCSharedLog();
-    v17 = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
-    if (v16)
+    v10 = RCSharedLog(v19);
+    v20 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+    if (v18)
     {
-      if (v17)
+      if (v20)
       {
         shortOperationDescription = [(RCOperation *)self shortOperationDescription];
         loggingKey2 = [(RCURLFetchOperation *)self loggingKey];
         userInfo2 = [errorCopy userInfo];
-        v20 = [userInfo2 objectForKeyedSubscript:@"RCErrorHTTPStatusCode"];
+        v23 = [userInfo2 objectForKeyedSubscript:@"RCErrorHTTPStatusCode"];
         *buf = 138543874;
-        v59 = shortOperationDescription;
-        v60 = 2114;
-        v61 = loggingKey2;
-        v62 = 2114;
-        v63 = v20;
-        _os_log_error_impl(&dword_2179FC000, v8, OS_LOG_TYPE_ERROR, "%{public}@ failed to request configuration %{public}@ with response status code: %{public}@", buf, 0x20u);
+        v62 = shortOperationDescription;
+        v63 = 2114;
+        v64 = loggingKey2;
+        v65 = 2114;
+        v66 = v23;
+        _os_log_error_impl(&dword_2179FC000, v10, OS_LOG_TYPE_ERROR, "%{public}@ failed to request configuration %{public}@ with response status code: %{public}@", buf, 0x20u);
 
 LABEL_5:
       }
     }
 
-    else if (v17)
+    else if (v20)
     {
-      [(RCURLFetchOperation *)self operationWillFinishWithError:errorCopy, v8];
+      [(RCURLFetchOperation *)self operationWillFinishWithError:errorCopy, v10];
     }
   }
 
   else
   {
-    v11 = v7;
-    v8 = RCSharedLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v13 = v8;
+    v10 = RCSharedLog(taskStartTime);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       shortOperationDescription2 = [(RCOperation *)self shortOperationDescription];
       loggingKey3 = [(RCURLFetchOperation *)self loggingKey];
-      v14 = [MEMORY[0x277CCA8E8] stringFromByteCount:-[RCURLFetchOperation responseSize](self countStyle:{"responseSize"), 0}];
+      v16 = [MEMORY[0x277CCA8E8] stringFromByteCount:-[RCURLFetchOperation responseSize](self countStyle:{"responseSize"), 0}];
       *buf = 138544130;
-      v59 = shortOperationDescription2;
-      v60 = 2114;
-      v61 = loggingKey3;
-      v62 = 2112;
-      v63 = v14;
-      v64 = 2048;
-      v65 = v6 - v11;
-      _os_log_impl(&dword_2179FC000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully received configuration %{public}@ with size: %@, total time: %f", buf, 0x2Au);
+      v62 = shortOperationDescription2;
+      v63 = 2114;
+      v64 = loggingKey3;
+      v65 = 2112;
+      v66 = v16;
+      v67 = 2048;
+      v68 = v6 - v13;
+      _os_log_impl(&dword_2179FC000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ successfully received configuration %{public}@ with size: %@, total time: %f", buf, 0x2Au);
     }
   }
 
 LABEL_13:
 
   completionQueue = [(RCURLFetchOperation *)self completionQueue];
-  v22 = completionQueue;
+  v25 = completionQueue;
   if (completionQueue)
   {
-    v23 = completionQueue;
+    v26 = completionQueue;
   }
 
   else
   {
-    v23 = RCDispatchQueueForQualityOfService([(RCURLFetchOperation *)self qualityOfService]);
+    v26 = RCDispatchQueueForQualityOfService([(RCURLFetchOperation *)self qualityOfService]);
   }
 
-  v24 = v23;
+  v27 = v26;
 
   configurationDictionaryCompletionHandler = [(RCURLFetchOperation *)self configurationDictionaryCompletionHandler];
 
@@ -484,90 +480,90 @@ LABEL_13:
       responseData2 = [(RCURLFetchOperation *)self responseData];
     }
 
-    v30 = responseData2;
-    v57 = 0;
-    v31 = [MEMORY[0x277CBEAC0] rc_dictionaryFromData:responseData2 error:&v57];
-    v32 = v57;
-    [(RCURLFetchOperation *)self setResponseData:0];
-    if (v32)
+    v33 = responseData2;
+    v60 = 0;
+    v34 = [MEMORY[0x277CBEAC0] rc_dictionaryFromData:responseData2 error:&v60];
+    v35 = v60;
+    v36 = [(RCURLFetchOperation *)self setResponseData:0];
+    if (v35)
     {
-      v50 = v31;
-      v33 = RCSharedLog();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v53 = v34;
+      v37 = RCSharedLog(v36);
+      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
-        [(RCURLFetchOperation *)self operationWillFinishWithError:v32, v33];
+        [(RCURLFetchOperation *)self operationWillFinishWithError:v35, v37];
       }
 
-      v34 = objc_opt_class();
-      userInfo3 = [v32 userInfo];
-      v36 = [userInfo3 objectForKey:@"NSJSONSerializationErrorIndex"];
-      v37 = RCDynamicCast(v34, v36);
+      v38 = objc_opt_class();
+      userInfo3 = [v35 userInfo];
+      v40 = [userInfo3 objectForKey:@"NSJSONSerializationErrorIndex"];
+      v41 = RCDynamicCast(v38, v40);
 
-      if (v37)
+      if (v41)
       {
-        unsignedIntegerValue = [v37 unsignedIntegerValue];
-        v39 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v30 encoding:4];
-        if ([v39 length])
+        unsignedIntegerValue = [v41 unsignedIntegerValue];
+        v43 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v33 encoding:4];
+        if ([v43 length])
         {
-          v40 = [v39 length];
-          v41 = v40 - 1;
-          v42 = unsignedIntegerValue - 200;
+          v44 = [v43 length];
+          v45 = v44 - 1;
+          v46 = unsignedIntegerValue - 200;
           if (unsignedIntegerValue < 0xC8)
           {
-            v42 = 0;
+            v46 = 0;
           }
 
-          if (v42 >= v41)
+          if (v46 >= v45)
           {
-            v43 = v40 - 1;
+            v47 = v44 - 1;
           }
 
           else
           {
-            v43 = v42;
+            v47 = v46;
           }
 
-          if (unsignedIntegerValue + 200 < v41)
+          if (unsignedIntegerValue + 200 < v45)
           {
-            v41 = unsignedIntegerValue + 200;
+            v45 = unsignedIntegerValue + 200;
           }
 
-          v48 = v41;
-          [v39 substringWithRange:{v43, v41 - v43}];
-          v49 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
-          v44 = RCSharedLog();
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          v51 = v45;
+          [v43 substringWithRange:{v47, v45 - v47}];
+          v52 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+          v48 = RCSharedLog(*&v52);
+          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
           {
             shortOperationDescription3 = [(RCOperation *)self shortOperationDescription];
             *buf = 138544130;
-            v59 = shortOperationDescription3;
-            v60 = 2048;
-            v61 = v43;
-            v62 = 2048;
-            v63 = v48;
-            v64 = 2114;
-            v65 = v49;
-            _os_log_error_impl(&dword_2179FC000, v44, OS_LOG_TYPE_ERROR, "%{public}@ JSON parsing failure response substring startIndex=%lu endIndex=%lu excerpt='%{public}@'", buf, 0x2Au);
+            v62 = shortOperationDescription3;
+            v63 = 2048;
+            v64 = v47;
+            v65 = 2048;
+            v66 = v51;
+            v67 = 2114;
+            v68 = v52;
+            _os_log_error_impl(&dword_2179FC000, v48, OS_LOG_TYPE_ERROR, "%{public}@ JSON parsing failure response substring startIndex=%lu endIndex=%lu excerpt='%{public}@'", buf, 0x2Au);
           }
         }
       }
 
-      v31 = v50;
+      v34 = v53;
     }
 
     configurationDictionaryCompletionHandler2 = [(RCURLFetchOperation *)self configurationDictionaryCompletionHandler];
 
     if (configurationDictionaryCompletionHandler2)
     {
-      v53[0] = MEMORY[0x277D85DD0];
-      v53[1] = 3221225472;
-      v53[2] = __52__RCURLFetchOperation_operationWillFinishWithError___block_invoke;
-      v53[3] = &unk_278230070;
-      v53[4] = self;
-      v54 = v31;
-      v55 = v32;
-      v56 = errorCopy;
-      dispatch_async(v24, v53);
+      v56[0] = MEMORY[0x277D85DD0];
+      v56[1] = 3221225472;
+      v56[2] = __52__RCURLFetchOperation_operationWillFinishWithError___block_invoke;
+      v56[3] = &unk_278230070;
+      v56[4] = self;
+      v57 = v34;
+      v58 = v35;
+      v59 = errorCopy;
+      dispatch_async(v27, v56);
     }
   }
 
@@ -582,12 +578,10 @@ LABEL_13:
       block[2] = __52__RCURLFetchOperation_operationWillFinishWithError___block_invoke_2;
       block[3] = &unk_27822F130;
       block[4] = self;
-      v52 = errorCopy;
-      dispatch_async(v24, block);
+      v55 = errorCopy;
+      dispatch_async(v27, block);
     }
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 void __52__RCURLFetchOperation_operationWillFinishWithError___block_invoke(uint64_t a1)
@@ -622,20 +616,20 @@ void __52__RCURLFetchOperation_operationWillFinishWithError___block_invoke_2(uin
 
 - (void)_reportNetworkEventsForTask:(id)task response:(id)response error:(id)error
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   responseCopy = response;
   errorCopy = error;
   if (errorCopy)
   {
-    v44[0] = MEMORY[0x277D85DD0];
-    v44[1] = 3221225472;
-    v44[2] = __66__RCURLFetchOperation__reportNetworkEventsForTask_response_error___block_invoke;
-    v44[3] = &unk_27822FE40;
-    v44[4] = self;
-    v45 = taskCopy;
-    v46 = errorCopy;
-    __66__RCURLFetchOperation__reportNetworkEventsForTask_response_error___block_invoke(v44);
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __66__RCURLFetchOperation__reportNetworkEventsForTask_response_error___block_invoke;
+    v43[3] = &unk_27822FE40;
+    v43[4] = self;
+    v44 = taskCopy;
+    v45 = errorCopy;
+    __66__RCURLFetchOperation__reportNetworkEventsForTask_response_error___block_invoke(v43);
   }
 
   else
@@ -650,33 +644,33 @@ void __52__RCURLFetchOperation_operationWillFinishWithError___block_invoke_2(uin
       v14 = RCDynamicCast(v13, responseCopy);
       if ([v14 statusCode] >= 200 && objc_msgSend(v14, "statusCode") < 300 || objc_msgSend(v14, "statusCode") == 304)
       {
-        v34 = v14;
-        v32 = responseCopy;
-        v39 = 0u;
-        v40 = 0u;
-        v37 = 0u;
+        v33 = v14;
+        v31 = responseCopy;
         v38 = 0u;
+        v39 = 0u;
+        v36 = 0u;
+        v37 = 0u;
         _incompleteTaskMetrics = [taskCopy _incompleteTaskMetrics];
         transactionMetrics = [_incompleteTaskMetrics transactionMetrics];
 
         obj = transactionMetrics;
-        v17 = [transactionMetrics countByEnumeratingWithState:&v37 objects:v47 count:16];
+        v17 = [transactionMetrics countByEnumeratingWithState:&v36 objects:v46 count:16];
         v18 = selfCopy;
         if (v17)
         {
           v19 = v17;
-          v20 = *v38;
-          v33 = taskCopy;
+          v20 = *v37;
+          v32 = taskCopy;
           do
           {
             for (i = 0; i != v19; ++i)
             {
-              if (*v38 != v20)
+              if (*v37 != v20)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v22 = *(*(&v37 + 1) + 8 * i);
+              v22 = *(*(&v36 + 1) + 8 * i);
               if ([v22 resourceFetchType] != 3)
               {
                 networkEventHandler = [(RCURLFetchOperation *)v18 networkEventHandler];
@@ -689,41 +683,39 @@ void __52__RCURLFetchOperation_operationWillFinishWithError___block_invoke_2(uin
                   fetchStartDate = [v22 fetchStartDate];
                   operationID = [(RCOperation *)v18 operationID];
                   requestUUID = [(RCURLFetchOperation *)v18 requestUUID];
-                  v30 = [(RCNetworkEvent *)v25 initWithResultType:0 request:originalRequest startDate:fetchStartDate operationID:operationID requestID:requestUUID response:v34 metrics:v22 error:0];
+                  v30 = [(RCNetworkEvent *)v25 initWithResultType:0 request:originalRequest startDate:fetchStartDate operationID:operationID requestID:requestUUID response:v33 metrics:v22 error:0];
                   (networkEventHandler2)[2](networkEventHandler2, v30);
 
                   v18 = selfCopy;
-                  taskCopy = v33;
+                  taskCopy = v32;
                 }
               }
             }
 
-            v19 = [obj countByEnumeratingWithState:&v37 objects:v47 count:16];
+            v19 = [obj countByEnumeratingWithState:&v36 objects:v46 count:16];
           }
 
           while (v19);
         }
 
         errorCopy = 0;
-        responseCopy = v32;
-        v14 = v34;
+        responseCopy = v31;
+        v14 = v33;
       }
 
       else
       {
-        v41[0] = MEMORY[0x277D85DD0];
-        v41[1] = 3221225472;
-        v41[2] = __66__RCURLFetchOperation__reportNetworkEventsForTask_response_error___block_invoke_3;
-        v41[3] = &unk_27822FE40;
-        v41[4] = selfCopy;
-        v42 = taskCopy;
-        v43 = v14;
-        __66__RCURLFetchOperation__reportNetworkEventsForTask_response_error___block_invoke_3(v41);
+        v40[0] = MEMORY[0x277D85DD0];
+        v40[1] = 3221225472;
+        v40[2] = __66__RCURLFetchOperation__reportNetworkEventsForTask_response_error___block_invoke_3;
+        v40[3] = &unk_27822FE40;
+        v40[4] = selfCopy;
+        v41 = taskCopy;
+        v42 = v14;
+        __66__RCURLFetchOperation__reportNetworkEventsForTask_response_error___block_invoke_3(v40);
       }
     }
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __66__RCURLFetchOperation__reportNetworkEventsForTask_response_error___block_invoke(uint64_t a1)
@@ -765,7 +757,7 @@ void __66__RCURLFetchOperation__reportNetworkEventsForTask_response_error___bloc
 
 - (void)URLSession:(id)session task:(id)task didFinishCollectingMetrics:(id)metrics
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   taskCopy = task;
   networkActivity = [(RCURLFetchOperation *)self networkActivity];
 
@@ -779,15 +771,15 @@ void __66__RCURLFetchOperation__reportNetworkEventsForTask_response_error___bloc
     {
       [networkActivity2 completeActivityWithSuccess:0];
 
-      v11 = RCSharedLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = RCSharedLog(v11);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         networkActivity3 = [(RCURLFetchOperation *)self networkActivity];
-        v15 = 67109120;
+        v16 = 67109120;
         label = [networkActivity3 label];
-        v13 = "Did finish network activity with success=NO (label=%d)";
+        v14 = "Did finish network activity with success=NO (label=%d)";
 LABEL_7:
-        _os_log_impl(&dword_2179FC000, v11, OS_LOG_TYPE_DEFAULT, v13, &v15, 8u);
+        _os_log_impl(&dword_2179FC000, v12, OS_LOG_TYPE_DEFAULT, v14, &v16, 8u);
       }
     }
 
@@ -795,19 +787,17 @@ LABEL_7:
     {
       [networkActivity2 completeActivityWithSuccess:1];
 
-      v11 = RCSharedLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = RCSharedLog(v15);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         networkActivity3 = [(RCURLFetchOperation *)self networkActivity];
-        v15 = 67109120;
+        v16 = 67109120;
         label = [networkActivity3 label];
-        v13 = "Did finish network activity with success=YES (label=%d)";
+        v14 = "Did finish network activity with success=YES (label=%d)";
         goto LABEL_7;
       }
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)URLSession:(id)session didCreateTask:(id)task
@@ -821,65 +811,57 @@ LABEL_7:
     networkActivity2 = [(RCURLFetchOperation *)self networkActivity];
     [networkActivity2 attachActivityToTask:taskCopy];
 
-    v8 = RCSharedLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = RCSharedLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       originalRequest = [taskCopy originalRequest];
-      v10 = [originalRequest URL];
+      v11 = [originalRequest URL];
       v12 = 138543362;
-      v13 = v10;
-      _os_log_impl(&dword_2179FC000, v8, OS_LOG_TYPE_DEFAULT, "Did assign network activity to task (%{public}@)", &v12, 0xCu);
+      v13 = v11;
+      _os_log_impl(&dword_2179FC000, v9, OS_LOG_TYPE_DEFAULT, "Did assign network activity to task (%{public}@)", &v12, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)validateOperation
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"the fetch operation must have valid URL"];
-  v2 = 136315906;
-  v3 = "[RCURLFetchOperation validateOperation]";
-  v4 = 2080;
-  v5 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/RCURLFetchOperation.m";
-  v6 = 1024;
-  v7 = 71;
-  v8 = 2114;
-  v9 = v0;
-  _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", &v2, 0x26u);
-
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = 136315906;
+  v2 = "[RCURLFetchOperation validateOperation]";
+  v3 = 2080;
+  v4 = "/Library/Caches/com.apple.xbs/Sources/RemoteConfiguration/RemoteConfiguration/RCURLFetchOperation.m";
+  v5 = 1024;
+  v6 = 71;
+  v7 = 2114;
+  v8 = v0;
+  _os_log_error_impl(&dword_2179FC000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "*** Assertion failure: %s %s:%d %{public}@", &v1, 0x26u);
 }
 
 - (void)operationWillFinishWithError:(NSObject *)a3 .cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v6 = [a1 shortOperationDescription];
   v7 = [a1 loggingKey];
   v8 = [a2 localizedDescription];
-  v10 = 138543874;
-  v11 = v6;
-  v12 = 2114;
-  v13 = v7;
-  v14 = 2114;
-  v15 = v8;
-  _os_log_error_impl(&dword_2179FC000, a3, OS_LOG_TYPE_ERROR, "%{public}@ failed to request configuration %{public}@ with error: %{public}@", &v10, 0x20u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v9 = 138543874;
+  v10 = v6;
+  v11 = 2114;
+  v12 = v7;
+  v13 = 2114;
+  v14 = v8;
+  _os_log_error_impl(&dword_2179FC000, a3, OS_LOG_TYPE_ERROR, "%{public}@ failed to request configuration %{public}@ with error: %{public}@", &v9, 0x20u);
 }
 
 - (void)operationWillFinishWithError:(NSObject *)a3 .cold.2(void *a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a1 shortOperationDescription];
-  v7 = 138543618;
-  v8 = v5;
-  v9 = 2114;
-  v10 = a2;
-  _os_log_error_impl(&dword_2179FC000, a3, OS_LOG_TYPE_ERROR, "%{public}@ operationWillFinishWithError - JSON parsing failed with error: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = v5;
+  v8 = 2114;
+  v9 = a2;
+  _os_log_error_impl(&dword_2179FC000, a3, OS_LOG_TYPE_ERROR, "%{public}@ operationWillFinishWithError - JSON parsing failed with error: %{public}@", &v6, 0x16u);
 }
 
 @end

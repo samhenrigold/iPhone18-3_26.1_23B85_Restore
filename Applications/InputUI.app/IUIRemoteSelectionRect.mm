@@ -1,4 +1,5 @@
 @interface IUIRemoteSelectionRect
++ (id)rectWithCGRect:(CGRect)rect isVertical:(BOOL)vertical;
 - (CGRect)rect;
 - (IUIRemoteSelectionRect)initWithCGRect:(CGRect)rect isVertical:(BOOL)vertical;
 @end
@@ -37,6 +38,13 @@
   result.origin.y = y;
   result.origin.x = x;
   return result;
+}
+
++ (id)rectWithCGRect:(CGRect)rect isVertical:(BOOL)vertical
+{
+  v4 = [[self alloc] initWithCGRect:vertical isVertical:{rect.origin.x, rect.origin.y, rect.size.width, rect.size.height}];
+
+  return v4;
 }
 
 @end

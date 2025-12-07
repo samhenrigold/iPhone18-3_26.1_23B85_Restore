@@ -535,7 +535,7 @@ void __50__AVNetworkPlaybackPerfHUDLayer__hudUpdateTrigger__block_invoke(uint64_
   objc_autoreleasePoolPop(v2);
 }
 
-uint64_t __50__AVNetworkPlaybackPerfHUDLayer__hudUpdateTrigger__block_invoke_2(uint64_t a1)
+void *__50__AVNetworkPlaybackPerfHUDLayer__hudUpdateTrigger__block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) updateHudWithDisplayString:*(a1 + 40)];
   *(*(a1 + 32) + 176) = 0;

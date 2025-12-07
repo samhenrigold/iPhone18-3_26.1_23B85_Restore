@@ -480,7 +480,6 @@ LABEL_17:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x80) == 0)
@@ -500,7 +499,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  wifiA2dpRxBytes = self->_wifiA2dpRxBytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x2000) == 0)
@@ -515,7 +513,6 @@ LABEL_4:
   }
 
 LABEL_20:
-  wifiScoRxBytes = self->_wifiScoRxBytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -530,7 +527,6 @@ LABEL_5:
   }
 
 LABEL_21:
-  wifiRxBytes = self->_wifiRxBytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -545,7 +541,6 @@ LABEL_6:
   }
 
 LABEL_22:
-  wifiHidRxBytes = self->_wifiHidRxBytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -560,7 +555,6 @@ LABEL_7:
   }
 
 LABEL_23:
-  cellularDataRxBytes = self->_cellularDataRxBytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x100) == 0)
@@ -575,7 +569,6 @@ LABEL_8:
   }
 
 LABEL_24:
-  wifiA2dpTxBytes = self->_wifiA2dpTxBytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x4000) == 0)
@@ -590,7 +583,6 @@ LABEL_9:
   }
 
 LABEL_25:
-  wifiScoTxBytes = self->_wifiScoTxBytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x8000) == 0)
@@ -605,7 +597,6 @@ LABEL_10:
   }
 
 LABEL_26:
-  wifiTxBytes = self->_wifiTxBytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x800) == 0)
@@ -620,7 +611,6 @@ LABEL_11:
   }
 
 LABEL_27:
-  wifiHidTxBytes = self->_wifiHidTxBytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -635,7 +625,6 @@ LABEL_12:
   }
 
 LABEL_28:
-  cellularDataTxBytes = self->_cellularDataTxBytes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -650,7 +639,6 @@ LABEL_13:
   }
 
 LABEL_29:
-  statsCollectionMinutes = self->_statsCollectionMinutes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -665,7 +653,6 @@ LABEL_14:
   }
 
 LABEL_30:
-  wifiAssocMinutes = self->_wifiAssocMinutes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -677,7 +664,6 @@ LABEL_15:
     }
 
 LABEL_32:
-    scoAssocMinutes = self->_scoAssocMinutes;
     PBDataWriterWriteUint32Field();
     if ((*&self->_has & 0x10) == 0)
     {
@@ -688,7 +674,6 @@ LABEL_32:
   }
 
 LABEL_31:
-  a2dpAssocMinutes = self->_a2dpAssocMinutes;
   PBDataWriterWriteUint32Field();
   has = self->_has;
   if ((has & 0x20) != 0)
@@ -703,7 +688,6 @@ LABEL_16:
   }
 
 LABEL_33:
-  hidAssocMinutes = self->_hidAssocMinutes;
 
   PBDataWriterWriteUint32Field();
 }

@@ -15,7 +15,7 @@
   v10 = [(HDMaintenanceOperation *)&v16 initWithName:name];
   if (v10)
   {
-    v11 = [blockCopy copy];
+    v11 = objc_msgSend_copy(blockCopy);
     operationBlock = v10->_operationBlock;
     v10->_operationBlock = v11;
 

@@ -8,6 +8,7 @@
 - (void)endArray;
 - (void)endDictionary;
 - (void)failWithError:(id)error;
+- (void)writeBoolean:(BOOL)boolean;
 - (void)writeData:(id)data;
 - (void)writeDate:(id)date;
 - (void)writeDictionaryKey:(id)key;
@@ -305,6 +306,22 @@ LABEL_32:
 
   else
   {
+  }
+}
+
+- (void)writeBoolean:(BOOL)boolean
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:boolean];
+  if (self)
+  {
+
+    [(HMDStructuredWriter *)self writeToken:7, v4];
+  }
+
+  else
+  {
+
+    MEMORY[0x2821F97C8]();
   }
 }
 

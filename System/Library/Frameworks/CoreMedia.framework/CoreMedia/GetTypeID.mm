@@ -69,8 +69,8 @@ uint64_t __figProcessInfo_GetTypeID_block_invoke()
 void __figProcessStateMonitorRemote_GetTypeID_block_invoke()
 {
   qword_1ED4CDA48 = _CFRuntimeRegisterClass();
-  v0 = FigNote_AllowInternalDefaultLogs() != 0;
-  fig_note_initialize_category_with_default_work_cf(&gFigProcessStateMonitorRemoteTrace[1], @"figprocessstatemonitor_trace", @"com.apple.coremedia", ", "com.apple.coremedia"", v0, 0, gFigProcessStateMonitorRemoteTrace);
+  v1 = FigNote_AllowInternalDefaultLogs(qword_1ED4CDA48, v0) != 0;
+  fig_note_initialize_category_with_default_work_cf(&gFigProcessStateMonitorRemoteTrace[1], @"figprocessstatemonitor_trace", @"com.apple.coremedia", ", "com.apple.coremedia"", v1, 0, gFigProcessStateMonitorRemoteTrace);
 
   fig_note_initialize_category_with_default_work_cf(&dword_1ED4CC380, @"figprocessstatemonitor_trace", @"com.apple.coremedia", ", "com.apple.coremedia"", 1u, 0, &qword_1ED4CC378);
 }

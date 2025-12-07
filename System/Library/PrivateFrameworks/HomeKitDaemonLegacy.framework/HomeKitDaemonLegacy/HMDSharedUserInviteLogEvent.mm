@@ -65,7 +65,7 @@
   v29 = [v25 numberWithInteger:{objc_msgSend(firstObject2, "code")}];
   [v3 setObject:v29 forKeyedSubscript:@"lastTransientUnderlyingErrorCode"];
 
-  v30 = [v3 copy];
+  v30 = objc_msgSend_copy(v3);
 
   return v30;
 }

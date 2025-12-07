@@ -333,7 +333,7 @@ LABEL_48:
                     v76 = v77;
                     if (v55)
                     {
-                      v59 = sub_100007F08();
+                      v59 = sub_100007F08(APMetricsObservability);
                       lastPathComponent = [v54 lastPathComponent];
                       sub_100394B50(v59, v57, lastPathComponent, [selfCopy batchPathToPurpose:v54], v58, v73, prefixCopy);
 
@@ -427,7 +427,7 @@ LABEL_82:
         v10 = *(*(&v23 + 1) + 8 * i);
         lastPathComponent = [v10 lastPathComponent];
         v12 = [self batchPathToPurpose:v10];
-        v13 = sub_100007F08();
+        v13 = sub_100007F08(APMetricsObservability);
         sub_1003948B0(v13, lastPathComponent, v10, v12);
 
         v14 = sub_10032CE6C(APMetricsObservability, v10, v5);
@@ -457,7 +457,7 @@ LABEL_82:
 
         else
         {
-          v17 = sub_100007F08();
+          v17 = sub_100007F08(APMetricsObservability);
           sub_100394D3C(v17, v14, lastPathComponent, v12, v5, v19);
         }
       }

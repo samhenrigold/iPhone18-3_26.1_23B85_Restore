@@ -10,6 +10,7 @@
 - (id)_remoteObjectProxyWithErrorHandler:(id)handler;
 - (id)_sharedConnection;
 - (id)_synchronousRemoteObjectProxyWithErrorHandler:(id)handler;
+- (id)createAppSnapshotWithBundleID:(id)d snapshotToURL:(id)l onlyV1AppIfPresent:(BOOL)present placeholderOnly:(BOOL)only withError:(id *)error;
 - (id)stageItemAtURL:(id)l toStagingLocation:(id)location options:(id)options containedSymlink:(BOOL *)symlink error:(id *)error;
 - (void)_invalidateObject;
 - (void)dealloc;
@@ -396,6 +397,53 @@ LABEL_5:
   _Block_object_dispose(&v21, 8);
 
   return v13;
+}
+
+- (id)createAppSnapshotWithBundleID:(id)d snapshotToURL:(id)l onlyV1AppIfPresent:(BOOL)present placeholderOnly:(BOOL)only withError:(id *)error
+{
+  onlyCopy = only;
+  presentCopy = present;
+  dCopy = d;
+  lCopy = l;
+  v26 = 0;
+  v27 = &v26;
+  v28 = 0x3032000000;
+  v29 = sub_1000383CC;
+  v30 = sub_1000383DC;
+  v31 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_1000383CC;
+  v24 = sub_1000383DC;
+  v25 = 0;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_10003932C;
+  v19[3] = &unk_1000917C0;
+  v19[4] = &v26;
+  v14 = [(MIHelperServiceClient *)self _synchronousRemoteObjectProxyWithErrorHandler:v19];
+  v18[0] = _NSConcreteStackBlock;
+  v18[1] = 3221225472;
+  v18[2] = sub_1000393A8;
+  v18[3] = &unk_100091838;
+  v18[4] = &v26;
+  v18[5] = &v20;
+  [v14 createAppSnapshotWithBundleID:dCopy snapshotToURL:lCopy onlyV1AppIfPresent:presentCopy placeholderOnly:onlyCopy completion:v18];
+
+  v15 = v21[5];
+  if (error && !v15)
+  {
+    *error = v27[5];
+    v15 = v21[5];
+  }
+
+  v16 = v15;
+  _Block_object_dispose(&v20, 8);
+
+  _Block_object_dispose(&v26, 8);
+
+  return v16;
 }
 
 - (BOOL)moveItemInStagingLocation:(id)location atRelativePath:(id)path toDestinationURL:(id)l onBehalfOf:(id *)of error:(id *)error

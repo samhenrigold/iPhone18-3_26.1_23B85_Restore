@@ -537,7 +537,7 @@ id __76__SBHIconGridSizeClassSet_appendDescriptionToFormatter_gridSizeClassDomai
   return v6;
 }
 
-uint64_t __75__SBHIconGridSizeClassSet_SBHCHSWidgetFamily__chsWidgetFamilyMaskInDomain___block_invoke(uint64_t a1, uint64_t a2)
+void *__75__SBHIconGridSizeClassSet_SBHCHSWidgetFamily__chsWidgetFamilyMaskInDomain___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) chsWidgetFamilyForIconGridSizeClass:a2];
   *(*(*(a1 + 40) + 8) + 24) |= 1 << result;

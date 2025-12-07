@@ -96,7 +96,6 @@
 {
   v5 = 4 * [(MPSNDArrayRandomStateDescriptor *)self stateLength];
   v6 = malloc_type_malloc(v5, 0x100004052888210uLL);
-  state = self->_state;
   MPSCopyToFromNetworkByteOrder32();
   [coder encodeBytes:v6 length:v5 forKey:@"MPSNDArrayRandomStateDescriptorState"];
   algorithm = self->_algorithm;
@@ -135,19 +134,17 @@
 
 - (id)exportStateToNDArray:(id)array
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   stateLength = [(MPSNDArrayRandomStateDescriptor *)self stateLength];
   v6 = MEMORY[0x277CD7268];
-  v12[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:stateLength + 1];
-  v7 = [v6 descriptorWithDataType:536870944 shape:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v12, 1)}];
+  v11[0] = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:stateLength + 1];
+  v7 = [v6 descriptorWithDataType:536870944 shape:{objc_msgSend(MEMORY[0x277CBEA60], "arrayWithObjects:count:", v11, 1)}];
   v8 = [objc_alloc(MEMORY[0x277CD7260]) initWithDevice:array descriptor:v7];
   v9 = malloc_type_malloc(4 * (stateLength + 1), 0x100004052888210uLL);
   *v9 = [(MPSNDArrayRandomStateDescriptor *)self algorithm];
   memcpy(v9 + 1, [(MPSNDArrayRandomStateDescriptor *)self state], 4 * stateLength);
   [v8 writeBytes:v9 strideBytes:0];
-  result = v8;
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return v8;
 }
 
 @end

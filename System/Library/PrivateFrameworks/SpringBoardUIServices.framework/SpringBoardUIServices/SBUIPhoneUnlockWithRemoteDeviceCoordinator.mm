@@ -10,7 +10,7 @@
 
 @implementation SBUIPhoneUnlockWithRemoteDeviceCoordinator
 
-uint64_t __80__SBUIPhoneUnlockWithRemoteDeviceCoordinator_attemptPhoneUnlockWithRemoteDevice__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__80__SBUIPhoneUnlockWithRemoteDeviceCoordinator_attemptPhoneUnlockWithRemoteDevice__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 attemptUnlock];
   if (result)
@@ -91,7 +91,7 @@ uint64_t __60__SBUIPhoneUnlockWithRemoteDeviceCoordinator_sharedInstance__block_
   return v2;
 }
 
-uint64_t __84__SBUIPhoneUnlockWithRemoteDeviceCoordinator_isPhoneUnlockEnabledAndRequirementsMet__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__84__SBUIPhoneUnlockWithRemoteDeviceCoordinator_isPhoneUnlockEnabledAndRequirementsMet__block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 isPhoneUnlockEnabledAndRequirementsMet];
   if (result)
@@ -145,7 +145,7 @@ LABEL_7:
   _SBUIPhoneUnlockWithRemoteDeviceEnumerateHandlers(self, v4);
 }
 
-uint64_t __77__SBUIPhoneUnlockWithRemoteDeviceCoordinator_biometricResource_observeEvent___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
+void *__77__SBUIPhoneUnlockWithRemoteDeviceCoordinator_biometricResource_observeEvent___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   result = [a2 handleBiometricEvent:*(a1 + 32)];
   if (result)

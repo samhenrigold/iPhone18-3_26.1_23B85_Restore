@@ -8,9 +8,17 @@
 - (void)setContentColor:(id)color;
 - (void)setMarginColor:(id)color;
 - (void)setPaddingColor:(id)color;
+- (void)setShowInfo:(BOOL)info;
 @end
 
 @implementation RWIProtocolDOMHighlightConfig
+
+- (void)setShowInfo:(BOOL)info
+{
+  v3.receiver = self;
+  v3.super_class = RWIProtocolDOMHighlightConfig;
+  [(RWIProtocolJSONObject *)&v3 setBool:info forKey:@"showInfo"];
+}
 
 - (BOOL)showInfo
 {
@@ -37,7 +45,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolDOMHighlightConfig;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"contentColor"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -99,7 +107,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolDOMHighlightConfig;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"paddingColor"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -161,7 +169,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolDOMHighlightConfig;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"borderColor"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;
@@ -223,7 +231,7 @@
     v11.receiver = self;
     v11.super_class = RWIProtocolDOMHighlightConfig;
     v5 = [(RWIProtocolJSONObject *)&v11 objectForKey:@"marginColor"];
-    [v5 toJSONObject];
+    objc_msgSend_toJSONObject(v5);
     v6 = v12;
     ++*v12;
     v13 = v6;

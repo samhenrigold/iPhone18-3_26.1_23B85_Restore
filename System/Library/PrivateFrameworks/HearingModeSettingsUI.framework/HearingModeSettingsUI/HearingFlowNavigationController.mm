@@ -4,7 +4,9 @@
 - (_TtC21HearingModeSettingsUI31HearingFlowNavigationController)initWithNibName:(id)name bundle:(id)bundle;
 - (_TtC21HearingModeSettingsUI31HearingFlowNavigationController)initWithRootViewController:(id)controller;
 - (_TtP21HearingModeSettingsUI25HearingFlowControllerType_)flowController;
+- (void)pushViewController:(id)controller animated:(BOOL)animated;
 - (void)setFlowController:(id)controller;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)willShowViewController:(id)controller animated:(BOOL)animated;
 @end
 
@@ -12,19 +14,16 @@
 
 - (_TtP21HearingModeSettingsUI25HearingFlowControllerType_)flowController
 {
-  v3 = OBJC_IVAR____TtC21HearingModeSettingsUI31HearingFlowNavigationController_flowController;
   swift_beginAccess();
-  v4 = *(&self->super.super.super.super.super.isa + v3);
-  v5 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v5;
+  return v2;
 }
 
 - (void)setFlowController:(id)controller
 {
   v5 = OBJC_IVAR____TtC21HearingModeSettingsUI31HearingFlowNavigationController_flowController;
   swift_beginAccess();
-  v6 = *(&self->super.super.super.super.super.isa + v5);
   *(&self->super.super.super.super.super.isa + v5) = controller;
   swift_unknownObjectRetain();
   swift_unknownObjectRelease();
@@ -54,6 +53,47 @@
       swift_unknownObjectRelease();
     }
   }
+}
+
+- (void)pushViewController:(id)controller animated:(BOOL)animated
+{
+  animatedCopy = animated;
+  controllerCopy = controller;
+  selfCopy = self;
+  sub_251FE90EC(controller);
+  v17 = &unk_286450CA0;
+  v9 = swift_dynamicCastObjCProtocolConditional();
+  if (v9)
+  {
+    v11 = v9;
+    v12 = *((*MEMORY[0x277D85000] & selfCopy->super.super.super.super.super.isa) + 0x58);
+    controllerCopy = controllerCopy;
+    [v11 setFlowController_];
+
+    v13 = swift_unknownObjectRelease();
+    v15.receiver = selfCopy;
+    v15.super_class = type metadata accessor for HearingFlowNavigationController(v13, v14);
+    [(HearingFlowNavigationController *)&v15 pushViewController:controllerCopy animated:animatedCopy];
+  }
+
+  else
+  {
+    v16.receiver = selfCopy;
+    v16.super_class = type metadata accessor for HearingFlowNavigationController(0, v10);
+    [(HearingFlowNavigationController *)&v16 pushViewController:controllerCopy animated:animatedCopy];
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v6.receiver = self;
+  v6.super_class = type metadata accessor for HearingFlowNavigationController(self, a2);
+  v4 = v6.receiver;
+  [(HearingFlowNavigationController *)&v6 viewWillDisappear:disappearCopy];
+  sub_252003D90();
+  v5 = sub_252003D70();
+  sub_252003D60();
 }
 
 - (_TtC21HearingModeSettingsUI31HearingFlowNavigationController)initWithNavigationBarClass:(Class)class toolbarClass:(Class)toolbarClass

@@ -33,12 +33,12 @@
     activeBatches = v2->_activeBatches;
     v2->_activeBatches = v9;
 
-    v11 = sub_1003BBF50();
+    v11 = sub_1003BBF50(Device);
     isHRNMode = [v11 isHRNMode];
 
     if ((isHRNMode & 1) == 0)
     {
-      v13 = sub_100336524();
+      v13 = sub_100336524(PushService);
       sub_1003367D0(v13, v2, 2);
       sub_1003367D0(v13, v2, 11);
       sub_1003367D0(v13, v2, 43);

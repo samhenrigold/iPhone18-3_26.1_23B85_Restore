@@ -11,13 +11,10 @@
 
 - (NSString)identifier
 {
-  v2 = (*(&self->super.isa + OBJC_IVAR___BAAssetPack_assetPackWrapper) + OBJC_IVAR____TtCE16BackgroundAssetsCSo11BAAssetPackP33_FC678A7B1B18D835D2D983742E3D211216AssetPackWrapper_assetPack);
-  v3 = *v2;
-  v4 = v2[1];
 
-  v5 = sub_236E81E74();
+  v2 = sub_236E81E74();
 
-  return v5;
+  return v2;
 }
 
 - (NSData)userInfo
@@ -44,29 +41,27 @@
 - (id)download
 {
   v3 = type metadata accessor for AssetPack(0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_236E393B0(*(&self->super.isa + OBJC_IVAR___BAAssetPack_assetPackWrapper) + OBJC_IVAR____TtCE16BackgroundAssetsCSo11BAAssetPackP33_FC678A7B1B18D835D2D983742E3D211216AssetPackWrapper_assetPack, v6);
+  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_236E393B0(*(&self->super.isa + OBJC_IVAR___BAAssetPack_assetPackWrapper) + OBJC_IVAR____TtCE16BackgroundAssetsCSo11BAAssetPackP33_FC678A7B1B18D835D2D983742E3D211216AssetPackWrapper_assetPack, v5);
   selfCopy = self;
-  v8 = AssetPack.download(for:)(0, 1);
-  sub_236E39414(v6);
+  v7 = AssetPack.download(for:)(0, 1);
+  sub_236E39414(v5);
 
-  return v8;
+  return v7;
 }
 
 - (id)downloadForContentRequest:(int64_t)request
 {
   v5 = type metadata accessor for AssetPack(0);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_236E393B0(*(&self->super.isa + OBJC_IVAR___BAAssetPack_assetPackWrapper) + OBJC_IVAR____TtCE16BackgroundAssetsCSo11BAAssetPackP33_FC678A7B1B18D835D2D983742E3D211216AssetPackWrapper_assetPack, v8);
+  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  sub_236E393B0(*(&self->super.isa + OBJC_IVAR___BAAssetPack_assetPackWrapper) + OBJC_IVAR____TtCE16BackgroundAssetsCSo11BAAssetPackP33_FC678A7B1B18D835D2D983742E3D211216AssetPackWrapper_assetPack, v7);
   selfCopy = self;
-  v10 = AssetPack.download(for:)(request, 0);
-  sub_236E39414(v8);
+  v9 = AssetPack.download(for:)(request, 0);
+  sub_236E39414(v7);
 
-  return v10;
+  return v9;
 }
 
 - (id)init:(id)init

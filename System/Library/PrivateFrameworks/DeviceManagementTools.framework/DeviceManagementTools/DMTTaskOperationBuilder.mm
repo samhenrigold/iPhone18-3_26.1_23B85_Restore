@@ -86,26 +86,24 @@ LABEL_7:
 
 + (Class)validationClassForRequest:(id)request
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v15[3] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_class();
   v4 = NSStringFromClass(v3);
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
-  v15[0] = v6;
-  v16[0] = objc_opt_class();
+  v14[0] = v6;
+  v15[0] = objc_opt_class();
   v7 = objc_opt_class();
   v8 = NSStringFromClass(v7);
-  v15[1] = v8;
-  v16[1] = objc_opt_class();
+  v14[1] = v8;
+  v15[1] = objc_opt_class();
   v9 = objc_opt_class();
   v10 = NSStringFromClass(v9);
-  v15[2] = v10;
-  v16[2] = objc_opt_class();
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v14[2] = v10;
+  v15[2] = objc_opt_class();
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
 
   v12 = [v11 objectForKeyedSubscript:v4];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

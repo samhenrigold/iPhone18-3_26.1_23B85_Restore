@@ -23,15 +23,16 @@
   swift_getKeyPath();
   actionCopy = action;
   selfCopy = self;
-  sub_19A7AB644();
+  sub_19A7AB644(&v8);
 
-  [v7 sendAction_];
+  v7 = v8;
+  [v8 sendAction_];
 }
 
 - (void)viewDidLoad
 {
   v6.receiver = self;
-  v6.super_class = type metadata accessor for RemoteBaseSceneHostingController();
+  v6.super_class = type metadata accessor for RemoteBaseSceneHostingController(0);
   v2 = v6.receiver;
   [(RemoteBaseSceneHostingController *)&v6 viewDidLoad];
   view = [v2 view];
@@ -73,7 +74,7 @@
   }
 
   v5.receiver = self;
-  v5.super_class = type metadata accessor for RemoteBaseSceneHostingController();
+  v5.super_class = type metadata accessor for RemoteBaseSceneHostingController(0);
   [(RemoteBaseSceneHostingController *)&v5 dealloc];
 }
 
@@ -90,7 +91,7 @@
     v7 = 0;
   }
 
-  sub_19A5F5028(0, &unk_1EAFCB0D0);
+  sub_19A5F5028(0, &unk_1EAFCB0D0, 0x1E69DD688);
   bundleCopy = bundle;
   sub_19A7AB664();
   *(&self->super.super.super.isa + OBJC_IVAR____TtC10StickerKit32RemoteBaseSceneHostingController_keyboardSuppression) = 0;
@@ -105,7 +106,7 @@
   }
 
   v12.receiver = self;
-  v12.super_class = type metadata accessor for RemoteBaseSceneHostingController();
+  v12.super_class = type metadata accessor for RemoteBaseSceneHostingController(0);
   v10 = [(RemoteBaseSceneHostingController *)&v12 initWithNibName:v9 bundle:bundleCopy];
 
   return v10;
@@ -113,12 +114,12 @@
 
 - (_TtC10StickerKit32RemoteBaseSceneHostingController)initWithCoder:(id)coder
 {
-  sub_19A5F5028(0, &unk_1EAFCB0D0);
+  sub_19A5F5028(0, &unk_1EAFCB0D0, 0x1E69DD688);
   coderCopy = coder;
   sub_19A7AB664();
   *(&self->super.super.super.isa + OBJC_IVAR____TtC10StickerKit32RemoteBaseSceneHostingController_keyboardSuppression) = 0;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for RemoteBaseSceneHostingController();
+  v8.super_class = type metadata accessor for RemoteBaseSceneHostingController(0);
   v6 = [(RemoteBaseSceneHostingController *)&v8 initWithCoder:coderCopy];
 
   if (v6)

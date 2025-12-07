@@ -1,5 +1,6 @@
 @interface WatchdogTimer
 + (id)watchdogWithName:(const char *)name;
++ (id)watchdogWithName:(const char *)name timeout:(unsigned int)timeout;
 - (WatchdogTimer)initWithName:(const char *)name timeout:(unsigned int)timeout;
 - (void)cancel;
 - (void)dealloc;
@@ -42,6 +43,13 @@
   v3 = [[WatchdogTimer alloc] initWithName:name timeout:60];
 
   return v3;
+}
+
++ (id)watchdogWithName:(const char *)name timeout:(unsigned int)timeout
+{
+  v4 = [[WatchdogTimer alloc] initWithName:name timeout:*&timeout];
+
+  return v4;
 }
 
 - (WatchdogTimer)initWithName:(const char *)name timeout:(unsigned int)timeout
@@ -102,30 +110,30 @@ void __38__WatchdogTimer_initWithName_timeout___block_invoke()
 
 void __38__WatchdogTimer_initWithName_timeout___block_invoke_2()
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   obj = _watchdogTimerItems;
   objc_sync_enter(obj);
   v0 = mach_absolute_time();
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v1 = _watchdogTimerItems;
-  v2 = [v1 countByEnumeratingWithState:&v13 objects:v19 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v12 objects:v18 count:16];
   if (v2)
   {
-    v3 = *v14;
+    v3 = *v13;
     v4 = MEMORY[0x277D86220];
     do
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v14 != v3)
+        if (*v13 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        v6 = *(*(&v13 + 1) + 8 * i);
+        v6 = *(*(&v12 + 1) + 8 * i);
         if ([v6 endTime] <= v0)
         {
           v7 = MEMORY[0x277CCACA8];
@@ -146,7 +154,7 @@ void __38__WatchdogTimer_initWithName_timeout___block_invoke_2()
           if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
           {
             *buf = 138543362;
-            v18 = v9;
+            v17 = v9;
             _os_log_impl(&dword_223E00000, v10, OS_LOG_TYPE_FAULT, "%{public}@\n", buf, 0xCu);
           }
 
@@ -154,14 +162,13 @@ void __38__WatchdogTimer_initWithName_timeout___block_invoke_2()
         }
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v13 objects:v19 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v12 objects:v18 count:16];
     }
 
     while (v2);
   }
 
   objc_sync_exit(obj);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

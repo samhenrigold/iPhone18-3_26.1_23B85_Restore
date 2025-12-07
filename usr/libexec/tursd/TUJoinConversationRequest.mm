@@ -15,7 +15,7 @@
   }
 
   v8 = v7;
-  v9 = sub_100001C24();
+  v9 = sub_100001C24(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = 138413058;

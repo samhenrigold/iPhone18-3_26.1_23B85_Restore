@@ -584,7 +584,7 @@ uint64_t __48__OKWidgetMicaViewProxy_setupJavascriptContext___block_invoke_4()
   return [v0 isPlaying];
 }
 
-id __48__OKWidgetMicaViewProxy_setupJavascriptContext___block_invoke_5()
+OKCollectionProxy *__48__OKWidgetMicaViewProxy_setupJavascriptContext___block_invoke_5()
 {
   v0 = objc_opt_new();
   [v0 setDataSource:{objc_msgSend(objc_msgSend(MEMORY[0x277CD4640], "currentThis"), "toObject")}];

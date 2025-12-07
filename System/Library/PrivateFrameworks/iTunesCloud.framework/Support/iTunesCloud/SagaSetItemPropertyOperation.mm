@@ -1,6 +1,7 @@
 @interface SagaSetItemPropertyOperation
 - (SagaSetItemPropertyOperation)initWithCoder:(id)coder;
 - (SagaSetItemPropertyOperation)initWithConfiguration:(id)configuration clientIdentity:(id)identity sagaID:(unsigned int)d properties:(id)properties;
+- (SagaSetItemPropertyOperation)initWithSagaID:(unsigned int)d properties:(id)properties;
 - (void)encodeWithCoder:(id)coder;
 - (void)main;
 @end
@@ -91,6 +92,17 @@
   }
 
   return v12;
+}
+
+- (SagaSetItemPropertyOperation)initWithSagaID:(unsigned int)d properties:(id)properties
+{
+  v4 = *&d;
+  propertiesCopy = properties;
+  v7 = objc_opt_new();
+  v8 = MSVTCCIdentityForCurrentProcess();
+  v9 = [(SagaSetItemPropertyOperation *)self initWithConfiguration:v7 clientIdentity:v8 sagaID:v4 properties:propertiesCopy];
+
+  return v9;
 }
 
 @end

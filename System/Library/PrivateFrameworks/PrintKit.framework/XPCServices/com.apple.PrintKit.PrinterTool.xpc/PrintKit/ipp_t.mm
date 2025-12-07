@@ -2,6 +2,7 @@
 - (BOOL)isEqual:(id)equal;
 - (id)_findAttribute0:(id)attribute0 valueTag:(int)tag;
 - (id)_initWithAttrs:(id)attrs;
+- (id)addNewEmptyAttribute:(id)attribute groupTag:(int)tag valueTag:(int)valueTag;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dataRepresentation;
 - (id)debugDescription;
@@ -12,10 +13,22 @@
 - (ipp_t)initWithData:(id)data;
 - (unint64_t)hash;
 - (void)_addAttrToAppropriateGroup:(id)group;
+- (void)_addBoolean:(int)boolean name:(id)name value:(BOOL)value;
+- (void)_addCollection:(int)collection name:(id)name value:(id)value;
+- (void)_addInteger:(int)integer valueTag:(int)tag name:(id)name value:(int)value;
+- (void)_addIntegers:(int)integers valueTag:(int)tag name:(id)name count:(unint64_t)count adder:(id)adder;
+- (void)_addOctetString:(int)string name:(id)name data:(const void *)data length:(int)length;
+- (void)_addRange:(int)range name:(id)name lower:(int)lower upper:(int)upper;
+- (void)_addRanges:(int)ranges name:(id)name values:(id)values;
+- (void)_addResolution:(int)resolution name:(id)name unit:(int)unit xres:(int)xres yres:(int)yres;
+- (void)_addString:(int)string valueTag:(int)tag name:(id)name lang:(id)lang value:(id)value;
+- (void)_addStrings:(int)strings valueTag:(int)tag name:(id)name lang:(id)lang values:(id)values;
 - (void)_deleteAttribute:(id)attribute;
 - (void)_withGroupingBehavior:(id)behavior;
 - (void)encodeWithCoder:(id)coder;
 - (void)enumerateAttributes:(id)attributes;
+- (void)replaceOrAddAttribute:(id)attribute withAttribute:(id)withAttribute settingGroup:(int)group;
+- (void)withNewAttr:(id)attr groupTag:(int)tag valueTag:(int)valueTag apply:(id)apply;
 @end
 
 @implementation ipp_t
@@ -211,6 +224,32 @@ LABEL_14:
   [(NSMutableArray *)attrs enumerateObjectsUsingBlock:v7];
 }
 
+- (void)replaceOrAddAttribute:(id)attribute withAttribute:(id)withAttribute settingGroup:(int)group
+{
+  v5 = *&group;
+  attributeCopy = attribute;
+  withAttributeCopy = withAttribute;
+  attrs = self->_attrs;
+  v15[0] = _NSConcreteStackBlock;
+  v15[1] = 3221225472;
+  v15[2] = sub_10003B508;
+  v15[3] = &unk_1000A2D20;
+  v11 = attributeCopy;
+  v16 = v11;
+  v12 = [(NSMutableArray *)attrs indexOfObjectPassingTest:v15];
+  v13 = [withAttributeCopy _copySettingGroup:v5];
+  v14 = self->_attrs;
+  if (v12 == 0x7FFFFFFFFFFFFFFFLL)
+  {
+    [(NSMutableArray *)v14 addObject:v13];
+  }
+
+  else
+  {
+    [(NSMutableArray *)v14 replaceObjectAtIndex:v12 withObject:v13];
+  }
+}
+
 - (ipp_t)initWithData:(id)data
 {
   dataCopy = data;
@@ -303,6 +342,195 @@ LABEL_16:
   return v4;
 }
 
+- (void)withNewAttr:(id)attr groupTag:(int)tag valueTag:(int)valueTag apply:(id)apply
+{
+  v7 = *&valueTag;
+  v8 = *&tag;
+  attrCopy = attr;
+  applyCopy = apply;
+  v11 = [[ipp_attribute_t alloc] initWithName:attrCopy group:v8 value:v7];
+  applyCopy[2](applyCopy, v11);
+  if (self->_addAttributesInAppropriateGroups)
+  {
+    [(ipp_t *)self _addAttrToAppropriateGroup:v11];
+  }
+
+  else
+  {
+    [(NSMutableArray *)self->_attrs addObject:v11];
+  }
+}
+
+- (id)addNewEmptyAttribute:(id)attribute groupTag:(int)tag valueTag:(int)valueTag
+{
+  v5 = *&valueTag;
+  v6 = *&tag;
+  attributeCopy = attribute;
+  v9 = [[ipp_attribute_t alloc] initWithName:attributeCopy group:v6 value:v5];
+  if (self->_addAttributesInAppropriateGroups)
+  {
+    [(ipp_t *)self _addAttrToAppropriateGroup:v9];
+  }
+
+  else
+  {
+    [(NSMutableArray *)self->_attrs addObject:v9];
+  }
+
+  return v9;
+}
+
+- (void)_addRange:(int)range name:(id)name lower:(int)lower upper:(int)upper
+{
+  v8 = *&range;
+  nameCopy = name;
+  if (nameCopy && v8 <= 5 && v8 != 3)
+  {
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10003BBC8;
+    v11[3] = &unk_1000A2D60;
+    lowerCopy = lower;
+    upperCopy = upper;
+    [(ipp_t *)self withNewAttr:nameCopy groupTag:v8 valueTag:51 apply:v11];
+  }
+}
+
+- (void)_addRanges:(int)ranges name:(id)name values:(id)values
+{
+  v6 = *&ranges;
+  nameCopy = name;
+  valuesCopy = values;
+  v10 = valuesCopy;
+  if (nameCopy && v6 <= 5 && v6 != 3 && [valuesCopy count])
+  {
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10003BD6C;
+    v11[3] = &unk_1000A2DE0;
+    v12 = v10;
+    [(ipp_t *)self withNewAttr:nameCopy groupTag:v6 valueTag:51 apply:v11];
+  }
+}
+
+- (void)_addBoolean:(int)boolean name:(id)name value:(BOOL)value
+{
+  v6 = *&boolean;
+  nameCopy = name;
+  if (nameCopy && v6 <= 5 && v6 != 3)
+  {
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_10003BFBC;
+    v9[3] = &unk_1000A2E20;
+    valueCopy = value;
+    [(ipp_t *)self withNewAttr:nameCopy groupTag:v6 valueTag:34 apply:v9];
+  }
+}
+
+- (void)_addInteger:(int)integer valueTag:(int)tag name:(id)name value:(int)value
+{
+  v7 = *&tag;
+  v8 = *&integer;
+  nameCopy = name;
+  if (nameCopy && v8 <= 5 && v8 != 3)
+  {
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10003C110;
+    v11[3] = &unk_1000A2E60;
+    valueCopy = value;
+    [(ipp_t *)self withNewAttr:nameCopy groupTag:v8 valueTag:v7 apply:v11];
+  }
+}
+
+- (void)_addString:(int)string valueTag:(int)tag name:(id)name lang:(id)lang value:(id)value
+{
+  v9 = *&tag;
+  v10 = *&string;
+  nameCopy = name;
+  langCopy = lang;
+  valueCopy = value;
+  v15 = valueCopy;
+  if (valueCopy && v10 <= 5 && v10 != 3)
+  {
+    v17 = valueCopy;
+    v16 = [NSArray arrayWithObjects:&v17 count:1];
+    [(ipp_t *)self _addStrings:v10 valueTag:v9 name:nameCopy lang:langCopy values:v16];
+  }
+}
+
+- (void)_addStrings:(int)strings valueTag:(int)tag name:(id)name lang:(id)lang values:(id)values
+{
+  v9 = *&tag;
+  v10 = *&strings;
+  nameCopy = name;
+  langCopy = lang;
+  valuesCopy = values;
+  v15 = valuesCopy;
+  if (nameCopy && v10 <= 5 && v10 != 3 && [valuesCopy count])
+  {
+    v16[0] = _NSConcreteStackBlock;
+    v16[1] = 3221225472;
+    v16[2] = sub_10003C3EC;
+    v16[3] = &unk_1000A2EB8;
+    v17 = v15;
+    v18 = langCopy;
+    v19 = v9;
+    [(ipp_t *)self withNewAttr:nameCopy groupTag:v10 valueTag:v9 apply:v16];
+  }
+}
+
+- (void)_addCollection:(int)collection name:(id)name value:(id)value
+{
+  v6 = *&collection;
+  nameCopy = name;
+  valueCopy = value;
+  v10 = valueCopy;
+  if (nameCopy && v6 <= 5 && v6 != 3)
+  {
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10003C8B8;
+    v11[3] = &unk_1000A2DE0;
+    v12 = valueCopy;
+    [(ipp_t *)self withNewAttr:nameCopy groupTag:v6 valueTag:52 apply:v11];
+  }
+}
+
+- (void)_addResolution:(int)resolution name:(id)name unit:(int)unit xres:(int)xres yres:(int)yres
+{
+  v10 = *&resolution;
+  nameCopy = name;
+  if (nameCopy && v10 <= 5 && v10 != 3 && ((yres | xres) & 0x80000000) == 0 && (unit - 3) < 2)
+  {
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10003CA54;
+    v13[3] = &unk_1000A2F20;
+    xresCopy = xres;
+    yresCopy = yres;
+    unitCopy = unit;
+    [(ipp_t *)self withNewAttr:nameCopy groupTag:v10 valueTag:50 apply:v13];
+  }
+}
+
+- (void)_addOctetString:(int)string name:(id)name data:(const void *)data length:(int)length
+{
+  v8 = *&string;
+  nameCopy = name;
+  if (nameCopy && v8 <= 5 && v8 != 3 && !(length >> 15))
+  {
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_10003CBC0;
+    v11[3] = &unk_1000A2F20;
+    v11[4] = data;
+    lengthCopy = length;
+    [(ipp_t *)self withNewAttr:nameCopy groupTag:v8 valueTag:48 apply:v11];
+  }
+}
+
 - (void)_deleteAttribute:(id)attribute
 {
   attributeCopy = attribute;
@@ -310,6 +538,25 @@ LABEL_16:
   if (v4 != 0x7FFFFFFFFFFFFFFFLL)
   {
     [(NSMutableArray *)self->_attrs removeObjectAtIndex:v4];
+  }
+}
+
+- (void)_addIntegers:(int)integers valueTag:(int)tag name:(id)name count:(unint64_t)count adder:(id)adder
+{
+  v9 = *&tag;
+  v10 = *&integers;
+  nameCopy = name;
+  adderCopy = adder;
+  v14 = adderCopy;
+  if (nameCopy && v10 <= 5 && v10 != 3 && count)
+  {
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_10003CE54;
+    v15[3] = &unk_1000A2F70;
+    v16 = adderCopy;
+    countCopy = count;
+    [(ipp_t *)self withNewAttr:nameCopy groupTag:v10 valueTag:v9 apply:v15];
   }
 }
 

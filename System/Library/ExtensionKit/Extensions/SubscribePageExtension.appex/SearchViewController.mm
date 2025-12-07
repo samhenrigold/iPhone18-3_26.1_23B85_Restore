@@ -69,7 +69,7 @@
   height = size.height;
   width = size.width;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for SearchViewController();
+  v8.super_class = type metadata accessor for SearchViewController(0);
   swift_unknownObjectRetain();
   v7 = v8.receiver;
   [(SearchViewController *)&v8 viewWillTransitionToSize:coordinator withTransitionCoordinator:width, height];
@@ -81,7 +81,7 @@
 - (void)viewWillLayoutSubviews
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for SearchViewController();
+  v4.super_class = type metadata accessor for SearchViewController(0);
   v2 = v4.receiver;
   [(SearchViewController *)&v4 viewWillLayoutSubviews];
   searchBar = [*&v2[OBJC_IVAR____TtC22SubscribePageExtension20SearchViewController_searchController] searchBar];
@@ -119,7 +119,7 @@
 - (void)didDismissSearchController:(id)controller
 {
   selfCopy = self;
-  sub_1006AB550(0);
+  sub_1006AB550(0, v3);
 }
 
 - (void)willPresentSearchController:(id)controller

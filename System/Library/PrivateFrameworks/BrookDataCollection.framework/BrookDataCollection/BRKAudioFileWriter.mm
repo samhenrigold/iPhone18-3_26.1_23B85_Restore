@@ -100,34 +100,20 @@ LABEL_12:
 
 - (void)_lock_close
 {
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_241ED9000, v0, v1, "Unable to close audio %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
+  audioFile = self->_audioFile;
+  if (audioFile)
+  {
+    if (ExtAudioFileDispose(audioFile))
+    {
+      v4 = BRKLoggingObjectForDomain();
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+      {
+        [BRKAudioFileWriter _lock_close];
+      }
+    }
 
-- (void)initWithPath:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_241ED9000, v0, v1, "Unable to audio writer %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithPath:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_241ED9000, v0, v1, "Unable to set file property %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_lock_writeSamples:count:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0(&dword_241ED9000, v0, v1, "Unable to write audio %d", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+    self->_audioFile = 0;
+  }
 }
 
 @end

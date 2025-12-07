@@ -135,15 +135,13 @@ LABEL_7:
 
 + (id)_generateErrorWithErrorCode:(int64_t)code andMessage:(id)message
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v6 = MEMORY[0x277CCA9B8];
-  v11 = *MEMORY[0x277CCA450];
-  v12[0] = messageCopy;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = *MEMORY[0x277CCA450];
+  v11[0] = messageCopy;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v6 errorWithDomain:@"com.apple.PhotosGraph.PGFeatureAugmenterMixUp" code:code userInfo:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -176,11 +174,11 @@ LABEL_7:
 
 + (id)instanceWithParameters:(id)parameters error:(id *)error
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
-  v15[0] = objc_opt_class();
-  v15[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+  v14[0] = objc_opt_class();
+  v14[1] = objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
   v7 = [PGFeatureTransformerHelper validParameters:parametersCopy ofTypes:v6];
 
   if (v7)
@@ -203,8 +201,6 @@ LABEL_7:
   {
     v12 = 0;
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

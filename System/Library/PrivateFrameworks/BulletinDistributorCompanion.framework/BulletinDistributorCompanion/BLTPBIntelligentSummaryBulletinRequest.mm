@@ -70,27 +70,25 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_bulletin)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    date = self->_date;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    updateType = self->_updateType;
     PBDataWriterWriteUint32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -253,7 +251,7 @@ LABEL_14:
     }
 
     v8 = fromCopy;
-    [(BLTPBBulletin *)bulletin mergeFrom:?];
+    bulletin = [(BLTPBBulletin *)bulletin mergeFrom:?];
   }
 
   else
@@ -264,7 +262,7 @@ LABEL_14:
     }
 
     v8 = fromCopy;
-    [(BLTPBIntelligentSummaryBulletinRequest *)self setBulletin:?];
+    bulletin = [(BLTPBIntelligentSummaryBulletinRequest *)self setBulletin:?];
   }
 
   fromCopy = v8;
@@ -283,7 +281,7 @@ LABEL_7:
     *&self->_has |= 2u;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](bulletin, fromCopy);
 }
 
 @end

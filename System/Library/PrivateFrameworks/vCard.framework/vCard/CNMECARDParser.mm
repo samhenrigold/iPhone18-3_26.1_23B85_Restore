@@ -7,28 +7,28 @@
 
 + (id)parseString:(id)string resultFactory:(id)factory error:(id *)error
 {
-  v37[1] = *MEMORY[0x277D85DE8];
+  v36[1] = *MEMORY[0x277D85DE8];
   stringCopy = string;
   makeBuilder = [factory makeBuilder];
   array = [MEMORY[0x277CBEB18] array];
   array2 = [MEMORY[0x277CBEB18] array];
   array3 = [MEMORY[0x277CBEB18] array];
   array4 = [MEMORY[0x277CBEB18] array];
-  v31[0] = MEMORY[0x277D85DD0];
-  v31[1] = 3221225472;
-  v31[2] = __50__CNMECARDParser_parseString_resultFactory_error___block_invoke;
-  v31[3] = &unk_27A711208;
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __50__CNMECARDParser_parseString_resultFactory_error___block_invoke;
+  v30[3] = &unk_27A711208;
   v13 = makeBuilder;
-  v32 = v13;
+  v31 = v13;
   v14 = array;
-  v33 = v14;
+  v32 = v14;
   v15 = array2;
-  v34 = v15;
+  v33 = v15;
   v16 = array3;
-  v35 = v16;
+  v34 = v16;
   v17 = array4;
-  v36 = v17;
-  [self enumerateTagsInString:stringCopy usingBlock:v31];
+  v35 = v17;
+  [self enumerateTagsInString:stringCopy usingBlock:v30];
 
   v18 = [v14 _cn_map:&__block_literal_global_13];
   v19 = [v14 _cn_map:&__block_literal_global_43];
@@ -50,8 +50,8 @@
   v27 = build;
   if (build)
   {
-    v37[0] = build;
-    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+    v36[0] = build;
+    v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:1];
   }
 
   else
@@ -59,14 +59,12 @@
     v28 = MEMORY[0x277CBEBF8];
   }
 
-  v29 = *MEMORY[0x277D85DE8];
-
   return v28;
 }
 
 void __50__CNMECARDParser_parseString_resultFactory_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if ([@"N" isEqualToString:v5])
@@ -119,24 +117,24 @@ LABEL_5:
 
   if ([@"NICKNAME" isEqualToString:v5])
   {
-    v26 = *(a1 + 32);
-    v27 = CNVCardKeyNickname;
+    v25 = *(a1 + 32);
+    v26 = CNVCardKeyNickname;
 LABEL_11:
-    [v26 setValue:v6 forProperty:*v27];
+    [v25 setValue:v6 forProperty:*v26];
     goto LABEL_8;
   }
 
   if ([@"TEL" isEqualToString:v5] || objc_msgSend(@"TEL-AV", "isEqualToString:", v5))
   {
-    v28 = *(a1 + 40);
+    v27 = *(a1 + 40);
 LABEL_15:
-    [v28 addObject:v6];
+    [v27 addObject:v6];
     goto LABEL_8;
   }
 
   if ([@"EMAIL" isEqualToString:v5])
   {
-    v28 = *(a1 + 48);
+    v27 = *(a1 + 48);
     goto LABEL_15;
   }
 
@@ -149,20 +147,20 @@ LABEL_15:
     }
 
     v19 = [MEMORY[0x277CBEB38] dictionary];
-    v29 = [v7 objectForKeyedSubscript:*MEMORY[0x277CFBD70]];
-    [v19 setObject:v29 forKeyedSubscript:@"street"];
+    v28 = [v7 objectForKeyedSubscript:*MEMORY[0x277CFBD70]];
+    [v19 setObject:v28 forKeyedSubscript:@"street"];
 
-    v30 = [v7 objectForKeyedSubscript:*MEMORY[0x277CFBD50]];
-    [v19 setObject:v30 forKeyedSubscript:@"city"];
+    v29 = [v7 objectForKeyedSubscript:*MEMORY[0x277CFBD50]];
+    [v19 setObject:v29 forKeyedSubscript:@"city"];
 
-    v31 = [v7 objectForKeyedSubscript:*MEMORY[0x277CFBD68]];
-    [v19 setObject:v31 forKeyedSubscript:@"state"];
+    v30 = [v7 objectForKeyedSubscript:*MEMORY[0x277CFBD68]];
+    [v19 setObject:v30 forKeyedSubscript:@"state"];
 
-    v32 = [v7 objectForKeyedSubscript:*MEMORY[0x277CFBD60]];
-    [v19 setObject:v32 forKeyedSubscript:@"postalCode"];
+    v31 = [v7 objectForKeyedSubscript:*MEMORY[0x277CFBD60]];
+    [v19 setObject:v31 forKeyedSubscript:@"postalCode"];
 
-    v33 = [v7 objectForKeyedSubscript:*MEMORY[0x277CFBD58]];
-    [v19 setObject:v33 forKeyedSubscript:@"country"];
+    v32 = [v7 objectForKeyedSubscript:*MEMORY[0x277CFBD58]];
+    [v19 setObject:v32 forKeyedSubscript:@"country"];
 
     [*(a1 + 56) addObject:v19];
 LABEL_6:
@@ -179,14 +177,14 @@ LABEL_7:
     }
 
     v7 = objc_alloc_init(MEMORY[0x277CBEAB8]);
-    v34 = [v6 substringWithRange:{0, 4}];
-    [v7 setYear:{objc_msgSend(v34, "integerValue")}];
+    v33 = [v6 substringWithRange:{0, 4}];
+    [v7 setYear:{objc_msgSend(v33, "integerValue")}];
 
-    v35 = [v6 substringWithRange:{4, 2}];
-    [v7 setMonth:{objc_msgSend(v35, "integerValue")}];
+    v34 = [v6 substringWithRange:{4, 2}];
+    [v7 setMonth:{objc_msgSend(v34, "integerValue")}];
 
-    v36 = [v6 substringWithRange:{6, 2}];
-    [v7 setDay:{objc_msgSend(v36, "integerValue")}];
+    v35 = [v6 substringWithRange:{6, 2}];
+    [v7 setDay:{objc_msgSend(v35, "integerValue")}];
 
     [*(a1 + 32) setValue:v7 forProperty:@"BirthdayComponents"];
     goto LABEL_7;
@@ -194,59 +192,58 @@ LABEL_7:
 
   if ([@"URL" isEqualToString:v5])
   {
-    v28 = *(a1 + 64);
+    v27 = *(a1 + 64);
     goto LABEL_15;
   }
 
   if ([@"NOTE" isEqualToString:v5])
   {
-    v26 = *(a1 + 32);
-    v27 = CNVCardKeyNote;
+    v25 = *(a1 + 32);
+    v26 = CNVCardKeyNote;
     goto LABEL_11;
   }
 
-  v37 = +[CNVCardLogging meCard];
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+  v36 = +[CNVCardLogging meCard];
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
   {
-    v38 = 138543618;
-    v39 = v5;
-    v40 = 2112;
-    v41 = v6;
-    _os_log_impl(&dword_2771F5000, v37, OS_LOG_TYPE_DEFAULT, "Unhandled tag: %{public}@ — %@", &v38, 0x16u);
+    v37 = 138543618;
+    v38 = v5;
+    v39 = 2112;
+    v40 = v6;
+    _os_log_impl(&dword_2771F5000, v36, OS_LOG_TYPE_DEFAULT, "Unhandled tag: %{public}@ — %@", &v37, 0x16u);
   }
 
 LABEL_8:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 + (void)enumerateTagsInString:(id)string usingBlock:(id)block
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   v6 = [string substringFromIndex:7];
   v7 = [v6 componentsSeparatedByString:@""];;
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v8 = v7;
-  v9 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v21;
+    v11 = *v20;
     v12 = *MEMORY[0x277CFBD30];
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v21 != v11)
+        if (*v20 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v14 = *(*(&v20 + 1) + 8 * i);
+        v14 = *(*(&v19 + 1) + 8 * i);
         if (((*(v12 + 16))(v12, v14) & 1) == 0)
         {
           v15 = [v14 rangeOfString:@":"];
@@ -256,7 +253,7 @@ LABEL_8:
             if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v25 = v14;
+              v24 = v14;
               _os_log_error_impl(&dword_2771F5000, v16, OS_LOG_TYPE_ERROR, "Syntax error: no value separator in field: '%@'", buf, 0xCu);
             }
           }
@@ -271,13 +268,11 @@ LABEL_8:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v10);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

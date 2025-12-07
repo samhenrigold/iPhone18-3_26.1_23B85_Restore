@@ -3,6 +3,7 @@
 - (DMTErasePrimitives)nonDestructiveErasePrimitives;
 - (void)activateDevice;
 - (void)activationCompleteWithSuccess:(BOOL)success error:(id)error;
+- (void)activationStatusFetchComplete:(BOOL)complete error:(id)error;
 - (void)beginAutomatedDeviceEnrollment;
 - (void)checkActivationStatus;
 - (void)checkIfAlreadyEnrolled;
@@ -74,10 +75,11 @@
   nonceCopy = nonce;
   nameCopy = name;
   serverNameCopy = serverName;
-  if ([(DMTAutomatedDeviceEnroller *)self isFinalized])
+  isFinalized = [(DMTAutomatedDeviceEnroller *)self isFinalized];
+  if (isFinalized)
   {
-    v22 = _DMTLogGeneral_2();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = _DMTLogGeneral_2(isFinalized);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       [DMTAutomatedDeviceEnroller setNetworkCredential:a2 networkPayload:? enrollmentNonce:? postEnrollmentBehavior:? organizationName:? organizationType:? mdmServerName:? networkConfiguration:?];
     }
@@ -85,11 +87,11 @@
 
   else
   {
-    v23 = _DMTLogEnrollment();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = _DMTLogEnrollment(isFinalized);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
-      *v25 = 0;
-      _os_log_impl(&dword_24891B000, v23, OS_LOG_TYPE_DEFAULT, "Receiving enrollment prerequisites...", v25, 2u);
+      *v26 = 0;
+      _os_log_impl(&dword_24891B000, v24, OS_LOG_TYPE_DEFAULT, "Receiving enrollment prerequisites...", v26, 2u);
     }
 
     [(DMTAutomatedDeviceEnroller *)self setEnrollmentState:5];
@@ -109,10 +111,11 @@
 
 - (void)beginAutomatedDeviceEnrollment
 {
-  if ([(DMTAutomatedDeviceEnroller *)self isFinalized])
+  isFinalized = [(DMTAutomatedDeviceEnroller *)self isFinalized];
+  if (isFinalized)
   {
-    v4 = _DMTLogGeneral_2();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = _DMTLogGeneral_2(isFinalized);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [DMTAutomatedDeviceEnroller setNetworkCredential:a2 networkPayload:? enrollmentNonce:? postEnrollmentBehavior:? organizationName:? organizationType:? mdmServerName:? networkConfiguration:?];
     }
@@ -122,20 +125,21 @@ LABEL_9:
     return;
   }
 
-  v5 = _DMTLogEnrollment();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = _DMTLogEnrollment(isFinalized);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_24891B000, v5, OS_LOG_TYPE_DEFAULT, "Beginning automated device enrollment...", buf, 2u);
+    _os_log_impl(&dword_24891B000, v6, OS_LOG_TYPE_DEFAULT, "Beginning automated device enrollment...", buf, 2u);
   }
 
-  if ([(DMTAutomatedDeviceEnroller *)self enrollmentState]>= 6)
+  enrollmentState = [(DMTAutomatedDeviceEnroller *)self enrollmentState];
+  if (enrollmentState >= 6)
   {
-    v4 = _DMTLogEnrollment();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _DMTLogEnrollment(enrollmentState);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v12 = 0;
-      _os_log_impl(&dword_24891B000, v4, OS_LOG_TYPE_DEFAULT, "Enrollment already in-progress, ignoring call to begin enrollment", v12, 2u);
+      *v15 = 0;
+      _os_log_impl(&dword_24891B000, v5, OS_LOG_TYPE_DEFAULT, "Enrollment already in-progress, ignoring call to begin enrollment", v15, 2u);
     }
 
     goto LABEL_9;
@@ -145,14 +149,14 @@ LABEL_9:
   reachabilityPrimitives = [(DMTAutomatedDeviceEnroller *)self reachabilityPrimitives];
   reachable = [reachabilityPrimitives reachable];
 
-  v8 = _DMTLogEnrollment();
-  v9 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
+  v11 = _DMTLogEnrollment(v10);
+  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT);
   if (reachable)
   {
-    if (v9)
+    if (v12)
     {
-      *v11 = 0;
-      _os_log_impl(&dword_24891B000, v8, OS_LOG_TYPE_DEFAULT, "Already reachable, skipping to enrollment", v11, 2u);
+      *v14 = 0;
+      _os_log_impl(&dword_24891B000, v11, OS_LOG_TYPE_DEFAULT, "Already reachable, skipping to enrollment", v14, 2u);
     }
 
     [(DMTAutomatedDeviceEnroller *)self checkActivationStatus];
@@ -160,10 +164,10 @@ LABEL_9:
 
   else
   {
-    if (v9)
+    if (v12)
     {
-      *v10 = 0;
-      _os_log_impl(&dword_24891B000, v8, OS_LOG_TYPE_DEFAULT, "Not yet reachable, joining network...", v10, 2u);
+      *v13 = 0;
+      _os_log_impl(&dword_24891B000, v11, OS_LOG_TYPE_DEFAULT, "Not yet reachable, joining network...", v13, 2u);
     }
 
     [(DMTAutomatedDeviceEnroller *)self joinNetwork];
@@ -173,10 +177,11 @@ LABEL_9:
 - (void)eraseAndRestartWithExternalError:(id)error
 {
   errorCopy = error;
-  if ([(DMTAutomatedDeviceEnroller *)self isFinalized])
+  isFinalized = [(DMTAutomatedDeviceEnroller *)self isFinalized];
+  if (isFinalized)
   {
-    v6 = _DMTLogGeneral_2();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _DMTLogGeneral_2(isFinalized);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [DMTAutomatedDeviceEnroller setNetworkCredential:a2 networkPayload:? enrollmentNonce:? postEnrollmentBehavior:? organizationName:? organizationType:? mdmServerName:? networkConfiguration:?];
     }
@@ -193,10 +198,11 @@ LABEL_9:
 - (void)eraseAndShutDownWithExternalError:(id)error
 {
   errorCopy = error;
-  if ([(DMTAutomatedDeviceEnroller *)self isFinalized])
+  isFinalized = [(DMTAutomatedDeviceEnroller *)self isFinalized];
+  if (isFinalized)
   {
-    v6 = _DMTLogGeneral_2();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _DMTLogGeneral_2(isFinalized);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [DMTAutomatedDeviceEnroller setNetworkCredential:a2 networkPayload:? enrollmentNonce:? postEnrollmentBehavior:? organizationName:? organizationType:? mdmServerName:? networkConfiguration:?];
     }
@@ -231,7 +237,7 @@ LABEL_9:
 
     else
     {
-      v8 = _DMTLogGeneral_2();
+      v8 = _DMTLogGeneral_2(networkCredential);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         *v9 = 0;
@@ -246,7 +252,7 @@ LABEL_9:
   nonDestructiveErasePrimitives = self->_nonDestructiveErasePrimitives;
   if (!nonDestructiveErasePrimitives)
   {
-    v4 = _DMTLogGeneral_2();
+    v4 = _DMTLogGeneral_2(self);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *v7 = 0;
@@ -270,29 +276,26 @@ LABEL_9:
 
 - (void)waitForReachabilityWithTimeout:(double)timeout
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v5 = [DMTWaitForKVOChangeOperation alloc];
   reachabilityPrimitives = [(DMTAutomatedDeviceEnroller *)self reachabilityPrimitives];
   v7 = [(DMTWaitForKVOChangeOperation *)v5 initWithObservedObject:reachabilityPrimitives keyPath:@"reachable" expectedValue:MEMORY[0x277CBEC38] requireExpectedValue:0];
 
   v8 = [[DMTTimeoutOperation alloc] initWithOperation:v7 timeout:1 cancelsOnTimeout:timeout];
-  [(DMTTimeoutOperation *)v8 addTarget:self selector:sel_timeoutOperationDidFinish_ forOperationEvents:6];
-  v9 = _DMTLogEnrollment();
+  v9 = _DMTLogEnrollment([(DMTTimeoutOperation *)v8 addTarget:self selector:sel_timeoutOperationDidFinish_ forOperationEvents:6]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     v10 = [MEMORY[0x277CCABB0] numberWithDouble:timeout];
     *buf = 138543362;
-    v16 = v10;
+    v15 = v10;
     _os_log_impl(&dword_24891B000, v9, OS_LOG_TYPE_DEFAULT, "Waiting for reachability for %{public}@ seconds", buf, 0xCu);
   }
 
   operationQueue = [(DMTAutomatedDeviceEnroller *)self operationQueue];
-  v14[0] = v7;
-  v14[1] = v8;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+  v13[0] = v7;
+  v13[1] = v8;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
   [operationQueue addOperations:v12 waitUntilFinished:0];
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timeoutOperationDidFinish:(id)finish
@@ -302,11 +305,11 @@ LABEL_9:
 
   if (reachable)
   {
-    v6 = _DMTLogEnrollment();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _DMTLogEnrollment(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v16 = 0;
-      _os_log_impl(&dword_24891B000, v6, OS_LOG_TYPE_DEFAULT, "Internet connection acquired...", v16, 2u);
+      *v17 = 0;
+      _os_log_impl(&dword_24891B000, v7, OS_LOG_TYPE_DEFAULT, "Internet connection acquired...", v17, 2u);
     }
 
     [(DMTAutomatedDeviceEnroller *)self checkActivationStatus];
@@ -314,30 +317,28 @@ LABEL_9:
 
   else
   {
-    v7 = _DMTLogGeneral_2();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _DMTLogGeneral_2(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      [(DMTAutomatedDeviceEnroller *)v7 timeoutOperationDidFinish:v8, v9, v10, v11, v12, v13, v14];
+      [(DMTAutomatedDeviceEnroller *)v8 timeoutOperationDidFinish:v9, v10, v11, v12, v13, v14, v15];
     }
 
-    v15 = DMTEnrollmentTimeoutErrorForNetworkConfiguration([(DMTAutomatedDeviceEnroller *)self networkConfiguration]);
-    [(DMTAutomatedDeviceEnroller *)self tearDownWithFatalError:v15];
+    v16 = DMTEnrollmentTimeoutErrorForNetworkConfiguration([(DMTAutomatedDeviceEnroller *)self networkConfiguration]);
+    [(DMTAutomatedDeviceEnroller *)self tearDownWithFatalError:v16];
   }
 }
 
 - (void)joinNetwork
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(self, "networkConfiguration")}];
   OUTLINED_FUNCTION_1();
-  _os_log_debug_impl(&dword_24891B000, a2, OS_LOG_TYPE_DEBUG, "Unknown network configuration: %{public}@", v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24891B000, a2, OS_LOG_TYPE_DEBUG, "Unknown network configuration: %{public}@", v4, 0xCu);
 }
 
 - (void)verifyProfile
 {
-  v3 = _DMTLogEnrollment();
+  v3 = _DMTLogEnrollment(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -415,7 +416,7 @@ void __43__DMTAutomatedDeviceEnroller_verifyProfile__block_invoke_3(uint64_t a1)
 
 - (void)installProfile
 {
-  v3 = _DMTLogEnrollment();
+  v3 = _DMTLogEnrollment(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -454,11 +455,11 @@ void __43__DMTAutomatedDeviceEnroller_verifyProfile__block_invoke_3(uint64_t a1)
 
     if (resultObject)
     {
-      v8 = _DMTLogGeneral_2();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v9 = _DMTLogGeneral_2(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_24891B000, v8, OS_LOG_TYPE_INFO, "Already reachable, skipping to enrollment", buf, 2u);
+        _os_log_impl(&dword_24891B000, v9, OS_LOG_TYPE_INFO, "Already reachable, skipping to enrollment", buf, 2u);
       }
 
       [(DMTAutomatedDeviceEnroller *)self enrollDevice];
@@ -474,7 +475,7 @@ void __43__DMTAutomatedDeviceEnroller_verifyProfile__block_invoke_3(uint64_t a1)
 
 - (void)uninstallProfile
 {
-  v3 = _DMTLogEnrollment();
+  v3 = _DMTLogEnrollment(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v9 = 0;
@@ -498,8 +499,8 @@ void __43__DMTAutomatedDeviceEnroller_verifyProfile__block_invoke_3(uint64_t a1)
 
   if (error)
   {
-    v6 = _DMTLogGeneral_2();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _DMTLogGeneral_2(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [(DMTAutomatedDeviceEnroller *)self profileUninstallDidFinish:finishCopy];
     }
@@ -507,36 +508,35 @@ void __43__DMTAutomatedDeviceEnroller_verifyProfile__block_invoke_3(uint64_t a1)
 
   else
   {
-    [(DMTAutomatedDeviceEnroller *)self setInstalledNetworkPayloadIdentifier:0];
-    v6 = _DMTLogEnrollment();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _DMTLogEnrollment([(DMTAutomatedDeviceEnroller *)self setInstalledNetworkPayloadIdentifier:0]);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_24891B000, v6, OS_LOG_TYPE_DEFAULT, "Profile uninstalled successfully", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_24891B000, v7, OS_LOG_TYPE_DEFAULT, "Profile uninstalled successfully", v8, 2u);
     }
   }
 }
 
 - (void)joinNetworkUsingCredentials
 {
-  objc_initWeak(&location, self);
-  v3 = _DMTLogEnrollment();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+  inited = objc_initWeak(&location, self);
+  v4 = _DMTLogEnrollment(inited);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_24891B000, v3, OS_LOG_TYPE_DEFAULT, "Joining network using provided credentials...", buf, 2u);
+    _os_log_impl(&dword_24891B000, v4, OS_LOG_TYPE_DEFAULT, "Joining network using provided credentials...", buf, 2u);
   }
 
   wifiPrimitives = [(DMTAutomatedDeviceEnroller *)self wifiPrimitives];
   networkCredential = [(DMTAutomatedDeviceEnroller *)self networkCredential];
-  v6[0] = MEMORY[0x277D85DD0];
-  v6[1] = 3221225472;
-  v6[2] = __57__DMTAutomatedDeviceEnroller_joinNetworkUsingCredentials__block_invoke;
-  v6[3] = &unk_278F5E5D8;
-  objc_copyWeak(&v7, &location);
-  [wifiPrimitives joinWiFiNetworkWithCredential:networkCredential timeout:v6 completion:60.0];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __57__DMTAutomatedDeviceEnroller_joinNetworkUsingCredentials__block_invoke;
+  v7[3] = &unk_278F5E5D8;
+  objc_copyWeak(&v8, &location);
+  [wifiPrimitives joinWiFiNetworkWithCredential:networkCredential timeout:v7 completion:60.0];
 
-  objc_destroyWeak(&v7);
+  objc_destroyWeak(&v8);
   objc_destroyWeak(&location);
 }
 
@@ -565,6 +565,7 @@ void __57__DMTAutomatedDeviceEnroller_joinNetworkUsingCredentials__block_invoke_
 - (void)didJoinNetworkWithSuccess:(BOOL)success error:(id)error
 {
   errorCopy = error;
+  v7 = errorCopy;
   if (success)
   {
     [(DMTAutomatedDeviceEnroller *)self waitForReachabilityWithTimeout:30.0];
@@ -572,19 +573,19 @@ void __57__DMTAutomatedDeviceEnroller_joinNetworkUsingCredentials__block_invoke_
 
   else
   {
-    v7 = _DMTLogGeneral_2();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _DMTLogGeneral_2(errorCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [DMTAutomatedDeviceEnroller didJoinNetworkWithSuccess:? error:?];
     }
 
-    [(DMTAutomatedDeviceEnroller *)self tearDownWithFatalError:errorCopy];
+    [(DMTAutomatedDeviceEnroller *)self tearDownWithFatalError:v7];
   }
 }
 
 - (void)disassociateWiFi
 {
-  v3 = _DMTLogGeneral_2();
+  v3 = _DMTLogGeneral_2(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     LOWORD(buf[0]) = 0;
@@ -629,20 +630,21 @@ void __46__DMTAutomatedDeviceEnroller_disassociateWiFi__block_invoke_2(uint64_t 
 - (void)didDisassociateFromNetworkWithSuccess:(BOOL)success error:(id)error
 {
   errorCopy = error;
+  v7 = errorCopy;
   if (success)
   {
-    v7 = _DMTLogEnrollment();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _DMTLogEnrollment(errorCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_24891B000, v7, OS_LOG_TYPE_DEFAULT, "Disassociated current WiFi network successfully", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_24891B000, v8, OS_LOG_TYPE_DEFAULT, "Disassociated current WiFi network successfully", v9, 2u);
     }
   }
 
   else
   {
-    v7 = _DMTLogGeneral_2();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _DMTLogGeneral_2(errorCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [DMTAutomatedDeviceEnroller didDisassociateFromNetworkWithSuccess:? error:?];
     }
@@ -651,7 +653,7 @@ void __46__DMTAutomatedDeviceEnroller_disassociateWiFi__block_invoke_2(uint64_t 
 
 - (void)checkActivationStatus
 {
-  v3 = _DMTLogEnrollment();
+  v3 = _DMTLogEnrollment(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -694,9 +696,44 @@ void __51__DMTAutomatedDeviceEnroller_checkActivationStatus__block_invoke_2(uint
   [WeakRetained activationStatusFetchComplete:*(a1 + 48) error:*(a1 + 32)];
 }
 
+- (void)activationStatusFetchComplete:(BOOL)complete error:(id)error
+{
+  completeCopy = complete;
+  v16 = *MEMORY[0x277D85DE8];
+  errorCopy = error;
+  v7 = _DMTLogEnrollment(errorCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = [MEMORY[0x277CCABB0] numberWithBool:completeCopy];
+    verboseDescription = [errorCopy verboseDescription];
+    v12 = 138543618;
+    v13 = v8;
+    v14 = 2114;
+    v15 = verboseDescription;
+    _os_log_impl(&dword_24891B000, v7, OS_LOG_TYPE_DEFAULT, "Activation status fetched: %{public}@, error: %{public}@", &v12, 0x16u);
+  }
+
+  if (completeCopy)
+  {
+    v11 = _DMTLogEnrollment(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    {
+      LOWORD(v12) = 0;
+      _os_log_impl(&dword_24891B000, v11, OS_LOG_TYPE_DEFAULT, "Device is already activated...", &v12, 2u);
+    }
+
+    [(DMTAutomatedDeviceEnroller *)self checkIfAlreadyEnrolled];
+  }
+
+  else
+  {
+    [(DMTAutomatedDeviceEnroller *)self activateDevice];
+  }
+}
+
 - (void)activateDevice
 {
-  v3 = _DMTLogEnrollment();
+  v3 = _DMTLogEnrollment(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -741,13 +778,14 @@ void __44__DMTAutomatedDeviceEnroller_activateDevice__block_invoke_2(uint64_t a1
 - (void)activationCompleteWithSuccess:(BOOL)success error:(id)error
 {
   errorCopy = error;
+  v7 = errorCopy;
   if (success)
   {
-    v7 = _DMTLogEnrollment();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _DMTLogEnrollment(errorCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_24891B000, v7, OS_LOG_TYPE_DEFAULT, "Device activation successful...", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_24891B000, v8, OS_LOG_TYPE_DEFAULT, "Device activation successful...", v10, 2u);
     }
 
     [(DMTAutomatedDeviceEnroller *)self checkIfAlreadyEnrolled];
@@ -755,19 +793,19 @@ void __44__DMTAutomatedDeviceEnroller_activateDevice__block_invoke_2(uint64_t a1
 
   else
   {
-    v8 = _DMTLogGeneral_2();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _DMTLogGeneral_2(errorCopy);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [DMTAutomatedDeviceEnroller activationCompleteWithSuccess:error:];
     }
 
-    [(DMTAutomatedDeviceEnroller *)self tearDownWithFatalError:errorCopy];
+    [(DMTAutomatedDeviceEnroller *)self tearDownWithFatalError:v7];
   }
 }
 
 - (void)checkIfAlreadyEnrolled
 {
-  v3 = _DMTLogEnrollment();
+  v3 = _DMTLogEnrollment(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -779,23 +817,23 @@ void __44__DMTAutomatedDeviceEnroller_activateDevice__block_invoke_2(uint64_t a1
 
   if (isEnrolled)
   {
-    v6 = _DMTLogGeneral_2();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = _DMTLogGeneral_2(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      [(DMTAutomatedDeviceEnroller *)v6 checkIfAlreadyEnrolled];
+      [(DMTAutomatedDeviceEnroller *)v7 checkIfAlreadyEnrolled];
     }
 
-    v7 = DMTErrorWithCodeAndUserInfo(100, 0);
-    [(DMTAutomatedDeviceEnroller *)self enrollmentCompleteWithResponse:0 error:v7];
+    v8 = DMTErrorWithCodeAndUserInfo(100, 0);
+    [(DMTAutomatedDeviceEnroller *)self enrollmentCompleteWithResponse:0 error:v8];
   }
 
   else
   {
-    v8 = _DMTLogEnrollment();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _DMTLogEnrollment(v6);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v9 = 0;
-      _os_log_impl(&dword_24891B000, v8, OS_LOG_TYPE_DEFAULT, "Device is not already enrolled...", v9, 2u);
+      *v10 = 0;
+      _os_log_impl(&dword_24891B000, v9, OS_LOG_TYPE_DEFAULT, "Device is not already enrolled...", v10, 2u);
     }
 
     [(DMTAutomatedDeviceEnroller *)self enrollDevice];
@@ -804,7 +842,7 @@ void __44__DMTAutomatedDeviceEnroller_activateDevice__block_invoke_2(uint64_t a1
 
 - (void)enrollDevice
 {
-  v3 = _DMTLogEnrollment();
+  v3 = _DMTLogEnrollment(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
@@ -852,7 +890,7 @@ void __42__DMTAutomatedDeviceEnroller_enrollDevice__block_invoke(uint64_t a1, ch
 
 void __42__DMTAutomatedDeviceEnroller_enrollDevice__block_invoke_2(uint64_t a1)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -865,23 +903,21 @@ void __42__DMTAutomatedDeviceEnroller_enrollDevice__block_invoke_2(uint64_t a1)
     else
     {
       v4 = *(a1 + 32);
-      v8 = *MEMORY[0x277CCA7E8];
-      v9[0] = v4;
-      v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+      v7 = *MEMORY[0x277CCA7E8];
+      v8[0] = v4;
+      v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
       v6 = DMTErrorWithCodeAndUserInfo(100, v5);
 
       [v3 enrollmentCompleteWithResponse:*(a1 + 40) error:v6];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)enrollmentCompleteWithResponse:(id)response error:(id)error
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   errorCopy = error;
-  v6 = _DMTLogEnrollment();
+  v6 = _DMTLogEnrollment(errorCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = @"NO";
@@ -890,9 +926,9 @@ void __42__DMTAutomatedDeviceEnroller_enrollDevice__block_invoke_2(uint64_t a1)
       v7 = @"YES";
     }
 
-    v10 = 138543362;
-    v11 = v7;
-    _os_log_impl(&dword_24891B000, v6, OS_LOG_TYPE_DEFAULT, "Enrollment complete: %{public}@", &v10, 0xCu);
+    v9 = 138543362;
+    v10 = v7;
+    _os_log_impl(&dword_24891B000, v6, OS_LOG_TYPE_DEFAULT, "Enrollment complete: %{public}@", &v9, 0xCu);
   }
 
   [(DMTAutomatedDeviceEnroller *)self setEnrollmentError:errorCopy];
@@ -907,7 +943,6 @@ void __42__DMTAutomatedDeviceEnroller_enrollDevice__block_invoke_2(uint64_t a1)
   }
 
   [(DMTAutomatedDeviceEnroller *)self setEnrollmentState:v8];
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)eraseAllContentAndSettingsWithExternalError:(id)error
@@ -957,10 +992,11 @@ void __74__DMTAutomatedDeviceEnroller_eraseAllContentAndSettingsWithExternalErro
 - (void)eraseAllContentAndSettingsDidFinishWithError:(id)error
 {
   errorCopy = error;
+  v5 = errorCopy;
   if (errorCopy)
   {
-    v5 = _DMTLogGeneral_2();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _DMTLogGeneral_2(errorCopy);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [DMTAutomatedDeviceEnroller eraseAllContentAndSettingsDidFinishWithError:];
     }
@@ -968,7 +1004,7 @@ void __74__DMTAutomatedDeviceEnroller_eraseAllContentAndSettingsWithExternalErro
 
   enrollmentState = [(DMTAutomatedDeviceEnroller *)self enrollmentState];
   powerOffPrimitives = [(DMTAutomatedDeviceEnroller *)self powerOffPrimitives];
-  v8 = powerOffPrimitives;
+  v9 = powerOffPrimitives;
   if (enrollmentState == 11)
   {
     [powerOffPrimitives reboot];
@@ -982,71 +1018,43 @@ void __74__DMTAutomatedDeviceEnroller_eraseAllContentAndSettingsWithExternalErro
 
 - (void)setNetworkCredential:(const char *)a1 networkPayload:enrollmentNonce:postEnrollmentBehavior:organizationName:organizationType:mdmServerName:networkConfiguration:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)timeoutOperationDidFinish:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_0(&dword_24891B000, a1, a3, "Network unreachable after %{public}@ seconds, failing enrollment", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = &unk_285B5BFF0;
+  OUTLINED_FUNCTION_2_0(&dword_24891B000, a1, a3, "Network unreachable after %{public}@ seconds, failing enrollment", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)profileUninstallDidFinish:(void *)a1 .cold.1(void *a1, void *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
   v3 = [a1 installedNetworkPayloadIdentifier];
-  v10 = [a2 error];
+  v9 = [a2 error];
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v4, v5, v6, v7, v8, 0x16u);
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didJoinNetworkWithSuccess:(void *)a1 error:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 networkCredential];
   v2 = [v1 networkName];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didDisassociateFromNetworkWithSuccess:(void *)a1 error:.cold.1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 networkCredential];
   v2 = [v1 networkName];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)activationCompleteWithSuccess:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_0(&dword_24891B000, v0, v1, "Device activation failed: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)eraseAllContentAndSettingsDidFinishWithError:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_2_0(&dword_24891B000, v0, v1, "Erase All Content And Settings failed: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

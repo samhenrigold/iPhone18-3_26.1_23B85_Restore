@@ -37,30 +37,30 @@
 
 - (BOOL)openWithError:(id *)error
 {
-  v134 = *MEMORY[0x277D85DE8];
+  v133 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_MMCSRequest(self, a2, error);
   v11 = objc_msgSend_MMCSItem(self, v7, v8);
   if (!v11)
   {
-    v110 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v9, v10);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v110, v111, a2, self, @"CKDMMCSEncryptedItemReader.m", 52, @"Expected non-nil MMCS item for %@", self);
+    v109 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v9, v10);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v109, v110, a2, self, @"CKDMMCSEncryptedItemReader.m", 52, @"Expected non-nil MMCS item for %@", self);
   }
 
   v14 = objc_msgSend_handle(self, v9, v10);
-  v123 = v14;
+  v122 = v14;
   if (v14)
   {
-    v112 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v12, v13);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v112, v113, a2, self, @"CKDMMCSEncryptedItemReader.m", 54, @"Expected an invalid handle for %@", self);
+    v111 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v12, v13);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v111, v112, a2, self, @"CKDMMCSEncryptedItemReader.m", 54, @"Expected an invalid handle for %@", self);
   }
 
   v15 = objc_msgSend_fileURL(v11, v12, v13);
   v18 = objc_msgSend_path(v15, v16, v17);
 
   v21 = objc_msgSend_operation(v6, v19, v20);
-  v122 = 0;
-  v23 = objc_msgSend_openWithOperation_error_(v11, v22, v21, &v122);
-  v24 = v122;
+  v121 = 0;
+  v23 = objc_msgSend_openWithOperation_error_(v11, v22, v21, &v121);
+  v24 = v121;
   v27 = v24;
   if (v23)
   {
@@ -68,15 +68,15 @@
     v28 = objc_msgSend_fileHandle(v23, v25, v26);
     v31 = objc_msgSend_encryptedFileHandle(v23, v29, v30);
     v34 = v31;
-    v121 = v21;
+    v120 = v21;
     if (!v28 || !v31 || (objc_msgSend_fileDescriptor(v31, v32, v33) & 0x80000000) != 0)
     {
-      *v117 = v6;
-      v119 = v11;
+      *v116 = v6;
+      v118 = v11;
       v38 = MEMORY[0x277CBC560];
       v39 = *MEMORY[0x277CBC120];
       v40 = objc_msgSend_fileHandle(v23, v32, v33);
-      v115 = v23;
+      v114 = v23;
       v43 = objc_msgSend_encryptedFileHandle(v23, v41, v42);
       v44 = v39;
       v45 = v18;
@@ -88,24 +88,24 @@
       }
 
       v48 = *MEMORY[0x277CBC830];
-      v6 = *v117;
+      v6 = *v116;
       if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
       {
-        v76 = v48;
-        v79 = objc_msgSend_itemID(v119, v77, v78);
-        v82 = objc_msgSend_operationID(v121, v80, v81);
+        v75 = v48;
+        v78 = objc_msgSend_itemID(v118, v76, v77);
+        v81 = objc_msgSend_operationID(v120, v79, v80);
         *buf = 134218754;
-        v125 = v79;
+        v124 = v78;
         v18 = v45;
-        v126 = 2048;
-        v127 = v14;
-        v128 = 2114;
-        v129 = v82;
-        v130 = 2112;
-        *v131 = v47;
-        _os_log_error_impl(&dword_22506F000, v76, OS_LOG_TYPE_ERROR, "Failed to open itemID:%llu, handle:%p, operationID:%{public}@: %@", buf, 0x2Au);
+        v125 = 2048;
+        v126 = v14;
+        v127 = 2114;
+        v128 = v81;
+        v129 = 2112;
+        *v130 = v47;
+        _os_log_error_impl(&dword_22506F000, v75, OS_LOG_TYPE_ERROR, "Failed to open itemID:%llu, handle:%p, operationID:%{public}@: %@", buf, 0x2Au);
 
-        v6 = *v117;
+        v6 = *v116;
       }
 
       if (errorCopy)
@@ -114,109 +114,109 @@
         v50 = v47;
         v51 = 0;
         *errorCopy = v47;
-        v11 = v119;
-        v21 = v121;
+        v11 = v118;
+        v21 = v120;
       }
 
       else
       {
         v51 = 0;
-        v11 = v119;
-        v21 = v121;
+        v11 = v118;
+        v21 = v120;
         v49 = v47;
       }
 
-      v23 = v115;
+      v23 = v114;
       goto LABEL_22;
     }
 
-    v114 = v18;
+    v113 = v18;
     if ((objc_msgSend_fileDescriptor(v28, v32, v33) & 0x80000000) != 0)
     {
-      v116 = -1;
+      v115 = -1;
     }
 
     else
     {
       v37 = objc_msgSend_fileDescriptor(v28, v35, v36);
-      v116 = dup(v37);
-      if (v116 < 0)
+      v115 = dup(v37);
+      if (v115 < 0)
       {
-        v118 = -1;
+        v117 = -1;
         goto LABEL_28;
       }
     }
 
-    v55 = objc_msgSend_fileDescriptor(v34, v35, v36);
-    v118 = dup(v55);
-    if ((v118 & 0x80000000) == 0)
+    v54 = objc_msgSend_fileDescriptor(v34, v35, v36);
+    v117 = dup(v54);
+    if ((v117 & 0x80000000) == 0)
     {
-      v58 = 0;
-      v59 = 1;
+      v57 = 0;
+      v58 = 1;
       goto LABEL_29;
     }
 
 LABEL_28:
-    v59 = 0;
-    v58 = *__error();
+    v58 = 0;
+    v57 = *__error();
 LABEL_29:
-    if ((objc_msgSend_fileDescriptor(v28, v56, v57) & 0x80000000) == 0)
+    if ((objc_msgSend_fileDescriptor(v28, v55, v56) & 0x80000000) == 0)
     {
-      objc_msgSend_closeFile(v28, v60, v61);
+      objc_msgSend_closeFile(v28, v59, v60);
     }
 
-    if ((objc_msgSend_fileDescriptor(v34, v60, v61) & 0x80000000) == 0)
+    if ((objc_msgSend_fileDescriptor(v34, v59, v60) & 0x80000000) == 0)
     {
-      objc_msgSend_closeFile(v34, v62, v63);
+      objc_msgSend_closeFile(v34, v61, v62);
     }
 
-    if (v59)
+    if (v58)
     {
-      v64 = v118;
-      v65 = MKBBackupCreateFromFileDescriptors();
-      if (v65)
+      v63 = v117;
+      v64 = MKBBackupCreateFromFileDescriptors();
+      if (v64)
       {
-        v18 = v114;
-        v49 = objc_msgSend_errorWithDomain_code_path_format_(MEMORY[0x277CBC560], v66, *MEMORY[0x277CBC120], 3001, v114, @"MKBBackupCreateFromFileDescriptors failed with rc:%d", v65);
+        v18 = v113;
+        v49 = objc_msgSend_errorWithDomain_code_path_format_(MEMORY[0x277CBC560], v65, *MEMORY[0x277CBC120], 3001, v113, @"MKBBackupCreateFromFileDescriptors failed with rc:%d", v64);
 
         if (*MEMORY[0x277CBC880] != -1)
         {
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
         }
 
-        v67 = *MEMORY[0x277CBC830];
+        v66 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
         {
-          v90 = v67;
-          v93 = objc_msgSend_itemID(v11, v91, v92);
-          v94 = v11;
-          v95 = v6;
-          v96 = v123;
-          v99 = objc_msgSend_operationID(v121, v97, v98);
+          v89 = v66;
+          v92 = objc_msgSend_itemID(v11, v90, v91);
+          v93 = v11;
+          v94 = v6;
+          v95 = v122;
+          v98 = objc_msgSend_operationID(v120, v96, v97);
           *buf = 134219266;
-          v125 = v93;
-          v126 = 2048;
-          v127 = v96;
-          v6 = v95;
-          v11 = v94;
-          v64 = v118;
-          v128 = 2114;
-          v129 = v99;
-          v130 = 1024;
-          *v131 = v116;
-          *&v131[4] = 1024;
-          *&v131[6] = v118;
-          v132 = 2114;
-          v133 = v49;
-          _os_log_error_impl(&dword_22506F000, v90, OS_LOG_TYPE_ERROR, "MKBBackupCreateFromFileDescriptors failed for itemID:%llu, handle:%p, operationID:%{public}@, fd:%d, efd:%d: %{public}@", buf, 0x36u);
+          v124 = v92;
+          v125 = 2048;
+          v126 = v95;
+          v6 = v94;
+          v11 = v93;
+          v63 = v117;
+          v127 = 2114;
+          v128 = v98;
+          v129 = 1024;
+          *v130 = v115;
+          *&v130[4] = 1024;
+          *&v130[6] = v117;
+          v131 = 2114;
+          v132 = v49;
+          _os_log_error_impl(&dword_22506F000, v89, OS_LOG_TYPE_ERROR, "MKBBackupCreateFromFileDescriptors failed for itemID:%llu, handle:%p, operationID:%{public}@, fd:%d, efd:%d: %{public}@", buf, 0x36u);
 
-          v18 = v114;
+          v18 = v113;
         }
 
-        close(v64);
-        if ((v116 & 0x80000000) == 0)
+        close(v63);
+        if ((v115 & 0x80000000) == 0)
         {
-          close(v116);
+          close(v115);
         }
 
         v34 = 0;
@@ -226,38 +226,38 @@ LABEL_29:
 
       else
       {
-        objc_msgSend_setHandle_(self, v66, v123);
-        v18 = v114;
+        objc_msgSend_setHandle_(self, v65, v122);
+        v18 = v113;
         if (*MEMORY[0x277CBC880] != -1)
         {
           dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
         }
 
-        v75 = *MEMORY[0x277CBC830];
+        v74 = *MEMORY[0x277CBC830];
         if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
         {
-          v100 = v75;
-          v103 = objc_msgSend_itemID(v11, v101, v102);
-          v104 = v11;
-          v105 = v6;
-          v106 = v123;
-          v21 = v121;
-          v109 = objc_msgSend_operationID(v121, v107, v108);
+          v99 = v74;
+          v102 = objc_msgSend_itemID(v11, v100, v101);
+          v103 = v11;
+          v104 = v6;
+          v105 = v122;
+          v21 = v120;
+          v108 = objc_msgSend_operationID(v120, v106, v107);
           *buf = 134219010;
-          v125 = v103;
-          v126 = 2048;
-          v127 = v106;
-          v6 = v105;
-          v11 = v104;
-          v128 = 2114;
-          v129 = v109;
-          v130 = 1024;
-          *v131 = v116;
-          *&v131[4] = 1024;
-          *&v131[6] = v118;
-          _os_log_debug_impl(&dword_22506F000, v100, OS_LOG_TYPE_DEBUG, "open, itemID:%llu, handle:%p, operationID:%{public}@, fd:%d, efd:%d", buf, 0x2Cu);
+          v124 = v102;
+          v125 = 2048;
+          v126 = v105;
+          v6 = v104;
+          v11 = v103;
+          v127 = 2114;
+          v128 = v108;
+          v129 = 1024;
+          *v130 = v115;
+          *&v130[4] = 1024;
+          *&v130[6] = v117;
+          _os_log_debug_impl(&dword_22506F000, v99, OS_LOG_TYPE_DEBUG, "open, itemID:%llu, handle:%p, operationID:%{public}@, fd:%d, efd:%d", buf, 0x2Cu);
 
-          v18 = v114;
+          v18 = v113;
           v34 = 0;
           v28 = 0;
           v51 = 1;
@@ -271,42 +271,42 @@ LABEL_29:
         v49 = v27;
       }
 
-      v21 = v121;
+      v21 = v120;
 LABEL_22:
 
       v27 = v49;
       goto LABEL_23;
     }
 
-    v68 = MEMORY[0x277CBC560];
-    v69 = *MEMORY[0x277CBC120];
-    v70 = strerror(v58);
-    v71 = v69;
-    v18 = v114;
-    v49 = objc_msgSend_errorWithDomain_code_path_format_(v68, v72, v71, 3001, v114, @"dup failed, %d (%s)", v58, v70);
+    v67 = MEMORY[0x277CBC560];
+    v68 = *MEMORY[0x277CBC120];
+    v69 = strerror(v57);
+    v70 = v68;
+    v18 = v113;
+    v49 = objc_msgSend_errorWithDomain_code_path_format_(v67, v71, v70, 3001, v113, @"dup failed, %d (%s)", v57, v69);
 
     if (*MEMORY[0x277CBC880] != -1)
     {
       dispatch_once(MEMORY[0x277CBC880], *MEMORY[0x277CBC878]);
     }
 
-    v73 = *MEMORY[0x277CBC830];
+    v72 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
-      v83 = v73;
-      v86 = objc_msgSend_itemID(v11, v84, v85);
-      v89 = objc_msgSend_operationID(v121, v87, v88);
+      v82 = v72;
+      v85 = objc_msgSend_itemID(v11, v83, v84);
+      v88 = objc_msgSend_operationID(v120, v86, v87);
       *buf = 134218754;
-      v125 = v86;
-      v126 = 2048;
-      v127 = v14;
-      v128 = 2114;
-      v129 = v89;
-      v130 = 2112;
-      *v131 = v49;
-      _os_log_error_impl(&dword_22506F000, v83, OS_LOG_TYPE_ERROR, "Failed to dup file descriptors for itemID:%llu, handle:%p, operationID:%{public}@: %@", buf, 0x2Au);
+      v124 = v85;
+      v125 = 2048;
+      v126 = v14;
+      v127 = 2114;
+      v128 = v88;
+      v129 = 2112;
+      *v130 = v49;
+      _os_log_error_impl(&dword_22506F000, v82, OS_LOG_TYPE_ERROR, "Failed to dup file descriptors for itemID:%llu, handle:%p, operationID:%{public}@: %@", buf, 0x2Au);
 
-      v18 = v114;
+      v18 = v113;
       if (!errorCopy)
       {
         goto LABEL_47;
@@ -316,15 +316,15 @@ LABEL_22:
     else if (!errorCopy)
     {
 LABEL_47:
-      v21 = v121;
-      if ((v118 & 0x80000000) == 0)
+      v21 = v120;
+      if ((v117 & 0x80000000) == 0)
       {
-        close(v118);
+        close(v117);
       }
 
-      if ((v116 & 0x80000000) == 0)
+      if ((v115 & 0x80000000) == 0)
       {
-        close(v116);
+        close(v115);
       }
 
       v34 = 0;
@@ -333,7 +333,7 @@ LABEL_47:
       goto LABEL_22;
     }
 
-    v74 = v49;
+    v73 = v49;
     *errorCopy = v49;
     goto LABEL_47;
   }
@@ -352,13 +352,12 @@ LABEL_47:
 
 LABEL_23:
 
-  v53 = *MEMORY[0x277D85DE8];
   return v51;
 }
 
 - (BOOL)closeWithError:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_MMCSItem(self, a2, error);
   v7 = objc_msgSend_handle(self, v5, v6);
   if (v7)
@@ -372,37 +371,36 @@ LABEL_23:
     v9 = *MEMORY[0x277CBC830];
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
     {
-      v13 = v9;
+      v12 = v9;
       *buf = 134218240;
-      v17 = objc_msgSend_itemID(v4, v14, v15);
-      v18 = 2048;
-      v19 = v8;
-      _os_log_debug_impl(&dword_22506F000, v13, OS_LOG_TYPE_DEBUG, "close, itemID:%llu, handle:%p", buf, 0x16u);
+      v16 = objc_msgSend_itemID(v4, v13, v14);
+      v17 = 2048;
+      v18 = v8;
+      _os_log_debug_impl(&dword_22506F000, v12, OS_LOG_TYPE_DEBUG, "close, itemID:%llu, handle:%p", buf, 0x16u);
     }
 
     MKBBackupClose();
     objc_msgSend_setHandle_(self, v10, 0);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
 - (id)getFileMetadataWithError:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v7 = objc_msgSend_MMCSItem(self, a2, error);
   if (!v7)
   {
-    v23 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v5, v6);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v23, v24, a2, self, @"CKDMMCSEncryptedItemReader.m", 135, @"Expected non-nil MMCS item for %@", self);
+    v22 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v5, v6);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v22, v23, a2, self, @"CKDMMCSEncryptedItemReader.m", 135, @"Expected non-nil MMCS item for %@", self);
   }
 
   v10 = objc_msgSend_handle(self, v5, v6);
   if (!v10)
   {
-    v25 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v8, v9);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v25, v26, a2, self, @"CKDMMCSEncryptedItemReader.m", 137, @"Expected a valid handle for %@", self);
+    v24 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v8, v9);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v24, v25, a2, self, @"CKDMMCSEncryptedItemReader.m", 137, @"Expected a valid handle for %@", self);
   }
 
   v11 = MKBBackupSize();
@@ -414,41 +412,39 @@ LABEL_23:
   v12 = *MEMORY[0x277CBC830];
   if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_DEBUG))
   {
-    v20 = v12;
+    v19 = v12;
     *buf = 134218496;
-    v28 = objc_msgSend_itemID(v7, v21, v22);
-    v29 = 2048;
-    v30 = v10;
-    v31 = 2048;
-    v32 = v11;
-    _os_log_debug_impl(&dword_22506F000, v20, OS_LOG_TYPE_DEBUG, "stat, itemID:%llu, handle:%p, fileSize:%lld", buf, 0x20u);
+    v27 = objc_msgSend_itemID(v7, v20, v21);
+    v28 = 2048;
+    v29 = v10;
+    v30 = 2048;
+    v31 = v11;
+    _os_log_debug_impl(&dword_22506F000, v19, OS_LOG_TYPE_DEBUG, "stat, itemID:%llu, handle:%p, fileSize:%lld", buf, 0x20u);
   }
 
   v13 = objc_alloc(MEMORY[0x277CBC438]);
   v15 = objc_msgSend_numberWithUnsignedLongLong_(MEMORY[0x277CCABB0], v14, v11);
   v17 = objc_msgSend_initWithFileSize_(v13, v16, v15);
 
-  v18 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (BOOL)readBytesAtOffset:(unint64_t)offset bytes:(char *)bytes length:(unint64_t)length bytesRead:(unint64_t *)read error:(id *)error
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   v13 = objc_msgSend_MMCSRequest(self, a2, offset);
   v18 = objc_msgSend_MMCSItem(self, v14, v15);
   if (!v18)
   {
-    v38 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v16, v17);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v38, v39, a2, self, @"CKDMMCSEncryptedItemReader.m", 149, @"Expected non-nil MMCS item for %@", self);
+    v37 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v16, v17);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v37, v38, a2, self, @"CKDMMCSEncryptedItemReader.m", 149, @"Expected non-nil MMCS item for %@", self);
   }
 
   v21 = objc_msgSend_handle(self, v16, v17);
   if (!v21)
   {
     log = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v19, v20);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(log, v40, a2, self, @"CKDMMCSEncryptedItemReader.m", 151, @"Expected a valid handle for %@", self);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(log, v39, a2, self, @"CKDMMCSEncryptedItemReader.m", 151, @"Expected a valid handle for %@", self);
   }
 
   v22 = objc_msgSend_operation(v13, v19, v20);
@@ -467,20 +463,20 @@ LABEL_23:
     if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_ERROR))
     {
       loga = v28;
-      v34 = objc_msgSend_itemID(v18, v32, v33);
-      objc_msgSend_operationID(v22, v35, v36);
+      v33 = objc_msgSend_itemID(v18, v31, v32);
+      objc_msgSend_operationID(v22, v34, v35);
       *buf = 134219266;
-      v44 = v34;
-      v45 = 2048;
-      v46 = v21;
-      v48 = v47 = 2114;
-      v37 = v48;
-      v49 = 2048;
+      v43 = v33;
+      v44 = 2048;
+      v45 = v21;
+      v47 = v46 = 2114;
+      v36 = v47;
+      v48 = 2048;
       offsetCopy = offset;
-      v51 = 2048;
+      v50 = 2048;
       lengthCopy = length;
-      v53 = 2114;
-      v54 = v27;
+      v52 = 2114;
+      v53 = v27;
       _os_log_error_impl(&dword_22506F000, loga, OS_LOG_TYPE_ERROR, "MKBBackupPread failed for itemID:%llu, handle:%p, operationID:%{public}@, offset:0x%llx, length:%llu: %{public}@", buf, 0x3Eu);
 
       if (!error)
@@ -507,7 +503,6 @@ LABEL_23:
 
 LABEL_13:
 
-  v30 = *MEMORY[0x277D85DE8];
   return v26 >= 0;
 }
 

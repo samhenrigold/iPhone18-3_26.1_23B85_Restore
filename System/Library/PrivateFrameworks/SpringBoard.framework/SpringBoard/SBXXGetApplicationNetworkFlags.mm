@@ -3,7 +3,7 @@
 
 @implementation SBXXGetApplicationNetworkFlags
 
-uint64_t ___SBXXGetApplicationNetworkFlags_block_invoke(uint64_t a1)
+void *___SBXXGetApplicationNetworkFlags_block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) dataUsage];
   **(a1 + 40) = result & 1;

@@ -38,20 +38,20 @@
 
 - (FCNewsAvailabilityMonitor)initWithApplicationProxy:(id)proxy queue:(id)queue
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   proxyCopy = proxy;
   queueCopy = queue;
   if (!proxyCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "applicationProxy"];
+    v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "applicationProxy"];
     *buf = 136315906;
-    v22 = "[FCNewsAvailabilityMonitor initWithApplicationProxy:queue:]";
-    v23 = 2080;
-    v24 = "FCNewsAvailabilityMonitor.m";
-    v25 = 1024;
-    v26 = 65;
-    v27 = 2114;
-    v28 = v18;
+    v21 = "[FCNewsAvailabilityMonitor initWithApplicationProxy:queue:]";
+    v22 = 2080;
+    v23 = "FCNewsAvailabilityMonitor.m";
+    v24 = 1024;
+    v25 = 65;
+    v26 = 2114;
+    v27 = v17;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (queueCopy)
@@ -67,22 +67,22 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v19 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "queue"];
+    v18 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "queue"];
     *buf = 136315906;
-    v22 = "[FCNewsAvailabilityMonitor initWithApplicationProxy:queue:]";
-    v23 = 2080;
-    v24 = "FCNewsAvailabilityMonitor.m";
-    v25 = 1024;
-    v26 = 66;
-    v27 = 2114;
-    v28 = v19;
+    v21 = "[FCNewsAvailabilityMonitor initWithApplicationProxy:queue:]";
+    v22 = 2080;
+    v23 = "FCNewsAvailabilityMonitor.m";
+    v24 = 1024;
+    v25 = 66;
+    v26 = 2114;
+    v27 = v18;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
-  v20.receiver = self;
-  v20.super_class = FCNewsAvailabilityMonitor;
-  v8 = [(FCNewsAvailabilityMonitor *)&v20 init];
+  v19.receiver = self;
+  v19.super_class = FCNewsAvailabilityMonitor;
+  v8 = [(FCNewsAvailabilityMonitor *)&v19 init];
   if (v8)
   {
     v9 = objc_opt_new();
@@ -103,25 +103,24 @@ LABEL_6:
     [(FCNewsAvailabilityMonitor *)v8 _updateAvailability];
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
 - (FCNewsAvailabilityMonitor)initWithProcessVariant:(unint64_t)variant queue:(id)queue
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   if (!queueCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "queue"];
+    v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "queue"];
     *buf = 136315906;
-    v18 = "[FCNewsAvailabilityMonitor initWithProcessVariant:queue:]";
-    v19 = 2080;
-    v20 = "FCNewsAvailabilityMonitor.m";
-    v21 = 1024;
-    v22 = 104;
-    v23 = 2114;
-    v24 = v16;
+    v17 = "[FCNewsAvailabilityMonitor initWithProcessVariant:queue:]";
+    v18 = 2080;
+    v19 = "FCNewsAvailabilityMonitor.m";
+    v20 = 1024;
+    v21 = 104;
+    v22 = 2114;
+    v23 = v15;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -151,7 +150,6 @@ LABEL_6:
 
   v13 = [(FCNewsAvailabilityMonitor *)self initWithApplicationProxy:v7 queue:queueCopy];
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -166,32 +164,30 @@ LABEL_6:
 
 - (void)addNotificationBlock:(id)block
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   if (!blockCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "notificationBlock"];
+    v7 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "notificationBlock"];
     *buf = 136315906;
-    v10 = "[FCNewsAvailabilityMonitor addNotificationBlock:]";
-    v11 = 2080;
-    v12 = "FCNewsAvailabilityMonitor.m";
-    v13 = 1024;
-    v14 = 162;
-    v15 = 2114;
-    v16 = v8;
+    v9 = "[FCNewsAvailabilityMonitor addNotificationBlock:]";
+    v10 = 2080;
+    v11 = "FCNewsAvailabilityMonitor.m";
+    v12 = 1024;
+    v13 = 162;
+    v14 = 2114;
+    v15 = v7;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
   blocks = [(FCNewsAvailabilityMonitor *)self blocks];
   v6 = _Block_copy(blockCopy);
   [blocks addObject:v6];
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_updateAvailability
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   NewsIsAvailable = self->_NewsIsAvailable;
   _isNewsAvailable = [(FCNewsAvailabilityMonitor *)self _isNewsAvailable];
   if (NewsIsAvailable != _isNewsAvailable)
@@ -200,39 +196,37 @@ LABEL_6:
     blocks = [(FCNewsAvailabilityMonitor *)self blocks];
     v6 = [blocks copy];
 
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v7 = v6;
-    v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v7);
           }
 
-          (*(*(*(&v13 + 1) + 8 * v11) + 16))(*(*(&v13 + 1) + 8 * v11));
+          (*(*(*(&v12 + 1) + 8 * v11) + 16))(*(*(&v12 + 1) + 8 * v11));
           ++v11;
         }
 
         while (v9 != v11);
-        v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_isNewsAvailable

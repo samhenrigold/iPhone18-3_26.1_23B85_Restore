@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)interfaceTypeAsString:(int)string;
+- (id)protocolTypeAsString:(int)string;
+- (id)requestTypeAsString:(int)string;
 - (int)StringAsInterfaceType:(id)type;
 - (int)StringAsProtocolType:(id)type;
 - (int)StringAsRequestType:(id)type;
@@ -82,6 +85,19 @@
   *&self->_has = *&self->_has & 0xFBFF | v3;
 }
 
+- (id)interfaceTypeAsString:(int)string
+{
+  if ((string - 1) >= 4)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32A80[string - 1];
+  }
+}
+
 - (int)StringAsInterfaceType:(id)type
 {
   if ([type isEqualToString:@"NetworkServiceProxyInterfaceType_WIFI"])
@@ -133,6 +149,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEFFF | v3;
+}
+
+- (id)requestTypeAsString:(int)string
+{
+  if (string == 1)
+  {
+    return @"NetworkServiceProxyControlRequestType_WALDO_REFRESH";
+  }
+
+  if (string == 2)
+  {
+    return @"NetworkServiceProxyControlRequestType_DAYPASS_REQUEST";
+  }
+
+  return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
 }
 
 - (int)StringAsRequestType:(id)type
@@ -312,6 +343,19 @@
   }
 
   *&self->_has = *&self->_has & 0xF7FF | v3;
+}
+
+- (id)protocolTypeAsString:(int)string
+{
+  if ((string - 1) >= 3)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32AA0[string - 1];
+  }
 }
 
 - (int)StringAsProtocolType:(id)type
@@ -552,7 +596,6 @@ LABEL_14:
   has = self->_has;
   if ((has & 0x200) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x400) == 0)
@@ -572,7 +615,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  interfaceType = self->_interfaceType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x1000) == 0)
@@ -587,7 +629,6 @@ LABEL_4:
   }
 
 LABEL_21:
-  requestType = self->_requestType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -602,7 +643,6 @@ LABEL_5:
   }
 
 LABEL_22:
-  requestCount = self->_requestCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -617,7 +657,6 @@ LABEL_6:
   }
 
 LABEL_23:
-  resultSuccessCount = self->_resultSuccessCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -632,7 +671,6 @@ LABEL_7:
   }
 
 LABEL_24:
-  resultNetworkUnavailableCount = self->_resultNetworkUnavailableCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -647,7 +685,6 @@ LABEL_8:
   }
 
 LABEL_25:
-  resultServerUnreachableCount = self->_resultServerUnreachableCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -662,7 +699,6 @@ LABEL_9:
   }
 
 LABEL_26:
-  resultSendFailureCount = self->_resultSendFailureCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -677,7 +713,6 @@ LABEL_10:
   }
 
 LABEL_27:
-  resultResponseTimeoutCount = self->_resultResponseTimeoutCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -692,7 +727,6 @@ LABEL_11:
   }
 
 LABEL_28:
-  resultConnectionResetCount = self->_resultConnectionResetCount;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -707,32 +741,28 @@ LABEL_12:
   }
 
 LABEL_29:
-  resultCertificateFailureCount = self->_resultCertificateFailureCount;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_13:
-    resultUnknownErrorCount = self->_resultUnknownErrorCount;
     PBDataWriterWriteUint64Field();
   }
 
 LABEL_14:
   if (self->_responseTimeBuckets.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_responseTimeBuckets.list[v6];
       PBDataWriterWriteUint32Field();
-      ++v6;
+      ++v5;
     }
 
-    while (v6 < self->_responseTimeBuckets.count);
+    while (v5 < self->_responseTimeBuckets.count);
   }
 
   if ((*&self->_has & 0x800) != 0)
   {
-    protocolType = self->_protocolType;
 
     PBDataWriterWriteInt32Field();
   }

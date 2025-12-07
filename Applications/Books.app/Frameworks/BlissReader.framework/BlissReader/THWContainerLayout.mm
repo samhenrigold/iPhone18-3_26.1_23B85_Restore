@@ -287,7 +287,7 @@ LABEL_30:
     }
 
     v9 = v8;
-    [(THWContainerLayout *)self transformInRoot];
+    objc_msgSend_transformInRoot(self);
     [v9 transformUsingAffineTransform:v11];
     v10 = [[TSDWrapPolygon alloc] initWithPath:v9];
     self->mCachedWrapPolygon = v10;
@@ -402,10 +402,10 @@ LABEL_8:
 
   if (geometry)
   {
-    [geometry transform];
+    objc_msgSend_transform(geometry);
   }
 
-  [v6 transform];
+  objc_msgSend_transform(v6, *&CGPointZero.y);
   TSDSubtractPoints();
   mCachedWrapPolygon = self->mCachedWrapPolygon;
   CGAffineTransformMakeTranslation(&v11, v8, v9);

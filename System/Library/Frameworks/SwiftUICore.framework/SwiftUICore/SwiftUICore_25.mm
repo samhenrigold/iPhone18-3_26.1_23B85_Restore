@@ -1,297 +1,1803 @@
-unint64_t lazy protocol witness table accessor for type _BlurEffect and conformance _BlurEffect()
+void *specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(void *a1, uint64_t a2, uint64_t a3)
 {
-  result = lazy protocol witness table cache variable for type _BlurEffect and conformance _BlurEffect;
-  if (!lazy protocol witness table cache variable for type _BlurEffect and conformance _BlurEffect)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type _BlurEffect and conformance _BlurEffect);
-  }
-
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
   return result;
 }
 
 {
-  result = lazy protocol witness table cache variable for type _BlurEffect and conformance _BlurEffect;
-  if (!lazy protocol witness table cache variable for type _BlurEffect and conformance _BlurEffect)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type _BlurEffect and conformance _BlurEffect);
-  }
-
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
   return result;
 }
 
-void type metadata accessor for GeometryEffectDisplayList<DefaultGeometryEffectProvider<_ScaleEffect>>()
 {
-  if (!lazy cache variable for type metadata for GeometryEffectDisplayList<DefaultGeometryEffectProvider<_ScaleEffect>>)
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+{
+  result = specialized _ContiguousArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(a1, a2, a3, *v3);
+  *v3 = result;
+  return result;
+}
+
+void _ShapeSet.Wrapper.animatableData.getter(uint64_t a1@<X8>)
+{
+  v3 = *v1;
+  v4 = v1[1];
+  v5 = *(*v1 + 16);
+  v6 = MEMORY[0x1E69E7CC0];
+  if (v5)
   {
-    type metadata accessor for GeometryEffectTransform<_TransformEffect>(255, &lazy cache variable for type metadata for DefaultGeometryEffectProvider<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for DefaultGeometryEffectProvider);
-    lazy protocol witness table accessor for type DefaultGeometryEffectProvider<_ScaleEffect> and conformance DefaultGeometryEffectProvider<A>();
-    v0 = type metadata accessor for GeometryEffectDisplayList();
-    if (!v1)
+    v17 = MEMORY[0x1E69E7CC0];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v5, 0);
+    v6 = v17;
+    v7 = (v3 + 40);
+    do
     {
-      atomic_store(v0, &lazy cache variable for type metadata for GeometryEffectDisplayList<DefaultGeometryEffectProvider<_ScaleEffect>>);
+      v8 = *v7;
+      v9 = *(**(v7 - 1) + 96);
+
+      v9(v16 + 1, v10);
+
+      *&v16[0] = v8;
+      v17 = v6;
+      v12 = *(v6 + 16);
+      v11 = *(v6 + 24);
+      if (v12 >= v11 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v11 > 1), v12 + 1, 1);
+        v6 = v17;
+      }
+
+      v7 += 4;
+      *(v6 + 16) = v12 + 1;
+      v13 = (v6 + 48 * v12);
+      v14 = v16[0];
+      v15 = v16[2];
+      v13[3] = v16[1];
+      v13[4] = v15;
+      v13[2] = v14;
+      --v5;
+    }
+
+    while (v5);
+  }
+
+  *a1 = v6;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = v4;
+}
+
+void type metadata accessor for KeyedAnimatableArray<Int, _AnyAnimatableData>.Element(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for KeyedAnimatableArray<Int, _AnyAnimatableData>.Element)
+  {
+    lazy protocol witness table accessor for type _AnyAnimatableData and conformance _AnyAnimatableData();
+    v5[0] = MEMORY[0x1E69E6530];
+    v5[1] = &type metadata for _AnyAnimatableData;
+    v5[2] = MEMORY[0x1E69E6548];
+    v5[3] = v2;
+    v3 = type metadata accessor for KeyedAnimatableArray.Element(a1, v5);
+    if (!v4)
+    {
+      atomic_store(v3, &lazy cache variable for type metadata for KeyedAnimatableArray<Int, _AnyAnimatableData>.Element);
     }
   }
 }
 
-unint64_t lazy protocol witness table accessor for type DefaultGeometryEffectProvider<_ScaleEffect> and conformance DefaultGeometryEffectProvider<A>()
+uint64_t _SizedShape.animatableData.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  result = lazy protocol witness table cache variable for type DefaultGeometryEffectProvider<_ScaleEffect> and conformance DefaultGeometryEffectProvider<A>;
-  if (!lazy protocol witness table cache variable for type DefaultGeometryEffectProvider<_ScaleEffect> and conformance DefaultGeometryEffectProvider<A>)
+  v5 = *(a1 + 16);
+  v6 = *(*(a1 + 24) + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v8 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v10 = &v16 - v9;
+  (*(v6 + 24))(v5, v6, v8);
+  v16 = *(v2 + *(a1 + 36));
+  type metadata accessor for AnimatablePair<CGFloat, CGFloat>(0);
+  v12 = v11;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  lazy protocol witness table accessor for type AnimatablePair<CGFloat, CGFloat> and conformance AnimatablePair<A, B>();
+  return AnimatablePair.init(_:_:)(v10, &v16, AssociatedTypeWitness, v12, AssociatedConformanceWitness, v14, a2);
+}
+
+uint64_t OffsetShape.animatableData.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  v5 = *(a1 + 16);
+  v6 = *(*(a1 + 24) + 8);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  v8 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v10 = &v16 - v9;
+  (*(v6 + 24))(v5, v6, v8);
+  v16 = *(v2 + *(a1 + 36));
+  type metadata accessor for AnimatablePair<CGFloat, CGFloat>(0);
+  v12 = v11;
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  _s7SwiftUI14AnimatablePairVy12CoreGraphics7CGFloatVAFGACyxq_GAA16VectorArithmeticAAWlTm_3(&lazy protocol witness table cache variable for type AnimatablePair<CGFloat, CGFloat> and conformance AnimatablePair<A, B>, type metadata accessor for AnimatablePair<CGFloat, CGFloat>);
+  return AnimatablePair.init(_:_:)(v10, &v16, AssociatedTypeWitness, v12, AssociatedConformanceWitness, v14, a2);
+}
+
+void lazy protocol witness table accessor for type AnimatablePair<CGFloat, CGFloat> and conformance AnimatablePair<A, B>()
+{
+  if (!lazy protocol witness table cache variable for type AnimatablePair<CGFloat, CGFloat> and conformance AnimatablePair<A, B>)
   {
-    type metadata accessor for GeometryEffectTransform<_TransformEffect>(255, &lazy cache variable for type metadata for DefaultGeometryEffectProvider<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for DefaultGeometryEffectProvider);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type DefaultGeometryEffectProvider<_ScaleEffect> and conformance DefaultGeometryEffectProvider<A>);
+    type metadata accessor for AnimatablePair<CGFloat, CGFloat>(255);
+    swift_getWitnessTable(protocol conformance descriptor for AnimatablePair<A, B>, v2, v0, v1);
+    atomic_store(v3, &lazy protocol witness table cache variable for type AnimatablePair<CGFloat, CGFloat> and conformance AnimatablePair<A, B>);
   }
+}
+
+uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ7SwiftUI20KeyedAnimatableArrayV7ElementVySiAC04_AnyE4DataV_G_Tt1g5(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 16);
+  if (v2 == *(a2 + 16))
+  {
+    if (!v2 || a1 == a2)
+    {
+      return 1;
+    }
+
+    v3 = a1 + 32;
+    for (i = a2 + 32; ; i += 48)
+    {
+      outlined init with copy of KeyedAnimatableArray<_ShapeStyle_Pack.Key, AnimatablePair<_ShapeStyle_Pack.Fill.AnimatableData, AnimatablePair<Float, AnimatableArray<AnimatablePair<Float, _ShapeStyle_Pack.Effect.Kind.AnimatableData>>>>>.Element(v3, &v9, type metadata accessor for KeyedAnimatableArray<Int, _AnyAnimatableData>.Element);
+      outlined init with copy of KeyedAnimatableArray<_ShapeStyle_Pack.Key, AnimatablePair<_ShapeStyle_Pack.Fill.AnimatableData, AnimatablePair<Float, AnimatableArray<AnimatablePair<Float, _ShapeStyle_Pack.Effect.Kind.AnimatableData>>>>>.Element(i, v7, type metadata accessor for KeyedAnimatableArray<Int, _AnyAnimatableData>.Element);
+      if (v9 != v7[0] || v10 != v7[1])
+      {
+        break;
+      }
+
+      v5 = (*(v10 + 88))(&v11, &v8);
+      outlined destroy of KeyedAnimatableArray<_ShapeStyle_Pack.Key, AnimatablePair<_ShapeStyle_Pack.Fill.AnimatableData, AnimatablePair<Float, AnimatableArray<AnimatablePair<Float, _ShapeStyle_Pack.Effect.Kind.AnimatableData>>>>>.Element(v7, type metadata accessor for KeyedAnimatableArray<Int, _AnyAnimatableData>.Element);
+      outlined destroy of KeyedAnimatableArray<_ShapeStyle_Pack.Key, AnimatablePair<_ShapeStyle_Pack.Fill.AnimatableData, AnimatablePair<Float, AnimatableArray<AnimatablePair<Float, _ShapeStyle_Pack.Effect.Kind.AnimatableData>>>>>.Element(&v9, type metadata accessor for KeyedAnimatableArray<Int, _AnyAnimatableData>.Element);
+      if ((v5 & 1) == 0)
+      {
+        return 0;
+      }
+
+      v3 += 48;
+      if (!--v2)
+      {
+        return 1;
+      }
+    }
+
+    outlined destroy of KeyedAnimatableArray<_ShapeStyle_Pack.Key, AnimatablePair<_ShapeStyle_Pack.Fill.AnimatableData, AnimatablePair<Float, AnimatableArray<AnimatablePair<Float, _ShapeStyle_Pack.Effect.Kind.AnimatableData>>>>>.Element(v7, type metadata accessor for KeyedAnimatableArray<Int, _AnyAnimatableData>.Element);
+    outlined destroy of KeyedAnimatableArray<_ShapeStyle_Pack.Key, AnimatablePair<_ShapeStyle_Pack.Fill.AnimatableData, AnimatablePair<Float, AnimatableArray<AnimatablePair<Float, _ShapeStyle_Pack.Effect.Kind.AnimatableData>>>>>.Element(&v9, type metadata accessor for KeyedAnimatableArray<Int, _AnyAnimatableData>.Element);
+  }
+
+  return 0;
+}
+
+uint64_t *initializeBufferWithCopyOfBuffer for SimultaneousGesture(uint64_t *a1, uint64_t *a2, uint64_t a3)
+{
+  v3 = a1;
+  v4 = *(*(a3 + 16) - 8);
+  v5 = *(v4 + 64);
+  v6 = *(a3 + 24);
+  v7 = *(v6 - 8);
+  v8 = *(v7 + 80);
+  v9 = v5 + v8;
+  v10 = ((v5 + v8) & ~v8) + *(v7 + 64);
+  v11 = (*(v4 + 80) | *(v7 + 80));
+  if (v11 > 7 || ((*(v4 + 80) | *(v7 + 80)) & 0x100000) != 0 || v10 > 0x18)
+  {
+    v14 = *a2;
+    *v3 = *a2;
+    v3 = (v14 + ((v11 + 16) & ~v11));
+  }
+
+  else
+  {
+    v15 = ~v8;
+    (*(v4 + 16))(a1);
+    (*(v7 + 16))((v3 + v9) & v15, (a2 + v9) & v15, v6);
+  }
+
+  return v3;
+}
+
+double specialized GeometryProxy.subscript.getter(uint64_t a1)
+{
+  specialized static Update.begin()();
+  v3 = *(v1 + 16);
+  v10[0] = *v1;
+  v10[1] = v3;
+  v10[2] = *(v1 + 32);
+  v11 = *(v1 + 48);
+  v4 = GeometryProxy.placementContext.getter(v7);
+  if (v9)
+  {
+    (*(*a1 + 88))(v10, v4);
+    v5 = *v10;
+  }
+
+  else
+  {
+    v5 = specialized Anchor.in(_:)(v7[0], v7[1], v7[2], v8, a1);
+  }
+
+  static Update.end()();
+  return v5;
+}
+
+double specialized Anchor.in(_:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
+{
+  InputValue = AGGraphGetInputValue();
+  v7 = *InputValue;
+  v8 = *(InputValue + 8);
+  v9 = *(InputValue + 16);
+  v10 = *(InputValue + 24);
+  v11 = *(InputValue + 32);
+  v12 = *(InputValue + 40);
+  type metadata accessor for CGPoint(0);
+
+  v13 = AGGraphGetInputValue();
+  v14 = *v13;
+  v15 = *(v13 + 8);
+  v16 = v11 - (*v13 - v9);
+  v18[0] = v7;
+  v18[1] = v8;
+  *&v18[2] = v14;
+  *&v18[3] = v15;
+  *&v18[4] = v16;
+  *&v18[5] = v12 - (v15 - v10);
+  (*(*a5 + 96))(&v19, v18);
+
+  return v19;
+}
+
+void *MaterialEffectTransaction.value.getter(unint64_t a1, uint64_t a2)
+{
+  v3 = *AGGraphGetValue();
+
+  Value = AGGraphGetValue();
+  v5 = *(Value + 8);
+  v6 = *(Value + 16);
+  v7 = *(Value + 24);
+
+  if (*AGGraphGetValue() == v7)
+  {
+    if ((a2 & 0x100000000) != 0)
+    {
+      v8 = v6;
+    }
+
+    else
+    {
+      v8 = v5;
+    }
+
+    if (v3)
+    {
+      if (v8)
+      {
+        if (v3[3])
+        {
+          type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.MaterialBackdropProxyKey>(0, &lazy cache variable for type metadata for TypedElement<EmptyKey>, &type metadata for EmptyKey, &protocol witness table for EmptyKey, type metadata accessor for TypedElement);
+          swift_allocObject();
+          swift_retain_n();
+
+          v9.value = PropertyList.Element.init(keyType:before:after:)(&type metadata for EmptyKey, v8, v3).value;
+        }
+
+        else
+        {
+          v10 = v3[4];
+          v11 = *(*v3 + 216);
+
+          v9.value = v11(v12, v10);
+        }
+
+        v8 = v9.value;
+      }
+
+      else
+      {
+        v8 = v3;
+      }
+    }
+
+    else
+    {
+    }
+  }
+
+  else
+  {
+
+    return v3;
+  }
+
+  return v8;
+}
+
+uint64_t Transaction.isAnimated.getter(void *a1)
+{
+  v2 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011TransactionqS033_B2543BCA257433E04979186A1DC2B6BCLLVyAA09AnimationS033_D98E9A1069CEEADA58829ED440E36F30LLVG_Tt0g5(a1);
+  if (v2)
+  {
+    v3 = v2[9];
+    if (v3)
+    {
+      v4 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011TransactionqS033_B2543BCA257433E04979186A1DC2B6BCLLVyAA018DisablesAnimationsS033_D98E9A1069CEEADA58829ED440E36F30LLVG_Tt0g5(a1);
+      if (v4)
+      {
+        LOBYTE(v3) = *(v4 + 72) ^ 1;
+      }
+
+      else
+      {
+        LOBYTE(v3) = 1;
+      }
+    }
+  }
+
+  else
+  {
+    LOBYTE(v3) = 0;
+  }
+
+  return v3 & 1;
+}
+
+double PlatformGlassInteractionContext.glass.getter@<D0>(uint64_t a1@<X8>)
+{
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 40);
+  *a1 = *v1;
+  *(a1 + 8) = v3;
+  *(a1 + 16) = v4;
+  *(a1 + 24) = *(v1 + 24);
+  *(a1 + 40) = v5;
+  outlined copy of _Glass.Variant.Role(v2, v3);
 
   return result;
 }
 
-__n128 __swift_memcpy29_4(uint64_t a1, uint64_t a2)
+uint64_t destroy for PlatformGlassInteractionContext(uint64_t *a1)
 {
-  result = *a2;
-  *(a1 + 13) = *(a2 + 13);
-  *a1 = result;
-  return result;
+  outlined consume of _Glass.Variant.Role(*a1, a1[1]);
+
+  if (a1[9] != 1)
+  {
+    outlined consume of _Glass.Variant.Role(a1[6], a1[7]);
+  }
+
+  if (a1[15] != 1)
+  {
+    outlined consume of _Glass.Variant.Role(a1[12], a1[13]);
+  }
+
+  return swift_weakDestroy();
 }
 
-uint64_t protocol witness for static _AttributeBody.flags.getter in conformance GeometryEffectDisplayList<A>()
+void storeEnumTagSinglePayload for CoreInteractionRepresentableEffect(_DWORD *a1, unsigned int a2, unsigned int a3, uint64_t a4)
 {
-  swift_getWitnessTable();
+  v5 = 0;
+  v6 = *(*(a4 + 16) - 8);
+  v7 = *(v6 + 84);
+  v8 = v7 - 1;
+  if (!v7)
+  {
+    v8 = 0;
+  }
 
-  return static AsyncAttribute.flags.getter();
+  if (v8 <= 0x7FFFFFFF)
+  {
+    v9 = 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v9 = v8;
+  }
+
+  v10 = *(*(*(a4 + 16) - 8) + 64);
+  if (!v7)
+  {
+    ++v10;
+  }
+
+  v11 = ((((v10 + 7) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 8;
+  if (v9 < a3)
+  {
+    v12 = a3 - v9;
+    if (((((v10 + 7) & 0xFFFFFFF8) + 15) & 0xFFFFFFF8) == 0xFFFFFFF8)
+    {
+      v13 = v12 + 1;
+    }
+
+    else
+    {
+      v13 = 2;
+    }
+
+    if (v13 >= 0x10000)
+    {
+      v14 = 4;
+    }
+
+    else
+    {
+      v14 = 2;
+    }
+
+    if (v13 < 0x100)
+    {
+      v14 = 1;
+    }
+
+    if (v13 >= 2)
+    {
+      v5 = v14;
+    }
+
+    else
+    {
+      v5 = 0;
+    }
+  }
+
+  if (a2 > v9)
+  {
+    if (((((v10 + 7) & 0xFFFFFFF8) + 15) & 0xFFFFFFF8) == 0xFFFFFFF8)
+    {
+      v15 = a2 - v9;
+    }
+
+    else
+    {
+      v15 = 1;
+    }
+
+    if (((((v10 + 7) & 0xFFFFFFF8) + 15) & 0xFFFFFFF8) != 0xFFFFFFF8)
+    {
+      v16 = ~v9 + a2;
+      v17 = a1;
+      bzero(a1, v11);
+      a1 = v17;
+      *v17 = v16;
+    }
+
+    if (v5 > 1)
+    {
+      if (v5 == 2)
+      {
+        *(a1 + v11) = v15;
+      }
+
+      else
+      {
+        *(a1 + v11) = v15;
+      }
+    }
+
+    else if (v5)
+    {
+      *(a1 + v11) = v15;
+    }
+
+    return;
+  }
+
+  if (v5 > 1)
+  {
+    if (v5 != 2)
+    {
+      *(a1 + v11) = 0;
+      if (!a2)
+      {
+        return;
+      }
+
+      goto LABEL_38;
+    }
+
+    *(a1 + v11) = 0;
+LABEL_37:
+    if (!a2)
+    {
+      return;
+    }
+
+    goto LABEL_38;
+  }
+
+  if (!v5)
+  {
+    goto LABEL_37;
+  }
+
+  *(a1 + v11) = 0;
+  if (!a2)
+  {
+    return;
+  }
+
+LABEL_38:
+  if (v8 < 0x7FFFFFFF)
+  {
+    v22 = ((a1 + v10 + 7) & 0xFFFFFFFFFFFFFFF8);
+    if ((a2 & 0x80000000) != 0)
+    {
+      v23 = a2 & 0x7FFFFFFF;
+    }
+
+    else
+    {
+      v23 = a2 - 1;
+    }
+
+    *v22 = v23;
+  }
+
+  else if (v8 >= a2)
+  {
+    v24 = *(v6 + 56);
+
+    v24();
+  }
+
+  else
+  {
+    if (v10 <= 3)
+    {
+      v18 = ~(-1 << (8 * v10));
+    }
+
+    else
+    {
+      v18 = -1;
+    }
+
+    if (v10)
+    {
+      v19 = v18 & (~v8 + a2);
+      if (v10 <= 3)
+      {
+        v20 = v10;
+      }
+
+      else
+      {
+        v20 = 4;
+      }
+
+      v21 = a1;
+      bzero(a1, v10);
+      if (v20 > 2)
+      {
+        if (v20 == 3)
+        {
+          *v21 = v19;
+          *(v21 + 2) = BYTE2(v19);
+        }
+
+        else
+        {
+          *v21 = v19;
+        }
+      }
+
+      else if (v20 == 1)
+      {
+        *v21 = v19;
+      }
+
+      else
+      {
+        *v21 = v19;
+      }
+    }
+  }
 }
 
-uint64_t instantiation function for generic protocol witness table for GeometryEffectDisplayList<A>(uint64_t a1)
+uint64_t getEnumTagSinglePayload for CoreInteractionRepresentableEffect(_DWORD *a1, unsigned int a2, uint64_t a3)
 {
-  result = swift_getWitnessTable();
-  *(a1 + 8) = result;
-  return result;
+  v4 = *(*(a3 + 16) - 8);
+  v5 = *(v4 + 84);
+  if (v5)
+  {
+    v6 = v5 - 1;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v6 <= 0x7FFFFFFF)
+  {
+    v7 = 0x7FFFFFFF;
+  }
+
+  else
+  {
+    v7 = v6;
+  }
+
+  v8 = *(*(*(a3 + 16) - 8) + 64);
+  if (!v5)
+  {
+    ++v8;
+  }
+
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (v7 >= a2)
+  {
+    goto LABEL_33;
+  }
+
+  v9 = ((((v8 + 7) & 0xFFFFFFFFFFFFFFF8) + 15) & 0xFFFFFFFFFFFFFFF8) + 8;
+  v10 = a2 - v7;
+  v11 = v9 & 0xFFFFFFF8;
+  if ((v9 & 0xFFFFFFF8) != 0)
+  {
+    v12 = 2;
+  }
+
+  else
+  {
+    v12 = v10 + 1;
+  }
+
+  if (v12 >= 0x10000)
+  {
+    v13 = 4;
+  }
+
+  else
+  {
+    v13 = 2;
+  }
+
+  if (v12 < 0x100)
+  {
+    v13 = 1;
+  }
+
+  if (v12 >= 2)
+  {
+    v14 = v13;
+  }
+
+  else
+  {
+    v14 = 0;
+  }
+
+  if (v14 > 1)
+  {
+    if (v14 == 2)
+    {
+      v15 = *(a1 + v9);
+      if (!v15)
+      {
+        goto LABEL_33;
+      }
+    }
+
+    else
+    {
+      v15 = *(a1 + v9);
+      if (!v15)
+      {
+        goto LABEL_33;
+      }
+    }
+  }
+
+  else if (!v14 || (v15 = *(a1 + v9)) == 0)
+  {
+LABEL_33:
+    if (v6 < 0x7FFFFFFF)
+    {
+      v19 = *((a1 + v8 + 7) & 0xFFFFFFFFFFFFFFF8);
+      if (v19 >= 0xFFFFFFFF)
+      {
+        LODWORD(v19) = -1;
+      }
+
+      return (v19 + 1);
+    }
+
+    else
+    {
+      v18 = (*(v4 + 48))(a1);
+      if (v18 >= 2)
+      {
+        return v18 - 1;
+      }
+
+      else
+      {
+        return 0;
+      }
+    }
+  }
+
+  v17 = v15 - 1;
+  if (v11)
+  {
+    v17 = 0;
+    LODWORD(v11) = *a1;
+  }
+
+  return v7 + (v11 | v17) + 1;
 }
 
-uint64_t _s7SwiftUI22GeometryEffectProviderPAAE05_makecD08modifier6inputs4bodyAA12_ViewOutputsVAA11_GraphValueVy0D0QzG_AA01_J6InputsVAiA01_L0V_APtctFZAA07DefaultcdE0VyAA06_ScaleD0VG_Tt3B5@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t (*a3)(uint64_t, __int128 *)@<X2>, void *a4@<X8>)
+void *assignWithTake for CoreInteractionRepresentableEffect(void *a1, void *a2, uint64_t a3)
 {
-  v74 = *MEMORY[0x1E69E9840];
-  v5 = *(a2 + 32);
-  v73[1] = *(a2 + 16);
-  v73[2] = v5;
-  v73[0] = *a2;
-  v6 = WORD2(v5);
-  if ((BYTE4(v5) & 0x20) == 0)
+  v5 = *(a3 + 16);
+  v6 = *(v5 - 8);
+  v7 = *(v6 + 48);
+  v8 = v7(a1, 1, v5);
+  v9 = v7(a2, 1, v5);
+  if (v8)
   {
-    v7 = *(a2 + 48);
-    v69 = *(a2 + 32);
-    v70 = v7;
-    v71 = *(a2 + 64);
-    v72 = *(a2 + 80);
-    v8 = *(a2 + 16);
-    v67 = *a2;
-    v68 = v8;
-    return a3(a1, &v67);
+    if (!v9)
+    {
+      (*(v6 + 32))(a1, a2, v5);
+      (*(v6 + 56))(a1, 0, 1, v5);
+      goto LABEL_12;
+    }
+
+    v10 = *(v6 + 84);
+    v11 = *(v6 + 64);
   }
 
-  LODWORD(v67) = a1;
-  _s7SwiftUI10AnimatablePAAE05_makeC05value6inputsyAA11_GraphValueVyxGz_AA01_G6InputsVtFZAA12_ScaleEffectV_Tt1B5(&v67, v73);
-  v10 = v67;
-  if (one-time initialization token for layoutDirection != -1)
+  else
   {
-    swift_once();
+    if (!v9)
+    {
+      (*(v6 + 40))(a1, a2, v5);
+      goto LABEL_12;
+    }
+
+    (*(v6 + 8))(a1, v5);
+    v10 = *(v6 + 84);
+    v11 = *(v6 + 64);
   }
 
-  v11 = static CachedEnvironment.ID.layoutDirection;
-  swift_beginAccess();
-  LODWORD(v11) = specialized CachedEnvironment.attribute<A>(id:_:)(v11);
-  v12 = *(a2 + 16);
-  v65 = *a2;
-  v66 = v12;
-  v49 = *(a2 + 32);
-  v63 = *(a2 + 36);
-  v64 = *(a2 + 52);
-  v53 = *(a2 + 76);
-  v13 = *(a2 + 48);
-  v69 = *(a2 + 32);
-  v70 = v13;
-  v71 = *(a2 + 64);
-  v72 = *(a2 + 80);
-  v14 = *(a2 + 16);
-  v67 = *a2;
-  v68 = v14;
-  outlined init with copy of _ViewInputs(a2, v60);
-  v15 = CachedEnvironment.animatedCGSize(for:)(&v67);
-  v16 = *(a2 + 48);
-  v69 = *(a2 + 32);
-  v70 = v16;
-  v71 = *(a2 + 64);
-  v72 = *(a2 + 80);
-  v17 = *(a2 + 16);
-  v67 = *a2;
-  v68 = v17;
-  v18 = CachedEnvironment.animatedPosition(for:)(&v67);
-  swift_endAccess();
-  v19 = *(a2 + 60);
-  v46 = v11;
-  v47 = v10;
-  *&v67 = __PAIR64__(v15, v10);
-  *(&v67 + 1) = __PAIR64__(v19, v18);
-  LODWORD(v68) = v11;
-  protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
-  type metadata accessor for GeometryEffectTransform<_TransformEffect>(0, &lazy cache variable for type metadata for GeometryEffectTransform<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for GeometryEffectTransform);
-  lazy protocol witness table accessor for type GeometryEffectTransform<_ScaleEffect> and conformance GeometryEffectTransform<A>();
-  v20 = Attribute.init<A>(body:value:flags:update:)();
-  specialized static GraphHost.currentHost.getter();
-  type metadata accessor for ViewGraph();
-  v21 = *(swift_dynamicCastClassUnconditional() + 248);
-
-  v22 = *(a2 + 64);
-  v23 = *(a2 + 72);
-  if (one-time initialization token for pixelLength != -1)
+  if (v10)
   {
-    swift_once();
+    v12 = v11;
   }
 
-  v24 = static CachedEnvironment.ID.pixelLength;
-  swift_beginAccess();
-  v25 = specialized CachedEnvironment.attribute<A>(id:_:)(v24);
-  swift_endAccess();
-  *&v67 = __PAIR64__(v23, v22);
-  DWORD2(v67) = v25;
-  protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
-  lazy protocol witness table accessor for type RoundedSize and conformance RoundedSize();
-  v26 = Attribute.init<A>(body:value:flags:update:)();
-  v27 = v49 | 0x1C;
-  v60[0] = v65;
-  v60[1] = v66;
-  *&v61[4] = v63;
-  *&v61[20] = v64;
-  *v61 = v49 | 0x1C;
-  *&v61[28] = v20;
-  *v62 = v21;
-  *&v62[4] = v21;
-  *&v62[8] = v26;
-  *&v62[12] = v53;
-  *v58 = *v61;
-  *&v58[16] = *&v61[16];
-  *v59 = *v62;
-  *&v59[16] = HIDWORD(v53);
-  v56 = v65;
-  v57 = v66;
-  v28 = outlined init with copy of _ViewInputs(v60, &v67);
-  (a3)(v54, v28, &v56);
-  v69 = *v58;
-  v70 = *&v58[16];
-  v71 = *v59;
-  v72 = *&v59[16];
-  v67 = v56;
-  v68 = v57;
-  outlined destroy of _ViewInputs(&v67);
-  v29 = _s7SwiftUI17PreferencesInputsV8contains_011includeHostC0Sbxm_SbtAA13PreferenceKeyRzlFAA11DisplayListV0I0V_TtB5Tf4dn_n(*(a2 + 48));
-  v30 = v53;
-  if ((v29 & 1) == 0)
+  else
   {
-    goto LABEL_17;
+    v12 = v11 + 1;
   }
 
-  v52 = v20;
-  v31 = ++lastIdentity;
-  v50 = *&v73[0];
-  if ((v6 & 0x100) == 0)
+  memcpy(a1, a2, v12);
+LABEL_12:
+  if (*(v6 + 84))
   {
-    v32 = *MEMORY[0x1E698D3F8];
-LABEL_10:
-    v33 = *(a2 + 48);
-    *v58 = *(a2 + 32);
-    *&v58[16] = v33;
-    *v59 = *(a2 + 64);
-    *&v59[16] = *(a2 + 80);
-    v34 = *(a2 + 16);
-    v56 = *a2;
-    v57 = v34;
+    v13 = *(v6 + 64);
+  }
+
+  else
+  {
+    v13 = *(v6 + 64) + 1;
+  }
+
+  v14 = v13 + 7;
+  v15 = ((a1 + v14) & 0xFFFFFFFFFFFFFFF8);
+  v16 = ((a2 + v14) & 0xFFFFFFFFFFFFFFF8);
+  *v15 = *v16;
+
+  *((v15 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v16 + 15) & 0xFFFFFFFFFFFFFFF8);
+  swift_unknownObjectRelease();
+  return a1;
+}
+
+uint64_t _CoreInteractionHelperBox.value<A, B>(as:idType:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+{
+  v40 = a4;
+  v41 = a6;
+  v42 = a7;
+  v12 = *v7;
+  v13 = *(*v7 + 120);
+  v14 = *(*v7 + 136);
+  type metadata accessor for CoreInteractionRepresentableEffect(255, v13, v14, a4);
+  v15 = type metadata accessor for Optional();
+  v16 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v20 = &v37 - v19;
+  if (v13 == a1 && (v21 = v12[16], v21 == a2))
+  {
+    v27 = v12[19];
+    v38 = v17;
     swift_beginAccess();
-    v35 = CachedEnvironment.animatedPosition(for:)(&v56);
-    v36 = *(a2 + 48);
-    *v58 = *(a2 + 32);
-    *&v58[16] = v36;
-    *v59 = *(a2 + 64);
-    *&v59[16] = *(a2 + 80);
-    v37 = *(a2 + 16);
-    v56 = *a2;
-    v57 = v37;
-    v38 = CachedEnvironment.animatedCGSize(for:)(&v56);
-    swift_endAccess();
-    v39 = _s7SwiftUI18PreferencesOutputsVy14AttributeGraph0E0Vy5ValueQzGSgxmcAA13PreferenceKeyRzluigAA11DisplayListV0I0V_TtB5(v54[0]);
-    if ((v39 & 0x100000000) != 0)
-    {
-      v40 = v32;
-    }
-
-    else
-    {
-      v40 = v39;
-    }
-
-    BloomFilter.init(hashValue:)(&type metadata for DisplayList.Options);
-    v41 = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA07DisplayS0V7OptionsV_Tt0B5(v50, v56);
-    if (v41)
-    {
-      v42 = *(v41 + 72);
-    }
-
-    else
-    {
-      v42 = 0;
-    }
-
-    v43 = *(a2 + 68);
-    *&v56 = __PAIR64__(v47, v31);
-    *(&v56 + 1) = __PAIR64__(v38, v35);
-    *&v57 = __PAIR64__(v43, v46);
-    DWORD2(v57) = v40;
-    BYTE12(v57) = v42;
-    protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
-    type metadata accessor for GeometryEffectDisplayList<DefaultGeometryEffectProvider<_ScaleEffect>>();
-    lazy protocol witness table accessor for type GeometryEffectDisplayList<DefaultGeometryEffectProvider<FlexStateModifier>> and conformance GeometryEffectDisplayList<A>(&lazy protocol witness table cache variable for type GeometryEffectDisplayList<DefaultGeometryEffectProvider<_ScaleEffect>> and conformance GeometryEffectDisplayList<A>, type metadata accessor for GeometryEffectDisplayList<DefaultGeometryEffectProvider<_ScaleEffect>>);
-    v44 = Attribute.init<A>(body:value:flags:update:)();
-    LOBYTE(v56) = 0;
-    PreferencesOutputs.subscript.setter(v44, &type metadata for DisplayList.Key, &protocol witness table for DisplayList.Key);
-    v30 = v53;
-    v20 = v52;
-LABEL_17:
-    v56 = v65;
-    v57 = v66;
-    *v58 = v27;
-    *&v58[4] = v63;
-    *&v58[20] = v64;
-    *&v58[28] = v20;
-    *v59 = v21;
-    *&v59[4] = v21;
-    *&v59[8] = v26;
-    *&v59[12] = v30;
-    result = outlined destroy of _ViewInputs(&v56);
-    *a4 = v54[0];
-    a4[1] = v54[1];
-    return result;
+    v28 = v7 + v27;
+    v29 = v38;
+    v30 = (*(v16 + 16))(v20, v28, v38);
+    v39 = &v37;
+    MEMORY[0x1EEE9AC00](v30);
+    *(&v37 - 8) = v13;
+    *(&v37 - 7) = v21;
+    v31 = v40;
+    *(&v37 - 6) = a3;
+    *(&v37 - 5) = v31;
+    v32 = v12[18];
+    *(&v37 - 4) = v14;
+    *(&v37 - 3) = v32;
+    v33 = v41;
+    *(&v37 - 2) = a5;
+    *(&v37 - 1) = v33;
+    v35 = type metadata accessor for CoreInteractionRepresentableEffect(0, a3, a5, v34);
+    _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(partial apply for closure #1 in _CoreInteractionHelperBox.value<A, B>(as:idType:), (&v37 - 10), MEMORY[0x1E69E73E0], v35, v36, v42);
+    return (*(v16 + 8))(v20, v29);
   }
 
-  _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA08_DisplayD20_StableIdentityScopeV_Tt2G5(*&v73[0], &v56);
-  result = AGWeakAttributeGetAttribute();
-  v32 = *MEMORY[0x1E698D3F8];
-  if (result != *MEMORY[0x1E698D3F8])
+  else
   {
-    v55[0] = v31;
-    v45 = Attribute<A>.subscript.modify();
-    _DisplayList_StableIdentityScope.pushIdentity(_:)(v55);
-    v45(&v56, 0);
-    goto LABEL_10;
+    v22 = type metadata accessor for CoreInteractionRepresentableEffect(0, a3, a5, v18);
+    v23 = *(*(v22 - 8) + 56);
+    v24 = v22;
+    v25 = v42;
+
+    return v23(v25, 1, 1, v24);
+  }
+}
+
+void *initializeWithCopy for CoreInteractionRepresentableEffect(void *a1, const void *a2, uint64_t a3)
+{
+  v5 = *(a3 + 16);
+  v6 = *(v5 - 8);
+  if ((*(v6 + 48))(a2, 1, v5))
+  {
+    v7 = *(v6 + 84);
+    v8 = *(v6 + 64);
+    if (v7)
+    {
+      v9 = v8;
+    }
+
+    else
+    {
+      v9 = v8 + 1;
+    }
+
+    memcpy(a1, a2, v9);
+  }
+
+  else
+  {
+    (*(v6 + 16))(a1, a2, v5);
+    v11 = *(v6 + 56);
+    v10 = v6 + 56;
+    v11(a1, 0, 1, v5);
+    v7 = *(v10 + 28);
+    v8 = *(v10 + 8);
+  }
+
+  if (v7)
+  {
+    v12 = v8;
+  }
+
+  else
+  {
+    v12 = v8 + 1;
+  }
+
+  v13 = v12 + 7;
+  v14 = ((a1 + v13) & 0xFFFFFFFFFFFFFFF8);
+  v15 = ((a2 + v13) & 0xFFFFFFFFFFFFFFF8);
+  *v14 = *v15;
+  *((v14 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v15 + 15) & 0xFFFFFFFFFFFFFFF8);
+
+  swift_unknownObjectRetain();
+  return a1;
+}
+
+void *initializeWithTake for CoreInteractionRepresentableEffect(void *a1, const void *a2, uint64_t a3)
+{
+  v5 = *(a3 + 16);
+  v6 = *(v5 - 8);
+  if ((*(v6 + 48))(a2, 1, v5))
+  {
+    v7 = *(v6 + 84);
+    v8 = *(v6 + 64);
+    if (v7)
+    {
+      v9 = v8;
+    }
+
+    else
+    {
+      v9 = v8 + 1;
+    }
+
+    memcpy(a1, a2, v9);
+  }
+
+  else
+  {
+    (*(v6 + 32))(a1, a2, v5);
+    v11 = *(v6 + 56);
+    v10 = v6 + 56;
+    v11(a1, 0, 1, v5);
+    v7 = *(v10 + 28);
+    v8 = *(v10 + 8);
+  }
+
+  if (v7)
+  {
+    v12 = v8;
+  }
+
+  else
+  {
+    v12 = v8 + 1;
+  }
+
+  v13 = v12 + 7;
+  v14 = ((a1 + v13) & 0xFFFFFFFFFFFFFFF8);
+  v15 = ((a2 + v13) & 0xFFFFFFFFFFFFFFF8);
+  *v14 = *v15;
+  *((v14 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v15 + 15) & 0xFFFFFFFFFFFFFFF8);
+  return a1;
+}
+
+uint64_t closure #1 in _CoreInteractionHelperBox.value<A, B>(as:idType:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X3>, uint64_t a4@<X5>, uint64_t a5@<X7>, uint64_t a6@<X8>)
+{
+  v10 = *(*(type metadata accessor for CoreInteractionRepresentableEffect(0, a2, a4, a3) - 8) + 64);
+  result = type metadata accessor for CoreInteractionRepresentableEffect(0, a3, a5, v11);
+  if (v10 == *(*(result - 8) + 64))
+  {
+    return (*(*(result - 8) + 16))(a6, a1, result);
   }
 
   __break(1u);
   return result;
 }
 
-_DWORD *_s7SwiftUI10AnimatablePAAE05_makeC05value6inputsyAA11_GraphValueVyxGz_AA01_G6InputsVtFZAA12_ScaleEffectV_Tt1B5(_DWORD *result, uint64_t a2)
+uint64_t MaterialEffectDisplayList.updateValue()()
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v1 = v0;
+  v113 = *MEMORY[0x1E69E9840];
+  v2 = MEMORY[0x1E69E7CC0];
+  if (v0[6] == *MEMORY[0x1E698D3F8])
+  {
+    v3 = 0;
+    v4 = 0;
+    v5 = MEMORY[0x1E69E7CC0];
+  }
+
+  else
+  {
+    Value = AGGraphGetValue();
+    v5 = *Value;
+    v3 = *(Value + 8);
+    v4 = *(Value + 12);
+  }
+
+  v101 = v5;
+  v102 = v3;
+  v103 = v4;
+  type metadata accessor for CGPoint(0);
+  v7 = AGGraphGetValue();
+  v8 = *v7;
+  v9 = v7[1];
+  v10 = AGGraphGetValue();
+  v11 = v8 - *v10;
+  v12 = v9 - v10[1];
+  v13 = ++static DisplayList.Version.lastValue;
+  _s7SwiftUI10MutableBoxCyAA17CachedEnvironmentVGMaTm_1(0, &lazy cache variable for type metadata for MaterialEffectResolvedData.Data?, &unk_1F00A6040, MEMORY[0x1E69E6720]);
+  v14 = AGGraphGetValue();
+  v93 = *v14;
+  if (!*v14)
+  {
+    *&__src[0] = v13;
+    DisplayList.translate(by:version:)(__PAIR128__(*&v12, *&v11), __src);
+    *&__src[0] = v101;
+    WORD4(__src[0]) = v102;
+    HIDWORD(__src[0]) = v103;
+    AGGraphSetOutputValue();
+  }
+
+  v94 = v4;
+  v15 = v14[1];
+  v16 = v14[2];
+  v17 = v14[3];
+  v91 = v15;
+  v92 = v17;
+  v90 = v16;
+  if (v17 != 2)
+  {
+LABEL_8:
+    v19 = HIDWORD(v17);
+    v112 = 0;
+    *&v111[72] = 0x20000000;
+    memset(v111, 0, 72);
+    type metadata accessor for CGSize(0);
+    outlined copy of MaterialEffectResolvedData.Data?(v93, v15, v16, v17);
+
+    v20 = AGGraphGetValue();
+    if (v13)
+    {
+      v21 = (2 * ((33 * (v13 >> 16)) ^ v13)) | 1;
+    }
+
+    else
+    {
+      LOWORD(v21) = 0;
+    }
+
+    v22 = *v20;
+    v23 = v20[1];
+    v24 = *v0;
+    v25 = v0[5];
+    *&__src[9] = 0;
+    DWORD2(__src[9]) = 0;
+    if (one-time initialization token for normal != -1)
+    {
+      swift_once();
+    }
+
+    v26 = static GraphicsBlendMode.normal;
+    v27 = byte_1ED52F818;
+    *(&__src[15] + 1) = static GraphicsBlendMode.normal;
+    LOBYTE(__src[16]) = byte_1ED52F818;
+    DWORD1(__src[16]) = 1065353216;
+    BYTE8(__src[16]) = 0;
+    *&__src[0] = v93;
+    *(&__src[0] + 1) = v91;
+    *&__src[4] = 0;
+    DWORD2(__src[6]) = 0x20000000;
+    WORD6(__src[6]) = v21;
+    *&__src[7] = v11;
+    *(&__src[7] + 1) = v12;
+    *&__src[8] = v22;
+    *(&__src[8] + 1) = v23;
+    *&__src[10] = v11;
+    *(&__src[10] + 1) = v12;
+    *&__src[11] = v22;
+    *(&__src[11] + 1) = v23;
+    __src[12] = v13;
+    __src[13] = 0uLL;
+    *&__src[14] = 3221225472;
+    DWORD2(__src[14]) = v24;
+    BYTE12(__src[14]) = 0;
+    LODWORD(__src[15]) = v25;
+    v97 = v2;
+    v28 = v16;
+    *&__dst[0] = v16;
+    BYTE8(__dst[0]) = v92;
+    HIDWORD(__dst[0]) = v19;
+    BYTE5(__dst[5]) = 3;
+    DWORD2(__dst[5]) = 1065353216;
+    *&__dst[6] = 0;
+    BYTE8(__dst[6]) = -1;
+    *&__dst[7] = v2;
+    LOBYTE(v105) = 0;
+    outlined copy of Material.ID(v16, v92);
+    outlined copy of GraphicsBlendMode(v26, v27);
+    _ShapeStyle_Pack.subscript.setter(__dst, &v105, 0);
+    LOBYTE(__dst[0]) = 0;
+    specialized _ShapeStyle_RenderedShape.renderItem(name:styles:layers:)(__dst, v111, __src, &v97);
+    LOBYTE(__dst[0]) = 0;
+    _ShapeStyle_RenderedLayers.commit(shape:options:)(__src, __dst, &v98);
+    *&__dst[0] = v13;
+    DisplayList.translate(by:version:)(__PAIR128__(*&v12, *&v11), __dst);
+    v29 = *(v101 + 16);
+    if (v29)
+    {
+      v30 = 0;
+      v95 = v101 + 32;
+      v31 = v98;
+      while (1)
+      {
+        v33 = (v95 + 80 * v30);
+        v34 = *(v33 + 60);
+        v35 = v33[3];
+        v36 = v33[1];
+        __dst[2] = v33[2];
+        __dst[3] = v35;
+        *(&__dst[3] + 12) = v34;
+        __dst[0] = *v33;
+        __dst[1] = v36;
+        v37 = *(&__dst[2] + 1);
+        v39 = v35;
+        v38 = v34 >> 32;
+        v40 = DWORD1(v34) >> 30;
+        if (DWORD1(v34) >> 30 == 3 && !(*&__dst[3] | *(&__dst[2] + 1) | *(&__dst[3] + 1)) && *&__dst[4] == 3221225472)
+        {
+          goto LABEL_18;
+        }
+
+        outlined init with copy of DisplayList.Item(__dst, &v105);
+        outlined init with copy of DisplayList.Item(__dst, &v105);
+        if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+        {
+          v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v31 + 2) + 1, 1, v31);
+        }
+
+        v42 = *(v31 + 2);
+        v41 = *(v31 + 3);
+        if (v42 >= v41 >> 1)
+        {
+          v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v41 > 1), v42 + 1, 1, v31);
+        }
+
+        *(v31 + 2) = v42 + 1;
+        v43 = &v31[80 * v42];
+        *(v43 + 2) = __dst[0];
+        v44 = __dst[1];
+        v45 = __dst[2];
+        v46 = __dst[3];
+        *(v43 + 92) = *(&__dst[3] + 12);
+        *(v43 + 4) = v45;
+        *(v43 + 5) = v46;
+        *(v43 + 3) = v44;
+        v107 = __dst[2];
+        v108[0] = __dst[3];
+        *(v108 + 12) = *(&__dst[3] + 12);
+        v105 = __dst[0];
+        v106 = __dst[1];
+        DisplayList.Item.features.getter(&v96);
+        v99 |= v96;
+        if (v40 > 1)
+        {
+          if (v40 == 2)
+          {
+            v47 = *(v37 + 16);
+            if (v47)
+            {
+              if (v47 > 7)
+              {
+                v48 = v47 & 0x7FFFFFFFFFFFFFF8;
+                v50 = (v37 + 188);
+                v51 = 0uLL;
+                v52 = v47 & 0x7FFFFFFFFFFFFFF8;
+                v53 = 0uLL;
+                do
+                {
+                  v54.i32[0] = *(v50 - 30);
+                  v54.i32[1] = *(v50 - 20);
+                  v54.i32[2] = *(v50 - 10);
+                  v54.i32[3] = *v50;
+                  v55.i32[0] = v50[10];
+                  v55.i32[1] = v50[20];
+                  v55.i32[2] = v50[30];
+                  v55.i32[3] = v50[40];
+                  v51 = vorrq_s8(v54, v51);
+                  v53 = vorrq_s8(v55, v53);
+                  v50 += 80;
+                  v52 -= 8;
+                }
+
+                while (v52);
+                v56 = vorrq_s8(v53, v51);
+                v57 = vorr_s8(*v56.i8, *&vextq_s8(v56, v56, 8uLL));
+                v32 = v57.i32[0] | v57.i32[1];
+                if (v47 == v48)
+                {
+                  goto LABEL_45;
+                }
+              }
+
+              else
+              {
+                v32 = 0;
+                v48 = 0;
+              }
+
+              v58 = v47 - v48;
+              v59 = (v37 + 40 * v48 + 68);
+              do
+              {
+                v60 = *v59;
+                v59 += 10;
+                v32 |= v60;
+                --v58;
+              }
+
+              while (v58);
+            }
+
+            else
+            {
+              v32 = 0;
+            }
+
+LABEL_45:
+            outlined destroy of DisplayList.Item(__dst);
+            goto LABEL_17;
+          }
+        }
+
+        else
+        {
+          if (v40)
+          {
+            switch(BYTE4(v39))
+            {
+              case 2u:
+
+                v49 = v37;
+                break;
+              case 7u:
+                v49 = *(v37 + 28);
+                outlined init with copy of DisplayList.Item(__dst, &v105);
+                outlined consume of DisplayList.Effect(v37, v39, 7);
+
+                outlined destroy of DisplayList.Item(__dst);
+                break;
+              case 0x12u:
+                (*(*v37 + 120))(&v96);
+                outlined init with copy of DisplayList.Item(__dst, &v105);
+                outlined consume of DisplayList.Effect(v37, v39, 18);
+
+                outlined destroy of DisplayList.Item(__dst);
+                v49 = v96;
+                break;
+              default:
+                outlined copy of DisplayList.Effect(v37, v39, SBYTE4(v39));
+
+                outlined consume of DisplayList.Effect(v37, v39, SBYTE4(v39));
+
+                outlined destroy of DisplayList.Item(__dst);
+                v49 = 0;
+                break;
+            }
+
+            v32 = v49 | HIDWORD(v38);
+            goto LABEL_17;
+          }
+
+          if (v37 >> 60 == 6 || v37 >> 60 == 11)
+          {
+            v32 = *((v37 & 0xFFFFFFFFFFFFFFFLL) + 0x1C);
+            goto LABEL_45;
+          }
+        }
+
+        outlined destroy of DisplayList.Item(__dst);
+        v32 = 0;
+LABEL_17:
+        v100 |= v32;
+LABEL_18:
+        if (++v30 == v29)
+        {
+          v98 = v31;
+
+          v28 = v16;
+          goto LABEL_52;
+        }
+      }
+    }
+
+    v31 = v98;
+LABEL_52:
+    *&v105 = v31;
+    WORD4(v105) = v99;
+    HIDWORD(v105) = v100;
+    AGGraphSetOutputValue();
+    outlined consume of MaterialEffectResolvedData.Data?(v93, v91, v28, v92);
+    memcpy(__dst, __src, 0x109uLL);
+    outlined destroy of _ShapeStyle_RenderedShape(__dst);
+
+    v107 = *&v111[32];
+    v108[0] = *&v111[48];
+    v108[1] = *&v111[64];
+    v109 = v112;
+    v105 = *v111;
+    v106 = *&v111[16];
+    outlined destroy of _ShapeStyle_RenderedLayers(&v105);
+  }
+
+  *&__dst[0] = v14[2];
+  Material.Layers.singletonSDFLayer.getter(__src);
+  v18 = *&__src[0];
+  if ((~*&__src[0] & 0xF000000000000007) == 0)
+  {
+    v17 = v92;
+    goto LABEL_8;
+  }
+
+  v62 = DWORD2(__src[0]);
+  v63 = 0.5;
+  if ((BYTE8(__src[0]) & 1) == 0)
+  {
+    v63 = 0.0;
+  }
+
+  if (*(__src + 3) == 0.0)
+  {
+    v64 = v63;
+  }
+
+  else
+  {
+    v64 = *(__src + 3);
+  }
+
+  outlined copy of MaterialEffectResolvedData.Data?(v93, v15, v16, v92);
+
+  v89 = v62;
+  outlined copy of Material.Layer.SDFLayer?(v18);
+  v65 = AGGraphGetValue();
+  v66 = *v65;
+  if (*(v65 + 8))
+  {
+
+    swift_retain_n();
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA0J6ValuesVAAE021MaterialBackdropProxyI033_DEF3755CDC6B87C0368876C9F497EC3DLLVG_Tt1g5(v66, __src);
+
+    v67 = *&__src[0];
+  }
+
+  else
+  {
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.MaterialBackdropProxyKey>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.MaterialBackdropProxyKey>, &type metadata for EnvironmentValues.MaterialBackdropProxyKey, &protocol witness table for EnvironmentValues.MaterialBackdropProxyKey, type metadata accessor for EnvironmentPropertyKey);
+    BloomFilter.init(hashValue:)(v68);
+    v69 = *&__src[0];
+
+    v71 = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011EnvironmentrV0VyAA0W6ValuesVAAE021MaterialBackdropProxyV033_DEF3755CDC6B87C0368876C9F497EC3DLLVG_Tt0B5(v70, v69);
+    if (v71)
+    {
+      v67 = v71[9];
+    }
+
+    else
+    {
+      v67 = 0;
+    }
+  }
+
+  v72 = *(v1 + 5);
+  v88 = v18;
+  if (v67)
+  {
+    if (v72)
+    {
+      if (v67 == v72)
+      {
+        goto LABEL_80;
+      }
+
+LABEL_71:
+      v73 = *(v1 + 5);
+      if (v73)
+      {
+        v74 = *(v1 + 4);
+
+        os_unfair_lock_lock(v73 + 4);
+        _s7SwiftUI21MaterialBackdropProxyV14removeObserveryyAA0cdG0_pFyAC7Storage33_DEF3755CDC6B87C0368876C9F497EC3DLLC4DataVzYuYTXEfU_(&v73[6], v74);
+        os_unfair_lock_unlock(v73 + 4);
+      }
+
+      if (v67)
+      {
+        v75 = *(v1 + 4);
+
+        os_unfair_lock_lock((v67 + 16));
+        _s7SwiftUI21MaterialBackdropProxyV11addObserveryyAA0cdG0_pFyAC7Storage33_DEF3755CDC6B87C0368876C9F497EC3DLLC4DataVzYuYTXEfU_(v67 + 24, v75, &protocol witness table for SDFShape.BackdropObserver);
+        os_unfair_lock_unlock((v67 + 16));
+
+        *(v1 + 5) = v67;
+
+        v76 = *(v1 + 4);
+
+        os_unfair_lock_lock((v67 + 16));
+        v77 = *(v67 + 24);
+        v78 = *(v67 + 28);
+        os_unfair_lock_unlock((v67 + 16));
+        if (swift_weakLoadStrong())
+        {
+          if (one-time initialization token for _lock != -1)
+          {
+            swift_once();
+          }
+
+          v79 = static Update._lock;
+          _MovableLockLock(static Update._lock);
+          specialized static Update.begin()();
+          v80 = *(v76 + 24);
+          v81 = _threadTransactionID();
+          LOBYTE(__src[0]) = v78;
+          specialized GraphHost.asyncTransaction<A>(_:id:mutation:style:mayDeferUpdate:)(0, v81, v80, v77 | (v78 << 32), 1, 1);
+          static Update.end()();
+          _MovableLockUnlock(v79);
+        }
+
+        v18 = v88;
+      }
+
+      else
+      {
+        *(v1 + 5) = 0;
+      }
+
+      goto LABEL_80;
+    }
+
+LABEL_70:
+
+    goto LABEL_71;
+  }
+
+  if (v72)
+  {
+    goto LABEL_70;
+  }
+
+LABEL_80:
+  if (*(v1 + 5))
+  {
+    v82 = 0;
+  }
+
+  else
+  {
+    v82 = *(v1 + 4);
+  }
+
+  v83 = swift_allocObject();
+  v105 = 0uLL;
+  *&v106 = v93;
+  *(&v106 + 1) = v91;
+  *&v107 = v18;
+  *(&v107 + 1) = __PAIR64__(v89, LODWORD(v64));
+  *&v108[0] = v82;
+  *(v83 + 64) = v82;
+  v84 = v106;
+  *(v83 + 16) = v105;
+  *(v83 + 32) = v84;
+  *(v83 + 48) = v107;
+  type metadata accessor for CGSize(0);
+  outlined init with copy of SDFShape(&v105, __src);
+  v85 = AGGraphGetValue();
+  v86 = *v1;
+  v87 = *v85;
+  *__src = v11;
+  *(__src + 1) = v12;
+  __src[1] = v87;
+  *&__src[2] = v13;
+  *(&__src[2] + 1) = v83;
+  *&__src[3] = 0x800000000;
+  *(&__src[3] + 1) = v5;
+  *&__src[4] = v3 | (v94 << 32) | 0x40000000;
+  DWORD2(__src[4]) = v86;
+  __dst[2] = __src[2];
+  __dst[3] = __src[3];
+  *(&__dst[3] + 12) = *(&__src[3] + 12);
+  __dst[0] = __src[0];
+  __dst[1] = v87;
+  outlined init with copy of DisplayList.Item(__src, v111);
+  DisplayList.init(_:)(__dst, v111);
+  *&__dst[0] = *v111;
+  WORD4(__dst[0]) = *&v111[8];
+  HIDWORD(__dst[0]) = *&v111[12];
+  AGGraphSetOutputValue();
+  outlined consume of MaterialEffectResolvedData.Data?(v93, v91, v90, v92);
+  outlined destroy of DisplayList.Item(__src);
+
+  outlined consume of SDFStyle?(v88);
+
+  __dst[0] = 0uLL;
+  *&__dst[1] = v93;
+  *(&__dst[1] + 1) = v91;
+  *&__dst[2] = v88;
+  *(&__dst[2] + 1) = __PAIR64__(v89, LODWORD(v64));
+  *&__dst[3] = v82;
+  return outlined destroy of SDFShape(__dst);
+}
+
+uint64_t sub_18D184BF8()
+{
+
+  return swift_deallocObject();
+}
+
+uint64_t MaterialProviderBox.resolveLayers(in:)@<X0>(_OWORD *a1@<X0>, uint64_t *a2@<X8>)
+{
+  v4 = *v2;
+  v5 = a1[3];
+  v8[2] = a1[2];
+  v9[0] = v5;
+  *(v9 + 9) = *(a1 + 57);
+  v6 = a1[1];
+  v8[0] = *a1;
+  v8[1] = v6;
+  result = (*(*(v4 + 208) + 16))(v8, *(v4 + 200));
+  *a2 = result;
+  return result;
+}
+
+void _ShapeSet.Wrapper.pathSet(in:)(void *a1@<X8>, double a2@<D0>, double a3@<D1>)
+{
+  v4 = *v3;
+  v5 = v3[1];
+  v6 = *(*v3 + 16);
+  v7 = MEMORY[0x1E69E7CC0];
+  if (v6)
+  {
+    v21 = a1;
+    v26 = MEMORY[0x1E69E7CC0];
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v6, 0);
+    v7 = v26;
+    v10 = (v4 + 60);
+    do
+    {
+      v11 = *(v10 - 3);
+      v12 = *(v10 - 4);
+      v13 = *v10;
+      v14 = *(**(v10 - 7) + 80);
+
+      v14(v24, v15, 0.0, 0.0, a2, a3);
+
+      v26 = v7;
+      v17 = *(v7 + 16);
+      v16 = *(v7 + 24);
+      if (v17 >= v16 >> 1)
+      {
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v16 > 1), v17 + 1, 1);
+        v7 = v26;
+      }
+
+      v10 += 8;
+      *(v7 + 16) = v17 + 1;
+      v18 = v7 + 56 * v17;
+      v19 = v24[1];
+      v20 = v25;
+      *(v18 + 32) = v24[0];
+      *(v18 + 48) = v19;
+      *(v18 + 64) = v20;
+      *(v18 + 72) = v11;
+      *(v18 + 80) = v12;
+      *(v18 + 81) = v22;
+      *(v18 + 83) = v23;
+      *(v18 + 84) = v13;
+      --v6;
+    }
+
+    while (v6);
+    a1 = v21;
+  }
+
+  *a1 = v7;
+  a1[1] = v5;
+}
+
+double protocol witness for Shape.path(in:) in conformance _SizedShape<A>@<D0>(uint64_t a1@<X8>, uint64_t a2@<X0>, __n128 a3@<Q0>, __n128 a4@<Q1>)
+{
+  _SizedShape.path(in:)(a2, v7, a3, a4);
+  result = *v7;
+  v6 = v7[1];
+  *a1 = v7[0];
+  *(a1 + 16) = v6;
+  *(a1 + 32) = v8;
+  return result;
+}
+
+double _SizedShape.path(in:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>, __n128 a3@<Q0>, __n128 a4@<Q1>)
+{
+  (*(*(a1 + 24) + 24))(v8, *(a1 + 16), a3, a4, *(v4 + *(a1 + 36)), *(v4 + *(a1 + 36) + 8));
+  result = *v8;
+  v7 = v8[1];
+  *a2 = v8[0];
+  *(a2 + 16) = v7;
+  *(a2 + 32) = v9;
+  return result;
+}
+
+double protocol witness for Shape.path(in:) in conformance OffsetShape<A>@<D0>(uint64_t a1@<X8>, uint64_t a2@<X0>)
+{
+  OffsetShape.path(in:)(a2, v5);
+  result = *v5;
+  v4 = v5[1];
+  *a1 = v5[0];
+  *(a1 + 16) = v4;
+  *(a1 + 32) = v6;
+  return result;
+}
+
+void *OffsetShape.path(in:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  result = (*(*(a1 + 24) + 24))(v13, *(a1 + 16));
+  v6 = (v2 + *(a1 + 36));
+  v7 = v6[1];
+  if (*v6 == 0.0 && v7 == 0.0)
+  {
+    v8 = v13[0];
+    v9 = v13[1];
+    v10 = v14;
+  }
+
+  else
+  {
+    CGAffineTransformMakeTranslation(&v17, *v6, v7);
+    Path.applying(_:)(&v17.a, v15);
+    v11 = v15[1];
+    v12 = v15[0];
+    v10 = v16;
+    result = outlined destroy of Path(v13);
+    v9 = v11;
+    v8 = v12;
+  }
+
+  *a2 = v8;
+  *(a2 + 16) = v9;
+  *(a2 + 32) = v10;
+  return result;
+}
+
+void lazy protocol witness table accessor for type OffsetShape<AnyShape> and conformance OffsetShape<A>()
+{
+  if (!lazy protocol witness table cache variable for type OffsetShape<AnyShape> and conformance OffsetShape<A>)
+  {
+    type metadata accessor for OffsetShape<AnyShape>(255, &lazy cache variable for type metadata for OffsetShape<AnyShape>, lazy protocol witness table accessor for type AnyShape and conformance AnyShape, &type metadata for AnyShape, type metadata accessor for OffsetShape);
+    swift_getWitnessTable(protocol conformance descriptor for OffsetShape<A>, v2, v0, v1);
+    atomic_store(v3, &lazy protocol witness table cache variable for type OffsetShape<AnyShape> and conformance OffsetShape<A>);
+  }
+}
+
+void instantiation function for generic protocol witness table for RawRepresentableProxy<A>(uint64_t a1, uint64_t a2, uint64_t a3, const char *a4, const char *a5)
+{
+  WitnessTable = swift_getWitnessTable(a4, a2, a3);
+  *(a1 + 8) = v9;
+  swift_getWitnessTable(a5, a2, WitnessTable);
+  *(a1 + 16) = v10;
+}
+
+void Material.Layers.singletonSDFLayer.getter(unint64_t *a1@<X8>)
+{
+  v2 = *v1;
+  if (*(*v1 + 16) == 1 && *(v2 + 64) == 2 && (*(v2 + 80) & 1) == 0 && !*(v2 + 72) && *(v2 + 68) == 1.0)
+  {
+    v4 = *(v2 + 32);
+    v3 = *(v2 + 40);
+    v5 = a1;
+
+    a1 = v5;
+  }
+
+  else
+  {
+    v3 = 0;
+    v4 = 0xF000000000000007;
+  }
+
+  *a1 = v4;
+  a1[1] = v3;
+}
+
+double outlined consume of SDFStyle?(uint64_t a1)
+{
+  if ((~a1 & 0xF000000000000007) != 0)
+  {
+  }
+
+  return result;
+}
+
+_DWORD *initializeWithCopy for TransitionHelper(_DWORD *a1, _DWORD *a2, uint64_t a3)
+{
+  *a1 = *a2;
+  v4 = ((a1 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v5 = ((a2 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v4 = *v5;
+  v6 = ((v4 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  v7 = ((v5 + 7) & 0xFFFFFFFFFFFFFFFCLL);
+  *v6 = *v7;
+  v8 = *(*(a3 + 16) - 8);
+  v9 = v8 + 16;
+  v10 = *(v8 + 80);
+  v11 = (v6 + v10 + 4) & ~v10;
+  v12 = (v7 + v10 + 4) & ~v10;
+  (*(v8 + 16))(v11, v12);
+  *(*(v9 + 48) + v11) = *(*(v9 + 48) + v12);
+  return a1;
+}
+
+uint64_t type metadata completion function for _SizedShape(uint64_t a1)
+{
+  result = swift_checkMetadataState();
+  if (v2 <= 0x3F)
+  {
+    swift_initStructMetadata();
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t sub_18D1855BC()
+{
+
+  return swift_deallocObject();
+}
+
+uint64_t closure #1 in static ViewModifier.makeImplicitRoot(modifier:inputs:body:)(uint64_t a1, uint64_t a2, void (*a3)(uint64_t, _BYTE *))
+{
+  v4 = _ViewInputs.implicitRootBodyInputs.getter(v6);
+  a3(v4, v6);
+  return outlined destroy of _ViewListInputs(v6);
+}
+
+_DWORD *_s7SwiftUI10AnimatablePAAE05_makeC05value6inputsyAA11_GraphValueVyxGz_AA01_G6InputsVtFZAA14MaterialEffectV4Fill33_E3B0FF576136F59061E5D7766373CC25LLV_Tt1B5(_DWORD *result, uint64_t a2)
+{
+  v16 = *MEMORY[0x1E69E9840];
   if ((*(a2 + 36) & 1) == 0)
   {
     v2 = *result;
@@ -302,20 +1808,22 @@ _DWORD *_s7SwiftUI10AnimatablePAAE05_makeC05value6inputsyAA11_GraphValueVyxGz_AA
     v7 = result;
     swift_beginAccess();
     v8 = *(v6 + 16);
-    v10[0] = v2;
-    v10[1] = v8;
-    v10[2] = v4;
-    v10[3] = v3;
-    v10[4] = v5;
-    memset(&v10[6], 0, 32);
-    v11 = 1;
-    v12 = 0;
-    v13 = 0;
+    v11[0] = v2;
+    v11[1] = v8;
+    v12 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v11[2] = v4;
+    v11[3] = v3;
+    v15 = 0;
+    v11[4] = v5;
+    outlined init with copy of AnimatableAttribute<MaterialEffect.Fill>(v11, v10, &lazy cache variable for type metadata for AnimatableAttribute<MaterialEffect.Fill>, lazy protocol witness table accessor for type MaterialEffect.Fill and conformance MaterialEffect.Fill, &type metadata for MaterialEffect.Fill);
     protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
-    type metadata accessor for AnimatableAttribute<VariableBlurStyle>(0, &lazy cache variable for type metadata for AnimatableAttribute<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect);
-    lazy protocol witness table accessor for type AnimatableAttribute<GlassEffectShapeModifier> and conformance AnimatableAttribute<A>(&lazy protocol witness table cache variable for type AnimatableAttribute<_ScaleEffect> and conformance AnimatableAttribute<A>, &lazy cache variable for type metadata for AnimatableAttribute<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect);
+    type metadata accessor for AnimatableAttribute<VariableBlurStyle>(0, &lazy cache variable for type metadata for AnimatableAttribute<MaterialEffect.Fill>, lazy protocol witness table accessor for type MaterialEffect.Fill and conformance MaterialEffect.Fill, &type metadata for MaterialEffect.Fill);
+    lazy protocol witness table accessor for type AnimatableAttribute<GlassEffectShapeModifier> and conformance AnimatableAttribute<A>(&lazy protocol witness table cache variable for type AnimatableAttribute<MaterialEffect.Fill> and conformance AnimatableAttribute<A>, &lazy cache variable for type metadata for AnimatableAttribute<MaterialEffect.Fill>, lazy protocol witness table accessor for type MaterialEffect.Fill and conformance MaterialEffect.Fill, &type metadata for MaterialEffect.Fill);
     v9 = Attribute.init<A>(body:value:flags:update:)();
-    outlined destroy of AnimatableAttribute<VariableBlurStyle>(v10, &lazy cache variable for type metadata for AnimatableAttribute<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect);
+    outlined destroy of AnimatableAttribute<VariableBlurStyle>(v10, &lazy cache variable for type metadata for AnimatableAttribute<MaterialEffect.Fill>, lazy protocol witness table accessor for type MaterialEffect.Fill and conformance MaterialEffect.Fill, &type metadata for MaterialEffect.Fill);
+    outlined destroy of AnimatableAttribute<VariableBlurStyle>(v11, &lazy cache variable for type metadata for AnimatableAttribute<MaterialEffect.Fill>, lazy protocol witness table accessor for type MaterialEffect.Fill and conformance MaterialEffect.Fill, &type metadata for MaterialEffect.Fill);
     *v7 = v9;
     AGGraphGetFlags();
     return AGGraphSetFlags();
@@ -324,2872 +1832,1923 @@ _DWORD *_s7SwiftUI10AnimatablePAAE05_makeC05value6inputsyAA11_GraphValueVyxGz_AA
   return result;
 }
 
-unint64_t lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect()
+uint64_t initializeWithCopy for MaterialEffect(uint64_t a1, uint64_t *a2)
 {
-  result = lazy protocol witness table cache variable for type _ScaleEffect and conformance _ScaleEffect;
-  if (!lazy protocol witness table cache variable for type _ScaleEffect and conformance _ScaleEffect)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type _ScaleEffect and conformance _ScaleEffect);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type _ScaleEffect and conformance _ScaleEffect;
-  if (!lazy protocol witness table cache variable for type _ScaleEffect and conformance _ScaleEffect)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type _ScaleEffect and conformance _ScaleEffect);
-  }
-
-  return result;
-}
-
-unint64_t instantiation function for generic protocol witness table for _ScaleEffect(uint64_t a1)
-{
-  result = lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect();
-  *(a1 + 8) = result;
-  return result;
-}
-
-uint64_t protocol witness for static ViewModifier._makeView(modifier:inputs:body:) in conformance _ScaleEffect@<X0>(unsigned int *a1@<X0>, uint64_t a2@<X1>, uint64_t (*a3)(uint64_t, __int128 *)@<X2>, void *a4@<X8>)
-{
-  v4 = *a1;
-  v5 = *(a2 + 48);
-  v8[2] = *(a2 + 32);
-  v8[3] = v5;
-  v8[4] = *(a2 + 64);
-  v9 = *(a2 + 80);
-  v6 = *(a2 + 16);
-  v8[0] = *a2;
-  v8[1] = v6;
-  return _s7SwiftUI22GeometryEffectProviderPAAE05_makecD08modifier6inputs4bodyAA12_ViewOutputsVAA11_GraphValueVy0D0QzG_AA01_J6InputsVAiA01_L0V_APtctFZAA07DefaultcdE0VyAA06_ScaleD0VG_Tt3B5(v4, v8, a3, a4);
-}
-
-__n128 __swift_memcpy20_4(__n128 *a1, __n128 *a2)
-{
-  result = *a2;
-  a1[1].n128_u32[0] = a2[1].n128_u32[0];
-  *a1 = result;
-  return result;
-}
-
-void type metadata accessor for GeometryEffectTransform<_TransformEffect>(uint64_t a1, unint64_t *a2, uint64_t (*a3)(void), uint64_t a4, uint64_t (*a5)(uint64_t, uint64_t, uint64_t))
-{
-  if (!*a2)
-  {
-    v9 = a3();
-    v10 = a5(a1, a4, v9);
-    if (!v11)
-    {
-      atomic_store(v10, a2);
-    }
-  }
-}
-
-unint64_t lazy protocol witness table accessor for type GeometryEffectTransform<_ScaleEffect> and conformance GeometryEffectTransform<A>()
-{
-  result = lazy protocol witness table cache variable for type GeometryEffectTransform<_ScaleEffect> and conformance GeometryEffectTransform<A>;
-  if (!lazy protocol witness table cache variable for type GeometryEffectTransform<_ScaleEffect> and conformance GeometryEffectTransform<A>)
-  {
-    type metadata accessor for GeometryEffectTransform<_TransformEffect>(255, &lazy cache variable for type metadata for GeometryEffectTransform<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for GeometryEffectTransform);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type GeometryEffectTransform<_ScaleEffect> and conformance GeometryEffectTransform<A>);
-  }
-
-  return result;
-}
-
-uint64_t protocol witness for static _AttributeBody.flags.getter in conformance GeometryEffectTransform<A>()
-{
-  swift_getWitnessTable();
-
-  return static AsyncAttribute.flags.getter();
-}
-
-uint64_t instantiation function for generic protocol witness table for GeometryEffectTransform<A>(uint64_t a1)
-{
-  result = swift_getWitnessTable();
-  *(a1 + 8) = result;
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type RoundedSize and conformance RoundedSize()
-{
-  result = lazy protocol witness table cache variable for type RoundedSize and conformance RoundedSize;
-  if (!lazy protocol witness table cache variable for type RoundedSize and conformance RoundedSize)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type RoundedSize and conformance RoundedSize);
-  }
-
-  return result;
-}
-
-uint64_t _Glass.Variant.Mix.from.getter@<X0>(uint64_t *a1@<X8>)
-{
-  v2 = *v1;
-  v3 = v1[1];
-  *a1 = *v1;
-  a1[1] = v3;
-  return outlined copy of _Glass.Variant.Role(v2, v3);
-}
-
-uint64_t _Glass.variant.getter@<X0>(uint64_t *a1@<X8>)
-{
-  v2 = *v1;
-  v3 = v1[1];
-  *a1 = *v1;
-  a1[1] = v3;
-  return outlined copy of _Glass.Variant.Role(v2, v3);
-}
-
-uint64_t outlined consume of _Glass?(uint64_t result, unsigned int a2, uint64_t a3, uint64_t a4)
-{
-  if (a4 != 1)
-  {
-    outlined consume of _Glass.Variant.Role(result, a2);
-  }
-
-  return result;
-}
-
-uint64_t specialized static _Glass.Variant.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
-{
-  v2 = a1[1];
-  v3 = *a2;
   v4 = a2[1];
-  v10 = *a1;
-  v11 = v2;
-  outlined copy of _Glass.Variant.Role(v10, v2);
-  _Glass.Variant.ID.init(_:)(&v10, &v12);
-  v8 = v12;
-  v9 = v13;
-  v10 = v3;
-  v11 = v4;
-  outlined copy of _Glass.Variant.Role(v3, v4);
-  _Glass.Variant.ID.init(_:)(&v10, &v6);
-  v10 = v6;
-  LOBYTE(v11) = v7;
-  LOBYTE(v3) = specialized static _Glass.Variant.ID.== infix(_:_:)(&v8, &v10);
-  outlined consume of _Glass.Variant.ID(v10, v11);
-  outlined consume of _Glass.Variant.ID(v8, v9);
-  return v3 & 1;
+  *a1 = *a2;
+  *(a1 + 8) = v4;
+  v5 = a2[2];
+  v6 = *(a2 + 24);
+
+  outlined copy of Material.ID(v5, v6);
+  *(a1 + 16) = v5;
+  *(a1 + 24) = v6;
+  *(a1 + 28) = *(a2 + 7);
+  *(a1 + 32) = *(a2 + 32);
+  return a1;
 }
 
-uint64_t _Glass.Variant.ID.init(_:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X8>)
+double partial apply for specialized closure #1 in static ViewModifier.makeUnaryViewList(modifier:inputs:body:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v2 = *result;
-  v3 = *(result + 8);
-  if (v3 >> 30)
+  return specialized closure #1 in static ViewModifier.makeUnaryViewList(modifier:inputs:body:)(a1, *(v2 + 32), *(v2 + 40), a2);
+}
+
+{
+  return specialized closure #1 in static ViewModifier.makeUnaryViewList(modifier:inputs:body:)(a1, *(v2 + 32), *(v2 + 40), _s7SwiftUI12ViewModifierPAAE16makeImplicitRoot8modifier6inputs4bodyAA01_C7OutputsVAA11_GraphValueVyxG_AA01_C6InputsVAA01_c4ListK0VAA01_L0V_AA01_coN0VtctFZApR_ANtcfU_TA_0, _s7SwiftUI12_ViewOutputsVAAE05multiC033_DC167C463E6601B3880A23A75ACAA63BLL8applying6inputs4bodyAcA11_GraphValueVyxG_AA01_C6InputsVAA01_c4ListD0VAA01_P0V_AMtctAA0C8ModifierRzlFZAA19GlassMaterialEffect33_62A32D59B8A902A88963544196023CF7LLV_Tt3B5, a2);
+}
+
+{
+  return specialized closure #1 in static ViewModifier.makeUnaryViewList(modifier:inputs:body:)(a1, *(v2 + 32), *(v2 + 40), closure #1 in static ViewModifier.makeImplicitRoot(modifier:inputs:body:)partial apply, _s7SwiftUI12_ViewOutputsVAAE05multiC033_DC167C463E6601B3880A23A75ACAA63BLL8applying6inputs4bodyAcA11_GraphValueVyxG_AA01_C6InputsVAA01_c4ListD0VAA01_P0V_AMtctAA0C8ModifierRzlFZAA021GlassEntryInteractionT033_D12F2F25A0BD65FFBD3A7636B60067DFLLV_Tt3B5, a2);
+}
+
+double specialized closure #1 in static ViewModifier.makeUnaryViewList(modifier:inputs:body:)@<D0>(uint64_t a1@<X0>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X8>)
+{
+  v8 = *(a1 + 48);
+  v14[2] = *(a1 + 32);
+  v14[3] = v8;
+  v14[4] = *(a1 + 64);
+  v15 = *(a1 + 80);
+  v9 = *(a1 + 16);
+  v14[0] = *a1;
+  v14[1] = v9;
+  Attribute = AGWeakAttributeGetAttribute();
+  if (Attribute == *MEMORY[0x1E698D3F8])
   {
-    v4 = v3 | 0x40;
-    if (v3 >> 30 != 1)
-    {
-      v4 = 0x80;
-    }
+    *a5 = MEMORY[0x1E69E7CC0];
+    *(a5 + 8) = 0;
+    *(a5 + 12) = Attribute;
   }
 
   else
   {
-    v5 = v2[2];
-    v6 = v2[3];
-    v7 = v2[4];
-    v8 = v2[5];
-    v9 = v2[6];
-    v10 = a2;
-    v11 = swift_allocObject();
-    v14 = v5;
-    v15 = v6;
-    outlined copy of _Glass.Variant.Role(v5, v6);
-    outlined copy of _Glass.Variant.Role(v7, v8);
-    outlined copy of _Glass.Variant.Role(v5, v6);
-    _Glass.Variant.ID.init(_:)(&v16, &v14);
-    v12 = v17;
-    *(v11 + 16) = v16;
-    *(v11 + 24) = v12;
-    v14 = v7;
-    v15 = v8;
-    outlined copy of _Glass.Variant.Role(v7, v8);
-    _Glass.Variant.ID.init(_:)(&v16, &v14);
-    v13 = v17;
-    *(v11 + 32) = v16;
-    *(v11 + 40) = v13;
-    outlined consume of _Glass.Variant.Role(v5, v6);
-    outlined consume of _Glass.Variant.Role(v7, v8);
-    *(v11 + 48) = v9;
-    result = outlined consume of _Glass.Variant.Role(v2, v3);
-    a2 = v10;
-    v4 = 0;
-    v2 = v11;
+    v12 = Attribute;
+    v13 = swift_allocObject();
+    *(v13 + 16) = a3;
+    *(v13 + 24) = a4;
+
+    _s7SwiftUI12_ViewOutputsVAAE05multiC033_DC167C463E6601B3880A23A75ACAA63BLL8applying6inputs4bodyAcA11_GraphValueVyxG_AA01_C6InputsVAA01_c4ListD0VAA01_P0V_AMtctAA0C8ModifierRzlFZAA14MaterialEffectV_Tt3B5(v12, v14, _s7SwiftUI12ViewModifierPAAE16makeImplicitRoot8modifier6inputs4bodyAA01_C7OutputsVAA11_GraphValueVyxG_AA01_C6InputsVAA01_c4ListK0VAA01_L0V_AA01_coN0VtctFZApR_ANtcfU_TA_0, v13, a5);
   }
 
-  *a2 = v2;
-  *(a2 + 8) = v4;
   return result;
 }
 
-uint64_t sub_18D165CD0()
+uint64_t sub_18D185AC0()
 {
-  outlined consume of _Glass.Variant.ID(*(v0 + 16), *(v0 + 24));
-  outlined consume of _Glass.Variant.ID(*(v0 + 32), *(v0 + 40));
 
   return swift_deallocObject();
 }
 
-uint64_t outlined consume of _Glass.Variant.ID(uint64_t result, unsigned __int8 a2)
+uint64_t static MaterialEffect._makeView(modifier:inputs:body:)@<X0>(uint64_t a2@<X1>, void (*a3)(uint64_t *__return_ptr, uint64_t, __int128 *)@<X2>, void *a4@<X8>)
 {
-  if (a2 >> 6 == 1)
+  v86 = *MEMORY[0x1E69E9840];
+  v4 = *(a2 + 48);
+  *v84 = *(a2 + 32);
+  *&v84[16] = v4;
+  *&v84[32] = *(a2 + 64);
+  v85 = *(a2 + 80);
+  v5 = *(a2 + 16);
+  v82 = *a2;
+  v83 = v5;
+  AGGraphCreateOffsetAttribute2();
+  v6 = specialized static GraphHost.currentHost.getter();
+  swift_beginAccess();
+  v45 = *(v6 + 64);
+
+  v80[0] = v82;
+  v80[1] = v83;
+  v81 = *v84;
+  v7 = v83;
+  swift_beginAccess();
+  v43 = HIDWORD(v83);
+  protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
+  lazy protocol witness table accessor for type MaterialEffectState and conformance MaterialEffectState();
+  v8 = Attribute.init<A>(body:value:flags:update:)();
+  protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
+  lazy protocol witness table accessor for type MaterialEffectUpdatedFill and conformance MaterialEffectUpdatedFill();
+  v9 = Attribute.init<A>(body:value:flags:update:)();
+  v40 = *v84;
+  v74 = *&v84[4];
+  v75 = *&v84[20];
+  v70 = *v84;
+  v71 = *&v84[16];
+  v72 = *&v84[32];
+  v76 = v82;
+  v47 = DWORD2(v83);
+  v51 = *&v84[40];
+  v52 = v85;
+  v73 = v85;
+  v68 = v82;
+  v69 = v83;
+  swift_beginAccess();
+  outlined init with copy of _ViewInputs(&v82, &v64);
+  v10 = CachedEnvironment.animatedPosition(for:)(&v68);
+  swift_endAccess();
+  v36 = v9;
+  *&v68 = __PAIR64__(*(v7 + 16), v9);
+  protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
+  lazy protocol witness table accessor for type MaterialEffectEnvironment and conformance MaterialEffectEnvironment();
+  v11 = Attribute.init<A>(body:value:flags:update:)();
+  v12 = MEMORY[0x1E69E7CC0];
+  v13 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC7SwiftUI19ResolvedShapeStyles33_B62A4B04AF9F1325924A089D63071424LLV_14AttributeGraph0O0VyAC01_F10Style_PackVGTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+  _s7SwiftUI10MutableBoxCyAA17CachedEnvironmentVGMaTm_1(0, &lazy cache variable for type metadata for MutableBox<CachedEnvironment>, &type metadata for CachedEnvironment, type metadata accessor for MutableBox);
+  v14 = swift_allocObject();
+  *(v14 + 16) = v11;
+  *(v14 + 24) = v12;
+  *(v14 + 32) = 0u;
+  *(v14 + 48) = 0u;
+  *(v14 + 64) = 0u;
+  *(v14 + 80) = 256;
+  *(v14 + 88) = v13;
+  v38 = v7;
+
+  *&v68 = __PAIR64__(v43, v8);
+  DWORD2(v68) = v45;
+  BYTE12(v68) = 1;
+  protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
+  lazy protocol witness table accessor for type MaterialEffectTransaction and conformance MaterialEffectTransaction();
+  v15 = Attribute.init<A>(body:value:flags:update:)();
+  *&v65 = v14;
+  *(&v65 + 1) = __PAIR64__(v15, v47);
+  LODWORD(v66[0]) = v40 | 0x20;
+  *(&v66[1] + 4) = v75;
+  *(v66 + 4) = v74;
+  DWORD1(v66[2]) = v10;
+  *(&v66[2] + 1) = v51;
+  v62[0] = v66[0];
+  v62[1] = v66[1];
+  v62[2] = v66[2];
+  v64 = v76;
+  v67 = v52;
+  v63 = v52;
+  v60 = v76;
+  v61 = v65;
+  v16 = outlined init with copy of _ViewInputs(&v64, &v68);
+  a3(v50, v16, &v60);
+  v70 = v62[0];
+  v71 = v62[1];
+  v72 = v62[2];
+  v73 = v63;
+  v68 = v60;
+  v69 = v61;
+  outlined destroy of _ViewInputs(&v68);
+  if ((_s7SwiftUI17PreferencesInputsV8contains_011includeHostC0Sbxm_SbtAA13PreferenceKeyRzlFAA11DisplayListV0I0V_TtB5Tf4dn_n(*&v84[16]) & 1) == 0)
   {
-    return outlined consume of Material.ID(result, a2 & 0x3F);
+    v60 = v76;
+    *(v62 + 4) = v74;
+    *&v61 = v14;
+    *(&v61 + 1) = __PAIR64__(v15, v47);
+    LODWORD(v62[0]) = v40 | 0x20;
+    *(&v62[1] + 4) = v75;
+    DWORD1(v62[2]) = v10;
+    *(&v62[2] + 1) = v51;
+    v63 = v52;
+    result = outlined destroy of _ViewInputs(&v60);
+LABEL_7:
+    *a4 = v50[0];
+    a4[1] = v50[1];
+    return result;
   }
 
-  if (!(a2 >> 6))
+  v34 = v15;
+  v42 = v10;
+  v17 = ++lastIdentity;
+  v18 = MEMORY[0x1E698D3F8];
+  if ((v84[5] & 1) == 0)
   {
+LABEL_3:
+    LODWORD(v60) = AGGraphCreateOffsetAttribute2();
+    protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
+    v35 = v17;
+    lazy protocol witness table accessor for type _ShapeSet.Wrapper.Init and conformance _ShapeSet.Wrapper.Init();
+    v49 = Attribute.init<A>(body:value:flags:update:)();
+    _s7SwiftUI10AnimatablePAAE05_makeC05value6inputsyAA11_GraphValueVyxGz_AA01_G6InputsVtFZAA9_ShapeSetV7WrapperV_Tt1B5(&v49, v80);
+    type metadata accessor for MaterialEffectBackdropObserver();
+    v19 = swift_allocObject();
+    specialized static GraphHost.currentHost.getter();
+    type metadata accessor for ViewGraph();
+    swift_dynamicCastClassUnconditional();
+    swift_weakInit();
+
+    *(v19 + 24) = 0;
+    v33 = v19;
+    *(v19 + 24) = AGCreateWeakAttribute();
+    v59[0] = v80[0];
+    *(v59 + 12) = *(v80 + 12);
+    v48 = v81;
+    *v77 = v8;
+    *&v77[4] = v43;
+    *&v77[8] = v45;
+    v77[12] = 0;
+    outlined init with copy of _GraphInputs(&v82, &v60);
+    v46 = Attribute.init<A>(body:value:flags:update:)();
+    *v77 = v80[0];
+    *&v77[12] = *(v80 + 12);
+    v78 = v46;
+    v79 = v81;
+    LODWORD(v60) = v36;
+    _s7SwiftUI10AnimatablePAAE05_makeC05value6inputsyAA11_GraphValueVyxGz_AA01_G6InputsVtFZAA14MaterialEffectV4Fill33_E3B0FF576136F59061E5D7766373CC25LLV_Tt1B5(&v60, v77);
+    v44 = v60;
+    v62[0] = *v84;
+    v62[1] = *&v84[16];
+    v62[2] = *&v84[32];
+    v63 = v85;
+    v60 = v82;
+    v61 = v83;
+    swift_beginAccess();
+    v20 = CachedEnvironment.animatedPosition(for:)(&v60);
+    v62[0] = *v84;
+    v62[1] = *&v84[16];
+    v62[2] = *&v84[32];
+    v63 = v85;
+    v60 = v82;
+    v61 = v83;
+    v21 = CachedEnvironment.animatedCGSize(for:)(&v60);
+    v37 = v49;
+    v62[0] = *v84;
+    v62[1] = *&v84[16];
+    v62[2] = *&v84[32];
+    v63 = v85;
+    v60 = v82;
+    v61 = v83;
+    v22 = CachedEnvironment.animatedSize(for:)(&v60);
+    swift_endAccess();
+    v23 = *&v84[28];
+    v24 = *(v38 + 16);
+    v62[0] = *v84;
+    v62[1] = *&v84[16];
+    v62[2] = *&v84[32];
+    LODWORD(v19) = *&v84[44];
+    v63 = v85;
+    v60 = v82;
+    v61 = v83;
+    _ViewInputs.materialSubstrate.getter(&v58);
+    *v56 = v44;
+    *&v56[4] = v37;
+    *&v56[8] = v20;
+    *&v56[12] = v21;
+    *&v56[16] = v22;
+    *&v56[20] = v23;
+    *&v56[24] = v19;
+    v57 = v24;
+    DWORD1(v58) = 0;
+    protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
+    _s7SwiftUI10MutableBoxCyAA17CachedEnvironmentVGMaTm_1(0, &lazy cache variable for type metadata for MaterialEffectResolvedData.Data?, &unk_1F00A6040, MEMORY[0x1E69E6720]);
+    lazy protocol witness table accessor for type MaterialEffectResolvedData and conformance MaterialEffectResolvedData();
+    v25 = Attribute.init<A>(body:value:flags:update:)();
+    v26 = *(v38 + 16);
+    v27 = _s7SwiftUI18PreferencesOutputsVy14AttributeGraph0E0Vy5ValueQzGSgxmcAA13PreferenceKeyRzluigAA11DisplayListV0I0V_TtB5(v50[0]);
+    v28 = *MEMORY[0x1E698D3F8];
+    if ((v27 & 0x100000000) == 0)
+    {
+      v28 = v27;
+    }
+
+    *&v53 = __PAIR64__(v25, v35);
+    *(&v53 + 1) = __PAIR64__(v21, v20);
+    *&v54 = __PAIR64__(v26, *&v84[36]);
+    DWORD2(v54) = v28;
+    v55 = v33;
+    v60 = v53;
+    v61 = v54;
+    v62[0] = v33;
+    protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
+    lazy protocol witness table accessor for type MaterialEffectDisplayList and conformance MaterialEffectDisplayList();
+
+    v29 = Attribute.init<A>(body:value:flags:update:)();
+    outlined destroy of MaterialEffectDisplayList(&v53);
+    LOBYTE(v60) = 0;
+    PreferencesOutputs.subscript.setter(v29, &type metadata for DisplayList.Key, &protocol witness table for DisplayList.Key);
+
+    v60 = v76;
+    *(v62 + 4) = v74;
+    *&v61 = v14;
+    *(&v61 + 1) = __PAIR64__(v34, v47);
+    LODWORD(v62[0]) = v40 | 0x20;
+    *(&v62[1] + 4) = v75;
+    DWORD1(v62[2]) = v42;
+    *(&v62[2] + 1) = v51;
+    v63 = v52;
+    outlined destroy of _ViewInputs(&v60);
+    *v56 = v59[0];
+    *&v56[12] = *(v59 + 12);
+    v57 = v46;
+    v58 = v48;
+    result = outlined destroy of _GraphInputs(v56);
+    goto LABEL_7;
   }
 
+  _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA08_DisplayD20_StableIdentityScopeV_Tt2G5(v82, &v60);
+  result = AGWeakAttributeGetAttribute();
+  if (result != *v18)
+  {
+    *v77 = v17;
+    v31 = Attribute<A>.subscript.modify(&v60, result);
+    v32 = _DisplayList_StableIdentityScope.pushIdentity(_:)(v77);
+    (v31)(&v60, 0, v32);
+    goto LABEL_3;
+  }
+
+  __break(1u);
   return result;
 }
 
-uint64_t outlined copy of _Glass.Variant.ID(uint64_t result, unsigned __int8 a2)
+void lazy protocol witness table accessor for type MaterialEffect.Fill and conformance MaterialEffect.Fill()
 {
-  if (a2 >> 6 == 1)
+  if (!lazy protocol witness table cache variable for type MaterialEffect.Fill and conformance MaterialEffect.Fill)
   {
-    return outlined copy of Material.ID(result, a2 & 0x3F);
+    swift_getWitnessTable(protocol conformance descriptor for MaterialEffect.Fill, &type metadata for MaterialEffect.Fill, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type MaterialEffect.Fill and conformance MaterialEffect.Fill);
   }
-
-  if (!(a2 >> 6))
-  {
-  }
-
-  return result;
 }
 
-uint64_t getEnumTagSinglePayload for ContentOffsetAdjustmentReason(unsigned __int8 *a1, unsigned int a2)
+void lazy protocol witness table accessor for type MaterialEffectDisplayList and conformance MaterialEffectDisplayList()
 {
-  if (!a2)
+  if (!lazy protocol witness table cache variable for type MaterialEffectDisplayList and conformance MaterialEffectDisplayList)
   {
+    swift_getWitnessTable(protocol conformance descriptor for MaterialEffectDisplayList, &unk_1F00A5F00, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type MaterialEffectDisplayList and conformance MaterialEffectDisplayList);
+  }
+}
+
+uint64_t initializeWithCopy for MaterialEffectDisplayList(uint64_t a1, uint64_t a2)
+{
+  *a1 = *a2;
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 24) = *(a2 + 24);
+  v3 = *(a2 + 40);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = v3;
+
+  return a1;
+}
+
+uint64_t outlined destroy of MaterialEffectDisplayList(uint64_t a1)
+{
+
+  return a1;
+}
+
+uint64_t initializeWithCopy for MaterialEffectState.Value(uint64_t a1, uint64_t *a2)
+{
+  v3 = a2[1];
+  *a1 = *a2;
+  *(a1 + 8) = v3;
+  *(a1 + 16) = a2[2];
+  *(a1 + 24) = *(a2 + 6);
+
+  return a1;
+}
+
+uint64_t initializeBufferWithCopyOfBuffer for MaterialEffect.Fill(uint64_t a1, uint64_t a2)
+{
+  v4 = *a2;
+  v5 = *(a2 + 8);
+  outlined copy of Material.ID(*a2, v5);
+  *a1 = v4;
+  *(a1 + 8) = v5;
+  *(a1 + 12) = *(a2 + 12);
+  *(a1 + 16) = *(a2 + 16);
+  return a1;
+}
+
+uint64_t type metadata completion function for AnimatableValues(uint64_t a1)
+{
+  if (*(a1 + 16) == 1)
+  {
+    result = swift_checkMetadataState();
+    if (v3 > 0x3F)
+    {
+      return result;
+    }
+
+LABEL_13:
+    v19[1] = *(result - 8) + 64;
+    swift_initStructMetadata();
     return 0;
   }
 
-  if (a2 < 0xFC)
+  MEMORY[0x1EEE9AC00](a1);
+  v6 = v19 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  if (v4)
   {
-    goto LABEL_17;
+    v7 = 0;
+    v8 = *(a1 + 24) & 0xFFFFFFFFFFFFFFFELL;
+    if (v4 < 4)
+    {
+      goto LABEL_10;
+    }
+
+    if (&v6[-v8] < 0x20)
+    {
+      goto LABEL_10;
+    }
+
+    v7 = v4 & 0xFFFFFFFFFFFFFFFCLL;
+    v9 = (v8 + 16);
+    v10 = v6 + 16;
+    v11 = v4 & 0xFFFFFFFFFFFFFFFCLL;
+    do
+    {
+      v12 = *v9;
+      *(v10 - 1) = *(v9 - 1);
+      *v10 = v12;
+      v9 += 2;
+      v10 += 2;
+      v11 -= 4;
+    }
+
+    while (v11);
+    if (v4 != v7)
+    {
+LABEL_10:
+      v13 = v4 - v7;
+      v14 = 8 * v7;
+      v15 = &v6[8 * v7];
+      v16 = (v8 + v14);
+      do
+      {
+        v17 = *v16++;
+        *v15 = v17;
+        v15 += 8;
+        --v13;
+      }
+
+      while (v13);
+    }
   }
 
-  if (a2 + 4 >= 0xFFFF00)
+  result = swift_getTupleTypeMetadata();
+  if (v18 <= 0x3F)
   {
-    v2 = 4;
+    goto LABEL_13;
+  }
+
+  return result;
+}
+
+double OffsetPosition.value.getter(unint64_t a1, uint64_t a2)
+{
+  v2 = *AGGraphGetValue();
+  if (*AGGraphGetValue())
+  {
+    v2 = -v2;
+  }
+
+  type metadata accessor for CGPoint(0);
+  return v2 + *AGGraphGetValue();
+}
+
+uint64_t *AnyCoreInteractionHelper.init<A, B>(for:idType:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v11[0] = a3;
+  v11[1] = a4;
+  v11[2] = a5;
+  v11[3] = a6;
+  type metadata accessor for _CoreInteractionHelperBox(0, v11);
+  v6 = swift_allocObject();
+  return _CoreInteractionHelperBox.init()(v6, v7, v8, v9);
+}
+
+uint64_t type metadata completion function for _CoreInteractionHelperBox(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  type metadata accessor for CoreInteractionRepresentableEffect(255, a1[15], a1[17], a4);
+  result = type metadata accessor for Optional();
+  if (v5 <= 0x3F)
+  {
+    result = type metadata accessor for Optional();
+    if (v6 <= 0x3F)
+    {
+      result = type metadata accessor for Optional();
+      if (v7 <= 0x3F)
+      {
+        return swift_initClassMetadata2();
+      }
+    }
+  }
+
+  return result;
+}
+
+uint64_t *_CoreInteractionHelperBox.init()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v5 = *v4;
+  v6 = *(*v4 + 152);
+  v7 = *(*v4 + 120);
+  v8 = type metadata accessor for CoreInteractionRepresentableEffect(0, v7, *(*v4 + 136), a4);
+  (*(*(v8 - 8) + 56))(v4 + v6, 1, 1, v8);
+  *(v4 + *(*v4 + 160)) = 0;
+  *(v4 + *(*v4 + 168)) = 0;
+  *(v4 + *(*v4 + 176)) = 0;
+  (*(*(v7 - 8) + 56))(v4 + *(*v4 + 184), 1, 1, v7);
+  (*(*(*(v5 + 128) - 8) + 56))(v4 + *(*v4 + 192), 1, 1);
+  v9 = v4 + *(*v4 + 200);
+  *v9 = 0;
+  *(v9 + 4) = 1;
+  return v4;
+}
+
+uint64_t _CoreInteractionHelperBox.resetInteractions()()
+{
+  v1 = v0;
+  v2 = *v0;
+  if (*(v0 + *(*v0 + 168)))
+  {
+    v3 = *(v0 + *(*v0 + 160));
+    if (v3)
+    {
+      v4 = *(v3 + 16);
+      if (v4)
+      {
+        swift_getAssociatedTypeWitness();
+        AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+        v6 = *(AssociatedConformanceWitness + 64);
+        swift_unknownObjectRetain();
+
+        v7 = 32;
+        do
+        {
+          v8 = *(v3 + v7);
+          swift_unknownObjectRetain();
+          v9 = swift_checkMetadataState();
+          v6(v8, v9, AssociatedConformanceWitness);
+          swift_unknownObjectRelease();
+          v7 += 16;
+          --v4;
+        }
+
+        while (v4);
+
+        swift_unknownObjectRelease();
+        v1 = v0;
+        v2 = *v0;
+      }
+    }
+  }
+
+  *(v1 + *(v2 + 160)) = 0;
+}
+
+char *CoreInteractionRepresentableInteractionsProxy.append(interaction:tag:)(uint64_t a1, uint64_t a2)
+{
+  v5 = *v2;
+  swift_unknownObjectRetain();
+  result = swift_isUniquelyReferenced_nonNull_native();
+  *v2 = v5;
+  if ((result & 1) == 0)
+  {
+    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v5 + 2) + 1, 1, v5);
+    v5 = result;
+    *v2 = result;
+  }
+
+  v8 = *(v5 + 2);
+  v7 = *(v5 + 3);
+  if (v8 >= v7 >> 1)
+  {
+    result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v7 > 1), v8 + 1, 1, v5);
+    v5 = result;
+  }
+
+  *(v5 + 2) = v8 + 1;
+  v9 = &v5[16 * v8];
+  *(v9 + 4) = a1;
+  *(v9 + 5) = a2;
+  *v2 = v5;
+  return result;
+}
+
+double destroy for GlassContainer.Entry.GroupID(uint64_t a1)
+{
+  outlined consume of _Glass.Variant.ID(*a1, *(a1 + 8));
+
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for _ColorMonochromeEffect._Resolved(uint64_t a1, int a2)
+{
+  if (a2 && *(a1 + 24))
+  {
+    return (*a1 + 1);
   }
 
   else
   {
-    v2 = 2;
+    return 0;
+  }
+}
+
+uint64_t initializeWithCopy for _Glass.ID(uint64_t a1, uint64_t a2)
+{
+  v4 = *a2;
+  v5 = *(a2 + 8);
+  outlined copy of _Glass.Variant.ID(*a2, v5);
+  *a1 = v4;
+  *(a1 + 8) = v5;
+  *(a1 + 16) = *(a2 + 16);
+  *(a1 + 24) = *(a2 + 24);
+  *(a1 + 32) = *(a2 + 32);
+  *(a1 + 40) = *(a2 + 40);
+
+  return a1;
+}
+
+unint64_t specialized GraphHost.asyncTransaction<A>(_:id:mutation:style:mayDeferUpdate:)(unint64_t a1, int a2, uint64_t a3, unint64_t a4, char a5, char *a6)
+{
+  v7 = v6;
+  v63 = *MEMORY[0x1E69E9840];
+  if (one-time initialization token for _lock != -1)
+  {
+    swift_once();
   }
 
-  if ((a2 + 4) >> 8 < 0xFF)
+  v14 = static Update._lock;
+  _MovableLockLock(static Update._lock);
+  swift_beginAccess();
+  if (!*(v7 + 16))
   {
+    v16 = 0;
+    goto LABEL_43;
+  }
+
+  v52 = v14;
+  v15 = (a5 & 1) != 0 || AGGraphGetCounter() != 0;
+  swift_beginAccess();
+  *(v7 + 168) &= a6 & 1;
+  v17 = swift_beginAccess();
+  v18 = *(v7 + 144);
+  v19 = *(v18 + 16);
+  v51 = a2;
+  if (v19)
+  {
+    swift_beginAccess();
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    *(v7 + 144) = v18;
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+    {
+      v18 = specialized _ArrayBuffer._consumeAndCreateNew()(v18);
+      *(v7 + 144) = v18;
+    }
+
+    if (v19 > *(v18 + 16))
+    {
+      __break(1u);
+LABEL_55:
+      swift_once();
+LABEL_17:
+      if (*(static CustomEventTrace.enabledCategories + 2) < 0x55uLL)
+      {
+        __break(1u);
+      }
+
+      else
+      {
+        if (*(static CustomEventTrace.enabledCategories + 116) == 1 && static CustomEventTrace.recorder)
+        {
+          *(*(static CustomEventTrace.recorder + 24) + 4) = 16724;
+          LODWORD(v56[0]) = v19;
+          AGGraphAddTraceEvent();
+        }
+
+        *(v7 + 144) = v18;
+        swift_endAccess();
+        if (v15)
+        {
+          goto LABEL_49;
+        }
+
+        swift_beginAccess();
+        if (*(v18 + 16))
+        {
+          specialized Array._customRemoveLast()(&v58);
+          LODWORD(a3) = v59;
+          v15 = v60;
+          a1 = v58;
+          if (v60)
+          {
+            v18 = HIDWORD(v59);
+          }
+
+          else
+          {
+            outlined consume of AsyncTransaction?(v58, v59, 0);
+            specialized Array.remove(at:)(*(*(v7 + 144) + 16) - 1, &v58);
+            a1 = v58;
+            LODWORD(a3) = v59;
+            LODWORD(v18) = HIDWORD(v59);
+            v15 = v60;
+          }
+
+          swift_endAccess();
+          GraphHost.flushTransactions()();
+          swift_beginAccess();
+          a6 = *(v7 + 144);
+
+          v43 = swift_isUniquelyReferenced_nonNull_native();
+          *(v7 + 144) = a6;
+          if (v43)
+          {
+            goto LABEL_46;
+          }
+
+          goto LABEL_58;
+        }
+      }
+
+      __break(1u);
+LABEL_58:
+      a6 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(a6 + 2) + 1, 1, a6);
+      *(v7 + 144) = a6;
+LABEL_46:
+      v45 = *(a6 + 2);
+      v44 = *(a6 + 3);
+      if (v45 >= v44 >> 1)
+      {
+        a6 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v44 > 1), v45 + 1, 1, a6);
+      }
+
+      *(a6 + 2) = v45 + 1;
+      v46 = &a6[24 * v45];
+      *(v46 + 4) = a1;
+      *(v46 + 10) = a3;
+      *(v46 + 11) = v18;
+      *(v46 + 6) = v15;
+      *(v7 + 144) = a6;
+      swift_endAccess();
+
+LABEL_49:
+      v47 = *(v7 + 144);
+      v48 = *(v47 + 16);
+      if (v48)
+      {
+        v16 = *(v47 + 24 * v48 + 20);
+      }
+
+      else
+      {
+        v16 = 0;
+      }
+
+      v14 = v52;
+      goto LABEL_43;
+    }
+
+    v19 = v18 + 24 * v19;
+    if (*(v19 + 16) == a2)
+    {
+      v21 = *(v19 + 8);
+      if (v21)
+      {
+        if (a1)
+        {
+          v56[0] = MEMORY[0x1E69E7CC0];
+
+          v22 = compareLists(_:_:ignoredTypes:)(v21, a1, v56);
+
+          if (v22)
+          {
+LABEL_16:
+            a6 = (v19 + 8);
+            specialized AsyncTransaction.append<A>(_:)(a3, a4 | ((HIDWORD(a4) & 1) << 32));
+            LODWORD(v19) = *(v19 + 20);
+            if (one-time initialization token for enabledCategories == -1)
+            {
+              goto LABEL_17;
+            }
+
+            goto LABEL_55;
+          }
+        }
+      }
+
+      else if (!a1)
+      {
+        goto LABEL_16;
+      }
+    }
+
+    *(v7 + 144) = v18;
+    swift_endAccess();
+    if (!v15)
+    {
+      GraphHost.flushTransactions()();
+    }
+  }
+
+  else if ((*(*v7 + 192))(v17))
+  {
+    v24 = v23;
+    ObjectType = swift_getObjectType();
+    (*(v24 + 32))(ObjectType, v24);
+    swift_unknownObjectRelease();
+  }
+
+  v14 = &protocol witness table for MaterialEffectBackdropObserver.LuminanceMutation;
+  v61 = &type metadata for MaterialEffectBackdropObserver.LuminanceMutation;
+  v62 = &protocol witness table for MaterialEffectBackdropObserver.LuminanceMutation;
+  v58 = a3;
+  LODWORD(v59) = a4;
+  BYTE4(v59) = BYTE4(a4) & 1;
+  swift_beginAccess();
+  v50 = static AsyncTransaction.nextTraceID;
+
+  atomic_fetch_add_explicit(&static AsyncTransaction.nextTraceID, 2u, memory_order_relaxed);
+  swift_endAccess();
+  outlined init with copy of AnyTrackedValue(&v58, v56);
+  v26 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 1, 1, MEMORY[0x1E69E7CC0]);
+  v28 = v26[2];
+  v27 = v26[3];
+  v16 = v28 + 1;
+  if (v28 >= v27 >> 1)
+  {
+    v26 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v27 > 1), v28 + 1, 1, v26);
+  }
+
+  __swift_destroy_boxed_opaque_existential_1(&v58);
+  v29 = v57;
+  v30 = __swift_mutable_project_boxed_opaque_existential_1(v56, v57);
+  v31 = MEMORY[0x1EEE9AC00](v30);
+  v33 = &v49 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
+  (*(v34 + 16))(v33, v31);
+  v35 = *(v33 + 2);
+  v36 = v33[12];
+  v54 = &type metadata for MaterialEffectBackdropObserver.LuminanceMutation;
+  v55 = &protocol witness table for MaterialEffectBackdropObserver.LuminanceMutation;
+  *&v53 = *v33;
+  DWORD2(v53) = v35;
+  BYTE12(v53) = v36;
+  v26[2] = v16;
+  outlined init with take of AnyTrackedValue(&v53, &v26[5 * v28 + 4]);
+  __swift_destroy_boxed_opaque_existential_1(v56);
+  if (one-time initialization token for enabledCategories != -1)
+  {
+    swift_once();
+  }
+
+  v37 = v51;
+  if (*(static CustomEventTrace.enabledCategories + 2) >= 0x55uLL)
+  {
+    v16 = (v50 >> 1) + 1;
+    if (*(static CustomEventTrace.enabledCategories + 116) == 1 && static CustomEventTrace.recorder)
+    {
+      *(*(static CustomEventTrace.recorder + 24) + 4) = 20820;
+      LODWORD(v58) = v16;
+      AGGraphAddTraceEvent();
+    }
+
+    swift_beginAccess();
+    v29 = *(v7 + 144);
+
+    v38 = swift_isUniquelyReferenced_nonNull_native();
+    *(v7 + 144) = v29;
+    v14 = v52;
+    if (v38)
+    {
+      goto LABEL_40;
+    }
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  v29 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v29 + 2) + 1, 1, v29);
+  *(v7 + 144) = v29;
+LABEL_40:
+  v40 = *(v29 + 2);
+  v39 = *(v29 + 3);
+  if (v40 >= v39 >> 1)
+  {
+    v29 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v39 > 1), v40 + 1, 1, v29);
+  }
+
+  *(v29 + 2) = v40 + 1;
+  v41 = &v29[24 * v40];
+  *(v41 + 4) = a1;
+  *(v41 + 10) = v37;
+  *(v41 + 11) = v16;
+  *(v41 + 6) = v26;
+  *(v7 + 144) = v29;
+  swift_endAccess();
+
+LABEL_43:
+  _MovableLockUnlock(v14);
+  return v16;
+}
+
+uint64_t storeEnumTagSinglePayload for _ColorMonochromeEffect._Resolved(uint64_t result, int a2, int a3)
+{
+  if (a2)
+  {
+    *(result + 8) = 0;
+    *(result + 16) = 0;
+    *result = (a2 - 1);
+    if (!a3)
+    {
+      return result;
+    }
+
     v3 = 1;
   }
 
   else
   {
-    v3 = v2;
-  }
-
-  if (v3 == 4)
-  {
-    v4 = *(a1 + 1);
-    if (v4)
+    if (!a3)
     {
-      return (*a1 | (v4 << 8)) - 4;
-    }
-  }
-
-  else
-  {
-    if (v3 == 2)
-    {
-      v4 = *(a1 + 1);
-      if (!*(a1 + 1))
-      {
-        goto LABEL_17;
-      }
-
-      return (*a1 | (v4 << 8)) - 4;
+      return result;
     }
 
-    v4 = a1[1];
-    if (a1[1])
-    {
-      return (*a1 | (v4 << 8)) - 4;
-    }
+    v3 = 0;
   }
 
-LABEL_17:
-  v6 = *a1;
-  v7 = v6 >= 5;
-  v8 = v6 - 5;
-  if (!v7)
-  {
-    v8 = -1;
-  }
-
-  return (v8 + 1);
-}
-
-uint64_t specialized static _Glass.Variant.ID.== infix(_:_:)(uint64_t a1, uint64_t a2)
-{
-  v2 = *a1;
-  v3 = *(a1 + 8);
-  v4 = *a2;
-  v5 = *(a2 + 8);
-  if (!(v3 >> 6))
-  {
-    if (v5 < 0x40)
-    {
-      v7 = *(v2 + 48);
-      v8 = *(v2 + 40);
-      v9 = *(v2 + 32);
-      v10 = *(v2 + 24);
-      v11 = *(v4 + 16);
-      v12 = *(v4 + 24);
-      v13 = *(v4 + 32);
-      v14 = *(v4 + 40);
-      v15 = *(v4 + 48);
-      v29 = *(v2 + 16);
-      v30 = v10;
-      v31 = v9;
-      v32 = v8;
-      v33 = v7;
-      v24 = v11;
-      v25 = v12;
-      v26 = v13;
-      v27 = v14;
-      v28 = v15;
-      outlined copy of _Glass.Variant.ID(v4, v5);
-      outlined copy of _Glass.Variant.ID(v2, v3);
-      v6 = specialized static _Glass.Variant.ID.MixID.== infix(_:_:)(&v29, &v24);
-      goto LABEL_7;
-    }
-
-    goto LABEL_32;
-  }
-
-  if (v3 >> 6 != 1)
-  {
-    if (!(v2 | v3 ^ 0x80))
-    {
-      v20 = (v5 & 0xC0) == 0x80 && v4 == 0;
-      if (!v20 || v5 != 128)
-      {
-        goto LABEL_32;
-      }
-
-      outlined consume of _Glass.Variant.ID(*a1, v3);
-      v21 = 0;
-      goto LABEL_36;
-    }
-
-    v17 = v5 & 0xC0;
-    if (*(a1 + 8) != 128 || v2 != 1)
-    {
-      v22 = v17 == 128 && v4 == 2;
-      if (!v22 || v5 != 128)
-      {
-        goto LABEL_32;
-      }
-
-      outlined consume of _Glass.Variant.ID(*a1, v3);
-      v21 = 2;
-LABEL_36:
-      outlined consume of _Glass.Variant.ID(v21, 0x80u);
-      v16 = 1;
-      return v16 & 1;
-    }
-
-    v19 = v17 == 128 && v4 == 1;
-    if (v19 && v5 == 128)
-    {
-      outlined consume of _Glass.Variant.ID(*a1, v3);
-      v16 = 1;
-      outlined consume of _Glass.Variant.ID(1, 0x80u);
-      return v16 & 1;
-    }
-
-LABEL_32:
-    outlined copy of _Glass.Variant.ID(*a2, *(a2 + 8));
-    outlined copy of _Glass.Variant.ID(v2, v3);
-    outlined consume of _Glass.Variant.ID(v2, v3);
-    outlined consume of _Glass.Variant.ID(v4, v5);
-    v16 = 0;
-    return v16 & 1;
-  }
-
-  if ((v5 & 0xC0) != 0x40)
-  {
-    goto LABEL_32;
-  }
-
-  v29 = *a1;
-  v30 = v3 & 0x3F;
-  v24 = v4;
-  v25 = v5 & 0x3F;
-  outlined copy of _Glass.Variant.ID(v4, v5);
-  outlined copy of _Glass.Variant.ID(v2, v3);
-  v6 = specialized static Material.ID.== infix(_:_:)(&v29, &v24);
-LABEL_7:
-  v16 = v6;
-  outlined consume of _Glass.Variant.ID(v2, v3);
-  outlined consume of _Glass.Variant.ID(v4, v5);
-  return v16 & 1;
-}
-
-void *_s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA011EnvironmentcF0VyAA0G6ValuesVAAE02__F15_hasGlassEffect08_3DF70D9M23D7473F4D189A049B764CFEFLLVG_Tt2g5(void *a1)
-{
-  _s7SwiftUI22EnvironmentPropertyKeyVyAA0C6ValuesVAAE02__E28_glassEffectBackdropObserver33_FD0C880ACFE431F75FFFB08913C85A9CLLVGMaTm_1(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_hasGlassEffect>, &type metadata for EnvironmentValues.__Key_hasGlassEffect, &protocol witness table for EnvironmentValues.__Key_hasGlassEffect, type metadata accessor for EnvironmentPropertyKey);
-  BloomFilter.init(hashValue:)(v2);
-  result = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011EnvironmentrV0VyAA0W6ValuesVAAE02__V15_hasGlassEffect33_3DF70D9D9D7473F4D189A049B764CFEFLLVG_Tt0B5(a1, v4);
-  if (result)
-  {
-    return *(result + 72);
-  }
-
+  *(result + 24) = v3;
   return result;
 }
 
-void *_s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011EnvironmentrV0VyAA0W6ValuesVAAE02__V15_hasGlassEffect33_3DF70D9D9D7473F4D189A049B764CFEFLLVG_Tt0B5(void *result, uint64_t a2)
+uint64_t *sub_18D187A8C(uint64_t *a1, uint64_t *a2)
 {
-  if (result)
-  {
-    while (1)
-    {
-      while ((a2 & ~result[7]) != 0)
-      {
-        result = result[5];
-        if (!result)
-        {
-          return result;
-        }
-      }
-
-      if (result[3])
-      {
-        v2 = result;
-        v3 = a2;
-        hasGlassEffect33_3DF70D9D9D7473F4D189A049B764CFEFLLVG_Tt0B5 = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011EnvironmentrV0VyAA0W6ValuesVAAE02__V15_hasGlassEffect33_3DF70D9D9D7473F4D189A049B764CFEFLLVG_Tt0B5(result[3]);
-        a2 = v3;
-        v5 = hasGlassEffect33_3DF70D9D9D7473F4D189A049B764CFEFLLVG_Tt0B5;
-        result = v2;
-        if (v5)
-        {
-          break;
-        }
-      }
-
-      v6 = a2;
-      v7 = result;
-      v8 = result[2];
-      _s7SwiftUI22EnvironmentPropertyKeyVyAA0C6ValuesVAAE02__E28_glassEffectBackdropObserver33_FD0C880ACFE431F75FFFB08913C85A9CLLVGMaTm_0(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_hasGlassEffect>, &type metadata for EnvironmentValues.__Key_hasGlassEffect, &protocol witness table for EnvironmentValues.__Key_hasGlassEffect, type metadata accessor for EnvironmentPropertyKey);
-      if (v8 == v9)
-      {
-        return v7;
-      }
-
-      result = v7[4];
-      a2 = v6;
-      if (!result)
-      {
-        return result;
-      }
-    }
-
-    return v5;
-  }
-
-  return result;
-}
-
-void *_s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA011EnvironmentcF0VyAA0G6ValuesVAAE02__F15_hasGlassEffect08_3DF70D9M23D7473F4D189A049B764CFEFLLVG_Tt2g5(uint64_t *a1, char a2)
-{
-  v4 = *a1;
-  type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_glassEffectBackdropObserver>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_hasGlassEffect>, &type metadata for EnvironmentValues.__Key_hasGlassEffect, &protocol witness table for EnvironmentValues.__Key_hasGlassEffect, type metadata accessor for EnvironmentPropertyKey);
-  v6 = v5;
-  BloomFilter.init(hashValue:)(v5);
-  result = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011EnvironmentrV0VyAA0W6ValuesVAAE02__V15_hasGlassEffect33_3DF70D9D9D7473F4D189A049B764CFEFLLVG_Tt0B5(v4, v9);
-  if (!result || *(result + 72) != (a2 & 1))
-  {
-    v8 = *a1;
-    type metadata accessor for TypedElement<EnvironmentPropertyKey<EnvironmentValues.__Key_hasGlassEffect>>();
-    *(swift_allocObject() + 72) = a2 & 1;
-
-    *a1 = PropertyList.Element.init(keyType:before:after:)(v6, 0, v8);
-  }
-
-  return result;
-}
-
-void type metadata accessor for TypedElement<EnvironmentPropertyKey<EnvironmentValues.__Key_hasGlassEffect>>()
-{
-  if (!lazy cache variable for type metadata for TypedElement<EnvironmentPropertyKey<EnvironmentValues.__Key_hasGlassEffect>>)
-  {
-    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_glassEffectBackdropObserver>(255, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_hasGlassEffect>, &type metadata for EnvironmentValues.__Key_hasGlassEffect, &protocol witness table for EnvironmentValues.__Key_hasGlassEffect, type metadata accessor for EnvironmentPropertyKey);
-    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_hasGlassEffect> and conformance EnvironmentPropertyKey<A>();
-    v0 = type metadata accessor for TypedElement();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for TypedElement<EnvironmentPropertyKey<EnvironmentValues.__Key_hasGlassEffect>>);
-    }
-  }
-}
-
-uint64_t getEnumTagSinglePayload for _Glass.Variant.Mix(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 > 0x3FFFFFFD && *(a1 + 40))
-  {
-    return (*a1 + 1073741822);
-  }
-
-  if (((*(a1 + 8) & 0x3FFFFFFC | (*(a1 + 8) >> 30)) ^ 0x3FFFFFFFu) >= 0x3FFFFFFD)
-  {
-    v3 = -1;
-  }
-
-  else
-  {
-    v3 = (*(a1 + 8) & 0x3FFFFFFC | (*(a1 + 8) >> 30)) ^ 0x3FFFFFFF;
-  }
-
-  return (v3 + 1);
-}
-
-uint64_t *GlassEffectEnvironment.value.getter@<X0>(uint64_t *a1@<X8>)
-{
-  Value = AGGraphGetValue();
-  v4 = *Value;
-  v3 = Value[1];
-  v10 = *Value;
-  v11 = v3;
-
-  result = AGGraphGetValue();
-  if (*result == 1)
-  {
-    type metadata accessor for AtomicBuffer<TrackerData>(0, &lazy cache variable for type metadata for Material?, &type metadata for Material, MEMORY[0x1E69E6720]);
-    result = AGGraphGetValue();
-    v6 = result[1];
-    if (*(result + 8) != 0xFF)
-    {
-      v7 = *result;
-      swift_retain_n();
-      outlined copy of Material?(v7, v6);
-      _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA011EnvironmentcF0VyAA0G6ValuesVAAE02__F15_hasGlassEffect08_3DF70D9M23D7473F4D189A049B764CFEFLLVG_Tt2g5(&v10, 1);
-
-      if (v3)
-      {
-        v8 = v10;
-        _s7SwiftUI12PropertyListV7TrackerC15invalidateValue3for4from2toyxm_A2CtAA0C3KeyRzlFAA011EnvironmentcK0VyAA0L6ValuesVAAE02__K15_hasGlassEffect08_3DF70D9R23D7473F4D189A049B764CFEFLLVG_Ttg5(v4, v10);
-      }
-
-      else
-      {
-
-        v8 = v10;
-      }
-
-      outlined copy of Material?(v7, v6);
-
-      outlined copy of Material?(v7, v6);
-
-      _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA011EnvironmentcF0VyAA018BackgroundMaterialF033_B2CCB444DA7C00CFB13A219298A4122CLLVG_Tt2B5(&v10, v7, v6 & 0xFFFFFFFF000000FFLL);
-
-      outlined consume of Material?(v7, v6);
-      if (v3)
-      {
-        v4 = v10;
-        _s7SwiftUI12PropertyListV7TrackerC15invalidateValue3for4from2toyxm_A2CtAA0C3KeyRzlFAA011EnvironmentcK0VyAA018BackgroundMaterialK033_B2CCB444DA7C00CFB13A219298A4122CLLVG_Ttg5(v8, v10);
-        outlined consume of Material?(v7, v6);
-        outlined consume of Material?(v7, v6);
-      }
-
-      else
-      {
-        outlined consume of Material?(v7, v6);
-        outlined consume of Material?(v7, v6);
-
-        v4 = v10;
-      }
-    }
-  }
-
-  v9 = v11;
-  *a1 = v4;
-  a1[1] = v9;
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type AnyShape and conformance AnyShape()
-{
-  result = lazy protocol witness table cache variable for type AnyShape and conformance AnyShape;
-  if (!lazy protocol witness table cache variable for type AnyShape and conformance AnyShape)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AnyShape and conformance AnyShape);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type AnyShape and conformance AnyShape;
-  if (!lazy protocol witness table cache variable for type AnyShape and conformance AnyShape)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type AnyShape and conformance AnyShape);
-  }
-
-  return result;
-}
-
-uint64_t AnyShape.init<A>(_:)(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a2 - 8);
-  MEMORY[0x1EEE9AC00](a1);
-  v6 = v13 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = MEMORY[0x1EEE9AC00](v7);
-  v9 = *(v4 + 16);
-  v9(v13 - v10, a1, a2, v8);
-  if (swift_dynamicCast())
-  {
-    v11 = v13[1];
-  }
-
-  else
-  {
-    type metadata accessor for _AnyShapeBox();
-    (v9)(v6, a1, a2);
-    v11 = _AnyShapeBox.__allocating_init(_:)(v6);
-  }
-
-  (*(v4 + 8))(a1, a2);
-  return v11;
-}
-
-uint64_t FontBox.__allocating_init(_:)(uint64_t a1)
-{
-  v2 = swift_allocObject();
-  (*(*(*(*v2 + 144) - 8) + 32))(v2 + *(*v2 + 160), a1);
-  return v2;
-}
-
-uint64_t View._glassEffect<A>(_:in:isEnabled:)@<X0>(uint64_t a1@<X0>, int a2@<W2>, uint64_t a3@<X3>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, uint64_t a7@<X8>)
-{
-  v23 = a3;
-  v24 = a2;
-  v26 = a7;
-  v10 = MEMORY[0x1EEE9AC00](a1);
-  v12 = &v23 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = *v13;
-  v15 = *(v13 + 8);
-  v16 = *(v13 + 16);
-  v18 = *(v13 + 24);
-  v17 = *(v13 + 32);
-  v19 = *(v13 + 40);
-  (*(v20 + 16))(v12, v10);
-  outlined copy of _Glass.Variant.Role(v14, v15);
-
-  v21 = AnyShape.init<A>(_:)(v12, a4);
-  v42[0] = v14;
-  v42[1] = v15;
-  v43 = v16;
-  v44 = v18;
-  v45 = v17;
-  v46 = v19;
-  v47 = v21;
-  v33 = v23;
-  v34 = a4;
-  v35 = a5;
-  v36 = a6;
-  v37 = v25;
-  v38 = v42;
-  v39 = v24;
-  v27 = v23;
-  v28 = a4;
-  v29 = a5;
-  v30 = a6;
-  v31 = v25;
-  type metadata accessor for ModifiedContent();
-  v40 = a5;
-  v41 = &protocol witness table for GlassEffectModifier;
-  swift_getWitnessTable();
-  StaticIf<>.init(_:then:else:)(&type metadata for GlassEnabledPredicate, partial apply for closure #1 in View._glassEffect<A>(_:in:isEnabled:), v32, partial apply for closure #2 in View._glassEffect<A>(_:in:isEnabled:));
-  return outlined destroy of GlassEffectConfiguration(v42);
-}
-
-uint64_t outlined copy of _Glass.Variant.Role(uint64_t result, unsigned int a2)
-{
-  if (a2 >> 30 == 1)
-  {
-    return outlined copy of Material.ID(result, a2);
-  }
-
-  if (!(a2 >> 30))
-  {
-  }
-
-  return result;
-}
-
-uint64_t outlined consume of _Glass.Variant.Role(uint64_t result, unsigned int a2)
-{
-  if (a2 >> 30 == 1)
-  {
-    return outlined consume of Material.ID(result, a2);
-  }
-
-  if (!(a2 >> 30))
-  {
-  }
-
-  return result;
-}
-
-uint64_t destroy for Glass(uint64_t *a1)
-{
-  outlined consume of _Glass.Variant.Role(*a1, a1[1]);
-}
-
-uint64_t initializeWithCopy for GlassEffectModifier(uint64_t a1, uint64_t a2)
-{
-  v4 = *a2;
-  v5 = *(a2 + 8);
-  outlined copy of _Glass.Variant.Role(*a2, v5);
-  *a1 = v4;
-  *(a1 + 8) = v5;
-  *(a1 + 16) = *(a2 + 16);
-  v6 = *(a2 + 32);
-  *(a1 + 24) = *(a2 + 24);
-  *(a1 + 32) = v6;
-  *(a1 + 40) = *(a2 + 40);
-  *(a1 + 48) = *(a2 + 48);
-  *(a1 + 56) = *(a2 + 56);
-
-  return a1;
-}
-
-__n128 __swift_memcpy49_8(uint64_t a1, uint64_t a2)
-{
-  result = *a2;
-  v3 = *(a2 + 16);
-  v4 = *(a2 + 32);
-  *(a1 + 48) = *(a2 + 48);
-  *(a1 + 16) = v3;
-  *(a1 + 32) = v4;
-  *a1 = result;
-  return result;
-}
-
-uint64_t outlined copy of _Glass?(uint64_t result, unsigned int a2, uint64_t a3, uint64_t a4)
-{
-  if (a4 != 1)
-  {
-    outlined copy of _Glass.Variant.Role(result, a2);
-  }
-
-  return result;
-}
-
-uint64_t _Glass.tintColor(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  v6 = *v2;
-  v5 = *(v2 + 8);
-  v7 = *(v2 + 16);
-  v8 = *(v2 + 24);
-  v9 = *(v2 + 32);
-  v10 = *(v2 + 40);
-  outlined copy of _Glass.Variant.Role(v6, v5);
-
-  if (!a1)
-  {
-    a1 = v8;
-  }
-
-  *a2 = v6;
-  *(a2 + 8) = v5;
-  *(a2 + 16) = v7;
-  *(a2 + 24) = a1;
-  *(a2 + 32) = v9;
-  *(a2 + 40) = v10;
-  return result;
-}
-
-uint64_t initializeWithCopy for Glass(uint64_t a1, uint64_t a2)
-{
-  v4 = *a2;
-  v5 = *(a2 + 8);
-  outlined copy of _Glass.Variant.Role(*a2, v5);
-  *a1 = v4;
-  *(a1 + 8) = v5;
-  *(a1 + 16) = *(a2 + 16);
-  v6 = *(a2 + 32);
-  *(a1 + 24) = *(a2 + 24);
-  *(a1 + 32) = v6;
-  *(a1 + 40) = *(a2 + 40);
-
-  return a1;
-}
-
-uint64_t getEnumTagSinglePayload for CodableAttributedString.Range.DecodingWrapper(uint64_t a1, unsigned int a2)
-{
-  if (!a2)
-  {
-    return 0;
-  }
-
-  if (a2 >= 0x7FFFFFFF && *(a1 + 40))
-  {
-    return (*a1 + 0x7FFFFFFF);
-  }
-
-  v3 = *(a1 + 24);
-  if (v3 >= 0xFFFFFFFF)
-  {
-    LODWORD(v3) = -1;
-  }
-
-  v4 = v3 - 1;
-  if (v4 < 0)
-  {
-    v4 = -1;
-  }
-
-  return (v4 + 1);
-}
-
-uint64_t storeEnumTagSinglePayload for CodableAttributedString.Range.DecodingWrapper(uint64_t result, unsigned int a2, unsigned int a3)
-{
-  if (a2 > 0x7FFFFFFE)
-  {
-    *(result + 8) = 0u;
-    *(result + 24) = 0u;
-    *result = a2 - 0x7FFFFFFF;
-    if (a3 >= 0x7FFFFFFF)
-    {
-      *(result + 40) = 1;
-    }
-  }
-
-  else
-  {
-    if (a3 >= 0x7FFFFFFF)
-    {
-      *(result + 40) = 0;
-    }
-
-    if (a2)
-    {
-      *(result + 24) = a2;
-    }
-  }
-
-  return result;
-}
-
-uint64_t AnyEquatable.init<A>(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
-{
-  v6 = *(a2 - 8);
-  MEMORY[0x1EEE9AC00](a1);
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  type metadata accessor for _AnyEquatableBox();
-  (*(v6 + 16))(v8, a1, a2);
-  v9 = _AnyEquatableBox.__allocating_init(_:)(v8);
-  result = (*(v6 + 8))(a1, a2);
-  *a3 = v9;
-  return result;
-}
-
-uint64_t _AnyEquatableBox.__allocating_init(_:)(uint64_t a1)
-{
-  v2 = swift_allocObject();
-  (*(*(*(*v2 + 112) - 8) + 32))(v2 + *(*v2 + 128), a1);
-  return v2;
-}
-
-unint64_t lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.__Key_hasGlassEffect> and conformance EnvironmentPropertyKey<A>()
-{
-  result = lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_hasGlassEffect> and conformance EnvironmentPropertyKey<A>;
-  if (!lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_hasGlassEffect> and conformance EnvironmentPropertyKey<A>)
-  {
-    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_glassEffectBackdropObserver>(255, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.__Key_hasGlassEffect>, &type metadata for EnvironmentValues.__Key_hasGlassEffect, &protocol witness table for EnvironmentValues.__Key_hasGlassEffect, type metadata accessor for EnvironmentPropertyKey);
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type EnvironmentPropertyKey<EnvironmentValues.__Key_hasGlassEffect> and conformance EnvironmentPropertyKey<A>);
-  }
-
-  return result;
-}
-
-void *assignWithCopy for _GlassEffectContainer(void *a1, void *a2, uint64_t a3)
-{
+  v3 = a2[1];
   *a1 = *a2;
-  v4 = *(*(a3 + 16) - 8);
-  (*(v4 + 24))((a1 + *(v4 + 80) + 8) & ~*(v4 + 80), (a2 + *(v4 + 80) + 8) & ~*(v4 + 80));
-  return a1;
-}
-
-uint64_t AnchorWriter.value.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
-{
-  v10[2] = a3;
-  v10[3] = a4;
-  v10[4] = a5;
-  v10[5] = a1;
-  v10[6] = a2;
-  v7 = type metadata accessor for _AnchorWritingModifier();
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  return Attribute.syncMainIfReferences<A>(do:)(partial apply for closure #1 in AnchorWriter.value.getter, v10, v7, AssociatedTypeWitness, a6);
-}
-
-uint64_t closure #1 in AnchorWriter.value.getter@<X0>(__int128 *a1@<X0>, uint64_t a2@<X1>, void (*a3)(char *, char *, uint64_t)@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, char *a7@<X8>)
-{
-  *&v66 = a2;
-  v63 = a7;
-  v81 = *MEMORY[0x1E69E9840];
-  v12 = type metadata accessor for ObservationTracking._AccessList();
-  v69 = *(v12 - 8);
-  MEMORY[0x1EEE9AC00](v12);
-  v60 = &v58 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v14);
-  v65 = &v58 - v15;
-  MEMORY[0x1EEE9AC00](v16);
-  v58 = &v58 - v17;
-  type metadata accessor for ObservationTracking._AccessList?();
-  v62 = v18;
-  MEMORY[0x1EEE9AC00](v18);
-  v20 = &v58 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v21);
-  v23 = &v58 - v22;
-  MEMORY[0x1EEE9AC00](v24);
-  v67 = &v58 - v25;
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v64 = *(AssociatedTypeWitness - 8);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v27 = &v58 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v28);
-  v70 = &v58 - v29;
-  v30 = *(a1 + 2);
-  LODWORD(v79) = DWORD1(v66);
-  *(&v79 + 4) = a3;
-  v66 = *a1;
-  v31 = Anchor.Source.prepare(geometry:)(&v79, v66);
-  v73 = a4;
-  v74 = a5;
-  v75 = a6;
-  v76 = v66;
-  v77 = v30;
-  v78 = v31;
-  if (one-time initialization token for _current != -1)
-  {
-    swift_once();
-  }
-
-  v32 = static ObservationCenter._current;
-  swift_beginAccess();
-  v33 = pthread_getspecific(v32[2]);
-  if (!v33)
-  {
-    v34 = swift_slowAlloc();
-    pthread_setspecific(v32[2], v34);
-    v80 = type metadata accessor for ObservationCenter();
-    v32 = v32[3];
-    *&v79 = v32;
-    outlined init with take of Any(&v79, v34);
-
-    v33 = v34;
-  }
-
-  outlined init with copy of Any(v33, &v79);
-  type metadata accessor for ObservationCenter();
-  swift_dynamicCast();
-  v35 = v71;
-  CurrentAttribute = AGGraphGetCurrentAttribute();
-  v37 = v69;
-  if (CurrentAttribute == *MEMORY[0x1E698D3F8])
-  {
-    __break(1u);
-LABEL_18:
-    v32 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, v32[2] + 1, 1, v32);
-    *(v35 + 24) = v32;
-    goto LABEL_9;
-  }
-
-  v38 = v20;
-  v59 = CurrentAttribute;
-  *&v66 = v31;
-  swift_beginAccess();
-  v61 = *(v35 + 24);
-  *(v35 + 24) = MEMORY[0x1E69E7CC0];
-  v39 = (*(v37 + 56))(v23, 1, 1, v12);
-  MEMORY[0x1EEE9AC00](v39);
-  v40 = AssociatedTypeWitness;
-  *(&v58 - 4) = AssociatedTypeWitness;
-  *(&v58 - 3) = partial apply for closure #1 in closure #1 in AnchorWriter.value.getter;
-  *(&v58 - 2) = &v72;
-  v41 = type metadata accessor for Error();
-  _ss24withUnsafeMutablePointer2to_q0_xz_q0_SpyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(v23, partial apply for closure #1 in ObservationCenter._withObservation<A>(do:), (&v58 - 6), v62, v41, v40, MEMORY[0x1E69E7288], &v71);
-  a3 = *(v64 + 32);
-  a3(v70, v27, v40);
-  v42 = v67;
-  outlined init with take of ObservationTracking._AccessList?(v23, v67);
-  outlined init with copy of ObservationTracking._AccessList?(v42, v38);
-  if ((*(v37 + 48))(v38, 1, v12) == 1)
-  {
-    v27 = v12;
-    outlined destroy of ObservationTracking._AccessList?(v42);
-    v43 = v38;
-    goto LABEL_12;
-  }
-
-  v20 = v58;
-  v64 = *(v37 + 32);
-  (v64)(v58, v38, v12);
-  v27 = v12;
-  (*(v37 + 16))(v65, v20, v12);
-  v32 = *(v35 + 24);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  *(v35 + 24) = v32;
-  if ((isUniquelyReferenced_nonNull_native & 1) == 0)
-  {
-    goto LABEL_18;
-  }
-
-LABEL_9:
-  v46 = v32[2];
-  v45 = v32[3];
-  if (v46 >= v45 >> 1)
-  {
-    v32 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(v45 > 1, v46 + 1, 1, v32);
-  }
-
-  v32[2] = v46 + 1;
-  v47 = v32 + ((*(v69 + 80) + 32) & ~*(v69 + 80)) + *(v69 + 72) * v46;
-  v37 = v69;
-  (v64)(v47, v65, v27);
-  *(v35 + 24) = v32;
-  (*(v37 + 8))(v20, v27);
-  v40 = AssociatedTypeWitness;
-  v43 = v67;
-LABEL_12:
-  outlined destroy of ObservationTracking._AccessList?(v43);
-  a3(v63, v70, v40);
-  v48 = *(v35 + 24);
-  v49 = *(v48 + 16);
-  if (v49)
-  {
-    v51 = *(v37 + 16);
-    v50 = v37 + 16;
-    v69 = *(v35 + 24);
-    v70 = v51;
-    v52 = v48 + ((*(v50 + 64) + 32) & ~*(v50 + 64));
-    v53 = *(v50 + 56);
-    v54 = (v50 - 8);
-
-    v55 = v59;
-    v56 = v60;
-    do
-    {
-      (v70)(v56, v52, v27);
-      ObservationCenter.invalidate<A>(_:onChangeIn:)(v55, v56);
-      (*v54)(v56, v27);
-      v52 += v53;
-      --v49;
-    }
-
-    while (v49);
-  }
-
-  *(v35 + 24) = v61;
-}
-
-uint64_t Anchor.Source.prepare(geometry:)(uint64_t *a1, uint64_t a2)
-{
-  v4 = *(a1 + 2);
-
-  v7 = *a1;
-  v8 = v4;
-  v5 = (*(*a2 + 88))(&v7);
-
-  return v5;
-}
-
-uint64_t AnchorBox.prepare(geometry:)(uint64_t *a1)
-{
-  v3 = *(*v1 + 112);
-  v4 = *(*v1 + 104);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness - 8);
-  v7 = &v10 - v6;
-  v8 = *(a1 + 2);
-  type metadata accessor for AnchorValueBox();
-  v10 = *a1;
-  v11 = v8;
-  (*(v3 + 40))(&v10, v4, v3);
-  swift_allocObject();
-  return AnchorValueBox.init(_:)(v7);
-}
-
-void UnitRect.prepare(geometry:)()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  type metadata accessor for CGSize(0);
-  Value = AGGraphGetValue();
-  CGRect.prepare(geometry:)(v1 * *Value, v2 * Value[1], v3 * *Value, v4 * Value[1]);
-}
-
-void protocol witness for AnchorProtocol.prepare(geometry:) in conformance UnitRect(void *a1@<X8>)
-{
-  UnitRect.prepare(geometry:)();
-  *a1 = v2;
   a1[1] = v3;
-  a1[2] = v4;
-  a1[3] = v5;
-}
-
-uint64_t AnchorValueBox.init(_:)(uint64_t a1)
-{
-  v3 = *(*v1 + 152);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  (*(*(AssociatedTypeWitness - 8) + 32))(v1 + v3, a1, AssociatedTypeWitness);
-  return v1;
-}
-
-uint64_t type metadata completion function for AnchorValueBox()
-{
-  result = swift_getAssociatedTypeWitness();
-  if (v1 <= 0x3F)
-  {
-    result = swift_initClassMetadata2();
-    if (!result)
-    {
-      return 0;
-    }
-  }
-
-  return result;
-}
-
-double one-time initialization function for root()
-{
-  qword_1ED532990 = 0;
-  result = 0.0;
-  static CoordinateSpace.root = 0u;
-  unk_1ED532980 = 0u;
-  byte_1ED532998 = 2;
-  return result;
-}
-
-uint64_t AnchorValueBox.convert(to:)(uint64_t *a1)
-{
-  v3 = *v1;
-  v4 = *(*v1 + 144);
-  v5 = *(*v1 + 136);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v7 = *(AssociatedTypeWitness - 8);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v9 = &v16 - v8;
-  v10 = v3;
-  v11 = *a1;
-  v12 = a1[1];
-  v13 = *(a1 + 2);
-  v16 = *(a1 + 1);
-  v17 = v13;
-  (*(v7 + 16))(&v16 - v8, v1 + *(v10 + 152), AssociatedTypeWitness);
-  if (one-time initialization token for root != -1)
-  {
-    swift_once();
-  }
-
-  v18[0] = v11;
-  v18[1] = v12;
-  v19 = v16;
-  v20 = v17;
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  (*(AssociatedConformanceWitness + 16))(&static CoordinateSpace.root, v18, AssociatedTypeWitness, AssociatedConformanceWitness);
-  (*(v4 + 48))(v9, v5, v4);
-  return (*(v7 + 8))(v9, AssociatedTypeWitness);
-}
-
-double CGRect.prepare(geometry:)(double a1, double a2, double a3, double a4)
-{
-  v21 = a1;
-  v22 = a2;
-  v23 = a3;
-  v24 = a4;
-  if (one-time initialization token for root != -1)
-  {
-    swift_once();
-  }
-
-  Value = AGGraphGetValue();
-  v5 = *Value;
-  v6 = *(Value + 8);
-  v7 = *(Value + 16);
-  v8 = *(Value + 24);
-  v9 = *(Value + 32);
-  v10 = *(Value + 40);
-  type metadata accessor for CGPoint(0);
-
-  v11 = AGGraphGetValue();
-  v12 = *v11;
-  v13 = *(v11 + 8);
-  v14 = v9 - (*v11 - v7);
-  *&v16 = v5;
-  *(&v16 + 1) = v6;
-  v17 = v12;
-  v18 = v13;
-  v19 = v14;
-  v20 = v10 - (v13 - v8);
-  CGRect.convert(to:transform:)(&static CoordinateSpace.root, &v16);
-
-  return v21;
-}
-
-__n128 sub_18D168084@<Q0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
-{
-  result = *a1;
-  v3 = *(a1 + 16);
-  *a2 = *a1;
-  a2[1] = v3;
-  return result;
-}
-
-uint64_t Anchor.convert(to:)(_OWORD *a1, uint64_t a2)
-{
-  v2 = a1[1];
-  v4[0] = *a1;
-  v4[1] = v2;
-  v4[2] = a1[2];
-  return (*(*a2 + 96))(v4);
-}
-
-uint64_t closure #1 in ViewGraphHost.convertAnchor<A>(_:)(uint64_t a1)
-{
-  Value = AGGraphGetValue();
-  v3 = *(Value + 8);
-  *&v6[0] = *Value;
-  *(&v6[0] + 1) = v3;
-  v4 = *(Value + 32);
-  v6[1] = *(Value + 16);
-  v6[2] = v4;
-
-  Anchor.convert(to:)(v6, a1);
-}
-
-uint64_t Layout.updateCache(_:subviews:)(uint64_t a1, int *a2, uint64_t a3, uint64_t a4)
-{
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  (*(*(AssociatedTypeWitness - 8) + 8))(a1, AssociatedTypeWitness);
-  v9 = *(a2 + 1);
-  v10 = *(a2 + 16);
-  v11 = *(a2 + 17);
-  v13 = *a2;
-  v14 = v9;
-  v15 = v10;
-  v16 = v11;
-  return (*(a4 + 32))(&v13, a3, a4);
-}
-
-double CoreViewRepresentableDynamicPropertyFields.init(for:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  static DynamicPropertyCache.fields(of:)(a1, &v6);
-  v3 = v7;
-  v4 = v8;
-  result = *&v6;
-  *a2 = v6;
-  *(a2 + 16) = v3;
-  *(a2 + 20) = v4;
-  return result;
-}
-
-uint64_t View._glassEffectID<A>(_:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v10[2] = a3;
-  v10[3] = a4;
-  v10[4] = a5;
-  v10[5] = a6;
-  type metadata accessor for Optional();
-  _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(partial apply for closure #1 in View._glassEffectID<A>(_:in:), v10, MEMORY[0x1E69E73E0], &type metadata for AnyHashable2, v8, v11);
-  v11[1] = a2;
-  View.modifier<A>(_:)(v11, a3, &type metadata for GlassEffectIDModifier);
-}
-
-uint64_t _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA011EnvironmentcF0VyAA0G6ValuesVAAE021MaterialBackdropProxyF033_DEF3755CDC6B87C0368876C9F497EC3DLLVG_Tt2g5@<X0>(void *a1@<X0>, uint64_t *a2@<X8>)
-{
-  _s7SwiftUI22EnvironmentPropertyKeyVyAA0C6ValuesVAAE02__E28_glassEffectBackdropObserver33_FD0C880ACFE431F75FFFB08913C85A9CLLVGMaTm_1(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.MaterialBackdropProxyKey>, &type metadata for EnvironmentValues.MaterialBackdropProxyKey, &protocol witness table for EnvironmentValues.MaterialBackdropProxyKey, type metadata accessor for EnvironmentPropertyKey);
-  BloomFilter.init(hashValue:)(v4);
-  result = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011EnvironmentrV0VyAA0W6ValuesVAAE021MaterialBackdropProxyV033_DEF3755CDC6B87C0368876C9F497EC3DLLVG_Tt0B5(a1, v6);
-  if (result)
-  {
-  }
-
-  *a2 = result;
-  return result;
-}
-
-uint64_t EnvironmentValues.materialBackdropProxy.getter@<X0>(uint64_t *a1@<X8>)
-{
-  v2 = *v1;
-  if (!*(v1 + 8))
-  {
-    return _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA011EnvironmentcF0VyAA0G6ValuesVAAE021MaterialBackdropProxyF033_DEF3755CDC6B87C0368876C9F497EC3DLLVG_Tt2g5(v2, a1);
-  }
-
-  _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA0J6ValuesVAAE021MaterialBackdropProxyI033_DEF3755CDC6B87C0368876C9F497EC3DLLVG_Tt1g5(v2, a1);
-}
-
-uint64_t closure #1 in View._glassEffectID<A>(_:in:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t *a3@<X8>)
-{
-  v5 = MEMORY[0x1EEE9AC00](a1);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v8 + 16))(v7, v5);
-  return AnyHashable2.init<A>(_:)(v7, a2, a3);
-}
-
-uint64_t View._glassEffectGroup<A>(id:namespace:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
-{
-  v10[2] = a3;
-  v10[3] = a4;
-  v10[4] = a5;
-  v10[5] = a6;
-  type metadata accessor for Optional();
-  _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(partial apply for closure #1 in View._glassEffectGroup<A>(id:namespace:), v10, MEMORY[0x1E69E73E0], &type metadata for AnyHashable2, v8, v11);
-  v11[1] = a2;
-  v12 = 0;
-  View.modifier<A>(_:)(v11, a3, &type metadata for GlassEffectGroupModifier);
-}
-
-uint64_t closure #1 in View._glassEffectGroup<A>(id:namespace:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X2>, uint64_t *a3@<X8>)
-{
-  v5 = MEMORY[0x1EEE9AC00](a1);
-  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  (*(v8 + 16))(v7, v5);
-  return AnyHashable2.init<A>(_:)(v7, a2, a3);
-}
-
-uint64_t sub_18D168848(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 8);
-  *a1 = *a2;
-  *(a1 + 8) = v3;
-  *(a1 + 16) = *(a2 + 16);
 
   return a1;
 }
 
-uint64_t View._glassEffectTransition(_:isEnabled:)(__int128 *a1, char a2, uint64_t a3)
+uint64_t type metadata completion function for CoreInteractionRepresentableEffect(uint64_t a1)
 {
-  v3 = *(a1 + 2);
-  v4 = *(a1 + 24);
-  v6 = *a1;
-  v7 = v3;
-  v8 = v4;
-  v9 = a2;
-  return View.modifier<A>(_:)(&v6, a3, &type metadata for GlassEffectTransitionModifier);
-}
-
-__n128 __swift_memcpy26_8(uint64_t a1, uint64_t a2)
-{
-  result = *a2;
-  *(a1 + 10) = *(a2 + 10);
-  *a1 = result;
-  return result;
-}
-
-uint64_t Layout.explicitAlignment(of:in:proposal:subviews:cache:)(uint64_t a1)
-{
-  return protocol witness for Layout.explicitAlignment(of:in:proposal:subviews:cache:) in conformance ZStackLayout(a1);
-}
-
-{
-  return Layout.explicitAlignment(of:in:proposal:subviews:cache:)(a1);
-}
-
-{
-  return sub_18D3B12D4(a1);
-}
-
-uint64_t LayoutSubview.place(at:anchor:proposal:)(uint64_t a1, char a2, uint64_t a3, char a4, double a5, double a6, double a7, double a8)
-{
-  v13 = *(v8 + 16);
-  v24 = *v8;
-  v25 = v13;
-  v19 = v24;
-  v20 = DWORD2(v24);
-  v15 = a1;
-  LOBYTE(v16) = a2 & 1;
-  *&v17 = a3;
-  BYTE8(v17) = a4 & 1;
-  LayoutProxy.dimensions(in:)(&v15, v21);
-  v15 = v21[0];
-  v16 = v21[1];
-  v17 = v22;
-  v18 = v23;
-  LayoutSubview.place(at:anchor:dimensions:)(&v15, a5, a6, a7, a8);
-}
-
-void *protocol witness for Collection.formIndex(after:) in conformance LayoutProxyCollection(void *result)
-{
-  if (*result >= *(*(v1 + 8) + 16))
+  result = type metadata accessor for Optional();
+  if (v2 <= 0x3F)
   {
-    __break(1u);
-  }
-
-  else
-  {
-    ++*result;
-  }
-
-  return result;
-}
-
-uint64_t LayoutSubview.sizeThatFits(_:)(uint64_t a1, char a2, uint64_t a3, char a4)
-{
-  v5 = *(v4 + 2);
-  v11 = *v4;
-  v12 = v5;
-  v7 = a1;
-  v8 = a2 & 1;
-  v9 = a3;
-  v10 = a4 & 1;
-  return LayoutProxy.size(in:)(&v7);
-}
-
-uint64_t LayoutSubview.subscript.getter@<X0>(uint64_t a1@<X8>)
-{
-  v2 = type metadata accessor for _LayoutTrait();
-  WitnessTable = swift_getWitnessTable();
-  return LayoutProxy.subscript.getter(v2, v2, WitnessTable, a1);
-}
-
-uint64_t LayoutProxy.subscript.getter@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
-{
-  v23 = a4;
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v9 = type metadata accessor for Optional();
-  v22 = *(v9 - 8);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = &v21 - v11;
-  v13 = 0;
-  if (*(v4 + 8) != *MEMORY[0x1E698D3F8])
-  {
-    type metadata accessor for ViewList();
-    InputValue = AGGraphGetInputValue();
-    outlined init with copy of AnyTrackedValue(InputValue, v25);
-    v15 = v26;
-    v16 = v27;
-    __swift_project_boxed_opaque_existential_1(v25, v26);
-    (*(v16 + 56))(&v24, v15, v16);
-    v13 = v24;
-    v10 = __swift_destroy_boxed_opaque_existential_1(v25);
-  }
-
-  v25[0] = v13;
-  MEMORY[0x1EEE9AC00](v10);
-  *(&v21 - 4) = a2;
-  *(&v21 - 3) = a3;
-  *(&v21 - 2) = a1;
-  type metadata accessor for ViewTraitCollection?();
-  _sSq3mapyqd_0_Sgqd_0_xqd__YKXEqd__YKs5ErrorRd__Ri_d_0_r0_lF(partial apply for closure #1 in LayoutProxy.subscript.getter, (&v21 - 6), MEMORY[0x1E69E73E0], AssociatedTypeWitness, v17, v12);
-
-  v18 = *(AssociatedTypeWitness - 8);
-  v19 = *(v18 + 48);
-  if (v19(v12, 1, AssociatedTypeWitness) != 1)
-  {
-    return (*(v18 + 32))(v23, v12, AssociatedTypeWitness);
-  }
-
-  (*(a3 + 16))(a2, a3);
-  result = (v19)(v12, 1, AssociatedTypeWitness);
-  if (result != 1)
-  {
-    return (*(v22 + 8))(v12, v9);
-  }
-
-  return result;
-}
-
-void type metadata accessor for ViewTraitCollection?()
-{
-  if (!lazy cache variable for type metadata for ViewTraitCollection?)
-  {
-    v0 = type metadata accessor for Optional();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for ViewTraitCollection?);
-    }
-  }
-}
-
-void type metadata accessor for AnimatablePair<CGFloat, CGFloat>()
-{
-  if (!lazy cache variable for type metadata for AnimatablePair<CGFloat, CGFloat>)
-  {
-    lazy protocol witness table accessor for type CGFloat and conformance CGFloat();
-    v0 = type metadata accessor for AnimatablePair();
-    if (!v1)
-    {
-      atomic_store(v0, &lazy cache variable for type metadata for AnimatablePair<CGFloat, CGFloat>);
-    }
-  }
-}
-
-uint64_t specialized ViewLayoutEngine.update(layout:context:children:)(uint64_t a1, uint64_t a2, uint64_t a3, Swift::UInt32 a4, int a5, uint64_t a6)
-{
-  v7 = v6;
-
-  *(v7 + 16) = a5;
-  *(v7 + 24) = a6;
-  *v16 = a4;
-  swift_getKeyPath();
-  type metadata accessor for EnvironmentFetch<LayoutDirection>(0, &lazy cache variable for type metadata for EnvironmentFetch<LayoutDirection>, &type metadata for LayoutDirection, type metadata accessor for EnvironmentFetch);
-  Hasher.init(_seed:)();
-  Hasher._combine(_:)(a4);
-  type metadata accessor for KeyPath<EnvironmentValues, LayoutDirection>(0, &lazy cache variable for type metadata for KeyPath<EnvironmentValues, LayoutDirection>, &type metadata for EnvironmentValues, &type metadata for LayoutDirection, MEMORY[0x1E69E77A8]);
-  dispatch thunk of Hashable.hash(into:)();
-  Hasher._finalize()();
-  lazy protocol witness table accessor for type EnvironmentFetch<LayoutDirection> and conformance EnvironmentFetch<A>();
-  lazy protocol witness table accessor for type EnvironmentFetch<LayoutDirection> and conformance EnvironmentFetch<A>();
-  LOBYTE(a6) = *static Rule<>._cachedValue(options:owner:hashValue:bodyPtr:update:)();
-
-  *(v7 + 32) = a6;
-  *v7 = a1;
-  *(v7 + 8) = a2;
-  v15[0] = 1;
-  v16[0] = 1;
-  *(v7 + 72) = 0u;
-  *(v7 + 56) = 0u;
-  *(v7 + 40) = 0u;
-  *(v7 + 88) = 1;
-  *(v7 + 96) = 0u;
-  *(v7 + 112) = 0u;
-  *(v7 + 128) = 0u;
-  *(v7 + 144) = 1;
-  *(v7 + 152) = 0u;
-  *(v7 + 168) = 0u;
-  *(v7 + 184) = 0u;
-  *(v7 + 200) = 1;
-
-  v13 = MEMORY[0x1E69E7CC0];
-  *(v7 + 248) = 0;
-  *(v7 + 256) = 0;
-  *(v7 + 240) = v13;
-  *(v7 + 264) = 0;
-  *(v7 + 265) = *v15;
-  *(v7 + 268) = *&v15[3];
-  *(v7 + 272) = 0;
-  *(v7 + 280) = 0;
-  *(v7 + 288) = 0;
-  *(v7 + 289) = *v16;
-  *(v7 + 292) = *&v16[3];
-  *(v7 + 312) = 0;
-  *(v7 + 296) = 0;
-  *(v7 + 304) = 0;
-
-  *(v7 + 320) = 0;
-  return result;
-}
-
-uint64_t outlined init with copy of KeyedAnimatableArray<Int, _AnyAnimatableData>.Element(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void, uint64_t, uint64_t))
-{
-  v7 = a5(0, a3, a4);
-  (*(*(v7 - 8) + 16))(a2, a1, v7);
-  return a2;
-}
-
-uint64_t GraphicsFilter.isIdentity.getter()
-{
-  v1 = v0[5];
-  v16[4] = v0[4];
-  v16[5] = v1;
-  v17[0] = v0[6];
-  *(v17 + 12) = *(v0 + 108);
-  v2 = v0[1];
-  v16[0] = *v0;
-  v16[1] = v2;
-  v3 = v0[3];
-  v16[2] = v0[2];
-  v16[3] = v3;
-  v4 = _s7SwiftUI14GraphicsFilterOWOg(v16);
-  v5 = 0;
-  switch(v4)
-  {
-    case 0:
-      v5 = *_s7SwiftUI14GraphicsFilterOWOj6_(v16) <= 0.0;
-      break;
-    case 1:
-      v11 = _s7SwiftUI14GraphicsFilterOWOj6_(v16);
-      if (*v11 <= 0.0)
-      {
-        v5 = 1;
-      }
-
-      else
-      {
-        v12 = vorrq_s8(vorrq_s8(vorrq_s8(*(v11 + 16), *(v11 + 48)), vorrq_s8(*(v11 + 32), *(v11 + 64))), vorrq_s8(*(v11 + 80), *(v11 + 96)));
-        if (*&vorr_s8(*v12.i8, *&vextq_s8(v12, v12, 8uLL)) | *(v11 + 112))
-        {
-          _ZF = 0;
-        }
-
-        else
-        {
-          _ZF = *(v11 + 120) == 0x80000000;
-        }
-
-        v5 = _ZF;
-      }
-
-      break;
-    case 2:
-    case 3:
-    case 9:
-    case 11:
-    case 13:
-      v5 = *_s7SwiftUI14GraphicsFilterOWOj6_(v16) == 0.0;
-      break;
-    case 6:
-      _s7SwiftUI14GraphicsFilterOWOj6_(v16);
-      v5 = _ColorMatrix.isIdentity.getter();
-      break;
-    case 7:
-    case 8:
-      _s7SwiftUI14GraphicsFilterOWOj6_(v16);
-      __asm { FMOV            V1.4S, #1.0 }
-
-      v5 = 0;
-      break;
-    case 10:
-    case 12:
-      v5 = *_s7SwiftUI14GraphicsFilterOWOj6_(v16) == 1.0;
-      break;
-    case 14:
-      v10 = *(_s7SwiftUI14GraphicsFilterOWOj6_(v16) + 20);
-      goto LABEL_7;
-    case 16:
-      v10 = *(_s7SwiftUI14GraphicsFilterOWOj6_(v16) + 16);
-LABEL_7:
-      v5 = v10 == 0.0;
-      break;
-    case 22:
-      v14 = _s7SwiftUI14GraphicsFilterOWOj6_(v16);
-      v5 = (*(**v14 + 96))();
-      break;
-    default:
-      return v5 & 1;
-  }
-
-  return v5 & 1;
-}
-
-void *assignWithCopy for ZStack(void *a1, void *a2, uint64_t a3)
-{
-  *a1 = *a2;
-  a1[1] = a2[1];
-  v4 = *(*(a3 + 16) - 8);
-  (*(v4 + 24))((a1 + *(v4 + 80) + 16) & ~*(v4 + 80), (a2 + *(v4 + 80) + 16) & ~*(v4 + 80));
-  return a1;
-}
-
-uint64_t assignWithTake for ForEach(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = *(*(a3 + 16) - 8) + 40;
-  (*v5)();
-  v6 = *(v5 + 24) + 7;
-  v7 = ((v6 + a1) & 0xFFFFFFFFFFFFFFF8);
-  v8 = v6 + a2;
-  v9 = (v8 & 0xFFFFFFFFFFFFFFF8) + 23;
-  *v7 = *(v8 & 0xFFFFFFFFFFFFFFF8);
-
-  v10 = ((v7 + 23) & 0xFFFFFFFFFFFFFFF8);
-  v9 &= 0xFFFFFFFFFFFFFFF8;
-  *v10 = *v9;
-
-  v11 = ((v10 + 15) & 0xFFFFFFFFFFFFFFF8);
-  v12 = ((v9 + 15) & 0xFFFFFFFFFFFFFFF8);
-  *v11 = *v12;
-
-  *((v11 + 15) & 0xFFFFFFFFFFFFFFF8) = *((v12 + 15) & 0xFFFFFFFFFFFFFFF8);
-  return a1;
-}
-
-uint64_t (*KeyPath.makeGetFunction()())(uint64_t a1)
-{
-  v1 = *v0;
-  v2 = dispatch thunk of AnyKeyPath._storedInlineOffset.getter();
-  if (v3)
-  {
-
-    return partial apply for closure #2 in KeyPath.makeGetFunction();
-  }
-
-  else
-  {
-    v5 = v2;
-    v6 = swift_allocObject();
-    v7 = (v1 + *MEMORY[0x1E69E77B0]);
-    v6[2] = *v7;
-    v6[3] = v7[1];
-    v6[4] = v5;
-    return partial apply for closure #1 in KeyPath.makeGetFunction();
-  }
-}
-
-uint64_t closure #1 in ForEachState.update(view:)(uint64_t a1, uint64_t a2, _BYTE *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, void (*a8)(_BYTE *), uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
-{
-  v76 = a3;
-  v77 = a8;
-  v75 = a7;
-  v79 = a4;
-  v80 = a6;
-  v73 = a2;
-  v81 = a1;
-  *&v74 = *a13;
-  v18 = v74;
-  v19 = *(v74 + 104);
-  v78 = *(*(v19 + 8) + 8);
-  v20 = *(v74 + 80);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v70 = *(AssociatedTypeWitness - 8);
-  MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v82 = &v51 - v21;
-  v22 = *(v74 + 88);
-  v52 = *(v22 - 8);
-  MEMORY[0x1EEE9AC00](v23);
-  v60 = &v51 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v25);
-  v59 = &v51 - v26;
-  MEMORY[0x1EEE9AC00](v27);
-  v29 = &v51 - v28;
-  v30 = *(v18 + 112);
-  v65 = a13;
-  v31 = *(v18 + 120);
-  *&v32 = *(v74 + 96);
-  *&v33 = v20;
-  *(&v33 + 1) = v22;
-  v74 = v33;
-  *(&v32 + 1) = v19;
-  v72 = v32;
-  v85 = v33;
-  v86 = v32;
-  v87 = v30;
-  v88 = v31;
-  v55 = type metadata accessor for ForEachState.EditsBuilder();
-  v34 = swift_projectBox();
-  *v76 = 1;
-  v85 = v74;
-  v86 = v72;
-  v87 = v30;
-  v88 = v31;
-  v35 = type metadata accessor for ForEachState.Item();
-  MEMORY[0x193ABE750](&v85, a5, v79, v22, v35, v30);
-  v84[0] = v85;
-  *&v74 = v35;
-  v36 = type metadata accessor for Optional();
-  _ViewInputs.base.modify(v84, v36);
-
-  LOBYTE(v85) = MEMORY[0x193ABF5D0](a5, v80, v22, v30) & 1;
-  _ViewInputs.base.modify(&v85, MEMORY[0x1E69E6370]);
-  v54 = v34;
-  swift_beginAccess();
-  v75 = v20;
-  v37 = swift_getAssociatedTypeWitness();
-  result = UnsafeBufferPointer.baseAddress.getter();
-  v76 = result;
-  if (!result)
-  {
-    goto LABEL_20;
-  }
-
-  result = UnsafeBufferPointer.indices.getter();
-  if (result != v39)
-  {
-    v40 = result;
-    v41 = v39;
-    if (v39 < result)
-    {
-      goto LABEL_19;
-    }
-
-    v68 = a17;
-    v42 = a16;
-    v57 = a15;
-    v53 = a14;
-    v64 = a12;
-    *&v72 = v37;
-    v73 = a9;
-    v43 = *v65;
-    v63 = *(*v65 + 232);
-    v62 = *(v43 + 240);
-    swift_beginAccess();
-    swift_beginAccess();
-    swift_beginAccess();
-    swift_beginAccess();
-    v81 = a10;
-    swift_beginAccess();
-    swift_beginAccess();
-    swift_beginAccess();
-    v66 = a11;
-    result = swift_beginAccess();
-    v71 = (v70 + 2);
-    *&v72 = v72 - 8;
-    v61 = (v70 + 3);
-    v56 = (v52 + 16);
-    v58 = v41;
-    v67 = a16;
-    v69 = (v70 + 1);
-    v70 = (v52 + 8);
-    do
-    {
-      if (v40 >= v41)
-      {
-        __break(1u);
-LABEL_19:
-        __break(1u);
-LABEL_20:
-        __break(1u);
-        return result;
-      }
-
-      v77(&v76[*(*v72 + 72) * v40]);
-      (*v71)(v82, v42, AssociatedTypeWitness);
-      if (!*(v81 + 16) && !*(v66 + 16))
-      {
-        (*v69)(v82, AssociatedTypeWitness);
-        return (*v70)(v29, v22);
-      }
-
-      MEMORY[0x193ABE750](v83, v29, v79, v22, v74, v30);
-      v48 = v83[0];
-      if (v83[0] && (*(v64 + 16) = v40, v49 = *(*v48 + 192), swift_beginAccess(), (*v61)(v48 + v49, v82, AssociatedTypeWitness), swift_endAccess(), v50 = v65, *(v48 + *(*v48 + 208)) = *(v65 + v63), *(v48 + *(*v48 + 200)) = v40, *(v48 + *(*v48 + 216)) = *(v50 + v62), --*(v81 + 16), LOBYTE(v49) = *(v48 + *(*v48 + 240)), , (v49 & 1) == 0))
-      {
-        *(v53 + 16) = v40;
-        if ((MEMORY[0x193ABF5D0](v29, v80, v22, v30) & 1) == 0)
-        {
-          goto LABEL_15;
-        }
-      }
-
-      else if ((MEMORY[0x193ABF5D0](v29, v80, v22, v30) & 1) == 0)
-      {
-        swift_beginAccess();
-        ForEachState.EditsBuilder.appendInsert(atOffset:)(v40, v55);
-        swift_endAccess();
-LABEL_15:
-        (*v69)(v82, AssociatedTypeWitness);
-        v42 = v67;
-        v46 = v70;
-        goto LABEL_6;
-      }
-
-      (*v56)(v60, v29, v22);
-      swift_beginAccess();
-      type metadata accessor for Set();
-      v44 = v30;
-      v45 = v59;
-      Set.insert(_:)();
-      swift_endAccess();
-      v46 = v70;
-      v47 = v45;
-      v30 = v44;
-      v41 = v58;
-      (*v70)(v47, v22);
-      (*v69)(v82, AssociatedTypeWitness);
-      v42 = v67;
-      --*(v66 + 16);
-LABEL_6:
-      ++v40;
-      dispatch thunk of Collection.formIndex(after:)();
-      result = (*v46)(v29, v22);
-    }
-
-    while (v41 != v40);
-  }
-
-  return result;
-}
-
-uint64_t assignWithCopy for LayoutGestureBox.Value(uint64_t a1, uint64_t a2)
-{
-  *a1 = *a2;
-
-  *(a1 + 8) = *(a2 + 8);
-  return a1;
-}
-
-uint64_t getEnumTagSinglePayload for AnyStyleContextType(uint64_t *a1, int a2)
-{
-  if (!a2)
-  {
+    swift_initStructMetadata();
     return 0;
   }
 
-  if (a2 < 0 && *(a1 + 16))
-  {
-    return *a1 + 0x80000000;
-  }
-
-  v2 = *a1;
-  if (*a1 >= 0xFFFFFFFF)
-  {
-    LODWORD(v2) = -1;
-  }
-
-  return (v2 + 1);
-}
-
-uint64_t AnchorValueBox.deinit()
-{
-  v1 = *(*v0 + 152);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  (*(*(AssociatedTypeWitness - 8) + 8))(v0 + v1, AssociatedTypeWitness);
-  return v0;
-}
-
-void Material.ID.hash(into:)(uint64_t a1)
-{
-  v3 = *v1;
-  if (*(v1 + 8) > 1u)
-  {
-    if (*(v1 + 8) == 2)
-    {
-      v5 = 10;
-    }
-
-    else if (v3 > 3)
-    {
-      if (v3 > 5)
-      {
-        if (v3 == 6)
-        {
-          v5 = 6;
-        }
-
-        else
-        {
-          v5 = 7;
-        }
-      }
-
-      else if (v3 == 4)
-      {
-        v5 = 4;
-      }
-
-      else
-      {
-        v5 = 5;
-      }
-    }
-
-    else if (v3 > 1)
-    {
-      if (v3 == 2)
-      {
-        v5 = 2;
-      }
-
-      else
-      {
-        v5 = 3;
-      }
-    }
-
-    else
-    {
-      v5 = v3 != 0;
-    }
-
-    MEMORY[0x193AC11A0](v5);
-  }
-
-  else if (*(v1 + 8))
-  {
-    MEMORY[0x193AC11A0](9);
-    (*(*v3 + 176))(a1);
-  }
-
-  else
-  {
-    v4 = *(v3 + 48);
-    MEMORY[0x193AC11A0](8);
-    String.hash(into:)();
-    String.hash(into:)();
-    if (v4)
-    {
-      Hasher._combine(_:)(1u);
-      v6 = v4;
-      NSObject.hash(into:)();
-    }
-
-    else
-    {
-      Hasher._combine(_:)(0);
-    }
-  }
-}
-
-uint64_t *specialized GeometryEffectDisplayList.value.getter@<X0>(int a1@<W0>, unint64_t a2@<X3>, uint64_t a3@<X8>)
-{
-  v6 = MEMORY[0x1E69E7CC0];
-  if (*MEMORY[0x1E698D3F8] == a2)
-  {
-    v7 = 0;
-    v8 = 0x40000000;
-    v9 = MEMORY[0x1E69E7CC0];
-    if (*(MEMORY[0x1E69E7CC0] + 16))
-    {
-LABEL_3:
-      v27 = HIDWORD(a2);
-      type metadata accessor for CGPoint(0);
-      v26 = *AGGraphGetValue();
-      v34 = vsubq_f64(v26, *AGGraphGetValue());
-      Value = AGGraphGetValue();
-      v11 = *Value;
-      v12 = Value[1];
-      v13 = Value[2];
-      v14 = Value[3];
-      type metadata accessor for CGSize(0);
-      v15 = AGGraphGetValue();
-      v16 = *v15;
-      v17 = v15[1];
-      v18 = AGGraphGetValue();
-      _s7SwiftUI29DefaultGeometryEffectProviderV7resolve6effect6origin4size15layoutDirectionAA11DisplayListV0E0Ox_So7CGPointVzSo6CGSizeVAA06LayoutL0OtFZAA06_ScaleE0V_Tt4B5(&v34, *v18, v37, v11, v12, v13, v14, v16, v17);
-      v19 = *&v37[0];
-      v20 = DWORD2(v37[0]);
-      v21 = BYTE12(v37[0]);
-      v22 = v34;
-      outlined copy of DisplayList.Effect(*&v37[0], SBYTE8(v37[0]), SBYTE12(v37[0]));
-      v30 = v22;
-      v23 = *AGGraphGetValue();
-      ++static DisplayList.Version.lastValue;
-      v31 = v23;
-      *v33 = v20 | (v21 << 32);
-      *&v33[8] = v9;
-      *&v33[16] = v8 | v7;
-      *&v33[24] = a1;
-      *&v32 = static DisplayList.Version.lastValue;
-      *(&v32 + 1) = v19;
-      LOBYTE(v37[0]) = v27;
-      DisplayList.Item.canonicalize(options:)(v37);
-      v35[2] = v32;
-      v36[0] = *v33;
-      *(v36 + 12) = *&v33[12];
-      v35[0] = v22;
-      v35[1] = v31;
-      v28[2] = v32;
-      v29[0] = *v33;
-      *(v29 + 12) = *&v33[12];
-      v28[0] = v22;
-      v28[1] = v31;
-      outlined init with copy of DisplayList.Item(v35, v37);
-      DisplayList.init(_:)(v28, a3);
-      outlined consume of DisplayList.Effect(v19, v20, v21);
-      v37[2] = v32;
-      v38[0] = *v33;
-      *(v38 + 12) = *&v33[12];
-      v37[0] = v30;
-      v37[1] = v31;
-      return outlined destroy of DisplayList.Item(v37);
-    }
-  }
-
-  else
-  {
-    v25 = AGGraphGetValue();
-    v9 = *v25;
-    v7 = *(v25 + 12) << 32;
-    v8 = *(v25 + 8) | 0x40000000;
-
-    if (*(v9 + 16))
-    {
-      goto LABEL_3;
-    }
-  }
-
-  *a3 = v6;
-  *(a3 + 8) = 0;
-  *(a3 + 12) = 0;
   return result;
 }
 
+id SDFLayer.init()()
 {
-  v6 = MEMORY[0x1E69E7CC0];
-  if (*MEMORY[0x1E698D3F8] != a2)
-  {
-    Value = AGGraphGetValue();
-    v9 = *Value;
-    v7 = *(Value + 12) << 32;
-    v8 = *(Value + 8) | 0x40000000;
+  ObjectType = swift_getObjectType();
+  v0[OBJC_IVAR____TtC7SwiftUI8SDFLayer_hasContentLayer] = 0;
+  *&v0[OBJC_IVAR____TtC7SwiftUI8SDFLayer_backdropObserver] = 0;
+  v2 = OBJC_IVAR____TtC7SwiftUI8SDFLayer_sdfStyle;
+  v3 = swift_allocObject();
+  *(v3 + 32) = 0x80;
+  v4 = MEMORY[0x1E69E7CC0];
+  *&v0[v2] = v3 | 0x8000000000000000;
+  *&v0[OBJC_IVAR____TtC7SwiftUI8SDFLayer_sdfEffects] = v4;
+  *&v0[OBJC_IVAR____TtC7SwiftUI8SDFLayer_sdfSubsets] = v4;
+  *&v0[OBJC_IVAR____TtC7SwiftUI8SDFLayer_sdfElements] = v4;
+  v5 = &v0[OBJC_IVAR____TtC7SwiftUI8SDFLayer_distanceRange];
+  *v5 = 0;
+  *(v5 + 1) = 0;
+  v5[16] = 1;
+  *&v0[OBJC_IVAR____TtC7SwiftUI8SDFLayer_renderer] = 0;
+  *&v0[OBJC_IVAR____TtC7SwiftUI8SDFLayer_ovalization] = 0;
+  *(v3 + 16) = 0;
+  *(v3 + 24) = 0;
+  *(v3 + 40) = v4;
+  *(v3 + 48) = v4;
+  *&v0[OBJC_IVAR____TtC7SwiftUI8SDFLayer_currentLuminance] = 2143289344;
+  v0[OBJC_IVAR____TtC7SwiftUI8SDFLayer_hasContentGroup] = 0;
+  v6 = &v0[OBJC_IVAR____TtC7SwiftUI8SDFLayer_shapeBounds];
+  *v6 = 0u;
+  v6[1] = 0u;
+  v0[OBJC_IVAR____TtC7SwiftUI8SDFLayer_needsUpdate] = 1;
+  v9.receiver = v0;
+  v9.super_class = ObjectType;
+  v7 = objc_msgSendSuper2(&v9, sel_init);
+  [v7 setAllowsGroupOpacity_];
+  [v7 setAllowsGroupBlending_];
 
-    if (*(v9 + 16))
-    {
-      goto LABEL_3;
-    }
-
-LABEL_10:
-
-    *a3 = v6;
-    *(a3 + 8) = 0;
-    *(a3 + 12) = 0;
-    return result;
-  }
-
-  v7 = 0;
-  v8 = 0x40000000;
-  v9 = MEMORY[0x1E69E7CC0];
-  if (!*(MEMORY[0x1E69E7CC0] + 16))
-  {
-    goto LABEL_10;
-  }
-
-LABEL_3:
-  v35 = HIDWORD(a2);
-  type metadata accessor for CGPoint(0);
-  v10 = AGGraphGetValue();
-  v11 = *v10;
-  v12 = v10[1];
-  v13 = AGGraphGetValue();
-  v14 = v11 - *v13;
-  v15 = v12 - v13[1];
-  v16 = AGGraphGetValue();
-  v17 = *(v16 + 32);
-  v18 = *(v16 + 40);
-  v19 = *(v16 + 48);
-  v20 = *(v16 + 56);
-  type metadata accessor for CGSize(0);
-  v33 = *(v16 + 16);
-  v34 = *v16;
-  v21 = AGGraphGetValue();
-  v22 = *v21;
-  v23 = v21[1];
-  v24 = *AGGraphGetValue();
-  v25 = v17 * v22;
-  v26 = v18 * v23;
-  if (v22 > v23)
-  {
-    v27 = v22;
-  }
-
-  else
-  {
-    v27 = v23;
-  }
-
-  if (!v24)
-  {
-    v22 = NAN;
-  }
-
-  v28 = v27 / v20;
-  v29 = swift_allocObject();
-  *(v29 + 16) = v34;
-  *(v29 + 32) = v33;
-  *(v29 + 48) = v25;
-  *(v29 + 56) = v26;
-  *(v29 + 64) = v19;
-  *(v29 + 72) = v28;
-  *(v29 + 80) = v22;
-  *(v29 + 88) = 3;
-
-  *&v38 = v14;
-  *(&v38 + 1) = v15;
-  v30 = *AGGraphGetValue();
-  ++static DisplayList.Version.lastValue;
-  v39 = v30;
-  *v41 = 0x900000000;
-  *&v41[8] = v9;
-  *&v41[16] = v8 | v7;
-  *&v41[24] = a1;
-  *&v40 = static DisplayList.Version.lastValue;
-  *(&v40 + 1) = v29;
-  LOBYTE(v44[0]) = v35;
-  DisplayList.Item.canonicalize(options:)(v44);
-  v42[2] = v40;
-  v43[0] = *v41;
-  *(v43 + 12) = *&v41[12];
-  v42[0] = v38;
-  v42[1] = v39;
-  v36[2] = v40;
-  v37[0] = *v41;
-  *(v37 + 12) = *&v41[12];
-  v36[0] = v38;
-  v36[1] = v39;
-  outlined init with copy of DisplayList.Item(v42, v44);
-  DisplayList.init(_:)(v36, a3);
-
-  v44[2] = v40;
-  v45[0] = *v41;
-  *(v45 + 12) = *&v41[12];
-  v44[0] = v38;
-  v44[1] = v39;
-  return outlined destroy of DisplayList.Item(v44);
+  return v7;
 }
 
+uint64_t sub_18D187CF0()
 {
-  v6 = MEMORY[0x1E69E7CC0];
-  if (*MEMORY[0x1E698D3F8] == a2)
-  {
-    v7 = 0;
-    v8 = 0x40000000;
-    v9 = MEMORY[0x1E69E7CC0];
-    if (*(MEMORY[0x1E69E7CC0] + 16))
-    {
-LABEL_3:
-      v25 = HIDWORD(a2);
-      type metadata accessor for CGPoint(0);
-      v24 = *AGGraphGetValue();
-      v32 = vsubq_f64(v24, *AGGraphGetValue());
-      Value = AGGraphGetValue();
-      v11 = Value[1];
-      v36[2] = *Value;
-      v36[3] = v11;
-      v12 = Value[3];
-      v36[4] = Value[2];
-      v36[5] = v12;
-      type metadata accessor for CGSize(0);
-      v13 = AGGraphGetValue();
-      v14 = *v13;
-      v15 = v13[1];
-      v16 = AGGraphGetValue();
-      _s7SwiftUI29DefaultGeometryEffectProviderV7resolve6effect6origin4size15layoutDirectionAA11DisplayListV0E0Ox_So7CGPointVzSo6CGSizeVAA06LayoutL0OtFZAA010ScalePulseE033_5B41BB980C958F118A8AF82B3D90BAC0LLV_Tt4B5(&v32, *v16, v35, v14, v15);
-      v17 = *&v35[0];
-      v18 = DWORD2(v35[0]);
-      v19 = BYTE12(v35[0]);
-      v20 = v32;
-      outlined copy of DisplayList.Effect(*&v35[0], SBYTE8(v35[0]), SBYTE12(v35[0]));
-      v28 = v20;
-      v21 = *AGGraphGetValue();
-      ++static DisplayList.Version.lastValue;
-      v29 = v21;
-      *v31 = v18 | (v19 << 32);
-      *&v31[8] = v9;
-      *&v31[16] = v8 | v7;
-      *&v31[24] = a1;
-      *&v30 = static DisplayList.Version.lastValue;
-      *(&v30 + 1) = v17;
-      LOBYTE(v35[0]) = v25;
-      DisplayList.Item.canonicalize(options:)(v35);
-      v33[2] = v30;
-      v34[0] = *v31;
-      *(v34 + 12) = *&v31[12];
-      v33[0] = v20;
-      v33[1] = v29;
-      v26[2] = v30;
-      v27[0] = *v31;
-      *(v27 + 12) = *&v31[12];
-      v26[0] = v20;
-      v26[1] = v29;
-      outlined init with copy of DisplayList.Item(v33, v35);
-      DisplayList.init(_:)(v26, a3);
-      outlined consume of DisplayList.Effect(v17, v18, v19);
-      v35[2] = v30;
-      v36[0] = *v31;
-      *(v36 + 12) = *&v31[12];
-      v35[0] = v28;
-      v35[1] = v29;
-      return outlined destroy of DisplayList.Item(v35);
-    }
-  }
-
-  else
-  {
-    v23 = AGGraphGetValue();
-    v9 = *v23;
-    v7 = *(v23 + 12) << 32;
-    v8 = *(v23 + 8) | 0x40000000;
-
-    if (*(v9 + 16))
-    {
-      goto LABEL_3;
-    }
-  }
-
-  *a3 = v6;
-  *(a3 + 8) = 0;
-  *(a3 + 12) = 0;
-  return result;
-}
-
-{
-  v6 = MEMORY[0x1E69E7CC0];
-  if (*MEMORY[0x1E698D3F8] == a2)
-  {
-    v7 = 0;
-    v8 = 0x40000000;
-    v9 = MEMORY[0x1E69E7CC0];
-    if (*(MEMORY[0x1E69E7CC0] + 16))
-    {
-LABEL_3:
-      v24 = HIDWORD(a2);
-      type metadata accessor for CGPoint(0);
-      v23 = *AGGraphGetValue();
-      v31 = vsubq_f64(v23, *AGGraphGetValue());
-      Value = AGGraphGetValue();
-      v11 = *(Value + 16);
-      v36[0] = *Value;
-      v36[1] = v11;
-      v37 = *(Value + 32);
-      type metadata accessor for CGSize(0);
-      v12 = AGGraphGetValue();
-      v13 = *v12;
-      v14 = v12[1];
-      v15 = AGGraphGetValue();
-      _s7SwiftUI29DefaultGeometryEffectProviderV7resolve6effect6origin4size15layoutDirectionAA11DisplayListV0E0Ox_So7CGPointVzSo6CGSizeVAA06LayoutL0OtFZAA17FlexStateModifier33_404CBE866CEDD57705E9BEB28E77402CLLV_Tt4B5(v36, &v31, *v15, v34, v13, v14);
-      v16 = *&v34[0];
-      v17 = DWORD2(v34[0]);
-      v18 = BYTE12(v34[0]);
-      v19 = v31;
-      outlined copy of DisplayList.Effect(*&v34[0], SBYTE8(v34[0]), SBYTE12(v34[0]));
-      v27 = v19;
-      v20 = *AGGraphGetValue();
-      ++static DisplayList.Version.lastValue;
-      v28 = v20;
-      *v30 = v17 | (v18 << 32);
-      *&v30[8] = v9;
-      *&v30[16] = v8 | v7;
-      *&v30[24] = a1;
-      *&v29 = static DisplayList.Version.lastValue;
-      *(&v29 + 1) = v16;
-      LOBYTE(v34[0]) = v24;
-      DisplayList.Item.canonicalize(options:)(v34);
-      v32[2] = v29;
-      v33[0] = *v30;
-      *(v33 + 12) = *&v30[12];
-      v32[0] = v19;
-      v32[1] = v28;
-      v25[2] = v29;
-      v26[0] = *v30;
-      *(v26 + 12) = *&v30[12];
-      v25[0] = v19;
-      v25[1] = v28;
-      outlined init with copy of DisplayList.Item(v32, v34);
-      DisplayList.init(_:)(v25, a3);
-      outlined consume of DisplayList.Effect(v16, v17, v18);
-      v34[2] = v29;
-      v35[0] = *v30;
-      *(v35 + 12) = *&v30[12];
-      v34[0] = v27;
-      v34[1] = v28;
-      return outlined destroy of DisplayList.Item(v34);
-    }
-  }
-
-  else
-  {
-    v22 = AGGraphGetValue();
-    v9 = *v22;
-    v7 = *(v22 + 12) << 32;
-    v8 = *(v22 + 8) | 0x40000000;
-
-    if (*(v9 + 16))
-    {
-      goto LABEL_3;
-    }
-  }
-
-  *a3 = v6;
-  *(a3 + 8) = 0;
-  *(a3 + 12) = 0;
-  return result;
-}
-
-{
-  v6 = MEMORY[0x1E69E7CC0];
-  if (*MEMORY[0x1E698D3F8] == a2)
-  {
-    v7 = 0;
-    v8 = 0x40000000;
-    v9 = MEMORY[0x1E69E7CC0];
-    if (*(MEMORY[0x1E69E7CC0] + 16))
-    {
-LABEL_3:
-      v24 = HIDWORD(a2);
-      type metadata accessor for CGPoint(0);
-      v23 = *AGGraphGetValue();
-      v31 = vsubq_f64(v23, *AGGraphGetValue());
-      Value = AGGraphGetValue();
-      v11 = Value[1];
-      v35[2] = *Value;
-      v35[3] = v11;
-      v35[4] = Value[2];
-      type metadata accessor for CGSize(0);
-      v12 = AGGraphGetValue();
-      v13 = *v12;
-      v14 = v12[1];
-      v15 = AGGraphGetValue();
-      _s7SwiftUI29DefaultGeometryEffectProviderV7resolve6effect6origin4size15layoutDirectionAA11DisplayListV0E0Ox_So7CGPointVzSo6CGSizeVAA06LayoutL0OtFZAA020GlassAppearanceScaleE033_D12F2F25A0BD65FFBD3A7636B60067DFLLV_Tt4B5(&v31, *v15, v34, v13, v14);
-      v16 = *&v34[0];
-      v17 = DWORD2(v34[0]);
-      v18 = BYTE12(v34[0]);
-      v19 = v31;
-      outlined copy of DisplayList.Effect(*&v34[0], SBYTE8(v34[0]), SBYTE12(v34[0]));
-      v27 = v19;
-      v20 = *AGGraphGetValue();
-      ++static DisplayList.Version.lastValue;
-      v28 = v20;
-      *v30 = v17 | (v18 << 32);
-      *&v30[8] = v9;
-      *&v30[16] = v8 | v7;
-      *&v30[24] = a1;
-      *&v29 = static DisplayList.Version.lastValue;
-      *(&v29 + 1) = v16;
-      LOBYTE(v34[0]) = v24;
-      DisplayList.Item.canonicalize(options:)(v34);
-      v32[2] = v29;
-      v33[0] = *v30;
-      *(v33 + 12) = *&v30[12];
-      v32[0] = v19;
-      v32[1] = v28;
-      v25[2] = v29;
-      v26[0] = *v30;
-      *(v26 + 12) = *&v30[12];
-      v25[0] = v19;
-      v25[1] = v28;
-      outlined init with copy of DisplayList.Item(v32, v34);
-      DisplayList.init(_:)(v25, a3);
-      outlined consume of DisplayList.Effect(v16, v17, v18);
-      v34[2] = v29;
-      v35[0] = *v30;
-      *(v35 + 12) = *&v30[12];
-      v34[0] = v27;
-      v34[1] = v28;
-      return outlined destroy of DisplayList.Item(v34);
-    }
-  }
-
-  else
-  {
-    v22 = AGGraphGetValue();
-    v9 = *v22;
-    v7 = *(v22 + 12) << 32;
-    v8 = *(v22 + 8) | 0x40000000;
-
-    if (*(v9 + 16))
-    {
-      goto LABEL_3;
-    }
-  }
-
-  *a3 = v6;
-  *(a3 + 8) = 0;
-  *(a3 + 12) = 0;
-  return result;
-}
-
-{
-  v6 = MEMORY[0x1E69E7CC0];
-  if (*MEMORY[0x1E698D3F8] == a2)
-  {
-    v7 = 0;
-    v8 = 0x40000000;
-    v9 = MEMORY[0x1E69E7CC0];
-    if (*(MEMORY[0x1E69E7CC0] + 16))
-    {
-LABEL_3:
-      v22 = HIDWORD(a2);
-      type metadata accessor for CGPoint(0);
-      v21 = *AGGraphGetValue();
-      v29 = vsubq_f64(v21, *AGGraphGetValue());
-      Value = AGGraphGetValue();
-      v11 = *(Value + 16);
-      v34[0] = *Value;
-      v34[1] = v11;
-      v34[2] = *(Value + 32);
-      type metadata accessor for CGSize(0);
-      v12 = *AGGraphGetValue();
-      v13 = AGGraphGetValue();
-      _s7SwiftUI29DefaultGeometryEffectProviderV7resolve6effect6origin4size15layoutDirectionAA11DisplayListV0E0Ox_So7CGPointVzSo6CGSizeVAA06LayoutL0OtFZAA010_TransformE0V_Tt4B5(v34, &v29, *v13, v32, v12);
-      v14 = *&v32[0];
-      v15 = DWORD2(v32[0]);
-      v16 = BYTE12(v32[0]);
-      v17 = v29;
-      outlined copy of DisplayList.Effect(*&v32[0], SBYTE8(v32[0]), SBYTE12(v32[0]));
-      v25 = v17;
-      v18 = *AGGraphGetValue();
-      ++static DisplayList.Version.lastValue;
-      v26 = v18;
-      *v28 = v15 | (v16 << 32);
-      *&v28[8] = v9;
-      *&v28[16] = v8 | v7;
-      *&v28[24] = a1;
-      *&v27 = static DisplayList.Version.lastValue;
-      *(&v27 + 1) = v14;
-      LOBYTE(v32[0]) = v22;
-      DisplayList.Item.canonicalize(options:)(v32);
-      v30[2] = v27;
-      v31[0] = *v28;
-      *(v31 + 12) = *&v28[12];
-      v30[0] = v17;
-      v30[1] = v26;
-      v23[2] = v27;
-      v24[0] = *v28;
-      *(v24 + 12) = *&v28[12];
-      v23[0] = v17;
-      v23[1] = v26;
-      outlined init with copy of DisplayList.Item(v30, v32);
-      DisplayList.init(_:)(v23, a3);
-      outlined consume of DisplayList.Effect(v14, v15, v16);
-      v32[2] = v27;
-      v33[0] = *v28;
-      *(v33 + 12) = *&v28[12];
-      v32[0] = v25;
-      v32[1] = v26;
-      return outlined destroy of DisplayList.Item(v32);
-    }
-  }
-
-  else
-  {
-    v20 = AGGraphGetValue();
-    v9 = *v20;
-    v7 = *(v20 + 12) << 32;
-    v8 = *(v20 + 8) | 0x40000000;
-
-    if (*(v9 + 16))
-    {
-      goto LABEL_3;
-    }
-  }
-
-  *a3 = v6;
-  *(a3 + 8) = 0;
-  *(a3 + 12) = 0;
-  return result;
-}
-
-void *initializeWithCopy for _AnyAnimatableData(void *a1, void *a2)
-{
-  *a1 = *a2;
-  v3 = a2[4];
-  a1[4] = v3;
-  (**(v3 - 8))((a1 + 1), (a2 + 1));
-  return a1;
-}
-
-uint64_t sub_18D16A9E4()
-{
-  outlined consume of GraphicsFilter(*(v0 + 16), *(v0 + 24), *(v0 + 32), *(v0 + 40), *(v0 + 48), *(v0 + 56), *(v0 + 64), *(v0 + 72), *(v0 + 80), *(v0 + 88), *(v0 + 96), *(v0 + 104), *(v0 + 112), *(v0 + 120), *(v0 + 128), *(v0 + 136));
 
   return swift_deallocObject();
 }
 
-uint64_t specialized static Material.ID.== infix(_:_:)(uint64_t a1, uint64_t a2)
+double SDFLayer.resetSDFEffects()()
 {
-  v2 = *a1;
-  v3 = *(a1 + 8);
-  v4 = *a2;
-  v5 = *(a2 + 8);
-  if (v3 <= 1)
+  v1 = v0;
+  v2 = OBJC_IVAR____TtC7SwiftUI8SDFLayer_sdfEffects;
+  swift_beginAccess();
+  v3 = *(v0 + v2);
+  v4 = *(v3 + 16);
+  if (v4)
   {
-    if (!*(a1 + 8))
+
+    v5 = 32;
+    do
     {
-      if (!*(a2 + 8))
+      [*(v3 + v5) removeFromSuperlayer];
+      v5 += 32;
+      --v4;
+    }
+
+    while (v4);
+  }
+
+  swift_beginAccess();
+  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+  v7 = *(v1 + v2);
+  if (isUniquelyReferenced_nonNull_native)
+  {
+    specialized Array.replaceSubrange<A>(_:with:)(0, *(v7 + 16));
+  }
+
+  else
+  {
+    *(v1 + v2) = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI8SDFLayerC9SDFEffect33_05C1F5BE6EE7940FED05100EA822F7B3LLV_Tt1g5(0, *(v7 + 24) >> 1);
+  }
+
+  swift_endAccess();
+  v8 = OBJC_IVAR____TtC7SwiftUI8SDFLayer_sdfSubsets;
+  swift_beginAccess();
+  v9 = swift_isUniquelyReferenced_nonNull_native();
+  v10 = *(v1 + v8);
+  if (v9)
+  {
+    specialized Array.replaceSubrange<A>(_:with:)(0, *(v10 + 16));
+  }
+
+  else
+  {
+    *(v1 + v8) = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI8SDFLayerC9SDFSubset33_05C1F5BE6EE7940FED05100EA822F7B3LLV_Tt1g5(0, *(v10 + 24) >> 1);
+  }
+
+  swift_endAccess();
+  v11 = OBJC_IVAR____TtC7SwiftUI8SDFLayer_sdfElements;
+  swift_beginAccess();
+  v12 = swift_isUniquelyReferenced_nonNull_native();
+  v13 = *(v1 + v11);
+  if (v12)
+  {
+    specialized Array.replaceSubrange<A>(_:with:)(0, *(v13 + 16));
+  }
+
+  else
+  {
+    *(v1 + v11) = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI8SDFLayerC10SDFElement33_05C1F5BE6EE7940FED05100EA822F7B3LLV_Tt1g5(0, *(v13 + 24) >> 1);
+  }
+
+  swift_endAccess();
+  v14 = v1 + OBJC_IVAR____TtC7SwiftUI8SDFLayer_distanceRange;
+  *v14 = 0;
+  *(v14 + 8) = 0;
+  *(v14 + 16) = 1;
+  v15 = (v1 + OBJC_IVAR____TtC7SwiftUI8SDFLayer_shapeBounds);
+  result = 0.0;
+  *v15 = 0u;
+  v15[1] = 0u;
+  *(v1 + OBJC_IVAR____TtC7SwiftUI8SDFLayer_hasContentGroup) = 0;
+  return result;
+}
+
+void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI4TextV6LayoutVAFE11DecorationsV8FragmentV_Tt1gq5Tm(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4)
+{
+  if (a2 <= a1)
+  {
+    v4 = a1;
+  }
+
+  else
+  {
+    v4 = a2;
+  }
+
+  if (!v4)
+  {
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  type metadata accessor for _ContiguousArrayStorage<LayoutProxyAttributes>(0, a3, a4);
+  v6 = swift_allocObject();
+  v7 = _swift_stdlib_malloc_size(v6);
+  result = v6;
+  v10 = v7 - 32;
+  v9 = v7 < 32;
+  v11 = v7 - 1;
+  if (!v9)
+  {
+    v11 = v10;
+  }
+
+  v6[2] = a1;
+  v6[3] = 2 * (v11 >> 5);
+  return result;
+}
+
+void *_ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC7SwiftUI16ResolvedGradientV4StopV_Tt1g5Tm(uint64_t a1, uint64_t a2, unint64_t *a3, uint64_t a4)
+{
+  if (a2 <= a1)
+  {
+    v4 = a1;
+  }
+
+  else
+  {
+    v4 = a2;
+  }
+
+  if (!v4)
+  {
+    return MEMORY[0x1E69E7CC0];
+  }
+
+  type metadata accessor for _ContiguousArrayStorage<LayoutProxyAttributes>(0, a3, a4);
+  v6 = swift_allocObject();
+  v7 = _swift_stdlib_malloc_size(v6);
+  result = v6;
+  v9 = ((v7 - 32) * 0x2AAAAAAAAAAAAAABLL) >> 64;
+  v6[2] = a1;
+  v6[3] = 2 * ((v9 >> 3) + (v9 >> 63));
+  return result;
+}
+
+void SDFLayer.makeSDFEffects(for:shapeFilter:)(unint64_t a1, char *a2, uint64_t a3)
+{
+  v4 = v3;
+  v7 = a1 >> 60;
+  if ((a1 >> 60) > 4)
+  {
+    if (v7 <= 7)
+    {
+      if (v7 == 5)
       {
-        v6 = *(v2 + 32);
-        v7 = *(v2 + 40);
-        v8 = *(v2 + 48);
-        v9 = v4[4];
-        v10 = v4[5];
-        v11 = v4[6];
-        v12 = *(v2 + 16) == v4[2] && *(v2 + 24) == v4[3];
-        if (v12 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-        {
-          v13 = v6 == v9 && v7 == v10;
-          if (v13 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
-          {
-            if (!v8)
-            {
-              outlined copy of Material.ID(v4, 0);
-              outlined copy of Material.ID(v2, 0);
-              outlined consume of Material.ID(v2, 0);
-              outlined consume of Material.ID(v4, 0);
-              return !v11;
-            }
-
-            if (v11)
-            {
-              type metadata accessor for NSBundle();
-              outlined copy of Material.ID(v4, 0);
-              outlined copy of Material.ID(v2, 0);
-              v14 = v11;
-              v15 = v8;
-              v16 = static NSObject.== infix(_:_:)();
-
-              outlined consume of Material.ID(v2, 0);
-              outlined consume of Material.ID(v4, 0);
-              return (v16 & 1) != 0;
-            }
-          }
-        }
-
-        outlined copy of Material.ID(v4, 0);
-        outlined copy of Material.ID(v2, 0);
-        outlined consume of Material.ID(v2, 0);
-        v23 = v4;
-        v24 = 0;
-LABEL_58:
-        outlined consume of Material.ID(v23, v24);
-        return 0;
+        v8 = [objc_allocWithZone(MEMORY[0x1E6979478]) init];
+        [v8 setAnchorPoint_];
+        [v8 setNoAnimationDelegate];
+        v9 = MEMORY[0x1E6979458];
       }
 
-LABEL_57:
-      outlined copy of Material.ID(*a2, *(a2 + 8));
-      outlined copy of Material.ID(v2, v3);
-      outlined consume of Material.ID(v2, v3);
-      v23 = v4;
-      v24 = v5;
-      goto LABEL_58;
-    }
-
-    if (v5 != 1)
-    {
-      goto LABEL_57;
-    }
-
-    v20 = *(*v2 + 168);
-    outlined copy of Material.ID(*a2, 1u);
-    outlined copy of Material.ID(v2, 1u);
-    v17 = v20(v4);
-    outlined consume of Material.ID(v2, 1u);
-    v18 = v4;
-    v19 = 1;
-LABEL_23:
-    outlined consume of Material.ID(v18, v19);
-    return v17 & 1;
-  }
-
-  if (v3 == 2)
-  {
-    if (v5 != 2)
-    {
-      goto LABEL_57;
-    }
-
-    outlined copy of Material.ID(*a2, 2u);
-    outlined copy of Material.ID(v2, 2u);
-    v17 = _sSasSQRzlE2eeoiySbSayxG_ABtFZ7SwiftUI8MaterialVACE5LayerV_Tt1g5(v2, v4);
-    outlined consume of Material.ID(v2, 2u);
-    v18 = v4;
-    v19 = 2;
-    goto LABEL_23;
-  }
-
-  if (v2 > 3)
-  {
-    if (v2 > 5)
-    {
-      if (v2 == 6)
+      else if (v7 == 6)
       {
-        if (v5 != 3 || v4 != 6)
-        {
-          goto LABEL_57;
-        }
-
-        outlined consume of Material.ID(6, 3u);
-        v22 = 6;
+        v8 = [objc_allocWithZone(MEMORY[0x1E6979478]) init];
+        [v8 setAnchorPoint_];
+        [v8 setNoAnimationDelegate];
+        v9 = MEMORY[0x1E6979460];
       }
 
       else
       {
-        if (v5 != 3 || v4 != 7)
+        v8 = [objc_allocWithZone(MEMORY[0x1E6979478]) init];
+        [v8 setAnchorPoint_];
+        [v8 setNoAnimationDelegate];
+        v9 = MEMORY[0x1E6979470];
+      }
+
+      goto LABEL_32;
+    }
+
+    if (v7 != 8)
+    {
+      if (v7 == 9)
+      {
+        v10 = *((a1 & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+        v11 = *((a1 & 0xFFFFFFFFFFFFFFFLL) + 0x18);
+
+        SDFLayer.makeSDFEffects(for:shapeFilter:)(v10, a2, a3);
+        v13 = v12;
+        if (v12)
         {
-          goto LABEL_57;
+          SDFLayer.makeSDFEffects(for:shapeFilter:)(v11, a2, a3);
+          if (v14)
+          {
+            v15 = v14;
+            [v13 setMask_];
+          }
         }
 
-        outlined consume of Material.ID(7, 3u);
-        v22 = 7;
+        return;
       }
+
+      v8 = [objc_allocWithZone(MEMORY[0x1E6979478]) init];
+      [v8 setAnchorPoint_];
+      [v8 setNoAnimationDelegate];
+      v9 = MEMORY[0x1E6979480];
+LABEL_32:
+      v18 = [objc_allocWithZone(v9) init];
+      [v8 setEffect_];
+      addEffect #1 (_:layer:for:) in SDFLayer.makeSDFEffects(for:shapeFilter:)(v18, v8, a2, a3, v4);
+
+      goto LABEL_33;
     }
 
-    else if (v2 == 4)
+    v19 = *((a1 & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+    v20 = *((a1 & 0xFFFFFFFFFFFFFFFLL) + 0x20);
+    v80 = *((a1 & 0xFFFFFFFFFFFFFFFLL) + 0x28);
+    v21 = v20 >> 6;
+    if (v20 >> 6 > 1)
     {
-      if (v5 != 3 || v4 != 4)
+      if (v21 != 2)
       {
-        goto LABEL_57;
+        goto LABEL_51;
       }
 
-      outlined consume of Material.ID(4, 3u);
-      v22 = 4;
+      v37 = *((a1 & 0xFFFFFFFFFFFFFFFLL) + 0x18);
+      if (v20 == 128 && v19 == 2 && !v37)
+      {
+        if (v3[OBJC_IVAR____TtC7SwiftUI8SDFLayer_hasContentLayer] != 1)
+        {
+          return;
+        }
+
+        v38 = type metadata accessor for SDFPortalLayer();
+        v39 = objc_allocWithZone(v38);
+
+        v40 = [v39 init];
+        v41 = [v4 sublayers];
+        if (v41)
+        {
+          v42 = v4;
+          type metadata accessor for CAMediaTimingFunction(0, lazy cache variable for type metadata for CALayer, 0x1E6979398);
+          v43 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+
+          if ((v43 & 0xC000000000000001) != 0)
+          {
+            v44 = MEMORY[0x193AC03C0](0, v43);
+          }
+
+          else
+          {
+            if (!*((v43 & 0xFFFFFFFFFFFFFF8) + 0x10))
+            {
+              __break(1u);
+              return;
+            }
+
+            v44 = *(v43 + 32);
+          }
+
+          v41 = v44;
+
+          v4 = v42;
+        }
+
+        v81.receiver = v40;
+        v81.super_class = v38;
+        v45 = v40;
+        objc_msgSendSuper2(&v81, sel_setSourceLayer_, v41);
+
+        [v45 setHidesSourceLayer_];
+        v4[OBJC_IVAR____TtC7SwiftUI8SDFLayer_hasContentGroup] = 1;
+        v25 = v45;
+        goto LABEL_53;
+      }
+
+      if (v20 == 128 && v19 == 3 && !v37)
+      {
+        v49 = objc_allocWithZone(MEMORY[0x1E6979310]);
+
+        v50 = [v49 init];
+      }
+
+      else
+      {
+LABEL_51:
+        v51 = objc_allocWithZone(MEMORY[0x1E6979398]);
+
+        v50 = [v51 init];
+      }
+
+      v25 = v50;
     }
 
     else
     {
-      if (v5 != 3 || v4 != 5)
+      LODWORD(v22) = *((a1 & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+      if (v21)
       {
-        goto LABEL_57;
+        v46 = (v19 >> 40) & 1;
+        v47 = objc_allocWithZone(MEMORY[0x1E6979310]);
+
+        v48 = [v47 init];
+        [v48 setScale_];
+        [v48 setDelegate_];
+        [v48 setCaptureOnly_];
+        [v48 setAllowsFilteredLuma_];
+        v25 = v48;
       }
 
-      outlined consume of Material.ID(5, 3u);
-      v22 = 5;
+      else
+      {
+        v23 = objc_allocWithZone(MEMORY[0x1E6979310]);
+
+        v24 = [v23 init];
+        [v24 setScale_];
+        v25 = v24;
+      }
     }
 
-LABEL_56:
-    outlined consume of Material.ID(v22, 3u);
-    return 1;
-  }
+LABEL_53:
+    v52 = v25;
+    [v25 setAnchorPoint_];
+    v53 = [v52 delegate];
 
-  if (v2 > 1)
-  {
-    if (v2 == 2)
+    if (v53)
     {
-      if (v5 != 3 || v4 != 2)
-      {
-        goto LABEL_57;
-      }
-
-      outlined consume of Material.ID(2, 3u);
-      v22 = 2;
+      swift_unknownObjectRelease();
     }
 
     else
     {
-      if (v5 != 3 || v4 != 3)
-      {
-        goto LABEL_57;
-      }
-
-      outlined consume of Material.ID(3, 3u);
-      v22 = 3;
+      [v52 setNoAnimationDelegate];
     }
 
-    goto LABEL_56;
-  }
-
-  if (!v2)
-  {
-    if (v5 != 3 || v4)
+    v54 = OBJC_IVAR____TtC7SwiftUI8SDFLayer_sdfEffects;
+    swift_beginAccess();
+    v55 = *&v4[v54];
+    v56 = v52;
+    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+    *&v4[v54] = v55;
+    if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      goto LABEL_57;
+      goto LABEL_69;
     }
 
-    outlined consume of Material.ID(0, 3u);
-    v22 = 0;
-    goto LABEL_56;
-  }
-
-  if (v5 != 3 || v4 != 1)
-  {
-    goto LABEL_57;
-  }
-
-  outlined consume of Material.ID(1, 3u);
-  outlined consume of Material.ID(1, 3u);
-  return v4;
-}
-
-uint64_t EnvironmentValues.materialProvider(for:)(uint64_t a1)
-{
-  v2 = *a1;
-  v3 = *(a1 + 8);
-  if (v3 != 1)
-  {
-    v4 = *(a1 + 12);
-    v16 = *v1;
-    v5 = EnvironmentValues.systemMaterialDefinition.getter();
-    if (v5)
-    {
-      v11 = v2;
-      v12 = v3;
-      v13 = v4;
-      (*(v6 + 8))(&v14, &v11, v5, v6);
-      if (v15)
-      {
-        outlined init with take of AnyTrackedValue(&v14, &v16);
-        v7 = v17;
-        v8 = v18;
-        v9 = __swift_project_boxed_opaque_existential_1(&v16, v17);
-        v2 = project #1 <A>(_:) in static Material.Layer.SDFLayer.customFill(_:)(v9, v7, v8, type metadata accessor for MaterialProviderBox, MaterialProviderBox.__allocating_init(_:));
-        __swift_destroy_boxed_opaque_existential_1(&v16);
-        return v2;
-      }
-
-      outlined destroy of MaterialProvider?(&v14);
-    }
-
-    return 0;
-  }
-
-  outlined copy of Material.ID(*a1, 1u);
-  return v2;
-}
-
-void *_s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011TransactionqS033_B2543BCA257433E04979186A1DC2B6BCLLVyAA0T0VAAE017AnimationListenerS033_390609F81ACEBEAF00AD8179BD31E870LLVG_Tt0g5(void *a1)
-{
-  type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_glassEffectBackdropObserver>(0, &lazy cache variable for type metadata for TransactionPropertyKey<Transaction.AnimationListenerKey>, &type metadata for Transaction.AnimationListenerKey, &protocol witness table for Transaction.AnimationListenerKey, type metadata accessor for TransactionPropertyKey);
-
-  return _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011TransactionrV033_B2543BCA257433E04979186A1DC2B6BCLLVyAA0W0VAAE017AnimationListenerV033_390609F81ACEBEAF00AD8179BD31E870LLVG_Tt0B5(a1, (1 << (v2 >> 4)) | (1 << (v2 >> 10)) | (1 << SBYTE2(v2)));
-}
-
-void *_s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011TransactionrV033_B2543BCA257433E04979186A1DC2B6BCLLVyAA0W0VAAE017AnimationListenerV033_390609F81ACEBEAF00AD8179BD31E870LLVG_Tt0B5(void *result, uint64_t a2)
-{
-  if (result)
-  {
     while (1)
     {
-      while ((a2 & ~result[7]) != 0)
+      v59 = *(v55 + 2);
+      v58 = *(v55 + 3);
+      if (v59 >= v58 >> 1)
       {
-        result = result[5];
-        if (!result)
+        v55 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v58 > 1), v59 + 1, 1, v55);
+      }
+
+      *(v55 + 2) = v59 + 1;
+      v60 = &v55[32 * v59];
+      *(v60 + 4) = v56;
+      *(v60 + 5) = 0;
+      v61 = v56;
+      v56 = a2;
+      *(v60 + 6) = a2;
+      *(v60 + 7) = a3;
+      *&v4[v54] = v55;
+      swift_endAccess();
+      v79 = v61;
+
+      v62 = *(v80 + 16);
+      if (!v62)
+      {
+        break;
+      }
+
+      a2 = 0;
+      v54 = v80 + 32;
+      while (a2 < *(v80 + 16))
+      {
+        v63 = *v54;
+        v64 = *(v54 + 16);
+        v65 = *(v54 + 32);
+        v86 = *(v54 + 48);
+        v85[1] = v64;
+        v85[2] = v65;
+        v85[0] = v63;
+        v66 = *v54;
+        v67 = *(v54 + 16);
+        v68 = *(v54 + 32);
+        v88 = *(v54 + 48);
+        v87[1] = v67;
+        v87[2] = v68;
+        v87[0] = v66;
+        v69 = v66;
+        v70 = *(&v67 + 1);
+        v55 = a3;
+        v71 = a3 & ~*(&v67 + 1);
+        v72 = v4;
+        v73 = v68 & *(&v67 + 1);
+        outlined init with copy of Material.Layer.SDFLayer.GroupLayer(v85, &v83);
+        v74 = v73 | v71;
+        v4 = v72;
+        SDFLayer.makeSDFEffects(for:shapeFilter:)(v69, (v70 | v56), v74);
+        if (v75)
         {
-          return result;
+          v76 = v75;
+          v82 = a2;
+          v83 = 64;
+          v84 = 0xE100000000000000;
+          v77 = dispatch thunk of CustomStringConvertible.description.getter();
+          MEMORY[0x193ABEDD0](v77);
+
+          v78 = MEMORY[0x193ABEC20](v83, v84);
+
+          [v76 setName_];
+
+          [v79 addSublayer_];
+          outlined destroy of Material.Layer.SDFLayer.GroupLayer(v87);
+        }
+
+        else
+        {
+          outlined destroy of Material.Layer.SDFLayer.GroupLayer(v87);
+        }
+
+        ++a2;
+        v54 += 56;
+        a3 = v55;
+        if (v62 == a2)
+        {
+          goto LABEL_66;
         }
       }
 
-      if (result[3])
+      __break(1u);
+LABEL_69:
+      v55 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v55 + 2) + 1, 1, v55);
+      *&v4[v54] = v55;
+    }
+
+LABEL_66:
+
+    return;
+  }
+
+  if (v7 <= 1)
+  {
+    if (v7)
+    {
+      v8 = [objc_allocWithZone(MEMORY[0x1E6979478]) init];
+      [v8 setAnchorPoint_];
+      [v8 setNoAnimationDelegate];
+      v9 = MEMORY[0x1E6979468];
+    }
+
+    else
+    {
+      v8 = [objc_allocWithZone(MEMORY[0x1E6979478]) init];
+      [v8 setAnchorPoint_];
+      [v8 setNoAnimationDelegate];
+      v9 = MEMORY[0x1E6979440];
+    }
+
+    goto LABEL_32;
+  }
+
+  if (v7 == 2)
+  {
+    v16 = [objc_allocWithZone(MEMORY[0x1E6979478]) init];
+    [v16 setAnchorPoint_];
+    [v16 setNoAnimationDelegate];
+    v17 = [objc_allocWithZone(MEMORY[0x1E6979468]) init];
+    [v17 setPremultiplied_];
+    v18 = v17;
+    [v16 setEffect_];
+    addEffect #1 (_:layer:for:) in SDFLayer.makeSDFEffects(for:shapeFilter:)(v18, v16, a2, a3, v4);
+
+LABEL_33:
+    return;
+  }
+
+  if (v7 == 3)
+  {
+    v8 = [objc_allocWithZone(MEMORY[0x1E6979478]) init];
+    [v8 setAnchorPoint_];
+    [v8 setNoAnimationDelegate];
+    v9 = MEMORY[0x1E6979488];
+    goto LABEL_32;
+  }
+
+  v26 = *(**((a1 & 0xFFFFFFFFFFFFFFFLL) + 0x10) + 88);
+
+  v28 = v26(v27);
+  v29 = v28;
+  if (v28)
+  {
+    [v28 setAnchorPoint_];
+    [v29 setNoAnimationDelegate];
+    v30 = OBJC_IVAR____TtC7SwiftUI8SDFLayer_sdfEffects;
+    swift_beginAccess();
+    v31 = *&v3[v30];
+    v32 = v29;
+    v33 = swift_isUniquelyReferenced_nonNull_native();
+    *&v3[v30] = v31;
+    if ((v33 & 1) == 0)
+    {
+      v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v31 + 2) + 1, 1, v31);
+      *&v3[v30] = v31;
+    }
+
+    v35 = *(v31 + 2);
+    v34 = *(v31 + 3);
+    if (v35 >= v34 >> 1)
+    {
+      v31 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v34 > 1), v35 + 1, 1, v31);
+    }
+
+    *(v31 + 2) = v35 + 1;
+    v36 = &v31[32 * v35];
+    *(v36 + 4) = v32;
+    *(v36 + 5) = 0;
+    *(v36 + 6) = 0;
+    *(v36 + 7) = 0;
+    *&v3[v30] = v31;
+    swift_endAccess();
+  }
+
+  else
+  {
+  }
+}
+
+double SDFStyle.Group.margin.getter()
+{
+  LODWORD(v1) = *(v0 + 16);
+  v2 = *(v0 + 24);
+  v3 = *(v0 + 32);
+  LODWORD(v4) = v1 >> 6;
+  v5 = 0.0;
+  if (v1 >> 6 >= 2)
+  {
+LABEL_38:
+    if (v4 == 3)
+    {
+      return v5;
+    }
+
+    v33 = v1 == 128 && *(v0 + 8) == 0;
+    if (!v33 || *v0 != 3)
+    {
+      return v5;
+    }
+  }
+
+  v6 = *(v3 + 16);
+  if (v6)
+  {
+    v7 = 0;
+    v8 = v2 + 32;
+    while (1)
+    {
+      v9 = (v3 + 32 + (v7 << 7));
+      v10 = *v9;
+      v11 = v9[1];
+      v12 = v9[3];
+      v40 = v9[2];
+      v41 = v12;
+      v38 = v10;
+      v39 = v11;
+      v13 = v9[4];
+      v14 = v9[5];
+      v15 = v9[6];
+      *(v44 + 12) = *(v9 + 108);
+      v43 = v14;
+      v44[0] = v15;
+      v42 = v13;
+      memmove(__dst, v9, 0x7CuLL);
+      v16 = _s7SwiftUI14GraphicsFilterOWOg(__dst);
+      if (v16 > 20)
       {
-        v2 = result;
-        v3 = a2;
-        v4 = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA011TransactionrV033_B2543BCA257433E04979186A1DC2B6BCLLVyAA0W0VAAE017AnimationListenerV033_390609F81ACEBEAF00AD8179BD31E870LLVG_Tt0B5(result[3]);
-        a2 = v3;
-        v5 = v4;
-        result = v2;
-        if (v5)
+        if (v16 == 22)
         {
-          break;
+          v30 = _s7SwiftUI14GraphicsFilterOWOj6_(__dst);
+          v0 = *v30;
+          v31 = *(**v30 + 112);
+          v36[4] = v42;
+          v36[5] = v43;
+          v37[0] = v44[0];
+          *(v37 + 12) = *(v44 + 12);
+          v36[0] = v38;
+          v36[1] = v39;
+          v36[2] = v40;
+          v36[3] = v41;
+          _s7SwiftUI14GraphicsFilterOWOj6_(v36);
+
+          v5 = v31(v32);
+          outlined destroy of GraphicsFilter(&v38);
+        }
+
+        else if (v16 == 21)
+        {
+          v5 = *_s7SwiftUI14GraphicsFilterOWOj6_(__dst);
         }
       }
 
-      v6 = a2;
-      v7 = result;
-      v8 = result[2];
-      _s7SwiftUI22EnvironmentPropertyKeyVyAA0C6ValuesVAAE02__E28_glassEffectBackdropObserver33_FD0C880ACFE431F75FFFB08913C85A9CLLVGMaTm_0(0, &lazy cache variable for type metadata for TransactionPropertyKey<Transaction.AnimationListenerKey>, &type metadata for Transaction.AnimationListenerKey, &protocol witness table for Transaction.AnimationListenerKey, type metadata accessor for TransactionPropertyKey);
-      if (v8 == v9)
+      else if ((v16 - 2) >= 2)
       {
-        return v7;
+        if (v16 == 1)
+        {
+          v22 = _s7SwiftUI14GraphicsFilterOWOj6_(__dst);
+          v23 = 0.0;
+          if (*(v22 + 120) >> 30 == 1)
+          {
+            v24 = *(v22 + 16);
+            if ((v24 & 0x8000000000000000) == 0)
+            {
+              v4 = *(v2 + 16);
+              if (v24 < v4)
+              {
+                v25 = *(v8 + 56 * v24);
+                v4 = v25 >> 60;
+                if (v25 >> 60 == 2)
+                {
+                  v4 = *((v25 & 0xFFFFFFFFFFFFFFFLL) + 0x18);
+                  v26 = *(v4 + 16);
+                  if (v26)
+                  {
+                    v23 = *(v4 + 32);
+                    v27 = v26 - 1;
+                    if (v27)
+                    {
+                      v4 += 40;
+                      do
+                      {
+                        v28 = *v4;
+                        v4 += 8;
+                        v29 = v28;
+                        if (v23 < v28)
+                        {
+                          v23 = v29;
+                        }
+
+                        --v27;
+                      }
+
+                      while (v27);
+                    }
+                  }
+                }
+              }
+            }
+          }
+
+          if (v5 <= v23)
+          {
+            v5 = v23;
+          }
+        }
       }
 
-      result = v7[4];
-      a2 = v6;
-      if (!result)
+      else
       {
-        return result;
+        v17 = _s7SwiftUI14GraphicsFilterOWOj6_(__dst);
+        v18 = fabs(*v17);
+        if (*(v17 + 112) >> 30 == 1)
+        {
+          v19 = *(v17 + 8);
+          if ((v19 & 0x8000000000000000) == 0 && v19 < *(v2 + 16))
+          {
+            v20 = *(v8 + 56 * v19);
+            if (v20 >> 60 == 5)
+            {
+              v21 = -*((v20 & 0xFFFFFFFFFFFFFFFLL) + 0x30) - *((v20 & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+              if (v21 <= 0.0)
+              {
+                v21 = 0.0;
+              }
+
+              v18 = v18 + v21;
+            }
+          }
+
+          outlined init with copy of GraphicsFilter(&v38, v36);
+        }
+
+        if (v5 <= v18)
+        {
+          v5 = v18;
+        }
+      }
+
+      if (++v7 == v6)
+      {
+        break;
+      }
+
+      v1 = *(v3 + 16);
+      if (v7 >= v1)
+      {
+        __break(1u);
+        goto LABEL_38;
+      }
+    }
+  }
+
+  return v5;
+}
+
+uint64_t _AnyCAFilterProvider.resolve<A>(in:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  (*(*(*v3 + 144) + 16))(a1, a2, a3, *(*v3 + 136));
+  objc_opt_self();
+
+  return swift_dynamicCastObjCClassUnconditional();
+}
+
+uint64_t protocol witness for CAFilterContext.sdfSublayerName(at:) in conformance _CAFilterContext()
+{
+  v0 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x193ABEDD0](v0);
+
+  return 64;
+}
+
+uint64_t protocol witness for PlatformGroupFactory.makePlatformGroup() in conformance CoreInteractionRepresentableEffect<A>(uint64_t a1)
+{
+  specialized CoreInteractionRepresentableEffect.makePlatformGroup()(a1);
+
+  return swift_unknownObjectRetain();
+}
+
+uint64_t specialized CoreInteractionRepresentableEffect.makePlatformGroup()(uint64_t a1)
+{
+  v3 = *(v1 + *(a1 + 36));
+  v4 = *(v3 + 16);
+  if (v4)
+  {
+    swift_getAssociatedTypeWitness();
+    AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+    v6 = *(AssociatedConformanceWitness + 56);
+    v7 = (v3 + 32);
+    do
+    {
+      v8 = *v7;
+      v7 += 2;
+      swift_unknownObjectRetain();
+      v9 = swift_checkMetadataState();
+      v6(v8, v9, AssociatedConformanceWitness);
+      swift_unknownObjectRelease();
+      --v4;
+    }
+
+    while (v4);
+  }
+
+  return *(v1 + *(a1 + 40));
+}
+
+uint64_t static AnimatableValues.== infix(_:_:)(uint64_t TupleTypeMetadata, uint64_t a2, unint64_t a3, uint64_t a4, unint64_t a5)
+{
+  v58 = a5;
+  v6 = a3;
+  if (a3 == 1)
+  {
+    v8 = *(a4 & 0xFFFFFFFFFFFFFFFELL);
+  }
+
+  else
+  {
+    MEMORY[0x1EEE9AC00](TupleTypeMetadata);
+    v10 = v50 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+    if (v6)
+    {
+      v11 = 0;
+      v12 = a4 & 0xFFFFFFFFFFFFFFFELL;
+      if (v6 < 4)
+      {
+        goto LABEL_9;
+      }
+
+      if (&v10[-v12] < 0x20)
+      {
+        goto LABEL_9;
+      }
+
+      v11 = v6 & 0xFFFFFFFFFFFFFFFCLL;
+      v13 = (v12 + 16);
+      v14 = v10 + 16;
+      v15 = v6 & 0xFFFFFFFFFFFFFFFCLL;
+      do
+      {
+        v16 = *v13;
+        *(v14 - 1) = *(v13 - 1);
+        *v14 = v16;
+        v13 += 2;
+        v14 += 2;
+        v15 -= 4;
+      }
+
+      while (v15);
+      if (v11 != v6)
+      {
+LABEL_9:
+        v17 = v6 - v11;
+        v18 = 8 * v11;
+        v19 = &v10[8 * v11];
+        v20 = (v12 + v18);
+        do
+        {
+          v21 = *v20++;
+          *v19 = v21;
+          v19 += 8;
+          --v17;
+        }
+
+        while (v17);
       }
     }
 
-    return v5;
+    TupleTypeMetadata = swift_getTupleTypeMetadata();
+    v8 = TupleTypeMetadata;
   }
 
-  return result;
+  v22 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](TupleTypeMetadata);
+  v24 = v50 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = MEMORY[0x1EEE9AC00](v25);
+  v27 = *(v22 + 16);
+  v53 = v50 - v28;
+  v27(v26);
+  v54 = v24;
+  v29 = (v27)(v24, a2, v8);
+  if (v6)
+  {
+    v50[1] = v50;
+    v51 = v22;
+    v30 = (a4 & 0xFFFFFFFFFFFFFFFELL);
+    v31 = (v58 & 0xFFFFFFFFFFFFFFFELL);
+    v52 = v8;
+    v32 = (v8 + 32);
+    v33 = v6;
+    v58 = v6;
+    while (1)
+    {
+      v56 = v50;
+      v34 = *v30;
+      v57 = *v31;
+      v35 = *(v34 - 8);
+      MEMORY[0x1EEE9AC00](v29);
+      v37 = v50 - ((v36 + 15) & 0xFFFFFFFFFFFFFFF0);
+      v55 = v50;
+      v39.n128_f64[0] = MEMORY[0x1EEE9AC00](v38);
+      v41 = v50 - v40;
+      v42 = v6 == 1 ? 0 : *v32;
+      v43 = *(v35 + 16);
+      v43(v37, &v53[v42], v34, v39);
+      v44 = v58 == 1 ? 0 : *v32;
+      (v43)(v41, &v54[v44], v34);
+      v45 = dispatch thunk of static Equatable.== infix(_:_:)();
+      v46 = *(v35 + 8);
+      v46(v41, v34);
+      v29 = (v46)(v37, v34);
+      if ((v45 & 1) == 0)
+      {
+        break;
+      }
+
+      v32 += 4;
+      ++v31;
+      ++v30;
+      --v33;
+      v6 = v58;
+      if (!v33)
+      {
+        v47 = 1;
+        goto LABEL_25;
+      }
+    }
+
+    v47 = 0;
+LABEL_25:
+    v22 = v51;
+    v8 = v52;
+  }
+
+  else
+  {
+    v47 = 1;
+  }
+
+  v48 = *(v22 + 8);
+  v48(v54, v8);
+  v48(v53, v8);
+  return v47;
 }
 
-uint64_t assignWithCopy for Material(uint64_t a1, uint64_t a2)
+Swift::Void __swiftcall SDFLayer.layoutSublayers()()
+{
+  v1 = OBJC_IVAR____TtC7SwiftUI8SDFLayer_sdfEffects;
+  swift_beginAccess();
+  v2 = *(v0 + v1);
+  v3 = *(v2 + 16);
+  if (v3)
+  {
+    v4 = (v0 + OBJC_IVAR____TtC7SwiftUI8SDFLayer_shapeBounds);
+
+    v5 = (v2 + 40);
+    do
+    {
+      v6 = *v5;
+      v7 = *v4;
+      v8 = v4[1];
+      v9 = v4[2];
+      v10 = v4[3];
+      v11 = *(v5 - 1);
+      v12 = v6;
+      [v11 setBounds_];
+      [v11 setPosition_];
+
+      v5 += 4;
+      --v3;
+    }
+
+    while (v3);
+  }
+}
+
+uint64_t assignWithCopy for MaterialEffect.Fill(uint64_t a1, uint64_t a2)
 {
   v4 = *a2;
   v5 = *(a2 + 8);
@@ -3200,51 +3759,1558 @@ uint64_t assignWithCopy for Material(uint64_t a1, uint64_t a2)
   *(a1 + 8) = v5;
   outlined consume of Material.ID(v6, v7);
   *(a1 + 12) = *(a2 + 12);
+  *(a1 + 16) = *(a2 + 16);
   return a1;
 }
 
-uint64_t specialized static DisplayList.== infix(_:_:)(uint64_t result, uint64_t *a2)
+uint64_t specialized static SDFStyle.GlassHighlight.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v2 = *result;
-  v3 = *a2;
-  v4 = *(*result + 16);
-  if (v4 != *(*a2 + 16))
+  if (*a1 == *a2 && *(a1 + 8) == *(a2 + 8) && (*(a1 + 12) == *(a2 + 12) ? (v2 = *(a1 + 16) == *(a2 + 16)) : (v2 = 0), v2 ? (v3 = *(a1 + 20) == *(a2 + 20)) : (v3 = 0), v3 && *(a1 + 24) == *(a2 + 24) && *(a1 + 32) == *(a2 + 32) && *(a1 + 40) == *(a2 + 40) && *(a1 + 48) == *(a2 + 48) && *(a1 + 56) == *(a2 + 56) && *(a1 + 64) == *(a2 + 64)))
   {
-    return 0;
-  }
-
-  v5 = *(result + 8);
-  v6 = *(result + 12);
-  if (v4)
-  {
-    v7 = v2 == v3;
+    return (*(a1 + 72) ^ *(a2 + 72) ^ 1) & 1;
   }
 
   else
   {
-    v7 = 1;
+    return 0;
+  }
+}
+
+uint64_t protocol witness for GraphMutation.apply() in conformance MaterialEffectBackdropObserver.LuminanceMutation()
+{
+  result = AGWeakAttributeGetAttribute();
+  if (result != *MEMORY[0x1E698D3F8])
+  {
+    MEMORY[0x1EEE9AC00](result);
+    MEMORY[0x1EEE9AC00](v1);
+    return AGGraphMutateAttribute();
   }
 
-  if (v7)
+  return result;
+}
+
+uint64_t partial apply for closure #1 in MaterialEffectBackdropObserver.LuminanceMutation.apply()(uint64_t result)
+{
+  v2 = *(v1 + 24);
+  if (*(v1 + 28))
   {
-    return v5 == *(a2 + 4) && v6 == *(a2 + 3);
+    v2 = NAN;
   }
 
-  v8 = (v3 + 104);
-  v9 = (v2 + 104);
-  while (v4)
+  *(result + 24) = v2;
+  return result;
+}
+
+uint64_t MaterialEffectBackdropObserver.LuminanceMutation.combine<A>(with:)(uint64_t a1, uint64_t a2)
+{
+  v3 = MEMORY[0x1EEE9AC00](a1);
+  (*(v5 + 16))(&v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0), v3);
+  if ((swift_dynamicCast() & 1) == 0)
   {
-    result = *v8;
-    if (*v9 != result || *(v9 - 5) != *(v8 - 5))
+    return 0;
+  }
+
+  v6 = v10;
+  v7 = v11;
+  if ((static WeakAttribute.== infix(_:_:)() & 1) == 0)
+  {
+    return 0;
+  }
+
+  *(v2 + 8) = v6;
+  *(v2 + 12) = v7;
+  return 1;
+}
+
+uint64_t getEnumTag for _GlassEffectTransition.Kind(uint64_t a1)
+{
+  if (*(a1 + 24))
+  {
+    return (*a1 + 1);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t destructiveInjectEnumTag for _GlassEffectTransition.Kind(uint64_t result, int a2)
+{
+  if (a2)
+  {
+    *(result + 8) = 0;
+    *(result + 16) = 0;
+    *result = (a2 - 1);
+    *(result + 24) = 1;
+  }
+
+  else
+  {
+    *(result + 24) = 0;
+  }
+
+  return result;
+}
+
+BOOL specialized static _Glass.== infix(_:_:)(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 8);
+  v3 = *(a1 + 16);
+  v4 = *(a1 + 24);
+  v5 = *(a1 + 32);
+  v6 = *(a1 + 40);
+  v7 = *a2;
+  v8 = *(a2 + 8);
+  v9 = *(a2 + 16);
+  v10 = *(a2 + 24);
+  v11 = *(a2 + 32);
+  v12 = *(a2 + 40);
+  v19 = *a1;
+  v20 = v2;
+  v17 = v7;
+  v18 = v8;
+  outlined copy of _Glass.Variant.Role(v19, v2);
+  outlined copy of _Glass.Variant.Role(v7, v8);
+  LOBYTE(v7) = specialized static _Glass.Variant.== infix(_:_:)(&v19, &v17);
+  outlined consume of _Glass.Variant.Role(v17, v18);
+  outlined consume of _Glass.Variant.Role(v19, v20);
+  if ((v7 & 1) == 0)
+  {
+    return 0;
+  }
+
+  if (v3 == 5)
+  {
+    if (v9 != 5)
+    {
+      return 0;
+    }
+  }
+
+  else
+  {
+    result = 0;
+    if (v9 == 5 || v3 != v9)
+    {
+      return result;
+    }
+  }
+
+  if (!v4)
+  {
+    result = 0;
+    if (v10)
+    {
+      return result;
+    }
+
+    goto LABEL_16;
+  }
+
+  if (!v10)
+  {
+    return 0;
+  }
+
+  if (v4 == v10)
+  {
+    if (v5 != v11)
     {
       return 0;
     }
 
-    v8 += 20;
-    v9 += 20;
-    if (!--v4)
+    return v6 == v12;
+  }
+
+  v14 = *(*v4 + 88);
+
+  v16 = v14(v15);
+
+  result = 0;
+  if (v16)
+  {
+LABEL_16:
+    if (v5 == v11)
     {
-      return v5 == *(a2 + 4) && v6 == *(a2 + 3);
+      return v6 == v12;
+    }
+  }
+
+  return result;
+}
+
+uint64_t initializeWithCopy for GlassContainer.ItemData(uint64_t a1, uint64_t a2)
+{
+  v3 = *a2;
+  *a1 = *a2;
+  *(a1 + 8) = *(a2 + 8);
+  *(a1 + 24) = *(a2 + 24);
+  v4 = v3;
+  return a1;
+}
+
+uint64_t AnchorValueBox.isEqual(to:)(uint64_t a1)
+{
+  v2 = *v1;
+  result = swift_dynamicCastClass();
+  if (result)
+  {
+    v4 = v2[19];
+    v5 = *(*result + 152);
+    v7 = v2[17];
+    v6 = v2[18];
+    v8 = *(v6 + 56);
+    v9 = result;
+
+    v10 = v8(&v1[v4], v9 + v5, v7, v6);
+
+    return v10 & 1;
+  }
+
+  return result;
+}
+
+int8x16_t Rectangle.path(in:)@<Q0>(int8x16_t *a1@<X8>, double a2@<D0>, uint64_t a3@<D1>, double a4@<D2>, uint64_t a5@<D3>)
+{
+  IsNull = CGRectIsNull(*&a2);
+  *v7.i64 = a2;
+  v7.i64[1] = a3;
+  *v8.i64 = a4;
+  v8.i64[1] = a5;
+  if (IsNull)
+  {
+    v9 = -1;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  v10 = vdupq_n_s64(v9);
+  if (IsNull)
+  {
+    v11 = 6;
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v12 = vbicq_s8(v7, v10);
+  result = vbicq_s8(v8, v10);
+  *a1 = v12;
+  a1[1] = result;
+  a1[2].i8[0] = v11;
+  return result;
+}
+
+uint64_t LazyState.projectedValue.getter@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+{
+  v5 = *(a1 + 16);
+  v6 = *(v5 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v8 = &v22 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v22 - v10;
+  v14 = LazyState.getValue(forReading:)(0, a1, v12, v13, &v22 - v10);
+  v15 = *(v2 + *(a1 + 28));
+  if (v15)
+  {
+    (*(v6 + 16))(v8, v11, v5, v14);
+    Binding.init(value:location:)(v8, v15, v16, v17, a2);
+    v18 = *(v6 + 8);
+
+    return v18(v11, v5);
+  }
+
+  else
+  {
+    v20 = static os_log_type_t.fault.getter();
+    if (one-time initialization token for runtimeIssuesLog != -1)
+    {
+      v21 = v20;
+      swift_once();
+      v20 = v21;
+    }
+
+    os_log(_:dso:log:_:_:)(v20, &dword_18D018000, static Log.runtimeIssuesLog, "Accessing State's value outside of being installed on a View. This will result in a constant Binding of the initial value and will not update.", 142, 2, MEMORY[0x1E69E7CC0]);
+    static Binding.constant(_:)(v11, v5, a2);
+    return (*(v6 + 8))(v11, v5);
+  }
+}
+
+uint64_t closure #1 in static ToggleState.stateFor<A, B>(item:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6 = *(a3 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for Binding(0, v9, v9, v10);
+  Binding.wrappedValue.getter();
+  v11 = dispatch thunk of static Equatable.== infix(_:_:)();
+  (*(v6 + 8))(v8, a3);
+  return v11 & 1;
+}
+
+uint64_t static ToggleState.stateFor<A, B>(item:in:)@<X0>(char *a6@<X8>)
+{
+  result = Sequence.allSatisfy(_:)();
+  if (result)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    MEMORY[0x1EEE9AC00](result);
+    result = Sequence.allSatisfy(_:)();
+    if (result)
+    {
+      v8 = 1;
+    }
+
+    else
+    {
+      v8 = 2;
+    }
+  }
+
+  *a6 = v8;
+  return result;
+}
+
+BOOL closure #2 in static ToggleState.stateFor<A, B>(item:in:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v6 = *(a3 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  type metadata accessor for Binding(0, v9, v9, v10);
+  Binding.wrappedValue.getter();
+  v11 = dispatch thunk of static Equatable.== infix(_:_:)();
+  (*(v6 + 8))(v8, a3);
+  return (v11 & 1) == 0;
+}
+
+double static AnyTransition.opacity.getter()
+{
+  if (one-time initialization token for opacity != -1)
+  {
+    swift_once();
+  }
+
+  return result;
+}
+
+BOOL static EdgeInsets.== infix(_:_:)(double a1, double a2, double a3, double a4, double a5, double a6, double a7, double a8)
+{
+  v8 = a1 == a5;
+  if (a2 != a6)
+  {
+    v8 = 0;
+  }
+
+  if (a3 != a7)
+  {
+    v8 = 0;
+  }
+
+  return a4 == a8 && v8;
+}
+
+uint64_t destroy for ScaledMetric(uint64_t a1, uint64_t a2)
+{
+  v3 = a1;
+  outlined consume of Environment<ButtonSizing>.Content(*a1, *(a1 + 8));
+  v3 &= 0xFFFFFFFFFFFFFFF8;
+  v4.n128_f64[0] = outlined consume of Environment<ButtonSizing>.Content(*(v3 + 16), *(v3 + 24));
+  v5 = *(*(a2 + 16) - 8);
+  v6 = *(v5 + 8);
+  v7 = (v3 + *(v5 + 80) + 25) & ~*(v5 + 80);
+
+  return v6(v7, v4);
+}
+
+double outlined consume of Environment<ButtonSizing>.Content(uint64_t a1, char a2)
+{
+  if ((a2 & 1) == 0)
+  {
+  }
+
+  return result;
+}
+
+uint64_t View.background<A>(_:ignoresSafeAreaEdges:)(uint64_t a1, char a2, uint64_t a3, uint64_t a4, uint64_t a5)
+{
+  v19 = a5;
+  v8 = *(a4 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v10 = &v19 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for _BackgroundStyleModifier(0, v11, v12, v11);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x1EEE9AC00](v13);
+  v17 = &v19 - v16;
+  (*(v8 + 16))(v10, a1, a4, v15);
+  (*(v8 + 32))(v17, v10, a4);
+  v17[*(v13 + 36)] = a2;
+  View.modifier<A>(_:)();
+  return (*(v14 + 8))(v17, v13);
+}
+
+uint64_t initializeWithCopy for ScaledMetric(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *a2;
+  v7 = *(a2 + 8);
+  outlined copy of Environment<ButtonSizing>.Content(*a2, v7);
+  *a1 = v6;
+  *(a1 + 8) = v7;
+  v8 = a1 & 0xFFFFFFFFFFFFFFF8;
+  v9 = a2 & 0xFFFFFFFFFFFFFFF8;
+  v10 = *((a2 & 0xFFFFFFFFFFFFFFF8) + 16);
+  LOBYTE(v6) = *(v9 + 24);
+  v11 = outlined copy of Environment<ButtonSizing>.Content(v10, v6);
+  *(v8 + 16) = v10;
+  *(v8 + 24) = v6;
+  v12 = *(*(a3 + 16) - 8);
+  v13 = v12 + 16;
+  v14 = *(v12 + 80);
+  v15 = (v14 + 25 + (a1 & 0xFFFFFFFFFFFFFFF8)) & ~v14;
+  v16 = (v14 + 25 + v9) & ~v14;
+  (*(v12 + 16))(v15, v16, v11);
+  *(*(v13 + 48) + v15) = *(*(v13 + 48) + v16);
+  return a1;
+}
+
+double outlined copy of Environment<ButtonSizing>.Content(uint64_t a1, char a2)
+{
+  if ((a2 & 1) == 0)
+  {
+  }
+
+  return result;
+}
+
+void protocol witness for Animatable.animatableData.modify in conformance LinearGradient._Paint(void *a1)
+{
+  v1 = *a1;
+  (*(*a1 + 32))(*a1);
+
+  free(v1);
+}
+
+void protocol witness for ViewGraphFeature.modifyViewInputs(inputs:graph:) in conformance ImageRendererHostViewGraph(uint64_t *a1)
+{
+
+  _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA21UsingGraphicsRendererV_Tt2g5(a1, 1);
+
+  *(a1 + 9) |= 1u;
+}
+
+void _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA21UsingGraphicsRendererV_Tt2g5(uint64_t *a1, char a2)
+{
+  v4 = *a1;
+  BloomFilter.init(hashValue:)(&type metadata for UsingGraphicsRenderer);
+  v5 = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA21UsingGraphicsRendererV_Tt0B5(v4, v7);
+  if (!v5 || *(v5 + 72) != (a2 & 1))
+  {
+    v6 = *a1;
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_glassEffectBackdropObserver>(0, &lazy cache variable for type metadata for TypedElement<UsingGraphicsRenderer>, &type metadata for UsingGraphicsRenderer, &protocol witness table for UsingGraphicsRenderer, type metadata accessor for TypedElement);
+    *(swift_allocObject() + 72) = a2 & 1;
+
+    *a1 = PropertyList.Element.init(keyType:before:after:)(&type metadata for UsingGraphicsRenderer, 0, v6);
+  }
+}
+
+uint64_t (*protocol witness for ViewGraphOwner.valuesNeedingUpdate.modify in conformance ImageRendererHost<A>(uint64_t *a1))()
+{
+  if (MEMORY[0x1E69E7D08])
+  {
+    v2 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v2 = malloc(0x28uLL);
+  }
+
+  *a1 = v2;
+  *(v2 + 32) = ImageRendererHost.valuesNeedingUpdate.modify(v2);
+  return protocol witness for MutableCollection.subscript.modify in conformance ArrayWith2Inline<A>;
+}
+
+void ImageRendererHost.renderingPhase.setter(char *a1)
+{
+  v2 = *a1;
+  swift_beginAccess();
+  *(v1 + 58) = v2;
+}
+
+void @objc closure #1 in closure #1 in closure #1 in static Update.syncMain(_:)(uint64_t *a1)
+{
+  v1 = AGSubgraphGetCurrent();
+  AGSubgraphSetCurrent();
+
+  AGGraphWithUpdate();
+
+  AGSubgraphSetCurrent();
+}
+
+Swift::Void __swiftcall ImageRendererHost.updateEnvironment()()
+{
+  swift_beginAccess();
+  swift_beginAccess();
+
+  AGGraphSetValue();
+}
+
+void closure #1 in ImageRendererHost.updateSizeThatFitsObserver()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5, uint64_t a6, char a7)
+{
+  swift_beginAccess();
+  if (swift_weakLoadStrong())
+  {
+
+    v12 = *&a4;
+    v13 = NAN;
+    if (a5)
+    {
+      v12 = NAN;
+    }
+
+    v14 = a6;
+    if ((a7 & 1) == 0)
+    {
+      v13 = *&a6;
+    }
+
+    ViewGraph.setSize(_:)(*&v12);
+  }
+}
+
+uint64_t GraphicsContext.draw(_:in:style:shading:)(__int128 *a1, __int16 a2, __int128 *a3, uint64_t a4, CGFloat a5, CGFloat a6, double a7, double a8)
+{
+  v13 = a1[5];
+  *v76 = a1[4];
+  *&v76[16] = v13;
+  *&v76[28] = *(a1 + 92);
+  v14 = a1[1];
+  v74 = *a1;
+  *v75 = v14;
+  v15 = a1[3];
+  *&v75[16] = a1[2];
+  *&v75[32] = v15;
+  v16 = *a3;
+  v17 = a3[1];
+  *&v80[9] = *(a3 + 57);
+  v18 = a3[3];
+  v79 = a3[2];
+  *v80 = v18;
+  v77 = v16;
+  v78 = v17;
+  if ((BYTE8(v74) & 0xFE) != 2)
+  {
+    goto LABEL_8;
+  }
+
+  if (v76[40] != 2)
+  {
+    v19 = *&v76[24];
+    v20 = *&v76[8];
+    if (one-time initialization token for resizable != -1)
+    {
+      v49 = a1;
+      v50 = a3;
+      swift_once();
+      v19 = *&v76[24];
+      v20 = *&v76[8];
+      a1 = v49;
+      a3 = v50;
+    }
+
+    if (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(v20, static Image.ResizingInfo.resizable), vceqq_f64(v19, unk_1EAB12458))))) & 1) != 0 || ((byte_1EAB12468 ^ v76[40]))
+    {
+      goto LABEL_8;
+    }
+  }
+
+  v21 = a1[5];
+  v65 = a1[4];
+  v66[0] = v21;
+  *(v66 + 12) = *(a1 + 92);
+  v22 = a1[1];
+  v61 = *a1;
+  v62 = v22;
+  v23 = a1[3];
+  v63 = a1[2];
+  v64 = v23;
+  v24 = a3[3];
+  *&v60[16] = a3[2];
+  *&v60[32] = v24;
+  *&v60[41] = *(a3 + 57);
+  v25 = a3[1];
+  v59 = *a3;
+  *v60 = v25;
+  result = specialized GraphicsContext.drawAsVector(image:rect:style:shading:)(&v61, &v59, a4, a5, a6, a7, a8);
+  if ((result & 1) == 0)
+  {
+LABEL_8:
+    v70 = v74;
+    v71[0] = *v75;
+    *(v71 + 12) = *&v75[12];
+    v27 = *&v75[28];
+    v28 = *&v75[36];
+    v29 = *&v75[44];
+    v69 = v76[0];
+    v67 = *&v76[1];
+    v68[0] = *&v76[17];
+    *(v68 + 11) = *&v76[28];
+    v30 = *(a4 + 24);
+    if (v80[24] == 1)
+    {
+      v32 = v77;
+      v34 = *(a4 + 32);
+      v33 = *(a4 + 40);
+      if (v34 == 1)
+      {
+        v35 = *(a4 + 16);
+        v36 = *(v35 + 48);
+        v37 = *(v35 + 56);
+      }
+
+      else
+      {
+        v37 = *(a4 + 40);
+        v36 = *(a4 + 32);
+      }
+
+      *&v59 = v36;
+      *(&v59 + 1) = v37;
+      v38 = *(*v32 + 120);
+      outlined init with copy of GraphicsContext.Shading?(&v77, &v61);
+      outlined init with copy of GraphicsImage(&v74, &v61);
+      outlined init with copy of GraphicsContext.Shading?(&v77, &v61);
+      v39 = outlined copy of EnvironmentValues?(v34, v33);
+      v38(v72, &v59, v39);
+      v27 = v72[0];
+      v28 = v72[1];
+      v29 = v73;
+      outlined destroy of GraphicsContext.Shading?(&v77, &lazy cache variable for type metadata for GraphicsContext.Shading?, &type metadata for GraphicsContext.Shading);
+      outlined destroy of GraphicsContext.Shading?(&v77, &lazy cache variable for type metadata for GraphicsContext.Shading?, &type metadata for GraphicsContext.Shading);
+
+      v69 = 0;
+      v31 = v30;
+    }
+
+    else if (v80[24] == 255)
+    {
+      outlined init with copy of GraphicsImage(&v74, &v61);
+      v31 = v30;
+    }
+
+    else
+    {
+      v69 = 1;
+      outlined init with copy of GraphicsImage(&v74, &v61);
+      outlined init with copy of GraphicsContext.Shading?(&v77, &v61);
+      v30 = RBDrawingStateInit();
+      v31 = RBDrawingStateBeginLayer();
+      outlined destroy of GraphicsContext.Shading?(&v77, &lazy cache variable for type metadata for GraphicsContext.Shading?, &type metadata for GraphicsContext.Shading);
+      v27 = 0;
+      v28 = 0;
+      v29 = 0;
+    }
+
+    v40 = *(a4 + 16);
+    v41 = *(a4 + 56);
+    v42 = *(v40 + 32);
+    [v42 setRect_];
+    RBShape.setRenderingMode(style:shapeDistance:)(v41);
+
+    v43 = *(v40 + 40);
+    *&v60[12] = *(v71 + 12);
+    v59 = v70;
+    *v60 = v71[0];
+    *&v60[28] = v27;
+    *&v60[36] = v28;
+    *&v60[44] = v29;
+    v44 = v69;
+    v60[48] = v69;
+    *&v60[49] = v67;
+    *&v60[65] = v68[0];
+    *&v60[76] = *(v68 + 11);
+    *&v58[48] = *&v60[48];
+    *&v58[64] = *&v60[64];
+    *&v58[76] = *(v68 + 11);
+    v57 = v70;
+    *v58 = v71[0];
+    *&v58[16] = *&v60[16];
+    *&v58[32] = *&v60[32];
+    v45 = *(v40 + 64);
+    v46 = v43;
+    outlined init with copy of GraphicsImage(&v59, &v61);
+    RBFill.setImage(_:destRect:in:)(&v57, v45, a5, a6, a7, a8);
+
+    v65 = *&v58[48];
+    v66[0] = *&v58[64];
+    *(v66 + 12) = *&v58[76];
+    v61 = v57;
+    v62 = *v58;
+    v63 = *&v58[16];
+    v64 = *&v58[32];
+    outlined destroy of GraphicsImage(&v61);
+    *(v40 + 272) = 0;
+
+    RBDrawingStateDrawShape();
+    if (v31 != v30)
+    {
+      result = RBDrawingStateClipLayer();
+      if (v80[24] == 255)
+      {
+        __break(1u);
+        return result;
+      }
+
+      v53 = v79;
+      *v54 = *v80;
+      *&v54[16] = *&v80[16];
+      v51 = v77;
+      v52 = v78;
+      v54[24] = v80[24];
+      v47 = *(a4 + 48);
+      v48 = *(a4 + 52);
+      *(v56 + 9) = *&v80[9];
+      v55[2] = v79;
+      v56[0] = *v80;
+      v55[0] = v77;
+      v55[1] = v78;
+      outlined init with copy of GraphicsContext.Shading(v55, &v57);
+      GraphicsContext.draw(shading:bounds:in:alpha:blendMode:)(&v51, v30, v48, a4, a5, a6, a7, a8, v47);
+      *&v58[16] = v53;
+      *&v58[32] = *v54;
+      *&v58[41] = *&v54[9];
+      v57 = v51;
+      *v58 = v52;
+      outlined destroy of GraphicsContext.Shading(&v57);
+      RBDrawingStateDestroy();
+    }
+
+    v57 = v70;
+    *v58 = v71[0];
+    *&v58[12] = *(v71 + 12);
+    *&v58[49] = v67;
+    *&v58[28] = v27;
+    *&v58[36] = v28;
+    *&v58[44] = v29;
+    v58[48] = v44;
+    *&v58[65] = v68[0];
+    *&v58[76] = *(v68 + 11);
+    return outlined destroy of GraphicsImage(&v57);
+  }
+
+  return result;
+}
+
+uint64_t ImageRenderer.deinit()
+{
+
+  v1 = direct field offset for ImageRenderer.observationRegistrar;
+  v2 = type metadata accessor for ObservationRegistrar();
+  (*(*(v2 - 8) + 8))(v0 + v1, v2);
+  return v0;
+}
+
+double closure #1 in closure #1 in ImageRenderer.initializeRenderer()(uint64_t a1)
+{
+  swift_beginAccess();
+  if (swift_weakLoadStrong())
+  {
+
+    type metadata accessor for PassthroughSubject<(), Never>();
+    lazy protocol witness table accessor for type PassthroughSubject<(), Never> and conformance PassthroughSubject<A, B>(&lazy protocol witness table cache variable for type PassthroughSubject<(), Never> and conformance PassthroughSubject<A, B>, type metadata accessor for PassthroughSubject<(), Never>, MEMORY[0x1E695BF80]);
+    Subject<>.send()();
+  }
+
+  return result;
+}
+
+uint64_t protocol witness for static _AttributeBody.flags.getter in conformance ForegroundEnvironment<A>(uint64_t a1)
+{
+  swift_getWitnessTable(protocol conformance descriptor for ForegroundEnvironment<A>, a1);
+
+  return static AsyncAttribute.flags.getter();
+}
+
+uint64_t static _ValueTransactionModifier._makeInputs(modifier:inputs:)(unsigned int *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v37 = a2;
+  v42 = *MEMORY[0x1E69E9840];
+  v7 = type metadata accessor for Optional();
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v9 = &v37 - v8;
+  v11 = type metadata accessor for ValueTransactionSeed(0, a3, a4, v10);
+  v12 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v14 = &v37 - v13;
+  v15 = *a1;
+  if (*(*(a3 - 8) + 64))
+  {
+    closure #1 in static _ValueTransactionModifier._makeInputs(modifier:inputs:)(1, a3, a4, type metadata accessor for _ValueTransactionModifier, closure #1 in static PointerOffset.of(_:)partial apply);
+  }
+
+  OffsetAttribute2 = AGGraphCreateOffsetAttribute2();
+  v17 = specialized static GraphHost.currentHost.getter();
+  swift_beginAccess();
+  v18 = *(v17 + 68);
+
+  variable initialization expression of CodableOptional.base(a3, v9);
+  v19 = ValueTransactionSeed.init(value:transactionSeed:oldValue:)(OffsetAttribute2, v18, v9, a3, a4, v14);
+  v20 = MEMORY[0x1EEE9AC00](v19);
+  *(&v37 - 2) = v11;
+  swift_getWitnessTable(protocol conformance descriptor for ValueTransactionSeed<A>, v11, v20);
+  *(&v37 - 1) = v21;
+  type metadata accessor for Attribute<UInt32>();
+  v22 = MEMORY[0x1E69E73E0];
+  _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(v14, _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA12StatefulRuleRd__lufcADSPyqd__GXEfU_TA_12, (&v37 - 4), v11, MEMORY[0x1E69E73E0], v23, MEMORY[0x1E69E7410], v24);
+  (*(v12 + 8))(v14, v11);
+  v25 = v39[0];
+  v26 = AGGraphSetFlags();
+  MEMORY[0x1EEE9AC00](v26);
+  *(&v37 - 2) = a3;
+  *(&v37 - 1) = a4;
+  KeyPath = swift_getKeyPath();
+  v39[0] = v15;
+  v40 = _s14AttributeGraph0A0V13dynamicMemberACyqd__Gs7KeyPathCyxqd__G_tcluigqd__xcfU_TA_0;
+  v41 = KeyPath;
+  MEMORY[0x1EEE9AC00](KeyPath);
+  type metadata accessor for _ValueTransactionModifier(255, a3, a4, v28);
+  type metadata accessor for (_:)();
+  v29 = type metadata accessor for Map();
+  *(&v37 - 2) = v29;
+  swift_getWitnessTable(MEMORY[0x1E698D3A8], v29);
+  *(&v37 - 1) = v30;
+  type metadata accessor for Attribute<(_:)>(0, &lazy cache variable for type metadata for Attribute<(_:)>, type metadata accessor for (_:), MEMORY[0x1E698D388]);
+  v32 = v31;
+
+  _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(v39, _s14AttributeGraph0A0VyACyxGqd__c5ValueQyd__RszAA4RuleRd__lufcADSPyqd__GXEfU_TA_9, (&v37 - 4), v29, v22, v32, MEMORY[0x1E69E7410], v33);
+
+  v34 = v37;
+  v35 = *(v37 + 28);
+  v39[0] = v25;
+  v39[1] = v38;
+  v40 = __PAIR64__(v18, v35);
+  protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
+  lazy protocol witness table accessor for type ChildValueTransaction and conformance ChildValueTransaction();
+  result = Attribute.init<A>(body:value:flags:update:)();
+  *(v34 + 28) = result;
+  return result;
+}
+
+__n128 sub_18D18BD34(__n128 *a1, __n128 *a2)
+{
+  result = *a1;
+  *a2 = *a1;
+  return result;
+}
+
+void type metadata accessor for Attribute<UInt32>()
+{
+  if (!lazy cache variable for type metadata for Attribute<UInt32>)
+  {
+    v0 = type metadata accessor for Attribute();
+    if (!v1)
+    {
+      atomic_store(v0, &lazy cache variable for type metadata for Attribute<UInt32>);
+    }
+  }
+}
+
+void type metadata accessor for Attribute<(_:)>(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t (*a4)(uint64_t, uint64_t))
+{
+  if (!*a2)
+  {
+    v7 = a3(255);
+    v8 = a4(a1, v7);
+    if (!v9)
+    {
+      atomic_store(v8, a2);
+    }
+  }
+}
+
+void lazy protocol witness table accessor for type ChildValueTransaction and conformance ChildValueTransaction()
+{
+  if (!lazy protocol witness table cache variable for type ChildValueTransaction and conformance ChildValueTransaction)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for ChildValueTransaction, &type metadata for ChildValueTransaction, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type ChildValueTransaction and conformance ChildValueTransaction);
+  }
+}
+
+uint64_t static _PreferenceWritingModifier._makeViewList(modifier:inputs:body:)(unsigned int *a1, uint64_t a2, void (*a3)(void), uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v34 = *MEMORY[0x1E69E9840];
+  v11 = *a1;
+  if (one-time initialization token for semantic != -1)
+  {
+    swift_once();
+  }
+
+  v12 = static Semantics_v2_3.semantic;
+  if (one-time initialization token for forced != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  if (byte_1ED53C51C == 1)
+  {
+    if ((dyld_program_sdk_at_least() & 1) == 0)
+    {
+      goto LABEL_17;
+    }
+  }
+
+  else if (static Semantics.forced < v12)
+  {
+LABEL_17:
+    v23 = type metadata accessor for _PreferenceWritingModifier(0, a5, a6, v13);
+    v28[0] = v11;
+    return static ViewModifier.makeMultiViewList(modifier:inputs:body:)(v28, a2, a3, a4, v23, &protocol witness table for _PreferenceWritingModifier<A>);
+  }
+
+  if ((*(a2 + 57) & 4) == 0)
+  {
+    goto LABEL_17;
+  }
+
+  v14 = type metadata accessor for _PreferenceWritingModifier(0, a5, a6, v13);
+  type metadata accessor for _PreferenceWritingModifier<PreferredColorSchemeKey>(0, &lazy cache variable for type metadata for _PreferenceWritingModifier<PreferredColorSchemeKey>, &type metadata for PreferredColorSchemeKey, &protocol witness table for PreferredColorSchemeKey, type metadata accessor for _PreferenceWritingModifier);
+  if (!swift_dynamicCastMetatype())
+  {
+    goto LABEL_17;
+  }
+
+  v28[0] = v11;
+  type metadata accessor for _GraphValue(0, v14, v15, v13);
+  type metadata accessor for _GraphValue<_PreferenceWritingModifier<PreferredColorSchemeKey>>(0);
+  if ((swift_dynamicCast() & 1) == 0)
+  {
+    goto LABEL_17;
+  }
+
+  v16 = v27;
+  outlined init with copy of _ViewListInputs(a2, v28);
+  HIDWORD(v27) = *(a2 + 64);
+  protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
+  type metadata accessor for _PreferenceWritingModifier<PreferredColorSchemeKey><>.ColorSchemeTrait(0, &lazy cache variable for type metadata for _PreferenceWritingModifier<PreferredColorSchemeKey><>.ColorSchemeTrait, type metadata accessor for _PreferenceWritingModifier<>.ColorSchemeTrait);
+  lazy protocol witness table accessor for type _PreferenceWritingModifier<PreferredColorSchemeKey><>.ColorSchemeTrait and conformance _PreferenceWritingModifier<A><>.ColorSchemeTrait(&lazy protocol witness table cache variable for type _PreferenceWritingModifier<PreferredColorSchemeKey><>.ColorSchemeTrait and conformance _PreferenceWritingModifier<A><>.ColorSchemeTrait, &lazy cache variable for type metadata for _PreferenceWritingModifier<PreferredColorSchemeKey><>.ColorSchemeTrait, type metadata accessor for _PreferenceWritingModifier<>.ColorSchemeTrait, protocol conformance descriptor for _PreferenceWritingModifier<A><>.ColorSchemeTrait);
+  v31 = Attribute.init<A>(body:value:flags:update:)();
+  if (v32)
+  {
+    v24 = v32;
+    v25 = v33 & 1;
+    v32 = 0;
+    v33 = 0;
+    specialized Set._Variant.insert(_:)(&v27, &type metadata for PreviewColorSchemeTraitKey);
+
+    v32 = v24;
+    v33 = v25;
+  }
+
+  v17 = *(a2 + 16);
+  swift_beginAccess();
+  v26 = *(v17 + 16);
+  protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
+  type metadata accessor for _PreferenceWritingModifier<PreferredColorSchemeKey><>.ColorSchemeTrait(0, &lazy cache variable for type metadata for _PreferenceWritingModifier<PreferredColorSchemeKey><>.ColorSchemeEnv, type metadata accessor for _PreferenceWritingModifier<>.ColorSchemeEnv);
+  lazy protocol witness table accessor for type _PreferenceWritingModifier<PreferredColorSchemeKey><>.ColorSchemeTrait and conformance _PreferenceWritingModifier<A><>.ColorSchemeTrait(&lazy protocol witness table cache variable for type _PreferenceWritingModifier<PreferredColorSchemeKey><>.ColorSchemeEnv and conformance _PreferenceWritingModifier<A><>.ColorSchemeEnv, &lazy cache variable for type metadata for _PreferenceWritingModifier<PreferredColorSchemeKey><>.ColorSchemeEnv, type metadata accessor for _PreferenceWritingModifier<>.ColorSchemeEnv, protocol conformance descriptor for _PreferenceWritingModifier<A><>.ColorSchemeEnv);
+  LODWORD(v17) = Attribute.init<A>(body:value:flags:update:)();
+  v18 = MEMORY[0x1E69E7CC0];
+  v19 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC7SwiftUI19ResolvedShapeStyles33_B62A4B04AF9F1325924A089D63071424LLV_14AttributeGraph0O0VyAC01_F10Style_PackVGTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
+  type metadata accessor for Attribute<HoverEffectContext>(0, &lazy cache variable for type metadata for MutableBox<CachedEnvironment>, &type metadata for CachedEnvironment, type metadata accessor for MutableBox);
+  v20 = swift_allocObject();
+  *(v20 + 16) = v17;
+  *(v20 + 24) = v18;
+  *(v20 + 32) = 0u;
+  *(v20 + 48) = 0u;
+  *(v20 + 64) = 0u;
+  *(v20 + 80) = 256;
+  *(v20 + 82) = v16;
+  *(v20 + 86) = v26;
+  *(v20 + 88) = v19;
+
+  v29 = v20;
+  if ((v30 & 0x20) == 0)
+  {
+    v30 |= 0x20u;
+  }
+
+  (a3)(v21, v28);
+  return outlined destroy of _ViewListInputs(v28);
+}
+
+uint64_t static ViewModifier.makeMultiViewList(modifier:inputs:body:)(unsigned int *a1, __int128 *a2, void (*a3)(void), uint64_t a4, uint64_t a5, uint64_t a6)
+{
+  v9 = *a1;
+  a3();
+  v11 = v9;
+  return _ViewListOutputs.multiModifier<A>(_:inputs:)(&v11, a2, a5, a6);
+}
+
+double GeometryProxy.safeAreaInsets.getter()
+{
+  v1 = v0[1];
+  v21 = *v0;
+  v22 = v1;
+  v23 = v0[2];
+  v24 = *(v0 + 12);
+  specialized static Update.begin()();
+  GeometryProxy.placementContext.getter(&v16);
+  if (v20)
+  {
+    v2 = 0.0;
+  }
+
+  else
+  {
+    v3 = v19;
+    v2 = 0.0;
+    if (v19 != *MEMORY[0x1E698D3F8])
+    {
+      v5 = v17;
+      v4 = v18;
+      v6 = HIDWORD(v18);
+      v7 = v16;
+      v8 = HIDWORD(v17);
+      v9 = HIDWORD(v16);
+      InputValue = AGGraphGetInputValue();
+      v11 = *(InputValue + 16);
+      v14 = *InputValue;
+      v15 = v11;
+      v13[0] = v7;
+      v13[1] = v9;
+      v13[2] = v5;
+      v13[3] = v8;
+      v13[4] = v4;
+      v13[5] = v6;
+      v13[6] = v3;
+      v2 = SafeAreaInsets.resolve(regions:cornerAdaptation:in:)(-1, 0, v13);
+    }
+  }
+
+  static Update.end()();
+  return v2;
+}
+
+void key path getter for EnvironmentValues.accentColor : EnvironmentValues(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+{
+  v3 = *a1;
+  if (a1[1])
+  {
+
+    v4 = _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA011AccentColorI033_AA5C9AAB6528C7C6B599DF55246DE53ALLVG_Tt1g5(v3);
+  }
+
+  else
+  {
+    v5 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA011AccentColorS033_AA5C9AAB6528C7C6B599DF55246DE53ALLVG_Tt0g5(*a1);
+    if (v5)
+    {
+      v4 = v5[9];
+    }
+
+    else
+    {
+      v4 = 0;
+    }
+  }
+
+  *a2 = v4;
+}
+
+double keypath_setTm(void *a1)
+{
+
+  specialized EnvironmentValues.accentColor.setter(v1);
+
+  return result;
+}
+
+double View.accentColor(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  KeyPath = swift_getKeyPath();
+  v8 = a1;
+  View.environment<A>(_:_:)(KeyPath, &v8, a2, a3);
+
+  return result;
+}
+
+uint64_t sub_18D18C7C4@<X0>(uint64_t *a1@<X8>)
+{
+  result = EnvironmentValues.accentColor.getter();
+  *a1 = result;
+  return result;
+}
+
+uint64_t _ValueTransactionModifier.init(value:transform:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t (*a6)(void, uint64_t, uint64_t)@<X5>, uint64_t a7@<X8>)
+{
+  (*(*(a4 - 8) + 32))(a7, a1, a4);
+  result = a6(0, a4, a5);
+  v14 = (a7 + *(result + 36));
+  *v14 = a2;
+  v14[1] = a3;
+  return result;
+}
+
+void *static _PreferenceActionModifier._makeView(modifier:inputs:body:)@<X0>(unsigned int *a1@<X0>, __int128 *a2@<X1>, void (*a3)(uint64_t *__return_ptr, uint64_t, __int128 *)@<X2>, uint64_t a4@<X4>, uint64_t a5@<X5>, uint64_t a6@<X6>, void *a7@<X8>)
+{
+  v52 = a7;
+  v81 = *MEMORY[0x1E69E9840];
+  swift_getAssociatedTypeWitness();
+  v13 = type metadata accessor for Optional();
+  MEMORY[0x1EEE9AC00](v13 - 8);
+  v48 = &v45 - v14;
+  v50 = a6;
+  v15 = type metadata accessor for PreferenceBinder(0, a4, a5, a6);
+  v51 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v49 = &v45 - v16;
+  v17 = a2[3];
+  v18 = a2[1];
+  v73 = a2[2];
+  v74 = v17;
+  v19 = a2[3];
+  v75 = a2[4];
+  v20 = a2[1];
+  v71 = *a2;
+  v72 = v20;
+  v67 = v73;
+  v68 = v19;
+  v69 = a2[4];
+  v21 = *a1;
+  v76 = *(a2 + 20);
+  v70 = *(a2 + 20);
+  v65 = v71;
+  v66 = v18;
+  outlined init with copy of _ViewInputs(&v71, v79);
+  PreferencesInputs.add<A>(_:)(a4, a4, a5);
+  v77[2] = v67;
+  v77[3] = v68;
+  v77[4] = v69;
+  v78 = v70;
+  v77[0] = v65;
+  v77[1] = v66;
+  v61 = v67;
+  v62 = v68;
+  v63 = v69;
+  v64 = v70;
+  v59 = v65;
+  v60 = v66;
+  v22 = outlined init with copy of _ViewInputs(v77, v79);
+  a3(&v56, v22, &v59);
+  v79[2] = v61;
+  v79[3] = v62;
+  v79[4] = v63;
+  v80 = v64;
+  v79[0] = v59;
+  v79[1] = v60;
+  outlined destroy of _ViewInputs(v79);
+  v23 = v56;
+  v24 = v57;
+  v25 = v58;
+  v26 = _ViewOutputs.subscript.getter(a4, a4, a5);
+  if ((v26 & 0x100000000) == 0)
+  {
+    v27 = v26;
+    v45 = DWORD2(v72);
+    v47 = v23;
+    v28 = v50;
+    default argument 8 of ScrollEdgeEffectTagReceiverModifier.EnqueueUpdates.init(platformItems:receiver:transaction:environment:size:position:transform:safeAreaInsets:cycleDetector:oldReceiverValue:oldItems:seed:)(&v59);
+    v53 = v59;
+    v54 = DWORD2(v59);
+    v55 = BYTE12(v59);
+    AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+    v30 = *(*(AssociatedTypeWitness - 8) + 56);
+    v46 = v24;
+    v31 = v15;
+    v32 = v48;
+    v30(v48, 1, 1, AssociatedTypeWitness);
+    v43 = v28;
+    v33 = v49;
+    v34 = PreferenceBinder.init(modifier:keyValue:phase:cycleDetector:lastResetSeed:lastValue:)(v21, v27, v45, &v53, 0, v32, a4, a5, v49, v43);
+    v35 = MEMORY[0x1EEE9AC00](v34);
+    v43 = v31;
+    swift_getWitnessTable(protocol conformance descriptor for PreferenceBinder<A>, v31, v35);
+    v44 = v36;
+    type metadata accessor for Attribute<()>();
+    _ss17withUnsafePointer2to_q0_x_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(v33, partial apply for closure #1 in Attribute.init<A>(_:), (&v45 - 8), v31, MEMORY[0x1E69E73E0], v37, MEMORY[0x1E69E7410], v38);
+    v39 = v33;
+    v23 = v47;
+    v40 = v31;
+    v24 = v46;
+    (*(v51 + 8))(v39, v40);
+    AGGraphGetFlags();
+    AGGraphSetFlags();
+  }
+
+  v61 = v67;
+  v62 = v68;
+  v63 = v69;
+  v64 = v70;
+  v59 = v65;
+  v60 = v66;
+  result = outlined destroy of _ViewInputs(&v59);
+  v42 = v52;
+  *v52 = v23;
+  *(v42 + 2) = v24;
+  *(v42 + 3) = v25;
+  return result;
+}
+
+uint64_t type metadata completion function for PreferenceBinder(uint64_t a1)
+{
+  swift_getAssociatedTypeWitness();
+  result = type metadata accessor for Optional();
+  if (v2 <= 0x3F)
+  {
+    swift_initStructMetadata();
+    return 0;
+  }
+
+  return result;
+}
+
+double default argument 8 of ScrollEdgeEffectTagReceiverModifier.EnqueueUpdates.init(platformItems:receiver:transaction:environment:size:position:transform:safeAreaInsets:cycleDetector:oldReceiverValue:oldItems:seed:)@<D0>(uint64_t a1@<X8>)
+{
+  v2 = specialized static GraphHost.currentHost.getter();
+  swift_beginAccess();
+  v3 = *(v2 + 64);
+
+  *a1 = v3;
+  *&result = 0xFFFFFFFFLL;
+  *(a1 + 4) = 0xFFFFFFFFLL;
+  *(a1 + 12) = 0;
+  return result;
+}
+
+uint64_t PreferenceBinder.init(modifier:keyValue:phase:cycleDetector:lastResetSeed:lastValue:)@<X0>(int a1@<W0>, int a2@<W1>, int a3@<W2>, uint64_t a4@<X3>, int a5@<W4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10)
+{
+  v12 = *(a4 + 8);
+  v13 = *(a4 + 12);
+  *a9 = a1;
+  *(a9 + 4) = a2;
+  *(a9 + 8) = a3;
+  *(a9 + 12) = *a4;
+  *(a9 + 20) = v12;
+  *(a9 + 24) = v13;
+  *(a9 + 28) = a5;
+  v14 = *(type metadata accessor for PreferenceBinder(0, a7, a8, a10) + 60);
+  swift_getAssociatedTypeWitness();
+  v15 = type metadata accessor for Optional();
+  v16 = *(*(v15 - 8) + 32);
+
+  return v16(a9 + v14, a6, v15);
+}
+
+uint64_t protocol witness for static _AttributeBody.flags.getter in conformance PreferenceBinder<A>(uint64_t a1)
+{
+  swift_getWitnessTable(protocol conformance descriptor for PreferenceBinder<A>, a1);
+
+  return static AsyncAttribute.flags.getter();
+}
+
+uint64_t closure #1 in static _ValueTransactionModifier._makeInputs(modifier:inputs:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t a5)
+{
+  v11[2] = (a4)(0, a2, a3);
+  v11[3] = a2;
+  v8 = type metadata accessor for PointerOffset();
+  _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1, a5, v11, a2, MEMORY[0x1E69E73E0], v8, MEMORY[0x1E69E7410], v9);
+  return v11[5];
+}
+
+void *static _PushPopTransactionModifier._makeView(modifier:inputs:body:)@<X0>(unsigned int *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X8>)
+{
+  v37 = a6;
+  v34 = a3;
+  v35 = a4;
+  v74 = *MEMORY[0x1E69E9840];
+  v9 = *(a2 + 16);
+  v69[0] = *a2;
+  v69[1] = v9;
+  v10 = *(a2 + 48);
+  v70 = *(a2 + 32);
+  v71 = v10;
+  v72 = *(a2 + 64);
+  v65 = v70;
+  v66 = v10;
+  v67 = *(a2 + 64);
+  v11 = *a1;
+  v73 = *(a2 + 80);
+  v12 = HIDWORD(v9);
+  v68 = *(a2 + 80);
+  v63 = v69[0];
+  v64 = v9;
+  outlined init with copy of _ViewInputs(v69, &v57);
+
+  v14 = _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA12_GraphInputsVAAE016SavedTransactionF033_A1B10B5AB036C34AB7DD2EE8825FCA93LLV_Tt2g5Tf4n_g(v13);
+
+  v36 = a7;
+  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+  {
+    v14 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v14 + 16) + 1, 1, v14);
+  }
+
+  v16 = *(v14 + 16);
+  v15 = *(v14 + 24);
+  if (v16 >= v15 >> 1)
+  {
+    v14 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v15 > 1), v16 + 1, 1, v14);
+  }
+
+  *(v14 + 16) = v16 + 1;
+  *(v14 + 4 * v16 + 32) = v12;
+  _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA12_GraphInputsVAAE016SavedTransactionF033_A1B10B5AB036C34AB7DD2EE8825FCA93LLV_Tt2g5(&v63, v14);
+
+  v17 = v37;
+  closure #1 in static _PushPopTransactionModifier._makeView(modifier:inputs:body:)(1, a5, v37, v19, v18);
+  LODWORD(v57) = AGGraphCreateOffsetAttribute2();
+  DWORD1(v57) = v12;
+  protocol witness for static _AttributeBody._hasDestroySelf.getter in conformance ResetDeltaModifier.ChildPhase();
+  lazy protocol witness table accessor for type ChildTransaction and conformance ChildTransaction();
+  v20 = Attribute.init<A>(body:value:flags:update:)();
+  v33 = &v33;
+  HIDWORD(v64) = v20;
+  MEMORY[0x1EEE9AC00](v20);
+  v38[1] = v11;
+  v22 = type metadata accessor for _PushPopTransactionModifier(255, a5, v17, v21);
+  type metadata accessor for _GraphValue(0, v22, v23, v24);
+  _GraphValue.subscript.getter(partial apply for closure #2 in static _PushPopTransactionModifier._makeView(modifier:inputs:body:), a5, v38);
+  v25 = v38[0];
+  v59 = v65;
+  v60 = v66;
+  v61 = v67;
+  v62 = v68;
+  v57 = v63;
+  v58 = v64;
+  v26 = swift_allocObject();
+  v27 = v35;
+  *(v26 + 16) = v34;
+  *(v26 + 24) = v27;
+  ShouldRecordTree = AGSubgraphShouldRecordTree();
+
+  if (ShouldRecordTree)
+  {
+    AGSubgraphBeginTreeElement();
+  }
+
+  v49 = v59;
+  v50 = v60;
+  v51 = v61;
+  v52 = v62;
+  v47 = v57;
+  v48 = v58;
+  LODWORD(v35) = v59;
+  LODWORD(v49) = 0;
+  LODWORD(v34) = v25;
+  LODWORD(v39[0]) = v25;
+  v53[0] = v57;
+  v53[1] = v58;
+  v54 = v62;
+  v53[3] = v60;
+  v53[4] = v61;
+  v53[2] = v49;
+  v44 = v60;
+  v45 = v61;
+  v46 = v62;
+  v41 = v57;
+  v42 = v58;
+  v43 = v49;
+  v29 = v37;
+  v30 = *(v37 + 24);
+  outlined init with copy of _ViewInputs(&v57, v55);
+  outlined init with copy of _ViewInputs(v53, v55);
+  v31 = v36;
+  v30(v39, &v41, partial apply for closure #3 in static _PushPopTransactionModifier._makeView(modifier:inputs:body:), v26, a5, v29);
+  v55[2] = v43;
+  v55[3] = v44;
+  v55[4] = v45;
+  v56 = v46;
+  v55[0] = v41;
+  v55[1] = v42;
+  outlined destroy of _ViewInputs(v55);
+  LODWORD(v49) = v35;
+  if (ShouldRecordTree)
+  {
+    specialized static _ViewDebug.reallyWrap<A>(_:value:inputs:)(v31, &v47);
+    AGSubgraphEndTreeElement();
+  }
+
+  v39[2] = v49;
+  v39[3] = v50;
+  v39[4] = v51;
+  v40 = v52;
+  v39[0] = v47;
+  v39[1] = v48;
+  outlined destroy of _ViewInputs(v39);
+  v44 = v66;
+  v45 = v67;
+  v46 = v68;
+  v41 = v63;
+  v42 = v64;
+  v43 = v65;
+  return outlined destroy of _ViewInputs(&v41);
+}
+
+void type metadata accessor for _ContiguousArrayStorage<Attribute<Transaction>>(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for _ContiguousArrayStorage<Attribute<Transaction>>)
+  {
+    type metadata accessor for _ContiguousArrayStorage<DisplayList.Item>(255, &lazy cache variable for type metadata for Attribute<Transaction>, &type metadata for Transaction, MEMORY[0x1E698D388]);
+    v1 = type metadata accessor for _ContiguousArrayStorage();
+    if (!v2)
+    {
+      atomic_store(v1, &lazy cache variable for type metadata for _ContiguousArrayStorage<Attribute<Transaction>>);
+    }
+  }
+}
+
+void _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA12_GraphInputsVAAE016SavedTransactionF033_A1B10B5AB036C34AB7DD2EE8825FCA93LLV_Tt2g5(uint64_t *a1, uint64_t a2)
+{
+  v4 = *a1;
+  BloomFilter.init(hashValue:)(&type metadata for _GraphInputs.SavedTransactionKey);
+  v5 = _s7SwiftUI5find133_D64CE6C88E7413721C59A34C0C940F2CLL_3key6filters9UnmanagedVyAA12TypedElementACLLCyxGGSgAGyAA12PropertyListV0Q0CGSg_xmAA11BloomFilterVtAA0R3KeyRzlFAA12_GraphInputsVAAE016SavedTransactionV033_A1B10B5AB036C34AB7DD2EE8825FCA93LLV_Tt0B5(v4, v7);
+  if (!v5 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ14AttributeGraph0B0Vy7SwiftUI11TransactionVG_Tt1g5(a2, *(v5 + 72)) & 1) == 0)
+  {
+    v6 = *a1;
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_glassEffectBackdropObserver>(0, &lazy cache variable for type metadata for TypedElement<_GraphInputs.SavedTransactionKey>, &type metadata for _GraphInputs.SavedTransactionKey, &protocol witness table for _GraphInputs.SavedTransactionKey, type metadata accessor for TypedElement);
+    *(swift_allocObject() + 72) = a2;
+
+    *a1 = PropertyList.Element.init(keyType:before:after:)(&type metadata for _GraphInputs.SavedTransactionKey, 0, v6);
+  }
+}
+
+uint64_t closure #1 in static _PushPopTransactionModifier._makeView(modifier:inputs:body:)(uint64_t a1, uint64_t a2, uint64_t a3, double a4, uint64_t a5)
+{
+  v6 = type metadata accessor for _PushPopTransactionModifier(0, a2, a3, a5);
+  v7 = *(v6 + 36);
+  v11[2] = v6;
+  v8 = type metadata accessor for PointerOffset();
+  _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1 + v7, closure #1 in static PointerOffset.of(_:)partial apply, v11, &type metadata for _TransactionModifier, MEMORY[0x1E69E73E0], v8, MEMORY[0x1E69E7410], v9);
+  return v11[5];
+}
+
+uint64_t closure #3 in static _PushPopTransactionModifier._makeView(modifier:inputs:body:)(uint64_t a1, uint64_t a2, void (*a3)(uint64_t, __int128 *))
+{
+  v5 = *(a2 + 48);
+  v6 = *(a2 + 16);
+  v33 = *(a2 + 32);
+  v34 = v5;
+  v7 = *(a2 + 48);
+  v35 = *(a2 + 64);
+  v8 = *(a2 + 16);
+  v32[0] = *a2;
+  v32[1] = v8;
+  v28 = v33;
+  v29 = v7;
+  v30 = *(a2 + 64);
+  v36 = *(a2 + 80);
+  v31 = *(a2 + 80);
+  v26 = v32[0];
+  v27 = v6;
+  outlined init with copy of _ViewInputs(v32, &v20);
+
+  v10 = _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluigAEyXEfU_AA12_GraphInputsVAAE016SavedTransactionF033_A1B10B5AB036C34AB7DD2EE8825FCA93LLV_Tt2g5Tf4n_g(v9);
+  if (!*(v10 + 16))
+  {
+    __break(1u);
+LABEL_6:
+    result = specialized _ArrayBuffer._consumeAndCreateNew()(v3);
+    v3 = result;
+    v12 = *(result + 16);
+    if (v12)
+    {
+      goto LABEL_4;
+    }
+
+    goto LABEL_7;
+  }
+
+  v3 = v10;
+
+  result = swift_isUniquelyReferenced_nonNull_native();
+  if ((result & 1) == 0)
+  {
+    goto LABEL_6;
+  }
+
+  v12 = *(v3 + 16);
+  if (v12)
+  {
+LABEL_4:
+    v13 = v12 - 1;
+    v14 = *(v3 + 4 * v13 + 32);
+    *(v3 + 16) = v13;
+    _s7SwiftUI12PropertyListVy5ValueQzxmcAA0C3KeyRzluisyyXEfU_AA12_GraphInputsVAAE016SavedTransactionF033_A1B10B5AB036C34AB7DD2EE8825FCA93LLV_Tt2g5(&v26, v3);
+
+    HIDWORD(v27) = v14;
+    v16[2] = v28;
+    v16[3] = v29;
+    v16[4] = v30;
+    v17 = v31;
+    v16[0] = v26;
+    v16[1] = v27;
+    v22 = v28;
+    v23 = v29;
+    v24 = v30;
+    v25 = v31;
+    v20 = v26;
+    v21 = v27;
+    v15 = outlined init with copy of _ViewInputs(v16, v18);
+    a3(v15, &v20);
+    v18[2] = v22;
+    v18[3] = v23;
+    v18[4] = v24;
+    v19 = v25;
+    v18[0] = v20;
+    v18[1] = v21;
+    outlined destroy of _ViewInputs(v18);
+    v22 = v28;
+    v23 = v29;
+    v24 = v30;
+    v25 = v31;
+    v20 = v26;
+    v21 = v27;
+    return outlined destroy of _ViewInputs(&v20);
+  }
+
+LABEL_7:
+  __break(1u);
+  return result;
+}
+
+uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ14AttributeGraph0B0Vy7SwiftUI11TransactionVG_Tt1g5(uint64_t result, uint64_t a2)
+{
+  v2 = *(result + 16);
+  if (v2 != *(a2 + 16))
+  {
+    return 0;
+  }
+
+  if (!v2 || result == a2)
+  {
+    return 1;
+  }
+
+  v3 = (result + 32);
+  v4 = (a2 + 32);
+  while (v2)
+  {
+    v6 = *v3++;
+    v5 = v6;
+    v7 = *v4++;
+    result = v5 == v7;
+    if (v5 != v7 || v2-- == 1)
+    {
+      return result;
     }
   }
 
@@ -3252,8243 +5318,4611 @@ uint64_t specialized static DisplayList.== infix(_:_:)(uint64_t result, uint64_t
   return result;
 }
 
-uint64_t _s7SwiftUI29DefaultGeometryEffectProviderV7resolve6effect6origin4size15layoutDirectionAA11DisplayListV0E0Ox_So7CGPointVzSo6CGSizeVAA06LayoutL0OtFZAA06_ScaleE0V_Tt4B5@<X0>(float64x2_t *a1@<X0>, char a2@<W1>, uint64_t a3@<X8>, CGFloat a4@<D0>, CGFloat a5@<D1>, double a6@<D2>, double a7@<D3>, double a8@<D4>, double a9@<D5>)
+void lazy protocol witness table accessor for type Font.ModifierProvider<Font.WeightModifier> and conformance Font.ModifierProvider<A>()
 {
-  _ScaleEffect.effectValue(size:)(v30, a8, a9, a4, a5, a6, a7);
-  if (a2)
+  if (!lazy protocol witness table cache variable for type Font.ModifierProvider<Font.WeightModifier> and conformance Font.ModifierProvider<A>)
   {
-    v45 = 0xBFF0000000000000;
-    v46 = 0;
-    v47 = 0;
-    v48 = 0;
-    v49 = xmmword_18DDAA020;
-    v50 = a8;
-    v51 = xmmword_18DDAB500;
-    ProjectionTransform.concatenating(_:)(v30, v35);
-    v41[0] = 0xBFF0000000000000;
-    memset(&v41[1], 0, 24);
-    v42 = xmmword_18DDAA020;
-    v43 = a8;
-    v44 = xmmword_18DDAB500;
-    v17 = v36;
-    ProjectionTransform.concatenating(_:)(v41, v36);
-    v15 = v38;
-    v16 = v37;
-    v13 = v40;
+    type metadata accessor for AnyDynamicFontModifier<Font.WeightModifier>(255, &lazy cache variable for type metadata for Font.ModifierProvider<Font.WeightModifier>, lazy protocol witness table accessor for type Font.WeightModifier and conformance Font.WeightModifier, &type metadata for Font.WeightModifier, type metadata accessor for Font.ModifierProvider);
+    swift_getWitnessTable(protocol conformance descriptor for Font.ModifierProvider<A>, v2, v0, v1);
+    atomic_store(v3, &lazy protocol witness table cache variable for type Font.ModifierProvider<Font.WeightModifier> and conformance Font.ModifierProvider<A>);
+  }
+}
+
+void *static CustomModifier._makeView(modifier:inputs:body:)@<X0>(int *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X8>)
+{
+  v67 = *MEMORY[0x1E69E9840];
+  v14 = *(a2 + 48);
+  v15 = *(a2 + 16);
+  v57 = *(a2 + 32);
+  v58 = v14;
+  v16 = *(a2 + 48);
+  v59 = *(a2 + 64);
+  v17 = *(a2 + 16);
+  v56[0] = *a2;
+  v56[1] = v17;
+  v52 = v57;
+  v53 = v16;
+  v54 = *(a2 + 64);
+  v18 = *a1;
+  v60 = *(a2 + 80);
+  v55 = *(a2 + 80);
+  v50 = v56[0];
+  v51 = v15;
+  v19 = type metadata accessor for PlaceholderContentView(0, a5, a3, a4);
+  outlined init with copy of _ViewInputs(v56, &v61);
+  _ViewInputs.pushModifierBody<A>(_:body:)(v19, a3, a4, v19);
+  v29 = a5;
+  v30 = a6;
+  v31 = a7;
+  v28[1] = v18;
+  v20 = type metadata accessor for CustomModifier(255, a5, a6, a7);
+  type metadata accessor for _GraphValue(0, v20, v21, v22);
+  _GraphValue.subscript.getter(partial apply for closure #1 in static CustomModifier._makeView(modifier:inputs:body:), a6, v28);
+  v23 = v28[0];
+  v63 = v52;
+  v64 = v53;
+  v65 = v54;
+  v66 = v55;
+  v61 = v50;
+  v62 = v51;
+  ShouldRecordTree = AGSubgraphShouldRecordTree();
+  if (ShouldRecordTree)
+  {
+    AGSubgraphBeginTreeElement();
+  }
+
+  v42 = v63;
+  v43 = v64;
+  v44 = v65;
+  v45 = v66;
+  v40 = v61;
+  v41 = v62;
+  v25 = v63;
+  LODWORD(v42) = 0;
+  LODWORD(v32[0]) = v23;
+  v46[0] = v61;
+  v46[1] = v62;
+  v47 = v66;
+  v46[3] = v64;
+  v46[4] = v65;
+  v46[2] = v42;
+  v36 = v42;
+  v37 = v64;
+  v38 = v65;
+  v39 = v66;
+  v34 = v61;
+  v35 = v62;
+  v26 = *(a7 + 24);
+  outlined init with copy of _ViewInputs(&v61, v48);
+  outlined init with copy of _ViewInputs(v46, v48);
+  v26(v32, &v34, a6, a7);
+  v48[2] = v36;
+  v48[3] = v37;
+  v48[4] = v38;
+  v49 = v39;
+  v48[0] = v34;
+  v48[1] = v35;
+  outlined destroy of _ViewInputs(v48);
+  LODWORD(v42) = v25;
+  if (ShouldRecordTree)
+  {
+    specialized static _ViewDebug.reallyWrap<A>(_:value:inputs:)(a8, &v40);
+    AGSubgraphEndTreeElement();
+  }
+
+  v32[2] = v52;
+  v32[3] = v53;
+  v32[4] = v54;
+  v33 = v55;
+  v32[0] = v50;
+  v32[1] = v51;
+  outlined destroy of _ViewInputs(v32);
+  v36 = v42;
+  v37 = v43;
+  v38 = v44;
+  v39 = v45;
+  v34 = v40;
+  v35 = v41;
+  return outlined destroy of _ViewInputs(&v34);
+}
+
+void *protocol witness for static ViewModifier._makeView(modifier:inputs:body:) in conformance CustomModifier<A, B>@<X0>(int *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t *a5@<X4>, uint64_t a6@<X8>)
+{
+  return static CustomModifier._makeView(modifier:inputs:body:)(a1, a2, a3, a4, a5[2], a5[3], a5[4], a6);
+}
+
+{
+  return static CustomModifier._makeView(modifier:inputs:body:)(a1, a2, a3, a4, a5[2], a5[3], a5[4], a5[5], a6);
+}
+
+{
+  return static CustomModifier._makeView(modifier:inputs:body:)(a1, a2, a3, a4, a5[2], a5[3], a5[4], a5[5], a6);
+}
+
+uint64_t closure #1 in static CustomModifier._makeView(modifier:inputs:body:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v9[2] = type metadata accessor for CustomModifier(0, a2, a3, a4);
+  v9[3] = a3;
+  v6 = type metadata accessor for PointerOffset();
+  _ss17withUnsafePointer2to_q0_xz_q0_SPyxGq_YKXEtq_YKs5ErrorR_Ri_zRi_0_r1_lF(a1, partial apply for closure #1 in static PointerOffset.of(_:), v9, a3, MEMORY[0x1E69E73E0], v6, MEMORY[0x1E69E7410], v7);
+  return v9[5];
+}
+
+uint64_t partial apply for closure #1 in static CustomModifier._makeView(modifier:inputs:body:)(uint64_t a1)
+{
+  return closure #1 in static CustomModifier._makeView(modifier:inputs:body:)(a1, v1[2], v1[3], v1[4]);
+}
+
+{
+  return closure #1 in static CustomModifier._makeView(modifier:inputs:body:)(a1, v1[2], v1[3], v1[4], v1[5]);
+}
+
+{
+  return closure #1 in closure #3 in static PhaseAnimator.StateTransitioningContainer._makeView(view:inputs:)(a1, v1[2], v1[3], v1[4], v1[5], type metadata accessor for CustomModifier, closure #1 in static PointerOffset.of(_:)partial apply);
+}
+
+double _s7SwiftUI22_DynamicPropertyBufferV6fields9container6inputsAcA0cD5CacheV6FieldsV_AA11_GraphValueVyxGAA01_K6InputsVztclufCAA36ContentCaptureProtectionViewModifierV_Tt3B5Tm@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, char a3@<W2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, double *a7@<X8>)
+{
+  v9 = a4;
+  v21 = 0;
+  v22 = 0.0;
+  if (a3)
+  {
+    if (*(a2 + 16))
+    {
+      _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lFSay7SwiftUI20DynamicPropertyCacheV12TaggedFieldsVG_Si3tag_AF01_fG6BufferV5linksts5NeverOTg503_s7d5UI22_fgl5V9addj37_9container6inputs10baseOffsetyAA0cD5h65V0G0V_AA11_GraphValueVyxGAA01_M6InputsVzSitlFSi3tag_AC5linkstAI06iW29VXEfU_AA14LinearGradientV_TG5AF01_yZ0VyAF14LinearGradientVGAF01_Y6InputsVTf1cn_nTm(a2, a4, a5, a6);
+      project #1 <A><A1>(type:) in _DynamicPropertyBuffer.addFields<A>(_:container:inputs:baseOffset:)(a1, &v21, v14, 0, a6, a1);
+    }
+  }
+
+  else
+  {
+    v15 = *(a1 + 16);
+    if (v15)
+    {
+      v16 = (a1 + 48);
+      do
+      {
+        v17 = *(v16 - 1);
+        v18 = *v16;
+        v16 += 4;
+        v20[0] = v9;
+        (*(v17 + 8))(&v21, v20, v18, a5, a6);
+        --v15;
+      }
+
+      while (v15);
+    }
+  }
+
+  outlined consume of DynamicPropertyCache.Fields.Layout(a1, a2, a3 & 1);
+  *a7 = v21;
+  result = v22;
+  a7[1] = v22;
+  return result;
+}
+
+uint64_t State.wrappedValue.setter(uint64_t a1, uint64_t a2)
+{
+  specialized LazyState.wrappedValue.setter(a1, a2);
+  v4 = *(*(*(a2 + 16) - 8) + 8);
+
+  return v4(a1);
+}
+
+uint64_t specialized LazyState.wrappedValue.setter(uint64_t result, uint64_t a2)
+{
+  v3 = *(v2 + *(a2 + 28));
+  if (v3)
+  {
+    return (*(*v3 + 128))(result, 0);
+  }
+
+  return result;
+}
+
+void NamedImage.BitmapKey.loadBitmapInfo(location:idiom:subtype:)(void **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, uint64_t a4@<X2>)
+{
+  v8 = *a1;
+  if (!*a1)
+  {
+    if (one-time initialization token for systemAssetManager != -1)
+    {
+      swift_once();
+    }
+
+    v9 = static Image.Location.systemAssetManager;
+    goto LABEL_9;
+  }
+
+  if (v8 == 1)
+  {
+    if (one-time initialization token for privateSystemAssetManager != -1)
+    {
+      swift_once();
+    }
+
+    v9 = static Image.Location.privateSystemAssetManager;
+LABEL_9:
+    v10 = v9;
+    goto LABEL_13;
+  }
+
+  if (one-time initialization token for sharedCache != -1)
+  {
+    swift_once();
+  }
+
+  v10 = NamedImage.Cache.subscript.getter(v8);
+  if (!v10)
+  {
+    goto LABEL_75;
+  }
+
+LABEL_13:
+  v11 = v10;
+  if (*(v4 + 40))
+  {
+    v12 = 4;
+  }
+
+  else
+  {
+    v12 = 5;
+  }
+
+  if (a2 == 8)
+  {
+    type metadata accessor for NamedImage.VectorInfo?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CatalogAssetMatchType>, &type metadata for CatalogAssetMatchType, MEMORY[0x1E69E6F90]);
+    v10 = swift_allocObject();
+    v13 = v10;
+    *(v10 + 1) = xmmword_18DDAB4C0;
+    *(v10 + 4) = 8;
+    *(v10 + 40) = 0;
+    *(v10 + 6) = 1;
+    *(v10 + 56) = 1;
+  }
+
+  else
+  {
+    v13 = &outlined read-only object #0 of NamedImage.BitmapKey.loadBitmapInfo(location:idiom:subtype:);
+  }
+
+  MEMORY[0x1EEE9AC00](v10);
+  v82[2] = v11;
+  v82[3] = v4;
+  v82[4] = a2;
+  v82[5] = a4;
+  if (v15)
+  {
+    v16 = 256;
+  }
+
+  else
+  {
+    v16 = 0;
+  }
+
+  v82[6] = v12;
+  specialized CUICatalog.findAsset<A, B>(key:matchTypes:assetLookup:)(v16 | v14, v13, partial apply for closure #1 in NamedImage.BitmapKey.loadBitmapInfo(location:idiom:subtype:), v82);
+  v18 = v17;
+
+  if (!v18)
+  {
+LABEL_74:
+
+LABEL_75:
+    *(a3 + 16) = 0u;
+    *(a3 + 32) = 0u;
+    *a3 = 0u;
+    *(a3 + 48) = 3;
+    *(a3 + 56) = 0u;
+    *(a3 + 72) = 0u;
+    *(a3 + 88) = 0;
+    return;
+  }
+
+  if (one-time initialization token for v3 != -1)
+  {
+    swift_once();
+  }
+
+  v19 = static Semantics.v3;
+  if (one-time initialization token for forced != -1)
+  {
+    swift_once();
+  }
+
+  swift_beginAccess();
+  if (byte_1ED53C51C == 1)
+  {
+    if ((dyld_program_sdk_at_least() & 1) == 0)
+    {
+      goto LABEL_52;
+    }
+  }
+
+  else if (static Semantics.forced < v19)
+  {
+LABEL_52:
+    v59 = [v18 image];
+    if (v59)
+    {
+      v60 = v59;
+      if (v8 >= 2)
+      {
+        if (one-time initialization token for sharedCache != -1)
+        {
+          swift_once();
+        }
+
+        v61 = NamedImage.Cache.subscript.getter(v8);
+        if (v61)
+        {
+          if (v62)
+          {
+            v63 = v61;
+            v64 = v60;
+            v65 = MEMORY[0x193ABEC20](0xD000000000000020, 0x800000018DD7CB20);
+            CGImageSetProperty();
+
+            v61 = v65;
+          }
+        }
+      }
+
+      v48 = v60;
+      Width = CGImageGetWidth(v48);
+      Height = CGImageGetHeight(v48);
+
+      v58 = 0;
+      v57 = Height;
+      goto LABEL_61;
+    }
+
+    goto LABEL_74;
+  }
+
+  if (![v18 preservedVectorRepresentation])
+  {
+    goto LABEL_52;
+  }
+
+  *&v85 = MEMORY[0x193ABEC20](*(v4 + 8), *(v4 + 16));
+  v20 = *(v4 + 24);
+  v21 = *(v4 + *(type metadata accessor for NamedImage.BitmapKey(0) + 40));
+  v22 = v12;
+  v23 = v18;
+  v24 = [v23 appearance];
+  isa = Locale._bridgeToObjectiveC()().super.isa;
+  v26 = v85;
+  v86[0] = v22;
+  v27 = [v11 namedVectorImageWithName:v85 scaleFactor:v21 displayGamut:v22 layoutDirection:v24 appearanceName:isa locale:v20];
+
+  if (!v27)
+  {
+
+    v12 = v86[0];
+    goto LABEL_52;
+  }
+
+  *&v85 = v23;
+  v28 = [v27 appearance];
+  if (v28)
+  {
+    v29 = v28;
+    v30 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v32 = v31;
+  }
+
+  else
+  {
+    v30 = 0;
+    v32 = 0;
+  }
+
+  v33 = v85;
+  v34 = [v85 appearance];
+
+  if (!v34)
+  {
+    v12 = v86[0];
+    if (!v32)
+    {
+      goto LABEL_48;
+    }
+
+LABEL_44:
+
+    goto LABEL_52;
+  }
+
+  *&v84 = v30;
+  v35 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v37 = v36;
+
+  v12 = v86[0];
+  if (!v32)
+  {
+    if (!v37)
+    {
+      goto LABEL_48;
+    }
+
+    goto LABEL_50;
+  }
+
+  if (!v37)
+  {
+    goto LABEL_44;
+  }
+
+  if (v84 == v35 && v32 == v37)
+  {
+
+    goto LABEL_48;
+  }
+
+  v38 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+  if ((v38 & 1) == 0)
+  {
+LABEL_50:
+
+    goto LABEL_52;
+  }
+
+LABEL_48:
+  v87 = v8;
+  v39 = v27;
+  outlined copy of Image.Location(v8);
+  v40 = v85;
+  [v85 size];
+  VectorImageLayer.init(image:location:size:)(v39, &v87, v88, v41, v42);
+  v43 = v88[0];
+  if (!v88[0])
+  {
+
+    goto LABEL_52;
+  }
+
+  v45 = v88[2];
+  v44 = v88[3];
+  v46 = v88[1];
+  v47 = v40;
+  v48 = swift_allocObject();
+  v48[2] = v43;
+  v48[3] = v46;
+  v48[4] = v45;
+  v48[5] = v44;
+
+  outlined copy of Image.Location?(v46);
+
+  [v47 size];
+  v50 = v49;
+  v52 = v51;
+  v53 = v47;
+  v12 = v86[0];
+  [v53 scale];
+  v55 = v54;
+
+  outlined consume of VectorImageLayer?(v43, v46, v45, v44);
+  Width = v50 * v55;
+  v57 = v52 * v55;
+  v58 = 3;
+LABEL_61:
+  v67 = [v18 templateRenderingMode];
+  if (v67)
+  {
+    v68 = 2 * (v67 != 1);
+  }
+
+  else
+  {
+    v68 = 1;
+  }
+
+  v69 = specialized Image.Orientation.init(exifValue:)([v18 exifOrientation] & 0xF);
+  if (v69 == 8)
+  {
+    LOBYTE(v70) = 0;
+  }
+
+  else
+  {
+    LOBYTE(v70) = v69;
+  }
+
+  v71 = [v18 layoutDirection];
+  if ([v18 isFlippable] && v71 && v71 != v12)
+  {
+    v70 = 0x607040502030001uLL >> (8 * v70);
+  }
+
+  [v18 scale];
+  v73 = v72;
+  if ([v18 hasSliceInformation])
+  {
+    [v18 edgeInsets];
+    v84 = v74;
+    v85 = v75;
+    v83 = v76;
+    *v86 = v77;
+    v78 = [v18 resizingMode];
+
+    *&v81 = v83;
+    *&v80 = v84;
+    v79 = v78 != 0;
+    *(&v80 + 1) = v85;
+    *(&v81 + 1) = v86[0];
+  }
+
+  else
+  {
+
+    v80 = 0uLL;
+    v79 = 2;
+    v81 = 0uLL;
+  }
+
+  *a3 = v48;
+  *(a3 + 8) = v58;
+  *(a3 + 16) = v73;
+  *(a3 + 24) = v70;
+  *(a3 + 32) = Width;
+  *(a3 + 40) = v57;
+  *(a3 + 48) = v68;
+  *(a3 + 56) = v80;
+  *(a3 + 72) = v81;
+  *(a3 + 88) = v79;
+}
+
+uint64_t sub_18D18E898()
+{
+
+  v1 = *(v0 + 24);
+  if (v1 >= 3)
+  {
+  }
+
+  return swift_deallocObject();
+}
+
+void specialized CUICatalog.findAsset<A, B>(key:matchTypes:assetLookup:)(__int16 a1, uint64_t a2, uint64_t (*a3)(void, void), uint64_t a4)
+{
+  v4 = *(a2 + 16);
+  if (!v4)
+  {
+    return;
+  }
+
+  v7 = a2;
+  v8 = a1;
+  v41 = a2 + 32;
+  v42 = *(a2 + 32);
+  v43 = *(a2 + 40);
+  if (v42 == 8)
+  {
+    v9 = *(a2 + 40);
+  }
+
+  else
+  {
+    v9 = 1;
+  }
+
+  if ((a1 & 0x100) == 0)
+  {
+    if (v9)
+    {
+      _s7SwiftUI4TextV5StyleVSgMaTm_0(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<(ColorScheme?, ColorSchemeContrast)>, type metadata accessor for (ColorScheme?, ColorSchemeContrast), MEMORY[0x1E69E6F90]);
+      v10 = swift_allocObject();
+      *(v10 + 1) = xmmword_18DDAB4C0;
+      v10[32] = v8 & 1;
+      v10[33] = 0;
+      v11 = v10 + 34;
+      v12 = v10 + 35;
+      goto LABEL_11;
+    }
+
+    v10 = &outlined read-only object #1 of specialized CUICatalog.findAsset<A, B>(key:matchTypes:assetLookup:);
+    v13 = qword_1F0044218;
+    if (qword_1F0044218)
+    {
+      goto LABEL_14;
+    }
+
+LABEL_58:
+
+    goto LABEL_59;
+  }
+
+  if (v9)
+  {
+    _s7SwiftUI4TextV5StyleVSgMaTm_0(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<(ColorScheme?, ColorSchemeContrast)>, type metadata accessor for (ColorScheme?, ColorSchemeContrast), MEMORY[0x1E69E6F90]);
+    v10 = swift_allocObject();
+    *(v10 + 1) = xmmword_18DDACA80;
+    v10[32] = v8 & 1;
+    v10[33] = 1;
+    v10[34] = v8 & 1;
+    *(v10 + 35) = 512;
+    v10[37] = 1;
+    v11 = v10 + 38;
+    v12 = v10 + 39;
+LABEL_11:
+    *v11 = 2;
+    *v12 = 0;
+    v13 = *(v10 + 2);
+    if (!v13)
+    {
+      goto LABEL_58;
+    }
+
+    goto LABEL_14;
+  }
+
+  v10 = &outlined read-only object #0 of specialized CUICatalog.findAsset<A, B>(key:matchTypes:assetLookup:);
+  v13 = qword_1F00441F0;
+  if (!qword_1F00441F0)
+  {
+    goto LABEL_58;
+  }
+
+LABEL_14:
+  v38 = v8;
+  v39 = v7;
+  v14 = 0;
+  v15 = v10 + 33;
+  v16 = v42;
+  v17 = v43;
+  v40 = a3;
+  do
+  {
+    if (!v14)
+    {
+      v18 = *(v15 - 1);
+      v19 = 0xD00000000000001BLL;
+      if (!*v15)
+      {
+        v19 = 0x7261657070414955;
+      }
+
+      v20 = 0x800000018DD7CA20;
+      if (!*v15)
+      {
+        v20 = 0xEF796E4165636E61;
+      }
+
+      v21 = 0xD00000000000001CLL;
+      if (!*v15)
+      {
+        v21 = 0xD000000000000010;
+      }
+
+      v22 = "UIAppearanceHighContrastAny";
+      if (!*v15)
+      {
+        v22 = "UIAppearanceHighContrastDark";
+      }
+
+      v23 = v22 | 0x8000000000000000;
+      if (*v15)
+      {
+        v24 = 0xD00000000000001DLL;
+      }
+
+      else
+      {
+        v24 = 0xD000000000000011;
+      }
+
+      v25 = "UIAppearanceDark";
+      if (!*v15)
+      {
+        v25 = "UIAppearanceHighContrastLight";
+      }
+
+      v26 = v25 | 0x8000000000000000;
+      if (v18)
+      {
+        v24 = v21;
+        v27 = v23;
+      }
+
+      else
+      {
+        v27 = v26;
+      }
+
+      if (v18 == 2)
+      {
+        v28 = v19;
+      }
+
+      else
+      {
+        v28 = v24;
+      }
+
+      if (v18 == 2)
+      {
+        v29 = v20;
+      }
+
+      else
+      {
+        v29 = v27;
+      }
+
+      v30 = a3(v28, v29);
+      v14 = v30;
+      if (!v30)
+      {
+LABEL_15:
+
+        goto LABEL_16;
+      }
+
+      if (v17)
+      {
+        if (!v16)
+        {
+          goto LABEL_15;
+        }
+
+        v31 = [v30 appearance];
+        if (v31)
+        {
+          v32 = v31;
+          v33 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+          v35 = v34;
+
+          if (v33 == v28 && v35 == v29)
+          {
+
+            a3 = v40;
+            v16 = v42;
+            v17 = v43;
+          }
+
+          else
+          {
+            v37 = _stringCompareWithSmolCheck(_:_:expecting:)();
+
+            v17 = v43;
+            if ((v37 & 1) == 0)
+            {
+
+              v14 = 0;
+            }
+
+            a3 = v40;
+            v16 = v42;
+          }
+        }
+
+        else
+        {
+
+          v14 = 0;
+          v17 = v43;
+        }
+      }
+
+      else
+      {
+
+        if ([v14 idiom] != v16)
+        {
+
+          v14 = 0;
+        }
+      }
+    }
+
+LABEL_16:
+    v15 += 2;
+    --v13;
+  }
+
+  while (v13);
+
+  v7 = v39;
+  v8 = v38;
+  if (v14)
+  {
+    return;
+  }
+
+LABEL_59:
+
+  specialized CUICatalog.findAsset<A, B>(key:matchTypes:assetLookup:)(v8 & 0x101, v7, v41, 1, (2 * v4) | 1, a3, a4);
+}
+
+id closure #1 in NamedImage.BitmapKey.loadBitmapInfo(location:idiom:subtype:)(uint64_t a1, uint64_t a2, void *a3, double *a4, uint64_t a5, uint64_t a6, uint64_t a7)
+{
+  v12 = MEMORY[0x193ABEC20](*(a4 + 1), *(a4 + 2));
+  v13 = a4[3];
+  v14 = type metadata accessor for NamedImage.BitmapKey(0);
+  v15 = *(a4 + v14[10]);
+  v16 = *(a4 + v14[13]);
+  v17 = *(a4 + v14[14]);
+  v18 = MEMORY[0x193ABEC20](a1, a2);
+  isa = Locale._bridgeToObjectiveC()().super.isa;
+  v20 = [a3 imageWithName:v12 scaleFactor:a5 deviceIdiom:a6 deviceSubtype:v15 displayGamut:a7 layoutDirection:v16 sizeClassHorizontal:v13 sizeClassVertical:v17 appearanceName:v18 locale:isa];
+
+  return v20;
+}
+
+double VectorImageLayer.init(image:location:size:)@<D0>(void *a1@<X0>, void **a2@<X1>, uint64_t a3@<X8>, double a4@<D0>, double a5@<D1>)
+{
+  v9 = *a2;
+  objc_opt_self();
+  v10 = swift_dynamicCastObjCClass();
+  if (!v10)
+  {
+LABEL_13:
+    objc_opt_self();
+    v19 = swift_dynamicCastObjCClass();
+    if (v19)
+    {
+      v20 = v19;
+      v21 = a1;
+      v22 = [v20 svgDocument];
+      if (v22)
+      {
+        v15 = v22;
+        if (v9 >= 2)
+        {
+          if (one-time initialization token for sharedCache != -1)
+          {
+            swift_once();
+          }
+
+          v16 = NamedImage.Cache.subscript.getter(v9);
+          v24 = v23;
+
+          if (!v16 || (v24 & 1) != 0)
+          {
+            goto LABEL_22;
+          }
+
+          v21 = v16;
+        }
+
+        v16 = 0;
+LABEL_22:
+        type metadata accessor for SVGImageContents();
+        goto LABEL_23;
+      }
+    }
+
+    outlined consume of Image.Location(v9);
+
+    outlined consume of Image.Location?(2);
+    result = 0.0;
+    *a3 = 0u;
+    *(a3 + 16) = 0u;
+    return result;
+  }
+
+  v11 = v10;
+  v12 = a1;
+  v13 = [v11 pdfDocument];
+  if (!v13 || (v14 = v13, v15 = CGPDFDocumentGetPage(v13, 1uLL), v14, !v15))
+  {
+
+    goto LABEL_13;
+  }
+
+  if (v9 >= 2)
+  {
+    if (one-time initialization token for sharedCache != -1)
+    {
+      swift_once();
+    }
+
+    v16 = NamedImage.Cache.subscript.getter(v9);
+    v18 = v17;
+
+    if (!v16 || (v18 & 1) != 0)
+    {
+      goto LABEL_11;
+    }
+
+    v12 = v16;
+  }
+
+  v16 = 0;
+LABEL_11:
+  type metadata accessor for PDFImageContents();
+LABEL_23:
+  v25 = swift_allocObject();
+  *(v25 + 48) = v15;
+  *(v25 + 56) = v16;
+  *(v25 + 40) = 0;
+  *(v25 + 24) = a4;
+  *(v25 + 32) = a5;
+  *(v25 + 16) = MEMORY[0x1E69E7CC8];
+  v26 = [a1 name];
+  if (v26)
+  {
+    v27 = v26;
+    v28 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+    v30 = v29;
+  }
+
+  else
+  {
+
+    v28 = 0;
+    v30 = 0;
+  }
+
+  outlined consume of Image.Location?(2);
+  *a3 = v25;
+  *(a3 + 8) = v9;
+  *(a3 + 16) = v28;
+  *(a3 + 24) = v30;
+
+  outlined copy of Image.Location?(v9);
+
+  outlined consume of Image.Location?(v9);
+
+  return result;
+}
+
+uint64_t outlined consume of VectorImageLayer?(uint64_t result, void *a2, uint64_t a3, uint64_t a4)
+{
+  if (result)
+  {
+
+    outlined consume of Image.Location?(a2);
+  }
+
+  return result;
+}
+
+uint64_t specialized Image.Orientation.init(exifValue:)(uint64_t a1)
+{
+  if ((a1 - 1) >= 8)
+  {
+    return 8;
+  }
+
+  else
+  {
+    return (0x407060503020100uLL >> (8 * (a1 - 1)));
+  }
+}
+
+uint64_t outlined init with take of NamedImage._BitmapInfo<NamedImage.WeakOrStrongImageContents>(uint64_t a1, uint64_t a2)
+{
+  type metadata accessor for Any?(0, &lazy cache variable for type metadata for NamedImage._BitmapInfo<NamedImage.WeakOrStrongImageContents>, &type metadata for NamedImage.WeakOrStrongImageContents, type metadata accessor for NamedImage._BitmapInfo);
+  (*(*(v4 - 8) + 32))(a2, a1, v4);
+  return a2;
+}
+
+uint64_t type metadata completion function for NamedImage._BitmapInfo(uint64_t a1)
+{
+  result = swift_checkMetadataState();
+  if (v2 <= 0x3F)
+  {
+    swift_initStructMetadata();
+    return 0;
+  }
+
+  return result;
+}
+
+uint64_t initializeWithTake for NamedImage._BitmapInfo(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v5 = *(*(a3 + 16) - 8) + 32;
+  (*v5)();
+  v6 = *(v5 + 32);
+  v7 = v6 + a1;
+  v8 = v6 + a2;
+  v9 = (v7 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v10 = (v8 + 7) & 0xFFFFFFFFFFFFFFF8;
+  *v9 = *v10;
+  *(v9 + 8) = *(v10 + 8);
+  v11 = (v7 + 23) & 0xFFFFFFFFFFFFFFF8;
+  v12 = (v8 + 23) & 0xFFFFFFFFFFFFFFF8;
+  *v11 = *v12;
+  *(v11 + 16) = *(v12 + 16);
+  v13 = (v7 + 47) & 0xFFFFFFFFFFFFFFF8;
+  v14 = (v8 + 47) & 0xFFFFFFFFFFFFFFF8;
+  v16 = *v14;
+  v15 = *(v14 + 16);
+  *(v13 + 32) = *(v14 + 32);
+  *v13 = v16;
+  *(v13 + 16) = v15;
+  return a1;
+}
+
+uint64_t initializeWithTake for NamedImage.WeakOrStrongImageContents(uint64_t result, uint64_t a2)
+{
+  v2 = *(a2 + 9);
+  if (v2 >= 2)
+  {
+    v2 = *a2 + 2;
+  }
+
+  if (v2 == 1)
+  {
+    v3 = *(a2 + 8);
+    if (v3 >= 3)
+    {
+      v3 = *a2 + 3;
+    }
+
+    if (v3 == 2)
+    {
+      result = swift_weakTakeInit();
+      v4 = 2;
+    }
+
+    else if (v3 == 1)
+    {
+      result = swift_unknownObjectWeakTakeInit();
+      v4 = 1;
+    }
+
+    else
+    {
+      result = swift_unknownObjectWeakTakeInit();
+      v4 = 0;
+    }
+
+    *(result + 8) = v4;
+    *(result + 9) = 1;
+  }
+
+  else
+  {
+    *result = *a2;
+    *(result + 8) = *(a2 + 8);
+  }
+
+  return result;
+}
+
+void type metadata accessor for _DictionaryStorage<NamedImage.BitmapKey, NamedImage._BitmapInfo<NamedImage.WeakOrStrongImageContents>>(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for _DictionaryStorage<NamedImage.BitmapKey, NamedImage._BitmapInfo<NamedImage.WeakOrStrongImageContents>>)
+  {
+    type metadata accessor for NamedImage.BitmapKey(255);
+    type metadata accessor for _ContiguousArrayStorage<Any>(255, &lazy cache variable for type metadata for NamedImage._BitmapInfo<NamedImage.WeakOrStrongImageContents>, &type metadata for NamedImage.WeakOrStrongImageContents, type metadata accessor for NamedImage._BitmapInfo);
+    lazy protocol witness table accessor for type AGWeakAttribute and conformance AGWeakAttribute(&lazy protocol witness table cache variable for type NamedImage.BitmapKey and conformance NamedImage.BitmapKey, type metadata accessor for NamedImage.BitmapKey, protocol conformance descriptor for NamedImage.BitmapKey);
+    v1 = type metadata accessor for _DictionaryStorage();
+    if (!v2)
+    {
+      atomic_store(v1, &lazy cache variable for type metadata for _DictionaryStorage<NamedImage.BitmapKey, NamedImage._BitmapInfo<NamedImage.WeakOrStrongImageContents>>);
+    }
+  }
+}
+
+uint64_t MatchedGeometryScope.__deallocating_deinit()
+{
+  v1 = *(v0 + 72);
+  v4[2] = *(v0 + 56);
+  v4[3] = v1;
+  v4[4] = *(v0 + 88);
+  v5 = *(v0 + 104);
+  v2 = *(v0 + 40);
+  v4[0] = *(v0 + 24);
+  v4[1] = v2;
+  outlined destroy of _ViewInputs(v4);
+
+  return swift_deallocClassInstance();
+}
+
+void lazy protocol witness table accessor for type EmptyImageAccessibilityProvider and conformance EmptyImageAccessibilityProvider()
+{
+  if (!lazy protocol witness table cache variable for type EmptyImageAccessibilityProvider and conformance EmptyImageAccessibilityProvider)
+  {
+    swift_getWitnessTable(protocol conformance descriptor for EmptyImageAccessibilityProvider, &type metadata for EmptyImageAccessibilityProvider, v0, v1);
+    atomic_store(v2, &lazy protocol witness table cache variable for type EmptyImageAccessibilityProvider and conformance EmptyImageAccessibilityProvider);
+  }
+}
+
+void type metadata accessor for _DictionaryStorage<RBImageRendererProperty, Any>(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for _DictionaryStorage<RBImageRendererProperty, Any>)
+  {
+    type metadata accessor for RBImageRendererProperty(255);
+    lazy protocol witness table accessor for type AGWeakAttribute and conformance AGWeakAttribute(&lazy protocol witness table cache variable for type RBImageRendererProperty and conformance RBImageRendererProperty, type metadata accessor for RBImageRendererProperty, protocol conformance descriptor for RBImageRendererProperty);
+    v1 = type metadata accessor for _DictionaryStorage();
+    if (!v2)
+    {
+      atomic_store(v1, &lazy cache variable for type metadata for _DictionaryStorage<RBImageRendererProperty, Any>);
+    }
+  }
+}
+
+uint64_t DisplayList.GraphicsRenderer.__deallocating_deinit()
+{
+
+  return swift_deallocClassInstance();
+}
+
+double static Animation.default.getter()
+{
+  if (one-time initialization token for default != -1)
+  {
+    swift_once();
+  }
+
+  return result;
+}
+
+void type metadata accessor for TrackedValue<EnvironmentPropertyKey<EnvironmentValues.AssetCatalogConfigurationKey>>(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for TrackedValue<EnvironmentPropertyKey<EnvironmentValues.AssetCatalogConfigurationKey>>)
+  {
+    type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_glassEffectBackdropObserver>(255, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.AssetCatalogConfigurationKey>, &type metadata for EnvironmentValues.AssetCatalogConfigurationKey, &protocol witness table for EnvironmentValues.AssetCatalogConfigurationKey, type metadata accessor for EnvironmentPropertyKey);
+    v3 = v2;
+    lazy protocol witness table accessor for type EnvironmentPropertyKey<EnvironmentValues.AssetCatalogConfigurationKey> and conformance EnvironmentPropertyKey<A>();
+    v6 = type metadata accessor for TrackedValue(a1, v3, v4, v5);
+    if (!v7)
+    {
+      atomic_store(v6, &lazy cache variable for type metadata for TrackedValue<EnvironmentPropertyKey<EnvironmentValues.AssetCatalogConfigurationKey>>);
+    }
+  }
+}
+
+void NamedImage.Cache.subscript.getter(uint64_t a1@<X0>, void **a2@<X1>, uint64_t a3@<X8>)
+{
+  v4 = v3;
+  v8 = type metadata accessor for NamedImage.BitmapKey(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = &v30 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = *a2;
+  os_unfair_lock_lock(v4 + 6);
+  _s7SwiftUI10NamedImageO5CacheCyAC11_BitmapInfoVy_AA08GraphicsD0V8ContentsOGSgAC0F3KeyV_AA0D0V8LocationOtcigAMSgAE4Data33_8E7DCD4CEB1ACDE07B249BFF4CBC75C0LLVzYuYTXEfU_(&v4[8], a1, v64);
+  os_unfair_lock_unlock(v4 + 6);
+  v12 = v65;
+  if (v65 == 4)
+  {
+    v36 = v11;
+    NamedImage.BitmapKey.loadBitmapInfo(location:idiom:subtype:)(&v36, *(a1 + *(v8 + 44)), &v48, *(a1 + *(v8 + 48)));
+    v13 = v48;
+    v14 = v49;
+    v63[0] = *v50;
+    *(v63 + 3) = *&v50[3];
+    v15 = v51;
+    v16 = v52;
+    v62[0] = *v53;
+    *(v62 + 3) = *&v53[3];
+    v18 = v54;
+    v17 = v55;
+    v20 = v56;
+    v19 = v57;
+    v22 = v58;
+    v21 = v59;
+    v23 = v60;
+    v24 = v61;
+    if (v56 == 3)
+    {
+      *a3 = v48;
+      *(a3 + 8) = v14;
+      *(a3 + 9) = v63[0];
+      *(a3 + 12) = *(v63 + 3);
+      *(a3 + 16) = v15;
+      *(a3 + 24) = v16;
+      *(a3 + 25) = v62[0];
+      *(a3 + 28) = *(v62 + 3);
+      *(a3 + 32) = v18;
+      *(a3 + 40) = v17;
+      *(a3 + 48) = v20;
+      *(a3 + 56) = v19;
+      *(a3 + 64) = v22;
+      *(a3 + 72) = v21;
+      *(a3 + 80) = v23;
+      *(a3 + 88) = v24;
+      return;
+    }
+
+    v32 = v58;
+    v33 = v60;
+    v35 = v59;
+    v34 = v61;
+    v28 = v58;
+    v31 = v49;
+    os_unfair_lock_lock(v4 + 6);
+    outlined init with copy of NamedImage.Key(a1, v10, type metadata accessor for NamedImage.BitmapKey);
+    v36 = v13;
+    v37 = v31;
+    v38 = v15;
+    v39 = v16;
+    v40 = v18;
+    v41 = v17;
+    v42 = v20;
+    v43 = v19;
+    v44 = v28;
+    v45 = v35;
+    v46 = v33;
+    v47 = v34;
+    LOBYTE(v28) = v31;
+    outlined copy of GraphicsImage.Contents(v13, v31);
+    specialized Dictionary.subscript.setter(&v36, v10);
+    os_unfair_lock_unlock(v4 + 6);
+    *a3 = v13;
+    *(a3 + 8) = v28;
+    *(a3 + 9) = *v50;
+    *(a3 + 12) = *&v50[3];
+    *(a3 + 16) = v15;
+    *(a3 + 24) = v16;
+    *(a3 + 25) = *v53;
+    *(a3 + 28) = *&v53[3];
+    *(a3 + 32) = v18;
+    *(a3 + 40) = v17;
+    *(a3 + 48) = v20;
+    *(a3 + 56) = v19;
+    v29 = v35;
+    *(a3 + 64) = v32;
+    *(a3 + 72) = v29;
+    *(a3 + 80) = v33;
+    v27 = v34;
+  }
+
+  else
+  {
+    v25 = v64[1];
+    *a3 = v64[0];
+    *(a3 + 16) = v25;
+    *(a3 + 32) = v64[2];
+    *(a3 + 48) = v12;
+    v26 = v67;
+    *(a3 + 56) = v66;
+    *(a3 + 72) = v26;
+    v27 = v68;
+  }
+
+  *(a3 + 88) = v27;
+}
+
+void ColorProvider._apply(color:to:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  if (*(a2 + 24) <= 2u)
+  {
+    v5 = *a2;
+    if (*(a2 + 24))
+    {
+      if (*(a2 + 24) == 1)
+      {
+        v6 = *(a2 + 8);
+        if (v6 == *(a2 + 16))
+        {
+          return;
+        }
+
+        v7 = *(a2 + 56);
+        v36 = *(a2 + 48);
+        v37 = v7;
+        v8 = *(a4 + 40);
+
+        v8(&v44, &v36, a3, a4);
+
+        v12 = v45;
+        v13 = v46;
+        v14 = v47;
+        v15 = *(a2 + 56);
+        v36 = *(a2 + 48);
+        v37 = v15;
+        v16 = *(*a1 + 168);
+
+        v17 = v16(v6, &v36);
+
+        v36 = v44;
+        LODWORD(v37) = v12;
+        *(&v37 + 1) = v13 * v17;
+        v38 = v14;
+        v39 = 0;
+        v40 = 1065353216;
+        v41 = 0;
+        v42 = -1;
+        v18 = MEMORY[0x1E69E7CC0];
+        v43 = MEMORY[0x1E69E7CC0];
+        v35 = v5;
+        if (*(a2 + 40) == 1)
+        {
+          v18 = *(a2 + 32);
+
+          outlined consume of _ShapeStyle_Shape.Result(v19, 1u);
+          *(a2 + 32) = 0;
+          *(a2 + 40) = 5;
+        }
+
+        _ShapeStyle_Pack.subscript.setter(&v36, &v35, v6);
+        outlined consume of _ShapeStyle_Shape.Result(*(a2 + 32), *(a2 + 40));
+        *(a2 + 32) = v18;
+        v20 = 1;
+      }
+
+      else
+      {
+        v28 = a1;
+        if (v5 >= 1)
+        {
+          v29 = *(a2 + 56);
+          v36 = *(a2 + 48);
+          v37 = v29;
+          v30 = *(*a1 + 168);
+
+          v32 = v30(v5, &v36);
+
+          type metadata accessor for ColorBox<Color.OpacityColor>(0, &lazy cache variable for type metadata for ColorBox<Color.OpacityColor>, lazy protocol witness table accessor for type Color.OpacityColor and conformance Color.OpacityColor, &type metadata for Color.OpacityColor);
+          v28 = swift_allocObject();
+          *(v28 + 16) = a1;
+          *(v28 + 24) = v32;
+        }
+
+        v33 = *(a2 + 32);
+        v34 = *(a2 + 40);
+
+        outlined consume of _ShapeStyle_Shape.Result(v33, v34);
+        *(a2 + 32) = v28;
+        v20 = 3;
+      }
+
+      *(a2 + 40) = v20;
+    }
+
+    else
+    {
+      v21 = a1;
+      if (v5 >= 1)
+      {
+        v22 = *(a2 + 56);
+        v36 = *(a2 + 48);
+        v37 = v22;
+        v23 = *(*a1 + 168);
+
+        v25 = v23(v5, &v36);
+
+        type metadata accessor for ColorBox<Color.OpacityColor>(0, &lazy cache variable for type metadata for ColorBox<Color.OpacityColor>, lazy protocol witness table accessor for type Color.OpacityColor and conformance Color.OpacityColor, &type metadata for Color.OpacityColor);
+        v21 = swift_allocObject();
+        *(v21 + 16) = a1;
+        *(v21 + 24) = v25;
+      }
+
+      v26 = *(a2 + 32);
+      v27 = *(a2 + 40);
+
+      outlined consume of _ShapeStyle_Shape.Result(v26, v27);
+      *(a2 + 32) = v21;
+      *(a2 + 40) = 0;
+    }
+  }
+}
+
+void NamedImage.BitmapKey.init(name:location:in:)(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, void *a4@<X3>, uint64_t a5@<X8>)
+{
+  v8 = *a3;
+  v9 = *a4;
+  v10 = a4[1];
+  v39 = *a4;
+  v40 = v10;
+
+  EnvironmentValues.colorScheme.getter(&v38);
+  v11 = v38;
+  if (v10)
+  {
+
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA019ColorSchemeContrastI033_0E72AB1FBE33AED1E73FF06F3DA3A071LLVG_Tt1g5(v9, &v39);
+
+    v12 = v39;
+    *a5 = v11;
+    *(a5 + 1) = v12;
+    *(a5 + 8) = a1;
+    *(a5 + 16) = a2;
+
+    v13 = _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA012DisplayScaleI033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt1g5(v9);
+
+    *(a5 + 24) = v13;
+    *(a5 + 32) = v8;
+
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA0J6ValuesV015LayoutDirectionI0VG_Tt1g5(v9, &v39);
+
     v14 = v39;
   }
 
   else
   {
-    v13 = v34;
-    v14 = v33;
-    v16 = v31;
-    v15 = v32;
-    v17 = v30;
-  }
-
-  v18 = *v17;
-  v28 = v13;
-  v29 = v14;
-  v26 = v15;
-  v27 = v16;
-  v25 = *v17;
-  if (v16.f64[1] != 0.0 || v14.f64[0] != 0.0 || v13.f64[1] != 1.0)
-  {
-    v22 = vmulq_f64(vextq_s8(v13, v14, 8uLL), vextq_s8(v15, v13, 8uLL));
-    v23 = vmulq_n_f64(v13, v15.f64[0]);
-    v24 = vmulq_f64(v16, vsubq_f64(vextq_s8(v23, v23, 8uLL), vmulq_f64(v14, vzip2q_s64(v14, v15))));
-    if (v24.f64[1] + v18 * vsubq_f64(v22, vdupq_laneq_s64(v22, 1)).f64[0] - v24.f64[0] != 0.0)
+    v15 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA019ColorSchemeContrastS033_0E72AB1FBE33AED1E73FF06F3DA3A071LLVG_Tt0g5(v9);
+    if (v15)
     {
-      result = swift_allocObject();
-      *(result + 16) = v25;
-      *(result + 24) = v27;
-      *(result + 40) = v26;
-      *(result + 56) = v29;
-      *(result + 72) = v28;
-      v21 = 9;
-      *(result + 88) = 1;
-      goto LABEL_14;
+      v16 = *(v15 + 72);
     }
 
-    goto LABEL_11;
+    else
+    {
+      v16 = 0;
+    }
+
+    *a5 = v11;
+    *(a5 + 1) = v16;
+    *(a5 + 8) = a1;
+    *(a5 + 16) = a2;
+    v17 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA012DisplayScaleS033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt0g5(v9);
+    if (v17)
+    {
+      v18 = v17[9];
+    }
+
+    else
+    {
+      v18 = 1.0;
+    }
+
+    *(a5 + 24) = v18;
+    *(a5 + 32) = v8;
+    v19 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA0T6ValuesV015LayoutDirectionS0VG_Tt0g5(v9);
+    if (v19)
+    {
+      v14 = *(v19 + 72);
+    }
+
+    else
+    {
+      v14 = 0;
+    }
   }
 
-  if (vmuld_lane_f64(v18, v15, 1) - vmuld_n_f64(v16.f64[0], v15.f64[0]) == 0.0)
+  *(a5 + 40) = v14;
+  v20 = type metadata accessor for NamedImage.BitmapKey(0);
+  v21 = v20[9];
+  if (v10)
   {
-LABEL_11:
-    _StringGuts.grow(_:)(28);
-    MEMORY[0x193ABEDD0](0xD00000000000001ALL, 0x800000018DD78650);
-    _print_unlocked<A, B>(_:_:)();
-    specialized static Log.externalWarning(_:)(0, 0xE000000000000000);
 
-    result = 0;
-LABEL_12:
-    v21 = 20;
-    goto LABEL_14;
-  }
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA06LocaleI033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt1g5(v9, a5 + v21);
 
-  v19.f64[0] = v16.f64[0];
-  v19.f64[1] = *v17;
-  if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(v19, xmmword_18DDAB500), vceqq_f64(v15, xmmword_18DDAB500))))) & 1) == 0)
-  {
-    result = 0;
-    *a1 = vaddq_f64(vextq_s8(v14, v13, 8uLL), *a1);
-    goto LABEL_12;
-  }
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA012DisplayGamutI033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt1g5(v9, &v39);
 
-  result = swift_allocObject();
-  *(result + 16) = v25;
-  *(result + 24) = v27.f64[0];
-  *(result + 32) = v26;
-  *(result + 48) = vextq_s8(v29, v28, 8uLL);
-  *(result + 88) = 0;
-  v21 = 9;
-LABEL_14:
-  *a3 = result;
-  *(a3 + 8) = 0;
-  *(a3 + 12) = v21;
-  return result;
-}
+    *(a5 + v20[10]) = v39;
 
-uint64_t static AnimatablePair.== infix(_:_:)()
-{
-  if (dispatch thunk of static Equatable.== infix(_:_:)())
-  {
-    type metadata accessor for AnimatablePair();
-    v0 = dispatch thunk of static Equatable.== infix(_:_:)();
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA0J6ValuesVAAE02__I16__interfaceIdiom33_39057DDA72E946BD17E1F42CCA55F7F6LLVG_Tt1g5(v9, &v39);
+
+    v22 = v39;
   }
 
   else
   {
-    v0 = 0;
+    v23 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA06LocaleS033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt0g5(v9);
+    if (v23)
+    {
+      v24 = *(*v23 + 248);
+      v25 = v23;
+      v26 = type metadata accessor for Locale();
+      (*(*(v26 - 8) + 16))(a5 + v21, &v25[v24], v26);
+    }
+
+    else
+    {
+      if (one-time initialization token for defaultValue != -1)
+      {
+        swift_once();
+      }
+
+      v27 = type metadata accessor for Locale();
+      v28 = __swift_project_value_buffer(v27, static LocaleKey.defaultValue);
+      (*(*(v27 - 8) + 16))(a5 + v21, v28, v27);
+    }
+
+    v29 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA012DisplayGamutS033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt0g5(v9);
+    if (v29)
+    {
+      v30 = *(v29 + 72);
+    }
+
+    else
+    {
+      v30 = 0;
+    }
+
+    *(a5 + v20[10]) = v30;
+    v31 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA0T6ValuesVAAE02__S16__interfaceIdiom33_39057DDA72E946BD17E1F42CCA55F7F6LLVG_Tt0g5(v9);
+    if (v31)
+    {
+      v22 = *(v31 + 72);
+    }
+
+    else
+    {
+      v22 = 6;
+    }
   }
 
-  return v0 & 1;
+  LOBYTE(v39) = v22;
+  *(a5 + v20[11]) = ViewGraphHost.Idiom.cuiDeviceClass.getter();
+  v39 = v9;
+  v40 = v10;
+  *(a5 + v20[12]) = EnvironmentValues.cuiAssetSubtype.getter();
+  if (v10)
+  {
+
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA032HorizontalUserInterfaceSizeClassI033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt1g5(v9, &v39);
+
+    if (v39 == 2)
+    {
+      v32 = 0;
+    }
+
+    else
+    {
+      v32 = (v39 & 1) + 1;
+    }
+
+    *(a5 + v20[13]) = v32;
+
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA030VerticalUserInterfaceSizeClassI033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt1g5(v9, &v39);
+
+    v33 = v39;
+  }
+
+  else
+  {
+    v34 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA032HorizontalUserInterfaceSizeClassS033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt0g5(v9);
+    if (v34 && *(v34 + 72) != 2)
+    {
+      v35 = (v34[9] & 1) + 1;
+    }
+
+    else
+    {
+      v35 = 0;
+    }
+
+    *(a5 + v20[13]) = v35;
+    v36 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA030VerticalUserInterfaceSizeClassS033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt0g5(v9);
+    if (v36)
+    {
+      v33 = *(v36 + 72);
+    }
+
+    else
+    {
+      v33 = 2;
+    }
+  }
+
+  if (v33 == 2)
+  {
+    v37 = 0;
+  }
+
+  else
+  {
+    v37 = (v33 & 1) + 1;
+  }
+
+  *(a5 + v20[14]) = v37;
 }
 
-uint64_t AnchorValueBox.__deallocating_deinit()
+uint64_t EnvironmentValues.cuiAssetSubtype.getter()
 {
-  AnchorValueBox.deinit();
+  v1 = *v0;
+  v2 = *(v0 + 8);
+  if (v2)
+  {
+
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA0J6ValuesVAAE02__I16__interfaceIdiom33_39057DDA72E946BD17E1F42CCA55F7F6LLVG_Tt1g5(v1, &v18);
+
+    v3 = v18;
+
+    _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA0J6ValuesVAAE025AssetCatalogConfigurationI033_F748B30B59970FC73194935C526E3031LLVG_Tt1g5(v1, &v18);
+
+    if ((v21 & 1) == 0)
+    {
+      goto LABEL_12;
+    }
+
+LABEL_9:
+    v9 = 0;
+    v10 = 0.0;
+    v11 = 100.0;
+    v12 = 0.0;
+    v13 = 100.0;
+    if (!v2)
+    {
+      goto LABEL_16;
+    }
+
+    goto LABEL_10;
+  }
+
+  v4 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA0T6ValuesVAAE02__S16__interfaceIdiom33_39057DDA72E946BD17E1F42CCA55F7F6LLVG_Tt0g5(v1);
+  if (v4)
+  {
+    v3 = *(v4 + 72);
+  }
+
+  else
+  {
+    v3 = 6;
+  }
+
+  v5 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA0T6ValuesVAAE025AssetCatalogConfigurationS033_F748B30B59970FC73194935C526E3031LLVG_Tt0g5(v1);
+  if (!v5)
+  {
+    goto LABEL_9;
+  }
+
+  v6 = *(v5 + 13);
+  v7 = *(v5 + 120);
+  v8 = *(v5 + 11);
+  v18 = *(v5 + 9);
+  v19 = v8;
+  v20 = v6;
+  if (v7)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_12:
+  v13 = *(&v19 + 1);
+  v12 = *(&v18 + 1);
+  v11 = *&v19;
+  v10 = *&v18;
+  if (v20 == 163.0)
+  {
+    v9 = 163;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  if (!v2)
+  {
+LABEL_16:
+    v15 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA012DisplayScaleS033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt0g5(v1);
+    if (v15)
+    {
+      v14 = v15[9];
+      if (v3 > 7)
+      {
+        goto LABEL_18;
+      }
+    }
+
+    else
+    {
+      v14 = 1.0;
+      if (v3 > 7)
+      {
+        goto LABEL_18;
+      }
+    }
+
+    goto LABEL_27;
+  }
+
+LABEL_10:
+
+  v14 = _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA012DisplayScaleI033_1B17C64D9E901A0054B49B69A4A2439DLLVG_Tt1g5(v1);
+
+  if (v3 > 7)
+  {
+LABEL_18:
+    if (v3 != 8)
+    {
+      if (v3 == 10)
+      {
+        return 320;
+      }
+
+      if (v3 == 11)
+      {
+        return 3648;
+      }
+
+      return 0;
+    }
+
+    v22.origin.x = v10;
+    v22.origin.y = v12;
+    v22.size.width = v11;
+    v22.size.height = v13;
+    if (v14 * CGRectGetHeight(v22) >= 1080.0)
+    {
+      return 0;
+    }
+
+    else
+    {
+      return 720;
+    }
+  }
+
+LABEL_27:
+  if (v3 != 6)
+  {
+    if (v3 == 7)
+    {
+      return v9;
+    }
+
+    return 0;
+  }
+
+  v23.origin.x = v10;
+  v23.origin.y = v12;
+  v23.size.width = v11;
+  v23.size.height = v13;
+  Height = CGRectGetHeight(v23);
+  if (Height > 667.0)
+  {
+    return 570;
+  }
+
+  if (Height > 568.0)
+  {
+    return 569;
+  }
+
+  if (Height <= 480.0)
+  {
+    return 0;
+  }
+
+  return 568;
+}
+
+void _s7SwiftUI10NamedImageO5CacheCyAC11_BitmapInfoVy_AA08GraphicsD0V8ContentsOGSgAC0F3KeyV_AA0D0V8LocationOtcigAMSgAE4Data33_8E7DCD4CEB1ACDE07B249BFF4CBC75C0LLVzYuYTXEfU_(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v6 = type metadata accessor for NamedImage.BitmapKey(0);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v8 = &v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = *(a1 + 8);
+  v10 = (a1 + 8);
+  v9 = v11;
+  if (!*(v11 + 16) || (v12 = specialized __RawDictionaryStorage.find<A>(_:)(a2), (v13 & 1) == 0))
+  {
+    *(a3 + 16) = 0u;
+    *(a3 + 32) = 0u;
+    *a3 = 0u;
+    *(a3 + 48) = 4;
+    *(a3 + 56) = 0u;
+    *(a3 + 72) = 0u;
+    *(a3 + 88) = 0;
+    return;
+  }
+
+  v14 = v12;
+  v15 = *(v9 + 36);
+  specialized Dictionary.Values.subscript.getter(v12, v15, v9, &v49);
+  outlined init with copy of NamedImage.WeakOrStrongImageContents(&v49, &v46);
+  if ((v48 & 1) == 0)
+  {
+    v33 = v46;
+    v24 = v47;
+    outlined init with copy of NamedImage._BitmapInfo<NamedImage.WeakOrStrongImageContents>(&v49, v34, &lazy cache variable for type metadata for NamedImage._BitmapInfo<NamedImage.WeakOrStrongImageContents>, &type metadata for NamedImage.WeakOrStrongImageContents, type metadata accessor for NamedImage._BitmapInfo, type metadata accessor for NamedImage.VectorInfo?);
+    v25 = v35;
+    v26 = v36;
+    v27 = v37;
+    v28 = v38;
+    v29 = v39;
+    v30 = v42;
+    v32 = v40;
+    v31 = v41;
+    _sypSgWOhTm_9(v34, &lazy cache variable for type metadata for NamedImage._BitmapInfo<NamedImage.WeakOrStrongImageContents>, &type metadata for NamedImage.WeakOrStrongImageContents, type metadata accessor for NamedImage._BitmapInfo);
+    *a3 = v33;
+    *(a3 + 8) = v24;
+    *(a3 + 16) = v25;
+    *(a3 + 24) = v26;
+    *(a3 + 32) = v27;
+    *(a3 + 40) = v28;
+    *(a3 + 48) = v29;
+    *(a3 + 72) = v31;
+    *(a3 + 56) = v32;
+    *(a3 + 88) = v30;
+    goto LABEL_15;
+  }
+
+  outlined init with take of GraphicsImage.WeakContents(&v46, v45);
+  outlined init with copy of GraphicsImage.WeakContents(v45, v34);
+  GraphicsImage.Contents.init(_:)(v34, &v43);
+  v16 = v44;
+  if (v44 == 255)
+  {
+    specialized Dictionary._Variant.remove(at:)(v8, v34, v14, v15);
+    _sypSgWOhTm_9(v34, &lazy cache variable for type metadata for NamedImage._BitmapInfo<NamedImage.WeakOrStrongImageContents>, &type metadata for NamedImage.WeakOrStrongImageContents, type metadata accessor for NamedImage._BitmapInfo);
+    outlined destroy of NamedImage.BitmapKey(v8, type metadata accessor for NamedImage.BitmapKey);
+    outlined destroy of GraphicsImage.WeakContents(v45);
+    *(a3 + 16) = 0u;
+    *(a3 + 32) = 0u;
+    *a3 = 0u;
+    *(a3 + 48) = 4;
+    *(a3 + 56) = 0u;
+    *(a3 + 72) = 0u;
+    *(a3 + 88) = 0;
+    goto LABEL_15;
+  }
+
+  v17 = v43;
+  outlined destroy of NamedImage.WeakOrStrongImageContents(&v49);
+  v49 = v17;
+  v50 = v16;
+  v51 = 0;
+  outlined copy of GraphicsImage.Contents?(v17, v16);
+  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
+  {
+    v34[0] = v9;
+    specialized _NativeDictionary.copy()();
+    v9 = v34[0];
+  }
+
+  if (v14 < 0 || v14 >= 1 << *(v9 + 32))
+  {
+    __break(1u);
+    goto LABEL_17;
+  }
+
+  if (((*(v9 + 8 * (v14 >> 6) + 64) >> v14) & 1) == 0)
+  {
+LABEL_17:
+    __break(1u);
+    goto LABEL_18;
+  }
+
+  v33 = v17;
+  if (v15 == *(v9 + 36))
+  {
+    outlined assign with copy of NamedImage._BitmapInfo<NamedImage.WeakOrStrongImageContents>(&v49, *(v9 + 56) + 96 * v14);
+    outlined destroy of GraphicsImage.WeakContents(v45);
+    *v10 = v9;
+    outlined init with copy of NamedImage._BitmapInfo<NamedImage.WeakOrStrongImageContents>(&v49, v34, &lazy cache variable for type metadata for NamedImage._BitmapInfo<NamedImage.WeakOrStrongImageContents>, &type metadata for NamedImage.WeakOrStrongImageContents, type metadata accessor for NamedImage._BitmapInfo, type metadata accessor for NamedImage.VectorInfo?);
+    v18 = v35;
+    v19 = v36;
+    v20 = v37;
+    v21 = v38;
+    v22 = v39;
+    v23 = v42;
+    v32 = v40;
+    v31 = v41;
+    _sypSgWOhTm_9(v34, &lazy cache variable for type metadata for NamedImage._BitmapInfo<NamedImage.WeakOrStrongImageContents>, &type metadata for NamedImage.WeakOrStrongImageContents, type metadata accessor for NamedImage._BitmapInfo);
+    *a3 = v33;
+    *(a3 + 8) = v16;
+    *(a3 + 16) = v18;
+    *(a3 + 24) = v19;
+    *(a3 + 32) = v20;
+    *(a3 + 40) = v21;
+    *(a3 + 48) = v22;
+    *(a3 + 72) = v31;
+    *(a3 + 56) = v32;
+    *(a3 + 88) = v23;
+LABEL_15:
+    _sypSgWOhTm_9(&v49, &lazy cache variable for type metadata for NamedImage._BitmapInfo<NamedImage.WeakOrStrongImageContents>, &type metadata for NamedImage.WeakOrStrongImageContents, type metadata accessor for NamedImage._BitmapInfo);
+    return;
+  }
+
+LABEL_18:
+  __break(1u);
+}
+
+uint64_t initializeWithCopy for NamedImage.BitmapKey(uint64_t a1, uint64_t a2, int *a3)
+{
+  *a1 = *a2;
+  v6 = *(a2 + 16);
+  *(a1 + 8) = *(a2 + 8);
+  *(a1 + 16) = v6;
+  v7 = *(a2 + 32);
+  *(a1 + 24) = *(a2 + 24);
+
+  if (v7 >= 2)
+  {
+    v8 = v7;
+  }
+
+  *(a1 + 32) = v7;
+  *(a1 + 40) = *(a2 + 40);
+  v9 = a3[9];
+  v10 = type metadata accessor for Locale();
+  (*(*(v10 - 8) + 16))(a1 + v9, a2 + v9, v10);
+  v11 = a3[11];
+  *(a1 + a3[10]) = *(a2 + a3[10]);
+  *(a1 + v11) = *(a2 + v11);
+  v12 = a3[13];
+  *(a1 + a3[12]) = *(a2 + a3[12]);
+  *(a1 + v12) = *(a2 + v12);
+  *(a1 + a3[14]) = *(a2 + a3[14]);
+  return a1;
+}
+
+void NamedImage.BitmapKey.hash(into:)(uint64_t a1)
+{
+  v2 = v1;
+  v3 = type metadata accessor for URL();
+  v4 = *(v3 - 8);
+  v5 = MEMORY[0x1EEE9AC00](v3);
+  v7 = &v14 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = *(v1 + 1);
+  MEMORY[0x193AC11A0](*v1, v5);
+  MEMORY[0x193AC11A0](v8);
+  String.hash(into:)();
+  v9 = v1[3];
+  if (v9 == 0.0)
+  {
+    v9 = 0.0;
+  }
+
+  MEMORY[0x193AC11E0](*&v9);
+  v10 = *(v1 + 4);
+  if (v10)
+  {
+    if (v10 != 1)
+    {
+      MEMORY[0x193AC11A0](0);
+      v12 = [v10 bundleURL];
+      static URL._unconditionallyBridgeFromObjectiveC(_:)();
+
+      URL.hash(into:)();
+      (*(v4 + 8))(v7, v3);
+      goto LABEL_9;
+    }
+
+    v11 = 2;
+  }
+
+  else
+  {
+    v11 = 1;
+  }
+
+  MEMORY[0x193AC11A0](v11);
+LABEL_9:
+  MEMORY[0x193AC11A0](*(v2 + 40));
+  v13 = type metadata accessor for NamedImage.BitmapKey(0);
+  type metadata accessor for Locale();
+  lazy protocol witness table accessor for type Locale and conformance Locale(&lazy protocol witness table cache variable for type Locale and conformance Locale, MEMORY[0x1E6969770], MEMORY[0x1E6969780]);
+  dispatch thunk of Hashable.hash(into:)();
+  MEMORY[0x193AC11A0](*(v2 + v13[10]));
+  MEMORY[0x193AC11A0](*(v2 + v13[11]));
+  MEMORY[0x193AC11A0](*(v2 + v13[12]));
+  Hasher._combine(_:)(*(v2 + v13[13]));
+  Hasher._combine(_:)(*(v2 + v13[14]));
+}
+
+unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(unsigned __int8 *a1, uint64_t a2)
+{
+  v27 = type metadata accessor for NamedImage.BitmapKey(0);
+  MEMORY[0x1EEE9AC00](v27);
+  v7 = &v22 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = -1 << *(v2 + 32);
+  v9 = a2 & ~v8;
+  if ((*(v2 + 64 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9))
+  {
+    v10 = ~v8;
+    v11 = *(v5 + 72);
+    do
+    {
+      outlined init with copy of NamedImage.VectorKey(*(v2 + 48) + v11 * v9, v7, type metadata accessor for NamedImage.BitmapKey);
+      if (*v7 != *a1 || ((v7[1] ^ a1[1]) & 1) != 0)
+      {
+        goto LABEL_5;
+      }
+
+      v12 = *(v7 + 1) == *(a1 + 1) && *(v7 + 2) == *(a1 + 2);
+      if (!v12 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || *(v7 + 3) != *(a1 + 3))
+      {
+        goto LABEL_5;
+      }
+
+      v13 = *(v7 + 4);
+      v14 = *(a1 + 4);
+      if (v13)
+      {
+        if (v13 == 1)
+        {
+          if (v14 != 1)
+          {
+            goto LABEL_4;
+          }
+
+          v13 = 1;
+        }
+
+        else
+        {
+          if (v14 < 2)
+          {
+LABEL_4:
+            outlined copy of Image.Location(*(v7 + 4));
+            outlined copy of Image.Location(v14);
+            outlined consume of Image.Location(v13);
+            outlined consume of Image.Location(v14);
+            goto LABEL_5;
+          }
+
+          v15 = *(v7 + 4);
+          if (v13 == v14)
+          {
+            outlined copy of Image.Location(v15);
+            outlined copy of Image.Location(v13);
+            v14 = v13;
+          }
+
+          else
+          {
+            outlined copy of Image.Location(v15);
+            outlined copy of Image.Location(v14);
+            outlined copy of Image.Location(v13);
+            outlined copy of Image.Location(v14);
+            v16 = [v13 bundlePath];
+            v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+            v24 = v18;
+            v25 = v17;
+
+            v19 = [v14 bundlePath];
+            v23 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+            v26 = v20;
+
+            if (v25 != v23 || v24 != v26)
+            {
+              LODWORD(v25) = _stringCompareWithSmolCheck(_:_:expecting:)();
+              outlined consume of Image.Location(v13);
+              outlined consume of Image.Location(v14);
+
+              outlined consume of Image.Location(v14);
+              outlined consume of Image.Location(v13);
+              if ((v25 & 1) == 0)
+              {
+                goto LABEL_5;
+              }
+
+              goto LABEL_26;
+            }
+
+            outlined consume of Image.Location(v13);
+            outlined consume of Image.Location(v14);
+          }
+        }
+      }
+
+      else
+      {
+        if (v14)
+        {
+          goto LABEL_4;
+        }
+
+        v13 = 0;
+      }
+
+      outlined consume of Image.Location(v14);
+      outlined consume of Image.Location(v13);
+LABEL_26:
+      if (v7[40] == a1[40] && (MEMORY[0x193ABDB20](&v7[v27[9]], &a1[v27[9]]) & 1) != 0 && v7[v27[10]] == a1[v27[10]] && *&v7[v27[11]] == *&a1[v27[11]] && *&v7[v27[12]] == *&a1[v27[12]] && v7[v27[13]] == a1[v27[13]] && v7[v27[14]] == a1[v27[14]])
+      {
+        _s7SwiftUI10NamedImageO9BitmapKeyVWOhTm_0(v7, type metadata accessor for NamedImage.BitmapKey);
+        return v9;
+      }
+
+LABEL_5:
+      _s7SwiftUI10NamedImageO9BitmapKeyVWOhTm_0(v7, type metadata accessor for NamedImage.BitmapKey);
+      v9 = (v9 + 1) & v10;
+    }
+
+    while (((*(v2 + 64 + ((v9 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v9) & 1) != 0);
+  }
+
+  return v9;
+}
+
+{
+  v5 = type metadata accessor for NamedImage.VectorKey(0);
+  MEMORY[0x1EEE9AC00](v5);
+  v8 = &v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = -1 << *(v2 + 32);
+  v10 = a2 & ~v9;
+  if ((*(v2 + 64 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10))
+  {
+    v11 = ~v9;
+    v12 = *a1;
+    v13 = a1[1];
+    v14 = *(v6 + 72);
+    do
+    {
+      outlined init with copy of NamedImage.VectorKey(*(v2 + 48) + v14 * v10, v8, type metadata accessor for NamedImage.VectorKey);
+      if (v12 != *v8 || ((v13 ^ v8[1]) & 1) != 0)
+      {
+        goto LABEL_5;
+      }
+
+      v16 = *(v8 + 1) == *(a1 + 1) && *(v8 + 2) == *(a1 + 2);
+      if (!v16 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || *(v8 + 3) != *(a1 + 3) || v8[32] != a1[32] || (MEMORY[0x193ABDB20](&v8[v5[8]], &a1[v5[8]]) & 1) == 0 || *&v8[v5[9]] != *&a1[v5[9]] || v8[v5[10]] != a1[v5[10]] || *&v8[v5[11]] != *&a1[v5[11]])
+      {
+        goto LABEL_5;
+      }
+
+      v17 = v5[12];
+      v18 = *&v8[v17];
+      v19 = *&a1[v17];
+      if (v18)
+      {
+        if (v18 == 1)
+        {
+          if (v19 != 1)
+          {
+            v15 = v19;
+            v29 = 1;
+            v30 = v19;
+LABEL_4:
+            outlined copy of Image.Location(v15);
+            outlined consume of Image.Location(v29);
+            outlined consume of Image.Location(v30);
+            goto LABEL_5;
+          }
+
+          outlined consume of Image.Location(1);
+          outlined consume of Image.Location(1);
+        }
+
+        else
+        {
+          v28 = v18;
+          if (v19 < 2)
+          {
+            v30 = v19;
+            outlined copy of Image.Location(v19);
+            v15 = v28;
+            v29 = v28;
+            goto LABEL_4;
+          }
+
+          if (v18 == v19)
+          {
+            outlined copy of Image.Location(v18);
+            outlined copy of Image.Location(v28);
+            outlined consume of Image.Location(v28);
+            outlined consume of Image.Location(v28);
+          }
+
+          else
+          {
+            v30 = v19;
+            outlined copy of Image.Location(v19);
+            outlined copy of Image.Location(v28);
+            v27 = [v28 bundlePath];
+            v26 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+            v29 = v20;
+
+            v25 = [v30 bundlePath];
+            v24 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+            v27 = v21;
+
+            if (v26 == v24 && v29 == v27)
+            {
+              outlined consume of Image.Location(v28);
+              outlined consume of Image.Location(v30);
+            }
+
+            else
+            {
+              LODWORD(v26) = _stringCompareWithSmolCheck(_:_:expecting:)();
+              outlined consume of Image.Location(v28);
+              outlined consume of Image.Location(v30);
+
+              if ((v26 & 1) == 0)
+              {
+                goto LABEL_5;
+              }
+            }
+          }
+        }
+      }
+
+      else
+      {
+        if (v19)
+        {
+          v29 = 0;
+          v30 = v19;
+          v15 = v19;
+          goto LABEL_4;
+        }
+
+        outlined consume of Image.Location(0);
+        outlined consume of Image.Location(0);
+      }
+
+      if (*&v8[v5[13]] == *&a1[v5[13]])
+      {
+        _s7SwiftUI10NamedImageO9BitmapKeyVWOhTm_0(v8, type metadata accessor for NamedImage.VectorKey);
+        return v10;
+      }
+
+LABEL_5:
+      _s7SwiftUI10NamedImageO9BitmapKeyVWOhTm_0(v8, type metadata accessor for NamedImage.VectorKey);
+      v10 = (v10 + 1) & v11;
+    }
+
+    while (((*(v2 + 64 + ((v10 >> 3) & 0xFFFFFFFFFFFFFF8)) >> v10) & 1) != 0);
+  }
+
+  return v10;
+}
+
+uint64_t destroy for NamedImage.BitmapKey(uint64_t a1, uint64_t a2)
+{
+
+  v4 = *(a1 + 32);
+  if (v4 >= 2)
+  {
+  }
+
+  v5 = *(a2 + 36);
+  v6 = type metadata accessor for Locale();
+  v7 = *(*(v6 - 8) + 8);
+
+  return v7(a1 + v5, v6);
+}
+
+uint64_t Image.NamedImageProvider.resolveBitmap(key:info:in:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
+{
+  v8 = *a2;
+  v9 = *(a2 + 8);
+  v10 = *(a2 + 16);
+  v11 = *(a2 + 32);
+  v12 = *(a2 + 40);
+  v13 = *(a2 + 48);
+  v50 = *(a2 + 56);
+  v51 = *(a2 + 64);
+  v61 = *(a2 + 80);
+  v62 = *(a2 + 72);
+  v59 = *(a2 + 24);
+  v60 = *(a2 + 88);
+  v57 = *(v4 + 48);
+  v58 = *(v4 + 40);
+  v55 = *(v4 + 64);
+  v56 = *(v4 + 56);
+  v49 = *(v4 + 72);
+  v15 = *a3;
+  v14 = a3[1];
+  *&v94 = *a3;
+  *(&v94 + 1) = v14;
+  LOBYTE(v66) = v13;
+
+  v16 = EnvironmentValues.imageIsTemplate(renderingMode:)(&v66);
+
+  v17 = type metadata accessor for ImageResolutionContext(0);
+  if ((*(a3 + *(v17 + 40)) & 4) != 0)
+  {
+    type metadata accessor for NamedImage.Key(0);
+    v8 = swift_allocBox();
+    outlined init with copy of NamedImage.Key(a1, v18, type metadata accessor for NamedImage.BitmapKey);
+    swift_storeEnumTagMultiPayload();
+    v9 = 5;
+  }
+
+  else
+  {
+    outlined copy of GraphicsImage.Contents(v8, v9);
+  }
+
+  outlined copy of GraphicsImage.Contents?(v8, v9);
+  outlined consume of GraphicsImage.Contents?(0, 0xFFu);
+  v19 = 0x3F8000003F800000;
+  if ((v16 & 1) == 0)
+  {
+    v19 = 0;
+  }
+
+  v54 = v19;
+  if (v16)
+  {
+    v20 = 2143289344;
+  }
+
+  else
+  {
+    v20 = 0;
+  }
+
+  v53 = v20;
+  v21 = (v16 & 1) == 0;
+  v99 = v21;
+  if (!v9)
+  {
+    outlined copy of GraphicsImage.Contents(v8, 0);
+    v23 = CGImageGetColorSpace(v8);
+    if (v23)
+    {
+      v24 = v21;
+      v25 = v23;
+      v26 = CGColorSpaceUsesITUR_2100TF(v23);
+      outlined consume of GraphicsImage.Contents?(v8, 0);
+
+      if (v26)
+      {
+        v15 = *a3;
+        v14 = a3[1];
+        *&v94 = *a3;
+        *(&v94 + 1) = v14;
+        LOBYTE(v104) = *(a3 + *(v17 + 36));
+
+        EnvironmentValues.effectiveAllowedDynamicRange(explicitRange:)(&v104, &v66);
+
+        v52 = v66;
+      }
+
+      else
+      {
+        v52 = 0;
+      }
+
+      v21 = v24;
+      if (v14)
+      {
+        goto LABEL_11;
+      }
+
+      goto LABEL_18;
+    }
+
+    outlined consume of GraphicsImage.Contents?(v8, 0);
+  }
+
+  v52 = 0;
+  if (v14)
+  {
+LABEL_11:
+
+    ShouldRedactContentJ0027_18671928047E57F039DC339288P4FAFBLLVG_Tt1g5 = _s7SwiftUI12PropertyListV7TrackerC12derivedValue_3for0G0QzAC_xmtAA07DerivedC3KeyRzlFAA0i11EnvironmentcJ033_0CBA6217BE011883F496E97230B6CF8FLLVyAA019ShouldRedactContentJ0027_18671928047E57F039DC339288P4FAFBLLVG_Tt1g5(v15);
+    goto LABEL_19;
+  }
+
+LABEL_18:
+  v94 = v15;
+
+  ShouldRedactContentJ0027_18671928047E57F039DC339288P4FAFBLLVG_Tt1g5 = specialized static ShouldRedactContentKey.value(in:)(&v94);
+
+LABEL_19:
+
+  v27 = v8;
+  v28 = v9;
+  if (ShouldRedactContentJ0027_18671928047E57F039DC339288P4FAFBLLVG_Tt1g5)
+  {
+    v47 = v21;
+    v29 = *a3;
+    v30 = a3[1];
+    v27 = swift_allocObject();
+    if (one-time initialization token for foreground != -1)
+    {
+      swift_once();
+    }
+
+    *&v94 = v29;
+    *(&v94 + 1) = v30;
+    (*(*static Color.foreground + 120))(&v104, &v94);
+    v31 = v107;
+    v32 = v105;
+    v33 = v106 * 0.16;
+    *(v27 + 16) = v104;
+    *(v27 + 24) = v32;
+    *(v27 + 28) = v33;
+    *(v27 + 32) = v31;
+    outlined consume of GraphicsImage.Contents?(v8, v9);
+    v28 = 4;
+    v21 = v47;
+  }
+
+  *&v94 = v27;
+  BYTE8(v94) = v28;
+  *(&v94 + 9) = *v103;
+  HIDWORD(v94) = *&v103[3];
+  *&v95 = v10;
+  *(&v95 + 1) = v11;
+  *v96 = v12;
+  v96[8] = v59;
+  *&v96[9] = v101;
+  v96[11] = v102;
+  *&v96[12] = v54;
+  *&v96[20] = v54;
+  *&v96[28] = v53;
+  LOBYTE(v97) = v21;
+  *(&v97 + 1) = *v100;
+  DWORD1(v97) = *&v100[3];
+  v34 = v51;
+  *(&v97 + 1) = v50;
+  *v98 = v51;
+  *&v98[8] = v62;
+  *&v98[16] = v61;
+  v98[24] = v60;
+  *&v98[25] = 257;
+  v98[27] = v52;
+  v88 = v94;
+  v89 = v95;
+  *(v93 + 12) = *&v98[12];
+  v92 = v97;
+  v93[0] = *v98;
+  v90 = *v96;
+  v91 = *&v96[16];
+  outlined copy of AccessibilityImageLabel?(v58, v57, v56, v55);
+  outlined init with copy of GraphicsImage(&v94, &v66);
+  outlined consume of AccessibilityImageLabel?(0, 0, 0x1FFFFFFFELL, 0);
+  if (BYTE8(v94) == 2)
+  {
+    v37 = *(v94 + 32);
+    v48 = v21;
+    v38 = *(v94 + 48);
+    v39 = *(v94 + 16);
+    outlined copy of Image.Location(v37);
+    v40 = v38;
+    outlined copy of Image.Location(v37);
+    v41 = [v39 styleMask];
+    v66 = v37;
+    _ShapeStyle_ResolverMode.init(rbSymbolStyleMask:location:)(v41, &v66, &v63);
+
+    v34 = v51;
+    outlined consume of Image.Location(v37);
+
+    v21 = v48;
+    outlined consume of GraphicsImage.Contents?(v8, v9);
+    v42 = v63;
+    v36 = v64;
+    v35 = v65 & 0xFD;
+  }
+
+  else
+  {
+    if (BYTE8(v94) == 255)
+    {
+      outlined consume of GraphicsImage.Contents?(v8, v9);
+      v35 = 0;
+      v36 = 0;
+    }
+
+    else
+    {
+      v36 = (v97 & 1) == 0;
+      outlined consume of GraphicsImage.Contents?(v8, v9);
+      v35 = 0;
+    }
+
+    v42 = 0;
+  }
+
+  v87 = 1;
+  v43 = v93[0];
+  *(a4 + 64) = v92;
+  *(a4 + 80) = v43;
+  *(a4 + 96) = v93[1];
+  v44 = v89;
+  *a4 = v88;
+  *(a4 + 16) = v44;
+  v45 = v91;
+  *(a4 + 32) = v90;
+  *(a4 + 48) = v45;
+  *(a4 + 112) = v58;
+  *(a4 + 120) = v57;
+  *(a4 + 128) = v56;
+  *(a4 + 136) = v55;
+  *(a4 + 144) = 0;
+  *(a4 + 152) = 0;
+  *(a4 + 160) = v49;
+  *(a4 + 161) = 3;
+  *(a4 + 164) = 0;
+  *(a4 + 168) = 1;
+  *(a4 + 176) = v42;
+  *(a4 + 184) = v36;
+  *(a4 + 186) = v35;
+  v66 = v27;
+  v67 = v28;
+  *v68 = *v103;
+  *&v68[3] = *&v103[3];
+  v69 = v10;
+  v70 = v11;
+  v71 = v12;
+  v72 = v59;
+  v74 = v102;
+  v73 = v101;
+  v75 = v54;
+  v76 = v54;
+  v77 = v53;
+  v78 = v21;
+  *&v79[3] = *&v100[3];
+  *v79 = *v100;
+  v80 = v50;
+  v81 = v34;
+  v82 = v62;
+  v83 = v61;
+  v84 = v60;
+  v85 = 257;
+  v86 = v52;
+  return outlined destroy of GraphicsImage(&v66);
+}
+
+void type metadata accessor for NamedImage._BitmapInfo<GraphicsImage.Contents>?(uint64_t a1)
+{
+  if (!lazy cache variable for type metadata for NamedImage._BitmapInfo<GraphicsImage.Contents>?)
+  {
+    type metadata accessor for NamedImage.VectorInfo?(255, &lazy cache variable for type metadata for NamedImage._BitmapInfo<GraphicsImage.Contents>, &type metadata for GraphicsImage.Contents, type metadata accessor for NamedImage._BitmapInfo);
+    v1 = type metadata accessor for Optional();
+    if (!v2)
+    {
+      atomic_store(v1, &lazy cache variable for type metadata for NamedImage._BitmapInfo<GraphicsImage.Contents>?);
+    }
+  }
+}
+
+uint64_t getEnumTagSinglePayload for NamedImage._BitmapInfo(unsigned __int8 *a1, unsigned int a2, uint64_t a3)
+{
+  v4 = *(*(a3 + 16) - 8);
+  v5 = *(v4 + 84);
+  v6 = *(v4 + 64);
+  if (v5 <= 0xFD)
+  {
+    v7 = 253;
+  }
+
+  else
+  {
+    v7 = *(v4 + 84);
+  }
+
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (v7 >= a2)
+  {
+    goto LABEL_28;
+  }
+
+  v8 = ((v6 + 47) & 0xFFFFFFFFFFFFFFF8) + 33;
+  v9 = (a2 - v7 + 255) >> 8;
+  if (v8 <= 3)
+  {
+    v10 = v9 + 1;
+  }
+
+  else
+  {
+    v10 = 2;
+  }
+
+  if (v10 >= 0x10000)
+  {
+    v11 = 4;
+  }
+
+  else
+  {
+    v11 = 2;
+  }
+
+  if (v10 < 0x100)
+  {
+    v11 = 1;
+  }
+
+  if (v10 >= 2)
+  {
+    v12 = v11;
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  if (v12 > 1)
+  {
+    if (v12 == 2)
+    {
+      v13 = *&a1[v8];
+      if (!*&a1[v8])
+      {
+        goto LABEL_28;
+      }
+    }
+
+    else
+    {
+      v13 = *&a1[v8];
+      if (!v13)
+      {
+        goto LABEL_28;
+      }
+    }
+
+LABEL_24:
+    v15 = (v13 - 1) << (8 * v8);
+    if (v8 <= 3)
+    {
+      v16 = *a1;
+    }
+
+    else
+    {
+      v15 = 0;
+      v16 = *a1;
+    }
+
+    return v7 + (v16 | v15) + 1;
+  }
+
+  if (v12)
+  {
+    v13 = a1[v8];
+    if (a1[v8])
+    {
+      goto LABEL_24;
+    }
+  }
+
+LABEL_28:
+  if (v5 >= 0xFD)
+  {
+    return (*(v4 + 48))(a1);
+  }
+
+  v17 = *((&a1[v6 + 7] & 0xFFFFFFFFFFFFFFF8) + 32);
+  v18 = v17 >= 2;
+  v19 = v17 - 2;
+  if (!v18)
+  {
+    v19 = -1;
+  }
+
+  if (v19 + 1 >= 2)
+  {
+    return v19;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+Swift::Void __swiftcall ShapeStyleResolver.destroy()()
+{
+  if (*(v0 + 48))
+  {
+    specialized AnimatorState.removeListeners()();
+  }
+}
+
+uint64_t static BoxVTable.deinitialize(elt:)()
+{
+  v1 = *(v0 + 136);
+  _UnsafeHeterogeneousBuffer_Element.body<A>(as:)();
+  (*(*(v0 + 144) + 24))(v1);
+
+  return UnsafeMutablePointer.deinitialize(count:)();
+}
+
+uint64_t _ShapeStyle_InterpolatorGroup.__deallocating_deinit()
+{
+  _ShapeStyle_InterpolatorGroup.reset()();
 
   return swift_deallocClassInstance();
 }
 
-uint64_t AnimatablePair.init(_:_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X8>)
+Swift::Void __swiftcall _ShapeStyle_InterpolatorGroup.reset()()
 {
-  (*(*(a3 - 8) + 32))(a5, a1);
-  v8 = type metadata accessor for AnimatablePair();
-  return (*(*(a4 - 8) + 32))(a5 + *(v8 + 52), a2, a4);
-}
-
-CGFloat _ScaleEffect.effectValue(size:)@<D0>(uint64_t a1@<X8>, double a2@<D0>, double a3@<D1>, CGFloat a4@<D2>, CGFloat a5@<D3>, double a6@<D4>, double a7@<D5>)
-{
-  v8 = a4;
-  if (a4 == 0.0)
+  v1 = v0;
+  swift_beginAccess();
+  v2 = *(v0 + 24);
+  v3 = *(v2 + 2);
+  if (v3)
   {
-    if (one-time initialization token for leastNonzeroScaleFactor != -1)
+    v4 = 0;
+    while (1)
     {
-      v25 = a7;
-      v26 = a6;
-      v27 = a3;
-      v28 = a2;
-      swift_once();
-      a2 = v28;
-      a3 = v27;
-      a6 = v26;
-      a7 = v25;
-    }
-
-    v8 = *&static CGFloat.leastNonzeroScaleFactor;
-  }
-
-  if (a5 == 0.0)
-  {
-    if (one-time initialization token for leastNonzeroScaleFactor != -1)
-    {
-      v29 = a7;
-      v30 = a6;
-      v31 = a3;
-      v32 = a2;
-      swift_once();
-      a2 = v32;
-      a3 = v31;
-      a6 = v30;
-      a7 = v29;
-    }
-
-    a5 = *&static CGFloat.leastNonzeroScaleFactor;
-  }
-
-  v10 = a3 * a7;
-  v11 = a2 * a6;
-  CGAffineTransformMakeTranslation(&t1, -(a2 * a6), -(a3 * a7));
-  tx = t1.tx;
-  ty = t1.ty;
-  v33 = *&t1.c;
-  v35 = *&t1.a;
-  CGAffineTransformMakeScale(&t1, v8, a5);
-  v14 = *&t1.a;
-  v15 = *&t1.c;
-  v16 = *&t1.tx;
-  *&t1.a = v35;
-  *&t1.c = v33;
-  t1.tx = tx;
-  t1.ty = ty;
-  *&t2.a = v14;
-  *&t2.c = v15;
-  *&t2.tx = v16;
-  CGAffineTransformConcat(&v37, &t1, &t2);
-  v17 = v37.tx;
-  v18 = v37.ty;
-  v34 = *&v37.c;
-  v36 = *&v37.a;
-  CGAffineTransformMakeTranslation(&t1, v11, v10);
-  v19 = *&t1.a;
-  v20 = *&t1.c;
-  v21 = *&t1.tx;
-  *&t1.a = v36;
-  *&t1.c = v34;
-  t1.tx = v17;
-  t1.ty = v18;
-  *&t2.a = v19;
-  *&t2.c = v20;
-  *&t2.tx = v21;
-  CGAffineTransformConcat(&v37, &t1, &t2);
-  result = v37.a;
-  v23 = *&v37.c;
-  v24 = *&v37.tx;
-  *a1 = *&v37.a;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = v23;
-  *(a1 + 40) = 0;
-  *(a1 + 48) = v24;
-  *(a1 + 64) = 0x3FF0000000000000;
-  return result;
-}
-
-uint64_t storeEnumTagSinglePayload for AnyStyleContextType(uint64_t result, int a2, int a3)
-{
-  if (a2 < 0)
-  {
-    *result = a2 & 0x7FFFFFFF;
-    *(result + 8) = 0;
-    if (a3 < 0)
-    {
-      *(result + 16) = 1;
-    }
-  }
-
-  else
-  {
-    if ((a3 & 0x80000000) == 0)
-    {
-      if (!a2)
+      swift_beginAccess();
+      isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+      *(v1 + 24) = v2;
+      if ((isUniquelyReferenced_nonNull_native & 1) == 0)
       {
-        return result;
+        v2 = specialized _ArrayBuffer._consumeAndCreateNew()(v2);
+        *(v1 + 24) = v2;
       }
 
-LABEL_8:
-      *result = (a2 - 1);
-      return result;
-    }
-
-    *(result + 16) = 0;
-    if (a2)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  return result;
-}
-
-uint64_t ItemIDTransform.updateValue()()
-{
-  type metadata accessor for [String](0, &lazy cache variable for type metadata for AnyHashable2?, &type metadata for AnyHashable2, MEMORY[0x1E69E6720]);
-  Value = AGGraphGetValue();
-  v3 = v2;
-  v4 = *Value;
-
-  v5 = AGGraphGetValue();
-  v7 = v3 | v6;
-  v8 = *v5;
-  if ((v7 & 1) != 0 || (type metadata accessor for (_:)(), !AGGraphGetOutputValue()))
-  {
-    v10 = *(v0 + 8) + 1;
-    *(v0 + 8) = v10;
-    v11 = swift_allocObject();
-    *(v11 + 16) = v4;
-    *(v11 + 24) = v10;
-    *(v11 + 32) = v8;
-    type metadata accessor for (_:)();
-    AGGraphSetOutputValue();
-  }
-
-  else
-  {
-  }
-}
-
-uint64_t sub_18D16BEA0()
-{
-
-  return swift_deallocObject();
-}
-
-uint64_t GlassEffectGroupModifier.ItemTransform.updateValue()()
-{
-  Value = AGGraphGetValue();
-  v2 = *Value;
-  v3 = *(Value + 8);
-  v4 = *(Value + 16);
-  if ((v5 & 1) != 0 || (type metadata accessor for (_:)(), (result = AGGraphGetOutputValue()) == 0))
-  {
-    v7 = *(v0 + 4) + 1;
-    *(v0 + 4) = v7;
-    v8 = swift_allocObject();
-    *(v8 + 16) = v2;
-    *(v8 + 24) = v3;
-    *(v8 + 32) = v4;
-    *(v8 + 36) = v7;
-    type metadata accessor for (_:)();
-
-    AGGraphSetOutputValue();
-  }
-
-  return result;
-}
-
-uint64_t sub_18D16BFD4()
-{
-
-  return swift_deallocObject();
-}
-
-uint64_t Path.applying(_:)@<X0>(double *a1@<X0>, uint64_t a2@<X8>)
-{
-  v41 = *MEMORY[0x1E69E9840];
-  v5 = *v2;
-  v6 = *(v2 + 8);
-  v8 = *(v2 + 16);
-  v7 = *(v2 + 24);
-  v9 = *(v2 + 32);
-  v11 = *a1;
-  v10 = a1[1];
-  v13 = a1[2];
-  v12 = a1[3];
-  v15 = a1[4];
-  v14 = a1[5];
-  v40.a = *a1;
-  v40.b = v10;
-  v40.c = v13;
-  v40.d = v12;
-  v40.tx = v15;
-  v40.ty = v14;
-  result = CGAffineTransformIsIdentity(&v40);
-  if (result)
-  {
-    v17 = *(v2 + 16);
-    *&v40.a = *v2;
-    *&v40.c = v17;
-    LOBYTE(v40.tx) = *(v2 + 32);
-    result = outlined init with copy of Path.Storage(&v40, v39);
-    goto LABEL_31;
-  }
-
-  if (v9 <= 1)
-  {
-    if (v9)
-    {
-      if (v10 == 0.0 && v13 == 0.0 || v11 == 0.0 && v12 == 0.0)
+      if (v4 >= *(v2 + 2))
       {
-        *&v43.origin.x = v5;
-        v43.origin.y = v6;
-        v43.size.width = v8;
-        v40.a = v11;
-        v40.b = v10;
-        v43.size.height = v7;
-        v40.c = v13;
-        v40.d = v12;
-        v40.tx = v15;
-        v40.ty = v14;
-        v44 = CGRectApplyAffineTransform(v43, &v40);
-        x = v44.origin.x;
-        y = v44.origin.y;
-        width = v44.size.width;
-        height = v44.size.height;
-        result = CGRectIsNull(v44);
-        if ((result & 1) == 0)
+        break;
+      }
+
+      v6 = &v2[232 * v4];
+      v7 = *(v6 + 29);
+      v8 = *(v7 + 16);
+      if (v8)
+      {
+        v9 = (v7 + 32);
+        do
         {
-          v45.origin.x = x;
-          v45.origin.y = y;
-          v45.size.width = width;
-          v45.size.height = height;
-          result = CGRectIsInfinite(v45);
-          v5 = *&x;
-          v6 = y;
-          v8 = width;
-          v7 = height;
-          LOBYTE(v9) = result ^ 1;
-          goto LABEL_31;
+          v10 = v9[3];
+          v11 = v9[4];
+          v12 = *(v9 + 89);
+          v19[0] = v9[5];
+          v13 = v9[1];
+          v14 = v9[2];
+          v18[0] = *v9;
+          v18[1] = v13;
+          *(v19 + 9) = v12;
+          v18[3] = v10;
+          v18[4] = v11;
+          v18[2] = v14;
+          if (*&v19[0])
+          {
+            v15 = *(**&v19[0] + 96);
+            outlined init with copy of DisplayList.InterpolatorLayer.Removed(v18, &v17);
+
+            v15(v16);
+            outlined destroy of DisplayList.InterpolatorLayer.Removed(v18);
+          }
+
+          v9 += 7;
+          --v8;
         }
 
-LABEL_20:
-        v5 = 0;
-        v6 = 0.0;
-        v8 = 0.0;
-        v7 = 0.0;
-        LOBYTE(v9) = 6;
-        goto LABEL_31;
+        while (v8);
       }
-    }
 
-    else if (v10 == 0.0 && v13 == 0.0 || v11 == 0.0 && v12 == 0.0)
-    {
-      *&v46.origin.x = v5;
-      v46.origin.y = v6;
-      v46.size.width = v8;
-      v40.a = v11;
-      v40.b = v10;
-      v46.size.height = v7;
-      v40.c = v13;
-      v40.d = v12;
-      v40.tx = v15;
-      v40.ty = v14;
-      v47 = CGRectApplyAffineTransform(v46, &v40);
-      v23 = v47.origin.x;
-      v24 = v47.origin.y;
-      v25 = v47.size.width;
-      v26 = v47.size.height;
-      result = CGRectIsNull(v47);
-      if ((result & 1) == 0)
+      ++v4;
+      *(v6 + 29) = MEMORY[0x1E69E7CC0];
+      *(v6 + 31) = 0;
+      v6[259] = 1;
+      *(v1 + 24) = v2;
+      swift_endAccess();
+
+      if (v4 == v3)
       {
-        LOBYTE(v9) = 0;
-        v5 = *&v23;
-        v6 = v24;
-        v8 = v25;
-        v7 = v26;
-        goto LABEL_31;
+        return;
       }
-
-      goto LABEL_20;
     }
 
-    goto LABEL_14;
+    __break(1u);
   }
+}
 
-  if (v9 != 2)
+double destroy for _ShapeStyle_InterpolatorGroup.Layer(uint64_t a1)
+{
+  outlined consume of _ShapeStyle_LayerID(*a1, *(a1 + 8), *(a1 + 16));
+  if (*(a1 + 136))
   {
-    if (v9 == 6 && !(*&v6 | v5 | *&v8 | *&v7))
+    outlined consume of _ShapeStyle_Pack.Fill(*(a1 + 24), *(a1 + 32), *(a1 + 40), *(a1 + 48), *(a1 + 56), *(a1 + 64), *(a1 + 72), *(a1 + 80), *(a1 + 88), *(a1 + 96), *(a1 + 104) | (*(a1 + 108) << 32), *(a1 + 109));
+    v2 = *(a1 + 128);
+    if (v2 != 255)
     {
-      LOBYTE(v9) = 6;
-      goto LABEL_31;
+      outlined consume of GraphicsBlendMode(*(a1 + 120), v2 & 1);
+    }
+  }
+
+  swift_unknownObjectRelease();
+
+  return result;
+}
+
+double _s7SwiftUI12PropertyListV7TrackerC5value_3for5ValueQzAC_xmtAA0C3KeyRzlFAA011EnvironmentcI0VyAA0J6ValuesVAAE025AssetCatalogConfigurationI033_F748B30B59970FC73194935C526E3031LLVG_Tt1g5@<D0>(void *a1@<X0>, uint64_t a2@<X8>)
+{
+  v5 = *(v2 + 16);
+
+  os_unfair_lock_lock((v5 + 16));
+  v6 = *(v5 + 24);
+  if (!a1)
+  {
+    if (!v6)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_7:
+    *(v5 + 56) = 1;
+    v14 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA0T6ValuesVAAE025AssetCatalogConfigurationS033_F748B30B59970FC73194935C526E3031LLVG_Tt0g5(a1);
+    if (v14)
+    {
+      v15 = *(v14 + 120);
+      v16 = *(v14 + 11);
+      v17 = *(v14 + 13);
+      *a2 = *(v14 + 9);
+      *(a2 + 16) = v16;
+      *(a2 + 32) = v17;
+      *(a2 + 48) = v15;
+    }
+
+    else
+    {
+      *(a2 + 16) = 0u;
+      *(a2 + 32) = 0u;
+      *a2 = 0u;
+      *(a2 + 48) = 1;
     }
 
     goto LABEL_14;
   }
 
-  v27 = *(v5 + 16);
-  v28 = *(v5 + 24);
-  v29 = *(v5 + 32);
-  v30 = *(v5 + 40);
-  v31 = *(v5 + 48);
-  v32 = *(v5 + 56);
-  v33 = *(v5 + 64);
-  if ((v10 != 0.0 || v13 != 0.0) && (v11 != 0.0 || v12 != 0.0))
+  if (v6 != a1[8])
   {
+    goto LABEL_7;
+  }
+
+LABEL_3:
+  type metadata accessor for EnvironmentPropertyKey<EnvironmentValues.__Key_glassEffectBackdropObserver>(0, &lazy cache variable for type metadata for EnvironmentPropertyKey<EnvironmentValues.AssetCatalogConfigurationKey>, &type metadata for EnvironmentValues.AssetCatalogConfigurationKey, &protocol witness table for EnvironmentValues.AssetCatalogConfigurationKey, type metadata accessor for EnvironmentPropertyKey);
+  v8 = v7;
+  v9 = *(v5 + 32);
+  if (*(v9 + 16) && (v10 = specialized __RawDictionaryStorage.find<A>(_:)(v7), (v11 & 1) != 0))
+  {
+    outlined init with copy of AnyTrackedValue(*(v9 + 56) + 40 * v10, v30);
+    outlined init with take of AnyTrackedValue(v30, v31);
+    v12 = v33;
+    __swift_project_boxed_opaque_existential_1(v31, v32);
+    v13 = v12[1];
+    type metadata accessor for [LayoutDirection](0, &lazy cache variable for type metadata for ViewGraphHost.AssetCatalogConfiguration?, &type metadata for ViewGraphHost.AssetCatalogConfiguration, MEMORY[0x1E69E6720]);
+    v13();
+    __swift_destroy_boxed_opaque_existential_1(v31);
+  }
+
+  else
+  {
+    v29 = v8;
+    v18 = _s7SwiftUI4find33_D64CE6C88E7413721C59A34C0C940F2CLL_3keys9UnmanagedVyAA12TypedElementACLLCyxGGSgAFyAA12PropertyListV0P0CGSg_xmtAA0Q3KeyRzlFAA011EnvironmentqS0VyAA0T6ValuesVAAE025AssetCatalogConfigurationS033_F748B30B59970FC73194935C526E3031LLVG_Tt0g5(a1);
+    if (v18)
+    {
+      v19 = v18[9];
+      v20 = v18[10];
+      v21 = v18[11];
+      v22 = v18[12];
+      v23 = v18[13];
+      v24 = v18[14];
+      v25 = *(v18 + 120);
+    }
+
+    else
+    {
+      v19 = 0;
+      v20 = 0;
+      v21 = 0;
+      v22 = 0;
+      v23 = 0;
+      v24 = 0;
+      v25 = 1;
+    }
+
+    *a2 = v19;
+    *(a2 + 8) = v20;
+    *(a2 + 16) = v21;
+    *(a2 + 24) = v22;
+    *(a2 + 32) = v23;
+    *(a2 + 40) = v24;
+    *(a2 + 48) = v25;
+    type metadata accessor for TrackedValue<EnvironmentPropertyKey<EnvironmentValues.AssetCatalogConfigurationKey>>(0);
+    v32 = v26;
+    v33 = &protocol witness table for TrackedValue<A>;
+    v27 = swift_allocObject();
+    v31[0] = v27;
+    *(v27 + 16) = v19;
+    *(v27 + 24) = v20;
+    *(v27 + 32) = v21;
+    *(v27 + 40) = v22;
+    *(v27 + 48) = v23;
+    *(v27 + 56) = v24;
+    *(v27 + 64) = v25;
+    specialized Dictionary.subscript.setter(v31, v29);
+  }
+
 LABEL_14:
-    type metadata accessor for Path.PathBox();
-    v5 = swift_allocObject();
-    *(v5 + 40) = 0u;
-    *(v5 + 56) = 0u;
-    *(v5 + 72) = 0u;
-    *(v5 + 88) = 0u;
-    *(v5 + 104) = 0u;
-    *(v5 + 24) = 0u;
-    *(v5 + 16) = 2;
-    RBPathStorageInit();
-    v22 = *(a1 + 1);
-    *&v40.a = *a1;
-    *&v40.c = v22;
-    *&v40.tx = *(a1 + 2);
-    MEMORY[0x193AC35E0](v5 + 24, 17, 0, &v40);
-    Path.append(to:)(v5 + 24);
-    result = MEMORY[0x193AC35E0](v5 + 24, 16, 0, 0);
-    v6 = 0.0;
-    v8 = 0.0;
-    v7 = 0.0;
-    LOBYTE(v9) = 5;
-    goto LABEL_31;
-  }
+  os_unfair_lock_unlock((v5 + 16));
 
-  v40.a = v11;
-  v40.b = v10;
-  v40.c = v13;
-  v40.d = v12;
-  v40.tx = v15;
-  v40.ty = v14;
-  v48 = CGRectApplyAffineTransform(*&v27, &v40);
-  v37 = v48.origin.y;
-  v38 = v48.origin.x;
-  v35 = v48.size.height;
-  v36 = v48.size.width;
-  if ((*&v31 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL && (*&v32 & 0x7FFFFFFFFFFFFFFFuLL) <= 0x7FEFFFFFFFFFFFFFLL)
-  {
-    v40.a = v11;
-    v40.b = v10;
-    v40.c = v13;
-    v40.d = v12;
-    v40.tx = v15;
-    v40.ty = v14;
-    v42.width = v31;
-    v42.height = v32;
-    v34 = CGSizeApplyAffineTransform(v42, &v40);
-    v31 = copysign(v34.width, v31);
-    v32 = copysign(v34.height, v32);
-  }
-
-  result = swift_allocObject();
-  v5 = result;
-  v6 = 0.0;
-  v8 = 0.0;
-  v7 = 0.0;
-  *(result + 16) = v38;
-  *(result + 24) = v37;
-  *(result + 32) = v36;
-  *(result + 40) = v35;
-  *(result + 48) = v31;
-  *(result + 56) = v32;
-  LOBYTE(v9) = 2;
-  *(result + 64) = v33;
-LABEL_31:
-  *a2 = v5;
-  *(a2 + 8) = v6;
-  *(a2 + 16) = v8;
-  *(a2 + 24) = v7;
-  *(a2 + 32) = v9;
   return result;
 }
 
-uint64_t specialized AnimatableAttributeHelper.update(value:defaultAnimation:environment:sampleCollector:)(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+id outlined copy of Image.Location?(id result)
 {
-  LODWORD(v9) = a3;
-  v218 = *MEMORY[0x1E69E9840];
-  v200 = type metadata accessor for OSSignpostID();
-  v197 = *(v200 - 8);
-  MEMORY[0x1EEE9AC00](v200);
-  v13 = (&v178 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = &v178 - v15;
-  MEMORY[0x1EEE9AC00](v17);
-  v198 = (&v178 - v18);
-  MEMORY[0x1EEE9AC00](v19);
-  v21 = &v178 - v20;
-  MEMORY[0x1EEE9AC00](v22);
-  v199 = &v178 - v23;
-  MEMORY[0x1EEE9AC00](v24);
-  v190 = &v178 - v25;
-  if (*(a4 + 56))
+  if (result != 2)
   {
-    Value = AGGraphGetValue();
-    if (v27)
-    {
-      v28 = *Value;
-    }
-
-    else
-    {
-      v28 = -INFINITY;
-    }
+    return outlined copy of Image.Location(result);
   }
 
-  else
+  return result;
+}
+
+void PDFImageContents.draw(in:)(CGContext *a1)
+{
+  CGContextSaveGState(a1);
+  v3 = *(v1 + 48);
+  v5.size.width = *(v1 + 24);
+  v5.size.height = *(v1 + 32);
+  v5.origin.x = 0.0;
+  v5.origin.y = 0.0;
+  CGPDFPageGetDrawingTransform(&v4, v3, kCGPDFCropBox, v5, 0, 1);
+  CGContextConcatCTM(a1, &v4);
+  CGContextDrawPDFPage(a1, v3);
+  CGContextRestoreGState(a1);
+}
+
+void DisplayList.GraphicsRenderer.render(item:in:)(uint64_t a1, CGFloat *a2)
+{
+  v3 = v2;
+  v368 = *MEMORY[0x1E69E9840];
+  type metadata accessor for DisplayList.ArchiveIDs?(0);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v8 = &v329 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v329 - v10;
+  v12 = *(a1 + 48);
+  v364 = *(a1 + 32);
+  *v365 = v12;
+  *&v365[12] = *(a1 + 60);
+  v13 = *(a1 + 16);
+  v363.origin = *a1;
+  v363.size = v13;
+  v14 = *(&v364 + 1);
+  v15 = *&v365[16];
+  LODWORD(v16) = *&v365[16] >> 30;
+  if (*&v365[16] >> 30 > 1u)
   {
-    v28 = -INFINITY;
-  }
-
-  result = specialized AnimatableAttributeHelper.checkReset()(specialized AnimatorState.removeListeners());
-  if (result)
-  {
-    *(a1 + 32) = 1;
-  }
-
-  else if (*(a1 + 32) != 1)
-  {
-    goto LABEL_123;
-  }
-
-  v30 = *a1;
-  v31 = vmulq_f64(*(a1 + 16), vdupq_n_s64(0x4060000000000000uLL));
-  if (*(a4 + 48))
-  {
-    goto LABEL_122;
-  }
-
-  v32 = *(a4 + 32);
-  if (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(v30, *(a4 + 16)), vceqq_f64(v31, v32)))))
-  {
-    goto LABEL_122;
-  }
-
-  v194 = *(a4 + 16);
-  v196 = v32;
-  v183 = LODWORD(v9);
-  v195 = v13;
-  v178 = v16;
-  v179 = v21;
-  v184 = v31;
-  v185 = v30;
-  AGGraphClearUpdate();
-  v33 = *(a4 + 16);
-  v213 = *a4;
-  v214 = v33;
-  v34 = *(a4 + 48);
-  v215 = *(a4 + 32);
-  v216 = v34;
-  v217 = *(a4 + 64);
-  outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(&v213, &v209, &lazy cache variable for type metadata for AnimatableAttributeHelper<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for AnimatableAttributeHelper);
-  v35 = *AGGraphGetValue();
-
-  outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v213, &lazy cache variable for type metadata for AnimatableAttributeHelper<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for AnimatableAttributeHelper);
-  AGGraphSetUpdate();
-  v36 = Transaction.effectiveAnimation.getter(v35);
-  if (v36)
-  {
-    v37 = v36;
-    LODWORD(v9) = v183;
-  }
-
-  else
-  {
-    LODWORD(v9) = v183;
-    if (!a2)
+LABEL_10:
+    if (v16 == 2)
     {
-
-      goto LABEL_121;
-    }
-
-    v37 = a2;
-  }
-
-  v38 = *(&v216 + 1);
-  v39 = v185.f64[0] - *&v194;
-  v40 = v185.f64[1] - *(&v194 + 1);
-  v41 = v184.f64[0] - v196.f64[0];
-  v42 = v184.f64[1] - v196.f64[1];
-  v28 = *AGGraphGetValue();
-  v186 = a1;
-  v189 = a4;
-  v180 = v35;
-  v181 = v37;
-  if (!v38)
-  {
-    *&v205.f64[0] = &type metadata for _ScaleEffect;
-    type metadata accessor for _ScaleEffect.Type();
-    type metadata accessor for any AnimationFinishingDefinition<Self.AnimationFinishingDefinition.Value == AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>>.Type(0, &lazy cache variable for type metadata for any AnimationFinishingDefinition<Self.AnimationFinishingDefinition.Value == AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>>.Type, type metadata accessor for AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>);
-    v57 = swift_dynamicCast();
-    if (v57)
-    {
-      v58 = *&v209.f64[0];
-    }
-
-    else
-    {
-      v58 = 0;
-    }
-
-    if (v57)
-    {
-      v59 = *&v209.f64[1];
-    }
-
-    else
-    {
-      v59 = 0;
-    }
-
-    v182 = _s7SwiftUI13AnimatorStateC9animation8interval2at2in19finishingDefinitionACyxGAA9AnimationV_xAA4TimeVAA11TransactionVAA0k9FinishingJ0_px5ValueRts_XPXpSgtc33_35ADF281214A25133F1A6DF28858952DLlfCAA14AnimatablePairVyAVy12CoreGraphics7CGFloatVAYGAZG_Tt4B5Tm(v60, v35, v58, v59, type metadata accessor for AnimatorState<AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>>, v39, v40, v41, v42, v28);
-    CurrentAttribute = AGGraphGetCurrentAttribute();
-    v62 = CurrentAttribute;
-    v63 = *MEMORY[0x1E698D3F8];
-    if (CurrentAttribute == *MEMORY[0x1E698D3F8])
-    {
-      v64 = 0;
-    }
-
-    else
-    {
-      v64 = CurrentAttribute;
-    }
-
-    LODWORD(v194) = v64;
-    (*(*v37 + 96))(&v205);
-    v65 = v205;
-    v66 = *&v206.f64[0];
-    v67 = v207;
-    *&v204 = NAN;
-    v203 = NAN;
-    v202 = 1.0;
-    v201 = NAN;
-    v209 = v205;
-    v210 = v206;
-    v68 = *&v206.f64[1];
-    v211 = *&v207;
-    LODWORD(v198) = v208;
-    LOBYTE(v212) = v208;
-    static CustomEventTrace.extractFunctionData(_:_:_:_:_:)(&v209, &v204, &v203, &v202, &v201);
-    v4 = *&v204;
-    v5 = v203;
-    v6 = v202;
-    v7 = v201;
-    if (one-time initialization token for enabledCategories != -1)
-    {
-      swift_once();
-    }
-
-    if (*(static CustomEventTrace.enabledCategories + 2) < 0x43uLL)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      v69 = *(static CustomEventTrace.enabledCategories + 98) == 1;
-      LODWORD(v196.f64[0]) = v63;
-      if (v69)
+      v23 = (v3 + 104);
+      if (*(*(v3 + 104) + 16))
       {
-        v70 = static CustomEventTrace.recorder;
-        if (static CustomEventTrace.recorder)
+        v332 = *&v3;
+        v24 = v14;
+        v339 = a2;
+        outlined init with copy of DisplayList.Item(&v363, &v348);
+        specialized Array._customRemoveLast()(&v341);
+        if (BYTE4(v341.c))
         {
-          v71 = v62 == v63;
-          *(*(static CustomEventTrace.recorder + 24) + 4) = 322;
-          v72 = *(v70 + 16);
-          LODWORD(v209.f64[0]) = v194;
-          BYTE4(v209.f64[0]) = v71;
-          *&v209.f64[1] = &type metadata for _ScaleEffect;
-          v210.f64[0] = v4;
-          v210.f64[1] = v5;
-          v211 = v6;
-          v212 = v7;
-          type metadata accessor for (AGAttribute?, Any.Type, Double, Double, Double, Double)();
-
-          v73 = v72;
-          AGGraphAddTraceEvent();
-          outlined consume of Animation.Function(*&v65.f64[0], *&v65.f64[1], v66, v68, v67, v198);
+          specialized Array.remove(at:)(*(*v23 + 2) - 1, &v348);
+          a_low = LODWORD(v348.a);
+          a_high = HIDWORD(v348.a);
+          b_low = LODWORD(v348.b);
+          b_high = HIDWORD(v348.b);
+          c_low = LODWORD(v348.c);
         }
 
         else
         {
-          outlined consume of Animation.Function(*&v65.f64[0], *&v65.f64[1], v66, v68, v67, v198);
+          a_low = LODWORD(v341.a);
+          a_high = HIDWORD(v341.a);
+          b_low = LODWORD(v341.b);
+          b_high = HIDWORD(v341.b);
+          c_low = LODWORD(v341.c);
         }
 
-        a4 = v189;
-        LODWORD(v9) = v183;
-      }
+        v45 = (v24 + 48);
+        v46 = *(v24 + 16) + 1;
+        do
+        {
+          if (!--v46)
+          {
+            outlined destroy of DisplayList.Item(&v363);
+            goto LABEL_51;
+          }
 
-      else
-      {
-        outlined consume of Animation.Function(*&v65.f64[0], *&v65.f64[1], v66, v68, v67, v198);
-      }
+          v47 = v45;
+          v45 += 10;
+        }
 
-      v111 = one-time initialization token for animationState;
+        while (*(v47 - 4) != a_low || *(v47 - 3) != a_high || *(v47 - 2) != b_low || *(v47 - 1) != b_high || *v47 != c_low);
+        v48 = *(v45 - 4);
+        v49 = *(v45 - 12);
+        v50 = *(v45 - 5);
 
-      if (v111 == -1)
-      {
-        goto LABEL_84;
+        outlined destroy of DisplayList.Item(&v363);
+        if (v363.origin.x == 0.0 && v363.origin.y == 0.0)
+        {
+          v348.a = v48;
+          LOWORD(v348.b) = v49;
+          HIDWORD(v348.b) = v50;
+          DisplayList.GraphicsRenderer.render(list:in:)(&v348, v339);
+        }
+
+        else
+        {
+          LODWORD(v337) = v49;
+          v57 = v339;
+          LODWORD(v338.width) = v50;
+          GraphicsContext.copyOnWrite()();
+          RBDrawingStateTranslateCTM();
+          v348.a = v48;
+          LOWORD(v348.b) = LOWORD(v337);
+          HIDWORD(v348.b) = LODWORD(v338.width);
+          DisplayList.GraphicsRenderer.render(list:in:)(&v348, v57);
+
+          GraphicsContext.copyOnWrite()();
+          RBDrawingStateTranslateCTM();
+        }
+
+LABEL_51:
+        v58 = *v23;
+        isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
+        *v23 = v58;
+        if ((isUniquelyReferenced_nonNull_native & 1) == 0)
+        {
+          v58 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v58 + 2) + 1, 1, v58);
+          *v23 = v58;
+        }
+
+        v61 = *(v58 + 2);
+        v60 = *(v58 + 3);
+        if (v61 >= v60 >> 1)
+        {
+          v58 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v60 > 1), v61 + 1, 1, v58);
+        }
+
+        *(v58 + 2) = v61 + 1;
+        v62 = &v58[20 * v61];
+        *(v62 + 8) = a_low;
+        *(v62 + 9) = a_high;
+        *(v62 + 10) = b_low;
+        *(v62 + 11) = b_high;
+        *(v62 + 12) = c_low;
+        *v23 = v58;
       }
     }
-
-    swift_once();
-LABEL_84:
-    v80 = *(&static Signpost.animationState + 1);
-    *&v79 = static Signpost.animationState;
-    LOBYTE(v44) = word_1ED5283E8;
-    LOBYTE(v86) = HIBYTE(word_1ED5283E8);
-    v112 = byte_1ED5283EA;
-    LODWORD(Counter) = static os_signpost_type_t.begin.getter();
-    v209 = __PAIR128__(*&v80, *&v79);
-    LOBYTE(v210.f64[0]) = v44;
-    BYTE1(v210.f64[0]) = v86;
-    BYTE2(v210.f64[0]) = v112;
-    if ((Signpost.isEnabled.getter() & 1) == 0)
-    {
-      v123 = v182;
-
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v213, &lazy cache variable for type metadata for AnimatableAttributeHelper<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for AnimatableAttributeHelper);
-      goto LABEL_91;
-    }
-
-    v113 = one-time initialization token for _signpostLog;
-
-    if (v113 != -1)
-    {
-      goto LABEL_196;
-    }
-
-    goto LABEL_86;
-  }
-
-  outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(&v213, &v209, &lazy cache variable for type metadata for AnimatableAttributeHelper<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for AnimatableAttributeHelper);
-  LOBYTE(v209.f64[0]) = 0;
-  v182 = v38;
-  specialized AnimatorState.combine(newAnimation:newInterval:at:in:environment:)(v37, v35, v39, v40, v41, v42, v28);
-  v43 = AGGraphGetCurrentAttribute();
-  LODWORD(v44) = v43;
-  LODWORD(v196.f64[0]) = *MEMORY[0x1E698D3F8];
-  if (v43 == LODWORD(v196.f64[0]))
-  {
-    LODWORD(v9) = 0;
   }
 
   else
   {
-    LODWORD(v9) = v43;
-  }
-
-  (*(*v37 + 96))(&v205);
-  v46 = *&v205.f64[1];
-  v45 = *&v205.f64[0];
-  a1 = *&v206.f64[1];
-  v47 = *&v206.f64[0];
-  v48 = v207;
-  v49 = v208;
-  *&v204 = NAN;
-  v203 = NAN;
-  v202 = 1.0;
-  v201 = NAN;
-  v209 = v205;
-  v210 = v206;
-  v211 = *&v207;
-  LOBYTE(v212) = v208;
-  static CustomEventTrace.extractFunctionData(_:_:_:_:_:)(&v209, &v204, &v203, &v202, &v201);
-  v4 = *&v204;
-  v5 = v203;
-  v6 = v202;
-  v7 = v201;
-  if (one-time initialization token for enabledCategories != -1)
-  {
-    goto LABEL_189;
-  }
-
-  while (1)
-  {
-    if (*(static CustomEventTrace.enabledCategories + 2) >= 0x43uLL)
+    v17 = *v365;
+    if (v16)
     {
-      if (*(static CustomEventTrace.enabledCategories + 98) == 1)
+      v339 = a2;
+      v30 = v3;
+      v332 = 0.0;
+      v337 = *&v365[8];
+      v338.width = *(&v364 + 1);
+      size = v363.size;
+      v32 = v363.origin.x == 0.0;
+      if (v363.origin.y != 0.0)
       {
-        v50 = LODWORD(v9);
-        v51 = v48;
-        v52 = static CustomEventTrace.recorder;
-        v53 = LODWORD(v196.f64[0]);
-        if (static CustomEventTrace.recorder)
-        {
-          LODWORD(v195) = v49;
-          *(*(static CustomEventTrace.recorder + 24) + 4) = 1602;
-          v54 = *(v52 + 16);
-          LODWORD(v209.f64[0]) = v50;
-          BYTE4(v209.f64[0]) = v44 == v53;
-          *&v209.f64[1] = &type metadata for _ScaleEffect;
-          v210.f64[0] = v4;
-          v210.f64[1] = v5;
-          v211 = v6;
-          v212 = v7;
-          type metadata accessor for (AGAttribute?, Any.Type, Double, Double, Double, Double)();
-          *&v194 = v55;
+        v32 = 0;
+      }
 
-          v56 = v54;
-          AGGraphAddTraceEvent();
-          outlined consume of Animation.Function(v45, v46, v47, a1, v51, v195);
-
-          goto LABEL_44;
-        }
-
-        v74 = v45;
-        v75 = v46;
-        v76 = v47;
-        v77 = a1;
-        v78 = v51;
+      LODWORD(v335) = v32;
+      if (v32)
+      {
+        outlined init with copy of DisplayList.Item(&v363, &v348);
       }
 
       else
       {
-        v74 = v45;
-        v75 = v46;
-        v76 = v47;
-        v77 = a1;
-        v78 = v48;
+        outlined init with copy of DisplayList.Item(&v363, &v348);
+        GraphicsContext.copyOnWrite()();
+        RBDrawingStateTranslateCTM();
       }
 
-      outlined consume of Animation.Function(v74, v75, v76, v77, v78, v49);
-LABEL_44:
-      outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(&v213, &v209, &lazy cache variable for type metadata for AnimatableAttributeHelper<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for AnimatableAttributeHelper);
-      if (one-time initialization token for animationState == -1)
+      v336 = v15;
+      v334 = HIDWORD(v15);
+      if (BYTE4(v17) == 11)
       {
-        goto LABEL_45;
-      }
-
-      goto LABEL_191;
-    }
-
-    __break(1u);
-LABEL_191:
-    swift_once();
-LABEL_45:
-    v79 = *(&static Signpost.animationState + 1);
-    *&v9 = static Signpost.animationState;
-    *&v80 = word_1ED5283E8;
-    v81 = HIBYTE(word_1ED5283E8);
-    v82 = byte_1ED5283EA;
-    LODWORD(Counter) = static os_signpost_type_t.event.getter();
-    v209 = __PAIR128__(*&v79, *&v9);
-    LOBYTE(v210.f64[0]) = LOBYTE(v80);
-    BYTE1(v210.f64[0]) = v81;
-    BYTE2(v210.f64[0]) = v82;
-    if ((Signpost.isEnabled.getter() & 1) == 0)
-    {
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v213, &lazy cache variable for type metadata for AnimatableAttributeHelper<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for AnimatableAttributeHelper);
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v213, &lazy cache variable for type metadata for AnimatableAttributeHelper<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for AnimatableAttributeHelper);
-LABEL_53:
-      a4 = v189;
-      LODWORD(v9) = v183;
-      goto LABEL_120;
-    }
-
-    outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(&v213, &v209, &lazy cache variable for type metadata for AnimatableAttributeHelper<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for AnimatableAttributeHelper);
-    if (one-time initialization token for _signpostLog != -1)
-    {
-      swift_once();
-    }
-
-    LODWORD(v195) = Counter;
-    v84 = COERCE_DOUBLE(_signpostLog);
-    OSSignpostID.init(log:object:)();
-    type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-    *&v44 = COERCE_DOUBLE(swift_allocObject());
-    *(v44 + 16) = xmmword_18DDAF080;
-    v85 = AGGraphGetCurrentAttribute();
-    v86 = LODWORD(v196.f64[0]);
-    if (v85 == LODWORD(v196.f64[0]))
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      v87 = AGGraphGetAttributeGraph();
-      Counter = AGGraphGetCounter();
-
-      v88 = MEMORY[0x1E69E6870];
-      *(v44 + 56) = MEMORY[0x1E69E6810];
-      *(v44 + 64) = v88;
-      *(v44 + 32) = Counter;
-      v89 = AGGraphGetCurrentAttribute();
-      if (v89 != v86)
-      {
-        v90 = MEMORY[0x1E69E76D0];
-        *(v44 + 96) = MEMORY[0x1E69E7668];
-        *(v44 + 104) = v90;
-        *(v44 + 72) = v89;
-        *(v44 + 136) = MEMORY[0x1E69E6158];
-        *(v44 + 144) = lazy protocol witness table accessor for type String and conformance String();
-        strcpy((v44 + 112), "_ScaleEffect");
-        *(v44 + 125) = 0;
-        *(v44 + 126) = -5120;
-        if ((v81 & 1) == 0)
+        *&v333 = v17;
+        v33 = v3;
+        outlined init with copy of AnyTrackedValue(*&v338.width + 16, &v348);
+        v34 = *(v3 + 48);
+        v35 = *(v30 + 52);
+        v36 = *(v30 + 56);
+        v37 = *(v30 + 60);
+        swift_beginAccess();
+        v38 = v33;
+        v39 = *(v33 + 24);
+        v40 = *(v39 + 16);
+        v330 = (v36 | (v37 << 32));
+        v331 = v34 | (v35 << 32);
+        if (v40 && (v41 = specialized __RawDictionaryStorage.find<A>(_:)(v34 | (v35 << 32), v36 | (v37 << 32)), (v42 & 1) != 0))
         {
-          if (LOBYTE(v9) == 20)
+          outlined init with copy of AnyTrackedValue(*(v39 + 56) + 40 * v41, &v358);
+        }
+
+        else
+        {
+          memset(&v358, 0, 40);
+        }
+
+        swift_endAccess();
+        if (*&v358.d)
+        {
+          outlined init with take of AnyTrackedValue(&v358, &v341);
+        }
+
+        else
+        {
+          d = v348.d;
+          tx = v348.tx;
+          __swift_project_boxed_opaque_existential_1(&v348, *&v348.d);
+          (*(*&tx + 32))(&v341, COERCE_CGFLOAT(*&d), COERCE_CGFLOAT(*&tx));
+          if (*&v358.d)
           {
-            v92 = 3;
+            outlined destroy of _DisplayList_AnyEffectAnimator?(&v358, &lazy cache variable for type metadata for _DisplayList_AnyEffectAnimator?, &lazy cache variable for type metadata for _DisplayList_AnyEffectAnimator, &protocol descriptor for _DisplayList_AnyEffectAnimator);
+          }
+        }
+
+        *&v355[0] = *(v38 + 72);
+        v53 = v341.d;
+        v54 = v341.tx;
+        __swift_mutable_project_boxed_opaque_existential_1(&v341, *&v341.d);
+        v55 = (*(*&v54 + 8))(&v358, &v348, v355, COERCE_CGFLOAT(*&v53), COERCE_CGFLOAT(*&v54), size.width, size.height);
+        outlined consume of DisplayList.Effect(*&v338.width, v333, 11);
+        v44 = *&v358.a;
+        v17 = LODWORD(v358.b);
+        v43 = BYTE4(v358.b);
+        if ((v55 & 1) == 0)
+        {
+          *(v38 + 80) = *(v38 + 72);
+        }
+
+        outlined init with copy of AnyTrackedValue(&v341, &v358);
+        swift_beginAccess();
+        v30 = v38;
+        specialized Dictionary.subscript.setter(&v358, v331, v330);
+        swift_endAccess();
+        __swift_destroy_boxed_opaque_existential_1(&v341);
+        __swift_destroy_boxed_opaque_existential_1(&v348);
+      }
+
+      else
+      {
+        v43 = HIDWORD(v17);
+        v44 = *&v338.width;
+      }
+
+      switch(v43)
+      {
+        case 1:
+          v331 = v43;
+          v172 = swift_projectBox();
+          outlined init with copy of DisplayList.ArchiveIDs?(v172, v11);
+          swift_beginAccess();
+          v173 = v30;
+          v174 = *(v30 + 88);
+          outlined init with copy of DisplayList.ArchiveIDs?(v11, v8);
+          v175 = type metadata accessor for DisplayList.ArchiveIDs(0);
+          v176 = v44;
+          v177 = *(*(v175 - 8) + 48);
+          v178 = v177(v8, 1, v175);
+          *&v338.width = v176;
+          if (v178 == 1)
+          {
+            outlined copy of DisplayList.Effect(v176, v17, 1);
+
+            _s7SwiftUI11DisplayListV10ArchiveIDsVSgWOhTm_0(v8, type metadata accessor for DisplayList.ArchiveIDs?);
+            v179 = 0;
           }
 
           else
           {
-            v92 = 4;
+            v301 = v176;
+            v179 = *&v8[*(v175 + 20)];
+            outlined copy of DisplayList.Effect(v301, v17, 1);
+
+            _s7SwiftUI11DisplayListV10ArchiveIDsVSgWOhTm_0(v8, type metadata accessor for DisplayList.ArchiveIDs);
           }
 
-          a4 = bswap32(LOWORD(v9)) | (4 * HIWORD(LODWORD(v9)));
-          v93 = v195;
-          v48 = (v197 + 16);
-          v187 = *(v197 + 16);
-          v94 = v187(v198, v179, v200);
+          v302 = v339;
+          *(v173 + 88) = v179;
+
+          v303 = v177(v11, 1, v175) != 1;
+          DisplayList.Index.updateArchive(entering:)(v303);
+          v341.a = v337;
+          LOWORD(v341.b) = v336;
+          HIDWORD(v341.b) = v334;
+          DisplayList.GraphicsRenderer.render(list:in:)(&v341, v302);
+          _s7SwiftUI11DisplayListV10ArchiveIDsVSgWOhTm_0(v11, type metadata accessor for DisplayList.ArchiveIDs?);
+
+          *(v173 + 88) = v174;
+
+          v44 = *&v338.width;
+          v298 = *&v338.width;
+          v299 = v17;
+          v300 = 1;
+          goto LABEL_213;
+        case 3:
+          outlined init with copy of AnyTrackedValue(v44 + 16, &v348);
+          v332 = *&v30;
+          v189 = v44;
+          v190 = v348.d;
+          v191 = v348.tx;
+          __swift_project_boxed_opaque_existential_1(&v348, *&v348.d);
+          v341.a = v337;
+          LOWORD(v341.b) = v336;
+          HIDWORD(v341.b) = v334;
+          v192 = v17;
+          v17 = *v339;
+          v331 = v43;
+          v193 = *(*&v191 + 48);
+
+          v194 = v17;
+          LOBYTE(v17) = v192;
+          v195 = v191;
+          v44 = v189;
+          v193(&v341, v194, *&v332, *&v190, *&v195, size.width, size.height);
+          LOBYTE(v43) = v331;
+
+          __swift_destroy_boxed_opaque_existential_1(&v348);
+          outlined consume of DisplayList.Effect(v189, v192, 3);
+          goto LABEL_46;
+        case 4:
+          v341.a = *v339;
+          v180 = *(*&v341.a + 48);
+
+          if (v180 != (v180 * *&v44))
+          {
+            GraphicsContext.copyOnWrite()();
+            *(*&v341.a + 48) = v180 * *&v44;
+          }
+
+          v348.a = v337;
+          LOWORD(v348.b) = v336;
+          HIDWORD(v348.b) = v334;
+          DisplayList.GraphicsRenderer.render(list:in:)(&v348, &v341.a);
+
+          goto LABEL_46;
+        case 5:
+          v135 = *v339;
+          v341.a = *v339;
+          if (v17)
+          {
+            outlined copy of DisplayList.Effect(v44, v17, 5);
+
+            objc_opt_self();
+            v136 = 0;
+          }
+
+          else
+          {
+
+            v136 = v44;
+          }
+
+          v56 = v335;
+          if (*(v135 + 52) != v136)
+          {
+            GraphicsContext.copyOnWrite()();
+            *(*&v341.a + 52) = v136;
+          }
+
+          v348.a = v337;
+          LOWORD(v348.b) = v336;
+          HIDWORD(v348.b) = v334;
+          DisplayList.GraphicsRenderer.render(list:in:)(&v348, &v341.a);
+          outlined consume of DisplayList.Effect(v44, v17, 5);
+
+          goto LABEL_47;
+        case 6:
+          v181 = *(v44 + 32);
+          *&v348.a = *(v44 + 16);
+          *&v348.c = v181;
+          LOBYTE(v348.tx) = *(v44 + 48);
+          v182 = *(v44 + 49);
+          v183 = v44;
+          v184 = *(v44 + 50);
+          v358.a = *v339;
+          outlined copy of DisplayList.Effect(v183, v17, 6);
+
+          GraphicsContext.copyOnWrite()();
+          v185 = *(*&v358.a + 56);
+          if (v184)
+          {
+            v186 = 256;
+          }
+
+          else
+          {
+            v186 = 0;
+          }
+
+          v187 = *(*(*&v358.a + 16) + 32);
+          v188 = v186 | v182;
+          v44 = v183;
+          RBShape.setPath(_:style:shapeDistance:)(&v348.a, v188, v185);
+
+          RBDrawingStateClipShape2();
+          v341.a = v337;
+          LOWORD(v341.b) = v336;
+          HIDWORD(v341.b) = v334;
+          DisplayList.GraphicsRenderer.render(list:in:)(&v341, &v358.a);
+
+          outlined consume of DisplayList.Effect(v183, v17, 6);
+          goto LABEL_46;
+        case 7:
+          v228 = *(v44 + 16);
+          v229 = *(v44 + 24);
+          v230 = v44;
+          v231 = *(v44 + 32);
+          v331 = v43;
+          v43 = *(v230 + 28);
+          v341.a = *v339;
+
+          outlined copy of DisplayList.Effect(v230, v17, 7);
+
+          v232 = v231;
+          v44 = v230;
+          v233 = v229 | (v43 << 32);
+          LOBYTE(v43) = v331;
+          specialized GraphicsContext.clipToLayer(opacity:options:content:)(v232, &v341, 1.0, v30, v228, v233);
+
+          v348.a = v337;
+          LOWORD(v348.b) = v336;
+          HIDWORD(v348.b) = v334;
+          DisplayList.GraphicsRenderer.render(list:in:)(&v348, &v341.a);
+
+          outlined consume of DisplayList.Effect(v230, v17, 7);
+          goto LABEL_46;
+        case 8:
+          v147 = *(v44 + 32);
+          v148 = *(v44 + 40);
+          v149 = v17;
+          v17 = v30;
+          v150 = *(v44 + 48);
+          v331 = v43;
+          v341.a = *v339;
+          memset(&v348, 0, 32);
+          LOBYTE(v348.tx) = 1;
+          v151 = swift_allocObject();
+          v152 = v336;
+          v153 = v337;
+          *(v151 + 16) = v17;
+          *(v151 + 24) = v153;
+          *(v151 + 32) = v152;
+          *(v151 + 36) = v334;
+          LOBYTE(v17) = v149;
+
+          outlined copy of DisplayList.Effect(v44, v149, 8);
+
+          swift_bridgeObjectRetain_n();
+
+          v154.n128_u64[0] = 0;
+          specialized GraphicsContext.drawSDFStyle<A>(_:ovalization:renderer:bounds:content:)(v150, v147, partial apply for closure #10 in DisplayList.GraphicsRenderer.render(item:in:), v151, &v341, &v348, v147, v154, v148);
+
+          LOBYTE(v43) = v331;
+
+          swift_bridgeObjectRelease_n();
+          outlined consume of DisplayList.Effect(v44, v149, 8);
+          goto LABEL_46;
+        case 9:
+          v196 = *(v44 + 16);
+          v197 = *(v44 + 24);
+          v198 = *(v44 + 32);
+          v199 = *(v44 + 40);
+          v201 = *(v44 + 48);
+          v200 = *(v44 + 56);
+          v203 = *(v44 + 64);
+          v202 = *(v44 + 72);
+          v204 = *(v44 + 80);
+          v205 = *(v44 + 88);
+          v358.a = *v339;
+          if (v205 > 1)
+          {
+            v332 = v198;
+            *&v333 = v196;
+            if (v205 == 2)
+            {
+              outlined copy of DisplayList.Effect(v44, v17, 9);
+
+              GraphicsContext.copyOnWrite()();
+              RBDrawingStateAddRotationStyle();
+            }
+
+            else
+            {
+              v330 = v200;
+              outlined copy of DisplayList.Effect(v44, v17, 9);
+
+              GraphicsContext.copyOnWrite()();
+              v327 = v204;
+              RBDrawingStateAddRotation3DStyle();
+            }
+          }
+
+          else
+          {
+            if (!v205)
+            {
+              v348.a = v196;
+              v348.b = v197;
+              v348.c = v198;
+              v348.d = v199;
+              v348.tx = v201;
+              *&v348.ty = v200;
+              v206 = v196;
+              v207 = v198;
+              v208 = *&v200;
+              IsIdentity = CGAffineTransformIsIdentity(&v348);
+              outlined copy of DisplayList.Effect(v44, v17, 9);
+
+              v56 = v335;
+              if (!IsIdentity)
+              {
+                GraphicsContext.copyOnWrite()();
+                v348.a = v206;
+                v348.b = v197;
+                v348.c = v207;
+                v348.d = v199;
+                v348.tx = v201;
+                v348.ty = v208;
+                RBDrawingStateConcatCTM();
+              }
+
+LABEL_244:
+              v341.a = v337;
+              LOWORD(v341.b) = v336;
+              HIDWORD(v341.b) = v334;
+              DisplayList.GraphicsRenderer.render(list:in:)(&v341, &v358.a);
+
+              outlined consume of DisplayList.Effect(v44, v17, 9);
+LABEL_47:
+              if ((v56 & 1) == 0)
+              {
+                GraphicsContext.copyOnWrite()();
+                RBDrawingStateTranslateCTM();
+              }
+
+              outlined consume of DisplayList.Effect(v44, v17, v43);
+              return;
+            }
+
+            v348.a = v196;
+            v348.b = v197;
+            v348.c = v198;
+            v348.d = v199;
+            v348.tx = v201;
+            *&v348.ty = v200;
+            *&v349 = v203;
+            *(&v349 + 1) = v202;
+            *&v350 = v204;
+            outlined copy of DisplayList.Effect(v44, v17, 9);
+
+            GraphicsContext.copyOnWrite()();
+            RBDrawingState.addProjectionTransform(_:)(&v348, *(*&v358.a + 24));
+          }
+
+          v56 = v335;
+          goto LABEL_244;
+        case 10:
+          v137 = *(v44 + 96);
+          v343 = *(v44 + 80);
+          v344[0] = v137;
+          v344[1] = *(v44 + 112);
+          *(&v344[1] + 12) = *(v44 + 124);
+          v138 = *(v44 + 32);
+          *&v341.a = *(v44 + 16);
+          *&v341.c = v138;
+          v139 = *(v44 + 64);
+          *&v341.tx = *(v44 + 48);
+          v342 = v139;
+          v340[0] = *v339;
+          memmove(&v348, (v44 + 16), 0x7CuLL);
+          if (_s7SwiftUI14GraphicsFilterOWOg(&v348) != 15)
+          {
+            v360 = v343;
+            v361 = v344[0];
+            v362[0] = v344[1];
+            *(v362 + 12) = *(&v344[1] + 12);
+            v358 = v341;
+            v359 = v342;
+            outlined copy of DisplayList.Effect(v44, v17, 10);
+
+            outlined init with copy of GraphicsFilter(&v341, v355);
+            GraphicsContext.addFilter(_:in:)(&v358, 0.0, 0.0, size.width, size.height);
+            v358.a = v337;
+            LOWORD(v358.b) = v336;
+            HIDWORD(v358.b) = v334;
+            DisplayList.GraphicsRenderer.render(list:in:)(&v358, v340);
+            outlined destroy of GraphicsFilter(&v341);
+
+            outlined consume of DisplayList.Effect(v44, v17, 10);
+            goto LABEL_46;
+          }
+
+          v140 = _s7SwiftUI14GraphicsFilterOWOj6_(&v348);
+          v332 = *&v30;
+
+          *&v338.width = v44;
+          *&v333 = v17;
+          outlined copy of DisplayList.Effect(v44, v17, 10);
+
+          GraphicsContext.copyOnWrite()();
+          v141 = v340[0];
+          v142 = RBDrawingStateBeginLayer();
+          type metadata accessor for GraphicsContext.Storage();
+          v143 = swift_allocObject();
+          *(v143 + 32) = xmmword_18DD85500;
+          *(v143 + 48) = 1065353216;
+          *(v143 + 56) = 0x7FF8000000000000;
+          v144 = *(*&v141 + 16);
+          v145 = *(v144 + 64);
+          DefaultColorSpace = RBDrawingStateGetDefaultColorSpace();
+          v331 = v43;
+          if (v145 == DefaultColorSpace)
+          {
+            *(v143 + 16) = v144;
+
+            v56 = v335;
+          }
+
+          else
+          {
+            v329 = v142;
+            v330 = RBDrawingStateGetDisplayList();
+            v311 = *(*&v141 + 32);
+            v310 = *(*&v141 + 40);
+            v312 = *&v311;
+            v313 = *&v310;
+            if (v311 == 1)
+            {
+              v312 = *(v144 + 48);
+              v310 = *(v144 + 56);
+            }
+
+            v358.a = v312;
+            v358.b = v310;
+            type metadata accessor for GraphicsContext.Storage.Shared();
+            swift_allocObject();
+            outlined copy of EnvironmentValues?(v311, v313);
+            *(v143 + 16) = GraphicsContext.Storage.Shared.init(list:environment:)(v330, &v358);
+            v56 = v335;
+            v142 = v329;
+          }
+
+          *(v143 + 24) = v142;
+          *(v143 + 64) = 0;
+          *&v355[0] = v143;
+          v358.a = v337;
+          LOWORD(v358.b) = v336;
+          HIDWORD(v358.b) = v334;
+
+          DisplayList.GraphicsRenderer.render(list:in:)(&v358, v355);
+
+          RBDrawingStateClipLayer();
+
+          *&v358.a = *v140;
+          v314 = v140[1];
+          v315 = v140[2];
+          v316 = v140[4];
+          v359 = v140[3];
+          v360 = v316;
+          *&v358.c = v314;
+          *&v358.tx = v315;
+          GraphicsContext.copyOnWrite()();
+          v317 = v340[0];
+          RBDrawingStateAddColorMatrixFilter();
+          RBDrawingStateGetClipBoundingBox();
+          x = v370.origin.x;
+          y = v370.origin.y;
+          width = v370.size.width;
+          height = v370.size.height;
+          if (CGRectIsNull(v370))
+          {
+            v17 = 0;
+            v43 = 0;
+            v322 = 0;
+            v323 = 0;
+            v324 = 6;
+          }
+
+          else
+          {
+            v324 = 0;
+            v17 = *&x;
+            v43 = *&y;
+            v322 = *&width;
+            v323 = *&height;
+          }
+
+          v44 = *&v338.width;
+          *&v366[0] = v17;
+          *&v366[1] = v43;
+          *&v366[2] = v322;
+          *&v366[3] = v323;
+          v367 = v324;
+          *&v358.a = 0uLL;
+          LODWORD(v358.c) = 2143289344;
+          BYTE8(v360) = 0;
+          *&v355[0] = 256;
+          *(v355 + 8) = 0u;
+          *(&v355[1] + 8) = 0u;
+          BYTE8(v355[2]) = 0;
+          GraphicsContext.draw(_:with:style:)(v366, &v358, v355, *&v317);
+          outlined consume of Path.Storage(v17, v43, v322, v323, v324);
+
+          LOBYTE(v17) = v333;
+          outlined consume of DisplayList.Effect(v44, v333, 10);
+          LOBYTE(v43) = v331;
+          goto LABEL_47;
+        case 11:
+          v328 = 0;
+          v327 = 358;
+          _assertionFailure(_:_:file:line:flags:)();
+          __break(1u);
+          JUMPOUT(0x18D1954B0);
+        case 12:
+          v331 = v43;
+          *&v333 = v17;
+          v219 = *(v44 + 16);
+          v220 = *(v44 + 24) | (*(v44 + 28) << 32);
+          v221 = *(v44 + 29);
+          v222 = *(v44 + 30);
+          v223 = *(v44 + 32);
+          v224 = *(v44 + 40);
+          v341.a = *v339;
+          v225 = *(v30 + 96);
+          if ((v224 & 0xC) != 0)
+          {
+            v348.a = v219;
+            LODWORD(v348.b) = v220;
+            BYTE6(v348.b) = v222 != 0;
+            WORD2(v348.b) = (v220 & 0xFF00000000 | (v221 << 40)) >> 32;
+            outlined copy of DisplayList.Effect(v44, v333, 12);
+            outlined copy of ContentTransition.Storage(*&v219, v220, v221);
+
+            outlined copy of ContentTransition.Storage(*&v219, v220, v221);
+            GraphicsContext.setTransition(_:)(&v348);
+            outlined consume of ContentTransition?(*&v348.a, LODWORD(v348.b) | ((WORD2(v348.b) | (BYTE6(v348.b) << 16)) << 32));
+            *(v30 + 96) = *(v30 + 96) & 1 | ((v224 & 4) != 0);
+            if ((v224 & 4) != 0)
+            {
+              v226 = *&v341.a;
+
+              v334 = v223;
+              v227 = *&v337;
+
+              specialized GraphicsContext.drawLayer(flags:content:)(32, v226, v30, v227, v336 & 0xFFFFFFFF0000FFFFLL);
+
+              outlined consume of ContentTransition.Storage(*&v219, v220, v221);
+
+              goto LABEL_212;
+            }
+          }
+
+          else
+          {
+            outlined copy of DisplayList.Effect(v44, v333, 12);
+            outlined copy of ContentTransition.Storage(*&v219, v220, v221);
+          }
+
+          v348.a = v337;
+          LOWORD(v348.b) = v336;
+          HIDWORD(v348.b) = v334;
+          DisplayList.GraphicsRenderer.render(list:in:)(&v348, &v341.a);
+          outlined consume of ContentTransition.Storage(*&v219, v220, v221);
+
+LABEL_212:
+          *(v30 + 96) = v225;
+
+          v298 = v44;
+          LOBYTE(v17) = v333;
+          v299 = v333;
+          v300 = 12;
+LABEL_213:
+          outlined consume of DisplayList.Effect(v298, v299, v300);
+          v56 = v335;
+          LOBYTE(v43) = v331;
+          goto LABEL_47;
+        case 16:
+          v333 = *(v44 + 16);
+          v155 = v44;
+          v156 = *(v44 + 32);
+          v157 = v30;
+          v158 = v30 + 104;
+          v159 = *(v30 + 104);
+          *&v338.width = v155;
+
+          v160 = swift_isUniquelyReferenced_nonNull_native();
+          *(v30 + 104) = v159;
+          v161 = v17;
+          if ((v160 & 1) == 0)
+          {
+            v159 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v159 + 2) + 1, 1, v159);
+            *v158 = v159;
+          }
+
+          v162 = v339;
+          v164 = *(v159 + 2);
+          v163 = *(v159 + 3);
+          if (v164 >= v163 >> 1)
+          {
+            v325 = v339;
+            v326 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v163 > 1), v164 + 1, 1, v159);
+            v162 = v325;
+            v159 = v326;
+          }
+
+          *(v159 + 2) = v164 + 1;
+          v165 = &v159[20 * v164];
+          *(v165 + 2) = v333;
+          *(v165 + 12) = v156;
+          *(v157 + 104) = v159;
+          v348.a = v337;
+          LOWORD(v348.b) = v336;
+          HIDWORD(v348.b) = v334;
+          DisplayList.GraphicsRenderer.render(list:in:)(&v348, v162);
+
+          if (!*(*(v157 + 104) + 16))
+          {
+            __break(1u);
+          }
+
+          specialized Array._customRemoveLast()(&v348);
+          LOBYTE(v17) = v161;
+          v44 = *&v338.width;
+          if (BYTE4(v348.c) == 1)
+          {
+            specialized Array.remove(at:)(*(*v158 + 16) - 1, &v348);
+          }
+
+          outlined consume of DisplayList.Effect(v44, v161, 16);
+          goto LABEL_46;
+        case 19:
+          v331 = v43;
+          v166 = v30;
+          v167 = *(v44 + 36);
+          v168 = v17;
+          v348.a = *v339;
+          v17 = v44;
+          v169 = v168;
+          outlined copy of DisplayList.Effect(v44, v168, 19);
+
+          if (v167)
+          {
+            v170 = 0;
+            v171 = 0;
+          }
+
+          else
+          {
+            v171 = RBUUIDInitFromHash();
+            v170 = v293;
+          }
+
+          GraphicsContext._addAnimation(_:id:)(v294, v171, v170);
+
+          v295 = *&v348.a;
+          v296 = v166;
+
+          v297 = *&v337;
+
+          specialized GraphicsContext.drawLayer(flags:content:)(32, v295, v296, v297, v336 & 0xFFFFFFFF0000FFFFLL);
+
+          swift_bridgeObjectRelease_n();
+          v44 = v17;
+          v298 = v17;
+          LOBYTE(v17) = v169;
+          v299 = v169;
+          v300 = 19;
+          goto LABEL_213;
+        case 20:
+          if (!(v44 | v17))
+          {
+            goto LABEL_45;
+          }
+
+          if (v44 ^ 1 | v17)
+          {
+            v308 = *v339;
+
+            v309 = *&v337;
+
+            specialized GraphicsContext.drawLayer(flags:content:)(0, v308, v30, v309, v336 & 0xFFFFFFFF0000FFFFLL);
+
+            swift_bridgeObjectRelease_n();
+LABEL_46:
+            v56 = v335;
+          }
+
+          else
+          {
+            v210 = v43;
+            v341.a = *v339;
+
+            GraphicsContext.copyOnWrite()();
+            v211 = *&v341.a;
+            RBDrawingStateGetCTM();
+            a = v348.a;
+            b = v348.b;
+            c = v348.c;
+            v215 = v348.d;
+            v216 = v348.tx;
+            ty = v348.ty;
+            v218 = CGAffineTransformIsIdentity(&v348);
+            v56 = v335;
+            if (!v218)
+            {
+              v348.a = 1.0;
+              v348.b = 0.0;
+              v348.c = 0.0;
+              v348.d = 1.0;
+              v348.tx = 0.0;
+              v348.ty = 0.0;
+              RBDrawingStateSetCTM();
+              v348.a = a;
+              v348.b = b;
+              v348.c = c;
+              v348.d = v215;
+              v348.tx = v216;
+              v348.ty = ty;
+              RBDrawingStateAddAffineTransformStyle();
+            }
+
+            v43 = *&v337;
+
+            specialized GraphicsContext.drawLayer(flags:content:)(32, v211, v30, v43, v336 & 0xFFFFFFFF0000FFFFLL);
+
+            swift_bridgeObjectRelease_n();
+            LOBYTE(v43) = v210;
+          }
+
+          goto LABEL_47;
+        default:
+LABEL_45:
+          v348.a = v337;
+          LOWORD(v348.b) = v336;
+          HIDWORD(v348.b) = v334;
+          DisplayList.GraphicsRenderer.render(list:in:)(&v348, v339);
+
+          goto LABEL_46;
+      }
+    }
+
+    switch(*(&v364 + 1) >> 60)
+    {
+      case 1:
+        v87 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+        v88 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x18);
+        v89 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x20);
+        v90 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x24);
+        v91 = *a2;
+        origin = v363.origin;
+        v93 = v363.size;
+        outlined init with copy of DisplayList.Item(&v363, &v348);
+        outlined init with copy of DisplayList.Item(&v363, &v348);
+        v369.origin = origin;
+        v369.size = v93;
+        if (CGRectIsNull(v369))
+        {
+          v94 = 0;
           v95 = 0;
-          LOBYTE(v205.f64[0]) = 1;
-          *&v196.f64[0] = v92;
-          v193 = 16 * v92;
-          v188 = v48;
-          *&v194 = v48 - 8;
-          v192 = v44 + 32;
-          v191 = LOBYTE(v9);
-          do
-          {
-            v195 = &v178;
-            MEMORY[0x1EEE9AC00](v94);
-            a1 = &v178 - ((v97 + 15) & 0xFFFFFFFFFFFFFFF0);
-            *&v9 = a1 + 8;
-            v98 = v196.f64[0];
-            v99 = (a1 + 8);
-            do
-            {
-              *(v99 - 1) = 0;
-              *v99 = 0;
-              v99 += 16;
-              --*&v98;
-            }
-
-            while (v98 != 0.0);
-            v100 = v192 + 40 * v95;
-            v101 = v196.f64[0];
-            while (1)
-            {
-              v102 = *(v44 + 16);
-              if (v95 == v102)
-              {
-                break;
-              }
-
-              if (v95 >= v102)
-              {
-                goto LABEL_180;
-              }
-
-              ++v95;
-              outlined init with copy of AnyTrackedValue(v100, &v209);
-              v103 = v210.f64[1];
-              v104 = __swift_project_boxed_opaque_existential_1(&v209, *&v210.f64[1]);
-              v105 = *&v103;
-              v48 = v104;
-              *(*&v9 - 8) = CVarArg.kdebugValue(_:)(a4 | v93, v105);
-              **&v9 = v106 & 1;
-              *&v9 += 16;
-              v96 = __swift_destroy_boxed_opaque_existential_1(&v209);
-              v100 += 40;
-              --*&v101;
-              if (v101 == 0.0)
-              {
-                goto LABEL_66;
-              }
-            }
-
-            LOBYTE(v205.f64[0]) = 0;
-LABEL_66:
-            v107 = v191;
-            if (v191 == 20)
-            {
-              OSSignpostID.rawValue.getter();
-            }
-
-            kdebug_trace();
-            if (*(a1 + 8) == 1)
-            {
-              kdebug_trace_string();
-            }
-
-            if (*(a1 + 24) == 1)
-            {
-              kdebug_trace_string();
-            }
-
-            if (*(a1 + 40) == 1)
-            {
-              kdebug_trace_string();
-            }
-
-            if (v107 != 20 && *(a1 + 56) == 1)
-            {
-              kdebug_trace_string();
-            }
-
-            if (one-time initialization token for continuation != -1)
-            {
-              swift_once();
-            }
-
-            v9 = *v194;
-            v48 = v198;
-            v108 = v200;
-            (*v194)(v198, v200);
-            v109 = __swift_project_value_buffer(v108, static OSSignpostID.continuation);
-            v94 = v187(v48, v109, v108);
-          }
-
-          while ((LOBYTE(v205.f64[0]) & 1) != 0);
-          outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v213, &lazy cache variable for type metadata for AnimatableAttributeHelper<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for AnimatableAttributeHelper);
-          outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v213, &lazy cache variable for type metadata for AnimatableAttributeHelper<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for AnimatableAttributeHelper);
-          v110 = v200;
-          (*&v9)(v198, v200);
-          (*&v9)(v179, v110);
-
-          a4 = v189;
-          LODWORD(v9) = v183;
-          goto LABEL_120;
-        }
-
-        LOBYTE(v201) = v195;
-        *&v204 = COERCE_DOUBLE(&dword_18D018000);
-        v203 = v84;
-        v209.f64[0] = v9;
-        v209.f64[1] = v79;
-        LOBYTE(v210.f64[0]) = LOBYTE(v80);
-        *&v205.f64[0] = "Animation: (%p) [%d] %{public}@ updated";
-        *&v205.f64[1] = 39;
-        LOBYTE(v206.f64[0]) = 2;
-        v202 = *&v44;
-        v91 = v179;
-        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-        outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v213, &lazy cache variable for type metadata for AnimatableAttributeHelper<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for AnimatableAttributeHelper);
-        outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v213, &lazy cache variable for type metadata for AnimatableAttributeHelper<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for AnimatableAttributeHelper);
-        (*(v197 + 8))(v91, v200);
-
-        goto LABEL_53;
-      }
-    }
-
-    __break(1u);
-LABEL_196:
-    swift_once();
-LABEL_86:
-    LODWORD(v198) = Counter;
-    v114 = COERCE_DOUBLE(_signpostLog);
-    OSSignpostID.init(log:object:)();
-    type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-    *&a4 = COERCE_DOUBLE(swift_allocObject());
-    *(a4 + 16) = xmmword_18DDAF080;
-    v115 = AGGraphGetCurrentAttribute();
-    v116 = LODWORD(v196.f64[0]);
-    if (v115 == LODWORD(v196.f64[0]))
-    {
-      __break(1u);
-LABEL_198:
-      __break(1u);
-    }
-
-    v117 = AGGraphGetAttributeGraph();
-    v118 = AGGraphGetCounter();
-
-    v119 = MEMORY[0x1E69E6870];
-    *(a4 + 56) = MEMORY[0x1E69E6810];
-    *(a4 + 64) = v119;
-    *(a4 + 32) = v118;
-    v120 = AGGraphGetCurrentAttribute();
-    if (v120 == v116)
-    {
-      goto LABEL_198;
-    }
-
-    v121 = MEMORY[0x1E69E76D0];
-    *(a4 + 96) = MEMORY[0x1E69E7668];
-    *(a4 + 104) = v121;
-    *(a4 + 72) = v120;
-    *(a4 + 136) = MEMORY[0x1E69E6158];
-    *(a4 + 144) = lazy protocol witness table accessor for type String and conformance String();
-    strcpy((a4 + 112), "_ScaleEffect");
-    *(a4 + 125) = 0;
-    *(a4 + 126) = -5120;
-    if (v86)
-    {
-      LOBYTE(v201) = v198;
-      *&v204 = COERCE_DOUBLE(&dword_18D018000);
-      v203 = v114;
-      v209.f64[0] = v79;
-      v209.f64[1] = v80;
-      LOBYTE(v210.f64[0]) = v44;
-      *&v205.f64[0] = "Animation: (%p) [%d] %{public}@ started";
-      *&v205.f64[1] = 39;
-      LOBYTE(v206.f64[0]) = 2;
-      v202 = *&a4;
-      v122 = v178;
-      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-      v123 = v182;
-
-      (*(v197 + 8))(v122, v200);
-
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v213, &lazy cache variable for type metadata for AnimatableAttributeHelper<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for AnimatableAttributeHelper);
-      a4 = v189;
-LABEL_91:
-      *(a4 + 56) = v123;
-    }
-
-    else
-    {
-      v124 = LOBYTE(v79);
-      v125 = LOBYTE(v79) == 20 ? 3 : 4;
-      v126 = bswap32(LOWORD(v79)) | (4 * HIWORD(LODWORD(v79)));
-      v93 = v198;
-      v48 = (v197 + 16);
-      v187 = *(v197 + 16);
-      v127 = v187(v195, v178, v200);
-      v9 = 0.0;
-      LOBYTE(v205.f64[0]) = 1;
-      v198 = v125;
-      v193 = 16 * v125;
-      v188 = v48;
-      *&v194 = v48 - 8;
-      v192 = a4 + 32;
-      v191 = v124;
-      do
-      {
-        *&v196.f64[0] = &v178;
-        MEMORY[0x1EEE9AC00](v127);
-        a1 = &v178 - ((v128 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v129 = (a1 + 8);
-        v130 = v198;
-        v131 = (a1 + 8);
-        do
-        {
-          *(v131 - 1) = 0;
-          *v131 = 0;
-          v131 += 16;
-          v130 = (v130 - 1);
-        }
-
-        while (v130);
-        v132 = v192 + 40 * *&v9;
-        v44 = v198;
-        while (1)
-        {
-          v133 = *(a4 + 16);
-          if (*&v9 == v133)
-          {
-            break;
-          }
-
-          if (*&v9 >= v133)
-          {
-            goto LABEL_181;
-          }
-
-          ++*&v9;
-          outlined init with copy of AnyTrackedValue(v132, &v209);
-          v134 = v210.f64[1];
-          v135 = __swift_project_boxed_opaque_existential_1(&v209, *&v210.f64[1]);
-          v136 = *&v134;
-          v48 = v135;
-          *(v129 - 1) = CVarArg.kdebugValue(_:)(v126 | v93, v136);
-          *v129 = v137 & 1;
-          v129 += 16;
-          v96 = __swift_destroy_boxed_opaque_existential_1(&v209);
-          v132 += 40;
-          --v44;
-          if (*&v44 == 0.0)
-          {
-            goto LABEL_104;
-          }
-        }
-
-        LOBYTE(v205.f64[0]) = 0;
-LABEL_104:
-        v138 = v191;
-        if (v191 == 20)
-        {
-          v139 = v195;
-          OSSignpostID.rawValue.getter();
-          kdebug_trace();
-        }
-
-        else
-        {
-          kdebug_trace();
-          v139 = v195;
-        }
-
-        if (*(a1 + 8) == 1)
-        {
-          kdebug_trace_string();
-        }
-
-        if (*(a1 + 24) == 1)
-        {
-          kdebug_trace_string();
-        }
-
-        if (*(a1 + 40) == 1)
-        {
-          kdebug_trace_string();
-        }
-
-        if (v138 != 20 && *(a1 + 56) == 1)
-        {
-          kdebug_trace_string();
-        }
-
-        if (one-time initialization token for continuation != -1)
-        {
-          swift_once();
-        }
-
-        v140 = *v194;
-        v48 = v200;
-        (*v194)(v139, v200);
-        v141 = __swift_project_value_buffer(v48, static OSSignpostID.continuation);
-        v127 = v187(v139, v141, v48);
-      }
-
-      while ((LOBYTE(v205.f64[0]) & 1) != 0);
-      *&v9 = v182;
-
-      v142 = v200;
-      v140(v139, v200);
-      v140(v178, v142);
-
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v213, &lazy cache variable for type metadata for AnimatableAttributeHelper<_ScaleEffect>, lazy protocol witness table accessor for type _ScaleEffect and conformance _ScaleEffect, &type metadata for _ScaleEffect, type metadata accessor for AnimatableAttributeHelper);
-      a4 = v189;
-      *(v189 + 56) = v9;
-      LODWORD(v9) = v183;
-    }
-
-LABEL_120:
-    specialized AnimatorState.addListeners(transaction:)(v180);
-
-    a1 = v186;
-LABEL_121:
-    v30 = v185;
-    v31 = v184;
-LABEL_122:
-    *(a4 + 16) = v30;
-    *(a4 + 32) = v31;
-    *(a4 + 48) = 0;
-LABEL_123:
-    v44 = *(a4 + 56);
-    if (*&v44 == 0.0)
-    {
-      return result;
-    }
-
-    v143 = vmulq_f64(*(a1 + 16), vdupq_n_s64(0x4060000000000000uLL));
-    v209 = *a1;
-    v210 = v143;
-
-    LOBYTE(v213) = 0;
-    v144 = specialized AnimatorState.update(_:at:environment:)(&v209, LODWORD(v9), v28);
-    v96 = AGGraphGetCurrentAttribute();
-    LODWORD(v9) = *MEMORY[0x1E698D3F8];
-    if (v96 == *MEMORY[0x1E698D3F8])
-    {
-      v93 = 0;
-    }
-
-    else
-    {
-      v93 = v96;
-    }
-
-    v48 = &type metadata instantiation cache for TupleTypeDescription;
-    if (v144)
-    {
-      if (one-time initialization token for enabledCategories != -1)
-      {
-        goto LABEL_182;
-      }
-
-      goto LABEL_129;
-    }
-
-    if (one-time initialization token for enabledCategories != -1)
-    {
-      goto LABEL_184;
-    }
-
-LABEL_142:
-    v155 = *(v48 + 77);
-    if (*(v155 + 16) >= 0x43uLL)
-    {
-      if (*(v155 + 98) == 1 && static CustomEventTrace.recorder)
-      {
-        *(*(static CustomEventTrace.recorder + 24) + 4) = 834;
-        LODWORD(v213) = v93;
-        BYTE4(v213) = v96 == LODWORD(v9);
-        type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for AGAttribute?, type metadata accessor for AGAttribute, MEMORY[0x1E69E6720]);
-        AGGraphAddTraceEvent();
-      }
-
-      specialized AnimatorState.nextUpdate()();
-
-      goto LABEL_177;
-    }
-
-    __break(1u);
-LABEL_186:
-    swift_once();
-LABEL_134:
-    v47 = *(&static Signpost.animationState + 1);
-    v147 = static Signpost.animationState;
-    v49 = word_1ED5283E8;
-    v148 = HIBYTE(word_1ED5283E8);
-    v149 = byte_1ED5283EA;
-    v46 = static os_signpost_type_t.end.getter();
-    v213 = __PAIR128__(v47, v147);
-    LOBYTE(v214) = v49;
-    BYTE1(v214) = v148;
-    BYTE2(v214) = v149;
-    v48 = &v213;
-    if ((Signpost.isEnabled.getter() & 1) == 0)
-    {
-
-      goto LABEL_176;
-    }
-
-    v150 = one-time initialization token for _signpostLog;
-
-    if (v150 != -1)
-    {
-      swift_once();
-    }
-
-    v186 = a1;
-    *&v45 = COERCE_DOUBLE(_signpostLog);
-    v188 = v44;
-    OSSignpostID.init(log:object:)();
-    type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-    *&v44 = COERCE_DOUBLE(swift_allocObject());
-    *(v44 + 16) = xmmword_18DDAF080;
-    if (AGGraphGetCurrentAttribute() != LODWORD(v9))
-    {
-      break;
-    }
-
-    __break(1u);
-LABEL_188:
-    __break(1u);
-LABEL_189:
-    swift_once();
-  }
-
-  v48 = AGGraphGetAttributeGraph();
-  a1 = AGGraphGetCounter();
-
-  v151 = MEMORY[0x1E69E6870];
-  *(v44 + 56) = MEMORY[0x1E69E6810];
-  *(v44 + 64) = v151;
-  *(v44 + 32) = a1;
-  v152 = AGGraphGetCurrentAttribute();
-  if (v152 == LODWORD(v9))
-  {
-    goto LABEL_188;
-  }
-
-  v153 = MEMORY[0x1E69E76D0];
-  *(v44 + 96) = MEMORY[0x1E69E7668];
-  *(v44 + 104) = v153;
-  *(v44 + 72) = v152;
-  *(v44 + 136) = MEMORY[0x1E69E6158];
-  *(v44 + 144) = lazy protocol witness table accessor for type String and conformance String();
-  strcpy((v44 + 112), "_ScaleEffect");
-  *(v44 + 125) = 0;
-  *(v44 + 126) = -5120;
-  if (v148)
-  {
-    LOBYTE(v201) = v46;
-    *&v204 = COERCE_DOUBLE(&dword_18D018000);
-    v203 = *&v45;
-    *&v213 = v147;
-    *(&v213 + 1) = v47;
-    LOBYTE(v214) = v49;
-    *&v205.f64[0] = "Animation: (%p) [%d] %{public}@ ended";
-    *&v205.f64[1] = 37;
-    LOBYTE(v206.f64[0]) = 2;
-    v202 = *&v44;
-    v154 = v190;
-    specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-
-    (*(v197 + 8))(v154, v200);
-    goto LABEL_175;
-  }
-
-  v156 = v147;
-  if (v147 == 20)
-  {
-    v157 = 3;
-  }
-
-  else
-  {
-    v157 = 4;
-  }
-
-  LODWORD(v9) = bswap32(v147) | (4 * WORD1(v147));
-  v93 = v46;
-  v158 = v197 + 16;
-  v191 = *(v197 + 16);
-  v159 = v191(v199, v190, v200);
-  v160 = 0;
-  LOBYTE(v205.f64[0]) = 1;
-  v195 = (16 * v157);
-  v197 = v158;
-  *&v196.f64[0] = v158 - 8;
-  *&v194 = v44 + 32;
-  v193 = v156;
-  v192 = v157;
-  do
-  {
-    v198 = &v178;
-    MEMORY[0x1EEE9AC00](v159);
-    a1 = &v178 - ((v161 + 15) & 0xFFFFFFFFFFFFFFF0);
-    a4 = a1 + 8;
-    v162 = v157;
-    v163 = (a1 + 8);
-    do
-    {
-      *(v163 - 1) = 0;
-      *v163 = 0;
-      v163 += 16;
-      --v162;
-    }
-
-    while (v162);
-    v164 = v194 + 40 * v160;
-    while (1)
-    {
-      v165 = *(v44 + 16);
-      if (v160 == v165)
-      {
-        break;
-      }
-
-      if (v160 >= v165)
-      {
-        __break(1u);
-LABEL_180:
-        __break(1u);
-LABEL_181:
-        __break(1u);
-LABEL_182:
-        v176 = v96;
-        swift_once();
-        v96 = v176;
-LABEL_129:
-        v145 = *(v48 + 77);
-        if (*(v145 + 16) >= 0x43uLL)
-        {
-          if (*(v145 + 98) == 1 && static CustomEventTrace.recorder)
-          {
-            *(*(static CustomEventTrace.recorder + 24) + 4) = 578;
-            LODWORD(v213) = v93;
-            BYTE4(v213) = v96 == LODWORD(v9);
-            type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for AGAttribute?, type metadata accessor for AGAttribute, MEMORY[0x1E69E6720]);
-            AGGraphAddTraceEvent();
-          }
-
-          v189 = a4;
-          v146 = one-time initialization token for animationState;
-
-          if (v146 != -1)
-          {
-            goto LABEL_186;
-          }
-
-          goto LABEL_134;
-        }
-
-        __break(1u);
-LABEL_184:
-        v177 = v96;
-        swift_once();
-        v96 = v177;
-        goto LABEL_142;
-      }
-
-      ++v160;
-      outlined init with copy of AnyTrackedValue(v164, &v213);
-      v166 = *(&v214 + 1);
-      v167 = __swift_project_boxed_opaque_existential_1(&v213, *(&v214 + 1));
-      v168 = v166;
-      v48 = v167;
-      *(a4 - 8) = CVarArg.kdebugValue(_:)(LODWORD(v9) | v46, v168);
-      *a4 = v169 & 1;
-      a4 += 16;
-      v96 = __swift_destroy_boxed_opaque_existential_1(&v213);
-      v164 += 40;
-      if (!--v157)
-      {
-        goto LABEL_160;
-      }
-    }
-
-    LOBYTE(v205.f64[0]) = 0;
-LABEL_160:
-    v170 = v193;
-    if (v193 == 20)
-    {
-      OSSignpostID.rawValue.getter();
-    }
-
-    kdebug_trace();
-    if (*(a1 + 8) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (*(a1 + 24) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (*(a1 + 40) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (v170 != 20 && *(a1 + 56) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (one-time initialization token for continuation != -1)
-    {
-      swift_once();
-    }
-
-    v171 = **&v196.f64[0];
-    v172 = v199;
-    v48 = v200;
-    (**&v196.f64[0])(v199, v200);
-    v173 = __swift_project_value_buffer(v48, static OSSignpostID.continuation);
-    v159 = v191(v172, v173, v48);
-    v157 = v192;
-  }
-
-  while ((LOBYTE(v205.f64[0]) & 1) != 0);
-
-  v174 = v200;
-  v171(v199, v200);
-  v171(v190, v174);
-LABEL_175:
-
-  a1 = v186;
-LABEL_176:
-  specialized AnimatorState.removeListeners()();
-
-  *(v189 + 56) = 0;
-LABEL_177:
-  v175 = vmulq_f64(v210, vdupq_n_s64(0x3F80000000000000uLL));
-  *a1 = v209;
-  *(a1 + 16) = v175;
-  *(a1 + 32) = 1;
-  return result;
-}
-
-{
-  LODWORD(v5) = a3;
-  v217 = *MEMORY[0x1E69E9840];
-  v196 = type metadata accessor for OSSignpostID();
-  v192 = *(v196 - 8);
-  MEMORY[0x1EEE9AC00](v196);
-  v9 = &v176 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v176 - v11;
-  MEMORY[0x1EEE9AC00](v13);
-  v194 = &v176 - v14;
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v176 - v16;
-  MEMORY[0x1EEE9AC00](v18);
-  v195 = &v176 - v19;
-  MEMORY[0x1EEE9AC00](v20);
-  v186 = &v176 - v21;
-  if (*(a4 + 56))
-  {
-    Value = AGGraphGetValue();
-    if (v23)
-    {
-      v24 = *Value;
-    }
-
-    else
-    {
-      v24 = -INFINITY;
-    }
-  }
-
-  else
-  {
-    v24 = -INFINITY;
-  }
-
-  result = specialized AnimatableAttributeHelper.checkReset()();
-  if (result)
-  {
-    *(a1 + 8) = 1;
-  }
-
-  else if (*(a1 + 8) != 1)
-  {
-    goto LABEL_131;
-  }
-
-  (*(**a1 + 144))(&v214);
-  outlined init with copy of KeyedAnimatableArray<Int, _AnyAnimatableData>.Element(a4 + 16, &v208, &lazy cache variable for type metadata for _AnyAnimatableData?, &type metadata for _AnyAnimatableData, type metadata accessor for HitTestableEvent?);
-  if (!v208)
-  {
-    outlined destroy of HitTestableEvent?(&v208, &lazy cache variable for type metadata for _AnyAnimatableData?);
-    goto LABEL_130;
-  }
-
-  v177 = v17;
-  v212[0] = v208;
-  v212[1] = v209;
-  v213 = v210;
-  v26 = v208;
-  if (v214 == v208 && ((*(v214 + 88))(&v214 + 8, v212 + 8) & 1) != 0)
-  {
-    outlined destroy of _AnyAnimatableData(v212);
-    goto LABEL_130;
-  }
-
-  v197 = a2;
-  v180 = v5;
-  v193 = *&v9;
-  v176 = v12;
-  AGGraphClearUpdate();
-  outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(a4, &v208, &lazy cache variable for type metadata for AnimatableAttributeHelper<AnyLayout>, lazy protocol witness table accessor for type AnyLayout and conformance AnyLayout, &type metadata for AnyLayout, type metadata accessor for AnimatableAttributeHelper);
-  v27 = *AGGraphGetValue();
-
-  outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v208, &lazy cache variable for type metadata for AnimatableAttributeHelper<AnyLayout>, lazy protocol witness table accessor for type AnyLayout and conformance AnyLayout, &type metadata for AnyLayout, type metadata accessor for AnimatableAttributeHelper);
-  AGGraphSetUpdate();
-  v179 = v27;
-  v181 = Transaction.effectiveAnimation.getter(v27);
-  if (v181)
-  {
-LABEL_18:
-    outlined init with copy of _AnyAnimatableData(&v214, &v206);
-    v28 = v206;
-    if (v206 == v26)
-    {
-      v206[13](v207, v212 + 8);
-    }
-
-    else if (v28 == type metadata accessor for ZeroVTable())
-    {
-      outlined destroy of _AnyAnimatableData(&v206);
-      outlined init with copy of _AnyAnimatableData(v212, &v206);
-      (v206[14])(v207);
-    }
-
-    v183 = a1;
-    v24 = *AGGraphGetValue();
-    v182 = a4;
-    v29 = *(a4 + 56);
-    if (!v29)
-    {
-      outlined init with copy of _AnyAnimatableData(&v206, &v208);
-      *&v201 = COERCE_DOUBLE(&type metadata for AnyLayout);
-      type metadata accessor for AnyLayout.Type();
-      type metadata accessor for any AnimationFinishingDefinition<Self.AnimationFinishingDefinition.Value == CGFloat>.Type(0, &lazy cache variable for type metadata for any AnimationFinishingDefinition<Self.AnimationFinishingDefinition.Value == _AnyAnimatableData>.Type);
-      v51 = swift_dynamicCast();
-      if (v51)
-      {
-        v52 = v202;
-      }
-
-      else
-      {
-        v52 = 0;
-      }
-
-      if (v51)
-      {
-        v53 = *(&v202 + 1);
-      }
-
-      else
-      {
-        v53 = 0;
-      }
-
-      v54 = v179;
-
-      v55 = v181;
-
-      v57 = _s7SwiftUI13AnimatorStateC9animation8interval2at2in19finishingDefinitionACyxGAA9AnimationV_xAA4TimeVAA11TransactionVAA0k9FinishingJ0_px5ValueRts_XPXpSgtc33_35ADF281214A25133F1A6DF28858952DLlfCAA18_AnyAnimatableDataV_Tt4B5(v56, &v208, v54, v52, v53, v24);
-      CurrentAttribute = AGGraphGetCurrentAttribute();
-      LODWORD(v5) = CurrentAttribute;
-      LODWORD(v197) = *MEMORY[0x1E698D3F8];
-      if (CurrentAttribute == v197)
-      {
-        v59 = 0;
-      }
-
-      else
-      {
-        v59 = CurrentAttribute;
-      }
-
-      (*(*v55 + 96))(&v202);
-      v61 = *(&v202 + 1);
-      v60 = v202;
-      v62 = *(&v203 + 1);
-      v63 = v203;
-      v64 = v204;
-      v200 = NAN;
-      *&v201 = NAN;
-      v198 = NAN;
-      v199 = 1.0;
-      v208 = v202;
-      v209 = v203;
-      v210 = v204;
-      LODWORD(v194) = v205;
-      LOBYTE(v211) = v205;
-      static CustomEventTrace.extractFunctionData(_:_:_:_:_:)(&v208, &v201, &v200, &v199, &v198);
-      v65 = v200;
-      v66 = *&v201;
-      v67 = v198;
-      v68 = v199;
-      if (one-time initialization token for enabledCategories != -1)
-      {
-        goto LABEL_202;
-      }
-
-      goto LABEL_42;
-    }
-
-    LOBYTE(v208) = 0;
-    v30 = v181;
-    v178 = v29;
-    specialized AnimatorState.combine(newAnimation:newInterval:at:in:environment:)(v181, &v206, v179, v24);
-    v31 = AGGraphGetCurrentAttribute();
-    v32 = v31;
-    v33 = *MEMORY[0x1E698D3F8];
-    if (v31 == *MEMORY[0x1E698D3F8])
-    {
-      v34 = 0;
-    }
-
-    else
-    {
-      v34 = v31;
-    }
-
-    (*(*v30 + 96))(&v202);
-    v36 = *(&v202 + 1);
-    Counter = v202;
-    v37 = v203;
-    v38 = v204;
-    v39 = v205;
-    v200 = NAN;
-    *&v201 = NAN;
-    v198 = NAN;
-    v199 = 1.0;
-    v208 = v202;
-    v209 = v203;
-    v210 = v204;
-    LOBYTE(v211) = v205;
-    static CustomEventTrace.extractFunctionData(_:_:_:_:_:)(&v208, &v201, &v200, &v199, &v198);
-    v40 = v200;
-    v41 = v201;
-    v42 = v198;
-    v43 = v199;
-    if (one-time initialization token for enabledCategories != -1)
-    {
-      v197 = v201;
-      *&v190 = v198;
-      v191 = v200;
-      v193 = v199;
-      swift_once();
-      v42 = *&v190;
-      v40 = v191;
-      v43 = v193;
-      v41 = v197;
-    }
-
-    if (*(static CustomEventTrace.enabledCategories + 2) < 0x43uLL)
-    {
-      __break(1u);
-LABEL_199:
-      swift_once();
-LABEL_52:
-      v82 = *(&static Signpost.animationState + 1);
-      v81 = static Signpost.animationState;
-      v83 = word_1ED5283E8;
-      v84 = HIBYTE(word_1ED5283E8);
-      v85 = byte_1ED5283EA;
-      v86 = static os_signpost_type_t.event.getter();
-      v208 = __PAIR128__(v82, v81);
-      LOBYTE(v209) = v83;
-      BYTE1(v209) = v84;
-      BYTE2(v209) = v85;
-      if (Signpost.isEnabled.getter())
-      {
-        LODWORD(v197) = v86;
-        v87 = one-time initialization token for _signpostLog;
-
-        if (v87 != -1)
-        {
-          swift_once();
-        }
-
-        v88 = COERCE_DOUBLE(_signpostLog);
-        OSSignpostID.init(log:object:)();
-        type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-        *&v89 = COERCE_DOUBLE(swift_allocObject());
-        *(v89 + 16) = xmmword_18DDAF080;
-        if (AGGraphGetCurrentAttribute() == v33)
-        {
-          __break(1u);
-        }
-
-        else
-        {
-          v90 = AGGraphGetAttributeGraph();
-          Counter = AGGraphGetCounter();
-
-          v91 = MEMORY[0x1E69E6870];
-          *(v89 + 56) = MEMORY[0x1E69E6810];
-          *(v89 + 64) = v91;
-          *(v89 + 32) = Counter;
-          v92 = AGGraphGetCurrentAttribute();
-          if (v92 != v33)
-          {
-            v5 = v89;
-            v93 = MEMORY[0x1E69E76D0];
-            *(v89 + 96) = MEMORY[0x1E69E7668];
-            *(v89 + 104) = v93;
-            *(v89 + 72) = v92;
-            *(v89 + 136) = MEMORY[0x1E69E6158];
-            *(v89 + 144) = lazy protocol witness table accessor for type String and conformance String();
-            *(v89 + 112) = 0x756F79614C796E41;
-            *(v89 + 120) = 0xE900000000000074;
-            v94 = v177;
-            if (v84)
-            {
-              LOBYTE(v198) = v197;
-              v200 = v88;
-              *&v201 = COERCE_DOUBLE(&dword_18D018000);
-              *&v208 = v81;
-              *(&v208 + 1) = v82;
-              LOBYTE(v209) = v83;
-              *&v202 = "Animation: (%p) [%d] %{public}@ updated";
-              *(&v202 + 1) = 39;
-              LOBYTE(v203) = 2;
-              v199 = *&v89;
-              specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-
-              (*(v192 + 8))(v94, v196);
-            }
-
-            else
-            {
-              if (v81 == 20)
-              {
-                v95 = 3;
-              }
-
-              else
-              {
-                v95 = 4;
-              }
-
-              a1 = bswap32(v81) | (4 * WORD1(v81));
-              LODWORD(v197) = v197;
-              v96 = (v192 + 16);
-              v184 = *(v192 + 16);
-              v97 = v184(v194, v177, v196);
-              *&v98 = 0.0;
-              LOBYTE(v202) = 1;
-              v185 = v96;
-              v190 = 16 * v95;
-              *&v191 = v96 - 8;
-              *&v188 = v81;
-              *&v189 = v5 + 32;
-              v187 = v95;
-              do
-              {
-                v193 = COERCE_DOUBLE(&v176);
-                MEMORY[0x1EEE9AC00](v97);
-                a4 = &v176 - ((v100 + 15) & 0xFFFFFFFFFFFFFFF0);
-                v101 = (a4 + 8);
-                v102 = v95;
-                v103 = (a4 + 8);
-                do
-                {
-                  *(v103 - 1) = 0;
-                  *v103 = 0;
-                  v103 += 16;
-                  --v102;
-                }
-
-                while (v102);
-                v104 = *&v189 + 40 * v98;
-                while (1)
-                {
-                  v105 = *(v5 + 16);
-                  if (v98 == v105)
-                  {
-                    break;
-                  }
-
-                  if (v98 >= v105)
-                  {
-                    goto LABEL_191;
-                  }
-
-                  ++v98;
-                  outlined init with copy of AnyTrackedValue(v104, &v208);
-                  v81 = v5;
-                  v106 = *(&v209 + 1);
-                  __swift_project_boxed_opaque_existential_1(&v208, *(&v209 + 1));
-                  *(v101 - 1) = CVarArg.kdebugValue(_:)(a1 | v197, v106);
-                  *v101 = v107 & 1;
-                  v101 += 16;
-                  v99 = __swift_destroy_boxed_opaque_existential_1(&v208);
-                  v104 += 40;
-                  if (!--v95)
-                  {
-                    goto LABEL_72;
-                  }
-                }
-
-                LOBYTE(v202) = 0;
-LABEL_72:
-                v108 = v188;
-                if (*&v188 == 20)
-                {
-                  OSSignpostID.rawValue.getter();
-                }
-
-                kdebug_trace();
-                if (*(a4 + 8) == 1)
-                {
-                  kdebug_trace_string();
-                }
-
-                if (*(a4 + 24) == 1)
-                {
-                  kdebug_trace_string();
-                }
-
-                if (*(a4 + 40) == 1)
-                {
-                  kdebug_trace_string();
-                }
-
-                if (*&v108 != 20 && *(a4 + 56) == 1)
-                {
-                  kdebug_trace_string();
-                }
-
-                if (one-time initialization token for continuation != -1)
-                {
-                  swift_once();
-                }
-
-                v109 = **&v191;
-                v110 = v194;
-                v111 = v196;
-                (**&v191)(v194, v196);
-                v112 = __swift_project_value_buffer(v111, static OSSignpostID.continuation);
-                v97 = v184(v110, v112, v111);
-                v95 = v187;
-              }
-
-              while ((v202 & 1) != 0);
-
-              v113 = v196;
-              v109(v194, v196);
-              v109(v177, v113);
-            }
-
-LABEL_88:
-            a4 = v182;
-            goto LABEL_129;
-          }
-        }
-
-        __break(1u);
-        goto LABEL_207;
-      }
-
-      goto LABEL_88;
-    }
-
-    if (*(static CustomEventTrace.enabledCategories + 98) == 1)
-    {
-      v44 = v34;
-      v45 = v39;
-      v46 = static CustomEventTrace.recorder;
-      if (static CustomEventTrace.recorder)
-      {
-        v47 = v32 == v33;
-        v197 = *(static CustomEventTrace.recorder + 24);
-        *(v197 + 4) = 1602;
-        v48 = *(v46 + 16);
-        LODWORD(v208) = v44;
-        BYTE4(v208) = v47;
-        *(&v208 + 1) = &type metadata for AnyLayout;
-        *&v209 = v41;
-        *(&v209 + 1) = v40;
-        v210 = *&v43;
-        v211 = v42;
-        type metadata accessor for (AGAttribute?, Any.Type, Double, Double, Double, Double)();
-        v193 = v49;
-
-        v50 = v48;
-        AGGraphAddTraceEvent();
-        outlined consume of Animation.Function(Counter, v36, v37, *(&v37 + 1), v38, v45);
-
-        goto LABEL_51;
-      }
-
-      v74 = Counter;
-      v75 = v36;
-      v77 = *(&v37 + 1);
-      v76 = v37;
-      v78 = v38;
-      v79 = v45;
-    }
-
-    else
-    {
-      v74 = Counter;
-      v75 = v36;
-      v77 = *(&v37 + 1);
-      v76 = v37;
-      v78 = v38;
-      v79 = v39;
-    }
-
-    outlined consume of Animation.Function(v74, v75, v76, v77, v78, v79);
-LABEL_51:
-    v80 = one-time initialization token for animationState;
-
-    if (v80 == -1)
-    {
-      goto LABEL_52;
-    }
-
-    goto LABEL_199;
-  }
-
-  LODWORD(v5) = v180;
-  if (v197)
-  {
-
-    goto LABEL_18;
-  }
-
-  outlined destroy of _AnyAnimatableData(v212);
-
-LABEL_130:
-  while (1)
-  {
-    result = outlined destroy of HitTestableEvent?(a4 + 16, &lazy cache variable for type metadata for _AnyAnimatableData?);
-    v141 = v215;
-    *(a4 + 16) = v214;
-    *(a4 + 32) = v141;
-    *(a4 + 48) = v216;
-LABEL_131:
-    v95 = *(a4 + 56);
-    if (!v95)
-    {
-      return result;
-    }
-
-    v142 = *(**a1 + 144);
-
-    v142(&v208, v143);
-    LOBYTE(v202) = 0;
-    v144 = specialized AnimatorState.update(_:at:environment:)(&v208, v5, v24);
-    v99 = AGGraphGetCurrentAttribute();
-    LODWORD(v98) = *MEMORY[0x1E698D3F8];
-    if (v99 == *MEMORY[0x1E698D3F8])
-    {
-      LODWORD(v104) = 0;
-    }
-
-    else
-    {
-      LODWORD(v104) = v99;
-    }
-
-    v81 = &type metadata instantiation cache for TupleTypeDescription;
-    if (v144)
-    {
-      if (one-time initialization token for enabledCategories != -1)
-      {
-        goto LABEL_193;
-      }
-
-      goto LABEL_137;
-    }
-
-    if (one-time initialization token for enabledCategories != -1)
-    {
-      goto LABEL_195;
-    }
-
-LABEL_150:
-    v155 = *(v81 + 616);
-    if (*(v155 + 16) >= 0x43uLL)
-    {
-      if (*(v155 + 98) == 1 && static CustomEventTrace.recorder)
-      {
-        *(*(static CustomEventTrace.recorder + 24) + 4) = 834;
-        LODWORD(v202) = v104;
-        BYTE4(v202) = v99 == v98;
-        type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for AGAttribute?, type metadata accessor for AGAttribute, MEMORY[0x1E69E6720]);
-        AGGraphAddTraceEvent();
-      }
-
-      specialized AnimatorState.nextUpdate()();
-      goto LABEL_185;
-    }
-
-    __break(1u);
-LABEL_197:
-    swift_once();
-LABEL_142:
-    v61 = *(&static Signpost.animationState + 1);
-    v64 = static Signpost.animationState;
-    v63 = word_1ED5283E8;
-    v59 = HIBYTE(word_1ED5283E8);
-    v147 = byte_1ED5283EA;
-    v148 = static os_signpost_type_t.end.getter();
-    v202 = __PAIR128__(v61, v64);
-    LOBYTE(v203) = v63;
-    BYTE1(v203) = v59;
-    BYTE2(v203) = v147;
-    if ((Signpost.isEnabled.getter() & 1) == 0)
-    {
-
-      goto LABEL_184;
-    }
-
-    LODWORD(v197) = v148;
-    v149 = one-time initialization token for _signpostLog;
-    v57 = v185;
-
-    if (v149 != -1)
-    {
-      swift_once();
-    }
-
-    v60 = _signpostLog;
-    OSSignpostID.init(log:object:)();
-    type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-    v62 = swift_allocObject();
-    *(v62 + 16) = xmmword_18DDAF080;
-    if (AGGraphGetCurrentAttribute() != v98)
-    {
-      break;
-    }
-
-    __break(1u);
-LABEL_201:
-    __break(1u);
-LABEL_202:
-    *&v190 = v68;
-    v191 = v66;
-    v188 = v67;
-    v189 = v65;
-    swift_once();
-    v67 = v188;
-    v65 = v189;
-    v68 = *&v190;
-    v66 = v191;
-LABEL_42:
-    if (*(static CustomEventTrace.enabledCategories + 2) < 0x43uLL)
-    {
-      __break(1u);
-LABEL_204:
-      swift_once();
-      goto LABEL_92;
-    }
-
-    v69 = *(static CustomEventTrace.enabledCategories + 98);
-    v178 = v57;
-    if (v69 == 1)
-    {
-      v70 = static CustomEventTrace.recorder;
-      if (static CustomEventTrace.recorder)
-      {
-        v71 = v5 == v197;
-        *(*(static CustomEventTrace.recorder + 24) + 4) = 322;
-        v72 = *(v70 + 16);
-        LODWORD(v208) = v59;
-        BYTE4(v208) = v71;
-        *(&v208 + 1) = &type metadata for AnyLayout;
-        *&v209 = v66;
-        *(&v209 + 1) = v65;
-        v210 = *&v68;
-        v211 = v67;
-        type metadata accessor for (AGAttribute?, Any.Type, Double, Double, Double, Double)();
-
-        v73 = v72;
-        AGGraphAddTraceEvent();
-        outlined consume of Animation.Function(v60, v61, v63, v62, v64, v194);
-      }
-
-      else
-      {
-        outlined consume of Animation.Function(v60, v61, v63, v62, v64, v194);
-      }
-
-      v57 = v178;
-    }
-
-    else
-    {
-      outlined consume of Animation.Function(v60, v61, v63, v62, v64, v194);
-    }
-
-    v114 = one-time initialization token for animationState;
-
-    if (v114 != -1)
-    {
-      goto LABEL_204;
-    }
-
-LABEL_92:
-    Counter = *(&static Signpost.animationState + 1);
-    v81 = static Signpost.animationState;
-    v84 = word_1ED5283E8;
-    v83 = HIBYTE(word_1ED5283E8);
-    v115 = byte_1ED5283EA;
-    v116 = static os_signpost_type_t.begin.getter();
-    v208 = __PAIR128__(Counter, v81);
-    LOBYTE(v209) = v84;
-    BYTE1(v209) = v83;
-    BYTE2(v209) = v115;
-    v117 = Signpost.isEnabled.getter();
-    LODWORD(v82) = v197;
-    if (v117)
-    {
-      LODWORD(v194) = v116;
-      v118 = one-time initialization token for _signpostLog;
-
-      if (v118 != -1)
-      {
-LABEL_207:
-        swift_once();
-      }
-
-      v119 = COERCE_DOUBLE(_signpostLog);
-      OSSignpostID.init(log:object:)();
-      type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-      *&v98 = COERCE_DOUBLE(swift_allocObject());
-      *(v98 + 16) = xmmword_18DDAF080;
-      if (AGGraphGetCurrentAttribute() == v82)
-      {
-        __break(1u);
-LABEL_209:
-        __break(1u);
-      }
-
-      v120 = AGGraphGetAttributeGraph();
-      v95 = AGGraphGetCounter();
-
-      v121 = MEMORY[0x1E69E6870];
-      *(v98 + 56) = MEMORY[0x1E69E6810];
-      *(v98 + 64) = v121;
-      *(v98 + 32) = v95;
-      v122 = AGGraphGetCurrentAttribute();
-      if (v122 == v82)
-      {
-        goto LABEL_209;
-      }
-
-      v123 = MEMORY[0x1E69E76D0];
-      *(v98 + 96) = MEMORY[0x1E69E7668];
-      *(v98 + 104) = v123;
-      *(v98 + 72) = v122;
-      *(v98 + 136) = MEMORY[0x1E69E6158];
-      *(v98 + 144) = lazy protocol witness table accessor for type String and conformance String();
-      *(v98 + 112) = 0x756F79614C796E41;
-      *(v98 + 120) = 0xE900000000000074;
-      if (v83)
-      {
-        LOBYTE(v198) = v194;
-        v200 = v119;
-        *&v201 = COERCE_DOUBLE(&dword_18D018000);
-        *&v208 = v81;
-        *(&v208 + 1) = Counter;
-        LOBYTE(v209) = v84;
-        *&v202 = "Animation: (%p) [%d] %{public}@ started";
-        *(&v202 + 1) = 39;
-        LOBYTE(v203) = 2;
-        v199 = *&v98;
-        v124 = v176;
-        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-        v57 = v178;
-
-        (*(v192 + 8))(v124, v196);
-      }
-
-      else
-      {
-        *&v125 = v81;
-        if (v81 == 20)
-        {
-          a1 = 3;
-        }
-
-        else
-        {
-          a1 = 4;
-        }
-
-        a4 = bswap32(v81) | (4 * WORD1(v81));
-        v126 = v98;
-        LODWORD(v98) = v194;
-        v127 = (v192 + 16);
-        v184 = *(v192 + 16);
-        v128 = v184(*&v193, v176, v196);
-        v81 = 0;
-        LOBYTE(v202) = 1;
-        v185 = v127;
-        v190 = 16 * a1;
-        *&v191 = v127 - 8;
-        v197 = v126;
-        v188 = v125;
-        *&v189 = v126 + 32;
-        v187 = a1;
-        do
-        {
-          v194 = &v176;
-          MEMORY[0x1EEE9AC00](v128);
-          v130 = &v176 - ((v129 + 15) & 0xFFFFFFFFFFFFFFF0);
-          v5 = (v130 + 8);
-          v131 = a1;
-          v132 = v130 + 8;
-          do
-          {
-            *(v132 - 1) = 0;
-            *v132 = 0;
-            v132 += 16;
-            --v131;
-          }
-
-          while (v131);
-          v104 = *&v189 + 40 * v81;
-          while (1)
-          {
-            v133 = *(v197 + 16);
-            if (v81 == v133)
-            {
-              break;
-            }
-
-            if (v81 >= v133)
-            {
-              goto LABEL_192;
-            }
-
-            ++v81;
-            outlined init with copy of AnyTrackedValue(v104, &v208);
-            v134 = *(&v209 + 1);
-            v95 = v210;
-            __swift_project_boxed_opaque_existential_1(&v208, *(&v209 + 1));
-            *(v5 - 8) = CVarArg.kdebugValue(_:)(a4 | v98, v134);
-            *v5 = v135 & 1;
-            v5 += 16;
-            v99 = __swift_destroy_boxed_opaque_existential_1(&v208);
-            v104 += 40;
-            if (!--a1)
-            {
-              goto LABEL_111;
-            }
-          }
-
-          LOBYTE(v202) = 0;
-LABEL_111:
-          v136 = v188;
-          if (*&v188 == 20)
-          {
-            v95 = *&v193;
-            OSSignpostID.rawValue.getter();
-            kdebug_trace();
-          }
-
-          else
-          {
-            kdebug_trace();
-            v95 = *&v193;
-          }
-
-          a1 = v187;
-          if (v130[8] == 1)
-          {
-            kdebug_trace_string();
-          }
-
-          if (v130[24] == 1)
-          {
-            kdebug_trace_string();
-          }
-
-          if (v130[40] == 1)
-          {
-            kdebug_trace_string();
-          }
-
-          if (*&v136 != 20 && v130[56] == 1)
-          {
-            kdebug_trace_string();
-          }
-
-          if (one-time initialization token for continuation != -1)
-          {
-            swift_once();
-          }
-
-          v137 = **&v191;
-          v138 = v196;
-          (**&v191)(v95, v196);
-          v139 = __swift_project_value_buffer(v138, static OSSignpostID.continuation);
-          v128 = v184(v95, v139, v138);
-        }
-
-        while ((v202 & 1) != 0);
-        v57 = v178;
-
-        v140 = v196;
-        v137(v95, v196);
-        v137(v176, v140);
-      }
-    }
-
-    else
-    {
-    }
-
-    a4 = v182;
-    *(v182 + 56) = v57;
-LABEL_129:
-    specialized AnimatorState.addListeners(transaction:)(v179);
-
-    outlined destroy of _AnyAnimatableData(&v206);
-    outlined destroy of _AnyAnimatableData(v212);
-    a1 = v183;
-    LODWORD(v5) = v180;
-  }
-
-  v57 = AGGraphGetAttributeGraph();
-  v5 = AGGraphGetCounter();
-
-  v150 = MEMORY[0x1E69E6870];
-  *(v62 + 56) = MEMORY[0x1E69E6810];
-  *(v62 + 64) = v150;
-  *(v62 + 32) = v5;
-  v151 = AGGraphGetCurrentAttribute();
-  if (v151 == v98)
-  {
-    goto LABEL_201;
-  }
-
-  v152 = v62;
-  v153 = MEMORY[0x1E69E76D0];
-  *(v62 + 96) = MEMORY[0x1E69E7668];
-  *(v62 + 104) = v153;
-  *(v62 + 72) = v151;
-  *(v62 + 136) = MEMORY[0x1E69E6158];
-  *(v62 + 144) = lazy protocol witness table accessor for type String and conformance String();
-  *(v62 + 112) = 0x756F79614C796E41;
-  *(v62 + 120) = 0xE900000000000074;
-  if (v59)
-  {
-    LOBYTE(v200) = v197;
-    *&v212[0] = &dword_18D018000;
-    v206 = v60;
-    *&v202 = v64;
-    *(&v202 + 1) = v61;
-    LOBYTE(v203) = v63;
-    *&v214 = "Animation: (%p) [%d] %{public}@ ended";
-    *(&v214 + 1) = 37;
-    LOBYTE(v215) = 2;
-    v201 = v62;
-    v154 = v186;
-    specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-
-    (*(v192 + 8))(v154, v196);
-    goto LABEL_183;
-  }
-
-  *&v156 = v64;
-  if (v64 == 20)
-  {
-    v5 = 3;
-  }
-
-  else
-  {
-    v5 = 4;
-  }
-
-  LODWORD(v98) = bswap32(v64) | (4 * WORD1(v64));
-  v95 = v197;
-  v157 = v192 + 16;
-  v187 = *(v192 + 16);
-  v158 = v187(v195, v186, v196);
-  v81 = 0;
-  LOBYTE(v214) = 1;
-  v194 = v5;
-  v192 = v157;
-  v190 = 16 * v5;
-  *&v191 = v157 - 8;
-  v197 = v152;
-  v188 = v156;
-  *&v189 = v152 + 32;
-  do
-  {
-    v193 = COERCE_DOUBLE(&v176);
-    MEMORY[0x1EEE9AC00](v158);
-    a4 = &v176 - ((v159 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v160 = (a4 + 8);
-    v161 = v194;
-    v162 = (a4 + 8);
-    do
-    {
-      *(v162 - 1) = 0;
-      *v162 = 0;
-      v162 += 16;
-      --v161;
-    }
-
-    while (v161);
-    v104 = *&v189 + 40 * v81;
-    a1 = v194;
-    while (1)
-    {
-      v163 = *(v197 + 16);
-      if (v81 == v163)
-      {
-        break;
-      }
-
-      if (v81 >= v163)
-      {
-        __break(1u);
-LABEL_191:
-        __break(1u);
-LABEL_192:
-        __break(1u);
-LABEL_193:
-        v174 = v99;
-        swift_once();
-        v99 = v174;
-LABEL_137:
-        v145 = *(v81 + 616);
-        if (*(v145 + 16) >= 0x43uLL)
-        {
-          if (*(v145 + 98) == 1 && static CustomEventTrace.recorder)
-          {
-            *(*(static CustomEventTrace.recorder + 24) + 4) = 578;
-            LODWORD(v202) = v104;
-            BYTE4(v202) = v99 == v98;
-            type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for AGAttribute?, type metadata accessor for AGAttribute, MEMORY[0x1E69E6720]);
-            AGGraphAddTraceEvent();
-          }
-
-          v182 = a4;
-          v183 = a1;
-          v146 = one-time initialization token for animationState;
-          v185 = v95;
-
-          if (v146 != -1)
-          {
-            goto LABEL_197;
-          }
-
-          goto LABEL_142;
-        }
-
-        __break(1u);
-LABEL_195:
-        v175 = v99;
-        swift_once();
-        v99 = v175;
-        goto LABEL_150;
-      }
-
-      ++v81;
-      outlined init with copy of AnyTrackedValue(v104, &v202);
-      v164 = *(&v203 + 1);
-      LODWORD(v5) = v204;
-      __swift_project_boxed_opaque_existential_1(&v202, *(&v203 + 1));
-      *(v160 - 1) = CVarArg.kdebugValue(_:)(v98 | v95, v164);
-      *v160 = v165 & 1;
-      v160 += 16;
-      v99 = __swift_destroy_boxed_opaque_existential_1(&v202);
-      v104 += 40;
-      if (!--a1)
-      {
-        goto LABEL_168;
-      }
-    }
-
-    LOBYTE(v214) = 0;
-LABEL_168:
-    v166 = v188;
-    if (*&v188 == 20)
-    {
-      OSSignpostID.rawValue.getter();
-    }
-
-    kdebug_trace();
-    if (*(a4 + 8) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (*(a4 + 24) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (*(a4 + 40) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (*&v166 != 20 && *(a4 + 56) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (one-time initialization token for continuation != -1)
-    {
-      swift_once();
-    }
-
-    v167 = **&v191;
-    v5 = v195;
-    v168 = v196;
-    (**&v191)(v195, v196);
-    v169 = __swift_project_value_buffer(v168, static OSSignpostID.continuation);
-    v158 = v187(v5, v169, v168);
-  }
-
-  while ((v214 & 1) != 0);
-
-  v170 = v196;
-  v167(v195, v196);
-  v167(v186, v170);
-LABEL_183:
-
-LABEL_184:
-  specialized AnimatorState.removeListeners()();
-
-  a1 = v183;
-  *(v182 + 56) = 0;
-LABEL_185:
-  outlined init with copy of _AnyAnimatableData(&v208, &v202);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v172 = *a1;
-  if (isUniquelyReferenced_nonNull_native)
-  {
-    outlined init with copy of _AnyAnimatableData(&v202, &v214);
-    (*(*v172 + 152))(&v214);
-    outlined destroy of _AnyAnimatableData(&v202);
-  }
-
-  else
-  {
-    v173 = (*(*v172 + 168))(&v202);
-    outlined destroy of _AnyAnimatableData(&v202);
-
-    *a1 = v173;
-  }
-
-  result = outlined destroy of _AnyAnimatableData(&v208);
-  *(a1 + 8) = 1;
-  return result;
-}
-
-{
-  LODWORD(v5) = a3;
-  v217 = *MEMORY[0x1E69E9840];
-  v196 = type metadata accessor for OSSignpostID();
-  v192 = *(v196 - 8);
-  MEMORY[0x1EEE9AC00](v196);
-  v9 = &v176 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v10);
-  v12 = &v176 - v11;
-  MEMORY[0x1EEE9AC00](v13);
-  v194 = &v176 - v14;
-  MEMORY[0x1EEE9AC00](v15);
-  v17 = &v176 - v16;
-  MEMORY[0x1EEE9AC00](v18);
-  v195 = &v176 - v19;
-  MEMORY[0x1EEE9AC00](v20);
-  v186 = &v176 - v21;
-  if (*(a4 + 56))
-  {
-    Value = AGGraphGetValue();
-    if (v23)
-    {
-      v24 = *Value;
-    }
-
-    else
-    {
-      v24 = -INFINITY;
-    }
-  }
-
-  else
-  {
-    v24 = -INFINITY;
-  }
-
-  result = specialized AnimatableAttributeHelper.checkReset()();
-  if (result)
-  {
-    *(a1 + 8) = 1;
-  }
-
-  else if (*(a1 + 8) != 1)
-  {
-    goto LABEL_131;
-  }
-
-  (*(**a1 + 96))(&v214);
-  outlined init with copy of KeyedAnimatableArray<Int, _AnyAnimatableData>.Element(a4 + 16, &v208, &lazy cache variable for type metadata for _AnyAnimatableData?, &type metadata for _AnyAnimatableData, type metadata accessor for HitTestableEvent?);
-  if (!v208)
-  {
-    outlined destroy of HitTestableEvent?(&v208, &lazy cache variable for type metadata for _AnyAnimatableData?);
-    goto LABEL_130;
-  }
-
-  v177 = v17;
-  v212[0] = v208;
-  v212[1] = v209;
-  v213 = v210;
-  v26 = v208;
-  if (v214 == v208 && ((*(v214 + 88))(&v214 + 8, v212 + 8) & 1) != 0)
-  {
-    outlined destroy of _AnyAnimatableData(v212);
-    goto LABEL_130;
-  }
-
-  v197 = a2;
-  v180 = v5;
-  v193 = *&v9;
-  v176 = v12;
-  AGGraphClearUpdate();
-  outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(a4, &v208, &lazy cache variable for type metadata for AnimatableAttributeHelper<AnyShape>, lazy protocol witness table accessor for type AnyShape and conformance AnyShape, &type metadata for AnyShape, type metadata accessor for AnimatableAttributeHelper);
-  v27 = *AGGraphGetValue();
-
-  outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v208, &lazy cache variable for type metadata for AnimatableAttributeHelper<AnyShape>, lazy protocol witness table accessor for type AnyShape and conformance AnyShape, &type metadata for AnyShape, type metadata accessor for AnimatableAttributeHelper);
-  AGGraphSetUpdate();
-  v179 = v27;
-  v181 = Transaction.effectiveAnimation.getter(v27);
-  if (v181)
-  {
-LABEL_18:
-    outlined init with copy of _AnyAnimatableData(&v214, &v206);
-    v28 = v206;
-    if (v206 == v26)
-    {
-      v206[13](v207, v212 + 8);
-    }
-
-    else if (v28 == type metadata accessor for ZeroVTable())
-    {
-      outlined destroy of _AnyAnimatableData(&v206);
-      outlined init with copy of _AnyAnimatableData(v212, &v206);
-      (v206[14])(v207);
-    }
-
-    v183 = a1;
-    v24 = *AGGraphGetValue();
-    v182 = a4;
-    v29 = *(a4 + 56);
-    if (!v29)
-    {
-      outlined init with copy of _AnyAnimatableData(&v206, &v208);
-      *&v201 = COERCE_DOUBLE(&type metadata for AnyShape);
-      type metadata accessor for AnyShape.Type();
-      type metadata accessor for any AnimationFinishingDefinition<Self.AnimationFinishingDefinition.Value == CGFloat>.Type(0, &lazy cache variable for type metadata for any AnimationFinishingDefinition<Self.AnimationFinishingDefinition.Value == _AnyAnimatableData>.Type);
-      v51 = swift_dynamicCast();
-      if (v51)
-      {
-        v52 = v202;
-      }
-
-      else
-      {
-        v52 = 0;
-      }
-
-      if (v51)
-      {
-        v53 = *(&v202 + 1);
-      }
-
-      else
-      {
-        v53 = 0;
-      }
-
-      v54 = v179;
-
-      v55 = v181;
-
-      v57 = _s7SwiftUI13AnimatorStateC9animation8interval2at2in19finishingDefinitionACyxGAA9AnimationV_xAA4TimeVAA11TransactionVAA0k9FinishingJ0_px5ValueRts_XPXpSgtc33_35ADF281214A25133F1A6DF28858952DLlfCAA18_AnyAnimatableDataV_Tt4B5(v56, &v208, v54, v52, v53, v24);
-      CurrentAttribute = AGGraphGetCurrentAttribute();
-      LODWORD(v5) = CurrentAttribute;
-      LODWORD(v197) = *MEMORY[0x1E698D3F8];
-      if (CurrentAttribute == v197)
-      {
-        v59 = 0;
-      }
-
-      else
-      {
-        v59 = CurrentAttribute;
-      }
-
-      (*(*v55 + 96))(&v202);
-      v61 = *(&v202 + 1);
-      v60 = v202;
-      v62 = *(&v203 + 1);
-      v63 = v203;
-      v64 = v204;
-      v200 = NAN;
-      *&v201 = NAN;
-      v198 = NAN;
-      v199 = 1.0;
-      v208 = v202;
-      v209 = v203;
-      v210 = v204;
-      LODWORD(v194) = v205;
-      LOBYTE(v211) = v205;
-      static CustomEventTrace.extractFunctionData(_:_:_:_:_:)(&v208, &v201, &v200, &v199, &v198);
-      v65 = v200;
-      v66 = *&v201;
-      v67 = v198;
-      v68 = v199;
-      if (one-time initialization token for enabledCategories != -1)
-      {
-        goto LABEL_202;
-      }
-
-      goto LABEL_42;
-    }
-
-    LOBYTE(v208) = 0;
-    v30 = v181;
-    v178 = v29;
-    specialized AnimatorState.combine(newAnimation:newInterval:at:in:environment:)(v181, &v206, v179, v24);
-    v31 = AGGraphGetCurrentAttribute();
-    v32 = v31;
-    v33 = *MEMORY[0x1E698D3F8];
-    if (v31 == *MEMORY[0x1E698D3F8])
-    {
-      v34 = 0;
-    }
-
-    else
-    {
-      v34 = v31;
-    }
-
-    (*(*v30 + 96))(&v202);
-    v36 = *(&v202 + 1);
-    Counter = v202;
-    v37 = v203;
-    v38 = v204;
-    v39 = v205;
-    v200 = NAN;
-    *&v201 = NAN;
-    v198 = NAN;
-    v199 = 1.0;
-    v208 = v202;
-    v209 = v203;
-    v210 = v204;
-    LOBYTE(v211) = v205;
-    static CustomEventTrace.extractFunctionData(_:_:_:_:_:)(&v208, &v201, &v200, &v199, &v198);
-    v40 = v200;
-    v41 = v201;
-    v42 = v198;
-    v43 = v199;
-    if (one-time initialization token for enabledCategories != -1)
-    {
-      v197 = v201;
-      *&v190 = v198;
-      v191 = v200;
-      v193 = v199;
-      swift_once();
-      v42 = *&v190;
-      v40 = v191;
-      v43 = v193;
-      v41 = v197;
-    }
-
-    if (*(static CustomEventTrace.enabledCategories + 2) < 0x43uLL)
-    {
-      __break(1u);
-LABEL_199:
-      swift_once();
-LABEL_52:
-      v82 = *(&static Signpost.animationState + 1);
-      v81 = static Signpost.animationState;
-      v83 = word_1ED5283E8;
-      v84 = HIBYTE(word_1ED5283E8);
-      v85 = byte_1ED5283EA;
-      v86 = static os_signpost_type_t.event.getter();
-      v208 = __PAIR128__(v82, v81);
-      LOBYTE(v209) = v83;
-      BYTE1(v209) = v84;
-      BYTE2(v209) = v85;
-      if (Signpost.isEnabled.getter())
-      {
-        LODWORD(v197) = v86;
-        v87 = one-time initialization token for _signpostLog;
-
-        if (v87 != -1)
-        {
-          swift_once();
-        }
-
-        v88 = COERCE_DOUBLE(_signpostLog);
-        OSSignpostID.init(log:object:)();
-        type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-        *&v89 = COERCE_DOUBLE(swift_allocObject());
-        *(v89 + 16) = xmmword_18DDAF080;
-        if (AGGraphGetCurrentAttribute() == v33)
-        {
-          __break(1u);
-        }
-
-        else
-        {
-          v90 = AGGraphGetAttributeGraph();
-          Counter = AGGraphGetCounter();
-
-          v91 = MEMORY[0x1E69E6870];
-          *(v89 + 56) = MEMORY[0x1E69E6810];
-          *(v89 + 64) = v91;
-          *(v89 + 32) = Counter;
-          v92 = AGGraphGetCurrentAttribute();
-          if (v92 != v33)
-          {
-            v5 = v89;
-            v93 = MEMORY[0x1E69E76D0];
-            *(v89 + 96) = MEMORY[0x1E69E7668];
-            *(v89 + 104) = v93;
-            *(v89 + 72) = v92;
-            *(v89 + 136) = MEMORY[0x1E69E6158];
-            *(v89 + 144) = lazy protocol witness table accessor for type String and conformance String();
-            *(v89 + 112) = 0x6570616853796E41;
-            *(v89 + 120) = 0xE800000000000000;
-            v94 = v177;
-            if (v84)
-            {
-              LOBYTE(v198) = v197;
-              v200 = v88;
-              *&v201 = COERCE_DOUBLE(&dword_18D018000);
-              *&v208 = v81;
-              *(&v208 + 1) = v82;
-              LOBYTE(v209) = v83;
-              *&v202 = "Animation: (%p) [%d] %{public}@ updated";
-              *(&v202 + 1) = 39;
-              LOBYTE(v203) = 2;
-              v199 = *&v89;
-              specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-
-              (*(v192 + 8))(v94, v196);
-            }
-
-            else
-            {
-              if (v81 == 20)
-              {
-                v95 = 3;
-              }
-
-              else
-              {
-                v95 = 4;
-              }
-
-              a1 = bswap32(v81) | (4 * WORD1(v81));
-              LODWORD(v197) = v197;
-              v96 = (v192 + 16);
-              v184 = *(v192 + 16);
-              v97 = v184(v194, v177, v196);
-              *&v98 = 0.0;
-              LOBYTE(v202) = 1;
-              v185 = v96;
-              v190 = 16 * v95;
-              *&v191 = v96 - 8;
-              *&v188 = v81;
-              *&v189 = v5 + 32;
-              v187 = v95;
-              do
-              {
-                v193 = COERCE_DOUBLE(&v176);
-                MEMORY[0x1EEE9AC00](v97);
-                a4 = &v176 - ((v100 + 15) & 0xFFFFFFFFFFFFFFF0);
-                v101 = (a4 + 8);
-                v102 = v95;
-                v103 = (a4 + 8);
-                do
-                {
-                  *(v103 - 1) = 0;
-                  *v103 = 0;
-                  v103 += 16;
-                  --v102;
-                }
-
-                while (v102);
-                v104 = *&v189 + 40 * v98;
-                while (1)
-                {
-                  v105 = *(v5 + 16);
-                  if (v98 == v105)
-                  {
-                    break;
-                  }
-
-                  if (v98 >= v105)
-                  {
-                    goto LABEL_191;
-                  }
-
-                  ++v98;
-                  outlined init with copy of AnyTrackedValue(v104, &v208);
-                  v81 = v5;
-                  v106 = *(&v209 + 1);
-                  __swift_project_boxed_opaque_existential_1(&v208, *(&v209 + 1));
-                  *(v101 - 1) = CVarArg.kdebugValue(_:)(a1 | v197, v106);
-                  *v101 = v107 & 1;
-                  v101 += 16;
-                  v99 = __swift_destroy_boxed_opaque_existential_1(&v208);
-                  v104 += 40;
-                  if (!--v95)
-                  {
-                    goto LABEL_72;
-                  }
-                }
-
-                LOBYTE(v202) = 0;
-LABEL_72:
-                v108 = v188;
-                if (*&v188 == 20)
-                {
-                  OSSignpostID.rawValue.getter();
-                }
-
-                kdebug_trace();
-                if (*(a4 + 8) == 1)
-                {
-                  kdebug_trace_string();
-                }
-
-                if (*(a4 + 24) == 1)
-                {
-                  kdebug_trace_string();
-                }
-
-                if (*(a4 + 40) == 1)
-                {
-                  kdebug_trace_string();
-                }
-
-                if (*&v108 != 20 && *(a4 + 56) == 1)
-                {
-                  kdebug_trace_string();
-                }
-
-                if (one-time initialization token for continuation != -1)
-                {
-                  swift_once();
-                }
-
-                v109 = **&v191;
-                v110 = v194;
-                v111 = v196;
-                (**&v191)(v194, v196);
-                v112 = __swift_project_value_buffer(v111, static OSSignpostID.continuation);
-                v97 = v184(v110, v112, v111);
-                v95 = v187;
-              }
-
-              while ((v202 & 1) != 0);
-
-              v113 = v196;
-              v109(v194, v196);
-              v109(v177, v113);
-            }
-
-LABEL_88:
-            a4 = v182;
-            goto LABEL_129;
-          }
-        }
-
-        __break(1u);
-        goto LABEL_207;
-      }
-
-      goto LABEL_88;
-    }
-
-    if (*(static CustomEventTrace.enabledCategories + 98) == 1)
-    {
-      v44 = v34;
-      v45 = v39;
-      v46 = static CustomEventTrace.recorder;
-      if (static CustomEventTrace.recorder)
-      {
-        v47 = v32 == v33;
-        v197 = *(static CustomEventTrace.recorder + 24);
-        *(v197 + 4) = 1602;
-        v48 = *(v46 + 16);
-        LODWORD(v208) = v44;
-        BYTE4(v208) = v47;
-        *(&v208 + 1) = &type metadata for AnyShape;
-        *&v209 = v41;
-        *(&v209 + 1) = v40;
-        v210 = *&v43;
-        v211 = v42;
-        type metadata accessor for (AGAttribute?, Any.Type, Double, Double, Double, Double)();
-        v193 = v49;
-
-        v50 = v48;
-        AGGraphAddTraceEvent();
-        outlined consume of Animation.Function(Counter, v36, v37, *(&v37 + 1), v38, v45);
-
-        goto LABEL_51;
-      }
-
-      v74 = Counter;
-      v75 = v36;
-      v77 = *(&v37 + 1);
-      v76 = v37;
-      v78 = v38;
-      v79 = v45;
-    }
-
-    else
-    {
-      v74 = Counter;
-      v75 = v36;
-      v77 = *(&v37 + 1);
-      v76 = v37;
-      v78 = v38;
-      v79 = v39;
-    }
-
-    outlined consume of Animation.Function(v74, v75, v76, v77, v78, v79);
-LABEL_51:
-    v80 = one-time initialization token for animationState;
-
-    if (v80 == -1)
-    {
-      goto LABEL_52;
-    }
-
-    goto LABEL_199;
-  }
-
-  LODWORD(v5) = v180;
-  if (v197)
-  {
-
-    goto LABEL_18;
-  }
-
-  outlined destroy of _AnyAnimatableData(v212);
-
-LABEL_130:
-  while (1)
-  {
-    result = outlined destroy of HitTestableEvent?(a4 + 16, &lazy cache variable for type metadata for _AnyAnimatableData?);
-    v141 = v215;
-    *(a4 + 16) = v214;
-    *(a4 + 32) = v141;
-    *(a4 + 48) = v216;
-LABEL_131:
-    v95 = *(a4 + 56);
-    if (!v95)
-    {
-      return result;
-    }
-
-    v142 = *(**a1 + 96);
-
-    v142(&v208, v143);
-    LOBYTE(v202) = 0;
-    v144 = specialized AnimatorState.update(_:at:environment:)(&v208, v5, v24);
-    v99 = AGGraphGetCurrentAttribute();
-    LODWORD(v98) = *MEMORY[0x1E698D3F8];
-    if (v99 == *MEMORY[0x1E698D3F8])
-    {
-      LODWORD(v104) = 0;
-    }
-
-    else
-    {
-      LODWORD(v104) = v99;
-    }
-
-    v81 = &type metadata instantiation cache for TupleTypeDescription;
-    if (v144)
-    {
-      if (one-time initialization token for enabledCategories != -1)
-      {
-        goto LABEL_193;
-      }
-
-      goto LABEL_137;
-    }
-
-    if (one-time initialization token for enabledCategories != -1)
-    {
-      goto LABEL_195;
-    }
-
-LABEL_150:
-    v155 = *(v81 + 616);
-    if (*(v155 + 16) >= 0x43uLL)
-    {
-      if (*(v155 + 98) == 1 && static CustomEventTrace.recorder)
-      {
-        *(*(static CustomEventTrace.recorder + 24) + 4) = 834;
-        LODWORD(v202) = v104;
-        BYTE4(v202) = v99 == v98;
-        type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for AGAttribute?, type metadata accessor for AGAttribute, MEMORY[0x1E69E6720]);
-        AGGraphAddTraceEvent();
-      }
-
-      specialized AnimatorState.nextUpdate()();
-      goto LABEL_185;
-    }
-
-    __break(1u);
-LABEL_197:
-    swift_once();
-LABEL_142:
-    v61 = *(&static Signpost.animationState + 1);
-    v64 = static Signpost.animationState;
-    v63 = word_1ED5283E8;
-    v59 = HIBYTE(word_1ED5283E8);
-    v147 = byte_1ED5283EA;
-    v148 = static os_signpost_type_t.end.getter();
-    v202 = __PAIR128__(v61, v64);
-    LOBYTE(v203) = v63;
-    BYTE1(v203) = v59;
-    BYTE2(v203) = v147;
-    if ((Signpost.isEnabled.getter() & 1) == 0)
-    {
-
-      goto LABEL_184;
-    }
-
-    LODWORD(v197) = v148;
-    v149 = one-time initialization token for _signpostLog;
-    v57 = v185;
-
-    if (v149 != -1)
-    {
-      swift_once();
-    }
-
-    v60 = _signpostLog;
-    OSSignpostID.init(log:object:)();
-    type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-    v62 = swift_allocObject();
-    *(v62 + 16) = xmmword_18DDAF080;
-    if (AGGraphGetCurrentAttribute() != v98)
-    {
-      break;
-    }
-
-    __break(1u);
-LABEL_201:
-    __break(1u);
-LABEL_202:
-    *&v190 = v68;
-    v191 = v66;
-    v188 = v67;
-    v189 = v65;
-    swift_once();
-    v67 = v188;
-    v65 = v189;
-    v68 = *&v190;
-    v66 = v191;
-LABEL_42:
-    if (*(static CustomEventTrace.enabledCategories + 2) < 0x43uLL)
-    {
-      __break(1u);
-LABEL_204:
-      swift_once();
-      goto LABEL_92;
-    }
-
-    v69 = *(static CustomEventTrace.enabledCategories + 98);
-    v178 = v57;
-    if (v69 == 1)
-    {
-      v70 = static CustomEventTrace.recorder;
-      if (static CustomEventTrace.recorder)
-      {
-        v71 = v5 == v197;
-        *(*(static CustomEventTrace.recorder + 24) + 4) = 322;
-        v72 = *(v70 + 16);
-        LODWORD(v208) = v59;
-        BYTE4(v208) = v71;
-        *(&v208 + 1) = &type metadata for AnyShape;
-        *&v209 = v66;
-        *(&v209 + 1) = v65;
-        v210 = *&v68;
-        v211 = v67;
-        type metadata accessor for (AGAttribute?, Any.Type, Double, Double, Double, Double)();
-
-        v73 = v72;
-        AGGraphAddTraceEvent();
-        outlined consume of Animation.Function(v60, v61, v63, v62, v64, v194);
-      }
-
-      else
-      {
-        outlined consume of Animation.Function(v60, v61, v63, v62, v64, v194);
-      }
-
-      v57 = v178;
-    }
-
-    else
-    {
-      outlined consume of Animation.Function(v60, v61, v63, v62, v64, v194);
-    }
-
-    v114 = one-time initialization token for animationState;
-
-    if (v114 != -1)
-    {
-      goto LABEL_204;
-    }
-
-LABEL_92:
-    Counter = *(&static Signpost.animationState + 1);
-    v81 = static Signpost.animationState;
-    v84 = word_1ED5283E8;
-    v83 = HIBYTE(word_1ED5283E8);
-    v115 = byte_1ED5283EA;
-    v116 = static os_signpost_type_t.begin.getter();
-    v208 = __PAIR128__(Counter, v81);
-    LOBYTE(v209) = v84;
-    BYTE1(v209) = v83;
-    BYTE2(v209) = v115;
-    v117 = Signpost.isEnabled.getter();
-    LODWORD(v82) = v197;
-    if (v117)
-    {
-      LODWORD(v194) = v116;
-      v118 = one-time initialization token for _signpostLog;
-
-      if (v118 != -1)
-      {
-LABEL_207:
-        swift_once();
-      }
-
-      v119 = COERCE_DOUBLE(_signpostLog);
-      OSSignpostID.init(log:object:)();
-      type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-      *&v98 = COERCE_DOUBLE(swift_allocObject());
-      *(v98 + 16) = xmmword_18DDAF080;
-      if (AGGraphGetCurrentAttribute() == v82)
-      {
-        __break(1u);
-LABEL_209:
-        __break(1u);
-      }
-
-      v120 = AGGraphGetAttributeGraph();
-      v95 = AGGraphGetCounter();
-
-      v121 = MEMORY[0x1E69E6870];
-      *(v98 + 56) = MEMORY[0x1E69E6810];
-      *(v98 + 64) = v121;
-      *(v98 + 32) = v95;
-      v122 = AGGraphGetCurrentAttribute();
-      if (v122 == v82)
-      {
-        goto LABEL_209;
-      }
-
-      v123 = MEMORY[0x1E69E76D0];
-      *(v98 + 96) = MEMORY[0x1E69E7668];
-      *(v98 + 104) = v123;
-      *(v98 + 72) = v122;
-      *(v98 + 136) = MEMORY[0x1E69E6158];
-      *(v98 + 144) = lazy protocol witness table accessor for type String and conformance String();
-      *(v98 + 112) = 0x6570616853796E41;
-      *(v98 + 120) = 0xE800000000000000;
-      if (v83)
-      {
-        LOBYTE(v198) = v194;
-        v200 = v119;
-        *&v201 = COERCE_DOUBLE(&dword_18D018000);
-        *&v208 = v81;
-        *(&v208 + 1) = Counter;
-        LOBYTE(v209) = v84;
-        *&v202 = "Animation: (%p) [%d] %{public}@ started";
-        *(&v202 + 1) = 39;
-        LOBYTE(v203) = 2;
-        v199 = *&v98;
-        v124 = v176;
-        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-        v57 = v178;
-
-        (*(v192 + 8))(v124, v196);
-      }
-
-      else
-      {
-        *&v125 = v81;
-        if (v81 == 20)
-        {
-          a1 = 3;
-        }
-
-        else
-        {
-          a1 = 4;
-        }
-
-        a4 = bswap32(v81) | (4 * WORD1(v81));
-        v126 = v98;
-        LODWORD(v98) = v194;
-        v127 = (v192 + 16);
-        v184 = *(v192 + 16);
-        v128 = v184(*&v193, v176, v196);
-        v81 = 0;
-        LOBYTE(v202) = 1;
-        v185 = v127;
-        v190 = 16 * a1;
-        *&v191 = v127 - 8;
-        v197 = v126;
-        v188 = v125;
-        *&v189 = v126 + 32;
-        v187 = a1;
-        do
-        {
-          v194 = &v176;
-          MEMORY[0x1EEE9AC00](v128);
-          v130 = &v176 - ((v129 + 15) & 0xFFFFFFFFFFFFFFF0);
-          v5 = (v130 + 8);
-          v131 = a1;
-          v132 = v130 + 8;
-          do
-          {
-            *(v132 - 1) = 0;
-            *v132 = 0;
-            v132 += 16;
-            --v131;
-          }
-
-          while (v131);
-          v104 = *&v189 + 40 * v81;
-          while (1)
-          {
-            v133 = *(v197 + 16);
-            if (v81 == v133)
-            {
-              break;
-            }
-
-            if (v81 >= v133)
-            {
-              goto LABEL_192;
-            }
-
-            ++v81;
-            outlined init with copy of AnyTrackedValue(v104, &v208);
-            v134 = *(&v209 + 1);
-            v95 = v210;
-            __swift_project_boxed_opaque_existential_1(&v208, *(&v209 + 1));
-            *(v5 - 8) = CVarArg.kdebugValue(_:)(a4 | v98, v134);
-            *v5 = v135 & 1;
-            v5 += 16;
-            v99 = __swift_destroy_boxed_opaque_existential_1(&v208);
-            v104 += 40;
-            if (!--a1)
-            {
-              goto LABEL_111;
-            }
-          }
-
-          LOBYTE(v202) = 0;
-LABEL_111:
-          v136 = v188;
-          if (*&v188 == 20)
-          {
-            v95 = *&v193;
-            OSSignpostID.rawValue.getter();
-            kdebug_trace();
-          }
-
-          else
-          {
-            kdebug_trace();
-            v95 = *&v193;
-          }
-
-          a1 = v187;
-          if (v130[8] == 1)
-          {
-            kdebug_trace_string();
-          }
-
-          if (v130[24] == 1)
-          {
-            kdebug_trace_string();
-          }
-
-          if (v130[40] == 1)
-          {
-            kdebug_trace_string();
-          }
-
-          if (*&v136 != 20 && v130[56] == 1)
-          {
-            kdebug_trace_string();
-          }
-
-          if (one-time initialization token for continuation != -1)
-          {
-            swift_once();
-          }
-
-          v137 = **&v191;
-          v138 = v196;
-          (**&v191)(v95, v196);
-          v139 = __swift_project_value_buffer(v138, static OSSignpostID.continuation);
-          v128 = v184(v95, v139, v138);
-        }
-
-        while ((v202 & 1) != 0);
-        v57 = v178;
-
-        v140 = v196;
-        v137(v95, v196);
-        v137(v176, v140);
-      }
-    }
-
-    else
-    {
-    }
-
-    a4 = v182;
-    *(v182 + 56) = v57;
-LABEL_129:
-    specialized AnimatorState.addListeners(transaction:)(v179);
-
-    outlined destroy of _AnyAnimatableData(&v206);
-    outlined destroy of _AnyAnimatableData(v212);
-    a1 = v183;
-    LODWORD(v5) = v180;
-  }
-
-  v57 = AGGraphGetAttributeGraph();
-  v5 = AGGraphGetCounter();
-
-  v150 = MEMORY[0x1E69E6870];
-  *(v62 + 56) = MEMORY[0x1E69E6810];
-  *(v62 + 64) = v150;
-  *(v62 + 32) = v5;
-  v151 = AGGraphGetCurrentAttribute();
-  if (v151 == v98)
-  {
-    goto LABEL_201;
-  }
-
-  v152 = v62;
-  v153 = MEMORY[0x1E69E76D0];
-  *(v62 + 96) = MEMORY[0x1E69E7668];
-  *(v62 + 104) = v153;
-  *(v62 + 72) = v151;
-  *(v62 + 136) = MEMORY[0x1E69E6158];
-  *(v62 + 144) = lazy protocol witness table accessor for type String and conformance String();
-  *(v62 + 112) = 0x6570616853796E41;
-  *(v62 + 120) = 0xE800000000000000;
-  if (v59)
-  {
-    LOBYTE(v200) = v197;
-    *&v212[0] = &dword_18D018000;
-    v206 = v60;
-    *&v202 = v64;
-    *(&v202 + 1) = v61;
-    LOBYTE(v203) = v63;
-    *&v214 = "Animation: (%p) [%d] %{public}@ ended";
-    *(&v214 + 1) = 37;
-    LOBYTE(v215) = 2;
-    v201 = v62;
-    v154 = v186;
-    specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-
-    (*(v192 + 8))(v154, v196);
-    goto LABEL_183;
-  }
-
-  *&v156 = v64;
-  if (v64 == 20)
-  {
-    v5 = 3;
-  }
-
-  else
-  {
-    v5 = 4;
-  }
-
-  LODWORD(v98) = bswap32(v64) | (4 * WORD1(v64));
-  v95 = v197;
-  v157 = v192 + 16;
-  v187 = *(v192 + 16);
-  v158 = v187(v195, v186, v196);
-  v81 = 0;
-  LOBYTE(v214) = 1;
-  v194 = v5;
-  v192 = v157;
-  v190 = 16 * v5;
-  *&v191 = v157 - 8;
-  v197 = v152;
-  v188 = v156;
-  *&v189 = v152 + 32;
-  do
-  {
-    v193 = COERCE_DOUBLE(&v176);
-    MEMORY[0x1EEE9AC00](v158);
-    a4 = &v176 - ((v159 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v160 = (a4 + 8);
-    v161 = v194;
-    v162 = (a4 + 8);
-    do
-    {
-      *(v162 - 1) = 0;
-      *v162 = 0;
-      v162 += 16;
-      --v161;
-    }
-
-    while (v161);
-    v104 = *&v189 + 40 * v81;
-    a1 = v194;
-    while (1)
-    {
-      v163 = *(v197 + 16);
-      if (v81 == v163)
-      {
-        break;
-      }
-
-      if (v81 >= v163)
-      {
-        __break(1u);
-LABEL_191:
-        __break(1u);
-LABEL_192:
-        __break(1u);
-LABEL_193:
-        v174 = v99;
-        swift_once();
-        v99 = v174;
-LABEL_137:
-        v145 = *(v81 + 616);
-        if (*(v145 + 16) >= 0x43uLL)
-        {
-          if (*(v145 + 98) == 1 && static CustomEventTrace.recorder)
-          {
-            *(*(static CustomEventTrace.recorder + 24) + 4) = 578;
-            LODWORD(v202) = v104;
-            BYTE4(v202) = v99 == v98;
-            type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for AGAttribute?, type metadata accessor for AGAttribute, MEMORY[0x1E69E6720]);
-            AGGraphAddTraceEvent();
-          }
-
-          v182 = a4;
-          v183 = a1;
-          v146 = one-time initialization token for animationState;
-          v185 = v95;
-
-          if (v146 != -1)
-          {
-            goto LABEL_197;
-          }
-
-          goto LABEL_142;
-        }
-
-        __break(1u);
-LABEL_195:
-        v175 = v99;
-        swift_once();
-        v99 = v175;
-        goto LABEL_150;
-      }
-
-      ++v81;
-      outlined init with copy of AnyTrackedValue(v104, &v202);
-      v164 = *(&v203 + 1);
-      LODWORD(v5) = v204;
-      __swift_project_boxed_opaque_existential_1(&v202, *(&v203 + 1));
-      *(v160 - 1) = CVarArg.kdebugValue(_:)(v98 | v95, v164);
-      *v160 = v165 & 1;
-      v160 += 16;
-      v99 = __swift_destroy_boxed_opaque_existential_1(&v202);
-      v104 += 40;
-      if (!--a1)
-      {
-        goto LABEL_168;
-      }
-    }
-
-    LOBYTE(v214) = 0;
-LABEL_168:
-    v166 = v188;
-    if (*&v188 == 20)
-    {
-      OSSignpostID.rawValue.getter();
-    }
-
-    kdebug_trace();
-    if (*(a4 + 8) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (*(a4 + 24) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (*(a4 + 40) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (*&v166 != 20 && *(a4 + 56) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (one-time initialization token for continuation != -1)
-    {
-      swift_once();
-    }
-
-    v167 = **&v191;
-    v5 = v195;
-    v168 = v196;
-    (**&v191)(v195, v196);
-    v169 = __swift_project_value_buffer(v168, static OSSignpostID.continuation);
-    v158 = v187(v5, v169, v168);
-  }
-
-  while ((v214 & 1) != 0);
-
-  v170 = v196;
-  v167(v195, v196);
-  v167(v186, v170);
-LABEL_183:
-
-LABEL_184:
-  specialized AnimatorState.removeListeners()();
-
-  a1 = v183;
-  *(v182 + 56) = 0;
-LABEL_185:
-  outlined init with copy of _AnyAnimatableData(&v208, &v202);
-  isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v172 = *a1;
-  if (isUniquelyReferenced_nonNull_native)
-  {
-    outlined init with copy of _AnyAnimatableData(&v202, &v214);
-    (*(*v172 + 104))(&v214);
-    outlined destroy of _AnyAnimatableData(&v202);
-  }
-
-  else
-  {
-    v173 = (*(*v172 + 120))(&v202);
-    outlined destroy of _AnyAnimatableData(&v202);
-
-    *a1 = v173;
-  }
-
-  result = outlined destroy of _AnyAnimatableData(&v208);
-  *(a1 + 8) = 1;
-  return result;
-}
-
-{
-  LODWORD(v9) = a3;
-  v219 = *MEMORY[0x1E69E9840];
-  v201 = type metadata accessor for OSSignpostID();
-  v198 = *(v201 - 8);
-  MEMORY[0x1EEE9AC00](v201);
-  v13 = (&v179 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = &v179 - v15;
-  MEMORY[0x1EEE9AC00](v17);
-  v199 = &v179 - v18;
-  MEMORY[0x1EEE9AC00](v19);
-  v21 = &v179 - v20;
-  MEMORY[0x1EEE9AC00](v22);
-  v200 = &v179 - v23;
-  MEMORY[0x1EEE9AC00](v24);
-  v191 = &v179 - v25;
-  if (*(a4 + 56))
-  {
-    Value = AGGraphGetValue();
-    if (v27)
-    {
-      v28 = *Value;
-    }
-
-    else
-    {
-      v28 = -INFINITY;
-    }
-  }
-
-  else
-  {
-    v28 = -INFINITY;
-  }
-
-  result = specialized AnimatableAttributeHelper.checkReset()(specialized AnimatorState.removeListeners());
-  if (result)
-  {
-    *(a1 + 64) = 1;
-  }
-
-  else if (*(a1 + 64) != 1)
-  {
-    goto LABEL_123;
-  }
-
-  v30 = *a1;
-  v31 = vmulq_f64(*(a1 + 16), vdupq_n_s64(0x4060000000000000uLL));
-  if (*(a4 + 48))
-  {
-    goto LABEL_122;
-  }
-
-  v32 = *(a4 + 32);
-  if (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(v30, *(a4 + 16)), vceqq_f64(v31, v32)))))
-  {
-    goto LABEL_122;
-  }
-
-  v195 = *(a4 + 16);
-  v197 = v32;
-  v184 = LODWORD(v9);
-  v196 = v13;
-  v179 = v16;
-  v180 = v21;
-  v185 = v31;
-  v186 = v30;
-  AGGraphClearUpdate();
-  v33 = *(a4 + 16);
-  v214 = *a4;
-  v215 = v33;
-  v34 = *(a4 + 48);
-  v216 = *(a4 + 32);
-  v217 = v34;
-  v218 = *(a4 + 64);
-  outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(&v214, &v210, &lazy cache variable for type metadata for AnimatableAttributeHelper<ScalePulseEffect>, lazy protocol witness table accessor for type ScalePulseEffect and conformance ScalePulseEffect, &type metadata for ScalePulseEffect, type metadata accessor for AnimatableAttributeHelper);
-  v35 = *AGGraphGetValue();
-
-  outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v214, &lazy cache variable for type metadata for AnimatableAttributeHelper<ScalePulseEffect>, lazy protocol witness table accessor for type ScalePulseEffect and conformance ScalePulseEffect, &type metadata for ScalePulseEffect, type metadata accessor for AnimatableAttributeHelper);
-  AGGraphSetUpdate();
-  v36 = Transaction.effectiveAnimation.getter(v35);
-  if (v36)
-  {
-    v37 = v36;
-    LODWORD(v9) = v184;
-  }
-
-  else
-  {
-    LODWORD(v9) = v184;
-    if (!a2)
-    {
-
-      goto LABEL_121;
-    }
-
-    v37 = a2;
-  }
-
-  v38 = *(&v217 + 1);
-  v39 = v186.f64[0] - *&v195;
-  v40 = v186.f64[1] - *(&v195 + 1);
-  v41 = v185.f64[0] - v197.f64[0];
-  v42 = v185.f64[1] - v197.f64[1];
-  v28 = *AGGraphGetValue();
-  v187 = a1;
-  v190 = a4;
-  v181 = v35;
-  v182 = v37;
-  if (!v38)
-  {
-    *&v206.f64[0] = &type metadata for ScalePulseEffect;
-    type metadata accessor for ScalePulseEffect.Type();
-    type metadata accessor for any AnimationFinishingDefinition<Self.AnimationFinishingDefinition.Value == AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>>.Type(0, &lazy cache variable for type metadata for any AnimationFinishingDefinition<Self.AnimationFinishingDefinition.Value == AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>>.Type, type metadata accessor for AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>);
-    v57 = swift_dynamicCast();
-    if (v57)
-    {
-      v58 = *&v210.f64[0];
-    }
-
-    else
-    {
-      v58 = 0;
-    }
-
-    if (v57)
-    {
-      v59 = *&v210.f64[1];
-    }
-
-    else
-    {
-      v59 = 0;
-    }
-
-    v183 = _s7SwiftUI13AnimatorStateC9animation8interval2at2in19finishingDefinitionACyxGAA9AnimationV_xAA4TimeVAA11TransactionVAA0k9FinishingJ0_px5ValueRts_XPXpSgtc33_35ADF281214A25133F1A6DF28858952DLlfCAA14AnimatablePairVyAVy12CoreGraphics7CGFloatVAYGAZG_Tt4B5Tm(v60, v35, v58, v59, type metadata accessor for AnimatorState<AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>>, v39, v40, v41, v42, v28);
-    CurrentAttribute = AGGraphGetCurrentAttribute();
-    v62 = CurrentAttribute;
-    v63 = *MEMORY[0x1E698D3F8];
-    if (CurrentAttribute == *MEMORY[0x1E698D3F8])
-    {
-      v64 = 0;
-    }
-
-    else
-    {
-      v64 = CurrentAttribute;
-    }
-
-    LODWORD(v195) = v64;
-    (*(*v37 + 96))(&v206);
-    v65 = v206;
-    v66 = *&v207.f64[0];
-    v67 = v208;
-    *&v205 = NAN;
-    v204 = NAN;
-    v203 = 1.0;
-    v202 = NAN;
-    v210 = v206;
-    v211 = v207;
-    v68 = *&v207.f64[1];
-    v212 = *&v208;
-    LODWORD(v199) = v209;
-    LOBYTE(v213) = v209;
-    static CustomEventTrace.extractFunctionData(_:_:_:_:_:)(&v210, &v205, &v204, &v203, &v202);
-    v4 = *&v205;
-    v5 = v204;
-    v6 = v203;
-    v7 = v202;
-    if (one-time initialization token for enabledCategories != -1)
-    {
-      swift_once();
-    }
-
-    if (*(static CustomEventTrace.enabledCategories + 2) < 0x43uLL)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      v69 = *(static CustomEventTrace.enabledCategories + 98) == 1;
-      LODWORD(v197.f64[0]) = v63;
-      if (v69)
-      {
-        v70 = static CustomEventTrace.recorder;
-        if (static CustomEventTrace.recorder)
-        {
-          v71 = v62 == v63;
-          *(*(static CustomEventTrace.recorder + 24) + 4) = 322;
-          v72 = *(v70 + 16);
-          LODWORD(v210.f64[0]) = v195;
-          BYTE4(v210.f64[0]) = v71;
-          *&v210.f64[1] = &type metadata for ScalePulseEffect;
-          v211.f64[0] = v4;
-          v211.f64[1] = v5;
-          v212 = v6;
-          v213 = v7;
-          type metadata accessor for (AGAttribute?, Any.Type, Double, Double, Double, Double)();
-
-          v73 = v72;
-          AGGraphAddTraceEvent();
-          outlined consume of Animation.Function(*&v65.f64[0], *&v65.f64[1], v66, v68, v67, v199);
-        }
-
-        else
-        {
-          outlined consume of Animation.Function(*&v65.f64[0], *&v65.f64[1], v66, v68, v67, v199);
-        }
-
-        a4 = v190;
-        LODWORD(v9) = v184;
-      }
-
-      else
-      {
-        outlined consume of Animation.Function(*&v65.f64[0], *&v65.f64[1], v66, v68, v67, v199);
-      }
-
-      v112 = one-time initialization token for animationState;
-
-      if (v112 == -1)
-      {
-        goto LABEL_84;
-      }
-    }
-
-    swift_once();
-LABEL_84:
-    v80 = *(&static Signpost.animationState + 1);
-    *&v79 = static Signpost.animationState;
-    LOBYTE(v44) = word_1ED5283E8;
-    LOBYTE(v86) = HIBYTE(word_1ED5283E8);
-    v113 = byte_1ED5283EA;
-    LODWORD(Counter) = static os_signpost_type_t.begin.getter();
-    v210 = __PAIR128__(*&v80, *&v79);
-    LOBYTE(v211.f64[0]) = v44;
-    BYTE1(v211.f64[0]) = v86;
-    BYTE2(v211.f64[0]) = v113;
-    if ((Signpost.isEnabled.getter() & 1) == 0)
-    {
-      v124 = v183;
-
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v214, &lazy cache variable for type metadata for AnimatableAttributeHelper<ScalePulseEffect>, lazy protocol witness table accessor for type ScalePulseEffect and conformance ScalePulseEffect, &type metadata for ScalePulseEffect, type metadata accessor for AnimatableAttributeHelper);
-      goto LABEL_91;
-    }
-
-    v114 = one-time initialization token for _signpostLog;
-
-    if (v114 != -1)
-    {
-      goto LABEL_196;
-    }
-
-    goto LABEL_86;
-  }
-
-  outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(&v214, &v210, &lazy cache variable for type metadata for AnimatableAttributeHelper<ScalePulseEffect>, lazy protocol witness table accessor for type ScalePulseEffect and conformance ScalePulseEffect, &type metadata for ScalePulseEffect, type metadata accessor for AnimatableAttributeHelper);
-  LOBYTE(v210.f64[0]) = 0;
-  v183 = v38;
-  specialized AnimatorState.combine(newAnimation:newInterval:at:in:environment:)(v37, v35, v39, v40, v41, v42, v28);
-  v43 = AGGraphGetCurrentAttribute();
-  LODWORD(v44) = v43;
-  LODWORD(v197.f64[0]) = *MEMORY[0x1E698D3F8];
-  if (v43 == LODWORD(v197.f64[0]))
-  {
-    LODWORD(v9) = 0;
-  }
-
-  else
-  {
-    LODWORD(v9) = v43;
-  }
-
-  (*(*v37 + 96))(&v206);
-  v46 = *&v206.f64[1];
-  v45 = *&v206.f64[0];
-  a1 = *&v207.f64[1];
-  v47 = *&v207.f64[0];
-  v48 = v208;
-  v49 = v209;
-  *&v205 = NAN;
-  v204 = NAN;
-  v203 = 1.0;
-  v202 = NAN;
-  v210 = v206;
-  v211 = v207;
-  v212 = *&v208;
-  LOBYTE(v213) = v209;
-  static CustomEventTrace.extractFunctionData(_:_:_:_:_:)(&v210, &v205, &v204, &v203, &v202);
-  v4 = *&v205;
-  v5 = v204;
-  v6 = v203;
-  v7 = v202;
-  if (one-time initialization token for enabledCategories != -1)
-  {
-    goto LABEL_189;
-  }
-
-  while (1)
-  {
-    if (*(static CustomEventTrace.enabledCategories + 2) >= 0x43uLL)
-    {
-      if (*(static CustomEventTrace.enabledCategories + 98) == 1)
-      {
-        v50 = LODWORD(v9);
-        v51 = v48;
-        v52 = static CustomEventTrace.recorder;
-        v53 = LODWORD(v197.f64[0]);
-        if (static CustomEventTrace.recorder)
-        {
-          LODWORD(v196) = v49;
-          *(*(static CustomEventTrace.recorder + 24) + 4) = 1602;
-          v54 = *(v52 + 16);
-          LODWORD(v210.f64[0]) = v50;
-          BYTE4(v210.f64[0]) = v44 == v53;
-          *&v210.f64[1] = &type metadata for ScalePulseEffect;
-          v211.f64[0] = v4;
-          v211.f64[1] = v5;
-          v212 = v6;
-          v213 = v7;
-          type metadata accessor for (AGAttribute?, Any.Type, Double, Double, Double, Double)();
-          *&v195 = v55;
-
-          v56 = v54;
-          AGGraphAddTraceEvent();
-          outlined consume of Animation.Function(v45, v46, v47, a1, v51, v196);
-
-          goto LABEL_44;
-        }
-
-        v74 = v45;
-        v75 = v46;
-        v76 = v47;
-        v77 = a1;
-        v78 = v51;
-      }
-
-      else
-      {
-        v74 = v45;
-        v75 = v46;
-        v76 = v47;
-        v77 = a1;
-        v78 = v48;
-      }
-
-      outlined consume of Animation.Function(v74, v75, v76, v77, v78, v49);
-LABEL_44:
-      outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(&v214, &v210, &lazy cache variable for type metadata for AnimatableAttributeHelper<ScalePulseEffect>, lazy protocol witness table accessor for type ScalePulseEffect and conformance ScalePulseEffect, &type metadata for ScalePulseEffect, type metadata accessor for AnimatableAttributeHelper);
-      if (one-time initialization token for animationState == -1)
-      {
-        goto LABEL_45;
-      }
-
-      goto LABEL_191;
-    }
-
-    __break(1u);
-LABEL_191:
-    swift_once();
-LABEL_45:
-    v79 = *(&static Signpost.animationState + 1);
-    *&v9 = static Signpost.animationState;
-    *&v80 = word_1ED5283E8;
-    v81 = HIBYTE(word_1ED5283E8);
-    v82 = byte_1ED5283EA;
-    LODWORD(Counter) = static os_signpost_type_t.event.getter();
-    v210 = __PAIR128__(*&v79, *&v9);
-    LOBYTE(v211.f64[0]) = LOBYTE(v80);
-    BYTE1(v211.f64[0]) = v81;
-    BYTE2(v211.f64[0]) = v82;
-    if ((Signpost.isEnabled.getter() & 1) == 0)
-    {
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v214, &lazy cache variable for type metadata for AnimatableAttributeHelper<ScalePulseEffect>, lazy protocol witness table accessor for type ScalePulseEffect and conformance ScalePulseEffect, &type metadata for ScalePulseEffect, type metadata accessor for AnimatableAttributeHelper);
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v214, &lazy cache variable for type metadata for AnimatableAttributeHelper<ScalePulseEffect>, lazy protocol witness table accessor for type ScalePulseEffect and conformance ScalePulseEffect, &type metadata for ScalePulseEffect, type metadata accessor for AnimatableAttributeHelper);
-LABEL_53:
-      a4 = v190;
-      LODWORD(v9) = v184;
-      goto LABEL_120;
-    }
-
-    outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(&v214, &v210, &lazy cache variable for type metadata for AnimatableAttributeHelper<ScalePulseEffect>, lazy protocol witness table accessor for type ScalePulseEffect and conformance ScalePulseEffect, &type metadata for ScalePulseEffect, type metadata accessor for AnimatableAttributeHelper);
-    if (one-time initialization token for _signpostLog != -1)
-    {
-      swift_once();
-    }
-
-    LODWORD(v196) = Counter;
-    v84 = COERCE_DOUBLE(_signpostLog);
-    OSSignpostID.init(log:object:)();
-    type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-    *&v44 = COERCE_DOUBLE(swift_allocObject());
-    *(v44 + 16) = xmmword_18DDAF080;
-    v85 = AGGraphGetCurrentAttribute();
-    v86 = LODWORD(v197.f64[0]);
-    if (v85 == LODWORD(v197.f64[0]))
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      v87 = AGGraphGetAttributeGraph();
-      Counter = AGGraphGetCounter();
-
-      v88 = MEMORY[0x1E69E6870];
-      *(v44 + 56) = MEMORY[0x1E69E6810];
-      *(v44 + 64) = v88;
-      *(v44 + 32) = Counter;
-      v89 = AGGraphGetCurrentAttribute();
-      if (v89 != v86)
-      {
-        v90 = MEMORY[0x1E69E76D0];
-        *(v44 + 96) = MEMORY[0x1E69E7668];
-        *(v44 + 104) = v90;
-        *(v44 + 72) = v89;
-        *(v44 + 136) = MEMORY[0x1E69E6158];
-        *(v44 + 144) = lazy protocol witness table accessor for type String and conformance String();
-        *(v44 + 112) = 0xD000000000000037;
-        *(v44 + 120) = 0x800000018DD7EBB0;
-        if ((v81 & 1) == 0)
-        {
-          if (LOBYTE(v9) == 20)
-          {
-            v92 = 3;
-          }
-
-          else
-          {
-            v92 = 4;
-          }
-
-          a4 = bswap32(LOWORD(v9)) | (4 * HIWORD(LODWORD(v9)));
-          v93 = v196;
-          v94 = (v198 + 16);
-          v188 = *(v198 + 16);
-          v95 = v188(v199, v180, v201);
           v96 = 0;
-          LOBYTE(v206.f64[0]) = 1;
-          *&v197.f64[0] = v92;
-          v194 = 16 * v92;
-          v189 = v94;
-          *&v195 = v94 - 1;
-          v193 = v44 + 32;
-          v192 = LOBYTE(v9);
-          do
-          {
-            v196 = &v179;
-            MEMORY[0x1EEE9AC00](v95);
-            a1 = &v179 - ((v98 + 15) & 0xFFFFFFFFFFFFFFF0);
-            *&v9 = a1 + 8;
-            v99 = v197.f64[0];
-            v100 = (a1 + 8);
-            do
-            {
-              *(v100 - 1) = 0;
-              *v100 = 0;
-              v100 += 16;
-              --*&v99;
-            }
-
-            while (v99 != 0.0);
-            v101 = v193 + 40 * v96;
-            v102 = v197.f64[0];
-            while (1)
-            {
-              v103 = *(v44 + 16);
-              if (v96 == v103)
-              {
-                break;
-              }
-
-              if (v96 >= v103)
-              {
-                goto LABEL_180;
-              }
-
-              ++v96;
-              outlined init with copy of AnyTrackedValue(v101, &v210);
-              v104 = v211.f64[1];
-              v105 = __swift_project_boxed_opaque_existential_1(&v210, *&v211.f64[1]);
-              v106 = *&v104;
-              v94 = v105;
-              *(*&v9 - 8) = CVarArg.kdebugValue(_:)(a4 | v93, v106);
-              **&v9 = v107 & 1;
-              *&v9 += 16;
-              v97 = __swift_destroy_boxed_opaque_existential_1(&v210);
-              v101 += 40;
-              --*&v102;
-              if (v102 == 0.0)
-              {
-                goto LABEL_66;
-              }
-            }
-
-            LOBYTE(v206.f64[0]) = 0;
-LABEL_66:
-            v108 = v192;
-            if (v192 == 20)
-            {
-              OSSignpostID.rawValue.getter();
-            }
-
-            kdebug_trace();
-            if (*(a1 + 8) == 1)
-            {
-              kdebug_trace_string();
-            }
-
-            if (*(a1 + 24) == 1)
-            {
-              kdebug_trace_string();
-            }
-
-            if (*(a1 + 40) == 1)
-            {
-              kdebug_trace_string();
-            }
-
-            if (v108 != 20 && *(a1 + 56) == 1)
-            {
-              kdebug_trace_string();
-            }
-
-            if (one-time initialization token for continuation != -1)
-            {
-              swift_once();
-            }
-
-            v9 = *v195;
-            v94 = v199;
-            v109 = v201;
-            (*v195)(v199, v201);
-            v110 = __swift_project_value_buffer(v109, static OSSignpostID.continuation);
-            v95 = v188(v94, v110, v109);
-          }
-
-          while ((LOBYTE(v206.f64[0]) & 1) != 0);
-          outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v214, &lazy cache variable for type metadata for AnimatableAttributeHelper<ScalePulseEffect>, lazy protocol witness table accessor for type ScalePulseEffect and conformance ScalePulseEffect, &type metadata for ScalePulseEffect, type metadata accessor for AnimatableAttributeHelper);
-          outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v214, &lazy cache variable for type metadata for AnimatableAttributeHelper<ScalePulseEffect>, lazy protocol witness table accessor for type ScalePulseEffect and conformance ScalePulseEffect, &type metadata for ScalePulseEffect, type metadata accessor for AnimatableAttributeHelper);
-          v111 = v201;
-          (*&v9)(v199, v201);
-          (*&v9)(v180, v111);
-
-          a4 = v190;
-          LODWORD(v9) = v184;
-          goto LABEL_120;
-        }
-
-        LOBYTE(v202) = v196;
-        *&v205 = COERCE_DOUBLE(&dword_18D018000);
-        v204 = v84;
-        v210.f64[0] = v9;
-        v210.f64[1] = v79;
-        LOBYTE(v211.f64[0]) = LOBYTE(v80);
-        *&v206.f64[0] = "Animation: (%p) [%d] %{public}@ updated";
-        *&v206.f64[1] = 39;
-        LOBYTE(v207.f64[0]) = 2;
-        v203 = *&v44;
-        v91 = v180;
-        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-        outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v214, &lazy cache variable for type metadata for AnimatableAttributeHelper<ScalePulseEffect>, lazy protocol witness table accessor for type ScalePulseEffect and conformance ScalePulseEffect, &type metadata for ScalePulseEffect, type metadata accessor for AnimatableAttributeHelper);
-        outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v214, &lazy cache variable for type metadata for AnimatableAttributeHelper<ScalePulseEffect>, lazy protocol witness table accessor for type ScalePulseEffect and conformance ScalePulseEffect, &type metadata for ScalePulseEffect, type metadata accessor for AnimatableAttributeHelper);
-        (*(v198 + 8))(v91, v201);
-
-        goto LABEL_53;
-      }
-    }
-
-    __break(1u);
-LABEL_196:
-    swift_once();
-LABEL_86:
-    LODWORD(v199) = Counter;
-    v115 = COERCE_DOUBLE(_signpostLog);
-    OSSignpostID.init(log:object:)();
-    type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-    *&a4 = COERCE_DOUBLE(swift_allocObject());
-    *(a4 + 16) = xmmword_18DDAF080;
-    v116 = AGGraphGetCurrentAttribute();
-    v117 = LODWORD(v197.f64[0]);
-    if (v116 == LODWORD(v197.f64[0]))
-    {
-      __break(1u);
-LABEL_198:
-      __break(1u);
-    }
-
-    v118 = AGGraphGetAttributeGraph();
-    v119 = AGGraphGetCounter();
-
-    v120 = MEMORY[0x1E69E6870];
-    *(a4 + 56) = MEMORY[0x1E69E6810];
-    *(a4 + 64) = v120;
-    *(a4 + 32) = v119;
-    v121 = AGGraphGetCurrentAttribute();
-    if (v121 == v117)
-    {
-      goto LABEL_198;
-    }
-
-    v122 = MEMORY[0x1E69E76D0];
-    *(a4 + 96) = MEMORY[0x1E69E7668];
-    *(a4 + 104) = v122;
-    *(a4 + 72) = v121;
-    *(a4 + 136) = MEMORY[0x1E69E6158];
-    *(a4 + 144) = lazy protocol witness table accessor for type String and conformance String();
-    *(a4 + 112) = 0xD000000000000037;
-    *(a4 + 120) = 0x800000018DD7EBB0;
-    if (v86)
-    {
-      LOBYTE(v202) = v199;
-      *&v205 = COERCE_DOUBLE(&dword_18D018000);
-      v204 = v115;
-      v210.f64[0] = v79;
-      v210.f64[1] = v80;
-      LOBYTE(v211.f64[0]) = v44;
-      *&v206.f64[0] = "Animation: (%p) [%d] %{public}@ started";
-      *&v206.f64[1] = 39;
-      LOBYTE(v207.f64[0]) = 2;
-      v203 = *&a4;
-      v123 = v179;
-      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-      v124 = v183;
-
-      (*(v198 + 8))(v123, v201);
-
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v214, &lazy cache variable for type metadata for AnimatableAttributeHelper<ScalePulseEffect>, lazy protocol witness table accessor for type ScalePulseEffect and conformance ScalePulseEffect, &type metadata for ScalePulseEffect, type metadata accessor for AnimatableAttributeHelper);
-      a4 = v190;
-LABEL_91:
-      *(a4 + 56) = v124;
-    }
-
-    else
-    {
-      v125 = LOBYTE(v79);
-      v126 = LOBYTE(v79) == 20 ? 3 : 4;
-      v127 = bswap32(LOWORD(v79)) | (4 * HIWORD(LODWORD(v79)));
-      v93 = v199;
-      v94 = (v198 + 16);
-      v188 = *(v198 + 16);
-      v128 = v188(v196, v179, v201);
-      v9 = 0.0;
-      LOBYTE(v206.f64[0]) = 1;
-      v199 = v126;
-      v194 = 16 * v126;
-      v189 = v94;
-      *&v195 = v94 - 1;
-      v193 = a4 + 32;
-      v192 = v125;
-      do
-      {
-        *&v197.f64[0] = &v179;
-        MEMORY[0x1EEE9AC00](v128);
-        a1 = &v179 - ((v129 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v130 = (a1 + 8);
-        v131 = v199;
-        v132 = (a1 + 8);
-        do
-        {
-          *(v132 - 1) = 0;
-          *v132 = 0;
-          v132 += 16;
-          --v131;
-        }
-
-        while (v131);
-        v133 = v193 + 40 * *&v9;
-        v44 = v199;
-        while (1)
-        {
-          v134 = *(a4 + 16);
-          if (*&v9 == v134)
-          {
-            break;
-          }
-
-          if (*&v9 >= v134)
-          {
-            goto LABEL_181;
-          }
-
-          ++*&v9;
-          outlined init with copy of AnyTrackedValue(v133, &v210);
-          v135 = v211.f64[1];
-          v136 = __swift_project_boxed_opaque_existential_1(&v210, *&v211.f64[1]);
-          v137 = *&v135;
-          v94 = v136;
-          *(v130 - 1) = CVarArg.kdebugValue(_:)(v127 | v93, v137);
-          *v130 = v138 & 1;
-          v130 += 16;
-          v97 = __swift_destroy_boxed_opaque_existential_1(&v210);
-          v133 += 40;
-          --v44;
-          if (*&v44 == 0.0)
-          {
-            goto LABEL_104;
-          }
-        }
-
-        LOBYTE(v206.f64[0]) = 0;
-LABEL_104:
-        v139 = v192;
-        if (v192 == 20)
-        {
-          v140 = v196;
-          OSSignpostID.rawValue.getter();
-          kdebug_trace();
+          v97 = 0;
+          v98 = 6;
         }
 
         else
         {
-          kdebug_trace();
-          v140 = v196;
+          v98 = 0;
+          v95 = *&origin.y;
+          v94 = *&origin.x;
+          v97 = *&v93.height;
+          v96 = *&v93.width;
         }
 
-        if (*(a1 + 8) == 1)
+        *&v355[0] = v94;
+        *(&v355[0] + 1) = v95;
+        *&v355[1] = v96;
+        *(&v355[1] + 1) = v97;
+        LOBYTE(v355[2]) = v98;
+        v348.a = v87;
+        v348.b = v88;
+        LODWORD(v348.c) = v89;
+        _s7SwiftUI15GraphicsContextV15ResolvedShadingOWOi0_(&v348);
+        v345 = v352;
+        v346 = v353;
+        v347 = v354;
+        v343 = v350;
+        v344[0] = v351[0];
+        v344[1] = v351[1];
+        v344[2] = v351[2];
+        v341 = v348;
+        v342 = v349;
+        v267 = 256;
+        if (!v90)
         {
-          kdebug_trace_string();
+          v267 = 0;
         }
 
-        if (*(a1 + 24) == 1)
+        *&v358.a = v267;
+        memset(&v358.b, 0, 33);
+        GraphicsContext.draw(_:with:style:)(v355, &v341, &v358, v91);
+        outlined consume of Path.Storage(v94, v95, v96, v97, v98);
+        outlined destroy of DisplayList.Item(&v363);
+        goto LABEL_232;
+      case 2:
+        v338 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+        v70 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x20);
+        v71 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x28);
+        v72 = *a2;
+        v366[0] = *a2;
+        v3 = *(v71 + 16);
+        if (!v3)
         {
-          kdebug_trace_string();
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+
+          goto LABEL_180;
         }
 
-        if (*(a1 + 40) == 1)
+        v73 = v363.size;
+        outlined init with copy of DisplayList.Item(&v363, &v348);
+        outlined init with copy of DisplayList.Item(&v363, &v348);
+
+        if (v3 <= *(v71 + 16))
         {
-          kdebug_trace_string();
-        }
-
-        if (v139 != 20 && *(a1 + 56) == 1)
-        {
-          kdebug_trace_string();
-        }
-
-        if (one-time initialization token for continuation != -1)
-        {
-          swift_once();
-        }
-
-        v141 = *v195;
-        v94 = v201;
-        (*v195)(v140, v201);
-        v142 = __swift_project_value_buffer(v94, static OSSignpostID.continuation);
-        v128 = v188(v140, v142, v94);
-      }
-
-      while ((LOBYTE(v206.f64[0]) & 1) != 0);
-      *&v9 = v183;
-
-      v143 = v201;
-      v141(v140, v201);
-      v141(v179, v143);
-
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v214, &lazy cache variable for type metadata for AnimatableAttributeHelper<ScalePulseEffect>, lazy protocol witness table accessor for type ScalePulseEffect and conformance ScalePulseEffect, &type metadata for ScalePulseEffect, type metadata accessor for AnimatableAttributeHelper);
-      a4 = v190;
-      *(v190 + 56) = v9;
-      LODWORD(v9) = v184;
-    }
-
-LABEL_120:
-    specialized AnimatorState.addListeners(transaction:)(v181);
-
-    a1 = v187;
-LABEL_121:
-    v30 = v186;
-    v31 = v185;
-LABEL_122:
-    *(a4 + 16) = v30;
-    *(a4 + 32) = v31;
-    *(a4 + 48) = 0;
-LABEL_123:
-    v44 = *(a4 + 56);
-    if (*&v44 == 0.0)
-    {
-      return result;
-    }
-
-    v144 = vmulq_f64(*(a1 + 16), vdupq_n_s64(0x4060000000000000uLL));
-    v210 = *a1;
-    v211 = v144;
-
-    LOBYTE(v214) = 0;
-    v145 = specialized AnimatorState.update(_:at:environment:)(&v210, LODWORD(v9), v28);
-    v97 = AGGraphGetCurrentAttribute();
-    LODWORD(v9) = *MEMORY[0x1E698D3F8];
-    if (v97 == *MEMORY[0x1E698D3F8])
-    {
-      v93 = 0;
-    }
-
-    else
-    {
-      v93 = v97;
-    }
-
-    v94 = &type metadata instantiation cache for TupleTypeDescription;
-    if (v145)
-    {
-      if (one-time initialization token for enabledCategories != -1)
-      {
-        goto LABEL_182;
-      }
-
-      goto LABEL_129;
-    }
-
-    if (one-time initialization token for enabledCategories != -1)
-    {
-      goto LABEL_184;
-    }
-
-LABEL_142:
-    v156 = v94[77];
-    if (*(v156 + 16) >= 0x43uLL)
-    {
-      if (*(v156 + 98) == 1 && static CustomEventTrace.recorder)
-      {
-        *(*(static CustomEventTrace.recorder + 24) + 4) = 834;
-        LODWORD(v214) = v93;
-        BYTE4(v214) = v97 == LODWORD(v9);
-        type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for AGAttribute?, type metadata accessor for AGAttribute, MEMORY[0x1E69E6720]);
-        AGGraphAddTraceEvent();
-      }
-
-      specialized AnimatorState.nextUpdate()();
-
-      goto LABEL_177;
-    }
-
-    __break(1u);
-LABEL_186:
-    swift_once();
-LABEL_134:
-    v47 = *(&static Signpost.animationState + 1);
-    v148 = static Signpost.animationState;
-    v49 = word_1ED5283E8;
-    v149 = HIBYTE(word_1ED5283E8);
-    v150 = byte_1ED5283EA;
-    v46 = static os_signpost_type_t.end.getter();
-    v214 = __PAIR128__(v47, v148);
-    LOBYTE(v215) = v49;
-    BYTE1(v215) = v149;
-    BYTE2(v215) = v150;
-    v48 = &v214;
-    if ((Signpost.isEnabled.getter() & 1) == 0)
-    {
-
-      goto LABEL_176;
-    }
-
-    v151 = one-time initialization token for _signpostLog;
-
-    if (v151 != -1)
-    {
-      swift_once();
-    }
-
-    v187 = a1;
-    *&v45 = COERCE_DOUBLE(_signpostLog);
-    v189 = v44;
-    OSSignpostID.init(log:object:)();
-    type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-    *&v44 = COERCE_DOUBLE(swift_allocObject());
-    *(v44 + 16) = xmmword_18DDAF080;
-    if (AGGraphGetCurrentAttribute() != LODWORD(v9))
-    {
-      break;
-    }
-
-    __break(1u);
-LABEL_188:
-    __break(1u);
-LABEL_189:
-    swift_once();
-  }
-
-  v48 = AGGraphGetAttributeGraph();
-  a1 = AGGraphGetCounter();
-
-  v152 = MEMORY[0x1E69E6870];
-  *(v44 + 56) = MEMORY[0x1E69E6810];
-  *(v44 + 64) = v152;
-  *(v44 + 32) = a1;
-  v153 = AGGraphGetCurrentAttribute();
-  if (v153 == LODWORD(v9))
-  {
-    goto LABEL_188;
-  }
-
-  v154 = MEMORY[0x1E69E76D0];
-  *(v44 + 96) = MEMORY[0x1E69E7668];
-  *(v44 + 104) = v154;
-  *(v44 + 72) = v153;
-  v94 = 0x800000018DD7EBB0;
-  *(v44 + 136) = MEMORY[0x1E69E6158];
-  *(v44 + 144) = lazy protocol witness table accessor for type String and conformance String();
-  *(v44 + 112) = 0xD000000000000037;
-  *(v44 + 120) = 0x800000018DD7EBB0;
-  if (v149)
-  {
-    LOBYTE(v202) = v46;
-    *&v205 = COERCE_DOUBLE(&dword_18D018000);
-    v204 = *&v45;
-    *&v214 = v148;
-    *(&v214 + 1) = v47;
-    LOBYTE(v215) = v49;
-    *&v206.f64[0] = "Animation: (%p) [%d] %{public}@ ended";
-    *&v206.f64[1] = 37;
-    LOBYTE(v207.f64[0]) = 2;
-    v203 = *&v44;
-    v155 = v191;
-    specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-
-    (*(v198 + 8))(v155, v201);
-    goto LABEL_175;
-  }
-
-  v157 = v148;
-  if (v148 == 20)
-  {
-    v158 = 3;
-  }
-
-  else
-  {
-    v158 = 4;
-  }
-
-  LODWORD(v9) = bswap32(v148) | (4 * WORD1(v148));
-  v93 = v46;
-  v159 = v198 + 16;
-  v192 = *(v198 + 16);
-  v160 = v192(v200, v191, v201);
-  v161 = 0;
-  LOBYTE(v206.f64[0]) = 1;
-  v196 = (16 * v158);
-  v198 = v159;
-  *&v197.f64[0] = v159 - 8;
-  *&v195 = v44 + 32;
-  v194 = v157;
-  v193 = v158;
-  do
-  {
-    v199 = &v179;
-    MEMORY[0x1EEE9AC00](v160);
-    a1 = &v179 - ((v162 + 15) & 0xFFFFFFFFFFFFFFF0);
-    a4 = a1 + 8;
-    v163 = v158;
-    v164 = (a1 + 8);
-    do
-    {
-      *(v164 - 1) = 0;
-      *v164 = 0;
-      v164 += 16;
-      --v163;
-    }
-
-    while (v163);
-    v165 = v195 + 40 * v161;
-    while (1)
-    {
-      v166 = *(v44 + 16);
-      if (v161 == v166)
-      {
-        break;
-      }
-
-      if (v161 >= v166)
-      {
-        __break(1u);
-LABEL_180:
-        __break(1u);
-LABEL_181:
-        __break(1u);
-LABEL_182:
-        v177 = v97;
-        swift_once();
-        v97 = v177;
-LABEL_129:
-        v146 = v94[77];
-        if (*(v146 + 16) >= 0x43uLL)
-        {
-          if (*(v146 + 98) == 1 && static CustomEventTrace.recorder)
-          {
-            *(*(static CustomEventTrace.recorder + 24) + 4) = 578;
-            LODWORD(v214) = v93;
-            BYTE4(v214) = v97 == LODWORD(v9);
-            type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for AGAttribute?, type metadata accessor for AGAttribute, MEMORY[0x1E69E6720]);
-            AGGraphAddTraceEvent();
-          }
-
-          v190 = a4;
-          v147 = one-time initialization token for animationState;
-
-          if (v147 != -1)
-          {
-            goto LABEL_186;
-          }
-
-          goto LABEL_134;
-        }
-
-        __break(1u);
-LABEL_184:
-        v178 = v97;
-        swift_once();
-        v97 = v178;
-        goto LABEL_142;
-      }
-
-      ++v161;
-      outlined init with copy of AnyTrackedValue(v165, &v214);
-      v167 = *(&v215 + 1);
-      v168 = __swift_project_boxed_opaque_existential_1(&v214, *(&v215 + 1));
-      v169 = v167;
-      v94 = v168;
-      *(a4 - 8) = CVarArg.kdebugValue(_:)(LODWORD(v9) | v46, v169);
-      *a4 = v170 & 1;
-      a4 += 16;
-      v97 = __swift_destroy_boxed_opaque_existential_1(&v214);
-      v165 += 40;
-      if (!--v158)
-      {
-        goto LABEL_160;
-      }
-    }
-
-    LOBYTE(v206.f64[0]) = 0;
-LABEL_160:
-    v171 = v194;
-    if (v194 == 20)
-    {
-      OSSignpostID.rawValue.getter();
-    }
-
-    kdebug_trace();
-    if (*(a1 + 8) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (*(a1 + 24) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (*(a1 + 40) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (v171 != 20 && *(a1 + 56) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (one-time initialization token for continuation != -1)
-    {
-      swift_once();
-    }
-
-    v172 = **&v197.f64[0];
-    v173 = v200;
-    v94 = v201;
-    (**&v197.f64[0])(v200, v201);
-    v174 = __swift_project_value_buffer(v94, static OSSignpostID.continuation);
-    v160 = v192(v173, v174, v94);
-    v158 = v193;
-  }
-
-  while ((LOBYTE(v206.f64[0]) & 1) != 0);
-
-  v175 = v201;
-  v172(v200, v201);
-  v172(v191, v175);
-LABEL_175:
-
-  a1 = v187;
-LABEL_176:
-  specialized AnimatorState.removeListeners()();
-
-  *(v190 + 56) = 0;
-LABEL_177:
-  v176 = vmulq_f64(v211, vdupq_n_s64(0x3F80000000000000uLL));
-  *a1 = v210;
-  *(a1 + 16) = v176;
-  *(a1 + 64) = 1;
-  return result;
-}
-
-{
-  return specialized AnimatableAttributeHelper.update(value:defaultAnimation:environment:sampleCollector:)(a1, a2, a3, a4, &lazy cache variable for type metadata for AnimatableAttributeHelper<RadialGradient._Paint>, lazy protocol witness table accessor for type RadialGradient._Paint and conformance RadialGradient._Paint, &type metadata for RadialGradient._Paint, outlined init with copy of RadialGradient._Paint, outlined destroy of LinearGradient._Paint, type metadata accessor for RadialGradient._Paint.Type);
-}
-
-{
-  return specialized AnimatableAttributeHelper.update(value:defaultAnimation:environment:sampleCollector:)(a1, a2, a3, a4, &lazy cache variable for type metadata for AnimatableAttributeHelper<EllipticalGradient._Paint>, lazy protocol witness table accessor for type EllipticalGradient._Paint and conformance EllipticalGradient._Paint, &type metadata for EllipticalGradient._Paint, outlined init with copy of EllipticalGradient._Paint, outlined destroy of EllipticalGradient._Paint, type metadata accessor for EllipticalGradient._Paint.Type);
-}
-
-{
-  LODWORD(v9) = a3;
-  v223 = *MEMORY[0x1E69E9840];
-  v205 = type metadata accessor for OSSignpostID();
-  v202 = *(v205 - 8);
-  MEMORY[0x1EEE9AC00](v205);
-  v13 = (&v183 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x1EEE9AC00](v14);
-  v16 = &v183 - v15;
-  MEMORY[0x1EEE9AC00](v17);
-  v203 = (&v183 - v18);
-  MEMORY[0x1EEE9AC00](v19);
-  v21 = &v183 - v20;
-  MEMORY[0x1EEE9AC00](v22);
-  v204 = &v183 - v23;
-  MEMORY[0x1EEE9AC00](v24);
-  v195 = &v183 - v25;
-  if (*(a4 + 56))
-  {
-    Value = AGGraphGetValue();
-    if (v27)
-    {
-      v28 = *Value;
-    }
-
-    else
-    {
-      v28 = -INFINITY;
-    }
-  }
-
-  else
-  {
-    v28 = -INFINITY;
-  }
-
-  result = specialized AnimatableAttributeHelper.checkReset()(specialized AnimatorState.removeListeners());
-  if (result)
-  {
-    *(a1 + 32) = 1;
-  }
-
-  else if (*(a1 + 32) != 1)
-  {
-    goto LABEL_123;
-  }
-
-  v30 = vdupq_n_s64(0x4060000000000000uLL);
-  v31 = vmulq_f64(*a1, v30);
-  v32 = vmulq_f64(*(a1 + 16), v30);
-  if (*(a4 + 48))
-  {
-    goto LABEL_122;
-  }
-
-  v33 = *(a4 + 32);
-  if (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_f64(v31, *(a4 + 16)), vceqq_f64(v32, v33)))))
-  {
-    goto LABEL_122;
-  }
-
-  v199 = *(a4 + 16);
-  v201 = v33;
-  v188 = LODWORD(v9);
-  v200 = v13;
-  v183 = v16;
-  v184 = v21;
-  v189 = v32;
-  v190 = v31;
-  AGGraphClearUpdate();
-  v34 = *(a4 + 16);
-  v218 = *a4;
-  v219 = v34;
-  v35 = *(a4 + 48);
-  v220 = *(a4 + 32);
-  v221 = v35;
-  v222 = *(a4 + 64);
-  outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(&v218, &v214, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitRect>, lazy protocol witness table accessor for type UnitRect and conformance UnitRect, &type metadata for UnitRect, type metadata accessor for AnimatableAttributeHelper);
-  v36 = *AGGraphGetValue();
-
-  outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v218, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitRect>, lazy protocol witness table accessor for type UnitRect and conformance UnitRect, &type metadata for UnitRect, type metadata accessor for AnimatableAttributeHelper);
-  AGGraphSetUpdate();
-  v37 = Transaction.effectiveAnimation.getter(v36);
-  if (v37)
-  {
-    v38 = v37;
-    LODWORD(v9) = v188;
-  }
-
-  else
-  {
-    LODWORD(v9) = v188;
-    if (!a2)
-    {
-
-      goto LABEL_121;
-    }
-
-    v38 = a2;
-  }
-
-  v39 = *(&v221 + 1);
-  v40 = v190.f64[0] - *&v199;
-  v41 = v190.f64[1] - *(&v199 + 1);
-  v42 = v189.f64[0] - v201.f64[0];
-  v43 = v189.f64[1] - v201.f64[1];
-  v28 = *AGGraphGetValue();
-  v191 = a1;
-  v194 = a4;
-  v185 = v36;
-  v186 = v38;
-  if (!v39)
-  {
-    *&v210.f64[0] = &type metadata for UnitRect;
-    type metadata accessor for UnitRect.Type();
-    type metadata accessor for any AnimationFinishingDefinition<Self.AnimationFinishingDefinition.Value == AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>>.Type(0, &lazy cache variable for type metadata for any AnimationFinishingDefinition<Self.AnimationFinishingDefinition.Value == AnimatablePair<CGFloat, AnimatablePair<CGFloat, AnimatablePair<CGFloat, CGFloat>>>>.Type, type metadata accessor for AnimatablePair<CGFloat, AnimatablePair<CGFloat, AnimatablePair<CGFloat, CGFloat>>>);
-    v58 = swift_dynamicCast();
-    if (v58)
-    {
-      v59 = v214;
-    }
-
-    else
-    {
-      v59 = 0;
-    }
-
-    if (v58)
-    {
-      v60 = *(&v214 + 1);
-    }
-
-    else
-    {
-      v60 = 0;
-    }
-
-    v187 = _s7SwiftUI13AnimatorStateC9animation8interval2at2in19finishingDefinitionACyxGAA9AnimationV_xAA4TimeVAA11TransactionVAA0k9FinishingJ0_px5ValueRts_XPXpSgtc33_35ADF281214A25133F1A6DF28858952DLlfCAA14AnimatablePairVyAVy12CoreGraphics7CGFloatVAYGAZG_Tt4B5Tm(v61, v36, v59, v60, type metadata accessor for AnimatorState<AnimatablePair<CGFloat, AnimatablePair<CGFloat, AnimatablePair<CGFloat, CGFloat>>>>, v40, v41, v42, v43, v28);
-    CurrentAttribute = AGGraphGetCurrentAttribute();
-    v63 = CurrentAttribute;
-    v64 = *MEMORY[0x1E698D3F8];
-    if (CurrentAttribute == *MEMORY[0x1E698D3F8])
-    {
-      v65 = 0;
-    }
-
-    else
-    {
-      v65 = CurrentAttribute;
-    }
-
-    LODWORD(v199) = v65;
-    (*(*v38 + 96))(&v210);
-    v66 = v210;
-    v67 = *&v211.f64[0];
-    v68 = v212;
-    *&v209 = NAN;
-    v208 = NAN;
-    v207 = 1.0;
-    v206 = NAN;
-    v214 = v210;
-    v215 = v211;
-    v69 = *&v211.f64[1];
-    v216 = *&v212;
-    LODWORD(v203) = v213;
-    LOBYTE(v217) = v213;
-    static CustomEventTrace.extractFunctionData(_:_:_:_:_:)(&v214, &v209, &v208, &v207, &v206);
-    v4 = *&v209;
-    v5 = v208;
-    v6 = v207;
-    v7 = v206;
-    if (one-time initialization token for enabledCategories != -1)
-    {
-      swift_once();
-    }
-
-    if (*(static CustomEventTrace.enabledCategories + 2) < 0x43uLL)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      v70 = *(static CustomEventTrace.enabledCategories + 98) == 1;
-      LODWORD(v201.f64[0]) = v64;
-      if (v70)
-      {
-        v71 = static CustomEventTrace.recorder;
-        if (static CustomEventTrace.recorder)
-        {
-          v72 = v63 == v64;
-          *(*(static CustomEventTrace.recorder + 24) + 4) = 322;
-          v73 = *(v71 + 16);
-          LODWORD(v214) = v199;
-          BYTE4(v214) = v72;
-          *(&v214 + 1) = &type metadata for UnitRect;
-          v215.f64[0] = v4;
-          v215.f64[1] = v5;
-          v216 = v6;
-          v217 = v7;
-          type metadata accessor for (AGAttribute?, Any.Type, Double, Double, Double, Double)();
-
-          v74 = v73;
-          AGGraphAddTraceEvent();
-          outlined consume of Animation.Function(*&v66.f64[0], *&v66.f64[1], v67, v69, v68, v203);
-        }
-
-        else
-        {
-          outlined consume of Animation.Function(*&v66.f64[0], *&v66.f64[1], v67, v69, v68, v203);
-        }
-
-        a4 = v194;
-        LODWORD(v9) = v188;
-      }
-
-      else
-      {
-        outlined consume of Animation.Function(*&v66.f64[0], *&v66.f64[1], v67, v69, v68, v203);
-      }
-
-      v112 = one-time initialization token for animationState;
-
-      if (v112 == -1)
-      {
-        goto LABEL_84;
-      }
-    }
-
-    swift_once();
-LABEL_84:
-    v81 = *(&static Signpost.animationState + 1);
-    *&v80 = static Signpost.animationState;
-    LOBYTE(v45) = word_1ED5283E8;
-    LOBYTE(v87) = HIBYTE(word_1ED5283E8);
-    v113 = byte_1ED5283EA;
-    LODWORD(Counter) = static os_signpost_type_t.begin.getter();
-    v214 = __PAIR128__(*&v81, *&v80);
-    LOBYTE(v215.f64[0]) = v45;
-    BYTE1(v215.f64[0]) = v87;
-    BYTE2(v215.f64[0]) = v113;
-    if ((Signpost.isEnabled.getter() & 1) == 0)
-    {
-      v124 = v187;
-
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v218, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitRect>, lazy protocol witness table accessor for type UnitRect and conformance UnitRect, &type metadata for UnitRect, type metadata accessor for AnimatableAttributeHelper);
-      goto LABEL_91;
-    }
-
-    v114 = one-time initialization token for _signpostLog;
-
-    if (v114 != -1)
-    {
-      goto LABEL_196;
-    }
-
-    goto LABEL_86;
-  }
-
-  outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(&v218, &v214, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitRect>, lazy protocol witness table accessor for type UnitRect and conformance UnitRect, &type metadata for UnitRect, type metadata accessor for AnimatableAttributeHelper);
-  LOBYTE(v214) = 0;
-  v187 = v39;
-  specialized AnimatorState.combine(newAnimation:newInterval:at:in:environment:)(v38, v36, v40, v41, v42, v43, v28);
-  v44 = AGGraphGetCurrentAttribute();
-  LODWORD(v45) = v44;
-  LODWORD(v201.f64[0]) = *MEMORY[0x1E698D3F8];
-  if (v44 == LODWORD(v201.f64[0]))
-  {
-    LODWORD(v9) = 0;
-  }
-
-  else
-  {
-    LODWORD(v9) = v44;
-  }
-
-  (*(*v38 + 96))(&v210);
-  v47 = *&v210.f64[1];
-  v46 = *&v210.f64[0];
-  a1 = *&v211.f64[1];
-  v48 = *&v211.f64[0];
-  v49 = v212;
-  v50 = v213;
-  *&v209 = NAN;
-  v208 = NAN;
-  v207 = 1.0;
-  v206 = NAN;
-  v214 = v210;
-  v215 = v211;
-  v216 = *&v212;
-  LOBYTE(v217) = v213;
-  static CustomEventTrace.extractFunctionData(_:_:_:_:_:)(&v214, &v209, &v208, &v207, &v206);
-  v4 = *&v209;
-  v5 = v208;
-  v6 = v207;
-  v7 = v206;
-  if (one-time initialization token for enabledCategories != -1)
-  {
-    goto LABEL_189;
-  }
-
-  while (1)
-  {
-    if (*(static CustomEventTrace.enabledCategories + 2) >= 0x43uLL)
-    {
-      if (*(static CustomEventTrace.enabledCategories + 98) == 1)
-      {
-        v51 = LODWORD(v9);
-        v52 = v49;
-        v53 = static CustomEventTrace.recorder;
-        v54 = LODWORD(v201.f64[0]);
-        if (static CustomEventTrace.recorder)
-        {
-          LODWORD(v200) = v50;
-          *(*(static CustomEventTrace.recorder + 24) + 4) = 1602;
-          v55 = *(v53 + 16);
-          LODWORD(v214) = v51;
-          BYTE4(v214) = v45 == v54;
-          *(&v214 + 1) = &type metadata for UnitRect;
-          v215.f64[0] = v4;
-          v215.f64[1] = v5;
-          v216 = v6;
-          v217 = v7;
-          type metadata accessor for (AGAttribute?, Any.Type, Double, Double, Double, Double)();
-          *&v199 = v56;
-
-          v57 = v55;
-          AGGraphAddTraceEvent();
-          outlined consume of Animation.Function(v46, v47, v48, a1, v52, v200);
-
-          goto LABEL_44;
-        }
-
-        v75 = v46;
-        v76 = v47;
-        v77 = v48;
-        v78 = a1;
-        v79 = v52;
-      }
-
-      else
-      {
-        v75 = v46;
-        v76 = v47;
-        v77 = v48;
-        v78 = a1;
-        v79 = v49;
-      }
-
-      outlined consume of Animation.Function(v75, v76, v77, v78, v79, v50);
-LABEL_44:
-      outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(&v218, &v214, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitRect>, lazy protocol witness table accessor for type UnitRect and conformance UnitRect, &type metadata for UnitRect, type metadata accessor for AnimatableAttributeHelper);
-      if (one-time initialization token for animationState == -1)
-      {
-        goto LABEL_45;
-      }
-
-      goto LABEL_191;
-    }
-
-    __break(1u);
-LABEL_191:
-    swift_once();
-LABEL_45:
-    v80 = *(&static Signpost.animationState + 1);
-    *&v9 = static Signpost.animationState;
-    *&v81 = word_1ED5283E8;
-    v82 = HIBYTE(word_1ED5283E8);
-    v83 = byte_1ED5283EA;
-    LODWORD(Counter) = static os_signpost_type_t.event.getter();
-    v214 = __PAIR128__(*&v80, *&v9);
-    LOBYTE(v215.f64[0]) = LOBYTE(v81);
-    BYTE1(v215.f64[0]) = v82;
-    BYTE2(v215.f64[0]) = v83;
-    if ((Signpost.isEnabled.getter() & 1) == 0)
-    {
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v218, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitRect>, lazy protocol witness table accessor for type UnitRect and conformance UnitRect, &type metadata for UnitRect, type metadata accessor for AnimatableAttributeHelper);
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v218, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitRect>, lazy protocol witness table accessor for type UnitRect and conformance UnitRect, &type metadata for UnitRect, type metadata accessor for AnimatableAttributeHelper);
-LABEL_53:
-      a4 = v194;
-      LODWORD(v9) = v188;
-      goto LABEL_120;
-    }
-
-    outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(&v218, &v214, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitRect>, lazy protocol witness table accessor for type UnitRect and conformance UnitRect, &type metadata for UnitRect, type metadata accessor for AnimatableAttributeHelper);
-    if (one-time initialization token for _signpostLog != -1)
-    {
-      swift_once();
-    }
-
-    LODWORD(v200) = Counter;
-    v85 = COERCE_DOUBLE(_signpostLog);
-    OSSignpostID.init(log:object:)();
-    type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-    *&v45 = COERCE_DOUBLE(swift_allocObject());
-    *(v45 + 16) = xmmword_18DDAF080;
-    v86 = AGGraphGetCurrentAttribute();
-    v87 = LODWORD(v201.f64[0]);
-    if (v86 == LODWORD(v201.f64[0]))
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      v88 = AGGraphGetAttributeGraph();
-      Counter = AGGraphGetCounter();
-
-      v89 = MEMORY[0x1E69E6870];
-      *(v45 + 56) = MEMORY[0x1E69E6810];
-      *(v45 + 64) = v89;
-      *(v45 + 32) = Counter;
-      v90 = AGGraphGetCurrentAttribute();
-      if (v90 != v87)
-      {
-        v91 = MEMORY[0x1E69E76D0];
-        *(v45 + 96) = MEMORY[0x1E69E7668];
-        *(v45 + 104) = v91;
-        *(v45 + 72) = v90;
-        *(v45 + 136) = MEMORY[0x1E69E6158];
-        *(v45 + 144) = lazy protocol witness table accessor for type String and conformance String();
-        *(v45 + 112) = 0x7463655274696E55;
-        *(v45 + 120) = 0xE800000000000000;
-        if ((v82 & 1) == 0)
-        {
-          if (LOBYTE(v9) == 20)
-          {
-            v93 = 3;
-          }
-
-          else
-          {
-            v93 = 4;
-          }
-
-          a4 = bswap32(LOWORD(v9)) | (4 * HIWORD(LODWORD(v9)));
-          v94 = v200;
-          v49 = (v202 + 16);
-          v192 = *(v202 + 16);
-          v95 = v192(v203, v184, v205);
-          v96 = 0;
-          LOBYTE(v210.f64[0]) = 1;
-          *&v201.f64[0] = v93;
-          v198 = 16 * v93;
-          v193 = v49;
-          *&v199 = v49 - 8;
-          v197 = v45 + 32;
-          v196 = LOBYTE(v9);
-          do
-          {
-            v200 = &v183;
-            MEMORY[0x1EEE9AC00](v95);
-            a1 = &v183 - ((v98 + 15) & 0xFFFFFFFFFFFFFFF0);
-            *&v9 = a1 + 8;
-            v99 = v201.f64[0];
-            v100 = (a1 + 8);
-            do
-            {
-              *(v100 - 1) = 0;
-              *v100 = 0;
-              v100 += 16;
-              --*&v99;
-            }
-
-            while (v99 != 0.0);
-            v101 = v197 + 40 * v96;
-            v102 = v201.f64[0];
-            while (1)
-            {
-              v103 = *(v45 + 16);
-              if (v96 == v103)
-              {
-                break;
-              }
-
-              if (v96 >= v103)
-              {
-                goto LABEL_180;
-              }
-
-              ++v96;
-              outlined init with copy of AnyTrackedValue(v101, &v214);
-              v104 = v215.f64[1];
-              v105 = __swift_project_boxed_opaque_existential_1(&v214, *&v215.f64[1]);
-              v106 = *&v104;
-              v49 = v105;
-              *(*&v9 - 8) = CVarArg.kdebugValue(_:)(a4 | v94, v106);
-              **&v9 = v107 & 1;
-              *&v9 += 16;
-              v97 = __swift_destroy_boxed_opaque_existential_1(&v214);
-              v101 += 40;
-              --*&v102;
-              if (v102 == 0.0)
-              {
-                goto LABEL_66;
-              }
-            }
-
-            LOBYTE(v210.f64[0]) = 0;
-LABEL_66:
-            v108 = v196;
-            if (v196 == 20)
-            {
-              OSSignpostID.rawValue.getter();
-            }
-
-            kdebug_trace();
-            if (*(a1 + 8) == 1)
-            {
-              kdebug_trace_string();
-            }
-
-            if (*(a1 + 24) == 1)
-            {
-              kdebug_trace_string();
-            }
-
-            if (*(a1 + 40) == 1)
-            {
-              kdebug_trace_string();
-            }
-
-            if (v108 != 20 && *(a1 + 56) == 1)
-            {
-              kdebug_trace_string();
-            }
-
-            if (one-time initialization token for continuation != -1)
-            {
-              swift_once();
-            }
-
-            v9 = *v199;
-            v49 = v203;
-            v109 = v205;
-            (*v199)(v203, v205);
-            v110 = __swift_project_value_buffer(v109, static OSSignpostID.continuation);
-            v95 = v192(v49, v110, v109);
-          }
-
-          while ((LOBYTE(v210.f64[0]) & 1) != 0);
-          outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v218, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitRect>, lazy protocol witness table accessor for type UnitRect and conformance UnitRect, &type metadata for UnitRect, type metadata accessor for AnimatableAttributeHelper);
-          outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v218, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitRect>, lazy protocol witness table accessor for type UnitRect and conformance UnitRect, &type metadata for UnitRect, type metadata accessor for AnimatableAttributeHelper);
-          v111 = v205;
-          (*&v9)(v203, v205);
-          (*&v9)(v184, v111);
-
-          a4 = v194;
-          LODWORD(v9) = v188;
-          goto LABEL_120;
-        }
-
-        LOBYTE(v206) = v200;
-        *&v209 = COERCE_DOUBLE(&dword_18D018000);
-        v208 = v85;
-        *&v214 = v9;
-        *(&v214 + 1) = v80;
-        LOBYTE(v215.f64[0]) = LOBYTE(v81);
-        *&v210.f64[0] = "Animation: (%p) [%d] %{public}@ updated";
-        *&v210.f64[1] = 39;
-        LOBYTE(v211.f64[0]) = 2;
-        v207 = *&v45;
-        v92 = v184;
-        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-        outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v218, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitRect>, lazy protocol witness table accessor for type UnitRect and conformance UnitRect, &type metadata for UnitRect, type metadata accessor for AnimatableAttributeHelper);
-        outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v218, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitRect>, lazy protocol witness table accessor for type UnitRect and conformance UnitRect, &type metadata for UnitRect, type metadata accessor for AnimatableAttributeHelper);
-        (*(v202 + 8))(v92, v205);
-
-        goto LABEL_53;
-      }
-    }
-
-    __break(1u);
-LABEL_196:
-    swift_once();
-LABEL_86:
-    LODWORD(v203) = Counter;
-    v115 = COERCE_DOUBLE(_signpostLog);
-    OSSignpostID.init(log:object:)();
-    type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-    *&a4 = COERCE_DOUBLE(swift_allocObject());
-    *(a4 + 16) = xmmword_18DDAF080;
-    v116 = AGGraphGetCurrentAttribute();
-    v117 = LODWORD(v201.f64[0]);
-    if (v116 == LODWORD(v201.f64[0]))
-    {
-      __break(1u);
-LABEL_198:
-      __break(1u);
-    }
-
-    v118 = AGGraphGetAttributeGraph();
-    v119 = AGGraphGetCounter();
-
-    v120 = MEMORY[0x1E69E6870];
-    *(a4 + 56) = MEMORY[0x1E69E6810];
-    *(a4 + 64) = v120;
-    *(a4 + 32) = v119;
-    v121 = AGGraphGetCurrentAttribute();
-    if (v121 == v117)
-    {
-      goto LABEL_198;
-    }
-
-    v122 = MEMORY[0x1E69E76D0];
-    *(a4 + 96) = MEMORY[0x1E69E7668];
-    *(a4 + 104) = v122;
-    *(a4 + 72) = v121;
-    *(a4 + 136) = MEMORY[0x1E69E6158];
-    *(a4 + 144) = lazy protocol witness table accessor for type String and conformance String();
-    *(a4 + 112) = 0x7463655274696E55;
-    *(a4 + 120) = 0xE800000000000000;
-    if (v87)
-    {
-      LOBYTE(v206) = v203;
-      *&v209 = COERCE_DOUBLE(&dword_18D018000);
-      v208 = v115;
-      *&v214 = v80;
-      *(&v214 + 1) = v81;
-      LOBYTE(v215.f64[0]) = v45;
-      *&v210.f64[0] = "Animation: (%p) [%d] %{public}@ started";
-      *&v210.f64[1] = 39;
-      LOBYTE(v211.f64[0]) = 2;
-      v207 = *&a4;
-      v123 = v183;
-      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-      v124 = v187;
-
-      (*(v202 + 8))(v123, v205);
-
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v218, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitRect>, lazy protocol witness table accessor for type UnitRect and conformance UnitRect, &type metadata for UnitRect, type metadata accessor for AnimatableAttributeHelper);
-      a4 = v194;
-LABEL_91:
-      *(a4 + 56) = v124;
-    }
-
-    else
-    {
-      v125 = LOBYTE(v80);
-      v126 = LOBYTE(v80) == 20 ? 3 : 4;
-      v127 = bswap32(LOWORD(v80)) | (4 * HIWORD(LODWORD(v80)));
-      v94 = v203;
-      v49 = (v202 + 16);
-      v192 = *(v202 + 16);
-      v128 = v192(v200, v183, v205);
-      v9 = 0.0;
-      LOBYTE(v210.f64[0]) = 1;
-      v203 = v126;
-      v198 = 16 * v126;
-      v193 = v49;
-      *&v199 = v49 - 8;
-      v197 = a4 + 32;
-      v196 = v125;
-      do
-      {
-        *&v201.f64[0] = &v183;
-        MEMORY[0x1EEE9AC00](v128);
-        a1 = &v183 - ((v129 + 15) & 0xFFFFFFFFFFFFFFF0);
-        v130 = (a1 + 8);
-        v131 = v203;
-        v132 = (a1 + 8);
-        do
-        {
-          *(v132 - 1) = 0;
-          *v132 = 0;
-          v132 += 16;
-          v131 = (v131 - 1);
-        }
-
-        while (v131);
-        v133 = v197 + 40 * *&v9;
-        v45 = v203;
-        while (1)
-        {
-          v134 = *(a4 + 16);
-          if (*&v9 == v134)
-          {
-            break;
-          }
-
-          if (*&v9 >= v134)
-          {
-            goto LABEL_181;
-          }
-
-          ++*&v9;
-          outlined init with copy of AnyTrackedValue(v133, &v214);
-          v135 = v215.f64[1];
-          v136 = __swift_project_boxed_opaque_existential_1(&v214, *&v215.f64[1]);
-          v137 = *&v135;
-          v49 = v136;
-          *(v130 - 1) = CVarArg.kdebugValue(_:)(v127 | v94, v137);
-          *v130 = v138 & 1;
-          v130 += 16;
-          v97 = __swift_destroy_boxed_opaque_existential_1(&v214);
-          v133 += 40;
-          --v45;
-          if (*&v45 == 0.0)
-          {
-            goto LABEL_104;
-          }
-        }
-
-        LOBYTE(v210.f64[0]) = 0;
-LABEL_104:
-        v139 = v196;
-        if (v196 == 20)
-        {
-          v140 = v200;
-          OSSignpostID.rawValue.getter();
-          kdebug_trace();
-        }
-
-        else
-        {
-          kdebug_trace();
-          v140 = v200;
-        }
-
-        if (*(a1 + 8) == 1)
-        {
-          kdebug_trace_string();
-        }
-
-        if (*(a1 + 24) == 1)
-        {
-          kdebug_trace_string();
-        }
-
-        if (*(a1 + 40) == 1)
-        {
-          kdebug_trace_string();
-        }
-
-        if (v139 != 20 && *(a1 + 56) == 1)
-        {
-          kdebug_trace_string();
-        }
-
-        if (one-time initialization token for continuation != -1)
-        {
-          swift_once();
-        }
-
-        v141 = *v199;
-        v49 = v205;
-        (*v199)(v140, v205);
-        v142 = __swift_project_value_buffer(v49, static OSSignpostID.continuation);
-        v128 = v192(v140, v142, v49);
-      }
-
-      while ((LOBYTE(v210.f64[0]) & 1) != 0);
-      *&v9 = v187;
-
-      v143 = v205;
-      v141(v140, v205);
-      v141(v183, v143);
-
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v218, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitRect>, lazy protocol witness table accessor for type UnitRect and conformance UnitRect, &type metadata for UnitRect, type metadata accessor for AnimatableAttributeHelper);
-      a4 = v194;
-      *(v194 + 56) = v9;
-      LODWORD(v9) = v188;
-    }
-
-LABEL_120:
-    specialized AnimatorState.addListeners(transaction:)(v185);
-
-    a1 = v191;
-LABEL_121:
-    v31 = v190;
-    v32 = v189;
-LABEL_122:
-    *(a4 + 16) = v31;
-    *(a4 + 32) = v32;
-    *(a4 + 48) = 0;
-LABEL_123:
-    v45 = *(a4 + 56);
-    if (*&v45 == 0.0)
-    {
-      return result;
-    }
-
-    v144 = vdupq_n_s64(0x4060000000000000uLL);
-    v145 = vmulq_f64(*a1, v144);
-    v146 = vmulq_f64(*(a1 + 16), v144);
-    v214 = v145;
-    v215 = v146;
-
-    LOBYTE(v218) = 0;
-    v147 = specialized AnimatorState.update(_:at:environment:)(&v214, LODWORD(v9), v28);
-    v97 = AGGraphGetCurrentAttribute();
-    LODWORD(v9) = *MEMORY[0x1E698D3F8];
-    if (v97 == *MEMORY[0x1E698D3F8])
-    {
-      v94 = 0;
-    }
-
-    else
-    {
-      v94 = v97;
-    }
-
-    v49 = &type metadata instantiation cache for TupleTypeDescription;
-    if (v147)
-    {
-      if (one-time initialization token for enabledCategories != -1)
-      {
-        goto LABEL_182;
-      }
-
-      goto LABEL_129;
-    }
-
-    if (one-time initialization token for enabledCategories != -1)
-    {
-      goto LABEL_184;
-    }
-
-LABEL_142:
-    v158 = *(v49 + 77);
-    if (*(v158 + 16) >= 0x43uLL)
-    {
-      if (*(v158 + 98) == 1 && static CustomEventTrace.recorder)
-      {
-        *(*(static CustomEventTrace.recorder + 24) + 4) = 834;
-        LODWORD(v218) = v94;
-        BYTE4(v218) = v97 == LODWORD(v9);
-        type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for AGAttribute?, type metadata accessor for AGAttribute, MEMORY[0x1E69E6720]);
-        AGGraphAddTraceEvent();
-      }
-
-      specialized AnimatorState.nextUpdate()();
-
-      goto LABEL_177;
-    }
-
-    __break(1u);
-LABEL_186:
-    swift_once();
-LABEL_134:
-    v48 = *(&static Signpost.animationState + 1);
-    v150 = static Signpost.animationState;
-    v50 = word_1ED5283E8;
-    v151 = HIBYTE(word_1ED5283E8);
-    v152 = byte_1ED5283EA;
-    v47 = static os_signpost_type_t.end.getter();
-    v218 = __PAIR128__(v48, v150);
-    LOBYTE(v219) = v50;
-    BYTE1(v219) = v151;
-    BYTE2(v219) = v152;
-    v49 = &v218;
-    if ((Signpost.isEnabled.getter() & 1) == 0)
-    {
-
-      goto LABEL_176;
-    }
-
-    v153 = one-time initialization token for _signpostLog;
-
-    if (v153 != -1)
-    {
-      swift_once();
-    }
-
-    v191 = a1;
-    *&v46 = COERCE_DOUBLE(_signpostLog);
-    v193 = v45;
-    OSSignpostID.init(log:object:)();
-    type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-    *&v45 = COERCE_DOUBLE(swift_allocObject());
-    *(v45 + 16) = xmmword_18DDAF080;
-    if (AGGraphGetCurrentAttribute() != LODWORD(v9))
-    {
-      break;
-    }
-
-    __break(1u);
-LABEL_188:
-    __break(1u);
-LABEL_189:
-    swift_once();
-  }
-
-  v49 = AGGraphGetAttributeGraph();
-  a1 = AGGraphGetCounter();
-
-  v154 = MEMORY[0x1E69E6870];
-  *(v45 + 56) = MEMORY[0x1E69E6810];
-  *(v45 + 64) = v154;
-  *(v45 + 32) = a1;
-  v155 = AGGraphGetCurrentAttribute();
-  if (v155 == LODWORD(v9))
-  {
-    goto LABEL_188;
-  }
-
-  v156 = MEMORY[0x1E69E76D0];
-  *(v45 + 96) = MEMORY[0x1E69E7668];
-  *(v45 + 104) = v156;
-  *(v45 + 72) = v155;
-  *(v45 + 136) = MEMORY[0x1E69E6158];
-  *(v45 + 144) = lazy protocol witness table accessor for type String and conformance String();
-  *(v45 + 112) = 0x7463655274696E55;
-  *(v45 + 120) = 0xE800000000000000;
-  if (v151)
-  {
-    LOBYTE(v206) = v47;
-    *&v209 = COERCE_DOUBLE(&dword_18D018000);
-    v208 = *&v46;
-    *&v218 = v150;
-    *(&v218 + 1) = v48;
-    LOBYTE(v219) = v50;
-    *&v210.f64[0] = "Animation: (%p) [%d] %{public}@ ended";
-    *&v210.f64[1] = 37;
-    LOBYTE(v211.f64[0]) = 2;
-    v207 = *&v45;
-    v157 = v195;
-    specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-
-    (*(v202 + 8))(v157, v205);
-    goto LABEL_175;
-  }
-
-  v159 = v150;
-  if (v150 == 20)
-  {
-    v160 = 3;
-  }
-
-  else
-  {
-    v160 = 4;
-  }
-
-  LODWORD(v9) = bswap32(v150) | (4 * WORD1(v150));
-  v94 = v47;
-  v161 = v202 + 16;
-  v196 = *(v202 + 16);
-  v162 = v196(v204, v195, v205);
-  v163 = 0;
-  LOBYTE(v210.f64[0]) = 1;
-  v200 = (16 * v160);
-  v202 = v161;
-  *&v201.f64[0] = v161 - 8;
-  *&v199 = v45 + 32;
-  v198 = v159;
-  v197 = v160;
-  do
-  {
-    v203 = &v183;
-    MEMORY[0x1EEE9AC00](v162);
-    a1 = &v183 - ((v164 + 15) & 0xFFFFFFFFFFFFFFF0);
-    a4 = a1 + 8;
-    v165 = v160;
-    v166 = (a1 + 8);
-    do
-    {
-      *(v166 - 1) = 0;
-      *v166 = 0;
-      v166 += 16;
-      --v165;
-    }
-
-    while (v165);
-    v167 = v199 + 40 * v163;
-    while (1)
-    {
-      v168 = *(v45 + 16);
-      if (v163 == v168)
-      {
-        break;
-      }
-
-      if (v163 >= v168)
-      {
-        __break(1u);
-LABEL_180:
-        __break(1u);
-LABEL_181:
-        __break(1u);
-LABEL_182:
-        v181 = v97;
-        swift_once();
-        v97 = v181;
-LABEL_129:
-        v148 = *(v49 + 77);
-        if (*(v148 + 16) >= 0x43uLL)
-        {
-          if (*(v148 + 98) == 1 && static CustomEventTrace.recorder)
-          {
-            *(*(static CustomEventTrace.recorder + 24) + 4) = 578;
-            LODWORD(v218) = v94;
-            BYTE4(v218) = v97 == LODWORD(v9);
-            type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for AGAttribute?, type metadata accessor for AGAttribute, MEMORY[0x1E69E6720]);
-            AGGraphAddTraceEvent();
-          }
-
-          v194 = a4;
-          v149 = one-time initialization token for animationState;
-
-          if (v149 != -1)
-          {
-            goto LABEL_186;
-          }
-
-          goto LABEL_134;
-        }
-
-        __break(1u);
-LABEL_184:
-        v182 = v97;
-        swift_once();
-        v97 = v182;
-        goto LABEL_142;
-      }
-
-      ++v163;
-      outlined init with copy of AnyTrackedValue(v167, &v218);
-      v169 = *(&v219 + 1);
-      v170 = __swift_project_boxed_opaque_existential_1(&v218, *(&v219 + 1));
-      v171 = v169;
-      v49 = v170;
-      *(a4 - 8) = CVarArg.kdebugValue(_:)(LODWORD(v9) | v47, v171);
-      *a4 = v172 & 1;
-      a4 += 16;
-      v97 = __swift_destroy_boxed_opaque_existential_1(&v218);
-      v167 += 40;
-      if (!--v160)
-      {
-        goto LABEL_160;
-      }
-    }
-
-    LOBYTE(v210.f64[0]) = 0;
-LABEL_160:
-    v173 = v198;
-    if (v198 == 20)
-    {
-      OSSignpostID.rawValue.getter();
-    }
-
-    kdebug_trace();
-    if (*(a1 + 8) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (*(a1 + 24) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (*(a1 + 40) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (v173 != 20 && *(a1 + 56) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (one-time initialization token for continuation != -1)
-    {
-      swift_once();
-    }
-
-    v174 = **&v201.f64[0];
-    v175 = v204;
-    v49 = v205;
-    (**&v201.f64[0])(v204, v205);
-    v176 = __swift_project_value_buffer(v49, static OSSignpostID.continuation);
-    v162 = v196(v175, v176, v49);
-    v160 = v197;
-  }
-
-  while ((LOBYTE(v210.f64[0]) & 1) != 0);
-
-  v177 = v205;
-  v174(v204, v205);
-  v174(v195, v177);
-LABEL_175:
-
-  a1 = v191;
-LABEL_176:
-  specialized AnimatorState.removeListeners()();
-
-  *(v194 + 56) = 0;
-LABEL_177:
-  v178 = vdupq_n_s64(0x3F80000000000000uLL);
-  v179 = vmulq_f64(v214, v178);
-  v180 = vmulq_f64(v215, v178);
-  *a1 = v179;
-  *(a1 + 16) = v180;
-  *(a1 + 32) = 1;
-  return result;
-}
-
-{
-  LODWORD(v8) = a3;
-  v205 = *MEMORY[0x1E69E9840];
-  v186 = type metadata accessor for OSSignpostID();
-  v183 = *(v186 - 8);
-  MEMORY[0x1EEE9AC00](v186);
-  v12 = &v165 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v15 = &v165 - v14;
-  MEMORY[0x1EEE9AC00](v16);
-  v184 = &v165 - v17;
-  MEMORY[0x1EEE9AC00](v18);
-  v20 = &v165 - v19;
-  MEMORY[0x1EEE9AC00](v21);
-  v185 = &v165 - v22;
-  MEMORY[0x1EEE9AC00](v23);
-  v176 = &v165 - v24;
-  if (*(a4 + 40))
-  {
-    Value = AGGraphGetValue();
-    if (v26)
-    {
-      v27 = *Value;
-    }
-
-    else
-    {
-      v27 = -INFINITY;
-    }
-  }
-
-  else
-  {
-    v27 = -INFINITY;
-  }
-
-  result = specialized AnimatableAttributeHelper.checkReset()();
-  if (result)
-  {
-    *(a1 + 16) = 1;
-  }
-
-  else if (*(a1 + 16) != 1)
-  {
-    goto LABEL_124;
-  }
-
-  v29 = vmulq_f64(*a1, vdupq_n_s64(0x4060000000000000uLL));
-  if (*(a4 + 32))
-  {
-    goto LABEL_123;
-  }
-
-  v5 = *(a4 + 16);
-  v4 = *(a4 + 24);
-  v6 = v29.f64[1];
-  v30 = v29.f64[0] == v5 && v29.f64[1] == v4;
-  if (v30)
-  {
-    goto LABEL_123;
-  }
-
-  v170 = v8;
-  v182 = v12;
-  v167 = v15;
-  v171 = v29;
-  AGGraphClearUpdate();
-  v31 = *(a4 + 16);
-  v201 = *a4;
-  v202 = v31;
-  v203 = *(a4 + 32);
-  v173 = a4;
-  v204 = *(a4 + 48);
-  outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(&v201, &v196, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitPoint>, lazy protocol witness table accessor for type UnitPoint and conformance UnitPoint, &type metadata for UnitPoint, type metadata accessor for AnimatableAttributeHelper);
-  v32 = *AGGraphGetValue();
-
-  outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v201, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitPoint>, lazy protocol witness table accessor for type UnitPoint and conformance UnitPoint, &type metadata for UnitPoint, type metadata accessor for AnimatableAttributeHelper);
-  AGGraphSetUpdate();
-  v33 = Transaction.effectiveAnimation.getter(v32);
-  if (v33)
-  {
-    v34 = v33;
-    LODWORD(v8) = v170;
-  }
-
-  else
-  {
-    LODWORD(v8) = v170;
-    if (!a2)
-    {
-
-      a4 = v173;
-      goto LABEL_122;
-    }
-
-    v34 = a2;
-  }
-
-  v35 = *(&v203 + 1);
-  v36 = v171.f64[0] - v5;
-  v37 = v6 - v4;
-  v27 = *AGGraphGetValue();
-  v172 = a1;
-  v168 = v32;
-  if (!v35)
-  {
-    *&v191.f64[0] = &type metadata for UnitPoint;
-    type metadata accessor for UnitPoint.Type();
-    type metadata accessor for any AnimationFinishingDefinition<Self.AnimationFinishingDefinition.Value == AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>>.Type(0, &lazy cache variable for type metadata for any AnimationFinishingDefinition<Self.AnimationFinishingDefinition.Value == AnimatablePair<CGFloat, CGFloat>>.Type, type metadata accessor for AnimatablePair<CGFloat, CGFloat>);
-    v51 = swift_dynamicCast();
-    if (v51)
-    {
-      v52 = v196;
-    }
-
-    else
-    {
-      v52 = 0;
-    }
-
-    if (v51)
-    {
-      v53 = *(&v196 + 1);
-    }
-
-    else
-    {
-      v53 = 0;
-    }
-
-    v169 = _s7SwiftUI13AnimatorStateC9animation8interval2at2in19finishingDefinitionACyxGAA9AnimationV_xAA4TimeVAA11TransactionVAA0k9FinishingJ0_px5ValueRts_XPXpSgtc33_35ADF281214A25133F1A6DF28858952DLlfCAA14AnimatablePairVy12CoreGraphics7CGFloatVAYG_Tt4B5(v54, v32, v52, v53, v36, v37, v27);
-    CurrentAttribute = AGGraphGetCurrentAttribute();
-    v56 = CurrentAttribute;
-    LODWORD(v57) = *MEMORY[0x1E698D3F8];
-    if (CurrentAttribute == *MEMORY[0x1E698D3F8])
-    {
-      v58 = 0;
-    }
-
-    else
-    {
-      v58 = CurrentAttribute;
-    }
-
-    LODWORD(v181) = v58;
-    v59 = *(*v34 + 96);
-    v166 = v34;
-    v59(&v191);
-    v60 = v191;
-    v61 = v192;
-    v62 = v194;
-    *&v190 = NAN;
-    v189 = NAN;
-    v188 = 1.0;
-    v187 = NAN;
-    v196 = v191;
-    v197 = *&v192;
-    v198 = *&v193;
-    v63 = v193;
-    v199 = *&v194;
-    LODWORD(v184) = v195;
-    LOBYTE(v200) = v195;
-    static CustomEventTrace.extractFunctionData(_:_:_:_:_:)(&v196, &v190, &v189, &v188, &v187);
-    v4 = *&v190;
-    v5 = v189;
-    v6 = v188;
-    v64 = v187;
-    if (one-time initialization token for enabledCategories != -1)
-    {
-      v180 = v187;
-      swift_once();
-      v64 = v180;
-    }
-
-    if (*(static CustomEventTrace.enabledCategories + 2) < 0x43uLL)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      if (*(static CustomEventTrace.enabledCategories + 98) == 1)
-      {
-        v65 = static CustomEventTrace.recorder;
-        if (static CustomEventTrace.recorder)
-        {
-          v66 = v56 == v57;
-          *(*(static CustomEventTrace.recorder + 24) + 4) = 322;
-          v67 = v57;
-          v57 = *(v65 + 16);
-          LODWORD(v196) = v181;
-          BYTE4(v196) = v66;
-          *(&v196 + 1) = &type metadata for UnitPoint;
-          v197 = v4;
-          v198 = v5;
-          v199 = v6;
-          v200 = v64;
-          type metadata accessor for (AGAttribute?, Any.Type, Double, Double, Double, Double)();
-
-          v68 = v57;
-          LODWORD(v57) = v67;
-          v69 = v68;
-          AGGraphAddTraceEvent();
-          outlined consume of Animation.Function(*&v60.f64[0], *&v60.f64[1], v61, v63, v62, v184);
-        }
-
-        else
-        {
-          outlined consume of Animation.Function(*&v60.f64[0], *&v60.f64[1], v61, v63, v62, v184);
-        }
-
-        a1 = v172;
-        LODWORD(v8) = v170;
-      }
-
-      else
-      {
-        outlined consume of Animation.Function(*&v60.f64[0], *&v60.f64[1], v61, v63, v62, v184);
-      }
-
-      v102 = one-time initialization token for animationState;
-
-      if (v102 == -1)
-      {
-LABEL_87:
-        v71 = *(&static Signpost.animationState + 1);
-        v70 = static Signpost.animationState;
-        LOBYTE(v77) = word_1ED5283E8;
-        LOBYTE(v34) = HIBYTE(word_1ED5283E8);
-        v103 = byte_1ED5283EA;
-        LODWORD(Counter) = static os_signpost_type_t.begin.getter();
-        v196 = __PAIR128__(v71, v70);
-        LOBYTE(v197) = v77;
-        BYTE1(v197) = v34;
-        BYTE2(v197) = v103;
-        if ((Signpost.isEnabled.getter() & 1) == 0)
-        {
-          v113 = v169;
-
-          outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v201, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitPoint>, lazy protocol witness table accessor for type UnitPoint and conformance UnitPoint, &type metadata for UnitPoint, type metadata accessor for AnimatableAttributeHelper);
-          a4 = v173;
-          *(v173 + 5) = v113;
-          goto LABEL_121;
-        }
-
-        v104 = one-time initialization token for _signpostLog;
-
-        if (v104 != -1)
-        {
-          goto LABEL_197;
-        }
-
-        goto LABEL_89;
-      }
-    }
-
-    swift_once();
-    goto LABEL_87;
-  }
-
-  v167 = v20;
-  outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(&v201, &v196, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitPoint>, lazy protocol witness table accessor for type UnitPoint and conformance UnitPoint, &type metadata for UnitPoint, type metadata accessor for AnimatableAttributeHelper);
-  LOBYTE(v196) = 0;
-  v169 = v35;
-  specialized AnimatorState.combine(newAnimation:newInterval:at:in:environment:)(v34, v32, v36, v37, v27);
-  v38 = AGGraphGetCurrentAttribute();
-  v39 = v38;
-  LODWORD(Counter) = *MEMORY[0x1E698D3F8];
-  if (v38 == *MEMORY[0x1E698D3F8])
-  {
-    v41 = 0;
-  }
-
-  else
-  {
-    v41 = v38;
-  }
-
-  LODWORD(v180) = v41;
-  (*(*v34 + 96))(&v191);
-  v42 = v191.f64[1];
-  v43 = *&v191.f64[0];
-  v44 = v192;
-  a4 = v193;
-  *&v190 = NAN;
-  v189 = NAN;
-  v188 = 1.0;
-  v187 = NAN;
-  v196 = v191;
-  v197 = *&v192;
-  v198 = *&v193;
-  v45 = v194;
-  v199 = *&v194;
-  LODWORD(v182) = v195;
-  LOBYTE(v200) = v195;
-  static CustomEventTrace.extractFunctionData(_:_:_:_:_:)(&v196, &v190, &v189, &v188, &v187);
-  v4 = *&v190;
-  v5 = v189;
-  v6 = v188;
-  v46 = v187;
-  if (one-time initialization token for enabledCategories != -1)
-  {
-    goto LABEL_190;
-  }
-
-  while (1)
-  {
-    if (*(static CustomEventTrace.enabledCategories + 2) < 0x43uLL)
-    {
-      __break(1u);
-LABEL_192:
-      swift_once();
-      goto LABEL_48;
-    }
-
-    v30 = *(static CustomEventTrace.enabledCategories + 98) == 1;
-    LODWORD(v181) = Counter;
-    if (v30)
-    {
-      v166 = v34;
-      v47 = static CustomEventTrace.recorder;
-      if (static CustomEventTrace.recorder)
-      {
-        *(*(static CustomEventTrace.recorder + 24) + 4) = 1602;
-        v48 = *(v47 + 16);
-        LODWORD(v196) = LODWORD(v180);
-        BYTE4(v196) = v39 == Counter;
-        *(&v196 + 1) = &type metadata for UnitPoint;
-        v197 = v4;
-        v198 = v5;
-        v199 = v6;
-        v200 = v46;
-        type metadata accessor for (AGAttribute?, Any.Type, Double, Double, Double, Double)();
-        v180 = v49;
-
-        v50 = v48;
-        AGGraphAddTraceEvent();
-        outlined consume of Animation.Function(v43, *&v42, v44, a4, v45, v182);
-      }
-
-      else
-      {
-        outlined consume of Animation.Function(v43, *&v42, v44, a4, v45, v182);
-      }
-
-      v34 = v166;
-    }
-
-    else
-    {
-      outlined consume of Animation.Function(v43, *&v42, v44, a4, v45, v182);
-    }
-
-    outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(&v201, &v196, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitPoint>, lazy protocol witness table accessor for type UnitPoint and conformance UnitPoint, &type metadata for UnitPoint, type metadata accessor for AnimatableAttributeHelper);
-    LODWORD(Counter) = v167;
-    if (one-time initialization token for animationState != -1)
-    {
-      goto LABEL_192;
-    }
-
-LABEL_48:
-    v70 = *(&static Signpost.animationState + 1);
-    v8 = static Signpost.animationState;
-    v71 = word_1ED5283E8;
-    v72 = HIBYTE(word_1ED5283E8);
-    v73 = byte_1ED5283EA;
-    v74 = static os_signpost_type_t.event.getter();
-    v196 = __PAIR128__(v70, v8);
-    LOBYTE(v197) = v71;
-    BYTE1(v197) = v72;
-    BYTE2(v197) = v73;
-    if ((Signpost.isEnabled.getter() & 1) == 0)
-    {
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v201, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitPoint>, lazy protocol witness table accessor for type UnitPoint and conformance UnitPoint, &type metadata for UnitPoint, type metadata accessor for AnimatableAttributeHelper);
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v201, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitPoint>, lazy protocol witness table accessor for type UnitPoint and conformance UnitPoint, &type metadata for UnitPoint, type metadata accessor for AnimatableAttributeHelper);
-LABEL_56:
-      a1 = v172;
-      a4 = v173;
-      LODWORD(v8) = v170;
-      goto LABEL_121;
-    }
-
-    LODWORD(v182) = v74;
-    outlined init with copy of AnimatableAttributeHelper<ScalePulseEffect>(&v201, &v196, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitPoint>, lazy protocol witness table accessor for type UnitPoint and conformance UnitPoint, &type metadata for UnitPoint, type metadata accessor for AnimatableAttributeHelper);
-    if (one-time initialization token for _signpostLog != -1)
-    {
-      swift_once();
-    }
-
-    v75 = COERCE_DOUBLE(_signpostLog);
-    OSSignpostID.init(log:object:)();
-    type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-    *&v57 = COERCE_DOUBLE(swift_allocObject());
-    *(v57 + 16) = xmmword_18DDAF080;
-    v76 = AGGraphGetCurrentAttribute();
-    v77 = v181;
-    if (v76 == v181)
-    {
-      __break(1u);
-    }
-
-    else
-    {
-      v78 = AGGraphGetAttributeGraph();
-      Counter = AGGraphGetCounter();
-
-      v79 = MEMORY[0x1E69E6870];
-      *(v57 + 56) = MEMORY[0x1E69E6810];
-      *(v57 + 64) = v79;
-      *(v57 + 32) = Counter;
-      v80 = AGGraphGetCurrentAttribute();
-      if (v80 != v77)
-      {
-        v81 = MEMORY[0x1E69E76D0];
-        *(v57 + 96) = MEMORY[0x1E69E7668];
-        *(v57 + 104) = v81;
-        *(v57 + 72) = v80;
-        *(v57 + 136) = MEMORY[0x1E69E6158];
-        *(v57 + 144) = lazy protocol witness table accessor for type String and conformance String();
-        *(v57 + 112) = 0x6E696F5074696E55;
-        *(v57 + 120) = 0xE900000000000074;
-        if ((v72 & 1) == 0)
-        {
-          v166 = v34;
-          if (v8 == 20)
-          {
-            v83 = 3;
-          }
-
-          else
-          {
-            v83 = 4;
-          }
-
-          v84 = bswap32(v8) | (4 * (v8 >> 16));
-          a1 = v182;
-          v43 = v183 + 16;
-          v174 = *(v183 + 16);
-          v85 = v174(v184, v167, v186);
-          v86 = 0;
-          LOBYTE(v191.f64[0]) = 1;
-          v182 = v83;
-          v179 = 16 * v83;
-          v175 = v43;
-          *&v180 = v43 - 8;
-          v178 = v57 + 32;
-          v177 = v8;
-          do
-          {
-            v181 = &v165;
-            MEMORY[0x1EEE9AC00](v85);
-            a4 = &v165 - ((v88 + 15) & 0xFFFFFFFFFFFFFFF0);
-            v45 = a4 + 8;
-            v89 = v182;
-            v90 = (a4 + 8);
-            do
-            {
-              *(v90 - 1) = 0;
-              *v90 = 0;
-              v90 += 16;
-              --v89;
-            }
-
-            while (v89);
-            v91 = v178 + 40 * v86;
-            v92 = v182;
-            while (1)
-            {
-              v93 = *(v57 + 16);
-              if (v86 == v93)
-              {
-                break;
-              }
-
-              if (v86 >= v93)
-              {
-                goto LABEL_181;
-              }
-
-              ++v86;
-              outlined init with copy of AnyTrackedValue(v91, &v196);
-              v94 = *&v198;
-              v95 = __swift_project_boxed_opaque_existential_1(&v196, *&v198);
-              v96 = v94;
-              v43 = v95;
-              *(v45 - 8) = CVarArg.kdebugValue(_:)(v84 | a1, v96);
-              *v45 = v97 & 1;
-              v45 += 16;
-              v87 = __swift_destroy_boxed_opaque_existential_1(&v196);
-              v91 += 40;
-              if (!--v92)
-              {
-                goto LABEL_69;
-              }
-            }
-
-            LOBYTE(v191.f64[0]) = 0;
-LABEL_69:
-            v98 = v177;
-            if (v177 == 20)
-            {
-              OSSignpostID.rawValue.getter();
-            }
-
-            kdebug_trace();
-            if (*(a4 + 8) == 1)
-            {
-              kdebug_trace_string();
-            }
-
-            if (*(a4 + 24) == 1)
-            {
-              kdebug_trace_string();
-            }
-
-            if (*(a4 + 40) == 1)
-            {
-              kdebug_trace_string();
-            }
-
-            if (v98 != 20 && *(a4 + 56) == 1)
-            {
-              kdebug_trace_string();
-            }
-
-            if (one-time initialization token for continuation != -1)
-            {
-              swift_once();
-            }
-
-            v8 = **&v180;
-            v43 = v184;
-            v99 = v186;
-            (**&v180)(v184, v186);
-            v100 = __swift_project_value_buffer(v99, static OSSignpostID.continuation);
-            v85 = v174(v43, v100, v99);
-          }
-
-          while ((LOBYTE(v191.f64[0]) & 1) != 0);
-          outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v201, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitPoint>, lazy protocol witness table accessor for type UnitPoint and conformance UnitPoint, &type metadata for UnitPoint, type metadata accessor for AnimatableAttributeHelper);
-          outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v201, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitPoint>, lazy protocol witness table accessor for type UnitPoint and conformance UnitPoint, &type metadata for UnitPoint, type metadata accessor for AnimatableAttributeHelper);
-          v101 = v186;
-          v8(v184, v186);
-          v8(v167, v101);
-
-          a1 = v172;
-          a4 = v173;
-          LODWORD(v8) = v170;
-          goto LABEL_121;
-        }
-
-        LOBYTE(v187) = v182;
-        *&v190 = COERCE_DOUBLE(&dword_18D018000);
-        v189 = v75;
-        *&v196 = v8;
-        *(&v196 + 1) = v70;
-        LOBYTE(v197) = v71;
-        *&v191.f64[0] = "Animation: (%p) [%d] %{public}@ updated";
-        *&v191.f64[1] = 39;
-        LOBYTE(v192) = 2;
-        v188 = *&v57;
-        v82 = v167;
-        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-        outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v201, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitPoint>, lazy protocol witness table accessor for type UnitPoint and conformance UnitPoint, &type metadata for UnitPoint, type metadata accessor for AnimatableAttributeHelper);
-        outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v201, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitPoint>, lazy protocol witness table accessor for type UnitPoint and conformance UnitPoint, &type metadata for UnitPoint, type metadata accessor for AnimatableAttributeHelper);
-        (*(v183 + 8))(v82, v186);
-
-        goto LABEL_56;
-      }
-    }
-
-    __break(1u);
-LABEL_197:
-    swift_once();
-LABEL_89:
-    LODWORD(v184) = Counter;
-    v105 = COERCE_DOUBLE(_signpostLog);
-    OSSignpostID.init(log:object:)();
-    type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-    *&a1 = COERCE_DOUBLE(swift_allocObject());
-    *(a1 + 16) = xmmword_18DDAF080;
-    if (AGGraphGetCurrentAttribute() == v57)
-    {
-      __break(1u);
-LABEL_199:
-      __break(1u);
-    }
-
-    v106 = AGGraphGetAttributeGraph();
-    v107 = AGGraphGetCounter();
-
-    v108 = MEMORY[0x1E69E6870];
-    *(a1 + 56) = MEMORY[0x1E69E6810];
-    *(a1 + 64) = v108;
-    *(a1 + 32) = v107;
-    v109 = AGGraphGetCurrentAttribute();
-    if (v109 == v57)
-    {
-      goto LABEL_199;
-    }
-
-    v110 = MEMORY[0x1E69E76D0];
-    *(a1 + 96) = MEMORY[0x1E69E7668];
-    *(a1 + 104) = v110;
-    *(a1 + 72) = v109;
-    *(a1 + 136) = MEMORY[0x1E69E6158];
-    *(a1 + 144) = lazy protocol witness table accessor for type String and conformance String();
-    *(a1 + 112) = 0x6E696F5074696E55;
-    *(a1 + 120) = 0xE900000000000074;
-    if (v34)
-    {
-      LOBYTE(v187) = v184;
-      *&v190 = COERCE_DOUBLE(&dword_18D018000);
-      v189 = v105;
-      *&v196 = v70;
-      *(&v196 + 1) = v71;
-      LOBYTE(v197) = v77;
-      *&v191.f64[0] = "Animation: (%p) [%d] %{public}@ started";
-      *&v191.f64[1] = 39;
-      LOBYTE(v192) = 2;
-      v188 = *&a1;
-      v111 = v167;
-      specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-      v112 = v169;
-
-      (*(v183 + 8))(v111, v186);
-
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v201, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitPoint>, lazy protocol witness table accessor for type UnitPoint and conformance UnitPoint, &type metadata for UnitPoint, type metadata accessor for AnimatableAttributeHelper);
-      a4 = v173;
-      *(v173 + 5) = v112;
-      a1 = v172;
-    }
-
-    else
-    {
-      v114 = v70;
-      v115 = v70 == 20 ? 3 : 4;
-      v92 = (bswap32(v70) | (4 * WORD1(v70)));
-      v45 = v184;
-      v43 = v183 + 16;
-      v174 = *(v183 + 16);
-      v116 = v174(v182, v167, v186);
-      v86 = 0;
-      LOBYTE(v191.f64[0]) = 1;
-      v184 = v115;
-      v179 = 16 * v115;
-      v175 = v43;
-      *&v180 = v43 - 8;
-      v178 = a1 + 32;
-      v177 = v114;
-      do
-      {
-        v181 = &v165;
-        MEMORY[0x1EEE9AC00](v116);
-        v118 = &v165 - ((v117 + 15) & 0xFFFFFFFFFFFFFFF0);
-        a4 = (v118 + 8);
-        v119 = v184;
-        v120 = v118 + 8;
-        do
-        {
-          *(v120 - 1) = 0;
-          *v120 = 0;
-          v120 += 16;
-          --v119;
-        }
-
-        while (v119);
-        v121 = v178 + 40 * v86;
-        v122 = v184;
-        while (1)
-        {
-          v123 = *(a1 + 16);
-          if (v86 == v123)
-          {
-            break;
-          }
-
-          if (v86 >= v123)
-          {
-            goto LABEL_182;
-          }
-
-          ++v86;
-          outlined init with copy of AnyTrackedValue(v121, &v196);
-          v124 = *&v198;
-          v125 = __swift_project_boxed_opaque_existential_1(&v196, *&v198);
-          v126 = v124;
-          v43 = v125;
-          *(a4 - 8) = CVarArg.kdebugValue(_:)(v92 | v45, v126);
-          *a4 = v127 & 1;
-          a4 += 16;
-          v87 = __swift_destroy_boxed_opaque_existential_1(&v196);
-          v121 += 40;
-          if (!--v122)
-          {
-            goto LABEL_106;
-          }
-        }
-
-        LOBYTE(v191.f64[0]) = 0;
-LABEL_106:
-        v128 = v177;
-        if (v177 == 20)
-        {
-          OSSignpostID.rawValue.getter();
-        }
-
-        kdebug_trace();
-        if (v118[8] == 1)
-        {
-          kdebug_trace_string();
-        }
-
-        if (v118[24] == 1)
-        {
-          kdebug_trace_string();
-        }
-
-        if (v118[40] == 1)
-        {
-          kdebug_trace_string();
-        }
-
-        if (v128 != 20 && v118[56] == 1)
-        {
-          kdebug_trace_string();
-        }
-
-        if (one-time initialization token for continuation != -1)
-        {
-          swift_once();
-        }
-
-        v129 = **&v180;
-        v130 = v182;
-        v43 = v186;
-        (**&v180)(v182, v186);
-        v131 = __swift_project_value_buffer(v43, static OSSignpostID.continuation);
-        v116 = v174(v130, v131, v43);
-      }
-
-      while ((LOBYTE(v191.f64[0]) & 1) != 0);
-      v8 = v169;
-
-      v132 = v186;
-      v129(v130, v186);
-      v129(v167, v132);
-
-      outlined destroy of AnimatableAttributeHelper<GlassEffectShapeModifier>(&v201, &lazy cache variable for type metadata for AnimatableAttributeHelper<UnitPoint>, lazy protocol witness table accessor for type UnitPoint and conformance UnitPoint, &type metadata for UnitPoint, type metadata accessor for AnimatableAttributeHelper);
-      a4 = v173;
-      *(v173 + 5) = v8;
-      a1 = v172;
-      LODWORD(v8) = v170;
-    }
-
-LABEL_121:
-    specialized AnimatorState.addListeners(transaction:)(v168);
-
-LABEL_122:
-    v29 = v171;
-LABEL_123:
-    *(a4 + 16) = v29;
-    *(a4 + 32) = 0;
-LABEL_124:
-    v92 = *(a4 + 40);
-    if (!v92)
-    {
-      return result;
-    }
-
-    v191 = vmulq_f64(*a1, vdupq_n_s64(0x4060000000000000uLL));
-
-    LOBYTE(v201) = 0;
-    v133 = specialized AnimatorState.update(_:at:environment:)(&v191, v8, v27);
-    v87 = AGGraphGetCurrentAttribute();
-    v45 = *MEMORY[0x1E698D3F8];
-    if (v87 == v45)
-    {
-      LODWORD(v86) = 0;
-    }
-
-    else
-    {
-      LODWORD(v86) = v87;
-    }
-
-    v43 = &type metadata instantiation cache for TupleTypeDescription;
-    if (v133)
-    {
-      if (one-time initialization token for enabledCategories != -1)
-      {
-        goto LABEL_183;
-      }
-
-      goto LABEL_130;
-    }
-
-    if (one-time initialization token for enabledCategories != -1)
-    {
-      goto LABEL_185;
-    }
-
-LABEL_143:
-    v143 = *(v43 + 616);
-    if (*(v143 + 16) >= 0x43uLL)
-    {
-      if (*(v143 + 98) == 1 && static CustomEventTrace.recorder)
-      {
-        *(*(static CustomEventTrace.recorder + 24) + 4) = 834;
-        LODWORD(v201) = v86;
-        BYTE4(v201) = v87 == v45;
-        type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for AGAttribute?, type metadata accessor for AGAttribute, MEMORY[0x1E69E6720]);
-        AGGraphAddTraceEvent();
-      }
-
-      specialized AnimatorState.nextUpdate()();
-
-      goto LABEL_178;
-    }
-
-    __break(1u);
-LABEL_187:
-    swift_once();
-LABEL_135:
-    v44 = *(&static Signpost.animationState + 1);
-    v86 = static Signpost.animationState;
-    LODWORD(Counter) = word_1ED5283E8;
-    v39 = HIBYTE(word_1ED5283E8);
-    v136 = byte_1ED5283EA;
-    v34 = static os_signpost_type_t.end.getter();
-    v201 = __PAIR128__(v44, v86);
-    LOBYTE(v202) = Counter;
-    BYTE1(v202) = v39;
-    BYTE2(v202) = v136;
-    if ((Signpost.isEnabled.getter() & 1) == 0)
-    {
-
-      goto LABEL_177;
-    }
-
-    v173 = a4;
-    v137 = one-time initialization token for _signpostLog;
-    v43 = v175;
-
-    if (v137 != -1)
-    {
-      swift_once();
-    }
-
-    v172 = a1;
-    v42 = COERCE_DOUBLE(_signpostLog);
-    OSSignpostID.init(log:object:)();
-    type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-    *&a4 = COERCE_DOUBLE(swift_allocObject());
-    *(a4 + 16) = xmmword_18DDAF080;
-    if (AGGraphGetCurrentAttribute() != v45)
-    {
-      break;
-    }
-
-    __break(1u);
-LABEL_189:
-    __break(1u);
-LABEL_190:
-    *&v179 = v46;
-    swift_once();
-    v46 = *&v179;
-  }
-
-  v43 = AGGraphGetAttributeGraph();
-  v138 = AGGraphGetCounter();
-
-  v139 = MEMORY[0x1E69E6870];
-  *(a4 + 56) = MEMORY[0x1E69E6810];
-  *(a4 + 64) = v139;
-  *(a4 + 32) = v138;
-  v140 = AGGraphGetCurrentAttribute();
-  if (v140 == v45)
-  {
-    goto LABEL_189;
-  }
-
-  v141 = MEMORY[0x1E69E76D0];
-  *(a4 + 96) = MEMORY[0x1E69E7668];
-  *(a4 + 104) = v141;
-  *(a4 + 72) = v140;
-  *(a4 + 136) = MEMORY[0x1E69E6158];
-  *(a4 + 144) = lazy protocol witness table accessor for type String and conformance String();
-  *(a4 + 112) = 0x6E696F5074696E55;
-  *(a4 + 120) = 0xE900000000000074;
-  if (v39)
-  {
-    LOBYTE(v187) = v34;
-    *&v190 = COERCE_DOUBLE(&dword_18D018000);
-    v189 = v42;
-    *&v201 = v86;
-    *(&v201 + 1) = v44;
-    LOBYTE(v202) = Counter;
-    *&v196 = "Animation: (%p) [%d] %{public}@ ended";
-    *(&v196 + 1) = 37;
-    LOBYTE(v197) = 2;
-    v188 = *&a4;
-    v142 = v176;
-    specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-
-    (*(v183 + 8))(v142, v186);
-    goto LABEL_176;
-  }
-
-  v144 = v86;
-  if (v86 == 20)
-  {
-    v145 = 3;
-  }
-
-  else
-  {
-    v145 = 4;
-  }
-
-  v92 = (bswap32(v86) | (4 * WORD1(v86)));
-  LODWORD(v86) = v34;
-  v146 = v183 + 16;
-  v177 = *(v183 + 16);
-  v147 = (v177)(v185, v176, v186);
-  v45 = 0;
-  LOBYTE(v196) = 1;
-  v181 = (16 * v145);
-  v183 = v146;
-  v182 = (v146 - 8);
-  *&v180 = a4 + 32;
-  v179 = v144;
-  v178 = v145;
-  do
-  {
-    v184 = &v165;
-    MEMORY[0x1EEE9AC00](v147);
-    a1 = &v165 - ((v148 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v149 = (a1 + 8);
-    v150 = v145;
-    v151 = (a1 + 8);
-    do
-    {
-      *(v151 - 1) = 0;
-      *v151 = 0;
-      v151 += 16;
-      --v150;
-    }
-
-    while (v150);
-    v152 = *&v180 + 40 * v45;
-    while (1)
-    {
-      v153 = *(a4 + 16);
-      if (v45 == v153)
-      {
-        break;
-      }
-
-      if (v45 >= v153)
-      {
-        __break(1u);
-LABEL_181:
-        __break(1u);
-LABEL_182:
-        __break(1u);
-LABEL_183:
-        v163 = v87;
-        swift_once();
-        v87 = v163;
-LABEL_130:
-        v134 = *(v43 + 616);
-        if (*(v134 + 16) >= 0x43uLL)
-        {
-          if (*(v134 + 98) == 1 && static CustomEventTrace.recorder)
-          {
-            *(*(static CustomEventTrace.recorder + 24) + 4) = 578;
-            LODWORD(v201) = v86;
-            BYTE4(v201) = v87 == v45;
-            type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for AGAttribute?, type metadata accessor for AGAttribute, MEMORY[0x1E69E6720]);
-            AGGraphAddTraceEvent();
-          }
-
-          v135 = one-time initialization token for animationState;
-          v175 = v92;
-
-          if (v135 != -1)
-          {
-            goto LABEL_187;
-          }
-
-          goto LABEL_135;
-        }
-
-        __break(1u);
-LABEL_185:
-        v164 = v87;
-        swift_once();
-        v87 = v164;
-        goto LABEL_143;
-      }
-
-      ++v45;
-      outlined init with copy of AnyTrackedValue(v152, &v201);
-      v154 = *(&v202 + 1);
-      v155 = __swift_project_boxed_opaque_existential_1(&v201, *(&v202 + 1));
-      v156 = v154;
-      v43 = v155;
-      *(v149 - 1) = CVarArg.kdebugValue(_:)(v92 | v34, v156);
-      *v149 = v157 & 1;
-      v149 += 16;
-      v87 = __swift_destroy_boxed_opaque_existential_1(&v201);
-      v152 += 40;
-      if (!--v145)
-      {
-        goto LABEL_161;
-      }
-    }
-
-    LOBYTE(v196) = 0;
-LABEL_161:
-    v158 = v179;
-    if (v179 == 20)
-    {
-      OSSignpostID.rawValue.getter();
-    }
-
-    kdebug_trace();
-    if (*(a1 + 8) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (*(a1 + 24) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (*(a1 + 40) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (v158 != 20 && *(a1 + 56) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (one-time initialization token for continuation != -1)
-    {
-      swift_once();
-    }
-
-    v159 = *v182;
-    v160 = v185;
-    v43 = v186;
-    (*v182)(v185, v186);
-    v161 = __swift_project_value_buffer(v43, static OSSignpostID.continuation);
-    v147 = (v177)(v160, v161, v43);
-    v145 = v178;
-  }
-
-  while ((v196 & 1) != 0);
-
-  v162 = v186;
-  v159(v185, v186);
-  v159(v176, v162);
-LABEL_176:
-
-  a1 = v172;
-  a4 = v173;
-LABEL_177:
-  specialized AnimatorState.removeListeners()();
-
-  *(a4 + 40) = 0;
-LABEL_178:
-  *a1 = vmulq_f64(v191, vdupq_n_s64(0x3F80000000000000uLL));
-  *(a1 + 16) = 1;
-  return result;
-}
-
-{
-  LODWORD(Counter) = a3;
-  v215 = *MEMORY[0x1E69E9840];
-  v197 = type metadata accessor for OSSignpostID();
-  v193 = *(v197 - 8);
-  MEMORY[0x1EEE9AC00](v197);
-  v15 = v177 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v16);
-  v18 = v177 - v17;
-  MEMORY[0x1EEE9AC00](v19);
-  v195 = v177 - v20;
-  MEMORY[0x1EEE9AC00](v21);
-  v23 = v177 - v22;
-  MEMORY[0x1EEE9AC00](v24);
-  v196 = v177 - v25;
-  MEMORY[0x1EEE9AC00](v26);
-  v187 = v177 - v27;
-  if (*(a4 + 56))
-  {
-    Value = AGGraphGetValue();
-    if (v29)
-    {
-      v30 = *Value;
-    }
-
-    else
-    {
-      v30 = -INFINITY;
-    }
-  }
-
-  else
-  {
-    v30 = -INFINITY;
-  }
-
-  result = specialized AnimatableAttributeHelper.checkReset()(specialized AnimatorState.removeListeners());
-  if (result)
-  {
-    *(a1 + 32) = 1;
-  }
-
-  else if (*(a1 + 32) != 1)
-  {
-    goto LABEL_127;
-  }
-
-  v7 = *a1;
-  v8 = *(a1 + 8);
-  v9 = *(a1 + 16);
-  v32 = *(a1 + 24);
-  if (*(a4 + 48))
-  {
-    goto LABEL_126;
-  }
-
-  v33 = v30;
-  v4 = *(a4 + 32);
-  v34 = *(a4 + 40);
-  v6 = *(a4 + 16);
-  v5 = *(a4 + 24);
-  if (v7 != v6 || v8 != v5 || v9 != v4 || v32 != v34)
-  {
-    v194 = v15;
-    v182 = v32;
-    AGGraphClearUpdate();
-    v35 = *(a4 + 16);
-    v210 = *a4;
-    v211 = v35;
-    v36 = *(a4 + 48);
-    v212 = *(a4 + 32);
-    v213 = v36;
-    v214 = *(a4 + 64);
-    _s7SwiftUI13AnimatorStateC4Fork33_35ADF281214A25133F1A6DF28858952DLLVyAA14AnimatablePairVyAA05KeyedK5ArrayVySiAA04_AnyK4DataVG12CoreGraphics7CGFloatVG_GWOcTm_0(&v210, &v206, type metadata accessor for AnimatableAttributeHelper<CGRect>);
-    v37 = *AGGraphGetValue();
-
-    outlined destroy of Slice<IndexSet>(&v210, type metadata accessor for AnimatableAttributeHelper<CGRect>);
-    AGGraphSetUpdate();
-    v38 = Transaction.effectiveAnimation.getter(v37);
-    if (v38)
-    {
-      v39 = v38;
-    }
-
-    else
-    {
-      if (!a2)
-      {
-
-        v30 = v33;
-        goto LABEL_125;
-      }
-
-      v39 = a2;
-    }
-
-    v186 = a4;
-    v40 = *(&v213 + 1);
-    v41 = v7 - v6;
-    v42 = v8 - v5;
-    v43 = v9 - v4;
-    v44 = v182 - v34;
-    v45 = *AGGraphGetValue();
-    v185 = a1;
-    v179 = Counter;
-    v180 = v45;
-    v178 = v37;
-    v177[1] = v39;
-    if (v40)
-    {
-      v177[0] = v23;
-      _s7SwiftUI13AnimatorStateC4Fork33_35ADF281214A25133F1A6DF28858952DLLVyAA14AnimatablePairVyAA05KeyedK5ArrayVySiAA04_AnyK4DataVG12CoreGraphics7CGFloatVG_GWOcTm_0(&v210, &v206, type metadata accessor for AnimatableAttributeHelper<CGRect>);
-      LOBYTE(v206.f64[0]) = 0;
-      v181 = v40;
-      specialized AnimatorState.combine(newAnimation:newInterval:at:in:environment:)(v39, v37, v41, v42, v43, v44, v45);
-      CurrentAttribute = AGGraphGetCurrentAttribute();
-      LODWORD(v23) = CurrentAttribute;
-      LODWORD(v194) = *MEMORY[0x1E698D3F8];
-      if (CurrentAttribute == v194)
-      {
-        v47 = 0;
-      }
-
-      else
-      {
-        v47 = CurrentAttribute;
-      }
-
-      LODWORD(v191) = v47;
-      type metadata accessor for CGRect(0);
-      v190 = v48;
-      (*(*v39 + 96))(&v202);
-      v49 = v202.f64[1];
-      v50 = *&v202.f64[0];
-      v51 = v205;
-      *&v201 = NAN;
-      v200 = NAN;
-      v199 = 1.0;
-      v198 = NAN;
-      v206 = v202;
-      v52 = v203;
-      v207 = v203;
-      v53 = *(&v203 + 1);
-      v192 = v204;
-      v208 = *&v204;
-      LOBYTE(v209) = v205;
-      static CustomEventTrace.extractFunctionData(_:_:_:_:_:)(&v206, &v201, &v200, &v199, &v198);
-      v30 = *&v201;
-      v4 = v200;
-      v5 = v199;
-      v6 = v198;
-      if (one-time initialization token for enabledCategories != -1)
-      {
-        goto LABEL_193;
-      }
-
-      goto LABEL_24;
-    }
-
-    v177[0] = v18;
-    type metadata accessor for CGRect(0);
-    v60 = v59;
-    v202.f64[0] = v59;
-    type metadata accessor for CGRect.Type(0, &lazy cache variable for type metadata for CGRect.Type, type metadata accessor for CGRect);
-    type metadata accessor for any AnimationFinishingDefinition<Self.AnimationFinishingDefinition.Value == AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>>.Type(0, &lazy cache variable for type metadata for any AnimationFinishingDefinition<Self.AnimationFinishingDefinition.Value == AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>>.Type, type metadata accessor for AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>);
-    v61 = swift_dynamicCast();
-    if (v61)
-    {
-      v62 = *&v206.f64[0];
-    }
-
-    else
-    {
-      v62 = 0;
-    }
-
-    if (v61)
-    {
-      v63 = *&v206.f64[1];
-    }
-
-    else
-    {
-      v63 = 0;
-    }
-
-    v181 = _s7SwiftUI13AnimatorStateC9animation8interval2at2in19finishingDefinitionACyxGAA9AnimationV_xAA4TimeVAA11TransactionVAA0k9FinishingJ0_px5ValueRts_XPXpSgtc33_35ADF281214A25133F1A6DF28858952DLlfCAA14AnimatablePairVyAVy12CoreGraphics7CGFloatVAYGAZG_Tt4B5Tm(v64, v37, v62, v63, type metadata accessor for AnimatorState<AnimatablePair<AnimatablePair<CGFloat, CGFloat>, AnimatablePair<CGFloat, CGFloat>>>, v41, v42, v43, v44, v45);
-    v65 = AGGraphGetCurrentAttribute();
-    v66 = v65;
-    LODWORD(v67) = *MEMORY[0x1E698D3F8];
-    if (v65 == *MEMORY[0x1E698D3F8])
-    {
-      v68 = 0;
-    }
-
-    else
-    {
-      v68 = v65;
-    }
-
-    LODWORD(v192) = v68;
-    (*(*v39 + 96))(&v202);
-    v69 = *&v202.f64[1];
-    a1 = *&v202.f64[0];
-    v70 = v203;
-    v71 = v204;
-    *&v201 = NAN;
-    v200 = NAN;
-    v199 = 1.0;
-    v198 = NAN;
-    v206 = v202;
-    v207 = v203;
-    v208 = *&v204;
-    LODWORD(v195) = v205;
-    LOBYTE(v209) = v205;
-    static CustomEventTrace.extractFunctionData(_:_:_:_:_:)(&v206, &v201, &v200, &v199, &v198);
-    v30 = *&v201;
-    v4 = v200;
-    v5 = v199;
-    v6 = v198;
-    if (one-time initialization token for enabledCategories != -1)
-    {
-      swift_once();
-    }
-
-    if (*(static CustomEventTrace.enabledCategories + 2) < 0x43uLL)
-    {
-      __break(1u);
-      goto LABEL_197;
-    }
-
-    if (*(static CustomEventTrace.enabledCategories + 98) == 1)
-    {
-      if (static CustomEventTrace.recorder)
-      {
-        v191 = v71;
-        *(*(static CustomEventTrace.recorder + 24) + 4) = 322;
-        v72 = *(*(&v70 + 1) + 16);
-        LODWORD(v206.f64[0]) = v192;
-        BYTE4(v206.f64[0]) = v66 == LODWORD(v67);
-        v206.f64[1] = v60;
-        *&v207 = v30;
-        *(&v207 + 1) = v4;
-        v208 = v5;
-        v209 = v6;
-        type metadata accessor for (AGAttribute?, Any.Type, Double, Double, Double, Double)();
-        v192 = v73;
-
-        v74 = v72;
-        AGGraphAddTraceEvent();
-        outlined consume of Animation.Function(a1, v69, v70, *(&v70 + 1), v191, v195);
-
-        goto LABEL_87;
-      }
-
-      v75 = a1;
-      v76 = v69;
-      v78 = *(&v70 + 1);
-      v77 = v70;
-    }
-
-    else
-    {
-      v75 = a1;
-      v76 = v69;
-      v78 = *(&v70 + 1);
-      v77 = v70;
-    }
-
-    outlined consume of Animation.Function(v75, v76, v77, v78, v71, v195);
-LABEL_87:
-    v111 = one-time initialization token for animationState;
-
-    a1 = v185;
-    v30 = v180;
-    if (v111 == -1)
-    {
-LABEL_88:
-      v80 = *(&static Signpost.animationState + 1);
-      *&v79 = static Signpost.animationState;
-      LOBYTE(Counter) = word_1ED5283E8;
-      v83 = HIBYTE(word_1ED5283E8);
-      v112 = byte_1ED5283EA;
-      LOBYTE(v23) = static os_signpost_type_t.begin.getter();
-      v206 = __PAIR128__(*&v80, *&v79);
-      LOBYTE(v207) = Counter;
-      BYTE1(v207) = v83;
-      BYTE2(v207) = v112;
-      if ((Signpost.isEnabled.getter() & 1) == 0)
-      {
-        v122 = v181;
-
-        outlined destroy of Slice<IndexSet>(&v210, type metadata accessor for AnimatableAttributeHelper<CGRect>);
-        a4 = v186;
-        *(v186 + 56) = v122;
-        goto LABEL_123;
-      }
-
-      v113 = one-time initialization token for _signpostLog;
-
-      if (v113 != -1)
-      {
-        goto LABEL_200;
-      }
-
-      goto LABEL_90;
-    }
-
-LABEL_197:
-    swift_once();
-    goto LABEL_88;
-  }
-
-  v30 = v33;
-LABEL_126:
-  while (1)
-  {
-    *(a4 + 16) = v7;
-    *(a4 + 24) = v8;
-    *(a4 + 32) = v9;
-    *(a4 + 40) = v32;
-    *(a4 + 48) = 0;
-LABEL_127:
-    v23 = *(a4 + 56);
-    if (*&v23 == 0.0)
-    {
-      return result;
-    }
-
-    v186 = a4;
-    v142 = *(a1 + 16);
-    v206 = *a1;
-    v207 = v142;
-
-    LOBYTE(v210) = 0;
-    v143 = specialized AnimatorState.update(_:at:environment:)(&v206, Counter, v30);
-    v96 = AGGraphGetCurrentAttribute();
-    v52 = *MEMORY[0x1E698D3F8];
-    if (v96 == v52)
-    {
-      v92 = 0;
-    }
-
-    else
-    {
-      v92 = v96;
-    }
-
-    v95 = &type metadata instantiation cache for TupleTypeDescription;
-    if (v143)
-    {
-      if (one-time initialization token for enabledCategories != -1)
-      {
-        goto LABEL_186;
-      }
-
-      goto LABEL_133;
-    }
-
-    if (one-time initialization token for enabledCategories != -1)
-    {
-      goto LABEL_188;
-    }
-
-LABEL_146:
-    v155 = *(v95 + 616);
-    if (*(v155 + 16) >= 0x43uLL)
-    {
-      if (*(v155 + 98) == 1 && static CustomEventTrace.recorder)
-      {
-        *(*(static CustomEventTrace.recorder + 24) + 4) = 834;
-        LODWORD(v210) = v92;
-        BYTE4(v210) = v96 == v52;
-        type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for AGAttribute?, type metadata accessor for AGAttribute, MEMORY[0x1E69E6720]);
-        AGGraphAddTraceEvent();
-      }
-
-      specialized AnimatorState.nextUpdate()();
-
-      goto LABEL_181;
-    }
-
-    __break(1u);
-LABEL_190:
-    swift_once();
-LABEL_138:
-    v147 = *(&static Signpost.animationState + 1);
-    v146 = static Signpost.animationState;
-    v50 = word_1ED5283E8;
-    v148 = HIBYTE(word_1ED5283E8);
-    v149 = byte_1ED5283EA;
-    v51 = static os_signpost_type_t.end.getter();
-    v210 = __PAIR128__(v147, v146);
-    LOBYTE(v211) = v50;
-    BYTE1(v211) = v148;
-    BYTE2(v211) = v149;
-    if ((Signpost.isEnabled.getter() & 1) == 0)
-    {
-
-      goto LABEL_180;
-    }
-
-    v150 = one-time initialization token for _signpostLog;
-
-    if (v150 != -1)
-    {
-      swift_once();
-    }
-
-    v49 = COERCE_DOUBLE(_signpostLog);
-    v184 = v23;
-    OSSignpostID.init(log:object:)();
-    type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-    *&v53 = COERCE_DOUBLE(swift_allocObject());
-    *(v53 + 16) = xmmword_18DDAF080;
-    if (AGGraphGetCurrentAttribute() != v52)
-    {
-      break;
-    }
-
-    __break(1u);
-LABEL_192:
-    __break(1u);
-LABEL_193:
-    swift_once();
-LABEL_24:
-    if (*(static CustomEventTrace.enabledCategories + 2) < 0x43uLL)
-    {
-      __break(1u);
-LABEL_195:
-      swift_once();
-      goto LABEL_49;
-    }
-
-    if (*(static CustomEventTrace.enabledCategories + 98) == 1)
-    {
-      v54 = static CustomEventTrace.recorder;
-      if (static CustomEventTrace.recorder)
-      {
-        v55 = v23 == v194;
-        LODWORD(v189) = v51;
-        *(*(static CustomEventTrace.recorder + 24) + 4) = 1602;
-        v56 = *(v54 + 16);
-        LODWORD(v206.f64[0]) = v191;
-        BYTE4(v206.f64[0]) = v55;
-        *&v206.f64[1] = v190;
-        *&v207 = v30;
-        *(&v207 + 1) = v4;
-        v208 = v5;
-        v209 = v6;
-        type metadata accessor for (AGAttribute?, Any.Type, Double, Double, Double, Double)();
-        v191 = v57;
-
-        v58 = v56;
-        AGGraphAddTraceEvent();
-        outlined consume of Animation.Function(v50, *&v49, v52, v53, v192, v189);
-      }
-
-      else
-      {
-        outlined consume of Animation.Function(v50, *&v49, v52, v53, v192, v51);
-      }
-
-      LODWORD(Counter) = v179;
-    }
-
-    else
-    {
-      outlined consume of Animation.Function(v50, *&v49, v52, v53, v192, v51);
-    }
-
-    _s7SwiftUI13AnimatorStateC4Fork33_35ADF281214A25133F1A6DF28858952DLLVyAA14AnimatablePairVyAA05KeyedK5ArrayVySiAA04_AnyK4DataVG12CoreGraphics7CGFloatVG_GWOcTm_0(&v210, &v206, type metadata accessor for AnimatableAttributeHelper<CGRect>);
-    v30 = v180;
-    if (one-time initialization token for animationState != -1)
-    {
-      goto LABEL_195;
-    }
-
-LABEL_49:
-    v67 = *(&static Signpost.animationState + 1);
-    *&v79 = static Signpost.animationState;
-    *&v80 = word_1ED5283E8;
-    v81 = HIBYTE(word_1ED5283E8);
-    v82 = byte_1ED5283EA;
-    v83 = static os_signpost_type_t.event.getter();
-    v206 = __PAIR128__(*&v67, *&v79);
-    LOBYTE(v207) = LOBYTE(v80);
-    BYTE1(v207) = v81;
-    BYTE2(v207) = v82;
-    if (Signpost.isEnabled.getter())
-    {
-      _s7SwiftUI13AnimatorStateC4Fork33_35ADF281214A25133F1A6DF28858952DLLVyAA14AnimatablePairVyAA05KeyedK5ArrayVySiAA04_AnyK4DataVG12CoreGraphics7CGFloatVG_GWOcTm_0(&v210, &v206, type metadata accessor for AnimatableAttributeHelper<CGRect>);
-      if (one-time initialization token for _signpostLog != -1)
-      {
-        swift_once();
-      }
-
-      v84 = COERCE_DOUBLE(_signpostLog);
-      OSSignpostID.init(log:object:)();
-      type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-      *&v23 = COERCE_DOUBLE(swift_allocObject());
-      *(v23 + 16) = xmmword_18DDAF080;
-      if (AGGraphGetCurrentAttribute() == v194)
-      {
-        __break(1u);
-      }
-
-      else
-      {
-        v85 = AGGraphGetAttributeGraph();
-        Counter = AGGraphGetCounter();
-
-        v86 = MEMORY[0x1E69E6870];
-        *(v23 + 56) = MEMORY[0x1E69E6810];
-        *(v23 + 64) = v86;
-        *(v23 + 32) = Counter;
-        v87 = AGGraphGetCurrentAttribute();
-        if (v87 != v194)
-        {
-          v88 = MEMORY[0x1E69E76D0];
-          *(v23 + 96) = MEMORY[0x1E69E7668];
-          *(v23 + 104) = v88;
-          *(v23 + 72) = v87;
-          *(v23 + 136) = MEMORY[0x1E69E6158];
-          *(v23 + 144) = lazy protocol witness table accessor for type String and conformance String();
-          *(v23 + 112) = 0x746365524743;
-          *(v23 + 120) = 0xE600000000000000;
-          if (v81)
-          {
-            LOBYTE(v198) = v83;
-            *&v201 = COERCE_DOUBLE(&dword_18D018000);
-            v200 = v84;
-            v206.f64[0] = v79;
-            v206.f64[1] = v67;
-            LOBYTE(v207) = LOBYTE(v80);
-            *&v202.f64[0] = "Animation: (%p) [%d] %{public}@ updated";
-            *&v202.f64[1] = 39;
-            LOBYTE(v203) = 2;
-            v199 = *&v23;
-            v89 = v177[0];
-            specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-            outlined destroy of Slice<IndexSet>(&v210, type metadata accessor for AnimatableAttributeHelper<CGRect>);
-            outlined destroy of Slice<IndexSet>(&v210, type metadata accessor for AnimatableAttributeHelper<CGRect>);
-            (*(v193 + 8))(v89, v197);
-          }
-
-          else
-          {
-            v90 = LOBYTE(v79);
-            if (LOBYTE(v79) == 20)
-            {
-              v91 = 3;
-            }
-
-            else
-            {
-              v91 = 4;
-            }
-
-            a1 = bswap32(LOWORD(v79)) | (4 * HIWORD(LODWORD(v79)));
-            v92 = v83;
-            v93 = v193 + 16;
-            v183 = *(v193 + 16);
-            v94 = v183(v195, v177[0], v197);
-            v95 = 0;
-            LOBYTE(v202.f64[0]) = 1;
-            v194 = v91;
-            v190 = 16 * v91;
-            v184 = v93;
-            v191 = (v93 - 8);
-            v189 = v23 + 32;
-            v188 = v90;
-            do
-            {
-              v192 = v177;
-              MEMORY[0x1EEE9AC00](v94);
-              Counter = v177 - ((v97 + 15) & 0xFFFFFFFFFFFFFFF0);
-              v98 = Counter + 8;
-              v99 = v194;
-              v100 = Counter + 8;
-              do
-              {
-                *(v100 - 1) = 0;
-                *v100 = 0;
-                v100 += 16;
-                v99 = (v99 - 1);
-              }
-
-              while (v99);
-              v101 = v189 + 40 * v95;
-              v52 = v194;
-              while (1)
-              {
-                v102 = *(v23 + 16);
-                if (v95 == v102)
-                {
-                  break;
-                }
-
-                if (v95 >= v102)
-                {
-                  goto LABEL_184;
-                }
-
-                ++v95;
-                outlined init with copy of AnyTrackedValue(v101, &v206);
-                v103 = *(&v207 + 1);
-                __swift_project_boxed_opaque_existential_1(&v206, *(&v207 + 1));
-                *(v98 - 1) = CVarArg.kdebugValue(_:)(a1 | v92, v103);
-                *v98 = v104 & 1;
-                v98 += 16;
-                v96 = __swift_destroy_boxed_opaque_existential_1(&v206);
-                v101 += 40;
-                if (!--v52)
-                {
-                  goto LABEL_69;
-                }
-              }
-
-              LOBYTE(v202.f64[0]) = 0;
-LABEL_69:
-              v105 = v188;
-              if (v188 == 20)
-              {
-                OSSignpostID.rawValue.getter();
-              }
-
-              kdebug_trace();
-              if (Counter[8] == 1)
-              {
-                kdebug_trace_string();
-              }
-
-              if (Counter[24] == 1)
-              {
-                kdebug_trace_string();
-              }
-
-              if (Counter[40] == 1)
-              {
-                kdebug_trace_string();
-              }
-
-              if (v105 != 20 && Counter[56] == 1)
-              {
-                kdebug_trace_string();
-              }
-
-              if (one-time initialization token for continuation != -1)
-              {
-                swift_once();
-              }
-
-              v106 = *v191;
-              v107 = v195;
-              v108 = v197;
-              (*v191)(v195, v197);
-              v109 = __swift_project_value_buffer(v108, static OSSignpostID.continuation);
-              v94 = v183(v107, v109, v108);
-            }
-
-            while ((LOBYTE(v202.f64[0]) & 1) != 0);
-            outlined destroy of Slice<IndexSet>(&v210, type metadata accessor for AnimatableAttributeHelper<CGRect>);
-            outlined destroy of Slice<IndexSet>(&v210, type metadata accessor for AnimatableAttributeHelper<CGRect>);
-            v110 = v197;
-            v106(v195, v197);
-            v106(v177[0], v110);
-          }
-
-          a1 = v185;
-          a4 = v186;
-          LODWORD(Counter) = v179;
-          goto LABEL_124;
-        }
-      }
-
-      __break(1u);
-LABEL_200:
-      swift_once();
-LABEL_90:
-      v114 = COERCE_DOUBLE(_signpostLog);
-      OSSignpostID.init(log:object:)();
-      type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for _ContiguousArrayStorage<CVarArg>, type metadata accessor for CVarArg, MEMORY[0x1E69E6F90]);
-      *&a1 = COERCE_DOUBLE(swift_allocObject());
-      *(a1 + 16) = xmmword_18DDAF080;
-      if (AGGraphGetCurrentAttribute() == LODWORD(v67))
-      {
-        __break(1u);
-LABEL_202:
-        __break(1u);
-      }
-
-      v115 = AGGraphGetAttributeGraph();
-      v116 = AGGraphGetCounter();
-
-      v117 = MEMORY[0x1E69E6870];
-      *(a1 + 56) = MEMORY[0x1E69E6810];
-      *(a1 + 64) = v117;
-      *(a1 + 32) = v116;
-      v118 = AGGraphGetCurrentAttribute();
-      if (v118 == LODWORD(v67))
-      {
-        goto LABEL_202;
-      }
-
-      v119 = MEMORY[0x1E69E76D0];
-      *(a1 + 96) = MEMORY[0x1E69E7668];
-      *(a1 + 104) = v119;
-      *(a1 + 72) = v118;
-      *(a1 + 136) = MEMORY[0x1E69E6158];
-      *(a1 + 144) = lazy protocol witness table accessor for type String and conformance String();
-      *(a1 + 112) = 0x746365524743;
-      *(a1 + 120) = 0xE600000000000000;
-      v120 = v177[0];
-      if (v83)
-      {
-        LOBYTE(v198) = v23;
-        *&v201 = COERCE_DOUBLE(&dword_18D018000);
-        v200 = v114;
-        v206.f64[0] = v79;
-        v206.f64[1] = v80;
-        LOBYTE(v207) = Counter;
-        *&v202.f64[0] = "Animation: (%p) [%d] %{public}@ started";
-        *&v202.f64[1] = 39;
-        LOBYTE(v203) = 2;
-        v199 = *&a1;
-        specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-        v121 = v181;
-
-        (*(v193 + 8))(v120, v197);
-
-        outlined destroy of Slice<IndexSet>(&v210, type metadata accessor for AnimatableAttributeHelper<CGRect>);
-        a4 = v186;
-        *(v186 + 56) = v121;
-      }
-
-      else
-      {
-        v123 = LOBYTE(v79);
-        v124 = v23;
-        if (LOBYTE(v79) == 20)
-        {
-          v23 = 3;
-        }
-
-        else
-        {
-          v23 = 4;
-        }
-
-        LODWORD(Counter) = bswap32(LOWORD(v79)) | (4 * HIWORD(LODWORD(v79)));
-        v92 = v124;
-        v125 = v193 + 16;
-        v183 = *(v193 + 16);
-        v126 = v183(v194, v177[0], v197);
-        v95 = 0;
-        LOBYTE(v202.f64[0]) = 1;
-        v191 = (16 * v23);
-        v184 = v125;
-        v192 = (v125 - 8);
-        v190 = a1 + 32;
-        v188 = v123;
-        v189 = v23;
-        do
-        {
-          v195 = v177;
-          MEMORY[0x1EEE9AC00](v126);
-          v128 = v177 - ((v127 + 15) & 0xFFFFFFFFFFFFFFF0);
-          v52 = (v128 + 8);
-          v129 = v23;
-          v130 = v128 + 8;
-          do
-          {
-            *(v130 - 1) = 0;
-            *v130 = 0;
-            v130 += 16;
-            --v129;
-          }
-
-          while (v129);
-          v131 = v190 + 40 * v95;
+          v17 = v71 + (v3 << 7) - 96;
           while (1)
           {
-            v132 = *(a1 + 16);
-            if (v95 == v132)
+            v350 = *(v17 + 64);
+            v351[0] = *(v17 + 80);
+            v351[1] = *(v17 + 96);
+            *(&v351[1] + 12) = *(v17 + 108);
+            v348 = *v17;
+            v349 = *(v17 + 48);
+            GraphicsContext.addFilter(_:in:)(&v348, 0.0, 0.0, v73.width, v73.height);
+            if (!--v3)
             {
               break;
             }
 
-            if (v95 >= v132)
+            v17 -= 128;
+            if (v3 > *(v71 + 16))
             {
-              goto LABEL_185;
-            }
-
-            ++v95;
-            outlined init with copy of AnyTrackedValue(v131, &v206);
-            v133 = *(&v207 + 1);
-            __swift_project_boxed_opaque_existential_1(&v206, *(&v207 + 1));
-            *(v52 - 8) = CVarArg.kdebugValue(_:)(Counter | v92, v133);
-            *v52 = v134 & 1;
-            v52 += 16;
-            v96 = __swift_destroy_boxed_opaque_existential_1(&v206);
-            v131 += 40;
-            --v23;
-            if (*&v23 == 0.0)
-            {
-              goto LABEL_107;
+              goto LABEL_72;
             }
           }
 
-          LOBYTE(v202.f64[0]) = 0;
-LABEL_107:
-          v135 = v188;
-          if (v188 == 20)
-          {
-            OSSignpostID.rawValue.getter();
-          }
-
-          kdebug_trace();
-          v23 = v189;
-          if (v128[8] == 1)
-          {
-            kdebug_trace_string();
-          }
-
-          if (v128[24] == 1)
-          {
-            kdebug_trace_string();
-          }
-
-          if (v128[40] == 1)
-          {
-            kdebug_trace_string();
-          }
-
-          if (v135 != 20 && v128[56] == 1)
-          {
-            kdebug_trace_string();
-          }
-
-          if (one-time initialization token for continuation != -1)
-          {
-            swift_once();
-          }
-
-          v136 = *v192;
-          v137 = v194;
-          v138 = v197;
-          (*v192)(v194, v197);
-          v139 = __swift_project_value_buffer(v138, static OSSignpostID.continuation);
-          v126 = v183(v137, v139, v138);
-        }
-
-        while ((LOBYTE(v202.f64[0]) & 1) != 0);
-        v140 = v181;
-
-        v141 = v197;
-        v136(v194, v197);
-        v136(v177[0], v141);
-
-        outlined destroy of Slice<IndexSet>(&v210, type metadata accessor for AnimatableAttributeHelper<CGRect>);
-        a4 = v186;
-        *(v186 + 56) = v140;
-      }
-
-      a1 = v185;
-LABEL_123:
-      LODWORD(Counter) = v179;
-    }
-
-    else
-    {
-      outlined destroy of Slice<IndexSet>(&v210, type metadata accessor for AnimatableAttributeHelper<CGRect>);
-      outlined destroy of Slice<IndexSet>(&v210, type metadata accessor for AnimatableAttributeHelper<CGRect>);
-      a1 = v185;
-      a4 = v186;
-    }
-
-LABEL_124:
-    specialized AnimatorState.addListeners(transaction:)(v178);
-
-LABEL_125:
-    v32 = v182;
-  }
-
-  *&v23 = COERCE_DOUBLE(AGGraphGetAttributeGraph());
-  Counter = AGGraphGetCounter();
-
-  v151 = MEMORY[0x1E69E6870];
-  *(v53 + 56) = MEMORY[0x1E69E6810];
-  *(v53 + 64) = v151;
-  *(v53 + 32) = Counter;
-  v152 = AGGraphGetCurrentAttribute();
-  if (v152 == v52)
-  {
-    goto LABEL_192;
-  }
-
-  v153 = MEMORY[0x1E69E76D0];
-  *(v53 + 96) = MEMORY[0x1E69E7668];
-  *(v53 + 104) = v153;
-  *(v53 + 72) = v152;
-  *(v53 + 136) = MEMORY[0x1E69E6158];
-  *(v53 + 144) = lazy protocol witness table accessor for type String and conformance String();
-  *(v53 + 112) = 0x746365524743;
-  *(v53 + 120) = 0xE600000000000000;
-  if (v148)
-  {
-    LOBYTE(v198) = v51;
-    *&v201 = COERCE_DOUBLE(&dword_18D018000);
-    v200 = v49;
-    *&v210 = v146;
-    *(&v210 + 1) = v147;
-    LOBYTE(v211) = v50;
-    *&v202.f64[0] = "Animation: (%p) [%d] %{public}@ ended";
-    *&v202.f64[1] = 37;
-    LOBYTE(v203) = 2;
-    v199 = *&v53;
-    v154 = v187;
-    specialized thunk for @escaping @callee_guaranteed (@unowned os_signpost_type_t, @unowned UnsafeRawPointer, @guaranteed OS_os_log, @unowned StaticString, @in_guaranteed OSSignpostID, @unowned StaticString, @guaranteed [CVarArg]) -> ()();
-
-    (*(v193 + 8))(v154, v197);
-    goto LABEL_179;
-  }
-
-  v156 = v146;
-  if (v146 == 20)
-  {
-    v157 = 3;
-  }
-
-  else
-  {
-    v157 = 4;
-  }
-
-  v92 = bswap32(v146) | (4 * WORD1(v146));
-  v95 = v51;
-  v158 = v193 + 16;
-  v188 = *(v193 + 16);
-  v159 = v188(v196, v187, v197);
-  v160 = 0;
-  LOBYTE(v202.f64[0]) = 1;
-  v195 = v157;
-  v191 = (16 * v157);
-  v193 = v158;
-  v192 = (v158 - 8);
-  v190 = v53 + 32;
-  v189 = v156;
-  do
-  {
-    v194 = v177;
-    MEMORY[0x1EEE9AC00](v159);
-    v23 = v177 - ((v161 + 15) & 0xFFFFFFFFFFFFFFF0);
-    a1 = v23 + 8;
-    v162 = v195;
-    v163 = (v23 + 8);
-    do
-    {
-      *(v163 - 1) = 0;
-      *v163 = 0;
-      v163 += 16;
-      --v162;
-    }
-
-    while (v162);
-    Counter = (v190 + 40 * v160);
-    v52 = v195;
-    while (1)
-    {
-      v164 = *(v53 + 16);
-      if (v160 == v164)
-      {
-        break;
-      }
-
-      if (v160 >= v164)
-      {
-        __break(1u);
-LABEL_184:
-        __break(1u);
-LABEL_185:
-        __break(1u);
-LABEL_186:
-        v175 = v96;
-        swift_once();
-        v96 = v175;
-LABEL_133:
-        v144 = *(v95 + 616);
-        if (*(v144 + 16) >= 0x43uLL)
-        {
-          if (*(v144 + 98) == 1 && static CustomEventTrace.recorder)
-          {
-            *(*(static CustomEventTrace.recorder + 24) + 4) = 578;
-            LODWORD(v210) = v92;
-            BYTE4(v210) = v96 == v52;
-            type metadata accessor for AGAttribute?(0, &lazy cache variable for type metadata for AGAttribute?, type metadata accessor for AGAttribute, MEMORY[0x1E69E6720]);
-            AGGraphAddTraceEvent();
-          }
-
-          v185 = a1;
-          v145 = one-time initialization token for animationState;
-
-          if (v145 != -1)
-          {
-            goto LABEL_190;
-          }
-
-          goto LABEL_138;
-        }
-
-        __break(1u);
-LABEL_188:
-        v176 = v96;
-        swift_once();
-        v96 = v176;
-        goto LABEL_146;
-      }
-
-      ++v160;
-      outlined init with copy of AnyTrackedValue(Counter, &v210);
-      v165 = *(&v211 + 1);
-      __swift_project_boxed_opaque_existential_1(&v210, *(&v211 + 1));
-      *(a1 - 8) = CVarArg.kdebugValue(_:)(v92 | v95, v165);
-      *a1 = v166 & 1;
-      a1 += 16;
-      v96 = __swift_destroy_boxed_opaque_existential_1(&v210);
-      Counter += 40;
-      if (!--v52)
-      {
-        goto LABEL_164;
-      }
-    }
-
-    LOBYTE(v202.f64[0]) = 0;
-LABEL_164:
-    v167 = v189;
-    if (v189 == 20)
-    {
-      OSSignpostID.rawValue.getter();
-    }
-
-    kdebug_trace();
-    if (*(v23 + 8) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (*(v23 + 24) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (*(v23 + 40) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (v167 != 20 && *(v23 + 56) == 1)
-    {
-      kdebug_trace_string();
-    }
-
-    if (one-time initialization token for continuation != -1)
-    {
-      swift_once();
-    }
-
-    v168 = *v192;
-    v169 = v196;
-    v170 = v197;
-    (*v192)(v196, v197);
-    v171 = __swift_project_value_buffer(v170, static OSSignpostID.continuation);
-    v159 = v188(v169, v171, v170);
-  }
-
-  while ((LOBYTE(v202.f64[0]) & 1) != 0);
-
-  v172 = v197;
-  v168(v196, v197);
-  v168(v187, v172);
-LABEL_179:
-
+          v72 = *&v366[0];
 LABEL_180:
-  v173 = v186;
-  specialized AnimatorState.removeListeners()();
+          v277 = v363.origin;
+          v278 = v363.size;
+          if (CGRectIsNull(v363))
+          {
+            v279 = 0;
+            v280 = 0;
+            v281 = 0;
+            v282 = 0;
+            v283 = 6;
+          }
 
-  *(v173 + 56) = 0;
-  a1 = v185;
-LABEL_181:
-  v174 = v207;
-  *a1 = v206;
-  *(a1 + 16) = v174;
-  *(a1 + 32) = 1;
-  return result;
+          else
+          {
+            v283 = 0;
+            v280 = *&v277.y;
+            v279 = *&v277.x;
+            v282 = *&v278.height;
+            v281 = *&v278.width;
+          }
+
+          *&v355[0] = v279;
+          *(&v355[0] + 1) = v280;
+          *&v355[1] = v281;
+          *(&v355[1] + 1) = v282;
+          LOBYTE(v355[2]) = v283;
+          *&v348.a = v338;
+          LODWORD(v348.c) = v70;
+          _s7SwiftUI15GraphicsContextV15ResolvedShadingOWOi0_(&v348);
+          v345 = v352;
+          v346 = v353;
+          v347 = v354;
+          v343 = v350;
+          v344[0] = v351[0];
+          v344[1] = v351[1];
+          v344[2] = v351[2];
+          v341 = v348;
+          v342 = v349;
+          *&v358.a = 256;
+          memset(&v358.b, 0, 33);
+          GraphicsContext.draw(_:with:style:)(v355, &v341, &v358, v72);
+          outlined consume of Path.Storage(v279, v280, v281, v282, v283);
+
+          goto LABEL_230;
+        }
+
+LABEL_72:
+        __break(1u);
+LABEL_73:
+        *&v333 = v17;
+        v74 = *((v14 & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+        v75 = *((v14 & 0xFFFFFFFFFFFFFFFLL) + 0x18);
+        LODWORD(v334) = *((v14 & 0xFFFFFFFFFFFFFFFLL) + 0x20);
+        v76 = *((v14 & 0xFFFFFFFFFFFFFFFLL) + 0x28);
+        v77 = *((v14 & 0xFFFFFFFFFFFFFFFLL) + 0x30);
+        v78 = *(v3 + 96);
+        *(v3 + 96) = 0;
+        LODWORD(v338.width) = v78;
+        v79 = *a2;
+        v80 = *(*a2 + 24);
+        outlined init with copy of DisplayList.Item(&v363, &v348);
+
+        v336 = v80;
+        v81 = RBDrawingStateBeginLayer();
+        type metadata accessor for GraphicsContext.Storage();
+        v82 = swift_allocObject();
+        *(v82 + 32) = xmmword_18DD85500;
+        *(v82 + 48) = 1065353216;
+        *(v82 + 56) = 0x7FF8000000000000;
+        v83 = *(*&v79 + 16);
+        v84 = *(v83 + 64);
+        v85 = RBDrawingStateGetDefaultColorSpace();
+        v339 = v81;
+        v337 = v79;
+        if (v84 == v85)
+        {
+          *(v82 + 16) = v83;
+        }
+
+        else
+        {
+          v245 = v74;
+          v332 = *&v3;
+          v246 = RBDrawingStateGetDisplayList();
+          v247 = *(*&v79 + 32);
+          v248 = *(*&v79 + 40);
+          v249 = *&v247;
+          v250 = *&v248;
+          if (v247 == 1)
+          {
+            v249 = *(v83 + 48);
+            v250 = *(v83 + 56);
+          }
+
+          v348.a = v249;
+          v348.b = v250;
+          type metadata accessor for GraphicsContext.Storage.Shared();
+          swift_allocObject();
+          outlined copy of EnvironmentValues?(v247, v248);
+          *(v82 + 16) = GraphicsContext.Storage.Shared.init(list:environment:)(v246, &v348);
+          v3 = *&v332;
+          v74 = v245;
+          v81 = v339;
+        }
+
+        *(v82 + 24) = v81;
+        *(v82 + 64) = 0;
+        *&v341.a = v82;
+        v251 = v363.origin;
+
+        if (v251.x != 0.0 || (v253 = v82, v251.y != 0.0))
+        {
+          GraphicsContext.copyOnWrite()();
+          v253 = *&v341.a;
+          RBDrawingStateTranslateCTM();
+        }
+
+        v254 = v3;
+        v256 = *(v3 + 48);
+        v255 = *(v3 + 56);
+        v257 = fmax(round(GraphicsContext.userToDeviceScale.getter(v253, v252)), 1.0);
+        swift_beginAccess();
+        v258 = v254;
+        v259 = *(v254 + 16);
+        v260 = *(v259 + 16);
+        v335 = v74;
+        if (v260 && (v261 = specialized __RawDictionaryStorage.find<A>(_:)(v256, v255, v333, v257), (v262 & 1) != 0))
+        {
+          v263 = *(*(v259 + 56) + 8 * v261);
+          swift_endAccess();
+          swift_unknownObjectRetain();
+          v264 = v333;
+        }
+
+        else
+        {
+          swift_endAccess();
+          v264 = v333;
+          v263 = closure #1 in implicit closure #1 in closure #3 in DisplayList.GraphicsRenderer.render(item:in:)(&v341, v257, v76, v77, v256, v255, v333, v74, v75);
+        }
+
+        swift_beginAccess();
+        swift_unknownObjectRetain();
+        v265 = swift_isUniquelyReferenced_nonNull_native();
+        v358.a = *(v258 + 32);
+        *(v258 + 32) = 0x8000000000000000;
+        specialized _NativeDictionary.setValue(_:forKey:isUnique:)(v263, v256, v255, v264, v265, v257);
+        *(v258 + 32) = v358.a;
+        swift_endAccess();
+        RBDrawingStateDrawDisplayList();
+
+        swift_unknownObjectRelease();
+        RBDrawingStateDrawLayer();
+
+        outlined destroy of DisplayList.Item(&v363);
+
+        *(v258 + 96) = LOBYTE(v338.width);
+        break;
+      case 3:
+        v105 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x50);
+        v349 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x40);
+        v350 = v105;
+        v351[0] = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x60);
+        *(v351 + 12) = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x6C);
+        v106 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x20);
+        *&v348.a = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+        *&v348.c = v106;
+        v107 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x40);
+        *&v348.tx = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x30);
+        v108 = *a2;
+        v109 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x50);
+        v110 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x60);
+        v342 = v107;
+        v343 = v109;
+        v344[0] = v110;
+        *(v344 + 12) = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x6C);
+        v111 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x20);
+        *&v341.a = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+        *&v341.c = v111;
+        *&v341.tx = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x30);
+        v112 = v363.origin;
+        v113 = v363.size;
+        v356 = 0;
+        memset(v355, 0, sizeof(v355));
+        v357 = -1;
+        outlined init with copy of DisplayList.Item(&v363, &v358);
+        outlined init with copy of GraphicsImage(&v348, &v358);
+        GraphicsContext.draw(_:in:style:shading:)(&v341, 256, v355, v108, v112.x, v112.y, v113.width, v113.height);
+        outlined destroy of GraphicsImage(&v348);
+        goto LABEL_232;
+      case 4:
+        v120 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x20);
+        *&v358.a = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+        *&v358.c = v120;
+        LOBYTE(v358.tx) = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x30);
+        v121 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x38);
+        v122 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x40);
+        v123 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x41);
+        v338 = v363.size;
+        v124 = v363.origin.y == 0.0 && v363.origin.x == 0.0;
+        outlined init with copy of DisplayList.Item(&v363, &v348);
+        if (!v124)
+        {
+          GraphicsContext.copyOnWrite()();
+          RBDrawingStateTranslateCTM();
+        }
+
+        v275 = 256;
+        if (!v123)
+        {
+          v275 = 0;
+        }
+
+        *&v348.a = v275 | v122;
+        memset(&v348.b, 0, 33);
+        v276 = *a2;
+        *&v341.a = 0uLL;
+        *&v341.c = v338;
+        LOBYTE(v341.tx) = 0;
+        (*(*v121 + 80))(&v358, &v348, v276, &v341);
+        if (v124)
+        {
+          goto LABEL_232;
+        }
+
+        goto LABEL_219;
+      case 5:
+        v99 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+        v100 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x18);
+        v101 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x20);
+        v102 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x28);
+        v103 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x30);
+        v104 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x38);
+        v341.a = *a2;
+        if (v363.origin.x - v99 == 0.0 && v363.origin.y - v100 == 0.0)
+        {
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+        }
+
+        else
+        {
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+
+          GraphicsContext.copyOnWrite()();
+          RBDrawingStateTranslateCTM();
+        }
+
+        memset(&v348, 0, 32);
+        LOBYTE(v348.tx) = 1;
+
+        v266.n128_u32[0] = v104;
+        specialized GraphicsContext.drawSDFStyle<A>(_:ovalization:renderer:bounds:content:)(v103, v101, 0, 0, &v341, &v348, v101, v266, v102);
+
+        outlined destroy of DisplayList.Item(&v363);
+
+        goto LABEL_232;
+      case 6:
+        v130 = v3;
+        v131 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+        v132 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x18);
+        v133 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x1C);
+        v134 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x20);
+        v341.a = *a2;
+        if (v363.origin.x == 0.0 && v363.origin.y == 0.0)
+        {
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+        }
+
+        else
+        {
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+
+          GraphicsContext.copyOnWrite()();
+          RBDrawingStateTranslateCTM();
+        }
+
+        outlined init with copy of DisplayList.Item(&v363, &v348);
+
+        specialized GraphicsContext.drawSDFStyle<A>(_:ovalization:renderer:bounds:content:)(v134, v131, v132 | (v133 << 32), v130, 0, 0, &v341, &v363, v268);
+        outlined destroy of DisplayList.Item(&v363);
+        outlined destroy of DisplayList.Item(&v363);
+
+        goto LABEL_231;
+      case 7:
+        v86 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x20);
+        v355[0] = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+        v355[1] = v86;
+        LOBYTE(v355[2]) = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x30);
+        v338.width = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x50);
+        LODWORD(v337) = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x68);
+        v366[0] = *a2;
+        if (v363.origin.x == 0.0 && v363.origin.y == 0.0)
+        {
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+        }
+
+        else
+        {
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+
+          GraphicsContext.copyOnWrite()();
+          RBDrawingStateTranslateCTM();
+        }
+
+        GraphicsContext.copyOnWrite()();
+        v240 = *&v366[0];
+        if (*(*(*&v366[0] + 16) + 64) != 2)
+        {
+          RBColorFromLinear();
+        }
+
+        RBDrawingStateAddShadowStyle3();
+        __asm { FMOV            V0.4S, #1.0 }
+
+        *&v348.a = _Q0;
+        LODWORD(v348.c) = 2143289344;
+        _s7SwiftUI15GraphicsContextV15ResolvedShadingOWOi0_(&v348);
+        v345 = v352;
+        v346 = v353;
+        v347 = v354;
+        v343 = v350;
+        v344[0] = v351[0];
+        v344[1] = v351[1];
+        v344[2] = v351[2];
+        v341 = v348;
+        v342 = v349;
+        *&v358.a = 256;
+        memset(&v358.b, 0, 33);
+        GraphicsContext.draw(_:with:style:)(v355, &v341, &v358, v240);
+        goto LABEL_230;
+      case 8:
+        v125 = v3;
+        v126 = outlined init with copy of AnyTrackedValue((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 16, &v341);
+        MEMORY[0x1EEE9AC00](v126);
+        *(&v329 - 4) = &v363;
+        *(&v329 - 3) = &v341;
+        v327 = v3;
+        v127 = *(v3 + 96);
+        *(v3 + 96) = 0;
+        if (v127)
+        {
+          v128 = 0;
+        }
+
+        else
+        {
+          v128 = 16;
+        }
+
+        v129 = *a2;
+        outlined init with copy of DisplayList.Item(&v363, &v348);
+        GraphicsContext.drawLayer(flags:content:)(v128, partial apply for closure #2 in DisplayList.GraphicsRenderer.render(item:in:), (&v329 - 6), v129);
+        *(v125 + 96) = v127;
+        goto LABEL_148;
+      case 9:
+        v67 = v3;
+        outlined init with copy of AnyTrackedValue((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 16, &v341);
+        v68 = v363.size;
+        v69 = v363.origin.y == 0.0 && v363.origin.x == 0.0;
+        outlined init with copy of DisplayList.Item(&v363, &v348);
+        if (!v69)
+        {
+          GraphicsContext.copyOnWrite()();
+          RBDrawingStateTranslateCTM();
+        }
+
+        v238 = v341.d;
+        v239 = v341.tx;
+        __swift_project_boxed_opaque_existential_1(&v341, *&v341.d);
+        (*(*&v239 + 32))(*a2, v67, COERCE_CGFLOAT(*&v238), COERCE_CGFLOAT(*&v239), v68.width, v68.height);
+        if (!v69)
+        {
+          GraphicsContext.copyOnWrite()();
+          RBDrawingStateTranslateCTM();
+        }
+
+LABEL_148:
+        __swift_destroy_boxed_opaque_existential_1(&v341);
+        goto LABEL_232;
+      case 0xALL:
+        goto LABEL_73;
+      case 0xBLL:
+        v332 = *&v3;
+        v114 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+        v115 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x18);
+        v116 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x1C);
+        v117 = v363.origin.x - *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x20);
+        v118 = v363.origin.y - *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x28);
+        if ((*((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x38) & 0x80) != 0)
+        {
+          LODWORD(v338.width) = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x18);
+          v269 = *a2;
+          v270 = *(*a2 + 24);
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+
+          v271 = RBDrawingStateBeginLayer();
+          type metadata accessor for GraphicsContext.Storage();
+          v272 = swift_allocObject();
+          *(v272 + 32) = xmmword_18DD85500;
+          *(v272 + 48) = 1065353216;
+          *(v272 + 56) = 0x7FF8000000000000;
+          v273 = v269[2];
+          v274 = *(v273 + 64);
+          if (v274 == RBDrawingStateGetDefaultColorSpace())
+          {
+            *(v272 + 16) = v273;
+          }
+
+          else
+          {
+            v337 = v270;
+            LODWORD(v339) = v116;
+            v336 = RBDrawingStateGetDisplayList();
+            v304 = v269[4];
+            v305 = v269[5];
+            v306 = *&v304;
+            v307 = *&v305;
+            if (v304 == 1)
+            {
+              v306 = *(v273 + 48);
+              v307 = *(v273 + 56);
+            }
+
+            v348.a = v306;
+            v348.b = v307;
+            type metadata accessor for GraphicsContext.Storage.Shared();
+            swift_allocObject();
+            outlined copy of EnvironmentValues?(v304, v305);
+            *(v272 + 16) = GraphicsContext.Storage.Shared.init(list:environment:)(v336, &v348);
+            v116 = v339;
+          }
+
+          *(v272 + 24) = v271;
+          *(v272 + 64) = 0;
+          *&v341.a = v272;
+
+          if (v117 != 0.0 || v118 != 0.0)
+          {
+            GraphicsContext.copyOnWrite()();
+            RBDrawingStateTranslateCTM();
+          }
+
+          v348.a = v114;
+          LOWORD(v348.b) = LOWORD(v338.width);
+          HIDWORD(v348.b) = v116;
+          DisplayList.GraphicsRenderer.render(list:in:)(&v348, &v341.a);
+
+          RBDrawingStateDrawLayer();
+
+          goto LABEL_231;
+        }
+
+        v119 = v118 == 0.0 && v117 == 0.0;
+        outlined init with copy of DisplayList.Item(&v363, &v348);
+        if (!v119)
+        {
+          GraphicsContext.copyOnWrite()();
+          RBDrawingStateTranslateCTM();
+        }
+
+        v348.a = v114;
+        LOWORD(v348.b) = v115;
+        HIDWORD(v348.b) = v116;
+        DisplayList.GraphicsRenderer.render(list:in:)(&v348, a2);
+        if (v119)
+        {
+          goto LABEL_232;
+        }
+
+        goto LABEL_219;
+      case 0xCLL:
+        v63 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x10);
+        v64 = v363.origin.x - *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x18);
+        v65 = v363.origin.y - *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x20);
+        if ((*((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x30) & 0x80) != 0)
+        {
+          v234 = *(v3 + 96);
+          *(v3 + 96) = 0;
+          if (v234)
+          {
+            v235 = 0;
+          }
+
+          else
+          {
+            v235 = 16;
+          }
+
+          v236 = v3;
+          v237 = *a2;
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+          swift_unknownObjectRetain();
+          specialized GraphicsContext.drawLayer(flags:content:)(v235, v237, v63, v64, v65);
+          swift_unknownObjectRelease();
+          *(v236 + 96) = v234;
+        }
+
+        else
+        {
+          v66 = v65 == 0.0 && v64 == 0.0;
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+          if (!v66)
+          {
+            GraphicsContext.copyOnWrite()();
+            RBDrawingStateTranslateCTM();
+          }
+
+          RBDrawingStateDrawDisplayList2();
+          if (!v66)
+          {
+LABEL_219:
+            GraphicsContext.copyOnWrite()();
+            RBDrawingStateTranslateCTM();
+          }
+        }
+
+        goto LABEL_232;
+      case 0xDLL:
+        return;
+      case 0xELL:
+        goto LABEL_232;
+      default:
+        v338 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x14);
+        v18 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x24);
+        v19 = *((*(&v364 + 1) & 0xFFFFFFFFFFFFFFFLL) + 0x28);
+        v20 = *a2;
+        *v355 = *a2;
+        v3 = *(v19 + 16);
+        if (v3)
+        {
+          v21 = v363.size;
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+
+          v16 = *(v19 + 16);
+          if (v3 > v16)
+          {
+LABEL_9:
+            __break(1u);
+            goto LABEL_10;
+          }
+
+          v22 = v19 + (v3 << 7) - 96;
+          while (1)
+          {
+            v350 = *(v22 + 64);
+            v351[0] = *(v22 + 80);
+            v351[1] = *(v22 + 96);
+            *(&v351[1] + 12) = *(v22 + 108);
+            v348 = *v22;
+            v349 = *(v22 + 48);
+            GraphicsContext.addFilter(_:in:)(&v348, 0.0, 0.0, v21.width, v21.height);
+            if (!--v3)
+            {
+              break;
+            }
+
+            v16 = *(v19 + 16);
+            v22 -= 128;
+            if (v3 > v16)
+            {
+              goto LABEL_9;
+            }
+          }
+
+          v20 = *&v355[0];
+        }
+
+        else
+        {
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+          outlined init with copy of DisplayList.Item(&v363, &v348);
+        }
+
+        v284 = v363.origin;
+        v285 = v363.size;
+        IsNull = CGRectIsNull(v363);
+
+        _ZF = !IsNull;
+        if (IsNull)
+        {
+          v288 = 0.0;
+        }
+
+        else
+        {
+          v288 = v284.x;
+        }
+
+        if (IsNull)
+        {
+          v289 = 0.0;
+        }
+
+        else
+        {
+          v289 = v284.y;
+        }
+
+        v358.a = v288;
+        v358.b = v289;
+        if (_ZF)
+        {
+          v290 = v285.width;
+        }
+
+        else
+        {
+          v290 = 0.0;
+        }
+
+        if (_ZF)
+        {
+          v291 = v285.height;
+        }
+
+        else
+        {
+          v291 = 0.0;
+        }
+
+        v358.c = v290;
+        v358.d = v291;
+        if (_ZF)
+        {
+          v292 = 0;
+        }
+
+        else
+        {
+          v292 = 6;
+        }
+
+        LOBYTE(v358.tx) = v292;
+        *&v348.a = v338;
+        LODWORD(v348.c) = v18;
+        BYTE8(v350) = 0;
+        *&v341.a = 256;
+        memset(&v341.b, 0, 33);
+        GraphicsContext.draw(_:with:style:)(&v358.a, &v348, &v341, v20);
+        outlined consume of Path.Storage(*&v288, *&v289, *&v290, *&v291, v292);
+LABEL_230:
+        outlined destroy of DisplayList.Item(&v363);
+LABEL_231:
+
+LABEL_232:
+        outlined destroy of DisplayList.Item(&v363);
+        return;
+    }
+  }
 }

@@ -7,7 +7,7 @@
 
 + (id)_basePruningPredicateForDate:(id)date profile:(id)profile
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   dateCopy = date;
   daemon = [profile daemon];
   behavior = [daemon behavior];
@@ -17,8 +17,8 @@
   {
     currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
     workoutType = [MEMORY[0x277CCDCD0] workoutType];
-    v17[0] = workoutType;
-    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v16[0] = workoutType;
+    v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
     v12 = [currentCalendar hd_predicateForSamplesWithTypes:v11 endingBeforeDate:dateCopy minusDays:*MEMORY[0x277CCCF20]];
 
     v13 = HDDataEntityPredicateForObjectsFromAppleWatchSources(0);
@@ -29,8 +29,6 @@
   {
     v14 = 0;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

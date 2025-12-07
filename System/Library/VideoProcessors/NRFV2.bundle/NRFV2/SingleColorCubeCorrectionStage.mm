@@ -1,5 +1,6 @@
 @interface SingleColorCubeCorrectionStage
 + (int)prewarmShaders:(id)shaders;
+- (id)init:(id)init alternateCubeSize:(unsigned int)size alternateCubeData:(const char *)data defaultCubeSize:(unsigned int)cubeSize defaultCubeData:(const char *)cubeData;
 - (int)load3DTextureFromData:(const char *)data cubeSize:(unsigned int)size metal:(id)metal outTexture:(id *)texture;
 - (int)runOnLuma:(id)luma andChroma:(id)chroma withMask:(id)mask outChroma:(id)outChroma;
 @end
@@ -65,6 +66,62 @@ LABEL_7:
 LABEL_4:
 
   return v34;
+}
+
+- (id)init:(id)init alternateCubeSize:(unsigned int)size alternateCubeData:(const char *)data defaultCubeSize:(unsigned int)cubeSize defaultCubeData:(const char *)cubeData
+{
+  v8 = *&cubeSize;
+  v10 = *&size;
+  initCopy = init;
+  v27.receiver = self;
+  v27.super_class = SingleColorCubeCorrectionStage;
+  v14 = [(SingleColorCubeCorrectionStage *)&v27 init];
+  v15 = v14;
+  if (!v14)
+  {
+    sub_29588B2D0();
+    goto LABEL_14;
+  }
+
+  objc_storeStrong(&v14->_metal, init);
+  v19 = objc_msgSend_sharedInstance(SingleColorCubeCorrectionStageShared, v16, v17, v18);
+  v22 = objc_msgSend_getShaders_(v19, v20, v15->_metal, v21);
+  shaders = v15->_shaders;
+  v15->_shaders = v22;
+
+  if (!v15->_shaders)
+  {
+    sub_29588B23C();
+    goto LABEL_14;
+  }
+
+  if (v10 && data)
+  {
+    v15->_canApplyMaskedCube = 1;
+    if (objc_msgSend_load3DTextureFromData_cubeSize_metal_outTexture_(v15, v24, data, v10, initCopy, &v15->_alternateCubeTexture))
+    {
+      sub_29588B16C();
+LABEL_14:
+      v25 = 0;
+      goto LABEL_10;
+    }
+  }
+
+  else
+  {
+    v15->_canApplyMaskedCube = 0;
+  }
+
+  if (objc_msgSend_load3DTextureFromData_cubeSize_metal_outTexture_(v15, v24, cubeData, v8, initCopy, &v15->_defaultCubeTexture))
+  {
+    sub_29588B1D4();
+    goto LABEL_14;
+  }
+
+  v25 = v15;
+LABEL_10:
+
+  return v25;
 }
 
 - (int)runOnLuma:(id)luma andChroma:(id)chroma withMask:(id)mask outChroma:(id)outChroma

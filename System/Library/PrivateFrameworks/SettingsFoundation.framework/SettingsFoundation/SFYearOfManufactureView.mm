@@ -36,7 +36,7 @@
 
 - (void)render
 {
-  v25[4] = *MEMORY[0x277D85DE8];
+  v24[4] = *MEMORY[0x277D85DE8];
   subviews = [(SFYearOfManufactureView *)self subviews];
   v4 = [subviews count];
 
@@ -58,28 +58,26 @@
     }
 
     [(SFYearOfManufactureView *)self addSubview:v7];
-    v20 = MEMORY[0x277CCAAD0];
+    v19 = MEMORY[0x277CCAAD0];
     leadingAnchor = [(SFYearOfManufactureView *)self leadingAnchor];
     leadingAnchor2 = [v7 leadingAnchor];
-    v22 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-    v25[0] = v22;
+    v21 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+    v24[0] = v21;
     trailingAnchor = [(SFYearOfManufactureView *)self trailingAnchor];
     trailingAnchor2 = [v7 trailingAnchor];
     v11 = [trailingAnchor constraintEqualToAnchor:trailingAnchor2];
-    v25[1] = v11;
+    v24[1] = v11;
     topAnchor = [v7 topAnchor];
     topAnchor2 = [(SFYearOfManufactureView *)self topAnchor];
     v14 = [topAnchor constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:topAnchor2 multiplier:1.0];
-    v25[2] = v14;
+    v24[2] = v14;
     bottomAnchor = [(SFYearOfManufactureView *)self bottomAnchor];
     bottomAnchor2 = [v7 bottomAnchor];
     v17 = [bottomAnchor constraintGreaterThanOrEqualToSystemSpacingBelowAnchor:bottomAnchor2 multiplier:1.0];
-    v25[3] = v17;
-    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:4];
-    [v20 activateConstraints:v18];
+    v24[3] = v17;
+    v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:4];
+    [v19 activateConstraints:v18];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

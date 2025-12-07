@@ -36,19 +36,17 @@
 
 void __38__REElementArchiver__supportedClasses__block_invoke()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
+  v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
-  v9 = objc_opt_class();
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v5 count:5];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8}];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:&v4 count:5];
+  v2 = [v0 setWithArray:{v1, v4, v5, v6, v7}];
   v3 = _supportedClasses_Classes;
   _supportedClasses_Classes = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)elementWithData:(id)data
@@ -112,20 +110,18 @@ void __38__REElementArchiver__supportedClasses__block_invoke()
 
 - (void)elementWithData:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Unable to decode REElement from data %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Unable to decode REElement from data %@", &v2, 0xCu);
 }
 
 - (void)dataWithElement:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Unable to encode REElement to data %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_22859F000, a2, OS_LOG_TYPE_ERROR, "Unable to encode REElement to data %@", &v2, 0xCu);
 }
 
 @end

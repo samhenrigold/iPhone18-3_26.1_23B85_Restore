@@ -20,7 +20,7 @@
   }
 
   v7.receiver = self;
-  v7.super_class = type metadata accessor for LivePhotoAsset();
+  v7.super_class = type metadata accessor for LivePhotoAsset(0);
   [(Asset *)&v7 dealloc];
 }
 

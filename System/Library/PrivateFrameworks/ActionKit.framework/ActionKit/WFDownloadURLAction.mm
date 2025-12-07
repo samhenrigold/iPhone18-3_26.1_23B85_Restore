@@ -39,7 +39,7 @@
 
 - (void)configureHTTPBodyForRequest:(id)request withMethod:(id)method completionHandler:(id)handler
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   handlerCopy = handler;
   if (![method isEqualToString:@"GET"])
@@ -50,13 +50,13 @@
       v11 = [(WFDownloadURLAction *)self parameterValueForKey:@"WFRequestVariable" ofClass:objc_opt_class()];
       if (v11)
       {
-        v45[0] = MEMORY[0x277D85DD0];
-        v45[1] = 3221225472;
-        v45[2] = __80__WFDownloadURLAction_configureHTTPBodyForRequest_withMethod_completionHandler___block_invoke;
-        v45[3] = &unk_278C216C8;
-        v46 = requestCopy;
-        v47 = handlerCopy;
-        [v11 getFileRepresentation:v45 forType:0];
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = __80__WFDownloadURLAction_configureHTTPBodyForRequest_withMethod_completionHandler___block_invoke;
+        v43[3] = &unk_278C216C8;
+        v44 = requestCopy;
+        v45 = handlerCopy;
+        [v11 getFileRepresentation:v43 forType:0];
       }
 
       else
@@ -91,24 +91,24 @@ LABEL_15:
       if (!v14)
       {
 LABEL_28:
-        v24 = MEMORY[0x277CFC6A0];
+        v22 = MEMORY[0x277CFC6A0];
         if (!v12)
         {
-          v24 = MEMORY[0x277CFC6A8];
+          v22 = MEMORY[0x277CFC6A8];
         }
 
-        v25 = MEMORY[0x277CFC388];
-        v26 = *v24;
-        allValues = [v25 itemWithObject:v16];
-        v38[0] = MEMORY[0x277D85DD0];
-        v38[1] = 3221225472;
-        v38[2] = __80__WFDownloadURLAction_configureHTTPBodyForRequest_withMethod_completionHandler___block_invoke_2;
-        v38[3] = &unk_278C216C8;
-        v39 = requestCopy;
-        v40 = handlerCopy;
-        v27 = [MEMORY[0x277D79F68] typeFromMIMEType:v26];
+        v23 = MEMORY[0x277CFC388];
+        v24 = *v22;
+        allValues = [v23 itemWithObject:v16];
+        v36[0] = MEMORY[0x277D85DD0];
+        v36[1] = 3221225472;
+        v36[2] = __80__WFDownloadURLAction_configureHTTPBodyForRequest_withMethod_completionHandler___block_invoke_2;
+        v36[3] = &unk_278C216C8;
+        v37 = requestCopy;
+        v38 = handlerCopy;
+        v25 = [MEMORY[0x277D79F68] typeFromMIMEType:v24];
 
-        [allValues getFileRepresentation:v38 forType:v27];
+        [allValues getFileRepresentation:v36 forType:v25];
 LABEL_32:
 
         goto LABEL_15;
@@ -129,61 +129,60 @@ LABEL_32:
       }
     }
 
-    v43 = 0u;
-    v44 = 0u;
     v41 = 0u;
     v42 = 0u;
-    v37 = v16;
+    v39 = 0u;
+    v40 = 0u;
+    v35 = v16;
     allValues = [v16 allValues];
-    v19 = [allValues countByEnumeratingWithState:&v41 objects:v55 count:16];
-    if (v19)
+    v18 = [allValues countByEnumeratingWithState:&v39 objects:v53 count:16];
+    if (v18)
     {
-      v20 = v19;
-      v21 = *v42;
+      v19 = v18;
+      v20 = *v40;
       while (2)
       {
-        for (i = 0; i != v20; ++i)
+        for (i = 0; i != v19; ++i)
         {
-          if (*v42 != v21)
+          if (*v40 != v20)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v23 = *(*(&v41 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v28 = requestCopy;
-            v29 = v37;
-            v30 = handlerCopy;
-            v31 = objc_opt_new();
-            allKeys = [v29 allKeys];
-            v52[0] = MEMORY[0x277D85DD0];
-            v52[1] = 3221225472;
-            v52[2] = __WFConfigureRequestBodyWithMultipartFormDictionary_block_invoke;
-            v52[3] = &unk_278C1AE10;
-            v53 = v29;
-            v33 = v31;
-            v54 = v33;
-            v48[0] = MEMORY[0x277D85DD0];
-            v48[1] = 3221225472;
-            v48[2] = __WFConfigureRequestBodyWithMultipartFormDictionary_block_invoke_3;
-            v48[3] = &unk_278C1AE38;
+            v26 = requestCopy;
+            v27 = v35;
+            v28 = handlerCopy;
+            v29 = objc_opt_new();
+            allKeys = [v27 allKeys];
+            v50[0] = MEMORY[0x277D85DD0];
+            v50[1] = 3221225472;
+            v50[2] = __WFConfigureRequestBodyWithMultipartFormDictionary_block_invoke;
+            v50[3] = &unk_278C1AE10;
+            v51 = v27;
+            v31 = v29;
+            v52 = v31;
+            v46[0] = MEMORY[0x277D85DD0];
+            v46[1] = 3221225472;
+            v46[2] = __WFConfigureRequestBodyWithMultipartFormDictionary_block_invoke_3;
+            v46[3] = &unk_278C1AE38;
+            v47 = v26;
+            v48 = v31;
             v49 = v28;
-            v50 = v33;
-            v51 = v30;
-            v34 = v30;
-            v35 = v33;
-            v36 = v28;
-            v16 = v29;
-            [allKeys if_enumerateAsynchronouslyInSequence:v52 completionHandler:v48];
+            v32 = v28;
+            v33 = v31;
+            v34 = v26;
+            v16 = v27;
+            [allKeys if_enumerateAsynchronouslyInSequence:v50 completionHandler:v46];
 
             goto LABEL_32;
           }
         }
 
-        v20 = [allValues countByEnumeratingWithState:&v41 objects:v55 count:16];
-        if (v20)
+        v19 = [allValues countByEnumeratingWithState:&v39 objects:v53 count:16];
+        if (v19)
         {
           continue;
         }
@@ -192,14 +191,12 @@ LABEL_32:
       }
     }
 
-    v16 = v37;
+    v16 = v35;
     goto LABEL_28;
   }
 
   (*(handlerCopy + 2))(handlerCopy, 0);
 LABEL_16:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __80__WFDownloadURLAction_configureHTTPBodyForRequest_withMethod_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -260,25 +257,24 @@ void __111__WFDownloadURLAction_getContentsOfURLItem_expectedByteCountHandler_wr
 {
   if (a2)
   {
-    v3 = *(a1 + 48);
-    v4 = *(*(a1 + 48) + 16);
+    v3 = *(*(a1 + 48) + 16);
 
-    v4();
+    v3();
   }
 
   else
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    v7 = *(a1 + 56);
-    v8 = *(a1 + 64);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __111__WFDownloadURLAction_getContentsOfURLItem_expectedByteCountHandler_writtenByteCountHandler_completionHandler___block_invoke_3;
-    v9[3] = &unk_278C216C8;
-    v11 = *(a1 + 48);
-    v10 = *(a1 + 32);
-    [v5 getContentsWithRequest:v6 expectedByteCountHandler:v7 writtenByteCountHandler:v8 completionHandler:v9];
+    v4 = *(a1 + 32);
+    v5 = *(a1 + 40);
+    v6 = *(a1 + 56);
+    v7 = *(a1 + 64);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __111__WFDownloadURLAction_getContentsOfURLItem_expectedByteCountHandler_writtenByteCountHandler_completionHandler___block_invoke_3;
+    v8[3] = &unk_278C216C8;
+    v10 = *(a1 + 48);
+    v9 = *(a1 + 32);
+    [v4 getContentsWithRequest:v5 expectedByteCountHandler:v6 writtenByteCountHandler:v7 completionHandler:v8];
   }
 }
 
@@ -338,26 +334,26 @@ LABEL_6:
 
 void __50__WFDownloadURLAction_runAsynchronouslyWithInput___block_invoke(uint64_t a1, void *a2, uint64_t a3, void *a4)
 {
-  v23[2] = *MEMORY[0x277D85DE8];
+  v22[2] = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a4;
   if ([v6 numberOfItems])
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __50__WFDownloadURLAction_runAsynchronouslyWithInput___block_invoke_2;
-    v19[3] = &unk_278C1AD98;
-    v8 = v7;
-    v9 = *(a1 + 32);
-    v20 = v8;
-    v21 = v9;
     v18[0] = MEMORY[0x277D85DD0];
     v18[1] = 3221225472;
-    v18[2] = __50__WFDownloadURLAction_runAsynchronouslyWithInput___block_invoke_6;
-    v18[3] = &unk_278C21E70;
-    v18[4] = v9;
-    [v6 transformItemsAndFlattenUsingBlock:v19 completionHandler:v18];
-    v10 = v20;
+    v18[2] = __50__WFDownloadURLAction_runAsynchronouslyWithInput___block_invoke_2;
+    v18[3] = &unk_278C1AD98;
+    v8 = v7;
+    v9 = *(a1 + 32);
+    v19 = v8;
+    v20 = v9;
+    v17[0] = MEMORY[0x277D85DD0];
+    v17[1] = 3221225472;
+    v17[2] = __50__WFDownloadURLAction_runAsynchronouslyWithInput___block_invoke_6;
+    v17[3] = &unk_278C21E70;
+    v17[4] = v9;
+    [v6 transformItemsAndFlattenUsingBlock:v18 completionHandler:v17];
+    v10 = v19;
   }
 
   else
@@ -365,18 +361,16 @@ void __50__WFDownloadURLAction_runAsynchronouslyWithInput___block_invoke(uint64_
     v11 = *(a1 + 32);
     v12 = MEMORY[0x277CCA9B8];
     v13 = *MEMORY[0x277D7CB30];
-    v22[0] = *MEMORY[0x277CCA470];
+    v21[0] = *MEMORY[0x277CCA470];
     v10 = WFLocalizedString(@"No URL Specified");
-    v23[0] = v10;
-    v22[1] = *MEMORY[0x277CCA450];
+    v22[0] = v10;
+    v21[1] = *MEMORY[0x277CCA450];
     v14 = WFLocalizedString(@"Make sure to pass a valid URL to the Get Contents of URL action.");
-    v23[1] = v14;
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v22[1] = v14;
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:2];
     v16 = [v12 errorWithDomain:v13 code:6 userInfo:v15];
     [v11 finishRunningWithError:v16];
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __50__WFDownloadURLAction_runAsynchronouslyWithInput___block_invoke_2(uint64_t a1, void *a2, void *a3)

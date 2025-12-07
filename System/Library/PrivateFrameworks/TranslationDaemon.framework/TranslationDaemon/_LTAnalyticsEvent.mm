@@ -110,15 +110,15 @@
 
 - (void)addFieldsWithError:(id)error
 {
-  v12[3] = *MEMORY[0x277D85DE8];
-  v11[0] = @"errorDomain";
+  v11[3] = *MEMORY[0x277D85DE8];
+  v10[0] = @"errorDomain";
   errorCopy = error;
   domain = [errorCopy domain];
-  v12[0] = domain;
-  v11[1] = @"errorCode";
+  v11[0] = domain;
+  v10[1] = @"errorCode";
   v6 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(errorCopy, "code")}];
-  v12[1] = v6;
-  v11[2] = @"errorDescription";
+  v11[1] = v6;
+  v10[2] = @"errorDescription";
   localizedDescription = [errorCopy localizedDescription];
 
   v8 = &stru_284834138;
@@ -127,11 +127,9 @@
     v8 = localizedDescription;
   }
 
-  v12[2] = v8;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[2] = v8;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:3];
   [(_LTAnalyticsEvent *)self addFieldsFromDictionary:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)sendLazy

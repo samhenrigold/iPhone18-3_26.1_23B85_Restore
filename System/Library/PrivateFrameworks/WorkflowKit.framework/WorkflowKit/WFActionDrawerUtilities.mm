@@ -74,34 +74,32 @@ WFActionDrawerSection *__56__WFActionDrawerUtilities_activitySectionsForDonation
 {
   v3 = a2;
   v4 = [*(a1 + 32) objectForKey:v3];
-  v5 = *(a1 + 40);
-  v6 = [objc_opt_class() localizedAppNames];
-  v7 = [v6 objectForKey:v3];
+  v5 = [objc_opt_class() localizedAppNames];
+  v6 = [v5 objectForKey:v3];
 
-  if (v7)
+  if (v6)
   {
     goto LABEL_4;
   }
 
-  v8 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:v3];
-  v7 = [v8 localizedName];
+  v7 = [MEMORY[0x1E69635E0] applicationProxyForIdentifier:v3];
+  v6 = [v7 localizedName];
 
-  if (v7)
+  if (v6)
   {
-    v9 = *(a1 + 40);
-    v10 = [objc_opt_class() localizedAppNames];
-    [v10 setObject:v7 forKey:v3];
+    v8 = [objc_opt_class() localizedAppNames];
+    [v8 setObject:v6 forKey:v3];
 
 LABEL_4:
-    v11 = [[WFActionDrawerSection alloc] initWithLocalizedTitle:v7 donations:v4 bundleIdentifier:v3 sectionType:4];
+    v9 = [[WFActionDrawerSection alloc] initWithLocalizedTitle:v6 donations:v4 bundleIdentifier:v3 sectionType:4];
 
     goto LABEL_5;
   }
 
-  v11 = 0;
+  v9 = 0;
 LABEL_5:
 
-  return v11;
+  return v9;
 }
 
 + (id)suggestionSectionsForDonations:(id)donations excludingConvertedLinkActions:(BOOL)actions

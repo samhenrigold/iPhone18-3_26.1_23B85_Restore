@@ -51,7 +51,7 @@
 {
   v29 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v4 = NUSharedLog();
+  v4 = NUSharedLog(completionCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -83,11 +83,11 @@
         v11 = *(*(&v22 + 1) + 8 * i);
         fileURL = [v11 fileURL];
 
-        fontRegistration = NUSharedLog();
-        v14 = os_log_type_enabled(fontRegistration, OS_LOG_TYPE_DEFAULT);
+        fontRegistration = NUSharedLog(v13);
+        v15 = os_log_type_enabled(fontRegistration, OS_LOG_TYPE_DEFAULT);
         if (fileURL)
         {
-          if (v14)
+          if (v15)
           {
             resourceID = [v11 resourceID];
             *buf = 138543362;
@@ -102,7 +102,7 @@
 
         else
         {
-          if (!v14)
+          if (!v15)
           {
             goto LABEL_15;
           }
@@ -133,15 +133,13 @@ LABEL_15:
   {
     completionCopy[2](completionCopy);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unregisterFontsWithCompletion:(id)completion
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v4 = NUSharedLog();
+  v4 = NUSharedLog(completionCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -149,29 +147,30 @@ LABEL_15:
     _os_log_impl(&dword_25C2D6000, v4, OS_LOG_TYPE_DEFAULT, "Unregistering font resource for loader %{public}@", buf, 0xCu);
   }
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
   v20 = 0u;
+  v21 = 0u;
+  v18 = 0u;
+  v19 = 0u;
   fontResourcesRegistered = [(NUANFFontLoader *)self fontResourcesRegistered];
   v6 = [fontResourcesRegistered copy];
 
-  v7 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v20;
+    v9 = *v19;
     do
     {
-      for (i = 0; i != v8; ++i)
+      v10 = 0;
+      do
       {
-        if (*v20 != v9)
+        if (*v19 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v19 + 1) + 8 * i);
-        v12 = NUSharedLog();
+        v11 = *(*(&v18 + 1) + 8 * v10);
+        v12 = NUSharedLog(v7);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           resourceID = [v11 resourceID];
@@ -188,20 +187,22 @@ LABEL_15:
           fileURL2 = [v11 fileURL];
           [fontRegistration unregisterFontWithURL:fileURL2];
         }
+
+        ++v10;
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      while (v8 != v10);
+      v7 = [v6 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = v7;
     }
 
-    while (v8);
+    while (v7);
   }
 
   if (completionCopy)
   {
     completionCopy[2](completionCopy);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)loadFontsWithCompletion:(id)completion
@@ -215,9 +216,9 @@ LABEL_15:
 
 - (id)asyncLoadFontsOnceWithCompletion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v5 = NUSharedLog();
+  v5 = NUSharedLog(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
@@ -233,44 +234,42 @@ LABEL_15:
     objc_initWeak(buf, self);
     flintResourceManager = [(NUANFFontLoader *)self flintResourceManager];
     relativePriority = [(NUANFFontLoader *)self relativePriority];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke_2;
-    v13[3] = &unk_2799A36D0;
-    objc_copyWeak(&v16, buf);
-    v15 = completionCopy;
-    v14 = fontResourceIDs;
-    v10 = [flintResourceManager fetchFontResourcesWithIdentifiers:v14 downloadAssets:1 relativePriority:relativePriority completionBlock:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke_2;
+    v12[3] = &unk_2799A36D0;
+    objc_copyWeak(&v15, buf);
+    v14 = completionCopy;
+    v13 = fontResourceIDs;
+    v10 = [flintResourceManager fetchFontResourcesWithIdentifiers:v13 downloadAssets:1 relativePriority:relativePriority completionBlock:v12];
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v15);
     objc_destroyWeak(buf);
   }
 
   else
   {
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke;
-    v17[3] = &unk_2799A3680;
-    v17[4] = self;
-    v18 = completionCopy;
-    v10 = __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke(v17);
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke;
+    v16[3] = &unk_2799A3680;
+    v16[4] = self;
+    v17 = completionCopy;
+    v10 = __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke(v16);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 uint64_t __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v2 = NUSharedLog();
+  v9 = *MEMORY[0x277D85DE8];
+  v2 = NUSharedLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v9 = v3;
+    v8 = v3;
     _os_log_impl(&dword_25C2D6000, v2, OS_LOG_TYPE_DEFAULT, "No font resources required for loader %{public}@", buf, 0xCu);
   }
 
@@ -278,10 +277,9 @@ uint64_t __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke(u
   block[1] = 3221225472;
   block[2] = __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke_4;
   block[3] = &unk_2799A3148;
-  v7 = *(a1 + 40);
+  v6 = *(a1 + 40);
   dispatch_async(MEMORY[0x277D85CD0], block);
 
-  v4 = *MEMORY[0x277D85DE8];
   return 0;
 }
 
@@ -292,7 +290,7 @@ uint64_t __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke_4
 
 void __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke_2(id *a1, void *a2, void *a3)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   WeakRetained = objc_loadWeakRetained(a1 + 6);
@@ -300,138 +298,137 @@ void __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke_2(id 
   if (WeakRetained)
   {
     v9 = WeakRetained;
+    v10 = v9;
     if (v6)
     {
-      v38[0] = MEMORY[0x277D85DD0];
-      v38[1] = 3221225472;
-      v38[2] = __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke_4;
-      v38[3] = &unk_2799A36A8;
-      v10 = &v39;
-      v39 = v6;
-      v40 = a1[5];
-      __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke_4(v38);
+      v40[0] = MEMORY[0x277D85DD0];
+      v40[1] = 3221225472;
+      v40[2] = __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke_4;
+      v40[3] = &unk_2799A36A8;
+      v11 = &v41;
+      v41 = v6;
+      v42 = a1[5];
+      __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke_4(v40);
     }
 
     else
     {
-      v11 = NUSharedLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = NUSharedLog(v9);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218242;
-        v45 = [v5 count];
-        v46 = 2114;
-        v47 = v9;
-        _os_log_impl(&dword_25C2D6000, v11, OS_LOG_TYPE_DEFAULT, "Finished loading %lu fonts for loader %{public}@", buf, 0x16u);
+        v47 = [v5 count];
+        v48 = 2114;
+        v49 = v10;
+        _os_log_impl(&dword_25C2D6000, v12, OS_LOG_TYPE_DEFAULT, "Finished loading %lu fonts for loader %{public}@", buf, 0x16u);
       }
 
-      v12 = [v9 fontResourcesToRegister];
-      [v12 removeAllObjects];
+      v13 = [v10 fontResourcesToRegister];
+      [v13 removeAllObjects];
 
-      v13 = [v5 count];
-      if (v13 != [a1[4] count])
+      v14 = [v5 count];
+      if (v14 != [a1[4] count])
       {
-        v14 = [a1[4] mutableCopy];
-        v15 = [v5 allKeys];
-        v16 = v15;
-        if (v15)
+        v15 = [a1[4] mutableCopy];
+        v16 = [v5 allKeys];
+        v17 = v16;
+        if (v16)
         {
-          v17 = v15;
+          v18 = v16;
         }
 
         else
         {
-          v17 = MEMORY[0x277CBEBF8];
+          v18 = MEMORY[0x277CBEBF8];
         }
 
-        [v14 removeObjectsInArray:v17];
+        [v15 removeObjectsInArray:v18];
 
-        v18 = NUSharedLog();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v20 = NUSharedLog(v19);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v45 = v14;
-          _os_log_impl(&dword_25C2D6000, v18, OS_LOG_TYPE_DEFAULT, "Missing font resources %{public}@", buf, 0xCu);
+          v47 = v15;
+          _os_log_impl(&dword_25C2D6000, v20, OS_LOG_TYPE_DEFAULT, "Missing font resources %{public}@", buf, 0xCu);
         }
       }
 
-      v30 = a1;
-      v31 = v8;
+      v32 = a1;
+      v33 = v8;
+      v38 = 0u;
+      v39 = 0u;
       v36 = 0u;
       v37 = 0u;
-      v34 = 0u;
-      v35 = 0u;
-      v19 = a1[4];
-      v20 = [v19 countByEnumeratingWithState:&v34 objects:v43 count:16];
-      if (v20)
+      v21 = a1[4];
+      v22 = [v21 countByEnumeratingWithState:&v36 objects:v45 count:16];
+      if (v22)
       {
-        v21 = v20;
-        v22 = *v35;
+        v23 = v22;
+        v24 = *v37;
         do
         {
-          for (i = 0; i != v21; ++i)
+          for (i = 0; i != v23; ++i)
           {
-            if (*v35 != v22)
+            if (*v37 != v24)
             {
-              objc_enumerationMutation(v19);
+              objc_enumerationMutation(v21);
             }
 
-            v24 = *(*(&v34 + 1) + 8 * i);
-            v25 = [v5 objectForKey:v24];
-            v26 = [v25 fileURL];
+            v26 = *(*(&v36 + 1) + 8 * i);
+            v27 = [v5 objectForKey:v26];
+            v28 = [v27 fileURL];
 
-            v27 = NUSharedLog();
-            v28 = os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT);
-            if (v26)
+            v30 = NUSharedLog(v29);
+            v31 = os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT);
+            if (v28)
             {
-              if (v28)
+              if (v31)
               {
                 *buf = 138543362;
-                v45 = v24;
-                _os_log_impl(&dword_25C2D6000, v27, OS_LOG_TYPE_DEFAULT, "Tracking font resource to register %{public}@", buf, 0xCu);
+                v47 = v26;
+                _os_log_impl(&dword_25C2D6000, v30, OS_LOG_TYPE_DEFAULT, "Tracking font resource to register %{public}@", buf, 0xCu);
               }
 
-              v27 = [v9 fontResourcesToRegister];
-              [v27 addObject:v25];
+              v30 = [v10 fontResourcesToRegister];
+              [v30 addObject:v27];
             }
 
-            else if (v28)
+            else if (v31)
             {
               *buf = 138543362;
-              v45 = v24;
-              _os_log_impl(&dword_25C2D6000, v27, OS_LOG_TYPE_DEFAULT, "Failed to load font resource with identifier %{public}@", buf, 0xCu);
+              v47 = v26;
+              _os_log_impl(&dword_25C2D6000, v30, OS_LOG_TYPE_DEFAULT, "Failed to load font resource with identifier %{public}@", buf, 0xCu);
             }
           }
 
-          v21 = [v19 countByEnumeratingWithState:&v34 objects:v43 count:16];
+          v23 = [v21 countByEnumeratingWithState:&v36 objects:v45 count:16];
         }
 
-        while (v21);
+        while (v23);
       }
 
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke_7;
       block[3] = &unk_2799A3148;
-      v10 = &v33;
-      v33 = v30[5];
+      v11 = &v35;
+      v35 = v32[5];
       dispatch_async(MEMORY[0x277D85CD0], block);
-      v8 = v31;
+      v8 = v33;
       v6 = 0;
     }
   }
 
   else
   {
-    v41[0] = MEMORY[0x277D85DD0];
-    v41[1] = 3221225472;
-    v41[2] = __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke_3;
-    v41[3] = &unk_2799A3148;
-    v42 = a1[5];
-    __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke_3(v41);
-    v9 = v42;
+    v43[0] = MEMORY[0x277D85DD0];
+    v43[1] = 3221225472;
+    v43[2] = __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke_3;
+    v43[3] = &unk_2799A3148;
+    v44 = a1[5];
+    __52__NUANFFontLoader_asyncLoadFontsOnceWithCompletion___block_invoke_3(v43);
+    v10 = v44;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 @end

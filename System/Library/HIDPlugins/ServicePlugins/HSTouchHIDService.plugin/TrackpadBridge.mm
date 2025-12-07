@@ -141,53 +141,54 @@ LABEL_13:
   v12 = [eventCopy objectForKey:@"DeviceOrientation"];
   intValue2 = [v12 intValue];
 
-  if (bOOLValue == [(TrackpadBridge *)self coverClosed]&& v9 == [(TrackpadBridge *)self displayOff]&& [(TrackpadBridge *)self screenOrientation]== intValue && [(TrackpadBridge *)self deviceOrientation]== intValue2)
+  coverClosed = [(TrackpadBridge *)self coverClosed];
+  if (bOOLValue == coverClosed && (coverClosed = [(TrackpadBridge *)self displayOff], v9 == coverClosed) && (coverClosed = [(TrackpadBridge *)self screenOrientation], coverClosed == intValue) && (coverClosed = [(TrackpadBridge *)self deviceOrientation], coverClosed == intValue2))
   {
-    v14 = MTLoggingPlugin();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
+    v16 = MTLoggingPlugin(coverClosed, v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v18 = 136315650;
-      v19 = "[Debug] ";
-      v20 = 2080;
-      v21 = "";
+      v20 = 136315650;
+      v21 = "[Debug] ";
       v22 = 2080;
-      v23 = "[TrackpadBridge generateHostStateEvent:]";
-      _os_log_impl(&dword_0, v14, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Received host state notification, but nothing changed.", &v18, 0x20u);
+      v23 = "";
+      v24 = 2080;
+      v25 = "[TrackpadBridge generateHostStateEvent:]";
+      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Received host state notification, but nothing changed.", &v20, 0x20u);
     }
 
-    v15 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v16 = MTLoggingPlugin();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
+    v18 = MTLoggingPlugin(coverClosed, v15);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
     {
-      v18 = 136316674;
-      v19 = "[Debug] ";
-      v20 = 2080;
-      v21 = "";
+      v20 = 136316674;
+      v21 = "[Debug] ";
       v22 = 2080;
-      v23 = "[TrackpadBridge generateHostStateEvent:]";
-      v24 = 1024;
-      v25 = bOOLValue;
+      v23 = "";
+      v24 = 2080;
+      v25 = "[TrackpadBridge generateHostStateEvent:]";
       v26 = 1024;
-      v27 = v9;
+      v27 = bOOLValue;
       v28 = 1024;
-      v29 = intValue;
+      v29 = v9;
       v30 = 1024;
-      v31 = intValue2;
-      _os_log_impl(&dword_0, v16, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Received host state notification coverClosed(%d) displayOff(%d) screenOrientation(%d) deviceOrientation(%d)", &v18, 0x38u);
+      v31 = intValue;
+      v32 = 1024;
+      v33 = intValue2;
+      _os_log_impl(&dword_0, v18, OS_LOG_TYPE_DEBUG, "[HID] [MT] %s%s%s Received host state notification coverClosed(%d) displayOff(%d) screenOrientation(%d) deviceOrientation(%d)", &v20, 0x38u);
     }
 
     [(TrackpadBridge *)self setCoverClosed:bOOLValue];
     [(TrackpadBridge *)self setDisplayOff:v9];
     [(TrackpadBridge *)self setScreenOrientation:intValue];
     [(TrackpadBridge *)self setDeviceOrientation:intValue2];
-    v15 = [[HSTHostStateEvent alloc] initWithDeviceOrientation:intValue2 screenOrientation:intValue coverClosed:bOOLValue displayOff:v9];
+    v17 = [[HSTHostStateEvent alloc] initWithDeviceOrientation:intValue2 screenOrientation:intValue coverClosed:bOOLValue displayOff:v9];
   }
 
-  return v15;
+  return v17;
 }
 
 - (void)encodeToMap:(void *)map
@@ -234,7 +235,7 @@ LABEL_13:
   v11 = v5;
   v12 = v5;
   v10 = v5;
-  HSUtil::Decoder::decodeMap(decode, &v10);
+  HSUtil::Decoder::decodeMap(&v10, decode);
   if (*decode)
   {
     memset(__b, 170, sizeof(__b));

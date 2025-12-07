@@ -5,9 +5,9 @@
 
 void __68___GCGamepadEventKeyboardEventAdapter_initWithConfiguration_source___block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  memset(v20, 0, sizeof(v20));
+  memset(v19, 0, sizeof(v19));
   v4 = [*(*(a1 + 32) + 16) gamepadElementForUsagePage:objc_msgSend(v3 usage:{"usagePage"), objc_msgSend(v3, "usage")}];
   if (v4 <= 0x2E)
   {
@@ -19,39 +19,37 @@ void __68___GCGamepadEventKeyboardEventAdapter_initWithConfiguration_source___bl
       v7 = 1.0;
     }
 
-    *(v20 + v5) = v7;
-    v19 = 1 << v5;
-    v8 = -[_GCGamepadEventImpl initWithTimeStamp:inputs:validMask:]([_GCGamepadEventImpl alloc], "initWithTimeStamp:inputs:validMask:", [v3 timestamp], v20, 1 << v5);
+    *(v19 + v5) = v7;
+    v18 = 1 << v5;
+    v8 = -[_GCGamepadEventImpl initWithTimeStamp:inputs:validMask:]([_GCGamepadEventImpl alloc], "initWithTimeStamp:inputs:validMask:", [v3 timestamp], v19, 1 << v5);
     v9 = objc_getProperty(*(a1 + 32), sel_observers, 24, 1);
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
-    v10 = [v9 countByEnumeratingWithState:&v15 objects:v21 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v14 objects:v20 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v16;
+      v12 = *v15;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v16 != v12)
+          if (*v15 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          (*(*(*(&v15 + 1) + 8 * i) + 16))();
+          (*(*(*(&v14 + 1) + 8 * i) + 16))();
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v15 objects:v21 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v14 objects:v20 count:16];
       }
 
       while (v11);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __60___GCGamepadEventKeyboardEventAdapter_observeGamepadEvents___block_invoke(uint64_t a1)

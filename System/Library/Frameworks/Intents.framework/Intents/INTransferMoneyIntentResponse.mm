@@ -29,25 +29,25 @@
 
 - (id)_dictionaryRepresentation
 {
-  v27[7] = *MEMORY[0x1E69E9840];
-  v26[0] = @"code";
+  v26[7] = *MEMORY[0x1E69E9840];
+  v25[0] = @"code";
   code = [(INTransferMoneyIntentResponse *)self code];
-  v25 = code;
+  v24 = code;
   if (code < 8)
   {
     null = off_1E727EA60[code];
-    v24 = null;
+    v23 = null;
   }
 
   else
   {
     null = [MEMORY[0x1E695DFB0] null];
-    v24 = 0;
+    v23 = 0;
   }
 
-  v23 = null;
-  v27[0] = null;
-  v26[1] = @"fromAccount";
+  v22 = null;
+  v26[0] = null;
+  v25[1] = @"fromAccount";
   fromAccount = [(INTransferMoneyIntentResponse *)self fromAccount];
   v6 = fromAccount;
   if (!fromAccount)
@@ -55,9 +55,9 @@
     fromAccount = [MEMORY[0x1E695DFB0] null];
   }
 
-  v22 = fromAccount;
-  v27[1] = fromAccount;
-  v26[2] = @"toAccount";
+  v21 = fromAccount;
+  v26[1] = fromAccount;
+  v25[2] = @"toAccount";
   toAccount = [(INTransferMoneyIntentResponse *)self toAccount];
   v8 = toAccount;
   if (!toAccount)
@@ -65,9 +65,9 @@
     toAccount = [MEMORY[0x1E695DFB0] null];
   }
 
-  v21 = toAccount;
-  v27[2] = toAccount;
-  v26[3] = @"transactionAmount";
+  v20 = toAccount;
+  v26[2] = toAccount;
+  v25[3] = @"transactionAmount";
   transactionAmount = [(INTransferMoneyIntentResponse *)self transactionAmount];
   v10 = transactionAmount;
   if (!transactionAmount)
@@ -75,8 +75,8 @@
     transactionAmount = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[3] = transactionAmount;
-  v26[4] = @"transactionScheduledDate";
+  v26[3] = transactionAmount;
+  v25[4] = @"transactionScheduledDate";
   transactionScheduledDate = [(INTransferMoneyIntentResponse *)self transactionScheduledDate];
   null2 = transactionScheduledDate;
   if (!transactionScheduledDate)
@@ -84,8 +84,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[4] = null2;
-  v26[5] = @"transactionNote";
+  v26[4] = null2;
+  v25[5] = @"transactionNote";
   transactionNote = [(INTransferMoneyIntentResponse *)self transactionNote];
   null3 = transactionNote;
   if (!transactionNote)
@@ -93,8 +93,8 @@
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[5] = null3;
-  v26[6] = @"transferFee";
+  v26[5] = null3;
+  v25[6] = @"transferFee";
   transferFee = [(INTransferMoneyIntentResponse *)self transferFee];
   null4 = transferFee;
   if (!transferFee)
@@ -102,8 +102,8 @@
     null4 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[6] = null4;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:7];
+  v26[6] = null4;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:7];
   if (!transferFee)
   {
   }
@@ -128,11 +128,9 @@
   {
   }
 
-  if (v25 >= 8)
+  if (v24 >= 8)
   {
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 
   return v17;
 }
@@ -361,7 +359,7 @@
 
 - (INTransferMoneyIntentResponse)initWithCode:(INTransferMoneyIntentResponseCode)code userActivity:(NSUserActivity *)userActivity
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v6 = userActivity;
   v7 = INSiriLogContextIntents;
   if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_INFO))
@@ -379,21 +377,20 @@
 
     v10 = v9;
     *buf = 136315906;
-    v16 = "[INTransferMoneyIntentResponse initWithCode:userActivity:]";
-    v17 = 2048;
-    v18 = code;
-    v19 = 2112;
-    v20 = v10;
-    v21 = 2112;
-    v22 = v6;
+    v15 = "[INTransferMoneyIntentResponse initWithCode:userActivity:]";
+    v16 = 2048;
+    v17 = code;
+    v18 = 2112;
+    v19 = v10;
+    v20 = 2112;
+    v21 = v6;
     _os_log_impl(&dword_18E991000, v8, OS_LOG_TYPE_INFO, "%s code = %zd (%@), userActivity = %@", buf, 0x2Au);
   }
 
-  v14.receiver = self;
-  v14.super_class = INTransferMoneyIntentResponse;
-  v11 = [(INIntentResponse *)&v14 _initWithCode:code userActivity:v6];
+  v13.receiver = self;
+  v13.super_class = INTransferMoneyIntentResponse;
+  v11 = [(INIntentResponse *)&v13 _initWithCode:code userActivity:v6];
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

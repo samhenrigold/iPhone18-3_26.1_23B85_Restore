@@ -1,5 +1,6 @@
 @interface BMFileManager
 + (BMFileManager)fileManagerWithDirectAccessToDirectory:(id)directory cachingOptions:(int64_t)options;
++ (BMFileManager)fileManagerWithMediatedAccessToDirectory:(id)directory useCase:(id)case domain:(unint64_t)domain user:(unsigned int)user;
 + (id)globalWeakFileHandleCache;
 - (BMFileManager)init;
 - (BMFileManager)initWithDirectory:(id)directory cachingOptions:(int64_t)options;
@@ -53,6 +54,16 @@ uint64_t __42__BMFileManager_globalWeakFileHandleCache__block_invoke()
   v2 = globalWeakFileHandleCache_cache;
 
   return [v2 setIsExpiredBlock:&__block_literal_global_5];
+}
+
++ (BMFileManager)fileManagerWithMediatedAccessToDirectory:(id)directory useCase:(id)case domain:(unint64_t)domain user:(unsigned int)user
+{
+  v6 = *&user;
+  caseCopy = case;
+  directoryCopy = directory;
+  v11 = [[_BMXPCFileManager alloc] initWithDirectory:directoryCopy cachingOptions:3 useCase:caseCopy domain:domain user:v6];
+
+  return v11;
 }
 
 + (BMFileManager)fileManagerWithDirectAccessToDirectory:(id)directory cachingOptions:(int64_t)options
@@ -110,7 +121,7 @@ uint64_t __42__BMFileManager_globalWeakFileHandleCache__block_invoke()
 
 - (BOOL)fileExistsAtPath:(id)path error:(id *)error
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -124,13 +135,13 @@ uint64_t __42__BMFileManager_globalWeakFileHandleCache__block_invoke()
     if (error && v6 && *v7 != 2)
     {
       v8 = MEMORY[0x1E696ABC0];
-      v20 = *MEMORY[0x1E696A278];
+      v19 = *MEMORY[0x1E696A278];
       v9 = MEMORY[0x1E696AEC0];
       v10 = __error();
       v11 = strerror(*v10);
       v12 = [v9 stringWithFormat:@"access(): %s: %d", v11, *__error()];
-      v21 = v12;
-      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      v20 = v12;
+      v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
       *error = [v8 errorWithDomain:@"BiomeStorageError" code:1 userInfo:v13];
     }
 
@@ -148,23 +159,22 @@ uint64_t __42__BMFileManager_globalWeakFileHandleCache__block_invoke()
     if (error)
     {
       v15 = MEMORY[0x1E696ABC0];
-      v22 = *MEMORY[0x1E696A278];
+      v21 = *MEMORY[0x1E696A278];
       v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid path"];
-      v23[0] = v16;
-      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+      v22[0] = v16;
+      v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
       *error = [v15 errorWithDomain:@"BiomeStorageError" code:2 userInfo:v17];
 
       LOBYTE(error) = 0;
     }
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 - (id)contentsOfDirectoryAtPath:(id)path error:(id *)error
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -186,10 +196,10 @@ uint64_t __42__BMFileManager_globalWeakFileHandleCache__block_invoke()
     }
 
     v16 = MEMORY[0x1E696ABC0];
-    v36 = *MEMORY[0x1E696A278];
+    v35 = *MEMORY[0x1E696A278];
     v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid path"];
-    v37[0] = v8;
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+    v36[0] = v8;
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
     [v16 errorWithDomain:@"BiomeStorageError" code:2 userInfo:v12];
     *error = v14 = 0;
     goto LABEL_19;
@@ -204,22 +214,22 @@ uint64_t __42__BMFileManager_globalWeakFileHandleCache__block_invoke()
     {
       v10 = v9;
       v11 = objc_opt_new();
-      v28 = 0;
-      v29 = &v28;
-      v30 = 0x3032000000;
-      v31 = __Block_byref_object_copy__0;
-      v32 = __Block_byref_object_dispose__0;
-      v33 = 0;
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __49__BMFileManager_contentsOfDirectoryAtPath_error___block_invoke;
-      v24[3] = &unk_1E796B2B0;
-      v27 = v10;
-      v26 = &v28;
+      v27 = 0;
+      v28 = &v27;
+      v29 = 0x3032000000;
+      v30 = __Block_byref_object_copy__0;
+      v31 = __Block_byref_object_dispose__0;
+      v32 = 0;
+      v23[0] = MEMORY[0x1E69E9820];
+      v23[1] = 3221225472;
+      v23[2] = __49__BMFileManager_contentsOfDirectoryAtPath_error___block_invoke;
+      v23[3] = &unk_1E796B2B0;
+      v26 = v10;
+      v25 = &v27;
       v12 = v11;
-      v25 = v12;
-      [v8 performWithInProcessLock:v24];
-      if (error && (v13 = v29[5]) != 0)
+      v24 = v12;
+      [v8 performWithInProcessLock:v23];
+      if (error && (v13 = v28[5]) != 0)
       {
         v14 = 0;
         *error = v13;
@@ -230,20 +240,20 @@ uint64_t __42__BMFileManager_globalWeakFileHandleCache__block_invoke()
         v14 = v12;
       }
 
-      _Block_object_dispose(&v28, 8);
+      _Block_object_dispose(&v27, 8);
       goto LABEL_19;
     }
 
     if (error)
     {
       v17 = MEMORY[0x1E696ABC0];
-      v34 = *MEMORY[0x1E696A278];
+      v33 = *MEMORY[0x1E696A278];
       v18 = MEMORY[0x1E696AEC0];
       v19 = __error();
       v20 = strerror(*v19);
       v12 = [v18 stringWithFormat:@"fcntl(F_DUPFD_CLOEXEC): %s: %d", v20, *__error()];
-      v35 = v12;
-      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+      v34 = v12;
+      v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
       *error = [v17 errorWithDomain:@"BiomeStorageError" code:1 userInfo:v21];
 
       v14 = 0;
@@ -257,26 +267,25 @@ LABEL_19:
 LABEL_20:
 
 LABEL_21:
-  v22 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
 
 void __49__BMFileManager_contentsOfDirectoryAtPath_error___block_invoke(uint64_t a1)
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   v2 = fdopendir(*(a1 + 48));
   if (v2)
   {
     v3 = v2;
-    memset(&v28, 0, 512);
-    v25 = 0;
-    v4 = readdir_r(v2, &v28, &v25);
-    for (i = v4 == 0; !v4 && v25; i = v4 == 0)
+    memset(&v27, 0, 512);
+    v24 = 0;
+    v4 = readdir_r(v2, &v27, &v24);
+    for (i = v4 == 0; !v4 && v24; i = v4 == 0)
     {
-      if (v28.d_ino)
+      if (v27.d_ino)
       {
-        v6 = v28.d_namlen == 0;
+        v6 = v27.d_namlen == 0;
       }
 
       else
@@ -284,17 +293,17 @@ void __49__BMFileManager_contentsOfDirectoryAtPath_error___block_invoke(uint64_t
         v6 = 1;
       }
 
-      if (!v6 && (v28.d_namlen != 1 || v28.d_name[0] != 46) && (v28.d_namlen != 2 || v28.d_name[0] != 46 || v28.d_name[1] != 46))
+      if (!v6 && (v27.d_namlen != 1 || v27.d_name[0] != 46) && (v27.d_namlen != 2 || v27.d_name[0] != 46 || v27.d_name[1] != 46))
       {
         v7 = objc_alloc(MEMORY[0x1E696AEC0]);
-        v8 = [v7 initWithBytes:v28.d_name length:v28.d_namlen encoding:_NSDefaultFileSystemEncoding()];
+        v8 = [v7 initWithBytes:v27.d_name length:v27.d_namlen encoding:_NSDefaultFileSystemEncoding()];
         if ([v8 length])
         {
           [*(a1 + 32) addObject:v8];
         }
       }
 
-      v4 = readdir_r(v3, &v28, &v25);
+      v4 = readdir_r(v3, &v27, &v24);
     }
 
     if (!i)
@@ -306,10 +315,10 @@ void __49__BMFileManager_contentsOfDirectoryAtPath_error___block_invoke(uint64_t
       }
 
       v10 = MEMORY[0x1E696ABC0];
-      v26 = *MEMORY[0x1E696A278];
+      v25 = *MEMORY[0x1E696A278];
       v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"readdir_r(): %s: %d", strerror(v4), v4];
-      v27 = v11;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v27 forKeys:&v26 count:1];
+      v26 = v11;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
       v13 = [v10 errorWithDomain:@"BiomeStorageError" code:1 userInfo:v12];
       v14 = *(*(a1 + 40) + 8);
       v15 = *(v14 + 40);
@@ -331,10 +340,10 @@ void __49__BMFileManager_contentsOfDirectoryAtPath_error___block_invoke(uint64_t
   {
     v17 = *__error();
     v18 = MEMORY[0x1E696ABC0];
-    v29 = *MEMORY[0x1E696A278];
+    v28 = *MEMORY[0x1E696A278];
     v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"fdopendir(): %s: %d", strerror(v17), v17];
-    v30[0] = v19;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:&v29 count:1];
+    v29[0] = v19;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
     v21 = [v18 errorWithDomain:@"BiomeStorageError" code:1 userInfo:v20];
     v22 = *(*(a1 + 40) + 8);
     v23 = *(v22 + 40);
@@ -342,13 +351,11 @@ void __49__BMFileManager_contentsOfDirectoryAtPath_error___block_invoke(uint64_t
 
     close(*(a1 + 48));
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 - (id)fileHandleForFileAtPath:(id)path flags:(int)flags protection:(int)protection error:(id *)error
 {
-  v42[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -357,12 +364,12 @@ void __49__BMFileManager_contentsOfDirectoryAtPath_error___block_invoke(uint64_t
 
   if ([pathCopy length])
   {
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x3032000000;
-    v38 = __Block_byref_object_copy__0;
-    v39 = __Block_byref_object_dispose__0;
-    v40 = 0;
+    v34 = 0;
+    v35 = &v34;
+    v36 = 0x3032000000;
+    v37 = __Block_byref_object_copy__0;
+    v38 = __Block_byref_object_dispose__0;
+    v39 = 0;
     v11 = objc_autoreleasePoolPush();
     v12 = BMDataProtectionClassFromOSProtectionClass(protection);
     v13 = [[BMFileAttributes alloc] initWithPath:pathCopy mode:BMFileAccessModeFromOFlags(flags) protectionClass:v12];
@@ -390,16 +397,16 @@ void __49__BMFileManager_contentsOfDirectoryAtPath_error___block_invoke(uint64_t
       if ((v22 & 2) == 0 || (v16 & 2) == 0)
       {
 LABEL_19:
-        v30[0] = MEMORY[0x1E69E9820];
-        v30[1] = 3221225472;
-        v30[2] = __64__BMFileManager_fileHandleForFileAtPath_flags_protection_error___block_invoke;
-        v30[3] = &unk_1E796B2D8;
-        v30[4] = self;
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = __64__BMFileManager_fileHandleForFileAtPath_flags_protection_error___block_invoke;
+        v29[3] = &unk_1E796B2D8;
+        v29[4] = self;
         flagsCopy = flags;
         protectionCopy = protection;
-        v31 = pathCopy;
-        v32 = &v35;
-        v25 = MEMORY[0x1AC5AD7D0](v30);
+        v30 = pathCopy;
+        v31 = &v34;
+        v25 = MEMORY[0x1AC5AD7D0](v29);
         v26 = v25;
         if (v24)
         {
@@ -415,14 +422,14 @@ LABEL_19:
         objc_autoreleasePoolPop(v11);
         if (error)
         {
-          v27 = v36[5];
+          v27 = v35[5];
           if (v27)
           {
             *error = v27;
           }
         }
 
-        _Block_object_dispose(&v35, 8);
+        _Block_object_dispose(&v34, 8);
 
         goto LABEL_26;
       }
@@ -443,17 +450,15 @@ LABEL_19:
   if (error)
   {
     v18 = MEMORY[0x1E696ABC0];
-    v41 = *MEMORY[0x1E696A278];
+    v40 = *MEMORY[0x1E696A278];
     v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid path"];
-    v42[0] = v19;
-    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v42 forKeys:&v41 count:1];
+    v41[0] = v19;
+    v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
     *error = [v18 errorWithDomain:@"BiomeStorageError" code:2 userInfo:v20];
   }
 
   v21 = 0;
 LABEL_26:
-
-  v28 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -474,7 +479,7 @@ id __64__BMFileManager_fileHandleForFileAtPath_flags_protection_error___block_in
 
 - (BOOL)removeFileAtPath:(id)path error:(id *)error
 {
-  v34[1] = *MEMORY[0x1E69E9840];
+  v33[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -483,26 +488,26 @@ id __64__BMFileManager_fileHandleForFileAtPath_flags_protection_error___block_in
 
   if ([pathCopy length])
   {
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x2020000000;
-    v32 = 0;
-    v27[0] = 0;
-    v27[1] = v27;
-    v27[2] = 0x3032000000;
-    v27[3] = __Block_byref_object_copy__0;
-    v27[4] = __Block_byref_object_dispose__0;
     v28 = 0;
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __40__BMFileManager_removeFileAtPath_error___block_invoke;
-    v23[3] = &unk_1E796B300;
-    v25 = &v29;
-    v23[4] = self;
+    v29 = &v28;
+    v30 = 0x2020000000;
+    v31 = 0;
+    v26[0] = 0;
+    v26[1] = v26;
+    v26[2] = 0x3032000000;
+    v26[3] = __Block_byref_object_copy__0;
+    v26[4] = __Block_byref_object_dispose__0;
+    v27 = 0;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __40__BMFileManager_removeFileAtPath_error___block_invoke;
+    v22[3] = &unk_1E796B300;
+    v24 = &v28;
+    v22[4] = self;
     v7 = pathCopy;
-    v24 = v7;
-    v26 = v27;
-    v8 = MEMORY[0x1AC5AD7D0](v23);
+    v23 = v7;
+    v25 = v26;
+    v8 = MEMORY[0x1AC5AD7D0](v22);
     cachingOptions = self->_cachingOptions;
     if (cachingOptions)
     {
@@ -522,23 +527,23 @@ id __64__BMFileManager_fileHandleForFileAtPath_flags_protection_error___block_in
     v16 = v10;
     if (v10)
     {
-      v21[0] = MEMORY[0x1E69E9820];
-      v21[1] = 3221225472;
-      v21[2] = __40__BMFileManager_removeFileAtPath_error___block_invoke_2;
-      v21[3] = &unk_1E796B328;
-      v22 = v7;
-      v19[0] = MEMORY[0x1E69E9820];
-      v19[1] = 3221225472;
-      v19[2] = __40__BMFileManager_removeFileAtPath_error___block_invoke_3;
-      v19[3] = &unk_1E796B350;
-      v20 = v8;
-      [(BMCache *)v16 pruneCacheWithBlock:v21 completion:v19];
+      v20[0] = MEMORY[0x1E69E9820];
+      v20[1] = 3221225472;
+      v20[2] = __40__BMFileManager_removeFileAtPath_error___block_invoke_2;
+      v20[3] = &unk_1E796B328;
+      v21 = v7;
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __40__BMFileManager_removeFileAtPath_error___block_invoke_3;
+      v18[3] = &unk_1E796B350;
+      v19 = v8;
+      [(BMCache *)v16 pruneCacheWithBlock:v20 completion:v18];
 
 LABEL_16:
-      v15 = *(v30 + 24);
+      v15 = *(v29 + 24);
 
-      _Block_object_dispose(v27, 8);
-      _Block_object_dispose(&v29, 8);
+      _Block_object_dispose(v26, 8);
+      _Block_object_dispose(&v28, 8);
       goto LABEL_17;
     }
 
@@ -557,17 +562,16 @@ LABEL_15:
   if (error)
   {
     v12 = MEMORY[0x1E696ABC0];
-    v33 = *MEMORY[0x1E696A278];
+    v32 = *MEMORY[0x1E696A278];
     v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid path"];
-    v34[0] = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+    v33[0] = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     *error = [v12 errorWithDomain:@"BiomeStorageError" code:2 userInfo:v14];
   }
 
   v15 = 0;
 LABEL_17:
 
-  v17 = *MEMORY[0x1E69E9840];
   return v15 & 1;
 }
 
@@ -592,7 +596,7 @@ uint64_t __40__BMFileManager_removeFileAtPath_error___block_invoke_2(uint64_t a1
 
 - (BOOL)removeDirectoryAtPath:(id)path error:(id *)error
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v39[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -601,26 +605,26 @@ uint64_t __40__BMFileManager_removeFileAtPath_error___block_invoke_2(uint64_t a1
 
   if ([pathCopy length])
   {
-    v35 = 0;
-    v36 = &v35;
-    v37 = 0x2020000000;
-    v38 = 0;
-    v29 = 0;
-    v30 = &v29;
-    v31 = 0x3032000000;
-    v32 = __Block_byref_object_copy__0;
-    v33 = __Block_byref_object_dispose__0;
     v34 = 0;
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __45__BMFileManager_removeDirectoryAtPath_error___block_invoke;
-    v25[3] = &unk_1E796B300;
-    v27 = &v35;
-    v25[4] = self;
+    v35 = &v34;
+    v36 = 0x2020000000;
+    v37 = 0;
+    v28 = 0;
+    v29 = &v28;
+    v30 = 0x3032000000;
+    v31 = __Block_byref_object_copy__0;
+    v32 = __Block_byref_object_dispose__0;
+    v33 = 0;
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __45__BMFileManager_removeDirectoryAtPath_error___block_invoke;
+    v24[3] = &unk_1E796B300;
+    v26 = &v34;
+    v24[4] = self;
     v7 = pathCopy;
-    v26 = v7;
-    v28 = &v29;
-    v8 = MEMORY[0x1AC5AD7D0](v25);
+    v25 = v7;
+    v27 = &v28;
+    v8 = MEMORY[0x1AC5AD7D0](v24);
     cachingOptions = self->_cachingOptions;
     if (cachingOptions)
     {
@@ -646,17 +650,17 @@ LABEL_14:
         v17 = v16;
         if (v10)
         {
-          v23[0] = MEMORY[0x1E69E9820];
-          v23[1] = 3221225472;
-          v23[2] = __45__BMFileManager_removeDirectoryAtPath_error___block_invoke_2;
-          v23[3] = &unk_1E796B328;
-          v24 = v16;
-          v21[0] = MEMORY[0x1E69E9820];
-          v21[1] = 3221225472;
-          v21[2] = __45__BMFileManager_removeDirectoryAtPath_error___block_invoke_3;
-          v21[3] = &unk_1E796B350;
-          v22 = v8;
-          [(BMCache *)v10 pruneCacheWithBlock:v23 completion:v21];
+          v22[0] = MEMORY[0x1E69E9820];
+          v22[1] = 3221225472;
+          v22[2] = __45__BMFileManager_removeDirectoryAtPath_error___block_invoke_2;
+          v22[3] = &unk_1E796B328;
+          v23 = v16;
+          v20[0] = MEMORY[0x1E69E9820];
+          v20[1] = 3221225472;
+          v20[2] = __45__BMFileManager_removeDirectoryAtPath_error___block_invoke_3;
+          v20[3] = &unk_1E796B350;
+          v21 = v8;
+          [(BMCache *)v10 pruneCacheWithBlock:v22 completion:v20];
         }
 
         else
@@ -664,17 +668,17 @@ LABEL_14:
           v8[2](v8);
         }
 
-        v18 = v36;
-        if (error && (v36[3] & 1) == 0)
+        v18 = v35;
+        if (error && (v35[3] & 1) == 0)
         {
-          *error = v30[5];
-          v18 = v36;
+          *error = v29[5];
+          v18 = v35;
         }
 
         LOBYTE(error) = *(v18 + 24);
 
-        _Block_object_dispose(&v29, 8);
-        _Block_object_dispose(&v35, 8);
+        _Block_object_dispose(&v28, 8);
+        _Block_object_dispose(&v34, 8);
         goto LABEL_24;
       }
 
@@ -694,10 +698,10 @@ LABEL_14:
   if (error)
   {
     v12 = MEMORY[0x1E696ABC0];
-    v39 = *MEMORY[0x1E696A278];
+    v38 = *MEMORY[0x1E696A278];
     v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid path"];
-    v40[0] = v13;
-    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
+    v39[0] = v13;
+    v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v39 forKeys:&v38 count:1];
     *error = [v12 errorWithDomain:@"BiomeStorageError" code:2 userInfo:v14];
 
     LOBYTE(error) = 0;
@@ -705,7 +709,6 @@ LABEL_14:
 
 LABEL_24:
 
-  v19 = *MEMORY[0x1E69E9840];
   return error & 1;
 }
 
@@ -730,7 +733,7 @@ uint64_t __45__BMFileManager_removeDirectoryAtPath_error___block_invoke_2(uint64
 
 - (BOOL)createDirectoryAtPath:(id)path error:(id *)error
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -754,23 +757,22 @@ uint64_t __45__BMFileManager_removeDirectoryAtPath_error___block_invoke_2(uint64
     if (error)
     {
       v9 = MEMORY[0x1E696ABC0];
-      v14 = *MEMORY[0x1E696A278];
+      v13 = *MEMORY[0x1E696A278];
       v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid path"];
-      v15[0] = v10;
-      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+      v14[0] = v10;
+      v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
       *error = [v9 errorWithDomain:@"BiomeStorageError" code:2 userInfo:v11];
 
       LOBYTE(error) = 0;
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return error;
 }
 
 - (unint64_t)sizeOfFileAtPath:(id)path error:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -779,9 +781,9 @@ uint64_t __45__BMFileManager_removeDirectoryAtPath_error___block_invoke_2(uint64
 
   if ([pathCopy length])
   {
-    v23 = 0;
-    v7 = [(BMFileManager *)self fileHandleForFileAtPath:pathCopy flags:0x8000 protection:0xFFFFFFFFLL error:&v23];
-    v8 = v23;
+    v22 = 0;
+    v7 = [(BMFileManager *)self fileHandleForFileAtPath:pathCopy flags:0x8000 protection:0xFFFFFFFFLL error:&v22];
+    v8 = v22;
     v9 = v8;
     if (!v7 || v8)
     {
@@ -796,10 +798,10 @@ uint64_t __45__BMFileManager_removeDirectoryAtPath_error___block_invoke_2(uint64
 
     else
     {
-      memset(&v22, 0, sizeof(v22));
-      if (fstat([v7 fd], &v22) != -1)
+      memset(&v21, 0, sizeof(v21));
+      if (fstat([v7 fd], &v21) != -1)
       {
-        st_size = v22.st_size;
+        st_size = v21.st_size;
 LABEL_18:
 
         goto LABEL_19;
@@ -808,13 +810,13 @@ LABEL_18:
       if (error)
       {
         v14 = MEMORY[0x1E696ABC0];
-        v24 = *MEMORY[0x1E696A278];
+        v23 = *MEMORY[0x1E696A278];
         v15 = MEMORY[0x1E696AEC0];
         v16 = __error();
         v17 = strerror(*v16);
         v18 = [v15 stringWithFormat:@"fstat(): %s: %d", v17, *__error()];
-        v25 = v18;
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+        v24 = v18;
+        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
         *error = [v14 errorWithDomain:@"BiomeStorageError" code:1 userInfo:v19];
       }
     }
@@ -832,10 +834,10 @@ LABEL_18:
   if (error)
   {
     v12 = MEMORY[0x1E696ABC0];
-    v26 = *MEMORY[0x1E696A278];
+    v25 = *MEMORY[0x1E696A278];
     v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid path"];
-    v27[0] = v9;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v26[0] = v9;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
     [v12 errorWithDomain:@"BiomeStorageError" code:2 userInfo:v7];
     *error = st_size = 0;
     goto LABEL_18;
@@ -844,7 +846,6 @@ LABEL_18:
   st_size = 0;
 LABEL_19:
 
-  v20 = *MEMORY[0x1E69E9840];
   return st_size;
 }
 
@@ -911,7 +912,7 @@ LABEL_19:
 
 void __45__BMFileManager_acquireLockfile_andRunBlock___block_invoke(uint64_t a1)
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) fd];
   v3 = +[BMProcess current];
   v4 = [v3 runningBoardAssertionWithExplanation:@"BiomeFileLock"];
@@ -923,7 +924,7 @@ void __45__BMFileManager_acquireLockfile_andRunBlock___block_invoke(uint64_t a1)
     {
       v6 = *(a1 + 40);
       v7 = __error();
-      __45__BMFileManager_acquireLockfile_andRunBlock___block_invoke_cold_1(v6, v7, v12);
+      __45__BMFileManager_acquireLockfile_andRunBlock___block_invoke_cold_1(v6, v7, v11);
     }
 
     *(*(*(a1 + 56) + 8) + 24) = 0;
@@ -940,19 +941,17 @@ void __45__BMFileManager_acquireLockfile_andRunBlock___block_invoke(uint64_t a1)
       {
         v9 = *(a1 + 40);
         v10 = __error();
-        __45__BMFileManager_acquireLockfile_andRunBlock___block_invoke_cold_2(v9, v10, v12);
+        __45__BMFileManager_acquireLockfile_andRunBlock___block_invoke_cold_2(v9, v10, v11);
       }
     }
   }
 
   [v4 invalidate];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)dataWithContentsOfFileAtPath:(id)path error:(id *)error
 {
-  v16[1] = *MEMORY[0x1E69E9840];
+  v15[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -985,24 +984,22 @@ void __45__BMFileManager_acquireLockfile_andRunBlock___block_invoke(uint64_t a1)
     if (error)
     {
       v10 = MEMORY[0x1E696ABC0];
-      v15 = *MEMORY[0x1E696A278];
+      v14 = *MEMORY[0x1E696A278];
       v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid path"];
-      v16[0] = v11;
-      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+      v15[0] = v11;
+      v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
       *error = [v10 errorWithDomain:@"BiomeStorageError" code:2 userInfo:v12];
 
       error = 0;
     }
   }
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return error;
 }
 
 - (unint64_t)modificationTimeOfFileAtPath:(id)path error:(id *)error
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -1011,9 +1008,9 @@ void __45__BMFileManager_acquireLockfile_andRunBlock___block_invoke(uint64_t a1)
 
   if ([pathCopy length])
   {
-    v23 = 0;
-    v7 = [(BMFileManager *)self fileHandleForFileAtPath:pathCopy flags:0x8000 protection:0xFFFFFFFFLL error:&v23];
-    v8 = v23;
+    v22 = 0;
+    v7 = [(BMFileManager *)self fileHandleForFileAtPath:pathCopy flags:0x8000 protection:0xFFFFFFFFLL error:&v22];
+    v8 = v22;
     v9 = v8;
     if (!v7 || v8)
     {
@@ -1028,10 +1025,10 @@ void __45__BMFileManager_acquireLockfile_andRunBlock___block_invoke(uint64_t a1)
 
     else
     {
-      memset(&v22, 0, sizeof(v22));
-      if (fstat([v7 fd], &v22) != -1)
+      memset(&v21, 0, sizeof(v21));
+      if (fstat([v7 fd], &v21) != -1)
       {
-        tv_sec = v22.st_mtimespec.tv_sec;
+        tv_sec = v21.st_mtimespec.tv_sec;
 LABEL_18:
 
         goto LABEL_19;
@@ -1040,13 +1037,13 @@ LABEL_18:
       if (error)
       {
         v14 = MEMORY[0x1E696ABC0];
-        v24 = *MEMORY[0x1E696A278];
+        v23 = *MEMORY[0x1E696A278];
         v15 = MEMORY[0x1E696AEC0];
         v16 = __error();
         v17 = strerror(*v16);
         v18 = [v15 stringWithFormat:@"fstat(): %s: %d", v17, *__error()];
-        v25 = v18;
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+        v24 = v18;
+        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
         *error = [v14 errorWithDomain:@"BiomeStorageError" code:1 userInfo:v19];
       }
     }
@@ -1064,10 +1061,10 @@ LABEL_18:
   if (error)
   {
     v12 = MEMORY[0x1E696ABC0];
-    v26 = *MEMORY[0x1E696A278];
+    v25 = *MEMORY[0x1E696A278];
     v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid path"];
-    v27[0] = v9;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v26[0] = v9;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
     [v12 errorWithDomain:@"BiomeStorageError" code:2 userInfo:v7];
     *error = tv_sec = 0;
     goto LABEL_18;
@@ -1076,13 +1073,12 @@ LABEL_18:
   tv_sec = 0;
 LABEL_19:
 
-  v20 = *MEMORY[0x1E69E9840];
   return tv_sec;
 }
 
 - (BOOL)changePermissionsOfFileAtPath:(id)path mode:(unsigned __int16)mode error:(id *)error
 {
-  v28[1] = *MEMORY[0x1E69E9840];
+  v27[1] = *MEMORY[0x1E69E9840];
   pathCopy = path;
   if (!pathCopy)
   {
@@ -1091,9 +1087,9 @@ LABEL_19:
 
   if ([pathCopy length])
   {
-    v24 = 0;
-    v9 = [(BMFileManager *)self fileHandleForFileAtPath:pathCopy flags:0 protection:0xFFFFFFFFLL error:&v24];
-    v10 = v24;
+    v23 = 0;
+    v9 = [(BMFileManager *)self fileHandleForFileAtPath:pathCopy flags:0 protection:0xFFFFFFFFLL error:&v23];
+    v10 = v23;
     v11 = v10;
     if (!v9 || v10)
     {
@@ -1119,13 +1115,13 @@ LABEL_18:
       if (error)
       {
         v16 = MEMORY[0x1E696ABC0];
-        v25 = *MEMORY[0x1E696A278];
+        v24 = *MEMORY[0x1E696A278];
         v17 = MEMORY[0x1E696AEC0];
         v18 = __error();
         v19 = strerror(*v18);
         v20 = [v17 stringWithFormat:@"fchmod(): %s: %d", v19, *__error()];
-        v26 = v20;
-        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+        v25 = v20;
+        v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
         *error = [v16 errorWithDomain:@"BiomeStorageError" code:1 userInfo:v21];
       }
     }
@@ -1143,10 +1139,10 @@ LABEL_18:
   if (error)
   {
     v14 = MEMORY[0x1E696ABC0];
-    v27 = *MEMORY[0x1E696A278];
+    v26 = *MEMORY[0x1E696A278];
     v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid path"];
-    v28[0] = v11;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+    v27[0] = v11;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
     [v14 errorWithDomain:@"BiomeStorageError" code:2 userInfo:v9];
     *error = v12 = 0;
     goto LABEL_18;
@@ -1155,7 +1151,6 @@ LABEL_18:
   v12 = 0;
 LABEL_19:
 
-  v22 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -1225,21 +1220,19 @@ LABEL_19:
 
 void __49__BMFileManager_contentsOfDirectoryAtPath_error___block_invoke_cold_1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_fault_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_FAULT, "contentsOfDirectoryAtPath:error: %{darwin.errno}d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_fault_impl(&dword_1AC15D000, a2, OS_LOG_TYPE_FAULT, "contentsOfDirectoryAtPath:error: %{darwin.errno}d", v2, 8u);
 }
 
 void __49__BMFileManager_contentsOfDirectoryAtPath_error___block_invoke_cold_2(NSObject *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v2 = *__error();
-  v4[0] = 67109120;
-  v4[1] = v2;
-  _os_log_fault_impl(&dword_1AC15D000, a1, OS_LOG_TYPE_FAULT, "closedir(): %{darwin.errno}d", v4, 8u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3[0] = 67109120;
+  v3[1] = v2;
+  _os_log_fault_impl(&dword_1AC15D000, a1, OS_LOG_TYPE_FAULT, "closedir(): %{darwin.errno}d", v3, 8u);
 }
 
 - (void)fileHandleForFileAtPath:flags:protection:error:.cold.1()
@@ -1292,27 +1285,12 @@ void __49__BMFileManager_contentsOfDirectoryAtPath_error___block_invoke_cold_2(N
 
 - (void)acquireLockfile:(os_log_t)log andRunBlock:.cold.2(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_fault_impl(&dword_1AC15D000, log, OS_LOG_TYPE_FAULT, "Failed to open lockfile %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-void __45__BMFileManager_acquireLockfile_andRunBlock___block_invoke_cold_1(uint64_t a1, unsigned int *a2, uint64_t a3)
-{
-  v3 = *a2;
-  OUTLINED_FUNCTION_5(a1, 5.778e-34, a2, a3);
-  _os_log_fault_impl(&dword_1AC15D000, v5, OS_LOG_TYPE_FAULT, "Failed to acquire lockfile %@: %{darwin.errno}d", v4, 0x12u);
-}
-
-void __45__BMFileManager_acquireLockfile_andRunBlock___block_invoke_cold_2(uint64_t a1, unsigned int *a2, uint64_t a3)
-{
-  v3 = *a2;
-  OUTLINED_FUNCTION_5(a1, 5.778e-34, a2, a3);
-  _os_log_fault_impl(&dword_1AC15D000, v5, OS_LOG_TYPE_FAULT, "Failed to unlock lockfile %@: %{darwin.errno}d", v4, 0x12u);
+  v7 = *MEMORY[0x1E69E9840];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_fault_impl(&dword_1AC15D000, log, OS_LOG_TYPE_FAULT, "Failed to open lockfile %@: %@", &v3, 0x16u);
 }
 
 - (void)dataWithContentsOfFileAtPath:error:.cold.1()

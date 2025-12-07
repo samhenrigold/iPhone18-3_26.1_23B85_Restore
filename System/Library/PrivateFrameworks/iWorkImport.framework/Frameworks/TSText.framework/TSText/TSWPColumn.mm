@@ -274,9 +274,9 @@ LABEL_12:
         v33 = objc_msgSend_count(v30, v31, v32);
         if (v33 != objc_msgSend_count(v29, v34, v35))
         {
-          TSUSetCrashReporterInfo();
+          TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Expected equal count", "+[TSWPColumn pencilAnnotationRectsForSelection:withColumns:outRanges:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPColumn.mm", 160);
           v84 = MEMORY[0x277D81150];
-          v86 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v85, "+[TSWPColumn pencilAnnotationRectsForSelection:withColumns:outRanges:]", "+[TSWPColumn pencilAnnotationRectsForSelection:withColumns:outRanges:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPColumn.mm", 160);
+          v86 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v85, "+[TSWPColumn pencilAnnotationRectsForSelection:withColumns:outRanges:]");
           v88 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v87, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/text/TSWPColumn.mm");
           objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v84, v89, v86, v88, 160, 1, "Expected equal count");
 
@@ -3168,7 +3168,7 @@ LABEL_21:
         v45 = objc_msgSend_labelFont(v39, v43, v44, v41);
         if (v45)
         {
-          sub_276D38FF4(v45, v37, v38, &v55);
+          sub_276D38FF4(v45, &v55, v37, v38);
           v46 = v58;
           *&retstr->var6.descent = v57;
           *&retstr->var6.leadingBelow = v46;
@@ -3760,7 +3760,7 @@ LABEL_100:
     v161 = 0u;
     v150 = v81;
     v151 = v78;
-    sub_276D38FF4(FontForStyle, v79, v80, &v160);
+    sub_276D38FF4(FontForStyle, &v160, v79, v80);
     v90 = TSWPResolvePropertyForStyles(v78, v81, 34);
     v93 = v90;
     if (v90)
@@ -4058,24 +4058,24 @@ LABEL_101:
 - (id)p_glyphRectsForRange:(_NSRange)range includingLabel:(BOOL)label
 {
   labelCopy = label;
-  v148[2] = *MEMORY[0x277D85DE8];
-  v127 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, range.location);
+  v149[2] = *MEMORY[0x277D85DE8];
+  v128 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, range.location);
   objc_msgSend_range(self, v5, v6);
   v7 = TSUIntersectionRangeWithEdge();
   if (v7 != 0x7FFFFFFFFFFFFFFFLL)
   {
     ptr = self->_lineFragmentArray.__ptr_;
     v10 = *ptr;
-    v129 = *(ptr + 1);
-    if (*ptr != v129)
+    v130 = *(ptr + 1);
+    if (*ptr != v130)
     {
-      v126 = v7 + v8;
+      v127 = v7 + v8;
       while (1)
       {
-        v134.origin.x = *MEMORY[0x277CBF398];
-        v134.origin.y = *(MEMORY[0x277CBF398] + 8);
-        v134.size.width = *(MEMORY[0x277CBF398] + 16);
-        v134.size.height = *(MEMORY[0x277CBF398] + 24);
+        v135.origin.x = *MEMORY[0x277CBF398];
+        v135.origin.y = *(MEMORY[0x277CBF398] + 8);
+        v135.size.width = *(MEMORY[0x277CBF398] + 16);
+        v135.size.height = *(MEMORY[0x277CBF398] + 24);
         v11 = *v10;
         if (*(*v10 + 24) < 0)
         {
@@ -4086,7 +4086,7 @@ LABEL_101:
         v12 = v11[1];
         v14 = TSUIntersectionRangeWithEdge();
         range1 = length;
-        if (v14 == 0x7FFFFFFFFFFFFFFFLL && (v12 || v13 != v126))
+        if (v14 == 0x7FFFFFFFFFFFFFFFLL && (v12 || v13 != v127))
         {
           goto LABEL_64;
         }
@@ -4097,7 +4097,7 @@ LABEL_101:
           v17 = range.location + range.length;
         }
 
-        v132 = v17;
+        v133 = v17;
         if (v14 < v17)
         {
           break;
@@ -4129,99 +4129,100 @@ LABEL_51:
               v91 = v90;
               v93 = v92;
               v94 = sub_276D6492C(*v10);
-              v99 = objc_msgSend_textLine(v94, v95, v96);
-              if (v99)
+              v97 = objc_msgSend_textLine(v94, v95, v96);
+              v100 = v97;
+              if (v97)
               {
-                v100 = sub_276D67A10();
-                ImageBounds = CTLineGetImageBounds(v99, v100);
+                v101 = sub_276D67A10(v97, v98);
+                ImageBounds = CTLineGetImageBounds(v100, v101);
                 x = ImageBounds.origin.x;
                 y = ImageBounds.origin.y;
                 width = ImageBounds.size.width;
                 height = ImageBounds.size.height;
-                v105 = sub_276D69638(*v10);
-                v107 = v106;
-                if (objc_msgSend_isLabelTateChuYoko(v94, v108, v109))
+                v106 = sub_276D69638(*v10);
+                v108 = v107;
+                if (objc_msgSend_isLabelTateChuYoko(v94, v109, v110))
                 {
-                  CGAffineTransformMakeRotation(&v137, 1.57079633);
-                  v164.origin.x = x;
-                  v164.origin.y = y;
-                  v164.size.width = width;
-                  v164.size.height = height;
-                  v165 = CGRectApplyAffineTransform(v164, &v137);
-                  x = v165.origin.x;
-                  y = v165.origin.y;
-                  width = v165.size.width;
-                  height = v165.size.height;
+                  CGAffineTransformMakeRotation(&v138, 1.57079633);
+                  v165.origin.x = x;
+                  v165.origin.y = y;
+                  v165.size.width = width;
+                  v165.size.height = height;
+                  v166 = CGRectApplyAffineTransform(v165, &v138);
+                  x = v166.origin.x;
+                  y = v166.origin.y;
+                  width = v166.size.width;
+                  height = v166.size.height;
                 }
 
-                v166.origin.x = v105 + x;
-                v166.origin.y = v107 - y - height;
-                v166.size.width = width;
-                v166.size.height = height;
-                v167 = CGRectIntegral(v166);
-                v87 = v167.origin.x;
-                v89 = v167.origin.y;
-                v91 = v167.size.width;
-                v93 = v167.size.height;
+                v167.origin.x = v106 + x;
+                v167.origin.y = v108 - y - height;
+                v167.size.width = width;
+                v167.size.height = height;
+                v168 = CGRectIntegral(v167);
+                v87 = v168.origin.x;
+                v89 = v168.origin.y;
+                v91 = v168.size.width;
+                v93 = v168.size.height;
               }
 
-              v110 = objc_msgSend_shadow(v94, v97, v98);
-              if (objc_msgSend_isEnabled(v110, v111, v112))
+              v111 = objc_msgSend_shadow(v94, v98, v99);
+              if (objc_msgSend_isEnabled(v111, v112, v113))
               {
-                objc_msgSend_shadowBoundsForRect_(v110, v113, v114, v87, v89, v91, v93);
-                v87 = v115;
-                v89 = v116;
-                v91 = v117;
-                v93 = v118;
+                objc_msgSend_shadowBoundsForRect_(v111, v114, v115, v87, v89, v91, v93);
+                v87 = v116;
+                v89 = v117;
+                v91 = v118;
+                v93 = v119;
               }
 
-              v171.origin.x = v87;
-              v171.origin.y = v89;
-              v171.size.width = v91;
-              v171.size.height = v93;
-              v134 = CGRectUnion(v134, v171);
+              v172.origin.x = v87;
+              v172.origin.y = v89;
+              v172.size.width = v91;
+              v172.size.height = v93;
+              v135 = CGRectUnion(v135, v172);
             }
           }
         }
 
 LABEL_64:
-        if (!CGRectIsNull(v134))
+        if (!CGRectIsNull(v135))
         {
-          objc_msgSend_transformFromWP(self, v119, v120);
-          v168 = CGRectApplyAffineTransform(v134, &v137);
-          v123 = objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v121, v122, v168.origin.x, v168.origin.y, v168.size.width, v168.size.height);
-          objc_msgSend_addObject_(v127, v124, v123);
+          objc_msgSend_transformFromWP(self, v120, v121);
+          v169 = CGRectApplyAffineTransform(v135, &v138);
+          v124 = objc_msgSend_valueWithCGRect_(MEMORY[0x277CCAE60], v122, v123, v169.origin.x, v169.origin.y, v169.size.width, v169.size.height);
+          objc_msgSend_addObject_(v128, v125, v124);
         }
 
         v10 += 2;
-        if (v10 == v129)
+        if (v10 == v130)
         {
           goto LABEL_67;
         }
       }
 
-      v130 = v14;
+      v131 = v14;
       v18 = v14;
       while (1)
       {
-        v147 = 0x101000000;
-        v148[0] = 0;
-        *(v148 + 7) = 0;
-        v146 = 0;
-        v144 = 0u;
+        v148 = 0x101000000;
+        v149[0] = 0;
+        *(v149 + 7) = 0;
+        v147 = 0;
         v145 = 0u;
-        v142 = 0u;
+        v146 = 0u;
         v143 = 0u;
+        v144 = 0u;
+        v142 = 0u;
+        v140 = 0u;
         v141 = 0u;
         v139 = 0u;
-        v140 = 0u;
-        v138 = 0u;
-        memset(&v137, 0, sizeof(v137));
-        objc_msgSend_attributesAtCharIndex_attributesOfInterest_attributesTable_effectiveRange_(self->_storage, length, v18, &v147, &v137, &v136);
-        v150.location = v130;
-        v150.length = range1;
-        v151 = NSIntersectionRange(v150, v136);
-        v19 = NSIntersectionRange(v151, range);
+        memset(&v138, 0, sizeof(v138));
+        objc_msgSend_attributesAtCharIndex_attributesOfInterest_attributesTable_effectiveRange_(self->_storage, length, v18, &v148, &v138, &v137);
+        v151.location = v131;
+        v151.length = range1;
+        v152 = NSIntersectionRange(v151, v137);
+        v19 = NSIntersectionRange(v152, range);
         length = v19.length;
         if (v19.length)
         {
@@ -4229,17 +4230,17 @@ LABEL_64:
         }
 
 LABEL_47:
-        if (v18 + 1 > v136.length + v136.location)
+        if (v18 + 1 > v137.length + v137.location)
         {
           ++v18;
         }
 
         else
         {
-          v18 = v136.length + v136.location;
+          v18 = v137.length + v137.location;
         }
 
-        if (v18 >= v132)
+        if (v18 >= v133)
         {
           goto LABEL_51;
         }
@@ -4249,44 +4250,44 @@ LABEL_47:
       v22 = v21;
       v24 = v23;
       v26 = v25;
-      v152.origin.x = sub_276D6906C(*v10, v19.location, v19.length);
-      v27 = v152.origin.x;
-      v28 = v152.origin.y;
-      v29 = v152.size.width;
-      v30 = v152.size.height;
-      if (!CGRectIsEmpty(v152))
+      v153.origin.x = sub_276D6906C(*v10, v19.location, v19.length);
+      v27 = v153.origin.x;
+      v28 = v153.origin.y;
+      v29 = v153.size.width;
+      v30 = v153.size.height;
+      if (!CGRectIsEmpty(v153))
       {
-        v153.origin.x = v20;
-        v153.origin.y = v22;
-        v153.size.width = v24;
-        v153.size.height = v26;
-        v169.origin.x = v27;
-        v169.origin.y = v28;
-        v169.size.width = v29;
-        v169.size.height = v30;
-        v154 = CGRectUnion(v153, v169);
-        v20 = v154.origin.x;
-        v22 = v154.origin.y;
-        v24 = v154.size.width;
-        v26 = v154.size.height;
+        v154.origin.x = v20;
+        v154.origin.y = v22;
+        v154.size.width = v24;
+        v154.size.height = v26;
+        v170.origin.x = v27;
+        v170.origin.y = v28;
+        v170.size.width = v29;
+        v170.size.height = v30;
+        v155 = CGRectUnion(v154, v170);
+        v20 = v155.origin.x;
+        v22 = v155.origin.y;
+        v24 = v155.size.width;
+        v26 = v155.size.height;
       }
 
-      v155.origin.x = v20;
-      v155.origin.y = v22;
-      v155.size.width = v24;
-      v155.size.height = v26;
-      if (!CGRectIsEmpty(v155))
+      v156.origin.x = v20;
+      v156.origin.y = v22;
+      v156.size.width = v24;
+      v156.size.height = v26;
+      if (!CGRectIsEmpty(v156))
       {
-        v156.origin.x = v20;
-        v156.origin.y = v22;
-        v156.size.width = v24;
-        v156.size.height = v26;
-        v157 = CGRectIntegral(v156);
-        v20 = v157.origin.x;
-        v22 = v157.origin.y;
-        v24 = v157.size.width;
-        v26 = v157.size.height;
-        MaxX = CGRectGetMaxX(v157);
+        v157.origin.x = v20;
+        v157.origin.y = v22;
+        v157.size.width = v24;
+        v157.size.height = v26;
+        v158 = CGRectIntegral(v157);
+        v20 = v158.origin.x;
+        v22 = v158.origin.y;
+        v24 = v158.size.width;
+        v26 = v158.size.height;
+        MaxX = CGRectGetMaxX(v158);
         if (MaxX == rint(CGRectGetMaxX(self->_frameBounds)) + -1.0)
         {
           v24 = v24 + 1.0;
@@ -4316,19 +4317,19 @@ LABEL_47:
           operator delete(__p[0]);
         }
 
-        v158.origin.x = v20;
-        v158.origin.y = v22;
-        v158.size.width = v24;
-        v158.size.height = v26;
-        v170.origin.x = v41;
-        v170.origin.y = v43;
-        v170.size.width = v45;
-        v170.size.height = v47;
-        v159 = CGRectUnion(v158, v170);
-        v20 = v159.origin.x;
-        v22 = v159.origin.y;
-        v24 = v159.size.width;
-        v26 = v159.size.height;
+        v159.origin.x = v20;
+        v159.origin.y = v22;
+        v159.size.width = v24;
+        v159.size.height = v26;
+        v171.origin.x = v41;
+        v171.origin.y = v43;
+        v171.size.width = v45;
+        v171.size.height = v47;
+        v160 = CGRectUnion(v159, v171);
+        v20 = v160.origin.x;
+        v22 = v160.origin.y;
+        v24 = v160.size.width;
+        v26 = v160.size.height;
       }
 
       if (v19.length == 1)
@@ -4385,25 +4386,25 @@ LABEL_47:
       {
         objc_msgSend_renderedWidth(v79, v80, v81);
         v83 = v82 * -0.5;
-        v160.origin.x = v20;
-        v160.origin.y = v22;
-        v160.size.width = v24;
-        v160.size.height = v26;
-        v161 = CGRectInset(v160, v83, v83);
-        v20 = v161.origin.x;
-        v22 = v161.origin.y;
-        v24 = v161.size.width;
-        v26 = v161.size.height;
+        v161.origin.x = v20;
+        v161.origin.y = v22;
+        v161.size.width = v24;
+        v161.size.height = v26;
+        v162 = CGRectInset(v161, v83, v83);
+        v20 = v162.origin.x;
+        v22 = v162.origin.y;
+        v24 = v162.size.width;
+        v26 = v162.size.height;
       }
 
 LABEL_45:
 
 LABEL_46:
-      v162.origin.x = v20;
-      v162.origin.y = v22;
-      v162.size.width = v24;
-      v162.size.height = v26;
-      v134 = CGRectUnion(v162, v134);
+      v163.origin.x = v20;
+      v163.origin.y = v22;
+      v163.size.width = v24;
+      v163.size.height = v26;
+      v135 = CGRectUnion(v163, v135);
 
       goto LABEL_47;
     }
@@ -4411,7 +4412,7 @@ LABEL_46:
 
 LABEL_67:
 
-  return v127;
+  return v128;
 }
 
 - (unsigned)fontTraitsForRange:(_NSRange)range includingLabel:(BOOL)label
@@ -4984,7 +4985,7 @@ LABEL_30:
       do
       {
         v17 = *v14;
-        if (((*v14)[1].length & 0x8000000000000000) != 0)
+        if (((*v14)[3] & 0x8000000000000000) != 0)
         {
           v17 = v16;
         }

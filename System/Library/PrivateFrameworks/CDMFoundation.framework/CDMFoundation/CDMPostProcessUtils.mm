@@ -15,6 +15,7 @@
 + (id)getPostProcessUserParses:(id)parses parsesNLv4:(id)lv4 parsesCATI:(id)i addDebugInfo:(id)info;
 + (id)getPostProcessUserParses:(id)parses parsesNLv4:(id)lv4 parsesCATI:(id)i parsesUaaP:(id)p addDebugInfo:(id)info;
 + (id)getPostProcessUserParses:(id)parses parsesNLv4:(id)lv4 parsesCATI:(id)i parsesUaaP:(id)p parsesPSC:(id)c parsesAutoShortcuts:(id)shortcuts parsesAppendOverrides:(id)overrides parsesSSU:(id)self0 addDebugInfo:(id)self1;
++ (id)getSignificantTokenCountFrom:(unsigned int)from to:(unsigned int)to within:(id)within;
 + (id)getUtteranceAlignmentForIndex:(id)index nodeIndex:(int)nodeIndex;
 + (id)normalizedPayloadsFrom:(int64_t)from to:(int64_t)to within:(id)within;
 + (id)rewriteMessageFromMatchingSpans:(id)spans mrRewrittenUtterance:(id)utterance;
@@ -60,28 +61,28 @@
 
 + (void)mapVocGenericBundleIdsToPlatformBundleIdsForGraph:(id)graph
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   graphCopy = graph;
   identifiers = [graphCopy identifiers];
-  v4 = [identifiers countByEnumeratingWithState:&v37 objects:v48 count:16];
+  v4 = [identifiers countByEnumeratingWithState:&v36 objects:v47 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v38;
+    v6 = *v37;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v38 != v6)
+        if (*v37 != v6)
         {
           objc_enumerationMutation(identifiers);
         }
 
-        v8 = *(*(&v37 + 1) + 8 * i);
+        v8 = *(*(&v36 + 1) + 8 * i);
         if ([v8 sourceComponent] == 2)
         {
           namespaceA = [v8 namespaceA];
@@ -105,11 +106,11 @@
               {
                 value3 = [v8 value];
                 *buf = 136315650;
-                v43 = "+[CDMPostProcessUtils mapVocGenericBundleIdsToPlatformBundleIdsForGraph:]";
-                v44 = 2112;
-                v45 = value3;
-                v46 = 2112;
-                v47 = namespaceA;
+                v42 = "+[CDMPostProcessUtils mapVocGenericBundleIdsToPlatformBundleIdsForGraph:]";
+                v43 = 2112;
+                v44 = value3;
+                v45 = 2112;
+                v46 = namespaceA;
                 _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s Mapping appName identifier generic bundle ID %@ to platform bundle %@.", buf, 0x20u);
               }
 
@@ -123,32 +124,32 @@
         }
       }
 
-      v5 = [identifiers countByEnumeratingWithState:&v37 objects:v48 count:16];
+      v5 = [identifiers countByEnumeratingWithState:&v36 objects:v47 count:16];
     }
 
     while (v5);
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   spans = [graphCopy spans];
-  v16 = [spans countByEnumeratingWithState:&v33 objects:v41 count:16];
+  v16 = [spans countByEnumeratingWithState:&v32 objects:v40 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v34;
+    v18 = *v33;
     do
     {
       for (j = 0; j != v17; ++j)
       {
-        if (*v34 != v18)
+        if (*v33 != v18)
         {
           objc_enumerationMutation(spans);
         }
 
-        v20 = *(*(&v33 + 1) + 8 * j);
+        v20 = *(*(&v32 + 1) + 8 * j);
         if ([v20 sourceComponent] == 2)
         {
           properties = [v20 properties];
@@ -176,11 +177,11 @@
                 valueString2 = [firstObject valueString];
                 value5 = [valueString2 value];
                 *buf = 136315650;
-                v43 = "+[CDMPostProcessUtils mapVocGenericBundleIdsToPlatformBundleIdsForGraph:]";
-                v44 = 2112;
-                v45 = value5;
-                v46 = 2112;
-                v47 = v23;
+                v42 = "+[CDMPostProcessUtils mapVocGenericBundleIdsToPlatformBundleIdsForGraph:]";
+                v43 = 2112;
+                v44 = value5;
+                v45 = 2112;
+                v46 = v23;
                 _os_log_debug_impl(&dword_1DC287000, v27, OS_LOG_TYPE_DEBUG, "%s Mapping appName entity generic bundle ID %@ to platform bundle %@.", buf, 0x20u);
               }
 
@@ -195,38 +196,36 @@ LABEL_29:
         }
       }
 
-      v17 = [spans countByEnumeratingWithState:&v33 objects:v41 count:16];
+      v17 = [spans countByEnumeratingWithState:&v32 objects:v40 count:16];
     }
 
     while (v17);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 + (void)mapVocGenericBundleIdsToPlatformBundleIdsForParse:(id)parse
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   userDialogActs = [parse userDialogActs];
-  v5 = [userDialogActs countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [userDialogActs countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(userDialogActs);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         if ([v9 hasUserStatedTask])
         {
           userStatedTask = [v9 userStatedTask];
@@ -241,54 +240,50 @@ LABEL_29:
         }
       }
 
-      v6 = [userDialogActs countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [userDialogActs countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (void)removeProbabilityFromUserParses:(id)parses
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   parsesCopy = parses;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [parsesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [parsesCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(parsesCopy);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) setProbability:0.0];
+        [*(*(&v8 + 1) + 8 * v7++) setProbability:0.0];
       }
 
       while (v5 != v7);
-      v5 = [parsesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [parsesCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (id)supplementaryOutputFromMatchingSpans:(id)spans rewriteMessage:(id)message correctionOutcome:(id)outcome
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   outcomeCopy = outcome;
   spansCopy = spans;
@@ -296,13 +291,13 @@ LABEL_29:
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     rewrittenUtterance = [messageCopy rewrittenUtterance];
-    v16 = 136315650;
-    v17 = "+[CDMPostProcessUtils supplementaryOutputFromMatchingSpans:rewriteMessage:correctionOutcome:]";
-    v18 = 2112;
-    v19 = rewrittenUtterance;
-    v20 = 1024;
+    v15 = 136315650;
+    v16 = "+[CDMPostProcessUtils supplementaryOutputFromMatchingSpans:rewriteMessage:correctionOutcome:]";
+    v17 = 2112;
+    v18 = rewrittenUtterance;
+    v19 = 1024;
     rewriteType = [messageCopy rewriteType];
-    _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s Adding supplementary output with re-written utterance: %@, re-write type: %i", &v16, 0x1Cu);
+    _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s Adding supplementary output with re-written utterance: %@, re-write type: %i", &v15, 0x1Cu);
   }
 
   v11 = objc_opt_new();
@@ -312,46 +307,44 @@ LABEL_29:
   v12 = [spansCopy mutableCopy];
   [v11 setMatchingSpans:v12];
 
-  v13 = *MEMORY[0x1E69E9840];
-
   return v11;
 }
 
 + (id)rewriteMessageFromMatchingSpans:(id)spans mrRewrittenUtterance:(id)utterance
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   utteranceCopy = utterance;
   if (+[CDMFeatureFlags isMentionResolverRewriterEnabled](CDMFeatureFlags, "isMentionResolverRewriterEnabled") && [utteranceCopy length])
   {
     v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v17 = 0u;
     v18 = 0u;
     v19 = 0u;
     v20 = 0u;
-    v21 = 0u;
     v9 = spansCopy;
-    v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v19;
+      v12 = *v18;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v19 != v12)
+          if (*v18 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v18 + 1) + 8 * i);
-          if ([self isExternalMatchingSpan:v14 fromMatcher:{2, v18}])
+          v14 = *(*(&v17 + 1) + 8 * i);
+          if ([self isExternalMatchingSpan:v14 fromMatcher:{2, v17}])
           {
             [v8 addObject:v14];
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
       }
 
       while (v11);
@@ -375,85 +368,83 @@ LABEL_29:
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
-
   return v15;
 }
 
 + (void)annotateDelegatedUDAParses:(id)parses matchingSpans:(id)spans mrRewrittenUtterance:(id)utterance
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   parsesCopy = parses;
   spansCopy = spans;
   utteranceCopy = utterance;
+  v38 = 0u;
   v39 = 0u;
   v40 = 0u;
   v41 = 0u;
-  v42 = 0u;
   obj = parsesCopy;
-  v25 = [parsesCopy countByEnumeratingWithState:&v39 objects:v45 count:16];
-  if (v25)
+  v24 = [parsesCopy countByEnumeratingWithState:&v38 objects:v44 count:16];
+  if (v24)
   {
-    v24 = *v40;
+    v23 = *v39;
     do
     {
       v8 = 0;
       do
       {
-        if (*v40 != v24)
+        if (*v39 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = v8;
-        v9 = *(*(&v39 + 1) + 8 * v8);
+        v25 = v8;
+        v9 = *(*(&v38 + 1) + 8 * v8);
+        v34 = 0u;
         v35 = 0u;
         v36 = 0u;
         v37 = 0u;
-        v38 = 0u;
         userDialogActs = [v9 userDialogActs];
-        v10 = [userDialogActs countByEnumeratingWithState:&v35 objects:v44 count:16];
+        v10 = [userDialogActs countByEnumeratingWithState:&v34 objects:v43 count:16];
         if (v10)
         {
           v11 = v10;
-          v12 = *v36;
+          v12 = *v35;
           do
           {
             for (i = 0; i != v11; ++i)
             {
-              if (*v36 != v12)
+              if (*v35 != v12)
               {
                 objc_enumerationMutation(userDialogActs);
               }
 
-              v14 = *(*(&v35 + 1) + 8 * i);
+              v14 = *(*(&v34 + 1) + 8 * i);
               if ([v14 hasDelegated])
               {
-                v33 = 0u;
-                v34 = 0u;
-                v31 = 0u;
                 v32 = 0u;
+                v33 = 0u;
+                v30 = 0u;
+                v31 = 0u;
                 v15 = spansCopy;
-                v16 = [v15 countByEnumeratingWithState:&v31 objects:v43 count:16];
+                v16 = [v15 countByEnumeratingWithState:&v30 objects:v42 count:16];
                 if (v16)
                 {
                   v17 = v16;
-                  v18 = *v32;
+                  v18 = *v31;
                   do
                   {
                     for (j = 0; j != v17; ++j)
                     {
-                      if (*v32 != v18)
+                      if (*v31 != v18)
                       {
                         objc_enumerationMutation(v15);
                       }
 
-                      v20 = *(*(&v31 + 1) + 8 * j);
+                      v20 = *(*(&v30 + 1) + 8 * j);
                       delegated = [v14 delegated];
                       [delegated addMatchingSpans:v20];
                     }
 
-                    v17 = [v15 countByEnumeratingWithState:&v31 objects:v43 count:16];
+                    v17 = [v15 countByEnumeratingWithState:&v30 objects:v42 count:16];
                   }
 
                   while (v17);
@@ -463,39 +454,37 @@ LABEL_29:
               }
             }
 
-            v11 = [userDialogActs countByEnumeratingWithState:&v35 objects:v44 count:16];
+            v11 = [userDialogActs countByEnumeratingWithState:&v34 objects:v43 count:16];
           }
 
           while (v11);
         }
 
-        v8 = v26 + 1;
+        v8 = v25 + 1;
       }
 
-      while (v26 + 1 != v25);
-      v25 = [obj countByEnumeratingWithState:&v39 objects:v45 count:16];
+      while (v25 + 1 != v24);
+      v24 = [obj countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
-    while (v25);
+    while (v24);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 + (void)annotateDUDAWithMRRRewrittenUtterance:(id)utterance matchingSpans:(id)spans userDialogAct:(id)act
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   utteranceCopy = utterance;
   spansCopy = spans;
   actCopy = act;
   v10 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
-    v16 = 136315394;
-    v17 = "+[CDMPostProcessUtils annotateDUDAWithMRRRewrittenUtterance:matchingSpans:userDialogAct:]";
-    v18 = 2112;
-    v19 = utteranceCopy;
-    _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s annotate DUDA With mr re-written utterance - %@", &v16, 0x16u);
+    v15 = 136315394;
+    v16 = "+[CDMPostProcessUtils annotateDUDAWithMRRRewrittenUtterance:matchingSpans:userDialogAct:]";
+    v17 = 2112;
+    v18 = utteranceCopy;
+    _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s annotate DUDA With mr re-written utterance - %@", &v15, 0x16u);
   }
 
   delegated = [actCopy delegated];
@@ -510,8 +499,6 @@ LABEL_29:
       [delegated2 setRewrite:v13];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (unsigned)isExternalMatchingSpan:(id)span fromMatcher:(int)matcher
@@ -547,29 +534,29 @@ LABEL_5:
 
 + (id)filterAndConvertInternalMatchingSpans:(id)spans
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   v5 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(spansCopy, "count")}];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v6 = spansCopy;
-  v7 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
+        v11 = *(*(&v14 + 1) + 8 * i);
         if (([v11 matcherNamesCount] == 1 && objc_msgSend(v11, "matcherNamesAtIndex:", 0) == 2 || objc_msgSend(self, "isInternalMatchingSpan:fromMatcher:", v11, 7)) && !objc_msgSend(self, "isInternalMatchingSpan:fromMatcher:", v11, 4))
         {
           v12 = [self filterAndConvertInternalMatchingSpan:v11];
@@ -577,13 +564,11 @@ LABEL_5:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -789,31 +774,31 @@ LABEL_5:
 
 + (void)logParsesRanking:(id)ranking addDebugInfo:(id)info
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   rankingCopy = ranking;
   infoCopy = info;
   v6 = [objc_alloc(MEMORY[0x1E696AD60]) initWithString:@"\n\nFederation ranking order:"];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = rankingCopy;
-  v7 = [obj countByEnumeratingWithState:&v25 objects:v35 count:16];
+  v7 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v26;
+    v9 = *v25;
     v10 = 1;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v26 != v9)
+        if (*v25 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
+        v12 = *(*(&v24 + 1) + 8 * i);
         v13 = MEMORY[0x1E696AEC0];
         parser = [v12 parser];
         parserId = [parser parserId];
@@ -836,7 +821,7 @@ LABEL_5:
         v10 = (v10 + 1);
       }
 
-      v8 = [obj countByEnumeratingWithState:&v25 objects:v35 count:16];
+      v8 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
     }
 
     while (v8);
@@ -846,11 +831,11 @@ LABEL_5:
   if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
-    v30 = "+[CDMPostProcessUtils logParsesRanking:addDebugInfo:]";
-    v31 = 2112;
-    v32 = @"summary";
-    v33 = 2114;
-    v34 = v6;
+    v29 = "+[CDMPostProcessUtils logParsesRanking:addDebugInfo:]";
+    v30 = 2112;
+    v31 = @"summary";
+    v32 = 2114;
+    v33 = v6;
     _os_log_impl(&dword_1DC287000, v21, OS_LOG_TYPE_DEFAULT, "%s [insights-cdm-%@]:\n%{public}@\n", buf, 0x20u);
   }
 
@@ -858,8 +843,6 @@ LABEL_5:
   {
     [infoCopy appendString:v6];
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 BOOL __34__CDMPostProcessUtils_sortParses___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -875,29 +858,29 @@ BOOL __34__CDMPostProcessUtils_sortParses___block_invoke(uint64_t a1, void *a2, 
 
 + (void)splitParses:(id)parses deviceParses:(id)deviceParses zeroParses:(id)zeroParses
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   parsesCopy = parses;
   deviceParsesCopy = deviceParses;
   zeroParsesCopy = zeroParses;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v10 = [parsesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [parsesCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(parsesCopy);
         }
 
-        v14 = *(*(&v18 + 1) + 8 * i);
+        v14 = *(*(&v17 + 1) + 8 * i);
         [v14 comparableProbability];
         if (v15 <= 0.0)
         {
@@ -912,82 +895,78 @@ BOOL __34__CDMPostProcessUtils_sortParses___block_invoke(uint64_t a1, void *a2, 
         [v16 addObject:v14];
       }
 
-      v11 = [parsesCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [parsesCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (void)populateComparableProbabilityFromProbabilityParses:(id)parses
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   parsesCopy = parses;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
-  v4 = [parsesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [parsesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(parsesCopy);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * i);
+        v8 = *(*(&v9 + 1) + 8 * i);
         [v8 probability];
         [v8 setComparableProbability:?];
       }
 
-      v5 = [parsesCopy countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [parsesCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (void)populateComparableProbabilityParsesSNLC:(id)c deviceParses:(id)parses
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   cCopy = c;
   if ([parses count])
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v6 = cCopy;
-    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          [*(*(&v12 + 1) + 8 * v10++) setComparableProbability:{0.200000003, v12}];
+          [*(*(&v11 + 1) + 8 * v10++) setComparableProbability:{0.200000003, v11}];
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
@@ -998,58 +977,54 @@ BOOL __34__CDMPostProcessUtils_sortParses___block_invoke(uint64_t a1, void *a2, 
   {
     [CDMPostProcessUtils populateComparableProbabilityFromProbabilityParses:cCopy];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (void)populateComparableProbabilityParsesAutoShortcuts:(id)shortcuts
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   shortcutsCopy = shortcuts;
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
-  v4 = [shortcutsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [shortcutsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(shortcutsCopy);
         }
 
-        [*(*(&v9 + 1) + 8 * v7++) setComparableProbability:0.600000024];
+        [*(*(&v8 + 1) + 8 * v7++) setComparableProbability:0.600000024];
       }
 
       while (v5 != v7);
-      v5 = [shortcutsCopy countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [shortcutsCopy countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 + (void)populateComparableProbabilityParsesPSC:(id)c
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   cCopy = c;
-  v36 = objc_opt_new();
+  v35 = objc_opt_new();
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v4 = cCopy;
-  v34 = [v4 countByEnumeratingWithState:&v42 objects:v52 count:16];
-  if (!v34)
+  v33 = [v4 countByEnumeratingWithState:&v41 objects:v51 count:16];
+  if (!v33)
   {
 
     v5 = 0;
@@ -1057,42 +1032,42 @@ BOOL __34__CDMPostProcessUtils_sortParses___block_invoke(uint64_t a1, void *a2, 
     goto LABEL_28;
   }
 
-  v37 = 0;
+  v36 = 0;
   v5 = 0;
   obj = v4;
-  v33 = *v43;
+  v32 = *v42;
   do
   {
     v6 = 0;
     do
     {
-      if (*v43 != v33)
+      if (*v42 != v32)
       {
         objc_enumerationMutation(obj);
       }
 
-      v35 = v6;
-      v7 = *(*(&v42 + 1) + 8 * v6);
+      v34 = v6;
+      v7 = *(*(&v41 + 1) + 8 * v6);
+      v37 = 0u;
       v38 = 0u;
       v39 = 0u;
       v40 = 0u;
-      v41 = 0u;
       userDialogActs = [v7 userDialogActs];
-      v9 = [userDialogActs countByEnumeratingWithState:&v38 objects:v51 count:16];
+      v9 = [userDialogActs countByEnumeratingWithState:&v37 objects:v50 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v39;
+        v11 = *v38;
         do
         {
           for (i = 0; i != v10; ++i)
           {
-            if (*v39 != v11)
+            if (*v38 != v11)
             {
               objc_enumerationMutation(userDialogActs);
             }
 
-            v13 = *(*(&v38 + 1) + 8 * i);
+            v13 = *(*(&v37 + 1) + 8 * i);
             delegated = [v13 delegated];
             externalParserId = [delegated externalParserId];
             v16 = [externalParserId isEqualToString:@"com.apple.search"];
@@ -1114,40 +1089,40 @@ BOOL __34__CDMPostProcessUtils_sortParses___block_invoke(uint64_t a1, void *a2, 
               {
                 v21 = v7;
 
-                v37 = v21;
+                v36 = v21;
               }
 
               else
               {
-                [v36 addObject:v7];
+                [v35 addObject:v7];
               }
             }
           }
 
-          v10 = [userDialogActs countByEnumeratingWithState:&v38 objects:v51 count:16];
+          v10 = [userDialogActs countByEnumeratingWithState:&v37 objects:v50 count:16];
         }
 
         while (v10);
       }
 
-      v6 = v35 + 1;
+      v6 = v34 + 1;
     }
 
-    while (v35 + 1 != v34);
-    v34 = [obj countByEnumeratingWithState:&v42 objects:v52 count:16];
+    while (v34 + 1 != v33);
+    v33 = [obj countByEnumeratingWithState:&v41 objects:v51 count:16];
   }
 
-  while (v34);
+  while (v33);
 
   if (!v5)
   {
     v4 = obj;
-    v23 = v37;
+    v23 = v36;
     goto LABEL_28;
   }
 
-  v23 = v37;
-  if (!v37 || ([v5 probability], v22 >= 0.600000024) || (objc_msgSend(v37, "probability"), v22 >= 0.600000024) || (objc_msgSend(v5, "probability"), v25 = v24, objc_msgSend(v37, "probability"), v22 = v25 + v26, v22 < 0.600000024))
+  v23 = v36;
+  if (!v36 || ([v5 probability], v22 >= 0.600000024) || (objc_msgSend(v36, "probability"), v22 >= 0.600000024) || (objc_msgSend(v5, "probability"), v25 = v24, objc_msgSend(v36, "probability"), v22 = v25 + v26, v22 < 0.600000024))
   {
     v4 = obj;
 LABEL_28:
@@ -1156,55 +1131,53 @@ LABEL_28:
     goto LABEL_29;
   }
 
-  v28 = CDMOSLoggerForCategory(0);
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+  v27 = CDMOSLoggerForCategory(0);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v48 = "+[CDMPostProcessUtils populateComparableProbabilityParsesPSC:]";
-    v49 = 2048;
-    v50 = 0x3FE3333340000000;
-    _os_log_debug_impl(&dword_1DC287000, v28, OS_LOG_TYPE_DEBUG, "%s Combined PSC parses above threshold (%.2f). Populating comparableProbability.", buf, 0x16u);
+    v47 = "+[CDMPostProcessUtils populateComparableProbabilityParsesPSC:]";
+    v48 = 2048;
+    v49 = 0x3FE3333340000000;
+    _os_log_debug_impl(&dword_1DC287000, v27, OS_LOG_TYPE_DEBUG, "%s Combined PSC parses above threshold (%.2f). Populating comparableProbability.", buf, 0x16u);
   }
 
-  v46[0] = v5;
-  v46[1] = v37;
-  v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
-  [CDMPostProcessUtils populateComparableProbabilityParses:v29 threshold:0.0];
+  v45[0] = v5;
+  v45[1] = v36;
+  v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
+  [CDMPostProcessUtils populateComparableProbabilityParses:v28 threshold:0.0];
 
-  allObjects = [v36 allObjects];
-  LODWORD(v31) = 1058642330;
-  [CDMPostProcessUtils populateComparableProbabilityParses:allObjects threshold:v31];
+  allObjects = [v35 allObjects];
+  LODWORD(v30) = 1058642330;
+  [CDMPostProcessUtils populateComparableProbabilityParses:allObjects threshold:v30];
 
   v4 = obj;
 LABEL_29:
-
-  v27 = *MEMORY[0x1E69E9840];
 }
 
 + (void)populateComparableProbabilityParses:(id)parses threshold:(float)threshold
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   parsesCopy = parses;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v6 = [parsesCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [parsesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     thresholdCopy = threshold;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(parsesCopy);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         [v11 probability];
         v13 = v12;
         v14 = 0.0;
@@ -1218,18 +1191,16 @@ LABEL_29:
         [v11 setComparableProbability:v14];
       }
 
-      v7 = [parsesCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [parsesCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 + (void)populateComparableProbabilityForParsesNLv4:(id)lv4 parsesSNLC:(id)c
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   lv4Copy = lv4;
   cCopy = c;
   if ([lv4Copy count])
@@ -1249,34 +1220,34 @@ LABEL_29:
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v46 = "+[CDMPostProcessUtils populateComparableProbabilityForParsesNLv4:parsesSNLC:]";
+        v45 = "+[CDMPostProcessUtils populateComparableProbabilityForParsesNLv4:parsesSNLC:]";
         _os_log_error_impl(&dword_1DC287000, v11, OS_LOG_TYPE_ERROR, "%s [ERR]: no SNLC response available in post process node", buf, 0xCu);
       }
 
       v10 = 1.0;
     }
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v12 = lv4Copy;
-    v13 = [v12 countByEnumeratingWithState:&v39 objects:v44 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v38 objects:v43 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v40;
+      v15 = *v39;
       v16 = 0.00000011921;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v40 != v15)
+          if (*v39 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v18 = *(*(&v39 + 1) + 8 * i);
+          v18 = *(*(&v38 + 1) + 8 * i);
           [v18 probability];
           if (v19 > v16)
           {
@@ -1285,7 +1256,7 @@ LABEL_29:
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v39 objects:v44 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v38 objects:v43 count:16];
       }
 
       while (v14);
@@ -1297,26 +1268,26 @@ LABEL_29:
       v21 = 0.00000011920929;
     }
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v22 = v12;
-    v23 = [v22 countByEnumeratingWithState:&v35 objects:v43 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v34 objects:v42 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v36;
+      v25 = *v35;
       do
       {
         for (j = 0; j != v24; ++j)
         {
-          if (*v36 != v25)
+          if (*v35 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          v27 = *(*(&v35 + 1) + 8 * j);
+          v27 = *(*(&v34 + 1) + 8 * j);
           [v27 probability];
           if (v28 != 1.0 || ([v27 parser], v29 = objc_claimAutoreleasedReturnValue(), v30 = objc_msgSend(v29, "algorithm"), v29, v31 = 1.0, v30 != 1))
           {
@@ -1333,52 +1304,50 @@ LABEL_29:
           [v27 setComparableProbability:v31];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v35 objects:v43 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v34 objects:v42 count:16];
       }
 
       while (v24);
     }
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)alignmentSubsumesSpan:(id)span alignment:(id)alignment
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   alignmentCopy = alignment;
   usoGraph = [span usoGraph];
   alignments = [usoGraph alignments];
 
   if ([alignments count])
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     v8 = alignments;
-    v9 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v17;
+      v11 = *v16;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v17 != v11)
+          if (*v16 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          if (![*(*(&v16 + 1) + 8 * i) subsumedBy:{alignmentCopy, v16}])
+          if (![*(*(&v15 + 1) + 8 * i) subsumedBy:{alignmentCopy, v15}])
           {
             v13 = 0;
             goto LABEL_12;
           }
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v10)
         {
           continue;
@@ -1397,33 +1366,32 @@ LABEL_12:
     v13 = 0;
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 + (id)getUtteranceAlignmentForIndex:(id)index nodeIndex:(int)nodeIndex
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   alignments = [index alignments];
-  v6 = [alignments countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [alignments countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(alignments);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         if ([v10 nodeIndex] == nodeIndex)
         {
           v11 = v10;
@@ -1431,7 +1399,7 @@ LABEL_12:
         }
       }
 
-      v7 = [alignments countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [alignments countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v7)
       {
         continue;
@@ -1443,8 +1411,6 @@ LABEL_12:
 
   v11 = 0;
 LABEL_11:
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }
@@ -1467,30 +1433,30 @@ LABEL_11:
 
 + (id)entityKeyFrom:(id)from at:(unint64_t)at
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   fromCopy = from;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   edges = [fromCopy edges];
-  v8 = [edges countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v8 = [edges countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (!v8)
   {
     goto LABEL_20;
   }
 
-  v9 = *v24;
+  v9 = *v23;
   while (2)
   {
     for (i = 0; i != v8; i = i + 1)
     {
-      if (*v24 != v9)
+      if (*v23 != v9)
       {
         objc_enumerationMutation(edges);
       }
 
-      v11 = *(*(&v23 + 1) + 8 * i);
+      v11 = *(*(&v22 + 1) + 8 * i);
       if ([v11 toIndex] == at)
       {
         v8 = v11;
@@ -1561,7 +1527,7 @@ LABEL_23:
       }
     }
 
-    v8 = [edges countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v8 = [edges countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v8)
     {
       continue;
@@ -1575,99 +1541,96 @@ LABEL_20:
 LABEL_24:
 
 LABEL_25:
-  v21 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 + (void)annotateUserParses:(id)parses correctionOutcome:(id)outcome
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   parsesCopy = parses;
   outcomeCopy = outcome;
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v7 = [parsesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [parsesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(parsesCopy);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) setCorrectionOutcome:outcomeCopy];
+        [*(*(&v11 + 1) + 8 * v10++) setCorrectionOutcome:outcomeCopy];
       }
 
       while (v8 != v10);
-      v8 = [parsesCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [parsesCopy countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 + (id)getCorrectionOutcomeFromUserParses:(id)parses ccqrCorrectionOutcome:(id)outcome
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   parsesCopy = parses;
   outcomeCopy = outcome;
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
-  v7 = [parsesCopy countByEnumeratingWithState:&v26 objects:v31 count:16];
+  v7 = [parsesCopy countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v7)
   {
     v8 = v7;
     v9 = 0;
-    v10 = *v27;
+    v10 = *v26;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v10)
+        if (*v26 != v10)
         {
           objc_enumerationMutation(parsesCopy);
         }
 
-        v12 = *(*(&v26 + 1) + 8 * i);
+        v12 = *(*(&v25 + 1) + 8 * i);
         [v12 comparableProbability];
         if (v13 > 0.0)
         {
-          v24 = 0u;
-          v25 = 0u;
-          v22 = 0u;
           v23 = 0u;
+          v24 = 0u;
+          v21 = 0u;
+          v22 = 0u;
           userDialogActs = [v12 userDialogActs];
-          v15 = [userDialogActs countByEnumeratingWithState:&v22 objects:v30 count:16];
+          v15 = [userDialogActs countByEnumeratingWithState:&v21 objects:v29 count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v23;
+            v17 = *v22;
             do
             {
               for (j = 0; j != v16; ++j)
               {
-                if (*v23 != v17)
+                if (*v22 != v17)
                 {
                   objc_enumerationMutation(userDialogActs);
                 }
 
-                v9 |= [*(*(&v22 + 1) + 8 * j) hasRejected];
+                v9 |= [*(*(&v21 + 1) + 8 * j) hasRejected];
               }
 
-              v16 = [userDialogActs countByEnumeratingWithState:&v22 objects:v30 count:16];
+              v16 = [userDialogActs countByEnumeratingWithState:&v21 objects:v29 count:16];
             }
 
             while (v16);
@@ -1675,7 +1638,7 @@ LABEL_25:
         }
       }
 
-      v8 = [parsesCopy countByEnumeratingWithState:&v26 objects:v31 count:16];
+      v8 = [parsesCopy countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v8);
@@ -1697,14 +1660,12 @@ LABEL_25:
     v19 = 0;
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v19;
 }
 
 + (void)annotateParses:(id)parses tokenChain:(id)chain matchingSpans:(id)spans asrHypothesis:(id)hypothesis
 {
-  v109 = *MEMORY[0x1E69E9840];
+  v108 = *MEMORY[0x1E69E9840];
   parsesCopy = parses;
   chainCopy = chain;
   spansCopy = spans;
@@ -1712,48 +1673,48 @@ LABEL_25:
   v13 = [self usoGraphs:parsesCopy];
   if ([v13 count])
   {
-    v57 = parsesCopy;
-    v58 = v13;
-    v76 = chainCopy;
+    v56 = parsesCopy;
+    v57 = v13;
+    v75 = chainCopy;
     v14 = objc_alloc(MEMORY[0x1E695DF90]);
     [hypothesisCopy asrTokens];
-    v15 = v59 = hypothesisCopy;
+    v15 = v58 = hypothesisCopy;
     v16 = [v14 initWithCapacity:{objc_msgSend(v15, "count")}];
 
     v17 = objc_alloc(MEMORY[0x1E695DF90]);
-    asrTokens = [v59 asrTokens];
+    asrTokens = [v58 asrTokens];
     v19 = [v17 initWithCapacity:{objc_msgSend(asrTokens, "count")}];
 
-    if (v59)
+    if (v58)
     {
-      v99 = 0u;
-      v100 = 0u;
-      v97 = 0u;
       v98 = 0u;
-      asrTokens2 = [v59 asrTokens];
-      v21 = [asrTokens2 countByEnumeratingWithState:&v97 objects:v108 count:16];
+      v99 = 0u;
+      v96 = 0u;
+      v97 = 0u;
+      asrTokens2 = [v58 asrTokens];
+      v21 = [asrTokens2 countByEnumeratingWithState:&v96 objects:v107 count:16];
       if (v21)
       {
         v22 = v21;
-        v23 = *v98;
+        v23 = *v97;
         do
         {
           for (i = 0; i != v22; ++i)
           {
-            if (*v98 != v23)
+            if (*v97 != v23)
             {
               objc_enumerationMutation(asrTokens2);
             }
 
-            v25 = *(*(&v97 + 1) + 8 * i);
-            v26 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v25, "beginIndex", v57)}];
+            v25 = *(*(&v96 + 1) + 8 * i);
+            v26 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v25, "beginIndex", v56)}];
             [v16 setObject:v25 forKeyedSubscript:v26];
 
             v27 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v25, "endIndex")}];
             [v19 setObject:v25 forKeyedSubscript:v27];
           }
 
-          v22 = [asrTokens2 countByEnumeratingWithState:&v97 objects:v108 count:16];
+          v22 = [asrTokens2 countByEnumeratingWithState:&v96 objects:v107 count:16];
         }
 
         while (v22);
@@ -1766,90 +1727,90 @@ LABEL_25:
       if (os_log_type_enabled(asrTokens2, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315138;
-        v107 = "+[CDMPostProcessUtils annotateParses:tokenChain:matchingSpans:asrHypothesis:]";
+        v106 = "+[CDMPostProcessUtils annotateParses:tokenChain:matchingSpans:asrHypothesis:]";
         _os_log_debug_impl(&dword_1DC287000, asrTokens2, OS_LOG_TYPE_DEBUG, "%s Missing ASR Hypothesis, unable to add timing information to alignments", buf, 0xCu);
       }
     }
 
-    chainCopy = v76;
+    chainCopy = v75;
 
-    v69 = [self spanIndexDict:spansCopy tokenChain:v76];
+    v68 = [self spanIndexDict:spansCopy tokenChain:v75];
+    v92 = 0u;
     v93 = 0u;
     v94 = 0u;
     v95 = 0u;
-    v96 = 0u;
-    obj = v58;
-    v62 = [obj countByEnumeratingWithState:&v93 objects:v105 count:16];
-    if (!v62)
+    obj = v57;
+    v61 = [obj countByEnumeratingWithState:&v92 objects:v104 count:16];
+    if (!v61)
     {
-      v71 = 0;
-      v73 = 0;
+      v70 = 0;
+      v72 = 0;
       goto LABEL_76;
     }
 
-    v71 = 0;
-    v73 = 0;
-    v61 = *v94;
+    v70 = 0;
+    v72 = 0;
+    v60 = *v93;
     while (1)
     {
       v28 = 0;
       do
       {
-        if (*v94 != v61)
+        if (*v93 != v60)
         {
           objc_enumerationMutation(obj);
         }
 
-        v63 = v28;
-        v29 = *(*(&v93 + 1) + 8 * v28);
-        v68 = [self getGroupIndexDict:{v29, v57}];
-        v66 = [IdentifierGroupingUtils getInterpretationGroupMax:v29];
+        v62 = v28;
+        v29 = *(*(&v92 + 1) + 8 * v28);
+        v67 = [self getGroupIndexDict:{v29, v56}];
+        v65 = [IdentifierGroupingUtils getInterpretationGroupMax:v29];
         array = [MEMORY[0x1E695DF70] array];
         array2 = [MEMORY[0x1E695DF70] array];
+        v88 = 0u;
         v89 = 0u;
         v90 = 0u;
         v91 = 0u;
-        v92 = 0u;
         alignments = [v29 alignments];
-        v75 = [alignments countByEnumeratingWithState:&v89 objects:v104 count:16];
-        if (v75)
+        v74 = [alignments countByEnumeratingWithState:&v88 objects:v103 count:16];
+        if (v74)
         {
-          v74 = *v90;
+          v73 = *v89;
           do
           {
             v30 = 0;
             do
             {
-              if (*v90 != v74)
+              if (*v89 != v73)
               {
                 objc_enumerationMutation(alignments);
               }
 
-              v31 = *(*(&v89 + 1) + 8 * v30);
+              v31 = *(*(&v88 + 1) + 8 * v30);
               [self addNormalizedValuesTo:v29 alignedWith:v31 from:chainCopy];
-              v87 = 0u;
-              v88 = 0u;
-              v85 = 0u;
               v86 = 0u;
+              v87 = 0u;
+              v84 = 0u;
+              v85 = 0u;
               spans = [v31 spans];
-              v33 = [spans countByEnumeratingWithState:&v85 objects:v103 count:16];
+              v33 = [spans countByEnumeratingWithState:&v84 objects:v102 count:16];
               if (v33)
               {
                 v34 = v33;
-                v35 = *v86;
+                v35 = *v85;
                 do
                 {
                   for (j = 0; j != v34; ++j)
                   {
-                    if (*v86 != v35)
+                    if (*v85 != v35)
                     {
                       objc_enumerationMutation(spans);
                     }
 
-                    [self copyASRTimingInfoToUtteranceSpan:*(*(&v85 + 1) + 8 * j) startIndexTokenDict:v16 endIndexTokenDict:v19];
+                    [self copyASRTimingInfoToUtteranceSpan:*(*(&v84 + 1) + 8 * j) startIndexTokenDict:v16 endIndexTokenDict:v19];
                   }
 
-                  v34 = [spans countByEnumeratingWithState:&v85 objects:v103 count:16];
+                  v34 = [spans countByEnumeratingWithState:&v84 objects:v102 count:16];
                 }
 
                 while (v34);
@@ -1858,19 +1819,19 @@ LABEL_25:
               v37 = +[CDMPostProcessUtils entityKeyFrom:at:](CDMPostProcessUtils, "entityKeyFrom:at:", v29, [v31 nodeIndex]);
               if (!v37)
               {
-                chainCopy = v76;
+                chainCopy = v75;
                 goto LABEL_49;
               }
 
               v38 = +[EntityKey userEntity];
               v39 = [v38 isEqualToEntityKey:v37];
 
-              chainCopy = v76;
+              chainCopy = v75;
               if (v39)
               {
-                if (!v73)
+                if (!v72)
                 {
-                  v73 = [self getAlignedIdentifierSpans:spansCopy];
+                  v72 = [self getAlignedIdentifierSpans:spansCopy];
                 }
 
                 if (!+[CDMFeatureFlags isUsoEntitySpanEnabled])
@@ -1878,29 +1839,29 @@ LABEL_25:
                   goto LABEL_48;
                 }
 
-                v40 = v71;
-                if (!v71)
+                v40 = v70;
+                if (!v70)
                 {
                   v40 = [self getAlignedEntitySpanSpans:spansCopy];
                 }
 
-                v71 = v40;
-                [self copySubsumedSpanEntitySpan:array2 spans:v40 parseEntityKey:v37 utteranceAlignment:v31 tokenChain:v76];
+                v70 = v40;
+                [self copySubsumedSpanEntitySpan:array2 spans:v40 parseEntityKey:v37 utteranceAlignment:v31 tokenChain:v75];
                 if (+[CDMFeatureFlags isInterpretationGroupFilteringEnabled])
                 {
-                  [self copyAlignedSpanIdentifierForSameType:array spanIndexDict:v69 utteranceAlignment:v31 entityKey:v37 groupIndexDict:v68 tokenChain:v76];
+                  [self copyAlignedSpanIdentifierForSameType:array spanIndexDict:v68 utteranceAlignment:v31 entityKey:v37 groupIndexDict:v67 tokenChain:v75];
                 }
 
                 else
                 {
 LABEL_48:
-                  [self createIdentifierGroups:array spans:v73 parseEntityKey:v37 parseAlignment:v31 interpretationGroupCurrentMax:v66];
+                  [self createIdentifierGroups:array spans:v72 parseEntityKey:v37 parseAlignment:v31 interpretationGroupCurrentMax:v65];
                 }
 
                 goto LABEL_49;
               }
 
-              [self copyAlignedSpanIdentifierForSameType:array spanIndexDict:v69 utteranceAlignment:v31 entityKey:v37 groupIndexDict:v68 tokenChain:v76];
+              [self copyAlignedSpanIdentifierForSameType:array spanIndexDict:v68 utteranceAlignment:v31 entityKey:v37 groupIndexDict:v67 tokenChain:v75];
               if (!+[CDMFeatureFlags isUsoEntitySpanEnabled])
               {
                 goto LABEL_49;
@@ -1909,16 +1870,16 @@ LABEL_48:
               v41 = +[EntityKey calendarEventName];
               if (([v41 isEqualToEntityKey:v37] & 1) == 0)
               {
-                v64 = +[EntityKey personEntity];
-                if (![v64 isEqualToEntityKey:v37])
+                v63 = +[EntityKey personEntity];
+                if (![v63 isEqualToEntityKey:v37])
                 {
                   v43 = +[EntityKey group];
                   v44 = [v43 isEqualToEntityKey:v37];
 
-                  chainCopy = v76;
+                  chainCopy = v75;
                   if ((v44 & 1) == 0)
                   {
-                    [self copyAlignedSpanEntitySpanForSameType:array2 spanIndexDict:v69 utteranceAlignment:v31 entityKey:v37 tokenChain:v76];
+                    [self copyAlignedSpanEntitySpanForSameType:array2 spanIndexDict:v68 utteranceAlignment:v31 entityKey:v37 tokenChain:v75];
                     goto LABEL_49;
                   }
 
@@ -1927,22 +1888,22 @@ LABEL_48:
               }
 
 LABEL_45:
-              v42 = v71;
-              if (!v71)
+              v42 = v70;
+              if (!v70)
               {
                 v42 = [self getAlignedEntitySpanSpans:spansCopy];
               }
 
-              v71 = v42;
+              v70 = v42;
               [self copySubsumedSpanEntitySpan:array2 spans:v42 parseEntityKey:v37 utteranceAlignment:v31 tokenChain:chainCopy];
 LABEL_49:
 
               ++v30;
             }
 
-            while (v30 != v75);
-            v45 = [alignments countByEnumeratingWithState:&v89 objects:v104 count:16];
-            v75 = v45;
+            while (v30 != v74);
+            v45 = [alignments countByEnumeratingWithState:&v88 objects:v103 count:16];
+            v74 = v45;
           }
 
           while (v45);
@@ -1954,29 +1915,29 @@ LABEL_49:
           [self copyMentionResolverSpanEntitySpans:array2 fromMatchingSpans:spansCopy toParseGraph:v29];
         }
 
-        v83 = 0u;
-        v84 = 0u;
-        v81 = 0u;
         v82 = 0u;
+        v83 = 0u;
+        v80 = 0u;
+        v81 = 0u;
         v46 = array;
-        v47 = [v46 countByEnumeratingWithState:&v81 objects:v102 count:16];
+        v47 = [v46 countByEnumeratingWithState:&v80 objects:v101 count:16];
         if (v47)
         {
           v48 = v47;
-          v49 = *v82;
+          v49 = *v81;
           do
           {
             for (k = 0; k != v48; ++k)
             {
-              if (*v82 != v49)
+              if (*v81 != v49)
               {
                 objc_enumerationMutation(v46);
               }
 
-              [v29 addIdentifiers:*(*(&v81 + 1) + 8 * k)];
+              [v29 addIdentifiers:*(*(&v80 + 1) + 8 * k)];
             }
 
-            v48 = [v46 countByEnumeratingWithState:&v81 objects:v102 count:16];
+            v48 = [v46 countByEnumeratingWithState:&v80 objects:v101 count:16];
           }
 
           while (v48);
@@ -1984,81 +1945,79 @@ LABEL_49:
 
         if (+[CDMFeatureFlags isUsoEntitySpanEnabled])
         {
-          v79 = 0u;
-          v80 = 0u;
-          v77 = 0u;
           v78 = 0u;
+          v79 = 0u;
+          v76 = 0u;
+          v77 = 0u;
           v51 = array2;
-          v52 = [v51 countByEnumeratingWithState:&v77 objects:v101 count:16];
+          v52 = [v51 countByEnumeratingWithState:&v76 objects:v100 count:16];
           if (v52)
           {
             v53 = v52;
-            v54 = *v78;
+            v54 = *v77;
             do
             {
               for (m = 0; m != v53; ++m)
               {
-                if (*v78 != v54)
+                if (*v77 != v54)
                 {
                   objc_enumerationMutation(v51);
                 }
 
-                [v29 addSpans:*(*(&v77 + 1) + 8 * m)];
+                [v29 addSpans:*(*(&v76 + 1) + 8 * m)];
               }
 
-              v53 = [v51 countByEnumeratingWithState:&v77 objects:v101 count:16];
+              v53 = [v51 countByEnumeratingWithState:&v76 objects:v100 count:16];
             }
 
             while (v53);
           }
         }
 
-        v28 = v63 + 1;
-        chainCopy = v76;
+        v28 = v62 + 1;
+        chainCopy = v75;
       }
 
-      while (v63 + 1 != v62);
-      v62 = [obj countByEnumeratingWithState:&v93 objects:v105 count:16];
-      if (!v62)
+      while (v62 + 1 != v61);
+      v61 = [obj countByEnumeratingWithState:&v92 objects:v104 count:16];
+      if (!v61)
       {
 LABEL_76:
 
-        parsesCopy = v57;
-        v13 = v58;
-        hypothesisCopy = v59;
+        parsesCopy = v56;
+        v13 = v57;
+        hypothesisCopy = v58;
         break;
       }
     }
   }
-
-  v56 = *MEMORY[0x1E69E9840];
 }
 
 + (id)getAlignedEntitySpanSpans:(id)spans
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(spansCopy, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = spansCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         if ([v10 hasUsoGraph])
         {
           usoGraph = [v10 usoGraph];
@@ -2079,42 +2038,40 @@ LABEL_76:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (id)getAlignedIdentifierSpans:(id)spans
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(spansCopy, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v5 = spansCopy;
-  v6 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         if ([v10 hasUsoGraph])
         {
           usoGraph = [v10 usoGraph];
@@ -2135,20 +2092,18 @@ LABEL_76:
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (void)createIdentifierGroups:(id)groups spans:(id)spans parseEntityKey:(id)key parseAlignment:(id)alignment interpretationGroupCurrentMax:(id)max
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   groupsCopy = groups;
   spansCopy = spans;
   keyCopy = key;
@@ -2159,55 +2114,55 @@ LABEL_76:
 
   if (v17)
   {
-    v31 = maxCopy;
-    v33 = groupsCopy;
-    v35 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{3 * objc_msgSend(spansCopy, "count")}];
-    v40 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{3 * objc_msgSend(spansCopy, "count")}];
-    v39 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{3 * objc_msgSend(spansCopy, "count")}];
+    v30 = maxCopy;
+    v32 = groupsCopy;
+    v34 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{3 * objc_msgSend(spansCopy, "count")}];
+    v39 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{3 * objc_msgSend(spansCopy, "count")}];
+    v38 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{3 * objc_msgSend(spansCopy, "count")}];
+    v45 = 0u;
     v46 = 0u;
     v47 = 0u;
     v48 = 0u;
-    v49 = 0u;
-    v32 = spansCopy;
+    v31 = spansCopy;
     obj = spansCopy;
-    v37 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
-    if (v37)
+    v36 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
+    if (v36)
     {
-      v36 = *v47;
+      v35 = *v46;
       do
       {
         v18 = 0;
         do
         {
-          if (*v47 != v36)
+          if (*v46 != v35)
           {
             objc_enumerationMutation(obj);
           }
 
-          v38 = v18;
-          v19 = *(*(&v46 + 1) + 8 * v18);
+          v37 = v18;
+          v19 = *(*(&v45 + 1) + 8 * v18);
+          v41 = 0u;
           v42 = 0u;
           v43 = 0u;
           v44 = 0u;
-          v45 = 0u;
           usoGraph = [v19 usoGraph];
           alignments = [usoGraph alignments];
 
-          v22 = [alignments countByEnumeratingWithState:&v42 objects:v50 count:16];
+          v22 = [alignments countByEnumeratingWithState:&v41 objects:v49 count:16];
           if (v22)
           {
             v23 = v22;
-            v24 = *v43;
+            v24 = *v42;
             while (2)
             {
               for (i = 0; i != v23; ++i)
               {
-                if (*v43 != v24)
+                if (*v42 != v24)
                 {
                   objc_enumerationMutation(alignments);
                 }
 
-                v26 = *(*(&v42 + 1) + 8 * i);
+                v26 = *(*(&v41 + 1) + 8 * i);
                 if ([v26 subsumedBy:alignmentCopy])
                 {
                   usoGraph2 = [v19 usoGraph];
@@ -2217,19 +2172,19 @@ LABEL_76:
                   {
                     if ([self hasTagNamespace:v19])
                     {
-                      [v35 addObject:v19];
+                      [v34 addObject:v19];
 
                       goto LABEL_21;
                     }
 
-                    [v40 addObject:v26];
+                    [v39 addObject:v26];
                     v29 = [MEMORY[0x1E696B098] valueWithNonretainedObject:v26];
-                    [v39 setObject:v19 forKeyedSubscript:v29];
+                    [v38 setObject:v19 forKeyedSubscript:v29];
                   }
                 }
               }
 
-              v23 = [alignments countByEnumeratingWithState:&v42 objects:v50 count:16];
+              v23 = [alignments countByEnumeratingWithState:&v41 objects:v49 count:16];
               if (v23)
               {
                 continue;
@@ -2241,54 +2196,52 @@ LABEL_76:
 
 LABEL_21:
 
-          v18 = v38 + 1;
+          v18 = v37 + 1;
         }
 
-        while (v38 + 1 != v37);
-        v37 = [obj countByEnumeratingWithState:&v46 objects:v51 count:16];
+        while (v37 + 1 != v36);
+        v36 = [obj countByEnumeratingWithState:&v45 objects:v50 count:16];
       }
 
-      while (v37);
+      while (v36);
     }
 
-    groupsCopy = v33;
-    maxCopy = v31;
-    +[IdentifierGroupingUtils createIdentifierGroups:alignmentSpanDict:identifiers:nodeIndex:interpretationGroupCurrentMax:tagSpans:](IdentifierGroupingUtils, "createIdentifierGroups:alignmentSpanDict:identifiers:nodeIndex:interpretationGroupCurrentMax:tagSpans:", v40, v39, v33, [alignmentCopy nodeIndex], v31, v35);
+    groupsCopy = v32;
+    maxCopy = v30;
+    +[IdentifierGroupingUtils createIdentifierGroups:alignmentSpanDict:identifiers:nodeIndex:interpretationGroupCurrentMax:tagSpans:](IdentifierGroupingUtils, "createIdentifierGroups:alignmentSpanDict:identifiers:nodeIndex:interpretationGroupCurrentMax:tagSpans:", v39, v38, v32, [alignmentCopy nodeIndex], v30, v34);
 
-    spansCopy = v32;
+    spansCopy = v31;
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)hasTagNamespace:(id)namespace
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   usoGraph = [namespace usoGraph];
   identifiers = [usoGraph identifiers];
 
   obj = identifiers;
-  v5 = [identifiers countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v5 = [identifiers countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v22;
+    v7 = *v21;
     v8 = *MEMORY[0x1E69D2470];
     v9 = *MEMORY[0x1E69D2478];
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v22 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v21 + 1) + 8 * i);
+        v11 = *(*(&v20 + 1) + 8 * i);
         namespaceA = [v11 namespaceA];
         value = [namespaceA value];
         if ([value isEqualToString:v8])
@@ -2309,7 +2262,7 @@ LABEL_13:
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
       v17 = 0;
       if (v6)
       {
@@ -2327,13 +2280,12 @@ LABEL_13:
 
 LABEL_14:
 
-  v18 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
 + (void)addNormalizedValuesTo:(id)to alignedWith:(id)with from:(id)from
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   withCopy = with;
   fromCopy = from;
   nodes = [to nodes];
@@ -2341,27 +2293,27 @@ LABEL_14:
 
   if ([v11 hasStringPayload])
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     spans = [withCopy spans];
-    v13 = [spans countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v13 = [spans countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v21;
+      v15 = *v20;
       do
       {
         v16 = 0;
         do
         {
-          if (*v21 != v15)
+          if (*v20 != v15)
           {
             objc_enumerationMutation(spans);
           }
 
-          v17 = [self normalizedPayloadsFrom:objc_msgSend(*(*(&v20 + 1) + 8 * v16) to:"startIndex") within:{objc_msgSend(*(*(&v20 + 1) + 8 * v16), "endIndex"), fromCopy}];
+          v17 = [self normalizedPayloadsFrom:objc_msgSend(*(*(&v19 + 1) + 8 * v16) to:"startIndex") within:{objc_msgSend(*(*(&v19 + 1) + 8 * v16), "endIndex"), fromCopy}];
           v18 = [v17 mutableCopy];
           [v11 setNormalizedStringPayloads:v18];
 
@@ -2369,14 +2321,12 @@ LABEL_14:
         }
 
         while (v14 != v16);
-        v14 = [spans countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v14 = [spans countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v14);
     }
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 + (id)normalizedPayloadsFrom:(int64_t)from to:(int64_t)to within:(id)within
@@ -2547,9 +2497,24 @@ LABEL_25:
   return v17;
 }
 
++ (id)getSignificantTokenCountFrom:(unsigned int)from to:(unsigned int)to within:(id)within
+{
+  v5 = *&to;
+  v6 = *&from;
+  v8 = MEMORY[0x1E69D1200];
+  withinCopy = within;
+  v10 = objc_alloc_init(v8);
+  [v10 setKey:@"significantTokenCount"];
+  v11 = [self significantTokenCountFrom:v6 to:v5 within:withinCopy];
+
+  [v10 setValueInt:v11];
+
+  return v10;
+}
+
 + (void)copyASRTimingInfoToUtteranceSpan:(id)span startIndexTokenDict:(id)dict endIndexTokenDict:(id)tokenDict
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   spanCopy = span;
   v8 = MEMORY[0x1E696AD98];
   tokenDictCopy = tokenDict;
@@ -2567,11 +2532,11 @@ LABEL_25:
     v13 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      v19 = 136315394;
-      v20 = "+[CDMPostProcessUtils copyASRTimingInfoToUtteranceSpan:startIndexTokenDict:endIndexTokenDict:]";
-      v21 = 1024;
+      v18 = 136315394;
+      v19 = "+[CDMPostProcessUtils copyASRTimingInfoToUtteranceSpan:startIndexTokenDict:endIndexTokenDict:]";
+      v20 = 1024;
       startIndex = [spanCopy startIndex];
-      _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s Missing ASR Token for alignment with start index: %d", &v19, 0x12u);
+      _os_log_debug_impl(&dword_1DC287000, v13, OS_LOG_TYPE_DEBUG, "%s Missing ASR Token for alignment with start index: %d", &v18, 0x12u);
     }
   }
 
@@ -2589,20 +2554,18 @@ LABEL_25:
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       endIndex = [spanCopy endIndex];
-      v19 = 136315394;
-      v20 = "+[CDMPostProcessUtils copyASRTimingInfoToUtteranceSpan:startIndexTokenDict:endIndexTokenDict:]";
-      v21 = 1024;
+      v18 = 136315394;
+      v19 = "+[CDMPostProcessUtils copyASRTimingInfoToUtteranceSpan:startIndexTokenDict:endIndexTokenDict:]";
+      v20 = 1024;
       startIndex = endIndex;
-      _os_log_debug_impl(&dword_1DC287000, v16, OS_LOG_TYPE_DEBUG, "%s Missing ASR Token for alignment with end index: %d", &v19, 0x12u);
+      _os_log_debug_impl(&dword_1DC287000, v16, OS_LOG_TYPE_DEBUG, "%s Missing ASR Token for alignment with end index: %d", &v18, 0x12u);
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (void)copyMentionResolverSpanEntitySpans:(id)spans fromMatchingSpans:(id)matchingSpans toParseGraph:(id)graph
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   spansCopy = spans;
   matchingSpansCopy = matchingSpans;
   graphCopy = graph;
@@ -2611,14 +2574,14 @@ LABEL_25:
 
   if (v10)
   {
-    v60 = 0;
-    v50 = graphCopy;
+    v59 = 0;
+    v49 = graphCopy;
     do
     {
       nodes2 = [graphCopy nodes];
-      v12 = [nodes2 objectAtIndexedSubscript:v60];
+      v12 = [nodes2 objectAtIndexedSubscript:v59];
 
-      v51 = v12;
+      v50 = v12;
       usoElementId = [v12 usoElementId];
       if (usoElementId > 1317)
       {
@@ -2628,7 +2591,7 @@ LABEL_25:
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v72 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
+            v71 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
             v15 = v14;
             v16 = "%s Found node of type Common_ListPosition";
 LABEL_60:
@@ -2637,38 +2600,38 @@ LABEL_60:
 
 LABEL_18:
 
-          v56 = 0;
+          v55 = 0;
           log = 0;
 LABEL_19:
-          v69 = 0u;
-          v70 = 0u;
-          v67 = 0u;
           v68 = 0u;
+          v69 = 0u;
+          v66 = 0u;
+          v67 = 0u;
           v19 = matchingSpansCopy;
-          v20 = [v19 countByEnumeratingWithState:&v67 objects:v76 count:16];
+          v20 = [v19 countByEnumeratingWithState:&v66 objects:v75 count:16];
           if (!v20)
           {
             goto LABEL_50;
           }
 
           v21 = v20;
-          v22 = *v68;
-          v53 = *v68;
-          v54 = v19;
+          v22 = *v67;
+          v52 = *v67;
+          v53 = v19;
 LABEL_21:
           v23 = 0;
-          v55 = v21;
+          v54 = v21;
           while (1)
           {
-            if (*v68 != v22)
+            if (*v67 != v22)
             {
               objc_enumerationMutation(v19);
             }
 
-            v24 = *(*(&v67 + 1) + 8 * v23);
+            v24 = *(*(&v66 + 1) + 8 * v23);
             if ([self isInternalMatchingSpan:v24 fromMatcher:7])
             {
-              if ([v24 hasUsoGraph] && (!v56 || objc_msgSend(self, "alignmentSubsumesSpan:alignment:", v24, log)))
+              if ([v24 hasUsoGraph] && (!v55 || objc_msgSend(self, "alignmentSubsumesSpan:alignment:", v24, log)))
               {
                 break;
               }
@@ -2677,7 +2640,7 @@ LABEL_21:
 LABEL_48:
             if (++v23 == v21)
             {
-              v21 = [v19 countByEnumeratingWithState:&v67 objects:v76 count:16];
+              v21 = [v19 countByEnumeratingWithState:&v66 objects:v75 count:16];
               if (!v21)
               {
 LABEL_50:
@@ -2689,15 +2652,15 @@ LABEL_50:
             }
           }
 
-          v57 = v23;
-          v65 = 0u;
-          v66 = 0u;
-          v63 = 0u;
+          v56 = v23;
           v64 = 0u;
+          v65 = 0u;
+          v62 = 0u;
+          v63 = 0u;
           usoGraph = [v24 usoGraph];
           spans = [usoGraph spans];
 
-          v27 = [spans countByEnumeratingWithState:&v63 objects:v75 count:16];
+          v27 = [spans countByEnumeratingWithState:&v62 objects:v74 count:16];
           if (!v27)
           {
             goto LABEL_47;
@@ -2705,20 +2668,20 @@ LABEL_50:
 
           v28 = v27;
           v29 = v24;
-          v30 = *v64;
-          v61 = *v64;
-          v58 = spans;
+          v30 = *v63;
+          v60 = *v63;
+          v57 = spans;
           while (2)
           {
             v31 = 0;
-            v62 = v28;
+            v61 = v28;
 LABEL_31:
-            if (*v64 != v30)
+            if (*v63 != v30)
             {
               objc_enumerationMutation(spans);
             }
 
-            v32 = *(*(&v63 + 1) + 8 * v31);
+            v32 = *(*(&v62 + 1) + 8 * v31);
             nodeIndex = [v32 nodeIndex];
             usoGraph2 = [v29 usoGraph];
             LOBYTE(nodeIndex) = [self hasEntityEdgeTo:nodeIndex inGraph:usoGraph2];
@@ -2727,7 +2690,7 @@ LABEL_31:
             {
               v35 = objc_alloc_init(MEMORY[0x1E69D1258]);
               [v32 copyTo:v35];
-              [v35 setNodeIndex:v60];
+              [v35 setNodeIndex:v59];
               internalSpanData = [v29 internalSpanData];
               if ([internalSpanData hasMentionResolverSpanData])
               {
@@ -2735,7 +2698,7 @@ LABEL_31:
                 mentionResolverSpanData = [internalSpanData2 mentionResolverSpanData];
                 hasJointScore = [mentionResolverSpanData hasJointScore];
 
-                spans = v58;
+                spans = v57;
                 if (hasJointScore)
                 {
                   v40 = objc_alloc_init(MEMORY[0x1E69D1118]);
@@ -2761,22 +2724,22 @@ LABEL_31:
               if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
               {
                 *buf = 136315138;
-                v72 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
+                v71 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
                 _os_log_impl(&dword_1DC287000, v40, OS_LOG_TYPE_INFO, "%s [WARN]: No joint model score found in mentionResolverSpanData, copying from identifier", buf, 0xCu);
               }
 
 LABEL_42:
-              v30 = v61;
-              v28 = v62;
+              v30 = v60;
+              v28 = v61;
 
               [v35 setSourceComponent:3];
               v45 = CDMOSLoggerForCategory(0);
               if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 136315394;
-                v72 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
-                v73 = 2112;
-                v74 = v32;
+                v71 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
+                v72 = 2112;
+                v73 = v32;
                 _os_log_debug_impl(&dword_1DC287000, v45, OS_LOG_TYPE_DEBUG, "%s Found matching UsoEntitySpan from MRR_MATCHER span. Copying over UsoEntitySpan. UsoEntitySpan: %@", buf, 0x16u);
               }
 
@@ -2789,24 +2752,24 @@ LABEL_42:
               if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 136315394;
-                v72 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
-                v73 = 2112;
-                v74 = v32;
+                v71 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
+                v72 = 2112;
+                v73 = v32;
                 _os_log_debug_impl(&dword_1DC287000, v35, OS_LOG_TYPE_DEBUG, "%s Skipping copy of UsoEntitySpan from MRR_MATCHER span. UsoEntitySpan is not attached to a node with a entity edge. UsoEntitySpan: %@", buf, 0x16u);
               }
             }
 
             if (v28 == ++v31)
             {
-              v28 = [spans countByEnumeratingWithState:&v63 objects:v75 count:16];
+              v28 = [spans countByEnumeratingWithState:&v62 objects:v74 count:16];
               if (!v28)
               {
 LABEL_47:
 
-                v22 = v53;
-                v19 = v54;
-                v21 = v55;
-                v23 = v57;
+                v22 = v52;
+                v19 = v53;
+                v21 = v54;
+                v23 = v56;
                 goto LABEL_48;
               }
 
@@ -2817,14 +2780,14 @@ LABEL_47:
           }
         }
 
-        graphCopy = v50;
+        graphCopy = v49;
         if (usoElementId == 2631)
         {
           v14 = CDMOSLoggerForCategory(0);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v72 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
+            v71 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
             v15 = v14;
             v16 = "%s Found node of type Common_SpatialPosition";
             goto LABEL_60;
@@ -2844,15 +2807,15 @@ LABEL_47:
           if (v18)
           {
             *buf = 136315138;
-            v72 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
+            v71 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
             _os_log_debug_impl(&dword_1DC287000, log, OS_LOG_TYPE_DEBUG, "%s Found node of type ENTITY_PRIMITIVE_STRING_ENTITY", buf, 0xCu);
           }
 
-          graphCopy = v50;
-          log = [self getUtteranceAlignmentForIndex:v50 nodeIndex:v60];
+          graphCopy = v49;
+          log = [self getUtteranceAlignmentForIndex:v49 nodeIndex:v59];
           if (log)
           {
-            v56 = 1;
+            v55 = 1;
             goto LABEL_19;
           }
 
@@ -2860,7 +2823,7 @@ LABEL_47:
           if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v72 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
+            v71 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
             _os_log_debug_impl(&dword_1DC287000, log, OS_LOG_TYPE_DEBUG, "%s Parse alignment for string payload not found. Dont proceed", buf, 0xCu);
           }
         }
@@ -2870,25 +2833,25 @@ LABEL_47:
           if (v18)
           {
             *buf = 136315138;
-            v72 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
+            v71 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
             _os_log_debug_impl(&dword_1DC287000, log, OS_LOG_TYPE_DEBUG, "%s MDMR - Found node of type ENTITY_PRIMITIVE_STRING_ENTITY but user defaults off dont proceed", buf, 0xCu);
           }
 
 LABEL_51:
-          graphCopy = v50;
+          graphCopy = v49;
         }
       }
 
       else
       {
-        graphCopy = v50;
+        graphCopy = v49;
         if (usoElementId == 1282)
         {
           v14 = CDMOSLoggerForCategory(0);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v72 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
+            v71 = "+[CDMPostProcessUtils copyMentionResolverSpanEntitySpans:fromMatchingSpans:toParseGraph:]";
             v15 = v14;
             v16 = "%s Found node of type Common_ReferenceType";
             goto LABEL_60;
@@ -2901,18 +2864,16 @@ LABEL_51:
       nodes3 = [graphCopy nodes];
       v47 = [nodes3 count];
 
-      ++v60;
+      ++v59;
     }
 
-    while (v47 > v60);
+    while (v47 > v59);
   }
-
-  v48 = *MEMORY[0x1E69E9840];
 }
 
 + (void)copyMentionResolverSpanIdentifiers:(id)identifiers fromMatchingSpans:(id)spans toParseGraph:(id)graph
 {
-  v87 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   identifiersCopy = identifiers;
   spansCopy = spans;
   graphCopy = graph;
@@ -2922,14 +2883,14 @@ LABEL_51:
   if (v11)
   {
     v12 = 0;
-    v60 = graphCopy;
+    v59 = graphCopy;
     do
     {
       nodes2 = [graphCopy nodes];
-      v67 = v12;
+      v66 = v12;
       v14 = [nodes2 objectAtIndexedSubscript:v12];
 
-      v59 = v14;
+      v58 = v14;
       usoElementId = [v14 usoElementId];
       if (usoElementId > 1317)
       {
@@ -2939,7 +2900,7 @@ LABEL_51:
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v82 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
+            v81 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
             v17 = v16;
             v18 = "%s Found node of type Common_ListPosition";
 LABEL_66:
@@ -2951,35 +2912,35 @@ LABEL_18:
           v21 = 0;
           log = 0;
 LABEL_19:
-          v79 = 0u;
-          v80 = 0u;
-          v77 = 0u;
           v78 = 0u;
+          v79 = 0u;
+          v76 = 0u;
+          v77 = 0u;
           v22 = spansCopy;
-          v23 = [v22 countByEnumeratingWithState:&v77 objects:v86 count:16];
+          v23 = [v22 countByEnumeratingWithState:&v76 objects:v85 count:16];
           if (!v23)
           {
             goto LABEL_56;
           }
 
           v24 = v23;
-          v68 = 0;
-          v25 = *v78;
-          v63 = v21;
-          v61 = *v78;
-          v62 = v22;
+          v67 = 0;
+          v25 = *v77;
+          v62 = v21;
+          v60 = *v77;
+          v61 = v22;
 LABEL_21:
           v26 = 0;
-          v65 = v24;
+          v64 = v24;
           while (1)
           {
-            if (*v78 != v25)
+            if (*v77 != v25)
             {
               objc_enumerationMutation(v22);
             }
 
-            v66 = v26;
-            v27 = *(*(&v77 + 1) + 8 * v26);
+            v65 = v26;
+            v27 = *(*(&v76 + 1) + 8 * v26);
             if ([self isInternalMatchingSpan:v27 fromMatcher:7])
             {
               if ([v27 hasUsoGraph] && (!v21 || objc_msgSend(self, "alignmentSubsumesSpan:alignment:", v27, log)))
@@ -2989,10 +2950,10 @@ LABEL_21:
             }
 
 LABEL_54:
-            v26 = v66 + 1;
-            if (v66 + 1 == v24)
+            v26 = v65 + 1;
+            if (v65 + 1 == v24)
             {
-              v24 = [v22 countByEnumeratingWithState:&v77 objects:v86 count:16];
+              v24 = [v22 countByEnumeratingWithState:&v76 objects:v85 count:16];
               if (!v24)
               {
 LABEL_56:
@@ -3004,36 +2965,36 @@ LABEL_56:
             }
           }
 
-          v75 = 0u;
-          v76 = 0u;
-          v73 = 0u;
           v74 = 0u;
+          v75 = 0u;
+          v72 = 0u;
+          v73 = 0u;
           usoGraph = [v27 usoGraph];
           identifiers = [usoGraph identifiers];
 
-          v72 = [identifiers countByEnumeratingWithState:&v73 objects:v85 count:16];
-          if (!v72)
+          v71 = [identifiers countByEnumeratingWithState:&v72 objects:v84 count:16];
+          if (!v71)
           {
 
             goto LABEL_54;
           }
 
           v30 = 0;
-          v71 = 0;
-          v69 = v27;
-          v70 = *v74;
-          v31 = v67;
+          v70 = 0;
+          v68 = v27;
+          v69 = *v73;
+          v31 = v66;
           v32 = identifiers;
           while (2)
           {
             v33 = 0;
 LABEL_31:
-            if (*v74 != v70)
+            if (*v73 != v69)
             {
               objc_enumerationMutation(v32);
             }
 
-            v34 = *(*(&v73 + 1) + 8 * v33);
+            v34 = *(*(&v72 + 1) + 8 * v33);
             nodeIndex = [v34 nodeIndex];
             usoGraph2 = [v27 usoGraph];
             LOBYTE(nodeIndex) = [self hasEntityEdgeTo:nodeIndex inGraph:usoGraph2];
@@ -3056,12 +3017,12 @@ LABEL_31:
 
                 identifiersCopy = v42;
                 self = selfCopy;
-                v31 = v67;
+                v31 = v66;
 
                 if (hasJointScore)
                 {
                   v46 = objc_alloc_init(MEMORY[0x1E69D1110]);
-                  internalSpanData2 = [v69 internalSpanData];
+                  internalSpanData2 = [v68 internalSpanData];
                   mentionResolverSpanData2 = [internalSpanData2 mentionResolverSpanData];
                   [mentionResolverSpanData2 jointScore];
                   [v46 setValue:?];
@@ -3079,7 +3040,7 @@ LABEL_31:
               if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
               {
                 *buf = 136315138;
-                v82 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
+                v81 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
                 _os_log_impl(&dword_1DC287000, v46, OS_LOG_TYPE_INFO, "%s [WARN]: No joint model score found in mentionResolverSpanData, copying from identifier", buf, 0xCu);
               }
 
@@ -3087,28 +3048,28 @@ LABEL_42:
               v32 = v38;
 
               [v39 setSourceComponent:3];
-              -[NSObject setGroupIndex:](v39, "setGroupIndex:", [v34 groupIndex] + v68);
+              -[NSObject setGroupIndex:](v39, "setGroupIndex:", [v34 groupIndex] + v67);
               groupIndex = [v34 groupIndex];
-              v50 = v71;
-              if (v71 <= groupIndex)
+              v50 = v70;
+              if (v70 <= groupIndex)
               {
                 v50 = groupIndex;
               }
 
-              v71 = v50;
+              v70 = v50;
               v51 = CDMOSLoggerForCategory(0);
               if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 136315394;
-                v82 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
-                v83 = 2112;
-                v84 = v34;
+                v81 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
+                v82 = 2112;
+                v83 = v34;
                 _os_log_debug_impl(&dword_1DC287000, v51, OS_LOG_TYPE_DEBUG, "%s Found matching identifier from MRR_MATCHER span. Copying over identifier. Identifier: %@", buf, 0x16u);
               }
 
               [identifiersCopy addObject:v39];
               v30 = 1;
-              v27 = v69;
+              v27 = v68;
             }
 
             else
@@ -3117,22 +3078,22 @@ LABEL_42:
               if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 136315394;
-                v82 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
-                v83 = 2112;
-                v84 = v34;
+                v81 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
+                v82 = 2112;
+                v83 = v34;
                 _os_log_debug_impl(&dword_1DC287000, v39, OS_LOG_TYPE_DEBUG, "%s Skipping copy of identifier from MRR_MATCHER span. Identifier is not attached to a node with a entity edge. Identifier: %@", buf, 0x16u);
               }
             }
 
-            if (v72 == ++v33)
+            if (v71 == ++v33)
             {
-              v72 = [v32 countByEnumeratingWithState:&v73 objects:v85 count:16];
-              if (!v72)
+              v71 = [v32 countByEnumeratingWithState:&v72 objects:v84 count:16];
+              if (!v71)
               {
 
                 if (v30)
                 {
-                  v52 = v71 + 1;
+                  v52 = v70 + 1;
                 }
 
                 else
@@ -3140,12 +3101,12 @@ LABEL_42:
                   v52 = 0;
                 }
 
-                v68 += v52;
-                graphCopy = v60;
-                v25 = v61;
-                v21 = v63;
-                v22 = v62;
-                v24 = v65;
+                v67 += v52;
+                graphCopy = v59;
+                v25 = v60;
+                v21 = v62;
+                v22 = v61;
+                v24 = v64;
                 goto LABEL_54;
               }
 
@@ -3162,7 +3123,7 @@ LABEL_42:
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v82 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
+            v81 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
             v17 = v16;
             v18 = "%s Found node of type Common_SpatialPosition";
             goto LABEL_66;
@@ -3184,7 +3145,7 @@ LABEL_42:
             if (v20)
             {
               *buf = 136315138;
-              v82 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
+              v81 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
               _os_log_debug_impl(&dword_1DC287000, log, OS_LOG_TYPE_DEBUG, "%s Found node of type ENTITY_PRIMITIVE_STRING_ENTITY", buf, 0xCu);
             }
 
@@ -3199,7 +3160,7 @@ LABEL_42:
             if (os_log_type_enabled(log, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315138;
-              v82 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
+              v81 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
               v55 = log;
               v56 = "%s Parse alignment for string payload not found. Dont proceed";
 LABEL_64:
@@ -3210,7 +3171,7 @@ LABEL_64:
           else if (v20)
           {
             *buf = 136315138;
-            v82 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
+            v81 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
             v55 = log;
             v56 = "%s MDMR - Found node of type ENTITY_PRIMITIVE_STRING_ENTITY but user defaults off dont proceed";
             goto LABEL_64;
@@ -3227,7 +3188,7 @@ LABEL_57:
           if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
-            v82 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
+            v81 = "+[CDMPostProcessUtils copyMentionResolverSpanIdentifiers:fromMatchingSpans:toParseGraph:]";
             v17 = v16;
             v18 = "%s Found node of type Common_ReferenceType";
             goto LABEL_66;
@@ -3239,40 +3200,38 @@ LABEL_57:
 
 LABEL_58:
 
-      v12 = v67 + 1;
+      v12 = v66 + 1;
       nodes3 = [graphCopy nodes];
       v54 = [nodes3 count];
     }
 
-    while (v54 > v67 + 1);
+    while (v54 > v66 + 1);
   }
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)hasEntityEdgeTo:(int)to inGraph:(id)graph
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   edges = [graph edges];
-  v6 = [edges countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v6 = [edges countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v17;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v17 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(edges);
         }
 
-        v10 = *(*(&v16 + 1) + 8 * i);
+        v10 = *(*(&v15 + 1) + 8 * i);
         if ([v10 hasToIndex])
         {
           if ([v10 toIndex] == to)
@@ -3292,7 +3251,7 @@ LABEL_58:
         }
       }
 
-      v7 = [edges countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v7 = [edges countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -3305,98 +3264,97 @@ LABEL_58:
   v13 = 0;
 LABEL_14:
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
 + (void)copySubsumedSpanEntitySpan:(id)span spans:(id)spans parseEntityKey:(id)key utteranceAlignment:(id)alignment tokenChain:(id)chain
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   spanCopy = span;
   spansCopy = spans;
   keyCopy = key;
   alignmentCopy = alignment;
   chainCopy = chain;
+  v62 = 0u;
   v63 = 0u;
   v64 = 0u;
   v65 = 0u;
-  v66 = 0u;
   obj = spansCopy;
-  v41 = [spansCopy countByEnumeratingWithState:&v63 objects:v69 count:16];
-  if (v41)
+  v40 = [spansCopy countByEnumeratingWithState:&v62 objects:v68 count:16];
+  if (v40)
   {
-    v40 = *v64;
+    v39 = *v63;
     v13 = 0x1E862B000uLL;
     do
     {
-      for (i = 0; i != v41; ++i)
+      for (i = 0; i != v40; ++i)
       {
-        if (*v64 != v40)
+        if (*v63 != v39)
         {
           objc_enumerationMutation(obj);
         }
 
-        v50 = *(*(&v63 + 1) + 8 * i);
-        usoGraph = [v50 usoGraph];
+        v49 = *(*(&v62 + 1) + 8 * i);
+        usoGraph = [v49 usoGraph];
         v16 = usoGraph;
         if (usoGraph)
         {
-          v42 = i;
-          v61 = 0u;
-          v62 = 0u;
-          v59 = 0u;
+          v41 = i;
           v60 = 0u;
+          v61 = 0u;
+          v58 = 0u;
+          v59 = 0u;
           alignments = [usoGraph alignments];
-          v18 = [alignments countByEnumeratingWithState:&v59 objects:v68 count:16];
+          v18 = [alignments countByEnumeratingWithState:&v58 objects:v67 count:16];
           if (v18)
           {
             v19 = v18;
-            v20 = *v60;
-            v44 = alignments;
-            v45 = v16;
-            v43 = *v60;
+            v20 = *v59;
+            v43 = alignments;
+            v44 = v16;
+            v42 = *v59;
             do
             {
               v21 = 0;
-              v46 = v19;
+              v45 = v19;
               do
               {
-                if (*v60 != v20)
+                if (*v59 != v20)
                 {
                   objc_enumerationMutation(alignments);
                 }
 
-                v22 = *(*(&v59 + 1) + 8 * v21);
+                v22 = *(*(&v58 + 1) + 8 * v21);
                 if ([v22 subsumedBy:alignmentCopy])
                 {
-                  v48 = v21;
+                  v47 = v21;
                   v23 = *(v13 + 2504);
-                  usoGraph2 = [v50 usoGraph];
+                  usoGraph2 = [v49 usoGraph];
                   v25 = [v23 entityKeyFrom:usoGraph2 at:{objc_msgSend(v22, "nodeIndex")}];
 
                   if ([v25 isEqualToEntityKey:keyCopy])
                   {
-                    v47 = v25;
-                    v57 = 0u;
-                    v58 = 0u;
-                    v55 = 0u;
+                    v46 = v25;
                     v56 = 0u;
+                    v57 = 0u;
+                    v54 = 0u;
+                    v55 = 0u;
                     spans = [v16 spans];
-                    v27 = [spans countByEnumeratingWithState:&v55 objects:v67 count:16];
+                    v27 = [spans countByEnumeratingWithState:&v54 objects:v66 count:16];
                     if (v27)
                     {
                       v28 = v27;
-                      v29 = *v56;
+                      v29 = *v55;
                       do
                       {
                         for (j = 0; j != v28; ++j)
                         {
-                          if (*v56 != v29)
+                          if (*v55 != v29)
                           {
                             objc_enumerationMutation(spans);
                           }
 
-                          v31 = *(*(&v55 + 1) + 8 * j);
+                          v31 = *(*(&v54 + 1) + 8 * j);
                           nodeIndex = [v31 nodeIndex];
                           if (nodeIndex == [v22 nodeIndex])
                           {
@@ -3411,7 +3369,7 @@ LABEL_14:
                             if (v36)
                             {
                               properties = [v33 properties];
-                              v37 = [self getSignificantTokenCountFrom:objc_msgSend(v50 to:"startTokenIndex") within:{objc_msgSend(v50, "endTokenIndex"), chainCopy}];
+                              v37 = [self getSignificantTokenCountFrom:objc_msgSend(v49 to:"startTokenIndex") within:{objc_msgSend(v49, "endTokenIndex"), chainCopy}];
                               [properties addObject:v37];
                             }
 
@@ -3421,49 +3379,47 @@ LABEL_14:
                           }
                         }
 
-                        v28 = [spans countByEnumeratingWithState:&v55 objects:v67 count:16];
+                        v28 = [spans countByEnumeratingWithState:&v54 objects:v66 count:16];
                       }
 
                       while (v28);
                     }
 
                     v13 = 0x1E862B000;
-                    alignments = v44;
-                    v16 = v45;
-                    v20 = v43;
-                    v19 = v46;
-                    v25 = v47;
+                    alignments = v43;
+                    v16 = v44;
+                    v20 = v42;
+                    v19 = v45;
+                    v25 = v46;
                   }
 
-                  v21 = v48;
+                  v21 = v47;
                 }
 
                 ++v21;
               }
 
               while (v21 != v19);
-              v19 = [alignments countByEnumeratingWithState:&v59 objects:v68 count:16];
+              v19 = [alignments countByEnumeratingWithState:&v58 objects:v67 count:16];
             }
 
             while (v19);
           }
 
-          i = v42;
+          i = v41;
         }
       }
 
-      v41 = [obj countByEnumeratingWithState:&v63 objects:v69 count:16];
+      v40 = [obj countByEnumeratingWithState:&v62 objects:v68 count:16];
     }
 
-    while (v41);
+    while (v40);
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 }
 
 + (void)copyAlignedSpanEntitySpanForSameType:(id)type spanIndexDict:(id)dict utteranceAlignment:(id)alignment entityKey:(id)key tokenChain:(id)chain
 {
-  v85 = *MEMORY[0x1E69E9840];
+  v84 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   dictCopy = dict;
   alignmentCopy = alignment;
@@ -3471,143 +3427,143 @@ LABEL_14:
   chainCopy = chain;
   v14 = objc_alloc(MEMORY[0x1E695DF70]);
   spans = [alignmentCopy spans];
-  v51 = [v14 initWithCapacity:{2 * objc_msgSend(spans, "count")}];
+  v50 = [v14 initWithCapacity:{2 * objc_msgSend(spans, "count")}];
 
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
   v74 = 0u;
+  v75 = 0u;
+  v72 = 0u;
+  v73 = 0u;
   spans2 = [alignmentCopy spans];
-  v17 = [spans2 countByEnumeratingWithState:&v73 objects:v84 count:16];
+  v17 = [spans2 countByEnumeratingWithState:&v72 objects:v83 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v74;
+    v19 = *v73;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v74 != v19)
+        if (*v73 != v19)
         {
           objc_enumerationMutation(spans2);
         }
 
-        v21 = *(*(&v73 + 1) + 8 * i);
+        v21 = *(*(&v72 + 1) + 8 * i);
         *buf = [v21 startIndex];
         endIndex = [v21 endIndex];
         [self updateIndexesForSignificantTokensFrom:buf to:&endIndex tokenChain:chainCopy entityKey:keyCopy];
         v22 = [MEMORY[0x1E696AD98] numberWithInt:*buf];
-        [v51 addObject:v22];
+        [v50 addObject:v22];
 
         v23 = [MEMORY[0x1E696AD98] numberWithInt:endIndex];
-        [v51 addObject:v23];
+        [v50 addObject:v23];
       }
 
-      v18 = [spans2 countByEnumeratingWithState:&v73 objects:v84 count:16];
+      v18 = [spans2 countByEnumeratingWithState:&v72 objects:v83 count:16];
     }
 
     while (v18);
   }
 
-  if (![v51 count])
+  if (![v50 count])
   {
     v44 = CDMOSLoggerForCategory(0);
     v24 = dictCopy;
     if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v81 = "+[CDMPostProcessUtils copyAlignedSpanEntitySpanForSameType:spanIndexDict:utteranceAlignment:entityKey:tokenChain:]";
-      v82 = 2112;
-      v83 = alignmentCopy;
+      v80 = "+[CDMPostProcessUtils copyAlignedSpanEntitySpanForSameType:spanIndexDict:utteranceAlignment:entityKey:tokenChain:]";
+      v81 = 2112;
+      v82 = alignmentCopy;
       _os_log_debug_impl(&dword_1DC287000, v44, OS_LOG_TYPE_DEBUG, "%s Found an alignment without indexes, ignoring: %@", buf, 0x16u);
     }
 
     goto LABEL_42;
   }
 
-  [v51 sortUsingSelector:sel_compare_];
+  [v50 sortUsingSelector:sel_compare_];
   v24 = dictCopy;
-  v25 = [dictCopy objectForKeyedSubscript:v51];
+  v25 = [dictCopy objectForKeyedSubscript:v50];
   if (!v25)
   {
     v44 = 0;
 LABEL_42:
-    v43 = v51;
+    v43 = v50;
     goto LABEL_43;
   }
 
-  v70 = 0u;
-  v71 = 0u;
-  v68 = 0u;
   v69 = 0u;
+  v70 = 0u;
+  v67 = 0u;
+  v68 = 0u;
   obj = v25;
-  v49 = [v25 countByEnumeratingWithState:&v68 objects:v79 count:16];
-  if (v49)
+  v48 = [v25 countByEnumeratingWithState:&v67 objects:v78 count:16];
+  if (v48)
   {
-    v48 = *v69;
+    v47 = *v68;
     do
     {
-      for (j = 0; j != v49; ++j)
+      for (j = 0; j != v48; ++j)
       {
-        if (*v69 != v48)
+        if (*v68 != v47)
         {
           objc_enumerationMutation(obj);
         }
 
-        usoGraph = [*(*(&v68 + 1) + 8 * j) usoGraph];
+        usoGraph = [*(*(&v67 + 1) + 8 * j) usoGraph];
         v28 = usoGraph;
         if (usoGraph)
         {
-          v50 = j;
-          v66 = 0u;
-          v67 = 0u;
-          v64 = 0u;
+          v49 = j;
           v65 = 0u;
+          v66 = 0u;
+          v63 = 0u;
+          v64 = 0u;
           alignments = [usoGraph alignments];
-          v29 = [alignments countByEnumeratingWithState:&v64 objects:v78 count:16];
+          v29 = [alignments countByEnumeratingWithState:&v63 objects:v77 count:16];
           if (v29)
           {
             v30 = v29;
-            v31 = *v65;
-            v52 = *v65;
-            v53 = v28;
+            v31 = *v64;
+            v51 = *v64;
+            v52 = v28;
             do
             {
               v32 = 0;
-              v54 = v30;
+              v53 = v30;
               do
               {
-                if (*v65 != v31)
+                if (*v64 != v31)
                 {
                   objc_enumerationMutation(alignments);
                 }
 
-                v33 = *(*(&v64 + 1) + 8 * v32);
+                v33 = *(*(&v63 + 1) + 8 * v32);
                 v34 = [self entityKeyFrom:v28 at:{objc_msgSend(v33, "nodeIndex")}];
                 if ([v34 isEqualToEntityKey:keyCopy])
                 {
-                  v56 = v34;
-                  v57 = v32;
-                  v62 = 0u;
-                  v63 = 0u;
-                  v60 = 0u;
+                  v55 = v34;
+                  v56 = v32;
                   v61 = 0u;
+                  v62 = 0u;
+                  v59 = 0u;
+                  v60 = 0u;
                   spans3 = [v28 spans];
-                  v36 = [spans3 countByEnumeratingWithState:&v60 objects:v77 count:16];
+                  v36 = [spans3 countByEnumeratingWithState:&v59 objects:v76 count:16];
                   if (v36)
                   {
                     v37 = v36;
-                    v38 = *v61;
+                    v38 = *v60;
                     do
                     {
                       for (k = 0; k != v37; ++k)
                       {
-                        if (*v61 != v38)
+                        if (*v60 != v38)
                         {
                           objc_enumerationMutation(spans3);
                         }
 
-                        v40 = *(*(&v60 + 1) + 8 * k);
+                        v40 = *(*(&v59 + 1) + 8 * k);
                         nodeIndex = [v40 nodeIndex];
                         if (nodeIndex == [v33 nodeIndex])
                         {
@@ -3619,50 +3575,48 @@ LABEL_42:
                         }
                       }
 
-                      v37 = [spans3 countByEnumeratingWithState:&v60 objects:v77 count:16];
+                      v37 = [spans3 countByEnumeratingWithState:&v59 objects:v76 count:16];
                     }
 
                     while (v37);
                   }
 
-                  v31 = v52;
-                  v28 = v53;
-                  v30 = v54;
-                  v34 = v56;
-                  v32 = v57;
+                  v31 = v51;
+                  v28 = v52;
+                  v30 = v53;
+                  v34 = v55;
+                  v32 = v56;
                 }
 
                 ++v32;
               }
 
               while (v32 != v30);
-              v30 = [alignments countByEnumeratingWithState:&v64 objects:v78 count:16];
+              v30 = [alignments countByEnumeratingWithState:&v63 objects:v77 count:16];
             }
 
             while (v30);
           }
 
-          j = v50;
+          j = v49;
         }
       }
 
-      v49 = [obj countByEnumeratingWithState:&v68 objects:v79 count:16];
+      v48 = [obj countByEnumeratingWithState:&v67 objects:v78 count:16];
     }
 
-    while (v49);
+    while (v48);
     v24 = dictCopy;
   }
 
-  v43 = v51;
+  v43 = v50;
   v44 = obj;
 LABEL_43:
-
-  v45 = *MEMORY[0x1E69E9840];
 }
 
 + (void)copyAlignedSpanIdentifierForSameType:(id)type spanIndexDict:(id)dict utteranceAlignment:(id)alignment entityKey:(id)key groupIndexDict:(id)indexDict tokenChain:(id)chain
 {
-  v103 = *MEMORY[0x1E69E9840];
+  v102 = *MEMORY[0x1E69E9840];
   typeCopy = type;
   dictCopy = dict;
   alignmentCopy = alignment;
@@ -3673,27 +3627,27 @@ LABEL_43:
   spans = [alignmentCopy spans];
   v18 = [v16 initWithCapacity:{2 * objc_msgSend(spans, "count")}];
 
-  v93 = 0u;
-  v94 = 0u;
-  v91 = 0u;
   v92 = 0u;
-  v75 = alignmentCopy;
+  v93 = 0u;
+  v90 = 0u;
+  v91 = 0u;
+  v74 = alignmentCopy;
   spans2 = [alignmentCopy spans];
-  v20 = [spans2 countByEnumeratingWithState:&v91 objects:v102 count:16];
+  v20 = [spans2 countByEnumeratingWithState:&v90 objects:v101 count:16];
   if (v20)
   {
     v21 = v20;
-    v22 = *v92;
+    v22 = *v91;
     do
     {
       for (i = 0; i != v21; ++i)
       {
-        if (*v92 != v22)
+        if (*v91 != v22)
         {
           objc_enumerationMutation(spans2);
         }
 
-        v24 = *(*(&v91 + 1) + 8 * i);
+        v24 = *(*(&v90 + 1) + 8 * i);
         *buf = [v24 startIndex];
         endIndex = [v24 endIndex];
         [self updateIndexesForSignificantTokensFrom:buf to:&endIndex tokenChain:chainCopy entityKey:keyCopy];
@@ -3704,7 +3658,7 @@ LABEL_43:
         [v18 addObject:v26];
       }
 
-      v21 = [spans2 countByEnumeratingWithState:&v91 objects:v102 count:16];
+      v21 = [spans2 countByEnumeratingWithState:&v90 objects:v101 count:16];
     }
 
     while (v21);
@@ -3717,9 +3671,9 @@ LABEL_43:
     if (v27)
     {
       v28 = v27;
-      v59 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInt:{objc_msgSend(alignmentCopy, "nodeIndex")}];
+      v58 = [objc_alloc(MEMORY[0x1E696AD98]) initWithUnsignedInt:{objc_msgSend(alignmentCopy, "nodeIndex")}];
       v29 = [indexDictCopy objectForKeyedSubscript:?];
-      v58 = v29;
+      v57 = v29;
       if (v29)
       {
         v30 = [v29 unsignedIntValue] + 1;
@@ -3730,95 +3684,95 @@ LABEL_43:
         v30 = 0;
       }
 
-      v88 = 0u;
-      v89 = 0u;
-      v86 = 0u;
       v87 = 0u;
+      v88 = 0u;
+      v85 = 0u;
+      v86 = 0u;
       v31 = v28;
-      v32 = [v31 countByEnumeratingWithState:&v86 objects:v97 count:16];
+      v32 = [v31 countByEnumeratingWithState:&v85 objects:v96 count:16];
       if (v32)
       {
         v33 = v32;
-        v34 = *v87;
-        v68 = keyCopy;
-        v64 = v18;
-        v65 = chainCopy;
-        v62 = *v87;
-        v63 = v31;
+        v34 = *v86;
+        v67 = keyCopy;
+        v63 = v18;
+        v64 = chainCopy;
+        v61 = *v86;
+        v62 = v31;
         do
         {
           v35 = 0;
-          v66 = v33;
+          v65 = v33;
           do
           {
-            if (*v87 != v34)
+            if (*v86 != v34)
             {
               objc_enumerationMutation(v31);
             }
 
-            usoGraph = [*(*(&v86 + 1) + 8 * v35) usoGraph];
-            v71 = usoGraph;
+            usoGraph = [*(*(&v85 + 1) + 8 * v35) usoGraph];
+            v70 = usoGraph;
             if (usoGraph)
             {
-              v84 = 0u;
-              v85 = 0u;
-              v82 = 0u;
               v83 = 0u;
+              v84 = 0u;
+              v81 = 0u;
+              v82 = 0u;
               alignments = [usoGraph alignments];
-              v38 = [alignments countByEnumeratingWithState:&v82 objects:v96 count:16];
+              v38 = [alignments countByEnumeratingWithState:&v81 objects:v95 count:16];
               if (v38)
               {
-                v67 = v35;
+                v66 = v35;
                 v39 = 0;
                 v40 = 0;
-                v41 = *v83;
-                v42 = v71;
+                v41 = *v82;
+                v42 = v70;
                 v43 = alignments;
                 v44 = v38;
-                v69 = *v83;
-                v70 = alignments;
+                v68 = *v82;
+                v69 = alignments;
                 do
                 {
                   v45 = 0;
-                  v72 = v44;
+                  v71 = v44;
                   do
                   {
-                    if (*v83 != v41)
+                    if (*v82 != v41)
                     {
                       objc_enumerationMutation(v43);
                     }
 
-                    v74 = v45;
-                    v46 = *(*(&v82 + 1) + 8 * v45);
-                    v73 = [self entityKeyFrom:v42 at:{objc_msgSend(v46, "nodeIndex")}];
-                    if ([v73 isEqualToEntityKey:keyCopy])
+                    v73 = v45;
+                    v46 = *(*(&v81 + 1) + 8 * v45);
+                    v72 = [self entityKeyFrom:v42 at:{objc_msgSend(v46, "nodeIndex")}];
+                    if ([v72 isEqualToEntityKey:keyCopy])
                     {
-                      v80 = 0u;
-                      v81 = 0u;
-                      v78 = 0u;
                       v79 = 0u;
+                      v80 = 0u;
+                      v77 = 0u;
+                      v78 = 0u;
                       identifiers = [v42 identifiers];
-                      v48 = [identifiers countByEnumeratingWithState:&v78 objects:v95 count:16];
+                      v48 = [identifiers countByEnumeratingWithState:&v77 objects:v94 count:16];
                       if (v48)
                       {
                         v49 = v48;
-                        v50 = *v79;
+                        v50 = *v78;
                         do
                         {
                           for (j = 0; j != v49; ++j)
                           {
-                            if (*v79 != v50)
+                            if (*v78 != v50)
                             {
                               objc_enumerationMutation(identifiers);
                             }
 
-                            v52 = *(*(&v78 + 1) + 8 * j);
+                            v52 = *(*(&v77 + 1) + 8 * j);
                             nodeIndex = [v52 nodeIndex];
                             if (nodeIndex == [v46 nodeIndex])
                             {
                               v54 = objc_opt_new();
                               [v52 copyTo:v54];
-                              [v54 setNodeIndex:{objc_msgSend(v75, "nodeIndex")}];
+                              [v54 setNodeIndex:{objc_msgSend(v74, "nodeIndex")}];
                               [v54 setGroupIndex:{objc_msgSend(v52, "groupIndex") + v30}];
                               [self stripBugFixNamespaceSuffix:v52];
                               groupIndex = [v52 groupIndex];
@@ -3833,24 +3787,24 @@ LABEL_43:
                             }
                           }
 
-                          v49 = [identifiers countByEnumeratingWithState:&v78 objects:v95 count:16];
+                          v49 = [identifiers countByEnumeratingWithState:&v77 objects:v94 count:16];
                         }
 
                         while (v49);
                       }
 
-                      keyCopy = v68;
-                      v41 = v69;
-                      v43 = v70;
-                      v42 = v71;
-                      v44 = v72;
+                      keyCopy = v67;
+                      v41 = v68;
+                      v43 = v69;
+                      v42 = v70;
+                      v44 = v71;
                     }
 
-                    v45 = v74 + 1;
+                    v45 = v73 + 1;
                   }
 
-                  while (v74 + 1 != v44);
-                  v44 = [v43 countByEnumeratingWithState:&v82 objects:v96 count:16];
+                  while (v73 + 1 != v44);
+                  v44 = [v43 countByEnumeratingWithState:&v81 objects:v95 count:16];
                 }
 
                 while (v44);
@@ -3866,12 +3820,12 @@ LABEL_43:
                 }
 
                 v30 += v56;
-                v18 = v64;
-                chainCopy = v65;
-                v34 = v62;
-                v31 = v63;
-                v33 = v66;
-                v35 = v67;
+                v18 = v63;
+                chainCopy = v64;
+                v34 = v61;
+                v31 = v62;
+                v33 = v65;
+                v35 = v66;
               }
 
               else
@@ -3883,7 +3837,7 @@ LABEL_43:
           }
 
           while (v35 != v33);
-          v33 = [v31 countByEnumeratingWithState:&v86 objects:v97 count:16];
+          v33 = [v31 countByEnumeratingWithState:&v85 objects:v96 count:16];
         }
 
         while (v33);
@@ -3902,46 +3856,44 @@ LABEL_43:
     if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v99 = "+[CDMPostProcessUtils copyAlignedSpanIdentifierForSameType:spanIndexDict:utteranceAlignment:entityKey:groupIndexDict:tokenChain:]";
-      v100 = 2112;
-      v101 = v75;
+      v98 = "+[CDMPostProcessUtils copyAlignedSpanIdentifierForSameType:spanIndexDict:utteranceAlignment:entityKey:groupIndexDict:tokenChain:]";
+      v99 = 2112;
+      v100 = v74;
       _os_log_debug_impl(&dword_1DC287000, v31, OS_LOG_TYPE_DEBUG, "%s Found an alignment without indexes, ignoring: %@", buf, 0x16u);
     }
   }
-
-  v57 = *MEMORY[0x1E69E9840];
 }
 
 + (void)stripBugFixPropertyKeySuffix:(id)suffix
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   suffixCopy = suffix;
   properties = [suffixCopy properties];
 
   if (properties)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v18 = 0u;
     v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    v22 = 0u;
-    v18 = suffixCopy;
+    v17 = suffixCopy;
     properties2 = [suffixCopy properties];
-    v7 = [properties2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v7 = [properties2 countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v20;
+      v9 = *v19;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v20 != v9)
+          if (*v19 != v9)
           {
             objc_enumerationMutation(properties2);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * i);
+          v11 = *(*(&v18 + 1) + 8 * i);
           v12 = [v11 key];
           v13 = [v12 hasSuffix:@"BugFix"];
 
@@ -3956,17 +3908,15 @@ LABEL_43:
           [v5 addObject:v11];
         }
 
-        v8 = [properties2 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v8 = [properties2 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v8);
     }
 
-    suffixCopy = v18;
-    [v18 setProperties:v5];
+    suffixCopy = v17;
+    [v17 setProperties:v5];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 + (void)stripBugFixNamespaceSuffix:(id)suffix
@@ -3990,36 +3940,36 @@ LABEL_43:
 
 + (id)spanIndexDict:(id)dict tokenChain:(id)chain
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   chainCopy = chain;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   obj = dictCopy;
-  v8 = [obj countByEnumeratingWithState:&v57 objects:v67 count:16];
+  v8 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
   if (v8)
   {
     v10 = v8;
-    v11 = *v58;
+    v11 = *v57;
     *&v9 = 136315394;
-    v36 = v9;
-    v38 = *v58;
+    v35 = v9;
+    v37 = *v57;
     do
     {
       v12 = 0;
-      v39 = v10;
+      v38 = v10;
       do
       {
-        if (*v58 != v11)
+        if (*v57 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v42 = *(*(&v57 + 1) + 8 * v12);
-        usoGraph = [v42 usoGraph];
+        v41 = *(*(&v56 + 1) + 8 * v12);
+        usoGraph = [v41 usoGraph];
         v14 = usoGraph;
         if (usoGraph)
         {
@@ -4028,56 +3978,56 @@ LABEL_43:
 
           if (v16)
           {
-            v41 = v12;
+            v40 = v12;
             v17 = objc_alloc(MEMORY[0x1E695DF70]);
             alignments = [v14 alignments];
             v19 = [v17 initWithCapacity:{2 * objc_msgSend(alignments, "count")}];
             v20 = v14;
             v21 = v19;
 
-            v55 = 0u;
-            v56 = 0u;
-            v53 = 0u;
             v54 = 0u;
-            v45 = v20;
+            v55 = 0u;
+            v52 = 0u;
+            v53 = 0u;
+            v44 = v20;
             alignments2 = [v20 alignments];
-            v46 = [alignments2 countByEnumeratingWithState:&v53 objects:v66 count:16];
-            if (v46)
+            v45 = [alignments2 countByEnumeratingWithState:&v52 objects:v65 count:16];
+            if (v45)
             {
-              v44 = *v54;
+              v43 = *v53;
               do
               {
                 v22 = 0;
                 do
                 {
-                  if (*v54 != v44)
+                  if (*v53 != v43)
                   {
                     objc_enumerationMutation(alignments2);
                   }
 
-                  v47 = v22;
-                  v23 = *(*(&v53 + 1) + 8 * v22);
-                  v24 = [self entityKeyFrom:v45 at:{objc_msgSend(v23, "nodeIndex")}];
+                  v46 = v22;
+                  v23 = *(*(&v52 + 1) + 8 * v22);
+                  v24 = [self entityKeyFrom:v44 at:{objc_msgSend(v23, "nodeIndex")}];
+                  v48 = 0u;
                   v49 = 0u;
                   v50 = 0u;
                   v51 = 0u;
-                  v52 = 0u;
                   spans = [v23 spans];
-                  v26 = [spans countByEnumeratingWithState:&v49 objects:v65 count:16];
+                  v26 = [spans countByEnumeratingWithState:&v48 objects:v64 count:16];
                   if (v26)
                   {
                     v27 = v26;
-                    v28 = *v50;
+                    v28 = *v49;
                     do
                     {
                       for (i = 0; i != v27; ++i)
                       {
-                        if (*v50 != v28)
+                        if (*v49 != v28)
                         {
                           objc_enumerationMutation(spans);
                         }
 
-                        v30 = *(*(&v49 + 1) + 8 * i);
+                        v30 = *(*(&v48 + 1) + 8 * i);
                         *buf = [v30 startIndex];
                         endIndex = [v30 endIndex];
                         [self updateIndexesForSignificantTokensFrom:buf to:&endIndex tokenChain:chainCopy entityKey:v24];
@@ -4088,55 +4038,55 @@ LABEL_43:
                         [v21 addObject:v32];
                       }
 
-                      v27 = [spans countByEnumeratingWithState:&v49 objects:v65 count:16];
+                      v27 = [spans countByEnumeratingWithState:&v48 objects:v64 count:16];
                     }
 
                     while (v27);
                   }
 
-                  v22 = v47 + 1;
+                  v22 = v46 + 1;
                 }
 
-                while (v47 + 1 != v46);
-                v46 = [alignments2 countByEnumeratingWithState:&v53 objects:v66 count:16];
+                while (v46 + 1 != v45);
+                v45 = [alignments2 countByEnumeratingWithState:&v52 objects:v65 count:16];
               }
 
-              while (v46);
+              while (v45);
             }
 
             if ([v21 count])
             {
               [v21 sortUsingSelector:sel_compare_];
               array = [dictionary objectForKeyedSubscript:v21];
-              v11 = v38;
-              v10 = v39;
-              v12 = v41;
+              v11 = v37;
+              v10 = v38;
+              v12 = v40;
               if (!array)
               {
                 array = [MEMORY[0x1E695DF70] array];
                 [dictionary setObject:array forKeyedSubscript:v21];
               }
 
-              [array addObject:v42];
+              [array addObject:v41];
             }
 
             else
             {
               array = CDMOSLoggerForCategory(0);
-              v11 = v38;
-              v10 = v39;
-              v12 = v41;
+              v11 = v37;
+              v10 = v38;
+              v12 = v40;
               if (os_log_type_enabled(array, OS_LOG_TYPE_DEBUG))
               {
-                *buf = v36;
-                v62 = "+[CDMPostProcessUtils spanIndexDict:tokenChain:]";
-                v63 = 2112;
-                v64 = v42;
+                *buf = v35;
+                v61 = "+[CDMPostProcessUtils spanIndexDict:tokenChain:]";
+                v62 = 2112;
+                v63 = v41;
                 _os_log_debug_impl(&dword_1DC287000, array, OS_LOG_TYPE_DEBUG, "%s Found a MatchingSpan without an utterance span alignment: %@", buf, 0x16u);
               }
             }
 
-            v14 = v45;
+            v14 = v44;
           }
         }
 
@@ -4144,43 +4094,41 @@ LABEL_43:
       }
 
       while (v12 != v10);
-      v10 = [obj countByEnumeratingWithState:&v57 objects:v67 count:16];
+      v10 = [obj countByEnumeratingWithState:&v56 objects:v66 count:16];
     }
 
     while (v10);
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
 
 + (id)getGroupIndexDict:(id)dict
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dictCopy = dict;
   v4 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
-  v17 = dictCopy;
+  v16 = dictCopy;
   identifiers = [dictCopy identifiers];
-  v6 = [identifiers countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v6 = [identifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v18;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v18 != v8)
         {
           objc_enumerationMutation(identifiers);
         }
 
-        v10 = *(*(&v18 + 1) + 8 * i);
+        v10 = *(*(&v17 + 1) + 8 * i);
         if (([v10 hasGroupIndex] & 1) == 0)
         {
           [v10 setGroupIndex:0];
@@ -4195,48 +4143,46 @@ LABEL_43:
         }
       }
 
-      v7 = [identifiers countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [identifiers countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v7);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (id)usoGraphs:(id)graphs
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   graphsCopy = graphs;
   v4 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(graphsCopy, "count")}];
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   obj = graphsCopy;
-  v5 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v5 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v5)
   {
     v6 = v5;
-    v23 = *v29;
+    v22 = *v28;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v23)
+        if (*v28 != v22)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v28 + 1) + 8 * i);
+        v8 = *(*(&v27 + 1) + 8 * i);
+        v23 = 0u;
         v24 = 0u;
         v25 = 0u;
         v26 = 0u;
-        v27 = 0u;
         userDialogActs = [v8 userDialogActs];
-        v10 = [userDialogActs countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v10 = [userDialogActs countByEnumeratingWithState:&v23 objects:v31 count:16];
         if (!v10)
         {
           v12 = 0;
@@ -4245,17 +4191,17 @@ LABEL_43:
 
         v11 = v10;
         v12 = 0;
-        v13 = *v25;
+        v13 = *v24;
         do
         {
           for (j = 0; j != v11; ++j)
           {
-            if (*v25 != v13)
+            if (*v24 != v13)
             {
               objc_enumerationMutation(userDialogActs);
             }
 
-            v15 = *(*(&v24 + 1) + 8 * j);
+            v15 = *(*(&v23 + 1) + 8 * j);
             if ([v15 hasUserStatedTask])
             {
               userStatedTask = [v15 userStatedTask];
@@ -4318,27 +4264,25 @@ LABEL_29:
             }
           }
 
-          v11 = [userDialogActs countByEnumeratingWithState:&v24 objects:v32 count:16];
+          v11 = [userDialogActs countByEnumeratingWithState:&v23 objects:v31 count:16];
         }
 
         while (v11);
 LABEL_35:
       }
 
-      v6 = [obj countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v6 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v6);
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
 
 + (void)runFeatureStore:(id)store nluResponse:(id)response snlcRequest:(id)request snlcResponse:(id)snlcResponse pscRequest:(id)pscRequest pscResponse:(id)pscResponse spanProtoResponse:(id)protoResponse tokenProtoResponse:(id)self0 mdRequest:(id)self1 mdResponse:(id)self2 mrRequest:(id)self3 mrResponse:(id)self4 nLv4Request:(id)self5 nLv4Response:(id)self6
 {
-  v76 = *MEMORY[0x1E69E9840];
+  v75 = *MEMORY[0x1E69E9840];
   lv4ResponseCopy = lv4Response;
   lv4RequestCopy = lv4Request;
   mrResponseCopy = mrResponse;
@@ -4357,7 +4301,7 @@ LABEL_35:
   if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v75 = "+[CDMPostProcessUtils runFeatureStore:nluResponse:snlcRequest:snlcResponse:pscRequest:pscResponse:spanProtoResponse:tokenProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:nLv4Request:nLv4Response:]";
+    v74 = "+[CDMPostProcessUtils runFeatureStore:nluResponse:snlcRequest:snlcResponse:pscRequest:pscResponse:spanProtoResponse:tokenProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:nLv4Request:nLv4Response:]";
     _os_log_debug_impl(&dword_1DC287000, v26, OS_LOG_TYPE_DEBUG, "%s FeatureStore Insertion", buf, 0xCu);
   }
 
@@ -4436,13 +4380,11 @@ LABEL_35:
 
   v62 = [requestId12 idA];
   [CDMFeatureStoreUtils insertNLv4ParserResponseToFeatureStore:parserResponse interactionId:v62];
-
-  v63 = *MEMORY[0x1E69E9840];
 }
 
 + (id)selectParsesFromUserParsesUaaP:(id)p userParsesShortcut:(id)shortcut userParsesReplaceOverrides:(id)overrides userParsesAppendOverrides:(id)appendOverrides userParsesSNLC:(id)c userParsesNLv4:(id)lv4 userParsesCATI:(id)i userParsesPSC:(id)self0 userParsesAutoShortcuts:(id)self1 userParsesSSU:(id)self2 addDebugInfo:(id)self3
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   pCopy = p;
   shortcutCopy = shortcut;
   overridesCopy = overrides;
@@ -4461,7 +4403,7 @@ LABEL_35:
     if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v38 = "+[CDMPostProcessUtils selectParsesFromUserParsesUaaP:userParsesShortcut:userParsesReplaceOverrides:userParsesAppendOverrides:userParsesSNLC:userParsesNLv4:userParsesCATI:userParsesPSC:userParsesAutoShortcuts:userParsesSSU:addDebugInfo:]";
+      v37 = "+[CDMPostProcessUtils selectParsesFromUserParsesUaaP:userParsesShortcut:userParsesReplaceOverrides:userParsesAppendOverrides:userParsesSNLC:userParsesNLv4:userParsesCATI:userParsesPSC:userParsesAutoShortcuts:userParsesSSU:addDebugInfo:]";
       _os_log_debug_impl(&dword_1DC287000, v27, OS_LOG_TYPE_DEBUG, "%s UaaP parses preferred, all other parses will be ignored", buf, 0xCu);
     }
 
@@ -4496,14 +4438,12 @@ LABEL_13:
   v30 = v31;
 LABEL_14:
 
-  v32 = *MEMORY[0x1E69E9840];
-
   return v30;
 }
 
 + (id)runPostProcess:(id)process snlcRequest:(id)request snlcResponse:(id)response nLv4Request:(id)lv4Request nLv4Response:(id)lv4Response uaapNLProtoResponse:(id)protoResponse catiProtoResponse:(id)catiProtoResponse pscRequest:(id)self0 pscResponse:(id)self1 lvcResponse:(id)self2 overridesProtoResponse:(id)self3 mdRequest:(id)self4 mdResponse:(id)self5 mrRequest:(id)self6 mrResponse:(id)self7 spanProtoResponse:(id)self8 rdResponse:(id)self9 tokenProtoResponse:(id)tokenProtoResponse ssuResponse:(id)ssuResponse ccqrResponse:(id)ccqrResponse correctionOutcome:(id)outcome nluRequest:(id)nluRequest graphInput:(id)input debugText:(id)text
 {
-  v154 = *MEMORY[0x1E69E9840];
+  v153 = *MEMORY[0x1E69E9840];
   processCopy = process;
   responseCopy = response;
   lv4ResponseCopy = lv4Response;
@@ -4525,12 +4465,12 @@ LABEL_14:
   if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v149 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
+    v148 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
     _os_log_debug_impl(&dword_1DC287000, v37, OS_LOG_TYPE_DEBUG, "%s Final post process step", buf, 0xCu);
   }
 
-  v117 = lv4ResponseCopy;
-  v118 = responseCopy;
+  v116 = lv4ResponseCopy;
+  v117 = responseCopy;
   if (+[CDMLogging debugEnabled])
   {
     data = [nluRequestCopy data];
@@ -4541,16 +4481,16 @@ LABEL_14:
     if (os_log_type_enabled(CDMLogContext, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
-      v149 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
-      v150 = 2112;
-      v151 = @"cdmio";
-      v152 = 2112;
-      v153 = v40;
+      v148 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
+      v149 = 2112;
+      v150 = @"cdmio";
+      v151 = 2112;
+      v152 = v40;
       _os_log_debug_impl(&dword_1DC287000, v41, OS_LOG_TYPE_DEBUG, "%s [insights-cdm-%@]:\nSIRINLUEXTERNALCDMNluRequest base64:\n%@", buf, 0x20u);
     }
 
-    lv4ResponseCopy = v117;
-    responseCopy = v118;
+    lv4ResponseCopy = v116;
+    responseCopy = v117;
   }
 
   if (processCopy)
@@ -4649,7 +4589,7 @@ LABEL_22:
   parsesForAppending = MEMORY[0x1E695E0F0];
   parsesForReplacement = MEMORY[0x1E695E0F0];
 LABEL_23:
-  v113 = ssuResponseCopy;
+  v112 = ssuResponseCopy;
   if (ssuResponseCopy)
   {
     ssuResponse = [ssuResponseCopy ssuResponse];
@@ -4661,16 +4601,16 @@ LABEL_23:
     hypotheses2 = MEMORY[0x1E695E0F0];
   }
 
-  v116 = catiProtoResponseCopy;
-  v110 = hypotheses2;
-  v111 = parses;
-  v112 = snlcParses;
+  v115 = catiProtoResponseCopy;
+  v109 = hypotheses2;
+  v110 = parses;
+  v111 = snlcParses;
   v49 = [CDMPostProcessUtils selectParsesFromUserParsesUaaP:parses2 userParsesShortcut:voiceCommandsUserParses userParsesReplaceOverrides:parsesForReplacement userParsesAppendOverrides:parsesForAppending userParsesSNLC:snlcParses userParsesNLv4:parses userParsesCATI:hypotheses userParsesPSC:pscParses userParsesAutoShortcuts:autoShortcutParses userParsesSSU:hypotheses2 addDebugInfo:textCopy];
   v50 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v149 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
+    v148 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
     _os_log_debug_impl(&dword_1DC287000, v50, OS_LOG_TYPE_DEBUG, "%s Convert SiriNLUTypes internal spans to external spans", buf, 0xCu);
   }
 
@@ -4692,7 +4632,7 @@ LABEL_23:
   if (os_log_type_enabled(v59, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v149 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
+    v148 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
     _os_log_debug_impl(&dword_1DC287000, v59, OS_LOG_TYPE_DEBUG, "%s Annotate DelegatedUserDialogActs with external spans", buf, 0xCu);
   }
 
@@ -4704,7 +4644,7 @@ LABEL_23:
   if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v149 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
+    v148 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
     _os_log_debug_impl(&dword_1DC287000, v62, OS_LOG_TYPE_DEBUG, "%s Annotate all UserParse with correction outcome", buf, 0xCu);
   }
 
@@ -4716,23 +4656,23 @@ LABEL_23:
     if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315138;
-      v149 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
+      v148 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
       _os_log_debug_impl(&dword_1DC287000, v64, OS_LOG_TYPE_DEBUG, "%s Remove the probability from each parse", buf, 0xCu);
     }
 
     [CDMPostProcessUtils removeProbabilityFromUserParses:v49];
   }
 
-  v119 = v49;
+  v118 = v49;
   v65 = v63;
-  v136 = mrResponseCopy;
-  v114 = overridesProtoResponseCopy;
-  v115 = pscResponseCopy;
+  v135 = mrResponseCopy;
+  v113 = overridesProtoResponseCopy;
+  v114 = pscResponseCopy;
   v66 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v149 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
+    v148 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
     _os_log_debug_impl(&dword_1DC287000, v66, OS_LOG_TYPE_DEBUG, "%s Create NLU Response", buf, 0xCu);
   }
 
@@ -4740,33 +4680,33 @@ LABEL_23:
   requestId = [nluRequestCopy requestId];
   [v67 setRequestId:requestId];
 
-  v69 = [v119 mutableCopy];
+  v69 = [v118 mutableCopy];
   [v67 setParses:v69];
 
   v70 = [CDMServiceGraphUtil buildRepetitionResult:rdResponseCopy];
+  v141 = 0u;
   v142 = 0u;
   v143 = 0u;
   v144 = 0u;
-  v145 = 0u;
   parses3 = [v67 parses];
-  v72 = [parses3 countByEnumeratingWithState:&v142 objects:v147 count:16];
+  v72 = [parses3 countByEnumeratingWithState:&v141 objects:v146 count:16];
   if (v72)
   {
     v73 = v72;
-    v74 = *v143;
+    v74 = *v142;
     do
     {
       for (i = 0; i != v73; ++i)
       {
-        if (*v143 != v74)
+        if (*v142 != v74)
         {
           objc_enumerationMutation(parses3);
         }
 
-        [*(*(&v142 + 1) + 8 * i) setRepetitionResult:v70];
+        [*(*(&v141 + 1) + 8 * i) setRepetitionResult:v70];
       }
 
-      v73 = [parses3 countByEnumeratingWithState:&v142 objects:v147 count:16];
+      v73 = [parses3 countByEnumeratingWithState:&v141 objects:v146 count:16];
     }
 
     while (v73);
@@ -4783,9 +4723,9 @@ LABEL_23:
     if (os_log_type_enabled(v77, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v149 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
-      v150 = 2112;
-      v151 = textCopy;
+      v148 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
+      v149 = 2112;
+      v150 = textCopy;
       _os_log_debug_impl(&dword_1DC287000, v77, OS_LOG_TYPE_DEBUG, "%s Debug info %@", buf, 0x16u);
     }
   }
@@ -4793,7 +4733,7 @@ LABEL_23:
   matchingSpansForNL2 = [spanProtoResponseCopy matchingSpansForNL];
   v79 = [matchingSpansForNL2 mutableCopy];
 
-  response4 = [v136 response];
+  response4 = [v135 response];
   mentions2 = [response4 mentions];
   v82 = [mentions2 count];
 
@@ -4802,15 +4742,15 @@ LABEL_23:
     v83 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v83, OS_LOG_TYPE_DEBUG))
     {
-      response5 = [v136 response];
+      response5 = [v135 response];
       *buf = 136315394;
-      v149 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
-      v150 = 2112;
-      v151 = response5;
+      v148 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
+      v149 = 2112;
+      v150 = response5;
       _os_log_debug_impl(&dword_1DC287000, v83, OS_LOG_TYPE_DEBUG, "%s Found mention resolver spans, MR response: %@", buf, 0x16u);
     }
 
-    response6 = [v136 response];
+    response6 = [v135 response];
     mentions3 = [response6 mentions];
     [v79 addObjectsFromArray:mentions3];
   }
@@ -4822,29 +4762,29 @@ LABEL_23:
   languageVariantResult = [lvcResponseCopy languageVariantResult];
   [v67 setLanguageVariantResult:languageVariantResult];
 
-  v140 = 0u;
-  v141 = 0u;
-  v138 = 0u;
   v139 = 0u;
+  v140 = 0u;
+  v137 = 0u;
+  v138 = 0u;
   parses4 = [v67 parses];
-  v90 = [parses4 countByEnumeratingWithState:&v138 objects:v146 count:16];
+  v90 = [parses4 countByEnumeratingWithState:&v137 objects:v145 count:16];
   if (v90)
   {
     v91 = v90;
-    v92 = *v139;
+    v92 = *v138;
     do
     {
       for (j = 0; j != v91; ++j)
       {
-        if (*v139 != v92)
+        if (*v138 != v92)
         {
           objc_enumerationMutation(parses4);
         }
 
-        [self mapVocGenericBundleIdsToPlatformBundleIdsForParse:*(*(&v138 + 1) + 8 * j)];
+        [self mapVocGenericBundleIdsToPlatformBundleIdsForParse:*(*(&v137 + 1) + 8 * j)];
       }
 
-      v91 = [parses4 countByEnumeratingWithState:&v138 objects:v146 count:16];
+      v91 = [parses4 countByEnumeratingWithState:&v137 objects:v145 count:16];
     }
 
     while (v91);
@@ -4854,7 +4794,7 @@ LABEL_23:
   if (os_log_type_enabled(v94, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v149 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
+    v148 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
     _os_log_debug_impl(&dword_1DC287000, v94, OS_LOG_TYPE_DEBUG, "%s Annotate NLUResponse with external spans and rewrite message", buf, 0xCu);
   }
 
@@ -4862,7 +4802,7 @@ LABEL_23:
   if (!rewriteMsg)
   {
     v96 = objc_opt_class();
-    response8 = [v136 response];
+    response8 = [v135 response];
     rewrittenUtterance2 = [response8 rewrittenUtterance];
     rewriteMsg = [v96 rewriteMessageFromMatchingSpans:v51 mrRewrittenUtterance:rewrittenUtterance2];
   }
@@ -4871,9 +4811,9 @@ LABEL_23:
   if (os_log_type_enabled(v99, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v149 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
-    v150 = 2112;
-    v151 = rewriteMsg;
+    v148 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
+    v149 = 2112;
+    v150 = rewriteMsg;
     _os_log_debug_impl(&dword_1DC287000, v99, OS_LOG_TYPE_DEBUG, "%s Rewrite message: %@", buf, 0x16u);
   }
 
@@ -4885,9 +4825,9 @@ LABEL_23:
   {
     supplementaryOutput = [v67 supplementaryOutput];
     *buf = 136315394;
-    v149 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
-    v150 = 2112;
-    v151 = supplementaryOutput;
+    v148 = "+[CDMPostProcessUtils runPostProcess:snlcRequest:snlcResponse:nLv4Request:nLv4Response:uaapNLProtoResponse:catiProtoResponse:pscRequest:pscResponse:lvcResponse:overridesProtoResponse:mdRequest:mdResponse:mrRequest:mrResponse:spanProtoResponse:rdResponse:tokenProtoResponse:ssuResponse:ccqrResponse:correctionOutcome:nluRequest:graphInput:debugText:]";
+    v149 = 2112;
+    v150 = supplementaryOutput;
     _os_log_debug_impl(&dword_1DC287000, v101, OS_LOG_TYPE_DEBUG, "%s NLUResponse supplementaryOutput: %@", buf, 0x16u);
   }
 
@@ -4895,8 +4835,6 @@ LABEL_23:
   requestId2 = [v67 requestId];
   v104 = [requestId2 idA];
   v105 = [(CDMAssistantNLUResponse *)v102 initWithNLUResponse:v67 requestId:v104];
-
-  v106 = *MEMORY[0x1E69E9840];
 
   return v105;
 }

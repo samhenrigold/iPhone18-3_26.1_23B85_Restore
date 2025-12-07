@@ -16,7 +16,7 @@
 {
   callCopy = call;
   selfCopy = self;
-  sub_100017014();
+  sub_100017014(callCopy);
 }
 
 - (void)createAudioCallViewControllerWithCall:(id)call
@@ -46,7 +46,7 @@
 {
   callCopy = call;
   selfCopy = self;
-  sub_100034CA0();
+  sub_100034CA0(callCopy, selfCopy);
 }
 
 - (TUCall)presentedFullScreenedCall
@@ -69,7 +69,7 @@
 - (void)setIsInBackground:(BOOL)background
 {
   selfCopy = self;
-  sub_100242B28();
+  sub_100242B28(background);
 }
 
 - (void)cleanUp

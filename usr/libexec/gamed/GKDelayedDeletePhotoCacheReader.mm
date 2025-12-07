@@ -42,16 +42,10 @@
 - (id)deletePhotoDescriptorForExecutedStatement:(sqlite3_stmt *)statement
 {
   v3 = [NSDate _gkDateFromScalarServerTimestamp:sqlite3_column_int64(statement, 1)];
-  v7[0] = @"delete-approved";
-  v7[1] = @"delete-pending";
-  v8[0] = &__kCFBooleanTrue;
-  v8[1] = &__kCFBooleanTrue;
-  v7[2] = @"timestamp";
   _gkServerTimestamp = [v3 _gkServerTimestamp];
-  v8[2] = _gkServerTimestamp;
-  v5 = [NSDictionary dictionaryWithObjects:v8 forKeys:v7 count:3];
+  v4 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
 
-  return v5;
+  return v4;
 }
 
 - (void)readResources:(id)resources handler:(id)handler

@@ -36,7 +36,7 @@
   }
 
   _MLServiceS.getModelStats(completionHandler:)(v4, v5);
-  outlined consume of (@escaping @callee_guaranteed @Sendable (@guaranteed [String : Any]?) -> ())?(v4);
+  outlined consume of (@escaping @callee_guaranteed @Sendable (@guaranteed [String : Any]?) -> ())?(v4, v5);
   MEMORY[0x277D82BD8](self);
 }
 

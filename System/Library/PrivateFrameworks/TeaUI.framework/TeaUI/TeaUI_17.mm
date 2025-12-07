@@ -1,59 +1,59 @@
 uint64_t StatusBannerContainerController.tabBarSplitViewPresentation(for:)()
 {
   OUTLINED_FUNCTION_7_25();
-  sub_1D7E0631C(0, qword_1EDBB0758);
-  v0 = v40;
-  OUTLINED_FUNCTION_18_2(v0, v1, v2, v3, v4, v5, v6, v7, v36, v38, v40, v42, v44[0]);
+  sub_1D7E0631C(0, qword_1EDBB0758, &protocol descriptor for TabBarSplitViewPanable);
+  v0 = v48;
+  OUTLINED_FUNCTION_18_2(v0, v1, v2, v3, v4, v5, v6, v7, v44, v46, v48, v50, v52[0]);
   v8 = swift_dynamicCast();
   if (v8)
   {
-    OUTLINED_FUNCTION_19_10(v8, v9, v10, v11);
-    OUTLINED_FUNCTION_17_12(v47);
-    v12 = OUTLINED_FUNCTION_13_14();
-    v13(v12);
-    return __swift_destroy_boxed_opaque_existential_1Tm(v47);
+    OUTLINED_FUNCTION_19_10(v8, v9, v10, v11, v12, v13, v14, v15);
+    OUTLINED_FUNCTION_17_12(v55);
+    v16 = OUTLINED_FUNCTION_13_14();
+    v17(v16);
+    return __swift_destroy_boxed_opaque_existential_1Tm(v55);
   }
 
   OUTLINED_FUNCTION_2_3();
-  sub_1D7E9DD24(v44, &qword_1ECA0DD60, qword_1EDBB0758);
+  sub_1D7E9DD24(v52, &qword_1ECA0DD60, qword_1EDBB0758, &protocol descriptor for TabBarSplitViewPanable);
   objc_opt_self();
-  v14 = swift_dynamicCastObjCClass();
-  if (v14)
+  v18 = swift_dynamicCastObjCClass();
+  if (v18)
   {
-    v15 = v14;
-    v16 = v0;
-    v17 = [v15 childViewControllers];
+    v19 = v18;
+    v20 = v0;
+    v21 = [v19 childViewControllers];
     sub_1D7E194D0();
-    v18 = sub_1D8191314();
+    v22 = sub_1D8191314();
 
-    if (sub_1D7E36AB8(v18))
+    if (sub_1D7E36AB8(v22))
     {
-      sub_1D7E33DD8(0, (v18 & 0xC000000000000001) == 0, v18);
-      if ((v18 & 0xC000000000000001) != 0)
+      sub_1D7E33DD8(0, (v22 & 0xC000000000000001) == 0, v22);
+      if ((v22 & 0xC000000000000001) != 0)
       {
-        v19 = MEMORY[0x1DA714420](0, v18);
+        v23 = MEMORY[0x1DA714420](0, v22);
       }
 
       else
       {
-        v19 = *(v18 + 32);
+        v23 = *(v22 + 32);
       }
 
-      v20 = v19;
+      v24 = v23;
 
-      v46 = v20;
-      OUTLINED_FUNCTION_18_2(v21, v22, v23, v24, v25, v26, v27, v28, v37, v39, v41, v43, v44[0]);
-      v29 = swift_dynamicCast();
-      if (v29)
+      v54 = v24;
+      OUTLINED_FUNCTION_18_2(v25, v26, v27, v28, v29, v30, v31, v32, v45, v47, v49, v51, v52[0]);
+      v33 = swift_dynamicCast();
+      if (v33)
       {
-        if (v45)
+        if (v53)
         {
-          OUTLINED_FUNCTION_19_10(v29, v30, v31, v32);
-          OUTLINED_FUNCTION_17_12(v47);
-          v33 = OUTLINED_FUNCTION_13_14();
-          v34(v33);
+          OUTLINED_FUNCTION_19_10(v33, v34, v35, v36, v37, v38, v39, v40);
+          OUTLINED_FUNCTION_17_12(v55);
+          v41 = OUTLINED_FUNCTION_13_14();
+          v42(v41);
 
-          return __swift_destroy_boxed_opaque_existential_1Tm(v47);
+          return __swift_destroy_boxed_opaque_existential_1Tm(v55);
         }
       }
 
@@ -69,7 +69,7 @@ uint64_t StatusBannerContainerController.tabBarSplitViewPresentation(for:)()
       OUTLINED_FUNCTION_2_3();
     }
 
-    sub_1D7E9DD24(v44, &qword_1ECA0DD60, qword_1EDBB0758);
+    sub_1D7E9DD24(v52, &qword_1ECA0DD60, qword_1EDBB0758, &protocol descriptor for TabBarSplitViewPanable);
   }
 
   result = OUTLINED_FUNCTION_3_49();
@@ -80,71 +80,71 @@ uint64_t StatusBannerContainerController.tabBarSplitViewPresentation(for:)()
 Swift::Void __swiftcall StatusBannerContainerController.textBeginEditing()()
 {
   OUTLINED_FUNCTION_5_26();
-  v0 = sub_1D7E0631C(0, &qword_1ECA0DD68);
-  OUTLINED_FUNCTION_8_19(v0, v1, v2, v3, v4, v5, v6, v7, v18);
-  v8 = OUTLINED_FUNCTION_2_50();
-  if (v8)
+  v0 = sub_1D7E0631C(0, &qword_1ECA0DD68, &protocol descriptor for TextEditObserving);
+  v8 = OUTLINED_FUNCTION_8_19(v0, v1, v2, v3, v4, v5, v6, v7, v20);
+  v10 = OUTLINED_FUNCTION_2_50(v8, v9);
+  if (v10)
   {
-    OUTLINED_FUNCTION_16_15(v8, v9, v10, v11, v12, v13, v14, v15, v19, v20, v21[0]);
-    __swift_project_boxed_opaque_existential_1(v22, v22[3]);
-    v16 = OUTLINED_FUNCTION_4_1();
-    v17(v16);
-    __swift_destroy_boxed_opaque_existential_1Tm(v22);
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_0_38();
-    sub_1D7E9DD24(v21, &qword_1ECA0DD70, &qword_1ECA0DD68);
-  }
-}
-
-Swift::Void __swiftcall StatusBannerContainerController.textEndEditing()()
-{
-  OUTLINED_FUNCTION_5_26();
-  v0 = sub_1D7E0631C(0, &qword_1ECA0DD68);
-  OUTLINED_FUNCTION_8_19(v0, v1, v2, v3, v4, v5, v6, v7, v18);
-  v8 = OUTLINED_FUNCTION_2_50();
-  if (v8)
-  {
-    OUTLINED_FUNCTION_16_15(v8, v9, v10, v11, v12, v13, v14, v15, v19, v20, v21[0]);
-    v16 = v23;
-    v17 = v24;
-    __swift_project_boxed_opaque_existential_1(v22, v23);
-    (*(v17 + 16))(v16, v17);
-    __swift_destroy_boxed_opaque_existential_1Tm(v22);
-  }
-
-  else
-  {
-    OUTLINED_FUNCTION_0_38();
-    sub_1D7E9DD24(v21, &qword_1ECA0DD70, &qword_1ECA0DD68);
-  }
-}
-
-uint64_t StatusBannerContainerController.backdropGroupName.getter()
-{
-  OUTLINED_FUNCTION_5_26();
-  v0 = sub_1D7E0631C(0, &qword_1EDBB7300);
-  OUTLINED_FUNCTION_8_19(v0, v1, v2, v3, v4, v5, v6, v7, v20);
-  v8 = OUTLINED_FUNCTION_2_50();
-  if (v8)
-  {
-    OUTLINED_FUNCTION_16_15(v8, v9, v10, v11, v12, v13, v14, v15, v21, v22, v23[0]);
+    OUTLINED_FUNCTION_16_15(v10, v11, v12, v13, v14, v15, v16, v17, v21, v22, v23[0]);
     __swift_project_boxed_opaque_existential_1(v24, v24[3]);
-    v16 = OUTLINED_FUNCTION_4_1();
-    v18 = v17(v16);
+    v18 = OUTLINED_FUNCTION_4_1();
+    v19(v18);
     __swift_destroy_boxed_opaque_existential_1Tm(v24);
   }
 
   else
   {
     OUTLINED_FUNCTION_0_38();
-    sub_1D7E9DD24(v23, &unk_1EDBB72F0, &qword_1EDBB7300);
+    sub_1D7E9DD24(v23, &qword_1ECA0DD70, &qword_1ECA0DD68, &protocol descriptor for TextEditObserving);
+  }
+}
+
+Swift::Void __swiftcall StatusBannerContainerController.textEndEditing()()
+{
+  OUTLINED_FUNCTION_5_26();
+  v0 = sub_1D7E0631C(0, &qword_1ECA0DD68, &protocol descriptor for TextEditObserving);
+  v8 = OUTLINED_FUNCTION_8_19(v0, v1, v2, v3, v4, v5, v6, v7, v20);
+  v10 = OUTLINED_FUNCTION_2_50(v8, v9);
+  if (v10)
+  {
+    OUTLINED_FUNCTION_16_15(v10, v11, v12, v13, v14, v15, v16, v17, v21, v22, v23[0]);
+    v18 = v25;
+    v19 = v26;
+    __swift_project_boxed_opaque_existential_1(v24, v25);
+    (*(v19 + 16))(v18, v19);
+    __swift_destroy_boxed_opaque_existential_1Tm(v24);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_0_38();
+    sub_1D7E9DD24(v23, &qword_1ECA0DD70, &qword_1ECA0DD68, &protocol descriptor for TextEditObserving);
+  }
+}
+
+uint64_t StatusBannerContainerController.backdropGroupName.getter()
+{
+  OUTLINED_FUNCTION_5_26();
+  v0 = sub_1D7E0631C(0, &qword_1EDBB7300, &protocol descriptor for BackdropGroupNameProviding);
+  v8 = OUTLINED_FUNCTION_8_19(v0, v1, v2, v3, v4, v5, v6, v7, v22);
+  v10 = OUTLINED_FUNCTION_2_50(v8, v9);
+  if (v10)
+  {
+    OUTLINED_FUNCTION_16_15(v10, v11, v12, v13, v14, v15, v16, v17, v23, v24, v25[0]);
+    __swift_project_boxed_opaque_existential_1(v26, v26[3]);
+    v18 = OUTLINED_FUNCTION_4_1();
+    v20 = v19(v18);
+    __swift_destroy_boxed_opaque_existential_1Tm(v26);
+  }
+
+  else
+  {
+    OUTLINED_FUNCTION_0_38();
+    sub_1D7E9DD24(v25, &unk_1EDBB72F0, &qword_1EDBB7300, &protocol descriptor for BackdropGroupNameProviding);
     return 0;
   }
 
-  return v18;
+  return v20;
 }
 
 unint64_t sub_1D7F87324()
@@ -239,241 +239,241 @@ char *BlueprintHorizontalScrollShimView.__allocating_init<A, B, C>(blueprintView
 
 char *sub_1D7F87680(void *a1, uint64_t a2, void *a3)
 {
-  v92 = a3;
-  v99 = a2;
+  v93 = a3;
+  v100 = a2;
   ObjectType = swift_getObjectType();
-  sub_1D7F89D40();
-  MEMORY[0x1EEE9AC00](v5 - 8);
-  v95 = &v84 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v94 = sub_1D8191D24();
-  v101 = *(v94 - 8);
-  MEMORY[0x1EEE9AC00](v94);
-  v93 = &v84 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v100 = sub_1D8191E04();
-  v98 = *(v100 - 8);
-  MEMORY[0x1EEE9AC00](v100);
-  v97 = &v84 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v96 = &v84 - v10;
-  v11 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_shimMaskView;
-  *&v3[v11] = [objc_allocWithZone(type metadata accessor for HorizontalScrollShimMaskView()) initWithFrame_];
-  v12 = MEMORY[0x1E69E7CC0];
+  sub_1D7F89D40(0, v5);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v96 = &v85 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v95 = sub_1D8191D24();
+  v102 = *(v95 - 8);
+  MEMORY[0x1EEE9AC00](v95);
+  v94 = &v85 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v101 = sub_1D8191E04();
+  v99 = *(v101 - 8);
+  MEMORY[0x1EEE9AC00](v101);
+  v98 = &v85 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v10);
+  v97 = &v85 - v11;
+  v12 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_shimMaskView;
+  *&v3[v12] = [objc_allocWithZone(type metadata accessor for HorizontalScrollShimMaskView()) initWithFrame_];
+  v13 = MEMORY[0x1E69E7CC0];
   *&v3[OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_keyValueObservers] = MEMORY[0x1E69E7CC0];
-  *&v3[OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_hoverGestureRecognizers] = v12;
-  v13 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_nextButton;
-  v14 = objc_opt_self();
-  *&v3[v13] = [v14 buttonWithType_];
-  v15 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_previousButton;
-  *&v3[v15] = [v14 buttonWithType_];
+  *&v3[OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_hoverGestureRecognizers] = v13;
+  v14 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_nextButton;
+  v15 = objc_opt_self();
+  *&v3[v14] = [v15 buttonWithType_];
+  v16 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_previousButton;
+  *&v3[v16] = [v15 buttonWithType_];
   *&v3[OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_hoveringState] = 0;
-  v16 = a1;
-  v17 = [v16 traitCollection];
-  v18 = [v17 userInterfaceIdiom];
+  v17 = a1;
+  v18 = [v17 traitCollection];
+  v19 = [v18 userInterfaceIdiom];
 
-  if (v18 <= 6 && ((1 << v18) & 0x62) != 0)
+  if (v19 <= 6 && ((1 << v19) & 0x62) != 0)
   {
-    *&v3[OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_collectionView] = v16;
-    v19 = &v3[OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_layoutOptionsProvider];
-    v20 = v92;
-    *v19 = v99;
-    *(v19 + 1) = v20;
-    v104.receiver = v3;
-    v104.super_class = ObjectType;
-    v92 = v16;
+    *&v3[OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_collectionView] = v17;
+    v20 = &v3[OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_layoutOptionsProvider];
+    v21 = v93;
+    *v20 = v100;
+    v20[1] = v21;
+    v105.receiver = v3;
+    v105.super_class = ObjectType;
+    v93 = v17;
     swift_unknownObjectRetain();
-    v21 = objc_msgSendSuper2(&v104, sel_initWithFrame_, 0.0, 0.0, 0.0, 0.0);
-    v22 = objc_opt_self();
-    v23 = *MEMORY[0x1E69DB970];
-    v24 = v21;
-    v25 = [v22 systemFontOfSize:28.0 weight:v23];
-    v26 = [objc_opt_self() configurationWithFont_];
+    v22 = objc_msgSendSuper2(&v105, sel_initWithFrame_, 0.0, 0.0, 0.0, 0.0);
+    v23 = objc_opt_self();
+    v24 = *MEMORY[0x1E69DB970];
+    v25 = v22;
+    v26 = [v23 systemFontOfSize:28.0 weight:v24];
+    v27 = [objc_opt_self() configurationWithFont_];
 
     if (sub_1D8190B24())
     {
-      v27 = v96;
+      v28 = v97;
       sub_1D8191DB4();
     }
 
     else
     {
-      v27 = v96;
+      v28 = v97;
       sub_1D8191DF4();
     }
 
-    v91 = sub_1D7E0A1A8(0, &qword_1EDBB2F60);
-    v28 = sub_1D7E47238();
-    v29 = [v28 imageByApplyingSymbolConfiguration_];
+    v92 = sub_1D7E0A1A8(0, &qword_1EDBB2F60, 0x1E69DCAB8);
+    v29 = sub_1D7E47238(0xD000000000000014, 0x80000001D81CB2F0);
+    v30 = [v29 imageByApplyingSymbolConfiguration_];
 
     sub_1D8191DC4();
-    v30 = *(v101 + 13);
-    v89 = *MEMORY[0x1E69DC508];
-    v101 += 104;
-    v88 = v30;
-    v30(v93);
+    v31 = *(v102 + 13);
+    v90 = *MEMORY[0x1E69DC508];
+    v102 += 104;
+    v89 = v31;
+    v31(v94);
     sub_1D8191D34();
-    v31 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_previousButton;
-    v32 = *&v24[OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_previousButton];
-    v33 = v95;
-    v34 = v100;
-    v87 = *(v98 + 16);
-    v87(v95, v27, v100);
-    __swift_storeEnumTagSinglePayload(v33, 0, 1, v34);
-    v35 = v32;
+    v32 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_previousButton;
+    v33 = *&v25[OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_previousButton];
+    v34 = v96;
+    v35 = v101;
+    v88 = *(v99 + 16);
+    v88(v96, v28, v101);
+    __swift_storeEnumTagSinglePayload(v34, 0, 1, v35);
+    v36 = v33;
     sub_1D8191E24();
 
-    [*&v24[v31] addTarget:v24 action:sel_doPreviousWithButton_ forControlEvents:64];
-    v36 = *&v24[v31];
-    v37 = objc_opt_self();
-    v38 = v36;
-    v85 = v37;
-    v39 = [v37 labelColor];
-    [v38 setTintColor_];
+    [*&v25[v32] addTarget:v25 action:sel_doPreviousWithButton_ forControlEvents:64];
+    v37 = *&v25[v32];
+    v38 = objc_opt_self();
+    v39 = v37;
+    v86 = v38;
+    v40 = [v38 labelColor];
+    [v39 setTintColor_];
 
-    [*&v24[v31] setPointerInteractionEnabled_];
-    [*&v24[v31] setHidden_];
-    [*&v24[v31] setPreferredBehavioralStyle_];
-    v40 = *&v24[v31];
+    [*&v25[v32] setPointerInteractionEnabled_];
+    [*&v25[v32] setHidden_];
+    [*&v25[v32] setPreferredBehavioralStyle_];
+    v41 = *&v25[v32];
     type metadata accessor for Localized();
     ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-    v42 = objc_opt_self();
-    v43 = v40;
-    v84 = ObjCClassFromMetadata;
-    v44 = [v42 bundleForClass_];
-    v86 = 0x80000001D81CB310;
-    v45 = sub_1D818E514();
-    v47 = v46;
+    v43 = objc_opt_self();
+    v44 = v41;
+    v85 = ObjCClassFromMetadata;
+    v45 = [v43 bundleForClass_];
+    v87 = 0x80000001D81CB310;
+    v46 = sub_1D818E514();
+    v48 = v47;
 
-    sub_1D806B194(v45, v47, v43);
-    sub_1D7F89C88(0xD000000000000014, 0x80000001D81CB340, *&v24[v31]);
-    v90 = v31;
-    [v24 addSubview_];
+    sub_1D806B194(v46, v48, v44);
+    sub_1D7F89C88(0xD000000000000014, 0x80000001D81CB340, *&v25[v32]);
+    v91 = v32;
+    [v25 addSubview_];
     if (sub_1D8190B24())
     {
-      v48 = v97;
+      v49 = v98;
       sub_1D8191DB4();
     }
 
     else
     {
-      v48 = v97;
+      v49 = v98;
       sub_1D8191DF4();
     }
 
-    v49 = sub_1D7E47238();
-    v91 = v26;
-    v50 = [v49 imageByApplyingSymbolConfiguration_];
+    v50 = sub_1D7E47238(0xD000000000000015, 0x80000001D81CB360);
+    v92 = v27;
+    v51 = [v50 imageByApplyingSymbolConfiguration_];
 
     sub_1D8191DC4();
-    v88(v93, v89, v94);
+    v89(v94, v90, v95);
     sub_1D8191D34();
-    v51 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_nextButton;
-    v52 = *&v24[OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_nextButton];
-    v53 = v95;
-    v54 = v100;
-    v87(v95, v48, v100);
-    __swift_storeEnumTagSinglePayload(v53, 0, 1, v54);
-    v55 = v52;
+    v52 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_nextButton;
+    v53 = *&v25[OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_nextButton];
+    v54 = v96;
+    v55 = v101;
+    v88(v96, v49, v101);
+    __swift_storeEnumTagSinglePayload(v54, 0, 1, v55);
+    v56 = v53;
     sub_1D8191E24();
 
-    [*&v24[v51] addTarget:v24 action:sel_doNextWithButton_ forControlEvents:64];
-    v56 = *&v24[v51];
-    v57 = [v85 labelColor];
-    [v56 setTintColor_];
+    [*&v25[v52] addTarget:v25 action:sel_doNextWithButton_ forControlEvents:64];
+    v57 = *&v25[v52];
+    v58 = [v86 labelColor];
+    [v57 setTintColor_];
 
-    [*&v24[v51] setPointerInteractionEnabled_];
-    [*&v24[v51] setHidden_];
-    [*&v24[v51] setPreferredBehavioralStyle_];
-    v58 = *&v24[v51];
-    v59 = [v42 bundleForClass_];
-    v60 = sub_1D818E514();
-    v62 = v61;
+    [*&v25[v52] setPointerInteractionEnabled_];
+    [*&v25[v52] setHidden_];
+    [*&v25[v52] setPreferredBehavioralStyle_];
+    v59 = *&v25[v52];
+    v60 = [v43 bundleForClass_];
+    v61 = sub_1D818E514();
+    v63 = v62;
 
-    sub_1D806B194(v60, v62, v58);
-    sub_1D7F89C88(0xD000000000000010, 0x80000001D81CB380, *&v24[v51]);
-    [v24 addSubview_];
-    v63 = v92;
-    v103[0] = v92;
+    sub_1D806B194(v61, v63, v59);
+    sub_1D7F89C88(0xD000000000000010, 0x80000001D81CB380, *&v25[v52]);
+    [v25 addSubview_];
+    v64 = v93;
+    v104[0] = v93;
     swift_getKeyPath();
     swift_allocObject();
     swift_unknownObjectWeakInit();
     sub_1D818E594();
 
-    v64 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_keyValueObservers;
-    v65 = swift_beginAccess();
-    MEMORY[0x1DA713500](v65);
-    sub_1D7E2893C(*((*&v24[v64] & 0xFFFFFFFFFFFFFF8) + 0x10));
-    sub_1D8191404();
-    swift_endAccess();
-    v103[0] = v63;
-    swift_getKeyPath();
-    swift_allocObject();
-    swift_unknownObjectWeakInit();
-    sub_1D818E594();
-
+    v65 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_keyValueObservers;
     v66 = swift_beginAccess();
     MEMORY[0x1DA713500](v66);
-    sub_1D7E2893C(*((*&v24[v64] & 0xFFFFFFFFFFFFFF8) + 0x10));
+    sub_1D7E2893C(*((*&v25[v65] & 0xFFFFFFFFFFFFFF8) + 0x10));
+    sub_1D8191404();
+    swift_endAccess();
+    v104[0] = v64;
+    swift_getKeyPath();
+    swift_allocObject();
+    swift_unknownObjectWeakInit();
+    sub_1D818E594();
+
+    v67 = swift_beginAccess();
+    MEMORY[0x1DA713500](v67);
+    sub_1D7E2893C(*((*&v25[v65] & 0xFFFFFFFFFFFFFF8) + 0x10));
     sub_1D8191404();
     swift_endAccess();
     sub_1D7E49240();
     inited = swift_initStackObject();
     *(inited + 16) = xmmword_1D81A7860;
-    *(inited + 32) = v24;
-    *(inited + 40) = v63;
-    v68 = *&v24[v90];
-    *(inited + 48) = v68;
-    v69 = *&v24[v51];
-    *(inited + 56) = v69;
-    v101 = sel_doHoveringWithRecognizer_;
-    v70 = (inited & 0xC000000000000001) == 0;
-    sub_1D7E33DD8(0, v70, inited);
-    sub_1D7E33DD8(3, v70, inited);
-    v71 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_hoverGestureRecognizers;
-    v72 = v68;
+    *(inited + 32) = v25;
+    *(inited + 40) = v64;
+    v69 = *&v25[v91];
+    *(inited + 48) = v69;
+    v70 = *&v25[v52];
+    *(inited + 56) = v70;
+    v102 = sel_doHoveringWithRecognizer_;
+    v71 = (inited & 0xC000000000000001) == 0;
+    sub_1D7E33DD8(0, v71, inited);
+    sub_1D7E33DD8(3, v71, inited);
+    v72 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_hoverGestureRecognizers;
     v73 = v69;
-    v74 = 0;
+    v74 = v70;
+    v75 = 0;
     do
     {
       if ((inited & 0xC000000000000001) != 0)
       {
-        v75 = MEMORY[0x1DA714420](v74, inited);
+        v76 = MEMORY[0x1DA714420](v75, inited);
       }
 
       else
       {
-        v75 = *(inited + 8 * v74 + 32);
+        v76 = *(inited + 8 * v75 + 32);
       }
 
-      v76 = v75;
-      v103[3] = ObjectType;
-      v103[0] = v24;
-      v77 = objc_allocWithZone(MEMORY[0x1E69DCAA0]);
-      v78 = v24;
-      v79 = sub_1D7F89B44(v103, v101);
-      [v79 setDelegate_];
+      v77 = v76;
+      v104[3] = ObjectType;
+      v104[0] = v25;
+      v78 = objc_allocWithZone(MEMORY[0x1E69DCAA0]);
+      v79 = v25;
+      v80 = sub_1D7F89B44(v104, v102);
+      [v80 setDelegate_];
       swift_beginAccess();
-      v80 = v79;
+      v81 = v80;
       MEMORY[0x1DA713500]();
-      if (*((*&v24[v71] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*&v24[v71] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
+      if (*((*&v25[v72] & 0xFFFFFFFFFFFFFF8) + 0x10) >= *((*&v25[v72] & 0xFFFFFFFFFFFFFF8) + 0x18) >> 1)
       {
         sub_1D81913B4();
       }
 
-      ++v74;
+      ++v75;
       sub_1D8191404();
       swift_endAccess();
-      [v76 addGestureRecognizer_];
+      [v77 addGestureRecognizer_];
     }
 
-    while (v74 != 4);
+    while (v75 != 4);
 
     swift_unknownObjectRelease();
     swift_setDeallocating();
     sub_1D7E72768();
-    v81 = *(v98 + 8);
-    v82 = v100;
-    v81(v97, v100);
-    v81(v96, v82);
+    v82 = *(v99 + 8);
+    v83 = v101;
+    v82(v98, v101);
+    v82(v97, v83);
   }
 
   else
@@ -484,33 +484,33 @@ char *sub_1D7F87680(void *a1, uint64_t a2, void *a3)
     return 0;
   }
 
-  return v24;
+  return v25;
 }
 
-void sub_1D7F883DC()
+void sub_1D7F883DC(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
+    v4 = Strong;
     sub_1D7F87458();
   }
 }
 
-void sub_1D7F88430()
+void sub_1D7F88430(double a1)
 {
-  v1 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_shimMaskView;
-  *(v0 + v1) = [objc_allocWithZone(type metadata accessor for HorizontalScrollShimMaskView()) initWithFrame_];
-  v2 = MEMORY[0x1E69E7CC0];
-  *(v0 + OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_keyValueObservers) = MEMORY[0x1E69E7CC0];
-  *(v0 + OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_hoverGestureRecognizers) = v2;
-  v3 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_nextButton;
-  v4 = objc_opt_self();
-  *(v0 + v3) = [v4 buttonWithType_];
-  v5 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_previousButton;
-  *(v0 + v5) = [v4 buttonWithType_];
-  *(v0 + OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_hoveringState) = 0;
+  v2 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_shimMaskView;
+  *(v1 + v2) = [objc_allocWithZone(type metadata accessor for HorizontalScrollShimMaskView()) initWithFrame_];
+  v3 = MEMORY[0x1E69E7CC0];
+  *(v1 + OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_keyValueObservers) = MEMORY[0x1E69E7CC0];
+  *(v1 + OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_hoverGestureRecognizers) = v3;
+  v4 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_nextButton;
+  v5 = objc_opt_self();
+  *(v1 + v4) = [v5 buttonWithType_];
+  v6 = OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_previousButton;
+  *(v1 + v6) = [v5 buttonWithType_];
+  *(v1 + OBJC_IVAR____TtC5TeaUI33BlueprintHorizontalScrollShimView_hoveringState) = 0;
   sub_1D81923A4();
   __break(1u);
 }
@@ -700,7 +700,7 @@ id sub_1D7F88DA4(char a1)
 
   if (v13)
   {
-    sub_1D7E0A1A8(0, &qword_1EDBB3020);
+    sub_1D7E0A1A8(0, &qword_1EDBB3020, 0x1E69DC858);
     v14 = sub_1D8191314();
   }
 
@@ -751,7 +751,7 @@ LABEL_25:
     }
   }
 
-  sub_1D7E0A1A8(0, &qword_1EDBB3020);
+  sub_1D7E0A1A8(0, &qword_1EDBB3020, 0x1E69DC858);
   sub_1D7F89CEC();
   v14 = sub_1D8191384();
 
@@ -980,15 +980,15 @@ unint64_t sub_1D7F89CEC()
   return result;
 }
 
-void sub_1D7F89D40()
+void sub_1D7F89D40(uint64_t a1, double a2)
 {
   if (!qword_1EDBAE428)
   {
     sub_1D8191E04();
-    v0 = sub_1D8191E84();
-    if (!v1)
+    v2 = sub_1D8191E84();
+    if (!v3)
     {
-      atomic_store(v0, &qword_1EDBAE428);
+      atomic_store(v2, &qword_1EDBAE428);
     }
   }
 }
@@ -1078,7 +1078,7 @@ id sub_1D7F8A140(uint64_t a1, uint64_t a2, __int128 *a3, void *a4)
 {
   v5 = v4;
   v10 = *(a3 + 32);
-  sub_1D7F854E8();
+  sub_1D7F854E8(0);
   v31 = a3[1];
   v32 = *a3;
   inited = swift_initStackObject();
@@ -1091,12 +1091,12 @@ id sub_1D7F8A140(uint64_t a1, uint64_t a2, __int128 *a3, void *a4)
   v35 = v10;
   v14 = v13;
   v15 = sub_1D7F8A9DC(v34);
-  v16 = sub_1D7E0A1A8(0, &qword_1EDBB2FE0);
+  v16 = sub_1D7E0A1A8(0, &qword_1EDBB2FE0, 0x1E69DB878);
   *(inited + 40) = v15;
   v17 = *MEMORY[0x1E69DB650];
   *(inited + 64) = v16;
   *(inited + 72) = v17;
-  *(inited + 104) = sub_1D7E0A1A8(0, &qword_1EDBB2F68);
+  *(inited + 104) = sub_1D7E0A1A8(0, &qword_1EDBB2F68, 0x1E69DC888);
   if (a4)
   {
     *(inited + 80) = a4;
@@ -1159,7 +1159,7 @@ id PillViewStyler.styled(title:size:isSelected:tintColor:)(uint64_t a1, uint64_t
 id sub_1D7F8A3A4(uint64_t a1, uint64_t a2, __int128 *a3)
 {
   v6 = *(a3 + 32);
-  sub_1D7F854E8();
+  sub_1D7F854E8(0);
   v22 = a3[1];
   v23 = *a3;
   inited = swift_initStackObject();
@@ -1173,7 +1173,7 @@ id sub_1D7F8A3A4(uint64_t a1, uint64_t a2, __int128 *a3)
   sub_1D8190DB4();
   v10 = v9;
   v11 = sub_1D7F8A9DC(v24);
-  v12 = sub_1D7E0A1A8(0, &qword_1EDBB2FE0);
+  v12 = sub_1D7E0A1A8(0, &qword_1EDBB2FE0, 0x1E69DB878);
   *(inited + 40) = v11;
   v13 = *MEMORY[0x1E69DB650];
   *(inited + 64) = v12;
@@ -1184,7 +1184,7 @@ id sub_1D7F8A3A4(uint64_t a1, uint64_t a2, __int128 *a3)
   v17 = [v14 blackColor];
   v18 = [v14 ts:v16 dynamicColor:v17 withDarkStyleVariant:?];
 
-  *(inited + 104) = sub_1D7E0A1A8(0, &qword_1EDBB2F68);
+  *(inited + 104) = sub_1D7E0A1A8(0, &qword_1EDBB2F68, 0x1E69DC888);
   *(inited + 80) = v18;
   type metadata accessor for Key();
   sub_1D7E4DB28();
@@ -1256,7 +1256,7 @@ void sub_1D7F8A6AC(void *a1)
 
 uint64_t PillViewStyler.__deallocating_deinit()
 {
-  __swift_destroy_boxed_opaque_existential_1Tm(v0 + 16);
+  __swift_destroy_boxed_opaque_existential_1Tm((v0 + 16));
 
   return swift_deallocClassInstance();
 }
@@ -1272,62 +1272,63 @@ id sub_1D7F8A9DC(uint64_t a1)
   return v5;
 }
 
-uint64_t ToolbarManager.isToolbarEnabled.getter()
+uint64_t ToolbarManager.isToolbarEnabled.getter(uint64_t a1)
 {
-  v1 = OBJC_IVAR____TtC5TeaUI14ToolbarManager_isToolbarEnabled;
-  OUTLINED_FUNCTION_1_0();
-  return *(v0 + v1);
+  v2 = OBJC_IVAR____TtC5TeaUI14ToolbarManager_isToolbarEnabled;
+  OUTLINED_FUNCTION_1_0(a1);
+  return *(v1 + v2);
 }
 
-uint64_t sub_1D7F8AADC@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1D7F8AADC(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
   v3 = *a1;
   v4 = OBJC_IVAR____TtC5TeaUI14ToolbarManager_isToolbarEnabled;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *a2 = *(v3 + v4);
-  return result;
 }
 
-uint64_t ToolbarManager.isToolbarEnabled.setter(char a1)
+uint64_t ToolbarManager.isToolbarEnabled.setter(uint64_t a1)
 {
+  v2 = a1;
   v3 = OBJC_IVAR____TtC5TeaUI14ToolbarManager_isToolbarEnabled;
-  result = OUTLINED_FUNCTION_5_0();
-  *(v1 + v3) = a1;
+  result = OUTLINED_FUNCTION_5_0(a1);
+  *(v1 + v3) = v2;
   return result;
 }
 
-uint64_t ToolbarManager.isToolbarVisible.getter()
+uint64_t ToolbarManager.isToolbarVisible.getter(uint64_t a1)
 {
-  v1 = OBJC_IVAR____TtC5TeaUI14ToolbarManager_isToolbarVisible;
-  OUTLINED_FUNCTION_1_0();
-  return *(v0 + v1);
+  v2 = OBJC_IVAR____TtC5TeaUI14ToolbarManager_isToolbarVisible;
+  OUTLINED_FUNCTION_1_0(a1);
+  return *(v1 + v2);
 }
 
-uint64_t sub_1D7F8ABF8@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1D7F8ABF8(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
   v3 = *a1;
   v4 = OBJC_IVAR____TtC5TeaUI14ToolbarManager_isToolbarVisible;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *a2 = *(v3 + v4);
-  return result;
 }
 
-uint64_t ToolbarManager.isToolbarVisible.setter(char a1)
+uint64_t ToolbarManager.isToolbarVisible.setter(uint64_t a1)
 {
+  v2 = a1;
   v3 = OBJC_IVAR____TtC5TeaUI14ToolbarManager_isToolbarVisible;
-  result = OUTLINED_FUNCTION_5_0();
-  *(v1 + v3) = a1;
+  result = OUTLINED_FUNCTION_5_0(a1);
+  *(v1 + v3) = v2;
   return result;
 }
 
-uint64_t sub_1D7F8AD20@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
+double sub_1D7F8AD20@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, void *a4@<X8>)
 {
   *a4 = a1;
   a4[1] = a2;
   a4[2] = a3;
   sub_1D8190DB4();
 
-  return sub_1D8190DB4();
+  sub_1D8190DB4();
+  return result;
 }
 
 id ToolbarManager.__allocating_init()()
@@ -1493,9 +1494,11 @@ id BlueprintCollectionViewCompositionalListLayout.__deallocating_deinit()
   return objc_msgSendSuper2(&v2, sel_dealloc);
 }
 
-uint64_t sub_1D7F8B5D4(char *a1)
+double sub_1D7F8B5D4(char *a1)
 {
   (*(*(*((*MEMORY[0x1E69E7D40] & *a1) + 0x50) - 8) + 8))(&a1[*((*MEMORY[0x1E69E7D40] & *a1) + 0x80)]);
+
+  return result;
 }
 
 void sub_1D7F8B6D4(void *a1)
@@ -1507,13 +1510,16 @@ void sub_1D7F8B6D4(void *a1)
   sub_1D7F8BBD4();
 }
 
-uint64_t sub_1D7F8B72C(uint64_t a1, uint64_t a2)
+double sub_1D7F8B72C(uint64_t a1, uint64_t a2)
 {
-  v3 = (v2 + OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_onCreateMenuBlock);
-  v4 = *(v2 + OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_onCreateMenuBlock);
-  *v3 = a1;
-  v3[1] = a2;
-  sub_1D7E0E10C(v4);
+  v4 = (v2 + OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_onCreateMenuBlock);
+  v6 = *(v2 + OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_onCreateMenuBlock);
+  v5 = *(v2 + OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_onCreateMenuBlock + 8);
+  *v4 = a1;
+  v4[1] = a2;
+  sub_1D7E0E10C(v6, v5);
+
+  return result;
 }
 
 void sub_1D7F8B790()
@@ -1564,7 +1570,7 @@ uint64_t sub_1D7F8B854()
   {
     if (qword_1EDBB0350 != -1)
     {
-      OUTLINED_FUNCTION_0_71();
+      OUTLINED_FUNCTION_0_71(&qword_1EDBB0350);
     }
 
     v15 = qword_1EDBC5FD8;
@@ -1628,15 +1634,14 @@ uint64_t sub_1D7F8BBD4()
   return sub_1D7F8CA80(v6);
 }
 
-uint64_t sub_1D7F8BD38()
+void sub_1D7F8BD38()
 {
   v1 = *(v0 + OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_position);
   v2 = *(v0 + OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_collapsingButton);
   v3 = OBJC_IVAR____TtC5TeaUI16CollapsingButton_anchor;
   v4 = (v1 & 1) != 0;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *(v2 + v3) = v4;
-  return result;
 }
 
 uint64_t sub_1D7F8BDB4()
@@ -1662,7 +1667,7 @@ uint64_t sub_1D7F8BDB4()
   v15 = *(v36 - 8);
   MEMORY[0x1EEE9AC00](v36);
   v17 = &v32 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_1D7E0A1A8(0, &qword_1EDBB2F60);
+  sub_1D7E0A1A8(0, &qword_1EDBB2F60, 0x1E69DCAB8);
   v18 = [objc_opt_self() configurationWithPointSize:7 weight:2 scale:13.0];
   v19 = sub_1D7E6FE24(0xD000000000000010, 0x80000001D81CB780, v18);
   if (*(v0 + OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_sectionSelectorStyle))
@@ -1726,7 +1731,7 @@ char *sub_1D7F8C318()
   v0[OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_position] = 0;
   v0[OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_sectionSelectorStyle] = 0;
   v3 = OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_collapsingButton;
-  *&v0[v3] = [objc_allocWithZone(type metadata accessor for CollapsingButton()) init];
+  *&v0[v3] = [objc_allocWithZone(type metadata accessor for CollapsingButton(0)) init];
   v4 = &v0[OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_onCreateMenuBlock];
   *v4 = 0;
   v4[1] = 0;
@@ -1738,7 +1743,7 @@ char *sub_1D7F8C318()
     sub_1D7F8BDB4();
     v11 = OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_collapsingButton;
     v12 = *&v5[OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_collapsingButton];
-    sub_1D7E0A1A8(0, &unk_1EDBB2FD0);
+    sub_1D7E0A1A8(0, &unk_1EDBB2FD0, 0x1E69DCC60);
     v13 = v12;
     isa = UIMenu.init(children:)(MEMORY[0x1E69E7CC0]).super.super.isa;
     [*&v13[OBJC_IVAR____TtC5TeaUI16CollapsingButton_button] setMenu_];
@@ -1775,9 +1780,9 @@ char *sub_1D7F8C318()
     return v5;
   }
 
-  sub_1D7E0A1A8(0, &qword_1EDBB2F60);
+  sub_1D7E0A1A8(0, &qword_1EDBB2F60, 0x1E69DCAB8);
   v6 = v5;
-  result = sub_1D7E47238();
+  result = sub_1D7E47238(0xD000000000000010, 0x80000001D81CB780);
   if (result)
   {
     v8 = result;
@@ -1811,7 +1816,7 @@ char *sub_1D7F8C318()
       v33 = v6;
       if (v32 != -1)
       {
-        OUTLINED_FUNCTION_0_71();
+        OUTLINED_FUNCTION_0_71(&qword_1EDBB0350);
       }
 
       v29 = qword_1EDBC5FD8;
@@ -1829,24 +1834,25 @@ char *sub_1D7F8C318()
   return result;
 }
 
-void sub_1D7F8C6E8()
+void sub_1D7F8C6E8(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = *(Strong + OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_onCreateMenuBlock);
-    if (v2)
+    v2 = Strong;
+    v3 = *(Strong + OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_onCreateMenuBlock);
+    if (v3)
     {
+      v4 = *(Strong + OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_onCreateMenuBlock + 8);
 
-      v4 = v2(v3);
-      sub_1D7E0E10C(v2);
-      if (v4)
+      v6 = v3(v5);
+      sub_1D7E0E10C(v3, v4);
+      if (v6)
       {
-        [*(*&v1[OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_collapsingButton] + OBJC_IVAR____TtC5TeaUI16CollapsingButton_button) setMenu_];
+        [*(*&v2[OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_collapsingButton] + OBJC_IVAR____TtC5TeaUI16CollapsingButton_button) setMenu_];
 
-        v1 = v4;
+        v2 = v6;
       }
     }
   }
@@ -1861,7 +1867,7 @@ void sub_1D7F8C7D4()
   *(v0 + OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_position) = 0;
   *(v0 + OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_sectionSelectorStyle) = 0;
   v2 = OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_collapsingButton;
-  *(v0 + v2) = [objc_allocWithZone(type metadata accessor for CollapsingButton()) init];
+  *(v0 + v2) = [objc_allocWithZone(type metadata accessor for CollapsingButton(0)) init];
   v3 = (v0 + OBJC_IVAR____TtC5TeaUI24SectionViewBarButtonItem_onCreateMenuBlock);
   *v3 = 0;
   v3[1] = 0;
@@ -1869,7 +1875,7 @@ void sub_1D7F8C7D4()
   __break(1u);
 }
 
-void sub_1D7F8C958(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1D7F8C958(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -1908,12 +1914,14 @@ uint64_t sub_1D7F8CA80(uint64_t a1)
   return a1;
 }
 
-uint64_t sub_1D7F8CB38(uint64_t a1, void *a2, void (*a3)(uint64_t))
+double sub_1D7F8CB38(uint64_t a1, void *a2, void (*a3)(uint64_t))
 {
   v5 = *(v3 + *a2);
   *(v3 + *a2) = a1;
 
   a3(v5);
+
+  return result;
 }
 
 id sub_1D7F8CB9C(double a1, double a2)
@@ -2124,15 +2132,15 @@ char *sub_1D7F8CF0C(void *a1)
   if (swift_dynamicCast())
   {
     v9 = *&v14[OBJC_IVAR____TtC5TeaUI15ShineImageLayer_shineImageLayer];
-    v10 = *&v8[OBJC_IVAR____TtC5TeaUI15ShineImageLayer_shineImageLayer];
-    *&v8[OBJC_IVAR____TtC5TeaUI15ShineImageLayer_shineImageLayer] = v9;
+    v10 = *(v8 + OBJC_IVAR____TtC5TeaUI15ShineImageLayer_shineImageLayer);
+    *(v8 + OBJC_IVAR____TtC5TeaUI15ShineImageLayer_shineImageLayer) = v9;
     v11 = v9;
 
-    *&v8[OBJC_IVAR____TtC5TeaUI15ShineImageLayer_shineOptions] = *&v14[OBJC_IVAR____TtC5TeaUI15ShineImageLayer_shineOptions];
+    *(v8 + OBJC_IVAR____TtC5TeaUI15ShineImageLayer_shineOptions) = *&v14[OBJC_IVAR____TtC5TeaUI15ShineImageLayer_shineOptions];
 
     v12 = *&v14[OBJC_IVAR____TtC5TeaUI15ShineImageLayer_shineImage];
 
-    *&v8[OBJC_IVAR____TtC5TeaUI15ShineImageLayer_shineImage] = v12;
+    *(v8 + OBJC_IVAR____TtC5TeaUI15ShineImageLayer_shineImage) = v12;
   }
 
   else
@@ -2153,25 +2161,6 @@ void sub_1D7F8D0D8()
   *(v0 + OBJC_IVAR____TtC5TeaUI15ShineImageLayer_shineImageLayer) = 0;
   sub_1D81923A4();
   __break(1u);
-}
-
-uint64_t sub_1D7F8D190(uint64_t a1, uint64_t a2)
-{
-  sub_1D7F50A00();
-  v5 = sub_1D7F28578(a1, a2, v4);
-
-  if (v5)
-  {
-    return 1;
-  }
-
-  ObjCClassFromMetadata = swift_getObjCClassFromMetadata();
-  v8 = sub_1D8190EE4();
-  v10.receiver = ObjCClassFromMetadata;
-  v10.super_class = &OBJC_METACLASS____TtC5TeaUI15ShineImageLayer;
-  v6 = objc_msgSendSuper2(&v10, sel_needsDisplayForKey_, v8);
-
-  return v6;
 }
 
 void sub_1D7F8D2B0()
@@ -2228,12 +2217,12 @@ void sub_1D7F8D2B0()
   }
 }
 
-uint64_t SharingActivity.__allocating_init<A>(command:context:type:title:image:category:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
+uint64_t SharingActivity.__allocating_init<A>(command:context:type:title:image:category:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
   OUTLINED_FUNCTION_6_28();
-  v12 = swift_allocObject();
+  v13 = swift_allocObject();
   SharingActivity.init<A>(command:context:type:title:image:category:)(a1, a2, a3, a4, a5, a6);
-  return v12;
+  return v13;
 }
 
 void *SharingActivity.init<A>(command:context:type:title:image:category:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
@@ -2477,36 +2466,37 @@ void *SharingActivity.init<A, B>(command:context:type:title:image:category:)(uin
 
 uint64_t sub_1D7F8E220(uint64_t a1, uint64_t a2, uint64_t *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v27 = a7;
-  v28 = a8;
-  v25 = a5;
-  v26 = a6;
-  v21 = a4;
-  v22 = a2;
+  v28 = a7;
+  v29 = a8;
+  v26 = a5;
+  v27 = a6;
+  v22 = a4;
+  v23 = a2;
   v9 = *a3;
   v10 = *(*a3 + 136);
-  v23 = sub_1D8191E84();
-  v11 = *(v23 - 8);
-  MEMORY[0x1EEE9AC00](v23);
-  v13 = &v21 - v12;
-  v14 = *(v9 + 144);
   v24 = sub_1D8191E84();
-  v15 = *(v24 - 8);
+  v11 = *(v24 - 8);
   MEMORY[0x1EEE9AC00](v24);
-  v17 = &v21 - v16;
+  v13 = &v22 - v12;
+  v14 = *(v9 + 144);
+  v25 = sub_1D8191E84();
+  v15 = *(v25 - 8);
+  MEMORY[0x1EEE9AC00](v25);
+  v17 = &v22 - v16;
   ObjectType = swift_getObjectType();
-  (*(*(v10 - 8) + 16))(v13, v21, v10);
+  (*(*(v10 - 8) + 16))(v13, v22, v10);
   __swift_storeEnumTagSinglePayload(v13, 0, 1, v10);
-  (*(v22 + 80))(a3, v13, v10, v14, *(v9 + 152), ObjectType);
-  (*(v11 + 8))(v13, v23);
-  v29 = v25;
+  v19 = *(v9 + 152);
+  (*(v23 + 80))(a3, v13, v10, v14, v19, ObjectType);
+  (*(v11 + 8))(v13, v24);
   v30 = v26;
   v31 = v27;
   v32 = v28;
-  v19 = type metadata accessor for StateCommandValue();
-  StateCommandValue.value(for:)(v17, v19, &v33);
-  (*(v15 + 8))(v17, v24);
-  return v33;
+  v33 = v29;
+  v20 = type metadata accessor for StateCommandValue(0, v14, MEMORY[0x1E69E6158], v19);
+  StateCommandValue.value(for:)(v17, v20, &v34);
+  (*(v15 + 8))(v17, v25);
+  return v34;
 }
 
 uint64_t sub_1D7F8E4A0(uint64_t a1, uint64_t a2)
@@ -2518,34 +2508,35 @@ uint64_t sub_1D7F8E4A0(uint64_t a1, uint64_t a2)
 
 uint64_t sub_1D7F8E514@<X0>(uint64_t a1@<X1>, uint64_t *a2@<X2>, uint64_t a3@<X3>, __int128 *a4@<X4>, uint64_t a5@<X8>)
 {
-  v20 = a3;
-  v21 = a1;
-  v25 = a5;
+  v21 = a3;
+  v22 = a1;
+  v26 = a5;
   v7 = *a2;
   v8 = *(*a2 + 136);
-  v22 = sub_1D8191E84();
-  v9 = *(v22 - 8);
-  MEMORY[0x1EEE9AC00](v22);
-  v11 = &v20 - v10;
+  v23 = sub_1D8191E84();
+  v9 = *(v23 - 8);
+  MEMORY[0x1EEE9AC00](v23);
+  v11 = &v21 - v10;
   v12 = *(v7 + 144);
   v13 = sub_1D8191E84();
-  v23 = *(v13 - 8);
-  v24 = v13;
+  v24 = *(v13 - 8);
+  v25 = v13;
   MEMORY[0x1EEE9AC00](v13);
-  v15 = &v20 - v14;
+  v15 = &v21 - v14;
   ObjectType = swift_getObjectType();
-  (*(*(v8 - 8) + 16))(v11, v20, v8);
+  (*(*(v8 - 8) + 16))(v11, v21, v8);
   __swift_storeEnumTagSinglePayload(v11, 0, 1, v8);
-  (*(v21 + 80))(a2, v11, v8, v12, *(v7 + 152), ObjectType);
-  (*(v9 + 8))(v11, v22);
-  v17 = a4[1];
-  v26 = *a4;
-  v27 = v17;
-  v28 = a4[2];
-  v29 = *(a4 + 6);
-  v18 = type metadata accessor for StateCommandValue();
-  StateCommandValue.value(for:)(v15, v18, v25);
-  return (*(v23 + 8))(v15, v24);
+  v17 = *(v7 + 152);
+  (*(v22 + 80))(a2, v11, v8, v12, v17, ObjectType);
+  (*(v9 + 8))(v11, v23);
+  v18 = a4[1];
+  v27 = *a4;
+  v28 = v18;
+  v29 = a4[2];
+  v30 = *(a4 + 6);
+  v19 = type metadata accessor for StateCommandValue(0, v12, &type metadata for SharingActivityImage, v17);
+  StateCommandValue.value(for:)(v15, v19, v26);
+  return (*(v24 + 8))(v15, v25);
 }
 
 uint64_t sub_1D7F8E800(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -2608,7 +2599,7 @@ id SharingActivity.build(commandCenter:source:)(uint64_t a1, uint64_t a2, uint64
     v19[3] = a1;
     v19[4] = a2;
     v19[5] = a3;
-    sub_1D7F8EECC(0, &unk_1ECA0E5B8);
+    sub_1D7F8EECC(0, &unk_1ECA0E5B8, &type metadata for SharingActivityItemShare, &protocol witness table for SharingActivityItemShare);
     objc_allocWithZone(v20);
 
     swift_unknownObjectRetain();
@@ -2631,7 +2622,7 @@ id SharingActivity.build(commandCenter:source:)(uint64_t a1, uint64_t a2, uint64
   v12[3] = a1;
   v12[4] = a2;
   v12[5] = a3;
-  sub_1D7F8EECC(0, qword_1EDBB0C98);
+  sub_1D7F8EECC(0, qword_1EDBB0C98, &type metadata for SharingActivityItemAction, &protocol witness table for SharingActivityItemAction);
   objc_allocWithZone(v13);
 
   swift_unknownObjectRetain();
@@ -2661,14 +2652,14 @@ uint64_t objectdestroy_29Tm_0()
   return swift_deallocObject();
 }
 
-void sub_1D7F8EECC(uint64_t a1, unint64_t *a2)
+void sub_1D7F8EECC(uint64_t a1, unint64_t *a2, uint64_t a3, uint64_t a4)
 {
   if (!*a2)
   {
-    v3 = type metadata accessor for SharingActivityItem();
-    if (!v4)
+    v5 = type metadata accessor for SharingActivityItem(0, a3, a4, a4);
+    if (!v6)
     {
-      atomic_store(v3, a2);
+      atomic_store(v5, a2);
     }
   }
 }
@@ -2740,17 +2731,17 @@ BOOL sub_1D7F8F158()
     v6 = *(v3 - 1);
     v5 = *v3;
     v7 = *(v3 - 16);
-    v14 = *(v3 - 2);
-    v15 = v7;
-    v16 = v6;
-    v17 = v5;
-    v8 = v14;
+    v15 = *(v3 - 2);
+    v16 = v7;
+    v17 = v6;
+    v18 = v5;
+    v8 = v15;
     v9 = OUTLINED_FUNCTION_110();
-    sub_1D7E38808(v9);
-    v10 = v1(&v14);
+    sub_1D7E38808(v9, v10);
+    v11 = v1(&v15);
 
-    v11 = OUTLINED_FUNCTION_55_0();
-    sub_1D7E418F4(v11, v12);
+    v12 = OUTLINED_FUNCTION_55_0();
+    sub_1D7E418F4(v12, v13);
     if (v0)
     {
       break;
@@ -2759,7 +2750,7 @@ BOOL sub_1D7F8F158()
     v3 += 5;
   }
 
-  while ((v10 & 1) == 0);
+  while ((v11 & 1) == 0);
   return v4 != 0;
 }
 
@@ -2774,16 +2765,16 @@ BOOL sub_1D7F8F278(uint64_t (*a1)(_BYTE *), uint64_t a2)
   OUTLINED_FUNCTION_44();
   MEMORY[0x1EEE9AC00](v13);
   OUTLINED_FUNCTION_21_11();
-  sub_1D7F9E010();
+  sub_1D7F9E010(0);
   v15 = v14 - 8;
   MEMORY[0x1EEE9AC00](v14);
   OUTLINED_FUNCTION_15();
   v18 = v17 - v16;
   (*(v12 + 16))(v4, v2, v10);
-  sub_1D7F9E0B4(&qword_1EDBB1FC0);
+  sub_1D7F9E0B4(&qword_1EDBB1FC0, MEMORY[0x1E69D6AE0]);
   sub_1D8191134();
   v19 = *(v15 + 44);
-  sub_1D7F9E0B4(&qword_1EDBB1FB8);
+  sub_1D7F9E0B4(&qword_1EDBB1FB8, MEMORY[0x1E69D6AE8]);
   do
   {
     sub_1D81917B4();
@@ -2863,18 +2854,18 @@ LABEL_13:
   }
 }
 
-uint64_t sub_1D7F8F5E0@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_1D7F8F5E0@<X0>(uint64_t *a2@<X8>)
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
 uint64_t BlueprintTableViewDelegate.delegate.getter()
 {
   OUTLINED_FUNCTION_3_7();
-  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_1_0(v0);
   return swift_unknownObjectWeakLoadStrong();
 }
 
@@ -2882,7 +2873,7 @@ void BlueprintTableViewDelegate.delegate.setter()
 {
   OUTLINED_FUNCTION_34_0();
   OUTLINED_FUNCTION_3_7();
-  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_5_0(v1);
   swift_unknownObjectWeakAssign();
 }
 
@@ -2900,33 +2891,35 @@ void *BlueprintTableViewDelegate.multiDelegate.getter()
 {
   OUTLINED_FUNCTION_3_7();
   v2 = *(v1 + 192);
-  OUTLINED_FUNCTION_1_0();
-  v3 = *(v0 + v2);
-  v4 = v3;
-  return v3;
+  OUTLINED_FUNCTION_1_0(v3);
+  v4 = *(v0 + v2);
+  v5 = v4;
+  return v4;
 }
 
-uint64_t sub_1D7F8F850@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_1D7F8F850@<X0>(uint64_t *a2@<X8>)
 {
   swift_beginAccess();
   result = swift_weakLoadStrong();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
 uint64_t BlueprintTableViewDelegate.keyCommandManager.getter()
 {
   OUTLINED_FUNCTION_3_7();
-  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_1_0(v0);
   return swift_weakLoadStrong();
 }
 
-uint64_t BlueprintTableViewDelegate.keyCommandManager.setter()
+double BlueprintTableViewDelegate.keyCommandManager.setter()
 {
   OUTLINED_FUNCTION_34_0();
   OUTLINED_FUNCTION_3_7();
-  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_5_0(v0);
   swift_weakAssign();
+
+  return result;
 }
 
 uint64_t BlueprintTableViewDelegate.keyCommandManager.modify()
@@ -2980,7 +2973,7 @@ uint64_t sub_1D7F8FB5C(uint64_t a1, void *a2)
 uint64_t BlueprintTableViewDelegate.selectionProvider.getter()
 {
   OUTLINED_FUNCTION_3_7();
-  OUTLINED_FUNCTION_8_4();
+  OUTLINED_FUNCTION_8_4(v0 + *(v1 + 208), v3);
   return swift_unknownObjectWeakLoadStrong();
 }
 
@@ -2988,7 +2981,7 @@ uint64_t BlueprintTableViewDelegate.selectionProvider.setter(uint64_t a1, uint64
 {
   OUTLINED_FUNCTION_3_7();
   v5 = v2 + *(v4 + 208);
-  OUTLINED_FUNCTION_56();
+  OUTLINED_FUNCTION_56(v5, v7);
   *(v5 + 8) = a2;
   swift_unknownObjectWeakAssign();
   return swift_unknownObjectRelease();
@@ -3010,18 +3003,18 @@ uint64_t BlueprintTableViewDelegate.selectionProvider.modify(void *a1)
   return OUTLINED_FUNCTION_20_10();
 }
 
-uint64_t sub_1D7F8FD60@<X0>(uint64_t *a1@<X8>)
+uint64_t sub_1D7F8FD60@<X0>(uint64_t *a2@<X8>)
 {
   swift_beginAccess();
   result = swift_unknownObjectWeakLoadStrong();
-  *a1 = result;
+  *a2 = result;
   return result;
 }
 
 uint64_t BlueprintTableViewDelegate.parentViewController.getter()
 {
   OUTLINED_FUNCTION_3_7();
-  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_1_0(v0);
   return swift_unknownObjectWeakLoadStrong();
 }
 
@@ -3029,7 +3022,7 @@ void BlueprintTableViewDelegate.parentViewController.setter()
 {
   OUTLINED_FUNCTION_34_0();
   OUTLINED_FUNCTION_3_7();
-  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_5_0(v1);
   swift_unknownObjectWeakAssign();
 }
 
@@ -3043,19 +3036,23 @@ uint64_t BlueprintTableViewDelegate.parentViewController.modify()
   return OUTLINED_FUNCTION_20_10();
 }
 
-uint64_t BlueprintTableViewDelegate.gutterViewManager.getter()
+double BlueprintTableViewDelegate.gutterViewManager.getter()
 {
   OUTLINED_FUNCTION_3_7();
-  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_1_0(v0);
+
+  return result;
 }
 
-uint64_t BlueprintTableViewDelegate.gutterViewManager.setter()
+double BlueprintTableViewDelegate.gutterViewManager.setter()
 {
   OUTLINED_FUNCTION_34_0();
   OUTLINED_FUNCTION_3_7();
   v3 = *(v2 + 224);
-  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_5_0(v4);
   *(v1 + v3) = v0;
+
+  return result;
 }
 
 uint64_t BlueprintTableViewDelegate.gutterViewManager.modify()
@@ -3066,43 +3063,47 @@ uint64_t BlueprintTableViewDelegate.gutterViewManager.modify()
   return OUTLINED_FUNCTION_23_1();
 }
 
-uint64_t BlueprintTableViewDelegate.infiniteScrollManager.getter()
+double BlueprintTableViewDelegate.infiniteScrollManager.getter()
 {
   OUTLINED_FUNCTION_3_7();
-  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_1_0(v0);
+
+  return result;
 }
 
-uint64_t sub_1D7F900DC@<X0>(void *a1@<X0>, void *a2@<X8>)
+double sub_1D7F900DC@<D0>(void *a1@<X0>, void *a2@<X8>)
 {
   v3 = *a1;
   v4 = *((*MEMORY[0x1E69E7D40] & **a1) + 0xE8);
   swift_beginAccess();
   *a2 = *(v3 + v4);
+
+  return result;
 }
 
-uint64_t BlueprintTableViewDelegate.infiniteScrollManager.setter()
+double BlueprintTableViewDelegate.infiniteScrollManager.setter()
 {
   OUTLINED_FUNCTION_34_0();
   OUTLINED_FUNCTION_3_7();
   v3 = *(v2 + 232);
-  OUTLINED_FUNCTION_56();
+  OUTLINED_FUNCTION_56(v1 + v3, v5);
   *(v1 + v3) = v0;
 
   sub_1D7F901FC();
-}
-
-uint64_t sub_1D7F901FC()
-{
-  v1 = *((*MEMORY[0x1E69E7D40] & *v0) + 0xE8);
-  result = swift_beginAccess();
-  v3 = *(v0 + v1);
-  if (v3)
-  {
-    *(v3 + 24) = &protocol witness table for BlueprintTableViewDelegate<A, B, C, D>;
-    return swift_unknownObjectWeakAssign();
-  }
 
   return result;
+}
+
+void sub_1D7F901FC()
+{
+  v1 = *((*MEMORY[0x1E69E7D40] & *v0) + 0xE8);
+  swift_beginAccess();
+  v2 = *(v0 + v1);
+  if (v2)
+  {
+    *(v2 + 24) = &protocol witness table for BlueprintTableViewDelegate<A, B, C, D>;
+    swift_unknownObjectWeakAssign();
+  }
 }
 
 uint64_t BlueprintTableViewDelegate.infiniteScrollManager.modify(uint64_t a1)
@@ -3113,19 +3114,23 @@ uint64_t BlueprintTableViewDelegate.infiniteScrollManager.modify(uint64_t a1)
   return OUTLINED_FUNCTION_23_1();
 }
 
-uint64_t BlueprintTableViewDelegate.sectionCollapsibleStateManager.getter()
+double BlueprintTableViewDelegate.sectionCollapsibleStateManager.getter()
 {
   OUTLINED_FUNCTION_3_7();
-  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_1_0(v0);
+
+  return result;
 }
 
-uint64_t BlueprintTableViewDelegate.sectionCollapsibleStateManager.setter()
+double BlueprintTableViewDelegate.sectionCollapsibleStateManager.setter()
 {
   OUTLINED_FUNCTION_34_0();
   OUTLINED_FUNCTION_3_7();
   v3 = *(v2 + 240);
-  OUTLINED_FUNCTION_5_0();
+  OUTLINED_FUNCTION_5_0(v4);
   *(v1 + v3) = v0;
+
+  return result;
 }
 
 uint64_t BlueprintTableViewDelegate.sectionCollapsibleStateManager.modify()
@@ -3140,10 +3145,10 @@ void *BlueprintTableViewDelegate.viewportMonitor.getter()
 {
   OUTLINED_FUNCTION_3_7();
   v2 = *(v1 + 248);
-  OUTLINED_FUNCTION_1_0();
-  v3 = *(v0 + v2);
-  v4 = v3;
-  return v3;
+  OUTLINED_FUNCTION_1_0(v3);
+  v4 = *(v0 + v2);
+  v5 = v4;
+  return v4;
 }
 
 id sub_1D7F90458@<X0>(void *a1@<X0>, void *a2@<X8>)
@@ -3162,28 +3167,28 @@ void BlueprintTableViewDelegate.viewportMonitor.setter()
   OUTLINED_FUNCTION_34_0();
   OUTLINED_FUNCTION_3_7();
   v3 = *(v2 + 248);
-  OUTLINED_FUNCTION_5_0();
-  v4 = *(v1 + v3);
+  OUTLINED_FUNCTION_5_0(v4);
+  v5 = *(v1 + v3);
   *(v1 + v3) = v0;
-  v5 = v0;
+  v6 = v0;
 
   sub_1D7F90578();
 }
 
-id sub_1D7F90578()
+void sub_1D7F90578()
 {
   v1 = MEMORY[0x1E69E7D40];
   v2 = *((*MEMORY[0x1E69E7D40] & *v0) + 0xF8);
-  result = swift_beginAccess();
-  v4 = *(v0 + v2);
-  if (v4)
+  swift_beginAccess();
+  v3 = *(v0 + v2);
+  if (v3)
   {
-    v5 = *((*v1 & *v0) + 0xC0);
+    v4 = *((*v1 & *v0) + 0xC0);
     swift_beginAccess();
-    result = *(v0 + v5);
-    if (result)
+    v5 = *(v0 + v4);
+    if (v5)
     {
-      return [result addDelegate_];
+      [v5 addDelegate_];
     }
 
     else
@@ -3191,8 +3196,6 @@ id sub_1D7F90578()
       __break(1u);
     }
   }
-
-  return result;
 }
 
 uint64_t BlueprintTableViewDelegate.viewportMonitor.modify(uint64_t a1)
@@ -3214,18 +3217,19 @@ uint64_t sub_1D7F906B0(uint64_t a1, char a2, uint64_t (*a3)(uint64_t))
   return result;
 }
 
-uint64_t BlueprintTableViewDelegate.dragReorderDelegate.getter()
+double BlueprintTableViewDelegate.dragReorderDelegate.getter()
 {
   OUTLINED_FUNCTION_3_7();
-  OUTLINED_FUNCTION_8_4();
-  return swift_unknownObjectRetain();
+  OUTLINED_FUNCTION_8_4(v0 + *(v1 + 256), v3);
+  swift_unknownObjectRetain();
+  return result;
 }
 
 uint64_t BlueprintTableViewDelegate.dragReorderDelegate.setter(uint64_t a1, uint64_t a2)
 {
   OUTLINED_FUNCTION_3_7();
   v6 = (v2 + *(v5 + 256));
-  OUTLINED_FUNCTION_56();
+  OUTLINED_FUNCTION_56(v6, v8);
   *v6 = a1;
   v6[1] = a2;
   return swift_unknownObjectRelease();
@@ -3243,7 +3247,7 @@ double BlueprintTableViewDelegate.scrollTriggerDelta.getter()
 {
   OUTLINED_FUNCTION_3_7();
   v2 = *(v1 + 264);
-  OUTLINED_FUNCTION_1_0();
+  OUTLINED_FUNCTION_1_0(v3);
   return *(v0 + v2);
 }
 
@@ -3251,7 +3255,7 @@ uint64_t BlueprintTableViewDelegate.scrollTriggerDelta.setter(double a1)
 {
   OUTLINED_FUNCTION_3_7();
   v4 = *(v3 + 264);
-  result = OUTLINED_FUNCTION_56();
+  result = OUTLINED_FUNCTION_56(v1 + v4, v6);
   *(v1 + v4) = a1;
   return result;
 }
@@ -3264,7 +3268,7 @@ uint64_t BlueprintTableViewDelegate.scrollTriggerDelta.modify()
   return OUTLINED_FUNCTION_23_1();
 }
 
-char *BlueprintTableViewDelegate.init(blueprintProvider:blueprintLayoutProvider:blueprintViewHeaderProvider:blueprintImpressionManager:commandCenter:tracker:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
+char *BlueprintTableViewDelegate.init(blueprintProvider:blueprintLayoutProvider:blueprintViewHeaderProvider:blueprintImpressionManager:commandCenter:tracker:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7)
 {
   v8 = v7;
   ObjectType = swift_getObjectType();
@@ -3354,16 +3358,16 @@ char *BlueprintTableViewDelegate.init(blueprintProvider:blueprintLayoutProvider:
   sub_1D818EAE4();
   if (qword_1EDBBC5D0 != -1)
   {
-    OUTLINED_FUNCTION_46_6();
+    OUTLINED_FUNCTION_46_6(&qword_1EDBBC5D0);
   }
 
   sub_1D818EAD4();
 
   OUTLINED_FUNCTION_2_53();
   *(v8 + *(v53 + 264)) = v54;
-  v71.receiver = v8;
-  v71.super_class = ObjectType;
-  v55 = objc_msgSendSuper2(&v71, sel_init);
+  v72.receiver = v8;
+  v72.super_class = ObjectType;
+  v55 = objc_msgSendSuper2(&v72, sel_init);
   v56 = objc_allocWithZone(MEMORY[0x1E69D6CE8]);
   v57 = v55;
   v58 = [v56 initWithDelegate:v57 delegateProtocol:&unk_1F535EED0];
@@ -3375,7 +3379,7 @@ char *BlueprintTableViewDelegate.init(blueprintProvider:blueprintLayoutProvider:
   (*(v36 + 8))(v68, v63);
   OUTLINED_FUNCTION_19_11();
   v60 = *(v59 + 192);
-  OUTLINED_FUNCTION_56();
+  OUTLINED_FUNCTION_56(&v57[v60], v71);
   v61 = *&v57[v60];
   *&v57[v60] = v58;
 
@@ -3398,7 +3402,7 @@ void BlueprintTableViewDelegate.__allocating_init(blueprintProvider:blueprintLay
   OUTLINED_FUNCTION_100();
 }
 
-char *BlueprintTableViewDelegate.init(blueprintProvider:blueprintLayoutProvider:blueprintViewHeaderProvider:blueprintImpressionManager:commandCenter:tracker:keyboardInputMonitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+char *BlueprintTableViewDelegate.init(blueprintProvider:blueprintLayoutProvider:blueprintViewHeaderProvider:blueprintImpressionManager:commandCenter:tracker:keyboardInputMonitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8)
 {
   v9 = v8;
   ObjectType = swift_getObjectType();
@@ -3483,16 +3487,16 @@ char *BlueprintTableViewDelegate.init(blueprintProvider:blueprintLayoutProvider:
   sub_1D818EAE4();
   if (qword_1EDBBC5D0 != -1)
   {
-    OUTLINED_FUNCTION_46_6();
+    OUTLINED_FUNCTION_46_6(&qword_1EDBBC5D0);
   }
 
   sub_1D818EAD4();
 
   OUTLINED_FUNCTION_3_51();
   *(v9 + *(v51 + 264)) = v52;
-  v70.receiver = v9;
-  v70.super_class = ObjectType;
-  v53 = objc_msgSendSuper2(&v70, sel_init);
+  v71.receiver = v9;
+  v71.super_class = ObjectType;
+  v53 = objc_msgSendSuper2(&v71, sel_init);
   v54 = objc_allocWithZone(MEMORY[0x1E69D6CE8]);
   v55 = v53;
   v56 = [v54 initWithDelegate:v55 delegateProtocol:&unk_1F535EED0];
@@ -3505,7 +3509,7 @@ char *BlueprintTableViewDelegate.init(blueprintProvider:blueprintLayoutProvider:
   (*(v36 + 8))(v65, v33);
   OUTLINED_FUNCTION_22_2();
   v58 = *(v57 + 192);
-  OUTLINED_FUNCTION_56();
+  OUTLINED_FUNCTION_56(&v55[v58], v70);
   v59 = *&v55[v58];
   *&v55[v58] = v56;
 
@@ -3520,7 +3524,7 @@ Swift::Void __swiftcall BlueprintTableViewDelegate.register(in:)(UITableView *in
   swift_unknownObjectWeakAssign();
   OUTLINED_FUNCTION_22_2();
   v7 = *(v6 + 192);
-  OUTLINED_FUNCTION_8_4();
+  OUTLINED_FUNCTION_8_4(v2 + v7, v24);
   v8 = *(v2 + v7);
   if (v8)
   {
@@ -3565,7 +3569,7 @@ Swift::Void __swiftcall BlueprintTableViewDelegate.register(in:)(UITableView *in
     v22[1] = v19;
     v22[2] = AssociatedConformanceWitness;
     v23 = v21;
-    type metadata accessor for Blueprint();
+    type metadata accessor for Blueprint(0, v22);
     sub_1D818F164();
 
     __swift_project_boxed_opaque_existential_1(v22, v23);
@@ -3580,38 +3584,38 @@ Swift::Void __swiftcall BlueprintTableViewDelegate.register(in:)(UITableView *in
   }
 }
 
-void sub_1D7F917B0()
+void sub_1D7F917B0(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = Strong + *((*MEMORY[0x1E69E7D40] & *Strong) + 0x118);
-    *v2 = 0;
-    *(v2 + 1) = 0;
-    v2[16] = 1;
-    v3 = swift_unknownObjectUnownedLoadStrong();
-    sub_1D7F91884(v3, 0);
+    v4 = Strong;
+    v5 = Strong + *((*MEMORY[0x1E69E7D40] & *Strong) + 0x118);
+    *v5 = 0;
+    *(v5 + 1) = 0;
+    v5[16] = 1;
+    v6 = swift_unknownObjectUnownedLoadStrong();
+    sub_1D7F91884(v6, 0);
   }
 }
 
 void sub_1D7F91884(void *a1, unsigned int a2)
 {
   v3 = v2;
-  v70 = a1;
+  v78 = a1;
   v5 = (*MEMORY[0x1E69E7D40] & *v2);
   v6 = v5[14];
   v7 = v5[10];
-  v71[0] = swift_getAssociatedTypeWitness();
-  v71[1] = swift_getAssociatedTypeWitness();
-  v71[2] = swift_getAssociatedConformanceWitness();
-  v71[3] = swift_getAssociatedConformanceWitness();
-  v8 = type metadata accessor for Blueprint();
-  v69 = *(v8 - 1);
+  v79[0] = swift_getAssociatedTypeWitness();
+  v79[1] = swift_getAssociatedTypeWitness();
+  v79[2] = swift_getAssociatedConformanceWitness();
+  v79[3] = swift_getAssociatedConformanceWitness();
+  v8 = type metadata accessor for Blueprint(0, v79);
+  v77 = *(v8 - 1);
   MEMORY[0x1EEE9AC00](v8);
-  v10 = &v67 - v9;
-  v68 = a2;
+  v10 = &v75 - v9;
+  v76 = a2;
   if (sub_1D7EB48B4(a2) == 0xD00000000000001ALL && 0x80000001D81C5D30 == v11)
   {
   }
@@ -3622,7 +3626,7 @@ void sub_1D7F91884(void *a1, unsigned int a2)
 
     if ((v13 & 1) == 0)
     {
-      v14 = [v70 window];
+      v14 = [v78 window];
       if (v14)
       {
         v15 = v14;
@@ -3644,169 +3648,171 @@ void sub_1D7F91884(void *a1, unsigned int a2)
             *(v18 + 64) = sub_1D7E13BF4();
             *(v18 + 32) = v21;
             *(v18 + 40) = v20;
-            sub_1D7E0A1A8(0, &qword_1EDBBE110);
+            sub_1D7E0A1A8(0, &qword_1EDBBE110, 0x1E69E9BF8);
             sub_1D8190DB4();
             v22 = sub_1D8191E44();
-            sub_1D81919E4();
+            v23 = sub_1D81919E4();
+            sub_1D818FD44("Ignoring infinite scroll request as application is not in the active state, model=%{public}@", 92, 2, &dword_1D7DFF000, v22, v23, v18);
 LABEL_29:
-            sub_1D818FD44();
-            goto LABEL_30;
+
+            return;
           }
         }
       }
     }
   }
 
-  v23 = MEMORY[0x1E69E7D40];
+  v24 = MEMORY[0x1E69E7D40];
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v25 = Strong;
+    v26 = Strong;
     sub_1D8043398(Strong);
-    v27 = v26;
+    v28 = v27;
 
-    if (v27)
+    if (v28)
     {
-      if (*(v27 + OBJC_IVAR____TtC5TeaUI25BlueprintLiveResizingView_isLiveResizing) == 1)
+      if (*(v28 + OBJC_IVAR____TtC5TeaUI25BlueprintLiveResizingView_isLiveResizing) == 1)
       {
         sub_1D7F94B74(0, &qword_1EDBBE100, &qword_1EDBBE130, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-        v28 = swift_allocObject();
-        *(v28 + 16) = xmmword_1D819FAB0;
-        v29 = (v3 + *((*v23 & *v3) + 0x140));
-        v31 = *v29;
-        v30 = v29[1];
-        *(v28 + 56) = MEMORY[0x1E69E6158];
-        *(v28 + 64) = sub_1D7E13BF4();
-        *(v28 + 32) = v31;
-        *(v28 + 40) = v30;
-        sub_1D7E0A1A8(0, &qword_1EDBBE110);
+        v29 = swift_allocObject();
+        *(v29 + 16) = xmmword_1D819FAB0;
+        v30 = (v3 + *((*v24 & *v3) + 0x140));
+        v32 = *v30;
+        v31 = v30[1];
+        *(v29 + 56) = MEMORY[0x1E69E6158];
+        *(v29 + 64) = sub_1D7E13BF4();
+        *(v29 + 32) = v32;
+        *(v29 + 40) = v31;
+        sub_1D7E0A1A8(0, &qword_1EDBBE110, 0x1E69E9BF8);
         sub_1D8190DB4();
         v22 = sub_1D8191E44();
-        sub_1D81919E4();
-        sub_1D818FD44();
+        v33 = sub_1D81919E4();
+        sub_1D818FD44("Ignoring infinite scroll request during live resizing, model=%{public}@", 71, 2, &dword_1D7DFF000, v22, v33, v29);
 
-LABEL_30:
-
-        return;
+        goto LABEL_29;
       }
     }
   }
 
-  v32 = *v23 & *v3;
-  v33 = *(v3 + *(v32 + 0x138));
-  if (v33 >= 3)
+  v34 = *v24 & *v3;
+  v35 = *(v3 + *(v34 + 0x138));
+  if (v35 >= 3)
   {
     sub_1D7F94B74(0, &qword_1EDBBE100, &qword_1EDBBE130, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-    v56 = swift_allocObject();
-    *(v56 + 16) = xmmword_1D819FAC0;
-    v57 = (v3 + *(v32 + 320));
-    v59 = *v57;
-    v58 = v57[1];
-    v60 = MEMORY[0x1E69E6158];
-    *(v56 + 56) = MEMORY[0x1E69E6158];
-    v61 = sub_1D7E13BF4();
-    *(v56 + 32) = v59;
-    *(v56 + 40) = v58;
-    v62 = 0xEC000000676E6972;
-    if (v33 == 4)
+    v62 = swift_allocObject();
+    *(v62 + 16) = xmmword_1D819FAC0;
+    v63 = (v3 + *(v34 + 320));
+    v65 = *v63;
+    v64 = v63[1];
+    v66 = MEMORY[0x1E69E6158];
+    *(v62 + 56) = MEMORY[0x1E69E6158];
+    v67 = sub_1D7E13BF4();
+    *(v62 + 32) = v65;
+    *(v62 + 40) = v64;
+    v68 = 0xEC000000676E6972;
+    if (v35 == 4)
     {
-      v62 = 0xEB00000000646572;
+      v68 = 0xEB00000000646572;
     }
 
-    *(v56 + 96) = v60;
-    *(v56 + 104) = v61;
-    *(v56 + 64) = v61;
-    *(v56 + 72) = 0x6165707061736964;
-    *(v56 + 80) = v62;
-    sub_1D7E0A1A8(0, &qword_1EDBBE110);
+    *(v62 + 96) = v66;
+    *(v62 + 104) = v67;
+    *(v62 + 64) = v67;
+    *(v62 + 72) = 0x6165707061736964;
+    *(v62 + 80) = v68;
+    sub_1D7E0A1A8(0, &qword_1EDBBE110, 0x1E69E9BF8);
     sub_1D8190DB4();
     v22 = sub_1D8191E44();
-    sub_1D81919E4();
+    v69 = sub_1D81919E4();
+    sub_1D818FD44("Preventing infinite scroll request for appearance, model=%{public}@, appearance=%{public}@", 90, 2, &dword_1D7DFF000, v22, v69, v62);
     goto LABEL_29;
   }
 
   swift_beginAccess();
-  v34 = swift_unknownObjectWeakLoadStrong();
-  if (!v34)
+  v36 = swift_unknownObjectWeakLoadStrong();
+  if (!v36)
   {
-    sub_1D81919C4();
+    v70 = sub_1D81919C4();
     sub_1D7F94B74(0, &qword_1EDBBE100, &qword_1EDBBE130, MEMORY[0x1E69E7740], MEMORY[0x1E69E6F90]);
-    v63 = swift_allocObject();
-    *(v63 + 16) = xmmword_1D819FAB0;
-    v64 = (v3 + *((*v23 & *v3) + 0x140));
-    v66 = *v64;
-    v65 = v64[1];
-    *(v63 + 56) = MEMORY[0x1E69E6158];
-    *(v63 + 64) = sub_1D7E13BF4();
-    *(v63 + 32) = v66;
-    *(v63 + 40) = v65;
-    sub_1D7E0A1A8(0, &qword_1EDBBE110);
+    v71 = swift_allocObject();
+    *(v71 + 16) = xmmword_1D819FAB0;
+    v72 = (v3 + *((*v24 & *v3) + 0x140));
+    v74 = *v72;
+    v73 = v72[1];
+    *(v71 + 56) = MEMORY[0x1E69E6158];
+    *(v71 + 64) = sub_1D7E13BF4();
+    *(v71 + 32) = v74;
+    *(v71 + 40) = v73;
+    sub_1D7E0A1A8(0, &qword_1EDBBE110, 0x1E69E9BF8);
     sub_1D8190DB4();
     v22 = sub_1D8191E44();
-    sub_1D818FD44();
-    goto LABEL_30;
+    sub_1D818FD44("Attempting to create infinite scroll requests without a delegate, model=%{public}@", 82, 2, &dword_1D7DFF000, v22, v70, v71);
+    goto LABEL_29;
   }
 
-  v35 = v34;
+  v37 = v36;
   BlueprintProviderType.blueprint.getter(v7, v6);
-  v36 = *((*v23 & *v3) + 0xE8);
+  v38 = *((*v24 & *v3) + 0xE8);
   swift_beginAccess();
-  if (*(v3 + v36))
+  if (*(v3 + v38))
   {
 
-    v37 = v70;
-    [v70 contentOffset];
-    v39 = v38;
+    v39 = v78;
+    [v78 contentOffset];
     v41 = v40;
-    [v37 bounds];
     v43 = v42;
+    [v39 bounds];
     v45 = v44;
     v47 = v46;
     v49 = v48;
-    [v37 contentSize];
-    v50 = [v37 window];
-    if (v50)
+    v51 = v50;
+    [v39 contentSize];
+    v53 = v52;
+    v55 = v54;
+    v56 = [v39 window];
+    if (v56)
     {
 
-      LODWORD(v50) = [v37 ts_isScrolling] ^ 1;
+      LODWORD(v56) = [v39 ts_isScrolling] ^ 1;
     }
 
-    v51 = sub_1D7E67664(v50, v68, v39, v41, v43, v45, v47, v49);
+    v57 = sub_1D7E67664(v56, v76, v41, v43, v45, v47, v49, v51, v53, v55);
 
-    if (v51)
+    if (v57)
     {
-      v70 = v8;
-      v52 = *(v51 + 16);
-      if (v52)
+      v78 = v8;
+      v58 = *(v57 + 16);
+      if (v58)
       {
-        v53 = v5[17];
-        v54 = *(v53 + 160);
-        v55 = v51 + 32;
+        v59 = v5[17];
+        v60 = *(v59 + 160);
+        v61 = v57 + 32;
         do
         {
-          sub_1D7E25380(v55, v71);
-          v54(v10, v71, v5[13], v53);
-          __swift_destroy_boxed_opaque_existential_1Tm(v71);
-          v55 += 40;
-          --v52;
+          sub_1D7E25380(v61, v79);
+          v60(v10, v79, v5[13], v59);
+          __swift_destroy_boxed_opaque_existential_1Tm(v79);
+          v61 += 40;
+          --v58;
         }
 
-        while (v52);
+        while (v58);
       }
 
-      (*(v69 + 8))(v10, v70);
+      (*(v77 + 8))(v10, v78);
     }
 
     else
     {
-      (*(v69 + 8))(v10, v8);
+      (*(v77 + 8))(v10, v8);
     }
   }
 
   else
   {
 
-    (*(v69 + 8))(v10, v8);
+    (*(v77 + 8))(v10, v8);
   }
 }
 
@@ -3836,13 +3842,13 @@ Swift::Void __swiftcall BlueprintTableViewDelegate.windowWillBecomeForeground()(
 void __swiftcall BlueprintTableViewDelegate.tableView(_:viewForHeaderInSection:)(UIView_optional *__return_ptr retstr, UITableView *_, Swift::Int viewForHeaderInSection)
 {
   OUTLINED_FUNCTION_120();
-  v36 = v4;
+  v59 = v4;
   v5 = *v3;
   v6 = *MEMORY[0x1E69E7D40];
   OUTLINED_FUNCTION_82();
-  v35 = *(v7 + 120);
+  v58 = *(v7 + 120);
   OUTLINED_FUNCTION_82();
-  v34 = *(v8 + 88);
+  v57 = *(v8 + 88);
   OUTLINED_FUNCTION_12_18();
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_12_18();
@@ -3851,69 +3857,69 @@ void __swiftcall BlueprintTableViewDelegate.tableView(_:viewForHeaderInSection:)
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
   OUTLINED_FUNCTION_55_0();
   OUTLINED_FUNCTION_75_2();
-  v32 = swift_getAssociatedConformanceWitness();
-  v37 = AssociatedTypeWitness;
-  v38 = v10;
-  v39 = AssociatedConformanceWitness;
-  v40 = v32;
-  OUTLINED_FUNCTION_81_2();
-  type metadata accessor for BlueprintLayoutSection();
+  v55 = swift_getAssociatedConformanceWitness();
+  v60 = AssociatedTypeWitness;
+  v61 = v10;
+  v62 = AssociatedConformanceWitness;
+  v63 = v55;
+  v11 = OUTLINED_FUNCTION_81_2();
+  type metadata accessor for BlueprintLayoutSection(v11, v12);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v11);
+  MEMORY[0x1EEE9AC00](v13);
   OUTLINED_FUNCTION_94();
-  OUTLINED_FUNCTION_79_1(v12);
-  v14 = *(v13 + 112);
-  v15 = *((v6 & v5) + 0x50);
-  OUTLINED_FUNCTION_35_7();
-  v16 = OUTLINED_FUNCTION_114_0();
-  OUTLINED_FUNCTION_35_7();
-  v17 = OUTLINED_FUNCTION_114_0();
+  OUTLINED_FUNCTION_79_1(v14);
+  v16 = *(v15 + 112);
+  v17 = *((v6 & v5) + 0x50);
+  v18 = OUTLINED_FUNCTION_35_7();
+  v20 = OUTLINED_FUNCTION_114_0(v18, v19);
+  v21 = OUTLINED_FUNCTION_35_7();
+  v23 = OUTLINED_FUNCTION_114_0(v21, v22);
   OUTLINED_FUNCTION_127_0();
-  v18 = swift_getAssociatedConformanceWitness();
+  v24 = swift_getAssociatedConformanceWitness();
   OUTLINED_FUNCTION_127_0();
-  v19 = swift_getAssociatedConformanceWitness();
-  v37 = v16;
-  v38 = v17;
-  v39 = v18;
-  v40 = v19;
-  OUTLINED_FUNCTION_81_2();
-  type metadata accessor for Blueprint();
+  v25 = swift_getAssociatedConformanceWitness();
+  v60 = v20;
+  v61 = v23;
+  v62 = v24;
+  v63 = v25;
+  v26 = OUTLINED_FUNCTION_81_2();
+  type metadata accessor for Blueprint(v26, v27);
   OUTLINED_FUNCTION_9();
-  v21 = v20;
+  v29 = v28;
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v22);
+  MEMORY[0x1EEE9AC00](v30);
   OUTLINED_FUNCTION_21_11();
-  v37 = v16;
-  v38 = v17;
-  v39 = v18;
-  v40 = v19;
-  OUTLINED_FUNCTION_81_2();
-  type metadata accessor for BlueprintSection();
+  v60 = v20;
+  v61 = v23;
+  v62 = v24;
+  v63 = v25;
+  v31 = OUTLINED_FUNCTION_81_2();
+  type metadata accessor for BlueprintSection(v31, v32);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v23);
+  MEMORY[0x1EEE9AC00](v33);
   OUTLINED_FUNCTION_76_2();
   OUTLINED_FUNCTION_115_0();
-  BlueprintProviderType.blueprint.getter(v15, v14);
+  BlueprintProviderType.blueprint.getter(v17, v16);
   OUTLINED_FUNCTION_95_0();
-  (*(v21 + 8))(AssociatedTypeWitness, v14);
+  (*(v29 + 8))(AssociatedTypeWitness, v16);
   OUTLINED_FUNCTION_44_5();
-  BlueprintLayoutProviderType.layoutBlueprint.getter(v34, v35);
-  v24 = OUTLINED_FUNCTION_94_1();
-  OUTLINED_FUNCTION_96_0(v24);
+  BlueprintLayoutProviderType.layoutBlueprint.getter(v57, v58);
+  v34 = OUTLINED_FUNCTION_94_1();
+  OUTLINED_FUNCTION_96_0(v34, v42, v43, v44, v45, v46, v47, v35, v36, v37, v38, v39, v40, v41);
   OUTLINED_FUNCTION_3_0();
-  (*(v25 + 8))(&v37, v21 + 8);
+  (*(v48 + 8))(&v60, v29 + 8);
   OUTLINED_FUNCTION_44_5();
-  v37 = v36;
+  v60 = v59;
   OUTLINED_FUNCTION_136_0();
   OUTLINED_FUNCTION_136_0();
-  v26 = OUTLINED_FUNCTION_135_0();
-  v27(v26);
-  v28 = OUTLINED_FUNCTION_121_0();
-  v29(v28);
-  v30 = OUTLINED_FUNCTION_134_0();
-  v31(v30);
+  v49 = OUTLINED_FUNCTION_135_0();
+  v50(v49);
+  v51 = OUTLINED_FUNCTION_121_0();
+  v52(v51);
+  v53 = OUTLINED_FUNCTION_134_0();
+  v54(v53);
   OUTLINED_FUNCTION_130_0();
   OUTLINED_FUNCTION_100();
 }
@@ -3931,13 +3937,13 @@ id sub_1D7F9272C(void *a1, uint64_t a2, void *a3, Swift::Int a4)
 void __swiftcall BlueprintTableViewDelegate.tableView(_:viewForFooterInSection:)(UIView_optional *__return_ptr retstr, UITableView *_, Swift::Int viewForFooterInSection)
 {
   OUTLINED_FUNCTION_120();
-  v36 = v4;
+  v59 = v4;
   v5 = *v3;
   v6 = *MEMORY[0x1E69E7D40];
   OUTLINED_FUNCTION_82();
-  v35 = *(v7 + 120);
+  v58 = *(v7 + 120);
   OUTLINED_FUNCTION_82();
-  v34 = *(v8 + 88);
+  v57 = *(v8 + 88);
   OUTLINED_FUNCTION_12_18();
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_12_18();
@@ -3946,69 +3952,69 @@ void __swiftcall BlueprintTableViewDelegate.tableView(_:viewForFooterInSection:)
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
   OUTLINED_FUNCTION_55_0();
   OUTLINED_FUNCTION_75_2();
-  v32 = swift_getAssociatedConformanceWitness();
-  v37 = AssociatedTypeWitness;
-  v38 = v10;
-  v39 = AssociatedConformanceWitness;
-  v40 = v32;
-  OUTLINED_FUNCTION_81_2();
-  type metadata accessor for BlueprintLayoutSection();
+  v55 = swift_getAssociatedConformanceWitness();
+  v60 = AssociatedTypeWitness;
+  v61 = v10;
+  v62 = AssociatedConformanceWitness;
+  v63 = v55;
+  v11 = OUTLINED_FUNCTION_81_2();
+  type metadata accessor for BlueprintLayoutSection(v11, v12);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v11);
+  MEMORY[0x1EEE9AC00](v13);
   OUTLINED_FUNCTION_94();
-  OUTLINED_FUNCTION_79_1(v12);
-  v14 = *(v13 + 112);
-  v15 = *((v6 & v5) + 0x50);
-  OUTLINED_FUNCTION_35_7();
-  v16 = OUTLINED_FUNCTION_114_0();
-  OUTLINED_FUNCTION_35_7();
-  v17 = OUTLINED_FUNCTION_114_0();
+  OUTLINED_FUNCTION_79_1(v14);
+  v16 = *(v15 + 112);
+  v17 = *((v6 & v5) + 0x50);
+  v18 = OUTLINED_FUNCTION_35_7();
+  v20 = OUTLINED_FUNCTION_114_0(v18, v19);
+  v21 = OUTLINED_FUNCTION_35_7();
+  v23 = OUTLINED_FUNCTION_114_0(v21, v22);
   OUTLINED_FUNCTION_127_0();
-  v18 = swift_getAssociatedConformanceWitness();
+  v24 = swift_getAssociatedConformanceWitness();
   OUTLINED_FUNCTION_127_0();
-  v19 = swift_getAssociatedConformanceWitness();
-  v37 = v16;
-  v38 = v17;
-  v39 = v18;
-  v40 = v19;
-  OUTLINED_FUNCTION_81_2();
-  type metadata accessor for Blueprint();
+  v25 = swift_getAssociatedConformanceWitness();
+  v60 = v20;
+  v61 = v23;
+  v62 = v24;
+  v63 = v25;
+  v26 = OUTLINED_FUNCTION_81_2();
+  type metadata accessor for Blueprint(v26, v27);
   OUTLINED_FUNCTION_9();
-  v21 = v20;
+  v29 = v28;
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v22);
+  MEMORY[0x1EEE9AC00](v30);
   OUTLINED_FUNCTION_21_11();
-  v37 = v16;
-  v38 = v17;
-  v39 = v18;
-  v40 = v19;
-  OUTLINED_FUNCTION_81_2();
-  type metadata accessor for BlueprintSection();
+  v60 = v20;
+  v61 = v23;
+  v62 = v24;
+  v63 = v25;
+  v31 = OUTLINED_FUNCTION_81_2();
+  type metadata accessor for BlueprintSection(v31, v32);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v23);
+  MEMORY[0x1EEE9AC00](v33);
   OUTLINED_FUNCTION_76_2();
   OUTLINED_FUNCTION_115_0();
-  BlueprintProviderType.blueprint.getter(v15, v14);
+  BlueprintProviderType.blueprint.getter(v17, v16);
   OUTLINED_FUNCTION_95_0();
-  (*(v21 + 8))(AssociatedTypeWitness, v14);
+  (*(v29 + 8))(AssociatedTypeWitness, v16);
   OUTLINED_FUNCTION_44_5();
-  BlueprintLayoutProviderType.layoutBlueprint.getter(v34, v35);
-  v24 = OUTLINED_FUNCTION_94_1();
-  OUTLINED_FUNCTION_96_0(v24);
+  BlueprintLayoutProviderType.layoutBlueprint.getter(v57, v58);
+  v34 = OUTLINED_FUNCTION_94_1();
+  OUTLINED_FUNCTION_96_0(v34, v42, v43, v44, v45, v46, v47, v35, v36, v37, v38, v39, v40, v41);
   OUTLINED_FUNCTION_3_0();
-  (*(v25 + 8))(&v37, v21 + 8);
+  (*(v48 + 8))(&v60, v29 + 8);
   OUTLINED_FUNCTION_44_5();
-  v37 = v36;
+  v60 = v59;
   OUTLINED_FUNCTION_136_0();
   OUTLINED_FUNCTION_136_0();
-  v26 = OUTLINED_FUNCTION_135_0();
-  v27(v26);
-  v28 = OUTLINED_FUNCTION_121_0();
-  v29(v28);
-  v30 = OUTLINED_FUNCTION_134_0();
-  v31(v30);
+  v49 = OUTLINED_FUNCTION_135_0();
+  v50(v49);
+  v51 = OUTLINED_FUNCTION_121_0();
+  v52(v51);
+  v53 = OUTLINED_FUNCTION_134_0();
+  v54(v53);
   OUTLINED_FUNCTION_130_0();
   OUTLINED_FUNCTION_100();
 }
@@ -4026,10 +4032,10 @@ id sub_1D7F92B48(void *a1, uint64_t a2, void *a3, Swift::Int a4)
 void sub_1D7F92BB4()
 {
   OUTLINED_FUNCTION_98();
-  v23 = v1;
+  v35 = v1;
   v2 = *((*MEMORY[0x1E69E7D40] & *v0) + 0x78);
   v3 = *((*MEMORY[0x1E69E7D40] & *v0) + 0x58);
-  v4 = OUTLINED_FUNCTION_114_0();
+  v4 = OUTLINED_FUNCTION_114_0(0, v2);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_44();
   MEMORY[0x1EEE9AC00](v5);
@@ -4040,47 +4046,47 @@ void sub_1D7F92BB4()
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
   OUTLINED_FUNCTION_72_0();
   v8 = swift_getAssociatedConformanceWitness();
-  v27[0] = v4;
-  v27[1] = AssociatedTypeWitness;
-  v27[2] = AssociatedConformanceWitness;
-  v27[3] = v8;
-  type metadata accessor for BlueprintLayoutSection();
+  v39[0] = v4;
+  v39[1] = AssociatedTypeWitness;
+  v39[2] = AssociatedConformanceWitness;
+  v39[3] = v8;
+  type metadata accessor for BlueprintLayoutSection(0, v39);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_44();
   MEMORY[0x1EEE9AC00](v9);
   OUTLINED_FUNCTION_28_1();
   BlueprintLayoutProviderType.layoutBlueprint.getter(v3, v2);
-  *&v24 = v4;
-  *(&v24 + 1) = AssociatedTypeWitness;
-  *&v25 = AssociatedConformanceWitness;
-  *(&v25 + 1) = v8;
-  v10 = type metadata accessor for BlueprintLayout();
-  BlueprintLayout.subscript.getter(v23, v10);
+  *&v36 = v4;
+  *(&v36 + 1) = AssociatedTypeWitness;
+  *&v37 = AssociatedConformanceWitness;
+  *(&v37 + 1) = v8;
+  v10 = type metadata accessor for BlueprintLayout(0, &v36);
+  BlueprintLayout.subscript.getter(v35, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22);
   OUTLINED_FUNCTION_3_0();
-  (*(v11 + 8))(v27, v10);
-  v12 = OUTLINED_FUNCTION_129_1();
-  v14 = v13(v12);
-  OUTLINED_FUNCTION_91(v14, qword_1EDBAEBB0);
+  (*(v23 + 8))(v39, v10);
+  v24 = OUTLINED_FUNCTION_129_1();
+  v26 = v25(v24);
+  OUTLINED_FUNCTION_91(v26, qword_1EDBAEBB0, &protocol descriptor for BlueprintLayoutHeaderFooterAttributesType);
   if (swift_dynamicCast())
   {
     OUTLINED_FUNCTION_128_1();
-    v15 = OUTLINED_FUNCTION_11_0();
-    v16(v15);
-    v17 = OUTLINED_FUNCTION_57_4();
-    v18(v17);
-    __swift_destroy_boxed_opaque_existential_1Tm(v27);
+    v27 = OUTLINED_FUNCTION_11_0();
+    v28(v27);
+    v29 = OUTLINED_FUNCTION_57_4();
+    v30(v29);
+    __swift_destroy_boxed_opaque_existential_1Tm(v39);
   }
 
   else
   {
-    v26 = 0;
-    v24 = 0u;
-    v25 = 0u;
-    sub_1D7F9E7CC(&v24, &qword_1ECA0E5C8, qword_1EDBAEBB0, &protocol descriptor for BlueprintLayoutHeaderFooterAttributesType);
-    v19 = OUTLINED_FUNCTION_53();
-    v20(v19);
-    v21 = OUTLINED_FUNCTION_57_4();
-    v22(v21);
+    v38 = 0;
+    v36 = 0u;
+    v37 = 0u;
+    sub_1D7F9E7CC(&v36, &qword_1ECA0E5C8, qword_1EDBAEBB0, &protocol descriptor for BlueprintLayoutHeaderFooterAttributesType);
+    v31 = OUTLINED_FUNCTION_53();
+    v32(v31);
+    v33 = OUTLINED_FUNCTION_57_4();
+    v34(v33);
   }
 
   OUTLINED_FUNCTION_97();
@@ -4089,7 +4095,7 @@ void sub_1D7F92BB4()
 void sub_1D7F92ED4()
 {
   OUTLINED_FUNCTION_98();
-  v21 = v1;
+  v33 = v1;
   v2 = *((*MEMORY[0x1E69E7D40] & *v0) + 0x78);
   v3 = *((*MEMORY[0x1E69E7D40] & *v0) + 0x58);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
@@ -4102,45 +4108,45 @@ void sub_1D7F92ED4()
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
   OUTLINED_FUNCTION_6_16();
   v8 = swift_getAssociatedConformanceWitness();
-  v25[0] = AssociatedTypeWitness;
-  v25[1] = v6;
-  v25[2] = AssociatedConformanceWitness;
-  v25[3] = v8;
-  type metadata accessor for BlueprintLayoutSection();
+  v37[0] = AssociatedTypeWitness;
+  v37[1] = v6;
+  v37[2] = AssociatedConformanceWitness;
+  v37[3] = v8;
+  type metadata accessor for BlueprintLayoutSection(0, v37);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_44();
   MEMORY[0x1EEE9AC00](v9);
   OUTLINED_FUNCTION_94();
   BlueprintLayoutProviderType.layoutBlueprint.getter(v3, v2);
-  *&v22 = AssociatedTypeWitness;
-  *(&v22 + 1) = v6;
-  *&v23 = AssociatedConformanceWitness;
-  *(&v23 + 1) = v8;
-  v10 = type metadata accessor for BlueprintLayout();
-  BlueprintLayout.subscript.getter(v21, v10);
+  *&v34 = AssociatedTypeWitness;
+  *(&v34 + 1) = v6;
+  *&v35 = AssociatedConformanceWitness;
+  *(&v35 + 1) = v8;
+  v10 = type metadata accessor for BlueprintLayout(0, &v34);
+  BlueprintLayout.subscript.getter(v33, v10, v11, v12, v13, v14, v15, v16, v17, v18, v19, v20, v21, v22);
   OUTLINED_FUNCTION_3_0();
-  (*(v11 + 8))(v25, v10);
-  v12 = OUTLINED_FUNCTION_129_1();
-  v14 = v13(v12);
-  OUTLINED_FUNCTION_91(v14, qword_1EDBAEBB0);
+  (*(v23 + 8))(v37, v10);
+  v24 = OUTLINED_FUNCTION_129_1();
+  v26 = v25(v24);
+  OUTLINED_FUNCTION_91(v26, qword_1EDBAEBB0, &protocol descriptor for BlueprintLayoutHeaderFooterAttributesType);
   if (swift_dynamicCast())
   {
     OUTLINED_FUNCTION_128_1();
-    v15 = OUTLINED_FUNCTION_11_0();
-    v16(v15);
-    v17 = OUTLINED_FUNCTION_57_4();
-    v18(v17);
-    __swift_destroy_boxed_opaque_existential_1Tm(v25);
+    v27 = OUTLINED_FUNCTION_11_0();
+    v28(v27);
+    v29 = OUTLINED_FUNCTION_57_4();
+    v30(v29);
+    __swift_destroy_boxed_opaque_existential_1Tm(v37);
   }
 
   else
   {
-    v24 = 0;
-    v22 = 0u;
-    v23 = 0u;
-    sub_1D7F9E7CC(&v22, &qword_1ECA0E5C8, qword_1EDBAEBB0, &protocol descriptor for BlueprintLayoutHeaderFooterAttributesType);
-    v19 = OUTLINED_FUNCTION_57_4();
-    v20(v19);
+    v36 = 0;
+    v34 = 0u;
+    v35 = 0u;
+    sub_1D7F9E7CC(&v34, &qword_1ECA0E5C8, qword_1EDBAEBB0, &protocol descriptor for BlueprintLayoutHeaderFooterAttributesType);
+    v31 = OUTLINED_FUNCTION_57_4();
+    v32(v31);
   }
 
   OUTLINED_FUNCTION_97();
@@ -4149,8 +4155,8 @@ void sub_1D7F92ED4()
 void sub_1D7F93208()
 {
   OUTLINED_FUNCTION_98();
-  v24 = v2;
-  v25 = v1;
+  v27 = v2;
+  v28 = v1;
   v3 = *v0;
   v4 = *MEMORY[0x1E69E7D40];
   OUTLINED_FUNCTION_82();
@@ -4160,34 +4166,34 @@ void sub_1D7F93208()
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_72_0();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  OUTLINED_FUNCTION_107();
-  v26 = type metadata accessor for BlueprintLayoutItem();
+  v10 = OUTLINED_FUNCTION_107();
+  v29 = type metadata accessor for BlueprintLayoutItem(v10, v11, AssociatedConformanceWitness, v12);
   OUTLINED_FUNCTION_9();
-  v11 = v10;
+  v14 = v13;
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v24 - v13;
+  MEMORY[0x1EEE9AC00](v15);
+  v17 = &v27 - v16;
   OUTLINED_FUNCTION_82();
   BlueprintLayoutProviderType.layoutBlueprint.getter(v7, v6);
   OUTLINED_FUNCTION_33_6();
-  v15 = swift_getAssociatedTypeWitness();
+  v18 = swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_72_0();
-  v16 = swift_getAssociatedConformanceWitness();
-  v27 = v15;
-  v28 = AssociatedTypeWitness;
-  v29 = v16;
-  v30 = AssociatedConformanceWitness;
-  v17 = type metadata accessor for BlueprintLayout();
-  BlueprintLayout.subscript.getter(v24, v17);
+  v19 = swift_getAssociatedConformanceWitness();
+  v30[0] = v18;
+  v30[1] = AssociatedTypeWitness;
+  v30[2] = v19;
+  v30[3] = AssociatedConformanceWitness;
+  v20 = type metadata accessor for BlueprintLayout(0, v30);
+  BlueprintLayout.subscript.getter(v27, v20);
   OUTLINED_FUNCTION_3_0();
-  (*(v18 + 8))(&v31, v17);
-  if (![v25 isEditing] || (v19 = OUTLINED_FUNCTION_53(), v20(v19), (v21 & 1) != 0))
+  (*(v21 + 8))(&v31, v20);
+  if (![v28 isEditing] || (v22 = OUTLINED_FUNCTION_53(), v23(v22), (v24 & 1) != 0))
   {
-    v22 = OUTLINED_FUNCTION_53();
-    v23(v22);
+    v25 = OUTLINED_FUNCTION_53();
+    v26(v25);
   }
 
-  (*(v11 + 8))(v14, v26);
+  (*(v14 + 8))(v17, v29);
   OUTLINED_FUNCTION_97();
 }
 
@@ -4210,127 +4216,127 @@ double sub_1D7F93460()
 
 uint64_t sub_1D7F9353C(void *a1, uint64_t a2)
 {
-  v32 = a2;
-  v27 = a1;
-  v29 = *v2;
-  v30 = *MEMORY[0x1E69E7D40];
-  v3 = *((v30 & v29) + 0x70);
-  v4 = *((v30 & v29) + 0x50);
+  v33 = a2;
+  v28 = a1;
+  v30 = *v2;
+  v31 = *MEMORY[0x1E69E7D40];
+  v3 = *((v31 & v30) + 0x70);
+  v4 = *((v31 & v30) + 0x50);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v31 = *(AssociatedTypeWitness - 8);
+  v32 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v28 = &v26 - v6;
+  v29 = &v27 - v6;
   v7 = swift_getAssociatedTypeWitness();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
   v9 = swift_getAssociatedConformanceWitness();
-  v41[0] = v7;
-  v41[1] = AssociatedTypeWitness;
-  v41[2] = AssociatedConformanceWitness;
-  v42 = v9;
-  v10 = type metadata accessor for Blueprint();
+  v42[0] = v7;
+  v42[1] = AssociatedTypeWitness;
+  v42[2] = AssociatedConformanceWitness;
+  v43 = v9;
+  v10 = type metadata accessor for Blueprint(0, v42);
   v11 = *(v10 - 8);
   MEMORY[0x1EEE9AC00](v10);
-  v13 = &v26 - v12;
-  v14 = type metadata accessor for BlueprintItem();
-  v15 = *(v14 - 8);
-  MEMORY[0x1EEE9AC00](v14);
-  v17 = &v26 - v16;
+  v13 = &v27 - v12;
+  v15 = type metadata accessor for BlueprintItem(0, AssociatedTypeWitness, v9, v14);
+  v16 = *(v15 - 8);
+  MEMORY[0x1EEE9AC00](v15);
+  v18 = &v27 - v17;
   BlueprintProviderType.blueprint.getter(v4, v3);
   Blueprint.subscript.getter();
   (*(v11 + 8))(v13, v10);
-  (*(v31 + 16))(v28, v17, AssociatedTypeWitness);
-  sub_1D7E069F0(0, qword_1EDBBC020);
+  (*(v32 + 16))(v29, v18, AssociatedTypeWitness);
+  sub_1D7E069F0(0, qword_1EDBBC020, &protocol descriptor for Selectable, 1);
   if (!swift_dynamicCast())
   {
-    (*(v15 + 8))(v17, v14);
-    v40 = 0;
-    v38 = 0u;
+    (*(v16 + 8))(v18, v15);
+    v41 = 0;
     v39 = 0u;
-    sub_1D7F9E7CC(&v38, &qword_1ECA0F370, qword_1EDBBC020, &protocol descriptor for Selectable);
+    v40 = 0u;
+    sub_1D7F9E7CC(&v39, &qword_1ECA0F370, qword_1EDBBC020, &protocol descriptor for Selectable);
 LABEL_16:
-    v20 = 0;
-    return v20 & 1;
+    v21 = 0;
+    return v21 & 1;
   }
 
-  sub_1D7E05450(&v38, v41);
-  v18 = v42;
+  sub_1D7E05450(&v39, v42);
   v19 = v43;
-  __swift_project_boxed_opaque_existential_1(v41, v42);
-  (*(v19 + 8))(&v37, v18, v19);
-  if (!v37)
+  v20 = v44;
+  __swift_project_boxed_opaque_existential_1(v42, v43);
+  (*(v20 + 8))(&v38, v19, v20);
+  if (!v38)
   {
-    (*(v15 + 8))(v17, v14);
+    (*(v16 + 8))(v18, v15);
 LABEL_15:
-    __swift_destroy_boxed_opaque_existential_1Tm(v41);
+    __swift_destroy_boxed_opaque_existential_1Tm(v42);
     goto LABEL_16;
   }
 
-  if (v37 != 1)
+  if (v38 != 1)
   {
-    v21 = sub_1D818E8E4();
-    v22 = [v27 cellForRowAtIndexPath_];
+    v22 = sub_1D818E8E4();
+    v23 = [v28 cellForRowAtIndexPath_];
 
-    if (v22)
+    if (v23)
     {
-      v33 = v22;
-      sub_1D7E0A1A8(0, &qword_1EDBAE530);
-      sub_1D7E069F0(0, qword_1EDBBB350);
+      v34 = v23;
+      sub_1D7E0A1A8(0, &qword_1EDBAE530, 0x1E69DD028);
+      sub_1D7E069F0(0, qword_1EDBBB350, &protocol descriptor for ViewSelectable, 1);
       if (swift_dynamicCast())
       {
-        if (*(&v35 + 1))
+        if (*(&v36 + 1))
         {
-          sub_1D7E05450(&v34, &v38);
-          v23 = *(&v39 + 1);
-          v24 = v40;
-          __swift_project_boxed_opaque_existential_1(&v38, *(&v39 + 1));
-          v20 = (*(v24 + 8))(v23, v24);
-          (*(v15 + 8))(v17, v14);
-          __swift_destroy_boxed_opaque_existential_1Tm(&v38);
-          __swift_destroy_boxed_opaque_existential_1Tm(v41);
-          return v20 & 1;
+          sub_1D7E05450(&v35, &v39);
+          v24 = *(&v40 + 1);
+          v25 = v41;
+          __swift_project_boxed_opaque_existential_1(&v39, *(&v40 + 1));
+          v21 = (*(v25 + 8))(v24, v25);
+          (*(v16 + 8))(v18, v15);
+          __swift_destroy_boxed_opaque_existential_1Tm(&v39);
+          __swift_destroy_boxed_opaque_existential_1Tm(v42);
+          return v21 & 1;
         }
       }
 
       else
       {
-        v36 = 0;
-        v34 = 0u;
+        v37 = 0;
         v35 = 0u;
+        v36 = 0u;
       }
 
-      (*(v15 + 8))(v17, v14);
+      (*(v16 + 8))(v18, v15);
     }
 
     else
     {
-      (*(v15 + 8))(v17, v14);
-      v36 = 0;
-      v34 = 0u;
+      (*(v16 + 8))(v18, v15);
+      v37 = 0;
       v35 = 0u;
+      v36 = 0u;
     }
 
-    sub_1D7F9E7CC(&v34, &unk_1EDBBB340, qword_1EDBBB350, &protocol descriptor for ViewSelectable);
+    sub_1D7F9E7CC(&v35, &unk_1EDBBB340, qword_1EDBBB350, &protocol descriptor for ViewSelectable);
     goto LABEL_15;
   }
 
-  (*(v15 + 8))(v17, v14);
-  __swift_destroy_boxed_opaque_existential_1Tm(v41);
-  v20 = 1;
-  return v20 & 1;
+  (*(v16 + 8))(v18, v15);
+  __swift_destroy_boxed_opaque_existential_1Tm(v42);
+  v21 = 1;
+  return v21 & 1;
 }
 
-uint64_t sub_1D7F93AE8(void *a1, uint64_t a2, void *a3)
+uint64_t sub_1D7F93AE8(void *a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v5 = sub_1D818E994();
-  v6 = *(v5 - 8);
-  MEMORY[0x1EEE9AC00](v5);
-  v8 = &v12 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_1D818E994();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D818E924();
-  v9 = a3;
-  v10 = a1;
-  LOBYTE(a1) = BlueprintTableViewDelegate.tableView(_:canFocusRowAt:)(v9, v8);
+  v10 = a3;
+  v11 = a1;
+  LOBYTE(a1) = BlueprintTableViewDelegate.tableView(_:canFocusRowAt:)();
 
-  (*(v6 + 8))(v8, v5);
+  (*(v7 + 8))(v9, v6);
   return a1 & 1;
 }
 
@@ -4341,114 +4347,117 @@ void BlueprintTableViewDelegate.tableView(_:didSelectRowAt:)()
   v4 = v3;
   v6 = v5;
   OUTLINED_FUNCTION_3_7();
-  v163 = v7;
+  v171 = v7;
   v10 = *((v9 & v8) + 0x70);
   v11 = *((v9 & v8) + 0x50);
   OUTLINED_FUNCTION_85_0();
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_85_0();
-  v175 = v11;
-  v176 = v10;
-  v178[0] = AssociatedTypeWitness;
-  v178[1] = swift_getAssociatedTypeWitness();
+  v13 = swift_getAssociatedTypeWitness();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v180 = swift_getAssociatedConformanceWitness();
-  v13 = type metadata accessor for Blueprint();
+  v183 = v11;
+  v184 = v10;
+  v15 = swift_getAssociatedConformanceWitness();
+  v188[0] = AssociatedTypeWitness;
+  v188[1] = v13;
+  v189 = AssociatedConformanceWitness;
+  v190 = v15;
+  v16 = type metadata accessor for Blueprint(0, v188);
   OUTLINED_FUNCTION_9();
-  v171 = v14;
-  OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v15);
-  OUTLINED_FUNCTION_94();
-  v173 = v16;
-  OUTLINED_FUNCTION_52_0();
-  v174 = type metadata accessor for BlueprintItem();
-  OUTLINED_FUNCTION_9();
-  v169 = v17;
+  v179 = v17;
   OUTLINED_FUNCTION_44();
   MEMORY[0x1EEE9AC00](v18);
   OUTLINED_FUNCTION_94();
-  v177 = v19;
-  OUTLINED_FUNCTION_52_0();
-  v165 = sub_1D818E994();
+  v181 = v19;
+  v20 = OUTLINED_FUNCTION_52_0();
+  v182 = type metadata accessor for BlueprintItem(v20, v13, v15, v21);
   OUTLINED_FUNCTION_9();
-  v168 = v20;
-  MEMORY[0x1EEE9AC00](v21);
-  OUTLINED_FUNCTION_15();
-  v154 = v23 - v22;
+  v177 = v22;
+  OUTLINED_FUNCTION_44();
+  MEMORY[0x1EEE9AC00](v23);
+  OUTLINED_FUNCTION_94();
+  v185 = v24;
   OUTLINED_FUNCTION_52_0();
-  sub_1D7EA0824();
-  v164 = v24;
-  OUTLINED_FUNCTION_8();
-  MEMORY[0x1EEE9AC00](v25);
-  OUTLINED_FUNCTION_23();
-  OUTLINED_FUNCTION_48();
+  v173 = sub_1D818E994();
+  OUTLINED_FUNCTION_9();
+  v176 = v25;
   MEMORY[0x1EEE9AC00](v26);
-  v28 = v153 - v27;
-  OUTLINED_FUNCTION_0_73();
-  sub_1D7E54930(0, v29, v30, MEMORY[0x1E69E6720]);
-  v32 = OUTLINED_FUNCTION_50(v31);
-  MEMORY[0x1EEE9AC00](v32);
+  OUTLINED_FUNCTION_15();
+  v162 = v28 - v27;
+  v29 = OUTLINED_FUNCTION_52_0();
+  sub_1D7EA0824(v29);
+  v172 = v30;
+  OUTLINED_FUNCTION_8();
+  MEMORY[0x1EEE9AC00](v31);
   OUTLINED_FUNCTION_23();
   OUTLINED_FUNCTION_48();
-  MEMORY[0x1EEE9AC00](v33);
+  MEMORY[0x1EEE9AC00](v32);
+  v34 = v161 - v33;
+  OUTLINED_FUNCTION_0_73();
+  sub_1D7E54930(0, v35, v36, MEMORY[0x1E69E6720]);
+  v38 = OUTLINED_FUNCTION_50(v37);
+  MEMORY[0x1EEE9AC00](v38);
+  OUTLINED_FUNCTION_23();
   OUTLINED_FUNCTION_48();
-  MEMORY[0x1EEE9AC00](v34);
-  OUTLINED_FUNCTION_48();
-  MEMORY[0x1EEE9AC00](v35);
-  OUTLINED_FUNCTION_48();
-  MEMORY[0x1EEE9AC00](v36);
-  v38 = v153 - v37;
   MEMORY[0x1EEE9AC00](v39);
+  OUTLINED_FUNCTION_48();
+  MEMORY[0x1EEE9AC00](v40);
+  OUTLINED_FUNCTION_48();
+  MEMORY[0x1EEE9AC00](v41);
+  OUTLINED_FUNCTION_48();
+  MEMORY[0x1EEE9AC00](v42);
+  v44 = v161 - v43;
+  MEMORY[0x1EEE9AC00](v45);
   OUTLINED_FUNCTION_125_0();
-  v41 = MEMORY[0x1EEE9AC00](v40);
-  v43 = v153 - v42;
-  v172 = v6;
-  v44 = [v6 allowsMultipleSelection];
-  v170 = v13;
-  if (v44)
+  v47 = MEMORY[0x1EEE9AC00](v46);
+  v49 = v161 - v48;
+  v180 = v6;
+  v50 = [v6 allowsMultipleSelection];
+  v178 = v16;
+  if (v50)
   {
     goto LABEL_17;
   }
 
-  v46 = (v168 + 16);
-  v45 = *(v168 + 16);
-  v159 = v4;
-  v47 = v4;
-  v4 = v165;
-  v166 = v45;
-  v45(v43, v47, v165);
+  v52 = (v176 + 16);
+  v51 = *(v176 + 16);
+  v167 = v4;
+  v53 = v4;
+  v4 = v173;
+  v174 = v51;
+  v51(v49, v53, v173);
   OUTLINED_FUNCTION_102();
-  __swift_storeEnumTagSinglePayload(v48, v49, v50, v4);
+  __swift_storeEnumTagSinglePayload(v54, v55, v56, v4);
   OUTLINED_FUNCTION_65_4();
-  v52 = v2 + *(v51 + 208);
-  OUTLINED_FUNCTION_8_4();
+  v58 = v2 + *(v57 + 208);
+  OUTLINED_FUNCTION_8_4(v58, &v193);
   if (swift_unknownObjectWeakLoadStrong())
   {
-    v53 = *(v52 + 8);
+    v59 = *(v58 + 8);
     ObjectType = swift_getObjectType();
-    (*(v53 + 8))(ObjectType, v53);
+    (*(v59 + 8))(ObjectType, v59);
     swift_unknownObjectRelease();
   }
 
   else
   {
-    v55 = OUTLINED_FUNCTION_99();
-    __swift_storeEnumTagSinglePayload(v55, v56, 1, v4);
+    v61 = OUTLINED_FUNCTION_99();
+    __swift_storeEnumTagSinglePayload(v61, v62, 1, v4);
   }
 
-  v57 = *(v164 + 48);
-  sub_1D7E54838(v43, v28);
-  sub_1D7E54838(v1, &v28[v57]);
-  OUTLINED_FUNCTION_43_0(v28, 1, v4);
-  if (v58)
+  v63 = *(v172 + 48);
+  sub_1D7E54838(v49, v34);
+  sub_1D7E54838(v1, &v34[v63]);
+  OUTLINED_FUNCTION_43_0(v34, 1, v4);
+  if (v64)
   {
     sub_1D7E73334(v1);
-    sub_1D7E73334(v43);
-    OUTLINED_FUNCTION_43_0(&v28[v57], 1, v4);
-    v13 = v170;
-    if (v58)
+    sub_1D7E73334(v49);
+    OUTLINED_FUNCTION_43_0(&v34[v63], 1, v4);
+    v16 = v178;
+    if (v64)
     {
-      sub_1D7E73334(v28);
+      sub_1D7E73334(v34);
       OUTLINED_FUNCTION_80_1();
       goto LABEL_17;
     }
@@ -4456,26 +4465,26 @@ void BlueprintTableViewDelegate.tableView(_:didSelectRowAt:)()
 
   else
   {
-    sub_1D7E54838(v28, v38);
-    OUTLINED_FUNCTION_43_0(&v28[v57], 1, v4);
-    if (!v58)
+    sub_1D7E54838(v34, v44);
+    OUTLINED_FUNCTION_43_0(&v34[v63], 1, v4);
+    if (!v64)
     {
-      v162 = v46;
-      v66 = v168;
-      v67 = v154;
-      (*(v168 + 32))(v154, &v28[v57], v4);
+      v170 = v52;
+      v72 = v176;
+      v73 = v162;
+      (*(v176 + 32))(v162, &v34[v63], v4);
       OUTLINED_FUNCTION_6_29();
-      sub_1D7E2DA70(v68, v69);
-      LODWORD(v161) = sub_1D8190ED4();
-      v70 = *(v66 + 8);
-      v70(v67, v4);
+      sub_1D7E2DA70(v74, v75, MEMORY[0x1E6969C50]);
+      LODWORD(v169) = sub_1D8190ED4();
+      v76 = *(v72 + 8);
+      v76(v73, v4);
       sub_1D7E73334(v1);
-      sub_1D7E73334(v43);
-      v70(v38, v4);
-      sub_1D7E73334(v28);
+      sub_1D7E73334(v49);
+      v76(v44, v4);
+      sub_1D7E73334(v34);
       OUTLINED_FUNCTION_80_1();
-      v13 = v170;
-      if (v161)
+      v16 = v178;
+      if (v169)
       {
         goto LABEL_17;
       }
@@ -4484,203 +4493,203 @@ void BlueprintTableViewDelegate.tableView(_:didSelectRowAt:)()
     }
 
     sub_1D7E73334(v1);
-    sub_1D7E73334(v43);
-    (*(v168 + 8))(v38, v4);
-    v13 = v170;
+    sub_1D7E73334(v49);
+    (*(v176 + 8))(v44, v4);
+    v16 = v178;
   }
 
-  v162 = v46;
+  v170 = v52;
   OUTLINED_FUNCTION_7_27();
-  sub_1D7F9E310(v28, v59);
+  sub_1D7F9E310(v34, v65);
   OUTLINED_FUNCTION_80_1();
 LABEL_14:
   if (swift_unknownObjectWeakLoadStrong())
   {
-    v38 = *(v52 + 8);
-    v60 = swift_getObjectType();
-    v61 = v167;
-    v62 = v165;
-    v166(v167, v4, v165);
+    v44 = *(v58 + 8);
+    v66 = swift_getObjectType();
+    v67 = v175;
+    v68 = v173;
+    v174(v175, v4, v173);
     OUTLINED_FUNCTION_102();
-    __swift_storeEnumTagSinglePayload(v63, v64, v65, v62);
-    (*(v38 + 2))(v61, v60, v38);
+    __swift_storeEnumTagSinglePayload(v69, v70, v71, v68);
+    (*(v44 + 2))(v67, v66, v44);
     swift_unknownObjectRelease();
   }
 
 LABEL_17:
   OUTLINED_FUNCTION_45_5();
-  v166 = *(v71 + 144);
+  v174 = *(v77 + 144);
   OUTLINED_FUNCTION_109_0();
   OUTLINED_FUNCTION_73();
   Blueprint.subscript.getter();
-  v72 = v171 + 8;
-  v167 = *(v171 + 8);
-  v73 = (v167)(v38, v13);
-  OUTLINED_FUNCTION_11_19(v73, &qword_1EDBBE100, &qword_1EDBBE130, MEMORY[0x1E69E7740]);
-  v74 = swift_allocObject();
-  *(v74 + 16) = xmmword_1D81A1B70;
+  v78 = v179 + 8;
+  v175 = *(v179 + 8);
+  v79 = (v175)(v44, v16);
+  OUTLINED_FUNCTION_11_19(v79, &qword_1EDBBE100, &qword_1EDBBE130, MEMORY[0x1E69E7740]);
+  v80 = swift_allocObject();
+  *(v80 + 16) = xmmword_1D81A1B70;
   OUTLINED_FUNCTION_45_5();
-  v76 = (v2 + *(v75 + 320));
-  v78 = *v76;
-  v77 = v76[1];
-  v79 = MEMORY[0x1E69E6158];
-  *(v80 + 56) = MEMORY[0x1E69E6158];
-  v81 = sub_1D7E13BF4();
-  *(v74 + 64) = v81;
-  *(v74 + 32) = v78;
-  *(v74 + 40) = v77;
+  v82 = (v2 + *(v81 + 320));
+  v84 = *v82;
+  v83 = v82[1];
+  v85 = MEMORY[0x1E69E6158];
+  *(v86 + 56) = MEMORY[0x1E69E6158];
+  v87 = sub_1D7E13BF4();
+  *(v80 + 64) = v87;
+  *(v80 + 32) = v84;
+  *(v80 + 40) = v83;
   sub_1D8190DB4();
-  v82 = BlueprintItem.identifier.getter();
-  *(v74 + 96) = v79;
-  *(v74 + 104) = v81;
-  *(v74 + 72) = v82;
-  *(v74 + 80) = v83;
-  v84 = MEMORY[0x1DA710AD0]();
-  *(v74 + 136) = v79;
-  *(v74 + 144) = v81;
-  *(v74 + 112) = v84;
-  *(v74 + 120) = v85;
-  sub_1D7E0A1A8(0, &qword_1EDBBE110);
-  v86 = sub_1D8191E44();
-  sub_1D81919E4();
-  sub_1D818FD44();
+  v88 = BlueprintItem.identifier.getter(v182);
+  *(v80 + 96) = v85;
+  *(v80 + 104) = v87;
+  *(v80 + 72) = v88;
+  *(v80 + 80) = v89;
+  v90 = MEMORY[0x1DA710AD0]();
+  *(v80 + 136) = v85;
+  *(v80 + 144) = v87;
+  *(v80 + 112) = v90;
+  *(v80 + 120) = v91;
+  sub_1D7E0A1A8(0, &qword_1EDBBE110, 0x1E69E9BF8);
+  v92 = sub_1D8191E44();
+  v93 = sub_1D81919E4();
+  sub_1D818FD44("Blueprint did select item at index path, model=%{public}@, item=%{public}@, indexPath=%{public}@", 96, 2, &dword_1D7DFF000, v92, v93, v80);
 
   OUTLINED_FUNCTION_45_5();
-  OUTLINED_FUNCTION_8_4();
+  OUTLINED_FUNCTION_8_4(v2 + *(v94 + 184), &v192);
   Strong = swift_unknownObjectWeakLoadStrong();
   if (!Strong)
   {
     goto LABEL_40;
   }
 
-  v162 = Strong;
+  v170 = Strong;
   OUTLINED_FUNCTION_45_5();
-  sub_1D7F9DBE4(v2 + *(v88 + 288), v178, &qword_1EDBB7AF0, qword_1EDBB7AF8, &protocol descriptor for KeyboardInputMonitorType);
-  v89 = v172;
-  if (v180)
+  sub_1D7F9DBE4(v2 + *(v96 + 288), v188, &qword_1EDBB7AF0, qword_1EDBB7AF8, &protocol descriptor for KeyboardInputMonitorType);
+  v97 = v180;
+  if (v190)
   {
-    v90 = v181;
-    __swift_project_boxed_opaque_existential_1(v178, v180);
-    v91 = OUTLINED_FUNCTION_161();
-    v156 = v92(v91, v90);
-    v155 = v93;
-    __swift_destroy_boxed_opaque_existential_1Tm(v178);
+    v98 = v191;
+    __swift_project_boxed_opaque_existential_1(v188, v190);
+    v99 = OUTLINED_FUNCTION_161();
+    v164 = v100(v99, v98);
+    v163 = v101;
+    __swift_destroy_boxed_opaque_existential_1Tm(v188);
   }
 
   else
   {
-    sub_1D7F9E7CC(v178, &qword_1EDBB7AF0, qword_1EDBB7AF8, &protocol descriptor for KeyboardInputMonitorType);
-    v156 = 0;
-    v155 = 1;
+    sub_1D7F9E7CC(v188, &qword_1EDBB7AF0, qword_1EDBB7AF8, &protocol descriptor for KeyboardInputMonitorType);
+    v164 = 0;
+    v163 = 1;
   }
 
-  v94 = v173;
-  v95 = v72;
-  v96 = [v89 window];
-  if (v96)
+  v102 = v181;
+  v103 = v78;
+  v104 = [v97 window];
+  if (v104)
   {
-    v97 = v96;
-    v98 = v2;
-    v161 = [v96 windowScene];
+    v105 = v104;
+    v106 = v2;
+    v169 = [v104 windowScene];
   }
 
   else
   {
-    v98 = v2;
-    v161 = 0;
+    v106 = v2;
+    v169 = 0;
   }
 
-  v160 = v98;
-  BlueprintProviderType.blueprint.getter(v175, v176);
-  v99 = *(v163 + 136);
-  v100 = *(v163 + 104);
-  v101 = v162;
-  v102 = (*(v99 + 232))(v94, v177, v4, v100, v99);
-  v103 = v94;
-  v104 = v4;
-  v105 = v94;
-  v106 = v170;
-  v107 = v167;
-  (v167)(v103, v170);
-  if (v102)
+  v168 = v106;
+  BlueprintProviderType.blueprint.getter(v183, v184);
+  v107 = *(v171 + 136);
+  v108 = *(v171 + 104);
+  v109 = v170;
+  v110 = (*(v107 + 232))(v102, v185, v4, v108, v107);
+  v111 = v102;
+  v112 = v4;
+  v113 = v102;
+  v114 = v178;
+  v115 = v175;
+  (v175)(v111, v178);
+  if (v110)
   {
-    BlueprintProviderType.blueprint.getter(v175, v176);
+    BlueprintProviderType.blueprint.getter(v183, v184);
     OUTLINED_FUNCTION_69_2();
-    AssociatedConformanceWitness = *(v108 - 256);
-    (*(v99 + 56))(v105, v177, v104, v178, v100, v99);
+    v189 = *(v116 - 256);
+    (*(v107 + 56))(v113, v185, v112, v188, v108, v107);
 
-    v109 = OUTLINED_FUNCTION_73();
-    v107(v109);
+    v117 = OUTLINED_FUNCTION_73();
+    v115(v117);
 
-    v4 = v104;
+    v4 = v112;
     goto LABEL_40;
   }
 
-  v110 = v99;
+  v118 = v107;
   IsVoiceOverRunning = UIAccessibilityIsVoiceOverRunning();
-  v4 = v104;
-  v112 = v160;
+  v4 = v112;
+  v120 = v168;
   if (!IsVoiceOverRunning)
   {
     goto LABEL_39;
   }
 
-  v171 = v95;
-  v113 = *(v168 + 16);
-  v114 = v158;
-  v159 = v104;
-  v115 = v165;
-  v113(v158, v104, v165);
+  v179 = v103;
+  v121 = *(v176 + 16);
+  v122 = v166;
+  v167 = v112;
+  v123 = v173;
+  v121(v166, v112, v173);
   OUTLINED_FUNCTION_102();
-  __swift_storeEnumTagSinglePayload(v116, v117, v118, v115);
+  __swift_storeEnumTagSinglePayload(v124, v125, v126, v123);
   OUTLINED_FUNCTION_65_4();
-  v120 = v112 + *(v119 + 208);
-  OUTLINED_FUNCTION_8_4();
+  v128 = v120 + *(v127 + 208);
+  OUTLINED_FUNCTION_8_4(v128, &v186);
   if (swift_unknownObjectWeakLoadStrong())
   {
-    v121 = *(v120 + 8);
-    v122 = swift_getObjectType();
-    v4 = v157;
-    (*(v121 + 8))(v122, v121);
+    v129 = *(v128 + 8);
+    v130 = swift_getObjectType();
+    v4 = v165;
+    (*(v129 + 8))(v130, v129);
     swift_unknownObjectRelease();
   }
 
   else
   {
-    v4 = v157;
-    __swift_storeEnumTagSinglePayload(v157, 1, 1, v115);
+    v4 = v165;
+    __swift_storeEnumTagSinglePayload(v165, 1, 1, v123);
   }
 
-  v123 = v153[1];
-  v124 = v153[0];
-  v102 = *(v164 + 48);
-  v125 = OUTLINED_FUNCTION_6_16();
-  sub_1D7E54838(v125, v126);
-  sub_1D7E54838(v4, v123 + v102);
-  v127 = OUTLINED_FUNCTION_99();
-  OUTLINED_FUNCTION_43_0(v127, v128, v115);
-  if (!v58)
+  v131 = v161[1];
+  v132 = v161[0];
+  v110 = *(v172 + 48);
+  v133 = OUTLINED_FUNCTION_6_16();
+  sub_1D7E54838(v133, v134);
+  sub_1D7E54838(v4, v131 + v110);
+  v135 = OUTLINED_FUNCTION_99();
+  OUTLINED_FUNCTION_43_0(v135, v136, v123);
+  if (!v64)
   {
-    sub_1D7E54838(v123, v124);
-    OUTLINED_FUNCTION_43_0(v123 + v102, 1, v115);
-    if (!v129)
+    sub_1D7E54838(v131, v132);
+    OUTLINED_FUNCTION_43_0(v131 + v110, 1, v123);
+    if (!v137)
     {
-      v148 = v168;
-      v4 = v154;
-      (*(v168 + 32))(v154, v123 + v102, v115);
+      v156 = v176;
+      v4 = v162;
+      (*(v176 + 32))(v162, v131 + v110, v123);
       OUTLINED_FUNCTION_6_29();
-      sub_1D7E2DA70(v149, v150);
-      v102 = v124;
-      LODWORD(v164) = sub_1D8190ED4();
-      v151 = *(v148 + 8);
-      v152 = OUTLINED_FUNCTION_101_0();
-      v151(v152);
-      sub_1D7E73334(v157);
-      sub_1D7E73334(v158);
-      (v151)(v124, v115);
-      sub_1D7E73334(v123);
+      sub_1D7E2DA70(v157, v158, MEMORY[0x1E6969C50]);
+      v110 = v132;
+      LODWORD(v172) = sub_1D8190ED4();
+      v159 = *(v156 + 8);
+      v160 = OUTLINED_FUNCTION_101_0();
+      v159(v160);
+      sub_1D7E73334(v165);
+      sub_1D7E73334(v166);
+      (v159)(v132, v123);
+      sub_1D7E73334(v131);
       OUTLINED_FUNCTION_80_1();
-      if (v164)
+      if (v172)
       {
         goto LABEL_49;
       }
@@ -4688,82 +4697,82 @@ LABEL_17:
 LABEL_39:
       OUTLINED_FUNCTION_109_0();
       OUTLINED_FUNCTION_69_2();
-      AssociatedConformanceWitness = *(v131 - 256);
-      v132 = AssociatedConformanceWitness;
-      v133 = v162;
-      (*(v110 + 56))(v102, v177, v4, v178, v100, v110);
+      v189 = *(v139 - 256);
+      v140 = v189;
+      v141 = v170;
+      (*(v118 + 56))(v110, v185, v4, v188, v108, v118);
 
-      (v167)(v102, v106);
+      (v175)(v110, v114);
       goto LABEL_40;
     }
 
     sub_1D7E73334(v4);
-    sub_1D7E73334(v114);
-    (*(v168 + 8))(v124, v115);
+    sub_1D7E73334(v122);
+    (*(v176 + 8))(v132, v123);
 LABEL_38:
     OUTLINED_FUNCTION_7_27();
-    sub_1D7F9E310(v123, v130);
+    sub_1D7F9E310(v131, v138);
     OUTLINED_FUNCTION_80_1();
     goto LABEL_39;
   }
 
   sub_1D7E73334(v4);
-  sub_1D7E73334(v114);
-  OUTLINED_FUNCTION_43_0(v123 + v102, 1, v115);
-  if (!v58)
+  sub_1D7E73334(v122);
+  OUTLINED_FUNCTION_43_0(v131 + v110, 1, v123);
+  if (!v64)
   {
     goto LABEL_38;
   }
 
-  sub_1D7E73334(v123);
+  sub_1D7E73334(v131);
   OUTLINED_FUNCTION_80_1();
 LABEL_49:
 
 LABEL_40:
-  v134 = v172;
-  if ((sub_1D7F9353C(v172, v4) & 1) == 0)
+  v142 = v180;
+  if ((sub_1D7F9353C(v180, v4) & 1) == 0)
   {
-    v141 = sub_1D818E8E4();
-    [v134 deselectRowAtIndexPath:v141 animated:0];
+    v149 = sub_1D818E8E4();
+    [v142 deselectRowAtIndexPath:v149 animated:0];
 
-    sub_1D816FB6C(v178);
-    if (v180)
+    sub_1D816FB6C(v188);
+    if (v190)
     {
-      __swift_project_boxed_opaque_existential_1(v178, v180);
-      v142 = OUTLINED_FUNCTION_4_1();
-      v135 = v143(v142);
+      __swift_project_boxed_opaque_existential_1(v188, v190);
+      v150 = OUTLINED_FUNCTION_4_1();
+      v143 = v151(v150);
       SeparatorView.clearSelections()();
       goto LABEL_45;
     }
 
 LABEL_46:
-    v146 = OUTLINED_FUNCTION_105_0();
-    v147(v146);
-    sub_1D7F9E7CC(v178, &qword_1EDBB0090, qword_1EDBB0098, &protocol descriptor for SeparatorViewProviderType);
+    v154 = OUTLINED_FUNCTION_105_0();
+    v155(v154);
+    sub_1D7F9E7CC(v188, &qword_1EDBB0090, qword_1EDBB0098, &protocol descriptor for SeparatorViewProviderType);
     goto LABEL_47;
   }
 
-  v135 = v134;
-  sub_1D816FB6C(v178);
-  if (!v180)
+  v143 = v142;
+  sub_1D816FB6C(v188);
+  if (!v190)
   {
     goto LABEL_46;
   }
 
-  __swift_project_boxed_opaque_existential_1(v178, v180);
-  v136 = OUTLINED_FUNCTION_4_1();
-  v137(v136);
-  v138 = OUTLINED_FUNCTION_47();
-  v139 = sub_1D7F94BE0(v138);
-  v140 = OBJC_IVAR____TtC5TeaUI13SeparatorView_isSelected;
-  OUTLINED_FUNCTION_56();
-  v140[v134] = v139 & 1;
+  __swift_project_boxed_opaque_existential_1(v188, v190);
+  v144 = OUTLINED_FUNCTION_4_1();
+  v145(v144);
+  v146 = OUTLINED_FUNCTION_47();
+  v147 = sub_1D7F94BE0(v146);
+  v148 = OBJC_IVAR____TtC5TeaUI13SeparatorView_isSelected;
+  OUTLINED_FUNCTION_56(OBJC_IVAR____TtC5TeaUI13SeparatorView_isSelected + v142, &v187);
+  v148[v142] = v147 & 1;
   sub_1D806EB08();
 LABEL_45:
 
-  v144 = OUTLINED_FUNCTION_105_0();
-  v145(v144);
-  __swift_destroy_boxed_opaque_existential_1Tm(v178);
+  v152 = OUTLINED_FUNCTION_105_0();
+  v153(v152);
+  __swift_destroy_boxed_opaque_existential_1Tm(v188);
 LABEL_47:
   OUTLINED_FUNCTION_100();
 }
@@ -4772,7 +4781,7 @@ void sub_1D7F94B74(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t a4, uint6
 {
   if (!*a2)
   {
-    v8 = sub_1D7E069F0(255, a3);
+    v8 = sub_1D7E069F0(255, a3, a4, 1);
     v9 = a5(a1, v8);
     if (!v10)
     {
@@ -4799,8 +4808,8 @@ uint64_t sub_1D7F94BE0(void *a1)
   }
 
   v15 = v3;
-  sub_1D7E0A1A8(0, &qword_1EDBAE530);
-  sub_1D7E069F0(0, &qword_1EDBAFE80);
+  sub_1D7E0A1A8(0, &qword_1EDBAE530, 0x1E69DD028);
+  sub_1D7E069F0(0, &qword_1EDBAFE80, &protocol descriptor for SelectionBehaviorProviding, 1);
   v4 = v3;
   if ((swift_dynamicCast() & 1) == 0)
   {
@@ -4848,7 +4857,7 @@ void BlueprintTableViewDelegate.tableView(_:didDeselectRowAt:)()
   v2 = v0;
   v4 = v3;
   OUTLINED_FUNCTION_66();
-  v46 = v5;
+  v52 = v5;
   v8 = *((v7 & v6) + 0x70);
   v9 = *((v7 & v6) + 0x50);
   OUTLINED_FUNCTION_16();
@@ -4857,97 +4866,97 @@ void BlueprintTableViewDelegate.tableView(_:didDeselectRowAt:)()
   v11 = swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_111();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v48 = v9;
-  v50[0] = AssociatedTypeWitness;
-  v50[1] = v11;
+  v54 = v9;
+  v56[0] = AssociatedTypeWitness;
+  v56[1] = v11;
   v13 = v4;
-  v50[2] = AssociatedConformanceWitness;
-  v51 = swift_getAssociatedConformanceWitness();
-  v14 = type metadata accessor for Blueprint();
+  v56[2] = AssociatedConformanceWitness;
+  v57 = swift_getAssociatedConformanceWitness();
+  v14 = type metadata accessor for Blueprint(0, v56);
   OUTLINED_FUNCTION_9();
   v16 = v15;
   OUTLINED_FUNCTION_44();
   MEMORY[0x1EEE9AC00](v17);
   OUTLINED_FUNCTION_21_11();
   OUTLINED_FUNCTION_100_0();
-  v49 = type metadata accessor for BlueprintItem();
+  v55 = type metadata accessor for BlueprintItem(v18, v19, v20, v21);
   OUTLINED_FUNCTION_9();
-  v47 = v18;
+  v53 = v22;
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v19);
+  MEMORY[0x1EEE9AC00](v23);
   OUTLINED_FUNCTION_51();
-  sub_1D816FB6C(v50);
-  if (v51)
+  sub_1D816FB6C(v56);
+  if (v57)
   {
-    v20 = v14;
-    v21 = v52;
-    __swift_project_boxed_opaque_existential_1(v50, v51);
-    v22 = OUTLINED_FUNCTION_47();
-    v23 = v21;
-    v14 = v20;
-    v25 = v24(v22, v23);
+    v24 = v14;
+    v25 = v58;
+    __swift_project_boxed_opaque_existential_1(v56, v57);
+    v26 = OUTLINED_FUNCTION_47();
+    v27 = v25;
+    v14 = v24;
+    v29 = v28(v26, v27);
     SeparatorView.clearSelections()();
 
-    __swift_destroy_boxed_opaque_existential_1Tm(v50);
+    __swift_destroy_boxed_opaque_existential_1Tm(v56);
   }
 
   else
   {
-    sub_1D7F9E7CC(v50, &qword_1EDBB0090, qword_1EDBB0098, &protocol descriptor for SeparatorViewProviderType);
+    sub_1D7F9E7CC(v56, &qword_1EDBB0090, qword_1EDBB0098, &protocol descriptor for SeparatorViewProviderType);
   }
 
-  v44 = v14;
+  v50 = v14;
   OUTLINED_FUNCTION_66();
   OUTLINED_FUNCTION_115_0();
-  BlueprintProviderType.blueprint.getter(v48, v8);
+  BlueprintProviderType.blueprint.getter(v54, v8);
   Blueprint.subscript.getter();
-  v45 = *(v16 + 8);
-  v26 = v45(AssociatedConformanceWitness, v14);
-  OUTLINED_FUNCTION_11_19(v26, &qword_1EDBBE100, &qword_1EDBBE130, MEMORY[0x1E69E7740]);
-  v27 = swift_allocObject();
-  *(v27 + 16) = xmmword_1D81A1B70;
+  v51 = *(v16 + 8);
+  v30 = v51(AssociatedConformanceWitness, v14);
+  OUTLINED_FUNCTION_11_19(v30, &qword_1EDBBE100, &qword_1EDBBE130, MEMORY[0x1E69E7740]);
+  v31 = swift_allocObject();
+  *(v31 + 16) = xmmword_1D81A1B70;
   OUTLINED_FUNCTION_66();
-  v29 = (v2 + *(v28 + 320));
-  v31 = *v29;
-  v30 = v29[1];
-  v43 = v8;
-  v32 = v13;
-  v33 = MEMORY[0x1E69E6158];
-  *(v34 + 56) = MEMORY[0x1E69E6158];
-  v35 = sub_1D7E13BF4();
-  *(v27 + 64) = v35;
-  *(v27 + 32) = v31;
-  *(v27 + 40) = v30;
+  v33 = (v2 + *(v32 + 320));
+  v35 = *v33;
+  v34 = v33[1];
+  v49 = v8;
+  v36 = v13;
+  v37 = MEMORY[0x1E69E6158];
+  *(v38 + 56) = MEMORY[0x1E69E6158];
+  v39 = sub_1D7E13BF4();
+  *(v31 + 64) = v39;
+  *(v31 + 32) = v35;
+  *(v31 + 40) = v34;
   sub_1D8190DB4();
-  v36 = BlueprintItem.identifier.getter();
-  *(v27 + 96) = v33;
-  *(v27 + 104) = v35;
-  *(v27 + 72) = v36;
-  *(v27 + 80) = v37;
-  v38 = MEMORY[0x1DA710AD0]();
-  *(v27 + 136) = v33;
-  *(v27 + 144) = v35;
-  *(v27 + 112) = v38;
-  *(v27 + 120) = v39;
-  sub_1D7E0A1A8(0, &qword_1EDBBE110);
-  v40 = sub_1D8191E44();
-  sub_1D81919E4();
-  sub_1D818FD44();
+  v40 = BlueprintItem.identifier.getter(v55);
+  *(v31 + 96) = v37;
+  *(v31 + 104) = v39;
+  *(v31 + 72) = v40;
+  *(v31 + 80) = v41;
+  v42 = MEMORY[0x1DA710AD0]();
+  *(v31 + 136) = v37;
+  *(v31 + 144) = v39;
+  *(v31 + 112) = v42;
+  *(v31 + 120) = v43;
+  sub_1D7E0A1A8(0, &qword_1EDBBE110, 0x1E69E9BF8);
+  v44 = sub_1D8191E44();
+  v45 = sub_1D81919E4();
+  sub_1D818FD44("Blueprint did deselect item at index path, model=%{public}@, item=%{public}@, indexPath=%{public}@", 98, 2, &dword_1D7DFF000, v44, v45, v31);
 
   OUTLINED_FUNCTION_66();
-  OUTLINED_FUNCTION_8_4();
+  OUTLINED_FUNCTION_8_4(v2 + *(v46 + 184), v56);
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v42 = Strong;
+    v48 = Strong;
     OUTLINED_FUNCTION_115_0();
-    BlueprintProviderType.blueprint.getter(v48, v43);
-    (*(*(v46 + 136) + 64))(AssociatedConformanceWitness, v1, v32, *(v46 + 104));
+    BlueprintProviderType.blueprint.getter(v54, v49);
+    (*(*(v52 + 136) + 64))(AssociatedConformanceWitness, v1, v36, *(v52 + 104));
 
-    v45(AssociatedConformanceWitness, v44);
+    v51(AssociatedConformanceWitness, v50);
   }
 
-  (*(v47 + 8))(v1, v49);
+  (*(v53 + 8))(v1, v55);
   OUTLINED_FUNCTION_100();
 }
 
@@ -4962,24 +4971,27 @@ void BlueprintTableViewDelegate.tableView(_:contextMenuConfigurationForRowAt:poi
   v9 = *(v8 + 112);
   v12 = *((v11 & v10) + 0x50);
   OUTLINED_FUNCTION_124();
-  swift_getAssociatedTypeWitness();
-  OUTLINED_FUNCTION_124();
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  OUTLINED_FUNCTION_124();
+  v14 = swift_getAssociatedTypeWitness();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  swift_getAssociatedConformanceWitness();
-  OUTLINED_FUNCTION_118_0();
-  v15 = type metadata accessor for Blueprint();
+  v59[0] = AssociatedTypeWitness;
+  v59[1] = v14;
+  v59[2] = AssociatedConformanceWitness;
+  v60 = swift_getAssociatedConformanceWitness();
+  v16 = OUTLINED_FUNCTION_118_0();
+  v18 = type metadata accessor for Blueprint(v16, v17);
   OUTLINED_FUNCTION_9();
-  v17 = v16;
+  v20 = v19;
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v18);
+  MEMORY[0x1EEE9AC00](v21);
   OUTLINED_FUNCTION_28_1();
-  OUTLINED_FUNCTION_107();
-  v19 = type metadata accessor for BlueprintItem();
+  v22 = OUTLINED_FUNCTION_107();
+  v25 = type metadata accessor for BlueprintItem(v22, v23, v60, v24);
   OUTLINED_FUNCTION_9();
-  v21 = v20;
+  v27 = v26;
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v22);
+  MEMORY[0x1EEE9AC00](v28);
   OUTLINED_FUNCTION_26();
   if ([v7 isEditing])
   {
@@ -4991,36 +5003,36 @@ void BlueprintTableViewDelegate.tableView(_:contextMenuConfigurationForRowAt:poi
     goto LABEL_17;
   }
 
-  v49 = v21;
-  v50 = v19;
-  v23 = [v7 hitTest:0 withEvent:{v5, v3}];
-  if (v23)
+  v56 = v27;
+  v57 = v25;
+  v29 = [v7 hitTest:0 withEvent:{v5, v3}];
+  if (v29)
   {
-    v24 = v23;
-    v25 = sub_1D802334C();
+    v30 = v29;
+    v31 = sub_1D802334C();
 
-    if (v25)
+    if (v31)
     {
       goto LABEL_17;
     }
   }
 
-  v26 = sub_1D818E8E4();
-  v51 = [v7 cellForRowAtIndexPath_];
+  v32 = sub_1D818E8E4();
+  v58 = [v7 cellForRowAtIndexPath_];
 
   OUTLINED_FUNCTION_65_4();
   BlueprintProviderType.blueprint.getter(v12, v9);
   Blueprint.subscript.getter();
-  (*(v17 + 8))(AssociatedConformanceWitness, v15);
+  (*(v20 + 8))(AssociatedConformanceWitness, v18);
   OUTLINED_FUNCTION_103_0();
-  v31 = sub_1D7F95828(v27, v28, v29, v30);
+  v37 = sub_1D7F95828(v33, v34, v35, v36);
   OUTLINED_FUNCTION_103_0();
-  v36 = sub_1D7F95E48(v32, v33, v34, v35);
-  v37 = sub_1D7F96914(v1, v51, v31, v36);
-  v38 = sub_1D7F96A9C(v1, AssociatedTypeWitness);
-  if (!(sub_1D7E36AB8(v37) | v38))
+  v42 = sub_1D7F95E48(v38, v39, v40, v41);
+  v43 = sub_1D7F96914(v1, v58, v37, v42);
+  v44 = sub_1D7F96A9C(v1, v14);
+  if (!(sub_1D7E36AB8(v43) | v44))
   {
-    if (!v31)
+    if (!v37)
     {
 
       goto LABEL_16;
@@ -5031,54 +5043,54 @@ void BlueprintTableViewDelegate.tableView(_:contextMenuConfigurationForRowAt:poi
   }
 
   OUTLINED_FUNCTION_65_4();
-  OUTLINED_FUNCTION_8_4();
+  OUTLINED_FUNCTION_8_4(v1 + *(v45 + 216), v59);
   Strong = swift_unknownObjectWeakLoadStrong();
   if (!Strong)
   {
 LABEL_19:
-    sub_1D7E0A1A8(0, &unk_1EDBAE4B0);
-    BlueprintItem.identifier.getter();
+    sub_1D7E0A1A8(0, &unk_1EDBAE4B0, 0x1E69DC8D8);
+    BlueprintItem.identifier.getter(v57);
     sub_1D8190EE4();
     OUTLINED_FUNCTION_161();
 
     OUTLINED_FUNCTION_0_32();
-    v45 = swift_allocObject();
-    *(v45 + 16) = v38;
-    *(v45 + 24) = v51;
+    v52 = swift_allocObject();
+    *(v52 + 16) = v44;
+    *(v52 + 24) = v58;
     OUTLINED_FUNCTION_0_8();
-    v46 = swift_allocObject();
-    *(v46 + 16) = v37;
-    v47 = v38;
-    v48 = v51;
-    sub_1D7F0DCE4(AssociatedTypeWitness, sub_1D7F9DB70, v45, sub_1D7F9DB78, v46);
+    v53 = swift_allocObject();
+    *(v53 + 16) = v43;
+    v54 = v44;
+    v55 = v58;
+    sub_1D7F0DCE4(v14, sub_1D7F9DB70, v52, sub_1D7F9DB78, v53);
 
-    (*(v49 + 8))(AssociatedTypeWitness, v50);
+    (*(v56 + 8))(v14, v57);
     goto LABEL_17;
   }
 
-  v40 = Strong;
-  v41 = [Strong view];
+  v47 = Strong;
+  v48 = [Strong view];
 
-  if (v41)
+  if (v48)
   {
-    v42 = [v41 window];
+    v49 = [v48 window];
 
-    if (v42)
+    if (v49)
     {
-      v43 = [v42 rootViewController];
+      v50 = [v49 rootViewController];
 
-      if (v43)
+      if (v50)
       {
-        v44 = [v43 presentedViewController];
+        v51 = [v50 presentedViewController];
 
-        if (v44)
+        if (v51)
         {
           objc_opt_self();
           if (swift_dynamicCastObjCClass())
           {
 
 LABEL_16:
-            (*(v49 + 8))(AssociatedTypeWitness, v50);
+            (*(v56 + 8))(v14, v57);
 LABEL_17:
             OUTLINED_FUNCTION_97();
             return;
@@ -5095,9 +5107,9 @@ LABEL_17:
 
 uint64_t sub_1D7F95828(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v67 = a4;
-  v64 = a2;
-  v70 = a1;
+  v66 = a4;
+  v63 = a2;
+  v69 = a1;
   v5 = *a3;
   v6 = *MEMORY[0x1E69E7D40];
   v7 = *((*MEMORY[0x1E69E7D40] & *a3) + 0x70);
@@ -5105,57 +5117,57 @@ uint64_t sub_1D7F95828(uint64_t a1, uint64_t a2, void *a3, void *a4)
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v10 = swift_getAssociatedTypeWitness();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v65 = v8;
-  v66 = v7;
+  v64 = v8;
+  v65 = v7;
   v11 = swift_getAssociatedConformanceWitness();
-  *&v75 = AssociatedTypeWitness;
-  *(&v75 + 1) = v10;
-  *&v76 = AssociatedConformanceWitness;
-  *(&v76 + 1) = v11;
-  v12 = type metadata accessor for Blueprint();
+  *&v74 = AssociatedTypeWitness;
+  *(&v74 + 1) = v10;
+  *&v75 = AssociatedConformanceWitness;
+  *(&v75 + 1) = v11;
+  v12 = type metadata accessor for Blueprint(0, &v74);
   MEMORY[0x1EEE9AC00](v12 - 8);
-  v63 = &v51 - v13;
+  v62 = &v50 - v13;
   v14 = sub_1D818E994();
-  v57 = *(v14 - 8);
-  v58 = v14;
+  v56 = *(v14 - 8);
+  v57 = v14;
   MEMORY[0x1EEE9AC00](v14);
-  v69 = &v51 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v68 = &v50 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   v16 = *((v6 & v5) + 0x78);
-  v60 = a3;
+  v59 = a3;
   v17 = *((v6 & v5) + 0x58);
   v18 = swift_getAssociatedTypeWitness();
   v19 = swift_getAssociatedTypeWitness();
   v20 = swift_getAssociatedConformanceWitness();
   v21 = swift_getAssociatedConformanceWitness();
-  v68 = AssociatedTypeWitness;
-  *&v75 = AssociatedTypeWitness;
-  *(&v75 + 1) = v10;
-  *&v76 = v18;
-  *(&v76 + 1) = v19;
-  v61 = v20;
-  v62 = v19;
-  v77 = AssociatedConformanceWitness;
-  v78 = v11;
+  v67 = AssociatedTypeWitness;
+  *&v74 = AssociatedTypeWitness;
+  *(&v74 + 1) = v10;
+  *&v75 = v18;
+  *(&v75 + 1) = v19;
+  v60 = v20;
+  v61 = v19;
+  v76 = AssociatedConformanceWitness;
+  v77 = v11;
   v22 = v11;
-  v79 = v20;
-  v80 = v21;
-  v59 = v21;
-  v23 = type metadata accessor for ContextMenuContext();
+  v78 = v20;
+  v79 = v21;
+  v58 = v21;
+  v23 = type metadata accessor for ContextMenuContext(0, &v74);
   v24 = *(v23 - 8);
   MEMORY[0x1EEE9AC00](v23);
-  v26 = &v51 - v25;
+  v26 = &v50 - v25;
   v28 = MEMORY[0x1EEE9AC00](v27);
-  (*(v30 + 16))(&v51 - v29, v70, v10, v28);
-  sub_1D7E069F0(0, &qword_1EDBB9540);
-  v70 = v10;
+  (*(v30 + 16))(&v50 - v29, v69, v10, v28);
+  sub_1D7E069F0(0, &qword_1EDBB9540, &protocol descriptor for ContextMenuProviding, 1);
+  v69 = v10;
   if (swift_dynamicCast())
   {
-    v55 = v24;
-    v56 = v18;
-    sub_1D7E05450(&v75, v81);
-    v32 = v82;
-    v31 = v83;
-    __swift_project_boxed_opaque_existential_1(v81, v82);
+    v54 = v24;
+    v55 = v18;
+    sub_1D7E05450(&v74, v80);
+    v32 = v81;
+    v31 = v82;
+    __swift_project_boxed_opaque_existential_1(v80, v81);
     v33 = (*(v31 + 8))(v32, v31);
     if (v33)
     {
@@ -5164,45 +5176,44 @@ uint64_t sub_1D7F95828(uint64_t a1, uint64_t a2, void *a3, void *a4)
 
     else
     {
-      v52 = v83;
-      v53 = v82;
-      v54 = __swift_project_boxed_opaque_existential_1(v81, v82);
-      (*(v57 + 16))(v69, v64, v58);
-      v64 = v23;
-      v35 = v63;
-      BlueprintProviderType.blueprint.getter(v65, v66);
+      v51 = v82;
+      v52 = v81;
+      v53 = __swift_project_boxed_opaque_existential_1(v80, v81);
+      (*(v56 + 16))(v68, v63, v57);
+      v63 = v23;
+      v35 = v62;
+      BlueprintProviderType.blueprint.getter(v64, v65);
       BlueprintLayoutProviderType.layoutBlueprint.getter(v17, v16);
       v36 = type metadata accessor for RendererEnvironment();
       v37 = objc_allocWithZone(v36);
-      v38 = v67;
-      v39 = v67;
+      v38 = v66;
+      v39 = v66;
       v40 = RendererEnvironment.init(scrollView:testing:)(v38, 0);
-      v73 = v36;
-      v74 = &protocol witness table for RendererEnvironment;
-      *&v72 = v40;
-      v41 = v59;
-      v50 = v59;
-      v42 = v61;
+      v72 = v36;
+      v73 = &protocol witness table for RendererEnvironment;
+      *&v71 = v40;
+      v41 = v58;
+      v42 = v60;
       v43 = AssociatedConformanceWitness;
-      v44 = v68;
+      v44 = v67;
       v45 = v35;
-      v46 = v70;
-      v47 = v56;
-      v48 = v62;
-      sub_1D7FB0E2C(v69, v45, &v75, &v72, v26);
-      v34 = (*(v52 + 32))(v26, v44, v46, v47, v48, v43, v22, v42, v41, v53, v52, v50);
-      (*(v55 + 8))(v26, v64);
+      v46 = v69;
+      v47 = v55;
+      v48 = v61;
+      sub_1D7FB0E2C(v68, v45, &v74, &v71, v67, v69, v55, v61, v26, AssociatedConformanceWitness, v22, v60, v58);
+      v34 = (*(v51 + 32))(v26, v44, v46, v47, v48, v43, v22, v42, v41, v52, v51);
+      (*(v54 + 8))(v26, v63);
     }
 
-    __swift_destroy_boxed_opaque_existential_1Tm(v81);
+    __swift_destroy_boxed_opaque_existential_1Tm(v80);
   }
 
   else
   {
-    v77 = 0;
+    v76 = 0;
+    v74 = 0u;
     v75 = 0u;
-    v76 = 0u;
-    sub_1D7F9E7CC(&v75, &unk_1ECA0D9C0, &qword_1EDBB9540, &protocol descriptor for ContextMenuProviding);
+    sub_1D7F9E7CC(&v74, &unk_1ECA0D9C0, &qword_1EDBB9540, &protocol descriptor for ContextMenuProviding);
     return 0;
   }
 
@@ -5228,7 +5239,7 @@ uint64_t sub_1D7F95E48(void *a1, uint64_t a2, void *a3, void *a4)
   *(&v73 + 1) = v10;
   *&v74 = AssociatedConformanceWitness;
   *(&v74 + 1) = v69;
-  v12 = type metadata accessor for Blueprint();
+  v12 = type metadata accessor for Blueprint(0, &v73);
   MEMORY[0x1EEE9AC00](v12 - 8);
   v60 = &v49 - v13;
   v14 = sub_1D818E994();
@@ -5260,7 +5271,7 @@ uint64_t sub_1D7F95E48(void *a1, uint64_t a2, void *a3, void *a4)
   v55 = v21;
   v56 = v20;
   v78 = v21;
-  v24 = type metadata accessor for ContextMenuContext();
+  v24 = type metadata accessor for ContextMenuContext(0, &v73);
   v25 = *(v24 - 1);
   MEMORY[0x1EEE9AC00](v24);
   v27 = &v49 - v26;
@@ -5272,7 +5283,7 @@ uint64_t sub_1D7F95E48(void *a1, uint64_t a2, void *a3, void *a4)
   if (sub_1D818EEC4())
   {
     (*(v28 + 16))(v31, v67, v22);
-    sub_1D7E069F0(0, &qword_1EDBB9540);
+    sub_1D7E069F0(0, &qword_1EDBB9540, &protocol descriptor for ContextMenuProviding, 1);
     if (swift_dynamicCast())
     {
       sub_1D7E05450(&v73, v79);
@@ -5293,17 +5304,17 @@ uint64_t sub_1D7F95E48(void *a1, uint64_t a2, void *a3, void *a4)
       v72 = &protocol witness table for RendererEnvironment;
       *&v70 = v38;
       v39 = v55;
-      v48 = v55;
       v64 = v24;
       v40 = v56;
       v41 = v65;
       v42 = v33;
       v43 = v66;
-      v44 = v59;
-      v45 = v22;
-      v46 = v58;
-      sub_1D7FB0E2C(v68, v42, &v73, &v70, v27);
-      v32 = (*(v50 + 40))(v27, v43, v45, v44, v46, v41, v23, v40, v39, v51, v50, v48);
+      v44 = v22;
+      v45 = v59;
+      v46 = v22;
+      v47 = v58;
+      sub_1D7FB0E2C(v68, v42, &v73, &v70, v66, v44, v59, v58, v27, v65, v23, v56, v55);
+      v32 = (*(v50 + 40))(v27, v43, v46, v45, v47, v41, v23, v40, v39, v51, v50);
       (*(v61 + 8))(v27, v64);
       __swift_destroy_boxed_opaque_existential_1Tm(v79);
     }
@@ -5368,11 +5379,11 @@ uint64_t sub_1D7F96444(uint64_t a1, void *a2, void *a3)
 void sub_1D7F966C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11)
 {
   v25 = a1;
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v27 = swift_getAssociatedTypeWitness();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v29 = swift_getAssociatedConformanceWitness();
-  v15 = type metadata accessor for Blueprint();
+  v26[0] = swift_getAssociatedTypeWitness();
+  v26[1] = swift_getAssociatedTypeWitness();
+  v26[2] = swift_getAssociatedConformanceWitness();
+  v26[3] = swift_getAssociatedConformanceWitness();
+  v15 = type metadata accessor for Blueprint(0, v26);
   v16 = *(v15 - 8);
   MEMORY[0x1EEE9AC00](v15);
   v18 = &v23 - v17;
@@ -5401,35 +5412,42 @@ void sub_1D7F966C0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t 
 
 uint64_t sub_1D7F96914(void *a1, void *a2, uint64_t a3, uint64_t a4)
 {
+  v8 = (*MEMORY[0x1E69E7D40] & *a1);
   if (qword_1EDBBC648 != -1)
   {
     swift_once();
   }
 
-  type metadata accessor for BlueprintTableViewDelegate();
+  v9 = v8[6];
+  v15[0] = v8[5];
+  v15[1] = v9;
+  v10 = v8[8];
+  v15[2] = v8[7];
+  v15[3] = v10;
+  type metadata accessor for BlueprintTableViewDelegate(0, v15);
   swift_getWitnessTable();
   sub_1D818EA44();
-  if (!v13)
+  if (!v16)
   {
     return sub_1D7F96444(a3, a1, a2);
   }
 
-  if (v13 == 1)
+  if (v16 == 1)
   {
-    v8 = sub_1D7F96444(a4, a1, a2);
-    v9 = sub_1D7F96444(a3, a1, a2);
-    v12 = v8;
+    v11 = sub_1D7F96444(a4, a1, a2);
+    v12 = sub_1D7F96444(a3, a1, a2);
+    *&v15[0] = v11;
   }
 
   else
   {
-    v11 = sub_1D7F96444(a3, a1, a2);
-    v9 = sub_1D7F96444(a4, a1, a2);
-    v12 = v11;
+    v14 = sub_1D7F96444(a3, a1, a2);
+    v12 = sub_1D7F96444(a4, a1, a2);
+    *&v15[0] = v14;
   }
 
-  sub_1D7F0A724(v9);
-  return v12;
+  sub_1D7F0A724(v12);
+  return *&v15[0];
 }
 
 id sub_1D7F96A9C(uint64_t *a1, uint64_t a2)
@@ -5440,11 +5458,11 @@ id sub_1D7F96A9C(uint64_t *a1, uint64_t a2)
   v16 = *MEMORY[0x1E69E7D40] & *a1;
   v4 = *((v3 & v2) + 0x70);
   v5 = *((v3 & v2) + 0x50);
-  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v19 = swift_getAssociatedTypeWitness();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v21 = swift_getAssociatedConformanceWitness();
-  v6 = type metadata accessor for Blueprint();
+  v18[0] = swift_getAssociatedTypeWitness();
+  v18[1] = swift_getAssociatedTypeWitness();
+  v18[2] = swift_getAssociatedConformanceWitness();
+  v18[3] = swift_getAssociatedConformanceWitness();
+  v6 = type metadata accessor for Blueprint(0, v18);
   v7 = *(v6 - 8);
   MEMORY[0x1EEE9AC00](v6);
   v9 = &v15 - v8;
@@ -5484,7 +5502,7 @@ void *sub_1D7F96D94(void *a1, void *a2)
 {
   if (!a1)
   {
-    if (a2 && (sub_1D7E0A1A8(0, &qword_1EDBAE530), sub_1D7E069F0(0, &unk_1ECA0F5A0), v4 = a2, (swift_dynamicCast() & 1) != 0))
+    if (a2 && (sub_1D7E0A1A8(0, &qword_1EDBAE530, 0x1E69DD028), sub_1D7E069F0(0, &unk_1ECA0F5A0, &protocol descriptor for ContextMenuPreviewable, 1), v4 = a2, (swift_dynamicCast() & 1) != 0))
     {
       if (*(&v10 + 1))
       {
@@ -5529,7 +5547,7 @@ UIMenu sub_1D7F96EB8(uint64_t a1, unint64_t a2)
     {
       if (i == v4)
       {
-        sub_1D7E0A1A8(0, &unk_1EDBB2FD0);
+        sub_1D7E0A1A8(0, &unk_1EDBB2FD0, 0x1E69DCC60);
         return UIMenu.init(children:)(v5);
       }
 
@@ -5574,21 +5592,21 @@ LABEL_16:
   return 0;
 }
 
-id sub_1D7F97008(void *a1, uint64_t a2, void *a3)
+id sub_1D7F97008(void *a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v5 = sub_1D818E994();
-  v6 = *(v5 - 8);
-  MEMORY[0x1EEE9AC00](v5);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_1D818E994();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D818E924();
-  v9 = a3;
-  v10 = a1;
+  v10 = a3;
+  v11 = a1;
   BlueprintTableViewDelegate.tableView(_:contextMenuConfigurationForRowAt:point:)();
-  v12 = v11;
+  v13 = v12;
 
-  (*(v6 + 8))(v8, v5);
+  (*(v7 + 8))(v9, v6);
 
-  return v12;
+  return v13;
 }
 
 void BlueprintTableViewDelegate.tableView(_:willPerformPreviewActionForMenuWith:animator:)(uint64_t a1, uint64_t a2, void *a3)
@@ -5612,7 +5630,7 @@ void BlueprintTableViewDelegate.tableView(_:willPerformPreviewActionForMenuWith:
   _Block_release(v7);
 }
 
-void sub_1D7F97204(void *a1, uint64_t a2)
+void sub_1D7F97204(void *a1, void *a2)
 {
   v3 = [a1 previewViewController];
   if (v3)
@@ -5661,9 +5679,9 @@ void sub_1D7F97204(void *a1, uint64_t a2)
   }
 }
 
-id sub_1D7F973A0(uint64_t a1, SEL *a2)
+id sub_1D7F973A0(void *a1, SEL *a2)
 {
-  OUTLINED_FUNCTION_10();
+  OUTLINED_FUNCTION_10(a1 + *((*MEMORY[0x1E69E7D40] & *a1) + 0xD8), a2);
   Strong = swift_unknownObjectWeakLoadStrong();
   if (!Strong || (v4 = Strong, v5 = [Strong *a2], v4, !v5))
   {
@@ -5701,185 +5719,185 @@ UITargetedPreview_optional __swiftcall BlueprintTableViewDelegate.tableView(_:pr
   OUTLINED_FUNCTION_120();
   v3 = v2;
   v5 = v4;
-  v94 = v6;
+  v98 = v6;
   v7 = *((*MEMORY[0x1E69E7D40] & *v3) + 0x78);
   v8 = *((*MEMORY[0x1E69E7D40] & *v3) + 0x58);
   OUTLINED_FUNCTION_85_0();
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_9();
-  v91 = v10;
+  v95 = v10;
   OUTLINED_FUNCTION_44();
   MEMORY[0x1EEE9AC00](v11);
   OUTLINED_FUNCTION_94();
-  v92 = v12;
-  v89 = v8;
-  v90 = v7;
+  v96 = v12;
+  v93 = v8;
+  v94 = v7;
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v93 = AssociatedTypeWitness;
-  v87 = AssociatedConformanceWitness;
-  v14 = type metadata accessor for BlueprintLayoutItem();
-  OUTLINED_FUNCTION_50(v14);
+  v97 = AssociatedTypeWitness;
+  v91 = AssociatedConformanceWitness;
+  v15 = type metadata accessor for BlueprintLayoutItem(0, AssociatedTypeWitness, AssociatedConformanceWitness, v14);
+  OUTLINED_FUNCTION_50(v15);
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v15);
+  MEMORY[0x1EEE9AC00](v16);
   OUTLINED_FUNCTION_94();
-  v88 = v16;
+  v92 = v17;
   OUTLINED_FUNCTION_0_73();
-  sub_1D7E54930(0, v17, v18, MEMORY[0x1E69E6720]);
-  OUTLINED_FUNCTION_50(v19);
+  sub_1D7E54930(0, v18, v19, MEMORY[0x1E69E6720]);
+  OUTLINED_FUNCTION_50(v20);
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v20);
+  MEMORY[0x1EEE9AC00](v21);
   OUTLINED_FUNCTION_94();
-  v99 = v21;
+  v103 = v22;
   OUTLINED_FUNCTION_52_0();
-  v100 = sub_1D818E994();
+  v104 = sub_1D818E994();
   OUTLINED_FUNCTION_9();
-  v96 = v22;
-  MEMORY[0x1EEE9AC00](v23);
+  v100 = v23;
+  MEMORY[0x1EEE9AC00](v24);
   OUTLINED_FUNCTION_15();
-  v95 = v25 - v24;
-  OUTLINED_FUNCTION_12_18();
-  v26 = swift_getAssociatedTypeWitness();
+  v99 = v26 - v25;
   OUTLINED_FUNCTION_12_18();
   v27 = swift_getAssociatedTypeWitness();
-  OUTLINED_FUNCTION_55_0();
-  v28 = swift_getAssociatedConformanceWitness();
+  OUTLINED_FUNCTION_12_18();
+  v28 = swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_55_0();
   v29 = swift_getAssociatedConformanceWitness();
-  v104[0] = v26;
-  v104[1] = v27;
-  v104[2] = v28;
-  v104[3] = v29;
-  v30 = type metadata accessor for Blueprint();
+  OUTLINED_FUNCTION_55_0();
+  v30 = swift_getAssociatedConformanceWitness();
+  v108[0] = v27;
+  v108[1] = v28;
+  v108[2] = v29;
+  v108[3] = v30;
+  v31 = type metadata accessor for Blueprint(0, v108);
   OUTLINED_FUNCTION_9();
-  v103 = v31;
+  v107 = v32;
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v32);
+  MEMORY[0x1EEE9AC00](v33);
   OUTLINED_FUNCTION_28_1();
-  v33 = type metadata accessor for BlueprintItem();
+  v35 = type metadata accessor for BlueprintItem(255, v28, v30, v34);
   OUTLINED_FUNCTION_107();
   sub_1D8191E84();
   OUTLINED_FUNCTION_9();
-  v97 = v35;
-  v98 = v34;
+  v101 = v37;
+  v102 = v36;
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v36);
-  v38 = v85 - v37;
+  MEMORY[0x1EEE9AC00](v38);
+  v40 = v89 - v39;
   OUTLINED_FUNCTION_2();
-  v40 = v39;
+  v42 = v41;
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v41);
+  MEMORY[0x1EEE9AC00](v43);
   OUTLINED_FUNCTION_94();
-  v101 = v42;
-  *&v105 = [v5 identifier];
+  v105 = v44;
+  *&v109 = [v5 identifier];
   sub_1D7F9DB88();
   if (!swift_dynamicCast())
   {
     goto LABEL_9;
   }
 
-  v86 = v40;
-  v102 = v33;
-  v85[1] = *((*MEMORY[0x1E69E7D40] & *v3) + 0x90);
-  v43 = OUTLINED_FUNCTION_74();
-  BlueprintProviderType.blueprint.getter(v43, v44);
+  v90 = v42;
+  v106 = v35;
+  v89[1] = *((*MEMORY[0x1E69E7D40] & *v3) + 0x90);
+  v45 = OUTLINED_FUNCTION_74();
+  BlueprintProviderType.blueprint.getter(v45, v46);
   OUTLINED_FUNCTION_101_0();
   Blueprint.item(for:)();
 
-  v45 = v103 + 8;
-  v46 = *(v103 + 8);
-  v46(v28, v30);
-  OUTLINED_FUNCTION_43_0(v38, 1, v102);
-  if (v55)
+  v47 = v107 + 8;
+  v48 = *(v107 + 8);
+  v48(v29, v31);
+  OUTLINED_FUNCTION_43_0(v40, 1, v106);
+  if (v57)
   {
-    v47 = OUTLINED_FUNCTION_134_0();
+    v49 = OUTLINED_FUNCTION_134_0();
 LABEL_5:
-    v48(v47);
+    v50(v49);
     goto LABEL_9;
   }
 
-  v49 = OUTLINED_FUNCTION_73();
-  v50(v49);
-  v103 = v45;
-  v51 = OUTLINED_FUNCTION_74();
-  BlueprintProviderType.blueprint.getter(v51, v52);
-  v53 = v99;
+  v51 = OUTLINED_FUNCTION_73();
+  v52(v51);
+  v107 = v47;
+  v53 = OUTLINED_FUNCTION_74();
+  BlueprintProviderType.blueprint.getter(v53, v54);
+  v55 = v103;
   Blueprint.indexPath(forItem:)();
-  v46(v28, v30);
-  v54 = v100;
-  OUTLINED_FUNCTION_43_0(v53, 1, v100);
-  if (v55)
+  v48(v29, v31);
+  v56 = v104;
+  OUTLINED_FUNCTION_43_0(v55, 1, v104);
+  if (v57)
   {
-    v56 = OUTLINED_FUNCTION_58_4();
-    v57(v56);
-    sub_1D7E73334(v53);
+    v58 = OUTLINED_FUNCTION_58_4();
+    v59(v58);
+    sub_1D7E73334(v55);
     goto LABEL_9;
   }
 
-  v60 = OUTLINED_FUNCTION_73();
-  v61(v60);
-  v62 = sub_1D818E8E4();
-  v63 = [v94 cellForRowAtIndexPath_];
+  v62 = OUTLINED_FUNCTION_73();
+  v63(v62);
+  v64 = sub_1D818E8E4();
+  v65 = [v98 cellForRowAtIndexPath_];
 
-  if (!v63)
-  {
-    v79 = OUTLINED_FUNCTION_86_1();
-    v80(v79, v54);
-    v81 = OUTLINED_FUNCTION_58_4();
-    v82(v81);
-    goto LABEL_9;
-  }
-
-  v64 = v63;
-  v65 = [v64 window];
   if (!v65)
   {
-
     v83 = OUTLINED_FUNCTION_86_1();
-    v84(v83, v54);
-    v47 = OUTLINED_FUNCTION_58_4();
+    v84(v83, v56);
+    v85 = OUTLINED_FUNCTION_58_4();
+    v86(v85);
+    goto LABEL_9;
+  }
+
+  v66 = v65;
+  v67 = [v66 window];
+  if (!v67)
+  {
+
+    v87 = OUTLINED_FUNCTION_86_1();
+    v88(v87, v56);
+    v49 = OUTLINED_FUNCTION_58_4();
     goto LABEL_5;
   }
 
-  v66 = OUTLINED_FUNCTION_110();
-  BlueprintLayoutProviderType.layoutBlueprint.getter(v66, v67);
+  v68 = OUTLINED_FUNCTION_110();
+  BlueprintLayoutProviderType.layoutBlueprint.getter(v68, v69);
   OUTLINED_FUNCTION_16();
-  v68 = swift_getAssociatedTypeWitness();
+  v70 = swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_111();
-  v69 = swift_getAssociatedConformanceWitness();
-  v70 = v93;
-  *&v105 = v68;
-  *(&v105 + 1) = v93;
-  *&v106 = v69;
-  *(&v106 + 1) = v87;
-  OUTLINED_FUNCTION_118_0();
-  v71 = type metadata accessor for BlueprintLayout();
-  v72 = v88;
-  v73 = OUTLINED_FUNCTION_101_0();
-  BlueprintLayout.subscript.getter(v73, v74);
+  v71 = swift_getAssociatedConformanceWitness();
+  v72 = v97;
+  *&v109 = v70;
+  *(&v109 + 1) = v97;
+  *&v110 = v71;
+  *(&v110 + 1) = v91;
+  v73 = OUTLINED_FUNCTION_118_0();
+  v75 = type metadata accessor for BlueprintLayout(v73, v74);
+  v76 = v92;
+  v77 = OUTLINED_FUNCTION_101_0();
+  BlueprintLayout.subscript.getter(v77, v78);
   OUTLINED_FUNCTION_3_0();
-  (*(v75 + 8))(v104, v71);
-  v76 = (*(v91 + 32))(v92, v72, v70);
-  OUTLINED_FUNCTION_91(v76, &qword_1EDBB17D0);
+  (*(v79 + 8))(v108, v75);
+  v80 = (*(v95 + 32))(v96, v76, v72);
+  OUTLINED_FUNCTION_91(v80, &qword_1EDBB17D0, &protocol descriptor for DragPreviewable);
   if ((swift_dynamicCast() & 1) == 0)
   {
-    v107 = 0;
-    v105 = 0u;
-    v106 = 0u;
+    v111 = 0;
+    v109 = 0u;
+    v110 = 0u;
   }
 
-  sub_1D7E0A1A8(0, &unk_1EDBAE520);
-  sub_1D7F9DBE4(&v105, v104, &qword_1EDBB17C0, &qword_1EDBB17D0, &protocol descriptor for DragPreviewable);
-  sub_1D8184638(v64, v104);
+  sub_1D7E0A1A8(0, &unk_1EDBAE520, 0x1E69DD070);
+  sub_1D7F9DBE4(&v109, v108, &qword_1EDBB17C0, &qword_1EDBB17D0, &protocol descriptor for DragPreviewable);
+  sub_1D8184638(v66, v108);
 
-  v77 = OUTLINED_FUNCTION_86_1();
-  v78(v77, v54);
-  (*(v86 + 8))(v101, v102);
-  sub_1D7F9E7CC(&v105, &qword_1EDBB17C0, &qword_1EDBB17D0, &protocol descriptor for DragPreviewable);
+  v81 = OUTLINED_FUNCTION_86_1();
+  v82(v81, v56);
+  (*(v90 + 8))(v105, v106);
+  sub_1D7F9E7CC(&v109, &qword_1EDBB17C0, &qword_1EDBB17D0, &protocol descriptor for DragPreviewable);
 LABEL_9:
   OUTLINED_FUNCTION_130_0();
   OUTLINED_FUNCTION_100();
-  result.value.super.isa = v58;
-  result.is_nil = v59;
+  result.value.super.isa = v60;
+  result.is_nil = v61;
   return result;
 }
 
@@ -5897,7 +5915,7 @@ UITargetedPreview_optional __swiftcall BlueprintTableViewDelegate.tableView(_:pr
 {
   OUTLINED_FUNCTION_120();
   v5 = v4;
-  v131 = v6;
+  v135 = v6;
   v7 = *v2;
   v8 = *MEMORY[0x1E69E7D40];
   v9 = *((*MEMORY[0x1E69E7D40] & *v2) + 0x78);
@@ -5906,278 +5924,278 @@ UITargetedPreview_optional __swiftcall BlueprintTableViewDelegate.tableView(_:pr
   OUTLINED_FUNCTION_103_0();
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_9();
-  v125 = v12;
+  v129 = v12;
   OUTLINED_FUNCTION_44();
   MEMORY[0x1EEE9AC00](v13);
   OUTLINED_FUNCTION_94();
-  v126 = v14;
-  v123 = v10;
-  v124 = v9;
+  v130 = v14;
+  v127 = v10;
+  v128 = v9;
   OUTLINED_FUNCTION_111();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v15 = type metadata accessor for BlueprintLayoutItem();
-  OUTLINED_FUNCTION_50(v15);
+  v16 = type metadata accessor for BlueprintLayoutItem(0, AssociatedTypeWitness, AssociatedConformanceWitness, v15);
+  OUTLINED_FUNCTION_50(v16);
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v16);
+  MEMORY[0x1EEE9AC00](v17);
   OUTLINED_FUNCTION_94();
-  v122 = v17;
+  v126 = v18;
   OUTLINED_FUNCTION_0_73();
-  sub_1D7E54930(0, v18, v19, MEMORY[0x1E69E6720]);
-  v21 = OUTLINED_FUNCTION_50(v20);
-  MEMORY[0x1EEE9AC00](v21);
+  sub_1D7E54930(0, v19, v20, MEMORY[0x1E69E6720]);
+  v22 = OUTLINED_FUNCTION_50(v21);
+  MEMORY[0x1EEE9AC00](v22);
   OUTLINED_FUNCTION_23();
-  v130 = v22;
+  v134 = v23;
   OUTLINED_FUNCTION_77();
-  MEMORY[0x1EEE9AC00](v23);
+  MEMORY[0x1EEE9AC00](v24);
   OUTLINED_FUNCTION_123_1();
-  v139 = sub_1D818E994();
+  v143 = sub_1D818E994();
   OUTLINED_FUNCTION_9();
-  v132 = v24;
-  MEMORY[0x1EEE9AC00](v25);
+  v136 = v25;
+  MEMORY[0x1EEE9AC00](v26);
   OUTLINED_FUNCTION_23();
-  v129 = v26;
+  v133 = v27;
   OUTLINED_FUNCTION_77();
-  MEMORY[0x1EEE9AC00](v27);
-  v128 = v118 - v28;
-  v29 = *((v8 & v7) + 0x70);
-  v144 = v2;
-  v30 = *((v8 & v7) + 0x50);
-  OUTLINED_FUNCTION_12_18();
-  v31 = swift_getAssociatedTypeWitness();
+  MEMORY[0x1EEE9AC00](v28);
+  v132 = v122 - v29;
+  v30 = *((v8 & v7) + 0x70);
+  v148 = v2;
+  v31 = *((v8 & v7) + 0x50);
   OUTLINED_FUNCTION_12_18();
   v32 = swift_getAssociatedTypeWitness();
-  OUTLINED_FUNCTION_55_0();
-  v33 = swift_getAssociatedConformanceWitness();
+  OUTLINED_FUNCTION_12_18();
+  v33 = swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_55_0();
   v34 = swift_getAssociatedConformanceWitness();
-  v145[0] = v31;
-  v145[1] = v32;
-  v145[2] = v33;
-  v146 = v34;
-  v143 = type metadata accessor for Blueprint();
+  OUTLINED_FUNCTION_55_0();
+  v35 = swift_getAssociatedConformanceWitness();
+  v149[0] = v32;
+  v149[1] = v33;
+  v149[2] = v34;
+  v150 = v35;
+  v147 = type metadata accessor for Blueprint(0, v149);
   OUTLINED_FUNCTION_9();
-  v141 = v35;
+  v145 = v36;
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v36);
+  MEMORY[0x1EEE9AC00](v37);
   OUTLINED_FUNCTION_26();
-  OUTLINED_FUNCTION_124();
-  v37 = type metadata accessor for BlueprintItem();
+  v38 = OUTLINED_FUNCTION_124();
+  v41 = type metadata accessor for BlueprintItem(v38, v39, v35, v40);
   sub_1D8191E84();
   OUTLINED_FUNCTION_9();
-  v136 = v39;
-  v137 = v38;
-  MEMORY[0x1EEE9AC00](v38);
+  v140 = v43;
+  v141 = v42;
+  MEMORY[0x1EEE9AC00](v42);
   OUTLINED_FUNCTION_23();
-  v135 = v40;
+  v139 = v44;
   OUTLINED_FUNCTION_77();
-  MEMORY[0x1EEE9AC00](v41);
-  v43 = v118 - v42;
+  MEMORY[0x1EEE9AC00](v45);
+  v47 = v122 - v46;
   OUTLINED_FUNCTION_2();
-  v45 = v44;
-  MEMORY[0x1EEE9AC00](v46);
+  v49 = v48;
+  MEMORY[0x1EEE9AC00](v50);
   OUTLINED_FUNCTION_23();
-  v133 = v47;
+  v137 = v51;
   OUTLINED_FUNCTION_77();
-  v49 = MEMORY[0x1EEE9AC00](v48);
-  v134 = v118 - v50;
-  *&v148 = [v5 identifier];
-  v140 = sub_1D7F9DB88();
-  v51 = swift_dynamicCast();
-  v127 = AssociatedTypeWitness;
-  v142 = v45;
-  if (v51)
+  v53 = MEMORY[0x1EEE9AC00](v52);
+  v138 = v122 - v54;
+  *&v152 = [v5 identifier];
+  v144 = sub_1D7F9DB88();
+  v55 = swift_dynamicCast();
+  v131 = AssociatedTypeWitness;
+  v146 = v49;
+  if (v55)
   {
-    v119 = v3;
-    v120 = v5;
-    v118[1] = *((*MEMORY[0x1E69E7D40] & *v144) + 0x90);
-    v52 = OUTLINED_FUNCTION_74();
-    BlueprintProviderType.blueprint.getter(v52, v53);
+    v123 = v3;
+    v124 = v5;
+    v122[1] = *((*MEMORY[0x1E69E7D40] & *v148) + 0x90);
+    v56 = OUTLINED_FUNCTION_74();
+    BlueprintProviderType.blueprint.getter(v56, v57);
     OUTLINED_FUNCTION_72_0();
     Blueprint.item(for:)();
 
-    v54 = *(v141 + 8);
-    v55 = OUTLINED_FUNCTION_11_0();
-    v54(v55);
-    OUTLINED_FUNCTION_43_0(v43, 1, v37);
-    if (v62)
+    v58 = *(v145 + 8);
+    v59 = OUTLINED_FUNCTION_11_0();
+    v58(v59);
+    OUTLINED_FUNCTION_43_0(v47, 1, v41);
+    if (v66)
     {
-      v56 = v30;
-      (*(v136 + 8))(v43, v137);
+      v60 = v31;
+      (*(v140 + 8))(v47, v141);
     }
 
     else
     {
-      (*(v142 + 32))(v134, v43, v37);
-      v138 = v37;
-      v58 = OUTLINED_FUNCTION_74();
-      BlueprintProviderType.blueprint.getter(v58, v59);
-      v60 = v119;
-      v37 = v31;
+      (*(v146 + 32))(v138, v47, v41);
+      v142 = v41;
+      v62 = OUTLINED_FUNCTION_74();
+      BlueprintProviderType.blueprint.getter(v62, v63);
+      v64 = v123;
+      v41 = v32;
       Blueprint.indexPath(forItem:)();
-      v61 = OUTLINED_FUNCTION_11_0();
-      v54(v61);
-      OUTLINED_FUNCTION_43_0(v60, 1, v139);
-      v56 = v30;
-      if (v62)
+      v65 = OUTLINED_FUNCTION_11_0();
+      v58(v65);
+      OUTLINED_FUNCTION_43_0(v64, 1, v143);
+      v60 = v31;
+      if (v66)
       {
-        v63 = OUTLINED_FUNCTION_106_0();
-        v64(v63);
-        sub_1D7E73334(v60);
+        v67 = OUTLINED_FUNCTION_106_0();
+        v68(v67);
+        sub_1D7E73334(v64);
       }
 
       else
       {
-        v65 = v132;
-        v66 = v128;
-        v67 = v139;
-        (*(v132 + 32))(v128, v60, v139);
-        v68 = OUTLINED_FUNCTION_99();
-        v37 = v131;
-        UITableView.deselectItem(at:animated:)(v68, v69);
-        (*(v65 + 8))(v66, v67);
-        v70 = OUTLINED_FUNCTION_106_0();
-        v72(v70, v71);
+        v69 = v136;
+        v70 = v132;
+        v71 = v143;
+        (*(v136 + 32))(v132, v64, v143);
+        v72 = OUTLINED_FUNCTION_99();
+        v41 = v135;
+        UITableView.deselectItem(at:animated:)(v72, v73);
+        (*(v69 + 8))(v70, v71);
+        v74 = OUTLINED_FUNCTION_106_0();
+        v76(v74, v75);
       }
     }
 
-    v57 = v144;
-    v5 = v120;
+    v61 = v148;
+    v5 = v124;
   }
 
   else
   {
-    v56 = v30;
-    v57 = v144;
+    v60 = v31;
+    v61 = v148;
   }
 
-  *&v148 = [v5 identifier];
+  *&v152 = [v5 identifier];
   if (swift_dynamicCast())
   {
-    v73 = *((*MEMORY[0x1E69E7D40] & *v57) + 0x90);
-    v138 = v37;
-    v140 = v73;
-    BlueprintProviderType.blueprint.getter(v56, v29);
-    v74 = v135;
+    v77 = *((*MEMORY[0x1E69E7D40] & *v61) + 0x90);
+    v142 = v41;
+    v144 = v77;
+    BlueprintProviderType.blueprint.getter(v60, v30);
+    v78 = v139;
     Blueprint.item(for:)();
-    v75 = v138;
+    v79 = v142;
 
-    v76 = *(v141 + 8);
-    v77 = OUTLINED_FUNCTION_101_0();
-    v76(v77);
-    OUTLINED_FUNCTION_43_0(v74, 1, v75);
-    if (v62)
+    v80 = *(v145 + 8);
+    v81 = OUTLINED_FUNCTION_101_0();
+    v80(v81);
+    OUTLINED_FUNCTION_43_0(v78, 1, v79);
+    if (v66)
     {
-      v78 = OUTLINED_FUNCTION_70_2();
-      v79(v78);
+      v82 = OUTLINED_FUNCTION_70_2();
+      v83(v82);
     }
 
     else
     {
-      v80 = v74;
-      v81 = v133;
-      (*(v142 + 32))(v133, v80, v75);
-      v82 = OUTLINED_FUNCTION_6_16();
-      BlueprintProviderType.blueprint.getter(v82, v83);
-      v84 = v130;
+      v84 = v78;
+      v85 = v137;
+      (*(v146 + 32))(v137, v84, v79);
+      v86 = OUTLINED_FUNCTION_6_16();
+      BlueprintProviderType.blueprint.getter(v86, v87);
+      v88 = v134;
       Blueprint.indexPath(forItem:)();
-      v85 = v84;
-      v86 = OUTLINED_FUNCTION_101_0();
-      v76(v86);
-      OUTLINED_FUNCTION_43_0(v84, 1, v139);
-      if (v87)
+      v89 = v88;
+      v90 = OUTLINED_FUNCTION_101_0();
+      v80(v90);
+      OUTLINED_FUNCTION_43_0(v88, 1, v143);
+      if (v91)
       {
-        v88 = OUTLINED_FUNCTION_70_2();
-        v89(v88, v138);
-        sub_1D7E73334(v84);
+        v92 = OUTLINED_FUNCTION_70_2();
+        v93(v92, v142);
+        sub_1D7E73334(v88);
       }
 
       else
       {
-        v92 = v142;
-        (*(v132 + 32))(v129, v85, v139);
-        v93 = sub_1D818E8E4();
-        v94 = [v131 cellForRowAtIndexPath_];
+        v96 = v146;
+        (*(v136 + 32))(v133, v89, v143);
+        v97 = sub_1D818E8E4();
+        v98 = [v135 cellForRowAtIndexPath_];
 
-        if (v94)
+        if (v98)
         {
-          v151 = v94;
-          v95 = sub_1D7E0A1A8(0, &qword_1EDBAE530);
-          OUTLINED_FUNCTION_91(v95, &unk_1ECA0F5A0);
-          v96 = v94;
+          v155[0] = v98;
+          v99 = sub_1D7E0A1A8(0, &qword_1EDBAE530, 0x1E69DD028);
+          OUTLINED_FUNCTION_91(v99, &unk_1ECA0F5A0, &protocol descriptor for ContextMenuPreviewable);
+          v100 = v98;
           if (swift_dynamicCast())
           {
-            sub_1D7E05450(&v148, v145);
-            v97 = v146;
-            v98 = v147;
-            __swift_project_boxed_opaque_existential_1(v145, v146);
-            (*(v98 + 8))(0, v97, v98);
-            __swift_destroy_boxed_opaque_existential_1Tm(v145);
+            sub_1D7E05450(&v152, v149);
+            v101 = v150;
+            v102 = v151;
+            __swift_project_boxed_opaque_existential_1(v149, v150);
+            (*(v102 + 8))(0, v101, v102);
+            __swift_destroy_boxed_opaque_existential_1Tm(v149);
           }
 
           else
           {
-            v150 = 0;
-            v148 = 0u;
-            v149 = 0u;
-            sub_1D7F9E7CC(&v148, &unk_1ECA0E630, &unk_1ECA0F5A0, &protocol descriptor for ContextMenuPreviewable);
+            v154 = 0;
+            v152 = 0u;
+            v153 = 0u;
+            sub_1D7F9E7CC(&v152, &unk_1ECA0E630, &unk_1ECA0F5A0, &protocol descriptor for ContextMenuPreviewable);
           }
 
-          v101 = v127;
-          v102 = v96;
-          v103 = [v102 window];
-          if (v103)
+          v105 = v131;
+          v106 = v100;
+          v107 = [v106 window];
+          if (v107)
           {
 
             OUTLINED_FUNCTION_19_11();
-            v104 = OUTLINED_FUNCTION_110();
-            BlueprintLayoutProviderType.layoutBlueprint.getter(v104, v105);
+            v108 = OUTLINED_FUNCTION_110();
+            BlueprintLayoutProviderType.layoutBlueprint.getter(v108, v109);
             OUTLINED_FUNCTION_16();
-            v106 = swift_getAssociatedTypeWitness();
+            v110 = swift_getAssociatedTypeWitness();
             OUTLINED_FUNCTION_111();
-            v107 = swift_getAssociatedConformanceWitness();
-            *&v148 = v106;
-            *(&v148 + 1) = v101;
-            *&v149 = v107;
-            *(&v149 + 1) = AssociatedConformanceWitness;
-            v108 = type metadata accessor for BlueprintLayout();
-            v109 = v122;
-            v110 = OUTLINED_FUNCTION_73();
-            BlueprintLayout.subscript.getter(v110, v111);
+            v111 = swift_getAssociatedConformanceWitness();
+            *&v152 = v110;
+            *(&v152 + 1) = v105;
+            *&v153 = v111;
+            *(&v153 + 1) = AssociatedConformanceWitness;
+            v112 = type metadata accessor for BlueprintLayout(0, &v152);
+            v113 = v126;
+            v114 = OUTLINED_FUNCTION_73();
+            BlueprintLayout.subscript.getter(v114, v115);
             OUTLINED_FUNCTION_3_0();
-            (*(v112 + 8))(v145, v108);
-            v113 = (*(v125 + 32))(v126, v109, v101);
-            OUTLINED_FUNCTION_91(v113, &qword_1EDBB17D0);
+            (*(v116 + 8))(v149, v112);
+            v117 = (*(v129 + 32))(v130, v113, v105);
+            OUTLINED_FUNCTION_91(v117, &qword_1EDBB17D0, &protocol descriptor for DragPreviewable);
             if ((swift_dynamicCast() & 1) == 0)
             {
-              v150 = 0;
-              v148 = 0u;
-              v149 = 0u;
+              v154 = 0;
+              v152 = 0u;
+              v153 = 0u;
             }
 
-            sub_1D7E0A1A8(0, &unk_1EDBAE520);
-            sub_1D7F9DBE4(&v148, v145, &qword_1EDBB17C0, &qword_1EDBB17D0, &protocol descriptor for DragPreviewable);
-            sub_1D8184638(v102, v145);
+            sub_1D7E0A1A8(0, &unk_1EDBAE520, 0x1E69DD070);
+            sub_1D7F9DBE4(&v152, v149, &qword_1EDBB17C0, &qword_1EDBB17D0, &protocol descriptor for DragPreviewable);
+            sub_1D8184638(v106, v149);
 
-            v114 = OUTLINED_FUNCTION_86_1();
-            v115(v114, v139);
-            (*(v92 + 8))(v133, v138);
-            sub_1D7F9E7CC(&v148, &qword_1EDBB17C0, &qword_1EDBB17D0, &protocol descriptor for DragPreviewable);
+            v118 = OUTLINED_FUNCTION_86_1();
+            v119(v118, v143);
+            (*(v96 + 8))(v137, v142);
+            sub_1D7F9E7CC(&v152, &qword_1EDBB17C0, &qword_1EDBB17D0, &protocol descriptor for DragPreviewable);
           }
 
           else
           {
 
-            v116 = OUTLINED_FUNCTION_86_1();
-            v117(v116, v139);
-            (*(v92 + 8))(v81, v138);
+            v120 = OUTLINED_FUNCTION_86_1();
+            v121(v120, v143);
+            (*(v96 + 8))(v85, v142);
           }
         }
 
         else
         {
-          v99 = OUTLINED_FUNCTION_86_1();
-          v100(v99, v139);
-          (*(v92 + 8))(v81, v138);
+          v103 = OUTLINED_FUNCTION_86_1();
+          v104(v103, v143);
+          (*(v96 + 8))(v85, v142);
         }
       }
     }
@@ -6185,8 +6203,8 @@ UITargetedPreview_optional __swiftcall BlueprintTableViewDelegate.tableView(_:pr
 
   OUTLINED_FUNCTION_130_0();
   OUTLINED_FUNCTION_100();
-  result.value.super.isa = v90;
-  result.is_nil = v91;
+  result.value.super.isa = v94;
+  result.is_nil = v95;
   return result;
 }
 
@@ -6200,51 +6218,51 @@ id sub_1D7F98918(void *a1, uint64_t a2, void *a3, void *a4)
   return v9;
 }
 
-void BlueprintTableViewDelegate.tableView(_:didHighlightRowAt:)(void *a1)
+void BlueprintTableViewDelegate.tableView(_:didHighlightRowAt:)(void *a1, uint64_t a2)
 {
-  v2 = sub_1D818E8E4();
-  v3 = [a1 cellForRowAtIndexPath_];
+  v3 = sub_1D818E8E4();
+  v4 = [a1 cellForRowAtIndexPath_];
 
-  if (!v3 || (v4 = [v3 selectionStyle], v3, v4))
+  if (!v4 || (v5 = [v4 selectionStyle], v4, v5))
   {
-    sub_1D816FB6C(v9);
-    if (v10)
+    sub_1D816FB6C(v11);
+    if (v12)
     {
-      __swift_project_boxed_opaque_existential_1(v9, v10);
-      v5 = OUTLINED_FUNCTION_4_1();
-      v7 = v6(v5);
-      v8 = OBJC_IVAR____TtC5TeaUI13SeparatorView_isHighlighted;
-      OUTLINED_FUNCTION_56();
-      v7[v8] = 1;
+      __swift_project_boxed_opaque_existential_1(v11, v12);
+      v6 = OUTLINED_FUNCTION_4_1();
+      v8 = v7(v6);
+      v9 = OBJC_IVAR____TtC5TeaUI13SeparatorView_isHighlighted;
+      OUTLINED_FUNCTION_56(&v8[OBJC_IVAR____TtC5TeaUI13SeparatorView_isHighlighted], &v10);
+      v8[v9] = 1;
       sub_1D806E9CC();
 
-      __swift_destroy_boxed_opaque_existential_1Tm(v9);
+      __swift_destroy_boxed_opaque_existential_1Tm(v11);
     }
 
     else
     {
-      sub_1D7F9E7CC(v9, &qword_1EDBB0090, qword_1EDBB0098, &protocol descriptor for SeparatorViewProviderType);
+      sub_1D7F9E7CC(v11, &qword_1EDBB0090, qword_1EDBB0098, &protocol descriptor for SeparatorViewProviderType);
     }
   }
 }
 
-uint64_t BlueprintTableViewDelegate.tableView(_:didUnhighlightRowAt:)()
+uint64_t BlueprintTableViewDelegate.tableView(_:didUnhighlightRowAt:)(uint64_t a1, uint64_t a2)
 {
-  sub_1D816FB6C(v5);
-  if (!v6)
+  sub_1D816FB6C(v8);
+  if (!v9)
   {
-    return sub_1D7F9E7CC(v5, &qword_1EDBB0090, qword_1EDBB0098, &protocol descriptor for SeparatorViewProviderType);
+    return sub_1D7F9E7CC(v8, &qword_1EDBB0090, qword_1EDBB0098, &protocol descriptor for SeparatorViewProviderType);
   }
 
-  __swift_project_boxed_opaque_existential_1(v5, v6);
-  v0 = OUTLINED_FUNCTION_4_1();
-  v2 = v1(v0);
-  v3 = OBJC_IVAR____TtC5TeaUI13SeparatorView_isHighlighted;
-  OUTLINED_FUNCTION_56();
-  v2[v3] = 0;
+  __swift_project_boxed_opaque_existential_1(v8, v9);
+  v2 = OUTLINED_FUNCTION_4_1();
+  v4 = v3(v2);
+  v5 = OBJC_IVAR____TtC5TeaUI13SeparatorView_isHighlighted;
+  OUTLINED_FUNCTION_56(&v4[OBJC_IVAR____TtC5TeaUI13SeparatorView_isHighlighted], &v7);
+  v4[v5] = 0;
   sub_1D806E9CC();
 
-  return __swift_destroy_boxed_opaque_existential_1Tm(v5);
+  return __swift_destroy_boxed_opaque_existential_1Tm(v8);
 }
 
 uint64_t sub_1D7F98B84()
@@ -6265,19 +6283,19 @@ uint64_t sub_1D7F98B84()
 void BlueprintTableViewDelegate.tableView(_:willDisplay:forRowAt:)(uint64_t a1, void *a2, uint64_t a3)
 {
   v4 = v3;
-  v11[0] = 3;
-  BlueprintImpressionManager.startImpression(at:view:triggerSource:)(a3, a2, v11);
+  v13[0] = 3;
+  BlueprintImpressionManager.startImpression(at:view:triggerSource:)(a3, a2, v13);
   OUTLINED_FUNCTION_22_2();
   v7 = *(v6 + 248);
-  OUTLINED_FUNCTION_10();
-  v8 = *(v4 + v7);
-  if (v8)
+  OUTLINED_FUNCTION_10(v4 + v7, v8);
+  v9 = *(v4 + v7);
+  if (v9)
   {
-    swift_getObjectType();
-    if (dynamic_cast_existential_1_conditional(a2))
+    ObjectType = swift_getObjectType();
+    if (dynamic_cast_existential_1_conditional(a2, ObjectType, &protocol descriptor for BlueprintViewportMonitorObserver))
     {
-      v9 = v8;
-      v10 = a2;
+      v11 = v9;
+      v12 = a2;
       OUTLINED_FUNCTION_104_0();
       BlueprintViewportMonitor.add(observer:scrollView:)();
     }
@@ -6288,8 +6306,8 @@ void BlueprintTableViewDelegate.tableView(_:didEndDisplaying:forRowAt:)()
 {
   OUTLINED_FUNCTION_120();
   v1 = v0;
-  v90 = v3;
-  v91 = v2;
+  v92 = v3;
+  v93 = v2;
   v5 = v4;
   OUTLINED_FUNCTION_3_7();
   v7 = *(v6 + 112);
@@ -6300,103 +6318,103 @@ void BlueprintTableViewDelegate.tableView(_:didEndDisplaying:forRowAt:)()
   v12 = swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_72_0();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v84 = v10;
-  v85 = v7;
+  v86 = v10;
+  v87 = v7;
   OUTLINED_FUNCTION_72_0();
-  v92[0] = AssociatedTypeWitness;
-  v92[1] = v12;
-  v92[2] = AssociatedConformanceWitness;
-  v92[3] = swift_getAssociatedConformanceWitness();
-  type metadata accessor for Blueprint();
+  v95[0] = AssociatedTypeWitness;
+  v95[1] = v12;
+  v95[2] = AssociatedConformanceWitness;
+  v95[3] = swift_getAssociatedConformanceWitness();
+  type metadata accessor for Blueprint(0, v95);
   OUTLINED_FUNCTION_9();
-  v82 = v15;
-  v83 = v14;
+  v84 = v15;
+  v85 = v14;
   OUTLINED_FUNCTION_44();
   MEMORY[0x1EEE9AC00](v16);
   OUTLINED_FUNCTION_94();
-  v81 = v17;
+  v83 = v17;
   OUTLINED_FUNCTION_52_0();
   v18 = sub_1D818E994();
   OUTLINED_FUNCTION_9();
-  v88 = v19;
+  v90 = v19;
   MEMORY[0x1EEE9AC00](v20);
   OUTLINED_FUNCTION_15();
-  v86 = v22 - v21;
-  OUTLINED_FUNCTION_52_0();
-  sub_1D7EA0824();
-  v87 = v23;
+  v88 = v22 - v21;
+  v23 = OUTLINED_FUNCTION_52_0();
+  sub_1D7EA0824(v23);
+  v89 = v24;
   OUTLINED_FUNCTION_8();
-  MEMORY[0x1EEE9AC00](v24);
+  MEMORY[0x1EEE9AC00](v25);
   OUTLINED_FUNCTION_15();
-  v27 = v26 - v25;
+  v28 = v27 - v26;
   OUTLINED_FUNCTION_0_73();
-  sub_1D7E54930(0, v28, v29, MEMORY[0x1E69E6720]);
-  v31 = OUTLINED_FUNCTION_50(v30);
-  MEMORY[0x1EEE9AC00](v31);
+  sub_1D7E54930(0, v29, v30, MEMORY[0x1E69E6720]);
+  v32 = OUTLINED_FUNCTION_50(v31);
+  MEMORY[0x1EEE9AC00](v32);
   OUTLINED_FUNCTION_23();
-  v33 = v32;
+  v34 = v33;
   OUTLINED_FUNCTION_77();
-  MEMORY[0x1EEE9AC00](v34);
-  v36 = &v79 - v35;
-  v38 = MEMORY[0x1EEE9AC00](v37);
-  v40 = &v79 - v39;
-  v89 = v5;
-  v41 = [v5 indexPathsForVisibleRows];
-  if (!v41 || (v42 = v41, v43 = sub_1D8191314(), v42, MEMORY[0x1EEE9AC00](v44), *(&v79 - 2) = v90, LOBYTE(v42) = sub_1D7EB0784(sub_1D7EB0E84, (&v79 - 4), v43, MEMORY[0x1E6969C28]), , (v42 & 1) == 0))
+  MEMORY[0x1EEE9AC00](v35);
+  v37 = &v81 - v36;
+  v39 = MEMORY[0x1EEE9AC00](v38);
+  v41 = &v81 - v40;
+  v91 = v5;
+  v42 = [v5 indexPathsForVisibleRows];
+  if (!v42 || (v43 = v42, v44 = sub_1D8191314(), v43, MEMORY[0x1EEE9AC00](v45), *(&v81 - 2) = v92, LOBYTE(v43) = sub_1D7EB0784(sub_1D7EB0E84, (&v81 - 4), v44, MEMORY[0x1E6969C28]), , (v43 & 1) == 0))
   {
     OUTLINED_FUNCTION_24_8();
-    LOBYTE(v92[0]) = 3;
-    BlueprintImpressionManager.endImpression(at:view:triggerSource:)(v90, v91, v92, v45, v46, v47, v48, v49, v79, v80, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90);
+    LOBYTE(v95[0]) = 3;
+    BlueprintImpressionManager.endImpression(at:view:triggerSource:)(v92, v93, v95, v46, v47, v48, v49, v50, v81, v82, v83, v84, v85, v86, v87, v88, v89, v90, v91, v92);
   }
 
-  if (([v89 allowsMultipleSelection] & 1) == 0)
+  if (([v91 allowsMultipleSelection] & 1) == 0)
   {
     OUTLINED_FUNCTION_24_8();
-    v51 = v1 + *(v50 + 208);
-    OUTLINED_FUNCTION_8_4();
+    v52 = v1 + *(v51 + 208);
+    OUTLINED_FUNCTION_8_4(v52, v95);
     if (swift_unknownObjectWeakLoadStrong())
     {
-      v52 = *(v51 + 8);
+      v53 = *(v52 + 8);
       ObjectType = swift_getObjectType();
-      (*(v52 + 8))(ObjectType, v52);
+      (*(v53 + 8))(ObjectType, v53);
       swift_unknownObjectRelease();
     }
 
     else
     {
-      __swift_storeEnumTagSinglePayload(v40, 1, 1, v18);
+      __swift_storeEnumTagSinglePayload(v41, 1, 1, v18);
     }
 
-    v54 = v88;
-    (*(v88 + 16))(v36, v90, v18);
+    v55 = v90;
+    (*(v90 + 16))(v37, v92, v18);
     OUTLINED_FUNCTION_102();
-    __swift_storeEnumTagSinglePayload(v55, v56, v57, v18);
-    v58 = *(v87 + 48);
-    sub_1D7E54838(v40, v27);
-    sub_1D7E54838(v36, v27 + v58);
-    OUTLINED_FUNCTION_43_0(v27, 1, v18);
-    if (v59)
+    __swift_storeEnumTagSinglePayload(v56, v57, v58, v18);
+    v59 = *(v89 + 48);
+    sub_1D7E54838(v41, v28);
+    sub_1D7E54838(v37, v28 + v59);
+    OUTLINED_FUNCTION_43_0(v28, 1, v18);
+    if (v60)
     {
-      sub_1D7E73334(v36);
-      sub_1D7E73334(v40);
-      OUTLINED_FUNCTION_43_0(v27 + v58, 1, v18);
-      if (v59)
+      sub_1D7E73334(v37);
+      sub_1D7E73334(v41);
+      OUTLINED_FUNCTION_43_0(v28 + v59, 1, v18);
+      if (v60)
       {
-        sub_1D7E73334(v27);
+        sub_1D7E73334(v28);
 LABEL_18:
-        if (([v91 isSelected] & 1) == 0 && (objc_msgSend(v91, sel_isEditing) & 1) == 0)
+        if (([v93 isSelected] & 1) == 0 && (objc_msgSend(v93, sel_isEditing) & 1) == 0)
         {
           OUTLINED_FUNCTION_24_8();
-          BlueprintProviderType.blueprint.getter(v84, v85);
-          v67 = v83;
+          BlueprintProviderType.blueprint.getter(v86, v87);
+          v68 = v85;
           Blueprint.contains(indexPath:)();
-          v69 = v68;
-          v70 = OUTLINED_FUNCTION_70_2();
-          v71(v70, v67);
-          if (v69)
+          v70 = v69;
+          v71 = OUTLINED_FUNCTION_70_2();
+          v72(v71, v68);
+          if (v70)
           {
-            v72 = sub_1D818E8E4();
-            [v89 selectRowAtIndexPath:v72 animated:0 scrollPosition:0];
+            v73 = sub_1D818E8E4();
+            [v91 selectRowAtIndexPath:v73 animated:0 scrollPosition:0];
           }
         }
 
@@ -6406,24 +6424,24 @@ LABEL_18:
 
     else
     {
-      sub_1D7E54838(v27, v33);
-      OUTLINED_FUNCTION_43_0(v27 + v58, 1, v18);
-      if (!v59)
+      sub_1D7E54838(v28, v34);
+      OUTLINED_FUNCTION_43_0(v28 + v59, 1, v18);
+      if (!v60)
       {
-        v61 = *(v54 + 32);
-        v80 = v33;
-        v62 = v86;
-        v61(v86, v27 + v58, v18);
+        v62 = *(v55 + 32);
+        v82 = v34;
+        v63 = v88;
+        v62(v88, v28 + v59, v18);
         OUTLINED_FUNCTION_6_29();
-        sub_1D7E2DA70(v63, v64);
-        v65 = sub_1D8190ED4();
-        v66 = *(v54 + 8);
-        v66(v62, v18);
-        sub_1D7E73334(v36);
-        sub_1D7E73334(v40);
-        v66(v80, v18);
-        sub_1D7E73334(v27);
-        if ((v65 & 1) == 0)
+        sub_1D7E2DA70(v64, v65, MEMORY[0x1E6969C50]);
+        v66 = sub_1D8190ED4();
+        v67 = *(v55 + 8);
+        v67(v63, v18);
+        sub_1D7E73334(v37);
+        sub_1D7E73334(v41);
+        v67(v82, v18);
+        sub_1D7E73334(v28);
+        if ((v66 & 1) == 0)
         {
           goto LABEL_22;
         }
@@ -6431,28 +6449,28 @@ LABEL_18:
         goto LABEL_18;
       }
 
-      sub_1D7E73334(v36);
-      sub_1D7E73334(v40);
-      (*(v54 + 8))(v33, v18);
+      sub_1D7E73334(v37);
+      sub_1D7E73334(v41);
+      (*(v55 + 8))(v34, v18);
     }
 
     OUTLINED_FUNCTION_7_27();
-    sub_1D7F9E310(v27, v60);
+    sub_1D7F9E310(v28, v61);
   }
 
 LABEL_22:
   OUTLINED_FUNCTION_24_8();
-  v74 = *(v73 + 248);
-  OUTLINED_FUNCTION_8_4();
-  v75 = *(v1 + v74);
-  if (v75)
+  v75 = *(v74 + 248);
+  OUTLINED_FUNCTION_8_4(v1 + v75, &v94);
+  v76 = *(v1 + v75);
+  if (v76)
   {
-    v76 = v91;
-    swift_getObjectType();
-    if (dynamic_cast_existential_1_conditional(v76))
+    v77 = v93;
+    v78 = swift_getObjectType();
+    if (dynamic_cast_existential_1_conditional(v77, v78, &protocol descriptor for BlueprintViewportMonitorObserver))
     {
-      v77 = v75;
-      v78 = v91;
+      v79 = v76;
+      v80 = v93;
       BlueprintViewportMonitor.remove(observer:)();
     }
   }
@@ -6482,15 +6500,15 @@ void sub_1D7F99534(uint64_t a1, void *a2)
   OUTLINED_FUNCTION_34_0();
   OUTLINED_FUNCTION_3_7();
   v5 = *(v4 + 248);
-  OUTLINED_FUNCTION_10();
-  v6 = *(v2 + v5);
-  if (v6)
+  OUTLINED_FUNCTION_10(v2 + v5, v6);
+  v7 = *(v2 + v5);
+  if (v7)
   {
-    swift_getObjectType();
-    if (dynamic_cast_existential_1_conditional(a2))
+    ObjectType = swift_getObjectType();
+    if (dynamic_cast_existential_1_conditional(a2, ObjectType, &protocol descriptor for BlueprintViewportMonitorObserver))
     {
-      v7 = v6;
-      v8 = a2;
+      v9 = v7;
+      v10 = a2;
       BlueprintViewportMonitor.add(observer:scrollView:)();
     }
   }
@@ -6498,17 +6516,17 @@ void sub_1D7F99534(uint64_t a1, void *a2)
 
 void sub_1D7F995F0(uint64_t a1, void *a2)
 {
-  swift_getObjectType();
-  if (dynamic_cast_existential_1_conditional(a2))
+  ObjectType = swift_getObjectType();
+  if (dynamic_cast_existential_1_conditional(a2, ObjectType, &protocol descriptor for BlueprintViewportMonitorObserver))
   {
     OUTLINED_FUNCTION_3_7();
-    v5 = *(v4 + 248);
-    OUTLINED_FUNCTION_10();
-    v6 = *(v2 + v5);
-    if (v6)
+    v6 = *(v5 + 248);
+    OUTLINED_FUNCTION_10(v2 + v6, v7);
+    v8 = *(v2 + v6);
+    if (v8)
     {
-      v7 = a2;
-      v8 = v6;
+      v9 = a2;
+      v10 = v8;
       OUTLINED_FUNCTION_47();
       BlueprintViewportMonitor.remove(observer:)();
     }
@@ -6519,101 +6537,101 @@ void BlueprintTableViewDelegate.tableView(_:targetIndexPathForMoveFromRowAt:toPr
 {
   OUTLINED_FUNCTION_120();
   v1 = v0;
-  v61 = v2;
-  v58 = v3;
-  v59 = v4;
+  v69 = v2;
+  v66 = v3;
+  v67 = v4;
   v5 = *((*MEMORY[0x1E69E7D40] & *v0) + 0x70);
   v6 = *((*MEMORY[0x1E69E7D40] & *v0) + 0x50);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_9();
-  v51 = v8;
+  v59 = v8;
   OUTLINED_FUNCTION_44();
   MEMORY[0x1EEE9AC00](v9);
   OUTLINED_FUNCTION_94();
-  v52 = v10;
+  v60 = v10;
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
   OUTLINED_FUNCTION_85_0();
-  type metadata accessor for BlueprintItem();
+  type metadata accessor for BlueprintItem(v12, v13, v14, v15);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v12);
-  OUTLINED_FUNCTION_94();
-  v53 = v13;
-  OUTLINED_FUNCTION_52_0();
-  v14 = sub_1D818E994();
-  OUTLINED_FUNCTION_9();
-  v57 = v15;
   MEMORY[0x1EEE9AC00](v16);
-  OUTLINED_FUNCTION_15();
-  v54 = v18 - v17;
-  v19 = swift_getAssociatedTypeWitness();
-  OUTLINED_FUNCTION_75_2();
-  v20 = swift_getAssociatedConformanceWitness();
-  OUTLINED_FUNCTION_118_0();
-  v21 = type metadata accessor for BlueprintSection();
-  OUTLINED_FUNCTION_9();
-  v56 = v22;
-  OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v23);
   OUTLINED_FUNCTION_94();
-  v55 = v24;
-  v64[0] = v19;
-  v64[1] = AssociatedTypeWitness;
-  v64[2] = v20;
-  v65 = AssociatedConformanceWitness;
-  OUTLINED_FUNCTION_118_0();
-  type metadata accessor for Blueprint();
+  v61 = v17;
+  OUTLINED_FUNCTION_52_0();
+  v18 = sub_1D818E994();
+  OUTLINED_FUNCTION_9();
+  v65 = v19;
+  MEMORY[0x1EEE9AC00](v20);
+  OUTLINED_FUNCTION_15();
+  v62 = v22 - v21;
+  v23 = swift_getAssociatedTypeWitness();
+  OUTLINED_FUNCTION_75_2();
+  v24 = swift_getAssociatedConformanceWitness();
+  v25 = OUTLINED_FUNCTION_118_0();
+  v27 = type metadata accessor for BlueprintSection(v25, v26);
+  OUTLINED_FUNCTION_9();
+  v64 = v28;
+  OUTLINED_FUNCTION_44();
+  MEMORY[0x1EEE9AC00](v29);
+  OUTLINED_FUNCTION_94();
+  v63 = v30;
+  v72[0] = v23;
+  v72[1] = AssociatedTypeWitness;
+  v72[2] = v24;
+  v73 = AssociatedConformanceWitness;
+  v31 = OUTLINED_FUNCTION_118_0();
+  type metadata accessor for Blueprint(v31, v32);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v25);
+  MEMORY[0x1EEE9AC00](v33);
   OUTLINED_FUNCTION_21_11();
   OUTLINED_FUNCTION_131_0();
   BlueprintProviderType.blueprint.getter(v6, v5);
   sub_1D818E974();
   OUTLINED_FUNCTION_117_0();
-  LOBYTE(v20) = Blueprint.contains(index:)(v26);
-  v27 = OUTLINED_FUNCTION_6_16();
-  v60 = v28;
-  v28(v27);
-  if ((v20 & 1) == 0)
+  LOBYTE(v24) = Blueprint.contains(index:)(v34);
+  v35 = OUTLINED_FUNCTION_6_16();
+  v68 = v36;
+  v36(v35);
+  if ((v24 & 1) == 0)
   {
-    (*(v57 + 16))(v59, v58, v14);
+    (*(v65 + 16))(v67, v66, v18);
     goto LABEL_14;
   }
 
-  v50 = sub_1D818E944();
+  v58 = sub_1D818E944();
   OUTLINED_FUNCTION_131_0();
   BlueprintProviderType.blueprint.getter(v6, v5);
   sub_1D818E974();
   OUTLINED_FUNCTION_117_0();
   Blueprint.subscript.getter();
-  v29 = OUTLINED_FUNCTION_6_16();
-  v60(v29);
+  v37 = OUTLINED_FUNCTION_6_16();
+  v68(v37);
   swift_getWitnessTable();
-  v30 = sub_1D8191834();
-  (*(v56 + 8))(v55, v21);
-  v31 = v30 - 1;
-  if (!__OFSUB__(v30, 1))
+  v38 = sub_1D8191834();
+  (*(v64 + 8))(v63, v27);
+  v39 = v38 - 1;
+  if (!__OFSUB__(v38, 1))
   {
-    if (v31 >= v50)
+    if (v39 >= v58)
     {
-      v31 = v50;
+      v39 = v58;
     }
 
-    v32 = v31 & ~(v31 >> 63);
-    v33 = sub_1D818E974();
-    MEMORY[0x1DA710B40](v32, v33);
+    v40 = v39 & ~(v39 >> 63);
+    v41 = sub_1D818E974();
+    MEMORY[0x1DA710B40](v40, v41);
     OUTLINED_FUNCTION_131_0();
     BlueprintProviderType.blueprint.getter(v6, v5);
     OUTLINED_FUNCTION_117_0();
     Blueprint.contains(indexPath:)();
-    v35 = v34;
-    v36 = OUTLINED_FUNCTION_6_16();
-    v60(v36);
-    if ((v35 & 1) == 0)
+    v43 = v42;
+    v44 = OUTLINED_FUNCTION_6_16();
+    v68(v44);
+    if ((v43 & 1) == 0)
     {
-      (*(v57 + 8))(v54, v14);
-      (*(v57 + 16))(v59, v58, v14);
+      (*(v65 + 8))(v62, v18);
+      (*(v65 + 16))(v67, v66, v18);
       goto LABEL_14;
     }
 
@@ -6621,81 +6639,81 @@ void BlueprintTableViewDelegate.tableView(_:targetIndexPathForMoveFromRowAt:toPr
     BlueprintProviderType.blueprint.getter(v6, v5);
     OUTLINED_FUNCTION_117_0();
     Blueprint.subscript.getter();
-    v37 = OUTLINED_FUNCTION_6_16();
-    v60(v37);
-    v38 = (*(v51 + 16))(v52, v53, AssociatedTypeWitness);
-    OUTLINED_FUNCTION_91(v38, &qword_1ECA0EFE0);
+    v45 = OUTLINED_FUNCTION_6_16();
+    v68(v45);
+    v46 = (*(v59 + 16))(v60, v61, AssociatedTypeWitness);
+    OUTLINED_FUNCTION_91(v46, &qword_1ECA0EFE0, &protocol descriptor for Movable);
     OUTLINED_FUNCTION_104_0();
     if (swift_dynamicCast())
     {
-      sub_1D7E05450(v62, v64);
-      v1 = v66;
-      __swift_project_boxed_opaque_existential_1(v64, v65);
-      v39 = OUTLINED_FUNCTION_4_1();
-      v41 = v40(v39);
-      v42 = OUTLINED_FUNCTION_70_2();
-      v43(v42);
-      v44 = OUTLINED_FUNCTION_77_3();
-      v45(v44);
-      if (v41)
+      sub_1D7E05450(v70, v72);
+      v1 = v74;
+      __swift_project_boxed_opaque_existential_1(v72, v73);
+      v47 = OUTLINED_FUNCTION_4_1();
+      v49 = v48(v47);
+      v50 = OUTLINED_FUNCTION_70_2();
+      v51(v50);
+      v52 = OUTLINED_FUNCTION_77_3();
+      v53(v52);
+      if (v49)
       {
-        (v1[2])(v59, v61, v52);
-        __swift_destroy_boxed_opaque_existential_1Tm(v64);
+        (v1[2])(v67, v69, v60);
+        __swift_destroy_boxed_opaque_existential_1Tm(v72);
 LABEL_14:
         OUTLINED_FUNCTION_100();
         return;
       }
 
-      __swift_destroy_boxed_opaque_existential_1Tm(v64);
+      __swift_destroy_boxed_opaque_existential_1Tm(v72);
     }
 
     else
     {
-      v46 = OUTLINED_FUNCTION_70_2();
-      v47(v46);
-      v48 = OUTLINED_FUNCTION_77_3();
-      v49(v48);
-      v63 = 0;
-      memset(v62, 0, sizeof(v62));
-      sub_1D7F9E7CC(v62, &unk_1ECA0E640, &qword_1ECA0EFE0, &protocol descriptor for Movable);
+      v54 = OUTLINED_FUNCTION_70_2();
+      v55(v54);
+      v56 = OUTLINED_FUNCTION_77_3();
+      v57(v56);
+      v71 = 0;
+      memset(v70, 0, sizeof(v70));
+      sub_1D7F9E7CC(v70, &unk_1ECA0E640, &qword_1ECA0EFE0, &protocol descriptor for Movable);
     }
 
-    (v1[2])(v59, v58, v52);
+    (v1[2])(v67, v66, v60);
     goto LABEL_14;
   }
 
   __break(1u);
 }
 
-id sub_1D7F99D5C(void *a1, uint64_t a2, void *a3)
+id sub_1D7F99D5C(void *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
 {
-  v5 = sub_1D818E994();
-  v6 = *(v5 - 8);
-  MEMORY[0x1EEE9AC00](v5);
-  v8 = &v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v11 = &v20 - v10;
-  MEMORY[0x1EEE9AC00](v12);
-  v14 = &v20 - v13;
+  v7 = sub_1D818E994();
+  v8 = *(v7 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v10 = &v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v13 = &v22 - v12;
+  MEMORY[0x1EEE9AC00](v14);
+  v16 = &v22 - v15;
   sub_1D818E924();
   sub_1D818E924();
-  v15 = a3;
-  v16 = a1;
+  v17 = a3;
+  v18 = a1;
   BlueprintTableViewDelegate.tableView(_:targetIndexPathForMoveFromRowAt:toProposedIndexPath:)();
 
-  v17 = *(v6 + 8);
-  v17(v8, v5);
-  v17(v11, v5);
-  v18 = sub_1D818E8E4();
-  v17(v14, v5);
+  v19 = *(v8 + 8);
+  v19(v10, v7);
+  v19(v13, v7);
+  v20 = sub_1D818E8E4();
+  v19(v16, v7);
 
-  return v18;
+  return v20;
 }
 
 void BlueprintTableViewDelegate.tableView(_:trailingSwipeActionsConfigurationForRowAt:)()
 {
   OUTLINED_FUNCTION_120();
-  v26 = v2;
+  v33 = v2;
   v3 = *((*MEMORY[0x1E69E7D40] & *v0) + 0x50);
   OUTLINED_FUNCTION_75_2();
   swift_getAssociatedTypeWitness();
@@ -6706,85 +6724,85 @@ void BlueprintTableViewDelegate.tableView(_:trailingSwipeActionsConfigurationFor
   OUTLINED_FUNCTION_75_2();
   swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_100_0();
-  swift_getAssociatedConformanceWitness();
-  v5 = OUTLINED_FUNCTION_137_0();
-  OUTLINED_FUNCTION_111_0(v5);
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v9 = OUTLINED_FUNCTION_137_0(AssociatedConformanceWitness, v6, v7, v8, &associated conformance descriptor for BlueprintProviderType.BlueprintProviderType.Model: Modelable);
+  OUTLINED_FUNCTION_111_0(v9);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v6);
+  MEMORY[0x1EEE9AC00](v10);
   OUTLINED_FUNCTION_26();
-  OUTLINED_FUNCTION_12_13();
-  type metadata accessor for BlueprintItem();
+  v11 = OUTLINED_FUNCTION_12_13();
+  type metadata accessor for BlueprintItem(v11, v12, &protocol requirements base descriptor for BlueprintProviderType, v13);
   OUTLINED_FUNCTION_9();
-  v27 = v8;
-  v28 = v7;
+  v34 = v15;
+  v35 = v14;
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v9);
+  MEMORY[0x1EEE9AC00](v16);
   OUTLINED_FUNCTION_51();
   OUTLINED_FUNCTION_138_0();
   OUTLINED_FUNCTION_113_0();
-  v10 = OUTLINED_FUNCTION_11_0();
-  v11(v10);
-  v12 = OUTLINED_FUNCTION_84_1();
-  v14 = v13(v12);
-  OUTLINED_FUNCTION_91(v14, &qword_1EDBB0730);
+  v17 = OUTLINED_FUNCTION_11_0();
+  v18(v17);
+  v19 = OUTLINED_FUNCTION_84_1();
+  v21 = v20(v19);
+  OUTLINED_FUNCTION_91(v21, &qword_1EDBB0730, &protocol descriptor for BlueprintViewActionable);
   OUTLINED_FUNCTION_92();
   if ((swift_dynamicCast() & 1) == 0)
   {
-    (*(v27 + 8))(v1, v28);
+    (*(v34 + 8))(v1, v35);
     OUTLINED_FUNCTION_90();
-    sub_1D7F9E7CC(&v29, &qword_1ECA0E650, &qword_1EDBB0730, &protocol descriptor for BlueprintViewActionable);
+    sub_1D7F9E7CC(&v36, &qword_1ECA0E650, &qword_1EDBB0730, &protocol descriptor for BlueprintViewActionable);
     goto LABEL_9;
   }
 
   OUTLINED_FUNCTION_112_0();
-  v15 = OUTLINED_FUNCTION_11_0();
-  v17 = v16(v15);
-  if (!v17)
+  v22 = OUTLINED_FUNCTION_11_0();
+  v24 = v23(v22);
+  if (!v24)
   {
-    v22 = OUTLINED_FUNCTION_18_14();
-    v23(v22);
+    v29 = OUTLINED_FUNCTION_18_14();
+    v30(v29);
 LABEL_8:
-    __swift_destroy_boxed_opaque_existential_1Tm(v30);
+    __swift_destroy_boxed_opaque_existential_1Tm(v37);
     goto LABEL_9;
   }
 
-  if (!*(v17 + 16))
+  if (!*(v24 + 16))
   {
-    v24 = OUTLINED_FUNCTION_18_14();
-    v25(v24);
+    v31 = OUTLINED_FUNCTION_18_14();
+    v32(v31);
 
     goto LABEL_8;
   }
 
-  v18 = OUTLINED_FUNCTION_73();
-  sub_1D7F9A248(v18, v19, v26, v3);
+  v25 = OUTLINED_FUNCTION_73();
+  sub_1D7F9A248(v25, v26, v33, v3);
 
-  v20 = OUTLINED_FUNCTION_18_14();
-  v21(v20);
-  __swift_destroy_boxed_opaque_existential_1Tm(v30);
+  v27 = OUTLINED_FUNCTION_18_14();
+  v28(v27);
+  __swift_destroy_boxed_opaque_existential_1Tm(v37);
 LABEL_9:
   OUTLINED_FUNCTION_100();
 }
 
 id sub_1D7F9A248(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v35 = a4;
-  v32 = a1;
-  v33 = a3;
+  v37 = a4;
+  v34 = a1;
+  v35 = a3;
   v5 = type metadata accessor for BlueprintViewAction(0);
   v6 = *(v5 - 8);
   MEMORY[0x1EEE9AC00](v5 - 8);
-  v37 = v31 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v39 = v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v8);
-  v10 = v31 - v9;
+  v10 = v33 - v9;
   MEMORY[0x1EEE9AC00](v11);
-  v13 = v31 - v12;
+  v13 = v33 - v12;
   v14 = 0;
-  v31[1] = 0;
+  v33[1] = 0;
   v15 = *(a2 + 16);
   v16 = MEMORY[0x1E69E7CC0];
-  v36 = a2;
+  v38 = a2;
 LABEL_2:
   while (v14 != v15)
   {
@@ -6793,7 +6811,7 @@ LABEL_2:
     sub_1D7F9E1BC(a2 + v17 + v18 * v14++, v13);
     sub_1D7F9E1BC(v13, v10);
 
-    sub_1D7F9E220();
+    sub_1D7F9E220(0);
     v20 = *&v10[*(v19 + 64)];
     sub_1D7F9E310(&v10[*(v19 + 48)], type metadata accessor for BlueprintViewAction.Action);
     v21 = (v20 + 40);
@@ -6810,13 +6828,13 @@ LABEL_2:
       }
     }
 
-    sub_1D7F9E368(v13, v37);
+    sub_1D7F9E368(v13, v39);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v38 = v16;
+    v40 = v16;
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
       sub_1D7F0902C(0, *(v16 + 16) + 1, 1);
-      v16 = v38;
+      v16 = v40;
     }
 
     v26 = *(v16 + 16);
@@ -6824,31 +6842,32 @@ LABEL_2:
     if (v26 >= v25 >> 1)
     {
       sub_1D7F0902C(v25 > 1, v26 + 1, 1);
-      v16 = v38;
+      v16 = v40;
     }
 
     *(v16 + 16) = v26 + 1;
-    sub_1D7F9E368(v37, v16 + v17 + v26 * v18);
-    a2 = v36;
+    sub_1D7F9E368(v39, v16 + v17 + v26 * v18);
+    a2 = v38;
   }
 
-  v27 = sub_1D7E0A1A8(0, &qword_1ECA0E660);
+  v27 = sub_1D7E0A1A8(0, &qword_1ECA0E660, 0x1E69DCFC0);
   MEMORY[0x1EEE9AC00](v27);
-  v28 = v33;
-  v31[-4] = v34;
-  v31[-3] = v28;
-  v29 = v35;
-  v31[-2] = v32;
-  v31[-1] = v29;
-  sub_1D7FFB7A8(sub_1D7F9E3CC, &v31[-6], v16);
+  v28 = v35;
+  v33[-4] = v36;
+  v33[-3] = v28;
+  v29 = v37;
+  v33[-2] = v34;
+  v33[-1] = v29;
+  sub_1D7FFB7A8(sub_1D7F9E3CC, &v33[-6], v16);
+  v31 = v30;
 
-  return sub_1D80A8CC4();
+  return sub_1D80A8CC4(v31);
 }
 
 void BlueprintTableViewDelegate.tableView(_:leadingSwipeActionsConfigurationForRowAt:)()
 {
   OUTLINED_FUNCTION_120();
-  v26 = v2;
+  v33 = v2;
   v3 = *((*MEMORY[0x1E69E7D40] & *v0) + 0x50);
   OUTLINED_FUNCTION_75_2();
   swift_getAssociatedTypeWitness();
@@ -6859,63 +6878,63 @@ void BlueprintTableViewDelegate.tableView(_:leadingSwipeActionsConfigurationForR
   OUTLINED_FUNCTION_75_2();
   swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_100_0();
-  swift_getAssociatedConformanceWitness();
-  v5 = OUTLINED_FUNCTION_137_0();
-  OUTLINED_FUNCTION_111_0(v5);
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v9 = OUTLINED_FUNCTION_137_0(AssociatedConformanceWitness, v6, v7, v8, &associated conformance descriptor for BlueprintProviderType.BlueprintProviderType.Model: Modelable);
+  OUTLINED_FUNCTION_111_0(v9);
   OUTLINED_FUNCTION_9();
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v6);
+  MEMORY[0x1EEE9AC00](v10);
   OUTLINED_FUNCTION_26();
-  OUTLINED_FUNCTION_12_13();
-  type metadata accessor for BlueprintItem();
+  v11 = OUTLINED_FUNCTION_12_13();
+  type metadata accessor for BlueprintItem(v11, v12, &protocol requirements base descriptor for BlueprintProviderType, v13);
   OUTLINED_FUNCTION_9();
-  v27 = v8;
-  v28 = v7;
+  v34 = v15;
+  v35 = v14;
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v9);
+  MEMORY[0x1EEE9AC00](v16);
   OUTLINED_FUNCTION_51();
   OUTLINED_FUNCTION_138_0();
   OUTLINED_FUNCTION_113_0();
-  v10 = OUTLINED_FUNCTION_11_0();
-  v11(v10);
-  v12 = OUTLINED_FUNCTION_84_1();
-  v14 = v13(v12);
-  OUTLINED_FUNCTION_91(v14, &qword_1EDBB0730);
+  v17 = OUTLINED_FUNCTION_11_0();
+  v18(v17);
+  v19 = OUTLINED_FUNCTION_84_1();
+  v21 = v20(v19);
+  OUTLINED_FUNCTION_91(v21, &qword_1EDBB0730, &protocol descriptor for BlueprintViewActionable);
   OUTLINED_FUNCTION_92();
   if ((swift_dynamicCast() & 1) == 0)
   {
-    (*(v27 + 8))(v1, v28);
+    (*(v34 + 8))(v1, v35);
     OUTLINED_FUNCTION_90();
-    sub_1D7F9E7CC(&v29, &qword_1ECA0E650, &qword_1EDBB0730, &protocol descriptor for BlueprintViewActionable);
+    sub_1D7F9E7CC(&v36, &qword_1ECA0E650, &qword_1EDBB0730, &protocol descriptor for BlueprintViewActionable);
     goto LABEL_9;
   }
 
   OUTLINED_FUNCTION_112_0();
-  v15 = OUTLINED_FUNCTION_11_0();
-  v17 = v16(v15);
-  if (!v17)
+  v22 = OUTLINED_FUNCTION_11_0();
+  v24 = v23(v22);
+  if (!v24)
   {
-    v22 = OUTLINED_FUNCTION_18_14();
-    v23(v22);
+    v29 = OUTLINED_FUNCTION_18_14();
+    v30(v29);
 LABEL_8:
-    __swift_destroy_boxed_opaque_existential_1Tm(v30);
+    __swift_destroy_boxed_opaque_existential_1Tm(v37);
     goto LABEL_9;
   }
 
-  if (!*(v17 + 16))
+  if (!*(v24 + 16))
   {
-    v24 = OUTLINED_FUNCTION_18_14();
-    v25(v24);
+    v31 = OUTLINED_FUNCTION_18_14();
+    v32(v31);
 
     goto LABEL_8;
   }
 
-  v18 = OUTLINED_FUNCTION_73();
-  sub_1D7F9A248(v18, v19, v26, v3);
+  v25 = OUTLINED_FUNCTION_73();
+  sub_1D7F9A248(v25, v26, v33, v3);
 
-  v20 = OUTLINED_FUNCTION_18_14();
-  v21(v20);
-  __swift_destroy_boxed_opaque_existential_1Tm(v30);
+  v27 = OUTLINED_FUNCTION_18_14();
+  v28(v27);
+  __swift_destroy_boxed_opaque_existential_1Tm(v37);
 LABEL_9:
   OUTLINED_FUNCTION_100();
 }
@@ -6945,74 +6964,75 @@ void BlueprintTableViewDelegate.tableView(_:editingStyleForRowAt:)()
   OUTLINED_FUNCTION_103_0();
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_9();
-  v23 = v2;
+  v25 = v2;
   OUTLINED_FUNCTION_44();
   MEMORY[0x1EEE9AC00](v3);
   OUTLINED_FUNCTION_94();
-  v21 = v4;
+  v23 = v4;
   OUTLINED_FUNCTION_16();
   v5 = swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_111();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
   OUTLINED_FUNCTION_111();
-  v25[0] = v5;
-  v25[1] = AssociatedTypeWitness;
-  v25[2] = AssociatedConformanceWitness;
-  v26 = swift_getAssociatedConformanceWitness();
-  v7 = type metadata accessor for Blueprint();
+  v7 = swift_getAssociatedConformanceWitness();
+  v27[0] = v5;
+  v27[1] = AssociatedTypeWitness;
+  v27[2] = AssociatedConformanceWitness;
+  v28 = v7;
+  v8 = type metadata accessor for Blueprint(0, v27);
   OUTLINED_FUNCTION_9();
-  v9 = v8;
+  v10 = v9;
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v10);
+  MEMORY[0x1EEE9AC00](v11);
   OUTLINED_FUNCTION_51();
-  v22 = type metadata accessor for BlueprintItem();
+  v24 = type metadata accessor for BlueprintItem(0, AssociatedTypeWitness, v7, v12);
   OUTLINED_FUNCTION_9();
-  v12 = v11;
+  v14 = v13;
   OUTLINED_FUNCTION_44();
-  MEMORY[0x1EEE9AC00](v13);
+  MEMORY[0x1EEE9AC00](v15);
   OUTLINED_FUNCTION_21_11();
-  v14 = OUTLINED_FUNCTION_110();
-  BlueprintProviderType.blueprint.getter(v14, v15);
+  v16 = OUTLINED_FUNCTION_110();
+  BlueprintProviderType.blueprint.getter(v16, v17);
   Blueprint.subscript.getter();
-  (*(v9 + 8))(v0, v7);
-  v16 = (*(v23 + 16))(v21, v5, AssociatedTypeWitness);
-  OUTLINED_FUNCTION_91(v16, &qword_1EDBB0730);
+  (*(v10 + 8))(v0, v8);
+  v18 = (*(v25 + 16))(v23, v5, AssociatedTypeWitness);
+  OUTLINED_FUNCTION_91(v18, &qword_1EDBB0730, &protocol descriptor for BlueprintViewActionable);
   OUTLINED_FUNCTION_92();
   if (swift_dynamicCast())
   {
-    sub_1D7E05450(v24, v25);
-    v17 = v27;
-    __swift_project_boxed_opaque_existential_1(v25, v26);
-    v18 = OUTLINED_FUNCTION_161();
-    v19(v18, v17);
-    (*(v12 + 8))(v5, v22);
-    __swift_destroy_boxed_opaque_existential_1Tm(v25);
+    sub_1D7E05450(v26, v27);
+    v19 = v29;
+    __swift_project_boxed_opaque_existential_1(v27, v28);
+    v20 = OUTLINED_FUNCTION_161();
+    v21(v20, v19);
+    (*(v14 + 8))(v5, v24);
+    __swift_destroy_boxed_opaque_existential_1Tm(v27);
   }
 
   else
   {
-    v20 = OUTLINED_FUNCTION_90();
-    (*(v12 + 8))(v5, v22, v20);
-    sub_1D7F9E7CC(v24, &qword_1ECA0E650, &qword_1EDBB0730, &protocol descriptor for BlueprintViewActionable);
+    v22 = OUTLINED_FUNCTION_90();
+    (*(v14 + 8))(v5, v24, v22);
+    sub_1D7F9E7CC(v26, &qword_1ECA0E650, &qword_1EDBB0730, &protocol descriptor for BlueprintViewActionable);
   }
 
   OUTLINED_FUNCTION_100();
 }
 
-uint64_t sub_1D7F9ACE8(void *a1, uint64_t a2, void *a3)
+uint64_t sub_1D7F9ACE8(void *a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v5 = sub_1D818E994();
-  v6 = *(v5 - 8);
-  MEMORY[0x1EEE9AC00](v5);
-  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_1D818E994();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D818E924();
-  v9 = a3;
-  v10 = a1;
+  v10 = a3;
+  v11 = a1;
   BlueprintTableViewDelegate.tableView(_:editingStyleForRowAt:)();
-  v12 = v11;
+  v13 = v12;
 
-  (*(v6 + 8))(v8, v5);
-  return v12;
+  (*(v7 + 8))(v9, v6);
+  return v13;
 }
 
 void BlueprintTableViewDelegate.tableView(_:willBeginEditingRowAt:)()
@@ -7026,7 +7046,7 @@ void BlueprintTableViewDelegate.tableView(_:willBeginEditingRowAt:)()
   MEMORY[0x1EEE9AC00](v8);
   OUTLINED_FUNCTION_15();
   v11 = v10 - v9;
-  sub_1D7EA0824();
+  sub_1D7EA0824(0);
   v13 = v12;
   OUTLINED_FUNCTION_8();
   MEMORY[0x1EEE9AC00](v14);
@@ -7043,7 +7063,7 @@ void BlueprintTableViewDelegate.tableView(_:willBeginEditingRowAt:)()
   OUTLINED_FUNCTION_123_1();
   OUTLINED_FUNCTION_3_7();
   v27 = v0 + *(v26 + 208);
-  OUTLINED_FUNCTION_8_4();
+  OUTLINED_FUNCTION_8_4(v27, &v47);
   if (swift_unknownObjectWeakLoadStrong())
   {
     v28 = *(v27 + 8);
@@ -7110,7 +7130,7 @@ LABEL_12:
 
   (*(v7 + 32))(v11, v17 + v33, v5);
   OUTLINED_FUNCTION_6_29();
-  sub_1D7E2DA70(v36, v37);
+  sub_1D7E2DA70(v36, v37, MEMORY[0x1E6969C50]);
   OUTLINED_FUNCTION_74();
   v38 = sub_1D8190ED4();
   v39 = *(v7 + 8);
@@ -7176,7 +7196,7 @@ void BlueprintTableViewDelegate.tableView(_:didEndEditingRowAt:)()
   OUTLINED_FUNCTION_123_1();
   OUTLINED_FUNCTION_3_7();
   v27 = v0 + *(v26 + 208);
-  OUTLINED_FUNCTION_8_4();
+  OUTLINED_FUNCTION_8_4(v27, &v58);
   if (!swift_unknownObjectWeakLoadStrong())
   {
     v46 = OUTLINED_FUNCTION_99();
@@ -7201,7 +7221,7 @@ LABEL_5:
   v33 = *(v21 + 32);
   v34 = OUTLINED_FUNCTION_6_16();
   v33(v34);
-  sub_1D7E0A1A8(0, &qword_1EDBBC7C0);
+  sub_1D7E0A1A8(0, &qword_1EDBBC7C0, 0x1E69E9610);
   v50 = sub_1D8191AB4();
   (*(v21 + 16))(&v48 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0), v1, v19);
   v35 = (*(v21 + 80) + 24) & ~*(v21 + 80);
@@ -7223,7 +7243,7 @@ LABEL_5:
   v41 = v49;
   sub_1D8190BF4();
   v57[0] = MEMORY[0x1E69E7CC0];
-  sub_1D7E2DA70(&qword_1EDBB34B0, MEMORY[0x1E69E7F60]);
+  sub_1D7E2DA70(&qword_1EDBB34B0, MEMORY[0x1E69E7F60], MEMORY[0x1E69E7F70]);
   sub_1D7E54930(0, &qword_1EDBB3348, MEMORY[0x1E69E7F60], MEMORY[0x1E69E62F8]);
   sub_1D7EBCDB4();
   v42 = v51;
@@ -7283,11 +7303,11 @@ Swift::Void __swiftcall BlueprintTableViewDelegate.scrollViewWillBeginDragging(_
 {
   OUTLINED_FUNCTION_19_11();
   v3 = v1 + *(v2 + 208);
-  OUTLINED_FUNCTION_8_4();
-  if (!swift_unknownObjectWeakLoadStrong() || (v4 = *(v3 + 8), ObjectType = swift_getObjectType(), (*(v4 + 32))(v6, ObjectType, v4), swift_unknownObjectRelease(), (v6[0] & 1) == 0))
+  OUTLINED_FUNCTION_8_4(v3, v8);
+  if (!swift_unknownObjectWeakLoadStrong() || (v4 = *(v3 + 8), ObjectType = swift_getObjectType(), (*(v4 + 32))(v7, ObjectType, v4), swift_unknownObjectRelease(), (v7[0] & 1) == 0))
   {
     OUTLINED_FUNCTION_19_11();
-    OUTLINED_FUNCTION_8_4();
+    OUTLINED_FUNCTION_8_4(v1 + *(v6 + 200), v7);
     if (swift_weakLoadStrong())
     {
       KeyCommandManager.invalidate(clearState:)(1);
@@ -7325,7 +7345,7 @@ Swift::Void __swiftcall BlueprintTableViewDelegate.scrollViewDidScroll(_:)(UIScr
   v4 = MEMORY[0x1E69E7D40];
   OUTLINED_FUNCTION_3_7();
   v7 = *((v6 & v5) + 0xE8);
-  OUTLINED_FUNCTION_8_4();
+  OUTLINED_FUNCTION_8_4(v2 + v7, v52);
   if (*(v2 + v7))
   {
 
@@ -7362,21 +7382,21 @@ Swift::Void __swiftcall BlueprintTableViewDelegate.scrollViewDidScroll(_:)(UIScr
     v31 = OUTLINED_FUNCTION_8_0();
     sub_1D7E4CC00(v32, v33, v31, v34, v35, v36);
     v37 = v18 + *(*v18 + 184);
-    *v37 = v48;
-    *(v37 + 8) = v49;
-    *(v37 + 24) = v50;
+    *v37 = v49;
+    *(v37 + 8) = v50;
+    *(v37 + 24) = v51;
     swift_unknownObjectRelease();
   }
 
   [(UIScrollView *)a1 contentOffset];
-  v40 = v38;
   v41 = v39;
-  v42 = (v2 + *((*v4 & *v2) + 0x110));
-  if ((v42[2] & 1) != 0 || ((v43 = vabdd_f64(*v42, v38), v44 = vabdd_f64(v42[1], v39), v45 = *((*v4 & *v2) + 0x108), OUTLINED_FUNCTION_10(), v46 = *(v2 + v45), v46 >= v43) ? (v47 = v46 < v44) : (v47 = 1), v47))
+  v42 = v40;
+  v43 = (v2 + *((*v4 & *v2) + 0x110));
+  if ((v43[2] & 1) != 0 || ((v44 = vabdd_f64(*v43, v39), v45 = vabdd_f64(v43[1], v40), v46 = *((*v4 & *v2) + 0x108), OUTLINED_FUNCTION_10(v2 + v46, v38), v47 = *(v2 + v46), v47 >= v44) ? (v48 = v47 < v45) : (v48 = 1), v48))
   {
-    *v42 = v40;
-    v42[1] = v41;
-    *(v42 + 16) = 0;
+    *v43 = v41;
+    v43[1] = v42;
+    *(v43 + 16) = 0;
     sub_1D7F91884(a1, 2u);
     OUTLINED_FUNCTION_10_19();
     BlueprintImpressionManager.updateImpressions(triggerSource:)();
@@ -7406,83 +7426,83 @@ void sub_1D7F9BF68(void *a1, uint64_t a2, void *a3)
 
 uint64_t sub_1D7F9BFD0@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, void *a6@<X8>)
 {
-  v59 = a6;
-  v56 = a4;
-  v57 = a5;
-  v54 = a3;
+  v62 = a6;
+  v59 = a4;
+  v60 = a5;
+  v57 = a3;
   v7 = *a2;
   v8 = *MEMORY[0x1E69E7D40];
-  v58 = *MEMORY[0x1E69E7D40] & *a2;
-  v61 = sub_1D818E994();
-  v50 = *(v61 - 8);
-  v55 = *(v50 + 64);
-  MEMORY[0x1EEE9AC00](v61);
-  v60 = &v37 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v61 = *MEMORY[0x1E69E7D40] & *a2;
+  v64 = sub_1D818E994();
+  v53 = *(v64 - 8);
+  v58 = *(v53 + 64);
+  MEMORY[0x1EEE9AC00](v64);
+  v63 = &v40 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   v10 = type metadata accessor for BlueprintViewAction(0);
-  v51 = *(v10 - 8);
-  v49 = *(v51 + 64);
+  v54 = *(v10 - 8);
+  v52 = *(v54 + 64);
   MEMORY[0x1EEE9AC00](v10 - 8);
-  v12 = &v37 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v40 = v12;
-  v52 = v7;
-  v53 = v8;
-  v48 = *((v8 & v7) + 0x70);
-  v46 = *((v8 & v7) + 0x50);
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedConformanceWitness();
-  v13 = type metadata accessor for BlueprintItem();
-  v38 = v13;
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  MEMORY[0x1EEE9AC00](v13);
-  v17 = &v37 - v16;
-  v39 = &v37 - v16;
-  v47 = sub_1D7E0A1A8(0, &qword_1ECA0E668);
-  v45 = BlueprintViewAction.style.getter();
-  v18 = a1;
-  v42 = a1;
-  v19 = BlueprintViewAction.title.getter();
-  v43 = v20;
-  v44 = v19;
-  v21 = swift_allocObject();
+  v12 = &v40 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v43 = v12;
+  v55 = v7;
+  v56 = v8;
+  v51 = *((v8 & v7) + 0x70);
+  v49 = *((v8 & v7) + 0x50);
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v16 = type metadata accessor for BlueprintItem(0, AssociatedTypeWitness, AssociatedConformanceWitness, v15);
+  v41 = v16;
+  v17 = *(v16 - 8);
+  v18 = *(v17 + 64);
+  MEMORY[0x1EEE9AC00](v16);
+  v20 = &v40 - v19;
+  v42 = &v40 - v19;
+  v50 = sub_1D7E0A1A8(0, &qword_1ECA0E668, 0x1E69DC8E8);
+  v48 = BlueprintViewAction.style.getter();
+  v21 = a1;
+  v45 = a1;
+  v22 = BlueprintViewAction.title.getter();
+  v46 = v23;
+  v47 = v22;
+  v24 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v41 = swift_allocObject();
+  v44 = swift_allocObject();
   swift_unknownObjectUnownedInit();
-  (*(v14 + 16))(v17, v56, v13);
-  sub_1D7F9E1BC(v18, v12);
-  v22 = v50;
-  (*(v50 + 16))(v60, v57, v61);
-  v23 = (*(v14 + 80) + 88) & ~*(v14 + 80);
-  v24 = (v15 + *(v51 + 80) + v23) & ~*(v51 + 80);
-  v25 = (v49 + *(v22 + 80) + v24) & ~*(v22 + 80);
-  v26 = (v55 + v25 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v27 = swift_allocObject();
-  *(v27 + 16) = v46;
-  v28 = v58;
-  *(v27 + 24) = *(v58 + 88);
-  v30 = v52;
-  v29 = v53;
-  *(v27 + 40) = *((v53 & v52) + 0x68);
-  *(v27 + 48) = v48;
-  *(v27 + 56) = *(v28 + 120);
-  *(v27 + 72) = *((v29 & v30) + 0x88);
-  *(v27 + 80) = v21;
-  (*(v14 + 32))(v27 + v23, v39, v38);
-  sub_1D7F9E368(v40, v27 + v24);
-  (*(v22 + 32))(v27 + v25, v60, v61);
-  *(v27 + v26) = v41;
-  v31 = sub_1D80A8AEC(v45, v44, v43, sub_1D7F9E458, v27);
-  v32 = BlueprintViewAction.attributes.getter();
-  v33 = *(v32 + 16);
-  if (v33)
+  (*(v17 + 16))(v20, v59, v16);
+  sub_1D7F9E1BC(v21, v12);
+  v25 = v53;
+  (*(v53 + 16))(v63, v60, v64);
+  v26 = (*(v17 + 80) + 88) & ~*(v17 + 80);
+  v27 = (v18 + *(v54 + 80) + v26) & ~*(v54 + 80);
+  v28 = (v52 + *(v25 + 80) + v27) & ~*(v25 + 80);
+  v29 = (v58 + v28 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v30 = swift_allocObject();
+  *(v30 + 16) = v49;
+  v31 = v61;
+  *(v30 + 24) = *(v61 + 88);
+  v33 = v55;
+  v32 = v56;
+  *(v30 + 40) = *((v56 & v55) + 0x68);
+  *(v30 + 48) = v51;
+  *(v30 + 56) = *(v31 + 120);
+  *(v30 + 72) = *((v32 & v33) + 0x88);
+  *(v30 + 80) = v24;
+  (*(v17 + 32))(v30 + v26, v42, v41);
+  sub_1D7F9E368(v43, v30 + v27);
+  (*(v25 + 32))(v30 + v28, v63, v64);
+  *(v30 + v29) = v44;
+  v34 = sub_1D80A8AEC(v48, v47, v46, sub_1D7F9E458, v30);
+  v35 = BlueprintViewAction.attributes.getter();
+  v36 = *(v35 + 16);
+  if (v36)
   {
-    v34 = (v32 + 40);
+    v37 = (v35 + 40);
     do
     {
-      if (*v34)
+      if (*v37)
       {
-        v35 = &selRef_setBackgroundColor_;
-        if (*v34 != 1)
+        v38 = &selRef_setBackgroundColor_;
+        if (*v37 != 1)
         {
           goto LABEL_8;
         }
@@ -7490,239 +7510,248 @@ uint64_t sub_1D7F9BFD0@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X2
 
       else
       {
-        v35 = &selRef_setImage_;
+        v38 = &selRef_setImage_;
       }
 
-      [v31 *v35];
+      [v34 *v38];
 LABEL_8:
-      v34 += 16;
-      --v33;
+      v37 += 16;
+      --v36;
     }
 
-    while (v33);
+    while (v36);
   }
 
-  *v59 = v31;
+  *v62 = v34;
   return result;
 }
 
-uint64_t sub_1D7F9C4E4(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+double sub_1D7F9C4E4(uint64_t a1, uint64_t a2, void (*a3)(void), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
 {
-  v70 = a7;
-  v71 = a8;
-  v68 = a6;
-  v77 = a4;
-  v74 = a3;
-  v75 = a10;
-  v76 = a14;
+  v76 = a7;
+  v77 = a8;
+  v74 = a6;
+  v83 = a4;
+  v80 = a3;
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v80 = swift_getAssociatedTypeWitness();
+  v18 = swift_getAssociatedTypeWitness();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v82 = swift_getAssociatedConformanceWitness();
-  v63 = type metadata accessor for Blueprint();
-  v62 = *(v63 - 8);
-  MEMORY[0x1EEE9AC00](v63);
-  v61 = &v53 - v17;
-  v69 = sub_1D818E994();
-  v66 = *(v69 - 8);
-  v18 = *(v66 + 64);
+  v81 = a10;
+  v82 = a14;
+  v20 = swift_getAssociatedConformanceWitness();
+  v85[0] = AssociatedTypeWitness;
+  v85[1] = v18;
+  v85[2] = AssociatedConformanceWitness;
+  v85[3] = v20;
+  v69 = type metadata accessor for Blueprint(0, v85);
+  v68 = *(v69 - 8);
   MEMORY[0x1EEE9AC00](v69);
-  v67 = &v53 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = type metadata accessor for BlueprintViewAction(0);
-  v64 = *(v19 - 8);
-  v20 = *(v64 + 64);
-  MEMORY[0x1EEE9AC00](v19 - 8);
-  v65 = &v53 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v21 = type metadata accessor for BlueprintViewAction.Action(0);
-  MEMORY[0x1EEE9AC00](v21 - 8);
-  v23 = &v53 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = type metadata accessor for BlueprintItem();
-  v25 = *(v24 - 8);
-  MEMORY[0x1EEE9AC00](v24);
-  v27 = &v53 - v26;
-  swift_beginAccess();
-  Strong = swift_unknownObjectWeakLoadStrong();
-  if (!Strong)
-  {
-    return v74();
-  }
-
-  v29 = Strong;
-  v73 = a17;
-  v58 = a16;
-  v57 = a15;
-  v72 = a13;
-  v54 = a12;
-  v53 = a11;
-  v60 = a9;
-  v59 = type metadata accessor for BlueprintViewActionRequest();
-  v30 = *(v25 + 16);
-  v56 = v27;
-  v30(v27, v68, v24);
-  v55 = v23;
-  v31 = v70;
-  BlueprintViewAction.action.getter(v23);
-  v78[0] = 2;
-  v32 = swift_allocObject();
-  swift_beginAccess();
-  v33 = swift_unknownObjectWeakLoadStrong();
-  swift_unknownObjectWeakInit();
-
-  v34 = v65;
-  sub_1D7F9E1BC(v31, v65);
-  v35 = v66;
-  v36 = v67;
-  v37 = v69;
-  (*(v66 + 16))(v67, v71, v69);
-  v38 = (*(v64 + 80) + 104) & ~*(v64 + 80);
-  v39 = (v20 + *(v35 + 80) + v38) & ~*(v35 + 80);
-  v40 = swift_allocObject();
-  v41 = v53;
-  *(v40 + 2) = v75;
-  *(v40 + 3) = v41;
-  v42 = v72;
-  *(v40 + 4) = v54;
-  *(v40 + 5) = v42;
-  v43 = v57;
-  *(v40 + 6) = v76;
-  *(v40 + 7) = v43;
-  v45 = v73;
-  v44 = v74;
-  *(v40 + 8) = v58;
-  *(v40 + 9) = v45;
-  *(v40 + 10) = v32;
-  *(v40 + 11) = v44;
-  *(v40 + 12) = v77;
-  sub_1D7F9E368(v34, &v40[v38]);
-  v46 = v36;
-  v47 = v60;
-  (*(v35 + 32))(&v40[v39], v46, v37);
-  *&v40[(v18 + v39 + 7) & 0xFFFFFFFFFFFFFFF8] = v47;
-  v48 = BlueprintViewActionRequest.__allocating_init(item:action:source:sourceView:completion:)(v56, v55, v78, 0, sub_1D7F9E638, v40);
-  swift_beginAccess();
-  v49 = swift_unknownObjectWeakLoadStrong();
-  if (v49)
-  {
-    v50 = v49;
-
-    v51 = v61;
-    BlueprintProviderType.blueprint.getter(v75, v76);
-    (*(v73 + 72))(v51, v48, v72);
-
-    return (*(v62 + 8))(v51, v63);
-  }
-
-  else
-  {
-  }
-}
-
-void sub_1D7F9CB98(int a1, uint64_t a2, void (*a3)(void), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15)
-{
-  v58 = a8;
-  v19 = sub_1D8190BD4();
-  v63 = *(v19 - 8);
-  v64 = v19;
-  MEMORY[0x1EEE9AC00](v19);
-  v61 = &v50 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v62 = sub_1D8190C34();
-  v60 = *(v62 - 8);
-  MEMORY[0x1EEE9AC00](v62);
-  v57 = &v50 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v65 = sub_1D8190C64();
-  v59 = *(v65 - 8);
-  MEMORY[0x1EEE9AC00](v65);
-  v23 = &v50 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v24);
-  v26 = &v50 - v25;
+  v67 = &v59 - v21;
+  v75 = sub_1D818E994();
+  v72 = *(v75 - 8);
+  v22 = *(v72 + 64);
+  MEMORY[0x1EEE9AC00](v75);
+  v73 = &v59 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = type metadata accessor for BlueprintViewAction(0);
+  v70 = *(v23 - 8);
+  v24 = *(v70 + 64);
+  MEMORY[0x1EEE9AC00](v23 - 8);
+  v71 = &v59 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v25 = type metadata accessor for BlueprintViewAction.Action(0);
+  MEMORY[0x1EEE9AC00](v25 - 8);
+  v27 = &v59 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v29 = type metadata accessor for BlueprintItem(0, v18, v20, v28);
+  v30 = *(v29 - 8);
+  MEMORY[0x1EEE9AC00](v29);
+  v32 = &v59 - v31;
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v28 = Strong;
-    v56 = a4;
-    HIDWORD(v55) = a1;
+    v35 = Strong;
+    v79 = a17;
+    v64 = a16;
+    v63 = a15;
+    v78 = a13;
+    v60 = a12;
+    v59 = a11;
+    v66 = a9;
+    v65 = type metadata accessor for BlueprintViewActionRequest(0, v18, v20, v34);
+    v36 = *(v30 + 16);
+    v62 = v32;
+    v36(v32, v74, v29);
+    v61 = v27;
+    v37 = v76;
+    BlueprintViewAction.action.getter(v27);
+    v84[0] = 2;
+    v38 = swift_allocObject();
+    swift_beginAccess();
+    v39 = swift_unknownObjectWeakLoadStrong();
+    swift_unknownObjectWeakInit();
+
+    v40 = v71;
+    sub_1D7F9E1BC(v37, v71);
+    v41 = v72;
+    v42 = v73;
+    v43 = v75;
+    (*(v72 + 16))(v73, v77, v75);
+    v44 = (*(v70 + 80) + 104) & ~*(v70 + 80);
+    v45 = (v24 + *(v41 + 80) + v44) & ~*(v41 + 80);
+    v46 = swift_allocObject();
+    v47 = v59;
+    *(v46 + 2) = v81;
+    *(v46 + 3) = v47;
+    v48 = v78;
+    *(v46 + 4) = v60;
+    *(v46 + 5) = v48;
+    v49 = v63;
+    *(v46 + 6) = v82;
+    *(v46 + 7) = v49;
+    v51 = v79;
+    v50 = v80;
+    *(v46 + 8) = v64;
+    *(v46 + 9) = v51;
+    *(v46 + 10) = v38;
+    *(v46 + 11) = v50;
+    *(v46 + 12) = v83;
+    sub_1D7F9E368(v40, &v46[v44]);
+    v52 = v42;
+    v53 = v66;
+    (*(v41 + 32))(&v46[v45], v52, v43);
+    *&v46[(v22 + v45 + 7) & 0xFFFFFFFFFFFFFFF8] = v53;
+    v54 = BlueprintViewActionRequest.__allocating_init(item:action:source:sourceView:completion:)(v62, v61, v84, 0, sub_1D7F9E638, v46);
+    swift_beginAccess();
+    v55 = swift_unknownObjectWeakLoadStrong();
+    if (v55)
+    {
+      v56 = v55;
+
+      v57 = v67;
+      BlueprintProviderType.blueprint.getter(v81, v82);
+      (*(v79 + 72))(v57, v54, v78);
+
+      (*(v68 + 8))(v57, v69);
+    }
+
+    else
+    {
+    }
+  }
+
+  else
+  {
+    v80();
+  }
+
+  return result;
+}
+
+void sub_1D7F9CB98(int a1, uint64_t a2, void (*a3)(void), uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, __n128 a9, __n128 a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17)
+{
+  v60 = a8;
+  v21 = sub_1D8190BD4();
+  v65 = *(v21 - 8);
+  v66 = v21;
+  MEMORY[0x1EEE9AC00](v21);
+  v63 = &v52 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v64 = sub_1D8190C34();
+  v62 = *(v64 - 8);
+  MEMORY[0x1EEE9AC00](v64);
+  v59 = &v52 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v67 = sub_1D8190C64();
+  v61 = *(v67 - 8);
+  MEMORY[0x1EEE9AC00](v67);
+  v25 = &v52 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v26);
+  v28 = &v52 - v27;
+  swift_beginAccess();
+  Strong = swift_unknownObjectWeakLoadStrong();
+  if (Strong)
+  {
+    v30 = Strong;
+    v58 = a4;
+    HIDWORD(v57) = a1;
     if ((a1 & 1) != 0 && BlueprintViewAction.style.getter())
     {
-      v29 = swift_unknownObjectUnownedLoadStrong();
-      v30 = sub_1D818E8E4();
-      v31 = [v29 cellForRowAtIndexPath_];
-      v54 = a3;
-      v32 = v31;
+      v31 = swift_unknownObjectUnownedLoadStrong();
+      v32 = sub_1D818E8E4();
+      v33 = [v31 cellForRowAtIndexPath_];
+      v56 = a3;
+      v34 = v33;
 
       LOBYTE(aBlock[0]) = 1;
-      BlueprintImpressionManager.endImpression(at:view:triggerSource:)(a6, v32, aBlock, v33, v34, v35, v36, v37, v50, v51, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61);
+      BlueprintImpressionManager.endImpression(at:view:triggerSource:)(a6, v34, aBlock, v35, v36, v37, v38, v39, v52, v53, v54, v55, v56, v57, v58, v59, v60, v61, v62, v63);
 
-      a3 = v54;
+      a3 = v56;
     }
 
     if (BlueprintViewAction.style.getter())
     {
-      v54 = a3;
+      v56 = a3;
+      v55 = a15;
+      v54 = a14;
       v53 = a13;
       v52 = a12;
-      v51 = a11;
-      v50 = a10;
-      v38 = *((*MEMORY[0x1E69E7D40] & *v28) + 0xE0);
+      v40 = *((*MEMORY[0x1E69E7D40] & *v30) + 0xE0);
       swift_beginAccess();
-      v39 = *(v28 + v38);
-      if (v39)
+      v41 = *(v30 + v40);
+      if (v41)
       {
-        *(v39 + 16) = 0;
+        *(v41 + 16) = 0;
 
         sub_1D7F81AA4();
       }
 
-      sub_1D7E0A1A8(0, &qword_1EDBBC7C0);
-      v40 = sub_1D8191AB4();
+      sub_1D7E0A1A8(0, &qword_1EDBBC7C0, 0x1E69E9610);
+      v42 = sub_1D8191AB4();
       sub_1D8190C54();
       sub_1D8190C94();
-      v59 = *(v59 + 8);
-      (v59)(v23, v65);
-      v41 = swift_allocObject();
+      v61 = *(v61 + 8);
+      (v61)(v25, v67);
+      v43 = swift_allocObject();
       swift_beginAccess();
-      v42 = swift_unknownObjectWeakLoadStrong();
+      v44 = swift_unknownObjectWeakLoadStrong();
       swift_unknownObjectWeakInit();
 
-      v43 = swift_allocObject();
-      v43[2] = v58;
-      v43[3] = a9;
-      v44 = v51;
-      v43[4] = v50;
-      v43[5] = v44;
-      v45 = v53;
-      v43[6] = v52;
-      v43[7] = v45;
-      v43[8] = a14;
-      v43[9] = a15;
-      v43[10] = v41;
+      v45 = swift_allocObject();
+      v45[2] = v60;
+      v45[3] = a11;
+      v46 = v53;
+      v45[4] = v52;
+      v45[5] = v46;
+      v47 = v55;
+      v45[6] = v54;
+      v45[7] = v47;
+      v45[8] = a16;
+      v45[9] = a17;
+      v45[10] = v43;
       aBlock[4] = sub_1D7F9E764;
-      aBlock[5] = v43;
+      aBlock[5] = v45;
       aBlock[0] = MEMORY[0x1E69E9820];
       aBlock[1] = 1107296256;
       aBlock[2] = sub_1D7E64940;
       aBlock[3] = &block_descriptor_58;
-      v46 = _Block_copy(aBlock);
+      v48 = _Block_copy(aBlock);
 
-      v47 = v57;
+      v49 = v59;
       sub_1D8190BF4();
       aBlock[0] = MEMORY[0x1E69E7CC0];
-      sub_1D7E2DA70(&qword_1EDBB34B0, MEMORY[0x1E69E7F60]);
+      sub_1D7E2DA70(&qword_1EDBB34B0, MEMORY[0x1E69E7F60], MEMORY[0x1E69E7F70]);
       sub_1D7E54930(0, &qword_1EDBB3348, MEMORY[0x1E69E7F60], MEMORY[0x1E69E62F8]);
       sub_1D7EBCDB4();
-      v48 = v61;
-      v49 = v64;
+      v50 = v63;
+      v51 = v66;
       sub_1D8192004();
-      MEMORY[0x1DA713CA0](v26, v47, v48, v46);
-      _Block_release(v46);
+      MEMORY[0x1DA713CA0](v28, v49, v50, v48);
+      _Block_release(v48);
 
-      (*(v63 + 8))(v48, v49);
-      (*(v60 + 8))(v47, v62);
-      (v59)(v26, v65);
-      a3 = v54;
+      (*(v65 + 8))(v50, v51);
+      (*(v62 + 8))(v49, v64);
+      (v61)(v28, v67);
+      a3 = v56;
     }
 
-    (a3)(BYTE4(v55) & 1);
+    (a3)(BYTE4(v57) & 1);
   }
 
   else
@@ -7731,20 +7760,20 @@ void sub_1D7F9CB98(int a1, uint64_t a2, void (*a3)(void), uint64_t a4, uint64_t 
   }
 }
 
-void sub_1D7F9D1EC()
+void sub_1D7F9D1EC(uint64_t a1)
 {
   swift_beginAccess();
   Strong = swift_unknownObjectWeakLoadStrong();
   if (Strong)
   {
-    v1 = Strong;
-    v2 = *((*MEMORY[0x1E69E7D40] & *Strong) + 0xE0);
+    v2 = Strong;
+    v3 = *((*MEMORY[0x1E69E7D40] & *Strong) + 0xE0);
     swift_beginAccess();
-    v3 = *&v1[v2];
-    if (v3)
+    v4 = *&v2[v3];
+    if (v4)
     {
 
-      *(v3 + 16) = 1;
+      *(v4 + 16) = 1;
       sub_1D7F81AA4();
     }
 
@@ -7805,7 +7834,7 @@ uint64_t sub_1D7F9D34C(uint64_t a1)
   OUTLINED_FUNCTION_1();
   sub_1D7F9E7CC(a1 + *(v14 + 288), &qword_1EDBB7AF0, qword_1EDBB7AF8, &protocol descriptor for KeyboardInputMonitorType);
   OUTLINED_FUNCTION_1();
-  __swift_destroy_boxed_opaque_existential_1Tm(a1 + *(v15 + 296));
+  __swift_destroy_boxed_opaque_existential_1Tm((a1 + *(v15 + 296)));
   OUTLINED_FUNCTION_1();
   MEMORY[0x1DA715E30](a1 + *(v16 + 304));
   OUTLINED_FUNCTION_1();
@@ -7875,10 +7904,10 @@ void BlueprintTableViewDelegate.blueprintInfiniteScrollManager(_:didCompleteRequ
     *(v3 + 64) = sub_1D7E13BF4();
     *(v3 + 32) = v7;
     *(v3 + 40) = v6;
-    sub_1D7E0A1A8(0, &qword_1EDBBE110);
+    sub_1D7E0A1A8(0, &qword_1EDBBE110, 0x1E69E9BF8);
     sub_1D8190DB4();
     v9 = sub_1D8191E44();
-    sub_1D818FD44();
+    sub_1D818FD44("Blueprint infinite scroll requests completed request without blueprint view, model=%{public}@", 93, 2, &dword_1D7DFF000);
   }
 }
 
@@ -7892,7 +7921,7 @@ Swift::Void __swiftcall BlueprintTableViewDelegate.traitCollectionDidChange(_:tr
   MEMORY[0x1EEE9AC00](v7);
   OUTLINED_FUNCTION_28_1();
   (*(v10 + 16))(v3, &v2[*((v9 & v8) + 0xA0)], v6);
-  sub_1D7E069F0(0, qword_1EDBB62F8);
+  sub_1D7E069F0(0, qword_1EDBB62F8, &protocol descriptor for BlueprintViewTraitEnvironment, 0);
   if (swift_dynamicCast())
   {
     ObjectType = swift_getObjectType();
@@ -7944,16 +7973,16 @@ uint64_t sub_1D7F9DCA4()
   return sub_1D7F9B754(v3, v4);
 }
 
-uint64_t sub_1D7F9DD04()
+uint64_t sub_1D7F9DD04(void *a1)
 {
   result = swift_checkMetadataState();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_checkMetadataState();
-    if (v2 <= 0x3F)
+    if (v3 <= 0x3F)
     {
       result = swift_checkMetadataState();
-      if (v3 <= 0x3F)
+      if (v4 <= 0x3F)
       {
         return swift_initClassMetadata2();
       }
@@ -7966,31 +7995,31 @@ uint64_t sub_1D7F9DD04()
 uint64_t sub_1D7F9DFB4()
 {
   OUTLINED_FUNCTION_93_0();
-  sub_1D7E0A1A8(0, &qword_1EDBB2FC0);
+  sub_1D7E0A1A8(0, &qword_1EDBB2FC0, 0x1E69DD250);
   return sub_1D8191CC4() & 1;
 }
 
-void sub_1D7F9E010()
+void sub_1D7F9E010(uint64_t a1)
 {
   if (!qword_1EDBAE3C0)
   {
     sub_1D7F9E2C0(255, &qword_1EDBBC418, &type metadata for FloatingTabBarAccessory, MEMORY[0x1E69D6AD8]);
-    sub_1D7F9E0B4(&qword_1EDBB1FB8);
-    v0 = sub_1D8192344();
-    if (!v1)
+    sub_1D7F9E0B4(&qword_1EDBB1FB8, MEMORY[0x1E69D6AE8]);
+    v1 = sub_1D8192344();
+    if (!v2)
     {
-      atomic_store(v0, &qword_1EDBAE3C0);
+      atomic_store(v1, &qword_1EDBAE3C0);
     }
   }
 }
 
-uint64_t sub_1D7F9E0B4(unint64_t *a1)
+uint64_t sub_1D7F9E0B4(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
   {
     OUTLINED_FUNCTION_37_6();
-    sub_1D7F9E2C0(255, v3, v4, v5);
+    sub_1D7F9E2C0(255, v4, v5, v6);
     result = swift_getWitnessTable();
     atomic_store(result, a1);
   }
@@ -8005,14 +8034,14 @@ uint64_t sub_1D7F9E1BC(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-void sub_1D7F9E220()
+void sub_1D7F9E220(uint64_t a1)
 {
   if (!qword_1EDBAE620)
   {
     type metadata accessor for BlueprintViewAction.Action(255);
     sub_1D7F9E2C0(255, &qword_1EDBAE5F8, &type metadata for BlueprintViewAction.Attribute, MEMORY[0x1E69E62F8]);
     TupleTypeMetadata3 = swift_getTupleTypeMetadata3();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata3, &qword_1EDBAE620);
     }
@@ -8046,49 +8075,49 @@ uint64_t sub_1D7F9E368(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-void sub_1D7F9E3F0()
+void sub_1D7F9E3F0(uint64_t a1)
 {
   if (!qword_1ECA0E670)
   {
     sub_1D818E994();
     TupleTypeMetadata2 = swift_getTupleTypeMetadata2();
-    if (!v1)
+    if (!v2)
     {
       atomic_store(TupleTypeMetadata2, &qword_1ECA0E670);
     }
   }
 }
 
-uint64_t sub_1D7F9E458(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), uint64_t a4)
+double sub_1D7F9E458(uint64_t a1, uint64_t a2, void (*a3)(void), uint64_t a4)
 {
   v7 = *(v4 + 16);
   v9 = *(v4 + 40);
   v8 = *(v4 + 48);
-  v23 = *(v4 + 56);
-  v24 = *(v4 + 24);
+  v26 = *(v4 + 56);
+  v27 = *(v4 + 24);
   v10 = *(v4 + 72);
-  swift_getAssociatedTypeWitness();
+  AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   OUTLINED_FUNCTION_74();
-  swift_getAssociatedConformanceWitness();
-  v11 = type metadata accessor for BlueprintItem();
-  OUTLINED_FUNCTION_15_15(v11);
-  v13 = (*(v12 + 80) + 88) & ~*(v12 + 80);
-  v15 = *(v14 + 64);
-  v16 = type metadata accessor for BlueprintViewAction(0);
-  OUTLINED_FUNCTION_15_15(v16);
-  v18 = (v13 + v15 + *(v17 + 80)) & ~*(v17 + 80);
-  v19 = sub_1D818E994();
+  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
+  v14 = type metadata accessor for BlueprintItem(0, AssociatedTypeWitness, AssociatedConformanceWitness, v13);
+  OUTLINED_FUNCTION_15_15(v14);
+  v16 = (*(v15 + 80) + 88) & ~*(v15 + 80);
+  v18 = *(v17 + 64);
+  v19 = type metadata accessor for BlueprintViewAction(0);
   OUTLINED_FUNCTION_15_15(v19);
+  v21 = (v16 + v18 + *(v20 + 80)) & ~*(v20 + 80);
+  v22 = sub_1D818E994();
+  OUTLINED_FUNCTION_15_15(v22);
   OUTLINED_FUNCTION_120_0();
-  return sub_1D7F9C4E4(a1, a2, a3, a4, *(v4 + 80), v4 + v13, v4 + v18, v4 + v21, *(v4 + (v20 & 0xFFFFFFFFFFFFFFF8)), v7, v24, *(&v24 + 1), v9, v8, v23, *(&v23 + 1), v10);
+  return sub_1D7F9C4E4(a1, a2, a3, a4, *(v4 + 80), v4 + v16, v4 + v21, v4 + v24, *(v4 + (v23 & 0xFFFFFFFFFFFFFFF8)), v7, v27, *(&v27 + 1), v9, v8, v26, *(&v26 + 1), v10);
 }
 
-__n128 sub_1D7F9E638(int a1)
+void sub_1D7F9E638(int a1)
 {
   v3 = *(v1 + 16);
-  v14 = *(v1 + 24);
-  v12 = *(v1 + 56);
-  v13 = *(v1 + 40);
+  v13 = *(v1 + 24);
+  v11 = *(v1 + 56);
+  v12 = *(v1 + 40);
   v4 = *(v1 + 72);
   v5 = type metadata accessor for BlueprintViewAction(0);
   OUTLINED_FUNCTION_15_15(v5);
@@ -8096,8 +8125,7 @@ __n128 sub_1D7F9E638(int a1)
   v8 = sub_1D818E994();
   OUTLINED_FUNCTION_15_15(v8);
   OUTLINED_FUNCTION_120_0();
-  sub_1D7F9CB98(a1, *(v1 + 80), *(v1 + 88), *(v1 + 96), v1 + v7, v1 + v10, *(v1 + (v9 & 0xFFFFFFFFFFFFFFF8)), v3, v14, *(&v14 + 1), v13, *(&v13 + 1), v12, *(&v12 + 1), v4);
-  return result;
+  sub_1D7F9CB98(a1, *(v1 + 80), *(v1 + 88), *(v1 + 96), v1 + v7, v1 + v10, *(v1 + (v9 & 0xFFFFFFFFFFFFFFF8)), v3, v13, v11, v13.n128_i64[0], v13.n128_i64[1], v12, *(&v12 + 1), v11.n128_i64[0], v11.n128_i64[1], v4);
 }
 
 uint64_t sub_1D7F9E7CC(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t a4)
@@ -8108,11 +8136,11 @@ uint64_t sub_1D7F9E7CC(uint64_t a1, unint64_t *a2, unint64_t *a3, uint64_t a4)
   return a1;
 }
 
-uint64_t CollectionViewListCell.hasBeenTraversed.getter()
+uint64_t CollectionViewListCell.hasBeenTraversed.getter(uint64_t a1)
 {
-  v1 = qword_1EDBB8BD0;
-  OUTLINED_FUNCTION_1_0();
-  return *(v0 + v1);
+  v2 = qword_1EDBB8BD0;
+  OUTLINED_FUNCTION_1_0(a1);
+  return *(v1 + v2);
 }
 
 unint64_t CollectionViewListCell.selectionBehavior.getter@<X0>(unint64_t *a1@<X8>)
@@ -8170,23 +8198,23 @@ void CollectionViewListCell.init(coder:)()
   v2 = objc_allocWithZone(type metadata accessor for SelectedBackgroundView());
   *(v0 + v1) = OUTLINED_FUNCTION_4(v2, sel_initWithFrame_);
   v3 = qword_1EDBB8B88;
-  sub_1D7E40308();
-  v5 = v4;
-  *(v0 + v3) = [objc_allocWithZone(v4) init];
-  v6 = qword_1EDBB8BD8;
-  *(v0 + v6) = [objc_allocWithZone(v5) init];
-  v7 = qword_1EDBB8BC8;
-  *(v0 + v7) = [objc_allocWithZone(v5) init];
-  v8 = qword_1EDBB8B98;
-  *(v0 + v8) = [objc_allocWithZone(v5) init];
+  sub_1D7E40308(0, v4, v5, v6);
+  v8 = v7;
+  *(v0 + v3) = [objc_allocWithZone(v7) init];
+  v9 = qword_1EDBB8BD8;
+  *(v0 + v9) = [objc_allocWithZone(v8) init];
+  v10 = qword_1EDBB8BC8;
+  *(v0 + v10) = [objc_allocWithZone(v8) init];
+  v11 = qword_1EDBB8B98;
+  *(v0 + v11) = [objc_allocWithZone(v8) init];
   *(v0 + qword_1EDBB8BD0) = 0;
   *(v0 + qword_1EDBB8BC0) = 0x8000000000000008;
-  v9 = qword_1EDBB8BA0;
-  *(v0 + v9) = [objc_allocWithZone(MEMORY[0x1E69E58C0]) init];
+  v12 = qword_1EDBB8BA0;
+  *(v0 + v12) = [objc_allocWithZone(MEMORY[0x1E69E58C0]) init];
   *(v0 + qword_1EDBB8BB0) = 0;
-  v10 = (v0 + qword_1EDBB8BB8);
-  *v10 = 0;
-  v10[1] = 0;
+  v13 = (v0 + qword_1EDBB8BB8);
+  *v13 = 0;
+  v13[1] = 0;
   *(v0 + qword_1EDBB8BE0) = 0;
   sub_1D81923A4();
   __break(1u);
@@ -8203,36 +8231,36 @@ Swift::Void __swiftcall CollectionViewListCell.prepareForReuse()()
   *&v1[v4] = v3;
 
   v6 = *&v1[qword_1EDBB8BA8];
-  sub_1D7E0631C(0, qword_1EDBBA428);
+  sub_1D7E0631C(0, qword_1EDBBA428, &protocol descriptor for RevisionProviding);
   v7 = v6;
   if (swift_dynamicCast())
   {
-    sub_1D7E05450(&v38, v41);
-    v8 = v42;
-    v9 = v43;
-    __swift_mutable_project_boxed_opaque_existential_1(v41, v42);
-    v10 = (*(v9 + 24))(&v38, v8, v9);
+    sub_1D7E05450(&v39, v42);
+    v8 = v43;
+    v9 = v44;
+    __swift_mutable_project_boxed_opaque_existential_1(v42, v43);
+    v10 = (*(v9 + 24))(&v39, v8, v9);
     if (*v11 == -1)
     {
       goto LABEL_17;
     }
 
     ++*v11;
-    v10(&v38, 0);
-    __swift_destroy_boxed_opaque_existential_1Tm(v41);
+    v10(&v39, 0);
+    __swift_destroy_boxed_opaque_existential_1Tm(v42);
   }
 
   else
   {
-    v40 = 0;
-    v38 = 0u;
+    v41 = 0;
     v39 = 0u;
-    sub_1D7E9DD24(&v38, &qword_1EDBBA420, qword_1EDBBA428);
+    v40 = 0u;
+    sub_1D7E9DD24(&v39, &qword_1EDBBA420, qword_1EDBBA428, &protocol descriptor for RevisionProviding);
   }
 
-  v37.receiver = v1;
-  v37.super_class = ObjectType;
-  objc_msgSendSuper2(&v37, sel_prepareForReuse);
+  v38.receiver = v1;
+  v38.super_class = ObjectType;
+  objc_msgSendSuper2(&v38, sel_prepareForReuse);
   sub_1D8191BB4();
   CollectionViewListCell.isSelected.setter(0);
   CollectionViewListCell.isHighlighted.setter(0);
@@ -8242,84 +8270,85 @@ Swift::Void __swiftcall CollectionViewListCell.prepareForReuse()()
   CollectionViewListCell.isSwiped.setter(0);
   v13 = &v1[qword_1EDBB8BB8];
   v14 = *&v1[qword_1EDBB8BB8];
+  v15 = *&v1[qword_1EDBB8BB8 + 8];
   *v13 = 0;
   *(v13 + 1) = 0;
-  sub_1D7E0E10C(v14);
-  v15 = [v1 contentView];
-  v16 = [v15 subviews];
+  sub_1D7E0E10C(v14, v15);
+  v16 = [v1 contentView];
+  v17 = [v16 subviews];
 
   sub_1D7F9F0F0();
   OUTLINED_FUNCTION_16_1();
-  v17 = sub_1D8191314();
+  v18 = sub_1D8191314();
 
-  v18 = sub_1D7E36AB8(v17);
-  if (!v18)
+  v19 = sub_1D7E36AB8(v18);
+  if (!v19)
   {
 LABEL_15:
 
     return;
   }
 
-  v19 = v18;
-  if (v18 >= 1)
+  v20 = v19;
+  if (v19 >= 1)
   {
-    v20 = 0;
-    v21 = &qword_1EDBB36D8;
-    v22 = v17 & 0xC000000000000001;
-    v23 = &protocol descriptor for Reusable;
-    v36 = v17 & 0xC000000000000001;
+    v21 = 0;
+    v22 = &qword_1EDBB36D8;
+    v23 = v18 & 0xC000000000000001;
+    v24 = &protocol descriptor for Reusable;
+    v37 = v18 & 0xC000000000000001;
     do
     {
-      if (v22)
+      if (v23)
       {
-        v24 = MEMORY[0x1DA714420](v20, v17);
+        v25 = MEMORY[0x1DA714420](v21, v18);
       }
 
       else
       {
-        v24 = *(v17 + 8 * v20 + 32);
+        v25 = *(v18 + 8 * v21 + 32);
       }
 
-      v25 = v24;
-      sub_1D7E0631C(0, v21);
       v26 = v25;
+      sub_1D7E0631C(0, v22, v24);
+      v27 = v26;
       if (swift_dynamicCast())
       {
-        sub_1D7E05450(&v38, v41);
-        v27 = v19;
-        v28 = v17;
-        v29 = v15;
-        v30 = v23;
-        v31 = v21;
-        v33 = v42;
-        v32 = v43;
-        __swift_project_boxed_opaque_existential_1(v41, v42);
-        v34 = *(v32 + 16);
-        v35 = v32;
-        v21 = v31;
-        v23 = v30;
-        v15 = v29;
-        v17 = v28;
-        v19 = v27;
-        v22 = v36;
-        v34(v33, v35);
+        sub_1D7E05450(&v39, v42);
+        v28 = v20;
+        v29 = v18;
+        v30 = v16;
+        v31 = v24;
+        v32 = v22;
+        v34 = v43;
+        v33 = v44;
+        __swift_project_boxed_opaque_existential_1(v42, v43);
+        v35 = *(v33 + 16);
+        v36 = v33;
+        v22 = v32;
+        v24 = v31;
+        v16 = v30;
+        v18 = v29;
+        v20 = v28;
+        v23 = v37;
+        v35(v34, v36);
 
-        __swift_destroy_boxed_opaque_existential_1Tm(v41);
+        __swift_destroy_boxed_opaque_existential_1Tm(v42);
       }
 
       else
       {
 
-        v40 = 0;
-        v38 = 0u;
+        v41 = 0;
         v39 = 0u;
-        sub_1D7E9DD24(&v38, &qword_1EDBAE678, v21);
+        v40 = 0u;
+        sub_1D7E9DD24(&v39, &qword_1EDBAE678, v22, v24);
       }
 
-      ++v20;
+      ++v21;
     }
 
-    while (v19 != v20);
+    while (v20 != v21);
     goto LABEL_15;
   }
 
@@ -8391,27 +8420,26 @@ void sub_1D7F9F268(void *a1, uint64_t a2, uint64_t a3)
   CollectionViewListCell.isHighlighted.setter(a3);
 }
 
-uint64_t (*CollectionViewListCell.isHighlighted.modify(uint64_t a1))(uint64_t a1)
+double (*CollectionViewListCell.isHighlighted.modify(uint64_t a1))(uint64_t a1)
 {
   *a1 = v1;
   *(a1 + 8) = CollectionViewListCell.isHighlighted.getter() & 1;
   return sub_1D7F9F308;
 }
 
-uint64_t CollectionViewListCell.isSwiped.getter()
+uint64_t CollectionViewListCell.isSwiped.getter(uint64_t a1)
 {
-  v1 = qword_1EDBB8B90;
-  OUTLINED_FUNCTION_1_0();
-  return *(v0 + v1);
+  v2 = qword_1EDBB8B90;
+  OUTLINED_FUNCTION_1_0(a1);
+  return *(v1 + v2);
 }
 
-uint64_t sub_1D7F9F364@<X0>(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
+void sub_1D7F9F364(uint64_t *a1@<X0>, _BYTE *a2@<X8>)
 {
   v3 = *a1;
   v4 = qword_1EDBB8B90;
-  result = swift_beginAccess();
+  swift_beginAccess();
   *a2 = *(v3 + v4);
-  return result;
 }
 
 uint64_t CollectionViewListCell.isSwiped.modify(uint64_t a1)
@@ -8456,11 +8484,11 @@ void *CollectionViewListCell.tsaxAccessibilityLabelForReordering.getter()
   return v2;
 }
 
-uint64_t CollectionViewListCell.forwardsAccessibilityLabelFromView.getter()
+uint64_t CollectionViewListCell.forwardsAccessibilityLabelFromView.getter(uint64_t a1)
 {
-  v1 = qword_1EDBB8BE0;
-  OUTLINED_FUNCTION_1_0();
-  return *(v0 + v1);
+  v2 = qword_1EDBB8BE0;
+  OUTLINED_FUNCTION_1_0(a1);
+  return *(v1 + v2);
 }
 
 id sub_1D7F9F598(void *a1)
@@ -8486,29 +8514,29 @@ uint64_t CollectionViewListCell.accessibilityLabel.getter()
 {
   ObjectType = swift_getObjectType();
   v2 = qword_1EDBB8BE0;
-  OUTLINED_FUNCTION_8_20();
+  OUTLINED_FUNCTION_8_20(&v0[qword_1EDBB8BE0], v3, v4, v5);
   if (v0[v2] == 1)
   {
-    v3 = [*&v0[qword_1EDBB8BA8] accessibilityLabel];
+    v6 = [*&v0[qword_1EDBB8BA8] accessibilityLabel];
   }
 
   else
   {
-    v8.receiver = v0;
-    v8.super_class = ObjectType;
-    v3 = objc_msgSendSuper2(&v8, sel_accessibilityLabel);
+    v11.receiver = v0;
+    v11.super_class = ObjectType;
+    v6 = objc_msgSendSuper2(&v11, sel_accessibilityLabel);
   }
 
-  v4 = v3;
-  if (!v4)
+  v7 = v6;
+  if (!v7)
   {
     return 0;
   }
 
-  v5 = v4;
-  v6 = sub_1D8190F14();
+  v8 = v7;
+  v9 = sub_1D8190F14();
 
-  return v6;
+  return v9;
 }
 
 void sub_1D7F9F6CC(void *a1, uint64_t a2, uint64_t a3)
@@ -8533,37 +8561,37 @@ void CollectionViewListCell.accessibilityLabel.setter(uint64_t a1, uint64_t a2)
 {
   ObjectType = swift_getObjectType();
   v5 = qword_1EDBB8BE0;
-  OUTLINED_FUNCTION_8_20();
+  OUTLINED_FUNCTION_8_20(&v2[qword_1EDBB8BE0], v6, v7, v8);
   if (v2[v5] == 1)
   {
-    v6 = *&v2[qword_1EDBB8BA8];
+    v9 = *&v2[qword_1EDBB8BA8];
     if (a2)
     {
       sub_1D8190DB4();
-      v7 = sub_1D8190EE4();
+      v10 = sub_1D8190EE4();
     }
 
     else
     {
-      v7 = 0;
+      v10 = 0;
     }
 
-    [v6 setAccessibilityLabel_];
+    [v9 setAccessibilityLabel_];
   }
 
   if (a2)
   {
-    v8 = sub_1D8190EE4();
+    v11 = sub_1D8190EE4();
   }
 
   else
   {
-    v8 = 0;
+    v11 = 0;
   }
 
-  v9.receiver = v2;
-  v9.super_class = ObjectType;
-  objc_msgSendSuper2(&v9, sel_setAccessibilityLabel_, v8);
+  v12.receiver = v2;
+  v12.super_class = ObjectType;
+  objc_msgSendSuper2(&v12, sel_setAccessibilityLabel_, v11);
 }
 
 void (*CollectionViewListCell.accessibilityLabel.modify(uint64_t *a1))(uint64_t *a1, char a2)
@@ -8602,20 +8630,20 @@ id CollectionViewListCell.accessibilityAttributedLabel.getter()
 {
   ObjectType = swift_getObjectType();
   v2 = qword_1EDBB8BE0;
-  OUTLINED_FUNCTION_8_20();
+  OUTLINED_FUNCTION_8_20(&v0[qword_1EDBB8BE0], v3, v4, v5);
   if (v0[v2] == 1)
   {
-    v3 = [*&v0[qword_1EDBB8BA8] accessibilityAttributedLabel];
+    v6 = [*&v0[qword_1EDBB8BA8] accessibilityAttributedLabel];
   }
 
   else
   {
-    v5.receiver = v0;
-    v5.super_class = ObjectType;
-    v3 = objc_msgSendSuper2(&v5, sel_accessibilityAttributedLabel);
+    v8.receiver = v0;
+    v8.super_class = ObjectType;
+    v6 = objc_msgSendSuper2(&v8, sel_accessibilityAttributedLabel);
   }
 
-  return v3;
+  return v6;
 }
 
 void sub_1D7F9F9DC(void *a1, uint64_t a2, void *a3)
@@ -8630,15 +8658,15 @@ void CollectionViewListCell.accessibilityAttributedLabel.setter()
   OUTLINED_FUNCTION_16_1();
   ObjectType = swift_getObjectType();
   v3 = qword_1EDBB8BE0;
-  OUTLINED_FUNCTION_8_20();
+  OUTLINED_FUNCTION_8_20(&v1[qword_1EDBB8BE0], v4, v5, v6);
   if (v1[v3])
   {
     [*&v1[qword_1EDBB8BA8] setAccessibilityAttributedLabel_];
   }
 
-  v4.receiver = v1;
-  v4.super_class = ObjectType;
-  objc_msgSendSuper2(&v4, sel_setAccessibilityAttributedLabel_, v0);
+  v7.receiver = v1;
+  v7.super_class = ObjectType;
+  objc_msgSendSuper2(&v7, sel_setAccessibilityAttributedLabel_, v0);
 }
 
 void (*CollectionViewListCell.accessibilityAttributedLabel.modify(id *a1))(id *a1, char a2)
@@ -8674,17 +8702,18 @@ uint64_t sub_1D7F9FBA4(uint64_t a1)
   sub_1D7E9B848(*(a1 + qword_1EDBB8BC0));
 
   v2 = *(a1 + qword_1EDBB8BB8);
+  v3 = *(a1 + qword_1EDBB8BB8 + 8);
 
-  return sub_1D7E0E10C(v2);
+  return sub_1D7E0E10C(v2, v3);
 }
 
 uint64_t CollectionViewListCell.keyCommandBlocks.getter()
 {
   v9 = MEMORY[0x1E69E7CC0];
   v7 = *(v0 + qword_1EDBB8BA8);
-  sub_1D7E0631C(0, &qword_1EDBB6760);
+  sub_1D7E0631C(0, &qword_1EDBB6760, &protocol descriptor for KeyCommandBlockProviderType);
   v1 = v7;
-  if (OUTLINED_FUNCTION_13_16())
+  if (OUTLINED_FUNCTION_13_16(v6, &v7))
   {
     sub_1D7E05450(v6, v8);
     __swift_project_boxed_opaque_existential_1(v8, v8[3]);
@@ -8697,7 +8726,7 @@ uint64_t CollectionViewListCell.keyCommandBlocks.getter()
   else
   {
     OUTLINED_FUNCTION_2_9();
-    sub_1D7E9DD24(v6, &qword_1EDBB6758, &qword_1EDBB6760);
+    sub_1D7E9DD24(v6, &qword_1EDBB6758, &qword_1EDBB6760, &protocol descriptor for KeyCommandBlockProviderType);
   }
 
   return v9;
@@ -8706,21 +8735,21 @@ uint64_t CollectionViewListCell.keyCommandBlocks.getter()
 uint64_t CollectionViewListCell.isHighlightable.getter()
 {
   OUTLINED_FUNCTION_17_13();
-  sub_1D7E0631C(0, qword_1EDBBA0F0);
+  sub_1D7E0631C(0, qword_1EDBBA0F0, &protocol descriptor for ViewHighlightable);
   v1 = v0;
-  if (OUTLINED_FUNCTION_13_16())
+  if (OUTLINED_FUNCTION_13_16(v6, v7))
   {
-    sub_1D7E05450(v6, v7);
-    __swift_project_boxed_opaque_existential_1(v7, v7[3]);
+    sub_1D7E05450(v6, v8);
+    __swift_project_boxed_opaque_existential_1(v8, v8[3]);
     v2 = OUTLINED_FUNCTION_4_1();
     v4 = v3(v2);
-    __swift_destroy_boxed_opaque_existential_1Tm(v7);
+    __swift_destroy_boxed_opaque_existential_1Tm(v8);
   }
 
   else
   {
     OUTLINED_FUNCTION_2_9();
-    sub_1D7E9DD24(v6, &unk_1EDBBA0E0, qword_1EDBBA0F0);
+    sub_1D7E9DD24(v6, &unk_1EDBBA0E0, qword_1EDBBA0F0, &protocol descriptor for ViewHighlightable);
     v4 = 0;
   }
 
@@ -8738,21 +8767,21 @@ uint64_t (*sub_1D7F9FEEC(void *a1))()
 uint64_t CollectionViewListCell.isSelectable.getter()
 {
   OUTLINED_FUNCTION_17_13();
-  sub_1D7E0631C(0, qword_1EDBBB350);
+  sub_1D7E0631C(0, qword_1EDBBB350, &protocol descriptor for ViewSelectable);
   v1 = v0;
-  if (OUTLINED_FUNCTION_13_16())
+  if (OUTLINED_FUNCTION_13_16(v6, v7))
   {
-    sub_1D7E05450(v6, v7);
-    __swift_project_boxed_opaque_existential_1(v7, v7[3]);
+    sub_1D7E05450(v6, v8);
+    __swift_project_boxed_opaque_existential_1(v8, v8[3]);
     v2 = OUTLINED_FUNCTION_4_1();
     v4 = v3(v2);
-    __swift_destroy_boxed_opaque_existential_1Tm(v7);
+    __swift_destroy_boxed_opaque_existential_1Tm(v8);
   }
 
   else
   {
     OUTLINED_FUNCTION_2_9();
-    sub_1D7E9DD24(v6, &unk_1EDBBB340, qword_1EDBBB350);
+    sub_1D7E9DD24(v6, &unk_1EDBBB340, qword_1EDBBB350, &protocol descriptor for ViewSelectable);
     v4 = 0;
   }
 
@@ -8767,13 +8796,13 @@ uint64_t (*sub_1D7FA00AC(objc_super ***a1))()
   return sub_1D7F413B4;
 }
 
-id CollectionViewListCell.traversedDisposerToken.getter()
+id CollectionViewListCell.traversedDisposerToken.getter(uint64_t a1)
 {
-  v1 = qword_1EDBB8BA0;
-  OUTLINED_FUNCTION_1_0();
-  v2 = *(v0 + v1);
+  v2 = qword_1EDBB8BA0;
+  OUTLINED_FUNCTION_1_0(a1);
+  v3 = *(v1 + v2);
 
-  return v2;
+  return v3;
 }
 
 uint64_t (*sub_1D7FA0154(void *a1))()
@@ -8784,13 +8813,16 @@ uint64_t (*sub_1D7FA0154(void *a1))()
   return sub_1D7F41FE0;
 }
 
-uint64_t CollectionViewListCell.registerForChanges(block:)(uint64_t a1, uint64_t a2)
+double CollectionViewListCell.registerForChanges(block:)(uint64_t a1, uint64_t a2)
 {
-  v3 = (v2 + qword_1EDBB8BB8);
-  v4 = *(v2 + qword_1EDBB8BB8);
-  *v3 = a1;
-  v3[1] = a2;
-  sub_1D7E0E10C(v4);
+  v4 = (v2 + qword_1EDBB8BB8);
+  v6 = *(v2 + qword_1EDBB8BB8);
+  v5 = *(v2 + qword_1EDBB8BB8 + 8);
+  *v4 = a1;
+  v4[1] = a2;
+  sub_1D7E0E10C(v6, v5);
+
+  return result;
 }
 
 uint64_t CollectionViewListCell<>.blueprintViewportMonitor(_:viewportScrollDataDidChange:)()
@@ -8850,12 +8882,16 @@ uint64_t RestoreViewportBlueprintBookmarkApplicator.__deallocating_deinit()
   return swift_deallocClassInstance();
 }
 
-uint64_t sub_1D7FA06E0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>, double a3@<D0>)
+uint64_t sub_1D7FA06E0@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X8>, double a7@<D0>)
 {
-  v6 = sub_1D818E994();
-  (*(*(v6 - 8) + 32))(a2, a1, v6);
-  result = type metadata accessor for RestoreViewportBlueprintBookmarkApplicator.RestoreContext();
-  *(a2 + *(result + 52)) = a3;
+  v14 = sub_1D818E994();
+  (*(*(v14 - 8) + 32))(a6, a1, v14);
+  v16[0] = a2;
+  v16[1] = a3;
+  v16[2] = a4;
+  v16[3] = a5;
+  result = type metadata accessor for RestoreViewportBlueprintBookmarkApplicator.RestoreContext(0, v16);
+  *(a6 + *(result + 52)) = a7;
   return result;
 }
 
@@ -8886,31 +8922,31 @@ uint64_t RestoreViewportBlueprintBookmarkApplicator.prepare(bookmark:context:)@<
   v22 = OUTLINED_FUNCTION_8_21();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
   v24 = swift_getAssociatedConformanceWitness();
-  v59[0] = v21;
-  v59[1] = v22;
-  v59[2] = AssociatedConformanceWitness;
-  v59[3] = v24;
-  v25 = type metadata accessor for BlueprintLayout();
+  v56[0] = v21;
+  v56[1] = v22;
+  v56[2] = AssociatedConformanceWitness;
+  v56[3] = v24;
+  v25 = type metadata accessor for BlueprintLayout(0, v56);
   OUTLINED_FUNCTION_1_54();
   swift_getWitnessTable();
   LOBYTE(v6) = sub_1D8191874();
   OUTLINED_FUNCTION_3_0();
-  result = (*(v26 + 8))(v60, v25);
+  result = (*(v26 + 8))(v57, v25);
   if ((v6 & 1) == 0)
   {
-    memcpy(v59, __dst, sizeof(v59));
-    result = sub_1D7FA0BEC(v59);
+    memcpy(v56, __dst, sizeof(v56));
+    result = sub_1D7FA0BEC(v56);
     if (result != 1)
     {
-      memcpy(v60, v59, 0x80uLL);
-      sub_1D7FA0C04(v59[4], v11);
-      sub_1D7EE5A18();
+      memcpy(v57, v56, 0x80uLL);
+      sub_1D7FA0C04(v56[4], v11);
+      sub_1D7EE5A18(0);
       v29 = v28;
       OUTLINED_FUNCTION_10_23(v11);
       if (v30)
       {
         v33 = v54;
-        sub_1D7FA0C04(v59[5], v54);
+        sub_1D7FA0C04(v56[5], v54);
         OUTLINED_FUNCTION_10_23(v11);
         if (!v30)
         {
@@ -8937,18 +8973,18 @@ uint64_t RestoreViewportBlueprintBookmarkApplicator.prepare(bookmark:context:)@<
         v41 = v33;
         v42 = v51;
         v40(v49, v41, v51);
-        v43 = sub_1D7FA0F38(v3, v60, v37, v38);
+        v43 = sub_1D7FA0F38(v3, v57, v37, v38);
         v44 = v52;
         v40(v52, v39, v42);
         v45 = *(v53 + 88);
         v46 = *(v53 + 104);
-        v55 = v19;
-        v56 = v45;
-        v57 = v20;
-        v58 = v46;
-        *(a2 + 24) = type metadata accessor for RestoreViewportBlueprintBookmarkApplicator.RestoreContext();
+        v55[0] = v19;
+        v55[1] = v45;
+        v55[2] = v20;
+        v55[3] = v46;
+        *(a2 + 24) = type metadata accessor for RestoreViewportBlueprintBookmarkApplicator.RestoreContext(0, v55);
         boxed_opaque_existential_0 = __swift_allocate_boxed_opaque_existential_0(a2);
-        return sub_1D7FA06E0(v44, boxed_opaque_existential_0, v43);
+        return sub_1D7FA06E0(v44, v19, v45, v20, v46, boxed_opaque_existential_0, v43);
       }
 
       OUTLINED_FUNCTION_0_74();
@@ -8972,13 +9008,13 @@ uint64_t sub_1D7FA0BEC(uint64_t a1)
   return (v1 + 1);
 }
 
-uint64_t sub_1D7FA0C04@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+double sub_1D7FA0C04@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
   v3 = v2;
   sub_1D7FA1AAC(0, &unk_1EDBBC660, sub_1D7EE5A18);
   MEMORY[0x1EEE9AC00](v6 - 8);
   v8 = &v25 - v7;
-  sub_1D7EE5A18();
+  sub_1D7EE5A18(0);
   v10 = v9;
   v29 = *(v9 - 8);
   MEMORY[0x1EEE9AC00](v9);
@@ -9033,18 +9069,20 @@ uint64_t sub_1D7FA0C04@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
   sub_1D8161818(sub_1D7FA19D8, v3);
 
   sub_1D7F1E76C();
+
+  return result;
 }
 
 double sub_1D7FA0F38(uint64_t a1, uint64_t a2, double a3, double a4)
 {
   BlueprintLayoutProviderType.layoutBlueprint.getter(*(*a1 + 80), *(*a1 + 96));
-  v7 = v13[565];
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedTypeWitness();
-  swift_getAssociatedConformanceWitness();
-  swift_getAssociatedConformanceWitness();
-  v8 = type metadata accessor for BlueprintLayout();
-  (*(*(v8 - 8) + 8))(v13, v8);
+  v7 = v15;
+  v13[0] = swift_getAssociatedTypeWitness();
+  v13[1] = swift_getAssociatedTypeWitness();
+  v13[2] = swift_getAssociatedConformanceWitness();
+  v13[3] = swift_getAssociatedConformanceWitness();
+  v8 = type metadata accessor for BlueprintLayout(0, v13);
+  (*(*(v8 - 8) + 8))(v14, v8);
   v9 = 48;
   if (v7)
   {
@@ -9068,129 +9106,129 @@ double sub_1D7FA0F38(uint64_t a1, uint64_t a2, double a3, double a4)
 
 uint64_t sub_1D7FA10E0(uint64_t a1, uint64_t a2)
 {
-  sub_1D7EE5A18();
+  sub_1D7EE5A18(0);
   (*(*(v4 - 8) + 32))(a2, a1, v4);
   return a2;
 }
 
 uint64_t sub_1D7FA1144@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>)
 {
-  v49 = a3;
-  v41 = *a2;
-  v4 = v41;
-  v5 = v41[12];
-  v6 = v41[10];
+  v50 = a3;
+  v42 = *a2;
+  v4 = v42;
+  v5 = v42[12];
+  v6 = v42[10];
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v44 = *(AssociatedTypeWitness - 8);
+  v45 = *(AssociatedTypeWitness - 8);
   MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
-  v45 = &v40 - v8;
+  v46 = &v41 - v8;
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v10 = type metadata accessor for BlueprintLayoutItem();
-  v46 = *(v10 - 8);
-  v47 = v10;
-  MEMORY[0x1EEE9AC00](v10);
-  v43 = &v40 - v11;
-  v42 = v4[14];
+  v11 = type metadata accessor for BlueprintLayoutItem(0, AssociatedTypeWitness, AssociatedConformanceWitness, v10);
+  v47 = *(v11 - 8);
+  v48 = v11;
+  MEMORY[0x1EEE9AC00](v11);
+  v44 = &v41 - v12;
+  v43 = v4[14];
   BlueprintLayoutProviderType.layoutBlueprint.getter(v6, v5);
-  v12 = swift_getAssociatedTypeWitness();
-  v13 = swift_getAssociatedConformanceWitness();
-  *&v50 = v12;
-  *(&v50 + 1) = AssociatedTypeWitness;
+  v13 = swift_getAssociatedTypeWitness();
+  v14 = swift_getAssociatedConformanceWitness();
   *&v51 = v13;
-  *(&v51 + 1) = AssociatedConformanceWitness;
-  v14 = type metadata accessor for BlueprintLayout();
-  v48 = a1;
-  LOBYTE(v12) = BlueprintLayout.contains(indexPath:)();
-  v15 = *(*(v14 - 8) + 8);
-  v15(&v53, v14);
-  if ((v12 & 1) == 0)
+  *(&v51 + 1) = AssociatedTypeWitness;
+  *&v52 = v14;
+  *(&v52 + 1) = AssociatedConformanceWitness;
+  v15 = type metadata accessor for BlueprintLayout(0, &v51);
+  v49 = a1;
+  LOBYTE(v13) = BlueprintLayout.contains(indexPath:)(a1, v15);
+  v16 = *(*(v15 - 8) + 8);
+  v16(&v54, v15);
+  if ((v13 & 1) == 0)
   {
-    sub_1D7EE5A18();
-    v23 = v22;
-    v24 = v49;
+    sub_1D7EE5A18(0);
+    v24 = v23;
+    v25 = v50;
     goto LABEL_9;
   }
 
   BlueprintLayoutProviderType.layoutBlueprint.getter(v6, v5);
-  v16 = v43;
-  BlueprintLayout.subscript.getter(v48, v14);
-  v15(&v53, v14);
-  (*(v44 + 16))(v45, v16, AssociatedTypeWitness);
+  v17 = v44;
+  BlueprintLayout.subscript.getter(v49, v15);
+  v16(&v54, v15);
+  (*(v45 + 16))(v46, v17, AssociatedTypeWitness);
   sub_1D7FA19F8();
-  v17 = v16;
+  v18 = v17;
   if ((swift_dynamicCast() & 1) == 0)
   {
-    v52 = 0;
-    v50 = 0u;
+    v53 = 0;
     v51 = 0u;
-    sub_1D7FA1A54(&v50, &unk_1EDBB0E98, sub_1D7FA19F8);
-    v21 = v49;
+    v52 = 0u;
+    sub_1D7FA1A54(&v51, &unk_1EDBB0E98, sub_1D7FA19F8);
+    v22 = v50;
 LABEL_7:
-    v25 = (*(v41[13] + 56))(v41[11], v41[13]);
+    v26 = (*(v42[13] + 56))(v42[11], v42[13]);
     swift_getAssociatedTypeWitness();
-    v26 = swift_getAssociatedConformanceWitness();
-    v27 = *(v26 + 88);
-    v28 = swift_checkMetadataState();
-    v29 = v48;
-    v27(&v53, v48, v28, v26);
+    v27 = swift_getAssociatedConformanceWitness();
+    v28 = *(v27 + 88);
+    v29 = swift_checkMetadataState();
+    v30 = v49;
+    v28(&v54, v49, v29, v27);
 
-    (*(v46 + 8))(v17, v47);
-    if ((v56 & 1) == 0)
+    (*(v47 + 8))(v18, v48);
+    if ((v57 & 1) == 0)
     {
-      v33 = v54;
       v34 = v55;
-      v50 = v53;
-      if (v54 > 0.0 && *&v55 > 0.0)
+      v35 = v56;
+      v51 = v54;
+      if (v55 > 0.0 && *&v56 > 0.0)
       {
-        sub_1D7EE5A18();
-        v36 = v35;
-        v37 = v21 + *(v35 + 48);
-        v38 = sub_1D818E994();
-        (*(*(v38 - 8) + 16))(v21, v29, v38);
-        *v37 = v50;
-        *(v37 + 16) = v33;
-        *(v37 + 24) = v34;
-        v24 = v21;
-        v31 = 0;
-        v23 = v36;
-        return __swift_storeEnumTagSinglePayload(v24, v31, 1, v23);
+        sub_1D7EE5A18(0);
+        v37 = v36;
+        v38 = v22 + *(v36 + 48);
+        v39 = sub_1D818E994();
+        (*(*(v39 - 8) + 16))(v22, v30, v39);
+        *v38 = v51;
+        *(v38 + 16) = v34;
+        *(v38 + 24) = v35;
+        v25 = v22;
+        v32 = 0;
+        v24 = v37;
+        return __swift_storeEnumTagSinglePayload(v25, v32, 1, v24);
       }
     }
 
-    sub_1D7EE5A18();
-    v23 = v30;
-    v24 = v21;
+    sub_1D7EE5A18(0);
+    v24 = v31;
+    v25 = v22;
 LABEL_9:
-    v31 = 1;
-    return __swift_storeEnumTagSinglePayload(v24, v31, 1, v23);
+    v32 = 1;
+    return __swift_storeEnumTagSinglePayload(v25, v32, 1, v24);
   }
 
-  sub_1D7E05450(&v50, &v53);
-  v18 = v55;
+  sub_1D7E05450(&v51, &v54);
   v19 = v56;
-  __swift_project_boxed_opaque_existential_1(&v53, v55);
-  v20 = (*(v19 + 8))(v18, v19);
-  v21 = v49;
-  if (v20)
+  v20 = v57;
+  __swift_project_boxed_opaque_existential_1(&v54, v56);
+  v21 = (*(v20 + 8))(v19, v20);
+  v22 = v50;
+  if (v21)
   {
-    __swift_destroy_boxed_opaque_existential_1Tm(&v53);
+    __swift_destroy_boxed_opaque_existential_1Tm(&v54);
     goto LABEL_7;
   }
 
-  (*(v46 + 8))(v16, v47);
-  sub_1D7EE5A18();
-  __swift_storeEnumTagSinglePayload(v21, 1, 1, v39);
-  return __swift_destroy_boxed_opaque_existential_1Tm(&v53);
+  (*(v47 + 8))(v17, v48);
+  sub_1D7EE5A18(0);
+  __swift_storeEnumTagSinglePayload(v22, 1, 1, v40);
+  return __swift_destroy_boxed_opaque_existential_1Tm(&v54);
 }
 
 BOOL sub_1D7FA16E8(uint64_t a1, uint64_t a2, uint64_t *a3)
 {
-  v24[0] = a2;
+  v24 = a2;
   v4 = *a3;
-  sub_1D7EE5A18();
+  sub_1D7EE5A18(0);
   v6 = v5 - 8;
   MEMORY[0x1EEE9AC00](v5);
-  v8 = v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v25[-1] - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D7EB2914(a1, v8, sub_1D7EE5A18);
   v9 = &v8[*(v6 + 56)];
   v10 = *v9;
@@ -9198,23 +9236,23 @@ BOOL sub_1D7FA16E8(uint64_t a1, uint64_t a2, uint64_t *a3)
   v12 = sub_1D818E994();
   v13 = *(*(v12 - 8) + 8);
   v13(v8, v12);
-  sub_1D7EB2914(v24[0], v8, sub_1D7EE5A18);
+  sub_1D7EB2914(v24, v8, sub_1D7EE5A18);
   v14 = &v8[*(v6 + 56)];
   v15 = *v14;
   v16 = v14[1];
   v13(v8, v12);
   BlueprintLayoutProviderType.layoutBlueprint.getter(*(v4 + 80), *(v4 + 96));
-  v17 = v25[565];
+  v17 = v26[565];
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
   v19 = swift_getAssociatedTypeWitness();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
   v21 = swift_getAssociatedConformanceWitness();
-  v24[1] = AssociatedTypeWitness;
-  v24[2] = v19;
-  v24[3] = AssociatedConformanceWitness;
-  v24[4] = v21;
-  v22 = type metadata accessor for BlueprintLayout();
-  (*(*(v22 - 8) + 8))(v25, v22);
+  v25[0] = AssociatedTypeWitness;
+  v25[1] = v19;
+  v25[2] = AssociatedConformanceWitness;
+  v25[3] = v21;
+  v22 = type metadata accessor for BlueprintLayout(0, v25);
+  (*(*(v22 - 8) + 8))(v26, v22);
   if (v17)
   {
     return v11 < v16;
@@ -9238,7 +9276,7 @@ unint64_t sub_1D7FA19F8()
   return result;
 }
 
-uint64_t sub_1D7FA1A54(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+uint64_t sub_1D7FA1A54(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   sub_1D7FA1AAC(0, a2, a3);
   OUTLINED_FUNCTION_3_0();
@@ -9246,7 +9284,7 @@ uint64_t sub_1D7FA1A54(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
   return a1;
 }
 
-void sub_1D7FA1AAC(uint64_t a1, unint64_t *a2, void (*a3)(uint64_t))
+void sub_1D7FA1AAC(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t))
 {
   if (!*a2)
   {
@@ -9285,37 +9323,37 @@ void sub_1D7FA1B74(__n128 a1, __n128 a2)
   {
     case 2:
       v3 = *((*v2 & 0x1FFFFFFFFFFFFFFFLL) + 0x18);
-      v4 = OUTLINED_FUNCTION_0_75(a1, a2);
-      v3(v4);
+      OUTLINED_FUNCTION_0_75(a1, a2);
+      v3();
       break;
     case 3:
     case 4:
       return;
     default:
       OUTLINED_FUNCTION_0_75(a1, a2);
-      OUTLINED_FUNCTION_0_75(v5, v6);
+      OUTLINED_FUNCTION_0_75(v4, v5);
       OUTLINED_FUNCTION_1_55();
       break;
   }
 }
 
-unint64_t sub_1D7FA1D24@<X0>(unint64_t *a1@<X0>, uint64_t a2@<X2>, uint64_t *a3@<X8>, double a4@<D0>)
+unint64_t sub_1D7FA1D24@<X0>(unint64_t *a1@<X0>, uint64_t a3@<X2>, uint64_t *a4@<X8>, double a5@<D0>)
 {
-  v7 = *a1;
-  v8 = swift_allocObject();
-  *(v8 + 16) = v7;
+  v8 = *a1;
   v9 = swift_allocObject();
-  *(v9 + 16) = a4;
-  *(v8 + 24) = a2;
-  *(v8 + 32) = v9;
-  *a3 = v8 | 0x4000000000000000;
+  *(v9 + 16) = v8;
+  v10 = swift_allocObject();
+  *(v10 + 16) = a5;
+  *(v9 + 24) = a3;
+  *(v9 + 32) = v10;
+  *a4 = v9 | 0x4000000000000000;
 
-  return sub_1D7F38714(v7);
+  return sub_1D7F38714(v8);
 }
 
-unint64_t get_enum_tag_for_layout_string_5TeaUI10ShineSizerO10ExpressionO(uint64_t *a1)
+unint64_t get_enum_tag_for_layout_string_5TeaUI10ShineSizerO10ExpressionO(unint64_t *a1)
 {
-  if (*a1 >= 0)
+  if ((*a1 & 0x8000000000000000) == 0)
   {
     return *a1 >> 61;
   }
@@ -9444,7 +9482,7 @@ void sub_1D7FA1FB4(double **a1)
   free(v1);
 }
 
-uint64_t sub_1D7FA2030(void *a1, char a2, double a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(double, double, double, double))
+uint64_t sub_1D7FA2030(void *a1, char a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(double, double, double, double), double a6)
 {
   v10 = sub_1D8190EE4();
   if (a2)
@@ -9457,12 +9495,12 @@ uint64_t sub_1D7FA2030(void *a1, char a2, double a3, uint64_t a4, uint64_t a5, u
     v11 = 3;
   }
 
-  sub_1D7F854E8();
+  sub_1D7F854E8(0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1D819FAB0;
   v13 = *MEMORY[0x1E69DB648];
   *(inited + 32) = *MEMORY[0x1E69DB648];
-  *(inited + 64) = sub_1D7E0A1A8(0, &qword_1EDBB2FE0);
+  *(inited + 64) = sub_1D7E0A1A8(0, &qword_1EDBB2FE0, 0x1E69DB878);
   *(inited + 40) = a1;
   type metadata accessor for Key();
   sub_1D7E4DB28();
@@ -9471,98 +9509,98 @@ uint64_t sub_1D7FA2030(void *a1, char a2, double a3, uint64_t a4, uint64_t a5, u
   sub_1D8190D94();
   v16 = sub_1D8190D44();
 
-  [v10 boundingRectWithSize:v11 options:v16 attributes:0 context:{a3, 1.79769313e308}];
+  [v10 boundingRectWithSize:v11 options:v16 attributes:0 context:{a6, 1.79769313e308}];
   v18 = v17;
   v20 = v19;
   v22 = v21;
   v24 = v23;
 
-  return a6(v18, v20, v22, v24);
+  return a5(v18, v20, v22, v24);
 }
 
-double String.textSize(inBoundingSize:with:paragraphStyle:fontTracking:singleLine:)(void *a1, void *a2, char a3, double a4, double a5, double a6)
+double String.textSize(inBoundingSize:with:paragraphStyle:fontTracking:singleLine:)(void *a1, void *a2, char a3, uint64_t a4, uint64_t a5, double a6, double a7, double a8)
 {
-  sub_1D7F854E8();
+  sub_1D7F854E8(0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_1D81A1B70;
-  v12 = *MEMORY[0x1E69DB648];
+  v14 = *MEMORY[0x1E69DB648];
   *(inited + 32) = *MEMORY[0x1E69DB648];
-  v13 = sub_1D7E0A1A8(0, &qword_1EDBB2FE0);
+  v15 = sub_1D7E0A1A8(0, &qword_1EDBB2FE0, 0x1E69DB878);
   *(inited + 40) = a1;
-  v14 = *MEMORY[0x1E69DB688];
-  *(inited + 64) = v13;
-  *(inited + 72) = v14;
-  v15 = sub_1D7E0A1A8(0, &unk_1EDBB31C0);
+  v16 = *MEMORY[0x1E69DB688];
+  *(inited + 64) = v15;
+  *(inited + 72) = v16;
+  v17 = sub_1D7E0A1A8(0, &unk_1EDBB31C0, 0x1E69DB7D0);
   *(inited + 80) = a2;
-  v16 = *MEMORY[0x1E69DB660];
-  *(inited + 104) = v15;
-  *(inited + 112) = v16;
+  v18 = *MEMORY[0x1E69DB660];
+  *(inited + 104) = v17;
+  *(inited + 112) = v18;
   *(inited + 144) = MEMORY[0x1E69E7DE0];
-  *(inited + 120) = a6;
+  *(inited + 120) = a8;
   type metadata accessor for Key();
   sub_1D7E4DB28();
-  v17 = v12;
-  v18 = a1;
   v19 = v14;
-  v20 = a2;
+  v20 = a1;
   v21 = v16;
+  v22 = a2;
+  v23 = v18;
   sub_1D8190D94();
-  v22 = sub_1D8190EE4();
+  v24 = sub_1D8190EE4();
   if (a3)
   {
-    v23 = 32;
+    v25 = 32;
   }
 
   else
   {
-    v23 = 33;
+    v25 = 33;
   }
 
-  v24 = sub_1D8190D44();
+  v26 = sub_1D8190D44();
 
-  [v22 boundingRectWithSize:v23 options:v24 attributes:0 context:{a4, a5}];
-  v26 = v25;
+  [v24 boundingRectWithSize:v25 options:v26 attributes:0 context:{a6, a7}];
+  v28 = v27;
 
-  return v26;
+  return v28;
 }
 
-double String.jsonObject()@<D0>(_OWORD *a1@<X8>)
+double String.jsonObject()@<D0>(_OWORD *a3@<X8>)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
-  v2 = sub_1D8190F74();
-  v3 = *(v2 - 8);
-  MEMORY[0x1EEE9AC00](v2);
-  v5 = v17 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v19[1] = *MEMORY[0x1E69E9840];
+  v4 = sub_1D8190F74();
+  v5 = *(v4 - 8);
+  MEMORY[0x1EEE9AC00](v4);
+  v7 = v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1D8190F64();
-  v6 = sub_1D8190F24();
-  v8 = v7;
-  (*(v3 + 8))(v5, v2);
-  if (v8 >> 60 != 15)
+  v8 = sub_1D8190F24();
+  v10 = v9;
+  (*(v5 + 8))(v7, v4);
+  if (v10 >> 60 != 15)
   {
-    v9 = objc_opt_self();
-    v10 = sub_1D818E674();
-    v17[0] = 0;
-    v11 = [v9 JSONObjectWithData:v10 options:0 error:v17];
+    v11 = objc_opt_self();
+    v12 = sub_1D818E674();
+    v19[0] = 0;
+    v13 = [v11 JSONObjectWithData:v12 options:0 error:v19];
 
-    v12 = v17[0];
-    if (v11)
+    v14 = v19[0];
+    if (v13)
     {
       sub_1D8191F34();
-      sub_1D7EF4ED0(v6, v8);
+      sub_1D7EF4ED0(v8, v10);
       swift_unknownObjectRelease();
       return result;
     }
 
-    v14 = v12;
-    v15 = sub_1D818E544();
+    v16 = v14;
+    v17 = sub_1D818E544();
 
     swift_willThrow();
-    sub_1D7EF4ED0(v6, v8);
+    sub_1D7EF4ED0(v8, v10);
   }
 
   result = 0.0;
-  *a1 = 0u;
-  a1[1] = 0u;
+  *a3 = 0u;
+  a3[1] = 0u;
   return result;
 }
 
@@ -9577,25 +9615,25 @@ uint64_t BlueprintLayoutTransitionResult.hashValue.getter()
 void BlueprintLayoutTransitionManager.transitionLayout(blueprintView:layoutOptions:bookmarkManager:animated:completion:)(void *a1, uint64_t a2, const void *a3, uint64_t a4, int a5, void (*a6)(void), uint64_t a7)
 {
   v8 = v7;
-  v99 = a6;
-  v100 = a7;
-  v96 = a5;
-  v95 = a4;
+  v100 = a6;
+  v101 = a7;
+  v97 = a5;
+  v96 = a4;
   v11 = sub_1D818E794();
   OUTLINED_FUNCTION_9();
-  v97 = v12;
+  v98 = v12;
   v14 = *(v13 + 64);
   MEMORY[0x1EEE9AC00](v15);
   MEMORY[0x1EEE9AC00](v16);
-  v98 = &v87 - v17;
+  v99 = &v88 - v17;
   v18 = sub_1D8190C74();
   OUTLINED_FUNCTION_9();
   v20 = v19;
   MEMORY[0x1EEE9AC00](v21);
   OUTLINED_FUNCTION_15();
   v24 = (v23 - v22);
-  memcpy(v106, a3, sizeof(v106));
-  sub_1D7E0A1A8(0, &qword_1EDBBC7C0);
+  memcpy(v107, a3, sizeof(v107));
+  sub_1D7E0A1A8(0, &qword_1EDBBC7C0, 0x1E69E9610);
   *v24 = sub_1D8191AB4();
   (*(v20 + 104))(v24, *MEMORY[0x1E69E8020], v18);
   LOBYTE(a3) = sub_1D8190CA4();
@@ -9611,41 +9649,41 @@ void BlueprintLayoutTransitionManager.transitionLayout(blueprintView:layoutOptio
   if (!v25)
   {
 LABEL_17:
-    v39 = OUTLINED_FUNCTION_2_55();
-    v40(v39);
+    v40 = OUTLINED_FUNCTION_2_55();
+    v41(v40);
     return;
   }
 
   v26 = v25;
-  v94 = v11;
+  v95 = v11;
   v27 = a1;
   v28 = [v26 collectionViewLayout];
-  swift_getObjectType();
-  if (!dynamic_cast_existential_1_conditional(v28))
+  ObjectType = swift_getObjectType();
+  if (!dynamic_cast_existential_1_conditional(v28, ObjectType, &protocol descriptor for BlueprintCollectionViewLayoutTransitioning))
   {
 
     goto LABEL_17;
   }
 
-  v91 = v29;
-  v92 = &v87 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v92 = v30;
+  v93 = &v88 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
   OUTLINED_FUNCTION_3_52();
-  v32 = *(v31 + 120);
-  if (!*(v8 + v32) || (v33 = v30, memcpy(v105, v106, 0x235uLL), , v34 = sub_1D80D4B60(v105), , (v93 = v34) == 0))
+  v33 = *(v32 + 120);
+  if (!*(v8 + v33) || (v34 = v31, memcpy(v106, v107, 0x235uLL), , v35 = sub_1D80D4B60(v106), , (v94 = v35) == 0))
   {
-    v37 = OUTLINED_FUNCTION_2_55();
-    v38(v37);
+    v38 = OUTLINED_FUNCTION_2_55();
+    v39(v38);
     goto LABEL_14;
   }
 
-  v35 = *(v8 + v32);
-  if (v35)
+  v36 = *(v8 + v33);
+  if (v36)
   {
-    v36 = v93[2] == *(v35 + 16) && v93[3] == *(v35 + 24);
-    if (v36 || (sub_1D8192634() & 1) != 0)
+    v37 = v94[2] == *(v36 + 16) && v94[3] == *(v36 + 24);
+    if (v37 || (sub_1D8192634() & 1) != 0)
     {
-      LOBYTE(v105[0]) = 0;
-      v99(v105);
+      LOBYTE(v106[0]) = 0;
+      v100(v106);
 
 LABEL_14:
 
@@ -9654,13 +9692,13 @@ LABEL_15:
     }
   }
 
-  v41 = v27;
+  v42 = v27;
   [v26 contentSize];
-  v43 = v42;
-  v45 = v44;
-  ObjectType = swift_getObjectType();
-  [v33 collectionViewContentSize];
-  if (v43 == v48 && v45 == v47)
+  v44 = v43;
+  v46 = v45;
+  v47 = swift_getObjectType();
+  [v34 collectionViewContentSize];
+  if (v44 == v49 && v46 == v48)
   {
   }
 
@@ -9669,97 +9707,97 @@ LABEL_15:
     [v26 setNeedsLayout];
     [v26 layoutIfNeeded];
     [v26 contentSize];
-    v51 = v50;
-    v53 = v52;
+    v52 = v51;
+    v54 = v53;
 
-    [v33 collectionViewContentSize];
-    if (v51 != v55 || v53 != v54)
+    [v34 collectionViewContentSize];
+    if (v52 != v56 || v54 != v55)
     {
-      v57 = OUTLINED_FUNCTION_2_55();
-      v58(v57);
+      v58 = OUTLINED_FUNCTION_2_55();
+      v59(v58);
 
       goto LABEL_15;
     }
   }
 
-  v90 = v41;
-  *&v105[0] = v33;
-  v59 = v91[2](ObjectType);
-  v89 = v60;
+  v91 = v42;
+  *&v106[0] = v34;
+  v60 = v92[2](v47);
+  v90 = v61;
   OUTLINED_FUNCTION_3_52();
-  v62 = *(v8 + *(v61 + 136));
-  v88 = swift_getObjectType();
-  v63 = v59;
-  v62();
-  v91 = v63;
+  v63 = *(v8 + *(v62 + 136));
+  v89 = swift_getObjectType();
+  v64 = v60;
+  v63();
+  v92 = v64;
 
-  sub_1D7FA2D10(v95, v102);
-  v64 = v103;
-  if (v103)
+  sub_1D7FA2D10(v96, v103);
+  v65 = v104;
+  if (v104)
   {
-    v65 = v104;
-    __swift_project_boxed_opaque_existential_1(v102, v103);
-    (*(v65 + 16))(v101, v64, v65);
-    nullsub_1(v101);
-    __swift_destroy_boxed_opaque_existential_1Tm(v102);
-    memcpy(v105, v101, 0x80uLL);
+    v66 = v105;
+    __swift_project_boxed_opaque_existential_1(v103, v104);
+    (*(v66 + 16))(v102, v65, v66);
+    nullsub_1();
+    __swift_destroy_boxed_opaque_existential_1Tm(v103);
+    memcpy(v106, v102, 0x80uLL);
   }
 
   else
   {
-    sub_1D7FA4F08(v102, &qword_1EDBB65A8, &qword_1EDBB65B0);
-    sub_1D7E262C4(v105);
+    sub_1D7FA4F08(v103, &qword_1EDBB65A8, &qword_1EDBB65B0, &protocol descriptor for BlueprintBookmarkManagerType);
+    sub_1D7E262C4(v106);
   }
 
-  memcpy(v101, v105, sizeof(v101));
-  v66 = v93;
-  v67 = sub_1D7FA2D8C(v101, v93);
-  v69 = v68;
-  v71 = v70;
-  sub_1D7E925D0(v105, &qword_1EDBB7DC0);
-  sub_1D7E91FA0(v66);
-  v72 = v98;
+  memcpy(v102, v106, sizeof(v102));
+  v67 = v94;
+  v68 = sub_1D7FA2D8C(v102, v94);
+  v70 = v69;
+  v72 = v71;
+  sub_1D7E925D0(v106, &qword_1EDBB7DC0, &type metadata for BlueprintBookmarkContext);
+  sub_1D7E91FA0(v67);
+  v73 = v99;
   sub_1D818E784();
-  v101[0] = v91;
-  v73 = v89;
-  (*(v89 + 8))(v88, v89);
-  v74 = v71 & 1;
-  v75 = v72;
-  sub_1D80332F4(v72, v67, v69, v74);
+  v102[0] = v92;
+  v74 = v90;
+  (*(v90 + 8))(v89, v90);
+  v75 = v72 & 1;
+  v76 = v73;
+  sub_1D80332F4(v73, v68, v70, v75);
 
-  v76 = v97;
-  v77 = v92;
-  (*(v97 + 16))(v92, v75, v94);
-  v78 = (*(v76 + 80) + 32) & ~*(v76 + 80);
-  v79 = (v14 + v78 + 7) & 0xFFFFFFFFFFFFFFF8;
-  v80 = swift_allocObject();
-  v81 = v91;
-  *(v80 + 16) = v91;
-  *(v80 + 24) = v73;
-  v82 = v94;
-  (*(v76 + 32))(v80 + v78, v77, v94);
-  v83 = (v80 + v79);
-  v84 = v100;
-  *v83 = v99;
-  v83[1] = v84;
-  v101[4] = sub_1D7FA31C4;
-  v101[5] = v80;
-  v101[0] = MEMORY[0x1E69E9820];
-  v101[1] = 1107296256;
-  v101[2] = sub_1D7EB30D4;
-  v101[3] = &block_descriptor_22;
-  v85 = _Block_copy(v101);
-  v86 = v81;
+  v77 = v98;
+  v78 = v93;
+  (*(v98 + 16))(v93, v76, v95);
+  v79 = (*(v77 + 80) + 32) & ~*(v77 + 80);
+  v80 = (v14 + v79 + 7) & 0xFFFFFFFFFFFFFFF8;
+  v81 = swift_allocObject();
+  v82 = v92;
+  *(v81 + 16) = v92;
+  *(v81 + 24) = v74;
+  v83 = v95;
+  (*(v77 + 32))(v81 + v79, v78, v95);
+  v84 = (v81 + v80);
+  v85 = v101;
+  *v84 = v100;
+  v84[1] = v85;
+  v102[4] = sub_1D7FA31C4;
+  v102[5] = v81;
+  v102[0] = MEMORY[0x1E69E9820];
+  v102[1] = 1107296256;
+  v102[2] = sub_1D7EB30D4;
+  v102[3] = &block_descriptor_22;
+  v86 = _Block_copy(v102);
+  v87 = v82;
 
-  [v26 setCollectionViewLayout:v86 animated:v96 & 1 completion:v85];
-  _Block_release(v85);
+  [v26 setCollectionViewLayout:v87 animated:v97 & 1 completion:v86];
+  _Block_release(v86);
 
-  (*(v76 + 8))(v98, v82);
+  (*(v77 + 8))(v99, v83);
 }
 
 uint64_t sub_1D7FA2D10(uint64_t a1, uint64_t a2)
 {
-  sub_1D7E328A8(0, &qword_1EDBB65A8, &qword_1EDBB65B0);
+  sub_1D7E328A8(0, &qword_1EDBB65A8, &qword_1EDBB65B0, &protocol descriptor for BlueprintBookmarkManagerType);
   (*(*(v4 - 8) + 16))(a2, a1, v4);
   return a2;
 }
@@ -9833,7 +9871,7 @@ uint64_t sub_1D7FA2D8C(void *__src, void *a2)
 
   if (v14 >> 62)
   {
-    sub_1D7E0A1A8(0, &qword_1EDBB3020);
+    sub_1D7E0A1A8(0, &qword_1EDBB3020, 0x1E69DC858);
     sub_1D8190DB4();
     v15 = sub_1D81923B4();
   }
@@ -9842,7 +9880,7 @@ uint64_t sub_1D7FA2D8C(void *__src, void *a2)
   {
     sub_1D8190DB4();
     sub_1D81926A4();
-    sub_1D7E0A1A8(0, &qword_1EDBB3020);
+    sub_1D7E0A1A8(0, &qword_1EDBB3020, 0x1E69DC858);
     v15 = v14;
   }
 

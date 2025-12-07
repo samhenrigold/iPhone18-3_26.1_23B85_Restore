@@ -36,7 +36,7 @@
   [view setHidden:0];
   animationContainer = [(SBIconAnimator *)self animationContainer];
   containerView = [animationContainer containerView];
-  [containerView bounds];
+  objc_msgSend_bounds(containerView);
   v7 = v6;
   v9 = v8;
   v11 = v10;

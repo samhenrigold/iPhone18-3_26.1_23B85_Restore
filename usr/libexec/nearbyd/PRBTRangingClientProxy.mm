@@ -18,6 +18,7 @@
 - (void)findMyAccessoryManager:(id)manager didStopAggressiveAdvertisingOnDevice:(id)device withError:(id)error;
 - (void)handleError:(id)error;
 - (void)informDelegateOwnerRangeStoppedonDevice:(id)device;
+- (void)setCurrentTask:(int)task;
 - (void)setUUID:(id)d;
 - (void)startOwnerRanging:(id)ranging reply:(id)reply;
 - (void)startUTRanging:(id)ranging reply:(id)reply;
@@ -614,6 +615,21 @@ LABEL_3:
 
   objc_destroyWeak(&v12);
   objc_destroyWeak(&location);
+}
+
+- (void)setCurrentTask:(int)task
+{
+  v3 = *&task;
+  v5 = qword_1009F9820;
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = [(PRBTRangingClientProxy *)self convertToString:v3];
+    v7 = 136315138;
+    uTF8String = [v6 UTF8String];
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "#btranging-retry setting current task: %s", &v7, 0xCu);
+  }
+
+  self->_currentTask = v3;
 }
 
 - (void)setUUID:(id)d

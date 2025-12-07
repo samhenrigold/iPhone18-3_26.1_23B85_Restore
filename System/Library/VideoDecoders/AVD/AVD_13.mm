@@ -3902,11 +3902,11 @@ LABEL_84:
 
     v48 = a3[15];
     v49 = a2[5718];
-    v50 = (a3 + 37);
+    v50 = a3 + 37;
     v52 = *(v25 + 2644) == 1 && v47 != 0;
     do
     {
-      v53 = v49 + v49 * *&v50[4 * v36];
+      v53 = v49 + v49 * v50[v36];
       if (v53 + v37 > v44)
       {
         v53 = v44 - v37;
@@ -4835,9 +4835,11 @@ int8x16_t *BilinearFilterH_chroma_vperm2_neon64(int8x16_t *result, uint64_t a2, 
   return result;
 }
 
-void ScaleBilinear_swift_neon(uint64_t a1, int *a2, int a3, int a4, uint64_t *a5, unsigned int *a6, int a7, int a8, __int128 *a9)
+void ScaleBilinear_swift_neon(uint64_t a1, int *a2, uint64_t a3, uint64_t a4, uint64_t *a5, unsigned int *a6, int a7, int a8, __int128 *a9)
 {
   v10 = a7;
+  v13 = a4;
+  v14 = a3;
   v17 = a7 | a3;
   v18 = *a1;
   v19 = *a2;
@@ -4856,7 +4858,7 @@ void ScaleBilinear_swift_neon(uint64_t a1, int *a2, int a3, int a4, uint64_t *a5
     v108 = v37;
     v38 = v18;
     v39 = v10;
-    ScalePlaneBilinear(0, a4, v38, v19, a3, a4, v20, v21, v10, a8, BilinearFilterH_swift_neon, &v107);
+    ScalePlaneBilinear(0, v13, v38, v19, v14, v13, v20, v21, v10, a8, BilinearFilterH_swift_neon, &v107);
     v40 = *(a1 + 8);
     v41 = a2[1];
     v42 = a5[1];
@@ -4870,7 +4872,7 @@ void ScaleBilinear_swift_neon(uint64_t a1, int *a2, int a3, int a4, uint64_t *a5
     v46 = a9[1];
     v107 = *a9;
     v108 = v46;
-    ScalePlaneBilinear(1, a4 >> 1, v40, v41, a3 >> 1, a4 >> 1, v42, v43, v39 >> 1, a8 >> 1, BilinearFilterH_swift_chroma_neon, &v107);
+    ScalePlaneBilinear(1, v13 >> 1, v40, v41, v14 >> 1, v13 >> 1, v42, v43, v39 >> 1, a8 >> 1, BilinearFilterH_swift_chroma_neon, &v107);
     return;
   }
 
@@ -4933,15 +4935,15 @@ void ScaleBilinear_swift_neon(uint64_t a1, int *a2, int a3, int a4, uint64_t *a5
 LABEL_15:
   v94 = a1;
   v98 = a8;
-  v99 = a4;
-  v104 = a3;
-  if (a4 >= 1)
+  v99 = v13;
+  v104 = v14;
+  if (v13 >= 1)
   {
     v48 = v32;
     v49 = 0;
     v50 = &v32->i16[v10];
-    v51 = a4;
-    v52 = (v98 << 16) / a4;
+    v51 = v13;
+    v52 = (v98 << 16) / v13;
     do
     {
       v53 = HIWORD(v49);
@@ -5077,7 +5079,7 @@ LABEL_29:
   }
 }
 
-uint64_t ScalePlaneBilinear(uint64_t result, int a2, uint64_t a3, int a4, int a5, int a6, uint64_t a7, int a8, int a9, int a10, uint64_t (*a11)(uint64_t, uint16x8_t *, uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a12)
+uint64_t ScalePlaneBilinear(uint64_t result, int a2, uint64_t a3, int a4, unsigned int a5, int a6, uint64_t a7, int a8, int a9, int a10, uint64_t (*a11)(uint64_t, uint16x8_t *, uint64_t, uint64_t, uint64_t, uint64_t), uint64_t a12)
 {
   v12 = a3;
   v74 = result;
@@ -5489,7 +5491,7 @@ LABEL_10:
   }
 }
 
-uint64_t BilinearScaleInterchangeBuffer(uint64_t a1, uint64_t a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, _OWORD *a10, __IOSurface *a11, __IOSurface *a12)
+uint64_t BilinearScaleInterchangeBuffer(uint64_t a1, uint64_t a2, int a3, int a4, unsigned int a5, unsigned int a6, int a7, int a8, uint64_t a9, _OWORD *a10, __IOSurface *a11, __IOSurface *a12)
 {
   v107 = *MEMORY[0x277D85DE8];
   v105 = 0;
@@ -5762,7 +5764,7 @@ LABEL_33:
   return 0xFFFFFFFFLL;
 }
 
-uint64_t BilinearScaling420(uint64_t a1, int a2, int a3, int a4, uint64_t a5, int a6, int a7, int a8, int a9, int a10, _DWORD *a11, uint64_t a12, __int128 *a13, unsigned int a14, uint64_t a15, uint64_t a16)
+uint64_t BilinearScaling420(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, int a7, int a8, int a9, int a10, _DWORD *a11, uint64_t a12, __int128 *a13, unsigned int a14, uint64_t a15, uint64_t a16)
 {
   v20 = a1;
   v60 = *MEMORY[0x277D85DE8];
@@ -5906,7 +5908,7 @@ LABEL_24:
   }
 }
 
-uint64_t RVRAScaler(uint64_t a1, int a2, int a3, int a4, uint64_t a5, int a6, int a7, int a8, int a9, int a10, uint64_t a11, uint64_t a12, __int128 *a13, uint64_t a14, uint64_t a15)
+uint64_t RVRAScaler(void *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, int a6, int a7, int a8, int a9, int a10, uint64_t a11, uint64_t a12, __int128 *a13, uint64_t a14, uint64_t a15)
 {
   DetileRow = DetileRow_neon;
   TileRow = TileRow_neon;
@@ -6056,7 +6058,7 @@ _OWORD *TileRow_neon(_OWORD *result, unsigned __int8 *a2, int a3, int a4)
   return result;
 }
 
-CAHDec *createDahliaAvcDecoder(uint64_t a1)
+CAHDecDahliaAvc *createDahliaAvcDecoder(CAVDAvcDecoder *a1)
 {
   v2 = operator new(0x4670uLL, MEMORY[0x277D826F0]);
   v3 = v2;
@@ -6202,7 +6204,7 @@ uint64_t CAHDecDahliaAvc::populateSlices(CAHDecDahliaAvc *this, unsigned int a2)
   return 0;
 }
 
-uint64_t CAHDecDahliaAvc::populateSliceRegisters(uint64_t a1, uint64_t a2, signed int a3)
+uint64_t CAHDecDahliaAvc::populateSliceRegisters(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v5 = 0;
   v108 = *MEMORY[0x277D85DE8];
@@ -6235,6 +6237,8 @@ uint64_t CAHDecDahliaAvc::populateSliceRegisters(uint64_t a1, uint64_t a2, signe
     v16 = 0;
   }
 
+  v95 = a3;
+  v17 = a3;
   v18 = v16 | v15;
   *(a2 + 4) = v18;
   v94 = v7;
@@ -6352,7 +6356,7 @@ LABEL_20:
   if (v35 <= 1)
   {
     v36 = v6 + 6760;
-    v37 = v12 + 13040 * a3;
+    v37 = v12 + 13040 * v17;
     if (*(v37 + 13032))
     {
       v38 = 0;
@@ -6619,12 +6623,12 @@ LABEL_80:
   v80 = *(v79 + 626);
   v96 = 0;
   v97 = 0;
-  if (!CAVDAvcDecoder::GetSDataMemInfo(v79, a3, &v97, &v96))
+  if (!CAVDAvcDecoder::GetSDataMemInfo(v79, v95, &v97, &v96))
   {
     return 0xFFFFFFFFLL;
   }
 
-  v81 = 952 * a3;
+  v81 = 952 * v95;
   v82 = v97;
   if (!*v97 && !*(v97 + 152) && !*(v97 + 156))
   {
@@ -8820,7 +8824,7 @@ LABEL_9:
   return 0xFFFFFFFFLL;
 }
 
-void AV1_RLM::Swap_Frame_Bufs(uint64_t a1, uint64_t a2, int a3)
+void AV1_RLM::Swap_Frame_Bufs(uint64_t *a1, uint64_t a2, int a3)
 {
   v28 = *MEMORY[0x277D85DE8];
   v5 = (a2 + 1800);
@@ -8862,7 +8866,7 @@ LABEL_15:
     v13 = *(a2 + 1920);
     *(v11 + 8 * v10) = v13;
     ++*v13;
-    if ((~*(a1 + 120) & 0x80002) == 0 && os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    if ((~*(a1 + 30) & 0x80002) == 0 && os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       v14 = *(v13 + 2024);
       v15 = *(v13 + 2016);
@@ -8897,7 +8901,7 @@ LABEL_3:
     goto LABEL_26;
   }
 
-  v7 = *(a1 + 112);
+  v7 = *(a1 + 28);
   if (*(a2 + 4756))
   {
     v8 = *a1;
@@ -8907,7 +8911,7 @@ LABEL_3:
       goto LABEL_25;
     }
 
-    *(a1 + 8 * v7 + 64) = v8;
+    a1[v7 + 8] = v8;
     v17 = v7 + 1;
   }
 
@@ -8920,19 +8924,19 @@ LABEL_3:
       v20 = 1024;
       v21 = 133;
       _os_log_impl(&dword_277606000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "AppleAVD: ASSERT @ %s() :: Line %d Assert Broken \n", buf, 0x12u);
-      v7 = *(a1 + 112);
+      v7 = *(a1 + 28);
     }
 
     if (v7 >= 1)
     {
-      AV1_RLM::release_frame_buffer(a1, *(a1 + 64));
+      AV1_RLM::release_frame_buffer(a1, a1[8]);
     }
 
-    *(a1 + 64) = *a1;
+    a1[8] = *a1;
     v17 = 1;
   }
 
-  *(a1 + 112) = v17;
+  *(a1 + 28) = v17;
 LABEL_25:
   if (*v5)
   {

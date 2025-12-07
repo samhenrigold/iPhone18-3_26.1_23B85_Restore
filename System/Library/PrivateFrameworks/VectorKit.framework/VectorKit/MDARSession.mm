@@ -91,14 +91,14 @@
 
   ARGeoTrackingConfigurationClass = getARGeoTrackingConfigurationClass();
 
-  return [ARGeoTrackingConfigurationClass isSupported];
+  return [(objc_class *)ARGeoTrackingConfigurationClass isSupported];
 }
 
 + (id)newPositionalTrackingSession
 {
   if (+[MDARSession isSupported])
   {
-    if ([getARWorldTrackingConfigurationClass() isSupported])
+    if ([(objc_class *)getARWorldTrackingConfigurationClass() isSupported])
     {
       getARWorldTrackingConfigurationClass();
       v2 = objc_opt_new();
@@ -110,16 +110,16 @@
 
       if (arEnableEnvironmentMap)
       {
-        [v2 setEnvironmentTexturing:1];
+        v5 = [v2 setEnvironmentTexturing:1];
       }
 
       if (v2)
       {
-        v5 = objc_alloc_init(getARSessionClass[0]());
-        [v5 runWithConfiguration:v2 options:1];
+        v6 = objc_alloc_init(getARSessionClass(v5));
+        [v6 runWithConfiguration:v2 options:1];
 LABEL_10:
 
-        return v5;
+        return v6;
       }
     }
 
@@ -128,7 +128,7 @@ LABEL_10:
       v2 = 0;
     }
 
-    v5 = 0;
+    v6 = 0;
     goto LABEL_10;
   }
 
@@ -153,13 +153,13 @@ LABEL_10:
 
   if (arEnableEnvironmentMap)
   {
-    [v2 setEnvironmentTexturing:1];
+    v5 = [v2 setEnvironmentTexturing:1];
   }
 
-  v5 = objc_alloc_init(getARSessionClass[0]());
-  [v5 runWithConfiguration:v2 options:1];
+  v6 = objc_alloc_init(getARSessionClass(v5));
+  [v6 runWithConfiguration:v2 options:1];
 
-  return v5;
+  return v6;
 }
 
 @end

@@ -1,10 +1,28 @@
 @interface _DPHCMSWordRecord
 - (BOOL)copyFromManagedObject:(id)object;
 - (BOOL)copyToManagedObject:(id)object;
+- (_DPHCMSWordRecord)initWithKey:(id)key plainSequence:(id)sequence sequence:(id)a5 sequenceHashIndex:(unsigned __int16)index sequenceBitIndex:(unsigned int)bitIndex plainFragment:(id)fragment fragment:(id)a9 fragmentHashIndex:(unsigned __int16)self0 fragmentBitIndex:(unsigned int)self1 fragmentPosition:(unsigned __int16)self2 creationDate:(double)self3 submitted:(BOOL)self4 objectId:(id)self5;
 - (id)description;
 @end
 
 @implementation _DPHCMSWordRecord
+
+- (_DPHCMSWordRecord)initWithKey:(id)key plainSequence:(id)sequence sequence:(id)a5 sequenceHashIndex:(unsigned __int16)index sequenceBitIndex:(unsigned int)bitIndex plainFragment:(id)fragment fragment:(id)a9 fragmentHashIndex:(unsigned __int16)self0 fragmentBitIndex:(unsigned int)self1 fragmentPosition:(unsigned __int16)self2 creationDate:(double)self3 submitted:(BOOL)self4 objectId:(id)self5
+{
+  v18.receiver = self;
+  v18.super_class = _DPHCMSWordRecord;
+  BYTE4(v17) = submitted;
+  WORD1(v17) = position;
+  LOWORD(v17) = hashIndex;
+  result = [_DPCMSWordRecord initWithKey:sel_initWithKey_plainSequence_sequence_sequenceHashIndex_plainFragment_fragment_fragmentHashIndex_fragmentPosition_creationDate_submitted_objectId_ plainSequence:key sequence:sequence sequenceHashIndex:a5 plainFragment:index fragment:fragment fragmentHashIndex:a9 fragmentPosition:date creationDate:v17 submitted:id objectId:?];
+  if (result)
+  {
+    result->_fragmentBitIndex = fragmentBitIndex;
+    result->_sequenceBitIndex = bitIndex;
+  }
+
+  return result;
+}
 
 - (id)description
 {

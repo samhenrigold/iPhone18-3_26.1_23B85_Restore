@@ -52,7 +52,7 @@ void __39___GCGenericDeviceDB_initWithProvider___block_invoke_4(uint64_t a1)
 
 void __51___GCGenericDeviceDB_preparedModelForDevice_error___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
-  v31[8] = *MEMORY[0x1E69E9840];
+  v30[8] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = [v5 predicate];
   v7 = [*(a1 + 32) filteredArrayUsingPredicate:v6];
@@ -69,20 +69,20 @@ LABEL_7:
   {
     if (([v5 optional] & 1) == 0)
     {
-      v19 = MEMORY[0x1E696ABC0];
-      v20 = *MEMORY[0x1E696A588];
-      v28[0] = *MEMORY[0x1E696A578];
-      v28[1] = v20;
-      v29[0] = @"Error preparing model for device.";
-      v21 = MEMORY[0x1E696AEC0];
-      v22 = [v5 identifier];
-      v23 = [v21 stringWithFormat:@"Did not find required element matching predicate for '%@'.", v22];
-      v29[1] = v23;
-      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:v28 count:2];
-      v25 = [v19 errorWithDomain:0x1F4E1BFF0 code:7 userInfo:v24];
-      v26 = *(*(a1 + 40) + 8);
-      v27 = *(v26 + 40);
-      *(v26 + 40) = v25;
+      v18 = MEMORY[0x1E696ABC0];
+      v19 = *MEMORY[0x1E696A588];
+      v27[0] = *MEMORY[0x1E696A578];
+      v27[1] = v19;
+      v28[0] = @"Error preparing model for device.";
+      v20 = MEMORY[0x1E696AEC0];
+      v21 = [v5 identifier];
+      v22 = [v20 stringWithFormat:@"Did not find required element matching predicate for '%@'.", v21];
+      v28[1] = v22;
+      v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:v27 count:2];
+      v24 = [v18 errorWithDomain:0x1F4E1BFF0 code:7 userInfo:v23];
+      v25 = *(*(a1 + 40) + 8);
+      v26 = *(v25 + 40);
+      *(v25 + 40) = v24;
 
       *a3 = 1;
       goto LABEL_8;
@@ -94,14 +94,14 @@ LABEL_7:
 
   v9 = MEMORY[0x1E696ABC0];
   v10 = *MEMORY[0x1E696A588];
-  v30[0] = *MEMORY[0x1E696A578];
-  v30[1] = v10;
-  v31[0] = @"Error preparing model for device.";
+  v29[0] = *MEMORY[0x1E696A578];
+  v29[1] = v10;
+  v30[0] = @"Error preparing model for device.";
   v11 = MEMORY[0x1E696AEC0];
   v12 = [v5 identifier];
   v13 = [v11 stringWithFormat:@"Found multiple matching elements matching predicate for '%@'.", v12];
-  v31[1] = v13;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2];
+  v30[1] = v13;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v30 forKeys:v29 count:2];
   v15 = [v9 errorWithDomain:0x1F4E1BFF0 code:7 userInfo:v14];
   v16 = *(*(a1 + 40) + 8);
   v17 = *(v16 + 40);
@@ -109,8 +109,6 @@ LABEL_7:
 
   *a3 = 1;
 LABEL_8:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 @end

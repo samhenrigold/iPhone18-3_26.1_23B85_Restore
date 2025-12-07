@@ -13,8 +13,9 @@
 
 - (void)setValue:(float)value animated:(BOOL)animated
 {
+  animatedCopy = animated;
   selfCopy = self;
-  sub_2483033B0(animated, value);
+  sub_2483033B0(animatedCopy, value);
 }
 
 - (_TtC9DashBoard14DBVolumeSlider)initWithFrame:(CGRect)frame
@@ -58,7 +59,7 @@
 - (void)layoutElasticContentViews
 {
   selfCopy = self;
-  sub_248306764();
+  sub_248306764(selfCopy);
 }
 
 - (id)hitTest:(CGPoint)test withEvent:(id)event

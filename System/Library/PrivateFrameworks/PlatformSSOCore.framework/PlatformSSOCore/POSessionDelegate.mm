@@ -10,16 +10,17 @@
   protectionSpace = [challenge protectionSpace];
   serverTrust = [protectionSpace serverTrust];
 
-  if (+[POCoreConfigurationUtil platformSSODevModeEnabled])
+  v9 = +[POCoreConfigurationUtil platformSSODevModeEnabled];
+  if (v9)
   {
-    v9 = PO_LOG_POLoginConfiguration();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = PO_LOG_POLoginConfiguration(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      [POSessionDelegate URLSession:v9 didReceiveChallenge:? completionHandler:?];
+      [POSessionDelegate URLSession:v10 didReceiveChallenge:? completionHandler:?];
     }
 
-    v10 = [objc_alloc(MEMORY[0x277CCACF0]) initWithTrust:serverTrust];
-    handlerCopy[2](handlerCopy, 0, v10);
+    v11 = [objc_alloc(MEMORY[0x277CCACF0]) initWithTrust:serverTrust];
+    handlerCopy[2](handlerCopy, 0, v11);
   }
 
   else

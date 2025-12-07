@@ -32,23 +32,21 @@
   v13 = *MEMORY[0x1E69E9840];
   invocationCopy = invocation;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v7 = WeakRetained;
   if (WeakRetained)
   {
-    v6 = CTLogClient();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = CTLogClient(WeakRetained, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      v7 = NSStringFromSelector([invocationCopy selector]);
-      [(CoreTelephonyClientDelegateProxy *)v7 forwardInvocation:buf, v6];
+      v9 = NSStringFromSelector([invocationCopy selector]);
+      [(CoreTelephonyClientDelegateProxy *)v9 forwardInvocation:v7, buf, v8];
     }
 
     [invocationCopy retainArguments];
     selfCopy = self;
-    v9 = invocationCopy;
-    fObj = self->_userQueue.fObj.fObj;
+    v11 = invocationCopy;
     operator new();
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)methodSignatureForSelector:(SEL)selector

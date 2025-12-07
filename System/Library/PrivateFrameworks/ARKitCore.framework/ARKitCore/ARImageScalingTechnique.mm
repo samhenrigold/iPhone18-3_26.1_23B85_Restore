@@ -116,7 +116,7 @@ LABEL_12:
 {
   height = size.height;
   width = size.width;
-  v47 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   p_scaledSize = &self->_scaledSize;
   if (self->_shouldUseScaleFactor)
   {
@@ -136,61 +136,61 @@ LABEL_12:
   {
     if (self->_scalingPasses)
     {
-      kdebug_trace();
-      v18 = _ARLogTechnique_5();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v18 = kdebug_trace();
+      v19 = _ARLogTechnique_5(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        v19 = objc_opt_class();
-        v20 = NSStringFromClass(v19);
+        v20 = objc_opt_class();
+        v21 = NSStringFromClass(v20);
         *buf = 138543618;
-        v36 = v20;
-        v37 = 2048;
+        v39 = v21;
+        v40 = 2048;
         selfCopy3 = self;
-        _os_log_impl(&dword_1C241C000, v18, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Recreating scaling passes", buf, 0x16u);
+        _os_log_impl(&dword_1C241C000, v19, OS_LOG_TYPE_INFO, "%{public}@ <%p>: Recreating scaling passes", buf, 0x16u);
       }
 
-      v21 = _ARLogTechnique_5();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v23 = _ARLogTechnique_5(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
-        v22 = objc_opt_class();
-        v23 = NSStringFromClass(v22);
-        v24 = p_scalingInputSize->width;
-        v25 = self->_scalingInputSize.height;
-        v26 = p_scaledSize->width;
-        v27 = p_scaledSize->height;
+        v24 = objc_opt_class();
+        v25 = NSStringFromClass(v24);
+        v26 = p_scalingInputSize->width;
+        v27 = self->_scalingInputSize.height;
+        v28 = p_scaledSize->width;
+        v29 = p_scaledSize->height;
         *buf = 138544642;
-        v36 = v23;
-        v37 = 2048;
+        v39 = v25;
+        v40 = 2048;
         selfCopy3 = self;
-        v39 = 2048;
-        v40 = v24;
-        v41 = 2048;
-        v42 = v25;
-        v43 = 2048;
-        v44 = v26;
-        v45 = 2048;
-        v46 = v27;
-        _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_INFO, "%{public}@ <%p>: was scaling from %.1f x %.1f to %.1f x %.1f", buf, 0x3Eu);
+        v42 = 2048;
+        v43 = v26;
+        v44 = 2048;
+        v45 = v27;
+        v46 = 2048;
+        v47 = v28;
+        v48 = 2048;
+        v49 = v29;
+        _os_log_impl(&dword_1C241C000, v23, OS_LOG_TYPE_INFO, "%{public}@ <%p>: was scaling from %.1f x %.1f to %.1f x %.1f", buf, 0x3Eu);
       }
 
-      v28 = _ARLogTechnique_5();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+      v31 = _ARLogTechnique_5(v30);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
-        v29 = objc_opt_class();
-        v30 = NSStringFromClass(v29);
+        v32 = objc_opt_class();
+        v33 = NSStringFromClass(v32);
         *buf = 138544642;
-        v36 = v30;
-        v37 = 2048;
+        v39 = v33;
+        v40 = 2048;
         selfCopy3 = self;
-        v39 = 2048;
-        v40 = width;
-        v41 = 2048;
-        v42 = height;
-        v43 = 2048;
-        v44 = v7;
-        v45 = 2048;
-        v46 = v8;
-        _os_log_impl(&dword_1C241C000, v28, OS_LOG_TYPE_INFO, "%{public}@ <%p>: now scaling from %.1f x %.1f to %.1f x %.1f", buf, 0x3Eu);
+        v42 = 2048;
+        v43 = width;
+        v44 = 2048;
+        v45 = height;
+        v46 = 2048;
+        v47 = v7;
+        v48 = 2048;
+        v49 = v8;
+        _os_log_impl(&dword_1C241C000, v31, OS_LOG_TYPE_INFO, "%{public}@ <%p>: now scaling from %.1f x %.1f to %.1f x %.1f", buf, 0x3Eu);
       }
     }
 
@@ -198,17 +198,17 @@ LABEL_12:
     self->_scalingInputSize.height = height;
     p_scaledSize->width = v7;
     p_scaledSize->height = v8;
-    v31 = [objc_opt_class() scalingPassDescriptionForInputSize:-[ARImageScalingTechnique conversionPixelFormatType](self scaledSize:"conversionPixelFormatType") conversionPixelFormat:p_scalingInputSize->width, self->_scalingInputSize.height, p_scaledSize->width, p_scaledSize->height];
-    v32 = objc_opt_new();
+    v34 = [objc_opt_class() scalingPassDescriptionForInputSize:-[ARImageScalingTechnique conversionPixelFormatType](self scaledSize:"conversionPixelFormatType") conversionPixelFormat:p_scalingInputSize->width, self->_scalingInputSize.height, p_scaledSize->width, p_scaledSize->height];
+    v35 = objc_opt_new();
     scalingPasses = self->_scalingPasses;
-    self->_scalingPasses = v32;
+    self->_scalingPasses = v35;
 
-    v34[0] = MEMORY[0x1E69E9820];
-    v34[1] = 3221225472;
-    v34[2] = __60__ARImageScalingTechnique__createScalingPassesForInputSize___block_invoke;
-    v34[3] = &unk_1E817C468;
-    v34[4] = self;
-    [v31 enumerateObjectsUsingBlock:v34];
+    v37[0] = MEMORY[0x1E69E9820];
+    v37[1] = 3221225472;
+    v37[2] = __60__ARImageScalingTechnique__createScalingPassesForInputSize___block_invoke;
+    v37[3] = &unk_1E817C468;
+    v37[4] = self;
+    [v34 enumerateObjectsUsingBlock:v37];
   }
 }
 
@@ -268,30 +268,30 @@ void __60__ARImageScalingTechnique__createScalingPassesForInputSize___block_invo
   width = scaledSize.width;
   v7 = size.height;
   v8 = size.width;
-  v53 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   v10 = objc_opt_new();
-  v11 = _ARLogTechnique_5();
+  v11 = _ARLogTechnique_5(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     v12 = objc_opt_class();
     v13 = NSStringFromClass(v12);
     *buf = 138544642;
-    v34 = v13;
-    v35 = 2048;
-    selfCopy3 = self;
+    v36 = v13;
     v37 = 2048;
-    v38 = v8;
+    selfCopy3 = self;
     v39 = 2048;
-    v40 = v7;
+    v40 = v8;
     v41 = 2048;
-    v42 = width;
+    v42 = v7;
     v43 = 2048;
-    v44 = height;
+    v44 = width;
+    v45 = 2048;
+    v46 = height;
     _os_log_impl(&dword_1C241C000, v11, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: scale (%.1f x %.1f) to (%.1f x %.1f) START", buf, 0x3Eu);
   }
 
-  v31 = width;
-  v32 = height;
+  v33 = width;
+  v34 = height;
   do
   {
     v14 = width / v8;
@@ -303,56 +303,56 @@ void __60__ARImageScalingTechnique__createScalingPassesForInputSize___block_invo
     v20 = [[ARImageScalingPassDescription alloc] initWithSize:v17, v19];
     [v10 addObject:v20];
 
-    v21 = _ARLogTechnique_5();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+    v22 = _ARLogTechnique_5(v21);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
     {
-      v22 = objc_opt_class();
-      v23 = NSStringFromClass(v22);
+      v23 = objc_opt_class();
+      v24 = NSStringFromClass(v23);
       *buf = 138545666;
-      v34 = v23;
-      v35 = 2048;
-      selfCopy3 = self;
+      v36 = v24;
       v37 = 2048;
-      v38 = v8;
+      selfCopy3 = self;
       v39 = 2048;
-      v40 = v7;
+      v40 = v8;
       v41 = 2048;
-      v42 = v17;
+      v42 = v7;
       v43 = 2048;
-      v44 = v19;
+      v44 = v17;
       v45 = 2048;
-      v46 = v16;
+      v46 = v19;
       v47 = 2048;
-      v48 = v18;
-      v49 = 1024;
-      v50 = v14 >= 0.25;
+      v48 = v16;
+      v49 = 2048;
+      v50 = v18;
       v51 = 1024;
-      v52 = v15 >= 0.25;
-      _os_log_impl(&dword_1C241C000, v21, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: \tscale (%f x %f) to (%f x %f) scaleX=%f, scaleY=%f, finalXPass=%d, finalYPass=%d", buf, 0x5Eu);
+      v52 = v14 >= 0.25;
+      v53 = 1024;
+      v54 = v15 >= 0.25;
+      _os_log_impl(&dword_1C241C000, v22, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: \tscale (%f x %f) to (%f x %f) scaleX=%f, scaleY=%f, finalXPass=%d, finalYPass=%d", buf, 0x5Eu);
     }
 
-    v24 = v14 < 0.25 || v15 < 0.25;
+    v26 = v14 < 0.25 || v15 < 0.25;
     v7 = v19;
     v8 = v17;
-    width = v31;
-    height = v32;
+    width = v33;
+    height = v34;
   }
 
-  while (v24);
-  v25 = _ARLogTechnique_5();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+  while (v26);
+  v27 = _ARLogTechnique_5(v25);
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
   {
-    v26 = objc_opt_class();
-    v27 = NSStringFromClass(v26);
+    v28 = objc_opt_class();
+    v29 = NSStringFromClass(v28);
     *buf = 138544130;
-    v34 = v27;
-    v35 = 2048;
-    selfCopy3 = self;
+    v36 = v29;
     v37 = 2048;
-    v38 = v17;
+    selfCopy3 = self;
     v39 = 2048;
-    v40 = v19;
-    _os_log_impl(&dword_1C241C000, v25, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: scaled to (%.1f x %.1f) COMPLETE", buf, 0x2Au);
+    v40 = v17;
+    v41 = 2048;
+    v42 = v19;
+    _os_log_impl(&dword_1C241C000, v27, OS_LOG_TYPE_DEBUG, "%{public}@ <%p>: scaled to (%.1f x %.1f) COMPLETE", buf, 0x2Au);
   }
 
   lastObject = [v10 lastObject];

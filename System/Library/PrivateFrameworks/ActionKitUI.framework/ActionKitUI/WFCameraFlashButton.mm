@@ -85,35 +85,35 @@
 
 void __35__WFCameraFlashButton_setExpanded___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v2 = [*(a1 + 32) labels];
-  v3 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v17;
-    v13 = *(MEMORY[0x277CBF2C0] + 16);
-    v14 = *MEMORY[0x277CBF2C0];
-    v12 = *(MEMORY[0x277CBF2C0] + 32);
+    v5 = *v16;
+    v12 = *(MEMORY[0x277CBF2C0] + 16);
+    v13 = *MEMORY[0x277CBF2C0];
+    v11 = *(MEMORY[0x277CBF2C0] + 32);
     do
     {
       v6 = 0;
       do
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v16 + 1) + 8 * v6);
-        v15[0] = v14;
-        v15[1] = v13;
-        v15[2] = v12;
-        [v7 setTransform:{v15, v12, v13, v14}];
+        v7 = *(*(&v15 + 1) + 8 * v6);
+        v14[0] = v13;
+        v14[1] = v12;
+        v14[2] = v11;
+        [v7 setTransform:{v14, v11, v12, v13}];
         [v7 setAlpha:1.0];
         v8 = [*(a1 + 32) selectedLabel];
         v9 = [v8 isEqual:v7];
@@ -134,48 +134,46 @@ void __35__WFCameraFlashButton_setExpanded___block_invoke(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v4);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __35__WFCameraFlashButton_setExpanded___block_invoke_2(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v2 = [*(a1 + 32) labels];
-  v3 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v17;
+    v5 = *v16;
     do
     {
       v6 = 0;
       do
       {
-        if (*v17 != v5)
+        if (*v16 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v16 + 1) + 8 * v6);
+        v7 = *(*(&v15 + 1) + 8 * v6);
         v8 = [MEMORY[0x277D75348] whiteColor];
         [v7 setTextColor:v8];
 
         v9 = *(a1 + 40);
         [v7 frame];
-        MinX = CGRectGetMinX(v22);
-        CGAffineTransformMakeTranslation(&v15, v9 - MinX, 0.0);
-        v14 = v15;
-        [v7 setTransform:&v14];
+        MinX = CGRectGetMinX(v21);
+        CGAffineTransformMakeTranslation(&v14, v9 - MinX, 0.0);
+        v13 = v14;
+        [v7 setTransform:&v13];
         v11 = [*(a1 + 32) selectedLabel];
         v12 = [v11 isEqual:v7];
 
@@ -188,13 +186,11 @@ void __35__WFCameraFlashButton_setExpanded___block_invoke_2(uint64_t a1)
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v4);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (CGSize)intrinsicContentSize
@@ -318,10 +314,10 @@ LABEL_12:
 
 - (WFCameraFlashButton)initWithFrame:(CGRect)frame
 {
-  v35[3] = *MEMORY[0x277D85DE8];
-  v34.receiver = self;
-  v34.super_class = WFCameraFlashButton;
-  v3 = [(WFCameraFlashButton *)&v34 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+  v34[3] = *MEMORY[0x277D85DE8];
+  v33.receiver = self;
+  v33.super_class = WFCameraFlashButton;
+  v3 = [(WFCameraFlashButton *)&v33 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
   if (v3)
   {
     v4 = [MEMORY[0x277D75348] colorWithRed:0.945 green:0.804 blue:0.137 alpha:1.0];
@@ -345,28 +341,28 @@ LABEL_12:
     [(WFCameraFlashButton *)v3 addConstraint:v11];
 
     v12 = WFLocalizedString(@"Auto");
-    v35[0] = v12;
+    v34[0] = v12;
     v13 = WFLocalizedStringWithKey(@"Flash On", @"On");
-    v35[1] = v13;
+    v34[1] = v13;
     v14 = WFLocalizedString(@"Off");
-    v35[2] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:3];
+    v34[2] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v34 count:3];
 
     array = [MEMORY[0x277CBEB18] array];
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __37__WFCameraFlashButton_initWithFrame___block_invoke;
-    v28[3] = &unk_278C36590;
-    v29 = &unk_2850AB3D8;
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __37__WFCameraFlashButton_initWithFrame___block_invoke;
+    v27[3] = &unk_278C36590;
+    v28 = &unk_2850AB3D8;
     v17 = v3;
-    v30 = v17;
-    v31 = array;
-    v32 = v8;
-    v33 = v15;
+    v29 = v17;
+    v30 = array;
+    v31 = v8;
+    v32 = v15;
     v18 = v15;
     v19 = v8;
     v20 = array;
-    [v18 enumerateObjectsUsingBlock:v28];
+    [v18 enumerateObjectsUsingBlock:v27];
     [(WFCameraFlashButton *)v17 setLabels:v20];
     firstObject = [v20 firstObject];
     [(WFCameraFlashButton *)v17 setSelectedLabel:firstObject];
@@ -382,11 +378,10 @@ LABEL_12:
     [(WFCameraFlashButton *)v17 setContentHuggingPriority:1 forAxis:v25];
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
-void __37__WFCameraFlashButton_initWithFrame___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void __37__WFCameraFlashButton_initWithFrame___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
 {
   v5 = MEMORY[0x277D756B8];
   v6 = a2;
@@ -425,7 +420,7 @@ void __37__WFCameraFlashButton_initWithFrame___block_invoke(uint64_t a1, void *a
     [v13 addConstraint:v15];
   }
 
-  if ([*(a1 + 64) count] - 1 == a3)
+  if (([*(a1 + 64) count] - 1) == a3)
   {
     v17 = *(a1 + 40);
     v18 = [MEMORY[0x277CCAAD0] constraintWithItem:firstValue attribute:2 relatedBy:0 toItem:v17 attribute:2 multiplier:1.0 constant:0.0];

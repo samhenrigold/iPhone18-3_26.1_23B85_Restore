@@ -6,6 +6,7 @@
 - (void)_networkActivityAddNWConnection:(id)connection toActivityWithLabel:(int64_t)label;
 - (void)_networkActivityRemoveNWConnection:(id)connection fromActivityWithLabel:(int64_t)label completion:(id)completion;
 - (void)_networkActivityStart:(int64_t)start activate:(BOOL)activate;
+- (void)_networkActivityStop:(int64_t)stop withReason:(int)reason withClientMetric:(const char *)metric withClientDict:(id)dict andError:(id)error;
 - (void)_networkActivityTracingCancel;
 - (void)currentNetworkActivityTokenWithCompletion:(id)completion;
 - (void)networkActivityActivate:(int64_t)activate;
@@ -209,7 +210,7 @@ void __78__WiFiPolicyNetworkActivityTracing_currentNetworkActivityTokenWithCompl
   return v3;
 }
 
-uint64_t __56__WiFiPolicyNetworkActivityTracing_hasActivitiesRunning__block_invoke(uint64_t a1)
+void *__56__WiFiPolicyNetworkActivityTracing_hasActivitiesRunning__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) count];
   if (result)
@@ -223,18 +224,18 @@ uint64_t __56__WiFiPolicyNetworkActivityTracing_hasActivitiesRunning__block_invo
 - (void)_networkActivityStart:(int64_t)start activate:(BOOL)activate
 {
   activateCopy = activate;
-  v30 = *MEMORY[0x277D85DE8];
-  v7 = _labelDescription(start);
-  v8 = [(NSMutableDictionary *)self->_activities objectForKey:v7];
-  if (!v8)
+  v31 = *MEMORY[0x277D85DE8];
+  v7 = _labelDescription(start, a2);
+  v9 = [(NSMutableDictionary *)self->_activities objectForKey:v7];
+  if (!v9)
   {
     if (start == 1)
     {
-      v11 = [[WiFiPolicyNetworkActivity alloc] initWithLabel:1 parent:0];
-      if (v11)
+      v12 = [[WiFiPolicyNetworkActivity alloc] initWithLabel:1 parent:0];
+      if (v12)
       {
 LABEL_5:
-        [(NSMutableDictionary *)self->_activities setObject:v11 forKey:v7];
+        [(NSMutableDictionary *)self->_activities setObject:v12 forKey:v7];
         if (activateCopy)
         {
           [(WiFiPolicyNetworkActivityTracing *)self _networkActivityActivate:start];
@@ -242,57 +243,57 @@ LABEL_5:
 
         if ([(NSMutableSet *)self->_connections count])
         {
-          v27 = 0u;
           v28 = 0u;
-          v25 = 0u;
+          v29 = 0u;
           v26 = 0u;
-          v12 = self->_connections;
-          v13 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
-          if (v13)
+          v27 = 0u;
+          v13 = self->_connections;
+          v14 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
+          if (v14)
           {
-            v14 = v13;
-            v15 = *v26;
+            v15 = v14;
+            v16 = *v27;
             do
             {
-              for (i = 0; i != v14; ++i)
+              for (i = 0; i != v15; ++i)
               {
-                if (*v26 != v15)
+                if (*v27 != v16)
                 {
-                  objc_enumerationMutation(v12);
+                  objc_enumerationMutation(v13);
                 }
 
-                [(WiFiPolicyNetworkActivity *)v11 addConnection:*(*(&v25 + 1) + 8 * i)];
+                [(WiFiPolicyNetworkActivity *)v12 addConnection:*(*(&v26 + 1) + 8 * i)];
               }
 
-              v14 = [(NSMutableSet *)v12 countByEnumeratingWithState:&v25 objects:v29 count:16];
+              v15 = [(NSMutableSet *)v13 countByEnumeratingWithState:&v26 objects:v30 count:16];
             }
 
-            while (v14);
+            while (v15);
           }
         }
 
-        [(WiFiPolicyNetworkActivity *)v11 setQueue:self->_queue];
-        v17 = v11;
+        [(WiFiPolicyNetworkActivity *)v12 setQueue:self->_queue];
+        v18 = v12;
         goto LABEL_23;
       }
     }
 
     else
     {
-      v18 = [(NSMutableDictionary *)self->_activities objectForKey:@"linkTest"];
-      v19 = v18;
-      if (v18)
+      v19 = [(NSMutableDictionary *)self->_activities objectForKey:@"linkTest"];
+      v20 = v19;
+      if (v19)
       {
-        nwActivity = [v18 nwActivity];
-        v11 = [[WiFiPolicyNetworkActivity alloc] initWithLabel:start parent:nwActivity];
+        nwActivity = [v19 nwActivity];
+        v12 = [[WiFiPolicyNetworkActivity alloc] initWithLabel:start parent:nwActivity];
       }
 
       else
       {
-        v11 = 0;
+        v12 = 0;
       }
 
-      if (v11)
+      if (v12)
       {
         goto LABEL_5;
       }
@@ -301,49 +302,157 @@ LABEL_5:
     if ([0 hasStarted])
     {
 LABEL_24:
-      v21 = _labelDescription(start);
+      v23 = _labelDescription(start, v22);
       activities = self->_activities;
-      v23 = [(WiFiPolicyNetworkActivity *)v11 description];
-      NSLog(&cfstr_SStartActivity.isa, "[WiFiPolicyNetworkActivityTracing _networkActivityStart:activate:]", v21, activities, v23);
+      v25 = [(WiFiPolicyNetworkActivity *)v12 description];
+      NSLog(&cfstr_SStartActivity.isa, "[WiFiPolicyNetworkActivityTracing _networkActivityStart:activate:]", v23, activities, v25);
 
       goto LABEL_25;
     }
 
-    v17 = 0;
+    v18 = 0;
 LABEL_23:
-    [(WiFiPolicyNetworkActivity *)v17 setHasStarted:1];
+    [(WiFiPolicyNetworkActivity *)v18 setHasStarted:1];
     goto LABEL_24;
   }
 
-  v9 = _labelDescription(start);
-  v10 = [v8 description];
-  NSLog(&cfstr_SFailedToStart.isa, "[WiFiPolicyNetworkActivityTracing _networkActivityStart:activate:]", v9, v10, self->_activities);
+  v10 = _labelDescription(start, v8);
+  v11 = [v9 description];
+  NSLog(&cfstr_SFailedToStart.isa, "[WiFiPolicyNetworkActivityTracing _networkActivityStart:activate:]", v10, v11, self->_activities);
 
 LABEL_25:
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_networkActivityActivate:(int64_t)activate
 {
   activities = self->_activities;
-  v6 = _labelDescription(activate);
-  v9 = [(NSMutableDictionary *)activities objectForKey:v6];
+  v6 = _labelDescription(activate, a2);
+  v10 = [(NSMutableDictionary *)activities objectForKey:v6];
 
-  v7 = v9;
-  if (!v9)
+  v8 = v10;
+  if (!v10)
   {
-    v8 = _labelDescription(activate);
-    NSLog(&cfstr_SFailedToFindA.isa, "[WiFiPolicyNetworkActivityTracing _networkActivityActivate:]", v8, self->_activities);
+    v9 = _labelDescription(activate, v7);
+    NSLog(&cfstr_SFailedToFindA.isa, "[WiFiPolicyNetworkActivityTracing _networkActivityActivate:]", v9, self->_activities);
 
-    v7 = 0;
+    v8 = 0;
   }
 
-  [v7 activate];
+  [v8 activate];
+}
+
+- (void)_networkActivityStop:(int64_t)stop withReason:(int)reason withClientMetric:(const char *)metric withClientDict:(id)dict andError:(id)error
+{
+  v9 = *&reason;
+  dictCopy = dict;
+  errorCopy = error;
+  v49 = 0;
+  v50 = &v49;
+  v51 = 0x2020000000;
+  v52 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x3032000000;
+  v46 = __Block_byref_object_copy__7;
+  v47 = __Block_byref_object_dispose__7;
+  array = [MEMORY[0x277CBEB18] array];
+  activities = self->_activities;
+  v16 = _labelDescription(stop, v15);
+  v17 = [(NSMutableDictionary *)activities objectForKey:v16];
+
+  v19 = _labelDescription(stop, v18);
+  if (v17)
+  {
+    v20 = self->_activities;
+    v21 = [v17 description];
+    NSLog(&cfstr_SStoppingActiv.isa, "[WiFiPolicyNetworkActivityTracing _networkActivityStop:withReason:withClientMetric:withClientDict:andError:]", v19, v20, v21);
+  }
+
+  else
+  {
+    NSLog(&cfstr_SFailedToFindA.isa, "[WiFiPolicyNetworkActivityTracing _networkActivityStop:withReason:withClientMetric:withClientDict:andError:]", v19, self->_activities);
+  }
+
+  if (stop == 1)
+  {
+    v23 = _labelDescription(1uLL, v22);
+    v24 = [v17 description];
+    NSLog(&cfstr_SStoppingParen.isa, "[WiFiPolicyNetworkActivityTracing _networkActivityStop:withReason:withClientMetric:withClientDict:andError:]", v23, v24);
+
+    v25 = self->_activities;
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = __109__WiFiPolicyNetworkActivityTracing__networkActivityStop_withReason_withClientMetric_withClientDict_andError___block_invoke;
+    v34[3] = &unk_2789C8088;
+    v40 = 1;
+    metricCopy = metric;
+    v35 = dictCopy;
+    v36 = v17;
+    v42 = v9;
+    v37 = errorCopy;
+    v38 = &v49;
+    v39 = &v43;
+    [(NSMutableDictionary *)v25 enumerateKeysAndObjectsUsingBlock:v34];
+  }
+
+  if ([v17 hasStarted])
+  {
+    if (metric && dictCopy)
+    {
+      v27 = _labelDescription(stop, v26);
+      NSLog(&cfstr_SStoppingNetwo_1.isa, "[WiFiPolicyNetworkActivityTracing _networkActivityStop:withReason:withClientMetric:withClientDict:andError:]", v27, v9, metric, dictCopy, errorCopy);
+    }
+
+    else
+    {
+      v27 = _labelDescription(stop, v26);
+      NSLog(&cfstr_SStoppingNetwo_2.isa, "[WiFiPolicyNetworkActivityTracing _networkActivityStop:withReason:withClientMetric:withClientDict:andError:]", v27, v9, errorCopy);
+    }
+
+    [v17 setHasStarted:0];
+    [v17 stopWithCompletionReason:v9 withClientMetric:metric withClientDict:dictCopy andError:errorCopy];
+    *(v50 + 24) = 1;
+    if ([v17 getState] == 3)
+    {
+      v28 = _labelDescription(stop, v26);
+      v29 = [v17 description];
+      NSLog(&cfstr_SWillRemoveEnd_0.isa, "[WiFiPolicyNetworkActivityTracing _networkActivityStop:withReason:withClientMetric:withClientDict:andError:]", v28, v29);
+
+      v30 = v44[5];
+      v32 = _labelDescription(stop, v31);
+      [v30 addObject:v32];
+    }
+  }
+
+  if ((v50[3] & 1) == 0)
+  {
+    v33 = _labelDescription(stop, v26);
+    NSLog(&cfstr_SFailedToStopA.isa, "[WiFiPolicyNetworkActivityTracing _networkActivityStop:withReason:withClientMetric:withClientDict:andError:]", v33, self->_activities);
+  }
+
+  if ([v44[5] count])
+  {
+    [(NSMutableDictionary *)self->_activities removeObjectsForKeys:v44[5]];
+    NSLog(&cfstr_SThereAreLuRem.isa, "[WiFiPolicyNetworkActivityTracing _networkActivityStop:withReason:withClientMetric:withClientDict:andError:]", [(NSMutableDictionary *)self->_activities count], self->_activities);
+  }
+
+  if (stop == 1)
+  {
+    if ([(NSMutableDictionary *)self->_activities count])
+    {
+      NSLog(&cfstr_SWhenStoppingP.isa, "[WiFiPolicyNetworkActivityTracing _networkActivityStop:withReason:withClientMetric:withClientDict:andError:]", [(NSMutableDictionary *)self->_activities count], self->_activities);
+    }
+
+    [(WiFiPolicyNetworkActivityTracing *)self _networkActivityTracingCancel];
+  }
+
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v49, 8);
 }
 
 void __109__WiFiPolicyNetworkActivityTracing__networkActivityStop_withReason_withClientMetric_withClientDict_andError___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v10 = a2;
+  v11 = a2;
   v5 = a3;
   if ([v5 parentLabel] == *(a1 + 72) && objc_msgSend(v5, "hasStarted"))
   {
@@ -364,11 +473,11 @@ void __109__WiFiPolicyNetworkActivityTracing__networkActivityStop_withReason_wit
     *(*(*(a1 + 56) + 8) + 24) = 1;
     if ([v5 getState] == 3)
     {
-      v8 = _labelDescription(*(a1 + 72));
-      v9 = [*(a1 + 40) description];
-      NSLog(&cfstr_SWillRemoveEnd.isa, "[WiFiPolicyNetworkActivityTracing _networkActivityStop:withReason:withClientMetric:withClientDict:andError:]_block_invoke", v8, v9);
+      v9 = _labelDescription(*(a1 + 72), v8);
+      v10 = [*(a1 + 40) description];
+      NSLog(&cfstr_SWillRemoveEnd.isa, "[WiFiPolicyNetworkActivityTracing _networkActivityStop:withReason:withClientMetric:withClientDict:andError:]_block_invoke", v9, v10);
 
-      [*(*(*(a1 + 64) + 8) + 40) addObject:v10];
+      [*(*(*(a1 + 64) + 8) + 40) addObject:v11];
     }
   }
 

@@ -67,57 +67,58 @@
   }
 
   v2 = _launch_service_stats_copy_impl();
+  v3 = v2;
   if (v2)
   {
-    v3 = sub_100003824();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = sub_100003824(v2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v4 = strerror(v2);
-      sub_100030014(v4, buf, v2, v3);
+      v5 = strerror(v3);
+      sub_100030014(v5, buf, v3, v4);
     }
   }
 
   else
   {
-    v5 = sub_100003824();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = sub_100003824(v2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v11 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "launch_service_stats_copy() returned %u records", buf, 8u);
+      v12 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "launch_service_stats_copy() returned %u records", buf, 8u);
     }
 
-    v3 = objc_alloc_init(NSMutableArray);
-    [qword_100067898 addObjectsFromArray:v3];
-    v6 = os_transaction_create();
-    [qword_100067898 setTransaction:v6];
+    v4 = objc_alloc_init(NSMutableArray);
+    [qword_100067898 addObjectsFromArray:v4];
+    v7 = os_transaction_create();
+    [qword_100067898 setTransaction:v7];
 
-    v7 = +[HTPrefs sharedPrefs];
-    v8 = dispatch_time(0, 1000000 * [v7 runloopHangTimeoutDurationMSec] + 30000000000);
+    v8 = +[HTPrefs sharedPrefs];
+    v9 = dispatch_time(0, 1000000 * [v8 runloopHangTimeoutDurationMSec] + 30000000000);
 
     timer = [qword_100067898 timer];
-    dispatch_source_set_timer(timer, v8, 0xFFFFFFFFFFFFFFFFLL, 0x3E8uLL);
+    dispatch_source_set_timer(timer, v9, 0xFFFFFFFFFFFFFFFFLL, 0x3E8uLL);
   }
 }
 
 + (id)getProcessExitsAndLaunchesDuringHang:(unint64_t)hang endTime:(unint64_t)time
 {
-  v45 = objc_alloc_init(NSMutableArray);
-  v43 = objc_alloc_init(NSMutableArray);
+  v46 = objc_alloc_init(NSMutableArray);
   v44 = objc_alloc_init(NSMutableArray);
-  v5 = sub_100003824();
+  v45 = objc_alloc_init(NSMutableArray);
+  v5 = sub_100003824(v45);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
-    v61 = sub_1000024F8(hang);
-    v62 = 2048;
-    v63 = sub_1000024F8(time);
+    v62 = sub_1000024F8(hang);
+    v63 = 2048;
+    v64 = sub_1000024F8(time);
     _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "getProcessExitsAndLaunchesDuringHang: called with windown [%.0f - %.0f]ms", buf, 0x16u);
   }
 
   +[HTProcessLaunchExitRecord fetchProcessRecords];
-  v47 = +[NSDate now];
-  v46 = mach_absolute_time();
+  v48 = +[NSDate now];
+  v47 = mach_absolute_time();
   p_vtable = &OBJC_METACLASS___HUDDurationLayer.vtable;
   if ([qword_100067898 count])
   {
@@ -143,84 +144,84 @@
 
       if (v14 >= v12)
       {
-        v74[0] = @"processName";
+        v75[0] = @"processName";
         processName = [v11 processName];
-        v75[0] = processName;
-        v74[1] = @"processID";
-        v55 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v11 pid]);
-        v75[1] = v55;
-        v74[2] = @"spawnTimestamp";
+        v76[0] = processName;
+        v75[1] = @"processID";
+        v56 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [v11 pid]);
+        v76[1] = v56;
+        v75[2] = @"spawnTimestamp";
         dateFormatter = [p_vtable[275] dateFormatter];
-        v53 = sub_10001AF68([v11 spawnTimestamp], v47, v46);
-        v54 = dateFormatter;
-        v52 = [dateFormatter stringFromDate:?];
-        v75[2] = v52;
-        v74[3] = @"exitTimestamp";
+        v54 = sub_10001AF68([v11 spawnTimestamp], v48, v47);
+        v55 = dateFormatter;
+        v53 = [dateFormatter stringFromDate:?];
+        v76[2] = v53;
+        v75[3] = @"exitTimestamp";
         dateFormatter2 = [p_vtable[275] dateFormatter];
-        v50 = sub_10001AF68([v11 exitTimestamp], v47, v46);
-        v51 = dateFormatter2;
-        v49 = [dateFormatter2 stringFromDate:?];
-        v75[3] = v49;
-        v74[4] = @"relativeSpawnTimeToHangStart";
+        v51 = sub_10001AF68([v11 exitTimestamp], v48, v47);
+        v52 = dateFormatter2;
+        v50 = [dateFormatter2 stringFromDate:?];
+        v76[3] = v50;
+        v75[4] = @"relativeSpawnTimeToHangStart";
         spawnTimestamp = [v11 spawnTimestamp];
-        v26 = v10[270];
+        v27 = v10[270];
         spawnTimestamp2 = [v11 spawnTimestamp];
         if (spawnTimestamp <= hang)
         {
-          [v26 stringWithFormat:@"-%.3lfs", sub_1000294E0(hang - spawnTimestamp2)];
+          [v27 stringWithFormat:@"-%.3lfs", sub_1000294E0(hang - spawnTimestamp2)];
         }
 
         else
         {
-          [v26 stringWithFormat:@"%.3lfs", sub_1000294E0(spawnTimestamp2 - hang)];
+          [v27 stringWithFormat:@"%.3lfs", sub_1000294E0(spawnTimestamp2 - hang)];
         }
-        v28 = ;
-        v75[4] = v28;
-        v74[5] = @"relativeExitTimeToHangStart";
+        v29 = ;
+        v76[4] = v29;
+        v75[5] = @"relativeExitTimeToHangStart";
         exitTimestamp = [v11 exitTimestamp];
-        v30 = v10[270];
+        v31 = v10[270];
         exitTimestamp2 = [v11 exitTimestamp];
         if (exitTimestamp <= hang)
         {
-          [v30 stringWithFormat:@"-%.3lfs", sub_1000294E0(hang - exitTimestamp2)];
+          [v31 stringWithFormat:@"-%.3lfs", sub_1000294E0(hang - exitTimestamp2)];
         }
 
         else
         {
-          [v30 stringWithFormat:@"%.3lfs", sub_1000294E0(exitTimestamp2 - hang)];
+          [v31 stringWithFormat:@"%.3lfs", sub_1000294E0(exitTimestamp2 - hang)];
         }
-        v32 = ;
+        v33 = ;
         hangCopy = hang;
-        v75[5] = v32;
-        v74[6] = @"processUptime";
-        v34 = [v10[270] stringWithFormat:@"%.3lfs", sub_1000294E0(objc_msgSend(v11, "exitTimestamp") - objc_msgSend(v11, "spawnTimestamp"))];
-        v75[6] = v34;
-        v74[7] = @"exitReasonCode";
-        v35 = sub_1000291B0([v11 exitReasonNamespace], objc_msgSend(v11, "exitReasonCode"));
-        v75[7] = v35;
-        v74[8] = @"exitReasonNamespace";
-        v36 = sub_100027C44([v11 exitReasonNamespace]);
-        v75[8] = v36;
-        v74[9] = @"jetsamPriority";
-        v37 = +[NSNumber numberWithUnsignedShort:](NSNumber, "numberWithUnsignedShort:", [v11 jetsam_priority]);
-        v75[9] = v37;
-        v15 = [NSDictionary dictionaryWithObjects:v75 forKeys:v74 count:10];
+        v76[5] = v33;
+        v75[6] = @"processUptime";
+        v35 = [v10[270] stringWithFormat:@"%.3lfs", sub_1000294E0(objc_msgSend(v11, "exitTimestamp") - objc_msgSend(v11, "spawnTimestamp"))];
+        v76[6] = v35;
+        v75[7] = @"exitReasonCode";
+        v36 = sub_1000291B0([v11 exitReasonNamespace], objc_msgSend(v11, "exitReasonCode"));
+        v76[7] = v36;
+        v75[8] = @"exitReasonNamespace";
+        v37 = sub_100027C44([v11 exitReasonNamespace]);
+        v76[8] = v37;
+        v75[9] = @"jetsamPriority";
+        v38 = +[NSNumber numberWithUnsignedShort:](NSNumber, "numberWithUnsignedShort:", [v11 jetsam_priority]);
+        v76[9] = v38;
+        v16 = [NSDictionary dictionaryWithObjects:v76 forKeys:v75 count:10];
 
         hang = hangCopy;
-        if ([v11 exitTimestamp] < hangCopy || (v38 = objc_msgSend(v11, "exitTimestamp"), v39 = v43, v38 >= time))
+        if ([v11 exitTimestamp] < hangCopy || (v39 = objc_msgSend(v11, "exitTimestamp"), v40 = v44, v39 >= time))
         {
           if ([v11 exitTimestamp] >= time)
           {
-            v39 = v44;
+            v40 = v45;
           }
 
           else
           {
-            v39 = v45;
+            v40 = v46;
           }
         }
 
-        [v39 addObject:v15];
+        [v40 addObject:v16];
         p_vtable = &OBJC_METACLASS___HUDDurationLayer.vtable;
         v9 = (&OBJC_METACLASS___HUDDurationLayer + 24);
         v10 = &archive_entry_copy_stat_ptr;
@@ -228,35 +229,35 @@
 
       else
       {
-        v15 = sub_100003824();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+        v16 = sub_100003824(v15);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           sharedPrefs2 = [v9 + 32 sharedPrefs];
-          v16 = sub_100029534([sharedPrefs2 runloopHangTimeoutDurationMSec] + 30000);
+          v17 = sub_100029534([sharedPrefs2 runloopHangTimeoutDurationMSec] + 30000);
           processName2 = [v11 processName];
-          v18 = [v11 pid];
+          v19 = [v11 pid];
           hangCopy2 = hang;
           exitTimestamp3 = [v11 exitTimestamp];
           exitReasonCode = [v11 exitReasonCode];
           exitReasonNamespace = [v11 exitReasonNamespace];
           *buf = 134219522;
-          v61 = *&v12;
-          v62 = 2048;
-          v63 = *&v16;
+          v62 = *&v12;
+          v63 = 2048;
+          v64 = *&v17;
           v10 = &archive_entry_copy_stat_ptr;
-          v64 = 2112;
-          v65 = processName2;
-          v66 = 1024;
-          v67 = v18;
+          v65 = 2112;
+          v66 = processName2;
+          v67 = 1024;
+          v68 = v19;
           p_vtable = (&OBJC_METACLASS___HUDDurationLayer + 24);
-          v68 = 2048;
-          v69 = exitTimestamp3;
+          v69 = 2048;
+          v70 = exitTimestamp3;
           hang = hangCopy2;
-          v70 = 2048;
-          v71 = exitReasonCode;
-          v72 = 1024;
-          v73 = exitReasonNamespace;
-          _os_log_debug_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEBUG, "excluding process exit record, timediff (%llu) > %llu, processName %@, pid %d, exitTimestamp %llu, exitReasonCode %llu, exitReasonNamespace %u", buf, 0x40u);
+          v71 = 2048;
+          v72 = exitReasonCode;
+          v73 = 1024;
+          v74 = exitReasonNamespace;
+          _os_log_debug_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEBUG, "excluding process exit record, timediff (%llu) > %llu, processName %@, pid %d, exitTimestamp %llu, exitReasonCode %llu, exitReasonNamespace %u", buf, 0x40u);
 
           v9 = (&OBJC_METACLASS___HUDDurationLayer + 24);
         }
@@ -268,15 +269,15 @@
     while ([p_vtable[275] count] > v8++);
   }
 
-  v58[0] = @"exitedDuringHang";
-  v58[1] = @"exitedBeforeHang";
-  v59[0] = v43;
-  v59[1] = v45;
-  v58[2] = @"exitedAfterHang";
-  v59[2] = v44;
-  v41 = [NSDictionary dictionaryWithObjects:v59 forKeys:v58 count:3];
+  v59[0] = @"exitedDuringHang";
+  v59[1] = @"exitedBeforeHang";
+  v60[0] = v44;
+  v60[1] = v46;
+  v59[2] = @"exitedAfterHang";
+  v60[2] = v45;
+  v42 = [NSDictionary dictionaryWithObjects:v60 forKeys:v59 count:3];
 
-  return v41;
+  return v42;
 }
 
 @end

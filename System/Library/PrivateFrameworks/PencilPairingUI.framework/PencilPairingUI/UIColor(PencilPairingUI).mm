@@ -13,20 +13,20 @@
 
 + (id)scratchpadBackgroundColor
 {
-  v0 = MEMORY[0x277D75348];
-  v1 = PencilPairingUIBundle();
-  v2 = [v0 colorNamed:@"scratchpad_background_color" inBundle:v1 compatibleWithTraitCollection:0];
+  v1 = MEMORY[0x277D75348];
+  v2 = PencilPairingUIBundle(self);
+  v3 = [v1 colorNamed:@"scratchpad_background_color" inBundle:v2 compatibleWithTraitCollection:0];
 
-  return v2;
+  return v3;
 }
 
 + (id)toastLabelTextColor
 {
-  v0 = MEMORY[0x277D75348];
-  v1 = PencilPairingUIBundle();
-  v2 = [v0 colorNamed:@"toast_label_color" inBundle:v1 compatibleWithTraitCollection:0];
+  v1 = MEMORY[0x277D75348];
+  v2 = PencilPairingUIBundle(self);
+  v3 = [v1 colorNamed:@"toast_label_color" inBundle:v2 compatibleWithTraitCollection:0];
 
-  return v2;
+  return v3;
 }
 
 + (id)tuckViewColorTransparencyEnabled:()PencilPairingUI
@@ -47,20 +47,20 @@
 
 + (id)platterContainerColor
 {
-  v0 = MEMORY[0x277D75348];
-  v1 = PencilPairingUIBundle();
-  v2 = [v0 colorNamed:@"platter_background_color" inBundle:v1 compatibleWithTraitCollection:0];
+  v1 = MEMORY[0x277D75348];
+  v2 = PencilPairingUIBundle(self);
+  v3 = [v1 colorNamed:@"platter_background_color" inBundle:v2 compatibleWithTraitCollection:0];
 
-  return v2;
+  return v3;
 }
 
 + (id)platterStrokeColor
 {
-  v0 = MEMORY[0x277D75348];
-  v1 = PencilPairingUIBundle();
-  v2 = [v0 colorNamed:@"platter_stroke_color" inBundle:v1 compatibleWithTraitCollection:0];
+  v1 = MEMORY[0x277D75348];
+  v2 = PencilPairingUIBundle(self);
+  v3 = [v1 colorNamed:@"platter_stroke_color" inBundle:v2 compatibleWithTraitCollection:0];
 
-  return v2;
+  return v3;
 }
 
 + (id)batteryTextColorLowPower:()PencilPairingUI

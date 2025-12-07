@@ -16,9 +16,9 @@
 + (TSTTableTileGroup)groupWithStartingTileID:(unint64_t)d
 {
   v4 = [self alloc];
-  v8 = objc_msgSend_initWithStartingTileID_(v4, v5, d, v6, v7);
+  v7 = objc_msgSend_initWithStartingTileID_(v4, v5, d, v6);
 
-  return v8;
+  return v7;
 }
 
 - (TSTTableTileGroup)initWithStartingTileID:(unint64_t)d
@@ -36,18 +36,18 @@
 
 - (TSTTableTileGroup)init
 {
-  v4 = MEMORY[0x277D81150];
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileGroup init]", v2, v3);
-  v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v6, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileGroup.mm", v7, v8);
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v4, v10, v5, v9, 47, 0, "Do not call method");
+  v3 = MEMORY[0x277D81150];
+  v4 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTTableTileGroup init]", v2);
+  v7 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v5, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileGroup.mm", v6);
+  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v3, v8, v4, v7, 47, 0, "Do not call method");
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v11, v12, v13, v14);
-  v15 = MEMORY[0x277CBEAD8];
-  v19 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v16, @"%s: %s", v17, v18, "Do not call method", "[TSTTableTileGroup init]");
-  v21 = objc_msgSend_exceptionWithName_reason_userInfo_(v15, v20, *MEMORY[0x277CBE658], v19, 0);
-  v22 = v21;
+  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v9, v10, v11);
+  v12 = MEMORY[0x277CBEAD8];
+  v15 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v13, @"%s: %s", v14, "Do not call method", "[TSTTableTileGroup init]");
+  v17 = objc_msgSend_exceptionWithName_reason_userInfo_(v12, v16, *MEMORY[0x277CBE658], v15, 0);
+  v18 = v17;
 
-  objc_exception_throw(v21);
+  objc_exception_throw(v17);
 }
 
 - (void)setReference:(id)reference forTileID:(unint64_t)d
@@ -66,101 +66,98 @@
 {
   referenceCopy = reference;
   objc_sync_enter(referenceCopy);
-  v87 = 0;
-  v8 = objc_msgSend_objectAndReturnError_(referenceCopy, v5, &v87, v6, v7);
-  v9 = v87;
-  v13 = v9;
-  if (!v8 || v9)
+  v70 = 0;
+  v7 = objc_msgSend_objectAndReturnError_(referenceCopy, v5, &v70, v6);
+  v8 = v70;
+  v11 = v8;
+  if (!v7 || v8)
   {
-    if (!v9)
+    if (!v8)
     {
-      v69 = MEMORY[0x277D81150];
-      v70 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "[TSTTableTileGroup _tileForLazyReference:]", v11, v12);
-      v74 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v71, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileGroup.mm", v72, v73);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v69, v75, v70, v74, 63, 0, "invalid nil value for '%{public}s'", "error");
+      v57 = MEMORY[0x277D81150];
+      v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v9, "[TSTTableTileGroup _tileForLazyReference:]", v10);
+      v61 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v59, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileGroup.mm", v60);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v57, v62, v58, v61, 63, 0, "invalid nil value for '%{public}s'", "error");
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v76, v77, v78, v79);
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v63, v64, v65);
     }
 
-    v16 = objc_opt_class();
-    v17 = NSStringFromClass(v16);
-    v22 = objc_msgSend_domain(v13, v18, v19, v20, v21);
-    v27 = objc_msgSend_code(v13, v23, v24, v25, v26);
-    isRecoverable = objc_msgSend_tsp_isRecoverable(v13, v28, v29, v30, v31);
-    v37 = objc_msgSend_tsp_hintsDescription(v13, v33, v34, v35, v36);
-    v38 = v37;
-    v39 = &stru_2834BADA0;
+    v14 = objc_opt_class();
+    v15 = NSStringFromClass(v14);
+    v19 = objc_msgSend_domain(v11, v16, v17, v18);
+    v23 = objc_msgSend_code(v11, v20, v21, v22);
+    isRecoverable = objc_msgSend_tsp_isRecoverable(v11, v24, v25, v26);
+    v31 = objc_msgSend_tsp_hintsDescription(v11, v28, v29, v30);
+    v32 = v31;
+    v33 = &stru_2834BADA0;
     if (isRecoverable)
     {
-      v39 = @"recoverable=YES, ";
+      v33 = @"recoverable=YES, ";
     }
 
-    v82 = v37;
-    v80 = v27;
-    v81 = v39;
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Failed to load a lazy table tile in TSTTableTileGroup: %@ with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", "[TSTTableTileGroup _tileForLazyReference:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileGroup.mm", 64, self, v15, v19, v23, v33, v31, v11);
 
-    v40 = MEMORY[0x277D81150];
-    v44 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v41, "[TSTTableTileGroup _tileForLazyReference:]", v42, v43, "[TSTTableTileGroup _tileForLazyReference:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileGroup.mm", 64, self, v17, v22, v80, v81, v82, v13);
-    v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v45, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileGroup.mm", v46, v47);
-    v49 = objc_opt_class();
-    v50 = NSStringFromClass(v49);
-    v86 = objc_msgSend_domain(v13, v51, v52, v53, v54);
-    v85 = objc_msgSend_code(v13, v55, v56, v57, v58);
-    v84 = objc_msgSend_tsp_isRecoverable(v13, v59, v60, v61, v62);
-    v83 = objc_msgSend_tsp_hintsDescription(v13, v63, v64, v65, v66);
-    if (v84)
+    v34 = MEMORY[0x277D81150];
+    v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v35, "[TSTTableTileGroup _tileForLazyReference:]", v36);
+    v40 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTTableTileGroup.mm", v39);
+    v41 = objc_opt_class();
+    v42 = NSStringFromClass(v41);
+    v69 = objc_msgSend_domain(v11, v43, v44, v45);
+    v68 = objc_msgSend_code(v11, v46, v47, v48);
+    v67 = objc_msgSend_tsp_isRecoverable(v11, v49, v50, v51);
+    v66 = objc_msgSend_tsp_hintsDescription(v11, v52, v53, v54);
+    if (v67)
     {
-      v68 = @"recoverable=YES, ";
+      v56 = @"recoverable=YES, ";
     }
 
     else
     {
-      v68 = &stru_2834BADA0;
+      v56 = &stru_2834BADA0;
     }
 
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v40, v67, v44, v48, 64, 1, "Failed to load a lazy table tile in TSTTableTileGroup: %@ with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", self, v50, v86, v85, v68, v83, v13);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v34, v55, v37, v40, 64, 1, "Failed to load a lazy table tile in TSTTableTileGroup: %@ with error: errorClass=%{public}@, domain=%{public}@, code=%zd, %{public}@hints=%{public}@ (%@) ", self, v42, v69, v68, v56, v66, v11);
 
     TSUCrashBreakpoint();
     abort();
   }
 
   objc_opt_class();
-  v14 = TSUCheckedDynamicCast();
+  v12 = TSUCheckedDynamicCast();
 
   objc_sync_exit(referenceCopy);
 
-  return v14;
+  return v12;
 }
 
 - (id)objectAtIndexedSubscript:(unint64_t)subscript
 {
   v4 = sub_2213CF1FC(subscript, self->_startingTileID);
   tiles = self->_tiles;
-  v9 = self->_tiles[v4];
-  if (v9)
+  v8 = self->_tiles[v4];
+  if (v8)
   {
     goto LABEL_4;
   }
 
-  v10 = v4;
-  v11 = self->_references[v4];
-  if (v11)
+  v9 = v4;
+  v10 = self->_references[v4];
+  if (v10)
   {
-    v12 = objc_msgSend__tileForLazyReference_(self, v5, v11, v6, v7);
-    v13 = tiles[v10];
-    tiles[v10] = v12;
+    v11 = objc_msgSend__tileForLazyReference_(self, v5, v10, v6);
+    v12 = tiles[v9];
+    tiles[v9] = v11;
 
-    v9 = tiles[v10];
+    v8 = tiles[v9];
 LABEL_4:
-    v14 = v9;
+    v13 = v8;
     goto LABEL_5;
   }
 
-  v14 = 0;
+  v13 = 0;
 LABEL_5:
 
-  return v14;
+  return v13;
 }
 
 - (void)setObject:(id)object atIndexedSubscript:(unint64_t)subscript
@@ -168,10 +165,10 @@ LABEL_5:
   objectCopy = object;
   v7 = (&self->super.isa + sub_2213CF1FC(subscript, self->_startingTileID));
   objc_storeStrong(v7 + 1, object);
-  v11 = objc_msgSend_referenceForObject_(MEMORY[0x277D80868], v8, objectCopy, v9, v10);
-  objc_msgSend_setKeepObjectInMemory_(v11, v12, 1, v13, v14);
-  v15 = v7[257];
-  v7[257] = v11;
+  v10 = objc_msgSend_referenceForObject_(MEMORY[0x277D80868], v8, objectCopy, v9);
+  objc_msgSend_setKeepObjectInMemory_(v10, v11, 1, v12);
+  v13 = v7[257];
+  v7[257] = v10;
 }
 
 - (void)enumerateTilesWithBlock:(id)block
@@ -181,25 +178,25 @@ LABEL_5:
   while (1)
   {
     v6 = (&self->super.isa + v5);
-    v10 = v6[1];
-    if (!v10)
+    v9 = v6[1];
+    if (!v9)
     {
       if (!v6[257])
       {
-        v10 = 0;
+        v9 = 0;
         goto LABEL_4;
       }
 
-      v10 = objc_msgSend_objectAtIndexedSubscript_(self, v7, v5 + self->_startingTileID, v8, v9);
-      if (!v10)
+      v9 = objc_msgSend_objectAtIndexedSubscript_(self, v7, v5 + self->_startingTileID, v8);
+      if (!v9)
       {
         goto LABEL_4;
       }
     }
 
-    v11 = 0;
-    blockCopy[2](blockCopy, v10, v5 + self->_startingTileID, &v11);
-    if (v11)
+    v10 = 0;
+    blockCopy[2](blockCopy, v9, v5 + self->_startingTileID, &v10);
+    if (v10)
     {
       break;
     }

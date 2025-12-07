@@ -6,6 +6,7 @@
 - (void)dealloc;
 - (void)delegateDidReceiveRequestData:(id)data;
 - (void)delegateDidReceiveRequestWithURL:(id)l;
+- (void)delegateDidReceiveResponseData:(id)data moreComing:(BOOL)coming;
 @end
 
 @implementation CATHTTPMessageParser
@@ -245,6 +246,20 @@ uint64_t __42__CATHTTPMessageParser_encodeRequestData___block_invoke()
   {
     delegate2 = [(CATHTTPMessageParser *)self delegate];
     [delegate2 messageParser:self didParseRequestData:dataCopy];
+  }
+}
+
+- (void)delegateDidReceiveResponseData:(id)data moreComing:(BOOL)coming
+{
+  comingCopy = coming;
+  dataCopy = data;
+  delegate = [(CATHTTPMessageParser *)self delegate];
+  v7 = objc_opt_respondsToSelector();
+
+  if (v7)
+  {
+    delegate2 = [(CATHTTPMessageParser *)self delegate];
+    [delegate2 messageParser:self didParseResponseData:dataCopy moreComing:comingCopy];
   }
 }
 

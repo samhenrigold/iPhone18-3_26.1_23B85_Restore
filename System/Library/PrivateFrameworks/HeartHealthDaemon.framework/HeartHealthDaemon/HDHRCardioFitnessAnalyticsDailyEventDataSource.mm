@@ -8,6 +8,7 @@
 - (id)determineIsHeartRateEnabledWithIsImproveHealthAndActivityAllowed:(BOOL)allowed;
 - (id)determineIsWristDetectionEnabledWithIsImproveHealthAndActivityAllowed:(BOOL)allowed;
 - (id)determineNumberOfLowNotificationsInPastYearWithCurrentDate:(id)date isImproveHealthAndActivityAllowed:(BOOL)allowed error:(id *)error;
+- (id)latestClassificationWithIsOnboarded:(BOOL)onboarded isImproveHealthAndActivityAllowed:(BOOL)allowed error:(id *)error;
 - (int64_t)_determineDaysSinceLastSampleWithSampleType:(id)type currentDate:(id)date error:(id *)error;
 - (int64_t)determineWeeksSinceOnboardingWithCurrentDate:(id)date error:(id *)error;
 - (int64_t)numberOfDaysBetweenStartDate:(id)date endDate:(id)endDate;
@@ -48,14 +49,14 @@
 
 - (id)determineDaysSinceLastLowNotificationWithCurrentDate:(id)date isImproveHealthAndActivityAllowed:(BOOL)allowed error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   if (allowed)
   {
     v9 = [MEMORY[0x277CCD720] categoryTypeForIdentifier:*MEMORY[0x277CCBA08]];
-    v17 = 0;
-    v10 = [(HDHRCardioFitnessAnalyticsDailyEventDataSource *)self _determineDaysSinceLastSampleWithSampleType:v9 currentDate:dateCopy error:&v17];
-    v11 = v17;
+    v16 = 0;
+    v10 = [(HDHRCardioFitnessAnalyticsDailyEventDataSource *)self _determineDaysSinceLastSampleWithSampleType:v9 currentDate:dateCopy error:&v16];
+    v11 = v16;
     if (v11)
     {
       _HKInitializeLogging();
@@ -99,21 +100,19 @@
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)determineDaysSinceLastVO2MaxSampleWithCurrentDate:(id)date isImproveHealthAndActivityAllowed:(BOOL)allowed error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   if (allowed)
   {
     v9 = [MEMORY[0x277CCD830] quantityTypeForIdentifier:*MEMORY[0x277CCCC98]];
-    v17 = 0;
-    v10 = [(HDHRCardioFitnessAnalyticsDailyEventDataSource *)self _determineDaysSinceLastSampleWithSampleType:v9 currentDate:dateCopy error:&v17];
-    v11 = v17;
+    v16 = 0;
+    v10 = [(HDHRCardioFitnessAnalyticsDailyEventDataSource *)self _determineDaysSinceLastSampleWithSampleType:v9 currentDate:dateCopy error:&v16];
+    v11 = v16;
     if (v11)
     {
       _HKInitializeLogging();
@@ -157,14 +156,12 @@
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)determineNumberOfLowNotificationsInPastYearWithCurrentDate:(id)date isImproveHealthAndActivityAllowed:(BOOL)allowed error:(id *)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   if (allowed)
   {
@@ -173,17 +170,17 @@
     v11 = [MEMORY[0x277CCD720] categoryTypeForIdentifier:*MEMORY[0x277CCBA08]];
     v12 = MEMORY[0x277D10B20];
     v13 = HDSampleEntityPredicateForStartDate();
-    v27[0] = v13;
+    v26[0] = v13;
     v14 = HDSampleEntityPredicateForStartDate();
-    v27[1] = v14;
-    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:2];
+    v26[1] = v14;
+    v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:2];
     v16 = [v12 predicateMatchingAllPredicates:v15];
 
     v17 = MEMORY[0x277D10848];
     WeakRetained = objc_loadWeakRetained(&self->_profile);
-    v26 = 0;
-    v19 = [v17 countOfSamplesWithType:v11 profile:WeakRetained matchingPredicate:v16 withError:&v26];
-    v20 = v26;
+    v25 = 0;
+    v19 = [v17 countOfSamplesWithType:v11 profile:WeakRetained matchingPredicate:v16 withError:&v25];
+    v20 = v25;
 
     if (v20)
     {
@@ -228,22 +225,20 @@
     v23 = 0;
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v23;
 }
 
 - (id)determineIsBlockersEnabledWithIsImproveHealthAndActivityAllowed:(BOOL)allowed error:(id *)error
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (allowed)
   {
     v6 = [MEMORY[0x277CCD0D0] characteristicTypeForIdentifier:*MEMORY[0x277CCDED0]];
     WeakRetained = objc_loadWeakRetained(&self->_profile);
     userCharacteristicsManager = [WeakRetained userCharacteristicsManager];
-    v17 = 0;
-    v9 = [userCharacteristicsManager userCharacteristicForType:v6 error:&v17];
-    v10 = v17;
+    v16 = 0;
+    v9 = [userCharacteristicsManager userCharacteristicForType:v6 error:&v16];
+    v10 = v16;
 
     if (v10)
     {
@@ -294,14 +289,12 @@
     v13 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (id)determineIsHeartRateEnabledWithIsImproveHealthAndActivityAllowed:(BOOL)allowed
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (allowed)
   {
     v4 = [(NSUserDefaults *)self->_privacyDefaults persistentDomainForName:*MEMORY[0x277CCE500]];
@@ -324,22 +317,20 @@
     v8 = HKLogHeartRateCategory();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138543362;
+      v10 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_229486000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Not including whether user has heart rate as user does not have IH&A allowed", &v11, 0xCu);
+      _os_log_impl(&dword_229486000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Not including whether user has heart rate as user does not have IH&A allowed", &v10, 0xCu);
     }
 
     v7 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (id)determineIsWristDetectionEnabledWithIsImproveHealthAndActivityAllowed:(BOOL)allowed
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (allowed)
   {
     isWristDetectEnabled = [MEMORY[0x277CCDCF8] isWristDetectEnabled];
@@ -352,30 +343,28 @@
     v6 = HKLogHeartRateCategory();
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543362;
+      v8 = 138543362;
       selfCopy = self;
-      _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Not including whether user has wrist detect as user does not have IH&A allowed", &v9, 0xCu);
+      _os_log_impl(&dword_229486000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Not including whether user has wrist detect as user does not have IH&A allowed", &v8, 0xCu);
     }
 
     v4 = 0;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
 
 - (int64_t)determineWeeksSinceOnboardingWithCurrentDate:(id)date error:(id *)error
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   v7 = objc_alloc(MEMORY[0x277D106D8]);
   WeakRetained = objc_loadWeakRetained(&self->_profile);
   v9 = [v7 initWithProfile:WeakRetained featureIdentifier:*MEMORY[0x277CCC000] currentOnboardingVersion:1 loggingCategory:*MEMORY[0x277CCC2D0]];
 
-  v18 = 0;
-  v10 = [v9 earliestDateLowestOnboardingVersionCompletedWithError:&v18];
-  v11 = v18;
+  v17 = 0;
+  v10 = [v9 earliestDateLowestOnboardingVersionCompletedWithError:&v17];
+  v11 = v17;
   if (v11)
   {
     _HKInitializeLogging();
@@ -418,20 +407,49 @@ LABEL_12:
   v14 = [(HDHRCardioFitnessAnalyticsDailyEventDataSource *)self numberOfDaysBetweenStartDate:v10 endDate:dateCopy]/ 7;
 LABEL_13:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v14;
+}
+
+- (id)latestClassificationWithIsOnboarded:(BOOL)onboarded isImproveHealthAndActivityAllowed:(BOOL)allowed error:(id *)error
+{
+  v16 = *MEMORY[0x277D85DE8];
+  if (allowed)
+  {
+    onboardedCopy = onboarded;
+    v8 = [HDHRCardioFitnessAnalyticsSignalSource alloc];
+    WeakRetained = objc_loadWeakRetained(&self->_profile);
+    v10 = [(HDHRCardioFitnessAnalyticsSignalSource *)v8 initWithProfile:WeakRetained];
+
+    v11 = [(HDHRCardioFitnessAnalyticsSignalSource *)v10 latestClassificationWithIsOnboarded:onboardedCopy error:error];
+  }
+
+  else
+  {
+    _HKInitializeLogging();
+    v12 = HKLogHeartRateCategory();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v14 = 138543362;
+      selfCopy = self;
+      _os_log_impl(&dword_229486000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@]: Not including latest classification as user does not have IH&A allowed", &v14, 0xCu);
+    }
+
+    v11 = 0;
+  }
+
+  return v11;
 }
 
 - (int64_t)_determineDaysSinceLastSampleWithSampleType:(id)type currentDate:(id)date error:(id *)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   dateCopy = date;
   v10 = MEMORY[0x277D10848];
   WeakRetained = objc_loadWeakRetained(&self->_profile);
-  v21 = 0;
-  v12 = [v10 mostRecentSampleWithType:typeCopy profile:WeakRetained encodingOptions:0 predicate:0 anchor:0 error:&v21];
-  v13 = v21;
+  v20 = 0;
+  v12 = [v10 mostRecentSampleWithType:typeCopy profile:WeakRetained encodingOptions:0 predicate:0 anchor:0 error:&v20];
+  v13 = v20;
 
   if (v13)
   {
@@ -442,10 +460,10 @@ LABEL_13:
       identifier = [typeCopy identifier];
       *buf = 138543874;
       selfCopy = self;
-      v24 = 2114;
-      v25 = identifier;
-      v26 = 2114;
-      v27 = v13;
+      v23 = 2114;
+      v24 = identifier;
+      v25 = 2114;
+      v26 = v13;
       _os_log_error_impl(&dword_229486000, v14, OS_LOG_TYPE_ERROR, "[%{public}@]: Error when querying for %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -474,7 +492,6 @@ LABEL_9:
   v17 = [(HDHRCardioFitnessAnalyticsDailyEventDataSource *)self numberOfDaysBetweenStartDate:startDate endDate:dateCopy];
 
 LABEL_10:
-  v18 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
@@ -504,46 +521,6 @@ LABEL_10:
   [v2 setTimeZone:localTimeZone];
 
   return v2;
-}
-
-- (void)determineDaysSinceLastLowNotificationWithCurrentDate:isImproveHealthAndActivityAllowed:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@]: Error when determining days since last low notification, will retry daily event: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)determineDaysSinceLastVO2MaxSampleWithCurrentDate:isImproveHealthAndActivityAllowed:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@]: Error when determining days since last VO2 max sample, will retry daily event: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)determineNumberOfLowNotificationsInPastYearWithCurrentDate:isImproveHealthAndActivityAllowed:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@]: Error received from query, assigning error so we retry: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)determineIsBlockersEnabledWithIsImproveHealthAndActivityAllowed:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@]: Error when retrieving cardio fitness medications use object, using error sentinel: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)determineWeeksSinceOnboardingWithCurrentDate:error:.cold.1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_9();
-  OUTLINED_FUNCTION_1(&dword_229486000, v0, v1, "[%{public}@]: Error when determining onboarding date: %{public}@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

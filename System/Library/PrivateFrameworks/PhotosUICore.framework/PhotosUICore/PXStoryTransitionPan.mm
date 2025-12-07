@@ -46,7 +46,7 @@
   v10 = objc_msgSendSuper2(&v21, sel_alloc);
   if (configurationCopy)
   {
-    [configurationCopy duration];
+    objc_msgSend_duration(configurationCopy);
   }
 
   else
@@ -77,7 +77,7 @@
   objc_claimAutoreleasedReturnValue();
   time = *time;
   CMTimeGetSeconds(&time);
-  [(PXStoryConcreteTransition *)self duration];
+  objc_msgSend_duration(self);
   time = v5;
   CMTimeGetSeconds(&time);
   PXClamp();
@@ -100,7 +100,7 @@ void __34__PXStoryTransitionPan_wasStopped__block_invoke(uint64_t a1, void *a2)
   if (v3)
   {
     v4 = v3;
-    [v3 info];
+    objc_msgSend_info(v3);
 
     if (v6[1] == 3)
     {
@@ -119,7 +119,7 @@ void __34__PXStoryTransitionPan_wasStopped__block_invoke(uint64_t a1, void *a2)
 {
   time = *time;
   CMTimeGetSeconds(&time);
-  [(PXStoryConcreteTransition *)self duration];
+  objc_msgSend_duration(self);
   time = v4;
   CMTimeGetSeconds(&time);
   PXClamp();
@@ -129,7 +129,7 @@ void __34__PXStoryTransitionPan_wasStopped__block_invoke(uint64_t a1, void *a2)
 {
   v6 = 0uLL;
   v7 = 0;
-  [(PXStoryAnimation *)self time];
+  objc_msgSend_time(self, a2);
   if (self->_configuration)
   {
     v4 = v6;

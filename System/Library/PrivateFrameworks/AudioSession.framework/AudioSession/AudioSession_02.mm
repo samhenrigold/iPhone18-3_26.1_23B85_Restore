@@ -1,78 +1,3 @@
-uint64_t avas::server::Clock::clearHardwareInfo(avas::server::Clock *this)
-{
-  result = *(this + 12);
-  *(this + 12) = 0;
-  if (result)
-  {
-    return (*(*result + 8))();
-  }
-
-  return result;
-}
-
-void avas::server::Clock::addControls(avas::server::Clock *this)
-{
-  v3 = *(this + 6);
-  v2 = *(this + 7);
-  if (v3 >= v2)
-  {
-    v5 = this + 40;
-    v6 = *(this + 5);
-    v7 = v3 - v6;
-    v8 = (v3 - v6) >> 3;
-    v9 = v8 + 1;
-    if ((v8 + 1) >> 61)
-    {
-      std::vector<std::pair<objc_object  {objcproto39AVAudioNotificationCenterServerDelegate}* {__strong},NSArray * {__strong}>>::__throw_length_error[abi:ne200100]();
-    }
-
-    v10 = v2 - v6;
-    if (v10 >> 2 > v9)
-    {
-      v9 = v10 >> 2;
-    }
-
-    v11 = v10 >= 0x7FFFFFFFFFFFFFF8;
-    v12 = 0x1FFFFFFFFFFFFFFFLL;
-    if (!v11)
-    {
-      v12 = v9;
-    }
-
-    v18[4] = this + 40;
-    if (v12)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<std::unique_ptr<avas::client::PortPrefs>>>(v5, v12);
-    }
-
-    v13 = (v3 - v6) >> 3;
-    v14 = (8 * v8);
-    v15 = (8 * v8 - 8 * v13);
-    *v14 = 0;
-    v4 = v14 + 1;
-    memcpy(v15, v6, v7);
-    v16 = *(this + 5);
-    *(this + 5) = v15;
-    *(this + 6) = v4;
-    v17 = *(this + 7);
-    *(this + 7) = 0;
-    v18[2] = v16;
-    v18[3] = v17;
-    v18[0] = v16;
-    v18[1] = v16;
-    std::__split_buffer<std::unique_ptr<avas::client::PortPrefs>>::~__split_buffer(v18);
-  }
-
-  else
-  {
-    *v3 = 0;
-    v4 = v3 + 8;
-  }
-
-  *(this + 6) = v4;
-  operator new();
-}
-
 uint64_t avas::server::HWStream::default_instance(avas::server::HWStream *this)
 {
   {
@@ -113,7 +38,7 @@ double avas::server::HWStream::HWStream(avas::server::HWStream *this)
   return result;
 }
 
-avas::server::HWStream *avas::server::HWStream::HWStream(avas::server::HWStream *this, caulk::xstring **a2)
+avas::server::HWStream *avas::server::HWStream::HWStream(avas::server::HWStream *this, const avas::server::HWStream *a2)
 {
   *this = &unk_1F5999160;
   *(this + 1) = 0u;
@@ -138,23 +63,23 @@ avas::server::HWStream *avas::server::HWStream::HWStream(avas::server::HWStream 
   return this;
 }
 
-__n128 avas::server::HWStream::copy_from(caulk::xstring **this, caulk::xstring **a2)
+__n128 avas::server::HWStream::copy_from(avas::server::HWStream *this, const avas::server::HWStream *a2)
 {
-  v4 = a2[11];
+  v4 = *(a2 + 11);
   if (v4)
   {
     v5 = avas::server::HWStream::mutableHardwareInfo(this);
     avas::server::HardwareInfo::copy_from(v5, v4);
   }
 
-  v6 = a2[12];
+  v6 = *(a2 + 12);
   if (v6)
   {
     v7 = avas::server::HWStream::mutablePrivateFormat(this);
     avas::StreamFormat::operator=(v7, v6);
   }
 
-  v8 = a2[13];
+  v8 = *(a2 + 13);
   if (v8)
   {
     v9 = avas::server::HWStream::mutablePublicFormat(this);
@@ -162,20 +87,20 @@ __n128 avas::server::HWStream::copy_from(caulk::xstring **this, caulk::xstring *
   }
 
   std::vector<std::unique_ptr<avas::client::PortPrefs>>::clear[abi:ne200100](this + 5);
-  if (a2[5] != a2[6])
+  if (*(a2 + 5) != *(a2 + 6))
   {
     operator new();
   }
 
   std::vector<std::unique_ptr<avas::client::PortPrefs>>::clear[abi:ne200100](this + 8);
-  if (a2[8] != a2[9])
+  if (*(a2 + 8) != *(a2 + 9))
   {
     operator new();
   }
 
   if (this != a2)
   {
-    std::vector<caulk::xstring>::__assign_with_size[abi:ne200100]<caulk::xstring*,caulk::xstring*>(this + 2, a2[2], a2[3], (a2[3] - a2[2]) >> 4);
+    std::vector<caulk::xstring>::__assign_with_size[abi:ne200100]<caulk::xstring*,caulk::xstring*>(this + 16, *(a2 + 2), *(a2 + 3), (*(a2 + 3) - *(a2 + 2)) >> 4);
   }
 
   *(this + 2) = *(a2 + 2);
@@ -217,7 +142,7 @@ uint64_t avas::server::HWStream::privateFormat(avas::server::HWStream *this)
   return result;
 }
 
-uint64_t avas::server::HWStream::mutablePrivateFormat(avas::server::HWStream *this)
+avas::StreamFormat *avas::server::HWStream::mutablePrivateFormat(avas::server::HWStream *this)
 {
   if (!*(this + 12))
   {
@@ -238,7 +163,7 @@ uint64_t avas::server::HWStream::publicFormat(avas::server::HWStream *this)
   return result;
 }
 
-uint64_t avas::server::HWStream::mutablePublicFormat(avas::server::HWStream *this)
+avas::StreamFormat *avas::server::HWStream::mutablePublicFormat(avas::server::HWStream *this)
 {
   if (!*(this + 13))
   {
@@ -353,7 +278,7 @@ uint64_t avas::server::HWStream::clear(avas::server::HWStream *this)
   return result;
 }
 
-uint64_t avas::server::HWStream::isInitialized(avas::server::HWStream *this)
+avas::StreamFormat *avas::server::HWStream::isInitialized(avas::server::HWStream *this)
 {
   if (!*(this + 11))
   {
@@ -396,7 +321,7 @@ uint64_t avas::server::HWStream::isInitialized(avas::server::HWStream *this)
             ++v5;
           }
 
-          return (~*(this + 2) & 0xF) == 0;
+          return ((~*(this + 2) & 0xF) == 0);
         }
       }
     }
@@ -880,76 +805,72 @@ void avas::server::HWStream::writeTo(avas::server::HWStream *this, PB::Writer *a
 {
   if (*(this + 8))
   {
-    v4 = *(this + 14);
     PB::Writer::writeVarInt(a2);
   }
 
-  v5 = *(this + 11);
-  if (v5)
+  v4 = *(this + 11);
+  if (v4)
   {
-    PB::Writer::writeSubmessage(a2, v5);
+    PB::Writer::writeSubmessage(a2, v4);
   }
 
-  v6 = *(this + 2);
-  if ((v6 & 2) != 0)
+  v5 = *(this + 2);
+  if ((v5 & 2) != 0)
   {
-    v7 = *(this + 32);
     PB::Writer::writeVarInt(a2);
-    v6 = *(this + 2);
+    v5 = *(this + 2);
   }
 
-  if ((v6 & 4) != 0)
+  if ((v5 & 4) != 0)
   {
-    v8 = *(this + 30);
     PB::Writer::writeVarInt(a2);
   }
 
-  v9 = *(this + 12);
-  if (v9)
+  v6 = *(this + 12);
+  if (v6)
   {
-    PB::Writer::writeSubmessage(a2, v9);
+    PB::Writer::writeSubmessage(a2, v6);
   }
 
-  v10 = *(this + 13);
-  if (v10)
+  v7 = *(this + 13);
+  if (v7)
   {
+    PB::Writer::writeSubmessage(a2, v7);
+  }
+
+  v8 = *(this + 5);
+  v9 = *(this + 6);
+  while (v8 != v9)
+  {
+    v10 = *v8++;
     PB::Writer::writeSubmessage(a2, v10);
   }
 
-  v11 = *(this + 5);
-  v12 = *(this + 6);
+  v11 = *(this + 8);
+  v12 = *(this + 9);
   while (v11 != v12)
   {
     v13 = *v11++;
     PB::Writer::writeSubmessage(a2, v13);
   }
 
-  v14 = *(this + 8);
-  v15 = *(this + 9);
-  while (v14 != v15)
-  {
-    v16 = *v14++;
-    PB::Writer::writeSubmessage(a2, v16);
-  }
-
   if ((*(this + 8) & 8) != 0)
   {
-    v17 = *(this + 31);
     PB::Writer::writeVarInt(a2);
   }
 
-  v19 = *(this + 2);
-  v18 = *(this + 3);
-  while (v19 != v18)
+  v15 = *(this + 2);
+  v14 = *(this + 3);
+  while (v15 != v14)
   {
-    caulk::xstring::as_std_string(v19, &__p);
+    caulk::xstring::as_std_string(&__p, v15);
     PB::Writer::write();
-    if (v21 < 0)
+    if (v17 < 0)
     {
       operator delete(__p);
     }
 
-    v19 = (v19 + 16);
+    v15 = (v15 + 16);
   }
 }
 
@@ -968,70 +889,66 @@ uint64_t avas::server::HWStream::formatText(avas::server::HWStream *this, PB::Te
   PB::TextFormatter::beginObject(a2, a3);
   if (*(this + 8))
   {
-    v5 = *(this + 14);
     PB::TextFormatter::format(a2, "objectToken");
   }
 
-  v6 = *(this + 11);
-  if (v6)
+  v5 = *(this + 11);
+  if (v5)
   {
-    (*(*v6 + 32))(v6, a2, "hardwareInfo");
+    (*(*v5 + 32))(v5, a2, "hardwareInfo");
   }
 
-  v7 = *(this + 2);
-  if ((v7 & 2) != 0)
+  v6 = *(this + 2);
+  if ((v6 & 2) != 0)
   {
-    v8 = *(this + 32);
     PB::TextFormatter::format(a2, "direction");
-    v7 = *(this + 2);
+    v6 = *(this + 2);
   }
 
-  if ((v7 & 4) != 0)
+  if ((v6 & 4) != 0)
   {
-    v9 = *(this + 30);
     PB::TextFormatter::format(a2, "startingChannel");
   }
 
-  v10 = *(this + 12);
-  if (v10)
+  v7 = *(this + 12);
+  if (v7)
   {
-    (*(*v10 + 32))(v10, a2, "privateFormat");
+    (*(*v7 + 32))(v7, a2, "privateFormat");
   }
 
-  v11 = *(this + 13);
-  if (v11)
+  v8 = *(this + 13);
+  if (v8)
   {
-    (*(*v11 + 32))(v11, a2, "publicFormat");
+    (*(*v8 + 32))(v8, a2, "publicFormat");
   }
 
-  v12 = *(this + 5);
-  v13 = *(this + 6);
+  v9 = *(this + 5);
+  v10 = *(this + 6);
+  while (v9 != v10)
+  {
+    v11 = *v9++;
+    (*(*v11 + 32))(v11, a2, "availablePrivateFormats");
+  }
+
+  v12 = *(this + 8);
+  v13 = *(this + 9);
   while (v12 != v13)
   {
     v14 = *v12++;
-    (*(*v14 + 32))(v14, a2, "availablePrivateFormats");
-  }
-
-  v15 = *(this + 8);
-  v16 = *(this + 9);
-  while (v15 != v16)
-  {
-    v17 = *v15++;
-    (*(*v17 + 32))(v17, a2, "availablePublicFormats");
+    (*(*v14 + 32))(v14, a2, "availablePublicFormats");
   }
 
   if ((*(this + 8) & 8) != 0)
   {
-    v18 = *(this + 31);
     PB::TextFormatter::format(a2, "latency");
   }
 
-  v19 = *(this + 2);
-  for (i = *(this + 3); v19 != i; v19 = (v19 + 16))
+  v15 = *(this + 2);
+  for (i = *(this + 3); v15 != i; v15 = (v15 + 16))
   {
-    caulk::xstring::as_std_string(v19, &__p);
+    caulk::xstring::as_std_string(&__p, v15);
     PB::TextFormatter::format();
-    if (v23 < 0)
+    if (v19 < 0)
     {
       operator delete(__p);
     }
@@ -1511,7 +1428,7 @@ void *avas::server::Device::copy_from(avas::server::Device *this, const avas::se
   return result;
 }
 
-avas::server::Port *avas::server::Port::Port(avas::server::Port *this, caulk::xstring **a2)
+avas::server::Port *avas::server::Port::Port(avas::server::Port *this, const avas::server::Port *a2)
 {
   *this = &unk_1F5999400;
   *(this + 1) = 0u;
@@ -1978,47 +1895,45 @@ uint64_t avas::server::Device::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 8);
   if (v4)
   {
-    v5 = *(this + 112);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 8);
   }
 
   if ((v4 & 2) != 0)
   {
-    v6 = *(v3 + 116);
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v7 = *(v3 + 16);
-  v8 = *(v3 + 24);
-  while (v7 != v8)
+  v5 = *(v3 + 16);
+  v6 = *(v3 + 24);
+  while (v5 != v6)
   {
-    v9 = *v7++;
-    this = PB::Writer::writeSubmessage(a2, v9);
+    v7 = *v5++;
+    this = PB::Writer::writeSubmessage(a2, v7);
   }
 
-  v10 = *(v3 + 40);
-  v11 = *(v3 + 48);
-  while (v10 != v11)
+  v8 = *(v3 + 40);
+  v9 = *(v3 + 48);
+  while (v8 != v9)
   {
-    v12 = *v10++;
-    this = PB::Writer::writeSubmessage(a2, v12);
+    v10 = *v8++;
+    this = PB::Writer::writeSubmessage(a2, v10);
   }
 
-  v13 = *(v3 + 64);
-  v14 = *(v3 + 72);
-  while (v13 != v14)
+  v11 = *(v3 + 64);
+  v12 = *(v3 + 72);
+  while (v11 != v12)
   {
-    v15 = *v13++;
-    this = PB::Writer::writeSubmessage(a2, v15);
+    v13 = *v11++;
+    this = PB::Writer::writeSubmessage(a2, v13);
   }
 
-  v17 = *(v3 + 88);
-  v16 = *(v3 + 96);
-  while (v17 != v16)
+  v15 = *(v3 + 88);
+  v14 = *(v3 + 96);
+  while (v15 != v14)
   {
-    v18 = *v17++;
-    this = PB::Writer::writeSubmessage(a2, v18);
+    v16 = *v15++;
+    this = PB::Writer::writeSubmessage(a2, v16);
   }
 
   return this;
@@ -2030,47 +1945,45 @@ uint64_t avas::server::Device::formatText(avas::server::Device *this, PB::TextFo
   v5 = *(this + 2);
   if (v5)
   {
-    v6 = *(this + 28);
     PB::TextFormatter::format(a2, "inputSafetyOffset");
     v5 = *(this + 2);
   }
 
   if ((v5 & 2) != 0)
   {
-    v7 = *(this + 29);
     PB::TextFormatter::format(a2, "outputSafetyOffset");
   }
 
-  v8 = *(this + 2);
-  v9 = *(this + 3);
-  while (v8 != v9)
+  v6 = *(this + 2);
+  v7 = *(this + 3);
+  while (v6 != v7)
   {
-    v10 = *v8++;
-    (*(*v10 + 32))(v10, a2, "inputStreams");
+    v8 = *v6++;
+    (*(*v8 + 32))(v8, a2, "inputStreams");
   }
 
-  v11 = *(this + 5);
-  v12 = *(this + 6);
-  while (v11 != v12)
+  v9 = *(this + 5);
+  v10 = *(this + 6);
+  while (v9 != v10)
   {
-    v13 = *v11++;
-    (*(*v13 + 32))(v13, a2, "outputStreams");
+    v11 = *v9++;
+    (*(*v11 + 32))(v11, a2, "outputStreams");
   }
 
-  v14 = *(this + 8);
-  v15 = *(this + 9);
-  while (v14 != v15)
+  v12 = *(this + 8);
+  v13 = *(this + 9);
+  while (v12 != v13)
   {
-    v16 = *v14++;
-    (*(*v16 + 32))(v16, a2, "inputPorts");
+    v14 = *v12++;
+    (*(*v14 + 32))(v14, a2, "inputPorts");
   }
 
-  v17 = *(this + 11);
-  v18 = *(this + 12);
-  while (v17 != v18)
+  v15 = *(this + 11);
+  v16 = *(this + 12);
+  while (v15 != v16)
   {
-    v19 = *v17++;
-    (*(*v19 + 32))(v19, a2, "outputPorts");
+    v17 = *v15++;
+    (*(*v17 + 32))(v17, a2, "outputPorts");
   }
 
   return PB::TextFormatter::endObject(a2);
@@ -3008,7 +2921,7 @@ double avas::server::Box::Box(avas::server::Box *this)
   return result;
 }
 
-avas::server::Box *avas::server::Box::Box(avas::server::Box *this, const avas::server::Box *a2)
+avas::server::Box *avas::server::Box::Box(avas::server::Box *this, void **a2)
 {
   *this = &unk_1F5999208;
   *(this + 1) = 0u;
@@ -3031,9 +2944,9 @@ avas::server::Box *avas::server::Box::Box(avas::server::Box *this, const avas::s
   return this;
 }
 
-void *avas::server::Box::copy_from(avas::server::Box *this, const avas::server::Box *a2)
+void *avas::server::Box::copy_from(void **this, void **a2)
 {
-  v4 = *(a2 + 11);
+  v4 = a2[11];
   if (v4)
   {
     v5 = avas::server::Box::mutableHardwareInfo(this);
@@ -3042,12 +2955,12 @@ void *avas::server::Box::copy_from(avas::server::Box *this, const avas::server::
 
   if (this != a2)
   {
-    std::vector<unsigned long long>::__assign_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(this + 5, *(a2 + 5), *(a2 + 6), (*(a2 + 6) - *(a2 + 5)) >> 3);
-    std::vector<unsigned long long>::__assign_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(this + 8, *(a2 + 8), *(a2 + 9), (*(a2 + 9) - *(a2 + 8)) >> 3);
+    std::vector<unsigned long long>::__assign_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(this + 5, a2[5], a2[6], (a2[6] - a2[5]) >> 3);
+    std::vector<unsigned long long>::__assign_with_size[abi:ne200100]<unsigned long long *,unsigned long long *>(this + 8, a2[8], a2[9], (a2[9] - a2[8]) >> 3);
   }
 
   result = std::vector<std::unique_ptr<avas::client::PortPrefs>>::clear[abi:ne200100](this + 2);
-  if (*(a2 + 2) != *(a2 + 3))
+  if (a2[2] != a2[3])
   {
     operator new();
   }
@@ -3913,32 +3826,31 @@ uint64_t avas::server::Box::writeTo(uint64_t this, PB::Writer *a2)
 
   if (*(v3 + 8))
   {
-    v5 = *(v3 + 96);
     this = PB::Writer::write(a2);
   }
 
-  v6 = *(v3 + 40);
-  v7 = *(v3 + 48);
-  while (v6 != v7)
+  v5 = *(v3 + 40);
+  v6 = *(v3 + 48);
+  while (v5 != v6)
   {
-    v8 = *v6++;
+    v5 += 8;
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v9 = *(v3 + 64);
-  v10 = *(v3 + 72);
-  while (v9 != v10)
+  v7 = *(v3 + 64);
+  v8 = *(v3 + 72);
+  while (v7 != v8)
   {
-    v11 = *v9++;
+    v7 += 8;
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v13 = *(v3 + 16);
-  v12 = *(v3 + 24);
-  while (v13 != v12)
+  v10 = *(v3 + 16);
+  v9 = *(v3 + 24);
+  while (v10 != v9)
   {
-    v14 = *v13++;
-    this = PB::Writer::writeSubmessage(a2, v14);
+    v11 = *v10++;
+    this = PB::Writer::writeSubmessage(a2, v11);
   }
 
   return this;
@@ -3955,32 +3867,31 @@ uint64_t avas::server::Box::formatText(avas::server::Box *this, PB::TextFormatte
 
   if (*(this + 8))
   {
-    v6 = *(this + 96);
     PB::TextFormatter::format(a2, "activated");
   }
 
-  v7 = *(this + 5);
-  v8 = *(this + 6);
-  while (v7 != v8)
+  v6 = *(this + 5);
+  v7 = *(this + 6);
+  while (v6 != v7)
   {
-    v9 = *v7++;
+    v6 += 8;
     PB::TextFormatter::format(a2, "clocksIDs");
   }
 
-  v10 = *(this + 8);
-  v11 = *(this + 9);
-  while (v10 != v11)
+  v8 = *(this + 8);
+  v9 = *(this + 9);
+  while (v8 != v9)
   {
-    v12 = *v10++;
+    v8 += 8;
     PB::TextFormatter::format(a2, "deviceIDs");
   }
 
-  v13 = *(this + 2);
-  v14 = *(this + 3);
-  while (v13 != v14)
+  v10 = *(this + 2);
+  v11 = *(this + 3);
+  while (v10 != v11)
   {
-    v15 = *v13++;
-    (*(*v15 + 32))(v15, a2, "controls");
+    v12 = *v10++;
+    (*(*v12 + 32))(v12, a2, "controls");
   }
 
   return PB::TextFormatter::endObject(a2);
@@ -4684,49 +4595,48 @@ void avas::server::Driver::writeTo(avas::server::Driver *this, PB::Writer *a2)
   v4 = *(this + 2);
   if (v4)
   {
-    v5 = *(this + 14);
     PB::Writer::writeVarInt(a2);
     v4 = *(this + 2);
   }
 
   if ((v4 & 2) != 0)
   {
-    caulk::xstring::as_std_string((this + 88), &__p);
+    caulk::xstring::as_std_string(&__p, (this + 88));
     PB::Writer::write();
-    if (v17 < 0)
+    if (v16 < 0)
     {
       operator delete(__p);
     }
   }
 
-  v6 = *(this + 13);
-  if (v6)
+  v5 = *(this + 13);
+  if (v5)
   {
-    PB::Writer::writeSubmessage(a2, v6);
+    PB::Writer::writeSubmessage(a2, v5);
   }
 
-  v7 = *(this + 2);
-  v8 = *(this + 3);
-  while (v7 != v8)
+  v6 = *(this + 2);
+  v7 = *(this + 3);
+  while (v6 != v7)
   {
-    v9 = *v7++;
-    PB::Writer::writeSubmessage(a2, v9);
+    v8 = *v6++;
+    PB::Writer::writeSubmessage(a2, v8);
   }
 
-  v10 = *(this + 5);
-  v11 = *(this + 6);
-  while (v10 != v11)
+  v9 = *(this + 5);
+  v10 = *(this + 6);
+  while (v9 != v10)
   {
-    v12 = *v10++;
-    PB::Writer::writeSubmessage(a2, v12);
+    v11 = *v9++;
+    PB::Writer::writeSubmessage(a2, v11);
   }
 
-  v14 = *(this + 8);
-  v13 = *(this + 9);
-  while (v14 != v13)
+  v13 = *(this + 8);
+  v12 = *(this + 9);
+  while (v13 != v12)
   {
-    v15 = *v14++;
-    PB::Writer::writeSubmessage(a2, v15);
+    v14 = *v13++;
+    PB::Writer::writeSubmessage(a2, v14);
   }
 }
 
@@ -4746,49 +4656,48 @@ uint64_t avas::server::Driver::formatText(avas::server::Driver *this, PB::TextFo
   v5 = *(this + 2);
   if (v5)
   {
-    v6 = *(this + 14);
     PB::TextFormatter::format(a2, "objectToken");
     v5 = *(this + 2);
   }
 
   if ((v5 & 2) != 0)
   {
-    caulk::xstring::as_std_string((this + 88), &__p);
+    caulk::xstring::as_std_string(&__p, (this + 88));
     PB::TextFormatter::format();
-    if (v19 < 0)
+    if (v18 < 0)
     {
       operator delete(__p);
     }
   }
 
-  v7 = *(this + 13);
-  if (v7)
+  v6 = *(this + 13);
+  if (v6)
   {
-    (*(*v7 + 32))(v7, a2, "hardwareInfo");
+    (*(*v6 + 32))(v6, a2, "hardwareInfo");
   }
 
-  v8 = *(this + 2);
-  v9 = *(this + 3);
-  while (v8 != v9)
+  v7 = *(this + 2);
+  v8 = *(this + 3);
+  while (v7 != v8)
   {
-    v10 = *v8++;
-    (*(*v10 + 32))(v10, a2, "devices");
+    v9 = *v7++;
+    (*(*v9 + 32))(v9, a2, "devices");
   }
 
-  v11 = *(this + 5);
-  v12 = *(this + 6);
-  while (v11 != v12)
+  v10 = *(this + 5);
+  v11 = *(this + 6);
+  while (v10 != v11)
   {
-    v13 = *v11++;
-    (*(*v13 + 32))(v13, a2, "clocks");
+    v12 = *v10++;
+    (*(*v12 + 32))(v12, a2, "clocks");
   }
 
-  v14 = *(this + 8);
-  v15 = *(this + 9);
-  while (v14 != v15)
+  v13 = *(this + 8);
+  v14 = *(this + 9);
+  while (v13 != v14)
   {
-    v16 = *v14++;
-    (*(*v16 + 32))(v16, a2, "boxes");
+    v15 = *v13++;
+    (*(*v15 + 32))(v15, a2, "boxes");
   }
 
   return PB::TextFormatter::endObject(a2);
@@ -5355,7 +5264,7 @@ uint64_t avas::server::HardwareSystemState::isInitialized(avas::server::Hardware
   return result;
 }
 
-uint64_t avas::server::HardwareSystemState::readFrom(uint64_t a1, uint64_t *a2)
+uint64_t avas::server::HardwareSystemState::readFrom(void *a1, uint64_t *a2)
 {
   v2 = a2[1];
   v3 = a2[2];
@@ -6148,7 +6057,6 @@ void avas::server::SelectorControlItem::writeTo(avas::server::SelectorControlIte
   v4 = *(this + 2);
   if (v4)
   {
-    v5 = *(this + 8);
     PB::Writer::writeVarInt(a2);
     v4 = *(this + 2);
     if ((v4 & 2) == 0)
@@ -6168,7 +6076,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v6 = *(this + 9);
   PB::Writer::writeVarInt(a2);
   if ((*(this + 2) & 4) == 0)
   {
@@ -6176,9 +6083,9 @@ LABEL_3:
   }
 
 LABEL_7:
-  caulk::xstring::as_std_string((this + 16), &__p);
+  caulk::xstring::as_std_string(&__p, (this + 16));
   PB::Writer::write();
-  if (v8 < 0)
+  if (v6 < 0)
   {
     operator delete(__p);
   }
@@ -6206,7 +6113,6 @@ uint64_t avas::server::SelectorControlItem::formatText(avas::server::SelectorCon
     }
 
 LABEL_6:
-    v7 = *(this + 9);
     PB::TextFormatter::format(a2, "kind");
     if ((*(this + 2) & 4) == 0)
     {
@@ -6216,7 +6122,6 @@ LABEL_6:
     goto LABEL_7;
   }
 
-  v6 = *(this + 8);
   PB::TextFormatter::format(a2, "ID");
   v5 = *(this + 2);
   if ((v5 & 2) != 0)
@@ -6231,9 +6136,9 @@ LABEL_3:
   }
 
 LABEL_7:
-  caulk::xstring::as_std_string((this + 16), &__p);
+  caulk::xstring::as_std_string(&__p, (this + 16));
   PB::TextFormatter::format();
-  if (v10 < 0)
+  if (v8 < 0)
   {
     operator delete(__p);
   }
@@ -7161,7 +7066,6 @@ uint64_t avas::server::ControlValue::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 8);
   if (v4)
   {
-    v10 = *(this + 56);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 8);
     if ((v4 & 2) == 0)
@@ -7181,7 +7085,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v11 = *(v3 + 68);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 8);
   if ((v4 & 4) == 0)
@@ -7203,7 +7106,6 @@ LABEL_17:
   }
 
 LABEL_16:
-  v12 = *(v3 + 72);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 8);
   if ((v4 & 8) != 0)
@@ -7223,23 +7125,22 @@ LABEL_7:
   v6 = *(v3 + 24);
   while (v5 != v6)
   {
-    v7 = *v5++;
+    v5 += 4;
     this = PB::Writer::writeVarInt(a2);
   }
 
-  v8 = *(v3 + 8);
-  if ((v8 & 0x20) != 0)
+  v7 = *(v3 + 8);
+  if ((v7 & 0x20) != 0)
   {
-    v9 = *(v3 + 64);
     this = PB::Writer::writeVarInt(a2);
-    v8 = *(v3 + 8);
+    v7 = *(v3 + 8);
   }
 
-  if ((v8 & 0x40) != 0)
+  if ((v7 & 0x40) != 0)
   {
-    v13 = *(v3 + 48);
+    v8 = *(v3 + 48);
 
-    return PB::Writer::write(a2, v13);
+    return PB::Writer::write(a2, v8);
   }
 
   return this;
@@ -7251,7 +7152,6 @@ uint64_t avas::server::ControlValue::formatText(avas::server::ControlValue *this
   v5 = *(this + 2);
   if (v5)
   {
-    v12 = *(this + 7);
     PB::TextFormatter::format(a2, "objectToken");
     v5 = *(this + 2);
     if ((v5 & 2) == 0)
@@ -7271,7 +7171,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v13 = *(this + 17);
   PB::TextFormatter::format(a2, "type");
   v5 = *(this + 2);
   if ((v5 & 4) == 0)
@@ -7286,7 +7185,6 @@ LABEL_4:
   }
 
 LABEL_18:
-  v14 = *(this + 72);
   PB::TextFormatter::format(a2, "BOOLValue");
   v5 = *(this + 2);
   if ((v5 & 8) == 0)
@@ -7313,19 +7211,18 @@ LABEL_7:
   v7 = *(this + 3);
   while (v6 != v7)
   {
-    v8 = *v6++;
+    v6 += 4;
     PB::TextFormatter::format(a2, "activeSelectorValues");
   }
 
-  v9 = *(this + 2);
-  if ((v9 & 0x20) != 0)
+  v8 = *(this + 2);
+  if ((v8 & 0x20) != 0)
   {
-    v10 = *(this + 16);
     PB::TextFormatter::format(a2, "sliderValue");
-    v9 = *(this + 2);
+    v8 = *(this + 2);
   }
 
-  if ((v9 & 0x40) != 0)
+  if ((v8 & 0x40) != 0)
   {
     PB::TextFormatter::format(a2, "panValue", *(this + 12));
   }
@@ -8448,7 +8345,6 @@ uint64_t avas::server::Control::writeTo(uint64_t this, PB::Writer *a2)
   v4 = *(this + 8);
   if (v4)
   {
-    v10 = *(this + 56);
     this = PB::Writer::writeVarInt(a2);
     v4 = *(v3 + 8);
     if ((v4 & 2) == 0)
@@ -8468,7 +8364,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v11 = *(v3 + 64);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 8);
   if ((v4 & 4) == 0)
@@ -8483,7 +8378,6 @@ LABEL_4:
   }
 
 LABEL_21:
-  v12 = *(v3 + 96);
   this = PB::Writer::write(a2);
   v4 = *(v3 + 8);
   if ((v4 & 8) == 0)
@@ -8498,7 +8392,6 @@ LABEL_5:
   }
 
 LABEL_22:
-  v13 = *(v3 + 68);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 8);
   if ((v4 & 0x10) == 0)
@@ -8513,7 +8406,6 @@ LABEL_6:
   }
 
 LABEL_23:
-  v14 = *(v3 + 72);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 8);
   if ((v4 & 0x20) == 0)
@@ -8528,7 +8420,6 @@ LABEL_7:
   }
 
 LABEL_24:
-  v15 = *(v3 + 92);
   this = PB::Writer::writeVarInt(a2);
   v4 = *(v3 + 8);
   if ((v4 & 0x40) == 0)
@@ -8561,35 +8452,32 @@ LABEL_9:
   if ((v4 & 0x100) != 0)
   {
 LABEL_10:
-    v5 = *(v3 + 97);
     this = PB::Writer::write(a2);
   }
 
 LABEL_11:
-  v6 = *(v3 + 16);
-  v7 = *(v3 + 24);
-  while (v6 != v7)
+  v5 = *(v3 + 16);
+  v6 = *(v3 + 24);
+  while (v5 != v6)
   {
-    v8 = *v6++;
-    this = PB::Writer::writeSubmessage(a2, v8);
+    v7 = *v5++;
+    this = PB::Writer::writeSubmessage(a2, v7);
   }
 
-  v9 = *(v3 + 8);
-  if ((v9 & 0x200) != 0)
+  v8 = *(v3 + 8);
+  if ((v8 & 0x200) != 0)
   {
-    v16 = *(v3 + 76);
     this = PB::Writer::writeVarInt(a2);
-    v9 = *(v3 + 8);
-    if ((v9 & 0x400) == 0)
+    v8 = *(v3 + 8);
+    if ((v8 & 0x400) == 0)
     {
 LABEL_16:
-      if ((v9 & 0x800) == 0)
+      if ((v8 & 0x800) == 0)
       {
         goto LABEL_17;
       }
 
 LABEL_30:
-      v18 = *(v3 + 84);
       this = PB::Writer::writeVarInt(a2);
       if ((*(v3 + 8) & 0x1000) == 0)
       {
@@ -8600,27 +8488,25 @@ LABEL_30:
     }
   }
 
-  else if ((v9 & 0x400) == 0)
+  else if ((v8 & 0x400) == 0)
   {
     goto LABEL_16;
   }
 
-  v17 = *(v3 + 80);
   this = PB::Writer::writeVarInt(a2);
-  v9 = *(v3 + 8);
-  if ((v9 & 0x800) != 0)
+  v8 = *(v3 + 8);
+  if ((v8 & 0x800) != 0)
   {
     goto LABEL_30;
   }
 
 LABEL_17:
-  if ((v9 & 0x1000) == 0)
+  if ((v8 & 0x1000) == 0)
   {
     return this;
   }
 
 LABEL_31:
-  v19 = *(v3 + 88);
 
   return PB::Writer::writeVarInt(a2);
 }
@@ -8631,7 +8517,6 @@ uint64_t avas::server::Control::formatText(avas::server::Control *this, PB::Text
   v5 = *(this + 2);
   if (v5)
   {
-    v13 = *(this + 7);
     PB::TextFormatter::format(a2, "objectToken");
     v5 = *(this + 2);
     if ((v5 & 2) == 0)
@@ -8651,7 +8536,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  v14 = *(this + 16);
   PB::TextFormatter::format(a2, "classID");
   v5 = *(this + 2);
   if ((v5 & 4) == 0)
@@ -8666,7 +8550,6 @@ LABEL_4:
   }
 
 LABEL_23:
-  v15 = *(this + 96);
   PB::TextFormatter::format(a2, "settable");
   v5 = *(this + 2);
   if ((v5 & 8) == 0)
@@ -8681,7 +8564,6 @@ LABEL_5:
   }
 
 LABEL_24:
-  v16 = *(this + 17);
   PB::TextFormatter::format(a2, "scope");
   v5 = *(this + 2);
   if ((v5 & 0x10) == 0)
@@ -8696,7 +8578,6 @@ LABEL_6:
   }
 
 LABEL_25:
-  v17 = *(this + 18);
   PB::TextFormatter::format(a2, "element");
   v5 = *(this + 2);
   if ((v5 & 0x20) == 0)
@@ -8711,7 +8592,6 @@ LABEL_7:
   }
 
 LABEL_26:
-  v18 = *(this + 23);
   PB::TextFormatter::format(a2, "type");
   v5 = *(this + 2);
   if ((v5 & 0x40) == 0)
@@ -8744,29 +8624,27 @@ LABEL_28:
   if ((*(this + 2) & 0x100) != 0)
   {
 LABEL_10:
-    v6 = *(this + 97);
     PB::TextFormatter::format(a2, "isMultiValue");
   }
 
 LABEL_11:
-  v7 = *(this + 2);
-  v8 = *(this + 3);
-  while (v7 != v8)
+  v6 = *(this + 2);
+  v7 = *(this + 3);
+  while (v6 != v7)
   {
-    v9 = *v7++;
-    (*(*v9 + 32))(v9, a2, "supportedSelectorValues");
+    v8 = *v6++;
+    (*(*v8 + 32))(v8, a2, "supportedSelectorValues");
   }
 
-  v10 = *(this + 2);
-  if ((v10 & 0x200) != 0)
+  v9 = *(this + 2);
+  if ((v9 & 0x200) != 0)
   {
-    v19 = *(this + 19);
     PB::TextFormatter::format(a2, "sliderMinimum");
-    v10 = *(this + 2);
-    if ((v10 & 0x400) == 0)
+    v9 = *(this + 2);
+    if ((v9 & 0x400) == 0)
     {
 LABEL_15:
-      if ((v10 & 0x800) == 0)
+      if ((v9 & 0x800) == 0)
       {
         goto LABEL_16;
       }
@@ -8775,18 +8653,17 @@ LABEL_15:
     }
   }
 
-  else if ((v10 & 0x400) == 0)
+  else if ((v9 & 0x400) == 0)
   {
     goto LABEL_15;
   }
 
-  v20 = *(this + 20);
   PB::TextFormatter::format(a2, "sliderMaximum");
-  v10 = *(this + 2);
-  if ((v10 & 0x800) == 0)
+  v9 = *(this + 2);
+  if ((v9 & 0x800) == 0)
   {
 LABEL_16:
-    if ((v10 & 0x1000) == 0)
+    if ((v9 & 0x1000) == 0)
     {
       goto LABEL_18;
     }
@@ -8795,12 +8672,10 @@ LABEL_16:
   }
 
 LABEL_32:
-  v21 = *(this + 21);
   PB::TextFormatter::format(a2, "panLeftChannel");
   if ((*(this + 2) & 0x1000) != 0)
   {
 LABEL_17:
-    v11 = *(this + 22);
     PB::TextFormatter::format(a2, "panRightChannel");
   }
 
@@ -9354,7 +9229,7 @@ double avas::server::IOStreamState::IOStreamState(avas::server::IOStreamState *t
   return result;
 }
 
-avas::server::IOStreamState *avas::server::IOStreamState::IOStreamState(avas::server::IOStreamState *this, caulk::xstring **a2)
+avas::server::IOStreamState *avas::server::IOStreamState::IOStreamState(avas::server::IOStreamState *this, const avas::server::IOStreamState *a2)
 {
   *this = &unk_1F5999390;
   *(this + 1) = 0u;
@@ -9375,9 +9250,9 @@ avas::server::IOStreamState *avas::server::IOStreamState::IOStreamState(avas::se
   return this;
 }
 
-void *avas::server::IOStreamState::copy_from(caulk::xstring **this, caulk::xstring **a2)
+void *avas::server::IOStreamState::copy_from(avas::server::IOStreamState *this, const avas::server::IOStreamState *a2)
 {
-  v4 = a2[8];
+  v4 = *(a2 + 8);
   if (v4)
   {
     v5 = avas::server::IOStreamState::mutableStreamFormat(this);
@@ -9385,20 +9260,20 @@ void *avas::server::IOStreamState::copy_from(caulk::xstring **this, caulk::xstri
   }
 
   result = std::vector<std::unique_ptr<avas::client::PortPrefs>>::clear[abi:ne200100](this + 5);
-  if (a2[5] != a2[6])
+  if (*(a2 + 5) != *(a2 + 6))
   {
     operator new();
   }
 
   if (this != a2)
   {
-    result = std::vector<caulk::xstring>::__assign_with_size[abi:ne200100]<caulk::xstring*,caulk::xstring*>(this + 2, a2[2], a2[3], (a2[3] - a2[2]) >> 4);
+    result = std::vector<caulk::xstring>::__assign_with_size[abi:ne200100]<caulk::xstring*,caulk::xstring*>(this + 16, *(a2 + 2), *(a2 + 3), (*(a2 + 3) - *(a2 + 2)) >> 4);
   }
 
   *(this + 2) = *(a2 + 2);
-  v7 = a2[9];
+  v7 = *(a2 + 9);
   *(this + 20) = *(a2 + 20);
-  this[9] = v7;
+  *(this + 9) = v7;
   return result;
 }
 
@@ -9413,7 +9288,7 @@ uint64_t avas::server::IOStreamState::streamFormat(avas::server::IOStreamState *
   return result;
 }
 
-uint64_t avas::server::IOStreamState::mutableStreamFormat(avas::server::IOStreamState *this)
+avas::StreamFormat *avas::server::IOStreamState::mutableStreamFormat(avas::server::IOStreamState *this)
 {
   if (!*(this + 8))
   {
@@ -9493,7 +9368,7 @@ uint64_t avas::server::IOStreamState::clear(avas::server::IOStreamState *this)
   return result;
 }
 
-uint64_t avas::server::IOStreamState::isInitialized(avas::server::IOStreamState *this)
+avas::StreamFormat *avas::server::IOStreamState::isInitialized(avas::server::IOStreamState *this)
 {
   result = *(this + 8);
   if (result)
@@ -9507,7 +9382,7 @@ uint64_t avas::server::IOStreamState::isInitialized(avas::server::IOStreamState 
       {
         if (v3 == v4)
         {
-          return (~*(this + 2) & 5) == 0;
+          return ((~*(this + 2) & 5) == 0);
         }
 
         if ((avas::AvailableStreamFormat::isInitialized(*v3) & 1) == 0)
@@ -9893,4 +9768,52 @@ LABEL_85:
   }
 
   return (v4 ^ 1) & 1;
+}
+
+void avas::server::IOStreamState::writeTo(avas::server::IOStreamState *this, PB::Writer *a2)
+{
+  v4 = *(this + 2);
+  if (v4)
+  {
+    PB::Writer::writeVarInt(a2);
+    v4 = *(this + 2);
+  }
+
+  if ((v4 & 2) != 0)
+  {
+    PB::Writer::writeVarInt(a2);
+  }
+
+  v5 = *(this + 8);
+  if (v5)
+  {
+    PB::Writer::writeSubmessage(a2, v5);
+  }
+
+  v6 = *(this + 5);
+  v7 = *(this + 6);
+  while (v6 != v7)
+  {
+    v8 = *v6++;
+    PB::Writer::writeSubmessage(a2, v8);
+  }
+
+  v9 = *(this + 2);
+  v10 = *(this + 3);
+  while (v9 != v10)
+  {
+    caulk::xstring::as_std_string(&__p, v9);
+    PB::Writer::write();
+    if (v12 < 0)
+    {
+      operator delete(__p);
+    }
+
+    v9 = (v9 + 16);
+  }
+
+  if ((*(this + 8) & 4) != 0)
+  {
+    PB::Writer::writeVarInt(a2);
+  }
 }

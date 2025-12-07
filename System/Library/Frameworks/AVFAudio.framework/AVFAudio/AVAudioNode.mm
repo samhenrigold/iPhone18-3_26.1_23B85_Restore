@@ -28,8 +28,11 @@
 - (void)dealloc;
 - (void)didAttachToEngine:(id)engine;
 - (void)didDetachFromEngine:(id)engine error:(id *)error;
+- (void)installTapOnBus:(AVAudioNodeBus)bus bufferSize:(AVAudioFrameCount)bufferSize format:(AVAudioFormat *)format block:(AVAudioNodeTapBlock)tapBlock;
 - (void)removeTapOnBus:(AVAudioNodeBus)bus;
 - (void)reset;
+- (void)setNumberOfInputs:(unsigned int)inputs;
+- (void)setNumberOfOutputs:(unsigned int)outputs;
 - (void)setObstruction:(float)obstruction;
 - (void)setOcclusion:(float)occlusion;
 - (void)setPan:(float)pan;
@@ -837,8 +840,8 @@
 
 - (id)destinationForMixer:(id)mixer bus:(unint64_t)bus
 {
-  v30 = *MEMORY[0x1E69E9840];
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v14, self->_impl);
+  v29 = *MEMORY[0x1E69E9840];
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v13, self->_impl);
   if (!mixer)
   {
     if (AVAudioEngineLogCategory(void)::once != -1)
@@ -850,17 +853,17 @@
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v19 = "AVAEInternal.h";
-      v20 = 1024;
-      v21 = 71;
-      v22 = 2080;
-      v23 = "AVAudioNode.mm";
-      v24 = 1024;
-      v25 = 230;
-      v26 = 2080;
-      v27 = "[AVAudioNode destinationForMixer:bus:]";
-      v28 = 2080;
-      v29 = "mixer";
+      v18 = "AVAEInternal.h";
+      v19 = 1024;
+      v20 = 71;
+      v21 = 2080;
+      v22 = "AVAudioNode.mm";
+      v23 = 1024;
+      v24 = 230;
+      v25 = 2080;
+      v26 = "[AVAudioNode destinationForMixer:bus:]";
+      v27 = 2080;
+      v28 = "mixer";
       _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -868,20 +871,19 @@
   }
 
   impl = self->_impl;
-  impl = [mixer impl];
-  v10 = (*(*impl + 240))(impl, bus);
+  v9 = objc_msgSend_impl(mixer);
+  v10 = (*(*v9 + 240))(v9, bus);
   MixingDestination = AVAudioNodeImplBase::GetMixingDestination(impl, mixer, v10);
-  if (v17 == 1)
+  if (v16 == 1)
   {
-    std::recursive_mutex::unlock(v16);
+    std::recursive_mutex::unlock(v15);
   }
 
-  if (v15 == 1)
+  if (v14 == 1)
   {
-    std::recursive_mutex::unlock(v14);
+    std::recursive_mutex::unlock(v13);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return MixingDestination;
 }
 
@@ -921,8 +923,8 @@
 
 - (void)removeTapOnBus:(AVAudioNodeBus)bus
 {
-  v24 = *MEMORY[0x1E69E9840];
-  AVAudioNodeImplBase::GetAttachAndEngineLock(&v8, self->_impl);
+  v23 = *MEMORY[0x1E69E9840];
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v7, self->_impl);
   engine = [(AVAudioNode *)self engine];
   if (!engine)
   {
@@ -935,17 +937,17 @@
     if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316418;
-      v13 = "AVAEInternal.h";
-      v14 = 1024;
-      v15 = 71;
-      v16 = 2080;
-      v17 = "AVAudioNode.mm";
-      v18 = 1024;
-      v19 = 194;
-      v20 = 2080;
-      v21 = "[AVAudioNode removeTapOnBus:]";
-      v22 = 2080;
-      v23 = "NULL != engine";
+      v12 = "AVAEInternal.h";
+      v13 = 1024;
+      v14 = 71;
+      v15 = 2080;
+      v16 = "AVAudioNode.mm";
+      v17 = 1024;
+      v18 = 194;
+      v19 = 2080;
+      v20 = "[AVAudioNode removeTapOnBus:]";
+      v21 = 2080;
+      v22 = "NULL != engine";
       _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
     }
 
@@ -953,17 +955,125 @@
   }
 
   AVAudioEngineImpl::RemoveTapOnNode([(AVAudioEngine *)engine implementation], self, bus);
-  if (v11 == 1)
+  if (v10 == 1)
   {
-    std::recursive_mutex::unlock(v10);
+    std::recursive_mutex::unlock(v9);
   }
 
+  if (v8 == 1)
+  {
+    std::recursive_mutex::unlock(v7);
+  }
+}
+
+- (void)installTapOnBus:(AVAudioNodeBus)bus bufferSize:(AVAudioFrameCount)bufferSize format:(AVAudioFormat *)format block:(AVAudioNodeTapBlock)tapBlock
+{
+  v8 = *&bufferSize;
+  v30 = *MEMORY[0x1E69E9840];
+  if (!tapBlock)
+  {
+    if (AVAudioEngineLogCategory(void)::once != -1)
+    {
+      dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
+    }
+
+    v11 = *AVAudioEngineLogCategory(void)::category;
+    if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136316418;
+      v19 = "AVAEInternal.h";
+      v20 = 1024;
+      v21 = 71;
+      v22 = 2080;
+      v23 = "AVAudioNode.mm";
+      v24 = 1024;
+      v25 = 180;
+      v26 = 2080;
+      v27 = "[AVAudioNode installTapOnBus:bufferSize:format:block:]";
+      v28 = 2080;
+      v29 = "tapBlock";
+      _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
+    }
+
+    [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"required condition is false: %s", "tapBlock"}];
+  }
+
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v14, self->_impl);
+  engine = [(AVAudioNode *)self engine];
+  if (!engine)
+  {
+    if (AVAudioEngineLogCategory(void)::once != -1)
+    {
+      dispatch_once(&AVAudioEngineLogCategory(void)::once, &__block_literal_global_8660);
+    }
+
+    v13 = *AVAudioEngineLogCategory(void)::category;
+    if (os_log_type_enabled(*AVAudioEngineLogCategory(void)::category, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 136316418;
+      v19 = "AVAEInternal.h";
+      v20 = 1024;
+      v21 = 71;
+      v22 = 2080;
+      v23 = "AVAudioNode.mm";
+      v24 = 1024;
+      v25 = 185;
+      v26 = 2080;
+      v27 = "[AVAudioNode installTapOnBus:bufferSize:format:block:]";
+      v28 = 2080;
+      v29 = "NULL != engine";
+      _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d required condition is false: [%s:%d:%s: (%s)]", buf, 0x36u);
+    }
+
+    [MEMORY[0x1E695DF30] raise:@"com.apple.coreaudio.avfaudio" format:{@"required condition is false: %s", "NULL != engine"}];
+  }
+
+  AVAudioEngineImpl::InstallTapOnNode([(AVAudioEngine *)engine implementation], self, bus, v8, format, tapBlock);
+  if (v17 == 1)
+  {
+    std::recursive_mutex::unlock(v16);
+  }
+
+  if (v15 == 1)
+  {
+    std::recursive_mutex::unlock(v14);
+  }
+}
+
+- (void)setNumberOfOutputs:(unsigned int)outputs
+{
+  v3 = *&outputs;
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v6, self->_impl);
+  (*(*self->_impl + 120))(self->_impl, v3);
   if (v9 == 1)
   {
     std::recursive_mutex::unlock(v8);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
+  if (v7 == 1)
+  {
+    v5 = v6;
+
+    std::recursive_mutex::unlock(v5);
+  }
+}
+
+- (void)setNumberOfInputs:(unsigned int)inputs
+{
+  v3 = *&inputs;
+  AVAudioNodeImplBase::GetAttachAndEngineLock(&v6, self->_impl);
+  (*(*self->_impl + 112))(self->_impl, v3);
+  if (v9 == 1)
+  {
+    std::recursive_mutex::unlock(v8);
+  }
+
+  if (v7 == 1)
+  {
+    v5 = v6;
+
+    std::recursive_mutex::unlock(v5);
+  }
 }
 
 - (NSUInteger)numberOfOutputs

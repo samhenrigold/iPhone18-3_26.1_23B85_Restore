@@ -1,5 +1,6 @@
 @interface AXDeviceRemoteScreenService
 + (_TtC27AXWatchRemoteScreenServices27AXDeviceRemoteScreenService)sharedInstance;
+- (BOOL)npsSetTwiceEnabled:(BOOL)enabled;
 - (BOOL)startTwiceRemoteScreen;
 - (BOOL)stopTwiceRemoteScreen;
 - (_TtC27AXWatchRemoteScreenServices27AXDeviceRemoteScreenService)init;
@@ -37,6 +38,21 @@
   v10.receiver = self;
   v10.super_class = ObjectType;
   return [(AXDeviceRemoteScreenService *)&v10 init];
+}
+
+- (BOOL)npsSetTwiceEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  sub_23D6BC208(self + OBJC_IVAR____TtC27AXWatchRemoteScreenServices27AXDeviceRemoteScreenService_serviceImpl, v10);
+  v5 = v11;
+  v6 = v12;
+  __swift_project_boxed_opaque_existential_1(v10, v11);
+  v7 = *(v6 + 24);
+  selfCopy = self;
+  v7(enabledCopy, v5, v6);
+
+  __swift_destroy_boxed_opaque_existential_1(v10);
+  return 1;
 }
 
 - (BOOL)startTwiceRemoteScreen

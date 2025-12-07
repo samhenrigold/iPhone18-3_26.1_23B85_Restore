@@ -28,23 +28,23 @@
 
 - (void)main
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   bundlesToSearch = [(AMSUIBundleImageFetchOperation *)self bundlesToSearch];
-  v4 = [bundlesToSearch countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v4 = [bundlesToSearch countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v18;
+    v7 = *v17;
 LABEL_3:
     v8 = 0;
     while (1)
     {
-      if (*v18 != v7)
+      if (*v17 != v7)
       {
         objc_enumerationMutation(bundlesToSearch);
       }
@@ -54,7 +54,7 @@ LABEL_3:
         break;
       }
 
-      v9 = *(*(&v17 + 1) + 8 * v8);
+      v9 = *(*(&v16 + 1) + 8 * v8);
       v10 = MEMORY[0x1E69DCAB8];
       imageName = [(AMSUIBundleImageFetchOperation *)self imageName];
       traitCollection = [(AMSUIBundleImageFetchOperation *)self traitCollection];
@@ -62,7 +62,7 @@ LABEL_3:
 
       if (v5 == ++v8)
       {
-        v5 = [bundlesToSearch countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v5 = [bundlesToSearch countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v5)
         {
           goto LABEL_3;
@@ -91,8 +91,6 @@ LABEL_14:
   v15 = v6;
 LABEL_15:
   [(AMSUIAssetFetchOperation *)selfCopy2 _finishWithImage:v14 error:v15];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 @end

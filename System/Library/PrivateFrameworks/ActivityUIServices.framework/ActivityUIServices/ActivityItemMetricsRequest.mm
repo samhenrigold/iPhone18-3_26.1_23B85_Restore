@@ -172,9 +172,10 @@
 - (_TtC18ActivityUIServices26ActivityItemMetricsRequest)initWithXPCDictionary:(id)dictionary
 {
   swift_unknownObjectRetain();
-  v4 = sub_18E656188(dictionary);
+  sub_18E656188(dictionary);
+  v5 = v4;
   swift_unknownObjectRelease();
-  return v4;
+  return v5;
 }
 
 - (id)copyWithZone:(void *)zone

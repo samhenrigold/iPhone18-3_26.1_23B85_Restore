@@ -1,3 +1,704 @@
+void sub_7DB0C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12)
+{
+  if (a12)
+  {
+    free(a12);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void bind_sampler(__GLIContextRec *a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v6)
+  {
+    goto LABEL_9;
+  }
+
+  v7 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v8 = *(v6 + 32);
+    v9 = v8 >= a1;
+    v10 = v8 < a1;
+    if (v9)
+    {
+      v7 = v6;
+    }
+
+    v6 = *(v6 + 8 * v10);
+  }
+
+  while (v6);
+  if (v7 == ContextInfo::activeCtxInfoMap + 8 || *(v7 + 32) > a1)
+  {
+LABEL_9:
+    v7 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v11 = *(v7 + 40);
+  v12 = atomic_fetch_add((v11 + 4640), 1u) + 1;
+  if (gCheckGLErrors != 1 || v12 <= 1)
+  {
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+      goto LABEL_49;
+    }
+  }
+
+  else
+  {
+    handle_opengl_thread_conflict(v11);
+    v37 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v37 >= 1)
+    {
+LABEL_49:
+      atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+      v38 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v38, 0, do_nothing);
+      v39 = *(*(v11 + 24) + 6424);
+
+      v39(a1, a2, a3);
+      return;
+    }
+  }
+
+  *(v11 + 4838) = 1;
+  __ptr = 0;
+  v49 = 0;
+  v50 = 0;
+  if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
+  {
+    v15 = __ptr;
+    v14 = v49;
+    v16 = v49 - __ptr;
+    v17 = v50;
+    v18 = v50 - (v49 - __ptr);
+    if (v18 <= 0x3B)
+    {
+      v40 = (315 - v18) & 0x100;
+      v50 += v40;
+      v15 = malloc_type_malloc(v40 + v17, 0xF962E99uLL);
+      __ptr = v15;
+      if (!v15)
+      {
+        goto LABEL_66;
+      }
+
+      if ((v15 & 3) != 0)
+      {
+LABEL_68:
+        dy_abort("misaligned fbuf buffer: %p, required alignment=%zu", v15, 4uLL);
+        goto LABEL_69;
+      }
+
+      v14 = (v15 + v16);
+    }
+
+    *(v14 + 44) = 0u;
+    v14[1] = 0u;
+    v14[2] = 0u;
+    *v14 = 0u;
+    v19 = v14 + 60;
+    v49 = v14 + 60;
+    v20 = v14 + 60 - v15;
+    *v15 = v20;
+    v21 = (v20 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+    v22 = v21 - v20;
+    if (v21 == v20)
+    {
+      goto LABEL_23;
+    }
+
+    v23 = __ptr;
+    v24 = v19 - __ptr;
+    v25 = v50;
+    v26 = v50 - (v19 - __ptr);
+    if (v22 <= v26)
+    {
+      v27 = v49;
+LABEL_22:
+      bzero(v19, v22);
+      v49 = &v27[v22];
+      *v23 += v22;
+LABEL_23:
+      v15[1] = 850;
+      v15[8] = 0;
+      v47 = 0;
+      pthread_threadid_np(0, &v47);
+      *(v15 + 1) = v47;
+      strcpy(v15 + 36, "Cuiui");
+      *(v15 + 11) = *v11;
+      v15[13] = a2;
+      v15[14] = a3;
+      v28 = byte_21B1AA;
+      if (byte_21B1AA)
+      {
+        breakpoint_break(&__ptr, &stru_338.segname[10], 1, *(v11 + 3404), v11);
+      }
+
+      if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v28 & 4))
+      {
+        v29 = mach_absolute_time();
+        (*(*(v11 + 32) + 6424))(a1, a2, a3);
+        v30 = mach_absolute_time() - v29;
+        if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
+        {
+          v31 = __ptr;
+          *(__ptr + 2) = v29;
+          v31[3] = v30;
+          if (gCheckGLErrors != 1)
+          {
+            goto LABEL_28;
+          }
+        }
+
+        else
+        {
+          v43 = __udivti3();
+          v44 = __ptr;
+          *(__ptr + 3) = v43;
+          v44[2] = __udivti3();
+          if (gCheckGLErrors != 1)
+          {
+            goto LABEL_28;
+          }
+        }
+
+        check_errors(v11);
+      }
+
+LABEL_28:
+      if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
+      {
+        GPUTools::FB::EncodeCurrentBacktrace();
+      }
+
+      if (*(v11 + 3404))
+      {
+        GPUTools::FB::EncodeGLError();
+      }
+
+      if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
+      {
+        encode_driver_events(v11, &__ptr);
+      }
+
+      GPUTools::FB::EncodeThreadQueueInfo((v11 + 3480), (v11 + 3520), &__ptr);
+      v32 = *(v11 + 3404);
+      if (v32 && (gBreakOnError & 1) != 0)
+      {
+        v41 = 3;
+        v42 = 0xFFFFFFFFLL;
+      }
+
+      else
+      {
+        if ((v28 & 2) == 0)
+        {
+LABEL_37:
+          v33 = [DYGetGLGuestAppClient() defaultFbufStream];
+          v34 = v33;
+          while (atomic_exchange(v33 + 14, 1u) == 1)
+          {
+              ;
+            }
+          }
+
+          GPUTools::FB::Stream::Write_nolock();
+          atomic_store(0, v34 + 14);
+          v35 = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF) - 1;
+          if (gCheckGLErrors == 1 && v35 >= 1)
+          {
+            handle_opengl_thread_conflict(v11);
+          }
+
+          goto LABEL_45;
+        }
+
+        v41 = 2;
+        v42 = 850;
+      }
+
+      breakpoint_break(&__ptr, v42, v41, v32, v11);
+      goto LABEL_37;
+    }
+
+    v45 = (v22 - v26 + 255) & 0xFFFFFF00;
+    v46 = v45 + v50;
+    v50 += v45;
+    if (__ptr)
+    {
+      v23 = reallocf(__ptr, v46);
+      __ptr = v23;
+      if (v23)
+      {
+        goto LABEL_63;
+      }
+    }
+
+    else
+    {
+      v23 = malloc_type_malloc(v45 + v25, 0xF962E99uLL);
+      __ptr = v23;
+      if (v23)
+      {
+LABEL_63:
+        if ((v23 & 3) == 0)
+        {
+          v27 = v23 + v24;
+          v19 = v27;
+          goto LABEL_22;
+        }
+
+        v15 = v23;
+        goto LABEL_68;
+      }
+    }
+
+LABEL_66:
+    dy_abort("failed to allocate fbuf buffer");
+LABEL_69:
+    __break(1u);
+    return;
+  }
+
+  atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+  [DYGetGLGuestAppClient() triggerArmedCapture];
+  (*(*(v11 + 24) + 6424))(a1, a2, a3);
+LABEL_45:
+  if (__ptr)
+  {
+    free(__ptr);
+  }
+}
+
+{
+  v6 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v6)
+  {
+    goto LABEL_9;
+  }
+
+  v7 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v8 = *(v6 + 32);
+    v9 = v8 >= a1;
+    v10 = v8 < a1;
+    if (v9)
+    {
+      v7 = v6;
+    }
+
+    v6 = *(v6 + 8 * v10);
+  }
+
+  while (v6);
+  if (v7 == ContextInfo::activeCtxInfoMap + 8 || *(v7 + 32) > a1)
+  {
+LABEL_9:
+    v7 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v11 = *(v7 + 40);
+  v12 = atomic_fetch_add((v11 + 4640), 1u) + 1;
+  if (gCheckGLErrors != 1 || v12 <= 1)
+  {
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+      goto LABEL_49;
+    }
+  }
+
+  else
+  {
+    handle_opengl_thread_conflict(v11);
+    v37 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v37 >= 1)
+    {
+LABEL_49:
+      atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+      v38 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v38, 0, do_nothing);
+      v39 = *(*(v11 + 24) + 6424);
+
+      v39(a1, a2, a3);
+      return;
+    }
+  }
+
+  *(v11 + 4838) = 1;
+  __ptr = 0;
+  v49 = 0;
+  v50 = 0;
+  if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
+  {
+    v15 = __ptr;
+    v14 = v49;
+    v16 = v49 - __ptr;
+    v17 = v50;
+    v18 = v50 - (v49 - __ptr);
+    if (v18 <= 0x3B)
+    {
+      v40 = (315 - v18) & 0x100;
+      v50 += v40;
+      v15 = malloc_type_malloc(v40 + v17, 0xF962E99uLL);
+      __ptr = v15;
+      if (!v15)
+      {
+        goto LABEL_66;
+      }
+
+      if ((v15 & 3) != 0)
+      {
+LABEL_68:
+        dy_abort("misaligned fbuf buffer: %p, required alignment=%zu", v15, 4uLL);
+        goto LABEL_69;
+      }
+
+      v14 = (v15 + v16);
+    }
+
+    *(v14 + 44) = 0u;
+    v14[1] = 0u;
+    v14[2] = 0u;
+    *v14 = 0u;
+    v19 = v14 + 60;
+    v49 = v14 + 60;
+    v20 = v14 + 60 - v15;
+    *v15 = v20;
+    v21 = (v20 + 3) & 0xFFFFFFFFFFFFFFFCLL;
+    v22 = v21 - v20;
+    if (v21 == v20)
+    {
+      goto LABEL_23;
+    }
+
+    v23 = __ptr;
+    v24 = v19 - __ptr;
+    v25 = v50;
+    v26 = v50 - (v19 - __ptr);
+    if (v22 <= v26)
+    {
+      v27 = v49;
+LABEL_22:
+      bzero(v19, v22);
+      v49 = &v27[v22];
+      *v23 += v22;
+LABEL_23:
+      v15[1] = 850;
+      v15[8] = 0;
+      v47 = 0;
+      pthread_threadid_np(0, &v47);
+      *(v15 + 1) = v47;
+      strcpy(v15 + 36, "Cuiui");
+      *(v15 + 11) = *v11;
+      v15[13] = a2;
+      v15[14] = a3;
+      v28 = byte_21B1AA;
+      if (byte_21B1AA)
+      {
+        breakpoint_break(&__ptr, &stru_338.segname[10], 1, *(v11 + 3404), v11);
+      }
+
+      if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v28 & 4))
+      {
+        v29 = mach_absolute_time();
+        (*(*(v11 + 32) + 6424))(a1, a2, a3);
+        v30 = mach_absolute_time() - v29;
+        if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
+        {
+          v31 = __ptr;
+          *(__ptr + 2) = v29;
+          v31[3] = v30;
+          if (gCheckGLErrors != 1)
+          {
+            goto LABEL_28;
+          }
+        }
+
+        else
+        {
+          v43 = __udivti3();
+          v44 = __ptr;
+          *(__ptr + 3) = v43;
+          v44[2] = __udivti3();
+          if (gCheckGLErrors != 1)
+          {
+            goto LABEL_28;
+          }
+        }
+
+        check_errors(v11);
+      }
+
+LABEL_28:
+      if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
+      {
+        GPUTools::FB::EncodeCurrentBacktrace();
+      }
+
+      if (*(v11 + 3404))
+      {
+        GPUTools::FB::EncodeGLError();
+      }
+
+      if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
+      {
+        encode_driver_events(v11, &__ptr);
+      }
+
+      GPUTools::FB::EncodeThreadQueueInfo((v11 + 3480), (v11 + 3520), &__ptr);
+      v32 = *(v11 + 3404);
+      if (v32 && (gBreakOnError & 1) != 0)
+      {
+        v41 = 3;
+        v42 = 0xFFFFFFFFLL;
+      }
+
+      else
+      {
+        if ((v28 & 2) == 0)
+        {
+LABEL_37:
+          v33 = [DYGetGLGuestAppClient() defaultFbufStream];
+          v34 = v33;
+          while (atomic_exchange(v33 + 14, 1u) == 1)
+          {
+              ;
+            }
+          }
+
+          GPUTools::FB::Stream::Write_nolock();
+          atomic_store(0, v34 + 14);
+          v35 = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF) - 1;
+          if (gCheckGLErrors == 1 && v35 >= 1)
+          {
+            handle_opengl_thread_conflict(v11);
+          }
+
+          goto LABEL_45;
+        }
+
+        v41 = 2;
+        v42 = 850;
+      }
+
+      breakpoint_break(&__ptr, v42, v41, v32, v11);
+      goto LABEL_37;
+    }
+
+    v45 = (v22 - v26 + 255) & 0xFFFFFF00;
+    v46 = v45 + v50;
+    v50 += v45;
+    if (__ptr)
+    {
+      v23 = reallocf(__ptr, v46);
+      __ptr = v23;
+      if (v23)
+      {
+        goto LABEL_63;
+      }
+    }
+
+    else
+    {
+      v23 = malloc_type_malloc(v45 + v25, 0xF962E99uLL);
+      __ptr = v23;
+      if (v23)
+      {
+LABEL_63:
+        if ((v23 & 3) == 0)
+        {
+          v27 = v23 + v24;
+          v19 = v27;
+          goto LABEL_22;
+        }
+
+        v15 = v23;
+        goto LABEL_68;
+      }
+    }
+
+LABEL_66:
+    dy_abort("failed to allocate fbuf buffer");
+LABEL_69:
+    __break(1u);
+    return;
+  }
+
+  atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+  [DYGetGLGuestAppClient() triggerArmedCapture];
+  (*(*(v11 + 24) + 6424))(a1, a2, a3);
+LABEL_45:
+  if (__ptr)
+  {
+    free(__ptr);
+  }
+}
+
+{
+  v6 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v6)
+  {
+    goto LABEL_9;
+  }
+
+  v7 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v8 = *(v6 + 32);
+    v9 = v8 >= a1;
+    v10 = v8 < a1;
+    if (v9)
+    {
+      v7 = v6;
+    }
+
+    v6 = *(v6 + 8 * v10);
+  }
+
+  while (v6);
+  if (v7 == ContextInfo::activeCtxInfoMap + 8 || *(v7 + 32) > a1)
+  {
+LABEL_9:
+    v7 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v11 = *(v7 + 40);
+  v12 = atomic_fetch_add((v11 + 4640), 1u) + 1;
+  if (gCheckGLErrors != 1 || v12 <= 1)
+  {
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+LABEL_24:
+      atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+      v15 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v15, 0, do_nothing);
+LABEL_29:
+      v16 = *(*(v11 + 24) + 6424);
+
+      v16(a1, a2, a3);
+      return;
+    }
+  }
+
+  else
+  {
+    handle_opengl_thread_conflict(v11);
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+      goto LABEL_24;
+    }
+  }
+
+  *(v11 + 4838) = 1;
+  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
+  {
+    atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+    goto LABEL_29;
+  }
+
+  (*(*(v11 + 32) + 6424))(a1, a2, a3);
+  ++*(v11 + 3704);
+  if (gCheckGLErrors == 1)
+  {
+    alpha_func(v11);
+  }
+
+  add = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+  if (gCheckGLErrors == 1 && (add - 1) >= 1)
+  {
+
+    handle_opengl_thread_conflict(v11);
+  }
+}
+
+{
+  v6 = *(ContextInfo::activeCtxInfoMap + 8);
+  if (!v6)
+  {
+    goto LABEL_9;
+  }
+
+  v7 = ContextInfo::activeCtxInfoMap + 8;
+  do
+  {
+    v8 = *(v6 + 32);
+    v9 = v8 >= a1;
+    v10 = v8 < a1;
+    if (v9)
+    {
+      v7 = v6;
+    }
+
+    v6 = *(v6 + 8 * v10);
+  }
+
+  while (v6);
+  if (v7 == ContextInfo::activeCtxInfoMap + 8 || *(v7 + 32) > a1)
+  {
+LABEL_9:
+    v7 = ContextInfo::activeCtxInfoMap + 8;
+  }
+
+  v11 = *(v7 + 40);
+  v12 = atomic_fetch_add((v11 + 4640), 1u) + 1;
+  if (gCheckGLErrors != 1 || v12 <= 1)
+  {
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+LABEL_24:
+      atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+      v18 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v18, 0, do_nothing);
+LABEL_29:
+      v19 = *(*(v11 + 24) + 6424);
+
+      v19(a1, a2, a3);
+      return;
+    }
+  }
+
+  else
+  {
+    handle_opengl_thread_conflict(v11);
+    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
+    {
+      goto LABEL_24;
+    }
+  }
+
+  *(v11 + 4838) = 1;
+  if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
+  {
+    atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    [DYGetGLGuestAppClient() triggerArmedCapture];
+    goto LABEL_29;
+  }
+
+  v14 = mach_absolute_time();
+  (*(*(v11 + 32) + 6424))(a1, a2, a3);
+  v15 = mach_absolute_time();
+  v16 = vdupq_n_s64(1uLL);
+  v16.i64[0] = v15 - v14;
+  *(v11 + 3696) = vaddq_s64(v16, *(v11 + 3696));
+  if (gCheckGLErrors == 1)
+  {
+    alpha_func(v11);
+  }
+
+  add = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+  if (gCheckGLErrors == 1 && (add - 1) >= 1)
+  {
+
+    handle_opengl_thread_conflict(v11);
+  }
+}
+
 void sub_7E0D0(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12)
 {
   if (a12)
@@ -38,7 +739,7 @@ LABEL_9:
   }
 
   v13 = *(v9 + 40);
-  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  v14 = atomic_fetch_add(v13 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v14 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -50,51 +751,51 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v13);
-    v32 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v32 >= 1)
+    v31 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v31 >= 1)
     {
 LABEL_46:
-      atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-      v33 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v33, 0, do_nothing);
-      v34 = *(*(v13 + 24) + 6432);
+      atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
+      v32 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v32, 0, do_nothing);
+      v33 = *(v13[3] + 6432);
 
-      v34(a1, a2, a3, a4);
+      v33(a1, a2, a3, a4);
       return;
     }
   }
 
   *(v13 + 4838) = 1;
-  v41[0] = 0;
-  v41[1] = 0;
-  v42 = 0;
+  v39[0] = 0;
+  v39[1] = 0;
+  v40 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    v40 = 0;
-    GPUTools::GL::DYGetTextureParameterInfo(a3, 0, &v40, v16);
+    v38 = 0;
+    GPUTools::GL::DYGetTextureParameterInfo(a3, 0, &v38, v16);
     v17 = 105;
-    if (v40)
+    if (v38)
     {
       v17 = 101;
     }
 
-    snprintf((v13 + 4709), 0x40uLL, "Cuie%c", v17);
-    GPUTools::FB::Encode(v41, 872, 0, v13 + 4709, v18, v19, v20, v21, *v13);
+    snprintf(v13 + 4709, 0x40uLL, "Cuie%c", v17);
+    GPUTools::FB::Encode(v39, 872, 0, v13 + 4709, v18, v19, v20, v21, *v13, a2, a3, a4);
     v22 = byte_21B1C0;
     if (byte_21B1C0)
     {
-      breakpoint_break(v41, &stru_338.offset, 1, *(v13 + 3404), v13);
+      breakpoint_break(v39, &stru_338.offset, 1, *(v13 + 851), v13);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v22 & 4))
     {
       v23 = mach_absolute_time();
-      (*(*(v13 + 32) + 6432))(a1, a2, a3, a4);
+      (*(v13[4] + 6432))(a1, a2, a3, a4);
       v24 = mach_absolute_time() - v23;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v25 = v41[0];
-        *(v41[0] + 2) = v23;
+        v25 = v39[0];
+        *(v39[0] + 2) = v23;
         v25[3] = v24;
         if (gCheckGLErrors != 1)
         {
@@ -104,11 +805,10 @@ LABEL_46:
 
       else
       {
-        v37 = *(&g_DYTimebaseInfo + 1);
-        v38 = __udivti3();
-        v39 = v41[0];
-        *(v41[0] + 3) = v38;
-        v39[2] = __udivti3();
+        v36 = __udivti3();
+        v37 = v39[0];
+        *(v39[0] + 3) = v36;
+        v37[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_25;
@@ -124,22 +824,22 @@ LABEL_25:
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v13 + 3404))
+    if (*(v13 + 851))
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v13);
+      encode_driver_events(v13, v39);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v13 + 3480), (v13 + 3520), v41);
-    v26 = *(v13 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v13 + 435, v13 + 440, v39);
+    v26 = *(v13 + 851);
     if (v26 && (gBreakOnError & 1) != 0)
     {
-      v35 = 3;
-      v36 = 0xFFFFFFFFLL;
+      v34 = 3;
+      v35 = 0xFFFFFFFFLL;
     }
 
     else
@@ -155,11 +855,10 @@ LABEL_34:
           }
         }
 
-        v29 = *v41[0];
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v28 + 14);
-        v30 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v30 >= 1)
+        v29 = atomic_fetch_add(v13 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v29 >= 1)
         {
           handle_opengl_thread_conflict(v13);
         }
@@ -167,21 +866,21 @@ LABEL_34:
         goto LABEL_42;
       }
 
-      v35 = 2;
-      v36 = 872;
+      v34 = 2;
+      v35 = 872;
     }
 
-    breakpoint_break(v41, v36, v35, v26, v13);
+    breakpoint_break(v39, v35, v34, v26, v13);
     goto LABEL_34;
   }
 
-  atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v13 + 24) + 6432))(a1, a2, a3, a4);
+  (*(v13[3] + 6432))(a1, a2, a3, a4);
 LABEL_42:
-  if (v41[0])
+  if (v39[0])
   {
-    free(v41[0]);
+    free(v39[0]);
   }
 }
 
@@ -214,7 +913,7 @@ LABEL_9:
   }
 
   v13 = *(v9 + 40);
-  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  v14 = atomic_fetch_add(v13 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v14 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -226,51 +925,51 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v13);
-    v32 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v32 >= 1)
+    v31 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v31 >= 1)
     {
 LABEL_46:
-      atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-      v33 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v33, 0, do_nothing);
-      v34 = *(*(v13 + 24) + 6432);
+      atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
+      v32 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v32, 0, do_nothing);
+      v33 = *(v13[3] + 6432);
 
-      v34(a1, a2, a3, a4);
+      v33(a1, a2, a3, a4);
       return;
     }
   }
 
   *(v13 + 4838) = 1;
-  v41[0] = 0;
-  v41[1] = 0;
-  v42 = 0;
+  v39[0] = 0;
+  v39[1] = 0;
+  v40 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    v40 = 0;
-    GPUTools::GL::DYGetTextureParameterInfo(a3, 0, &v40, v16);
+    v38 = 0;
+    GPUTools::GL::DYGetTextureParameterInfo(a3, 0, &v38, v16);
     v17 = 105;
-    if (v40)
+    if (v38)
     {
       v17 = 101;
     }
 
-    snprintf((v13 + 4709), 0x40uLL, "Cuie%c", v17);
-    GPUTools::FB::Encode(v41, 872, 0, v13 + 4709, v18, v19, v20, v21, *v13);
+    snprintf(v13 + 4709, 0x40uLL, "Cuie%c", v17);
+    GPUTools::FB::Encode(v39, 872, 0, v13 + 4709, v18, v19, v20, v21, *v13, a2, a3, a4);
     v22 = byte_21B1C0;
     if (byte_21B1C0)
     {
-      breakpoint_break(v41, &stru_338.offset, 1, *(v13 + 3404), v13);
+      breakpoint_break(v39, &stru_338.offset, 1, *(v13 + 851), v13);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v22 & 4))
     {
       v23 = mach_absolute_time();
-      (*(*(v13 + 32) + 6432))(a1, a2, a3, a4);
+      (*(v13[4] + 6432))(a1, a2, a3, a4);
       v24 = mach_absolute_time() - v23;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v25 = v41[0];
-        *(v41[0] + 2) = v23;
+        v25 = v39[0];
+        *(v39[0] + 2) = v23;
         v25[3] = v24;
         if (gCheckGLErrors != 1)
         {
@@ -280,11 +979,10 @@ LABEL_46:
 
       else
       {
-        v37 = *(&g_DYTimebaseInfo + 1);
-        v38 = __udivti3();
-        v39 = v41[0];
-        *(v41[0] + 3) = v38;
-        v39[2] = __udivti3();
+        v36 = __udivti3();
+        v37 = v39[0];
+        *(v39[0] + 3) = v36;
+        v37[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_25;
@@ -300,22 +998,22 @@ LABEL_25:
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v13 + 3404))
+    if (*(v13 + 851))
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v13);
+      encode_driver_events(v13, v39);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v13 + 3480), (v13 + 3520), v41);
-    v26 = *(v13 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v13 + 435, v13 + 440, v39);
+    v26 = *(v13 + 851);
     if (v26 && (gBreakOnError & 1) != 0)
     {
-      v35 = 3;
-      v36 = 0xFFFFFFFFLL;
+      v34 = 3;
+      v35 = 0xFFFFFFFFLL;
     }
 
     else
@@ -331,11 +1029,10 @@ LABEL_34:
           }
         }
 
-        v29 = *v41[0];
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v28 + 14);
-        v30 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v30 >= 1)
+        v29 = atomic_fetch_add(v13 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v29 >= 1)
         {
           handle_opengl_thread_conflict(v13);
         }
@@ -343,21 +1040,21 @@ LABEL_34:
         goto LABEL_42;
       }
 
-      v35 = 2;
-      v36 = 872;
+      v34 = 2;
+      v35 = 872;
     }
 
-    breakpoint_break(v41, v36, v35, v26, v13);
+    breakpoint_break(v39, v35, v34, v26, v13);
     goto LABEL_34;
   }
 
-  atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v13 + 24) + 6432))(a1, a2, a3, a4);
+  (*(v13[3] + 6432))(a1, a2, a3, a4);
 LABEL_42:
-  if (v41[0])
+  if (v39[0])
   {
-    free(v41[0]);
+    free(v39[0]);
   }
 }
 
@@ -402,7 +1099,7 @@ LABEL_9:
   }
 
   v13 = *(v9 + 40);
-  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  v14 = atomic_fetch_add(v13 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v14 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -414,51 +1111,51 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v13);
-    v32 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v32 >= 1)
+    v31 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v31 >= 1)
     {
 LABEL_46:
-      atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-      v33 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v33, 0, do_nothing);
-      v34 = *(*(v13 + 24) + 6440);
+      atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
+      v32 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v32, 0, do_nothing);
+      v33 = *(v13[3] + 6440);
 
-      v34(a1, a2, a3, a4);
+      v33(a1, a2, a3, a4);
       return;
     }
   }
 
   *(v13 + 4838) = 1;
-  v41[0] = 0;
-  v41[1] = 0;
-  v42 = 0;
+  v39[0] = 0;
+  v39[1] = 0;
+  v40 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    memset(v40, 0, sizeof(v40));
-    GPUTools::GL::DYGetTextureParameterInfo(a3, &v40[1], v40, v16);
+    memset(v38, 0, sizeof(v38));
+    GPUTools::GL::DYGetTextureParameterInfo(a3, &v38[1], v38, v16);
     v17 = 105;
-    if (v40[0])
+    if (v38[0])
     {
       v17 = 101;
     }
 
-    snprintf((v13 + 4709), 0x40uLL, "Cuie@%u%c", *&v40[1], v17);
-    GPUTools::FB::Encode(v41, 873, 0, v13 + 4709, v18, v19, v20, v21, *v13);
+    snprintf(v13 + 4709, 0x40uLL, "Cuie@%u%c", *&v38[1], v17);
+    GPUTools::FB::Encode(v39, 873, 0, v13 + 4709, v18, v19, v20, v21, *v13, a2, a3, a4);
     v22 = byte_21B1C1;
     if (byte_21B1C1)
     {
-      breakpoint_break(v41, (&stru_338.offset + 1), 1, *(v13 + 3404), v13);
+      breakpoint_break(v39, (&stru_338.offset + 1), 1, *(v13 + 851), v13);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v22 & 4))
     {
       v23 = mach_absolute_time();
-      (*(*(v13 + 32) + 6440))(a1, a2, a3, a4);
+      (*(v13[4] + 6440))(a1, a2, a3, a4);
       v24 = mach_absolute_time() - v23;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v25 = v41[0];
-        *(v41[0] + 2) = v23;
+        v25 = v39[0];
+        *(v39[0] + 2) = v23;
         v25[3] = v24;
         if (gCheckGLErrors != 1)
         {
@@ -468,11 +1165,10 @@ LABEL_46:
 
       else
       {
-        v37 = *(&g_DYTimebaseInfo + 1);
-        v38 = __udivti3();
-        v39 = v41[0];
-        *(v41[0] + 3) = v38;
-        v39[2] = __udivti3();
+        v36 = __udivti3();
+        v37 = v39[0];
+        *(v39[0] + 3) = v36;
+        v37[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_25;
@@ -488,22 +1184,22 @@ LABEL_25:
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v13 + 3404))
+    if (*(v13 + 851))
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v13);
+      encode_driver_events(v13, v39);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v13 + 3480), (v13 + 3520), v41);
-    v26 = *(v13 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v13 + 435, v13 + 440, v39);
+    v26 = *(v13 + 851);
     if (v26 && (gBreakOnError & 1) != 0)
     {
-      v35 = 3;
-      v36 = 0xFFFFFFFFLL;
+      v34 = 3;
+      v35 = 0xFFFFFFFFLL;
     }
 
     else
@@ -519,11 +1215,10 @@ LABEL_34:
           }
         }
 
-        v29 = *v41[0];
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v28 + 14);
-        v30 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v30 >= 1)
+        v29 = atomic_fetch_add(v13 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v29 >= 1)
         {
           handle_opengl_thread_conflict(v13);
         }
@@ -531,21 +1226,21 @@ LABEL_34:
         goto LABEL_42;
       }
 
-      v35 = 2;
-      v36 = 873;
+      v34 = 2;
+      v35 = 873;
     }
 
-    breakpoint_break(v41, v36, v35, v26, v13);
+    breakpoint_break(v39, v35, v34, v26, v13);
     goto LABEL_34;
   }
 
-  atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v13 + 24) + 6440))(a1, a2, a3, a4);
+  (*(v13[3] + 6440))(a1, a2, a3, a4);
 LABEL_42:
-  if (v41[0])
+  if (v39[0])
   {
-    free(v41[0]);
+    free(v39[0]);
   }
 }
 
@@ -578,7 +1273,7 @@ LABEL_9:
   }
 
   v13 = *(v9 + 40);
-  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  v14 = atomic_fetch_add(v13 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v14 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -590,51 +1285,51 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v13);
-    v32 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v32 >= 1)
+    v31 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v31 >= 1)
     {
 LABEL_46:
-      atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-      v33 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v33, 0, do_nothing);
-      v34 = *(*(v13 + 24) + 6440);
+      atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
+      v32 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v32, 0, do_nothing);
+      v33 = *(v13[3] + 6440);
 
-      v34(a1, a2, a3, a4);
+      v33(a1, a2, a3, a4);
       return;
     }
   }
 
   *(v13 + 4838) = 1;
-  v41[0] = 0;
-  v41[1] = 0;
-  v42 = 0;
+  v39[0] = 0;
+  v39[1] = 0;
+  v40 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    memset(v40, 0, sizeof(v40));
-    GPUTools::GL::DYGetTextureParameterInfo(a3, &v40[1], v40, v16);
+    memset(v38, 0, sizeof(v38));
+    GPUTools::GL::DYGetTextureParameterInfo(a3, &v38[1], v38, v16);
     v17 = 105;
-    if (v40[0])
+    if (v38[0])
     {
       v17 = 101;
     }
 
-    snprintf((v13 + 4709), 0x40uLL, "Cuie@%u%c", *&v40[1], v17);
-    GPUTools::FB::Encode(v41, 873, 0, v13 + 4709, v18, v19, v20, v21, *v13);
+    snprintf(v13 + 4709, 0x40uLL, "Cuie@%u%c", *&v38[1], v17);
+    GPUTools::FB::Encode(v39, 873, 0, v13 + 4709, v18, v19, v20, v21, *v13, a2, a3, a4);
     v22 = byte_21B1C1;
     if (byte_21B1C1)
     {
-      breakpoint_break(v41, (&stru_338.offset + 1), 1, *(v13 + 3404), v13);
+      breakpoint_break(v39, (&stru_338.offset + 1), 1, *(v13 + 851), v13);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v22 & 4))
     {
       v23 = mach_absolute_time();
-      (*(*(v13 + 32) + 6440))(a1, a2, a3, a4);
+      (*(v13[4] + 6440))(a1, a2, a3, a4);
       v24 = mach_absolute_time() - v23;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v25 = v41[0];
-        *(v41[0] + 2) = v23;
+        v25 = v39[0];
+        *(v39[0] + 2) = v23;
         v25[3] = v24;
         if (gCheckGLErrors != 1)
         {
@@ -644,11 +1339,10 @@ LABEL_46:
 
       else
       {
-        v37 = *(&g_DYTimebaseInfo + 1);
-        v38 = __udivti3();
-        v39 = v41[0];
-        *(v41[0] + 3) = v38;
-        v39[2] = __udivti3();
+        v36 = __udivti3();
+        v37 = v39[0];
+        *(v39[0] + 3) = v36;
+        v37[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_25;
@@ -664,22 +1358,22 @@ LABEL_25:
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v13 + 3404))
+    if (*(v13 + 851))
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v13);
+      encode_driver_events(v13, v39);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v13 + 3480), (v13 + 3520), v41);
-    v26 = *(v13 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v13 + 435, v13 + 440, v39);
+    v26 = *(v13 + 851);
     if (v26 && (gBreakOnError & 1) != 0)
     {
-      v35 = 3;
-      v36 = 0xFFFFFFFFLL;
+      v34 = 3;
+      v35 = 0xFFFFFFFFLL;
     }
 
     else
@@ -695,11 +1389,10 @@ LABEL_34:
           }
         }
 
-        v29 = *v41[0];
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v28 + 14);
-        v30 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v30 >= 1)
+        v29 = atomic_fetch_add(v13 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v29 >= 1)
         {
           handle_opengl_thread_conflict(v13);
         }
@@ -707,21 +1400,21 @@ LABEL_34:
         goto LABEL_42;
       }
 
-      v35 = 2;
-      v36 = 873;
+      v34 = 2;
+      v35 = 873;
     }
 
-    breakpoint_break(v41, v36, v35, v26, v13);
+    breakpoint_break(v39, v35, v34, v26, v13);
     goto LABEL_34;
   }
 
-  atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v13 + 24) + 6440))(a1, a2, a3, a4);
+  (*(v13[3] + 6440))(a1, a2, a3, a4);
 LABEL_42:
-  if (v41[0])
+  if (v39[0])
   {
-    free(v41[0]);
+    free(v39[0]);
   }
 }
 
@@ -766,7 +1459,7 @@ LABEL_9:
   }
 
   v13 = *(v9 + 40);
-  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  v14 = atomic_fetch_add(v13 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v14 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -778,52 +1471,52 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v13);
-    v32 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v32 >= 1)
+    v31 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v31 >= 1)
     {
 LABEL_46:
-      atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-      v33 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v33, 0, do_nothing);
-      v34 = *(*(v13 + 24) + 6448);
-      v35.n128_f32[0] = a4;
+      atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
+      v32 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v32, 0, do_nothing);
+      v33 = *(v13[3] + 6448);
+      v34.n128_f32[0] = a4;
 
-      v34(a1, a2, a3, v35);
+      v33(a1, a2, a3, v34);
       return;
     }
   }
 
   *(v13 + 4838) = 1;
-  v42[0] = 0;
-  v42[1] = 0;
-  v43 = 0;
+  v40[0] = 0;
+  v40[1] = 0;
+  v41 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    v41 = 0;
-    GPUTools::GL::DYGetTextureParameterInfo(a3, 0, &v41, v16);
+    v39 = 0;
+    GPUTools::GL::DYGetTextureParameterInfo(a3, 0, &v39, v16);
     v17 = 102;
-    if (v41)
+    if (v39)
     {
       v17 = 110;
     }
 
-    snprintf((v13 + 4709), 0x40uLL, "Cuie%c", v17);
-    GPUTools::FB::Encode(v42, 870, 0, v13 + 4709, v18, v19, v20, v21, *v13);
+    snprintf(v13 + 4709, 0x40uLL, "Cuie%c", v17);
+    GPUTools::FB::Encode(v40, 870, 0, v13 + 4709, v18, v19, v20, v21, *v13, a2, a3, a4);
     v22 = byte_21B1BE;
     if (byte_21B1BE)
     {
-      breakpoint_break(v42, (&stru_338.size + 6), 1, *(v13 + 3404), v13);
+      breakpoint_break(v40, (&stru_338.size + 6), 1, *(v13 + 851), v13);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v22 & 4))
     {
       v23 = mach_absolute_time();
-      (*(*(v13 + 32) + 6448))(a1, a2, a3, a4);
+      (*(v13[4] + 6448))(a1, a2, a3, a4);
       v24 = mach_absolute_time() - v23;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v25 = v42[0];
-        *(v42[0] + 2) = v23;
+        v25 = v40[0];
+        *(v40[0] + 2) = v23;
         v25[3] = v24;
         if (gCheckGLErrors != 1)
         {
@@ -833,11 +1526,10 @@ LABEL_46:
 
       else
       {
-        v38 = *(&g_DYTimebaseInfo + 1);
-        v39 = __udivti3();
-        v40 = v42[0];
-        *(v42[0] + 3) = v39;
-        v40[2] = __udivti3();
+        v37 = __udivti3();
+        v38 = v40[0];
+        *(v40[0] + 3) = v37;
+        v38[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_25;
@@ -853,22 +1545,22 @@ LABEL_25:
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v13 + 3404))
+    if (*(v13 + 851))
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v13);
+      encode_driver_events(v13, v40);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v13 + 3480), (v13 + 3520), v42);
-    v26 = *(v13 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v13 + 435, v13 + 440, v40);
+    v26 = *(v13 + 851);
     if (v26 && (gBreakOnError & 1) != 0)
     {
-      v36 = 3;
-      v37 = 0xFFFFFFFFLL;
+      v35 = 3;
+      v36 = 0xFFFFFFFFLL;
     }
 
     else
@@ -884,11 +1576,10 @@ LABEL_34:
           }
         }
 
-        v29 = *v42[0];
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v28 + 14);
-        v30 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v30 >= 1)
+        v29 = atomic_fetch_add(v13 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v29 >= 1)
         {
           handle_opengl_thread_conflict(v13);
         }
@@ -896,21 +1587,21 @@ LABEL_34:
         goto LABEL_42;
       }
 
-      v36 = 2;
-      v37 = 870;
+      v35 = 2;
+      v36 = 870;
     }
 
-    breakpoint_break(v42, v37, v36, v26, v13);
+    breakpoint_break(v40, v36, v35, v26, v13);
     goto LABEL_34;
   }
 
-  atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v13 + 24) + 6448))(a1, a2, a3, a4);
+  (*(v13[3] + 6448))(a1, a2, a3, a4);
 LABEL_42:
-  if (v42[0])
+  if (v40[0])
   {
-    free(v42[0]);
+    free(v40[0]);
   }
 }
 
@@ -943,7 +1634,7 @@ LABEL_9:
   }
 
   v13 = *(v9 + 40);
-  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  v14 = atomic_fetch_add(v13 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v14 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -955,52 +1646,52 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v13);
-    v32 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v32 >= 1)
+    v31 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v31 >= 1)
     {
 LABEL_46:
-      atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-      v33 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v33, 0, do_nothing);
-      v34 = *(*(v13 + 24) + 6448);
-      v35.n128_f32[0] = a4;
+      atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
+      v32 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v32, 0, do_nothing);
+      v33 = *(v13[3] + 6448);
+      v34.n128_f32[0] = a4;
 
-      v34(a1, a2, a3, v35);
+      v33(a1, a2, a3, v34);
       return;
     }
   }
 
   *(v13 + 4838) = 1;
-  v42[0] = 0;
-  v42[1] = 0;
-  v43 = 0;
+  v40[0] = 0;
+  v40[1] = 0;
+  v41 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    v41 = 0;
-    GPUTools::GL::DYGetTextureParameterInfo(a3, 0, &v41, v16);
+    v39 = 0;
+    GPUTools::GL::DYGetTextureParameterInfo(a3, 0, &v39, v16);
     v17 = 102;
-    if (v41)
+    if (v39)
     {
       v17 = 110;
     }
 
-    snprintf((v13 + 4709), 0x40uLL, "Cuie%c", v17);
-    GPUTools::FB::Encode(v42, 870, 0, v13 + 4709, v18, v19, v20, v21, *v13);
+    snprintf(v13 + 4709, 0x40uLL, "Cuie%c", v17);
+    GPUTools::FB::Encode(v40, 870, 0, v13 + 4709, v18, v19, v20, v21, *v13, a2, a3, a4);
     v22 = byte_21B1BE;
     if (byte_21B1BE)
     {
-      breakpoint_break(v42, (&stru_338.size + 6), 1, *(v13 + 3404), v13);
+      breakpoint_break(v40, (&stru_338.size + 6), 1, *(v13 + 851), v13);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v22 & 4))
     {
       v23 = mach_absolute_time();
-      (*(*(v13 + 32) + 6448))(a1, a2, a3, a4);
+      (*(v13[4] + 6448))(a1, a2, a3, a4);
       v24 = mach_absolute_time() - v23;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v25 = v42[0];
-        *(v42[0] + 2) = v23;
+        v25 = v40[0];
+        *(v40[0] + 2) = v23;
         v25[3] = v24;
         if (gCheckGLErrors != 1)
         {
@@ -1010,11 +1701,10 @@ LABEL_46:
 
       else
       {
-        v38 = *(&g_DYTimebaseInfo + 1);
-        v39 = __udivti3();
-        v40 = v42[0];
-        *(v42[0] + 3) = v39;
-        v40[2] = __udivti3();
+        v37 = __udivti3();
+        v38 = v40[0];
+        *(v40[0] + 3) = v37;
+        v38[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_25;
@@ -1030,22 +1720,22 @@ LABEL_25:
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v13 + 3404))
+    if (*(v13 + 851))
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v13);
+      encode_driver_events(v13, v40);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v13 + 3480), (v13 + 3520), v42);
-    v26 = *(v13 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v13 + 435, v13 + 440, v40);
+    v26 = *(v13 + 851);
     if (v26 && (gBreakOnError & 1) != 0)
     {
-      v36 = 3;
-      v37 = 0xFFFFFFFFLL;
+      v35 = 3;
+      v36 = 0xFFFFFFFFLL;
     }
 
     else
@@ -1061,11 +1751,10 @@ LABEL_34:
           }
         }
 
-        v29 = *v42[0];
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v28 + 14);
-        v30 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v30 >= 1)
+        v29 = atomic_fetch_add(v13 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v29 >= 1)
         {
           handle_opengl_thread_conflict(v13);
         }
@@ -1073,21 +1762,21 @@ LABEL_34:
         goto LABEL_42;
       }
 
-      v36 = 2;
-      v37 = 870;
+      v35 = 2;
+      v36 = 870;
     }
 
-    breakpoint_break(v42, v37, v36, v26, v13);
+    breakpoint_break(v40, v36, v35, v26, v13);
     goto LABEL_34;
   }
 
-  atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v13 + 24) + 6448))(a1, a2, a3, a4);
+  (*(v13[3] + 6448))(a1, a2, a3, a4);
 LABEL_42:
-  if (v42[0])
+  if (v40[0])
   {
-    free(v42[0]);
+    free(v40[0]);
   }
 }
 
@@ -1132,7 +1821,7 @@ LABEL_9:
   }
 
   v13 = *(v9 + 40);
-  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  v14 = atomic_fetch_add(v13 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v14 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -1144,51 +1833,51 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v13);
-    v32 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v32 >= 1)
+    v31 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v31 >= 1)
     {
 LABEL_46:
-      atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-      v33 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v33, 0, do_nothing);
-      v34 = *(*(v13 + 24) + 6456);
+      atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
+      v32 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v32, 0, do_nothing);
+      v33 = *(v13[3] + 6456);
 
-      v34(a1, a2, a3, a4);
+      v33(a1, a2, a3, a4);
       return;
     }
   }
 
   *(v13 + 4838) = 1;
-  v41[0] = 0;
-  v41[1] = 0;
-  v42 = 0;
+  v39[0] = 0;
+  v39[1] = 0;
+  v40 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    memset(v40, 0, sizeof(v40));
-    GPUTools::GL::DYGetTextureParameterInfo(a3, &v40[1], v40, v16);
+    memset(v38, 0, sizeof(v38));
+    GPUTools::GL::DYGetTextureParameterInfo(a3, &v38[1], v38, v16);
     v17 = 102;
-    if (v40[0])
+    if (v38[0])
     {
       v17 = 110;
     }
 
-    snprintf((v13 + 4709), 0x40uLL, "Cuie@%u%c", *&v40[1], v17);
-    GPUTools::FB::Encode(v41, 871, 0, v13 + 4709, v18, v19, v20, v21, *v13);
+    snprintf(v13 + 4709, 0x40uLL, "Cuie@%u%c", *&v38[1], v17);
+    GPUTools::FB::Encode(v39, 871, 0, v13 + 4709, v18, v19, v20, v21, *v13, a2, a3, a4);
     v22 = byte_21B1BF;
     if (byte_21B1BF)
     {
-      breakpoint_break(v41, (&stru_338.size + 7), 1, *(v13 + 3404), v13);
+      breakpoint_break(v39, (&stru_338.size + 7), 1, *(v13 + 851), v13);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v22 & 4))
     {
       v23 = mach_absolute_time();
-      (*(*(v13 + 32) + 6456))(a1, a2, a3, a4);
+      (*(v13[4] + 6456))(a1, a2, a3, a4);
       v24 = mach_absolute_time() - v23;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v25 = v41[0];
-        *(v41[0] + 2) = v23;
+        v25 = v39[0];
+        *(v39[0] + 2) = v23;
         v25[3] = v24;
         if (gCheckGLErrors != 1)
         {
@@ -1198,11 +1887,10 @@ LABEL_46:
 
       else
       {
-        v37 = *(&g_DYTimebaseInfo + 1);
-        v38 = __udivti3();
-        v39 = v41[0];
-        *(v41[0] + 3) = v38;
-        v39[2] = __udivti3();
+        v36 = __udivti3();
+        v37 = v39[0];
+        *(v39[0] + 3) = v36;
+        v37[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_25;
@@ -1218,22 +1906,22 @@ LABEL_25:
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v13 + 3404))
+    if (*(v13 + 851))
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v13);
+      encode_driver_events(v13, v39);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v13 + 3480), (v13 + 3520), v41);
-    v26 = *(v13 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v13 + 435, v13 + 440, v39);
+    v26 = *(v13 + 851);
     if (v26 && (gBreakOnError & 1) != 0)
     {
-      v35 = 3;
-      v36 = 0xFFFFFFFFLL;
+      v34 = 3;
+      v35 = 0xFFFFFFFFLL;
     }
 
     else
@@ -1249,11 +1937,10 @@ LABEL_34:
           }
         }
 
-        v29 = *v41[0];
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v28 + 14);
-        v30 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v30 >= 1)
+        v29 = atomic_fetch_add(v13 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v29 >= 1)
         {
           handle_opengl_thread_conflict(v13);
         }
@@ -1261,21 +1948,21 @@ LABEL_34:
         goto LABEL_42;
       }
 
-      v35 = 2;
-      v36 = 871;
+      v34 = 2;
+      v35 = 871;
     }
 
-    breakpoint_break(v41, v36, v35, v26, v13);
+    breakpoint_break(v39, v35, v34, v26, v13);
     goto LABEL_34;
   }
 
-  atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v13 + 24) + 6456))(a1, a2, a3, a4);
+  (*(v13[3] + 6456))(a1, a2, a3, a4);
 LABEL_42:
-  if (v41[0])
+  if (v39[0])
   {
-    free(v41[0]);
+    free(v39[0]);
   }
 }
 
@@ -1308,7 +1995,7 @@ LABEL_9:
   }
 
   v13 = *(v9 + 40);
-  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  v14 = atomic_fetch_add(v13 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v14 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -1320,51 +2007,51 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v13);
-    v32 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v32 >= 1)
+    v31 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v31 >= 1)
     {
 LABEL_46:
-      atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-      v33 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v33, 0, do_nothing);
-      v34 = *(*(v13 + 24) + 6456);
+      atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
+      v32 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v32, 0, do_nothing);
+      v33 = *(v13[3] + 6456);
 
-      v34(a1, a2, a3, a4);
+      v33(a1, a2, a3, a4);
       return;
     }
   }
 
   *(v13 + 4838) = 1;
-  v41[0] = 0;
-  v41[1] = 0;
-  v42 = 0;
+  v39[0] = 0;
+  v39[1] = 0;
+  v40 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    memset(v40, 0, sizeof(v40));
-    GPUTools::GL::DYGetTextureParameterInfo(a3, &v40[1], v40, v16);
+    memset(v38, 0, sizeof(v38));
+    GPUTools::GL::DYGetTextureParameterInfo(a3, &v38[1], v38, v16);
     v17 = 102;
-    if (v40[0])
+    if (v38[0])
     {
       v17 = 110;
     }
 
-    snprintf((v13 + 4709), 0x40uLL, "Cuie@%u%c", *&v40[1], v17);
-    GPUTools::FB::Encode(v41, 871, 0, v13 + 4709, v18, v19, v20, v21, *v13);
+    snprintf(v13 + 4709, 0x40uLL, "Cuie@%u%c", *&v38[1], v17);
+    GPUTools::FB::Encode(v39, 871, 0, v13 + 4709, v18, v19, v20, v21, *v13, a2, a3, a4);
     v22 = byte_21B1BF;
     if (byte_21B1BF)
     {
-      breakpoint_break(v41, (&stru_338.size + 7), 1, *(v13 + 3404), v13);
+      breakpoint_break(v39, (&stru_338.size + 7), 1, *(v13 + 851), v13);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v22 & 4))
     {
       v23 = mach_absolute_time();
-      (*(*(v13 + 32) + 6456))(a1, a2, a3, a4);
+      (*(v13[4] + 6456))(a1, a2, a3, a4);
       v24 = mach_absolute_time() - v23;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v25 = v41[0];
-        *(v41[0] + 2) = v23;
+        v25 = v39[0];
+        *(v39[0] + 2) = v23;
         v25[3] = v24;
         if (gCheckGLErrors != 1)
         {
@@ -1374,11 +2061,10 @@ LABEL_46:
 
       else
       {
-        v37 = *(&g_DYTimebaseInfo + 1);
-        v38 = __udivti3();
-        v39 = v41[0];
-        *(v41[0] + 3) = v38;
-        v39[2] = __udivti3();
+        v36 = __udivti3();
+        v37 = v39[0];
+        *(v39[0] + 3) = v36;
+        v37[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_25;
@@ -1394,22 +2080,22 @@ LABEL_25:
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v13 + 3404))
+    if (*(v13 + 851))
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v13);
+      encode_driver_events(v13, v39);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v13 + 3480), (v13 + 3520), v41);
-    v26 = *(v13 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v13 + 435, v13 + 440, v39);
+    v26 = *(v13 + 851);
     if (v26 && (gBreakOnError & 1) != 0)
     {
-      v35 = 3;
-      v36 = 0xFFFFFFFFLL;
+      v34 = 3;
+      v35 = 0xFFFFFFFFLL;
     }
 
     else
@@ -1425,11 +2111,10 @@ LABEL_34:
           }
         }
 
-        v29 = *v41[0];
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v28 + 14);
-        v30 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v30 >= 1)
+        v29 = atomic_fetch_add(v13 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v29 >= 1)
         {
           handle_opengl_thread_conflict(v13);
         }
@@ -1437,21 +2122,21 @@ LABEL_34:
         goto LABEL_42;
       }
 
-      v35 = 2;
-      v36 = 871;
+      v34 = 2;
+      v35 = 871;
     }
 
-    breakpoint_break(v41, v36, v35, v26, v13);
+    breakpoint_break(v39, v35, v34, v26, v13);
     goto LABEL_34;
   }
 
-  atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v13 + 24) + 6456))(a1, a2, a3, a4);
+  (*(v13[3] + 6456))(a1, a2, a3, a4);
 LABEL_42:
-  if (v41[0])
+  if (v39[0])
   {
-    free(v41[0]);
+    free(v39[0]);
   }
 }
 
@@ -1496,7 +2181,7 @@ LABEL_9:
   }
 
   v13 = *(v9 + 40);
-  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  v14 = atomic_fetch_add(v13 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v14 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -1508,51 +2193,51 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v13);
-    v37 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v37 >= 1)
+    v36 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v36 >= 1)
     {
 LABEL_48:
-      atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-      v38 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v38, 0, do_nothing);
-      v39 = *(*(v13 + 24) + 6480);
+      atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
+      v37 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v37, 0, do_nothing);
+      v38 = *(v13[3] + 6480);
 
-      v39(a1, a2, a3, a4);
+      v38(a1, a2, a3, a4);
       return;
     }
   }
 
   *(v13 + 4838) = 1;
+  v45 = 0;
+  v46 = 0;
   v47 = 0;
-  v48 = 0;
-  v49 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    memset(v46, 0, sizeof(v46));
-    GPUTools::GL::DYGetTextureParameterInfo(a3, &v46[1], v46, v16);
+    memset(v44, 0, sizeof(v44));
+    GPUTools::GL::DYGetTextureParameterInfo(a3, &v44[1], v44, v16);
     v17 = 105;
-    if (v46[0])
+    if (v44[0])
     {
       v17 = 101;
     }
 
-    snprintf((v13 + 4709), 0x40uLL, "Cuie@%u%c", *&v46[1], v17);
-    GPUTools::FB::Encode(&v47, 862, 256, v13 + 4709, v18, v19, v20, v21, *v13);
+    snprintf(v13 + 4709, 0x40uLL, "Cuie@%u%c", *&v44[1], v17);
+    GPUTools::FB::Encode(&v45, 862, 256, v13 + 4709, v18, v19, v20, v21, *v13, a2, a3, a4);
     v22 = byte_21B1B6;
     if (byte_21B1B6)
     {
-      breakpoint_break(&v47, (&stru_338.addr + 6), 1, *(v13 + 3404), v13);
+      breakpoint_break(&v45, (&stru_338.addr + 6), 1, *(v13 + 851), v13);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v22 & 4))
     {
       v27 = mach_absolute_time();
-      (*(*(v13 + 32) + 6480))(a1, a2, a3, a4);
+      (*(v13[4] + 6480))(a1, a2, a3, a4);
       v28 = mach_absolute_time() - v27;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v29 = v47;
-        *(v47 + 2) = v27;
+        v29 = v45;
+        *(v45 + 2) = v27;
         v29[3] = v28;
         if (gCheckGLErrors != 1)
         {
@@ -1562,11 +2247,10 @@ LABEL_48:
 
       else
       {
-        v42 = *(&g_DYTimebaseInfo + 1);
-        v43 = __udivti3();
-        v44 = v47;
-        *(v47 + 3) = v43;
-        v44[2] = __udivti3();
+        v41 = __udivti3();
+        v42 = v45;
+        *(v45 + 3) = v41;
+        v42[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_25;
@@ -1577,39 +2261,39 @@ LABEL_48:
     }
 
 LABEL_25:
-    v30 = v47;
-    v45 = *(v47 + 1);
-    v48 = v47;
-    if (v49 >= 0x24)
+    v30 = v45;
+    v43 = *(v45 + 1);
+    v46 = v45;
+    if (v47 >= 0x24)
     {
-      *(v47 + 8) = 0;
+      *(v45 + 8) = 0;
       *v30 = 0u;
       v30[1] = 0u;
     }
 
-    GPUTools::FB::Encode(&v47, 862, 256, v13 + 4709, v23, v24, v25, v26, *v13);
-    *(v47 + 1) = v45;
+    GPUTools::FB::Encode(&v45, 862, 256, v13 + 4709, v23, v24, v25, v26, *v13, a2, a3, a4);
+    *(v45 + 1) = v43;
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v13 + 3404))
+    if (*(v13 + 851))
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v13);
+      encode_driver_events(v13, &v45);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v13 + 3480), (v13 + 3520), &v47);
-    v31 = *(v13 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v13 + 435, v13 + 440, &v45);
+    v31 = *(v13 + 851);
     if (v31 && (gBreakOnError & 1) != 0)
     {
-      v40 = 3;
-      v41 = 0xFFFFFFFFLL;
+      v39 = 3;
+      v40 = 0xFFFFFFFFLL;
     }
 
     else
@@ -1625,11 +2309,10 @@ LABEL_36:
           }
         }
 
-        v34 = *v47;
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v33 + 14);
-        v35 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v35 >= 1)
+        v34 = atomic_fetch_add(v13 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v34 >= 1)
         {
           handle_opengl_thread_conflict(v13);
         }
@@ -1637,21 +2320,21 @@ LABEL_36:
         goto LABEL_44;
       }
 
-      v40 = 2;
-      v41 = 862;
+      v39 = 2;
+      v40 = 862;
     }
 
-    breakpoint_break(&v47, v41, v40, v31, v13);
+    breakpoint_break(&v45, v40, v39, v31, v13);
     goto LABEL_36;
   }
 
-  atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v13 + 24) + 6480))(a1, a2, a3, a4);
+  (*(v13[3] + 6480))(a1, a2, a3, a4);
 LABEL_44:
-  if (v47)
+  if (v45)
   {
-    free(v47);
+    free(v45);
   }
 }
 
@@ -1684,7 +2367,7 @@ LABEL_9:
   }
 
   v13 = *(v9 + 40);
-  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  v14 = atomic_fetch_add(v13 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v14 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -1696,51 +2379,51 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v13);
-    v37 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v37 >= 1)
+    v36 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v36 >= 1)
     {
 LABEL_48:
-      atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-      v38 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v38, 0, do_nothing);
-      v39 = *(*(v13 + 24) + 6480);
+      atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
+      v37 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v37, 0, do_nothing);
+      v38 = *(v13[3] + 6480);
 
-      v39(a1, a2, a3, a4);
+      v38(a1, a2, a3, a4);
       return;
     }
   }
 
   *(v13 + 4838) = 1;
+  v45 = 0;
+  v46 = 0;
   v47 = 0;
-  v48 = 0;
-  v49 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    memset(v46, 0, sizeof(v46));
-    GPUTools::GL::DYGetTextureParameterInfo(a3, &v46[1], v46, v16);
+    memset(v44, 0, sizeof(v44));
+    GPUTools::GL::DYGetTextureParameterInfo(a3, &v44[1], v44, v16);
     v17 = 105;
-    if (v46[0])
+    if (v44[0])
     {
       v17 = 101;
     }
 
-    snprintf((v13 + 4709), 0x40uLL, "Cuie@%u%c", *&v46[1], v17);
-    GPUTools::FB::Encode(&v47, 862, 256, v13 + 4709, v18, v19, v20, v21, *v13);
+    snprintf(v13 + 4709, 0x40uLL, "Cuie@%u%c", *&v44[1], v17);
+    GPUTools::FB::Encode(&v45, 862, 256, v13 + 4709, v18, v19, v20, v21, *v13, a2, a3, a4);
     v22 = byte_21B1B6;
     if (byte_21B1B6)
     {
-      breakpoint_break(&v47, (&stru_338.addr + 6), 1, *(v13 + 3404), v13);
+      breakpoint_break(&v45, (&stru_338.addr + 6), 1, *(v13 + 851), v13);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v22 & 4))
     {
       v27 = mach_absolute_time();
-      (*(*(v13 + 32) + 6480))(a1, a2, a3, a4);
+      (*(v13[4] + 6480))(a1, a2, a3, a4);
       v28 = mach_absolute_time() - v27;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v29 = v47;
-        *(v47 + 2) = v27;
+        v29 = v45;
+        *(v45 + 2) = v27;
         v29[3] = v28;
         if (gCheckGLErrors != 1)
         {
@@ -1750,11 +2433,10 @@ LABEL_48:
 
       else
       {
-        v42 = *(&g_DYTimebaseInfo + 1);
-        v43 = __udivti3();
-        v44 = v47;
-        *(v47 + 3) = v43;
-        v44[2] = __udivti3();
+        v41 = __udivti3();
+        v42 = v45;
+        *(v45 + 3) = v41;
+        v42[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_25;
@@ -1765,39 +2447,39 @@ LABEL_48:
     }
 
 LABEL_25:
-    v30 = v47;
-    v45 = *(v47 + 1);
-    v48 = v47;
-    if (v49 >= 0x24)
+    v30 = v45;
+    v43 = *(v45 + 1);
+    v46 = v45;
+    if (v47 >= 0x24)
     {
-      *(v47 + 8) = 0;
+      *(v45 + 8) = 0;
       *v30 = 0u;
       v30[1] = 0u;
     }
 
-    GPUTools::FB::Encode(&v47, 862, 256, v13 + 4709, v23, v24, v25, v26, *v13);
-    *(v47 + 1) = v45;
+    GPUTools::FB::Encode(&v45, 862, 256, v13 + 4709, v23, v24, v25, v26, *v13, a2, a3, a4);
+    *(v45 + 1) = v43;
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v13 + 3404))
+    if (*(v13 + 851))
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v13);
+      encode_driver_events(v13, &v45);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v13 + 3480), (v13 + 3520), &v47);
-    v31 = *(v13 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v13 + 435, v13 + 440, &v45);
+    v31 = *(v13 + 851);
     if (v31 && (gBreakOnError & 1) != 0)
     {
-      v40 = 3;
-      v41 = 0xFFFFFFFFLL;
+      v39 = 3;
+      v40 = 0xFFFFFFFFLL;
     }
 
     else
@@ -1813,11 +2495,10 @@ LABEL_36:
           }
         }
 
-        v34 = *v47;
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v33 + 14);
-        v35 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v35 >= 1)
+        v34 = atomic_fetch_add(v13 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v34 >= 1)
         {
           handle_opengl_thread_conflict(v13);
         }
@@ -1825,21 +2506,21 @@ LABEL_36:
         goto LABEL_44;
       }
 
-      v40 = 2;
-      v41 = 862;
+      v39 = 2;
+      v40 = 862;
     }
 
-    breakpoint_break(&v47, v41, v40, v31, v13);
+    breakpoint_break(&v45, v40, v39, v31, v13);
     goto LABEL_36;
   }
 
-  atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v13 + 24) + 6480))(a1, a2, a3, a4);
+  (*(v13[3] + 6480))(a1, a2, a3, a4);
 LABEL_44:
-  if (v47)
+  if (v45)
   {
-    free(v47);
+    free(v45);
   }
 }
 
@@ -1884,7 +2565,7 @@ LABEL_9:
   }
 
   v13 = *(v9 + 40);
-  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  v14 = atomic_fetch_add(v13 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v14 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -1896,51 +2577,51 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v13);
-    v37 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v37 >= 1)
+    v36 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v36 >= 1)
     {
 LABEL_48:
-      atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-      v38 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v38, 0, do_nothing);
-      v39 = *(*(v13 + 24) + 6488);
+      atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
+      v37 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v37, 0, do_nothing);
+      v38 = *(v13[3] + 6488);
 
-      v39(a1, a2, a3, a4);
+      v38(a1, a2, a3, a4);
       return;
     }
   }
 
   *(v13 + 4838) = 1;
+  v45 = 0;
+  v46 = 0;
   v47 = 0;
-  v48 = 0;
-  v49 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    memset(v46, 0, sizeof(v46));
-    GPUTools::GL::DYGetTextureParameterInfo(a3, &v46[1], v46, v16);
+    memset(v44, 0, sizeof(v44));
+    GPUTools::GL::DYGetTextureParameterInfo(a3, &v44[1], v44, v16);
     v17 = 102;
-    if (v46[0])
+    if (v44[0])
     {
       v17 = 110;
     }
 
-    snprintf((v13 + 4709), 0x40uLL, "Cuie@%u%c", *&v46[1], v17);
-    GPUTools::FB::Encode(&v47, 861, 256, v13 + 4709, v18, v19, v20, v21, *v13);
+    snprintf(v13 + 4709, 0x40uLL, "Cuie@%u%c", *&v44[1], v17);
+    GPUTools::FB::Encode(&v45, 861, 256, v13 + 4709, v18, v19, v20, v21, *v13, a2, a3, a4);
     v22 = byte_21B1B5;
     if (byte_21B1B5)
     {
-      breakpoint_break(&v47, (&stru_338.addr + 5), 1, *(v13 + 3404), v13);
+      breakpoint_break(&v45, (&stru_338.addr + 5), 1, *(v13 + 851), v13);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v22 & 4))
     {
       v27 = mach_absolute_time();
-      (*(*(v13 + 32) + 6488))(a1, a2, a3, a4);
+      (*(v13[4] + 6488))(a1, a2, a3, a4);
       v28 = mach_absolute_time() - v27;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v29 = v47;
-        *(v47 + 2) = v27;
+        v29 = v45;
+        *(v45 + 2) = v27;
         v29[3] = v28;
         if (gCheckGLErrors != 1)
         {
@@ -1950,11 +2631,10 @@ LABEL_48:
 
       else
       {
-        v42 = *(&g_DYTimebaseInfo + 1);
-        v43 = __udivti3();
-        v44 = v47;
-        *(v47 + 3) = v43;
-        v44[2] = __udivti3();
+        v41 = __udivti3();
+        v42 = v45;
+        *(v45 + 3) = v41;
+        v42[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_25;
@@ -1965,39 +2645,39 @@ LABEL_48:
     }
 
 LABEL_25:
-    v30 = v47;
-    v45 = *(v47 + 1);
-    v48 = v47;
-    if (v49 >= 0x24)
+    v30 = v45;
+    v43 = *(v45 + 1);
+    v46 = v45;
+    if (v47 >= 0x24)
     {
-      *(v47 + 8) = 0;
+      *(v45 + 8) = 0;
       *v30 = 0u;
       v30[1] = 0u;
     }
 
-    GPUTools::FB::Encode(&v47, 861, 256, v13 + 4709, v23, v24, v25, v26, *v13);
-    *(v47 + 1) = v45;
+    GPUTools::FB::Encode(&v45, 861, 256, v13 + 4709, v23, v24, v25, v26, *v13, a2, a3, a4);
+    *(v45 + 1) = v43;
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v13 + 3404))
+    if (*(v13 + 851))
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v13);
+      encode_driver_events(v13, &v45);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v13 + 3480), (v13 + 3520), &v47);
-    v31 = *(v13 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v13 + 435, v13 + 440, &v45);
+    v31 = *(v13 + 851);
     if (v31 && (gBreakOnError & 1) != 0)
     {
-      v40 = 3;
-      v41 = 0xFFFFFFFFLL;
+      v39 = 3;
+      v40 = 0xFFFFFFFFLL;
     }
 
     else
@@ -2013,11 +2693,10 @@ LABEL_36:
           }
         }
 
-        v34 = *v47;
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v33 + 14);
-        v35 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v35 >= 1)
+        v34 = atomic_fetch_add(v13 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v34 >= 1)
         {
           handle_opengl_thread_conflict(v13);
         }
@@ -2025,21 +2704,21 @@ LABEL_36:
         goto LABEL_44;
       }
 
-      v40 = 2;
-      v41 = 861;
+      v39 = 2;
+      v40 = 861;
     }
 
-    breakpoint_break(&v47, v41, v40, v31, v13);
+    breakpoint_break(&v45, v40, v39, v31, v13);
     goto LABEL_36;
   }
 
-  atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v13 + 24) + 6488))(a1, a2, a3, a4);
+  (*(v13[3] + 6488))(a1, a2, a3, a4);
 LABEL_44:
-  if (v47)
+  if (v45)
   {
-    free(v47);
+    free(v45);
   }
 }
 
@@ -2072,7 +2751,7 @@ LABEL_9:
   }
 
   v13 = *(v9 + 40);
-  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  v14 = atomic_fetch_add(v13 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v14 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -2084,51 +2763,51 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v13);
-    v37 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v37 >= 1)
+    v36 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v36 >= 1)
     {
 LABEL_48:
-      atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-      v38 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v38, 0, do_nothing);
-      v39 = *(*(v13 + 24) + 6488);
+      atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
+      v37 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v37, 0, do_nothing);
+      v38 = *(v13[3] + 6488);
 
-      v39(a1, a2, a3, a4);
+      v38(a1, a2, a3, a4);
       return;
     }
   }
 
   *(v13 + 4838) = 1;
+  v45 = 0;
+  v46 = 0;
   v47 = 0;
-  v48 = 0;
-  v49 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    memset(v46, 0, sizeof(v46));
-    GPUTools::GL::DYGetTextureParameterInfo(a3, &v46[1], v46, v16);
+    memset(v44, 0, sizeof(v44));
+    GPUTools::GL::DYGetTextureParameterInfo(a3, &v44[1], v44, v16);
     v17 = 102;
-    if (v46[0])
+    if (v44[0])
     {
       v17 = 110;
     }
 
-    snprintf((v13 + 4709), 0x40uLL, "Cuie@%u%c", *&v46[1], v17);
-    GPUTools::FB::Encode(&v47, 861, 256, v13 + 4709, v18, v19, v20, v21, *v13);
+    snprintf(v13 + 4709, 0x40uLL, "Cuie@%u%c", *&v44[1], v17);
+    GPUTools::FB::Encode(&v45, 861, 256, v13 + 4709, v18, v19, v20, v21, *v13, a2, a3, a4);
     v22 = byte_21B1B5;
     if (byte_21B1B5)
     {
-      breakpoint_break(&v47, (&stru_338.addr + 5), 1, *(v13 + 3404), v13);
+      breakpoint_break(&v45, (&stru_338.addr + 5), 1, *(v13 + 851), v13);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v22 & 4))
     {
       v27 = mach_absolute_time();
-      (*(*(v13 + 32) + 6488))(a1, a2, a3, a4);
+      (*(v13[4] + 6488))(a1, a2, a3, a4);
       v28 = mach_absolute_time() - v27;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v29 = v47;
-        *(v47 + 2) = v27;
+        v29 = v45;
+        *(v45 + 2) = v27;
         v29[3] = v28;
         if (gCheckGLErrors != 1)
         {
@@ -2138,11 +2817,10 @@ LABEL_48:
 
       else
       {
-        v42 = *(&g_DYTimebaseInfo + 1);
-        v43 = __udivti3();
-        v44 = v47;
-        *(v47 + 3) = v43;
-        v44[2] = __udivti3();
+        v41 = __udivti3();
+        v42 = v45;
+        *(v45 + 3) = v41;
+        v42[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_25;
@@ -2153,39 +2831,39 @@ LABEL_48:
     }
 
 LABEL_25:
-    v30 = v47;
-    v45 = *(v47 + 1);
-    v48 = v47;
-    if (v49 >= 0x24)
+    v30 = v45;
+    v43 = *(v45 + 1);
+    v46 = v45;
+    if (v47 >= 0x24)
     {
-      *(v47 + 8) = 0;
+      *(v45 + 8) = 0;
       *v30 = 0u;
       v30[1] = 0u;
     }
 
-    GPUTools::FB::Encode(&v47, 861, 256, v13 + 4709, v23, v24, v25, v26, *v13);
-    *(v47 + 1) = v45;
+    GPUTools::FB::Encode(&v45, 861, 256, v13 + 4709, v23, v24, v25, v26, *v13, a2, a3, a4);
+    *(v45 + 1) = v43;
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v13 + 3404))
+    if (*(v13 + 851))
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v13);
+      encode_driver_events(v13, &v45);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v13 + 3480), (v13 + 3520), &v47);
-    v31 = *(v13 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v13 + 435, v13 + 440, &v45);
+    v31 = *(v13 + 851);
     if (v31 && (gBreakOnError & 1) != 0)
     {
-      v40 = 3;
-      v41 = 0xFFFFFFFFLL;
+      v39 = 3;
+      v40 = 0xFFFFFFFFLL;
     }
 
     else
@@ -2201,11 +2879,10 @@ LABEL_36:
           }
         }
 
-        v34 = *v47;
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v33 + 14);
-        v35 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v35 >= 1)
+        v34 = atomic_fetch_add(v13 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v34 >= 1)
         {
           handle_opengl_thread_conflict(v13);
         }
@@ -2213,21 +2890,21 @@ LABEL_36:
         goto LABEL_44;
       }
 
-      v40 = 2;
-      v41 = 861;
+      v39 = 2;
+      v40 = 861;
     }
 
-    breakpoint_break(&v47, v41, v40, v31, v13);
+    breakpoint_break(&v45, v40, v39, v31, v13);
     goto LABEL_36;
   }
 
-  atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v13 + 24) + 6488))(a1, a2, a3, a4);
+  (*(v13[3] + 6488))(a1, a2, a3, a4);
 LABEL_44:
-  if (v47)
+  if (v45)
   {
-    free(v47);
+    free(v45);
   }
 }
 
@@ -2272,7 +2949,7 @@ LABEL_9:
   }
 
   v15 = *(v11 + 40);
-  v16 = atomic_fetch_add((v15 + 4640), 1u) + 1;
+  v16 = atomic_fetch_add(v15 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v16 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -2288,10 +2965,10 @@ LABEL_9:
     if (v34 >= 1)
     {
 LABEL_49:
-      atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+      atomic_fetch_add(v15 + 1160, 0xFFFFFFFF);
       v35 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
       dispatch_sync_f(v35, 0, do_nothing);
-      v36 = *(*(v15 + 24) + 6512);
+      v36 = *(*(v15 + 3) + 6512);
 
       v36(a1, a2, a3, a4, a5);
       return;
@@ -2299,9 +2976,9 @@ LABEL_49:
   }
 
   *(v15 + 4838) = 1;
-  v42[0] = 0;
-  v42[1] = 0;
-  v43 = 0;
+  v41[0] = 0;
+  v41[1] = 0;
+  v42 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
     if (a2 == 35656)
@@ -2309,34 +2986,35 @@ LABEL_49:
       wrapper_cache_shader_label(v15, a3);
     }
 
-    StringToEncode = GetStringToEncode(a4, a5);
-    if (StringToEncode)
+    GetStringToEncode(a4, a5);
+    v23 = v22;
+    if (v22)
     {
-      v23 = "CeuiicS";
+      v24 = "CeuiicS";
     }
 
     else
     {
-      v23 = "Ceuiit";
+      v24 = "Ceuiit";
     }
 
-    GPUTools::FB::Encode(v42, 897, 2, v23, v18, v19, v20, v21, *v15);
-    v24 = byte_21B1D9;
+    GPUTools::FB::Encode(v41, 897, 2, v24, v18, v19, v20, v21, *v15, a2, a3, a4, a5);
+    v25 = byte_21B1D9;
     if (byte_21B1D9)
     {
-      breakpoint_break(v42, (&stru_338.reserved2 + 1), 1, *(v15 + 3404), v15);
+      breakpoint_break(v41, (&stru_338.reserved2 + 1), 1, v15[851], v15);
     }
 
-    if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v24 & 4))
+    if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v25 & 4))
     {
-      v25 = mach_absolute_time();
-      (*(*(v15 + 32) + 6512))(a1, a2, a3, a4, a5);
-      v26 = mach_absolute_time() - v25;
+      v26 = mach_absolute_time();
+      (*(*(v15 + 4) + 6512))(a1, a2, a3, a4, a5);
+      v27 = mach_absolute_time() - v26;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v27 = v42[0];
-        *(v42[0] + 2) = v25;
-        v27[3] = v26;
+        v28 = v41[0];
+        *(v41[0] + 2) = v26;
+        v28[3] = v27;
         if (gCheckGLErrors != 1)
         {
           goto LABEL_28;
@@ -2345,11 +3023,10 @@ LABEL_49:
 
       else
       {
-        v39 = *(&g_DYTimebaseInfo + 1);
-        v40 = __udivti3();
-        v41 = v42[0];
-        *(v42[0] + 3) = v40;
-        v41[2] = __udivti3();
+        v39 = __udivti3();
+        v40 = v41[0];
+        *(v41[0] + 3) = v39;
+        v40[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_28;
@@ -2365,19 +3042,19 @@ LABEL_28:
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v15 + 3404))
+    if (v15[851])
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v15);
+      encode_driver_events(v15, v41);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v15 + 3480), (v15 + 3520), v42);
-    v28 = *(v15 + 3404);
-    if (v28 && (gBreakOnError & 1) != 0)
+    GPUTools::FB::EncodeThreadQueueInfo(v15 + 435, v15 + 440, v41);
+    v29 = v15[851];
+    if (v29 && (gBreakOnError & 1) != 0)
     {
       v37 = 3;
       v38 = 0xFFFFFFFFLL;
@@ -2385,22 +3062,21 @@ LABEL_28:
 
     else
     {
-      if ((v24 & 2) == 0)
+      if ((v25 & 2) == 0)
       {
 LABEL_37:
-        v29 = [DYGetGLGuestAppClient() defaultFbufStream];
-        v30 = v29;
-        while (atomic_exchange(v29 + 14, 1u) == 1)
+        v30 = [DYGetGLGuestAppClient() defaultFbufStream];
+        v31 = v30;
+        while (atomic_exchange(v30 + 14, 1u) == 1)
         {
             ;
           }
         }
 
-        v31 = *v42[0];
         GPUTools::FB::Stream::Write_nolock();
-        atomic_store(0, v30 + 14);
-        ReleaseStringToEncode(StringToEncode, a5);
-        v32 = atomic_fetch_add((v15 + 4640), 0xFFFFFFFF) - 1;
+        atomic_store(0, v31 + 14);
+        ReleaseStringToEncode(v23, a5);
+        v32 = atomic_fetch_add(v15 + 1160, 0xFFFFFFFF) - 1;
         if (gCheckGLErrors == 1 && v32 >= 1)
         {
           handle_opengl_thread_conflict(v15);
@@ -2413,17 +3089,17 @@ LABEL_37:
       v38 = 897;
     }
 
-    breakpoint_break(v42, v38, v37, v28, v15);
+    breakpoint_break(v41, v38, v37, v29, v15);
     goto LABEL_37;
   }
 
-  atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v15 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v15 + 24) + 6512))(a1, a2, a3, a4, a5);
+  (*(*(v15 + 3) + 6512))(a1, a2, a3, a4, a5);
 LABEL_45:
-  if (v42[0])
+  if (v41[0])
   {
-    free(v42[0]);
+    free(v41[0]);
   }
 }
 
@@ -2456,7 +3132,7 @@ LABEL_9:
   }
 
   v15 = *(v11 + 40);
-  v16 = atomic_fetch_add((v15 + 4640), 1u) + 1;
+  v16 = atomic_fetch_add(v15 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v16 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -2472,10 +3148,10 @@ LABEL_9:
     if (v34 >= 1)
     {
 LABEL_49:
-      atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+      atomic_fetch_add(v15 + 1160, 0xFFFFFFFF);
       v35 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
       dispatch_sync_f(v35, 0, do_nothing);
-      v36 = *(*(v15 + 24) + 6512);
+      v36 = *(*(v15 + 3) + 6512);
 
       v36(a1, a2, a3, a4, a5);
       return;
@@ -2483,9 +3159,9 @@ LABEL_49:
   }
 
   *(v15 + 4838) = 1;
-  v42[0] = 0;
-  v42[1] = 0;
-  v43 = 0;
+  v41[0] = 0;
+  v41[1] = 0;
+  v42 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
     if (a2 == 35656)
@@ -2493,34 +3169,35 @@ LABEL_49:
       wrapper_cache_shader_label(v15, a3);
     }
 
-    StringToEncode = GetStringToEncode(a4, a5);
-    if (StringToEncode)
+    GetStringToEncode(a4, a5);
+    v23 = v22;
+    if (v22)
     {
-      v23 = "CeuiicS";
+      v24 = "CeuiicS";
     }
 
     else
     {
-      v23 = "Ceuiit";
+      v24 = "Ceuiit";
     }
 
-    GPUTools::FB::Encode(v42, 897, 2, v23, v18, v19, v20, v21, *v15);
-    v24 = byte_21B1D9;
+    GPUTools::FB::Encode(v41, 897, 2, v24, v18, v19, v20, v21, *v15, a2, a3, a4, a5);
+    v25 = byte_21B1D9;
     if (byte_21B1D9)
     {
-      breakpoint_break(v42, (&stru_338.reserved2 + 1), 1, *(v15 + 3404), v15);
+      breakpoint_break(v41, (&stru_338.reserved2 + 1), 1, v15[851], v15);
     }
 
-    if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v24 & 4))
+    if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v25 & 4))
     {
-      v25 = mach_absolute_time();
-      (*(*(v15 + 32) + 6512))(a1, a2, a3, a4, a5);
-      v26 = mach_absolute_time() - v25;
+      v26 = mach_absolute_time();
+      (*(*(v15 + 4) + 6512))(a1, a2, a3, a4, a5);
+      v27 = mach_absolute_time() - v26;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v27 = v42[0];
-        *(v42[0] + 2) = v25;
-        v27[3] = v26;
+        v28 = v41[0];
+        *(v41[0] + 2) = v26;
+        v28[3] = v27;
         if (gCheckGLErrors != 1)
         {
           goto LABEL_28;
@@ -2529,11 +3206,10 @@ LABEL_49:
 
       else
       {
-        v39 = *(&g_DYTimebaseInfo + 1);
-        v40 = __udivti3();
-        v41 = v42[0];
-        *(v42[0] + 3) = v40;
-        v41[2] = __udivti3();
+        v39 = __udivti3();
+        v40 = v41[0];
+        *(v41[0] + 3) = v39;
+        v40[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_28;
@@ -2549,19 +3225,19 @@ LABEL_28:
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v15 + 3404))
+    if (v15[851])
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v15);
+      encode_driver_events(v15, v41);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v15 + 3480), (v15 + 3520), v42);
-    v28 = *(v15 + 3404);
-    if (v28 && (gBreakOnError & 1) != 0)
+    GPUTools::FB::EncodeThreadQueueInfo(v15 + 435, v15 + 440, v41);
+    v29 = v15[851];
+    if (v29 && (gBreakOnError & 1) != 0)
     {
       v37 = 3;
       v38 = 0xFFFFFFFFLL;
@@ -2569,22 +3245,21 @@ LABEL_28:
 
     else
     {
-      if ((v24 & 2) == 0)
+      if ((v25 & 2) == 0)
       {
 LABEL_37:
-        v29 = [DYGetGLGuestAppClient() defaultFbufStream];
-        v30 = v29;
-        while (atomic_exchange(v29 + 14, 1u) == 1)
+        v30 = [DYGetGLGuestAppClient() defaultFbufStream];
+        v31 = v30;
+        while (atomic_exchange(v30 + 14, 1u) == 1)
         {
             ;
           }
         }
 
-        v31 = *v42[0];
         GPUTools::FB::Stream::Write_nolock();
-        atomic_store(0, v30 + 14);
-        ReleaseStringToEncode(StringToEncode, a5);
-        v32 = atomic_fetch_add((v15 + 4640), 0xFFFFFFFF) - 1;
+        atomic_store(0, v31 + 14);
+        ReleaseStringToEncode(v23, a5);
+        v32 = atomic_fetch_add(v15 + 1160, 0xFFFFFFFF) - 1;
         if (gCheckGLErrors == 1 && v32 >= 1)
         {
           handle_opengl_thread_conflict(v15);
@@ -2597,17 +3272,17 @@ LABEL_37:
       v38 = 897;
     }
 
-    breakpoint_break(v42, v38, v37, v28, v15);
+    breakpoint_break(v41, v38, v37, v29, v15);
     goto LABEL_37;
   }
 
-  atomic_fetch_add((v15 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v15 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v15 + 24) + 6512))(a1, a2, a3, a4, a5);
+  (*(*(v15 + 3) + 6512))(a1, a2, a3, a4, a5);
 LABEL_45:
-  if (v42[0])
+  if (v41[0])
   {
-    free(v42[0]);
+    free(v41[0]);
   }
 }
 
@@ -2822,7 +3497,7 @@ LABEL_9:
   }
 
   v17 = *(v13 + 40);
-  v18 = atomic_fetch_add((v17 + 4640), 1u) + 1;
+  v18 = atomic_fetch_add(v17 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v18 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -2834,42 +3509,42 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v17);
-    v34 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v34 >= 1)
+    v33 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v33 >= 1)
     {
 LABEL_44:
-      atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-      v35 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v35, 0, do_nothing);
-      v36 = *(*(v17 + 24) + 6520);
+      atomic_fetch_add(v17 + 1160, 0xFFFFFFFF);
+      v34 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v34, 0, do_nothing);
+      v35 = *(*(v17 + 3) + 6520);
 
-      v36(a1, a2, a3, a4, a5, a6);
+      v35(a1, a2, a3, a4, a5, a6);
       return;
     }
   }
 
   *(v17 + 4838) = 1;
-  v42[0] = 0;
-  v42[1] = 0;
-  v43 = 0;
+  v40[0] = 0;
+  v40[1] = 0;
+  v41 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    GPUTools::FB::Encode(v42, 892, 2, "Ceuiipp", v20, v21, v22, v23, *v17);
+    GPUTools::FB::Encode(v40, 892, 2, "Ceuiipp", v20, v21, v22, v23, *v17, a2, a3, a4, a5, a6);
     v24 = byte_21B1D4;
     if (byte_21B1D4)
     {
-      breakpoint_break(v42, &stru_338.reserved1, 1, *(v17 + 3404), v17);
+      breakpoint_break(v40, &stru_338.reserved1, 1, v17[851], v17);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v24 & 4))
     {
       v25 = mach_absolute_time();
-      (*(*(v17 + 32) + 6520))(a1, a2, a3, a4, a5, a6);
+      (*(*(v17 + 4) + 6520))(a1, a2, a3, a4, a5, a6);
       v26 = mach_absolute_time() - v25;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v27 = v42[0];
-        *(v42[0] + 2) = v25;
+        v27 = v40[0];
+        *(v40[0] + 2) = v25;
         v27[3] = v26;
         if (gCheckGLErrors != 1)
         {
@@ -2879,11 +3554,10 @@ LABEL_44:
 
       else
       {
-        v39 = *(&g_DYTimebaseInfo + 1);
-        v40 = __udivti3();
-        v41 = v42[0];
-        *(v42[0] + 3) = v40;
-        v41[2] = __udivti3();
+        v38 = __udivti3();
+        v39 = v40[0];
+        *(v40[0] + 3) = v38;
+        v39[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_23;
@@ -2899,22 +3573,22 @@ LABEL_23:
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v17 + 3404))
+    if (v17[851])
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v17);
+      encode_driver_events(v17, v40);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v17 + 3480), (v17 + 3520), v42);
-    v28 = *(v17 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v17 + 435, v17 + 440, v40);
+    v28 = v17[851];
     if (v28 && (gBreakOnError & 1) != 0)
     {
-      v37 = 3;
-      v38 = 0xFFFFFFFFLL;
+      v36 = 3;
+      v37 = 0xFFFFFFFFLL;
     }
 
     else
@@ -2930,11 +3604,10 @@ LABEL_32:
           }
         }
 
-        v31 = *v42[0];
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v30 + 14);
-        v32 = atomic_fetch_add((v17 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v32 >= 1)
+        v31 = atomic_fetch_add(v17 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v31 >= 1)
         {
           handle_opengl_thread_conflict(v17);
         }
@@ -2942,21 +3615,21 @@ LABEL_32:
         goto LABEL_40;
       }
 
-      v37 = 2;
-      v38 = 892;
+      v36 = 2;
+      v37 = 892;
     }
 
-    breakpoint_break(v42, v38, v37, v28, v17);
+    breakpoint_break(v40, v37, v36, v28, v17);
     goto LABEL_32;
   }
 
-  atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v17 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v17 + 24) + 6520))(a1, a2, a3, a4, a5, a6);
+  (*(*(v17 + 3) + 6520))(a1, a2, a3, a4, a5, a6);
 LABEL_40:
-  if (v42[0])
+  if (v40[0])
   {
-    free(v42[0]);
+    free(v40[0]);
   }
 }
 
@@ -2989,7 +3662,7 @@ LABEL_9:
   }
 
   v17 = *(v13 + 40);
-  v18 = atomic_fetch_add((v17 + 4640), 1u) + 1;
+  v18 = atomic_fetch_add(v17 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v18 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -3001,42 +3674,42 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v17);
-    v34 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v34 >= 1)
+    v33 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v33 >= 1)
     {
 LABEL_44:
-      atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
-      v35 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v35, 0, do_nothing);
-      v36 = *(*(v17 + 24) + 6520);
+      atomic_fetch_add(v17 + 1160, 0xFFFFFFFF);
+      v34 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v34, 0, do_nothing);
+      v35 = *(*(v17 + 3) + 6520);
 
-      v36(a1, a2, a3, a4, a5, a6);
+      v35(a1, a2, a3, a4, a5, a6);
       return;
     }
   }
 
   *(v17 + 4838) = 1;
-  v42[0] = 0;
-  v42[1] = 0;
-  v43 = 0;
+  v40[0] = 0;
+  v40[1] = 0;
+  v41 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    GPUTools::FB::Encode(v42, 892, 2, "Ceuiipp", v20, v21, v22, v23, *v17);
+    GPUTools::FB::Encode(v40, 892, 2, "Ceuiipp", v20, v21, v22, v23, *v17, a2, a3, a4, a5, a6);
     v24 = byte_21B1D4;
     if (byte_21B1D4)
     {
-      breakpoint_break(v42, &stru_338.reserved1, 1, *(v17 + 3404), v17);
+      breakpoint_break(v40, &stru_338.reserved1, 1, v17[851], v17);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v24 & 4))
     {
       v25 = mach_absolute_time();
-      (*(*(v17 + 32) + 6520))(a1, a2, a3, a4, a5, a6);
+      (*(*(v17 + 4) + 6520))(a1, a2, a3, a4, a5, a6);
       v26 = mach_absolute_time() - v25;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v27 = v42[0];
-        *(v42[0] + 2) = v25;
+        v27 = v40[0];
+        *(v40[0] + 2) = v25;
         v27[3] = v26;
         if (gCheckGLErrors != 1)
         {
@@ -3046,11 +3719,10 @@ LABEL_44:
 
       else
       {
-        v39 = *(&g_DYTimebaseInfo + 1);
-        v40 = __udivti3();
-        v41 = v42[0];
-        *(v42[0] + 3) = v40;
-        v41[2] = __udivti3();
+        v38 = __udivti3();
+        v39 = v40[0];
+        *(v40[0] + 3) = v38;
+        v39[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_23;
@@ -3066,22 +3738,22 @@ LABEL_23:
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v17 + 3404))
+    if (v17[851])
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v17);
+      encode_driver_events(v17, v40);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v17 + 3480), (v17 + 3520), v42);
-    v28 = *(v17 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v17 + 435, v17 + 440, v40);
+    v28 = v17[851];
     if (v28 && (gBreakOnError & 1) != 0)
     {
-      v37 = 3;
-      v38 = 0xFFFFFFFFLL;
+      v36 = 3;
+      v37 = 0xFFFFFFFFLL;
     }
 
     else
@@ -3097,11 +3769,10 @@ LABEL_32:
           }
         }
 
-        v31 = *v42[0];
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v30 + 14);
-        v32 = atomic_fetch_add((v17 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v32 >= 1)
+        v31 = atomic_fetch_add(v17 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v31 >= 1)
         {
           handle_opengl_thread_conflict(v17);
         }
@@ -3109,21 +3780,21 @@ LABEL_32:
         goto LABEL_40;
       }
 
-      v37 = 2;
-      v38 = 892;
+      v36 = 2;
+      v37 = 892;
     }
 
-    breakpoint_break(v42, v38, v37, v28, v17);
+    breakpoint_break(v40, v37, v36, v28, v17);
     goto LABEL_32;
   }
 
-  atomic_fetch_add((v17 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v17 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v17 + 24) + 6520))(a1, a2, a3, a4, a5, a6);
+  (*(*(v17 + 3) + 6520))(a1, a2, a3, a4, a5, a6);
 LABEL_40:
-  if (v42[0])
+  if (v40[0])
   {
-    free(v42[0]);
+    free(v40[0]);
   }
 }
 
@@ -3328,10 +3999,10 @@ LABEL_9:
   }
 
   v11 = *(v7 + 40);
-  v36[0] = 0;
-  v36[1] = 0;
-  v37 = 0;
-  v12 = atomic_fetch_add((v11 + 4640), 1u) + 1;
+  v35[0] = 0;
+  v35[1] = 0;
+  v36 = 0;
+  v12 = atomic_fetch_add(v11 + 1160, 1u) + 1;
   if (gCheckGLErrors == 1 && v12 >= 2)
   {
     handle_opengl_thread_conflict(v11);
@@ -3339,40 +4010,41 @@ LABEL_9:
 
   if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
   {
-    atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    atomic_fetch_add(v11 + 1160, 0xFFFFFFFF);
     v30 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
     dispatch_sync_f(v30, 0, do_nothing);
-    (*(*(v11 + 24) + 6528))(a1, a2, a3);
+    (*(v11[3] + 6528))(a1, a2, a3);
     goto LABEL_42;
   }
 
   if ((wrapper_handle_marker_event(v11, a2, a3) & 1) == 0)
   {
-    StringToEncode = GetStringToEncode(a2, a3);
-    v15 = 83;
-    if (!StringToEncode)
+    GetStringToEncode(a2, a3);
+    v15 = v14;
+    v16 = 83;
+    if (!v14)
     {
-      v15 = 116;
+      v16 = 116;
     }
 
-    snprintf((v11 + 4709), 0x40uLL, "Ci%c", v15);
-    GPUTools::FB::Encode(v36, 895, 2, v11 + 4709, v16, v17, v18, v19, *v11);
-    v20 = byte_21B1D7;
+    snprintf(v11 + 4709, 0x40uLL, "Ci%c", v16);
+    GPUTools::FB::Encode(v35, 895, 2, v11 + 4709, v17, v18, v19, v20, *v11, a2, v15);
+    v21 = byte_21B1D7;
     if (byte_21B1D7)
     {
-      breakpoint_break(v36, (&stru_338.reserved1 + 3), 1, *(v11 + 3404), v11);
+      breakpoint_break(v35, (&stru_338.reserved1 + 3), 1, *(v11 + 851), v11);
     }
 
-    if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v20 & 4))
+    if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v21 & 4))
     {
-      v21 = mach_absolute_time();
-      (*(*(v11 + 32) + 6528))(a1, a2, StringToEncode);
-      v22 = mach_absolute_time() - v21;
+      v22 = mach_absolute_time();
+      (*(v11[4] + 6528))(a1, a2, v15);
+      v23 = mach_absolute_time() - v22;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v23 = v36[0];
-        *(v36[0] + 2) = v21;
-        v23[3] = v22;
+        v24 = v35[0];
+        *(v35[0] + 2) = v22;
+        v24[3] = v23;
         if (gCheckGLErrors != 1)
         {
           goto LABEL_24;
@@ -3381,11 +4053,10 @@ LABEL_9:
 
       else
       {
-        v33 = *(&g_DYTimebaseInfo + 1);
-        v34 = __udivti3();
-        v35 = v36[0];
-        *(v36[0] + 3) = v34;
-        v35[2] = __udivti3();
+        v33 = __udivti3();
+        v34 = v35[0];
+        *(v35[0] + 3) = v33;
+        v34[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_24;
@@ -3401,19 +4072,19 @@ LABEL_24:
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v11 + 3404))
+    if (*(v11 + 851))
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v11);
+      encode_driver_events(v11, v35);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v11 + 3480), (v11 + 3520), v36);
-    v24 = *(v11 + 3404);
-    if (v24 && (gBreakOnError & 1) != 0)
+    GPUTools::FB::EncodeThreadQueueInfo(v11 + 435, v11 + 440, v35);
+    v25 = *(v11 + 851);
+    if (v25 && (gBreakOnError & 1) != 0)
     {
       v31 = 3;
       v32 = 0xFFFFFFFFLL;
@@ -3421,21 +4092,20 @@ LABEL_24:
 
     else
     {
-      if ((v20 & 2) == 0)
+      if ((v21 & 2) == 0)
       {
 LABEL_33:
-        v25 = [DYGetGLGuestAppClient() defaultFbufStream];
-        v26 = v25;
-        while (atomic_exchange(v25 + 14, 1u) == 1)
+        v26 = [DYGetGLGuestAppClient() defaultFbufStream];
+        v27 = v26;
+        while (atomic_exchange(v26 + 14, 1u) == 1)
         {
             ;
           }
         }
 
-        v27 = *v36[0];
         GPUTools::FB::Stream::Write_nolock();
-        atomic_store(0, v26 + 14);
-        ReleaseStringToEncode(StringToEncode, a3);
+        atomic_store(0, v27 + 14);
+        ReleaseStringToEncode(v15, a3);
         goto LABEL_37;
       }
 
@@ -3443,21 +4113,21 @@ LABEL_33:
       v32 = 895;
     }
 
-    breakpoint_break(v36, v32, v31, v24, v11);
+    breakpoint_break(v35, v32, v31, v25, v11);
     goto LABEL_33;
   }
 
 LABEL_37:
-  v28 = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF) - 1;
+  v28 = atomic_fetch_add(v11 + 1160, 0xFFFFFFFF) - 1;
   if (gCheckGLErrors == 1 && v28 >= 1)
   {
     handle_opengl_thread_conflict(v11);
   }
 
 LABEL_42:
-  if (v36[0])
+  if (v35[0])
   {
-    free(v36[0]);
+    free(v35[0]);
   }
 }
 
@@ -3490,10 +4160,10 @@ LABEL_9:
   }
 
   v11 = *(v7 + 40);
-  v36[0] = 0;
-  v36[1] = 0;
-  v37 = 0;
-  v12 = atomic_fetch_add((v11 + 4640), 1u) + 1;
+  v35[0] = 0;
+  v35[1] = 0;
+  v36 = 0;
+  v12 = atomic_fetch_add(v11 + 1160, 1u) + 1;
   if (gCheckGLErrors == 1 && v12 >= 2)
   {
     handle_opengl_thread_conflict(v11);
@@ -3501,40 +4171,41 @@ LABEL_9:
 
   if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
   {
-    atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    atomic_fetch_add(v11 + 1160, 0xFFFFFFFF);
     v30 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
     dispatch_sync_f(v30, 0, do_nothing);
-    (*(*(v11 + 24) + 6528))(a1, a2, a3);
+    (*(v11[3] + 6528))(a1, a2, a3);
     goto LABEL_42;
   }
 
   if ((wrapper_handle_marker_event(v11, a2, a3) & 1) == 0)
   {
-    StringToEncode = GetStringToEncode(a2, a3);
-    v15 = 83;
-    if (!StringToEncode)
+    GetStringToEncode(a2, a3);
+    v15 = v14;
+    v16 = 83;
+    if (!v14)
     {
-      v15 = 116;
+      v16 = 116;
     }
 
-    snprintf((v11 + 4709), 0x40uLL, "Ci%c", v15);
-    GPUTools::FB::Encode(v36, 895, 2, v11 + 4709, v16, v17, v18, v19, *v11);
-    v20 = byte_21B1D7;
+    snprintf(v11 + 4709, 0x40uLL, "Ci%c", v16);
+    GPUTools::FB::Encode(v35, 895, 2, v11 + 4709, v17, v18, v19, v20, *v11, a2, v15);
+    v21 = byte_21B1D7;
     if (byte_21B1D7)
     {
-      breakpoint_break(v36, (&stru_338.reserved1 + 3), 1, *(v11 + 3404), v11);
+      breakpoint_break(v35, (&stru_338.reserved1 + 3), 1, *(v11 + 851), v11);
     }
 
-    if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v20 & 4))
+    if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v21 & 4))
     {
-      v21 = mach_absolute_time();
-      (*(*(v11 + 32) + 6528))(a1, a2, StringToEncode);
-      v22 = mach_absolute_time() - v21;
+      v22 = mach_absolute_time();
+      (*(v11[4] + 6528))(a1, a2, v15);
+      v23 = mach_absolute_time() - v22;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v23 = v36[0];
-        *(v36[0] + 2) = v21;
-        v23[3] = v22;
+        v24 = v35[0];
+        *(v35[0] + 2) = v22;
+        v24[3] = v23;
         if (gCheckGLErrors != 1)
         {
           goto LABEL_24;
@@ -3543,11 +4214,10 @@ LABEL_9:
 
       else
       {
-        v33 = *(&g_DYTimebaseInfo + 1);
-        v34 = __udivti3();
-        v35 = v36[0];
-        *(v36[0] + 3) = v34;
-        v35[2] = __udivti3();
+        v33 = __udivti3();
+        v34 = v35[0];
+        *(v35[0] + 3) = v33;
+        v34[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_24;
@@ -3563,19 +4233,19 @@ LABEL_24:
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v11 + 3404))
+    if (*(v11 + 851))
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v11);
+      encode_driver_events(v11, v35);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v11 + 3480), (v11 + 3520), v36);
-    v24 = *(v11 + 3404);
-    if (v24 && (gBreakOnError & 1) != 0)
+    GPUTools::FB::EncodeThreadQueueInfo(v11 + 435, v11 + 440, v35);
+    v25 = *(v11 + 851);
+    if (v25 && (gBreakOnError & 1) != 0)
     {
       v31 = 3;
       v32 = 0xFFFFFFFFLL;
@@ -3583,21 +4253,20 @@ LABEL_24:
 
     else
     {
-      if ((v20 & 2) == 0)
+      if ((v21 & 2) == 0)
       {
 LABEL_33:
-        v25 = [DYGetGLGuestAppClient() defaultFbufStream];
-        v26 = v25;
-        while (atomic_exchange(v25 + 14, 1u) == 1)
+        v26 = [DYGetGLGuestAppClient() defaultFbufStream];
+        v27 = v26;
+        while (atomic_exchange(v26 + 14, 1u) == 1)
         {
             ;
           }
         }
 
-        v27 = *v36[0];
         GPUTools::FB::Stream::Write_nolock();
-        atomic_store(0, v26 + 14);
-        ReleaseStringToEncode(StringToEncode, a3);
+        atomic_store(0, v27 + 14);
+        ReleaseStringToEncode(v15, a3);
         goto LABEL_37;
       }
 
@@ -3605,21 +4274,21 @@ LABEL_33:
       v32 = 895;
     }
 
-    breakpoint_break(v36, v32, v31, v24, v11);
+    breakpoint_break(v35, v32, v31, v25, v11);
     goto LABEL_33;
   }
 
 LABEL_37:
-  v28 = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF) - 1;
+  v28 = atomic_fetch_add(v11 + 1160, 0xFFFFFFFF) - 1;
   if (gCheckGLErrors == 1 && v28 >= 1)
   {
     handle_opengl_thread_conflict(v11);
   }
 
 LABEL_42:
-  if (v36[0])
+  if (v35[0])
   {
-    free(v36[0]);
+    free(v35[0]);
   }
 }
 
@@ -3812,10 +4481,10 @@ LABEL_9:
   }
 
   v11 = *(v7 + 40);
-  v36[0] = 0;
-  v36[1] = 0;
-  v37 = 0;
-  v12 = atomic_fetch_add((v11 + 4640), 1u) + 1;
+  v35[0] = 0;
+  v35[1] = 0;
+  v36 = 0;
+  v12 = atomic_fetch_add(v11 + 1160, 1u) + 1;
   if (gCheckGLErrors == 1 && v12 >= 2)
   {
     handle_opengl_thread_conflict(v11);
@@ -3823,38 +4492,39 @@ LABEL_9:
 
   if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
   {
-    atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    atomic_fetch_add(v11 + 1160, 0xFFFFFFFF);
     v30 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
     dispatch_sync_f(v30, 0, do_nothing);
-    (*(*(v11 + 24) + 6536))(a1, a2, a3);
+    (*(v11[3] + 6536))(a1, a2, a3);
     goto LABEL_40;
   }
 
-  StringToEncode = GetStringToEncode(a2, a3);
-  v15 = 83;
-  if (!StringToEncode)
+  GetStringToEncode(a2, a3);
+  v15 = v14;
+  v16 = 83;
+  if (!v14)
   {
-    v15 = 116;
+    v16 = 116;
   }
 
-  snprintf((v11 + 4709), 0x40uLL, "Ci%c", v15);
-  GPUTools::FB::Encode(v36, 919, 2, v11 + 4709, v16, v17, v18, v19, *v11);
-  v20 = byte_21B1EF;
+  snprintf(v11 + 4709, 0x40uLL, "Ci%c", v16);
+  GPUTools::FB::Encode(v35, 919, 2, v11 + 4709, v17, v18, v19, v20, *v11, a2, v15);
+  v21 = byte_21B1EF;
   if (byte_21B1EF)
   {
-    breakpoint_break(v36, &stru_388.sectname[15], 1, *(v11 + 3404), v11);
+    breakpoint_break(v35, &stru_388.sectname[15], 1, *(v11 + 851), v11);
   }
 
-  if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v20 & 4))
+  if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v21 & 4))
   {
-    v21 = mach_absolute_time();
-    (*(*(v11 + 32) + 6536))(a1, a2, StringToEncode);
-    v22 = mach_absolute_time() - v21;
+    v22 = mach_absolute_time();
+    (*(v11[4] + 6536))(a1, a2, v15);
+    v23 = mach_absolute_time() - v22;
     if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
     {
-      v23 = v36[0];
-      *(v36[0] + 2) = v21;
-      v23[3] = v22;
+      v24 = v35[0];
+      *(v35[0] + 2) = v22;
+      v24[3] = v23;
       if (gCheckGLErrors != 1)
       {
         goto LABEL_23;
@@ -3863,11 +4533,10 @@ LABEL_9:
 
     else
     {
-      v33 = *(&g_DYTimebaseInfo + 1);
-      v34 = __udivti3();
-      v35 = v36[0];
-      *(v36[0] + 3) = v34;
-      v35[2] = __udivti3();
+      v33 = __udivti3();
+      v34 = v35[0];
+      *(v35[0] + 3) = v33;
+      v34[2] = __udivti3();
       if (gCheckGLErrors != 1)
       {
         goto LABEL_23;
@@ -3883,28 +4552,28 @@ LABEL_23:
     GPUTools::FB::EncodeCurrentBacktrace();
   }
 
-  if (*(v11 + 3404))
+  if (*(v11 + 851))
   {
     GPUTools::FB::EncodeGLError();
   }
 
   if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
   {
-    encode_driver_events(v11);
+    encode_driver_events(v11, v35);
   }
 
-  GPUTools::FB::EncodeThreadQueueInfo((v11 + 3480), (v11 + 3520), v36);
-  v24 = *(v11 + 3404);
-  if (v24 && (gBreakOnError & 1) != 0)
+  GPUTools::FB::EncodeThreadQueueInfo(v11 + 435, v11 + 440, v35);
+  v25 = *(v11 + 851);
+  if (v25 && (gBreakOnError & 1) != 0)
   {
     v31 = 3;
     v32 = 0xFFFFFFFFLL;
 LABEL_48:
-    breakpoint_break(v36, v32, v31, v24, v11);
+    breakpoint_break(v35, v32, v31, v25, v11);
     goto LABEL_32;
   }
 
-  if ((v20 & 2) != 0)
+  if ((v21 & 2) != 0)
   {
     v31 = 2;
     v32 = 919;
@@ -3912,29 +4581,28 @@ LABEL_48:
   }
 
 LABEL_32:
-  v25 = [DYGetGLGuestAppClient() defaultFbufStream];
-  v26 = v25;
-  while (atomic_exchange(v25 + 14, 1u) == 1)
+  v26 = [DYGetGLGuestAppClient() defaultFbufStream];
+  v27 = v26;
+  while (atomic_exchange(v26 + 14, 1u) == 1)
   {
       ;
     }
   }
 
-  v27 = *v36[0];
   GPUTools::FB::Stream::Write_nolock();
-  atomic_store(0, v26 + 14);
+  atomic_store(0, v27 + 14);
   wrapper_push_group_marker(v11, a2, a3);
-  ReleaseStringToEncode(StringToEncode, a3);
-  v28 = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF) - 1;
+  ReleaseStringToEncode(v15, a3);
+  v28 = atomic_fetch_add(v11 + 1160, 0xFFFFFFFF) - 1;
   if (gCheckGLErrors == 1 && v28 >= 1)
   {
     handle_opengl_thread_conflict(v11);
   }
 
 LABEL_40:
-  if (v36[0])
+  if (v35[0])
   {
-    free(v36[0]);
+    free(v35[0]);
   }
 }
 
@@ -3967,10 +4635,10 @@ LABEL_9:
   }
 
   v11 = *(v7 + 40);
-  v36[0] = 0;
-  v36[1] = 0;
-  v37 = 0;
-  v12 = atomic_fetch_add((v11 + 4640), 1u) + 1;
+  v35[0] = 0;
+  v35[1] = 0;
+  v36 = 0;
+  v12 = atomic_fetch_add(v11 + 1160, 1u) + 1;
   if (gCheckGLErrors == 1 && v12 >= 2)
   {
     handle_opengl_thread_conflict(v11);
@@ -3978,38 +4646,39 @@ LABEL_9:
 
   if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
   {
-    atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    atomic_fetch_add(v11 + 1160, 0xFFFFFFFF);
     v30 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
     dispatch_sync_f(v30, 0, do_nothing);
-    (*(*(v11 + 24) + 6536))(a1, a2, a3);
+    (*(v11[3] + 6536))(a1, a2, a3);
     goto LABEL_40;
   }
 
-  StringToEncode = GetStringToEncode(a2, a3);
-  v15 = 83;
-  if (!StringToEncode)
+  GetStringToEncode(a2, a3);
+  v15 = v14;
+  v16 = 83;
+  if (!v14)
   {
-    v15 = 116;
+    v16 = 116;
   }
 
-  snprintf((v11 + 4709), 0x40uLL, "Ci%c", v15);
-  GPUTools::FB::Encode(v36, 919, 2, v11 + 4709, v16, v17, v18, v19, *v11);
-  v20 = byte_21B1EF;
+  snprintf(v11 + 4709, 0x40uLL, "Ci%c", v16);
+  GPUTools::FB::Encode(v35, 919, 2, v11 + 4709, v17, v18, v19, v20, *v11, a2, v15);
+  v21 = byte_21B1EF;
   if (byte_21B1EF)
   {
-    breakpoint_break(v36, &stru_388.sectname[15], 1, *(v11 + 3404), v11);
+    breakpoint_break(v35, &stru_388.sectname[15], 1, *(v11 + 851), v11);
   }
 
-  if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v20 & 4))
+  if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v21 & 4))
   {
-    v21 = mach_absolute_time();
-    (*(*(v11 + 32) + 6536))(a1, a2, StringToEncode);
-    v22 = mach_absolute_time() - v21;
+    v22 = mach_absolute_time();
+    (*(v11[4] + 6536))(a1, a2, v15);
+    v23 = mach_absolute_time() - v22;
     if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
     {
-      v23 = v36[0];
-      *(v36[0] + 2) = v21;
-      v23[3] = v22;
+      v24 = v35[0];
+      *(v35[0] + 2) = v22;
+      v24[3] = v23;
       if (gCheckGLErrors != 1)
       {
         goto LABEL_23;
@@ -4018,11 +4687,10 @@ LABEL_9:
 
     else
     {
-      v33 = *(&g_DYTimebaseInfo + 1);
-      v34 = __udivti3();
-      v35 = v36[0];
-      *(v36[0] + 3) = v34;
-      v35[2] = __udivti3();
+      v33 = __udivti3();
+      v34 = v35[0];
+      *(v35[0] + 3) = v33;
+      v34[2] = __udivti3();
       if (gCheckGLErrors != 1)
       {
         goto LABEL_23;
@@ -4038,28 +4706,28 @@ LABEL_23:
     GPUTools::FB::EncodeCurrentBacktrace();
   }
 
-  if (*(v11 + 3404))
+  if (*(v11 + 851))
   {
     GPUTools::FB::EncodeGLError();
   }
 
   if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
   {
-    encode_driver_events(v11);
+    encode_driver_events(v11, v35);
   }
 
-  GPUTools::FB::EncodeThreadQueueInfo((v11 + 3480), (v11 + 3520), v36);
-  v24 = *(v11 + 3404);
-  if (v24 && (gBreakOnError & 1) != 0)
+  GPUTools::FB::EncodeThreadQueueInfo(v11 + 435, v11 + 440, v35);
+  v25 = *(v11 + 851);
+  if (v25 && (gBreakOnError & 1) != 0)
   {
     v31 = 3;
     v32 = 0xFFFFFFFFLL;
 LABEL_48:
-    breakpoint_break(v36, v32, v31, v24, v11);
+    breakpoint_break(v35, v32, v31, v25, v11);
     goto LABEL_32;
   }
 
-  if ((v20 & 2) != 0)
+  if ((v21 & 2) != 0)
   {
     v31 = 2;
     v32 = 919;
@@ -4067,29 +4735,28 @@ LABEL_48:
   }
 
 LABEL_32:
-  v25 = [DYGetGLGuestAppClient() defaultFbufStream];
-  v26 = v25;
-  while (atomic_exchange(v25 + 14, 1u) == 1)
+  v26 = [DYGetGLGuestAppClient() defaultFbufStream];
+  v27 = v26;
+  while (atomic_exchange(v26 + 14, 1u) == 1)
   {
       ;
     }
   }
 
-  v27 = *v36[0];
   GPUTools::FB::Stream::Write_nolock();
-  atomic_store(0, v26 + 14);
+  atomic_store(0, v27 + 14);
   wrapper_push_group_marker(v11, a2, a3);
-  ReleaseStringToEncode(StringToEncode, a3);
-  v28 = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF) - 1;
+  ReleaseStringToEncode(v15, a3);
+  v28 = atomic_fetch_add(v11 + 1160, 0xFFFFFFFF) - 1;
   if (gCheckGLErrors == 1 && v28 >= 1)
   {
     handle_opengl_thread_conflict(v11);
   }
 
 LABEL_40:
-  if (v36[0])
+  if (v35[0])
   {
-    free(v36[0]);
+    free(v35[0]);
   }
 }
 
@@ -4369,10 +5036,10 @@ LABEL_9:
   }
 
   v7 = *(v3 + 40);
-  v30[0] = 0;
-  v30[1] = 0;
-  v31 = 0;
-  v8 = atomic_fetch_add((v7 + 4640), 1u) + 1;
+  v28[0] = 0;
+  v28[1] = 0;
+  v29 = 0;
+  v8 = atomic_fetch_add(v7 + 1160, 1u) + 1;
   if (gCheckGLErrors == 1 && v8 >= 2)
   {
     handle_opengl_thread_conflict(v7);
@@ -4380,29 +5047,29 @@ LABEL_9:
 
   if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
   {
-    atomic_fetch_add((v7 + 4640), 0xFFFFFFFF);
-    v24 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-    dispatch_sync_f(v24, 0, do_nothing);
-    (*(*(v7 + 24) + 6544))(a1);
+    atomic_fetch_add(v7 + 1160, 0xFFFFFFFF);
+    v23 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+    dispatch_sync_f(v23, 0, do_nothing);
+    (*(*(v7 + 3) + 6544))(a1);
     goto LABEL_38;
   }
 
-  GPUTools::FB::Encode(v30, 898, 2, "C", v10, v11, v12, v13, *v7);
+  GPUTools::FB::Encode(v28, 898, 2, "C", v10, v11, v12, v13, *v7);
   v14 = byte_21B1DA;
   if (byte_21B1DA)
   {
-    breakpoint_break(v30, (&stru_338.reserved2 + 2), 1, *(v7 + 3404), v7);
+    breakpoint_break(v28, (&stru_338.reserved2 + 2), 1, v7[851], v7);
   }
 
   if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v14 & 4))
   {
     v15 = mach_absolute_time();
-    (*(*(v7 + 32) + 6544))(a1);
+    (*(*(v7 + 4) + 6544))(a1);
     v16 = mach_absolute_time() - v15;
     if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
     {
-      v17 = v30[0];
-      *(v30[0] + 2) = v15;
+      v17 = v28[0];
+      *(v28[0] + 2) = v15;
       v17[3] = v16;
       if (gCheckGLErrors != 1)
       {
@@ -4412,11 +5079,10 @@ LABEL_9:
 
     else
     {
-      v27 = *(&g_DYTimebaseInfo + 1);
-      v28 = __udivti3();
-      v29 = v30[0];
-      *(v30[0] + 3) = v28;
-      v29[2] = __udivti3();
+      v26 = __udivti3();
+      v27 = v28[0];
+      *(v28[0] + 3) = v26;
+      v27[2] = __udivti3();
       if (gCheckGLErrors != 1)
       {
         goto LABEL_21;
@@ -4432,31 +5098,31 @@ LABEL_21:
     GPUTools::FB::EncodeCurrentBacktrace();
   }
 
-  if (*(v7 + 3404))
+  if (v7[851])
   {
     GPUTools::FB::EncodeGLError();
   }
 
   if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
   {
-    encode_driver_events(v7);
+    encode_driver_events(v7, v28);
   }
 
-  GPUTools::FB::EncodeThreadQueueInfo((v7 + 3480), (v7 + 3520), v30);
-  v18 = *(v7 + 3404);
+  GPUTools::FB::EncodeThreadQueueInfo(v7 + 435, v7 + 440, v28);
+  v18 = v7[851];
   if (v18 && (gBreakOnError & 1) != 0)
   {
-    v25 = 3;
-    v26 = 0xFFFFFFFFLL;
+    v24 = 3;
+    v25 = 0xFFFFFFFFLL;
 LABEL_46:
-    breakpoint_break(v30, v26, v25, v18, v7);
+    breakpoint_break(v28, v25, v24, v18, v7);
     goto LABEL_30;
   }
 
   if ((v14 & 2) != 0)
   {
-    v25 = 2;
-    v26 = 898;
+    v24 = 2;
+    v25 = 898;
     goto LABEL_46;
   }
 
@@ -4469,20 +5135,19 @@ LABEL_30:
     }
   }
 
-  v21 = *v30[0];
   GPUTools::FB::Stream::Write_nolock();
   atomic_store(0, v20 + 14);
   wrapper_pop_group_marker(v7);
-  v22 = atomic_fetch_add((v7 + 4640), 0xFFFFFFFF) - 1;
-  if (gCheckGLErrors == 1 && v22 >= 1)
+  v21 = atomic_fetch_add(v7 + 1160, 0xFFFFFFFF) - 1;
+  if (gCheckGLErrors == 1 && v21 >= 1)
   {
     handle_opengl_thread_conflict(v7);
   }
 
 LABEL_38:
-  if (v30[0])
+  if (v28[0])
   {
-    free(v30[0]);
+    free(v28[0]);
   }
 }
 
@@ -4515,10 +5180,10 @@ LABEL_9:
   }
 
   v7 = *(v3 + 40);
-  v30[0] = 0;
-  v30[1] = 0;
-  v31 = 0;
-  v8 = atomic_fetch_add((v7 + 4640), 1u) + 1;
+  v28[0] = 0;
+  v28[1] = 0;
+  v29 = 0;
+  v8 = atomic_fetch_add(v7 + 1160, 1u) + 1;
   if (gCheckGLErrors == 1 && v8 >= 2)
   {
     handle_opengl_thread_conflict(v7);
@@ -4526,29 +5191,29 @@ LABEL_9:
 
   if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
   {
-    atomic_fetch_add((v7 + 4640), 0xFFFFFFFF);
-    v24 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-    dispatch_sync_f(v24, 0, do_nothing);
-    (*(*(v7 + 24) + 6544))(a1);
+    atomic_fetch_add(v7 + 1160, 0xFFFFFFFF);
+    v23 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+    dispatch_sync_f(v23, 0, do_nothing);
+    (*(*(v7 + 3) + 6544))(a1);
     goto LABEL_38;
   }
 
-  GPUTools::FB::Encode(v30, 898, 2, "C", v10, v11, v12, v13, *v7);
+  GPUTools::FB::Encode(v28, 898, 2, "C", v10, v11, v12, v13, *v7);
   v14 = byte_21B1DA;
   if (byte_21B1DA)
   {
-    breakpoint_break(v30, (&stru_338.reserved2 + 2), 1, *(v7 + 3404), v7);
+    breakpoint_break(v28, (&stru_338.reserved2 + 2), 1, v7[851], v7);
   }
 
   if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v14 & 4))
   {
     v15 = mach_absolute_time();
-    (*(*(v7 + 32) + 6544))(a1);
+    (*(*(v7 + 4) + 6544))(a1);
     v16 = mach_absolute_time() - v15;
     if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
     {
-      v17 = v30[0];
-      *(v30[0] + 2) = v15;
+      v17 = v28[0];
+      *(v28[0] + 2) = v15;
       v17[3] = v16;
       if (gCheckGLErrors != 1)
       {
@@ -4558,11 +5223,10 @@ LABEL_9:
 
     else
     {
-      v27 = *(&g_DYTimebaseInfo + 1);
-      v28 = __udivti3();
-      v29 = v30[0];
-      *(v30[0] + 3) = v28;
-      v29[2] = __udivti3();
+      v26 = __udivti3();
+      v27 = v28[0];
+      *(v28[0] + 3) = v26;
+      v27[2] = __udivti3();
       if (gCheckGLErrors != 1)
       {
         goto LABEL_21;
@@ -4578,31 +5242,31 @@ LABEL_21:
     GPUTools::FB::EncodeCurrentBacktrace();
   }
 
-  if (*(v7 + 3404))
+  if (v7[851])
   {
     GPUTools::FB::EncodeGLError();
   }
 
   if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
   {
-    encode_driver_events(v7);
+    encode_driver_events(v7, v28);
   }
 
-  GPUTools::FB::EncodeThreadQueueInfo((v7 + 3480), (v7 + 3520), v30);
-  v18 = *(v7 + 3404);
+  GPUTools::FB::EncodeThreadQueueInfo(v7 + 435, v7 + 440, v28);
+  v18 = v7[851];
   if (v18 && (gBreakOnError & 1) != 0)
   {
-    v25 = 3;
-    v26 = 0xFFFFFFFFLL;
+    v24 = 3;
+    v25 = 0xFFFFFFFFLL;
 LABEL_46:
-    breakpoint_break(v30, v26, v25, v18, v7);
+    breakpoint_break(v28, v25, v24, v18, v7);
     goto LABEL_30;
   }
 
   if ((v14 & 2) != 0)
   {
-    v25 = 2;
-    v26 = 898;
+    v24 = 2;
+    v25 = 898;
     goto LABEL_46;
   }
 
@@ -4615,20 +5279,19 @@ LABEL_30:
     }
   }
 
-  v21 = *v30[0];
   GPUTools::FB::Stream::Write_nolock();
   atomic_store(0, v20 + 14);
   wrapper_pop_group_marker(v7);
-  v22 = atomic_fetch_add((v7 + 4640), 0xFFFFFFFF) - 1;
-  if (gCheckGLErrors == 1 && v22 >= 1)
+  v21 = atomic_fetch_add(v7 + 1160, 0xFFFFFFFF) - 1;
+  if (gCheckGLErrors == 1 && v21 >= 1)
   {
     handle_opengl_thread_conflict(v7);
   }
 
 LABEL_38:
-  if (v30[0])
+  if (v28[0])
   {
-    free(v30[0]);
+    free(v28[0]);
   }
 }
 
@@ -4893,7 +5556,7 @@ LABEL_9:
   }
 
   v13 = *(v9 + 40);
-  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  v14 = atomic_fetch_add(v13 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v14 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -4905,44 +5568,44 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v13);
-    v30 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v30 >= 1)
+    v29 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v29 >= 1)
     {
 LABEL_49:
-      atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-      v31 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v31, 0, do_nothing);
-      v32 = *(*(v13 + 24) + 6552);
+      atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
+      v30 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v30, 0, do_nothing);
+      v31 = *(*(v13 + 3) + 6552);
 
-      v32(a1, a2, a3, a4);
+      v31(a1, a2, a3, a4);
       return;
     }
   }
 
   *(v13 + 4838) = 1;
-  v39[0] = 0;
-  v39[1] = 0;
-  v40 = 0;
+  v37[0] = 0;
+  v37[1] = 0;
+  v38 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    GPUTools::FB::Encode(v39, 920, 512, "Cuiuiui", v16, v17, v18, v19, *v13);
-    query_pipeline_programs(v13, a2, v38);
+    GPUTools::FB::Encode(v37, 920, 512, "Cuiuiui", v16, v17, v18, v19, *v13, a2, a3, a4);
+    query_pipeline_programs(v13, a2, v36);
     check_errors(v13);
     v20 = byte_21B1F0;
     if (byte_21B1F0)
     {
-      breakpoint_break(v39, stru_388.segname, 1, *(v13 + 3404), v13);
+      breakpoint_break(v37, stru_388.segname, 1, v13[851], v13);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v20 & 4))
     {
       v21 = mach_absolute_time();
-      (*(*(v13 + 32) + 6552))(a1, a2, a3, a4);
+      (*(*(v13 + 4) + 6552))(a1, a2, a3, a4);
       v22 = mach_absolute_time() - v21;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v23 = v39[0];
-        *(v39[0] + 2) = v21;
+        v23 = v37[0];
+        *(v37[0] + 2) = v21;
         v23[3] = v22;
         if (gCheckGLErrors != 1)
         {
@@ -4952,11 +5615,10 @@ LABEL_49:
 
       else
       {
-        v35 = *(&g_DYTimebaseInfo + 1);
-        v36 = __udivti3();
-        v37 = v39[0];
-        *(v39[0] + 3) = v36;
-        v37[2] = __udivti3();
+        v34 = __udivti3();
+        v35 = v37[0];
+        *(v37[0] + 3) = v34;
+        v35[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_23;
@@ -4972,22 +5634,22 @@ LABEL_23:
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v13 + 3404))
+    if (v13[851])
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v13);
+      encode_driver_events(v13, v37);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v13 + 3480), (v13 + 3520), v39);
-    v24 = *(v13 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v13 + 435, v13 + 440, v37);
+    v24 = v13[851];
     if (v24 && (gBreakOnError & 1) != 0)
     {
-      v33 = 3;
-      v34 = 0xFFFFFFFFLL;
+      v32 = 3;
+      v33 = 0xFFFFFFFFLL;
     }
 
     else
@@ -5003,7 +5665,6 @@ LABEL_32:
           }
         }
 
-        v27 = *v39[0];
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v26 + 14);
         if ((gCheckGLErrors & 1) == 0)
@@ -5011,13 +5672,13 @@ LABEL_32:
           check_errors(v13);
         }
 
-        if (a3 && !*(v13 + 3404))
+        if (a3 && !v13[851])
         {
-          wrapper_cache_pipeline_use_stages(v13, a2, a3, a4, v38, 1);
+          wrapper_cache_pipeline_use_stages(v13, a2, a3, a4, v36, 1);
         }
 
-        v28 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v28 >= 1)
+        v27 = atomic_fetch_add(v13 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v27 >= 1)
         {
           handle_opengl_thread_conflict(v13);
         }
@@ -5025,21 +5686,21 @@ LABEL_32:
         goto LABEL_45;
       }
 
-      v33 = 2;
-      v34 = 920;
+      v32 = 2;
+      v33 = 920;
     }
 
-    breakpoint_break(v39, v34, v33, v24, v13);
+    breakpoint_break(v37, v33, v32, v24, v13);
     goto LABEL_32;
   }
 
-  atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v13 + 24) + 6552))(a1, a2, a3, a4);
+  (*(*(v13 + 3) + 6552))(a1, a2, a3, a4);
 LABEL_45:
-  if (v39[0])
+  if (v37[0])
   {
-    free(v39[0]);
+    free(v37[0]);
   }
 }
 
@@ -5072,7 +5733,7 @@ LABEL_9:
   }
 
   v13 = *(v9 + 40);
-  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  v14 = atomic_fetch_add(v13 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v14 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -5084,44 +5745,44 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v13);
-    v30 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v30 >= 1)
+    v29 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v29 >= 1)
     {
 LABEL_49:
-      atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-      v31 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v31, 0, do_nothing);
-      v32 = *(*(v13 + 24) + 6552);
+      atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
+      v30 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v30, 0, do_nothing);
+      v31 = *(*(v13 + 3) + 6552);
 
-      v32(a1, a2, a3, a4);
+      v31(a1, a2, a3, a4);
       return;
     }
   }
 
   *(v13 + 4838) = 1;
-  v39[0] = 0;
-  v39[1] = 0;
-  v40 = 0;
+  v37[0] = 0;
+  v37[1] = 0;
+  v38 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    GPUTools::FB::Encode(v39, 920, 512, "Cuiuiui", v16, v17, v18, v19, *v13);
-    query_pipeline_programs(v13, a2, v38);
+    GPUTools::FB::Encode(v37, 920, 512, "Cuiuiui", v16, v17, v18, v19, *v13, a2, a3, a4);
+    query_pipeline_programs(v13, a2, v36);
     check_errors(v13);
     v20 = byte_21B1F0;
     if (byte_21B1F0)
     {
-      breakpoint_break(v39, stru_388.segname, 1, *(v13 + 3404), v13);
+      breakpoint_break(v37, stru_388.segname, 1, v13[851], v13);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v20 & 4))
     {
       v21 = mach_absolute_time();
-      (*(*(v13 + 32) + 6552))(a1, a2, a3, a4);
+      (*(*(v13 + 4) + 6552))(a1, a2, a3, a4);
       v22 = mach_absolute_time() - v21;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v23 = v39[0];
-        *(v39[0] + 2) = v21;
+        v23 = v37[0];
+        *(v37[0] + 2) = v21;
         v23[3] = v22;
         if (gCheckGLErrors != 1)
         {
@@ -5131,11 +5792,10 @@ LABEL_49:
 
       else
       {
-        v35 = *(&g_DYTimebaseInfo + 1);
-        v36 = __udivti3();
-        v37 = v39[0];
-        *(v39[0] + 3) = v36;
-        v37[2] = __udivti3();
+        v34 = __udivti3();
+        v35 = v37[0];
+        *(v37[0] + 3) = v34;
+        v35[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_23;
@@ -5151,22 +5811,22 @@ LABEL_23:
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v13 + 3404))
+    if (v13[851])
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v13);
+      encode_driver_events(v13, v37);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v13 + 3480), (v13 + 3520), v39);
-    v24 = *(v13 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v13 + 435, v13 + 440, v37);
+    v24 = v13[851];
     if (v24 && (gBreakOnError & 1) != 0)
     {
-      v33 = 3;
-      v34 = 0xFFFFFFFFLL;
+      v32 = 3;
+      v33 = 0xFFFFFFFFLL;
     }
 
     else
@@ -5182,7 +5842,6 @@ LABEL_32:
           }
         }
 
-        v27 = *v39[0];
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v26 + 14);
         if ((gCheckGLErrors & 1) == 0)
@@ -5190,13 +5849,13 @@ LABEL_32:
           check_errors(v13);
         }
 
-        if (a3 && !*(v13 + 3404))
+        if (a3 && !v13[851])
         {
-          wrapper_cache_pipeline_use_stages(v13, a2, a3, a4, v38, 1);
+          wrapper_cache_pipeline_use_stages(v13, a2, a3, a4, v36, 1);
         }
 
-        v28 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v28 >= 1)
+        v27 = atomic_fetch_add(v13 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v27 >= 1)
         {
           handle_opengl_thread_conflict(v13);
         }
@@ -5204,21 +5863,21 @@ LABEL_32:
         goto LABEL_45;
       }
 
-      v33 = 2;
-      v34 = 920;
+      v32 = 2;
+      v33 = 920;
     }
 
-    breakpoint_break(v39, v34, v33, v24, v13);
+    breakpoint_break(v37, v33, v32, v24, v13);
     goto LABEL_32;
   }
 
-  atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v13 + 24) + 6552))(a1, a2, a3, a4);
+  (*(*(v13 + 3) + 6552))(a1, a2, a3, a4);
 LABEL_45:
-  if (v39[0])
+  if (v37[0])
   {
-    free(v39[0]);
+    free(v37[0]);
   }
 }
 
@@ -5475,40 +6134,47 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v11);
-    v38 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v38 >= 1)
+    v37 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v37 >= 1)
     {
 LABEL_53:
       atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
-      v39 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v39, 0, do_nothing);
-      v40 = *(*(v11 + 24) + 6560);
+      v38 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v38, 0, do_nothing);
+      v39 = *(*(v11 + 24) + 6560);
 
-      v40(a1, a2, a3);
+      v39(a1, a2, a3);
       return;
     }
   }
 
   *(v11 + 4838) = 1;
   __ptr = 0;
-  v52 = 0;
-  v53 = 0;
+  v50 = 0;
+  v51 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
     v15 = __ptr;
-    v14 = v52;
-    v16 = v52 - __ptr;
-    v17 = v53;
-    v18 = v53 - (v52 - __ptr);
+    v14 = v50;
+    v16 = v50 - __ptr;
+    v17 = v51;
+    v18 = v51 - (v50 - __ptr);
     if (v18 <= 0x3B)
     {
-      v41 = (315 - v18) & 0x100;
-      v53 += v41;
-      v15 = malloc_type_malloc(v41 + v17, 0xF962E99uLL);
+      v40 = (315 - v18) & 0x100;
+      v51 += v40;
+      v15 = malloc_type_malloc(v40 + v17, 0xF962E99uLL);
       __ptr = v15;
-      if (!v15 || (v15 & 3) != 0)
+      if (!v15)
       {
         goto LABEL_70;
+      }
+
+      if ((v15 & 3) != 0)
+      {
+LABEL_72:
+        dy_abort("misaligned fbuf buffer: %p, required alignment=%zu", v15, 4uLL);
+        goto LABEL_73;
       }
 
       v14 = (v15 + v16);
@@ -5519,7 +6185,7 @@ LABEL_53:
     v14[2] = 0u;
     *v14 = 0u;
     v19 = v14 + 60;
-    v52 = v14 + 60;
+    v50 = v14 + 60;
     v20 = v14 + 60 - v15;
     *v15 = v20;
     v21 = (v20 + 3) & 0xFFFFFFFFFFFFFFFCLL;
@@ -5531,26 +6197,26 @@ LABEL_53:
 
     v23 = __ptr;
     v24 = v19 - __ptr;
-    v25 = v53;
-    v26 = v53 - (v19 - __ptr);
+    v25 = v51;
+    v26 = v51 - (v19 - __ptr);
     if (v22 <= v26)
     {
-      v27 = v52;
+      v27 = v50;
 LABEL_22:
       bzero(v19, v22);
-      v52 = &v27[v22];
+      v50 = &v27[v22];
       *v23 += v22;
 LABEL_23:
       v15[1] = 886;
       v15[8] = 0;
-      v50 = 0;
-      pthread_threadid_np(0, &v50);
-      *(v15 + 1) = v50;
+      v48 = 0;
+      pthread_threadid_np(0, &v48);
+      *(v15 + 1) = v48;
       strcpy(v15 + 36, "Cuiui");
       *(v15 + 11) = *v11;
       v15[13] = a2;
       v15[14] = a3;
-      query_pipeline_programs(v11, a2, v49);
+      query_pipeline_programs(v11, a2, v47);
       check_errors(v11);
       v28 = byte_21B1CE;
       if (byte_21B1CE)
@@ -5576,11 +6242,10 @@ LABEL_23:
 
         else
         {
-          v44 = *(&g_DYTimebaseInfo + 1);
-          v45 = __udivti3();
-          v46 = __ptr;
-          *(__ptr + 3) = v45;
-          v46[2] = __udivti3();
+          v43 = __udivti3();
+          v44 = __ptr;
+          *(__ptr + 3) = v43;
+          v44[2] = __udivti3();
           if (gCheckGLErrors != 1)
           {
             goto LABEL_28;
@@ -5603,15 +6268,15 @@ LABEL_28:
 
       if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
       {
-        encode_driver_events(v11);
+        encode_driver_events(v11, &__ptr);
       }
 
       GPUTools::FB::EncodeThreadQueueInfo((v11 + 3480), (v11 + 3520), &__ptr);
       v32 = *(v11 + 3404);
       if (v32 && (gBreakOnError & 1) != 0)
       {
-        v42 = 3;
-        v43 = 0xFFFFFFFFLL;
+        v41 = 3;
+        v42 = 0xFFFFFFFFLL;
       }
 
       else
@@ -5627,7 +6292,6 @@ LABEL_37:
             }
           }
 
-          v35 = *__ptr;
           GPUTools::FB::Stream::Write_nolock();
           atomic_store(0, v34 + 14);
           if ((gCheckGLErrors & 1) == 0)
@@ -5637,11 +6301,11 @@ LABEL_37:
 
           if (!*(v11 + 3404))
           {
-            wrapper_cache_pipeline_active_shader_program(v11, a2, a3, v49);
+            wrapper_cache_pipeline_active_shader_program(v11, a2, a3, v47);
           }
 
-          v36 = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF) - 1;
-          if (gCheckGLErrors == 1 && v36 >= 1)
+          v35 = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF) - 1;
+          if (gCheckGLErrors == 1 && v35 >= 1)
           {
             handle_opengl_thread_conflict(v11);
           }
@@ -5649,46 +6313,49 @@ LABEL_37:
           goto LABEL_49;
         }
 
-        v42 = 2;
-        v43 = 886;
+        v41 = 2;
+        v42 = 886;
       }
 
-      breakpoint_break(&__ptr, v43, v42, v32, v11);
+      breakpoint_break(&__ptr, v42, v41, v32, v11);
       goto LABEL_37;
     }
 
-    v47 = (v22 - v26 + 255) & 0xFFFFFF00;
-    v48 = v47 + v53;
-    v53 += v47;
+    v45 = (v22 - v26 + 255) & 0xFFFFFF00;
+    v46 = v45 + v51;
+    v51 += v45;
     if (__ptr)
     {
-      v23 = reallocf(__ptr, v48);
+      v23 = reallocf(__ptr, v46);
       __ptr = v23;
-      if (!v23)
+      if (v23)
       {
-        goto LABEL_70;
+        goto LABEL_67;
       }
     }
 
     else
     {
-      v23 = malloc_type_malloc(v47 + v25, 0xF962E99uLL);
+      v23 = malloc_type_malloc(v45 + v25, 0xF962E99uLL);
       __ptr = v23;
-      if (!v23)
+      if (v23)
       {
-        goto LABEL_70;
+LABEL_67:
+        if ((v23 & 3) == 0)
+        {
+          v27 = v23 + v24;
+          v19 = v27;
+          goto LABEL_22;
+        }
+
+        v15 = v23;
+        goto LABEL_72;
       }
     }
 
-    if ((v23 & 3) == 0)
-    {
-      v27 = v23 + v24;
-      v19 = v27;
-      goto LABEL_22;
-    }
-
 LABEL_70:
-    dy_abort();
+    dy_abort("failed to allocate fbuf buffer");
+LABEL_73:
     __break(1u);
     return;
   }
@@ -5744,40 +6411,47 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v11);
-    v38 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v38 >= 1)
+    v37 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v37 >= 1)
     {
 LABEL_53:
       atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
-      v39 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v39, 0, do_nothing);
-      v40 = *(*(v11 + 24) + 6560);
+      v38 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v38, 0, do_nothing);
+      v39 = *(*(v11 + 24) + 6560);
 
-      v40(a1, a2, a3);
+      v39(a1, a2, a3);
       return;
     }
   }
 
   *(v11 + 4838) = 1;
   __ptr = 0;
-  v52 = 0;
-  v53 = 0;
+  v50 = 0;
+  v51 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
     v15 = __ptr;
-    v14 = v52;
-    v16 = v52 - __ptr;
-    v17 = v53;
-    v18 = v53 - (v52 - __ptr);
+    v14 = v50;
+    v16 = v50 - __ptr;
+    v17 = v51;
+    v18 = v51 - (v50 - __ptr);
     if (v18 <= 0x3B)
     {
-      v41 = (315 - v18) & 0x100;
-      v53 += v41;
-      v15 = malloc_type_malloc(v41 + v17, 0xF962E99uLL);
+      v40 = (315 - v18) & 0x100;
+      v51 += v40;
+      v15 = malloc_type_malloc(v40 + v17, 0xF962E99uLL);
       __ptr = v15;
-      if (!v15 || (v15 & 3) != 0)
+      if (!v15)
       {
         goto LABEL_70;
+      }
+
+      if ((v15 & 3) != 0)
+      {
+LABEL_72:
+        dy_abort("misaligned fbuf buffer: %p, required alignment=%zu", v15, 4uLL);
+        goto LABEL_73;
       }
 
       v14 = (v15 + v16);
@@ -5788,7 +6462,7 @@ LABEL_53:
     v14[2] = 0u;
     *v14 = 0u;
     v19 = v14 + 60;
-    v52 = v14 + 60;
+    v50 = v14 + 60;
     v20 = v14 + 60 - v15;
     *v15 = v20;
     v21 = (v20 + 3) & 0xFFFFFFFFFFFFFFFCLL;
@@ -5800,26 +6474,26 @@ LABEL_53:
 
     v23 = __ptr;
     v24 = v19 - __ptr;
-    v25 = v53;
-    v26 = v53 - (v19 - __ptr);
+    v25 = v51;
+    v26 = v51 - (v19 - __ptr);
     if (v22 <= v26)
     {
-      v27 = v52;
+      v27 = v50;
 LABEL_22:
       bzero(v19, v22);
-      v52 = &v27[v22];
+      v50 = &v27[v22];
       *v23 += v22;
 LABEL_23:
       v15[1] = 886;
       v15[8] = 0;
-      v50 = 0;
-      pthread_threadid_np(0, &v50);
-      *(v15 + 1) = v50;
+      v48 = 0;
+      pthread_threadid_np(0, &v48);
+      *(v15 + 1) = v48;
       strcpy(v15 + 36, "Cuiui");
       *(v15 + 11) = *v11;
       v15[13] = a2;
       v15[14] = a3;
-      query_pipeline_programs(v11, a2, v49);
+      query_pipeline_programs(v11, a2, v47);
       check_errors(v11);
       v28 = byte_21B1CE;
       if (byte_21B1CE)
@@ -5845,11 +6519,10 @@ LABEL_23:
 
         else
         {
-          v44 = *(&g_DYTimebaseInfo + 1);
-          v45 = __udivti3();
-          v46 = __ptr;
-          *(__ptr + 3) = v45;
-          v46[2] = __udivti3();
+          v43 = __udivti3();
+          v44 = __ptr;
+          *(__ptr + 3) = v43;
+          v44[2] = __udivti3();
           if (gCheckGLErrors != 1)
           {
             goto LABEL_28;
@@ -5872,15 +6545,15 @@ LABEL_28:
 
       if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
       {
-        encode_driver_events(v11);
+        encode_driver_events(v11, &__ptr);
       }
 
       GPUTools::FB::EncodeThreadQueueInfo((v11 + 3480), (v11 + 3520), &__ptr);
       v32 = *(v11 + 3404);
       if (v32 && (gBreakOnError & 1) != 0)
       {
-        v42 = 3;
-        v43 = 0xFFFFFFFFLL;
+        v41 = 3;
+        v42 = 0xFFFFFFFFLL;
       }
 
       else
@@ -5896,7 +6569,6 @@ LABEL_37:
             }
           }
 
-          v35 = *__ptr;
           GPUTools::FB::Stream::Write_nolock();
           atomic_store(0, v34 + 14);
           if ((gCheckGLErrors & 1) == 0)
@@ -5906,11 +6578,11 @@ LABEL_37:
 
           if (!*(v11 + 3404))
           {
-            wrapper_cache_pipeline_active_shader_program(v11, a2, a3, v49);
+            wrapper_cache_pipeline_active_shader_program(v11, a2, a3, v47);
           }
 
-          v36 = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF) - 1;
-          if (gCheckGLErrors == 1 && v36 >= 1)
+          v35 = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF) - 1;
+          if (gCheckGLErrors == 1 && v35 >= 1)
           {
             handle_opengl_thread_conflict(v11);
           }
@@ -5918,46 +6590,49 @@ LABEL_37:
           goto LABEL_49;
         }
 
-        v42 = 2;
-        v43 = 886;
+        v41 = 2;
+        v42 = 886;
       }
 
-      breakpoint_break(&__ptr, v43, v42, v32, v11);
+      breakpoint_break(&__ptr, v42, v41, v32, v11);
       goto LABEL_37;
     }
 
-    v47 = (v22 - v26 + 255) & 0xFFFFFF00;
-    v48 = v47 + v53;
-    v53 += v47;
+    v45 = (v22 - v26 + 255) & 0xFFFFFF00;
+    v46 = v45 + v51;
+    v51 += v45;
     if (__ptr)
     {
-      v23 = reallocf(__ptr, v48);
+      v23 = reallocf(__ptr, v46);
       __ptr = v23;
-      if (!v23)
+      if (v23)
       {
-        goto LABEL_70;
+        goto LABEL_67;
       }
     }
 
     else
     {
-      v23 = malloc_type_malloc(v47 + v25, 0xF962E99uLL);
+      v23 = malloc_type_malloc(v45 + v25, 0xF962E99uLL);
       __ptr = v23;
-      if (!v23)
+      if (v23)
       {
-        goto LABEL_70;
+LABEL_67:
+        if ((v23 & 3) == 0)
+        {
+          v27 = v23 + v24;
+          v19 = v27;
+          goto LABEL_22;
+        }
+
+        v15 = v23;
+        goto LABEL_72;
       }
     }
 
-    if ((v23 & 3) == 0)
-    {
-      v27 = v23 + v24;
-      v19 = v27;
-      goto LABEL_22;
-    }
-
 LABEL_70:
-    dy_abort();
+    dy_abort("failed to allocate fbuf buffer");
+LABEL_73:
     __break(1u);
     return;
   }
@@ -6212,7 +6887,7 @@ LABEL_9:
   }
 
   v12 = *(v8 + 40);
-  v13 = atomic_fetch_add((v12 + 4640), 1u) + 1;
+  v13 = atomic_fetch_add(v12 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v13 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -6224,42 +6899,42 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v12);
-    v142 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v142 >= 1)
+    v121 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v121 >= 1)
     {
 LABEL_93:
-      atomic_fetch_add((v12 + 4640), 0xFFFFFFFF);
-      v143 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v143, 0, do_nothing);
-      v144 = *(*(v12 + 24) + 6568);
+      atomic_fetch_add(v12 + 1160, 0xFFFFFFFF);
+      v122 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v122, 0, do_nothing);
+      v123 = *(v12[3] + 6568);
 
-      return v144(a1, a2, a3, a4);
+      return v123(a1, a2, a3, a4);
     }
   }
 
   *(v12 + 4838) = 1;
-  v185 = 0;
-  v186 = &v185;
-  v187 = 0x4812000000;
-  v188 = __Block_byref_object_copy_;
-  v189 = __Block_byref_object_dispose__1;
-  v190 = &unk_20760A;
-  v191 = 0;
-  v192 = 0;
-  v193 = 0;
+  v163 = 0;
+  v164 = &v163;
+  v165 = 0x4812000000;
+  v166 = __Block_byref_object_copy_;
+  v167 = __Block_byref_object_dispose__1;
+  v168 = &unk_20760A;
+  v169 = 0;
+  v170 = 0;
+  v171 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    v151 = malloc_type_malloc(73 * a3, 0x10040436913F5uLL);
+    v129 = malloc_type_malloc(73 * a3, 0x10040436913F5uLL);
     if (a3 >= 1)
     {
       v15 = a3;
       v17 = a4;
-      v16 = v151;
-      v18 = &v151[a3];
+      v16 = v129;
+      v18 = &v129[a3];
       do
       {
         *v16 = v18;
-        v19 = strlen(*v17);
+        strlen(*v17);
         DYGetGLGuestAppClient();
         GPUTools::Interpose::DYSavePointer();
         ++v17;
@@ -6271,361 +6946,345 @@ LABEL_93:
       while (v15);
     }
 
-    snprintf((v12 + 4709), 0x40uLL, "Cei@%dU<cb>", a3);
-    GPUTools::FB::Encode((v186 + 6), 888, 2, v12 + 4709, v20, v21, v22, v23, *v12);
+    snprintf(v12 + 4709, 0x40uLL, "Cei@%dU<cb>", a3);
+    GPUTools::FB::Encode((v164 + 6), 888, 2, v12 + 4709, v19, v20, v21, v22, *v12, a2, a3, v129);
     check_errors(v12);
-    v24 = byte_21B1D0;
+    v23 = byte_21B1D0;
     if (byte_21B1D0)
     {
-      breakpoint_break((v186 + 6), &stru_338.flags, 1, *(v12 + 3404), v12);
+      breakpoint_break((v164 + 6), &stru_338.flags, 1, *(v12 + 851), v12);
     }
 
-    if ([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v24 & 4)
+    if ([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v23 & 4)
     {
-      v31 = 0;
+      v30 = 0;
     }
 
     else
     {
-      v30 = mach_absolute_time();
-      v31 = (*(*(v12 + 32) + 6568))(a1, a2, a3, a4);
-      v32 = mach_absolute_time() - v30;
+      v29 = mach_absolute_time();
+      v30 = (*(v12[4] + 6568))(a1, a2, a3, a4);
+      v31 = mach_absolute_time() - v29;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v33 = v186 + 6;
-        *(v186[6] + 24) = v32;
+        v32 = v164 + 6;
+        *(v164[6] + 24) = v31;
       }
 
       else
       {
-        v147 = *(&g_DYTimebaseInfo + 1);
-        v148 = __udivti3();
-        v33 = v186 + 6;
-        *(v186[6] + 24) = v148;
-        v30 = __udivti3();
+        v126 = __udivti3();
+        v32 = v164 + 6;
+        *(v164[6] + 24) = v126;
+        v29 = __udivti3();
       }
 
-      *(*v33 + 16) = v30;
+      *(*v32 + 16) = v29;
       if (gCheckGLErrors == 1)
       {
         check_errors(v12);
       }
     }
 
-    GPUTools::FB::Encode((v186 + 6), 4294955008, "ui", v25, v26, v27, v28, v29, v31);
+    GPUTools::FB::Encode((v164 + 6), 4294955008, "ui", v24, v25, v26, v27, v28, v30);
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v12 + 3404))
+    if (*(v12 + 851))
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v12);
+      encode_driver_events(v12, (v164 + 6));
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v12 + 3480), (v12 + 3520), (v186 + 6));
-    v34 = *(v12 + 3404);
-    if (v34 && (gBreakOnError & 1) != 0)
+    GPUTools::FB::EncodeThreadQueueInfo(v12 + 435, v12 + 440, (v164 + 6));
+    v33 = *(v12 + 851);
+    if (v33 && (gBreakOnError & 1) != 0)
     {
-      v145 = 3;
-      v146 = 0xFFFFFFFFLL;
+      v124 = 3;
+      v125 = 0xFFFFFFFFLL;
     }
 
     else
     {
-      if ((v24 & 2) == 0)
+      if ((v23 & 2) == 0)
       {
         goto LABEL_37;
       }
 
-      v145 = 2;
-      v146 = 888;
+      v124 = 2;
+      v125 = 888;
     }
 
-    breakpoint_break((v186 + 6), v146, v145, v34, v12);
+    breakpoint_break((v164 + 6), v125, v124, v33, v12);
 LABEL_37:
-    v35 = [DYGetGLGuestAppClient() defaultFbufStream];
-    v36 = v35;
-    v37 = v186;
-    while (atomic_exchange(v35 + 14, 1u) == 1)
+    v34 = [DYGetGLGuestAppClient() defaultFbufStream];
+    v35 = v34;
+    while (atomic_exchange(v34 + 14, 1u) == 1)
     {
         ;
       }
     }
 
-    v38 = *v37[6];
     GPUTools::FB::Stream::Write_nolock();
-    atomic_store(0, v36 + 14);
+    atomic_store(0, v35 + 14);
     if ((gCheckGLErrors & 1) == 0)
     {
       check_errors(v12);
     }
 
-    if (*(v12 + 3404))
+    if (*(v12 + 851))
     {
       goto LABEL_84;
     }
 
-    v184 = 0;
-    (*(*(v12 + 32) + 5264))(*(v12 + 16), v31, 35714, &v184);
-    LODWORD(v182[0]) = 0;
-    info_log = query_info_log(v12, v31, *(*(v12 + 32) + 5264), *(*(v12 + 32) + 5280), v182);
-    v45 = info_log;
-    if (LODWORD(v182[0]) < 0x401)
+    v162 = 0;
+    (*(v12[4] + 5264))(v12[2], v30, 35714, &v162);
+    LODWORD(v160[0]) = 0;
+    info_log = query_info_log(v12, v30, *(v12[4] + 5264), *(v12[4] + 5280), v160);
+    v42 = info_log;
+    if (LODWORD(v160[0]) < 0x401)
     {
-      if (LODWORD(v182[0]))
+      if (LODWORD(v160[0]))
       {
-        info_log[SLODWORD(v182[0]) - 1] = 0;
+        info_log[SLODWORD(v160[0]) - 1] = 0;
       }
 
-      v46 = "CiuiiSiieui";
-      if (v184 != 1)
+      v44 = "CiuiiSiieui";
+      v43 = info_log;
+      v45 = v162;
+      if (v162 != 1)
       {
-        goto LABEL_50;
+        goto LABEL_45;
       }
     }
 
     else
     {
       DYGetGLGuestAppClient();
-      v149 = 0;
+      v43 = v12 + 4644;
+      v127 = 0;
       GPUTools::Interpose::DYSavePointer();
-      v46 = "CiuiiU<cb>iieui";
-      if (v184 != 1)
+      v44 = "CiuiiU<cb>iieui";
+      v45 = v162;
+      if (v162 != 1)
       {
-        goto LABEL_50;
-      }
-    }
-
-    LODWORD(v152) = v31;
-    [*v12 getParameter:611 to:{&v152, v149, a2, a3, v151}];
+LABEL_45:
+        v46 = 0;
 LABEL_50:
-    GPUTools::FB::Encode((v186 + 6), 4294955024, v46, v40, v41, v42, v43, v44, *v12);
-    v47 = [DYGetGLGuestAppClient() defaultFbufStream];
-    v48 = v47;
-    v49 = v186;
-    while (atomic_exchange(v47 + 14, 1u) == 1)
-    {
-        ;
-      }
-    }
-
-    v50 = *v49[6];
-    GPUTools::FB::Stream::Write_nolock();
-    atomic_store(0, v48 + 14);
-    free(v45);
-    wrapper_cache_pipeline_create_shader_program(v12, v31, a2, a3, a4);
-    if (v184 == 1)
-    {
-      v51 = *(v12 + 32);
-      v152 = v12;
-      v153 = v51;
-      v182[0] = _NSConcreteStackBlock;
-      v182[1] = 3221225472;
-      v182[2] = ___ZL22create_shader_programvP15__GLIContextRecjiPPKc_block_invoke;
-      v182[3] = &unk_20D130;
-      v182[4] = &v185;
-      v182[5] = v12;
-      v183 = v31;
-      GPUTools::GL::EnumerateProgramActiveAttributes();
-      if (*(v12 + 3460) >= 3)
-      {
-        v52 = *(v12 + 32);
-        v152 = v12;
-        v153 = v52;
-        v175 = _NSConcreteStackBlock;
-        v176 = 3221225472;
-        v177 = ___ZL22create_shader_programvP15__GLIContextRecjiPPKc_block_invoke_2;
-        v178 = &unk_20D158;
-        v179 = &v185;
-        v180 = v12;
-        v181 = v31;
-        GPUTools::GL::EnumerateProgramTransformFeedbackVaryings();
-        v53 = *(v12 + 32);
-        v152 = v12;
-        v153 = v53;
-        v168 = _NSConcreteStackBlock;
-        v169 = 3221225472;
-        v170 = ___ZL22create_shader_programvP15__GLIContextRecjiPPKc_block_invoke_3;
-        v171 = &unk_20D180;
-        v172 = &v185;
-        v173 = v12;
-        v174 = v31;
-        GPUTools::GL::EnumerateProgramActiveUniformBlocks();
-      }
-
-      v54 = *(v12 + 32);
-      v152 = v12;
-      v153 = v54;
-      v55 = *(v12 + 3456);
-      v161 = _NSConcreteStackBlock;
-      v162 = 3221225472;
-      v163 = ___ZL22create_shader_programvP15__GLIContextRecjiPPKc_block_invoke_4;
-      v164 = &unk_20D1A8;
-      v165 = &v185;
-      v166 = v12;
-      v167 = v31;
-      GPUTools::GL::EnumerateProgramActiveUniforms();
-      GPUTools::FB::Encode((v186 + 6), 116, 516, "C", v56, v57, v58, v59, *v12);
-      GPUTools::FB::Encode((v186 + 6), 4294955008, "ul", v60, v61, v62, v63, v64, v31);
-      v65 = [DYGetGLGuestAppClient() defaultFbufStream];
-      v66 = v65;
-      v67 = v186;
-      while (atomic_exchange(v65 + 14, 1u) == 1)
-      {
-          ;
+        GPUTools::FB::Encode((v164 + 6), 4294955024, v44, v37, v38, v39, v40, v41, *v12, 12, v30, LODWORD(v160[0]), v43, v45, 0, 35980, v46);
+        v47 = [DYGetGLGuestAppClient() defaultFbufStream];
+        v48 = v47;
+        while (atomic_exchange(v47 + 14, 1u) == 1)
+        {
+            ;
+          }
         }
-      }
 
-      v68 = *v67[6];
-      GPUTools::FB::Stream::Write_nolock();
-      atomic_store(0, v66 + 14);
-      GPUTools::FB::Encode((v186 + 6), 467, 516, "Cuiee", v69, v70, v71, v72, *v12);
-      v73 = [DYGetGLGuestAppClient() defaultFbufStream];
-      v74 = v73;
-      v75 = v186;
-      while (atomic_exchange(v73 + 14, 1u) == 1)
-      {
-          ;
+        GPUTools::FB::Stream::Write_nolock();
+        atomic_store(0, v48 + 14);
+        free(v42);
+        wrapper_cache_pipeline_create_shader_program(v12, v30, a2, a3, a4);
+        if (v162 == 1)
+        {
+          v49 = v12[4];
+          v130 = v12;
+          v131 = v49;
+          v160[0] = _NSConcreteStackBlock;
+          v160[1] = 3221225472;
+          v160[2] = ___ZL22create_shader_programvP15__GLIContextRecjiPPKc_block_invoke;
+          v160[3] = &unk_20D130;
+          v160[4] = &v163;
+          v160[5] = v12;
+          v161 = v30;
+          GPUTools::GL::EnumerateProgramActiveAttributes();
+          if (*(v12 + 865) >= 3)
+          {
+            v50 = v12[4];
+            v130 = v12;
+            v131 = v50;
+            v153 = _NSConcreteStackBlock;
+            v154 = 3221225472;
+            v155 = ___ZL22create_shader_programvP15__GLIContextRecjiPPKc_block_invoke_2;
+            v156 = &unk_20D158;
+            v157 = &v163;
+            v158 = v12;
+            v159 = v30;
+            GPUTools::GL::EnumerateProgramTransformFeedbackVaryings();
+            v51 = v12[4];
+            v130 = v12;
+            v131 = v51;
+            v146 = _NSConcreteStackBlock;
+            v147 = 3221225472;
+            v148 = ___ZL22create_shader_programvP15__GLIContextRecjiPPKc_block_invoke_3;
+            v149 = &unk_20D180;
+            v150 = &v163;
+            v151 = v12;
+            v152 = v30;
+            GPUTools::GL::EnumerateProgramActiveUniformBlocks();
+          }
+
+          v52 = v12[4];
+          v130 = v12;
+          v131 = v52;
+          v139 = _NSConcreteStackBlock;
+          v140 = 3221225472;
+          v141 = ___ZL22create_shader_programvP15__GLIContextRecjiPPKc_block_invoke_4;
+          v142 = &unk_20D1A8;
+          v143 = &v163;
+          v144 = v12;
+          v145 = v30;
+          GPUTools::GL::EnumerateProgramActiveUniforms();
+          GPUTools::FB::Encode((v164 + 6), 116, 516, "C", v53, v54, v55, v56, *v12);
+          GPUTools::FB::Encode((v164 + 6), 4294955008, "ul", v57, v58, v59, v60, v61, v30);
+          v62 = [DYGetGLGuestAppClient() defaultFbufStream];
+          v63 = v62;
+          while (atomic_exchange(v62 + 14, 1u) == 1)
+          {
+              ;
+            }
+          }
+
+          GPUTools::FB::Stream::Write_nolock();
+          atomic_store(0, v63 + 14);
+          GPUTools::FB::Encode((v164 + 6), 467, 516, "Cuiee", v64, v65, v66, v67, *v12, v30, 33368, 1);
+          v68 = [DYGetGLGuestAppClient() defaultFbufStream];
+          v69 = v68;
+          while (atomic_exchange(v68 + 14, 1u) == 1)
+          {
+              ;
+            }
+          }
+
+          GPUTools::FB::Stream::Write_nolock();
+          atomic_store(0, v69 + 14);
+          GPUTools::FB::Encode((v164 + 6), 117, 516, "Ce", v70, v71, v72, v73, *v12, a2);
+          GPUTools::FB::Encode((v164 + 6), 4294955008, "V<ul>", v74, v75, v76, v77, v78, "rhubarb");
+          v79 = [DYGetGLGuestAppClient() defaultFbufStream];
+          v80 = v79;
+          while (atomic_exchange(v79 + 14, 1u) == 1)
+          {
+              ;
+            }
+          }
+
+          GPUTools::FB::Stream::Write_nolock();
+          atomic_store(0, v80 + 14);
+          snprintf(v12 + 4709, 0x40uLL, "CV<ul>i@%dU<cb>t", a3);
+          GPUTools::FB::Encode((v164 + 6), 540, 516, v12 + 4709, v81, v82, v83, v84, *v12, "rhubarb", a3, v129, 0);
+          v85 = [DYGetGLGuestAppClient() defaultFbufStream];
+          v86 = v85;
+          while (atomic_exchange(v85 + 14, 1u) == 1)
+          {
+              ;
+            }
+          }
+
+          GPUTools::FB::Stream::Write_nolock();
+          atomic_store(0, v86 + 14);
+          GPUTools::FB::Encode((v164 + 6), 93, 516, "CV<ul>", v87, v88, v89, v90, *v12, "rhubarb");
+          v91 = [DYGetGLGuestAppClient() defaultFbufStream];
+          v92 = v91;
+          while (atomic_exchange(v91 + 14, 1u) == 1)
+          {
+              ;
+            }
+          }
+
+          GPUTools::FB::Stream::Write_nolock();
+          atomic_store(0, v92 + 14);
+          GPUTools::FB::Encode((v164 + 6), 6, 516, "CulV<ul>", v93, v94, v95, v96, *v12, v30, "rhubarb");
+          v97 = [DYGetGLGuestAppClient() defaultFbufStream];
+          v98 = v97;
+          while (atomic_exchange(v97 + 14, 1u) == 1)
+          {
+              ;
+            }
+          }
+
+          GPUTools::FB::Stream::Write_nolock();
+          atomic_store(0, v98 + 14);
+          v99 = v12[4];
+          v137 = v12;
+          v138 = v99;
+          v130 = _NSConcreteStackBlock;
+          v131 = 3221225472;
+          v132 = ___ZL22create_shader_programvP15__GLIContextRecjiPPKc_block_invoke_5;
+          v133 = &unk_20D108;
+          v134 = &v163;
+          v135 = v12;
+          v136 = v30;
+          GPUTools::GL::EnumerateProgramActiveAttributes();
+          GPUTools::FB::Encode((v164 + 6), 349, 516, "Cul", v100, v101, v102, v103, *v12, v30);
+          v104 = [DYGetGLGuestAppClient() defaultFbufStream];
+          v105 = v104;
+          while (atomic_exchange(v104 + 14, 1u) == 1)
+          {
+              ;
+            }
+          }
+
+          GPUTools::FB::Stream::Write_nolock();
+          atomic_store(0, v105 + 14);
+          GPUTools::FB::Encode((v164 + 6), 133, 516, "CulV<ul>", v106, v107, v108, v109, *v12, v30, "rhubarb");
+          v110 = [DYGetGLGuestAppClient() defaultFbufStream];
+          v111 = v110;
+          while (atomic_exchange(v110 + 14, 1u) == 1)
+          {
+              ;
+            }
+          }
+
+          GPUTools::FB::Stream::Write_nolock();
+          atomic_store(0, v111 + 14);
+          GPUTools::FB::Encode((v164 + 6), 123, 516, "CV<ul>", v112, v113, v114, v115, *v12, "rhubarb");
+          v116 = [DYGetGLGuestAppClient() defaultFbufStream];
+          v117 = v116;
+          while (atomic_exchange(v116 + 14, 1u) == 1)
+          {
+              ;
+            }
+          }
+
+          GPUTools::FB::Stream::Write_nolock();
+          atomic_store(0, v117 + 14);
         }
-      }
-
-      v76 = *v75[6];
-      GPUTools::FB::Stream::Write_nolock();
-      atomic_store(0, v74 + 14);
-      GPUTools::FB::Encode((v186 + 6), 117, 516, "Ce", v77, v78, v79, v80, *v12);
-      GPUTools::FB::Encode((v186 + 6), 4294955008, "V<ul>", v81, v82, v83, v84, v85, "rhubarb");
-      v86 = [DYGetGLGuestAppClient() defaultFbufStream];
-      v87 = v86;
-      v88 = v186;
-      while (atomic_exchange(v86 + 14, 1u) == 1)
-      {
-          ;
-        }
-      }
-
-      v89 = *v88[6];
-      GPUTools::FB::Stream::Write_nolock();
-      atomic_store(0, v87 + 14);
-      snprintf((v12 + 4709), 0x40uLL, "CV<ul>i@%dU<cb>t", a3);
-      GPUTools::FB::Encode((v186 + 6), 540, 516, v12 + 4709, v90, v91, v92, v93, *v12);
-      v94 = [DYGetGLGuestAppClient() defaultFbufStream];
-      v95 = v94;
-      v96 = v186;
-      while (atomic_exchange(v94 + 14, 1u) == 1)
-      {
-          ;
-        }
-      }
-
-      v97 = *v96[6];
-      GPUTools::FB::Stream::Write_nolock();
-      atomic_store(0, v95 + 14);
-      GPUTools::FB::Encode((v186 + 6), 93, 516, "CV<ul>", v98, v99, v100, v101, *v12);
-      v102 = [DYGetGLGuestAppClient() defaultFbufStream];
-      v103 = v102;
-      v104 = v186;
-      while (atomic_exchange(v102 + 14, 1u) == 1)
-      {
-          ;
-        }
-      }
-
-      v105 = *v104[6];
-      GPUTools::FB::Stream::Write_nolock();
-      atomic_store(0, v103 + 14);
-      GPUTools::FB::Encode((v186 + 6), 6, 516, "CulV<ul>", v106, v107, v108, v109, *v12);
-      v110 = [DYGetGLGuestAppClient() defaultFbufStream];
-      v111 = v110;
-      v112 = v186;
-      while (atomic_exchange(v110 + 14, 1u) == 1)
-      {
-          ;
-        }
-      }
-
-      v113 = *v112[6];
-      GPUTools::FB::Stream::Write_nolock();
-      atomic_store(0, v111 + 14);
-      v114 = *(v12 + 32);
-      v159 = v12;
-      v160 = v114;
-      v152 = _NSConcreteStackBlock;
-      v153 = 3221225472;
-      v154 = ___ZL22create_shader_programvP15__GLIContextRecjiPPKc_block_invoke_5;
-      v155 = &unk_20D108;
-      v156 = &v185;
-      v157 = v12;
-      v158 = v31;
-      GPUTools::GL::EnumerateProgramActiveAttributes();
-      GPUTools::FB::Encode((v186 + 6), 349, 516, "Cul", v115, v116, v117, v118, *v12);
-      v119 = [DYGetGLGuestAppClient() defaultFbufStream];
-      v120 = v119;
-      v121 = v186;
-      while (atomic_exchange(v119 + 14, 1u) == 1)
-      {
-          ;
-        }
-      }
-
-      v122 = *v121[6];
-      GPUTools::FB::Stream::Write_nolock();
-      atomic_store(0, v120 + 14);
-      GPUTools::FB::Encode((v186 + 6), 133, 516, "CulV<ul>", v123, v124, v125, v126, *v12);
-      v127 = [DYGetGLGuestAppClient() defaultFbufStream];
-      v128 = v127;
-      v129 = v186;
-      while (atomic_exchange(v127 + 14, 1u) == 1)
-      {
-          ;
-        }
-      }
-
-      v130 = *v129[6];
-      GPUTools::FB::Stream::Write_nolock();
-      atomic_store(0, v128 + 14);
-      GPUTools::FB::Encode((v186 + 6), 123, 516, "CV<ul>", v131, v132, v133, v134, *v12);
-      v135 = [DYGetGLGuestAppClient() defaultFbufStream];
-      v136 = v135;
-      v137 = v186;
-      while (atomic_exchange(v135 + 14, 1u) == 1)
-      {
-          ;
-        }
-      }
-
-      v138 = *v137[6];
-      GPUTools::FB::Stream::Write_nolock();
-      atomic_store(0, v136 + 14);
-    }
 
 LABEL_84:
-    free(v151);
-    v139 = atomic_fetch_add((v12 + 4640), 0xFFFFFFFF) - 1;
-    if (gCheckGLErrors == 1 && v139 >= 1)
-    {
-      handle_opengl_thread_conflict(v12);
+        free(v129);
+        v118 = atomic_fetch_add(v12 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v118 >= 1)
+        {
+          handle_opengl_thread_conflict(v12);
+        }
+
+        goto LABEL_89;
+      }
     }
 
-    goto LABEL_89;
+    LODWORD(v130) = v30;
+    [*v12 getParameter:611 to:{&v130, v127}];
+    v46 = v130;
+    v45 = v162;
+    goto LABEL_50;
   }
 
-  atomic_fetch_add((v12 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v12 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  v31 = (*(*(v12 + 24) + 6568))(a1, a2, a3, a4);
+  v30 = (*(v12[3] + 6568))(a1, a2, a3, a4);
 LABEL_89:
-  _Block_object_dispose(&v185, 8);
-  if (v191)
+  _Block_object_dispose(&v163, 8);
+  if (v169)
   {
-    free(v191);
+    free(v169);
   }
 
-  return v31;
+  return v30;
 }
 
 {
@@ -6657,49 +7316,49 @@ LABEL_9:
   }
 
   v13 = *(v9 + 40);
-  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
+  v14 = atomic_fetch_add(v13 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v14 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
     {
-      goto LABEL_63;
+      goto LABEL_64;
     }
   }
 
   else
   {
     handle_opengl_thread_conflict(v13);
-    v53 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v53 >= 1)
+    v50 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v50 >= 1)
     {
-LABEL_63:
-      atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-      v54 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v54, 0, do_nothing);
-      v55 = *(*(v13 + 24) + 6568);
+LABEL_64:
+      atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
+      v51 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v51, 0, do_nothing);
+      v52 = *(*(v13 + 3) + 6568);
 
-      return v55(a1, a2, a3, a4);
+      return v52(a1, a2, a3, a4);
     }
   }
 
   *(v13 + 4838) = 1;
+  v66 = 0;
+  v67 = &v66;
+  v68 = 0x4812000000;
+  v69 = __Block_byref_object_copy__0;
+  v70 = __Block_byref_object_dispose__2;
+  v71 = &unk_20760A;
+  v72 = 0;
   v73 = 0;
-  v74 = &v73;
-  v75 = 0x4812000000;
-  v76 = __Block_byref_object_copy__0;
-  v77 = __Block_byref_object_dispose__2;
-  v78 = &unk_20760A;
-  v79 = 0;
-  v80 = 0;
-  v81 = 0;
+  v74 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    GPUTools::FB::Encode((v74 + 6), 888, "Ceip", v16, v17, v18, v19, v20, *v13);
+    GPUTools::FB::Encode((v67 + 6), 888, "Ceip", v16, v17, v18, v19, v20, *v13, a2, a3, a4);
     check_errors(v13);
     v21 = byte_21B1D0;
     if (byte_21B1D0)
     {
-      breakpoint_break((v74 + 6), &stru_338.flags, 1, *(v13 + 3404), v13);
+      breakpoint_break((v67 + 6), &stru_338.flags, 1, v13[851], v13);
     }
 
     if ([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v21 & 4)
@@ -6710,20 +7369,19 @@ LABEL_63:
     else
     {
       v27 = mach_absolute_time();
-      v28 = (*(*(v13 + 32) + 6568))(a1, a2, a3, a4);
+      v28 = (*(*(v13 + 4) + 6568))(a1, a2, a3, a4);
       v29 = mach_absolute_time() - v27;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v30 = v74 + 6;
-        *(v74[6] + 24) = v29;
+        v30 = v67 + 6;
+        *(v67[6] + 24) = v29;
       }
 
       else
       {
-        v58 = *(&g_DYTimebaseInfo + 1);
-        v59 = __udivti3();
-        v30 = v74 + 6;
-        *(v74[6] + 24) = v59;
+        v55 = __udivti3();
+        v30 = v67 + 6;
+        *(v67[6] + 24) = v55;
         v27 = __udivti3();
       }
 
@@ -6734,28 +7392,28 @@ LABEL_63:
       }
     }
 
-    GPUTools::FB::Encode((v74 + 6), 4294955008, "ui", v22, v23, v24, v25, v26, v28);
+    GPUTools::FB::Encode((v67 + 6), 4294955008, "ui", v22, v23, v24, v25, v26, v28);
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v13 + 3404))
+    if (v13[851])
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v13);
+      encode_driver_events(v13, (v67 + 6));
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v13 + 3480), (v13 + 3520), (v74 + 6));
-    v31 = *(v13 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v13 + 435, v13 + 440, (v67 + 6));
+    v31 = v13[851];
     if (v31 && (gBreakOnError & 1) != 0)
     {
-      v56 = 3;
-      v57 = 0xFFFFFFFFLL;
+      v53 = 3;
+      v54 = 0xFFFFFFFFLL;
     }
 
     else
@@ -6765,14 +7423,12 @@ LABEL_63:
 LABEL_34:
         v32 = [DYGetGLGuestAppClient() defaultFbufStream];
         v33 = v32;
-        v34 = v74;
         while (atomic_exchange(v32 + 14, 1u) == 1)
         {
             ;
           }
         }
 
-        v35 = *v34[6];
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v33 + 14);
         if ((gCheckGLErrors & 1) == 0)
@@ -6780,108 +7436,110 @@ LABEL_34:
           check_errors(v13);
         }
 
-        if (!*(v13 + 3404))
+        if (!v13[851])
         {
-          v72 = 0;
-          (*(*(v13 + 32) + 5264))(*(v13 + 16), v28, 35714, &v72);
-          LODWORD(v63) = 0;
-          info_log = query_info_log(v13, v28, *(*(v13 + 32) + 5264), *(*(v13 + 32) + 5280), &v63);
-          v42 = info_log;
-          if (v63)
+          v65 = 0;
+          (*(*(v13 + 4) + 5264))(*(v13 + 2), v28, 35714, &v65);
+          LODWORD(v56) = 0;
+          info_log = query_info_log(v13, v28, *(*(v13 + 4) + 5264), *(*(v13 + 4) + 5280), &v56);
+          v40 = info_log;
+          if (v56)
           {
-            if (v63 >= 0x400)
+            if (v56 >= 0x400)
             {
-              v43 = 1024;
+              v41 = 1024;
             }
 
             else
             {
-              v43 = v63;
+              v41 = v56;
             }
 
-            info_log[v43 - 1] = 0;
+            info_log[v41 - 1] = 0;
           }
 
-          if (v72 == 1)
+          v42 = v65;
+          if (v65 == 1)
           {
-            LODWORD(v70[0]) = v28;
-            [*v13 getParameter:611 to:v70];
+            LODWORD(v63[0]) = v28;
+            [*v13 getParameter:611 to:v63];
+            v43 = LODWORD(v63[0]);
+            v42 = v65;
           }
 
-          GPUTools::FB::Encode((v74 + 6), 4294955024, "CiuiiSiieui", v37, v38, v39, v40, v41, *v13);
+          else
+          {
+            v43 = 0;
+          }
+
+          GPUTools::FB::Encode((v67 + 6), 4294955024, "CiuiiSiieui", v35, v36, v37, v38, v39, *v13, 12, v28, v56, v40, v42, 0, 35980, v43);
           v44 = [DYGetGLGuestAppClient() defaultFbufStream];
           v45 = v44;
-          v46 = v74;
           while (atomic_exchange(v44 + 14, 1u) == 1)
           {
               ;
             }
           }
 
-          v47 = *v46[6];
           GPUTools::FB::Stream::Write_nolock();
           atomic_store(0, v45 + 14);
-          free(v42);
+          free(v40);
           wrapper_cache_pipeline_create_shader_program(v13, v28, a2, a3, a4);
-          if (v72 == 1)
+          if (v65 == 1)
           {
-            v48 = *(v13 + 32);
-            v63 = v13;
-            v64 = v48;
-            v70[0] = _NSConcreteStackBlock;
-            v70[1] = 3221225472;
-            v70[2] = ___ZL22create_shader_programvP15__GLIContextRecjiPPKc_block_invoke_0;
-            v70[3] = &unk_20D130;
-            v70[4] = &v73;
-            v70[5] = v13;
-            v71 = v28;
+            v46 = *(v13 + 4);
+            v56 = v13;
+            v57 = v46;
+            v63[0] = _NSConcreteStackBlock;
+            v63[1] = 3221225472;
+            v63[2] = ___ZL22create_shader_programvP15__GLIContextRecjiPPKc_block_invoke_0;
+            v63[3] = &unk_20D130;
+            v63[4] = &v66;
+            v63[5] = v13;
+            v64 = v28;
             GPUTools::GL::EnumerateProgramActiveAttributes();
-            if (*(v13 + 3460) >= 3)
+            if (v13[865] >= 3)
             {
-              v62 = *(v13 + 32);
-              v63 = _NSConcreteStackBlock;
-              v64 = 3221225472;
-              v65 = ___ZL22create_shader_programvP15__GLIContextRecjiPPKc_block_invoke_2_0;
-              v66 = &unk_20D158;
-              v67 = &v73;
-              v68 = v13;
-              v69 = v28;
+              v56 = _NSConcreteStackBlock;
+              v57 = 3221225472;
+              v58 = ___ZL22create_shader_programvP15__GLIContextRecjiPPKc_block_invoke_2_0;
+              v59 = &unk_20D158;
+              v60 = &v66;
+              v61 = v13;
+              v62 = v28;
               GPUTools::GL::EnumerateProgramTransformFeedbackVaryings();
-              v60 = *(v13 + 32);
               GPUTools::GL::EnumerateProgramActiveUniformBlocks();
             }
 
-            v61 = *(v13 + 32);
-            v49 = *(v13 + 3456);
             GPUTools::GL::EnumerateProgramActiveUniforms();
           }
         }
 
-        v50 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v50 >= 1)
+        v47 = atomic_fetch_add(v13 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v47 >= 1)
         {
           handle_opengl_thread_conflict(v13);
         }
 
-        goto LABEL_59;
+        goto LABEL_60;
       }
 
-      v56 = 2;
-      v57 = 888;
+      v53 = 2;
+      v54 = 888;
     }
 
-    breakpoint_break((v74 + 6), v57, v56, v31, v13);
+    breakpoint_break((v67 + 6), v54, v53, v31, v13);
     goto LABEL_34;
   }
 
-  atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v13 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  v28 = (*(*(v13 + 24) + 6568))(a1, a2, a3, a4);
-LABEL_59:
-  _Block_object_dispose(&v73, 8);
-  if (v79)
+  v28 = (*(*(v13 + 3) + 6568))(a1, a2, a3, a4);
+LABEL_60:
+  _Block_object_dispose(&v66, 8);
+  if (v72)
   {
-    free(v79);
+    free(v72);
   }
 
   return v28;
@@ -7185,8 +7843,8 @@ LABEL_49:
   else
   {
     handle_opengl_thread_conflict(v9);
-    v36 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v36 >= 1)
+    v35 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v35 >= 1)
     {
       goto LABEL_49;
     }
@@ -7194,24 +7852,31 @@ LABEL_49:
 
   *(v9 + 4838) = 1;
   __ptr = 0;
-  v47 = 0;
-  v48 = 0;
+  v45 = 0;
+  v46 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
     v13 = __ptr;
-    v12 = v47;
-    v14 = v47 - __ptr;
-    v15 = v48;
-    v16 = v48 - (v47 - __ptr);
+    v12 = v45;
+    v14 = v45 - __ptr;
+    v15 = v46;
+    v16 = v46 - (v45 - __ptr);
     if (v16 <= 0x33)
     {
-      v37 = (307 - v16) & 0x100;
-      v48 += v37;
-      v13 = malloc_type_malloc(v37 + v15, 0xF962E99uLL);
+      v36 = (307 - v16) & 0x100;
+      v46 += v36;
+      v13 = malloc_type_malloc(v36 + v15, 0xF962E99uLL);
       __ptr = v13;
-      if (!v13 || (v13 & 3) != 0)
+      if (!v13)
       {
         goto LABEL_64;
+      }
+
+      if ((v13 & 3) != 0)
+      {
+LABEL_66:
+        dy_abort("misaligned fbuf buffer: %p, required alignment=%zu", v13, 4uLL);
+        goto LABEL_67;
       }
 
       v12 = v13 + v14;
@@ -7222,7 +7887,7 @@ LABEL_49:
     *(v12 + 2) = 0u;
     *v12 = 0u;
     v17 = v12 + 52;
-    v47 = v12 + 52;
+    v45 = v12 + 52;
     v18 = v12 + 52 - v13;
     *v13 = v18;
     v19 = (v18 + 3) & 0xFFFFFFFFFFFFFFFCLL;
@@ -7234,21 +7899,21 @@ LABEL_49:
 
     v21 = __ptr;
     v22 = v17 - __ptr;
-    v23 = v48;
-    v24 = v48 - (v17 - __ptr);
+    v23 = v46;
+    v24 = v46 - (v17 - __ptr);
     if (v20 <= v24)
     {
-      v25 = v47;
+      v25 = v45;
 LABEL_22:
       bzero(v17, v20);
-      v47 = &v25[v20];
+      v45 = &v25[v20];
       *v21 += v20;
 LABEL_23:
       v13[1] = 887;
       v13[8] = 0;
-      v45 = 0;
-      pthread_threadid_np(0, &v45);
-      *(v13 + 1) = v45;
+      v43 = 0;
+      pthread_threadid_np(0, &v43);
+      *(v13 + 1) = v43;
       v13[9] = 6911299;
       *(v13 + 5) = *v9;
       v13[12] = a2;
@@ -7276,11 +7941,10 @@ LABEL_23:
 
         else
         {
-          v40 = *(&g_DYTimebaseInfo + 1);
-          v41 = __udivti3();
-          v42 = __ptr;
-          *(__ptr + 3) = v41;
-          v42[2] = __udivti3();
+          v39 = __udivti3();
+          v40 = __ptr;
+          *(__ptr + 3) = v39;
+          v40[2] = __udivti3();
           if (gCheckGLErrors != 1)
           {
             goto LABEL_28;
@@ -7303,15 +7967,15 @@ LABEL_28:
 
       if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
       {
-        encode_driver_events(v9);
+        encode_driver_events(v9, &__ptr);
       }
 
       GPUTools::FB::EncodeThreadQueueInfo((v9 + 3480), (v9 + 3520), &__ptr);
       v30 = *(v9 + 3404);
       if (v30 && (gBreakOnError & 1) != 0)
       {
-        v38 = 3;
-        v39 = 0xFFFFFFFFLL;
+        v37 = 3;
+        v38 = 0xFFFFFFFFLL;
       }
 
       else
@@ -7327,11 +7991,10 @@ LABEL_37:
             }
           }
 
-          v33 = *__ptr;
           GPUTools::FB::Stream::Write_nolock();
           atomic_store(0, v32 + 14);
-          v34 = atomic_fetch_add((v9 + 4640), 0xFFFFFFFF) - 1;
-          if (gCheckGLErrors == 1 && v34 >= 1)
+          v33 = atomic_fetch_add((v9 + 4640), 0xFFFFFFFF) - 1;
+          if (gCheckGLErrors == 1 && v33 >= 1)
           {
             handle_opengl_thread_conflict(v9);
           }
@@ -7339,46 +8002,49 @@ LABEL_37:
           goto LABEL_45;
         }
 
-        v38 = 2;
-        v39 = 887;
+        v37 = 2;
+        v38 = 887;
       }
 
-      breakpoint_break(&__ptr, v39, v38, v30, v9);
+      breakpoint_break(&__ptr, v38, v37, v30, v9);
       goto LABEL_37;
     }
 
-    v43 = (v20 - v24 + 255) & 0xFFFFFF00;
-    v44 = v43 + v48;
-    v48 += v43;
+    v41 = (v20 - v24 + 255) & 0xFFFFFF00;
+    v42 = v41 + v46;
+    v46 += v41;
     if (__ptr)
     {
-      v21 = reallocf(__ptr, v44);
+      v21 = reallocf(__ptr, v42);
       __ptr = v21;
-      if (!v21)
+      if (v21)
       {
-        goto LABEL_64;
+        goto LABEL_61;
       }
     }
 
     else
     {
-      v21 = malloc_type_malloc(v43 + v23, 0xF962E99uLL);
+      v21 = malloc_type_malloc(v41 + v23, 0xF962E99uLL);
       __ptr = v21;
-      if (!v21)
+      if (v21)
       {
-        goto LABEL_64;
+LABEL_61:
+        if ((v21 & 3) == 0)
+        {
+          v25 = v21 + v22;
+          v17 = v25;
+          goto LABEL_22;
+        }
+
+        v13 = v21;
+        goto LABEL_66;
       }
     }
 
-    if ((v21 & 3) == 0)
-    {
-      v25 = v21 + v22;
-      v17 = v25;
-      goto LABEL_22;
-    }
-
 LABEL_64:
-    dy_abort();
+    dy_abort("failed to allocate fbuf buffer");
+LABEL_67:
     __break(1u);
     return;
   }
@@ -7436,8 +8102,8 @@ LABEL_49:
   else
   {
     handle_opengl_thread_conflict(v9);
-    v36 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v36 >= 1)
+    v35 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v35 >= 1)
     {
       goto LABEL_49;
     }
@@ -7445,24 +8111,31 @@ LABEL_49:
 
   *(v9 + 4838) = 1;
   __ptr = 0;
-  v47 = 0;
-  v48 = 0;
+  v45 = 0;
+  v46 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
     v13 = __ptr;
-    v12 = v47;
-    v14 = v47 - __ptr;
-    v15 = v48;
-    v16 = v48 - (v47 - __ptr);
+    v12 = v45;
+    v14 = v45 - __ptr;
+    v15 = v46;
+    v16 = v46 - (v45 - __ptr);
     if (v16 <= 0x33)
     {
-      v37 = (307 - v16) & 0x100;
-      v48 += v37;
-      v13 = malloc_type_malloc(v37 + v15, 0xF962E99uLL);
+      v36 = (307 - v16) & 0x100;
+      v46 += v36;
+      v13 = malloc_type_malloc(v36 + v15, 0xF962E99uLL);
       __ptr = v13;
-      if (!v13 || (v13 & 3) != 0)
+      if (!v13)
       {
         goto LABEL_64;
+      }
+
+      if ((v13 & 3) != 0)
+      {
+LABEL_66:
+        dy_abort("misaligned fbuf buffer: %p, required alignment=%zu", v13, 4uLL);
+        goto LABEL_67;
       }
 
       v12 = v13 + v14;
@@ -7473,7 +8146,7 @@ LABEL_49:
     *(v12 + 2) = 0u;
     *v12 = 0u;
     v17 = v12 + 52;
-    v47 = v12 + 52;
+    v45 = v12 + 52;
     v18 = v12 + 52 - v13;
     *v13 = v18;
     v19 = (v18 + 3) & 0xFFFFFFFFFFFFFFFCLL;
@@ -7485,21 +8158,21 @@ LABEL_49:
 
     v21 = __ptr;
     v22 = v17 - __ptr;
-    v23 = v48;
-    v24 = v48 - (v17 - __ptr);
+    v23 = v46;
+    v24 = v46 - (v17 - __ptr);
     if (v20 <= v24)
     {
-      v25 = v47;
+      v25 = v45;
 LABEL_22:
       bzero(v17, v20);
-      v47 = &v25[v20];
+      v45 = &v25[v20];
       *v21 += v20;
 LABEL_23:
       v13[1] = 887;
       v13[8] = 0;
-      v45 = 0;
-      pthread_threadid_np(0, &v45);
-      *(v13 + 1) = v45;
+      v43 = 0;
+      pthread_threadid_np(0, &v43);
+      *(v13 + 1) = v43;
       v13[9] = 6911299;
       *(v13 + 5) = *v9;
       v13[12] = a2;
@@ -7527,11 +8200,10 @@ LABEL_23:
 
         else
         {
-          v40 = *(&g_DYTimebaseInfo + 1);
-          v41 = __udivti3();
-          v42 = __ptr;
-          *(__ptr + 3) = v41;
-          v42[2] = __udivti3();
+          v39 = __udivti3();
+          v40 = __ptr;
+          *(__ptr + 3) = v39;
+          v40[2] = __udivti3();
           if (gCheckGLErrors != 1)
           {
             goto LABEL_28;
@@ -7554,15 +8226,15 @@ LABEL_28:
 
       if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
       {
-        encode_driver_events(v9);
+        encode_driver_events(v9, &__ptr);
       }
 
       GPUTools::FB::EncodeThreadQueueInfo((v9 + 3480), (v9 + 3520), &__ptr);
       v30 = *(v9 + 3404);
       if (v30 && (gBreakOnError & 1) != 0)
       {
-        v38 = 3;
-        v39 = 0xFFFFFFFFLL;
+        v37 = 3;
+        v38 = 0xFFFFFFFFLL;
       }
 
       else
@@ -7578,11 +8250,10 @@ LABEL_37:
             }
           }
 
-          v33 = *__ptr;
           GPUTools::FB::Stream::Write_nolock();
           atomic_store(0, v32 + 14);
-          v34 = atomic_fetch_add((v9 + 4640), 0xFFFFFFFF) - 1;
-          if (gCheckGLErrors == 1 && v34 >= 1)
+          v33 = atomic_fetch_add((v9 + 4640), 0xFFFFFFFF) - 1;
+          if (gCheckGLErrors == 1 && v33 >= 1)
           {
             handle_opengl_thread_conflict(v9);
           }
@@ -7590,46 +8261,49 @@ LABEL_37:
           goto LABEL_45;
         }
 
-        v38 = 2;
-        v39 = 887;
+        v37 = 2;
+        v38 = 887;
       }
 
-      breakpoint_break(&__ptr, v39, v38, v30, v9);
+      breakpoint_break(&__ptr, v38, v37, v30, v9);
       goto LABEL_37;
     }
 
-    v43 = (v20 - v24 + 255) & 0xFFFFFF00;
-    v44 = v43 + v48;
-    v48 += v43;
+    v41 = (v20 - v24 + 255) & 0xFFFFFF00;
+    v42 = v41 + v46;
+    v46 += v41;
     if (__ptr)
     {
-      v21 = reallocf(__ptr, v44);
+      v21 = reallocf(__ptr, v42);
       __ptr = v21;
-      if (!v21)
+      if (v21)
       {
-        goto LABEL_64;
+        goto LABEL_61;
       }
     }
 
     else
     {
-      v21 = malloc_type_malloc(v43 + v23, 0xF962E99uLL);
+      v21 = malloc_type_malloc(v41 + v23, 0xF962E99uLL);
       __ptr = v21;
-      if (!v21)
+      if (v21)
       {
-        goto LABEL_64;
+LABEL_61:
+        if ((v21 & 3) == 0)
+        {
+          v25 = v21 + v22;
+          v17 = v25;
+          goto LABEL_22;
+        }
+
+        v13 = v21;
+        goto LABEL_66;
       }
     }
 
-    if ((v21 & 3) == 0)
-    {
-      v25 = v21 + v22;
-      v17 = v25;
-      goto LABEL_22;
-    }
-
 LABEL_64:
-    dy_abort();
+    dy_abort("failed to allocate fbuf buffer");
+LABEL_67:
     __break(1u);
     return;
   }
@@ -7812,7 +8486,7 @@ void sub_83100(_Unwind_Exception *exception_object, int a2, int a3, int a4, int 
   _Unwind_Resume(exception_object);
 }
 
-void delete_program_pipelines(__GLIContextRec *a1, uint64_t a2, const unsigned int *a3)
+void delete_program_pipelines(__GLIContextRec *a1, uint64_t a2, unsigned int *a3)
 {
   v6 = *(ContextInfo::activeCtxInfoMap + 8);
   if (!v6)
@@ -7842,7 +8516,7 @@ LABEL_9:
   }
 
   v11 = *(v7 + 40);
-  v12 = atomic_fetch_add((v11 + 4640), 1u) + 1;
+  v12 = atomic_fetch_add(v11 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v12 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -7858,10 +8532,10 @@ LABEL_9:
     if (v19 >= 1)
     {
 LABEL_23:
-      atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+      atomic_fetch_add(v11 + 1160, 0xFFFFFFFF);
       v20 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
       dispatch_sync_f(v20, 0, do_nothing);
-      v21 = *(*(v11 + 24) + 6584);
+      v21 = *(v11[3] + 6584);
 
       v21(a1, a2, a3);
       return;
@@ -7880,15 +8554,15 @@ LABEL_23:
   v31 = 0;
   if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    atomic_fetch_add(v11 + 1160, 0xFFFFFFFF);
     [DYGetGLGuestAppClient() triggerArmedCapture];
-    (*(*(v11 + 24) + 6584))(a1, a2, a3);
+    (*(v11[3] + 6584))(a1, a2, a3);
   }
 
   else
   {
-    snprintf((v11 + 4709), 0x40uLL, "Ci@%dui", a2);
-    GPUTools::FB::Encode((v25 + 6), 889, 0, v11 + 4709, v14, v15, v16, v17, *v11);
+    snprintf(v11 + 4709, 0x40uLL, "Ci@%dui", a2);
+    GPUTools::FB::Encode((v25 + 6), 889, 0, v11 + 4709, v14, v15, v16, v17, *v11, a2, a3);
     v22[0] = _NSConcreteStackBlock;
     v22[1] = 3221225472;
     v22[2] = ___ZL24delete_program_pipelinesP15__GLIContextReciPKj_block_invoke_3;
@@ -7899,7 +8573,7 @@ LABEL_23:
     v22[6] = a1;
     v22[7] = a3;
     wrapper_cache_pipeline_delete(v11, a2, a3, v22);
-    add = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    add = atomic_fetch_add(v11 + 1160, 0xFFFFFFFF);
     if (gCheckGLErrors == 1 && (add - 1) >= 1)
     {
       handle_opengl_thread_conflict(v11);
@@ -7938,7 +8612,7 @@ LABEL_9:
   }
 
   v11 = *(v7 + 40);
-  v12 = atomic_fetch_add((v11 + 4640), 1u) + 1;
+  v12 = atomic_fetch_add(v11 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v12 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -7954,10 +8628,10 @@ LABEL_9:
     if (v19 >= 1)
     {
 LABEL_23:
-      atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+      atomic_fetch_add(v11 + 1160, 0xFFFFFFFF);
       v20 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
       dispatch_sync_f(v20, 0, do_nothing);
-      v21 = *(*(v11 + 24) + 6584);
+      v21 = *(v11[3] + 6584);
 
       v21(a1, a2, a3);
       return;
@@ -7976,15 +8650,15 @@ LABEL_23:
   v31 = 0;
   if ([DYGetGLGuestAppClient() state] == &dword_0 + 1 && objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    atomic_fetch_add(v11 + 1160, 0xFFFFFFFF);
     [DYGetGLGuestAppClient() triggerArmedCapture];
-    (*(*(v11 + 24) + 6584))(a1, a2, a3);
+    (*(v11[3] + 6584))(a1, a2, a3);
   }
 
   else
   {
-    snprintf((v11 + 4709), 0x40uLL, "Ci@%dui", a2);
-    GPUTools::FB::Encode((v25 + 6), 889, 0, v11 + 4709, v14, v15, v16, v17, *v11);
+    snprintf(v11 + 4709, 0x40uLL, "Ci@%dui", a2);
+    GPUTools::FB::Encode((v25 + 6), 889, 0, v11 + 4709, v14, v15, v16, v17, *v11, a2, a3);
     v22[0] = _NSConcreteStackBlock;
     v22[1] = 3221225472;
     v22[2] = ___ZL24delete_program_pipelinesP15__GLIContextReciPKj_block_invoke_4;
@@ -7995,7 +8669,7 @@ LABEL_23:
     v22[6] = a1;
     v22[7] = a3;
     wrapper_cache_pipeline_delete(v11, a2, a3, v22);
-    add = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+    add = atomic_fetch_add(v11 + 1160, 0xFFFFFFFF);
     if (gCheckGLErrors == 1 && (add - 1) >= 1)
     {
       handle_opengl_thread_conflict(v11);
@@ -8232,7 +8906,7 @@ LABEL_9:
   v17(a1, a2, a3);
 }
 
-void sub_83418(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28)
+void sub_83418(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28)
 {
   _Block_object_dispose(&a22, 8);
   if (a28)
@@ -8273,7 +8947,7 @@ LABEL_9:
   }
 
   v11 = *(v7 + 40);
-  v12 = atomic_fetch_add((v11 + 4640), 1u) + 1;
+  v12 = atomic_fetch_add(v11 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v12 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -8285,43 +8959,43 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v11);
-    v34 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v34 >= 1)
+    v33 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v33 >= 1)
     {
 LABEL_46:
-      atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
-      v35 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v35, 0, do_nothing);
-      v36 = *(*(v11 + 24) + 6592);
+      atomic_fetch_add(v11 + 1160, 0xFFFFFFFF);
+      v34 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v34, 0, do_nothing);
+      v35 = *(v11[3] + 6592);
 
-      v36(a1, a2, a3);
+      v35(a1, a2, a3);
       return;
     }
   }
 
   *(v11 + 4838) = 1;
+  v41 = 0;
+  v42 = 0;
   v43 = 0;
-  v44 = 0;
-  v45 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    snprintf((v11 + 4709), 0x40uLL, "Ci@%dui", a2);
-    GPUTools::FB::Encode(&v43, 890, v11 + 4709, v14, v15, v16, v17, v18, *v11);
+    snprintf(v11 + 4709, 0x40uLL, "Ci@%dui", a2);
+    GPUTools::FB::Encode(&v41, 890, v11 + 4709, v14, v15, v16, v17, v18, *v11, a2, a3);
     v19 = byte_21B1D2;
     if (byte_21B1D2)
     {
-      breakpoint_break(&v43, (&stru_338.flags + 2), 1, *(v11 + 3404), v11);
+      breakpoint_break(&v41, (&stru_338.flags + 2), 1, *(v11 + 851), v11);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v19 & 4))
     {
       v24 = mach_absolute_time();
-      (*(*(v11 + 32) + 6592))(a1, a2, a3);
+      (*(v11[4] + 6592))(a1, a2, a3);
       v25 = mach_absolute_time() - v24;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v26 = v43;
-        *(v43 + 2) = v24;
+        v26 = v41;
+        *(v41 + 2) = v24;
         v26[3] = v25;
         if (gCheckGLErrors != 1)
         {
@@ -8331,11 +9005,10 @@ LABEL_46:
 
       else
       {
-        v39 = *(&g_DYTimebaseInfo + 1);
-        v40 = __udivti3();
-        v41 = v43;
-        *(v43 + 3) = v40;
-        v41[2] = __udivti3();
+        v38 = __udivti3();
+        v39 = v41;
+        *(v41 + 3) = v38;
+        v39[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_23;
@@ -8346,39 +9019,39 @@ LABEL_46:
     }
 
 LABEL_23:
-    v27 = v43;
-    v42 = *(v43 + 1);
-    v44 = v43;
-    if (v45 >= 0x24)
+    v27 = v41;
+    v40 = *(v41 + 1);
+    v42 = v41;
+    if (v43 >= 0x24)
     {
-      *(v43 + 8) = 0;
+      *(v41 + 8) = 0;
       *v27 = 0u;
       v27[1] = 0u;
     }
 
-    GPUTools::FB::Encode(&v43, 890, 0, v11 + 4709, v20, v21, v22, v23, *v11);
-    *(v43 + 1) = v42;
+    GPUTools::FB::Encode(&v41, 890, 0, v11 + 4709, v20, v21, v22, v23, *v11, a2, a3);
+    *(v41 + 1) = v40;
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v11 + 3404))
+    if (*(v11 + 851))
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v11);
+      encode_driver_events(v11, &v41);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v11 + 3480), (v11 + 3520), &v43);
-    v28 = *(v11 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v11 + 435, v11 + 440, &v41);
+    v28 = *(v11 + 851);
     if (v28 && (gBreakOnError & 1) != 0)
     {
-      v37 = 3;
-      v38 = 0xFFFFFFFFLL;
+      v36 = 3;
+      v37 = 0xFFFFFFFFLL;
     }
 
     else
@@ -8394,11 +9067,10 @@ LABEL_34:
           }
         }
 
-        v31 = *v43;
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v30 + 14);
-        v32 = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v32 >= 1)
+        v31 = atomic_fetch_add(v11 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v31 >= 1)
         {
           handle_opengl_thread_conflict(v11);
         }
@@ -8406,21 +9078,21 @@ LABEL_34:
         goto LABEL_42;
       }
 
-      v37 = 2;
-      v38 = 890;
+      v36 = 2;
+      v37 = 890;
     }
 
-    breakpoint_break(&v43, v38, v37, v28, v11);
+    breakpoint_break(&v41, v37, v36, v28, v11);
     goto LABEL_34;
   }
 
-  atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v11 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v11 + 24) + 6592))(a1, a2, a3);
+  (*(v11[3] + 6592))(a1, a2, a3);
 LABEL_42:
-  if (v43)
+  if (v41)
   {
-    free(v43);
+    free(v41);
   }
 }
 
@@ -8453,7 +9125,7 @@ LABEL_9:
   }
 
   v11 = *(v7 + 40);
-  v12 = atomic_fetch_add((v11 + 4640), 1u) + 1;
+  v12 = atomic_fetch_add(v11 + 1160, 1u) + 1;
   if (gCheckGLErrors != 1 || v12 <= 1)
   {
     if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
@@ -8465,43 +9137,43 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v11);
-    v34 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v34 >= 1)
+    v33 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v33 >= 1)
     {
 LABEL_46:
-      atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
-      v35 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v35, 0, do_nothing);
-      v36 = *(*(v11 + 24) + 6592);
+      atomic_fetch_add(v11 + 1160, 0xFFFFFFFF);
+      v34 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v34, 0, do_nothing);
+      v35 = *(v11[3] + 6592);
 
-      v36(a1, a2, a3);
+      v35(a1, a2, a3);
       return;
     }
   }
 
   *(v11 + 4838) = 1;
+  v41 = 0;
+  v42 = 0;
   v43 = 0;
-  v44 = 0;
-  v45 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
-    snprintf((v11 + 4709), 0x40uLL, "Ci@%dui", a2);
-    GPUTools::FB::Encode(&v43, 890, v11 + 4709, v14, v15, v16, v17, v18, *v11);
+    snprintf(v11 + 4709, 0x40uLL, "Ci@%dui", a2);
+    GPUTools::FB::Encode(&v41, 890, v11 + 4709, v14, v15, v16, v17, v18, *v11, a2, a3);
     v19 = byte_21B1D2;
     if (byte_21B1D2)
     {
-      breakpoint_break(&v43, (&stru_338.flags + 2), 1, *(v11 + 3404), v11);
+      breakpoint_break(&v41, (&stru_338.flags + 2), 1, *(v11 + 851), v11);
     }
 
     if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v19 & 4))
     {
       v24 = mach_absolute_time();
-      (*(*(v11 + 32) + 6592))(a1, a2, a3);
+      (*(v11[4] + 6592))(a1, a2, a3);
       v25 = mach_absolute_time() - v24;
       if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
       {
-        v26 = v43;
-        *(v43 + 2) = v24;
+        v26 = v41;
+        *(v41 + 2) = v24;
         v26[3] = v25;
         if (gCheckGLErrors != 1)
         {
@@ -8511,11 +9183,10 @@ LABEL_46:
 
       else
       {
-        v39 = *(&g_DYTimebaseInfo + 1);
-        v40 = __udivti3();
-        v41 = v43;
-        *(v43 + 3) = v40;
-        v41[2] = __udivti3();
+        v38 = __udivti3();
+        v39 = v41;
+        *(v41 + 3) = v38;
+        v39[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_23;
@@ -8526,39 +9197,39 @@ LABEL_46:
     }
 
 LABEL_23:
-    v27 = v43;
-    v42 = *(v43 + 1);
-    v44 = v43;
-    if (v45 >= 0x24)
+    v27 = v41;
+    v40 = *(v41 + 1);
+    v42 = v41;
+    if (v43 >= 0x24)
     {
-      *(v43 + 8) = 0;
+      *(v41 + 8) = 0;
       *v27 = 0u;
       v27[1] = 0u;
     }
 
-    GPUTools::FB::Encode(&v43, 890, 0, v11 + 4709, v20, v21, v22, v23, *v11);
-    *(v43 + 1) = v42;
+    GPUTools::FB::Encode(&v41, 890, 0, v11 + 4709, v20, v21, v22, v23, *v11, a2, a3);
+    *(v41 + 1) = v40;
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
       GPUTools::FB::EncodeCurrentBacktrace();
     }
 
-    if (*(v11 + 3404))
+    if (*(v11 + 851))
     {
       GPUTools::FB::EncodeGLError();
     }
 
     if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
     {
-      encode_driver_events(v11);
+      encode_driver_events(v11, &v41);
     }
 
-    GPUTools::FB::EncodeThreadQueueInfo((v11 + 3480), (v11 + 3520), &v43);
-    v28 = *(v11 + 3404);
+    GPUTools::FB::EncodeThreadQueueInfo(v11 + 435, v11 + 440, &v41);
+    v28 = *(v11 + 851);
     if (v28 && (gBreakOnError & 1) != 0)
     {
-      v37 = 3;
-      v38 = 0xFFFFFFFFLL;
+      v36 = 3;
+      v37 = 0xFFFFFFFFLL;
     }
 
     else
@@ -8574,11 +9245,10 @@ LABEL_34:
           }
         }
 
-        v31 = *v43;
         GPUTools::FB::Stream::Write_nolock();
         atomic_store(0, v30 + 14);
-        v32 = atomic_fetch_add((v11 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v32 >= 1)
+        v31 = atomic_fetch_add(v11 + 1160, 0xFFFFFFFF) - 1;
+        if (gCheckGLErrors == 1 && v31 >= 1)
         {
           handle_opengl_thread_conflict(v11);
         }
@@ -8586,21 +9256,21 @@ LABEL_34:
         goto LABEL_42;
       }
 
-      v37 = 2;
-      v38 = 890;
+      v36 = 2;
+      v37 = 890;
     }
 
-    breakpoint_break(&v43, v38, v37, v28, v11);
+    breakpoint_break(&v41, v37, v36, v28, v11);
     goto LABEL_34;
   }
 
-  atomic_fetch_add((v11 + 4640), 0xFFFFFFFF);
+  atomic_fetch_add(v11 + 1160, 0xFFFFFFFF);
   [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v11 + 24) + 6592))(a1, a2, a3);
+  (*(v11[3] + 6592))(a1, a2, a3);
 LABEL_42:
-  if (v43)
+  if (v41)
   {
-    free(v43);
+    free(v41);
   }
 }
 
@@ -8817,39 +9487,46 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v9);
-    v43 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v43 >= 1)
+    v42 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v42 >= 1)
     {
 LABEL_49:
       atomic_fetch_add((v9 + 4640), 0xFFFFFFFF);
-      v44 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v44, 0, do_nothing);
-      v45 = *(*(v9 + 24) + 6600);
+      v43 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v43, 0, do_nothing);
+      v44 = *(*(v9 + 24) + 6600);
 
-      return v45(a1, a2);
+      return v44(a1, a2);
     }
   }
 
   *(v9 + 4838) = 1;
   __ptr = 0;
-  v56 = 0;
-  v57 = 0;
+  v54 = 0;
+  v55 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
     v13 = __ptr;
-    v12 = v56;
-    v14 = v56 - __ptr;
-    v15 = v57;
-    v16 = v57 - (v56 - __ptr);
+    v12 = v54;
+    v14 = v54 - __ptr;
+    v15 = v55;
+    v16 = v55 - (v54 - __ptr);
     if (v16 <= 0x33)
     {
-      v46 = (307 - v16) & 0x100;
-      v57 += v46;
-      v13 = malloc_type_malloc(v46 + v15, 0xF962E99uLL);
+      v45 = (307 - v16) & 0x100;
+      v55 += v45;
+      v13 = malloc_type_malloc(v45 + v15, 0xF962E99uLL);
       __ptr = v13;
-      if (!v13 || (v13 & 3) != 0)
+      if (!v13)
       {
         goto LABEL_67;
+      }
+
+      if ((v13 & 3) != 0)
+      {
+LABEL_69:
+        result = dy_abort("misaligned fbuf buffer: %p, required alignment=%zu", v13, 4uLL);
+        goto LABEL_70;
       }
 
       v12 = v13 + v14;
@@ -8860,7 +9537,7 @@ LABEL_49:
     *(v12 + 2) = 0u;
     *v12 = 0u;
     v17 = v12 + 52;
-    v56 = v12 + 52;
+    v54 = v12 + 52;
     v18 = v12 + 52 - v13;
     *v13 = v18;
     v19 = (v18 + 3) & 0xFFFFFFFFFFFFFFFCLL;
@@ -8872,21 +9549,21 @@ LABEL_49:
 
     v21 = __ptr;
     v22 = v17 - __ptr;
-    v23 = v57;
-    v24 = v57 - (v17 - __ptr);
+    v23 = v55;
+    v24 = v55 - (v17 - __ptr);
     if (v20 <= v24)
     {
-      v25 = v56;
+      v25 = v54;
 LABEL_22:
       bzero(v17, v20);
-      v56 = &v25[v20];
+      v54 = &v25[v20];
       *v21 += v20;
 LABEL_23:
       v13[1] = 896;
       v13[8] = 256;
-      v54 = 0;
-      pthread_threadid_np(0, &v54);
-      *(v13 + 1) = v54;
+      v52 = 0;
+      pthread_threadid_np(0, &v52);
+      *(v13 + 1) = v52;
       v13[9] = 6911299;
       *(v13 + 5) = *v9;
       v13[12] = a2;
@@ -8918,11 +9595,10 @@ LABEL_23:
 
       else
       {
-        v49 = *(&g_DYTimebaseInfo + 1);
-        v50 = __udivti3();
-        v51 = __ptr;
-        *(__ptr + 3) = v50;
-        v51[2] = __udivti3();
+        v48 = __udivti3();
+        v49 = __ptr;
+        *(__ptr + 3) = v48;
+        v49[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_28;
@@ -8944,15 +9620,15 @@ LABEL_28:
 
       if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
       {
-        encode_driver_events(v9);
+        encode_driver_events(v9, &__ptr);
       }
 
       GPUTools::FB::EncodeThreadQueueInfo((v9 + 3480), (v9 + 3520), &__ptr);
       v36 = *(v9 + 3404);
       if (v36 && (gBreakOnError & 1) != 0)
       {
-        v47 = 3;
-        v48 = 0xFFFFFFFFLL;
+        v46 = 3;
+        v47 = 0xFFFFFFFFLL;
       }
 
       else
@@ -8968,11 +9644,10 @@ LABEL_37:
             }
           }
 
-          v39 = *__ptr;
           GPUTools::FB::Stream::Write_nolock();
           atomic_store(0, v38 + 14);
-          v40 = atomic_fetch_add((v9 + 4640), 0xFFFFFFFF) - 1;
-          if (gCheckGLErrors == 1 && v40 >= 1)
+          v39 = atomic_fetch_add((v9 + 4640), 0xFFFFFFFF) - 1;
+          if (gCheckGLErrors == 1 && v39 >= 1)
           {
             handle_opengl_thread_conflict(v9);
           }
@@ -8980,46 +9655,49 @@ LABEL_37:
           goto LABEL_45;
         }
 
-        v47 = 2;
-        v48 = 896;
+        v46 = 2;
+        v47 = 896;
       }
 
-      breakpoint_break(&__ptr, v48, v47, v36, v9);
+      breakpoint_break(&__ptr, v47, v46, v36, v9);
       goto LABEL_37;
     }
 
-    v52 = (v20 - v24 + 255) & 0xFFFFFF00;
-    v53 = v52 + v57;
-    v57 += v52;
+    v50 = (v20 - v24 + 255) & 0xFFFFFF00;
+    v51 = v50 + v55;
+    v55 += v50;
     if (__ptr)
     {
-      v21 = reallocf(__ptr, v53);
+      v21 = reallocf(__ptr, v51);
       __ptr = v21;
-      if (!v21)
+      if (v21)
       {
-        goto LABEL_67;
+        goto LABEL_64;
       }
     }
 
     else
     {
-      v21 = malloc_type_malloc(v52 + v23, 0xF962E99uLL);
+      v21 = malloc_type_malloc(v50 + v23, 0xF962E99uLL);
       __ptr = v21;
-      if (!v21)
+      if (v21)
       {
-        goto LABEL_67;
+LABEL_64:
+        if ((v21 & 3) == 0)
+        {
+          v25 = v21 + v22;
+          v17 = v25;
+          goto LABEL_22;
+        }
+
+        v13 = v21;
+        goto LABEL_69;
       }
     }
 
-    if ((v21 & 3) == 0)
-    {
-      v25 = v21 + v22;
-      v17 = v25;
-      goto LABEL_22;
-    }
-
 LABEL_67:
-    result = dy_abort();
+    result = dy_abort("failed to allocate fbuf buffer");
+LABEL_70:
     __break(1u);
     return result;
   }
@@ -9077,39 +9755,46 @@ LABEL_9:
   else
   {
     handle_opengl_thread_conflict(v9);
-    v43 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v43 >= 1)
+    v42 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
+    if (v42 >= 1)
     {
 LABEL_49:
       atomic_fetch_add((v9 + 4640), 0xFFFFFFFF);
-      v44 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v44, 0, do_nothing);
-      v45 = *(*(v9 + 24) + 6600);
+      v43 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
+      dispatch_sync_f(v43, 0, do_nothing);
+      v44 = *(*(v9 + 24) + 6600);
 
-      return v45(a1, a2);
+      return v44(a1, a2);
     }
   }
 
   *(v9 + 4838) = 1;
   __ptr = 0;
-  v56 = 0;
-  v57 = 0;
+  v54 = 0;
+  v55 = 0;
   if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
   {
     v13 = __ptr;
-    v12 = v56;
-    v14 = v56 - __ptr;
-    v15 = v57;
-    v16 = v57 - (v56 - __ptr);
+    v12 = v54;
+    v14 = v54 - __ptr;
+    v15 = v55;
+    v16 = v55 - (v54 - __ptr);
     if (v16 <= 0x33)
     {
-      v46 = (307 - v16) & 0x100;
-      v57 += v46;
-      v13 = malloc_type_malloc(v46 + v15, 0xF962E99uLL);
+      v45 = (307 - v16) & 0x100;
+      v55 += v45;
+      v13 = malloc_type_malloc(v45 + v15, 0xF962E99uLL);
       __ptr = v13;
-      if (!v13 || (v13 & 3) != 0)
+      if (!v13)
       {
         goto LABEL_67;
+      }
+
+      if ((v13 & 3) != 0)
+      {
+LABEL_69:
+        result = dy_abort("misaligned fbuf buffer: %p, required alignment=%zu", v13, 4uLL);
+        goto LABEL_70;
       }
 
       v12 = v13 + v14;
@@ -9120,7 +9805,7 @@ LABEL_49:
     *(v12 + 2) = 0u;
     *v12 = 0u;
     v17 = v12 + 52;
-    v56 = v12 + 52;
+    v54 = v12 + 52;
     v18 = v12 + 52 - v13;
     *v13 = v18;
     v19 = (v18 + 3) & 0xFFFFFFFFFFFFFFFCLL;
@@ -9132,21 +9817,21 @@ LABEL_49:
 
     v21 = __ptr;
     v22 = v17 - __ptr;
-    v23 = v57;
-    v24 = v57 - (v17 - __ptr);
+    v23 = v55;
+    v24 = v55 - (v17 - __ptr);
     if (v20 <= v24)
     {
-      v25 = v56;
+      v25 = v54;
 LABEL_22:
       bzero(v17, v20);
-      v56 = &v25[v20];
+      v54 = &v25[v20];
       *v21 += v20;
 LABEL_23:
       v13[1] = 896;
       v13[8] = 256;
-      v54 = 0;
-      pthread_threadid_np(0, &v54);
-      *(v13 + 1) = v54;
+      v52 = 0;
+      pthread_threadid_np(0, &v52);
+      *(v13 + 1) = v52;
       v13[9] = 6911299;
       *(v13 + 5) = *v9;
       v13[12] = a2;
@@ -9178,11 +9863,10 @@ LABEL_23:
 
       else
       {
-        v49 = *(&g_DYTimebaseInfo + 1);
-        v50 = __udivti3();
-        v51 = __ptr;
-        *(__ptr + 3) = v50;
-        v51[2] = __udivti3();
+        v48 = __udivti3();
+        v49 = __ptr;
+        *(__ptr + 3) = v48;
+        v49[2] = __udivti3();
         if (gCheckGLErrors != 1)
         {
           goto LABEL_28;
@@ -9204,15 +9888,15 @@ LABEL_28:
 
       if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
       {
-        encode_driver_events(v9);
+        encode_driver_events(v9, &__ptr);
       }
 
       GPUTools::FB::EncodeThreadQueueInfo((v9 + 3480), (v9 + 3520), &__ptr);
       v36 = *(v9 + 3404);
       if (v36 && (gBreakOnError & 1) != 0)
       {
-        v47 = 3;
-        v48 = 0xFFFFFFFFLL;
+        v46 = 3;
+        v47 = 0xFFFFFFFFLL;
       }
 
       else
@@ -9228,11 +9912,10 @@ LABEL_37:
             }
           }
 
-          v39 = *__ptr;
           GPUTools::FB::Stream::Write_nolock();
           atomic_store(0, v38 + 14);
-          v40 = atomic_fetch_add((v9 + 4640), 0xFFFFFFFF) - 1;
-          if (gCheckGLErrors == 1 && v40 >= 1)
+          v39 = atomic_fetch_add((v9 + 4640), 0xFFFFFFFF) - 1;
+          if (gCheckGLErrors == 1 && v39 >= 1)
           {
             handle_opengl_thread_conflict(v9);
           }
@@ -9240,46 +9923,49 @@ LABEL_37:
           goto LABEL_45;
         }
 
-        v47 = 2;
-        v48 = 896;
+        v46 = 2;
+        v47 = 896;
       }
 
-      breakpoint_break(&__ptr, v48, v47, v36, v9);
+      breakpoint_break(&__ptr, v47, v46, v36, v9);
       goto LABEL_37;
     }
 
-    v52 = (v20 - v24 + 255) & 0xFFFFFF00;
-    v53 = v52 + v57;
-    v57 += v52;
+    v50 = (v20 - v24 + 255) & 0xFFFFFF00;
+    v51 = v50 + v55;
+    v55 += v50;
     if (__ptr)
     {
-      v21 = reallocf(__ptr, v53);
+      v21 = reallocf(__ptr, v51);
       __ptr = v21;
-      if (!v21)
+      if (v21)
       {
-        goto LABEL_67;
+        goto LABEL_64;
       }
     }
 
     else
     {
-      v21 = malloc_type_malloc(v52 + v23, 0xF962E99uLL);
+      v21 = malloc_type_malloc(v50 + v23, 0xF962E99uLL);
       __ptr = v21;
-      if (!v21)
+      if (v21)
       {
-        goto LABEL_67;
+LABEL_64:
+        if ((v21 & 3) == 0)
+        {
+          v25 = v21 + v22;
+          v17 = v25;
+          goto LABEL_22;
+        }
+
+        v13 = v21;
+        goto LABEL_69;
       }
     }
 
-    if ((v21 & 3) == 0)
-    {
-      v25 = v21 + v22;
-      v17 = v25;
-      goto LABEL_22;
-    }
-
 LABEL_67:
-    result = dy_abort();
+    result = dy_abort("failed to allocate fbuf buffer");
+LABEL_70:
     __break(1u);
     return result;
   }
@@ -9524,391 +10210,4 @@ LABEL_9:
   v16 = *(*(v9 + 24) + 6600);
 
   return v16(a1, a2);
-}
-
-void sub_83E78(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12)
-{
-  if (a12)
-  {
-    free(a12);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void get_program_pipelineiv(__GLIContextRec *a1, uint64_t a2, GPUTools::GL *a3, int *a4)
-{
-  v8 = *(ContextInfo::activeCtxInfoMap + 8);
-  if (!v8)
-  {
-    goto LABEL_9;
-  }
-
-  v9 = ContextInfo::activeCtxInfoMap + 8;
-  do
-  {
-    v10 = *(v8 + 32);
-    v11 = v10 >= a1;
-    v12 = v10 < a1;
-    if (v11)
-    {
-      v9 = v8;
-    }
-
-    v8 = *(v8 + 8 * v12);
-  }
-
-  while (v8);
-  if (v9 == ContextInfo::activeCtxInfoMap + 8 || *(v9 + 32) > a1)
-  {
-LABEL_9:
-    v9 = ContextInfo::activeCtxInfoMap + 8;
-  }
-
-  v13 = *(v9 + 40);
-  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
-  if (gCheckGLErrors != 1 || v14 <= 1)
-  {
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-      goto LABEL_48;
-    }
-  }
-
-  else
-  {
-    handle_opengl_thread_conflict(v13);
-    v37 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v37 >= 1)
-    {
-LABEL_48:
-      atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-      v38 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v38, 0, do_nothing);
-      v39 = *(*(v13 + 24) + 6608);
-
-      v39(a1, a2, a3, a4);
-      return;
-    }
-  }
-
-  *(v13 + 4838) = 1;
-  v47 = 0;
-  v48 = 0;
-  v49 = 0;
-  if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
-  {
-    memset(v46, 0, sizeof(v46));
-    GPUTools::GL::DYGetProgramPipelineParameterInfo(a3, &v46[1], v46, v16);
-    v17 = 105;
-    if (v46[0])
-    {
-      v17 = 101;
-    }
-
-    snprintf((v13 + 4709), 0x40uLL, "Cuie@%u%c", *&v46[1], v17);
-    GPUTools::FB::Encode(&v47, 894, 256, v13 + 4709, v18, v19, v20, v21, *v13);
-    v22 = byte_21B1D6;
-    if (byte_21B1D6)
-    {
-      breakpoint_break(&v47, (&stru_338.reserved1 + 2), 1, *(v13 + 3404), v13);
-    }
-
-    if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v22 & 4))
-    {
-      v27 = mach_absolute_time();
-      (*(*(v13 + 32) + 6608))(a1, a2, a3, a4);
-      v28 = mach_absolute_time() - v27;
-      if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
-      {
-        v29 = v47;
-        *(v47 + 2) = v27;
-        v29[3] = v28;
-        if (gCheckGLErrors != 1)
-        {
-          goto LABEL_25;
-        }
-      }
-
-      else
-      {
-        v42 = *(&g_DYTimebaseInfo + 1);
-        v43 = __udivti3();
-        v44 = v47;
-        *(v47 + 3) = v43;
-        v44[2] = __udivti3();
-        if (gCheckGLErrors != 1)
-        {
-          goto LABEL_25;
-        }
-      }
-
-      check_errors(v13);
-    }
-
-LABEL_25:
-    v30 = v47;
-    v45 = *(v47 + 1);
-    v48 = v47;
-    if (v49 >= 0x24)
-    {
-      *(v47 + 8) = 0;
-      *v30 = 0u;
-      v30[1] = 0u;
-    }
-
-    GPUTools::FB::Encode(&v47, 894, 256, v13 + 4709, v23, v24, v25, v26, *v13);
-    *(v47 + 1) = v45;
-    if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
-    {
-      GPUTools::FB::EncodeCurrentBacktrace();
-    }
-
-    if (*(v13 + 3404))
-    {
-      GPUTools::FB::EncodeGLError();
-    }
-
-    if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
-    {
-      encode_driver_events(v13);
-    }
-
-    GPUTools::FB::EncodeThreadQueueInfo((v13 + 3480), (v13 + 3520), &v47);
-    v31 = *(v13 + 3404);
-    if (v31 && (gBreakOnError & 1) != 0)
-    {
-      v40 = 3;
-      v41 = 0xFFFFFFFFLL;
-    }
-
-    else
-    {
-      if ((v22 & 2) == 0)
-      {
-LABEL_36:
-        v32 = [DYGetGLGuestAppClient() defaultFbufStream];
-        v33 = v32;
-        while (atomic_exchange(v32 + 14, 1u) == 1)
-        {
-            ;
-          }
-        }
-
-        v34 = *v47;
-        GPUTools::FB::Stream::Write_nolock();
-        atomic_store(0, v33 + 14);
-        v35 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v35 >= 1)
-        {
-          handle_opengl_thread_conflict(v13);
-        }
-
-        goto LABEL_44;
-      }
-
-      v40 = 2;
-      v41 = 894;
-    }
-
-    breakpoint_break(&v47, v41, v40, v31, v13);
-    goto LABEL_36;
-  }
-
-  atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-  [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v13 + 24) + 6608))(a1, a2, a3, a4);
-LABEL_44:
-  if (v47)
-  {
-    free(v47);
-  }
-}
-
-{
-  v8 = *(ContextInfo::activeCtxInfoMap + 8);
-  if (!v8)
-  {
-    goto LABEL_9;
-  }
-
-  v9 = ContextInfo::activeCtxInfoMap + 8;
-  do
-  {
-    v10 = *(v8 + 32);
-    v11 = v10 >= a1;
-    v12 = v10 < a1;
-    if (v11)
-    {
-      v9 = v8;
-    }
-
-    v8 = *(v8 + 8 * v12);
-  }
-
-  while (v8);
-  if (v9 == ContextInfo::activeCtxInfoMap + 8 || *(v9 + 32) > a1)
-  {
-LABEL_9:
-    v9 = ContextInfo::activeCtxInfoMap + 8;
-  }
-
-  v13 = *(v9 + 40);
-  v14 = atomic_fetch_add((v13 + 4640), 1u) + 1;
-  if (gCheckGLErrors != 1 || v14 <= 1)
-  {
-    if ([DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions] >= 1)
-    {
-      goto LABEL_48;
-    }
-  }
-
-  else
-  {
-    handle_opengl_thread_conflict(v13);
-    v37 = [DYGetGLGuestAppClient() waitOnGraphicsSemaphoreAssertions];
-    if (v37 >= 1)
-    {
-LABEL_48:
-      atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-      v38 = [DYGetGLGuestAppClient() graphicsLockWaitQueue];
-      dispatch_sync_f(v38, 0, do_nothing);
-      v39 = *(*(v13 + 24) + 6608);
-
-      v39(a1, a2, a3, a4);
-      return;
-    }
-  }
-
-  *(v13 + 4838) = 1;
-  v47 = 0;
-  v48 = 0;
-  v49 = 0;
-  if ([DYGetGLGuestAppClient() state] != &dword_0 + 1 || !objc_msgSend(DYGetGLGuestAppClient(), "triggerCaptureOnNextGLCommand"))
-  {
-    memset(v46, 0, sizeof(v46));
-    GPUTools::GL::DYGetProgramPipelineParameterInfo(a3, &v46[1], v46, v16);
-    v17 = 105;
-    if (v46[0])
-    {
-      v17 = 101;
-    }
-
-    snprintf((v13 + 4709), 0x40uLL, "Cuie@%u%c", *&v46[1], v17);
-    GPUTools::FB::Encode(&v47, 894, 256, v13 + 4709, v18, v19, v20, v21, *v13);
-    v22 = byte_21B1D6;
-    if (byte_21B1D6)
-    {
-      breakpoint_break(&v47, (&stru_338.reserved1 + 2), 1, *(v13 + 3404), v13);
-    }
-
-    if (!([DYGetGLGuestAppClient() overrideFlags] & 0x10 | v22 & 4))
-    {
-      v27 = mach_absolute_time();
-      (*(*(v13 + 32) + 6608))(a1, a2, a3, a4);
-      v28 = mach_absolute_time() - v27;
-      if (g_DYTimebaseInfo == *(&g_DYTimebaseInfo + 1))
-      {
-        v29 = v47;
-        *(v47 + 2) = v27;
-        v29[3] = v28;
-        if (gCheckGLErrors != 1)
-        {
-          goto LABEL_25;
-        }
-      }
-
-      else
-      {
-        v42 = *(&g_DYTimebaseInfo + 1);
-        v43 = __udivti3();
-        v44 = v47;
-        *(v47 + 3) = v43;
-        v44[2] = __udivti3();
-        if (gCheckGLErrors != 1)
-        {
-          goto LABEL_25;
-        }
-      }
-
-      check_errors(v13);
-    }
-
-LABEL_25:
-    v30 = v47;
-    v45 = *(v47 + 1);
-    v48 = v47;
-    if (v49 >= 0x24)
-    {
-      *(v47 + 8) = 0;
-      *v30 = 0u;
-      v30[1] = 0u;
-    }
-
-    GPUTools::FB::Encode(&v47, 894, 256, v13 + 4709, v23, v24, v25, v26, *v13);
-    *(v47 + 1) = v45;
-    if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
-    {
-      GPUTools::FB::EncodeCurrentBacktrace();
-    }
-
-    if (*(v13 + 3404))
-    {
-      GPUTools::FB::EncodeGLError();
-    }
-
-    if ([objc_msgSend(DYGetGLGuestAppClient() "activeCaptureDescriptor")])
-    {
-      encode_driver_events(v13);
-    }
-
-    GPUTools::FB::EncodeThreadQueueInfo((v13 + 3480), (v13 + 3520), &v47);
-    v31 = *(v13 + 3404);
-    if (v31 && (gBreakOnError & 1) != 0)
-    {
-      v40 = 3;
-      v41 = 0xFFFFFFFFLL;
-    }
-
-    else
-    {
-      if ((v22 & 2) == 0)
-      {
-LABEL_36:
-        v32 = [DYGetGLGuestAppClient() defaultFbufStream];
-        v33 = v32;
-        while (atomic_exchange(v32 + 14, 1u) == 1)
-        {
-            ;
-          }
-        }
-
-        v34 = *v47;
-        GPUTools::FB::Stream::Write_nolock();
-        atomic_store(0, v33 + 14);
-        v35 = atomic_fetch_add((v13 + 4640), 0xFFFFFFFF) - 1;
-        if (gCheckGLErrors == 1 && v35 >= 1)
-        {
-          handle_opengl_thread_conflict(v13);
-        }
-
-        goto LABEL_44;
-      }
-
-      v40 = 2;
-      v41 = 894;
-    }
-
-    breakpoint_break(&v47, v41, v40, v31, v13);
-    goto LABEL_36;
-  }
-
-  atomic_fetch_add((v13 + 4640), 0xFFFFFFFF);
-  [DYGetGLGuestAppClient() triggerArmedCapture];
-  (*(*(v13 + 24) + 6608))(a1, a2, a3, a4);
-LABEL_44:
-  if (v47)
-  {
-    free(v47);
-  }
 }

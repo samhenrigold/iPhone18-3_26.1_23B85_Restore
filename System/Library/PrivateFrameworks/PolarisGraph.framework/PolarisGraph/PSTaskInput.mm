@@ -7,7 +7,6 @@
 - (PSTaskInput)initWithResourceKey:(id)key type:(int64_t)type capacity:(unint64_t)capacity;
 - (PSTaskInput)initWithResourceKey:(id)key type:(int64_t)type capacity:(unint64_t)capacity forwardingCount:(unint64_t)count;
 - (PSTaskInput)initWithResourceKey:(id)key type:(int64_t)type capacity:(unint64_t)capacity sourceInput:(id)input forwardingCount:(unint64_t)count;
-- (id)description;
 - (id)getInputResourceForGraph:(id)graph;
 @end
 
@@ -123,15 +122,6 @@
   return v7;
 }
 
-- (id)description
-{
-  v3 = MEMORY[0x277CCAB68];
-  v4 = objc_opt_class();
-  resourceKey = self->_resourceKey;
-  capacity = self->_capacity;
-  return [v3 stringWithFormat:@". . . <%@: %@> Type:%lu Capacity:%lu FwdCount:%lu", v4, resourceKey, self->_type, capacity, self->_forwardingCount];
-}
-
 - (PSTaskInput)initWithResourceKey:(id)key type:(int64_t)type capacity:(unint64_t)capacity forwardingCount:(unint64_t)count
 {
   keyCopy = key;
@@ -152,21 +142,30 @@
 
 - (uint64_t)initWithKey:(char *)a1 type:capacity:.cold.1(char **a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "PSInputTypeSynced cannot be set directly. Please use -initSyncedInputWithResourceKey: instead.");
-  v1 = __PSGraphLogSharedInstance();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
+  v1 = asprintf(a1, "PSInputTypeSynced cannot be set directly. Please use -initSyncedInputWithResourceKey: instead.");
+  v2 = __PSGraphLogSharedInstance(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_2(&dword_25EC85000, v2, v3, "%s:%d PSInputTypeSynced cannot be set directly. Please use -initSyncedInputWithResourceKey: instead.", v4, v5, v6, v7, 2u);
+    *v21 = 136315394;
+    *&v21[4] = "[PSTaskInput initWithKey:type:capacity:]";
+    *&v21[12] = 1024;
+    *&v21[14] = 42;
+    OUTLINED_FUNCTION_2(&dword_25EC85000, v3, v4, "%s:%d PSInputTypeSynced cannot be set directly. Please use -initSyncedInputWithResourceKey: instead.", v5, v6, v7, v8, *v21, *&v21[8], *&v21[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v9 = OSLogFlushBuffers();
+  if (v9)
   {
-    v8 = __PSGraphLogSharedInstance();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = v9;
+    v11 = __PSGraphLogSharedInstance(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_2_0(&dword_25EC85000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, 2u);
+      *v20 = 136315394;
+      *&v20[4] = "[PSTaskInput initWithKey:type:capacity:]";
+      *&v20[12] = 1024;
+      *&v20[14] = v10;
+      OUTLINED_FUNCTION_2_0(&dword_25EC85000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, *v20, *&v20[8], *&v20[16]);
     }
   }
 
@@ -175,27 +174,36 @@
     usleep(0x1E8480u);
   }
 
-  v15 = OUTLINED_FUNCTION_0();
-  return [PSTaskInput initWithResourceKey:v15 type:? capacity:?];
+  v18 = OUTLINED_FUNCTION_0();
+  return [PSTaskInput initWithResourceKey:v18 type:? capacity:?];
 }
 
 - (uint64_t)initWithResourceKey:(char *)a1 type:capacity:.cold.1(char **a1)
 {
-  v17 = *MEMORY[0x277D85DE8];
   *a1 = 0;
-  asprintf(a1, "PSInputTypeSynced cannot be set directly. Please use -initSyncedInputWithResourceKey: instead.");
-  v1 = __PSGraphLogSharedInstance();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
+  v1 = asprintf(a1, "PSInputTypeSynced cannot be set directly. Please use -initSyncedInputWithResourceKey: instead.");
+  v2 = __PSGraphLogSharedInstance(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_2(&dword_25EC85000, v2, v3, "%s:%d PSInputTypeSynced cannot be set directly. Please use -initSyncedInputWithResourceKey: instead.", v4, v5, v6, v7, 2u);
+    *v21 = 136315394;
+    *&v21[4] = "[PSTaskInput initWithResourceKey:type:capacity:]";
+    *&v21[12] = 1024;
+    *&v21[14] = 56;
+    OUTLINED_FUNCTION_2(&dword_25EC85000, v3, v4, "%s:%d PSInputTypeSynced cannot be set directly. Please use -initSyncedInputWithResourceKey: instead.", v5, v6, v7, v8, *v21, *&v21[8], *&v21[16]);
   }
 
-  if (OSLogFlushBuffers())
+  v9 = OSLogFlushBuffers();
+  if (v9)
   {
-    v8 = __PSGraphLogSharedInstance();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v10 = v9;
+    v11 = __PSGraphLogSharedInstance(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      OUTLINED_FUNCTION_2_0(&dword_25EC85000, v9, v10, "%s() failed to flush buffers with error code: %d", v11, v12, v13, v14, 2u);
+      *v20 = 136315394;
+      *&v20[4] = "[PSTaskInput initWithResourceKey:type:capacity:]";
+      *&v20[12] = 1024;
+      *&v20[14] = v10;
+      OUTLINED_FUNCTION_2_0(&dword_25EC85000, v12, v13, "%s() failed to flush buffers with error code: %d", v14, v15, v16, v17, *v20, *&v20[8], *&v20[16]);
     }
   }
 
@@ -204,8 +212,8 @@
     usleep(0x1E8480u);
   }
 
-  v15 = OUTLINED_FUNCTION_0();
-  return [PSTaskInput(Roya) initWithResourceKey:v15 type:? capacity:? forwardingCount:?];
+  v18 = OUTLINED_FUNCTION_0();
+  return [PSTaskInput(Roya) initWithResourceKey:v18 type:? capacity:? forwardingCount:?];
 }
 
 @end

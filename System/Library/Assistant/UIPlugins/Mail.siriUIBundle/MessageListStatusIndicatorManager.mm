@@ -64,8 +64,8 @@
 - (unint64_t)tierForIndicator:(unint64_t)indicator
 {
   result = 0;
-  v4 = &qword_EF28;
-  for (i = &qword_EF28; ; ++i)
+  v4 = qword_EF28;
+  for (i = qword_EF28; ; ++i)
   {
     v6 = result >= 3 ? v4 : i;
     if ((*v6 & indicator) != 0)

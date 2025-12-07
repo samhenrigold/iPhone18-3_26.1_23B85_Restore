@@ -11,29 +11,29 @@
 
 - (uint64_t)supportsShareSheetSendCopyRepresentation
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   registeredTypeIdentifiers = [self registeredTypeIdentifiers];
-  v2 = [registeredTypeIdentifiers countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v2 = [registeredTypeIdentifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v13;
+    v4 = *v12;
     v5 = *MEMORY[0x1E6982E48];
     while (2)
     {
       v6 = 0;
       do
       {
-        if (*v13 != v4)
+        if (*v12 != v4)
         {
           objc_enumerationMutation(registeredTypeIdentifiers);
         }
 
-        v7 = [MEMORY[0x1E6982C40] typeWithIdentifier:*(*(&v12 + 1) + 8 * v6)];
+        v7 = [MEMORY[0x1E6982C40] typeWithIdentifier:*(*(&v11 + 1) + 8 * v6)];
         v8 = [v7 conformsToType:v5];
 
         if (v8)
@@ -46,7 +46,7 @@
       }
 
       while (v3 != v6);
-      v3 = [registeredTypeIdentifiers countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v3 = [registeredTypeIdentifiers countByEnumeratingWithState:&v11 objects:v15 count:16];
       if (v3)
       {
         continue;
@@ -59,23 +59,22 @@
   v9 = 0;
 LABEL_11:
 
-  v10 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (uint64_t)supportsMessagesSendCopyRepresentation
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   registeredTypeIdentifiers = [self registeredTypeIdentifiers];
-  v2 = [registeredTypeIdentifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v2 = [registeredTypeIdentifiers countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v2)
   {
     v3 = v2;
-    v4 = *v15;
+    v4 = *v14;
     v5 = *MEMORY[0x1E6982E48];
     v6 = *MEMORY[0x1E6982F40];
     v7 = *MEMORY[0x1E6983030];
@@ -85,12 +84,12 @@ LABEL_11:
       v9 = 0;
       do
       {
-        if (*v15 != v4)
+        if (*v14 != v4)
         {
           objc_enumerationMutation(registeredTypeIdentifiers);
         }
 
-        v10 = [MEMORY[0x1E6982C40] typeWithIdentifier:*(*(&v14 + 1) + 8 * v9)];
+        v10 = [MEMORY[0x1E6982C40] typeWithIdentifier:*(*(&v13 + 1) + 8 * v9)];
         if ([v10 conformsToType:v5] && (objc_msgSend(v10, "conformsToType:", v6) & 1) == 0 && (!objc_msgSend(v10, "conformsToType:", v7) || objc_msgSend(v10, "conformsToType:", v8)))
         {
 
@@ -102,7 +101,7 @@ LABEL_11:
       }
 
       while (v3 != v9);
-      v3 = [registeredTypeIdentifiers countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v3 = [registeredTypeIdentifiers countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v3)
       {
         continue;
@@ -115,37 +114,36 @@ LABEL_11:
   v11 = 0;
 LABEL_14:
 
-  v12 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 - (id)preferredContentTypeForSavingWithCanOpenInPlace:()Sharing
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   registeredContentTypesForOpenInPlace = [self registeredContentTypesForOpenInPlace];
   v6 = +[SFCollaborationUtilities _copyRepresentationTypeIdentifier];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v7 = registeredContentTypesForOpenInPlace;
-  v8 = [v7 countByEnumeratingWithState:&v33 objects:v38 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v32 objects:v37 count:16];
   if (v8)
   {
     v9 = v8;
-    v28 = a3;
+    v27 = a3;
     v10 = 0;
-    v11 = *v34;
+    v11 = *v33;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v34 != v11)
+        if (*v33 != v11)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v33 + 1) + 8 * i);
+        v13 = *(*(&v32 + 1) + 8 * i);
         identifier = [v13 identifier];
         v15 = [identifier isEqualToString:v6];
 
@@ -157,16 +155,16 @@ LABEL_14:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
     while (v9);
 
-    a3 = v28;
+    a3 = v27;
     if (v10)
     {
       v17 = 1;
-      if (!v28)
+      if (!v27)
       {
         goto LABEL_26;
       }
@@ -180,26 +178,26 @@ LABEL_14:
   }
 
   [self registeredContentTypes];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
-  v18 = v32 = 0u;
-  v19 = [v18 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  v18 = v31 = 0u;
+  v19 = [v18 countByEnumeratingWithState:&v28 objects:v36 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v30;
+    v21 = *v29;
     v22 = *MEMORY[0x1E6982E48];
     while (2)
     {
       for (j = 0; j != v20; ++j)
       {
-        if (*v30 != v21)
+        if (*v29 != v21)
         {
           objc_enumerationMutation(v18);
         }
 
-        v24 = *(*(&v29 + 1) + 8 * j);
+        v24 = *(*(&v28 + 1) + 8 * j);
         if ([v24 conformsToType:v22])
         {
           v10 = v24;
@@ -207,7 +205,7 @@ LABEL_14:
         }
       }
 
-      v20 = [v18 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v20 = [v18 countByEnumeratingWithState:&v28 objects:v36 count:16];
       if (v20)
       {
         continue;
@@ -230,7 +228,6 @@ LABEL_25:
 LABEL_26:
   v25 = v10;
 
-  v26 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -257,42 +254,40 @@ LABEL_26:
 
 - (void)loadFileURLRequiringOpenInPlace:()Sharing completionHandler:
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v6 = a4;
-  v18 = 0;
-  v7 = [self preferredContentTypeForSavingWithCanOpenInPlace:&v18];
+  v17 = 0;
+  v7 = [self preferredContentTypeForSavingWithCanOpenInPlace:&v17];
   v8 = v7;
-  if (v7 && ((a3 ^ 1 | v18) & 1) != 0)
+  if (v7 && ((a3 ^ 1 | v17) & 1) != 0)
   {
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __77__NSItemProvider_Sharing__loadFileURLRequiringOpenInPlace_completionHandler___block_invoke;
-    v13[3] = &unk_1E788FE10;
-    v17 = a3;
-    v16 = v6;
-    v14 = v8;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __77__NSItemProvider_Sharing__loadFileURLRequiringOpenInPlace_completionHandler___block_invoke;
+    v12[3] = &unk_1E788FE10;
+    v16 = a3;
+    v15 = v6;
+    v13 = v8;
     selfCopy = self;
-    v9 = [self loadFileRepresentationForContentType:v14 openInPlace:a3 completionHandler:v13];
+    v9 = [self loadFileRepresentationForContentType:v13 openInPlace:a3 completionHandler:v12];
   }
 
   else
   {
-    if (!((v7 == 0) | (a3 ^ 1 | v18) & 1))
+    if (!((v7 == 0) | (a3 ^ 1 | v17) & 1))
     {
-      v10 = framework_log();
+      v10 = framework_log(v7);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         identifier = [v8 identifier];
         *buf = 138412290;
-        v20 = identifier;
+        v19 = identifier;
         _os_log_impl(&dword_1A9662000, v10, OS_LOG_TYPE_DEFAULT, "Not loading file representation for content type %@ because it can't be opened in place", buf, 0xCu);
       }
     }
 
     [self loadURLClassWithPreviousError:0 completionHandler:v6];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sf_loadSecurityContextWithCompletionHandler:()Sharing

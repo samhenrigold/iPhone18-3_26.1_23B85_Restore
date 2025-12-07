@@ -54,9 +54,9 @@ LABEL_12:
 
   [(JavaLangThreadLocal *)t setWithId:new_JavaLangRefWeakReference_initWithId_(id)];
   hardRefs = self->hardRefs_;
-  objc_sync_enter(hardRefs);
-  v7 = self->hardRefs_;
-  if (!v7 || ([(JavaUtilMap *)v7 putWithId:JavaLangThread_currentThread() withId:id], (countUntilPurge = self->countUntilPurge_) == 0))
+  v7 = objc_sync_enter(hardRefs);
+  v9 = self->hardRefs_;
+  if (!v9 || ([(JavaUtilMap *)v9 putWithId:JavaLangThread_currentThread(v7 withId:v8), id], (countUntilPurge = self->countUntilPurge_) == 0))
   {
     JreThrowNullPointerException();
   }

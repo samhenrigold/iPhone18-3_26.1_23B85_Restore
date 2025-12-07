@@ -7,7 +7,7 @@
 
 - (void)recommendedMediaTypeWith:(id)with
 {
-  v5 = sub_1001F1160(&qword_100AD67D0);
+  v5 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v5 - 8);
   v7 = &v13 - v6;
   v8 = sub_1007A2744();
@@ -22,7 +22,7 @@
   v12 = withCopy;
   sub_1005E3DA4(0, 0, v7, &unk_100834BE0, v9);
 
-  sub_100007840(v7, &qword_100AD67D0);
+  sub_100007840(v7, &qword_100AD67D0, &qword_100814660);
 }
 
 - (BKMediaTypeRecommendationProvider)init

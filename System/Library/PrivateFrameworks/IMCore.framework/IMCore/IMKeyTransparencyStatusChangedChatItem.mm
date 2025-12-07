@@ -7,19 +7,19 @@
 - (id)_initWithHandles:(id)handles status:(unint64_t)status isGroupChat:(BOOL)chat
 {
   handlesCopy = handles;
-  v14.receiver = self;
-  v14.super_class = IMKeyTransparencyStatusChangedChatItem;
-  v10 = [(IMChatItem *)&v14 _initWithItem:0];
-  v12 = v10;
+  v13.receiver = self;
+  v13.super_class = IMKeyTransparencyStatusChangedChatItem;
+  v10 = [(IMChatItem *)&v13 _initWithItem:0];
+  v11 = v10;
   if (v10)
   {
-    objc_msgSend__setGUID_(v10, v11, @"kte:");
-    objc_storeStrong(v12 + 8, handles);
-    v12[9] = status;
-    *(v12 + 56) = chat;
+    [v10 _setGUID:@"kte:"];
+    objc_storeStrong(v11 + 8, handles);
+    v11[9] = status;
+    *(v11 + 56) = chat;
   }
 
-  return v12;
+  return v11;
 }
 
 @end

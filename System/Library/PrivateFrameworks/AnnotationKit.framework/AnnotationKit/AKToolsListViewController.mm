@@ -144,28 +144,29 @@
 
 - (void)_updateDeviceLocked
 {
-  v6 = 0;
-  v7 = &v6;
-  v8 = 0x2020000000;
+  v7 = 0;
+  v8 = &v7;
+  v9 = 0x2020000000;
   v3 = off_27E39B5B8;
-  v9 = off_27E39B5B8;
+  v10 = off_27E39B5B8;
   if (!off_27E39B5B8)
   {
-    v5[0] = MEMORY[0x277D85DD0];
-    v5[1] = 3221225472;
-    v5[2] = sub_23F42CE78;
-    v5[3] = &unk_278C7B9D0;
-    v5[4] = &v6;
-    sub_23F42CE78(v5);
-    v3 = v7[3];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = sub_23F42CE78;
+    v6[3] = &unk_278C7B9D0;
+    v6[4] = &v7;
+    sub_23F42CE78(v6);
+    v3 = v8[3];
   }
 
-  _Block_object_dispose(&v6, 8);
+  _Block_object_dispose(&v7, 8);
   if (!v3)
   {
-    v4 = sub_23F4BD000();
-    _Block_object_dispose(&v6, 8);
-    _Unwind_Resume(v4);
+    sub_23F4BD000();
+    v5 = v4;
+    _Block_object_dispose(&v7, 8);
+    _Unwind_Resume(v5);
   }
 
   self->_isDeviceLocked = v3(0) - 1 < 2;

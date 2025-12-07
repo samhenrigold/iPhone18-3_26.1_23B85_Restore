@@ -93,11 +93,11 @@
 
 - (COTimerReadResponse)initWithCoder:(id)coder
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v28.receiver = self;
-  v28.super_class = COTimerReadResponse;
-  v5 = [(COMeshResponse *)&v28 initWithCoder:coderCopy];
+  v25.receiver = self;
+  v25.super_class = COTimerReadResponse;
+  v5 = [(COMeshResponse *)&v25 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = v5;
@@ -118,45 +118,43 @@
     timers = v6->_timers;
     v6->_timers = v12;
 
-    v14 = v6->_timers;
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       objc_opt_class();
+      v21 = 0u;
+      v22 = 0u;
+      v23 = 0u;
       v24 = 0u;
-      v25 = 0u;
-      v26 = 0u;
-      v27 = 0u;
-      v15 = v6->_timers;
-      v16 = [(NSArray *)v15 countByEnumeratingWithState:&v24 objects:v29 count:16];
-      if (v16)
+      v14 = v6->_timers;
+      v15 = [(NSArray *)v14 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      if (v15)
       {
-        v17 = v16;
-        v18 = *v25;
+        v16 = v15;
+        v17 = *v22;
         while (2)
         {
-          v19 = 0;
+          v18 = 0;
           do
           {
-            if (*v25 != v18)
+            if (*v22 != v17)
             {
-              objc_enumerationMutation(v15);
+              objc_enumerationMutation(v14);
             }
 
-            v20 = *(*(&v24 + 1) + 8 * v19);
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
 
-              v21 = 0;
+              v19 = 0;
               goto LABEL_17;
             }
 
-            ++v19;
+            ++v18;
           }
 
-          while (v17 != v19);
-          v17 = [(NSArray *)v15 countByEnumeratingWithState:&v24 objects:v29 count:16];
-          if (v17)
+          while (v16 != v18);
+          v16 = [(NSArray *)v14 countByEnumeratingWithState:&v21 objects:v26 count:16];
+          if (v16)
           {
             continue;
           }
@@ -165,13 +163,13 @@
         }
       }
 
-      v21 = v6;
+      v19 = v6;
     }
 
     else
     {
-      v21 = 0;
-      v15 = v6;
+      v19 = 0;
+      v14 = v6;
     }
 
 LABEL_17:
@@ -179,11 +177,10 @@ LABEL_17:
 
   else
   {
-    v21 = 0;
+    v19 = 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
-  return v21;
+  return v19;
 }
 
 - (void)encodeWithCoder:(id)coder

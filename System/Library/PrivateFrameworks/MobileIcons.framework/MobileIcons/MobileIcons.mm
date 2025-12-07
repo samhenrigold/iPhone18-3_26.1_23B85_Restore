@@ -1,4 +1,4 @@
-CGImage *LICreateIconForImages(const __CFArray *a1, unsigned int a2, unsigned int a3)
+CGImage *LICreateIconForImages(const __CFArray *a1, uint64_t a2, int a3)
 {
   v3 = a3;
   v5 = LICopyBestImageForVariantFromImages(a1, a2, a3);
@@ -22,68 +22,68 @@ CGImage *LICreateIconForImages(const __CFArray *a1, unsigned int a2, unsigned in
 
   switch(a2)
   {
-    case 0u:
-    case 1u:
-    case 2u:
-    case 3u:
-    case 4u:
-    case 9u:
-    case 0xAu:
-    case 0xBu:
-    case 0xCu:
-    case 0xDu:
-    case 0xEu:
-    case 0xFu:
-    case 0x10u:
-    case 0x11u:
-    case 0x16u:
-    case 0x17u:
-    case 0x18u:
-    case 0x19u:
-    case 0x1Eu:
-    case 0x1Fu:
-    case 0x20u:
-    case 0x21u:
-    case 0x22u:
-    case 0x23u:
-    case 0x28u:
-    case 0x29u:
-    case 0x2Du:
-    case 0x2Eu:
-    case 0x33u:
-    case 0x34u:
-    case 0x35u:
-    case 0x36u:
-    case 0x3Fu:
-    case 0x40u:
-    case 0x41u:
-    case 0x42u:
-    case 0x43u:
-    case 0x4Fu:
-    case 0x50u:
+    case 0:
+    case 1:
+    case 2:
+    case 3:
+    case 4:
+    case 9:
+    case 10:
+    case 11:
+    case 12:
+    case 13:
+    case 14:
+    case 15:
+    case 16:
+    case 17:
+    case 22:
+    case 23:
+    case 24:
+    case 25:
+    case 30:
+    case 31:
+    case 32:
+    case 33:
+    case 34:
+    case 35:
+    case 40:
+    case 41:
+    case 45:
+    case 46:
+    case 51:
+    case 52:
+    case 53:
+    case 54:
+    case 63:
+    case 64:
+    case 65:
+    case 66:
+    case 67:
+    case 79:
+    case 80:
       goto LABEL_11;
-    case 5u:
-    case 6u:
-    case 7u:
-    case 8u:
-    case 0x12u:
-    case 0x13u:
-    case 0x14u:
-    case 0x15u:
-    case 0x1Au:
-    case 0x1Bu:
-    case 0x1Cu:
-    case 0x1Du:
-    case 0x24u:
-    case 0x25u:
-    case 0x37u:
-    case 0x38u:
-    case 0x39u:
-    case 0x3Au:
-    case 0x3Bu:
-    case 0x3Cu:
-    case 0x3Du:
-    case 0x3Eu:
+    case 5:
+    case 6:
+    case 7:
+    case 8:
+    case 18:
+    case 19:
+    case 20:
+    case 21:
+    case 26:
+    case 27:
+    case 28:
+    case 29:
+    case 36:
+    case 37:
+    case 55:
+    case 56:
+    case 57:
+    case 58:
+    case 59:
+    case 60:
+    case 61:
+    case 62:
       v18 = outputSizeForVariant(a2);
       v36 = MEMORY[0x277D85DD0];
       v37 = 3221225472;
@@ -92,27 +92,27 @@ CGImage *LICreateIconForImages(const __CFArray *a1, unsigned int a2, unsigned in
       *&v41 = __PAIR64__(v3, a2);
       v40 = v6;
       goto LABEL_32;
-    case 0x26u:
-    case 0x27u:
-    case 0x2Au:
-    case 0x2Bu:
-    case 0x2Cu:
-    case 0x2Fu:
-    case 0x30u:
-    case 0x31u:
-    case 0x32u:
+    case 38:
+    case 39:
+    case 42:
+    case 43:
+    case 44:
+    case 47:
+    case 48:
+    case 49:
+    case 50:
       goto LABEL_24;
-    case 0x44u:
-    case 0x45u:
-    case 0x46u:
-    case 0x47u:
-    case 0x48u:
-    case 0x49u:
-    case 0x4Au:
-    case 0x4Bu:
-    case 0x4Cu:
-    case 0x4Du:
-    case 0x4Eu:
+    case 68:
+    case 69:
+    case 70:
+    case 71:
+    case 72:
+    case 73:
+    case 74:
+    case 75:
+    case 76:
+    case 77:
+    case 78:
       v34 = 0.0;
       v35 = 0.0;
       v32 = 0u;
@@ -143,7 +143,7 @@ CGImage *LICreateIconForImages(const __CFArray *a1, unsigned int a2, unsigned in
       v45 = v28;
       goto LABEL_32;
     default:
-      if (a2 - 0x8000 > 8)
+      if ((a2 - 0x8000) > 8)
       {
         goto LABEL_34;
       }
@@ -254,15 +254,16 @@ LABEL_40:
   }
 }
 
-CGImage *LICreateIconForImage(void *a1, unsigned int a2, unsigned int a3)
+CGImage *LICreateIconForImage(void *a1, uint64_t a2, uint64_t a3)
 {
   values = a1;
   if (!a1)
   {
-    syslog(4, "LICreateIconForImage passed NULL CGImageRef image");
+    syslog(4, "LICreateIconForImage passed NULL CGImageRef image", a3);
     return 0;
   }
 
+  v3 = a3;
   v5 = CFArrayCreate(0, &values, 1, MEMORY[0x277CBF128]);
   if (!v5)
   {
@@ -270,13 +271,14 @@ CGImage *LICreateIconForImage(void *a1, unsigned int a2, unsigned int a3)
   }
 
   v6 = v5;
-  v7 = LICreateIconForImages(v5, a2, a3);
+  v7 = LICreateIconForImages(v5, a2, v3);
   CFRelease(v6);
   return v7;
 }
 
-void expectedInputSizeForVariant(int a1, char a2)
+void expectedInputSizeForVariant(uint64_t a1, char a2)
 {
+  v2 = a1;
   if ((a2 & 0x10) != 0)
   {
     composedImageBoundsForVariant(a1);
@@ -284,27 +286,27 @@ void expectedInputSizeForVariant(int a1, char a2)
   }
 
   scaleForVariant();
-  if (a1 >= 0x8000)
+  if (v2 >= 0x8000)
   {
-    if (a1 <= 32771)
+    if (v2 <= 32771)
     {
-      if ((a1 - 0x8000) < 2 || (a1 - 32770) < 2)
+      if ((v2 - 0x8000) < 2 || (v2 - 32770) < 2)
       {
         return;
       }
     }
 
-    else if ((a1 - 32772) < 2 || (a1 - 32774) < 2 || a1 == 32776)
+    else if ((v2 - 32772) < 2 || (v2 - 32774) < 2 || v2 == 32776)
     {
       return;
     }
 
 LABEL_15:
-    outputSizeForVariant(a1);
+    outputSizeForVariant(v2);
     return;
   }
 
-  switch(a1)
+  switch(v2)
   {
     case 0:
     case 1:
@@ -365,7 +367,7 @@ LABEL_15:
   }
 }
 
-CGImage *LICopyBestImageForVariantFromImages(const __CFArray *a1, unsigned int a2, char a3)
+CGImage *LICopyBestImageForVariantFromImages(const __CFArray *a1, uint64_t a2, char a3)
 {
   if (a1)
   {
@@ -443,7 +445,7 @@ LABEL_19:
   return 0;
 }
 
-uint64_t frameAndImageNamesForVariant(int a1, char a2, uint64_t a3, uint64_t a4, __CFString **a5, __CFString **a6, __CFString **a7, __CFString **a8)
+uint64_t frameAndImageNamesForVariant(uint64_t a1, char a2, uint64_t a3, uint64_t a4, __CFString **a5, __CFString **a6, __CFString **a7, __CFString **a8)
 {
   v16 = outputSizeForVariant(a1);
   v18 = v17;
@@ -1652,7 +1654,7 @@ LABEL_63:
 
 CGImageRef createCGImageFromFrameworkBundleResourceNamed(const __CFString *a1, double a2)
 {
-  v4 = _frameworkBundle();
+  v4 = _frameworkBundle(a1);
   v5 = v4;
   CGImageForURL = 0;
   if (!a1 || !v4)
@@ -1743,16 +1745,16 @@ LABEL_19:
   return CGImageForURL;
 }
 
-id _frameworkBundle()
+id _frameworkBundle(uint64_t a1)
 {
   if (_frameworkBundle_onceToken != -1)
   {
     _frameworkBundle_cold_1();
   }
 
-  v1 = _frameworkBundle_frameworkBundle;
+  v2 = _frameworkBundle_frameworkBundle;
 
-  return v1;
+  return v2;
 }
 
 CGImageRef createCGImageForURL(const __CFURL *a1, int a2)
@@ -1847,7 +1849,7 @@ double composedImageBoundsForVariant(int a1)
   return result;
 }
 
-CGImage *LICopyBestImageForVariantFromBundle(__CFBundle *a1, unsigned int a2)
+CGImage *LICopyBestImageForVariantFromBundle(__CFBundle *a1, uint64_t a2)
 {
   if (!a1)
   {
@@ -1941,7 +1943,7 @@ LABEL_22:
   return v9;
 }
 
-__CFArray *_LICopyIconURLsForBundleWithFiles(__CFBundle *a1, const __CFArray *a2, unsigned int a3, int a4)
+const __CFArray *_LICopyIconURLsForBundleWithFiles(__CFBundle *a1, const __CFArray *a2, unsigned int a3, int a4)
 {
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
   if (a1 && (Identifier = CFBundleGetIdentifier(a1)) != 0 && CFEqual(Identifier, @"com.apple.weather") && (v10 = CFLocaleCopyCurrent()) != 0)
@@ -2343,7 +2345,7 @@ LABEL_10:
   return v2;
 }
 
-CGImage *LICreateIconForBundleAndDisplayGamut(__CFBundle *a1, unsigned int a2, uint64_t a3)
+CGImage *LICreateIconForBundleAndDisplayGamut(__CFBundle *a1, uint64_t a2, uint64_t a3)
 {
   v6 = copyIconsDictionaryForBundle(a1);
   if (v6)
@@ -2374,7 +2376,7 @@ CGImage *LICreateIconForBundleAndDisplayGamut(__CFBundle *a1, unsigned int a2, u
   return createDefaultIconWithOptions(a2, 0, v13);
 }
 
-CGImage *LICreateIconForBundle(__CFBundle *a1, uint64_t a2, unsigned int a3)
+CGImage *LICreateIconForBundle(__CFBundle *a1, uint64_t a2, uint64_t a3)
 {
   if (_bundleIsAppleInternal(a1))
   {
@@ -2462,8 +2464,9 @@ LABEL_8:
   return v8;
 }
 
-CGImage *_LICreateIconForBundleWithIconsDictionaryAndContainers(__CFBundle *a1, __CFDictionary *cf, const __CFString *a3, uint64_t a4, uint64_t a5, unsigned int a6, unsigned int a7)
+CGImage *_LICreateIconForBundleWithIconsDictionaryAndContainers(__CFBundle *a1, __CFDictionary *cf, __CFString *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7)
 {
+  v7 = a7;
   if (cf)
   {
     v11 = cf;
@@ -2533,10 +2536,10 @@ LABEL_4:
   if (v18)
   {
     CFRetain(v18);
-    a7 |= iconOptionsForBundleWithStyleDictionary(a1, v19);
+    v7 |= iconOptionsForBundleWithStyleDictionary(a1, v19);
     if (a1)
     {
-      v20 = copyIconFilesForStyleDictionary(v19, a7);
+      v20 = copyIconFilesForStyleDictionary(v19, v7);
       v21 = _LICopyIconURLsForBundleWithFiles(a1, v20, a6, v12);
       if (v20)
       {
@@ -2569,7 +2572,7 @@ LABEL_23:
       if (v22)
       {
         v23 = v22;
-        v17 = LICreateIconForImages(v22, a6, a7);
+        v17 = LICreateIconForImages(v22, a6, v7);
         CFRelease(v23);
       }
 
@@ -2601,7 +2604,7 @@ LABEL_28:
 
   v25 = isAppClipBundle(a1);
 
-  return createDefaultIconWithOptions(a6, a7, v25);
+  return createDefaultIconWithOptions(a6, v7, v25);
 }
 
 unint64_t iconOptionsForBundleWithStyleDictionary(CFBundleRef bundle, const __CFDictionary *cf)
@@ -2708,11 +2711,11 @@ CFMutableArrayRef copyIconFilesForStyleDictionary(const void *a1, int a2)
   return result;
 }
 
-CGImage *createDefaultIconWithOptions(unsigned int a1, unsigned int a2, int a3)
+CGImage *createDefaultIconWithOptions(uint64_t a1, int a2, int a3)
 {
   if (a3)
   {
-    v5 = _copyAppClipDefaultIconImages();
+    v5 = _copyAppClipDefaultIconImages(a1);
     if (!v5)
     {
 LABEL_17:
@@ -2725,99 +2728,99 @@ LABEL_17:
   {
     switch(a1)
     {
-      case 0u:
-      case 1u:
-      case 2u:
-      case 3u:
-      case 4u:
-      case 0xFu:
-      case 0x10u:
-      case 0x11u:
-      case 0x16u:
-      case 0x17u:
-      case 0x18u:
-      case 0x19u:
-      case 0x1Eu:
-      case 0x1Fu:
-      case 0x20u:
-      case 0x21u:
-      case 0x22u:
-      case 0x23u:
-      case 0x28u:
-      case 0x29u:
-      case 0x2Du:
-      case 0x2Eu:
-      case 0x33u:
-      case 0x34u:
-      case 0x35u:
-      case 0x36u:
-      case 0x3Fu:
-      case 0x40u:
-      case 0x41u:
-      case 0x42u:
-      case 0x43u:
-      case 0x4Fu:
-      case 0x50u:
+      case 0:
+      case 1:
+      case 2:
+      case 3:
+      case 4:
+      case 15:
+      case 16:
+      case 17:
+      case 22:
+      case 23:
+      case 24:
+      case 25:
+      case 30:
+      case 31:
+      case 32:
+      case 33:
+      case 34:
+      case 35:
+      case 40:
+      case 41:
+      case 45:
+      case 46:
+      case 51:
+      case 52:
+      case 53:
+      case 54:
+      case 63:
+      case 64:
+      case 65:
+      case 66:
+      case 67:
+      case 79:
+      case 80:
         goto LABEL_5;
-      case 5u:
-      case 6u:
-      case 7u:
-      case 8u:
-      case 0x12u:
-      case 0x13u:
-      case 0x14u:
-      case 0x15u:
-      case 0x1Au:
-      case 0x1Bu:
-      case 0x1Cu:
-      case 0x1Du:
-      case 0x24u:
-      case 0x25u:
-      case 0x37u:
-      case 0x38u:
-      case 0x39u:
-      case 0x3Au:
-      case 0x3Bu:
-      case 0x3Cu:
-      case 0x3Du:
-      case 0x3Eu:
+      case 5:
+      case 6:
+      case 7:
+      case 8:
+      case 18:
+      case 19:
+      case 20:
+      case 21:
+      case 26:
+      case 27:
+      case 28:
+      case 29:
+      case 36:
+      case 37:
+      case 55:
+      case 56:
+      case 57:
+      case 58:
+      case 59:
+      case 60:
+      case 61:
+      case 62:
         v6 = LICreateIconForImages(0, a1, a2);
         goto LABEL_18;
-      case 9u:
-      case 0xAu:
-      case 0xBu:
-      case 0xCu:
-      case 0xDu:
-      case 0xEu:
-        v5 = _copyDefaultIconImages();
+      case 9:
+      case 10:
+      case 11:
+      case 12:
+      case 13:
+      case 14:
+        v5 = _copyDefaultIconImages(a1);
         if (!v5)
         {
           goto LABEL_17;
         }
 
         goto LABEL_16;
-      case 0x26u:
-      case 0x27u:
-      case 0x2Au:
-      case 0x2Bu:
-      case 0x2Cu:
-      case 0x2Fu:
-      case 0x30u:
-      case 0x31u:
-      case 0x32u:
+      case 38:
+      case 39:
+      case 42:
+      case 43:
+      case 44:
+      case 47:
+      case 48:
+      case 49:
+      case 50:
         goto LABEL_12;
-      case 0x44u:
-      case 0x45u:
-      case 0x46u:
-      case 0x47u:
-      case 0x48u:
-      case 0x49u:
-      case 0x4Au:
-      case 0x4Bu:
-      case 0x4Cu:
-      case 0x4Du:
-      case 0x4Eu:
-        v5 = _copyMessagesDefaultIconImages();
+      case 68:
+      case 69:
+      case 70:
+      case 71:
+      case 72:
+      case 73:
+      case 74:
+      case 75:
+      case 76:
+      case 77:
+      case 78:
+        v5 = _copyMessagesDefaultIconImages(a1);
         if (!v5)
         {
           goto LABEL_17;
@@ -2829,7 +2832,7 @@ LABEL_16:
         v8 = a1;
         goto LABEL_14;
       default:
-        if (a1 - 0x8000 > 8)
+        if ((a1 - 0x8000) > 8)
         {
           goto LABEL_17;
         }
@@ -2837,7 +2840,7 @@ LABEL_16:
         if (((1 << a1) & 0x1D5) != 0)
         {
 LABEL_5:
-          v5 = _copyDefaultIconImages();
+          v5 = _copyDefaultIconImages(a1);
           if (v5)
           {
             break;
@@ -2847,7 +2850,7 @@ LABEL_5:
         }
 
 LABEL_12:
-        v5 = _copyNanoDefaultIconImages();
+        v5 = _copyNanoDefaultIconImages(a1);
         if (!v5)
         {
           goto LABEL_17;
@@ -2901,7 +2904,7 @@ CGImageRef LICreateIconFromCachedBitmap(const __CFData *a1)
   return result;
 }
 
-CGImage *_LICreateIconForBundleWithIconNameAndDisplayGamut(CFBundleRef bundle, uint64_t a2, unsigned int a3, uint64_t a4, unsigned int a5)
+CGImage *_LICreateIconForBundleWithIconNameAndDisplayGamut(CFBundleRef bundle, uint64_t a2, uint64_t a3, uint64_t a4, int a5)
 {
   if (!bundle)
   {
@@ -2945,13 +2948,13 @@ CGImage *_LICreateIconForBundleWithIconNameAndDisplayGamut(CFBundleRef bundle, u
     v18 = 1;
     switch(a3)
     {
-      case 0x11u:
-      case 0x17u:
-      case 0x38u:
-      case 0x3Bu:
-      case 0x3Du:
-      case 0x41u:
-      case 0x4Fu:
+      case 17:
+      case 23:
+      case 56:
+      case 59:
+      case 61:
+      case 65:
+      case 79:
         if (MGGetBoolAnswer())
         {
           v18 = 2;
@@ -2963,71 +2966,71 @@ CGImage *_LICreateIconForBundleWithIconNameAndDisplayGamut(CFBundleRef bundle, u
         }
 
         goto LABEL_20;
-      case 0x12u:
-      case 0x13u:
-      case 0x14u:
-      case 0x15u:
-      case 0x16u:
-      case 0x20u:
-      case 0x21u:
-      case 0x22u:
-      case 0x23u:
-      case 0x24u:
-      case 0x25u:
-      case 0x37u:
-      case 0x39u:
-      case 0x3Au:
-      case 0x3Cu:
-      case 0x3Eu:
-      case 0x40u:
-      case 0x42u:
-      case 0x43u:
-      case 0x44u:
-      case 0x45u:
-      case 0x46u:
-      case 0x49u:
-      case 0x4Au:
-      case 0x4Bu:
-      case 0x4Cu:
-      case 0x4Du:
-      case 0x4Eu:
+      case 18:
+      case 19:
+      case 20:
+      case 21:
+      case 22:
+      case 32:
+      case 33:
+      case 34:
+      case 35:
+      case 36:
+      case 37:
+      case 55:
+      case 57:
+      case 58:
+      case 60:
+      case 62:
+      case 64:
+      case 66:
+      case 67:
+      case 68:
+      case 69:
+      case 70:
+      case 73:
+      case 74:
+      case 75:
+      case 76:
+      case 77:
+      case 78:
         goto LABEL_20;
-      case 0x18u:
-      case 0x19u:
-      case 0x1Au:
-      case 0x1Bu:
-      case 0x1Cu:
-      case 0x1Du:
-      case 0x3Fu:
-      case 0x47u:
-      case 0x48u:
+      case 24:
+      case 25:
+      case 26:
+      case 27:
+      case 28:
+      case 29:
+      case 63:
+      case 71:
+      case 72:
         goto LABEL_19;
-      case 0x1Eu:
-      case 0x1Fu:
-      case 0x35u:
-      case 0x36u:
+      case 30:
+      case 31:
+      case 53:
+      case 54:
         v18 = 4;
         goto LABEL_20;
-      case 0x26u:
-      case 0x27u:
-      case 0x28u:
-      case 0x29u:
-      case 0x2Au:
-      case 0x2Bu:
-      case 0x2Cu:
-      case 0x2Du:
-      case 0x2Eu:
-      case 0x2Fu:
-      case 0x30u:
-      case 0x31u:
-      case 0x32u:
-      case 0x33u:
-      case 0x34u:
+      case 38:
+      case 39:
+      case 40:
+      case 41:
+      case 42:
+      case 43:
+      case 44:
+      case 45:
+      case 46:
+      case 47:
+      case 48:
+      case 49:
+      case 50:
+      case 51:
+      case 52:
         goto LABEL_16;
       default:
-        if (a3 - 0x8000 >= 6)
+        if ((a3 - 0x8000) >= 6)
         {
-          if (a3 - 32774 < 3)
+          if ((a3 - 32774) < 3)
           {
 LABEL_19:
             v18 = 2;
@@ -3080,7 +3083,7 @@ LABEL_28:
   return v13;
 }
 
-__CFArray *copyImagesForIconURLsFilteringForVariant(void *a1, uint64_t a2, int a3)
+__CFArray *copyImagesForIconURLsFilteringForVariant(void *a1, uint64_t a2, uint64_t a3)
 {
   v42 = *MEMORY[0x277D85DE8];
   expectedInputSizeForVariant(a3, 0);
@@ -3229,7 +3232,7 @@ void gatherURLsForBundleWithFiles(__CFBundle *a1, const __CFArray *a2, uint64_t 
   }
 }
 
-const __CFURL *createURLForPrefixes(uint64_t *a1, __CFBundle *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+CFURLRef createURLForPrefixes(uint64_t *a1, __CFBundle *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v6 = *a1;
   if (!*a1)
@@ -3299,7 +3302,7 @@ uint64_t _copyDefaultIconURLs(void *a1)
   v20 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB18] array];
-  v3 = _frameworkBundle();
+  v3 = _frameworkBundle(v2);
   v4 = [v3 URLsForResourcesWithExtension:@"png" subdirectory:0];
 
   v17 = 0u;
@@ -3341,84 +3344,85 @@ uint64_t _copyDefaultIconURLs(void *a1)
   return v13;
 }
 
-__CFArray *_copyDefaultIconImages()
+__CFArray *_copyDefaultIconImages(uint64_t a1)
 {
   if (_copyDefaultIconImages_onceToken != -1)
   {
     _copyDefaultIconImages_cold_1();
   }
 
-  v1 = _copyDefaultIconImages___DefaultImageURLs;
+  v2 = _copyDefaultIconImages___DefaultImageURLs;
 
-  return copyImagesForIconURLsFilteringForVariant(v1, 0, -1);
+  return copyImagesForIconURLsFilteringForVariant(v2, 0, 0xFFFFFFFFLL);
 }
 
-uint64_t ___copyDefaultIconImages_block_invoke()
+void *___copyDefaultIconImages_block_invoke()
 {
   result = _copyDefaultIconURLs(@"DefaultIcon");
   _copyDefaultIconImages___DefaultImageURLs = result;
   return result;
 }
 
-__CFArray *_copyNanoDefaultIconImages()
+__CFArray *_copyNanoDefaultIconImages(uint64_t a1)
 {
   if (_copyNanoDefaultIconImages_onceToken != -1)
   {
     _copyNanoDefaultIconImages_cold_1();
   }
 
-  v1 = _copyNanoDefaultIconImages___DefaultImageURLs;
+  v2 = _copyNanoDefaultIconImages___DefaultImageURLs;
 
-  return copyImagesForIconURLsFilteringForVariant(v1, 0, -1);
+  return copyImagesForIconURLsFilteringForVariant(v2, 0, 0xFFFFFFFFLL);
 }
 
-uint64_t ___copyNanoDefaultIconImages_block_invoke()
+void *___copyNanoDefaultIconImages_block_invoke()
 {
   result = _copyDefaultIconURLs(@"NanoDefaultIcon");
   _copyNanoDefaultIconImages___DefaultImageURLs = result;
   return result;
 }
 
-__CFArray *_copyMessagesDefaultIconImages()
+__CFArray *_copyMessagesDefaultIconImages(uint64_t a1)
 {
   if (_copyMessagesDefaultIconImages_onceToken != -1)
   {
     _copyMessagesDefaultIconImages_cold_1();
   }
 
-  v1 = _copyMessagesDefaultIconImages___DefaultImageURLs;
+  v2 = _copyMessagesDefaultIconImages___DefaultImageURLs;
 
-  return copyImagesForIconURLsFilteringForVariant(v1, 0, -1);
+  return copyImagesForIconURLsFilteringForVariant(v2, 0, 0xFFFFFFFFLL);
 }
 
-uint64_t ___copyMessagesDefaultIconImages_block_invoke()
+void *___copyMessagesDefaultIconImages_block_invoke()
 {
   result = _copyDefaultIconURLs(@"MessagesDefaultIcon");
   _copyMessagesDefaultIconImages___DefaultImageURLs = result;
   return result;
 }
 
-__CFArray *_copyAppClipDefaultIconImages()
+__CFArray *_copyAppClipDefaultIconImages(uint64_t a1)
 {
   if (_copyAppClipDefaultIconImages_onceToken != -1)
   {
     _copyAppClipDefaultIconImages_cold_1();
   }
 
-  v1 = _copyAppClipDefaultIconImages___DefaultImageURLs;
+  v2 = _copyAppClipDefaultIconImages___DefaultImageURLs;
 
-  return copyImagesForIconURLsFilteringForVariant(v1, 0, -1);
+  return copyImagesForIconURLsFilteringForVariant(v2, 0, 0xFFFFFFFFLL);
 }
 
-uint64_t ___copyAppClipDefaultIconImages_block_invoke()
+void *___copyAppClipDefaultIconImages_block_invoke()
 {
   result = _copyDefaultIconURLs(@"AppClipDefaultIcon");
   _copyAppClipDefaultIconImages___DefaultImageURLs = result;
   return result;
 }
 
-CGImageRef LICreateIconOverlay(int a1)
+CGImageRef LICreateIconOverlay(uint64_t a1)
 {
+  v1 = a1;
   v7 = 0.0;
   v8 = 0.0;
   v6 = 0;
@@ -3431,7 +3435,7 @@ CGImageRef LICreateIconOverlay(int a1)
   v10 = v4;
   v9[2] = ___createApplicationIconFromImage_block_invoke;
   v9[3] = &__block_descriptor_112_e54_v48__0__CGContext__8_CGRect__CGPoint_dd__CGSize_dd__16l;
-  v14 = a1;
+  v14 = v1;
   v15 = 0;
   v9[4] = 0;
   v9[5] = v6;
@@ -3442,7 +3446,7 @@ CGImageRef LICreateIconOverlay(int a1)
   return _createIcon(0, v9, v7, v8);
 }
 
-float LITopInsetForHomeScreenVariant(int a1)
+float LITopInsetForHomeScreenVariant(uint64_t a1)
 {
   v2 = *(MEMORY[0x277CBF3A8] + 8) + 0.0;
   outputSizeForVariant(a1);
@@ -3453,7 +3457,7 @@ float LITopInsetForHomeScreenVariant(int a1)
   return v6 / v7;
 }
 
-float LISideInsetForHomeScreenVariant(int a1)
+float LISideInsetForHomeScreenVariant(uint64_t a1)
 {
   v2 = outputSizeForVariant(a1);
   expectedInputSizeForVariant(a1, 0);
@@ -3463,7 +3467,7 @@ float LISideInsetForHomeScreenVariant(int a1)
   return v4 / v5;
 }
 
-double sideInsetForVariant(int a1)
+double sideInsetForVariant(uint64_t a1)
 {
   v2 = outputSizeForVariant(a1);
   expectedInputSizeForVariant(a1, 0);
@@ -3471,7 +3475,7 @@ double sideInsetForVariant(int a1)
   return floorf(*&v3);
 }
 
-double outputVisibleImageBoundsForVariant(int a1)
+double outputVisibleImageBoundsForVariant(uint64_t a1)
 {
   v2 = *MEMORY[0x277CBF3A0];
   v3 = outputSizeForVariant(a1);
@@ -3481,17 +3485,18 @@ double outputVisibleImageBoundsForVariant(int a1)
   return v2 + floorf(*&v4);
 }
 
-double LIIconOutputVisibleImageBoundsForVariant(int a1)
+double LIIconOutputVisibleImageBoundsForVariant(uint64_t a1)
 {
   v1 = outputVisibleImageBoundsForVariant(a1);
   scaleForVariant();
   return v1 / v2;
 }
 
-double LIIconContinuousCornerRadiusForVariant(int a1)
+double LIIconContinuousCornerRadiusForVariant(uint64_t result)
 {
+  v1 = result;
   v2 = 13.5;
-  switch(a1)
+  switch(result)
   {
     case 0:
     case 15:
@@ -3582,7 +3587,7 @@ double LIIconContinuousCornerRadiusForVariant(int a1)
     case 63:
       return 18.75;
     default:
-      if ((a1 - 32769) <= 4 && ((1 << (a1 - 1)) & 0x15) != 0)
+      if ((result - 32769) <= 4 && ((1 << (result - 1)) & 0x15) != 0)
       {
 LABEL_2:
         if (_LIDefaultLog_onceToken != -1)
@@ -3594,7 +3599,7 @@ LABEL_2:
         v2 = 0.0;
         if (os_log_type_enabled(_LIDefaultLog_log, OS_LOG_TYPE_FAULT))
         {
-          LIIconContinuousCornerRadiusForVariant_cold_2(a1, v3);
+          LIIconContinuousCornerRadiusForVariant_cold_2(v1, v3);
         }
 
         return v2;
@@ -3603,7 +3608,7 @@ LABEL_2:
       else
       {
 LABEL_12:
-        v5 = outputSizeForVariant(a1);
+        v5 = outputSizeForVariant(result);
         v7 = v6;
         scaleForVariant();
         v9 = v7 / v8;
@@ -3887,21 +3892,21 @@ void addURLsForIconSpecifier(CFMutableSetRef *a1, const __CFString *a2, int a3)
   }
 }
 
-void addURLsForCFBundleIconsEntry(const void *a1, const __CFDictionary *a2, uint64_t a3)
+void addURLsForCFBundleIconsEntry(const void *result, const __CFDictionary *a2, uint64_t a3)
 {
   if (a3)
   {
     TypeID = CFStringGetTypeID();
-    if (a1)
+    if (result)
     {
-      if (CFGetTypeID(a1) == TypeID)
+      if (CFGetTypeID(result) == TypeID)
       {
         v7 = CFDictionaryGetTypeID();
         if (a2)
         {
           if (CFGetTypeID(a2) == v7)
           {
-            if (!*(a3 + 16) || (v8 = CFStringGetTypeID(), CFGetTypeID(a1) == v8) && CFSetContainsValue(*(a3 + 16), a1))
+            if (!*(a3 + 16) || (v8 = CFStringGetTypeID(), CFGetTypeID(result) == v8) && CFSetContainsValue(*(a3 + 16), result))
             {
               Value = CFDictionaryGetValue(a2, @"CFBundleIconFiles");
               v10 = CFArrayGetTypeID();
@@ -4311,7 +4316,7 @@ CFIndex canonicalizePath(__CFString *theString)
   return result;
 }
 
-const __CFURL *createURLForImageInBundleWithSizeIfExists(__CFBundle *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+CFURLRef createURLForImageInBundleWithSizeIfExists(__CFBundle *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   while (1)
   {
@@ -4358,7 +4363,7 @@ const __CFURL *createURLForImageInBundleWithSizeIfExists(__CFBundle *a1, uint64_
   return result;
 }
 
-const __CFURL *createURLForFormatInBundle(__CFBundle *a1, CFStringRef format, ...)
+CFURLRef createURLForFormatInBundle(__CFBundle *a1, CFStringRef format, ...)
 {
   va_start(va, format);
   v3 = CFStringCreateWithFormatAndArguments(0, 0, format, va);
@@ -4411,7 +4416,7 @@ void __cuiDeviceSubtypeForVariant_block_invoke()
   }
 }
 
-CFDataRef _LICreateIconDataForContainersWithIconsDictionaryAndPreferredIconNameWithOptions(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __CFDictionary *a5, const __CFString *a6, unsigned int a7, unsigned int a8)
+CFDataRef _LICreateIconDataForContainersWithIconsDictionaryAndPreferredIconNameWithOptions(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __CFDictionary *a5, __CFString *a6, uint64_t a7, uint64_t a8)
 {
   Unique = _CFBundleCreateUnique();
   if (!Unique)
@@ -4443,7 +4448,7 @@ LABEL_5:
   return v19;
 }
 
-CFDataRef _LICreateIconDataForBundleURLWithIconNameWithOptions(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4, unsigned int a5, uint64_t a6)
+CFDataRef _LICreateIconDataForBundleURLWithIconNameWithOptions(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, uint64_t a6)
 {
   Unique = _CFBundleCreateUnique();
   if (!Unique)
@@ -4527,7 +4532,7 @@ uint64_t _LICGPathCreateContinuousRoundedRect(CGFloat a1, CGFloat a2, CGFloat a3
     v14 = v9 * 1.528665;
   }
 
-  v36 = v14;
+  v40 = v14;
   if (v11 >= a4)
   {
     v15 = v12 & 1;
@@ -4548,46 +4553,46 @@ uint64_t _LICGPathCreateContinuousRoundedRect(CGFloat a1, CGFloat a2, CGFloat a3
     v16 = v13;
   }
 
-  v40.origin.x = a1;
-  v40.origin.y = a2;
-  v40.size.width = a3;
-  v40.size.height = a4;
-  MinX = CGRectGetMinX(v40);
-  v41.origin.x = a1;
-  v41.origin.y = a2;
-  v41.size.width = a3;
-  v41.size.height = a4;
-  MinY = CGRectGetMinY(v41);
-  v42.origin.x = a1;
-  v42.origin.y = a2;
-  v42.size.width = a3;
-  v42.size.height = a4;
-  MaxX = CGRectGetMaxX(v42);
-  v43.origin.x = a1;
-  v43.origin.y = a2;
-  v43.size.width = a3;
-  v43.size.height = a4;
-  v38 = CGRectGetMinY(v43);
   v44.origin.x = a1;
   v44.origin.y = a2;
   v44.size.width = a3;
   v44.size.height = a4;
-  v18 = CGRectGetMinX(v44);
+  MinX = CGRectGetMinX(v44);
   v45.origin.x = a1;
   v45.origin.y = a2;
   v45.size.width = a3;
   v45.size.height = a4;
-  y = CGRectGetMaxY(v45);
+  MinY = CGRectGetMinY(v45);
   v46.origin.x = a1;
   v46.origin.y = a2;
   v46.size.width = a3;
   v46.size.height = a4;
-  v19 = CGRectGetMaxX(v46);
+  MaxX = CGRectGetMaxX(v46);
   v47.origin.x = a1;
   v47.origin.y = a2;
   v47.size.width = a3;
   v47.size.height = a4;
-  MaxY = CGRectGetMaxY(v47);
+  v42 = CGRectGetMinY(v47);
+  v48.origin.x = a1;
+  v48.origin.y = a2;
+  v48.size.width = a3;
+  v48.size.height = a4;
+  v18 = CGRectGetMinX(v48);
+  v49.origin.x = a1;
+  v49.origin.y = a2;
+  v49.size.width = a3;
+  v49.size.height = a4;
+  y = CGRectGetMaxY(v49);
+  v50.origin.x = a1;
+  v50.origin.y = a2;
+  v50.size.width = a3;
+  v50.size.height = a4;
+  v19 = CGRectGetMaxX(v50);
+  v51.origin.x = a1;
+  v51.origin.y = a2;
+  v51.size.width = a3;
+  v51.size.height = a4;
+  MaxY = CGRectGetMaxY(v51);
   v21 = v11 < a3;
   if (v11 >= a3)
   {
@@ -4604,7 +4609,7 @@ uint64_t _LICGPathCreateContinuousRoundedRect(CGFloat a1, CGFloat a2, CGFloat a3
   {
     xa = v19;
     v25 = v11 < a4 || v23 == 0;
-    v28 = v36;
+    v28 = v40;
     if (v25)
     {
       v27 = MinY;
@@ -4612,10 +4617,10 @@ uint64_t _LICGPathCreateContinuousRoundedRect(CGFloat a1, CGFloat a2, CGFloat a3
 
     else
     {
-      v27 = MinY + v36 * 0.05;
-      v38 = v38 + v36 * 0.05;
-      y = y - v36 * 0.05;
-      MaxY = MaxY - v36 * 0.05;
+      v27 = MinY + v40 * 0.05;
+      v42 = v42 + v40 * 0.05;
+      y = y - v40 * 0.05;
+      MaxY = MaxY - v40 * 0.05;
     }
 
     v26 = MinX;
@@ -4627,12 +4632,12 @@ uint64_t _LICGPathCreateContinuousRoundedRect(CGFloat a1, CGFloat a2, CGFloat a3
     MaxX = MaxX - v22 * 0.05;
     v18 = v18 + v22 * 0.05;
     xa = v19 - v22 * 0.05;
-    v28 = v36;
+    v28 = v40;
     v27 = MinY;
   }
 
   CGPathMoveToPoint(Mutable, 0, v22 + v26, v27);
-  CGPathAddLineToPoint(Mutable, 0, MaxX - v22, v38);
+  CGPathAddLineToPoint(Mutable, 0, MaxX - v22, v42);
   if (v22 == *MEMORY[0x277CBF3A8] && v28 == *(MEMORY[0x277CBF3A8] + 8))
   {
     CGPathAddLineToPoint(Mutable, 0, xa, MaxY - v28);
@@ -4642,25 +4647,31 @@ uint64_t _LICGPathCreateContinuousRoundedRect(CGFloat a1, CGFloat a2, CGFloat a3
 
   else
   {
-    v30 = v23 == 0;
-    _addContinuousCornerToPath(Mutable, 2, v15, v30, MaxX, v38, v22, v28);
+    v31 = v23 == 0;
+    v29.n128_f64[0] = MaxX;
+    _addContinuousCornerToPath(Mutable, 2, v15, v31, v29, v42, v22, v28);
     CGPathAddLineToPoint(Mutable, 0, xa, MaxY - v28);
-    _addContinuousCornerToPath(Mutable, 8, v16, v30, xa, MaxY, v22, v28);
+    v32.n128_f64[0] = xa;
+    _addContinuousCornerToPath(Mutable, 8, v16, v31, v32, MaxY, v22, v28);
     CGPathAddLineToPoint(Mutable, 0, v22 + v18, y);
-    _addContinuousCornerToPath(Mutable, 4, v15, v30, v18, y, v22, v28);
+    v33.n128_f64[0] = v18;
+    _addContinuousCornerToPath(Mutable, 4, v15, v31, v33, y, v22, v28);
     CGPathAddLineToPoint(Mutable, 0, v26, v28 + v27);
-    _addContinuousCornerToPath(Mutable, 1, v16, v30, v26, v27, v22, v28);
+    v34.n128_f64[0] = v26;
+    _addContinuousCornerToPath(Mutable, 1, v16, v31, v34, v27, v22, v28);
   }
 
   CGPathAddLineToPoint(Mutable, 0, v22 + v26, v27);
-  v31 = MEMORY[0x259CAC410](Mutable);
+  v35 = MEMORY[0x259CAC410](Mutable);
   CFRelease(Mutable);
-  return v31;
+  return v35;
 }
 
-void _addContinuousCornerToPath(CGPath *a1, int a2, int a3, int a4, double a5, double a6, double a7, double a8)
+void _addContinuousCornerToPath(CGPath *a1, uint64_t a2, int a3, int a4, __n128 a5, double a6, double a7, double a8)
 {
   v8 = a3;
+  v9 = a2;
+  v10 = a5.n128_f64[0];
   if (a7 >= a8)
   {
     v12 = a8;
@@ -4687,7 +4698,7 @@ void _addContinuousCornerToPath(CGPath *a1, int a2, int a3, int a4, double a5, d
   v15 = 0.0;
   if ((a2 - 1) <= 3)
   {
-    v15 = dbl_259AB0798[a2 - 1];
+    v15 = dbl_259AB0798[(a2 - 1)];
   }
 
   v16 = v14 * (1.0 - v13);
@@ -4729,19 +4740,19 @@ void _addContinuousCornerToPath(CGPath *a1, int a2, int a3, int a4, double a5, d
   v22 = v21 * 1.05304313 + (v14 / 1.05304313 + v21 * 0.33 / 1.05304313) * 0.67;
   v23 = v21 * 1.05304313 + v22;
   v24 = v21 * 1.05304313 + v21 * 1.05304313 + v23;
-  v25 = _interiorPointForCorner(a2, 0.0, v22, a5);
+  v25 = _interiorPointForCorner(v9, 0.0, v22, v10);
   v64 = v26;
   v65 = v25;
-  v27 = _interiorPointForCorner(a2, 0.0, v23, a5);
+  v27 = _interiorPointForCorner(v9, 0.0, v23, v10);
   v62 = v28;
   v63 = v27;
-  v29 = _interiorPointForCorner(a2, 0.0, v24, a5);
+  v29 = _interiorPointForCorner(v9, 0.0, v24, v10);
   v60 = v30;
   v61 = v29;
-  v31 = _interiorPointForCorner(a2, v14, v14, a5);
+  v31 = _interiorPointForCorner(v9, v14, v14, v10);
   v70 = v32;
   v71 = v31;
-  v33 = _interiorPointForCorner(a2, 0.0, v12, a5);
+  v33 = _interiorPointForCorner(v9, 0.0, v12, v10);
   v58 = v34;
   v59 = v33;
   memset(&m, 0, sizeof(m));
@@ -4752,9 +4763,9 @@ void _addContinuousCornerToPath(CGPath *a1, int a2, int a3, int a4, double a5, d
   if (v8)
   {
     v46 = __sincos_stret(v36);
-    v47 = _interiorPointForCorner(a2, v22, 0.0, a5);
+    v47 = _interiorPointForCorner(v9, v22, 0.0, v10);
     v49 = v48;
-    v38 = _interiorPointForCorner(a2, v23, 0.0, a5);
+    v38 = _interiorPointForCorner(v9, v23, 0.0, v10);
     p_m = &m;
     v40 = a1;
     v42 = v47;
@@ -4765,7 +4776,7 @@ void _addContinuousCornerToPath(CGPath *a1, int a2, int a3, int a4, double a5, d
 
   else
   {
-    v38 = _interiorPointForCorner(a2, v12, 0.0, a5);
+    v38 = _interiorPointForCorner(v9, v12, 0.0, v10);
     v40 = a1;
     p_m = 0;
     v42 = v38;
@@ -4877,7 +4888,7 @@ BOOL _LICGImageWriteAsPNGToFilePath(CGImage *a1, uint64_t a2)
   return v6;
 }
 
-BOOL use_scaler_for_statistics()
+BOOL use_scaler_for_statistics(uint64_t a1, uint64_t a2)
 {
   if (use_scaler_for_statistics_initialized != -1)
   {
@@ -5005,10 +5016,11 @@ uint64_t _LICGImageCreateCoreImageLanczosScaled(CGImage *a1, double a2)
   return v20;
 }
 
-void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 CFDataRef LICreateUncompressedBitmapDataFromImageWithOptions(CGImage *a1, char a2)
@@ -5218,7 +5230,7 @@ void CA_CFDictionarySetBool(__CFDictionary *a1, const __CFString *a2, int a3)
   CFDictionarySetValue(a1, a2, *v3);
 }
 
-unint64_t x_align_to(uint64_t a1, unint64_t a2)
+uint64_t x_align_to(uint64_t a1, uint64_t a2)
 {
   v2 = a2 - 1 + a1;
   if ((a2 & (a2 - 1)) != 0)
@@ -5232,7 +5244,7 @@ unint64_t x_align_to(uint64_t a1, unint64_t a2)
   }
 }
 
-IOSurfaceRef CAIOSurfaceCreate(unsigned int a1, int a2, int a3, int a4, unsigned __int8 a5, int a6, void *a7)
+IOSurfaceRef CAIOSurfaceCreate(unsigned int a1, int a2, uint64_t a3, int a4, unsigned __int8 a5, int a6, void *a7)
 {
   LODWORD(v12) = a2;
   v495 = *MEMORY[0x277D85DE8];
@@ -7479,7 +7491,7 @@ CFDictionaryRef create_htpc_plane_dict(uint64_t a1, uint64_t a2, uint64_t a3, ui
   return v22;
 }
 
-unint64_t rowbytes_for_packed_format(uint64_t a1, int a2)
+unint64_t rowbytes_for_packed_format(uint64_t a1, uint64_t a2)
 {
   v2 = 3;
   v3 = 2;

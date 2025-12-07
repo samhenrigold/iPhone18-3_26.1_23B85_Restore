@@ -363,13 +363,11 @@ LABEL_40:
   toCopy = to;
   if ([(_INPBDateTimeRangeValue *)self hasAllDay])
   {
-    allDay = self->_allDay;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBDateTimeRangeValue *)self hasEndCalendar])
   {
-    endCalendar = self->_endCalendar;
     PBDataWriterWriteInt64Field();
   }
 
@@ -385,7 +383,6 @@ LABEL_40:
 
   if (name)
   {
-    name = self->_name;
     PBDataWriterWriteStringField();
   }
 
@@ -399,7 +396,6 @@ LABEL_40:
 
   if ([(_INPBDateTimeRangeValue *)self hasStartCalendar])
   {
-    startCalendar = self->_startCalendar;
     PBDataWriterWriteInt64Field();
   }
 
@@ -413,13 +409,13 @@ LABEL_40:
 
   valueMetadata = [(_INPBDateTimeRangeValue *)self valueMetadata];
 
-  v16 = toCopy;
+  v12 = toCopy;
   if (valueMetadata)
   {
     valueMetadata2 = [(_INPBDateTimeRangeValue *)self valueMetadata];
     PBDataWriterWriteSubmessage();
 
-    v16 = toCopy;
+    v12 = toCopy;
   }
 }
 

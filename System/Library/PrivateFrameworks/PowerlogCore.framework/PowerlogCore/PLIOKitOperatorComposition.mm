@@ -31,44 +31,42 @@
 
 + (id)snapshotFromIOEntry:(unsigned int)entry forKeys:(id)keys
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   keysCopy = keys;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v7 = keysCopy;
-  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v18;
+    v10 = *v17;
     v11 = *MEMORY[0x1E695E480];
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         CFProperty = IORegistryEntryCreateCFProperty(entry, v13, v11, 0);
         if (CFProperty)
         {
-          [dictionary setObject:CFProperty forKeyedSubscript:{v13, v17}];
+          [dictionary setObject:CFProperty forKeyedSubscript:{v13, v16}];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return dictionary;
 }
@@ -84,12 +82,12 @@
 
 - (PLIOKitOperatorComposition)initWithOperator:(id)operator forService:(id)service
 {
-  v27[1] = *MEMORY[0x1E69E9840];
+  v26[1] = *MEMORY[0x1E69E9840];
   operatorCopy = operator;
   serviceCopy = service;
-  v23.receiver = self;
-  v23.super_class = PLIOKitOperatorComposition;
-  v9 = [(PLIOKitOperatorComposition *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = PLIOKitOperatorComposition;
+  v9 = [(PLIOKitOperatorComposition *)&v22 init];
   v10 = v9;
   if (!v9)
   {
@@ -112,12 +110,12 @@
 
   if (!strcmp([serviceCopy UTF8String], "backlight-control"))
   {
-    v26 = @"IOPropertyMatch";
-    v24 = @"backlight-control";
-    v25 = *MEMORY[0x1E695E4D0];
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
-    v27[0] = v18;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v25 = @"IOPropertyMatch";
+    v23 = @"backlight-control";
+    v24 = *MEMORY[0x1E695E4D0];
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+    v26[0] = v18;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:&v25 count:1];
 
     v16 = v11;
     v17 = v19;
@@ -142,7 +140,6 @@ LABEL_9:
   v20 = v10;
 LABEL_11:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 
@@ -194,7 +191,7 @@ LABEL_11:
   if (!v9)
   {
 LABEL_18:
-    v23 = v9;
+    v24 = v9;
     goto LABEL_19;
   }
 
@@ -209,33 +206,33 @@ LABEL_18:
   {
     if (v13)
     {
-      v24 = objc_opt_class();
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __68__PLIOKitOperatorComposition_initWithOperator_forService_withBlock___block_invoke_34;
-      v34[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v34[4] = v24;
+      v25 = objc_opt_class();
+      v36[0] = MEMORY[0x1E69E9820];
+      v36[1] = 3221225472;
+      v36[2] = __68__PLIOKitOperatorComposition_initWithOperator_forService_withBlock___block_invoke_34;
+      v36[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v36[4] = v25;
       if (initWithOperator_forService_withBlock__defaultOnce_32 != -1)
       {
-        dispatch_once(&initWithOperator_forService_withBlock__defaultOnce_32, v34);
+        dispatch_once(&initWithOperator_forService_withBlock__defaultOnce_32, v36);
       }
 
       if (initWithOperator_forService_withBlock__classDebugEnabled_33 == 1)
       {
-        v25 = MEMORY[0x1E696AEC0];
+        v26 = MEMORY[0x1E696AEC0];
         operator = [(PLIOKitOperatorComposition *)v9 operator];
         className = [operator className];
-        v28 = [v25 stringWithFormat:@"%@: %@ is setup", className, v9->_serviceName];
+        v29 = [v26 stringWithFormat:@"%@: %@ is setup", className, v9->_serviceName];
 
-        v29 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Operators/Compositions/PLIOKitOperatorComposition.m"];
-        lastPathComponent = [v29 lastPathComponent];
-        v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLIOKitOperatorComposition initWithOperator:forService:withBlock:]"];
-        [PLCoreStorage logMessage:v28 fromFile:lastPathComponent fromFunction:v31 fromLineNumber:148];
+        v30 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices/Operators/Compositions/PLIOKitOperatorComposition.m"];
+        lastPathComponent = [v30 lastPathComponent];
+        v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLIOKitOperatorComposition initWithOperator:forService:withBlock:]"];
+        [PLCoreStorage logMessage:v29 fromFile:lastPathComponent fromFunction:v32 fromLineNumber:148];
 
-        v32 = PLLogCommon();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
+        v34 = PLLogCommon(v33);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
         {
-          [(PLSubmissionFileSP *)v28 copyAndPrepareLog];
+          [(PLSubmissionFileSP *)v29 copyAndPrepareLog];
         }
       }
     }
@@ -268,18 +265,18 @@ LABEL_18:
       v21 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"-[PLIOKitOperatorComposition initWithOperator:forService:withBlock:]"];
       [PLCoreStorage logMessage:v18 fromFile:lastPathComponent2 fromFunction:v21 fromLineNumber:145];
 
-      v22 = PLLogCommon();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+      v23 = PLLogCommon(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
       {
         [(PLSubmissionFileSP *)v18 copyAndPrepareLog];
       }
     }
   }
 
-  v23 = 0;
+  v24 = 0;
 LABEL_19:
 
-  return v23;
+  return v24;
 }
 
 BOOL __68__PLIOKitOperatorComposition_initWithOperator_forService_withBlock___block_invoke(uint64_t a1)

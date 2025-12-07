@@ -901,7 +901,7 @@ LABEL_5:
 {
   firstObject = [(PXDisplayAssetFetchResult *)self->_keyAssetFetch firstObject];
   dataSource = [(PXPhotosKeyAssetSectionHeaderLayout *)self dataSource];
-  [(PXPhotosKeyAssetSectionHeaderLayout *)self sectionIndexPath];
+  objc_msgSend_sectionIndexPath(self);
   v5 = [dataSource keyAssetsInSectionIndexPath:&v13];
   keyAssetFetch = self->_keyAssetFetch;
   self->_keyAssetFetch = v5;

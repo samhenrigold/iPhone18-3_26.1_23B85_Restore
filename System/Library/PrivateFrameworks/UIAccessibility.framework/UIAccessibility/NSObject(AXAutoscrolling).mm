@@ -64,7 +64,7 @@ LABEL_10:
 
   else
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"ERROR: Autoscroll. Target or an ancestor of target must be a scrollView: %@");
   }
 }
 
@@ -289,13 +289,13 @@ LABEL_10:
 
 - (void)_accessibilityAutoscrollScrollToTop
 {
-  v0 = +[UIAccessibilityAutoscrollManager sharedInstance];
-  scrollView = [v0 scrollView];
+  v1 = +[UIAccessibilityAutoscrollManager sharedInstance];
+  scrollView = [v1 scrollView];
 
   if (scrollView)
   {
-    v2 = +[UIAccessibilityAutoscrollManager sharedInstance];
-    [v2 scrollToTop];
+    v3 = +[UIAccessibilityAutoscrollManager sharedInstance];
+    [v3 scrollToTop];
   }
 
   else

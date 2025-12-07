@@ -114,7 +114,7 @@
   }
 }
 
-uint64_t __52__SSKeyValueStore_getValueForDomain_key_usingBlock___block_invoke(void *a1, void *a2)
+void *__52__SSKeyValueStore_getValueForDomain_key_usingBlock___block_invoke(void *a1, void *a2)
 {
   result = [a2 copyValueForDomain:a1[4] key:a1[5]];
   *(*(a1[6] + 8) + 40) = result;
@@ -136,44 +136,44 @@ void __52__SSKeyValueStore_getValueForDomain_key_usingBlock___block_invoke_2(uin
 
 - (void)getValuesForDomain:(id)domain keys:(const void *)keys count:(unint64_t)count usingBlock:(id)block
 {
-  v41 = *MEMORY[0x1E69E9840];
-  [(SSKeyValueStore *)self _loadDatabaseIfNecessary];
+  v43 = *MEMORY[0x1E69E9840];
+  _loadDatabaseIfNecessary = [(SSKeyValueStore *)self _loadDatabaseIfNecessary];
   if (self->_useLocalRead)
   {
     if (count)
     {
-      v11 = malloc_type_calloc(count, 8uLL, 0x80040B8603338uLL);
-      if (v11)
+      v13 = malloc_type_calloc(count, 8uLL, 0x80040B8603338uLL);
+      if (v13)
       {
         database = self->_database;
-        v38[0] = MEMORY[0x1E69E9820];
-        v38[1] = 3221225472;
-        v38[2] = __60__SSKeyValueStore_getValuesForDomain_keys_count_usingBlock___block_invoke;
-        v38[3] = &unk_1E84B19F8;
-        v38[4] = domain;
-        v38[5] = count;
-        v38[6] = v11;
-        v38[7] = keys;
-        [(SSKeyValueStoreDatabase *)database readUsingSessionBlock:v38];
-        v13 = 0;
+        v40[0] = MEMORY[0x1E69E9820];
+        v40[1] = 3221225472;
+        v40[2] = __60__SSKeyValueStore_getValuesForDomain_keys_count_usingBlock___block_invoke;
+        v40[3] = &unk_1E84B19F8;
+        v40[4] = domain;
+        v40[5] = count;
+        v40[6] = v13;
+        v40[7] = keys;
+        [(SSKeyValueStoreDatabase *)database readUsingSessionBlock:v40];
+        v15 = 0;
         do
         {
-          v14 = v11[v13++];
+          v16 = v13[v15++];
         }
 
-        while (count != v13);
-        v15 = 0;
+        while (count != v15);
+        v17 = 0;
         if (!block)
         {
           goto LABEL_28;
         }
 
 LABEL_27:
-        (*(block + 2))(block, v11);
+        (*(block + 2))(block, v13);
 LABEL_28:
-        if ((v15 & 1) == 0)
+        if ((v17 & 1) == 0)
         {
-          free(v11);
+          free(v13);
         }
 
         return;
@@ -182,10 +182,10 @@ LABEL_28:
 
     else
     {
-      v11 = 0;
+      v13 = 0;
     }
 
-    v15 = 1;
+    v17 = 1;
     if (!block)
     {
       goto LABEL_28;
@@ -194,87 +194,86 @@ LABEL_28:
     goto LABEL_27;
   }
 
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  if (SSIsInternalBuild(_loadDatabaseIfNecessary, v12) && _os_feature_enabled_impl())
   {
-    v16 = +[SSLogConfig sharedStoreServicesConfig];
-    if (!v16)
+    v18 = +[SSLogConfig sharedStoreServicesConfig];
+    if (!v18)
     {
-      v16 = +[SSLogConfig sharedConfig];
+      v18 = +[SSLogConfig sharedConfig];
     }
 
-    shouldLog = [v16 shouldLog];
-    if ([v16 shouldLogToDisk])
+    shouldLog = [v18 shouldLog];
+    if ([v18 shouldLogToDisk])
     {
-      v18 = shouldLog | 2;
-    }
-
-    else
-    {
-      v18 = shouldLog;
-    }
-
-    if (os_log_type_enabled([v16 OSLogObject], OS_LOG_TYPE_DEBUG))
-    {
-      v19 = v18;
+      v20 = shouldLog | 2;
     }
 
     else
     {
-      v19 = v18 & 2;
+      v20 = shouldLog;
     }
 
-    if (v19)
+    oSLogObject = [v18 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v39 = 136446210;
-      v40 = "[SSKeyValueStore getValuesForDomain:keys:count:usingBlock:]";
-      LODWORD(v36) = 12;
-      v20 = _os_log_send_and_compose_impl();
-      if (v20)
+      v22 = v20;
+    }
+
+    else
+    {
+      v22 = v20 & 2;
+    }
+
+    if (v22)
+    {
+      v41 = 136446210;
+      v42 = "[SSKeyValueStore getValuesForDomain:keys:count:usingBlock:]";
+      if (v23)
       {
-        v21 = v20;
-        v22 = [MEMORY[0x1E696AEC0] stringWithCString:v20 encoding:{4, &v39, v36}];
-        free(v21);
-        SSFileLog(v16, @"%@", v23, v24, v25, v26, v27, v28, v22);
+        v24 = v23;
+        v25 = [MEMORY[0x1E696AEC0] stringWithCString:v23 encoding:4];
+        free(v24);
+        SSFileLog(v18, @"%@", v26, v27, v28, v29, v30, v31, v25);
       }
     }
   }
 
-  v29 = SSXPCCreateMessageDictionary(92);
-  SSXPCDictionarySetCFObject(v29, "1", domain);
-  v30 = xpc_array_create(0, 0);
+  v32 = SSXPCCreateMessageDictionary(92);
+  SSXPCDictionarySetCFObject(v32, "1", domain);
+  v33 = xpc_array_create(0, 0);
   if (count)
   {
     keysCopy = keys;
     countCopy = count;
     do
     {
-      v33 = *keysCopy++;
-      SSXPCArraySetCFObject(v30, 0xFFFFFFFFFFFFFFFFLL, v33);
+      v36 = *keysCopy++;
+      SSXPCArraySetCFObject(v33, 0xFFFFFFFFFFFFFFFFLL, v36);
       --countCopy;
     }
 
     while (countCopy);
   }
 
-  xpc_dictionary_set_value(v29, "2", v30);
-  xpc_release(v30);
+  xpc_dictionary_set_value(v32, "2", v33);
+  xpc_release(v33);
   selfCopy = self;
   connection = self->_connection;
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3221225472;
-  v37[2] = __60__SSKeyValueStore_getValuesForDomain_keys_count_usingBlock___block_invoke_11;
-  v37[3] = &unk_1E84B1A20;
-  v37[6] = count;
-  v37[7] = keys;
-  v37[4] = self;
-  v37[5] = block;
-  [(SSXPCConnection *)connection sendMessage:v29 withReply:v37];
-  xpc_release(v29);
+  v39[0] = MEMORY[0x1E69E9820];
+  v39[1] = 3221225472;
+  v39[2] = __60__SSKeyValueStore_getValuesForDomain_keys_count_usingBlock___block_invoke_11;
+  v39[3] = &unk_1E84B1A20;
+  v39[6] = count;
+  v39[7] = keys;
+  v39[4] = self;
+  v39[5] = block;
+  [(SSXPCConnection *)connection sendMessage:v32 withReply:v39];
+  xpc_release(v32);
 }
 
-uint64_t __60__SSKeyValueStore_getValuesForDomain_keys_count_usingBlock___block_invoke(uint64_t result, void *a2)
+void *__60__SSKeyValueStore_getValuesForDomain_keys_count_usingBlock___block_invoke(void *result, void *a2)
 {
-  if (*(result + 40))
+  if (result[5])
   {
     v3 = result;
     v4 = 0;
@@ -313,114 +312,113 @@ LABEL_11:
   }
 
   v6 = v5;
-  objc_opt_class();
-  v7 = SSXPCDictionaryCopyCFObjectWithClass(a2, "0");
+  v7 = objc_opt_class();
+  v8 = SSXPCDictionaryCopyCFObjectWithClass(a2, "0", v7);
   if (a1[6])
   {
-    v8 = 0;
+    v9 = 0;
     do
     {
-      v9 = [(__CFArray *)v7 objectForKey:*(a1[7] + 8 * v8)];
-      if (v9)
+      v10 = [(__CFDate *)v8 objectForKey:*(a1[7] + 8 * v9)];
+      if (v10)
       {
-        v9 = [MEMORY[0x1E696AE40] propertyListWithData:v9 options:0 format:0 error:0];
+        v10 = [MEMORY[0x1E696AE40] propertyListWithData:v10 options:0 format:0 error:0];
       }
 
-      v6[v8++] = v9;
+      v6[v9++] = v10;
     }
 
-    while (v8 < a1[6]);
+    while (v9 < a1[6]);
   }
 
   (*(a1[5] + 16))();
   free(v6);
 LABEL_12:
-  v10 = a1[4];
+  v11 = a1[4];
 }
 
 - (void)removeAllValuesForDomain:(id)domain completionBlock:(id)block
 {
-  v29 = *MEMORY[0x1E69E9840];
-  [(SSKeyValueStore *)self _loadDatabaseIfNecessary];
+  v31 = *MEMORY[0x1E69E9840];
+  _loadDatabaseIfNecessary = [(SSKeyValueStore *)self _loadDatabaseIfNecessary];
   if (self->_useLocalWrite)
   {
-    *&v26 = 0;
-    *(&v26 + 1) = &v26;
-    v27 = 0x2020000000;
-    v28 = 0;
+    *&v28 = 0;
+    *(&v28 + 1) = &v28;
+    v29 = 0x2020000000;
+    v30 = 0;
     database = self->_database;
-    v25[0] = MEMORY[0x1E69E9820];
-    v25[1] = 3221225472;
-    v25[2] = __60__SSKeyValueStore_removeAllValuesForDomain_completionBlock___block_invoke;
-    v25[3] = &unk_1E84B1A48;
-    v25[4] = domain;
-    v25[5] = &v26;
-    [(SSKeyValueStoreDatabase *)database modifyUsingTransactionBlock:v25];
+    v27[0] = MEMORY[0x1E69E9820];
+    v27[1] = 3221225472;
+    v27[2] = __60__SSKeyValueStore_removeAllValuesForDomain_completionBlock___block_invoke;
+    v27[3] = &unk_1E84B1A48;
+    v27[4] = domain;
+    v27[5] = &v28;
+    [(SSKeyValueStoreDatabase *)database modifyUsingTransactionBlock:v27];
     if (block)
     {
-      (*(block + 2))(block, *(*(&v26 + 1) + 24));
+      (*(block + 2))(block, *(*(&v28 + 1) + 24));
     }
 
-    _Block_object_dispose(&v26, 8);
+    _Block_object_dispose(&v28, 8);
   }
 
   else
   {
-    if (SSIsInternalBuild() && _os_feature_enabled_impl())
+    if (SSIsInternalBuild(_loadDatabaseIfNecessary, v8) && _os_feature_enabled_impl())
     {
-      v8 = +[SSLogConfig sharedStoreServicesConfig];
-      if (!v8)
+      v10 = +[SSLogConfig sharedStoreServicesConfig];
+      if (!v10)
       {
-        v8 = +[SSLogConfig sharedConfig];
+        v10 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog = [v8 shouldLog];
-      if ([v8 shouldLogToDisk])
+      shouldLog = [v10 shouldLog];
+      if ([v10 shouldLogToDisk])
       {
-        v10 = shouldLog | 2;
-      }
-
-      else
-      {
-        v10 = shouldLog;
-      }
-
-      if (os_log_type_enabled([v8 OSLogObject], OS_LOG_TYPE_FAULT))
-      {
-        v11 = v10;
+        v12 = shouldLog | 2;
       }
 
       else
       {
-        v11 = v10 & 2;
+        v12 = shouldLog;
       }
 
-      if (v11)
+      oSLogObject = [v10 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_FAULT))
       {
-        LODWORD(v26) = 136446210;
-        *(&v26 + 4) = "[SSKeyValueStore removeAllValuesForDomain:completionBlock:]";
-        LODWORD(v23) = 12;
-        v12 = _os_log_send_and_compose_impl();
-        if (v12)
+        v14 = v12;
+      }
+
+      else
+      {
+        v14 = v12 & 2;
+      }
+
+      if (v14)
+      {
+        LODWORD(v28) = 136446210;
+        *(&v28 + 4) = "[SSKeyValueStore removeAllValuesForDomain:completionBlock:]";
+        if (v15)
         {
-          v13 = v12;
-          v14 = [MEMORY[0x1E696AEC0] stringWithCString:v12 encoding:{4, &v26, v23}];
-          free(v13);
-          SSFileLog(v8, @"%@", v15, v16, v17, v18, v19, v20, v14);
+          v16 = v15;
+          v17 = [MEMORY[0x1E696AEC0] stringWithCString:v15 encoding:4];
+          free(v16);
+          SSFileLog(v10, @"%@", v18, v19, v20, v21, v22, v23, v17);
         }
       }
     }
 
-    v21 = SSXPCCreateMessageDictionary(94);
-    SSXPCDictionarySetCFObject(v21, "1", domain);
+    v24 = SSXPCCreateMessageDictionary(94);
+    SSXPCDictionarySetCFObject(v24, "1", domain);
     connection = self->_connection;
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __60__SSKeyValueStore_removeAllValuesForDomain_completionBlock___block_invoke_19;
-    v24[3] = &unk_1E84AC7E0;
-    v24[4] = block;
-    [(SSXPCConnection *)connection sendMessage:v21 withReply:v24];
-    xpc_release(v21);
+    v26[0] = MEMORY[0x1E69E9820];
+    v26[1] = 3221225472;
+    v26[2] = __60__SSKeyValueStore_removeAllValuesForDomain_completionBlock___block_invoke_19;
+    v26[3] = &unk_1E84AC7E0;
+    v26[4] = block;
+    [(SSXPCConnection *)connection sendMessage:v24 withReply:v26];
+    xpc_release(v24);
   }
 }
 
@@ -444,85 +442,84 @@ uint64_t __60__SSKeyValueStore_removeAllValuesForDomain_completionBlock___block_
 
 - (void)removeAllValuesWithCompletionBlock:(id)block
 {
-  v27 = *MEMORY[0x1E69E9840];
-  [(SSKeyValueStore *)self _loadDatabaseIfNecessary];
+  v29 = *MEMORY[0x1E69E9840];
+  _loadDatabaseIfNecessary = [(SSKeyValueStore *)self _loadDatabaseIfNecessary];
   if (self->_useLocalWrite)
   {
-    *&v24 = 0;
-    *(&v24 + 1) = &v24;
-    v25 = 0x2020000000;
-    v26 = 0;
+    *&v26 = 0;
+    *(&v26 + 1) = &v26;
+    v27 = 0x2020000000;
+    v28 = 0;
     database = self->_database;
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __54__SSKeyValueStore_removeAllValuesWithCompletionBlock___block_invoke;
-    v23[3] = &unk_1E84B1A70;
-    v23[4] = &v24;
-    [(SSKeyValueStoreDatabase *)database modifyUsingTransactionBlock:v23];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __54__SSKeyValueStore_removeAllValuesWithCompletionBlock___block_invoke;
+    v25[3] = &unk_1E84B1A70;
+    v25[4] = &v26;
+    [(SSKeyValueStoreDatabase *)database modifyUsingTransactionBlock:v25];
     if (block)
     {
-      (*(block + 2))(block, *(*(&v24 + 1) + 24));
+      (*(block + 2))(block, *(*(&v26 + 1) + 24));
     }
 
-    _Block_object_dispose(&v24, 8);
+    _Block_object_dispose(&v26, 8);
   }
 
   else
   {
-    if (SSIsInternalBuild() && _os_feature_enabled_impl())
+    if (SSIsInternalBuild(_loadDatabaseIfNecessary, v6) && _os_feature_enabled_impl())
     {
-      v6 = +[SSLogConfig sharedStoreServicesConfig];
-      if (!v6)
+      v8 = +[SSLogConfig sharedStoreServicesConfig];
+      if (!v8)
       {
-        v6 = +[SSLogConfig sharedConfig];
+        v8 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog = [v6 shouldLog];
-      if ([v6 shouldLogToDisk])
+      shouldLog = [v8 shouldLog];
+      if ([v8 shouldLogToDisk])
       {
-        v8 = shouldLog | 2;
-      }
-
-      else
-      {
-        v8 = shouldLog;
-      }
-
-      if (os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_DEBUG))
-      {
-        v9 = v8;
+        v10 = shouldLog | 2;
       }
 
       else
       {
-        v9 = v8 & 2;
+        v10 = shouldLog;
       }
 
-      if (v9)
+      oSLogObject = [v8 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
       {
-        LODWORD(v24) = 136446210;
-        *(&v24 + 4) = "[SSKeyValueStore removeAllValuesWithCompletionBlock:]";
-        LODWORD(v21) = 12;
-        v10 = _os_log_send_and_compose_impl();
-        if (v10)
+        v12 = v10;
+      }
+
+      else
+      {
+        v12 = v10 & 2;
+      }
+
+      if (v12)
+      {
+        LODWORD(v26) = 136446210;
+        *(&v26 + 4) = "[SSKeyValueStore removeAllValuesWithCompletionBlock:]";
+        if (v13)
         {
-          v11 = v10;
-          v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v24, v21}];
-          free(v11);
-          SSFileLog(v6, @"%@", v13, v14, v15, v16, v17, v18, v12);
+          v14 = v13;
+          v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
+          free(v14);
+          SSFileLog(v8, @"%@", v16, v17, v18, v19, v20, v21, v15);
         }
       }
     }
 
-    v19 = SSXPCCreateMessageDictionary(95);
+    v22 = SSXPCCreateMessageDictionary(95);
     connection = self->_connection;
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = __54__SSKeyValueStore_removeAllValuesWithCompletionBlock___block_invoke_23;
-    v22[3] = &unk_1E84AC7E0;
-    v22[4] = block;
-    [(SSXPCConnection *)connection sendMessage:v19 withReply:v22];
-    xpc_release(v19);
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __54__SSKeyValueStore_removeAllValuesWithCompletionBlock___block_invoke_23;
+    v24[3] = &unk_1E84AC7E0;
+    v24[4] = block;
+    [(SSXPCConnection *)connection sendMessage:v22 withReply:v24];
+    xpc_release(v22);
   }
 }
 
@@ -586,97 +583,96 @@ uint64_t __54__SSKeyValueStore_removeAllValuesWithCompletionBlock___block_invoke
 
 - (void)setValuesWithDictionary:(id)dictionary forDomain:(id)domain completionBlock:(id)block
 {
-  v33 = *MEMORY[0x1E69E9840];
-  [(SSKeyValueStore *)self _loadDatabaseIfNecessary];
+  v35 = *MEMORY[0x1E69E9840];
+  _loadDatabaseIfNecessary = [(SSKeyValueStore *)self _loadDatabaseIfNecessary];
   if (self->_useLocalWrite)
   {
-    *&v30 = 0;
-    *(&v30 + 1) = &v30;
-    v31 = 0x2020000000;
-    v32 = 1;
+    *&v32 = 0;
+    *(&v32 + 1) = &v32;
+    v33 = 0x2020000000;
+    v34 = 1;
     database = self->_database;
-    v29[0] = MEMORY[0x1E69E9820];
-    v29[1] = 3221225472;
-    v29[2] = __69__SSKeyValueStore_setValuesWithDictionary_forDomain_completionBlock___block_invoke;
-    v29[3] = &unk_1E84B1AE8;
-    v29[5] = domain;
-    v29[6] = &v30;
-    v29[4] = dictionary;
-    [(SSKeyValueStoreDatabase *)database modifyUsingTransactionBlock:v29];
+    v31[0] = MEMORY[0x1E69E9820];
+    v31[1] = 3221225472;
+    v31[2] = __69__SSKeyValueStore_setValuesWithDictionary_forDomain_completionBlock___block_invoke;
+    v31[3] = &unk_1E84B1AE8;
+    v31[5] = domain;
+    v31[6] = &v32;
+    v31[4] = dictionary;
+    [(SSKeyValueStoreDatabase *)database modifyUsingTransactionBlock:v31];
     if (block)
     {
-      (*(block + 2))(block, *(*(&v30 + 1) + 24));
+      (*(block + 2))(block, *(*(&v32 + 1) + 24));
     }
 
-    _Block_object_dispose(&v30, 8);
+    _Block_object_dispose(&v32, 8);
   }
 
   else
   {
-    if (SSIsInternalBuild() && _os_feature_enabled_impl())
+    if (SSIsInternalBuild(_loadDatabaseIfNecessary, v10) && _os_feature_enabled_impl())
     {
-      v10 = +[SSLogConfig sharedStoreServicesConfig];
-      if (!v10)
+      v12 = +[SSLogConfig sharedStoreServicesConfig];
+      if (!v12)
       {
-        v10 = +[SSLogConfig sharedConfig];
+        v12 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog = [v10 shouldLog];
-      if ([v10 shouldLogToDisk])
+      shouldLog = [v12 shouldLog];
+      if ([v12 shouldLogToDisk])
       {
-        v12 = shouldLog | 2;
-      }
-
-      else
-      {
-        v12 = shouldLog;
-      }
-
-      if (os_log_type_enabled([v10 OSLogObject], OS_LOG_TYPE_DEBUG))
-      {
-        v13 = v12;
+        v14 = shouldLog | 2;
       }
 
       else
       {
-        v13 = v12 & 2;
+        v14 = shouldLog;
       }
 
-      if (v13)
+      oSLogObject = [v12 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
       {
-        LODWORD(v30) = 136446210;
-        *(&v30 + 4) = "[SSKeyValueStore setValuesWithDictionary:forDomain:completionBlock:]";
-        LODWORD(v26) = 12;
-        v14 = _os_log_send_and_compose_impl();
-        if (v14)
+        v16 = v14;
+      }
+
+      else
+      {
+        v16 = v14 & 2;
+      }
+
+      if (v16)
+      {
+        LODWORD(v32) = 136446210;
+        *(&v32 + 4) = "[SSKeyValueStore setValuesWithDictionary:forDomain:completionBlock:]";
+        if (v17)
         {
-          v15 = v14;
-          v16 = [MEMORY[0x1E696AEC0] stringWithCString:v14 encoding:{4, &v30, v26}];
-          free(v15);
-          SSFileLog(v10, @"%@", v17, v18, v19, v20, v21, v22, v16);
+          v18 = v17;
+          v19 = [MEMORY[0x1E696AEC0] stringWithCString:v17 encoding:4];
+          free(v18);
+          SSFileLog(v12, @"%@", v20, v21, v22, v23, v24, v25, v19);
         }
       }
     }
 
-    v23 = SSXPCCreateMessageDictionary(93);
-    SSXPCDictionarySetCFObject(v23, "1", domain);
-    v24 = xpc_dictionary_create(0, 0, 0);
-    v28[0] = MEMORY[0x1E69E9820];
-    v28[1] = 3221225472;
-    v28[2] = __69__SSKeyValueStore_setValuesWithDictionary_forDomain_completionBlock___block_invoke_26;
-    v28[3] = &unk_1E84B1B10;
-    v28[4] = v24;
-    [dictionary enumerateKeysAndObjectsUsingBlock:v28];
-    xpc_dictionary_set_value(v23, "2", v24);
-    xpc_release(v24);
+    v26 = SSXPCCreateMessageDictionary(93);
+    SSXPCDictionarySetCFObject(v26, "1", domain);
+    v27 = xpc_dictionary_create(0, 0, 0);
+    v30[0] = MEMORY[0x1E69E9820];
+    v30[1] = 3221225472;
+    v30[2] = __69__SSKeyValueStore_setValuesWithDictionary_forDomain_completionBlock___block_invoke_26;
+    v30[3] = &unk_1E84B1B10;
+    v30[4] = v27;
+    [dictionary enumerateKeysAndObjectsUsingBlock:v30];
+    xpc_dictionary_set_value(v26, "2", v27);
+    xpc_release(v27);
     connection = self->_connection;
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __69__SSKeyValueStore_setValuesWithDictionary_forDomain_completionBlock___block_invoke_2_27;
-    v27[3] = &unk_1E84AC7E0;
-    v27[4] = block;
-    [(SSXPCConnection *)connection sendMessage:v23 withReply:v27];
-    xpc_release(v23);
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __69__SSKeyValueStore_setValuesWithDictionary_forDomain_completionBlock___block_invoke_2_27;
+    v29[3] = &unk_1E84AC7E0;
+    v29[4] = block;
+    [(SSXPCConnection *)connection sendMessage:v26 withReply:v29];
+    xpc_release(v26);
   }
 }
 
@@ -695,7 +691,7 @@ uint64_t __69__SSKeyValueStore_setValuesWithDictionary_forDomain_completionBlock
   return *(*(*(a1 + 48) + 8) + 24);
 }
 
-uint64_t __69__SSKeyValueStore_setValuesWithDictionary_forDomain_completionBlock___block_invoke_2(void *a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__69__SSKeyValueStore_setValuesWithDictionary_forDomain_completionBlock___block_invoke_2(void *a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   v7 = a1[4];
   v6 = a1[5];
@@ -921,41 +917,46 @@ LABEL_26:
         v31 = [v30 shouldLog];
         if ([v30 shouldLogToDisk])
         {
-          v32 = v31 | 2;
+          LODWORD(v32) = v31 | 2;
         }
 
         else
         {
-          v32 = v31;
+          LODWORD(v32) = v31;
         }
 
-        if (!os_log_type_enabled([v30 OSLogObject], OS_LOG_TYPE_DEFAULT))
+        v33 = [v30 OSLogObject];
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+        {
+          v32 = v32;
+        }
+
+        else
         {
           v32 &= 2u;
         }
 
         if (v32)
         {
-          v33 = objc_opt_class();
+          v34 = objc_opt_class();
           v52 = 138412802;
-          v53 = v33;
+          v53 = v34;
           v54 = 2112;
           v55 = v25;
           v56 = 2112;
           v57 = v28;
           LODWORD(v44) = 32;
-          v43 = &v52;
-          v34 = _os_log_send_and_compose_impl();
-          if (v34)
+          v35 = _os_log_send_and_compose_impl(v32, 0, 0, 0, &dword_1D48BA000, v33, 0, "%@: Removing account with duplicate AppleID: %@ / %@", &v52, v44);
+          if (v35)
           {
-            v35 = v34;
-            v36 = [MEMORY[0x1E696AEC0] stringWithCString:v34 encoding:{4, &v52, v44}];
-            free(v35);
-            SSFileLog(v30, @"%@", v37, v38, v39, v40, v41, v42, v36);
+            v36 = v35;
+            v37 = [MEMORY[0x1E696AEC0] stringWithCString:v35 encoding:4];
+            free(v36);
+            SSFileLog(v30, @"%@", v38, v39, v40, v41, v42, v43, v37);
           }
         }
 
-        [*(a1 + 32) removeObjectAtIndex:{j - 2, v43}];
+        [*(a1 + 32) removeObjectAtIndex:j - 2];
       }
     }
   }
@@ -1024,76 +1025,75 @@ id __48__SSKeyValueStore_iTunesValueForKey_usedDomain___block_invoke(void *a1, v
 
 - (void)removeAccountFromDomain:(id)domain
 {
-  v24 = *MEMORY[0x1E69E9840];
-  [(SSKeyValueStore *)self _loadDatabaseIfNecessary];
+  v26 = *MEMORY[0x1E69E9840];
+  _loadDatabaseIfNecessary = [(SSKeyValueStore *)self _loadDatabaseIfNecessary];
   if (self->_useLocalWrite)
   {
     database = self->_database;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __43__SSKeyValueStore_removeAccountFromDomain___block_invoke;
-    v21[3] = &unk_1E84B1BB0;
-    v21[4] = domain;
-    [(SSKeyValueStoreDatabase *)database modifyAsyncUsingTransactionBlock:v21];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __43__SSKeyValueStore_removeAccountFromDomain___block_invoke;
+    v23[3] = &unk_1E84B1BB0;
+    v23[4] = domain;
+    [(SSKeyValueStoreDatabase *)database modifyAsyncUsingTransactionBlock:v23];
   }
 
   else
   {
-    if (SSIsInternalBuild() && _os_feature_enabled_impl())
+    if (SSIsInternalBuild(_loadDatabaseIfNecessary, v6) && _os_feature_enabled_impl())
     {
-      v6 = +[SSLogConfig sharedStoreServicesConfig];
-      if (!v6)
+      v8 = +[SSLogConfig sharedStoreServicesConfig];
+      if (!v8)
       {
-        v6 = +[SSLogConfig sharedConfig];
+        v8 = +[SSLogConfig sharedConfig];
       }
 
-      shouldLog = [v6 shouldLog];
-      if ([v6 shouldLogToDisk])
+      shouldLog = [v8 shouldLog];
+      if ([v8 shouldLogToDisk])
       {
-        v8 = shouldLog | 2;
-      }
-
-      else
-      {
-        v8 = shouldLog;
-      }
-
-      if (os_log_type_enabled([v6 OSLogObject], OS_LOG_TYPE_DEBUG))
-      {
-        v9 = v8;
+        v10 = shouldLog | 2;
       }
 
       else
       {
-        v9 = v8 & 2;
+        v10 = shouldLog;
       }
 
-      if (v9)
+      oSLogObject = [v8 OSLogObject];
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
       {
-        v22 = 136446210;
-        v23 = "[SSKeyValueStore removeAccountFromDomain:]";
-        LODWORD(v20) = 12;
-        v10 = _os_log_send_and_compose_impl();
-        if (v10)
+        v12 = v10;
+      }
+
+      else
+      {
+        v12 = v10 & 2;
+      }
+
+      if (v12)
+      {
+        v24 = 136446210;
+        v25 = "[SSKeyValueStore removeAccountFromDomain:]";
+        if (v13)
         {
-          v11 = v10;
-          v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:{4, &v22, v20}];
-          free(v11);
-          SSFileLog(v6, @"%@", v13, v14, v15, v16, v17, v18, v12);
+          v14 = v13;
+          v15 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
+          free(v14);
+          SSFileLog(v8, @"%@", v16, v17, v18, v19, v20, v21, v15);
         }
       }
     }
 
-    v19 = SSXPCCreateMessageDictionary(193);
-    SSXPCDictionarySetCFObject(v19, "1", domain);
-    [(SSXPCConnection *)self->_connection sendMessage:v19];
-    xpc_release(v19);
+    v22 = SSXPCCreateMessageDictionary(193);
+    SSXPCDictionarySetCFObject(v22, "1", domain);
+    [(SSXPCConnection *)self->_connection sendMessage:v22];
+    xpc_release(v22);
   }
 }
 
 - (void)_loadDatabaseIfNecessary
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   if (self->_database)
   {
     return;
@@ -1111,30 +1111,40 @@ id __48__SSKeyValueStore_iTunesValueForKey_usedDomain___block_invoke(void *a1, v
     shouldLog = [v3 shouldLog];
     if ([v3 shouldLogToDisk])
     {
-      v5 = shouldLog | 2;
+      LODWORD(v5) = shouldLog | 2;
     }
 
     else
     {
-      v5 = shouldLog;
+      LODWORD(v5) = shouldLog;
     }
 
-    if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_DEFAULT))
+    oSLogObject = [v3 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v5 = v5;
+    }
+
+    else
     {
       v5 &= 2u;
     }
 
     if (!v5)
     {
-      goto LABEL_23;
+      goto LABEL_26;
     }
+
+    LODWORD(v21) = 138412290;
+    *(&v21 + 4) = objc_opt_class();
+    v7 = _os_log_send_and_compose_impl(v5, 0, 0, 0, &dword_1D48BA000, oSLogObject, 0, "%@: Initializing database", &v21, 12, v21);
   }
 
   else
   {
     if (!self->_useLocalRead)
     {
-      goto LABEL_23;
+      goto LABEL_26;
     }
 
     self->_database = [[SSKeyValueStoreDatabase alloc] initReadOnly];
@@ -1145,44 +1155,32 @@ id __48__SSKeyValueStore_iTunesValueForKey_usedDomain___block_invoke(void *a1, v
     }
 
     shouldLog2 = [v3 shouldLog];
-    if ([v3 shouldLogToDisk])
+    LODWORD(v9) = [v3 shouldLogToDisk] ? shouldLog2 | 2 : shouldLog2;
+    oSLogObject2 = [v3 OSLogObject];
+    v9 = os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT) ? v9 : v9 & 2u;
+    if (!v9)
     {
-      v7 = shouldLog2 | 2;
+      goto LABEL_26;
     }
 
-    else
-    {
-      v7 = shouldLog2;
-    }
-
-    if (!os_log_type_enabled([v3 OSLogObject], OS_LOG_TYPE_DEFAULT))
-    {
-      v7 &= 2u;
-    }
-
-    if (!v7)
-    {
-      goto LABEL_23;
-    }
+    LODWORD(v21) = 138412290;
+    *(&v21 + 4) = objc_opt_class();
+    v7 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 0, "%@: Initializing readonly database", &v21, 12, v21);
   }
 
-  LODWORD(v20) = 138412290;
-  *(&v20 + 4) = objc_opt_class();
-  LODWORD(v19) = 12;
-  v8 = _os_log_send_and_compose_impl();
-  if (v8)
+  if (v7)
   {
-    v9 = v8;
-    v10 = [MEMORY[0x1E696AEC0] stringWithCString:v8 encoding:{4, &v20, v19, v20}];
-    free(v9);
-    SSFileLog(v3, @"%@", v11, v12, v13, v14, v15, v16, v10);
+    v11 = v7;
+    v12 = [MEMORY[0x1E696AEC0] stringWithCString:v7 encoding:4];
+    free(v11);
+    SSFileLog(v3, @"%@", v13, v14, v15, v16, v17, v18, v12);
   }
 
-LABEL_23:
-  v17 = self->_useLocalRead && self->_database != 0;
-  self->_useLocalRead = v17;
-  v18 = self->_useLocalWrite && self->_database != 0;
-  self->_useLocalWrite = v18;
+LABEL_26:
+  v19 = self->_useLocalRead && self->_database != 0;
+  self->_useLocalRead = v19;
+  v20 = self->_useLocalWrite && self->_database != 0;
+  self->_useLocalWrite = v20;
 }
 
 @end

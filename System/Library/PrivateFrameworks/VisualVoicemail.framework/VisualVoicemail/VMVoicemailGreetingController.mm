@@ -153,7 +153,7 @@ LABEL_12:
       v21 = type;
     }
 
-    [greetingCopy duration];
+    objc_msgSend_duration(greetingCopy);
     [voicemailService3 setGreetingType:v21 data:v17 duration:v22];
 
     goto LABEL_16;
@@ -193,7 +193,7 @@ LABEL_16:
 
   if (![v11 isEqual:&off_1000F58C0] || (bOOLValue & 1) != 0)
   {
-    if ([v11 isEqual:{&off_1000F58D8, *v12, *&v12[16]}])
+    if ([v11 isEqual:{&off_1000F58D8, *v12, *&v12[8]}])
     {
       if (bOOLValue)
       {

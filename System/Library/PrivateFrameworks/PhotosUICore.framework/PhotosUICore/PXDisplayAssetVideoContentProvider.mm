@@ -224,7 +224,7 @@ void __70__PXDisplayAssetVideoContentProvider_requestLoadingProgressDidChange___
   _Block_object_dispose(v6, 8);
 }
 
-uint64_t __70__PXDisplayAssetVideoContentProvider_requestLoadingProgressDidChange___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
+void *__70__PXDisplayAssetVideoContentProvider_requestLoadingProgressDidChange___block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = *(*(*(a1 + 32) + 8) + 24);
   result = [a3 loadingProgress];

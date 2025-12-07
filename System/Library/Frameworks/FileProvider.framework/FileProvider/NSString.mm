@@ -5,9 +5,11 @@
 
 uint64_t __40__NSString_FPAdditions__fp_getCrashDate__block_invoke()
 {
-  fp_getCrashDate_regexp = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"([0-9][0-9][0-9][0-9])-([0-1][0-9])-([0-3][0-9])-([0-2][0-9])([0-5][0-9])([0-5][0-9])" options:1 error:0];
+  v0 = [MEMORY[0x1E696AE70] regularExpressionWithPattern:@"([0-9][0-9][0-9][0-9])-([0-1][0-9])-([0-3][0-9])-([0-2][0-9])([0-5][0-9])([0-5][0-9])" options:1 error:0];
+  v1 = fp_getCrashDate_regexp;
+  fp_getCrashDate_regexp = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 void __56__NSString_FPAdditions__fp_commonParentPathForItemURLs___block_invoke(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
@@ -36,9 +38,11 @@ LABEL_5:
 
 uint64_t __54__NSString_FPAdditions__fp_prettyPathWithObfuscation___block_invoke()
 {
-  fp_prettyPathWithObfuscation__temporaryDirectory = NSTemporaryDirectory();
+  v0 = NSTemporaryDirectory();
+  v1 = fp_prettyPathWithObfuscation__temporaryDirectory;
+  fp_prettyPathWithObfuscation__temporaryDirectory = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 CFStringTokenizerRef __41__NSString_FPAdditions__fp_wordTokenizer__block_invoke()

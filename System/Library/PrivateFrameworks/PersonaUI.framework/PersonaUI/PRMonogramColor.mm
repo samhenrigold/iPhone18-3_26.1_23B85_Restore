@@ -211,9 +211,11 @@
 
 uint64_t __46__PRMonogramColor_monogramGradientColorNamed___block_invoke(uint64_t a1)
 {
-  monogramGradientColorNamed__monogramGradientColorsByName = [*(a1 + 32) generateMonogramGradientColorsByNameDictionary];
+  v1 = [*(a1 + 32) generateMonogramGradientColorsByNameDictionary];
+  v2 = monogramGradientColorNamed__monogramGradientColorsByName;
+  monogramGradientColorNamed__monogramGradientColorsByName = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1, v2);
 }
 
 + (PRMonogramColor)colorWithName:(id)name inBundle:(id)bundle

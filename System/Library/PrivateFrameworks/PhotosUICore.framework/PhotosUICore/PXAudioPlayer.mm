@@ -68,10 +68,10 @@
       v37 = 0;
       v38 = 0;
       v39 = 0;
-      [(PXAudioPlayer *)self currentAssetDuration];
+      objc_msgSend_currentAssetDuration(self);
       v10 = 0x1E696A000uLL;
       memset(&time, 0, sizeof(time));
-      [(PXAudioPlayer *)self currentTime];
+      objc_msgSend_currentTime(self);
       v35 = time;
       Seconds = CMTimeGetSeconds(&v35);
       v12 = MEMORY[0x1E696AEC0];
@@ -263,7 +263,7 @@ void __46__PXAudioPlayer_observable_didChange_context___block_invoke_2(uint64_t 
     memset(buf, 0, sizeof(buf));
     if (sessionsQueue_currentSession)
     {
-      [sessionsQueue_currentSession duration];
+      objc_msgSend_duration(sessionsQueue_currentSession);
       if (buf[12])
       {
         goto LABEL_10;
@@ -274,7 +274,7 @@ void __46__PXAudioPlayer_observable_didChange_context___block_invoke_2(uint64_t 
     v11 = currentAsset2;
     if (currentAsset2)
     {
-      [currentAsset2 duration];
+      objc_msgSend_duration(currentAsset2);
     }
 
     else
@@ -775,7 +775,7 @@ uint64_t __49__PXAudioPlayer_sessionsQueue_setCurrentSession___block_invoke_2(ui
   v11 = 0;
   if (sessionsQueue_currentSession)
   {
-    [sessionsQueue_currentSession currentTime];
+    objc_msgSend_currentTime(sessionsQueue_currentSession);
   }
 
   v4 = [PXCurrentTimeRecord alloc];
@@ -799,7 +799,7 @@ uint64_t __49__PXAudioPlayer_sessionsQueue_setCurrentSession___block_invoke_2(ui
   audioSessionClass = [assetCopy audioSessionClass];
   if (assetCopy)
   {
-    [assetCopy duration];
+    objc_msgSend_duration(assetCopy);
   }
 
   else
@@ -892,7 +892,7 @@ void __28__PXAudioPlayer_currentTime__block_invoke(uint64_t a1)
   v3 = v2;
   if (v2)
   {
-    [v2 currentTime];
+    objc_msgSend_currentTime(v2);
   }
 
   else
@@ -989,7 +989,7 @@ uint64_t __32__PXAudioPlayer_replayFromTime___block_invoke_2(uint64_t a1, void *
   memset(&time, 0, sizeof(time));
   if (assetCopy)
   {
-    [assetCopy duration];
+    objc_msgSend_duration(assetCopy);
   }
 
   currentAsset = self->_currentAsset;
@@ -1368,9 +1368,9 @@ void __27__PXAudioPlayer_setVolume___block_invoke(uint64_t a1)
   v5 = NSStringFromClass(v4);
   name = [(PXAudioPlayer *)self name];
   v7 = PXAudioPlayerStateDescription([(PXAudioPlayer *)self state]);
-  [(PXAudioPlayer *)self currentTime];
+  objc_msgSend_currentTime(self);
   Seconds = CMTimeGetSeconds(&time);
-  [(PXAudioPlayer *)self currentAssetDuration];
+  objc_msgSend_currentAssetDuration(self);
   v9 = CMTimeGetSeconds(&time);
   currentAsset = [(PXAudioPlayer *)self currentAsset];
   v11 = [v3 initWithFormat:@"<%@: %p; name: %@; state: %@; currentTime: %.1f/%.1fs; currentAsset: %@>", v5, self, name, v7, *&Seconds, *&v9, currentAsset];

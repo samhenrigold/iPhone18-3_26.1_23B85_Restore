@@ -13,6 +13,8 @@
 - (void)setAccountIntProperty:(id)property withSpecifier:(id)specifier;
 - (void)setAccountProperty:(id)property withSpecifier:(id)specifier;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation LDAPSettingsSearchBaseController
@@ -143,6 +145,21 @@
   }
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  WeakRetained = objc_loadWeakRetained(&self->_accountController);
+  navigationItem = [WeakRetained navigationItem];
+
+  prompt = [navigationItem prompt];
+  navigationItem2 = [(LDAPSettingsSearchBaseController *)self navigationItem];
+  [navigationItem2 setPrompt:prompt];
+
+  v9.receiver = self;
+  v9.super_class = LDAPSettingsSearchBaseController;
+  [(LDAPSettingsSearchBaseController *)&v9 viewWillAppear:appearCopy];
 }
 
 - (void)_updateDescriptionFromSearchBase:(id)base
@@ -295,6 +312,22 @@ LABEL_10:
   {
     [(LDAPSettingsSearchBaseController *)self setAccountIntProperty:0 withSpecifier:v8];
   }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  firstResponder = [*&self->PSListController_opaque[OBJC_IVAR___PSListController__table] firstResponder];
+  [firstResponder resignFirstResponder];
+
+  if ([(LDAPSettingsSearchBaseController *)self _isNewSearchSettings]&& [(LDAPSettingsSearchBaseController *)self _searchSettingsAreEmpty])
+  {
+    [(LDAPAccount *)self->_account removeSearchSettings:self->_searchSettings];
+  }
+
+  v6.receiver = self;
+  v6.super_class = LDAPSettingsSearchBaseController;
+  [(LDAPSettingsSearchBaseController *)&v6 viewWillDisappear:disappearCopy];
 }
 
 - (void)confirmDeleteSettings:(id)settings

@@ -1,5 +1,6 @@
 @interface AAUIViewServiceRootViewController
 - (void)loadView;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -21,6 +22,14 @@
   v3.super_class = AAUIViewServiceRootViewController;
   [(AAUIViewServiceRootViewController *)&v3 viewDidLoad];
   [(AAUIRemoteViewController *)self->_aauiRemoteViewController prepareViewServiceForPresentation];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AAUIViewServiceRootViewController;
+  [(AAUIViewServiceRootViewController *)&v4 viewDidAppear:appear];
+  [(AAUIViewServiceRootViewController *)self presentViewController:self->_aauiRemoteViewController animated:0 completion:0];
 }
 
 @end

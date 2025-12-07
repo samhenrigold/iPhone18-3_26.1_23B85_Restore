@@ -43,58 +43,58 @@
 
 - (float)predictFromValues:(id)values error:(id *)error
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   valuesCopy = values;
   allKeys = [valuesCopy allKeys];
   v8 = [allKeys sortedArrayUsingSelector:sel_compare_];
 
   v9 = objc_opt_new();
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v30;
+    v13 = *v29;
     do
     {
       v14 = 0;
       do
       {
-        if (*v30 != v13)
+        if (*v29 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [valuesCopy objectForKeyedSubscript:{*(*(&v29 + 1) + 8 * v14), v29}];
+        v15 = [valuesCopy objectForKeyedSubscript:{*(*(&v28 + 1) + 8 * v14), v28}];
         [v9 addObject:v15];
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v28 objects:v33 count:16];
     }
 
     while (v12);
   }
 
-  v16 = [v9 count];
+  v16 = objc_msgSend_count(v9);
   v17 = objc_alloc(MEMORY[0x1E695FED0]);
   v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v16];
-  v33[0] = v18;
-  v33[1] = &unk_1F55B44D0;
-  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
+  v32[0] = v18;
+  v32[1] = &unk_1F55B44D0;
+  v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
   v20 = [v17 initForFloat32TypeWithShape:v19];
 
   if (v16)
   {
     for (i = 0; i != v16; ++i)
     {
-      v22 = [v9 objectAtIndex:{i, v29}];
+      v22 = [v9 objectAtIndex:{i, v28}];
       [v22 doubleValue];
       v24 = v23;
 
@@ -103,10 +103,9 @@
     }
   }
 
-  [(SSCoreMLInterface *)self predict:v20 error:error, v29];
+  [(SSCoreMLInterface *)self predict:v20 error:error, v28];
   v26 = v25;
 
-  v27 = *MEMORY[0x1E69E9840];
   return v26;
 }
 

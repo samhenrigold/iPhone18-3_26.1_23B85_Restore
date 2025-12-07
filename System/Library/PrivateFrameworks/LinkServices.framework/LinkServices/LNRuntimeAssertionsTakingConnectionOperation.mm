@@ -8,7 +8,7 @@
 
 - (void)acquireRuntimeAssertions
 {
-  v42 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   connection = [(LNConnectionOperation *)self connection];
   bundleIdentifier = [connection bundleIdentifier];
 
@@ -26,40 +26,40 @@
     }
 
     sharedAVSystemController = [getAVSystemControllerClass() sharedAVSystemController];
-    v34 = 0;
-    v35 = &v34;
-    v36 = 0x2020000000;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x2020000000;
     v9 = getAVSystemController_AllowAppToInitiatePlaybackTemporarilyAttributeSymbolLoc_ptr;
-    v37 = getAVSystemController_AllowAppToInitiatePlaybackTemporarilyAttributeSymbolLoc_ptr;
+    v36 = getAVSystemController_AllowAppToInitiatePlaybackTemporarilyAttributeSymbolLoc_ptr;
     if (!getAVSystemController_AllowAppToInitiatePlaybackTemporarilyAttributeSymbolLoc_ptr)
     {
       *&buf = MEMORY[0x1E69E9820];
       *(&buf + 1) = 3221225472;
-      v39 = __getAVSystemController_AllowAppToInitiatePlaybackTemporarilyAttributeSymbolLoc_block_invoke;
-      v40 = &unk_1E74B26D0;
-      v41 = &v34;
+      v38 = __getAVSystemController_AllowAppToInitiatePlaybackTemporarilyAttributeSymbolLoc_block_invoke;
+      v39 = &unk_1E74B26D0;
+      v40 = &v33;
       v10 = MediaExperienceLibrary();
       v11 = dlsym(v10, "AVSystemController_AllowAppToInitiatePlaybackTemporarilyAttribute");
-      *(v41[1] + 24) = v11;
-      getAVSystemController_AllowAppToInitiatePlaybackTemporarilyAttributeSymbolLoc_ptr = *(v41[1] + 24);
-      v9 = v35[3];
+      *(v40[1] + 24) = v11;
+      getAVSystemController_AllowAppToInitiatePlaybackTemporarilyAttributeSymbolLoc_ptr = *(v40[1] + 24);
+      v9 = v34[3];
     }
 
-    _Block_object_dispose(&v34, 8);
+    _Block_object_dispose(&v33, 8);
     if (!v9)
     {
       currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-      v32 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getAVSystemController_AllowAppToInitiatePlaybackTemporarilyAttribute(void)"];
-      [currentHandler handleFailureInFunction:v32 file:@"LNRuntimeAssertionsTakingConnectionOperation.m" lineNumber:22 description:{@"%s", dlerror()}];
+      v31 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"NSString *getAVSystemController_AllowAppToInitiatePlaybackTemporarilyAttribute(void)"];
+      [currentHandler handleFailureInFunction:v31 file:@"LNRuntimeAssertionsTakingConnectionOperation.m" lineNumber:22 description:{@"%s", dlerror()}];
 
       __break(1u);
     }
 
     v12 = *v9;
-    v33 = 0;
+    v32 = 0;
     v13 = v12;
-    [sharedAVSystemController setAttribute:bundleIdentifier forKey:v13 error:&v33];
-    v14 = v33;
+    [sharedAVSystemController setAttribute:bundleIdentifier forKey:v13 error:&v32];
+    v14 = v32;
 
     v15 = getLNLogCategoryConnection();
     v16 = v15;
@@ -132,8 +132,6 @@ LABEL_12:
       }
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)invalidateRuntimeAssertions

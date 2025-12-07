@@ -33,6 +33,7 @@
 - (void)_observerQueue_notifyOfPrivateDatabaseDeletedRecordIDs:(id)ds sharedDatabaseDeletedRecordIDs:(id)iDs;
 - (void)_observerQueue_performNotificationStep:(id)step onRecords:(id)records dispatchGroup:(id)group activity:(id)activity cloudKitGroup:(id)kitGroup;
 - (void)_performAndRetryNewAccountTasksIfNecessaryWithShouldCreateSubscriptions:(BOOL)subscriptions shouldFetch:(BOOL)fetch;
+- (void)_performAndRetryNewAccountTasksWithRetryInterval:(double)interval shouldCreateSubscriptions:(BOOL)subscriptions shouldFetch:(BOOL)fetch;
 - (void)_performNewAccountTasksCreatingSubscriptions:(BOOL)subscriptions fetching:(BOOL)fetching completion:(id)completion;
 - (void)_queue_callFetchCompletionBlocksWithSuccess:(BOOL)success error:(id)error;
 - (void)_queue_cancelAllExecutingFetches;
@@ -167,7 +168,7 @@
 
 void __44__ASCloudKitManager_beginHandlingOperations__block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (ASUseLegacyDevelopmentContainer())
   {
     v2 = [objc_alloc(MEMORY[0x277CBC220]) initWithContainerIdentifier:@"com.apple.ActivitySharing" environment:2];
@@ -223,9 +224,9 @@ void __44__ASCloudKitManager_beginHandlingOperations__block_invoke(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   v20 = [WeakRetained deviceLocalActivitySharingKeyValueDomain];
 
-  v31 = 0;
-  v21 = [v20 numberForKey:@"ActivitySharingHasCompletedFirstCloudKitFetchKeyVersion2" error:&v31];
-  v22 = v31;
+  v30 = 0;
+  v21 = [v20 numberForKey:@"ActivitySharingHasCompletedFirstCloudKitFetchKeyVersion2" error:&v30];
+  v22 = v30;
   *(*(a1 + 32) + 264) = [v21 BOOLValue];
 
   if (v22)
@@ -243,7 +244,7 @@ void __44__ASCloudKitManager_beginHandlingOperations__block_invoke(uint64_t a1)
   {
     v24 = *(*(a1 + 32) + 264);
     *buf = 67109120;
-    v33 = v24;
+    v32 = v24;
     _os_log_impl(&dword_23E5E3000, v23, OS_LOG_TYPE_DEFAULT, "hasCompletedFirstFetch initialized to: %d", buf, 8u);
   }
 
@@ -258,7 +259,6 @@ void __44__ASCloudKitManager_beginHandlingOperations__block_invoke(uint64_t a1)
   *(*v25 + 26) = v28;
 
   [*v25 setReadyForOperations:1];
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)endHandlingOperations
@@ -368,19 +368,18 @@ void __81__ASCloudKitManager_fetchOrCreateActivityDataShareWithGroup_activity_co
   if (WeakRetained)
   {
     v4 = [WeakRetained cloudKitUtility];
-    v5 = *(a1 + 32);
-    v6 = [objc_opt_class() _activityDataShareRecordID];
-    v7 = *(a1 + 40);
-    v8 = *(a1 + 48);
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __81__ASCloudKitManager_fetchOrCreateActivityDataShareWithGroup_activity_completion___block_invoke_2;
-    v9[3] = &unk_278C4C690;
-    v10 = *(a1 + 56);
-    objc_copyWeak(&v11, (a1 + 64));
-    [v4 fetchShareWithShareRecordID:v6 activity:v7 group:v8 completion:v9];
+    v5 = [objc_opt_class() _activityDataShareRecordID];
+    v6 = *(a1 + 40);
+    v7 = *(a1 + 48);
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __81__ASCloudKitManager_fetchOrCreateActivityDataShareWithGroup_activity_completion___block_invoke_2;
+    v8[3] = &unk_278C4C690;
+    v9 = *(a1 + 56);
+    objc_copyWeak(&v10, (a1 + 64));
+    [v4 fetchShareWithShareRecordID:v5 activity:v6 group:v7 completion:v8];
 
-    objc_destroyWeak(&v11);
+    objc_destroyWeak(&v10);
   }
 }
 
@@ -388,10 +387,9 @@ void __81__ASCloudKitManager_fetchOrCreateActivityDataShareWithGroup_activity_co
 {
   if (a4)
   {
-    v5 = *(a1 + 32);
-    v6 = *(*(a1 + 32) + 16);
+    v5 = *(*(a1 + 32) + 16);
 
-    v6();
+    v5();
   }
 
   else
@@ -399,12 +397,12 @@ void __81__ASCloudKitManager_fetchOrCreateActivityDataShareWithGroup_activity_co
     WeakRetained = objc_loadWeakRetained((a1 + 40));
     if (WeakRetained)
     {
-      v8[0] = MEMORY[0x277D85DD0];
-      v8[1] = 3221225472;
-      v8[2] = __81__ASCloudKitManager_fetchOrCreateActivityDataShareWithGroup_activity_completion___block_invoke_3;
-      v8[3] = &unk_278C4C668;
-      v9 = *(a1 + 32);
-      [WeakRetained _createActivityDataShareWithCompletion:v8];
+      v7[0] = MEMORY[0x277D85DD0];
+      v7[1] = 3221225472;
+      v7[2] = __81__ASCloudKitManager_fetchOrCreateActivityDataShareWithGroup_activity_completion___block_invoke_3;
+      v7[3] = &unk_278C4C668;
+      v8 = *(a1 + 32);
+      [WeakRetained _createActivityDataShareWithCompletion:v7];
     }
   }
 }
@@ -461,33 +459,33 @@ uint64_t __37__ASCloudKitManager_relationshipZone__block_invoke()
 
 void __53__ASCloudKitManager__queue_cancelAllExecutingFetches__block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v2 = dispatch_group_create();
   v3 = *(a1 + 32);
   v4 = *(v3 + 248);
   *(v3 + 248) = v2;
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = *(*(a1 + 32) + 64);
-  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        if ([*(*(a1 + 32) + 240) containsObject:{*(*(&v11 + 1) + 8 * v9), v11}])
+        if ([*(*(a1 + 32) + 240) containsObject:{*(*(&v10 + 1) + 8 * v9), v10}])
         {
           dispatch_group_enter(*(*(a1 + 32) + 248));
         }
@@ -496,13 +494,11 @@ void __53__ASCloudKitManager__queue_cancelAllExecutingFetches__block_invoke(uint
       }
 
       while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_startFetchAllChangesOperationWithPriority:(int64_t)priority activity:(id)activity changeTokenCache:(id)cache secureCloudChangeTokenCache:(id)tokenCache group:(id)group completion:(id)completion
@@ -908,46 +904,46 @@ LABEL_27:
 
 - (void)_queue_callFetchCompletionBlocksWithSuccess:(BOOL)success error:(id)error
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   dispatch_assert_queue_V2(self->_serialQueue);
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   selfCopy = self;
   v7 = self->_blocksWaitingOnFetch;
-  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     v11 = MEMORY[0x277D85CD0];
     do
     {
       v12 = 0;
       do
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * v12);
+        v13 = *(*(&v20 + 1) + 8 * v12);
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __71__ASCloudKitManager__queue_callFetchCompletionBlocksWithSuccess_error___block_invoke;
         block[3] = &unk_278C4BD38;
-        v19 = v13;
+        v18 = v13;
         successCopy = success;
-        v18 = errorCopy;
+        v17 = errorCopy;
         dispatch_async(v11, block);
 
         ++v12;
       }
 
       while (v9 != v12);
-      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [(NSArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
@@ -955,8 +951,6 @@ LABEL_27:
 
   blocksWaitingOnFetch = selfCopy->_blocksWaitingOnFetch;
   selfCopy->_blocksWaitingOnFetch = MEMORY[0x277CBEBF8];
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_fetchAllChangesWithPriority:(int64_t)priority activity:(id)activity group:(id)group
@@ -1088,7 +1082,7 @@ void __65__ASCloudKitManager__fetchAllChangesWithPriority_activity_group___block
 
 void __65__ASCloudKitManager__fetchAllChangesWithPriority_activity_group___block_invoke_2(uint64_t a1)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   *(*(a1 + 32) + 184) = 0;
   v2 = [*(a1 + 40) count];
   v3 = [*(a1 + 48) count];
@@ -1118,14 +1112,14 @@ LABEL_20:
     block[3] = &unk_278C4C758;
     v27 = *(a1 + 56);
     v28 = *(a1 + 32);
-    v33 = v27;
-    v34 = v28;
-    v35 = *(a1 + 128);
+    v32 = v27;
+    v33 = v28;
+    v34 = *(a1 + 128);
     dispatch_async(v26, block);
-    v29 = v33;
+    v29 = v32;
 LABEL_22:
 
-    goto LABEL_23;
+    return;
   }
 
   if (v7)
@@ -1135,9 +1129,9 @@ LABEL_22:
     v19 = [v17 count];
     v20 = [*(a1 + 48) count];
     *buf = 134218240;
-    v40 = v19;
-    v41 = 2048;
-    v42 = v20;
+    v39 = v19;
+    v40 = 2048;
+    v41 = v20;
     _os_log_impl(&dword_23E5E3000, v18, OS_LOG_TYPE_DEFAULT, "Fetched changes: %ld private, %ld shared changed records.", buf, 0x16u);
   }
 
@@ -1150,9 +1144,9 @@ LABEL_22:
     v24 = [v22 count];
     v25 = [*(a1 + 72) count];
     *buf = 134218240;
-    v40 = v24;
-    v41 = 2048;
-    v42 = v25;
+    v39 = v24;
+    v40 = 2048;
+    v41 = v25;
     _os_log_impl(&dword_23E5E3000, v23, OS_LOG_TYPE_DEFAULT, "Fetched deletions: %ld private, %ld shared changed records.", buf, 0x16u);
   }
 
@@ -1179,15 +1173,15 @@ LABEL_9:
   if (*(v13 + 192) != 1)
   {
     v30 = *(v13 + 32);
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __65__ASCloudKitManager__fetchAllChangesWithPriority_activity_group___block_invoke_423;
-    v36[3] = &unk_278C4C758;
-    v36[4] = v13;
-    v38 = *(a1 + 128);
-    v37 = *(a1 + 56);
-    dispatch_async(v30, v36);
-    v29 = v37;
+    v35[0] = MEMORY[0x277D85DD0];
+    v35[1] = 3221225472;
+    v35[2] = __65__ASCloudKitManager__fetchAllChangesWithPriority_activity_group___block_invoke_423;
+    v35[3] = &unk_278C4C758;
+    v35[4] = v13;
+    v37 = *(a1 + 128);
+    v36 = *(a1 + 56);
+    dispatch_async(v30, v35);
+    v29 = v36;
     goto LABEL_22;
   }
 
@@ -1206,8 +1200,6 @@ LABEL_9:
   *(v15 + 256) = 0;
 
   [*(a1 + 32) _fetchAllChangesWithPriority:*(a1 + 120) activity:*(a1 + 80) group:*(a1 + 88)];
-LABEL_23:
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __65__ASCloudKitManager__fetchAllChangesWithPriority_activity_group___block_invoke_423(uint64_t a1)
@@ -1307,7 +1299,7 @@ uint64_t __65__ASCloudKitManager__fetchAllChangesWithPriority_activity_group___b
 
 void __76__ASCloudKitManager__fetchAllChangesWithPriority_activity_group_completion___block_invoke(uint64_t a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 56);
   if (v2)
   {
@@ -1324,16 +1316,16 @@ void __76__ASCloudKitManager__fetchAllChangesWithPriority_activity_group_complet
   if (v9 >= *(a1 + 64))
   {
     ASLoggingInitialize();
-    v17 = *MEMORY[0x277CE8FD0];
+    v15 = *MEMORY[0x277CE8FD0];
     if (os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT))
     {
-      v18 = *(*(a1 + 32) + 184);
-      v19 = *(a1 + 64);
-      v21 = 134218240;
-      v22 = v18;
-      v23 = 2048;
-      v24 = v19;
-      _os_log_impl(&dword_23E5E3000, v17, OS_LOG_TYPE_DEFAULT, "A same or higher priority fetch is executing, adding completion to pending completion block list; current priority: %lu, requested priority: %lu", &v21, 0x16u);
+      v16 = *(*(a1 + 32) + 184);
+      v17 = *(a1 + 64);
+      v18 = 134218240;
+      v19 = v16;
+      v20 = 2048;
+      v21 = v17;
+      _os_log_impl(&dword_23E5E3000, v15, OS_LOG_TYPE_DEFAULT, "A same or higher priority fetch is executing, adding completion to pending completion block list; current priority: %lu, requested priority: %lu", &v18, 0x16u);
     }
   }
 
@@ -1347,11 +1339,11 @@ void __76__ASCloudKitManager__fetchAllChangesWithPriority_activity_group_complet
       {
         v11 = *(*(a1 + 32) + 184);
         v12 = *(a1 + 64);
-        v21 = 134218240;
-        v22 = v11;
-        v23 = 2048;
-        v24 = v12;
-        _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "Lower priority fetches are executing, cancelling all fetches before running higher priority fetch; current priority: %lu, requested priority: %lu", &v21, 0x16u);
+        v18 = 134218240;
+        v19 = v11;
+        v20 = 2048;
+        v21 = v12;
+        _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "Lower priority fetches are executing, cancelling all fetches before running higher priority fetch; current priority: %lu, requested priority: %lu", &v18, 0x16u);
       }
 
       [*(a1 + 32) _queue_cancelAllExecutingFetches];
@@ -1362,18 +1354,14 @@ void __76__ASCloudKitManager__fetchAllChangesWithPriority_activity_group_complet
     if (os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT))
     {
       v14 = *(a1 + 64);
-      v21 = 134217984;
-      v22 = v14;
-      _os_log_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_DEFAULT, "Running fetch with priority %lu now.", &v21, 0xCu);
+      v18 = 134217984;
+      v19 = v14;
+      _os_log_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_DEFAULT, "Running fetch with priority %lu now.", &v18, 0xCu);
     }
 
     *(*(a1 + 32) + 184) = *(a1 + 64);
-    v15 = *(a1 + 40);
-    v16 = *(a1 + 48);
     [*(a1 + 32) _fetchAllChangesWithPriority:? activity:? group:?];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)fetchAllChangesWithPriority:(int64_t)priority activity:(id)activity group:(id)group completion:(id)completion
@@ -1423,7 +1411,7 @@ void __76__ASCloudKitManager__fetchAllChangesWithPriority_activity_group_complet
 
 void __105__ASCloudKitManager_fetchAllChangesIfTimeSinceLastFetchIsGreaterThan_priority_activity_group_completion___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277CBEAA8] date];
   [v2 timeIntervalSinceReferenceDate];
   v4 = v3;
@@ -1442,23 +1430,23 @@ void __105__ASCloudKitManager_fetchAllChangesIfTimeSinceLastFetchIsGreaterThan_p
     if (v11)
     {
       v12 = *(a1 + 64);
-      *v23 = 134218240;
-      *&v23[4] = v12;
-      *&v23[12] = 2048;
-      *&v23[14] = v7;
+      *v22 = 134218240;
+      *&v22[4] = v12;
+      *&v22[12] = 2048;
+      *&v22[14] = v7;
       v13 = "Fetch requested if no fetch performed within last %lu seconds, last fetch was %lf seconds ago";
       v14 = v10;
       v15 = 22;
 LABEL_6:
-      _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, v13, v23, v15);
+      _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, v13, v22, v15);
     }
   }
 
   else if (v11)
   {
     v16 = *(a1 + 64);
-    *v23 = 134217984;
-    *&v23[4] = v16;
+    *v22 = 134217984;
+    *&v22[4] = v16;
     v13 = "Fetch requested if no fetch performed within last %lu seconds, no successful fetch performed yet";
     v14 = v10;
     v15 = 12;
@@ -1484,8 +1472,8 @@ LABEL_6:
     v19 = *v9;
     if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
     {
-      *v23 = 0;
-      _os_log_impl(&dword_23E5E3000, v19, OS_LOG_TYPE_DEFAULT, "Last fetch is too recent, not fetching.", v23, 2u);
+      *v22 = 0;
+      _os_log_impl(&dword_23E5E3000, v19, OS_LOG_TYPE_DEFAULT, "Last fetch is too recent, not fetching.", v22, 2u);
     }
 
     v20 = *(a1 + 56);
@@ -1501,8 +1489,6 @@ LABEL_6:
 LABEL_11:
     [*(a1 + 32) _fetchAllChangesWithPriority:*(a1 + 72) activity:*(a1 + 40) group:*(a1 + 48) completion:*(a1 + 56)];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)hasCompletedFirstFetch
@@ -1539,7 +1525,7 @@ LABEL_11:
 - (void)_queue_setHasCompletedFirstFetch:(BOOL)fetch
 {
   fetchCopy = fetch;
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_serialQueue);
   if (self->_hasCompletedFirstFetch != fetchCopy)
   {
@@ -1548,9 +1534,9 @@ LABEL_11:
     deviceLocalActivitySharingKeyValueDomain = [WeakRetained deviceLocalActivitySharingKeyValueDomain];
 
     v7 = [MEMORY[0x277CCABB0] numberWithBool:self->_hasCompletedFirstFetch];
-    v13 = 0;
-    [deviceLocalActivitySharingKeyValueDomain setNumber:v7 forKey:@"ActivitySharingHasCompletedFirstCloudKitFetchKeyVersion2" error:&v13];
-    v8 = v13;
+    v12 = 0;
+    [deviceLocalActivitySharingKeyValueDomain setNumber:v7 forKey:@"ActivitySharingHasCompletedFirstCloudKitFetchKeyVersion2" error:&v12];
+    v8 = v12;
 
     ASLoggingInitialize();
     v9 = *MEMORY[0x277CE8FD0];
@@ -1567,12 +1553,10 @@ LABEL_11:
     {
       hasCompletedFirstFetch = self->_hasCompletedFirstFetch;
       *buf = 67109120;
-      v15 = hasCompletedFirstFetch;
+      v14 = hasCompletedFirstFetch;
       _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Updated has completed first fetch: %d", buf, 8u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)expireChangeTokenWithCompletion:(id)completion
@@ -1612,7 +1596,7 @@ uint64_t __53__ASCloudKitManager_expireChangeTokenWithCompletion___block_invoke(
 
 - (id)additionalZoneIDsToFetchWithServerChangeTokenChange:(id)change
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   changeCopy = change;
   v4 = _MetadataZoneID();
   v5 = [changeCopy fetchDateForRecordZoneID:v4];
@@ -1623,8 +1607,8 @@ uint64_t __53__ASCloudKitManager_expireChangeTokenWithCompletion___block_invoke(
     v9 = *MEMORY[0x277CE8FD0];
     if (os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Skipping fetch of metadata_zone", v13, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Skipping fetch of metadata_zone", v12, 2u);
     }
 
     v10 = MEMORY[0x277CBEBF8];
@@ -1632,37 +1616,33 @@ uint64_t __53__ASCloudKitManager_expireChangeTokenWithCompletion___block_invoke(
 
   else
   {
-    v14[0] = v4;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+    v13[0] = v4;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (id)secureCloudPrivateDatabaseFetchConfigurations
 {
-  v17[4] = *MEMORY[0x277D85DE8];
-  v13 = *MEMORY[0x277CE8EB8];
-  v2 = [[ASCloudKitFetchConfiguration alloc] initWithRecordType:v13 shouldSkip:1];
-  v17[0] = v2;
-  v14 = *MEMORY[0x277CE8EF0];
-  v3 = [[ASCloudKitFetchConfiguration alloc] initWithRecordType:v14 shouldSkip:1];
-  v17[1] = v3;
-  v15 = *MEMORY[0x277CE8F08];
-  v4 = [[ASCloudKitFetchConfiguration alloc] initWithRecordType:v15 shouldSkip:1];
-  v17[2] = v4;
-  v16 = *MEMORY[0x277CE8EC8];
+  v16[4] = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277CE8EB8];
+  v2 = [[ASCloudKitFetchConfiguration alloc] initWithRecordType:v12 shouldSkip:1];
+  v16[0] = v2;
+  v13 = *MEMORY[0x277CE8EF0];
+  v3 = [[ASCloudKitFetchConfiguration alloc] initWithRecordType:v13 shouldSkip:1];
+  v16[1] = v3;
+  v14 = *MEMORY[0x277CE8F08];
+  v4 = [[ASCloudKitFetchConfiguration alloc] initWithRecordType:v14 shouldSkip:1];
+  v16[2] = v4;
+  v15 = *MEMORY[0x277CE8EC8];
   v5 = [ASCloudKitFetchConfiguration alloc];
   currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
   date = [MEMORY[0x277CBEAA8] date];
   v8 = [currentCalendar dateByAddingUnit:16 value:-4 toDate:date options:0];
-  v9 = [(ASCloudKitFetchConfiguration *)v5 initWithRecordType:v16 shouldSkip:0 shouldCoalesce:1 oldestAllowedModificationDate:v8];
-  v17[3] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v13 count:4];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = [(ASCloudKitFetchConfiguration *)v5 initWithRecordType:v15 shouldSkip:0 shouldCoalesce:1 oldestAllowedModificationDate:v8];
+  v16[3] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v12 count:4];
 
   return v10;
 }
@@ -1691,7 +1671,7 @@ uint64_t __53__ASCloudKitManager_expireChangeTokenWithCompletion___block_invoke(
 
 - (void)_subscribeToChangesInDatabase:(id)database subscriptionPrefix:(id)prefix recordTypes:(id)types zoneNames:(id)names recordTypesToDelete:(id)delete completion:(id)completion
 {
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   databaseCopy = database;
   prefixCopy = prefix;
   typesCopy = types;
@@ -1701,29 +1681,29 @@ uint64_t __53__ASCloudKitManager_expireChangeTokenWithCompletion___block_invoke(
   if ([typesCopy count] || objc_msgSend(deleteCopy, "count"))
   {
     selfCopy = self;
-    v50 = completionCopy;
+    v49 = completionCopy;
     v18 = [MEMORY[0x277CBEB58] set];
+    v66 = 0u;
     v67 = 0u;
     v68 = 0u;
     v69 = 0u;
-    v70 = 0u;
-    v51 = typesCopy;
+    v50 = typesCopy;
     obj = typesCopy;
-    v19 = [obj countByEnumeratingWithState:&v67 objects:v77 count:16];
+    v19 = [obj countByEnumeratingWithState:&v66 objects:v76 count:16];
     if (v19)
     {
       v20 = v19;
-      v21 = *v68;
+      v21 = *v67;
       do
       {
         for (i = 0; i != v20; ++i)
         {
-          if (*v68 != v21)
+          if (*v67 != v21)
           {
             objc_enumerationMutation(obj);
           }
 
-          v23 = *(*(&v67 + 1) + 8 * i);
+          v23 = *(*(&v66 + 1) + 8 * i);
           ASLoggingInitialize();
           v24 = *MEMORY[0x277CE8FD0];
           if (os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT))
@@ -1732,9 +1712,9 @@ uint64_t __53__ASCloudKitManager_expireChangeTokenWithCompletion___block_invoke(
             [databaseCopy databaseScope];
             v26 = CKDatabaseScopeString();
             *buf = 138543618;
-            v74 = v23;
-            v75 = 2114;
-            v76 = v26;
+            v73 = v23;
+            v74 = 2114;
+            v75 = v26;
             _os_log_impl(&dword_23E5E3000, v25, OS_LOG_TYPE_DEFAULT, "Creating subscription to records with type %{public}@ in database %{public}@", buf, 0x16u);
           }
 
@@ -1744,32 +1724,32 @@ uint64_t __53__ASCloudKitManager_expireChangeTokenWithCompletion___block_invoke(
           [v18 addObject:v28];
         }
 
-        v20 = [obj countByEnumeratingWithState:&v67 objects:v77 count:16];
+        v20 = [obj countByEnumeratingWithState:&v66 objects:v76 count:16];
       }
 
       while (v20);
     }
 
-    v65 = 0u;
-    v66 = 0u;
-    v63 = 0u;
     v64 = 0u;
+    v65 = 0u;
+    v62 = 0u;
+    v63 = 0u;
     obja = namesCopy;
-    v29 = [obja countByEnumeratingWithState:&v63 objects:v72 count:16];
+    v29 = [obja countByEnumeratingWithState:&v62 objects:v71 count:16];
     if (v29)
     {
       v30 = v29;
-      v31 = *v64;
+      v31 = *v63;
       do
       {
         for (j = 0; j != v30; ++j)
         {
-          if (*v64 != v31)
+          if (*v63 != v31)
           {
             objc_enumerationMutation(obja);
           }
 
-          v33 = *(*(&v63 + 1) + 8 * j);
+          v33 = *(*(&v62 + 1) + 8 * j);
           ASLoggingInitialize();
           v34 = *MEMORY[0x277CE8FD0];
           if (os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT))
@@ -1778,9 +1758,9 @@ uint64_t __53__ASCloudKitManager_expireChangeTokenWithCompletion___block_invoke(
             [databaseCopy databaseScope];
             v36 = CKDatabaseScopeString();
             *buf = 138543618;
-            v74 = v33;
-            v75 = 2114;
-            v76 = v36;
+            v73 = v33;
+            v74 = 2114;
+            v75 = v36;
             _os_log_impl(&dword_23E5E3000, v35, OS_LOG_TYPE_DEFAULT, "Creating subscription to zone with name %{public}@ in database %{public}@", buf, 0x16u);
           }
 
@@ -1790,66 +1770,64 @@ uint64_t __53__ASCloudKitManager_expireChangeTokenWithCompletion___block_invoke(
           [v18 addObject:v39];
         }
 
-        v30 = [obja countByEnumeratingWithState:&v63 objects:v72 count:16];
+        v30 = [obja countByEnumeratingWithState:&v62 objects:v71 count:16];
       }
 
       while (v30);
     }
 
     v40 = [MEMORY[0x277CBEB58] set];
+    v58 = 0u;
     v59 = 0u;
     v60 = 0u;
     v61 = 0u;
-    v62 = 0u;
     v41 = deleteCopy;
-    v42 = [v41 countByEnumeratingWithState:&v59 objects:v71 count:16];
+    v42 = [v41 countByEnumeratingWithState:&v58 objects:v70 count:16];
     if (v42)
     {
       v43 = v42;
-      v44 = *v60;
+      v44 = *v59;
       do
       {
         for (k = 0; k != v43; ++k)
         {
-          if (*v60 != v44)
+          if (*v59 != v44)
           {
             objc_enumerationMutation(v41);
           }
 
-          v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", prefixCopy, *(*(&v59 + 1) + 8 * k)];
+          v46 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@", prefixCopy, *(*(&v58 + 1) + 8 * k)];
           [v40 addObject:v46];
         }
 
-        v43 = [v41 countByEnumeratingWithState:&v59 objects:v71 count:16];
+        v43 = [v41 countByEnumeratingWithState:&v58 objects:v70 count:16];
       }
 
       while (v43);
     }
 
     cloudKitUtility = [(ASCloudKitManager *)selfCopy cloudKitUtility];
-    v56[0] = MEMORY[0x277D85DD0];
-    v56[1] = 3221225472;
-    v56[2] = __123__ASCloudKitManager__subscribeToChangesInDatabase_subscriptionPrefix_recordTypes_zoneNames_recordTypesToDelete_completion___block_invoke;
-    v56[3] = &unk_278C4C848;
-    v57 = databaseCopy;
-    completionCopy = v50;
-    v58 = v50;
-    [cloudKitUtility saveSubscriptions:v18 andDeleteSubscriptionsWithIdentifiers:v40 inDatabase:v57 completion:v56];
+    v55[0] = MEMORY[0x277D85DD0];
+    v55[1] = 3221225472;
+    v55[2] = __123__ASCloudKitManager__subscribeToChangesInDatabase_subscriptionPrefix_recordTypes_zoneNames_recordTypesToDelete_completion___block_invoke;
+    v55[3] = &unk_278C4C848;
+    v56 = databaseCopy;
+    completionCopy = v49;
+    v57 = v49;
+    [cloudKitUtility saveSubscriptions:v18 andDeleteSubscriptionsWithIdentifiers:v40 inDatabase:v56 completion:v55];
 
-    typesCopy = v51;
+    typesCopy = v50;
   }
 
   else if (completionCopy)
   {
     (*(completionCopy + 2))(completionCopy, 1, 0);
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 void __123__ASCloudKitManager__subscribeToChangesInDatabase_subscriptionPrefix_recordTypes_zoneNames_recordTypesToDelete_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   ASLoggingInitialize();
@@ -1868,11 +1846,11 @@ void __123__ASCloudKitManager__subscribeToChangesInDatabase_subscriptionPrefix_r
     v11 = [v8 count];
     [*(a1 + 32) databaseScope];
     v12 = CKDatabaseScopeString();
-    v15 = 134218242;
-    v16 = v11;
-    v17 = 2114;
-    v18 = v12;
-    _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "Saved %lu subscriptions into database %{public}@.", &v15, 0x16u);
+    v14 = 134218242;
+    v15 = v11;
+    v16 = 2114;
+    v17 = v12;
+    _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "Saved %lu subscriptions into database %{public}@.", &v14, 0x16u);
   }
 
   v13 = *(a1 + 40);
@@ -1880,38 +1858,32 @@ void __123__ASCloudKitManager__subscribeToChangesInDatabase_subscriptionPrefix_r
   {
     (*(v13 + 16))(v13, a2, v7);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_subscribeToChangesInSharedDatabaseWithCompletion:(id)completion
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   container = [(ASCloudKitManager *)self container];
   sharedCloudDatabase = [container sharedCloudDatabase];
   v7 = *MEMORY[0x277CE8F00];
-  v10[0] = *MEMORY[0x277CE8EF0];
-  v10[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[0] = *MEMORY[0x277CE8EF0];
+  v9[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   [(ASCloudKitManager *)self _subscribeToChangesInDatabase:sharedCloudDatabase subscriptionPrefix:@"ActivitySharingSharedDataSubscription" recordTypes:v8 zoneNames:MEMORY[0x277CBEBF8] recordTypesToDelete:&unk_2850F51C8 completion:completionCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_subscribeToChangesInPrivateDatabaseWithCompletion:(id)completion
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   container = [(ASCloudKitManager *)self container];
   privateCloudDatabase = [container privateCloudDatabase];
-  v11[0] = *MEMORY[0x277CE8F00];
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
-  v10 = *MEMORY[0x277CE8EE0];
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v10 count:1];
+  v10[0] = *MEMORY[0x277CE8F00];
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
+  v9 = *MEMORY[0x277CE8EE0];
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
   [(ASCloudKitManager *)self _subscribeToChangesInDatabase:privateCloudDatabase subscriptionPrefix:@"ActivitySharingPrivateDataSubscription" recordTypes:v7 zoneNames:v8 recordTypesToDelete:&unk_2850F51E0 completion:completionCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleSecureCloudServerPush:(id)push
@@ -1924,7 +1896,7 @@ void __123__ASCloudKitManager__subscribeToChangesInDatabase_subscriptionPrefix_r
 
 - (void)_handleIncomingNotification:(id)notification
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   ASLoggingInitialize();
   v5 = MEMORY[0x277CE8FD0];
@@ -1934,7 +1906,7 @@ void __123__ASCloudKitManager__subscribeToChangesInDatabase_subscriptionPrefix_r
     v7 = v6;
     subscriptionID = [notificationCopy subscriptionID];
     *buf = 138543362;
-    v16 = subscriptionID;
+    v15 = subscriptionID;
     _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Received CloudKit push notification for subscription with id: %{public}@", buf, 0xCu);
   }
 
@@ -1943,13 +1915,13 @@ void __123__ASCloudKitManager__subscribeToChangesInDatabase_subscriptionPrefix_r
   if (alertBody)
   {
     serialQueue = self->_serialQueue;
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __49__ASCloudKitManager__handleIncomingNotification___block_invoke;
-    v13[3] = &unk_278C4B250;
-    v13[4] = self;
-    v14 = notificationCopy;
-    dispatch_async(serialQueue, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __49__ASCloudKitManager__handleIncomingNotification___block_invoke;
+    v12[3] = &unk_278C4B250;
+    v12[4] = self;
+    v13 = notificationCopy;
+    dispatch_async(serialQueue, v12);
   }
 
   else
@@ -1962,13 +1934,11 @@ void __123__ASCloudKitManager__subscribeToChangesInDatabase_subscriptionPrefix_r
       _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "Push notification is low-priority, not fetching.", buf, 2u);
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __49__ASCloudKitManager__handleIncomingNotification___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(*(a1 + 32) + 176);
   ASLoggingInitialize();
   v3 = MEMORY[0x277CE8FD0];
@@ -1988,7 +1958,7 @@ void __49__ASCloudKitManager__handleIncomingNotification___block_invoke(uint64_t
     if (v5)
     {
       *buf = 134217984;
-      v18 = 0x4000000000000000;
+      v17 = 0x4000000000000000;
       _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "Push notification coalescing interval starting, will take %lf seconds.", buf, 0xCu);
     }
 
@@ -2022,8 +1992,6 @@ void __49__ASCloudKitManager__handleIncomingNotification___block_invoke(uint64_t
     v14 = _MetadataZoneID();
     [v13 setFetchDate:0 forRecordZoneID:v14];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __49__ASCloudKitManager__handleIncomingNotification___block_invoke_454(uint64_t a1)
@@ -2031,7 +1999,8 @@ void __49__ASCloudKitManager__handleIncomingNotification___block_invoke_454(uint
   ASLoggingInitialize();
   v2 = MEMORY[0x277CE8FD0];
   v3 = *MEMORY[0x277CE8FD0];
-  if (os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT))
+  v4 = os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT);
+  if (v4)
   {
     *buf = 0;
     _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "Push notification coalescing interval finished, fetching changes.", buf, 2u);
@@ -2040,26 +2009,26 @@ void __49__ASCloudKitManager__handleIncomingNotification___block_invoke_454(uint
   *(*(a1 + 32) + 176) = 0;
   if (*(*(a1 + 32) + 184) < 2uLL)
   {
-    v5 = ASCloudKitGroupPushTriggered();
-    v6 = *(a1 + 32);
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __49__ASCloudKitManager__handleIncomingNotification___block_invoke_455;
-    v8[3] = &unk_278C4C308;
-    v8[4] = v6;
-    v9 = v5;
-    v7 = v5;
-    [v6 fetchAllChangesWithPriority:2 activity:0 group:v7 completion:v8];
+    v6 = ASCloudKitGroupPushTriggered(v4);
+    v7 = *(a1 + 32);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __49__ASCloudKitManager__handleIncomingNotification___block_invoke_455;
+    v9[3] = &unk_278C4C308;
+    v9[4] = v7;
+    v10 = v6;
+    v8 = v6;
+    [v7 fetchAllChangesWithPriority:2 activity:0 group:v8 completion:v9];
   }
 
   else
   {
     ASLoggingInitialize();
-    v4 = *v2;
+    v5 = *v2;
     if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "Push notification received during a fetch, fetching again after current fetch completes.", buf, 2u);
+      _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Push notification received during a fetch, fetching again after current fetch completes.", buf, 2u);
     }
 
     *(*(a1 + 32) + 192) = 1;
@@ -2122,7 +2091,7 @@ uint64_t __64__ASCloudKitManager__verifyOrCreateSubscriptionsWithCompletion___bl
 
 - (id)_queue_apsEnvironmentString
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_serialQueue);
   if (_queue_apsEnvironmentString_onceToken != -1)
   {
@@ -2141,25 +2110,25 @@ uint64_t __64__ASCloudKitManager__verifyOrCreateSubscriptionsWithCompletion___bl
     v5 = 0;
   }
 
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__8;
-  v24 = __Block_byref_object_dispose__8;
-  v25 = *MEMORY[0x277CEE9F0];
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x3032000000;
+  v22 = __Block_byref_object_copy__8;
+  v23 = __Block_byref_object_dispose__8;
+  v24 = *MEMORY[0x277CEE9F0];
   v6 = MEMORY[0x277CE8FD0];
   if (v5 && ![v5 compare:*MEMORY[0x277CBBFB8] options:1])
   {
     v7 = dispatch_semaphore_create(0);
     container = [(ASCloudKitManager *)self container];
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __48__ASCloudKitManager__queue_apsEnvironmentString__block_invoke_2;
-    v17[3] = &unk_278C4C870;
-    v19 = &v20;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __48__ASCloudKitManager__queue_apsEnvironmentString__block_invoke_2;
+    v16[3] = &unk_278C4C870;
+    v18 = &v19;
     v9 = v7;
-    v18 = v9;
-    [container serverPreferredPushEnvironmentWithCompletionHandler:v17];
+    v17 = v9;
+    [container serverPreferredPushEnvironmentWithCompletionHandler:v16];
 
     v10 = dispatch_time(0, 10000000000);
     if (dispatch_semaphore_wait(v9, v10))
@@ -2178,16 +2147,14 @@ uint64_t __64__ASCloudKitManager__verifyOrCreateSubscriptionsWithCompletion___bl
   v12 = *v6;
   if (os_log_type_enabled(*v6, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = v21[5];
+    v13 = v20[5];
     *buf = 138543362;
-    v27 = v13;
+    v26 = v13;
     _os_log_impl(&dword_23E5E3000, v12, OS_LOG_TYPE_DEFAULT, "Using APS push environment: %{public}@", buf, 0xCu);
   }
 
-  v14 = v21[5];
-  _Block_object_dispose(&v20, 8);
-
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = v20[5];
+  _Block_object_dispose(&v19, 8);
 
   return v14;
 }
@@ -2201,7 +2168,7 @@ uint64_t __48__ASCloudKitManager__queue_apsEnvironmentString__block_invoke()
 
 void __48__ASCloudKitManager__queue_apsEnvironmentString__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   if (v7)
@@ -2210,9 +2177,9 @@ void __48__ASCloudKitManager__queue_apsEnvironmentString__block_invoke_2(uint64_
     v8 = *MEMORY[0x277CE8FD0];
     if (os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543362;
-      v11 = v7;
-      _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "Error getting server APS preferred push environment: %{public}@", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v7;
+      _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "Error getting server APS preferred push environment: %{public}@", &v9, 0xCu);
     }
   }
 
@@ -2222,32 +2189,28 @@ void __48__ASCloudKitManager__queue_apsEnvironmentString__block_invoke_2(uint64_
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceivePublicToken:(id)token
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   tokenCopy = token;
   ASLoggingInitialize();
   v7 = *MEMORY[0x277CE8FD0];
   if (os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138412546;
-    v10 = tokenCopy;
-    v11 = 2048;
-    v12 = connectionCopy;
-    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Received public token %@ on connection %p", &v9, 0x16u);
+    v8 = 138412546;
+    v9 = tokenCopy;
+    v10 = 2048;
+    v11 = connectionCopy;
+    _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "Received public token %@ on connection %p", &v8, 0x16u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceiveToken:(id)token forTopic:(id)topic identifier:(id)identifier
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   tokenCopy = token;
   topicCopy = topic;
@@ -2256,23 +2219,21 @@ void __48__ASCloudKitManager__queue_apsEnvironmentString__block_invoke_2(uint64_
   v13 = *MEMORY[0x277CE8FD0];
   if (os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT))
   {
-    v15 = 138413058;
-    v16 = tokenCopy;
-    v17 = 2114;
-    v18 = topicCopy;
-    v19 = 2112;
-    v20 = identifierCopy;
-    v21 = 2048;
-    v22 = connectionCopy;
-    _os_log_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_DEFAULT, "Received per-topic push token %@ for topic %{public}@ identifier %@ on connection %p", &v15, 0x2Au);
+    v14 = 138413058;
+    v15 = tokenCopy;
+    v16 = 2114;
+    v17 = topicCopy;
+    v18 = 2112;
+    v19 = identifierCopy;
+    v20 = 2048;
+    v21 = connectionCopy;
+    _os_log_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_DEFAULT, "Received per-topic push token %@ for topic %{public}@ identifier %@ on connection %p", &v14, 0x2Au);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connection:(id)connection didReceiveIncomingMessage:(id)message
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   userInfo = [messageCopy userInfo];
   v7 = [MEMORY[0x277CBC4C0] notificationFromRemoteNotificationDictionary:userInfo];
@@ -2282,21 +2243,19 @@ void __48__ASCloudKitManager__queue_apsEnvironmentString__block_invoke_2(uint64_
   {
     v9 = v8;
     topic = [messageCopy topic];
-    v12 = 138412546;
-    v13 = topic;
-    v14 = 2112;
-    v15 = v7;
-    _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "APS push recieved: %@ %@", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = topic;
+    v13 = 2112;
+    v14 = v7;
+    _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "APS push recieved: %@ %@", &v11, 0x16u);
   }
 
   [(ASCloudKitManager *)self _handleIncomingNotification:v7];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_pushEnable
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_serialQueue);
   if (self->_apsConnection)
   {
@@ -2333,13 +2292,13 @@ void __48__ASCloudKitManager__queue_apsEnvironmentString__block_invoke_2(uint64_
         {
           v14 = self->_apsConnection;
           *buf = 134217984;
-          v20 = v14;
+          v19 = v14;
           _os_log_impl(&dword_23E5E3000, v12, OS_LOG_TYPE_DEFAULT, "Created APS connection %p", buf, 0xCu);
         }
 
         v15 = self->_apsConnection;
-        v18 = v5;
-        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v18 count:1];
+        v17 = v5;
+        v16 = [MEMORY[0x277CBEA60] arrayWithObjects:&v17 count:1];
         [(APSConnection *)v15 setEnabledTopics:v16];
       }
 
@@ -2358,8 +2317,6 @@ void __48__ASCloudKitManager__queue_apsEnvironmentString__block_invoke_2(uint64_
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_pushDisable
@@ -2527,16 +2484,16 @@ uint64_t __58__ASCloudKitManager_clearChangeTokenCachesWithCompletion___block_in
     _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "New CloudKit account is now active, performing setup tasks.", buf, 2u);
   }
 
-  v46[0] = 0;
-  v46[1] = v46;
-  v46[2] = 0x2020000000;
-  v47 = 1;
+  v47[0] = 0;
+  v47[1] = v47;
+  v47[2] = 0x2020000000;
+  v48 = 1;
   *buf = 0;
-  v41 = buf;
-  v42 = 0x3032000000;
-  v43 = __Block_byref_object_copy__8;
-  v44 = __Block_byref_object_dispose__8;
-  v45 = 0;
+  v42 = buf;
+  v43 = 0x3032000000;
+  v44 = __Block_byref_object_copy__8;
+  v45 = __Block_byref_object_dispose__8;
+  v46 = 0;
   if (subscriptionsCopy)
   {
     dispatch_group_enter(v9);
@@ -2544,70 +2501,71 @@ uint64_t __58__ASCloudKitManager_clearChangeTokenCachesWithCompletion___block_in
     v12 = *v10;
     if (os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v28 = 0;
-      _os_log_impl(&dword_23E5E3000, v12, OS_LOG_TYPE_DEFAULT, "Creating subscriptions.", v28, 2u);
+      *v29 = 0;
+      _os_log_impl(&dword_23E5E3000, v12, OS_LOG_TYPE_DEFAULT, "Creating subscriptions.", v29, 2u);
     }
 
-    v36[0] = MEMORY[0x277D85DD0];
-    v36[1] = 3221225472;
-    v36[2] = __86__ASCloudKitManager__performNewAccountTasksCreatingSubscriptions_fetching_completion___block_invoke;
-    v36[3] = &unk_278C4C330;
-    v38 = v46;
-    v39 = buf;
-    v37 = v9;
-    [(ASCloudKitManager *)self _verifyOrCreateSubscriptionsWithCompletion:v36];
+    v37[0] = MEMORY[0x277D85DD0];
+    v37[1] = 3221225472;
+    v37[2] = __86__ASCloudKitManager__performNewAccountTasksCreatingSubscriptions_fetching_completion___block_invoke;
+    v37[3] = &unk_278C4C330;
+    v39 = v47;
+    v40 = buf;
+    v38 = v9;
+    [(ASCloudKitManager *)self _verifyOrCreateSubscriptionsWithCompletion:v37];
   }
 
-  v34[0] = 0;
-  v34[1] = v34;
-  v34[2] = 0x2020000000;
-  v35 = 1;
-  *v28 = 0;
-  v29 = v28;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__8;
-  v32 = __Block_byref_object_dispose__8;
-  v33 = 0;
+  v35[0] = 0;
+  v35[1] = v35;
+  v35[2] = 0x2020000000;
+  v36 = 1;
+  *v29 = 0;
+  v30 = v29;
+  v31 = 0x3032000000;
+  v32 = __Block_byref_object_copy__8;
+  v33 = __Block_byref_object_dispose__8;
+  v34 = 0;
   if (fetchingCopy)
   {
     dispatch_group_enter(v9);
     ASLoggingInitialize();
     v13 = *v10;
-    if (os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT))
+    v14 = os_log_type_enabled(*v10, OS_LOG_TYPE_DEFAULT);
+    if (v14)
     {
-      *v27 = 0;
-      _os_log_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_DEFAULT, "Fetching changes.", v27, 2u);
+      *v28 = 0;
+      _os_log_impl(&dword_23E5E3000, v13, OS_LOG_TYPE_DEFAULT, "Fetching changes.", v28, 2u);
     }
 
-    v14 = ASCloudKitGroupInitialDownload();
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __86__ASCloudKitManager__performNewAccountTasksCreatingSubscriptions_fetching_completion___block_invoke_466;
-    v23[3] = &unk_278C4C330;
-    v25 = v34;
-    v26 = v28;
-    v24 = v9;
-    [(ASCloudKitManager *)self fetchAllChangesWithPriority:2 activity:0 group:v14 completion:v23];
+    v15 = ASCloudKitGroupInitialDownload(v14);
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __86__ASCloudKitManager__performNewAccountTasksCreatingSubscriptions_fetching_completion___block_invoke_466;
+    v24[3] = &unk_278C4C330;
+    v26 = v35;
+    v27 = v29;
+    v25 = v9;
+    [(ASCloudKitManager *)self fetchAllChangesWithPriority:2 activity:0 group:v15 completion:v24];
   }
 
   serialQueue = self->_serialQueue;
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __86__ASCloudKitManager__performNewAccountTasksCreatingSubscriptions_fetching_completion___block_invoke_2;
-  v17[3] = &unk_278C4C898;
-  v20 = v34;
-  v21 = buf;
-  v22 = v28;
-  v18 = completionCopy;
-  v19 = v46;
-  v16 = completionCopy;
-  dispatch_group_notify(v9, serialQueue, v17);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = __86__ASCloudKitManager__performNewAccountTasksCreatingSubscriptions_fetching_completion___block_invoke_2;
+  v18[3] = &unk_278C4C898;
+  v21 = v35;
+  v22 = buf;
+  v23 = v29;
+  v19 = completionCopy;
+  v20 = v47;
+  v17 = completionCopy;
+  dispatch_group_notify(v9, serialQueue, v18);
 
-  _Block_object_dispose(v28, 8);
-  _Block_object_dispose(v34, 8);
+  _Block_object_dispose(v29, 8);
+  _Block_object_dispose(v35, 8);
   _Block_object_dispose(buf, 8);
 
-  _Block_object_dispose(v46, 8);
+  _Block_object_dispose(v47, 8);
 }
 
 void __86__ASCloudKitManager__performNewAccountTasksCreatingSubscriptions_fetching_completion___block_invoke(uint64_t a1, char a2, id obj)
@@ -2628,7 +2586,7 @@ void __86__ASCloudKitManager__performNewAccountTasksCreatingSubscriptions_fetchi
 
 void __86__ASCloudKitManager__performNewAccountTasksCreatingSubscriptions_fetching_completion___block_invoke_2(void *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*(*(a1[5] + 8) + 24) == 1)
   {
     v2 = *(*(a1[6] + 8) + 24);
@@ -2650,11 +2608,11 @@ void __86__ASCloudKitManager__performNewAccountTasksCreatingSubscriptions_fetchi
   v5 = *MEMORY[0x277CE8FD0];
   if (os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT))
   {
-    v8[0] = 67109378;
-    v8[1] = v2 & 1;
-    v9 = 2112;
-    v10 = v4;
-    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Setup tasks complete, success: %{BOOL}d, error: %@", v8, 0x12u);
+    v7[0] = 67109378;
+    v7[1] = v2 & 1;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Setup tasks complete, success: %{BOOL}d, error: %@", v7, 0x12u);
   }
 
   v6 = a1[4];
@@ -2662,8 +2620,6 @@ void __86__ASCloudKitManager__performNewAccountTasksCreatingSubscriptions_fetchi
   {
     (*(v6 + 16))(v6, v2 & 1, v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cancelNewAccountTasksTimer
@@ -2675,6 +2631,22 @@ void __86__ASCloudKitManager__performNewAccountTasksCreatingSubscriptions_fetchi
     v4 = self->_newAccountTasksTimer;
     self->_newAccountTasksTimer = 0;
   }
+}
+
+- (void)_performAndRetryNewAccountTasksWithRetryInterval:(double)interval shouldCreateSubscriptions:(BOOL)subscriptions shouldFetch:(BOOL)fetch
+{
+  fetchCopy = fetch;
+  subscriptionsCopy = subscriptions;
+  [(ASCloudKitManager *)self _cancelNewAccountTasksTimer];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __108__ASCloudKitManager__performAndRetryNewAccountTasksWithRetryInterval_shouldCreateSubscriptions_shouldFetch___block_invoke;
+  v9[3] = &unk_278C4C910;
+  v9[4] = self;
+  *&v9[5] = interval;
+  v10 = subscriptionsCopy;
+  v11 = fetchCopy;
+  [(ASCloudKitManager *)self _performNewAccountTasksCreatingSubscriptions:subscriptionsCopy fetching:fetchCopy completion:v9];
 }
 
 void __108__ASCloudKitManager__performAndRetryNewAccountTasksWithRetryInterval_shouldCreateSubscriptions_shouldFetch___block_invoke(uint64_t a1, char a2)
@@ -2694,7 +2666,7 @@ void __108__ASCloudKitManager__performAndRetryNewAccountTasksWithRetryInterval_s
 
 void __108__ASCloudKitManager__performAndRetryNewAccountTasksWithRetryInterval_shouldCreateSubscriptions_shouldFetch___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 48);
   ASLoggingInitialize();
   v3 = *MEMORY[0x277CE8FD0];
@@ -2716,7 +2688,7 @@ void __108__ASCloudKitManager__performAndRetryNewAccountTasksWithRetryInterval_s
     {
       v5 = *(a1 + 40);
       *buf = 134217984;
-      v19 = v5;
+      v18 = v5;
       _os_log_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEFAULT, "New account tasks failed, scheduling a retry for %lf seconds from now", buf, 0xCu);
     }
 
@@ -2743,12 +2715,10 @@ void __108__ASCloudKitManager__performAndRetryNewAccountTasksWithRetryInterval_s
     handler[3] = &unk_278C4C8C0;
     handler[4] = v13;
     *&handler[5] = v12;
-    v17 = *(a1 + 49);
+    v16 = *(a1 + 49);
     dispatch_source_set_event_handler(v14, handler);
     dispatch_resume(*(*(a1 + 32) + 224));
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_performAndRetryNewAccountTasksIfNecessaryWithShouldCreateSubscriptions:(BOOL)subscriptions shouldFetch:(BOOL)fetch
@@ -2786,14 +2756,14 @@ void __56__ASCloudKitManager__saveCloudKitAddressToKeyValueStore__block_invoke(u
 
 void __56__ASCloudKitManager__saveCloudKitAddressToKeyValueStore__block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 8));
   v3 = [WeakRetained deviceLocalActivitySharingKeyValueDomain];
 
   v4 = *(a1 + 40);
-  v10 = 0;
-  [v3 setString:v4 forKey:@"ActivitySharingCloudKitAccountKey" error:&v10];
-  v5 = v10;
+  v9 = 0;
+  [v3 setString:v4 forKey:@"ActivitySharingCloudKitAccountKey" error:&v9];
+  v5 = v9;
   ASLoggingInitialize();
   v6 = *MEMORY[0x277CE8FD0];
   v7 = *MEMORY[0x277CE8FD0];
@@ -2809,23 +2779,21 @@ void __56__ASCloudKitManager__saveCloudKitAddressToKeyValueStore__block_invoke_2
   {
     v8 = *(a1 + 40);
     *buf = 138412290;
-    v12 = v8;
+    v11 = v8;
     _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "Set %@ as CloudKit address in key value domain.", buf, 0xCu);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_queue_isLastCloudKitAddressDifferentFromNewCloudKitAddress:(id)address
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   addressCopy = address;
   dispatch_assert_queue_V2(self->_serialQueue);
   WeakRetained = objc_loadWeakRetained(&self->_activitySharingManager);
   deviceLocalActivitySharingKeyValueDomain = [WeakRetained deviceLocalActivitySharingKeyValueDomain];
-  v14 = 0;
-  v7 = [deviceLocalActivitySharingKeyValueDomain stringForKey:@"ActivitySharingCloudKitAccountKey" error:&v14];
-  v8 = v14;
+  v13 = 0;
+  v7 = [deviceLocalActivitySharingKeyValueDomain stringForKey:@"ActivitySharingCloudKitAccountKey" error:&v13];
+  v8 = v13;
 
   v9 = MEMORY[0x277CE8FD0];
   if (v8)
@@ -2849,16 +2817,15 @@ void __56__ASCloudKitManager__saveCloudKitAddressToKeyValueStore__block_invoke_2
     if (os_log_type_enabled(*v9, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v16 = addressCopy;
-      v17 = 2112;
-      v18 = v7;
+      v15 = addressCopy;
+      v16 = 2112;
+      v17 = v7;
       _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "CloudKit address (%@) does not match previous CloudKit address (%@)", buf, 0x16u);
     }
 
     v10 = 1;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -2933,155 +2900,150 @@ void __48__ASCloudKitManager__handleAccountStatusChange___block_invoke(uint64_t 
 
 void __48__ASCloudKitManager__handleAccountStatusChange___block_invoke_2(uint64_t a1)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v2 = MEMORY[0x277CE8FD0];
   v3 = *MEMORY[0x277CE8FD0];
   if (os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 56);
-    v5 = v3;
-    v6 = CKStringFromAccountStatus();
+    v4 = v3;
+    v5 = CKStringFromAccountStatus();
     *buf = 138543362;
-    v35 = v6;
-    _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "Fetched CloudKit account status: %{public}@", buf, 0xCu);
+    v32 = v5;
+    _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "Fetched CloudKit account status: %{public}@", buf, 0xCu);
   }
 
   if (*(a1 + 56) != *(*(a1 + 32) + 216))
   {
     ASLoggingInitialize();
-    v7 = *v2;
+    v6 = *v2;
     if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_23E5E3000, v7, OS_LOG_TYPE_DEFAULT, "CloudKit account status changed, handling", buf, 2u);
+      _os_log_impl(&dword_23E5E3000, v6, OS_LOG_TYPE_DEFAULT, "CloudKit account status changed, handling", buf, 2u);
     }
 
     ASLoggingInitialize();
-    v8 = *v2;
+    v7 = *v2;
     if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = *(*(a1 + 32) + 216);
-      v10 = v8;
-      v11 = CKStringFromAccountStatus();
+      v8 = v7;
+      v9 = CKStringFromAccountStatus();
       *buf = 138543362;
-      v35 = v11;
-      _os_log_impl(&dword_23E5E3000, v10, OS_LOG_TYPE_DEFAULT, "Previous account status: %{public}@", buf, 0xCu);
+      v32 = v9;
+      _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "Previous account status: %{public}@", buf, 0xCu);
     }
 
-    v12 = *(a1 + 56);
-    if (v12 == 1)
+    v10 = *(a1 + 56);
+    if (v10 == 1)
     {
-      v13 = *(a1 + 32);
-      v14 = v13[27] == 3;
+      v11 = *(a1 + 32);
+      v12 = v11[27] == 3;
       if (!*(a1 + 40))
       {
-        v15 = [v13 _queue_isLastCloudKitAddressDifferentFromNewCloudKitAddress:*(a1 + 48)];
+        v13 = [v11 _queue_isLastCloudKitAddressDifferentFromNewCloudKitAddress:*(a1 + 48)];
 LABEL_13:
+        ASLoggingInitialize();
+        v14 = *v2;
+        if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 67109120;
+          LODWORD(v32) = v10 == 3;
+          _os_log_impl(&dword_23E5E3000, v14, OS_LOG_TYPE_DEFAULT, "isSignedOut=%d", buf, 8u);
+        }
+
+        ASLoggingInitialize();
+        v15 = *v2;
+        if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 67109120;
+          LODWORD(v32) = v12;
+          _os_log_impl(&dword_23E5E3000, v15, OS_LOG_TYPE_DEFAULT, "isSignedInAfterBeingSignedOut=%d", buf, 8u);
+        }
+
         ASLoggingInitialize();
         v16 = *v2;
         if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          LODWORD(v35) = v12 == 3;
-          _os_log_impl(&dword_23E5E3000, v16, OS_LOG_TYPE_DEFAULT, "isSignedOut=%d", buf, 8u);
+          LODWORD(v32) = v13 & 1;
+          _os_log_impl(&dword_23E5E3000, v16, OS_LOG_TYPE_DEFAULT, "isSignedInToNewAccount=%d", buf, 8u);
         }
 
-        ASLoggingInitialize();
-        v17 = *v2;
-        if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 67109120;
-          LODWORD(v35) = v14;
-          _os_log_impl(&dword_23E5E3000, v17, OS_LOG_TYPE_DEFAULT, "isSignedInAfterBeingSignedOut=%d", buf, 8u);
-        }
-
+        v17 = v13 | v12;
         ASLoggingInitialize();
         v18 = *v2;
         if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          LODWORD(v35) = v15 & 1;
-          _os_log_impl(&dword_23E5E3000, v18, OS_LOG_TYPE_DEFAULT, "isSignedInToNewAccount=%d", buf, 8u);
+          LODWORD(v32) = (v10 == 3) | v13 & 1;
+          _os_log_impl(&dword_23E5E3000, v18, OS_LOG_TYPE_DEFAULT, "shouldClearStateAndEraseFriendList=%d", buf, 8u);
         }
 
-        v19 = v15 | v14;
+        v19 = v17 & 1;
         ASLoggingInitialize();
         v20 = *v2;
         if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          LODWORD(v35) = (v12 == 3) | v15 & 1;
-          _os_log_impl(&dword_23E5E3000, v20, OS_LOG_TYPE_DEFAULT, "shouldClearStateAndEraseFriendList=%d", buf, 8u);
-        }
-
-        v21 = v19 & 1;
-        ASLoggingInitialize();
-        v22 = *v2;
-        if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 67109120;
-          LODWORD(v35) = v15 & 1;
-          _os_log_impl(&dword_23E5E3000, v22, OS_LOG_TYPE_DEFAULT, "shouldCreateSubscriptions=%d", buf, 8u);
+          LODWORD(v32) = v13 & 1;
+          _os_log_impl(&dword_23E5E3000, v20, OS_LOG_TYPE_DEFAULT, "shouldCreateSubscriptions=%d", buf, 8u);
         }
 
         ASLoggingInitialize();
-        v23 = *v2;
+        v21 = *v2;
         if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 67109120;
-          LODWORD(v35) = v21;
-          _os_log_impl(&dword_23E5E3000, v23, OS_LOG_TYPE_DEFAULT, "shouldPerformFetch=%d", buf, 8u);
+          LODWORD(v32) = v19;
+          _os_log_impl(&dword_23E5E3000, v21, OS_LOG_TYPE_DEFAULT, "shouldPerformFetch=%d", buf, 8u);
         }
 
         *(*(a1 + 32) + 216) = *(a1 + 56);
         [*(a1 + 32) _queue_pushEnable];
-        v24 = *(a1 + 32);
-        if ((v12 == 3) | v15 & 1)
+        v22 = *(a1 + 32);
+        if ((v10 == 3) | v13 & 1)
         {
-          [v24 _cancelNewAccountTasksTimer];
-          v25 = *(a1 + 32);
-          v31[0] = MEMORY[0x277D85DD0];
-          v31[1] = 3221225472;
-          v31[2] = __48__ASCloudKitManager__handleAccountStatusChange___block_invoke_469;
-          v31[3] = &unk_278C4C988;
-          v31[4] = v25;
-          v32 = v15;
-          v33 = v21;
-          [v25 _queue_clearChangeTokenCacheAndFriendListWithCompletion:v31];
+          [v22 _cancelNewAccountTasksTimer];
+          v23 = *(a1 + 32);
+          v28[0] = MEMORY[0x277D85DD0];
+          v28[1] = 3221225472;
+          v28[2] = __48__ASCloudKitManager__handleAccountStatusChange___block_invoke_469;
+          v28[3] = &unk_278C4C988;
+          v28[4] = v23;
+          v29 = v13;
+          v30 = v19;
+          [v23 _queue_clearChangeTokenCacheAndFriendListWithCompletion:v28];
         }
 
         else
         {
-          [v24 _performAndRetryNewAccountTasksIfNecessaryWithShouldCreateSubscriptions:0 shouldFetch:v21];
+          [v22 _performAndRetryNewAccountTasksIfNecessaryWithShouldCreateSubscriptions:0 shouldFetch:v19];
         }
 
-        v26 = *(a1 + 32);
-        v27 = *(v26 + 32);
-        v30[0] = MEMORY[0x277D85DD0];
-        v30[1] = 3221225472;
-        v30[2] = __48__ASCloudKitManager__handleAccountStatusChange___block_invoke_2_470;
-        v30[3] = &unk_278C4C9B0;
-        v28 = *(a1 + 56);
-        v30[4] = v26;
-        v30[5] = v28;
-        dispatch_async(v27, v30);
+        v24 = *(a1 + 32);
+        v25 = *(v24 + 32);
+        v27[0] = MEMORY[0x277D85DD0];
+        v27[1] = 3221225472;
+        v27[2] = __48__ASCloudKitManager__handleAccountStatusChange___block_invoke_2_470;
+        v27[3] = &unk_278C4C9B0;
+        v26 = *(a1 + 56);
+        v27[4] = v24;
+        v27[5] = v26;
+        dispatch_async(v25, v27);
         dispatch_async(MEMORY[0x277D85CD0], &__block_literal_global_472);
-        goto LABEL_29;
+        return;
       }
     }
 
     else
     {
-      v14 = 0;
+      v12 = 0;
     }
 
-    v15 = 0;
+    v13 = 0;
     goto LABEL_13;
   }
-
-LABEL_29:
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 void __48__ASCloudKitManager__handleAccountStatusChange___block_invoke_3()
@@ -3182,7 +3144,7 @@ void __62__ASCloudKitManager_fetchCloudKitAccountStatusWithCompletion___block_in
 
 void __57__ASCloudKitManager__fetchCloudKitAddressWithCompletion___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v6 = a3;
   v7 = a4;
   ASLoggingInitialize();
@@ -3198,14 +3160,12 @@ void __57__ASCloudKitManager__fetchCloudKitAddressWithCompletion___block_invoke(
 
   else if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v6;
-    _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "Fetched CloudKit address: %@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v6;
+    _os_log_impl(&dword_23E5E3000, v8, OS_LOG_TYPE_DEFAULT, "Fetched CloudKit address: %@", &v10, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)createShareWithRootRecord:(id)record otherRecordsToSave:(id)save completion:(id)completion
@@ -3367,16 +3327,16 @@ void __57__ASCloudKitManager__fetchCloudKitAddressWithCompletion___block_invoke(
 
 - (void)_createNotificationSteps
 {
-  v48[2] = *MEMORY[0x277D85DE8];
+  v47[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc_init(ASNotificationStep);
   relationshipNotificationStep = self->_relationshipNotificationStep;
   self->_relationshipNotificationStep = v3;
 
   v5 = MEMORY[0x277CBEB98];
   v6 = *MEMORY[0x277CE8EF8];
-  v48[0] = *MEMORY[0x277CE8F00];
-  v48[1] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v48 count:2];
+  v47[0] = *MEMORY[0x277CE8F00];
+  v47[1] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:2];
   v8 = [v5 setWithArray:v7];
   [(ASNotificationStep *)self->_relationshipNotificationStep setRecordTypes:v8];
 
@@ -3499,7 +3459,6 @@ void __57__ASCloudKitManager__fetchCloudKitAddressWithCompletion___block_invoke(
   [(ASNotificationStep *)self->_migrationAvailableItemStep setObjectTransformationBlock:&__block_literal_global_583];
   [(ASNotificationStep *)self->_migrationAvailableItemStep setShouldNotifyObserverBlock:&__block_literal_global_585];
   [(ASNotificationStep *)self->_migrationAvailableItemStep setNotifyObserverBlock:&__block_literal_global_589];
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 id __45__ASCloudKitManager__createNotificationSteps__block_invoke()
@@ -3611,7 +3570,7 @@ id __45__ASCloudKitManager__createNotificationSteps__block_invoke_18(uint64_t a1
 
 void __33__ASCloudKitManager_addObserver___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 64) addObject:*(a1 + 40)];
   if (([*(a1 + 40) isReadyToProcessChanges] & 1) == 0)
   {
@@ -3620,16 +3579,14 @@ void __33__ASCloudKitManager_addObserver___block_invoke(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(a1 + 40);
-      v5 = 138412290;
-      v6 = v3;
-      _os_log_impl(&dword_23E5E3000, v2, OS_LOG_TYPE_DEFAULT, "CloudKitManager added observer not yet ready to process changes: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_impl(&dword_23E5E3000, v2, OS_LOG_TYPE_DEFAULT, "CloudKitManager added observer not yet ready to process changes: %@", &v4, 0xCu);
     }
 
     [*(*(a1 + 32) + 240) addObject:*(a1 + 40)];
     dispatch_group_enter(*(*(a1 + 32) + 248));
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObserver:(id)observer
@@ -3648,7 +3605,7 @@ void __33__ASCloudKitManager_addObserver___block_invoke(uint64_t a1)
 
 void __36__ASCloudKitManager_removeObserver___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   [*(*(a1 + 32) + 64) removeObject:*(a1 + 40)];
   if ([*(*(a1 + 32) + 240) containsObject:*(a1 + 40)])
   {
@@ -3657,16 +3614,14 @@ void __36__ASCloudKitManager_removeObserver___block_invoke(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(a1 + 40);
-      v5 = 138412290;
-      v6 = v3;
-      _os_log_impl(&dword_23E5E3000, v2, OS_LOG_TYPE_DEFAULT, "CloudKitManager removing observer not yet ready to process changes: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_impl(&dword_23E5E3000, v2, OS_LOG_TYPE_DEFAULT, "CloudKitManager removing observer not yet ready to process changes: %@", &v4, 0xCu);
     }
 
     [*(*(a1 + 32) + 240) removeObject:*(a1 + 40)];
     dispatch_group_leave(*(*(a1 + 32) + 248));
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observerDidBecomeReadyToProcessChanges:(id)changes
@@ -3685,7 +3640,7 @@ void __36__ASCloudKitManager_removeObserver___block_invoke(uint64_t a1)
 
 void __60__ASCloudKitManager_observerDidBecomeReadyToProcessChanges___block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if ([*(*(a1 + 32) + 240) containsObject:*(a1 + 40)])
   {
     ASLoggingInitialize();
@@ -3693,16 +3648,14 @@ void __60__ASCloudKitManager_observerDidBecomeReadyToProcessChanges___block_invo
     if (os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT))
     {
       v3 = *(a1 + 40);
-      v5 = 138412290;
-      v6 = v3;
-      _os_log_impl(&dword_23E5E3000, v2, OS_LOG_TYPE_DEFAULT, "CloudKitManager observer did become ready to process changes: %@", &v5, 0xCu);
+      v4 = 138412290;
+      v5 = v3;
+      _os_log_impl(&dword_23E5E3000, v2, OS_LOG_TYPE_DEFAULT, "CloudKitManager observer did become ready to process changes: %@", &v4, 0xCu);
     }
 
     [*(*(a1 + 32) + 240) removeObject:*(a1 + 40)];
     dispatch_group_leave(*(*(a1 + 32) + 248));
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)allObserversReady
@@ -3724,7 +3677,7 @@ void __60__ASCloudKitManager_observerDidBecomeReadyToProcessChanges___block_invo
   return v3;
 }
 
-uint64_t __38__ASCloudKitManager_allObserversReady__block_invoke(uint64_t a1)
+void *__38__ASCloudKitManager_allObserversReady__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 240) count];
   *(*(*(a1 + 40) + 8) + 24) = result == 0;
@@ -3754,7 +3707,7 @@ uint64_t __38__ASCloudKitManager_allObserversReady__block_invoke(uint64_t a1)
 
 uint64_t __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_dispatchGroup_activity_cloudKitGroup___block_invoke(uint64_t a1)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v2 = *MEMORY[0x277CE8FD0];
   if (os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT))
@@ -3768,26 +3721,26 @@ uint64_t __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecor
   }
 
   v6 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v35 = 0u;
-  v33 = 0u;
   v34 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v31 = 0u;
   v7 = *(a1 + 40);
-  v8 = [v7 countByEnumeratingWithState:&v32 objects:v39 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v31 objects:v38 count:16];
   if (v8)
   {
-    v9 = *v33;
+    v9 = *v32;
     do
     {
       v10 = 0;
       do
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * v10);
+        v11 = *(*(&v31 + 1) + 8 * v10);
         v12 = [*(a1 + 32) recordTypes];
         v13 = [v11 recordType];
         v14 = [v12 containsObject:v13];
@@ -3811,7 +3764,7 @@ uint64_t __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecor
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v32 objects:v39 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v31 objects:v38 count:16];
     }
 
     while (v8);
@@ -3819,27 +3772,26 @@ uint64_t __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecor
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v37 = 0x2020000000;
-  v38 = 0;
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_dispatchGroup_activity_cloudKitGroup___block_invoke_592;
-  v24[3] = &unk_278C4CBB8;
+  v36 = 0x2020000000;
+  v37 = 0;
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_dispatchGroup_activity_cloudKitGroup___block_invoke_592;
+  v23[3] = &unk_278C4CBB8;
   v18 = *(a1 + 32);
   v19 = *(a1 + 48);
   v20 = *(a1 + 56);
-  v25 = v18;
-  v26 = v19;
-  v27 = v20;
+  v24 = v18;
+  v25 = v19;
+  v26 = v20;
   p_buf = &buf;
   v21 = v6;
-  v28 = v21;
-  v29 = *(a1 + 64);
-  v30 = *(a1 + 72);
-  [v21 enumerateKeysAndObjectsUsingBlock:v24];
+  v27 = v21;
+  v28 = *(a1 + 64);
+  v29 = *(a1 + 72);
+  [v21 enumerateKeysAndObjectsUsingBlock:v23];
 
   _Block_object_dispose(&buf, 8);
-  v22 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -3849,13 +3801,11 @@ void __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_d
   v6 = a3;
   v9 = *(a1 + 32);
   v10 = v6;
-  v11 = *(a1 + 40);
-  v12 = *(a1 + 48);
-  v17 = *(a1 + 80);
-  v13 = *(a1 + 56);
-  v14 = v5;
-  v15 = *(a1 + 64);
-  v16 = *(a1 + 72);
+  v11 = *(a1 + 48);
+  v12 = *(a1 + 56);
+  v13 = v5;
+  v14 = *(a1 + 64);
+  v15 = *(a1 + 72);
   v7 = v5;
   v8 = v6;
   HKWithAutoreleasePool();
@@ -3864,40 +3814,40 @@ void __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_d
 
 uint64_t __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_dispatchGroup_activity_cloudKitGroup___block_invoke_2(uint64_t a1)
 {
-  v38 = *MEMORY[0x277D85DE8];
-  v23 = [*(a1 + 32) objectsTransformedFromRecords:*(a1 + 40) cloudKitManager:*(a1 + 48)];
-  if ([v23 count])
+  v37 = *MEMORY[0x277D85DE8];
+  v22 = [*(a1 + 32) objectsTransformedFromRecords:*(a1 + 40) cloudKitManager:*(a1 + 48)];
+  if ([v22 count])
   {
-    v31 = 0u;
-    v32 = 0u;
-    v29 = 0u;
     v30 = 0u;
+    v31 = 0u;
+    v28 = 0u;
+    v29 = 0u;
     obj = *(*(a1 + 48) + 64);
-    v2 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+    v2 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
     if (v2)
     {
       v3 = v2;
-      v4 = *v30;
-      v21 = v27;
+      v4 = *v29;
+      v20 = v26;
       v5 = MEMORY[0x277CE8FD0];
-      v22 = *v30;
+      v21 = *v29;
       do
       {
         v6 = 0;
-        v24 = v3;
+        v23 = v3;
         do
         {
-          if (*v30 != v4)
+          if (*v29 != v4)
           {
             objc_enumerationMutation(obj);
           }
 
-          v7 = *(*(&v29 + 1) + 8 * v6);
+          v7 = *(*(&v28 + 1) + 8 * v6);
           ASLoggingInitialize();
           v8 = *v5;
           if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEBUG))
           {
-            __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_dispatchGroup_activity_cloudKitGroup___block_invoke_2_cold_1(&v35, v8, v7, &v36);
+            __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_dispatchGroup_activity_cloudKitGroup___block_invoke_2_cold_1(v34, v8, v7, &v35);
           }
 
           v9 = [*(a1 + 32) shouldNotifyObserverBlock];
@@ -3909,7 +3859,7 @@ uint64_t __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecor
             v11 = *v5;
             if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEBUG))
             {
-              __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_dispatchGroup_activity_cloudKitGroup___block_invoke_2_cold_2(&v33, v11, v7, &v34);
+              __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_dispatchGroup_activity_cloudKitGroup___block_invoke_2_cold_2(v32, v11, v7, &v33);
             }
 
             dispatch_group_enter(*(a1 + 56));
@@ -3919,17 +3869,17 @@ uint64_t __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecor
             v15 = *(a1 + 72);
             v16 = *(a1 + 80);
             v17 = *(a1 + 88);
-            v26[0] = MEMORY[0x277D85DD0];
-            v26[1] = 3221225472;
-            v27[0] = __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_dispatchGroup_activity_cloudKitGroup___block_invoke_593;
-            v27[1] = &unk_278C4B250;
-            v27[2] = v7;
+            v25[0] = MEMORY[0x277D85DD0];
+            v25[1] = 3221225472;
+            v26[0] = __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_dispatchGroup_activity_cloudKitGroup___block_invoke_593;
+            v26[1] = &unk_278C4B250;
+            v26[2] = v7;
             v18 = *(a1 + 48);
-            v28 = *(a1 + 56);
-            (v14)[2](v14, v18, v7, v15, v13, v23, v16, v17, v26, v21);
+            v27 = *(a1 + 56);
+            (v14)[2](v14, v18, v7, v15, v13, v22, v16, v17, v25, v20);
 
-            v4 = v22;
-            v3 = v24;
+            v4 = v21;
+            v3 = v23;
             v5 = MEMORY[0x277CE8FD0];
           }
 
@@ -3937,14 +3887,13 @@ uint64_t __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecor
         }
 
         while (v3 != v6);
-        v3 = [obj countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v3 = [obj countByEnumeratingWithState:&v28 objects:v36 count:16];
       }
 
       while (v3);
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -3962,72 +3911,71 @@ void __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_d
 
 - (void)_observerQueue_notifyOfPrivateDatabaseDeletedRecordIDs:(id)ds sharedDatabaseDeletedRecordIDs:(id)iDs
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   iDsCopy = iDs;
   dispatch_assert_queue_V2(self->_observerQueue);
   v6 = dispatch_group_create();
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = self->_observers;
-  v7 = [(NSHashTable *)obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v7 = [(NSHashTable *)obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v23;
-    v13 = v20;
+    v9 = *v22;
+    v12 = v19;
     do
     {
       v10 = 0;
       do
       {
-        if (*v23 != v9)
+        if (*v22 != v9)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v22 + 1) + 8 * v10);
+        v11 = *(*(&v21 + 1) + 8 * v10);
         if (objc_opt_respondsToSelector())
         {
           dispatch_group_enter(v6);
-          v19[0] = MEMORY[0x277D85DD0];
-          v19[1] = 3221225472;
-          v20[0] = __107__ASCloudKitManager__observerQueue_notifyOfPrivateDatabaseDeletedRecordIDs_sharedDatabaseDeletedRecordIDs___block_invoke;
-          v20[1] = &unk_278C4B278;
-          v21 = v6;
-          [v11 cloudKitManager:self didDeleteRecordIDsForSelf:dsCopy changesProcessedHandler:{v19, v13}];
+          v18[0] = MEMORY[0x277D85DD0];
+          v18[1] = 3221225472;
+          v19[0] = __107__ASCloudKitManager__observerQueue_notifyOfPrivateDatabaseDeletedRecordIDs_sharedDatabaseDeletedRecordIDs___block_invoke;
+          v19[1] = &unk_278C4B278;
+          v20 = v6;
+          [v11 cloudKitManager:self didDeleteRecordIDsForSelf:dsCopy changesProcessedHandler:{v18, v12}];
         }
 
         if (objc_opt_respondsToSelector())
         {
           dispatch_group_enter(v6);
-          v17[0] = MEMORY[0x277D85DD0];
-          v17[1] = 3221225472;
-          v17[2] = __107__ASCloudKitManager__observerQueue_notifyOfPrivateDatabaseDeletedRecordIDs_sharedDatabaseDeletedRecordIDs___block_invoke_2;
-          v17[3] = &unk_278C4B278;
-          v18 = v6;
-          [v11 cloudKitManager:self didDeleteRecordIDs:iDsCopy changesProcessedHandler:v17];
+          v16[0] = MEMORY[0x277D85DD0];
+          v16[1] = 3221225472;
+          v16[2] = __107__ASCloudKitManager__observerQueue_notifyOfPrivateDatabaseDeletedRecordIDs_sharedDatabaseDeletedRecordIDs___block_invoke_2;
+          v16[3] = &unk_278C4B278;
+          v17 = v6;
+          [v11 cloudKitManager:self didDeleteRecordIDs:iDsCopy changesProcessedHandler:v16];
         }
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSHashTable *)obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v8 = [(NSHashTable *)obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v8);
   }
 
   dispatch_group_wait(v6, 0xFFFFFFFFFFFFFFFFLL);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_observerQueue_notifyObserversOfBeginUpdatesForFetchWithType:(int64_t)type
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_observerQueue);
   ASLoggingInitialize();
   v5 = *MEMORY[0x277CE8FD0];
@@ -4037,48 +3985,46 @@ void __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_d
     _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "CloudKit Manager beginning update transaction.", buf, 2u);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = self->_observers;
-  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
+        v11 = *(*(&v12 + 1) + 8 * v10);
         if (objc_opt_respondsToSelector())
         {
-          [v11 cloudKitManager:self didBeginUpdatesForFetchWithType:{type, v13}];
+          [v11 cloudKitManager:self didBeginUpdatesForFetchWithType:{type, v12}];
         }
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSHashTable *)v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v8 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_notifyObserversOfStatusChanged:(int64_t)changed
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v5 = *MEMORY[0x277CE8FD0];
   if (os_log_type_enabled(*MEMORY[0x277CE8FD0], OS_LOG_TYPE_DEFAULT))
@@ -4087,48 +4033,46 @@ void __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_d
     _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "CloudKit Manager status changed. Notifying observers", buf, 2u);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = self->_observers;
-  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
+        v11 = *(*(&v12 + 1) + 8 * v10);
         if (objc_opt_respondsToSelector())
         {
-          [v11 cloudKitManager:self didUpdateAccountStatus:{changed, v13}];
+          [v11 cloudKitManager:self didUpdateAccountStatus:{changed, v12}];
         }
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSHashTable *)v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v8 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_observerQueue_notifyObserversOfEndUpdatesForFetchWithType:(int64_t)type activity:(id)activity cloudKitGroup:(id)group
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   groupCopy = group;
   dispatch_assert_queue_V2(self->_observerQueue);
@@ -4141,55 +4085,54 @@ void __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_d
   }
 
   v9 = dispatch_group_create();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v10 = self->_observers;
-  v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v11 = [(NSHashTable *)v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v22;
+    v13 = *v21;
     do
     {
       v14 = 0;
       do
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * v14);
+        v15 = *(*(&v20 + 1) + 8 * v14);
         if (objc_opt_respondsToSelector())
         {
           dispatch_group_enter(v9);
-          v19[0] = MEMORY[0x277D85DD0];
-          v19[1] = 3221225472;
-          v19[2] = __103__ASCloudKitManager__observerQueue_notifyObserversOfEndUpdatesForFetchWithType_activity_cloudKitGroup___block_invoke;
-          v19[3] = &unk_278C4B278;
-          v20 = v9;
-          [v15 cloudKitManager:self didEndUpdatesForFetchWithType:type activity:activityCopy cloudKitGroup:groupCopy changesProcessedHandler:v19];
+          v18[0] = MEMORY[0x277D85DD0];
+          v18[1] = 3221225472;
+          v18[2] = __103__ASCloudKitManager__observerQueue_notifyObserversOfEndUpdatesForFetchWithType_activity_cloudKitGroup___block_invoke;
+          v18[3] = &unk_278C4B278;
+          v19 = v9;
+          [v15 cloudKitManager:self didEndUpdatesForFetchWithType:type activity:activityCopy cloudKitGroup:groupCopy changesProcessedHandler:v18];
         }
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [(NSHashTable *)v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v12 = [(NSHashTable *)v10 countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v12);
   }
 
   dispatch_group_wait(v9, 0xFFFFFFFFFFFFFFFFLL);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_observerQueue_notifyObserversOfServerPushHandledWithCloudKitGroup:(id)group
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   groupCopy = group;
   dispatch_assert_queue_V2(self->_observerQueue);
   ASLoggingInitialize();
@@ -4200,43 +4143,41 @@ void __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_d
     _os_log_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_DEFAULT, "CloudKit Manager handled server push.", buf, 2u);
   }
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v6 = self->_observers;
-  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+  v7 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v13 + 1) + 8 * v10);
+        v11 = *(*(&v12 + 1) + 8 * v10);
         if (objc_opt_respondsToSelector())
         {
-          [v11 cloudKitManager:self didHandleServerPushWithCloudKitGroup:{groupCopy, v13}];
+          [v11 cloudKitManager:self didHandleServerPushWithCloudKitGroup:{groupCopy, v12}];
         }
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [(NSHashTable *)v6 countByEnumeratingWithState:&v13 objects:v18 count:16];
+      v8 = [(NSHashTable *)v6 countByEnumeratingWithState:&v12 objects:v17 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleNewPrivateDatabaseRecordChanges:(id)changes sharedDatabaseRecordChanges:(id)recordChanges privateDatabaseDeletedRecordIDs:(id)ds sharedDatabaseDeletedRecordIDs:(id)iDs fetchType:(int64_t)type activity:(id)activity cloudKitGroup:(id)group
@@ -4742,112 +4683,29 @@ void __44__ASCloudKitManager_beginHandlingOperations__block_invoke_cold_1(void *
 
 void __44__ASCloudKitManager_beginHandlingOperations__block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, a1, a3, "Failed to get CloudKit container with identifier %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-void __44__ASCloudKitManager_beginHandlingOperations__block_invoke_cold_3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "Error initializing hasCompletedFirstFetch from key value domain: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __141__ASCloudKitManager__queue_startFetchAllChangesOperationWithPriority_activity_changeTokenCache_secureCloudChangeTokenCache_group_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "Fetching changes in private database failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __141__ASCloudKitManager__queue_startFetchAllChangesOperationWithPriority_activity_changeTokenCache_secureCloudChangeTokenCache_group_completion___block_invoke_416_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "Fetching changes in shared database failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __141__ASCloudKitManager__queue_startFetchAllChangesOperationWithPriority_activity_changeTokenCache_secureCloudChangeTokenCache_group_completion___block_invoke_417_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "Fetching changes in secure cloud private database failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __141__ASCloudKitManager__queue_startFetchAllChangesOperationWithPriority_activity_changeTokenCache_secureCloudChangeTokenCache_group_completion___block_invoke_419_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "Fetching changes in secure cloud shared database failed with error: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = @"com.apple.ActivitySharing";
+  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, a1, a3, "Failed to get CloudKit container with identifier %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __65__ASCloudKitManager__fetchAllChangesWithPriority_activity_group___block_invoke_426_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(a1 + 32));
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, a2, a3, "Failed to fetch changes with error %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_setHasCompletedFirstFetch:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "Error updating key value domain with completed first fetch: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = *(a1 + 32);
+  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, a2, a3, "Failed to fetch changes with error %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __123__ASCloudKitManager__subscribeToChangesInDatabase_subscriptionPrefix_recordTypes_zoneNames_recordTypesToDelete_completion___block_invoke_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = a2;
   [v4 databaseScope];
   v6 = CKDatabaseScopeString();
   OUTLINED_FUNCTION_1_0();
-  v9 = 2114;
-  v10 = a3;
-  _os_log_error_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_ERROR, "Failed to save subscriptions into database %{public}@ with error: %{public}@", v8, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void __56__ASCloudKitManager__saveCloudKitAddressToKeyValueStore__block_invoke_2_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "Error setting new CloudKit address in key value domain: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_queue_isLastCloudKitAddressDifferentFromNewCloudKitAddress:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "Error reading previous CloudKit address from key value domain: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __66__ASCloudKitManager__fetchCloudKitAccountStatusAndNotifyOfChanges__block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "Error getting CloudKit account status: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void __57__ASCloudKitManager__fetchCloudKitAddressWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_23E5E3000, v0, v1, "Error fetching CloudKit address: %{public}@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v8 = 2114;
+  v9 = a3;
+  _os_log_error_impl(&dword_23E5E3000, v5, OS_LOG_TYPE_ERROR, "Failed to save subscriptions into database %{public}@ with error: %{public}@", v7, 0x16u);
 }
 
 void __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_dispatchGroup_activity_cloudKitGroup___block_invoke_2_cold_1(_DWORD *a1, void *a2, uint64_t a3, void *a4)
@@ -4872,15 +4730,12 @@ void __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_d
 
 void __107__ASCloudKitManager__observerQueue_performNotificationStep_onRecords_dispatchGroup_activity_cloudKitGroup___block_invoke_593_cold_1(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  v3 = a2;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = a2;
   objc_opt_class();
   OUTLINED_FUNCTION_1_0();
-  v5 = v4;
-  _os_log_debug_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_DEBUG, "Finished notifying observer of class %@", v7, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v4 = v3;
+  _os_log_debug_impl(&dword_23E5E3000, v2, OS_LOG_TYPE_DEBUG, "Finished notifying observer of class %@", v5, 0xCu);
 }
 
 @end

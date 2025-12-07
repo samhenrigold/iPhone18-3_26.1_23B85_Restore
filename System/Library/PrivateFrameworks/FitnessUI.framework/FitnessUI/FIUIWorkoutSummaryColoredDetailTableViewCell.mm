@@ -87,26 +87,26 @@
   v9 = v8;
   v11 = v10;
 
-  v59.origin.x = v9;
-  memset(&v59.origin.y, 0, 24);
+  v72.origin.x = v9;
+  memset(&v72.origin.y, 0, 24);
   [(UILabel *)self->_titleLabel sizeThatFits:v9 + 5.5 * -2.0];
   v13 = v12;
   v14 = 17.0 - v12;
   [(UILabel *)self->_titleLabel _baselineOffsetFromBottom];
   v16 = v14 + v15;
   contentView2 = [(FIUIWorkoutSummaryColoredDetailTableViewCell *)self contentView];
-  v52 = v16;
-  v53 = v13;
-  [(UILabel *)self->_titleLabel setFrame:FIUIRoundFrameToViewScale(contentView2)];
+  v62 = v16;
+  v63 = v13;
+  [(UILabel *)self->_titleLabel setFrame:FIUIRoundFrameToViewScale(contentView2, 5.5, v16, v9 + 5.5 * -2.0, v13)];
 
   customAccessoryButton = self->_customAccessoryButton;
-  v51 = v11;
+  v61 = v11;
   if (customAccessoryButton)
   {
     [(UIButton *)customAccessoryButton sizeToFit];
     imageView = [(UIButton *)self->_customAccessoryButton imageView];
     [imageView frame];
-    v50 = v20;
+    v60 = v20;
 
     [(UIButton *)self->_customAccessoryButton frame];
     v22 = v21;
@@ -119,27 +119,27 @@
 
     [(UIButton *)self->_customAccessoryButton bounds];
     v30 = v29;
-    v59.size.width = v31;
-    v59.size.height = v29;
-    v59.origin.x = v28 + v9 - v31 + -6.0;
-    v60.origin.x = v5;
-    v60.origin.y = v7;
-    v60.size.width = v9;
-    v60.size.height = v11;
-    v32 = CGRectGetMidY(v60) + v30 * -0.5;
+    v72.size.width = v31;
+    v72.size.height = v29;
+    v72.origin.x = v28 + v9 - v31 + -6.0;
+    v73.origin.x = v5;
+    v73.origin.y = v7;
+    v73.size.width = v9;
+    v73.size.height = v11;
+    v32 = CGRectGetMidY(v73) + v30 * -0.5;
     [(UILabel *)self->_titleLabel frame];
-    if (v59.origin.x <= CGRectGetMaxX(v61))
+    if (v72.origin.x <= CGRectGetMaxX(v74))
     {
       [(UILabel *)self->_titleLabel frame];
-      if (v32 <= CGRectGetMaxY(v62))
+      if (v32 <= CGRectGetMaxY(v75))
       {
-        v32 = 21.0 - v50;
+        v32 = 21.0 - v60;
       }
     }
 
-    v59.origin.y = v32;
-    FIUIFlipFrameRightToLeftIfNeeded(&v59.origin.x, v5, v7, v9, v11);
-    [(UIButton *)self->_customAccessoryButton setFrame:v59.origin.x, v59.origin.y, v59.size.width, v59.size.height];
+    v72.origin.y = v32;
+    FIUIFlipFrameRightToLeftIfNeeded(&v72.origin.x, v5, v7, v9, v11);
+    [(UIButton *)self->_customAccessoryButton setFrame:v72.origin.x, v72.origin.y, v72.size.width, v72.size.height];
     v33 = v7;
     v34 = v5;
   }
@@ -151,44 +151,46 @@
   }
 
   [(UILabel *)self->_detailLabel sizeThatFits:v9 + 5.5 * -2.0, 1.79769313e308];
-  CGRectGetWidth(v59);
+  v36 = v35;
+  v37 = v9 - 5.5 - CGRectGetWidth(v72) + -6.0;
   [(UILabel *)self->_detailLabel _baselineOffsetFromBottom];
+  v39 = 40.0 - v36 + v38;
   contentView3 = [(FIUIWorkoutSummaryColoredDetailTableViewCell *)self contentView];
-  v55 = FIUIRoundFrameToViewScale(contentView3);
-  v56 = v36;
-  v57 = v37;
-  v58 = v38;
+  v68 = FIUIRoundFrameToViewScale(contentView3, 5.5, v39, v37, v36);
+  v69 = v41;
+  v70 = v42;
+  v71 = v43;
 
-  FIUIFlipFrameRightToLeftIfNeeded(&v55, v34, v33, v9, v51);
-  [(UILabel *)self->_detailLabel setFrame:v55, v56, v57, v58];
-  [(FIUIWorkoutSummaryColoredDetailTableViewCell *)self _resizeFontsIfNeededToFitWidth:v57];
+  FIUIFlipFrameRightToLeftIfNeeded(&v68, v34, v33, v9, v61);
+  [(UILabel *)self->_detailLabel setFrame:v68, v69, v70, v71];
+  [(FIUIWorkoutSummaryColoredDetailTableViewCell *)self _resizeFontsIfNeededToFitWidth:v70];
   noDataLabel = self->_noDataLabel;
   if (noDataLabel)
   {
     [(UILabel *)noDataLabel sizeThatFits:v9 + 5.5 * -2.0, 1.79769313e308];
-    v41 = v40;
-    v43 = v42;
+    v46 = v45;
+    v48 = v47;
     [(UILabel *)self->_detailLabel _baselineOffsetFromBottom];
-    v54[0] = 5.5;
-    v54[1] = v44 + 17.0;
-    v54[2] = v41;
-    v54[3] = v43;
-    FIUIFlipFrameRightToLeftIfNeeded(v54, v34, v33, v9, v51);
+    v64 = 5.5;
+    v65 = v49 + 17.0;
+    v66 = v46;
+    v67 = v48;
+    FIUIFlipFrameRightToLeftIfNeeded(&v64, v34, v33, v9, v61);
     contentView4 = [(FIUIWorkoutSummaryColoredDetailTableViewCell *)self contentView];
-    [(UILabel *)self->_noDataLabel setFrame:FIUIRoundFrameToViewScale(contentView4)];
+    [(UILabel *)self->_noDataLabel setFrame:FIUIRoundFrameToViewScale(contentView4, v64, v65, v66, v67)];
   }
 
-  [(UILabel *)self->_secondTitleLabel setFrame:5.5, v52 + 38.25, v9 + 5.5 * -2.0, v53];
+  [(UILabel *)self->_secondTitleLabel setFrame:5.5, v62 + 38.25, v9 + 5.5 * -2.0, v63];
   contentView5 = [(FIUIWorkoutSummaryColoredDetailTableViewCell *)self contentView];
-  [(UILabel *)self->_secondDetailLabel setFrame:FIUIRoundFrameToViewScale(contentView5)];
+  [(UILabel *)self->_secondDetailLabel setFrame:FIUIRoundFrameToViewScale(contentView5, 5.5, v62 + 38.25 + 13.75, v9 + 5.5 * -2.0, v63)];
 
   [(UIView *)self->_dividerView sizeThatFits:v9 + 5.5 * -2.0, 1.79769313e308];
-  v63.origin.x = v34;
-  v48 = v47;
-  v63.origin.y = v33;
-  v63.size.width = v9;
-  v63.size.height = v51;
-  [(UIView *)self->_dividerView setFrame:5.5, CGRectGetMaxY(v63) - v48, v9 + 5.5 * -2.0, v48];
+  v76.origin.x = v34;
+  v53 = v52;
+  v76.origin.y = v33;
+  v76.size.width = v9;
+  v76.size.height = v61;
+  [(UIView *)self->_dividerView setFrame:5.5, CGRectGetMaxY(v76) - v53, v9 + 5.5 * -2.0, v53];
   if (![(UIView *)self->_optionalButtonView isHidden])
   {
     if (FIUIOnePixel_onceToken != -1)
@@ -196,18 +198,23 @@
       [FIUIWorkoutSummaryColoredDetailTableViewCell layoutSubviews];
     }
 
-    v64.origin.x = v34;
-    v64.origin.y = v33;
-    v64.size.width = v9;
-    v64.size.height = v51;
-    CGRectInset(v64, 1.0, *&FIUIOnePixel_onePixel * 2.0 + 1.0);
+    v77.origin.x = v34;
+    v77.origin.y = v33;
+    v77.size.width = v9;
+    v77.size.height = v61;
+    v78 = CGRectInset(v77, 1.0, *&FIUIOnePixel_onePixel * 2.0 + 1.0);
+    x = v78.origin.x;
+    y = v78.origin.y;
+    width = v78.size.width;
+    height = v78.size.height;
     if (FIUIOnePixel_onceToken != -1)
     {
       [FIUIWorkoutSummaryColoredDetailTableViewCell layoutSubviews];
     }
 
+    v58 = y + *&FIUIOnePixel_onePixel * -2.0;
     contentView6 = [(FIUIWorkoutSummaryColoredDetailTableViewCell *)self contentView];
-    [(UIView *)self->_optionalButtonView setFrame:FIUIRoundFrameToViewScale(contentView6)];
+    [(UIView *)self->_optionalButtonView setFrame:FIUIRoundFrameToViewScale(contentView6, x, v58, width, height)];
   }
 }
 

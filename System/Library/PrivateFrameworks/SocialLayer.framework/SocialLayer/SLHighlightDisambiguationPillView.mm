@@ -118,36 +118,34 @@ void __46__SLHighlightDisambiguationPillView_setFrame___block_invoke(uint64_t a1
 
 - (id)_layoutConstraintsForIndividualContact
 {
-  v25[7] = *MEMORY[0x277D85DE8];
+  v24[7] = *MEMORY[0x277D85DE8];
   leadingAnchor = [(_UISlotView *)self->_pillSlotView leadingAnchor];
   leadingAnchor2 = [(SLHighlightDisambiguationPillView *)self leadingAnchor];
-  v22 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
-  v25[0] = v22;
+  v21 = [leadingAnchor constraintEqualToAnchor:leadingAnchor2];
+  v24[0] = v21;
   topAnchor = [(_UISlotView *)self->_pillSlotView topAnchor];
   topAnchor2 = [(SLHighlightDisambiguationPillView *)self topAnchor];
-  v19 = [topAnchor constraintEqualToAnchor:topAnchor2];
-  v25[1] = v19;
+  v18 = [topAnchor constraintEqualToAnchor:topAnchor2];
+  v24[1] = v18;
   centerYAnchor = [(_UISlotView *)self->_pillSlotView centerYAnchor];
   centerYAnchor2 = [(SLHighlightDisambiguationPillView *)self centerYAnchor];
-  v16 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v25[2] = v16;
+  v15 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
+  v24[2] = v15;
   centerYAnchor3 = [(UIButton *)self->_transcriptButton centerYAnchor];
   centerYAnchor4 = [(SLHighlightDisambiguationPillView *)self centerYAnchor];
   v5 = [centerYAnchor3 constraintEqualToAnchor:centerYAnchor4];
-  v25[3] = v5;
+  v24[3] = v5;
   heightAnchor = [(UIButton *)self->_transcriptButton heightAnchor];
   heightAnchor2 = [(SLHighlightDisambiguationPillView *)self heightAnchor];
   v8 = [heightAnchor constraintEqualToAnchor:heightAnchor2 multiplier:0.53125];
-  v25[4] = v8;
+  v24[4] = v8;
   widthAnchor = [(UIButton *)self->_transcriptButton widthAnchor];
   heightAnchor3 = [(UIButton *)self->_transcriptButton heightAnchor];
   v11 = [widthAnchor constraintEqualToAnchor:heightAnchor3];
   transcriptButtonConstraint = self->_transcriptButtonConstraint;
-  v25[5] = v11;
-  v25[6] = transcriptButtonConstraint;
-  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:7];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v24[5] = v11;
+  v24[6] = transcriptButtonConstraint;
+  v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:7];
 
   return v13;
 }
@@ -222,7 +220,7 @@ void __46__SLHighlightDisambiguationPillView_setFrame___block_invoke(uint64_t a1
 
 - (void)_loadBlurView
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D75D68]);
   v4 = [MEMORY[0x277D75210] effectWithStyle:9];
   v5 = [v3 initWithEffect:v4];
@@ -232,27 +230,25 @@ void __46__SLHighlightDisambiguationPillView_setFrame___block_invoke(uint64_t a1
   [(UIVisualEffectView *)self->_blurView setTranslatesAutoresizingMaskIntoConstraints:0];
   [(SLHighlightDisambiguationPillView *)self addSubview:self->_blurView];
   [(SLHighlightDisambiguationPillView *)self sendSubviewToBack:self->_blurView];
-  v18 = MEMORY[0x277CCAAD0];
+  v17 = MEMORY[0x277CCAAD0];
   widthAnchor = [(UIVisualEffectView *)self->_blurView widthAnchor];
   widthAnchor2 = [(SLHighlightDisambiguationPillView *)self widthAnchor];
-  v19 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
-  v22[0] = v19;
+  v18 = [widthAnchor constraintEqualToAnchor:widthAnchor2];
+  v21[0] = v18;
   heightAnchor = [(UIVisualEffectView *)self->_blurView heightAnchor];
   heightAnchor2 = [(SLHighlightDisambiguationPillView *)self heightAnchor];
   v9 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-  v22[1] = v9;
+  v21[1] = v9;
   centerXAnchor = [(UIVisualEffectView *)self->_blurView centerXAnchor];
   centerXAnchor2 = [(SLHighlightDisambiguationPillView *)self centerXAnchor];
   v12 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v22[2] = v12;
+  v21[2] = v12;
   centerYAnchor = [(UIVisualEffectView *)self->_blurView centerYAnchor];
   centerYAnchor2 = [(SLHighlightDisambiguationPillView *)self centerYAnchor];
   v15 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v22[3] = v15;
-  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
-  [v18 activateConstraints:v16];
-
-  v17 = *MEMORY[0x277D85DE8];
+  v21[3] = v15;
+  v16 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
+  [v17 activateConstraints:v16];
 }
 
 - (void)layoutSubviews
@@ -272,43 +268,41 @@ void __46__SLHighlightDisambiguationPillView_setFrame___block_invoke(uint64_t a1
 
 - (void)_transcriptButtonTapped:(id)tapped
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = SLFrameworkLogHandle();
+  v7 = *MEMORY[0x277D85DE8];
+  v4 = SLFrameworkLogHandle(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 134217984;
+    v5 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_231772000, v4, OS_LOG_TYPE_INFO, "[SLHighlightDisambiguationPillView %p] _transcriptButtonTapped", &v6, 0xCu);
+    _os_log_impl(&dword_231772000, v4, OS_LOG_TYPE_INFO, "[SLHighlightDisambiguationPillView %p] _transcriptButtonTapped", &v5, 0xCu);
   }
 
   [(SLHighlightDisambiguationPillView *)self _presentTranscript];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_macroPillTapped
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = SLFrameworkLogHandle();
+  v6 = *MEMORY[0x277D85DE8];
+  v3 = SLFrameworkLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v5 = 134217984;
+    v4 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLHighlightDisambiguationPillView %p] _macroPillTapped", &v5, 0xCu);
+    _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLHighlightDisambiguationPillView %p] _macroPillTapped", &v4, 0xCu);
   }
 
   [(SLHighlightDisambiguationPillView *)self _presentTranscript];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_presentTranscript
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v3 = SLFrameworkLogHandle();
+  v10 = *MEMORY[0x277D85DE8];
+  v3 = SLFrameworkLogHandle(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v9 = 134217984;
+    v8 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLHighlightDisambiguationPillView %p] _presentTranscript", &v9, 0xCu);
+    _os_log_impl(&dword_231772000, v3, OS_LOG_TYPE_INFO, "[SLHighlightDisambiguationPillView %p] _presentTranscript", &v8, 0xCu);
   }
 
   v4 = objc_alloc_init(SLTranscriptController);
@@ -317,8 +311,6 @@ void __46__SLHighlightDisambiguationPillView_setFrame___block_invoke(uint64_t a1
   _viewControllerForAncestor = [(SLHighlightDisambiguationPillView *)self _viewControllerForAncestor];
   [(SLTranscriptController *)v4 presentTranscriptForMessageGUID:uniqueIdentifier attachmentGUID:attachmentGUID presentingViewController:_viewControllerForAncestor];
   SLSendPortraitFeedbackTypeAppButtonForAttribution(self->_attribution);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)serviceProxyDidConnect:(id)connect
@@ -372,22 +364,8 @@ void __76__SLHighlightDisambiguationPillView__contentProviderForCurrentConfigura
   v13 = -[SLDHighlightDisambiguationPillEmptySlotContent initWithStyle:variant:forRemote:]([SLDHighlightDisambiguationPillEmptySlotContent alloc], "initWithStyle:variant:forRemote:", v7, [WeakRetained pillVariant], 0);
   [WeakRetained setPlaceholderSlotContent:v13];
 
-  if (!v11)
+  if (!v11 || ([v12 contentSize], v15 = v14, v17 = v16, objc_msgSend(WeakRetained, "placeholderSlotContent"), v18 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "contentSize"), v20 = v19, v22 = v21, v18, v15 != v20) || v17 != v22)
   {
-    goto LABEL_4;
-  }
-
-  [v12 contentSize];
-  v15 = v14;
-  v17 = v16;
-  v18 = [WeakRetained placeholderSlotContent];
-  [v18 contentSize];
-  v20 = v19;
-  v22 = v21;
-
-  if (v15 != v20 || v17 != v22)
-  {
-LABEL_4:
     v23 = [WeakRetained placeholderSlotContent];
     v8[2](v8, v23);
   }
@@ -471,11 +449,10 @@ void __76__SLHighlightDisambiguationPillView__contentProviderForCurrentConfigura
     [*(a1 + 32) setLastRenderedSlotStyle:*(a1 + 40)];
   }
 
-  [*(a1 + 32) setRemoteContentIsLoaded:*(a1 + 48) != 0];
+  v5 = [*(a1 + 32) setRemoteContentIsLoaded:*(a1 + 48) != 0];
   if (*(a1 + 48))
   {
     [*(a1 + 32) setNeedsLayout];
-    v5 = *(a1 + 48);
     v6 = *(*(a1 + 56) + 16);
 
     v6();
@@ -483,7 +460,7 @@ void __76__SLHighlightDisambiguationPillView__contentProviderForCurrentConfigura
 
   else
   {
-    v7 = SLFrameworkLogHandle();
+    v7 = SLFrameworkLogHandle(v5);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       __76__SLHighlightDisambiguationPillView__contentProviderForCurrentConfiguration__block_invoke_3_cold_1(v2, a1, v7);
@@ -558,18 +535,17 @@ void __76__SLHighlightDisambiguationPillView__contentProviderForCurrentConfigura
 
 void __76__SLHighlightDisambiguationPillView__contentProviderForCurrentConfiguration__block_invoke_3_cold_1(id *a1, uint64_t a2, NSObject *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   v5 = *(*(*(a2 + 64) + 8) + 40);
   [*a1 pillMaxWidth];
-  v8 = 134218498;
-  v9 = v4;
-  v10 = 2112;
-  v11 = v5;
-  v12 = 2048;
-  v13 = v6;
-  _os_log_error_impl(&dword_231772000, a3, OS_LOG_TYPE_ERROR, "[SLHighlightPillView: %p] sociallayerd returned nil remote content for attribution ID: [%@], maxWidth: [%f]", &v8, 0x20u);
-  v7 = *MEMORY[0x277D85DE8];
+  v7 = 134218498;
+  v8 = v4;
+  v9 = 2112;
+  v10 = v5;
+  v11 = 2048;
+  v12 = v6;
+  _os_log_error_impl(&dword_231772000, a3, OS_LOG_TYPE_ERROR, "[SLHighlightPillView: %p] sociallayerd returned nil remote content for attribution ID: [%@], maxWidth: [%f]", &v7, 0x20u);
 }
 
 @end

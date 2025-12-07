@@ -20,6 +20,8 @@
 - (void)unlockListFooterViewContinueButtonWasPressed:(id)pressed;
 - (void)updateSubscriptionContext:(id)context withSubscriptionAction:(id)action atIndex:(unint64_t)index;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation TSSIMUnlockListViewController
@@ -29,7 +31,7 @@
   contextsCopy = contexts;
   actionsCopy = actions;
   delegateCopy = delegate;
-  v12 = sub_10000C1BC();
+  v12 = sub_10000C1BC(delegateCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     sub_10000F1A8(v12);
@@ -254,6 +256,30 @@ LABEL_13:
   [view addGestureRecognizer:v31];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = TSSIMUnlockListViewController;
+  [(TSSIMUnlockListViewController *)&v4 viewWillAppear:appear];
+  [(TSSIMUnlockListViewController *)self _configureAncillaryViews];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v8.receiver = self;
+  v8.super_class = TSSIMUnlockListViewController;
+  [(TSSIMUnlockListViewController *)&v8 viewWillDisappear:?];
+  tableView = [(TSSIMUnlockListViewController *)self tableView];
+  indexPathForSelectedRow = [tableView indexPathForSelectedRow];
+
+  if (indexPathForSelectedRow)
+  {
+    tableView2 = [(TSSIMUnlockListViewController *)self tableView];
+    [tableView2 deselectRowAtIndexPath:indexPathForSelectedRow animated:disappearCopy];
+  }
+}
+
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path
 {
   viewCopy = view;
@@ -394,7 +420,7 @@ LABEL_13:
 
 - (void)unlockDetailViewController:(id)controller didCompleteWithResult:(int64_t)result
 {
-  v6 = sub_10000C1BC();
+  v6 = sub_10000C1BC(self);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
     sub_10000F22C();
@@ -423,7 +449,7 @@ LABEL_13:
 {
   contextCopy = context;
   actionCopy = action;
-  v10 = sub_10000C1BC();
+  v10 = sub_10000C1BC(actionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [contextCopy slotID];
@@ -461,7 +487,7 @@ LABEL_13:
 {
   contextCopy = context;
   actionCopy = action;
-  v10 = sub_10000C1BC();
+  v10 = sub_10000C1BC(actionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [contextCopy slotID];
@@ -497,7 +523,7 @@ LABEL_13:
 
 - (void)removeSubscriptionContextAtIndex:(unint64_t)index
 {
-  v5 = sub_10000C1BC();
+  v5 = sub_10000C1BC(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     sub_10000F2AC();

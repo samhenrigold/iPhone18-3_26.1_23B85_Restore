@@ -8,19 +8,19 @@
 {
   itemCopy = item;
   cardsCopy = cards;
-  v17.receiver = self;
-  v17.super_class = IMRichLinkCardMessagePartChatItem;
-  v12 = [(IMChatItem *)&v17 _initWithItem:itemCopy];
-  if (v12)
+  v13.receiver = self;
+  v13.super_class = IMRichLinkCardMessagePartChatItem;
+  v10 = [(IMChatItem *)&v13 _initWithItem:itemCopy];
+  if (v10)
   {
-    v13 = objc_msgSend_guid(itemCopy, v10, v11);
-    objc_msgSend__setGUID_(v12, v14, v13);
+    guid = [itemCopy guid];
+    [(IMTranscriptChatItem *)v10 _setGUID:guid];
 
-    objc_msgSend__setSelectedIndex_(v12, v15, index);
-    objc_storeStrong(&v12->_richCards, cards);
+    [(IMRichLinkCardMessagePartChatItem *)v10 _setSelectedIndex:index];
+    objc_storeStrong(&v10->_richCards, cards);
   }
 
-  return v12;
+  return v10;
 }
 
 @end

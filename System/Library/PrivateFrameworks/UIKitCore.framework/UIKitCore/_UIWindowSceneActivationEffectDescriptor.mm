@@ -36,9 +36,9 @@
   targetedPreview2 = [descriptorCopy targetedPreview];
 
   view2 = [targetedPreview2 view];
-  v9 = [view isEqual:view2];
+  isEqual = objc_msgSend_isEqual_(view);
 
-  return v9;
+  return isEqual;
 }
 
 @end

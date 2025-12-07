@@ -8,11 +8,11 @@
 {
   if (!lazy cache variable for type metadata for _EnvironmentKeyTransformModifier<[TintPlacement : AnyShapeStyle]>)
   {
-    type metadata accessor for [TintPlacement : AnyShapeStyle]();
-    v0 = type metadata accessor for _EnvironmentKeyTransformModifier();
-    if (!v1)
+    type metadata accessor for [TintPlacement : AnyShapeStyle](255);
+    v5 = type metadata accessor for _EnvironmentKeyTransformModifier(self, v2, v3, v4);
+    if (!v6)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for _EnvironmentKeyTransformModifier<[TintPlacement : AnyShapeStyle]>);
+      atomic_store(v5, &lazy cache variable for type metadata for _EnvironmentKeyTransformModifier<[TintPlacement : AnyShapeStyle]>);
     }
   }
 }

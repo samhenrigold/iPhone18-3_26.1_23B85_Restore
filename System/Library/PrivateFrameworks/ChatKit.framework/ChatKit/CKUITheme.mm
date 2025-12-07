@@ -7749,7 +7749,7 @@ void __35__CKUITheme_replyButtonShadowColor__block_invoke()
   return effectPreviewBackgroundBlurEffectStyle_sBehavior;
 }
 
-uint64_t __51__CKUITheme_effectPreviewBackgroundBlurEffectStyle__block_invoke(uint64_t a1)
+void *__51__CKUITheme_effectPreviewBackgroundBlurEffectStyle__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _effectPreviewBackgroundBlurEffectStyle];
   effectPreviewBackgroundBlurEffectStyle_sBehavior = result;

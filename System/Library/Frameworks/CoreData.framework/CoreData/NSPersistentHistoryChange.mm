@@ -56,7 +56,7 @@
 
   persistentStoreCoordinator = [(NSManagedObjectContext *)context persistentStoreCoordinator];
   v4 = persistentStoreCoordinator ? persistentStoreCoordinator->_modelMap : 0;
-  v5 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", +[_PFPersistentHistoryFetchModel ancillaryModelNamespace](_PFPersistentHistoryFetchModel, "ancillaryModelNamespace"), @"Change"];
+  v5 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], +[_PFPersistentHistoryFetchModel ancillaryModelNamespace], @"Change");
   if (!v4)
   {
     return 0;
@@ -71,7 +71,7 @@
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"<NSPersistentHistoryChange: %lld %@ %@ %lld %@ %@>", -[NSPersistentHistoryChange changeID](self, "changeID"), -[NSPersistentHistoryChange changedObjectID](self, "changedObjectID"), +[NSPersistentHistoryChange shortStringForChangeType:](NSPersistentHistoryChange, "shortStringForChangeType:", -[NSPersistentHistoryChange changeType](self, "changeType")), -[NSPersistentHistoryTransaction transactionNumber](-[NSPersistentHistoryChange transaction](self, "transaction"), "transactionNumber"), -[NSPersistentHistoryChange updatedProperties](self, "updatedProperties"), -[NSPersistentHistoryChange tombstone](self, "tombstone")];
+  v4 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], [(NSPersistentHistoryChange *)self changeID], [(NSPersistentHistoryChange *)self changedObjectID], [NSPersistentHistoryChange shortStringForChangeType:[(NSPersistentHistoryChange *)self changeType]], [(NSPersistentHistoryTransaction *)[(NSPersistentHistoryChange *)self transaction] transactionNumber], [(NSPersistentHistoryChange *)self updatedProperties], [(NSPersistentHistoryChange *)self tombstone]);
   objc_autoreleasePoolPop(v3);
 
   return v4;
@@ -79,43 +79,43 @@
 
 - (NSDictionary)tombstone
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return MEMORY[0x1E695E0F8];
 }
 
 - (NSManagedObjectID)changedObjectID
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return 0;
 }
 
 - (NSPersistentHistoryChangeType)changeType
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return -1;
 }
 
 - (NSPersistentHistoryTransaction)transaction
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return 0;
 }
 
 - (int64_t)changeID
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return -1;
 }
 
 - (NSSet)updatedProperties
 {
-  objc_opt_class();
-  NSRequestConcreteImplementation();
+  v4 = objc_opt_class();
+  NSRequestConcreteImplementation(self, a2, v4, v5, v6, v7, v8, v9);
   return 0;
 }
 
@@ -130,7 +130,8 @@
 {
   if (type >= 3)
   {
-    objc_exception_throw([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend(MEMORY[0x1E696AEC0] userInfo:{"stringWithFormat:", @"'%ld' is an unknown NSPersistentHistoryChangeType value", type), 0}]);
+    v4 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0] userInfo:{a2, @"'%ld' is an unknown NSPersistentHistoryChangeType value", type), 0}];
+    objc_exception_throw(v4);
   }
 
   return off_1E6EC1FC0[type];

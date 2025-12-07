@@ -17,7 +17,7 @@
   channelCopy = channel;
   consumerCopy = consumer;
   selfCopy = self;
-  sub_2542CD2B8();
+  sub_2542CD2B8(channelCopy, consumerCopy);
 }
 
 - (void)consumer:(id)consumer didStartSession:(id)session
@@ -25,7 +25,7 @@
   consumerCopy = consumer;
   sessionCopy = session;
   selfCopy = self;
-  sub_2542CD5B4();
+  sub_2542CD5B4(consumerCopy, sessionCopy);
 }
 
 - (void)consumer:(id)consumer didStopSession:(id)session initiator:(id)initiator notice:(id)notice error:(id)error
@@ -36,7 +36,7 @@
   noticeCopy = notice;
   selfCopy = self;
   errorCopy = error;
-  sub_2542CD848();
+  sub_2542CD848(consumerCopy, sessionCopy);
 }
 
 - (void)consumer:(COMessageSessionConsumer *)consumer shouldStartSessionWithMember:(COClusterMemberRoleSnapshot *)member request:(COMessageSessionRequest *)request completionHandler:(id)handler
@@ -61,7 +61,7 @@
   channelCopy = channel;
   producerCopy = producer;
   selfCopy = self;
-  sub_2542CE1DC();
+  sub_2542CE1DC(channelCopy, producerCopy);
 }
 
 - (void)producer:(id)producer didFailToStartSessionWithMember:(id)member error:(id)error
@@ -70,7 +70,7 @@
   memberCopy = member;
   errorCopy = error;
   selfCopy = self;
-  sub_2542CE6E0();
+  sub_2542CE6E0(producerCopy, memberCopy, errorCopy);
 }
 
 - (void)producer:(id)producer didStartSession:(id)session member:(id)member response:(id)response
@@ -80,7 +80,7 @@
   memberCopy = member;
   responseCopy = response;
   selfCopy = self;
-  sub_2542CE970();
+  sub_2542CE970(producerCopy, sessionCopy, memberCopy);
 }
 
 - (void)producer:(id)producer didStopSession:(id)session initiator:(id)initiator notice:(id)notice error:(id)error
@@ -91,7 +91,7 @@
   noticeCopy = notice;
   selfCopy = self;
   errorCopy = error;
-  sub_2542CEE44();
+  sub_2542CEE44(producerCopy, sessionCopy, initiator);
 }
 
 - (void)producer:(COMessageSessionProducer *)producer shouldStartSessionWithMember:(COClusterMemberRoleSnapshot *)member completionHandler:(id)handler

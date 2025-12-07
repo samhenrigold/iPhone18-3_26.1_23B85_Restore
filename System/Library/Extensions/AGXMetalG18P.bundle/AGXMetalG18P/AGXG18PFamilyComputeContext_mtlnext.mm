@@ -101,19 +101,18 @@
 
 - (void)createBlitContextIfNeeded
 {
-  if (result)
+  if (self)
   {
-    v1 = result;
-    if (!result[10])
+    if (!self[10])
     {
-      v2 = (result[9] + 5880);
-      v1[10] = v2;
+      v2 = (self[9] + 5880);
+      self[10] = v2;
       bzero(v2, 0x1260uLL);
-      v3 = (v1[9] + 10584);
-      v1[11] = v3;
+      v3 = (self[9] + 10584);
+      self[11] = v3;
       bzero(v3, 0x1390uLL);
-      v4 = v1[10];
-      v5 = v1[9];
+      v4 = self[10];
+      v5 = self[9];
       *v4 = v5;
       v6 = *(v5 + 1872);
       *(v4 + 16) = v6;
@@ -128,8 +127,6 @@
       operator new();
     }
   }
-
-  return result;
 }
 
 - (void)encodeSyncComputeWithBackFacingBarrierSrcMask:(unsigned int)mask BackFacingBarrierDstMask:(unsigned int)dstMask FrontFacingBarrierSrcMask:(unsigned int)srcMask FrontFacingBarrierDstMask:(unsigned int)barrierDstMask
@@ -1110,7 +1107,7 @@
 
     BatchForCommand = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::getBatchForCommand(bvh_builder, 2, size, 0, var0, var1, var0, v16, 0, 0);
     v18 = v11;
-    std::vector<unsigned long long>::push_back[abi:nn200100](BatchForCommand + 216, &v18);
+    std::vector<unsigned long long>::push_back[abi:nn200100]((BatchForCommand + 27), &v18);
   }
 
   else
@@ -1221,7 +1218,7 @@
   {
     BatchForCommand = AGX::RayTracingGPUBuilderGen1<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::getBatchForCommand(bvh_builder, 3, structure, accelerationStructure, 0, -1, 0, 0, 0, 0);
     structureCopy2 = structure;
-    std::vector<AGXG18PFamilyTexture *>::push_back[abi:nn200100](BatchForCommand + 144, &structureCopy2);
+    std::vector<AGXG18PFamilyTexture *>::push_back[abi:nn200100]((BatchForCommand + 18), &structureCopy2);
     if (accelerationStructure)
     {
       structureCopy3 = accelerationStructure;
@@ -1233,7 +1230,7 @@
     }
 
     structureCopy2 = structureCopy3;
-    std::vector<AGXG18PFamilyTexture *>::push_back[abi:nn200100](BatchForCommand + 168, &structureCopy2);
+    std::vector<AGXG18PFamilyTexture *>::push_back[abi:nn200100]((BatchForCommand + 21), &structureCopy2);
   }
 
   else
@@ -1299,7 +1296,7 @@
     device = self->_device;
     if (device)
     {
-      [(AGXG18PFamilyDevice *)device accelerationStructureSizesWithDescriptor:descriptor, descriptor, destination, buffer.var0, buffer.var1];
+      objc_msgSend_accelerationStructureSizesWithDescriptor_(device, a2, descriptor, descriptor, destination, buffer.var0, buffer.var1);
     }
 
     destinationCopy = destination;
@@ -1569,13 +1566,13 @@
         v46 = v160;
         if (v43)
         {
-          v151[2824] = 0;
+          *(v151 + 2824) = 0;
           v47 = v151;
           v46 = v160;
         }
       }
 
-      if (v47[2824])
+      if (v47[353])
       {
 LABEL_73:
         LOBYTE(v48) = 1;
@@ -1677,13 +1674,13 @@ LABEL_154:
         v46 = v160;
         if (v150)
         {
-          v149[2824] = 0;
+          *(v149 + 2824) = 0;
           v47 = v149;
           v46 = v160;
         }
       }
 
-      v84 = isQTBEnabled(v46, &v187, (v47[2824] | (HIDWORD(v188) >> 1)) & 1, 1);
+      v84 = isQTBEnabled(v46, &v187, (*(v47 + 2824) | (HIDWORD(v188) >> 1)) & 1, 1);
       *(v45 + 100) = v84;
       if (*(v45 + 56) < 3u)
       {
@@ -1722,7 +1719,7 @@ LABEL_154:
           }
         }
 
-        AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourceCommon(v89, v87, v85, 1, 1);
+        AGX::ContextCommon<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::DataBufferAllocator>::useResourceCommon(v89, v87, 1, 1, v85);
       }
 
       if ((v157 & 2) != 0)
@@ -2282,37 +2279,37 @@ LABEL_180:
       v106 = v168;
       v107 = v169;
       v108 = v171;
-      *(v105 + 48) = v170;
-      *(v105 + 64) = v108;
-      *(v105 + 16) = v106;
-      *(v105 + 32) = v107;
+      *(v105 + 3) = v170;
+      *(v105 + 4) = v108;
+      *(v105 + 1) = v106;
+      *(v105 + 2) = v107;
       v109 = v172;
       v110 = v173;
       v111 = v175;
-      *(v105 + 112) = v174;
-      *(v105 + 128) = v111;
-      *(v105 + 80) = v109;
-      *(v105 + 96) = v110;
+      *(v105 + 7) = v174;
+      *(v105 + 8) = v111;
+      *(v105 + 5) = v109;
+      *(v105 + 6) = v110;
       v112 = v176;
       v113 = v177;
       v114 = v178;
-      *(v105 + 192) = v179;
-      *(v105 + 160) = v113;
-      *(v105 + 176) = v114;
-      *(v105 + 144) = v112;
+      v105[24] = v179;
+      *(v105 + 10) = v113;
+      *(v105 + 11) = v114;
+      *(v105 + 9) = v112;
       *&v180 = 0;
-      *(v105 + 200) = structureCopy4;
+      v105[25] = structureCopy4;
       *(&v180 + 1) = 0;
-      *(v105 + 208) = v40;
-      *(v105 + 216) = v181;
+      v105[26] = v40;
+      *(v105 + 27) = v181;
       v115 = v184;
       v116 = v182;
       v117 = v183;
-      *(v105 + 280) = v185;
-      *(v105 + 264) = v115;
-      *(v105 + 248) = v117;
-      *(v105 + 232) = v116;
-      v118 = v105 + 288;
+      *(v105 + 70) = v185;
+      *(v105 + 33) = v115;
+      *(v105 + 31) = v117;
+      *(v105 + 29) = v116;
+      v118 = (v105 + 36);
     }
 
     v103[16] = v118;
@@ -2445,7 +2442,7 @@ LABEL_180:
     }
   }
 
-  if ((v21[2792] & 1) != 0 || (AGX::BVHDescriptor::isRefittable(void)const::forceAllBvhsRefittable & 1) == 0 && (v1166 & 1) == 0)
+  if ((v21[349] & 1) != 0 || (AGX::BVHDescriptor::isRefittable(void)const::forceAllBvhsRefittable & 1) == 0 && (v1166 & 1) == 0)
   {
     v22 = getCoarseCurveTestMode(AGX::BVHDescriptor const&)::evCoarseCurveTestMode;
   }
@@ -2867,7 +2864,7 @@ LABEL_81:
         }
       }
 
-      if (v21[2792] & 1) == 0 && ((AGX::BVHDescriptor::isRefittable(void)const::forceAllBvhsRefittable & 1) != 0 || (v1166))
+      if (v21[349] & 1) == 0 && ((AGX::BVHDescriptor::isRefittable(void)const::forceAllBvhsRefittable & 1) != 0 || (v1166))
       {
         v33 = 0;
       }
@@ -2919,7 +2916,7 @@ LABEL_117:
 
   else
   {
-    v50 = v25[296];
+    v50 = *(v25 + 296);
     if (v50 < 5)
     {
       v49 = v19 * v26;
@@ -2963,7 +2960,7 @@ LABEL_117:
   v35 = 8 * v43 + 63;
   v34 = 143;
 LABEL_133:
-  v54 = v25[296];
+  v54 = *(v25 + 296);
   if (v33 >= v20)
   {
     v33 = v20;
@@ -3007,7 +3004,7 @@ LABEL_133:
 
   v691 = v23 + (v33 << 7);
   v58 = v55 | (v57 >> 1);
-  if (v21[2792])
+  if (v21[349])
   {
     v59 = 0;
   }
@@ -3092,7 +3089,7 @@ LABEL_133:
     v691 += v69;
   }
 
-  v70 = v60[296];
+  v70 = *(v60 + 296);
   if (v70 == 1 && v62 != 2)
   {
     if (v691 <= 0x4000)
@@ -3217,7 +3214,7 @@ LABEL_175:
     }
   }
 
-  if (v79[2792] & 1) == 0 && ((AGX::BVHDescriptor::isRefittable(void)const::forceAllBvhsRefittable & 1) != 0 || (v1166))
+  if (v79[349] & 1) == 0 && ((AGX::BVHDescriptor::isRefittable(void)const::forceAllBvhsRefittable & 1) != 0 || (v1166))
   {
     if (v1156 == 1)
     {
@@ -3269,7 +3266,7 @@ LABEL_207:
   if (v1156 == 2)
   {
     v75 += 32 * v74;
-    if (v60[296] == 1)
+    if (*(v60 + 296) == 1)
     {
       v89 = v1167 - 1;
       v90 = v1165 - 1;
@@ -3411,7 +3408,7 @@ LABEL_207:
     v418 = v662;
   }
 
-  v420 = v60[296] <= 1u && v75 * v418 >= 0x4000 && v662 >= 2;
+  v420 = *(v60 + 296) <= 1u && v75 * v418 >= 0x4000 && v662 >= 2;
   v421 = (v75 + 0x3FFF) & 0xFFFFFFFFFFFFC000;
   if (!v420)
   {
@@ -4951,7 +4948,7 @@ LABEL_414:
       }
 
       v382 = *(v403 + 358);
-      if ((v317[2792] & 1) != 0 || (AGX::BVHDescriptor::isRefittable(void)const::forceAllBvhsRefittable & 1) == 0 && (v1166 & 1) == 0)
+      if ((v317[349] & 1) != 0 || (AGX::BVHDescriptor::isRefittable(void)const::forceAllBvhsRefittable & 1) == 0 && (v1166 & 1) == 0)
       {
         v392 = 0;
         v453 = 0;
@@ -6030,17 +6027,17 @@ LABEL_534:
     {
       v15 = &operations[v13];
       var1_low = LODWORD(v15->var1);
-      var2 = v15->var2;
+      var2_low = LODWORD(v15->var2);
       v21 = *&v15->var3.var0;
       var4 = v15->var4;
-      v22 = v15->var3.var2;
+      var2 = v15->var3.var2;
       var5 = v15->var5;
       legacy_blit_context = self->_legacy_blit_context;
       v23 = *&v15->var0.var0.var0;
       v24 = v15->var0.var0.var2;
       v25 = *&v15->var0.var1.var0;
       v26 = v15->var0.var1.var2;
-      AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::sparseTexture(legacy_blit_context, texture, &v23, var1_low, var2, 0, 0, 0, 0, toTexture, &v21, var4, var5, 1u, 0);
+      AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::sparseTexture(legacy_blit_context, texture, &v23, var1_low, var2_low, 0, 0, 0, 0, toTexture, &v21, var4, var5, 1u, 0);
       v13 = v14++;
     }
 
@@ -6072,7 +6069,7 @@ LABEL_534:
       v32 = *&v25->var0;
       v26 = v21;
       v27 = LODWORD(levels[v26]);
-      v28 = slices[v26];
+      v28 = LODWORD(slices[v26]);
       v33 = v25->var2;
       AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::sparseTexture(legacy_blit_context, texture, &v30, v27, v28, 0, 0, 0, 0, toTexture, &destinationOrigins[v23], destinationLevels[v26], destinationSlices[v26], 1u, 0);
       v21 = v22++;
@@ -6109,7 +6106,7 @@ LABEL_534:
       legacy_blit_context = self->_legacy_blit_context;
       if (LODWORD(v20[0]))
       {
-        AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::sparseTexture(legacy_blit_context, mappings, v20 + 2, DWORD2(v21), v15, v20[0], 0, 0, 0, 0, 0, 0, 0, 1u, 0);
+        AGX::BlitDispatchContextGen2<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::sparseTexture(legacy_blit_context, mappings, v20 + 2, DWORD2(v21), v15, LODWORD(v20[0]), 0, 0, 0, 0, 0, 0, 0, 1u, 0);
       }
 
       else
@@ -6349,7 +6346,7 @@ LABEL_8:
     v22 = v20[85];
     if (!v22)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v20 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v20 + 3), 19, 0))
       {
         goto LABEL_34;
       }
@@ -6363,7 +6360,7 @@ LABEL_8:
       goto LABEL_18;
     }
 
-    v39 = AGX::DataBufferAllocator<44ul>::growNoInline(v20 + 3, 19, 0);
+    v39 = AGX::DataBufferAllocator<44ul>::growNoInline((v20 + 3), 19, 0);
     v22 = v20[85];
     if (!v39)
     {
@@ -6439,7 +6436,7 @@ LABEL_20:
   {
     blit_context = self->_blit_context;
     pattern4Copy = pattern4;
-    AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMBuffer(blit_context + 1, buffer, *(buffer + *MEMORY[0x29EDC5638] + 72) + location, 0, 0, length, &pattern4Copy, 4uLL);
+    AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMBuffer(blit_context + 1, buffer, *(buffer + *MEMORY[0x29EDC5638] + 72) + location, 0, 0, length, &pattern4Copy, 4);
     return;
   }
 
@@ -6462,7 +6459,7 @@ LABEL_20:
   }
 
   legacy_blit_context = self->_legacy_blit_context;
-  *(legacy_blit_context[1] + 1944) = *(legacy_blit_context[1] + 1940);
+  *(legacy_blit_context[1] + 486) = *(legacy_blit_context[1] + 485);
   pattern4Copy2 = pattern4;
   AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::fillBuffer(legacy_blit_context, buffer, location, length, &pattern4Copy2, 4uLL);
   v14 = self->_impl;
@@ -6472,7 +6469,7 @@ LABEL_20:
     v16 = v14[85];
     if (!v16)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v14 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v14 + 3), 19, 0))
       {
         goto LABEL_34;
       }
@@ -6486,7 +6483,7 @@ LABEL_20:
       goto LABEL_18;
     }
 
-    v32 = AGX::DataBufferAllocator<44ul>::growNoInline(v14 + 3, 19, 0);
+    v32 = AGX::DataBufferAllocator<44ul>::growNoInline((v14 + 3), 19, 0);
     v16 = v14[85];
     if (!v32)
     {
@@ -6569,7 +6566,7 @@ LABEL_20:
     goto LABEL_8;
   }
 
-  v45 = AGX::DataBufferAllocator<44ul>::growNoInline(v13 + 3, 3, 0);
+  v45 = AGX::DataBufferAllocator<44ul>::growNoInline((v13 + 3), 3, 0);
   v14 = v13[21];
   if (v45)
   {
@@ -6813,7 +6810,7 @@ LABEL_8:
     v10 = v8[85];
     if (!v10)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v8 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v8 + 3), 19, 0))
       {
         goto LABEL_34;
       }
@@ -6827,7 +6824,7 @@ LABEL_8:
       goto LABEL_18;
     }
 
-    v25 = AGX::DataBufferAllocator<44ul>::growNoInline(v8 + 3, 19, 0);
+    v25 = AGX::DataBufferAllocator<44ul>::growNoInline((v8 + 3), 19, 0);
     v10 = v8[85];
     if (!v25)
     {
@@ -6932,7 +6929,7 @@ LABEL_34:
     v18 = v16[85];
     if (!v18)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v16 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v16 + 3), 19, 0))
       {
         goto LABEL_34;
       }
@@ -6946,7 +6943,7 @@ LABEL_34:
       goto LABEL_18;
     }
 
-    v33 = AGX::DataBufferAllocator<44ul>::growNoInline(v16 + 3, 19, 0);
+    v33 = AGX::DataBufferAllocator<44ul>::growNoInline((v16 + 3), 19, 0);
     v18 = v16[85];
     if (!v33)
     {
@@ -7050,7 +7047,7 @@ LABEL_34:
     v14 = v12[85];
     if (!v14)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v12 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v12 + 3), 19, 0))
       {
         goto LABEL_34;
       }
@@ -7064,7 +7061,7 @@ LABEL_34:
       goto LABEL_18;
     }
 
-    v29 = AGX::DataBufferAllocator<44ul>::growNoInline(v12 + 3, 19, 0);
+    v29 = AGX::DataBufferAllocator<44ul>::growNoInline((v12 + 3), 19, 0);
     v14 = v12[85];
     if (!v29)
     {
@@ -7168,7 +7165,7 @@ LABEL_34:
     v15 = v13[85];
     if (!v15)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v13 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v13 + 3), 19, 0))
       {
         goto LABEL_36;
       }
@@ -7182,7 +7179,7 @@ LABEL_34:
       goto LABEL_18;
     }
 
-    v31 = AGX::DataBufferAllocator<44ul>::growNoInline(v13 + 3, 19, 0);
+    v31 = AGX::DataBufferAllocator<44ul>::growNoInline((v13 + 3), 19, 0);
     v15 = v13[85];
     if (!v31)
     {
@@ -7332,7 +7329,7 @@ LABEL_15:
     v12 = v10[85];
     if (!v12)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v10 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v10 + 3), 19, 0))
       {
         goto LABEL_71;
       }
@@ -7346,7 +7343,7 @@ LABEL_15:
       goto LABEL_19;
     }
 
-    v41 = AGX::DataBufferAllocator<44ul>::growNoInline(v10 + 3, 19, 0);
+    v41 = AGX::DataBufferAllocator<44ul>::growNoInline((v10 + 3), 19, 0);
     v12 = v10[85];
     if (!v41)
     {
@@ -7510,8 +7507,8 @@ LABEL_71:
             v53 = 0;
             v50 = v48;
             v51 = v16;
-            AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyTextureToTextureImpl(legacy_blit_context, access, v18, sliceCopy, levelCopy, v54.i8, access, v18, sliceCopy, levelCopy, v52.i8, &v50);
-            ++v18;
+            AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyTextureToTextureImpl(legacy_blit_context, access, v18, sliceCopy, levelCopy, v54.i8, access, v18, sliceCopy, levelCopy, v52.i8, v50.i8);
+            v18 = (v18 + 1);
           }
 
           while (v17 != v18);
@@ -7529,7 +7526,7 @@ LABEL_71:
     v23 = v21[85];
     if (!v23)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v21 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v21 + 3), 19, 0))
       {
         goto LABEL_56;
       }
@@ -7543,7 +7540,7 @@ LABEL_71:
       goto LABEL_29;
     }
 
-    v47 = AGX::DataBufferAllocator<44ul>::growNoInline(v21 + 3, 19, 0);
+    v47 = AGX::DataBufferAllocator<44ul>::growNoInline((v21 + 3), 19, 0);
     v23 = v21[85];
     if (!v47)
     {
@@ -7679,7 +7676,7 @@ LABEL_56:
     v11 = v9[85];
     if (!v11)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v9 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v9 + 3), 19, 0))
       {
         goto LABEL_59;
       }
@@ -7693,7 +7690,7 @@ LABEL_56:
       goto LABEL_18;
     }
 
-    v39 = AGX::DataBufferAllocator<44ul>::growNoInline(v9 + 3, 19, 0);
+    v39 = AGX::DataBufferAllocator<44ul>::growNoInline((v9 + 3), 19, 0);
     v11 = v9[85];
     if (!v39)
     {
@@ -7841,8 +7838,8 @@ LABEL_59:
   if (!AGX::BlitUtil::requireLegacyBlit<true>(0))
   {
     blit_context = self->_blit_context;
-    HIBYTE(v33) = value;
-    AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMBuffer(blit_context + 1, buffer, *(buffer + *MEMORY[0x29EDC5638] + 72) + location, 0, 0, length, &v33 + 1, 1uLL);
+    valueCopy = value;
+    AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMBuffer(blit_context + 1, buffer, *(buffer + *MEMORY[0x29EDC5638] + 72) + location, 0, 0, length, &valueCopy, 1);
     return;
   }
 
@@ -7865,9 +7862,9 @@ LABEL_59:
   }
 
   legacy_blit_context = self->_legacy_blit_context;
-  *(legacy_blit_context[1] + 1944) = *(legacy_blit_context[1] + 1940);
-  LOBYTE(v33) = value;
-  AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::fillBuffer(legacy_blit_context, buffer, location, length, &v33, 1uLL);
+  *(legacy_blit_context[1] + 486) = *(legacy_blit_context[1] + 485);
+  valueCopy2 = value;
+  AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::fillBuffer(legacy_blit_context, buffer, location, length, &valueCopy2, 1uLL);
   v14 = self->_impl;
   v15 = v14[6];
   if (!*(v15 + 1240) || !*(v15 + 1248))
@@ -7875,7 +7872,7 @@ LABEL_59:
     v16 = v14[85];
     if (!v16)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v14 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v14 + 3), 19, 0))
       {
         goto LABEL_34;
       }
@@ -7889,7 +7886,7 @@ LABEL_59:
       goto LABEL_18;
     }
 
-    v32 = AGX::DataBufferAllocator<44ul>::growNoInline(v14 + 3, 19, 0);
+    v32 = AGX::DataBufferAllocator<44ul>::growNoInline((v14 + 3), 19, 0);
     v16 = v14[85];
     if (!v32)
     {
@@ -7931,8 +7928,8 @@ LABEL_20:
   {
     AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::beginComputePass(v18, 0);
     v25 = v18[1];
-    v34 = 0;
-    AGX::BlitUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::barrier(v25 + 24, &v34);
+    v35 = 0;
+    AGX::BlitUSCStateLoader<AGX::HAL300::Encoders,AGX::HAL300::Classes>::barrier(v25 + 24, &v35);
     AGX::BlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::endPreviousBlitCommand(v18, 1, v26, v27, v28, v29);
   }
 
@@ -7992,7 +7989,7 @@ LABEL_20:
     v11 = v9[85];
     if (!v11)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v9 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v9 + 3), 19, 0))
       {
         goto LABEL_69;
       }
@@ -8006,7 +8003,7 @@ LABEL_20:
       goto LABEL_18;
     }
 
-    v39 = AGX::DataBufferAllocator<44ul>::growNoInline(v9 + 3, 19, 0);
+    v39 = AGX::DataBufferAllocator<44ul>::growNoInline((v9 + 3), 19, 0);
     v11 = v9[85];
     if (!v39)
     {
@@ -8146,7 +8143,8 @@ LABEL_62:
               v51[1] = 0;
               v51[2] = 0;
               v52 = v38;
-              AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMTextureToTexture(v29 + 1, texture, v53, texture, v56, v57, v38++, v51);
+              AGX::MSLBlitDispatchContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::blitCDMTextureToTexture(v29 + 1, texture, v53, texture, v56, v57, v38, v51);
+              v38 = (v38 + 1);
             }
 
             while (v35 != v38);
@@ -8246,7 +8244,7 @@ LABEL_49:
     v23 = v21[85];
     if (!v23)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v21 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v21 + 3), 19, 0))
       {
         goto LABEL_34;
       }
@@ -8260,7 +8258,7 @@ LABEL_49:
       goto LABEL_18;
     }
 
-    v39 = AGX::DataBufferAllocator<44ul>::growNoInline(v21 + 3, 19, 0);
+    v39 = AGX::DataBufferAllocator<44ul>::growNoInline((v21 + 3), 19, 0);
     v23 = v21[85];
     if (!v39)
     {
@@ -8379,7 +8377,7 @@ LABEL_20:
     v24 = v22[85];
     if (!v24)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v22 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v22 + 3), 19, 0))
       {
         goto LABEL_34;
       }
@@ -8393,7 +8391,7 @@ LABEL_20:
       goto LABEL_18;
     }
 
-    v40 = AGX::DataBufferAllocator<44ul>::growNoInline(v22 + 3, 19, 0);
+    v40 = AGX::DataBufferAllocator<44ul>::growNoInline((v22 + 3), 19, 0);
     v24 = v22[85];
     if (!v40)
     {
@@ -8497,7 +8495,7 @@ LABEL_20:
     v19 = v17[85];
     if (!v19)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v17 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v17 + 3), 19, 0))
       {
         goto LABEL_36;
       }
@@ -8511,7 +8509,7 @@ LABEL_20:
       goto LABEL_18;
     }
 
-    v38 = AGX::DataBufferAllocator<44ul>::growNoInline(v17 + 3, 19, 0);
+    v38 = AGX::DataBufferAllocator<44ul>::growNoInline((v17 + 3), 19, 0);
     v19 = v17[85];
     if (!v38)
     {
@@ -8572,7 +8570,6 @@ LABEL_36:
 - (void)copyFromTexture:(id)texture sourceSlice:(unint64_t)slice sourceLevel:(unint64_t)level sourceOrigin:(id *)origin sourceSize:(id *)size toBuffer:(id)buffer destinationOffset:(unint64_t)offset destinationBytesPerRow:(unint64_t)self0 destinationBytesPerImage:(unint64_t)self1 options:(unint64_t)self2
 {
   bufferCopy2 = buffer;
-  levelCopy = level;
   sliceCopy = slice;
   imageCopy2 = image;
   optionsCopy2 = options;
@@ -8604,7 +8601,7 @@ LABEL_36:
     var2 = origin->var2;
     v46 = *&size->var0;
     v47 = size->var2;
-    AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::copyTextureToBuffer(blit_context, bufferCopy2, offset, row, imageCopy2, texture, sliceCopy, levelCopy, &v48, &v46, optionsCopy2);
+    AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::copyTextureToBuffer(blit_context, bufferCopy2, offset, row, imageCopy2, texture, sliceCopy, level, &v48, &v46, optionsCopy2);
     return;
   }
 
@@ -8632,7 +8629,7 @@ LABEL_36:
   var2 = origin->var2;
   v46 = *&size->var0;
   v47 = size->var2;
-  AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyTextureToBuffer(legacy_blit_context, bufferCopy2, offset, row, imageCopy2, texture, sliceCopy, levelCopy, &v48, v46.i32, optionsCopy2);
+  AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyTextureToBuffer(legacy_blit_context, bufferCopy2, offset, row, imageCopy2, texture, sliceCopy, level, &v48, v46.i32, optionsCopy2);
   v27 = self->_impl;
   v28 = v27[6];
   if (!*(v28 + 1240) || !*(v28 + 1248))
@@ -8640,7 +8637,7 @@ LABEL_36:
     v29 = v27[85];
     if (!v29)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v27 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v27 + 3), 19, 0))
       {
         goto LABEL_34;
       }
@@ -8654,7 +8651,7 @@ LABEL_36:
       goto LABEL_18;
     }
 
-    v45 = AGX::DataBufferAllocator<44ul>::growNoInline(v27 + 3, 19, 0);
+    v45 = AGX::DataBufferAllocator<44ul>::growNoInline((v27 + 3), 19, 0);
     v29 = v27[85];
     if (!v45)
     {
@@ -8709,7 +8706,6 @@ LABEL_20:
 - (void)copyFromTexture:(id)texture sourceSlice:(unint64_t)slice sourceLevel:(unint64_t)level sourceOrigin:(id *)origin sourceSize:(id *)size toBuffer:(id)buffer destinationOffset:(unint64_t)offset destinationBytesPerRow:(unint64_t)self0 destinationBytesPerImage:(unint64_t)self1
 {
   bufferCopy2 = buffer;
-  levelCopy = level;
   sliceCopy = slice;
   imageCopy2 = image;
   offsetCopy2 = offset;
@@ -8739,7 +8735,7 @@ LABEL_20:
     var2 = origin->var2;
     v44 = *&size->var0;
     v45 = size->var2;
-    AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::copyTextureToBuffer(blit_context, bufferCopy2, offsetCopy2, row, imageCopy2, texture, sliceCopy, levelCopy, &v46, &v44, 0);
+    AGX::BlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses,AGX::HAL300::CommandEncodingNext>::copyTextureToBuffer(blit_context, bufferCopy2, offsetCopy2, row, imageCopy2, texture, sliceCopy, level, &v46, &v44, 0);
     return;
   }
 
@@ -8767,7 +8763,7 @@ LABEL_20:
   var2 = origin->var2;
   v44 = *&size->var0;
   v45 = size->var2;
-  AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyTextureToBuffer(legacy_blit_context, bufferCopy2, offsetCopy2, row, imageCopy2, texture, sliceCopy, levelCopy, &v46, v44.i32, 0);
+  AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyTextureToBuffer(legacy_blit_context, bufferCopy2, offsetCopy2, row, imageCopy2, texture, sliceCopy, level, &v46, v44.i32, 0);
   v25 = self->_impl;
   v26 = v25[6];
   if (!*(v26 + 1240) || !*(v26 + 1248))
@@ -8775,7 +8771,7 @@ LABEL_20:
     v27 = v25[85];
     if (!v27)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v25 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v25 + 3), 19, 0))
       {
         goto LABEL_34;
       }
@@ -8789,7 +8785,7 @@ LABEL_20:
       goto LABEL_18;
     }
 
-    v43 = AGX::DataBufferAllocator<44ul>::growNoInline(v25 + 3, 19, 0);
+    v43 = AGX::DataBufferAllocator<44ul>::growNoInline((v25 + 3), 19, 0);
     v27 = v25[85];
     if (!v43)
     {
@@ -8951,9 +8947,9 @@ LABEL_20:
         v85 = v75;
         v86 = v77;
         v36 = legacy_blit_context;
-        AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyTextureToTextureImpl(legacy_blit_context, toTextureCopy2, v34, destinationSliceCopy2, destinationLevelCopy2, v89.i8, textureCopy2, v35, sliceCopy, levelCopy, v87.i8, &v85);
+        AGX::LegacyBlitContext<AGX::HAL300::Encoders,AGX::HAL300::Classes,AGX::HAL300::ObjClasses>::copyTextureToTextureImpl(legacy_blit_context, toTextureCopy2, v34, destinationSliceCopy2, destinationLevelCopy2, v89.i8, textureCopy2, v35, sliceCopy, levelCopy, v87.i8, v85.i8);
         legacy_blit_context = v36;
-        ++v34;
+        v34 = (v34 + 1);
         ++v35;
         --v27;
       }
@@ -8974,7 +8970,7 @@ LABEL_20:
     v40 = v38[85];
     if (!v40)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v38 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v38 + 3), 19, 0))
       {
         goto LABEL_58;
       }
@@ -8988,7 +8984,7 @@ LABEL_20:
       goto LABEL_31;
     }
 
-    v70 = AGX::DataBufferAllocator<44ul>::growNoInline(v38 + 3, 19, 0);
+    v70 = AGX::DataBufferAllocator<44ul>::growNoInline((v38 + 3), 19, 0);
     v40 = v38[85];
     if (!v70)
     {
@@ -9158,7 +9154,7 @@ LABEL_58:
     v20 = v18[85];
     if (!v20)
     {
-      if (!AGX::DataBufferAllocator<44ul>::growNoInline(v18 + 3, 19, 0))
+      if (!AGX::DataBufferAllocator<44ul>::growNoInline((v18 + 3), 19, 0))
       {
         goto LABEL_158;
       }
@@ -9172,7 +9168,7 @@ LABEL_58:
       goto LABEL_19;
     }
 
-    v116 = AGX::DataBufferAllocator<44ul>::growNoInline(v18 + 3, 19, 0);
+    v116 = AGX::DataBufferAllocator<44ul>::growNoInline((v18 + 3), 19, 0);
     v20 = v18[85];
     if (!v116)
     {

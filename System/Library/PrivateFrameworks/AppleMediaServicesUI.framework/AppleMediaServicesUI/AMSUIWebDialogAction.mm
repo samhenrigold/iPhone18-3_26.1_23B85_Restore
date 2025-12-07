@@ -7,13 +7,13 @@
 
 - (AMSUIWebDialogAction)initWithJSObject:(id)object context:(id)context
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v86 = *MEMORY[0x1E69E9840];
   objectCopy = object;
-  v80.receiver = self;
-  v80.super_class = AMSUIWebDialogAction;
+  v77.receiver = self;
+  v77.super_class = AMSUIWebDialogAction;
   contextCopy = context;
-  v64 = [(AMSUIWebAction *)&v80 initWithJSObject:objectCopy context:?];
-  if (v64)
+  v61 = [(AMSUIWebAction *)&v77 initWithJSObject:objectCopy context:?];
+  if (v61)
   {
     v7 = [objectCopy objectForKeyedSubscript:@"title"];
     objc_opt_class();
@@ -39,7 +39,7 @@
       v10 = 0;
     }
 
-    v62 = objectCopy;
+    v59 = objectCopy;
     v11 = [objectCopy objectForKeyedSubscript:@"buttons"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -68,12 +68,12 @@
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v63 = v15;
+      v60 = v15;
     }
 
     else
     {
-      v63 = 0;
+      v60 = 0;
     }
 
     v16 = [objectCopy objectForKeyedSubscript:@"style"];
@@ -88,8 +88,8 @@
     }
 
     v18 = [objectCopy objectForKeyedSubscript:@"pauseTimeouts"];
-    v57 = v18;
-    v58 = v16;
+    v54 = v18;
+    v55 = v16;
     if (objc_opt_respondsToSelector())
     {
       bOOLValue = [v18 BOOLValue];
@@ -100,54 +100,53 @@
       bOOLValue = 1;
     }
 
-    v64->_pauseTimeouts = bOOLValue;
-    v60 = v10;
-    v61 = v8;
+    v61->_pauseTimeouts = bOOLValue;
+    v57 = v10;
+    v58 = v8;
     v20 = [objc_alloc(MEMORY[0x1E698C8C0]) initWithTitle:v8 message:v10];
-    v59 = v14;
+    v56 = v14;
     [(AMSDialogRequest *)v20 setPreferredButtonActionIdentifier:v14];
-    v68 = v20;
+    v65 = v20;
     [(AMSDialogRequest *)v20 setStyle:integerValue];
-    v67 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v64 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v73 = 0u;
+    v74 = 0u;
+    v75 = 0u;
     v76 = 0u;
-    v77 = 0u;
-    v78 = 0u;
-    v79 = 0u;
     obj = v12;
-    v21 = [obj countByEnumeratingWithState:&v76 objects:v88 count:16];
-    v22 = 0x1E695D000uLL;
+    v21 = [obj countByEnumeratingWithState:&v73 objects:v85 count:16];
     if (v21)
     {
-      v23 = v21;
-      v24 = *v77;
+      v22 = v21;
+      v23 = *v74;
       do
       {
-        v25 = 0;
-        v70 = v23;
+        v24 = 0;
+        v67 = v22;
         do
         {
-          if (*v77 != v24)
+          if (*v74 != v23)
           {
             objc_enumerationMutation(obj);
           }
 
-          v26 = *(*(&v76 + 1) + 8 * v25);
+          v25 = *(*(&v73 + 1) + 8 * v24);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v27 = v26;
+            v26 = v25;
           }
 
           else
           {
-            v27 = 0;
+            v26 = 0;
           }
 
-          if (v27)
+          if (v26)
           {
-            mEMORY[0x1E698C968] = [[AMSUIWebButtonModel alloc] initWithJSObject:v27 context:contextCopy];
+            mEMORY[0x1E698C968] = [[AMSUIWebButtonModel alloc] initWithJSObject:v26 context:contextCopy];
             createDialogAction = [(AMSUIWebButtonModel *)mEMORY[0x1E698C968] createDialogAction];
-            [v67 addObject:createDialogAction];
+            [v64 addObject:createDialogAction];
           }
 
           else
@@ -161,76 +160,73 @@
             createDialogAction = [(AMSUIWebButtonModel *)mEMORY[0x1E698C968] OSLogObject];
             if (os_log_type_enabled(createDialogAction, OS_LOG_TYPE_ERROR))
             {
-              v30 = objc_opt_class();
-              context = [(AMSUIWebAction *)v64 context];
+              v29 = objc_opt_class();
+              context = [(AMSUIWebAction *)v61 context];
               [context logKey];
-              v33 = v32 = v24;
+              v32 = v31 = v23;
               *buf = 138543874;
-              v83 = v30;
-              v84 = 2114;
-              v85 = v33;
-              v86 = 2114;
-              v87 = v26;
+              v80 = v29;
+              v81 = 2114;
+              v82 = v32;
+              v83 = 2114;
+              v84 = v25;
               _os_log_impl(&dword_1BB036000, createDialogAction, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Invalid button object: %{public}@", buf, 0x20u);
 
-              v24 = v32;
-              v23 = v70;
-
-              v22 = 0x1E695D000uLL;
+              v23 = v31;
+              v22 = v67;
             }
           }
 
-          ++v25;
+          ++v24;
         }
 
-        while (v23 != v25);
-        v23 = [obj countByEnumeratingWithState:&v76 objects:v88 count:16];
+        while (v22 != v24);
+        v22 = [obj countByEnumeratingWithState:&v73 objects:v85 count:16];
       }
 
-      while (v23);
+      while (v22);
     }
 
-    [(AMSDialogRequest *)v68 setButtonActions:v67];
-    v74 = 0u;
-    v75 = 0u;
+    [(AMSDialogRequest *)v65 setButtonActions:v64];
+    v71 = 0u;
     v72 = 0u;
-    v73 = 0u;
-    v65 = v63;
-    v34 = [v65 countByEnumeratingWithState:&v72 objects:v81 count:16];
-    objectCopy = v62;
-    if (v34)
+    v69 = 0u;
+    v70 = 0u;
+    v62 = v60;
+    v33 = [v62 countByEnumeratingWithState:&v69 objects:v78 count:16];
+    objectCopy = v59;
+    if (v33)
     {
-      v35 = v34;
-      v71 = *v73;
+      v34 = v33;
+      v68 = *v70;
       do
       {
-        for (i = 0; i != v35; ++i)
+        for (i = 0; i != v34; ++i)
         {
-          if (*v73 != v71)
+          if (*v70 != v68)
           {
-            objc_enumerationMutation(v65);
+            objc_enumerationMutation(v62);
           }
 
-          v37 = *(*(&v72 + 1) + 8 * i);
-          v38 = *(v22 + 3872);
+          v36 = *(*(&v69 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v39 = v37;
+            v37 = v36;
           }
 
           else
           {
-            v39 = 0;
+            v37 = 0;
           }
 
-          if (v39)
+          if (v37)
           {
-            v40 = [v62 objectForKeyedSubscript:@"placeholder"];
+            v38 = [v59 objectForKeyedSubscript:@"placeholder"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              mEMORY[0x1E698C968]2 = v40;
+              mEMORY[0x1E698C968]2 = v38;
             }
 
             else
@@ -238,11 +234,11 @@
               mEMORY[0x1E698C968]2 = 0;
             }
 
-            v46 = [v62 objectForKeyedSubscript:@"initialText"];
+            v44 = [v59 objectForKeyedSubscript:@"initialText"];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              oSLogObject = v46;
+              oSLogObject = v44;
             }
 
             else
@@ -250,11 +246,11 @@
               oSLogObject = 0;
             }
 
-            v47 = [v62 objectForKeyedSubscript:@"keyboardType"];
+            v45 = [v59 objectForKeyedSubscript:@"keyboardType"];
             if (objc_opt_respondsToSelector())
             {
-              v48 = [v62 objectForKeyedSubscript:@"keyboardType"];
-              integerValue2 = [v48 integerValue];
+              v46 = [v59 objectForKeyedSubscript:@"keyboardType"];
+              integerValue2 = [v46 integerValue];
             }
 
             else
@@ -262,13 +258,11 @@
               integerValue2 = 0;
             }
 
-            v50 = [v62 objectForKeyedSubscript:@"tag"];
+            v48 = [v59 objectForKeyedSubscript:@"tag"];
             if (objc_opt_respondsToSelector())
             {
-              v51 = [v62 objectForKeyedSubscript:@"tag"];
-              integerValue3 = [v51 integerValue];
-
-              v22 = 0x1E695D000;
+              v49 = [v59 objectForKeyedSubscript:@"tag"];
+              integerValue3 = [v49 integerValue];
             }
 
             else
@@ -276,12 +270,12 @@
               integerValue3 = 0;
             }
 
-            v53 = objc_alloc_init(MEMORY[0x1E698C8D0]);
-            [v53 setPlaceholder:mEMORY[0x1E698C968]2];
-            [v53 setText:oSLogObject];
-            [v53 setKeyboardType:integerValue2];
-            [v53 setTag:integerValue3];
-            [(AMSDialogRequest *)v68 addTextField:v53];
+            v51 = objc_alloc_init(MEMORY[0x1E698C8D0]);
+            [v51 setPlaceholder:mEMORY[0x1E698C968]2];
+            [v51 setText:oSLogObject];
+            [v51 setKeyboardType:integerValue2];
+            [v51 setTag:integerValue3];
+            [(AMSDialogRequest *)v65 addTextField:v51];
           }
 
           else
@@ -295,42 +289,39 @@
             oSLogObject = [mEMORY[0x1E698C968]2 OSLogObject];
             if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
             {
-              v43 = objc_opt_class();
-              context2 = [(AMSUIWebAction *)v64 context];
+              v41 = objc_opt_class();
+              context2 = [(AMSUIWebAction *)v61 context];
               logKey = [context2 logKey];
               *buf = 138543874;
-              v83 = v43;
-              v84 = 2114;
-              v85 = logKey;
-              v86 = 2114;
-              v87 = v37;
+              v80 = v41;
+              v81 = 2114;
+              v82 = logKey;
+              v83 = 2114;
+              v84 = v36;
               _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Invalid text field object: %{public}@", buf, 0x20u);
-
-              v22 = 0x1E695D000;
             }
           }
         }
 
-        v35 = [v65 countByEnumeratingWithState:&v72 objects:v81 count:16];
+        v34 = [v62 countByEnumeratingWithState:&v69 objects:v78 count:16];
       }
 
-      while (v35);
+      while (v34);
     }
 
-    request = v64->_request;
-    v64->_request = v68;
+    request = v61->_request;
+    v61->_request = v65;
   }
 
-  v55 = *MEMORY[0x1E69E9840];
-  return v64;
+  return v61;
 }
 
 - (id)runAction
 {
-  v25 = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = AMSUIWebDialogAction;
-  runAction = [(AMSUIWebAction *)&v18 runAction];
+  v24 = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = AMSUIWebDialogAction;
+  runAction = [(AMSUIWebAction *)&v17 runAction];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -344,11 +335,11 @@
     v7 = AMSLogKey();
     request = [(AMSUIWebDialogAction *)self request];
     *buf = 138543874;
-    v20 = v6;
-    v21 = 2114;
-    v22 = v7;
-    v23 = 2114;
-    v24 = request;
+    v19 = v6;
+    v20 = 2114;
+    v21 = v7;
+    v22 = 2114;
+    v23 = request;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running dialog: %{public}@", buf, 0x20u);
   }
 
@@ -358,21 +349,19 @@
   request2 = [(AMSUIWebDialogAction *)self request];
   v13 = [actionDelegate action:self pauseTimeouts:pauseTimeouts handleDialogRequest:request2];
 
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __33__AMSUIWebDialogAction_runAction__block_invoke;
-  v17[3] = &unk_1E7F26000;
-  v17[4] = self;
-  v14 = [v13 thenWithBlock:v17];
-
-  v15 = *MEMORY[0x1E69E9840];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __33__AMSUIWebDialogAction_runAction__block_invoke;
+  v16[3] = &unk_1E7F26000;
+  v16[4] = self;
+  v14 = [v13 thenWithBlock:v16];
 
   return v14;
 }
 
 id __33__AMSUIWebDialogAction_runAction__block_invoke(uint64_t a1, void *a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) request];
   v5 = [v3 selectedActionIdentifier];
@@ -407,47 +396,44 @@ id __33__AMSUIWebDialogAction_runAction__block_invoke(uint64_t a1, void *a2)
     v14 = [v13 OSLogObject];
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = *(a1 + 32);
-      v16 = objc_opt_class();
-      v17 = AMSLogKey();
-      v18 = [(AMSUIWebButtonModel *)v11 action];
+      v15 = objc_opt_class();
+      v16 = AMSLogKey();
+      v17 = [(AMSUIWebButtonModel *)v11 action];
       *buf = 138543874;
+      v28 = v15;
+      v29 = 2114;
       v30 = v16;
       v31 = 2114;
       v32 = v17;
-      v33 = 2114;
-      v34 = v18;
       _os_log_impl(&dword_1BB036000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running dialog action: %{public}@", buf, 0x20u);
     }
 
-    v19 = [(AMSUIWebButtonModel *)v11 action];
-    v20 = [v19 runAction];
+    v18 = [(AMSUIWebButtonModel *)v11 action];
+    v19 = [v18 runAction];
   }
 
   else
   {
-    v20 = [MEMORY[0x1E698CAD0] promiseWithResult:MEMORY[0x1E695E118]];
+    v19 = [MEMORY[0x1E698CAD0] promiseWithResult:MEMORY[0x1E695E118]];
   }
 
-  v26[0] = MEMORY[0x1E69E9820];
-  v26[1] = 3221225472;
-  v26[2] = __33__AMSUIWebDialogAction_runAction__block_invoke_51;
-  v26[3] = &unk_1E7F25FD8;
-  v26[4] = *(a1 + 32);
-  v27 = v8;
-  v28 = v3;
-  v21 = v3;
-  v22 = v8;
-  v23 = [v20 continueWithBlock:v26];
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __33__AMSUIWebDialogAction_runAction__block_invoke_51;
+  v24[3] = &unk_1E7F25FD8;
+  v24[4] = *(a1 + 32);
+  v25 = v8;
+  v26 = v3;
+  v20 = v3;
+  v21 = v8;
+  v22 = [v19 continueWithBlock:v24];
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v23;
+  return v22;
 }
 
 id __33__AMSUIWebDialogAction_runAction__block_invoke_51(uint64_t a1)
 {
-  v13[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) acceptedResponseVersions];
   v3 = [v2 containsObject:&unk_1F394A690];
 
@@ -456,12 +442,12 @@ id __33__AMSUIWebDialogAction_runAction__block_invoke_51(uint64_t a1)
   {
     v6 = *(a1 + 40);
     v5 = *(a1 + 48);
-    v12[0] = @"selectedButton";
-    v12[1] = @"textFieldValues";
-    v13[0] = v6;
+    v11[0] = @"selectedButton";
+    v11[1] = @"textFieldValues";
+    v12[0] = v6;
     v7 = [v5 textfieldValues];
-    v13[1] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v12[1] = v7;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
     v9 = [v4 promiseWithResult:v8];
   }
 
@@ -469,8 +455,6 @@ id __33__AMSUIWebDialogAction_runAction__block_invoke_51(uint64_t a1)
   {
     v9 = [MEMORY[0x1E698CAD0] promiseWithResult:*(a1 + 40)];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

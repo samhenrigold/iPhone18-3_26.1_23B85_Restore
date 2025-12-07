@@ -1,16 +1,16 @@
 @interface NUKeyframeSequence
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)timeOfKeyframeAtIndex:(SEL)index;
+- (CMTime)interpolantAtTime:(uint64_t)time@<X8>;
 - (NUKeyframeSequence)init;
 - (NUKeyframeSequence)initWithInterpolation:(int64_t)interpolation count:(unint64_t)count times:(id *)times;
 - (NUKeyframeSequence)initWithKeyframeSequence:(id)sequence;
 - (int64_t)indexOfKeyframeAtOrBeforeTime:(id *)time;
-- (uint64_t)interpolantAtTime:(uint64_t)time@<X8>;
 - (void)dealloc;
 @end
 
 @implementation NUKeyframeSequence
 
-- (uint64_t)interpolantAtTime:(uint64_t)time@<X8>
+- (CMTime)interpolantAtTime:(uint64_t)time@<X8>
 {
   if ((*(a2 + 12) & 1) == 0)
   {
@@ -18,19 +18,19 @@
   }
 
   v6 = result;
-  result = [result interpolation];
+  result = [(CMTime *)result interpolation];
   if (result == 2)
   {
     *&time1.start.value = *a2;
     time1.start.epoch = *(a2 + 2);
-    v13 = [v6 indexOfKeyframeAtOrBeforeTime:&time1];
+    v13 = [(CMTime *)v6 indexOfKeyframeAtOrBeforeTime:&time1];
     memset(&time1, 0, 24);
-    [v6 timeOfKeyframeAtIndex:v13];
+    objc_msgSend_timeOfKeyframeAtIndex_(v6);
     memset(&time2, 0, 24);
-    [v6 timeOfKeyframeAtIndex:v13 + 1];
+    objc_msgSend_timeOfKeyframeAtIndex_(v6);
     if (v13 || (*&end.start.value = *&time1.start.value, end.start.epoch = time1.start.epoch, lhs = *a2, result = CMTimeCompare(&end.start, &lhs), result < 1))
     {
-      result = [v6 count];
+      result = [(CMTime *)v6 count];
       if (v13 + 1 < result)
       {
         v14.i64[0] = 0;
@@ -57,7 +57,7 @@
         v20.f64[1] = end.start.value / end.start.timescale;
         v21.f64[1] = -(v21.f64[0] * v17);
         v24 = vmulq_f64(v20, v21);
-        result = [v6 count];
+        result = [(CMTime *)v6 count];
         v22.i64[0] = v13 + 2;
         v23.i64[0] = result;
         *(time + 16) = vbslq_s8(vdupq_lane_s64(vcgtq_s64(v23, v22).i64[0], 0), v24, v24.u64[0]);
@@ -87,9 +87,9 @@ LABEL_3:
 
   *&time1.start.value = *a2;
   time1.start.epoch = *(a2 + 2);
-  v7 = [v6 indexOfKeyframeAtOrBeforeTime:&time1];
+  v7 = [(CMTime *)v6 indexOfKeyframeAtOrBeforeTime:&time1];
   memset(&lhs, 0, sizeof(lhs));
-  [v6 timeOfKeyframeAtIndex:v7];
+  objc_msgSend_timeOfKeyframeAtIndex_(v6);
   if (!v7)
   {
     time1.start = lhs;
@@ -103,7 +103,7 @@ LABEL_3:
   }
 
   memset(&rhs, 0, sizeof(rhs));
-  [v6 timeOfKeyframeAtIndex:v7 + 1];
+  objc_msgSend_timeOfKeyframeAtIndex_(v6);
   time1.start = lhs;
   time2.start = rhs;
   result = CMTimeCompare(&time1.start, &time2.start);

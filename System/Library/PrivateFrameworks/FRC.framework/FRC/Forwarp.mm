@@ -17,10 +17,13 @@
 - (void)encodeNormalizationToCommandBuffer:(id)buffer fromBuffer:(id)fromBuffer toTexture:(id)texture inputSize:(id *)size;
 - (void)encodeSplattingNormalizationToCommandBuffer:(id)buffer splattingBuffer:(id)splattingBuffer outputTexture:(id)texture;
 - (void)encodeSplattingToCommandBuffer:(id)buffer input:(id)input flow:(id)flow error:(id)error outputBuffer:(id)outputBuffer timeScale:(float)scale;
+- (void)encodeToCommandBuffer:(id)buffer input:(id)input flow:(id)flow error:(id)error timeScale:(float)scale fullWarp:(BOOL)warp bestError:(id)bestError output:(id)self0 destination:(id)self1;
+- (void)encodeToCommandBuffer:(id)buffer input:(id)input flow:(id)flow error:(id)error timeScale:(float)scale fullWarp:(BOOL)warp bestError:(id)bestError outputBuffer:(id)self0;
 - (void)encodeUpdateBestToCommandBuffer:(id)buffer flow:(id)flow error:(id)error timeScale:(float)scale bestError:(id)bestError;
 - (void)encodeUpdateOutputToCommandBuffer:(id)buffer input:(id)input flow:(id)flow error:(id)error timeScale:(float)scale fullWarp:(BOOL)warp bestError:(id)bestError output:(id)self0;
 - (void)encodeWarpAndBlendFeaturesWithErrorMaskToCommandBuffer:(id)buffer first:(id)first second:(id)second forwardFlow:(id)flow backwardFlow:(id)backwardFlow forwardErrorMap:(id)map backwardErrorMap:(id)errorMap forwarpConsistency:(id)self0 backwardConsistency:(id)self1 timeScale:(float)self2 destination:(id)self3;
 - (void)updateBest:(id)best error:(id)error timeScale:(float)scale best:(id)a6;
+- (void)updateOutput:(id)output flow:(id)flow error:(id)error timeScale:(float)scale fullWarp:(BOOL)warp bestError:(id)bestError output:(id)a9;
 @end
 
 @implementation Forwarp
@@ -313,6 +316,23 @@
   }
 }
 
+- (void)updateOutput:(id)output flow:(id)flow error:(id)error timeScale:(float)scale fullWarp:(BOOL)warp bestError:(id)bestError output:(id)a9
+{
+  warpCopy = warp;
+  commandQueue = self->super._commandQueue;
+  v17 = a9;
+  bestErrorCopy = bestError;
+  errorCopy = error;
+  flowCopy = flow;
+  outputCopy = output;
+  commandBuffer = [(MTLCommandQueue *)commandQueue commandBuffer];
+  *&v22 = scale;
+  [(Forwarp *)self encodeUpdateOutputToCommandBuffer:commandBuffer input:outputCopy flow:flowCopy error:errorCopy timeScale:warpCopy fullWarp:bestErrorCopy bestError:v22 output:v17];
+
+  [commandBuffer commit];
+  [commandBuffer waitUntilCompleted];
+}
+
 - (void)encodeUpdateOutputToCommandBuffer:(id)buffer input:(id)input flow:(id)flow error:(id)error timeScale:(float)scale fullWarp:(BOOL)warp bestError:(id)bestError output:(id)self0
 {
   warpCopy = warp;
@@ -410,6 +430,64 @@
     v19 = 1;
     [computeCommandEncoder dispatchThreadgroups:v20 threadsPerThreadgroup:&v18];
     [computeCommandEncoder endEncoding];
+  }
+}
+
+- (void)encodeToCommandBuffer:(id)buffer input:(id)input flow:(id)flow error:(id)error timeScale:(float)scale fullWarp:(BOOL)warp bestError:(id)bestError outputBuffer:(id)self0
+{
+  warpCopy = warp;
+  bufferCopy = buffer;
+  inputCopy = input;
+  flowCopy = flow;
+  errorCopy = error;
+  bestErrorCopy = bestError;
+  outputBufferCopy = outputBuffer;
+  if (warpCopy)
+  {
+    *&v22 = scale;
+    [(Forwarp *)self encodeUpdateBestToCommandBuffer:bufferCopy flow:flowCopy error:errorCopy timeScale:bestErrorCopy bestError:v22];
+  }
+
+  *&v22 = scale;
+  [(Forwarp *)self encodeUpdateOutputToCommandBuffer:bufferCopy input:inputCopy flow:flowCopy error:errorCopy timeScale:warpCopy fullWarp:bestErrorCopy bestError:v22 output:outputBufferCopy];
+}
+
+- (void)encodeToCommandBuffer:(id)buffer input:(id)input flow:(id)flow error:(id)error timeScale:(float)scale fullWarp:(BOOL)warp bestError:(id)bestError output:(id)self0 destination:(id)self1
+{
+  warpCopy = warp;
+  bufferCopy = buffer;
+  inputCopy = input;
+  flowCopy = flow;
+  errorCopy = error;
+  bestErrorCopy = bestError;
+  outputCopy = output;
+  destinationCopy = destination;
+  v26 = destinationCopy;
+  if (inputCopy && flowCopy && errorCopy && destinationCopy)
+  {
+    if (self->_linearSplatting)
+    {
+      *&v25 = scale;
+      [(Forwarp *)self encodeLinearSplattingToCommandBuffer:bufferCopy input:inputCopy flow:flowCopy error:errorCopy splatBuffer:outputCopy outputTexture:destinationCopy timeScale:v25];
+    }
+
+    else
+    {
+      *&v25 = scale;
+      [(Forwarp *)self encodeToCommandBuffer:bufferCopy input:inputCopy flow:flowCopy error:errorCopy timeScale:warpCopy fullWarp:bestErrorCopy bestError:v25 outputBuffer:outputCopy];
+      if (!self->_isLiteSynthesis)
+      {
+        v27[0] = [inputCopy width];
+        v27[1] = [inputCopy height];
+        v27[2] = [inputCopy depth];
+        [(Forwarp *)self encodeNormalizationToCommandBuffer:bufferCopy fromBuffer:outputCopy toTexture:v26 inputSize:v27];
+      }
+    }
+  }
+
+  else
+  {
+    NSLog(&cfstr_ErrorInputOutp_0.isa);
   }
 }
 

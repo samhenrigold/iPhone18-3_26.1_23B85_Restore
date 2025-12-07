@@ -1,8 +1,12 @@
 @interface _INPBPayloadConfirmation
 - (BOOL)isEqual:(id)equal;
 - (_INPBPayloadConfirmation)initWithCoder:(id)coder;
+- (id)addTasksIntentTargetTaskListConfirmationReasonAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)reasonAsString:(int)string;
+- (id)sendAnnouncementIntentAnnouncementConfirmationReasonAsString:(int)string;
+- (id)startCallIntentContactsConfirmationReasonAsString:(int)string;
 - (int)StringAsReason:(id)reason;
 - (int)StringAsStartCallIntentContactsConfirmationReason:(id)reason;
 - (unint64_t)hash;
@@ -287,7 +291,6 @@ LABEL_22:
   toCopy = to;
   if ([(_INPBPayloadConfirmation *)self hasSendAnnouncementIntentAnnouncementConfirmationReason])
   {
-    sendAnnouncementIntentAnnouncementConfirmationReason = self->_sendAnnouncementIntentAnnouncementConfirmationReason;
     PBDataWriterWriteInt32Field();
   }
 
@@ -301,21 +304,33 @@ LABEL_22:
 
   if ([(_INPBPayloadConfirmation *)self hasStartCallIntentContactsConfirmationReason])
   {
-    startCallIntentContactsConfirmationReason = self->_startCallIntentContactsConfirmationReason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadConfirmation *)self hasReason])
   {
-    reason = self->_reason;
     PBDataWriterWriteInt32Field();
   }
 
   if ([(_INPBPayloadConfirmation *)self hasAddTasksIntentTargetTaskListConfirmationReason])
   {
-    addTasksIntentTargetTaskListConfirmationReason = self->_addTasksIntentTargetTaskListConfirmationReason;
     PBDataWriterWriteInt32Field();
   }
+}
+
+- (id)addTasksIntentTargetTaskListConfirmationReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"LIST_SHOULD_BE_CREATED";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (void)setHasAddTasksIntentTargetTaskListConfirmationReason:(BOOL)reason
@@ -364,6 +379,26 @@ LABEL_22:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)reasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"ConfirmationReasonNone";
+  }
+
+  else if (string == 1000)
+  {
+    v4 = @"ConfirmationReasonExtension";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;
@@ -435,6 +470,21 @@ LABEL_22:
   return v4;
 }
 
+- (id)startCallIntentContactsConfirmationReasonAsString:(int)string
+{
+  if ((string - 1) >= 5)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E7281050[string - 1];
+  }
+
+  return v4;
+}
+
 - (void)setHasStartCallIntentContactsConfirmationReason:(BOOL)reason
 {
   if (reason)
@@ -463,6 +513,21 @@ LABEL_22:
     *&self->_has = has | 2;
     self->_startCallIntentContactsConfirmationReason = reason;
   }
+}
+
+- (id)sendAnnouncementIntentAnnouncementConfirmationReasonAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"DURATION_ABOVE_MAX_THRESHOLD";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (void)setSendAnnouncementIntentAnnouncementConfirmationReason:(int)reason

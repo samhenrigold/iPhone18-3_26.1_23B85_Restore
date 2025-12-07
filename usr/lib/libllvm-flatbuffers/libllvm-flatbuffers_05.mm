@@ -320,17 +320,8 @@ uint64_t sub_213CC5C08(std::string **a1, uint64_t a2, unint64_t a3, uint64_t a4,
       }
 
       std::string::append(a1[1], v12, 32);
-      if (v10)
-      {
-        v16 = a2 + *(*(a4 + 8) + 216) * v13;
-      }
-
-      else
-      {
-        LODWORD(v16) = 0;
-      }
-
-      if ((sub_213CA4B54(a1, v16) & 1) == 0)
+      v16 = (v10 & 1) != 0 ? (a2 + *(*(a4 + 8) + 216) * v13) : 0;
+      if ((sub_213CA4B54(a1, v16, a4, v12, 0, v14) & 1) == 0)
       {
         return 0;
       }
@@ -357,10 +348,10 @@ LABEL_18:
   }
 }
 
-char *sub_213CC5D78(uint64_t a1)
+char *sub_213CC5D78(__int16 **a1)
 {
   result = 0;
-  v3 = *(a1 + 12);
+  v3 = *(a1 + 3);
   if (v3 <= 5)
   {
     if (v3 > 2)
@@ -516,12 +507,12 @@ LABEL_17:
       {
         if (v24 > 1)
         {
-          v12 = *&v15[v23];
+          v12 = *(v15 + v23);
         }
 
         else
         {
-          v12 = v15[v23];
+          v12 = *(v15 + v23);
         }
 
         return v12;
@@ -529,10 +520,10 @@ LABEL_17:
 
       if (v24 > 7)
       {
-        return *&v15[v23];
+        return *(v15 + v23);
       }
 
-      return *&v15[v23];
+      return *(v15 + v23);
     }
 
     if (v3 != 6)
@@ -568,21 +559,21 @@ LABEL_17:
       {
         if (v22 > 1)
         {
-          return *&v6[v19];
+          return *(v6 + v19);
         }
 
         else
         {
-          return v6[v19];
+          return *(v6 + v19);
         }
       }
 
       if (v22 <= 7)
       {
-        return *&v6[v19];
+        return *(v6 + v19);
       }
 
-      return *&v6[v19];
+      return *(v6 + v19);
     }
 
     v6 = *a1;
@@ -616,30 +607,30 @@ LABEL_17:
     {
       if (v20 <= 7)
       {
-        return *&v6[v19];
+        return *(v6 + v19);
       }
 
-      return *&v6[v19];
+      return *(v6 + v19);
     }
 
     if (v20 > 1)
     {
-      return *&v6[v19];
+      return *(v6 + v19);
     }
 
     else
     {
-      return v6[v19];
+      return *(v6 + v19);
     }
   }
 
   return result;
 }
 
-char *sub_213CC606C(uint64_t a1)
+char *sub_213CC606C(unsigned __int16 **a1)
 {
   result = 0;
-  v3 = *(a1 + 12);
+  v3 = *(a1 + 3);
   if (v3 <= 5)
   {
     if (v3 > 2)
@@ -795,12 +786,12 @@ LABEL_10:
       {
         if (v24 > 1)
         {
-          v11 = *&v15[v23];
+          v11 = *(v15 + v23);
         }
 
         else
         {
-          v11 = v15[v23];
+          v11 = *(v15 + v23);
         }
 
         return v11;
@@ -808,10 +799,10 @@ LABEL_10:
 
       if (v24 > 7)
       {
-        return *&v15[v23];
+        return *(v15 + v23);
       }
 
-      return *&v15[v23];
+      return *(v15 + v23);
     }
 
     if (v3 != 6)
@@ -847,21 +838,21 @@ LABEL_10:
       {
         if (v22 > 1)
         {
-          return *&v6[v19];
+          return *(v6 + v19);
         }
 
         else
         {
-          return v6[v19];
+          return *(v6 + v19);
         }
       }
 
       if (v22 <= 7)
       {
-        return *&v6[v19];
+        return *(v6 + v19);
       }
 
-      return *&v6[v19];
+      return *(v6 + v19);
     }
 
     v6 = *a1;
@@ -895,29 +886,29 @@ LABEL_10:
     {
       if (v20 <= 7)
       {
-        return *&v6[v19];
+        return *(v6 + v19);
       }
 
-      return *&v6[v19];
+      return *(v6 + v19);
     }
 
     if (v20 > 1)
     {
-      return *&v6[v19];
+      return *(v6 + v19);
     }
 
     else
     {
-      return v6[v19];
+      return *(v6 + v19);
     }
   }
 
   return result;
 }
 
-double sub_213CC6360(uint64_t a1)
+double sub_213CC6360(unsigned int **a1)
 {
-  v1 = *(a1 + 12);
+  v1 = *(a1 + 3);
   result = 0.0;
   if (v1 > 5)
   {
@@ -1313,7 +1304,7 @@ std::string *sub_213CC6780(std::string *a1, uint64_t a2, uint64_t a3)
       {
         v8 = *(a2 + 8);
         v9 = *(*a2 + v6 * v8 + i);
-        v10 = *a2 + i * v8;
+        v10 = (*a2 + i * v8);
         v11 = ((v9 >> 2) << 32) | ((1 << (v9 & 3)) << 8) | v8;
       }
 
@@ -1418,7 +1409,7 @@ std::string *sub_213CC6930(std::string *a1, uint64_t a2, uint64_t a3)
       else
       {
         v8 = *(a2 + 8);
-        v9 = *a2 + i * v8;
+        v9 = (*a2 + i * v8);
         v10 = v8 | (*(a2 + 24) << 32) | 0x100;
       }
 
@@ -1533,7 +1524,7 @@ std::string *sub_213CC6AE4(std::string *a1, uint64_t a2, uint64_t a3)
       else
       {
         v8 = *(a2 + 8);
-        v9 = *a2 + v7 * v8;
+        v9 = (*a2 + v7 * v8);
         v10 = v8 | (*(a2 + 12) << 32) | 0x100;
       }
 
@@ -1722,7 +1713,7 @@ size_t sub_213CC6C7C(uint64_t a1, const char **a2)
   return result;
 }
 
-_DWORD *sub_213CC6DB4(uint64_t a1, _DWORD *a2)
+_DWORD *sub_213CC6DB4(uint64_t a1, int *a2)
 {
   v2 = *a1;
   v3 = *(a1 + 8) - *a1;
@@ -1775,31 +1766,30 @@ _DWORD *sub_213CC6DB4(uint64_t a1, _DWORD *a2)
 
 BOOL flatbuffers::FileExistsRaw(flatbuffers *this, const char *a2)
 {
-  v5[72] = *MEMORY[0x277D85DE8];
-  sub_213CC6F34(v5);
-  v2 = *(&v5[4] + *(v5[0] - 24)) == 0;
-  sub_213CAA738(v5);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[72] = *MEMORY[0x277D85DE8];
+  sub_213CC6F34(v4, this, 8);
+  v2 = *(&v4[4] + *(v4[0] - 24)) == 0;
+  sub_213CAA738(v4);
   return v2;
 }
 
-uint64_t *sub_213CC6F34(uint64_t *a1)
+uint64_t *sub_213CC6F34(uint64_t *a1, uint64_t a2, int a3)
 {
   a1[59] = 0;
-  v2 = MEMORY[0x277D82858] + 24;
-  v3 = MEMORY[0x277D82858] + 64;
+  v4 = MEMORY[0x277D82858] + 24;
+  v5 = MEMORY[0x277D82858] + 64;
   a1[53] = MEMORY[0x277D82858] + 64;
-  v4 = *(MEMORY[0x277D82808] + 16);
-  v5 = *(MEMORY[0x277D82808] + 8);
-  *a1 = v5;
-  *(a1 + *(v5 - 24)) = v4;
+  v6 = *(MEMORY[0x277D82808] + 16);
+  v7 = *(MEMORY[0x277D82808] + 8);
+  *a1 = v7;
+  *(a1 + *(v7 - 24)) = v6;
   a1[1] = 0;
-  v6 = (a1 + *(*a1 - 24));
-  std::ios_base::init(v6, a1 + 2);
-  v6[1].__vftable = 0;
-  v6[1].__fmtflags_ = -1;
-  *a1 = v2;
-  a1[53] = v3;
+  v8 = (a1 + *(*a1 - 24));
+  std::ios_base::init(v8, a1 + 2);
+  v8[1].__vftable = 0;
+  v8[1].__fmtflags_ = -1;
+  *a1 = v4;
+  a1[53] = v5;
   MEMORY[0x21604CFF0](a1 + 2);
   if (!std::filebuf::open())
   {
@@ -1811,61 +1801,59 @@ uint64_t *sub_213CC6F34(uint64_t *a1)
 
 BOOL flatbuffers::LoadFileRaw(const char *a1, int a2, std::string *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (stat(a1, &v15) || (v15.st_mode & 0x4000) == 0)
+  v13 = *MEMORY[0x277D85DE8];
+  if (!stat(a1, &v12) && (v12.st_mode & 0x4000) != 0)
   {
-    sub_213CC6F34(&v15.st_dev);
-    if (v15.st_qspare[1])
-    {
-      if (a2)
-      {
-        std::istream::seekg();
-        std::istream::tellg();
-        std::string::resize(a3, __n, 0);
-        std::istream::seekg();
-        if ((SHIBYTE(a3->__r_.__value_.__r.__words[2]) & 0x8000000000000000) != 0)
-        {
-          v10 = a3;
-          v9 = a3->__r_.__value_.__r.__words[0];
-          size = v10->__r_.__value_.__l.__size_;
-        }
+    return 0;
+  }
 
-        std::istream::read();
-      }
-
-      else
-      {
-        sub_213CAA838(v13);
-        std::ostream::operator<<();
-        std::stringbuf::str();
-        if (SHIBYTE(a3->__r_.__value_.__r.__words[2]) < 0)
-        {
-          operator delete(a3->__r_.__value_.__l.__data_);
-        }
-
-        *&a3->__r_.__value_.__l.__data_ = v11;
-        a3->__r_.__value_.__r.__words[2] = v12;
-        sub_213CAA9DC(v13);
-      }
-
-      v5 = (*(&v15.st_atimespec.tv_sec + *(*&v15.st_dev - 24)) & 1) == 0;
-    }
-
-    else
-    {
-      v5 = 0;
-    }
-
-    sub_213CAA738(&v15);
+  if (a2)
+  {
+    v8 = 4;
   }
 
   else
   {
-    v5 = 0;
+    v8 = 8;
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return v5;
+  sub_213CC6F34(&v12.st_dev, a1, v8);
+  if (v12.st_qspare[1])
+  {
+    if (a2)
+    {
+      std::istream::seekg();
+      std::istream::tellg();
+      std::string::resize(a3, v11[16], 0);
+      std::istream::seekg();
+      std::istream::read();
+    }
+
+    else
+    {
+      sub_213CAA838(v11);
+      std::ostream::operator<<();
+      std::stringbuf::str();
+      if (SHIBYTE(a3->__r_.__value_.__r.__words[2]) < 0)
+      {
+        operator delete(a3->__r_.__value_.__l.__data_);
+      }
+
+      *&a3->__r_.__value_.__l.__data_ = v9;
+      a3->__r_.__value_.__r.__words[2] = v10;
+      sub_213CAA9DC(v11);
+    }
+
+    v6 = (*(&v12.st_atimespec.tv_sec + *(*&v12.st_dev - 24)) & 1) == 0;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  sub_213CAA738(&v12);
+  return v6;
 }
 
 std::string *flatbuffers::ConCatPathFileName@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
@@ -1948,30 +1936,30 @@ std::string *flatbuffers::ConCatPathFileName@<X0>(uint64_t a1@<X0>, uint64_t a2@
   return result;
 }
 
-void flatbuffers::PosixPath(flatbuffers *this@<X0>, uint64_t a2@<X8>)
+void flatbuffers::PosixPath(std::string *__return_ptr a1@<X8>, flatbuffers *this@<X0>)
 {
-  v5 = strlen(this);
-  std::string::__init(a2, this, v5);
-  v6 = *(a2 + 23);
-  v7 = *a2;
-  if (v6 >= 0)
+  v4 = strlen(this);
+  std::string::__init(a1, this, v4);
+  size = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
+  v6 = a1->__r_.__value_.__r.__words[0];
+  if (size >= 0)
   {
-    v7 = a2;
+    v6 = a1;
   }
 
-  if (v6 < 0)
+  if (size < 0)
   {
-    v6 = *(a2 + 8);
+    size = a1->__r_.__value_.__l.__size_;
   }
 
-  for (; v6; --v6)
+  for (; size; --size)
   {
-    if (*v7 == 92)
+    if (v6->__r_.__value_.__s.__data_[0] == 92)
     {
-      *v7 = 47;
+      v6->__r_.__value_.__s.__data_[0] = 47;
     }
 
-    ++v7;
+    v6 = (v6 + 1);
   }
 }
 

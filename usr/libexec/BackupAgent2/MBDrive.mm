@@ -2,6 +2,7 @@
 + (BOOL)singleFromMultiErrorWithReturnValue:(BOOL)value results:(id)results error:(id *)error;
 - (BOOL)downloadFileAtPath:(id)path toPath:(id)toPath options:(id)options error:(id *)error;
 - (BOOL)moveItemAtPath:(id)path toPath:(id)toPath options:(id)options error:(id *)error;
+- (BOOL)purgeDiskSpace:(unint64_t *)space amountRequested:(unint64_t)requested urgencyLevel:(int)level error:(id *)error;
 - (BOOL)removeItemAtPath:(id)path options:(id)options error:(id *)error;
 - (BOOL)uploadData:(id)data toPath:(id)path options:(id)options error:(id *)error;
 - (BOOL)uploadFileAtPath:(id)path toPath:(id)toPath options:(id)options error:(id *)error;
@@ -311,7 +312,7 @@ LABEL_17:
       *buf = 138412290;
       v28 = v14;
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed creating temporary directory to upload data: %@", buf, 0xCu);
-      _MBLog();
+      _MBLog(@"E ", "Failed creating temporary directory to upload data: %@", v14);
     }
 
     if (error)
@@ -445,8 +446,7 @@ LABEL_22:
       }
 
       v20 = [v14 objectForKeyedSubscript:NSFileSize];
-      [v20 unsignedIntegerValue];
-      _MBLog();
+      _MBLog(@"I ", "Opening file mapped at '%@' (%{bytes}lu)", makeTemporaryFilePath, [v20 unsignedIntegerValue]);
       v21 = 8;
     }
 
@@ -472,8 +472,7 @@ LABEL_22:
       }
 
       v20 = [v14 objectForKeyedSubscript:NSFileSize];
-      [v20 unsignedIntegerValue];
-      _MBLog();
+      _MBLog(@"I ", "Opening file unmapped at '%@' (%{bytes}lu)", makeTemporaryFilePath, [v20 unsignedIntegerValue]);
       v21 = 0;
     }
 
@@ -489,7 +488,7 @@ LABEL_21:
     *buf = 138412290;
     v30 = v11;
     _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "Failed creating temporary directory to download file: %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"E ", "Failed creating temporary directory to download file: %@", v11);
   }
 
   if (error)
@@ -592,6 +591,16 @@ LABEL_23:
   LOBYTE(error) = [MBDrive singleFromMultiErrorWithReturnValue:v11 results:v12 error:error];
 
   return error;
+}
+
+- (BOOL)purgeDiskSpace:(unint64_t *)space amountRequested:(unint64_t)requested urgencyLevel:(int)level error:(id *)error
+{
+  if (error)
+  {
+    *error = [MBError errorWithCode:21 format:@"PurgeDiskSpace not implemented", *&level];
+  }
+
+  return 0;
 }
 
 @end

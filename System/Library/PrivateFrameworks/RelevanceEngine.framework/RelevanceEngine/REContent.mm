@@ -29,6 +29,7 @@
 - (unint64_t)style;
 - (unsigned)headerImageEdge;
 - (void)encodeWithCoder:(id)coder;
+- (void)setBodyImageShouldStretch:(BOOL)stretch;
 - (void)setDescription1FontStyle:(unint64_t)style;
 - (void)setDescription1Text:(id)text;
 - (void)setDescription2FontStyle:(unint64_t)style;
@@ -36,12 +37,15 @@
 - (void)setDescription3Text:(id)text;
 - (void)setDescriptionAccessory:(id)accessory;
 - (void)setHeaderFontStyle:(unint64_t)style;
+- (void)setHeaderImageEdge:(unsigned int)edge;
 - (void)setHeaderText:(id)text;
 - (void)setImageAccessory:(id)accessory;
 - (void)setImageFocusRect:(CGRect)rect;
 - (void)setObject:(id)object forKey:(id)key;
 - (void)setPunchThrough:(unint64_t)through;
 - (void)setStyle:(unint64_t)style;
+- (void)setTintColorAffectsHeader:(BOOL)header;
+- (void)setUseMonospaceFont:(BOOL)font;
 @end
 
 @implementation REContent
@@ -326,6 +330,12 @@ void __33__REContent_loggingContentValues__block_invoke(uint64_t a1, void *a2, v
   return unsignedIntegerValue;
 }
 
+- (void)setUseMonospaceFont:(BOOL)font
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:font];
+  [(REContent *)self setObject:v4 forKey:@"REContentUseMonospacedFontKey"];
+}
+
 - (BOOL)useMonospaceFont
 {
   v2 = [(REContent *)self objectForKey:@"REContentUseMonospacedFontKey"];
@@ -420,6 +430,12 @@ void __33__REContent_loggingContentValues__block_invoke(uint64_t a1, void *a2, v
   return unsignedIntegerValue;
 }
 
+- (void)setTintColorAffectsHeader:(BOOL)header
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:header];
+  [(REContent *)self setObject:v4 forKey:@"REContentTintColorAffectsHeaderKey"];
+}
+
 - (BOOL)tintColorAffectsHeader
 {
   v2 = [(REContent *)self objectForKey:@"REContentTintColorAffectsHeaderKey"];
@@ -439,6 +455,12 @@ void __33__REContent_loggingContentValues__block_invoke(uint64_t a1, void *a2, v
   return bOOLValue;
 }
 
+- (void)setBodyImageShouldStretch:(BOOL)stretch
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:stretch];
+  [(REContent *)self setObject:v4 forKey:@"REContentBodyImageShouldStretchKey"];
+}
+
 - (BOOL)bodyImageShouldStretch
 {
   v2 = [(REContent *)self objectForKey:@"REContentBodyImageShouldStretchKey"];
@@ -456,6 +478,12 @@ void __33__REContent_loggingContentValues__block_invoke(uint64_t a1, void *a2, v
   }
 
   return bOOLValue;
+}
+
+- (void)setHeaderImageEdge:(unsigned int)edge
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*&edge];
+  [(REContent *)self setObject:v4 forKey:@"REContentHeaderImageEdgeKey"];
 }
 
 - (unsigned)headerImageEdge

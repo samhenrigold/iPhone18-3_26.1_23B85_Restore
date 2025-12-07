@@ -68,7 +68,7 @@
 {
   if (!frame)
   {
-    [BWUBProcessorInput addFrame:];
+    [(BWUBProcessorInput *)self addFrame:a2];
     return;
   }
 
@@ -382,7 +382,7 @@ LABEL_9:
         }
 
         OUTLINED_FUNCTION_2_4();
-        OUTLINED_FUNCTION_39_0();
+        OUTLINED_FUNCTION_39_0(v5, v6, v7, v8, v9);
       }
 
       [(BWUBAdaptiveBracketingParameters *)v3 stopAdaptiveBracketing];

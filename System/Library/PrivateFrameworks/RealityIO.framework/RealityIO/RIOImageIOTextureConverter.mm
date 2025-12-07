@@ -7,7 +7,7 @@
 
 - ($7DEDF3842AEFB7F1E6DF5AF62E424A02)estimatedMemoryDeltaForTextureWithDescription:(id)description
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   descriptionCopy = description;
   originalPixelFormat = [descriptionCopy originalPixelFormat];
   v7 = v6;
@@ -25,15 +25,15 @@
   }
 
   [descriptionCopy originalSize];
-  v43 = v8;
+  v42 = v8;
   [descriptionCopy destinationSize];
-  v45 = v9;
+  v44 = v9;
   destinationPixelFormat = [descriptionCopy destinationPixelFormat];
   v12 = v11;
   v13 = [RIOTextureDescription bytesPerPixelForPixelFormat:originalPixelFormat, v7];
   v14 = [RIOTextureDescription bytesPerPixelForPixelFormat:destinationPixelFormat, v12];
   generateMipmaps = [descriptionCopy generateMipmaps];
-  v16 = v45 * SHIDWORD(v45);
+  v16 = v44 * SHIDWORD(v44);
   v17 = v14 * v16;
   v18 = 1.33333333;
   if (!generateMipmaps)
@@ -42,7 +42,7 @@
   }
 
   v19 = [(RIOTextureConverter *)self alignUp:(v18 * (v14 * v16)) toAlignment:getpagesize()];
-  v20 = v43 * SHIDWORD(v43);
+  v20 = v42 * SHIDWORD(v42);
   v21 = v13 * v20;
   if ([descriptionCopy originalPixelFormat] == 6)
   {
@@ -128,7 +128,7 @@ LABEL_9:
       goto LABEL_9;
     }
 
-    v22 = v17 + SHIDWORD(v45) * v43 * v13;
+    v22 = v17 + SHIDWORD(v44) * v42 * v13;
   }
 
 LABEL_28:
@@ -148,40 +148,39 @@ LABEL_28:
     fileType = [descriptionCopy fileType];
     downsamplingFactor = [descriptionCopy downsamplingFactor];
     [descriptionCopy originalSize];
-    v46 = v33;
+    v45 = v33;
     [descriptionCopy originalSize];
-    v44 = v34;
+    v43 = v34;
     [descriptionCopy destinationSize];
-    v42 = v35;
+    v41 = v35;
     [descriptionCopy destinationSize];
-    v41 = v36;
+    v40 = v36;
     name = [descriptionCopy name];
     *buf = 134220034;
-    v48 = fileType;
-    v49 = 2048;
-    v50 = downsamplingFactor;
-    v51 = 2048;
-    v52 = v22 >> 10;
-    v53 = 2048;
-    v54 = v19 >> 10;
-    v55 = 1024;
-    v56 = v46;
-    v57 = 1024;
-    v58 = v44;
-    v59 = 1024;
-    v60 = v42;
-    v61 = 1024;
-    v62 = v41;
-    v63 = 2112;
-    v64 = name;
+    v47 = fileType;
+    v48 = 2048;
+    v49 = downsamplingFactor;
+    v50 = 2048;
+    v51 = v22 >> 10;
+    v52 = 2048;
+    v53 = v19 >> 10;
+    v54 = 1024;
+    v55 = v45;
+    v56 = 1024;
+    v57 = v43;
+    v58 = 1024;
+    v59 = v41;
+    v60 = 1024;
+    v61 = v40;
+    v62 = 2112;
+    v63 = name;
     _os_log_impl(&dword_26187B000, v30, OS_LOG_TYPE_DEFAULT, "fileType: %lu. factor: %lu,\tpeak: %lluKB,\tfootprint: %lluKB, (%d x %d) -> (%d x %d) - '%@'", buf, 0x4Cu);
   }
 
-  v38 = *MEMORY[0x277D85DE8];
-  v39 = v19;
-  v40 = v22;
-  result.var1 = v40;
-  result.var0 = v39;
+  v38 = v19;
+  v39 = v22;
+  result.var1 = v39;
+  result.var0 = v38;
   return result;
 }
 

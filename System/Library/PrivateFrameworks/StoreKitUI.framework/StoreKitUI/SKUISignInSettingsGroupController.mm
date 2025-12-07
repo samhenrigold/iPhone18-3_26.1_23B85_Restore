@@ -11,6 +11,7 @@
 - (void)_signInSuccess:(id)success;
 - (void)_updateFieldsAuthenticating:(BOOL)authenticating;
 - (void)_updateValidation;
+- (void)isAuthenticating;
 - (void)returnInSettingDescription:(id)description;
 - (void)setValue:(id)value forSettingDescription:(id)description;
 - (void)submitSettingDescription:(id)description;
@@ -51,7 +52,7 @@
   }
 
   v13 = [(SKUISignInSettingsGroupController *)self _keyForSettingDescription:descriptionCopy];
-  if ([v13 isEqualToString:@"accountName"])
+  if (objc_msgSend_isEqualToString_(v13))
   {
     [(SKUISignInSettingsGroupController *)self _becomeFirstResponderWithKey:@"password"];
   }
@@ -470,7 +471,7 @@ LABEL_4:
 
         v11 = *(*(&v24 + 1) + 8 * v10);
         v12 = [(NSMapTable *)self->_keyMapping objectForKey:v11];
-        if ([keyCopy isEqualToString:v12])
+        if (objc_msgSend_isEqualToString_(keyCopy))
         {
           break;
         }
@@ -521,7 +522,7 @@ LABEL_10:
 
         v17 = *(*(&v20 + 1) + 8 * i);
         v18 = [(SKUISignInSettingsGroupController *)self _keyForSettingDescription:0];
-        if ([keyCopy isEqualToString:v18])
+        if (objc_msgSend_isEqualToString_(keyCopy))
         {
           v13 = v17;
 
@@ -676,6 +677,36 @@ LABEL_12:
   self->_valid = v3;
   _submitSettingDescription = [(SKUISignInSettingsGroupController *)self _submitSettingDescription];
   [(SKUISettingsGroupController *)self _reloadSettingDescription:_submitSettingDescription];
+}
+
+- (void)isAuthenticating
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISignInSettingsGroupController isAuthenticating]";
+}
+
+- (void)returnInSettingDescription:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISignInSettingsGroupController returnInSettingDescription:]";
+}
+
+- (void)setValue:(uint64_t)a3 forSettingDescription:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISignInSettingsGroupController setValue:forSettingDescription:]";
+}
+
+- (void)submitSettingDescription:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISignInSettingsGroupController submitSettingDescription:]";
+}
+
+- (void)valueForSettingDescription:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISignInSettingsGroupController valueForSettingDescription:]";
 }
 
 @end

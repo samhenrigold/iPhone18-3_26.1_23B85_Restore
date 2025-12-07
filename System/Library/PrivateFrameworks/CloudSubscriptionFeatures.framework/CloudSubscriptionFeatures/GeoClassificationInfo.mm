@@ -12,27 +12,24 @@
 
 - (NSString)featureKey
 {
-  v2 = *(self + OBJC_IVAR____TtC25CloudSubscriptionFeatures21GeoClassificationInfo_featureKey);
-  v3 = *(self + OBJC_IVAR____TtC25CloudSubscriptionFeatures21GeoClassificationInfo_featureKey + 8);
 
-  v4 = sub_1DF564914();
+  v2 = sub_1DF564914();
 
-  return v4;
+  return v2;
 }
 
 - (BOOL)expired
 {
   v3 = sub_1DF564494();
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v11 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = &v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
   selfCopy = self;
   sub_1DF564484();
-  v9 = sub_1DF5643F4();
+  v8 = sub_1DF5643F4();
 
-  (*(v4 + 8))(v7, v3);
-  return v9 & 1;
+  (*(v4 + 8))(v6, v3);
+  return v8 & 1;
 }
 
 - (unint64_t)status

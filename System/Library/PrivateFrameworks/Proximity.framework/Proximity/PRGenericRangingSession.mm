@@ -81,34 +81,34 @@
   [(NSXPCConnection *)v7 setExportedObject:v8];
 
   v9 = self->_connection;
-  v10 = PRMakeRangingServerXPCInterface();
-  [(NSXPCConnection *)v9 setRemoteObjectInterface:v10];
+  v11 = PRMakeRangingServerXPCInterface(v10);
+  [(NSXPCConnection *)v9 setRemoteObjectInterface:v11];
 
   [(NSXPCConnection *)self->_connection _setQueue:self->_sessionQueue];
   objc_initWeak(&location, self);
-  v11 = self->_connection;
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __42__PRGenericRangingSession_connectToDaemon__block_invoke;
-  v18[3] = &unk_2788F3B38;
-  objc_copyWeak(&v19, &location);
-  [(NSXPCConnection *)v11 setInterruptionHandler:v18];
   v12 = self->_connection;
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __42__PRGenericRangingSession_connectToDaemon__block_invoke_2;
-  v16[3] = &unk_2788F3B38;
-  objc_copyWeak(&v17, &location);
-  [(NSXPCConnection *)v12 setInvalidationHandler:v16];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __42__PRGenericRangingSession_connectToDaemon__block_invoke;
+  v19[3] = &unk_2788F3B38;
+  objc_copyWeak(&v20, &location);
+  [(NSXPCConnection *)v12 setInterruptionHandler:v19];
+  v13 = self->_connection;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __42__PRGenericRangingSession_connectToDaemon__block_invoke_2;
+  v17[3] = &unk_2788F3B38;
+  objc_copyWeak(&v18, &location);
+  [(NSXPCConnection *)v13 setInvalidationHandler:v17];
   [(NSXPCConnection *)self->_connection resume];
   remoteObject = [(PRGenericRangingSession *)self remoteObject];
-  v15.receiver = self;
-  v15.super_class = PRGenericRangingSession;
-  clientInfo = [(PRRangingDevice *)&v15 clientInfo];
+  v16.receiver = self;
+  v16.super_class = PRGenericRangingSession;
+  clientInfo = [(PRRangingDevice *)&v16 clientInfo];
   [remoteObject connectWithClientInfo:clientInfo];
 
-  objc_destroyWeak(&v17);
-  objc_destroyWeak(&v19);
+  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v20);
   objc_destroyWeak(&location);
 }
 
@@ -126,7 +126,7 @@ void __42__PRGenericRangingSession_connectToDaemon__block_invoke_2(uint64_t a1)
 
 - (void)handleInterruption
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   NSLog(&cfstr_DaemonInterrup.isa, a2);
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
@@ -135,22 +135,20 @@ void __42__PRGenericRangingSession_connectToDaemon__block_invoke_2(uint64_t a1)
     v5 = logger;
     v6 = [(NSXPCConnection *)connection debugDescription];
     *buf = 138412290;
-    v12 = v6;
+    v11 = v6;
     _os_log_impl(&dword_230EB5000, v5, OS_LOG_TYPE_DEFAULT, "connection was interrupted: %@", buf, 0xCu);
   }
 
   remoteObject = [(PRGenericRangingSession *)self remoteObject];
-  v10.receiver = self;
-  v10.super_class = PRGenericRangingSession;
-  clientInfo = [(PRRangingDevice *)&v10 clientInfo];
+  v9.receiver = self;
+  v9.super_class = PRGenericRangingSession;
+  clientInfo = [(PRRangingDevice *)&v9 clientInfo];
   [remoteObject connectWithClientInfo:clientInfo];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleInvalidation
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   NSLog(&cfstr_DaemonInvalida.isa, a2);
   logger = self->_logger;
   if (os_log_type_enabled(logger, OS_LOG_TYPE_DEFAULT))
@@ -158,12 +156,10 @@ void __42__PRGenericRangingSession_connectToDaemon__block_invoke_2(uint64_t a1)
     connection = self->_connection;
     v5 = logger;
     v6 = [(NSXPCConnection *)connection debugDescription];
-    v8 = 138412290;
-    v9 = v6;
-    _os_log_impl(&dword_230EB5000, v5, OS_LOG_TYPE_DEFAULT, "connection was invalidated: %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v6;
+    _os_log_impl(&dword_230EB5000, v5, OS_LOG_TYPE_DEFAULT, "connection was invalidated: %@", &v7, 0xCu);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (id)remoteObject
@@ -181,18 +177,16 @@ void __42__PRGenericRangingSession_connectToDaemon__block_invoke_2(uint64_t a1)
 
 void __39__PRGenericRangingSession_remoteObject__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   NSLog(&cfstr_Remoteobjectpr.isa, v3);
   v4 = *(*(a1 + 32) + 32);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v7 = v3;
+    v6 = v3;
     _os_log_impl(&dword_230EB5000, v4, OS_LOG_TYPE_DEFAULT, "Error getting remote object proxy %@", buf, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (id)synchronousRemoteObject
@@ -210,18 +204,16 @@ void __39__PRGenericRangingSession_remoteObject__block_invoke(uint64_t a1, void 
 
 void __50__PRGenericRangingSession_synchronousRemoteObject__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
   NSLog(&cfstr_Synchronousrem.isa, v3);
   v4 = *(*(a1 + 32) + 32);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v7 = v3;
+    v6 = v3;
     _os_log_impl(&dword_230EB5000, v4, OS_LOG_TYPE_DEFAULT, "Error getting synchronous remote object proxy %@", buf, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didFailWithError:(id)error

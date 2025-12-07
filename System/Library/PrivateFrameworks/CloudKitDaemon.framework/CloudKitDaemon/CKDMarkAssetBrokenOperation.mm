@@ -54,7 +54,7 @@
 
 - (BOOL)makeStateTransition
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   v4 = objc_msgSend_state(self, a2, v2);
   if (v4 > 3)
   {
@@ -74,7 +74,7 @@ LABEL_24:
         objc_msgSend_setState_(self, v5, 6);
 LABEL_25:
         objc_msgSend__markAssetBroken(self, v32, v33);
-        goto LABEL_31;
+        return 1;
       case 6:
         v12 = objc_msgSend_markAssetBrokenError(self, v5, v6);
 
@@ -95,15 +95,15 @@ LABEL_25:
               v22 = NSStringFromClass(v21);
               v25 = objc_msgSend_ckShortDescription(self, v23, v24);
               v28 = objc_msgSend_markAssetBrokenError(self, v26, v27);
-              v53 = 138544130;
-              v54 = v22;
-              v55 = 2048;
+              v52 = 138544130;
+              v53 = v22;
+              v54 = 2048;
               selfCopy = self;
-              v57 = 2114;
-              v58 = v25;
-              v59 = 2112;
-              v60 = v28;
-              _os_log_impl(&dword_22506F000, v20, OS_LOG_TYPE_INFO, "Retrying markAssetsBroken on <%{public}@: %p; %{public}@> after error %@", &v53, 0x2Au);
+              v56 = 2114;
+              v57 = v25;
+              v58 = 2112;
+              v59 = v28;
+              _os_log_impl(&dword_22506F000, v20, OS_LOG_TYPE_INFO, "Retrying markAssetsBroken on <%{public}@: %p; %{public}@> after error %@", &v52, 0x2Au);
             }
 
             v29 = objc_msgSend_numMarkAssetBrokenFailures(self, v18, v19);
@@ -119,7 +119,7 @@ LABEL_25:
 
         break;
       default:
-        goto LABEL_31;
+        return 1;
     }
 
     goto LABEL_30;
@@ -134,7 +134,7 @@ LABEL_25:
       {
         objc_msgSend_setState_(self, v35, 2);
         objc_msgSend__fetchRecord(self, v37, v38);
-        break;
+        return 1;
       }
 
       if (objc_msgSend_touchRepairZone(self, v35, v36))
@@ -147,7 +147,7 @@ LABEL_30:
       v49 = objc_msgSend_error(self, v47, v48);
       objc_msgSend_finishWithError_(self, v50, v49);
 
-      break;
+      return 1;
     case 2:
       if (!objc_msgSend_touchRepairZone(self, v5, v6))
       {
@@ -156,7 +156,7 @@ LABEL_22:
         {
           objc_msgSend_setState_(self, v5, 5);
           objc_msgSend__breakAsset(self, v41, v42);
-          break;
+          return 1;
         }
 
         goto LABEL_24;
@@ -165,7 +165,7 @@ LABEL_22:
 LABEL_27:
       objc_msgSend_setState_(self, v13, 3);
       objc_msgSend__touchFetchRepairZone(self, v43, v44);
-      break;
+      return 1;
     case 3:
       objc_msgSend_setState_(self, v5, 4);
       v9 = objc_msgSend_repairZone(self, v7, v8);
@@ -183,8 +183,6 @@ LABEL_27:
       break;
   }
 
-LABEL_31:
-  v51 = *MEMORY[0x277D85DE8];
   return 1;
 }
 
@@ -209,11 +207,11 @@ LABEL_31:
 
 - (void)_fetchRecord
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v6 = objc_msgSend_recordID(self, v4, v5);
-  v21[0] = v6;
-  v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v7, v21, 1);
+  v20[0] = v6;
+  v8 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v7, v20, 1);
   objc_msgSend_setRecordIDs_(v3, v9, v8);
 
   v12 = objc_msgSend_simulateCorruptAsset(self, v10, v11);
@@ -222,33 +220,31 @@ LABEL_31:
   dispatch_group_enter(v16);
 
   v17 = objc_opt_class();
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = sub_2251B0074;
-  v20[3] = &unk_278548B60;
-  v20[4] = self;
-  objc_msgSend_spawnAndRunOperationOfClass_operationInfo_operationConfigurationBlock_(self, v18, v17, v3, v20);
-
-  v19 = *MEMORY[0x277D85DE8];
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = sub_2251B0074;
+  v19[3] = &unk_278548B60;
+  v19[4] = self;
+  objc_msgSend_spawnAndRunOperationOfClass_operationInfo_operationConfigurationBlock_(self, v18, v17, v3, v19);
 }
 
 - (void)_touchFetchRepairZone
 {
-  v33[1] = *MEMORY[0x277D85DE8];
+  v32[1] = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_uploadRequestConfiguration(self, a2, v2);
   v8 = objc_msgSend_repairZoneID(v5, v6, v7);
 
   if (!v8)
   {
-    v30 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v9, v10);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v30, v31, a2, self, @"CKDMarkAssetBrokenOperation.m", 261, @"Upload request configuration passed to cloudd should have resolved fields");
+    v29 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v9, v10);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v29, v30, a2, self, @"CKDMarkAssetBrokenOperation.m", 261, @"Upload request configuration passed to cloudd should have resolved fields");
   }
 
   v11 = objc_opt_new();
   v14 = objc_msgSend_uploadRequestConfiguration(self, v12, v13);
   v17 = objc_msgSend_repairZoneID(v14, v15, v16);
-  v33[0] = v17;
-  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v18, v33, 1);
+  v32[0] = v17;
+  v19 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v18, v32, 1);
   objc_msgSend_setRecordZoneIDs_(v11, v20, v19);
 
   v23 = objc_msgSend_stateTransitionGroup(self, v21, v22);
@@ -256,26 +252,24 @@ LABEL_31:
 
   v24 = objc_opt_class();
   v27 = objc_msgSend_repairContainer(self, v25, v26);
-  v32[0] = MEMORY[0x277D85DD0];
-  v32[1] = 3221225472;
-  v32[2] = sub_2251B0824;
-  v32[3] = &unk_278548B60;
-  v32[4] = self;
-  objc_msgSend_spawnAndRunOperationOfClass_operationInfo_spawnQueue_container_operationConfigurationBlock_(self, v28, v24, v11, 0, v27, v32);
-
-  v29 = *MEMORY[0x277D85DE8];
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = sub_2251B0824;
+  v31[3] = &unk_278548B60;
+  v31[4] = self;
+  objc_msgSend_spawnAndRunOperationOfClass_operationInfo_spawnQueue_container_operationConfigurationBlock_(self, v28, v24, v11, 0, v27, v31);
 }
 
 - (void)_touchCreateRepairZone
 {
-  v36[1] = *MEMORY[0x277D85DE8];
+  v35[1] = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_uploadRequestConfiguration(self, a2, v2);
   v8 = objc_msgSend_repairZoneID(v5, v6, v7);
 
   if (!v8)
   {
-    v33 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v9, v10);
-    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v33, v34, a2, self, @"CKDMarkAssetBrokenOperation.m", 314, @"Upload request configuration passed to cloudd should have resolved fields");
+    v32 = objc_msgSend_currentHandler(MEMORY[0x277CCA890], v9, v10);
+    objc_msgSend_handleFailureInMethod_object_file_lineNumber_description_(v32, v33, a2, self, @"CKDMarkAssetBrokenOperation.m", 314, @"Upload request configuration passed to cloudd should have resolved fields");
   }
 
   v11 = objc_alloc(MEMORY[0x277CBC5E8]);
@@ -284,8 +278,8 @@ LABEL_31:
   v19 = objc_msgSend_initWithZoneID_(v11, v18, v17);
 
   v20 = objc_opt_new();
-  v36[0] = v19;
-  v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v21, v36, 1);
+  v35[0] = v19;
+  v22 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v21, v35, 1);
   objc_msgSend_setRecordZonesToSave_(v20, v23, v22);
 
   v26 = objc_msgSend_stateTransitionGroup(self, v24, v25);
@@ -293,19 +287,17 @@ LABEL_31:
 
   v27 = objc_opt_class();
   v30 = objc_msgSend_repairContainer(self, v28, v29);
-  v35[0] = MEMORY[0x277D85DD0];
-  v35[1] = 3221225472;
-  v35[2] = sub_2251B101C;
-  v35[3] = &unk_278548B60;
-  v35[4] = self;
-  objc_msgSend_spawnAndRunOperationOfClass_operationInfo_spawnQueue_container_operationConfigurationBlock_(self, v31, v27, v20, 0, v30, v35);
-
-  v32 = *MEMORY[0x277D85DE8];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = sub_2251B101C;
+  v34[3] = &unk_278548B60;
+  v34[4] = self;
+  objc_msgSend_spawnAndRunOperationOfClass_operationInfo_spawnQueue_container_operationConfigurationBlock_(self, v31, v27, v20, 0, v30, v34);
 }
 
 - (void)_breakAsset
 {
-  v87[1] = *MEMORY[0x277D85DE8];
+  v86[1] = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_checkPreconditions(self, a2, v2);
   if (v6)
   {
@@ -324,12 +316,12 @@ LABEL_31:
 
     v15 = objc_opt_new();
     objc_msgSend_setShouldOnlySaveAssetContent_(v15, v16, 1);
-    v87[0] = v14;
-    v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v17, v87, 1);
+    v86[0] = v14;
+    v18 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v17, v86, 1);
     objc_msgSend_setRecordsToSave_(v15, v19, v18);
 
     objc_msgSend_setOriginatingFromDaemon_(v15, v20, 1);
-    v79 = v7;
+    v78 = v7;
     if (isKindOfClass)
     {
       v21 = MEMORY[0x277CCACA8];
@@ -347,9 +339,9 @@ LABEL_31:
       v42 = objc_msgSend_referenceSignature(v23, v40, v41);
       v44 = objc_msgSend_initWithFileSignature_referenceSignature_assetKey_(v36, v43, v39, v42, 0);
 
-      v85 = v33;
-      v86 = v44;
-      v46 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v45, &v86, &v85, 1);
+      v84 = v33;
+      v85 = v44;
+      v46 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v45, &v85, &v84, 1);
       objc_msgSend_setAssetUUIDToExpectedProperties_(v15, v47, v46);
 
       objc_msgSend_setObject_forKeyedSubscript_(v14, v48, v23, v33);
@@ -360,22 +352,22 @@ LABEL_31:
       v49 = v7;
       v52 = objc_msgSend_container(self, v50, v51);
       v55 = objc_msgSend_applicationBundleID(v52, v53, v54);
-      v82 = 0;
-      v33 = objc_msgSend_clonedPackageWithBundle_filesDuplicatedIntoDirectory_error_(v49, v56, v55, 0, &v82);
-      v44 = v82;
+      v81 = 0;
+      v33 = objc_msgSend_clonedPackageWithBundle_filesDuplicatedIntoDirectory_error_(v49, v56, v55, 0, &v81);
+      v44 = v81;
 
       v57 = MEMORY[0x277CCACA8];
       v60 = objc_msgSend_UUID(v33, v58, v59);
       v62 = objc_msgSend_stringByReplacingOccurrencesOfString_withString_(v60, v61, @"-", &stru_28385ED00);
-      v23 = objc_msgSend_stringWithFormat_(v57, v63, @"A%@", v62, v79);
+      v23 = objc_msgSend_stringWithFormat_(v57, v63, @"A%@", v62, v78);
 
       v66 = objc_msgSend_assets(v49, v64, v65);
 
       v68 = objc_msgSend_CKMap_(v66, v67, &unk_28385D440);
 
-      v83 = v23;
-      v84 = v68;
-      v70 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v69, &v84, &v83, 1);
+      v82 = v23;
+      v83 = v68;
+      v70 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v69, &v83, &v82, 1);
       objc_msgSend_setPackageUUIDToExpectedProperties_(v15, v71, v70);
 
       objc_msgSend_setObject_forKeyedSubscript_(v14, v72, v33, v23);
@@ -385,20 +377,18 @@ LABEL_31:
     dispatch_group_enter(v75);
 
     v76 = objc_opt_class();
-    v81[0] = MEMORY[0x277D85DD0];
-    v81[1] = 3221225472;
-    v81[2] = sub_2251B1ADC;
-    v81[3] = &unk_278548B60;
-    v81[4] = self;
-    objc_msgSend_spawnAndRunOperationOfClass_operationInfo_operationConfigurationBlock_(self, v77, v76, v15, v81);
+    v80[0] = MEMORY[0x277D85DD0];
+    v80[1] = 3221225472;
+    v80[2] = sub_2251B1ADC;
+    v80[3] = &unk_278548B60;
+    v80[4] = self;
+    objc_msgSend_spawnAndRunOperationOfClass_operationInfo_operationConfigurationBlock_(self, v77, v76, v15, v80);
   }
-
-  v78 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_markAssetBroken
 {
-  v177 = *MEMORY[0x277D85DE8];
+  v176 = *MEMORY[0x277D85DE8];
   v6 = objc_msgSend_checkPreconditions(self, a2, v2);
   if (v6)
   {
@@ -417,53 +407,53 @@ LABEL_31:
     {
       v55 = MEMORY[0x277CBC1D0];
       v56 = v12;
-      v161 = [v55 alloc];
-      v154 = objc_msgSend_record(self, v57, v58);
-      v61 = objc_msgSend_recordID(v154, v59, v60);
-      v151 = objc_msgSend_record(self, v62, v63);
-      v66 = objc_msgSend_recordID(v151, v64, v65);
+      v160 = [v55 alloc];
+      v153 = objc_msgSend_record(self, v57, v58);
+      v61 = objc_msgSend_recordID(v153, v59, v60);
+      v150 = objc_msgSend_record(self, v62, v63);
+      v66 = objc_msgSend_recordID(v150, v64, v65);
       v69 = objc_msgSend_record(self, v67, v68);
       v72 = objc_msgSend_recordType(v69, v70, v71);
       v75 = objc_msgSend_field(self, v73, v74);
       objc_msgSend_signature(v56, v76, v77);
-      v78 = v157 = v12;
+      v78 = v156 = v12;
       v81 = objc_msgSend_referenceSignature(v56, v79, v80);
 
       v84 = objc_msgSend_listIndex(self, v82, v83);
-      v160 = objc_msgSend_initWithRepairZoneRecordID_databaseScope_recordID_recordType_fieldName_fileSignature_referenceSignature_listIndex_(v161, v85, v61, 2, v66, v72, v75, v78, v81, v84);
+      v159 = objc_msgSend_initWithRepairZoneRecordID_databaseScope_recordID_recordType_fieldName_fileSignature_referenceSignature_listIndex_(v160, v85, v61, 2, v66, v72, v75, v78, v81, v84);
 
-      v12 = v157;
+      v12 = v156;
       goto LABEL_22;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v158 = v12;
+      v157 = v12;
       v86 = v12;
       v87 = objc_opt_new();
       v88 = objc_opt_new();
+      v165 = 0u;
       v166 = 0u;
       v167 = 0u;
       v168 = 0u;
-      v169 = 0u;
-      v155 = v86;
+      v154 = v86;
       v91 = objc_msgSend_assets(v86, v89, v90);
-      v93 = objc_msgSend_countByEnumeratingWithState_objects_count_(v91, v92, &v166, v176, 16);
+      v93 = objc_msgSend_countByEnumeratingWithState_objects_count_(v91, v92, &v165, v175, 16);
       if (v93)
       {
         v96 = v93;
-        v97 = *v167;
+        v97 = *v166;
         do
         {
           for (i = 0; i != v96; ++i)
           {
-            if (*v167 != v97)
+            if (*v166 != v97)
             {
               objc_enumerationMutation(v91);
             }
 
-            v99 = *(*(&v166 + 1) + 8 * i);
+            v99 = *(*(&v165 + 1) + 8 * i);
             v100 = objc_msgSend_signature(v99, v94, v95);
             objc_msgSend_addObject_(v87, v101, v100);
 
@@ -471,26 +461,26 @@ LABEL_31:
             objc_msgSend_addObject_(v88, v105, v104);
           }
 
-          v96 = objc_msgSend_countByEnumeratingWithState_objects_count_(v91, v94, &v166, v176, 16);
+          v96 = objc_msgSend_countByEnumeratingWithState_objects_count_(v91, v94, &v165, v175, 16);
         }
 
         while (v96);
       }
 
-      v162 = objc_alloc(MEMORY[0x277CBC550]);
-      v152 = objc_msgSend_record(self, v106, v107);
-      v110 = objc_msgSend_recordID(v152, v108, v109);
+      v161 = objc_alloc(MEMORY[0x277CBC550]);
+      v151 = objc_msgSend_record(self, v106, v107);
+      v110 = objc_msgSend_recordID(v151, v108, v109);
       v113 = objc_msgSend_record(self, v111, v112);
       v116 = objc_msgSend_recordID(v113, v114, v115);
       v119 = objc_msgSend_record(self, v117, v118);
       v122 = objc_msgSend_recordType(v119, v120, v121);
       v125 = objc_msgSend_field(self, v123, v124);
-      v160 = objc_msgSend_initWithRepairZoneRecordID_databaseScope_recordID_recordType_fieldName_fileSignatures_referenceSignatures_(v162, v126, v110, 2, v116, v122, v125, v87, v88);
+      v159 = objc_msgSend_initWithRepairZoneRecordID_databaseScope_recordID_recordType_fieldName_fileSignatures_referenceSignatures_(v161, v126, v110, 2, v116, v122, v125, v87, v88);
 
-      v12 = v158;
+      v12 = v157;
 LABEL_22:
 
-      if (v160)
+      if (v159)
       {
         v129 = objc_msgSend_stateTransitionGroup(self, v127, v128);
         dispatch_group_enter(v129);
@@ -498,14 +488,14 @@ LABEL_22:
         v130 = objc_opt_class();
         v131 = objc_opt_new();
         v134 = objc_msgSend_repairContainer(self, v132, v133);
-        v163[0] = MEMORY[0x277D85DD0];
-        v163[1] = 3221225472;
-        v163[2] = sub_2251B27D4;
-        v163[3] = &unk_278548C48;
-        v164 = v160;
+        v162[0] = MEMORY[0x277D85DD0];
+        v162[1] = 3221225472;
+        v162[2] = sub_2251B27D4;
+        v162[3] = &unk_278548C48;
+        v163 = v159;
         selfCopy = self;
-        v135 = v160;
-        objc_msgSend_spawnAndRunOperationOfClass_operationInfo_spawnQueue_container_operationConfigurationBlock_(self, v136, v130, v131, 0, v134, v163);
+        v135 = v159;
+        objc_msgSend_spawnAndRunOperationOfClass_operationInfo_spawnQueue_container_operationConfigurationBlock_(self, v136, v130, v131, 0, v134, v162);
 
         goto LABEL_28;
       }
@@ -524,14 +514,14 @@ LABEL_22:
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v156 = v12;
+        v155 = v12;
         v25 = MEMORY[0x277CBC1D0];
         v26 = v24;
-        v159 = [v25 alloc];
-        v153 = objc_msgSend_record(self, v27, v28);
-        v149 = objc_msgSend_recordID(v153, v29, v30);
-        v150 = objc_msgSend_record(self, v31, v32);
-        v35 = objc_msgSend_recordID(v150, v33, v34);
+        v158 = [v25 alloc];
+        v152 = objc_msgSend_record(self, v27, v28);
+        v148 = objc_msgSend_recordID(v152, v29, v30);
+        v149 = objc_msgSend_record(self, v31, v32);
+        v35 = objc_msgSend_recordID(v149, v33, v34);
         v38 = objc_msgSend_record(self, v36, v37);
         v41 = objc_msgSend_recordType(v38, v39, v40);
         v44 = objc_msgSend_field(self, v42, v43);
@@ -539,14 +529,14 @@ LABEL_22:
         v50 = objc_msgSend_referenceSignature(v26, v48, v49);
 
         v53 = objc_msgSend_listIndex(self, v51, v52);
-        v160 = objc_msgSend_initWithRepairZoneRecordID_databaseScope_recordID_recordType_fieldName_fileSignature_referenceSignature_listIndex_(v159, v54, v149, 2, v35, v41, v44, v47, v50, v53);
+        v159 = objc_msgSend_initWithRepairZoneRecordID_databaseScope_recordID_recordType_fieldName_fileSignature_referenceSignature_listIndex_(v158, v54, v148, 2, v35, v41, v44, v47, v50, v53);
 
-        v12 = v156;
+        v12 = v155;
       }
 
       else
       {
-        v160 = 0;
+        v159 = 0;
       }
 
       goto LABEL_22;
@@ -562,22 +552,20 @@ LABEL_24:
   v137 = *MEMORY[0x277CBC838];
   if (os_log_type_enabled(*MEMORY[0x277CBC838], OS_LOG_TYPE_ERROR))
   {
-    v139 = v137;
-    v142 = objc_msgSend_field(self, v140, v141);
-    v145 = objc_msgSend_listIndex(self, v143, v144);
-    v148 = objc_msgSend_record(self, v146, v147);
+    v138 = v137;
+    v141 = objc_msgSend_field(self, v139, v140);
+    v144 = objc_msgSend_listIndex(self, v142, v143);
+    v147 = objc_msgSend_record(self, v145, v146);
     *buf = 138543874;
-    v171 = v142;
-    v172 = 2048;
-    v173 = v145;
-    v174 = 2112;
-    v175 = v148;
-    _os_log_error_impl(&dword_22506F000, v139, OS_LOG_TYPE_ERROR, "Could not find asset or package in field %{public}@ and index %ld of record %@", buf, 0x20u);
+    v170 = v141;
+    v171 = 2048;
+    v172 = v144;
+    v173 = 2112;
+    v174 = v147;
+    _os_log_error_impl(&dword_22506F000, v138, OS_LOG_TYPE_ERROR, "Could not find asset or package in field %{public}@ and index %ld of record %@", buf, 0x20u);
   }
 
 LABEL_28:
-
-  v138 = *MEMORY[0x277D85DE8];
 }
 
 - (id)repairContainer

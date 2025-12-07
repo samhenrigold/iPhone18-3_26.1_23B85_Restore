@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)suggestedConfidenceCategoryAsString:(int)string;
 - (int)StringAsSuggestedConfidenceCategory:(id)category;
 - (int)suggestedConfidenceCategory;
 - (unint64_t)hash;
@@ -40,6 +41,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)suggestedConfidenceCategoryAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_278598960[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSuggestedConfidenceCategory:(id)category
@@ -131,27 +147,25 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_executableId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    rawScore = self->_rawScore;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    suggestedConfidenceCategory = self->_suggestedConfidenceCategory;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 

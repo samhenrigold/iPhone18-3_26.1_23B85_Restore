@@ -38,25 +38,25 @@
   }
 
   _HKInitializeLogging();
-  v6 = *MEMORY[0x1E696B940];
+  v7 = *MEMORY[0x1E696B940];
   if (os_log_type_enabled(*MEMORY[0x1E696B940], OS_LOG_TYPE_ERROR))
   {
-    [(HKWidthDesignationProvider *)v6 widthDesignationFromViewWidth:width];
+    [(HKWidthDesignationProvider *)v7 widthDesignationFromViewWidth:self, width];
   }
 
   return 1;
 }
 
-+ (void)widthDesignationFromViewWidth:(void *)a1 .cold.1(void *a1, double a2)
++ (void)widthDesignationFromViewWidth:(double)a3 .cold.1(void *a1, uint64_t a2, double a3)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v3 = a1;
-  v5 = 138543618;
-  v6 = objc_opt_class();
-  v7 = 2050;
-  v8 = a2;
-  v4 = v6;
-  _os_log_error_impl(&dword_1C3942000, v3, OS_LOG_TYPE_ERROR, "[%{public}@]: View with width outside defined width: (%{public}f)", &v5, 0x16u);
+  v10 = *MEMORY[0x1E69E9840];
+  v4 = a1;
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2050;
+  v9 = a3;
+  v5 = v7;
+  _os_log_error_impl(&dword_1C3942000, v4, OS_LOG_TYPE_ERROR, "[%{public}@]: View with width outside defined width: (%{public}f)", &v6, 0x16u);
 }
 
 @end

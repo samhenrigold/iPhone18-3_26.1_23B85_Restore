@@ -72,7 +72,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -94,17 +94,15 @@
     {
       v14 = log;
       identifier = [(BGTask *)self identifier];
-      v19 = 138543874;
-      v20 = identifier;
-      v21 = 2112;
-      v22 = pathCopy;
-      v23 = 2112;
+      v18 = 138543874;
+      v19 = identifier;
+      v20 = 2112;
+      v21 = pathCopy;
+      v22 = 2112;
       contextCopy = context;
-      _os_log_error_impl(&dword_1AC80E000, v14, OS_LOG_TYPE_ERROR, "%{public}@ Received KVO update for unknown context: (key-path: %@, context: %@)", &v19, 0x20u);
+      _os_log_error_impl(&dword_1AC80E000, v14, OS_LOG_TYPE_ERROR, "%{public}@ Received KVO update for unknown context: (key-path: %@, context: %@)", &v18, 0x20u);
     }
   }
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_callExpirationHandlerWithReason:(int64_t)reason

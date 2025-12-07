@@ -58,7 +58,7 @@
     v5 = [SBUpdateLayoutSwitcherEventResponse alloc];
 LABEL_4:
     v7 = [(SBUpdateLayoutSwitcherEventResponse *)v5 initWithOptions:28 updateMode:3];
-    v8 = SBAppendSwitcherModifierResponse(v7, v4);
+    v8 = SBAppendSwitcherModifierResponse();
 
     goto LABEL_5;
   }
@@ -71,7 +71,7 @@ LABEL_4:
   }
 
   v7 = [(SBUpdateLayoutSwitcherEventResponse *)v5 initWithOptions:8 updateMode:2];
-  v8 = SBAppendSwitcherModifierResponse(v7, v4);
+  v8 = SBAppendSwitcherModifierResponse();
 
   [(SBChainableModifier *)self setState:1];
 LABEL_5:
@@ -208,7 +208,7 @@ LABEL_5:
   return v3;
 }
 
-uint64_t __77__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_homeScreenAlpha__block_invoke(uint64_t a1)
+void *__77__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_homeScreenAlpha__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 144) homeScreenAlpha];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -234,7 +234,7 @@ uint64_t __77__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_homeSc
   return v3;
 }
 
-uint64_t __88__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_homeScreenBackdropBlurType__block_invoke(uint64_t a1)
+void *__88__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_homeScreenBackdropBlurType__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 144) homeScreenBackdropBlurType];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -260,7 +260,7 @@ uint64_t __88__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_homeSc
   return v3;
 }
 
-uint64_t __92__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_homeScreenBackdropBlurProgress__block_invoke(uint64_t a1)
+void *__92__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_homeScreenBackdropBlurProgress__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 144) homeScreenBackdropBlurProgress];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -286,7 +286,7 @@ uint64_t __92__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_homeSc
   return v3;
 }
 
-uint64_t __84__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_homeScreenDimmingAlpha__block_invoke(uint64_t a1)
+void *__84__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_homeScreenDimmingAlpha__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 144) homeScreenDimmingAlpha];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -312,7 +312,7 @@ uint64_t __84__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_homeSc
   return v3;
 }
 
-uint64_t __77__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_homeScreenScale__block_invoke(uint64_t a1)
+void *__77__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_homeScreenScale__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 144) homeScreenScale];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -338,7 +338,7 @@ uint64_t __77__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_homeSc
   return v3;
 }
 
-uint64_t __89__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_isHomeScreenContentRequired__block_invoke(uint64_t a1)
+void *__89__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_isHomeScreenContentRequired__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 144) isHomeScreenContentRequired];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -382,7 +382,7 @@ uint64_t __89__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_isHome
   return v3;
 }
 
-uint64_t __92__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_isWallpaperRequiredForSwitcher__block_invoke(uint64_t a1)
+void *__92__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_isWallpaperRequiredForSwitcher__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 144) isWallpaperRequiredForSwitcher];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -461,7 +461,7 @@ uint64_t __92__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_isWall
   return v4;
 }
 
-uint64_t __83__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_shadowOffsetForIndex___block_invoke(void *a1)
+void *__83__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_shadowOffsetForIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 144) shadowOffsetForIndex:a1[6]];
   *(*(a1[5] + 8) + 24) = v3;
@@ -489,7 +489,7 @@ uint64_t __83__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_shadow
   return v5;
 }
 
-uint64_t __97__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_shadowOpacityForLayoutRole_atIndex___block_invoke(void *a1)
+void *__97__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_shadowOpacityForLayoutRole_atIndex___block_invoke(void *a1)
 {
   result = [*(a1[4] + 144) shadowOpacityForLayoutRole:a1[6] atIndex:a1[7]];
   *(*(a1[5] + 8) + 24) = v3;
@@ -520,7 +520,7 @@ uint64_t __97__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_shadow
   return v9;
 }
 
-uint64_t __99__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_shadowStyleForLayoutRole_inAppLayout___block_invoke(void *a1)
+void *__99__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_shadowStyleForLayoutRole_inAppLayout___block_invoke(void *a1)
 {
   result = [*(a1[4] + 144) shadowStyleForLayoutRole:a1[7] inAppLayout:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -563,7 +563,7 @@ uint64_t __99__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_shadow
   return v3;
 }
 
-uint64_t __76__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_wallpaperScale__block_invoke(uint64_t a1)
+void *__76__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_wallpaperScale__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 144) wallpaperScale];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -589,7 +589,7 @@ uint64_t __76__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_wallpa
   return v3;
 }
 
-uint64_t __76__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_wallpaperStyle__block_invoke(uint64_t a1)
+void *__76__SBFullScreenAppLayoutTextModalityAssistantSwitcherModifier_wallpaperStyle__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 144) wallpaperStyle];
   *(*(*(a1 + 40) + 8) + 24) = result;

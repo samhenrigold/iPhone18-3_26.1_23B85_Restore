@@ -30,7 +30,7 @@
     [layer setAllowsGroupBlending:1];
 
     [(_UIPlatterShadowView *)v6 setShadowPath:pathCopy];
-    v8 = +[UIColor blackColor];
+    v8 = objc_msgSend_blackColor(UIColor);
     [(_UIPlatterShadowView *)v6 setShadowColor:v8];
 
     v9 = v6;
@@ -44,17 +44,17 @@
   keyCopy = key;
   v7.receiver = self;
   v7.super_class = _UIPlatterShadowView;
-  if (-[UIView _shouldAnimatePropertyWithKey:](&v7, sel__shouldAnimatePropertyWithKey_, keyCopy) || ([keyCopy isEqualToString:@"shadowOpacity"] & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", @"shadowColor") & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", @"shadowRadius") & 1) != 0 || (objc_msgSend(keyCopy, "isEqualToString:", @"shadowOffset") & 1) != 0)
+  if ([(UIView *)&v7 _shouldAnimatePropertyWithKey:keyCopy]|| (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0 || (objc_msgSend_isEqualToString_(keyCopy) & 1) != 0)
   {
-    v5 = 1;
+    isEqualToString = 1;
   }
 
   else
   {
-    v5 = [keyCopy isEqualToString:@"shadowPath"];
+    isEqualToString = objc_msgSend_isEqualToString_(keyCopy);
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (void)setPunchOut:(BOOL)out

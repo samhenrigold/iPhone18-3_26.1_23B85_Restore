@@ -7,7 +7,7 @@
 
 - (WiFiUsageConnectionQualityRecord)initWithUsageSession:(id)session andNeighborBssList:(id)list andOtherBssList:(id)bssList
 {
-  v159 = *MEMORY[0x277D85DE8];
+  v158 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   listCopy = list;
   bssListCopy = bssList;
@@ -17,11 +17,11 @@
     goto LABEL_72;
   }
 
-  v139 = bssListCopy;
-  v141 = listCopy;
-  v155.receiver = self;
-  v155.super_class = WiFiUsageConnectionQualityRecord;
-  v11 = [(WiFiUsageConnectionQualityRecord *)&v155 init];
+  v138 = bssListCopy;
+  v140 = listCopy;
+  v154.receiver = self;
+  v154.super_class = WiFiUsageConnectionQualityRecord;
+  v11 = [(WiFiUsageConnectionQualityRecord *)&v154 init];
   v12 = MEMORY[0x277CCACA8];
   networkDetails = [sessionCopy networkDetails];
   networkName = [networkDetails networkName];
@@ -241,12 +241,12 @@ LABEL_29:
   v82 = &v52->super.isa;
   [(GEOWiFiConnectionQuality *)v52->_geoMessage setLocation:v81];
   networkDetails18 = [sessionCopy networkDetails];
-  v137 = v81;
-  v138 = v76;
+  v136 = v81;
+  v137 = v76;
   if ([networkDetails18 addedFromUI])
   {
 
-    v84 = v141;
+    v84 = v140;
 LABEL_32:
     v87 = p_isa[1];
     v88 = 1;
@@ -256,7 +256,7 @@ LABEL_32:
   networkDetails19 = [sessionCopy networkDetails];
   addedViaATJ = [networkDetails19 addedViaATJ];
 
-  v84 = v141;
+  v84 = v140;
   if (addedViaATJ)
   {
     goto LABEL_32;
@@ -345,63 +345,63 @@ LABEL_33:
     [p_isa[1] addTraits:2];
   }
 
-  v153 = 0u;
-  v154 = 0u;
-  v151 = 0u;
   v152 = 0u;
+  v153 = 0u;
+  v150 = 0u;
+  v151 = 0u;
   networkDetails27 = [sessionCopy networkDetails];
   downloadSpeedResults = [networkDetails27 downloadSpeedResults];
 
-  v107 = [downloadSpeedResults countByEnumeratingWithState:&v151 objects:v158 count:16];
+  v107 = [downloadSpeedResults countByEnumeratingWithState:&v150 objects:v157 count:16];
   if (v107)
   {
     v108 = v107;
-    v109 = *v152;
+    v109 = *v151;
     do
     {
       for (i = 0; i != v108; ++i)
       {
-        if (*v152 != v109)
+        if (*v151 != v109)
         {
           objc_enumerationMutation(downloadSpeedResults);
         }
 
-        v111 = *(*(&v151 + 1) + 8 * i);
+        v111 = *(*(&v150 + 1) + 8 * i);
         v112 = objc_alloc_init(MEMORY[0x277D0EE60]);
         [v111 floatValue];
         [v112 setAvgDL:?];
         [p_isa[1] addSpeedTest:v112];
       }
 
-      v108 = [downloadSpeedResults countByEnumeratingWithState:&v151 objects:v158 count:16];
+      v108 = [downloadSpeedResults countByEnumeratingWithState:&v150 objects:v157 count:16];
     }
 
     while (v108);
   }
 
-  v140 = sessionCopy;
+  v139 = sessionCopy;
 
-  v149 = 0u;
-  v150 = 0u;
-  v147 = 0u;
   v148 = 0u;
+  v149 = 0u;
+  v146 = 0u;
+  v147 = 0u;
   v113 = v84;
-  v114 = [v113 countByEnumeratingWithState:&v147 objects:v157 count:16];
+  v114 = [v113 countByEnumeratingWithState:&v146 objects:v156 count:16];
   if (v114)
   {
     v115 = v114;
     v116 = 0;
-    v117 = *v148;
+    v117 = *v147;
     do
     {
       for (j = 0; j != v115; ++j)
       {
-        if (*v148 != v117)
+        if (*v147 != v117)
         {
           objc_enumerationMutation(v113);
         }
 
-        v119 = *(*(&v147 + 1) + 8 * j);
+        v119 = *(*(&v146 + 1) + 8 * j);
         v120 = objc_alloc_init(MEMORY[0x277D0EE40]);
         [v120 setRssi:{objc_msgSend(v119, "rssi")}];
         [v120 setChannel:{objc_msgSend(v119, "channel")}];
@@ -427,34 +427,34 @@ LABEL_33:
         v116 = 1;
       }
 
-      v115 = [v113 countByEnumeratingWithState:&v147 objects:v157 count:16];
+      v115 = [v113 countByEnumeratingWithState:&v146 objects:v156 count:16];
     }
 
     while (v115);
   }
 
-  v145 = 0u;
-  v146 = 0u;
-  v143 = 0u;
   v144 = 0u;
-  bssListCopy = v139;
-  v127 = v139;
-  v128 = [v127 countByEnumeratingWithState:&v143 objects:v156 count:16];
-  sessionCopy = v140;
+  v145 = 0u;
+  v142 = 0u;
+  v143 = 0u;
+  bssListCopy = v138;
+  v127 = v138;
+  v128 = [v127 countByEnumeratingWithState:&v142 objects:v155 count:16];
+  sessionCopy = v139;
   if (v128)
   {
     v129 = v128;
-    v130 = *v144;
+    v130 = *v143;
     do
     {
       for (k = 0; k != v129; ++k)
       {
-        if (*v144 != v130)
+        if (*v143 != v130)
         {
           objc_enumerationMutation(v127);
         }
 
-        v132 = *(*(&v143 + 1) + 8 * k);
+        v132 = *(*(&v142 + 1) + 8 * k);
         v133 = objc_alloc_init(MEMORY[0x277D0EE40]);
         [v133 setRssi:{objc_msgSend(v132, "rssi")}];
         [v133 setChannel:{objc_msgSend(v132, "channel")}];
@@ -464,7 +464,7 @@ LABEL_33:
         [p_isa[1] addNearbyBSS:v133];
       }
 
-      v129 = [v127 countByEnumeratingWithState:&v143 objects:v156 count:16];
+      v129 = [v127 countByEnumeratingWithState:&v142 objects:v155 count:16];
     }
 
     while (v129);
@@ -472,10 +472,9 @@ LABEL_33:
 
   self = p_isa;
   selfCopy = self;
-  listCopy = v141;
+  listCopy = v140;
 LABEL_72:
 
-  v135 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

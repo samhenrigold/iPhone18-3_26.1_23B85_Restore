@@ -23,29 +23,29 @@
 
 - (void)trimMovieSegmentWithCompletionHandler:(id)handler
 {
-  v28[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v7 = objc_msgSend_movieData(self->_movieSegment, v5, v6);
-  v10 = v7;
-  if (v7)
+  movieData = [(KNMovieSegment *)self->_movieSegment movieData];
+  v6 = movieData;
+  if (movieData)
   {
-    if (objc_msgSend_length(v7, v8, v9))
+    if ([movieData length])
     {
-      v27 = *MEMORY[0x277CE6240];
-      v28[0] = MEMORY[0x277CBEC38];
-      v12 = objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v11, v28, &v27, 1);
-      v14 = objc_msgSend_AVAssetWithOptions_(v10, v13, v12);
+      v16 = *MEMORY[0x277CE6240];
+      v17[0] = MEMORY[0x277CBEC38];
+      v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+      v8 = [v6 AVAssetWithOptions:v7];
 
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = sub_275E27734;
-      v22[3] = &unk_27A699558;
-      v23 = v14;
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = sub_275E27734;
+      v11[3] = &unk_27A699558;
+      v12 = v8;
       selfCopy = self;
-      v25 = v10;
-      v26 = handlerCopy;
-      inited = v14;
-      objc_msgSend_loadValuesAsynchronouslyForKeys_completionHandler_(inited, v16, &unk_2884F3E50, v22);
+      v14 = v6;
+      v15 = handlerCopy;
+      v9 = v8;
+      [v9 loadValuesAsynchronouslyForKeys:&unk_2884F3E50 completionHandler:v11];
     }
 
     else
@@ -55,10 +55,10 @@
         sub_275E604B8();
       }
 
-      v17 = [KNMovieSegment alloc];
-      objc_msgSend_startTime(self->_movieSegment, v18, v19);
-      inited = objc_msgSend_initEmptySegmentWithStartTime_(v17, v20, v21);
-      (*(handlerCopy + 2))(handlerCopy, inited, 0);
+      v10 = [KNMovieSegment alloc];
+      [(KNMovieSegment *)self->_movieSegment startTime];
+      v9 = [(KNMovieSegment *)v10 initEmptySegmentWithStartTime:?];
+      (*(handlerCopy + 2))(handlerCopy, v9, 0);
     }
   }
 

@@ -29,7 +29,7 @@
   productType = [(HKSourceRevision *)self productType];
   [v3 setObject:productType forKeyedSubscript:@"productType"];
 
-  [(HKSourceRevision *)self operatingSystemVersion];
+  objc_msgSend_operatingSystemVersion(self);
   v8 = HKNSOperatingSystemVersionString(v10);
   [v3 setObject:v8 forKeyedSubscript:@"operatingSystemVersion"];
 

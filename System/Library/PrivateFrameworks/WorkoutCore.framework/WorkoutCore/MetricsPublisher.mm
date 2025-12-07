@@ -59,7 +59,6 @@
 
 - (void)setDidWinRace:(BOOL)race
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC11WorkoutCore16MetricsPublisher_racePositionStatePublisher);
   swift_getKeyPath();
   swift_getKeyPath();
 
@@ -70,8 +69,7 @@
 {
   v8 = type metadata accessor for Date();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  MEMORY[0x28223BE20](v8);
+  MEMORY[0x28223BE20](v8, v10);
   v12 = &v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   indexCopy = index;
@@ -84,28 +82,25 @@
 - (void)didRecover:(id)recover
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v4 - 8);
+  v6 = MEMORY[0x28223BE20](v4 - 8, v5);
   v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v10 = &v18 - v9;
-  v11 = type metadata accessor for Date();
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v11);
-  v15 = &v18 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6, v9);
+  v11 = &v18 - v10;
+  v12 = type metadata accessor for Date();
+  v13 = *(v12 - 8);
+  MEMORY[0x28223BE20](v12, v14);
+  v16 = &v18 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
-  v16 = *(&self->super.isa + OBJC_IVAR____TtC11WorkoutCore16MetricsPublisher_intervalsMetricsPublisher);
-  (*(v12 + 16))(v10, v15, v11);
-  (*(v12 + 56))(v10, 0, 1, v11);
+  (*(v13 + 16))(v11, v16, v12);
+  (*(v13 + 56))(v11, 0, 1, v12);
   swift_getKeyPath();
   swift_getKeyPath();
-  outlined init with copy of Date?(v10, v8);
+  outlined init with copy of Date?(v11, v8);
   selfCopy = self;
 
   static Published.subscript.setter();
-  outlined destroy of Date?(v10);
-  (*(v12 + 8))(v15, v11);
+  outlined destroy of Date?(v11);
+  (*(v13 + 8))(v16, v12);
 }
 
 - (void)didFinishIntervals:(double)intervals
@@ -117,8 +112,7 @@
 - (void)didEnterNewLeg:(id)leg date:(id)date
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x28223BE20](v7 - 8);
+  MEMORY[0x28223BE20](v7 - 8, v8);
   v10 = &v15 - v9;
   if (date)
   {
@@ -143,17 +137,14 @@
 - (void)didRestoreActivityType:(id)type startDate:(id)date autoTransitionStartDate:(id)startDate autoTransitionUUID:(id)d
 {
   v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10 - 8);
+  MEMORY[0x28223BE20](v10 - 8, v11);
   v13 = &v28 - v12;
   v14 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4DateVSgMd, &_s10Foundation4DateVSgMR);
-  v15 = *(*(v14 - 8) + 64);
-  MEMORY[0x28223BE20](v14 - 8);
+  MEMORY[0x28223BE20](v14 - 8, v15);
   v17 = &v28 - v16;
   v18 = type metadata accessor for Date();
   v19 = *(v18 - 8);
-  v20 = *(v19 + 64);
-  MEMORY[0x28223BE20](v18);
+  MEMORY[0x28223BE20](v18, v20);
   v22 = &v28 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   if (startDate)
@@ -190,8 +181,7 @@
 {
   v6 = type metadata accessor for Date();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
-  MEMORY[0x28223BE20](v6);
+  MEMORY[0x28223BE20](v6, v8);
   v10 = &v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   configCopy = config;
@@ -205,8 +195,7 @@
 {
   v4 = type metadata accessor for Date();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20](v4);
+  MEMORY[0x28223BE20](v4, v6);
   v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Date._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;
@@ -217,7 +206,6 @@
 
 - (void)didCancelAutomaticTransition
 {
-  v2 = *(&self->super.isa + OBJC_IVAR____TtC11WorkoutCore16MetricsPublisher_multisportMetricsPublisher);
   swift_getKeyPath();
   swift_getKeyPath();
 
@@ -233,7 +221,6 @@
 
 - (void)wheelchairUseCharacteristicCache:(id)cache wheelchairUsageDidChange:(BOOL)change
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC11WorkoutCore16MetricsPublisher_activitySummaryMetricsPublisher);
   swift_getKeyPath();
   swift_getKeyPath();
 
@@ -249,7 +236,6 @@
 
 - (void)workout:(id)workout pausedReasonsDidUpdate:(unint64_t)update
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC11WorkoutCore16MetricsPublisher_workoutStatePublisher);
   swift_getKeyPath();
   swift_getKeyPath();
 
@@ -268,21 +254,16 @@
 {
   type metadata accessor for CLLocation();
   v5 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v6 = *(&self->super.isa + OBJC_IVAR____TtC11WorkoutCore16MetricsPublisher_locationPositionPublisher);
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
-  v8 = static Published.subscript.modify();
+  v7 = static Published.subscript.modify();
   specialized Array.append<A>(contentsOf:)(v5);
-  v8(&v9, 0);
+  v7(&v8, 0);
 }
 
 - (void)dataProvider:(id)provider didUpdateRoutePosition:(id)position
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC11WorkoutCore16MetricsPublisher_locationPositionPublisher);
-  v5 = *(position + OBJC_IVAR___WORacePosition_racePosition);
-  v6 = *(position + OBJC_IVAR___WORacePosition_racePosition + 8);
-  v7 = *(position + OBJC_IVAR___WORacePosition_racePosition + 12);
   swift_getKeyPath();
   swift_getKeyPath();
 
@@ -299,7 +280,6 @@
 
 - (void)dataProvider:(id)provider didUpdateIsGPSAvailable:(BOOL)available
 {
-  v4 = *(&self->super.isa + OBJC_IVAR____TtC11WorkoutCore16MetricsPublisher_workoutStatePublisher);
   swift_getKeyPath();
   swift_getKeyPath();
 
@@ -308,7 +288,6 @@
 
 - (void)activityHeartRateDidBecomeStale:(id)stale
 {
-  v3 = *(&self->super.isa + OBJC_IVAR____TtC11WorkoutCore16MetricsPublisher_heartRateMetricsPublisher);
   swift_getKeyPath();
   swift_getKeyPath();
 

@@ -109,10 +109,10 @@
 
 + (id)edgeInsetsValue:(double)value named:(double)named min:(double)min max:(double)max roundedTo:(double)to
 {
-  sub_18BC20BD8();
-  v28 = sub_18BB36D70(self, a2, value, named, min, max, to, a8, a9, a10, a11, a12, a13);
+  v23 = sub_18BC20BD8();
+  v25 = sub_18BB36D70(v23, v24, self, a2, value, named, min, max, to, a8, a12, a13, a14, a15, a16);
 
-  return v28;
+  return v25;
 }
 
 + (id)floatValue:(double)value named:(id)named min:(double)min max:(double)max roundedTo:(double)to

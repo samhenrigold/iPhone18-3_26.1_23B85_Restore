@@ -26,7 +26,7 @@
 
 - (__SecIdentity)identityWithError:(id *)error
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   self->_identity = 0;
   executeRequest = [(AcmeCertRequest *)self executeRequest];
   if (executeRequest)
@@ -64,20 +64,20 @@ LABEL_7:
   v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to create identity (check input values)"];
   v11 = MEMORY[0x1E696ABC0];
   v12 = *MEMORY[0x1E696A768];
-  v28 = *MEMORY[0x1E696A578];
-  v29[0] = v10;
-  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+  v27 = *MEMORY[0x1E696A578];
+  v28[0] = v10;
+  v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
   v6 = [v11 errorWithDomain:v12 code:-67838 userInfo:v13];
 
 LABEL_8:
   v14 = self->_privateKey;
   if (v14)
   {
-    v26[0] = @"class";
-    v26[1] = @"v_Ref";
-    v27[0] = @"keys";
-    v27[1] = v14;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
+    v25[0] = @"class";
+    v25[1] = @"v_Ref";
+    v26[0] = @"keys";
+    v26[1] = v14;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
     SecItemDelete(v15);
   }
 
@@ -85,11 +85,11 @@ LABEL_12:
   publicKey = self->_publicKey;
   if (publicKey)
   {
-    v24[0] = @"class";
-    v24[1] = @"v_Ref";
-    v25[0] = @"keys";
-    v25[1] = publicKey;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
+    v23[0] = @"class";
+    v23[1] = @"v_Ref";
+    v24[0] = @"keys";
+    v24[1] = publicKey;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
     SecItemDelete(v17);
   }
 
@@ -98,9 +98,9 @@ LABEL_12:
     v18 = secLogObjForScope("SecError");
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 138412290;
-      v23 = v6;
-      _os_log_impl(&dword_1887D2000, v18, OS_LOG_TYPE_DEFAULT, "identityWithError: %@", &v22, 0xCu);
+      v21 = 138412290;
+      v22 = v6;
+      _os_log_impl(&dword_1887D2000, v18, OS_LOG_TYPE_DEFAULT, "identityWithError: %@", &v21, 0xCu);
     }
   }
 
@@ -110,14 +110,12 @@ LABEL_12:
     *error = v6;
   }
 
-  result = self->_identity;
-  v21 = *MEMORY[0x1E69E9840];
-  return result;
+  return self->_identity;
 }
 
 - (id)executeRequest
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   state = self->_state;
   if (state > 0)
   {
@@ -139,37 +137,37 @@ LABEL_12:
     goto LABEL_12;
   }
 
-  v19 = [(NSDictionary *)self->_parameters objectForKeyedSubscript:@"acmeDirectory"];
-  absoluteString = [v19 absoluteString];
+  v18 = [(NSDictionary *)self->_parameters objectForKeyedSubscript:@"acmeDirectory"];
+  absoluteString = [v18 absoluteString];
   nextMessageURL = self->_nextMessageURL;
   self->_nextMessageURL = absoluteString;
 
   if (self->_nextMessageURL)
   {
     createCertificate = 0;
-    v22 = 1;
+    v21 = 1;
   }
 
   else
   {
-    v23 = [(NSDictionary *)self->_parameters objectForKeyedSubscript:@"acmeServerURL"];
-    absoluteString2 = [v23 absoluteString];
-    v25 = self->_nextMessageURL;
+    v22 = [(NSDictionary *)self->_parameters objectForKeyedSubscript:@"acmeServerURL"];
+    absoluteString2 = [v22 absoluteString];
+    v24 = self->_nextMessageURL;
     self->_nextMessageURL = absoluteString2;
 
-    v26 = self->_nextMessageURL;
+    v25 = self->_nextMessageURL;
     self->_state = 1;
-    if (v26)
+    if (v25)
     {
       createCertificate = 0;
       goto LABEL_34;
     }
 
     createCertificate = [(AcmeCertRequest *)self createCertificate];
-    v22 = 10;
+    v21 = 10;
   }
 
-  self->_state = v22;
+  self->_state = v21;
 LABEL_34:
   state = self->_state;
 LABEL_3:
@@ -187,9 +185,9 @@ LABEL_12:
   {
 
     acmeRequest = [(AcmeCertRequest *)self acmeRequest];
-    v27 = 0;
-    createCertificate = [(AcmeCertRequest *)self sendRequestToXPCService:acmeRequest response:&v27];
-    v6 = v27;
+    v26 = 0;
+    createCertificate = [(AcmeCertRequest *)self sendRequestToXPCService:acmeRequest response:&v26];
+    v6 = v26;
 
     if (createCertificate)
     {
@@ -215,9 +213,9 @@ LABEL_12:
   {
     v12 = self->_state;
     *buf = 134218242;
-    v30 = v12;
-    v31 = 2112;
-    v32 = createCertificate;
+    v29 = v12;
+    v30 = 2112;
+    v31 = createCertificate;
     _os_log_impl(&dword_1887D2000, v11, OS_LOG_TYPE_DEFAULT, "ACME request flow failed at step %lld: %@", buf, 0x16u);
   }
 
@@ -253,8 +251,6 @@ LABEL_24:
 LABEL_25:
   self->_state = 10;
 LABEL_26:
-
-  v17 = *MEMORY[0x1E69E9840];
 
   return createCertificate;
 }
@@ -310,7 +306,7 @@ void __33__AcmeCertRequest_executeRequest__block_invoke(uint64_t a1)
 
 - (id)processReply:(id)reply
 {
-  v111[1] = *MEMORY[0x1E69E9840];
+  v110[1] = *MEMORY[0x1E69E9840];
   replyCopy = reply;
   v5 = replyCopy;
   state = self->_state;
@@ -346,9 +342,9 @@ void __33__AcmeCertRequest_executeRequest__block_invoke(uint64_t a1)
           v79 = MEMORY[0x1E696ABC0];
           v80 = *MEMORY[0x1E696A768];
           v17 = @"failed to obtain certificate";
-          v94 = *MEMORY[0x1E696A578];
-          v95 = @"failed to obtain certificate";
-          v81 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v95 forKeys:&v94 count:1];
+          v93 = *MEMORY[0x1E696A578];
+          v94 = @"failed to obtain certificate";
+          v81 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v94 forKeys:&v93 count:1];
           v18 = [v79 errorWithDomain:v80 code:-67673 userInfo:v81];
 
           if (v18)
@@ -387,9 +383,9 @@ LABEL_57:
       v17 = [MEMORY[0x1E696AEC0] stringWithFormat:@"order status is %@, not yet valid", v22];
       v70 = MEMORY[0x1E696ABC0];
       v71 = *MEMORY[0x1E696A768];
-      v96 = *MEMORY[0x1E696A578];
-      v97 = v17;
-      v72 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v97 forKeys:&v96 count:1];
+      v95 = *MEMORY[0x1E696A578];
+      v96 = v17;
+      v72 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v96 forKeys:&v95 count:1];
       v18 = [v70 errorWithDomain:v71 code:-67673 userInfo:v72];
 
       if (!v18)
@@ -411,9 +407,9 @@ LABEL_76:
         v33 = MEMORY[0x1E696ABC0];
         v34 = *MEMORY[0x1E696A768];
         v17 = @"failed to successfully respond to challenge";
-        v100 = *MEMORY[0x1E696A578];
-        v101 = @"failed to successfully respond to challenge";
-        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v101 forKeys:&v100 count:1];
+        v99 = *MEMORY[0x1E696A578];
+        v100 = @"failed to successfully respond to challenge";
+        v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v100 forKeys:&v99 count:1];
         v18 = [v33 errorWithDomain:v34 code:-67673 userInfo:v35];
 
         if (v18)
@@ -449,9 +445,9 @@ LABEL_76:
       v23 = MEMORY[0x1E696ABC0];
       v24 = *MEMORY[0x1E696A768];
       v17 = @"failed to finalize order";
-      v98 = *MEMORY[0x1E696A578];
-      v99 = @"failed to finalize order";
-      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v99 forKeys:&v98 count:1];
+      v97 = *MEMORY[0x1E696A578];
+      v98 = @"failed to finalize order";
+      v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v98 forKeys:&v97 count:1];
       v18 = [v23 errorWithDomain:v24 code:-67673 userInfo:v25];
 
       if (v18)
@@ -516,9 +512,9 @@ LABEL_76:
       v65 = MEMORY[0x1E696ABC0];
       v66 = *MEMORY[0x1E696A768];
       v17 = @"failed to get directory info";
-      v110 = *MEMORY[0x1E696A578];
-      v111[0] = @"failed to get directory info";
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v111 forKeys:&v110 count:1];
+      v109 = *MEMORY[0x1E696A578];
+      v110[0] = @"failed to get directory info";
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v110 forKeys:&v109 count:1];
       v64 = -67683;
       v62 = v65;
       v63 = v66;
@@ -545,9 +541,9 @@ LABEL_29:
       v73 = MEMORY[0x1E696ABC0];
       v74 = *MEMORY[0x1E696A768];
       v17 = @"failed to get initial nonce";
-      v108 = *MEMORY[0x1E696A578];
-      v109 = @"failed to get initial nonce";
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v109 forKeys:&v108 count:1];
+      v107 = *MEMORY[0x1E696A578];
+      v108 = @"failed to get initial nonce";
+      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v108 forKeys:&v107 count:1];
       v62 = v73;
       v63 = v74;
       v64 = -67673;
@@ -558,9 +554,9 @@ LABEL_47:
     v60 = MEMORY[0x1E696ABC0];
     v61 = *MEMORY[0x1E696A768];
     v17 = @"unknown or uninitialized ACME state";
-    v92 = *MEMORY[0x1E696A578];
-    v93 = @"unknown or uninitialized ACME state";
-    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v93 forKeys:&v92 count:1];
+    v91 = *MEMORY[0x1E696A578];
+    v92 = @"unknown or uninitialized ACME state";
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v92 forKeys:&v91 count:1];
     v62 = v60;
     v63 = v61;
     v64 = -909;
@@ -587,10 +583,10 @@ LABEL_59:
     {
       v67 = MEMORY[0x1E696ABC0];
       v68 = *MEMORY[0x1E696A768];
-      v106 = *MEMORY[0x1E696A578];
+      v105 = *MEMORY[0x1E696A578];
       v17 = @"failed to establish account";
-      v107 = @"failed to establish account";
-      v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v107 forKeys:&v106 count:1];
+      v106 = @"failed to establish account";
+      v69 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v106 forKeys:&v105 count:1];
       v18 = [v67 errorWithDomain:v68 code:-67673 userInfo:v69];
     }
 
@@ -599,8 +595,8 @@ LABEL_59:
 
   if (state == 4)
   {
-    v91 = [replyCopy objectForKey:@"status"];
-    v89 = [v91 isEqualToString:@"pending"];
+    v90 = [replyCopy objectForKey:@"status"];
+    v88 = [v90 isEqualToString:@"pending"];
     v42 = [v5 objectForKey:@"authorizations"];
     authorizations = self->_authorizations;
     self->_authorizations = v42;
@@ -641,7 +637,7 @@ LABEL_59:
     }
 
     v75 = self->_authorizationURL;
-    if (v75 && !v51 && self->_finalizeOrderURL != 0 && (v89 & 1) != 0)
+    if (v75 && !v51 && self->_finalizeOrderURL != 0 && (v88 & 1) != 0)
     {
       objc_storeStrong(&self->_nextMessageURL, v75);
       v17 = 0;
@@ -663,17 +659,17 @@ LABEL_59:
 
       v76 = MEMORY[0x1E696ABC0];
       v77 = *MEMORY[0x1E696A768];
-      v104 = *MEMORY[0x1E696A578];
-      v105 = v17;
-      v78 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v105 forKeys:&v104 count:1];
+      v103 = *MEMORY[0x1E696A578];
+      v104 = v17;
+      v78 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v104 forKeys:&v103 count:1];
       v18 = [v76 errorWithDomain:v77 code:-67673 userInfo:v78];
     }
   }
 
   else
   {
-    v90 = [replyCopy objectForKey:@"status"];
-    v88 = [v90 isEqualToString:@"pending"];
+    v89 = [replyCopy objectForKey:@"status"];
+    v87 = [v89 isEqualToString:@"pending"];
     v7 = [v5 objectForKey:@"challenges"];
     v8 = [v7 count];
     if (v8)
@@ -708,10 +704,10 @@ LABEL_59:
     }
 
 LABEL_81:
-    v84 = self->_challengeURL;
-    if (v84 && ((self->_token != 0) & v88) != 0)
+    v83 = self->_challengeURL;
+    if (v83 && ((self->_token != 0) & v87) != 0)
     {
-      objc_storeStrong(&self->_nextMessageURL, v84);
+      objc_storeStrong(&self->_nextMessageURL, v83);
       v17 = 0;
       v18 = 0;
       self->_state = 6;
@@ -719,26 +715,24 @@ LABEL_81:
 
     else
     {
-      v85 = MEMORY[0x1E696ABC0];
-      v86 = *MEMORY[0x1E696A768];
+      v84 = MEMORY[0x1E696ABC0];
+      v85 = *MEMORY[0x1E696A768];
       v17 = @"failed to request authorization";
-      v102 = *MEMORY[0x1E696A578];
-      v103 = @"failed to request authorization";
-      v87 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v103 forKeys:&v102 count:1];
-      v18 = [v85 errorWithDomain:v86 code:-67673 userInfo:v87];
+      v101 = *MEMORY[0x1E696A578];
+      v102 = @"failed to request authorization";
+      v86 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v102 forKeys:&v101 count:1];
+      v18 = [v84 errorWithDomain:v85 code:-67673 userInfo:v86];
     }
   }
 
 LABEL_77:
-
-  v82 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 - (id)acmeRequest
 {
-  v66[1] = *MEMORY[0x1E69E9840];
+  v65[1] = *MEMORY[0x1E69E9840];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
   state = self->_state;
   v5 = @"{}";
@@ -758,9 +752,9 @@ LABEL_77:
         v22 = self->_encoder;
         nonce = self->_nonce;
         acmeNewAccountURL = self->_acmeNewAccountURL;
-        v61 = 0;
-        v5 = [(SecJWSEncoder *)v22 encodedJWSWithPayload:dictionary kid:0 nonce:nonce url:acmeNewAccountURL error:&v61];
-        v10 = v61;
+        v60 = 0;
+        v5 = [(SecJWSEncoder *)v22 encodedJWSWithPayload:dictionary kid:0 nonce:nonce url:acmeNewAccountURL error:&v60];
+        v10 = v60;
         break;
       case 4:
         v26 = [(NSDictionary *)self->_parameters objectForKeyedSubscript:@"clientIdentifier"];
@@ -774,22 +768,22 @@ LABEL_77:
           v27 = @"TEST";
         }
 
-        v64[0] = @"type";
-        v64[1] = @"value";
-        v65[0] = @"permanent-identifier";
-        v65[1] = v27;
-        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v65 forKeys:v64 count:2];
-        v66[0] = v28;
-        v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v66 count:1];
+        v63[0] = @"type";
+        v63[1] = @"value";
+        v64[0] = @"permanent-identifier";
+        v64[1] = v27;
+        v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v64 forKeys:v63 count:2];
+        v65[0] = v28;
+        v29 = [MEMORY[0x1E695DEC8] arrayWithObjects:v65 count:1];
         [dictionary setObject:v29 forKeyedSubscript:@"identifiers"];
 
         v30 = self->_encoder;
         account = self->_account;
         v32 = self->_nonce;
         nextMessageURL = self->_nextMessageURL;
-        v60 = 0;
-        v5 = [(SecJWSEncoder *)v30 encodedJWSWithPayload:dictionary kid:account nonce:v32 url:nextMessageURL error:&v60];
-        v25 = v60;
+        v59 = 0;
+        v5 = [(SecJWSEncoder *)v30 encodedJWSWithPayload:dictionary kid:account nonce:v32 url:nextMessageURL error:&v59];
+        v25 = v59;
 
         goto LABEL_39;
       case 5:
@@ -797,9 +791,9 @@ LABEL_77:
         v7 = self->_account;
         v8 = self->_nonce;
         v9 = self->_nextMessageURL;
-        v59 = 0;
-        v5 = [(SecJWSEncoder *)v6 encodedJWSWithPayload:0 kid:v7 nonce:v8 url:v9 error:&v59];
-        v10 = v59;
+        v58 = 0;
+        v5 = [(SecJWSEncoder *)v6 encodedJWSWithPayload:0 kid:v7 nonce:v8 url:v9 error:&v58];
+        v10 = v58;
         break;
       default:
         goto LABEL_40;
@@ -824,9 +818,9 @@ LABEL_77:
       v13 = self->_account;
       v14 = self->_nonce;
       v15 = self->_nextMessageURL;
-      v55 = 0;
-      v5 = [(SecJWSEncoder *)v12 encodedJWSWithPayload:dictionary kid:v13 nonce:v14 url:v15 error:&v55];
-      v10 = v55;
+      v54 = 0;
+      v5 = [(SecJWSEncoder *)v12 encodedJWSWithPayload:dictionary kid:v13 nonce:v14 url:v15 error:&v54];
+      v10 = v54;
       goto LABEL_14;
     }
 
@@ -838,41 +832,20 @@ LABEL_38:
       v48 = self->_account;
       v49 = self->_nonce;
       v50 = self->_nextMessageURL;
-      v56 = v35;
-      v5 = [(SecJWSEncoder *)v47 encodedJWSWithPayload:dictionary kid:v48 nonce:v49 url:v50 error:&v56];
-      v25 = v56;
+      v55 = v35;
+      v5 = [(SecJWSEncoder *)v47 encodedJWSWithPayload:dictionary kid:v48 nonce:v49 url:v50 error:&v55];
+      v25 = v55;
 
       goto LABEL_39;
     }
 
-    if (self->_attestationCRKey)
+    if (self->_attestationCRKey && (v57 = 0, [(AcmeCertRequest *)self hardwareAttestationWithError:&v57], v34 = objc_claimAutoreleasedReturnValue(), v35 = v57, attestation = self->_attestation, self->_attestation = v34, attestation, v35) || (v56 = 0, [(AcmeCertRequest *)self requestAttestationChainWithError:&v56], v37 = objc_claimAutoreleasedReturnValue(), v35 = v56, attestationChain = self->_attestationChain, self->_attestationChain = v37, attestationChain, v35))
     {
-      v58 = 0;
-      v34 = [(AcmeCertRequest *)self hardwareAttestationWithError:&v58];
-      v35 = v58;
-      attestation = self->_attestation;
-      self->_attestation = v34;
-
-      if (v35)
-      {
-        goto LABEL_23;
-      }
-    }
-
-    v57 = 0;
-    v37 = [(AcmeCertRequest *)self requestAttestationChainWithError:&v57];
-    v35 = v57;
-    attestationChain = self->_attestationChain;
-    self->_attestationChain = v37;
-
-    if (v35)
-    {
-LABEL_23:
       v39 = secLogObjForScope("acme");
       if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v63 = v35;
+        v62 = v35;
         _os_log_impl(&dword_1887D2000, v39, OS_LOG_TYPE_DEFAULT, "attestation request failed with error %@", buf, 0xCu);
       }
 
@@ -909,7 +882,7 @@ LABEL_23:
       {
         v44 = [(NSArray *)self->_attestationChain count];
         *buf = 134217984;
-        v63 = v44;
+        v62 = v44;
         _os_log_impl(&dword_1887D2000, v42, OS_LOG_TYPE_DEFAULT, "attestation request succeeded; got %llu certificates", buf, 0xCu);
       }
     }
@@ -931,17 +904,15 @@ LABEL_35:
   v17 = self->_account;
   v18 = self->_nonce;
   v19 = self->_nextMessageURL;
-  v54 = 0;
-  v5 = [(SecJWSEncoder *)v16 encodedJWSWithPayload:0 kid:v17 nonce:v18 url:v19 error:&v54];
-  v10 = v54;
+  v53 = 0;
+  v5 = [(SecJWSEncoder *)v16 encodedJWSWithPayload:0 kid:v17 nonce:v18 url:v19 error:&v53];
+  v10 = v53;
 LABEL_14:
   v25 = v10;
 LABEL_39:
 
 LABEL_40:
   v51 = [(__CFString *)v5 dataUsingEncoding:4];
-
-  v52 = *MEMORY[0x1E69E9840];
 
   return v51;
 }
@@ -957,7 +928,7 @@ LABEL_40:
 
 - (id)sendRequestToXPCService:(id)service response:(id *)response
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   queue = self->_queue;
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -996,70 +967,66 @@ LABEL_40:
   v16 = [serviceCopy length];
 
   v17 = xpc_data_create(bytes, v16);
-  v51 = v11;
-  v52 = v17;
-  v49 = v14;
-  v50 = v13;
-  v18 = xpc_create_with_format();
+  v18 = xpc_create_with_format("{operation: AcmeRequest, state: %int64, url: %value, method: %value, request: %value}", v14, v13, v11, v17);
   v19 = xpc_connection_send_message_with_reply_sync(self->_connection, v18);
-  v23 = MEMORY[0x18CFDC200](v19, v20, v21, v22);
-  if (v23 == MEMORY[0x1E69E9E98])
+  v20 = MEMORY[0x18CFDC200]();
+  if (v20 == MEMORY[0x1E69E9E98])
   {
-    v25 = secLogObjForScope("SecError");
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v22 = secLogObjForScope("SecError");
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       string = xpc_dictionary_get_string(v19, *MEMORY[0x1E69E9E28]);
       *buf = 136315138;
-      v64 = string;
-      v26 = "message error: %s";
+      v56 = string;
+      v23 = "message error: %s";
       goto LABEL_15;
     }
 
 LABEL_16:
-    v28 = 0;
+    v25 = 0;
     CFErrorWithXPCObject = 0;
     goto LABEL_17;
   }
 
-  v24 = v23;
-  if (v23 == MEMORY[0x1E69E9E68])
+  v21 = v20;
+  if (v20 == MEMORY[0x1E69E9E68])
   {
     CFErrorWithXPCObject = 0;
-    v28 = 0;
-    v30 = 0;
+    v25 = 0;
+    v27 = 0;
     if (!response)
     {
       goto LABEL_23;
     }
 
 LABEL_22:
-    v31 = v28;
-    *response = v28;
-    v30 = v28;
+    v28 = v25;
+    *response = v25;
+    v27 = v25;
     goto LABEL_23;
   }
 
-  if (v23 != MEMORY[0x1E69E9E80])
+  if (v20 != MEMORY[0x1E69E9E80])
   {
-    v25 = secLogObjForScope("SecError");
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v22 = secLogObjForScope("SecError");
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v64 = v24;
-      v26 = "unexpected message reply type %p";
+      v56 = v21;
+      v23 = "unexpected message reply type %p";
 LABEL_15:
-      _os_log_impl(&dword_1887D2000, v25, OS_LOG_TYPE_DEFAULT, v26, buf, 0xCu);
+      _os_log_impl(&dword_1887D2000, v22, OS_LOG_TYPE_DEFAULT, v23, buf, 0xCu);
       goto LABEL_16;
     }
 
     goto LABEL_16;
   }
 
-  v35 = xpc_dictionary_get_value(v19, "AcmeReply");
-  v25 = v35;
-  if (v35)
+  v31 = xpc_dictionary_get_value(v19, "AcmeReply");
+  v22 = v31;
+  if (v31)
   {
-    length = xpc_data_get_length(v35);
+    length = xpc_data_get_length(v31);
   }
 
   else
@@ -1067,34 +1034,34 @@ LABEL_15:
     length = 0;
   }
 
-  v36 = xpc_dictionary_get_value(v19, "AcmeError");
+  v32 = xpc_dictionary_get_value(v19, "AcmeError");
   xint = xpc_dictionary_get_value(v19, "AcmeStatus");
-  v37 = xpc_dictionary_get_value(v19, "AcmeNonce");
-  v58 = xpc_dictionary_get_value(v19, "AcmeLocation");
-  xstring = v37;
-  if (v37)
+  v33 = xpc_dictionary_get_value(v19, "AcmeNonce");
+  v50 = xpc_dictionary_get_value(v19, "AcmeLocation");
+  xstring = v33;
+  if (v33)
   {
-    string_ptr = xpc_string_get_string_ptr(v37);
-    v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:string_ptr length:xpc_string_get_length(xstring) encoding:{4, v49, v13, v11, v17}];
-    if ([v39 length])
+    string_ptr = xpc_string_get_string_ptr(v33);
+    v35 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:string_ptr length:xpc_string_get_length(xstring) encoding:4];
+    if ([v35 length])
     {
-      objc_storeStrong(&self->_nonce, v39);
+      objc_storeStrong(&self->_nonce, v35);
     }
   }
 
-  if (v58)
+  if (v50)
   {
-    v40 = xpc_string_get_string_ptr(v58);
-    v41 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v40 length:xpc_string_get_length(v58) encoding:4];
-    if ([v41 length])
+    v36 = xpc_string_get_string_ptr(v50);
+    v37 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithBytes:v36 length:xpc_string_get_length(v50) encoding:4];
+    if ([v37 length])
     {
-      objc_storeStrong(&self->_location, v41);
+      objc_storeStrong(&self->_location, v37);
     }
   }
 
-  if (v36)
+  if (v32)
   {
-    CFErrorWithXPCObject = SecCreateCFErrorWithXPCObject(v36);
+    CFErrorWithXPCObject = SecCreateCFErrorWithXPCObject(v32);
   }
 
   else
@@ -1112,16 +1079,16 @@ LABEL_15:
     value = 0;
   }
 
-  if ([(AcmeCertRequest *)self errorStatusWithHTTPErrorCode:value, v49, v50, v51, v52])
+  if ([(AcmeCertRequest *)self errorStatusWithHTTPErrorCode:value])
   {
-    v28 = 0;
+    v25 = 0;
   }
 
   else
   {
-    if (v25)
+    if (v22)
     {
-      bytes_ptr = xpc_data_get_bytes_ptr(v25);
+      bytes_ptr = xpc_data_get_bytes_ptr(v22);
     }
 
     else
@@ -1129,42 +1096,42 @@ LABEL_15:
       bytes_ptr = &unk_188967DD7;
     }
 
-    v44 = [MEMORY[0x1E695DEF0] dataWithBytes:bytes_ptr length:length];
+    v40 = [MEMORY[0x1E695DEF0] dataWithBytes:bytes_ptr length:length];
     if (self->_state == 9)
     {
-      v61 = @"certificate";
-      v62 = v44;
-      v45 = v44;
-      v46 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
-      v47 = v45;
-      v28 = v46;
+      v53 = @"certificate";
+      v54 = v40;
+      v41 = v40;
+      v42 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
+      v43 = v41;
+      v25 = v42;
     }
 
     else
     {
-      v59 = CFErrorWithXPCObject;
-      v53 = v44;
-      v28 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v44 options:0 error:&v59];
-      v55 = v59;
+      v51 = CFErrorWithXPCObject;
+      v45 = v40;
+      v25 = [MEMORY[0x1E696ACB0] JSONObjectWithData:v40 options:0 error:&v51];
+      v47 = v51;
 
-      if (v55)
+      if (v47)
       {
-        v48 = secLogObjForScope("SecError");
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+        v44 = secLogObjForScope("SecError");
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
-          v64 = v55;
-          _os_log_impl(&dword_1887D2000, v48, OS_LOG_TYPE_DEFAULT, "error converting json to dictionary: %@", buf, 0xCu);
+          v56 = v47;
+          _os_log_impl(&dword_1887D2000, v44, OS_LOG_TYPE_DEFAULT, "error converting json to dictionary: %@", buf, 0xCu);
         }
 
-        v47 = v53;
-        CFErrorWithXPCObject = v55;
+        v43 = v45;
+        CFErrorWithXPCObject = v47;
       }
 
       else
       {
         CFErrorWithXPCObject = 0;
-        v47 = v53;
+        v43 = v45;
       }
     }
   }
@@ -1175,15 +1142,14 @@ LABEL_17:
     goto LABEL_22;
   }
 
-  if (v28)
+  if (v25)
   {
   }
 
-  v30 = 0;
+  v27 = 0;
 LABEL_23:
 
-  v32 = CFErrorWithXPCObject;
-  v33 = *MEMORY[0x1E69E9840];
+  v29 = CFErrorWithXPCObject;
   return CFErrorWithXPCObject;
 }
 
@@ -1216,7 +1182,7 @@ void __52__AcmeCertRequest_sendRequestToXPCService_response___block_invoke(uint6
 
 void __52__AcmeCertRequest_sendRequestToXPCService_response___block_invoke_2(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v2 = a2;
   v3 = MEMORY[0x18CFDC200]();
   v4 = MEMORY[0x1E69E9E98];
@@ -1227,8 +1193,8 @@ void __52__AcmeCertRequest_sendRequestToXPCService_response___block_invoke_2(uin
     if (v6)
     {
       string = xpc_dictionary_get_string(v2, *MEMORY[0x1E69E9E28]);
-      v10 = 136315138;
-      v11 = string;
+      v9 = 136315138;
+      v10 = string;
       v7 = "connection error: %s";
       goto LABEL_6;
     }
@@ -1236,14 +1202,12 @@ void __52__AcmeCertRequest_sendRequestToXPCService_response___block_invoke_2(uin
 
   else if (v6)
   {
-    v10 = 134217984;
-    v11 = v2;
+    v9 = 134217984;
+    v10 = v2;
     v7 = "unexpected connection event %p";
 LABEL_6:
-    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, v7, &v10, 0xCu);
+    _os_log_impl(&dword_1887D2000, v5, OS_LOG_TYPE_DEFAULT, v7, &v9, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (int)errorStatusWithHTTPErrorCode:(int)code
@@ -1324,7 +1288,7 @@ LABEL_11:
 
 - (id)createCertificate
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   SelfSignedCertificateWithError = SecGenerateSelfSignedCertificateWithError(self->_subject, self->_parameters, v2, self->_privateKey, 0);
   v5 = 0;
   self->_certificate = SelfSignedCertificateWithError;
@@ -1333,21 +1297,19 @@ LABEL_11:
     v6 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to create certificate (bad input values)"];
     v7 = MEMORY[0x1E696ABC0];
     v8 = *MEMORY[0x1E696A768];
-    v12 = *MEMORY[0x1E696A578];
-    v13[0] = v6;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x1E696A578];
+    v12[0] = v6;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v5 = [v7 errorWithDomain:v8 code:-67838 userInfo:v9];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
 
 - (id)hardwareAttestationWithError:(id *)error
 {
-  v29 = *MEMORY[0x1E69E9840];
-  v24 = 0;
+  v28 = *MEMORY[0x1E69E9840];
+  v23 = 0;
   attestation = self->_attestation;
   if (attestation)
   {
@@ -1357,12 +1319,12 @@ LABEL_11:
   attestationCRKey = self->_attestationCRKey;
   if (attestationCRKey && (privateKey = self->_privateKey) != 0)
   {
-    v8 = SecKeyCreateAttestation(attestationCRKey, privateKey, &v24);
+    v8 = SecKeyCreateAttestation(attestationCRKey, privateKey, &v23);
     v9 = self->_attestation;
     self->_attestation = v8;
 
-    v10 = v24;
-    v11 = v24 != 0;
+    v10 = v23;
+    v11 = v23 != 0;
   }
 
   else
@@ -1381,7 +1343,7 @@ LABEL_11:
       }
 
       *buf = 138412290;
-      v28 = v13;
+      v27 = v13;
       _os_log_impl(&dword_1887D2000, v12, OS_LOG_TYPE_DEFAULT, "missing %@ for attestation", buf, 0xCu);
     }
 
@@ -1406,13 +1368,13 @@ LABEL_11:
     v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"failed to create attestation"];
     v17 = MEMORY[0x1E696ABC0];
     v18 = *MEMORY[0x1E696A768];
-    v25 = *MEMORY[0x1E696A578];
-    v26 = v16;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v26 forKeys:&v25 count:1];
+    v24 = *MEMORY[0x1E696A578];
+    v25 = v16;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
     v20 = [v17 errorWithDomain:v18 code:-50 userInfo:v19];
 
-    v24 = v20;
-    v10 = v24;
+    v23 = v20;
+    v10 = v23;
   }
 
   if (error)
@@ -1422,12 +1384,11 @@ LABEL_11:
 
   else if (v10)
   {
-    v24 = 0;
+    v23 = 0;
     CFRelease(v10);
   }
 
   v21 = self->_attestation;
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
@@ -1515,13 +1476,13 @@ LABEL_12:
 
 - (id)requestAttestationChainWithError:(id *)error
 {
-  v62 = *MEMORY[0x1E69E9840];
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = __Block_byref_object_copy__15916;
-  v53 = __Block_byref_object_dispose__15917;
-  v54 = 0;
+  v61 = *MEMORY[0x1E69E9840];
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = __Block_byref_object_copy__15916;
+  v52 = __Block_byref_object_dispose__15917;
+  v53 = 0;
   if (![(AcmeCertRequest *)self deviceAttestationSupported])
   {
     if (error)
@@ -1529,7 +1490,7 @@ LABEL_12:
       *error = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:-67849 userInfo:0];
     }
 
-    v26 = v50[5];
+    v26 = v49[5];
     goto LABEL_58;
   }
 
@@ -1539,18 +1500,18 @@ LABEL_12:
     dispatch_once(&requestAttestationChainWithError__onceToken, &__block_literal_global_143_15918);
   }
 
-  v38 = [(NSString *)self->_token dataUsingEncoding:4];
+  v37 = [(NSString *)self->_token dataUsingEncoding:4];
   v4 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:4];
   [v4 setObject:&unk_1EFAAC7F0 forKeyedSubscript:@"Validity"];
   [v4 setObject:self->_attestationOids forKeyedSubscript:@"OIDSToInclude"];
   [v4 setObject:MEMORY[0x1E695E118] forKeyedSubscript:@"UseXPC"];
-  v37 = v4;
-  if (v38)
+  v36 = v4;
+  if (v37)
   {
     md = 0u;
-    v58 = 0u;
-    v5 = v38;
-    CC_SHA256([v38 bytes], objc_msgSend(v38, "length"), &md);
+    v57 = 0u;
+    v5 = v37;
+    CC_SHA256([v37 bytes], objc_msgSend(v37, "length"), &md);
     v6 = [MEMORY[0x1E695DEF0] dataWithBytes:&md length:32];
     [v4 setObject:v6 forKeyedSubscript:@"nonce"];
   }
@@ -1623,69 +1584,69 @@ LABEL_13:
   if (self->_attestationCRChain)
   {
     data = [MEMORY[0x1E695DF88] data];
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v13 = self->_attestationCRChain;
-    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v45 objects:v61 count:16];
+    v14 = [(NSArray *)v13 countByEnumeratingWithState:&v44 objects:v60 count:16];
     if (v14)
     {
-      v15 = *v46;
+      v15 = *v45;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v46 != v15)
+          if (*v45 != v15)
           {
             objc_enumerationMutation(v13);
           }
 
-          v17 = SecCertificateCopyData(*(*(&v45 + 1) + 8 * i));
+          v17 = SecCertificateCopyData(*(*(&v44 + 1) + 8 * i));
           [data appendData:v17];
         }
 
-        v14 = [(NSArray *)v13 countByEnumeratingWithState:&v45 objects:v61 count:16];
+        v14 = [(NSArray *)v13 countByEnumeratingWithState:&v44 objects:v60 count:16];
       }
 
       while (v14);
     }
 
-    [v37 setObject:data forKeyedSubscript:@"ClientDirectAttestationCertificate"];
-    v4 = v37;
+    [v36 setObject:data forKeyedSubscript:@"ClientDirectAttestationCertificate"];
+    v4 = v36;
   }
 
-  v40 = [v4 copy];
+  v39 = [v4 copy];
   v18 = dispatch_semaphore_create(0);
   *&md = 0;
   *(&md + 1) = &md;
-  *&v58 = 0x3032000000;
-  *(&v58 + 1) = __Block_byref_object_copy__15916;
-  v59 = __Block_byref_object_dispose__15917;
-  v60 = 0;
+  *&v57 = 0x3032000000;
+  *(&v57 + 1) = __Block_byref_object_copy__15916;
+  v58 = __Block_byref_object_dispose__15917;
+  v59 = 0;
   v19 = MEMORY[0x1E69E9820];
   for (j = 2; j != -1; --j)
   {
     v21 = requestAttestationChainWithError__soft_AppAttest_DeviceAttestation_AttestKey;
     privateKey = self->_privateKey;
-    v41[0] = v19;
-    v41[1] = 3221225472;
-    v41[2] = __52__AcmeCertRequest_requestAttestationChainWithError___block_invoke_148;
-    v41[3] = &unk_1E70E42B8;
+    v40[0] = v19;
+    v40[1] = 3221225472;
+    v40[2] = __52__AcmeCertRequest_requestAttestationChainWithError___block_invoke_148;
+    v40[3] = &unk_1E70E42B8;
     p_md = &md;
-    v44 = &v49;
+    v43 = &v48;
     v23 = v18;
-    v42 = v23;
-    v21(privateKey, v40, v41);
+    v41 = v23;
+    v21(privateKey, v39, v40);
     dispatch_semaphore_wait(v23, 0xFFFFFFFFFFFFFFFFLL);
-    if (v50[5])
+    if (v49[5])
     {
       v28 = secLogObjForScope("acme");
       if (!os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_48:
 
-        v25 = v42;
+        v25 = v41;
         goto LABEL_49;
       }
 
@@ -1703,7 +1664,7 @@ LABEL_47:
       {
         code = [*(*(&md + 1) + 40) code];
         *buf = 134217984;
-        v56 = code;
+        v55 = code;
         _os_log_impl(&dword_1887D2000, v32, OS_LOG_TYPE_DEFAULT, "Attempt to fetch attestation certificate failed (error %lld)", buf, 0xCu);
       }
 
@@ -1722,7 +1683,7 @@ LABEL_47:
     if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;
-      LODWORD(v56) = j;
+      LODWORD(v55) = j;
       _os_log_impl(&dword_1887D2000, v24, OS_LOG_TYPE_DEFAULT, "Failed to fetch attestation certificate, %u retries left", buf, 8u);
     }
   }
@@ -1747,14 +1708,12 @@ LABEL_49:
     *(*(&md + 1) + 40) = 0;
   }
 
-  v26 = v50[5];
+  v26 = v49[5];
   _Block_object_dispose(&md, 8);
 
 LABEL_57:
 LABEL_58:
-  _Block_object_dispose(&v49, 8);
-
-  v35 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v48, 8);
 
   return v26;
 }
@@ -1974,7 +1933,7 @@ void __32__AcmeCertRequest_createKeyPair__block_invoke(uint64_t a1)
 
 void __37__AcmeCertRequest_sanitizeParameters__block_invoke(uint64_t a1)
 {
-  v89[1] = *MEMORY[0x1E69E9840];
+  v88[1] = *MEMORY[0x1E69E9840];
   v2 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:0];
   v3 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:0];
   v4 = [*(a1 + 32) parameters];
@@ -2300,14 +2259,14 @@ LABEL_35:
 
   else
   {
-    v69 = [*(a1 + 32) serialNumber];
-    [v2 setObject:v69 forKeyedSubscript:@"certificateSerial"];
+    v68 = [*(a1 + 32) serialNumber];
+    [v2 setObject:v68 forKeyedSubscript:@"certificateSerial"];
   }
 
-  v70 = [v2 objectForKey:@"keyUsage"];
-  if (v70)
+  v69 = [v2 objectForKey:@"keyUsage"];
+  if (v69)
   {
-    v71 = v70;
+    v70 = v69;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -2319,14 +2278,14 @@ LABEL_35:
 
   else
   {
-    v71 = &unk_1EFAAC7D8;
+    v70 = &unk_1EFAAC7D8;
     [v2 setObject:&unk_1EFAAC7D8 forKeyedSubscript:@"keyUsage"];
   }
 
-  v72 = [v2 objectForKey:@"certificateEKUs"];
-  if (v72)
+  v71 = [v2 objectForKey:@"certificateEKUs"];
+  if (v71)
   {
-    v73 = v72;
+    v72 = v71;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -2338,15 +2297,15 @@ LABEL_35:
 
   else
   {
-    v89[0] = @"1.3.6.1.5.5.7.3.2";
-    v73 = [MEMORY[0x1E695DEC8] arrayWithObjects:v89 count:1];
-    [v2 setObject:v73 forKeyedSubscript:@"certificateEKUs"];
+    v88[0] = @"1.3.6.1.5.5.7.3.2";
+    v72 = [MEMORY[0x1E695DEC8] arrayWithObjects:v88 count:1];
+    [v2 setObject:v72 forKeyedSubscript:@"certificateEKUs"];
   }
 
-  v74 = [v2 objectForKey:kSecCMSSignHashAlgorithm];
-  if (v74)
+  v73 = [v2 objectForKey:kSecCMSSignHashAlgorithm];
+  if (v73)
   {
-    v75 = v74;
+    v74 = v73;
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
@@ -2358,12 +2317,12 @@ LABEL_35:
 
   else
   {
-    v75 = kSecCMSHashingAlgorithmSHA256;
-    [v2 setObject:v75 forKeyedSubscript:kSecCMSSignHashAlgorithm];
+    v74 = kSecCMSHashingAlgorithmSHA256;
+    [v2 setObject:v74 forKeyedSubscript:kSecCMSSignHashAlgorithm];
   }
 
-  v76 = [v2 objectForKey:@"subjectAltName"];
-  if (v76 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  v75 = [v2 objectForKey:@"subjectAltName"];
+  if (v75 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
   {
 
     v11 = "kSecSubjectAltName";
@@ -2372,8 +2331,8 @@ LABEL_35:
   else
   {
 
-    v77 = [v2 objectForKey:@"acmeDirectory"];
-    if (v77 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+    v76 = [v2 objectForKey:@"acmeDirectory"];
+    if (v76 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
     {
 
       v11 = "kSecACMEDirectoryURL";
@@ -2382,20 +2341,20 @@ LABEL_35:
     else
     {
 
-      v78 = [v2 objectForKey:@"attestationIdentity"];
-      if (v78 && (v79 = CFGetTypeID(v78), v79 != SecIdentityGetTypeID()))
+      v77 = [v2 objectForKey:@"attestationIdentity"];
+      if (v77 && (v78 = CFGetTypeID(v77), v78 != SecIdentityGetTypeID()))
       {
         v11 = "kSecAttestationIdentity";
       }
 
       else
       {
-        v80 = [v2 objectForKey:@"attestationOids"];
-        if (v80)
+        v79 = [v2 objectForKey:@"attestationOids"];
+        if (v79)
         {
           objc_opt_class();
-          v81 = objc_opt_isKindOfClass();
-          if (v81)
+          v80 = objc_opt_isKindOfClass();
+          if (v80)
           {
             v11 = 0;
           }
@@ -2409,30 +2368,30 @@ LABEL_35:
         else
         {
           v11 = 0;
-          v81 = 1;
+          v80 = 1;
         }
 
-        [*(a1 + 32) setAttestationOids:v80];
+        [*(a1 + 32) setAttestationOids:v79];
 
-        if (v81)
+        if (v80)
         {
-          v82 = [v2 objectForKey:@"attestationKey"];
-          v83 = v82;
-          if (v82 && (v84 = CFGetTypeID(v82), v84 != SecKeyGetTypeID()))
+          v81 = [v2 objectForKey:@"attestationKey"];
+          v82 = v81;
+          if (v81 && (v83 = CFGetTypeID(v81), v83 != SecKeyGetTypeID()))
           {
-            [*(a1 + 32) setAttestationCRKey:v83];
+            [*(a1 + 32) setAttestationCRKey:v82];
             v11 = "kSecAttestationKey";
           }
 
           else
           {
-            [*(a1 + 32) setAttestationCRKey:v83];
-            v85 = [v2 objectForKey:@"attestationChain"];
-            if (v85)
+            [*(a1 + 32) setAttestationCRKey:v82];
+            v84 = [v2 objectForKey:@"attestationChain"];
+            if (v84)
             {
               objc_opt_class();
-              v86 = objc_opt_isKindOfClass();
-              if (v86)
+              v85 = objc_opt_isKindOfClass();
+              if (v85)
               {
                 v11 = 0;
               }
@@ -2446,12 +2405,12 @@ LABEL_35:
             else
             {
               v11 = 0;
-              v86 = 1;
+              v85 = 1;
             }
 
-            [*(a1 + 32) setAttestationCRChain:v85];
+            [*(a1 + 32) setAttestationCRChain:v84];
 
-            if (v86)
+            if (v85)
             {
               [*(a1 + 32) setParameters:v2];
               [*(a1 + 32) setKeyParams:v3];
@@ -2467,16 +2426,15 @@ LABEL_85:
   v61 = [MEMORY[0x1E696AEC0] stringWithFormat:@"SecRequestClientIdentity parameters dictionary has missing value or wrong type for %s key", v11];
   v62 = MEMORY[0x1E696ABC0];
   v63 = *MEMORY[0x1E696A768];
-  v87 = *MEMORY[0x1E696A578];
-  v88 = v61;
-  v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v88 forKeys:&v87 count:1];
+  v86 = *MEMORY[0x1E696A578];
+  v87 = v61;
+  v64 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v87 forKeys:&v86 count:1];
   v65 = [v62 errorWithDomain:v63 code:-50 userInfo:v64];
   v66 = *(*(a1 + 40) + 8);
   v67 = *(v66 + 40);
   *(v66 + 40) = v65;
 
 LABEL_86:
-  v68 = *MEMORY[0x1E69E9840];
 }
 
 - (id)sanitizeSubject
@@ -2504,129 +2462,124 @@ LABEL_86:
 
 void __34__AcmeCertRequest_sanitizeSubject__block_invoke(uint64_t a1)
 {
-  v35[1] = *MEMORY[0x1E69E9840];
+  v31[1] = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 32) + 32);
-  v3 = 0x1E695D000uLL;
   if (!v2)
   {
-    v4 = 0;
+    v3 = 0;
 LABEL_6:
-    v5 = "unknown";
+    v4 = "unknown";
     goto LABEL_7;
   }
 
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0)
   {
-    v4 = 0;
+    v3 = 0;
     LODWORD(v2) = 0;
     goto LABEL_6;
   }
 
-  v4 = [*(*(a1 + 32) + 32) count];
-  v5 = 0;
+  v3 = [*(*(a1 + 32) + 32) count];
+  v4 = 0;
   LODWORD(v2) = 1;
 LABEL_7:
-  v31 = [MEMORY[0x1E695DF70] arrayWithCapacity:0];
-  if (v4 && v2)
+  v27 = [MEMORY[0x1E695DF70] arrayWithCapacity:0];
+  if (v3 && v2)
   {
-    v6 = 1;
+    v5 = 1;
     while (1)
     {
-      v7 = [*(*(a1 + 32) + 32) objectAtIndex:v6 - 1];
-      if (!v7 || (v8 = *(v3 + 3784), objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+      v6 = [*(*(a1 + 32) + 32) objectAtIndex:v5 - 1];
+      if (!v6 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
-        v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"index %lu", v6 - 1];
-        [v15 UTF8String];
+        v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"index %lu", v5 - 1];
+        [v12 UTF8String];
 
-        v3 = 0x1E695D000;
-        v9 = 0;
+        v7 = 0;
 LABEL_22:
-        v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"index %lu", v6 - 1];
-        v5 = [(__CFString *)v11 UTF8String];
+        v8 = [MEMORY[0x1E696AEC0] stringWithFormat:@"index %lu", v5 - 1];
+        v4 = [(__CFString *)v8 UTF8String];
         goto LABEL_23;
       }
 
-      v9 = [v7 objectAtIndex:0];
-      if (!v9)
+      v7 = [v6 objectAtIndex:0];
+      if (!v7)
       {
         goto LABEL_22;
       }
 
-      v10 = *(v3 + 3784);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         goto LABEL_22;
       }
 
-      v11 = [v9 objectAtIndex:0];
-      v12 = [v9 objectAtIndex:1];
-      if (v11 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && v12 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+      v8 = [v7 objectAtIndex:0];
+      v9 = [v7 objectAtIndex:1];
+      if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && v9 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
       {
-        v30 = v12;
-        v13 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@".0123456789"];
-        v14 = [v13 invertedSet];
+        v26 = v9;
+        v10 = [MEMORY[0x1E696AB08] characterSetWithCharactersInString:@".0123456789"];
+        v11 = [v10 invertedSet];
 
-        if ([(__CFString *)v11 rangeOfCharacterFromSet:v14]== 0x7FFFFFFFFFFFFFFFLL)
+        if ([(__CFString *)v8 rangeOfCharacterFromSet:v11]== 0x7FFFFFFFFFFFFFFFLL)
         {
           goto LABEL_30;
         }
 
-        if ([(__CFString *)v11 isEqualToString:@"EMAIL"])
+        if ([(__CFString *)v8 isEqualToString:@"EMAIL"])
         {
 
-          v11 = @"1.2.840.113549.1.9.1";
+          v8 = @"1.2.840.113549.1.9.1";
 LABEL_30:
-          v12 = v30;
+          v9 = v26;
 
 LABEL_31:
-          v34[0] = v11;
-          v34[1] = v12;
-          [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
-          v17 = v16 = v12;
-          v35[0] = v17;
-          v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:1];
+          v30[0] = v8;
+          v30[1] = v9;
+          [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:2];
+          v14 = v13 = v9;
+          v31[0] = v14;
+          v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
 
-          v12 = v16;
-          [v31 addObject:v18];
+          v9 = v13;
+          [v27 addObject:v15];
 
-          v5 = 0;
+          v4 = 0;
           goto LABEL_32;
         }
 
-        if ([&unk_1EFAAC688 containsObject:v11])
+        if ([&unk_1EFAAC688 containsObject:v8])
         {
           goto LABEL_30;
         }
 
-        v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"index %lu %@", v6 - 1, v11];
-        v5 = [v19 UTF8String];
+        v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"index %lu %@", v5 - 1, v8];
+        v4 = [v16 UTF8String];
 
-        v12 = v30;
+        v9 = v26;
       }
 
       else
       {
-        v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"index %lu", v6 - 1];
-        v5 = [v14 UTF8String];
+        v11 = [MEMORY[0x1E696AEC0] stringWithFormat:@"index %lu", v5 - 1];
+        v4 = [v11 UTF8String];
       }
 
-      if (!v5)
+      if (!v4)
       {
         goto LABEL_31;
       }
 
 LABEL_32:
 
-      v3 = 0x1E695D000;
 LABEL_23:
-
-      LOBYTE(v2) = v5 == 0;
-      if (v6 < v4)
+      LOBYTE(v2) = v4 == 0;
+      if (v5 < v3)
       {
-        ++v6;
-        if (!v5)
+        ++v5;
+        if (!v4)
         {
           continue;
         }
@@ -2638,37 +2591,35 @@ LABEL_23:
 
   if (v2)
   {
-    v20 = *(a1 + 32);
-    v21 = v31;
-    [v20 setSubject:v31];
+    v17 = *(a1 + 32);
+    v18 = v27;
+    [v17 setSubject:v27];
   }
 
   else
   {
-    v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"SecRequestClientIdentity: subject array has missing value or wrong type for %s key", v5];
-    v23 = MEMORY[0x1E696ABC0];
-    v24 = *MEMORY[0x1E696A768];
-    v32 = *MEMORY[0x1E696A578];
-    v33 = v22;
-    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-    v26 = [v23 errorWithDomain:v24 code:-50 userInfo:v25];
-    v27 = *(*(a1 + 40) + 8);
-    v28 = *(v27 + 40);
-    *(v27 + 40) = v26;
+    v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"SecRequestClientIdentity: subject array has missing value or wrong type for %s key", v4];
+    v20 = MEMORY[0x1E696ABC0];
+    v21 = *MEMORY[0x1E696A768];
+    v28 = *MEMORY[0x1E696A578];
+    v29 = v19;
+    v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+    v23 = [v20 errorWithDomain:v21 code:-50 userInfo:v22];
+    v24 = *(*(a1 + 40) + 8);
+    v25 = *(v24 + 40);
+    *(v24 + 40) = v23;
 
-    v21 = v31;
+    v18 = v27;
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (id)serialNumber
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v2 = 0;
-  v9[0] = bswap64(dispatch_time(0, 0));
+  v8[0] = bswap64(dispatch_time(0, 0));
   v3 = 8;
-  while (!*(v9 + v2))
+  while (!*(v8 + v2))
   {
     --v3;
     if (++v2 == 8)
@@ -2680,14 +2631,13 @@ LABEL_23:
 
   v4 = [MEMORY[0x1E695DF88] dataWithCapacity:0];
   v5 = v4;
-  if (*(v9 + v2) < 0)
+  if (*(v8 + v2) < 0)
   {
-    v8 = 0;
-    [v4 appendBytes:&v8 length:1];
+    v7 = 0;
+    [v4 appendBytes:&v7 length:1];
   }
 
-  [v5 appendBytes:v9 + v2 length:v3];
-  v6 = *MEMORY[0x1E69E9840];
+  [v5 appendBytes:v8 + v2 length:v3];
 
   return v5;
 }

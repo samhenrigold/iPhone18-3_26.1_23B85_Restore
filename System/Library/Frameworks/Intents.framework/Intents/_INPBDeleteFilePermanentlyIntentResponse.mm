@@ -125,13 +125,11 @@
   toCopy = to;
   if ([(_INPBDeleteFilePermanentlyIntentResponse *)self hasConfirm])
   {
-    confirm = self->_confirm;
     PBDataWriterWriteBOOLField();
   }
 
   if ([(_INPBDeleteFilePermanentlyIntentResponse *)self hasSuccess])
   {
-    success = self->_success;
     PBDataWriterWriteBOOLField();
   }
 }

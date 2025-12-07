@@ -55,7 +55,7 @@
   {
     sub_100386B84(&v4);
 
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/common/wifiscanning/sensor/backend/IOSWifiScannerBackend.mm", 553, "[WifiScannerThread dealloc]");
     __break(1u);
   }
 }
@@ -80,8 +80,8 @@
     v11 = *(self + 1);
     *buf = 134218240;
     *&buf[4] = wifiThreadRunLoop;
-    v23 = 2048;
-    v24 = v11;
+    v20 = 2048;
+    v21 = v11;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Created runloop %p on %p", buf, 0x16u);
   }
 
@@ -130,7 +130,7 @@ LABEL_9:
       block[1] = 3221225472;
       block[2] = sub_1002EF914;
       block[3] = &unk_100432828;
-      v20 = threadCopy;
+      v17 = threadCopy;
       CFRunLoopPerformBlock(Current, kCFRunLoopCommonModes, block);
       if (qword_10045B050 != -1)
       {
@@ -162,10 +162,7 @@ LABEL_9:
 
     sub_100386D08(buf);
 
-    v17 = 606;
-    v18 = "[WifiScannerThread runWifiThread:]";
-    v16 = "/Library/Caches/com.apple.xbs/Sources/purpleslam/common/wifiscanning/sensor/backend/IOSWifiScannerBackend.mm";
-    abort_report_np();
+    abort_report_np("%s:%d: assertion failure in %s", "/Library/Caches/com.apple.xbs/Sources/purpleslam/common/wifiscanning/sensor/backend/IOSWifiScannerBackend.mm", 606, "[WifiScannerThread runWifiThread:]");
     __break(1u);
 LABEL_23:
     sub_100386CE0();

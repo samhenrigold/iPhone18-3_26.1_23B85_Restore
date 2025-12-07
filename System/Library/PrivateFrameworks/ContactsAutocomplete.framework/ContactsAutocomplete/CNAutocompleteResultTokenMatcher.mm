@@ -105,6 +105,7 @@
     v12 = 0;
     v5 = [resultCopy members:&v12];
     v6 = v12;
+    v7 = v6;
     if (v5)
     {
       v11[0] = MEMORY[0x277D85DD0];
@@ -112,32 +113,31 @@
       v11[2] = __64__CNAutocompleteResultTokenMatcher_evaluateTopLevelGroupResult___block_invoke;
       v11[3] = &unk_2781C4AB0;
       v11[4] = self;
-      v7 = [v5 _cn_any:v11];
+      v8 = [v5 _cn_any:v11];
     }
 
     else
     {
-      v8 = CNALoggingContextDebug();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v9 = CNALoggingContextDebug(v6);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v14 = v6;
+        v14 = v7;
         v15 = 2112;
         v16 = resultCopy;
-        _os_log_impl(&dword_2155FE000, v8, OS_LOG_TYPE_DEFAULT, "Error: %@ a result %@ has no members", buf, 0x16u);
+        _os_log_impl(&dword_2155FE000, v9, OS_LOG_TYPE_DEFAULT, "Error: %@ a result %@ has no members", buf, 0x16u);
       }
 
-      v7 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    v7 = 0;
+    v8 = 0;
   }
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v7;
+  return v8;
 }
 
 - (id)nameTokensForResult:(id)result
@@ -244,17 +244,17 @@
 
 + (id)indexTokensFromPhoneNumber:(id)number
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   [self tokenizePhoneNumber:number];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  obj = v18 = 0u;
-  v3 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+  obj = v17 = 0u;
+  v3 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v16;
+    v5 = *v15;
     v6 = MEMORY[0x277CBEBF8];
     do
     {
@@ -262,26 +262,26 @@
       v8 = v6;
       do
       {
-        if (*v16 != v5)
+        if (*v15 != v5)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * v7);
+        v9 = *(*(&v14 + 1) + 8 * v7);
         v10 = [v8 arrayByAddingObject:&stru_282787720];
-        v14[0] = MEMORY[0x277D85DD0];
-        v14[1] = 3221225472;
-        v14[2] = __63__CNAutocompleteResultTokenMatcher_indexTokensFromPhoneNumber___block_invoke;
-        v14[3] = &unk_2781C4E10;
-        v14[4] = v9;
-        v6 = [v10 _cn_map:v14];
+        v13[0] = MEMORY[0x277D85DD0];
+        v13[1] = 3221225472;
+        v13[2] = __63__CNAutocompleteResultTokenMatcher_indexTokensFromPhoneNumber___block_invoke;
+        v13[3] = &unk_2781C4E10;
+        v13[4] = v9;
+        v6 = [v10 _cn_map:v13];
 
         ++v7;
         v8 = v6;
       }
 
       while (v4 != v7);
-      v4 = [obj countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v4 = [obj countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v4);
@@ -291,8 +291,6 @@
   {
     v6 = MEMORY[0x277CBEBF8];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

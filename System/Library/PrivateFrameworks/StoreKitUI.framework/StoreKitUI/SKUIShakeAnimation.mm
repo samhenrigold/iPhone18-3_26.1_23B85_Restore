@@ -101,14 +101,14 @@
   v24 = [v21 numberWithFloat:v23];
   [v15 setFromValue:v24];
 
-  [layer addAnimation:v15 forKey:@"force"];
+  v25 = [layer addAnimation:v15 forKey:@"force"];
   if (self->_shouldVibrate)
   {
-    v25 = SKUIAudioToolboxFramework();
-    v26 = SKUIWeakLinkedSymbolForString("AudioServicesPlaySystemSound", v25);
-    if (v26)
+    v27 = SKUIAudioToolboxFramework(v25, v26);
+    v28 = SKUIWeakLinkedSymbolForString("AudioServicesPlaySystemSound", v27);
+    if (v28)
     {
-      v26(4095);
+      v28(4095);
     }
   }
 }

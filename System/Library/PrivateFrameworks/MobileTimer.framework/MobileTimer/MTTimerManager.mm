@@ -62,9 +62,8 @@
     _os_log_impl(&dword_1B1F9F000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ warming...", &v7, 0xCu);
   }
 
-  v4 = MTTimerServerInterface();
-  v5 = MTTimerClientInterface();
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = MTTimerServerInterface(v4);
+  v6 = MTTimerClientInterface(v5);
 }
 
 - (id)timers
@@ -107,31 +106,29 @@
 
 + (void)setDefaultDuration:(double)duration
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v4 = MTLogForCategory(4);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 138543618;
-    v10 = objc_opt_class();
-    v11 = 2048;
+    v8 = 138543618;
+    v9 = objc_opt_class();
+    v10 = 2048;
     durationCopy = duration;
-    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ setting default duration to %f", &v9, 0x16u);
+    _os_log_impl(&dword_1B1F9F000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@ setting default duration to %f", &v8, 0x16u);
   }
 
   v6 = +[MTUserDefaults sharedUserDefaults];
   durationCopy2 = duration;
   *&v7 = durationCopy2;
   [v6 setFloat:@"MTTimerDefaultDuration" forKey:@"MTTimerManagerPreferencesChanged" notification:v7];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 id __34__MTTimerManager_initWithMetrics___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = MTTimerServerInterface();
+  v3 = MTTimerServerInterface(v2);
   v4 = [v2 exportedObject];
-  v5 = MTTimerClientInterface();
+  v5 = MTTimerClientInterface(v4);
   v6 = [MTXPCConnectionInfo infoForMachServiceName:@"com.apple.MobileTimer.timerserver" remoteObjectInterface:v3 exportedObject:v4 exportedObjectInterface:v5 lifecycleNotification:@"com.apple.MTTimerServer.wakeup" requiredEntitlement:0 options:4096];
 
   objc_initWeak(&location, v2);
@@ -194,20 +191,20 @@ void __34__MTTimerManager_initWithMetrics___block_invoke_2(uint64_t a1)
 
 - (id)_initWithConnectionProvidingBlock:(id)block metrics:(id)metrics notificationCenter:(id)center
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   blockCopy = block;
   metricsCopy = metrics;
   centerCopy = center;
-  v25.receiver = self;
-  v25.super_class = MTTimerManager;
-  v11 = [(MTTimerManager *)&v25 init];
+  v24.receiver = self;
+  v24.super_class = MTTimerManager;
+  v11 = [(MTTimerManager *)&v24 init];
   if (v11)
   {
     v12 = MTLogForCategory(4);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543362;
-      v27 = v11;
+      v26 = v11;
       _os_log_impl(&dword_1B1F9F000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ initializing...", buf, 0xCu);
     }
 
@@ -226,20 +223,19 @@ void __34__MTTimerManager_initWithMetrics___block_invoke_2(uint64_t a1)
 
     objc_initWeak(buf, v11);
     v18 = [MTTimerCache alloc];
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __79__MTTimerManager__initWithConnectionProvidingBlock_metrics_notificationCenter___block_invoke;
-    v23[3] = &unk_1E7B0F060;
-    objc_copyWeak(&v24, buf);
-    v19 = [(MTTimerCache *)v18 initWithUpdateBlock:v23];
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __79__MTTimerManager__initWithConnectionProvidingBlock_metrics_notificationCenter___block_invoke;
+    v22[3] = &unk_1E7B0F060;
+    objc_copyWeak(&v23, buf);
+    v19 = [(MTTimerCache *)v18 initWithUpdateBlock:v22];
     cache = v11->_cache;
     v11->_cache = v19;
 
-    objc_destroyWeak(&v24);
+    objc_destroyWeak(&v23);
     objc_destroyWeak(buf);
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -274,7 +270,7 @@ void __79__MTTimerManager__initWithConnectionProvidingBlock_metrics_notification
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -284,10 +280,9 @@ void __79__MTTimerManager__initWithConnectionProvidingBlock_metrics_notification
   }
 
   [(MTXPCConnectionProvider *)self->_connectionProvider invalidate];
-  v5.receiver = self;
-  v5.super_class = MTTimerManager;
-  [(MTTimerManager *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = MTTimerManager;
+  [(MTTimerManager *)&v4 dealloc];
 }
 
 - (void)reconnect
@@ -477,7 +472,7 @@ void __45__MTTimerManager_nextTimersForDate_maxCount___block_invoke_2(uint64_t a
 
 - (id)addTimer:(id)timer
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   v5 = MTLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -485,8 +480,8 @@ void __45__MTTimerManager_nextTimersForDate_maxCount___block_invoke_2(uint64_t a
     timerIDString = [timerCopy timerIDString];
     *buf = 138543618;
     selfCopy = self;
-    v20 = 2114;
-    v21 = timerIDString;
+    v19 = 2114;
+    v20 = timerIDString;
     _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ addTimer:%{public}@", buf, 0x16u);
   }
 
@@ -502,16 +497,15 @@ void __45__MTTimerManager_nextTimersForDate_maxCount___block_invoke_2(uint64_t a
   block[2] = __27__MTTimerManager_addTimer___block_invoke;
   block[3] = &unk_1E7B0C9A0;
   block[4] = self;
-  v16 = timerCopy;
+  v15 = timerCopy;
   v9 = v7;
-  v17 = v9;
+  v16 = v9;
   v10 = timerCopy;
   os_activity_apply(v8, block);
 
-  v11 = v17;
+  v11 = v16;
   v12 = v9;
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -550,7 +544,7 @@ void __27__MTTimerManager_addTimer___block_invoke_2(uint64_t a1, void *a2)
 
 - (id)_updateTimer:(id)timer doSynchronous:(BOOL)synchronous
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   v7 = MTLogForCategory(4);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -558,8 +552,8 @@ void __27__MTTimerManager_addTimer___block_invoke_2(uint64_t a1, void *a2)
     timerIDString = [timerCopy timerIDString];
     *buf = 138543618;
     selfCopy = self;
-    v23 = 2114;
-    v24 = timerIDString;
+    v22 = 2114;
+    v23 = timerIDString;
     _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ updateTimer:%{public}@", buf, 0x16u);
   }
 
@@ -570,22 +564,21 @@ void __27__MTTimerManager_addTimer___block_invoke_2(uint64_t a1, void *a2)
 
   v9 = objc_opt_new();
   v10 = MTNewChildActivityForName(0xDuLL);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __45__MTTimerManager__updateTimer_doSynchronous___block_invoke;
-  v17[3] = &unk_1E7B0F190;
-  v17[4] = self;
-  v18 = timerCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __45__MTTimerManager__updateTimer_doSynchronous___block_invoke;
+  v16[3] = &unk_1E7B0F190;
+  v16[4] = self;
+  v17 = timerCopy;
   v11 = v9;
-  v19 = v11;
+  v18 = v11;
   synchronousCopy = synchronous;
   v12 = timerCopy;
-  os_activity_apply(v10, v17);
+  os_activity_apply(v10, v16);
 
-  v13 = v19;
+  v13 = v18;
   v14 = v11;
 
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
@@ -624,7 +617,7 @@ void __45__MTTimerManager__updateTimer_doSynchronous___block_invoke_2(uint64_t a
 
 - (id)removeTimer:(id)timer
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   v5 = MTLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -632,8 +625,8 @@ void __45__MTTimerManager__updateTimer_doSynchronous___block_invoke_2(uint64_t a
     timerIDString = [timerCopy timerIDString];
     *buf = 138543618;
     selfCopy = self;
-    v20 = 2114;
-    v21 = timerIDString;
+    v19 = 2114;
+    v20 = timerIDString;
     _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ removeTimer:%{public}@", buf, 0x16u);
   }
 
@@ -644,16 +637,15 @@ void __45__MTTimerManager__updateTimer_doSynchronous___block_invoke_2(uint64_t a
   block[2] = __30__MTTimerManager_removeTimer___block_invoke;
   block[3] = &unk_1E7B0C9A0;
   block[4] = self;
-  v16 = timerCopy;
+  v15 = timerCopy;
   v9 = v7;
-  v17 = v9;
+  v16 = v9;
   v10 = timerCopy;
   os_activity_apply(v8, block);
 
-  v11 = v17;
+  v11 = v16;
   v12 = v9;
 
-  v13 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -692,15 +684,15 @@ void __30__MTTimerManager_removeTimer___block_invoke_2(uint64_t a1, void *a2)
 
 - (id)dismissTimerWithIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = MTLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v19 = 2114;
-    v20 = identifierCopy;
+    v18 = 2114;
+    v19 = identifierCopy;
     _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ dismissTimerWithIdentifier:%{public}@", buf, 0x16u);
   }
 
@@ -711,16 +703,15 @@ void __30__MTTimerManager_removeTimer___block_invoke_2(uint64_t a1, void *a2)
   block[2] = __45__MTTimerManager_dismissTimerWithIdentifier___block_invoke;
   block[3] = &unk_1E7B0C9A0;
   block[4] = self;
-  v15 = identifierCopy;
+  v14 = identifierCopy;
   v8 = v6;
-  v16 = v8;
+  v15 = v8;
   v9 = identifierCopy;
   os_activity_apply(v7, block);
 
-  v10 = v16;
+  v10 = v15;
   v11 = v8;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -759,15 +750,15 @@ void __45__MTTimerManager_dismissTimerWithIdentifier___block_invoke_2(uint64_t a
 
 - (id)repeatTimerWithIdentifier:(id)identifier
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   v5 = MTLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v19 = 2114;
-    v20 = identifierCopy;
+    v18 = 2114;
+    v19 = identifierCopy;
     _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ repeatTimerWithIdentifier:%{public}@", buf, 0x16u);
   }
 
@@ -778,16 +769,15 @@ void __45__MTTimerManager_dismissTimerWithIdentifier___block_invoke_2(uint64_t a
   block[2] = __44__MTTimerManager_repeatTimerWithIdentifier___block_invoke;
   block[3] = &unk_1E7B0C9A0;
   block[4] = self;
-  v15 = identifierCopy;
+  v14 = identifierCopy;
   v8 = v6;
-  v16 = v8;
+  v15 = v8;
   v9 = identifierCopy;
   os_activity_apply(v7, block);
 
-  v10 = v16;
+  v10 = v15;
   v11 = v8;
 
-  v12 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -870,7 +860,7 @@ id __47__MTTimerManager__updateCurrentTimerWithState___block_invoke(uint64_t a1,
 
 - (id)_validateCanStartTimer:(id)timer
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   timerCopy = timer;
   if ([timerCopy state] == 1)
   {
@@ -884,9 +874,9 @@ id __47__MTTimerManager__updateCurrentTimerWithState___block_invoke(uint64_t a1,
     v8 = [v6 stringWithFormat:@"%@ cannot restart a timer (%@) that isn't stopped.", self, timerIDString];
 
     v9 = MEMORY[0x1E696ABC0];
-    v14 = *MEMORY[0x1E696A578];
-    v15[0] = v8;
-    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x1E696A578];
+    v14[0] = v8;
+    v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v5 = [v9 errorWithDomain:@"com.apple.mobiletimerd.MTTimerManager" code:1 userInfo:v10];
 
     v11 = MTLogForCategory(4);
@@ -895,8 +885,6 @@ id __47__MTTimerManager__updateCurrentTimerWithState___block_invoke(uint64_t a1,
       [(MTTimerManager *)v8 _validateCanStartTimer:v11];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -1075,32 +1063,31 @@ id __48__MTTimerManager_startCurrentTimerWithDuration___block_invoke(uint64_t a1
 
 - (id)addRecentDuration:(id)duration
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   durationCopy = duration;
   v5 = MTLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v20 = 2114;
-    v21 = durationCopy;
+    v19 = 2114;
+    v20 = durationCopy;
     _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ addRecentDuration: %{public}@", buf, 0x16u);
   }
 
   v6 = objc_opt_new();
   connectionProvider = [(MTTimerManager *)self connectionProvider];
-  v15 = MEMORY[0x1E69E9820];
-  v16 = durationCopy;
+  v14 = MEMORY[0x1E69E9820];
+  v15 = durationCopy;
   v8 = v6;
-  v17 = v8;
+  v16 = v8;
   v9 = durationCopy;
   errorOnlyCompletionHandlerAdapter = [v8 errorOnlyCompletionHandlerAdapter];
-  [connectionProvider performRemoteBlock:&v15 withErrorHandler:errorOnlyCompletionHandlerAdapter];
+  [connectionProvider performRemoteBlock:&v14 withErrorHandler:errorOnlyCompletionHandlerAdapter];
 
-  v11 = v17;
+  v11 = v16;
   v12 = v8;
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -1115,32 +1102,31 @@ void __36__MTTimerManager_addRecentDuration___block_invoke(uint64_t a1, void *a2
 
 - (id)removeRecentDuration:(id)duration
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   durationCopy = duration;
   v5 = MTLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v20 = 2114;
-    v21 = durationCopy;
+    v19 = 2114;
+    v20 = durationCopy;
     _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ removeRecentDuration: %{public}@", buf, 0x16u);
   }
 
   v6 = objc_opt_new();
   connectionProvider = [(MTTimerManager *)self connectionProvider];
-  v15 = MEMORY[0x1E69E9820];
-  v16 = durationCopy;
+  v14 = MEMORY[0x1E69E9820];
+  v15 = durationCopy;
   v8 = v6;
-  v17 = v8;
+  v16 = v8;
   v9 = durationCopy;
   errorOnlyCompletionHandlerAdapter = [v8 errorOnlyCompletionHandlerAdapter];
-  [connectionProvider performRemoteBlock:&v15 withErrorHandler:errorOnlyCompletionHandlerAdapter];
+  [connectionProvider performRemoteBlock:&v14 withErrorHandler:errorOnlyCompletionHandlerAdapter];
 
-  v11 = v17;
+  v11 = v16;
   v12 = v8;
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -1155,7 +1141,7 @@ void __39__MTTimerManager_removeRecentDuration___block_invoke(uint64_t a1, void 
 
 - (id)defaultDurations
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -1170,18 +1156,17 @@ void __39__MTTimerManager_removeRecentDuration___block_invoke(uint64_t a1, void 
   aBlock[2] = __34__MTTimerManager_defaultDurations__block_invoke;
   aBlock[3] = &unk_1E7B0F208;
   v5 = v4;
-  v12 = v5;
+  v11 = v5;
   v6 = _Block_copy(aBlock);
   v7 = [(MTTimerManager *)self getQueryDurations:v6 withFuture:v5];
   v8 = v5;
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)favoriteDurations
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -1196,43 +1181,41 @@ void __39__MTTimerManager_removeRecentDuration___block_invoke(uint64_t a1, void 
   aBlock[2] = __35__MTTimerManager_favoriteDurations__block_invoke;
   aBlock[3] = &unk_1E7B0F208;
   v5 = v4;
-  v12 = v5;
+  v11 = v5;
   v6 = _Block_copy(aBlock);
   v7 = [(MTTimerManager *)self getQueryDurations:v6 withFuture:v5];
   v8 = v5;
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)addFavoriteDuration:(id)duration
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   durationCopy = duration;
   v5 = MTLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v20 = 2114;
-    v21 = durationCopy;
+    v19 = 2114;
+    v20 = durationCopy;
     _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ addFavoriteDuration: %{public}@", buf, 0x16u);
   }
 
   v6 = objc_opt_new();
   connectionProvider = [(MTTimerManager *)self connectionProvider];
-  v15 = MEMORY[0x1E69E9820];
-  v16 = durationCopy;
+  v14 = MEMORY[0x1E69E9820];
+  v15 = durationCopy;
   v8 = v6;
-  v17 = v8;
+  v16 = v8;
   v9 = durationCopy;
   errorOnlyCompletionHandlerAdapter = [v8 errorOnlyCompletionHandlerAdapter];
-  [connectionProvider performRemoteBlock:&v15 withErrorHandler:errorOnlyCompletionHandlerAdapter];
+  [connectionProvider performRemoteBlock:&v14 withErrorHandler:errorOnlyCompletionHandlerAdapter];
 
-  v11 = v17;
+  v11 = v16;
   v12 = v8;
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -1247,32 +1230,31 @@ void __38__MTTimerManager_addFavoriteDuration___block_invoke(uint64_t a1, void *
 
 - (id)removeFavoriteDuration:(id)duration
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   durationCopy = duration;
   v5 = MTLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v20 = 2114;
-    v21 = durationCopy;
+    v19 = 2114;
+    v20 = durationCopy;
     _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ removeFavoriteDuration: %{public}@", buf, 0x16u);
   }
 
   v6 = objc_opt_new();
   connectionProvider = [(MTTimerManager *)self connectionProvider];
-  v15 = MEMORY[0x1E69E9820];
-  v16 = durationCopy;
+  v14 = MEMORY[0x1E69E9820];
+  v15 = durationCopy;
   v8 = v6;
-  v17 = v8;
+  v16 = v8;
   v9 = durationCopy;
   errorOnlyCompletionHandlerAdapter = [v8 errorOnlyCompletionHandlerAdapter];
-  [connectionProvider performRemoteBlock:&v15 withErrorHandler:errorOnlyCompletionHandlerAdapter];
+  [connectionProvider performRemoteBlock:&v14 withErrorHandler:errorOnlyCompletionHandlerAdapter];
 
-  v11 = v17;
+  v11 = v16;
   v12 = v8;
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -1287,7 +1269,7 @@ void __41__MTTimerManager_removeFavoriteDuration___block_invoke(uint64_t a1, voi
 
 - (id)latestDuration
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = MTLogForCategory(4);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
@@ -1302,43 +1284,41 @@ void __41__MTTimerManager_removeFavoriteDuration___block_invoke(uint64_t a1, voi
   aBlock[2] = __32__MTTimerManager_latestDuration__block_invoke;
   aBlock[3] = &unk_1E7B0F208;
   v5 = v4;
-  v12 = v5;
+  v11 = v5;
   v6 = _Block_copy(aBlock);
   v7 = [(MTTimerManager *)self getQueryDurations:v6 withFuture:v5];
   v8 = v5;
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (id)saveLatestDuration:(id)duration
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   durationCopy = duration;
   v5 = MTLogForCategory(4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543618;
     selfCopy = self;
-    v20 = 2114;
-    v21 = durationCopy;
+    v19 = 2114;
+    v20 = durationCopy;
     _os_log_impl(&dword_1B1F9F000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ saveLatestDuration: %{public}@", buf, 0x16u);
   }
 
   v6 = objc_opt_new();
   connectionProvider = [(MTTimerManager *)self connectionProvider];
-  v15 = MEMORY[0x1E69E9820];
-  v16 = durationCopy;
+  v14 = MEMORY[0x1E69E9820];
+  v15 = durationCopy;
   v8 = v6;
-  v17 = v8;
+  v16 = v8;
   v9 = durationCopy;
   errorOnlyCompletionHandlerAdapter = [v8 errorOnlyCompletionHandlerAdapter];
-  [connectionProvider performRemoteBlock:&v15 withErrorHandler:errorOnlyCompletionHandlerAdapter];
+  [connectionProvider performRemoteBlock:&v14 withErrorHandler:errorOnlyCompletionHandlerAdapter];
 
-  v11 = v17;
+  v11 = v16;
   v12 = v8;
 
-  v13 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
@@ -1353,14 +1333,13 @@ void __37__MTTimerManager_saveLatestDuration___block_invoke(uint64_t a1, void *a
 
 void __28__MTTimerManager_timersSync__block_invoke_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v5 = 138543618;
-  v6 = v3;
-  v7 = 2114;
-  v8 = a2;
-  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%{public}@ Error getting timers:%{public}@", &v5, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
+  v4 = 138543618;
+  v5 = v3;
+  v6 = 2114;
+  v7 = a2;
+  _os_log_error_impl(&dword_1B1F9F000, log, OS_LOG_TYPE_ERROR, "%{public}@ Error getting timers:%{public}@", &v4, 0x16u);
 }
 
 - (void)addTimer:.cold.1()
@@ -1389,11 +1368,10 @@ void __28__MTTimerManager_timersSync__block_invoke_cold_1(uint64_t a1, uint64_t 
 
 - (void)_validateCanStartTimer:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "%{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1B1F9F000, a2, OS_LOG_TYPE_ERROR, "%{public}@", &v2, 0xCu);
 }
 
 - (void)_updateCurrentTimerWithStateSync:.cold.1()

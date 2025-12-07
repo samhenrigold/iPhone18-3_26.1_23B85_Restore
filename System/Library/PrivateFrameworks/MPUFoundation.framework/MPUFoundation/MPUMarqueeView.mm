@@ -547,7 +547,7 @@ LABEL_5:
     *p_marqueeEnabled = enabled;
     layer = [(UIView *)self->_contentView layer];
     v8 = layer;
-    if ((optionsCopy & 1) == 0 || ([layer animationForKey:@"_MPUMarqueeViewLayerAnimationKey"], (v9 = objc_claimAutoreleasedReturnValue()) != 0) && ((v10 = v9, objc_msgSend(v8, "presentationLayer"), v11 = objc_claimAutoreleasedReturnValue(), (v12 = v11) == 0) ? (v16 = 0u, v17 = 0u, v15 = 0u, v13 = 0.0) : (objc_msgSend(v11, "affineTransform"), v13 = *&v17), v14 = fabs(v13), v12, v10, v14 < 2.22044605e-16))
+    if ((optionsCopy & 1) == 0 || ([layer animationForKey:@"_MPUMarqueeViewLayerAnimationKey"], (v9 = objc_claimAutoreleasedReturnValue()) != 0) && ((v10 = v9, objc_msgSend(v8, "presentationLayer"), v11 = objc_claimAutoreleasedReturnValue(), (v12 = v11) == 0) ? (v16 = 0u, v17 = 0u, v15 = 0u, v13 = 0.0) : (objc_msgSend_affineTransform(v11), v13 = *&v17), v14 = fabs(v13), v12, v10, v14 < 2.22044605e-16))
     {
       [(MPUMarqueeView *)self _tearDownMarqueeAnimation:v15];
     }

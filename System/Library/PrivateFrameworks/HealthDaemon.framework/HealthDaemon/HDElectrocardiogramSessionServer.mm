@@ -32,10 +32,9 @@
 
 + (id)requiredEntitlements
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = *MEMORY[0x277CCC8B0];
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = *MEMORY[0x277CCC8B0];
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -90,7 +89,7 @@
 
 void __63__HDElectrocardiogramSessionServer_remote_startWithCompletion___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v1)
@@ -102,8 +101,8 @@ void __63__HDElectrocardiogramSessionServer_remote_startWithCompletion___block_i
     {
       v4 = v3;
       *buf = 138543362;
-      v12 = objc_opt_class();
-      v5 = v12;
+      v11 = objc_opt_class();
+      v5 = v11;
       _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Session start", buf, 0xCu);
     }
 
@@ -136,8 +135,6 @@ void __63__HDElectrocardiogramSessionServer_remote_startWithCompletion___block_i
       v2[2](v2, 1, 0);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)remote_abortWithCompletion:(id)completion
@@ -156,7 +153,7 @@ void __63__HDElectrocardiogramSessionServer_remote_startWithCompletion___block_i
 
 void __63__HDElectrocardiogramSessionServer_remote_abortWithCompletion___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
   if (v1)
@@ -168,8 +165,8 @@ void __63__HDElectrocardiogramSessionServer_remote_abortWithCompletion___block_i
     {
       v4 = v3;
       *buf = 138543362;
-      v12 = objc_opt_class();
-      v5 = v12;
+      v11 = objc_opt_class();
+      v5 = v11;
       _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Session abort", buf, 0xCu);
     }
 
@@ -195,24 +192,20 @@ void __63__HDElectrocardiogramSessionServer_remote_abortWithCompletion___block_i
       (v2)[2](v2, 0, v9);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __81__HDElectrocardiogramSessionServer__queue_notifyClientDidEndWithEndReason_error___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2B0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2B0], OS_LOG_TYPE_ERROR))
   {
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_error_impl(&dword_228986000, v3, OS_LOG_TYPE_ERROR, "Error notifiying ECG Session client of session end: %{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_error_impl(&dword_228986000, v3, OS_LOG_TYPE_ERROR, "Error notifiying ECG Session client of session end: %{public}@", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

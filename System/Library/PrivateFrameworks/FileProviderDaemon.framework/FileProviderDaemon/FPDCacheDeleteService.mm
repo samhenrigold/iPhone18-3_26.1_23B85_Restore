@@ -46,11 +46,11 @@
 
 void __49__FPDCacheDeleteService_unregisterBackgroundTask__block_invoke()
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E698E4B8] sharedScheduler];
-  v6 = 0;
-  v1 = [v0 cancelTaskRequestWithIdentifier:@"com.apple.FileProvider.cache-delete.push" error:&v6];
-  v2 = v6;
+  v5 = 0;
+  v1 = [v0 cancelTaskRequestWithIdentifier:@"com.apple.FileProvider.cache-delete.push" error:&v5];
+  v2 = v5;
 
   if ((v1 & 1) == 0)
   {
@@ -59,23 +59,20 @@ void __49__FPDCacheDeleteService_unregisterBackgroundTask__block_invoke()
     {
       v4 = [v2 fp_prettyDescription];
       *buf = 138543618;
-      v8 = @"com.apple.FileProvider.cache-delete.push";
-      v9 = 2114;
-      v10 = v4;
+      v7 = @"com.apple.FileProvider.cache-delete.push";
+      v8 = 2114;
+      v9 = v4;
       _os_log_impl(&dword_1CEFC7000, v3, OS_LOG_TYPE_INFO, "[INFO] Error canceling task %{public}@ : %{public}@", buf, 0x16u);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerCacheDeleteCallbacks
 {
-  OUTLINED_FUNCTION_3(self, *MEMORY[0x1E69E9840]);
-  v4 = 138412290;
-  v5 = v1;
-  _os_log_debug_impl(&dword_1CEFC7000, v2, OS_LOG_TYPE_DEBUG, "[DEBUG] Registered %@ as a cache delete service", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3(*MEMORY[0x1E69E9840]);
+  v2 = 138412290;
+  v3 = v0;
+  _os_log_debug_impl(&dword_1CEFC7000, v1, OS_LOG_TYPE_DEBUG, "[DEBUG] Registered %@ as a cache delete service", &v2, 0xCu);
 }
 
 void __53__FPDCacheDeleteService_registerCacheDeleteCallbacks__block_invoke(uint64_t a1, void *a2)
@@ -112,39 +109,36 @@ void __53__FPDCacheDeleteService_registerCacheDeleteCallbacks__block_invoke(uint
 
 void __53__FPDCacheDeleteService_registerCacheDeleteCallbacks__block_invoke_10(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v11 = 0u;
-  v12 = 0u;
+  v11 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
-  v2 = [*(*(a1 + 32) + 16) allValues];
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
-  if (v3)
+  v6 = 0u;
+  v7 = 0u;
+  v1 = [*(*(a1 + 32) + 16) allValues];
+  v2 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
+  if (v2)
   {
-    v4 = v3;
-    v5 = *v10;
+    v3 = v2;
+    v4 = *v7;
     do
     {
-      v6 = 0;
+      v5 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v7 != v4)
         {
-          objc_enumerationMutation(v2);
+          objc_enumerationMutation(v1);
         }
 
-        v7 = *(*(a1 + 32) + 32);
-        (*(*(*(&v9 + 1) + 8 * v6++) + 16))();
+        (*(*(*(&v6 + 1) + 8 * v5++) + 16))();
       }
 
-      while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      while (v3 != v5);
+      v3 = [v1 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
-    while (v4);
+    while (v3);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)registerKey:(id)key notificationsUpdatesHandlers:(id)handlers
@@ -214,11 +208,10 @@ void __39__FPDCacheDeleteService_sharedInstance__block_invoke(uint64_t a1)
 
 void __53__FPDCacheDeleteService_registerCacheDeleteCallbacks__block_invoke_cold_1(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1 & 1;
-  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] FPDCacheDeleteService: cache enabled update: %{BOOL}d", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1 & 1;
+  _os_log_debug_impl(&dword_1CEFC7000, a2, OS_LOG_TYPE_DEBUG, "[DEBUG] FPDCacheDeleteService: cache enabled update: %{BOOL}d", v2, 8u);
 }
 
 @end

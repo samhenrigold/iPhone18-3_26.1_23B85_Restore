@@ -20,20 +20,17 @@
 
 - (NSArray)appsSpecifiers
 {
-  v2 = *(self + OBJC_IVAR____TtC12FinanceKitUI27PrivacyAppSpecifierProvider_appsSpecifiers);
   sub_2384950FC();
 
-  v3 = sub_23875EC60();
+  v2 = sub_23875EC60();
 
-  return v3;
+  return v2;
 }
 
 - (void)setAppsSpecifiers:(id)specifiers
 {
   sub_2384950FC();
-  v4 = sub_23875EC80();
-  v5 = *(self + OBJC_IVAR____TtC12FinanceKitUI27PrivacyAppSpecifierProvider_appsSpecifiers);
-  *(self + OBJC_IVAR____TtC12FinanceKitUI27PrivacyAppSpecifierProvider_appsSpecifiers) = v4;
+  *(self + OBJC_IVAR____TtC12FinanceKitUI27PrivacyAppSpecifierProvider_appsSpecifiers) = sub_23875EC80();
 }
 
 - (NSArray)specifiers
@@ -66,7 +63,7 @@
   }
 
   selfCopy = self;
-  sub_238569084();
+  sub_238569084(selfCopy);
 }
 
 - (id)getAuthWithSpecifier:(id)specifier

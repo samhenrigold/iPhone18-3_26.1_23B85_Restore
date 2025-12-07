@@ -11,6 +11,7 @@
 - (id)scopesForTask;
 - (id)taskIdentifier;
 - (void)_acknowledgeContributorUpdatesAndContinue:(id)continue;
+- (void)_didFinishTaskWithKey:(id)key error:(BOOL)error cancelled:(BOOL)cancelled;
 - (void)_didStartTaskWithKey:(id)key recordCount:(unint64_t)count;
 - (void)_discardCurrentSubtask;
 - (void)_excludeScopeFromMingling;
@@ -197,7 +198,7 @@ void __62__CPLPushToTransportScopeTask__uploadTask_didFinishWithError___block_in
 
 BOOL __62__CPLPushToTransportScopeTask__uploadTask_didFinishWithError___block_invoke_4(void *a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = [*(a1[4] + 160) minimumPriorityForChangesInScopeWithIdentifier:*(a1[4] + 136)];
   v3 = v2;
   v4 = *(a1[5] + 8);
@@ -224,23 +225,21 @@ BOOL __62__CPLPushToTransportScopeTask__uploadTask_didFinishWithError___block_in
           v8 = &stru_1F57BD298;
         }
 
-        v11 = 138543618;
-        v12 = v7;
-        v13 = 2112;
-        v14 = v8;
-        _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "Changes have been pushed by client for %{public}@ - restarting uploads%@", &v11, 0x16u);
+        v10 = 138543618;
+        v11 = v7;
+        v12 = 2112;
+        v13 = v8;
+        _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "Changes have been pushed by client for %{public}@ - restarting uploads%@", &v10, 0x16u);
       }
     }
   }
 
-  result = v3 < v5;
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  return v3 < v5;
 }
 
 void __62__CPLPushToTransportScopeTask__uploadTask_didFinishWithError___block_invoke_118(uint64_t a1, void *a2)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (![*(a1 + 32) checkScopeIsValidInTransaction:v3])
   {
@@ -262,9 +261,9 @@ void __62__CPLPushToTransportScopeTask__uploadTask_didFinishWithError___block_in
             v16 = *(*(a1 + 32) + 136);
             v17 = *(*(*(a1 + 80) + 8) + 24);
             *buf = 138543618;
-            v31 = v16;
-            v32 = 2048;
-            v33 = v17;
+            v30 = v16;
+            v31 = 2048;
+            v32 = v17;
             _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "Upload for %{public}@ failed because server finds that a batch size of %lu records is still too large. Will still continue synchronizing other scopes", buf, 0x16u);
           }
         }
@@ -288,11 +287,11 @@ void __62__CPLPushToTransportScopeTask__uploadTask_didFinishWithError___block_in
             v7 = *(*(*(a1 + 80) + 8) + 24);
             v8 = [*(a1 + 32) scope];
             *buf = 134218498;
-            v31 = v7;
-            v32 = 2112;
-            v33 = v8;
-            v34 = 2048;
-            v35 = v5;
+            v30 = v7;
+            v31 = 2112;
+            v32 = v8;
+            v33 = 2048;
+            v34 = v5;
             _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "Server finds %lu is too large to handle changes for %@, setting maximum batch size to %lu temporarily and retrying", buf, 0x20u);
           }
         }
@@ -324,7 +323,7 @@ void __62__CPLPushToTransportScopeTask__uploadTask_didFinishWithError___block_in
           {
             v11 = *(*(a1 + 32) + 136);
             *buf = 138543362;
-            v31 = v11;
+            v30 = v11;
             v12 = "Upload for %{public}@ failed because the scope is over quota. Will stop forced sync";
             v13 = v10;
             v14 = OS_LOG_TYPE_DEFAULT;
@@ -346,7 +345,7 @@ LABEL_32:
         {
           v20 = *(*(a1 + 32) + 136);
           *buf = 138543362;
-          v31 = v20;
+          v30 = v20;
           _os_log_impl(&dword_1DC05A000, v19, OS_LOG_TYPE_DEFAULT, "Upload for %{public}@ failed because the scope is over quota. Will still continue synchronizing other scopes", buf, 0xCu);
         }
       }
@@ -365,7 +364,7 @@ LABEL_32:
           {
             v18 = *(*(a1 + 32) + 136);
             *buf = 138543362;
-            v31 = v18;
+            v30 = v18;
             v12 = "Upload for %{public}@ failed because the scope is over quota";
             v13 = v10;
             v14 = OS_LOG_TYPE_ERROR;
@@ -376,15 +375,15 @@ LABEL_33:
         }
 
 LABEL_45:
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __62__CPLPushToTransportScopeTask__uploadTask_didFinishWithError___block_invoke_120;
-        v27[3] = &unk_1E8620940;
+        v26[0] = MEMORY[0x1E69E9820];
+        v26[1] = 3221225472;
+        v26[2] = __62__CPLPushToTransportScopeTask__uploadTask_didFinishWithError___block_invoke_120;
+        v26[3] = &unk_1E8620940;
         v24 = *(a1 + 40);
         v25 = *(a1 + 32);
-        v28 = v24;
-        v29 = v25;
-        [v3 do:v27];
+        v27 = v24;
+        v28 = v25;
+        [v3 do:v26];
 
         goto LABEL_46;
       }
@@ -396,7 +395,7 @@ LABEL_45:
         {
           v23 = *(*(a1 + 32) + 136);
           *buf = 138543362;
-          v31 = v23;
+          v30 = v23;
           _os_log_impl(&dword_1DC05A000, v22, OS_LOG_TYPE_DEFAULT, "Upload for %{public}@ failed because the scope is over quota. Retrying with over-quota strategy", buf, 0xCu);
         }
       }
@@ -419,8 +418,6 @@ LABEL_45:
   }
 
 LABEL_46:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __62__CPLPushToTransportScopeTask__uploadTask_didFinishWithError___block_invoke_2_121(uint64_t a1, void *a2)
@@ -468,7 +465,7 @@ void __62__CPLPushToTransportScopeTask__uploadTask_didFinishWithError___block_in
   }
 }
 
-uint64_t __62__CPLPushToTransportScopeTask__uploadTask_didFinishWithError___block_invoke_120(uint64_t a1, uint64_t a2)
+void *__62__CPLPushToTransportScopeTask__uploadTask_didFinishWithError___block_invoke_120(uint64_t a1, uint64_t a2)
 {
   v4 = [*(a1 + 32) userInfo];
   v5 = [v4 objectForKeyedSubscript:@"CPLErrorIsCausedBySharedSync"];
@@ -546,7 +543,7 @@ uint64_t __62__CPLPushToTransportScopeTask__uploadTask_didFinishWithError___bloc
 
 - (void)_pushTaskDidFinishWithError:(id)error
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   [(CPLEngineSyncTask *)self setPhaseDescription:@"cleaning"];
   [(CPLPushToTransportScopeTask *)self hash];
@@ -565,40 +562,38 @@ uint64_t __62__CPLPushToTransportScopeTask__uploadTask_didFinishWithError___bloc
   store = [(CPLEngineScopedTask *)self store];
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v17 = 0x3032000000;
-  v18 = __Block_byref_object_copy__11582;
-  v19 = __Block_byref_object_dispose__11583;
-  v20 = errorCopy;
-  v14[0] = 0;
-  v14[1] = v14;
-  v14[2] = 0x2020000000;
-  v15 = 0;
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __59__CPLPushToTransportScopeTask__pushTaskDidFinishWithError___block_invoke;
-  v11[3] = &unk_1E86200A8;
-  v11[4] = self;
-  v7 = v20;
-  v12 = v7;
-  v13 = v14;
+  v16 = 0x3032000000;
+  v17 = __Block_byref_object_copy__11582;
+  v18 = __Block_byref_object_dispose__11583;
+  v19 = errorCopy;
+  v13[0] = 0;
+  v13[1] = v13;
+  v13[2] = 0x2020000000;
+  v14 = 0;
   v10[0] = MEMORY[0x1E69E9820];
   v10[1] = 3221225472;
-  v10[2] = __59__CPLPushToTransportScopeTask__pushTaskDidFinishWithError___block_invoke_2_106;
-  v10[3] = &unk_1E86209E0;
+  v10[2] = __59__CPLPushToTransportScopeTask__pushTaskDidFinishWithError___block_invoke;
+  v10[3] = &unk_1E86200A8;
   v10[4] = self;
-  v10[5] = &buf;
-  v10[6] = v14;
-  v8 = [store performWriteTransactionWithBlock:v11 completionHandler:v10];
+  v7 = v19;
+  v11 = v7;
+  v12 = v13;
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __59__CPLPushToTransportScopeTask__pushTaskDidFinishWithError___block_invoke_2_106;
+  v9[3] = &unk_1E86209E0;
+  v9[4] = self;
+  v9[5] = &buf;
+  v9[6] = v13;
+  v8 = [store performWriteTransactionWithBlock:v10 completionHandler:v9];
 
-  _Block_object_dispose(v14, 8);
+  _Block_object_dispose(v13, 8);
   _Block_object_dispose(&buf, 8);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __59__CPLPushToTransportScopeTask__pushTaskDidFinishWithError___block_invoke(uint64_t a1, void *a2)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = *(a1 + 32);
   v5 = v4[20];
@@ -628,7 +623,7 @@ LABEL_15:
 
       v17 = *(*(a1 + 32) + 136);
       *buf = 138543362;
-      v36 = v17;
+      v35 = v17;
       v15 = "Push repository for %{public}@ only contains changes allowing local conflict resolution. Will allow mingling.";
 LABEL_14:
       _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_DEFAULT, v15, buf, 0xCu);
@@ -666,7 +661,7 @@ LABEL_14:
 
       v14 = *(*(a1 + 32) + 136);
       *buf = 138543362;
-      v36 = v14;
+      v35 = v14;
       v15 = "Push repository for %{public}@ contains changes but we are allowing local conflict resolution when over-quota. Will allow mingling.";
       goto LABEL_14;
     }
@@ -679,12 +674,12 @@ LABEL_14:
     v16 = *(a1 + 32);
     if (*(v16 + 224) != -1)
     {
-      v34[0] = MEMORY[0x1E69E9820];
-      v34[1] = 3221225472;
-      v34[2] = __59__CPLPushToTransportScopeTask__pushTaskDidFinishWithError___block_invoke_2;
-      v34[3] = &unk_1E8620478;
-      v34[4] = v16;
-      [v3 do:v34];
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __59__CPLPushToTransportScopeTask__pushTaskDidFinishWithError___block_invoke_2;
+      v33[3] = &unk_1E8620478;
+      v33[4] = v16;
+      [v3 do:v33];
     }
   }
 
@@ -714,9 +709,9 @@ LABEL_17:
           v22 = *(*(a1 + 32) + 136);
           v23 = [CPLScopeChange descriptionForBusyState:v20];
           *buf = 138543618;
-          v36 = v22;
-          v37 = 2112;
-          v38 = v23;
+          v35 = v22;
+          v36 = 2112;
+          v37 = v23;
           _os_log_impl(&dword_1DC05A000, v21, OS_LOG_TYPE_DEFAULT, "Upload for %{public}@ failed because the scope is busy (%@). Will stop forced sync", buf, 0x16u);
         }
 
@@ -739,9 +734,9 @@ LABEL_34:
             v27 = *(*(a1 + 32) + 136);
             v28 = [CPLScopeChange descriptionForBusyState:v20];
             *buf = 138543618;
-            v36 = v27;
-            v37 = 2112;
-            v38 = v28;
+            v35 = v27;
+            v36 = 2112;
+            v37 = v28;
             _os_log_impl(&dword_1DC05A000, v26, OS_LOG_TYPE_DEFAULT, "Upload for %{public}@ failed because the scope is busy (%@). Will still continue synchronizing other scopes", buf, 0x16u);
           }
         }
@@ -768,16 +763,14 @@ LABEL_34:
       }
     }
 
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __59__CPLPushToTransportScopeTask__pushTaskDidFinishWithError___block_invoke_105;
-    v33[3] = &unk_1E861D460;
-    v33[4] = *(a1 + 32);
-    v33[5] = v20;
-    [v3 do:v33];
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __59__CPLPushToTransportScopeTask__pushTaskDidFinishWithError___block_invoke_105;
+    v32[3] = &unk_1E861D460;
+    v32[4] = *(a1 + 32);
+    v32[5] = v20;
+    [v3 do:v32];
   }
-
-  v32 = *MEMORY[0x1E69E9840];
 }
 
 void __59__CPLPushToTransportScopeTask__pushTaskDidFinishWithError___block_invoke_2_106(uint64_t a1, void *a2)
@@ -1042,7 +1035,7 @@ void __38__CPLPushToTransportScopeTask__launch__block_invoke(uint64_t a1)
 
 void __38__CPLPushToTransportScopeTask__launch__block_invoke_2(uint64_t a1, void *a2)
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v64 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([*(a1 + 32) checkScopeIsValidInTransaction:v3])
   {
@@ -1100,9 +1093,9 @@ void __38__CPLPushToTransportScopeTask__launch__block_invoke_2(uint64_t a1, void
           {
             v42 = [*(a1 + 32) transportScope];
             *buf = 138412546;
-            v58 = v4;
-            v59 = 2112;
-            v60 = v42;
+            v57 = v4;
+            v58 = 2112;
+            v59 = v42;
             _os_log_impl(&dword_1DC05A000, v41, OS_LOG_TYPE_ERROR, "Failed to create concrete scope of %@ from %@", buf, 0x16u);
           }
         }
@@ -1137,7 +1130,7 @@ LABEL_55:
         {
           v29 = *(*(a1 + 32) + 176);
           *buf = 138412290;
-          v58 = v29;
+          v57 = v29;
           _os_log_impl(&dword_1DC05A000, v28, OS_LOG_TYPE_DEFAULT, "%@ is deleted - ignoring it", buf, 0xCu);
         }
       }
@@ -1170,9 +1163,9 @@ LABEL_55:
           {
             v38 = *(*(a1 + 32) + 176);
             *buf = 138412546;
-            v58 = v38;
-            v59 = 2112;
-            v60 = v32;
+            v57 = v38;
+            v58 = 2112;
+            v59 = v32;
             _os_log_impl(&dword_1DC05A000, v37, OS_LOG_TYPE_ERROR, "Failed to create concrete scope of %@ from %@", buf, 0x16u);
           }
         }
@@ -1190,13 +1183,13 @@ LABEL_55:
         {
           v44 = *(*(a1 + 32) + 176);
           *buf = 138413058;
-          v58 = v4;
-          v59 = 2112;
-          v60 = v44;
-          v61 = 2112;
-          v62 = v21;
-          v63 = 2112;
-          v64 = v36;
+          v57 = v4;
+          v58 = 2112;
+          v59 = v44;
+          v60 = 2112;
+          v61 = v21;
+          v62 = 2112;
+          v63 = v36;
           _os_log_impl(&dword_1DC05A000, v43, OS_LOG_TYPE_DEFAULT, "Will upload to %@/%@ concrete scopes: %@/%@", buf, 0x2Au);
         }
       }
@@ -1214,9 +1207,9 @@ LABEL_27:
       if (os_log_type_enabled(v32, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412546;
-        v58 = v4;
-        v59 = 2112;
-        v60 = v21;
+        v57 = v4;
+        v58 = 2112;
+        v59 = v21;
         _os_log_impl(&dword_1DC05A000, v32, OS_LOG_TYPE_DEFAULT, "Will upload to %@ concrete scope: %@", buf, 0x16u);
       }
     }
@@ -1240,9 +1233,9 @@ LABEL_42:
         {
           v49 = [CPLScopeChange descriptionForBusyState:v46];
           *buf = 138412546;
-          v58 = v4;
-          v59 = 2112;
-          v60 = v49;
+          v57 = v4;
+          v58 = 2112;
+          v59 = v49;
           _os_log_impl(&dword_1DC05A000, v48, OS_LOG_TYPE_DEFAULT, "Previous push-to-transport attempt for %@ failed because the scope was busy (%@)", buf, 0x16u);
         }
       }
@@ -1261,21 +1254,19 @@ LABEL_42:
 
     if (![*(*(*(a1 + 56) + 8) + 40) count])
     {
-      v55[0] = MEMORY[0x1E69E9820];
-      v55[1] = 3221225472;
-      v55[2] = __38__CPLPushToTransportScopeTask__launch__block_invoke_91;
-      v55[3] = &unk_1E861D338;
-      v55[4] = *(a1 + 32);
-      v56 = *(a1 + 64);
-      [v3 do:v55];
+      v54[0] = MEMORY[0x1E69E9820];
+      v54[1] = 3221225472;
+      v54[2] = __38__CPLPushToTransportScopeTask__launch__block_invoke_91;
+      v54[3] = &unk_1E861D338;
+      v54[4] = *(a1 + 32);
+      v55 = *(a1 + 64);
+      [v3 do:v54];
     }
 
     goto LABEL_55;
   }
 
 LABEL_56:
-
-  v54 = *MEMORY[0x1E69E9840];
 }
 
 void __38__CPLPushToTransportScopeTask__launch__block_invoke_2_93(uint64_t a1, void *a2)
@@ -1393,11 +1384,11 @@ uint64_t __38__CPLPushToTransportScopeTask__launch__block_invoke_91(void *a1, ui
 
 - (id)_contributorsUpdatesInTransaction:(id)transaction
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v19 = 0;
+  v23 = *MEMORY[0x1E69E9840];
   v18 = 0;
-  v4 = [(CPLPushToTransportScopeTask *)self _shouldUploadBatchesWithDropReason:&v18 shouldQuarantineRecords:&v19 inTransaction:transaction];
-  v5 = v18;
+  v17 = 0;
+  v4 = [(CPLPushToTransportScopeTask *)self _shouldUploadBatchesWithDropReason:&v17 shouldQuarantineRecords:&v18 inTransaction:transaction];
+  v5 = v17;
   if (v4)
   {
     scope = [(CPLEngineScopedTask *)self scope];
@@ -1407,12 +1398,12 @@ uint64_t __38__CPLPushToTransportScopeTask__launch__block_invoke_91(void *a1, ui
     if (![v8 count])
     {
       pushRepository = self->_pushRepository;
-      v15 = MEMORY[0x1E69E9820];
+      v14 = MEMORY[0x1E69E9820];
       scopeIdentifier = scopeIdentifier;
-      v16 = scopeIdentifier;
+      v15 = scopeIdentifier;
       selfCopy = self;
-      v10 = [(CPLPushToTransportScopeTask *)self taskIdentifier:v15];
-      [(CPLEnginePushRepository *)pushRepository addPushObserver:&v15 withIdentifier:v10];
+      v10 = [(CPLPushToTransportScopeTask *)self taskIdentifier:v14];
+      [(CPLEnginePushRepository *)pushRepository addPushObserver:&v14 withIdentifier:v10];
     }
 
 LABEL_8:
@@ -1428,9 +1419,9 @@ LABEL_8:
       scope2 = [(CPLEngineScopedTask *)self scope];
       scopeIdentifier2 = [scope2 scopeIdentifier];
       *buf = 138543618;
-      v21 = scopeIdentifier2;
-      v22 = 2112;
-      v23 = v5;
+      v20 = scopeIdentifier2;
+      v21 = 2112;
+      v22 = v5;
       _os_log_impl(&dword_1DC05A000, scopeIdentifier, OS_LOG_TYPE_DEFAULT, "Won't try to update contributors because %{public}@ is read-only: %@", buf, 0x16u);
     }
 
@@ -1440,8 +1431,6 @@ LABEL_8:
 
   v8 = 0;
 LABEL_9:
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -1728,7 +1717,7 @@ void __51__CPLPushToTransportScopeTask__updateContributors___block_invoke(uint64
 
 void __51__CPLPushToTransportScopeTask__updateContributors___block_invoke_2(uint64_t a1)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
   v3 = *(v2 + 200);
   *(v2 + 200) = 0;
@@ -1749,52 +1738,52 @@ void __51__CPLPushToTransportScopeTask__updateContributors___block_invoke_2(uint
     }
 
     [*(a1 + 32) _didFinishTaskWithKey:@"update-contributors" error:v5 cancelled:v6];
-    v10 = *(a1 + 40);
-    if ([v10 isCPLErrorWithCode:18])
+    v9 = *(a1 + 40);
+    if ([v9 isCPLErrorWithCode:18])
     {
-      v11 = [v10 userInfo];
-      v12 = [v11 objectForKeyedSubscript:@"CPLErrorRejectedRecordIdentifiersAndReasons"];
+      v10 = [v9 userInfo];
+      v11 = [v10 objectForKeyedSubscript:@"CPLErrorRejectedRecordIdentifiersAndReasons"];
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v13 = __CPLTaskOSLogDomain_11528();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v12 = __CPLTaskOSLogDomain_11528();
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           LODWORD(buf) = 138543362;
-          *(&buf + 4) = v12;
-          _os_log_impl(&dword_1DC05A000, v13, OS_LOG_TYPE_ERROR, "Failed to update contributors: %{public}@", &buf, 0xCu);
+          *(&buf + 4) = v11;
+          _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "Failed to update contributors: %{public}@", &buf, 0xCu);
         }
       }
 
-      v21 = 0;
-      v22 = &v21;
-      v23 = 0x2020000000;
-      v24 = 0;
+      v19 = 0;
+      v20 = &v19;
+      v21 = 0x2020000000;
+      v22 = 0;
       *&buf = 0;
       *(&buf + 1) = &buf;
-      v26 = 0x3032000000;
-      v27 = __Block_byref_object_copy__11582;
-      v28 = __Block_byref_object_dispose__11583;
-      v29 = 0;
-      v20[0] = MEMORY[0x1E69E9820];
-      v20[1] = 3221225472;
-      v20[2] = __51__CPLPushToTransportScopeTask__updateContributors___block_invoke_70;
-      v20[3] = &unk_1E861D360;
-      v20[4] = &v21;
-      v20[5] = &buf;
-      [v12 enumerateKeysAndObjectsUsingBlock:v20];
-      v14 = [*(a1 + 40) cplUnderlyingError];
-      v15 = v14;
-      if (!v14)
+      v24 = 0x3032000000;
+      v25 = __Block_byref_object_copy__11582;
+      v26 = __Block_byref_object_dispose__11583;
+      v27 = 0;
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __51__CPLPushToTransportScopeTask__updateContributors___block_invoke_70;
+      v18[3] = &unk_1E861D360;
+      v18[4] = &v19;
+      v18[5] = &buf;
+      [v11 enumerateKeysAndObjectsUsingBlock:v18];
+      v13 = [*(a1 + 40) cplUnderlyingError];
+      v14 = v13;
+      if (!v13)
       {
-        v15 = *(a1 + 40);
+        v14 = *(a1 + 40);
       }
 
-      v16 = v15;
+      v15 = v14;
 
-      if (*(v22 + 24) == 1)
+      if (*(v20 + 24) == 1)
       {
-        v17 = [CPLErrors cplErrorWithCode:255 description:@"Server does not support contributors updates yet"];
+        v16 = [CPLErrors cplErrorWithCode:255 description:@"Server does not support contributors updates yet"];
       }
 
       else
@@ -1806,25 +1795,23 @@ void __51__CPLPushToTransportScopeTask__updateContributors___block_invoke_2(uint
 
         else
         {
-          [CPLErrors cplErrorWithCode:150 underlyingError:v16 description:@"Server rejected contributors updates with no particular reason"];
+          [CPLErrors cplErrorWithCode:150 underlyingError:v15 description:@"Server rejected contributors updates with no particular reason"];
         }
-        v17 = ;
+        v16 = ;
       }
 
-      v18 = v17;
+      v17 = v16;
 
       _Block_object_dispose(&buf, 8);
-      _Block_object_dispose(&v21, 8);
+      _Block_object_dispose(&v19, 8);
     }
 
     else
     {
-      v18 = v10;
+      v17 = v9;
     }
 
-    [*(a1 + 32) _pushTaskDidFinishWithError:v18];
-
-    v19 = *MEMORY[0x1E69E9840];
+    [*(a1 + 32) _pushTaskDidFinishWithError:v17];
   }
 
   else
@@ -1833,7 +1820,6 @@ void __51__CPLPushToTransportScopeTask__updateContributors___block_invoke_2(uint
     [*(*(a1 + 32) + 168) resetBackoffInterval];
     v7 = *(a1 + 32);
     v8 = *(a1 + 48);
-    v9 = *MEMORY[0x1E69E9840];
 
     [v7 _acknowledgeContributorUpdatesAndContinue:v8];
   }
@@ -1994,7 +1980,7 @@ uint64_t __45__CPLPushToTransportScopeTask__resetPriority__block_invoke_2(void *
 
 void __71__CPLPushToTransportScopeTask__uploadChangesWithPriority_maxBatchSize___block_invoke(uint64_t a1)
 {
-  v17 = [CPLUploadPushedChangesTask alloc];
+  v15 = [CPLUploadPushedChangesTask alloc];
   v2 = [*(a1 + 32) engineLibrary];
   v3 = [*(a1 + 32) session];
   v4 = [*(a1 + 32) clientCacheIdentifier];
@@ -2005,19 +1991,17 @@ void __71__CPLPushToTransportScopeTask__uploadChangesWithPriority_maxBatchSize__
   v9 = v7[22];
   v10 = v7[24];
   v11 = v7[23];
-  v12 = [v7 highPriority];
-  v13 = *(a1 + 48);
-  LOBYTE(v16) = v12;
-  v18 = [(CPLUploadPushedChangesTask *)v17 initWithEngineLibrary:v2 session:v3 clientCacheIdentifier:v4 scope:v5 transportScope:v6 storedTransportGroup:v8 sharedScope:v9 transportScopeMapping:v10 ruleGroup:v11 highPriority:v16 maxBatchSize:*(a1 + 40) pushRepositoryPriority:v13 pushRepository:*(*(a1 + 32) + 160)];
+  LOBYTE(v14) = [v7 highPriority];
+  v16 = [(CPLUploadPushedChangesTask *)v15 initWithEngineLibrary:v2 session:v3 clientCacheIdentifier:v4 scope:v5 transportScope:v6 storedTransportGroup:v8 sharedScope:v9 transportScopeMapping:v10 ruleGroup:v11 highPriority:v14 maxBatchSize:*(a1 + 40) pushRepositoryPriority:*(a1 + 48) pushRepository:*(*(a1 + 32) + 160)];
 
-  v14 = *(a1 + 32);
-  v15 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%lu", *(a1 + 48)];
-  [v14 _launchSubTask:v18 subIdentifier:v15];
+  v12 = *(a1 + 32);
+  v13 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"%lu", *(a1 + 48)];
+  [v12 _launchSubTask:v16 subIdentifier:v13];
 }
 
 - (void)_noteSuccessfulUpdateInTransaction:(id)transaction
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   transactionCopy = transaction;
   if (self->_wasBusy)
   {
@@ -2028,22 +2012,20 @@ void __71__CPLPushToTransportScopeTask__uploadChangesWithPriority_maxBatchSize__
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v12 = scope;
+        v11 = scope;
         _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_DEFAULT, "It seems like %@ is not busy any more", buf, 0xCu);
       }
     }
 
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __66__CPLPushToTransportScopeTask__noteSuccessfulUpdateInTransaction___block_invoke;
-    v9[3] = &unk_1E8620940;
-    v9[4] = self;
-    v10 = scope;
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __66__CPLPushToTransportScopeTask__noteSuccessfulUpdateInTransaction___block_invoke;
+    v8[3] = &unk_1E8620940;
+    v8[4] = self;
+    v9 = scope;
     v7 = scope;
-    [transactionCopy do:v9];
+    [transactionCopy do:v8];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __66__CPLPushToTransportScopeTask__noteSuccessfulUpdateInTransaction___block_invoke(uint64_t a1, uint64_t a2)
@@ -2100,28 +2082,68 @@ uint64_t __66__CPLPushToTransportScopeTask__noteSuccessfulUpdateInTransaction___
   return recordsCopy ^ 1;
 }
 
+- (void)_didFinishTaskWithKey:(id)key error:(BOOL)error cancelled:(BOOL)cancelled
+{
+  cancelledCopy = cancelled;
+  errorCopy = error;
+  v23 = *MEMORY[0x1E69E9840];
+  keyCopy = key;
+  currentTaskKey = self->_currentTaskKey;
+  if (!currentTaskKey)
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v15 = __CPLTaskOSLogDomain_11528();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      {
+        v16 = NSStringFromSelector(a2);
+        *buf = 138412290;
+        v22 = v16;
+        _os_log_impl(&dword_1DC05A000, v15, OS_LOG_TYPE_ERROR, "%@ called without any started task", buf, 0xCu);
+      }
+    }
+
+    currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
+    v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLPushToTransportTask.m"];
+    v19 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:v18 lineNumber:292 description:{@"%@ called without any started task", v19}];
+
+    abort();
+  }
+
+  v20 = keyCopy;
+  pushRepository = self->_pushRepository;
+  [(NSDate *)self->_taskStartDate timeIntervalSinceNow];
+  [(CPLEnginePushRepository *)pushRepository updateTimingStatisticForKey:currentTaskKey duration:self->_recordCount recordCount:errorCopy error:cancelledCopy cancelled:-v12];
+  v13 = self->_currentTaskKey;
+  self->_currentTaskKey = 0;
+
+  taskStartDate = self->_taskStartDate;
+  self->_taskStartDate = 0;
+}
+
 - (void)_didStartTaskWithKey:(id)key recordCount:(unint64_t)count
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   keyCopy = key;
   if (self->_currentTaskKey)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v12 = __CPLTaskOSLogDomain_11528();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v11 = __CPLTaskOSLogDomain_11528();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        v13 = NSStringFromSelector(a2);
+        v12 = NSStringFromSelector(a2);
         *buf = 138412290;
-        v18 = v13;
-        _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_ERROR, "%@ called too many times", buf, 0xCu);
+        v17 = v12;
+        _os_log_impl(&dword_1DC05A000, v11, OS_LOG_TYPE_ERROR, "%@ called too many times", buf, 0xCu);
       }
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v15 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLPushToTransportTask.m"];
-    v16 = NSStringFromSelector(a2);
-    [currentHandler handleFailureInMethod:a2 object:self file:v15 lineNumber:285 description:{@"%@ called too many times", v16}];
+    v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Engine/CPLPushToTransportTask.m"];
+    v15 = NSStringFromSelector(a2);
+    [currentHandler handleFailureInMethod:a2 object:self file:v14 lineNumber:285 description:{@"%@ called too many times", v15}];
 
     abort();
   }
@@ -2133,15 +2155,14 @@ uint64_t __66__CPLPushToTransportScopeTask__noteSuccessfulUpdateInTransaction___
   self->_taskStartDate = date;
 
   self->_recordCount = count;
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)checkScopeIsValidInTransaction:(id)transaction
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v18.receiver = self;
-  v18.super_class = CPLPushToTransportScopeTask;
-  v4 = [(CPLEngineScopedTask *)&v18 checkScopeIsValidInTransaction:transaction];
+  v22 = *MEMORY[0x1E69E9840];
+  v17.receiver = self;
+  v17.super_class = CPLPushToTransportScopeTask;
+  v4 = [(CPLEngineScopedTask *)&v17 checkScopeIsValidInTransaction:transaction];
   if (v4)
   {
     if (self->_sharedScope)
@@ -2161,9 +2182,9 @@ uint64_t __66__CPLPushToTransportScopeTask__noteSuccessfulUpdateInTransaction___
             sharedScope = self->_sharedScope;
             v14 = objc_opt_class();
             *buf = 138412546;
-            v20 = sharedScope;
-            v21 = 2112;
-            v22 = v14;
+            v19 = sharedScope;
+            v20 = 2112;
+            v21 = v14;
             v15 = v14;
             _os_log_impl(&dword_1DC05A000, v12, OS_LOG_TYPE_DEFAULT, "Scope %@ is invalid, stopping %@ now", buf, 0x16u);
           }
@@ -2174,7 +2195,7 @@ uint64_t __66__CPLPushToTransportScopeTask__noteSuccessfulUpdateInTransaction___
 LABEL_13:
         [(CPLPushToTransportScopeTask *)self cancel];
         LOBYTE(v4) = 0;
-        goto LABEL_14;
+        return v4;
       }
     }
 
@@ -2204,8 +2225,6 @@ LABEL_12:
     LOBYTE(v4) = 1;
   }
 
-LABEL_14:
-  v16 = *MEMORY[0x1E69E9840];
   return v4;
 }
 

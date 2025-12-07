@@ -101,16 +101,14 @@ LABEL_6:
 
 + (void)resolvedScheduledActivityUpdateFuzzMilliseconds
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:self];
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:a2];
-  v6 = 138412546;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_debug_impl(&dword_24912E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "generating fuzzable %@ - %@ ms", &v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_debug_impl(&dword_24912E000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "generating fuzzable %@ - %@ ms", &v5, 0x16u);
 }
 
 @end

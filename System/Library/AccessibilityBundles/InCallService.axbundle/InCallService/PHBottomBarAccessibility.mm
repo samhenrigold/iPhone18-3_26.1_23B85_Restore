@@ -4,6 +4,8 @@
 - (void)buttonPressed:(id)pressed;
 - (void)layoutSubviews;
 - (void)refreshCustomizedActionTypeTitles;
+- (void)setAnimating:(BOOL)animating;
+- (void)setCurrentState:(int64_t)state animated:(BOOL)animated animationCompletionBlock:(id)block;
 @end
 
 @implementation PHBottomBarAccessibility
@@ -41,6 +43,30 @@
   [v7 setIsAccessibilityElement:{objc_msgSend(accessibilityLabel2, "length") != 0}];
 }
 
+- (void)setAnimating:(BOOL)animating
+{
+  animatingCopy = animating;
+  v5 = [(PHBottomBarAccessibility *)self safeBoolForKey:@"animating"];
+  v8.receiver = self;
+  v8.super_class = PHBottomBarAccessibility;
+  [(PHBottomBarAccessibility *)&v8 setAnimating:animatingCopy];
+  if (v5)
+  {
+    v6 = !animatingCopy;
+  }
+
+  else
+  {
+    v6 = 0;
+  }
+
+  if (v6)
+  {
+    defaultCenter = [MEMORY[0x29EDBA068] defaultCenter];
+    [defaultCenter postNotificationName:@"AXPHBottomBarStoppedAnimatingNotification" object:self];
+  }
+}
+
 - (void)refreshCustomizedActionTypeTitles
 {
   v3.receiver = self;
@@ -54,6 +80,14 @@
   v3.receiver = self;
   v3.super_class = PHBottomBarAccessibility;
   [(PHBottomBarAccessibility *)&v3 layoutSubviews];
+  [(PHBottomBarAccessibility *)self _accessibilityLoadAccessibilityInformation];
+}
+
+- (void)setCurrentState:(int64_t)state animated:(BOOL)animated animationCompletionBlock:(id)block
+{
+  v6.receiver = self;
+  v6.super_class = PHBottomBarAccessibility;
+  [(PHBottomBarAccessibility *)&v6 setCurrentState:state animated:animated animationCompletionBlock:block];
   [(PHBottomBarAccessibility *)self _accessibilityLoadAccessibilityInformation];
 }
 

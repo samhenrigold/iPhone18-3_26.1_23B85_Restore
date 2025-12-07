@@ -26,13 +26,15 @@
 
 - (void)presentationControllerDidDismiss:(id)dismiss
 {
-  v3 = *(*(&self->super.super.super.super.isa + OBJC_IVAR___ICMoveNavigationController_moveViewController) + OBJC_IVAR___ICMoveViewController_completionHandler);
-  if (v3)
+  v3 = *(&self->super.super.super.super.isa + OBJC_IVAR___ICMoveNavigationController_moveViewController) + OBJC_IVAR___ICMoveViewController_completionHandler;
+  v4 = *v3;
+  if (*v3)
   {
+    v5 = *(v3 + 1);
     selfCopy = self;
-    sub_100010854(v3);
-    v3(0);
-    sub_10000C840(v3);
+    sub_100010854(v4, v5);
+    v4(0);
+    sub_10000C840(v4, v5);
   }
 }
 

@@ -7,10 +7,9 @@
 
 - (id)SHA1Hash
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   CC_SHA1([self bytes], objc_msgSend(self, "length"), md);
   v1 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:md length:20];
-  v2 = *MEMORY[0x277D85DE8];
 
   return v1;
 }

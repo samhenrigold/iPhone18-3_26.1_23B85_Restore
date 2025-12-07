@@ -351,7 +351,7 @@
     v4 = @"thermal = critical, ";
   }
 
-  else if ([(NFReaderRestrictor *)self thermalPressureBackoff])
+  else if (objc_msgSend_thermalPressureBackoff(self))
   {
     v4 = @"thermal = backoff, ";
   }
@@ -1328,9 +1328,9 @@ LABEL_65:
   result = 20.0;
   if ((thermalPressureNominal & 1) == 0)
   {
-    thermalPressureBackoff = [(NFReaderRestrictor *)self thermalPressureBackoff];
+    v5 = objc_msgSend_thermalPressureBackoff(self, 20.0);
     result = 0.0;
-    if (thermalPressureBackoff)
+    if (v5)
     {
       return 7.0;
     }

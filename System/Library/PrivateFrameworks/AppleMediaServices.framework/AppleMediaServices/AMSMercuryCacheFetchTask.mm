@@ -45,7 +45,7 @@
   return v2;
 }
 
-id __35__AMSMercuryCacheFetchTask_perform__block_invoke(uint64_t a1)
+AMSMutablePromise *__35__AMSMercuryCacheFetchTask_perform__block_invoke(uint64_t a1)
 {
   v70 = *MEMORY[0x1E69E9840];
   v2 = objc_opt_new();

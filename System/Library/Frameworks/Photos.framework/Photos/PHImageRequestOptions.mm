@@ -317,7 +317,7 @@ LABEL_33:
   [v4 setFallbackTargetSizeIfRequestedSizeNotLocallyAvailable:?];
   [v4 setCannotReturnSmallerImage:{-[PHImageRequestOptions cannotReturnSmallerImage](self, "cannotReturnSmallerImage")}];
   [v4 setIgnoreProcessWideRepairLimits:{-[PHImageRequestOptions ignoreProcessWideRepairLimits](self, "ignoreProcessWideRepairLimits")}];
-  [(PHImageRequestOptions *)self videoFrameTime];
+  objc_msgSend_videoFrameTime(self);
   [v4 setVideoFrameTime:v10];
   [v4 setChooseAlchemist:{-[PHImageRequestOptions chooseAlchemist](self, "chooseAlchemist")}];
   contextualVideoThumbnailIdentifier = [(PHImageRequestOptions *)self contextualVideoThumbnailIdentifier];

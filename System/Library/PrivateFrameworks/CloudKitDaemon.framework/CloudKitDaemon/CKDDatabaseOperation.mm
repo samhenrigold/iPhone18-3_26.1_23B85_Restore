@@ -36,23 +36,23 @@
 
 - (void)_encryptMergeableDeltas:(id)deltas completionHandler:(id)handler
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   deltasCopy = deltas;
   handlerCopy = handler;
-  v46 = 0;
-  v47 = &v46;
-  v48 = 0x3032000000;
-  v49 = sub_225074000;
-  v50 = sub_22507358C;
-  v51 = 0;
-  v45[0] = MEMORY[0x277D85DD0];
-  v45[1] = 3221225472;
-  v45[2] = sub_2251CA1D4;
-  v45[3] = &unk_2785491B0;
-  v45[4] = &v46;
-  v9 = objc_msgSend_CKCompactReduceIntoDictionary_(deltasCopy, v8, v45);
+  v44 = 0;
+  v45 = &v44;
+  v46 = 0x3032000000;
+  v47 = sub_225074000;
+  v48 = sub_22507358C;
+  v49 = 0;
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = sub_2251CA1D4;
+  v43[3] = &unk_2785491B0;
+  v43[4] = &v44;
+  v9 = objc_msgSend_CKCompactReduceIntoDictionary_(deltasCopy, v8, v43);
   v12 = v9;
-  if (v47[5])
+  if (v45[5])
   {
     if (*MEMORY[0x277CBC880] != -1)
     {
@@ -62,18 +62,18 @@
     v13 = *MEMORY[0x277CBC840];
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      v33 = objc_msgSend_operationID(self, v14, v15);
-      v34 = v47[5];
+      v31 = objc_msgSend_operationID(self, v14, v15);
+      v32 = v45[5];
       *location = 138543618;
-      *&location[4] = v33;
-      v53 = 2112;
-      v54 = v34;
+      *&location[4] = v31;
+      v51 = 2112;
+      v52 = v32;
       _os_log_error_impl(&dword_22506F000, v13, OS_LOG_TYPE_ERROR, "Invalid encrypted deltas for operation %{public}@: %@", location, 0x16u);
     }
 
     if (handlerCopy)
     {
-      v16 = v47[5];
+      v16 = v45[5];
 LABEL_8:
       handlerCopy[2](handlerCopy, v16);
     }
@@ -83,7 +83,6 @@ LABEL_8:
   {
     v17 = objc_msgSend_count(v9, v10, v11);
     v18 = *MEMORY[0x277CBC878];
-    v19 = *MEMORY[0x277CBC880];
     if (v17)
     {
       if (*MEMORY[0x277CBC880] != -1)
@@ -91,38 +90,38 @@ LABEL_8:
         dispatch_once(MEMORY[0x277CBC880], v18);
       }
 
-      v20 = *MEMORY[0x277CBC840];
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+      v19 = *MEMORY[0x277CBC840];
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        v35 = objc_msgSend_operationID(self, v21, v22);
+        v33 = objc_msgSend_operationID(self, v20, v21);
         *location = 138543362;
-        *&location[4] = v35;
-        _os_log_debug_impl(&dword_22506F000, v20, OS_LOG_TYPE_DEBUG, "Will encrypt deltas for operation %{public}@", location, 0xCu);
+        *&location[4] = v33;
+        _os_log_debug_impl(&dword_22506F000, v19, OS_LOG_TYPE_DEBUG, "Will encrypt deltas for operation %{public}@", location, 0xCu);
       }
 
       objc_initWeak(location, self);
-      v23 = dispatch_group_create();
-      v40[0] = MEMORY[0x277D85DD0];
-      v40[1] = 3221225472;
-      v40[2] = sub_2251CA2F8;
-      v40[3] = &unk_278549200;
-      v24 = v23;
-      v41 = v24;
+      v22 = dispatch_group_create();
+      v38[0] = MEMORY[0x277D85DD0];
+      v38[1] = 3221225472;
+      v38[2] = sub_2251CA2F8;
+      v38[3] = &unk_278549200;
+      v23 = v22;
+      v39 = v23;
       selfCopy = self;
-      objc_copyWeak(&v44, location);
-      v43 = &v46;
-      objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v12, v25, v40);
-      v28 = objc_msgSend_callbackQueue(self, v26, v27);
-      v37[0] = MEMORY[0x277D85DD0];
-      v37[1] = 3221225472;
-      v37[2] = sub_2251CA810;
-      v37[3] = &unk_278549228;
-      v37[4] = self;
-      v38 = handlerCopy;
-      v39 = &v46;
-      dispatch_group_notify(v24, v28, v37);
+      objc_copyWeak(&v42, location);
+      v41 = &v44;
+      objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v12, v24, v38);
+      v27 = objc_msgSend_callbackQueue(self, v25, v26);
+      v35[0] = MEMORY[0x277D85DD0];
+      v35[1] = 3221225472;
+      v35[2] = sub_2251CA810;
+      v35[3] = &unk_278549228;
+      v35[4] = self;
+      v36 = handlerCopy;
+      v37 = &v44;
+      dispatch_group_notify(v23, v27, v35);
 
-      objc_destroyWeak(&v44);
+      objc_destroyWeak(&v42);
       objc_destroyWeak(location);
     }
 
@@ -133,13 +132,13 @@ LABEL_8:
         dispatch_once(MEMORY[0x277CBC880], v18);
       }
 
-      v30 = *MEMORY[0x277CBC840];
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+      v28 = *MEMORY[0x277CBC840];
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
       {
-        v36 = objc_msgSend_operationID(self, v31, v32);
+        v34 = objc_msgSend_operationID(self, v29, v30);
         *location = 138543362;
-        *&location[4] = v36;
-        _os_log_debug_impl(&dword_22506F000, v30, OS_LOG_TYPE_DEBUG, "No deltas to encrypt for operation %{public}@", location, 0xCu);
+        *&location[4] = v34;
+        _os_log_debug_impl(&dword_22506F000, v28, OS_LOG_TYPE_DEBUG, "No deltas to encrypt for operation %{public}@", location, 0xCu);
       }
 
       if (handlerCopy)
@@ -150,18 +149,17 @@ LABEL_8:
     }
   }
 
-  _Block_object_dispose(&v46, 8);
-  v29 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v44, 8);
 }
 
 - (CKDDatabaseOperation)initWithOperationInfo:(id)info container:(id)container
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   infoCopy = info;
   containerCopy = container;
-  v45.receiver = self;
-  v45.super_class = CKDDatabaseOperation;
-  v10 = [(CKDOperation *)&v45 initWithOperationInfo:infoCopy container:containerCopy];
+  v44.receiver = self;
+  v44.super_class = CKDDatabaseOperation;
+  v10 = [(CKDOperation *)&v44 initWithOperationInfo:infoCopy container:containerCopy];
   if (v10)
   {
     v10->_databaseScope = objc_msgSend_databaseScope(infoCopy, v8, v9);
@@ -195,14 +193,14 @@ LABEL_8:
           v32 = *MEMORY[0x277CBC830];
           if (os_log_type_enabled(*MEMORY[0x277CBC830], OS_LOG_TYPE_FAULT))
           {
-            v38 = v32;
-            v41 = objc_msgSend_applicationBundleID(containerCopy, v39, v40);
-            v44 = objc_msgSend_containerID(containerCopy, v42, v43);
+            v37 = v32;
+            v40 = objc_msgSend_applicationBundleID(containerCopy, v38, v39);
+            v43 = objc_msgSend_containerID(containerCopy, v41, v42);
             *buf = 138543618;
-            v47 = v41;
-            v48 = 2114;
-            v49 = v44;
-            _os_log_fault_impl(&dword_22506F000, v38, OS_LOG_TYPE_FAULT, "Unauthorized client (%{public}@) is trying to use clear asset encryption in container (%{public}@)", buf, 0x16u);
+            v46 = v40;
+            v47 = 2114;
+            v48 = v43;
+            _os_log_fault_impl(&dword_22506F000, v37, OS_LOG_TYPE_FAULT, "Unauthorized client (%{public}@) is trying to use clear asset encryption in container (%{public}@)", buf, 0x16u);
           }
         }
       }
@@ -214,7 +212,6 @@ LABEL_8:
     }
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v10;
 }
 

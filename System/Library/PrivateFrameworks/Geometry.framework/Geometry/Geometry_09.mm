@@ -1,6 +1,6 @@
 uint64_t geom::anonymous namespace::cubic_bezier_find_characteristic_points<float>(int *a1, float *a2, float32x2_t a3, float32x2_t a4, float32x2_t a5, float32x2_t a6)
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   v6 = vsub_f32(a4, a3);
   v7 = vsub_f32(a5, a3);
   v8 = vsub_f32(a6, a3);
@@ -27,9 +27,8 @@ uint64_t geom::anonymous namespace::cubic_bezier_find_characteristic_points<floa
       *a1 = 0;
       v25 = vmul_f32(_D1, v24);
 LABEL_10:
-      v32 = v25;
-      v33 = 1065353216;
-      goto LABEL_25;
+      v31 = v25;
+      v32 = 1065353216;
     }
 
     if (v23 > 0.00001 && _S2 <= 0.0)
@@ -51,8 +50,7 @@ LABEL_10:
     v26 = _D1.f32[0] / _S7;
 LABEL_14:
     *a2 = v26;
-    v27 = v26 < 1.0 && v26 > 0.0;
-    goto LABEL_25;
+    return v26 < 1.0 && v26 > 0.0;
   }
 
   if (fabsf(_D1.f32[0]) <= 0.00001)
@@ -77,14 +75,12 @@ LABEL_14:
   }
 
   *a1 = v28;
-LABEL_25:
-  v30 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
 uint64_t geom::anonymous namespace::cubic_bezier_find_characteristic_points<double>(int *a1, double *a2, float64x2_t a3, float64x2_t a4, float64x2_t a5, float64x2_t a6)
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   v6 = vsubq_f64(a4, a3);
   v7 = vsubq_f64(a5, a3);
   v8 = vsubq_f64(a6, a3);
@@ -115,9 +111,8 @@ uint64_t geom::anonymous namespace::cubic_bezier_find_characteristic_points<doub
       v25 = vmulq_f64(_Q2, v21);
       v26 = vextq_s8(v25, v25, 8uLL);
 LABEL_10:
-      v33 = v26;
-      v34 = 0x3FF0000000000000;
-      goto LABEL_22;
+      v32 = v26;
+      v33 = 0x3FF0000000000000;
     }
 
     if (v24 > 0.000001 && v23 <= 0.0)
@@ -140,8 +135,7 @@ LABEL_10:
     v27 = v21.f64[1] / v22;
 LABEL_14:
     *a2 = v27;
-    v29 = v27 < 1.0 && v27 > 0.0;
-    goto LABEL_22;
+    return v27 < 1.0 && v27 > 0.0;
   }
 
   if (fabs(v21.f64[1]) <= 0.000001)
@@ -166,21 +160,19 @@ LABEL_14:
   }
 
   *a1 = v30;
-LABEL_22:
-  v31 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
-float geom_cubic_bezier_fit_with_quadratic_bezier_pair_2f(uint64_t a1, uint64_t a2, float32x2_t a3, float32x2_t a4, float32x2_t a5, float32x2_t a6, float a7)
+float geom_cubic_bezier_fit_with_quadratic_bezier_pair_2f(float32x2_t *a1, float32x2_t *a2, float32x2_t a3, float32x2_t a4, float32x2_t a5, float32x2_t a6, float a7)
 {
-  *a1 = *&a3;
-  *(a2 + 16) = *&a6;
-  *(a1 + 8) = vmla_n_f32(a3, vsub_f32(a4, a3), a7 * 1.5);
+  *a1 = a3;
+  a2[2] = a6;
+  a1[1] = vmla_n_f32(a3, vsub_f32(a4, a3), a7 * 1.5);
   result = 1.0 - a7;
   v8 = vmla_n_f32(a6, vsub_f32(a5, a6), (1.0 - a7) * 1.5);
-  *(a2 + 8) = v8;
-  v9 = vmla_n_f32(vmul_n_f32(v8, a7), *(a1 + 8), 1.0 - a7);
-  *(a1 + 16) = v9;
+  a2[1] = v8;
+  v9 = vmla_n_f32(vmul_n_f32(v8, a7), a1[1], 1.0 - a7);
+  a1[2] = v9;
   *a2 = v9;
   return result;
 }
@@ -199,38 +191,38 @@ double geom_cubic_bezier_fit_with_quadratic_bezier_pair_2d(float64x2_t *a1, floa
   return result;
 }
 
-unint64_t geom_cubic_bezier_fit_with_quadratic_beziers_2f(uint64_t a1, float32x2_t a2, float32x2_t a3, float32x2_t a4, float32x2_t a5)
+unint64_t geom_cubic_bezier_fit_with_quadratic_beziers_2f(uint64_t a1, double a2, float32x2_t a3, float32x2_t a4, float32x2_t a5)
 {
-  v101 = *MEMORY[0x277D85DE8];
+  v100 = *MEMORY[0x277D85DE8];
   v9 = geom::collection_to_vector<float>(a1);
-  v94 = 0;
+  v93 = 0;
   v9[1] = *v9;
-  if (v94 == 3)
+  if (v93 == 3)
   {
     _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEm(v9, 3uLL);
     v35 = *v9;
     v36 = vdup_n_s32(0x3E19999Au);
     v37 = vdup_n_s32(0x3F733333u);
     v38 = vdup_n_s32(0x3D4CCCCDu);
-    v39 = vmla_f32(vmla_f32(vmul_f32(vsub_f32(a3, a4), v36), v37, a2), v38, a5);
-    v35[2] = vmla_f32(vmla_f32(vmul_f32(vsub_f32(a4, a3), v36), v38, a2), v37, a5);
+    v39 = vmla_f32(vmla_f32(vmul_f32(vsub_f32(a3, a4), v36), v37, *&a2), v38, a5);
+    v35[2] = vmla_f32(vmla_f32(vmul_f32(vsub_f32(a4, a3), v36), v38, *&a2), v37, a5);
     __asm { FMOV            V3.2S, #-0.25 }
 
-    v41 = vmul_f32(vadd_f32(a2, a5), _D3);
+    v41 = vmul_f32(vadd_f32(*&a2, a5), _D3);
     __asm { FMOV            V3.2S, #0.75 }
 
     *v35 = v39;
     v35[1] = vmla_f32(v41, _D3, vadd_f32(a3, a4));
-    goto LABEL_46;
+    return (v9[1] - *v9) / 3uLL;
   }
 
-  if (v94 == 4)
+  if (v93 == 4)
   {
-    v17 = vsub_f32(a5, a2);
-    v18 = vmul_f32(vsub_f32(a3, a2), v17);
+    v17 = vsub_f32(a5, *&a2);
+    v18 = vmul_f32(vsub_f32(a3, *&a2), v17);
     v19 = vadd_f32(v18, vdup_lane_s32(v18, 1));
     v20 = vaddv_f32(v18);
-    v21 = vmul_f32(vsub_f32(a4, a2), v17);
+    v21 = vmul_f32(vsub_f32(a4, *&a2), v17);
     v22 = vadd_f32(v21, vdup_lane_s32(v21, 1));
     v23 = vmul_f32(v17, v17);
     v24 = vadd_f32(v23, vdup_lane_s32(v23, 1));
@@ -245,7 +237,7 @@ unint64_t geom_cubic_bezier_fit_with_quadratic_beziers_2f(uint64_t a1, float32x2
       {
         if (fabsf(v28) > 0.00001)
         {
-          v99 = -v27 / v28;
+          v98 = -v27 / v28;
           v34 = 1;
           goto LABEL_29;
         }
@@ -264,12 +256,12 @@ unint64_t geom_cubic_bezier_fit_with_quadratic_beziers_2f(uint64_t a1, float32x2
 
           v32 = (v28 + (v31 * sqrtf(v30))) * -0.5;
           v33 = v27 / v32;
-          v99 = v32 / v29;
-          v100 = v33;
+          v98 = v32 / v29;
+          v99 = v33;
           if (v33 < (v32 / v29))
           {
-            v99 = v33;
-            v100 = v32 / v29;
+            v98 = v33;
+            v99 = v32 / v29;
           }
 
           v34 = 2;
@@ -283,10 +275,10 @@ LABEL_29:
           v78 = 0;
           do
           {
-            v79 = *(&v99 + v77);
+            v79 = *(&v98 + v77);
             if (v79 >= 0.0 && v79 <= 1.0)
             {
-              *(&v97 + v78++) = v79;
+              *(&v96 + v78++) = v79;
             }
 
             ++v77;
@@ -296,23 +288,23 @@ LABEL_29:
           _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEm(v9, 3 * v78 + 3);
           if (v78 == 1)
           {
-            v91 = COERCE_DOUBLE(vmla_n_f32(vmla_n_f32(vmla_n_f32(vmul_n_f32(a3, v97 * (((1.0 - v97) * (1.0 - v97)) * 3.0)), a2, (1.0 - v97) * ((1.0 - v97) * (1.0 - v97))), a4, (v97 * v97) * ((1.0 - v97) * 3.0)), a5, v97 * (v97 * v97)));
+            v90 = COERCE_DOUBLE(vmla_n_f32(vmla_n_f32(vmla_n_f32(vmul_n_f32(a3, v96 * (((1.0 - v96) * (1.0 - v96)) * 3.0)), *&a2, (1.0 - v96) * ((1.0 - v96) * (1.0 - v96))), a4, (v96 * v96) * ((1.0 - v96) * 3.0)), a5, v96 * (v96 * v96)));
             **v9 = a2;
-            (*v9)[1] = vmul_f32(vadd_f32(a2, *&v91), 0x3F0000003F000000);
-            *&(*v9)[2] = v91;
-            *&(*v9)[3] = v91;
+            (*v9)[1] = vmul_f32(vadd_f32(*&a2, *&v90), 0x3F0000003F000000);
+            *&(*v9)[2] = v90;
+            *&(*v9)[3] = v90;
             v83 = 5;
             v84 = 4;
-            *&a2 = v91;
+            a2 = v90;
             goto LABEL_41;
           }
 
           if (v78 == 2)
           {
-            v81 = vmla_n_f32(vmla_n_f32(vmla_n_f32(vmul_n_f32(a3, v97 * (((1.0 - v97) * (1.0 - v97)) * 3.0)), a2, (1.0 - v97) * ((1.0 - v97) * (1.0 - v97))), a4, (v97 * v97) * ((1.0 - v97) * 3.0)), a5, v97 * (v97 * v97));
-            v82 = COERCE_DOUBLE(vmla_n_f32(vmla_n_f32(vmla_n_f32(vmul_n_f32(a3, v98 * (((1.0 - v98) * (1.0 - v98)) * 3.0)), a2, (1.0 - v98) * ((1.0 - v98) * (1.0 - v98))), a4, (v98 * v98) * ((1.0 - v98) * 3.0)), a5, v98 * (v98 * v98)));
+            v81 = vmla_n_f32(vmla_n_f32(vmla_n_f32(vmul_n_f32(a3, v96 * (((1.0 - v96) * (1.0 - v96)) * 3.0)), *&a2, (1.0 - v96) * ((1.0 - v96) * (1.0 - v96))), a4, (v96 * v96) * ((1.0 - v96) * 3.0)), a5, v96 * (v96 * v96));
+            v82 = COERCE_DOUBLE(vmla_n_f32(vmla_n_f32(vmla_n_f32(vmul_n_f32(a3, v97 * (((1.0 - v97) * (1.0 - v97)) * 3.0)), *&a2, (1.0 - v97) * ((1.0 - v97) * (1.0 - v97))), a4, (v97 * v97) * ((1.0 - v97) * 3.0)), a5, v97 * (v97 * v97)));
             **v9 = a2;
-            (*v9)[1] = vmul_f32(vadd_f32(a2, v81), 0x3F0000003F000000);
+            (*v9)[1] = vmul_f32(vadd_f32(*&a2, v81), 0x3F0000003F000000);
             (*v9)[2] = v81;
             (*v9)[3] = v81;
             (*v9)[4] = vmul_f32(vadd_f32(v81, *&v82), 0x3F0000003F000000);
@@ -320,11 +312,11 @@ LABEL_29:
             *&(*v9)[6] = v82;
             v83 = 8;
             v84 = 7;
-            *&a2 = v82;
+            a2 = v82;
 LABEL_41:
-            (*v9)[v84] = vmul_f32(vadd_f32(a5, a2), 0x3F0000003F000000);
+            (*v9)[v84] = vmul_f32(vadd_f32(a5, *&a2), 0x3F0000003F000000);
             (*v9)[v83] = a5;
-            goto LABEL_46;
+            return (v9[1] - *v9) / 3uLL;
           }
 
 LABEL_40:
@@ -340,9 +332,9 @@ LABEL_40:
     goto LABEL_40;
   }
 
-  if (v94 != 5)
+  if (v93 != 5)
   {
-    v43 = vsub_f32(a3, a2);
+    v43 = vsub_f32(a3, *&a2);
     v44 = vaddv_f32(vmul_f32(v43, v43));
     v45 = vsub_f32(a4, a3);
     v46 = vmul_f32(v45, v45);
@@ -362,49 +354,49 @@ LABEL_40:
     v50 = v44 * 0.0000999999978;
     if (characteristic == 1)
     {
-      v85 = vmla_n_f32(a2, v43, v95);
-      a4 = vmla_n_f32(a4, v47, v95);
-      v86 = vmla_n_f32(a3, v45, v95);
-      v87 = vmla_n_f32(v85, vsub_f32(v86, v85), v95);
-      a3 = vmla_n_f32(v86, vsub_f32(a4, v86), v95);
-      v88 = vmla_n_f32(v87, vsub_f32(a3, v87), v95);
-      v74 = v88;
+      v85 = vmla_n_f32(*&a2, v43, v94);
+      a4 = vmla_n_f32(a4, v47, v94);
+      v86 = vmla_n_f32(a3, v45, v94);
+      v87 = vmla_n_f32(v85, vsub_f32(v86, v85), v94);
+      a3 = vmla_n_f32(v86, vsub_f32(a4, v86), v94);
+      v88 = vmla_n_f32(v87, vsub_f32(a3, v87), v94);
+      v74 = *&v88;
     }
 
     else
     {
       if (characteristic == 2)
       {
-        v51 = vmla_f32(a2, 0, v43);
+        v51 = vmla_f32(*&a2, 0, v43);
         v52 = vmla_f32(a3, 0, v45);
         v53 = vsub_f32(v52, v51);
         v54 = vmla_f32(v51, 0, v53);
         v55 = vsub_f32(vmla_f32(a4, 0, v47), v52);
         v56 = vsub_f32(vmla_f32(v52, 0, v55), v54);
-        v57 = vmla_n_f32(v51, v53, v95);
-        v93 = v95;
-        v58 = vmla_n_f32(a2, v43, v93);
-        v59 = vmla_n_f32(a3, v45, v93);
+        v57 = vmla_n_f32(v51, v53, v94);
+        v92 = v94;
+        v58 = vmla_n_f32(*&a2, v43, v92);
+        v59 = vmla_n_f32(a3, v45, v92);
         v60 = vsub_f32(v59, v58);
-        v61 = vmla_n_f32(v58, v60, v93);
-        v62 = vsub_f32(vmla_n_f32(a4, v47, v93), v59);
-        v63 = vsub_f32(vmla_n_f32(v59, v62, v93), v61);
-        v64 = vmla_n_f32(v58, v60, v96);
-        v92 = v96;
-        v65 = vmla_n_f32(a2, v43, v92);
-        v66 = vmla_n_f32(a3, v45, v92);
+        v61 = vmla_n_f32(v58, v60, v92);
+        v62 = vsub_f32(vmla_n_f32(a4, v47, v92), v59);
+        v63 = vsub_f32(vmla_n_f32(v59, v62, v92), v61);
+        v64 = vmla_n_f32(v58, v60, v95);
+        v91 = v95;
+        v65 = vmla_n_f32(*&a2, v43, v91);
+        v66 = vmla_n_f32(a3, v45, v91);
         v67 = vsub_f32(v66, v65);
         v68 = vadd_f32(v65, v67);
-        v69 = vmla_n_f32(v65, v67, v92);
-        v70 = vsub_f32(vmla_n_f32(a4, v47, v92), v66);
+        v69 = vmla_n_f32(v65, v67, v91);
+        v70 = vsub_f32(vmla_n_f32(a4, v47, v91), v66);
         v71 = vadd_f32(v66, v70);
-        v72 = vsub_f32(vmla_n_f32(v66, v70, v92), v69);
+        v72 = vsub_f32(vmla_n_f32(v66, v70, v91), v69);
         v73 = vadd_f32(v69, v72);
-        v74 = vmla_n_f32(v69, v72, v92);
+        v74 = COERCE_DOUBLE(vmla_n_f32(v69, v72, v91));
         v75 = vadd_f32(v68, vsub_f32(v71, v68));
-        v76 = vadd_f32(a5, vmla_f32(vmla_f32(vmul_f32(a3, 0), 0, a2), 0, a4));
+        v76 = vadd_f32(a5, vmla_f32(vmla_f32(vmul_f32(a3, 0), 0, *&a2), 0, a4));
 LABEL_45:
-        goto LABEL_46;
+        return (v9[1] - *v9) / 3uLL;
       }
 
       v74 = a2;
@@ -418,23 +410,21 @@ LABEL_45:
 
   __asm { FMOV            V1.2S, #0.25 }
 
-  v16 = vmul_f32(vadd_f32(a5, vadd_f32(a4, vadd_f32(a2, a3))), _D1);
+  v16 = vmul_f32(vadd_f32(a5, vadd_f32(a4, vadd_f32(*&a2, a3))), _D1);
   _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE6resizeEm(v9, 3uLL);
   (*v9)[2] = v16;
   (*v9)[1] = v16;
   **v9 = v16;
-LABEL_46:
-  v89 = *MEMORY[0x277D85DE8];
   return (v9[1] - *v9) / 3uLL;
 }
 
 unint64_t geom_cubic_bezier_fit_with_quadratic_beziers_2d(uint64_t a1, float64x2_t a2, float64x2_t a3, float64x2_t a4, float64x2_t a5)
 {
-  v106 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   v5 = geom::collection_to_vector<float>(a1);
-  v99 = 0;
+  v98 = 0;
   v5[1] = *v5;
-  if (v99 == 3)
+  if (v98 == 3)
   {
     _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(v5, 3uLL);
     v31 = *v5;
@@ -450,10 +440,10 @@ unint64_t geom_cubic_bezier_fit_with_quadratic_beziers_2d(uint64_t a1, float64x2
 
     *v31 = v35;
     v31[1] = vmlaq_f64(v37, _Q3, vaddq_f64(a3, a4));
-    goto LABEL_47;
+    return (v5[1] - *v5) / 3uLL;
   }
 
-  if (v99 == 4)
+  if (v98 == 4)
   {
     v13 = vsubq_f64(a5, a2);
     v14 = vmulq_f64(vsubq_f64(a3, a2), v13);
@@ -464,7 +454,7 @@ unint64_t geom_cubic_bezier_fit_with_quadratic_beziers_2d(uint64_t a1, float64x2
     v19 = vaddq_f64(v18, vdupq_laneq_s64(v18, 1));
     __asm { FMOV            V3.2D, #0.5 }
 
-    v91 = _Q3;
+    v90 = _Q3;
     if (_NF || (vmovn_s64(vcgtq_f64(v17, v19)).u8[0] & 1) != 0 || (vmovn_s64(vcgtq_f64(v15, v19)).u8[0] & 1) != 0 || v17.f64[0] < 0.0)
     {
       v21 = vdivq_f64(v15, v19).f64[0];
@@ -476,7 +466,7 @@ unint64_t geom_cubic_bezier_fit_with_quadratic_beziers_2d(uint64_t a1, float64x2
       {
         if (fabs(v24) > 0.000001)
         {
-          v104 = -v23 / v24;
+          v102 = -v23 / v24;
           v30 = 1;
           goto LABEL_31;
         }
@@ -495,12 +485,12 @@ unint64_t geom_cubic_bezier_fit_with_quadratic_beziers_2d(uint64_t a1, float64x2
 
           v28 = (v24 + v27 * sqrt(v26)) * -0.5;
           v29 = v23 / v28;
-          v104 = v28 / v25;
-          v105 = v29;
+          v102 = v28 / v25;
+          v103 = v29;
           if (v29 < v28 / v25)
           {
-            v104 = v29;
-            v105 = v28 / v25;
+            v102 = v29;
+            v103 = v28 / v25;
           }
 
           v30 = 2;
@@ -514,10 +504,10 @@ LABEL_31:
           v72 = 0;
           do
           {
-            v73 = *(&v104 + v71);
+            v73 = *(&v102 + v71);
             if (v73 >= 0.0 && v73 <= 1.0)
             {
-              *(&v102 + v72++) = v73;
+              *(&v100 + v72++) = v73;
             }
 
             ++v71;
@@ -527,10 +517,10 @@ LABEL_31:
           _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(v5, 3 * v72 + 3);
           if (v72 == 1)
           {
-            v80 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(a3, v102 * ((1.0 - v102) * (1.0 - v102) * 3.0)), a2, (1.0 - v102) * ((1.0 - v102) * (1.0 - v102))), a4, v102 * v102 * ((1.0 - v102) * 3.0)), a5, v102 * (v102 * v102));
+            v80 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(a3, v100 * ((1.0 - v100) * (1.0 - v100) * 3.0)), a2, (1.0 - v100) * ((1.0 - v100) * (1.0 - v100))), a4, v100 * v100 * ((1.0 - v100) * 3.0)), a5, v100 * (v100 * v100));
             **v5 = a2;
-            v77 = v91;
-            (*v5)[1] = vmulq_f64(vaddq_f64(a2, v80), v91);
+            v77 = v90;
+            (*v5)[1] = vmulq_f64(vaddq_f64(a2, v80), v90);
             (*v5)[2] = v80;
             (*v5)[3] = v80;
             v78 = 5;
@@ -540,14 +530,14 @@ LABEL_31:
 
           if (v72 == 2)
           {
-            v75 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(a3, v102 * ((1.0 - v102) * (1.0 - v102) * 3.0)), a2, (1.0 - v102) * ((1.0 - v102) * (1.0 - v102))), a4, v102 * v102 * ((1.0 - v102) * 3.0)), a5, v102 * (v102 * v102));
-            v76 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(a3, v103 * ((1.0 - v103) * (1.0 - v103) * 3.0)), a2, (1.0 - v103) * ((1.0 - v103) * (1.0 - v103))), a4, v103 * v103 * ((1.0 - v103) * 3.0)), a5, v103 * (v103 * v103));
+            v75 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(a3, v100 * ((1.0 - v100) * (1.0 - v100) * 3.0)), a2, (1.0 - v100) * ((1.0 - v100) * (1.0 - v100))), a4, v100 * v100 * ((1.0 - v100) * 3.0)), a5, v100 * (v100 * v100));
+            v76 = vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(a3, v101 * ((1.0 - v101) * (1.0 - v101) * 3.0)), a2, (1.0 - v101) * ((1.0 - v101) * (1.0 - v101))), a4, v101 * v101 * ((1.0 - v101) * 3.0)), a5, v101 * (v101 * v101));
             **v5 = a2;
-            v77 = v91;
-            (*v5)[1] = vmulq_f64(vaddq_f64(a2, v75), v91);
+            v77 = v90;
+            (*v5)[1] = vmulq_f64(vaddq_f64(a2, v75), v90);
             (*v5)[2] = v75;
             (*v5)[3] = v75;
-            (*v5)[4] = vmulq_f64(vaddq_f64(v75, v76), v91);
+            (*v5)[4] = vmulq_f64(vaddq_f64(v75, v76), v90);
             (*v5)[5] = v76;
             (*v5)[6] = v76;
             v78 = 8;
@@ -556,11 +546,11 @@ LABEL_31:
 LABEL_43:
             (*v5)[v79] = vmulq_f64(vaddq_f64(a5, v80), v77);
             (*v5)[v78] = a5;
-            goto LABEL_47;
+            return (v5[1] - *v5) / 3uLL;
           }
 
 LABEL_42:
-          v77 = v91;
+          v77 = v90;
           v80 = a2;
           **v5 = a2;
           v78 = 2;
@@ -575,7 +565,7 @@ LABEL_42:
   }
 
   v7 = a2;
-  if (v99 != 5)
+  if (v98 != 5)
   {
     v39 = vsubq_f64(a3, a2);
     v40 = vaddvq_f64(vmulq_f64(v39, v39));
@@ -600,51 +590,51 @@ LABEL_42:
     v45 = v44 * 0.0001;
     if (characteristic == 1)
     {
-      v81 = vmlaq_n_f64(a2, v39, v100);
-      v82 = vmlaq_n_f64(a4, v42, v100);
-      v83 = vmlaq_n_f64(a3, v41, v100);
-      v84 = vmlaq_n_f64(v81, vsubq_f64(v83, v81), v100);
-      a3 = vmlaq_n_f64(v83, vsubq_f64(v82, v83), v100);
+      v81 = vmlaq_n_f64(a2, v39, v99[0]);
+      v82 = vmlaq_n_f64(a4, v42, v99[0]);
+      v83 = vmlaq_n_f64(a3, v41, v99[0]);
+      v84 = vmlaq_n_f64(v81, vsubq_f64(v83, v81), v99[0]);
+      a3 = vmlaq_n_f64(v83, vsubq_f64(v82, v83), v99[0]);
       a4 = v82;
-      v93 = vmlaq_n_f64(v84, vsubq_f64(a3, v84), v100);
-      v7 = v93;
+      v92 = vmlaq_n_f64(v84, vsubq_f64(a3, v84), v99[0]);
+      v7 = v92;
     }
 
     else if (characteristic == 2)
     {
       v46 = vmlaq_f64(a2, 0, v39);
       v47 = vmlaq_f64(a3, 0, v41);
-      v90 = v42;
-      v92 = v41;
+      v89 = v42;
+      v91 = v41;
       v48 = vsubq_f64(v47, v46);
       v49 = vmlaq_f64(v46, 0, v48);
       v50 = vsubq_f64(vmlaq_f64(a4, 0, v42), v47);
       v51 = vsubq_f64(vmlaq_f64(v47, 0, v50), v49);
-      v52 = vmlaq_n_f64(v46, v48, v100);
-      v88 = v100;
-      v89 = v39;
-      v53 = vmlaq_n_f64(a2, v89, v88);
-      v54 = vmlaq_n_f64(a3, v92, v88);
+      v52 = vmlaq_n_f64(v46, v48, v99[0]);
+      v87 = v99[0];
+      v88 = v39;
+      v53 = vmlaq_n_f64(a2, v88, v87);
+      v54 = vmlaq_n_f64(a3, v91, v87);
       v55 = vsubq_f64(v54, v53);
-      v56 = vmlaq_n_f64(v53, v55, v88);
-      v57 = vsubq_f64(vmlaq_n_f64(a4, v90, v88), v54);
-      v58 = vsubq_f64(vmlaq_n_f64(v54, v57, v88), v56);
-      v59 = vmlaq_n_f64(v53, v55, v101);
-      v87 = v101;
-      v60 = vmlaq_n_f64(a2, v89, v87);
-      v61 = vmlaq_n_f64(a3, v92, v87);
+      v56 = vmlaq_n_f64(v53, v55, v87);
+      v57 = vsubq_f64(vmlaq_n_f64(a4, v89, v87), v54);
+      v58 = vsubq_f64(vmlaq_n_f64(v54, v57, v87), v56);
+      v59 = vmlaq_n_f64(v53, v55, v99[1]);
+      v86 = v99[1];
+      v60 = vmlaq_n_f64(a2, v88, v86);
+      v61 = vmlaq_n_f64(a3, v91, v86);
       v62 = vsubq_f64(v61, v60);
       v63 = vaddq_f64(v60, v62);
-      v64 = vmlaq_n_f64(v60, v62, v87);
-      v65 = vsubq_f64(vmlaq_n_f64(a4, v90, v87), v61);
+      v64 = vmlaq_n_f64(v60, v62, v86);
+      v65 = vsubq_f64(vmlaq_n_f64(a4, v89, v86), v61);
       v66 = vaddq_f64(v61, v65);
-      v67 = vsubq_f64(vmlaq_n_f64(v61, v65, v87), v64);
+      v67 = vsubq_f64(vmlaq_n_f64(v61, v65, v86), v64);
       v68 = vaddq_f64(v64, v67);
-      v7 = vmlaq_n_f64(v64, v67, v87);
+      v7 = vmlaq_n_f64(v64, v67, v86);
       v69 = vaddq_f64(v63, vsubq_f64(v66, v63));
       v70 = vaddq_f64(a5, vmlaq_f64(vmlaq_f64(vmulq_f64(a3, 0), 0, a2), 0, a4));
 LABEL_46:
-      goto LABEL_47;
+      return (v5[1] - *v5) / 3uLL;
     }
 
     v68 = a3;
@@ -655,13 +645,11 @@ LABEL_46:
 
   __asm { FMOV            V1.2D, #0.25 }
 
-  v98 = vmulq_f64(vaddq_f64(a5, vaddq_f64(a4, vaddq_f64(a2, a3))), _Q1);
+  v97 = vmulq_f64(vaddq_f64(a5, vaddq_f64(a4, vaddq_f64(a2, a3))), _Q1);
   _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE6resizeEm(v5, 3uLL);
-  (*v5)[2] = v98;
-  (*v5)[1] = v98;
-  **v5 = v98;
-LABEL_47:
-  v85 = *MEMORY[0x277D85DE8];
+  (*v5)[2] = v97;
+  (*v5)[1] = v97;
+  **v5 = v97;
   return (v5[1] - *v5) / 3uLL;
 }
 
@@ -775,35 +763,31 @@ uint64_t geom_intersect_line_segment_quadratic_bezier_2d(double *a1, double *a2,
 
 uint64_t geom_intersect_line_quadratic_bezier_2f(uint64_t a1, int a2, float *a3, double a4, double a5, double a6)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   LODWORD(v6) = vdup_lane_s32(a1, 1).u32[0];
   HIDWORD(v6) = a1 ^ 0x80000000;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t geom_intersect_line_quadratic_bezier_2d(uint64_t a1, double *a2, float64x2_t a3, float64x2_t a4, float64x2_t a5)
 {
-  v8[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   *&v5.f64[0] = vdupq_laneq_s64(*a1, 1).u64[0];
   v5.f64[1] = -*a1;
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t geom_closest_point_to_quadratic_bezier_2f(float *a1, float *a2, float32x2_t a3, float32x2_t a4, float32x2_t a5, float32x2_t a6)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v12 = vsub_f32(a5, a4);
   v13 = vadd_f32(v12, v12);
   v14 = vmla_f32(vsub_f32(a6, a4), 0xC0000000C0000000, v12);
   v15 = vsub_f32(a4, a3);
-  v34[0] = vaddv_f32(vmul_f32(v15, v13));
-  v34[1] = vaddv_f32(vmul_f32(v13, v13)) + (vaddv_f32(vmul_f32(v15, v14)) * 2.0);
+  v33[0] = vaddv_f32(vmul_f32(v15, v13));
+  v33[1] = vaddv_f32(vmul_f32(v13, v13)) + (vaddv_f32(vmul_f32(v15, v14)) * 2.0);
   v16 = vmul_f32(v13, v14);
   v17 = vmul_f32(v14, v14);
-  v35 = vmul_f32(vadd_f32(vzip1_s32(v16, v17), vzip2_s32(v16, v17)), 0x4000000040400000);
-  result = geom::cubic_roots<float>(v34, v33);
+  v34 = vmul_f32(vadd_f32(vzip1_s32(v16, v17), vzip2_s32(v16, v17)), 0x4000000040400000);
+  result = geom::cubic_roots<float>(v33, v32);
   if (a2)
   {
     *a2 = INFINITY;
@@ -825,7 +809,7 @@ uint64_t geom_closest_point_to_quadratic_bezier_2f(float *a1, float *a2, float32
         v21 = v20;
         while (1)
         {
-          v22 = v33[v21];
+          v22 = v32[v21];
           if (v22 <= 0.0 || v22 >= 1.0)
           {
             goto LABEL_21;
@@ -916,7 +900,7 @@ LABEL_26:
 
   if (v29.f32[1] >= v19)
   {
-    goto LABEL_37;
+    return result;
   }
 
   v31 = 1.0;
@@ -933,25 +917,23 @@ LABEL_35:
     *a1 = v31;
   }
 
-LABEL_37:
-  v32 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t geom_closest_point_to_quadratic_bezier_2d(double *a1, double *a2, float64x2_t a3, float64x2_t a4, float64x2_t a5, float64x2_t a6)
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v8 = vsubq_f64(a5, a4);
   v9 = vsubq_f64(a6, a4);
   v10 = vaddq_f64(v8, v8);
   __asm { FMOV            V3.2D, #-2.0 }
 
   v15 = vmlaq_f64(v9, _Q3, v8);
-  v31 = vsubq_f64(a4, a3);
-  v36[0] = vaddvq_f64(vmulq_f64(v31, v10));
-  v36[1] = vaddvq_f64(vmulq_f64(v10, v10)) + vaddvq_f64(vmulq_f64(v31, v15)) * 2.0;
-  v37 = vmulq_f64(vpaddq_f64(vmulq_f64(v10, v15), vmulq_f64(v15, v15)), xmmword_2500CA840);
-  result = geom::cubic_roots<double>(v36, v35);
+  v30 = vsubq_f64(a4, a3);
+  v35[0] = vaddvq_f64(vmulq_f64(v30, v10));
+  v35[1] = vaddvq_f64(vmulq_f64(v10, v10)) + vaddvq_f64(vmulq_f64(v30, v15)) * 2.0;
+  v36 = vmulq_f64(vpaddq_f64(vmulq_f64(v10, v15), vmulq_f64(v15, v15)), xmmword_2500CA840);
+  result = geom::cubic_roots<double>(v35, v34);
   if (a2)
   {
     *a2 = INFINITY;
@@ -973,7 +955,7 @@ uint64_t geom_closest_point_to_quadratic_bezier_2d(double *a1, double *a2, float
         v19 = v18;
         while (1)
         {
-          v20 = v35[v19];
+          v20 = v34[v19];
           if (v20 <= 0.0 || v20 >= 1.0)
           {
             goto LABEL_21;
@@ -1035,7 +1017,7 @@ LABEL_21:
       break;
     }
 
-    v24 = v31;
+    v24 = v30;
     if (a2)
     {
       v17 = *a2;
@@ -1046,7 +1028,7 @@ LABEL_21:
   {
     v17 = INFINITY;
 LABEL_26:
-    v24 = v31;
+    v24 = v30;
   }
 
   v25 = vsubq_f64(a6, a3);
@@ -1064,7 +1046,7 @@ LABEL_26:
 
   if (v26.f64[1] >= v17)
   {
-    goto LABEL_38;
+    return result;
   }
 
   v28 = 1.0;
@@ -1081,8 +1063,6 @@ LABEL_36:
     *a1 = v28;
   }
 
-LABEL_38:
-  v29 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1196,26 +1176,22 @@ uint64_t geom_intersect_line_segment_cubic_bezier_2d(double *a1, double *a2, flo
 
 uint64_t geom_intersect_line_cubic_bezier_2f(uint64_t a1, int a2, float *a3, float32x2_t a4, double a5, float32x2_t a6, float32x2_t a7)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v7.i32[0] = vdup_lane_s32(a1, 1).u32[0];
   v7.i32[1] = a1 ^ 0x80000000;
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t geom_intersect_line_cubic_bezier_2d(uint64_t a1, double *a2, float64x2_t a3, float64x2_t a4, float64x2_t a5, float64x2_t a6)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
+  v8[3] = *MEMORY[0x277D85DE8];
   *&v6.f64[0] = vdupq_laneq_s64(*a1, 1).u64[0];
   v6.f64[1] = -*a1;
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 float *geom_closest_point_to_cubic_bezier_2f(float *result, float *a2, float32x2_t a3, float32x2_t a4, float32x2_t a5, float32x2_t a6, float32x2_t a7, uint64_t a8, double *a9)
 {
   v10 = result;
-  v78 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
     v16 = INFINITY;
@@ -1250,30 +1226,30 @@ LABEL_4:
   v30 = vadd_f32(v28, vdup_lane_s32(v28, 1));
   v31 = vaddv_f32(v28);
   v32 = vmul_f32(v24, v24);
-  v74 = v31;
+  v73 = v31;
   v32.i32[0] = vadd_f32(v32, vdup_lane_s32(v32, 1)).u32[0];
   v33 = vmul_f32(v27, v26);
   v34 = vmul_f32(v24, v26);
   v32.f32[1] = vaddv_f32(vmul_f32(v27, v29)) * 3.0;
   v35 = vmla_f32(v32, 0x4040000040000000, vadd_f32(vzip1_s32(v33, v34), vzip2_s32(v33, v34)));
-  v75 = v35;
+  v74 = v35;
   v36 = (vaddv_f32(vmul_f32(v24, v29)) * 4.0) + (vaddv_f32(vmul_f32(v26, v26)) * 2.0);
-  v76 = v36;
+  v75 = v36;
   v37 = vmul_f32(v26, v29);
   v38 = vmul_f32(v29, v29);
   v39 = vmul_f32(vadd_f32(vzip1_s32(v37, v38), vzip2_s32(v37, v38)), 0x4040000040A00000);
-  v77 = v39;
-  *(&v70 + 1) = v31 + (v35.f32[0] * 0.2);
-  *v71.f64 = v31 + ((v35.f32[1] + (v35.f32[0] * 4.0)) * 0.1);
+  v76 = v39;
+  *(&v69 + 1) = v31 + (v35.f32[0] * 0.2);
+  *v70.f64 = v31 + ((v35.f32[1] + (v35.f32[0] * 4.0)) * 0.1);
   v26.f32[0] = vmuls_lane_f32(3.0, v35, 1);
-  *(v71.f64 + 1) = v31 + ((v36 + (v26.f32[0] + (v35.f32[0] * 6.0))) * 0.1);
-  *&v71.f64[1] = v31 + ((v39.f32[0] + ((v26.f32[0] + (v35.f32[0] * 4.0)) + (v36 * 2.0))) * 0.2);
-  *(&v71.f64[1] + 1) = v39.f32[1] + (v39.f32[0] + (v36 + (vadd_f32(v30, v35).f32[0] + v35.f32[1])));
+  *(v70.f64 + 1) = v31 + ((v36 + (v26.f32[0] + (v35.f32[0] * 6.0))) * 0.1);
+  *&v70.f64[1] = v31 + ((v39.f32[0] + ((v26.f32[0] + (v35.f32[0] * 4.0)) + (v36 * 2.0))) * 0.2);
+  *(&v70.f64[1] + 1) = v39.f32[1] + (v39.f32[0] + (v36 + (vadd_f32(v30, v35).f32[0] + v35.f32[1])));
   v40 = 4;
   v41 = v31;
   do
   {
-    v42 = *(&v70 + v40);
+    v42 = *(&v69 + v40);
     if ((v41 * v42) <= 0.0)
     {
       ++v17;
@@ -1298,7 +1274,7 @@ LABEL_4:
         v48 = 0.0;
         do
         {
-          v49 = *(&v74 + v47);
+          v49 = *(&v73 + v47);
           v48 = v49 + (v45 * v48);
           v46 = (v45 * v46) + (v49 * v47);
         }
@@ -1354,18 +1330,18 @@ LABEL_4:
     }
 
 LABEL_28:
-    v70 = v31;
-    v71 = vcvtq_f64_f32(v35);
-    v72 = v36;
-    v73 = vcvtq_f64_f32(v39);
-    result = geom::polynomial_roots(6, &v70, v69, a9);
+    v69 = v31;
+    v70 = vcvtq_f64_f32(v35);
+    v71 = v36;
+    v72 = vcvtq_f64_f32(v39);
+    result = geom::polynomial_roots(6, &v69, v68, a9);
     if (!result)
     {
       goto LABEL_43;
     }
 
     v56 = result;
-    v57 = v69;
+    v57 = v68;
     do
     {
       v58 = *v57;
@@ -1427,7 +1403,6 @@ LABEL_43:
     }
   }
 
-  v68 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1435,7 +1410,7 @@ double *geom_closest_point_to_cubic_bezier_2d(double *result, double *a2, float6
 {
   v10 = result;
   v11 = a7;
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   if (!a2)
   {
     v14 = INFINITY;
@@ -1471,27 +1446,27 @@ LABEL_4:
   v28 = vmulq_f64(v27, v23);
   v29 = vaddq_f64(v28, vdupq_laneq_s64(v28, 1));
   v30 = vaddvq_f64(v28);
-  v69 = v30;
+  v68 = v30;
   v31 = vmulq_f64(v23, v23);
   *&v31.f64[0] = *&vaddq_f64(v31, vdupq_laneq_s64(v31, 1));
   v31.f64[1] = vaddvq_f64(vmulq_f64(v27, v26)) * 3.0;
   v32 = vmlaq_f64(v31, xmmword_2500CA850, vpaddq_f64(vmulq_f64(v27, v25), vmulq_f64(v23, v25)));
-  v70 = v32;
+  v69 = v32;
   v33 = vaddvq_f64(vmulq_f64(v23, v26)) * 4.0 + vaddvq_f64(vmulq_f64(v25, v25)) * 2.0;
-  v71 = v33;
+  v70 = v33;
   v34 = vmulq_f64(vpaddq_f64(vmulq_f64(v25, v26), vmulq_f64(v26, v26)), xmmword_2500CA860);
-  v72 = v34;
-  v74.f64[0] = v30 + v32.f64[0] * 0.2;
-  v74.f64[1] = v30 + (v32.f64[1] + v32.f64[0] * 4.0) * 0.1;
+  v71 = v34;
+  v73.f64[0] = v30 + v32.f64[0] * 0.2;
+  v73.f64[1] = v30 + (v32.f64[1] + v32.f64[0] * 4.0) * 0.1;
   v25.f64[0] = vmuld_lane_f64(3.0, v32, 1);
-  v75 = v30 + (v33 + v25.f64[0] + v32.f64[0] * 6.0) * 0.1;
-  v76.f64[0] = v30 + (v34.f64[0] + v25.f64[0] + v32.f64[0] * 4.0 + v33 * 2.0) * 0.2;
-  v76.f64[1] = v34.f64[1] + v34.f64[0] + v33 + vaddq_f64(v29, v32).f64[0] + v32.f64[1];
+  v74 = v30 + (v33 + v25.f64[0] + v32.f64[0] * 6.0) * 0.1;
+  v75.f64[0] = v30 + (v34.f64[0] + v25.f64[0] + v32.f64[0] * 4.0 + v33 * 2.0) * 0.2;
+  v75.f64[1] = v34.f64[1] + v34.f64[0] + v33 + vaddq_f64(v29, v32).f64[0] + v32.f64[1];
   v35 = 8;
   v36 = v30;
   do
   {
-    v37 = *(&v73 + v35);
+    v37 = *(&v72 + v35);
     if (v36 * v37 <= 0.0)
     {
       ++v15;
@@ -1516,7 +1491,7 @@ LABEL_4:
         v43 = 0.0;
         do
         {
-          v44 = *(&v69 + v42);
+          v44 = *(&v68 + v42);
           v43 = v44 + v40 * v43;
           v41 = v40 * v41 + v44 * v42;
         }
@@ -1572,34 +1547,34 @@ LABEL_4:
     }
 
 LABEL_28:
-    v64 = v27;
-    v65 = a3;
-    v66 = v11;
-    v67 = a4;
-    v73 = v30;
-    v74 = v32;
-    v75 = v33;
-    v76 = v34;
-    result = geom::polynomial_roots(6, &v73, v68, a9);
+    v63 = v27;
+    v64 = a3;
+    v65 = v11;
+    v66 = a4;
+    v72 = v30;
+    v73 = v32;
+    v74 = v33;
+    v75 = v34;
+    result = geom::polynomial_roots(6, &v72, v67, a9);
     if (!result)
     {
-      v11 = v66;
-      v27 = v64;
-      a3 = v65;
+      v11 = v65;
+      v27 = v63;
+      a3 = v64;
       goto LABEL_45;
     }
 
     v51 = result;
-    v52 = v68;
-    v11 = v66;
-    v27 = v64;
-    a3 = v65;
+    v52 = v67;
+    v11 = v65;
+    v27 = v63;
+    a3 = v64;
     do
     {
       v53 = *v52;
       if (*v52 > 0.0 && v53 < 1.0)
       {
-        v55 = vsubq_f64(vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(a5, v53 * ((1.0 - v53) * (1.0 - v53) * 3.0)), v67, (1.0 - v53) * ((1.0 - v53) * (1.0 - v53))), a6, v53 * v53 * ((1.0 - v53) * 3.0)), v66, v53 * (v53 * v53)), v65);
+        v55 = vsubq_f64(vmlaq_n_f64(vmlaq_n_f64(vmlaq_n_f64(vmulq_n_f64(a5, v53 * ((1.0 - v53) * (1.0 - v53) * 3.0)), v66, (1.0 - v53) * ((1.0 - v53) * (1.0 - v53))), a6, v53 * v53 * ((1.0 - v53) * 3.0)), v65, v53 * (v53 * v53)), v64);
         v56 = vaddvq_f64(vmulq_f64(v55, v55));
         if (a2)
         {
@@ -1653,7 +1628,6 @@ LABEL_45:
     }
   }
 
-  v61 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2090,7 +2064,7 @@ float64_t geom_oriented_bounding_box_matrix_of_quadratic_bezier_2d@<D0>(uint64_t
 float32x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<float>(float32x2_t *result, float32x2_t a2, float32x2_t a3, float32x2_t a4, float32x2_t a5)
 {
   v5 = 0;
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   v6 = vminnm_f32(a2, a5);
   v7 = vmaxnm_f32(a2, a5);
   *result = v6;
@@ -2106,9 +2080,9 @@ float32x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<flo
   v17 = vmul_f32(vmla_f32(vsub_f32(a5, a2), _D16, vsub_f32(a3, a4)), _D16);
   *&v18 = vzip1_s32(v14, v16);
   *(&v18 + 1) = __PAIR64__(v14.u32[1], v17.u32[0]);
-  v56 = v18;
-  v57 = vzip2_s32(v16, v17);
-  v19 = &v56;
+  v55 = v18;
+  v56 = vzip2_s32(v16, v17);
+  v19 = &v55;
   v20 = 1;
   do
   {
@@ -2123,7 +2097,7 @@ float32x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<flo
         goto LABEL_30;
       }
 
-      v58 = -v24 / v22;
+      v57 = -v24 / v22;
       v29 = 1;
     }
 
@@ -2147,12 +2121,12 @@ float32x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<flo
 
       v27 = (v22 + (v26 * sqrtf(v25))) * -0.5;
       v28 = v24 / v27;
-      v58 = v27 / v23;
-      v59 = v28;
+      v57 = v27 / v23;
+      v58 = v28;
       if (v28 < (v27 / v23))
       {
-        v58 = v28;
-        v59 = v27 / v23;
+        v57 = v28;
+        v58 = v27 / v23;
       }
 
       if (v25 <= 0.0)
@@ -2170,11 +2144,11 @@ float32x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<flo
     v31 = 0;
     do
     {
-      v32 = *(&v58 + v30);
+      v32 = *(&v57 + v30);
       if (v32 > 0.0 && v32 < 1.0)
       {
         v34 = v31++;
-        *&v55[v34] = v32;
+        *&v54[v34] = v32;
       }
 
       ++v30;
@@ -2184,22 +2158,22 @@ float32x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<flo
     if (v31)
     {
       v35 = v31;
-      v51 = a2;
-      v36 = *(&v51 & 0xFFFFFFFFFFFFFFFBLL | (4 * (v5 & 1)));
-      v52 = a3;
-      v37 = *(&v52 & 0xFFFFFFFFFFFFFFFBLL | (4 * (v5 & 1)));
-      v53 = a4;
-      v38 = *(&v53 & 0xFFFFFFFFFFFFFFFBLL | (4 * (v5 & 1)));
-      v54 = a5;
-      v39 = *(&v54 & 0xFFFFFFFFFFFFFFFBLL | (4 * (v5 & 1)));
-      v40 = v55;
-      v41 = (&v49 & 0xFFFFFFFFFFFFFFFBLL | (4 * (v5 & 1)));
-      v42 = (&v50 & 0xFFFFFFFFFFFFFFFBLL | (4 * (v5 & 1)));
+      v50 = a2;
+      v36 = *(&v50 & 0xFFFFFFFFFFFFFFFBLL | (4 * (v5 & 1)));
+      v51 = a3;
+      v37 = *(&v51 & 0xFFFFFFFFFFFFFFFBLL | (4 * (v5 & 1)));
+      v52 = a4;
+      v38 = *(&v52 & 0xFFFFFFFFFFFFFFFBLL | (4 * (v5 & 1)));
+      v53 = a5;
+      v39 = *(&v53 & 0xFFFFFFFFFFFFFFFBLL | (4 * (v5 & 1)));
+      v40 = v54;
+      v41 = (&v48 & 0xFFFFFFFFFFFFFFFBLL | (4 * (v5 & 1)));
+      v42 = (&v49 & 0xFFFFFFFFFFFFFFFBLL | (4 * (v5 & 1)));
       do
       {
         v43 = *v40++;
         v44 = (((v37 * ((1.0 - v43) * ((v43 * 3.0) * (1.0 - v43)))) + (((1.0 - v43) * ((1.0 - v43) * (1.0 - v43))) * v36)) + (((1.0 - v43) * (v43 * (v43 * 3.0))) * v38)) + ((v43 * (v43 * v43)) * v39);
-        v50 = v6;
+        v49 = v6;
         v45 = *v42;
         if ((v44 - v9) < *v42)
         {
@@ -2207,8 +2181,8 @@ float32x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<flo
         }
 
         *v42 = v45;
-        v6 = v50;
-        v49 = v7;
+        v6 = v49;
+        v48 = v7;
         v46 = *v41;
         v47 = v44 + v9;
         if (*v41 < v47)
@@ -2217,7 +2191,7 @@ float32x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<flo
         }
 
         *v41 = v46;
-        v7 = v49;
+        v7 = v48;
         --v35;
       }
 
@@ -2228,20 +2202,19 @@ float32x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<flo
 
 LABEL_30:
     v20 = 0;
-    v19 = (&v56 | 0xC);
+    v19 = (&v55 | 0xC);
     v5 = 1;
   }
 
   while ((v21 & 1) != 0);
-  v48 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 float64x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<double>(float64x2_t *result, float64x2_t a2, float64x2_t a3, float64x2_t a4, float64x2_t a5)
 {
   v5 = 0;
-  v6 = &v57;
-  v61 = *MEMORY[0x277D85DE8];
+  v6 = &v56;
+  v60 = *MEMORY[0x277D85DE8];
   v7 = vminnmq_f64(a2, a5);
   v8 = vmaxnmq_f64(a2, a5);
   *result = v7;
@@ -2259,11 +2232,11 @@ float64x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<dou
 
   v18 = vmulq_f64(vaddq_f64(vmlaq_f64(a2, _Q18, a3), a4), _Q20);
   v19 = vmulq_f64(vmlaq_f64(vsubq_f64(a5, a2), _Q17, vsubq_f64(a3, a4)), _Q17);
-  v57 = vzip1q_s64(v15, v18);
+  v56 = vzip1q_s64(v15, v18);
   v20 = vzip2q_s64(v18, v19);
   v19.i64[1] = v15.i64[1];
-  v58[0] = v19;
-  v58[1] = v20;
+  v57[0] = v19;
+  v57[1] = v20;
   v21 = 1;
   do
   {
@@ -2278,7 +2251,7 @@ float64x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<dou
         goto LABEL_30;
       }
 
-      v59 = -v25 / v23;
+      v58 = -v25 / v23;
       v30 = 1;
     }
 
@@ -2302,12 +2275,12 @@ float64x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<dou
 
       v28 = (v23 + v27 * sqrt(v26)) * -0.5;
       v29 = v25 / v28;
-      v59 = v28 / v24;
-      v60 = v29;
+      v58 = v28 / v24;
+      v59 = v29;
       if (v29 < v28 / v24)
       {
-        v59 = v29;
-        v60 = v28 / v24;
+        v58 = v29;
+        v59 = v28 / v24;
       }
 
       if (v26 <= 0.0)
@@ -2325,11 +2298,11 @@ float64x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<dou
     v32 = 0;
     do
     {
-      v33 = *(&v59 + v31);
+      v33 = *(&v58 + v31);
       if (v33 > 0.0 && v33 < 1.0)
       {
         v35 = v32++;
-        v56[v35] = v33;
+        v55[v35] = v33;
       }
 
       ++v31;
@@ -2339,22 +2312,22 @@ float64x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<dou
     if (v32)
     {
       v36 = v32;
-      v52 = a2;
-      v37 = *(&v52 & 0xFFFFFFFFFFFFFFF7 | (8 * (v5 & 1)));
-      v53 = a3;
-      v38 = *(&v53 & 0xFFFFFFFFFFFFFFF7 | (8 * (v5 & 1)));
-      v54 = a4;
-      v39 = *(&v54 & 0xFFFFFFFFFFFFFFF7 | (8 * (v5 & 1)));
-      v55 = a5;
-      v40 = *(&v55 & 0xFFFFFFFFFFFFFFF7 | (8 * (v5 & 1)));
-      v41 = v56;
-      v42 = (&v50 & 0xFFFFFFFFFFFFFFF7 | (8 * (v5 & 1)));
-      v43 = (&v51 & 0xFFFFFFFFFFFFFFF7 | (8 * (v5 & 1)));
+      v51 = a2;
+      v37 = *(&v51 & 0xFFFFFFFFFFFFFFF7 | (8 * (v5 & 1)));
+      v52 = a3;
+      v38 = *(&v52 & 0xFFFFFFFFFFFFFFF7 | (8 * (v5 & 1)));
+      v53 = a4;
+      v39 = *(&v53 & 0xFFFFFFFFFFFFFFF7 | (8 * (v5 & 1)));
+      v54 = a5;
+      v40 = *(&v54 & 0xFFFFFFFFFFFFFFF7 | (8 * (v5 & 1)));
+      v41 = v55;
+      v42 = (&v49 & 0xFFFFFFFFFFFFFFF7 | (8 * (v5 & 1)));
+      v43 = (&v50 & 0xFFFFFFFFFFFFFFF7 | (8 * (v5 & 1)));
       do
       {
         v44 = *v41++;
         v45 = v38 * ((1.0 - v44) * (v44 * 3.0 * (1.0 - v44))) + (1.0 - v44) * ((1.0 - v44) * (1.0 - v44)) * v37 + (1.0 - v44) * (v44 * (v44 * 3.0)) * v39 + v44 * (v44 * v44) * v40;
-        v51 = v7;
+        v50 = v7;
         v46 = *v43;
         if (v45 - v10 < *v43)
         {
@@ -2362,8 +2335,8 @@ float64x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<dou
         }
 
         *v43 = v46;
-        v7 = v51;
-        v50 = v8;
+        v7 = v50;
+        v49 = v8;
         v47 = *v42;
         v48 = v10 + v45;
         if (*v42 < v48)
@@ -2372,7 +2345,7 @@ float64x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<dou
         }
 
         *v42 = v47;
-        v8 = v50;
+        v8 = v49;
         --v36;
       }
 
@@ -2383,12 +2356,11 @@ float64x2_t *geom::anonymous namespace::compute_tight_bbox_of_cubic_bezier_2<dou
 
 LABEL_30:
     v21 = 0;
-    v6 = v58 + 1;
+    v6 = v57 + 1;
     v5 = 1;
   }
 
   while ((v22 & 1) != 0);
-  v49 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2527,7 +2499,7 @@ float64_t geom_oriented_bounding_box_matrix_of_cubic_bezier_2d@<D0>(uint64_t a1@
 
 uint64_t geom::anonymous namespace::solve_homogeneous_quadratic<float>(float *a1, float *a2, float32_t a3)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a1[1];
   v4 = a1[2];
   v5 = *a1;
@@ -2544,12 +2516,12 @@ uint64_t geom::anonymous namespace::solve_homogeneous_quadratic<float>(float *a1
 
       v8 = (v3 + (v7 * sqrtf(v6))) * -0.5;
       v9 = v5 / v8;
-      v25 = v8 / v4;
-      v26 = v9;
+      v24 = v8 / v4;
+      v25 = v9;
       if (v9 < (v8 / v4))
       {
-        v25 = v9;
-        v26 = v8 / v4;
+        v24 = v9;
+        v25 = v8 / v4;
       }
 
       if (v6 <= 0.0)
@@ -2565,21 +2537,19 @@ uint64_t geom::anonymous namespace::solve_homogeneous_quadratic<float>(float *a1
       goto LABEL_12;
     }
 
-LABEL_23:
-    v11 = 0;
-    goto LABEL_24;
+    return 0;
   }
 
   if (fabsf(v3) <= 0.00001)
   {
-    goto LABEL_23;
+    return 0;
   }
 
-  v25 = -v5 / v3;
+  v24 = -v5 / v3;
   v10 = 1;
 LABEL_12:
   v11 = 0;
-  v12 = &v25;
+  v12 = &v24;
   do
   {
     v13.i32[0] = *v12;
@@ -2608,18 +2578,16 @@ LABEL_12:
     if (*a2 > v22)
     {
       *a2 = v22;
-      a2[1] = v21;
+      *(a2 + 1) = v21;
     }
   }
 
-LABEL_24:
-  v23 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
 uint64_t geom::anonymous namespace::solve_homogeneous_quadratic<double>(double *a1, double *a2, float64_t a3)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = a1[1];
   v4 = a1[2];
   v5 = *a1;
@@ -2636,12 +2604,12 @@ uint64_t geom::anonymous namespace::solve_homogeneous_quadratic<double>(double *
 
       v8 = (v3 + v7 * sqrt(v6)) * -0.5;
       v9 = v5 / v8;
-      v22 = v8 / v4;
-      v23 = v9;
+      v21 = v8 / v4;
+      v22 = v9;
       if (v9 < v8 / v4)
       {
-        v22 = v9;
-        v23 = v8 / v4;
+        v21 = v9;
+        v22 = v8 / v4;
       }
 
       if (v6 <= 0.0)
@@ -2657,21 +2625,19 @@ uint64_t geom::anonymous namespace::solve_homogeneous_quadratic<double>(double *
       goto LABEL_12;
     }
 
-LABEL_23:
-    v11 = 0;
-    goto LABEL_24;
+    return 0;
   }
 
   if (fabs(v3) <= 0.000001)
   {
-    goto LABEL_23;
+    return 0;
   }
 
-  v22 = -v5 / v3;
+  v21 = -v5 / v3;
   v10 = 1;
 LABEL_12:
   v11 = 0;
-  v12 = &v22;
+  v12 = &v21;
   do
   {
     v13.f64[0] = *v12;
@@ -2696,16 +2662,14 @@ LABEL_12:
     if (*a2 > v19)
     {
       *a2 = v19;
-      a2[1] = v18;
+      *(a2 + 1) = v18;
     }
   }
 
-LABEL_24:
-  v20 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
-void geom::anonymous namespace::cubic_bezier_fit_with_quadratics_recursively<float>(uint64_t a1, char a2, float32x2_t a3, float32x2_t a4, float32x2_t a5, float32x2_t a6, float a7)
+void geom::anonymous namespace::cubic_bezier_fit_with_quadratics_recursively<float>(uint64_t a1, char a2, double a3, float32x2_t a4, float32x2_t a5, float32x2_t a6, float a7)
 {
   __asm { FMOV            V1.2S, #3.0 }
 
@@ -2714,8 +2678,8 @@ void geom::anonymous namespace::cubic_bezier_fit_with_quadratics_recursively<flo
 
   while (1)
   {
-    v19 = vsub_f32(a4, a3);
-    v20 = vadd_f32(vmla_f32(vmla_f32(vneg_f32(a3), v30, a4), _D14, a5), a6);
+    v19 = vsub_f32(a4, *&a3);
+    v20 = vadd_f32(vmla_f32(vmla_f32(vneg_f32(*&a3), v30, a4), _D14, a5), a6);
     v21 = vaddv_f32(vmul_f32(v20, v20)) * 0.00034294;
     if (a2 == 3)
     {
@@ -2727,20 +2691,20 @@ void geom::anonymous namespace::cubic_bezier_fit_with_quadratics_recursively<flo
       break;
     }
 
-    v22 = vmla_f32(a3, 0x3F0000003F000000, v19);
+    v22 = vmla_f32(*&a3, 0x3F0000003F000000, v19);
     v23 = vsub_f32(a5, a4);
     a5 = vmla_f32(a5, 0x3F0000003F000000, vsub_f32(a6, a5));
     v24 = vmla_f32(a4, 0x3F0000003F000000, v23);
     v25 = vmla_f32(v22, 0x3F0000003F000000, vsub_f32(v24, v22));
     a4 = vmla_f32(v24, 0x3F0000003F000000, vsub_f32(a5, v24));
-    v26 = vmla_f32(v25, 0x3F0000003F000000, vsub_f32(a4, v25));
+    v26 = COERCE_DOUBLE(vmla_f32(v25, 0x3F0000003F000000, vsub_f32(a4, v25)));
     a3 = v26;
   }
 
   __asm { FMOV            V1.2S, #0.75 }
 
   v28 = vmla_f32(a6, _D1, vsub_f32(a5, a6));
-  v32 = vmla_f32(a3, _D1, v19);
+  v32 = vmla_f32(*&a3, _D1, v19);
   v33 = a3;
   v29 = vmla_f32(vmul_f32(v28, 0x3F0000003F000000), 0x3F0000003F000000, v32);
   v31 = v29;
@@ -2748,7 +2712,7 @@ void geom::anonymous namespace::cubic_bezier_fit_with_quadratics_recursively<flo
   _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(a1, &v32);
   _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(a1, &v31);
   v32 = v28;
-  v33 = v29;
+  v33 = *&v29;
   v31 = a6;
   _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(a1, &v33);
   _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(a1, &v32);
@@ -2757,93 +2721,103 @@ void geom::anonymous namespace::cubic_bezier_fit_with_quadratics_recursively<flo
 
 void geom::anonymous namespace::cubic_bezier_fit_with_quadratics_recursively<double>(uint64_t a1, int a2, float64x2_t a3, float64x2_t a4, float64x2_t a5, float64x2_t a6, double a7)
 {
+  v10 = vsubq_f64(a4, a3);
   __asm { FMOV            V4.2D, #0.75 }
 
-  v14 = vmlaq_f64(a3, _Q4, vsubq_f64(a4, a3));
-  v15 = vmlaq_f64(a6, _Q4, vsubq_f64(a5, a6));
+  v16 = vmlaq_f64(a3, _Q4, v10);
+  v17 = vmlaq_f64(a6, _Q4, vsubq_f64(a5, a6));
   __asm { FMOV            V4.2D, #0.5 }
 
-  v17 = vmlaq_f64(vmulq_f64(v15, _Q4), _Q4, v14);
+  v19 = vmlaq_f64(vmulq_f64(v17, _Q4), _Q4, v16);
   __asm { FMOV            V6.2D, #3.0 }
 
-  v19 = vmlaq_f64(vnegq_f64(a3), _Q6, a4);
+  v21 = vmlaq_f64(vnegq_f64(a3), _Q6, a4);
   __asm { FMOV            V6.2D, #-3.0 }
 
-  v21 = vaddq_f64(vmlaq_f64(v19, _Q6, a5), a6);
-  v21.f64[0] = vaddvq_f64(vmulq_f64(v21, v21));
-  v22 = v21.f64[0] * 0.000342935528;
-  v23 = v21.f64[0] * 0.000342935528;
+  v23 = vaddq_f64(vmlaq_f64(v21, _Q6, a5), a6);
+  v23.f64[0] = vaddvq_f64(vmulq_f64(v23, v23));
+  v24 = v23.f64[0] * 0.000342935528;
+  v25 = v23.f64[0] * 0.000342935528;
   if (a2 == 3)
   {
-    v24 = 0.0;
+    v26 = 0.0;
   }
 
   else
   {
-    v24 = v23;
+    v26 = v25;
   }
 
   if (a2 == 3)
   {
-    v25 = 0.0;
+    v27 = 0.0;
   }
 
   else
   {
-    v25 = v22;
+    v27 = v24;
   }
 
-  v26 = v25 <= a7 && v24 <= a7;
-  v29 = v15;
-  v28 = v17;
-  if (v26)
+  v28 = v27 <= a7 && v26 <= a7;
+  v40 = v17;
+  v39 = v19;
+  if (v28)
   {
-    v32 = v14;
-    v33 = a3;
-    v31 = v17;
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v33);
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v32);
-    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v31);
-    v32 = v29;
-    v33 = v28;
-    v31 = a6;
+    v43 = v16;
+    v44 = a3;
+    v42 = v19;
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v44);
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v43);
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v42);
+    v43 = v40;
+    v44 = v39;
+    v42 = a6;
   }
 
   else
   {
-    v27 = a2;
-    if (v25 <= a7)
+    v29 = a2;
+    v30 = vmlaq_f64(a3, _Q4, v10);
+    v31 = vsubq_f64(a5, a4);
+    v32 = vmlaq_f64(a5, _Q4, vsubq_f64(a6, a5));
+    v33 = vmlaq_f64(a4, _Q4, v31);
+    v34 = vmlaq_f64(v30, _Q4, vsubq_f64(v33, v30));
+    v37 = vmlaq_f64(v33, _Q4, vsubq_f64(v32, v33));
+    v38 = v32;
+    v35 = vmlaq_f64(v34, _Q4, vsubq_f64(v37, v34));
+    v36 = v35;
+    if (v27 <= a7)
     {
-      v32 = v14;
-      v33 = a3;
-      v31 = v17;
-      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v33);
-      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v32);
-      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v31);
+      v43 = v16;
+      v44 = a3;
+      v42 = v19;
+      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v44);
+      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v43);
+      _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v42);
     }
 
     else
     {
     }
 
-    if (v24 > a7)
+    if (v26 > a7)
     {
       return;
     }
 
-    v32 = v29;
-    v33 = v28;
-    v31 = a6;
+    v43 = v40;
+    v44 = v39;
+    v42 = a6;
   }
 
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v33);
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v32);
-  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v31);
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v44);
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v43);
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a1, &v42);
 }
 
 uint64_t geom::anonymous namespace::intersect_quadratic_bezier_bidirectional_ray<float>(float *a1, float *a2, double a3, double _D1, double a5, float32x2_t a6, double a7)
 {
-  v71 = *MEMORY[0x277D85DE8];
+  v70 = *MEMORY[0x277D85DE8];
   if (*&a7 != 0.0)
   {
     v16 = *(&a7 + 1);
@@ -2859,11 +2833,11 @@ uint64_t geom::anonymous namespace::intersect_quadratic_bezier_bidirectional_ray
       {
         if (fabsf(v18) > 0.00001)
         {
-          v69 = -v17.f32[1] / v18;
+          v68 = -v17.f32[1] / v18;
           v29 = 1;
 LABEL_48:
           v52 = 0;
-          v53 = &v69;
+          v53 = &v68;
           do
           {
             v54 = *v53;
@@ -2894,12 +2868,12 @@ LABEL_48:
           }
 
           v28 = (v18 + (v27 * sqrtf(v26))) * -0.5;
-          v69 = v28 / v25;
-          v70 = v17.f32[1] / v28;
+          v68 = v28 / v25;
+          v69 = v17.f32[1] / v28;
           if ((v17.f32[1] / v28) < (v28 / v25))
           {
-            v69 = v17.f32[1] / v28;
-            v70 = v28 / v25;
+            v68 = v17.f32[1] / v28;
+            v69 = v28 / v25;
           }
 
           v29 = 2;
@@ -2942,13 +2916,13 @@ LABEL_67:
       v16 = *&a7;
     }
 
-    v68 = v35;
+    v67 = v35;
     v43 = -v42 / v16;
-    v44 = *(&v68 & 0xFFFFFFFFFFFFFFFBLL | (4 * v41)) + (v43 * *(&v68 & 0xFFFFFFFFFFFFFFFBLL | (4 * v40)));
-    v67 = v38;
-    v45 = *(&v67 & 0xFFFFFFFFFFFFFFFBLL | (4 * v41)) + (v43 * *(&v67 & 0xFFFFFFFFFFFFFFFBLL | (4 * v40)));
-    v66 = v39;
-    v46 = *(&v66 | (4 * v41)) + (v43 * *(&v66 | (4 * v40)));
+    v44 = *(&v67 & 0xFFFFFFFFFFFFFFFBLL | (4 * v41)) + (v43 * *(&v67 & 0xFFFFFFFFFFFFFFFBLL | (4 * v40)));
+    v66 = v38;
+    v45 = *(&v66 & 0xFFFFFFFFFFFFFFFBLL | (4 * v41)) + (v43 * *(&v66 & 0xFFFFFFFFFFFFFFFBLL | (4 * v40)));
+    v65 = v39;
+    v46 = *(&v65 | (4 * v41)) + (v43 * *(&v65 | (4 * v40)));
     if (fabsf(v46) <= 0.00001)
     {
       if (fabsf(v45) <= 0.00001)
@@ -2956,7 +2930,7 @@ LABEL_67:
         goto LABEL_66;
       }
 
-      v69 = -v44 / v45;
+      v68 = -v44 / v45;
       v51 = 1;
     }
 
@@ -2976,12 +2950,12 @@ LABEL_67:
 
       v49 = (v45 + (v48 * sqrtf(v47))) * -0.5;
       v50 = v44 / v49;
-      v69 = v49 / v46;
-      v70 = v50;
+      v68 = v49 / v46;
+      v69 = v50;
       if (v50 < (v49 / v46))
       {
-        v69 = v50;
-        v70 = v49 / v46;
+        v68 = v50;
+        v69 = v49 / v46;
       }
 
       v51 = 2;
@@ -2992,7 +2966,7 @@ LABEL_67:
     }
 
     v52 = 0;
-    v57 = &v69;
+    v57 = &v68;
     do
     {
       v58 = *v57;
@@ -3027,12 +3001,12 @@ LABEL_67:
 
       v13 = (v9 + (v12 * sqrtf(v11))) * -0.5;
       v14 = v7 / v13;
-      v69 = v13 / v10;
-      v70 = v14;
+      v68 = v13 / v10;
+      v69 = v14;
       if (v14 < (v13 / v10))
       {
-        v69 = v14;
-        v70 = v13 / v10;
+        v68 = v14;
+        v69 = v13 / v10;
       }
 
       if (v11 <= 0.0)
@@ -3058,11 +3032,11 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v69 = -v7 / v9;
+  v68 = -v7 / v9;
   v15 = 1;
 LABEL_23:
   v30 = 0;
-  v31 = &v69;
+  v31 = &v68;
   do
   {
     v32 = *v31;
@@ -3097,13 +3071,12 @@ LABEL_68:
     while (v62);
   }
 
-  v64 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
 uint64_t geom::anonymous namespace::intersect_quadratic_bezier_bidirectional_ray<double>(double *a1, double *a2, float64x2_t a3, float64x2_t _Q1, float64x2_t a5, float64x2_t a6, float64x2_t a7)
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   if (a7.f64[0] != 0.0)
   {
     v16 = a7.f64[1];
@@ -3119,11 +3092,11 @@ uint64_t geom::anonymous namespace::intersect_quadratic_bezier_bidirectional_ray
       {
         if (fabs(v18) > 0.000001)
         {
-          v70 = -v17.f64[1] / v18;
+          v69 = -v17.f64[1] / v18;
           v29 = 1;
 LABEL_48:
           v53 = 0;
-          v54 = &v70;
+          v54 = &v69;
           do
           {
             v55 = *v54;
@@ -3154,12 +3127,12 @@ LABEL_48:
           }
 
           v28 = (v18 + v27 * sqrt(v26)) * -0.5;
-          v70 = v28 / v25;
-          v71 = v17.f64[1] / v28;
+          v69 = v28 / v25;
+          v70 = v17.f64[1] / v28;
           if (v17.f64[1] / v28 < v28 / v25)
           {
-            v70 = v17.f64[1] / v28;
-            v71 = v28 / v25;
+            v69 = v17.f64[1] / v28;
+            v70 = v28 / v25;
           }
 
           v29 = 2;
@@ -3204,13 +3177,13 @@ LABEL_67:
       v16 = a7.f64[0];
     }
 
-    v69 = v35;
+    v68 = v35;
     v44 = -v43 / v16;
-    v45 = *(&v69 & 0xFFFFFFFFFFFFFFF7 | (8 * v42)) + v44 * *(&v69 & 0xFFFFFFFFFFFFFFF7 | (8 * v41));
-    v68 = v38;
-    v46 = *(&v68 & 0xFFFFFFFFFFFFFFF7 | (8 * v42)) + v44 * *(&v68 & 0xFFFFFFFFFFFFFFF7 | (8 * v41));
-    v67 = v40;
-    v47 = *(&v67 | (8 * v42)) + v44 * *(&v67 | (8 * v41));
+    v45 = *(&v68 & 0xFFFFFFFFFFFFFFF7 | (8 * v42)) + v44 * *(&v68 & 0xFFFFFFFFFFFFFFF7 | (8 * v41));
+    v67 = v38;
+    v46 = *(&v67 & 0xFFFFFFFFFFFFFFF7 | (8 * v42)) + v44 * *(&v67 & 0xFFFFFFFFFFFFFFF7 | (8 * v41));
+    v66 = v40;
+    v47 = *(&v66 | (8 * v42)) + v44 * *(&v66 | (8 * v41));
     if (fabs(v47) <= 0.000001)
     {
       if (fabs(v46) <= 0.000001)
@@ -3218,7 +3191,7 @@ LABEL_67:
         goto LABEL_66;
       }
 
-      v70 = -v45 / v46;
+      v69 = -v45 / v46;
       v52 = 1;
     }
 
@@ -3238,12 +3211,12 @@ LABEL_67:
 
       v50 = (v46 + v49 * sqrt(v48)) * -0.5;
       v51 = v45 / v50;
-      v70 = v50 / v47;
-      v71 = v51;
+      v69 = v50 / v47;
+      v70 = v51;
       if (v51 < v50 / v47)
       {
-        v70 = v51;
-        v71 = v50 / v47;
+        v69 = v51;
+        v70 = v50 / v47;
       }
 
       v52 = 2;
@@ -3254,7 +3227,7 @@ LABEL_67:
     }
 
     v53 = 0;
-    v58 = &v70;
+    v58 = &v69;
     do
     {
       v59 = *v58;
@@ -3289,12 +3262,12 @@ LABEL_67:
 
       v13 = (v9 + v12 * sqrt(v11)) * -0.5;
       v14 = v7 / v13;
-      v70 = v13 / v10;
-      v71 = v14;
+      v69 = v13 / v10;
+      v70 = v14;
       if (v14 < v13 / v10)
       {
-        v70 = v14;
-        v71 = v13 / v10;
+        v69 = v14;
+        v70 = v13 / v10;
       }
 
       if (v11 <= 0.0)
@@ -3320,11 +3293,11 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  v70 = -v7 / v9;
+  v69 = -v7 / v9;
   v15 = 1;
 LABEL_23:
   v30 = 0;
-  v31 = &v70;
+  v31 = &v69;
   do
   {
     v32 = *v31;
@@ -3359,33 +3332,32 @@ LABEL_68:
     while (v63);
   }
 
-  v65 = *MEMORY[0x277D85DE8];
   return v30;
 }
 
 uint64_t geom::anonymous namespace::intersect_cubic_bezier_bidirectional_ray<float>(float *a1, float *a2, float32x2_t a3, double _D1, float32x2_t a5, float32x2_t a6, float32x2_t a7, float32x2_t a8)
 {
-  v78 = *MEMORY[0x277D85DE8];
-  v67 = _D1;
+  v77 = *MEMORY[0x277D85DE8];
+  v66 = _D1;
   if (a8.f32[0] == 0.0)
   {
-    v74 = vsub_f32(a3, a7).u32[0];
+    v73 = vsub_f32(a3, a7).u32[0];
     v12.i32[0] = vsub_f32(*&_D1, a3).u32[0];
     v12.f32[1] = (a3.f32[0] + (*&_D1 * -2.0)) + a5.f32[0];
     __asm { FMOV            V3.2S, #3.0 }
 
-    v75 = vmul_f32(v12, _D3);
-    v76 = vsub_f32(a6, a3).f32[0] + (vsub_f32(*&_D1, a5).f32[0] * 3.0);
-    v18 = geom::cubic_roots<float>(&v74, v77);
+    v74 = vmul_f32(v12, _D3);
+    v75 = vsub_f32(a6, a3).f32[0] + (vsub_f32(*&_D1, a5).f32[0] * 3.0);
+    v18 = geom::cubic_roots<float>(&v73, v76);
     v19 = 0;
     if (v18)
     {
       v20 = v18;
-      v21 = v77;
+      v21 = v76;
       v23 = a5;
       v22 = a8;
       v25 = a3;
-      v24 = *&v67;
+      v24 = *&v66;
       do
       {
         v26 = *v21;
@@ -3406,7 +3378,7 @@ uint64_t geom::anonymous namespace::intersect_cubic_bezier_bidirectional_ray<flo
       v23 = a5;
       v22 = a8;
       v25 = a3;
-      v24 = *&v67;
+      v24 = *&v66;
     }
 
     goto LABEL_38;
@@ -3414,7 +3386,7 @@ uint64_t geom::anonymous namespace::intersect_cubic_bezier_bidirectional_ray<flo
 
   if (a8.f32[1] == 0.0)
   {
-    v74 = vsub_f32(a3, a7).i32[1];
+    v73 = vsub_f32(a3, a7).i32[1];
     v28 = *(&_D1 + 1);
     v29.f32[0] = *(&_D1 + 1) - a3.f32[1];
     _S3 = -2.0;
@@ -3423,18 +3395,18 @@ uint64_t geom::anonymous namespace::intersect_cubic_bezier_bidirectional_ray<flo
     v29.f32[1] = _S6 + a5.f32[1];
     __asm { FMOV            V1.2S, #3.0 }
 
-    v75 = vmul_f32(v29, _D1);
-    v76 = COERCE_FLOAT(vsub_f32(a6, a3).i32[1]) + ((v28 - a5.f32[1]) * 3.0);
-    v33 = geom::cubic_roots<float>(&v74, v77);
+    v74 = vmul_f32(v29, _D1);
+    v75 = COERCE_FLOAT(vsub_f32(a6, a3).i32[1]) + ((v28 - a5.f32[1]) * 3.0);
+    v33 = geom::cubic_roots<float>(&v73, v76);
     v19 = 0;
     if (v33)
     {
       v34 = v33;
-      v35 = v77;
+      v35 = v76;
       v23 = a5;
       v22 = a8;
       v25 = a3;
-      v24 = *&v67;
+      v24 = *&v66;
       do
       {
         v36 = *v35;
@@ -3455,7 +3427,7 @@ LABEL_37:
     v23 = a5;
     v22 = a8;
     v25 = a3;
-    v24 = *&v67;
+    v24 = *&v66;
     goto LABEL_38;
   }
 
@@ -3466,7 +3438,7 @@ LABEL_37:
 
   v42 = vmul_f32(vsub_f32(v39, v38), _D6);
   v43 = vsub_f32(vsub_f32(a6, a7), v38);
-  v73 = v38;
+  v72 = v38;
   v44 = vmul_f32(vadd_f32(v40, vmla_f32(v38, 0xC0000000C0000000, v39)), _D6);
   v45 = vmla_f32(v43, _D6, vsub_f32(v39, v40));
   v39.f32[0] = vmul_f32(a8, a8).f32[0];
@@ -3493,18 +3465,18 @@ LABEL_37:
   }
 
   v50 = -v48 / v49;
-  *&v51 = *(&v73 & 0xFFFFFFFFFFFFFFFBLL | (4 * v47)) + (v50 * *(&v73 & 0xFFFFFFFFFFFFFFFBLL | (4 * v46)));
-  v72 = v42;
-  *&v52 = *(&v72 & 0xFFFFFFFFFFFFFFFBLL | (4 * v47)) + (v50 * *(&v72 & 0xFFFFFFFFFFFFFFFBLL | (4 * v46)));
-  v71 = v44;
-  *&v53 = *(&v71 & 0xFFFFFFFFFFFFFFFBLL | (4 * v47)) + (v50 * *(&v71 & 0xFFFFFFFFFFFFFFFBLL | (4 * v46)));
-  v70 = v45;
-  v54 = *(&v70 | (4 * v47));
-  v55 = *(&v70 | (4 * v46));
-  v74 = v51;
-  v75 = __PAIR64__(v53, v52);
-  v76 = v54 + (v50 * v55);
-  v56 = geom::cubic_roots<float>(&v74, v77);
+  *&v51 = *(&v72 & 0xFFFFFFFFFFFFFFFBLL | (4 * v47)) + (v50 * *(&v72 & 0xFFFFFFFFFFFFFFFBLL | (4 * v46)));
+  v71 = v42;
+  *&v52 = *(&v71 & 0xFFFFFFFFFFFFFFFBLL | (4 * v47)) + (v50 * *(&v71 & 0xFFFFFFFFFFFFFFFBLL | (4 * v46)));
+  v70 = v44;
+  *&v53 = *(&v70 & 0xFFFFFFFFFFFFFFFBLL | (4 * v47)) + (v50 * *(&v70 & 0xFFFFFFFFFFFFFFFBLL | (4 * v46)));
+  v69 = v45;
+  v54 = *(&v69 | (4 * v47));
+  v55 = *(&v69 | (4 * v46));
+  v73 = v51;
+  v74 = __PAIR64__(v53, v52);
+  v75 = v54 + (v50 * v55);
+  v56 = geom::cubic_roots<float>(&v73, v76);
   v19 = 0;
   if (!v56)
   {
@@ -3512,11 +3484,11 @@ LABEL_37:
   }
 
   v57 = v56;
-  v58 = v77;
+  v58 = v76;
   v23 = a5;
   v22 = a8;
   v25 = a3;
-  v24 = *&v67;
+  v24 = *&v66;
   do
   {
     v59 = *v58;
@@ -3550,35 +3522,34 @@ LABEL_38:
     while (v62);
   }
 
-  v64 = *MEMORY[0x277D85DE8];
   return v19;
 }
 
 uint64_t geom::anonymous namespace::intersect_cubic_bezier_bidirectional_ray<double>(double *a1, double *a2, float64x2_t a3, float64x2_t _Q1, float64x2_t a5, float64x2_t a6, float64x2_t a7, float64x2_t a8)
 {
-  v83[3] = *MEMORY[0x277D85DE8];
-  v71 = _Q1;
+  v82[3] = *MEMORY[0x277D85DE8];
+  v70 = _Q1;
   if (a8.f64[0] == 0.0)
   {
-    *&v80 = *&vsubq_f64(a3, a7);
+    *&v79 = *&vsubq_f64(a3, a7);
     *&v11.f64[0] = *&vsubq_f64(_Q1, a3);
     v11.f64[1] = a3.f64[0] + _Q1.f64[0] * -2.0 + a5.f64[0];
     __asm { FMOV            V3.2D, #3.0 }
 
-    v81 = vmulq_f64(v11, _Q3);
-    v82 = vsubq_f64(a6, a3).f64[0] + vsubq_f64(_Q1, a5).f64[0] * 3.0;
-    v17 = geom::cubic_roots<double>(&v80, v83);
+    v80 = vmulq_f64(v11, _Q3);
+    v81 = vsubq_f64(a6, a3).f64[0] + vsubq_f64(_Q1, a5).f64[0] * 3.0;
+    v17 = geom::cubic_roots<double>(&v79, v82);
     v18 = 0;
     if (v17)
     {
       v19 = v17;
-      v20 = v83;
+      v20 = v82;
       v22 = a7;
       v21 = a8;
       v24 = a5;
       v23 = a6;
       v26 = a3;
-      v25 = v71;
+      v25 = v70;
       do
       {
         v27 = *v20;
@@ -3601,13 +3572,13 @@ LABEL_37:
     v24 = a5;
     v23 = a6;
     v26 = a3;
-    v25 = v71;
+    v25 = v70;
     goto LABEL_38;
   }
 
   if (a8.f64[1] == 0.0)
   {
-    v80 = vsubq_f64(a3, a7).f64[1];
+    v79 = vsubq_f64(a3, a7).f64[1];
     v29 = _Q1.f64[1];
     v30.f64[0] = _Q1.f64[1] - a3.f64[1];
     _D3 = -2.0;
@@ -3616,9 +3587,9 @@ LABEL_37:
     v30.f64[1] = _D7 + a5.f64[1];
     __asm { FMOV            V1.2D, #3.0 }
 
-    v81 = vmulq_f64(v30, _Q1);
-    v82 = COERCE_DOUBLE(*&vsubq_f64(a6, a3).f64[1]) + (v29 - a5.f64[1]) * 3.0;
-    v34 = geom::cubic_roots<double>(&v80, v83);
+    v80 = vmulq_f64(v30, _Q1);
+    v81 = COERCE_DOUBLE(*&vsubq_f64(a6, a3).f64[1]) + (v29 - a5.f64[1]) * 3.0;
+    v34 = geom::cubic_roots<double>(&v79, v82);
     v18 = 0;
     if (!v34)
     {
@@ -3626,13 +3597,13 @@ LABEL_37:
     }
 
     v35 = v34;
-    v36 = v83;
+    v36 = v82;
     v22 = a7;
     v21 = a8;
     v24 = a5;
     v23 = a6;
     v26 = a3;
-    v25 = v71;
+    v25 = v70;
     do
     {
       v37 = *v36;
@@ -3660,7 +3631,7 @@ LABEL_37:
     __asm { FMOV            V7.2D, #-2.0 }
 
     v46 = vsubq_f64(v42, v39);
-    v79 = v39;
+    v78 = v39;
     v47 = vmulq_f64(vaddq_f64(v41, vmlaq_f64(v39, _Q7, v40)), _Q6);
     v48 = vmlaq_f64(v46, _Q6, vsubq_f64(v40, v41));
     v49 = vmulq_f64(a8, a8).f64[0];
@@ -3687,19 +3658,19 @@ LABEL_37:
     }
 
     v54 = -v52 / v53;
-    v55 = *(&v79 & 0xFFFFFFFFFFFFFFF7 | (8 * v51)) + v54 * *(&v79 & 0xFFFFFFFFFFFFFFF7 | (8 * v50));
-    v78 = v44;
-    v56 = *(&v78 & 0xFFFFFFFFFFFFFFF7 | (8 * v51)) + v54 * *(&v78 & 0xFFFFFFFFFFFFFFF7 | (8 * v50));
-    v77 = v47;
-    v57 = *(&v77 & 0xFFFFFFFFFFFFFFF7 | (8 * v51)) + v54 * *(&v77 & 0xFFFFFFFFFFFFFFF7 | (8 * v50));
-    v76 = v48;
-    v58 = *(&v76 | (8 * v51));
-    v59 = *(&v76 | (8 * v50));
-    v80 = v55;
-    v81.f64[0] = v56;
-    v81.f64[1] = v57;
-    v82 = v58 + v54 * v59;
-    v60 = geom::cubic_roots<double>(&v80, v83);
+    v55 = *(&v78 & 0xFFFFFFFFFFFFFFF7 | (8 * v51)) + v54 * *(&v78 & 0xFFFFFFFFFFFFFFF7 | (8 * v50));
+    v77 = v44;
+    v56 = *(&v77 & 0xFFFFFFFFFFFFFFF7 | (8 * v51)) + v54 * *(&v77 & 0xFFFFFFFFFFFFFFF7 | (8 * v50));
+    v76 = v47;
+    v57 = *(&v76 & 0xFFFFFFFFFFFFFFF7 | (8 * v51)) + v54 * *(&v76 & 0xFFFFFFFFFFFFFFF7 | (8 * v50));
+    v75 = v48;
+    v58 = *(&v75 | (8 * v51));
+    v59 = *(&v75 | (8 * v50));
+    v79 = v55;
+    v80.f64[0] = v56;
+    v80.f64[1] = v57;
+    v81 = v58 + v54 * v59;
+    v60 = geom::cubic_roots<double>(&v79, v82);
     v18 = 0;
     if (!v60)
     {
@@ -3707,13 +3678,13 @@ LABEL_37:
     }
 
     v61 = v60;
-    v62 = v83;
+    v62 = v82;
     v22 = a7;
     v21 = a8;
     v24 = a5;
     v23 = a6;
     v26 = a3;
-    v25 = v71;
+    v25 = v70;
     do
     {
       v63 = *v62;
@@ -3749,7 +3720,6 @@ LABEL_38:
     while (v66);
   }
 
-  v68 = *MEMORY[0x277D85DE8];
   return v18;
 }
 
@@ -7399,7 +7369,7 @@ float64x2_t geom::dop<(unsigned char)26,double>::dop(uint64_t a1, float64x2_t *a
   return result;
 }
 
-void geom::robust_oriented_bounding_box_2<float>(std::vector<unsigned int>::size_type a1, void *a2, void *a3, float32x2_t *a4, float32x2_t *a5, int32x2_t *a6)
+void geom::robust_oriented_bounding_box_2<float>(std::vector<unsigned int>::size_type a1, void *a2, void *a3, float32x2_t *a4, float32x2_t *a5, float32x2_t *a6)
 {
   if (a1 == 1)
   {
@@ -7625,15 +7595,14 @@ void geom::robust_oriented_bounding_box_2<float>(std::vector<unsigned int>::size
   }
 }
 
-void geom::robust_oriented_bounding_box_2<double>(std::vector<unsigned int>::size_type a1, _OWORD *a2, _OWORD *a3, float64x2_t *a4, float64x2_t *a5, int8x16_t *a6)
+void geom::robust_oriented_bounding_box_2<double>(std::vector<unsigned int>::size_type a1, _OWORD *a2, _OWORD *a3, float64x2_t *a4, float64x2_t *a5, float64x2_t *a6)
 {
   if (a1 == 1)
   {
     *a3 = *a2;
     *a4 = xmmword_2500C1650;
     *a5 = xmmword_2500C1660;
-    a6->i64[0] = 0;
-    a6->i64[1] = 0;
+    *a6 = 0uLL;
   }
 
   else
@@ -7850,26 +7819,25 @@ void geom::robust_oriented_bounding_box_2<double>(std::vector<unsigned int>::siz
   }
 }
 
-uint64_t geom::oriented_bounding_box_3<float>(uint64_t result, float32x4_t *a2, float32x4_t *a3, float32x4_t *a4, float32x4_t *a5, float32x4_t *a6, int8x16_t *a7)
+float32x4_t geom::oriented_bounding_box_3<float>(unint64_t a1, float32x4_t *a2, float32x4_t *a3, float32x4_t *a4, float32x4_t *a5, float32x4_t *a6, int8x16_t *a7)
 {
   v79 = *MEMORY[0x277D85DE8];
   v12 = 0uLL;
-  v13 = 0uLL;
-  if (!result)
+  result = 0uLL;
+  if (!a1)
   {
     goto LABEL_14;
   }
 
-  v15 = result;
-  for (i = 0; i != result; ++i)
+  for (i = 0; i != a1; ++i)
   {
     v17 = a2[i];
-    v13 = vaddq_f32(v13, v17);
+    result = vaddq_f32(result, v17);
   }
 
   v18 = 0;
-  v17.f32[0] = result;
-  v19 = vdivq_f32(v13, vdupq_lane_s32(*v17.f32, 0));
+  v17.f32[0] = a1;
+  v19 = vdivq_f32(result, vdupq_lane_s32(*v17.f32, 0));
   v74 = 0;
   v75 = 0;
   v76 = 0;
@@ -7888,24 +7856,24 @@ uint64_t geom::oriented_bounding_box_3<float>(uint64_t result, float32x4_t *a2, 
     ++v18;
   }
 
-  while (result != v18);
-  v72 = v19;
+  while (a1 != v18);
+  v71 = v19;
   v73 = v21;
   v75 = v20;
   v77 = v22;
   v78 = _S0;
-  result = geom::compute_eigendecomposition_of_symmetric_matrix<float,3ul>();
-  if (!result)
+  if (!geom::compute_eigendecomposition_of_symmetric_matrix<float,3ul>(&v73, v72, 1))
   {
-    v13 = v72;
+    result = v71;
     v12 = 0uLL;
 LABEL_14:
-    *a3 = v13;
+    *a3 = result;
     *a4 = xmmword_2500C1620;
     *a5 = xmmword_2500C1630;
+    result.i64[0] = 0;
     *a6 = xmmword_2500C2810;
     *a7 = v12;
-    goto LABEL_15;
+    return result;
   }
 
   v29 = 0;
@@ -7926,7 +7894,7 @@ LABEL_14:
   }
 
   while (v29 != 3);
-  v32 = vsubq_f32(*a2, v72);
+  v32 = vsubq_f32(*a2, v71);
   v33 = vmulq_f32(v32, *a4);
   v34 = vmulq_f32(v32, *a5);
   v35 = vadd_f32(vzip1_s32(*v33.i8, *v34.i8), vzip2_s32(*v33.i8, *v34.i8));
@@ -7934,8 +7902,8 @@ LABEL_14:
   *v37.f32 = vadd_f32(vzip1_s32(*v37.f32, *&vextq_s8(v34, v34, 8uLL)), v35);
   v36 = vmulq_f32(v32, *a6);
   v37.f32[2] = v36.f32[2] + vaddv_f32(*v36.f32);
-  v38 = v15 - 1;
-  if (v15 == 1)
+  v38 = a1 - 1;
+  if (a1 == 1)
   {
     v39 = v37;
     v40 = v32;
@@ -7943,54 +7911,54 @@ LABEL_14:
 
   else
   {
-    v42 = a2 + 1;
+    v41 = a2 + 1;
     v40 = v32;
     v39 = v37;
     do
     {
-      v43 = *v42++;
-      v44 = vsubq_f32(v43, v72);
-      v45 = vmulq_f32(*a4, v44);
-      v46 = vmulq_f32(*a5, v44);
-      *v45.i8 = vadd_f32(vzip1_s32(*&vextq_s8(v45, v45, 8uLL), *&vextq_s8(v46, v46, 8uLL)), vadd_f32(vzip1_s32(*v45.i8, *v46.i8), vzip2_s32(*v45.i8, *v46.i8)));
-      v47 = vmulq_f32(*a6, v44);
+      v42 = *v41++;
+      v43 = vsubq_f32(v42, v71);
+      v44 = vmulq_f32(*a4, v43);
+      v45 = vmulq_f32(*a5, v43);
+      *v44.i8 = vadd_f32(vzip1_s32(*&vextq_s8(v44, v44, 8uLL), *&vextq_s8(v45, v45, 8uLL)), vadd_f32(vzip1_s32(*v44.i8, *v45.i8), vzip2_s32(*v44.i8, *v45.i8)));
+      v46 = vmulq_f32(*a6, v43);
       v37.i32[3] = 0;
-      *&v45.i32[2] = v47.f32[2] + vaddv_f32(*v47.f32);
-      v45.i32[3] = 0;
-      v37 = vminnmq_f32(v37, v45);
+      *&v44.i32[2] = v46.f32[2] + vaddv_f32(*v46.f32);
+      v44.i32[3] = 0;
+      v37 = vminnmq_f32(v37, v44);
       v39.i32[3] = 0;
       v40.i32[3] = 0;
-      v44.i32[3] = 0;
-      v39 = vmaxnmq_f32(v39, v45);
-      v40 = vminnmq_f32(v40, v44);
+      v43.i32[3] = 0;
+      v39 = vmaxnmq_f32(v39, v44);
+      v40 = vminnmq_f32(v40, v43);
       v32.i32[3] = 0;
-      v32 = vmaxnmq_f32(v32, v44);
+      v32 = vmaxnmq_f32(v32, v43);
       --v38;
     }
 
     while (v38);
   }
 
-  v48 = vdupq_n_s32(0x3FFFFFACu);
-  v49 = vdivq_f32(vsubq_f32(v39, v37), v48);
-  *a7 = v49;
-  v50 = vdivq_f32(vsubq_f32(v32, v40), v48);
+  v47 = vdupq_n_s32(0x3FFFFFACu);
+  v48 = vdivq_f32(vsubq_f32(v39, v37), v47);
+  *a7 = v48;
+  v49 = vdivq_f32(vsubq_f32(v32, v40), v47);
+  v50 = vmuls_lane_f32(vmuls_lane_f32(*v48.i32, *v48.i8, 1), v48, 2);
   v51 = vmuls_lane_f32(vmuls_lane_f32(*v49.i32, *v49.i8, 1), v49, 2);
-  v52 = vmuls_lane_f32(vmuls_lane_f32(*v50.i32, *v50.i8, 1), v50, 2);
+  v52 = fabsf(v50);
   v53 = fabsf(v51);
-  v54 = fabsf(v52);
-  if (v53 > 0.00001 || v54 > 0.00001)
+  if (v52 > 0.00001 || v53 > 0.00001)
   {
-    if (v51 == v52)
+    if (v50 == v51)
     {
       goto LABEL_33;
     }
 
-    if (v53 != INFINITY && v54 != INFINITY)
+    if (v52 != INFINITY && v53 != INFINITY)
     {
-      v60 = v54 + v53;
+      v59 = v53 + v52;
 LABEL_43:
-      if ((v52 + ((v60 + 1.0) * 0.00001)) > v51)
+      if ((v51 + ((v59 + 1.0) * 0.00001)) > v50)
       {
         goto LABEL_33;
       }
@@ -8001,28 +7969,28 @@ LABEL_43:
 
   else
   {
+    v54 = vmulq_f32(v48, vextq_s8(vuzp1q_s32(v48, v48), v48, 0xCuLL));
+    v50 = v54.f32[2] + vaddv_f32(*v54.f32);
     v55 = vmulq_f32(v49, vextq_s8(vuzp1q_s32(v49, v49), v49, 0xCuLL));
     v51 = v55.f32[2] + vaddv_f32(*v55.f32);
-    v56 = vmulq_f32(v50, vextq_s8(vuzp1q_s32(v50, v50), v50, 0xCuLL));
-    v52 = v56.f32[2] + vaddv_f32(*v56.f32);
-    if (v51 == v52)
+    if (v50 == v51)
     {
       goto LABEL_33;
     }
 
+    v56 = fabsf(v50);
     v57 = fabsf(v51);
-    v58 = fabsf(v52);
-    if (v57 != INFINITY && v58 != INFINITY)
+    if (v56 != INFINITY && v57 != INFINITY)
     {
-      v60 = v58 + v57;
+      v59 = v57 + v56;
       goto LABEL_43;
     }
   }
 
-  if (v51 > v52)
+  if (v50 > v51)
   {
 LABEL_32:
-    *a7 = v50;
+    *a7 = v49;
     *a4 = xmmword_2500C1620;
     *a5 = xmmword_2500C1630;
     *a6 = xmmword_2500C2810;
@@ -8031,63 +7999,63 @@ LABEL_32:
   }
 
 LABEL_33:
-  v62 = vaddq_f32(v39, v37);
-  v63.i64[0] = 0x3F0000003F000000;
-  v63.i64[1] = 0x3F0000003F000000;
-  v64 = vmulq_f32(v62, v63);
-  *a3 = vmlaq_laneq_f32(vmlaq_lane_f32(vmlaq_n_f32(v72, *a4, v64.f32[0]), *a5, *v64.f32, 1), *a6, v64, 2);
-  v65 = *a7;
-  LODWORD(v66) = HIDWORD(a7->i64[0]);
-  if (COERCE_FLOAT(*a7) < v66)
+  v61 = vaddq_f32(v39, v37);
+  v62.i64[0] = 0x3F0000003F000000;
+  v62.i64[1] = 0x3F0000003F000000;
+  v63 = vmulq_f32(v61, v62);
+  *a3 = vmlaq_laneq_f32(vmlaq_lane_f32(vmlaq_n_f32(v71, *a4, v63.f32[0]), *a5, *v63.f32, 1), *a6, v63, 2);
+  v64 = *a7;
+  LODWORD(v65) = HIDWORD(a7->i64[0]);
+  if (COERCE_FLOAT(*a7) < v65)
   {
-    *a7 = vzip1q_s32(vextq_s8(v65, v65, 4uLL), v65);
-    v67 = *a4;
+    *a7 = vzip1q_s32(vextq_s8(v64, v64, 4uLL), v64);
+    v66 = *a4;
     *a4 = *a5;
-    *a5 = v67;
-    v65 = *a7;
-    LODWORD(v66) = HIDWORD(a7->i64[0]);
+    *a5 = v66;
+    v64 = *a7;
+    LODWORD(v65) = HIDWORD(a7->i64[0]);
   }
 
-  if (v66 < *&v65.i32[2])
+  if (v65 < *&v64.i32[2])
   {
-    *a7 = vuzp1q_s32(v65, vrev64q_s32(v65));
-    v68 = *a5;
+    *a7 = vuzp1q_s32(v64, vrev64q_s32(v64));
+    v67 = *a5;
     *a5 = *a6;
-    *a6 = v68;
-    v65 = *a7;
-    LODWORD(v66) = HIDWORD(a7->i64[0]);
+    *a6 = v67;
+    v64 = *a7;
+    LODWORD(v65) = HIDWORD(a7->i64[0]);
   }
 
-  if (*v65.i32 >= v66)
+  if (*v64.i32 >= v65)
   {
-    v69 = *a5;
+    v68 = *a5;
   }
 
   else
   {
-    *a7 = vzip1q_s32(vextq_s8(v65, v65, 4uLL), v65);
-    v69 = *a4;
+    *a7 = vzip1q_s32(vextq_s8(v64, v64, 4uLL), v64);
+    v68 = *a4;
     *a4 = *a5;
-    *a5 = v69;
+    *a5 = v68;
   }
 
-  v70 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v69, v69), v69, 0xCuLL), vnegq_f32(*a4)), v69, vextq_s8(vuzp1q_s32(*a4, *a4), *a4, 0xCuLL));
-  v71 = vmulq_f32(*a6, vextq_s8(vuzp1q_s32(v70, v70), v70, 0xCuLL));
-  if ((v71.f32[2] + vaddv_f32(*v71.f32)) < 0.0)
+  v69 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v68, v68), v68, 0xCuLL), vnegq_f32(*a4)), v68, vextq_s8(vuzp1q_s32(*a4, *a4), *a4, 0xCuLL));
+  result = *a6;
+  v70 = vmulq_f32(*a6, vextq_s8(vuzp1q_s32(v69, v69), v69, 0xCuLL));
+  if ((v70.f32[2] + vaddv_f32(*v70.f32)) < 0.0)
   {
-    *a6 = vnegq_f32(*a6);
+    result = vnegq_f32(result);
+    *a6 = result;
   }
 
-LABEL_15:
-  v41 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t geom::oriented_bounding_box_3<double>(uint64_t result, float64x2_t *a2, float64x2_t *a3, float64x2_t *a4, float64x2_t *a5, uint64_t a6, uint64_t a7)
+float64x2_t geom::oriented_bounding_box_3<double>(unint64_t a1, float64x2_t *a2, float64x2_t *a3, float64x2_t *a4, float64x2_t *a5, uint64_t a6, uint64_t a7)
 {
   v107 = *MEMORY[0x277D85DE8];
   v12 = 0uLL;
-  if (!result)
+  if (!a1)
   {
     v46 = 0uLL;
     v47 = 0uLL;
@@ -8101,13 +8069,12 @@ LABEL_15:
     __asm { FMOV            V0.2D, #1.0 }
 
     *a6 = v12;
-    *(a6 + 16) = _Q0;
+    *(a6 + 16) = result;
     *a7 = v12;
     *(a7 + 16) = v12;
-    goto LABEL_16;
+    return result;
   }
 
-  v14 = result;
   v15 = 0;
   v16 = 0uLL;
   v17 = 0uLL;
@@ -8119,12 +8086,12 @@ LABEL_15:
     v15 += 2;
   }
 
-  while (2 * result != v15);
+  while (2 * a1 != v15);
   v19 = 0;
-  v18.f64[0] = result;
+  v18.f64[0] = a1;
   v20 = vdivq_f64(v17, v18);
-  v21 = vdivq_f64(v16, vdupq_lane_s64(COERCE__INT64(result), 0));
-  v98 = vextq_s8(v21, v21, 8uLL).u64[0];
+  v21 = vdivq_f64(v16, vdupq_lane_s64(COERCE__INT64(a1), 0));
+  v97 = vextq_s8(v21, v21, 8uLL).u64[0];
   v22 = 0uLL;
   v102 = 0u;
   v103 = 0u;
@@ -8144,25 +8111,24 @@ LABEL_15:
     ++v19;
   }
 
-  while (result != v19);
-  v99 = v21;
-  v100 = v20;
+  while (a1 != v19);
+  v98 = v21;
+  v99 = v20;
   v101 = v24;
   v103 = v22;
   v105 = v25;
   v106 = v23;
-  result = geom::compute_eigendecomposition_of_symmetric_matrix<double,3ul>();
-  if (!result)
+  if (!geom::compute_eigendecomposition_of_symmetric_matrix<double,3ul>(&v101, v100, 1))
   {
-    v46 = v99;
-    v47 = v100;
+    v46 = v98;
+    v47 = v99;
     v12 = 0uLL;
     goto LABEL_15;
   }
 
   v29 = 0;
   v30 = &v103;
-  v31.f64[0] = v99.f64[0];
+  v31.f64[0] = v98.f64[0];
   do
   {
     v32 = v29;
@@ -8179,8 +8145,8 @@ LABEL_15:
   }
 
   while (v29 != 3);
-  v33 = vsubq_f64(*a2, v99);
-  v34 = vsubq_f64(a2[1], v100);
+  v33 = vsubq_f64(*a2, v98);
+  v34 = vsubq_f64(a2[1], v99);
   v35 = a4[1];
   v36 = a5[1];
   v37 = vaddq_f64(vzip1q_s64(vmulq_f64(v34, v35), vmulq_f64(v34, v36)), vpaddq_f64(vmulq_f64(v33, *a4), vmulq_f64(v33, *a5)));
@@ -8188,8 +8154,8 @@ LABEL_15:
   v39 = *(a6 + 16);
   v40 = vmulq_f64(v34, v39);
   v40.f64[0] = v40.f64[0] + vaddvq_f64(vmulq_f64(v33, *a6));
-  v41 = v14 - 1;
-  if (v14 == 1)
+  v41 = a1 - 1;
+  if (a1 == 1)
   {
     v42 = v37;
     v43 = v40;
@@ -8199,28 +8165,28 @@ LABEL_15:
 
   else
   {
-    v54 = a2 + 2;
+    v53 = a2 + 2;
     v44 = v33;
     v45.f64[0] = v34.f64[0];
     v42 = v37;
     v43.f64[0] = v40.f64[0];
     do
     {
-      v56 = *v54;
-      v55 = v54[1];
-      v54 += 2;
-      v57 = vsubq_f64(v56, v99);
-      v58 = vsubq_f64(v55, v100);
-      v59 = vaddq_f64(vzip1q_s64(vmulq_f64(v35, v58), vmulq_f64(v36, v58)), vpaddq_f64(vmulq_f64(*a4, v57), vmulq_f64(*a5, v57)));
-      *&v60 = vmulq_f64(v39, v58).f64[0] + vaddvq_f64(vmulq_f64(v38, v57));
-      v37 = vminnmq_f64(v37, v59);
-      v40 = vminnmq_f64(*&v40.f64[0], v60);
-      v42 = vmaxnmq_f64(v42, v59);
-      v43 = vmaxnmq_f64(*&v43.f64[0], v60);
-      v44 = vminnmq_f64(v44, v57);
-      v45 = vminnmq_f64(*&v45.f64[0], *&v58.f64[0]);
-      v33 = vmaxnmq_f64(v33, v57);
-      v34 = vmaxnmq_f64(*&v34.f64[0], *&v58.f64[0]);
+      v55 = *v53;
+      v54 = v53[1];
+      v53 += 2;
+      v56 = vsubq_f64(v55, v98);
+      v57 = vsubq_f64(v54, v99);
+      v58 = vaddq_f64(vzip1q_s64(vmulq_f64(v35, v57), vmulq_f64(v36, v57)), vpaddq_f64(vmulq_f64(*a4, v56), vmulq_f64(*a5, v56)));
+      *&v59 = vmulq_f64(v39, v57).f64[0] + vaddvq_f64(vmulq_f64(v38, v56));
+      v37 = vminnmq_f64(v37, v58);
+      v40 = vminnmq_f64(*&v40.f64[0], v59);
+      v42 = vmaxnmq_f64(v42, v58);
+      v43 = vmaxnmq_f64(*&v43.f64[0], v59);
+      v44 = vminnmq_f64(v44, v56);
+      v45 = vminnmq_f64(*&v45.f64[0], *&v57.f64[0]);
+      v33 = vmaxnmq_f64(v33, v56);
+      v34 = vmaxnmq_f64(*&v34.f64[0], *&v57.f64[0]);
       --v41;
     }
 
@@ -8228,41 +8194,41 @@ LABEL_15:
   }
 
   v38.f64[0] = 1.999999;
-  v61 = vdivq_f64(vsubq_f64(v43, v40), v38);
-  v62 = vdupq_n_s64(0x3FFFFFFEF39085F5uLL);
-  v63 = vdivq_f64(vsubq_f64(v42, v37), v62);
-  *a7 = v63;
-  *(a7 + 16) = v61;
-  v64 = vdivq_f64(vsubq_f64(v34, v45), v38);
-  v65 = vdivq_f64(vsubq_f64(v33, v44), v62);
-  v66 = vmulq_f64(vzip1q_s64(v64, v61), vmulq_f64(vzip1q_s64(v65, v63), vzip2q_s64(v65, v63)));
-  v67 = vmovn_s64(vcgeq_f64(vdupq_n_s64(0x3EB0C6F7A0B5ED8DuLL), vabsq_f64(v66)));
-  if (v67.i32[1] & v67.i32[0])
+  v60 = vdivq_f64(vsubq_f64(v43, v40), v38);
+  v61 = vdupq_n_s64(0x3FFFFFFEF39085F5uLL);
+  v62 = vdivq_f64(vsubq_f64(v42, v37), v61);
+  *a7 = v62;
+  *(a7 + 16) = v60;
+  v63 = vdivq_f64(vsubq_f64(v34, v45), v38);
+  v64 = vdivq_f64(vsubq_f64(v33, v44), v61);
+  v65 = vmulq_f64(vzip1q_s64(v63, v60), vmulq_f64(vzip1q_s64(v64, v62), vzip2q_s64(v64, v62)));
+  v66 = vmovn_s64(vcgeq_f64(vdupq_n_s64(0x3EB0C6F7A0B5ED8DuLL), vabsq_f64(v65)));
+  if (v66.i32[1] & v66.i32[0])
   {
-    v68 = vextq_s8(v63, v63, 8uLL);
-    v69 = vextq_s8(v65, v65, 8uLL);
-    v70.f64[0] = v61.f64[0];
-    *&v70.f64[1] = v63.i64[0];
-    v63.i64[1] = *&v68.f64[0];
-    v71 = vmulq_f64(v63, v70);
-    v70.f64[0] = v64.f64[0];
-    *&v70.f64[1] = v65.i64[0];
-    *&v72.f64[0] = v65.i64[0];
-    v72.f64[1] = v69.f64[0];
-    v73 = vaddq_f64(vzip1q_s64(vmulq_f64(v64, v69), vmulq_f64(v61, v68)), vpaddq_f64(vmulq_f64(v72, v70), v71));
-    if (v73.f64[1] == v73.f64[0] || v73.f64[0] + 0.000001 > v73.f64[1])
+    v67 = vextq_s8(v62, v62, 8uLL);
+    v68 = vextq_s8(v64, v64, 8uLL);
+    v69.f64[0] = v60.f64[0];
+    *&v69.f64[1] = v62.i64[0];
+    v62.i64[1] = *&v67.f64[0];
+    v70 = vmulq_f64(v62, v69);
+    v69.f64[0] = v63.f64[0];
+    *&v69.f64[1] = v64.i64[0];
+    *&v71.f64[0] = v64.i64[0];
+    v71.f64[1] = v68.f64[0];
+    v72 = vaddq_f64(vzip1q_s64(vmulq_f64(v63, v68), vmulq_f64(v60, v67)), vpaddq_f64(vmulq_f64(v71, v69), v70));
+    if (v72.f64[1] == v72.f64[0] || v72.f64[0] + 0.000001 > v72.f64[1])
     {
       goto LABEL_25;
     }
   }
 
-  else if (v66.f64[1] == v66.f64[0] || v66.f64[0] + 0.000001 > v66.f64[1])
+  else if (v65.f64[1] == v65.f64[0] || v65.f64[0] + 0.000001 > v65.f64[1])
   {
     goto LABEL_25;
   }
 
-  *a7 = v65;
-  *(a7 + 16) = v64;
+  *a7 = v64;
+  *(a7 + 16) = v63;
   *a4 = xmmword_2500C1650;
   a4[1] = 0u;
   *a5 = xmmword_2500C1660;
@@ -8277,98 +8243,98 @@ LABEL_15:
   v37 = v44;
   v40 = v45;
 LABEL_25:
-  v76 = vaddq_f64(v42, v37);
+  v75 = vaddq_f64(v42, v37);
   __asm { FMOV            V2.2D, #0.5 }
 
-  v78 = vmulq_f64(vaddq_f64(v43, v40), _Q2);
-  v79 = vmulq_f64(v76, _Q2);
-  *&v31.f64[1] = v98;
-  v80 = vmlaq_laneq_f64(vmlaq_f64(v100, a4[1], v79), a5[1], v79, 1);
-  v81 = vmlaq_laneq_f64(vmlaq_n_f64(v31, *a4, v79.f64[0]), *a5, v79, 1);
-  v82 = *(a6 + 16);
-  *a3 = vmlaq_n_f64(v81, *a6, v78.f64[0]);
-  a3[1] = vmlaq_f64(v80, v82, v78);
-  v82.f64[0] = *(a7 + 16);
-  v83 = *a7;
-  v84 = vextq_s8(v83, v83, 8uLL);
-  v85 = *(a7 + 8);
-  if (*a7 < v85)
+  v77 = vmulq_f64(vaddq_f64(v43, v40), _Q2);
+  v78 = vmulq_f64(v75, _Q2);
+  *&v31.f64[1] = v97;
+  v79 = vmlaq_laneq_f64(vmlaq_f64(v99, a4[1], v78), a5[1], v78, 1);
+  v80 = vmlaq_laneq_f64(vmlaq_n_f64(v31, *a4, v78.f64[0]), *a5, v78, 1);
+  v81 = *(a6 + 16);
+  *a3 = vmlaq_n_f64(v80, *a6, v77.f64[0]);
+  a3[1] = vmlaq_f64(v79, v81, v77);
+  v81.f64[0] = *(a7 + 16);
+  v82 = *a7;
+  v83 = vextq_s8(v82, v82, 8uLL);
+  v84 = *(a7 + 8);
+  if (*a7 < v84)
   {
-    v84.i64[1] = *a7;
-    *a7 = v84;
-    *(a7 + 16) = v82;
-    v82 = *a4;
-    v86 = a4[1];
-    v87 = a5[1];
-    *a4 = *a5;
-    a4[1] = v87;
-    *a5 = v82;
-    a5[1] = v86;
-    v82.f64[0] = *(a7 + 16);
-    v83 = *a7;
-    v84 = vextq_s8(v83, v83, 8uLL);
-    v85 = *(a7 + 8);
-  }
-
-  if (v85 < v82.f64[0])
-  {
-    v83.i64[1] = *&v82.f64[0];
+    v83.i64[1] = *a7;
     *a7 = v83;
-    *(a7 + 16) = v84;
-    v82 = *a5;
-    v88 = a5[1];
-    v84 = *(a6 + 16);
-    *a5 = *a6;
-    a5[1] = v84;
-    *a6 = v82;
-    *(a6 + 16) = v88;
-    v82.f64[0] = *(a7 + 16);
-    v83 = *a7;
-    v84.i64[0] = vextq_s8(v83, v83, 8uLL).u64[0];
-    v85 = *(a7 + 8);
+    *(a7 + 16) = v81;
+    v81 = *a4;
+    v85 = a4[1];
+    v86 = a5[1];
+    *a4 = *a5;
+    a4[1] = v86;
+    *a5 = v81;
+    a5[1] = v85;
+    v81.f64[0] = *(a7 + 16);
+    v82 = *a7;
+    v83 = vextq_s8(v82, v82, 8uLL);
+    v84 = *(a7 + 8);
   }
 
-  if (*v83.i64 >= v85)
+  if (v84 < v81.f64[0])
   {
-    v90 = *a5;
-    v89 = a5[1];
+    v82.i64[1] = *&v81.f64[0];
+    *a7 = v82;
+    *(a7 + 16) = v83;
+    v81 = *a5;
+    v87 = a5[1];
+    v83 = *(a6 + 16);
+    *a5 = *a6;
+    a5[1] = v83;
+    *a6 = v81;
+    *(a6 + 16) = v87;
+    v81.f64[0] = *(a7 + 16);
+    v82 = *a7;
+    v83.i64[0] = vextq_s8(v82, v82, 8uLL).u64[0];
+    v84 = *(a7 + 8);
+  }
+
+  if (*v82.i64 >= v84)
+  {
+    v89 = *a5;
+    v88 = a5[1];
   }
 
   else
   {
-    v84.i64[1] = v83.i64[0];
-    *a7 = v84;
-    *(a7 + 16) = v82;
-    v90 = *a4;
-    v89 = a4[1];
-    v91 = a5[1];
+    v83.i64[1] = v82.i64[0];
+    *a7 = v83;
+    *(a7 + 16) = v81;
+    v89 = *a4;
+    v88 = a4[1];
+    v90 = a5[1];
     *a4 = *a5;
-    a4[1] = v91;
-    *a5 = v90;
-    a5[1] = v89;
+    a4[1] = v90;
+    *a5 = v89;
+    a5[1] = v88;
   }
 
-  v93.f64[0] = v89.f64[0];
-  v93.f64[1] = v90.f64[0];
-  v94 = a4[1];
-  v95 = vnegq_f64(v94);
-  v94.f64[1] = a4->f64[0];
-  v96 = vmlaq_f64(vmulq_f64(v93, vnegq_f64(*a4)), v90, v94);
-  *&v95.f64[0] = *&vmlaq_laneq_f64(vmulq_laneq_f64(v95, v90, 1), v89, *a4, 1);
-  v95.f64[1] = v96.f64[0];
-  v97 = *(a6 + 16);
-  if (vmulq_laneq_f64(v97, v96, 1).f64[0] + vaddvq_f64(vmulq_f64(*a6, v95)) < 0.0)
+  v92.f64[0] = v88.f64[0];
+  v92.f64[1] = v89.f64[0];
+  v93 = a4[1];
+  v94 = vnegq_f64(v93);
+  v93.f64[1] = a4->f64[0];
+  v95 = vmlaq_f64(vmulq_f64(v92, vnegq_f64(*a4)), v89, v93);
+  *&v94.f64[0] = *&vmlaq_laneq_f64(vmulq_laneq_f64(v94, v89, 1), v88, *a4, 1);
+  v94.f64[1] = v95.f64[0];
+  result = *a6;
+  v96 = *(a6 + 16);
+  if (vmulq_laneq_f64(v96, v95, 1).f64[0] + vaddvq_f64(vmulq_f64(*a6, v94)) < 0.0)
   {
-    *a6 = vnegq_f64(*a6);
-    *(a6 + 16) = vnegq_f64(v97);
+    result = vnegq_f64(result);
+    *a6 = result;
+    *(a6 + 16) = vnegq_f64(v96);
   }
 
-LABEL_16:
-  v53 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-double geom::oriented_bounding_box_matrix_3<float>(uint64_t a1, float32x4_t *a2)
+double geom::oriented_bounding_box_matrix_3<float>(unint64_t a1, float32x4_t *a2)
 {
   v8.i32[2] = 0;
   v8.i64[0] = 0;
@@ -8387,7 +8353,7 @@ double geom::oriented_bounding_box_matrix_3<float>(uint64_t a1, float32x4_t *a2)
   return result;
 }
 
-float64_t geom::oriented_bounding_box_matrix_3<double>@<D0>(uint64_t a1@<X0>, float64x2_t *a2@<X1>, float64x2_t *a3@<X8>)
+float64_t geom::oriented_bounding_box_matrix_3<double>@<D0>(unint64_t a1@<X0>, float64x2_t *a2@<X1>, float64x2_t *a3@<X8>)
 {
   *&v20 = 0;
   v19 = 0u;
@@ -8434,174 +8400,99 @@ void geom_convex_hull_2d(std::vector<unsigned int>::size_type a1, uint64_t a2, u
   geom::convex_hull_2<double>(a1, a2, v5);
 }
 
-uint64_t geom_dop6_polyhedron_3f(uint64_t a1, uint64_t a2, uint64_t a3, __n128 a4, __n128 a5, __n128 a6)
+void geom_dop6_polyhedron_3f(uint64_t a1, uint64_t a2, uint64_t a3, __n128 a4, __n128 a5, float32x4_t a6)
 {
-  v13[0] = a4;
-  v13[1] = a5;
-  v12 = a6;
+  v12[0] = a4;
+  v12[1] = a5;
+  v11 = a6;
   v8 = geom::collection_to_vector<float>(a1);
   v9 = geom::collection_to_vector<float>(a2);
   v10 = geom::collection_to_vector<float>(a3);
-  return geom::dop<(unsigned char)6,float>::compute_polyhedron(v13, &v12, v8, v9, v10);
+  geom::dop<(unsigned char)6,float>::compute_polyhedron(v12, &v11, v8, v9, v10);
 }
 
-uint64_t geom_dop8_polyhedron_3f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __n128 a5)
-{
-  v12 = a5;
-  v8 = geom::collection_to_vector<float>(a2);
-  v9 = geom::collection_to_vector<float>(a3);
-  v10 = geom::collection_to_vector<float>(a4);
-  return geom::dop<(unsigned char)8,float>::compute_polyhedron(a1, &v12, v8, v9, v10);
-}
-
-uint64_t geom_dop12_polyhedron_3f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __n128 a5)
-{
-  v12 = a5;
-  v8 = geom::collection_to_vector<float>(a2);
-  v9 = geom::collection_to_vector<float>(a3);
-  v10 = geom::collection_to_vector<float>(a4);
-  return geom::dop<(unsigned char)12,float>::compute_polyhedron(a1, &v12, v8, v9, v10);
-}
-
-uint64_t geom_dop14_polyhedron_3f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __n128 a5)
-{
-  v12 = a5;
-  v8 = geom::collection_to_vector<float>(a2);
-  v9 = geom::collection_to_vector<float>(a3);
-  v10 = geom::collection_to_vector<float>(a4);
-  return geom::dop<(unsigned char)14,float>::compute_polyhedron(a1, &v12, v8, v9, v10);
-}
-
-uint64_t geom_dop18_polyhedron_3f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __n128 a5)
-{
-  v12 = a5;
-  v8 = geom::collection_to_vector<float>(a2);
-  v9 = geom::collection_to_vector<float>(a3);
-  v10 = geom::collection_to_vector<float>(a4);
-  return geom::dop<(unsigned char)18,float>::compute_polyhedron(a1, &v12, v8, v9, v10);
-}
-
-uint64_t geom_dop20_polyhedron_3f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __n128 a5)
-{
-  v12 = a5;
-  v8 = geom::collection_to_vector<float>(a2);
-  v9 = geom::collection_to_vector<float>(a3);
-  v10 = geom::collection_to_vector<float>(a4);
-  return geom::dop<(unsigned char)20,float>::compute_polyhedron(a1, &v12, v8, v9, v10);
-}
-
-uint64_t geom_dop26_polyhedron_3f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, __n128 a5)
-{
-  v12 = a5;
-  v8 = geom::collection_to_vector<float>(a2);
-  v9 = geom::collection_to_vector<float>(a3);
-  v10 = geom::collection_to_vector<float>(a4);
-  return geom::dop<(unsigned char)26,float>::compute_polyhedron(a1, &v12, v8, v9, v10);
-}
-
-void geom_dop6_polyhedron_3d(uint64_t a1, float64x2_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
-{
-  v8 = a2[1];
-  v12[0] = *a2;
-  v12[1] = v8;
-  v9 = geom::collection_to_vector<float>(a3);
-  v10 = geom::collection_to_vector<float>(a4);
-  v11 = geom::collection_to_vector<float>(a5);
-  geom::dop<(unsigned char)6,double>::compute_polyhedron(a1, v12, v9, v10, v11);
-}
-
-void geom::dop<(unsigned char)6,double>::compute_polyhedron(uint64_t a1, float64x2_t *a2, float64x2_t **a3, std::vector<int> *a4, uint64_t a5)
+void geom::dop<(unsigned char)6,float>::compute_polyhedron(uint64_t a1, float32x4_t *a2, float32x4_t **a3, std::vector<int> *a4, uint64_t a5)
 {
   v8 = 0;
-  v139[6] = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   a3[1] = *a3;
   a4->__end_ = a4->__begin_;
   *(a5 + 8) = *a5;
-  v11 = *a2;
-  v10 = a2[1];
-  v118 = a1 + 32;
+  v9 = *a2;
+  v87 = a1 + 16;
   do
   {
-    v12 = vmulq_f64(geom::kdop_axes<(unsigned char)6,double>[2 * v8 + 1], v10).f64[0] + vaddvq_f64(vmulq_f64(geom::kdop_axes<(unsigned char)6,double>[2 * v8], v11));
-    v13 = (a1 + 8 * v8);
-    *&v139[v8 + 3] = *v13 - v12;
-    *&v139[v8++] = v13[4] - v12;
+    v10 = vmulq_f32(geom::kdop_axes<(unsigned char)6,float>[v8], v9);
+    v10.f32[0] = v10.f32[2] + vaddv_f32(*v10.f32);
+    v11 = (a1 + 4 * v8);
+    *&v103[v8 + 3] = *v11 - v10.f32[0];
+    *&v103[v8++] = v11[4] - v10.f32[0];
   }
 
   while (v8 != 3);
-  v136 = 0;
-  v137 = 0;
-  v138 = 0;
-  _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE7reserveEm(&v136, 6uLL);
-  v16 = 0;
-  v17 = -1;
-  v18 = -1;
+  v100 = 0;
+  v101 = 0;
+  v102 = 0;
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(&v100, 6uLL);
+  v14 = 0;
+  v15 = -1;
+  v16 = -1;
   do
   {
-    v19 = *&v139[v16 + 3];
-    v20 = v139[v16];
-    if (v19 == *&v20)
+    v13.i32[0] = v103[v14 + 3];
+    v12.i32[0] = v103[v14];
+    if (*v13.i32 == *v12.i32)
     {
-      v17 = v16;
+      v15 = v14;
     }
 
     else
     {
-      v21 = v17;
-      v17 = v16;
-      if (vabdd_f64(v19, *&v20) > 0.000001)
+      v17 = v15;
+      v18 = fabsf(*v13.i32);
+      v19 = fabsf(*v12.i32);
+      v20 = v18 == INFINITY || v19 == INFINITY;
+      if (v20 || (v15 = v14, vabds_f32(*v13.i32, *v12.i32) >= (((v18 + v19) + 1.0) * 0.00001)))
       {
-        v22 = &geom::kdop_axes<(unsigned char)6,double>[2 * v16];
-        v122 = *v22;
-        v125 = v22[1];
-        v23 = vdupq_lane_s64(v20, 0);
-        *__x = vdivq_f64(*v22, v23);
-        v135 = vdivq_f64(v125, v23);
-        v120 = *&v19;
-        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v136, __x);
-        v24 = vdupq_lane_s64(v120, 0);
-        *__x = vdivq_f64(v122, v24);
-        v135 = vdivq_f64(v125, v24);
-        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v136, __x);
-        v18 = v16;
-        v17 = v21;
+        v89 = v13;
+        v91 = geom::kdop_axes<(unsigned char)6,float>[v14];
+        *__x = vdivq_f32(v91, vdupq_lane_s32(v12, 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v100, __x);
+        *__x = vdivq_f32(v91, vdupq_lane_s32(v89, 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v100, __x);
+        v16 = v14;
+        v15 = v17;
       }
     }
 
-    ++v16;
+    ++v14;
   }
 
-  while (v16 != 3);
-  v25 = v136;
-  v26 = (v137 - v136) >> 5;
-  if (!v26)
+  while (v14 != 3);
+  v21 = v100;
+  v22 = v101 - v100;
+  if (!v22)
   {
-    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
     __x[0] = 0;
     std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
-    goto LABEL_13;
+    goto LABEL_20;
   }
 
-  if (v26 == 2)
+  if (v22 == 2)
   {
-    v27 = &geom::kdop_axes<(unsigned char)6,double>[2 * v18];
-    v123 = *v27;
-    v126 = v27[1];
-    v28 = *(a1 + 8 * v18);
-    *__x = vmulq_n_f64(*v27, v28);
-    v135 = vmulq_n_f64(v126, v28);
-    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
-    v29 = *(v118 + 8 * v18);
-    *__x = vmulq_n_f64(v123, v29);
-    v135 = vmulq_n_f64(v126, v29);
-    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    v92 = geom::kdop_axes<(unsigned char)6,float>[v16];
+    *__x = vmulq_n_f32(v92, *(a1 + 4 * v16));
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    *__x = vmulq_n_f32(v92, *(v87 + 4 * v16));
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
     __x[0] = 0;
     std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
     begin = a4->__begin_;
     begin[10] = 1;
     begin[7] = 1;
     begin[4] = 1;
-LABEL_13:
+LABEL_20:
     __x[0] = 3;
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
     __x[0] = 6;
@@ -8610,362 +8501,314 @@ LABEL_13:
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
     __x[0] = 12;
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
-    goto LABEL_14;
+    goto LABEL_21;
   }
 
-  if (v26 > 5)
+  if (v22 > 5)
   {
-    geom::half_plane_intersection_3<double>(6uLL);
+    geom::half_plane_intersection_3<float>(6uLL, v100, a3, &a4->__begin_, a5);
   }
 
   else
   {
-    v131 = 0;
-    v132 = 0;
-    v133 = 0;
-    v32 = &geom::kdop_axes<(unsigned char)6,double>[2 * v17];
-    v33 = *v32;
-    v34 = v32[1];
-    v35 = fabs(v34.f64[0]);
-    if (v35 <= 2.22044605e-16)
+    memset(__x, 0, sizeof(__x));
+    v99 = 0;
+    v24 = geom::kdop_axes<(unsigned char)6,float>[v15];
+    v25 = COERCE_FLOAT(geom::kdop_axes<(unsigned char)6,float>[v15].i64[1]);
+    v26 = fabsf(v25);
+    LODWORD(v27) = HIDWORD(geom::kdop_axes<(unsigned char)6,float>[v15].i64[0]);
+    v28 = -v25;
+    if (v26 <= 0.00000011921)
     {
-      *v15.i64 = -v33.f64[1];
-      v37 = 0uLL;
-      v36 = vzip1q_s64(v15, v33);
+      v29 = vtrn1q_s32(COERCE_UNSIGNED_INT(-v27), v24);
     }
 
     else
     {
-      v36.f64[0] = 0.0;
-      v36.f64[1] = -v34.f64[0];
-      v37 = vdupq_laneq_s64(v33, 1);
+      v29.i32[0] = 0;
+      v29.f32[1] = v28;
+      v29.i64[1] = v24.u32[1];
     }
 
-    v38 = vdupq_laneq_s64(v33, 1);
-    v39 = vmulq_f64(v37, v37);
-    v39.f64[0] = 1.0 / sqrt(v39.f64[0] + vaddvq_f64(vmulq_f64(v36, v36)));
-    v40 = vmulq_f64(v37, v39);
-    v41 = vmulq_n_f64(v36, v39.f64[0]);
-    v42 = vextq_s8(v41, v41, 8uLL).u64[0];
-    if (v35 <= 2.22044605e-16)
+    v30 = vmulq_f32(v29, v29);
+    *&v31 = v30.f32[2] + vaddv_f32(*v30.f32);
+    *v30.f32 = vrsqrte_f32(v31);
+    *v30.f32 = vmul_f32(*v30.f32, vrsqrts_f32(v31, vmul_f32(*v30.f32, *v30.f32)));
+    LODWORD(v32) = vmul_f32(*v30.f32, vrsqrts_f32(v31, vmul_f32(*v30.f32, *v30.f32))).u32[0];
+    if (v26 <= 0.00000011921)
     {
-      *v14.i64 = -v33.f64[1];
-      v44 = 0uLL;
-      v43 = vzip1q_s64(v14, v33);
+      v33 = vtrn1q_s32(COERCE_UNSIGNED_INT(-v27), v24);
     }
 
     else
     {
-      v43.f64[0] = 0.0;
-      v43.f64[1] = -v34.f64[0];
-      v44 = v38;
+      v33.i32[0] = 0;
+      v33.f32[1] = v28;
+      v33.i64[1] = v24.u32[1];
     }
 
-    v124 = v32[1];
-    v127 = v40;
-    v45 = vmulq_f64(v44, v44);
-    v45.f64[0] = 1.0 / sqrt(v45.f64[0] + vaddvq_f64(vmulq_f64(v43, v43)));
-    v46 = vmulq_n_f64(v43, v45.f64[0]);
-    v47 = vmulq_f64(v44, v45);
-    v48.f64[0] = v32[1].f64[0];
-    v48.f64[1] = v32->f64[0];
-    v49 = vnegq_f64(v34);
-    v50 = vmlaq_laneq_f64(vmulq_laneq_f64(v49, v46, 1), v47, v33, 1);
-    v47.f64[1] = v46.f64[0];
-    v51 = vnegq_f64(v33);
-    v52 = v48;
-    v53 = vmlaq_f64(vmulq_f64(v47, v51), v46, v48);
-    v54 = vmulq_f64(v53, v53);
-    v48.f64[0] = vmulq_f64(v50, v50).f64[0];
-    v50.f64[1] = v53.f64[0];
-    v54.f64[0] = 1.0 / sqrt(v54.f64[1] + v48.f64[0] + v54.f64[0]);
-    v55 = vmulq_n_f64(v50, v54.f64[0]);
-    v56 = vextq_s8(v55, v55, 8uLL).u64[0];
-    v121 = vmulq_laneq_f64(v54, v53, 1);
-    v109 = v55.i64[0];
-    v111 = v41.i64[0];
-    v99 = v56;
-    v100 = v42;
-    if (v137 == v136)
+    v93 = vmulq_n_f32(v29, v32);
+    v34 = vmulq_f32(v33, v33);
+    *&v35 = v34.f32[2] + vaddv_f32(*v34.f32);
+    *v34.f32 = vrsqrte_f32(v35);
+    *v34.f32 = vmul_f32(*v34.f32, vrsqrts_f32(v35, vmul_f32(*v34.f32, *v34.f32)));
+    v36 = vmulq_n_f32(v33, vmul_f32(*v34.f32, vrsqrts_f32(v35, vmul_f32(*v34.f32, *v34.f32))).f32[0]);
+    v37 = vextq_s8(vuzp1q_s32(v24, v24), v24, 0xCuLL);
+    v38 = vnegq_f32(v24);
+    v39 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v36, v36), v36, 0xCuLL), v38), v36, v37);
+    v40 = vextq_s8(vuzp1q_s32(v39, v39), v39, 0xCuLL);
+    v41 = vmulq_f32(v39, v39);
+    *&v42 = v41.f32[1] + (v41.f32[2] + v41.f32[0]);
+    *v41.f32 = vrsqrte_f32(v42);
+    *v41.f32 = vmul_f32(*v41.f32, vrsqrts_f32(v42, vmul_f32(*v41.f32, *v41.f32)));
+    v90 = vmulq_n_f32(v40, vmul_f32(*v41.f32, vrsqrts_f32(v42, vmul_f32(*v41.f32, *v41.f32))).f32[0]);
+    if (v101 == v100)
     {
-      v78 = 0;
-      v79 = 0;
+      v62 = 0;
+      v63 = 0;
     }
 
     else
     {
-      v57 = 0;
-      v41.i64[1] = v42;
-      v55.i64[1] = v56;
-      v103 = v55;
-      v104 = v41;
-      v102 = vdupq_lane_s64(*&v124.f64[0], 0);
-      v51.i64[1] = vextq_s8(v51, v51, 8uLL).u64[0];
-      v105 = v51;
-      v106 = v49;
-      v52.i64[1] = vextq_s8(v52, v52, 8uLL).u64[0];
-      v107 = v52;
-      v108 = v38;
-      v119 = *v32;
+      v43 = 0;
+      v44 = vdup_lane_s32(*v24.i8, 1);
+      v45 = vdup_laneq_s32(v24, 2);
+      v88 = geom::kdop_axes<(unsigned char)6,float>[v15];
+      v82 = vextq_s8(v24, v24, 8uLL).u64[0];
+      v83 = v38;
+      v84 = v37;
       do
       {
-        v58 = &v25[32 * v57];
-        v113 = v58[1];
-        v114 = *v58;
-        v59.f64[0] = v58[1].f64[0];
-        v59.f64[1] = v58->f64[0];
-        v60 = vmlaq_f64(vmulq_f64(v59, v105), *v58, v107);
-        v61 = vmlaq_f64(vmulq_laneq_f64(v49, *v58, 1), v113, v38);
-        v62 = vmulq_f64(v60, v60);
-        v63 = v60.f64[0];
-        v116 = v60;
-        v64.f64[0] = v61.f64[0];
-        v62.f64[0] = 1.0 / sqrt(v62.f64[1] + vmulq_f64(v61, v61).f64[0] + v62.f64[0]);
-        v117 = v62;
-        v65 = vzip1q_s64(v119, *v58);
-        v66 = vzip2q_s64(v119, *v58);
-        v67 = vzip1q_s64(v124, v113);
-        v140.columns[0] = vmlaq_f64(vmlaq_f64(vmulq_n_f64(v65, v119.f64[0]), v38, v66), v102, v67);
-        v140.columns[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v65, v58->f64[0]), v66, *v58, 1), v67, v113.f64[0]);
-        v64.f64[1] = v63;
-        v115 = v64;
-        v68 = __invert_d2(v140);
-        v69 = vmlaq_laneq_f64(vmulq_n_f64(v119, v68.columns[1].f64[0]), v114, v68.columns[1], 1);
-        v70 = vmlaq_laneq_f64(vmulq_n_f64(v124, v68.columns[1].f64[0]), v113, v68.columns[1], 1);
-        v71 = vmulq_n_f64(v115, v117.f64[0]);
-        v72 = vmulq_laneq_f64(v117, v116, 1);
-        v73 = vaddq_f64(vzip1q_s64(vmulq_f64(v127, v72), vmulq_f64(v121, v72)), vpaddq_f64(vmulq_f64(v104, v71), vmulq_f64(v103, v71)));
-        v74 = vmulq_f64(v73, v73);
-        v75 = vmulq_n_f64(v73, 1.0 / sqrt(vaddvq_f64(v74)));
-        v74.f64[0] = -*&v75.i64[1];
-        v76 = vzip1q_s64(v74, v75);
-        v77 = vmulq_f64(v76, vaddq_f64(vzip1q_s64(vmulq_f64(v127, v70), vmulq_f64(v121, v70)), vpaddq_f64(vmulq_f64(v104, v69), vmulq_f64(v103, v69))));
-        *__x = vdivq_f64(v76, vdupq_lane_s64(*&vaddq_f64(v77, vdupq_laneq_s64(v77, 1)), 0));
-        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v131, __x);
-        v49 = v106;
-        v38 = v108;
-        ++v57;
-        v25 = v136;
+        v46 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v21[v43], v21[v43]), v21[v43], 0xCuLL), v38), v21[v43], v37);
+        v47 = vextq_s8(vuzp1q_s32(v46, v46), v46, 0xCuLL);
+        v48 = vmulq_f32(v46, v46);
+        *&v49 = v48.columns[0].f32[1] + (v48.columns[1].f32[0] + v48.columns[0].f32[0]);
+        v48.columns[0] = vrsqrte_f32(v49);
+        v48.columns[0] = vmul_f32(v48.columns[0], vrsqrts_f32(v49, vmul_f32(v48.columns[0], v48.columns[0])));
+        v85 = vmulq_n_f32(v47, vmul_f32(v48.columns[0], vrsqrts_f32(v49, vmul_f32(v48.columns[0], v48.columns[0]))).f32[0]);
+        v86 = v21[v43];
+        v50 = vzip1q_s32(v88, v86);
+        v51 = vextq_s8(v50, v50, 8uLL).u64[0];
+        v52 = vzip1_s32(v82, *&vextq_s8(v86, v86, 8uLL));
+        v48.columns[0] = vmla_f32(vmla_f32(vmul_n_f32(*v50.i8, v88.f32[0]), v44, v51), v45, v52);
+        *v50.i8 = vmla_laneq_f32(vmla_lane_f32(vmul_n_f32(*v50.i8, *v86.i32), v51, *v86.i8, 1), v52, v86, 2);
+        v53 = __invert_f2(v48);
+        v54 = vmulq_f32(v93, v85);
+        v55 = vmulq_f32(v90, v85);
+        *v54.i8 = vadd_f32(vzip1_s32(*&vextq_s8(v54, v54, 8uLL), *&vextq_s8(v55, v55, 8uLL)), vadd_f32(vzip1_s32(*v54.i8, *v55.i8), vzip2_s32(*v54.i8, *v55.i8)));
+        *v55.i8 = vmul_f32(*v54.i8, *v54.i8);
+        v55.i32[0] = vadd_f32(*v55.i8, vdup_lane_s32(*v55.i8, 1)).u32[0];
+        v56 = vmlaq_lane_f32(vmulq_n_f32(v88, v53.columns[1].f32[0]), v86, v53.columns[1], 1);
+        v57 = vrsqrte_f32(v55.u32[0]);
+        v58 = vmul_f32(v57, vrsqrts_f32(v55.u32[0], vmul_f32(v57, v57)));
+        v59 = vmul_f32(v58, vrsqrts_f32(v55.u32[0], vmul_f32(v58, v58)));
+        *v54.i8 = vmul_n_f32(*v54.i8, *v59.i32);
+        *v59.i32 = -*&v54.i32[1];
+        *v54.i8 = vzip1_s32(v59, *v54.i8);
+        v60 = vmulq_f32(v93, v56);
+        v61 = vmulq_f32(v90, v56);
+        *v60.i8 = vmul_f32(vadd_f32(vzip1_s32(*&vextq_s8(v60, v60, 8uLL), *&vextq_s8(v61, v61, 8uLL)), vadd_f32(vzip1_s32(*v60.i8, *v61.i8), vzip2_s32(*v60.i8, *v61.i8))), *v54.i8);
+        __p = vdiv_f32(*v54.i8, vdup_lane_s32(vadd_f32(*v60.i8, vdup_lane_s32(*v60.i8, 1)), 0));
+        _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(__x, &__p);
+        v38 = v83;
+        v37 = v84;
+        ++v43;
+        v21 = v100;
       }
 
-      while (v57 < (v137 - v136) >> 5);
-      v78 = v131;
-      v79 = v132;
+      while (v43 < v101 - v100);
+      v62 = *__x;
+      v63 = *&__x[2];
     }
 
     __p = 0;
-    v129 = 0;
-    v130 = 0;
-    geom::half_plane_intersection_2<double>((v79 - v78) >> 4, v78, &__p);
-    v80 = __p;
-    v81 = v129;
-    v82 = v127;
-    *&v83.f64[0] = v109;
-    *&v84.f64[0] = v111;
-    if (__p != v129)
+    v96 = 0;
+    v97 = 0;
+    geom::half_plane_intersection_2<float>((v63 - v62) >> 3, v62, &__p);
+    v64 = __p;
+    v65 = v96;
+    v66 = v93;
+    if (__p != v96)
     {
-      *&v83.f64[1] = v99;
-      *&v84.f64[1] = v100;
-      v110 = v83;
-      v112 = v84;
       do
       {
-        v85 = *v80++;
-        *__x = vmlaq_n_f64(vmulq_laneq_f64(v83, v85, 1), v84, v85.f64[0]);
-        v135 = vmlaq_f64(vmulq_laneq_f64(v121, v85, 1), v85, v82);
-        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
-        v82 = v127;
-        v83 = v110;
-        v84 = v112;
+        v67 = *v64++;
+        v94 = vmlaq_n_f32(vmulq_lane_f32(v90, v67, 1), v66, v67.f32[0]);
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, &v94);
+        v66 = v93;
       }
 
-      while (v80 != v81);
+      while (v64 != v65);
     }
 
-    std::vector<float>::resize(a4, a3[1] - *a3);
-    v86 = a3[1] - *a3;
-    if (v86)
+    std::vector<float>::resize(a4, (a3[1] - *a3) >> 3);
+    v68 = a3[1] - *a3;
+    if (v68)
     {
-      v87 = 0;
-      v88 = a4->__begin_;
-      v89 = a4->__begin_ + (v86 >> 3);
-      v90 = vdupq_n_s64(((v86 >> 3) - 4) >> 2);
-      v91 = a4->__begin_ + 2;
+      v69 = 0;
+      v70 = a4->__begin_;
+      v71 = a4->__begin_ + (v68 >> 2);
+      v72 = vdupq_n_s64(((v68 >> 2) - 4) >> 2);
+      v73 = a4->__begin_ + 2;
       do
       {
-        v92 = vdupq_n_s64(v87);
-        v93 = vmovn_s64(vcgeq_u64(v90, vorrq_s8(v92, xmmword_2500C1680)));
-        if (vuzp1_s16(v93, *v90.i8).u8[0])
+        v74 = vdupq_n_s64(v69);
+        v75 = vmovn_s64(vcgeq_u64(v72, vorrq_s8(v74, xmmword_2500C1680)));
+        if (vuzp1_s16(v75, *v72.i8).u8[0])
         {
-          *(v91 - 2) = v87;
+          *(v73 - 2) = v69;
         }
 
-        if (vuzp1_s16(v93, *&v90).i8[2])
+        if (vuzp1_s16(v75, *&v72).i8[2])
         {
-          *(v91 - 1) = v87 + 1;
+          *(v73 - 1) = v69 + 1;
         }
 
-        if (vuzp1_s16(*&v90, vmovn_s64(vcgeq_u64(v90, vorrq_s8(v92, xmmword_2500C1670)))).i32[1])
+        if (vuzp1_s16(*&v72, vmovn_s64(vcgeq_u64(v72, vorrq_s8(v74, xmmword_2500C1670)))).i32[1])
         {
-          *v91 = v87 + 2;
-          v91[1] = v87 + 3;
+          *v73 = v69 + 2;
+          v73[1] = v69 + 3;
         }
 
-        v87 += 4;
-        v91 += 4;
+        v69 += 4;
+        v73 += 4;
       }
 
-      while ((((((v86 >> 3) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v87);
-      v94 = a4->__end_ - 1;
+      while ((((((v68 >> 2) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v69);
+      v76 = a4->__end_ - 1;
       do
       {
-        v95 = *v88++;
-        *v94-- = v95;
+        v77 = *v70++;
+        *v76-- = v77;
       }
 
-      while (v88 != v89);
+      while (v70 != v71);
     }
 
-    __x[0] = v86 >> 5;
-    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
-    __x[0] = ((a3[1] - *a3) >> 4) & 0xFFFFFFFE;
-    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    v94.i32[0] = v68 >> 4;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, &v94);
+    v94.i32[0] = ((a3[1] - *a3) >> 3) & 0xFFFFFFFE;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, &v94);
     if (__p)
     {
-      v129 = __p;
+      v96 = __p;
       operator delete(__p);
     }
 
-    if (v131)
+    if (*__x)
     {
-      v132 = v131;
-      operator delete(v131);
+      *&__x[2] = *__x;
+      operator delete(*__x);
     }
   }
 
-  v96 = *a3;
-  v97 = a3[1];
-  while (v96 != v97)
+  v78 = *a3;
+  v79 = a3[1];
+  while (v78 != v79)
   {
-    v98 = vaddq_f64(a2[1], v96[1]);
-    *v96 = vaddq_f64(*a2, *v96);
-    v96[1] = v98;
-    v96 += 2;
+    *v78 = vaddq_f32(*a2, *v78);
+    ++v78;
   }
 
-LABEL_14:
-  if (v136)
+LABEL_21:
+  if (v100)
   {
-    v137 = v136;
-    operator delete(v136);
+    v101 = v100;
+    operator delete(v100);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
-void geom_dop8_polyhedron_3d(uint64_t a1, float64x2_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void geom_dop8_polyhedron_3f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float32x4_t a5)
 {
-  v8 = a2[1];
-  v12[0] = *a2;
-  v12[1] = v8;
+  v11 = a5;
+  v8 = geom::collection_to_vector<float>(a2);
   v9 = geom::collection_to_vector<float>(a3);
   v10 = geom::collection_to_vector<float>(a4);
-  v11 = geom::collection_to_vector<float>(a5);
-  geom::dop<(unsigned char)8,double>::compute_polyhedron(a1, v12, v9, v10, v11);
+  geom::dop<(unsigned char)8,float>::compute_polyhedron(a1, &v11, v8, v9, v10);
 }
 
-void geom::dop<(unsigned char)8,double>::compute_polyhedron(uint64_t a1, float64x2_t *a2, float64x2_t **a3, std::vector<int> *a4, uint64_t a5)
+void geom::dop<(unsigned char)8,float>::compute_polyhedron(uint64_t a1, float32x4_t *a2, float32x4_t **a3, std::vector<int> *a4, uint64_t a5)
 {
   v8 = 0;
-  v139[8] = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   a3[1] = *a3;
   a4->__end_ = a4->__begin_;
   *(a5 + 8) = *a5;
-  v11 = *a2;
-  v10 = a2[1];
-  v118 = a1 + 32;
+  v9 = *a2;
+  v87 = a1 + 16;
   do
   {
-    v12 = vmulq_f64(geom::kdop_axes<(unsigned char)8,double>[2 * v8 + 1], v10).f64[0] + vaddvq_f64(vmulq_f64(geom::kdop_axes<(unsigned char)8,double>[2 * v8], v11));
-    v13 = (a1 + 8 * v8);
-    *&v139[v8 + 4] = *v13 - v12;
-    *&v139[v8++] = v13[4] - v12;
+    v10 = vmulq_f32(geom::kdop_axes<(unsigned char)8,float>[v8], v9);
+    v10.f32[0] = v10.f32[2] + vaddv_f32(*v10.f32);
+    v11 = (a1 + 4 * v8);
+    *&v103[v8 + 4] = *v11 - v10.f32[0];
+    *&v103[v8++] = v11[4] - v10.f32[0];
   }
 
   while (v8 != 4);
-  v136 = 0;
-  v137 = 0;
-  v138 = 0;
-  _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE7reserveEm(&v136, 8uLL);
-  v16 = 0;
-  v17 = -1;
-  v18 = -1;
+  v100 = 0;
+  v101 = 0;
+  v102 = 0;
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(&v100, 8uLL);
+  v14 = 0;
+  v15 = -1;
+  v16 = -1;
   do
   {
-    v19 = *&v139[v16 + 4];
-    v20 = v139[v16];
-    if (v19 == *&v20)
+    v13.i32[0] = v103[v14 + 4];
+    v12.i32[0] = v103[v14];
+    if (*v13.i32 == *v12.i32)
     {
-      v17 = v16;
+      v15 = v14;
     }
 
     else
     {
-      v21 = v17;
-      v17 = v16;
-      if (vabdd_f64(v19, *&v20) > 0.000001)
+      v17 = v15;
+      v18 = fabsf(*v13.i32);
+      v19 = fabsf(*v12.i32);
+      v20 = v18 == INFINITY || v19 == INFINITY;
+      if (v20 || (v15 = v14, vabds_f32(*v13.i32, *v12.i32) >= (((v18 + v19) + 1.0) * 0.00001)))
       {
-        v22 = &geom::kdop_axes<(unsigned char)8,double>[2 * v16];
-        v122 = *v22;
-        v125 = v22[1];
-        v23 = vdupq_lane_s64(v20, 0);
-        *__x = vdivq_f64(*v22, v23);
-        v135 = vdivq_f64(v125, v23);
-        v120 = *&v19;
-        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v136, __x);
-        v24 = vdupq_lane_s64(v120, 0);
-        *__x = vdivq_f64(v122, v24);
-        v135 = vdivq_f64(v125, v24);
-        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v136, __x);
-        v18 = v16;
-        v17 = v21;
+        v89 = v13;
+        v91 = geom::kdop_axes<(unsigned char)8,float>[v14];
+        *__x = vdivq_f32(v91, vdupq_lane_s32(v12, 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v100, __x);
+        *__x = vdivq_f32(v91, vdupq_lane_s32(v89, 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v100, __x);
+        v16 = v14;
+        v15 = v17;
       }
     }
 
-    ++v16;
+    ++v14;
   }
 
-  while (v16 != 4);
-  v25 = v136;
-  v26 = (v137 - v136) >> 5;
-  if (!v26)
+  while (v14 != 4);
+  v21 = v100;
+  v22 = v101 - v100;
+  if (!v22)
   {
-    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
     __x[0] = 0;
     std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
-    goto LABEL_13;
+    goto LABEL_20;
   }
 
-  if (v26 == 2)
+  if (v22 == 2)
   {
-    v27 = &geom::kdop_axes<(unsigned char)8,double>[2 * v18];
-    v123 = *v27;
-    v126 = v27[1];
-    v28 = *(a1 + 8 * v18);
-    *__x = vmulq_n_f64(*v27, v28);
-    v135 = vmulq_n_f64(v126, v28);
-    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
-    v29 = *(v118 + 8 * v18);
-    *__x = vmulq_n_f64(v123, v29);
-    v135 = vmulq_n_f64(v126, v29);
-    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    v92 = geom::kdop_axes<(unsigned char)8,float>[v16];
+    *__x = vmulq_n_f32(v92, *(a1 + 4 * v16));
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    *__x = vmulq_n_f32(v92, *(v87 + 4 * v16));
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
     __x[0] = 0;
     std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
     begin = a4->__begin_;
     begin[10] = 1;
     begin[7] = 1;
     begin[4] = 1;
-LABEL_13:
+LABEL_20:
     __x[0] = 3;
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
     __x[0] = 6;
@@ -8974,362 +8817,314 @@ LABEL_13:
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
     __x[0] = 12;
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
-    goto LABEL_14;
+    goto LABEL_21;
   }
 
-  if (v26 > 7)
+  if (v22 > 7)
   {
-    geom::half_plane_intersection_3<double>(8uLL);
+    geom::half_plane_intersection_3<float>(8uLL, v100, a3, &a4->__begin_, a5);
   }
 
   else
   {
-    v131 = 0;
-    v132 = 0;
-    v133 = 0;
-    v32 = &geom::kdop_axes<(unsigned char)8,double>[2 * v17];
-    v33 = *v32;
-    v34 = v32[1];
-    v35 = fabs(v34.f64[0]);
-    if (v35 <= 2.22044605e-16)
+    memset(__x, 0, sizeof(__x));
+    v99 = 0;
+    v24 = geom::kdop_axes<(unsigned char)8,float>[v15];
+    v25 = COERCE_FLOAT(geom::kdop_axes<(unsigned char)8,float>[v15].i64[1]);
+    v26 = fabsf(v25);
+    LODWORD(v27) = HIDWORD(geom::kdop_axes<(unsigned char)8,float>[v15].i64[0]);
+    v28 = -v25;
+    if (v26 <= 0.00000011921)
     {
-      *v15.i64 = -v33.f64[1];
-      v37 = 0uLL;
-      v36 = vzip1q_s64(v15, v33);
+      v29 = vtrn1q_s32(COERCE_UNSIGNED_INT(-v27), v24);
     }
 
     else
     {
-      v36.f64[0] = 0.0;
-      v36.f64[1] = -v34.f64[0];
-      v37 = vdupq_laneq_s64(v33, 1);
+      v29.i32[0] = 0;
+      v29.f32[1] = v28;
+      v29.i64[1] = v24.u32[1];
     }
 
-    v38 = vdupq_laneq_s64(v33, 1);
-    v39 = vmulq_f64(v37, v37);
-    v39.f64[0] = 1.0 / sqrt(v39.f64[0] + vaddvq_f64(vmulq_f64(v36, v36)));
-    v40 = vmulq_f64(v37, v39);
-    v41 = vmulq_n_f64(v36, v39.f64[0]);
-    v42 = vextq_s8(v41, v41, 8uLL).u64[0];
-    if (v35 <= 2.22044605e-16)
+    v30 = vmulq_f32(v29, v29);
+    *&v31 = v30.f32[2] + vaddv_f32(*v30.f32);
+    *v30.f32 = vrsqrte_f32(v31);
+    *v30.f32 = vmul_f32(*v30.f32, vrsqrts_f32(v31, vmul_f32(*v30.f32, *v30.f32)));
+    LODWORD(v32) = vmul_f32(*v30.f32, vrsqrts_f32(v31, vmul_f32(*v30.f32, *v30.f32))).u32[0];
+    if (v26 <= 0.00000011921)
     {
-      *v14.i64 = -v33.f64[1];
-      v44 = 0uLL;
-      v43 = vzip1q_s64(v14, v33);
+      v33 = vtrn1q_s32(COERCE_UNSIGNED_INT(-v27), v24);
     }
 
     else
     {
-      v43.f64[0] = 0.0;
-      v43.f64[1] = -v34.f64[0];
-      v44 = v38;
+      v33.i32[0] = 0;
+      v33.f32[1] = v28;
+      v33.i64[1] = v24.u32[1];
     }
 
-    v124 = v32[1];
-    v127 = v40;
-    v45 = vmulq_f64(v44, v44);
-    v45.f64[0] = 1.0 / sqrt(v45.f64[0] + vaddvq_f64(vmulq_f64(v43, v43)));
-    v46 = vmulq_n_f64(v43, v45.f64[0]);
-    v47 = vmulq_f64(v44, v45);
-    v48.f64[0] = v32[1].f64[0];
-    v48.f64[1] = v32->f64[0];
-    v49 = vnegq_f64(v34);
-    v50 = vmlaq_laneq_f64(vmulq_laneq_f64(v49, v46, 1), v47, v33, 1);
-    v47.f64[1] = v46.f64[0];
-    v51 = vnegq_f64(v33);
-    v52 = v48;
-    v53 = vmlaq_f64(vmulq_f64(v47, v51), v46, v48);
-    v54 = vmulq_f64(v53, v53);
-    v48.f64[0] = vmulq_f64(v50, v50).f64[0];
-    v50.f64[1] = v53.f64[0];
-    v54.f64[0] = 1.0 / sqrt(v54.f64[1] + v48.f64[0] + v54.f64[0]);
-    v55 = vmulq_n_f64(v50, v54.f64[0]);
-    v56 = vextq_s8(v55, v55, 8uLL).u64[0];
-    v121 = vmulq_laneq_f64(v54, v53, 1);
-    v109 = v55.i64[0];
-    v111 = v41.i64[0];
-    v99 = v56;
-    v100 = v42;
-    if (v137 == v136)
+    v93 = vmulq_n_f32(v29, v32);
+    v34 = vmulq_f32(v33, v33);
+    *&v35 = v34.f32[2] + vaddv_f32(*v34.f32);
+    *v34.f32 = vrsqrte_f32(v35);
+    *v34.f32 = vmul_f32(*v34.f32, vrsqrts_f32(v35, vmul_f32(*v34.f32, *v34.f32)));
+    v36 = vmulq_n_f32(v33, vmul_f32(*v34.f32, vrsqrts_f32(v35, vmul_f32(*v34.f32, *v34.f32))).f32[0]);
+    v37 = vextq_s8(vuzp1q_s32(v24, v24), v24, 0xCuLL);
+    v38 = vnegq_f32(v24);
+    v39 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v36, v36), v36, 0xCuLL), v38), v36, v37);
+    v40 = vextq_s8(vuzp1q_s32(v39, v39), v39, 0xCuLL);
+    v41 = vmulq_f32(v39, v39);
+    *&v42 = v41.f32[1] + (v41.f32[2] + v41.f32[0]);
+    *v41.f32 = vrsqrte_f32(v42);
+    *v41.f32 = vmul_f32(*v41.f32, vrsqrts_f32(v42, vmul_f32(*v41.f32, *v41.f32)));
+    v90 = vmulq_n_f32(v40, vmul_f32(*v41.f32, vrsqrts_f32(v42, vmul_f32(*v41.f32, *v41.f32))).f32[0]);
+    if (v101 == v100)
     {
-      v78 = 0;
-      v79 = 0;
+      v62 = 0;
+      v63 = 0;
     }
 
     else
     {
-      v57 = 0;
-      v41.i64[1] = v42;
-      v55.i64[1] = v56;
-      v103 = v55;
-      v104 = v41;
-      v102 = vdupq_lane_s64(*&v124.f64[0], 0);
-      v51.i64[1] = vextq_s8(v51, v51, 8uLL).u64[0];
-      v105 = v51;
-      v106 = v49;
-      v52.i64[1] = vextq_s8(v52, v52, 8uLL).u64[0];
-      v107 = v52;
-      v108 = v38;
-      v119 = *v32;
+      v43 = 0;
+      v44 = vdup_lane_s32(*v24.i8, 1);
+      v45 = vdup_laneq_s32(v24, 2);
+      v88 = geom::kdop_axes<(unsigned char)8,float>[v15];
+      v82 = vextq_s8(v24, v24, 8uLL).u64[0];
+      v83 = v38;
+      v84 = v37;
       do
       {
-        v58 = &v25[32 * v57];
-        v113 = v58[1];
-        v114 = *v58;
-        v59.f64[0] = v58[1].f64[0];
-        v59.f64[1] = v58->f64[0];
-        v60 = vmlaq_f64(vmulq_f64(v59, v105), *v58, v107);
-        v61 = vmlaq_f64(vmulq_laneq_f64(v49, *v58, 1), v113, v38);
-        v62 = vmulq_f64(v60, v60);
-        v63 = v60.f64[0];
-        v116 = v60;
-        v64.f64[0] = v61.f64[0];
-        v62.f64[0] = 1.0 / sqrt(v62.f64[1] + vmulq_f64(v61, v61).f64[0] + v62.f64[0]);
-        v117 = v62;
-        v65 = vzip1q_s64(v119, *v58);
-        v66 = vzip2q_s64(v119, *v58);
-        v67 = vzip1q_s64(v124, v113);
-        v140.columns[0] = vmlaq_f64(vmlaq_f64(vmulq_n_f64(v65, v119.f64[0]), v38, v66), v102, v67);
-        v140.columns[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v65, v58->f64[0]), v66, *v58, 1), v67, v113.f64[0]);
-        v64.f64[1] = v63;
-        v115 = v64;
-        v68 = __invert_d2(v140);
-        v69 = vmlaq_laneq_f64(vmulq_n_f64(v119, v68.columns[1].f64[0]), v114, v68.columns[1], 1);
-        v70 = vmlaq_laneq_f64(vmulq_n_f64(v124, v68.columns[1].f64[0]), v113, v68.columns[1], 1);
-        v71 = vmulq_n_f64(v115, v117.f64[0]);
-        v72 = vmulq_laneq_f64(v117, v116, 1);
-        v73 = vaddq_f64(vzip1q_s64(vmulq_f64(v127, v72), vmulq_f64(v121, v72)), vpaddq_f64(vmulq_f64(v104, v71), vmulq_f64(v103, v71)));
-        v74 = vmulq_f64(v73, v73);
-        v75 = vmulq_n_f64(v73, 1.0 / sqrt(vaddvq_f64(v74)));
-        v74.f64[0] = -*&v75.i64[1];
-        v76 = vzip1q_s64(v74, v75);
-        v77 = vmulq_f64(v76, vaddq_f64(vzip1q_s64(vmulq_f64(v127, v70), vmulq_f64(v121, v70)), vpaddq_f64(vmulq_f64(v104, v69), vmulq_f64(v103, v69))));
-        *__x = vdivq_f64(v76, vdupq_lane_s64(*&vaddq_f64(v77, vdupq_laneq_s64(v77, 1)), 0));
-        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v131, __x);
-        v49 = v106;
-        v38 = v108;
-        ++v57;
-        v25 = v136;
+        v46 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v21[v43], v21[v43]), v21[v43], 0xCuLL), v38), v21[v43], v37);
+        v47 = vextq_s8(vuzp1q_s32(v46, v46), v46, 0xCuLL);
+        v48 = vmulq_f32(v46, v46);
+        *&v49 = v48.columns[0].f32[1] + (v48.columns[1].f32[0] + v48.columns[0].f32[0]);
+        v48.columns[0] = vrsqrte_f32(v49);
+        v48.columns[0] = vmul_f32(v48.columns[0], vrsqrts_f32(v49, vmul_f32(v48.columns[0], v48.columns[0])));
+        v85 = vmulq_n_f32(v47, vmul_f32(v48.columns[0], vrsqrts_f32(v49, vmul_f32(v48.columns[0], v48.columns[0]))).f32[0]);
+        v86 = v21[v43];
+        v50 = vzip1q_s32(v88, v86);
+        v51 = vextq_s8(v50, v50, 8uLL).u64[0];
+        v52 = vzip1_s32(v82, *&vextq_s8(v86, v86, 8uLL));
+        v48.columns[0] = vmla_f32(vmla_f32(vmul_n_f32(*v50.i8, v88.f32[0]), v44, v51), v45, v52);
+        *v50.i8 = vmla_laneq_f32(vmla_lane_f32(vmul_n_f32(*v50.i8, *v86.i32), v51, *v86.i8, 1), v52, v86, 2);
+        v53 = __invert_f2(v48);
+        v54 = vmulq_f32(v93, v85);
+        v55 = vmulq_f32(v90, v85);
+        *v54.i8 = vadd_f32(vzip1_s32(*&vextq_s8(v54, v54, 8uLL), *&vextq_s8(v55, v55, 8uLL)), vadd_f32(vzip1_s32(*v54.i8, *v55.i8), vzip2_s32(*v54.i8, *v55.i8)));
+        *v55.i8 = vmul_f32(*v54.i8, *v54.i8);
+        v55.i32[0] = vadd_f32(*v55.i8, vdup_lane_s32(*v55.i8, 1)).u32[0];
+        v56 = vmlaq_lane_f32(vmulq_n_f32(v88, v53.columns[1].f32[0]), v86, v53.columns[1], 1);
+        v57 = vrsqrte_f32(v55.u32[0]);
+        v58 = vmul_f32(v57, vrsqrts_f32(v55.u32[0], vmul_f32(v57, v57)));
+        v59 = vmul_f32(v58, vrsqrts_f32(v55.u32[0], vmul_f32(v58, v58)));
+        *v54.i8 = vmul_n_f32(*v54.i8, *v59.i32);
+        *v59.i32 = -*&v54.i32[1];
+        *v54.i8 = vzip1_s32(v59, *v54.i8);
+        v60 = vmulq_f32(v93, v56);
+        v61 = vmulq_f32(v90, v56);
+        *v60.i8 = vmul_f32(vadd_f32(vzip1_s32(*&vextq_s8(v60, v60, 8uLL), *&vextq_s8(v61, v61, 8uLL)), vadd_f32(vzip1_s32(*v60.i8, *v61.i8), vzip2_s32(*v60.i8, *v61.i8))), *v54.i8);
+        __p = vdiv_f32(*v54.i8, vdup_lane_s32(vadd_f32(*v60.i8, vdup_lane_s32(*v60.i8, 1)), 0));
+        _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(__x, &__p);
+        v38 = v83;
+        v37 = v84;
+        ++v43;
+        v21 = v100;
       }
 
-      while (v57 < (v137 - v136) >> 5);
-      v78 = v131;
-      v79 = v132;
+      while (v43 < v101 - v100);
+      v62 = *__x;
+      v63 = *&__x[2];
     }
 
     __p = 0;
-    v129 = 0;
-    v130 = 0;
-    geom::half_plane_intersection_2<double>((v79 - v78) >> 4, v78, &__p);
-    v80 = __p;
-    v81 = v129;
-    v82 = v127;
-    *&v83.f64[0] = v109;
-    *&v84.f64[0] = v111;
-    if (__p != v129)
+    v96 = 0;
+    v97 = 0;
+    geom::half_plane_intersection_2<float>((v63 - v62) >> 3, v62, &__p);
+    v64 = __p;
+    v65 = v96;
+    v66 = v93;
+    if (__p != v96)
     {
-      *&v83.f64[1] = v99;
-      *&v84.f64[1] = v100;
-      v110 = v83;
-      v112 = v84;
       do
       {
-        v85 = *v80++;
-        *__x = vmlaq_n_f64(vmulq_laneq_f64(v83, v85, 1), v84, v85.f64[0]);
-        v135 = vmlaq_f64(vmulq_laneq_f64(v121, v85, 1), v85, v82);
-        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
-        v82 = v127;
-        v83 = v110;
-        v84 = v112;
+        v67 = *v64++;
+        v94 = vmlaq_n_f32(vmulq_lane_f32(v90, v67, 1), v66, v67.f32[0]);
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, &v94);
+        v66 = v93;
       }
 
-      while (v80 != v81);
+      while (v64 != v65);
     }
 
-    std::vector<float>::resize(a4, a3[1] - *a3);
-    v86 = a3[1] - *a3;
-    if (v86)
+    std::vector<float>::resize(a4, (a3[1] - *a3) >> 3);
+    v68 = a3[1] - *a3;
+    if (v68)
     {
-      v87 = 0;
-      v88 = a4->__begin_;
-      v89 = a4->__begin_ + (v86 >> 3);
-      v90 = vdupq_n_s64(((v86 >> 3) - 4) >> 2);
-      v91 = a4->__begin_ + 2;
+      v69 = 0;
+      v70 = a4->__begin_;
+      v71 = a4->__begin_ + (v68 >> 2);
+      v72 = vdupq_n_s64(((v68 >> 2) - 4) >> 2);
+      v73 = a4->__begin_ + 2;
       do
       {
-        v92 = vdupq_n_s64(v87);
-        v93 = vmovn_s64(vcgeq_u64(v90, vorrq_s8(v92, xmmword_2500C1680)));
-        if (vuzp1_s16(v93, *v90.i8).u8[0])
+        v74 = vdupq_n_s64(v69);
+        v75 = vmovn_s64(vcgeq_u64(v72, vorrq_s8(v74, xmmword_2500C1680)));
+        if (vuzp1_s16(v75, *v72.i8).u8[0])
         {
-          *(v91 - 2) = v87;
+          *(v73 - 2) = v69;
         }
 
-        if (vuzp1_s16(v93, *&v90).i8[2])
+        if (vuzp1_s16(v75, *&v72).i8[2])
         {
-          *(v91 - 1) = v87 + 1;
+          *(v73 - 1) = v69 + 1;
         }
 
-        if (vuzp1_s16(*&v90, vmovn_s64(vcgeq_u64(v90, vorrq_s8(v92, xmmword_2500C1670)))).i32[1])
+        if (vuzp1_s16(*&v72, vmovn_s64(vcgeq_u64(v72, vorrq_s8(v74, xmmword_2500C1670)))).i32[1])
         {
-          *v91 = v87 + 2;
-          v91[1] = v87 + 3;
+          *v73 = v69 + 2;
+          v73[1] = v69 + 3;
         }
 
-        v87 += 4;
-        v91 += 4;
+        v69 += 4;
+        v73 += 4;
       }
 
-      while ((((((v86 >> 3) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v87);
-      v94 = a4->__end_ - 1;
+      while ((((((v68 >> 2) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v69);
+      v76 = a4->__end_ - 1;
       do
       {
-        v95 = *v88++;
-        *v94-- = v95;
+        v77 = *v70++;
+        *v76-- = v77;
       }
 
-      while (v88 != v89);
+      while (v70 != v71);
     }
 
-    __x[0] = v86 >> 5;
-    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
-    __x[0] = ((a3[1] - *a3) >> 4) & 0xFFFFFFFE;
-    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    v94.i32[0] = v68 >> 4;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, &v94);
+    v94.i32[0] = ((a3[1] - *a3) >> 3) & 0xFFFFFFFE;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, &v94);
     if (__p)
     {
-      v129 = __p;
+      v96 = __p;
       operator delete(__p);
     }
 
-    if (v131)
+    if (*__x)
     {
-      v132 = v131;
-      operator delete(v131);
+      *&__x[2] = *__x;
+      operator delete(*__x);
     }
   }
 
-  v96 = *a3;
-  v97 = a3[1];
-  while (v96 != v97)
+  v78 = *a3;
+  v79 = a3[1];
+  while (v78 != v79)
   {
-    v98 = vaddq_f64(a2[1], v96[1]);
-    *v96 = vaddq_f64(*a2, *v96);
-    v96[1] = v98;
-    v96 += 2;
+    *v78 = vaddq_f32(*a2, *v78);
+    ++v78;
   }
 
-LABEL_14:
-  if (v136)
+LABEL_21:
+  if (v100)
   {
-    v137 = v136;
-    operator delete(v136);
+    v101 = v100;
+    operator delete(v100);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
-void geom_dop12_polyhedron_3d(uint64_t a1, float64x2_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void geom_dop12_polyhedron_3f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float32x4_t a5)
 {
-  v8 = a2[1];
-  v12[0] = *a2;
-  v12[1] = v8;
+  v11 = a5;
+  v8 = geom::collection_to_vector<float>(a2);
   v9 = geom::collection_to_vector<float>(a3);
   v10 = geom::collection_to_vector<float>(a4);
-  v11 = geom::collection_to_vector<float>(a5);
-  geom::dop<(unsigned char)12,double>::compute_polyhedron(a1, v12, v9, v10, v11);
+  geom::dop<(unsigned char)12,float>::compute_polyhedron(a1, &v11, v8, v9, v10);
 }
 
-void geom::dop<(unsigned char)12,double>::compute_polyhedron(uint64_t a1, float64x2_t *a2, float64x2_t **a3, std::vector<int> *a4, uint64_t a5)
+void geom::dop<(unsigned char)12,float>::compute_polyhedron(uint64_t a1, float32x4_t *a2, float32x4_t **a3, std::vector<int> *a4, uint64_t a5)
 {
   v8 = 0;
-  v139[12] = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   a3[1] = *a3;
   a4->__end_ = a4->__begin_;
   *(a5 + 8) = *a5;
-  v11 = *a2;
-  v10 = a2[1];
-  v118 = a1 + 48;
+  v9 = *a2;
+  v87 = a1 + 32;
   do
   {
-    v12 = vmulq_f64(geom::kdop_axes<(unsigned char)12,double>[2 * v8 + 1], v10).f64[0] + vaddvq_f64(vmulq_f64(geom::kdop_axes<(unsigned char)12,double>[2 * v8], v11));
-    v13 = (a1 + 8 * v8);
-    *&v139[v8 + 6] = *v13 - v12;
-    *&v139[v8++] = v13[6] - v12;
+    v10 = vmulq_f32(geom::kdop_axes<(unsigned char)12,float>[v8], v9);
+    v10.f32[0] = v10.f32[2] + vaddv_f32(*v10.f32);
+    v11 = (a1 + 4 * v8);
+    *&v103[v8 + 6] = *v11 - v10.f32[0];
+    *&v103[v8++] = v11[8] - v10.f32[0];
   }
 
   while (v8 != 6);
-  v136 = 0;
-  v137 = 0;
-  v138 = 0;
-  _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE7reserveEm(&v136, 0xCuLL);
-  v16 = 0;
-  v17 = -1;
-  v18 = -1;
+  v100 = 0;
+  v101 = 0;
+  v102 = 0;
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(&v100, 0xCuLL);
+  v14 = 0;
+  v15 = -1;
+  v16 = -1;
   do
   {
-    v19 = *&v139[v16 + 6];
-    v20 = v139[v16];
-    if (v19 == *&v20)
+    v13.i32[0] = v103[v14 + 6];
+    v12.i32[0] = v103[v14];
+    if (*v13.i32 == *v12.i32)
     {
-      v17 = v16;
+      v15 = v14;
     }
 
     else
     {
-      v21 = v17;
-      v17 = v16;
-      if (vabdd_f64(v19, *&v20) > 0.000001)
+      v17 = v15;
+      v18 = fabsf(*v13.i32);
+      v19 = fabsf(*v12.i32);
+      v20 = v18 == INFINITY || v19 == INFINITY;
+      if (v20 || (v15 = v14, vabds_f32(*v13.i32, *v12.i32) >= (((v18 + v19) + 1.0) * 0.00001)))
       {
-        v22 = &geom::kdop_axes<(unsigned char)12,double>[2 * v16];
-        v122 = *v22;
-        v125 = v22[1];
-        v23 = vdupq_lane_s64(v20, 0);
-        *__x = vdivq_f64(*v22, v23);
-        v135 = vdivq_f64(v125, v23);
-        v120 = *&v19;
-        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v136, __x);
-        v24 = vdupq_lane_s64(v120, 0);
-        *__x = vdivq_f64(v122, v24);
-        v135 = vdivq_f64(v125, v24);
-        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v136, __x);
-        v18 = v16;
-        v17 = v21;
+        v89 = v13;
+        v91 = geom::kdop_axes<(unsigned char)12,float>[v14];
+        *__x = vdivq_f32(v91, vdupq_lane_s32(v12, 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v100, __x);
+        *__x = vdivq_f32(v91, vdupq_lane_s32(v89, 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v100, __x);
+        v16 = v14;
+        v15 = v17;
       }
     }
 
-    ++v16;
+    ++v14;
   }
 
-  while (v16 != 6);
-  v25 = v136;
-  v26 = (v137 - v136) >> 5;
-  if (!v26)
+  while (v14 != 6);
+  v21 = v100;
+  v22 = v101 - v100;
+  if (!v22)
   {
-    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
     __x[0] = 0;
     std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
-    goto LABEL_13;
+    goto LABEL_20;
   }
 
-  if (v26 == 2)
+  if (v22 == 2)
   {
-    v27 = &geom::kdop_axes<(unsigned char)12,double>[2 * v18];
-    v123 = *v27;
-    v126 = v27[1];
-    v28 = *(a1 + 8 * v18);
-    *__x = vmulq_n_f64(*v27, v28);
-    v135 = vmulq_n_f64(v126, v28);
-    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
-    v29 = *(v118 + 8 * v18);
-    *__x = vmulq_n_f64(v123, v29);
-    v135 = vmulq_n_f64(v126, v29);
-    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    v92 = geom::kdop_axes<(unsigned char)12,float>[v16];
+    *__x = vmulq_n_f32(v92, *(a1 + 4 * v16));
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    *__x = vmulq_n_f32(v92, *(v87 + 4 * v16));
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
     __x[0] = 0;
     std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
     begin = a4->__begin_;
     begin[10] = 1;
     begin[7] = 1;
     begin[4] = 1;
-LABEL_13:
+LABEL_20:
     __x[0] = 3;
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
     __x[0] = 6;
@@ -9338,362 +9133,314 @@ LABEL_13:
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
     __x[0] = 12;
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
-    goto LABEL_14;
+    goto LABEL_21;
   }
 
-  if (v26 > 0xB)
+  if (v22 > 0xB)
   {
-    geom::half_plane_intersection_3<double>(0xCuLL);
+    geom::half_plane_intersection_3<float>(0xCuLL, v100, a3, &a4->__begin_, a5);
   }
 
   else
   {
-    v131 = 0;
-    v132 = 0;
-    v133 = 0;
-    v32 = &geom::kdop_axes<(unsigned char)12,double>[2 * v17];
-    v33 = *v32;
-    v34 = v32[1];
-    v35 = fabs(v34.f64[0]);
-    if (v35 <= 2.22044605e-16)
+    memset(__x, 0, sizeof(__x));
+    v99 = 0;
+    v24 = geom::kdop_axes<(unsigned char)12,float>[v15];
+    v25 = COERCE_FLOAT(geom::kdop_axes<(unsigned char)12,float>[v15].i64[1]);
+    v26 = fabsf(v25);
+    LODWORD(v27) = HIDWORD(geom::kdop_axes<(unsigned char)12,float>[v15].i64[0]);
+    v28 = -v25;
+    if (v26 <= 0.00000011921)
     {
-      *v15.i64 = -v33.f64[1];
-      v37 = 0uLL;
-      v36 = vzip1q_s64(v15, v33);
+      v29 = vtrn1q_s32(COERCE_UNSIGNED_INT(-v27), v24);
     }
 
     else
     {
-      v36.f64[0] = 0.0;
-      v36.f64[1] = -v34.f64[0];
-      v37 = vdupq_laneq_s64(v33, 1);
+      v29.i32[0] = 0;
+      v29.f32[1] = v28;
+      v29.i64[1] = v24.u32[1];
     }
 
-    v38 = vdupq_laneq_s64(v33, 1);
-    v39 = vmulq_f64(v37, v37);
-    v39.f64[0] = 1.0 / sqrt(v39.f64[0] + vaddvq_f64(vmulq_f64(v36, v36)));
-    v40 = vmulq_f64(v37, v39);
-    v41 = vmulq_n_f64(v36, v39.f64[0]);
-    v42 = vextq_s8(v41, v41, 8uLL).u64[0];
-    if (v35 <= 2.22044605e-16)
+    v30 = vmulq_f32(v29, v29);
+    *&v31 = v30.f32[2] + vaddv_f32(*v30.f32);
+    *v30.f32 = vrsqrte_f32(v31);
+    *v30.f32 = vmul_f32(*v30.f32, vrsqrts_f32(v31, vmul_f32(*v30.f32, *v30.f32)));
+    LODWORD(v32) = vmul_f32(*v30.f32, vrsqrts_f32(v31, vmul_f32(*v30.f32, *v30.f32))).u32[0];
+    if (v26 <= 0.00000011921)
     {
-      *v14.i64 = -v33.f64[1];
-      v44 = 0uLL;
-      v43 = vzip1q_s64(v14, v33);
+      v33 = vtrn1q_s32(COERCE_UNSIGNED_INT(-v27), v24);
     }
 
     else
     {
-      v43.f64[0] = 0.0;
-      v43.f64[1] = -v34.f64[0];
-      v44 = v38;
+      v33.i32[0] = 0;
+      v33.f32[1] = v28;
+      v33.i64[1] = v24.u32[1];
     }
 
-    v124 = v32[1];
-    v127 = v40;
-    v45 = vmulq_f64(v44, v44);
-    v45.f64[0] = 1.0 / sqrt(v45.f64[0] + vaddvq_f64(vmulq_f64(v43, v43)));
-    v46 = vmulq_n_f64(v43, v45.f64[0]);
-    v47 = vmulq_f64(v44, v45);
-    v48.f64[0] = v32[1].f64[0];
-    v48.f64[1] = v32->f64[0];
-    v49 = vnegq_f64(v34);
-    v50 = vmlaq_laneq_f64(vmulq_laneq_f64(v49, v46, 1), v47, v33, 1);
-    v47.f64[1] = v46.f64[0];
-    v51 = vnegq_f64(v33);
-    v52 = v48;
-    v53 = vmlaq_f64(vmulq_f64(v47, v51), v46, v48);
-    v54 = vmulq_f64(v53, v53);
-    v48.f64[0] = vmulq_f64(v50, v50).f64[0];
-    v50.f64[1] = v53.f64[0];
-    v54.f64[0] = 1.0 / sqrt(v54.f64[1] + v48.f64[0] + v54.f64[0]);
-    v55 = vmulq_n_f64(v50, v54.f64[0]);
-    v56 = vextq_s8(v55, v55, 8uLL).u64[0];
-    v121 = vmulq_laneq_f64(v54, v53, 1);
-    v109 = v55.i64[0];
-    v111 = v41.i64[0];
-    v99 = v56;
-    v100 = v42;
-    if (v137 == v136)
+    v93 = vmulq_n_f32(v29, v32);
+    v34 = vmulq_f32(v33, v33);
+    *&v35 = v34.f32[2] + vaddv_f32(*v34.f32);
+    *v34.f32 = vrsqrte_f32(v35);
+    *v34.f32 = vmul_f32(*v34.f32, vrsqrts_f32(v35, vmul_f32(*v34.f32, *v34.f32)));
+    v36 = vmulq_n_f32(v33, vmul_f32(*v34.f32, vrsqrts_f32(v35, vmul_f32(*v34.f32, *v34.f32))).f32[0]);
+    v37 = vextq_s8(vuzp1q_s32(v24, v24), v24, 0xCuLL);
+    v38 = vnegq_f32(v24);
+    v39 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v36, v36), v36, 0xCuLL), v38), v36, v37);
+    v40 = vextq_s8(vuzp1q_s32(v39, v39), v39, 0xCuLL);
+    v41 = vmulq_f32(v39, v39);
+    *&v42 = v41.f32[1] + (v41.f32[2] + v41.f32[0]);
+    *v41.f32 = vrsqrte_f32(v42);
+    *v41.f32 = vmul_f32(*v41.f32, vrsqrts_f32(v42, vmul_f32(*v41.f32, *v41.f32)));
+    v90 = vmulq_n_f32(v40, vmul_f32(*v41.f32, vrsqrts_f32(v42, vmul_f32(*v41.f32, *v41.f32))).f32[0]);
+    if (v101 == v100)
     {
-      v78 = 0;
-      v79 = 0;
+      v62 = 0;
+      v63 = 0;
     }
 
     else
     {
-      v57 = 0;
-      v41.i64[1] = v42;
-      v55.i64[1] = v56;
-      v103 = v55;
-      v104 = v41;
-      v102 = vdupq_lane_s64(*&v124.f64[0], 0);
-      v51.i64[1] = vextq_s8(v51, v51, 8uLL).u64[0];
-      v105 = v51;
-      v106 = v49;
-      v52.i64[1] = vextq_s8(v52, v52, 8uLL).u64[0];
-      v107 = v52;
-      v108 = v38;
-      v119 = *v32;
+      v43 = 0;
+      v44 = vdup_lane_s32(*v24.i8, 1);
+      v45 = vdup_laneq_s32(v24, 2);
+      v88 = geom::kdop_axes<(unsigned char)12,float>[v15];
+      v82 = vextq_s8(v24, v24, 8uLL).u64[0];
+      v83 = v38;
+      v84 = v37;
       do
       {
-        v58 = &v25[32 * v57];
-        v113 = v58[1];
-        v114 = *v58;
-        v59.f64[0] = v58[1].f64[0];
-        v59.f64[1] = v58->f64[0];
-        v60 = vmlaq_f64(vmulq_f64(v59, v105), *v58, v107);
-        v61 = vmlaq_f64(vmulq_laneq_f64(v49, *v58, 1), v113, v38);
-        v62 = vmulq_f64(v60, v60);
-        v63 = v60.f64[0];
-        v116 = v60;
-        v64.f64[0] = v61.f64[0];
-        v62.f64[0] = 1.0 / sqrt(v62.f64[1] + vmulq_f64(v61, v61).f64[0] + v62.f64[0]);
-        v117 = v62;
-        v65 = vzip1q_s64(v119, *v58);
-        v66 = vzip2q_s64(v119, *v58);
-        v67 = vzip1q_s64(v124, v113);
-        v140.columns[0] = vmlaq_f64(vmlaq_f64(vmulq_n_f64(v65, v119.f64[0]), v38, v66), v102, v67);
-        v140.columns[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v65, v58->f64[0]), v66, *v58, 1), v67, v113.f64[0]);
-        v64.f64[1] = v63;
-        v115 = v64;
-        v68 = __invert_d2(v140);
-        v69 = vmlaq_laneq_f64(vmulq_n_f64(v119, v68.columns[1].f64[0]), v114, v68.columns[1], 1);
-        v70 = vmlaq_laneq_f64(vmulq_n_f64(v124, v68.columns[1].f64[0]), v113, v68.columns[1], 1);
-        v71 = vmulq_n_f64(v115, v117.f64[0]);
-        v72 = vmulq_laneq_f64(v117, v116, 1);
-        v73 = vaddq_f64(vzip1q_s64(vmulq_f64(v127, v72), vmulq_f64(v121, v72)), vpaddq_f64(vmulq_f64(v104, v71), vmulq_f64(v103, v71)));
-        v74 = vmulq_f64(v73, v73);
-        v75 = vmulq_n_f64(v73, 1.0 / sqrt(vaddvq_f64(v74)));
-        v74.f64[0] = -*&v75.i64[1];
-        v76 = vzip1q_s64(v74, v75);
-        v77 = vmulq_f64(v76, vaddq_f64(vzip1q_s64(vmulq_f64(v127, v70), vmulq_f64(v121, v70)), vpaddq_f64(vmulq_f64(v104, v69), vmulq_f64(v103, v69))));
-        *__x = vdivq_f64(v76, vdupq_lane_s64(*&vaddq_f64(v77, vdupq_laneq_s64(v77, 1)), 0));
-        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v131, __x);
-        v49 = v106;
-        v38 = v108;
-        ++v57;
-        v25 = v136;
+        v46 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v21[v43], v21[v43]), v21[v43], 0xCuLL), v38), v21[v43], v37);
+        v47 = vextq_s8(vuzp1q_s32(v46, v46), v46, 0xCuLL);
+        v48 = vmulq_f32(v46, v46);
+        *&v49 = v48.columns[0].f32[1] + (v48.columns[1].f32[0] + v48.columns[0].f32[0]);
+        v48.columns[0] = vrsqrte_f32(v49);
+        v48.columns[0] = vmul_f32(v48.columns[0], vrsqrts_f32(v49, vmul_f32(v48.columns[0], v48.columns[0])));
+        v85 = vmulq_n_f32(v47, vmul_f32(v48.columns[0], vrsqrts_f32(v49, vmul_f32(v48.columns[0], v48.columns[0]))).f32[0]);
+        v86 = v21[v43];
+        v50 = vzip1q_s32(v88, v86);
+        v51 = vextq_s8(v50, v50, 8uLL).u64[0];
+        v52 = vzip1_s32(v82, *&vextq_s8(v86, v86, 8uLL));
+        v48.columns[0] = vmla_f32(vmla_f32(vmul_n_f32(*v50.i8, v88.f32[0]), v44, v51), v45, v52);
+        *v50.i8 = vmla_laneq_f32(vmla_lane_f32(vmul_n_f32(*v50.i8, *v86.i32), v51, *v86.i8, 1), v52, v86, 2);
+        v53 = __invert_f2(v48);
+        v54 = vmulq_f32(v93, v85);
+        v55 = vmulq_f32(v90, v85);
+        *v54.i8 = vadd_f32(vzip1_s32(*&vextq_s8(v54, v54, 8uLL), *&vextq_s8(v55, v55, 8uLL)), vadd_f32(vzip1_s32(*v54.i8, *v55.i8), vzip2_s32(*v54.i8, *v55.i8)));
+        *v55.i8 = vmul_f32(*v54.i8, *v54.i8);
+        v55.i32[0] = vadd_f32(*v55.i8, vdup_lane_s32(*v55.i8, 1)).u32[0];
+        v56 = vmlaq_lane_f32(vmulq_n_f32(v88, v53.columns[1].f32[0]), v86, v53.columns[1], 1);
+        v57 = vrsqrte_f32(v55.u32[0]);
+        v58 = vmul_f32(v57, vrsqrts_f32(v55.u32[0], vmul_f32(v57, v57)));
+        v59 = vmul_f32(v58, vrsqrts_f32(v55.u32[0], vmul_f32(v58, v58)));
+        *v54.i8 = vmul_n_f32(*v54.i8, *v59.i32);
+        *v59.i32 = -*&v54.i32[1];
+        *v54.i8 = vzip1_s32(v59, *v54.i8);
+        v60 = vmulq_f32(v93, v56);
+        v61 = vmulq_f32(v90, v56);
+        *v60.i8 = vmul_f32(vadd_f32(vzip1_s32(*&vextq_s8(v60, v60, 8uLL), *&vextq_s8(v61, v61, 8uLL)), vadd_f32(vzip1_s32(*v60.i8, *v61.i8), vzip2_s32(*v60.i8, *v61.i8))), *v54.i8);
+        __p = vdiv_f32(*v54.i8, vdup_lane_s32(vadd_f32(*v60.i8, vdup_lane_s32(*v60.i8, 1)), 0));
+        _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(__x, &__p);
+        v38 = v83;
+        v37 = v84;
+        ++v43;
+        v21 = v100;
       }
 
-      while (v57 < (v137 - v136) >> 5);
-      v78 = v131;
-      v79 = v132;
+      while (v43 < v101 - v100);
+      v62 = *__x;
+      v63 = *&__x[2];
     }
 
     __p = 0;
-    v129 = 0;
-    v130 = 0;
-    geom::half_plane_intersection_2<double>((v79 - v78) >> 4, v78, &__p);
-    v80 = __p;
-    v81 = v129;
-    v82 = v127;
-    *&v83.f64[0] = v109;
-    *&v84.f64[0] = v111;
-    if (__p != v129)
+    v96 = 0;
+    v97 = 0;
+    geom::half_plane_intersection_2<float>((v63 - v62) >> 3, v62, &__p);
+    v64 = __p;
+    v65 = v96;
+    v66 = v93;
+    if (__p != v96)
     {
-      *&v83.f64[1] = v99;
-      *&v84.f64[1] = v100;
-      v110 = v83;
-      v112 = v84;
       do
       {
-        v85 = *v80++;
-        *__x = vmlaq_n_f64(vmulq_laneq_f64(v83, v85, 1), v84, v85.f64[0]);
-        v135 = vmlaq_f64(vmulq_laneq_f64(v121, v85, 1), v85, v82);
-        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
-        v82 = v127;
-        v83 = v110;
-        v84 = v112;
+        v67 = *v64++;
+        v94 = vmlaq_n_f32(vmulq_lane_f32(v90, v67, 1), v66, v67.f32[0]);
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, &v94);
+        v66 = v93;
       }
 
-      while (v80 != v81);
+      while (v64 != v65);
     }
 
-    std::vector<float>::resize(a4, a3[1] - *a3);
-    v86 = a3[1] - *a3;
-    if (v86)
+    std::vector<float>::resize(a4, (a3[1] - *a3) >> 3);
+    v68 = a3[1] - *a3;
+    if (v68)
     {
-      v87 = 0;
-      v88 = a4->__begin_;
-      v89 = a4->__begin_ + (v86 >> 3);
-      v90 = vdupq_n_s64(((v86 >> 3) - 4) >> 2);
-      v91 = a4->__begin_ + 2;
+      v69 = 0;
+      v70 = a4->__begin_;
+      v71 = a4->__begin_ + (v68 >> 2);
+      v72 = vdupq_n_s64(((v68 >> 2) - 4) >> 2);
+      v73 = a4->__begin_ + 2;
       do
       {
-        v92 = vdupq_n_s64(v87);
-        v93 = vmovn_s64(vcgeq_u64(v90, vorrq_s8(v92, xmmword_2500C1680)));
-        if (vuzp1_s16(v93, *v90.i8).u8[0])
+        v74 = vdupq_n_s64(v69);
+        v75 = vmovn_s64(vcgeq_u64(v72, vorrq_s8(v74, xmmword_2500C1680)));
+        if (vuzp1_s16(v75, *v72.i8).u8[0])
         {
-          *(v91 - 2) = v87;
+          *(v73 - 2) = v69;
         }
 
-        if (vuzp1_s16(v93, *&v90).i8[2])
+        if (vuzp1_s16(v75, *&v72).i8[2])
         {
-          *(v91 - 1) = v87 + 1;
+          *(v73 - 1) = v69 + 1;
         }
 
-        if (vuzp1_s16(*&v90, vmovn_s64(vcgeq_u64(v90, vorrq_s8(v92, xmmword_2500C1670)))).i32[1])
+        if (vuzp1_s16(*&v72, vmovn_s64(vcgeq_u64(v72, vorrq_s8(v74, xmmword_2500C1670)))).i32[1])
         {
-          *v91 = v87 + 2;
-          v91[1] = v87 + 3;
+          *v73 = v69 + 2;
+          v73[1] = v69 + 3;
         }
 
-        v87 += 4;
-        v91 += 4;
+        v69 += 4;
+        v73 += 4;
       }
 
-      while ((((((v86 >> 3) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v87);
-      v94 = a4->__end_ - 1;
+      while ((((((v68 >> 2) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v69);
+      v76 = a4->__end_ - 1;
       do
       {
-        v95 = *v88++;
-        *v94-- = v95;
+        v77 = *v70++;
+        *v76-- = v77;
       }
 
-      while (v88 != v89);
+      while (v70 != v71);
     }
 
-    __x[0] = v86 >> 5;
-    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
-    __x[0] = ((a3[1] - *a3) >> 4) & 0xFFFFFFFE;
-    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    v94.i32[0] = v68 >> 4;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, &v94);
+    v94.i32[0] = ((a3[1] - *a3) >> 3) & 0xFFFFFFFE;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, &v94);
     if (__p)
     {
-      v129 = __p;
+      v96 = __p;
       operator delete(__p);
     }
 
-    if (v131)
+    if (*__x)
     {
-      v132 = v131;
-      operator delete(v131);
+      *&__x[2] = *__x;
+      operator delete(*__x);
     }
   }
 
-  v96 = *a3;
-  v97 = a3[1];
-  while (v96 != v97)
+  v78 = *a3;
+  v79 = a3[1];
+  while (v78 != v79)
   {
-    v98 = vaddq_f64(a2[1], v96[1]);
-    *v96 = vaddq_f64(*a2, *v96);
-    v96[1] = v98;
-    v96 += 2;
+    *v78 = vaddq_f32(*a2, *v78);
+    ++v78;
   }
 
-LABEL_14:
-  if (v136)
+LABEL_21:
+  if (v100)
   {
-    v137 = v136;
-    operator delete(v136);
+    v101 = v100;
+    operator delete(v100);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
-void geom_dop14_polyhedron_3d(uint64_t a1, float64x2_t *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void geom_dop14_polyhedron_3f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float32x4_t a5)
 {
-  v8 = a2[1];
-  v12[0] = *a2;
-  v12[1] = v8;
+  v11 = a5;
+  v8 = geom::collection_to_vector<float>(a2);
   v9 = geom::collection_to_vector<float>(a3);
   v10 = geom::collection_to_vector<float>(a4);
-  v11 = geom::collection_to_vector<float>(a5);
-  geom::dop<(unsigned char)14,double>::compute_polyhedron(a1, v12, v9, v10, v11);
+  geom::dop<(unsigned char)14,float>::compute_polyhedron(a1, &v11, v8, v9, v10);
 }
 
-void geom::dop<(unsigned char)14,double>::compute_polyhedron(uint64_t a1, float64x2_t *a2, float64x2_t **a3, std::vector<int> *a4, uint64_t a5)
+void geom::dop<(unsigned char)14,float>::compute_polyhedron(uint64_t a1, float32x4_t *a2, float32x4_t **a3, std::vector<int> *a4, uint64_t a5)
 {
   v8 = 0;
-  v139[14] = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   a3[1] = *a3;
   a4->__end_ = a4->__begin_;
   *(a5 + 8) = *a5;
-  v11 = *a2;
-  v10 = a2[1];
-  v118 = a1 + 64;
+  v9 = *a2;
+  v87 = a1 + 32;
   do
   {
-    v12 = vmulq_f64(geom::kdop_axes<(unsigned char)14,double>[2 * v8 + 1], v10).f64[0] + vaddvq_f64(vmulq_f64(geom::kdop_axes<(unsigned char)14,double>[2 * v8], v11));
-    v13 = (a1 + 8 * v8);
-    *&v139[v8 + 7] = *v13 - v12;
-    *&v139[v8++] = v13[8] - v12;
+    v10 = vmulq_f32(geom::kdop_axes<(unsigned char)14,float>[v8], v9);
+    v10.f32[0] = v10.f32[2] + vaddv_f32(*v10.f32);
+    v11 = (a1 + 4 * v8);
+    *&v103[v8 + 7] = *v11 - v10.f32[0];
+    *&v103[v8++] = v11[8] - v10.f32[0];
   }
 
   while (v8 != 7);
-  v136 = 0;
-  v137 = 0;
-  v138 = 0;
-  _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE7reserveEm(&v136, 0xEuLL);
-  v16 = 0;
-  v17 = -1;
-  v18 = -1;
+  v100 = 0;
+  v101 = 0;
+  v102 = 0;
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(&v100, 0xEuLL);
+  v14 = 0;
+  v15 = -1;
+  v16 = -1;
   do
   {
-    v19 = *&v139[v16 + 7];
-    v20 = v139[v16];
-    if (v19 == *&v20)
+    v13.i32[0] = v103[v14 + 7];
+    v12.i32[0] = v103[v14];
+    if (*v13.i32 == *v12.i32)
     {
-      v17 = v16;
+      v15 = v14;
     }
 
     else
     {
-      v21 = v17;
-      v17 = v16;
-      if (vabdd_f64(v19, *&v20) > 0.000001)
+      v17 = v15;
+      v18 = fabsf(*v13.i32);
+      v19 = fabsf(*v12.i32);
+      v20 = v18 == INFINITY || v19 == INFINITY;
+      if (v20 || (v15 = v14, vabds_f32(*v13.i32, *v12.i32) >= (((v18 + v19) + 1.0) * 0.00001)))
       {
-        v22 = &geom::kdop_axes<(unsigned char)14,double>[2 * v16];
-        v122 = *v22;
-        v125 = v22[1];
-        v23 = vdupq_lane_s64(v20, 0);
-        *__x = vdivq_f64(*v22, v23);
-        v135 = vdivq_f64(v125, v23);
-        v120 = *&v19;
-        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v136, __x);
-        v24 = vdupq_lane_s64(v120, 0);
-        *__x = vdivq_f64(v122, v24);
-        v135 = vdivq_f64(v125, v24);
-        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v136, __x);
-        v18 = v16;
-        v17 = v21;
+        v89 = v13;
+        v91 = geom::kdop_axes<(unsigned char)14,float>[v14];
+        *__x = vdivq_f32(v91, vdupq_lane_s32(v12, 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v100, __x);
+        *__x = vdivq_f32(v91, vdupq_lane_s32(v89, 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v100, __x);
+        v16 = v14;
+        v15 = v17;
       }
     }
 
-    ++v16;
+    ++v14;
   }
 
-  while (v16 != 7);
-  v25 = v136;
-  v26 = (v137 - v136) >> 5;
-  if (!v26)
+  while (v14 != 7);
+  v21 = v100;
+  v22 = v101 - v100;
+  if (!v22)
   {
-    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
     __x[0] = 0;
     std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
-    goto LABEL_13;
+    goto LABEL_20;
   }
 
-  if (v26 == 2)
+  if (v22 == 2)
   {
-    v27 = &geom::kdop_axes<(unsigned char)14,double>[2 * v18];
-    v123 = *v27;
-    v126 = v27[1];
-    v28 = *(a1 + 8 * v18);
-    *__x = vmulq_n_f64(*v27, v28);
-    v135 = vmulq_n_f64(v126, v28);
-    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
-    v29 = *(v118 + 8 * v18);
-    *__x = vmulq_n_f64(v123, v29);
-    v135 = vmulq_n_f64(v126, v29);
-    _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    v92 = geom::kdop_axes<(unsigned char)14,float>[v16];
+    *__x = vmulq_n_f32(v92, *(a1 + 4 * v16));
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    *__x = vmulq_n_f32(v92, *(v87 + 4 * v16));
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
     __x[0] = 0;
     std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
     begin = a4->__begin_;
     begin[10] = 1;
     begin[7] = 1;
     begin[4] = 1;
-LABEL_13:
+LABEL_20:
     __x[0] = 3;
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
     __x[0] = 6;
@@ -9702,255 +9449,535 @@ LABEL_13:
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
     __x[0] = 12;
     std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
-    goto LABEL_14;
+    goto LABEL_21;
   }
 
-  if (v26 > 0xD)
+  if (v22 > 0xD)
   {
-    geom::half_plane_intersection_3<double>(0xEuLL);
+    geom::half_plane_intersection_3<float>(0xEuLL, v100, a3, &a4->__begin_, a5);
   }
 
   else
   {
-    v131 = 0;
-    v132 = 0;
-    v133 = 0;
-    v32 = &geom::kdop_axes<(unsigned char)14,double>[2 * v17];
-    v33 = *v32;
-    v34 = v32[1];
-    v35 = fabs(v34.f64[0]);
-    if (v35 <= 2.22044605e-16)
+    memset(__x, 0, sizeof(__x));
+    v99 = 0;
+    v24 = geom::kdop_axes<(unsigned char)14,float>[v15];
+    v25 = COERCE_FLOAT(geom::kdop_axes<(unsigned char)14,float>[v15].i64[1]);
+    v26 = fabsf(v25);
+    LODWORD(v27) = HIDWORD(geom::kdop_axes<(unsigned char)14,float>[v15].i64[0]);
+    v28 = -v25;
+    if (v26 <= 0.00000011921)
     {
-      *v15.i64 = -v33.f64[1];
-      v37 = 0uLL;
-      v36 = vzip1q_s64(v15, v33);
+      v29 = vtrn1q_s32(COERCE_UNSIGNED_INT(-v27), v24);
     }
 
     else
     {
-      v36.f64[0] = 0.0;
-      v36.f64[1] = -v34.f64[0];
-      v37 = vdupq_laneq_s64(v33, 1);
+      v29.i32[0] = 0;
+      v29.f32[1] = v28;
+      v29.i64[1] = v24.u32[1];
     }
 
-    v38 = vdupq_laneq_s64(v33, 1);
-    v39 = vmulq_f64(v37, v37);
-    v39.f64[0] = 1.0 / sqrt(v39.f64[0] + vaddvq_f64(vmulq_f64(v36, v36)));
-    v40 = vmulq_f64(v37, v39);
-    v41 = vmulq_n_f64(v36, v39.f64[0]);
-    v42 = vextq_s8(v41, v41, 8uLL).u64[0];
-    if (v35 <= 2.22044605e-16)
+    v30 = vmulq_f32(v29, v29);
+    *&v31 = v30.f32[2] + vaddv_f32(*v30.f32);
+    *v30.f32 = vrsqrte_f32(v31);
+    *v30.f32 = vmul_f32(*v30.f32, vrsqrts_f32(v31, vmul_f32(*v30.f32, *v30.f32)));
+    LODWORD(v32) = vmul_f32(*v30.f32, vrsqrts_f32(v31, vmul_f32(*v30.f32, *v30.f32))).u32[0];
+    if (v26 <= 0.00000011921)
     {
-      *v14.i64 = -v33.f64[1];
-      v44 = 0uLL;
-      v43 = vzip1q_s64(v14, v33);
+      v33 = vtrn1q_s32(COERCE_UNSIGNED_INT(-v27), v24);
     }
 
     else
     {
-      v43.f64[0] = 0.0;
-      v43.f64[1] = -v34.f64[0];
-      v44 = v38;
+      v33.i32[0] = 0;
+      v33.f32[1] = v28;
+      v33.i64[1] = v24.u32[1];
     }
 
-    v124 = v32[1];
-    v127 = v40;
-    v45 = vmulq_f64(v44, v44);
-    v45.f64[0] = 1.0 / sqrt(v45.f64[0] + vaddvq_f64(vmulq_f64(v43, v43)));
-    v46 = vmulq_n_f64(v43, v45.f64[0]);
-    v47 = vmulq_f64(v44, v45);
-    v48.f64[0] = v32[1].f64[0];
-    v48.f64[1] = v32->f64[0];
-    v49 = vnegq_f64(v34);
-    v50 = vmlaq_laneq_f64(vmulq_laneq_f64(v49, v46, 1), v47, v33, 1);
-    v47.f64[1] = v46.f64[0];
-    v51 = vnegq_f64(v33);
-    v52 = v48;
-    v53 = vmlaq_f64(vmulq_f64(v47, v51), v46, v48);
-    v54 = vmulq_f64(v53, v53);
-    v48.f64[0] = vmulq_f64(v50, v50).f64[0];
-    v50.f64[1] = v53.f64[0];
-    v54.f64[0] = 1.0 / sqrt(v54.f64[1] + v48.f64[0] + v54.f64[0]);
-    v55 = vmulq_n_f64(v50, v54.f64[0]);
-    v56 = vextq_s8(v55, v55, 8uLL).u64[0];
-    v121 = vmulq_laneq_f64(v54, v53, 1);
-    v109 = v55.i64[0];
-    v111 = v41.i64[0];
-    v99 = v56;
-    v100 = v42;
-    if (v137 == v136)
+    v93 = vmulq_n_f32(v29, v32);
+    v34 = vmulq_f32(v33, v33);
+    *&v35 = v34.f32[2] + vaddv_f32(*v34.f32);
+    *v34.f32 = vrsqrte_f32(v35);
+    *v34.f32 = vmul_f32(*v34.f32, vrsqrts_f32(v35, vmul_f32(*v34.f32, *v34.f32)));
+    v36 = vmulq_n_f32(v33, vmul_f32(*v34.f32, vrsqrts_f32(v35, vmul_f32(*v34.f32, *v34.f32))).f32[0]);
+    v37 = vextq_s8(vuzp1q_s32(v24, v24), v24, 0xCuLL);
+    v38 = vnegq_f32(v24);
+    v39 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v36, v36), v36, 0xCuLL), v38), v36, v37);
+    v40 = vextq_s8(vuzp1q_s32(v39, v39), v39, 0xCuLL);
+    v41 = vmulq_f32(v39, v39);
+    *&v42 = v41.f32[1] + (v41.f32[2] + v41.f32[0]);
+    *v41.f32 = vrsqrte_f32(v42);
+    *v41.f32 = vmul_f32(*v41.f32, vrsqrts_f32(v42, vmul_f32(*v41.f32, *v41.f32)));
+    v90 = vmulq_n_f32(v40, vmul_f32(*v41.f32, vrsqrts_f32(v42, vmul_f32(*v41.f32, *v41.f32))).f32[0]);
+    if (v101 == v100)
     {
-      v78 = 0;
-      v79 = 0;
+      v62 = 0;
+      v63 = 0;
     }
 
     else
     {
-      v57 = 0;
-      v41.i64[1] = v42;
-      v55.i64[1] = v56;
-      v103 = v55;
-      v104 = v41;
-      v102 = vdupq_lane_s64(*&v124.f64[0], 0);
-      v51.i64[1] = vextq_s8(v51, v51, 8uLL).u64[0];
-      v105 = v51;
-      v106 = v49;
-      v52.i64[1] = vextq_s8(v52, v52, 8uLL).u64[0];
-      v107 = v52;
-      v108 = v38;
-      v119 = *v32;
+      v43 = 0;
+      v44 = vdup_lane_s32(*v24.i8, 1);
+      v45 = vdup_laneq_s32(v24, 2);
+      v88 = geom::kdop_axes<(unsigned char)14,float>[v15];
+      v82 = vextq_s8(v24, v24, 8uLL).u64[0];
+      v83 = v38;
+      v84 = v37;
       do
       {
-        v58 = &v25[32 * v57];
-        v113 = v58[1];
-        v114 = *v58;
-        v59.f64[0] = v58[1].f64[0];
-        v59.f64[1] = v58->f64[0];
-        v60 = vmlaq_f64(vmulq_f64(v59, v105), *v58, v107);
-        v61 = vmlaq_f64(vmulq_laneq_f64(v49, *v58, 1), v113, v38);
-        v62 = vmulq_f64(v60, v60);
-        v63 = v60.f64[0];
-        v116 = v60;
-        v64.f64[0] = v61.f64[0];
-        v62.f64[0] = 1.0 / sqrt(v62.f64[1] + vmulq_f64(v61, v61).f64[0] + v62.f64[0]);
-        v117 = v62;
-        v65 = vzip1q_s64(v119, *v58);
-        v66 = vzip2q_s64(v119, *v58);
-        v67 = vzip1q_s64(v124, v113);
-        v140.columns[0] = vmlaq_f64(vmlaq_f64(vmulq_n_f64(v65, v119.f64[0]), v38, v66), v102, v67);
-        v140.columns[1] = vmlaq_n_f64(vmlaq_laneq_f64(vmulq_n_f64(v65, v58->f64[0]), v66, *v58, 1), v67, v113.f64[0]);
-        v64.f64[1] = v63;
-        v115 = v64;
-        v68 = __invert_d2(v140);
-        v69 = vmlaq_laneq_f64(vmulq_n_f64(v119, v68.columns[1].f64[0]), v114, v68.columns[1], 1);
-        v70 = vmlaq_laneq_f64(vmulq_n_f64(v124, v68.columns[1].f64[0]), v113, v68.columns[1], 1);
-        v71 = vmulq_n_f64(v115, v117.f64[0]);
-        v72 = vmulq_laneq_f64(v117, v116, 1);
-        v73 = vaddq_f64(vzip1q_s64(vmulq_f64(v127, v72), vmulq_f64(v121, v72)), vpaddq_f64(vmulq_f64(v104, v71), vmulq_f64(v103, v71)));
-        v74 = vmulq_f64(v73, v73);
-        v75 = vmulq_n_f64(v73, 1.0 / sqrt(vaddvq_f64(v74)));
-        v74.f64[0] = -*&v75.i64[1];
-        v76 = vzip1q_s64(v74, v75);
-        v77 = vmulq_f64(v76, vaddq_f64(vzip1q_s64(vmulq_f64(v127, v70), vmulq_f64(v121, v70)), vpaddq_f64(vmulq_f64(v104, v69), vmulq_f64(v103, v69))));
-        *__x = vdivq_f64(v76, vdupq_lane_s64(*&vaddq_f64(v77, vdupq_laneq_s64(v77, 1)), 0));
-        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v131, __x);
-        v49 = v106;
-        v38 = v108;
-        ++v57;
-        v25 = v136;
+        v46 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v21[v43], v21[v43]), v21[v43], 0xCuLL), v38), v21[v43], v37);
+        v47 = vextq_s8(vuzp1q_s32(v46, v46), v46, 0xCuLL);
+        v48 = vmulq_f32(v46, v46);
+        *&v49 = v48.columns[0].f32[1] + (v48.columns[1].f32[0] + v48.columns[0].f32[0]);
+        v48.columns[0] = vrsqrte_f32(v49);
+        v48.columns[0] = vmul_f32(v48.columns[0], vrsqrts_f32(v49, vmul_f32(v48.columns[0], v48.columns[0])));
+        v85 = vmulq_n_f32(v47, vmul_f32(v48.columns[0], vrsqrts_f32(v49, vmul_f32(v48.columns[0], v48.columns[0]))).f32[0]);
+        v86 = v21[v43];
+        v50 = vzip1q_s32(v88, v86);
+        v51 = vextq_s8(v50, v50, 8uLL).u64[0];
+        v52 = vzip1_s32(v82, *&vextq_s8(v86, v86, 8uLL));
+        v48.columns[0] = vmla_f32(vmla_f32(vmul_n_f32(*v50.i8, v88.f32[0]), v44, v51), v45, v52);
+        *v50.i8 = vmla_laneq_f32(vmla_lane_f32(vmul_n_f32(*v50.i8, *v86.i32), v51, *v86.i8, 1), v52, v86, 2);
+        v53 = __invert_f2(v48);
+        v54 = vmulq_f32(v93, v85);
+        v55 = vmulq_f32(v90, v85);
+        *v54.i8 = vadd_f32(vzip1_s32(*&vextq_s8(v54, v54, 8uLL), *&vextq_s8(v55, v55, 8uLL)), vadd_f32(vzip1_s32(*v54.i8, *v55.i8), vzip2_s32(*v54.i8, *v55.i8)));
+        *v55.i8 = vmul_f32(*v54.i8, *v54.i8);
+        v55.i32[0] = vadd_f32(*v55.i8, vdup_lane_s32(*v55.i8, 1)).u32[0];
+        v56 = vmlaq_lane_f32(vmulq_n_f32(v88, v53.columns[1].f32[0]), v86, v53.columns[1], 1);
+        v57 = vrsqrte_f32(v55.u32[0]);
+        v58 = vmul_f32(v57, vrsqrts_f32(v55.u32[0], vmul_f32(v57, v57)));
+        v59 = vmul_f32(v58, vrsqrts_f32(v55.u32[0], vmul_f32(v58, v58)));
+        *v54.i8 = vmul_n_f32(*v54.i8, *v59.i32);
+        *v59.i32 = -*&v54.i32[1];
+        *v54.i8 = vzip1_s32(v59, *v54.i8);
+        v60 = vmulq_f32(v93, v56);
+        v61 = vmulq_f32(v90, v56);
+        *v60.i8 = vmul_f32(vadd_f32(vzip1_s32(*&vextq_s8(v60, v60, 8uLL), *&vextq_s8(v61, v61, 8uLL)), vadd_f32(vzip1_s32(*v60.i8, *v61.i8), vzip2_s32(*v60.i8, *v61.i8))), *v54.i8);
+        __p = vdiv_f32(*v54.i8, vdup_lane_s32(vadd_f32(*v60.i8, vdup_lane_s32(*v60.i8, 1)), 0));
+        _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(__x, &__p);
+        v38 = v83;
+        v37 = v84;
+        ++v43;
+        v21 = v100;
       }
 
-      while (v57 < (v137 - v136) >> 5);
-      v78 = v131;
-      v79 = v132;
+      while (v43 < v101 - v100);
+      v62 = *__x;
+      v63 = *&__x[2];
     }
 
     __p = 0;
-    v129 = 0;
-    v130 = 0;
-    geom::half_plane_intersection_2<double>((v79 - v78) >> 4, v78, &__p);
-    v80 = __p;
-    v81 = v129;
-    v82 = v127;
-    *&v83.f64[0] = v109;
-    *&v84.f64[0] = v111;
-    if (__p != v129)
+    v96 = 0;
+    v97 = 0;
+    geom::half_plane_intersection_2<float>((v63 - v62) >> 3, v62, &__p);
+    v64 = __p;
+    v65 = v96;
+    v66 = v93;
+    if (__p != v96)
     {
-      *&v83.f64[1] = v99;
-      *&v84.f64[1] = v100;
-      v110 = v83;
-      v112 = v84;
       do
       {
-        v85 = *v80++;
-        *__x = vmlaq_n_f64(vmulq_laneq_f64(v83, v85, 1), v84, v85.f64[0]);
-        v135 = vmlaq_f64(vmulq_laneq_f64(v121, v85, 1), v85, v82);
-        _ZNSt3__16vectorIDv3_dNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
-        v82 = v127;
-        v83 = v110;
-        v84 = v112;
+        v67 = *v64++;
+        v94 = vmlaq_n_f32(vmulq_lane_f32(v90, v67, 1), v66, v67.f32[0]);
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, &v94);
+        v66 = v93;
       }
 
-      while (v80 != v81);
+      while (v64 != v65);
     }
 
-    std::vector<float>::resize(a4, a3[1] - *a3);
-    v86 = a3[1] - *a3;
-    if (v86)
+    std::vector<float>::resize(a4, (a3[1] - *a3) >> 3);
+    v68 = a3[1] - *a3;
+    if (v68)
     {
-      v87 = 0;
-      v88 = a4->__begin_;
-      v89 = a4->__begin_ + (v86 >> 3);
-      v90 = vdupq_n_s64(((v86 >> 3) - 4) >> 2);
-      v91 = a4->__begin_ + 2;
+      v69 = 0;
+      v70 = a4->__begin_;
+      v71 = a4->__begin_ + (v68 >> 2);
+      v72 = vdupq_n_s64(((v68 >> 2) - 4) >> 2);
+      v73 = a4->__begin_ + 2;
       do
       {
-        v92 = vdupq_n_s64(v87);
-        v93 = vmovn_s64(vcgeq_u64(v90, vorrq_s8(v92, xmmword_2500C1680)));
-        if (vuzp1_s16(v93, *v90.i8).u8[0])
+        v74 = vdupq_n_s64(v69);
+        v75 = vmovn_s64(vcgeq_u64(v72, vorrq_s8(v74, xmmword_2500C1680)));
+        if (vuzp1_s16(v75, *v72.i8).u8[0])
         {
-          *(v91 - 2) = v87;
+          *(v73 - 2) = v69;
         }
 
-        if (vuzp1_s16(v93, *&v90).i8[2])
+        if (vuzp1_s16(v75, *&v72).i8[2])
         {
-          *(v91 - 1) = v87 + 1;
+          *(v73 - 1) = v69 + 1;
         }
 
-        if (vuzp1_s16(*&v90, vmovn_s64(vcgeq_u64(v90, vorrq_s8(v92, xmmword_2500C1670)))).i32[1])
+        if (vuzp1_s16(*&v72, vmovn_s64(vcgeq_u64(v72, vorrq_s8(v74, xmmword_2500C1670)))).i32[1])
         {
-          *v91 = v87 + 2;
-          v91[1] = v87 + 3;
+          *v73 = v69 + 2;
+          v73[1] = v69 + 3;
         }
 
-        v87 += 4;
-        v91 += 4;
+        v69 += 4;
+        v73 += 4;
       }
 
-      while ((((((v86 >> 3) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v87);
-      v94 = a4->__end_ - 1;
+      while ((((((v68 >> 2) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v69);
+      v76 = a4->__end_ - 1;
       do
       {
-        v95 = *v88++;
-        *v94-- = v95;
+        v77 = *v70++;
+        *v76-- = v77;
       }
 
-      while (v88 != v89);
+      while (v70 != v71);
     }
 
-    __x[0] = v86 >> 5;
-    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
-    __x[0] = ((a3[1] - *a3) >> 4) & 0xFFFFFFFE;
-    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    v94.i32[0] = v68 >> 4;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, &v94);
+    v94.i32[0] = ((a3[1] - *a3) >> 3) & 0xFFFFFFFE;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, &v94);
     if (__p)
     {
-      v129 = __p;
+      v96 = __p;
       operator delete(__p);
     }
 
-    if (v131)
+    if (*__x)
     {
-      v132 = v131;
-      operator delete(v131);
+      *&__x[2] = *__x;
+      operator delete(*__x);
     }
   }
 
-  v96 = *a3;
-  v97 = a3[1];
-  while (v96 != v97)
+  v78 = *a3;
+  v79 = a3[1];
+  while (v78 != v79)
   {
-    v98 = vaddq_f64(a2[1], v96[1]);
-    *v96 = vaddq_f64(*a2, *v96);
-    v96[1] = v98;
-    v96 += 2;
+    *v78 = vaddq_f32(*a2, *v78);
+    ++v78;
   }
 
-LABEL_14:
-  if (v136)
+LABEL_21:
+  if (v100)
   {
-    v137 = v136;
-    operator delete(v136);
+    v101 = v100;
+    operator delete(v100);
+  }
+}
+
+void geom_dop18_polyhedron_3f(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, float32x4_t a5)
+{
+  v11 = a5;
+  v8 = geom::collection_to_vector<float>(a2);
+  v9 = geom::collection_to_vector<float>(a3);
+  v10 = geom::collection_to_vector<float>(a4);
+  geom::dop<(unsigned char)18,float>::compute_polyhedron(a1, &v11, v8, v9, v10);
+}
+
+void geom::dop<(unsigned char)18,float>::compute_polyhedron(uint64_t a1, float32x4_t *a2, float32x4_t **a3, std::vector<int> *a4, uint64_t a5)
+{
+  v8 = 0;
+  v104 = *MEMORY[0x277D85DE8];
+  a3[1] = *a3;
+  a4->__end_ = a4->__begin_;
+  *(a5 + 8) = *a5;
+  v9 = *a2;
+  v87 = a1 + 48;
+  do
+  {
+    v10 = vmulq_f32(geom::kdop_axes<(unsigned char)18,float>[v8], v9);
+    v10.f32[0] = v10.f32[2] + vaddv_f32(*v10.f32);
+    v11 = (a1 + 4 * v8);
+    *&v103[v8 + 9] = *v11 - v10.f32[0];
+    *&v103[v8++] = v11[12] - v10.f32[0];
   }
 
-  v31 = *MEMORY[0x277D85DE8];
+  while (v8 != 9);
+  v100 = 0;
+  v101 = 0;
+  v102 = 0;
+  _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE7reserveEm(&v100, 0x12uLL);
+  v14 = 0;
+  v15 = -1;
+  v16 = -1;
+  do
+  {
+    v13.i32[0] = v103[v14 + 9];
+    v12.i32[0] = v103[v14];
+    if (*v13.i32 == *v12.i32)
+    {
+      v15 = v14;
+    }
+
+    else
+    {
+      v17 = v15;
+      v18 = fabsf(*v13.i32);
+      v19 = fabsf(*v12.i32);
+      v20 = v18 == INFINITY || v19 == INFINITY;
+      if (v20 || (v15 = v14, vabds_f32(*v13.i32, *v12.i32) >= (((v18 + v19) + 1.0) * 0.00001)))
+      {
+        v89 = v13;
+        v91 = geom::kdop_axes<(unsigned char)18,float>[v14];
+        *__x = vdivq_f32(v91, vdupq_lane_s32(v12, 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v100, __x);
+        *__x = vdivq_f32(v91, vdupq_lane_s32(v89, 0));
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(&v100, __x);
+        v16 = v14;
+        v15 = v17;
+      }
+    }
+
+    ++v14;
+  }
+
+  while (v14 != 9);
+  v21 = v100;
+  v22 = v101 - v100;
+  if (!v22)
+  {
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, a2);
+    __x[0] = 0;
+    std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
+    goto LABEL_20;
+  }
+
+  if (v22 == 2)
+  {
+    v92 = geom::kdop_axes<(unsigned char)18,float>[v16];
+    *__x = vmulq_n_f32(v92, *(a1 + 4 * v16));
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    *__x = vmulq_n_f32(v92, *(v87 + 4 * v16));
+    _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, __x);
+    __x[0] = 0;
+    std::vector<unsigned int>::resize(a4, 0xCuLL, __x);
+    begin = a4->__begin_;
+    begin[10] = 1;
+    begin[7] = 1;
+    begin[4] = 1;
+LABEL_20:
+    __x[0] = 3;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 6;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 9;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    __x[0] = 12;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, __x);
+    goto LABEL_21;
+  }
+
+  if (v22 > 0x11)
+  {
+    geom::half_plane_intersection_3<float>(0x12uLL, v100, a3, &a4->__begin_, a5);
+  }
+
+  else
+  {
+    memset(__x, 0, sizeof(__x));
+    v99 = 0;
+    v24 = geom::kdop_axes<(unsigned char)18,float>[v15];
+    v25 = COERCE_FLOAT(geom::kdop_axes<(unsigned char)18,float>[v15].i64[1]);
+    v26 = fabsf(v25);
+    LODWORD(v27) = HIDWORD(geom::kdop_axes<(unsigned char)18,float>[v15].i64[0]);
+    v28 = -v25;
+    if (v26 <= 0.00000011921)
+    {
+      v29 = vtrn1q_s32(COERCE_UNSIGNED_INT(-v27), v24);
+    }
+
+    else
+    {
+      v29.i32[0] = 0;
+      v29.f32[1] = v28;
+      v29.i64[1] = v24.u32[1];
+    }
+
+    v30 = vmulq_f32(v29, v29);
+    *&v31 = v30.f32[2] + vaddv_f32(*v30.f32);
+    *v30.f32 = vrsqrte_f32(v31);
+    *v30.f32 = vmul_f32(*v30.f32, vrsqrts_f32(v31, vmul_f32(*v30.f32, *v30.f32)));
+    LODWORD(v32) = vmul_f32(*v30.f32, vrsqrts_f32(v31, vmul_f32(*v30.f32, *v30.f32))).u32[0];
+    if (v26 <= 0.00000011921)
+    {
+      v33 = vtrn1q_s32(COERCE_UNSIGNED_INT(-v27), v24);
+    }
+
+    else
+    {
+      v33.i32[0] = 0;
+      v33.f32[1] = v28;
+      v33.i64[1] = v24.u32[1];
+    }
+
+    v93 = vmulq_n_f32(v29, v32);
+    v34 = vmulq_f32(v33, v33);
+    *&v35 = v34.f32[2] + vaddv_f32(*v34.f32);
+    *v34.f32 = vrsqrte_f32(v35);
+    *v34.f32 = vmul_f32(*v34.f32, vrsqrts_f32(v35, vmul_f32(*v34.f32, *v34.f32)));
+    v36 = vmulq_n_f32(v33, vmul_f32(*v34.f32, vrsqrts_f32(v35, vmul_f32(*v34.f32, *v34.f32))).f32[0]);
+    v37 = vextq_s8(vuzp1q_s32(v24, v24), v24, 0xCuLL);
+    v38 = vnegq_f32(v24);
+    v39 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v36, v36), v36, 0xCuLL), v38), v36, v37);
+    v40 = vextq_s8(vuzp1q_s32(v39, v39), v39, 0xCuLL);
+    v41 = vmulq_f32(v39, v39);
+    *&v42 = v41.f32[1] + (v41.f32[2] + v41.f32[0]);
+    *v41.f32 = vrsqrte_f32(v42);
+    *v41.f32 = vmul_f32(*v41.f32, vrsqrts_f32(v42, vmul_f32(*v41.f32, *v41.f32)));
+    v90 = vmulq_n_f32(v40, vmul_f32(*v41.f32, vrsqrts_f32(v42, vmul_f32(*v41.f32, *v41.f32))).f32[0]);
+    if (v101 == v100)
+    {
+      v62 = 0;
+      v63 = 0;
+    }
+
+    else
+    {
+      v43 = 0;
+      v44 = vdup_lane_s32(*v24.i8, 1);
+      v45 = vdup_laneq_s32(v24, 2);
+      v88 = geom::kdop_axes<(unsigned char)18,float>[v15];
+      v82 = vextq_s8(v24, v24, 8uLL).u64[0];
+      v83 = v38;
+      v84 = v37;
+      do
+      {
+        v46 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v21[v43], v21[v43]), v21[v43], 0xCuLL), v38), v21[v43], v37);
+        v47 = vextq_s8(vuzp1q_s32(v46, v46), v46, 0xCuLL);
+        v48 = vmulq_f32(v46, v46);
+        *&v49 = v48.columns[0].f32[1] + (v48.columns[1].f32[0] + v48.columns[0].f32[0]);
+        v48.columns[0] = vrsqrte_f32(v49);
+        v48.columns[0] = vmul_f32(v48.columns[0], vrsqrts_f32(v49, vmul_f32(v48.columns[0], v48.columns[0])));
+        v85 = vmulq_n_f32(v47, vmul_f32(v48.columns[0], vrsqrts_f32(v49, vmul_f32(v48.columns[0], v48.columns[0]))).f32[0]);
+        v86 = v21[v43];
+        v50 = vzip1q_s32(v88, v86);
+        v51 = vextq_s8(v50, v50, 8uLL).u64[0];
+        v52 = vzip1_s32(v82, *&vextq_s8(v86, v86, 8uLL));
+        v48.columns[0] = vmla_f32(vmla_f32(vmul_n_f32(*v50.i8, v88.f32[0]), v44, v51), v45, v52);
+        *v50.i8 = vmla_laneq_f32(vmla_lane_f32(vmul_n_f32(*v50.i8, *v86.i32), v51, *v86.i8, 1), v52, v86, 2);
+        v53 = __invert_f2(v48);
+        v54 = vmulq_f32(v93, v85);
+        v55 = vmulq_f32(v90, v85);
+        *v54.i8 = vadd_f32(vzip1_s32(*&vextq_s8(v54, v54, 8uLL), *&vextq_s8(v55, v55, 8uLL)), vadd_f32(vzip1_s32(*v54.i8, *v55.i8), vzip2_s32(*v54.i8, *v55.i8)));
+        *v55.i8 = vmul_f32(*v54.i8, *v54.i8);
+        v55.i32[0] = vadd_f32(*v55.i8, vdup_lane_s32(*v55.i8, 1)).u32[0];
+        v56 = vmlaq_lane_f32(vmulq_n_f32(v88, v53.columns[1].f32[0]), v86, v53.columns[1], 1);
+        v57 = vrsqrte_f32(v55.u32[0]);
+        v58 = vmul_f32(v57, vrsqrts_f32(v55.u32[0], vmul_f32(v57, v57)));
+        v59 = vmul_f32(v58, vrsqrts_f32(v55.u32[0], vmul_f32(v58, v58)));
+        *v54.i8 = vmul_n_f32(*v54.i8, *v59.i32);
+        *v59.i32 = -*&v54.i32[1];
+        *v54.i8 = vzip1_s32(v59, *v54.i8);
+        v60 = vmulq_f32(v93, v56);
+        v61 = vmulq_f32(v90, v56);
+        *v60.i8 = vmul_f32(vadd_f32(vzip1_s32(*&vextq_s8(v60, v60, 8uLL), *&vextq_s8(v61, v61, 8uLL)), vadd_f32(vzip1_s32(*v60.i8, *v61.i8), vzip2_s32(*v60.i8, *v61.i8))), *v54.i8);
+        __p = vdiv_f32(*v54.i8, vdup_lane_s32(vadd_f32(*v60.i8, vdup_lane_s32(*v60.i8, 1)), 0));
+        _ZNSt3__16vectorIDv2_fNS_9allocatorIS1_EEE9push_backB8nn200100ERKS1_(__x, &__p);
+        v38 = v83;
+        v37 = v84;
+        ++v43;
+        v21 = v100;
+      }
+
+      while (v43 < v101 - v100);
+      v62 = *__x;
+      v63 = *&__x[2];
+    }
+
+    __p = 0;
+    v96 = 0;
+    v97 = 0;
+    geom::half_plane_intersection_2<float>((v63 - v62) >> 3, v62, &__p);
+    v64 = __p;
+    v65 = v96;
+    v66 = v93;
+    if (__p != v96)
+    {
+      do
+      {
+        v67 = *v64++;
+        v94 = vmlaq_n_f32(vmulq_lane_f32(v90, v67, 1), v66, v67.f32[0]);
+        _ZNSt3__16vectorIDv3_fNS_9allocatorIS1_EEE9push_backB8nn200100EOS1_(a3, &v94);
+        v66 = v93;
+      }
+
+      while (v64 != v65);
+    }
+
+    std::vector<float>::resize(a4, (a3[1] - *a3) >> 3);
+    v68 = a3[1] - *a3;
+    if (v68)
+    {
+      v69 = 0;
+      v70 = a4->__begin_;
+      v71 = a4->__begin_ + (v68 >> 2);
+      v72 = vdupq_n_s64(((v68 >> 2) - 4) >> 2);
+      v73 = a4->__begin_ + 2;
+      do
+      {
+        v74 = vdupq_n_s64(v69);
+        v75 = vmovn_s64(vcgeq_u64(v72, vorrq_s8(v74, xmmword_2500C1680)));
+        if (vuzp1_s16(v75, *v72.i8).u8[0])
+        {
+          *(v73 - 2) = v69;
+        }
+
+        if (vuzp1_s16(v75, *&v72).i8[2])
+        {
+          *(v73 - 1) = v69 + 1;
+        }
+
+        if (vuzp1_s16(*&v72, vmovn_s64(vcgeq_u64(v72, vorrq_s8(v74, xmmword_2500C1670)))).i32[1])
+        {
+          *v73 = v69 + 2;
+          v73[1] = v69 + 3;
+        }
+
+        v69 += 4;
+        v73 += 4;
+      }
+
+      while ((((((v68 >> 2) - 4) >> 2) + 4) & 0x7FFFFFFFFFFFFFFCLL) != v69);
+      v76 = a4->__end_ - 1;
+      do
+      {
+        v77 = *v70++;
+        *v76-- = v77;
+      }
+
+      while (v70 != v71);
+    }
+
+    v94.i32[0] = v68 >> 4;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, &v94);
+    v94.i32[0] = ((a3[1] - *a3) >> 3) & 0xFFFFFFFE;
+    std::vector<unsigned int>::push_back[abi:nn200100](a5, &v94);
+    if (__p)
+    {
+      v96 = __p;
+      operator delete(__p);
+    }
+
+    if (*__x)
+    {
+      *&__x[2] = *__x;
+      operator delete(*__x);
+    }
+  }
+
+  v78 = *a3;
+  v79 = a3[1];
+  while (v78 != v79)
+  {
+    *v78 = vaddq_f32(*a2, *v78);
+    ++v78;
+  }
+
+LABEL_21:
+  if (v100)
+  {
+    v101 = v100;
+    operator delete(v100);
+  }
 }

@@ -49,9 +49,9 @@
 
 - (void)layoutSubviews
 {
-  v22.receiver = self;
-  v22.super_class = CHASActivitySetupLevelView;
-  [(CHASActivitySetupLevelView *)&v22 layoutSubviews];
+  v21.receiver = self;
+  v21.super_class = CHASActivitySetupLevelView;
+  [(CHASActivitySetupLevelView *)&v21 layoutSubviews];
   segmentedControl = self->_segmentedControl;
   [(CHASActivitySetupLevelView *)self bounds];
   [(UISegmentedControl *)segmentedControl sizeThatFits:v4, v5];
@@ -65,10 +65,10 @@
       v9 = v9 + -1.0;
       if (v9 >= 10.0)
       {
-        v23 = NSFontAttributeName;
+        v22 = NSFontAttributeName;
         v12 = [UIFont systemFontOfSize:v9];
-        v24 = v12;
-        v13 = [NSDictionary dictionaryWithObjects:&v24 forKeys:&v23 count:1];
+        v23 = v12;
+        v13 = [NSDictionary dictionaryWithObjects:&v23 forKeys:&v22 count:1];
 
         [(UISegmentedControl *)self->_segmentedControl setTitleTextAttributes:v13 forState:0];
         [(UISegmentedControl *)self->_segmentedControl setTitleTextAttributes:v13 forState:4];
@@ -90,12 +90,11 @@
     while (v11 > v18);
   }
 
-  y = CGPointZero.y;
   [(CHASActivitySetupLevelView *)self bounds];
   FIUIDeviceScale();
-  v21 = v20;
+  v20 = v19;
   UIRectCenteredXInRectScale();
-  [(UISegmentedControl *)self->_segmentedControl setFrame:v21];
+  [(UISegmentedControl *)self->_segmentedControl setFrame:v20];
 }
 
 - (CGSize)intrinsicContentSize

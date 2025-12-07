@@ -47,7 +47,7 @@
   v22[1] = objc_opt_class();
   v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:2];
   v8 = [v6 setWithArray:v7];
-  v9 = __atxlog_handle_usage_insights();
+  v9 = __atxlog_handle_usage_insights(v8);
   v10 = [v5 robustDecodeObjectOfClasses:v8 forKey:@"allDeliveredNotifications" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.UsageInsights" errorCode:-1 logHandle:v9];
 
   error = [coderCopy error];
@@ -65,7 +65,7 @@
     v21[1] = objc_opt_class();
     v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
     v16 = [v14 setWithArray:v15];
-    v17 = __atxlog_handle_usage_insights();
+    v17 = __atxlog_handle_usage_insights(v16);
     v18 = [v13 robustDecodeObjectOfClasses:v16 forKey:@"allInterruptingAppSessions" withCoder:coderCopy expectNonNull:0 errorDomain:@"com.apple.proactive.UsageInsights" errorCode:-1 logHandle:{v17, v21[0]}];
 
     error2 = [coderCopy error];

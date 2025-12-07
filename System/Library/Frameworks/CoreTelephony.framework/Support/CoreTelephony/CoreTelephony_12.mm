@@ -1,3 +1,241 @@
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_dupl_symbol<char const*>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, std::__owns_one_state<char> *__s, size_t a5, size_t a6)
+{
+  if (a2 == a3)
+  {
+    return a2;
+  }
+
+  v6 = a6;
+  v7 = a5;
+  v10 = a1;
+  v11 = *(a1 + 24) & 0x1F0;
+  v12 = *a2;
+  if (v12 > 0x3E)
+  {
+    if (v12 == 63)
+    {
+      v13 = a2 + 1;
+      if (v11)
+      {
+        v20 = 1;
+      }
+
+      else
+      {
+        v20 = v13 == a3;
+      }
+
+      if (!v20 && *v13 == 63)
+      {
+        v13 = a2 + 2;
+        a5 = a5;
+        a6 = a6;
+        v14 = 0;
+        v18 = 1;
+        goto LABEL_33;
+      }
+
+      a5 = a5;
+      a6 = a6;
+      v14 = 0;
+      v18 = 1;
+      goto LABEL_45;
+    }
+
+    if (v12 != 123)
+    {
+      return a2;
+    }
+
+    LODWORD(__max) = 0;
+    v15 = a2 + 1;
+    v16 = std::basic_regex<char,std::regex_traits<char>>::__parse_DUP_COUNT<char const*>(a2 + 1, a3, &__max);
+    if (v16 != v15)
+    {
+      if (v16 != a3)
+      {
+        v17 = *v16;
+        if (v17 != 44)
+        {
+          if (v17 == 125)
+          {
+            v13 = v16 + 1;
+            if (!v11 && v13 != a3 && *v13 == 63)
+            {
+              v13 = v16 + 2;
+              v14 = __max;
+              a5 = v7;
+              a6 = v6;
+              a1 = v10;
+              v18 = __max;
+LABEL_33:
+              v21 = __s;
+              v22 = 0;
+LABEL_46:
+              std::basic_regex<char,std::regex_traits<char>>::__push_loop(a1, v14, v18, v21, a5, a6, v22);
+              return v13;
+            }
+
+            v14 = __max;
+            a5 = v7;
+            a6 = v6;
+            a1 = v10;
+            v18 = __max;
+LABEL_45:
+            v21 = __s;
+            v22 = 1;
+            goto LABEL_46;
+          }
+
+          goto LABEL_58;
+        }
+
+        v23 = v16 + 1;
+        if (v16 + 1 == a3)
+        {
+          goto LABEL_58;
+        }
+
+        if (*v23 == 125)
+        {
+          v13 = v16 + 2;
+          if (!v11 && v13 != a3 && *v13 == 63)
+          {
+            v13 = v16 + 3;
+            v14 = __max;
+            a5 = v7;
+            a6 = v6;
+            a1 = v10;
+            goto LABEL_26;
+          }
+
+          v14 = __max;
+          a5 = v7;
+          a6 = v6;
+          a1 = v10;
+LABEL_36:
+          v18 = -1;
+          goto LABEL_45;
+        }
+
+        v27 = -1;
+        v25 = std::basic_regex<char,std::regex_traits<char>>::__parse_DUP_COUNT<char const*>(v16 + 1, a3, &v27);
+        if (v25 != v23 && v25 != a3 && *v25 == 125)
+        {
+          v18 = v27;
+          v14 = __max;
+          if (v27 >= __max)
+          {
+            v13 = v25 + 1;
+            v22 = 1;
+            if (!v11 && v13 != a3)
+            {
+              v26 = v25[1];
+              v22 = v26 != 63;
+              if (v26 == 63)
+              {
+                v13 = v25 + 2;
+              }
+            }
+
+            a5 = v7;
+            a6 = v6;
+            a1 = v10;
+            v21 = __s;
+            goto LABEL_46;
+          }
+
+          goto LABEL_58;
+        }
+      }
+
+      std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)7>();
+    }
+
+LABEL_58:
+    std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)8>();
+  }
+
+  if (v12 == 42)
+  {
+    v13 = a2 + 1;
+    if (v11)
+    {
+      v19 = 1;
+    }
+
+    else
+    {
+      v19 = v13 == a3;
+    }
+
+    if (!v19 && *v13 == 63)
+    {
+      v13 = a2 + 2;
+      a5 = a5;
+      a6 = a6;
+      v14 = 0;
+      goto LABEL_26;
+    }
+
+    a5 = a5;
+    a6 = a6;
+    v14 = 0;
+    goto LABEL_36;
+  }
+
+  if (v12 == 43)
+  {
+    v13 = a2 + 1;
+    if (!v11 && v13 != a3 && *v13 == 63)
+    {
+      v13 = a2 + 2;
+      a5 = a5;
+      a6 = a6;
+      v14 = 1;
+LABEL_26:
+      v18 = -1;
+      goto LABEL_33;
+    }
+
+    a5 = a5;
+    a6 = a6;
+    v14 = 1;
+    goto LABEL_36;
+  }
+
+  return a2;
+}
+
+void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)6>()
+{
+  exception = __cxa_allocate_exception(0x18uLL);
+  MEMORY[0x2383CBBD0](exception, 6);
+  __cxa_throw(exception, MEMORY[0x277D82700], MEMORY[0x277D82628]);
+}
+
+void (__cdecl ***std::__l_anchor_multiline<char>::~__l_anchor_multiline(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this)))(std::__owns_one_state<char> *__hidden this)
+{
+  v2 = a1[1];
+  if (v2)
+  {
+    (*(*v2 + 1))(v2);
+  }
+
+  return a1;
+}
+
+void std::__l_anchor_multiline<char>::~__l_anchor_multiline(void (__cdecl ***a1)(std::__owns_one_state<char> *__hidden this))
+{
+  v1 = a1[1];
+  if (v1)
+  {
+    (*(*v1 + 1))(v1);
+  }
+
+  JUMPOUT(0x2383CBEF0);
+}
+
 uint64_t std::__l_anchor_multiline<char>::__exec(uint64_t result, uint64_t a2)
 {
   if (*(a2 + 92) == 1)
@@ -207,51 +445,50 @@ void std::__lookahead<char,std::regex_traits<char>>::~__lookahead(std::locale *a
 
 void std::__lookahead<char,std::regex_traits<char>>::__exec(uint64_t a1, uint64_t a2)
 {
-  v22 = 0u;
-  v20 = 0u;
-  memset(v21, 0, sizeof(v21));
-  memset(v19, 0, sizeof(v19));
+  v21 = 0u;
+  v19 = 0u;
+  memset(v20, 0, sizeof(v20));
+  memset(v18, 0, sizeof(v18));
   *__p = 0u;
   v4 = (*(a1 + 44) + 1);
   v5 = *(a2 + 16);
-  *(&v19[0] + 1) = *(a2 + 24);
-  *&v19[1] = *(&v19[0] + 1);
-  std::vector<std::sub_match<char const*>>::assign(__p, v4, (v19 + 8));
-  *&v20 = v5;
-  *(&v20 + 1) = v5;
-  LOBYTE(v21[0]) = 0;
-  *(v21 + 8) = *(v19 + 8);
-  BYTE8(v21[1]) = BYTE8(v19[1]);
-  *(&v22 + 1) = v5;
-  LOBYTE(v22) = 1;
-  v6 = *(a2 + 88) & 0xFFF;
-  v7 = *(a2 + 16);
-  if (v7 == *(a2 + 8))
+  *(&v18[0] + 1) = *(a2 + 24);
+  *&v18[1] = *(&v18[0] + 1);
+  std::vector<std::sub_match<char const*>>::assign(__p, v4, (v18 + 8));
+  *&v19 = v5;
+  *(&v19 + 1) = v5;
+  LOBYTE(v20[0]) = 0;
+  *(v20 + 8) = *(v18 + 8);
+  BYTE8(v20[1]) = BYTE8(v18[1]);
+  *(&v21 + 1) = v5;
+  LOBYTE(v21) = 1;
+  v6 = *(a2 + 16);
+  if (v6 == *(a2 + 8))
   {
-    v8 = *(a2 + 92);
+    v7 = *(a2 + 92);
   }
 
   else
   {
-    v8 = 0;
+    v7 = 0;
   }
 
-  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v7, *(a2 + 24), __p, *(a2 + 88) & 0xFBF | 0x40u, v8))
+  if (*(a1 + 84) == std::basic_regex<char,std::regex_traits<char>>::__match_at_start_ecma<std::allocator<std::sub_match<char const*>>>(a1 + 16, v6, *(a2 + 24), __p, *(a2 + 88) & 0xFBF | 0x40u, v7))
   {
     *a2 = -993;
     *(a2 + 80) = 0;
-    v9 = __p[0];
+    v8 = __p[0];
     goto LABEL_10;
   }
 
   *a2 = -994;
   *(a2 + 80) = *(a1 + 8);
-  v9 = __p[0];
-  v10 = 0xAAAAAAAAAAAAAAABLL * ((__p[1] - __p[0]) >> 3);
-  if (v10 < 2)
+  v8 = __p[0];
+  v9 = 0xAAAAAAAAAAAAAAABLL * ((__p[1] - __p[0]) >> 3);
+  if (v9 < 2)
   {
 LABEL_10:
-    if (!v9)
+    if (!v8)
     {
       return;
     }
@@ -259,24 +496,24 @@ LABEL_10:
     goto LABEL_11;
   }
 
-  v11 = *(a1 + 80);
-  v12 = *(a2 + 32);
-  v13 = 2;
-  v14 = 1;
+  v10 = *(a1 + 80);
+  v11 = *(a2 + 32);
+  v12 = 2;
+  v13 = 1;
   do
   {
-    v15 = &v9[24 * v14];
-    v16 = v12 + 24 * v11;
-    *v16 = *v15;
-    *(v16 + 16) = v15[16];
-    v14 = v13;
-    ++v11;
+    v14 = &v8[24 * v13];
+    v15 = v11 + 24 * v10;
+    *v15 = *v14;
+    *(v15 + 16) = v14[16];
+    v13 = v12;
+    ++v10;
   }
 
-  while (v10 > v13++);
+  while (v9 > v12++);
 LABEL_11:
 
-  operator delete(v9);
+  operator delete(v8);
 }
 
 void sub_23749E424(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p)
@@ -543,7 +780,7 @@ LABEL_142:
               }
 
               v30 = 0;
-              v19 = (v15 + 2);
+              v19 = v15 + 2;
 LABEL_113:
               v38 = v5;
               goto LABEL_114;
@@ -555,7 +792,7 @@ LABEL_113:
           }
         }
 
-        v19 = *(a1 + 24) & 0x1F0;
+        v19 = (*(a1 + 24) & 0x1F0);
         if (v12 >= 0)
         {
           v11 = v12;
@@ -764,7 +1001,7 @@ LABEL_141:
       std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)5>();
     }
 
-    return (v19 + 1);
+    return v19 + 1;
   }
 
   return a2;
@@ -1415,7 +1652,6 @@ uint64_t std::__back_ref_icase<char,std::regex_traits<char>>::__exec(uint64_t re
     if (*(a2 + 24) - v5 >= v4)
     {
       v7 = result;
-      v8 = *(v3 + 8) != *v3;
       if (v4 < 1)
       {
 LABEL_10:
@@ -1425,17 +1661,17 @@ LABEL_10:
         goto LABEL_4;
       }
 
-      v9 = 0;
+      v8 = 0;
       while (1)
       {
-        v10 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v9));
-        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v9));
-        if (v10 != result)
+        v9 = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*v3 + v8));
+        result = (*(**(v7 + 24) + 40))(*(v7 + 24), *(*(a2 + 16) + v8));
+        if (v9 != result)
         {
           break;
         }
 
-        if (v4 == ++v9)
+        if (v4 == ++v8)
         {
           v5 = *(a2 + 16);
           goto LABEL_10;
@@ -1791,12 +2027,12 @@ LABEL_32:
     else
     {
       v17 = 0;
-      v18 = 3;
-      while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v16->first.__r_.__value_.__r.__words[v18 - 3], &__s.__r_.__value_.__l.__data_) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__s, (&this->__ranges_.__begin_->first.__r_.__value_.__l.__data_ + v18 * 8)) >= 1)
+      v18 = 24;
+      while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((v16 + v18 - 24), &__s) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__s, this->__ranges_.__begin_ + v18) >= 1)
       {
         ++v17;
         v16 = this->__ranges_.__begin_;
-        v18 += 6;
+        v18 += 48;
         if (v17 >= 0xAAAAAAAAAAAAAAABLL * ((this->__ranges_.__end_ - v16) >> 4))
         {
           goto LABEL_32;
@@ -2050,12 +2286,12 @@ LABEL_96:
   else
   {
     v50 = 0;
-    v51 = 3;
-    while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&v36->first.__r_.__value_.__r.__words[v51 - 3], &__s.__r_.__value_.__l.__data_) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__s, (&this->__ranges_.__begin_->first.__r_.__value_.__l.__data_ + v51 * 8)) >= 1)
+    v51 = 24;
+    while (std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>((v36 + v51 - 24), &__s) > 0 || std::operator<=>[abi:ne200100]<char,std::char_traits<char>,std::allocator<char>>(&__s, this->__ranges_.__begin_ + v51) >= 1)
     {
       ++v50;
       v36 = this->__ranges_.__begin_;
-      v51 += 6;
+      v51 += 48;
       if (v50 >= 0xAAAAAAAAAAAAAAABLL * ((this->__ranges_.__end_ - v36) >> 4))
       {
         goto LABEL_96;
@@ -2398,7 +2634,7 @@ void sub_2374A0E8C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<char>::push_back[abi:ne200100](uint64_t a1, _BYTE *a2)
+void std::vector<char>::push_back[abi:ne200100](uint64_t a1, char *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -3126,11 +3362,11 @@ LABEL_78:
   }
 }
 
-void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, unsigned __int8 a2, uint64_t a3)
+void std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](uint64_t a1, uint64_t a2, uint64_t a3)
 {
   if (*(a1 + 169) == 1)
   {
-    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24));
+    v5 = (*(**(a1 + 24) + 40))(*(a1 + 24), a2);
     v11 = v5 | ((*(**(a1 + 24) + 40))(*(a1 + 24), a3) << 8);
     v6 = a1 + 112;
     v7 = &v11;
@@ -3423,19 +3659,16 @@ void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](vo
     v12 = 48 * v8;
     *v12 = *a2;
     *(v12 + 16) = *(a2 + 2);
-    *a2 = 0;
-    *(a2 + 1) = 0;
+    *a2 = 0uLL;
     v13 = *(a2 + 24);
-    *(a2 + 2) = 0;
-    *(a2 + 3) = 0;
+    a2[1] = 0uLL;
     *(v12 + 40) = *(a2 + 5);
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
-    v7 = 48 * v8 + 48;
+    a2[2] = 0uLL;
+    v7 = (48 * v8 + 48);
     v14 = *a1;
     v15 = a1[1] - *a1;
     *(v12 + 24) = v13;
-    v16 = 48 * v8 - v15;
+    v16 = (48 * v8 - v15);
     memcpy((v12 - v15), v14, v15);
     *a1 = v16;
     a1[1] = v7;
@@ -3451,16 +3684,14 @@ void std::vector<std::pair<std::string,std::string>>::push_back[abi:ne200100](vo
     v5 = *a2;
     *(v3 + 2) = *(a2 + 2);
     *v3 = v5;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = *(a2 + 24);
     *(v3 + 5) = *(a2 + 5);
     *(v3 + 24) = v6;
-    *(a2 + 4) = 0;
-    *(a2 + 5) = 0;
+    a2[2] = 0uLL;
     *(a2 + 3) = 0;
-    v7 = (v3 + 48);
+    v7 = v3 + 48;
   }
 
   a1[1] = v7;
@@ -3512,7 +3743,7 @@ void std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)9>
   __cxa_throw(exception, MEMORY[0x277D82700], MEMORY[0x277D82628]);
 }
 
-void std::vector<std::pair<char,char>>::push_back[abi:ne200100](uint64_t a1, _WORD *a2)
+void std::vector<std::pair<char,char>>::push_back[abi:ne200100](uint64_t a1, __int16 *a2)
 {
   v4 = *(a1 + 8);
   v3 = *(a1 + 16);
@@ -4206,7 +4437,7 @@ LABEL_25:
         std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(this);
         v17 = this->__marked_count_;
         ++this->__open_count_;
-        v18 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(this, v13 + 1, a3);
+        v18 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<char const*>(this, (v13 + 1), a3);
         if (v18 == a3 || (v13 = v18, *v18 != 41))
         {
           std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)6>();
@@ -4237,7 +4468,7 @@ LABEL_37:
   return std::basic_regex<char,std::regex_traits<char>>::__parse_ERE_dupl_symbol<char const*>(this, v13, a3, end, marked_count + 1, v19);
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
+char *std::basic_regex<char,std::regex_traits<char>>::__parse_ecma_exp<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, char *a2, char *a3)
 {
   end = a1->__end_;
   v7 = a2;
@@ -4365,7 +4596,7 @@ LABEL_8:
   return v3;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_term<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, unsigned __int8 *a2, unsigned __int8 *a3)
+char *std::basic_regex<char,std::regex_traits<char>>::__parse_term<std::__wrap_iter<char const*>>(std::basic_regex<char> *a1, char *a2, char *a3)
 {
   if (a2 == a3)
   {
@@ -4975,7 +5206,7 @@ unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_bracket
       goto LABEL_125;
     }
 
-    v5 = (a2[1] == 94 ? a2 + 2 : a2 + 1);
+    v5 = a2[1] == 94 ? a2 + 2 : a2 + 1;
     started = std::basic_regex<char,std::regex_traits<char>>::__start_matching_list(a1, a2[1] == 94);
     if (v5 == a3)
     {
@@ -5028,7 +5259,7 @@ LABEL_125:
       }
 
       v12 = 0;
-      v13 = (v5 + 1);
+      v13 = v5 + 1;
       v42[0] = 0;
       v42[1] = 0;
       v43 = 0;
@@ -5218,7 +5449,7 @@ LABEL_127:
           v14 = 0;
           v10 = v8;
 LABEL_46:
-          v5 = *(a1 + 24) & 0x1F0;
+          v5 = (*(a1 + 24) & 0x1F0);
           if (v14 >= 0)
           {
             v12 = v14;
@@ -5361,7 +5592,7 @@ LABEL_112:
             {
               v34 = v42[0];
 LABEL_92:
-              std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](v7, *v34, *(v34 + 1));
+              std::__bracket_expression<char,std::regex_traits<char>>::__add_digraph[abi:ne200100](v7, *v34, v34[1]);
               goto LABEL_93;
             }
 
@@ -5386,7 +5617,7 @@ LABEL_92:
           goto LABEL_93;
       }
 
-      v5 = (v17 + 2);
+      v5 = v17 + 2;
       v10 = v8;
 LABEL_110:
       if (SHIBYTE(v43) < 0)
@@ -5756,7 +5987,7 @@ LABEL_55:
   return v4;
 }
 
-unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_collating_symbol<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t a4)
+unsigned __int8 *std::basic_regex<char,std::regex_traits<char>>::__parse_collating_symbol<std::__wrap_iter<char const*>>(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3, uint64_t a4)
 {
   v15 = 23854;
   v8 = std::__search_impl[abi:ne200100]<std::__wrap_iter<char const*>,std::__wrap_iter<char const*>,char *,char *,std::__equal_to,std::__identity,std::__identity,0>(a2, a3, &v15, &v16);
@@ -6179,7 +6410,7 @@ unsigned __int8 *std::__search_impl[abi:ne200100]<std::__wrap_iter<char const*>,
       return a2;
     }
 
-    v5 = a2 - v4 + 1;
+    v5 = (a2 - v4 + 1);
     if (v5 == result)
     {
       return a2;
@@ -6430,7 +6661,7 @@ LABEL_20:
     v15 = v3[1];
     if (v15 == 40)
     {
-      v16 = (v3 + 2);
+      v16 = v3 + 2;
     }
 
     else
@@ -6701,7 +6932,7 @@ LABEL_16:
         std::basic_regex<char,std::regex_traits<char>>::__push_begin_marked_subexpression(this);
         v15 = this->__marked_count_;
         ++this->__open_count_;
-        v16 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<std::__wrap_iter<char const*>>(this, v8 + 1, a3);
+        v16 = std::basic_regex<char,std::regex_traits<char>>::__parse_extended_reg_exp<std::__wrap_iter<char const*>>(this, (v8 + 1), a3);
         if (v16 == a3 || (v8 = v16, *v16 != 41))
         {
           std::__throw_regex_error[abi:ne200100]<(std::regex_constants::error_type)6>();
@@ -6779,31 +7010,29 @@ void sub_2374A5F10(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t CarrierBundleInterface::getCarrierBundleNameWithCallback(uint64_t a1, uint64_t a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = *(a2 + 24);
   if (v3)
   {
     if (v3 == a2)
     {
-      v7 = v6;
-      (*(*v3 + 24))(v3, v6);
+      v6 = v5;
+      (*(*v3 + 24))(v3, v5);
     }
 
     else
     {
-      v7 = (*(*v3 + 16))(v3);
+      v6 = (*(*v3 + 16))(v3);
     }
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  (*(*a1 + 184))(a1, 1, v6);
-  result = std::__function::__value_func<void ()(ctu::cf::CFSharedRef<__CFString const>)>::~__value_func[abi:ne200100](v6);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  (*(*a1 + 184))(a1, 1, v5);
+  return std::__function::__value_func<void ()(ctu::cf::CFSharedRef<__CFString const>)>::~__value_func[abi:ne200100](v5);
 }
 
 uint64_t std::__function::__value_func<void ()(ctu::cf::CFSharedRef<__CFString const>)>::~__value_func[abi:ne200100](uint64_t a1)
@@ -6875,7 +7104,7 @@ LABEL_9:
   xpc_release(v5);
   v7 = *a1;
   v8 = asString(*a1);
-  ctu::rest::detail::write_enum_string_value(&v27, v7, v8, v9);
+  ctu::rest::detail::write_enum_string_value(&v27, v7, v9, v8);
   v25 = &v29;
   v26 = "change";
   xpc::dict::object_proxy::operator=(&v25, &v27, &v28);
@@ -6894,7 +7123,7 @@ LABEL_9:
     v12 = off_278A32F60[v11];
   }
 
-  ctu::rest::detail::write_enum_string_value(&v23, v11, v12, v10);
+  ctu::rest::detail::write_enum_string_value(&v23, v11, v10, v12);
   v25 = &v29;
   v26 = "technology";
   xpc::dict::object_proxy::operator=(&v25, &v23, &object);
@@ -7009,7 +7238,7 @@ LABEL_9:
     v9 = off_278A32F48[v8 - 1];
   }
 
-  ctu::rest::detail::write_enum_string_value(&v32, v8, v9, v7);
+  ctu::rest::detail::write_enum_string_value(&v32, v8, v7, v9);
   v30 = &v34;
   v31 = "simSlot";
   xpc::dict::object_proxy::operator=(&v30, &v32, &v33);
@@ -7019,7 +7248,7 @@ LABEL_9:
   v32 = 0;
   v10 = *a1;
   v11 = asString(*a1);
-  ctu::rest::detail::write_enum_string_value(&v28, v10, v11, v12);
+  ctu::rest::detail::write_enum_string_value(&v28, v10, v12, v11);
   v30 = &v34;
   v31 = "change";
   xpc::dict::object_proxy::operator=(&v30, &v28, &object);
@@ -7038,7 +7267,7 @@ LABEL_9:
     v15 = off_278A32F60[v14];
   }
 
-  ctu::rest::detail::write_enum_string_value(&v26, v14, v15, v13);
+  ctu::rest::detail::write_enum_string_value(&v26, v14, v13, v15);
   v30 = &v34;
   v31 = "technology";
   xpc::dict::object_proxy::operator=(&v30, &v26, &v27);
@@ -7169,7 +7398,7 @@ uint64_t asString@<X0>(char *a1@<X0>, _BYTE *a2@<X8>)
   v14 = a1[31];
   if (v14 >= 0)
   {
-    v15 = (a1 + 8);
+    v15 = a1 + 8;
   }
 
   else
@@ -7297,7 +7526,7 @@ uint64_t std::pair<subscriber::SimSlot const,rest::BundleInfo>::~pair(uint64_t a
   return a1;
 }
 
-uint64_t std::unique_ptr<std::__tree_node<std::__value_type<subscriber::SimSlot,rest::BundleInfo>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<subscriber::SimSlot,rest::BundleInfo>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+char **std::unique_ptr<std::__tree_node<std::__value_type<subscriber::SimSlot,rest::BundleInfo>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<subscriber::SimSlot,rest::BundleInfo>,void *>>>>::~unique_ptr[abi:ne200100](char **a1)
 {
   v2 = *a1;
   *a1 = 0;
@@ -7343,19 +7572,17 @@ void std::__tree<std::__value_type<subscriber::SimSlot,rest::BundleInfo>,std::__
 
 void _GLOBAL__sub_I_CarrierBundleRestResources_cpp()
 {
-  v0 = *MEMORY[0x277D85DE8];
   qword_280CE8D30 = 0;
   qword_280CE8D28 = 0;
   rest::kDefaultBundles = &qword_280CE8D28;
   operator new();
 }
 
-void sub_2374A78A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_2374A78A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
   v6 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
@@ -7364,29 +7591,30 @@ void sub_2374A78A4(_Unwind_Exception *a1, uint64_t a2, ...)
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   std::__tree<std::__value_type<subscriber::SimSlot,rest::BundleInfo>,std::__map_value_compare<subscriber::SimSlot,std::__value_type<subscriber::SimSlot,rest::BundleInfo>,std::less<subscriber::SimSlot>,true>,std::allocator<std::__value_type<subscriber::SimSlot,rest::BundleInfo>>>::destroy(qword_280CE8D28);
   std::pair<subscriber::SimSlot const,rest::BundleInfo>::~pair(va1);
   std::pair<subscriber::SimSlot const,rest::MccMncComputedInfo>::~pair(va);
   _Unwind_Resume(a1);
 }
 
-void rest::getDefaultDataUiIndicators(void *a1@<X8>)
+void rest::getDefaultDataUiIndicators(uint64_t **a1@<X8>)
 {
   a1[1] = 0;
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   operator new();
 }
 
-void rest::getDefaultDataUiModifiers(void *a1@<X8>)
+void rest::getDefaultDataUiModifiers(uint64_t **a1@<X8>)
 {
   a1[1] = 0;
   a1[2] = 0;
-  *a1 = a1 + 1;
+  *a1 = (a1 + 1);
   operator new();
 }
 
-uint64_t toString@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
+uint64_t toString@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
   v23 = 0;
   v21 = 0u;
@@ -7579,7 +7807,7 @@ uint64_t toString@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
   return MEMORY[0x2383CBE70](v15);
 }
 
-uint64_t toString@<X0>(_DWORD *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t toString@<X0>(_DWORD *a1@<X0>, void *a2@<X8>)
 {
   v23 = 0;
   v21 = 0u;
@@ -7633,7 +7861,7 @@ void sub_2374A8724(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t toString@<X0>(unsigned __int16 *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t toString@<X0>(unsigned __int16 *a1@<X0>, void *a2@<X8>)
 {
   v19 = 0;
   v17 = 0u;
@@ -7683,9 +7911,9 @@ uint64_t toString@<X0>(unsigned __int16 *a1@<X0>, _BYTE *a2@<X8>)
   return MEMORY[0x2383CBE70](v18);
 }
 
-void sub_2374A8D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_2374A8D1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::ostringstream::~ostringstream(va);
   _Unwind_Resume(a1);
 }
@@ -7884,7 +8112,7 @@ uint64_t anonymous namespace::sWriteToBuffer(uint64_t result, void *a2, uint64_t
   return result;
 }
 
-uint64_t asString@<X0>(unsigned int *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t asString@<X0>(unsigned int *a1@<X0>, void *a2@<X8>)
 {
   v33 = 0;
   v31 = 0u;
@@ -8046,7 +8274,7 @@ void sub_2374ABA78(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void read_rest_value(uint64_t ***a1, xpc_object_t *a2)
+void read_rest_value(uint64_t **a1, xpc_object_t *a2)
 {
   v4 = (a1 + 1);
   std::__tree<std::__value_type<subscriber::SimSlot,unsigned long long>,std::__map_value_compare<subscriber::SimSlot,std::__value_type<subscriber::SimSlot,unsigned long long>,std::less<subscriber::SimSlot>,true>,std::allocator<std::__value_type<subscriber::SimSlot,unsigned long long>>>::destroy(a1[1]);
@@ -8065,10 +8293,10 @@ void read_rest_value(uint64_t ***a1, xpc_object_t *a2)
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v31 = 0;
+          v30 = 0;
           v10 = MEMORY[0x277D86220];
           v11 = "number of connections is negative in read_rest_value";
-          v12 = &v31;
+          v12 = &v30;
           goto LABEL_25;
         }
       }
@@ -8103,10 +8331,10 @@ void read_rest_value(uint64_t ***a1, xpc_object_t *a2)
                   return;
                 }
 
-                v28 = 0;
+                v27 = 0;
                 v10 = MEMORY[0x277D86220];
                 v11 = "connection type must be less than kDataConnectionTotal in read_rest_value";
-                v12 = &v28;
+                v12 = &v27;
                 goto LABEL_25;
               }
 
@@ -8126,7 +8354,6 @@ void read_rest_value(uint64_t ***a1, xpc_object_t *a2)
               if (!*v4)
               {
 LABEL_20:
-                v26 = *(v13 + 5);
                 operator new();
               }
 
@@ -8135,7 +8362,7 @@ LABEL_20:
                 while (1)
                 {
                   v23 = v22;
-                  v24 = *(v22 + 8);
+                  v24 = *(v22 + 32);
                   if (v24 <= v14)
                   {
                     break;
@@ -8153,7 +8380,7 @@ LABEL_20:
                   break;
                 }
 
-                v22 = v23[1];
+                v22 = *(v23 + 8);
                 if (!v22)
                 {
                   goto LABEL_20;
@@ -8161,19 +8388,19 @@ LABEL_20:
               }
 
               v25 = v9--;
-              *(v23 + 10) = v13[1];
-              *(v23 + 11) = v16;
+              *(v23 + 40) = v13[1];
+              *(v23 + 44) = v16;
               v13 += 23;
-              *(v23 + 12) = v19;
-              *(v23 + 13) = 0;
-              v23[7] = bswap64(v18);
-              *(v23 + 16) = v21;
-              *(v23 + 17) = 0;
-              v23[9] = bswap64(v20);
+              *(v23 + 48) = v19;
+              *(v23 + 52) = 0;
+              *(v23 + 56) = bswap64(v18);
+              *(v23 + 64) = v21;
+              *(v23 + 68) = 0;
+              *(v23 + 72) = bswap64(v20);
               *(v23 + 80) = v15;
               *(v23 + 81) = 0;
               *(v23 + 83) = 0;
-              *(v23 + 21) = v17;
+              *(v23 + 84) = v17;
               if (v25 <= 1)
               {
                 return;
@@ -8185,20 +8412,20 @@ LABEL_20:
               return;
             }
 
-            v27 = 0;
+            v26 = 0;
             v10 = MEMORY[0x277D86220];
             v11 = "connection type must be more or equal to kDataConnectionMin in read_rest_value";
-            v12 = &v27;
+            v12 = &v26;
             goto LABEL_25;
           }
         }
 
         else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v30 = 0;
+          v29 = 0;
           v10 = MEMORY[0x277D86220];
           v11 = "number of connections must be less than kDataConnectionTotal in read_rest_value";
-          v12 = &v30;
+          v12 = &v29;
 LABEL_25:
           _os_log_error_impl(&dword_2373EA000, v10, OS_LOG_TYPE_ERROR, v11, v12, 2u);
         }
@@ -8214,7 +8441,7 @@ void sub_2374AD87C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void read_rest_value(const void **a1, void **a2)
+void read_rest_value(xpc_object_t **a1, void **a2)
 {
   v3 = *a2;
   xdict = v3;
@@ -8285,7 +8512,7 @@ void read_rest_value(const void **a1, void **a2)
     v20 = 0;
     ctu::SharedRef<__CFDictionary const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,__CFDictionary const>::~SharedRef(&v20);
     ctu::SharedRef<void const,ctu::cf::cfretain_functor,ctu::cf::cfrelease_functor,void const>::~SharedRef(&v21);
-    v13 = (a1 + 1);
+    v13 = a1 + 1;
     if (a1 + 1 != &v15)
     {
       p_xdict = *v13;
@@ -8371,7 +8598,7 @@ LABEL_9:
     v9 = off_278A33018[v8 - 1];
   }
 
-  ctu::rest::detail::write_enum_string_value(&v16, v8, v9, v7);
+  ctu::rest::detail::write_enum_string_value(&v16, v8, v7, v9);
   v14 = &v18;
   v15 = "simSlot";
   xpc::dict::object_proxy::operator=(&v14, &v16, &object);
@@ -8512,49 +8739,49 @@ _BYTE *rest::SaveDataModePreference::SaveDataModePreference(_BYTE *this, char a2
 
 const char *rest::asString(rest *this, const rest::SaveDataModePreference *a2)
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   if ((atomic_load_explicit(&_MergedGlobals_7, memory_order_acquire) & 1) == 0)
   {
-    v22 = this;
-    v23 = __cxa_guard_acquire(&_MergedGlobals_7);
-    this = v22;
-    if (v23)
+    v21 = this;
+    v22 = __cxa_guard_acquire(&_MergedGlobals_7);
+    this = v21;
+    if (v22)
     {
-      v25 = 0;
       v24 = 0;
-      v26 = "lowDataMode=false, smartDataMode=false, expensive=false";
-      v28 = 1;
-      v27 = 0;
-      v29 = "lowDataMode=false, smartDataMode=false, expensive=true";
-      v31 = 0;
-      v30 = 256;
-      v32 = "lowDataMode=false, smartDataMode=true, expensive=false";
-      v34 = 1;
-      v33 = 256;
-      v35 = "lowDataMode=false, smartDataMode=true, expensive=true";
-      v37 = 0;
-      v36 = 1;
-      v38 = "lowDataMode=true, smartDataMode=false, expensive=false";
+      v23 = 0;
+      v25 = "lowDataMode=false, smartDataMode=false, expensive=false";
+      v27 = 1;
+      v26 = 0;
+      v28 = "lowDataMode=false, smartDataMode=false, expensive=true";
+      v30 = 0;
+      v29 = 256;
+      v31 = "lowDataMode=false, smartDataMode=true, expensive=false";
+      v33 = 1;
+      v32 = 256;
+      v34 = "lowDataMode=false, smartDataMode=true, expensive=true";
+      v36 = 0;
+      v35 = 1;
+      v37 = "lowDataMode=true, smartDataMode=false, expensive=false";
+      v38 = 1;
       v39 = 1;
-      v40 = 1;
-      v41 = "lowDataMode=true, smartDataMode=false, expensive=true";
-      v43 = 0;
-      v42 = 257;
-      v44 = "lowDataMode=true, smartDataMode=true, expensive=false";
-      v46 = 1;
-      v45 = 257;
-      v47 = "lowDataMode=true, smartDataMode=true, expensive=true";
-      std::map<std::tuple<BOOL,BOOL,BOOL>,char const*>::map[abi:ne200100](&v24, 8);
+      v40 = "lowDataMode=true, smartDataMode=false, expensive=true";
+      v42 = 0;
+      v41 = 257;
+      v43 = "lowDataMode=true, smartDataMode=true, expensive=false";
+      v45 = 1;
+      v44 = 257;
+      v46 = "lowDataMode=true, smartDataMode=true, expensive=true";
+      std::map<std::tuple<BOOL,BOOL,BOOL>,char const*>::map[abi:ne200100](&v23, 8);
       __cxa_atexit(std::map<std::tuple<BOOL,BOOL,BOOL>,char const*>::~map[abi:ne200100], &qword_280CE8588, &dword_2373EA000);
       __cxa_guard_release(&_MergedGlobals_7);
-      this = v22;
+      this = v21;
     }
   }
 
   v2 = qword_280CE8590;
   if (!qword_280CE8590)
   {
-    goto LABEL_29;
+    return "???";
   }
 
   v3 = *this;
@@ -8603,44 +8830,15 @@ const char *rest::asString(rest *this, const rest::SaveDataModePreference *a2)
   }
 
   while (v2);
-  if (v6 == &qword_280CE8590)
+  if (v6 != &qword_280CE8590 && ((v16 = *(v6 + 32), v8 = v3 == v16, v17 = v3 < v16, v8) && (v18 = *(v6 + 33), v8 = v4 == v18, v17 = v4 < v18, v8) && (v19 = *(v6 + 34), v17 = v5 < v19, v5 == v19) || !v17))
   {
-    goto LABEL_29;
-  }
-
-  v16 = *(v6 + 32);
-  v8 = v3 == v16;
-  v17 = v3 < v16;
-  if (v8)
-  {
-    v18 = *(v6 + 33);
-    v8 = v4 == v18;
-    v17 = v4 < v18;
-    if (v8)
-    {
-      v19 = *(v6 + 34);
-      v17 = v5 < v19;
-      if (v5 == v19)
-      {
-        goto LABEL_30;
-      }
-    }
-  }
-
-  if (!v17)
-  {
-LABEL_30:
-    result = v6[5];
+    return v6[5];
   }
 
   else
   {
-LABEL_29:
-    result = "???";
+    return "???";
   }
-
-  v21 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 void sub_2374AEE30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, xpc_object_t object, xpc_object_t a12)
@@ -8650,7 +8848,7 @@ void sub_2374AEE30(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t rest::SlicingSupportInfo::toString@<X0>(rest::SlicingSupportInfo *this@<X0>, _BYTE *a2@<X8>)
+uint64_t rest::SlicingSupportInfo::toString@<X0>(rest::SlicingSupportInfo *this@<X0>, void *a2@<X8>)
 {
   v19 = 0;
   v17 = 0u;
@@ -8798,7 +8996,7 @@ void sub_2374AF910(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-uint64_t operator==(uint64_t a1, int *a2)
+BOOL operator==(uint64_t a1, int *a2)
 {
   v2 = (a1 + 4);
   v3 = 280;
@@ -8813,7 +9011,7 @@ uint64_t operator==(uint64_t a1, int *a2)
     v6 = v7;
     v8 = v8 && v6 == v5;
     result = v8;
-    v10 = result != 1 || v3 == 0;
+    v10 = !result || v3 == 0;
     v3 -= 8;
   }
 
@@ -8936,9 +9134,9 @@ uint64_t ConnectionAvailabilityContainer::set(uint64_t result, unsigned int a2, 
 xpc_object_t write_rest_value@<X0>(const ConnectionAvailabilityContainer *a1@<X0>, void *a2@<X8>)
 {
   v3 = 0;
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = 0;
-  memset(v8, 0, sizeof(v8));
+  v9 = *MEMORY[0x277D85DE8];
+  v8 = 0;
+  memset(v7, 0, sizeof(v7));
   v4 = (a1 + 4);
   do
   {
@@ -8956,12 +9154,12 @@ xpc_object_t write_rest_value@<X0>(const ConnectionAvailabilityContainer *a1@<X0
       }
     }
 
-    *(v8 + v3++) = v5;
+    *(v7 + v3++) = v5;
     v4 += 2;
   }
 
   while (v3 != 36);
-  result = xpc_data_create(v8, 0x24uLL);
+  result = xpc_data_create(v7, 0x24uLL);
   *a2 = result;
   if (!result)
   {
@@ -8969,7 +9167,6 @@ xpc_object_t write_rest_value@<X0>(const ConnectionAvailabilityContainer *a1@<X0
     *a2 = result;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9121,11 +9318,11 @@ uint64_t ConnectionAvailabilityContainer::at(uint64_t a1, unsigned int a2)
   return a1 + 8 * a2;
 }
 
-void *std::vector<char>::vector[abi:ne200100](void *result, uint64_t a2)
+void *std::vector<char>::vector[abi:ne200100](void *a1, size_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
     if ((a2 & 0x8000000000000000) == 0)
@@ -9136,7 +9333,7 @@ void *std::vector<char>::vector[abi:ne200100](void *result, uint64_t a2)
     std::vector<DataConnectionType>::__throw_length_error[abi:ne200100]();
   }
 
-  return result;
+  return a1;
 }
 
 void sub_2374AFFC4(_Unwind_Exception *exception_object)
@@ -9224,7 +9421,7 @@ void sub_2374B00C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::map<std::tuple<BOOL,BOOL,BOOL>,char const*>::map[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::map<std::tuple<BOOL,BOOL,BOOL>,char const*>::map[abi:ne200100](uint64_t result, uint64_t a2)
 {
   qword_280CE8598 = 0;
   qword_280CE8590 = 0;
@@ -9323,13 +9520,13 @@ uint64_t ctu::cf::assign()
   return MEMORY[0x2821F6890]();
 }
 
-uint64_t ctu::rest::detail::write_enum_string_value(ctu::rest::detail *this, uint64_t a2, const char *a3)
+uint64_t *ctu::rest::detail::write_enum_string_value@<X0>(uint64_t *__return_ptr a1@<X8>, ctu::rest::detail *this@<X0>, const char *a3@<X2>, uint64_t a4@<X1>)
 {
-  return MEMORY[0x2821F6988](this, a2, a3);
+  return MEMORY[0x2821F6988](a1, this, a4, a3);
 }
 
 {
-  return MEMORY[0x2821F6990](this, a2, a3);
+  return MEMORY[0x2821F6990](a1, this, a4, a3);
 }
 
 uint64_t ctu::operator<<()

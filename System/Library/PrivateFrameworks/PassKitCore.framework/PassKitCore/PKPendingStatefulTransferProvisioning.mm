@@ -62,7 +62,7 @@
 
     else
     {
-      LOBYTE(v12) = 0;
+      LOBYTE(isEqualToString) = 0;
       if (!v9 || !v10)
       {
         invitation = v9;
@@ -72,9 +72,9 @@ LABEL_43:
         goto LABEL_44;
       }
 
-      v12 = [(NSString *)v9 isEqualToString:v10];
+      isEqualToString = objc_msgSend_isEqualToString_(v9);
 
-      if (!v12)
+      if (!isEqualToString)
       {
         goto LABEL_43;
       }
@@ -92,7 +92,7 @@ LABEL_43:
 
     else
     {
-      LOBYTE(v12) = 0;
+      LOBYTE(isEqualToString) = 0;
       v18 = v16;
       v19 = v11;
       if (!v11 || !v16)
@@ -100,9 +100,9 @@ LABEL_43:
         goto LABEL_40;
       }
 
-      v12 = [(NSString *)v11 isEqualToString:v16];
+      isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-      if (!v12)
+      if (!isEqualToString)
       {
         goto LABEL_41;
       }
@@ -119,15 +119,15 @@ LABEL_43:
     v39 = v22;
     if (v22 != v23)
     {
-      LOBYTE(v12) = 0;
+      LOBYTE(isEqualToString) = 0;
       if (v22)
       {
         v24 = v23;
         if (v23)
         {
-          v12 = [(NSString *)v22 isEqualToString:v23];
+          isEqualToString = objc_msgSend_isEqualToString_(v22);
 
-          if (!v12)
+          if (!isEqualToString)
           {
             handle = v37;
 LABEL_39:
@@ -154,7 +154,7 @@ LABEL_22:
 
           else
           {
-            LOBYTE(v12) = 0;
+            LOBYTE(isEqualToString) = 0;
             if (!v24 || !v28)
             {
               v22 = v24;
@@ -163,9 +163,9 @@ LABEL_36:
               goto LABEL_37;
             }
 
-            v12 = [(NSString *)v24 isEqualToString:v28];
+            isEqualToString = objc_msgSend_isEqualToString_(v24);
 
-            if (!v12)
+            if (!isEqualToString)
             {
               handle = v37;
 LABEL_38:
@@ -182,15 +182,15 @@ LABEL_38:
           v33 = v32;
           if (v29 == v32)
           {
-            LOBYTE(v12) = 1;
+            LOBYTE(isEqualToString) = 1;
           }
 
           else
           {
-            LOBYTE(v12) = 0;
+            LOBYTE(isEqualToString) = 0;
             if (v29 && v32)
             {
-              LOBYTE(v12) = [(NSString *)v29 isEqualToString:v32];
+              LOBYTE(isEqualToString) = objc_msgSend_isEqualToString_(v29);
             }
           }
 
@@ -214,10 +214,10 @@ LABEL_37:
     goto LABEL_22;
   }
 
-  LOBYTE(v12) = 0;
+  LOBYTE(isEqualToString) = 0;
 LABEL_44:
 
-  return v12;
+  return isEqualToString;
 }
 
 - (BOOL)representsPass:(id)pass
@@ -286,9 +286,9 @@ LABEL_26:
 
                   if (pairedReaderIdentifier)
                   {
-                    v20 = [pairedReaderIdentifier isEqualToString:v18];
+                    isEqualToString = objc_msgSend_isEqualToString_(pairedReaderIdentifier);
 
-                    if (v20)
+                    if (isEqualToString)
                     {
                       goto LABEL_26;
                     }

@@ -422,7 +422,7 @@
       v8->_queue = v10;
 
       v12 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-      v13 = sub_10000E9DC();
+      v13 = sub_10000E9DC(v12);
       v14 = dispatch_queue_create_with_target_V2("com.apple.amp.MediaRemote.MRDPlaybackQueueParticipantDataSource.delegateQueue", v12, v13);
       delegateQueue = v8->_delegateQueue;
       v8->_delegateQueue = v14;

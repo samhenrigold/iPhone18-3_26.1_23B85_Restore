@@ -8,32 +8,31 @@
 
 + (id)_linkConfigurationWithSourceRange:()Daemon targetRange:unvalidatedAdjacencyList:expectedNumberOfEdges:
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v13 = a7;
-  if ([v13 count] == a8)
+  v14 = [v13 count];
+  if (v14 == a8)
   {
-    v14 = [objc_alloc(MEMORY[0x277CE1AF0]) initWithSourceRange:a3 targetRange:a4 unvalidatedAdjacencyList:{a5, a6, v13}];
+    v16 = [objc_alloc(MEMORY[0x277CE1AF0]) initWithSourceRange:a3 targetRange:a4 unvalidatedAdjacencyList:{a5, a6, v13}];
   }
 
   else
   {
-    v15 = _LTOSLogDisambiguation();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v17 = _LTOSLogDisambiguation(v14, v15);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
     {
-      v16 = v15;
-      v19 = 134218240;
-      v20 = [v13 count];
-      v21 = 2048;
-      v22 = a8;
-      _os_log_impl(&dword_232E53000, v16, OS_LOG_TYPE_INFO, "Only %zu out of %zu edges were valid, won't create a link for this selectionSpan", &v19, 0x16u);
+      v18 = v17;
+      v20 = 134218240;
+      v21 = [v13 count];
+      v22 = 2048;
+      v23 = a8;
+      _os_log_impl(&dword_232E53000, v18, OS_LOG_TYPE_INFO, "Only %zu out of %zu edges were valid, won't create a link for this selectionSpan", &v20, 0x16u);
     }
 
-    v14 = 0;
+    v16 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v16;
 }
 
 + (id)linkConfigurationWithEMTSelectionSpan:()Daemon sourceText:targetText:
@@ -58,7 +57,7 @@
     v18 = [v9 lt_codeUnitsRangeFromCodePointsRange:{source, v17}];
     if (v18 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v20 = _LTOSLogDisambiguation();
+      v20 = _LTOSLogDisambiguation(0x7FFFFFFFFFFFFFFFLL, v19);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [_LTDisambiguationLinkConfiguration(Daemon) linkConfigurationWithEMTSelectionSpan:v20 sourceText:v8 targetText:?];
@@ -76,7 +75,7 @@
       v26 = [v10 lt_codeUnitsRangeFromCodePointsRange:{projection, v25}];
       if (v26 == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v28 = _LTOSLogDisambiguation();
+        v28 = _LTOSLogDisambiguation(0x7FFFFFFFFFFFFFFFLL, v27);
         if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
         {
           [_LTDisambiguationLinkConfiguration(Daemon) linkConfigurationWithEMTSelectionSpan:v28 sourceText:v8 targetText:?];
@@ -121,160 +120,148 @@
 
   v17 = v16;
 
-  v48[0] = MEMORY[0x277D85DD0];
-  v48[1] = 3221225472;
-  v48[2] = __118___LTDisambiguationLinkConfiguration_Daemon__linkConfigurationWithFTSelectionSpan_descriptions_sourceText_targetText___block_invoke;
-  v48[3] = &unk_2789B6050;
-  v49 = v11;
+  v51[0] = MEMORY[0x277D85DD0];
+  v51[1] = 3221225472;
+  v51[2] = __118___LTDisambiguationLinkConfiguration_Daemon__linkConfigurationWithFTSelectionSpan_descriptions_sourceText_targetText___block_invoke;
+  v51[3] = &unk_2789B6050;
+  v52 = v11;
   v18 = v11;
-  v19 = [v17 _ltCompactMap:v48];
+  v19 = [v17 _ltCompactMap:v51];
   source_range = [v10 source_range];
-  v21 = source_range;
+  v22 = source_range;
   if (source_range)
   {
     selfCopy = self;
-    v46 = v13;
+    v49 = v13;
     start = [source_range start];
-    v23 = [v21 length];
-    v24 = [v12 lt_codeUnitsRangeFromCodePointsRange:{start, v23}];
-    if (v24 == 0x7FFFFFFFFFFFFFFFLL)
+    v24 = [v22 length];
+    v25 = [v12 lt_codeUnitsRangeFromCodePointsRange:{start, v24}];
+    if (v25 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v45 = v17;
-      v26 = v19;
-      v27 = v18;
-      v28 = _LTOSLogDisambiguation();
-      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+      v48 = v17;
+      v27 = v19;
+      v28 = v18;
+      v29 = _LTOSLogDisambiguation(0x7FFFFFFFFFFFFFFFLL, v26);
+      if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        [_LTDisambiguationLinkConfiguration(Daemon) linkConfigurationWithFTSelectionSpan:v28 descriptions:start sourceText:v23 targetText:?];
+        [_LTDisambiguationLinkConfiguration(Daemon) linkConfigurationWithFTSelectionSpan:v29 descriptions:start sourceText:v24 targetText:?];
       }
 
-      v29 = 0;
-      v18 = v27;
-      v19 = v26;
-      v17 = v45;
+      v30 = 0;
+      v18 = v28;
+      v19 = v27;
+      v17 = v48;
       goto LABEL_22;
     }
 
-    v31 = v24;
     v32 = v25;
+    v33 = v26;
     projection_ranges = [v10 projection_ranges];
     firstObject = [projection_ranges firstObject];
 
     if (!firstObject)
     {
-      v40 = _LTOSLogDisambiguation();
-      if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
+      v43 = _LTOSLogDisambiguation(v36, v37);
+      if (os_log_type_enabled(v43, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_232E53000, v40, OS_LOG_TYPE_INFO, "Can't get target range on selectionSpan; won't create link", buf, 2u);
+        _os_log_impl(&dword_232E53000, v43, OS_LOG_TYPE_INFO, "Can't get target range on selectionSpan; won't create link", buf, 2u);
       }
 
-      v29 = 0;
-      v13 = v46;
+      v30 = 0;
+      v13 = v49;
       goto LABEL_21;
     }
 
-    v43 = v18;
+    v46 = v18;
     start2 = [firstObject start];
-    v36 = [firstObject length];
-    v42 = start2;
-    v37 = [v46 lt_codeUnitsRangeFromCodePointsRange:{start2, v36}];
-    if (v37 == 0x7FFFFFFFFFFFFFFFLL)
+    v39 = [firstObject length];
+    v45 = start2;
+    v40 = [v49 lt_codeUnitsRangeFromCodePointsRange:{start2, v39}];
+    if (v40 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v39 = _LTOSLogDisambiguation();
-      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+      v42 = _LTOSLogDisambiguation(0x7FFFFFFFFFFFFFFFLL, v41);
+      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
       {
-        v13 = v46;
-        [_LTDisambiguationLinkConfiguration(Daemon) linkConfigurationWithFTSelectionSpan:v39 descriptions:v42 sourceText:v36 targetText:?];
-        v29 = 0;
+        v13 = v49;
+        [_LTDisambiguationLinkConfiguration(Daemon) linkConfigurationWithFTSelectionSpan:v42 descriptions:v45 sourceText:v39 targetText:?];
+        v30 = 0;
         goto LABEL_20;
       }
 
-      v29 = 0;
+      v30 = 0;
     }
 
     else
     {
-      v29 = [selfCopy _linkConfigurationWithSourceRange:v31 targetRange:v32 unvalidatedAdjacencyList:v37 expectedNumberOfEdges:{v38, v19, objc_msgSend(v17, "count")}];
+      v30 = [selfCopy _linkConfigurationWithSourceRange:v32 targetRange:v33 unvalidatedAdjacencyList:v40 expectedNumberOfEdges:{v41, v19, objc_msgSend(v17, "count")}];
     }
 
-    v13 = v46;
+    v13 = v49;
 LABEL_20:
-    v18 = v43;
+    v18 = v46;
 LABEL_21:
 
     goto LABEL_22;
   }
 
-  v30 = _LTOSLogDisambiguation();
-  if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+  v31 = _LTOSLogDisambiguation(0, v21);
+  if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_232E53000, v30, OS_LOG_TYPE_INFO, "No source range set on selectionSpan; won't create link", buf, 2u);
+    _os_log_impl(&dword_232E53000, v31, OS_LOG_TYPE_INFO, "No source range set on selectionSpan; won't create link", buf, 2u);
   }
 
-  v29 = 0;
+  v30 = 0;
 LABEL_22:
 
-  return v29;
+  return v30;
 }
 
 + (void)linkConfigurationWithEMTSelectionSpan:()Daemon sourceText:targetText:.cold.1(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v13.location = [a2 projection];
-  NSStringFromRange(v13);
+  v10.location = [a2 projection];
+  NSStringFromRange(v10);
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1_1(&dword_232E53000, v4, v5, "Code points target range: %{public}@ cannot be converted to NSString code units target range, target text length: %zu", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_232E53000, v4, v5, "Code points target range: %{public}@ cannot be converted to NSString code units target range, target text length: %zu", v6, v7, v8, v9);
 }
 
 + (void)linkConfigurationWithEMTSelectionSpan:()Daemon sourceText:targetText:.cold.2(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v3 = a1;
-  v13.location = [a2 source];
-  NSStringFromRange(v13);
+  v10.location = [a2 source];
+  NSStringFromRange(v10);
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_1_1(&dword_232E53000, v4, v5, "Code points source range: %{public}@ cannot be converted to NSString code units source range, source text length: %zu", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1_1(&dword_232E53000, v4, v5, "Code points source range: %{public}@ cannot be converted to NSString code units source range, source text length: %zu", v6, v7, v8, v9);
 }
 
 + (void)linkConfigurationWithFTSelectionSpan:()Daemon descriptions:sourceText:targetText:.cold.1(void *a1, NSUInteger a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v5 = a1;
-  v15.location = a2;
-  v15.length = a3;
-  NSStringFromRange(v15);
+  v12.location = a2;
+  v12.length = a3;
+  NSStringFromRange(v12);
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_1(&dword_232E53000, v6, v7, "Code points target range: %{public}@ cannot be converted to NSString code units target range, target text length: %zu", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_232E53000, v6, v7, "Code points target range: %{public}@ cannot be converted to NSString code units target range, target text length: %zu", v8, v9, v10, v11);
 }
 
 + (void)linkConfigurationWithFTSelectionSpan:()Daemon descriptions:sourceText:targetText:.cold.2(void *a1, NSUInteger a2, void *a3)
 {
-  v14 = *MEMORY[0x277D85DE8];
   v5 = a1;
-  v15.location = a2;
-  v15.length = a3;
-  NSStringFromRange(v15);
+  v12.location = a2;
+  v12.length = a3;
+  NSStringFromRange(v12);
   objc_claimAutoreleasedReturnValue();
   OUTLINED_FUNCTION_3_0();
   OUTLINED_FUNCTION_0_6();
-  OUTLINED_FUNCTION_2_1(&dword_232E53000, v6, v7, "Code points source range: %{public}@ cannot be converted to NSString code units source range, source text length: %zu", v8, v9, v10, v11, v13);
-
-  v12 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_2_1(&dword_232E53000, v6, v7, "Code points source range: %{public}@ cannot be converted to NSString code units source range, source text length: %zu", v8, v9, v10, v11);
 }
 
 @end

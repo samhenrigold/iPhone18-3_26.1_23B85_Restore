@@ -7,8 +7,8 @@
 
 - (void)handleVolumeIncrease
 {
-  v36 = *MEMORY[0x277D85DE8];
-  v27 = +[SBApplicationController sharedInstance];
+  v37 = *MEMORY[0x277D85DE8];
+  v28 = +[SBApplicationController sharedInstance];
   v2 = +[SBApplicationShortcutStoreManager sharedManager];
   v3 = SBLogAppShortcuts();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
@@ -17,29 +17,29 @@
     _os_log_impl(&dword_21ED4E000, v3, OS_LOG_TYPE_INFO, "Populating mock shortcuts...", buf, 2u);
   }
 
-  v31 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
+  v31 = 0u;
   obj = [MEMORY[0x277D0AC98] applicationsWithAvailableStores];
-  v28 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
-  if (v28)
+  v29 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+  if (v29)
   {
-    v26 = *v30;
+    v27 = *v31;
     v5 = 0x277CBE000uLL;
     *&v4 = 138412290;
-    v24 = v4;
+    v25 = v4;
     do
     {
-      for (i = 0; i != v28; ++i)
+      for (i = 0; i != v29; ++i)
       {
-        if (*v30 != v26)
+        if (*v31 != v27)
         {
           objc_enumerationMutation(obj);
         }
 
-        v7 = *(*(&v29 + 1) + 8 * i);
-        v8 = [v27 applicationWithBundleIdentifier:{v7, v24}];
+        v7 = *(*(&v30 + 1) + 8 * i);
+        v8 = [v28 applicationWithBundleIdentifier:{v7, v25}];
         info = [v8 info];
 
         dynamicApplicationShortcutItemsVersion = [info dynamicApplicationShortcutItemsVersion];
@@ -61,26 +61,27 @@
 
         v17 = v5;
         v18 = objc_opt_new();
-        v19 = 20;
+        v19 = v18;
+        v20 = 20;
         do
         {
-          v20 = __mockShortcutPlist();
-          [v18 addObject:v20];
+          v21 = __mockShortcutPlist(v18);
+          [v19 addObject:v21];
 
-          --v19;
+          --v20;
         }
 
-        while (v19);
-        v21 = SBLogAppShortcuts();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+        while (v20);
+        v22 = SBLogAppShortcuts();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
         {
-          *buf = v24;
-          v34 = v7;
-          _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_INFO, "Populated mock shortcuts for %@", buf, 0xCu);
+          *buf = v25;
+          v35 = v7;
+          _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_INFO, "Populated mock shortcuts for %@", buf, 0xCu);
         }
 
-        v22 = [MEMORY[0x277D669C8] _staticApplicationShortcutItemsFromInfoPlistEntry:v18];
-        [v16 addObjectsFromArray:v22];
+        v23 = [MEMORY[0x277D669C8] _staticApplicationShortcutItemsFromInfoPlistEntry:v19];
+        [v16 addObjectsFromArray:v23];
 
         v2 = v11;
         [v11 setApplicationShortcutItems:v16 forBundleIdentifier:v7 withVersion:dynamicApplicationShortcutItemsVersion];
@@ -88,153 +89,153 @@
         v5 = v17;
       }
 
-      v28 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v29 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
     }
 
-    while (v28);
+    while (v29);
   }
 
   [v2 saveSynchronously];
-  v23 = SBLogAppShortcuts();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+  v24 = SBLogAppShortcuts();
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_21ED4E000, v23, OS_LOG_TYPE_INFO, "Populated mock shortcuts", buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v24, OS_LOG_TYPE_INFO, "Populated mock shortcuts", buf, 2u);
   }
 }
 
 - (void)handleVolumeDecrease
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   v2 = +[SBDefaults localDefaults];
   iconDefaults = [v2 iconDefaults];
   [iconDefaults setSuppressAppShortcutTruncation:0];
 
-  v4 = __mockShortcutPlist();
-  v5 = [v4 objectForKey:@"UIApplicationShortcutItemType"];
+  v5 = __mockShortcutPlist(v4);
+  v6 = [v5 objectForKey:@"UIApplicationShortcutItemType"];
 
-  v6 = __mockShortcutPlist();
-  v37 = [v6 objectForKey:@"UIApplicationShortcutItemTitle"];
+  v8 = __mockShortcutPlist(v7);
+  v39 = [v8 objectForKey:@"UIApplicationShortcutItemTitle"];
 
-  v31 = +[SBApplicationController sharedInstance];
-  v7 = +[SBApplicationShortcutStoreManager sharedManager];
-  v8 = SBLogAppShortcuts();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v33 = +[SBApplicationController sharedInstance];
+  v9 = +[SBApplicationShortcutStoreManager sharedManager];
+  v10 = SBLogAppShortcuts();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_INFO, "Removing mock shortcuts...", buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v10, OS_LOG_TYPE_INFO, "Removing mock shortcuts...", buf, 2u);
   }
 
+  v46 = 0u;
+  v47 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v42 = 0u;
-  v43 = 0u;
   obj = [MEMORY[0x277D0AC98] applicationsWithAvailableStores];
-  v32 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
-  if (v32)
+  v34 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
+  if (v34)
   {
-    v29 = *v43;
-    v30 = v7;
+    v31 = *v45;
+    v32 = v9;
     do
     {
-      v9 = 0;
+      v11 = 0;
       do
       {
-        if (*v43 != v29)
+        if (*v45 != v31)
         {
           objc_enumerationMutation(obj);
         }
 
-        v35 = v9;
-        v10 = *(*(&v42 + 1) + 8 * v9);
-        v11 = [v31 applicationWithBundleIdentifier:v10];
-        info = [v11 info];
+        v37 = v11;
+        v12 = *(*(&v44 + 1) + 8 * v11);
+        v13 = [v33 applicationWithBundleIdentifier:v12];
+        info = [v13 info];
 
-        v34 = info;
-        v36 = v10;
+        v36 = info;
+        v38 = v12;
         dynamicApplicationShortcutItemsVersion = [info dynamicApplicationShortcutItemsVersion];
-        v13 = [v7 applicationShortcutItemsForBundleIdentifier:v10 withVersion:?];
-        v14 = [v13 mutableCopy];
-        v15 = v14;
-        if (v14)
+        v15 = [v9 applicationShortcutItemsForBundleIdentifier:v12 withVersion:?];
+        v16 = [v15 mutableCopy];
+        v17 = v16;
+        if (v16)
         {
-          v16 = v14;
+          v18 = v16;
         }
 
         else
         {
-          v16 = objc_opt_new();
+          v18 = objc_opt_new();
         }
 
-        v17 = v16;
+        v19 = v18;
 
+        v42 = 0u;
+        v43 = 0u;
         v40 = 0u;
         v41 = 0u;
-        v38 = 0u;
-        v39 = 0u;
-        v18 = [v17 copy];
-        v19 = [v18 countByEnumeratingWithState:&v38 objects:v48 count:16];
-        if (v19)
+        v20 = [v19 copy];
+        v21 = [v20 countByEnumeratingWithState:&v40 objects:v50 count:16];
+        if (v21)
         {
-          v20 = v19;
-          v21 = *v39;
+          v22 = v21;
+          v23 = *v41;
           do
           {
-            for (i = 0; i != v20; ++i)
+            for (i = 0; i != v22; ++i)
             {
-              if (*v39 != v21)
+              if (*v41 != v23)
               {
-                objc_enumerationMutation(v18);
+                objc_enumerationMutation(v20);
               }
 
-              v23 = *(*(&v38 + 1) + 8 * i);
-              type = [v23 type];
-              if ([type isEqualToString:v5])
+              v25 = *(*(&v40 + 1) + 8 * i);
+              type = [v25 type];
+              if ([type isEqualToString:v6])
               {
-                localizedTitle = [v23 localizedTitle];
-                v26 = [localizedTitle isEqualToString:v37];
+                localizedTitle = [v25 localizedTitle];
+                v28 = [localizedTitle isEqualToString:v39];
 
-                if (!v26)
+                if (!v28)
                 {
                   continue;
                 }
 
-                [v17 removeObject:v23];
+                [v19 removeObject:v25];
                 type = SBLogAppShortcuts();
                 if (os_log_type_enabled(type, OS_LOG_TYPE_INFO))
                 {
                   *buf = 138412290;
-                  v47 = v36;
+                  v49 = v38;
                   _os_log_impl(&dword_21ED4E000, type, OS_LOG_TYPE_INFO, "Removing mock shortcut from %@", buf, 0xCu);
                 }
               }
             }
 
-            v20 = [v18 countByEnumeratingWithState:&v38 objects:v48 count:16];
+            v22 = [v20 countByEnumeratingWithState:&v40 objects:v50 count:16];
           }
 
-          while (v20);
+          while (v22);
         }
 
-        v7 = v30;
-        [v30 setApplicationShortcutItems:v17 forBundleIdentifier:v36 withVersion:dynamicApplicationShortcutItemsVersion];
+        v9 = v32;
+        [v32 setApplicationShortcutItems:v19 forBundleIdentifier:v38 withVersion:dynamicApplicationShortcutItemsVersion];
 
-        v9 = v35 + 1;
+        v11 = v37 + 1;
       }
 
-      while (v35 + 1 != v32);
-      v32 = [obj countByEnumeratingWithState:&v42 objects:v49 count:16];
+      while (v37 + 1 != v34);
+      v34 = [obj countByEnumeratingWithState:&v44 objects:v51 count:16];
     }
 
-    while (v32);
+    while (v34);
   }
 
-  [v7 saveSynchronously];
-  v27 = SBLogAppShortcuts();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+  [v9 saveSynchronously];
+  v29 = SBLogAppShortcuts();
+  if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&dword_21ED4E000, v27, OS_LOG_TYPE_INFO, "Removed all mock shortcuts.", buf, 2u);
+    _os_log_impl(&dword_21ED4E000, v29, OS_LOG_TYPE_INFO, "Removed all mock shortcuts.", buf, 2u);
   }
 }
 

@@ -16,29 +16,29 @@
 
 - (WiFiUtil)init
 {
-  v8.receiver = self;
-  v8.super_class = WiFiUtil;
-  v2 = [(WiFiUtil *)&v8 init];
+  v7.receiver = self;
+  v7.super_class = WiFiUtil;
+  v2 = [(WiFiUtil *)&v7 init];
   if (v2)
   {
     v3 = WiFiManagerClientCreate();
     v2->_wifiClient = v3;
     if (!v3)
     {
-      sub_100014A08(v10, "");
-      sub_1001EDF78("Failed to create connection to wifi daemon", &__p);
-      sub_1000E661C(v10, &__p, 1);
+      sub_100014A08(v9, "");
+      sub_1001EDF78(&__p, "Failed to create connection to wifi daemon");
+      sub_1000E661C(v9, &__p, 1);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
         operator delete(__p.__r_.__value_.__l.__data_);
       }
 
-      if (v11 < 0)
+      if (v10 < 0)
       {
-        operator delete(v10[0]);
+        operator delete(v9[0]);
       }
 
-      sub_10003F5D0(&v9);
+      sub_10003F5D0(&v8);
     }
 
     v4 = dispatch_queue_create("com.apple.pipelined.wifiutil", 0);
@@ -46,7 +46,6 @@
     v2->_q = v4;
 
     [(WiFiUtil *)v2 onQueueReEnumerateDevices];
-    wifiClient = v2->_wifiClient;
     CFRunLoopGetMain();
     WiFiManagerClientScheduleWithRunLoop();
   }
@@ -85,32 +84,31 @@
 
 - (void)onQueueRegisterDevices
 {
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v2 = self->_wifiDevices;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v3)
   {
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v7 + 1) + 8 * v5);
         WiFiDeviceClientRegisterPowerCallback();
-        v5 = v5 + 1;
+        ++v5;
       }
 
       while (v3 != v5);
-      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
@@ -119,32 +117,31 @@
 
 - (void)onQueueDeregisterDevices
 {
+  v6 = 0u;
   v7 = 0u;
   v8 = 0u;
   v9 = 0u;
-  v10 = 0u;
   v2 = self->_wifiDevices;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
   if (v3)
   {
-    v4 = *v8;
+    v4 = *v7;
     do
     {
       v5 = 0;
       do
       {
-        if (*v8 != v4)
+        if (*v7 != v4)
         {
           objc_enumerationMutation(v2);
         }
 
-        v6 = *(*(&v7 + 1) + 8 * v5);
         WiFiDeviceClientRegisterPowerCallback();
-        v5 = v5 + 1;
+        ++v5;
       }
 
       while (v3 != v5);
-      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
+      v3 = [(NSArray *)v2 countByEnumeratingWithState:&v6 objects:v10 count:16];
     }
 
     while (v3);
@@ -179,10 +176,9 @@
 - (void)onQueueReEnumerateDevices
 {
   [(WiFiUtil *)self onQueueDeregisterDevices];
-  wifiClient = self->_wifiClient;
-  v4 = WiFiManagerClientCopyDevices();
+  v3 = WiFiManagerClientCopyDevices();
   wifiDevices = self->_wifiDevices;
-  self->_wifiDevices = v4;
+  self->_wifiDevices = v3;
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   if (WeakRetained)

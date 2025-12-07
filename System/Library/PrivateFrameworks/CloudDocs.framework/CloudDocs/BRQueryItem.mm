@@ -1,5 +1,6 @@
 @interface BRQueryItem
 + (id)askDaemonQueryItemForURL:(id)l andFakeFSEvent:(BOOL)event error:(id *)error;
++ (id)containerItemForContainer:(id)container forceScan:(BOOL)scan;
 + (id)containerItemForContainer:(id)container withRepresentativeItem:(id)item;
 + (id)containerItemForContainer:(id)container withRepresentativeItem:(id)item zoneRowID:(id)d;
 + (void)initialize;
@@ -107,114 +108,114 @@
 
 + (void)initialize
 {
-  v27[44] = *MEMORY[0x1E69E9840];
+  v26[44] = *MEMORY[0x1E69E9840];
   if (objc_opt_class() == self)
   {
     v2 = *MEMORY[0x1E696A5C0];
-    v26[0] = *MEMORY[0x1E696A5C8];
-    v26[1] = v2;
-    v27[0] = &__block_literal_global_16;
-    v27[1] = &__block_literal_global_66;
+    v25[0] = *MEMORY[0x1E696A5C8];
+    v25[1] = v2;
+    v26[0] = &__block_literal_global_16;
+    v26[1] = &__block_literal_global_66;
     v3 = *MEMORY[0x1E696A5E8];
-    v26[2] = *MEMORY[0x1E696A5D0];
-    v26[3] = v3;
-    v27[2] = &__block_literal_global_68;
-    v27[3] = &__block_literal_global_70;
+    v25[2] = *MEMORY[0x1E696A5D0];
+    v25[3] = v3;
+    v26[2] = &__block_literal_global_68;
+    v26[3] = &__block_literal_global_70;
     v4 = *MEMORY[0x1E696A5F8];
-    v26[4] = *MEMORY[0x1E696A5F0];
-    v26[5] = v4;
-    v27[4] = &__block_literal_global_72;
-    v27[5] = &__block_literal_global_74;
+    v25[4] = *MEMORY[0x1E696A5F0];
+    v25[5] = v4;
+    v26[4] = &__block_literal_global_72;
+    v26[5] = &__block_literal_global_74;
     v5 = *MEMORY[0x1E696A608];
-    v26[6] = *MEMORY[0x1E696A600];
-    v26[7] = v5;
-    v27[6] = &__block_literal_global_76;
-    v27[7] = &__block_literal_global_78_0;
+    v25[6] = *MEMORY[0x1E696A600];
+    v25[7] = v5;
+    v26[6] = &__block_literal_global_76;
+    v26[7] = &__block_literal_global_78_0;
     v6 = *MEMORY[0x1E696A5E0];
-    v26[8] = *MEMORY[0x1E696A5B8];
-    v26[9] = v6;
-    v27[8] = &__block_literal_global_80;
-    v27[9] = &__block_literal_global_82;
+    v25[8] = *MEMORY[0x1E696A5B8];
+    v25[9] = v6;
+    v26[8] = &__block_literal_global_80;
+    v26[9] = &__block_literal_global_82;
     v7 = *MEMORY[0x1E696A698];
-    v26[10] = *MEMORY[0x1E696A5D8];
-    v26[11] = v7;
-    v27[10] = &__block_literal_global_84;
-    v27[11] = &__block_literal_global_86;
+    v25[10] = *MEMORY[0x1E696A5D8];
+    v25[11] = v7;
+    v26[10] = &__block_literal_global_84;
+    v26[11] = &__block_literal_global_86;
     v8 = *MEMORY[0x1E696A6A0];
-    v26[12] = *MEMORY[0x1E696A688];
-    v26[13] = v8;
-    v27[12] = &__block_literal_global_89;
-    v27[13] = &__block_literal_global_91_0;
+    v25[12] = *MEMORY[0x1E696A688];
+    v25[13] = v8;
+    v26[12] = &__block_literal_global_89;
+    v26[13] = &__block_literal_global_91_0;
     v9 = *MEMORY[0x1E696A6D0];
-    v26[14] = *MEMORY[0x1E696A6A8];
-    v26[15] = v9;
-    v27[14] = &__block_literal_global_93;
-    v27[15] = &__block_literal_global_95;
+    v25[14] = *MEMORY[0x1E696A6A8];
+    v25[15] = v9;
+    v26[14] = &__block_literal_global_93;
+    v26[15] = &__block_literal_global_95;
     v10 = *MEMORY[0x1E696A6C0];
-    v26[16] = *MEMORY[0x1E696A670];
-    v26[17] = v10;
-    v27[16] = &__block_literal_global_97;
-    v27[17] = &__block_literal_global_99;
+    v25[16] = *MEMORY[0x1E696A670];
+    v25[17] = v10;
+    v26[16] = &__block_literal_global_97;
+    v26[17] = &__block_literal_global_99;
     v11 = *MEMORY[0x1E696A668];
-    v26[18] = *MEMORY[0x1E696A6C8];
-    v26[19] = v11;
-    v27[18] = &__block_literal_global_101;
-    v27[19] = &__block_literal_global_103;
+    v25[18] = *MEMORY[0x1E696A6C8];
+    v25[19] = v11;
+    v26[18] = &__block_literal_global_101;
+    v26[19] = &__block_literal_global_103;
     v12 = *MEMORY[0x1E696A6E8];
-    v26[20] = *MEMORY[0x1E696A6D8];
-    v26[21] = v12;
-    v27[20] = &__block_literal_global_105;
-    v27[21] = &__block_literal_global_107;
+    v25[20] = *MEMORY[0x1E696A6D8];
+    v25[21] = v12;
+    v26[20] = &__block_literal_global_105;
+    v26[21] = &__block_literal_global_107;
     v13 = *MEMORY[0x1E696A660];
-    v26[22] = *MEMORY[0x1E696A6B0];
-    v26[23] = v13;
-    v27[22] = &__block_literal_global_109;
-    v27[23] = &__block_literal_global_111;
+    v25[22] = *MEMORY[0x1E696A6B0];
+    v25[23] = v13;
+    v26[22] = &__block_literal_global_109;
+    v26[23] = &__block_literal_global_111;
     v14 = *MEMORY[0x1E696A6B8];
-    v26[24] = *MEMORY[0x1E696A6E0];
-    v26[25] = v14;
-    v27[24] = &__block_literal_global_113;
-    v27[25] = &__block_literal_global_115;
+    v25[24] = *MEMORY[0x1E696A6E0];
+    v25[25] = v14;
+    v26[24] = &__block_literal_global_113;
+    v26[25] = &__block_literal_global_115;
     v15 = *MEMORY[0x1E696A708];
-    v26[26] = *MEMORY[0x1E696A710];
-    v26[27] = v15;
-    v27[26] = &__block_literal_global_117;
-    v27[27] = &__block_literal_global_119;
-    v26[28] = *MEMORY[0x1E696A700];
-    v26[29] = @"NSMetadataUbiquitousSharedItemLastEditorNameKey";
-    v27[28] = &__block_literal_global_121;
-    v27[29] = &__block_literal_global_123;
+    v25[26] = *MEMORY[0x1E696A710];
+    v25[27] = v15;
+    v26[26] = &__block_literal_global_117;
+    v26[27] = &__block_literal_global_119;
+    v25[28] = *MEMORY[0x1E696A700];
+    v25[29] = @"NSMetadataUbiquitousSharedItemLastEditorNameKey";
+    v26[28] = &__block_literal_global_121;
+    v26[29] = &__block_literal_global_123;
     v16 = *MEMORY[0x1E696A718];
-    v26[30] = @"NSMetadataUbiquitousSharedItemLastEditorNameComponentsKey";
-    v26[31] = v16;
-    v27[30] = &__block_literal_global_125;
-    v27[31] = &__block_literal_global_127;
+    v25[30] = @"NSMetadataUbiquitousSharedItemLastEditorNameComponentsKey";
+    v25[31] = v16;
+    v26[30] = &__block_literal_global_125;
+    v26[31] = &__block_literal_global_127;
     v17 = *MEMORY[0x1E696A730];
-    v26[32] = *MEMORY[0x1E696A6F0];
-    v26[33] = v17;
-    v27[32] = &__block_literal_global_129;
-    v27[33] = &__block_literal_global_131;
-    v26[34] = *MEMORY[0x1E696A6F8];
-    v26[35] = @"BRURLTagNamesKey";
-    v27[34] = &__block_literal_global_133;
-    v27[35] = &__block_literal_global_135_0;
-    v26[36] = @"BRMetadataItemFileObjectIdentifierKey";
-    v26[37] = @"BRMetadataItemParentFileIDKey";
-    v27[36] = &__block_literal_global_137;
-    v27[37] = &__block_literal_global_139;
-    v26[38] = @"BRMetadataUbiquitousItemDownloadingSizeKey";
-    v26[39] = @"BRMetadataUbiquitousItemUploadingSizeKey";
-    v27[38] = &__block_literal_global_141_0;
-    v27[39] = &__block_literal_global_143;
-    v26[40] = @"BRModifiedSinceSharedKey";
-    v26[41] = @"BRMetadataIsTopLevelSharedItemKey";
-    v27[40] = &__block_literal_global_145;
-    v27[41] = &__block_literal_global_147;
-    v26[42] = @"BRMetadataCreatorNameComponentsKey";
-    v26[43] = @"BRMetadataUbiquitousItemFavoriteRankKey";
-    v27[42] = &__block_literal_global_149;
-    v27[43] = &__block_literal_global_151;
-    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:44];
+    v25[32] = *MEMORY[0x1E696A6F0];
+    v25[33] = v17;
+    v26[32] = &__block_literal_global_129;
+    v26[33] = &__block_literal_global_131;
+    v25[34] = *MEMORY[0x1E696A6F8];
+    v25[35] = @"BRURLTagNamesKey";
+    v26[34] = &__block_literal_global_133;
+    v26[35] = &__block_literal_global_135_0;
+    v25[36] = @"BRMetadataItemFileObjectIdentifierKey";
+    v25[37] = @"BRMetadataItemParentFileIDKey";
+    v26[36] = &__block_literal_global_137;
+    v26[37] = &__block_literal_global_139;
+    v25[38] = @"BRMetadataUbiquitousItemDownloadingSizeKey";
+    v25[39] = @"BRMetadataUbiquitousItemUploadingSizeKey";
+    v26[38] = &__block_literal_global_141_0;
+    v26[39] = &__block_literal_global_143;
+    v25[40] = @"BRModifiedSinceSharedKey";
+    v25[41] = @"BRMetadataIsTopLevelSharedItemKey";
+    v26[40] = &__block_literal_global_145;
+    v26[41] = &__block_literal_global_147;
+    v25[42] = @"BRMetadataCreatorNameComponentsKey";
+    v25[43] = @"BRMetadataUbiquitousItemFavoriteRankKey";
+    v26[42] = &__block_literal_global_149;
+    v26[43] = &__block_literal_global_151;
+    v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:44];
     v19 = _getterMap;
     _getterMap = v18;
 
@@ -227,8 +228,6 @@
     v24 = _sharedKeySet;
     _sharedKeySet = v23;
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)isTrashed
@@ -602,7 +601,7 @@ LABEL_8:
 
 - (NSString)containerDisplayName
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   if ([(BRFileObjectID *)selfCopy->_fileObjectID isRootContainerItem])
@@ -626,21 +625,19 @@ LABEL_8:
       v10 = brc_default_log(0, 0);
       if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        v13 = [(BRQueryItem *)selfCopy url];
-        v14 = 138412802;
-        v15 = v13;
-        v16 = 2112;
-        v17 = v8;
-        v18 = 2112;
-        v19 = v9;
-        _os_log_fault_impl(&dword_1AE2A9000, v10, OS_LOG_TYPE_FAULT, "[CRIT] containerDisplayName is nil %@, %@%@", &v14, 0x20u);
+        v12 = [(BRQueryItem *)selfCopy url];
+        v13 = 138412802;
+        v14 = v12;
+        v15 = 2112;
+        v16 = v8;
+        v17 = 2112;
+        v18 = v9;
+        _os_log_fault_impl(&dword_1AE2A9000, v10, OS_LOG_TYPE_FAULT, "[CRIT] containerDisplayName is nil %@, %@%@", &v13, 0x20u);
       }
     }
   }
 
   objc_sync_exit(selfCopy);
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return localizedName;
 }
@@ -1208,20 +1205,19 @@ id __25__BRQueryItem_initialize__block_invoke_17(uint64_t a1, void *a2)
 
 - (BOOL)isSharedByCurrentUser
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v2 = [(BRQueryItem *)self attributeForName:*MEMORY[0x1E696A6F8]];
   v3 = *MEMORY[0x1E696A740];
-  v10[0] = *MEMORY[0x1E696A738];
-  v10[1] = v3;
+  v9[0] = *MEMORY[0x1E696A738];
+  v9[1] = v3;
   v5 = *MEMORY[0x1E695DD48];
-  v11[0] = *MEMORY[0x1E695DD40];
-  v4 = v11[0];
-  v11[1] = v5;
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[0] = *MEMORY[0x1E695DD40];
+  v4 = v10[0];
+  v10[1] = v5;
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   v7 = [v6 objectForKeyedSubscript:v2];
   LOBYTE(v4) = [v7 isEqualToString:v4];
 
-  v8 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
@@ -1275,7 +1271,7 @@ id __25__BRQueryItem_initialize__block_invoke_17(uint64_t a1, void *a2)
 
 - (NSDictionary)userInfo
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   if (self->_zoneRowID && self->_parentZoneRowID)
   {
@@ -1365,15 +1361,15 @@ id __25__BRQueryItem_initialize__block_invoke_17(uint64_t a1, void *a2)
       v22 = brc_default_log(0, 0);
       if (os_log_type_enabled(v22, 0x90u))
       {
-        v27 = 138413058;
-        v28 = v15;
-        v29 = 2112;
-        v30 = v17;
-        v31 = 2112;
-        v32 = v20;
-        v33 = 2112;
-        v34 = v21;
-        _os_log_error_impl(&dword_1AE2A9000, v22, 0x90u, "[ERROR] Couldn't format quota %@ (%@, %@)%@", &v27, 0x2Au);
+        v26 = 138413058;
+        v27 = v15;
+        v28 = 2112;
+        v29 = v17;
+        v30 = 2112;
+        v31 = v20;
+        v32 = 2112;
+        v33 = v21;
+        _os_log_error_impl(&dword_1AE2A9000, v22, 0x90u, "[ERROR] Couldn't format quota %@ (%@, %@)%@", &v26, 0x2Au);
       }
     }
   }
@@ -1395,7 +1391,6 @@ id __25__BRQueryItem_initialize__block_invoke_17(uint64_t a1, void *a2)
 
   v24 = v23;
 
-  v25 = *MEMORY[0x1E69E9840];
   return v23;
 }
 
@@ -1500,15 +1495,15 @@ uint64_t __25__BRQueryItem_initialize__block_invoke_12(uint64_t a1, void *a2)
 
 - (NSString)sharingPermissions
 {
-  v11[2] = *MEMORY[0x1E69E9840];
+  v10[2] = *MEMORY[0x1E69E9840];
   v2 = [(BRQueryItem *)self attributeForName:*MEMORY[0x1E696A718]];
   v3 = *MEMORY[0x1E696A728];
-  v10[0] = *MEMORY[0x1E696A720];
-  v10[1] = v3;
+  v9[0] = *MEMORY[0x1E696A720];
+  v9[1] = v3;
   v4 = *MEMORY[0x1E695DD30];
-  v11[0] = *MEMORY[0x1E695DD28];
-  v11[1] = v4;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[0] = *MEMORY[0x1E695DD28];
+  v10[1] = v4;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   v6 = v5;
   if (v2)
   {
@@ -1519,8 +1514,6 @@ uint64_t __25__BRQueryItem_initialize__block_invoke_12(uint64_t a1, void *a2)
   {
     v7 = 0;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -2017,18 +2010,18 @@ uint64_t __25__BRQueryItem_initialize__block_invoke_42(uint64_t a1, void *a2)
 
 - (id)downloadingStatus
 {
-  v12[3] = *MEMORY[0x1E69E9840];
+  v11[3] = *MEMORY[0x1E69E9840];
   v2 = [(BRQueryItem *)self attributeForName:*MEMORY[0x1E696A688]];
   v3 = *MEMORY[0x1E695DC88];
   v4 = *MEMORY[0x1E696A690];
-  v11[0] = *MEMORY[0x1E696A678];
-  v11[1] = v4;
+  v10[0] = *MEMORY[0x1E696A678];
+  v10[1] = v4;
   v5 = *MEMORY[0x1E695DCA0];
-  v12[0] = v3;
-  v12[1] = v5;
-  v11[2] = *MEMORY[0x1E696A680];
-  v12[2] = *MEMORY[0x1E695DC90];
-  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:3];
+  v11[0] = v3;
+  v11[1] = v5;
+  v10[2] = *MEMORY[0x1E696A680];
+  v11[2] = *MEMORY[0x1E695DC90];
+  v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:3];
   v7 = v6;
   if (v2)
   {
@@ -2039,8 +2032,6 @@ uint64_t __25__BRQueryItem_initialize__block_invoke_42(uint64_t a1, void *a2)
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }
@@ -2306,16 +2297,16 @@ id __22__BRQueryItem_tagData__block_invoke(uint64_t a1, void *a2)
 
 - (BRQueryItem)initWithCoder:(id)coder
 {
-  v93[2] = *MEMORY[0x1E69E9840];
+  v90[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   if (initWithCoder__once != -1)
   {
     [BRQueryItem initWithCoder:];
   }
 
-  v90.receiver = self;
-  v90.super_class = BRQueryItem;
-  v5 = [(BRQueryItem *)&v90 init];
+  v87.receiver = self;
+  v87.super_class = BRQueryItem;
+  v5 = [(BRQueryItem *)&v87 init];
   v6 = v5;
   if (v5)
   {
@@ -2394,9 +2385,9 @@ id __22__BRQueryItem_tagData__block_invoke(uint64_t a1, void *a2)
     v6->_collaborationIdentifier = v41;
 
     v43 = MEMORY[0x1E695DFD8];
-    v93[0] = objc_opt_class();
-    v93[1] = objc_opt_class();
-    v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v93 count:2];
+    v90[0] = objc_opt_class();
+    v90[1] = objc_opt_class();
+    v44 = [MEMORY[0x1E695DEC8] arrayWithObjects:v90 count:2];
     v45 = [v43 setWithArray:v44];
     v46 = [coderCopy decodeObjectOfClasses:v45 forKey:@"conflictingversions"];
     conflictingVersions = v6->_conflictingVersions;
@@ -2407,9 +2398,9 @@ id __22__BRQueryItem_tagData__block_invoke(uint64_t a1, void *a2)
     v6->_contentVersion = v48;
 
     v50 = MEMORY[0x1E695DFD8];
-    v92[0] = objc_opt_class();
-    v92[1] = objc_opt_class();
-    v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:v92 count:2];
+    v89[0] = objc_opt_class();
+    v89[1] = objc_opt_class();
+    v51 = [MEMORY[0x1E695DEC8] arrayWithObjects:v89 count:2];
     v52 = [v50 setWithArray:v51];
     v53 = [coderCopy decodeObjectOfClasses:v52 forKey:@"eqCver"];
     equivalentContentVersions = v6->_equivalentContentVersions;
@@ -2424,10 +2415,10 @@ id __22__BRQueryItem_tagData__block_invoke(uint64_t a1, void *a2)
     v6->_lastEditorDeviceName = v57;
 
     v59 = MEMORY[0x1E695DFD8];
-    v91[0] = objc_opt_class();
-    v91[1] = objc_opt_class();
-    v91[2] = objc_opt_class();
-    v60 = [MEMORY[0x1E695DEC8] arrayWithObjects:v91 count:3];
+    v88[0] = objc_opt_class();
+    v88[1] = objc_opt_class();
+    v88[2] = objc_opt_class();
+    v60 = [MEMORY[0x1E695DEC8] arrayWithObjects:v88 count:3];
     v61 = [v59 setWithArray:v60];
     v62 = [coderCopy decodeObjectOfClasses:v61 forKey:@"xattrs"];
     xattrs = v6->_xattrs;
@@ -2443,20 +2434,20 @@ id __22__BRQueryItem_tagData__block_invoke(uint64_t a1, void *a2)
 LABEL_22:
       if ([(BRQueryItem *)v6 isBRAlias])
       {
-        v84 = [(NSMutableDictionary *)v6->_attrs objectForKey:@"alias-path"];
-        if (v84)
+        v82 = [(NSMutableDictionary *)v6->_attrs objectForKey:@"alias-path"];
+        if (v82)
         {
-          v85 = [MEMORY[0x1E695DFF8] fileURLWithPath:v84];
+          v83 = [MEMORY[0x1E695DFF8] fileURLWithPath:v82];
           localRepresentationURL = v6->_localRepresentationURL;
-          v6->_localRepresentationURL = v85;
+          v6->_localRepresentationURL = v83;
         }
       }
 
       else
       {
-        v87 = v6->_url;
-        v84 = v6->_localRepresentationURL;
-        v6->_localRepresentationURL = v87;
+        v85 = v6->_url;
+        v82 = v6->_localRepresentationURL;
+        v6->_localRepresentationURL = v85;
       }
 
       goto LABEL_27;
@@ -2475,10 +2466,10 @@ LABEL_22:
 LABEL_19:
       if ([(BRFileObjectID *)v6->_fileObjectID isDocumentID])
       {
-        v81 = v6->_url;
-        v82 = *MEMORY[0x1E695EA60];
+        v79 = v6->_url;
+        v80 = *MEMORY[0x1E695EA60];
         documentID = [(BRFileObjectID *)v6->_fileObjectID documentID];
-        MEMORY[0x1B26FDF70](v81, v82, documentID);
+        MEMORY[0x1B26FDF70](v79, v80, documentID);
       }
 
       goto LABEL_22;
@@ -2519,13 +2510,11 @@ LABEL_15:
       if (*p_physicalName)
       {
         v78 = [v66 URLByAppendingPathComponent:*p_physicalName isDirectory:0];
-        v79 = v6->_url;
         _CFURLPromiseSetPhysicalURL();
       }
 
       else
       {
-        v80 = v6->_url;
         _CFURLPromiseSetPhysicalURL();
       }
     }
@@ -2535,32 +2524,29 @@ LABEL_15:
 
 LABEL_27:
 
-  v88 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 void __29__BRQueryItem_initWithCoder___block_invoke()
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v0 = MEMORY[0x1E695DFD8];
+  v4 = objc_opt_class();
   v5 = objc_opt_class();
   v6 = objc_opt_class();
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
   v10 = objc_opt_class();
-  v11 = objc_opt_class();
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v5 count:7];
-  v2 = [v0 setWithArray:{v1, v5, v6, v7, v8, v9, v10}];
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v4 count:7];
+  v2 = [v0 setWithArray:{v1, v4, v5, v6, v7, v8, v9}];
   v3 = initWithCoder__allowedClasses;
   initWithCoder__allowedClasses = v2;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)attachLogicalExtension:(id)extension physicalExtension:(id)physicalExtension
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   extensionCopy = extension;
   physicalExtensionCopy = physicalExtension;
   selfCopy = self;
@@ -2601,11 +2587,11 @@ LABEL_20:
       if (os_log_type_enabled(v19, 0x90u))
       {
         *buf = 138412802;
-        v45 = v12;
-        v46 = 1024;
-        v47 = v17;
-        v48 = 2112;
-        v49 = v18;
+        v44 = v12;
+        v45 = 1024;
+        v46 = v17;
+        v47 = 2112;
+        v48 = v18;
         _os_log_error_impl(&dword_1AE2A9000, v19, 0x90u, "[ERROR] Failed to consume extension %@ %{errno}d%@", buf, 0x1Cu);
       }
 
@@ -2651,11 +2637,11 @@ LABEL_21:
       v22 = *p_url;
       if (v20 == *p_url)
       {
-        v36 = brc_bread_crumbs("[BRQueryItem attachLogicalExtension:physicalExtension:]", 1679);
-        v37 = brc_default_log(0, 0);
-        if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
+        v35 = brc_bread_crumbs("[BRQueryItem attachLogicalExtension:physicalExtension:]", 1679);
+        v36 = brc_default_log(0, 0);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_FAULT))
         {
-          [(BRQueryItem *)v36 attachLogicalExtension:v37 physicalExtension:v38, v39, v40, v41, v42, v43];
+          [(BRQueryItem *)v35 attachLogicalExtension:v36 physicalExtension:v37, v38, v39, v40, v41, v42];
         }
 
         v22 = *p_url;
@@ -2692,11 +2678,11 @@ LABEL_48:
             if (os_log_type_enabled(v34, 0x90u))
             {
               *buf = 138412802;
-              v45 = v24;
-              v46 = 1024;
-              v47 = v32;
-              v48 = 2112;
-              v49 = v33;
+              v44 = v24;
+              v45 = 1024;
+              v46 = v32;
+              v47 = 2112;
+              v48 = v33;
               _os_log_error_impl(&dword_1AE2A9000, v34, 0x90u, "[ERROR] Failed to consume extension %@ %{errno}d%@", buf, 0x1Cu);
             }
 
@@ -2750,8 +2736,6 @@ LABEL_48:
 
 LABEL_49:
   objc_sync_exit(selfCopy);
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -2841,13 +2825,13 @@ LABEL_49:
 
 - (BRQueryItem)initWithFPItem:(id)item
 {
-  v89 = *MEMORY[0x1E69E9840];
+  v88 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   if (itemCopy)
   {
-    v82.receiver = self;
-    v82.super_class = BRQueryItem;
-    v5 = [(BRQueryItem *)&v82 init];
+    v81.receiver = self;
+    v81.super_class = BRQueryItem;
+    v5 = [(BRQueryItem *)&v81 init];
     if (!v5)
     {
 LABEL_75:
@@ -2951,11 +2935,11 @@ LABEL_75:
         if (os_log_type_enabled(v38, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412802;
-          v84 = contentType;
-          v85 = 2112;
-          v86 = itemCopy;
-          v87 = 2112;
-          v88 = v37;
+          v83 = contentType;
+          v84 = 2112;
+          v85 = itemCopy;
+          v86 = 2112;
+          v87 = v37;
           _os_log_fault_impl(&dword_1AE2A9000, v38, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: Couldn't initialize _flags.kind from the content type %@ for %@%@", buf, 0x20u);
         }
       }
@@ -3184,14 +3168,13 @@ LABEL_66:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v84 = v14;
+    v83 = v14;
     _os_log_impl(&dword_1AE2A9000, v15, OS_LOG_TYPE_DEFAULT, "[WARNING] Can't build query item with nil FPItem%@", buf, 0xCu);
   }
 
   selfCopy = 0;
 LABEL_76:
 
-  v80 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -3256,7 +3239,7 @@ LABEL_76:
   return v11;
 }
 
-uint64_t __34__BRQueryItem_isEqualToQueryItem___block_invoke(uint64_t a1)
+void *__34__BRQueryItem_isEqualToQueryItem___block_invoke(uint64_t a1)
 {
   v1 = *(a1 + 32);
   v2 = *(a1 + 40);
@@ -3611,7 +3594,7 @@ uint64_t __34__BRQueryItem_isEqualToQueryItem___block_invoke(uint64_t a1)
   v42 = v2[20];
   if (v41 == v42)
   {
-    return v1[25] == v2[25];
+    return (v1[25] == v2[25]);
   }
 
   if (v42)
@@ -3624,7 +3607,7 @@ uint64_t __34__BRQueryItem_isEqualToQueryItem___block_invoke(uint64_t a1)
 
     v1 = *(a1 + 32);
     v2 = *(a1 + 40);
-    return v1[25] == v2[25];
+    return (v1[25] == v2[25]);
   }
 
   return 0;
@@ -3659,26 +3642,26 @@ uint64_t __34__BRQueryItem_isEqualToQueryItem___block_invoke(uint64_t a1)
 
 - (void)_mergeAttrs:(id)attrs
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   attrsCopy = attrs;
   v5 = 0;
-  v47 = xmmword_1E7A15A60;
-  v48 = *&off_1E7A15A70;
-  v49 = xmmword_1E7A15A80;
-  v43 = xmmword_1E7A15A20;
-  v44 = *&off_1E7A15A30;
-  v45 = xmmword_1E7A15A40;
-  v46 = *&off_1E7A15A50;
-  v41 = xmmword_1E7A15A00;
-  v42 = *&off_1E7A15A10;
+  v46 = xmmword_1E7A15A60;
+  v47 = *&off_1E7A15A70;
+  v48 = xmmword_1E7A15A80;
+  v42 = xmmword_1E7A15A20;
+  v43 = *&off_1E7A15A30;
+  v44 = xmmword_1E7A15A40;
+  v45 = *&off_1E7A15A50;
+  v40 = xmmword_1E7A15A00;
+  v41 = *&off_1E7A15A10;
   do
   {
-    v6 = *(&v41 + v5);
+    v6 = *(&v40 + v5);
     v7 = attrsCopy[27];
     selfCopy = self;
     v9 = v6;
     v10 = v7;
-    v11 = [v10 objectForKey:{v9, v41, v42, v43, v44, v45, v46, v47, v48, v49}];
+    v11 = [v10 objectForKey:{v9, v40, v41, v42, v43, v44, v45, v46, v47, v48}];
     attrs = self->_attrs;
     if (v11)
     {
@@ -3781,13 +3764,11 @@ uint64_t __34__BRQueryItem_isEqualToQueryItem___block_invoke(uint64_t a1)
   for (i = 136; i != -8; i -= 8)
   {
   }
-
-  v40 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_mergeURL:(id)l
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   lCopy = l;
   p_url = &self->_url;
   url = self->_url;
@@ -3815,88 +3796,85 @@ uint64_t __34__BRQueryItem_isEqualToQueryItem___block_invoke(uint64_t a1)
   CFRelease(v11);
 LABEL_9:
 
-  v13 = lCopy[15];
-  v14 = _CFURLPromiseCopyPhysicalURL();
-  v15 = lCopy[15];
-  if (v14 != v15)
+  v13 = _CFURLPromiseCopyPhysicalURL();
+  v14 = lCopy[15];
+  if (v13 != v14)
   {
-    v16 = *p_url;
-    v17 = _CFURLPromiseCopyPhysicalURL();
-    v18 = v14;
-    v19 = MEMORY[0x1B26FDF00]();
-    if (!v19)
+    v15 = _CFURLPromiseCopyPhysicalURL();
+    v16 = v13;
+    v17 = MEMORY[0x1B26FDF00]();
+    if (!v17)
     {
-      v20 = MEMORY[0x1B26FDF00](v17);
-      if (!v20)
+      v18 = MEMORY[0x1B26FDF00](v15);
+      if (!v18)
       {
 LABEL_14:
 
-        v21 = lCopy[15];
         _CFURLPromiseSetPhysicalURL();
-        v15 = lCopy[15];
+        v14 = lCopy[15];
 
         goto LABEL_15;
       }
 
-      v19 = v20;
-      MEMORY[0x1B26FDEB0](v18, v20);
+      v17 = v18;
+      MEMORY[0x1B26FDEB0](v16, v18);
     }
 
-    CFRelease(v19);
+    CFRelease(v17);
     goto LABEL_14;
   }
 
 LABEL_15:
-  objc_storeStrong(&self->_url, v15);
-  v22 = v14;
+  objc_storeStrong(&self->_url, v14);
+  v19 = v13;
   if ([(BRFileObjectID *)self->_fileObjectID isDocumentID])
   {
-    v23 = self->_url;
-    v24 = *MEMORY[0x1E695EA60];
+    v20 = self->_url;
+    v21 = *MEMORY[0x1E695EA60];
     documentID = [(BRFileObjectID *)self->_fileObjectID documentID];
-    MEMORY[0x1B26FDF70](v23, v24, documentID);
+    MEMORY[0x1B26FDF70](v20, v21, documentID);
   }
 
-  v26 = MEMORY[0x1B26FDF00](*p_url);
-  if (v26)
+  v23 = MEMORY[0x1B26FDF00](*p_url);
+  if (v23)
   {
-    v27 = v26;
-    v28 = self->_url;
-    v29 = v27;
+    v24 = v23;
+    v25 = self->_url;
+    v26 = v24;
     active_platform = dyld_get_active_platform();
     if ((active_platform & 0xFFFFFFFB) == 2 || active_platform == 11 || active_platform == 1)
     {
-      if ((dyld_program_sdk_at_least() & 1) == 0 && [v29 length])
+      if ((dyld_program_sdk_at_least() & 1) == 0 && [v26 length])
       {
-        [v29 bytes];
-        v31 = sandbox_extension_consume();
-        if (v31 < 0)
+        [v26 bytes];
+        v28 = sandbox_extension_consume();
+        if (v28 < 0)
         {
-          v35 = *__error();
-          v36 = brc_bread_crumbs("brc_sandbox_replace_extension", 1658);
-          v37 = brc_default_log(0, 0);
-          if (os_log_type_enabled(v37, 0x90u))
+          v32 = *__error();
+          v33 = brc_bread_crumbs("brc_sandbox_replace_extension", 1658);
+          v34 = brc_default_log(0, 0);
+          if (os_log_type_enabled(v34, 0x90u))
           {
             *buf = 138412802;
-            v55 = v29;
-            v56 = 1024;
-            v57 = v35;
-            v58 = 2112;
-            v59 = v36;
-            _os_log_error_impl(&dword_1AE2A9000, v37, 0x90u, "[ERROR] Failed to consume extension %@ %{errno}d%@", buf, 0x1Cu);
+            v50 = v26;
+            v51 = 1024;
+            v52 = v32;
+            v53 = 2112;
+            v54 = v33;
+            _os_log_error_impl(&dword_1AE2A9000, v34, 0x90u, "[ERROR] Failed to consume extension %@ %{errno}d%@", buf, 0x1Cu);
           }
 
-          *__error() = v35;
+          *__error() = v32;
         }
 
         else
         {
-          v32 = v31;
+          v29 = v28;
           if (self->_logicalHandle < 0)
           {
-            v33 = brc_bread_crumbs("brc_sandbox_replace_extension", 1654);
-            v34 = brc_notifications_log();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+            v30 = brc_bread_crumbs("brc_sandbox_replace_extension", 1654);
+            v31 = brc_notifications_log();
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
             {
               [BRQueryItem attachLogicalExtension:physicalExtension:];
             }
@@ -3905,15 +3883,15 @@ LABEL_15:
           else
           {
             sandbox_extension_release();
-            v33 = brc_bread_crumbs("brc_sandbox_replace_extension", 1652);
-            v34 = brc_notifications_log();
-            if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+            v30 = brc_bread_crumbs("brc_sandbox_replace_extension", 1652);
+            v31 = brc_notifications_log();
+            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
             {
               [BRQueryItem attachLogicalExtension:physicalExtension:];
             }
           }
 
-          self->_logicalHandle = v32;
+          self->_logicalHandle = v29;
         }
       }
     }
@@ -3923,23 +3901,22 @@ LABEL_15:
       syslog(5, "Unknown platform linking against CloudDocs framework %d", active_platform);
     }
 
-    CFRelease(v29);
+    CFRelease(v26);
   }
 
-  if (v22)
+  if (v19)
   {
-    if (v22 == *p_url)
+    if (v19 == *p_url)
     {
       if ((self->_physicalHandle & 0x8000000000000000) == 0)
       {
-        v43 = brc_bread_crumbs("[BRQueryItem _mergeURL:]", 2281);
-        v44 = brc_notifications_log();
-        if (os_log_type_enabled(v44, OS_LOG_TYPE_DEBUG))
+        v40 = brc_bread_crumbs("[BRQueryItem _mergeURL:]", 2281);
+        v41 = brc_notifications_log();
+        if (os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
         {
           [BRQueryItem _mergeURL:];
         }
 
-        physicalHandle = self->_physicalHandle;
         sandbox_extension_release();
         self->_physicalHandle = -1;
       }
@@ -3947,46 +3924,46 @@ LABEL_15:
 
     else
     {
-      v38 = MEMORY[0x1B26FDF00](v22);
-      if (v38)
+      v35 = MEMORY[0x1B26FDF00](v19);
+      if (v35)
       {
-        v39 = v38;
-        v40 = v22;
-        v41 = v39;
-        v42 = dyld_get_active_platform();
-        if ((v42 & 0xFFFFFFFB) == 2 || v42 == 11 || v42 == 1)
+        v36 = v35;
+        v37 = v19;
+        v38 = v36;
+        v39 = dyld_get_active_platform();
+        if ((v39 & 0xFFFFFFFB) == 2 || v39 == 11 || v39 == 1)
         {
-          if ((dyld_program_sdk_at_least() & 1) == 0 && [v41 length])
+          if ((dyld_program_sdk_at_least() & 1) == 0 && [v38 length])
           {
-            [v41 bytes];
-            v46 = sandbox_extension_consume();
-            if (v46 < 0)
+            [v38 bytes];
+            v42 = sandbox_extension_consume();
+            if (v42 < 0)
             {
-              v50 = *__error();
-              v51 = brc_bread_crumbs("brc_sandbox_replace_extension", 1658);
-              v52 = brc_default_log(0, 0);
-              if (os_log_type_enabled(v52, 0x90u))
+              v46 = *__error();
+              v47 = brc_bread_crumbs("brc_sandbox_replace_extension", 1658);
+              v48 = brc_default_log(0, 0);
+              if (os_log_type_enabled(v48, 0x90u))
               {
                 *buf = 138412802;
-                v55 = v41;
-                v56 = 1024;
-                v57 = v50;
-                v58 = 2112;
-                v59 = v51;
-                _os_log_error_impl(&dword_1AE2A9000, v52, 0x90u, "[ERROR] Failed to consume extension %@ %{errno}d%@", buf, 0x1Cu);
+                v50 = v38;
+                v51 = 1024;
+                v52 = v46;
+                v53 = 2112;
+                v54 = v47;
+                _os_log_error_impl(&dword_1AE2A9000, v48, 0x90u, "[ERROR] Failed to consume extension %@ %{errno}d%@", buf, 0x1Cu);
               }
 
-              *__error() = v50;
+              *__error() = v46;
             }
 
             else
             {
-              v47 = v46;
+              v43 = v42;
               if (self->_physicalHandle < 0)
               {
-                v48 = brc_bread_crumbs("brc_sandbox_replace_extension", 1654);
-                v49 = brc_notifications_log();
-                if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+                v44 = brc_bread_crumbs("brc_sandbox_replace_extension", 1654);
+                v45 = brc_notifications_log();
+                if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
                 {
                   [BRQueryItem attachLogicalExtension:physicalExtension:];
                 }
@@ -3995,31 +3972,30 @@ LABEL_15:
               else
               {
                 sandbox_extension_release();
-                v48 = brc_bread_crumbs("brc_sandbox_replace_extension", 1652);
-                v49 = brc_notifications_log();
-                if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+                v44 = brc_bread_crumbs("brc_sandbox_replace_extension", 1652);
+                v45 = brc_notifications_log();
+                if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
                 {
                   [BRQueryItem attachLogicalExtension:physicalExtension:];
                 }
               }
 
-              self->_physicalHandle = v47;
+              self->_physicalHandle = v43;
             }
           }
         }
 
         else
         {
-          syslog(5, "Unknown platform linking against CloudDocs framework %d", v42);
+          syslog(5, "Unknown platform linking against CloudDocs framework %d", v39);
         }
 
-        CFRelease(v41);
+        CFRelease(v38);
       }
     }
   }
 
 LABEL_63:
-  v53 = *MEMORY[0x1E69E9840];
 }
 
 - (id)attributeForKey:(id)key
@@ -4185,7 +4161,7 @@ uint64_t __24__BRQueryItem_canMerge___block_invoke(uint64_t a1)
 
 uint64_t __56__BRQueryItem_merge_allowMergingFileObjectIDIfPossible___block_invoke(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   if (*(a1 + 48) == 1)
   {
     v2 = *(a1 + 32);
@@ -4211,9 +4187,9 @@ uint64_t __56__BRQueryItem_merge_allowMergingFileObjectIDIfPossible___block_invo
       v11 = brc_default_log(1, 0);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
-        v29 = 138412290;
-        v30 = v10;
-        _os_log_impl(&dword_1AE2A9000, v11, OS_LOG_TYPE_DEFAULT, "[WARNING] Both fileObjectIDs are nil, proceeding%@", &v29, 0xCu);
+        v28 = 138412290;
+        v29 = v10;
+        _os_log_impl(&dword_1AE2A9000, v11, OS_LOG_TYPE_DEFAULT, "[WARNING] Both fileObjectIDs are nil, proceeding%@", &v28, 0xCu);
       }
 
       goto LABEL_24;
@@ -4228,35 +4204,33 @@ uint64_t __56__BRQueryItem_merge_allowMergingFileObjectIDIfPossible___block_invo
     v7 = brc_default_log(0, 0);
     if (os_log_type_enabled(v7, 0x90u))
     {
-      v23 = *(*(a1 + 32) + 48);
-      v24 = *(*(a1 + 40) + 48);
-      v29 = 138412802;
-      v30 = v23;
-      v31 = 2112;
-      v32 = v24;
-      v33 = 2112;
-      v34 = v6;
-      _os_log_error_impl(&dword_1AE2A9000, v7, 0x90u, "[ERROR] failed merging object id %@ with %@%@", &v29, 0x20u);
+      v22 = *(*(a1 + 32) + 48);
+      v23 = *(*(a1 + 40) + 48);
+      v28 = 138412802;
+      v29 = v22;
+      v30 = 2112;
+      v31 = v23;
+      v32 = 2112;
+      v33 = v6;
+      _os_log_error_impl(&dword_1AE2A9000, v7, 0x90u, "[ERROR] failed merging object id %@ with %@%@", &v28, 0x20u);
     }
 
     v8 = brc_bread_crumbs("[BRQueryItem merge:allowMergingFileObjectIDIfPossible:]_block_invoke", 2361);
     v9 = brc_default_log(0, 0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v25 = *(*(a1 + 32) + 48);
-      v26 = *(*(a1 + 40) + 48);
-      v29 = 138412802;
-      v30 = v25;
-      v31 = 2112;
-      v32 = v26;
-      v33 = 2112;
-      v34 = v8;
-      _os_log_fault_impl(&dword_1AE2A9000, v9, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: can't merge objects with different object ids (%@, %@)%@", &v29, 0x20u);
+      v24 = *(*(a1 + 32) + 48);
+      v25 = *(*(a1 + 40) + 48);
+      v28 = 138412802;
+      v29 = v24;
+      v30 = 2112;
+      v31 = v25;
+      v32 = 2112;
+      v33 = v8;
+      _os_log_fault_impl(&dword_1AE2A9000, v9, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: can't merge objects with different object ids (%@, %@)%@", &v28, 0x20u);
     }
 
-LABEL_28:
-    result = 0;
-    goto LABEL_36;
+    return 0;
   }
 
 LABEL_24:
@@ -4270,22 +4244,22 @@ LABEL_24:
       __56__BRQueryItem_merge_allowMergingFileObjectIDIfPossible___block_invoke_cold_1(v12);
     }
 
-    goto LABEL_28;
+    return 0;
   }
 
   v16 = brc_bread_crumbs("[BRQueryItem merge:allowMergingFileObjectIDIfPossible:]_block_invoke", 2369);
   v17 = brc_notifications_log();
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
   {
-    v27 = *(a1 + 32);
-    v28 = *(a1 + 40);
-    v29 = 138412802;
-    v30 = v27;
-    v31 = 2112;
-    v32 = v28;
-    v33 = 2112;
-    v34 = v16;
-    _os_log_debug_impl(&dword_1AE2A9000, v17, OS_LOG_TYPE_DEBUG, "[NOTIF] Merging %@ with %@%@", &v29, 0x20u);
+    v26 = *(a1 + 32);
+    v27 = *(a1 + 40);
+    v28 = 138412802;
+    v29 = v26;
+    v30 = 2112;
+    v31 = v27;
+    v32 = 2112;
+    v33 = v16;
+    _os_log_debug_impl(&dword_1AE2A9000, v17, OS_LOG_TYPE_DEBUG, "[NOTIF] Merging %@ with %@%@", &v28, 0x20u);
   }
 
   *(*(a1 + 32) + 240) = *(*(a1 + 40) + 240);
@@ -4327,30 +4301,27 @@ LABEL_24:
   objc_storeStrong((*(a1 + 32) + 192), *(*(a1 + 40) + 192));
   objc_storeStrong((*(a1 + 32) + 160), *(*(a1 + 40) + 160));
   *(*(a1 + 32) + 200) = *(*(a1 + 40) + 200);
-  result = 1;
-LABEL_36:
-  v22 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 + (id)askDaemonQueryItemForURL:(id)l andFakeFSEvent:(BOOL)event error:(id *)error
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   lCopy = l;
-  memset(v18, 0, sizeof(v18));
-  __brc_create_section(0, "+[BRQueryItem askDaemonQueryItemForURL:andFakeFSEvent:error:]", 2437, 0, v18);
+  memset(v17, 0, sizeof(v17));
+  __brc_create_section(0, "+[BRQueryItem askDaemonQueryItemForURL:andFakeFSEvent:error:]", 2437, 0, v17);
   v7 = brc_bread_crumbs("+[BRQueryItem askDaemonQueryItemForURL:andFakeFSEvent:error:]", 2437);
   v8 = brc_notifications_log();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v16 = v18[0];
+    v15 = v17[0];
     path = [lCopy path];
     *buf = 134218498;
-    v20 = v16;
-    v21 = 2112;
-    v22 = path;
-    v23 = 2112;
-    v24 = v7;
+    v19 = v15;
+    v20 = 2112;
+    v21 = path;
+    v22 = 2112;
+    v23 = v7;
     _os_log_debug_impl(&dword_1AE2A9000, v8, OS_LOG_TYPE_DEBUG, "[NOTIF] ┏%llx asking item for url: %@%@", buf, 0x20u);
   }
 
@@ -4375,15 +4346,14 @@ LABEL_36:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v20 = v12;
+      v19 = v12;
       _os_log_impl(&dword_1AE2A9000, v13, OS_LOG_TYPE_DEFAULT, "[WARNING] Can't build FPItem%@", buf, 0xCu);
     }
 
     v11 = 0;
   }
 
-  __brc_leave_section(v18);
-  v14 = *MEMORY[0x1E69E9840];
+  __brc_leave_section(v17);
 
   return v11;
 }
@@ -4419,45 +4389,44 @@ LABEL_36:
 
 - (id)attributesForNames:(id)names
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   namesCopy = names;
   v5 = [MEMORY[0x1E695DF90] dictionaryWithSharedKeySet:_sharedKeySet];
   selfCopy = self;
   objc_sync_enter(selfCopy);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v7 = namesCopy;
-  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
-    v9 = *v16;
+    v9 = *v15;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v16 != v9)
+        if (*v15 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v15 + 1) + 8 * i);
-        v12 = [(BRQueryItem *)selfCopy attributeForName:v11, v15];
+        v11 = *(*(&v14 + 1) + 8 * i);
+        v12 = [(BRQueryItem *)selfCopy attributeForName:v11, v14];
         if (v12)
         {
           [v5 setObject:v12 forKey:v11];
         }
       }
 
-      v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v8);
   }
 
   objc_sync_exit(selfCopy);
-  v13 = *MEMORY[0x1E69E9840];
 
   return v5;
 }
@@ -4481,137 +4450,119 @@ LABEL_36:
   return v10;
 }
 
-void __25__BRQueryItem_initialize__block_invoke_18_cold_1()
++ (id)containerItemForContainer:(id)container forceScan:(BOOL)scan
 {
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5_1(&dword_1AE2A9000, v0, v1, "[CRIT] UNREACHABLE: bogus uploading state for %@%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
+  scanCopy = scan;
+  v23 = *MEMORY[0x1E69E9840];
+  containerCopy = container;
+  v7 = containerCopy;
+  if (containerCopy)
+  {
+    documentsURL = [containerCopy documentsURL];
+    v16 = 0;
+    v9 = [BRQueryItem askDaemonQueryItemForURL:documentsURL andFakeFSEvent:scanCopy error:&v16];
+    v10 = v16;
 
-void __25__BRQueryItem_initialize__block_invoke_32_cold_1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5_1(&dword_1AE2A9000, v0, v1, "[CRIT] UNREACHABLE: unknown permissions for %@%@");
-  v2 = *MEMORY[0x1E69E9840];
+    if (v10)
+    {
+      v11 = brc_bread_crumbs("+[BRQueryItem containerItemForContainer:forceScan:]", 2517);
+      v12 = brc_default_log(0, 0);
+      if (os_log_type_enabled(v12, 0x90u))
+      {
+        documentsURL2 = [v7 documentsURL];
+        *buf = 138412802;
+        v18 = documentsURL2;
+        v19 = 2112;
+        v20 = v10;
+        v21 = 2112;
+        v22 = v11;
+        _os_log_error_impl(&dword_1AE2A9000, v12, 0x90u, "[ERROR] Querying item for URL %@ failed: %@%@", buf, 0x20u);
+      }
+
+      v13 = 0;
+    }
+
+    else
+    {
+      v13 = [self containerItemForContainer:v7 withRepresentativeItem:v9 zoneRowID:0];
+    }
+  }
+
+  else
+  {
+    v13 = 0;
+  }
+
+  return v13;
 }
 
 - (void)parentFileID
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, a2, a3, "[CRIT] UNREACHABLE: BRQueryItem::parentFileID is not implemented in FPFS.%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_5(&dword_1AE2A9000, a2, a3, "[CRIT] UNREACHABLE: BRQueryItem::parentFileID is not implemented in FPFS.%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)initWithCoder:(void *)a1 .cold.2(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_5_1(&dword_1AE2A9000, v1, v2, "[CRIT] UNREACHABLE: No logical name for item. Falling back to physical name if it exists %@%@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-- (void)attachLogicalExtension:physicalExtension:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[NOTIF] consumed sandbox extension for %@%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)attachLogicalExtension:physicalExtension:.cold.2()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[NOTIF] replaced sandbox extension for %@%@");
-  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_1(&dword_1AE2A9000, v1, v2, "[CRIT] UNREACHABLE: No logical name for item. Falling back to physical name if it exists %@%@", v3, DWORD2(v3));
 }
 
 - (void)attachLogicalExtension:(uint64_t)a3 physicalExtension:(uint64_t)a4 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, a2, a3, "[CRIT] Assertion failed: physicalURL != (__bridge CFURLRef)_url%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_5(&dword_1AE2A9000, a2, a3, "[CRIT] Assertion failed: physicalURL != (__bridge CFURLRef)_url%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)attachLogicalExtension:(void *)a1 physicalExtension:.cold.6(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_5_1(&dword_1AE2A9000, v1, v2, "[CRIT] UNREACHABLE: there should be a physical URL on url: %@%@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_1(&dword_1AE2A9000, v1, v2, "[CRIT] UNREACHABLE: there should be a physical URL on url: %@%@", v3, DWORD2(v3));
 }
 
 - (void)initWithFPItem:.cold.1()
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = brc_bread_crumbs("[BRQueryItem initWithFPItem:]", 1865);
   v1 = brc_default_log(0, 0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v2, v3, "[CRIT] Assertion failed: [item conformsToProtocol:@protocol(NSFileProviderItem_Private)]%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v2, v3, "[CRIT] Assertion failed: [item conformsToProtocol:@protocol(NSFileProviderItem_Private)]%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_mergeURL:.cold.5()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[NOTIF] released sandbox extension for %@%@");
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 - (void)attributeForKey:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, a2, a3, "[CRIT] Assertion failed: !_getterMap[key]%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_5(&dword_1AE2A9000, a2, a3, "[CRIT] Assertion failed: !_getterMap[key]%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)merge:allowMergingFileObjectIDIfPossible:.cold.1()
 {
-  v9 = *MEMORY[0x1E69E9840];
   v0 = brc_bread_crumbs("[BRQueryItem merge:allowMergingFileObjectIDIfPossible:]", 2333);
   v1 = brc_default_log(0, 0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v2, v3, "[CRIT] Assertion failed: update != nil%@", v4, v5, v6, v7, 2u);
+    LODWORD(v8) = 138412290;
+    *(&v8 + 4) = v0;
+    OUTLINED_FUNCTION_10(&dword_1AE2A9000, v2, v3, "[CRIT] Assertion failed: update != nil%@", v4, v5, v6, v7, v8, DWORD2(v8));
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __56__BRQueryItem_merge_allowMergingFileObjectIDIfPossible___block_invoke_cold_1(void *a1)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = *a1;
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = *a1;
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v1, v2, "[NOTIF] Dropping from gather update %@%@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x1E69E9840];
-}
-
-+ (void)askDaemonQueryItemForURL:andFakeFSEvent:error:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v0, v1, "[NOTIF] returning %@%@");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)attributeForName:.cold.1()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5_1(&dword_1AE2A9000, v0, v1, "[CRIT] Assertion failed: getter No getter found for key: %@%@");
-  v2 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_6(&dword_1AE2A9000, v1, v2, "[NOTIF] Dropping from gather update %@%@", v3, DWORD2(v3));
 }
 
 @end

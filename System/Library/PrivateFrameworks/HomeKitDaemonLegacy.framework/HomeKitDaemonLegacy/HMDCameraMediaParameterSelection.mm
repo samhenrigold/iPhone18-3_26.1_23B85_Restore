@@ -47,7 +47,7 @@
 
 - (void)setSelectedEndPointSetupParameters:(id)parameters videoNetworkConfig:(id)config audioNetworkConfig:(id)networkConfig
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   configCopy = config;
   networkConfigCopy = networkConfig;
@@ -86,9 +86,9 @@
       if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         v34 = HMFGetLogIdentifier();
-        v36 = 138543362;
-        v37 = v34;
-        _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to create audio SRTP parameters", &v36, 0xCu);
+        v35 = 138543362;
+        v36 = v34;
+        _os_log_impl(&dword_2531F8000, v33, OS_LOG_TYPE_ERROR, "%{public}@Failed to create audio SRTP parameters", &v35, 0xCu);
       }
 
       objc_autoreleasePoolPop(v31);
@@ -103,20 +103,18 @@
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
       v30 = HMFGetLogIdentifier();
-      v36 = 138543362;
-      v37 = v30;
-      _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to create video SRTP parameters", &v36, 0xCu);
+      v35 = 138543362;
+      v36 = v30;
+      _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_ERROR, "%{public}@Failed to create video SRTP parameters", &v35, 0xCu);
     }
 
     objc_autoreleasePoolPop(v27);
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)findBestMatchWithProtocolParameters:(id)parameters streamingCapabilities:(id)capabilities videoTierParameters:(id)tierParameters
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
   capabilitiesCopy = capabilities;
   tierParametersCopy = tierParameters;
@@ -149,9 +147,9 @@
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         v29 = HMFGetLogIdentifier();
-        v32 = 138543362;
-        v33 = v29;
-        _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to select audio config", &v32, 0xCu);
+        v31 = 138543362;
+        v32 = v29;
+        _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_ERROR, "%{public}@Failed to select audio config", &v31, 0xCu);
       }
 
       objc_autoreleasePoolPop(v26);
@@ -166,16 +164,15 @@
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       v25 = HMFGetLogIdentifier();
-      v32 = 138543362;
-      v33 = v25;
-      _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to select video config", &v32, 0xCu);
+      v31 = 138543362;
+      v32 = v25;
+      _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@Failed to select video config", &v31, 0xCu);
     }
 
     objc_autoreleasePoolPop(v22);
     selectAudioParameters = 0;
   }
 
-  v30 = *MEMORY[0x277D85DE8];
   return selectAudioParameters;
 }
 

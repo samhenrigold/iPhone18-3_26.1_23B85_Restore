@@ -139,7 +139,7 @@ id __40__SUClientInterface_queueSessionManager__block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __31__SUClientInterface_appearance__block_invoke(uint64_t a1)
+void *__31__SUClientInterface_appearance__block_invoke(uint64_t a1)
 {
   v2 = *(*(a1 + 32) + 32);
   if (!v2)
@@ -336,15 +336,15 @@ id __36__SUClientInterface_purchaseManager__block_invoke(uint64_t a1)
   dispatch_async(dispatchQueue, v4);
 }
 
-uint64_t __46__SUClientInterface_setApplicationIdentifier___block_invoke(uint64_t result)
+void *__46__SUClientInterface_setApplicationIdentifier___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 8);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 8);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(v2 + 32) + 8) = result;
+    result = [v2[5] copy];
+    *(v2[4] + 8) = result;
   }
 
   return result;
@@ -362,15 +362,15 @@ uint64_t __46__SUClientInterface_setApplicationIdentifier___block_invoke(uint64_
   dispatch_async(dispatchQueue, v4);
 }
 
-uint64_t __43__SUClientInterface_setApplicationVersion___block_invoke(uint64_t result)
+void *__43__SUClientInterface_setApplicationVersion___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 16);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 16);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(v2 + 32) + 16) = result;
+    result = [v2[5] copy];
+    *(v2[4] + 16) = result;
   }
 
   return result;
@@ -388,15 +388,15 @@ uint64_t __43__SUClientInterface_setApplicationVersion___block_invoke(uint64_t r
   dispatch_async(dispatchQueue, v4);
 }
 
-uint64_t __35__SUClientInterface_setAppearance___block_invoke(uint64_t result)
+void *__35__SUClientInterface_setAppearance___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 32);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 32);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(v2 + 32) + 32) = result;
+    result = [v2[5] copy];
+    *(v2[4] + 32) = result;
   }
 
   return result;
@@ -414,15 +414,15 @@ uint64_t __35__SUClientInterface_setAppearance___block_invoke(uint64_t result)
   dispatch_async(dispatchQueue, v4);
 }
 
-uint64_t __41__SUClientInterface_setClientIdentifier___block_invoke(uint64_t result)
+void *__41__SUClientInterface_setClientIdentifier___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 48);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 48);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(v2 + 32) + 48) = result;
+    result = [v2[5] copy];
+    *(v2[4] + 48) = result;
   }
 
   return result;
@@ -452,15 +452,15 @@ uint64_t __41__SUClientInterface_setClientIdentifier___block_invoke(uint64_t res
   dispatch_async(dispatchQueue, v4);
 }
 
-uint64_t __41__SUClientInterface_setLocalStoragePath___block_invoke(uint64_t result)
+void *__41__SUClientInterface_setLocalStoragePath___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 96);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 96);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(v2 + 32) + 96) = result;
+    result = [v2[5] copy];
+    *(v2[4] + 96) = result;
   }
 
   return result;
@@ -478,18 +478,18 @@ uint64_t __41__SUClientInterface_setLocalStoragePath___block_invoke(uint64_t res
   dispatch_async(dispatchQueue, v4);
 }
 
-uint64_t __40__SUClientInterface_setPurchaseManager___block_invoke(uint64_t result)
+void *__40__SUClientInterface_setPurchaseManager___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 104);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 104);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    *(*(v2 + 32) + 104) = *(v2 + 40);
-    result = [*(*(v2 + 32) + 104) queueSessionManager];
+    *(v2[4] + 104) = v2[5];
+    result = [*(v2[4] + 104) queueSessionManager];
     if (!result)
     {
-      v3 = *(v2 + 32);
+      v3 = v2[4];
       v4 = *(v3 + 104);
       v5 = *(v3 + 112);
 

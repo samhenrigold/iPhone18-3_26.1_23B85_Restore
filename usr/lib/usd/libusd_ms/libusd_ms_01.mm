@@ -1,42 +1,3 @@
-uint64_t tbb::task::spawn_and_wait_for_all(uint64_t a1, uint64_t *a2)
-{
-  v3 = pthread_getspecific(tbb::internal::governor::theTLS);
-  if (v3)
-  {
-    inited = (v3 & 0xFFFFFFFFFFFFFFFELL);
-    v6 = *a2;
-    if (!*a2)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  else
-  {
-    inited = tbb::internal::governor::init_scheduler(0xFFFFFFFFLL, 0, 1);
-    v6 = *a2;
-    if (!*a2)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v7 = a2[1];
-  if ((v6 - 8) != v7)
-  {
-    v8 = inited;
-    tbb::internal::generic_scheduler::local_spawn(inited, *(v6 - 8), v7, v4);
-    inited = v8;
-  }
-
-  *a2 = 0;
-  a2[1] = a2;
-LABEL_8:
-  v9 = *(*inited + 48);
-
-  return v9();
-}
-
 void tbb::task::change_group(tbb::task *this, tbb::task_group_context *a2)
 {
   *(this - 7) = a2;
@@ -175,17 +136,17 @@ uint64_t tbb::captured_exception::destroy(uint64_t this, void *a2)
   return this;
 }
 
-_BYTE *tbb::captured_exception::allocate(tbb::captured_exception *this, const char *a2, const char *a3)
+tbb::captured_exception *tbb::captured_exception::allocate(tbb::captured_exception *this, const char *a2, const char *a3)
 {
   result = tbb::internal::allocate_via_handler_v3(0x20);
   if (result)
   {
     *result = &unk_2A203AA08;
-    result[8] = 0;
+    *(result + 8) = 0;
     v6 = result;
     tbb::captured_exception::set(result, this, a2);
     result = v6;
-    v6[8] = 1;
+    *(v6 + 8) = 1;
   }
 
   return result;
@@ -232,7 +193,7 @@ uint64_t tbb::internal::tbb_exception_ptr::allocate(tbb::internal::tbb_exception
   return v4;
 }
 
-void tbb::task_group_context::~task_group_context(tbb::task_group_context *this, void *a2)
+void tbb::task_group_context::~task_group_context(tbb::task_group_context *this, tbb::internal::generic_scheduler *a2)
 {
   if (*this == 2)
   {
@@ -707,7 +668,7 @@ uint64_t tbb::task_group_context::cancel_group_execution(tbb::task_group_context
   return v2;
 }
 
-uint64_t sub_299FF9574(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+BOOL sub_299FF9574(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = 1;
   if (*(a3 + 152))
@@ -1064,9 +1025,9 @@ LABEL_9:
   return tbb::internal::generic_scheduler::cleanup_master(v2, 0);
 }
 
-uint64_t tbb::internal::governor::release_resources(tbb::internal::governor *this)
+void tbb::internal::governor::release_resources(tbb::internal::governor *this)
 {
-  tbb::internal::rml::tbb_factory::close(&tbb::internal::governor::theRMLServerFactory);
+  tbb::internal::rml::tbb_factory::close(tbb::internal::governor::theRMLServerFactory);
   v1 = pthread_key_delete(tbb::internal::governor::theTLS);
   if (v1)
   {
@@ -1074,14 +1035,14 @@ uint64_t tbb::internal::governor::release_resources(tbb::internal::governor *thi
     v1 = tbb::internal::runtime_warning("failed to destroy task scheduler TLS: %s", v3, v2);
   }
 
-  return tbb::internal::dynamic_unlink_all(v1);
+  tbb::internal::dynamic_unlink_all(v1);
 }
 
 uint64_t tbb::internal::governor::create_rml_server(uint64_t a1, const char *a2, uint64_t a3, void *a4)
 {
   if ((tbb::internal::governor::UsePrivateRML & 1) == 0)
   {
-    server = tbb::internal::rml::tbb_factory::make_server(&tbb::internal::governor::theRMLServerFactory);
+    server = tbb::internal::rml::tbb_factory::make_server(tbb::internal::governor::theRMLServerFactory);
     if (server)
     {
       tbb::internal::governor::UsePrivateRML = 1;
@@ -1367,7 +1328,7 @@ uint64_t tbb::internal::governor::init_scheduler_weak(tbb::internal::governor *t
   return result;
 }
 
-uint64_t tbb::internal::governor::init_scheduler(tbb::internal::governor *this, uint64_t a2, char a3)
+uint64_t tbb::internal::governor::init_scheduler(tbb::internal::governor *this, tbb::internal::market *a2, char a3)
 {
   v5 = this;
   v22 = *MEMORY[0x29EDCA608];
@@ -1470,7 +1431,7 @@ const char *tbb::internal::governor::print_version_info(tbb::internal::governor 
   else
   {
     tbb::internal::PrintExtraVersionInfo("RML", "shared", a3);
-    result = tbb::internal::rml::tbb_factory::call_with_server_info(&tbb::internal::governor::theRMLServerFactory, tbb::internal::PrintRMLVersionInfo, "");
+    result = tbb::internal::rml::tbb_factory::call_with_server_info(tbb::internal::governor::theRMLServerFactory, tbb::internal::PrintRMLVersionInfo, "");
   }
 
   if (off_2A153EBE0)
@@ -1484,7 +1445,7 @@ const char *tbb::internal::governor::print_version_info(tbb::internal::governor 
 
 uint64_t tbb::internal::governor::initialize_rml_factory(tbb::internal::governor *this)
 {
-  result = tbb::internal::rml::tbb_factory::open(&tbb::internal::governor::theRMLServerFactory);
+  result = tbb::internal::rml::tbb_factory::open(tbb::internal::governor::theRMLServerFactory);
   tbb::internal::governor::UsePrivateRML = result != 0;
   return result;
 }
@@ -1654,7 +1615,7 @@ uint64_t tbb::task_scheduler_init::initialize(uint64_t this, tbb::internal::gove
 }
 
 {
-  v5 = a3 & 0xFFFFFFFFFFFFFFFCLL;
+  v5 = (a3 & 0xFFFFFFFFFFFFFFFCLL);
   if (a2 == -2)
   {
     if (v5)
@@ -1899,25 +1860,20 @@ uint64_t tbb::internal::market::remove_arena_from_list(uint64_t result, uint64_t
 
 int64x2_t *tbb::internal::market::market(int64x2_t *this, const char *a2, uint64_t a3, void *a4)
 {
-  this->i64[0] = &unk_2A203AAE8;
-  this->i64[1] = 0;
+  *this = &unk_2A203AAE8;
   this[1].i32[2] = a3;
   this[1].i32[3] = a2;
   this[3] = vdupq_n_s64(1uLL);
-  this[5].i64[0] = &this[4].i64[1];
-  this[5].i64[1] = 0;
+  this[5] = &this[4].u64[1];
   this[4].i64[1] = &this[4].i64[1];
-  this[7].i64[1] = this[7].i64;
-  this[8].i64[0] = 0;
+  *(&this[7] + 8) = &this[7];
   this[7].i64[0] = this[7].i64;
-  this[10].i64[0] = &this[9].i64[1];
-  this[10].i64[1] = 0;
+  this[10] = &this[9].u64[1];
   this[9].i64[1] = &this[9].i64[1];
   this[12].i32[2] = 1;
   this[13].i64[0] = a4;
   this[13].i32[3] = a2;
-  this[14].i64[1] = this[14].i64;
-  this[15].i64[0] = 0;
+  *(&this[14] + 8) = &this[14];
   this[14].i64[0] = this[14].i64;
   this[9].i32[1] = a2;
   this[1].i64[0] = tbb::internal::governor::create_rml_server(this, a2, a3, a4);
@@ -1925,32 +1881,27 @@ int64x2_t *tbb::internal::market::market(int64x2_t *this, const char *a2, uint64
 }
 
 {
-  this->i64[0] = &unk_2A203AAE8;
-  this->i64[1] = 0;
+  *this = &unk_2A203AAE8;
   this[1].i32[2] = a3;
   this[1].i32[3] = a2;
   this[3] = vdupq_n_s64(1uLL);
-  this[5].i64[0] = &this[4].i64[1];
-  this[5].i64[1] = 0;
+  this[5] = &this[4].u64[1];
   this[4].i64[1] = &this[4].i64[1];
-  this[7].i64[1] = this[7].i64;
-  this[8].i64[0] = 0;
+  *(&this[7] + 8) = &this[7];
   this[7].i64[0] = this[7].i64;
-  this[10].i64[0] = &this[9].i64[1];
-  this[10].i64[1] = 0;
+  this[10] = &this[9].u64[1];
   this[9].i64[1] = &this[9].i64[1];
   this[12].i32[2] = 1;
   this[13].i64[0] = a4;
   this[13].i32[3] = a2;
-  this[14].i64[1] = this[14].i64;
-  this[15].i64[0] = 0;
+  *(&this[14] + 8) = &this[14];
   this[14].i64[0] = this[14].i64;
   this[9].i32[1] = a2;
   this[1].i64[0] = tbb::internal::governor::create_rml_server(this, a2, a3, a4);
   return this;
 }
 
-int64x2_t *tbb::internal::market::global_market(uint64_t this, const char *a2, uint64_t a3, uint64_t a4, const char *a5)
+int64x2_t *tbb::internal::market::global_market(uint64_t this, const char *a2, tbb::internal::market *a3, uint64_t a4, const char *a5)
 {
   v5 = a3;
   v7 = this;
@@ -2399,11 +2350,11 @@ LABEL_27:
   return this;
 }
 
-tbb::internal::governor *tbb::internal::market::destroy(tbb::internal::market *this, void *a2)
+void tbb::internal::market::destroy(tbb::internal::market *this, void *a2)
 {
   v2 = tbb::internal::NFS_Free(this, a2);
 
-  return tbb::internal::__TBB_InitOnce::remove_ref(v2);
+  tbb::internal::__TBB_InitOnce::remove_ref(v2);
 }
 
 uint64_t tbb::internal::market::release(tbb::internal::market *this, int a2, uint64_t a3)
@@ -2670,7 +2621,7 @@ LABEL_3:
   return a1;
 }
 
-tbb::internal::arena *tbb::internal::market::create_arena(tbb::internal::market *this, int a2, uint64_t a3, uint64_t a4, const char *a5)
+tbb::internal::arena *tbb::internal::market::create_arena(tbb::internal::market *this, int a2, tbb::internal::market *a3, uint64_t a4, const char *a5)
 {
   v7 = tbb::internal::market::global_market(1, (this - a2), a3, a4, a5);
   arena = tbb::internal::arena::allocate_arena(v7, this, a2, v8);
@@ -2745,7 +2696,7 @@ uint64_t tbb::internal::market::detach_arena(uint64_t result, uint64_t *a2)
   return result;
 }
 
-uint64_t tbb::internal::market::try_destroy_arena(atomic_ullong *this, tbb::internal::arena *a2, uint64_t a3)
+uint64_t tbb::internal::market::try_destroy_arena(atomic_ullong *this, atomic_ullong *a2, uint64_t a3)
 {
   v6 = this + 1;
   result = tbb::spin_rw_mutex_v3::internal_acquire_writer(this + 1);
@@ -2851,25 +2802,25 @@ LABEL_18:
       --*(this + 11);
     }
 
-    v18 = &v9[5 * *(a2 + 17)];
-    v19 = *(v18 + 3);
+    v18 = &v9[5 * a2[17]];
+    v19 = v18[3];
     if (v19 == a2)
     {
-      v20 = *(v19 + 1);
-      if (v20 == v18 && *(v18 + 2) >= 2uLL)
+      v20 = v19[1];
+      if (v20 == v18 && v18[2] >= 2)
       {
-        v20 = *(v18 + 1);
+        v20 = v18[1];
       }
 
-      *(v18 + 3) = v20;
+      v18[3] = v20;
     }
 
-    --*(v18 + 2);
+    --v18[2];
     v21 = *a2;
-    v22 = *(a2 + 1);
+    v22 = a2[1];
     *v22 = *a2;
     *(v21 + 8) = v22;
-    v23 = *(a2 + 39);
+    v23 = a2[39];
     if (v23 == this[24])
     {
       this[24] = v23 + 1;
@@ -3763,14 +3714,14 @@ uint64_t tbb::internal::market::cleanup(uint64_t a1, uint64_t a2)
   }
 }
 
-tbb::internal::governor *tbb::internal::market::acknowledge_close_connection(tbb::internal::market *this, void *a2)
+void tbb::internal::market::acknowledge_close_connection(tbb::internal::market *this, void *a2)
 {
   v2 = tbb::internal::NFS_Free(this, a2);
 
-  return tbb::internal::__TBB_InitOnce::remove_ref(v2);
+  tbb::internal::__TBB_InitOnce::remove_ref(v2);
 }
 
-uint64_t tbb::internal::market::create_one_job(atomic_uint *this)
+uint64_t tbb::internal::market::create_one_job(atomic_uint *this, uint64_t a2, uint64_t a3, BOOL a4)
 {
   add = atomic_fetch_add(this + 9, 1u);
   worker = tbb::internal::generic_scheduler::create_worker(this, (add + 1), 1);
@@ -4163,7 +4114,7 @@ uint64_t tbb::internal::generic_scheduler::attach_arena(uint64_t result, uint64_
   return result;
 }
 
-uint64_t tbb::internal::arena::occupy_free_slot_in_range(uint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
+unint64_t tbb::internal::arena::occupy_free_slot_in_range(uint64_t a1, unint64_t a2, unint64_t a3, unint64_t a4)
 {
   if (a4 <= a3)
   {
@@ -4742,18 +4693,18 @@ uint64_t tbb::internal::arena::free_arena(tbb::internal::arena *this, void *a2)
   }
 
   tbb::internal::market::release(*(this + 38), 0, 0);
-  tbb::task_group_context::~task_group_context(*(this + 40));
-  tbb::internal::NFS_Free(*(this + 40), v8);
+  tbb::task_group_context::~task_group_context(*(this + 40), v8);
+  tbb::internal::NFS_Free(*(this + 40), v9);
   if (*(this + 28))
   {
     tbb::internal::observer_list::clear(this + 28);
   }
 
-  v9 = (this - 128 * *(this + 164));
+  v10 = (this - 128 * *(this + 164));
   tbb::internal::concurrent_monitor::~concurrent_monitor((this + 344));
-  sub_299FFFD20(this + 19, v10);
+  sub_299FFFD20(this + 19, v11);
 
-  return tbb::internal::NFS_Free(v9, v11);
+  return tbb::internal::NFS_Free(v10, v12);
 }
 
 BOOL tbb::internal::arena::has_enqueued_tasks(tbb::internal::arena *this)
@@ -5171,7 +5122,7 @@ uint64_t tbb::internal::arena::enqueue_task(uint64_t *a1, uint64_t a2, uint64_t 
     v5 = 1;
   }
 
-  sub_299FFDFE8(a1 + 19, a2, v5, a4);
+  sub_299FFDFE8((a1 + 19), a2, v5, a4);
   if (v5 != a1[17])
   {
     tbb::internal::market::update_arena_priority(a1[38], a1, v5);
@@ -5188,16 +5139,16 @@ uint64_t tbb::internal::arena::enqueue_task(uint64_t *a1, uint64_t a2, uint64_t 
   return result;
 }
 
-uint64_t *sub_299FFDFE8(uint64_t *result, uint64_t a2, int a3, unsigned int *a4)
+tbb::internal *sub_299FFDFE8(tbb::internal *result, uint64_t a2, int a3, unsigned int *a4)
 {
   v5 = result;
-  v6 = result + 3;
+  v6 = result + 24;
   v7 = a3;
 LABEL_2:
   v8 = *a4;
   *a4 = a4[1] - 1640531535 * *a4;
-  v9 = (*(v5 + 12) - 1) & HIWORD(v8);
-  v10 = v6[v7] + (v9 << 7) + 48;
+  v9 = (*(v5 + 48) - 1) & HIWORD(v8);
+  v10 = *&v6[8 * v7] + (v9 << 7) + 48;
   v11 = (v10 & 0xFFFFFFFFFFFFFFFCLL);
   v12 = 255 << (8 * (v10 & 3));
 LABEL_3:
@@ -5223,7 +5174,7 @@ LABEL_3:
     }
   }
 
-  v15 = (v6[v7] + (v9 << 7));
+  v15 = (*&v6[8 * v7] + (v9 << 7));
   v16 = v15[2];
   v17 = v15[1];
   if (v16 == v17)
@@ -5240,7 +5191,7 @@ LABEL_3:
   v20 = v19 + v15[4];
   if (v18 == v20)
   {
-    result = sub_29A000290((v6[v7] + (v9 << 7)));
+    result = sub_29A000290((*&v6[8 * v7] + (v9 << 7)));
     v17 = v15[1];
     v19 = v15[5];
     v20 = v15[4] + v19;
@@ -5248,9 +5199,9 @@ LABEL_3:
 
   *(*(v17 + ((v20 >> 6) & 0x3FFFFFFFFFFFFF8)) + 8 * (v20 & 0x1FF)) = a2;
   v15[5] = v19 + 1;
-  v21 = &v5[v7];
+  v21 = (v5 + 8 * v7);
 LABEL_14:
-  v22 = v5[v7];
+  v22 = *(v5 + 8 * v7);
   while (1)
   {
     v23 = v22;
@@ -5636,7 +5587,7 @@ uint64_t tbb::interface7::internal::task_arena_base::internal_enqueue(uint64_t *
     v9 = 1;
   }
 
-  sub_299FFDFE8(v8 + 19, a2, v9, (inited + 128));
+  sub_299FFDFE8((v8 + 19), a2, v9, (inited + 128));
   if (v9 != v8[17])
   {
     tbb::internal::market::update_arena_priority(v8[38], v8, v9);
@@ -5653,9 +5604,9 @@ uint64_t tbb::interface7::internal::task_arena_base::internal_enqueue(uint64_t *
   return result;
 }
 
-void tbb::interface7::internal::task_arena_base::internal_execute(uint64_t a1, void (***a2)(void))
+void tbb::interface7::internal::task_arena_base::internal_execute(uint64_t **a1, void (***a2)(void))
 {
-  v82 = *MEMORY[0x29EDCA608];
+  v83 = *MEMORY[0x29EDCA608];
   v4 = pthread_getspecific(tbb::internal::governor::theTLS);
   if (v4)
   {
@@ -5677,8 +5628,8 @@ void tbb::interface7::internal::task_arena_base::internal_execute(uint64_t a1, v
     if (v25)
     {
       v29 = v25;
-      v71 = *(a1 + 8);
-      v30 = tbb::internal::allocate_root_with_context_proxy::allocate(&v71, 0x10uLL);
+      v72 = a1[1];
+      v30 = tbb::internal::allocate_root_with_context_proxy::allocate(&v72, 0x10uLL);
       v31 = v29[1];
       *(v30 - 11) = 1;
       *v30 = &unk_2A203AD88;
@@ -5688,34 +5639,34 @@ void tbb::interface7::internal::task_arena_base::internal_execute(uint64_t a1, v
 
     else
     {
-      v64[0] = 3452816845;
-      v64[1] = 3452816845;
-      v68 = 0;
+      v65[0] = 3452816845;
+      v65[1] = 3452816845;
       v69 = 0;
       v70 = 0;
-      v66 = 0;
-      __dmb(0xBu);
+      v71 = 0;
       v67 = 0;
-      v32 = *(a1 + 24) & 0x10000;
-      LODWORD(v71) = 0;
-      v79 = v32 | 3;
-      v81 = 55;
-      tbb::task_group_context::init(&v71, v26, v27, v28);
-      tbb::task_group_context::copy_fp_settings(&v71, *(a1 + 8), v33, v34);
-      task = tbb::internal::generic_scheduler::allocate_task(inited, 8uLL, 0, &v71);
+      __dmb(0xBu);
+      v68 = 0;
+      v32 = a1[3] & 0x10000;
+      LODWORD(v72) = 0;
+      v80 = v32 | 3;
+      v82 = 55;
+      tbb::task_group_context::init(&v72, v26, v27, v28);
+      tbb::task_group_context::copy_fp_settings(&v72, a1[1], v33, v34);
+      task = tbb::internal::generic_scheduler::allocate_task(inited, 8uLL, 0, &v72);
       *(task - 11) = 1;
       *task = &unk_2A203ACB0;
       *(task - 3) = 2;
       v36 = *a1;
-      v56.__ptr_ = &v71;
-      v37 = tbb::internal::allocate_root_with_context_proxy::allocate(&v56, 0x20uLL);
-      v38 = *a1 + 344;
+      v57.__ptr_ = &v72;
+      v37 = tbb::internal::allocate_root_with_context_proxy::allocate(&v57, 0x20uLL);
+      v38 = *a1 + 43;
       *v37 = &unk_2A203ACF8;
       v37[1] = a2;
       v37[2] = v38;
       v37[3] = task;
       *(v37 - 6) = 4354;
-      sub_299FFDFE8(v36 + 19, v37, 1, (inited + 128));
+      sub_299FFDFE8((v36 + 19), v37, 1, (inited + 128));
       if (v36[17] != 1)
       {
         tbb::internal::market::update_arena_priority(v36[38], v36, 1);
@@ -5729,13 +5680,13 @@ void tbb::interface7::internal::task_arena_base::internal_execute(uint64_t a1, v
 
       while (1)
       {
-        tbb::internal::concurrent_monitor::prepare_wait(*a1 + 344, v64, a2);
+        tbb::internal::concurrent_monitor::prepare_wait((*a1 + 43), v65, a2);
         v40 = *(task - 3);
         __dmb(0xBu);
         v41 = *a1;
         if (v40 <= 1)
         {
-          tbb::internal::concurrent_monitor::cancel_wait((v41 + 43), v64);
+          tbb::internal::concurrent_monitor::cancel_wait((v41 + 43), v65);
 LABEL_34:
           v44 = *a1;
           __dmb(0xBu);
@@ -5750,12 +5701,12 @@ LABEL_34:
           break;
         }
 
-        if (v66 == *(v43 + 94))
+        if (v67 == *(v43 + 94))
         {
             ;
           }
 
-          if (HIBYTE(v68) == 1)
+          if (HIBYTE(v69) == 1)
           {
             tbb::internal::throw_exception_v4(18);
           }
@@ -5763,7 +5714,7 @@ LABEL_34:
 
         else
         {
-          tbb::internal::concurrent_monitor::cancel_wait((v43 + 43), v64);
+          tbb::internal::concurrent_monitor::cancel_wait((v43 + 43), v65);
         }
 
         v39 = *(task - 3);
@@ -5774,49 +5725,49 @@ LABEL_34:
         }
       }
 
-      tbb::internal::concurrent_monitor::cancel_wait((v43 + 43), v64);
-      v46 = *a1;
-      v56.__ptr_ = inited;
-      v63 = 0;
-      v47 = *(inited + 48);
-      v48 = *(inited + 64);
-      v49 = *(inited + 96);
-      v60 = *(inited + 80);
-      v61 = v49;
-      v58 = v47;
+      tbb::internal::concurrent_monitor::cancel_wait((v43 + 43), v65);
+      v47 = *a1;
+      v57.__ptr_ = inited;
+      v64 = 0;
+      v48 = *(inited + 48);
+      v49 = *(inited + 64);
+      v50 = *(inited + 96);
+      v61 = *(inited + 80);
+      v62 = v50;
       v59 = v48;
-      v57 = *v8;
+      v60 = v49;
+      v58 = *v8;
       *(inited + 74) |= 3u;
-      v50 = *(inited + 144);
-      *(inited + 56) = v50;
-      v62 = *(v50 - 56);
-      v51 = v62;
-      *(v50 - 56) = v46[40];
-      tbb::internal::generic_scheduler::nested_arena_entry(inited, v46, v42);
+      v51 = *(inited + 144);
+      *(inited + 56) = v51;
+      v63 = *(v51 - 56);
+      v52 = v63;
+      *(v51 - 56) = v47[40];
+      tbb::internal::generic_scheduler::nested_arena_entry(inited, v47, v42);
       (*(*inited + 48))(inited, task, 0);
-      *(*(inited + 144) - 56) = v51;
+      *(*(inited + 144) - 56) = v52;
       tbb::internal::generic_scheduler::nested_arena_exit(inited);
-      *v8 = v57;
-      v52 = v61;
-      *(inited + 80) = v60;
-      *(inited + 96) = v52;
-      v53 = v59;
-      *(inited + 48) = v58;
-      *(inited + 64) = v53;
-      *(inited + 352) = **(&v61 + 1);
+      *v8 = v58;
+      v53 = v62;
+      *(inited + 80) = v61;
+      *(inited + 96) = v53;
+      v54 = v60;
+      *(inited + 48) = v59;
+      *(inited + 64) = v54;
+      *(inited + 352) = **(&v62 + 1);
       v45 = tbb::internal::governor::assume_scheduler(inited);
 LABEL_36:
-      v54 = v80;
-      if (v80)
+      v55 = v81;
+      if (v81)
       {
         if (tbb::internal::governor::is_rethrow_broken == 1)
         {
           tbb::internal::fix_broken_rethrow(v45);
         }
 
-        std::exception_ptr::exception_ptr(&v56, v54);
-        v55.__ptr_ = &v56;
-        std::rethrow_exception(v55);
+        std::exception_ptr::exception_ptr(&v57, v55);
+        v56.__ptr_ = &v57;
+        std::rethrow_exception(v56);
         __break(1u);
       }
 
@@ -5825,10 +5776,10 @@ LABEL_36:
         *(task - 12) = 4;
         *(task - 1) = *(inited + 136);
         *(inited + 136) = task;
-        tbb::task_group_context::~task_group_context(&v71);
-        if (v69 == 1)
+        tbb::task_group_context::~task_group_context(&v72, v46);
+        if (v70 == 1)
         {
-          if (v68 == 1)
+          if (v69 == 1)
           {
               ;
             }
@@ -5842,32 +5793,32 @@ LABEL_36:
 
   else
   {
-    v56.__ptr_ = 0;
-    *&v57 = tbb::internal::NFS_Allocate(1uLL, 16, 0, v5);
-    fegetenv(v57);
+    v57.__ptr_ = 0;
+    *&v58 = tbb::internal::NFS_Allocate(1uLL, 16, 0, v5);
+    fegetenv(v58);
     v12 = tbb::internal::NFS_Allocate(1uLL, 16, 0, v11);
-    *(&v57 + 1) = v12;
-    *v12 = *v57;
-    v13 = *(*(a1 + 8) + 112);
-    if (v13->__fpsr != v12->__fpsr || v13->__fpcr != v12->__fpcr)
+    *(&v58 + 1) = v12;
+    *v12 = *v58;
+    v13 = a1[1][14];
+    if (*v13 != v12->__fpsr || *(v13 + 8) != v12->__fpcr)
     {
       *v12 = *v13;
       fesetenv(v12);
     }
 
     v15 = *a1;
-    v71 = inited;
-    *&v74 = 0;
-    v78 = v9 == v10;
+    v72 = inited;
+    *&v75 = 0;
+    v79 = v9 == v10;
     if (v9 == v10)
     {
-      BYTE10(v74) = *(inited + 74);
-      *(&v73 + 1) = *(inited + 56);
-      *(inited + 74) = BYTE10(v74) | 3;
+      BYTE10(v75) = *(inited + 74);
+      *(&v74 + 1) = *(inited + 56);
+      *(inited + 74) = BYTE10(v75) | 3;
       v21 = *(inited + 144);
       *(inited + 56) = v21;
       v20 = *(v21 - 56);
-      v77 = v20;
+      v78 = v20;
       *(v21 - 56) = v15[40];
     }
 
@@ -5876,16 +5827,16 @@ LABEL_36:
       v17 = *(inited + 48);
       v16 = *(inited + 64);
       v18 = *(inited + 96);
-      v75 = *(inited + 80);
-      v76 = v18;
-      v73 = v17;
-      v74 = v16;
-      v72 = *v8;
+      v76 = *(inited + 80);
+      v77 = v18;
+      v74 = v17;
+      v75 = v16;
+      v73 = *v8;
       *(inited + 74) |= 3u;
       v19 = *(inited + 144);
       *(inited + 56) = v19;
       v20 = *(v19 - 56);
-      v77 = v20;
+      v78 = v20;
       *(v19 - 56) = v15[40];
       tbb::internal::generic_scheduler::nested_arena_entry(inited, v15, v7);
     }
@@ -5894,33 +5845,33 @@ LABEL_36:
     *(*(inited + 144) - 56) = v20;
     if (v9 == v10)
     {
-      *(inited + 74) = BYTE10(v74);
-      *(inited + 56) = *(&v73 + 1);
+      *(inited + 74) = BYTE10(v75);
+      *(inited + 56) = *(&v74 + 1);
     }
 
     else
     {
       tbb::internal::generic_scheduler::nested_arena_exit(inited);
-      *v8 = v72;
-      v23 = v76;
-      *(inited + 80) = v75;
+      *v8 = v73;
+      v23 = v77;
+      *(inited + 80) = v76;
       *(inited + 96) = v23;
-      v24 = v74;
-      *(inited + 48) = v73;
+      v24 = v75;
+      *(inited + 48) = v74;
       *(inited + 64) = v24;
-      *(inited + 352) = **(&v76 + 1);
+      *(inited + 352) = **(&v77 + 1);
       tbb::internal::governor::assume_scheduler(inited);
     }
 
-    sub_29A000984(&v56, v22);
+    sub_29A000984(&v57, v22);
   }
 }
 
-void sub_299FFF058(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_299FFF058(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   __cxa_end_catch();
-  sub_29A000984(va, v3);
+  sub_29A000984(va, v4);
   _Unwind_Resume(a1);
 }
 
@@ -5931,17 +5882,17 @@ void sub_299FFF0A8(_Unwind_Exception *a1, void *a2)
   _Unwind_Resume(a1);
 }
 
-void sub_299FFF0C4(_Unwind_Exception *a1)
+void sub_299FFF0C4(_Unwind_Exception *a1, tbb::internal::generic_scheduler *a2)
 {
-  *(v2 - 12) = 4;
-  *(v2 - 8) = *(v1 + 136);
-  *(v1 + 136) = v2;
-  tbb::task_group_context::~task_group_context(&v5);
-  sub_299FEE8F0(&v4);
+  *(v3 - 12) = 4;
+  *(v3 - 8) = *(v2 + 136);
+  *(v2 + 136) = v3;
+  tbb::task_group_context::~task_group_context(&v6, a2);
+  sub_299FEE8F0(&v5);
   _Unwind_Resume(a1);
 }
 
-uint64_t sub_299FFF0F8(unsigned int *a1, unint64_t a2)
+uint64_t sub_299FFF0F8(atomic_uint *a1, unint64_t a2)
 {
   v2 = a1[83];
   if (v2)
@@ -5954,7 +5905,7 @@ uint64_t sub_299FFF0F8(unsigned int *a1, unint64_t a2)
       v3 = HIWORD(v4) % v2;
     }
 
-    v5 = a1 + 96;
+    v5 = (a1 + 96);
     v6 = v3;
     do
     {
@@ -6229,7 +6180,7 @@ void tbb::interface7::internal::task_arena_base::internal_wait(tbb::internal::ge
       {
         while (1)
         {
-          v6 = *(v4 + 27);
+          v6 = v4[27];
           __dmb(0xBu);
           if (v6)
           {
@@ -6302,7 +6253,7 @@ LABEL_15:
       v15 = *(inited + 144);
       *(inited + 56) = v15;
       v30 = *(v15 - 56);
-      *(v15 - 56) = *(v11 + 40);
+      *(v15 - 56) = v11[40];
       tbb::internal::generic_scheduler::nested_arena_entry(inited, v11, 0);
       ++*(*(inited + 144) - 24);
       while (1)
@@ -6486,66 +6437,24 @@ tbb::internal::task_scheduler_observer_v3 *sub_299FFF930(tbb::internal::task_sch
   return a1;
 }
 
-uint64_t sub_299FFF9DC(uint64_t a1)
+void sub_299FFF9DC()
 {
-  v2 = *(a1 + 40);
-  v3 = pthread_getspecific(tbb::internal::governor::theTLS);
-  if ((v3 & 0xFFFFFFFFFFFFFFFELL) != 0)
-  {
-    v4 = *((v3 & 0xFFFFFFFFFFFFFFFELL) + 32);
-  }
+  pthread_getspecific(tbb::internal::governor::theTLS);
 
-  else
-  {
-    v4 = -1;
-  }
-
-  if (v4 >= 0xFFFFFFFE)
-  {
-    v5 = 4294967294;
-  }
-
-  else
-  {
-    v5 = v4;
-  }
-
-  v6 = *(a1 + 32);
-
-  return tbb::internal::bind_thread_to_node(v2, v5, v6);
+  tbb::internal::bind_thread_to_node();
 }
 
-uint64_t sub_299FFFA48(uint64_t a1)
+void sub_299FFFA48()
 {
-  v1 = *(a1 + 40);
-  v2 = pthread_getspecific(tbb::internal::governor::theTLS);
-  if ((v2 & 0xFFFFFFFFFFFFFFFELL) != 0)
-  {
-    v3 = *((v2 & 0xFFFFFFFFFFFFFFFELL) + 32);
-  }
+  pthread_getspecific(tbb::internal::governor::theTLS);
 
-  else
-  {
-    v3 = -1;
-  }
-
-  if (v3 >= 0xFFFFFFFE)
-  {
-    v4 = 4294967294;
-  }
-
-  else
-  {
-    v4 = v3;
-  }
-
-  return tbb::internal::restore_affinity_mask(v1, v4);
+  tbb::internal::restore_affinity_mask();
 }
 
 tbb::internal::task_scheduler_observer_v3 *sub_299FFFAAC(tbb::internal::task_scheduler_observer_v3 *a1)
 {
   *a1 = &unk_2A203ABE0;
-  tbb::internal::destroy_binding_handler(*(a1 + 5));
+  tbb::internal::destroy_binding_handler();
 
   return sub_299FFF930(a1);
 }
@@ -6553,7 +6462,7 @@ tbb::internal::task_scheduler_observer_v3 *sub_299FFFAAC(tbb::internal::task_sch
 void sub_299FFFB08(tbb::internal::task_scheduler_observer_v3 *a1)
 {
   *a1 = &unk_2A203ABE0;
-  tbb::internal::destroy_binding_handler(*(a1 + 5));
+  tbb::internal::destroy_binding_handler();
   *a1 = &unk_2A203AC50;
   if (*(a1 + 1))
   {
@@ -6688,7 +6597,7 @@ uint64_t *sub_299FFFE00(uint64_t *a1, void *a2)
   v3 = a1[1];
   v4 = a1[2];
   a1[5] = 0;
-  v5 = v4 - v3;
+  v5 = (v4 - v3) >> 3;
   if (v5 >= 3)
   {
     do
@@ -6697,7 +6606,7 @@ uint64_t *sub_299FFFE00(uint64_t *a1, void *a2)
       v4 = a1[2];
       v3 = (a1[1] + 8);
       a1[1] = v3;
-      v5 = v4 - v3;
+      v5 = (v4 - v3) >> 3;
     }
 
     while (v5 > 2);
@@ -6887,7 +6796,7 @@ uint64_t sub_29A0001C4(uint64_t a1)
   return 0;
 }
 
-uint64_t *sub_29A000290(uint64_t *a1)
+tbb::internal *sub_29A000290(unint64_t *a1)
 {
   v2 = a1[4];
   v3 = v2 >= 0x200;
@@ -7079,7 +6988,7 @@ void sub_29A000548(_Unwind_Exception *a1, void *a2, uint64_t a3, ...)
   _Unwind_Resume(a1);
 }
 
-uint64_t *sub_29A000578(uint64_t *result, void *a2)
+unint64_t *sub_29A000578(unint64_t *result, uint64_t *a2)
 {
   v3 = result;
   v4 = result[2];
@@ -7089,26 +6998,26 @@ uint64_t *sub_29A000578(uint64_t *result, void *a2)
   }
 
   v5 = result[1];
-  v6 = &v5[-*result];
+  v6 = v5 - *result;
   if (v5 > *result)
   {
     v7 = ((v6 >> 3) + 1) / 2;
     v8 = ((v6 >> 3) + 1) / -2;
-    v9 = &v5[-8 * v7];
+    v9 = &v5[-v7];
     v10 = v4 - v5;
     if (v4 != v5)
     {
-      result = memmove(&v5[-8 * v7], v5, v4 - v5);
+      result = memmove(&v5[-v7], v5, v4 - v5);
       v5 = v3[1];
     }
 
-    v4 = &v9[v10];
-    v3[1] = &v5[8 * v8];
-    v3[2] = &v9[v10];
+    v4 = (v9 + v10);
+    v3[1] = &v5[v8];
+    v3[2] = v9 + v10;
     goto LABEL_18;
   }
 
-  v11 = &v4[-*result] >> 2;
+  v11 = (v4 - *result) >> 2;
   if (v4 == *result)
   {
     v11 = 1;
@@ -7123,7 +7032,7 @@ uint64_t *sub_29A000578(uint64_t *result, void *a2)
   v17 = v3[2] - v16;
   if (v17)
   {
-    v4 = &v15[v17];
+    v4 = (v15 + v17);
     v18 = v17 - 8;
     if ((v17 - 8) < 0x38)
     {
@@ -7132,8 +7041,7 @@ uint64_t *sub_29A000578(uint64_t *result, void *a2)
       {
 LABEL_15:
         v28 = *v16++;
-        *v19 = v28;
-        v19 += 8;
+        *v19++ = v28;
       }
 
       while (v19 != v4);
@@ -7149,7 +7057,7 @@ LABEL_15:
 
     v21 = (v18 >> 3) + 1;
     v22 = v21 & 0x3FFFFFFFFFFFFFFCLL;
-    v19 = &v15[v22 * 8];
+    v19 = &v15[v22];
     v23 = &v16[v22];
     v24 = (v16 + 2);
     v25 = v20 + 2;
@@ -7213,7 +7121,7 @@ uint64_t *sub_29A0006F4(uint64_t *result, uint64_t *a2)
     }
 
     v3[1] = v5;
-    v3[2] = &v6[8 * v8];
+    v3[2] = v6 + 8 * v8;
     goto LABEL_19;
   }
 
@@ -7232,7 +7140,7 @@ uint64_t *sub_29A0006F4(uint64_t *result, uint64_t *a2)
   v15 = v3[2] - v13;
   if (v15)
   {
-    v14 = v5 + v15;
+    v14 = (v5 + v15);
     v16 = v15 - 8;
     if ((v15 - 8) < 0x38)
     {
@@ -7815,7 +7723,7 @@ LABEL_3:
 
 void *tbb::internal::generic_scheduler::local_spawn(tbb::internal::generic_scheduler *this, tbb::task *a2, tbb::task **a3, void *a4)
 {
-  v46 = *MEMORY[0x29EDCA608];
+  v45 = *MEMORY[0x29EDCA608];
   if ((a2 - 8) == a3)
   {
     v26 = a2;
@@ -7838,14 +7746,14 @@ void *tbb::internal::generic_scheduler::local_spawn(tbb::internal::generic_sched
   {
     v6 = 0;
     v7 = 0;
-    v8 = v45;
-    memset(v45, 0, 512);
-    v39 = v45;
+    v8 = v44;
+    memset(v44, 0, 512);
+    v39 = v44;
     v9 = 64;
     v40 = vdupq_n_s64(0x40uLL);
     v10 = 64;
+    v42 = 0;
     v43 = 0;
-    v44 = 0;
     do
     {
       v11 = (a2 - 8);
@@ -7856,13 +7764,13 @@ void *tbb::internal::generic_scheduler::local_spawn(tbb::internal::generic_sched
         v14 = result;
         if (!v7)
         {
-          v43 = 1;
+          v42 = 1;
           v41[0] = v8;
           v7 = 1;
         }
 
         v6 += v9;
-        v44 = v6;
+        v43 = v6;
         v9 *= 2;
         v40.i64[0] = v9;
         v40.i64[1] = v9;
@@ -7870,7 +7778,7 @@ void *tbb::internal::generic_scheduler::local_spawn(tbb::internal::generic_sched
         result = v14;
         v39 = v15;
         v41[v7++] = v15;
-        v43 = v7;
+        v42 = v7;
         v8 = v15;
         v10 = v9;
       }
@@ -7913,10 +7821,10 @@ void *tbb::internal::generic_scheduler::local_spawn(tbb::internal::generic_sched
       }
     }
 
-    v23 = v43;
-    if (v43 >= 2)
+    v23 = v42;
+    if (v42 >= 2)
     {
-      v24 = &v42;
+      v24 = &v41[1];
       v25 = 1;
       do
       {
@@ -8276,7 +8184,7 @@ LABEL_6:
   {
     atomic_fetch_add((v8 + 16), 1u);
     result[2] = 0;
-    v10 = (result + 2);
+    v10 = result + 2;
 LABEL_8:
     v11 = *(v8 + 8);
     while (1)
@@ -8460,7 +8368,7 @@ uint64_t tbb::internal::generic_scheduler::enqueue(tbb::internal::generic_schedu
   return tbb::internal::arena::enqueue_task(v8, a2, a3, v7);
 }
 
-void *tbb::internal::generic_scheduler::get_task_and_activate_task_pool(tbb::internal::generic_scheduler *this, unint64_t a2, unint64_t a3, uint64_t a4)
+atomic_ullong *tbb::internal::generic_scheduler::get_task_and_activate_task_pool(tbb::internal::generic_scheduler *this, unint64_t a2, unint64_t a3, uint64_t a4)
 {
   v4 = a3;
   v5 = a2;
@@ -8587,7 +8495,7 @@ LABEL_28:
   return v10;
 }
 
-void *tbb::internal::generic_scheduler::winnow_task_pool(tbb::internal::generic_scheduler *this, uint64_t a2)
+atomic_ullong *tbb::internal::generic_scheduler::winnow_task_pool(tbb::internal::generic_scheduler *this, uint64_t a2)
 {
   *(this + 360) = 1;
   v4 = *(this + 5);
@@ -8677,9 +8585,9 @@ LABEL_8:
   return result;
 }
 
-void *tbb::internal::generic_scheduler::reload_tasks(tbb::internal::generic_scheduler *this, tbb::task **a2, tbb::task ***a3, void *a4, uint64_t a5)
+atomic_ullong *tbb::internal::generic_scheduler::reload_tasks(tbb::internal::generic_scheduler *this, tbb::task **a2, tbb::task ***a3, void *a4, uint64_t a5)
 {
-  v48 = *MEMORY[0x29EDCA608];
+  v47 = *MEMORY[0x29EDCA608];
   v10 = *(this + 5);
   v11 = *(v10 + 8);
   if (v11)
@@ -8718,12 +8626,12 @@ void *tbb::internal::generic_scheduler::reload_tasks(tbb::internal::generic_sche
     }
   }
 
-  memset(v47, 0, 512);
-  v41 = v47;
+  memset(v46, 0, 512);
+  v41 = v46;
   v15 = 64;
   v42 = vdupq_n_s64(0x40uLL);
+  v44 = 0;
   v45 = 0;
-  v46 = 0;
   v16 = *a2;
   if (*a2)
   {
@@ -8749,19 +8657,19 @@ void *tbb::internal::generic_scheduler::reload_tasks(tbb::internal::generic_sche
       {
         if (!v18)
         {
-          v45 = 1;
+          v44 = 1;
           v43[0] = v41;
           v18 = 1;
         }
 
         v17 += v15;
-        v46 = v17;
+        v45 = v17;
         v15 *= 2;
         v42.i64[0] = v15;
         v42.i64[1] = v15;
         v41 = tbb::internal::NFS_Allocate(v15, 8, 0, a4);
         v43[v18++] = v41;
-        v45 = v18;
+        v44 = v18;
         v19 = v15;
       }
 
@@ -8791,8 +8699,8 @@ LABEL_19:
 
   *a2 = 0;
 LABEL_23:
-  v22 = v15 + v46 - v19;
-  if (v15 + v46 == v19)
+  v22 = v15 + v45 - v19;
+  if (v15 + v45 == v19)
   {
     v23 = *(this + 5);
     v24 = 0;
@@ -8806,7 +8714,7 @@ LABEL_23:
 
   else
   {
-    v26 = sub_29A001588(this, (v15 + v46 - v19), a3, a4);
+    v26 = sub_29A001588(this, (v15 + v45 - v19), a3, a4);
     v27 = (*(*(this + 5) + 152) + 8 * v26);
     memcpy(v27, &v41[8 * v19], 8 * (v15 - v19));
     if (v18 >= 2)
@@ -8899,10 +8807,10 @@ LABEL_38:
   }
 
 LABEL_47:
-  v36 = v45;
-  if (v45 >= 2)
+  v36 = v44;
+  if (v44 >= 2)
   {
-    v37 = &v44;
+    v37 = &v43[1];
     v38 = 1;
     do
     {
@@ -8917,9 +8825,9 @@ LABEL_47:
   return v24;
 }
 
-void sub_29A0023A0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_29A0023A0(_Unwind_Exception *a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  va_start(va, a5);
+  va_start(va, a8);
   sub_29A001960(va, a2);
   _Unwind_Resume(a1);
 }
@@ -8934,7 +8842,7 @@ void sub_29A0023BC(_Unwind_Exception *exception_object, int a2)
   sub_299FEDEEC(exception_object);
 }
 
-void *tbb::internal::generic_scheduler::reload_tasks(tbb::internal::generic_scheduler *this, uint64_t a2)
+atomic_ullong *tbb::internal::generic_scheduler::reload_tasks(tbb::internal::generic_scheduler *this, uint64_t a2)
 {
   v2 = **(this + 13);
   if (*(this + 44) == v2)
@@ -9025,7 +8933,7 @@ LABEL_21:
   return result;
 }
 
-void *tbb::internal::generic_scheduler::steal_task(tbb::internal::generic_scheduler *this, uint64_t a2)
+atomic_ullong *tbb::internal::generic_scheduler::steal_task(tbb::internal::generic_scheduler *this, uint64_t a2)
 {
   v2 = *(this + 32);
   v3 = HIWORD(v2);
@@ -9506,7 +9414,7 @@ LABEL_2:
   return SchedulerPtr;
 }
 
-uint64_t tbb::internal::generic_scheduler::cleanup_worker(atomic_ullong **this, void *a2)
+uint64_t tbb::internal::generic_scheduler::cleanup_worker(tbb::internal::observer_proxy **this, void *a2)
 {
   if (a2)
   {
@@ -9608,7 +9516,7 @@ uint64_t tbb::internal::generic_scheduler::cleanup_master(uint64_t this, uint64_
       tbb::internal::observer_list::do_notify_exit_observers(v13, v14, 0);
     }
 
-    tbb::task_group_context::~task_group_context(*(*(v3 + 18) - 56));
+    tbb::task_group_context::~task_group_context(*(*(v3 + 18) - 56), v14);
     tbb::internal::NFS_Free(*(*(v3 + 18) - 56), v15);
   }
 

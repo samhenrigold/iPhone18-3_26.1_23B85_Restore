@@ -10,7 +10,7 @@
 
 + (id)unarchiveDeviceHistory
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ACD0];
   v3 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
   v4 = +[NRDataFilePaths pathToNanoRegistryHistoryFile];
@@ -29,14 +29,14 @@
         v8 = nr_daemon_log();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          v11 = +[NRDataFilePaths pathToNanoRegistryHistoryFile];
-          v12 = objc_opt_class();
-          v13 = NSStringFromClass(v12);
-          v14 = 138543618;
-          v15 = v11;
-          v16 = 2114;
-          v17 = v13;
-          _os_log_error_impl(&dword_1E0ADF000, v8, OS_LOG_TYPE_ERROR, "Failure loading history file %{public}@: File has incorrect object %{public}@.", &v14, 0x16u);
+          v10 = +[NRDataFilePaths pathToNanoRegistryHistoryFile];
+          v11 = objc_opt_class();
+          v12 = NSStringFromClass(v11);
+          v13 = 138543618;
+          v14 = v10;
+          v15 = 2114;
+          v16 = v12;
+          _os_log_error_impl(&dword_1E0ADF000, v8, OS_LOG_TYPE_ERROR, "Failure loading history file %{public}@: File has incorrect object %{public}@.", &v13, 0x16u);
         }
       }
 
@@ -44,14 +44,12 @@
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v5;
 }
 
 + (BOOL)archiveDeviceHistory:(id)history
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   historyCopy = history;
   v4 = +[NRDataFilePaths pathToNanoRegistryHistoryFile];
   if ([historyCopy dirty])
@@ -61,9 +59,9 @@
     v7 = v6;
     if (v6)
     {
-      v16 = 0;
-      v8 = [v6 writeToFile:v4 options:268435457 error:&v16];
-      v9 = v16;
+      v15 = 0;
+      v8 = [v6 writeToFile:v4 options:268435457 error:&v15];
+      v9 = v15;
       if (v8)
       {
         LOBYTE(v10) = 1;
@@ -86,9 +84,9 @@ LABEL_15:
       {
         nr_safeDescription = [v9 nr_safeDescription];
         *buf = 138543618;
-        v18 = v4;
-        v19 = 2114;
-        v20 = nr_safeDescription;
+        v17 = v4;
+        v18 = 2114;
+        v19 = nr_safeDescription;
         _os_log_error_impl(&dword_1E0ADF000, v10, OS_LOG_TYPE_ERROR, "Failure saving active state machine file %{public}@: writeToFile returned NO %{public}@", buf, 0x16u);
       }
     }
@@ -108,7 +106,7 @@ LABEL_15:
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v18 = v4;
+        v17 = v4;
         _os_log_error_impl(&dword_1E0ADF000, v10, OS_LOG_TYPE_ERROR, "Failure saving history file %{public}@: Archiver returned nil", buf, 0xCu);
       }
 
@@ -123,7 +121,6 @@ LABEL_15:
   LOBYTE(v10) = 1;
 LABEL_16:
 
-  v13 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -141,43 +138,43 @@ void __64__NRDataFileHistoryHelpers_findPairedDateForDeviceID_inHistory___block_
 
 + (BOOL)createMissingDates:(id)dates
 {
-  v90 = *MEMORY[0x1E69E9840];
+  v89 = *MEMORY[0x1E69E9840];
   datesCopy = dates;
   dictionary = [MEMORY[0x1E695DF90] dictionary];
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   obj = [datesCopy deviceCollection];
-  v48 = [obj countByEnumeratingWithState:&v63 objects:v87 count:16];
-  if (v48)
+  v47 = [obj countByEnumeratingWithState:&v62 objects:v86 count:16];
+  if (v47)
   {
-    v47 = *v64;
+    v46 = *v63;
     do
     {
       v3 = 0;
       do
       {
-        if (*v64 != v47)
+        if (*v63 != v46)
         {
           v4 = v3;
           objc_enumerationMutation(obj);
           v3 = v4;
         }
 
-        v49 = v3;
-        v52 = *(*(&v63 + 1) + 8 * v3);
+        v48 = v3;
+        v51 = *(*(&v62 + 1) + 8 * v3);
         deviceCollection = [datesCopy deviceCollection];
-        v54 = [deviceCollection objectForKeyedSubscript:v52];
+        v53 = [deviceCollection objectForKeyedSubscript:v51];
 
         dictionary2 = [MEMORY[0x1E695DF90] dictionary];
-        v6 = [v54 objectForKeyedSubscript:@"isPaired"];
+        v6 = [v53 objectForKeyedSubscript:@"isPaired"];
         value = [v6 value];
         bOOLValue = [value BOOLValue];
 
         if (bOOLValue)
         {
-          v9 = [v54 objectForKeyedSubscript:@"pairedDate"];
+          v9 = [v53 objectForKeyedSubscript:@"pairedDate"];
           value2 = [v9 value];
 
           objc_opt_class();
@@ -201,7 +198,7 @@ LABEL_29:
             if (v11)
             {
 LABEL_30:
-              v31 = [v54 objectForKeyedSubscript:@"lastActiveDate"];
+              v31 = [v53 objectForKeyedSubscript:@"lastActiveDate"];
               value3 = [v31 value];
 
               if (value3)
@@ -234,94 +231,94 @@ LABEL_30:
             }
 
 LABEL_12:
-            v57 = v52;
+            v56 = v51;
             v12 = datesCopy;
             objc_opt_self();
-            v77 = 0;
-            v78 = &v77;
-            v79 = 0x3032000000;
-            v80 = __Block_byref_object_copy__6;
-            v81 = __Block_byref_object_dispose__6;
-            v82 = 0;
+            v76 = 0;
+            v77 = &v76;
+            v78 = 0x3032000000;
+            v79 = __Block_byref_object_copy__6;
+            v80 = __Block_byref_object_dispose__6;
+            v81 = 0;
+            v72 = 0u;
             v73 = 0u;
             v74 = 0u;
             v75 = 0u;
-            v76 = 0u;
-            v55 = v12;
-            v58 = [v55 countByEnumeratingWithState:&v73 objects:v88 count:16];
-            if (v58)
+            v54 = v12;
+            v57 = [v54 countByEnumeratingWithState:&v72 objects:v87 count:16];
+            if (v57)
             {
-              v56 = *v74;
+              v55 = *v73;
               do
               {
-                for (i = 0; i != v58; ++i)
+                for (i = 0; i != v57; ++i)
                 {
-                  if (*v74 != v56)
+                  if (*v73 != v55)
                   {
-                    objc_enumerationMutation(v55);
+                    objc_enumerationMutation(v54);
                   }
 
-                  v13 = *(*(&v73 + 1) + 8 * i);
+                  v13 = *(*(&v72 + 1) + 8 * i);
                   diff = [v13 diff];
-                  v67[0] = MEMORY[0x1E69E9820];
-                  v67[1] = 3221225472;
-                  v68 = __64__NRDataFileHistoryHelpers_findPairedDateForDeviceID_inHistory___block_invoke;
-                  v69 = &unk_1E86DC780;
-                  v15 = v57;
-                  v71 = v13;
-                  v72 = &v77;
-                  v70 = v15;
+                  v66[0] = MEMORY[0x1E69E9820];
+                  v66[1] = 3221225472;
+                  v67 = __64__NRDataFileHistoryHelpers_findPairedDateForDeviceID_inHistory___block_invoke;
+                  v68 = &unk_1E86DC780;
+                  v15 = v56;
+                  v70 = v13;
+                  v71 = &v76;
+                  v69 = v15;
                   v16 = diff;
-                  v62 = @"isPaired";
-                  v60 = v67;
+                  v61 = @"isPaired";
+                  v59 = v66;
                   objc_opt_self();
-                  v85 = 0u;
-                  v86 = 0u;
-                  v83 = 0u;
                   v84 = 0u;
+                  v85 = 0u;
+                  v82 = 0u;
+                  v83 = 0u;
                   v17 = v16;
-                  v18 = [v17 countByEnumeratingWithState:&v83 objects:v89 count:16];
+                  v18 = [v17 countByEnumeratingWithState:&v82 objects:v88 count:16];
                   if (v18)
                   {
-                    v61 = *v84;
+                    v60 = *v83;
                     do
                     {
                       for (j = 0; j != v18; ++j)
                       {
-                        if (*v84 != v61)
+                        if (*v83 != v60)
                         {
                           objc_enumerationMutation(v17);
                         }
 
-                        v20 = *(*(&v83 + 1) + 8 * j);
+                        v20 = *(*(&v82 + 1) + 8 * j);
                         v21 = [v17 objectForKeyedSubscript:v20];
                         diff2 = [v21 diff];
-                        v23 = [diff2 objectForKeyedSubscript:v62];
+                        v23 = [diff2 objectForKeyedSubscript:v61];
                         v24 = v23;
                         if (v23)
                         {
                           changeType = [v23 changeType];
                           diff3 = [v24 diff];
                           value4 = [diff3 value];
-                          v68(v60, v20, changeType, value4);
+                          v67(v59, v20, changeType, value4);
                         }
                       }
 
-                      v18 = [v17 countByEnumeratingWithState:&v83 objects:v89 count:16];
+                      v18 = [v17 countByEnumeratingWithState:&v82 objects:v88 count:16];
                     }
 
                     while (v18);
                   }
                 }
 
-                v58 = [v55 countByEnumeratingWithState:&v73 objects:v88 count:16];
+                v57 = [v54 countByEnumeratingWithState:&v72 objects:v87 count:16];
               }
 
-              while (v58);
+              while (v57);
             }
 
-            v11 = v78[5];
-            _Block_object_dispose(&v77, 8);
+            v11 = v77[5];
+            _Block_object_dispose(&v76, 8);
 
             if (((v11 == 0) & ~isKindOfClass) == 0)
             {
@@ -336,17 +333,17 @@ LABEL_12:
         {
           v36 = [[NRDeviceDiff alloc] initWithDiffPropertyDiffs:dictionary2];
           v37 = [[NRDeviceDiffType alloc] initWithDiff:v36 andChangeType:1];
-          [dictionary setObject:v37 forKeyedSubscript:v52];
+          [dictionary setObject:v37 forKeyedSubscript:v51];
         }
 
-        v3 = v49 + 1;
+        v3 = v48 + 1;
       }
 
-      while (v49 + 1 != v48);
-      v48 = [obj countByEnumeratingWithState:&v63 objects:v87 count:16];
+      while (v48 + 1 != v47);
+      v47 = [obj countByEnumeratingWithState:&v62 objects:v86 count:16];
     }
 
-    while (v48);
+    while (v47);
   }
 
   if ([dictionary count])
@@ -366,28 +363,27 @@ LABEL_12:
     v41 = 1;
   }
 
-  v42 = *MEMORY[0x1E69E9840];
   return v41;
 }
 
 + (BOOL)archiveSecureProperties:(id)properties
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   propertiesCopy = properties;
   if ([propertiesCopy dirty] && (v4 = MEMORY[0x1E696ACC8], +[NRDataFilePaths pathToNanoRegistryHistorySecurePropertiesFile](NRDataFilePaths, "pathToNanoRegistryHistorySecurePropertiesFile"), v5 = objc_claimAutoreleasedReturnValue(), LOBYTE(v4) = objc_msgSend(v4, "nr_secureArchiveRootObject:toFile:", propertiesCopy, v5), v5, (v4 & 1) == 0))
   {
-    v9 = nr_daemon_log();
-    LODWORD(v6) = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+    v8 = nr_daemon_log();
+    LODWORD(v6) = os_log_type_enabled(v8, OS_LOG_TYPE_ERROR);
 
     if (v6)
     {
       v6 = nr_daemon_log();
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        v10 = +[NRDataFilePaths pathToNanoRegistryHistorySecurePropertiesFile];
-        v11 = 138543362;
-        v12 = v10;
-        _os_log_error_impl(&dword_1E0ADF000, v6, OS_LOG_TYPE_ERROR, "Failure saving secure properties file %{public}@: Archiver returned NO", &v11, 0xCu);
+        v9 = +[NRDataFilePaths pathToNanoRegistryHistorySecurePropertiesFile];
+        v10 = 138543362;
+        v11 = v9;
+        _os_log_error_impl(&dword_1E0ADF000, v6, OS_LOG_TYPE_ERROR, "Failure saving secure properties file %{public}@: Archiver returned NO", &v10, 0xCu);
       }
 
       LOBYTE(v6) = 0;
@@ -399,13 +395,12 @@ LABEL_12:
     LOBYTE(v6) = 1;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
 + (id)unarchiveSecureProperties
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = MEMORY[0x1E696ACD0];
   v3 = [MEMORY[0x1E695DFD8] setWithObject:objc_opt_class()];
   v4 = +[NRDataFilePaths pathToNanoRegistryHistorySecurePropertiesFile];
@@ -424,22 +419,20 @@ LABEL_12:
         v8 = nr_daemon_log();
         if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
         {
-          v11 = +[NRDataFilePaths pathToNanoRegistryHistorySecurePropertiesFile];
-          v12 = objc_opt_class();
-          v13 = NSStringFromClass(v12);
-          v14 = 138543618;
-          v15 = v11;
-          v16 = 2114;
-          v17 = v13;
-          _os_log_error_impl(&dword_1E0ADF000, v8, OS_LOG_TYPE_ERROR, "Failure loading secure properties file %{public}@: File has incorrect object %{public}@.", &v14, 0x16u);
+          v10 = +[NRDataFilePaths pathToNanoRegistryHistorySecurePropertiesFile];
+          v11 = objc_opt_class();
+          v12 = NSStringFromClass(v11);
+          v13 = 138543618;
+          v14 = v10;
+          v15 = 2114;
+          v16 = v12;
+          _os_log_error_impl(&dword_1E0ADF000, v8, OS_LOG_TYPE_ERROR, "Failure loading secure properties file %{public}@: File has incorrect object %{public}@.", &v13, 0x16u);
         }
       }
 
       v5 = 0;
     }
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

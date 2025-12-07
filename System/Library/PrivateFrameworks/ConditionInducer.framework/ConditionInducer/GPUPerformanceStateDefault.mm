@@ -14,8 +14,6 @@
 - (id)userFriendlyName;
 - (void)_cleanup;
 - (void)_dumpCurrentState:(id)state;
-- (void)_setConsistentPerformanceLevel;
-- (void)setUp;
 - (void)tearDown;
 @end
 
@@ -154,10 +152,10 @@
 
 - (GPUPerformanceStateDefault)initWithGPUPerformanceState:(unsigned int)state
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10.receiver = self;
-  v10.super_class = GPUPerformanceStateDefault;
-  v4 = [(COCondition *)&v10 init];
+  v12 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = GPUPerformanceStateDefault;
+  v4 = [(COCondition *)&v9 init];
   v5 = v4;
   if (v4)
   {
@@ -181,7 +179,6 @@
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -199,10 +196,32 @@
 
 - (void)_cleanup
 {
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v3 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.dt.gputools.gpuperfstate"];
+  [v3 removeObjectForKey:@"gpuperfstate"];
+  consistentDevice = self->_consistentDevice;
+  if (consistentDevice)
+  {
+    [(AGXConsistentStateDevice *)consistentDevice disableConsistentPerfState];
+LABEL_8:
+    [(ApplePMPPerfStateControl *)self->_applePMPPerfStateControl tearDown];
+    goto LABEL_9;
+  }
+
+  connection = self->_connection;
+  if (connection)
+  {
+    outputStruct = 0;
+    if (!CallIO(connection, &outputStruct, &outputStruct, "ConsistentPerfState_Unlock") && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
+    {
+      [GPUPerformanceStateDefault _cleanup];
+    }
+
+    IOServiceClose(self->_connection);
+    self->_connection = 0;
+    goto LABEL_8;
+  }
+
+LABEL_9:
 }
 
 - (BOOL)_setConsistentPerformanceLevel
@@ -217,7 +236,7 @@
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT))
       {
-        [(GPUPerformanceStateDefault *)&self->_performanceLevel _setConsistentPerformanceLevel];
+        [GPUPerformanceStateDefault _setConsistentPerformanceLevel];
       }
 
       goto LABEL_9;
@@ -236,7 +255,7 @@ LABEL_6:
   v4 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_FAULT);
   if (v4)
   {
-    [(GPUPerformanceStateDefault *)&self->_performanceLevel _setConsistentPerformanceLevel];
+    [GPUPerformanceStateDefault _setConsistentPerformanceLevel];
 LABEL_9:
     LOBYTE(v4) = 0;
   }
@@ -246,12 +265,12 @@ LABEL_9:
 
 - (BOOL)setUp
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v10 = 138412290;
+    v9 = 138412290;
     selfCopy3 = self;
-    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Starting Setup - %@ Condition", &v10, 0xCu);
+    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Starting Setup - %@ Condition", &v9, 0xCu);
   }
 
   v3 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.dt.gputools.gpuperfstate"];
@@ -289,9 +308,9 @@ LABEL_13:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v10 = 138412290;
+    v9 = 138412290;
     selfCopy3 = self;
-    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Finished Setup - %@ Condition", &v10, 0xCu);
+    _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Finished Setup - %@ Condition", &v9, 0xCu);
   }
 
   v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[GPUPerformanceStateDefault setUp]"];
@@ -307,21 +326,20 @@ LABEL_13:
     v7 = 1;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v10 = 138412290;
+      v9 = 138412290;
       selfCopy3 = self;
-      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Unable to Setup PMP %@ Condition", &v10, 0xCu);
+      _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Unable to Setup PMP %@ Condition", &v9, 0xCu);
     }
   }
 
 LABEL_14:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (void)_dumpCurrentState:(id)state
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   stateCopy = state;
   consistentDevice = self->_consistentDevice;
   if (consistentDevice)
@@ -332,9 +350,9 @@ LABEL_14:
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 138412546;
-        v11 = stateCopy;
-        v12 = 2112;
-        *v13 = v6;
+        v10 = stateCopy;
+        v11 = 2112;
+        *v12 = v6;
         _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%@ Consistent Perf State Status: %@", buf, 0x16u);
       }
     }
@@ -356,13 +374,13 @@ LABEL_14:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 138413058;
-          v11 = stateCopy;
-          v12 = 1024;
-          *v13 = BYTE2(outputStruct);
-          *&v13[4] = 1024;
-          *&v13[6] = BYTE3(outputStruct);
-          v14 = 1024;
-          v15 = BYTE4(outputStruct);
+          v10 = stateCopy;
+          v11 = 1024;
+          *v12 = BYTE2(outputStruct);
+          *&v12[4] = 1024;
+          *&v12[6] = BYTE3(outputStruct);
+          v13 = 1024;
+          v14 = BYTE4(outputStruct);
           _os_log_impl(&dword_243E0F000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%@ Consistent Perf State Status: is_enabled=%u was_maintained=%u level=%u", buf, 0x1Eu);
         }
       }
@@ -373,8 +391,6 @@ LABEL_14:
       }
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)tearDown
@@ -397,23 +413,6 @@ LABEL_14:
   v5 = self->_performanceLevel == [v3 integerForKey:@"gpuperfstate"];
 
   return v5;
-}
-
-- (void)_setConsistentPerformanceLevel
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *self;
-  OUTLINED_FUNCTION_0_3();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setUp
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3();
-  _os_log_fault_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

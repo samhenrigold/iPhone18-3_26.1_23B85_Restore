@@ -20,16 +20,14 @@
 
 void __76__SSLocalRankingResultSignalManager__getSpotlightRecentEngagementAttributes__block_invoke()
 {
-  v4[3] = *MEMORY[0x1E69E9840];
+  v3[3] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E69649B0];
-  v4[0] = *MEMORY[0x1E69649C0];
-  v4[1] = v0;
-  v4[2] = *MEMORY[0x1E69649D0];
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:3];
+  v3[0] = *MEMORY[0x1E69649C0];
+  v3[1] = v0;
+  v3[2] = *MEMORY[0x1E69649D0];
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:3];
   v2 = _getSpotlightRecentEngagementAttributes_attrNames;
   _getSpotlightRecentEngagementAttributes_attrNames = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (id)_getSpotlightRecentEngagementAttributesNonUnique
@@ -46,22 +44,20 @@ void __76__SSLocalRankingResultSignalManager__getSpotlightRecentEngagementAttrib
 
 void __85__SSLocalRankingResultSignalManager__getSpotlightRecentEngagementAttributesNonUnique__block_invoke()
 {
-  v4[3] = *MEMORY[0x1E69E9840];
+  v3[3] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E69649B8];
-  v4[0] = *MEMORY[0x1E69649C8];
-  v4[1] = v0;
-  v4[2] = *MEMORY[0x1E69649D8];
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:3];
+  v3[0] = *MEMORY[0x1E69649C8];
+  v3[1] = v0;
+  v3[2] = *MEMORY[0x1E69649D8];
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:3];
   v2 = _getSpotlightRecentEngagementAttributesNonUnique_attrNames;
   _getSpotlightRecentEngagementAttributesNonUnique_attrNames = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 + (id)updateRecentEngagementAttributes:(id)attributes queryString:(id)string renderPosition:(id)position engagementAttributes:(id)engagementAttributes unique:(BOOL)unique
 {
   uniqueCopy = unique;
-  v63[3] = *MEMORY[0x1E69E9840];
+  v62[3] = *MEMORY[0x1E69E9840];
   attributesCopy = attributes;
   stringCopy = string;
   positionCopy = position;
@@ -70,11 +66,11 @@ void __85__SSLocalRankingResultSignalManager__getSpotlightRecentEngagementAttrib
   v14 = [MEMORY[0x1E695DF70] arrayWithCapacity:10];
   v15 = [MEMORY[0x1E695DF70] arrayWithCapacity:10];
   v16 = [MEMORY[0x1E695DF70] arrayWithCapacity:10];
-  v59 = attributesCopy;
-  if ([attributesCopy count] == 3)
+  v58 = attributesCopy;
+  if (objc_msgSend_count(attributesCopy) == 3)
   {
-    v54 = uniqueCopy;
-    v56 = v14;
+    v53 = uniqueCopy;
+    v55 = v14;
     v17 = [attributesCopy objectAtIndexedSubscript:0];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
@@ -87,7 +83,7 @@ void __85__SSLocalRankingResultSignalManager__getSpotlightRecentEngagementAttrib
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
 
-        uniqueCopy = v54;
+        uniqueCopy = v53;
         if ((isKindOfClass & 1) == 0)
         {
           goto LABEL_19;
@@ -96,14 +92,14 @@ void __85__SSLocalRankingResultSignalManager__getSpotlightRecentEngagementAttrib
         v17 = [attributesCopy objectAtIndexedSubscript:0];
         v21 = [attributesCopy objectAtIndexedSubscript:1];
         v22 = [attributesCopy objectAtIndexedSubscript:2];
-        v23 = [v17 count];
-        v53 = v21;
-        if (v23 == [v21 count])
+        v23 = objc_msgSend_count(v17);
+        v52 = v21;
+        if (v23 == objc_msgSend_count(v21))
         {
-          v24 = [v17 count];
-          if (v24 == [v22 count])
+          v24 = objc_msgSend_count(v17);
+          if (v24 == objc_msgSend_count(v22))
           {
-            if ([v17 count])
+            if (objc_msgSend_count(v17))
             {
               v25 = 0;
               while (1)
@@ -115,7 +111,7 @@ void __85__SSLocalRankingResultSignalManager__getSpotlightRecentEngagementAttrib
                   break;
                 }
 
-                v27 = [v53 objectAtIndexedSubscript:v25];
+                v27 = [v52 objectAtIndexedSubscript:v25];
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
@@ -127,23 +123,23 @@ void __85__SSLocalRankingResultSignalManager__getSpotlightRecentEngagementAttrib
                 v28 = v16;
                 v30 = v29 = engagementAttributesCopy;
                 objc_opt_class();
-                v52 = objc_opt_isKindOfClass();
+                v51 = objc_opt_isKindOfClass();
 
                 engagementAttributesCopy = v29;
                 v16 = v28;
 
-                if (v52)
+                if (v51)
                 {
                   v31 = [v17 objectAtIndexedSubscript:v25];
-                  [v56 addObject:v31];
+                  [v55 addObject:v31];
 
-                  v32 = [v53 objectAtIndexedSubscript:v25];
+                  v32 = [v52 objectAtIndexedSubscript:v25];
                   [v15 addObject:v32];
 
                   v33 = [v22 objectAtIndexedSubscript:v25];
                   [v28 addObject:v33];
 
-                  if (++v25 < [v17 count])
+                  if (++v25 < objc_msgSend_count(v17))
                   {
                     continue;
                   }
@@ -157,20 +153,20 @@ void __85__SSLocalRankingResultSignalManager__getSpotlightRecentEngagementAttrib
 
 LABEL_16:
 
-        v18 = v53;
+        v18 = v52;
       }
     }
 
-    v14 = v56;
+    v14 = v55;
 
-    uniqueCopy = v54;
+    uniqueCopy = v53;
   }
 
 LABEL_19:
   if ([stringCopy length])
   {
-    v57 = engagementAttributesCopy;
-    v34 = [v14 count];
+    v56 = engagementAttributesCopy;
+    v34 = objc_msgSend_count(v14);
     v35 = v34;
     if (uniqueCopy)
     {
@@ -233,33 +229,31 @@ LABEL_25:
       [v16 setObject:positionCopy atIndexedSubscript:v36];
     }
 
-    engagementAttributesCopy = v57;
+    engagementAttributesCopy = v56;
   }
 
-  if ([engagementAttributesCopy count] != 3)
+  if (objc_msgSend_count(engagementAttributesCopy) != 3)
   {
     +[SSLocalRankingResultSignalManager updateRecentEngagementAttributes:queryString:renderPosition:engagementAttributes:unique:];
   }
 
   v43 = [engagementAttributesCopy objectAtIndexedSubscript:0];
-  v62[0] = v43;
+  v61[0] = v43;
   v44 = [v14 copy];
-  v63[0] = v44;
+  v62[0] = v44;
   v45 = [engagementAttributesCopy objectAtIndexedSubscript:1];
-  v62[1] = v45;
+  v61[1] = v45;
   v46 = [v15 copy];
-  v63[1] = v46;
+  v62[1] = v46;
   [engagementAttributesCopy objectAtIndexedSubscript:2];
-  v47 = v58 = stringCopy;
-  v62[2] = v47;
+  v47 = v57 = stringCopy;
+  v61[2] = v47;
   v48 = v14;
   v49 = [v16 copy];
-  v63[2] = v49;
-  v55 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v63 forKeys:v62 count:3];
+  v62[2] = v49;
+  v54 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v62 forKeys:v61 count:3];
 
-  v50 = *MEMORY[0x1E69E9840];
-
-  return v55;
+  return v54;
 }
 
 @end

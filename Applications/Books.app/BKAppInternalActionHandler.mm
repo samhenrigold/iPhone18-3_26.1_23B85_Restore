@@ -39,7 +39,7 @@
   defaultCenter = [objc_opt_self() defaultCenter];
   [defaultCenter postNotificationName:UIApplicationDidReceiveMemoryWarningNotification object:*(&self->super.super.isa + OBJC_IVAR___BKAppInternalActionHandler_application)];
 
-  sub_100007840(v7, &unk_100AD5B40);
+  sub_100007840(v7, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_internal_toggleRecordingLiveResizeStats:(id)stats
@@ -61,7 +61,7 @@
 
   [*(&self->super.super.isa + OBJC_IVAR___BKAppInternalActionHandler_userDefaults) setBool:objc_msgSend(*(&self->super.super.isa + OBJC_IVAR___BKAppInternalActionHandler_userDefaults) forKey:{"BOOLForKey:", TUIUserDefaultRecordLiveResizeStats, v6, v7) ^ 1, TUIUserDefaultRecordLiveResizeStats}];
 
-  sub_100007840(&v6, &unk_100AD5B40);
+  sub_100007840(&v6, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_internal_disableStoreInternalDebugMessageUI:(id)i
@@ -89,7 +89,7 @@
   v10 = sub_1007A2214();
   [v9 setBool:v7 ^ 1 forKey:v10];
 
-  sub_100007840(v11, &unk_100AD5B40);
+  sub_100007840(v11, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_internal_triggerFakeDailyReadingGoalAchievementNotification:(id)notification
@@ -117,7 +117,7 @@
   static AchievementsNotificationController.notify(_:currentlyShowingSheetKind:)(v7, 0);
 
   sub_1003C2EB4(v7);
-  sub_100007840(v10, &unk_100AD5B40);
+  sub_100007840(v10, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_internal_triggerFakeYearlyBooksGoalAchievementNotification:(id)notification
@@ -144,7 +144,7 @@
   static AchievementsNotificationController.notify(_:currentlyShowingSheetKind:)(v7, 0);
 
   sub_1003C2EB4(v7);
-  sub_100007840(v10, &unk_100AD5B40);
+  sub_100007840(v10, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_internal_triggerFakeLongestStreakNotification:(id)notification
@@ -168,7 +168,7 @@
     selfCopy2 = self;
   }
 
-  sub_1001F1160(&qword_100AE0CA8);
+  sub_1001F1160(&qword_100AE0CA8, &qword_100838EF0);
   *v8 = 88;
   sub_100796BA4();
   sub_1007989E4();
@@ -176,7 +176,7 @@
   static AchievementsNotificationController.notify(_:currentlyShowingSheetKind:)(v8, 0);
 
   sub_1003C2EB4(v8);
-  sub_100007840(v11, &unk_100AD5B40);
+  sub_100007840(v11, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_internal_selectSidebarSearch:(id)search
@@ -211,7 +211,7 @@
   {
   }
 
-  sub_100007840(&v9, &unk_100AD5B40);
+  sub_100007840(&v9, &unk_100AD5B40, &unk_100811300);
 }
 
 - (void)books_internal_incrementPostLaunchCacheCount:(id)count
@@ -239,7 +239,7 @@
 
   [defaultCenter postNotificationName:qword_100B23660 object:{*(&self->super.super.isa + OBJC_IVAR___BKAppInternalActionHandler_application), v7, v8}];
 
-  sub_100007840(&v7, &unk_100AD5B40);
+  sub_100007840(&v7, &unk_100AD5B40, &unk_100811300);
 }
 
 - (BKAppInternalActionHandler)init

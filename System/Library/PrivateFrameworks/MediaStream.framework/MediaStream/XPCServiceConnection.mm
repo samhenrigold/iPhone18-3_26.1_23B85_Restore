@@ -131,7 +131,7 @@ void __48__XPCServiceConnection_sendMessage_withHandler___block_invoke(uint64_t 
   }
 }
 
-void __48__XPCServiceConnection_sendMessage_withHandler___block_invoke_2(uint64_t *a1, void *a2)
+void __48__XPCServiceConnection_sendMessage_withHandler___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
   xdict = v3;
@@ -139,7 +139,7 @@ void __48__XPCServiceConnection_sendMessage_withHandler___block_invoke_2(uint64_
   {
     if ((*(_shouldLogBlock + 16))())
     {
-      _XPCLog(7, @"%@: Message sent.", v4, v5, v6, v7, v8, v9, a1[4]);
+      _XPCLog(7, @"%@: Message sent.", v4, v5, v6, v7, v8, v9, *(a1 + 32));
     }
 
     v3 = xdict;
@@ -166,7 +166,7 @@ void __48__XPCServiceConnection_sendMessage_withHandler___block_invoke_2(uint64_
   {
     if (_shouldLogBlock && (*(_shouldLogBlock + 16))(_shouldLogBlock, 3))
     {
-      v27 = a1[4];
+      v27 = *(a1 + 32);
       xpc_dictionary_get_string(xdict, *MEMORY[0x277D86400]);
       _XPCLog(3, @"%@: Received an error when receiving reply. Error: %s", v28, v29, v30, v31, v32, v33, v27);
     }
@@ -177,7 +177,7 @@ void __48__XPCServiceConnection_sendMessage_withHandler___block_invoke_2(uint64_
       {
         if ((*(_shouldLogBlock + 16))(_shouldLogBlock, 6))
         {
-          _XPCLog(6, @"%@: Connection invalid.", v47, v48, v49, v50, v51, v52, a1[4]);
+          _XPCLog(6, @"%@: Connection invalid.", v47, v48, v49, v50, v51, v52, *(a1 + 32));
         }
 
         goto LABEL_36;
@@ -190,7 +190,7 @@ void __48__XPCServiceConnection_sendMessage_withHandler___block_invoke_2(uint64_
       {
         if ((*(_shouldLogBlock + 16))(_shouldLogBlock, 6))
         {
-          _XPCLog(6, @"%@: Connection interrupted.", v53, v54, v55, v56, v57, v58, a1[4]);
+          _XPCLog(6, @"%@: Connection interrupted.", v53, v54, v55, v56, v57, v58, *(a1 + 32));
         }
 
         goto LABEL_36;
@@ -201,7 +201,7 @@ void __48__XPCServiceConnection_sendMessage_withHandler___block_invoke_2(uint64_
     {
       if ((*(_shouldLogBlock + 16))(_shouldLogBlock, 3))
       {
-        v34 = a1[4];
+        v34 = *(a1 + 32);
         xpc_dictionary_get_string(xdict, *MEMORY[0x277D86400]);
         _XPCLog(3, @"%@: Unknown XPC error: %s", v35, v36, v37, v38, v39, v40, v34);
       }
@@ -209,12 +209,11 @@ void __48__XPCServiceConnection_sendMessage_withHandler___block_invoke_2(uint64_
 LABEL_36:
       if (_shouldLogBlock && (*(_shouldLogBlock + 16))(_shouldLogBlock, 3))
       {
-        _XPCLog(3, @"%@: Message send failed. Not retrying.", v59, v60, v61, v62, v63, v64, a1[4]);
+        _XPCLog(3, @"%@: Message send failed. Not retrying.", v59, v60, v61, v62, v63, v64, *(a1 + 32));
       }
     }
 
-    v65 = a1[5];
-    v26 = *(a1[6] + 16);
+    v26 = *(*(a1 + 48) + 16);
     goto LABEL_40;
   }
 
@@ -222,10 +221,10 @@ LABEL_36:
   {
     if (_shouldLogBlock && (*(_shouldLogBlock + 16))(_shouldLogBlock, 7))
     {
-      _XPCLog(7, @"%@ Handling reply for message.", v41, v42, v43, v44, v45, v46, a1[4]);
+      _XPCLog(7, @"%@ Handling reply for message.", v41, v42, v43, v44, v45, v46, *(a1 + 32));
     }
 
-    v26 = *(a1[6] + 16);
+    v26 = *(*(a1 + 48) + 16);
   }
 
   else
@@ -233,11 +232,11 @@ LABEL_36:
     v19 = MEMORY[0x259C89D80](xdict);
     if (_shouldLogBlock && (*(_shouldLogBlock + 16))(_shouldLogBlock, 3))
     {
-      _XPCLog(3, @"%@ Received unknown XPC event type: %s", v20, v21, v22, v23, v24, v25, a1[4]);
+      _XPCLog(3, @"%@ Received unknown XPC event type: %s", v20, v21, v22, v23, v24, v25, *(a1 + 32));
     }
 
     free(v19);
-    v26 = *(a1[6] + 16);
+    v26 = *(*(a1 + 48) + 16);
   }
 
 LABEL_40:
@@ -382,15 +381,14 @@ void __57__XPCServiceConnection_initWithServiceName_client_queue___block_invoke(
 - (id)debugDescription
 {
   v3 = MEMORY[0x277CCACA8];
-  v10.receiver = self;
-  v10.super_class = XPCServiceConnection;
-  v4 = [(XPCServiceConnection *)&v10 description];
+  v9.receiver = self;
+  v9.super_class = XPCServiceConnection;
+  v4 = [(XPCServiceConnection *)&v9 description];
   serviceName = self->_serviceName;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  client = self->_client;
-  v8 = [v3 stringWithFormat:@"%@ name %@, delegate %p, client %p, queue %p", v4, serviceName, WeakRetained, client, self->_workQueue];
+  v7 = [v3 stringWithFormat:@"%@ name %@, delegate %p, client %p, queue %p", v4, serviceName, WeakRetained, self->_client, self->_workQueue];
 
-  return v8;
+  return v7;
 }
 
 @end

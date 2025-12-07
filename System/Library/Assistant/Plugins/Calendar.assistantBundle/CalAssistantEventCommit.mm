@@ -13,9 +13,9 @@
   eventStore = self->_eventStore;
   if (!eventStore)
   {
-    v5 = objc_msgSend__ca_eventStoreWithError_(MEMORY[0x277CC5A40], a2, 0, v2);
-    v6 = self->_eventStore;
-    self->_eventStore = v5;
+    v4 = objc_msgSend__ca_eventStoreWithError_(MEMORY[0x277CC5A40], a2, 0);
+    v5 = self->_eventStore;
+    self->_eventStore = v4;
 
     eventStore = self->_eventStore;
   }
@@ -37,70 +37,70 @@
 - (id)_validateEvent:(id)event
 {
   eventCopy = event;
-  v7 = objc_msgSend_title(eventCopy, v4, v5, v6);
+  v6 = objc_msgSend_title(eventCopy, v4, v5);
 
-  if (!v7)
+  if (!v6)
   {
-    v20 = objc_alloc(MEMORY[0x277D47208]);
-    v23 = objc_msgSend_initWithReason_(v20, v21, @"No title specified", v22);
+    v16 = objc_alloc(MEMORY[0x277D47208]);
+    v18 = objc_msgSend_initWithReason_(v16, v17, @"No title specified");
     goto LABEL_11;
   }
 
-  v11 = objc_msgSend_startDate(eventCopy, v8, v9, v10);
-  v15 = objc_msgSend_endDate(eventCopy, v12, v13, v14);
-  v18 = v15;
-  if (v11)
+  v9 = objc_msgSend_startDate(eventCopy, v7, v8);
+  v12 = objc_msgSend_endDate(eventCopy, v10, v11);
+  v14 = v12;
+  if (v9)
   {
-    if (v15)
+    if (v12)
     {
-      if (objc_msgSend_compare_(v11, v16, v15, v17) != 1)
+      if (objc_msgSend_compare_(v9, v13, v12) != 1)
       {
-        v23 = 0;
+        v18 = 0;
         goto LABEL_10;
       }
 
-      v19 = @"End date cannot be earlier than start date";
+      v15 = @"End date cannot be earlier than start date";
     }
 
     else
     {
-      v19 = @"No end date specified";
+      v15 = @"No end date specified";
     }
   }
 
   else
   {
-    v19 = @"No start date specified";
+    v15 = @"No start date specified";
   }
 
-  v24 = objc_alloc(MEMORY[0x277D47208]);
-  v23 = objc_msgSend_initWithReason_(v24, v25, v19, v26);
+  v19 = objc_alloc(MEMORY[0x277D47208]);
+  v18 = objc_msgSend_initWithReason_(v19, v20, v15);
 LABEL_10:
 
 LABEL_11:
 
-  return v23;
+  return v18;
 }
 
 - (id)_commitEvent:(id)event serviceHelper:(id)helper
 {
-  v419 = *MEMORY[0x277D85DE8];
+  v369 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   helperCopy = helper;
-  sub_2334B11EC();
-  v7 = qword_27DE0DD38;
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
-  {
-    sub_2334B5598();
-  }
-
-  v8 = *MEMORY[0x277CEF0D8];
+  sub_2334B11EC(helperCopy, v7);
+  v8 = qword_27DE0DD38;
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    sub_2334B5628();
+    sub_2334B5598(self);
   }
 
-  v12 = objc_msgSend_timeZoneId(eventCopy, v9, v10, v11);
+  v9 = *MEMORY[0x277CEF0D8];
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    sub_2334B5628(self);
+  }
+
+  v12 = objc_msgSend_timeZoneId(eventCopy, v10, v11);
   if (v12)
   {
     v13 = CFTimeZoneCreateWithName(0, v12, 1u);
@@ -111,770 +111,773 @@ LABEL_11:
     v13 = CalCopyTimeZone();
   }
 
-  v17 = v13;
+  v16 = v13;
   if (!v13)
   {
-    v70 = objc_alloc(MEMORY[0x277D47208]);
-    v73 = objc_msgSend_initWithReason_(v70, v71, @"Invalid timezone", v72);
+    v63 = objc_alloc(MEMORY[0x277D47208]);
+    v65 = objc_msgSend_initWithReason_(v63, v64, @"Invalid timezone");
     goto LABEL_168;
   }
 
-  v18 = objc_msgSend_eventStore(self, v14, v15, v16);
-  cf = v17;
-  objc_msgSend_setTimeZone_(v18, v19, v17, v20);
+  v17 = objc_msgSend_eventStore(self, v14, v15);
+  cf = v16;
+  objc_msgSend_setTimeZone_(v17, v18, v16);
 
-  v24 = objc_msgSend_startDate(eventCopy, v21, v22, v23);
-  v392 = objc_msgSend_endDate(eventCopy, v25, v26, v27);
-  sub_2334B11EC();
-  v28 = qword_27DE0DD38;
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
+  v21 = objc_msgSend_startDate(eventCopy, v19, v20);
+  v342 = objc_msgSend_endDate(eventCopy, v22, v23);
+  sub_2334B11EC(v342, v24);
+  v25 = qword_27DE0DD38;
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
   {
-    v379 = objc_opt_class();
+    v329 = objc_opt_class();
     units.years = 138412802;
-    *&units.months = v379;
+    *&units.months = v329;
     LOWORD(units.hours) = 2112;
-    *(&units.hours + 2) = v24;
+    *(&units.hours + 2) = v21;
     *(&units.minutes + 3) = 2112;
-    *&units.seconds = v392;
-    _os_log_debug_impl(&dword_2334AF000, v28, OS_LOG_TYPE_DEBUG, "[%@] - Giving event start date %@ and end date %@", &units, 0x20u);
+    *&units.seconds = v342;
+    _os_log_debug_impl(&dword_2334AF000, v25, OS_LOG_TYPE_DEBUG, "[%@] - Giving event start date %@ and end date %@", &units, 0x20u);
   }
 
-  v29 = *MEMORY[0x277CEF0D8];
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+  v26 = *MEMORY[0x277CEF0D8];
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
   {
-    v380 = objc_opt_class();
+    v330 = objc_opt_class();
     units.years = 136315906;
     *&units.months = "[CalAssistantEventCommit _commitEvent:serviceHelper:]";
     LOWORD(units.hours) = 2112;
-    *(&units.hours + 2) = v380;
+    *(&units.hours + 2) = v330;
     *(&units.minutes + 3) = 2112;
-    *&units.seconds = v24;
-    v417 = 2112;
-    v418 = v392;
-    _os_log_debug_impl(&dword_2334AF000, v29, OS_LOG_TYPE_DEBUG, "%s [%@] - Giving event start date %@ and end date %@", &units, 0x2Au);
+    *&units.seconds = v21;
+    v367 = 2112;
+    v368 = v342;
+    _os_log_debug_impl(&dword_2334AF000, v26, OS_LOG_TYPE_DEBUG, "%s [%@] - Giving event start date %@ and end date %@", &units, 0x2Au);
   }
 
-  v33 = objc_msgSend_identifier(eventCopy, v30, v31, v32);
-  v37 = objc_msgSend_scheme(v33, v34, v35, v36);
-  if (!v37)
+  v29 = objc_msgSend_identifier(eventCopy, v27, v28);
+  v32 = objc_msgSend_scheme(v29, v30, v31);
+  if (!v32)
   {
 
 LABEL_28:
-    v74 = MEMORY[0x277CC5A28];
-    v75 = objc_msgSend_eventStore(self, v49, v50, v51);
-    v63 = objc_msgSend_eventWithEventStore_(v74, v76, v75, v77);
+    v66 = MEMORY[0x277CC5A28];
+    v67 = objc_msgSend_eventStore(self, v43, v44);
+    v54 = objc_msgSend_eventWithEventStore_(v66, v68, v67);
 
-    v81 = objc_msgSend_eventStore(self, v78, v79, v80);
-    v85 = objc_msgSend_acquireDefaultCalendarForNewEvents(v81, v82, v83, v84);
-    objc_msgSend_setCalendar_(v63, v86, v85, v87);
+    v71 = objc_msgSend_eventStore(self, v69, v70);
+    v74 = objc_msgSend_acquireDefaultCalendarForNewEvents(v71, v72, v73);
+    objc_msgSend_setCalendar_(v54, v75, v74);
 
-    sub_2334B11EC();
-    v88 = qword_27DE0DD38;
-    if (os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG))
+    sub_2334B11EC(v76, v77);
+    v78 = qword_27DE0DD38;
+    if (os_log_type_enabled(v78, OS_LOG_TYPE_DEBUG))
     {
       sub_2334B5AF4();
     }
 
-    v89 = *MEMORY[0x277CEF0D8];
-    if (os_log_type_enabled(v89, OS_LOG_TYPE_DEBUG))
+    v79 = *MEMORY[0x277CEF0D8];
+    if (os_log_type_enabled(v79, OS_LOG_TYPE_DEBUG))
     {
       sub_2334B5BAC();
     }
 
-    v69 = 0;
+    v62 = 0;
     goto LABEL_33;
   }
 
-  v41 = v37;
-  v42 = objc_msgSend_identifier(eventCopy, v38, v39, v40);
-  v46 = objc_msgSend_scheme(v42, v43, v44, v45);
-  v48 = objc_msgSend_compare_options_(v46, v47, *MEMORY[0x277CC5B20], 1);
+  v35 = v32;
+  v36 = objc_msgSend_identifier(eventCopy, v33, v34);
+  v39 = objc_msgSend_scheme(v36, v37, v38);
+  v41 = objc_msgSend_compare_options_(v39, v40, *MEMORY[0x277CC5B20], 1);
 
-  if (v48)
+  if (v41)
   {
     goto LABEL_28;
   }
 
-  sub_2334B11EC();
-  v52 = qword_27DE0DD38;
-  if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
+  sub_2334B11EC(v42, v43);
+  v45 = qword_27DE0DD38;
+  if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
   {
     sub_2334B56C8();
   }
 
-  v53 = *MEMORY[0x277CEF0D8];
-  if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
+  v46 = *MEMORY[0x277CEF0D8];
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
   {
     sub_2334B5770();
   }
 
-  v57 = objc_msgSend_eventStore(self, v54, v55, v56);
-  v61 = objc_msgSend_identifier(eventCopy, v58, v59, v60);
-  v63 = objc_msgSend__eventWithURI_checkValid_(v57, v62, v61, 1);
+  v49 = objc_msgSend_eventStore(self, v47, v48);
+  v52 = objc_msgSend_identifier(eventCopy, v50, v51);
+  v54 = objc_msgSend__eventWithURI_checkValid_(v49, v53, v52, 1);
 
-  sub_2334B11EC();
-  v64 = qword_27DE0DD38;
-  if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
+  sub_2334B11EC(v55, v56);
+  v57 = qword_27DE0DD38;
+  if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
   {
     sub_2334B5824();
   }
 
-  v65 = *MEMORY[0x277CEF0D8];
-  if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
+  v58 = *MEMORY[0x277CEF0D8];
+  if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
   {
     sub_2334B58E0();
   }
 
-  if (!v63)
+  if (!v54)
   {
     goto LABEL_28;
   }
 
-  if ((objc_msgSend_isEditable(v63, v49, v50, v51) & 1) == 0)
+  isEditable = objc_msgSend_isEditable(v54, v43, v44);
+  if ((isEditable & 1) == 0)
   {
-    sub_2334B11EC();
-    v374 = qword_27DE0DD38;
+    sub_2334B11EC(isEditable, v60);
+    v325 = qword_27DE0DD38;
     if (os_log_type_enabled(qword_27DE0DD38, OS_LOG_TYPE_ERROR))
     {
-      sub_2334B59A4(v374);
+      sub_2334B59A4(v325, self);
     }
 
-    v375 = *MEMORY[0x277CEF0D8];
+    v326 = *MEMORY[0x277CEF0D8];
     if (os_log_type_enabled(*MEMORY[0x277CEF0D8], OS_LOG_TYPE_ERROR))
     {
-      sub_2334B5A44(v375);
+      sub_2334B5A44(v326, self);
     }
 
     CFRelease(cf);
-    v376 = objc_alloc(MEMORY[0x277D47208]);
-    v73 = objc_msgSend_initWithReason_(v376, v377, @"Can't modify a read-only event.", v378);
+    v327 = objc_alloc(MEMORY[0x277D47208]);
+    v65 = objc_msgSend_initWithReason_(v327, v328, @"Can't modify a read-only event.");
     goto LABEL_167;
   }
 
-  v69 = 1;
+  v62 = 1;
 LABEL_33:
-  v90 = objc_msgSend_title(eventCopy, v66, v67, v68);
+  v80 = objc_msgSend_title(eventCopy, v60, v61);
 
-  if (v90)
+  if (v80)
   {
-    v94 = objc_msgSend_title(eventCopy, v91, v92, v93);
-    objc_msgSend_setTitle_(v63, v95, v94, v96);
+    v83 = objc_msgSend_title(eventCopy, v81, v82);
+    objc_msgSend_setTitle_(v54, v84, v83);
 
-    sub_2334B11EC();
-    v97 = qword_27DE0DD38;
-    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
+    sub_2334B11EC(v85, v86);
+    v87 = qword_27DE0DD38;
+    if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
     {
       sub_2334B5C70();
     }
 
-    v98 = *MEMORY[0x277CEF0D8];
-    if (os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
+    v88 = *MEMORY[0x277CEF0D8];
+    if (os_log_type_enabled(v88, OS_LOG_TYPE_DEBUG))
     {
       sub_2334B5D18();
     }
   }
 
-  v99 = objc_msgSend_location(eventCopy, v91, v92, v93);
+  v89 = objc_msgSend_location(eventCopy, v81, v82);
 
-  if (v99)
+  if (v89)
   {
-    v103 = objc_msgSend_location(eventCopy, v100, v101, v102);
-    objc_msgSend_setLocation_(v63, v104, v103, v105);
+    v92 = objc_msgSend_location(eventCopy, v90, v91);
+    objc_msgSend_setLocation_(v54, v93, v92);
 
-    sub_2334B11EC();
-    v106 = qword_27DE0DD38;
-    if (os_log_type_enabled(v106, OS_LOG_TYPE_DEBUG))
+    sub_2334B11EC(v94, v95);
+    v96 = qword_27DE0DD38;
+    if (os_log_type_enabled(v96, OS_LOG_TYPE_DEBUG))
     {
       sub_2334B5DCC();
     }
 
-    v107 = *MEMORY[0x277CEF0D8];
-    if (os_log_type_enabled(v107, OS_LOG_TYPE_DEBUG))
+    v97 = *MEMORY[0x277CEF0D8];
+    if (os_log_type_enabled(v97, OS_LOG_TYPE_DEBUG))
     {
       sub_2334B5E74();
     }
   }
 
-  v108 = objc_msgSend_notes(eventCopy, v100, v101, v102);
+  v98 = objc_msgSend_notes(eventCopy, v90, v91);
 
-  if (v108)
+  if (v98)
   {
-    v112 = objc_msgSend_notes(eventCopy, v109, v110, v111);
-    objc_msgSend_setNotes_(v63, v113, v112, v114);
+    v101 = objc_msgSend_notes(eventCopy, v99, v100);
+    objc_msgSend_setNotes_(v54, v102, v101);
 
-    sub_2334B11EC();
-    v115 = qword_27DE0DD38;
-    if (os_log_type_enabled(v115, OS_LOG_TYPE_DEBUG))
+    sub_2334B11EC(v103, v104);
+    v105 = qword_27DE0DD38;
+    if (os_log_type_enabled(v105, OS_LOG_TYPE_DEBUG))
     {
       sub_2334B5F28();
     }
 
-    v116 = *MEMORY[0x277CEF0D8];
-    if (os_log_type_enabled(v116, OS_LOG_TYPE_DEBUG))
+    v106 = *MEMORY[0x277CEF0D8];
+    if (os_log_type_enabled(v106, OS_LOG_TYPE_DEBUG))
     {
       sub_2334B5FD0();
     }
   }
 
-  objc_msgSend_setStartDate_(v63, v109, v24, v111);
-  v120 = v392;
-  if (!v392)
+  objc_msgSend_setStartDate_(v54, v99, v21);
+  v109 = v342;
+  if (!v342)
   {
-    v121 = objc_msgSend_endDate(v63, v117, v118, v119);
+    v110 = objc_msgSend_endDate(v54, v107, v108);
 
-    if (v121)
+    if (v110)
     {
-      v120 = 0;
+      v109 = 0;
     }
 
     else
     {
-      objc_msgSend_timeIntervalSinceReferenceDate(v24, v117, v122, v119);
+      objc_msgSend_timeIntervalSinceReferenceDate(v21, v107, v111);
       *&units.years = 0;
       *&units.days = 0x100000000;
       *&units.minutes = 0;
       units.seconds = 0.0;
-      v124 = CFAbsoluteTimeAddGregorianUnits(v123, cf, &units);
-      v120 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x277CBEAA8], v125, v126, v127, v124);
+      v113 = CFAbsoluteTimeAddGregorianUnits(v112, cf, &units);
+      v109 = objc_msgSend_dateWithTimeIntervalSinceReferenceDate_(MEMORY[0x277CBEAA8], v114, v115, v113);
     }
   }
 
-  v392 = v120;
-  objc_msgSend_setEndDate_(v63, v117, v120, v119);
-  objc_msgSend_setTimeZone_(v63, v128, cf, v129);
-  v133 = objc_msgSend_allDay(eventCopy, v130, v131, v132);
-  objc_msgSend_setAllDay_(v63, v134, v133, v135);
-  sub_2334B11EC();
-  v136 = qword_27DE0DD38;
-  if (os_log_type_enabled(v136, OS_LOG_TYPE_DEBUG))
+  v342 = v109;
+  objc_msgSend_setEndDate_(v54, v107, v109);
+  objc_msgSend_setTimeZone_(v54, v116, cf);
+  v119 = objc_msgSend_allDay(eventCopy, v117, v118);
+  v121 = objc_msgSend_setAllDay_(v54, v120, v119);
+  sub_2334B11EC(v121, v122);
+  v123 = qword_27DE0DD38;
+  if (os_log_type_enabled(v123, OS_LOG_TYPE_DEBUG))
   {
-    sub_2334B6084(self, v63);
+    sub_2334B6084(self, v54);
   }
 
-  v137 = *MEMORY[0x277CEF0D8];
-  if (os_log_type_enabled(v137, OS_LOG_TYPE_DEBUG))
+  v124 = *MEMORY[0x277CEF0D8];
+  if (os_log_type_enabled(v124, OS_LOG_TYPE_DEBUG))
   {
-    sub_2334B617C(self, v63);
+    sub_2334B617C(self, v54);
   }
 
-  v390 = objc_msgSend_attendees(eventCopy, v138, v139, v140);
-  v387 = v12;
-  v388 = helperCopy;
-  v386 = v24;
-  v389 = eventCopy;
-  if (objc_msgSend_count(v390, v141, v142, v143))
+  v340 = objc_msgSend_attendees(eventCopy, v125, v126);
+  v129 = objc_msgSend_count(v340, v127, v128);
+  v337 = v12;
+  v338 = helperCopy;
+  v336 = v21;
+  v339 = eventCopy;
+  if (v129)
   {
-    sub_2334B11EC();
-    v147 = qword_27DE0DD38;
-    if (os_log_type_enabled(v147, OS_LOG_TYPE_DEBUG))
+    sub_2334B11EC(v129, v130);
+    v132 = qword_27DE0DD38;
+    if (os_log_type_enabled(v132, OS_LOG_TYPE_DEBUG))
     {
       sub_2334B6280();
     }
 
-    v148 = *MEMORY[0x277CEF0D8];
-    if (os_log_type_enabled(v148, OS_LOG_TYPE_DEBUG))
+    v133 = *MEMORY[0x277CEF0D8];
+    if (os_log_type_enabled(v133, OS_LOG_TYPE_DEBUG))
     {
       sub_2334B632C();
     }
 
-    v395 = objc_msgSend_array(MEMORY[0x277CBEB18], v149, v150, v151);
-    v155 = objc_msgSend_calendar(v63, v152, v153, v154);
-    v159 = objc_msgSend_source(v155, v156, v157, v158);
-    v163 = objc_msgSend_constraints(v159, v160, v161, v162);
-    v167 = objc_msgSend_supportsOutgoingInvitations(v163, v164, v165, v166);
+    v345 = objc_msgSend_array(MEMORY[0x277CBEB18], v134, v135);
+    v138 = objc_msgSend_calendar(v54, v136, v137);
+    v141 = objc_msgSend_source(v138, v139, v140);
+    v144 = objc_msgSend_constraints(v141, v142, v143);
+    v147 = objc_msgSend_supportsOutgoingInvitations(v144, v145, v146);
 
-    if (v167)
+    if (v147)
     {
-      v171 = objc_msgSend_constraints(v159, v168, v169, v170);
-      v175 = objc_msgSend_requiresOutgoingInvitationsInDefaultCalendar(v171, v172, v173, v174);
+      v151 = objc_msgSend_constraints(v141, v149, v150);
+      v154 = objc_msgSend_requiresOutgoingInvitationsInDefaultCalendar(v151, v152, v153);
 
-      if (v175)
+      if (v154)
       {
-        isDefaultSchedulingCalendar = objc_msgSend_isDefaultSchedulingCalendar(v155, v176, v177, v178);
+        isDefaultSchedulingCalendar = objc_msgSend_isDefaultSchedulingCalendar(v138, v149, v155);
+        v349 = isDefaultSchedulingCalendar;
       }
 
       else
       {
-        isDefaultSchedulingCalendar = 1;
+        v349 = 1;
       }
     }
 
     else
     {
-      isDefaultSchedulingCalendar = 0;
+      v349 = 0;
     }
 
-    sub_2334B11EC();
-    v179 = qword_27DE0DD38;
-    if (os_log_type_enabled(v179, OS_LOG_TYPE_DEBUG))
+    sub_2334B11EC(isDefaultSchedulingCalendar, v149);
+    v156 = qword_27DE0DD38;
+    if (os_log_type_enabled(v156, OS_LOG_TYPE_DEBUG))
     {
-      sub_2334B63E0();
+      sub_2334B63E0(self);
     }
 
-    v383 = v155;
-    v385 = v69;
+    v333 = v138;
+    v335 = v62;
 
-    v180 = *MEMORY[0x277CEF0D8];
-    if (os_log_type_enabled(v180, OS_LOG_TYPE_DEBUG))
+    v157 = *MEMORY[0x277CEF0D8];
+    if (os_log_type_enabled(v157, OS_LOG_TYPE_DEBUG))
     {
-      sub_2334B648C();
+      sub_2334B648C(self);
     }
 
-    v381 = v159;
-    v396 = v63;
+    v331 = v141;
+    v346 = v54;
 
-    v411 = 0u;
-    v412 = 0u;
-    v409 = 0u;
-    v410 = 0u;
-    obj = v390;
-    v182 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v181, &v409, v415, 16);
-    if (v182)
+    v361 = 0u;
+    v362 = 0u;
+    v359 = 0u;
+    v360 = 0u;
+    obj = v340;
+    v159 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v158, &v359, v365, 16);
+    if (v159)
     {
-      v186 = v182;
-      v394 = 0;
-      v187 = *v410;
+      v162 = v159;
+      v344 = 0;
+      v163 = *v360;
       do
       {
-        for (i = 0; i != v186; ++i)
+        for (i = 0; i != v162; ++i)
         {
-          if (*v410 != v187)
+          if (*v360 != v163)
           {
             objc_enumerationMutation(obj);
           }
 
-          v189 = *(*(&v409 + 1) + 8 * i);
-          v193 = objc_msgSend_object(v189, v183, v184, v185);
-          if (v193)
+          v165 = *(*(&v359 + 1) + 8 * i);
+          v168 = objc_msgSend_object(v165, v160, v161);
+          if (v168)
           {
-            v194 = objc_msgSend_data(v189, v190, v191, v192);
-            v198 = objc_msgSend_displayText(v189, v195, v196, v197);
-            v199 = MEMORY[0x277CFBC50];
-            v203 = objc_msgSend_identifier(v193, v200, v201, v202);
-            v206 = objc_msgSend_externalIdentifierFromAssistantID_(v199, v204, v203, v205);
+            v169 = objc_msgSend_data(v165, v166, v167);
+            v172 = objc_msgSend_displayText(v165, v170, v171);
+            v173 = MEMORY[0x277CFBC50];
+            v176 = objc_msgSend_identifier(v168, v174, v175);
+            v178 = objc_msgSend_externalIdentifierFromAssistantID_(v173, v177, v176);
 
-            v210 = objc_msgSend_emails(v193, v207, v208, v209);
-            v214 = objc_msgSend_count(v210, v211, v212, v213);
+            v181 = objc_msgSend_emails(v168, v179, v180);
+            v184 = objc_msgSend_count(v181, v182, v183);
 
-            if (v214)
+            if (v184)
             {
-              v218 = objc_msgSend_emails(v193, v215, v216, v217);
-              v221 = objc_msgSend_objectAtIndex_(v218, v219, 0, v220);
-              v225 = objc_msgSend_emailAddress(v221, v222, v223, v224);
+              v187 = objc_msgSend_emails(v168, v185, v186);
+              v189 = objc_msgSend_objectAtIndex_(v187, v188, 0);
+              v192 = objc_msgSend_emailAddress(v189, v190, v191);
 
-              sub_2334B11EC();
-              v226 = qword_27DE0DD38;
-              if (os_log_type_enabled(v226, OS_LOG_TYPE_DEBUG))
+              sub_2334B11EC(v193, v194);
+              v195 = qword_27DE0DD38;
+              if (os_log_type_enabled(v195, OS_LOG_TYPE_DEBUG))
               {
-                v244 = objc_opt_class();
+                v210 = objc_opt_class();
                 units.years = 138412546;
-                *&units.months = v244;
+                *&units.months = v210;
                 LOWORD(units.hours) = 2112;
-                *(&units.hours + 2) = v225;
-                _os_log_debug_impl(&dword_2334AF000, v226, OS_LOG_TYPE_DEBUG, "[%@] - Attendee has email %@", &units, 0x16u);
+                *(&units.hours + 2) = v192;
+                _os_log_debug_impl(&dword_2334AF000, v195, OS_LOG_TYPE_DEBUG, "[%@] - Attendee has email %@", &units, 0x16u);
               }
 
-              v227 = *MEMORY[0x277CEF0D8];
-              if (os_log_type_enabled(v227, OS_LOG_TYPE_DEBUG))
+              v196 = *MEMORY[0x277CEF0D8];
+              if (os_log_type_enabled(v196, OS_LOG_TYPE_DEBUG))
               {
-                v245 = objc_opt_class();
+                v211 = objc_opt_class();
                 units.years = 136315650;
                 *&units.months = "[CalAssistantEventCommit _commitEvent:serviceHelper:]";
                 LOWORD(units.hours) = 2112;
-                *(&units.hours + 2) = v245;
+                *(&units.hours + 2) = v211;
                 *(&units.minutes + 3) = 2112;
-                *&units.seconds = v225;
-                _os_log_debug_impl(&dword_2334AF000, v227, OS_LOG_TYPE_DEBUG, "%s [%@] - Attendee has email %@", &units, 0x20u);
+                *&units.seconds = v192;
+                _os_log_debug_impl(&dword_2334AF000, v196, OS_LOG_TYPE_DEBUG, "%s [%@] - Attendee has email %@", &units, 0x20u);
               }
             }
 
             else
             {
-              v225 = v194;
+              v192 = v169;
             }
 
-            if (((v225 != 0) & isDefaultSchedulingCalendar) == 1)
+            if (((v192 != 0) & v349) == 1)
             {
-              v228 = MEMORY[0x277CC59A0];
-              if (v206)
+              v197 = MEMORY[0x277CC59A0];
+              if (v178)
               {
-                v229 = objc_msgSend_URLWithString_(MEMORY[0x277CBEBC0], v215, v206, v217);
-                v231 = objc_msgSend_attendeeWithName_emailAddress_phoneNumber_url_(v228, v230, v198, v225, 0, v229);
+                v198 = objc_msgSend_URLWithString_(MEMORY[0x277CBEBC0], v185, v178);
+                v200 = objc_msgSend_attendeeWithName_emailAddress_phoneNumber_url_(v197, v199, v172, v192, 0, v198);
               }
 
               else
               {
-                v231 = objc_msgSend_attendeeWithName_emailAddress_phoneNumber_url_(MEMORY[0x277CC59A0], v215, v198, v225, 0, 0);
+                v200 = objc_msgSend_attendeeWithName_emailAddress_phoneNumber_url_(MEMORY[0x277CC59A0], v185, v172, v192, 0, 0);
               }
 
-              objc_msgSend_setParticipantType_(v231, v232, 1, v233);
-              objc_msgSend_setParticipantStatus_(v231, v234, 0, v235);
-              objc_msgSend_setParticipantRole_(v231, v236, 1, v237);
-              objc_msgSend_addObject_(v395, v238, v231, v239);
-              objc_msgSend_addAttendee_(v396, v240, v231, v241);
-              sub_2334B11EC();
-              v242 = qword_27DE0DD38;
-              if (os_log_type_enabled(v242, OS_LOG_TYPE_DEBUG))
+              objc_msgSend_setParticipantType_(v200, v201, 1);
+              objc_msgSend_setParticipantStatus_(v200, v202, 0);
+              objc_msgSend_setParticipantRole_(v200, v203, 1);
+              objc_msgSend_addObject_(v345, v204, v200);
+              v206 = objc_msgSend_addAttendee_(v346, v205, v200);
+              sub_2334B11EC(v206, v207);
+              v208 = qword_27DE0DD38;
+              if (os_log_type_enabled(v208, OS_LOG_TYPE_DEBUG))
               {
-                v246 = objc_opt_class();
+                v212 = objc_opt_class();
                 units.years = 138412546;
-                *&units.months = v246;
+                *&units.months = v212;
                 LOWORD(units.hours) = 2112;
-                *(&units.hours + 2) = v231;
-                _os_log_debug_impl(&dword_2334AF000, v242, OS_LOG_TYPE_DEBUG, "[%@] - Added attendee %@", &units, 0x16u);
+                *(&units.hours + 2) = v200;
+                _os_log_debug_impl(&dword_2334AF000, v208, OS_LOG_TYPE_DEBUG, "[%@] - Added attendee %@", &units, 0x16u);
               }
 
-              v243 = *MEMORY[0x277CEF0D8];
-              if (os_log_type_enabled(v243, OS_LOG_TYPE_DEBUG))
+              v209 = *MEMORY[0x277CEF0D8];
+              if (os_log_type_enabled(v209, OS_LOG_TYPE_DEBUG))
               {
-                v247 = objc_opt_class();
+                v213 = objc_opt_class();
                 units.years = 136315650;
                 *&units.months = "[CalAssistantEventCommit _commitEvent:serviceHelper:]";
                 LOWORD(units.hours) = 2112;
-                *(&units.hours + 2) = v247;
+                *(&units.hours + 2) = v213;
                 *(&units.minutes + 3) = 2112;
-                *&units.seconds = v231;
-                _os_log_debug_impl(&dword_2334AF000, v243, OS_LOG_TYPE_DEBUG, "%s [%@] - Added attendee %@", &units, 0x20u);
+                *&units.seconds = v200;
+                _os_log_debug_impl(&dword_2334AF000, v209, OS_LOG_TYPE_DEBUG, "%s [%@] - Added attendee %@", &units, 0x20u);
               }
 
-              v394 = 1;
+              v344 = 1;
             }
           }
         }
 
-        v186 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v183, &v409, v415, 16);
+        v162 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v160, &v359, v365, 16);
       }
 
-      while (v186);
+      while (v162);
     }
 
     else
     {
-      v394 = 0;
+      v344 = 0;
     }
 
-    v251 = objc_msgSend_array(MEMORY[0x277CBEB18], v248, v249, v250);
-    v405 = 0u;
-    v406 = 0u;
-    v407 = 0u;
-    v408 = 0u;
-    v252 = obj;
-    v254 = objc_msgSend_countByEnumeratingWithState_objects_count_(v252, v253, &v405, v414, 16);
-    eventCopy = v389;
-    if (v254)
+    v216 = objc_msgSend_array(MEMORY[0x277CBEB18], v214, v215);
+    v355 = 0u;
+    v356 = 0u;
+    v357 = 0u;
+    v358 = 0u;
+    v217 = obj;
+    v219 = objc_msgSend_countByEnumeratingWithState_objects_count_(v217, v218, &v355, v364, 16);
+    eventCopy = v339;
+    if (v219)
     {
-      v258 = v254;
-      v259 = *v406;
+      v222 = v219;
+      v223 = *v356;
       do
       {
-        for (j = 0; j != v258; ++j)
+        for (j = 0; j != v222; ++j)
         {
-          if (*v406 != v259)
+          if (*v356 != v223)
           {
-            objc_enumerationMutation(v252);
+            objc_enumerationMutation(v217);
           }
 
-          v261 = objc_msgSend_displayText(*(*(&v405 + 1) + 8 * j), v255, v256, v257);
-          objc_msgSend_addObject_(v251, v262, v261, v263);
+          v225 = objc_msgSend_displayText(*(*(&v355 + 1) + 8 * j), v220, v221);
+          objc_msgSend_addObject_(v216, v226, v225);
         }
 
-        v258 = objc_msgSend_countByEnumeratingWithState_objects_count_(v252, v255, &v405, v414, 16);
+        v222 = objc_msgSend_countByEnumeratingWithState_objects_count_(v217, v220, &v355, v364, 16);
       }
 
-      while (v258);
+      while (v222);
     }
 
-    v264 = sub_2334B1D2C(v251);
-    v268 = objc_msgSend_bundle(CalAssistantBundle, v265, v266, v267);
-    v270 = v268;
-    v271 = MEMORY[0x277CCACA8];
-    if (v388)
+    v227 = sub_2334B1D2C(v216);
+    v230 = objc_msgSend_bundle(CalAssistantBundle, v228, v229);
+    v232 = v230;
+    v233 = MEMORY[0x277CCACA8];
+    if (v338)
     {
-      v272 = objc_msgSend_assistantLocalizedStringForKey_table_bundle_(v388, v269, @"%1$@ with %2$@", 0, v268);
-      v276 = objc_msgSend_title(v389, v273, v274, v275);
-      objc_msgSend_stringWithFormat_(v271, v277, v272, v278, v276, v264, v381, v383);
+      v234 = objc_msgSend_assistantLocalizedStringForKey_table_bundle_(v338, v231, @"%1$@ with %2$@", 0, v230);
+      v237 = objc_msgSend_title(v339, v235, v236);
+      objc_msgSend_stringWithFormat_(v233, v238, v234, v237, v227, v331, v333);
     }
 
     else
     {
-      v272 = objc_msgSend_localizedStringForKey_value_table_(v268, v269, @"%1$@ with %2$@", &stru_2848D0778, 0);
-      v276 = objc_msgSend_title(v389, v279, v280, v281);
-      objc_msgSend_localizedStringWithFormat_(v271, v282, v272, v283, v276, v264, v381, v383);
+      v234 = objc_msgSend_localizedStringForKey_value_table_(v230, v231, @"%1$@ with %2$@", &stru_2848D0778, 0);
+      v237 = objc_msgSend_title(v339, v239, v240);
+      objc_msgSend_localizedStringWithFormat_(v233, v241, v234, v237, v227, v331, v333);
     }
-    v284 = ;
+    v242 = ;
 
-    if ((v385 | v394))
+    if ((v335 | v344))
     {
-      v288 = objc_msgSend_title(v389, v285, v286, v287);
-      objc_msgSend_setTitle_(v396, v289, v288, v290);
+      v245 = objc_msgSend_title(v339, v243, v244);
+      objc_msgSend_setTitle_(v346, v246, v245);
     }
 
     else
     {
-      objc_msgSend_setTitle_(v396, v285, v284, v287);
+      v247 = objc_msgSend_setTitle_(v346, v243, v242);
     }
 
-    sub_2334B11EC();
-    v291 = qword_27DE0DD38;
-    if (os_log_type_enabled(v291, OS_LOG_TYPE_DEBUG))
+    sub_2334B11EC(v247, v248);
+    v249 = qword_27DE0DD38;
+    if (os_log_type_enabled(v249, OS_LOG_TYPE_DEBUG))
     {
       sub_2334B6550();
     }
 
-    v292 = *MEMORY[0x277CEF0D8];
-    if (os_log_type_enabled(v292, OS_LOG_TYPE_DEBUG))
+    v250 = *MEMORY[0x277CEF0D8];
+    if (os_log_type_enabled(v250, OS_LOG_TYPE_DEBUG))
     {
       sub_2334B65F8();
     }
 
-    v63 = v396;
+    v54 = v346;
   }
 
-  v293 = objc_msgSend_recurrences(eventCopy, v144, v145, v146);
-  v297 = objc_msgSend_count(v293, v294, v295, v296);
+  v251 = objc_msgSend_recurrences(eventCopy, v130, v131);
+  v254 = objc_msgSend_count(v251, v252, v253);
 
-  if (v297)
+  if (v254)
   {
-    if (v297 == 1)
+    if (v254 == 1)
     {
-      v301 = objc_msgSend_recurrences(eventCopy, v298, v299, v300);
-      v304 = objc_msgSend_objectAtIndex_(v301, v302, 0, v303);
-      v305 = sub_2334B2068(v304);
+      v258 = objc_msgSend_recurrences(eventCopy, v256, v257);
+      v260 = objc_msgSend_objectAtIndex_(v258, v259, 0);
+      v261 = sub_2334B2068(v260);
 
-      sub_2334B11EC();
-      v306 = qword_27DE0DD38;
-      if (os_log_type_enabled(v306, OS_LOG_TYPE_DEBUG))
+      sub_2334B11EC(v262, v263);
+      v264 = qword_27DE0DD38;
+      if (os_log_type_enabled(v264, OS_LOG_TYPE_DEBUG))
       {
         sub_2334B66AC();
       }
 
-      v307 = *MEMORY[0x277CEF0D8];
-      if (os_log_type_enabled(v307, OS_LOG_TYPE_DEBUG))
+      v265 = *MEMORY[0x277CEF0D8];
+      if (os_log_type_enabled(v265, OS_LOG_TYPE_DEBUG))
       {
         sub_2334B674C();
       }
 
-      v310 = objc_msgSend_arrayWithObject_(MEMORY[0x277CBEA60], v308, v305, v309);
-      v311 = v63;
-      objc_msgSend_setRecurrenceRules_(v63, v312, v310, v313);
+      v267 = objc_msgSend_arrayWithObject_(MEMORY[0x277CBEA60], v266, v261);
+      v268 = v54;
+      objc_msgSend_setRecurrenceRules_(v54, v269, v267);
 
-      v397 = 0;
+      v347 = 0;
     }
 
     else
     {
-      sub_2334B11EC();
-      v314 = qword_27DE0DD38;
-      if (os_log_type_enabled(v314, OS_LOG_TYPE_ERROR))
+      sub_2334B11EC(v255, v256);
+      v270 = qword_27DE0DD38;
+      if (os_log_type_enabled(v270, OS_LOG_TYPE_ERROR))
       {
-        sub_2334B67FC();
+        sub_2334B67FC(self);
       }
 
-      v315 = *MEMORY[0x277CEF0D8];
-      if (os_log_type_enabled(v315, OS_LOG_TYPE_ERROR))
+      v271 = *MEMORY[0x277CEF0D8];
+      if (os_log_type_enabled(v271, OS_LOG_TYPE_ERROR))
       {
-        sub_2334B6890();
+        sub_2334B6890(self);
       }
 
-      v316 = objc_alloc(MEMORY[0x277D47208]);
-      v397 = objc_msgSend_initWithReason_(v316, v317, @"Calendar plugin doesn't handle multiple recurrences.", v318);
-      v305 = v63;
-      v311 = 0;
+      v272 = objc_alloc(MEMORY[0x277D47208]);
+      v347 = objc_msgSend_initWithReason_(v272, v273, @"Calendar plugin doesn't handle multiple recurrences.");
+      v261 = v54;
+      v268 = 0;
     }
   }
 
   else
   {
-    v311 = v63;
-    v397 = 0;
+    v268 = v54;
+    v347 = 0;
   }
 
-  v403 = 0u;
-  v404 = 0u;
-  v401 = 0u;
-  v402 = 0u;
-  v319 = objc_msgSend_alerts(eventCopy, v298, v299, v300);
-  v321 = objc_msgSend_countByEnumeratingWithState_objects_count_(v319, v320, &v401, v413, 16);
-  if (v321)
+  v353 = 0u;
+  v354 = 0u;
+  v351 = 0u;
+  v352 = 0u;
+  v274 = objc_msgSend_alerts(eventCopy, v256, v257);
+  v276 = objc_msgSend_countByEnumeratingWithState_objects_count_(v274, v275, &v351, v363, 16);
+  if (v276)
   {
-    v322 = v321;
-    v323 = *v402;
+    v277 = v276;
+    v278 = *v352;
     do
     {
-      for (k = 0; k != v322; ++k)
+      for (k = 0; k != v277; ++k)
       {
-        if (*v402 != v323)
+        if (*v352 != v278)
         {
-          objc_enumerationMutation(v319);
+          objc_enumerationMutation(v274);
         }
 
-        v325 = *(*(&v401 + 1) + 8 * k);
-        v326 = objc_alloc(MEMORY[0x277CC5988]);
-        objc_msgSend_doubleValue(v325, v327, v328, v329);
-        v333 = objc_msgSend_initWithRelativeOffset_(v326, v330, v331, v332);
-        if (v333)
+        v280 = *(*(&v351 + 1) + 8 * k);
+        v281 = objc_alloc(MEMORY[0x277CC5988]);
+        objc_msgSend_doubleValue(v280, v282, v283);
+        v286 = objc_msgSend_initWithRelativeOffset_(v281, v284, v285);
+        v288 = v286;
+        if (v286)
         {
-          sub_2334B11EC();
-          v334 = qword_27DE0DD38;
-          if (os_log_type_enabled(v334, OS_LOG_TYPE_DEBUG))
+          sub_2334B11EC(v286, v287);
+          v289 = qword_27DE0DD38;
+          if (os_log_type_enabled(v289, OS_LOG_TYPE_DEBUG))
           {
-            v339 = objc_opt_class();
+            v293 = objc_opt_class();
             units.years = 138412546;
-            *&units.months = v339;
+            *&units.months = v293;
             LOWORD(units.hours) = 2112;
-            *(&units.hours + 2) = v333;
-            _os_log_debug_impl(&dword_2334AF000, v334, OS_LOG_TYPE_DEBUG, "[%@] - Giving event alarm %@", &units, 0x16u);
+            *(&units.hours + 2) = v288;
+            _os_log_debug_impl(&dword_2334AF000, v289, OS_LOG_TYPE_DEBUG, "[%@] - Giving event alarm %@", &units, 0x16u);
           }
 
-          v335 = *MEMORY[0x277CEF0D8];
-          if (os_log_type_enabled(v335, OS_LOG_TYPE_DEBUG))
+          v290 = *MEMORY[0x277CEF0D8];
+          if (os_log_type_enabled(v290, OS_LOG_TYPE_DEBUG))
           {
-            v340 = objc_opt_class();
+            v294 = objc_opt_class();
             units.years = 136315650;
             *&units.months = "[CalAssistantEventCommit _commitEvent:serviceHelper:]";
             LOWORD(units.hours) = 2112;
-            *(&units.hours + 2) = v340;
+            *(&units.hours + 2) = v294;
             *(&units.minutes + 3) = 2112;
-            *&units.seconds = v333;
-            _os_log_debug_impl(&dword_2334AF000, v335, OS_LOG_TYPE_DEBUG, "%s [%@] - Giving event alarm %@", &units, 0x20u);
+            *&units.seconds = v288;
+            _os_log_debug_impl(&dword_2334AF000, v290, OS_LOG_TYPE_DEBUG, "%s [%@] - Giving event alarm %@", &units, 0x20u);
           }
 
-          objc_msgSend_addAlarm_(v311, v336, v333, v337);
+          objc_msgSend_addAlarm_(v268, v291, v288);
         }
       }
 
-      v322 = objc_msgSend_countByEnumeratingWithState_objects_count_(v319, v338, &v401, v413, 16);
+      v277 = objc_msgSend_countByEnumeratingWithState_objects_count_(v274, v292, &v351, v363, 16);
     }
 
-    while (v322);
+    while (v277);
   }
 
-  v63 = v311;
-  if (v311)
+  v54 = v268;
+  if (v268)
   {
-    v344 = objc_msgSend_eventStore(self, v341, v342, v343);
-    v400 = 0;
-    v346 = objc_msgSend_saveEvent_span_commit_error_(v344, v345, v311, v297 != 0, 1, &v400);
-    v347 = v400;
+    v297 = objc_msgSend_eventStore(self, v295, v296);
+    v350 = 0;
+    v299 = objc_msgSend_saveEvent_span_commit_error_(v297, v298, v268, v254 != 0, 1, &v350);
+    v300 = v350;
 
-    sub_2334B11EC();
-    v348 = qword_27DE0DD38;
-    v349 = v348;
-    helperCopy = v388;
-    eventCopy = v389;
-    v24 = v386;
-    v12 = v387;
-    v350 = cf;
-    v351 = v397;
-    if (v346)
+    sub_2334B11EC(v301, v302);
+    v303 = qword_27DE0DD38;
+    v304 = v303;
+    helperCopy = v338;
+    eventCopy = v339;
+    v21 = v336;
+    v12 = v337;
+    v305 = cf;
+    v306 = v347;
+    if (v299)
     {
-      if (os_log_type_enabled(v348, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v303, OS_LOG_TYPE_DEBUG))
       {
-        sub_2334B6A8C();
+        sub_2334B6A8C(self);
       }
 
-      v352 = *MEMORY[0x277CEF0D8];
-      if (os_log_type_enabled(v352, OS_LOG_TYPE_DEBUG))
+      v307 = *MEMORY[0x277CEF0D8];
+      if (os_log_type_enabled(v307, OS_LOG_TYPE_DEBUG))
       {
-        sub_2334B6B1C();
+        sub_2334B6B1C(self);
       }
 
-      AceEventFromEKEvent_0 = CreateAceEventFromEKEvent_0(v63, cf);
+      AceEventFromEKEvent_0 = CreateAceEventFromEKEvent_0(v54, cf);
+      v310 = AceEventFromEKEvent_0;
       if (AceEventFromEKEvent_0)
       {
-        sub_2334B11EC();
-        v354 = qword_27DE0DD38;
-        if (os_log_type_enabled(v354, OS_LOG_TYPE_DEBUG))
+        sub_2334B11EC(AceEventFromEKEvent_0, v309);
+        v311 = qword_27DE0DD38;
+        if (os_log_type_enabled(v311, OS_LOG_TYPE_DEBUG))
         {
-          sub_2334B6BBC();
+          sub_2334B6BBC(self);
         }
 
-        v355 = *MEMORY[0x277CEF0D8];
-        if (os_log_type_enabled(v355, OS_LOG_TYPE_DEBUG))
+        v312 = *MEMORY[0x277CEF0D8];
+        if (os_log_type_enabled(v312, OS_LOG_TYPE_DEBUG))
         {
-          sub_2334B6C4C();
+          sub_2334B6C4C(self);
         }
 
-        v356 = objc_alloc_init(MEMORY[0x277D472A8]);
-        v351 = objc_msgSend_identifier(AceEventFromEKEvent_0, v357, v358, v359);
-        objc_msgSend_setIdentifier_(v356, v360, v351, v361);
+        v313 = objc_alloc_init(MEMORY[0x277D472A8]);
+        v306 = objc_msgSend_identifier(v310, v314, v315);
+        objc_msgSend_setIdentifier_(v313, v316, v306);
         goto LABEL_165;
       }
 
-      v369 = objc_alloc(MEMORY[0x277D47208]);
-      v368 = objc_msgSend_initWithReason_(v369, v370, @"Unable to create ace event from calendar event", v371);
+      v322 = objc_alloc(MEMORY[0x277D47208]);
+      v321 = objc_msgSend_initWithReason_(v322, v323, @"Unable to create ace event from calendar event");
     }
 
     else
     {
-      if (os_log_type_enabled(v348, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v303, OS_LOG_TYPE_ERROR))
       {
         sub_2334B6934();
       }
 
-      v362 = *MEMORY[0x277CEF0D8];
-      if (os_log_type_enabled(v362, OS_LOG_TYPE_ERROR))
+      v317 = *MEMORY[0x277CEF0D8];
+      if (os_log_type_enabled(v317, OS_LOG_TYPE_ERROR))
       {
         sub_2334B69D8();
       }
 
-      v363 = objc_alloc(MEMORY[0x277D47208]);
-      AceEventFromEKEvent_0 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v364, @"Unable to save event: %@", v365, v347);
-      v368 = objc_msgSend_initWithReason_(v363, v366, AceEventFromEKEvent_0, v367);
+      v318 = objc_alloc(MEMORY[0x277D47208]);
+      v310 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v319, @"Unable to save event: %@", v300);
+      v321 = objc_msgSend_initWithReason_(v318, v320, v310);
     }
 
-    v356 = v368;
+    v313 = v321;
 LABEL_165:
 
     goto LABEL_166;
   }
 
-  helperCopy = v388;
-  eventCopy = v389;
-  v24 = v386;
-  v12 = v387;
-  v350 = cf;
-  v356 = v397;
+  helperCopy = v338;
+  eventCopy = v339;
+  v21 = v336;
+  v12 = v337;
+  v305 = cf;
+  v313 = v347;
 LABEL_166:
-  CFRelease(v350);
-  v73 = v356;
+  CFRelease(v305);
+  v65 = v313;
 
 LABEL_167:
 LABEL_168:
 
-  v372 = *MEMORY[0x277D85DE8];
-
-  return v73;
+  return v65;
 }
 
 - (void)performWithCompletion:(id)completion serviceHelper:(id)helper
 {
   helperCopy = helper;
   completionCopy = completion;
-  sub_2334B11EC();
-  v10 = objc_msgSend_identifier(self, v7, v8, v9);
+  sub_2334B11EC(completionCopy, v7);
+  v10 = objc_msgSend_identifier(self, v8, v9);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v16 = objc_msgSend__validateEvent_(self, v11, v10, v12);
-    if (v16)
+    v14 = objc_msgSend__validateEvent_(self, v11, v10);
+    if (v14)
     {
       goto LABEL_6;
     }
 
-    v17 = objc_msgSend__commitEvent_serviceHelper_(self, v13, v10, helperCopy);
+    v15 = objc_msgSend__commitEvent_serviceHelper_(self, v12, v10, helperCopy);
   }
 
   else
   {
-    v18 = objc_alloc(MEMORY[0x277D47208]);
-    v17 = objc_msgSend_initWithReason_(v18, v19, @"I could not find the event to commit.", v20);
+    v16 = objc_alloc(MEMORY[0x277D47208]);
+    v15 = objc_msgSend_initWithReason_(v16, v17, @"I could not find the event to commit.");
   }
 
-  v16 = v17;
+  v14 = v15;
 LABEL_6:
-  v21 = objc_msgSend_dictionary(v16, v13, v14, v15);
-  completionCopy[2](completionCopy, v21);
+  v18 = objc_msgSend_dictionary(v14, v12, v13);
+  completionCopy[2](completionCopy, v18);
 }
 
 @end

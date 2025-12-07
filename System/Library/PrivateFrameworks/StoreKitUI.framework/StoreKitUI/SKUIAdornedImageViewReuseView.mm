@@ -12,6 +12,7 @@
 - (SKUIAdornedImageViewReuseView)init;
 - (id)viewForElementIdentifier:(id)identifier;
 - (void)_buttonAction:(id)action;
+- (void)init;
 - (void)layoutSubviews;
 - (void)mediaPlayer:(id)player itemStateChanged:(id)changed;
 - (void)reloadWithViewElement:(id)element width:(double)width context:(id)context;
@@ -81,7 +82,7 @@
   return v18;
 }
 
-uint64_t __80__SKUIAdornedImageViewReuseView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__80__SKUIAdornedImageViewReuseView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) prefetchResourcesForViewElement:a2 reason:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = (*(*(*(a1 + 40) + 8) + 24) | result) & 1;
@@ -625,7 +626,7 @@ LABEL_16:
 void __58__SKUIAdornedImageViewReuseView_viewForElementIdentifier___block_invoke(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
 {
   v11 = [a2 itmlID];
-  if ([v11 isEqualToString:*(a1 + 32)])
+  if (objc_msgSend_isEqualToString_(v11))
   {
     v7 = [*(a1 + 40) count];
 
@@ -952,7 +953,7 @@ uint64_t __62__SKUIAdornedImageViewReuseView_mediaPlayer_itemStateChanged___bloc
   }
 }
 
-uint64_t __62__SKUIAdornedImageViewReuseView_mediaPlayer_itemStateChanged___block_invoke_2(uint64_t a1)
+void *__62__SKUIAdornedImageViewReuseView_mediaPlayer_itemStateChanged___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) playState];
   if (result != 5)
@@ -996,20 +997,20 @@ uint64_t __62__SKUIAdornedImageViewReuseView_mediaPlayer_itemStateChanged___bloc
   textCopy = text;
   styleCopy = style;
   contextCopy = context;
-  v12 = SKUIViewElementFontWithStyle(styleCopy);
-  if (!v12)
+  v13 = SKUIViewElementFontWithStyle(styleCopy);
+  if (!v13)
   {
     if (type)
     {
-      v13 = 5;
+      v14 = 5;
     }
 
     else
     {
-      v13 = 1;
+      v14 = 1;
     }
 
-    v12 = SKUIFontPreferredFontForTextStyle(v13);
+    v13 = SKUIFontPreferredFontForTextStyle(v14, v12);
   }
 
   tintColor = [contextCopy tintColor];
@@ -1020,9 +1021,9 @@ uint64_t __62__SKUIAdornedImageViewReuseView_mediaPlayer_itemStateChanged___bloc
     blackColor = [MEMORY[0x277D75348] blackColor];
   }
 
-  v16 = [textCopy attributedStringWithDefaultFont:v12 foregroundColor:blackColor style:styleCopy];
+  v17 = [textCopy attributedStringWithDefaultFont:v13 foregroundColor:blackColor style:styleCopy];
 
-  return v16;
+  return v17;
 }
 
 + (id)_attributedStringForLabel:(id)label context:(id)context
@@ -1030,35 +1031,35 @@ uint64_t __62__SKUIAdornedImageViewReuseView_mediaPlayer_itemStateChanged___bloc
   labelCopy = label;
   contextCopy = context;
   style = [labelCopy style];
-  v8 = SKUIViewElementFontWithStyle(style);
-  if (!v8)
+  v9 = SKUIViewElementFontWithStyle(style);
+  if (!v9)
   {
-    v8 = SKUIFontPreferredFontForTextStyle(5);
+    v9 = SKUIFontPreferredFontForTextStyle(5, v8);
   }
 
   tintColor = [contextCopy tintColor];
-  v10 = SKUIViewElementPlainColorWithStyle(style, tintColor);
+  v11 = SKUIViewElementPlainColorWithStyle(style, tintColor);
 
-  if (!v10)
+  if (!v11)
   {
-    v10 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.8];
+    v11 = [MEMORY[0x277D75348] colorWithWhite:0.0 alpha:0.8];
   }
 
-  v11 = SKUIViewElementAlignmentForStyle(style);
-  if (v11)
+  v12 = SKUIViewElementAlignmentForStyle(style);
+  if (v12)
   {
-    v12 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v11);
+    v14 = SKUIViewElementNSTextAlignmentForIKElementAlignment(v12, v13);
   }
 
   else
   {
-    v12 = 0;
+    v14 = 0;
   }
 
   text = [labelCopy text];
-  v14 = [text attributedStringWithDefaultFont:v8 foregroundColor:v10 textAlignment:v12 style:style];
+  v16 = [text attributedStringWithDefaultFont:v9 foregroundColor:v11 textAlignment:v14 style:style];
 
-  return v14;
+  return v16;
 }
 
 + (id)_attributedStringForMenuItem:(id)item context:(id)context
@@ -1073,11 +1074,35 @@ uint64_t __62__SKUIAdornedImageViewReuseView_mediaPlayer_itemStateChanged___bloc
   return v10;
 }
 
+- (void)init
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIAdornedImageViewReuseView init]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIAdornedImageViewReuseView prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIAdornedImageViewReuseView preferredSizeForViewElement:context:]";
+}
+
 + (void)requestLayoutForViewElement:width:context:.cold.1()
 {
   v2 = *MEMORY[0x277D85DE8];
   v0 = 136446210;
   v1 = "+[SKUIAdornedImageViewReuseView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIAdornedImageViewReuseView sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

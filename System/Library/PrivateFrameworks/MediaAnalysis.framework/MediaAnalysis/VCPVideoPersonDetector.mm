@@ -23,7 +23,7 @@
 
 - (int)detectPersons:(__CVBuffer *)persons persons:(id)a4
 {
-  v52[1] = *MEMORY[0x1E69E9840];
+  v54[1] = *MEMORY[0x1E69E9840];
   v5 = a4;
   CVPixelBufferGetWidth(persons);
   CVPixelBufferGetHeight(persons);
@@ -32,139 +32,139 @@
   v7 = objc_autoreleasePoolPush();
   v8 = objc_alloc(MEMORY[0x1E69845B8]);
   v9 = [v8 initWithCVPixelBuffer:persons options:MEMORY[0x1E695E0F8]];
-  v10 = VCPSignPostLog();
+  v10 = VCPSignPostLog(v9);
   v11 = os_signpost_id_generate(v10);
 
-  v12 = VCPSignPostLog();
-  v13 = v12;
+  v13 = VCPSignPostLog(v12);
+  v14 = v13;
   context = v6;
-  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v12))
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v13, OS_SIGNPOST_INTERVAL_BEGIN, v11, "VCPVideoPersonDetectorHumanDetection", "", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "VCPVideoPersonDetectorHumanDetection", "", buf, 2u);
   }
 
-  v48 = 0;
-  v14 = [VCPFaceUtils configureVNRequest:&v48 withClass:objc_opt_class() andProcessingVersion:15];
-  v15 = v48;
-  v16 = v15;
-  if (v14)
+  v50 = 0;
+  v15 = [VCPFaceUtils configureVNRequest:&v50 withClass:objc_opt_class() andProcessingVersion:15];
+  v16 = v50;
+  v17 = v16;
+  if (v15)
   {
-    v17 = 0;
     v18 = 0;
+    v19 = 0;
   }
 
   else
   {
-    v52[0] = v15;
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v52 count:1];
-    v47 = 0;
-    v20 = [v9 performRequests:v19 error:&v47];
-    v18 = v47;
+    v54[0] = v16;
+    v20 = [MEMORY[0x1E695DEC8] arrayWithObjects:v54 count:1];
+    v49 = 0;
+    v21 = [v9 performRequests:v20 error:&v49];
+    v19 = v49;
 
-    if (v20)
+    if (v21)
     {
-      v46 = 0;
-      v14 = [VCPFaceUtils configureVNRequest:&v46 withClass:objc_opt_class() andProcessingVersion:15];
-      v38 = v46;
-      if (v14)
+      v48 = 0;
+      v15 = [VCPFaceUtils configureVNRequest:&v48 withClass:objc_opt_class() andProcessingVersion:15];
+      v40 = v48;
+      if (v15)
       {
-        v17 = 0;
+        v18 = 0;
       }
 
       else
       {
-        results = [v16 results];
-        [v38 setInputDetectedObjectObservations:results];
+        results = [v17 results];
+        [v40 setInputDetectedObjectObservations:results];
 
-        v51 = v38;
-        v22 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v51 count:1];
-        v45 = v18;
-        v23 = [v9 performRequests:v22 error:&v45];
-        v37 = v45;
+        v53 = v40;
+        v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v53 count:1];
+        v47 = v19;
+        v24 = [v9 performRequests:v23 error:&v47];
+        v39 = v47;
 
-        if (v23)
+        if (v24)
         {
-          v24 = VCPSignPostLog();
-          v25 = v24;
-          if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+          v26 = VCPSignPostLog(v25);
+          v27 = v26;
+          if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
           {
             *buf = 0;
-            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v25, OS_SIGNPOST_INTERVAL_END, v11, "VCPVideoPersonDetectorHumanDetection", "", buf, 2u);
+            _os_signpost_emit_with_name_impl(&dword_1C9B70000, v27, OS_SIGNPOST_INTERVAL_END, v11, "VCPVideoPersonDetectorHumanDetection", "", buf, 2u);
           }
 
-          results2 = [v38 results];
-          v27 = results2 == 0;
+          results2 = [v40 results];
+          v29 = results2 == 0;
 
-          if (!v27)
+          if (!v29)
           {
-            results3 = [v38 results];
+            results3 = [v40 results];
             [array addObjectsFromArray:results3];
           }
 
-          v14 = 0;
-          v17 = 1;
+          v15 = 0;
+          v18 = 1;
         }
 
         else
         {
-          v17 = 0;
-          v14 = -18;
+          v18 = 0;
+          v15 = -18;
         }
 
-        v18 = v37;
+        v19 = v39;
       }
     }
 
     else
     {
-      v17 = 0;
-      v14 = -18;
+      v18 = 0;
+      v15 = -18;
     }
   }
 
   objc_autoreleasePoolPop(v7);
-  if (v17)
+  if (v18)
   {
+    v45 = 0u;
+    v46 = 0u;
     v43 = 0u;
     v44 = 0u;
-    v41 = 0u;
-    v42 = 0u;
-    v29 = array;
-    v30 = [v29 countByEnumeratingWithState:&v41 objects:v50 count:16];
-    if (v30)
+    v31 = array;
+    v32 = [v31 countByEnumeratingWithState:&v43 objects:v52 count:16];
+    if (v32)
     {
-      v31 = *v42;
+      v33 = *v44;
       do
       {
-        for (i = 0; i != v30; ++i)
+        for (i = 0; i != v32; ++i)
         {
-          if (*v42 != v31)
+          if (*v44 != v33)
           {
-            objc_enumerationMutation(v29);
+            objc_enumerationMutation(v31);
           }
 
-          v33 = *(*(&v41 + 1) + 8 * i);
-          v34 = objc_alloc_init(VCPHuman);
-          [v33 boundingBox];
-          [(VCPHuman *)v34 setBounds:?];
-          [v33 confidence];
-          [(VCPHuman *)v34 setConfidence:?];
-          torsoprint = [v33 torsoprint];
-          [(VCPHuman *)v34 setTorsoprint:torsoprint];
+          v35 = *(*(&v43 + 1) + 8 * i);
+          v36 = objc_alloc_init(VCPHuman);
+          [v35 boundingBox];
+          [(VCPHuman *)v36 setBounds:?];
+          [v35 confidence];
+          [(VCPHuman *)v36 setConfidence:?];
+          torsoprint = [v35 torsoprint];
+          [(VCPHuman *)v36 setTorsoprint:torsoprint];
 
-          [v5 addObject:v34];
+          [v5 addObject:v36];
         }
 
-        v30 = [v29 countByEnumeratingWithState:&v41 objects:v50 count:16];
+        v32 = [v31 countByEnumeratingWithState:&v43 objects:v52 count:16];
       }
 
-      while (v30);
+      while (v32);
     }
   }
 
   objc_autoreleasePoolPop(context);
-  return v14;
+  return v15;
 }
 
 - (int)analyzeFrame:(__CVBuffer *)frame withTimestamp:(id *)timestamp andDuration:(id *)duration flags:(unint64_t *)flags

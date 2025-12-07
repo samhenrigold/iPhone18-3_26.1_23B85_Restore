@@ -7,13 +7,18 @@
 - (id)firstMecabraCandidateOccurranceFromLastAutocorrectionList;
 - (id)keyboardBehaviors;
 - (id)trimmedInputStem;
+- (int64_t)addTouch:(id)touch shouldHitTest:(BOOL)test;
 - (void)addInput:(id)input withContext:(id)context;
 - (void)candidateRejected:(id)rejected;
+- (void)dropInputPrefix:(unsigned int)prefix commitToWordSearch:(BOOL)search;
 - (void)initImplementation;
 - (void)loadDictionaries;
 - (void)registerLearning:(id)learning fullCandidate:(id)candidate keyboardState:(id)state mode:(id)mode;
+- (void)setAutoCorrects:(BOOL)corrects;
 - (void)setInput:(id)input;
+- (void)setInput:(id)input withIndex:(unsigned int)index;
 - (void)setWordBoundary;
+- (void)textAccepted:(id)accepted fromPredictiveInputBar:(BOOL)bar withInput:(id)input;
 @end
 
 @implementation TIKeyboardInputManager_th
@@ -47,9 +52,16 @@
   return v2;
 }
 
+- (void)setAutoCorrects:(BOOL)corrects
+{
+  correctsCopy = corrects;
+  wordSearch = [(TIKeyboardInputManager_th *)self wordSearch];
+  [wordSearch setAutoCorrects:correctsCopy];
+}
+
 - (id)firstMecabraCandidateOccurranceFromLastAutocorrectionList
 {
-  v20 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   lastAutocorrectionList = [(TIKeyboardInputManager_th *)self lastAutocorrectionList];
   corrections = [lastAutocorrectionList corrections];
   autocorrection = [corrections autocorrection];
@@ -68,27 +80,27 @@
   v7 = autocorrection;
   if (!v6)
   {
-    v17 = 0u;
-    v18 = 0u;
-    v15 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    v14 = 0u;
+    v15 = 0u;
     lastAutocorrectionList2 = [(TIKeyboardInputManager_th *)self lastAutocorrectionList];
     predictions = [lastAutocorrectionList2 predictions];
 
-    v7 = [predictions countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v7 = [predictions countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v7)
     {
-      v10 = *v16;
+      v10 = *v15;
       while (2)
       {
         for (i = 0; i != v7; i = i + 1)
         {
-          if (*v16 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(predictions);
           }
 
-          v12 = *(*(&v15 + 1) + 8 * i);
+          v12 = *(*(&v14 + 1) + 8 * i);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -97,7 +109,7 @@
           }
         }
 
-        v7 = [predictions countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v7 = [predictions countByEnumeratingWithState:&v14 objects:v18 count:16];
         if (v7)
         {
           continue;
@@ -109,8 +121,6 @@
 
 LABEL_15:
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 
   return v7;
 }
@@ -255,38 +265,96 @@ LABEL_15:
   return trimmedInputStem2;
 }
 
+- (void)dropInputPrefix:(unsigned int)prefix commitToWordSearch:(BOOL)search
+{
+  searchCopy = search;
+  v5 = *&prefix;
+  v15[4] = *MEMORY[0x29EDCA608];
+  v7 = *(&self->super.super.super.super.super.isa + *MEMORY[0x29EDC7290]);
+  if (v7)
+  {
+    TIInputManager::input_substring(v15, v7);
+    v9 = KB::ns_string(v15, v8);
+    v10 = [(TIKeyboardInputManager_mul *)self internalStringToExternal:v9];
+
+    KB::String::~String(v15);
+  }
+
+  else
+  {
+    v10 = 0;
+  }
+
+  if ([v10 length] && searchCopy)
+  {
+    wordSearch = [(TIKeyboardInputManager_th *)self wordSearch];
+    [wordSearch commitSurface:v10];
+  }
+
+  if (v5)
+  {
+    v12 = v5;
+    do
+    {
+      composingInput = [(TIKeyboardInputManagerMecabra *)self composingInput];
+      [composingInput removeInputAtIndex:0];
+
+      --v12;
+    }
+
+    while (v12);
+  }
+
+  v14.receiver = self;
+  v14.super_class = TIKeyboardInputManager_th;
+  [(TIKeyboardInputManagerMecabra *)&v14 dropInputPrefix:v5];
+}
+
+- (void)setInput:(id)input withIndex:(unsigned int)index
+{
+  v4 = *&index;
+  if (!index)
+  {
+    input = &stru_2A252D530;
+  }
+
+  [(TIKeyboardInputManager_th *)self setInput:input];
+
+  [(TIKeyboardInputManager_th *)self setInputIndex:v4];
+}
+
 - (void)setInput:(id)input
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   inputCopy = input;
-  v19.receiver = self;
-  v19.super_class = TIKeyboardInputManager_th;
-  [(TIKeyboardInputManager_mul *)&v19 setInput:inputCopy];
+  v18.receiver = self;
+  v18.super_class = TIKeyboardInputManager_th;
+  [(TIKeyboardInputManager_mul *)&v18 setInput:inputCopy];
   composingInput = [(TIKeyboardInputManagerMecabra *)self composingInput];
   [composingInput removeAllInputs];
 
   _asTypeInputs = [inputCopy _asTypeInputs];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   inputs = [_asTypeInputs inputs];
-  v8 = [inputs countByEnumeratingWithState:&v15 objects:v20 count:16];
+  v8 = [inputs countByEnumeratingWithState:&v14 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(inputs);
         }
 
-        v12 = *(*(&v15 + 1) + 8 * v11);
+        v12 = *(*(&v14 + 1) + 8 * v11);
         composingInput2 = [(TIKeyboardInputManagerMecabra *)self composingInput];
         [composingInput2 composeNew:v12];
 
@@ -294,13 +362,11 @@ LABEL_15:
       }
 
       while (v9 != v11);
-      v9 = [inputs countByEnumeratingWithState:&v15 objects:v20 count:16];
+      v9 = [inputs countByEnumeratingWithState:&v14 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x29EDCA608];
 }
 
 - (void)setWordBoundary
@@ -313,6 +379,111 @@ LABEL_15:
 
     MEMORY[0x2A1C69AA8](v4, 0);
   }
+}
+
+- (void)textAccepted:(id)accepted fromPredictiveInputBar:(BOOL)bar withInput:(id)input
+{
+  barCopy = bar;
+  acceptedCopy = accepted;
+  inputCopy = input;
+  v23.receiver = self;
+  v23.super_class = TIKeyboardInputManager_th;
+  [(TIKeyboardInputManagerMecabra *)&v23 textAccepted:acceptedCopy fromPredictiveInputBar:barCopy withInput:inputCopy];
+  v10 = [(TIKeyboardInputManagerMecabra *)self mecabraCandidateRefFromCandidate:acceptedCopy];
+  wordSearch = [(TIKeyboardInputManager_th *)self wordSearch];
+  v12 = wordSearch;
+  if (v10)
+  {
+    [wordSearch performAccept:v10 isPartial:0];
+  }
+
+  else
+  {
+    candidate = [acceptedCopy candidate];
+    [v12 commitSurface:candidate];
+  }
+
+  string = [inputCopy string];
+  v15 = [string length];
+
+  if (v15)
+  {
+    wordSearch2 = [(TIKeyboardInputManager_th *)self wordSearch];
+    string2 = [inputCopy string];
+    [wordSearch2 commitSurface:string2];
+  }
+
+  if (_os_feature_enabled_impl())
+  {
+    composingInput = [(TIKeyboardInputManagerMecabra *)self composingInput];
+    v18ComposingInput = [composingInput composingInput];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      composingInput2 = [(TIKeyboardInputManagerMecabra *)self composingInput];
+      v20ComposingInput = [composingInput2 composingInput];
+
+      if (v20ComposingInput && ([v20ComposingInput isCompleting] & 1) == 0 && !objc_msgSend(v20ComposingInput, "isComplete"))
+      {
+        goto LABEL_15;
+      }
+    }
+
+    else
+    {
+
+      v20ComposingInput = 0;
+    }
+
+    lastAcceptedText = [(TIKeyboardInputManager_th *)self lastAcceptedText];
+    [(TIKeyboardInputManagerMecabra *)self clearInput];
+    [(TIKeyboardInputManager_th *)self setLastAcceptedText:lastAcceptedText];
+
+LABEL_15:
+    goto LABEL_16;
+  }
+
+  [(TIKeyboardInputManagerMecabra *)self clearInput];
+LABEL_16:
+}
+
+- (int64_t)addTouch:(id)touch shouldHitTest:(BOOL)test
+{
+  testCopy = test;
+  touchCopy = touch;
+  if (![touchCopy stage] && !objc_msgSend(touchCopy, "continuousPathState"))
+  {
+    composingInput = [(TIKeyboardInputManagerMecabra *)self composingInput];
+    v7ComposingInput = [composingInput composingInput];
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      composingInput2 = [(TIKeyboardInputManagerMecabra *)self composingInput];
+      v9ComposingInput = [composingInput2 composingInput];
+
+      if (!v9ComposingInput || ([v9ComposingInput isCompleting] & 1) == 0 && !objc_msgSend(v9ComposingInput, "isComplete"))
+      {
+        goto LABEL_10;
+      }
+
+      composingInput = [(TIKeyboardInputManagerMecabra *)self composingInput];
+      [composingInput removeAllInputs];
+    }
+
+    else
+    {
+
+      v9ComposingInput = 0;
+    }
+
+LABEL_10:
+  }
+
+  v13.receiver = self;
+  v13.super_class = TIKeyboardInputManager_th;
+  v11 = [(TIKeyboardInputManagerMecabra *)&v13 addTouch:touchCopy shouldHitTest:testCopy];
+
+  return v11;
 }
 
 - (void)candidateRejected:(id)rejected
@@ -485,9 +656,9 @@ LABEL_11:
 {
   configCopy = config;
   stateCopy = state;
-  v15.receiver = self;
-  v15.super_class = TIKeyboardInputManager_th;
-  v8 = [(TIKeyboardInputManagerMecabra *)&v15 initWithConfig:configCopy keyboardState:stateCopy];
+  v14.receiver = self;
+  v14.super_class = TIKeyboardInputManager_th;
+  v8 = [(TIKeyboardInputManagerMecabra *)&v14 initWithConfig:configCopy keyboardState:stateCopy];
   if (v8)
   {
     mEMORY[0x29EDC7280] = [MEMORY[0x29EDC7280] sharedWordSearchController];
@@ -496,7 +667,6 @@ LABEL_11:
     wordSearch = v8->_wordSearch;
     v8->_wordSearch = v11;
 
-    v13 = *(&v8->super.super.super.super.super.isa + *MEMORY[0x29EDC7290]);
     TIInputManager::set_search_algorithm();
   }
 
@@ -505,13 +675,11 @@ LABEL_11:
 
 - (void)deleteFromInput:(NSObject *)a1 .cold.1(NSObject *a1)
 {
-  v6 = *MEMORY[0x29EDCA608];
+  v5 = *MEMORY[0x29EDCA608];
   v2 = [MEMORY[0x29EDBA0F8] stringWithFormat:@"%s Thai input doesn't expect MCSyntethicInput in any case", "-[TIKeyboardInputManager_th deleteFromInput:]"];
   *buf = 138412290;
-  v5 = v2;
+  v4 = v2;
   _os_log_debug_impl(&dword_29EA74000, a1, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
-
-  v3 = *MEMORY[0x29EDCA608];
 }
 
 @end

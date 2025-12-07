@@ -12,7 +12,7 @@ void __81__PHFetchResult_PhotosUICore__px_subfetchResultWithObjectsAtIndexes_obj
   }
 }
 
-unint64_t __83__PHFetchResult_PhotosUICore__px_fetchAssetSortDatesWithDateRangeEliminationBlock___block_invoke_3(uint64_t a1, uint64_t a2, unint64_t a3, _BYTE *a4)
+void *__83__PHFetchResult_PhotosUICore__px_fetchAssetSortDatesWithDateRangeEliminationBlock___block_invoke_3(uint64_t a1, uint64_t a2, unint64_t a3, _BYTE *a4)
 {
   if (a2 == 0x7FFFFFFFFFFFFFFFLL || a3 == 0)
   {
@@ -72,7 +72,7 @@ void __83__PHFetchResult_PhotosUICore__px_fetchAssetSortDatesWithDateRangeElimin
   }
 }
 
-uint64_t __67__PHFetchResult_PhotosUICore__px_indexOfSortedAssetNearestToAsset___block_invoke_2(void *a1, uint64_t a2, void *a3)
+void *__67__PHFetchResult_PhotosUICore__px_indexOfSortedAssetNearestToAsset___block_invoke_2(void *a1, uint64_t a2, void *a3)
 {
   result = [a3 timeIntervalSinceDate:a1[4]];
   v7 = fabs(v6);

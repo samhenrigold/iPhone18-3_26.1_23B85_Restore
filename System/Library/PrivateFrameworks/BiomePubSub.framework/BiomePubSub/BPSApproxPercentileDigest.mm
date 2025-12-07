@@ -8,6 +8,7 @@
 - (id)encodeAsProto;
 - (id)proto;
 - (void)addDigest:(id)digest;
+- (void)addValue:(float)value weight:(unsigned int)weight;
 - (void)encodeWithCoder:(id)coder;
 - (void)mergeCentroids;
 @end
@@ -36,6 +37,35 @@
   }
 
   return v7;
+}
+
+- (void)addValue:(float)value weight:(unsigned int)weight
+{
+  v4 = *&weight;
+  if (![(BPSApproxPercentileDigest *)self totalWeight])
+  {
+    *&v7 = value;
+    [(BPSApproxPercentileDigest *)self setMin:v7];
+    *&v8 = value;
+    [(BPSApproxPercentileDigest *)self setMax:v8];
+  }
+
+  unmergedCentroids = [(BPSApproxPercentileDigest *)self unmergedCentroids];
+  v10 = [BPSApproxPercentileDigestCentroid alloc];
+  *&v11 = value;
+  v12 = [(BPSApproxPercentileDigestCentroid *)v10 initWithMeanAndWeight:v4 weight:v11];
+  [unmergedCentroids addObject:v12];
+
+  [(BPSApproxPercentileDigest *)self setTotalWeight:[(BPSApproxPercentileDigest *)self totalWeight]+ v4];
+  unmergedCentroids2 = [(BPSApproxPercentileDigest *)self unmergedCentroids];
+  v14 = [unmergedCentroids2 count];
+  unmergedBufferSize = [(BPSApproxPercentileDigest *)self unmergedBufferSize];
+
+  if (v14 >= unmergedBufferSize)
+  {
+
+    [(BPSApproxPercentileDigest *)self mergeCentroids];
+  }
 }
 
 - (double)quantileLimitForClusterIndex:(unint64_t)index maxCentroidCount:(unint64_t)count
@@ -289,14 +319,14 @@ LABEL_51:
 
 - (void)mergeCentroids
 {
-  v50[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   if ([(NSMutableArray *)self->_unmergedCentroids count])
   {
     [(NSMutableArray *)self->_unmergedCentroids addObjectsFromArray:self->_mergedCentroids];
     unmergedCentroids = self->_unmergedCentroids;
     v4 = [MEMORY[0x1E696AEB0] sortDescriptorWithKey:@"mean" ascending:1];
-    v50[0] = v4;
-    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v50 count:1];
+    v49[0] = v4;
+    v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v49 count:1];
     [(NSMutableArray *)unmergedCentroids sortUsingDescriptors:v5];
 
     firstObject = [(NSMutableArray *)self->_unmergedCentroids firstObject];
@@ -333,22 +363,22 @@ LABEL_51:
     v16 = v15;
     weight = [v7 weight];
     [(NSMutableArray *)self->_unmergedCentroids removeObjectAtIndex:0];
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
     v46 = 0u;
+    v47 = 0u;
+    v44 = 0u;
+    v45 = 0u;
     v18 = self->_unmergedCentroids;
-    v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v45 objects:v49 count:16];
+    v19 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v44 objects:v48 count:16];
     if (v19)
     {
       v20 = v19;
-      v42 = v10;
-      v43 = v7;
-      v44 = 24;
+      v41 = v10;
+      v42 = v7;
+      v43 = 24;
       v21 = 0;
       v22 = 0;
       v23 = v14 * totalWeight;
-      v24 = *v46;
+      v24 = *v45;
       v25 = 1;
       do
       {
@@ -356,12 +386,12 @@ LABEL_51:
         v27 = v22;
         do
         {
-          if (*v46 != v24)
+          if (*v45 != v24)
           {
             objc_enumerationMutation(v18);
           }
 
-          v22 = *(*(&v45 + 1) + 8 * v26);
+          v22 = *(*(&v44 + 1) + 8 * v26);
 
           v28 = v21 + weight;
           if (v23 >= (v28 + [v22 weight]))
@@ -394,13 +424,13 @@ LABEL_51:
         }
 
         while (v20 != v26);
-        v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v45 objects:v49 count:16];
+        v20 = [(NSMutableArray *)v18 countByEnumeratingWithState:&v44 objects:v48 count:16];
       }
 
       while (v20);
 
-      v7 = v43;
-      v10 = v42;
+      v7 = v42;
+      v10 = v41;
     }
 
     if (weight)
@@ -412,10 +442,8 @@ LABEL_51:
       [mergedCentroids2 addObject:v40];
     }
 
-    [(NSMutableArray *)self->_unmergedCentroids removeAllObjects:v42];
+    [(NSMutableArray *)self->_unmergedCentroids removeAllObjects:v41];
   }
-
-  v41 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addDigest:(id)digest
@@ -526,7 +554,7 @@ LABEL_14:
 
 - (id)proto
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   [(BPSApproxPercentileDigest *)self mergeCentroids];
   v3 = objc_opt_new();
   [(BPSApproxPercentileDigest *)self min];
@@ -536,38 +564,36 @@ LABEL_14:
   mergedCentroids = [(BPSApproxPercentileDigest *)self mergedCentroids];
   [v3 setCentroidCount:{objc_msgSend(mergedCentroids, "count")}];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   mergedCentroids2 = [(BPSApproxPercentileDigest *)self mergedCentroids];
-  v6 = [mergedCentroids2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [mergedCentroids2 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(mergedCentroids2);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
+        v10 = *(*(&v12 + 1) + 8 * i);
         [v10 mean];
         [v3 addCentroidMeans:?];
         [v3 addCentroidWeights:{objc_msgSend(v10, "weight")}];
       }
 
-      v7 = [mergedCentroids2 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [mergedCentroids2 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
@@ -600,11 +626,10 @@ LABEL_14:
 
 - (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v4 = 138412290;
-  v5 = objc_opt_class();
-  _os_log_fault_impl(&dword_1C871B000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-BPSPBTDigest proto", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v3 = 138412290;
+  v4 = objc_opt_class();
+  _os_log_fault_impl(&dword_1C871B000, a2, OS_LOG_TYPE_FAULT, "%@: tried to initialize with a non-BPSPBTDigest proto", &v3, 0xCu);
 }
 
 @end

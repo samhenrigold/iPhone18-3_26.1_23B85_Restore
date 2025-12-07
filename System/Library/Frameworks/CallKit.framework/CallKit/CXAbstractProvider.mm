@@ -67,9 +67,10 @@
         }
 
         v13 = *(*(&v17 + 1) + 8 * i);
-        if ([v13 isComplete])
+        isComplete = [v13 isComplete];
+        if (isComplete)
         {
-          mutablePendingTransactions3 = CXDefaultLog();
+          mutablePendingTransactions3 = CXDefaultLog(isComplete);
           if (os_log_type_enabled(mutablePendingTransactions3, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v16;
@@ -90,8 +91,6 @@
 
     while (v10);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (CXAbstractProvider)init
@@ -131,7 +130,7 @@
 void __38__CXAbstractProvider_actionCompleted___block_invoke(uint64_t a1)
 {
   v20 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
@@ -147,34 +146,32 @@ void __38__CXAbstractProvider_actionCompleted___block_invoke(uint64_t a1)
   v6 = [*(a1 + 40) UUID];
   v7 = [v5 _pendingActionWithUUID:v6];
 
-  if (v7 && ([v7 isComplete] & 1) == 0)
+  if (v7 && (v8 = [v7 isComplete], (v8 & 1) == 0))
   {
     [*(a1 + 40) updateCopy:v7 withZone:0];
-    v12 = [*(a1 + 32) internalActionDelegate];
-    v13 = [v12 hostProtocolDelegate];
-    v14 = [v7 copy];
-    [v13 actionCompleted:v14 completionHandler:&__block_literal_global_2];
+    v13 = [*(a1 + 32) internalActionDelegate];
+    v14 = [v13 hostProtocolDelegate];
+    v15 = [v7 copy];
+    [v14 actionCompleted:v15 completionHandler:&__block_literal_global_2];
 
     [*(a1 + 32) _updatePendingTransactions];
   }
 
   else
   {
-    v8 = CXDefaultLog();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = CXDefaultLog(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = [*(a1 + 40) UUID];
-      v10 = [v9 UUIDString];
-      v11 = [*(a1 + 32) mutablePendingTransactions];
+      v10 = [*(a1 + 40) UUID];
+      v11 = [v10 UUIDString];
+      v12 = [*(a1 + 32) mutablePendingTransactions];
       v16 = 138412546;
-      v17 = v10;
+      v17 = v11;
       v18 = 2112;
-      v19 = v11;
-      _os_log_impl(&dword_1B47F3000, v8, OS_LOG_TYPE_DEFAULT, "[WARN] No incomplete pending action could be found with UUID %@. All pending transactions: %@", &v16, 0x16u);
+      v19 = v12;
+      _os_log_impl(&dword_1B47F3000, v9, OS_LOG_TYPE_DEFAULT, "[WARN] No incomplete pending action could be found with UUID %@. All pending transactions: %@", &v16, 0x16u);
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setDelegate:(id)delegate queue:(id)queue
@@ -249,16 +246,14 @@ uint64_t __45__CXAbstractProvider__syncSetDelegate_queue___block_invoke(uint64_t
 
 - (void)invalidate
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = CXDefaultLog();
+  v6 = *MEMORY[0x1E69E9840];
+  v3 = CXDefaultLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
+    v4 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Asked to invalidate provider %@ (this is a no-op)", &v5, 0xCu);
+    _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Asked to invalidate provider %@ (this is a no-op)", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (NSArray)pendingTransactions
@@ -296,53 +291,53 @@ void __41__CXAbstractProvider_pendingTransactions__block_invoke(uint64_t a1)
 
 - (id)_pendingActionWithUUID:(id)d
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   dCopy = d;
   queue = [(CXAbstractProvider *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v29 = 0u;
-  v30 = 0u;
-  v27 = 0u;
   v28 = 0u;
+  v29 = 0u;
+  v26 = 0u;
+  v27 = 0u;
   obj = [(CXAbstractProvider *)self mutablePendingTransactions];
-  v6 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+  v6 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
   if (v6)
   {
     v7 = v6;
-    v22 = *v28;
+    v21 = *v27;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v28 != v22)
+        if (*v27 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v27 + 1) + 8 * i);
+        v9 = *(*(&v26 + 1) + 8 * i);
+        v22 = 0u;
         v23 = 0u;
         v24 = 0u;
         v25 = 0u;
-        v26 = 0u;
         actions = [v9 actions];
-        v11 = [actions countByEnumeratingWithState:&v23 objects:v31 count:16];
+        v11 = [actions countByEnumeratingWithState:&v22 objects:v30 count:16];
         if (v11)
         {
           v12 = v11;
           v13 = 0;
-          v14 = *v24;
+          v14 = *v23;
 LABEL_8:
           v15 = 0;
           v16 = v13;
           while (1)
           {
-            if (*v24 != v14)
+            if (*v23 != v14)
             {
               objc_enumerationMutation(actions);
             }
 
-            v13 = *(*(&v23 + 1) + 8 * v15);
+            v13 = *(*(&v22 + 1) + 8 * v15);
 
             uUID = [v13 UUID];
             v18 = [uUID isEqual:dCopy];
@@ -356,7 +351,7 @@ LABEL_8:
             v16 = v13;
             if (v12 == v15)
             {
-              v12 = [actions countByEnumeratingWithState:&v23 objects:v31 count:16];
+              v12 = [actions countByEnumeratingWithState:&v22 objects:v30 count:16];
               if (v12)
               {
                 goto LABEL_8;
@@ -378,7 +373,7 @@ LABEL_15:
         }
       }
 
-      v7 = [obj countByEnumeratingWithState:&v27 objects:v32 count:16];
+      v7 = [obj countByEnumeratingWithState:&v26 objects:v31 count:16];
     }
 
     while (v7);
@@ -386,8 +381,6 @@ LABEL_15:
 
   v13 = 0;
 LABEL_20:
-
-  v19 = *MEMORY[0x1E69E9840];
 
   return v13;
 }
@@ -421,7 +414,7 @@ LABEL_20:
 
   else
   {
-    v8 = CXDefaultLog();
+    v8 = CXDefaultLog(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *v9 = 0;
@@ -498,41 +491,41 @@ void __62__CXAbstractProvider_handleConnectionInterruptionForProvider___block_in
 
 void __49__CXAbstractProvider_provider_commitTransaction___block_invoke(id *a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v22 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[4];
     *buf = 138412290;
-    v22 = v3;
+    v21 = v3;
     _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Received request to commit transaction %@", buf, 0xCu);
   }
 
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v4 = [a1[4] actions];
-  v5 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       v8 = 0;
       do
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        [*(*(&v16 + 1) + 8 * v8++) setDelegate:a1[5]];
+        [*(*(&v15 + 1) + 8 * v8++) setDelegate:a1[5]];
       }
 
       while (v6 != v8);
-      v6 = [v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
@@ -543,81 +536,83 @@ void __49__CXAbstractProvider_provider_commitTransaction___block_invoke(id *a1)
   [v9 addObject:v10];
 
   v11 = a1[5];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __49__CXAbstractProvider_provider_commitTransaction___block_invoke_7;
-  v13[3] = &unk_1E7C06C80;
-  v13[4] = v11;
-  v14 = a1[6];
-  v15 = a1[4];
-  [v11 _performDelegateCallback:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __49__CXAbstractProvider_provider_commitTransaction___block_invoke_7;
+  v12[3] = &unk_1E7C06C80;
+  v12[4] = v11;
+  v13 = a1[6];
+  v14 = a1[4];
+  [v11 _performDelegateCallback:v12];
 }
 
 void __49__CXAbstractProvider_provider_commitTransaction___block_invoke_7(uint64_t a1)
 {
   v20 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) delegate];
-  if (objc_opt_respondsToSelector() & 1) != 0 && ([v2 provider:*(a1 + 40) executeTransaction:*(a1 + 48)])
+  v3 = objc_opt_respondsToSelector();
+  if (v3 & 1) != 0 && (v3 = [v2 provider:*(a1 + 40) executeTransaction:*(a1 + 48)], (v3))
   {
-    v3 = CXDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = CXDefaultLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Delegate indicated that the transaction was executed", buf, 2u);
+      _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Delegate indicated that the transaction was executed", buf, 2u);
     }
   }
 
   else
   {
-    v4 = CXDefaultLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = CXDefaultLog(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Delegate did not execute transaction. Performing actions individually", buf, 2u);
+      _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Delegate did not execute transaction. Performing actions individually", buf, 2u);
     }
 
     v15 = 0u;
     v16 = 0u;
     v13 = 0u;
     v14 = 0u;
-    v3 = [*(a1 + 48) actions];
-    v5 = [v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
-    if (v5)
+    v4 = [*(a1 + 48) actions];
+    v6 = [v4 countByEnumeratingWithState:&v13 objects:v19 count:16];
+    if (v6)
     {
-      v6 = v5;
-      v7 = *v14;
+      v7 = v6;
+      v8 = *v14;
       do
       {
-        for (i = 0; i != v6; ++i)
+        v9 = 0;
+        do
         {
-          if (*v14 != v7)
+          if (*v14 != v8)
           {
-            objc_enumerationMutation(v3);
+            objc_enumerationMutation(v4);
           }
 
-          v9 = *(*(&v13 + 1) + 8 * i);
-          v10 = CXDefaultLog();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+          v10 = *(*(&v13 + 1) + 8 * v9);
+          v11 = CXDefaultLog(v6);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v18 = v9;
-            _os_log_impl(&dword_1B47F3000, v10, OS_LOG_TYPE_DEFAULT, "Asking delegate to perform action %@", buf, 0xCu);
+            v18 = v10;
+            _os_log_impl(&dword_1B47F3000, v11, OS_LOG_TYPE_DEFAULT, "Asking delegate to perform action %@", buf, 0xCu);
           }
 
-          v11 = [*(a1 + 32) internalActionDelegate];
-          [v11 performAction:v9];
+          v12 = [*(a1 + 32) internalActionDelegate];
+          [v12 performAction:v10];
+
+          ++v9;
         }
 
-        v6 = [v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
+        while (v7 != v9);
+        v6 = [v4 countByEnumeratingWithState:&v13 objects:v19 count:16];
+        v7 = v6;
       }
 
       while (v6);
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)provider:(id)provider handleTimeoutForAction:(id)action
@@ -639,13 +634,13 @@ void __49__CXAbstractProvider_provider_commitTransaction___block_invoke_7(uint64
 
 void __54__CXAbstractProvider_provider_handleTimeoutForAction___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v2 = CXDefaultLog();
+  v13 = *MEMORY[0x1E69E9840];
+  v2 = CXDefaultLog(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138412290;
-    v13 = v3;
+    v12 = v3;
     _os_log_impl(&dword_1B47F3000, v2, OS_LOG_TYPE_DEFAULT, "Notified that action timed out: %@", buf, 0xCu);
   }
 
@@ -655,37 +650,34 @@ void __54__CXAbstractProvider_provider_handleTimeoutForAction___block_invoke(uin
   [v6 updateAsFailedWithReason:2];
 
   v7 = *(a1 + 40);
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __54__CXAbstractProvider_provider_handleTimeoutForAction___block_invoke_10;
-  v9[3] = &unk_1E7C06C80;
-  v9[4] = v7;
-  v10 = *(a1 + 32);
-  v11 = *(a1 + 48);
-  [v7 _performDelegateCallback:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __54__CXAbstractProvider_provider_handleTimeoutForAction___block_invoke_10;
+  v8[3] = &unk_1E7C06C80;
+  v8[4] = v7;
+  v9 = *(a1 + 32);
+  v10 = *(a1 + 48);
+  [v7 _performDelegateCallback:v8];
 }
 
 void __54__CXAbstractProvider_provider_handleTimeoutForAction___block_invoke_10(uint64_t a1)
 {
   v8 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) delegate];
-  if (objc_opt_respondsToSelector())
+  v3 = objc_opt_respondsToSelector();
+  if (v3)
   {
-    v3 = CXDefaultLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = CXDefaultLog(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *(a1 + 40);
+      v5 = *(a1 + 40);
       v6 = 138412290;
-      v7 = v4;
-      _os_log_impl(&dword_1B47F3000, v3, OS_LOG_TYPE_DEFAULT, "Notifying delegate that action timed out: %@", &v6, 0xCu);
+      v7 = v5;
+      _os_log_impl(&dword_1B47F3000, v4, OS_LOG_TYPE_DEFAULT, "Notifying delegate that action timed out: %@", &v6, 0xCu);
     }
 
     [v2 provider:*(a1 + 48) timedOutPerformingAction:*(a1 + 40)];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

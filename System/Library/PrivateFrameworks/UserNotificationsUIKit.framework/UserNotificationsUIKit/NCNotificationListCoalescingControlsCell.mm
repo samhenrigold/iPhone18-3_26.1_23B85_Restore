@@ -99,11 +99,11 @@
   mainScreen = [MEMORY[0x277D759A0] mainScreen];
   UIRoundToScreenScale();
 
-  _NCMainScreenScale();
+  _NCMainScreenScale(v7, v8);
   UICeilToScale();
-  v8 = v7;
+  v10 = v9;
 
-  return v8;
+  return v10;
 }
 
 - (void)notificationListCoalescingControlsViewRequestsClear:(id)clear

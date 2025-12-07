@@ -1,10 +1,10 @@
 @interface NSArray(CAMLWriter)
-- (uint64_t)encodeWithCAMLWriter:()CAMLWriter;
+- (char)encodeWithCAMLWriter:()CAMLWriter;
 @end
 
 @implementation NSArray(CAMLWriter)
 
-- (uint64_t)encodeWithCAMLWriter:()CAMLWriter
+- (char)encodeWithCAMLWriter:()CAMLWriter
 {
   result = [self count];
   if (result)

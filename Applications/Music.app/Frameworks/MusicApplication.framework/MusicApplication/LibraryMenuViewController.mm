@@ -35,7 +35,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1ECA00();
+  sub_1ECA00(selfCopy);
 }
 
 - (void)viewWillAppear:(BOOL)appear
@@ -90,7 +90,7 @@
 {
   v4 = sub_AB3820();
   v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
+  __chkstk_darwin();
   v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   (*(v5 + 8))(v7, v4);
@@ -101,37 +101,37 @@
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
-  v10 = &v22 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_DE8E20);
-  __chkstk_darwin(v11 - 8);
-  v13 = &v22 - v12;
+  __chkstk_darwin();
+  v10 = &v21 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_DE8E20, &qword_AF7990);
+  __chkstk_darwin();
+  v12 = &v21 - v11;
   sub_AB3790();
   viewCopy = view;
   pathCopy = path;
   selfCopy = self;
-  sub_1EF278(v10, v13);
+  sub_1EF278(v10, v12);
 
-  v17 = *(v8 + 8);
-  v17(v10, v7);
+  v16 = *(v8 + 8);
+  v16(v10, v7);
 
-  v18 = (*(v8 + 48))(v13, 1, v7);
-  v19 = 0;
-  if (v18 != 1)
+  v17 = (*(v8 + 48))(v12, 1, v7);
+  v18 = 0;
+  if (v17 != 1)
   {
     isa = sub_AB3770().super.isa;
-    v17(v13, v7);
-    v19 = isa;
+    v16(v12, v7);
+    v18 = isa;
   }
 
-  return v19;
+  return v18;
 }
 
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path
 {
   v7 = sub_AB3820();
   v8 = *(v7 - 8);
-  __chkstk_darwin(v7);
+  __chkstk_darwin();
   v10 = &v14 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_AB3790();
   type metadata accessor for LibraryMenuViewController.Cell();

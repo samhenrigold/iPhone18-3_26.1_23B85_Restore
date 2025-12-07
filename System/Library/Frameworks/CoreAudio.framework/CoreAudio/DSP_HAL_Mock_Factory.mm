@@ -4,23 +4,22 @@
 - (id)createProcessor:(id)processor withHost:(id)host;
 - (uint64_t)createProcessor:withHost:;
 - (void)dealloc;
+- (void)setFeatureFlag:(int)flag;
 @end
 
 @implementation DSP_HAL_Mock_Factory
 
 - (id)createProcessor:(id)processor withHost:(id)host
 {
-  v9[4] = *MEMORY[0x1E69E9840];
+  v8[4] = *MEMORY[0x1E69E9840];
   hostCopy = host;
   v6 = objc_alloc_init(DSP_HAL_Mock_IOProcessor);
   [(DSP_HAL_Mock_IOProcessor *)v6 setHostCallbacks:hostCopy];
   [(DSP_HAL_Mock_IOProcessor *)v6 setFeatureFlag:[(DSP_HAL_Mock_Factory *)self featureFlag]];
-  v9[0] = &unk_1F59722A0;
-  v9[3] = v9;
-  [(DSP_HAL_Mock_IOProcessor *)v6 setTestHookFetcher:v9];
-  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v9);
-
-  v7 = *MEMORY[0x1E69E9840];
+  v8[0] = &unk_1F59722A0;
+  v8[3] = v8;
+  [(DSP_HAL_Mock_IOProcessor *)v6 setTestHookFetcher:v8];
+  std::__function::__value_func<DSP_HAL_Mock_TestHooks ()(void)>::~__value_func[abi:ne200100](v8);
 
   return v6;
 }
@@ -66,6 +65,14 @@
   }
 
   return result;
+}
+
+- (void)setFeatureFlag:(int)flag
+{
+  v3 = *&flag;
+  self->_featureFlag = flag;
+  libraryProperties = [(DSP_HAL_Mock_Factory *)self libraryProperties];
+  [libraryProperties configureForFeatureFlag:v3];
 }
 
 - (void)dealloc

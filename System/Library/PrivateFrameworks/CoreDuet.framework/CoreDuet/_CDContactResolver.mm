@@ -10,7 +10,7 @@
 
 + (id)resolveContactIdentifier:(id)identifier usingStore:(id)store
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   storeCopy = store;
   v7 = storeCopy;
@@ -55,11 +55,11 @@ LABEL_14:
     }
 
     v17 = getCNContactIdentifierKey();
-    v26[0] = v17;
-    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
-    v25 = 0;
-    v19 = [v7 unifiedContactsMatchingPredicate:v14 keysToFetch:v18 error:&v25];
-    v20 = v25;
+    v25[0] = v17;
+    v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
+    v24 = 0;
+    v19 = [v7 unifiedContactsMatchingPredicate:v14 keysToFetch:v18 error:&v24];
+    v20 = v24;
 
     if (v20)
     {
@@ -84,8 +84,6 @@ LABEL_17:
   }
 
 LABEL_18:
-
-  v23 = *MEMORY[0x1E69E9840];
 
   return identifier4;
 }

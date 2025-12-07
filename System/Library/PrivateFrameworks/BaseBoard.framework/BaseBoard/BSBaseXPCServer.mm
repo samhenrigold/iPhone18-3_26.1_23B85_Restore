@@ -36,7 +36,7 @@
 
     else
     {
-      v7->_queue = BSDispatchQueueCreateWithQualityOfService([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"%@.serverTaskQueue", v8), "UTF8String"], 0, QOS_CLASS_USER_INITIATED, 0);
+      v7->_queue = BSDispatchQueueCreateWithQualityOfService([objc_msgSend(MEMORY[0x1E696AEC0] stringWithFormat:@"%@.serverTaskQueue", v8), "UTF8String"], 0, 25, 0);
     }
 
     v7->_clients = objc_alloc_init(MEMORY[0x1E695DFA8]);
@@ -436,7 +436,7 @@ LABEL_3:
   return v3;
 }
 
-uint64_t __27__BSBaseXPCServer__clients__block_invoke(uint64_t a1)
+void *__27__BSBaseXPCServer__clients__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 24) allObjects];
   *(*(*(a1 + 40) + 8) + 40) = result;

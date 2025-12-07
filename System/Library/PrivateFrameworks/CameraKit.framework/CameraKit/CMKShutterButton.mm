@@ -18,6 +18,8 @@
 - (void)_updateOuterAndInnerLayers;
 - (void)_updateSpinningAnimations;
 - (void)layoutSubviews;
+- (void)setButtonMode:(int64_t)mode animated:(BOOL)animated;
+- (void)setHighlighted:(BOOL)highlighted;
 - (void)setPulsing:(BOOL)pulsing;
 - (void)setShowDisabled:(BOOL)disabled;
 - (void)setSpinning:(BOOL)spinning;
@@ -613,6 +615,33 @@ LABEL_35:
   if (self->_pulsing != pulsing)
   {
     self->_pulsing = pulsing;
+  }
+}
+
+- (void)setButtonMode:(int64_t)mode animated:(BOOL)animated
+{
+  buttonMode = self->_buttonMode;
+  if (buttonMode != mode)
+  {
+    animatedCopy = animated;
+    self->_buttonMode = mode;
+    [(CMKShutterButton *)self _updateOuterAndInnerLayers];
+    v7 = self->_buttonMode;
+
+    [(CMKShutterButton *)self _performModeSwitchAnimationFromMode:buttonMode toMode:v7 animated:animatedCopy];
+  }
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  highlightedCopy = highlighted;
+  isHighlighted = [(CMKShutterButton *)self isHighlighted];
+  v6.receiver = self;
+  v6.super_class = CMKShutterButton;
+  [(CMKShutterButton *)&v6 setHighlighted:highlightedCopy];
+  if (isHighlighted != highlightedCopy)
+  {
+    [(CMKShutterButton *)self _performHighlightAnimation];
   }
 }
 

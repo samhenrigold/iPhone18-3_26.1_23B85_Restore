@@ -17,7 +17,7 @@
 - (void)endSession
 {
   selfCopy = self;
-  sub_261F9A6C4();
+  sub_261F9A6C4(selfCopy);
 }
 
 - (void)registerInvalidationHandlerWithInvokingOnQueue:(id)queue handler:(id)handler

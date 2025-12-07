@@ -3,14 +3,14 @@
 
 @implementation NTKCachedSnapshotPath
 
-void ___NTKCachedSnapshotPath_block_invoke()
+void ___NTKCachedSnapshotPath_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = BSCurrentUserDirectory();
-  v0 = [v4 stringByAppendingPathComponent:@"/Library/Caches"];
-  v1 = [v0 stringByAppendingPathComponent:@"NanoTimeKit"];
-  v2 = [v1 stringByAppendingPathComponent:@"GallerySnapshots"];
-  v3 = _NTKCachedSnapshotPath_snapshotPath;
-  _NTKCachedSnapshotPath_snapshotPath = v2;
+  v6 = BSCurrentUserDirectory();
+  v2 = [v6 stringByAppendingPathComponent:@"/Library/Caches"];
+  v3 = [v2 stringByAppendingPathComponent:@"NanoTimeKit"];
+  v4 = [v3 stringByAppendingPathComponent:@"GallerySnapshots"];
+  v5 = _NTKCachedSnapshotPath_snapshotPath;
+  _NTKCachedSnapshotPath_snapshotPath = v4;
 }
 
 @end

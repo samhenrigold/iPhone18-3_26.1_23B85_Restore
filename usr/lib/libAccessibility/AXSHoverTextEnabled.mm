@@ -3,7 +3,7 @@
 
 @implementation AXSHoverTextEnabled
 
-uint64_t ___AXSHoverTextEnabled_block_invoke()
+void *___AXSHoverTextEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

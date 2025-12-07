@@ -118,19 +118,18 @@
 void __58__WLKCanonicalPlayablesRequest_makeRequestWithCompletion___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = [MEMORY[0x277CBEAA8] date];
-  [v5 timeIntervalSinceDate:*(a1 + 40)];
-  NSLog(&cfstr_ElapsedTime5f.isa, v4, v6);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = [MEMORY[0x277CBEAA8] date];
+  [v4 timeIntervalSinceDate:*(a1 + 40)];
+  NSLog(&cfstr_ElapsedTime5f.isa, v3, v5);
 
   if (*(a1 + 48))
   {
-    v7 = [WeakRetained response];
-    v8 = *(a1 + 48);
-    v9 = [WeakRetained error];
-    (*(v8 + 16))(v8, v7, v9);
+    v6 = [WeakRetained response];
+    v7 = *(a1 + 48);
+    v8 = [WeakRetained error];
+    (*(v7 + 16))(v7, v6, v8);
   }
 }
 
@@ -180,19 +179,18 @@ void __58__WLKCanonicalPlayablesRequest_makeRequestWithCompletion___block_invoke
 void __72__WLKCanonicalPlayablesRequest_makeRequestWithCompletion_canonicalType___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 56));
-  v2 = *(a1 + 32);
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
-  v5 = [MEMORY[0x277CBEAA8] date];
-  [v5 timeIntervalSinceDate:*(a1 + 40)];
-  NSLog(&cfstr_ElapsedTime5f.isa, v4, v6);
+  v2 = objc_opt_class();
+  v3 = NSStringFromClass(v2);
+  v4 = [MEMORY[0x277CBEAA8] date];
+  [v4 timeIntervalSinceDate:*(a1 + 40)];
+  NSLog(&cfstr_ElapsedTime5f.isa, v3, v5);
 
   if (*(a1 + 48))
   {
-    v7 = [WeakRetained response];
-    v8 = *(a1 + 48);
-    v9 = [WeakRetained error];
-    (*(v8 + 16))(v8, v7, v9);
+    v6 = [WeakRetained response];
+    v7 = *(a1 + 48);
+    v8 = [WeakRetained error];
+    (*(v7 + 16))(v7, v6, v8);
   }
 }
 

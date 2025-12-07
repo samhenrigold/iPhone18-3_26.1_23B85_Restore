@@ -21,18 +21,18 @@
   if (([(NTKDateComplicationControllerAccessibility *)self safeUnsignedIntegerForKey:@"_displayDateStyle"]& 0x3F) != 0)
   {
     v3 = +[NSDate date];
-    v7 = AXDateStringForFormat();
+    v6 = AXDateStringForFormat();
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
   v4 = [(NTKDateComplicationControllerAccessibility *)self safeValueForKey:@"legacyDisplay"];
-  [v4 setAccessibilityLabel:v7];
-  v6 = accessibilityLocalizedString(@"complication.hint.calendar", v5);
-  [v4 setAccessibilityHint:v6];
+  [v4 setAccessibilityLabel:v6];
+  v5 = accessibilityLocalizedString(@"complication.hint.calendar");
+  [v4 setAccessibilityHint:v5];
 }
 
 - (void)_updateDisplay

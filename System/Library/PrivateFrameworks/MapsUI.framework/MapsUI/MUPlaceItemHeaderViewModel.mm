@@ -3,6 +3,8 @@
 - (BOOL)hasInitialData;
 - (BOOL)supportsContactAddressDescription;
 - (MUPlaceItemHeaderViewModel)initWithPlaceItem:(id)item;
+- (MUPlaceItemHeaderViewModel)initWithPlaceItem:(id)item imageManager:(id)manager isDeveloperPlaceCard:(BOOL)card developerPlaceCardAuditToken:(id)token;
+- (MUPlaceItemHeaderViewModel)initWithPlaceItem:(id)item isDeveloperPlaceCard:(BOOL)card developerPlaceCardAuditToken:(id)token;
 - (id)_formattedDistanceString;
 - (id)_userSpecificPlaceSecondaryName;
 - (id)addressDescriptionForContact;
@@ -220,7 +222,7 @@ LABEL_18:
 
 - (id)addressDescriptionForContact
 {
-  v23[2] = *MEMORY[0x1E69E9840];
+  v22[2] = *MEMORY[0x1E69E9840];
   if (!MapsFeature_IsEnabled_MapsWally() || ![(_MKPlaceItem *)self->_placeItem representsPerson])
   {
     goto LABEL_15;
@@ -279,12 +281,12 @@ LABEL_15:
   if (v15)
   {
     v17 = [objc_alloc(MEMORY[0x1E696AD40]) initWithString:v15];
-    v22[0] = *MEMORY[0x1E69DB648];
+    v21[0] = *MEMORY[0x1E69DB648];
     v18 = [MEMORY[0x1E69DB878] _preferredFontForTextStyle:*MEMORY[0x1E69DDD28] weight:*MEMORY[0x1E69DB980]];
-    v22[1] = *MEMORY[0x1E69DB650];
-    v23[0] = v18;
-    v23[1] = v16;
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
+    v21[1] = *MEMORY[0x1E69DB650];
+    v22[0] = v18;
+    v22[1] = v16;
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:v21 count:2];
     [v17 addAttributes:v19 range:{0, objc_msgSend(v17, "length")}];
 
     v2 = [v17 copy];
@@ -296,7 +298,6 @@ LABEL_15:
   }
 
 LABEL_16:
-  v20 = *MEMORY[0x1E69E9840];
 
   return v2;
 }
@@ -388,6 +389,18 @@ LABEL_16:
   return [(MUPlaceHeaderViewModel *)&v4 hasInitialData];
 }
 
+- (MUPlaceItemHeaderViewModel)initWithPlaceItem:(id)item isDeveloperPlaceCard:(BOOL)card developerPlaceCardAuditToken:(id)token
+{
+  cardCopy = card;
+  v8 = MEMORY[0x1E696F190];
+  tokenCopy = token;
+  itemCopy = item;
+  v11 = [v8 sharedImageManagerWithAuditToken:tokenCopy];
+  v12 = [(MUPlaceItemHeaderViewModel *)self initWithPlaceItem:itemCopy imageManager:v11 isDeveloperPlaceCard:cardCopy developerPlaceCardAuditToken:tokenCopy];
+
+  return v12;
+}
+
 - (MUPlaceItemHeaderViewModel)initWithPlaceItem:(id)item
 {
   v4 = MEMORY[0x1E696F190];
@@ -396,6 +409,25 @@ LABEL_16:
   v7 = [(MUPlaceItemHeaderViewModel *)self initWithPlaceItem:itemCopy imageManager:sharedImageManager isDeveloperPlaceCard:0 developerPlaceCardAuditToken:0];
 
   return v7;
+}
+
+- (MUPlaceItemHeaderViewModel)initWithPlaceItem:(id)item imageManager:(id)manager isDeveloperPlaceCard:(BOOL)card developerPlaceCardAuditToken:(id)token
+{
+  cardCopy = card;
+  itemCopy = item;
+  tokenCopy = token;
+  managerCopy = manager;
+  mapItem = [itemCopy mapItem];
+  v17.receiver = self;
+  v17.super_class = MUPlaceItemHeaderViewModel;
+  v15 = [(MUPlaceHeaderViewModel *)&v17 initWithMapItem:mapItem imageManager:managerCopy isDeveloperPlaceCard:cardCopy developerPlaceCardAuditToken:tokenCopy];
+
+  if (v15)
+  {
+    objc_storeStrong(&v15->_placeItem, item);
+  }
+
+  return v15;
 }
 
 @end

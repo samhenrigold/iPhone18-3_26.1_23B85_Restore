@@ -14,16 +14,17 @@
     v6 = *(&self->super.isa + OBJC_IVAR____TtC9PencilKitP33_0537958B5BACCEE51E097AACDDA82C0419SearchQueryDelegate_searchResultsBlock);
     if (v6)
     {
-      v7 = v5;
+      v7 = *&self->searchResultsBlock[OBJC_IVAR____TtC9PencilKitP33_0537958B5BACCEE51E097AACDDA82C0419SearchQueryDelegate_searchResultsBlock];
+      v8 = v5;
       resultCopy = result;
       selfCopy = self;
-      outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v6);
-      foundItems = [v7 foundItems];
+      outlined copy of (@escaping @callee_guaranteed @async (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v6, v7);
+      foundItems = [v8 foundItems];
       type metadata accessor for CHSearchQueryItem();
-      v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+      v11 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
 
-      v6(v10, selfCopy);
-      outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v6);
+      v6(v11, selfCopy);
+      outlined consume of (@escaping @callee_guaranteed (@guaranteed [PKStroke], @guaranteed [PKStroke]) -> ())?(v6, v7);
     }
   }
 }

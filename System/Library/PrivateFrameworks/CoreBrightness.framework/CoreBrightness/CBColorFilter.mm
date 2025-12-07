@@ -88,7 +88,6 @@
   }
 
   [(CBColorFilter *)self reportSampleUpdate];
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)newColorSampleWinnerTakesAll
@@ -146,7 +145,6 @@
   _Block_object_dispose(&v7, 8);
   _Block_object_dispose(&v15, 8);
   _Block_object_dispose(&v20, 8);
-  *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -251,7 +249,6 @@ double __45__CBColorFilter_newColorSampleWinnerTakesAll__block_invoke(void *a1, 
   }
 
   MEMORY[0x1E69E5920](v22);
-  *MEMORY[0x1E69E9840];
 }
 
 double __35__CBColorFilter_reportSampleUpdate__block_invoke(uint64_t a1, void *a2)
@@ -360,7 +357,6 @@ double __35__CBColorFilter_reportSampleUpdate__block_invoke(uint64_t a1, void *a
     }
   }
 
-  *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -450,8 +446,6 @@ double __35__CBColorFilter_reportSampleUpdate__block_invoke(uint64_t a1, void *a
     self->_mode = mode;
     [(CBColorFilter *)self updateSample];
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)humanReadableModeRepresentation:(unint64_t)representation
@@ -524,7 +518,7 @@ double __35__CBColorFilter_reportSampleUpdate__block_invoke(uint64_t a1, void *a
   return v12 & 1;
 }
 
-uint64_t __42__CBColorFilter_acknowledgeHIDEvent_from___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__42__CBColorFilter_acknowledgeHIDEvent_from___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 conformsToHIDService:*(a1 + 32)];
   if (result)
@@ -543,7 +537,7 @@ uint64_t __42__CBColorFilter_acknowledgeHIDEvent_from___block_invoke(uint64_t a1
   return 0;
 }
 
-uint64_t __37__CBColorFilter_handleHIDEvent_from___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__37__CBColorFilter_handleHIDEvent_from___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 conformsToHIDService:*(a1 + 32)];
   if (result)
@@ -561,80 +555,76 @@ uint64_t __37__CBColorFilter_handleHIDEvent_from___block_invoke(uint64_t a1, voi
   selfCopy = self;
   v16 = a2;
   eventCopy = event;
-  if (event && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  if (!event)
   {
-    memset(__b, 0, sizeof(__b));
-    obj = selfCopy->_services;
-    v11 = [(NSMutableArray *)obj countByEnumeratingWithState:__b objects:v19 count:16];
-    if (!v11)
+    return eventCopy;
+  }
+
+  objc_opt_class();
+  if ((objc_opt_isKindOfClass() & 1) == 0)
+  {
+    return eventCopy;
+  }
+
+  memset(__b, 0, sizeof(__b));
+  obj = selfCopy->_services;
+  v11 = [(NSMutableArray *)obj countByEnumeratingWithState:__b objects:v19 count:16];
+  if (!v11)
+  {
+    return 0;
+  }
+
+  v7 = *__b[2];
+  v8 = 0;
+  v9 = v11;
+  while (1)
+  {
+    v6 = v8;
+    if (*__b[2] != v7)
     {
-      goto LABEL_17;
+      objc_enumerationMutation(obj);
     }
 
-    v7 = *__b[2];
-    v8 = 0;
-    v9 = v11;
-    while (1)
+    v14 = 0;
+    v14 = *(__b[1] + 8 * v8);
+    if ([v14 conformsToHIDService:{objc_msgSend(eventCopy, "service")}])
     {
-      v6 = v8;
-      if (*__b[2] != v7)
-      {
-        objc_enumerationMutation(obj);
-      }
-
-      v14 = 0;
-      v14 = *(__b[1] + 8 * v8);
-      if ([v14 conformsToHIDService:{objc_msgSend(eventCopy, "service")}])
-      {
-        break;
-      }
-
-      ++v8;
-      if (v6 + 1 >= v9)
-      {
-        v8 = 0;
-        v9 = [(NSMutableArray *)obj countByEnumeratingWithState:__b objects:v19 count:16];
-        if (!v9)
-        {
-          goto LABEL_17;
-        }
-      }
+      break;
     }
 
-    [v14 setEvent:{objc_msgSend(eventCopy, "event")}];
-    if (([(NSMutableArray *)selfCopy->_validServices containsObject:v14]& 1) != 0)
+    ++v8;
+    if (v6 + 1 >= v9)
     {
-      [(CBColorFilter *)selfCopy updateSample];
-      v4 = eventCopy;
-      sample = selfCopy->_sample;
-      if (sample)
+      v8 = 0;
+      v9 = [(NSMutableArray *)obj countByEnumeratingWithState:__b objects:v19 count:16];
+      if (!v9)
       {
-        [(CBColorSample *)sample colorSample];
+        return 0;
       }
-
-      else
-      {
-        memset(v12, 0, sizeof(v12));
-      }
-
-      [v4 setColorSample:v12];
-      v18 = eventCopy;
     }
+  }
 
-    else
-    {
-LABEL_17:
-      v18 = 0;
-    }
+  [v14 setEvent:{objc_msgSend(eventCopy, "event")}];
+  if (([(NSMutableArray *)selfCopy->_validServices containsObject:v14]& 1) == 0)
+  {
+    return 0;
+  }
+
+  [(CBColorFilter *)selfCopy updateSample];
+  v4 = eventCopy;
+  sample = selfCopy->_sample;
+  if (sample)
+  {
+    objc_msgSend_colorSample(sample);
   }
 
   else
   {
-    v18 = eventCopy;
+    memset(v12, 0, sizeof(v12));
   }
 
-  *MEMORY[0x1E69E9840];
-  return v18;
+  [v4 setColorSample:v12];
+  return eventCopy;
 }
 
 - (BOOL)removeHIDServiceClient:(__IOHIDServiceClient *)client
@@ -684,7 +674,7 @@ LABEL_17:
   return 1;
 }
 
-uint64_t __40__CBColorFilter_removeHIDServiceClient___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+_BYTE *__40__CBColorFilter_removeHIDServiceClient___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 service];
   if (result == *(a1 + 40))
@@ -733,8 +723,6 @@ uint64_t __40__CBColorFilter_removeHIDServiceClient___block_invoke(uint64_t a1, 
 
     objc_autoreleasePoolPop(context);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)copyHumanReadablePolicyRepresentation:(unint64_t)representation
@@ -869,7 +857,6 @@ uint64_t __40__CBColorFilter_removeHIDServiceClient___block_invoke(uint64_t a1, 
   _Block_object_dispose(&v20, 8);
   _Block_object_dispose(&v27, 8);
   _Block_object_dispose(&v33, 8);
-  *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -917,8 +904,6 @@ void __57__CBColorFilter_newColorSampleLinearWeightedForServices___block_invoke(
       _os_log_debug_impl(&dword_1DE8E5000, v11, OS_LOG_TYPE_DEBUG, "service %p xy= %f | %f ratio=%f", v15, 0x2Au);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)newColorSampleLinearWeightedForSamples:(id)samples
@@ -990,7 +975,6 @@ void __57__CBColorFilter_newColorSampleLinearWeightedForServices___block_invoke(
   _Block_object_dispose(&v16, 8);
   _Block_object_dispose(&v23, 8);
   _Block_object_dispose(&v29, 8);
-  *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1034,8 +1018,6 @@ void __56__CBColorFilter_newColorSampleLinearWeightedForSamples___block_invoke(v
     __os_log_helper_16_0_3_8_0_8_0_8_0(v14, v8, v7, COERCE__INT64(v12));
     _os_log_debug_impl(&dword_1DE8E5000, v10, OS_LOG_TYPE_DEBUG, "xy= %f | %f ratio=%f", v14, 0x20u);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)newColorSampleLogWeightedForSamples:(id)samples
@@ -1108,7 +1090,6 @@ void __56__CBColorFilter_newColorSampleLinearWeightedForSamples___block_invoke(v
   _Block_object_dispose(&v17, 8);
   _Block_object_dispose(&v24, 8);
   _Block_object_dispose(&v30, 8);
-  *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -1152,8 +1133,6 @@ void __53__CBColorFilter_newColorSampleLogWeightedForSamples___block_invoke(void
     __os_log_helper_16_0_3_8_0_8_0_8_0(v15, v9, v8, COERCE__INT64(v13));
     _os_log_debug_impl(&dword_1DE8E5000, v11, OS_LOG_TYPE_DEBUG, "xy= %f | %f ratio=%f", v15, 0x20u);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)newColorSampleLogWeighted
@@ -1257,7 +1236,6 @@ void __53__CBColorFilter_newColorSampleLogWeightedForSamples___block_invoke(void
   _Block_object_dispose(&v20, 8);
   _Block_object_dispose(&v27, 8);
   _Block_object_dispose(&v33, 8);
-  *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -1305,8 +1283,6 @@ void __42__CBColorFilter_newColorSampleLogWeighted__block_invoke(void *a1, void 
       _os_log_debug_impl(&dword_1DE8E5000, v12, OS_LOG_TYPE_DEBUG, "service %p xy= %f | %f ratio=%f", v16, 0x2Au);
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (id)newColorSampleConditionWeighted
@@ -1655,11 +1631,10 @@ LABEL_71:
   v25 = v95;
   _Block_object_dispose(&v81, 8);
   _Block_object_dispose(&v88, 8);
-  *MEMORY[0x1E69E9840];
   return v25;
 }
 
-uint64_t __48__CBColorFilter_newColorSampleConditionWeighted__block_invoke(uint64_t a1, void *a2)
+void *__48__CBColorFilter_newColorSampleConditionWeighted__block_invoke(uint64_t a1, void *a2)
 {
   v7 = 1;
   if ([a2 location] != 257)
@@ -1776,7 +1751,6 @@ uint64_t __48__CBColorFilter_newColorSampleConditionWeighted__block_invoke(uint6
     _os_log_impl(&dword_1DE8E5000, logHandle, OS_LOG_TYPE_DEFAULT, "ID=0x%lX internal=%d location=0x%lX | policy=0x%lX | OK=%d", v13, 0x2Cu);
   }
 
-  *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -1787,7 +1761,7 @@ uint64_t __48__CBColorFilter_newColorSampleConditionWeighted__block_invoke(uint6
   [(CBColorFilter *)self updateSample];
 }
 
-uint64_t __36__CBColorFilter_updateValidServices__block_invoke(uint64_t a1, uint64_t a2)
+void *__36__CBColorFilter_updateValidServices__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) ALSServiceConformsToPolicy:a2];
   if (result)
@@ -1834,7 +1808,7 @@ uint64_t __36__CBColorFilter_updateValidServices__block_invoke(uint64_t a1, uint
         v6 = [(NSMutableArray *)obj countByEnumeratingWithState:__b objects:v14 count:16];
         if (!v6)
         {
-          goto LABEL_9;
+          return v11 & 1;
         }
       }
     }
@@ -1842,8 +1816,6 @@ uint64_t __36__CBColorFilter_updateValidServices__block_invoke(uint64_t a1, uint
     v11 = 0;
   }
 
-LABEL_9:
-  *MEMORY[0x1E69E9840];
   return v11 & 1;
 }
 
@@ -1883,8 +1855,6 @@ LABEL_9:
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 + (double)calculateCCTForChromaticity:(id)chromaticity
@@ -1948,7 +1918,7 @@ LABEL_9:
   return v3 & 1;
 }
 
-uint64_t __34__CBColorFilter_forceSampleUpdate__block_invoke(uint64_t a1, void *a2)
+void *__34__CBColorFilter_forceSampleUpdate__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 updateEventData];
   if (result)
@@ -1974,7 +1944,7 @@ uint64_t __34__CBColorFilter_forceSampleUpdate__block_invoke(uint64_t a1, void *
   return v3 & 1;
 }
 
-uint64_t __33__CBColorFilter_hasExtRearSensor__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__33__CBColorFilter_hasExtRearSensor__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 location];
   if (result == 258)
@@ -2009,7 +1979,7 @@ uint64_t __33__CBColorFilter_hasExtRearSensor__block_invoke(uint64_t a1, void *a
   return v3 & 1;
 }
 
-uint64_t __34__CBColorFilter_hasExtFrontSensor__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__34__CBColorFilter_hasExtFrontSensor__block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 location];
   if (result == 257)

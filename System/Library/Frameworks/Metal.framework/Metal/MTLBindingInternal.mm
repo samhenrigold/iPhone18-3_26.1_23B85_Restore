@@ -51,23 +51,23 @@
 
 - (id)formattedDescription:(unint64_t)description withPrintedTypes:(id)types
 {
-  v21[22] = *MEMORY[0x1E69E9840];
+  v20[22] = *MEMORY[0x1E69E9840];
   v7 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v8 = MEMORY[0x1E696AEC0];
-  v20.receiver = self;
-  v20.super_class = MTLBindingInternal;
-  v9 = [(MTLBindingInternal *)&v20 description];
-  v21[0] = v7;
-  v21[1] = @"Name =";
+  v19.receiver = self;
+  v19.super_class = MTLBindingInternal;
+  v9 = [(MTLBindingInternal *)&v19 description];
+  v20[0] = v7;
+  v20[1] = @"Name =";
   name = self->_name;
   if (!name)
   {
     name = @"<none>";
   }
 
-  v21[2] = name;
-  v21[3] = v7;
-  v21[4] = @"Type =";
+  v20[2] = name;
+  v20[3] = v7;
+  v20[4] = @"Type =";
   type = self->_type;
   if (type > 23)
   {
@@ -139,9 +139,9 @@
 
   v12 = @"Unknown";
 LABEL_30:
-  v21[5] = v12;
-  v21[6] = v7;
-  v21[7] = @"Access =";
+  v20[5] = v12;
+  v20[6] = v7;
+  v20[7] = @"Access =";
   access = self->_access;
   if (access > 2)
   {
@@ -153,9 +153,9 @@ LABEL_30:
     v14 = off_1E6EECDC0[access];
   }
 
-  v21[8] = v14;
-  v21[9] = v7;
-  v21[10] = @"LocationIndex =";
+  v20[8] = v14;
+  v20[9] = v7;
+  v20[10] = @"LocationIndex =";
   if (self->_index == 0xFFFFFFFF)
   {
     v15 = @"Non-Bindable";
@@ -166,16 +166,16 @@ LABEL_30:
     v15 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
   }
 
-  v21[11] = v15;
-  v21[12] = v7;
-  v21[13] = @"Used =";
-  v21[14] = [MEMORY[0x1E696AD98] numberWithBool:self->_isUsed];
-  v21[15] = v7;
-  v21[16] = @"Argument =";
-  v21[17] = [MEMORY[0x1E696AD98] numberWithBool:self->_argument];
-  v21[18] = v7;
-  v21[19] = @"ArrayLength =";
-  v21[20] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_arrayLength];
+  v20[11] = v15;
+  v20[12] = v7;
+  v20[13] = @"Used =";
+  v20[14] = [MEMORY[0x1E696AD98] numberWithBool:self->_isUsed];
+  v20[15] = v7;
+  v20[16] = @"Argument =";
+  v20[17] = [MEMORY[0x1E696AD98] numberWithBool:self->_argument];
+  v20[18] = v7;
+  v20[19] = @"ArrayLength =";
+  v20[20] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_arrayLength];
   typeInfo = self->_typeInfo;
   if (typeInfo)
   {
@@ -187,10 +187,8 @@ LABEL_30:
     v17 = &stru_1EF478240;
   }
 
-  v21[21] = v17;
-  result = [v8 stringWithFormat:@"%@%@", v9, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v21, 22), "componentsJoinedByString:", @" "];
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  v20[21] = v17;
+  return [v8 stringWithFormat:@"%@%@", v9, objc_msgSend(objc_msgSend(MEMORY[0x1E695DEC8], "arrayWithObjects:count:", v20, 22), "componentsJoinedByString:", @" "];
 }
 
 - (id)formattedDescription:(unint64_t)description

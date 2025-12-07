@@ -575,7 +575,7 @@ LABEL_45:
   v58 = qword_1000AB7E8;
   if ((v57 & 1) == 0)
   {
-    sub_100066B10(qword_1000AB7E8, v56, &v69);
+    sub_100066B10(qword_1000AB7E8);
     goto LABEL_44;
   }
 
@@ -760,7 +760,7 @@ LABEL_45:
       {
         if (![+[NSFileManager createDirectoryAtPath:"createDirectoryAtPath:withIntermediateDirectories:attributes:error:"]
         {
-          sub_100067194(v17, buf);
+          sub_100067194();
           return;
         }
 

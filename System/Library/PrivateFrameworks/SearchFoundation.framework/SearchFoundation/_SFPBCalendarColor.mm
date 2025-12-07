@@ -153,9 +153,7 @@ LABEL_8:
 
 - (void)setEventIdentifier:(id)identifier
 {
-  v4 = [identifier copy];
-  eventIdentifier = self->_eventIdentifier;
-  self->_eventIdentifier = v4;
+  self->_eventIdentifier = [identifier copy];
 
   MEMORY[0x1EEE66BB8]();
 }

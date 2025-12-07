@@ -12,8 +12,9 @@
 + (id)createAddPairingRequestForPairingIdentity:(id)identity error:(id *)error
 {
   identityCopy = identity;
+  memset(v17, 0, sizeof(v17));
   TLV8BufferInit();
-  appended = sub_100021F5C();
+  appended = sub_100021F5C(v17, 3u);
   if (appended)
   {
     goto LABEL_2;
@@ -57,7 +58,7 @@ LABEL_2:
       goto LABEL_6;
     }
 
-    v16 = [NSData dataWithBytes:0 length:0];
+    v16 = [NSData dataWithBytes:v17[0] length:?];
     if (v16)
     {
       v14 = v16;
@@ -101,8 +102,9 @@ LABEL_9:
 + (id)createRemovePairingRequestForPairingIdentity:(id)identity error:(id *)error
 {
   identityCopy = identity;
+  memset(v13, 0, sizeof(v13));
   TLV8BufferInit();
-  v6 = sub_100021F5C();
+  v6 = sub_100021F5C(v13, 4u);
   if (v6)
   {
     goto LABEL_2;
@@ -128,7 +130,7 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v11 = [NSData dataWithBytes:0 length:0];
+  v11 = [NSData dataWithBytes:v13[0] length:?];
   if (v11)
   {
     v7 = v11;
@@ -157,11 +159,12 @@ LABEL_9:
 
 + (id)createListPairingsRequest:(id *)request
 {
+  memset(v8, 0, sizeof(v8));
   TLV8BufferInit();
-  v4 = sub_100021F5C();
+  v4 = sub_100021F5C(v8, 5u);
   if (!v4)
   {
-    v6 = [NSData dataWithBytes:0 length:0];
+    v6 = [NSData dataWithBytes:v8[0] length:?];
     if (v6)
     {
       v5 = v6;

@@ -853,17 +853,7 @@ LABEL_20:
 
         v20 = [(SKMountOperation *)self copyMountURLWithDisk:v16];
         v21 = [objc_opt_class() getMountState:v16];
-        if (!v21)
-        {
-          goto LABEL_18;
-        }
-
-        options = [(SKBaseDiskArbOperation *)self options];
-        v23 = [options objectForKeyedSubscript:kSKDiskMountOptionRestore];
-        v24 = sub_100010328(v23);
-
-        v13 = v52;
-        if (v24)
+        if (v21 && (-[SKBaseDiskArbOperation options](self, "options"), v22 = objc_claimAutoreleasedReturnValue(), [v22 objectForKeyedSubscript:kSKDiskMountOptionRestore], v23 = objc_claimAutoreleasedReturnValue(), v24 = sub_100010328(v23), v23, v13 = v52, v22, v24))
         {
           mountPoint2 = [v21 mountPoint];
           daDisk2 = [NSURL fileURLWithPath:mountPoint2];
@@ -954,7 +944,6 @@ LABEL_20:
 
         else
         {
-LABEL_18:
           daDisk2 = [v16 daDisk];
           DADiskMountWithArguments(daDisk2, v20, 2u, sub_100017B5C, self, arguments);
           v18 = v20;

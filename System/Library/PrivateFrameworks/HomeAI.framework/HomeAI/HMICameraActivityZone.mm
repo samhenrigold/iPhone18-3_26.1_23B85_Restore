@@ -23,28 +23,28 @@
 
 - (HMICameraActivityZone)initWithCoder:(id)coder
 {
-  v12[2] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   coderCopy = coder;
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
-  v7 = [v4 setWithArray:v6];
+  objc_opt_class();
+  objc_opt_class();
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:? count:?];
+  v7 = [v4 setWithArray:?];
 
-  v8 = [coderCopy decodeObjectOfClasses:v7 forKey:@"HMIAZ.p"];
-  v9 = [coderCopy decodeBoolForKey:@"HMIAZ.i"];
+  v8 = [coderCopy decodeObjectOfClasses:? forKey:?];
+  [coderCopy decodeBoolForKey:?];
 
-  v10 = [(HMICameraActivityZone *)self initWithPoints:v8 isInclusion:v9];
-  return v10;
+  v9 = [HMICameraActivityZone initWithPoints:"initWithPoints:isInclusion:" isInclusion:?];
+  return v9;
 }
 
 - (void)encodeWithCoder:(id)coder
 {
   coderCopy = coder;
   points = [(HMICameraActivityZone *)self points];
-  [coderCopy encodeObject:points forKey:@"HMIAZ.p"];
+  [coderCopy encodeObject:? forKey:?];
 
-  [coderCopy encodeBool:-[HMICameraActivityZone isInclusion](self forKey:{"isInclusion"), @"HMIAZ.i"}];
+  [(HMICameraActivityZone *)self isInclusion];
+  [coderCopy encodeBool:? forKey:?];
 }
 
 - (BOOL)isEqual:(id)equal
@@ -63,7 +63,7 @@
       v5 = equalCopy;
       points = [(HMICameraActivityZone *)self points];
       points2 = [(HMICameraActivityZone *)v5 points];
-      v8 = [points isEqualToArray:points2];
+      v8 = [points isEqualToArray:?];
 
       isInclusion = [(HMICameraActivityZone *)self isInclusion];
       LOBYTE(points) = [(HMICameraActivityZone *)v5 isInclusion];
@@ -113,7 +113,7 @@
   {
     isInclusion = [(HMICameraActivityZone *)self isInclusion];
 
-    if (!isInclusion)
+    if ((isInclusion & 1) == 0)
     {
       return 2;
     }
@@ -170,20 +170,20 @@
     do
     {
       points3 = [(HMICameraActivityZone *)self points];
-      v19 = [points3 objectAtIndexedSubscript:v17 - 1];
+      v19 = [points3 objectAtIndexedSubscript:?];
       [v19 point];
       v21 = v20 - v71;
       points4 = [(HMICameraActivityZone *)self points];
-      v23 = [points4 objectAtIndexedSubscript:v17 - 1];
+      v23 = [points4 objectAtIndexedSubscript:?];
       [v23 point];
       v25 = v24 - MidY;
 
       points5 = [(HMICameraActivityZone *)self points];
-      v27 = [points5 objectAtIndexedSubscript:v17];
+      v27 = [points5 objectAtIndexedSubscript:?];
       [v27 point];
       v29 = v28 - v71;
       points6 = [(HMICameraActivityZone *)self points];
-      v31 = [points6 objectAtIndexedSubscript:v17];
+      v31 = [points6 objectAtIndexedSubscript:?];
       [v31 point];
       v33 = v32 - MidY;
 
@@ -301,7 +301,7 @@ LABEL_33:
   v76.size.height = v67;
   v59 = CGPathCreateWithRect(v76, 0);
   points7 = [(HMICameraActivityZone *)self points];
-  v61 = [points7 objectAtIndexedSubscript:0];
+  v61 = [points7 objectAtIndexedSubscript:?];
   [v61 point];
   v62 = CGPathContainsPoint(v59, 0, v74, 0);
 
@@ -311,45 +311,40 @@ LABEL_33:
 
 - (BOOL)overlapsWithElipseInsideRect:(CGRect)rect withInsetPercentage:(float)percentage
 {
-  v5 = HMICGRectScaleAroundCenter(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, percentage);
+  HMICGRectScaleAroundCenter(rect.origin.x, rect.origin.y, rect.size.width, rect.size.height, percentage);
 
-  return [(HMICameraActivityZone *)self overlapsWithElipseInsideRect:v5];
+  return [(HMICameraActivityZone *)self overlapsWithElipseInsideRect:?];
 }
 
 - (NSString)description
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v3 = [MEMORY[0x277CCAB68] stringWithFormat:@"<%@", objc_opt_class()];
-  [v3 appendFormat:@" isInclusion:%d ", -[HMICameraActivityZone isInclusion](self, "isInclusion")];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
-  v12 = 0u;
+  v3 = [MEMORY[0x277CCAB68] stringWithFormat:objc_opt_class()];
+  [v3 appendFormat:-[HMICameraActivityZone isInclusion](self, "isInclusion")];
   points = [(HMICameraActivityZone *)self points];
-  v5 = [points countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [points countByEnumeratingWithState:? objects:? count:?];
   if (v5)
   {
     v6 = v5;
-    v7 = *v12;
+    v7 = MEMORY[0];
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v6; i = (i + 1))
       {
-        if (*v12 != v7)
+        if (MEMORY[0] != v7)
         {
           objc_enumerationMutation(points);
         }
 
-        [v3 appendFormat:@" %@", *(*(&v11 + 1) + 8 * i)];
+        [v3 appendFormat:*(8 * i)];
       }
 
-      v6 = [points countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v6 = [points countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v6);
   }
 
-  [v3 appendString:@">"];
+  [v3 appendString:?];
   v9 = [v3 copy];
 
   return v9;
@@ -357,101 +352,83 @@ LABEL_33:
 
 - (id)jsonReperesentaionOfDetectedObject:(id)object motionDetection:(id)detection eventClass:(id)class
 {
-  v55[4] = *MEMORY[0x277D85DE8];
   objectCopy = object;
   detectionCopy = detection;
   classCopy = class;
   v11 = objc_alloc_init(MEMORY[0x277CBEB18]);
   if ([(HMICameraActivityZone *)self activityZoneType])
   {
-    v13 = 0.21;
-    LODWORD(v12) = 1045891645;
-    v14 = [(HMICameraActivityZone *)self containsEvent:objectCopy withInsetPercentage:v12];
+    v12 = 0.21;
+    [HMICameraActivityZone containsEvent:"containsEvent:withInsetPercentage:" withInsetPercentage:?];
   }
 
   else
   {
     [objectCopy boundingBox];
-    v13 = 0.16;
+    v12 = 0.16;
     if ([HMICameraActivityZone overlapsWithElipseInsideRect:"overlapsWithElipseInsideRect:withInsetPercentage:" withInsetPercentage:?])
     {
       [objectCopy boundingBox];
-      v14 = [(HMICameraActivityZone *)self checkIfObjectIsStaticWithBoundingBox:detectionCopy motionDetection:objc_opt_class() eventClass:v15, v16, v17, v18]^ 1;
-    }
-
-    else
-    {
-      v14 = 0;
+      objc_opt_class();
+      [HMICameraActivityZone checkIfObjectIsStaticWithBoundingBox:"checkIfObjectIsStaticWithBoundingBox:motionDetection:eventClass:" motionDetection:? eventClass:?];
     }
   }
 
   [objectCopy boundingBox];
-  v23 = HMICGRectScaleAroundCenter(v19, v20, v21, v22, v13);
-  v25 = v24;
-  v27 = v26;
-  v29 = v28;
-  v30 = objc_opt_class();
-  if (v30 == objc_opt_class() && [(HMICameraActivityZone *)self activityZoneType]== 2)
+  v17 = HMICGRectScaleAroundCenter(v13, v14, v15, v16, v12);
+  v19 = v18;
+  v21 = v20;
+  v23 = v22;
+  v24 = objc_opt_class();
+  if (v24 == objc_opt_class() && [(HMICameraActivityZone *)self activityZoneType]== 2)
   {
-    v23 = HMICGRectDivideAlongHeight(v23, v25, v27, v29, 0.7);
-    v25 = v31;
-    v27 = v32;
-    v29 = v33;
+    v17 = HMICGRectDivideAlongHeight(v17, v19, v21, v23, 0.7);
+    v19 = v25;
+    v21 = v26;
+    v23 = v27;
   }
 
-  v55[0] = classCopy;
-  v54[0] = @"class-label";
-  v54[1] = @"coordinates";
-  v58.origin.x = v23;
-  v58.origin.y = v25;
-  v58.size.width = v27;
-  v58.size.height = v29;
-  DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v58);
-  v55[1] = DictionaryRepresentation;
-  v54[2] = @"overlap";
-  v35 = [MEMORY[0x277CCABB0] numberWithBool:v14];
-  v55[2] = v35;
-  v54[3] = @"inclusion";
-  v36 = [MEMORY[0x277CCABB0] numberWithBool:{-[HMICameraActivityZone isInclusion](self, "isInclusion")}];
-  v55[3] = v36;
-  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v55 forKeys:v54 count:4];
-  [v11 addObject:v37];
+  v44.origin.x = v17;
+  v44.origin.y = v19;
+  v44.size.width = v21;
+  v44.size.height = v23;
+  DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v44);
+  v40 = [MEMORY[0x277CCABB0] numberWithBool:?];
+  v28 = MEMORY[0x277CCABB0];
+  [(HMICameraActivityZone *)self isInclusion];
+  v41 = [v28 numberWithBool:?];
+  v29 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+  [v11 addObject:?];
 
-  v38 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v47 = 0u;
-  v48 = 0u;
-  v49 = 0u;
-  v50 = 0u;
+  v30 = objc_alloc_init(MEMORY[0x277CBEB18]);
   points = [(HMICameraActivityZone *)self points];
-  v40 = [points countByEnumeratingWithState:&v47 objects:v53 count:16];
-  if (v40)
+  v32 = [points countByEnumeratingWithState:? objects:? count:?];
+  if (v32)
   {
-    v41 = v40;
-    v42 = *v48;
+    v33 = v32;
+    v34 = MEMORY[0];
     do
     {
-      for (i = 0; i != v41; ++i)
+      for (i = 0; i != v33; i = (i + 1))
       {
-        if (*v48 != v42)
+        if (MEMORY[0] != v34)
         {
           objc_enumerationMutation(points);
         }
 
-        [*(*(&v47 + 1) + 8 * i) point];
-        v44 = CGPointCreateDictionaryRepresentation(v57);
-        [v38 addObject:v44];
+        [*(8 * i) point];
+        v36 = CGPointCreateDictionaryRepresentation(v43);
+        [v30 addObject:?];
       }
 
-      v41 = [points countByEnumeratingWithState:&v47 objects:v53 count:16];
+      v33 = [points countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v41);
+    while (v33);
   }
 
-  v51 = @"activityZone";
-  v52 = v38;
-  v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
-  [v11 addObject:v45];
+  v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:? forKeys:? count:?];
+  [v11 addObject:?];
 
   return v11;
 }
@@ -497,7 +474,7 @@ LABEL_33:
 
 - (BOOL)saveToJsonActivityZones:(id)zones motionDetection:(id)detection videoFragmentUrl:(id)url frameId:(id)id UUID:(id)d detectionID:(id)iD zoneID:(id)zoneID
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   zonesCopy = zones;
   detectionCopy = detection;
   urlCopy = url;
@@ -505,9 +482,10 @@ LABEL_33:
   dCopy = d;
   iDCopy = iD;
   zoneIDCopy = zoneID;
-  v66 = [HMIVideoAnalyzerEvent shortNameForEventClass:objc_opt_class()];
+  objc_opt_class();
+  v66 = [HMIVideoAnalyzerEvent shortNameForEventClass:?];
   absoluteString = [urlCopy absoluteString];
-  LODWORD(d) = [absoluteString hasPrefix:@"HKD://"];
+  LODWORD(d) = [absoluteString hasPrefix:?];
 
   v63 = dCopy;
   v61 = urlCopy;
@@ -524,22 +502,21 @@ LABEL_33:
 
   v64 = idCopy;
   v62 = stringByDeletingPathExtension;
-  iDCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@-%@-%@.json", stringByDeletingPathExtension, idCopy, zoneIDCopy, iDCopy];
+  iDCopy = [MEMORY[0x277CCACA8] stringWithFormat:stringByDeletingPathExtension, idCopy, zoneIDCopy, iDCopy];
   v25 = MEMORY[0x277CCACA8];
   v26 = NSTemporaryDirectory();
-  v27 = [v25 stringWithFormat:@"%@/%@", v26, @"analyzed-video-frames"];
+  v27 = [v25 stringWithFormat:v26, @"analyzed-video-frames"];
 
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v70 = 0;
-  v29 = [defaultManager createDirectoryAtPath:v27 withIntermediateDirectories:1 attributes:0 error:&v70];
-  v30 = v70;
+  v29 = [defaultManager createDirectoryAtPath:? withIntermediateDirectories:? attributes:? error:?];
+  v30 = 0;
 
   v65 = detectionCopy;
   if (v29)
   {
     v58 = iDCopy;
     v59 = zoneIDCopy;
-    v31 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@/activityzone-%@", v27, iDCopy];
+    v31 = [MEMORY[0x277CCACA8] stringWithFormat:v27, iDCopy];
     v32 = objc_autoreleasePoolPush();
     selfCopy = self;
     v34 = HMFGetOSLogHandle();
@@ -547,26 +524,24 @@ LABEL_33:
     {
       v35 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v72 = v35;
-      v73 = 2112;
-      v74 = v31;
+      v69 = v35;
+      v70 = 2112;
+      v71 = v31;
       _os_log_impl(&dword_22D12F000, v34, OS_LOG_TYPE_INFO, "%{public}@Activity zone file path:%@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v32);
     v60 = zonesCopy;
-    v36 = [(HMICameraActivityZone *)selfCopy jsonReperesentaionOfDetectedObject:zonesCopy motionDetection:detectionCopy eventClass:v66];
-    v69 = v30;
-    v37 = [MEMORY[0x277CCAAA0] dataWithJSONObject:v36 options:1 error:&v69];
-    v38 = v69;
+    v36 = [HMICameraActivityZone jsonReperesentaionOfDetectedObject:selfCopy motionDetection:"jsonReperesentaionOfDetectedObject:motionDetection:eventClass:" eventClass:?];
+    v37 = [MEMORY[0x277CCAAA0] dataWithJSONObject:? options:? error:?];
+    v38 = v30;
 
     if (v37)
     {
-      v39 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:v37 encoding:4];
-      v40 = [MEMORY[0x277CBEBC0] fileURLWithPath:v31];
-      v68 = v38;
-      v41 = [v39 writeToURL:v40 atomically:1 encoding:4 error:&v68];
-      v42 = v68;
+      v39 = [objc_alloc(MEMORY[0x277CCACA8]) initWithData:? encoding:?];
+      v40 = [MEMORY[0x277CBEBC0] fileURLWithPath:?];
+      v41 = [v39 writeToURL:? atomically:? encoding:? error:?];
+      v42 = v38;
 
       if ((v41 & 1) == 0)
       {
@@ -577,9 +552,9 @@ LABEL_33:
         {
           v56 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v72 = v56;
-          v73 = 2112;
-          v74 = v42;
+          v69 = v56;
+          v70 = 2112;
+          v71 = v42;
           _os_log_impl(&dword_22D12F000, v44, OS_LOG_TYPE_ERROR, "%{public}@Error writing activity zone results JSON to file: %@", buf, 0x16u);
         }
 
@@ -598,9 +573,9 @@ LABEL_33:
       {
         v54 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v72 = v54;
-        v73 = 2112;
-        v74 = v38;
+        v69 = v54;
+        v70 = 2112;
+        v71 = v38;
         _os_log_impl(&dword_22D12F000, v53, OS_LOG_TYPE_ERROR, "%{public}@Error converting activity zone results to JSON: %@", buf, 0x16u);
       }
 
@@ -625,9 +600,9 @@ LABEL_33:
       HMFGetLogIdentifier();
       v49 = v48 = zoneIDCopy;
       *buf = 138543618;
-      v72 = v49;
-      v73 = 2112;
-      v74 = v30;
+      v69 = v49;
+      v70 = 2112;
+      v71 = v30;
       _os_log_impl(&dword_22D12F000, v47, OS_LOG_TYPE_ERROR, "%{public}@Error creating activity zone result directory: %@", buf, 0x16u);
 
       zoneIDCopy = v48;
@@ -647,7 +622,7 @@ LABEL_33:
   width = box.size.width;
   y = box.origin.y;
   x = box.origin.x;
-  v55 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   detectionCopy = detection;
   if (objc_opt_class() != class)
   {
@@ -658,116 +633,107 @@ LABEL_33:
   points = [(HMICameraActivityZone *)self points];
   v14 = HMICreatePathFromPoints(points);
 
-  v47 = 0u;
-  v48 = 0u;
-  v45 = 0u;
-  v46 = 0u;
   motionVectors = [detectionCopy motionVectors];
-  v16 = [motionVectors countByEnumeratingWithState:&v45 objects:v54 count:16];
+  v16 = [motionVectors countByEnumeratingWithState:? objects:? count:?];
   if (v16)
   {
     v17 = v16;
-    v18 = *v46;
+    v18 = MEMORY[0];
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v17; i = (i + 1))
       {
-        if (*v46 != v18)
+        if (MEMORY[0] != v18)
         {
           objc_enumerationMutation(motionVectors);
         }
 
-        v20 = *(*(&v45 + 1) + 8 * i);
-        [v20 target];
-        if (CGPathContainsPoint(v14, 0, v56, 0))
+        [*(8 * i) target];
+        if (CGPathContainsPoint(v14, 0, v45, 0))
         {
-          [array addObject:v20];
+          [array addObject:?];
         }
       }
 
-      v17 = [motionVectors countByEnumeratingWithState:&v45 objects:v54 count:16];
+      v17 = [motionVectors countByEnumeratingWithState:? objects:? count:?];
     }
 
     while (v17);
   }
 
-  v43 = 0u;
-  v44 = 0u;
-  v41 = 0u;
-  v42 = 0u;
-  v21 = array;
-  v22 = [v21 countByEnumeratingWithState:&v41 objects:v53 count:16];
-  if (v22)
+  v20 = array;
+  v21 = [v20 countByEnumeratingWithState:0 objects:? count:?];
+  if (v21)
   {
-    v23 = v22;
-    v24 = *v42;
-    v25 = 0.0;
+    v22 = v21;
+    v23 = MEMORY[0];
+    v24 = 0.0;
     do
     {
-      for (j = 0; j != v23; ++j)
+      for (j = 0; j != v22; j = (j + 1))
       {
-        if (*v42 != v24)
+        if (MEMORY[0] != v23)
         {
-          objc_enumerationMutation(v21);
+          objc_enumerationMutation(v20);
         }
 
-        v27 = *(*(&v41 + 1) + 8 * j);
-        [v27 target];
-        v57.x = v28;
-        v57.y = v29;
-        v58.origin.x = x;
-        v58.origin.y = y;
-        v58.size.width = width;
-        v58.size.height = height;
-        if (CGRectContainsPoint(v58, v57))
+        v26 = *(8 * j);
+        [v26 target];
+        v46.x = v27;
+        v46.y = v28;
+        v47.origin.x = x;
+        v47.origin.y = y;
+        v47.size.width = width;
+        v47.size.height = height;
+        if (CGRectContainsPoint(v47, v46))
         {
-          [v27 motion];
-          v31 = v30;
-          [v27 motion];
-          v25 = hypot(v31, v32) + v25;
+          [v26 motion];
+          v30 = v29;
+          [v26 motion];
+          v24 = hypot(v30, v31) + v24;
         }
       }
 
-      v23 = [v21 countByEnumeratingWithState:&v41 objects:v53 count:16];
+      v22 = [v20 countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v23);
-    v33 = v25;
+    while (v22);
+    v32 = v24;
   }
 
   else
   {
-    v33 = 0.0;
+    v32 = 0.0;
   }
 
   CGPathRelease(v14);
-  v34 = v33 / (height * width + 0.00000011920929);
-  v35 = objc_autoreleasePoolPush();
+  v33 = v32 / (height * width + 0.00000011920929);
+  v34 = objc_autoreleasePoolPush();
   selfCopy = self;
-  v37 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+  v36 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
   {
-    v38 = HMFGetLogIdentifier();
+    v37 = HMFGetLogIdentifier();
     *buf = 138543618;
-    v50 = v38;
-    v51 = 2048;
-    v52 = v34;
-    _os_log_impl(&dword_22D12F000, v37, OS_LOG_TYPE_DEBUG, "%{public}@motionScore %f", buf, 0x16u);
+    v41 = v37;
+    v42 = 2048;
+    v43 = v33;
+    _os_log_impl(&dword_22D12F000, v36, OS_LOG_TYPE_DEBUG, "%{public}@motionScore %f", buf, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v35);
-  if (v34 < 1.0)
+  objc_autoreleasePoolPop(v34);
+  if (v33 < 1.0)
   {
-    v39 = 1;
+    v38 = 1;
   }
 
   else
   {
 LABEL_25:
-    v39 = 0;
+    v38 = 0;
   }
 
-  return v39;
+  return v38;
 }
 
 - (BOOL)containsVectorWithSource:(CGPoint)source destination:(CGPoint)destination
@@ -795,7 +761,7 @@ LABEL_25:
 
 + (id)filterEvents:(id)events withActivityZones:(id)zones motionDetection:(id)detection insetPercentageInclusion:(float)inclusion insetPercentageExclusion:(float)exclusion
 {
-  v93 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   eventsCopy = events;
   zonesCopy = zones;
   detectionCopy = detection;
@@ -804,84 +770,70 @@ LABEL_25:
     firstObject = [zonesCopy firstObject];
     isInclusion = [firstObject isInclusion];
 
-    v78[0] = MEMORY[0x277D85DD0];
-    v78[1] = 3221225472;
-    v78[2] = __122__HMICameraActivityZone_filterEvents_withActivityZones_motionDetection_insetPercentageInclusion_insetPercentageExclusion___block_invoke;
-    v78[3] = &__block_descriptor_33_e31_B16__0__HMICameraActivityZone_8l;
-    v59 = isInclusion;
-    v79 = isInclusion;
-    [zonesCopy na_all:v78];
-    v58 = [MEMORY[0x277CBEB58] set];
-    v74 = 0u;
-    v75 = 0u;
-    v76 = 0u;
-    v77 = 0u;
-    v56 = eventsCopy;
+    v54 = isInclusion;
+    [zonesCopy na_all:?];
+    v53 = [MEMORY[0x277CBEB58] set];
+    v51 = eventsCopy;
     obj = eventsCopy;
-    v61 = zonesCopy;
-    v63 = [obj countByEnumeratingWithState:&v74 objects:v92 count:16];
-    if (v63)
+    v56 = zonesCopy;
+    v58 = [obj countByEnumeratingWithState:? objects:? count:?];
+    if (v58)
     {
-      v62 = *v75;
+      v57 = MEMORY[0];
       do
       {
-        for (i = 0; i != v63; i = i + 1)
+        for (i = 0; i != v58; i = (i + 1))
         {
-          if (*v75 != v62)
+          if (MEMORY[0] != v57)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v74 + 1) + 8 * i);
-          v70 = 0u;
-          v71 = 0u;
-          v72 = 0u;
-          v73 = 0u;
+          v17 = *(8 * i);
           v18 = zonesCopy;
-          v19 = [v18 countByEnumeratingWithState:&v70 objects:v91 count:16];
+          v19 = [v18 countByEnumeratingWithState:? objects:? count:?];
           if (v19)
           {
             v20 = v19;
-            v21 = *v71;
+            v21 = MEMORY[0];
             while (2)
             {
-              for (j = 0; j != v20; ++j)
+              for (j = 0; j != v20; j = (j + 1))
               {
-                if (*v71 != v21)
+                if (MEMORY[0] != v21)
                 {
                   objc_enumerationMutation(v18);
                 }
 
-                v23 = *(*(&v70 + 1) + 8 * j);
+                v23 = *(8 * j);
                 if ([v23 activityZoneType])
                 {
-                  *&v24 = exclusion;
-                  if ([v23 containsEvent:v17 withInsetPercentage:v24])
+                  if ([v23 containsEvent:? withInsetPercentage:?])
                   {
-                    v29 = objc_autoreleasePoolPush();
+                    v24 = objc_autoreleasePoolPush();
                     selfCopy = self;
-                    v31 = HMFGetOSLogHandle();
-                    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+                    v26 = HMFGetOSLogHandle();
+                    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
                     {
-                      v33 = HMFGetLogIdentifier();
-                      v34 = objc_opt_class();
+                      v28 = HMFGetLogIdentifier();
+                      v29 = objc_opt_class();
                       [v17 boundingBox];
-                      DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v95);
+                      DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v73);
                       *buf = 138544386;
-                      v82 = v33;
-                      v83 = 2112;
-                      v84 = v23;
-                      v85 = 2112;
-                      v86 = v34;
-                      v87 = 2112;
-                      v88 = *&DictionaryRepresentation;
-                      v89 = 2048;
+                      v62 = v28;
+                      v63 = 2112;
+                      v64 = v23;
+                      v65 = 2112;
+                      v66 = v29;
+                      v67 = 2112;
+                      v68 = *&DictionaryRepresentation;
+                      v69 = 2048;
                       inclusionCopy = exclusion;
-                      _os_log_impl(&dword_22D12F000, v31, OS_LOG_TYPE_INFO, "%{public}@Exclusion zone:%@ intersecting with:(%@) Object coordinate %@ insetThreshold %f", buf, 0x34u);
+                      _os_log_impl(&dword_22D12F000, v26, OS_LOG_TYPE_INFO, "%{public}@Exclusion zone:%@ intersecting with:(%@) Object coordinate %@ insetThreshold %f", buf, 0x34u);
                     }
 
-                    objc_autoreleasePoolPop(v29);
-                    zonesCopy = v61;
+                    objc_autoreleasePoolPop(v24);
+                    zonesCopy = v56;
                     goto LABEL_28;
                   }
                 }
@@ -892,42 +844,43 @@ LABEL_25:
                   if ([v23 overlapsWithElipseInsideRect:? withInsetPercentage:?])
                   {
                     [v17 boundingBox];
-                    if (([v23 checkIfObjectIsStaticWithBoundingBox:detectionCopy motionDetection:objc_opt_class() eventClass:{v25, v26, v27, v28}] & 1) == 0)
+                    objc_opt_class();
+                    if (([v23 checkIfObjectIsStaticWithBoundingBox:? motionDetection:? eventClass:?] & 1) == 0)
                     {
-                      v36 = objc_autoreleasePoolPush();
+                      v31 = objc_autoreleasePoolPush();
                       selfCopy2 = self;
-                      v38 = HMFGetOSLogHandle();
-                      if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+                      v33 = HMFGetOSLogHandle();
+                      if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
                       {
                         HMFGetLogIdentifier();
-                        v39 = v57 = v36;
-                        v40 = objc_opt_class();
+                        v34 = v52 = v31;
+                        v35 = objc_opt_class();
                         [v17 boundingBox];
-                        v41 = CGRectCreateDictionaryRepresentation(v96);
+                        v36 = CGRectCreateDictionaryRepresentation(v74);
                         *buf = 138544386;
-                        v82 = v39;
-                        v83 = 2112;
-                        v84 = v23;
-                        v85 = 2112;
-                        v86 = v40;
-                        v87 = 2112;
-                        v88 = *&v41;
-                        v89 = 2048;
+                        v62 = v34;
+                        v63 = 2112;
+                        v64 = v23;
+                        v65 = 2112;
+                        v66 = v35;
+                        v67 = 2112;
+                        v68 = *&v36;
+                        v69 = 2048;
                         inclusionCopy = inclusion;
-                        _os_log_impl(&dword_22D12F000, v38, OS_LOG_TYPE_INFO, "%{public}@Inclusion zone:%@ intersecting with:(%@) Object coordinate %@ insetThreshold %f", buf, 0x34u);
+                        _os_log_impl(&dword_22D12F000, v33, OS_LOG_TYPE_INFO, "%{public}@Inclusion zone:%@ intersecting with:(%@) Object coordinate %@ insetThreshold %f", buf, 0x34u);
 
-                        v36 = v57;
+                        v31 = v52;
                       }
 
-                      objc_autoreleasePoolPop(v36);
-                      zonesCopy = v61;
+                      objc_autoreleasePoolPop(v31);
+                      zonesCopy = v56;
                       goto LABEL_27;
                     }
                   }
                 }
               }
 
-              v20 = [v18 countByEnumeratingWithState:&v70 objects:v91 count:16];
+              v20 = [v18 countByEnumeratingWithState:? objects:? count:?];
               if (v20)
               {
                 continue;
@@ -937,33 +890,29 @@ LABEL_25:
             }
           }
 
-          if ((v59 & 1) == 0)
+          if ((v54 & 1) == 0)
           {
 LABEL_27:
-            [v58 addObject:{v17, v56}];
+            [v53 addObject:v51];
           }
 
 LABEL_28:
           ;
         }
 
-        v63 = [obj countByEnumeratingWithState:&v74 objects:v92 count:16];
+        v58 = [obj countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v63);
+      while (v58);
     }
 
-    v68 = 0u;
-    v69 = 0u;
-    v66 = 0u;
-    v67 = 0u;
-    v64 = v58;
-    v42 = [v64 countByEnumeratingWithState:&v66 objects:v80 count:16];
-    if (v42)
+    v59 = v53;
+    v37 = [v59 countByEnumeratingWithState:? objects:? count:?];
+    if (v37)
     {
-      v43 = v42;
-      v44 = *v67;
-      if (v59)
+      v38 = v37;
+      v39 = MEMORY[0];
+      if (v54)
       {
         exclusionCopy2 = inclusion;
       }
@@ -973,151 +922,140 @@ LABEL_28:
         exclusionCopy2 = exclusion;
       }
 
-      v46 = exclusionCopy2;
+      v41 = exclusionCopy2;
       do
       {
-        for (k = 0; k != v43; ++k)
+        for (k = 0; k != v38; k = (k + 1))
         {
-          if (*v67 != v44)
+          if (MEMORY[0] != v39)
           {
-            objc_enumerationMutation(v64);
+            objc_enumerationMutation(v59);
           }
 
-          v48 = *(*(&v66 + 1) + 8 * k);
-          v49 = objc_autoreleasePoolPush();
+          v43 = *(8 * k);
+          v44 = objc_autoreleasePoolPush();
           selfCopy3 = self;
-          v51 = HMFGetOSLogHandle();
-          if (os_log_type_enabled(v51, OS_LOG_TYPE_INFO))
+          v46 = HMFGetOSLogHandle();
+          if (os_log_type_enabled(v46, OS_LOG_TYPE_INFO))
           {
-            v52 = HMFGetLogIdentifier();
-            v53 = objc_opt_class();
-            [v48 boundingBox];
-            v54 = CGRectCreateDictionaryRepresentation(v97);
+            v47 = HMFGetLogIdentifier();
+            v48 = objc_opt_class();
+            [v43 boundingBox];
+            v49 = CGRectCreateDictionaryRepresentation(v75);
             *buf = 138544130;
-            v82 = v52;
-            v83 = 2112;
-            v84 = v53;
-            v85 = 2112;
-            v86 = v54;
-            v87 = 2048;
-            v88 = v46;
-            _os_log_impl(&dword_22D12F000, v51, OS_LOG_TYPE_INFO, "%{public}@Events after activity zone filtering:(%@) Object coordinate %@ insetPercentage %f", buf, 0x2Au);
+            v62 = v47;
+            v63 = 2112;
+            v64 = v48;
+            v65 = 2112;
+            v66 = v49;
+            v67 = 2048;
+            v68 = v41;
+            _os_log_impl(&dword_22D12F000, v46, OS_LOG_TYPE_INFO, "%{public}@Events after activity zone filtering:(%@) Object coordinate %@ insetPercentage %f", buf, 0x2Au);
           }
 
-          objc_autoreleasePoolPop(v49);
+          objc_autoreleasePoolPop(v44);
         }
 
-        v43 = [v64 countByEnumeratingWithState:&v66 objects:v80 count:16];
+        v38 = [v59 countByEnumeratingWithState:? objects:? count:?];
       }
 
-      while (v43);
+      while (v38);
     }
 
-    eventsCopy = v56;
-    zonesCopy = v61;
+    eventsCopy = v51;
+    zonesCopy = v56;
   }
 
   else
   {
-    v64 = eventsCopy;
+    v59 = eventsCopy;
   }
 
-  return v64;
+  return v59;
 }
 
 + (id)activityZonesFromString:(id)string isInclusion:(BOOL)inclusion
 {
-  inclusionCopy = inclusion;
-  v46 = *MEMORY[0x277D85DE8];
   stringCopy = string;
-  v32 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v5 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"{}"];
-  v29 = stringCopy;
-  v6 = [stringCopy componentsSeparatedByCharactersInSet:v5];
+  v28 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v5 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:?];
+  v26 = stringCopy;
+  v6 = [stringCopy componentsSeparatedByCharactersInSet:?];
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
   obj = v6;
-  v34 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
-  if (v34)
+  v30 = [obj countByEnumeratingWithState:? objects:? count:?];
+  if (v30)
   {
-    v33 = *v41;
+    v29 = MEMORY[0];
     do
     {
-      for (i = 0; i != v34; ++i)
+      for (i = 0; i != v30; i = (i + 1))
       {
-        if (*v41 != v33)
+        if (MEMORY[0] != v29)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v40 + 1) + 8 * i);
+        v8 = *(8 * i);
         if ([v8 length])
         {
-          v35 = i;
-          v9 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@"()"];
-          v10 = [v8 componentsSeparatedByCharactersInSet:v9];
+          v31 = i;
+          v9 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:?];
+          v10 = [v8 componentsSeparatedByCharactersInSet:?];
 
           array = [MEMORY[0x277CBEB18] array];
-          v36 = 0u;
-          v37 = 0u;
-          v38 = 0u;
-          v39 = 0u;
           v12 = v10;
-          v13 = [v12 countByEnumeratingWithState:&v36 objects:v44 count:16];
+          v13 = [v12 countByEnumeratingWithState:? objects:? count:?];
           if (v13)
           {
             v14 = v13;
-            v15 = *v37;
+            v15 = MEMORY[0];
             do
             {
-              for (j = 0; j != v14; ++j)
+              for (j = 0; j != v14; j = (j + 1))
               {
-                if (*v37 != v15)
+                if (MEMORY[0] != v15)
                 {
                   objc_enumerationMutation(v12);
                 }
 
-                v17 = *(*(&v36 + 1) + 8 * j);
+                v17 = *(8 * j);
                 if ([v17 length])
                 {
-                  v18 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:{@", "}];
-                  v19 = [v17 componentsSeparatedByCharactersInSet:v18];
+                  v18 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:?];
+                  v19 = [v17 componentsSeparatedByCharactersInSet:?];
 
                   v20 = [HMIPoint alloc];
-                  v21 = [v19 objectAtIndexedSubscript:0];
+                  v21 = [v19 objectAtIndexedSubscript:?];
                   [v21 doubleValue];
-                  v23 = v22;
-                  v24 = [v19 objectAtIndexedSubscript:1];
-                  [v24 doubleValue];
-                  v26 = [(HMIPoint *)v20 initWithPoint:v23, v25];
+                  v22 = [v19 objectAtIndexedSubscript:?];
+                  [v22 doubleValue];
+                  v23 = [(HMIPoint *)v20 initWithPoint:?];
 
-                  [array addObject:v26];
+                  [array addObject:?];
                 }
               }
 
-              v14 = [v12 countByEnumeratingWithState:&v36 objects:v44 count:16];
+              v14 = [v12 countByEnumeratingWithState:? objects:? count:?];
             }
 
             while (v14);
           }
 
-          v27 = [[HMICameraActivityZone alloc] initWithPoints:array isInclusion:inclusionCopy];
-          [v32 addObject:v27];
+          v24 = [HMICameraActivityZone initWithPoints:"initWithPoints:isInclusion:" isInclusion:?];
+          [v28 addObject:?];
 
-          i = v35;
+          i = v31;
         }
       }
 
-      v34 = [obj countByEnumeratingWithState:&v40 objects:v45 count:16];
+      v30 = [obj countByEnumeratingWithState:? objects:? count:?];
     }
 
-    while (v34);
+    while (v30);
   }
 
-  return v32;
+  return v28;
 }
 
 + (void)submitCoreAnalyticsEvent:(id)event filteringLevel:(id)level numberOfDetectedObjects:(id)objects
@@ -1127,10 +1065,10 @@ LABEL_28:
   levelCopy = level;
   eventCopy = event;
   dictionary = [v7 dictionary];
-  [dictionary setObject:eventCopy forKeyedSubscript:@"zoneType"];
+  [dictionary setObject:? forKeyedSubscript:?];
 
-  [dictionary setObject:levelCopy forKeyedSubscript:@"filteringLevel"];
-  [dictionary setObject:objectsCopy forKeyedSubscript:@"numDetectedObjects"];
+  [dictionary setObject:? forKeyedSubscript:?];
+  [dictionary setObject:? forKeyedSubscript:?];
 
   v13 = dictionary;
   v12 = dictionary;
@@ -1144,56 +1082,31 @@ LABEL_28:
   eventsCopy = events;
   statsCopy = stats;
   firstObject = [zonesCopy firstObject];
-  isInclusion = [firstObject isInclusion];
+  [firstObject isInclusion];
 
-  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(statsCopy, "count")}];
-  if (isInclusion)
-  {
-    v17 = @"inclusion";
-    [self submitCoreAnalyticsEvent:@"inclusion" filteringLevel:@"noFiltering" numberOfDetectedObjects:v16];
+  v15 = MEMORY[0x277CCABB0];
+  [statsCopy count];
+  v16 = [v15 numberWithUnsignedInteger:?];
+  [self submitCoreAnalyticsEvent:? filteringLevel:? numberOfDetectedObjects:?];
 
-    v18 = MEMORY[0x277CCABB0];
-    v19 = [eventsCopy count];
+  v17 = MEMORY[0x277CCABB0];
+  [eventsCopy count];
 
-    v20 = [v18 numberWithUnsignedInteger:v19];
-    [self submitCoreAnalyticsEvent:@"inclusion" filteringLevel:@"resize_0" numberOfDetectedObjects:v20];
+  v18 = [v17 numberWithUnsignedInteger:?];
+  [self submitCoreAnalyticsEvent:? filteringLevel:? numberOfDetectedObjects:?];
 
-    LODWORD(v21) = 1028443341;
-    v22 = [self filterEvents:statsCopy withActivityZones:zonesCopy motionDetection:detectionCopy insetPercentageInclusion:v21 insetPercentageExclusion:0.0];
-    v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v22, "count")}];
-    [self submitCoreAnalyticsEvent:@"inclusion" filteringLevel:@"resize_10" numberOfDetectedObjects:v23];
+  v19 = [self filterEvents:? withActivityZones:? motionDetection:? insetPercentageInclusion:? insetPercentageExclusion:?];
+  v20 = MEMORY[0x277CCABB0];
+  [v19 count];
+  v21 = [v20 numberWithUnsignedInteger:?];
+  [self submitCoreAnalyticsEvent:? filteringLevel:? numberOfDetectedObjects:?];
 
-    LODWORD(v24) = 1036831949;
-    v34 = [self filterEvents:statsCopy withActivityZones:zonesCopy motionDetection:detectionCopy insetPercentageInclusion:v24 insetPercentageExclusion:0.0];
+  v24 = [self filterEvents:? withActivityZones:? motionDetection:? insetPercentageInclusion:? insetPercentageExclusion:?];
 
-    v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v34, "count")}];
-    v26 = @"resize_20";
-  }
-
-  else
-  {
-    v17 = @"exclusion";
-    [self submitCoreAnalyticsEvent:@"exclusion" filteringLevel:@"noFiltering" numberOfDetectedObjects:v16];
-
-    v27 = MEMORY[0x277CCABB0];
-    v28 = [eventsCopy count];
-
-    v29 = [v27 numberWithUnsignedInteger:v28];
-    [self submitCoreAnalyticsEvent:@"exclusion" filteringLevel:@"resize_20" numberOfDetectedObjects:v29];
-
-    LODWORD(v30) = 1040522936;
-    v31 = [self filterEvents:statsCopy withActivityZones:zonesCopy motionDetection:detectionCopy insetPercentageInclusion:0.0 insetPercentageExclusion:v30];
-    v32 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v31, "count")}];
-    [self submitCoreAnalyticsEvent:@"exclusion" filteringLevel:@"resize_26" numberOfDetectedObjects:v32];
-
-    LODWORD(v33) = 1043878380;
-    v34 = [self filterEvents:statsCopy withActivityZones:zonesCopy motionDetection:detectionCopy insetPercentageInclusion:0.0 insetPercentageExclusion:v33];
-
-    v25 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v34, "count")}];
-    v26 = @"resize_36";
-  }
-
-  [self submitCoreAnalyticsEvent:v17 filteringLevel:v26 numberOfDetectedObjects:v25];
+  v22 = MEMORY[0x277CCABB0];
+  [v24 count];
+  v23 = [v22 numberWithUnsignedInteger:?];
+  [self submitCoreAnalyticsEvent:? filteringLevel:? numberOfDetectedObjects:?];
 }
 
 @end

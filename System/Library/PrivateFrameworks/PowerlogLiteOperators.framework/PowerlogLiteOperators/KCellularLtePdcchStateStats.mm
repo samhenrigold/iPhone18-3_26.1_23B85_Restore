@@ -195,96 +195,88 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v18 = toCopy;
+  v10 = toCopy;
   if (*&self->_has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
-    toCopy = v18;
+    toCopy = v10;
   }
 
   if (self->_pccPdcchStates.count)
   {
-    v6 = 0;
+    v5 = 0;
     do
     {
-      v7 = self->_pccPdcchStates.list[v6];
       PBDataWriterWriteUint32Field();
-      toCopy = v18;
-      ++v6;
+      toCopy = v10;
+      ++v5;
     }
 
-    while (v6 < self->_pccPdcchStates.count);
+    while (v5 < self->_pccPdcchStates.count);
   }
 
   if (self->_scc0PdcchStates.count)
   {
-    v8 = 0;
+    v6 = 0;
     do
     {
-      v9 = self->_scc0PdcchStates.list[v8];
       PBDataWriterWriteUint32Field();
-      toCopy = v18;
-      ++v8;
+      toCopy = v10;
+      ++v6;
     }
 
-    while (v8 < self->_scc0PdcchStates.count);
+    while (v6 < self->_scc0PdcchStates.count);
   }
 
   if (self->_scc1PdcchStates.count)
   {
-    v10 = 0;
+    v7 = 0;
     do
     {
-      v11 = self->_scc1PdcchStates.list[v10];
       PBDataWriterWriteUint32Field();
-      toCopy = v18;
-      ++v10;
+      toCopy = v10;
+      ++v7;
     }
 
-    while (v10 < self->_scc1PdcchStates.count);
+    while (v7 < self->_scc1PdcchStates.count);
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    durationMs = self->_durationMs;
     PBDataWriterWriteUint32Field();
-    toCopy = v18;
+    toCopy = v10;
   }
 
   if (self->_scc2PdcchStates.count)
   {
-    v13 = 0;
+    v8 = 0;
     do
     {
-      v14 = self->_scc2PdcchStates.list[v13];
       PBDataWriterWriteUint32Field();
-      toCopy = v18;
-      ++v13;
+      toCopy = v10;
+      ++v8;
     }
 
-    while (v13 < self->_scc2PdcchStates.count);
+    while (v8 < self->_scc2PdcchStates.count);
   }
 
   if (self->_scc3PdcchStates.count)
   {
-    v15 = 0;
+    v9 = 0;
     do
     {
-      v16 = self->_scc3PdcchStates.list[v15];
       PBDataWriterWriteUint32Field();
-      toCopy = v18;
-      ++v15;
+      toCopy = v10;
+      ++v9;
     }
 
-    while (v15 < self->_scc3PdcchStates.count);
+    while (v9 < self->_scc3PdcchStates.count);
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
-    toCopy = v18;
+    toCopy = v10;
   }
 }
 
@@ -419,7 +411,6 @@
     goto LABEL_21;
   }
 
-  v5 = *(equalCopy + 144);
   if (*&self->_has)
   {
     if ((*(equalCopy + 144) & 1) == 0 || self->_timestamp != *(equalCopy + 16))
@@ -431,7 +422,7 @@
   else if (*(equalCopy + 144))
   {
 LABEL_21:
-    v7 = 0;
+    v5 = 0;
     goto LABEL_22;
   }
 
@@ -440,7 +431,6 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v6 = *(equalCopy + 144);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 144) & 2) == 0 || self->_durationMs != *(equalCopy + 34))
@@ -459,7 +449,7 @@ LABEL_21:
     goto LABEL_21;
   }
 
-  v7 = (*(equalCopy + 144) & 4) == 0;
+  v5 = (*(equalCopy + 144) & 4) == 0;
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 144) & 4) == 0 || self->_subsId != *(equalCopy + 35))
@@ -467,12 +457,12 @@ LABEL_21:
       goto LABEL_21;
     }
 
-    v7 = 1;
+    v5 = 1;
   }
 
 LABEL_22:
 
-  return v7;
+  return v5;
 }
 
 - (unint64_t)hash

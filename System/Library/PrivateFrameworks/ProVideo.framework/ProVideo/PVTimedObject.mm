@@ -76,7 +76,7 @@
   {
     if (coderCopy)
     {
-      [coderCopy decodeCMTimeForKey:@"PVTimedObject_Time"];
+      objc_msgSend_decodeCMTimeForKey_(coderCopy);
     }
 
     else
@@ -107,7 +107,7 @@
 {
   coderCopy = coder;
   [coderCopy encodeInt:1 forKey:@"PVTimedObject_CodingVersion"];
-  [(PVTimedObject *)self time];
+  objc_msgSend_time(self);
   [coderCopy encodeCMTime:v10 forKey:@"PVTimedObject_Time"];
   object = [(PVTimedObject *)self object];
 
@@ -125,7 +125,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  [(PVTimedObject *)self time];
+  objc_msgSend_time(self, a2, zone);
   object = [(PVTimedObject *)self object];
   v5 = [object copy];
   v6 = [PVTimedObject timedObjectWithTime:v8 object:v5];
@@ -152,8 +152,8 @@
   if (objc_opt_isKindOfClass())
   {
     v6 = v5;
-    [(PVTimedObject *)self time];
-    [(PVTimedObject *)v6 time];
+    objc_msgSend_time(self);
+    objc_msgSend_time(v6);
     if (CMTimeCompare(&time1, &v11))
     {
       v7 = 0;
@@ -186,14 +186,14 @@ LABEL_10:
   v6 = 0;
   v7 = 0;
   v8 = 0;
-  [(PVTimedObject *)self time];
+  objc_msgSend_time(self);
   return v6 ^ v4 ^ v7 ^ HIDWORD(v7) ^ v8;
 }
 
 - (id)description
 {
   v3 = *MEMORY[0x277CBECE8];
-  [(PVTimedObject *)self time];
+  objc_msgSend_time(self, a2);
   v4 = CMTimeCopyDescription(v3, &time);
   v5 = MEMORY[0x277CCACA8];
   v12.receiver = self;
@@ -234,7 +234,7 @@ LABEL_10:
       v17 = v16;
       if (v16)
       {
-        [v16 time];
+        objc_msgSend_time(v16);
       }
 
       else

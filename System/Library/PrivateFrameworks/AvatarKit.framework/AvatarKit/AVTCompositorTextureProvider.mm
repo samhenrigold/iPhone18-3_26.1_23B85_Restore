@@ -27,7 +27,7 @@
     v12->_skinIsDirty = 1;
     v12->_componentDirtyMask = -1;
     WeakRetained = objc_loadWeakRetained(&v12->_compositor);
-    [WeakRetained addClient:v12];
+    [WeakRetained addClient:?];
   }
 
   return v12;
@@ -36,7 +36,7 @@
 - (void)dealloc
 {
   WeakRetained = objc_loadWeakRetained(&self->_compositor);
-  [WeakRetained removeClient:self];
+  [WeakRetained removeClient:?];
 
   v4.receiver = self;
   v4.super_class = AVTCompositorTextureProvider;
@@ -45,33 +45,22 @@
 
 - (id)newTextureForDevice:(id)device
 {
-  propertyName = self->_propertyName;
   deviceCopy = device;
-  v6 = [AVTCompositorPipelineCache pipelineForPropertyName:propertyName device:deviceCopy];
+  v5 = [AVTCompositorPipelineCache pipelineForPropertyName:"pipelineForPropertyName:device:" device:?];
   pipeline = self->_pipeline;
-  self->_pipeline = v6;
+  self->_pipeline = v5;
 
   MTLPixelFormatGetInfoForDevice();
-  if ((v14 & 2) != 0)
-  {
-    v8 = 71;
-  }
-
-  else
-  {
-    v8 = 70;
-  }
-
   +[AVTMemoji skinTextureSize];
-  v10 = [MEMORY[0x1E69741B8] texture2DDescriptorWithPixelFormat:v8 width:v9 height:v9 mipmapped:1];
-  [v10 setUsage:3];
-  [v10 setStorageMode:2];
-  v11 = [deviceCopy newTextureWithDescriptor:v10];
+  v7 = [MEMORY[0x1E69741B8] texture2DDescriptorWithPixelFormat:? width:? height:? mipmapped:?];
+  [v7 setUsage:?];
+  [v7 setStorageMode:?];
+  v8 = [deviceCopy newTextureWithDescriptor:?];
 
-  v12 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Compositor - %@", self->_propertyName];
-  [v11 setLabel:v12];
+  v9 = [MEMORY[0x1E696AEC0] stringWithFormat:self->_propertyName];
+  [v8 setLabel:?];
 
-  return v11;
+  return v8;
 }
 
 - (void)renderToTexture:(id)texture computeCommandHandler:(id)handler blitCommandHandler:(id)commandHandler completionHandler:(id)completionHandler helper:(id)helper
@@ -95,17 +84,19 @@
     self->_componentDirtyMask = -1;
   }
 
-  v16 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:{-[NSMutableSet count](self->_helperTokens, "count")}];
+  v16 = objc_alloc(MEMORY[0x1E695DFA8]);
+  [(NSMutableSet *)self->_helperTokens count];
+  v17 = [v16 initWithCapacity:?];
   pipeline = self->_pipeline;
   WeakRetained = objc_loadWeakRetained(&self->_memoji);
-  [(AVTCompositorPipeline *)pipeline compositeTexture:textureCopy forMemoji:WeakRetained considerSkin:self->_skinIsDirty componentsToConsider:self->_componentDirtyMask computeCommandHandler:handlerCopy blitCommandHandler:commandHandlerCopy completionHandler:completionHandlerCopy helper:helperCopy helperTokens:v16];
+  [AVTCompositorPipeline compositeTexture:"compositeTexture:forMemoji:considerSkin:componentsToConsider:computeCommandHandler:blitCommandHandler:completionHandler:helper:helperTokens:" forMemoji:completionHandlerCopy considerSkin:helperCopy componentsToConsider:v17 computeCommandHandler:? blitCommandHandler:? completionHandler:? helper:? helperTokens:?];
 
-  v19 = objc_loadWeakRetained(&self->_memoji);
-  usageIntent = [v19 usageIntent];
+  v20 = objc_loadWeakRetained(&self->_memoji);
+  usageIntent = [v20 usageIntent];
 
   if (usageIntent != 2)
   {
-    objc_storeStrong(&self->_helperTokens, v16);
+    objc_storeStrong(&self->_helperTokens, v17);
   }
 
   self->_skinIsDirty = 0;

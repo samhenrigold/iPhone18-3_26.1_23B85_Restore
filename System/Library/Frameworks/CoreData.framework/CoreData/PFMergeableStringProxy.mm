@@ -1,6 +1,7 @@
 @interface PFMergeableStringProxy
+- (PFMergeableStringProxy)init;
 - (PFMergeableStringProxy)initWithContainer:(id)container key:(id)key mergeableString:(id)string;
-- (uint64_t)performOperation:(uint64_t)result;
+- (id)performOperation:(id *)result;
 - (void)appendString:(id)string;
 - (void)dealloc;
 - (void)insertString:(id)string atIndex:(unint64_t)index;
@@ -10,6 +11,16 @@
 @end
 
 @implementation PFMergeableStringProxy
+
+- (PFMergeableStringProxy)init
+{
+  v2 = MEMORY[0x1E695DF30];
+  v3 = *MEMORY[0x1E695D930];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = NSStringFromSelector(sel_initWithContainer_key_mergeableString_);
+  v6 = [v2 exceptionWithName:v3 reason:objc_msgSend_stringWithFormat_(v4 userInfo:{v5), 0}];
+  objc_exception_throw(v6);
+}
 
 - (PFMergeableStringProxy)initWithContainer:(id)container key:(id)key mergeableString:(id)string
 {
@@ -37,25 +48,25 @@
   [(PFMergeableStringProxy *)&v3 dealloc];
 }
 
-- (uint64_t)performOperation:(uint64_t)result
+- (id)performOperation:(id *)result
 {
   if (result)
   {
     v3 = result;
-    [*(result + 8) willChangeValueForKey:*(result + 16)];
-    v4 = [*(v3 + 24) copy];
+    [result[1] willChangeValueForKey:result[2]];
+    v4 = [v3[3] copy];
 
-    *(v3 + 24) = 0;
-    *(v3 + 24) = v4;
+    v3[3] = 0;
+    v3[3] = v4;
 
     if (a2)
     {
       (*(a2 + 16))(a2);
     }
 
-    [*(v3 + 8) setPrimitiveValue:*(v3 + 24) forKey:*(v3 + 16)];
-    v5 = *(v3 + 8);
-    v6 = *(v3 + 16);
+    [v3[1] setPrimitiveValue:v3[3] forKey:v3[2]];
+    v5 = v3[1];
+    v6 = v3[2];
 
     return [v5 didChangeValueForKey:v6];
   }
@@ -71,7 +82,7 @@
   v3[3] = &unk_1E6EC1600;
   v3[4] = self;
   v3[5] = string;
-  [(PFMergeableStringProxy *)self performOperation:v3];
+  [(PFMergeableStringProxy *)&self->super.isa performOperation:v3];
 }
 
 - (void)insertString:(id)string atIndex:(unint64_t)index
@@ -83,7 +94,7 @@
   v4[4] = self;
   v4[5] = string;
   v4[6] = index;
-  [(PFMergeableStringProxy *)self performOperation:v4];
+  [(PFMergeableStringProxy *)&self->super.isa performOperation:v4];
 }
 
 - (void)removeSubrange:(_NSRange)subrange
@@ -94,7 +105,7 @@
   v3[3] = &unk_1E6EC1C68;
   v3[4] = self;
   subrangeCopy = subrange;
-  [(PFMergeableStringProxy *)self performOperation:v3];
+  [(PFMergeableStringProxy *)&self->super.isa performOperation:v3];
 }
 
 - (void)replaceSubrange:(_NSRange)subrange withString:(id)string
@@ -106,7 +117,7 @@
   subrangeCopy = subrange;
   v4[4] = self;
   v4[5] = string;
-  [(PFMergeableStringProxy *)self performOperation:v4];
+  [(PFMergeableStringProxy *)&self->super.isa performOperation:v4];
 }
 
 - (void)setString:(id)string
@@ -117,7 +128,7 @@
   v3[3] = &unk_1E6EC1600;
   v3[4] = self;
   v3[5] = string;
-  [(PFMergeableStringProxy *)self performOperation:v3];
+  [(PFMergeableStringProxy *)&self->super.isa performOperation:v3];
 }
 
 @end

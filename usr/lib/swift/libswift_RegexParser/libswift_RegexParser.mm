@@ -1,7 +1,6 @@
 uint64_t AST.root.setter(uint64_t *a1)
 {
   v2 = *a1;
-  v3 = *v1;
 
   *v1 = v2;
   return result;
@@ -10,7 +9,6 @@ uint64_t AST.root.setter(uint64_t *a1)
 uint64_t AST.globalOptions.setter(uint64_t *a1)
 {
   v2 = *a1;
-  v3 = *(v1 + 8);
 
   *(v1 + 8) = v2;
   return result;
@@ -27,7 +25,6 @@ uint64_t AST.diags.setter(uint64_t *a1)
 {
   v2 = *a1;
   v3 = *(a1 + 8);
-  v4 = *(v1 + 16);
 
   *(v1 + 16) = v2;
   *(v1 + 24) = v3;
@@ -56,10 +53,9 @@ uint64_t static Diagnostics.== infix(_:_:)(uint64_t a1, uint64_t a2)
 
 void AST.hash(into:)(uint64_t a1)
 {
-  v3 = v1[1];
-  v4 = v1[2];
+  v3 = *(v1 + 8);
+  v4 = *(v1 + 16);
   v5 = *(v1 + 24);
-  v6 = *v1;
   AST.Node.hash(into:)(a1);
   if (v3)
   {
@@ -78,16 +74,15 @@ void AST.hash(into:)(uint64_t a1)
 
 Swift::Int AST.hashValue.getter()
 {
-  v2 = *v0;
-  v1 = v0[1];
-  v3 = v0[2];
-  v4 = *(v0 + 24);
+  v1 = *(v0 + 8);
+  v2 = *(v0 + 16);
+  v3 = *(v0 + 24);
   Hasher.init(_seed:)();
-  AST.Node.hash(into:)(v6);
+  AST.Node.hash(into:)(v5);
   if (v1)
   {
     Hasher._combine(_:)(1u);
-    specialized Array<A>.hash(into:)(v6, v1);
+    specialized Array<A>.hash(into:)(v5, v1);
   }
 
   else
@@ -95,17 +90,16 @@ Swift::Int AST.hashValue.getter()
     Hasher._combine(_:)(0);
   }
 
-  specialized Array<A>.hash(into:)(v6, v3);
-  Hasher._combine(_:)(v4);
+  specialized Array<A>.hash(into:)(v5, v2);
+  Hasher._combine(_:)(v3);
   return Hasher._finalize()();
 }
 
 void protocol witness for Hashable.hash(into:) in conformance AST(uint64_t a1)
 {
-  v3 = v1[1];
-  v4 = v1[2];
+  v3 = *(v1 + 8);
+  v4 = *(v1 + 16);
   v5 = *(v1 + 24);
-  v6 = *v1;
   AST.Node.hash(into:)(a1);
   if (v3)
   {
@@ -122,18 +116,17 @@ void protocol witness for Hashable.hash(into:) in conformance AST(uint64_t a1)
   Hasher._combine(_:)(v5);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST(uint64_t a1)
 {
-  v2 = *v0;
-  v1 = v0[1];
-  v3 = v0[2];
-  v4 = *(v0 + 24);
+  v2 = *(v1 + 8);
+  v3 = *(v1 + 16);
+  v4 = *(v1 + 24);
   Hasher.init(_seed:)();
   AST.Node.hash(into:)(v6);
-  if (v1)
+  if (v2)
   {
     Hasher._combine(_:)(1u);
-    specialized Array<A>.hash(into:)(v6, v1);
+    specialized Array<A>.hash(into:)(v6, v2);
   }
 
   else
@@ -195,7 +188,7 @@ uint64_t AST.Node.hasCapture.getter()
 
       v10 = v8 + 1;
       *&v12 = *(v6 + 8 * v8 + 32);
-      result = AST.Node.hasCapture.getter(result);
+      result = AST.Node.hasCapture.getter();
       v8 = v10;
       if (result)
       {
@@ -300,7 +293,7 @@ uint64_t AST.ensureValid()@<X0>(uint64_t a1@<X8>)
     v21 = *v7;
     v22 = v15;
     __swift_instantiateConcreteTypeFromMangledNameV2(&_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMd, &_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMR);
-    lazy protocol witness table accessor for type Source.LocatedError<ErrorDiagnostic #1 in Diagnostics.throwAnyError()> and conformance Source.LocatedError<A>(&lazy protocol witness table cache variable for type Source.LocatedError<ErrorDiagnostic #1 in Diagnostics.throwAnyError()> and conformance Source.LocatedError<A>, &_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMd, &_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMR);
+    lazy protocol witness table accessor for type Source.LocatedError<ErrorDiagnostic #1 in Diagnostics.throwAnyError()> and conformance Source.LocatedError<A>(&lazy protocol witness table cache variable for type Source.LocatedError<ErrorDiagnostic #1 in Diagnostics.throwAnyError()> and conformance Source.LocatedError<A>, &_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMd, &_s12_RegexParser6SourceV12LocatedErrorVy_AA11DiagnosticsV08throwAnyE0yyKF0E10DiagnosticL_VGMR, &protocol conformance descriptor for Source.LocatedError<A>);
     swift_allocError();
     *v16 = v21;
     v18 = v23;
@@ -374,283 +367,274 @@ uint64_t AST.Node.hash(into:)(uint64_t a1)
 {
   v3 = type metadata accessor for AST.CustomCharacterClass.Member(0);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3 - 8, v6);
-  v8 = &v85 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for AST.Atom(0);
-  v10 = *(*(v9 - 8) + 64);
-  v12 = MEMORY[0x1EEE9AC00](v9, v11);
-  v14 = &v85 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = *v1;
-  v16 = *v1 >> 60;
-  if (v16 <= 5)
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v6 = &v74 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for AST.Atom(0);
+  v8 = MEMORY[0x1EEE9AC00](v7);
+  v10 = &v74 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = *v1;
+  v12 = *v1 >> 60;
+  if (v12 <= 5)
   {
-    if (v16 <= 2)
+    if (v12 <= 2)
     {
-      if (!v16)
+      if (!v12)
       {
-        v45 = *(v15 + 16);
-        v46 = *(v15 + 24);
+        v39 = *(v11 + 16);
+        v40 = *(v11 + 24);
         MEMORY[0x1C68E1190](0);
-        MEMORY[0x1C68E1190](*(v45 + 16));
-        v47 = *(v45 + 16);
-        if (v47)
+        MEMORY[0x1C68E1190](*(v39 + 16));
+        v41 = *(v39 + 16);
+        if (v41)
         {
-          v48 = (v45 + 32);
+          v42 = (v39 + 32);
 
           do
           {
-            v49 = *v48++;
-            *&v85 = v49;
+            v43 = *v42++;
+            *&v74 = v43;
 
             AST.Node.hash(into:)(a1);
 
-            --v47;
+            --v41;
           }
 
-          while (v47);
+          while (v41);
         }
 
         else
         {
         }
 
-        specialized Array<A>.hash(into:)(a1, v46);
+        specialized Array<A>.hash(into:)(a1, v40);
 
         goto LABEL_41;
       }
 
-      v17 = v15 & 0xFFFFFFFFFFFFFFFLL;
-      if (v16 == 1)
+      v13 = v11 & 0xFFFFFFFFFFFFFFFLL;
+      if (v12 == 1)
       {
-        v18 = *(v17 + 16);
-        v19 = *(v17 + 24);
-        v20 = *(v17 + 32);
+        v14 = *(v13 + 16);
+        v15 = *(v13 + 24);
+        v16 = *(v13 + 32);
         MEMORY[0x1C68E1190](1);
-        MEMORY[0x1C68E1190](*(v18 + 16));
-        v21 = *(v18 + 16);
-        if (v21)
+        MEMORY[0x1C68E1190](*(v14 + 16));
+        v17 = *(v14 + 16);
+        if (v17)
         {
-          v22 = (v18 + 32);
+          v18 = (v14 + 32);
 
           do
           {
-            v23 = *v22++;
-            *&v85 = v23;
+            v19 = *v18++;
+            *&v74 = v19;
 
             AST.Node.hash(into:)(a1);
 
-            --v21;
+            --v17;
           }
 
-          while (v21);
+          while (v17);
         }
 
         else
         {
         }
 
-        MEMORY[0x1C68E11C0](v19 >> 14);
-        MEMORY[0x1C68E11C0](v20 >> 14);
+        MEMORY[0x1C68E11C0](v15 >> 14);
+        MEMORY[0x1C68E11C0](v16 >> 14);
         goto LABEL_41;
       }
 
-      v68 = *(v17 + 64);
-      v87 = *(v17 + 48);
-      v88 = v68;
-      v89 = *(v17 + 80);
-      v69 = *(v17 + 104);
-      *&v90 = *(v17 + 96);
-      v70 = *(v17 + 32);
-      v85 = *(v17 + 16);
-      v86 = v70;
-      v71 = *(v17 + 112);
-      v72 = *(v17 + 120);
-      v73 = *(v17 + 128);
-      v74 = *(v17 + 136);
+      v59 = *(v13 + 64);
+      v76 = *(v13 + 48);
+      v77 = v59;
+      v78 = *(v13 + 80);
+      v60 = *(v13 + 104);
+      *&v79 = *(v13 + 96);
+      v61 = *(v13 + 32);
+      v74 = *(v13 + 16);
+      v75 = v61;
+      v62 = *(v13 + 112);
+      v63 = *(v13 + 120);
+      v64 = *(v13 + 128);
+      v65 = *(v13 + 136);
       MEMORY[0x1C68E1190](2);
-      *(&v90 + 1) = v69;
-      *&v91 = v71;
+      *(&v79 + 1) = v60;
+      *&v80 = v62;
       AST.Group.Kind.hash(into:)(a1);
-      MEMORY[0x1C68E11C0](v69 >> 14);
-      MEMORY[0x1C68E11C0](v71 >> 14);
-      *&v85 = v72;
+      MEMORY[0x1C68E11C0](v60 >> 14);
+      MEMORY[0x1C68E11C0](v62 >> 14);
+      *&v74 = v63;
       AST.Node.hash(into:)(a1);
-      MEMORY[0x1C68E11C0](v73 >> 14);
-      v75 = v74 >> 14;
-      return MEMORY[0x1C68E11C0](v75);
+      MEMORY[0x1C68E11C0](v64 >> 14);
+      v66 = v65 >> 14;
+      return MEMORY[0x1C68E11C0](v66);
     }
 
-    v30 = v15 & 0xFFFFFFFFFFFFFFFLL;
-    if (v16 == 3)
+    v24 = v11 & 0xFFFFFFFFFFFFFFFLL;
+    if (v12 == 3)
     {
-      v53 = *(v30 + 192);
-      v95 = *(v30 + 176);
-      v96 = v53;
-      v97 = *(v30 + 208);
-      v54 = *(v30 + 128);
-      v91 = *(v30 + 112);
-      v92 = v54;
-      v55 = *(v30 + 160);
-      v93 = *(v30 + 144);
-      v94 = v55;
-      v56 = *(v30 + 64);
-      v87 = *(v30 + 48);
-      v88 = v56;
-      v57 = *(v30 + 96);
-      v89 = *(v30 + 80);
-      v90 = v57;
-      v58 = *(v30 + 16);
-      v86 = *(v30 + 32);
-      v85 = v58;
+      v45 = *(v24 + 192);
+      v84 = *(v24 + 176);
+      v85 = v45;
+      v86 = *(v24 + 208);
+      v46 = *(v24 + 128);
+      v80 = *(v24 + 112);
+      v81 = v46;
+      v47 = *(v24 + 160);
+      v82 = *(v24 + 144);
+      v83 = v47;
+      v48 = *(v24 + 64);
+      v76 = *(v24 + 48);
+      v77 = v48;
+      v49 = *(v24 + 96);
+      v78 = *(v24 + 80);
+      v79 = v49;
+      v50 = *(v24 + 16);
+      v75 = *(v24 + 32);
+      v74 = v50;
       MEMORY[0x1C68E1190](3);
       return AST.Conditional.hash(into:)(a1);
     }
 
-    if (v16 == 4)
+    if (v12 == 4)
     {
-      v31 = *(v30 + 128);
-      v91 = *(v30 + 112);
-      v92 = v31;
-      *&v93 = *(v30 + 144);
-      v32 = *(v30 + 64);
-      v87 = *(v30 + 48);
-      v88 = v32;
-      v33 = *(v30 + 96);
-      v89 = *(v30 + 80);
-      v90 = v33;
-      v34 = *(v30 + 16);
-      v86 = *(v30 + 32);
-      v85 = v34;
+      v25 = *(v24 + 128);
+      v80 = *(v24 + 112);
+      v81 = v25;
+      *&v82 = *(v24 + 144);
+      v26 = *(v24 + 64);
+      v76 = *(v24 + 48);
+      v77 = v26;
+      v27 = *(v24 + 96);
+      v78 = *(v24 + 80);
+      v79 = v27;
+      v28 = *(v24 + 16);
+      v75 = *(v24 + 32);
+      v74 = v28;
       MEMORY[0x1C68E1190](4);
       return AST.Quantification.hash(into:)(a1);
     }
 
-    v81 = *(v30 + 16);
-    v82 = *(v30 + 24);
-    v27 = *(v30 + 32);
-    v28 = *(v30 + 40);
-    v29 = 5;
+    v21 = *(v24 + 32);
+    v22 = *(v24 + 40);
+    v23 = 5;
     goto LABEL_34;
   }
 
-  if (v16 <= 8)
+  if (v12 <= 8)
   {
-    if (v16 == 6)
+    if (v12 == 6)
     {
-      v50 = (v15 & 0xFFFFFFFFFFFFFFFLL);
-      v51 = v50[2];
-      v52 = v50[3];
-      v27 = v50[4];
-      v28 = v50[5];
-      v29 = 6;
+      v44 = v11 & 0xFFFFFFFFFFFFFFFLL;
+      v21 = *(v44 + 32);
+      v22 = *(v44 + 40);
+      v23 = 6;
     }
 
     else
     {
-      if (v16 != 7)
+      if (v12 != 7)
       {
-        v76 = v12;
-        v77 = swift_projectBox();
-        outlined init with copy of AST.CustomCharacterClass.Member(v77, v14, type metadata accessor for AST.Atom);
+        v67 = v8;
+        v68 = swift_projectBox();
+        outlined init with copy of AST.CustomCharacterClass.Member(v68, v10, type metadata accessor for AST.Atom);
         MEMORY[0x1C68E1190](8);
         AST.Atom.Kind.hash(into:)(a1);
-        v78 = &v14[*(v76 + 20)];
-        v79 = *v78;
-        v80 = *(v78 + 1);
-        outlined destroy of AST.CustomCharacterClass.Member(v14, type metadata accessor for AST.Atom);
-        MEMORY[0x1C68E11C0](v79 >> 14);
-        v75 = v80 >> 14;
-        return MEMORY[0x1C68E11C0](v75);
+        v69 = &v10[*(v67 + 20)];
+        v70 = *v69;
+        v71 = *(v69 + 1);
+        outlined destroy of AST.CustomCharacterClass.Member(v10, type metadata accessor for AST.Atom);
+        MEMORY[0x1C68E11C0](v70 >> 14);
+        v66 = v71 >> 14;
+        return MEMORY[0x1C68E11C0](v66);
       }
 
-      v24 = (v15 & 0xFFFFFFFFFFFFFFFLL);
-      v25 = v24[2];
-      v26 = v24[3];
-      v27 = v24[4];
-      v28 = v24[5];
-      v29 = 7;
+      v20 = v11 & 0xFFFFFFFFFFFFFFFLL;
+      v21 = *(v20 + 32);
+      v22 = *(v20 + 40);
+      v23 = 7;
     }
 
 LABEL_34:
-    MEMORY[0x1C68E1190](v29);
+    MEMORY[0x1C68E1190](v23);
 
     String.hash(into:)();
-    MEMORY[0x1C68E11C0](v27 >> 14);
-    MEMORY[0x1C68E11C0](v28 >> 14);
+    MEMORY[0x1C68E11C0](v21 >> 14);
+    MEMORY[0x1C68E11C0](v22 >> 14);
 LABEL_41:
   }
 
-  v36 = v15 & 0xFFFFFFFFFFFFFFFLL;
-  if (v16 == 9)
+  v30 = (v11 & 0xFFFFFFFFFFFFFFFLL);
+  if (v12 == 9)
   {
-    v59 = *(v36 + 16);
-    v60 = *(v36 + 24);
-    v61 = *(v36 + 32);
-    v62 = *(v36 + 40);
-    v63 = *(v36 + 48);
-    v64 = *(v36 + 56);
+    v51 = v30[3];
+    v52 = v30[4];
+    v53 = v30[5];
+    v54 = v30[6];
+    v55 = v30[7];
     MEMORY[0x1C68E1190](9);
 
     String.hash(into:)();
 
-    MEMORY[0x1C68E11C0](v60 >> 14);
-    MEMORY[0x1C68E11C0](v61 >> 14);
-    MEMORY[0x1C68E1190](*(v62 + 16));
-    v65 = *(v62 + 16);
-    if (v65)
+    MEMORY[0x1C68E11C0](v51 >> 14);
+    MEMORY[0x1C68E11C0](v52 >> 14);
+    MEMORY[0x1C68E1190](*(v53 + 16));
+    v56 = *(v53 + 16);
+    if (v56)
     {
-      v66 = v62 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
-      v67 = *(v4 + 72);
+      v57 = v53 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
+      v58 = *(v4 + 72);
       do
       {
-        outlined init with copy of AST.CustomCharacterClass.Member(v66, v8, type metadata accessor for AST.CustomCharacterClass.Member);
+        outlined init with copy of AST.CustomCharacterClass.Member(v57, v6, type metadata accessor for AST.CustomCharacterClass.Member);
         AST.CustomCharacterClass.Member.hash(into:)(a1);
-        outlined destroy of AST.CustomCharacterClass.Member(v8, type metadata accessor for AST.CustomCharacterClass.Member);
-        v66 += v67;
-        --v65;
+        outlined destroy of AST.CustomCharacterClass.Member(v6, type metadata accessor for AST.CustomCharacterClass.Member);
+        v57 += v58;
+        --v56;
       }
 
-      while (v65);
+      while (v56);
     }
 
-    MEMORY[0x1C68E11C0](v63 >> 14);
-    MEMORY[0x1C68E11C0](v64 >> 14);
+    MEMORY[0x1C68E11C0](v54 >> 14);
+    MEMORY[0x1C68E11C0](v55 >> 14);
   }
 
   else
   {
-    if (v16 != 10)
+    if (v12 != 10)
     {
-      v83 = *(v36 + 16);
-      v84 = *(v36 + 24);
+      v72 = v30[2];
+      v73 = v30[3];
       MEMORY[0x1C68E1190](11);
-      MEMORY[0x1C68E11C0](v83 >> 14);
-      v75 = v84 >> 14;
-      return MEMORY[0x1C68E11C0](v75);
+      MEMORY[0x1C68E11C0](v72 >> 14);
+      v66 = v73 >> 14;
+      return MEMORY[0x1C68E11C0](v66);
     }
 
-    v37 = *(v36 + 16);
-    v38 = *(v36 + 24);
-    v39 = *(v36 + 32);
-    v40 = *(v36 + 40);
-    v41 = *(v36 + 48);
-    v42 = *(v36 + 56);
-    v43 = *(v36 + 64);
-    v44 = *(v36 + 72);
+    v31 = v30[2];
+    v32 = v30[3];
+    v33 = v30[4];
+    v34 = v30[5];
+    v35 = v30[6];
+    v36 = v30[7];
+    v37 = v30[8];
+    v38 = v30[9];
     MEMORY[0x1C68E1190](10);
+    MEMORY[0x1C68E11C0](v31 >> 14);
+    MEMORY[0x1C68E11C0](v32 >> 14);
+    *&v74 = v33;
+    *(&v74 + 1) = v34;
+    *&v75 = v35;
+    *(&v75 + 1) = v36;
+    outlined copy of AST.AbsentFunction.Kind(v33, v34, v35, v36);
+    AST.AbsentFunction.Kind.hash(into:)(a1);
     MEMORY[0x1C68E11C0](v37 >> 14);
     MEMORY[0x1C68E11C0](v38 >> 14);
-    *&v85 = v39;
-    *(&v85 + 1) = v40;
-    *&v86 = v41;
-    *(&v86 + 1) = v42;
-    outlined copy of AST.AbsentFunction.Kind(v39, v40, v41, v42);
-    AST.AbsentFunction.Kind.hash(into:)(a1);
-    MEMORY[0x1C68E11C0](v43 >> 14);
-    MEMORY[0x1C68E11C0](v44 >> 14);
 
-    return outlined consume of AST.AbsentFunction.Kind(v39, v40, v41, v42);
+    return outlined consume of AST.AbsentFunction.Kind(v33, v34, v35, v36);
   }
 }
 
@@ -670,11 +654,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Nod
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Node()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Node(uint64_t a1)
 {
-  v2[9] = *v0;
+  v3[9] = *v1;
   Hasher.init(_seed:)();
-  AST.Node.hash(into:)(v2);
+  AST.Node.hash(into:)(v3);
   return Hasher._finalize()();
 }
 
@@ -840,7 +824,7 @@ unint64_t AST.Node._associatedValue.getter@<X0>(uint64_t *a1@<X8>)
         v47 = type metadata accessor for AST.Atom(0);
         v48 = swift_projectBox();
         a1[3] = v47;
-        a1[4] = lazy protocol witness table accessor for type AST.Atom and conformance AST.Atom(&lazy protocol witness table cache variable for type AST.Atom and conformance AST.Atom, type metadata accessor for AST.Atom);
+        a1[4] = lazy protocol witness table accessor for type AST.Atom and conformance AST.Atom(&lazy protocol witness table cache variable for type AST.Atom and conformance AST.Atom, type metadata accessor for AST.Atom, &protocol conformance descriptor for AST.Atom);
         boxed_opaque_existential_1Tm = __swift_allocate_boxed_opaque_existential_1Tm(a1);
         return outlined init with copy of AST.CustomCharacterClass.Member(v48, boxed_opaque_existential_1Tm, type metadata accessor for AST.Atom);
       }
@@ -966,34 +950,32 @@ BOOL AST.Group.Kind.isCapturing.getter()
 uint64_t AST.Node.isQuantifiable.getter()
 {
   v1 = type metadata accessor for AST.Atom.Kind(0);
-  v2 = *(*(v1 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v1, v3);
-  v5 = &v26 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for AST.Atom(0);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v6 - 8, v8);
-  v10 = &v26 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = *v0 >> 60;
-  if (v11 > 0xB)
+  MEMORY[0x1EEE9AC00](v1);
+  v3 = &v21 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for AST.Atom(0);
+  MEMORY[0x1EEE9AC00](v4 - 8);
+  v6 = &v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = *v0 >> 60;
+  if (v7 > 0xB)
   {
     goto LABEL_10;
   }
 
-  LOBYTE(v12) = 1;
-  if (((1 << v11) & 0x8F0) != 0)
+  LOBYTE(v8) = 1;
+  if (((1 << v7) & 0x8F0) != 0)
   {
 LABEL_11:
-    LOBYTE(v12) = 0;
-    return v12 & 1;
+    LOBYTE(v8) = 0;
+    return v8 & 1;
   }
 
-  if (((1 << v11) & 0x608) == 0)
+  if (((1 << v7) & 0x608) == 0)
   {
-    if (v11 == 8)
+    if (v7 == 8)
     {
-      v13 = swift_projectBox();
-      outlined init with copy of AST.CustomCharacterClass.Member(v13, v10, type metadata accessor for AST.Atom);
-      outlined init with take of AST.Atom.Kind(v10, v5, type metadata accessor for AST.Atom.Kind);
+      v9 = swift_projectBox();
+      outlined init with copy of AST.CustomCharacterClass.Member(v9, v6, type metadata accessor for AST.Atom);
+      outlined init with take of AST.Atom.Kind(v6, v3, type metadata accessor for AST.Atom.Kind);
       EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
       if (EnumCaseMultiPayload > 14)
       {
@@ -1008,55 +990,53 @@ LABEL_11:
         switch(EnumCaseMultiPayload)
         {
           case 4:
-            v23 = *v5;
-            if (v23 < 0x1D)
+            v19 = *v3;
+            if (v19 < 0x1D)
             {
-              v12 = 0x101FFFFFu >> v23;
-              return v12 & 1;
+              v8 = 0x101FFFFFu >> v19;
+              return v8 & 1;
             }
 
             goto LABEL_11;
           case 12:
-            v24 = *v5;
-            v25 = *(v5 + 4);
+            v20 = *v3;
 
-            LOBYTE(v12) = v24 == 0;
-            return v12 & 1;
+            LOBYTE(v8) = v20 == 0;
+            return v8 & 1;
           case 13:
-            outlined destroy of AST.CustomCharacterClass.Member(v5, type metadata accessor for AST.Atom.Kind);
+            outlined destroy of AST.CustomCharacterClass.Member(v3, type metadata accessor for AST.Atom.Kind);
             goto LABEL_11;
         }
       }
 
-      outlined destroy of AST.CustomCharacterClass.Member(v5, type metadata accessor for AST.Atom.Kind);
-      LOBYTE(v12) = 1;
-      return v12 & 1;
+      outlined destroy of AST.CustomCharacterClass.Member(v3, type metadata accessor for AST.Atom.Kind);
+      LOBYTE(v8) = 1;
+      return v8 & 1;
     }
 
 LABEL_10:
-    if (v11 >= 2)
+    if (v7 >= 2)
     {
-      v16 = *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x60);
-      if (v16 < 3 || v16 == 3 && ((v17 = *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x48), v18 = *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x10), v19 = *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x50) | *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x58), v20 = *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x40) | *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x38) | *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x30), v21 = *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x28) | *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x20) | *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x18), !(v19 | v18 | v17 | v20 | v21)) || ((v18 & 0xFFFFFFFFFFFFFFFELL) != 0xA ? (v22 = (v18 - 1) > 2) : (v22 = 0), !v22 && !(v19 | v17 | v20 | v21))))
+      v12 = *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x60);
+      if (v12 < 3 || v12 == 3 && ((v13 = *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x48), v14 = *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x10), v15 = *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x50) | *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x58), v16 = *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x40) | *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x38) | *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x30), v17 = *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x28) | *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x20) | *((*v0 & 0xFFFFFFFFFFFFFFFLL) + 0x18), !(v15 | v14 | v13 | v16 | v17)) || ((v14 & 0xFFFFFFFFFFFFFFFELL) != 0xA ? (v18 = (v14 - 1) > 2) : (v18 = 0), !v18 && !(v15 | v13 | v16 | v17))))
       {
-        LOBYTE(v12) = 1;
-        return v12 & 1;
+        LOBYTE(v8) = 1;
+        return v8 & 1;
       }
     }
 
     goto LABEL_11;
   }
 
-  return v12 & 1;
+  return v8 & 1;
 }
 
 uint64_t AST.Atom.isQuantifiable.getter()
 {
   v1 = type metadata accessor for AST.Atom.Kind(0);
-  v2 = *(*(v1 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v1, v3);
-  v5 = &v12 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of AST.CustomCharacterClass.Member(v0, v5, type metadata accessor for AST.Atom.Kind);
+  MEMORY[0x1EEE9AC00](v1);
+  v3 = &v9 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of AST.CustomCharacterClass.Member(v0, v3, type metadata accessor for AST.Atom.Kind);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload > 14)
   {
@@ -1072,35 +1052,34 @@ uint64_t AST.Atom.isQuantifiable.getter()
   {
     if (EnumCaseMultiPayload == 12)
     {
-      v9 = *v5;
-      v10 = *(v5 + 4);
+      v7 = *v3;
 
-      LOBYTE(v7) = v9 == 0;
-      return v7 & 1;
+      LOBYTE(v5) = v7 == 0;
+      return v5 & 1;
     }
 
     if (EnumCaseMultiPayload == 13)
     {
-      outlined destroy of AST.CustomCharacterClass.Member(v5, type metadata accessor for AST.Atom.Kind);
+      outlined destroy of AST.CustomCharacterClass.Member(v3, type metadata accessor for AST.Atom.Kind);
       goto LABEL_7;
     }
 
 LABEL_11:
-    outlined destroy of AST.CustomCharacterClass.Member(v5, type metadata accessor for AST.Atom.Kind);
-    LOBYTE(v7) = 1;
-    return v7 & 1;
+    outlined destroy of AST.CustomCharacterClass.Member(v3, type metadata accessor for AST.Atom.Kind);
+    LOBYTE(v5) = 1;
+    return v5 & 1;
   }
 
-  v8 = *v5;
-  if (v8 < 0x1D)
+  v6 = *v3;
+  if (v6 < 0x1D)
   {
-    v7 = 0x101FFFFFu >> v8;
-    return v7 & 1;
+    v5 = 0x101FFFFFu >> v6;
+    return v5 & 1;
   }
 
 LABEL_7:
-  LOBYTE(v7) = 0;
-  return v7 & 1;
+  LOBYTE(v5) = 0;
+  return v5 & 1;
 }
 
 _RegexParser::AST::Alternation __swiftcall AST.Alternation.init(_:pipes:)(Swift::OpaquePointer _, Swift::OpaquePointer pipes)
@@ -1137,35 +1116,32 @@ uint64_t AST.Alternation.location.getter@<X0>(unint64_t *a1@<X8>)
     goto LABEL_6;
   }
 
-  v6 = *(v2 + 32);
-  v5 = v2 + 32;
-  v15 = v6;
-  AST.Node._associatedValue.getter(v17);
-  v7 = v18;
-  v8 = v19;
-  __swift_project_boxed_opaque_existential_1Tm(v17, v18);
-  (*(v8 + 16))(&v20, v7, v8);
-  result = __swift_destroy_boxed_opaque_existential_1Tm(v17);
-  if (v3 > *(v5 - 16))
+  v12 = *(v2 + 32);
+  AST.Node._associatedValue.getter(v14);
+  v5 = v15;
+  v6 = v16;
+  __swift_project_boxed_opaque_existential_1Tm(v14, v15);
+  (*(v6 + 16))(&v17, v5, v6);
+  result = __swift_destroy_boxed_opaque_existential_1Tm(v14);
+  if (v3 > *(v2 + 16))
   {
 LABEL_6:
     __break(1u);
     goto LABEL_7;
   }
 
-  v10 = v20;
-  v14 = *(v5 + 8 * v3 - 8);
-  AST.Node._associatedValue.getter(v17);
-  v11 = v18;
-  v12 = v19;
-  __swift_project_boxed_opaque_existential_1Tm(v17, v18);
-  (*(v12 + 16))(&v15, v11, v12);
-  result = __swift_destroy_boxed_opaque_existential_1Tm(v17);
-  v13 = v16;
-  if (v16 >> 14 >= v10 >> 14)
+  v8 = v17;
+  AST.Node._associatedValue.getter(v14);
+  v9 = v15;
+  v10 = v16;
+  __swift_project_boxed_opaque_existential_1Tm(v14, v15);
+  (*(v10 + 16))(&v12, v9, v10);
+  result = __swift_destroy_boxed_opaque_existential_1Tm(v14);
+  v11 = v13;
+  if (v13 >> 14 >= v8 >> 14)
   {
-    *a1 = v10;
-    a1[1] = v13;
+    *a1 = v8;
+    a1[1] = v11;
     return result;
   }
 
@@ -1297,53 +1273,52 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ12_RegexParser3ASTV20GlobalMatchingOption
 
 uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ12_RegexParser3ASTV20CustomCharacterClassV6MemberO_Tt1g5(uint64_t a1, uint64_t a2)
 {
-  v4 = type metadata accessor for AST.CustomCharacterClass.Member(0);
-  v5 = *(*(v4 - 8) + 64);
-  v7 = MEMORY[0x1EEE9AC00](v4 - 8, v6);
-  v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7, v10);
-  v13 = &v21 - v12;
-  v14 = *(a1 + 16);
-  if (v14 == *(a2 + 16))
+  v4 = type metadata accessor for AST.CustomCharacterClass.Member(0) - 8;
+  v5 = MEMORY[0x1EEE9AC00](v4);
+  v7 = &v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v5);
+  v10 = &v18 - v9;
+  v11 = *(a1 + 16);
+  if (v11 == *(a2 + 16))
   {
-    if (!v14 || a1 == a2)
+    if (!v11 || a1 == a2)
     {
-      v19 = 1;
+      v16 = 1;
     }
 
     else
     {
-      v15 = (*(v11 + 80) + 32) & ~*(v11 + 80);
-      v16 = a1 + v15;
-      v17 = a2 + v15;
-      v18 = *(v11 + 72);
+      v12 = (*(v8 + 80) + 32) & ~*(v8 + 80);
+      v13 = a1 + v12;
+      v14 = a2 + v12;
+      v15 = *(v8 + 72);
       do
       {
-        outlined init with copy of AST.CustomCharacterClass.Member(v16, v13, type metadata accessor for AST.CustomCharacterClass.Member);
-        outlined init with copy of AST.CustomCharacterClass.Member(v17, v9, type metadata accessor for AST.CustomCharacterClass.Member);
-        v19 = specialized static AST.CustomCharacterClass.Member.== infix(_:_:)(v13, v9);
-        outlined destroy of AST.CustomCharacterClass.Member(v9, type metadata accessor for AST.CustomCharacterClass.Member);
-        outlined destroy of AST.CustomCharacterClass.Member(v13, type metadata accessor for AST.CustomCharacterClass.Member);
-        if ((v19 & 1) == 0)
+        outlined init with copy of AST.CustomCharacterClass.Member(v13, v10, type metadata accessor for AST.CustomCharacterClass.Member);
+        outlined init with copy of AST.CustomCharacterClass.Member(v14, v7, type metadata accessor for AST.CustomCharacterClass.Member);
+        v16 = specialized static AST.CustomCharacterClass.Member.== infix(_:_:)(v10, v7);
+        outlined destroy of AST.CustomCharacterClass.Member(v7, type metadata accessor for AST.CustomCharacterClass.Member);
+        outlined destroy of AST.CustomCharacterClass.Member(v10, type metadata accessor for AST.CustomCharacterClass.Member);
+        if ((v16 & 1) == 0)
         {
           break;
         }
 
-        v17 += v18;
-        v16 += v18;
-        --v14;
+        v14 += v15;
+        v13 += v15;
+        --v11;
       }
 
-      while (v14);
+      while (v11);
     }
   }
 
   else
   {
-    v19 = 0;
+    v16 = 0;
   }
 
-  return v19 & 1;
+  return v16 & 1;
 }
 
 uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ12_RegexParser3ASTV14MatchingOptionV_Tt1g5(uint64_t a1, uint64_t a2)
@@ -1791,10 +1766,10 @@ uint64_t AST.Alternation.hash(into:)(uint64_t a1)
   v5 = *(v4 + 16);
   if (v5)
   {
-    v6 = (v4 + 32);
+    v6 = v4 + 32;
     do
     {
-      v7 = *v6++;
+      v6 += 8;
 
       AST.Node.hash(into:)(a1);
 
@@ -1823,11 +1798,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Alt
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Alternation()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Alternation(uint64_t a1)
 {
-  v3 = *v0;
+  v4 = *v1;
   Hasher.init(_seed:)();
-  AST.Alternation.hash(into:)(v2);
+  AST.Alternation.hash(into:)(v3);
   return Hasher._finalize()();
 }
 
@@ -1845,30 +1820,22 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance AST
 
 uint64_t protocol witness for _ASTPrintable._dumpBase.getter in conformance AST.Alternation()
 {
-  v1 = *v0;
-  strcpy(v5, "alternation<");
-  BYTE5(v5[1]) = 0;
-  HIWORD(v5[1]) = -5120;
-  v4 = *(v1 + 16);
-  v2 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x1C68E0BF0](v2);
+  strcpy(v2, "alternation<");
+  v0 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x1C68E0BF0](v0);
 
   MEMORY[0x1C68E0BF0](62, 0xE100000000000000);
-  return v5[0];
+  return v2[0];
 }
 
 uint64_t AST.Alternation._dumpBase.getter()
 {
-  v1 = *v0;
-  strcpy(v5, "alternation<");
-  BYTE5(v5[1]) = 0;
-  HIWORD(v5[1]) = -5120;
-  v4 = *(v1 + 16);
-  v2 = dispatch thunk of CustomStringConvertible.description.getter();
-  MEMORY[0x1C68E0BF0](v2);
+  strcpy(v2, "alternation<");
+  v0 = dispatch thunk of CustomStringConvertible.description.getter();
+  MEMORY[0x1C68E0BF0](v0);
 
   MEMORY[0x1C68E0BF0](62, 0xE100000000000000);
-  return v5[0];
+  return v2[0];
 }
 
 unint64_t specialized _ASTPrintable.description.getter(uint64_t a1)
@@ -1906,10 +1873,10 @@ uint64_t AST.Concatenation.hash(into:)(uint64_t a1)
   v6 = *(v4 + 16);
   if (v6)
   {
-    v7 = (v4 + 32);
+    v7 = v4 + 32;
     do
     {
-      v8 = *v7++;
+      v7 += 8;
 
       AST.Node.hash(into:)(a1);
 
@@ -1941,12 +1908,12 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Con
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Concatenation()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Concatenation(uint64_t a1)
 {
-  v2[9] = *v0;
-  v3 = *(v0 + 8);
+  v3[9] = *v1;
+  v4 = *(v1 + 8);
   Hasher.init(_seed:)();
-  AST.Concatenation.hash(into:)(v2);
+  AST.Concatenation.hash(into:)(v3);
   return Hasher._finalize()();
 }
 
@@ -1955,13 +1922,6 @@ __n128 protocol witness for _ASTNode.location.getter in conformance AST.Concaten
   result = *(v1 + 8);
   *a1 = result;
   return result;
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AST.Concatenation()
-{
-  v1 = v0[1];
-  v2 = v0[2];
-  return specialized _ASTPrintable._dump()(*v0);
 }
 
 uint64_t AST.Quote._dumpBase.getter()
@@ -1981,7 +1941,6 @@ uint64_t protocol witness for _ASTPrintable._dumpBase.getter in conformance AST.
 uint64_t AST.Interpolation.contents.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
@@ -2002,40 +1961,34 @@ __n128 AST.Interpolation.init(_:_:)@<Q0>(unint64_t a1@<X0>, unint64_t a2@<X1>, _
   return result;
 }
 
-uint64_t AST.Quote.hash(into:)()
+uint64_t AST.Quote.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
+  v2 = *(v1 + 16);
+  v3 = *(v1 + 24);
   String.hash(into:)();
-  MEMORY[0x1C68E11C0](v3 >> 14);
-  return MEMORY[0x1C68E11C0](v4 >> 14);
+  MEMORY[0x1C68E11C0](v2 >> 14);
+  return MEMORY[0x1C68E11C0](v3 >> 14);
 }
 
 Swift::Int AST.Quote.hashValue.getter()
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
+  v1 = *(v0 + 16);
+  v2 = *(v0 + 24);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  MEMORY[0x1C68E11C0](v3 >> 14);
-  MEMORY[0x1C68E11C0](v4 >> 14);
+  MEMORY[0x1C68E11C0](v1 >> 14);
+  MEMORY[0x1C68E11C0](v2 >> 14);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Quote()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Quote(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
+  v2 = *(v1 + 16);
+  v3 = *(v1 + 24);
   Hasher.init(_seed:)();
   String.hash(into:)();
+  MEMORY[0x1C68E11C0](v2 >> 14);
   MEMORY[0x1C68E11C0](v3 >> 14);
-  MEMORY[0x1C68E11C0](v4 >> 14);
   return Hasher._finalize()();
 }
 
@@ -2091,30 +2044,29 @@ __n128 protocol witness for _ASTNode.location.getter in conformance AST.Empty@<Q
 
 uint64_t AST.AbsentFunction.Kind.hash(into:)(uint64_t a1)
 {
-  v3 = *v1;
-  v4 = (v1[3] >> 1) & 3;
-  if (v4 <= 1)
+  v3 = (v1[3] >> 1) & 3;
+  if (v3 <= 1)
   {
-    if (v4)
+    if (v3)
     {
-      v7 = v1[1];
-      v6 = v1[2];
+      v6 = v1[1];
+      v5 = v1[2];
       MEMORY[0x1C68E1190](1);
       AST.Node.hash(into:)(a1);
-      MEMORY[0x1C68E11C0](v7 >> 14);
       MEMORY[0x1C68E11C0](v6 >> 14);
+      MEMORY[0x1C68E11C0](v5 >> 14);
       return AST.Node.hash(into:)(a1);
     }
 
-    v5 = 0;
+    v4 = 0;
 LABEL_6:
-    MEMORY[0x1C68E1190](v5);
+    MEMORY[0x1C68E1190](v4);
     return AST.Node.hash(into:)(a1);
   }
 
-  if (v4 == 2)
+  if (v3 == 2)
   {
-    v5 = 2;
+    v4 = 2;
     goto LABEL_6;
   }
 
@@ -2186,13 +2138,11 @@ __n128 AST.AbsentFunction.init(_:start:location:)@<Q0>(__int128 *a1@<X0>, _OWORD
 
 uint64_t AST.AbsentFunction.hash(into:)(uint64_t a1)
 {
-  v3 = *(v1 + 8);
-  v4 = *(v1 + 48);
-  v5 = *(v1 + 56);
+  v3 = v1[1];
+  v4 = v1[6];
+  v5 = v1[7];
   MEMORY[0x1C68E11C0](*v1 >> 14);
   MEMORY[0x1C68E11C0](v3 >> 14);
-  v7 = *(v1 + 16);
-  v8 = *(v1 + 32);
   AST.AbsentFunction.Kind.hash(into:)(a1);
   MEMORY[0x1C68E11C0](v4 >> 14);
   return MEMORY[0x1C68E11C0](v5 >> 14);
@@ -2208,9 +2158,7 @@ Swift::Int AST.AbsentFunction.hashValue.getter()
   Hasher.init(_seed:)();
   MEMORY[0x1C68E11C0](v2 >> 14);
   MEMORY[0x1C68E11C0](v3 >> 14);
-  v8 = *(v1 + 2);
-  v7 = *(v1 + 1);
-  AST.AbsentFunction.Kind.hash(into:)(v9);
+  AST.AbsentFunction.Kind.hash(into:)(v7);
   MEMORY[0x1C68E11C0](v4 >> 14);
   MEMORY[0x1C68E11C0](v5 >> 14);
   return Hasher._finalize()();
@@ -2218,33 +2166,29 @@ Swift::Int AST.AbsentFunction.hashValue.getter()
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance AST.AbsentFunction(uint64_t a1)
 {
-  v3 = *(v1 + 8);
-  v4 = *(v1 + 48);
-  v5 = *(v1 + 56);
+  v3 = v1[1];
+  v4 = v1[6];
+  v5 = v1[7];
   MEMORY[0x1C68E11C0](*v1 >> 14);
   MEMORY[0x1C68E11C0](v3 >> 14);
-  v7 = *(v1 + 16);
-  v8 = *(v1 + 32);
   AST.AbsentFunction.Kind.hash(into:)(a1);
   MEMORY[0x1C68E11C0](v4 >> 14);
   return MEMORY[0x1C68E11C0](v5 >> 14);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.AbsentFunction()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.AbsentFunction(uint64_t a1)
 {
-  v1 = v0;
-  v2 = *v0;
-  v3 = v1[1];
-  v4 = v1[6];
-  v5 = v1[7];
+  v2 = v1;
+  v3 = *v1;
+  v4 = v2[1];
+  v5 = v2[6];
+  v6 = v2[7];
   Hasher.init(_seed:)();
-  MEMORY[0x1C68E11C0](v2 >> 14);
   MEMORY[0x1C68E11C0](v3 >> 14);
-  v8 = *(v1 + 2);
-  v7 = *(v1 + 1);
-  AST.AbsentFunction.Kind.hash(into:)(v9);
   MEMORY[0x1C68E11C0](v4 >> 14);
+  AST.AbsentFunction.Kind.hash(into:)(v8);
   MEMORY[0x1C68E11C0](v5 >> 14);
+  MEMORY[0x1C68E11C0](v6 >> 14);
   return Hasher._finalize()();
 }
 
@@ -2300,15 +2244,6 @@ unint64_t AST.AbsentFunction._dumpBase.getter()
   return 0xD000000000000010;
 }
 
-void protocol witness for CustomStringConvertible.description.getter in conformance AST.AbsentFunction()
-{
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  specialized _ASTPrintable._dump()();
-}
-
 __n128 AST.Atom.Number.init(_:at:)@<Q0>(unint64_t a1@<X0>, char a2@<W1>, __n128 *a3@<X2>, __n128 *a4@<X8>)
 {
   a4->n128_u64[0] = a1;
@@ -2331,16 +2266,16 @@ uint64_t AST.Reference.Kind.recursesWholePattern.getter()
   }
 }
 
-uint64_t AST.Reference.Kind.hash(into:)()
+uint64_t AST.Reference.Kind.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v4 = v0[2];
-  v3 = v0[3];
-  if (!*(v0 + 32))
+  v2 = *v1;
+  v3 = v1[1];
+  v5 = v1[2];
+  v4 = v1[3];
+  if (!*(v1 + 32))
   {
     MEMORY[0x1C68E1190](0);
-    if (v2)
+    if (v3)
     {
       goto LABEL_4;
     }
@@ -2348,21 +2283,21 @@ uint64_t AST.Reference.Kind.hash(into:)()
     goto LABEL_6;
   }
 
-  if (*(v0 + 32) == 1)
+  if (*(v1 + 32) == 1)
   {
     MEMORY[0x1C68E1190](1);
-    if (v2)
+    if (v3)
     {
 LABEL_4:
       Hasher._combine(_:)(0);
 LABEL_7:
-      MEMORY[0x1C68E11C0](v4 >> 14);
-      return MEMORY[0x1C68E11C0](v3 >> 14);
+      MEMORY[0x1C68E11C0](v5 >> 14);
+      return MEMORY[0x1C68E11C0](v4 >> 14);
     }
 
 LABEL_6:
     Hasher._combine(_:)(1u);
-    MEMORY[0x1C68E1190](v1);
+    MEMORY[0x1C68E1190](v2);
     goto LABEL_7;
   }
 
@@ -2373,31 +2308,37 @@ LABEL_6:
 
 Swift::Int AST.Reference.Kind.hashValue.getter()
 {
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = *(v0 + 32);
+  v1 = *(v0 + 32);
+  v2 = v0[1];
+  v5 = *v0;
+  v6 = v2;
+  v7 = v1;
   Hasher.init(_seed:)();
-  AST.Reference.Kind.hash(into:)();
+  AST.Reference.Kind.hash(into:)(v4);
   return Hasher._finalize()();
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Reference.Kind()
 {
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = *(v0 + 32);
+  v1 = *(v0 + 32);
+  v2 = v0[1];
+  v5 = *v0;
+  v6 = v2;
+  v7 = v1;
   Hasher.init(_seed:)();
-  AST.Reference.Kind.hash(into:)();
+  AST.Reference.Kind.hash(into:)(v4);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Reference.Kind()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Reference.Kind(uint64_t a1)
 {
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = *(v0 + 32);
+  v2 = *(v1 + 32);
+  v3 = v1[1];
+  v6 = *v1;
+  v7 = v3;
+  v8 = v2;
   Hasher.init(_seed:)();
-  AST.Reference.Kind.hash(into:)();
+  AST.Reference.Kind.hash(into:)(v5);
   return Hasher._finalize()();
 }
 
@@ -2493,20 +2434,17 @@ uint64_t AST.Reference.recursesWholePattern.getter()
   }
 }
 
-uint64_t AST.Reference.hash(into:)()
+uint64_t AST.Reference.hash(into:)(uint64_t a1)
 {
-  v1 = *(v0 + 5);
-  v2 = *(v0 + 6);
-  v4 = *(v0 + 7);
-  v3 = *(v0 + 8);
-  v5 = *(v0 + 72);
-  v7 = *(v0 + 10);
-  v6 = *(v0 + 11);
-  v9 = *v0;
-  v10 = v0[1];
-  v11 = *(v0 + 32);
-  AST.Reference.Kind.hash(into:)();
-  if (v5 == 1)
+  v2 = *(v1 + 40);
+  v3 = *(v1 + 48);
+  v5 = *(v1 + 56);
+  v4 = *(v1 + 64);
+  v6 = *(v1 + 72);
+  v8 = *(v1 + 80);
+  v7 = *(v1 + 88);
+  AST.Reference.Kind.hash(into:)(a1);
+  if (v6 == 1)
   {
     Hasher._combine(_:)(0);
   }
@@ -2514,7 +2452,7 @@ uint64_t AST.Reference.hash(into:)()
   else
   {
     Hasher._combine(_:)(1u);
-    if (v2)
+    if (v3)
     {
       Hasher._combine(_:)(0);
     }
@@ -2522,35 +2460,35 @@ uint64_t AST.Reference.hash(into:)()
     else
     {
       Hasher._combine(_:)(1u);
-      MEMORY[0x1C68E1190](v1);
+      MEMORY[0x1C68E1190](v2);
     }
 
+    MEMORY[0x1C68E11C0](v5 >> 14);
     MEMORY[0x1C68E11C0](v4 >> 14);
-    MEMORY[0x1C68E11C0](v3 >> 14);
   }
 
-  MEMORY[0x1C68E11C0](v7 >> 14);
-  return MEMORY[0x1C68E11C0](v6 >> 14);
+  MEMORY[0x1C68E11C0](v8 >> 14);
+  return MEMORY[0x1C68E11C0](v7 >> 14);
 }
 
 Swift::Int AST.Reference.hashValue.getter()
 {
   Hasher.init(_seed:)();
-  AST.Reference.hash(into:)();
+  AST.Reference.hash(into:)(v1);
   return Hasher._finalize()();
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Reference()
 {
   Hasher.init(_seed:)();
-  AST.Reference.hash(into:)();
+  AST.Reference.hash(into:)(v1);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Reference()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Reference(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  AST.Reference.hash(into:)();
+  AST.Reference.hash(into:)(v2);
   return Hasher._finalize()();
 }
 
@@ -2633,11 +2571,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Glo
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.GlobalMatchingOptionSequence()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.GlobalMatchingOptionSequence(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  specialized Array<A>.hash(into:)(v3, v1);
+  specialized Array<A>.hash(into:)(v4, v2);
   return Hasher._finalize()();
 }
 
@@ -2815,149 +2753,138 @@ void AST.Atom.Kind.hash(into:)(uint64_t a1)
 {
   v2 = v1;
   v4 = type metadata accessor for AST.Atom.CharacterProperty(0);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4, v6);
-  v8 = &v53 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for AST.Atom.Kind(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9, v11);
-  v13 = &v53 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of AST.CustomCharacterClass.Member(v2, v13, type metadata accessor for AST.Atom.Kind);
+  MEMORY[0x1EEE9AC00](v4);
+  v6 = &v39 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for AST.Atom.Kind(0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v39 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of AST.CustomCharacterClass.Member(v2, v9, type metadata accessor for AST.Atom.Kind);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
-      v39 = *v13;
-      v40 = *(v13 + 1);
-      v41 = *(v13 + 2);
+      v31 = *v9;
+      v32 = *(v9 + 1);
+      v33 = *(v9 + 2);
       MEMORY[0x1C68E1190](1);
-      Hasher._combine(_:)(v39);
-      MEMORY[0x1C68E11C0](v40 >> 14);
-      MEMORY[0x1C68E11C0](v41 >> 14);
+      Hasher._combine(_:)(v31);
+      MEMORY[0x1C68E11C0](v32 >> 14);
+      MEMORY[0x1C68E11C0](v33 >> 14);
       return;
     case 2u:
-      v34 = *v13;
-      v35 = *(v13 + 1);
+      v28 = *v9;
+      v29 = *(v9 + 1);
       MEMORY[0x1C68E1190](2);
-      specialized Array<A>.hash(into:)(a1, v34);
-      specialized Array<A>.hash(into:)(a1, v35);
+      specialized Array<A>.hash(into:)(a1, v28);
+      specialized Array<A>.hash(into:)(a1, v29);
 
       goto LABEL_11;
     case 3u:
-      outlined init with take of AST.Atom.Kind(v13, v8, type metadata accessor for AST.Atom.CharacterProperty);
+      outlined init with take of AST.Atom.Kind(v9, v6, type metadata accessor for AST.Atom.CharacterProperty);
       MEMORY[0x1C68E1190](3);
-      AST.Atom.CharacterProperty.Kind.hash(into:)();
-      Hasher._combine(_:)(v8[*(v4 + 20)]);
-      v36 = v8[*(v4 + 24)];
-      outlined destroy of AST.CustomCharacterClass.Member(v8, type metadata accessor for AST.Atom.CharacterProperty);
-      Hasher._combine(_:)(v36);
+      AST.Atom.CharacterProperty.Kind.hash(into:)(a1);
+      Hasher._combine(_:)(v6[*(v4 + 20)]);
+      v30 = v6[*(v4 + 24)];
+      outlined destroy of AST.CustomCharacterClass.Member(v6, type metadata accessor for AST.Atom.CharacterProperty);
+      Hasher._combine(_:)(v30);
       return;
     case 4u:
-      v22 = *v13;
+      v17 = *v9;
       MEMORY[0x1C68E1190](4);
-      v17 = v22;
+      v11 = v17;
       goto LABEL_17;
     case 5u:
-      v42 = *v13;
-      v43 = *(v13 + 1);
-      v16 = 5;
+      v10 = 5;
       goto LABEL_21;
     case 6u:
-      v46 = *v13;
-      v47 = *(v13 + 1);
-      v16 = 6;
+      v10 = 6;
       goto LABEL_21;
     case 7u:
-      v37 = *v13;
-      v38 = *(v13 + 1);
-      v16 = 7;
+      v10 = 7;
       goto LABEL_21;
     case 8u:
-      v51 = *v13;
-      v52 = *(v13 + 1);
       MEMORY[0x1C68E1190](8);
       String.hash(into:)();
       goto LABEL_11;
     case 9u:
-      v30 = *(v13 + 3);
-      v64 = *(v13 + 2);
-      v65 = v30;
-      v31 = *(v13 + 5);
-      v66 = *(v13 + 4);
-      v67 = v31;
-      v32 = *(v13 + 1);
-      v62 = *v13;
-      v63 = v32;
-      v33 = 12;
+      v24 = *(v9 + 3);
+      v50 = *(v9 + 2);
+      v51 = v24;
+      v25 = *(v9 + 5);
+      v52 = *(v9 + 4);
+      v53 = v25;
+      v26 = *(v9 + 1);
+      v48 = *v9;
+      v49 = v26;
+      v27 = 12;
       goto LABEL_24;
     case 0xAu:
-      v48 = *(v13 + 3);
-      v64 = *(v13 + 2);
-      v65 = v48;
-      v49 = *(v13 + 5);
-      v66 = *(v13 + 4);
-      v67 = v49;
-      v50 = *(v13 + 1);
-      v62 = *v13;
-      v63 = v50;
-      v33 = 13;
+      v36 = *(v9 + 3);
+      v50 = *(v9 + 2);
+      v51 = v36;
+      v37 = *(v9 + 5);
+      v52 = *(v9 + 4);
+      v53 = v37;
+      v38 = *(v9 + 1);
+      v48 = *v9;
+      v49 = v38;
+      v27 = 13;
 LABEL_24:
-      MEMORY[0x1C68E1190](v33);
-      v55 = v64;
-      v56 = v65;
-      v57 = v66;
-      v58 = v67;
-      v53 = v62;
-      v54 = v63;
-      AST.Reference.hash(into:)();
-      outlined destroy of AST.Reference(&v62, outlined consume of AST.Reference.Kind);
+      MEMORY[0x1C68E1190](v27);
+      v41 = v50;
+      v42 = v51;
+      v43 = v52;
+      v44 = v53;
+      v39 = v48;
+      v40 = v49;
+      AST.Reference.hash(into:)(a1);
+      outlined destroy of AST.Reference(&v48, outlined consume of AST.Reference.Kind);
       return;
     case 0xBu:
-      v18 = *(v13 + 7);
-      v68 = *(v13 + 6);
-      v69 = v18;
-      v70[0] = *(v13 + 8);
-      *(v70 + 9) = *(v13 + 137);
-      v19 = *(v13 + 3);
-      v64 = *(v13 + 2);
-      v65 = v19;
-      v20 = *(v13 + 5);
-      v66 = *(v13 + 4);
-      v67 = v20;
-      v21 = *(v13 + 1);
-      v62 = *v13;
-      v63 = v21;
+      v12 = *(v9 + 7);
+      v54 = *(v9 + 6);
+      v55 = v12;
+      v56[0] = *(v9 + 8);
+      *(v56 + 9) = *(v9 + 137);
+      v13 = *(v9 + 3);
+      v50 = *(v9 + 2);
+      v51 = v13;
+      v14 = *(v9 + 5);
+      v52 = *(v9 + 4);
+      v53 = v14;
+      v15 = *(v9 + 1);
+      v48 = *v9;
+      v49 = v15;
       MEMORY[0x1C68E1190](14);
-      v59 = v68;
-      v60 = v69;
-      v61[0] = v70[0];
-      *(v61 + 9) = *(v70 + 9);
-      v55 = v64;
-      v56 = v65;
-      v57 = v66;
-      v58 = v67;
-      v53 = v62;
-      v54 = v63;
-      AST.Atom.Callout.hash(into:)(a1);
-      outlined destroy of AST.Atom.Callout(&v62);
+      v45 = v54;
+      v46 = v55;
+      v47[0] = v56[0];
+      *(v47 + 9) = *(v56 + 9);
+      v41 = v50;
+      v42 = v51;
+      v43 = v52;
+      v44 = v53;
+      v39 = v48;
+      v40 = v49;
+      AST.Atom.Callout.hash(into:)(a1, v16);
+      outlined destroy of AST.Atom.Callout(&v48);
       return;
     case 0xCu:
-      v23 = *v13;
-      v24 = *(v13 + 1);
-      v25 = *(v13 + 2);
-      v27 = *(v13 + 3);
-      v26 = *(v13 + 4);
-      v29 = *(v13 + 5);
-      v28 = *(v13 + 6);
+      v18 = *v9;
+      v19 = *(v9 + 1);
+      v20 = *(v9 + 2);
+      v21 = *(v9 + 4);
+      v23 = *(v9 + 5);
+      v22 = *(v9 + 6);
       MEMORY[0x1C68E1190](15);
-      MEMORY[0x1C68E1190](v23);
-      MEMORY[0x1C68E11C0](v24 >> 14);
-      MEMORY[0x1C68E11C0](v25 >> 14);
-      if (v26)
+      MEMORY[0x1C68E1190](v18);
+      MEMORY[0x1C68E11C0](v19 >> 14);
+      MEMORY[0x1C68E11C0](v20 >> 14);
+      if (v21)
       {
         Hasher._combine(_:)(1u);
         String.hash(into:)();
-        MEMORY[0x1C68E11C0](v29 >> 14);
-        MEMORY[0x1C68E11C0](v28 >> 14);
+        MEMORY[0x1C68E11C0](v23 >> 14);
+        MEMORY[0x1C68E11C0](v22 >> 14);
 LABEL_11:
       }
 
@@ -2968,40 +2895,38 @@ LABEL_11:
 
       return;
     case 0xDu:
-      v44 = *(v13 + 1);
-      v62 = *v13;
-      v63 = v44;
-      v45 = *(v13 + 3);
-      v64 = *(v13 + 2);
-      v65 = v45;
+      v34 = *(v9 + 1);
+      v48 = *v9;
+      v49 = v34;
+      v35 = *(v9 + 3);
+      v50 = *(v9 + 2);
+      v51 = v35;
       MEMORY[0x1C68E1190](16);
-      v53 = v62;
-      v54 = v63;
-      v55 = v64;
-      v56 = v65;
+      v39 = v48;
+      v40 = v49;
+      v41 = v50;
+      v42 = v51;
       AST.MatchingOptionSequence.hash(into:)(a1);
-      outlined destroy of AST.MatchingOptionSequence(&v62);
+      outlined destroy of AST.MatchingOptionSequence(&v48);
       return;
     case 0xEu:
-      v17 = 9;
+      v11 = 9;
       goto LABEL_17;
     case 0xFu:
-      v17 = 10;
+      v11 = 10;
       goto LABEL_17;
     case 0x10u:
-      v17 = 11;
+      v11 = 11;
       goto LABEL_17;
     case 0x11u:
-      v17 = 17;
+      v11 = 17;
 LABEL_17:
-      MEMORY[0x1C68E1190](v17);
+      MEMORY[0x1C68E1190](v11);
       return;
     default:
-      v14 = *v13;
-      v15 = *(v13 + 1);
-      v16 = 0;
+      v10 = 0;
 LABEL_21:
-      MEMORY[0x1C68E1190](v16);
+      MEMORY[0x1C68E1190](v10);
       String.hash(into:)();
       goto LABEL_11;
   }
@@ -3083,33 +3008,31 @@ BOOL protocol witness for static Equatable.== infix(_:_:) in conformance AST.Ato
   return result;
 }
 
-uint64_t AST.Atom._dumpBase.getter()
+unint64_t AST.Atom._dumpBase.getter()
 {
   v1 = type metadata accessor for AST.Atom.CharacterProperty(0);
-  v2 = *(*(v1 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v1, v3);
-  v5 = v79 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for AST.Atom.Kind(0);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v6, v8);
-  v10 = v79 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v11 = AST.Atom.literalStringValue.getter();
-  if (v12)
+  MEMORY[0x1EEE9AC00](v1);
+  v3 = v75 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for AST.Atom.Kind(0);
+  MEMORY[0x1EEE9AC00](v4);
+  v6 = v75 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = AST.Atom.literalStringValue.getter();
+  if (v8)
   {
-    *&v98 = 10665455;
-    *(&v98 + 1) = 0xA300000000000000;
-    MEMORY[0x1C68E0BF0](v11);
+    *&v94 = 10665455;
+    *(&v94 + 1) = 0xA300000000000000;
+    MEMORY[0x1C68E0BF0](v7);
 
-    v13 = 10730991;
-    v14 = 0xA300000000000000;
+    v9 = 10730991;
+    v10 = 0xA300000000000000;
 LABEL_3:
-    MEMORY[0x1C68E0BF0](v13, v14);
-    return v98;
+    MEMORY[0x1C68E0BF0](v9, v10);
+    return v94;
   }
 
   else
   {
-    outlined init with copy of AST.CustomCharacterClass.Member(v0, v10, type metadata accessor for AST.Atom.Kind);
+    outlined init with copy of AST.CustomCharacterClass.Member(v0, v6, type metadata accessor for AST.Atom.Kind);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
     result = 46;
     switch(EnumCaseMultiPayload)
@@ -3117,329 +3040,329 @@ LABEL_3:
       case 1:
         goto LABEL_57;
       case 2:
-        v30 = *v10;
-        v31 = *(*v10 + 16);
-        if (v31)
+        v26 = *v6;
+        v27 = *(*v6 + 16);
+        if (v27)
         {
-          v79[1] = *(v10 + 1);
-          *&v89 = MEMORY[0x1E69E7CC0];
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v31, 0);
-          v32 = 32;
-          v33 = v89;
+          v75[1] = *(v6 + 1);
+          *&v85 = MEMORY[0x1E69E7CC0];
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v27, 0);
+          v28 = 32;
+          v29 = v85;
           do
           {
-            v34 = *(v30 + v32);
-            *&v98 = 10665455;
-            *(&v98 + 1) = 0xA300000000000000;
-            if (v34 >= 0x80)
+            v30 = *(v26 + v28);
+            *&v94 = 10665455;
+            *(&v94 + 1) = 0xA300000000000000;
+            if (v30 >= 0x80)
             {
-              v40 = (v34 & 0x3F) << 8;
-              if (v34 >= 0x800)
+              v36 = (v30 & 0x3F) << 8;
+              if (v30 >= 0x800)
               {
-                v41 = v34 >> 12;
-                v42 = (v40 | (v34 >> 6) & 0x3F) << 8;
-                v43 = HIWORD(v34);
-                v35 = (((v42 | (v34 >> 12) & 0x3F) << 8) | (v34 >> 18)) - 2122219023;
-                v44 = v41 + v42 + 8487393;
-                if (!v43)
+                v37 = v30 >> 12;
+                v38 = (v36 | (v30 >> 6) & 0x3F) << 8;
+                v39 = HIWORD(v30);
+                v31 = (((v38 | (v30 >> 12) & 0x3F) << 8) | (v30 >> 18)) - 2122219023;
+                v40 = v37 + v38 + 8487393;
+                if (!v39)
                 {
-                  v35 = v44;
+                  v31 = v40;
                 }
               }
 
               else
               {
-                v35 = (v34 >> 6) + v40 + 33217;
+                v31 = (v30 >> 6) + v36 + 33217;
               }
             }
 
             else
             {
-              v35 = v34 + 1;
+              v31 = v30 + 1;
             }
 
-            *&v80 = (v35 + 0xFEFEFEFEFEFEFFLL) & ~(-1 << (8 * (4 - (__clz(v35) >> 3))));
-            v36 = static String._uncheckedFromUTF8(_:)();
-            MEMORY[0x1C68E0BF0](v36);
+            *&v76 = (v31 + 0xFEFEFEFEFEFEFFLL) & ~(-1 << (8 * (4 - (__clz(v31) >> 3))));
+            v32 = static String._uncheckedFromUTF8(_:)();
+            MEMORY[0x1C68E0BF0](v32);
 
             MEMORY[0x1C68E0BF0](10730991, 0xA300000000000000);
-            v37 = v98;
-            *&v89 = v33;
-            v39 = *(v33 + 16);
-            v38 = *(v33 + 24);
-            if (v39 >= v38 >> 1)
+            v33 = v94;
+            *&v85 = v29;
+            v35 = *(v29 + 16);
+            v34 = *(v29 + 24);
+            if (v35 >= v34 >> 1)
             {
-              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v38 > 1), v39 + 1, 1);
-              v33 = v89;
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v34 > 1), v35 + 1, 1);
+              v29 = v85;
             }
 
-            *(v33 + 16) = v39 + 1;
-            *(v33 + 16 * v39 + 32) = v37;
-            v32 += 24;
-            --v31;
+            *(v29 + 16) = v35 + 1;
+            *(v29 + 16 * v35 + 32) = v33;
+            v28 += 24;
+            --v27;
           }
 
-          while (v31);
+          while (v27);
         }
 
         else
         {
 
-          v33 = MEMORY[0x1E69E7CC0];
+          v29 = MEMORY[0x1E69E7CC0];
         }
 
-        *&v98 = v33;
+        *&v94 = v29;
         swift_getCanonicalSpecializedMetadata();
-        lazy protocol witness table accessor for type [String] and conformance [A](&lazy protocol witness table cache variable for type [String] and conformance [A]);
-        v71 = BidirectionalCollection<>.joined(separator:)();
+        lazy protocol witness table accessor for type [String] and conformance [A](&lazy protocol witness table cache variable for type [String] and conformance [A], &unk_1F402B990, &cache variable for noncanonical specialized generic type metadata for [String], MEMORY[0x1E69E6310]);
+        v67 = BidirectionalCollection<>.joined(separator:)();
 
-        return v71;
+        return v67;
       case 3:
-        outlined init with take of AST.Atom.Kind(v10, v5, type metadata accessor for AST.Atom.CharacterProperty);
-        *&v98 = 0;
-        *(&v98 + 1) = 0xE000000000000000;
+        outlined init with take of AST.Atom.Kind(v6, v3, type metadata accessor for AST.Atom.CharacterProperty);
+        *&v94 = 0;
+        *(&v94 + 1) = 0xE000000000000000;
         type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
         _print_unlocked<A, B>(_:_:)();
-        if (v5[*(v1 + 20)])
+        if (v3[*(v1 + 20)])
         {
-          v45 = 1702195828;
+          v41 = 1702195828;
         }
 
         else
         {
-          v45 = 0x65736C6166;
+          v41 = 0x65736C6166;
         }
 
-        if (v5[*(v1 + 20)])
+        if (v3[*(v1 + 20)])
         {
-          v46 = 0xE400000000000000;
+          v42 = 0xE400000000000000;
         }
 
         else
         {
-          v46 = 0xE500000000000000;
+          v42 = 0xE500000000000000;
+        }
+
+        MEMORY[0x1C68E0BF0](v41, v42);
+
+        if (v3[*(v1 + 24)])
+        {
+          v43 = 1702195828;
+        }
+
+        else
+        {
+          v43 = 0x65736C6166;
+        }
+
+        if (v3[*(v1 + 24)])
+        {
+          v44 = 0xE400000000000000;
+        }
+
+        else
+        {
+          v44 = 0xE500000000000000;
+        }
+
+        MEMORY[0x1C68E0BF0](v43, v44);
+
+        v22 = v94;
+        outlined destroy of AST.CustomCharacterClass.Member(v3, type metadata accessor for AST.Atom.CharacterProperty);
+        goto LABEL_50;
+      case 4:
+        v49 = *v6;
+        *&v94 = 0;
+        *(&v94 + 1) = 0xE000000000000000;
+        MEMORY[0x1C68E0BF0](92, 0xE100000000000000);
+        LOBYTE(v85) = v49;
+        AST.Atom.EscapedBuiltin.character.getter();
+        Character.write<A>(to:)();
+
+        return v94;
+      case 8:
+        v47 = *v6;
+        v48 = *(v6 + 1);
+        *&v94 = 8080988;
+        *(&v94 + 1) = 0xE300000000000000;
+        MEMORY[0x1C68E0BF0](v47, v48);
+
+        v9 = 125;
+        v10 = 0xE100000000000000;
+        goto LABEL_3;
+      case 9:
+      case 10:
+        v13 = v6[72];
+        v14 = *(v6 + 5);
+        v15 = *(v6 + 6);
+        v16 = v6[32];
+        v18 = *(v6 + 2);
+        v17 = *(v6 + 3);
+        v21 = v6;
+        v19 = *v6;
+        v20 = *(v21 + 1);
+        *&v76 = 0;
+        *(&v76 + 1) = 0xE000000000000000;
+        *&v94 = v19;
+        *(&v94 + 1) = v20;
+        *&v95 = v18;
+        *(&v95 + 1) = v17;
+        LOBYTE(v96) = v16;
+        _print_unlocked<A, B>(_:_:)();
+        v85 = v76;
+        if (v13)
+        {
+          v22 = v76;
+          outlined consume of AST.Reference.Kind(v19, v20, v18, v17, v16);
+          goto LABEL_50;
+        }
+
+        if (v15)
+        {
+          v45 = 0x64696C61766E693CLL;
+          v46 = 0xE90000000000003ELL;
+        }
+
+        else
+        {
+          *&v94 = v14;
+          v45 = dispatch thunk of CustomStringConvertible.description.getter();
+          v46 = v66;
         }
 
         MEMORY[0x1C68E0BF0](v45, v46);
 
-        if (v5[*(v1 + 24)])
-        {
-          v47 = 1702195828;
-        }
-
-        else
-        {
-          v47 = 0x65736C6166;
-        }
-
-        if (v5[*(v1 + 24)])
-        {
-          v48 = 0xE400000000000000;
-        }
-
-        else
-        {
-          v48 = 0xE500000000000000;
-        }
-
-        MEMORY[0x1C68E0BF0](v47, v48);
-
-        v26 = v98;
-        outlined destroy of AST.CustomCharacterClass.Member(v5, type metadata accessor for AST.Atom.CharacterProperty);
-        goto LABEL_50;
-      case 4:
-        v53 = *v10;
-        *&v98 = 0;
-        *(&v98 + 1) = 0xE000000000000000;
-        MEMORY[0x1C68E0BF0](92, 0xE100000000000000);
-        LOBYTE(v89) = v53;
-        AST.Atom.EscapedBuiltin.character.getter();
-        Character.write<A>(to:)();
-
-        return v98;
-      case 8:
-        v51 = *v10;
-        v52 = *(v10 + 1);
-        *&v98 = 8080988;
-        *(&v98 + 1) = 0xE300000000000000;
-        MEMORY[0x1C68E0BF0](v51, v52);
-
-        v13 = 125;
-        v14 = 0xE100000000000000;
-        goto LABEL_3;
-      case 9:
-      case 10:
-        v17 = v10[72];
-        v18 = *(v10 + 5);
-        v19 = *(v10 + 6);
-        v20 = v10[32];
-        v22 = *(v10 + 2);
-        v21 = *(v10 + 3);
-        v25 = v10;
-        v23 = *v10;
-        v24 = *(v25 + 1);
-        *&v80 = 0;
-        *(&v80 + 1) = 0xE000000000000000;
-        *&v98 = v23;
-        *(&v98 + 1) = v24;
-        *&v99 = v22;
-        *(&v99 + 1) = v21;
-        LOBYTE(v100) = v20;
-        _print_unlocked<A, B>(_:_:)();
-        v89 = v80;
-        if (v17)
-        {
-          v26 = v80;
-          outlined consume of AST.Reference.Kind(v23, v24, v22, v21, v20);
-          goto LABEL_50;
-        }
-
-        if (v19)
-        {
-          v49 = 0x64696C61766E693CLL;
-          v50 = 0xE90000000000003ELL;
-        }
-
-        else
-        {
-          *&v98 = v18;
-          v49 = dispatch thunk of CustomStringConvertible.description.getter();
-          v50 = v70;
-        }
-
-        MEMORY[0x1C68E0BF0](v49, v50);
-
-        outlined consume of AST.Reference.Kind(v23, v24, v22, v21, v20);
-        return v89;
+        outlined consume of AST.Reference.Kind(v19, v20, v18, v17, v16);
+        return v85;
       case 11:
-        v54 = *(v10 + 7);
-        v55 = *(v10 + 5);
-        v95 = *(v10 + 6);
-        v96 = v54;
-        v56 = *(v10 + 7);
-        v97[0] = *(v10 + 8);
-        *(v97 + 9) = *(v10 + 137);
-        v57 = *(v10 + 3);
-        v58 = *(v10 + 1);
-        v91 = *(v10 + 2);
-        v92 = v57;
-        v59 = *(v10 + 3);
-        v60 = *(v10 + 5);
-        v93 = *(v10 + 4);
-        v94 = v60;
-        v61 = *(v10 + 1);
-        v89 = *v10;
-        v90 = v61;
-        v104 = v95;
-        v105 = v56;
-        v106[0] = *(v10 + 8);
-        *(v106 + 9) = *(v10 + 137);
+        v50 = *(v6 + 7);
+        v51 = *(v6 + 5);
+        v91 = *(v6 + 6);
+        v92 = v50;
+        v52 = *(v6 + 7);
+        v93[0] = *(v6 + 8);
+        *(v93 + 9) = *(v6 + 137);
+        v53 = *(v6 + 3);
+        v54 = *(v6 + 1);
+        v87 = *(v6 + 2);
+        v88 = v53;
+        v55 = *(v6 + 3);
+        v56 = *(v6 + 5);
+        v89 = *(v6 + 4);
+        v90 = v56;
+        v57 = *(v6 + 1);
+        v85 = *v6;
+        v86 = v57;
         v100 = v91;
-        v101 = v59;
-        v102 = v93;
-        v103 = v55;
+        v101 = v52;
+        v102[0] = *(v6 + 8);
+        *(v102 + 9) = *(v6 + 137);
+        v96 = v87;
+        v97 = v55;
         v98 = v89;
-        v99 = v58;
-        v62 = _s12_RegexParser3ASTV4AtomV7CalloutOWOg(&v98);
-        if (v62)
+        v99 = v51;
+        v94 = v85;
+        v95 = v54;
+        v58 = _s12_RegexParser3ASTV4AtomV7CalloutOWOg(&v94);
+        if (v58)
         {
-          if (v62 == 1)
+          if (v58 == 1)
           {
-            v63 = AST.root.modify(&v98);
-            v84 = *(v63 + 80);
-            v85 = *(v63 + 96);
-            v86 = *(v63 + 112);
-            *&v87 = *(v63 + 128);
-            v81 = *(v63 + 16);
-            v82[0] = *(v63 + 32);
-            v82[1] = *(v63 + 48);
-            v83 = *(v63 + 64);
-            v80 = *v63;
-            v64 = AST.Atom.Callout.OnigurumaNamed._dumpBase.getter();
+            AST.root.modify();
+            v80 = v59[5];
+            v81 = v59[6];
+            v82 = v59[7];
+            *&v83 = *(v59 + 16);
+            v77 = v59[1];
+            v78[0] = v59[2];
+            v78[1] = v59[3];
+            v79 = v59[4];
+            v76 = *v59;
+            v60 = AST.Atom.Callout.OnigurumaNamed._dumpBase.getter();
           }
 
           else
           {
-            v77 = AST.root.modify(&v98);
-            v85 = *(v77 + 96);
-            v86 = *(v77 + 112);
-            v87 = *(v77 + 128);
-            v88 = *(v77 + 144);
-            v82[0] = *(v77 + 32);
-            v82[1] = *(v77 + 48);
-            v83 = *(v77 + 64);
-            v84 = *(v77 + 80);
-            v80 = *v77;
-            v81 = *(v77 + 16);
-            v64 = AST.Atom.Callout.OnigurumaOfContents._dumpBase.getter();
+            AST.root.modify();
+            v81 = v73[6];
+            v82 = v73[7];
+            v83 = v73[8];
+            v84 = *(v73 + 18);
+            v78[0] = v73[2];
+            v78[1] = v73[3];
+            v79 = v73[4];
+            v80 = v73[5];
+            v76 = *v73;
+            v77 = v73[1];
+            v60 = AST.Atom.Callout.OnigurumaOfContents._dumpBase.getter();
           }
         }
 
         else
         {
-          v72 = AST.root.modify(&v98);
-          v73 = *(v72 + 32);
-          v74 = *(v72 + 40);
-          v75 = *(v72 + 16);
-          v80 = *v72;
-          v81 = v75;
-          LOBYTE(v82[0]) = v73;
-          *(v82 + 8) = v74;
-          v76 = lazy protocol witness table accessor for type AST.Atom.Callout.PCRE and conformance AST.Atom.Callout.PCRE();
-          v64 = (*(v76 + 24))(&type metadata for AST.Atom.Callout.PCRE, v76);
+          AST.root.modify();
+          v69 = *(v68 + 32);
+          v70 = *(v68 + 40);
+          v71 = v68[1];
+          v76 = *v68;
+          v77 = v71;
+          LOBYTE(v78[0]) = v69;
+          *(v78 + 8) = v70;
+          v72 = lazy protocol witness table accessor for type AST.Atom.Callout.PCRE and conformance AST.Atom.Callout.PCRE();
+          v60 = (*(v72 + 24))(&type metadata for AST.Atom.Callout.PCRE, v72);
         }
 
-        v78 = v64;
-        outlined destroy of AST.Atom.Callout(&v89);
-        return v78;
+        v74 = v60;
+        outlined destroy of AST.Atom.Callout(&v85);
+        return v74;
       case 12:
-        v27 = *v10;
-        v29 = *(v10 + 3);
-        v28 = *(v10 + 4);
-        *&v89 = 0;
-        *(&v89 + 1) = 0xE000000000000000;
-        LOBYTE(v80) = v27;
+        v23 = *v6;
+        v25 = *(v6 + 3);
+        v24 = *(v6 + 4);
+        *&v85 = 0;
+        *(&v85 + 1) = 0xE000000000000000;
+        LOBYTE(v76) = v23;
         _print_unlocked<A, B>(_:_:)();
-        v98 = v89;
-        if (v28)
+        v94 = v85;
+        if (v24)
         {
-          *&v89 = 8250;
-          *(&v89 + 1) = 0xE200000000000000;
-          MEMORY[0x1C68E0BF0](v29, v28);
-          MEMORY[0x1C68E0BF0](v89, *(&v89 + 1));
+          *&v85 = 8250;
+          *(&v85 + 1) = 0xE200000000000000;
+          MEMORY[0x1C68E0BF0](v25, v24);
+          MEMORY[0x1C68E0BF0](v85, *(&v85 + 1));
 
-          return v98;
+          return v94;
         }
 
-        v26 = v89;
+        v22 = v85;
 
 LABEL_50:
-        result = v26;
+        result = v22;
         break;
       case 13:
-        v65 = *(v10 + 1);
-        v98 = *v10;
-        v99 = v65;
-        v66 = *(v10 + 3);
-        v100 = *(v10 + 2);
-        v101 = v66;
-        *&v89 = 0;
-        *(&v89 + 1) = 0xE000000000000000;
+        v61 = *(v6 + 1);
+        v94 = *v6;
+        v95 = v61;
+        v62 = *(v6 + 3);
+        v96 = *(v6 + 2);
+        v97 = v62;
+        *&v85 = 0;
+        *(&v85 + 1) = 0xE000000000000000;
         _StringGuts.grow(_:)(25);
 
-        *&v80 = 0xD000000000000016;
-        *(&v80 + 1) = 0x80000001C0C849C0;
-        v89 = v98;
-        v90 = v99;
-        v91 = v100;
-        v92 = v101;
-        v67 = AST.MatchingOptionSequence._dumpBase.getter();
-        v69 = v68;
-        outlined destroy of AST.MatchingOptionSequence(&v98);
-        MEMORY[0x1C68E0BF0](v67, v69);
+        *&v76 = 0xD000000000000016;
+        *(&v76 + 1) = 0x80000001C0C849C0;
+        v85 = v94;
+        v86 = v95;
+        v87 = v96;
+        v88 = v97;
+        v63 = AST.MatchingOptionSequence._dumpBase.getter();
+        v65 = v64;
+        outlined destroy of AST.MatchingOptionSequence(&v94);
+        MEMORY[0x1C68E0BF0](v63, v65);
 
         MEMORY[0x1C68E0BF0](62, 0xE100000000000000);
-        return v80;
+        return v76;
       case 14:
         return result;
       case 15:
@@ -3449,7 +3372,7 @@ LABEL_50:
       case 17:
         return 0x64696C61766E693CLL;
       default:
-        outlined destroy of AST.CustomCharacterClass.Member(v10, type metadata accessor for AST.Atom.Kind);
+        outlined destroy of AST.CustomCharacterClass.Member(v6, type metadata accessor for AST.Atom.Kind);
 LABEL_57:
         _assertionFailure(_:_:file:line:flags:)();
         __break(1u);
@@ -3457,13 +3380,6 @@ LABEL_57:
     }
   }
 
-  return result;
-}
-
-uint64_t AST.Atom.Number.value.getter()
-{
-  result = *v0;
-  v2 = *(v0 + 8);
   return result;
 }
 
@@ -3544,14 +3460,14 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance AST.Atom.Numbe
   return MEMORY[0x1C68E11C0](v1 >> 14);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Number()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Number(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  v4 = v0[2];
-  v3 = v0[3];
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  v5 = v1[2];
+  v4 = v1[3];
   Hasher.init(_seed:)();
-  if (v2 == 1)
+  if (v3 == 1)
   {
     Hasher._combine(_:)(0);
   }
@@ -3559,11 +3475,11 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST
   else
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1C68E1190](v1);
+    MEMORY[0x1C68E1190](v2);
   }
 
+  MEMORY[0x1C68E11C0](v5 >> 14);
   MEMORY[0x1C68E11C0](v4 >> 14);
-  MEMORY[0x1C68E11C0](v3 >> 14);
   return Hasher._finalize()();
 }
 
@@ -3617,15 +3533,15 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance AST.Atom.Scala
   return MEMORY[0x1C68E11C0](v2 >> 14);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Scalar()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Scalar(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  v3 = *(v0 + 16);
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  v4 = *(v1 + 16);
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
-  MEMORY[0x1C68E11C0](v2 >> 14);
+  Hasher._combine(_:)(v2);
   MEMORY[0x1C68E11C0](v3 >> 14);
+  MEMORY[0x1C68E11C0](v4 >> 14);
   return Hasher._finalize()();
 }
 
@@ -3642,7 +3558,6 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance AST
 
 uint64_t AST.Atom.ScalarSequence.scalars.setter(uint64_t a1)
 {
-  v3 = *v1;
 
   *v1 = a1;
   return result;
@@ -3650,7 +3565,6 @@ uint64_t AST.Atom.ScalarSequence.scalars.setter(uint64_t a1)
 
 uint64_t AST.Atom.ScalarSequence.trivia.setter(uint64_t a1)
 {
-  v3 = *(v1 + 8);
 
   *(v1 + 8) = a1;
   return result;
@@ -3712,76 +3626,71 @@ uint64_t AST.Atom.ScalarSequence.scalarValues.getter()
 
 uint64_t _sSlsE3mapySayqd__Gqd__7ElementQzqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(void (*a1)(char *, char *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v39 = a8;
-  v48 = a1;
-  v49 = a2;
-  v11 = *(a5 - 8);
-  v12 = *(v11 + 64);
-  MEMORY[0x1EEE9AC00](a1, a2);
-  v50 = &v37 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = *(v14 + 8);
+  v29 = a8;
+  v38 = a1;
+  v39 = a2;
+  v10 = *(a5 - 8);
+  MEMORY[0x1EEE9AC00](a1);
+  v40 = &v27 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v52 = *(AssociatedTypeWitness - 8);
-  v16 = *(v52 + 64);
-  v18 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness, v17);
-  v20 = &v37 - v19;
-  v21 = *(*(a4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v18, v22);
-  v46 = &v37 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v24 = swift_getAssociatedTypeWitness();
-  v40 = *(v24 - 8);
-  v41 = v24;
-  v25 = *(v40 + 64);
-  MEMORY[0x1EEE9AC00](v24, v26);
-  v28 = &v37 - v27;
-  v29 = dispatch thunk of Collection.count.getter();
-  if (!v29)
+  v42 = *(AssociatedTypeWitness - 8);
+  v12 = MEMORY[0x1EEE9AC00](AssociatedTypeWitness);
+  v14 = &v27 - v13;
+  MEMORY[0x1EEE9AC00](v12);
+  v36 = &v27 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = swift_getAssociatedTypeWitness();
+  v30 = *(v16 - 8);
+  v31 = v16;
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v27 - v17;
+  v19 = dispatch thunk of Collection.count.getter();
+  if (!v19)
   {
     return static Array._allocateUninitialized(_:)();
   }
 
-  v51 = v29;
-  v55 = ContiguousArray.init()();
-  v42 = type metadata accessor for ContiguousArray();
-  ContiguousArray.reserveCapacity(_:)(v51);
+  v41 = v19;
+  v45 = ContiguousArray.init()();
+  v32 = type metadata accessor for ContiguousArray();
+  ContiguousArray.reserveCapacity(_:)(v41);
   result = dispatch thunk of Collection.startIndex.getter();
-  if ((v51 & 0x8000000000000000) == 0)
+  if ((v41 & 0x8000000000000000) == 0)
   {
-    v37 = v11;
-    v38 = a5;
-    v31 = 0;
-    v43 = (v52 + 16);
-    v44 = (v52 + 8);
-    v45 = v8;
-    while (!__OFADD__(v31, 1))
+    v27 = v10;
+    v28 = a5;
+    v21 = 0;
+    v33 = (v42 + 16);
+    v34 = (v42 + 8);
+    v35 = v8;
+    while (!__OFADD__(v21, 1))
     {
-      v52 = v31 + 1;
-      v32 = dispatch thunk of Collection.subscript.read();
-      v33 = v20;
-      v34 = v20;
-      v35 = AssociatedTypeWitness;
-      (*v43)(v33);
-      v32(v54, 0);
-      v36 = v53;
-      v48(v34, v50);
-      if (v36)
+      v42 = v21 + 1;
+      v22 = dispatch thunk of Collection.subscript.read();
+      v23 = v14;
+      v24 = v14;
+      v25 = AssociatedTypeWitness;
+      (*v33)(v23);
+      v22(v44, 0);
+      v26 = v43;
+      v38(v24, v40);
+      if (v26)
       {
-        (*v44)(v34, v35);
-        (*(v40 + 8))(v28, v41);
+        (*v34)(v24, v25);
+        (*(v30 + 8))(v18, v31);
 
-        return (*(v37 + 32))(v39, v50, v38);
+        return (*(v27 + 32))(v29, v40, v28);
       }
 
-      v53 = 0;
-      (*v44)(v34, v35);
+      v43 = 0;
+      (*v34)(v24, v25);
       ContiguousArray.append(_:)();
       result = dispatch thunk of Collection.formIndex(after:)();
-      ++v31;
-      v20 = v34;
-      if (v52 == v51)
+      ++v21;
+      v14 = v24;
+      if (v42 == v41)
       {
-        (*(v40 + 8))(v28, v41);
-        return v55;
+        (*(v30 + 8))(v18, v31);
+        return v45;
       }
     }
 
@@ -3828,13 +3737,13 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance AST.Atom.Scala
   return specialized Array<A>.hash(into:)(a1, v4);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.ScalarSequence()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.ScalarSequence(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
+  v2 = *v1;
+  v3 = v1[1];
   Hasher.init(_seed:)();
-  specialized Array<A>.hash(into:)(v4, v1);
-  specialized Array<A>.hash(into:)(v4, v2);
+  specialized Array<A>.hash(into:)(v5, v2);
+  specialized Array<A>.hash(into:)(v5, v3);
   return Hasher._finalize()();
 }
 
@@ -4133,18 +4042,18 @@ uint64_t specialized DefaultStringInterpolation.appendInterpolation<A>(_:)(uint6
   MEMORY[0x1C68E0BF0](0xD00000000000001DLL, 0x80000001C0C84CD0);
 }
 
-void AST.Atom.CharacterProperty.hash(into:)()
+void AST.Atom.CharacterProperty.hash(into:)(uint64_t a1)
 {
-  AST.Atom.CharacterProperty.Kind.hash(into:)();
-  v1 = type metadata accessor for AST.Atom.CharacterProperty(0);
-  Hasher._combine(_:)(*(v0 + *(v1 + 20)));
-  Hasher._combine(_:)(*(v0 + *(v1 + 24)));
+  AST.Atom.CharacterProperty.Kind.hash(into:)(a1);
+  v2 = type metadata accessor for AST.Atom.CharacterProperty(0);
+  Hasher._combine(_:)(*(v1 + *(v2 + 20)));
+  Hasher._combine(_:)(*(v1 + *(v2 + 24)));
 }
 
 Swift::Int AST.Atom.CharacterProperty.hashValue.getter()
 {
   Hasher.init(_seed:)();
-  AST.Atom.CharacterProperty.Kind.hash(into:)();
+  AST.Atom.CharacterProperty.Kind.hash(into:)(v3);
   v1 = type metadata accessor for AST.Atom.CharacterProperty(0);
   Hasher._combine(_:)(*(v0 + *(v1 + 20)));
   Hasher._combine(_:)(*(v0 + *(v1 + 24)));
@@ -4154,7 +4063,7 @@ Swift::Int AST.Atom.CharacterProperty.hashValue.getter()
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Atom.CharacterProperty(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  AST.Atom.CharacterProperty.Kind.hash(into:)();
+  AST.Atom.CharacterProperty.Kind.hash(into:)(v4);
   Hasher._combine(_:)(*(v1 + *(a1 + 20)));
   Hasher._combine(_:)(*(v1 + *(a1 + 24)));
   return Hasher._finalize()();
@@ -4162,7 +4071,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Ato
 
 void protocol witness for Hashable.hash(into:) in conformance AST.Atom.CharacterProperty(uint64_t a1, uint64_t a2)
 {
-  AST.Atom.CharacterProperty.Kind.hash(into:)();
+  AST.Atom.CharacterProperty.Kind.hash(into:)(a1);
   Hasher._combine(_:)(*(v2 + *(a2 + 20)));
   Hasher._combine(_:)(*(v2 + *(a2 + 24)));
 }
@@ -4170,7 +4079,7 @@ void protocol witness for Hashable.hash(into:) in conformance AST.Atom.Character
 Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.CharacterProperty(uint64_t a1, uint64_t a2)
 {
   Hasher.init(_seed:)();
-  AST.Atom.CharacterProperty.Kind.hash(into:)();
+  AST.Atom.CharacterProperty.Kind.hash(into:)(v5);
   Hasher._combine(_:)(*(v2 + *(a2 + 20)));
   Hasher._combine(_:)(*(v2 + *(a2 + 24)));
   return Hasher._finalize()();
@@ -4312,120 +4221,107 @@ uint64_t specialized == infix<A>(_:_:)(char a1, char a2)
   return v2 & 1;
 }
 
-void AST.Atom.CharacterProperty.Kind.hash(into:)()
+void AST.Atom.CharacterProperty.Kind.hash(into:)(uint64_t a1)
 {
-  v1 = type metadata accessor for Unicode.CanonicalCombiningClass();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  MEMORY[0x1EEE9AC00](v1, v4);
-  v6 = &v42[-((v5 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v7 = type metadata accessor for Unicode.NumericType();
-  v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x1EEE9AC00](v7, v10);
-  v12 = &v42[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v13 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v13, v15);
-  v17 = &v42[-((v16 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  outlined init with copy of AST.CustomCharacterClass.Member(v0, v17, type metadata accessor for AST.Atom.CharacterProperty.Kind);
+  v2 = type metadata accessor for Unicode.CanonicalCombiningClass();
+  v3 = *(v2 - 8);
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = &v27[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v6 = type metadata accessor for Unicode.NumericType();
+  v7 = *(v6 - 8);
+  MEMORY[0x1EEE9AC00](v6);
+  v9 = &v27[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v10 = type metadata accessor for AST.Atom.CharacterProperty.Kind(0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v27[-((v11 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  outlined init with copy of AST.CustomCharacterClass.Member(v1, v12, type metadata accessor for AST.Atom.CharacterProperty.Kind);
   switch(swift_getEnumCaseMultiPayload())
   {
     case 1u:
-      v36 = *v17;
-      v37 = v17[1];
+      v21 = *v12;
+      v22 = v12[1];
       MEMORY[0x1C68E1190](4);
-      v42[9] = v36;
+      v27[9] = v21;
       Unicode.BinaryProperty.rawValue.getter();
       String.hash(into:)();
 
-      Hasher._combine(_:)(v37);
+      Hasher._combine(_:)(v22);
       return;
     case 2u:
-      v31 = *v17;
+      v18 = *v12;
       MEMORY[0x1C68E1190](5);
-      v42[10] = v31;
+      v27[10] = v18;
       goto LABEL_13;
     case 3u:
-      v32 = *v17;
+      v19 = *v12;
       MEMORY[0x1C68E1190](6);
-      v42[11] = v32;
+      v27[11] = v19;
 LABEL_13:
       Unicode.Script.rawValue.getter();
       goto LABEL_24;
     case 4u:
-      v25 = *v17;
-      v26 = *(v17 + 1);
       MEMORY[0x1C68E1190](7);
       String.hash(into:)();
       goto LABEL_25;
     case 5u:
-      (*(v8 + 32))(v12, v17, v7);
+      (*(v7 + 32))(v9, v12, v6);
       MEMORY[0x1C68E1190](8);
       dispatch thunk of Hashable.hash(into:)();
-      (*(v8 + 8))(v12, v7);
+      (*(v7 + 8))(v9, v6);
       return;
     case 6u:
-      v39 = *v17;
+      v24 = *v12;
       MEMORY[0x1C68E1190](9);
-      v40 = 0.0;
-      if (v39 != 0.0)
+      v25 = 0.0;
+      if (v24 != 0.0)
       {
-        v40 = v39;
+        v25 = v24;
       }
 
-      MEMORY[0x1C68E11C0](*&v40);
+      MEMORY[0x1C68E11C0](*&v25);
       return;
     case 7u:
-      v33 = *v17;
-      v34 = *(v17 + 1);
-      v35 = *(v17 + 2);
+      v20 = *v12;
       MEMORY[0x1C68E1190](10);
-      MEMORY[0x1C68E1190](v33);
+      MEMORY[0x1C68E1190](v20);
       String.hash(into:)();
       goto LABEL_25;
     case 8u:
-      (*(v2 + 32))(v6, v17, v1);
+      (*(v3 + 32))(v5, v12, v2);
       MEMORY[0x1C68E1190](11);
       dispatch thunk of Hashable.hash(into:)();
-      (*(v2 + 8))(v6, v1);
+      (*(v3 + 8))(v5, v2);
       return;
     case 9u:
-      v29 = *v17;
-      v30 = *(v17 + 1);
+      v16 = *v12;
+      v17 = *(v12 + 1);
       MEMORY[0x1C68E1190](12);
-      MEMORY[0x1C68E1190](*&v29);
-      MEMORY[0x1C68E1190](v30);
+      MEMORY[0x1C68E1190](*&v16);
+      MEMORY[0x1C68E1190](v17);
       return;
     case 0xAu:
-      v41 = *v17;
+      v26 = *v12;
       MEMORY[0x1C68E1190](13);
-      v43 = v41;
+      v28 = v26;
       Unicode.Block.rawValue.getter();
       goto LABEL_24;
     case 0xBu:
-      v24 = *v17;
       MEMORY[0x1C68E1190](14);
       goto LABEL_24;
     case 0xCu:
-      v27 = *v17;
       MEMORY[0x1C68E1190](15);
-      v28 = qword_1C0C83B08[v27];
       String.hash(into:)();
       goto LABEL_25;
     case 0xDu:
-      v38 = *v17;
+      v23 = *v12;
       MEMORY[0x1C68E1190](16);
-      v44 = v38;
+      v29 = v23;
       AST.Atom.CharacterProperty.JavaSpecial.rawValue.getter();
       goto LABEL_24;
     case 0xEu:
-      v21 = *v17;
-      v20 = *(v17 + 1);
-      v23 = *(v17 + 2);
-      v22 = *(v17 + 3);
+      v15 = *(v12 + 1);
       MEMORY[0x1C68E1190](17);
-      if (v20)
+      if (v15)
       {
         Hasher._combine(_:)(1u);
         String.hash(into:)();
@@ -4438,20 +4334,20 @@ LABEL_13:
 
       goto LABEL_24;
     case 0xFu:
-      v19 = 0;
+      v14 = 0;
       goto LABEL_17;
     case 0x10u:
-      v19 = 1;
+      v14 = 1;
       goto LABEL_17;
     case 0x11u:
-      v19 = 2;
+      v14 = 2;
 LABEL_17:
-      MEMORY[0x1C68E1190](v19);
+      MEMORY[0x1C68E1190](v14);
       break;
     default:
-      v18 = *v17;
+      v13 = *v12;
       MEMORY[0x1C68E1190](3);
-      v42[8] = v18;
+      v27[8] = v13;
       Unicode.ExtendedGeneralCategory.rawValue.getter();
 LABEL_24:
       String.hash(into:)();
@@ -4481,15 +4377,13 @@ _RegexParser::AST::Atom::CharacterProperty::PCRESpecialCategory_optional __swift
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Atom.CharacterProperty.PCRESpecialCategory()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
-  v2 = qword_1C0C83B08[v1];
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-Swift::Int specialized RawRepresentable<>.hashValue.getter()
+Swift::Int specialized RawRepresentable<>.hashValue.getter(unsigned __int8 a1)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -4497,23 +4391,20 @@ Swift::Int specialized RawRepresentable<>.hashValue.getter()
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance AST.Atom.CharacterProperty.PCRESpecialCategory()
+uint64_t protocol witness for Hashable.hash(into:) in conformance AST.Atom.CharacterProperty.PCRESpecialCategory(uint64_t a1)
 {
-  v1 = qword_1C0C83B08[*v0];
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.CharacterProperty.PCRESpecialCategory()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.CharacterProperty.PCRESpecialCategory(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
-  v2 = qword_1C0C83B08[v1];
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)()
+Swift::Int specialized RawRepresentable<>._rawHashValue(seed:)(uint64_t a1, unsigned __int8 a2)
 {
   Hasher.init(_seed:)();
   String.hash(into:)();
@@ -4607,11 +4498,11 @@ unint64_t protocol witness for RawRepresentable.rawValue.getter in conformance A
   return result;
 }
 
-uint64_t AST.Atom.Callout.PCRE.Argument.hash(into:)()
+uint64_t AST.Atom.Callout.PCRE.Argument.hash(into:)(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  if (v0[4])
+  v2 = *v1;
+  v3 = v1[1];
+  if (v1[4])
   {
     MEMORY[0x1C68E1190](1);
 
@@ -4620,10 +4511,10 @@ uint64_t AST.Atom.Callout.PCRE.Argument.hash(into:)()
 
   else
   {
-    v5 = v0[2];
-    v4 = v0[3];
+    v6 = v1[2];
+    v5 = v1[3];
     MEMORY[0x1C68E1190](0);
-    if (v2)
+    if (v3)
     {
       Hasher._combine(_:)(0);
     }
@@ -4631,11 +4522,11 @@ uint64_t AST.Atom.Callout.PCRE.Argument.hash(into:)()
     else
     {
       Hasher._combine(_:)(1u);
-      MEMORY[0x1C68E1190](v1);
+      MEMORY[0x1C68E1190](v2);
     }
 
-    MEMORY[0x1C68E11C0](v5 >> 14);
-    return MEMORY[0x1C68E11C0](v4 >> 14);
+    MEMORY[0x1C68E11C0](v6 >> 14);
+    return MEMORY[0x1C68E11C0](v5 >> 14);
   }
 }
 
@@ -4674,11 +4565,11 @@ Swift::Int AST.Atom.Callout.PCRE.Argument.hashValue.getter()
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance AST.Atom.Callout.PCRE.Argument()
+uint64_t protocol witness for Hashable.hash(into:) in conformance AST.Atom.Callout.PCRE.Argument(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  if (v0[4])
+  v2 = *v1;
+  v3 = v1[1];
+  if (v1[4])
   {
     MEMORY[0x1C68E1190](1);
 
@@ -4687,10 +4578,10 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance AST.Atom.Callo
 
   else
   {
-    v5 = v0[2];
-    v4 = v0[3];
+    v6 = v1[2];
+    v5 = v1[3];
     MEMORY[0x1C68E1190](0);
-    if (v2)
+    if (v3)
     {
       Hasher._combine(_:)(0);
     }
@@ -4698,23 +4589,23 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance AST.Atom.Callo
     else
     {
       Hasher._combine(_:)(1u);
-      MEMORY[0x1C68E1190](v1);
+      MEMORY[0x1C68E1190](v2);
     }
 
-    MEMORY[0x1C68E11C0](v5 >> 14);
-    return MEMORY[0x1C68E11C0](v4 >> 14);
+    MEMORY[0x1C68E11C0](v6 >> 14);
+    return MEMORY[0x1C68E11C0](v5 >> 14);
   }
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Callout.PCRE.Argument()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Callout.PCRE.Argument(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v4 = v0[2];
-  v3 = v0[3];
-  v5 = *(v0 + 32);
+  v2 = *v1;
+  v3 = v1[1];
+  v5 = v1[2];
+  v4 = v1[3];
+  v6 = *(v1 + 32);
   Hasher.init(_seed:)();
-  if (v5)
+  if (v6)
   {
     MEMORY[0x1C68E1190](1);
     String.hash(into:)();
@@ -4723,7 +4614,7 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST
   else
   {
     MEMORY[0x1C68E1190](0);
-    if (v2)
+    if (v3)
     {
       Hasher._combine(_:)(0);
     }
@@ -4731,11 +4622,11 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST
     else
     {
       Hasher._combine(_:)(1u);
-      MEMORY[0x1C68E1190](v1);
+      MEMORY[0x1C68E1190](v2);
     }
 
+    MEMORY[0x1C68E11C0](v5 >> 14);
     MEMORY[0x1C68E11C0](v4 >> 14);
-    MEMORY[0x1C68E11C0](v3 >> 14);
   }
 
   return Hasher._finalize()();
@@ -4800,69 +4691,68 @@ BOOL static AST.Atom.Callout.PCRE.== infix(_:_:)(uint64_t a1, uint64_t a2)
   return _s12_RegexParser6SourceV7LocatedVAASQRzlE2eeoiySbAEy_xG_AGtFZAA3ASTV4AtomV7CalloutO4PCREV8ArgumentO_Tt1B5(v5, v7);
 }
 
-BOOL _s12_RegexParser6SourceV7LocatedVAASQRzlE2eeoiySbAEy_xG_AGtFZAA3ASTV4AtomV7CalloutO4PCREV8ArgumentO_Tt1B5(uint64_t a1, uint64_t a2)
+BOOL _s12_RegexParser6SourceV7LocatedVAASQRzlE2eeoiySbAEy_xG_AGtFZAA3ASTV4AtomV7CalloutO4PCREV8ArgumentO_Tt1B5(uint64_t *a1, uint64_t *a2)
 {
   v4 = *a1;
-  v5 = *(a1 + 8);
-  v7 = *(a1 + 16);
-  v6 = *(a1 + 24);
+  v5 = a1[1];
+  v7 = a1[2];
+  v6 = a1[3];
   v9 = *a2;
-  v8 = *(a2 + 8);
-  v11 = *(a2 + 16);
-  v10 = *(a2 + 24);
-  if (*(a1 + 32))
+  v8 = a2[1];
+  v11 = a2[2];
+  v10 = a2[3];
+  if (a1[4])
   {
-    if (*(a2 + 32))
+    if (a2[4])
     {
       if (v4 != v9 || v5 != v8)
       {
-        v13 = *a1;
-        v20 = _stringCompareWithSmolCheck(_:_:expecting:)();
-        outlined init with copy of Source.Located<AST.Atom.Callout.PCRE.Argument>(a2, v21);
-        outlined init with copy of Source.Located<AST.Atom.Callout.PCRE.Argument>(a1, v21);
+        v19 = _stringCompareWithSmolCheck(_:_:expecting:)();
+        outlined init with copy of Source.Located<AST.Atom.Callout.PCRE.Argument>(a2, v20);
+        outlined init with copy of Source.Located<AST.Atom.Callout.PCRE.Argument>(a1, v20);
         outlined consume of AST.Atom.Callout.PCRE.Argument(v4, v5, v7, v6, 1);
         outlined consume of AST.Atom.Callout.PCRE.Argument(v9, v8, v11, v10, 1);
-        if (v20)
+        if (v19)
         {
-          return !((*(a2 + 40) ^ *(a1 + 40)) >> 14) && (*(a1 + 48) ^ *(a2 + 48)) < 0x4000;
+          return !((a2[5] ^ a1[5]) >> 14) && (a1[6] ^ a2[6]) < 0x4000;
         }
 
         return 0;
       }
 
-      outlined init with copy of Source.Located<AST.Atom.Callout.PCRE.Argument>(a2, v21);
-      outlined init with copy of Source.Located<AST.Atom.Callout.PCRE.Argument>(a1, v21);
+      outlined init with copy of Source.Located<AST.Atom.Callout.PCRE.Argument>(a2, v20);
+      outlined init with copy of Source.Located<AST.Atom.Callout.PCRE.Argument>(a1, v20);
       outlined consume of AST.Atom.Callout.PCRE.Argument(v4, v5, v7, v6, 1);
       outlined consume of AST.Atom.Callout.PCRE.Argument(v4, v5, v11, v10, 1);
-      return !((*(a2 + 40) ^ *(a1 + 40)) >> 14) && (*(a1 + 48) ^ *(a2 + 48)) < 0x4000;
+      return !((a2[5] ^ a1[5]) >> 14) && (a1[6] ^ a2[6]) < 0x4000;
     }
 
-    outlined init with copy of Source.Located<AST.Atom.Callout.PCRE.Argument>(a2, v21);
-    outlined init with copy of Source.Located<AST.Atom.Callout.PCRE.Argument>(a1, v21);
+    outlined init with copy of Source.Located<AST.Atom.Callout.PCRE.Argument>(a2, v20);
+    outlined init with copy of Source.Located<AST.Atom.Callout.PCRE.Argument>(a1, v20);
     outlined consume of AST.Atom.Callout.PCRE.Argument(v4, v5, v7, v6, 1);
-    v14 = v9;
-    v15 = v8;
-    v16 = v11;
-    v17 = v10;
-    v18 = 0;
+    v13 = v9;
+    v14 = v8;
+    v15 = v11;
+    v16 = v10;
+    v17 = 0;
 LABEL_12:
-    outlined consume of AST.Atom.Callout.PCRE.Argument(v14, v15, v16, v17, v18);
+    outlined consume of AST.Atom.Callout.PCRE.Argument(v13, v14, v15, v16, v17);
     return 0;
   }
 
-  if (*(a2 + 32))
+  if (a2[4])
   {
-    outlined init with copy of Source.Located<AST.Atom.Callout.PCRE.Argument>(a2, v21);
+    outlined init with copy of Source.Located<AST.Atom.Callout.PCRE.Argument>(a2, v20);
     outlined consume of AST.Atom.Callout.PCRE.Argument(v4, v5, v7, v6, 0);
-    v14 = v9;
-    v15 = v8;
-    v16 = v11;
-    v17 = v10;
-    v18 = 1;
+    v13 = v9;
+    v14 = v8;
+    v15 = v11;
+    v16 = v10;
+    v17 = 1;
     goto LABEL_12;
   }
 
-  outlined init with copy of Source.Located<AST.Atom.Callout.PCRE.Argument>(a2, v21);
+  outlined init with copy of Source.Located<AST.Atom.Callout.PCRE.Argument>(a2, v20);
   outlined consume of AST.Atom.Callout.PCRE.Argument(v4, v5, v7, v6, 0);
   outlined consume of AST.Atom.Callout.PCRE.Argument(v9, v8, v11, v10, 0);
   if (v5)
@@ -4881,7 +4771,7 @@ LABEL_12:
   result = 0;
   if (!((v11 ^ v7) >> 14) && (v10 ^ v6) < 0x4000)
   {
-    return !((*(a2 + 40) ^ *(a1 + 40)) >> 14) && (*(a1 + 48) ^ *(a2 + 48)) < 0x4000;
+    return !((a2[5] ^ a1[5]) >> 14) && (a1[6] ^ a2[6]) < 0x4000;
   }
 
   return result;
@@ -5043,16 +4933,16 @@ LABEL_13:
   return (a5 ^ a2) < 0x4000 && (a6 ^ a3) < 0x4000;
 }
 
-BOOL static Source.Located<A>.== infix(_:_:)(uint64_t a1, uint64_t a2)
+BOOL static Source.Located<A>.== infix(_:_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = 0;
   if (dispatch thunk of static Equatable.== infix(_:_:)())
   {
-    v4 = *(type metadata accessor for Source.Located() + 28);
-    v5 = a1 + v4;
-    v6 = *(a1 + v4);
-    v7 = (a2 + v4);
-    if (!((*v7 ^ v6) >> 14) && (*(v5 + 8) ^ v7[1]) < 0x4000)
+    v8 = *(type metadata accessor for Source.Located(0, a3, v6, v7) + 28);
+    v9 = a1 + v8;
+    v10 = *(a1 + v8);
+    v11 = (a2 + v8);
+    if (!((*v11 ^ v10) >> 14) && (*(v9 + 8) ^ v11[1]) < 0x4000)
     {
       return 1;
     }
@@ -5061,54 +4951,39 @@ BOOL static Source.Located<A>.== infix(_:_:)(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t AST.Atom.Callout.PCRE.hash(into:)()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = v0[2];
-  v5 = *(v0 + 6);
-  return specialized Source.Located<A>.hash(into:)();
-}
-
 Swift::Int AST.Atom.Callout.PCRE.hashValue.getter()
 {
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = v0[2];
-  v5 = *(v0 + 6);
+  v1 = v0[1];
+  v4 = *v0;
+  v5 = v1;
+  v6 = v0[2];
+  v7 = *(v0 + 6);
   Hasher.init(_seed:)();
-  specialized Source.Located<A>.hash(into:)();
+  specialized Source.Located<A>.hash(into:)(v3);
   return Hasher._finalize()();
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Atom.Callout.PCRE()
 {
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = v0[2];
-  v5 = *(v0 + 6);
+  v1 = v0[1];
+  v4 = *v0;
+  v5 = v1;
+  v6 = v0[2];
+  v7 = *(v0 + 6);
   Hasher.init(_seed:)();
-  specialized Source.Located<A>.hash(into:)();
+  specialized Source.Located<A>.hash(into:)(v3);
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance AST.Atom.Callout.PCRE()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Callout.PCRE(uint64_t a1)
 {
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = v0[2];
-  v5 = *(v0 + 6);
-  return specialized Source.Located<A>.hash(into:)();
-}
-
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Callout.PCRE()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = v0[2];
-  v5 = *(v0 + 6);
+  v2 = v1[1];
+  v5 = *v1;
+  v6 = v2;
+  v7 = v1[2];
+  v8 = *(v1 + 6);
   Hasher.init(_seed:)();
-  specialized Source.Located<A>.hash(into:)();
+  specialized Source.Located<A>.hash(into:)(v4);
   return Hasher._finalize()();
 }
 
@@ -5143,7 +5018,6 @@ __n128 AST.Atom.Callout.OnigurumaNamed.ArgList.leftBrace.setter(__n128 *a1)
 
 uint64_t AST.Atom.Callout.OnigurumaNamed.ArgList.args.setter(uint64_t a1)
 {
-  v3 = *(v1 + 16);
 
   *(v1 + 16) = a1;
   return result;
@@ -5214,19 +5088,19 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance AST.Atom.Callo
   return MEMORY[0x1C68E11C0](v6 >> 14);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Callout.OnigurumaNamed.ArgList()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Callout.OnigurumaNamed.ArgList(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
+  v2 = *v1;
+  v3 = v1[1];
+  v4 = v1[2];
+  v5 = v1[3];
+  v6 = v1[4];
   Hasher.init(_seed:)();
-  MEMORY[0x1C68E11C0](v1 >> 14);
   MEMORY[0x1C68E11C0](v2 >> 14);
-  specialized Array<A>.hash(into:)(v7, v3);
-  MEMORY[0x1C68E11C0](v4 >> 14);
+  MEMORY[0x1C68E11C0](v3 >> 14);
+  specialized Array<A>.hash(into:)(v8, v4);
   MEMORY[0x1C68E11C0](v5 >> 14);
+  MEMORY[0x1C68E11C0](v6 >> 14);
   return Hasher._finalize()();
 }
 
@@ -5240,13 +5114,12 @@ uint64_t AST.Atom.Callout.OnigurumaNamed.name.getter@<X0>(uint64_t a1@<X8>)
 
 __n128 AST.Atom.Callout.OnigurumaNamed.name.setter(__n128 *a1)
 {
-  v6 = *a1;
+  v5 = *a1;
   v2 = a1[1].n128_u64[0];
   v3 = a1[1].n128_u64[1];
-  v4 = v1->n128_u64[1];
 
-  result = v6;
-  *v1 = v6;
+  result = v5;
+  *v1 = v5;
   v1[1].n128_u64[0] = v2;
   v1[1].n128_u64[1] = v3;
   return result;
@@ -5276,7 +5149,7 @@ __n128 AST.Atom.Callout.OnigurumaNamed.tag.setter(uint64_t a1)
   v4 = v1[5];
   v8[2] = v1[4];
   v8[3] = v4;
-  outlined destroy of AST.Atom.Callout.OnigurumaTag?(v8);
+  outlined destroy of AST.Atom.Callout.OnigurumaTag?(v8, &unk_1F402B960, &cache variable for noncanonical specialized generic type metadata for AST.Atom.Callout.OnigurumaTag?);
   v5 = *(a1 + 16);
   v1[2] = *a1;
   v1[3] = v5;
@@ -5299,12 +5172,11 @@ uint64_t AST.Atom.Callout.OnigurumaNamed.args.getter@<X0>(uint64_t a1@<X8>)
 __n128 AST.Atom.Callout.OnigurumaNamed.args.setter(uint64_t a1)
 {
   v3 = *(a1 + 32);
-  v4 = *(v1 + 112);
 
   result = *a1;
-  v6 = *(a1 + 16);
+  v5 = *(a1 + 16);
   *(v1 + 96) = *a1;
-  *(v1 + 112) = v6;
+  *(v1 + 112) = v5;
   *(v1 + 128) = v3;
   return result;
 }
@@ -5317,7 +5189,7 @@ __n128 AST.Atom.Callout.OnigurumaNamed.init(_:tag:args:)@<Q0>(uint64_t a1@<X0>, 
   *(a4 + 8) = v7;
   *(a4 + 16) = *(a1 + 16);
   memset(v13, 0, sizeof(v13));
-  outlined destroy of AST.Atom.Callout.OnigurumaTag?(v13);
+  outlined destroy of AST.Atom.Callout.OnigurumaTag?(v13, &unk_1F402B960, &cache variable for noncanonical specialized generic type metadata for AST.Atom.Callout.OnigurumaTag?);
   v9 = a2[1];
   *(a4 + 32) = *a2;
   *(a4 + 48) = v9;
@@ -5336,45 +5208,42 @@ __n128 AST.Atom.Callout.OnigurumaNamed.init(_:tag:args:)@<Q0>(uint64_t a1@<X0>, 
 void AST.Atom.Callout.OnigurumaNamed.hash(into:)(uint64_t a1)
 {
   v2 = v1;
-  v4 = *v2;
-  v5 = v2[1];
-  v6 = v2[2];
-  v7 = v2[3];
-  v9 = v2[4];
-  v8 = v2[5];
-  v10 = v2[6];
-  v11 = v2[7];
-  v13 = v2[8];
-  v12 = v2[9];
-  v15 = v2[10];
-  v16 = v2[11];
-  v17 = v2[12];
-  v18 = v2[13];
-  v14 = v2[14];
-  v19 = v2[15];
-  v20 = v2[16];
+  v4 = v2[2];
+  v5 = v2[3];
+  v7 = v2[4];
+  v6 = v2[5];
+  v8 = v2[7];
+  v10 = v2[8];
+  v9 = v2[9];
+  v12 = v2[10];
+  v13 = v2[11];
+  v14 = v2[12];
+  v15 = v2[13];
+  v11 = v2[14];
+  v16 = v2[15];
+  v17 = v2[16];
   String.hash(into:)();
-  MEMORY[0x1C68E11C0](v6 >> 14);
-  MEMORY[0x1C68E11C0](v7 >> 14);
-  if (v11)
+  MEMORY[0x1C68E11C0](v4 >> 14);
+  MEMORY[0x1C68E11C0](v5 >> 14);
+  if (v8)
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1C68E11C0](v9 >> 14);
-    MEMORY[0x1C68E11C0](v8 >> 14);
+    MEMORY[0x1C68E11C0](v7 >> 14);
+    MEMORY[0x1C68E11C0](v6 >> 14);
     String.hash(into:)();
-    MEMORY[0x1C68E11C0](v13 >> 14);
+    MEMORY[0x1C68E11C0](v10 >> 14);
+    MEMORY[0x1C68E11C0](v9 >> 14);
     MEMORY[0x1C68E11C0](v12 >> 14);
-    MEMORY[0x1C68E11C0](v15 >> 14);
-    MEMORY[0x1C68E11C0](v16 >> 14);
-    if (v14)
+    MEMORY[0x1C68E11C0](v13 >> 14);
+    if (v11)
     {
 LABEL_3:
       Hasher._combine(_:)(1u);
+      MEMORY[0x1C68E11C0](v14 >> 14);
+      MEMORY[0x1C68E11C0](v15 >> 14);
+      specialized Array<A>.hash(into:)(a1, v11);
+      MEMORY[0x1C68E11C0](v16 >> 14);
       MEMORY[0x1C68E11C0](v17 >> 14);
-      MEMORY[0x1C68E11C0](v18 >> 14);
-      specialized Array<A>.hash(into:)(a1, v14);
-      MEMORY[0x1C68E11C0](v19 >> 14);
-      MEMORY[0x1C68E11C0](v20 >> 14);
       return;
     }
   }
@@ -5382,7 +5251,7 @@ LABEL_3:
   else
   {
     Hasher._combine(_:)(0);
-    if (v14)
+    if (v11)
     {
       goto LABEL_3;
     }
@@ -5415,13 +5284,12 @@ uint64_t AST.Atom.Callout.OnigurumaOfContents.contents.getter@<X0>(uint64_t a1@<
 
 __n128 AST.Atom.Callout.OnigurumaOfContents.contents.setter(__n128 *a1)
 {
-  v6 = *a1;
+  v5 = *a1;
   v2 = a1[1].n128_u64[0];
   v3 = a1[1].n128_u64[1];
-  v4 = v1[1].n128_u64[1];
 
-  result = v6;
-  v1[1] = v6;
+  result = v5;
+  v1[1] = v5;
   v1[2].n128_u64[0] = v2;
   v1[2].n128_u64[1] = v3;
   return result;
@@ -5465,7 +5333,7 @@ __n128 AST.Atom.Callout.OnigurumaOfContents.tag.setter(uint64_t a1)
   v4 = v1[7];
   v8[2] = v1[6];
   v8[3] = v4;
-  outlined destroy of AST.Atom.Callout.OnigurumaTag?(v8);
+  outlined destroy of AST.Atom.Callout.OnigurumaTag?(v8, &unk_1F402B960, &cache variable for noncanonical specialized generic type metadata for AST.Atom.Callout.OnigurumaTag?);
   v5 = *(a1 + 16);
   v1[4] = *a1;
   v1[5] = v5;
@@ -5506,7 +5374,7 @@ __n128 AST.Atom.Callout.OnigurumaOfContents.init(_:_:_:tag:direction:)@<Q0>(_OWO
   *(a6 + 32) = *(a2 + 1);
   *(a6 + 48) = v13;
   memset(v17, 0, sizeof(v17));
-  outlined destroy of AST.Atom.Callout.OnigurumaTag?(v17);
+  outlined destroy of AST.Atom.Callout.OnigurumaTag?(v17, &unk_1F402B960, &cache variable for noncanonical specialized generic type metadata for AST.Atom.Callout.OnigurumaTag?);
   v14 = *(a4 + 16);
   *(a6 + 64) = *a4;
   *(a6 + 80) = v14;
@@ -5520,43 +5388,40 @@ __n128 AST.Atom.Callout.OnigurumaOfContents.init(_:_:_:tag:direction:)@<Q0>(_OWO
   return result;
 }
 
-uint64_t AST.Atom.Callout.OnigurumaOfContents.hash(into:)()
+uint64_t AST.Atom.Callout.OnigurumaOfContents.hash(into:)(uint64_t a1)
 {
-  v1 = *(v0 + 8);
-  v2 = *(v0 + 16);
-  v3 = *(v0 + 24);
-  v4 = *(v0 + 32);
-  v5 = *(v0 + 40);
-  v6 = *(v0 + 48);
-  v7 = *(v0 + 56);
-  v8 = *(v0 + 64);
-  v9 = *(v0 + 88);
-  v11 = *(v0 + 72);
-  v12 = *(v0 + 80);
-  v13 = *(v0 + 96);
-  v14 = *(v0 + 104);
-  v15 = *(v0 + 112);
-  v16 = *(v0 + 120);
-  v17 = *(v0 + 136);
-  v18 = *(v0 + 128);
-  v19 = *(v0 + 144);
-  MEMORY[0x1C68E11C0](*v0 >> 14);
-  MEMORY[0x1C68E11C0](v1 >> 14);
+  v2 = *(v1 + 8);
+  v3 = *(v1 + 32);
+  v4 = *(v1 + 40);
+  v5 = *(v1 + 48);
+  v6 = *(v1 + 56);
+  v7 = *(v1 + 64);
+  v8 = *(v1 + 88);
+  v10 = *(v1 + 72);
+  v11 = *(v1 + 96);
+  v12 = *(v1 + 104);
+  v13 = *(v1 + 112);
+  v14 = *(v1 + 120);
+  v15 = *(v1 + 136);
+  v16 = *(v1 + 128);
+  v17 = *(v1 + 144);
+  MEMORY[0x1C68E11C0](*v1 >> 14);
+  MEMORY[0x1C68E11C0](v2 >> 14);
   String.hash(into:)();
+  MEMORY[0x1C68E11C0](v3 >> 14);
   MEMORY[0x1C68E11C0](v4 >> 14);
   MEMORY[0x1C68E11C0](v5 >> 14);
   MEMORY[0x1C68E11C0](v6 >> 14);
-  MEMORY[0x1C68E11C0](v7 >> 14);
-  if (v9)
+  if (v8)
   {
     Hasher._combine(_:)(1u);
-    MEMORY[0x1C68E11C0](v8 >> 14);
-    MEMORY[0x1C68E11C0](v11 >> 14);
+    MEMORY[0x1C68E11C0](v7 >> 14);
+    MEMORY[0x1C68E11C0](v10 >> 14);
     String.hash(into:)();
+    MEMORY[0x1C68E11C0](v11 >> 14);
+    MEMORY[0x1C68E11C0](v12 >> 14);
     MEMORY[0x1C68E11C0](v13 >> 14);
     MEMORY[0x1C68E11C0](v14 >> 14);
-    MEMORY[0x1C68E11C0](v15 >> 14);
-    MEMORY[0x1C68E11C0](v16 >> 14);
   }
 
   else
@@ -5564,94 +5429,92 @@ uint64_t AST.Atom.Callout.OnigurumaOfContents.hash(into:)()
     Hasher._combine(_:)(0);
   }
 
-  MEMORY[0x1C68E1190](v18);
-  MEMORY[0x1C68E11C0](v17 >> 14);
-  return MEMORY[0x1C68E11C0](v19 >> 14);
+  MEMORY[0x1C68E1190](v16);
+  MEMORY[0x1C68E11C0](v15 >> 14);
+  return MEMORY[0x1C68E11C0](v17 >> 14);
 }
 
 Swift::Int AST.Atom.Callout.OnigurumaOfContents.hashValue.getter()
 {
   Hasher.init(_seed:)();
-  AST.Atom.Callout.OnigurumaOfContents.hash(into:)();
+  AST.Atom.Callout.OnigurumaOfContents.hash(into:)(v1);
   return Hasher._finalize()();
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Atom.Callout.OnigurumaOfContents()
 {
   Hasher.init(_seed:)();
-  AST.Atom.Callout.OnigurumaOfContents.hash(into:)();
+  AST.Atom.Callout.OnigurumaOfContents.hash(into:)(v1);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Callout.OnigurumaOfContents()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Callout.OnigurumaOfContents(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  AST.Atom.Callout.OnigurumaOfContents.hash(into:)();
+  AST.Atom.Callout.OnigurumaOfContents.hash(into:)(v2);
   return Hasher._finalize()();
 }
 
-void AST.Atom.Callout.hash(into:)(uint64_t a1)
+void AST.Atom.Callout.hash(into:)(uint64_t a1, uint64_t a2)
 {
-  v3 = v1[7];
-  v43[6] = v1[6];
-  v43[7] = v3;
-  v44[0] = v1[8];
-  *(v44 + 9) = *(v1 + 137);
-  v4 = v1[3];
-  v43[2] = v1[2];
-  v43[3] = v4;
-  v5 = v1[5];
-  v43[4] = v1[4];
-  v43[5] = v5;
-  v6 = v1[1];
-  v43[0] = *v1;
-  v43[1] = v6;
-  v7 = _s12_RegexParser3ASTV4AtomV7CalloutOWOg(v43);
-  if (v7)
+  v4 = v2[7];
+  v25[6] = v2[6];
+  v25[7] = v4;
+  v26[0] = v2[8];
+  *(v26 + 9) = *(v2 + 137);
+  v5 = v2[3];
+  v25[2] = v2[2];
+  v25[3] = v5;
+  v6 = v2[5];
+  v25[4] = v2[4];
+  v25[5] = v6;
+  v7 = v2[1];
+  v25[0] = *v2;
+  v25[1] = v7;
+  v8 = _s12_RegexParser3ASTV4AtomV7CalloutOWOg(v25);
+  if (v8)
   {
-    if (v7 == 1)
+    if (v8 == 1)
     {
-      v8 = AST.root.modify(v43);
+      AST.root.modify();
+      v10 = v9;
       MEMORY[0x1C68E1190](1);
-      v9 = *v8;
-      v10 = v8[1];
-      v11 = v8[2];
-      v12 = v8[3];
+      v11 = v10[2];
+      v12 = v10[3];
       String.hash(into:)();
       MEMORY[0x1C68E11C0](v11 >> 14);
       MEMORY[0x1C68E11C0](v12 >> 14);
-      if (v8[7])
+      if (v10[7])
       {
-        v13 = v8[4];
-        v14 = v8[5];
-        v15 = v8[6];
-        v16 = v8[8];
-        v17 = v8[9];
-        v18 = v8[10];
-        v31 = v8[11];
+        v13 = v10[4];
+        v14 = v10[5];
+        v15 = v10[8];
+        v16 = v10[9];
+        v17 = v10[10];
+        v24 = v10[11];
         Hasher._combine(_:)(1u);
         MEMORY[0x1C68E11C0](v13 >> 14);
         MEMORY[0x1C68E11C0](v14 >> 14);
         String.hash(into:)();
+        MEMORY[0x1C68E11C0](v15 >> 14);
         MEMORY[0x1C68E11C0](v16 >> 14);
         MEMORY[0x1C68E11C0](v17 >> 14);
-        MEMORY[0x1C68E11C0](v18 >> 14);
-        MEMORY[0x1C68E11C0](v31 >> 14);
-        v19 = v8[14];
-        if (v19)
+        MEMORY[0x1C68E11C0](v24 >> 14);
+        v18 = v10[14];
+        if (v18)
         {
 LABEL_5:
-          v21 = v8[15];
-          v20 = v8[16];
-          v24 = v8 + 12;
-          v22 = v8[12];
-          v23 = v24[1];
+          v20 = v10[15];
+          v19 = v10[16];
+          v23 = v10 + 12;
+          v21 = v10[12];
+          v22 = v23[1];
           Hasher._combine(_:)(1u);
-          MEMORY[0x1C68E11C0](v22 >> 14);
-          MEMORY[0x1C68E11C0](v23 >> 14);
-          specialized Array<A>.hash(into:)(a1, v19);
           MEMORY[0x1C68E11C0](v21 >> 14);
+          MEMORY[0x1C68E11C0](v22 >> 14);
+          specialized Array<A>.hash(into:)(a1, v18);
           MEMORY[0x1C68E11C0](v20 >> 14);
+          MEMORY[0x1C68E11C0](v19 >> 14);
           return;
         }
       }
@@ -5659,8 +5522,8 @@ LABEL_5:
       else
       {
         Hasher._combine(_:)(0);
-        v19 = v8[14];
-        if (v19)
+        v18 = v10[14];
+        if (v18)
         {
           goto LABEL_5;
         }
@@ -5671,53 +5534,38 @@ LABEL_5:
 
     else
     {
-      v29 = AST.root.modify(v43);
+      AST.root.modify();
       MEMORY[0x1C68E1190](2);
-      v39 = *(v29 + 96);
-      v40 = *(v29 + 112);
-      v41 = *(v29 + 128);
-      v42 = *(v29 + 144);
-      v35 = *(v29 + 32);
-      v36 = *(v29 + 48);
-      v37 = *(v29 + 64);
-      v38 = *(v29 + 80);
-      v33 = *v29;
-      v34 = *(v29 + 16);
-      AST.Atom.Callout.OnigurumaOfContents.hash(into:)();
+      AST.Atom.Callout.OnigurumaOfContents.hash(into:)(a1);
     }
   }
 
   else
   {
-    v25 = AST.root.modify(v43);
-    v26 = *(v25 + 32);
-    v27 = *(v25 + 40);
-    v28 = *(v25 + 48);
-    v30 = *(v25 + 16);
-    v32 = *v25;
+    AST.root.modify();
     MEMORY[0x1C68E1190](0);
-    specialized Source.Located<A>.hash(into:)();
+    specialized Source.Located<A>.hash(into:)(a1);
   }
 }
 
 Swift::Int AST.Atom.Callout.hashValue.getter()
 {
   Hasher.init(_seed:)();
-  AST.Atom.Callout.hash(into:)(v1);
+  AST.Atom.Callout.hash(into:)(v2, v0);
   return Hasher._finalize()();
 }
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Atom.Callout()
 {
   Hasher.init(_seed:)();
-  AST.Atom.Callout.hash(into:)(v1);
+  AST.Atom.Callout.hash(into:)(v2, v0);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Callout()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Callout(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  AST.Atom.Callout.hash(into:)(v1);
+  AST.Atom.Callout.hash(into:)(v3, v1);
   return Hasher._finalize()();
 }
 
@@ -5731,13 +5579,12 @@ uint64_t AST.Atom.Callout.OnigurumaTag.name.getter@<X0>(uint64_t a1@<X8>)
 
 __n128 AST.Atom.Callout.OnigurumaTag.name.setter(__n128 *a1)
 {
-  v6 = *a1;
+  v5 = *a1;
   v2 = a1[1].n128_u64[0];
   v3 = a1[1].n128_u64[1];
-  v4 = v1[1].n128_u64[1];
 
-  result = v6;
-  v1[1] = v6;
+  result = v5;
+  v1[1] = v5;
   v1[2].n128_u64[0] = v2;
   v1[2].n128_u64[1] = v3;
   return result;
@@ -5757,42 +5604,38 @@ __n128 AST.Atom.Callout.OnigurumaTag.init(_:_:_:)@<Q0>(_OWORD *a1@<X0>, __n128 *
   return result;
 }
 
-uint64_t AST.Atom.Callout.OnigurumaTag.hash(into:)()
+uint64_t AST.Atom.Callout.OnigurumaTag.hash(into:)(uint64_t a1)
 {
-  v1 = v0[1];
-  v2 = v0[2];
-  v3 = v0[3];
-  v4 = v0[4];
-  v5 = v0[5];
-  v6 = v0[6];
-  v7 = v0[7];
-  MEMORY[0x1C68E11C0](*v0 >> 14);
-  MEMORY[0x1C68E11C0](v1 >> 14);
+  v2 = v1[1];
+  v3 = v1[4];
+  v4 = v1[5];
+  v5 = v1[6];
+  v6 = v1[7];
+  MEMORY[0x1C68E11C0](*v1 >> 14);
+  MEMORY[0x1C68E11C0](v2 >> 14);
   String.hash(into:)();
+  MEMORY[0x1C68E11C0](v3 >> 14);
   MEMORY[0x1C68E11C0](v4 >> 14);
   MEMORY[0x1C68E11C0](v5 >> 14);
-  MEMORY[0x1C68E11C0](v6 >> 14);
-  return MEMORY[0x1C68E11C0](v7 >> 14);
+  return MEMORY[0x1C68E11C0](v6 >> 14);
 }
 
 Swift::Int AST.Atom.Callout.OnigurumaTag.hashValue.getter()
 {
   v1 = *v0;
   v2 = v0[1];
-  v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
-  v6 = v0[5];
-  v7 = v0[6];
-  v8 = v0[7];
+  v3 = v0[4];
+  v4 = v0[5];
+  v5 = v0[6];
+  v6 = v0[7];
   Hasher.init(_seed:)();
   MEMORY[0x1C68E11C0](v1 >> 14);
   MEMORY[0x1C68E11C0](v2 >> 14);
   String.hash(into:)();
+  MEMORY[0x1C68E11C0](v3 >> 14);
+  MEMORY[0x1C68E11C0](v4 >> 14);
   MEMORY[0x1C68E11C0](v5 >> 14);
   MEMORY[0x1C68E11C0](v6 >> 14);
-  MEMORY[0x1C68E11C0](v7 >> 14);
-  MEMORY[0x1C68E11C0](v8 >> 14);
   return Hasher._finalize()();
 }
 
@@ -5822,7 +5665,6 @@ uint64_t AST.Atom.BacktrackingDirective.name.getter@<X0>(uint64_t a1@<X8>)
 
 __n128 AST.Atom.BacktrackingDirective.name.setter(uint64_t a1)
 {
-  v3 = *(v1 + 32);
 
   result = *a1;
   *(v1 + 40) = *(a1 + 16);
@@ -5841,17 +5683,16 @@ __n128 AST.Atom.BacktrackingDirective.init(_:name:)@<Q0>(uint64_t a1@<X0>, uint6
   return result;
 }
 
-void AST.Atom.BacktrackingDirective.hash(into:)()
+void AST.Atom.BacktrackingDirective.hash(into:)(uint64_t a1)
 {
-  v1 = v0[1];
-  v2 = v0[2];
-  v3 = v0[3];
-  v4 = v0[4];
-  v6 = v0[5];
-  v5 = v0[6];
-  MEMORY[0x1C68E1190](*v0);
-  MEMORY[0x1C68E11C0](v1 >> 14);
+  v2 = v1[1];
+  v3 = v1[2];
+  v4 = v1[4];
+  v6 = v1[5];
+  v5 = v1[6];
+  MEMORY[0x1C68E1190](*v1);
   MEMORY[0x1C68E11C0](v2 >> 14);
+  MEMORY[0x1C68E11C0](v3 >> 14);
   if (v4)
   {
     Hasher._combine(_:)(1u);
@@ -5871,20 +5712,19 @@ Swift::Int AST.Atom.BacktrackingDirective.hashValue.getter()
   v1 = *v0;
   v2 = v0[1];
   v3 = v0[2];
-  v4 = v0[3];
-  v5 = v0[4];
-  v7 = v0[5];
-  v6 = v0[6];
+  v4 = v0[4];
+  v6 = v0[5];
+  v5 = v0[6];
   Hasher.init(_seed:)();
   MEMORY[0x1C68E1190](v1);
   MEMORY[0x1C68E11C0](v2 >> 14);
   MEMORY[0x1C68E11C0](v3 >> 14);
-  if (v5)
+  if (v4)
   {
     Hasher._combine(_:)(1u);
     String.hash(into:)();
-    MEMORY[0x1C68E11C0](v7 >> 14);
     MEMORY[0x1C68E11C0](v6 >> 14);
+    MEMORY[0x1C68E11C0](v5 >> 14);
   }
 
   else
@@ -5897,23 +5737,25 @@ Swift::Int AST.Atom.BacktrackingDirective.hashValue.getter()
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Atom.BacktrackingDirective()
 {
-  v2 = *v0;
-  v3 = *(v0 + 8);
-  v4 = *(v0 + 24);
-  v5 = *(v0 + 40);
+  v3[72] = *v0;
+  v1 = *(v0 + 24);
+  v4 = *(v0 + 8);
+  v5 = v1;
+  v6 = *(v0 + 40);
   Hasher.init(_seed:)();
-  AST.Atom.BacktrackingDirective.hash(into:)();
+  AST.Atom.BacktrackingDirective.hash(into:)(v3);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.BacktrackingDirective()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.BacktrackingDirective(uint64_t a1)
 {
-  v2 = *v0;
-  v3 = *(v0 + 8);
-  v4 = *(v0 + 24);
-  v5 = *(v0 + 40);
+  v4[72] = *v1;
+  v2 = *(v1 + 24);
+  v5 = *(v1 + 8);
+  v6 = v2;
+  v7 = *(v1 + 40);
   Hasher.init(_seed:)();
-  AST.Atom.BacktrackingDirective.hash(into:)();
+  AST.Atom.BacktrackingDirective.hash(into:)(v4);
   return Hasher._finalize()();
 }
 
@@ -5983,44 +5825,43 @@ unint64_t AST.Atom.EscapedBuiltin.scalarValue.getter()
 uint64_t AST.Atom.literalCharacterValue.getter()
 {
   v1 = type metadata accessor for AST.Atom.Kind(0);
-  v2 = *(*(v1 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v1, v3);
-  v5 = &v18 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of AST.CustomCharacterClass.Member(v0, v5, type metadata accessor for AST.Atom.Kind);
+  MEMORY[0x1EEE9AC00](v1);
+  v3 = &v15 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of AST.CustomCharacterClass.Member(v0, v3, type metadata accessor for AST.Atom.Kind);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   result = 0;
   switch(EnumCaseMultiPayload)
   {
     case 1:
-      v9 = *v5;
-      if (*v5 > 0x7Fu)
+      v6 = *v3;
+      if (*v3 > 0x7Fu)
       {
-        v13 = (*v5 & 0x3F) << 8;
-        if (v9 >= 0x800)
+        v10 = (*v3 & 0x3F) << 8;
+        if (v6 >= 0x800)
         {
-          v14 = v9 >> 12;
-          v15 = (v13 | (v9 >> 6) & 0x3F) << 8;
-          v16 = HIWORD(v9);
-          v10 = (((v15 | (v9 >> 12) & 0x3F) << 8) | (v9 >> 18)) - 2122219023;
-          v17 = v14 + v15 + 8487393;
-          if (!v16)
+          v11 = v6 >> 12;
+          v12 = (v10 | (v6 >> 6) & 0x3F) << 8;
+          v13 = HIWORD(v6);
+          v7 = (((v12 | (v6 >> 12) & 0x3F) << 8) | (v6 >> 18)) - 2122219023;
+          v14 = v11 + v12 + 8487393;
+          if (!v13)
           {
-            v10 = v17;
+            v7 = v14;
           }
         }
 
         else
         {
-          v10 = (v9 >> 6) + v13 + 33217;
+          v7 = (v6 >> 6) + v10 + 33217;
         }
       }
 
       else
       {
-        v10 = v9 + 1;
+        v7 = v6 + 1;
       }
 
-      v19 = (v10 + 0xFEFEFEFEFEFEFFLL) & ~(-1 << (8 * (4 - (__clz(v10) >> 3))));
+      v16 = (v7 + 0xFEFEFEFEFEFEFFLL) & ~(-1 << (8 * (4 - (__clz(v7) >> 3))));
       return static String._uncheckedFromUTF8(_:)();
     case 2:
     case 3:
@@ -6033,71 +5874,71 @@ uint64_t AST.Atom.literalCharacterValue.getter()
     case 11:
     case 12:
     case 13:
-      outlined destroy of AST.CustomCharacterClass.Member(v5, type metadata accessor for AST.Atom.Kind);
+      outlined destroy of AST.CustomCharacterClass.Member(v3, type metadata accessor for AST.Atom.Kind);
       return 0;
     case 4:
-      v11 = *v5;
-      if (v11 <= 2)
+      v8 = *v3;
+      if (v8 <= 2)
       {
-        if (*v5)
+        if (*v3)
         {
-          if (v11 == 1)
+          if (v8 == 1)
           {
-            v12 = 27;
+            v9 = 27;
           }
 
           else
           {
-            v12 = 12;
+            v9 = 12;
           }
         }
 
         else
         {
-          v12 = 7;
+          v9 = 7;
         }
       }
 
       else
       {
-        if (v11 > 0x1E)
+        if (v8 > 0x1E)
         {
           goto LABEL_21;
         }
 
-        if (((1 << v11) & 0x7FF7FFC0) != 0)
+        if (((1 << v8) & 0x7FF7FFC0) != 0)
         {
           return 0;
         }
 
-        if (v11 == 5)
+        if (v8 == 5)
         {
-          v12 = 9;
+          v9 = 9;
           goto LABEL_24;
         }
 
-        if (v11 == 19)
+        if (v8 == 19)
         {
-          v12 = 8;
+          v9 = 8;
         }
 
         else
         {
 LABEL_21:
-          if (v11 == 3)
+          if (v8 == 3)
           {
-            v12 = 10;
+            v9 = 10;
           }
 
           else
           {
-            v12 = 13;
+            v9 = 13;
           }
         }
       }
 
 LABEL_24:
-      v19 = v12;
+      v16 = v9;
       return static String._uncheckedFromUTF8(_:)();
     case 14:
     case 15:
@@ -6105,36 +5946,33 @@ LABEL_24:
     case 17:
       return result;
     default:
-      result = *v5;
-      v8 = *(v5 + 1);
-      return result;
+      return *v3;
   }
 }
 
 uint64_t AST.Atom.isValidCharacterClassRangeBound.getter()
 {
   v1 = type metadata accessor for AST.Atom.Kind(0);
-  v2 = *(*(v1 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v1, v3);
-  v5 = &v14 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = AST.Atom.literalCharacterValue.getter();
-  if (!v7)
+  MEMORY[0x1EEE9AC00](v1);
+  v3 = &v12 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = AST.Atom.literalCharacterValue.getter();
+  if (!v5)
   {
-    outlined init with copy of AST.CustomCharacterClass.Member(v0, v5, type metadata accessor for AST.Atom.Kind);
+    outlined init with copy of AST.CustomCharacterClass.Member(v0, v3, type metadata accessor for AST.Atom.Kind);
     EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
     if ((EnumCaseMultiPayload - 5) < 4 || EnumCaseMultiPayload == 2)
     {
-      outlined destroy of AST.CustomCharacterClass.Member(v5, type metadata accessor for AST.Atom.Kind);
+      outlined destroy of AST.CustomCharacterClass.Member(v3, type metadata accessor for AST.Atom.Kind);
       return 1;
     }
 
-    outlined destroy of AST.CustomCharacterClass.Member(v5, type metadata accessor for AST.Atom.Kind);
+    outlined destroy of AST.CustomCharacterClass.Member(v3, type metadata accessor for AST.Atom.Kind);
     return 0;
   }
 
-  v8 = v6;
-  v9 = v7;
-  if (!Character.hasExactlyOneScalar.getter(v6, v7))
+  v6 = v4;
+  v7 = v5;
+  if (!Character.hasExactlyOneScalar.getter(v4, v5))
   {
 
     return 0;
@@ -6142,10 +5980,10 @@ uint64_t AST.Atom.isValidCharacterClassRangeBound.getter()
 
   if ((Character.asciiValue.getter() & 0x100) != 0)
   {
-    v12 = String._nfcCodeUnits.getter();
-    v13 = specialized Sequence<>.elementsEqual<A>(_:)(v8, v9, v12);
+    v10 = String._nfcCodeUnits.getter();
+    v11 = specialized Sequence<>.elementsEqual<A>(_:)(v6, v7, v10);
 
-    return v13 & 1;
+    return v11 & 1;
   }
 
   else
@@ -6210,33 +6048,32 @@ BOOL Character.hasExactlyOneScalar.getter(unint64_t a1, unint64_t a2)
 uint64_t AST.Atom.literalStringValue.getter()
 {
   v1 = type metadata accessor for AST.Atom.Kind(0);
-  v2 = *(*(v1 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v1, v3);
-  v5 = &v24 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of AST.CustomCharacterClass.Member(v0, v5, type metadata accessor for AST.Atom.Kind);
+  MEMORY[0x1EEE9AC00](v1);
+  v3 = &v15 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of AST.CustomCharacterClass.Member(v0, v3, type metadata accessor for AST.Atom.Kind);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   result = 0;
   switch(EnumCaseMultiPayload)
   {
     case 1:
-      v16 = *v5;
+      v11 = *v3;
       __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys7UnicodeO6ScalarVGMd, &_ss23_ContiguousArrayStorageCys7UnicodeO6ScalarVGMR);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_1C0C7E2F0;
-      *(inited + 32) = v16;
-      v18 = scalarLiteral #1 (_:) in AST.Atom.literalStringValue.getter(inited);
+      *(inited + 32) = v11;
+      v13 = scalarLiteral #1 (_:) in AST.Atom.literalStringValue.getter(inited);
       swift_setDeallocating();
-      return v18;
+      return v13;
     case 2:
-      v12 = *v5;
-      v11 = *(v5 + 1);
-      v25 = v12;
-      v26 = v11;
-      v13 = AST.Atom.ScalarSequence.scalarValues.getter();
+      v8 = *v3;
+      v7 = *(v3 + 1);
+      v16 = v8;
+      v17 = v7;
+      v9 = AST.Atom.ScalarSequence.scalarValues.getter();
 
-      v14 = scalarLiteral #1 (_:) in AST.Atom.literalStringValue.getter(v13);
+      v10 = scalarLiteral #1 (_:) in AST.Atom.literalStringValue.getter(v9);
 
-      return v14;
+      return v10;
     case 3:
     case 8:
     case 9:
@@ -6244,7 +6081,7 @@ uint64_t AST.Atom.literalStringValue.getter()
     case 11:
     case 12:
     case 13:
-      outlined destroy of AST.CustomCharacterClass.Member(v5, type metadata accessor for AST.Atom.Kind);
+      outlined destroy of AST.CustomCharacterClass.Member(v3, type metadata accessor for AST.Atom.Kind);
       return 0;
     case 4:
     case 14:
@@ -6253,37 +6090,30 @@ uint64_t AST.Atom.literalStringValue.getter()
     case 17:
       return result;
     case 5:
-      v23 = *v5;
-      v22 = *(v5 + 1);
-      v25 = 0;
-      v26 = 0xE000000000000000;
-      v10 = 2966364;
+      v16 = 0;
+      v17 = 0xE000000000000000;
+      v6 = 2966364;
       goto LABEL_9;
     case 6:
-      v9 = *v5;
-      v8 = *(v5 + 1);
-      v25 = 0;
-      v26 = 0xE000000000000000;
-      v10 = 2968924;
+      v16 = 0;
+      v17 = 0xE000000000000000;
+      v6 = 2968924;
 LABEL_9:
-      v21 = 0xE300000000000000;
+      v14 = 0xE300000000000000;
       goto LABEL_10;
     case 7:
-      v20 = *v5;
-      v19 = *(v5 + 1);
-      v25 = 0;
-      v26 = 0xE000000000000000;
-      v10 = 0x2D435C2D4D5CLL;
-      v21 = 0xE600000000000000;
+      v16 = 0;
+      v17 = 0xE000000000000000;
+      v6 = 0x2D435C2D4D5CLL;
+      v14 = 0xE600000000000000;
 LABEL_10:
-      MEMORY[0x1C68E0BF0](v10, v21);
+      MEMORY[0x1C68E0BF0](v6, v14);
       Character.write<A>(to:)();
 
-      result = v25;
+      result = v16;
       break;
     default:
-      result = *v5;
-      v15 = *(v5 + 1);
+      result = *v3;
       break;
   }
 
@@ -6295,32 +6125,32 @@ uint64_t scalarLiteral #1 (_:) in AST.Atom.literalStringValue.getter(uint64_t a1
   v1 = *(a1 + 16);
   if (v1)
   {
-    v17 = MEMORY[0x1E69E7CC0];
+    v16 = MEMORY[0x1E69E7CC0];
     specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v1, 0);
-    v3 = v17;
-    v4 = (a1 + 32);
+    v3 = v16;
+    v4 = a1 + 32;
     lazy protocol witness table accessor for type UInt32 and conformance UInt32();
     do
     {
-      v5 = *v4++;
-      v6 = String.init<A>(_:radix:uppercase:)();
-      v18 = v3;
-      v9 = *(v3 + 16);
-      v8 = *(v3 + 24);
-      if (v9 >= v8 >> 1)
+      v4 += 4;
+      v5 = String.init<A>(_:radix:uppercase:)();
+      v17 = v3;
+      v8 = *(v3 + 16);
+      v7 = *(v3 + 24);
+      if (v8 >= v7 >> 1)
       {
+        v10 = v5;
         v11 = v6;
-        v12 = v7;
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v8 > 1), v9 + 1, 1);
-        v7 = v12;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v7 > 1), v8 + 1, 1);
         v6 = v11;
-        v3 = v18;
+        v5 = v10;
+        v3 = v17;
       }
 
-      *(v3 + 16) = v9 + 1;
-      v10 = v3 + 16 * v9;
-      *(v10 + 32) = v6;
-      *(v10 + 40) = v7;
+      *(v3 + 16) = v8 + 1;
+      v9 = v3 + 16 * v8;
+      *(v9 + 32) = v5;
+      *(v9 + 40) = v6;
       --v1;
     }
 
@@ -6328,11 +6158,11 @@ uint64_t scalarLiteral #1 (_:) in AST.Atom.literalStringValue.getter(uint64_t a1
   }
 
   swift_getCanonicalSpecializedMetadata();
-  lazy protocol witness table accessor for type [String] and conformance [A](&lazy protocol witness table cache variable for type [String] and conformance [A]);
-  v13 = BidirectionalCollection<>.joined(separator:)();
-  v15 = v14;
+  lazy protocol witness table accessor for type [String] and conformance [A](&lazy protocol witness table cache variable for type [String] and conformance [A], &unk_1F402B990, &cache variable for noncanonical specialized generic type metadata for [String], MEMORY[0x1E69E6310]);
+  v12 = BidirectionalCollection<>.joined(separator:)();
+  v14 = v13;
 
-  MEMORY[0x1C68E0BF0](v13, v15);
+  MEMORY[0x1C68E0BF0](v12, v14);
 
   MEMORY[0x1C68E0BF0](125, 0xE100000000000000);
   return 8090972;
@@ -6341,17 +6171,16 @@ uint64_t scalarLiteral #1 (_:) in AST.Atom.literalStringValue.getter(uint64_t a1
 uint64_t AST.Node.literalStringValue.getter()
 {
   v1 = type metadata accessor for AST.Atom(0);
-  v2 = *(*(v1 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v1 - 8, v3);
-  v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v1 - 8);
+  v3 = &v7 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   result = 0;
   if (*v0 >> 60 == 8)
   {
-    v7 = swift_projectBox();
-    outlined init with copy of AST.CustomCharacterClass.Member(v7, v5, type metadata accessor for AST.Atom);
-    v8 = AST.Atom.literalStringValue.getter();
-    outlined destroy of AST.CustomCharacterClass.Member(v5, type metadata accessor for AST.Atom);
-    return v8;
+    v5 = swift_projectBox();
+    outlined init with copy of AST.CustomCharacterClass.Member(v5, v3, type metadata accessor for AST.Atom);
+    v6 = AST.Atom.literalStringValue.getter();
+    outlined destroy of AST.CustomCharacterClass.Member(v3, type metadata accessor for AST.Atom);
+    return v6;
   }
 
   return result;
@@ -6440,7 +6269,6 @@ __n128 AST.Conditional.condition.setter(uint64_t a1)
 uint64_t AST.Conditional.trueBranch.setter(uint64_t *a1)
 {
   v2 = *a1;
-  v3 = *(v1 + 160);
 
   *(v1 + 160) = v2;
   return result;
@@ -6467,7 +6295,6 @@ __n128 AST.Conditional.pipe.setter(__n128 *a1)
 uint64_t AST.Conditional.falseBranch.setter(uint64_t *a1)
 {
   v2 = *a1;
-  v3 = *(v1 + 192);
 
   *(v1 + 192) = v2;
   return result;
@@ -6508,18 +6335,16 @@ uint64_t AST.Conditional.hash(into:)(uint64_t a1)
   v3 = *(v1 + 8);
   v4 = *(v1 + 144);
   v5 = *(v1 + 152);
-  v7 = *(v1 + 160);
   v6 = *(v1 + 168);
-  v11 = *(v1 + 176);
-  v8 = *(v1 + 184);
-  v9 = *(v1 + 192);
+  v9 = *(v1 + 176);
+  v7 = *(v1 + 184);
   MEMORY[0x1C68E11C0](*v1 >> 14);
   MEMORY[0x1C68E11C0](v3 >> 14);
   AST.Conditional.Condition.Kind.hash(into:)(a1);
   MEMORY[0x1C68E11C0](v4 >> 14);
   MEMORY[0x1C68E11C0](v5 >> 14);
   AST.Node.hash(into:)(a1);
-  if (v8 == 1)
+  if (v7 == 1)
   {
     Hasher._combine(_:)(0);
   }
@@ -6528,7 +6353,7 @@ uint64_t AST.Conditional.hash(into:)(uint64_t a1)
   {
     Hasher._combine(_:)(1u);
     MEMORY[0x1C68E11C0](v6 >> 14);
-    MEMORY[0x1C68E11C0](v11 >> 14);
+    MEMORY[0x1C68E11C0](v9 >> 14);
   }
 
   return AST.Node.hash(into:)(a1);
@@ -6548,10 +6373,10 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Con
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Conditional()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Conditional(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  AST.Conditional.hash(into:)(v1);
+  AST.Conditional.hash(into:)(v2);
   return Hasher._finalize()();
 }
 
@@ -6561,15 +6386,6 @@ uint64_t AST.Conditional._dumpBase.getter()
   v2 = *(v0 + 192);
   _StringGuts.grow(_:)(21);
 
-  v14 = *(v0 + 112);
-  v15 = *(v0 + 128);
-  v16 = *(v0 + 144);
-  v10 = *(v0 + 48);
-  v11 = *(v0 + 64);
-  v12 = *(v0 + 80);
-  v13 = *(v0 + 96);
-  v8 = *(v0 + 16);
-  v9 = *(v0 + 32);
   v3 = lazy protocol witness table accessor for type AST.Conditional.Condition and conformance AST.Conditional.Condition();
   v4 = (*(v3 + 24))(&type metadata for AST.Conditional.Condition, v3);
   MEMORY[0x1C68E0BF0](v4);
@@ -6588,64 +6404,57 @@ uint64_t AST.Conditional._dumpBase.getter()
 uint64_t AST.Conditional.Condition.Kind.hash(into:)(uint64_t a1)
 {
   v3 = v1[5];
-  v48[4] = v1[4];
-  v48[5] = v3;
+  v33[4] = v1[4];
+  v33[5] = v3;
   v4 = v1[7];
-  v48[6] = v1[6];
-  v48[7] = v4;
+  v33[6] = v1[6];
+  v33[7] = v4;
   v5 = v1[1];
-  v48[0] = *v1;
-  v48[1] = v5;
+  v33[0] = *v1;
+  v33[1] = v5;
   v6 = v1[3];
-  v48[2] = v1[2];
-  v48[3] = v6;
-  v7 = _s12_RegexParser3ASTV11ConditionalV9ConditionV4KindOWOg(v48);
+  v33[2] = v1[2];
+  v33[3] = v6;
+  v7 = _s12_RegexParser3ASTV11ConditionalV9ConditionV4KindOWOg(v33);
   if (v7 <= 2)
   {
     if (!v7)
     {
-      v8 = _s12_RegexParser3ASTV11ConditionalV9ConditionV4KindOWOi_(v48);
-      v9 = 0;
+      _s12_RegexParser3ASTV11ConditionalV9ConditionV4KindOWOi_(v33);
+      v8 = 0;
       goto LABEL_9;
     }
 
     if (v7 == 1)
     {
-      v8 = _s12_RegexParser3ASTV11ConditionalV9ConditionV4KindOWOi_(v48);
-      v9 = 2;
+      _s12_RegexParser3ASTV11ConditionalV9ConditionV4KindOWOi_(v33);
+      v8 = 2;
 LABEL_9:
-      MEMORY[0x1C68E1190](v9);
-      v40 = v8[2];
-      v42 = v8[3];
-      v44 = v8[4];
-      v46 = v8[5];
-      v36 = *v8;
-      v38 = v8[1];
-      return AST.Reference.hash(into:)();
+      MEMORY[0x1C68E1190](v8);
+      return AST.Reference.hash(into:)(a1);
     }
 
-    v19 = _s12_RegexParser3ASTV11ConditionalV9ConditionV4KindOWOi_(v48);
+    v17 = _s12_RegexParser3ASTV11ConditionalV9ConditionV4KindOWOi_(v33);
     MEMORY[0x1C68E1190](4);
-    v20 = *v19;
-    v21 = *(v19 + 1);
-    v22 = *(v19 + 2);
-    v23 = *(v19 + 3);
-    v24 = v19[32];
-    v25 = *(v19 + 5);
-    v26 = *(v19 + 6);
-    v27 = *(v19 + 7);
-    v28 = v19[64];
-    v29 = *(v19 + 10);
+    v18 = *v17;
+    v19 = *(v17 + 1);
+    v20 = *(v17 + 2);
+    v21 = *(v17 + 3);
+    v22 = v17[32];
+    v23 = *(v17 + 5);
+    v24 = *(v17 + 6);
+    v25 = v17[64];
+    v26 = *(v17 + 10);
+    v29 = *(v17 + 7);
+    v30 = *(v17 + 9);
+    v27 = *(v17 + 11);
+    v28 = *(v17 + 12);
+    v31 = v26;
     v32 = v27;
-    v33 = *(v19 + 9);
-    v30 = *(v19 + 11);
-    v31 = *(v19 + 12);
-    v34 = v29;
-    v35 = v30;
-    MEMORY[0x1C68E1190](v20);
-    MEMORY[0x1C68E11C0](v21 >> 14);
-    MEMORY[0x1C68E11C0](v22 >> 14);
-    if (v24 == 1)
+    MEMORY[0x1C68E1190](v18);
+    MEMORY[0x1C68E11C0](v19 >> 14);
+    MEMORY[0x1C68E11C0](v20 >> 14);
+    if (v22 == 1)
     {
       Hasher._combine(_:)(0);
     }
@@ -6653,12 +6462,12 @@ LABEL_9:
     else
     {
       Hasher._combine(_:)(1u);
-      MEMORY[0x1C68E1190](v23);
+      MEMORY[0x1C68E1190](v21);
     }
 
-    MEMORY[0x1C68E11C0](v25 >> 14);
-    MEMORY[0x1C68E11C0](v26 >> 14);
-    if (v28)
+    MEMORY[0x1C68E11C0](v23 >> 14);
+    MEMORY[0x1C68E11C0](v24 >> 14);
+    if (v25)
     {
       Hasher._combine(_:)(0);
     }
@@ -6666,51 +6475,44 @@ LABEL_9:
     else
     {
       Hasher._combine(_:)(1u);
-      MEMORY[0x1C68E1190](v32);
+      MEMORY[0x1C68E1190](v29);
     }
 
-    MEMORY[0x1C68E11C0](v33 >> 14);
-    MEMORY[0x1C68E11C0](v34 >> 14);
-    MEMORY[0x1C68E11C0](v35 >> 14);
-    v18 = v31 >> 14;
-    return MEMORY[0x1C68E11C0](v18);
+    MEMORY[0x1C68E11C0](v30 >> 14);
+    MEMORY[0x1C68E11C0](v31 >> 14);
+    MEMORY[0x1C68E11C0](v32 >> 14);
+    v16 = v28 >> 14;
+    return MEMORY[0x1C68E11C0](v16);
   }
 
   if (v7 == 3)
   {
-    v12 = _s12_RegexParser3ASTV11ConditionalV9ConditionV4KindOWOi_(v48);
+    v11 = _s12_RegexParser3ASTV11ConditionalV9ConditionV4KindOWOi_(v33);
     MEMORY[0x1C68E1190](5);
-    v13 = *(v12 + 104);
-    v14 = *(v12 + 112);
-    v15 = *(v12 + 120);
-    v16 = *(v12 + 88);
-    v17 = *(v12 + 96);
-    v45 = *(v12 + 64);
-    v47 = *(v12 + 80);
-    v37 = *v12;
-    v39 = *(v12 + 16);
-    v41 = *(v12 + 32);
-    v43 = *(v12 + 48);
+    v12 = v11[14];
+    v13 = v11[15];
+    v14 = v11[11];
+    v15 = v11[12];
     AST.Group.Kind.hash(into:)(a1);
-    MEMORY[0x1C68E11C0](v16 >> 14);
-    MEMORY[0x1C68E11C0](v17 >> 14);
-    AST.Node.hash(into:)(a1);
     MEMORY[0x1C68E11C0](v14 >> 14);
-    v18 = v15 >> 14;
-    return MEMORY[0x1C68E11C0](v18);
+    MEMORY[0x1C68E11C0](v15 >> 14);
+    AST.Node.hash(into:)(a1);
+    MEMORY[0x1C68E11C0](v12 >> 14);
+    v16 = v13 >> 14;
+    return MEMORY[0x1C68E11C0](v16);
   }
 
   if (v7 == 4)
   {
-    v10 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v10 = 3;
+    v9 = 3;
   }
 
-  return MEMORY[0x1C68E1190](v10);
+  return MEMORY[0x1C68E1190](v9);
 }
 
 Swift::Int AST.Conditional.Condition.Kind.hashValue.getter()
@@ -6852,14 +6654,14 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance AST.Conditiona
   return MEMORY[0x1C68E11C0](v3 >> 14);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Conditional.Condition()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Conditional.Condition(uint64_t a1)
 {
-  v1 = *(v0 + 128);
-  v2 = *(v0 + 136);
+  v2 = *(v1 + 128);
+  v3 = *(v1 + 136);
   Hasher.init(_seed:)();
-  AST.Conditional.Condition.Kind.hash(into:)(v4);
-  MEMORY[0x1C68E11C0](v1 >> 14);
+  AST.Conditional.Condition.Kind.hash(into:)(v5);
   MEMORY[0x1C68E11C0](v2 >> 14);
+  MEMORY[0x1C68E11C0](v3 >> 14);
   return Hasher._finalize()();
 }
 
@@ -7092,7 +6894,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Con
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Conditional.Condition.PCREVersionCheck()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Conditional.Condition.PCREVersionCheck(uint64_t a1)
 {
   Hasher.init(_seed:)();
   AST.Conditional.Condition.PCREVersionCheck.hash(into:)();
@@ -7117,7 +6919,6 @@ __n128 AST.CustomCharacterClass.start.setter(uint64_t a1)
 
 uint64_t AST.CustomCharacterClass.members.setter(uint64_t a1)
 {
-  v3 = *(v1 + 24);
 
   *(v1 + 24) = a1;
   return result;
@@ -7142,180 +6943,170 @@ __n128 AST.CustomCharacterClass.init(_:_:_:)@<Q0>(uint64_t a1@<X0>, uint64_t a2@
 
 uint64_t AST.CustomCharacterClass.Member.hash(into:)(uint64_t a1)
 {
-  v72 = type metadata accessor for AST.Atom(0);
-  v3 = *(*(v72 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v72, v4);
-  v6 = &v69 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = type metadata accessor for AST.CustomCharacterClass.Range(0);
-  v8 = *(*(v7 - 1) + 64);
-  MEMORY[0x1EEE9AC00](v7, v9);
-  v11 = &v69 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for AST.CustomCharacterClass.Member(0);
-  v71 = *(v12 - 8);
-  v13 = *(v71 + 64);
-  v15 = MEMORY[0x1EEE9AC00](v12, v14);
-  v17 = &v69 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = MEMORY[0x1EEE9AC00](v15, v18);
-  v21 = &v69 - v20;
-  v23 = MEMORY[0x1EEE9AC00](v19, v22);
-  v25 = &v69 - v24;
-  MEMORY[0x1EEE9AC00](v23, v26);
-  v28 = (&v69 - v27);
-  outlined init with copy of AST.CustomCharacterClass.Member(v1, &v69 - v27, type metadata accessor for AST.CustomCharacterClass.Member);
+  v56 = type metadata accessor for AST.Atom(0);
+  MEMORY[0x1EEE9AC00](v56);
+  v4 = &v53 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for AST.CustomCharacterClass.Range(0);
+  MEMORY[0x1EEE9AC00](v5);
+  v7 = &v53 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for AST.CustomCharacterClass.Member(0);
+  v55 = *(v8 - 8);
+  v9 = MEMORY[0x1EEE9AC00](v8);
+  v11 = &v53 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = MEMORY[0x1EEE9AC00](v9);
+  v14 = &v53 - v13;
+  v15 = MEMORY[0x1EEE9AC00](v12);
+  v17 = &v53 - v16;
+  MEMORY[0x1EEE9AC00](v15);
+  v19 = (&v53 - v18);
+  outlined init with copy of AST.CustomCharacterClass.Member(v1, &v53 - v18, type metadata accessor for AST.CustomCharacterClass.Member);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload > 2)
   {
     if (EnumCaseMultiPayload == 3)
     {
-      v53 = *v28;
-      v54 = v28[1];
-      v42 = v28[2];
-      v41 = v28[3];
-      v43 = 3;
+      v31 = v19[2];
+      v30 = v19[3];
+      v32 = 3;
     }
 
     else
     {
       if (EnumCaseMultiPayload != 4)
       {
-        v58 = *v28;
-        v59 = *(v28 + 8);
-        v60 = v28[3];
-        v72 = v28[2];
-        v61 = v28[4];
+        v44 = *v19;
+        v45 = v19[3];
+        v56 = v19[2];
+        v46 = v19[4];
         MEMORY[0x1C68E1190](5);
-        MEMORY[0x1C68E1190](*(v58 + 16));
-        v62 = *(v58 + 16);
-        if (v62)
+        MEMORY[0x1C68E1190](*(v44 + 16));
+        v47 = *(v44 + 16);
+        if (v47)
         {
-          v70 = v60;
-          v63 = v58 + ((*(v71 + 80) + 32) & ~*(v71 + 80));
-          v64 = *(v71 + 72);
+          v54 = v45;
+          v48 = v44 + ((*(v55 + 80) + 32) & ~*(v55 + 80));
+          v49 = *(v55 + 72);
           do
           {
-            outlined init with copy of AST.CustomCharacterClass.Member(v63, v21, type metadata accessor for AST.CustomCharacterClass.Member);
+            outlined init with copy of AST.CustomCharacterClass.Member(v48, v14, type metadata accessor for AST.CustomCharacterClass.Member);
             AST.CustomCharacterClass.Member.hash(into:)(a1);
-            outlined destroy of AST.CustomCharacterClass.Member(v21, type metadata accessor for AST.CustomCharacterClass.Member);
-            v63 += v64;
-            --v62;
+            outlined destroy of AST.CustomCharacterClass.Member(v14, type metadata accessor for AST.CustomCharacterClass.Member);
+            v48 += v49;
+            --v47;
           }
 
-          while (v62);
+          while (v47);
 
-          v60 = v70;
+          v45 = v54;
         }
 
         else
         {
         }
 
-        v65 = qword_1C0C83B30[v59];
         String.hash(into:)();
 
-        MEMORY[0x1C68E11C0](v72 >> 14);
-        MEMORY[0x1C68E11C0](v60 >> 14);
-        MEMORY[0x1C68E1190](*(v61 + 16));
-        v66 = *(v61 + 16);
-        if (v66)
+        MEMORY[0x1C68E11C0](v56 >> 14);
+        MEMORY[0x1C68E11C0](v45 >> 14);
+        MEMORY[0x1C68E1190](*(v46 + 16));
+        v50 = *(v46 + 16);
+        if (v50)
         {
-          v67 = v61 + ((*(v71 + 80) + 32) & ~*(v71 + 80));
-          v68 = *(v71 + 72);
+          v51 = v46 + ((*(v55 + 80) + 32) & ~*(v55 + 80));
+          v52 = *(v55 + 72);
           do
           {
-            outlined init with copy of AST.CustomCharacterClass.Member(v67, v17, type metadata accessor for AST.CustomCharacterClass.Member);
+            outlined init with copy of AST.CustomCharacterClass.Member(v51, v11, type metadata accessor for AST.CustomCharacterClass.Member);
             AST.CustomCharacterClass.Member.hash(into:)(a1);
-            outlined destroy of AST.CustomCharacterClass.Member(v17, type metadata accessor for AST.CustomCharacterClass.Member);
-            v67 += v68;
-            --v66;
+            outlined destroy of AST.CustomCharacterClass.Member(v11, type metadata accessor for AST.CustomCharacterClass.Member);
+            v51 += v52;
+            --v50;
           }
 
-          while (v66);
+          while (v50);
         }
       }
 
-      v39 = *v28;
-      v40 = v28[1];
-      v42 = v28[2];
-      v41 = v28[3];
-      v43 = 4;
+      v31 = v19[2];
+      v30 = v19[3];
+      v32 = 4;
     }
 
-    MEMORY[0x1C68E1190](v43);
+    MEMORY[0x1C68E1190](v32);
     String.hash(into:)();
-    MEMORY[0x1C68E11C0](v42 >> 14);
-    MEMORY[0x1C68E11C0](v41 >> 14);
+    MEMORY[0x1C68E11C0](v31 >> 14);
+    MEMORY[0x1C68E11C0](v30 >> 14);
   }
 
   if (!EnumCaseMultiPayload)
   {
-    v44 = *v28;
-    v45 = v28[1];
-    v46 = v28[2];
-    v47 = v28[3];
-    v48 = v28[4];
-    v49 = v28[5];
+    v33 = v19[1];
+    v34 = v19[2];
+    v35 = v19[3];
+    v36 = v19[4];
+    v37 = v19[5];
     MEMORY[0x1C68E1190](0);
     String.hash(into:)();
 
-    MEMORY[0x1C68E11C0](v45 >> 14);
-    MEMORY[0x1C68E11C0](v46 >> 14);
-    MEMORY[0x1C68E1190](*(v47 + 16));
-    v50 = *(v47 + 16);
-    if (v50)
+    MEMORY[0x1C68E11C0](v33 >> 14);
+    MEMORY[0x1C68E11C0](v34 >> 14);
+    MEMORY[0x1C68E1190](*(v35 + 16));
+    v38 = *(v35 + 16);
+    if (v38)
     {
-      v51 = v47 + ((*(v71 + 80) + 32) & ~*(v71 + 80));
-      v52 = *(v71 + 72);
+      v39 = v35 + ((*(v55 + 80) + 32) & ~*(v55 + 80));
+      v40 = *(v55 + 72);
       do
       {
-        outlined init with copy of AST.CustomCharacterClass.Member(v51, v25, type metadata accessor for AST.CustomCharacterClass.Member);
+        outlined init with copy of AST.CustomCharacterClass.Member(v39, v17, type metadata accessor for AST.CustomCharacterClass.Member);
         AST.CustomCharacterClass.Member.hash(into:)(a1);
-        outlined destroy of AST.CustomCharacterClass.Member(v25, type metadata accessor for AST.CustomCharacterClass.Member);
-        v51 += v52;
-        --v50;
+        outlined destroy of AST.CustomCharacterClass.Member(v17, type metadata accessor for AST.CustomCharacterClass.Member);
+        v39 += v40;
+        --v38;
       }
 
-      while (v50);
+      while (v38);
     }
 
-    MEMORY[0x1C68E11C0](v48 >> 14);
-    MEMORY[0x1C68E11C0](v49 >> 14);
+    MEMORY[0x1C68E11C0](v36 >> 14);
+    MEMORY[0x1C68E11C0](v37 >> 14);
   }
 
   if (EnumCaseMultiPayload == 1)
   {
-    outlined init with take of AST.Atom.Kind(v28, v11, type metadata accessor for AST.CustomCharacterClass.Range);
+    outlined init with take of AST.Atom.Kind(v19, v7, type metadata accessor for AST.CustomCharacterClass.Range);
     MEMORY[0x1C68E1190](1);
     AST.Atom.Kind.hash(into:)(a1);
-    v30 = v72;
-    v31 = &v11[*(v72 + 20)];
-    v32 = *(v31 + 1);
-    MEMORY[0x1C68E11C0](*v31 >> 14);
-    MEMORY[0x1C68E11C0](v32 >> 14);
-    v33 = &v11[v7[5]];
-    v34 = *(v33 + 1);
-    MEMORY[0x1C68E11C0](*v33 >> 14);
-    MEMORY[0x1C68E11C0](v34 >> 14);
-    v35 = &v11[v7[6]];
+    v21 = v56;
+    v22 = &v7[*(v56 + 20)];
+    v23 = *(v22 + 1);
+    MEMORY[0x1C68E11C0](*v22 >> 14);
+    MEMORY[0x1C68E11C0](v23 >> 14);
+    v24 = &v7[v5[5]];
+    v25 = *(v24 + 1);
+    MEMORY[0x1C68E11C0](*v24 >> 14);
+    MEMORY[0x1C68E11C0](v25 >> 14);
+    v26 = &v7[v5[6]];
     AST.Atom.Kind.hash(into:)(a1);
-    v36 = &v35[*(v30 + 20)];
-    v37 = *(v36 + 1);
-    MEMORY[0x1C68E11C0](*v36 >> 14);
-    MEMORY[0x1C68E11C0](v37 >> 14);
-    specialized Array<A>.hash(into:)(a1, *&v11[v7[7]]);
-    return outlined destroy of AST.CustomCharacterClass.Member(v11, type metadata accessor for AST.CustomCharacterClass.Range);
+    v27 = &v26[*(v21 + 20)];
+    v28 = *(v27 + 1);
+    MEMORY[0x1C68E11C0](*v27 >> 14);
+    MEMORY[0x1C68E11C0](v28 >> 14);
+    specialized Array<A>.hash(into:)(a1, *&v7[v5[7]]);
+    return outlined destroy of AST.CustomCharacterClass.Member(v7, type metadata accessor for AST.CustomCharacterClass.Range);
   }
 
   else
   {
-    outlined init with take of AST.Atom.Kind(v28, v6, type metadata accessor for AST.Atom);
+    outlined init with take of AST.Atom.Kind(v19, v4, type metadata accessor for AST.Atom);
     MEMORY[0x1C68E1190](2);
     AST.Atom.Kind.hash(into:)(a1);
-    v55 = &v6[*(v72 + 20)];
-    v56 = *v55;
-    v57 = *(v55 + 1);
-    outlined destroy of AST.CustomCharacterClass.Member(v6, type metadata accessor for AST.Atom);
-    MEMORY[0x1C68E11C0](v56 >> 14);
-    return MEMORY[0x1C68E11C0](v57 >> 14);
+    v41 = &v4[*(v56 + 20)];
+    v42 = *v41;
+    v43 = *(v41 + 1);
+    outlined destroy of AST.CustomCharacterClass.Member(v4, type metadata accessor for AST.Atom);
+    MEMORY[0x1C68E11C0](v42 >> 14);
+    return MEMORY[0x1C68E11C0](v43 >> 14);
   }
 }
 
@@ -7339,13 +7130,12 @@ uint64_t AST.CustomCharacterClass.Range.dashLoc.setter(uint64_t *a1)
 
 uint64_t AST.CustomCharacterClass.Range.trivia.getter()
 {
-  v1 = *(v0 + *(type metadata accessor for AST.CustomCharacterClass.Range(0) + 28));
+  type metadata accessor for AST.CustomCharacterClass.Range(0);
 }
 
 uint64_t AST.CustomCharacterClass.Range.trivia.setter(uint64_t a1)
 {
   v3 = *(type metadata accessor for AST.CustomCharacterClass.Range(0) + 28);
-  v4 = *(v1 + v3);
 
   *(v1 + v3) = a1;
   return result;
@@ -7411,21 +7201,21 @@ uint64_t AST.CustomCharacterClass.Range.hash(into:)(uint64_t a1)
   return specialized Array<A>.hash(into:)(a1, *(v2 + v7[7]));
 }
 
-Swift::Int AST.Atom.Kind.hashValue.getter(void (*a1)(_BYTE *))
+Swift::Int AST.Atom.Kind.hashValue.getter(void (*a1)(void *))
 {
   Hasher.init(_seed:)();
   a1(v3);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Atom.Kind(uint64_t a1, uint64_t a2, void (*a3)(_BYTE *))
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Atom.Kind(uint64_t a1, uint64_t a2, void (*a3)(void *))
 {
   Hasher.init(_seed:)();
   a3(v5);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Kind(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(_BYTE *))
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Kind(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *))
 {
   Hasher.init(_seed:)();
   a4(v6);
@@ -7468,25 +7258,20 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance AST
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.CustomCharacterClass.SetOp()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
-  v2 = qword_1C0C83B30[v1];
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance AST.CustomCharacterClass.SetOp()
+uint64_t protocol witness for Hashable.hash(into:) in conformance AST.CustomCharacterClass.SetOp(uint64_t a1)
 {
-  v1 = qword_1C0C83B30[*v0];
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.CustomCharacterClass.SetOp()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.CustomCharacterClass.SetOp(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
-  v2 = qword_1C0C83B30[v1];
   String.hash(into:)();
 
   return Hasher._finalize()();
@@ -7523,73 +7308,69 @@ uint64_t AST.CustomCharacterClass.Start.rawValue.getter()
 {
   if (*v0)
   {
-    result = 24155;
+    return 24155;
   }
 
   else
   {
-    result = 91;
+    return 91;
   }
-
-  *v0;
-  return result;
 }
 
 uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance AST.CustomCharacterClass.Start(_BYTE *a1, _BYTE *a2)
 {
-  v2 = *a2;
-  v3 = *a1 == 0;
+  v2 = *a1 == 0;
   if (*a1)
   {
-    v4 = 24155;
+    v3 = 24155;
   }
 
   else
   {
-    v4 = 91;
+    v3 = 91;
   }
 
-  if (v3)
+  if (v2)
   {
-    v5 = 0xE100000000000000;
+    v4 = 0xE100000000000000;
   }
 
   else
   {
-    v5 = 0xE200000000000000;
+    v4 = 0xE200000000000000;
   }
 
   if (*a2)
   {
-    v6 = 24155;
+    v5 = 24155;
   }
 
   else
   {
-    v6 = 91;
+    v5 = 91;
   }
 
   if (*a2)
   {
-    v7 = 0xE200000000000000;
+    v6 = 0xE200000000000000;
   }
 
   else
   {
-    v7 = 0xE100000000000000;
+    v6 = 0xE100000000000000;
   }
 
-  if (v4 == v6 && v5 == v7)
+  if (v3 == v5 && v4 == v6)
   {
-    v9 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    v8 = _stringCompareWithSmolCheck(_:_:expecting:)();
   }
 
-  return v9 & 1;
+  return v8 & 1;
 }
 
 uint64_t protocol witness for RawRepresentable.init(rawValue:) in conformance AST.CustomCharacterClass.Start@<X0>(Swift::String *a1@<X0>, char *a2@<X8>)
@@ -7635,22 +7416,19 @@ void protocol witness for RawRepresentable.rawValue.getter in conformance AST.Cu
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.CustomCharacterClass.Start()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance AST.CustomCharacterClass.Start()
+uint64_t protocol witness for Hashable.hash(into:) in conformance AST.CustomCharacterClass.Start(uint64_t a1)
 {
-  *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.CustomCharacterClass.Start()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.CustomCharacterClass.Start(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -7661,49 +7439,46 @@ uint64_t AST.CustomCharacterClass.hash(into:)(uint64_t a1)
 {
   v3 = type metadata accessor for AST.CustomCharacterClass.Member(0);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v3 - 8, v6);
-  v8 = &v18 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = *(v1 + 8);
-  v10 = *(v1 + 16);
-  v11 = *(v1 + 24);
-  v12 = *(v1 + 32);
-  v13 = *(v1 + 40);
-  *v1;
-  *v1;
+  MEMORY[0x1EEE9AC00](v3 - 8);
+  v6 = &v16 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = v1[1];
+  v8 = v1[2];
+  v9 = v1[3];
+  v10 = v1[4];
+  v11 = v1[5];
   String.hash(into:)();
 
-  MEMORY[0x1C68E11C0](v9 >> 14);
-  MEMORY[0x1C68E11C0](v10 >> 14);
-  MEMORY[0x1C68E1190](*(v11 + 16));
-  v14 = *(v11 + 16);
-  if (v14)
+  MEMORY[0x1C68E11C0](v7 >> 14);
+  MEMORY[0x1C68E11C0](v8 >> 14);
+  MEMORY[0x1C68E1190](*(v9 + 16));
+  v12 = *(v9 + 16);
+  if (v12)
   {
-    v15 = v11 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
-    v16 = *(v4 + 72);
+    v13 = v9 + ((*(v4 + 80) + 32) & ~*(v4 + 80));
+    v14 = *(v4 + 72);
     do
     {
-      outlined init with copy of AST.CustomCharacterClass.Member(v15, v8, type metadata accessor for AST.CustomCharacterClass.Member);
+      outlined init with copy of AST.CustomCharacterClass.Member(v13, v6, type metadata accessor for AST.CustomCharacterClass.Member);
       AST.CustomCharacterClass.Member.hash(into:)(a1);
-      outlined destroy of AST.CustomCharacterClass.Member(v8, type metadata accessor for AST.CustomCharacterClass.Member);
-      v15 += v16;
-      --v14;
+      outlined destroy of AST.CustomCharacterClass.Member(v6, type metadata accessor for AST.CustomCharacterClass.Member);
+      v13 += v14;
+      --v12;
     }
 
-    while (v14);
+    while (v12);
   }
 
-  MEMORY[0x1C68E11C0](v12 >> 14);
-  return MEMORY[0x1C68E11C0](v13 >> 14);
+  MEMORY[0x1C68E11C0](v10 >> 14);
+  return MEMORY[0x1C68E11C0](v11 >> 14);
 }
 
 Swift::Int AST.CustomCharacterClass.hashValue.getter()
 {
-  v1 = *(v0 + 24);
-  v3[72] = *v0;
-  v4 = *(v0 + 8);
-  v5 = v1;
-  v6 = *(v0 + 32);
+  v1 = *(v0 + 3);
+  v4 = *v0;
+  v5 = *(v0 + 8);
+  v6 = v1;
+  v7 = *(v0 + 2);
   Hasher.init(_seed:)();
   AST.CustomCharacterClass.hash(into:)(v3);
   return Hasher._finalize()();
@@ -7711,25 +7486,25 @@ Swift::Int AST.CustomCharacterClass.hashValue.getter()
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.CustomCharacterClass()
 {
-  v1 = *(v0 + 24);
-  v3[72] = *v0;
-  v4 = *(v0 + 8);
-  v5 = v1;
-  v6 = *(v0 + 32);
+  v1 = *(v0 + 3);
+  v4 = *v0;
+  v5 = *(v0 + 8);
+  v6 = v1;
+  v7 = *(v0 + 2);
   Hasher.init(_seed:)();
   AST.CustomCharacterClass.hash(into:)(v3);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.CustomCharacterClass()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.CustomCharacterClass(uint64_t a1)
 {
-  v1 = *(v0 + 24);
-  v3[72] = *v0;
-  v4 = *(v0 + 8);
-  v5 = v1;
-  v6 = *(v0 + 32);
+  v2 = *(v1 + 3);
+  v5 = *v1;
+  v6 = *(v1 + 8);
+  v7 = v2;
+  v8 = *(v1 + 2);
   Hasher.init(_seed:)();
-  AST.CustomCharacterClass.hash(into:)(v3);
+  AST.CustomCharacterClass.hash(into:)(v4);
   return Hasher._finalize()();
 }
 
@@ -7751,137 +7526,130 @@ uint64_t AST.CustomCharacterClass.isInverted.getter()
 BOOL AST.CustomCharacterClass.Member.isTrivia.getter()
 {
   v1 = type metadata accessor for AST.CustomCharacterClass.Member(0);
-  v2 = *(*(v1 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v1, v3);
-  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of AST.CustomCharacterClass.Member(v0, v5, type metadata accessor for AST.CustomCharacterClass.Member);
-  v6 = swift_getEnumCaseMultiPayload() == 4;
-  outlined destroy of AST.CustomCharacterClass.Member(v5, type metadata accessor for AST.CustomCharacterClass.Member);
-  return v6;
+  MEMORY[0x1EEE9AC00](v1);
+  v3 = &v6 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of AST.CustomCharacterClass.Member(v0, v3, type metadata accessor for AST.CustomCharacterClass.Member);
+  v4 = swift_getEnumCaseMultiPayload() == 4;
+  outlined destroy of AST.CustomCharacterClass.Member(v3, type metadata accessor for AST.CustomCharacterClass.Member);
+  return v4;
 }
 
 uint64_t AST.CustomCharacterClass.Member.asTrivia.getter@<X0>(uint64_t a1@<X8>)
 {
   v2 = v1;
   v4 = type metadata accessor for AST.CustomCharacterClass.Member(0);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4, v6);
-  v8 = &v13 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of AST.CustomCharacterClass.Member(v2, v8, type metadata accessor for AST.CustomCharacterClass.Member);
+  MEMORY[0x1EEE9AC00](v4);
+  v6 = &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of AST.CustomCharacterClass.Member(v2, v6, type metadata accessor for AST.CustomCharacterClass.Member);
   result = swift_getEnumCaseMultiPayload();
   if (result == 4)
   {
-    v10 = *v8;
-    v11 = *(v8 + 1);
-    v12 = *(v8 + 1);
+    v8 = *v6;
+    v9 = *(v6 + 1);
+    v10 = *(v6 + 1);
   }
 
   else
   {
-    result = outlined destroy of AST.CustomCharacterClass.Member(v8, type metadata accessor for AST.CustomCharacterClass.Member);
-    v10 = 0;
-    v11 = 0;
-    v12 = 0uLL;
+    result = outlined destroy of AST.CustomCharacterClass.Member(v6, type metadata accessor for AST.CustomCharacterClass.Member);
+    v8 = 0;
+    v9 = 0;
+    v10 = 0uLL;
   }
 
-  *a1 = v10;
-  *(a1 + 8) = v11;
-  *(a1 + 16) = v12;
+  *a1 = v8;
+  *(a1 + 8) = v9;
+  *(a1 + 16) = v10;
   return result;
 }
 
 BOOL AST.CustomCharacterClass.Member.isSemantic.getter()
 {
   v1 = type metadata accessor for AST.CustomCharacterClass.Member(0);
-  v2 = *(*(v1 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v1, v3);
-  v5 = &v8 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of AST.CustomCharacterClass.Member(v0, v5, type metadata accessor for AST.CustomCharacterClass.Member);
-  v6 = swift_getEnumCaseMultiPayload() != 4;
-  outlined destroy of AST.CustomCharacterClass.Member(v5, type metadata accessor for AST.CustomCharacterClass.Member);
-  return v6;
+  MEMORY[0x1EEE9AC00](v1);
+  v3 = &v6 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of AST.CustomCharacterClass.Member(v0, v3, type metadata accessor for AST.CustomCharacterClass.Member);
+  v4 = swift_getEnumCaseMultiPayload() != 4;
+  outlined destroy of AST.CustomCharacterClass.Member(v3, type metadata accessor for AST.CustomCharacterClass.Member);
+  return v4;
 }
 
 uint64_t AST.CustomCharacterClass.Member.location.getter@<X0>(unint64_t *a1@<X8>)
 {
   v2 = v1;
-  v54 = a1;
+  v38 = a1;
   v3 = type metadata accessor for AST.Atom(0);
-  v4 = *(*(v3 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v3, v5);
-  v7 = &v51 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for AST.CustomCharacterClass.Range(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8, v10);
-  v12 = &v51 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for AST.CustomCharacterClass.Member(0);
-  v53 = *(v13 - 8);
-  v14 = *(v53 + 64);
-  v16 = MEMORY[0x1EEE9AC00](v13, v15);
-  v52 = &v51 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = MEMORY[0x1EEE9AC00](v16, v18);
-  v21 = &v51 - v20;
-  v23 = MEMORY[0x1EEE9AC00](v19, v22);
-  v25 = &v51 - v24;
-  v27 = MEMORY[0x1EEE9AC00](v23, v26);
-  v29 = &v51 - v28;
-  MEMORY[0x1EEE9AC00](v27, v30);
-  v32 = &v51 - v31;
-  outlined init with copy of AST.CustomCharacterClass.Member(v2, &v51 - v31, type metadata accessor for AST.CustomCharacterClass.Member);
+  MEMORY[0x1EEE9AC00](v3);
+  v5 = &v35 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for AST.CustomCharacterClass.Range(0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v35 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for AST.CustomCharacterClass.Member(0);
+  v37 = *(v9 - 8);
+  v10 = MEMORY[0x1EEE9AC00](v9);
+  v36 = &v35 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = MEMORY[0x1EEE9AC00](v10);
+  v14 = &v35 - v13;
+  v15 = MEMORY[0x1EEE9AC00](v12);
+  v17 = &v35 - v16;
+  v18 = MEMORY[0x1EEE9AC00](v15);
+  v20 = &v35 - v19;
+  MEMORY[0x1EEE9AC00](v18);
+  v22 = &v35 - v21;
+  outlined init with copy of AST.CustomCharacterClass.Member(v2, &v35 - v21, type metadata accessor for AST.CustomCharacterClass.Member);
   LODWORD(result) = swift_getEnumCaseMultiPayload();
   if (result <= 2)
   {
     if (!result)
     {
-      v40 = *(v32 + 24);
-      v37 = *(v32 + 32);
-      v38 = *(v32 + 40);
+      v27 = *(v22 + 32);
+      v28 = *(v22 + 40);
       goto LABEL_31;
     }
 
     if (result != 1)
     {
-      outlined init with take of AST.Atom.Kind(v32, v7, type metadata accessor for AST.Atom);
-      v41 = &v7[*(v3 + 20)];
-      v37 = *v41;
-      v38 = *(v41 + 1);
-      result = outlined destroy of AST.CustomCharacterClass.Member(v7, type metadata accessor for AST.Atom);
+      outlined init with take of AST.Atom.Kind(v22, v5, type metadata accessor for AST.Atom);
+      v29 = &v5[*(v3 + 20)];
+      v27 = *v29;
+      v28 = v29[1];
+      result = outlined destroy of AST.CustomCharacterClass.Member(v5, type metadata accessor for AST.Atom);
 LABEL_32:
-      v50 = v54;
-      *v54 = v37;
-      v50[1] = v38;
+      v34 = v38;
+      *v38 = v27;
+      v34[1] = v28;
       return result;
     }
 
-    outlined init with take of AST.Atom.Kind(v32, v12, type metadata accessor for AST.CustomCharacterClass.Range);
-    v34 = &v12[*(v3 + 20)];
-    v32 = *v34;
-    v35 = v34[1];
-    v36 = (v34 + *(v8 + 24));
-    v21 = *v36;
-    v25 = v36[1];
-    result = outlined destroy of AST.CustomCharacterClass.Member(v12, type metadata accessor for AST.CustomCharacterClass.Range);
-    if (v21 >> 14 >= v32 >> 14)
+    outlined init with take of AST.Atom.Kind(v22, v8, type metadata accessor for AST.CustomCharacterClass.Range);
+    v24 = &v8[*(v3 + 20)];
+    v22 = *v24;
+    v25 = v24[1];
+    v26 = (v24 + *(v6 + 24));
+    v14 = *v26;
+    v17 = v26[1];
+    result = outlined destroy of AST.CustomCharacterClass.Member(v8, type metadata accessor for AST.CustomCharacterClass.Range);
+    if (v14 >> 14 >= v22 >> 14)
     {
-      v37 = v32;
+      v27 = v22;
     }
 
     else
     {
-      v37 = v21;
+      v27 = v14;
     }
 
-    if (v25 >> 14 >= v35 >> 14)
+    if (v17 >> 14 >= v25 >> 14)
     {
-      v38 = v25;
+      v28 = v17;
     }
 
     else
     {
-      v38 = v35;
+      v28 = v25;
     }
 
-    if (v38 >> 14 >= v37 >> 14)
+    if (v28 >> 14 >= v27 >> 14)
     {
       goto LABEL_32;
     }
@@ -7891,64 +7659,61 @@ LABEL_32:
 
   if (result == 3 || result == 4)
   {
-    v39 = *(v32 + 8);
-    v37 = *(v32 + 16);
-    v38 = *(v32 + 24);
+    v27 = *(v22 + 16);
+    v28 = *(v22 + 24);
 LABEL_31:
 
     goto LABEL_32;
   }
 
-  v42 = *v32;
-  v37 = *(v32 + 16);
-  v38 = *(v32 + 24);
-  v43 = *(v32 + 32);
-  if (!*(*v32 + 16))
+  v27 = *(v22 + 16);
+  v28 = *(v22 + 24);
+  v30 = *(v22 + 32);
+  if (!*(*v22 + 16))
   {
     goto LABEL_30;
   }
 
-  v44 = v53;
-  v45 = *v32;
-  outlined init with copy of AST.CustomCharacterClass.Member(v42 + ((*(v53 + 80) + 32) & ~*(v53 + 80)), v25, type metadata accessor for AST.CustomCharacterClass.Member);
+  v31 = v37;
+  outlined init with copy of AST.CustomCharacterClass.Member(*v22 + ((*(v37 + 80) + 32) & ~*(v37 + 80)), v17, type metadata accessor for AST.CustomCharacterClass.Member);
 
-  v46 = outlined init with take of AST.Atom.Kind(v25, v29, type metadata accessor for AST.CustomCharacterClass.Member);
-  AST.CustomCharacterClass.Member.location.getter(&v55, v46);
-  result = outlined destroy of AST.CustomCharacterClass.Member(v29, type metadata accessor for AST.CustomCharacterClass.Member);
-  if (v55 >> 14 < v37 >> 14)
+  outlined init with take of AST.Atom.Kind(v17, v20, type metadata accessor for AST.CustomCharacterClass.Member);
+  AST.CustomCharacterClass.Member.location.getter(&v39);
+  result = outlined destroy of AST.CustomCharacterClass.Member(v20, type metadata accessor for AST.CustomCharacterClass.Member);
+  if (v39 >> 14 < v27 >> 14)
   {
-    v37 = v55;
+    v27 = v39;
   }
 
-  if (v56 >> 14 >= v38 >> 14)
+  if (v40 >> 14 >= v28 >> 14)
   {
-    v38 = v56;
+    v28 = v40;
   }
 
-  if (v38 >> 14 >= v37 >> 14)
+  if (v28 >> 14 >= v27 >> 14)
   {
-    v47 = *(v43 + 16);
-    if (v47)
+    v32 = *(v30 + 16);
+    if (v32)
     {
       while (1)
       {
-        v48 = v52;
-        outlined init with copy of AST.CustomCharacterClass.Member(v43 + ((*(v44 + 80) + 32) & ~*(v44 + 80)) + *(v44 + 72) * (v47 - 1), v52, type metadata accessor for AST.CustomCharacterClass.Member);
+        v33 = v36;
+        outlined init with copy of AST.CustomCharacterClass.Member(v30 + ((*(v31 + 80) + 32) & ~*(v31 + 80)) + *(v31 + 72) * (v32 - 1), v36, type metadata accessor for AST.CustomCharacterClass.Member);
 
-        v49 = outlined init with take of AST.Atom.Kind(v48, v21, type metadata accessor for AST.CustomCharacterClass.Member);
-        AST.CustomCharacterClass.Member.location.getter(&v55, v49);
-        result = outlined destroy of AST.CustomCharacterClass.Member(v21, type metadata accessor for AST.CustomCharacterClass.Member);
-        if (v55 >> 14 < v37 >> 14)
+        outlined init with take of AST.Atom.Kind(v33, v14, type metadata accessor for AST.CustomCharacterClass.Member);
+        AST.CustomCharacterClass.Member.location.getter(&v39);
+        result = outlined destroy of AST.CustomCharacterClass.Member(v14, type metadata accessor for AST.CustomCharacterClass.Member);
+        if (v39 >> 14 < v27 >> 14)
         {
-          v37 = v55;
+          v27 = v39;
         }
 
-        if (v56 >> 14 >= v38 >> 14)
+        if (v40 >> 14 >= v28 >> 14)
         {
-          v38 = v56;
+          v28 = v40;
         }
 
-        if (v38 >> 14 >= v37 >> 14)
+        if (v28 >> 14 >= v27 >> 14)
         {
           goto LABEL_32;
         }
@@ -7956,9 +7721,9 @@ LABEL_31:
         __break(1u);
 LABEL_30:
 
-        v44 = v53;
-        v47 = *(v43 + 16);
-        if (!v47)
+        v31 = v37;
+        v32 = *(v30 + 16);
+        if (!v32)
         {
           goto LABEL_31;
         }
@@ -7974,72 +7739,71 @@ LABEL_30:
 
 uint64_t AST.CustomCharacterClass.strippingTriviaShallow.getter@<X0>(_BYTE *a1@<X8>)
 {
-  v37 = a1;
+  v33 = a1;
   v2 = type metadata accessor for AST.CustomCharacterClass.Member(0);
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v6 = MEMORY[0x1EEE9AC00](v2, v5);
-  v40 = &v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = MEMORY[0x1EEE9AC00](v6, v8);
-  v11 = &v33 - v10;
-  MEMORY[0x1EEE9AC00](v9, v12);
-  v14 = &v33 - v13;
-  v15 = *v1;
-  v16 = *(v1 + 1);
-  v35 = *(v1 + 2);
-  v36 = v16;
-  v18 = *(v1 + 3);
-  v17 = *(v1 + 4);
-  v33 = *(v1 + 5);
-  v34 = v17;
-  v42 = v15;
-  v19 = *(v18 + 16);
+  v4 = MEMORY[0x1EEE9AC00](v2);
+  v36 = &v29 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = MEMORY[0x1EEE9AC00](v4);
+  v8 = &v29 - v7;
+  MEMORY[0x1EEE9AC00](v6);
+  v10 = &v29 - v9;
+  v11 = *v1;
+  v12 = *(v1 + 1);
+  v31 = *(v1 + 2);
+  v32 = v12;
+  v14 = *(v1 + 3);
+  v13 = *(v1 + 4);
+  v29 = *(v1 + 5);
+  v30 = v13;
+  v38 = v11;
+  v15 = *(v14 + 16);
 
-  v39 = v19;
-  if (v19)
+  v35 = v15;
+  if (v15)
   {
-    v21 = 0;
-    v22 = MEMORY[0x1E69E7CC0];
-    v38 = v2;
-    while (v21 < *(v18 + 16))
+    v17 = 0;
+    v18 = MEMORY[0x1E69E7CC0];
+    v34 = v2;
+    while (v17 < *(v14 + 16))
     {
-      v23 = (*(v3 + 80) + 32) & ~*(v3 + 80);
-      v24 = *(v3 + 72);
-      outlined init with copy of AST.CustomCharacterClass.Member(v18 + v23 + v24 * v21, v14, type metadata accessor for AST.CustomCharacterClass.Member);
-      outlined init with copy of AST.CustomCharacterClass.Member(v14, v11, type metadata accessor for AST.CustomCharacterClass.Member);
+      v19 = (*(v3 + 80) + 32) & ~*(v3 + 80);
+      v20 = *(v3 + 72);
+      outlined init with copy of AST.CustomCharacterClass.Member(v14 + v19 + v20 * v17, v10, type metadata accessor for AST.CustomCharacterClass.Member);
+      outlined init with copy of AST.CustomCharacterClass.Member(v10, v8, type metadata accessor for AST.CustomCharacterClass.Member);
       EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-      outlined destroy of AST.CustomCharacterClass.Member(v11, type metadata accessor for AST.CustomCharacterClass.Member);
+      outlined destroy of AST.CustomCharacterClass.Member(v8, type metadata accessor for AST.CustomCharacterClass.Member);
       if (EnumCaseMultiPayload == 4)
       {
-        result = outlined destroy of AST.CustomCharacterClass.Member(v14, type metadata accessor for AST.CustomCharacterClass.Member);
+        result = outlined destroy of AST.CustomCharacterClass.Member(v10, type metadata accessor for AST.CustomCharacterClass.Member);
       }
 
       else
       {
-        outlined init with take of AST.Atom.Kind(v14, v40, type metadata accessor for AST.CustomCharacterClass.Member);
+        outlined init with take of AST.Atom.Kind(v10, v36, type metadata accessor for AST.CustomCharacterClass.Member);
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        v41 = v22;
+        v37 = v18;
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v22 + 16) + 1, 1);
-          v22 = v41;
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v18 + 16) + 1, 1);
+          v18 = v37;
         }
 
-        v28 = *(v22 + 16);
-        v27 = *(v22 + 24);
-        if (v28 >= v27 >> 1)
+        v24 = *(v18 + 16);
+        v23 = *(v18 + 24);
+        if (v24 >= v23 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v27 > 1, v28 + 1, 1);
-          v22 = v41;
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v23 > 1), v24 + 1, 1);
+          v18 = v37;
         }
 
-        *(v22 + 16) = v28 + 1;
-        result = outlined init with take of AST.Atom.Kind(v40, v22 + v23 + v28 * v24, type metadata accessor for AST.CustomCharacterClass.Member);
+        *(v18 + 16) = v24 + 1;
+        result = outlined init with take of AST.Atom.Kind(v36, v18 + v19 + v24 * v20, type metadata accessor for AST.CustomCharacterClass.Member);
       }
 
-      if (v39 == ++v21)
+      if (v35 == ++v17)
       {
-        v15 = v42;
+        v11 = v38;
         goto LABEL_14;
       }
     }
@@ -8049,19 +7813,19 @@ uint64_t AST.CustomCharacterClass.strippingTriviaShallow.getter@<X0>(_BYTE *a1@<
 
   else
   {
-    v22 = MEMORY[0x1E69E7CC0];
+    v18 = MEMORY[0x1E69E7CC0];
 LABEL_14:
 
-    v30 = v36;
-    v29 = v37;
-    *v37 = v15;
-    v31 = v34;
-    v32 = v35;
-    v29[1] = v30;
-    v29[2] = v32;
-    v29[3] = v22;
-    v29[4] = v31;
-    v29[5] = v33;
+    v26 = v32;
+    v25 = v33;
+    *v33 = v11;
+    v27 = v30;
+    v28 = v31;
+    v25[1] = v26;
+    v25[2] = v28;
+    v25[3] = v18;
+    v25[4] = v27;
+    v25[5] = v29;
   }
 
   return result;
@@ -8280,65 +8044,51 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Gro
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Group.Kind()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Group.Kind(uint64_t a1)
 {
   Hasher.init(_seed:)();
-  AST.Group.Kind.hash(into:)(v1);
+  AST.Group.Kind.hash(into:)(v2);
   return Hasher._finalize()();
 }
 
 uint64_t AST.Group.hash(into:)(uint64_t a1)
 {
-  v11 = v1[2];
-  v12 = v1[3];
-  v13 = v1[4];
-  v9 = *v1;
-  v10 = v1[1];
-  v3 = *(v1 + 11);
-  v4 = *(v1 + 12);
-  v5 = *(v1 + 13);
-  v6 = *(v1 + 14);
-  v7 = *(v1 + 15);
-  v14 = *(v1 + 10);
+  v3 = v1[11];
+  v4 = v1[12];
+  v5 = v1[14];
+  v6 = v1[15];
   AST.Group.Kind.hash(into:)(a1);
   MEMORY[0x1C68E11C0](v3 >> 14);
   MEMORY[0x1C68E11C0](v4 >> 14);
   AST.Node.hash(into:)(a1);
-  MEMORY[0x1C68E11C0](v6 >> 14);
-  return MEMORY[0x1C68E11C0](v7 >> 14);
+  MEMORY[0x1C68E11C0](v5 >> 14);
+  return MEMORY[0x1C68E11C0](v6 >> 14);
 }
 
 Swift::Int AST.Group.hashValue.getter()
 {
-  v9 = v0[2];
-  v10 = v0[3];
-  v11 = v0[4];
-  v1 = *(v0 + 11);
-  v12 = *(v0 + 10);
-  v7 = *v0;
-  v8 = v0[1];
-  v2 = *(v0 + 12);
-  v3 = *(v0 + 13);
-  v4 = *(v0 + 14);
-  v5 = *(v0 + 15);
+  v1 = v0[11];
+  v2 = v0[12];
+  v3 = v0[14];
+  v4 = v0[15];
   Hasher.init(_seed:)();
-  AST.Group.Kind.hash(into:)(v13);
+  AST.Group.Kind.hash(into:)(v6);
   MEMORY[0x1C68E11C0](v1 >> 14);
   MEMORY[0x1C68E11C0](v2 >> 14);
-  AST.Node.hash(into:)(v13);
+  AST.Node.hash(into:)(v6);
+  MEMORY[0x1C68E11C0](v3 >> 14);
   MEMORY[0x1C68E11C0](v4 >> 14);
-  MEMORY[0x1C68E11C0](v5 >> 14);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Conditional.Condition.Kind(uint64_t a1, uint64_t a2, void (*a3)(_BYTE *))
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Conditional.Condition.Kind(uint64_t a1, uint64_t a2, void (*a3)(void *))
 {
   Hasher.init(_seed:)();
   a3(v5);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Conditional.Condition.Kind(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(_BYTE *))
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Conditional.Condition.Kind(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *))
 {
   Hasher.init(_seed:)();
   a4(v6);
@@ -8361,7 +8111,6 @@ uint64_t AST.Group.Kind.name.getter()
   if (!*(v0 + 80))
   {
 LABEL_5:
-    v2 = v0[1];
 
     return v1;
   }
@@ -8412,12 +8161,11 @@ uint64_t AST.Group.BalancedCapture.name.getter@<X0>(uint64_t a1@<X8>)
 
 __n128 AST.Group.BalancedCapture.name.setter(uint64_t a1)
 {
-  v3 = *(v1 + 8);
 
   result = *a1;
-  v5 = *(a1 + 16);
+  v4 = *(a1 + 16);
   *v1 = *a1;
-  *(v1 + 16) = v5;
+  v1[1] = v4;
   return result;
 }
 
@@ -8445,13 +8193,12 @@ uint64_t AST.Group.BalancedCapture.priorName.getter@<X0>(uint64_t a1@<X8>)
 
 __n128 AST.Group.BalancedCapture.priorName.setter(__n128 *a1)
 {
-  v6 = *a1;
+  v5 = *a1;
   v2 = a1[1].n128_u64[0];
   v3 = a1[1].n128_u64[1];
-  v4 = v1[3].n128_u64[1];
 
-  result = v6;
-  v1[3] = v6;
+  result = v5;
+  v1[3] = v5;
   v1[4].n128_u64[0] = v2;
   v1[4].n128_u64[1] = v3;
   return result;
@@ -8477,26 +8224,23 @@ __n128 AST.Group.BalancedCapture.init(name:dash:priorName:)@<Q0>(_OWORD *a1@<X0>
   return result;
 }
 
-uint64_t AST.Group.BalancedCapture.hash(into:)()
+uint64_t AST.Group.BalancedCapture.hash(into:)(uint64_t a1)
 {
-  v2 = v0[4];
-  v1 = v0[5];
-  v3 = v0[8];
-  v4 = v0[9];
-  if (v0[1])
+  v3 = v1[4];
+  v2 = v1[5];
+  v4 = v1[8];
+  v5 = v1[9];
+  if (v1[1])
   {
-    v12 = v0[3];
-    v5 = v0[7];
-    v6 = v0[6];
-    v7 = v0[8];
-    v8 = v0[2];
-    v9 = *v0;
+    v10 = v1[3];
+    v6 = v1[8];
+    v7 = v1[2];
     Hasher._combine(_:)(1u);
     String.hash(into:)();
-    v10 = v8 >> 14;
-    v3 = v7;
-    MEMORY[0x1C68E11C0](v10);
-    MEMORY[0x1C68E11C0](v12 >> 14);
+    v8 = v7 >> 14;
+    v4 = v6;
+    MEMORY[0x1C68E11C0](v8);
+    MEMORY[0x1C68E11C0](v10 >> 14);
   }
 
   else
@@ -8504,28 +8248,28 @@ uint64_t AST.Group.BalancedCapture.hash(into:)()
     Hasher._combine(_:)(0);
   }
 
-  MEMORY[0x1C68E11C0](v2 >> 14);
-  MEMORY[0x1C68E11C0](v1 >> 14);
-  String.hash(into:)();
   MEMORY[0x1C68E11C0](v3 >> 14);
-  return MEMORY[0x1C68E11C0](v4 >> 14);
+  MEMORY[0x1C68E11C0](v2 >> 14);
+  String.hash(into:)();
+  MEMORY[0x1C68E11C0](v4 >> 14);
+  return MEMORY[0x1C68E11C0](v5 >> 14);
 }
 
-Swift::Int AST.Conditional.Condition.PCREVersionNumber.hashValue.getter(void (*a1)(_BYTE *))
+Swift::Int AST.Conditional.Condition.PCREVersionNumber.hashValue.getter(void (*a1)(void *))
 {
   Hasher.init(_seed:)();
   a1(v3);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Conditional.Condition.PCREVersionNumber(uint64_t a1, uint64_t a2, void (*a3)(_BYTE *))
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Conditional.Condition.PCREVersionNumber(uint64_t a1, uint64_t a2, void (*a3)(void *))
 {
   Hasher.init(_seed:)();
   a3(v5);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Conditional.Condition.PCREVersionNumber(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(_BYTE *))
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Conditional.Condition.PCREVersionNumber(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *))
 {
   Hasher.init(_seed:)();
   a4(v6);
@@ -8589,15 +8333,15 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance AST.MatchingOp
   return MEMORY[0x1C68E11C0](v2 >> 14);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.MatchingOption()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.MatchingOption(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 1);
-  v3 = *(v0 + 2);
+  v2 = *v1;
+  v3 = *(v1 + 1);
+  v4 = *(v1 + 2);
   Hasher.init(_seed:)();
-  MEMORY[0x1C68E1190](v1);
-  MEMORY[0x1C68E11C0](v2 >> 14);
+  MEMORY[0x1C68E1190](v2);
   MEMORY[0x1C68E11C0](v3 >> 14);
+  MEMORY[0x1C68E11C0](v4 >> 14);
   return Hasher._finalize()();
 }
 
@@ -8621,7 +8365,6 @@ __n128 AST.MatchingOptionSequence.caretLoc.setter(__n128 *a1)
 
 uint64_t AST.MatchingOptionSequence.adding.setter(uint64_t a1)
 {
-  v3 = *(v1 + 24);
 
   *(v1 + 24) = a1;
   return result;
@@ -8647,7 +8390,6 @@ __n128 AST.MatchingOptionSequence.minusLoc.setter(__n128 *a1)
 
 uint64_t AST.MatchingOptionSequence.removing.setter(uint64_t a1)
 {
-  v3 = *(v1 + 56);
 
   *(v1 + 56) = a1;
   return result;
@@ -8746,14 +8488,6 @@ uint64_t protocol witness for _ASTPrintable._dumpBase.getter in conformance AST.
   *&v2 = *v0;
   _print_unlocked<A, B>(_:_:)();
   return *(&v2 + 1);
-}
-
-uint64_t protocol witness for CustomStringConvertible.description.getter in conformance AST.MatchingOption(uint64_t a1)
-{
-  v5 = *v1;
-  v6 = *(v1 + 8);
-  v3 = lazy protocol witness table accessor for type AST.MatchingOption and conformance AST.MatchingOption();
-  return (*(v3 + 24))(a1, v3);
 }
 
 uint64_t AST.MatchingOptionSequence._dumpBase.getter()
@@ -8911,7 +8645,7 @@ LABEL_13:
   return MEMORY[0x1C68E1190](v6);
 }
 
-Swift::Int AST.AbsentFunction.Kind.hashValue.getter(void (*a1)(_BYTE *))
+Swift::Int AST.AbsentFunction.Kind.hashValue.getter(void (*a1)(void *))
 {
   v3 = v1[1];
   v6 = *v1;
@@ -8921,7 +8655,7 @@ Swift::Int AST.AbsentFunction.Kind.hashValue.getter(void (*a1)(_BYTE *))
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.AbsentFunction.Kind(uint64_t a1, uint64_t a2, void (*a3)(_BYTE *))
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.AbsentFunction.Kind(uint64_t a1, uint64_t a2, void (*a3)(void *))
 {
   v5 = v3[1];
   v8 = *v3;
@@ -8931,7 +8665,7 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Abs
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.AbsentFunction.Kind(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(_BYTE *))
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.AbsentFunction.Kind(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *))
 {
   v6 = v4[1];
   v9 = *v4;
@@ -8978,10 +8712,8 @@ __n128 AST.GlobalMatchingOption.init(_:_:)@<Q0>(_OWORD *a1@<X0>, __n128 *a2@<X1>
 
 uint64_t AST.GlobalMatchingOption.hash(into:)()
 {
-  v1 = *(v0 + 4);
-  v2 = *(v0 + 5);
-  v4 = *v0;
-  v5 = v0[1];
+  v1 = *(v0 + 32);
+  v2 = *(v0 + 40);
   AST.GlobalMatchingOption.Kind.hash(into:)();
   MEMORY[0x1C68E11C0](v1 >> 14);
   return MEMORY[0x1C68E11C0](v2 >> 14);
@@ -8989,11 +8721,9 @@ uint64_t AST.GlobalMatchingOption.hash(into:)()
 
 Swift::Int AST.GlobalMatchingOption.hashValue.getter()
 {
-  v1 = *(v0 + 4);
-  v2 = *(v0 + 5);
+  v1 = *(v0 + 32);
+  v2 = *(v0 + 40);
   Hasher.init(_seed:)();
-  v5 = v0[1];
-  v4 = *v0;
   AST.GlobalMatchingOption.Kind.hash(into:)();
   MEMORY[0x1C68E11C0](v1 >> 14);
   MEMORY[0x1C68E11C0](v2 >> 14);
@@ -9002,11 +8732,9 @@ Swift::Int AST.GlobalMatchingOption.hashValue.getter()
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.GlobalMatchingOption()
 {
-  v1 = *(v0 + 4);
-  v2 = *(v0 + 5);
+  v1 = *(v0 + 32);
+  v2 = *(v0 + 40);
   Hasher.init(_seed:)();
-  v5 = v0[1];
-  v4 = *v0;
   AST.GlobalMatchingOption.Kind.hash(into:)();
   MEMORY[0x1C68E11C0](v1 >> 14);
   MEMORY[0x1C68E11C0](v2 >> 14);
@@ -9015,25 +8743,21 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Glo
 
 uint64_t protocol witness for Hashable.hash(into:) in conformance AST.GlobalMatchingOption()
 {
-  v1 = *(v0 + 4);
-  v2 = *(v0 + 5);
-  v4 = *v0;
-  v5 = v0[1];
+  v1 = *(v0 + 32);
+  v2 = *(v0 + 40);
   AST.GlobalMatchingOption.Kind.hash(into:)();
   MEMORY[0x1C68E11C0](v1 >> 14);
   return MEMORY[0x1C68E11C0](v2 >> 14);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.GlobalMatchingOption()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.GlobalMatchingOption(uint64_t a1)
 {
-  v1 = *(v0 + 4);
-  v2 = *(v0 + 5);
+  v2 = *(v1 + 32);
+  v3 = *(v1 + 40);
   Hasher.init(_seed:)();
-  v5 = v0[1];
-  v4 = *v0;
   AST.GlobalMatchingOption.Kind.hash(into:)();
-  MEMORY[0x1C68E11C0](v1 >> 14);
   MEMORY[0x1C68E11C0](v2 >> 14);
+  MEMORY[0x1C68E11C0](v3 >> 14);
   return Hasher._finalize()();
 }
 
@@ -9184,21 +8908,21 @@ LABEL_20:
   }
 }
 
-Swift::Int AST.MatchingOptionSequence.hashValue.getter(void (*a1)(_BYTE *))
+Swift::Int AST.MatchingOptionSequence.hashValue.getter(void (*a1)(void *))
 {
   Hasher.init(_seed:)();
   a1(v3);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Atom.Callout.OnigurumaTag(uint64_t a1, uint64_t a2, void (*a3)(_BYTE *))
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Atom.Callout.OnigurumaTag(uint64_t a1, uint64_t a2, void (*a3)(void *))
 {
   Hasher.init(_seed:)();
   a3(v5);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Callout.OnigurumaTag(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(_BYTE *))
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Callout.OnigurumaTag(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *))
 {
   Hasher.init(_seed:)();
   a4(v6);
@@ -9313,22 +9037,19 @@ void protocol witness for RawRepresentable.rawValue.getter in conformance AST.Qu
 
 Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Quantification.Kind()
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance AST.Quantification.Kind()
+uint64_t protocol witness for Hashable.hash(into:) in conformance AST.Quantification.Kind(uint64_t a1)
 {
-  v1 = *v0;
   String.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Quantification.Kind()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Quantification.Kind(uint64_t a1)
 {
-  v1 = *v0;
   Hasher.init(_seed:)();
   String.hash(into:)();
 
@@ -9337,47 +9058,41 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST
 
 uint64_t AST.Quantification.hash(into:)(uint64_t a1)
 {
-  v13 = *v1;
-  v14 = v1[1];
-  v15 = v1[2];
-  v16 = v1[3];
-  v3 = *(v1 + 8);
-  v4 = *(v1 + 9);
-  v5 = *(v1 + 80);
-  v7 = *(v1 + 11);
-  v6 = *(v1 + 12);
-  v9 = *(v1 + 13);
-  v8 = *(v1 + 14);
-  v10 = *(v1 + 15);
-  v12 = *(v1 + 16);
+  v3 = v1[8];
+  v4 = v1[9];
+  v6 = v1[11];
+  v5 = v1[12];
+  v7 = v1[14];
+  v8 = v1[15];
+  v10 = v1[16];
   AST.Quantification.Amount.hash(into:)();
   MEMORY[0x1C68E11C0](v3 >> 14);
   MEMORY[0x1C68E11C0](v4 >> 14);
   String.hash(into:)();
 
-  MEMORY[0x1C68E11C0](v7 >> 14);
   MEMORY[0x1C68E11C0](v6 >> 14);
+  MEMORY[0x1C68E11C0](v5 >> 14);
   AST.Node.hash(into:)(a1);
+  MEMORY[0x1C68E11C0](v7 >> 14);
   MEMORY[0x1C68E11C0](v8 >> 14);
-  MEMORY[0x1C68E11C0](v10 >> 14);
-  return specialized Array<A>.hash(into:)(a1, v12);
+  return specialized Array<A>.hash(into:)(a1, v10);
 }
 
-Swift::Int AST.Atom.Callout.OnigurumaNamed.hashValue.getter(void (*a1)(_BYTE *))
+Swift::Int AST.Atom.Callout.OnigurumaNamed.hashValue.getter(void (*a1)(void *))
 {
   Hasher.init(_seed:)();
   a1(v3);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Atom.Callout.OnigurumaNamed(uint64_t a1, uint64_t a2, void (*a3)(_BYTE *))
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance AST.Atom.Callout.OnigurumaNamed(uint64_t a1, uint64_t a2, void (*a3)(void *))
 {
   Hasher.init(_seed:)();
   a3(v5);
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Callout.OnigurumaNamed(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(_BYTE *))
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance AST.Atom.Callout.OnigurumaNamed(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void *))
 {
   Hasher.init(_seed:)();
   a4(v6);
@@ -9391,61 +9106,45 @@ uint64_t AST.Quantification.Amount.bounds.getter()
   v3 = v2 >> 21;
   if (v2 >> 21 <= 1)
   {
-    if (!v3)
-    {
-      v9 = *(v0 + 8);
-    }
-
-    result = *v0;
-    if (!v3)
-    {
-      v10 = *(v0 + 8);
-    }
+    return *v0;
   }
 
-  else if (v3 == 2)
+  if (v3 == 2)
   {
     return 0;
   }
 
-  else
+  v4 = v0[4];
+  if (v3 == 3)
   {
-    v4 = v0[4];
-    if (v3 == 3)
-    {
-      result = *v0;
-      v6 = *(v0 + 8);
-      v7 = v0[4];
-      v8 = *(v0 + 40);
-    }
-
-    else
-    {
-      v11 = *(v0 + 41) | ((*&v2 & 0xFFFFFFLL) << 32);
-      v12 = v0[6];
-      v13 = v0[7];
-      v14 = *(v0 + 40) | (v11 << 8);
-      v15 = (*(v0 + 9) << 8) | ((*(v0 + 13) | (*(v0 + 15) << 16)) << 40) | *(v0 + 8);
-      v16 = v0[3] | v0[2];
-      return (v14 != 0x8000000000000000 || (v16 | v1 | v4 | v12 | v13 | v15) != 0) && v14 == 0x8000000000000000 && v1 == 1 && !(v16 | v15 | v4 | v12 | v13);
-    }
+    return *v0;
   }
 
-  return result;
+  v6 = *(v0 + 41) | ((*&v2 & 0xFFFFFFLL) << 32);
+  v7 = v0[6];
+  v8 = v0[7];
+  v9 = *(v0 + 40) | (v6 << 8);
+  v10 = (*(v0 + 9) << 8) | ((*(v0 + 13) | (*(v0 + 15) << 16)) << 40) | *(v0 + 8);
+  v11 = v0[3] | v0[2];
+  if (v9 == 0x8000000000000000 && (v11 | v1 | v4 | v7 | v8 | v10) == 0)
+  {
+    return 0;
+  }
+
+  return v9 == 0x8000000000000000 && v1 == 1 && !(v11 | v10 | v4 | v7 | v8);
 }
 
 uint64_t CaptureList.captures.setter(uint64_t a1)
 {
-  v3 = *v1;
 
   *v1 = a1;
   return result;
 }
 
-uint64_t CaptureList.init<A>(_:)@<X0>(uint64_t *a1@<X8>)
+uint64_t CaptureList.init<A>(_:)@<X0>(uint64_t *a4@<X8>)
 {
   result = Array.init<A>(_:)();
-  *a1 = result;
+  *a4 = result;
   return result;
 }
 
@@ -9493,14 +9192,12 @@ uint64_t CaptureList.append(_:)(uint64_t *a1)
 uint64_t CaptureList.Capture.name.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t CaptureList.Capture.name.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = v2[1];
 
   *v2 = a1;
   v2[1] = a2;
@@ -9612,7 +9309,6 @@ Swift::Bool __swiftcall CaptureList.hasCapture(named:)(Swift::String named)
 uint64_t CaptureList.Builder.captures.setter(uint64_t *a1)
 {
   v2 = *a1;
-  v3 = *v1;
 
   *v1 = v2;
   return result;
@@ -9686,7 +9382,7 @@ LABEL_6:
   *(a1 + 16) = v6;
 }
 
-uint64_t *CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(uint64_t *result, uint64_t a2, char a3)
+unint64_t *CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(unint64_t *result, uint64_t a2, char a3)
 {
   v6 = *result;
   v7 = *a2;
@@ -9700,26 +9396,24 @@ uint64_t *CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutpu
     {
       if (v11)
       {
-        v58 = v6 & 0xFFFFFFFFFFFFFFFLL;
+        v58 = *((v6 & 0xFFFFFFFFFFFFFFFLL) + 0x10);
         v59 = *(v58 + 16);
-        v60 = *(v59 + 16);
-        if (v60)
+        if (v59)
         {
-          v61 = *(v58 + 16);
 
-          v62 = 32;
+          v60 = 32;
           do
           {
-            v98 = *(v59 + v62);
-            *&v105 = v7;
-            BYTE8(v105) = v8;
-            v106.i64[0] = v10;
-            CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(&v98, &v105, a3 & 1);
-            v62 += 8;
-            --v60;
+            v96 = *(v58 + v60);
+            *&v103 = v7;
+            BYTE8(v103) = v8;
+            v104.i64[0] = v10;
+            CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(&v96, &v103, a3 & 1);
+            v60 += 8;
+            --v59;
           }
 
-          while (v60);
+          while (v59);
 LABEL_40:
         }
 
@@ -9749,16 +9443,16 @@ LABEL_40:
       v10 = 32;
       while (1)
       {
-        v98 = *(v39 + v10);
+        v96 = *(v39 + v10);
         if (v9)
         {
           break;
         }
 
-        *&v105 = v7;
-        BYTE8(v105) = v8;
-        v106.i64[0] = v42;
-        CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(&v98, &v105, a3 & 1);
+        *&v103 = v7;
+        BYTE8(v103) = v8;
+        v104.i64[0] = v42;
+        CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(&v96, &v103, a3 & 1);
         v10 += 8;
         if (!--v4)
         {
@@ -9780,38 +9474,38 @@ LABEL_96:
         v16 = *(v15 + 48);
         v18 = *(v15 + 80);
         v17 = *(v15 + 96);
-        v107 = *(v15 + 64);
-        v108 = v18;
+        v105 = *(v15 + 64);
+        v106 = v18;
         v19 = *(v15 + 112);
         v20 = *(v15 + 128);
         v21 = *(v15 + 144);
-        v113 = *(v15 + 160);
+        v111 = *(v15 + 160);
         v23 = *(v15 + 128);
         v22 = *(v15 + 144);
-        v111 = v20;
-        v112 = v22;
-        v109 = v17;
-        v110 = v19;
-        v105 = *(v15 + 32);
-        v106 = v16;
+        v109 = v20;
+        v110 = v22;
+        v107 = v17;
+        v108 = v19;
+        v103 = *(v15 + 32);
+        v104 = v16;
         v24 = *(v15 + 176);
         v25 = *(v15 + 208);
         v26 = *(v15 + 96);
         v27 = *(v15 + 112);
-        v114[6] = v23;
-        v114[7] = v21;
-        v114[4] = v26;
-        v114[5] = v27;
+        v112[6] = v23;
+        v112[7] = v21;
+        v112[4] = v26;
+        v112[5] = v27;
         v29 = *(v15 + 32);
         v28 = *(v15 + 48);
         v30 = *(v15 + 80);
-        v114[2] = *(v15 + 64);
-        v114[3] = v30;
-        v114[0] = v29;
-        v114[1] = v28;
-        if (_s12_RegexParser3ASTV11ConditionalV9ConditionV4KindOWOg(v114) == 3)
+        v112[2] = *(v15 + 64);
+        v112[3] = v30;
+        v112[0] = v29;
+        v112[1] = v28;
+        if (_s12_RegexParser3ASTV11ConditionalV9ConditionV4KindOWOg(v112) == 3)
         {
-          v31 = _s12_RegexParser3ASTV11ConditionalV9ConditionV4KindOWOi_(v114);
+          v31 = _s12_RegexParser3ASTV11ConditionalV9ConditionV4KindOWOi_(v112);
           v4 = swift_allocObject();
           v32 = v31[3];
           v34 = *v31;
@@ -9827,15 +9521,15 @@ LABEL_96:
           *(v4 + 128) = v35;
           *(v4 + 80) = v37;
           *(v4 + 96) = v36;
-          v103 = v9;
-          v104 = v4 | 0x2000000000000000;
-          v101 = v7;
-          v102 = v8;
-          outlined init with copy of AST.Conditional.Condition(&v105, &v98);
+          v101 = v9;
+          v102 = v4 | 0x2000000000000000;
+          v99 = v7;
+          v100 = v8;
+          outlined init with copy of AST.Conditional.Condition(&v103, &v96);
 
-          CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(&v104, &v101, a3 & 1);
+          CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(&v102, &v99, a3 & 1);
 
-          v101 = v24;
+          v99 = v24;
           if (!v8)
           {
 LABEL_14:
@@ -9847,7 +9541,7 @@ LABEL_14:
         else
         {
 
-          v101 = v24;
+          v99 = v24;
           if (!v8)
           {
             goto LABEL_14;
@@ -9858,15 +9552,15 @@ LABEL_14:
         if (!__OFADD__(v9, 1))
         {
 LABEL_45:
-          v98 = v7;
-          v99 = v8;
-          v100 = v38;
-          CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(&v101, &v98, a3 & 1);
+          v96 = v7;
+          v97 = v8;
+          v98 = v38;
+          CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(&v99, &v96, a3 & 1);
 
-          v101 = v25;
+          v99 = v25;
           if (v8)
           {
-            v63 = (v9 + 1);
+            v61 = (v9 + 1);
             if (!__OFADD__(v9, 1))
             {
               goto LABEL_50;
@@ -9875,12 +9569,12 @@ LABEL_45:
             __break(1u);
           }
 
-          v63 = 1;
+          v61 = 1;
 LABEL_50:
-          v98 = v7;
-          v99 = v8;
-          v100 = v63;
-          CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(&v101, &v98, a3 & 1);
+          v96 = v7;
+          v97 = v8;
+          v98 = v61;
+          CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(&v99, &v96, a3 & 1);
         }
 
         goto LABEL_96;
@@ -9901,16 +9595,16 @@ LABEL_50:
             goto LABEL_35;
           }
 
-          v75 = *(v52 + 40);
-          v74 = *(v52 + 48);
-          v76 = *(v52 + 64);
-          v77 = *(v52 + 72);
-          v78 = *(v52 + 32);
-          v79 = (*(v52 + 25) << 8) | ((*(v52 + 29) | (*(v52 + 31) << 16)) << 40) | v54;
-          v80 = v75 | v78;
-          if (v55 != 0x8000000000000000 || v80 | v53 | v74 | v76 | v77 | v79)
+          v73 = *(v52 + 40);
+          v72 = *(v52 + 48);
+          v74 = *(v52 + 64);
+          v75 = *(v52 + 72);
+          v76 = *(v52 + 32);
+          v77 = (*(v52 + 25) << 8) | ((*(v52 + 29) | (*(v52 + 31) << 16)) << 40) | v54;
+          v78 = v73 | v76;
+          if (v55 != 0x8000000000000000 || v78 | v53 | v72 | v74 | v75 | v77)
           {
-            v53 = v53 == 1 && (v80 | v79 | v74 | v76 | v77) == 0 && v55 == 0x8000000000000000;
+            v53 = v53 == 1 && (v78 | v77 | v72 | v74 | v75) == 0 && v55 == 0x8000000000000000;
 LABEL_81:
             if (v53)
             {
@@ -9951,12 +9645,12 @@ LABEL_99:
         }
 
 LABEL_87:
-        v98 = v56;
-        *&v105 = v7;
-        BYTE8(v105) = v8;
-        v106.i64[0] = v10;
+        v96 = v56;
+        *&v103 = v7;
+        BYTE8(v103) = v8;
+        v104.i64[0] = v10;
 
-        CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(&v98, &v105, a3 & 1);
+        CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(&v96, &v103, a3 & 1);
       }
 
 LABEL_35:
@@ -9972,56 +9666,56 @@ LABEL_35:
     v44 = *(v43 + 16);
     v45 = *(v43 + 64);
     v46 = *(v43 + 96);
-    v109 = *(v43 + 80);
-    v110 = v46;
-    v108 = v45;
+    v107 = *(v43 + 80);
+    v108 = v46;
+    v106 = v45;
     v47 = *(v43 + 120);
-    *&v111 = *(v43 + 112);
+    *&v109 = *(v43 + 112);
     v48 = *(v43 + 32);
     v49 = *(v43 + 48);
-    v105 = v44;
-    v106 = v48;
-    v107 = v49;
+    v103 = v44;
+    v104 = v48;
+    v105 = v49;
     v4 = *(&v44 + 1);
     v50 = v44;
     if (!v46)
     {
-      v94 = *(v43 + 128);
-      v96 = *(v43 + 136);
-      v92 = &v9[v7];
+      v92 = *(v43 + 128);
+      v94 = *(v43 + 136);
+      v90 = &v9[v7];
       if (!__OFADD__(v7, v9))
       {
-        v91 = a3 & 1;
+        v89 = a3 & 1;
         v9 = *v3;
-        outlined init with copy of Source.Located<AST.Group.Kind>(&v105, &v98);
-        outlined init with copy of Source.Located<AST.Group.Kind>(&v105, &v98);
+        outlined init with copy of Source.Located<AST.Group.Kind>(&v103, &v96);
+        outlined init with copy of Source.Located<AST.Group.Kind>(&v103, &v96);
 
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
         *v3 = v9;
-        v93 = v47;
+        v91 = v47;
         if ((isUniquelyReferenced_nonNull_native & 1) == 0)
         {
           v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v9 + 2) + 1, 1, v9);
           *v3 = v9;
         }
 
-        v73 = *(v9 + 2);
-        v72 = *(v9 + 3);
-        if (v73 >= v72 >> 1)
+        v71 = *(v9 + 2);
+        v70 = *(v9 + 3);
+        if (v71 >= v70 >> 1)
         {
-          v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v72 > 1), v73 + 1, 1, v9);
+          v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v70 > 1), v71 + 1, 1, v9);
         }
 
-        sub_1C0C7CB20(&v105);
-        *(v9 + 2) = v73 + 1;
-        v69 = &v9[56 * v73];
-        *(v69 + 4) = v50;
-        *(v69 + 5) = v4;
-        *(v69 + 6) = MEMORY[0x1E69E67B0];
-        *(v69 + 7) = v92;
-        *(v69 + 8) = v94;
-        *(v69 + 9) = v96;
-        v70 = v91;
+        sub_1C0C7CB20(&v103);
+        *(v9 + 2) = v71 + 1;
+        v67 = &v9[56 * v71];
+        *(v67 + 4) = v50;
+        *(v67 + 5) = v4;
+        *(v67 + 6) = MEMORY[0x1E69E67B0];
+        *(v67 + 7) = v90;
+        *(v67 + 8) = v92;
+        *(v67 + 9) = v94;
+        v68 = v89;
         goto LABEL_65;
       }
 
@@ -10030,55 +9724,55 @@ LABEL_35:
 
     if (v46 == 1)
     {
-      v94 = *(v43 + 128);
-      v96 = *(v43 + 136);
+      v92 = *(v43 + 128);
+      v94 = *(v43 + 136);
       if (*(&v44 + 1))
       {
-        v64 = v44;
+        v62 = v44;
       }
 
       else
       {
-        v64 = 0;
+        v62 = 0;
       }
 
-      v92 = v64;
-      v65 = &v9[v7];
+      v90 = v62;
+      v63 = &v9[v7];
       if (!__OFADD__(v7, v9))
       {
-        v89 = a3 & 1;
+        v87 = a3 & 1;
         v9 = *v3;
-        outlined init with copy of Source.Located<AST.Group.Kind>(&v105, &v98);
+        outlined init with copy of Source.Located<AST.Group.Kind>(&v103, &v96);
 
-        v66 = swift_isUniquelyReferenced_nonNull_native();
+        v64 = swift_isUniquelyReferenced_nonNull_native();
         *v3 = v9;
-        v93 = v47;
-        v90 = v65;
-        if (v66)
+        v91 = v47;
+        v88 = v63;
+        if (v64)
         {
 LABEL_56:
-          v68 = *(v9 + 2);
-          v67 = *(v9 + 3);
-          if (v68 >= v67 >> 1)
+          v66 = *(v9 + 2);
+          v65 = *(v9 + 3);
+          if (v66 >= v65 >> 1)
           {
-            v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v67 > 1), v68 + 1, 1, v9);
+            v9 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v65 > 1), v66 + 1, 1, v9);
           }
 
-          sub_1C0C7CB20(&v105);
-          *(v9 + 2) = v68 + 1;
-          v69 = &v9[56 * v68];
-          *(v69 + 4) = v92;
-          *(v69 + 5) = v4;
-          *(v69 + 6) = MEMORY[0x1E69E67B0];
-          *(v69 + 7) = v90;
-          *(v69 + 8) = v94;
-          *(v69 + 9) = v96;
-          v70 = v89;
+          sub_1C0C7CB20(&v103);
+          *(v9 + 2) = v66 + 1;
+          v67 = &v9[56 * v66];
+          *(v67 + 4) = v90;
+          *(v67 + 5) = v4;
+          *(v67 + 6) = MEMORY[0x1E69E67B0];
+          *(v67 + 7) = v88;
+          *(v67 + 8) = v92;
+          *(v67 + 9) = v94;
+          v68 = v87;
 LABEL_65:
-          v69[80] = v70;
+          v67[80] = v68;
           *v3 = v9;
 LABEL_66:
-          v47 = v93;
+          v47 = v91;
           goto LABEL_67;
         }
 
@@ -10091,20 +9785,20 @@ LABEL_100:
       goto LABEL_98;
     }
 
-    if (v46 != 3 || (v51 = vorrq_s8(vorrq_s8(v106, v108), vorrq_s8(v107, v109)), *&vorr_s8(*v51.i8, *&vextq_s8(v51, v51, 8uLL)) | v4 | v50))
+    if (v46 != 3 || (v51 = vorrq_s8(vorrq_s8(v104, v106), vorrq_s8(v105, v107)), *&vorr_s8(*v51.i8, *&vextq_s8(v51, v51, 8uLL)) | v4 | v50))
     {
 
 LABEL_67:
-      *&v114[0] = v47;
-      v98 = v7;
-      v99 = v8;
-      v100 = v10;
-      CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(v114, &v98, a3 & 1);
+      *&v112[0] = v47;
+      v96 = v7;
+      v97 = v8;
+      v98 = v10;
+      CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(v112, &v96, a3 & 1);
     }
 
-    v95 = *(v43 + 128);
-    v97 = *(v43 + 136);
-    v83 = &v9[v7];
+    v93 = *(v43 + 128);
+    v95 = *(v43 + 136);
+    v81 = &v9[v7];
     if (__OFADD__(v7, v9))
     {
       __break(1u);
@@ -10112,33 +9806,33 @@ LABEL_67:
 
     else
     {
-      v84 = a3 & 1;
+      v82 = a3 & 1;
       v4 = *v3;
-      outlined init with copy of Source.Located<AST.Group.Kind>(&v105, &v98);
+      outlined init with copy of Source.Located<AST.Group.Kind>(&v103, &v96);
 
-      v85 = swift_isUniquelyReferenced_nonNull_native();
+      v83 = swift_isUniquelyReferenced_nonNull_native();
       *v3 = v4;
-      v93 = v47;
-      LOBYTE(v92) = v84;
-      if (v85)
+      v91 = v47;
+      LOBYTE(v90) = v82;
+      if (v83)
       {
 LABEL_92:
-        v87 = *(v4 + 16);
-        v86 = *(v4 + 24);
-        if (v87 >= v86 >> 1)
+        v85 = *(v4 + 16);
+        v84 = *(v4 + 24);
+        if (v85 >= v84 >> 1)
         {
-          v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v86 > 1), v87 + 1, 1, v4);
+          v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v84 > 1), v85 + 1, 1, v4);
         }
 
-        *(v4 + 16) = v87 + 1;
-        v88 = v4 + 56 * v87;
-        *(v88 + 32) = 0;
-        *(v88 + 40) = 0;
-        *(v88 + 48) = MEMORY[0x1E69E67B0];
-        *(v88 + 56) = v83;
-        *(v88 + 64) = v95;
-        *(v88 + 72) = v97;
-        *(v88 + 80) = v92;
+        *(v4 + 16) = v85 + 1;
+        v86 = v4 + 56 * v85;
+        *(v86 + 32) = 0;
+        *(v86 + 40) = 0;
+        *(v86 + 48) = MEMORY[0x1E69E67B0];
+        *(v86 + 56) = v81;
+        *(v86 + 64) = v93;
+        *(v86 + 72) = v95;
+        *(v86 + 80) = v90;
         *v3 = v4;
         goto LABEL_66;
       }
@@ -10157,11 +9851,11 @@ LABEL_92:
     {
       outlined copy of AST.AbsentFunction.Kind(v13[4], v13[5], v13[6], v13[7]);
 
-      v98 = v14 & 0xFFFFFFFFFFFFFFF9;
-      *&v105 = v7;
-      BYTE8(v105) = v8;
-      v106.i64[0] = v9;
-      CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(&v98, &v105, a3 & 1);
+      v96 = v14 & 0xFFFFFFFFFFFFFFF9;
+      *&v103 = v7;
+      BYTE8(v103) = v8;
+      v104.i64[0] = v9;
+      CaptureList.Builder.addCaptures(of:optionalNesting:visibleInTypedOutput:)(&v96, &v103, a3 & 1);
     }
   }
 

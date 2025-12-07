@@ -14,9 +14,9 @@
 - (LAPublicKey)initWithKey:(id)key
 {
   keyCopy = key;
-  v13.receiver = self;
-  v13.super_class = LAPublicKey;
-  v6 = [(LAPublicKey *)&v13 init];
+  v14.receiver = self;
+  v14.super_class = LAPublicKey;
+  v6 = [(LAPublicKey *)&v14 init];
   v7 = v6;
   if (v6)
   {
@@ -28,8 +28,8 @@
     mEMORY[0x1E696EE90] = [MEMORY[0x1E696EE90] sharedInstance];
     v7->_instanceID = [mEMORY[0x1E696EE90] nextInstanceIDInDomain:@"LAPublicKey"];
 
-    v11 = LA_LOG_4();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = LA_LOG_4(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       [(LARightStore *)v7 init];
     }
@@ -40,7 +40,7 @@
 
 - (void)dealloc
 {
-  v3 = LA_LOG_4();
+  v3 = LA_LOG_4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(LARightStore *)self dealloc];
@@ -94,13 +94,13 @@ void __41__LAPublicKey_exportBytesWithCompletion___block_invoke(uint64_t a1)
 
 void __41__LAPublicKey_exportBytesWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
-  v2 = LA_LOG_4();
+  v16 = *MEMORY[0x1E69E9840];
+  v2 = LA_LOG_4(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v16 = v3;
+    v15 = v3;
     _os_log_impl(&dword_1A784E000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ exportBytes started", buf, 0xCu);
   }
 
@@ -109,20 +109,20 @@ void __41__LAPublicKey_exportBytesWithCompletion___block_invoke_2(uint64_t a1)
   if (WeakRetained)
   {
     v6 = *(WeakRetained + 2);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 3221225472;
-    v12[2] = __41__LAPublicKey_exportBytesWithCompletion___block_invoke_8;
-    v12[3] = &unk_1E77CB9C0;
-    objc_copyWeak(&v14, (a1 + 48));
-    v13 = *(a1 + 40);
-    [v6 exportBytesWithCompletion:v12];
+    v11[0] = MEMORY[0x1E69E9820];
+    v11[1] = 3221225472;
+    v11[2] = __41__LAPublicKey_exportBytesWithCompletion___block_invoke_8;
+    v11[3] = &unk_1E77CB9C0;
+    objc_copyWeak(&v13, (a1 + 48));
+    v12 = *(a1 + 40);
+    [v6 exportBytesWithCompletion:v11];
 
-    objc_destroyWeak(&v14);
+    objc_destroyWeak(&v13);
   }
 
   else
   {
-    v7 = LA_LOG_4();
+    v7 = LA_LOG_4(0);
     v8 = LALogTypeForInternalError();
     if (os_log_type_enabled(v7, v8))
     {
@@ -134,16 +134,14 @@ void __41__LAPublicKey_exportBytesWithCompletion___block_invoke_2(uint64_t a1)
     v10 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
     (*(v9 + 16))(v9, 0, v10);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __41__LAPublicKey_exportBytesWithCompletion___block_invoke_8(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = LA_LOG_4();
+  v7 = LA_LOG_4(v6);
   v8 = v7;
   if (v5)
   {
@@ -170,9 +168,9 @@ void __41__LAPublicKey_exportBytesWithCompletion___block_invoke_8(uint64_t a1, v
   }
 
   *buf = 138543618;
-  v14 = WeakRetained;
-  v15 = 2114;
-  v16 = v11;
+  v13 = WeakRetained;
+  v14 = 2114;
+  v15 = v11;
   _os_log_impl(&dword_1A784E000, v8, v9, "%{public}@ exportBytes finished %{public}@", buf, 0x16u);
   if (v5)
   {
@@ -180,8 +178,6 @@ void __41__LAPublicKey_exportBytesWithCompletion___block_invoke_8(uint64_t a1, v
 
 LABEL_9:
   (*(*(a1 + 32) + 16))();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)encryptData:(NSData *)data secKeyAlgorithm:(SecKeyAlgorithm)algorithm completion:(void *)handler
@@ -228,13 +224,13 @@ void __54__LAPublicKey_encryptData_secKeyAlgorithm_completion___block_invoke(uin
 
 void __54__LAPublicKey_encryptData_secKeyAlgorithm_completion___block_invoke_2(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v2 = LA_LOG_4();
+  v18 = *MEMORY[0x1E69E9840];
+  v2 = LA_LOG_4(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v18 = v3;
+    v17 = v3;
     _os_log_impl(&dword_1A784E000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ encrypt started", buf, 0xCu);
   }
 
@@ -245,20 +241,20 @@ void __54__LAPublicKey_encryptData_secKeyAlgorithm_completion___block_invoke_2(u
     v6 = *(WeakRetained + 2);
     v7 = *(a1 + 40);
     v8 = *(a1 + 64);
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __54__LAPublicKey_encryptData_secKeyAlgorithm_completion___block_invoke_18;
-    v14[3] = &unk_1E77CB9C0;
-    objc_copyWeak(&v16, (a1 + 56));
-    v15 = *(a1 + 48);
-    [v6 encryptData:v7 secKeyAlgorithm:v8 completion:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __54__LAPublicKey_encryptData_secKeyAlgorithm_completion___block_invoke_18;
+    v13[3] = &unk_1E77CB9C0;
+    objc_copyWeak(&v15, (a1 + 56));
+    v14 = *(a1 + 48);
+    [v6 encryptData:v7 secKeyAlgorithm:v8 completion:v13];
 
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v15);
   }
 
   else
   {
-    v9 = LA_LOG_4();
+    v9 = LA_LOG_4(0);
     v10 = LALogTypeForInternalError();
     if (os_log_type_enabled(v9, v10))
     {
@@ -270,16 +266,14 @@ void __54__LAPublicKey_encryptData_secKeyAlgorithm_completion___block_invoke_2(u
     v12 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
     (*(v11 + 16))(v11, 0, v12);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __54__LAPublicKey_encryptData_secKeyAlgorithm_completion___block_invoke_18(uint64_t a1, void *a2, void *a3)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = a2;
-  v7 = LA_LOG_4();
+  v7 = LA_LOG_4(v6);
   v8 = v7;
   if (v5)
   {
@@ -306,9 +300,9 @@ void __54__LAPublicKey_encryptData_secKeyAlgorithm_completion___block_invoke_18(
   }
 
   *buf = 138543618;
-  v14 = WeakRetained;
-  v15 = 2114;
-  v16 = v11;
+  v13 = WeakRetained;
+  v14 = 2114;
+  v15 = v11;
   _os_log_impl(&dword_1A784E000, v8, v9, "%{public}@ encrypt finished %{public}@", buf, 0x16u);
   if (v5)
   {
@@ -316,8 +310,6 @@ void __54__LAPublicKey_encryptData_secKeyAlgorithm_completion___block_invoke_18(
 
 LABEL_9:
   (*(*(a1 + 32) + 16))();
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)canEncryptUsingSecKeyAlgorithm:(SecKeyAlgorithm)algorithm
@@ -341,7 +333,7 @@ LABEL_9:
   return algorithm;
 }
 
-uint64_t __46__LAPublicKey_canEncryptUsingSecKeyAlgorithm___block_invoke(void *a1)
+void *__46__LAPublicKey_canEncryptUsingSecKeyAlgorithm___block_invoke(void *a1)
 {
   result = [*(a1[4] + 16) canEncryptUsingSecKeyAlgorithm:a1[6]];
   *(*(a1[5] + 8) + 24) = result;
@@ -396,13 +388,13 @@ void __63__LAPublicKey_verifyData_signature_secKeyAlgorithm_completion___block_i
 
 void __63__LAPublicKey_verifyData_signature_secKeyAlgorithm_completion___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v2 = LA_LOG_4();
+  v19 = *MEMORY[0x1E69E9840];
+  v2 = LA_LOG_4(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     *buf = 138543362;
-    v19 = v3;
+    v18 = v3;
     _os_log_impl(&dword_1A784E000, v2, OS_LOG_TYPE_DEFAULT, "%{public}@ verify started", buf, 0xCu);
   }
 
@@ -414,20 +406,20 @@ void __63__LAPublicKey_verifyData_signature_secKeyAlgorithm_completion___block_i
     v7 = *(a1 + 40);
     v8 = *(a1 + 48);
     v9 = *(a1 + 72);
-    v15[0] = MEMORY[0x1E69E9820];
-    v15[1] = 3221225472;
-    v15[2] = __63__LAPublicKey_verifyData_signature_secKeyAlgorithm_completion___block_invoke_19;
-    v15[3] = &unk_1E77CB0A8;
-    objc_copyWeak(&v17, (a1 + 64));
-    v16 = *(a1 + 56);
-    [v6 verifyData:v7 signature:v8 secKeyAlgorithm:v9 completion:v15];
+    v14[0] = MEMORY[0x1E69E9820];
+    v14[1] = 3221225472;
+    v14[2] = __63__LAPublicKey_verifyData_signature_secKeyAlgorithm_completion___block_invoke_19;
+    v14[3] = &unk_1E77CB0A8;
+    objc_copyWeak(&v16, (a1 + 64));
+    v15 = *(a1 + 56);
+    [v6 verifyData:v7 signature:v8 secKeyAlgorithm:v9 completion:v14];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v16);
   }
 
   else
   {
-    v10 = LA_LOG_4();
+    v10 = LA_LOG_4(0);
     v11 = LALogTypeForInternalError();
     if (os_log_type_enabled(v10, v11))
     {
@@ -439,15 +431,13 @@ void __63__LAPublicKey_verifyData_signature_secKeyAlgorithm_completion___block_i
     v13 = [LAAuthorizationError genericErrorWithMessage:@"Operation interrupted"];
     (*(v12 + 16))(v12, v13);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __63__LAPublicKey_verifyData_signature_secKeyAlgorithm_completion___block_invoke_19(uint64_t a1, void *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = LA_LOG_4();
+  v4 = LA_LOG_4(v3);
   v5 = v4;
   if (v3)
   {
@@ -474,9 +464,9 @@ void __63__LAPublicKey_verifyData_signature_secKeyAlgorithm_completion___block_i
   }
 
   *buf = 138543618;
-  v11 = WeakRetained;
-  v12 = 2114;
-  v13 = v8;
+  v10 = WeakRetained;
+  v11 = 2114;
+  v12 = v8;
   _os_log_impl(&dword_1A784E000, v5, v6, "%{public}@ verify finished %{public}@", buf, 0x16u);
   if (v3)
   {
@@ -484,8 +474,6 @@ void __63__LAPublicKey_verifyData_signature_secKeyAlgorithm_completion___block_i
 
 LABEL_9:
   (*(*(a1 + 32) + 16))();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)canVerifyUsingSecKeyAlgorithm:(SecKeyAlgorithm)algorithm
@@ -509,7 +497,7 @@ LABEL_9:
   return algorithm;
 }
 
-uint64_t __45__LAPublicKey_canVerifyUsingSecKeyAlgorithm___block_invoke(void *a1)
+void *__45__LAPublicKey_canVerifyUsingSecKeyAlgorithm___block_invoke(void *a1)
 {
   result = [*(a1[4] + 16) canVerifyUsingSecKeyAlgorithm:a1[6]];
   *(*(a1[5] + 8) + 24) = result;

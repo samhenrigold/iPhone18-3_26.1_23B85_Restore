@@ -213,11 +213,9 @@ LABEL_17:
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277CCACA8]);
-  endDate = self->_endDate;
-  v5 = [v3 initWithFormat:@"<FIAPHistoricalDataRequest id:%llu p:%@ s:%@ e:%@ plugin:%@>", self->_requestId, self->_personHandle, self->_startDate, endDate, self->_pluginIdentifier];
+  v2 = [objc_alloc(MEMORY[0x277CCACA8]) initWithFormat:@"<FIAPHistoricalDataRequest id:%llu p:%@ s:%@ e:%@ plugin:%@>", self->_requestId, self->_personHandle, self->_startDate, self->_endDate, self->_pluginIdentifier];
 
-  return v5;
+  return v2;
 }
 
 - (FIAPHistoricalDataRequest)initWithRequestId:(unint64_t)id pluginIdentifier:(id)identifier personHandle:(id)handle startDate:(id)date endDate:(id)endDate

@@ -14,7 +14,7 @@
   interactions = [v2 interactions];
   if (!interactions)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C76F6F8);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27C76F6F8, &unk_20C17FD60);
     sub_20C13CC74();
     interactions = sub_20C13CC54();
   }
@@ -39,7 +39,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_20BE4BAE4();
+  sub_20BE4BAE4(selfCopy);
 }
 
 - (_TtC9SeymourUI20PaletteContainerView)initWithFrame:(CGRect)frame

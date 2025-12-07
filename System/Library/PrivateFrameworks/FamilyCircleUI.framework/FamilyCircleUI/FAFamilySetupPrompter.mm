@@ -194,36 +194,33 @@ void __81__FAFamilySetupPrompter_promptIfEligibleWithPresentingViewController_is
 
 void __81__FAFamilySetupPrompter_promptIfEligibleWithPresentingViewController_isFirstRun___block_invoke_41(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = _AALogSystem();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134218242;
-    v13 = a2;
-    v14 = 2112;
-    v15 = v5;
+    v11 = a2;
+    v12 = 2112;
+    v13 = v5;
     _os_log_impl(&dword_21BB35000, v6, OS_LOG_TYPE_DEFAULT, "Result of renewing credentials for family eligibility check request: %ld. Error: %@", buf, 0x16u);
   }
 
   if (a2)
   {
-    v7 = *(a1 + 32);
     (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __81__FAFamilySetupPrompter_promptIfEligibleWithPresentingViewController_isFirstRun___block_invoke_42;
-    v9[3] = &unk_2782F2BD8;
-    v10 = *(a1 + 40);
-    v11 = *(a1 + 48);
-    dispatch_async(MEMORY[0x277D85CD0], v9);
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __81__FAFamilySetupPrompter_promptIfEligibleWithPresentingViewController_isFirstRun___block_invoke_42;
+    v7[3] = &unk_2782F2BD8;
+    v8 = *(a1 + 40);
+    v9 = *(a1 + 48);
+    dispatch_async(MEMORY[0x277D85CD0], v7);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleFamilyEligibilityResponse:(id)response isFirstRun:(BOOL)run
@@ -344,11 +341,11 @@ LABEL_8:
   [WeakRetained presentViewController:v11 animated:1 completion:0];
 }
 
-uint64_t __64__FAFamilySetupPrompter__showConfirmationForStartingFamilySetup__block_invoke(uint64_t result, char a2)
+id *__64__FAFamilySetupPrompter__showConfirmationForStartingFamilySetup__block_invoke(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) _goToFamilySetup];
+    return [result[4] _goToFamilySetup];
   }
 
   return result;
@@ -378,11 +375,11 @@ uint64_t __64__FAFamilySetupPrompter__showConfirmationForStartingFamilySetup__bl
   [WeakRetained presentViewController:v11 animated:1 completion:0];
 }
 
-uint64_t __81__FAFamilySetupPrompter__showConfirmationForStartingFamilySetupWithPendingInvite__block_invoke(uint64_t result, char a2)
+id *__81__FAFamilySetupPrompter__showConfirmationForStartingFamilySetupWithPendingInvite__block_invoke(id *result, char a2)
 {
   if ((a2 & 1) == 0)
   {
-    return [*(result + 32) _showPendingInvitesDialog];
+    return [result[4] _showPendingInvitesDialog];
   }
 
   return result;

@@ -10,27 +10,27 @@
 
 - (TSTLayoutValidationBundle)initWithTableInfo:(id)info
 {
-  v11.receiver = self;
-  v11.super_class = TSTLayoutValidationBundle;
-  v7 = [(TSTLayoutValidationBundle *)&v11 init];
-  if (v7)
+  v10.receiver = self;
+  v10.super_class = TSTLayoutValidationBundle;
+  v6 = [(TSTLayoutValidationBundle *)&v10 init];
+  if (v6)
   {
-    v8 = objc_msgSend_array(MEMORY[0x277CBEB18], v3, v4, v5, v6);
-    widthHeightCollections = v7->_widthHeightCollections;
-    v7->_widthHeightCollections = v8;
+    v7 = objc_msgSend_array(MEMORY[0x277CBEB18], v3, v4, v5);
+    widthHeightCollections = v6->_widthHeightCollections;
+    v6->_widthHeightCollections = v7;
 
-    v7->_lock._os_unfair_lock_opaque = 0;
+    v6->_lock._os_unfair_lock_opaque = 0;
     __dmb(0xBu);
   }
 
-  return v7;
+  return v6;
 }
 
 - (void)cacheWidth:(double)width ofColumn:(unsigned __int16)column
 {
   columnCopy = column;
   v5 = &columnCopy;
-  *(sub_2210C30DC(&self->_columnToWidth.__table_.__bucket_list_.__ptr_, &columnCopy) + 3) = width;
+  *(sub_2210C30DC(&self->_columnToWidth.__table_.__bucket_list_.__ptr_, &columnCopy, &unk_2217E14B0, &v5) + 3) = width;
 }
 
 - (double)widthOfColumn:(unsigned __int16)column handleCacheMissUsingBlock:(id)block
@@ -55,7 +55,7 @@
 {
   v3 = objc_alloc_init(TSTWidthHeightCollection);
   os_unfair_lock_lock(&self->_lock);
-  objc_msgSend_addObject_(self->_widthHeightCollections, v4, v3, v5, v6);
+  objc_msgSend_addObject_(self->_widthHeightCollections, v4, v3, v5);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;

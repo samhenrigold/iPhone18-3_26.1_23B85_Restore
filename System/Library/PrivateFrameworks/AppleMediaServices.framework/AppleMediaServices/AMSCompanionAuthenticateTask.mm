@@ -19,30 +19,30 @@
   return v2;
 }
 
-id __62__AMSCompanionAuthenticateTask_performCompanionAuthentication__block_invoke()
+id __62__AMSCompanionAuthenticateTask_performCompanionAuthentication__block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v0 = AMSSetLogKeyIfNeeded();
-  v1 = +[AMSLogConfig sharedPurchaseConfig];
-  if (!v1)
+  v11 = *MEMORY[0x1E69E9840];
+  v1 = AMSSetLogKeyIfNeeded();
+  v2 = +[AMSLogConfig sharedPurchaseConfig];
+  if (!v2)
   {
-    v1 = +[AMSLogConfig sharedConfig];
+    v2 = +[AMSLogConfig sharedConfig];
   }
 
-  v2 = [v1 OSLogObject];
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = [v2 OSLogObject];
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
-    v6 = 138543618;
-    v7 = objc_opt_class();
-    v8 = 2114;
-    v9 = v0;
-    _os_log_impl(&dword_192869000, v2, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Platform not supported", &v6, 0x16u);
+    v7 = 138543618;
+    v8 = objc_opt_class();
+    v9 = 2114;
+    v10 = v1;
+    _os_log_impl(&dword_192869000, v3, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Platform not supported", &v7, 0x16u);
   }
 
-  v3 = AMSError(5, @"Companion Auth Error", @"Platform not supported", 0);
-  v4 = [AMSPromise promiseWithError:v3];
+  v4 = AMSError(5, @"Companion Auth Error", @"Platform not supported", 0);
+  v5 = [AMSPromise promiseWithError:v4];
 
-  return v4;
+  return v5;
 }
 
 - (id)_authenticateWithDelegateAuthToken:(id)token

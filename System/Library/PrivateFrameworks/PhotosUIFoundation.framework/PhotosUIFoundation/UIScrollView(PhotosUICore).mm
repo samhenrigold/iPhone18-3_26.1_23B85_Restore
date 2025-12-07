@@ -2,13 +2,13 @@
 + (double)_convertDampingRatio:()PhotosUICore response:toMass:stiffness:damping:;
 - (BOOL)px_isPerformingScrollTest;
 - (BOOL)px_performDecelerationWithInitialVelocity:()PhotosUICore axis:targetContentOffsetForProposedOffset:;
+- (BOOL)px_scrollableAxis;
 - (double)_px_currentContentSize;
 - (double)px_contentOffsetForEdge:()PhotosUICore padding:;
 - (double)px_maximumContentOffset;
 - (double)px_minimumContentOffset;
 - (long)px_initialVelocityForDecelerationOffset:()PhotosUICore;
 - (uint64_t)px_cancelScrollAnimation;
-- (uint64_t)px_cancelScrollGesture;
 - (uint64_t)px_contentOffsetYFraction;
 - (uint64_t)px_isBouncing;
 - (uint64_t)px_isDecelerating;
@@ -16,8 +16,8 @@
 - (uint64_t)px_isScrolledAtEdge:()PhotosUICore tolerance:;
 - (uint64_t)px_scrollToContentOffset:()PhotosUICore animated:;
 - (uint64_t)px_scrollToEdge:()PhotosUICore animated:;
-- (uint64_t)px_scrollableAxis;
 - (void)px_adjustInsetsForKeyboardInfo:()PhotosUICore safeAreaInsets:;
+- (void)px_cancelScrollGesture;
 - (void)px_constrainedContentOffset:()PhotosUICore;
 - (void)px_scrollDistanceFromEdge:()PhotosUICore;
 - (void)px_setPocketColorForAllEdges:()PhotosUICore;
@@ -80,7 +80,7 @@
   return [self px_isScrolledBeyondEdge:3];
 }
 
-- (uint64_t)px_scrollableAxis
+- (BOOL)px_scrollableAxis
 {
   IsScrollableAlongAxis = PXScrollViewIsScrollableAlongAxis(self, 2);
   if (PXScrollViewIsScrollableAlongAxis(self, 1))
@@ -291,7 +291,7 @@ LABEL_7:
   return [self setContentOffset:0 animated:?];
 }
 
-- (uint64_t)px_cancelScrollGesture
+- (void)px_cancelScrollGesture
 {
   result = [self isScrollEnabled];
   if (result)
@@ -482,7 +482,7 @@ LABEL_7:
 
 - (uint64_t)px_scrollToEdge:()PhotosUICore animated:
 {
-  [self px_contentOffsetForEdge:?];
+  [self px_contentOffsetForEdge:a3];
 
   return [self px_scrollToContentOffset:a4 animated:?];
 }

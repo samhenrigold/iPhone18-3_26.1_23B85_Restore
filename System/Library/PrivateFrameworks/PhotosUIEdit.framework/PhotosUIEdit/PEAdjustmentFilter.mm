@@ -64,10 +64,10 @@
 
 uint64_t __121__PEAdjustmentFilter_applyToCompositionController_valuesCalculator_asset_livePortraitBehaviorDelegate_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 filterIdentifier];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 filterIdentifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 void __121__PEAdjustmentFilter_applyToCompositionController_valuesCalculator_asset_livePortraitBehaviorDelegate_completionHandler___block_invoke_2(uint64_t a1, void *a2)

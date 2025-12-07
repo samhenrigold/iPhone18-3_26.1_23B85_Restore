@@ -43,7 +43,7 @@
 
 + (HKSignedClinicalDataQRRepresentation)representationWithQRSegment:(id)segment
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   segmentCopy = segment;
   if (!segmentCopy)
   {
@@ -51,12 +51,10 @@
   }
 
   v6 = [[self alloc] initWithSourceType:{objc_msgSend(segmentCopy, "sourceType")}];
-  v11[0] = segmentCopy;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = segmentCopy;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v8 = v6[2];
   v6[2] = v7;
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -448,10 +446,10 @@ LABEL_14:
 
 + (id)representationForEUDCCPayloadData:(id)data error:(id *)error
 {
-  v18[1] = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  v6 = [data hk_zlibCompressedIncludingHeaderAndTrailer:1 errorOut:&v17];
-  v7 = v17;
+  v17[1] = *MEMORY[0x277D85DE8];
+  v16 = 0;
+  v6 = [data hk_zlibCompressedIncludingHeaderAndTrailer:1 errorOut:&v16];
+  v7 = v16;
   v8 = v7;
   if (v6)
   {
@@ -460,14 +458,14 @@ LABEL_14:
     {
       v10 = [MEMORY[0x277CCAB68] stringWithString:@"HC1:"];
       [v10 appendString:hk_base45Encoded];
-      v18[0] = v10;
-      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+      v17[0] = v10;
+      v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
       v12 = [HKSignedClinicalDataQRRepresentation representationWithSMARTHealthCardQRSegmentData:v11];
 
       goto LABEL_7;
     }
 
-    [MEMORY[0x277CCA9B8] hk_assignError:error code:3 format:{@"%@: error base45 encoding data", self, v16}];
+    [MEMORY[0x277CCA9B8] hk_assignError:error code:3 format:{@"%@: error base45 encoding data", self, v15}];
   }
 
   else
@@ -479,8 +477,6 @@ LABEL_14:
 
   v12 = 0;
 LABEL_7:
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

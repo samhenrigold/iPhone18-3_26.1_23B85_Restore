@@ -31,16 +31,20 @@
 
 uint64_t __31__BKSDefaults_externalDefaults__block_invoke()
 {
-  externalDefaults___instance = objc_alloc_init(BKSExternalDefaults);
+  v0 = objc_alloc_init(BKSExternalDefaults);
+  v1 = externalDefaults___instance;
+  externalDefaults___instance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 uint64_t __28__BKSDefaults_localDefaults__block_invoke()
 {
-  localDefaults___instance = objc_alloc_init(BKSLocalDefaults);
+  v0 = objc_alloc_init(BKSLocalDefaults);
+  v1 = localDefaults___instance;
+  localDefaults___instance = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

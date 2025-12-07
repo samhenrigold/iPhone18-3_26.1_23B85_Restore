@@ -41,10 +41,10 @@
 
 - (IMDDaemonPropertyManager)init
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v24.receiver = self;
-  v24.super_class = IMDDaemonPropertyManager;
-  v2 = [(IMDDaemonPropertyManager *)&v24 init];
+  v25 = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = IMDDaemonPropertyManager;
+  v2 = [(IMDDaemonPropertyManager *)&v23 init];
   if (v2)
   {
     v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
@@ -58,28 +58,28 @@
     v7 = CFPreferencesCopyKeyList(*MEMORY[0x277CBF028], *MEMORY[0x277CBF040], *MEMORY[0x277CBF010]);
     if ([(__CFArray *)v7 count])
     {
-      v22 = 0u;
-      v23 = 0u;
-      v20 = 0u;
       v21 = 0u;
-      v19 = v7;
+      v22 = 0u;
+      v19 = 0u;
+      v20 = 0u;
+      v18 = v7;
       v8 = v7;
-      v9 = [(__CFArray *)v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v9 = [(__CFArray *)v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
       if (v9)
       {
         v10 = v9;
-        v11 = *v21;
+        v11 = *v20;
         do
         {
           v12 = 0;
           do
           {
-            if (*v21 != v11)
+            if (*v20 != v11)
             {
               objc_enumerationMutation(v8);
             }
 
-            v13 = *(*(&v20 + 1) + 8 * v12);
+            v13 = *(*(&v19 + 1) + 8 * v12);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) != 0 && [v13 hasPrefix:@"Setting."])
             {
@@ -93,17 +93,16 @@
           }
 
           while (v10 != v12);
-          v10 = [(__CFArray *)v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
+          v10 = [(__CFArray *)v8 countByEnumeratingWithState:&v19 objects:v24 count:16];
         }
 
         while (v10);
       }
 
-      v7 = v19;
+      v7 = v18;
     }
   }
 
-  v17 = *MEMORY[0x277D85DE8];
   return v2;
 }
 

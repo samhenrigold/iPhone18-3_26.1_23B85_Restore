@@ -8,6 +8,7 @@
 - (void)_calculateLift:(id)lift completion:(id)completion;
 - (void)_countsForEvent:(id)event interval:(id)interval completion:(id)completion;
 - (void)_saveHistoricalUsage:(id)usage completion:(id)completion;
+- (void)_savePreHintRangeOutOfBounds:(BOOL)bounds forIdentifier:(id)identifier;
 - (void)processAnalytics:(id)analytics;
 - (void)resetAnalytics;
 @end
@@ -31,31 +32,31 @@
 
 - (void)processAnalytics:(id)analytics
 {
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   analyticsCopy = analytics;
   dateLastRun = [(TPSAnalyticsProcessor *)self dateLastRun];
-  v44 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v43 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v64 = 0u;
   v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
   dataSource = [(TPSAnalyticsProcessor *)self dataSource];
   obj = [dataSource allTipStatus];
 
-  v47 = [obj countByEnumeratingWithState:&v65 objects:v72 count:16];
-  if (v47)
+  v46 = [obj countByEnumeratingWithState:&v64 objects:v71 count:16];
+  if (v46)
   {
-    v46 = *v66;
+    v45 = *v65;
     do
     {
-      for (i = 0; i != v47; ++i)
+      for (i = 0; i != v46; ++i)
       {
-        if (*v66 != v46)
+        if (*v65 != v45)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v65 + 1) + 8 * i);
+        v6 = *(*(&v64 + 1) + 8 * i);
         identifier = [v6 identifier];
         dataSource2 = [(TPSAnalyticsProcessor *)self dataSource];
         v9 = [dataSource2 contextualInfoForIdentifier:identifier];
@@ -77,62 +78,62 @@
           [(TPSAnalyticsUsageInfo *)v16 setUsageEvent:firstObject];
           [(TPSAnalyticsUsageInfo *)v16 setIdentifier:identifier];
           [(TPSAnalyticsUsageInfo *)v16 setDesiredOutcomeCount:v15];
-          [v44 addObject:v16];
+          [v43 addObject:v16];
         }
       }
 
-      v47 = [obj countByEnumeratingWithState:&v65 objects:v72 count:16];
+      v46 = [obj countByEnumeratingWithState:&v64 objects:v71 count:16];
     }
 
-    while (v47);
+    while (v46);
   }
 
-  v61 = 0;
-  v62 = &v61;
-  v63 = 0x2020000000;
-  v64 = [v44 count];
+  v60 = 0;
+  v61 = &v60;
+  v62 = 0x2020000000;
+  v63 = [v43 count];
   analytics = [MEMORY[0x277D71778] analytics];
   if (os_log_type_enabled(analytics, OS_LOG_TYPE_INFO))
   {
-    v18 = v62[3];
+    v18 = v61[3];
     *buf = 134217984;
-    v71 = v18;
+    v70 = v18;
     _os_log_impl(&dword_232D6F000, analytics, OS_LOG_TYPE_INFO, "Valid tips for usage event processing: %lu", buf, 0xCu);
   }
 
-  if (v62[3])
+  if (v61[3])
   {
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 3221225472;
     aBlock[2] = __53__TPSAnalyticsUsageEventsProcessor_processAnalytics___block_invoke;
     aBlock[3] = &unk_2789B0C30;
-    v60 = &v61;
-    v59 = analyticsCopy;
+    v59 = &v60;
+    v58 = analyticsCopy;
     v19 = _Block_copy(aBlock);
     currentCalendar = [MEMORY[0x277CBEA80] currentCalendar];
     v21 = [currentCalendar dateByAddingUnit:16 value:-5 toDate:self->_currentDate options:0];
 
-    v56 = 0u;
-    v57 = 0u;
-    v54 = 0u;
     v55 = 0u;
-    v22 = v44;
-    v23 = [v22 countByEnumeratingWithState:&v54 objects:v69 count:16];
+    v56 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v22 = v43;
+    v23 = [v22 countByEnumeratingWithState:&v53 objects:v68 count:16];
     if (v23)
     {
-      v24 = *v55;
+      v24 = *v54;
       do
       {
         v25 = 0;
         do
         {
-          if (*v55 != v24)
+          if (*v54 != v24)
           {
             objc_enumerationMutation(v22);
           }
 
-          v26 = *(*(&v54 + 1) + 8 * v25);
-          if (dateLastRun && ([*(*(&v54 + 1) + 8 * v25) firstShownDate], v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "compare:", dateLastRun) == 1, v27, !v28))
+          v26 = *(*(&v53 + 1) + 8 * v25);
+          if (dateLastRun && ([*(*(&v53 + 1) + 8 * v25) firstShownDate], v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "compare:", dateLastRun) == 1, v27, !v28))
           {
             if ([(TPSAnalyticsUsageEventsProcessor *)self _shouldCalculateLift:v26])
             {
@@ -141,25 +142,25 @@
               {
                 identifier2 = [v26 identifier];
                 *buf = 138412290;
-                v71 = identifier2;
+                v70 = identifier2;
                 _os_log_impl(&dword_232D6F000, analytics2, OS_LOG_TYPE_INFO, "Lift threshold hit, calculating lift for: %@", buf, 0xCu);
               }
 
               dataSource3 = [(TPSAnalyticsProcessor *)self dataSource];
               experiment = [dataSource3 experiment];
 
-              v49[0] = MEMORY[0x277D85DD0];
-              v49[1] = 3221225472;
-              v49[2] = __53__TPSAnalyticsUsageEventsProcessor_processAnalytics___block_invoke_6;
-              v49[3] = &unk_2789B0C58;
-              v49[4] = self;
-              v49[5] = v26;
-              v50 = dateLastRun;
-              v51 = v21;
+              v48[0] = MEMORY[0x277D85DD0];
+              v48[1] = 3221225472;
+              v48[2] = __53__TPSAnalyticsUsageEventsProcessor_processAnalytics___block_invoke_6;
+              v48[3] = &unk_2789B0C58;
+              v48[4] = self;
+              v48[5] = v26;
+              v49 = dateLastRun;
+              v50 = v21;
               v38 = experiment;
-              v52 = v38;
-              v53 = v19;
-              [(TPSAnalyticsUsageEventsProcessor *)self _calculateLift:v26 completion:v49];
+              v51 = v38;
+              v52 = v19;
+              [(TPSAnalyticsUsageEventsProcessor *)self _calculateLift:v26 completion:v48];
             }
 
             else
@@ -169,7 +170,7 @@
               {
                 identifier3 = [v26 identifier];
                 *buf = 138412290;
-                v71 = identifier3;
+                v70 = identifier3;
                 _os_log_impl(&dword_232D6F000, analytics3, OS_LOG_TYPE_INFO, "Lift threshold not yet hit for: %@", buf, 0xCu);
               }
 
@@ -184,7 +185,7 @@
             {
               identifier4 = [v26 identifier];
               *buf = 138412290;
-              v71 = identifier4;
+              v70 = identifier4;
               _os_log_impl(&dword_232D6F000, analytics4, OS_LOG_TYPE_INFO, "Tip shown since last run, saving historical usage: %@", buf, 0xCu);
             }
 
@@ -204,7 +205,7 @@
         }
 
         while (v23 != v25);
-        v41 = [v22 countByEnumeratingWithState:&v54 objects:v69 count:16];
+        v41 = [v22 countByEnumeratingWithState:&v53 objects:v68 count:16];
         v23 = v41;
       }
 
@@ -217,9 +218,7 @@
     analyticsCopy[2]();
   }
 
-  _Block_object_dispose(&v61, 8);
-
-  v42 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v60, 8);
 }
 
 void __53__TPSAnalyticsUsageEventsProcessor_processAnalytics___block_invoke(uint64_t a1)
@@ -246,32 +245,28 @@ uint64_t __53__TPSAnalyticsUsageEventsProcessor_processAnalytics___block_invoke_
 
 void __53__TPSAnalyticsUsageEventsProcessor_processAnalytics___block_invoke_6(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *(a1 + 32);
+  v6 = objc_opt_class();
   v7 = objc_opt_class();
-  v8 = *(a1 + 32);
-  v9 = objc_opt_class();
-  v10 = [*(a1 + 40) identifier];
-  v11 = [v9 _preHintRangeOutOfBoundsForIdentifier:v10];
-  v12 = [v7 loadValueForKey:v11 class:objc_opt_class()];
-  v13 = [v12 BOOLValue];
+  v8 = [*(a1 + 40) identifier];
+  v9 = [v7 _preHintRangeOutOfBoundsForIdentifier:v8];
+  v10 = [v6 loadValueForKey:v9 class:objc_opt_class()];
+  v11 = [v10 BOOLValue];
 
-  v14 = [*(a1 + 48) compare:*(a1 + 56)] == -1;
-  v15 = [TPSAnalyticsEventProcessedUsageEvents alloc];
-  v16 = *(a1 + 40);
-  v17 = *(a1 + 64);
-  v18 = [MEMORY[0x277CBEAA8] date];
-  v26 = [(TPSAnalyticsEventProcessedUsageEvents *)v15 initWithUsageInfo:v16 experiment:v17 preHintUsageCount:a2 postHintUsageCount:a3 preHintRangeOutOfBounds:v13 postHintRangeOutOfBounds:v14 date:v18];
+  v12 = [*(a1 + 48) compare:*(a1 + 56)] == -1;
+  v13 = [TPSAnalyticsEventProcessedUsageEvents alloc];
+  v14 = *(a1 + 40);
+  v15 = *(a1 + 64);
+  v16 = [MEMORY[0x277CBEAA8] date];
+  v22 = [(TPSAnalyticsEventProcessedUsageEvents *)v13 initWithUsageInfo:v14 experiment:v15 preHintUsageCount:a2 postHintUsageCount:a3 preHintRangeOutOfBounds:v11 postHintRangeOutOfBounds:v12 date:v16];
 
-  v19 = [MEMORY[0x277D71620] sharedInstance];
-  [v19 logAnalyticsEvent:v26];
+  v17 = [MEMORY[0x277D71620] sharedInstance];
+  [v17 logAnalyticsEvent:v22];
 
-  v20 = *(a1 + 32);
-  v21 = objc_opt_class();
-  v22 = *(a1 + 32);
-  v23 = objc_opt_class();
-  v24 = [*(a1 + 40) identifier];
-  v25 = [v23 _usageEventsProcessedKeyForIdentifier:v24];
-  [v21 saveValue:MEMORY[0x277CBEC38] forKey:v25];
+  v18 = objc_opt_class();
+  v19 = objc_opt_class();
+  v20 = [*(a1 + 40) identifier];
+  v21 = [v19 _usageEventsProcessedKeyForIdentifier:v20];
+  [v18 saveValue:MEMORY[0x277CBEC38] forKey:v21];
 
   (*(*(a1 + 72) + 16))();
 }
@@ -296,11 +291,10 @@ void __53__TPSAnalyticsUsageEventsProcessor_processAnalytics___block_invoke_6(ui
 
 void __50__TPSAnalyticsUsageEventsProcessor_resetAnalytics__block_invoke(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  if ([v4 hasPrefix:@"TPSAnalyticsUsageEvents"])
+  v2 = a2;
+  if ([v2 hasPrefix:@"TPSAnalyticsUsageEvents"])
   {
-    v3 = *(a1 + 32);
-    [objc_opt_class() saveValue:0 forKey:v4];
+    [objc_opt_class() saveValue:0 forKey:v2];
   }
 }
 
@@ -362,18 +356,27 @@ void __50__TPSAnalyticsUsageEventsProcessor_resetAnalytics__block_invoke(uint64_
 
 uint64_t __62__TPSAnalyticsUsageEventsProcessor__calculateLift_completion___block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 32);
+  v2 = objc_opt_class();
   v3 = objc_opt_class();
-  v4 = *(a1 + 32);
-  v5 = objc_opt_class();
-  v6 = [*(a1 + 40) identifier];
-  v7 = [v5 _preHintUsageKeyForIdentifier:v6];
-  v8 = [v3 loadValueForKey:v7 class:objc_opt_class()];
-  [v8 integerValue];
+  v4 = [*(a1 + 40) identifier];
+  v5 = [v3 _preHintUsageKeyForIdentifier:v4];
+  v6 = [v2 loadValueForKey:v5 class:objc_opt_class()];
+  [v6 integerValue];
 
-  v9 = *(*(a1 + 48) + 16);
+  v7 = *(*(a1 + 48) + 16);
 
-  return v9();
+  return v7();
+}
+
+- (void)_savePreHintRangeOutOfBounds:(BOOL)bounds forIdentifier:(id)identifier
+{
+  boundsCopy = bounds;
+  identifierCopy = identifier;
+  v8 = [objc_opt_class() _preHintRangeOutOfBoundsForIdentifier:identifierCopy];
+
+  v6 = objc_opt_class();
+  v7 = [MEMORY[0x277CCABB0] numberWithBool:boundsCopy];
+  [v6 saveValue:v7 forKey:v8];
 }
 
 - (void)_saveHistoricalUsage:(id)usage completion:(id)completion
@@ -404,30 +407,27 @@ uint64_t __62__TPSAnalyticsUsageEventsProcessor__calculateLift_completion___bloc
 
 void __68__TPSAnalyticsUsageEventsProcessor__saveHistoricalUsage_completion___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
-  v4 = *(a1 + 32);
-  v5 = objc_opt_class();
-  v6 = [*(a1 + 40) identifier];
-  v7 = [v5 _preHintUsageKeyForIdentifier:v6];
+  v15 = *MEMORY[0x277D85DE8];
+  v4 = objc_opt_class();
+  v5 = [*(a1 + 40) identifier];
+  v6 = [v4 _preHintUsageKeyForIdentifier:v5];
 
-  v8 = [MEMORY[0x277D71778] analytics];
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+  v7 = [MEMORY[0x277D71778] analytics];
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
-    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
-    v14 = 138412546;
-    v15 = v9;
-    v16 = 2112;
-    v17 = v7;
-    _os_log_impl(&dword_232D6F000, v8, OS_LOG_TYPE_INFO, "Saving value: %@ for key: %@", &v14, 0x16u);
+    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
+    v11 = 138412546;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v6;
+    _os_log_impl(&dword_232D6F000, v7, OS_LOG_TYPE_INFO, "Saving value: %@ for key: %@", &v11, 0x16u);
   }
 
-  v10 = *(a1 + 32);
-  v11 = objc_opt_class();
-  v12 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
-  [v11 saveValue:v12 forKey:v7];
+  v9 = objc_opt_class();
+  v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a2];
+  [v9 saveValue:v10 forKey:v6];
 
   (*(*(a1 + 48) + 16))();
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_countsForEvent:(id)event interval:(id)interval completion:(id)completion

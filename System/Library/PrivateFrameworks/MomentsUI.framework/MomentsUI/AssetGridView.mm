@@ -11,7 +11,7 @@
   MEMORY[0x28223BE20](v6);
   v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static IndexPath._unconditionallyBridgeFromObjectiveC(_:)();
-  type metadata accessor for CollectionViewAssetCell();
+  type metadata accessor for CollectionViewAssetCell(0);
   v10 = swift_dynamicCastClass();
   if (v10)
   {

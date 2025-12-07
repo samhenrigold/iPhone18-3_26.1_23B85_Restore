@@ -8,6 +8,7 @@
 - (void)_abortIfNeeded:(id)needed;
 - (void)_analyzeTrendsInEvents:(id)events withContext:(id)context andRefreshVariant:(unint64_t)variant andHandler:(id)handler;
 - (void)_bundleEventsWithContext:(id)context andRefreshVariant:(unint64_t)variant andHandler:(id)handler;
+- (void)_checkElegibilityAndRequestDataExportForTrigger:(unint64_t)trigger withFeedback:(id)feedback requestUpload:(BOOL)upload refreshVariant:(unint64_t)variant context:(id)context reply:(id)reply;
 - (void)_checkUIActiveStatusWithHandler:(id)handler;
 - (void)_clearEventsWithContext:(id)context andRefreshVariant:(unint64_t)variant andHandler:(id)handler;
 - (void)_collectEventsWithContext:(id)context andRefreshVariant:(unint64_t)variant andHandler:(id)handler;
@@ -77,6 +78,7 @@
 - (void)scheduleMomentsUIFullProcessing;
 - (void)scheduleNonSerializedClientTask:(id)task withName:(id)name;
 - (void)setOnboardingFlowCompletionStatus:(unint64_t)status;
+- (void)setState:(BOOL)state forSetting:(unint64_t)setting;
 - (void)softRefreshEventsWithContext:(id)context andRefreshVariant:(unint64_t)variant andIgnoreLastTrigger:(BOOL)trigger andHandler:(id)handler;
 - (void)storeEvents:(id)events withContext:(id)context andHandler:(id)handler;
 - (void)testNotificationAnalyticsWithContext:(id)context andHandler:(id)handler;
@@ -3899,6 +3901,59 @@ id __98__MODaemonClient_checkElegibilityAndRequestDataExportForTrigger_withFeedb
   return [v2 finalizeClientTaskWithName:@"dataDumpWithFeedback"];
 }
 
+- (void)_checkElegibilityAndRequestDataExportForTrigger:(unint64_t)trigger withFeedback:(id)feedback requestUpload:(BOOL)upload refreshVariant:(unint64_t)variant context:(id)context reply:(id)reply
+{
+  uploadCopy = upload;
+  feedbackCopy = feedback;
+  contextCopy = context;
+  replyCopy = reply;
+  v17 = objc_autoreleasePoolPush();
+  v35[0] = 0;
+  v35[1] = v35;
+  v35[2] = 0x3032000000;
+  v35[3] = __Block_byref_object_copy__23;
+  v35[4] = __Block_byref_object_dispose__23;
+  v36 = os_transaction_create();
+  v18 = _mo_log_facility_get_os_log(&MOLogFacilityDaemonClient);
+  triggerCopy = trigger;
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "dataDumpWithFeedback", buf, 2u);
+  }
+
+  v19 = [(MODaemonClient *)self _createWatchDogWithName:@"DataUpload"];
+  v20 = objc_opt_new();
+  v21 = [NSNumber numberWithUnsignedInteger:variant];
+  stringValue = [v21 stringValue];
+  [v20 setObject:stringValue forKey:@"kMORefreshVariant"];
+
+  stringValue2 = [&off_100369FE8 stringValue];
+  [v20 setObject:stringValue2 forKey:@"kMORefreshSource"];
+
+  if (contextCopy)
+  {
+    xpcProcessName = [contextCopy xpcProcessName];
+    [v20 setObject:xpcProcessName forKey:@"kMORefreshClientContext"];
+  }
+
+  eventBundleManager = self->_eventBundleManager;
+  v29[0] = _NSConcreteStackBlock;
+  v29[1] = 3221225472;
+  v29[2] = __122__MODaemonClient__checkElegibilityAndRequestDataExportForTrigger_withFeedback_requestUpload_refreshVariant_context_reply___block_invoke;
+  v29[3] = &unk_10033B238;
+  v26 = v19;
+  v30 = v26;
+  v27 = replyCopy;
+  v32 = v27;
+  v33 = v35;
+  selfCopy = self;
+  [(MOEventBundleManager *)eventBundleManager captureCurrentDBStateForTrigger:triggerCopy withFeedback:feedbackCopy additionalMetadata:v20 shouldUpload:uploadCopy andHandler:v29];
+
+  _Block_object_dispose(v35, 8);
+  objc_autoreleasePoolPop(v17);
+}
+
 void __122__MODaemonClient__checkElegibilityAndRequestDataExportForTrigger_withFeedback_requestUpload_refreshVariant_context_reply___block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
@@ -5600,6 +5655,42 @@ void __53__MODaemonClient_getStateForSettingFast_withHandler___block_invoke_2(ui
   *(v1 + 40) = 0;
 }
 
+- (void)setState:(BOOL)state forSetting:(unint64_t)setting
+{
+  stateCopy = state;
+  v16[0] = 0;
+  v16[1] = v16;
+  v16[2] = 0x3032000000;
+  v16[3] = __Block_byref_object_copy__23;
+  v16[4] = __Block_byref_object_dispose__23;
+  v17 = os_transaction_create();
+  v8 = NSStringFromSelector(a2);
+  v9 = [NSCharacterSet characterSetWithCharactersInString:@":"];
+  v10 = [v8 stringByTrimmingCharactersInSet:v9];
+
+  v11 = [NSString stringWithFormat:@"InterruptMethod_%@", v10];
+  [(MODaemonClient *)self _abortIfNeeded:v11];
+  v18 = @"MOOnboardingAndSettings";
+  v12 = [NSArray arrayWithObjects:&v18 count:1];
+  LOBYTE(v9) = [(MODaemonClient *)self validateIfActiveClientHasAnyEntitlementInArray:v12 withErrorHandler:&__block_literal_global_607];
+
+  if (v9)
+  {
+    onboardingAndSettingsPersistence = [(MODaemonClient *)self onboardingAndSettingsPersistence];
+    [onboardingAndSettingsPersistence setState:stateCopy forSetting:setting];
+
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = __38__MODaemonClient_setState_forSetting___block_invoke_2;
+    v15[3] = &unk_100338280;
+    v15[4] = v16;
+    v14 = objc_retainBlock(v15);
+    [(MODaemonClient *)self _scheduleSendBarrierBlock:v14];
+  }
+
+  _Block_object_dispose(v16, 8);
+}
+
 void __38__MODaemonClient_setState_forSetting___block_invoke_2(uint64_t a1)
 {
   v1 = *(*(a1 + 32) + 8);
@@ -5671,7 +5762,7 @@ void __59__MODaemonClient_logEngagementEvent_timestamp_withContext___block_invok
 {
   v1 = [a1 userInfo];
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "client entitlement error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_13(&_mh_execute_header, v2, v3, "client entitlement error: %@", v4, v5, v6, v7);
 }
 
 - (void)didAppEntryUpdateUsingSuggestions:(os_log_t)log onEvent:duringInterval:withInfo:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)

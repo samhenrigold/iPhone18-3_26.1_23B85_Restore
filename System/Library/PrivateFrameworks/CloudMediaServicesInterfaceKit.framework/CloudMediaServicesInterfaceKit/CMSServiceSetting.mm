@@ -78,33 +78,33 @@
     v8 = objc_opt_class();
     v9 = objc_opt_class();
     v10 = [v4 setWithObjects:{v6, v7, v8, v9, objc_opt_class(), 0}];
-    v16 = 0;
-    v11 = [v3 unarchivedObjectOfClasses:v10 fromData:dataCopy error:&v16];
+    v17 = 0;
+    v11 = [v3 unarchivedObjectOfClasses:v10 fromData:dataCopy error:&v17];
 
-    v12 = v16;
+    v12 = v17;
     if (v12)
     {
-      v13 = _CMSILogingFacility();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+      v14 = _CMSILogingFacility(v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        [(CMSServiceSetting *)v12 settingDictionaryFromData:v13];
+        [(CMSServiceSetting *)v12 settingDictionaryFromData:v14];
       }
 
-      v14 = 0;
+      v15 = 0;
     }
 
     else
     {
-      v14 = v11;
+      v15 = v11;
     }
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -140,11 +140,10 @@
 
 + (void)settingDictionaryFromData:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2439AD000, a2, OS_LOG_TYPE_ERROR, "Error unarchiving service setting dictionary %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2439AD000, a2, OS_LOG_TYPE_ERROR, "Error unarchiving service setting dictionary %@", &v2, 0xCu);
 }
 
 @end

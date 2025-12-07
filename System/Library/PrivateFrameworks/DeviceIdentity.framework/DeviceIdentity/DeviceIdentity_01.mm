@@ -1,283 +1,7 @@
-void sub_22620D1CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39)
-{
-  _Block_object_dispose(&a39, 8);
-  _Block_object_dispose((v39 - 224), 8);
-  _Unwind_Resume(a1);
-}
-
-uint64_t __DeviceIdentityCopyAttestationDictionary_block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
-{
-  v9 = createMobileActivationError("DeviceIdentityCopyAttestationDictionary_block_invoke", 390, @"com.apple.MobileActivation.ErrorDomain", -1, a2, @"IPC Error.", a7, a8, v13);
-  v10 = *(*(a1 + 32) + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = v9;
-
-  return MEMORY[0x2821F96F8]();
-}
-
-void __DeviceIdentityCopyAttestationDictionary_block_invoke_2(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a3;
-  v6 = [a2 objectForKeyedSubscript:@"RKCertification"];
-  v7 = isNSDictionary(v6);
-  v8 = *(*(a1 + 32) + 8);
-  v9 = *(v8 + 40);
-  *(v8 + 40) = v7;
-
-  v10 = *(*(a1 + 40) + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = v5;
-}
-
-id DeviceIdentityCreateClientCertificateRequest(CFTypeRef *a1, void *a2, void *a3)
-{
-  v76 = *MEMORY[0x277D85DE8];
-  v4 = a2;
-  cf = 0;
-  v5 = 0;
-  if (is_virtual_machine())
-  {
-    v72 = 0;
-    has_host_key = libavp_guest_has_host_key(&v72);
-    v5 = v72;
-    if ((has_host_key & 1) == 0)
-    {
-      v22 = createMobileActivationError("DeviceIdentityCreateClientCertificateRequest", 456, @"com.apple.MobileActivation.ErrorDomain", -3, v5, @"Not supported on this device (VM support disabled).", v7, v8, v62);
-
-      goto LABEL_11;
-    }
-  }
-
-  v71 = v5;
-  v9 = isSupportedDeviceIdentityClient(0, &v71);
-  v10 = v71;
-
-  if ((v9 & 1) == 0)
-  {
-    v22 = createMobileActivationError("DeviceIdentityCreateClientCertificateRequest", 461, @"com.apple.MobileActivation.ErrorDomain", -25, v10, @"Client is not supported.", v11, v12, v62);
-
-LABEL_11:
-    v23 = 0;
-    v24 = 0;
-    v25 = 0;
-    v26 = 0;
-    v27 = 0;
-    v14 = 0;
-LABEL_36:
-    v47 = 0;
-    v41 = 0;
-    goto LABEL_37;
-  }
-
-  v13 = [v4 objectForKeyedSubscript:@"ClientAttestationData"];
-  v14 = isNSData(v13);
-
-  if (!v14)
-  {
-    goto LABEL_7;
-  }
-
-  v14 = SecAccessControlCreate();
-  if (!v14)
-  {
-    v28 = cf;
-    v29 = @"Failed to create access control.";
-    v30 = 473;
-LABEL_30:
-    v22 = createMobileActivationError("DeviceIdentityCreateClientCertificateRequest", v30, @"com.apple.MobileActivation.ErrorDomain", -1, v28, v29, v15, v16, v62);
-
-    v23 = 0;
-    v24 = 0;
-    goto LABEL_35;
-  }
-
-  v17 = *MEMORY[0x277CDBF08];
-  if ((SecAccessControlSetProtection() & 1) == 0)
-  {
-    v28 = cf;
-    v62 = v17;
-    v29 = @"Failed to set ACL protection to %@.";
-    v30 = 478;
-    goto LABEL_30;
-  }
-
-LABEL_7:
-  v18 = [v4 objectForKeyedSubscript:@"UseSoftwareGeneratedKey"];
-  v19 = isNSNumber(v18);
-
-  if (v19)
-  {
-    v20 = [v4 objectForKeyedSubscript:@"UseSoftwareGeneratedKey"];
-    v21 = [v20 BOOLValue];
-  }
-
-  else
-  {
-    v21 = 1;
-  }
-
-  v24 = [v4 objectForKeyedSubscript:@"ClientNameSuffix"];
-
-  if (v24)
-  {
-    v31 = [v4 objectForKeyedSubscript:@"ClientNameSuffix"];
-    v24 = isNSString(v31);
-
-    if (v24)
-    {
-      v70 = v10;
-      IsValid = clientNameSuffixIsValid(v24, &v70);
-      v35 = v70;
-
-      if (IsValid)
-      {
-        v10 = v35;
-        goto LABEL_18;
-      }
-
-      v22 = createMobileActivationError("DeviceIdentityCreateClientCertificateRequest", 495, @"com.apple.MobileActivation.ErrorDomain", -2, v35, @"Invalid value for option '%@': %@", v36, v37, @"ClientNameSuffix");
-    }
-
-    else
-    {
-      v22 = createMobileActivationError("DeviceIdentityCreateClientCertificateRequest", 490, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid type for option '%@'.", v32, v33, @"ClientNameSuffix");
-    }
-
-    v23 = 0;
-LABEL_35:
-    v25 = 0;
-    v26 = 0;
-    v27 = 0;
-    goto LABEL_36;
-  }
-
-LABEL_18:
-  v69 = v10;
-  v27 = createReferenceKeyBlob(v14, v21, v4, &v69);
-  v38 = v69;
-
-  if (!v27)
-  {
-    v22 = createMobileActivationError("DeviceIdentityCreateClientCertificateRequest", 504, @"com.apple.MobileActivation.ErrorDomain", -1, v38, @"Failed to create reference key.", v39, v40, v62);
-
-    v23 = 0;
-    v25 = 0;
-    v26 = 0;
-    goto LABEL_36;
-  }
-
-  v68 = v38;
-  v41 = DeviceIdentityCopyAttestationDictionary(v27, v4, &v68);
-  v42 = v68;
-
-  if (!v41)
-  {
-    v22 = createMobileActivationError("DeviceIdentityCreateClientCertificateRequest", 510, @"com.apple.MobileActivation.ErrorDomain", -1, v42, @"Failed to copy certificate info.", v43, v44, v62);
-
-    v23 = 0;
-    v25 = 0;
-    v26 = 0;
-    v47 = 0;
-    goto LABEL_37;
-  }
-
-  v63 = a1;
-  v45 = +[GestaltHlprDeviceIdentity getSharedInstance];
-  v26 = [v45 copyAnswer:@"UniqueDeviceID"];
-
-  v66 = v42;
-  v67 = 0;
-  v46 = createXMLRequest(v41, &v67, &v66);
-  v47 = v67;
-  v22 = v66;
-
-  if ((v46 & 1) == 0)
-  {
-    v64 = createMobileActivationError("DeviceIdentityCreateClientCertificateRequest", 526, @"com.apple.MobileActivation.ErrorDomain", -1, v22, @"Failed to create XML request.", v48, v49, v62);
-
-    v23 = 0;
-    v25 = 0;
-LABEL_53:
-    v22 = v64;
-    goto LABEL_37;
-  }
-
-  v50 = copy_calling_process_name();
-  v25 = createUserAgentValue(v50, v24);
-
-  if (!v25)
-  {
-    v64 = createMobileActivationError("DeviceIdentityCreateClientCertificateRequest", 535, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create user agent string.", v51, v52, v62);
-
-    v23 = 0;
-    goto LABEL_53;
-  }
-
-  [v47 setValue:v25 forHTTPHeaderField:@"User-Agent"];
-  v53 = isNSString(v26);
-
-  if (v53)
-  {
-    [v47 setValue:v26 forHTTPHeaderField:@"x-jmet-deviceid"];
-  }
-
-  v54 = MEMORY[0x277CBEBC0];
-  v55 = is_virtual_machine();
-  v56 = &VMBAA_URL;
-  if (!v55)
-  {
-    v56 = &BAA_URL;
-  }
-
-  v57 = [v54 URLWithString:*v56];
-  [v47 setURL:v57];
-
-  if (v63)
-  {
-    *v63 = CFRetain(v27);
-  }
-
-  v23 = v47;
-  v47 = v23;
-LABEL_37:
-  if (v22 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 138543362;
-    v75 = v22;
-    _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
-  }
-
-  if (a3 && !v23)
-  {
-    v58 = v22;
-    *a3 = v22;
-  }
-
-  if (v27)
-  {
-    CFRelease(v27);
-  }
-
-  if (v14)
-  {
-    CFRelease(v14);
-  }
-
-  if (cf)
-  {
-    CFRelease(cf);
-  }
-
-  v59 = v23;
-
-  v60 = *MEMORY[0x277D85DE8];
-  return v23;
-}
-
 uint64_t __DeviceIdentityIssueClientCertificateWithCompletion_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v9 = createMobileActivationError("DeviceIdentityIssueClientCertificateWithCompletion_block_invoke", 588, @"com.apple.MobileActivation.ErrorDomain", -25, *(*(*(a1 + 40) + 8) + 40), @"Client is not supported.", a7, a8, *v15);
+  v15 = *MEMORY[0x277D85DE8];
+  v9 = createMobileActivationError("DeviceIdentityIssueClientCertificateWithCompletion_block_invoke", 588, @"com.apple.MobileActivation.ErrorDomain", -25, *(*(*(a1 + 40) + 8) + 40), @"Client is not supported.", a7, a8, *v14);
   v10 = *(*(a1 + 40) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v9;
@@ -285,25 +9,24 @@ uint64_t __DeviceIdentityIssueClientCertificateWithCompletion_block_invoke(uint6
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v12 = *(*(*(a1 + 40) + 8) + 40);
-    *v15 = 138543362;
-    *&v15[4] = v12;
-    _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", v15, 0xCu);
+    *v14 = 138543362;
+    *&v14[4] = v12;
+    _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", v14, 0xCu);
   }
 
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))(result, 0, 0, *(*(*(a1 + 40) + 8) + 40));
+    return (*(result + 16))(result, 0, 0, *(*(*(a1 + 40) + 8) + 40));
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_170(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v9 = createMobileActivationError("DeviceIdentityIssueClientCertificateWithCompletion_block_invoke", 602, @"com.apple.MobileActivation.ErrorDomain", -3, *(*(*(a1 + 40) + 8) + 40), @"Not supported on this device (VM support disabled).", a7, a8, *v15);
+  v15 = *MEMORY[0x277D85DE8];
+  v9 = createMobileActivationError("DeviceIdentityIssueClientCertificateWithCompletion_block_invoke", 602, @"com.apple.MobileActivation.ErrorDomain", -3, *(*(*(a1 + 40) + 8) + 40), @"Not supported on this device (VM support disabled).", a7, a8, *v14);
   v10 = *(*(a1 + 40) + 8);
   v11 = *(v10 + 40);
   *(v10 + 40) = v9;
@@ -311,18 +34,17 @@ uint64_t __DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_170(u
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v12 = *(*(*(a1 + 40) + 8) + 40);
-    *v15 = 138543362;
-    *&v15[4] = v12;
-    _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", v15, 0xCu);
+    *v14 = 138543362;
+    *&v14[4] = v12;
+    _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", v14, 0xCu);
   }
 
   result = *(a1 + 32);
   if (result)
   {
-    result = (*(result + 16))(result, 0, 0, *(*(*(a1 + 40) + 8) + 40));
+    return (*(result + 16))(result, 0, 0, *(*(*(a1 + 40) + 8) + 40));
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -357,8 +79,7 @@ void __DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_2(uint64_
   v51 = *(a1 + 160);
   v52 = *(a1 + 152);
   [v6 issueClientCertificateWithReferenceKey:v7 options:v4 completion:v50];
-  [v3 invalidate];
-  v8 = copyDeviceIdentitySerialQueue();
+  v8 = copyDeviceIdentitySerialQueue([v3 invalidate]);
   v27[0] = MEMORY[0x277D85DD0];
   v27[1] = 3221225472;
   v27[2] = __DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_5;
@@ -412,10 +133,7 @@ void __DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_2(uint64_
 
 uint64_t __DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_3(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = createMobileActivationError("DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_3", 1290, @"com.apple.MobileActivation.ErrorDomain", -1, a2, @"IPC Error.", a7, a8, v13);
-  v10 = *(*(a1 + 32) + 8);
-  v11 = *(v10 + 40);
-  *(v10 + 40) = v9;
+  *(*(*(a1 + 32) + 8) + 40) = createMobileActivationError("DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_3", 1290, @"com.apple.MobileActivation.ErrorDomain", -1, a2, @"IPC Error.", a7, a8, v10);
 
   return MEMORY[0x2821F96F8]();
 }
@@ -444,7 +162,7 @@ void __DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_4(void *a
 
 void __DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_5(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v206 = *MEMORY[0x277D85DE8];
+  v205 = *MEMORY[0x277D85DE8];
   if (*(*(*(a1 + 136) + 8) + 40))
   {
     goto LABEL_16;
@@ -457,7 +175,7 @@ void __DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_5(uint64_
     v21 = @"Invalid response.";
     v22 = 1309;
 LABEL_15:
-    v23 = createMobileActivationError("DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_5", v22, @"com.apple.MobileActivation.ErrorDomain", -1, v20, v21, a7, a8, v164);
+    v23 = createMobileActivationError("DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_5", v22, @"com.apple.MobileActivation.ErrorDomain", -1, v20, v21, a7, a8, v163);
     v24 = *(*(a1 + 136) + 8);
     v25 = *(v24 + 40);
     *(v24 + 40) = v23;
@@ -467,33 +185,33 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  v189 = 0u;
-  v190 = 0u;
-  v187 = 0u;
   v188 = 0u;
+  v189 = 0u;
+  v186 = 0u;
+  v187 = 0u;
   v10 = *(*(*(a1 + 144) + 8) + 40);
-  v11 = [v10 countByEnumeratingWithState:&v187 objects:v205 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v186 objects:v204 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v188;
+    v13 = *v187;
     v14 = *MEMORY[0x277CBECE8];
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v188 != v13)
+        if (*v187 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = SecCertificateCreateWithData(v14, *(*(&v187 + 1) + 8 * i));
+        v16 = SecCertificateCreateWithData(v14, *(*(&v186 + 1) + 8 * i));
         if (!v16)
         {
-          v65 = createMobileActivationError("DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_5", 1323, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create certificate.", v17, v18, v164);
-          v66 = *(*(a1 + 136) + 8);
-          v67 = *(v66 + 40);
-          *(v66 + 40) = v65;
+          v64 = createMobileActivationError("DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_5", 1323, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create certificate.", v17, v18, v163);
+          v65 = *(*(a1 + 136) + 8);
+          v66 = *(v65 + 40);
+          *(v65 + 40) = v64;
 
           goto LABEL_51;
         }
@@ -503,7 +221,7 @@ LABEL_16:
         CFRelease(v19);
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v187 objects:v205 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v186 objects:v204 count:16];
       if (v12)
       {
         continue;
@@ -525,13 +243,13 @@ LABEL_51:
     [*(a1 + 32) addObject:*(*(*(a1 + 152) + 8) + 40)];
   }
 
-  v68 = objc_alloc_init(MEMORY[0x277CBEB28]);
-  v69 = *(*(a1 + 160) + 8);
-  v70 = *(v69 + 40);
-  *(v69 + 40) = v68;
+  v67 = objc_alloc_init(MEMORY[0x277CBEB28]);
+  v68 = *(*(a1 + 160) + 8);
+  v69 = *(v68 + 40);
+  *(v68 + 40) = v67;
 
-  v71 = *(*(*(a1 + 160) + 8) + 40);
-  if (!v71)
+  v70 = *(*(*(a1 + 160) + 8) + 40);
+  if (!v70)
   {
     v20 = *(*(*(a1 + 136) + 8) + 40);
     v21 = @"Failed to allocate data.";
@@ -539,22 +257,22 @@ LABEL_51:
     goto LABEL_15;
   }
 
-  v72 = [*(*(*(a1 + 144) + 8) + 40) objectAtIndexedSubscript:0];
-  [v71 appendData:v72];
+  v71 = [*(*(*(a1 + 144) + 8) + 40) objectAtIndexedSubscript:0];
+  [v70 appendData:v71];
 
-  v73 = *(*(*(a1 + 160) + 8) + 40);
-  v74 = [*(*(*(a1 + 144) + 8) + 40) objectAtIndexedSubscript:1];
-  [v73 appendData:v74];
+  v72 = *(*(*(a1 + 160) + 8) + 40);
+  v73 = [*(*(*(a1 + 144) + 8) + 40) objectAtIndexedSubscript:1];
+  [v72 appendData:v73];
 
-  v75 = *(*(*(a1 + 168) + 8) + 24);
-  v76 = *(a1 + 40);
-  v77 = [*(a1 + 32) objectAtIndexedSubscript:0];
-  v78 = *(*(a1 + 136) + 8);
-  obj = *(v78 + 40);
-  LOBYTE(v75) = security_certificate_matches_key(v75, v76, v77, &obj);
-  objc_storeStrong((v78 + 40), obj);
+  v74 = *(*(*(a1 + 168) + 8) + 24);
+  v75 = *(a1 + 40);
+  v76 = [*(a1 + 32) objectAtIndexedSubscript:0];
+  v77 = *(*(a1 + 136) + 8);
+  obj = *(v77 + 40);
+  LOBYTE(v74) = security_certificate_matches_key(v74, v75, v76, &obj);
+  objc_storeStrong((v77 + 40), obj);
 
-  if ((v75 & 1) == 0)
+  if ((v74 & 1) == 0)
   {
     v20 = *(*(*(a1 + 136) + 8) + 40);
     v21 = @"Invalid reference key.";
@@ -564,181 +282,181 @@ LABEL_51:
 
   if (*(a1 + 48))
   {
-    v79 = *(a1 + 56);
-    if (v79)
+    v78 = *(a1 + 56);
+    if (v78)
     {
-      v80 = *(a1 + 64);
-      v81 = *(*(a1 + 136) + 8);
-      v185 = *(v81 + 40);
-      v82 = delete_keychain_data(v79, v80, &v185);
-      objc_storeStrong((v81 + 40), v185);
-      if (v82)
+      v79 = *(a1 + 64);
+      v80 = *(*(a1 + 136) + 8);
+      v184 = *(v80 + 40);
+      v81 = delete_keychain_data(v78, v79, &v184);
+      objc_storeStrong((v80 + 40), v184);
+      if (v81)
       {
-        v85 = *(a1 + 56);
-        v86 = *(a1 + 72);
-        v87 = *(*(a1 + 136) + 8);
-        v184 = *(v87 + 40);
-        v88 = delete_keychain_item(v85, v86, &v184);
-        objc_storeStrong((v87 + 40), v184);
-        if (v88)
+        v84 = *(a1 + 56);
+        v85 = *(a1 + 72);
+        v86 = *(*(a1 + 136) + 8);
+        v183 = *(v86 + 40);
+        v87 = delete_keychain_item(v84, v85, &v183);
+        objc_storeStrong((v86 + 40), v183);
+        if (v87)
         {
-          v89 = *(a1 + 56);
-          v90 = *(a1 + 80);
-          v91 = *(*(a1 + 136) + 8);
-          v183 = *(v91 + 40);
-          v92 = delete_keychain_data(v89, v90, &v183);
-          objc_storeStrong((v91 + 40), v183);
-          if (v92)
+          v88 = *(a1 + 56);
+          v89 = *(a1 + 80);
+          v90 = *(*(a1 + 136) + 8);
+          v182 = *(v90 + 40);
+          v91 = delete_keychain_data(v88, v89, &v182);
+          objc_storeStrong((v90 + 40), v182);
+          if (v91)
           {
-            v93 = *(a1 + 56);
-            v94 = *(a1 + 88);
-            v95 = *(*(a1 + 136) + 8);
-            v182 = *(v95 + 40);
-            v96 = delete_keychain_data(v93, v94, &v182);
-            objc_storeStrong((v95 + 40), v182);
-            if (v96)
+            v92 = *(a1 + 56);
+            v93 = *(a1 + 88);
+            v94 = *(*(a1 + 136) + 8);
+            v181 = *(v94 + 40);
+            v95 = delete_keychain_data(v92, v93, &v181);
+            objc_storeStrong((v94 + 40), v181);
+            if (v95)
             {
-              v97 = *(a1 + 56);
-              v98 = *(a1 + 96);
-              v99 = *(*(a1 + 136) + 8);
-              v181 = *(v99 + 40);
-              v100 = delete_keychain_data(v97, v98, &v181);
-              objc_storeStrong((v99 + 40), v181);
-              if (v100)
+              v96 = *(a1 + 56);
+              v97 = *(a1 + 96);
+              v98 = *(*(a1 + 136) + 8);
+              v180 = *(v98 + 40);
+              v99 = delete_keychain_data(v96, v97, &v180);
+              objc_storeStrong((v98 + 40), v180);
+              if (v99)
               {
                 *(*(*(a1 + 176) + 8) + 24) = copyMonotonicClock(0);
                 if (*(*(*(a1 + 176) + 8) + 24) != 0.0)
                 {
-                  v101 = *(*(a1 + 136) + 8);
-                  v180 = *(v101 + 40);
-                  v102 = copyRTCResetCountWithError(&v180);
-                  objc_storeStrong((v101 + 40), v180);
-                  *(*(*(a1 + 184) + 8) + 24) = v102;
+                  v100 = *(*(a1 + 136) + 8);
+                  v179 = *(v100 + 40);
+                  v101 = copyRTCResetCountWithError(&v179);
+                  objc_storeStrong((v100 + 40), v179);
+                  *(*(*(a1 + 184) + 8) + 24) = v101;
                   if (!*(*(*(a1 + 184) + 8) + 24))
                   {
-                    v158 = *(*(*(a1 + 136) + 8) + 40);
-                    if (v158)
+                    v157 = *(*(*(a1 + 136) + 8) + 40);
+                    if (v157)
                     {
-                      v159 = @"Failed to query RTC reset count.";
-                      v160 = 1397;
+                      v158 = @"Failed to query RTC reset count.";
+                      v159 = 1397;
 LABEL_96:
-                      v161 = createMobileActivationError("DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_5", v160, @"com.apple.MobileActivation.ErrorDomain", -1, v158, v159, v103, v104, v164);
-                      v162 = *(*(a1 + 136) + 8);
-                      v163 = *(v162 + 40);
-                      *(v162 + 40) = v161;
+                      v160 = createMobileActivationError("DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_5", v159, @"com.apple.MobileActivation.ErrorDomain", -1, v157, v158, v102, v103, v163);
+                      v161 = *(*(a1 + 136) + 8);
+                      v162 = *(v161 + 40);
+                      *(v161 + 40) = v160;
 
                       v26 = 1;
                       goto LABEL_17;
                     }
                   }
 
-                  v105 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:*(*(a1 + 176) + 8) + 24 length:8];
-                  v106 = *(*(a1 + 192) + 8);
-                  v107 = *(v106 + 40);
-                  *(v106 + 40) = v105;
+                  v104 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:*(*(a1 + 176) + 8) + 24 length:8];
+                  v105 = *(*(a1 + 192) + 8);
+                  v106 = *(v105 + 40);
+                  *(v105 + 40) = v104;
 
-                  v108 = *(*(*(a1 + 192) + 8) + 40);
-                  if (!v108)
+                  v107 = *(*(*(a1 + 192) + 8) + 40);
+                  if (!v107)
                   {
-                    v159 = @"Failed to encode monotonic time.";
-                    v160 = 1403;
+                    v158 = @"Failed to encode monotonic time.";
+                    v159 = 1403;
                     goto LABEL_93;
                   }
 
-                  v109 = *(a1 + 56);
-                  v110 = *(a1 + 80);
-                  v111 = *(*(a1 + 136) + 8);
-                  v179 = *(v111 + 40);
-                  v112 = store_keychain_data(v108, v109, v110, &v179);
-                  objc_storeStrong((v111 + 40), v179);
-                  if ((v112 & 1) == 0)
+                  v108 = *(a1 + 56);
+                  v109 = *(a1 + 80);
+                  v110 = *(*(a1 + 136) + 8);
+                  v178 = *(v110 + 40);
+                  v111 = store_keychain_data(v107, v108, v109, &v178);
+                  objc_storeStrong((v110 + 40), v178);
+                  if ((v111 & 1) == 0)
                   {
-                    v158 = *(*(*(a1 + 136) + 8) + 40);
-                    v159 = @"Failed to store monotonic time.";
-                    v160 = 1408;
+                    v157 = *(*(*(a1 + 136) + 8) + 40);
+                    v158 = @"Failed to store monotonic time.";
+                    v159 = 1408;
                     goto LABEL_96;
                   }
 
-                  v113 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:*(*(a1 + 184) + 8) + 24 length:4];
-                  v114 = *(*(a1 + 200) + 8);
-                  v115 = *(v114 + 40);
-                  *(v114 + 40) = v113;
+                  v112 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:*(*(a1 + 184) + 8) + 24 length:4];
+                  v113 = *(*(a1 + 200) + 8);
+                  v114 = *(v113 + 40);
+                  *(v113 + 40) = v112;
 
-                  v116 = *(*(*(a1 + 200) + 8) + 40);
-                  if (!v116)
+                  v115 = *(*(*(a1 + 200) + 8) + 40);
+                  if (!v115)
                   {
-                    v159 = @"Failed to encode RTC reset count.";
-                    v160 = 1414;
+                    v158 = @"Failed to encode RTC reset count.";
+                    v159 = 1414;
                     goto LABEL_93;
                   }
 
-                  v117 = *(a1 + 56);
-                  v118 = *(a1 + 88);
-                  v119 = *(*(a1 + 136) + 8);
-                  v178 = *(v119 + 40);
-                  v120 = store_keychain_data(v116, v117, v118, &v178);
-                  objc_storeStrong((v119 + 40), v178);
-                  if ((v120 & 1) == 0)
+                  v116 = *(a1 + 56);
+                  v117 = *(a1 + 88);
+                  v118 = *(*(a1 + 136) + 8);
+                  v177 = *(v118 + 40);
+                  v119 = store_keychain_data(v115, v116, v117, &v177);
+                  objc_storeStrong((v118 + 40), v177);
+                  if ((v119 & 1) == 0)
                   {
-                    v158 = *(*(*(a1 + 136) + 8) + 40);
-                    v159 = @"Failed to store RTC reset count.";
-                    v160 = 1419;
+                    v157 = *(*(*(a1 + 136) + 8) + 40);
+                    v158 = @"Failed to store RTC reset count.";
+                    v159 = 1419;
                     goto LABEL_96;
                   }
                 }
 
                 [*(*(*(a1 + 152) + 8) + 40) timeIntervalSinceReferenceDate];
-                *(*(*(a1 + 208) + 8) + 24) = v121;
-                v122 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:*(*(a1 + 208) + 8) + 24 length:8];
-                v123 = *(*(a1 + 216) + 8);
-                v124 = *(v123 + 40);
-                *(v123 + 40) = v122;
+                *(*(*(a1 + 208) + 8) + 24) = v120;
+                v121 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:*(*(a1 + 208) + 8) + 24 length:8];
+                v122 = *(*(a1 + 216) + 8);
+                v123 = *(v122 + 40);
+                *(v122 + 40) = v121;
 
-                v125 = *(*(*(a1 + 216) + 8) + 40);
-                if (v125)
+                v124 = *(*(*(a1 + 216) + 8) + 40);
+                if (v124)
                 {
-                  v126 = *(a1 + 56);
-                  v127 = *(a1 + 96);
-                  v128 = *(*(a1 + 136) + 8);
-                  v177 = *(v128 + 40);
-                  v129 = store_keychain_data(v125, v126, v127, &v177);
-                  objc_storeStrong((v128 + 40), v177);
-                  if ((v129 & 1) == 0)
+                  v125 = *(a1 + 56);
+                  v126 = *(a1 + 96);
+                  v127 = *(*(a1 + 136) + 8);
+                  v176 = *(v127 + 40);
+                  v128 = store_keychain_data(v124, v125, v126, &v176);
+                  objc_storeStrong((v127 + 40), v176);
+                  if ((v128 & 1) == 0)
                   {
-                    v158 = *(*(*(a1 + 136) + 8) + 40);
-                    v159 = @"Failed to store server timestamp.";
-                    v160 = 1433;
+                    v157 = *(*(*(a1 + 136) + 8) + 40);
+                    v158 = @"Failed to store server timestamp.";
+                    v159 = 1433;
                     goto LABEL_96;
                   }
 
-                  v130 = *(*(*(a1 + 168) + 8) + 24);
-                  v131 = *(a1 + 56);
-                  v132 = *(a1 + 72);
-                  v133 = *(a1 + 104);
-                  v134 = *(*(a1 + 136) + 8);
-                  v176 = *(v134 + 40);
-                  v135 = store_keychain_item(v130, v131, v132, v133, &v176);
-                  objc_storeStrong((v134 + 40), v176);
-                  if ((v135 & 1) == 0)
+                  v129 = *(*(*(a1 + 168) + 8) + 24);
+                  v130 = *(a1 + 56);
+                  v131 = *(a1 + 72);
+                  v132 = *(a1 + 104);
+                  v133 = *(*(a1 + 136) + 8);
+                  v175 = *(v133 + 40);
+                  v134 = store_keychain_item(v129, v130, v131, v132, &v175);
+                  objc_storeStrong((v133 + 40), v175);
+                  if ((v134 & 1) == 0)
                   {
-                    v158 = *(*(*(a1 + 136) + 8) + 40);
-                    v159 = @"Failed to store reference key.";
-                    v160 = 1438;
+                    v157 = *(*(*(a1 + 136) + 8) + 40);
+                    v158 = @"Failed to store reference key.";
+                    v159 = 1438;
                     goto LABEL_96;
                   }
 
-                  v136 = *(*(*(a1 + 160) + 8) + 40);
-                  v137 = *(a1 + 56);
-                  v138 = *(a1 + 64);
-                  v139 = *(*(a1 + 136) + 8);
-                  v175 = *(v139 + 40);
-                  v140 = store_keychain_data(v136, v137, v138, &v175);
-                  objc_storeStrong((v139 + 40), v175);
-                  if ((v140 & 1) == 0)
+                  v135 = *(*(*(a1 + 160) + 8) + 40);
+                  v136 = *(a1 + 56);
+                  v137 = *(a1 + 64);
+                  v138 = *(*(a1 + 136) + 8);
+                  v174 = *(v138 + 40);
+                  v139 = store_keychain_data(v135, v136, v137, &v174);
+                  objc_storeStrong((v138 + 40), v174);
+                  if ((v139 & 1) == 0)
                   {
-                    v158 = *(*(*(a1 + 136) + 8) + 40);
-                    v159 = @"Failed to store leaf/intermediate certificates.";
-                    v160 = 1443;
+                    v157 = *(*(*(a1 + 136) + 8) + 40);
+                    v158 = @"Failed to store leaf/intermediate certificates.";
+                    v159 = 1443;
                     goto LABEL_96;
                   }
 
@@ -746,53 +464,53 @@ LABEL_96:
                   goto LABEL_77;
                 }
 
-                v159 = @"Failed to encode server timestamp.";
-                v160 = 1428;
+                v158 = @"Failed to encode server timestamp.";
+                v159 = 1428;
 LABEL_93:
-                v158 = 0;
+                v157 = 0;
                 goto LABEL_96;
               }
 
-              v152 = *(*(*(a1 + 136) + 8) + 40);
-              v153 = @"Failed to delete server timestamp.";
-              v154 = 1382;
+              v151 = *(*(*(a1 + 136) + 8) + 40);
+              v152 = @"Failed to delete server timestamp.";
+              v153 = 1382;
             }
 
             else
             {
-              v152 = *(*(*(a1 + 136) + 8) + 40);
-              v153 = @"Failed to delete RTC reset count.";
-              v154 = 1377;
+              v151 = *(*(*(a1 + 136) + 8) + 40);
+              v152 = @"Failed to delete RTC reset count.";
+              v153 = 1377;
             }
           }
 
           else
           {
-            v152 = *(*(*(a1 + 136) + 8) + 40);
-            v153 = @"Failed to delete monotonic time.";
-            v154 = 1372;
+            v151 = *(*(*(a1 + 136) + 8) + 40);
+            v152 = @"Failed to delete monotonic time.";
+            v153 = 1372;
           }
         }
 
         else
         {
-          v152 = *(*(*(a1 + 136) + 8) + 40);
-          v153 = @"Failed to delete reference key.";
-          v154 = 1367;
+          v151 = *(*(*(a1 + 136) + 8) + 40);
+          v152 = @"Failed to delete reference key.";
+          v153 = 1367;
         }
       }
 
       else
       {
-        v152 = *(*(*(a1 + 136) + 8) + 40);
-        v153 = @"Failed to delete leaf/intermediate certificates.";
-        v154 = 1362;
+        v151 = *(*(*(a1 + 136) + 8) + 40);
+        v152 = @"Failed to delete leaf/intermediate certificates.";
+        v153 = 1362;
       }
 
-      v155 = createMobileActivationError("DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_5", v154, @"com.apple.MobileActivation.ErrorDomain", -1, v152, v153, v83, v84, v164);
-      v156 = *(*(a1 + 136) + 8);
-      v157 = *(v156 + 40);
-      *(v156 + 40) = v155;
+      v154 = createMobileActivationError("DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_5", v153, @"com.apple.MobileActivation.ErrorDomain", -1, v151, v152, v82, v83, v163);
+      v155 = *(*(a1 + 136) + 8);
+      v156 = *(v155 + 40);
+      *(v155 + 40) = v154;
 
       v26 = 1;
       goto LABEL_17;
@@ -805,52 +523,52 @@ LABEL_77:
   objc_storeStrong((*(*(a1 + 232) + 8) + 40), *(a1 + 32));
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v141 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:0];
+    v140 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:0];
+    v141 = MEMORY[0x277CBEAA8];
+    v170 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:0];
+    SecCertificateNotValidBefore();
+    v165 = [v141 dateWithTimeIntervalSinceReferenceDate:?];
     v142 = MEMORY[0x277CBEAA8];
-    v171 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:0];
-    SecCertificateNotValidBefore();
-    v166 = [v142 dateWithTimeIntervalSinceReferenceDate:?];
-    v143 = MEMORY[0x277CBEAA8];
-    v168 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:0];
+    v167 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:0];
     SecCertificateNotValidAfter();
-    v144 = [v143 dateWithTimeIntervalSinceReferenceDate:?];
-    v165 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:1];
-    v145 = MEMORY[0x277CBEAA8];
-    v146 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:1];
+    v143 = [v142 dateWithTimeIntervalSinceReferenceDate:?];
+    v164 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:1];
+    v144 = MEMORY[0x277CBEAA8];
+    v145 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:1];
     SecCertificateNotValidBefore();
-    v147 = [v145 dateWithTimeIntervalSinceReferenceDate:?];
-    v148 = MEMORY[0x277CBEAA8];
-    v149 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:1];
+    v146 = [v144 dateWithTimeIntervalSinceReferenceDate:?];
+    v147 = MEMORY[0x277CBEAA8];
+    v148 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:1];
     SecCertificateNotValidAfter();
-    v150 = [v148 dateWithTimeIntervalSinceReferenceDate:?];
-    v151 = *(*(*(a1 + 152) + 8) + 40);
+    v149 = [v147 dateWithTimeIntervalSinceReferenceDate:?];
+    v150 = *(*(*(a1 + 152) + 8) + 40);
     *buf = 138544898;
-    v192 = v141;
-    v193 = 2114;
-    v194 = v166;
-    v195 = 2114;
-    v196 = v144;
-    v197 = 2114;
-    v198 = v165;
-    v199 = 2114;
-    v200 = v147;
-    v201 = 2114;
-    v202 = v150;
-    v203 = 2114;
-    v204 = v151;
+    v191 = v140;
+    v192 = 2114;
+    v193 = v165;
+    v194 = 2114;
+    v195 = v143;
+    v196 = 2114;
+    v197 = v164;
+    v198 = 2114;
+    v199 = v146;
+    v200 = 2114;
+    v201 = v149;
+    v202 = 2114;
+    v203 = v150;
     _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Returning newly obtained certificates:\n* %{public}@\n    Not Valid Before: %{public}@\n    Not Valid After: %{public}@\n* %{public}@\n    Not Valid Before: %{public}@\n    Not Valid After: %{public}@\n* Server Timestamp: %{public}@\n", buf, 0x48u);
   }
 
 LABEL_17:
   if (!*(*(*(a1 + 224) + 8) + 24) && !*(*(*(a1 + 232) + 8) + 40))
   {
-    if ((v26 | mobileactivationErrorHasDomainAndErrorCode(*(*(*(a1 + 136) + 8) + 40), *MEMORY[0x277CC5640], -3)) == 1 && *(a1 + 48) && *(a1 + 56))
+    if ((v26 | mobileactivationErrorHasDomainAndErrorCode(*(*(*(a1 + 136) + 8) + 40), *MEMORY[0x277CC5640], 0xFFFFFFFFFFFFFFFDLL)) == 1 && *(a1 + 48) && *(a1 + 56))
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v41 = *(*(*(a1 + 136) + 8) + 40);
+        v40 = *(*(*(a1 + 136) + 8) + 40);
         *buf = 138412290;
-        v192 = v41;
+        v191 = v40;
         _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Deleting invalid keys/certificates: %@", buf, 0xCu);
       }
 
@@ -859,75 +577,75 @@ LABEL_17:
       delete_keychain_data(*(a1 + 56), *(a1 + 80), 0);
       delete_keychain_data(*(a1 + 56), *(a1 + 88), 0);
       delete_keychain_data(*(a1 + 56), *(a1 + 96), 0);
-      v42 = *(*(a1 + 240) + 8);
-      v43 = *(v42 + 24);
-      if (v43)
+      v41 = *(*(a1 + 240) + 8);
+      v42 = *(v41 + 24);
+      if (v42)
       {
-        CFRelease(v43);
-        v42 = *(*(a1 + 240) + 8);
+        CFRelease(v42);
+        v41 = *(*(a1 + 240) + 8);
       }
 
-      *(v42 + 24) = 0;
-      v44 = *(*(a1 + 248) + 8);
-      v45 = *(v44 + 24);
-      if (v45)
+      *(v41 + 24) = 0;
+      v43 = *(*(a1 + 248) + 8);
+      v44 = *(v43 + 24);
+      if (v44)
       {
-        CFRelease(v45);
-        v44 = *(*(a1 + 248) + 8);
+        CFRelease(v44);
+        v43 = *(*(a1 + 248) + 8);
       }
 
-      *(v44 + 24) = 0;
-      v46 = *(*(a1 + 256) + 8);
-      v47 = *(v46 + 24);
-      if (v47)
+      *(v43 + 24) = 0;
+      v45 = *(*(a1 + 256) + 8);
+      v46 = *(v45 + 24);
+      if (v46)
       {
-        CFRelease(v47);
-        v46 = *(*(a1 + 256) + 8);
+        CFRelease(v46);
+        v45 = *(*(a1 + 256) + 8);
       }
 
-      *(v46 + 24) = 0;
+      *(v45 + 24) = 0;
     }
 
-    v48 = *(*(*(a1 + 240) + 8) + 24);
-    if (v48 && *(a1 + 112))
+    v47 = *(*(*(a1 + 240) + 8) + 24);
+    if (v47 && *(a1 + 112))
     {
-      *(*(*(a1 + 224) + 8) + 24) = CFRetain(v48);
+      *(*(*(a1 + 224) + 8) + 24) = CFRetain(v47);
       objc_storeStrong((*(*(a1 + 232) + 8) + 40), *(a1 + 112));
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
       {
-        v49 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:0];
-        v50 = MEMORY[0x277CBEAA8];
-        v170 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:0];
+        v48 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:0];
+        v49 = MEMORY[0x277CBEAA8];
+        v169 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:0];
         SecCertificateNotValidBefore();
-        v51 = [v50 dateWithTimeIntervalSinceReferenceDate:?];
-        v52 = MEMORY[0x277CBEAA8];
-        v167 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:0];
+        v50 = [v49 dateWithTimeIntervalSinceReferenceDate:?];
+        v51 = MEMORY[0x277CBEAA8];
+        v166 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:0];
         SecCertificateNotValidAfter();
-        v53 = [v52 dateWithTimeIntervalSinceReferenceDate:?];
-        v54 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:1];
-        v55 = MEMORY[0x277CBEAA8];
-        v56 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:1];
+        v52 = [v51 dateWithTimeIntervalSinceReferenceDate:?];
+        v53 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:1];
+        v54 = MEMORY[0x277CBEAA8];
+        v55 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:1];
         SecCertificateNotValidBefore();
-        v57 = [v55 dateWithTimeIntervalSinceReferenceDate:?];
-        v58 = MEMORY[0x277CBEAA8];
-        v59 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:1];
+        v56 = [v54 dateWithTimeIntervalSinceReferenceDate:?];
+        v57 = MEMORY[0x277CBEAA8];
+        v58 = [*(*(*(a1 + 232) + 8) + 40) objectAtIndexedSubscript:1];
         SecCertificateNotValidAfter();
-        v60 = [v58 dateWithTimeIntervalSinceReferenceDate:?];
-        v61 = *(*(*(a1 + 264) + 8) + 40);
+        v59 = [v57 dateWithTimeIntervalSinceReferenceDate:?];
+        v60 = *(*(*(a1 + 264) + 8) + 40);
         *buf = 138544898;
-        v192 = v49;
-        v193 = 2114;
-        v194 = v51;
-        v195 = 2114;
-        v196 = v53;
-        v197 = 2114;
-        v198 = v54;
-        v199 = 2114;
-        v200 = v57;
-        v201 = 2114;
-        v202 = v60;
-        v203 = 2114;
-        v204 = v61;
+        v191 = v48;
+        v192 = 2114;
+        v193 = v50;
+        v194 = 2114;
+        v195 = v52;
+        v196 = 2114;
+        v197 = v53;
+        v198 = 2114;
+        v199 = v56;
+        v200 = 2114;
+        v201 = v59;
+        v202 = 2114;
+        v203 = v60;
         _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Returning cached certificates:\n* %{public}@\n    Not Valid Before: %{public}@\n    Not Valid After: %{public}@\n* %{public}@\n    Not Valid Before: %{public}@\n    Not Valid After: %{public}@\n* Server Timestamp: %{public}@\n", buf, 0x48u);
       }
 
@@ -935,15 +653,15 @@ LABEL_17:
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
         {
-          v62 = *(*(*(a1 + 136) + 8) + 40);
+          v61 = *(*(*(a1 + 136) + 8) + 40);
           *buf = 138543362;
-          v192 = v62;
+          v191 = v61;
           _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@ (non-fatal, existing valid certificates)", buf, 0xCu);
         }
 
-        v63 = *(*(a1 + 136) + 8);
-        v64 = *(v63 + 40);
-        *(v63 + 40) = 0;
+        v62 = *(*(a1 + 136) + 8);
+        v63 = *(v62 + 40);
+        *(v62 + 40) = 0;
       }
     }
   }
@@ -953,11 +671,11 @@ LABEL_17:
   block[1] = 3221225472;
   block[2] = __DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_309;
   block[3] = &unk_278586008;
-  v169 = *(a1 + 128);
-  v28 = v169;
+  v168 = *(a1 + 128);
+  v28 = v168;
   v29 = *(a1 + 224);
-  v173 = v169;
-  v174 = v29;
+  v172 = v168;
+  v173 = v29;
   dispatch_async(v27, block);
   v30 = *(*(a1 + 168) + 8);
   v31 = *(v30 + 24);
@@ -1004,55 +722,51 @@ LABEL_17:
   }
 
   *(v38 + 24) = 0;
-
-  v40 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_309(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (*(*(a1[5] + 8) + 40) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v2 = *(*(a1[5] + 8) + 40);
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", &v4, 0xCu);
   }
 
   result = a1[4];
   if (result)
   {
-    result = (*(result + 16))(result, *(*(a1[6] + 8) + 24), *(*(a1[7] + 8) + 40), *(*(a1[5] + 8) + 40));
+    return (*(result + 16))(result, *(*(a1[6] + 8) + 24), *(*(a1[7] + 8) + 40), *(*(a1[5] + 8) + 40));
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __DeviceIdentityIssueClientCertificateWithCompletion_block_invoke_312(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (*(*(a1[5] + 8) + 40) && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     v2 = *(*(a1[5] + 8) + 40);
-    v5 = 138543362;
-    v6 = v2;
-    _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", &v5, 0xCu);
+    v4 = 138543362;
+    v5 = v2;
+    _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", &v4, 0xCu);
   }
 
   result = a1[4];
   if (result)
   {
-    result = (*(result + 16))(result, *(*(a1[6] + 8) + 24), *(*(a1[7] + 8) + 40), *(*(a1[5] + 8) + 40));
+    return (*(result + 16))(result, *(*(a1[6] + 8) + 24), *(*(a1[7] + 8) + 40), *(*(a1[5] + 8) + 40));
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 id DeviceIdentityCreateHostSignature(void *a1, void *a2, void *a3, void *a4)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v10 = a2;
   if (!v7)
@@ -1061,7 +775,7 @@ id DeviceIdentityCreateHostSignature(void *a1, void *a2, void *a3, void *a4)
     v24 = 1601;
     v25 = -2;
 LABEL_10:
-    v18 = createMobileActivationError("DeviceIdentityCreateHostSignature", v24, @"com.apple.MobileActivation.ErrorDomain", v25, 0, v23, v8, v9, v30);
+    v18 = createMobileActivationError("DeviceIdentityCreateHostSignature", v24, @"com.apple.MobileActivation.ErrorDomain", v25, 0, v23, v8, v9, v29);
 LABEL_11:
     v21 = 0;
     v17 = 0;
@@ -1076,22 +790,22 @@ LABEL_11:
     goto LABEL_10;
   }
 
-  v33 = 0;
-  has_host_key = libavp_guest_has_host_key(&v33);
-  v12 = v33;
+  v32 = 0;
+  has_host_key = libavp_guest_has_host_key(&v32);
+  v12 = v32;
   v15 = v12;
   if ((has_host_key & 1) == 0)
   {
-    v18 = createMobileActivationError("DeviceIdentityCreateHostSignature", 1611, @"com.apple.MobileActivation.ErrorDomain", -3, v12, @"Not supported on this device (VM support disabled).", v13, v14, v30);
+    v18 = createMobileActivationError("DeviceIdentityCreateHostSignature", 1611, @"com.apple.MobileActivation.ErrorDomain", -3, v12, @"Not supported on this device (VM support disabled).", v13, v14, v29);
 
     goto LABEL_11;
   }
 
-  v31 = v12;
-  v32 = 0;
-  v16 = vm_create_host_key_signature(v7, 0, &v32, &v31);
-  v17 = v32;
-  v18 = v31;
+  v30 = v12;
+  v31 = 0;
+  v16 = vm_create_host_key_signature(v7, 0, &v31, &v30);
+  v17 = v31;
+  v18 = v30;
 
   if (v16)
   {
@@ -1117,11 +831,11 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v29 = createMobileActivationError("DeviceIdentityCreateHostSignature", 1617, @"com.apple.MobileActivation.ErrorDomain", -1, v18, @"Failed to create host key signature.", v19, v20, v30);
+  v28 = createMobileActivationError("DeviceIdentityCreateHostSignature", 1617, @"com.apple.MobileActivation.ErrorDomain", -1, v18, @"Failed to create host key signature.", v19, v20, v29);
 
   v21 = 0;
-  v18 = v29;
-  if (!v29)
+  v18 = v28;
+  if (!v28)
   {
     goto LABEL_15;
   }
@@ -1130,7 +844,7 @@ LABEL_13:
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543362;
-    v35 = v18;
+    v34 = v18;
     _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
 
@@ -1141,30 +855,28 @@ LABEL_15:
     *a4 = v18;
   }
 
-  v27 = *MEMORY[0x277D85DE8];
-
   return v21;
 }
 
 void DeviceIdentityCreateHostSignatureWithCompletion(void *a1, void *a2, void *a3, void *a4)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v7 = a1;
   v8 = a2;
   v9 = a3;
   v12 = a4;
-  v31 = 0;
-  v32 = &v31;
-  v33 = 0x3032000000;
-  v34 = __Block_byref_object_copy__0;
-  v35 = __Block_byref_object_dispose__0;
-  v36 = 0;
+  v30 = 0;
+  v31 = &v30;
+  v32 = 0x3032000000;
+  v33 = __Block_byref_object_copy__0;
+  v34 = __Block_byref_object_dispose__0;
+  v35 = 0;
   if (v8)
   {
     if (is_virtual_machine())
     {
-      v13 = (v32 + 5);
-      obj = v32[5];
+      v13 = (v31 + 5);
+      obj = v31[5];
       has_host_key = libavp_guest_has_host_key(&obj);
       objc_storeStrong(v13, obj);
       if (has_host_key)
@@ -1179,16 +891,16 @@ void DeviceIdentityCreateHostSignatureWithCompletion(void *a1, void *a2, void *a
         block[1] = 3221225472;
         block[2] = __DeviceIdentityCreateHostSignatureWithCompletion_block_invoke;
         block[3] = &unk_2785860A8;
-        v26 = v8;
-        v27 = v9;
-        v29 = &v31;
-        v28 = v12;
+        v25 = v8;
+        v26 = v9;
+        v28 = &v30;
+        v27 = v12;
         dispatch_async(v15, block);
 
         goto LABEL_15;
       }
 
-      v16 = v32[5];
+      v16 = v31[5];
       v19 = @"Not supported on this device (VM support disabled).";
       v17 = -3;
       v18 = 1658;
@@ -1211,61 +923,59 @@ void DeviceIdentityCreateHostSignatureWithCompletion(void *a1, void *a2, void *a
     v19 = @"Invalid input.";
   }
 
-  v20 = createMobileActivationError("DeviceIdentityCreateHostSignatureWithCompletion", v18, @"com.apple.MobileActivation.ErrorDomain", v17, v16, v19, v10, v11, v24);
-  v21 = v32[5];
-  v32[5] = v20;
+  v20 = createMobileActivationError("DeviceIdentityCreateHostSignatureWithCompletion", v18, @"com.apple.MobileActivation.ErrorDomain", v17, v16, v19, v10, v11, v23);
+  v21 = v31[5];
+  v31[5] = v20;
 
-  if (v32[5] && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  if (v31[5] && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
   {
-    v22 = v32[5];
+    v22 = v31[5];
     *buf = 138543362;
-    v38 = v22;
+    v37 = v22;
     _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
 
   if (v12)
   {
-    (*(v12 + 2))(v12, 0, 0, v32[5]);
+    (*(v12 + 2))(v12, 0, 0, v31[5]);
   }
 
 LABEL_15:
-  _Block_object_dispose(&v31, 8);
-
-  v23 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v30, 8);
 }
 
-void sub_22620F998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_22620F998(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void __DeviceIdentityCreateHostSignatureWithCompletion_block_invoke(void *a1)
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = a1[4];
   v3 = a1[5];
   v4 = *(a1[7] + 8);
   obj = *(v4 + 40);
-  v34 = 0;
-  v5 = vm_create_host_key_signature(v2, v3, &v34, &obj);
-  v6 = v34;
+  v33 = 0;
+  v5 = vm_create_host_key_signature(v2, v3, &v33, &obj);
+  v6 = v33;
   objc_storeStrong((v4 + 40), obj);
   if (!v5)
   {
-    v25 = createMobileActivationError("DeviceIdentityCreateHostSignatureWithCompletion_block_invoke", 1679, @"com.apple.MobileActivation.ErrorDomain", -1, *(*(a1[7] + 8) + 40), @"Failed to create host key signature.", v7, v8, v31);
+    v25 = createMobileActivationError("DeviceIdentityCreateHostSignatureWithCompletion_block_invoke", 1679, @"com.apple.MobileActivation.ErrorDomain", -1, *(*(a1[7] + 8) + 40), @"Failed to create host key signature.", v7, v8, v30);
     v10 = 0;
     goto LABEL_10;
   }
 
   v9 = *(a1[7] + 8);
-  v32 = *(v9 + 40);
-  v10 = parseDERCertificatesFromChain(v6, &v32);
-  objc_storeStrong((v9 + 40), v32);
+  v31 = *(v9 + 40);
+  v10 = parseDERCertificatesFromChain(v6, &v31);
+  objc_storeStrong((v9 + 40), v31);
   if (!v10 || [v10 count] != 2)
   {
-    v25 = createMobileActivationError("DeviceIdentityCreateHostSignatureWithCompletion_block_invoke", 1685, @"com.apple.MobileActivation.ErrorDomain", -1, *(*(a1[7] + 8) + 40), @"Failed to parse certificate data.", v11, v12, v31);
+    v25 = createMobileActivationError("DeviceIdentityCreateHostSignatureWithCompletion_block_invoke", 1685, @"com.apple.MobileActivation.ErrorDomain", -1, *(*(a1[7] + 8) + 40), @"Failed to parse certificate data.", v11, v12, v30);
 LABEL_10:
     v15 = 0;
 LABEL_11:
@@ -1279,7 +989,7 @@ LABEL_11:
 
   if (!v15)
   {
-    v25 = createMobileActivationError("DeviceIdentityCreateHostSignatureWithCompletion_block_invoke", 1691, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create certificate.", v16, v17, v31);
+    v25 = createMobileActivationError("DeviceIdentityCreateHostSignatureWithCompletion_block_invoke", 1691, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create certificate.", v16, v17, v30);
     goto LABEL_11;
   }
 
@@ -1288,7 +998,7 @@ LABEL_11:
 
   if (!v19)
   {
-    v25 = createMobileActivationError("DeviceIdentityCreateHostSignatureWithCompletion_block_invoke", 1697, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create certificate.", v20, v21, v31);
+    v25 = createMobileActivationError("DeviceIdentityCreateHostSignatureWithCompletion_block_invoke", 1697, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to create certificate.", v20, v21, v30);
     goto LABEL_12;
   }
 
@@ -1310,7 +1020,7 @@ LABEL_12:
   {
     v28 = *(*(a1[7] + 8) + 40);
     *buf = 138543362;
-    v36 = v28;
+    v35 = v28;
     _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "%{public}@", buf, 0xCu);
   }
 
@@ -1329,8 +1039,6 @@ LABEL_12:
   {
     CFRelease(v19);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __copyDeviceIdentitySerialQueue_block_invoke()
@@ -1365,16 +1073,16 @@ id copy_group_container_path(uint64_t a1)
   return v3;
 }
 
-id copy_ucrt_path()
+id copy_ucrt_path(uint64_t a1)
 {
   if (copy_ucrt_path_onceToken != -1)
   {
     copy_ucrt_path_cold_1();
   }
 
-  v1 = copy_ucrt_path_retval;
+  v2 = copy_ucrt_path_retval;
 
-  return v1;
+  return v2;
 }
 
 void __copy_ucrt_path_block_invoke()
@@ -1476,16 +1184,15 @@ id getMSUDataAccessorClass()
   return v1;
 }
 
-void sub_226210284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_226210284(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getMSUDataAccessorClass_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
   if (!MSUDataAccessorLibraryCore_frameworkLibrary)
   {
     MSUDataAccessorLibraryCore_frameworkLibrary = _sl_dlopen();
@@ -1494,17 +1201,13 @@ Class __getMSUDataAccessorClass_block_invoke(uint64_t a1)
   result = objc_getClass("MSUDataAccessor");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getMSUDataAccessorClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __MSUDataAccessorLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MSUDataAccessorLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1688,7 +1391,80 @@ LABEL_41:
       v9 = a2 == 0;
       if (a2)
       {
-        v10 = "Certificate:\n    Data:\n        Version: 3 (0x2)\n        Serial Number: 1 (0x1)\n        Signature Algorithm: sha1WithRSAEncryption\n        Issuer: C=US, O=Apple Inc., OU=Apple Certification Authority, CN=[TEST] Apple iPhone Certification Authority\n        Validity\n            Not Before: Mar 21 06:20:50 2007 GMT\n            Not After : Mar 12 06:20:50 2022 GMT\n        Subject: C=US, O=Apple Inc., OU=Apple iPhone, CN=[TEST] Apple iPhone Device CA\n        Subject Public Key Info:\n            Public Key Algorithm: rsaEncryption\n            RSA Public Key: (1024 bit)\n                Modulus (1024 bit):\n                    00:d7:60:52:2a:fa:93:52:dc:db:ae:92:6b:d6:ac:\n                    59:17:1f:9a:20:ed:34:ae:c2:15:e8:e3:f0:3b:63:\n                    84:d8:6d:8d:02:65:74:e6:62:18:27:d1:fc:78:c3:\n                    2f:36:83:39:91:9f:3d:32:e0:95:7f:90:3b:ab:47:\n                    be:f1:47:85:8c:5d:ab:1c:5c:bb:10:69:47:56:b8:\n                    15:bf:34:4a:f0:49:6e:8a:35:4a:4f:47:bb:3e:ea:\n                    cc:df:2e:f4:b8:96:16:94:dd:38:f6:f0:82:cf:26:\n                    fd:67:a1:73:01:43:d8:25:bd:02:2c:82:89:7c:70:\n                    01:68:c2:8a:85:60:84:77:83\n                Exponent: 65537 (0x10001)\n        X509v3 extensions:\n            X509v3 Key Usage: critical\n                Digital Signature, Certificate Sign, CRL Sign\n            X509v3 Basic Constraints: critical\n                CA:TRUE\n            X509v3 Subject Key Identifier:\n                38:05:20:A9:3F:C6:79:F4:EC:9A:6F:7F:47:02:5E:6E:A4:79:11:F5\n            X509v3 Authority Key Identifier:\n                keyid:45:A2:4C:A9:8A:5B:4A:27:5E:85:A6:4D:05:1C:27:44:A5:87:76:17\n\n            X509v3 CRL Distribution Points:\n                URI:http://www.apple.com/appleca/iphone.crl\n\n    Signature Algorithm: sha1WithRSAEncryption\n        8d:be:6b:c8:4e:80:9e:78:86:0c:09:d0:6e:ed:c1:dc:30:f7:\n        29:4b:20:4e:2c:6c:b3:24:72:fd:ce:24:34:60:95:30:d7:32:\n        61:31:e5:d4:d5:63:aa:3f:89:81:f6:44:ab:71:d0:bc:17:db:\n        ab:bc:ec:bb:a4:40:6a:e7:e4:57:c6:28:6f:11:72:fc:0c:51:\n        07:31:db:40:54:ee:b5:e6:1e:e3:dc:9b:f9:3c:6a:ba:d8:c3:\n        20:f1:dd:49:cb:3a:a6:29:cd:52:f9:f3:f3:18:5e:dd:82:83:\n        b8:e8:4e:94:10:7a:1e:11:a0:63:4d:8e:60:4a:1d:45:72:4d:\n        a0:ac:1f:b0:98:8b:b4:33:5a:85:60:cf:7f:89:35:62:65:d1:\n        1b:48:a4:ec:ca:60:1a:9d:a6:d1:b9:3d:f3:64:a4:67:d1:a5:\n        1b:b6:d9:e7:65:75:cb:af:2f:7a:db:d8:a1:f4:f3:09:bf:9a:\n        99:1a:34:a6:ed:1f:82:84:0b:b6:a8:68:5d:ec:49:d4:b3:34:\n        84:af:cb:a4:d9:00:f0:bc:07:6c:17:e7:95:bb:c3:3d:d9:bb:\n        6a:13:1d:34:bd:2f:c1:9a:f1:4d:67:5f:56:33:90:b2:ef:ff:\n        27:da:19:60:55:b0:78:c2:8c:34:5b:61:3a:e1:ec:61:92:8b:\n        2f:04:9a:c6\n-----BEGIN CERTIFICATE-----\nMIIDeDCCAmCgAwIBAgIBATANBgkqhkiG9w0BAQUFADCBgDELMAkGA1UEBhMCVVMx\nEzARBgNVBAoTCkFwcGxlIEluYy4xJjAkBgNVBAsTHUFwcGxlIENlcnRpZmljYXRp\nb24gQXV0aG9yaXR5MTQwMgYDVQQDFCtbVEVTVF0gQXBwbGUgaVBob25lIENlcnRp\nZmljYXRpb24gQXV0aG9yaXR5MB4XDTA3MDMyMTA2MjA1MFoXDTIyMDMxMjA2MjA1\nMFowYTELMAkGA1UEBhMCVVMxEzARBgNVBAoTCkFwcGxlIEluYy4xFTATBgNVBAsT\nDEFwcGxlIGlQaG9uZTEmMCQGA1UEAxQdW1RFU1RdIEFwcGxlIGlQaG9uZSBEZXZp\nY2UgQ0EwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBANdgUir6k1Lc266Sa9as\nWRcfmiDtNK7CFejj8DtjhNhtjQJldOZiGCfR/HjDLzaDOZGfPTLglX+QO6tHvvFH\nhYxdqxxcuxBpR1a4Fb80SvBJboo1Sk9Huz7qzN8u9LiWFpTdOPbwgs8m/WehcwFD\n2CW9AiyCiXxwAWjCioVghHeDAgMBAAGjgZ4wgZswDgYDVR0PAQH/BAQDAgGGMA8G\nA1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFDgFIKk/xnn07Jpvf0cCXm6keRH1MB8G\nA1UdIwQYMBaAFEWiTKmKW0onXoWmTQUcJ0Slh3YXMDgGA1UdHwQxMC8wLaAroCmG\nJ2h0dHA6Ly93d3cuYXBwbGUuY29tL2FwcGxlY2EvaXBob25lLmNybDANBgkqhkiG\n9w0BAQUFAAOCAQEAjb5ryE6AnniGDAnQbu3B3DD3KUsgTixssyRy/c4kNGCVMNcy\nYTHl1NVjqj+JgfZEq3HQvBfbq7zsu6RAaufkV8YobxFy/AxRBzHbQFTuteYe49yb\n+TxqutjDIPHdScs6pinNUvnz8xhe3YKDuOhOlBB6HhGgY02OYEodRXJNoKwfsJiL\ntDNahWDPf4k1YmXRG0ik7MpgGp2m0bk982SkZ9GlG7bZ52V1y68vetvYofTzCb+a\nmRo0pu0fgoQLtqhoXexJ1LM0hK/LpNkA8LwHbBfnlbvDPdm7ahMdNL0vwZrxTWdf\nVjOQsu//J9oZYFWweMKMNFthOuHsYZKLLwSaxg==\n-----END CERTIFICATE-----";
+        v10 = "Certificate:\n"
+              "    Data:\n"
+              "        Version: 3 (0x2)\n"
+              "        Serial Number: 1 (0x1)\n"
+              "        Signature Algorithm: sha1WithRSAEncryption\n"
+              "        Issuer: C=US, O=Apple Inc., OU=Apple Certification Authority, CN=[TEST] Apple iPhone Certification Authority\n"
+              "        Validity\n"
+              "            Not Before: Mar 21 06:20:50 2007 GMT\n"
+              "            Not After : Mar 12 06:20:50 2022 GMT\n"
+              "        Subject: C=US, O=Apple Inc., OU=Apple iPhone, CN=[TEST] Apple iPhone Device CA\n"
+              "        Subject Public Key Info:\n"
+              "            Public Key Algorithm: rsaEncryption\n"
+              "            RSA Public Key: (1024 bit)\n"
+              "                Modulus (1024 bit):\n"
+              "                    00:d7:60:52:2a:fa:93:52:dc:db:ae:92:6b:d6:ac:\n"
+              "                    59:17:1f:9a:20:ed:34:ae:c2:15:e8:e3:f0:3b:63:\n"
+              "                    84:d8:6d:8d:02:65:74:e6:62:18:27:d1:fc:78:c3:\n"
+              "                    2f:36:83:39:91:9f:3d:32:e0:95:7f:90:3b:ab:47:\n"
+              "                    be:f1:47:85:8c:5d:ab:1c:5c:bb:10:69:47:56:b8:\n"
+              "                    15:bf:34:4a:f0:49:6e:8a:35:4a:4f:47:bb:3e:ea:\n"
+              "                    cc:df:2e:f4:b8:96:16:94:dd:38:f6:f0:82:cf:26:\n"
+              "                    fd:67:a1:73:01:43:d8:25:bd:02:2c:82:89:7c:70:\n"
+              "                    01:68:c2:8a:85:60:84:77:83\n"
+              "                Exponent: 65537 (0x10001)\n"
+              "        X509v3 extensions:\n"
+              "            X509v3 Key Usage: critical\n"
+              "                Digital Signature, Certificate Sign, CRL Sign\n"
+              "            X509v3 Basic Constraints: critical\n"
+              "                CA:TRUE\n"
+              "            X509v3 Subject Key Identifier:\n"
+              "                38:05:20:A9:3F:C6:79:F4:EC:9A:6F:7F:47:02:5E:6E:A4:79:11:F5\n"
+              "            X509v3 Authority Key Identifier:\n"
+              "                keyid:45:A2:4C:A9:8A:5B:4A:27:5E:85:A6:4D:05:1C:27:44:A5:87:76:17\n"
+              "\n"
+              "            X509v3 CRL Distribution Points:\n"
+              "                URI:http://www.apple.com/appleca/iphone.crl\n"
+              "\n"
+              "    Signature Algorithm: sha1WithRSAEncryption\n"
+              "        8d:be:6b:c8:4e:80:9e:78:86:0c:09:d0:6e:ed:c1:dc:30:f7:\n"
+              "        29:4b:20:4e:2c:6c:b3:24:72:fd:ce:24:34:60:95:30:d7:32:\n"
+              "        61:31:e5:d4:d5:63:aa:3f:89:81:f6:44:ab:71:d0:bc:17:db:\n"
+              "        ab:bc:ec:bb:a4:40:6a:e7:e4:57:c6:28:6f:11:72:fc:0c:51:\n"
+              "        07:31:db:40:54:ee:b5:e6:1e:e3:dc:9b:f9:3c:6a:ba:d8:c3:\n"
+              "        20:f1:dd:49:cb:3a:a6:29:cd:52:f9:f3:f3:18:5e:dd:82:83:\n"
+              "        b8:e8:4e:94:10:7a:1e:11:a0:63:4d:8e:60:4a:1d:45:72:4d:\n"
+              "        a0:ac:1f:b0:98:8b:b4:33:5a:85:60:cf:7f:89:35:62:65:d1:\n"
+              "        1b:48:a4:ec:ca:60:1a:9d:a6:d1:b9:3d:f3:64:a4:67:d1:a5:\n"
+              "        1b:b6:d9:e7:65:75:cb:af:2f:7a:db:d8:a1:f4:f3:09:bf:9a:\n"
+              "        99:1a:34:a6:ed:1f:82:84:0b:b6:a8:68:5d:ec:49:d4:b3:34:\n"
+              "        84:af:cb:a4:d9:00:f0:bc:07:6c:17:e7:95:bb:c3:3d:d9:bb:\n"
+              "        6a:13:1d:34:bd:2f:c1:9a:f1:4d:67:5f:56:33:90:b2:ef:ff:\n"
+              "        27:da:19:60:55:b0:78:c2:8c:34:5b:61:3a:e1:ec:61:92:8b:\n"
+              "        2f:04:9a:c6\n"
+              "-----BEGIN CERTIFICATE-----\n"
+              "MIIDeDCCAmCgAwIBAgIBATANBgkqhkiG9w0BAQUFADCBgDELMAkGA1UEBhMCVVMx\n"
+              "EzARBgNVBAoTCkFwcGxlIEluYy4xJjAkBgNVBAsTHUFwcGxlIENlcnRpZmljYXRp\n"
+              "b24gQXV0aG9yaXR5MTQwMgYDVQQDFCtbVEVTVF0gQXBwbGUgaVBob25lIENlcnRp\n"
+              "ZmljYXRpb24gQXV0aG9yaXR5MB4XDTA3MDMyMTA2MjA1MFoXDTIyMDMxMjA2MjA1\n"
+              "MFowYTELMAkGA1UEBhMCVVMxEzARBgNVBAoTCkFwcGxlIEluYy4xFTATBgNVBAsT\n"
+              "DEFwcGxlIGlQaG9uZTEmMCQGA1UEAxQdW1RFU1RdIEFwcGxlIGlQaG9uZSBEZXZp\n"
+              "Y2UgQ0EwgZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBANdgUir6k1Lc266Sa9as\n"
+              "WRcfmiDtNK7CFejj8DtjhNhtjQJldOZiGCfR/HjDLzaDOZGfPTLglX+QO6tHvvFH\n"
+              "hYxdqxxcuxBpR1a4Fb80SvBJboo1Sk9Huz7qzN8u9LiWFpTdOPbwgs8m/WehcwFD\n"
+              "2CW9AiyCiXxwAWjCioVghHeDAgMBAAGjgZ4wgZswDgYDVR0PAQH/BAQDAgGGMA8G\n"
+              "A1UdEwEB/wQFMAMBAf8wHQYDVR0OBBYEFDgFIKk/xnn07Jpvf0cCXm6keRH1MB8G\n"
+              "A1UdIwQYMBaAFEWiTKmKW0onXoWmTQUcJ0Slh3YXMDgGA1UdHwQxMC8wLaAroCmG\n"
+              "J2h0dHA6Ly93d3cuYXBwbGUuY29tL2FwcGxlY2EvaXBob25lLmNybDANBgkqhkiG\n"
+              "9w0BAQUFAAOCAQEAjb5ryE6AnniGDAnQbu3B3DD3KUsgTixssyRy/c4kNGCVMNcy\n"
+              "YTHl1NVjqj+JgfZEq3HQvBfbq7zsu6RAaufkV8YobxFy/AxRBzHbQFTuteYe49yb\n"
+              "+TxqutjDIPHdScs6pinNUvnz8xhe3YKDuOhOlBB6HhGgY02OYEodRXJNoKwfsJiL\n"
+              "tDNahWDPf4k1YmXRG0ik7MpgGp2m0bk982SkZ9GlG7bZ52V1y68vetvYofTzCb+a\n"
+              "mRo0pu0fgoQLtqhoXexJ1LM0hK/LpNkA8LwHbBfnlbvDPdm7ahMdNL0vwZrxTWdf\n"
+              "VjOQsu//J9oZYFWweMKMNFthOuHsYZKLLwSaxg==\n"
+              "-----END CERTIFICATE-----";
       }
 
       else
@@ -1703,7 +1479,80 @@ LABEL_41:
       v9 = a2 == 0;
       if (a2)
       {
-        v10 = "Certificate:\n    Data:\n        Version: 3 (0x2)\n        Serial Number: 2 (0x2)\n        Signature Algorithm: sha1WithRSAEncryption\n        Issuer: C=US, O=Apple Inc., OU=Apple Certification Authority, CN=[TEST] Apple iPhone Certification Authority\n        Validity\n            Not Before: Mar 21 06:20:50 2007 GMT\n            Not After : Mar 12 06:20:50 2022 GMT\n        Subject: C=US, O=Apple Inc., OU=Apple iPhone, CN=[TEST] Apple iPhone Activation\n        Subject Public Key Info:\n            Public Key Algorithm: rsaEncryption\n            RSA Public Key: (1024 bit)\n                Modulus (1024 bit):\n                    00:b3:62:65:ec:48:dd:dd:ed:44:d4:f1:fe:fb:c2:\n                    6f:42:d0:82:09:03:00:a6:01:e8:b1:07:09:26:5b:\n                    12:65:db:7f:51:15:ef:4f:45:b3:8f:ce:4d:16:1d:\n                    38:84:01:10:57:4e:8c:71:e1:5e:de:67:14:75:da:\n                    48:9a:4c:6f:f0:45:65:66:e8:9c:b5:a2:4c:f4:53:\n                    c1:ec:98:62:90:b0:94:be:12:f2:a0:ac:5c:77:16:\n                    07:73:72:5a:97:ba:50:4e:67:30:52:1e:f0:30:4e:\n                    8f:b2:a4:d3:d1:fa:f8:66:79:87:91:2f:a1:ef:4e:\n                    e6:41:8d:94:18:29:e0:f2:cf\n                Exponent: 65537 (0x10001)\n        X509v3 extensions:\n            X509v3 Key Usage: critical\n                Digital Signature\n            X509v3 Basic Constraints: critical\n                CA:FALSE\n            X509v3 Subject Key Identifier:\n                C0:6F:3A:4A:1B:ED:51:DD:9D:A3:4B:C0:41:F6:6A:11:F9:AB:8B:F1\n            X509v3 Authority Key Identifier:\n                keyid:45:A2:4C:A9:8A:5B:4A:27:5E:85:A6:4D:05:1C:27:44:A5:87:76:17\n\n            X509v3 CRL Distribution Points:\n                URI:http://www.apple.com/appleca/iphone.crl\n\n    Signature Algorithm: sha1WithRSAEncryption\n        0e:4f:55:00:9d:1e:4c:75:28:e8:79:bb:db:5c:5c:cc:45:93:\n        46:d3:3b:14:00:2d:5b:b0:8c:2e:15:3e:19:60:43:25:59:7f:\n        7b:3a:b2:7c:cf:c2:96:dd:b0:d7:70:5a:8e:28:c4:cc:32:2c:\n        f4:c2:43:e3:e1:1f:b3:b1:df:ec:86:dd:43:93:45:60:a1:53:\n        05:ba:6a:70:43:44:11:a1:9e:dd:c1:71:8b:cb:30:cd:d3:15:\n        21:e0:27:30:35:8a:76:8e:c2:23:fb:44:22:bd:96:f6:aa:55:\n        bf:4d:11:b1:0e:c4:7f:cf:86:8d:f8:30:dd:80:48:5d:9e:41:\n        4e:e0:29:96:25:cc:d6:4a:0d:47:05:87:c4:61:f6:b0:1e:1a:\n        da:48:56:a3:c1:c1:56:95:b3:4e:84:82:1b:a5:4d:d3:d0:5d:\n        60:cf:fd:e5:75:3c:91:13:e2:e4:f1:60:4a:58:93:de:3f:e9:\n        3c:bf:da:c9:f6:ef:9b:9e:b1:6e:78:9e:81:f6:e7:4c:09:b3:\n        1c:87:25:bf:8f:6e:3f:d6:03:53:1e:09:a3:5b:00:4b:9e:98:\n        fb:ae:13:86:e4:47:6a:1a:44:f8:15:c8:fb:30:c7:bd:b0:e8:\n        8c:ac:2d:73:08:af:ed:b2:e8:f5:6d:a1:e2:d9:45:de:d5:b9:\n        98:89:16:72\n-----BEGIN CERTIFICATE-----\nMIIDdjCCAl6gAwIBAgIBAjANBgkqhkiG9w0BAQUFADCBgDELMAkGA1UEBhMCVVMx\nEzARBgNVBAoTCkFwcGxlIEluYy4xJjAkBgNVBAsTHUFwcGxlIENlcnRpZmljYXRp\nb24gQXV0aG9yaXR5MTQwMgYDVQQDFCtbVEVTVF0gQXBwbGUgaVBob25lIENlcnRp\nZmljYXRpb24gQXV0aG9yaXR5MB4XDTA3MDMyMTA2MjA1MFoXDTIyMDMxMjA2MjA1\nMFowYjELMAkGA1UEBhMCVVMxEzARBgNVBAoTCkFwcGxlIEluYy4xFTATBgNVBAsT\nDEFwcGxlIGlQaG9uZTEnMCUGA1UEAxQeW1RFU1RdIEFwcGxlIGlQaG9uZSBBY3Rp\ndmF0aW9uMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCzYmXsSN3d7UTU8f77\nwm9C0IIJAwCmAeixBwkmWxJl239RFe9PRbOPzk0WHTiEARBXToxx4V7eZxR12kia\nTG/wRWVm6Jy1okz0U8HsmGKQsJS+EvKgrFx3FgdzclqXulBOZzBSHvAwTo+ypNPR\n+vhmeYeRL6HvTuZBjZQYKeDyzwIDAQABo4GbMIGYMA4GA1UdDwEB/wQEAwIHgDAM\nBgNVHRMBAf8EAjAAMB0GA1UdDgQWBBTAbzpKG+1R3Z2jS8BB9moR+auL8TAfBgNV\nHSMEGDAWgBRFokypiltKJ16Fpk0FHCdEpYd2FzA4BgNVHR8EMTAvMC2gK6Aphido\ndHRwOi8vd3d3LmFwcGxlLmNvbS9hcHBsZWNhL2lwaG9uZS5jcmwwDQYJKoZIhvcN\nAQEFBQADggEBAA5PVQCdHkx1KOh5u9tcXMxFk0bTOxQALVuwjC4VPhlgQyVZf3s6\nsnzPwpbdsNdwWo4oxMwyLPTCQ+PhH7Ox3+yG3UOTRWChUwW6anBDRBGhnt3BcYvL\nMM3TFSHgJzA1inaOwiP7RCK9lvaqVb9NEbEOxH/Pho34MN2ASF2eQU7gKZYlzNZK\nDUcFh8Rh9rAeGtpIVqPBwVaVs06EghulTdPQXWDP/eV1PJET4uTxYEpYk94/6Ty/\n2sn275uesW54noH250wJsxyHJb+Pbj/WA1MeCaNbAEuemPuuE4bkR2oaRPgVyPsw\nx72w6IysLXMIr+2y6PVtoeLZRd7VuZiJFnI=\n-----END CERTIFICATE-----\n";
+        v10 = "Certificate:\n"
+              "    Data:\n"
+              "        Version: 3 (0x2)\n"
+              "        Serial Number: 2 (0x2)\n"
+              "        Signature Algorithm: sha1WithRSAEncryption\n"
+              "        Issuer: C=US, O=Apple Inc., OU=Apple Certification Authority, CN=[TEST] Apple iPhone Certification Authority\n"
+              "        Validity\n"
+              "            Not Before: Mar 21 06:20:50 2007 GMT\n"
+              "            Not After : Mar 12 06:20:50 2022 GMT\n"
+              "        Subject: C=US, O=Apple Inc., OU=Apple iPhone, CN=[TEST] Apple iPhone Activation\n"
+              "        Subject Public Key Info:\n"
+              "            Public Key Algorithm: rsaEncryption\n"
+              "            RSA Public Key: (1024 bit)\n"
+              "                Modulus (1024 bit):\n"
+              "                    00:b3:62:65:ec:48:dd:dd:ed:44:d4:f1:fe:fb:c2:\n"
+              "                    6f:42:d0:82:09:03:00:a6:01:e8:b1:07:09:26:5b:\n"
+              "                    12:65:db:7f:51:15:ef:4f:45:b3:8f:ce:4d:16:1d:\n"
+              "                    38:84:01:10:57:4e:8c:71:e1:5e:de:67:14:75:da:\n"
+              "                    48:9a:4c:6f:f0:45:65:66:e8:9c:b5:a2:4c:f4:53:\n"
+              "                    c1:ec:98:62:90:b0:94:be:12:f2:a0:ac:5c:77:16:\n"
+              "                    07:73:72:5a:97:ba:50:4e:67:30:52:1e:f0:30:4e:\n"
+              "                    8f:b2:a4:d3:d1:fa:f8:66:79:87:91:2f:a1:ef:4e:\n"
+              "                    e6:41:8d:94:18:29:e0:f2:cf\n"
+              "                Exponent: 65537 (0x10001)\n"
+              "        X509v3 extensions:\n"
+              "            X509v3 Key Usage: critical\n"
+              "                Digital Signature\n"
+              "            X509v3 Basic Constraints: critical\n"
+              "                CA:FALSE\n"
+              "            X509v3 Subject Key Identifier:\n"
+              "                C0:6F:3A:4A:1B:ED:51:DD:9D:A3:4B:C0:41:F6:6A:11:F9:AB:8B:F1\n"
+              "            X509v3 Authority Key Identifier:\n"
+              "                keyid:45:A2:4C:A9:8A:5B:4A:27:5E:85:A6:4D:05:1C:27:44:A5:87:76:17\n"
+              "\n"
+              "            X509v3 CRL Distribution Points:\n"
+              "                URI:http://www.apple.com/appleca/iphone.crl\n"
+              "\n"
+              "    Signature Algorithm: sha1WithRSAEncryption\n"
+              "        0e:4f:55:00:9d:1e:4c:75:28:e8:79:bb:db:5c:5c:cc:45:93:\n"
+              "        46:d3:3b:14:00:2d:5b:b0:8c:2e:15:3e:19:60:43:25:59:7f:\n"
+              "        7b:3a:b2:7c:cf:c2:96:dd:b0:d7:70:5a:8e:28:c4:cc:32:2c:\n"
+              "        f4:c2:43:e3:e1:1f:b3:b1:df:ec:86:dd:43:93:45:60:a1:53:\n"
+              "        05:ba:6a:70:43:44:11:a1:9e:dd:c1:71:8b:cb:30:cd:d3:15:\n"
+              "        21:e0:27:30:35:8a:76:8e:c2:23:fb:44:22:bd:96:f6:aa:55:\n"
+              "        bf:4d:11:b1:0e:c4:7f:cf:86:8d:f8:30:dd:80:48:5d:9e:41:\n"
+              "        4e:e0:29:96:25:cc:d6:4a:0d:47:05:87:c4:61:f6:b0:1e:1a:\n"
+              "        da:48:56:a3:c1:c1:56:95:b3:4e:84:82:1b:a5:4d:d3:d0:5d:\n"
+              "        60:cf:fd:e5:75:3c:91:13:e2:e4:f1:60:4a:58:93:de:3f:e9:\n"
+              "        3c:bf:da:c9:f6:ef:9b:9e:b1:6e:78:9e:81:f6:e7:4c:09:b3:\n"
+              "        1c:87:25:bf:8f:6e:3f:d6:03:53:1e:09:a3:5b:00:4b:9e:98:\n"
+              "        fb:ae:13:86:e4:47:6a:1a:44:f8:15:c8:fb:30:c7:bd:b0:e8:\n"
+              "        8c:ac:2d:73:08:af:ed:b2:e8:f5:6d:a1:e2:d9:45:de:d5:b9:\n"
+              "        98:89:16:72\n"
+              "-----BEGIN CERTIFICATE-----\n"
+              "MIIDdjCCAl6gAwIBAgIBAjANBgkqhkiG9w0BAQUFADCBgDELMAkGA1UEBhMCVVMx\n"
+              "EzARBgNVBAoTCkFwcGxlIEluYy4xJjAkBgNVBAsTHUFwcGxlIENlcnRpZmljYXRp\n"
+              "b24gQXV0aG9yaXR5MTQwMgYDVQQDFCtbVEVTVF0gQXBwbGUgaVBob25lIENlcnRp\n"
+              "ZmljYXRpb24gQXV0aG9yaXR5MB4XDTA3MDMyMTA2MjA1MFoXDTIyMDMxMjA2MjA1\n"
+              "MFowYjELMAkGA1UEBhMCVVMxEzARBgNVBAoTCkFwcGxlIEluYy4xFTATBgNVBAsT\n"
+              "DEFwcGxlIGlQaG9uZTEnMCUGA1UEAxQeW1RFU1RdIEFwcGxlIGlQaG9uZSBBY3Rp\n"
+              "dmF0aW9uMIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCzYmXsSN3d7UTU8f77\n"
+              "wm9C0IIJAwCmAeixBwkmWxJl239RFe9PRbOPzk0WHTiEARBXToxx4V7eZxR12kia\n"
+              "TG/wRWVm6Jy1okz0U8HsmGKQsJS+EvKgrFx3FgdzclqXulBOZzBSHvAwTo+ypNPR\n"
+              "+vhmeYeRL6HvTuZBjZQYKeDyzwIDAQABo4GbMIGYMA4GA1UdDwEB/wQEAwIHgDAM\n"
+              "BgNVHRMBAf8EAjAAMB0GA1UdDgQWBBTAbzpKG+1R3Z2jS8BB9moR+auL8TAfBgNV\n"
+              "HSMEGDAWgBRFokypiltKJ16Fpk0FHCdEpYd2FzA4BgNVHR8EMTAvMC2gK6Aphido\n"
+              "dHRwOi8vd3d3LmFwcGxlLmNvbS9hcHBsZWNhL2lwaG9uZS5jcmwwDQYJKoZIhvcN\n"
+              "AQEFBQADggEBAA5PVQCdHkx1KOh5u9tcXMxFk0bTOxQALVuwjC4VPhlgQyVZf3s6\n"
+              "snzPwpbdsNdwWo4oxMwyLPTCQ+PhH7Ox3+yG3UOTRWChUwW6anBDRBGhnt3BcYvL\n"
+              "MM3TFSHgJzA1inaOwiP7RCK9lvaqVb9NEbEOxH/Pho34MN2ASF2eQU7gKZYlzNZK\n"
+              "DUcFh8Rh9rAeGtpIVqPBwVaVs06EghulTdPQXWDP/eV1PJET4uTxYEpYk94/6Ty/\n"
+              "2sn275uesW54noH250wJsxyHJb+Pbj/WA1MeCaNbAEuemPuuE4bkR2oaRPgVyPsw\n"
+              "x72w6IysLXMIr+2y6PVtoeLZRd7VuZiJFnI=\n"
+              "-----END CERTIFICATE-----\n";
       }
 
       else
@@ -1784,7 +1633,7 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  if (!AppleVirtualPlatformLibraryCore())
+  if (!AppleVirtualPlatformLibraryCore(0))
   {
     v25 = @"Virtualization library not loaded on this platform.";
     v26 = 65;
@@ -1897,9 +1746,9 @@ LABEL_17:
   return v22;
 }
 
-void sub_226210CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_226210CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1919,7 +1768,7 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if (!AppleVirtualPlatformLibraryCore())
+  if (!AppleVirtualPlatformLibraryCore(0))
   {
     v15 = @"Virtualization library not loaded on this platform.";
     v16 = 131;
@@ -2112,9 +1961,9 @@ LABEL_36:
   return v20;
 }
 
-void sub_2262112E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2262112E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2137,7 +1986,7 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  if (!AppleVirtualPlatformLibraryCore())
+  if (!AppleVirtualPlatformLibraryCore(0))
   {
     v11 = v8;
     v12 = @"Virtualization library not loaded on this platform.";
@@ -2186,7 +2035,7 @@ LABEL_19:
     v48[3] = __getAppleVirtualPlatformHostCertificateClass_block_invoke;
     v48[4] = &unk_278585F58;
     v49 = &v50;
-    AppleVirtualPlatformLibraryCore();
+    AppleVirtualPlatformLibraryCore(0);
     v51[3] = objc_getClass("AppleVirtualPlatformHostCertificate");
     getAppleVirtualPlatformHostCertificateClass_softClass = *(v49[1] + 24);
     v18 = v51[3];
@@ -2309,9 +2158,9 @@ LABEL_24:
   return v41;
 }
 
-void sub_2262117E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2262117E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2326,7 +2175,7 @@ uint64_t libavp_guest_has_host_key(void *a1)
     goto LABEL_10;
   }
 
-  if (!AppleVirtualPlatformLibraryCore())
+  if (!AppleVirtualPlatformLibraryCore(0))
   {
     v8 = @"Virtualization library not loaded on this platform.";
     v9 = 290;
@@ -2378,33 +2227,27 @@ LABEL_13:
   return v6;
 }
 
-void sub_226211978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_226211978(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t AppleVirtualPlatformLibraryCore()
+uint64_t AppleVirtualPlatformLibraryCore(uint64_t a1)
 {
-  v2 = *MEMORY[0x277D85DE8];
   if (!AppleVirtualPlatformLibraryCore_frameworkLibrary)
   {
     AppleVirtualPlatformLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
-  result = AppleVirtualPlatformLibraryCore_frameworkLibrary;
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  return AppleVirtualPlatformLibraryCore_frameworkLibrary;
 }
 
 uint64_t __AppleVirtualPlatformLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AppleVirtualPlatformLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -2419,14 +2262,20 @@ void *__getAppleVirtualPlatformSendSubsystemMessageToHostSymbolLoc_block_invoke(
 
 uint64_t AppleVirtualPlatformLibrary()
 {
-  v1 = 0;
-  result = AppleVirtualPlatformLibraryCore();
-  if (!result)
+  v3 = 0;
+  v0 = AppleVirtualPlatformLibraryCore(&v3);
+  if (!v0)
   {
-    AppleVirtualPlatformLibrary_cold_1(&v1);
+    AppleVirtualPlatformLibrary_cold_1(&v3);
   }
 
-  return result;
+  v1 = v0;
+  if (v3)
+  {
+    free(v3);
+  }
+
+  return v1;
 }
 
 void *__getkAppleVirtualPlatformGuestStrongIdentityOptionSynchronousSymbolLoc_block_invoke(uint64_t a1)
@@ -2467,7 +2316,7 @@ void *__getAppleVirtualPlatformGuestCopyStrongIdentityDataSymbolLoc_block_invoke
 
 Class __getAppleVirtualPlatformHostCertificateClass_block_invoke(uint64_t a1)
 {
-  AppleVirtualPlatformLibraryCore();
+  AppleVirtualPlatformLibraryCore(0);
   result = objc_getClass("AppleVirtualPlatformHostCertificate");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getAppleVirtualPlatformHostCertificateClass_softClass = *(*(*(a1 + 32) + 8) + 24);
@@ -2686,21 +2535,21 @@ LABEL_31:
 
 id DeviceIdentityProcessVMRequest(void *a1)
 {
-  v71[1] = *MEMORY[0x277D85DE8];
+  v70[1] = *MEMORY[0x277D85DE8];
   v1 = a1;
   error = 0;
   v4 = 0x277CCA000uLL;
   if (is_virtual_machine())
   {
-    v5 = createMobileActivationError("DeviceIdentityProcessVMRequest", 160, @"com.apple.MobileActivation.ErrorDomain", -3, 0, @"Device is a VM (not supported).", v2, v3, v55);
+    v5 = createMobileActivationError("DeviceIdentityProcessVMRequest", 160, @"com.apple.MobileActivation.ErrorDomain", -3, 0, @"Device is a VM (not supported).", v2, v3, v54);
     v6 = 0;
-    v58 = 0;
+    v57 = 0;
     v7 = 0;
     v8 = 0;
     v9 = 0;
 LABEL_19:
     v29 = 0;
-    v59 = 0;
+    v58 = 0;
     goto LABEL_20;
   }
 
@@ -2712,9 +2561,9 @@ LABEL_19:
     v32 = 168;
     v33 = 0;
 LABEL_18:
-    v5 = createMobileActivationError("DeviceIdentityProcessVMRequest", v32, @"com.apple.MobileActivation.ErrorDomain", -1, v33, v31, v11, v12, v55);
+    v5 = createMobileActivationError("DeviceIdentityProcessVMRequest", v32, @"com.apple.MobileActivation.ErrorDomain", -1, v33, v31, v11, v12, v54);
     v6 = 0;
-    v58 = 0;
+    v57 = 0;
     v7 = 0;
     v8 = 0;
     goto LABEL_19;
@@ -2736,14 +2585,14 @@ LABEL_18:
   if (!v15 || (v16 = v15, v17 = [v8 BOOLValue], v16, (v17 & 1) == 0))
   {
     v34 = error;
-    v70 = @"com.apple.mobileactivationd.spi";
-    v71[0] = MEMORY[0x277CBEC38];
-    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v71 forKeys:&v70 count:1];
+    v69 = @"com.apple.mobileactivationd.spi";
+    v70[0] = MEMORY[0x277CBEC38];
+    v35 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:&v69 count:1];
     v5 = createMobileActivationError("DeviceIdentityProcessVMRequest", 180, @"com.apple.MobileActivation.ErrorDomain", -7, v34, @"Missing required entitlement: %@", v36, v37, v35);
 
     v6 = 0;
+    v57 = 0;
     v58 = 0;
-    v59 = 0;
     v29 = 0;
     v4 = 0x277CCA000uLL;
     v1 = v14;
@@ -2751,13 +2600,13 @@ LABEL_18:
   }
 
   v4 = 0x277CCA000uLL;
-  v62 = 0;
+  v61 = 0;
   v1 = v14;
-  v18 = [MEMORY[0x277CCAC58] propertyListWithData:v14 options:0 format:0 error:&v62];
-  v19 = v62;
+  v18 = [MEMORY[0x277CCAC58] propertyListWithData:v14 options:0 format:0 error:&v61];
+  v19 = v61;
   v6 = isNSDictionary(v18);
 
-  v59 = v18;
+  v58 = v18;
   if (v6)
   {
     v22 = [v18 objectForKeyedSubscript:@"HostProcessName"];
@@ -2772,7 +2621,7 @@ LABEL_18:
     v24 = [v18 objectForKeyedSubscript:@"Command"];
     v25 = isNSString(v24);
 
-    v58 = v22;
+    v57 = v22;
     if (!v25)
     {
       v5 = createMobileActivationError("DeviceIdentityProcessVMRequest", 197, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Request missing required key: %@", v26, v27, @"Command");
@@ -2788,9 +2637,9 @@ LABEL_18:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v67 = v22;
-      v68 = 2114;
-      v69 = v24;
+      v66 = v22;
+      v67 = 2114;
+      v68 = v24;
       _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Host connection (%{public}@): %{public}@", buf, 0x16u);
     }
 
@@ -2799,9 +2648,9 @@ LABEL_18:
     v4 = 0x277CCA000;
     if (v28)
     {
-      v61 = v19;
-      v29 = process_copy_host_certificate_request(v18, &v61);
-      v30 = v61;
+      v60 = v19;
+      v29 = process_copy_host_certificate_request(v18, &v60);
+      v30 = v60;
 LABEL_39:
       v5 = v30;
 
@@ -2810,20 +2659,20 @@ LABEL_39:
 
     if ([v6 isEqualToString:@"CreateVMHostKeyAttestationRequest"])
     {
-      v60 = v19;
-      v29 = process_create_host_key_signature_request(v18, &v60);
-      v30 = v60;
+      v59 = v19;
+      v29 = process_create_host_key_signature_request(v18, &v59);
+      v30 = v59;
       goto LABEL_39;
     }
 
-    v5 = createMobileActivationError("DeviceIdentityProcessVMRequest", 208, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Invalid request: %@", v53, v54, v6);
+    v5 = createMobileActivationError("DeviceIdentityProcessVMRequest", 208, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Invalid request: %@", v52, v53, v6);
   }
 
   else
   {
-    v5 = createMobileActivationError("DeviceIdentityProcessVMRequest", 186, @"com.apple.MobileActivation.ErrorDomain", -1, v19, @"Failed to create dictionary from data.", v20, v21, v55);
+    v5 = createMobileActivationError("DeviceIdentityProcessVMRequest", 186, @"com.apple.MobileActivation.ErrorDomain", -1, v19, @"Failed to create dictionary from data.", v20, v21, v54);
 
-    v58 = 0;
+    v57 = 0;
   }
 
   v29 = 0;
@@ -2831,15 +2680,15 @@ LABEL_20:
   if (v5)
   {
     v38 = v6;
-    v56 = v8;
-    v57 = v9;
+    v55 = v8;
+    v56 = v9;
     v39 = v7;
     v40 = v4;
     v41 = v1;
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v67 = v5;
+      v66 = v5;
       _os_log_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, "Error occurred processing request: %@", buf, 0xCu);
     }
 
@@ -2849,15 +2698,15 @@ LABEL_20:
     v45 = [(__CFString *)v5 userInfo];
     v46 = [v43 stringWithFormat:@"%@ (%@)", v44, v45];
 
-    v64 = v42;
-    v65 = v46;
-    v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+    v63 = v42;
+    v64 = v46;
+    v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
 
     v29 = v47;
     v48 = v40;
     v7 = v39;
-    v8 = v56;
-    v9 = v57;
+    v8 = v55;
+    v9 = v56;
   }
 
   else
@@ -2890,19 +2739,17 @@ LABEL_20:
     CFRelease(error);
   }
 
-  v51 = *MEMORY[0x277D85DE8];
-
   return v50;
 }
 
 id process_copy_host_certificate_request(void *a1, void *a2)
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v31[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v6 = v3;
   if (!v3)
   {
-    v18 = createMobileActivationError("process_copy_host_certificate_request", 39, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid input.", v4, v5, v26);
+    v18 = createMobileActivationError("process_copy_host_certificate_request", 39, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid input.", v4, v5, v25);
     v12 = 0;
     v9 = 0;
     v8 = 0;
@@ -2935,11 +2782,11 @@ LABEL_14:
     goto LABEL_14;
   }
 
+  v26 = 0;
   v27 = 0;
-  v28 = 0;
-  v15 = libavp_copy_host_key_and_certs_with_data(v12, v8, &v28, &v27);
-  v9 = v28;
-  v18 = v27;
+  v15 = libavp_copy_host_key_and_certs_with_data(v12, v8, &v27, &v26);
+  v9 = v27;
+  v18 = v26;
   if (v15)
   {
     v19 = v9 == 0;
@@ -2952,7 +2799,7 @@ LABEL_14:
 
   if (v19)
   {
-    v20 = createMobileActivationError("process_copy_host_certificate_request", 57, @"com.apple.MobileActivation.ErrorDomain", -1, v18, @"Failed to decode host identity data.", v16, v17, v26);
+    v20 = createMobileActivationError("process_copy_host_certificate_request", 57, @"com.apple.MobileActivation.ErrorDomain", -1, v18, @"Failed to decode host identity data.", v16, v17, v25);
 
     v22 = 0;
     v18 = v20;
@@ -2960,12 +2807,12 @@ LABEL_14:
 
   else
   {
-    v31 = @"RKCertification";
-    v32[0] = v9;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
-    v29 = @"Value";
-    v30 = v21;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v30 = @"RKCertification";
+    v31[0] = v9;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:&v30 count:1];
+    v28 = @"Value";
+    v29 = v21;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
   }
 
 LABEL_15:
@@ -2980,20 +2827,18 @@ LABEL_15:
     CFRelease(v15);
   }
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 id process_create_host_key_signature_request(void *a1, void *a2)
 {
-  v40[2] = *MEMORY[0x277D85DE8];
+  v39[2] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v6 = v3;
   cf = 0;
   if (!v3)
   {
-    v21 = createMobileActivationError("process_create_host_key_signature_request", 89, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid input.", v4, v5, v31);
+    v21 = createMobileActivationError("process_create_host_key_signature_request", 89, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid input.", v4, v5, v30);
     v8 = 0;
     v12 = 0;
     v9 = 0;
@@ -3026,11 +2871,11 @@ LABEL_15:
 
     if (v13)
     {
+      v33 = 0;
       v34 = 0;
-      v35 = 0;
-      v18 = libavp_copy_host_key_and_certs_with_data(v12, v8, &v35, &v34);
-      v13 = v35;
-      v21 = v34;
+      v18 = libavp_copy_host_key_and_certs_with_data(v12, v8, &v34, &v33);
+      v13 = v34;
+      v21 = v33;
       if (v18)
       {
         v22 = v13 == 0;
@@ -3043,7 +2888,7 @@ LABEL_15:
 
       if (v22)
       {
-        v32 = createMobileActivationError("process_create_host_key_signature_request", 113, @"com.apple.MobileActivation.ErrorDomain", -1, v21, @"Failed to decode host identity data.", v19, v20, v31);
+        v31 = createMobileActivationError("process_create_host_key_signature_request", 113, @"com.apple.MobileActivation.ErrorDomain", -1, v21, @"Failed to decode host identity data.", v19, v20, v30);
 
         v23 = 0;
       }
@@ -3054,23 +2899,23 @@ LABEL_15:
         v23 = Signature;
         if (Signature)
         {
-          v39[0] = @"RKSignature";
-          v39[1] = @"RKCertification";
-          v40[0] = Signature;
-          v40[1] = v13;
-          v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:2];
-          v37 = @"Value";
-          v38 = v33;
-          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+          v38[0] = @"RKSignature";
+          v38[1] = @"RKCertification";
+          v39[0] = Signature;
+          v39[1] = v13;
+          v32 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:2];
+          v36 = @"Value";
+          v37 = v32;
+          v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
 
           goto LABEL_17;
         }
 
-        v32 = createMobileActivationError("process_create_host_key_signature_request", 119, @"com.apple.MobileActivation.ErrorDomain", -2, cf, @"Failed to create signature.", v29, v30, v31);
+        v31 = createMobileActivationError("process_create_host_key_signature_request", 119, @"com.apple.MobileActivation.ErrorDomain", -2, cf, @"Failed to create signature.", v28, v29, v30);
       }
 
       v24 = 0;
-      v21 = v32;
+      v21 = v31;
       goto LABEL_17;
     }
 
@@ -3104,8 +2949,6 @@ LABEL_17:
   {
     CFRelease(v18);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -3503,20 +3346,20 @@ LABEL_7:
 __SecKey *security_copy_system_key(uint64_t a1, CFDataRef *a2, void *a3)
 {
   v6 = 0;
-  v70[4] = *MEMORY[0x277D85DE8];
-  v65 = 0;
+  v69[4] = *MEMORY[0x277D85DE8];
+  v64 = 0;
   if (a1 != 2)
   {
     goto LABEL_12;
   }
 
-  v64 = 0;
-  is_legacy = security_committed_uik_is_legacy(&v64);
-  v8 = v64;
+  v63 = 0;
+  is_legacy = security_committed_uik_is_legacy(&v63);
+  v8 = v63;
   v6 = v8;
   if ((is_legacy & 1) == 0 && v8)
   {
-    v11 = createMobileActivationError("security_copy_system_key", 180, @"com.apple.MobileActivation.ErrorDomain", -1, v8, @"Failed to query legacy UIK support.", v9, v10, v60);
+    v11 = createMobileActivationError("security_copy_system_key", 180, @"com.apple.MobileActivation.ErrorDomain", -1, v8, @"Failed to query legacy UIK support.", v9, v10, v59);
     v12 = 0;
 LABEL_19:
     v43 = 0;
@@ -3529,20 +3372,20 @@ LABEL_12:
     v12 = SecKeyCopySystemKey();
     if (!v12)
     {
-      v11 = createMobileActivationError("security_copy_system_key", 195, @"com.apple.MobileActivation.ErrorDomain", -1, v65, @"Failed to copy system key (%d).", v38, v39, a1);
+      v11 = createMobileActivationError("security_copy_system_key", 195, @"com.apple.MobileActivation.ErrorDomain", -1, v64, @"Failed to copy system key (%d).", v38, v39, a1);
       goto LABEL_19;
     }
 
     goto LABEL_13;
   }
 
-  v67 = 1;
+  v66 = 1;
   error = 0;
   [@"systemgroup.com.apple.mobileactivationd" UTF8String];
   v15 = container_system_group_path_for_identifier();
   if (!v15)
   {
-    v26 = createMobileActivationError("copy_legacy_committed_uik", 44, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to query group container path: %d", v13, v14, v67);
+    v26 = createMobileActivationError("copy_legacy_committed_uik", 44, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Failed to query group container path: %d", v13, v14, v66);
     v33 = 0;
     v23 = 0;
     v17 = 0;
@@ -3560,34 +3403,34 @@ LABEL_34:
 
   if ((v19 & 1) == 0)
   {
-    v26 = createMobileActivationError("copy_legacy_committed_uik", 50, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Legacy UIK does not exist.", v20, v21, v60);
+    v26 = createMobileActivationError("copy_legacy_committed_uik", 50, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Legacy UIK does not exist.", v20, v21, v59);
     v33 = 0;
     v23 = 0;
     goto LABEL_34;
   }
 
   v22 = objc_alloc(MEMORY[0x277CBEA90]);
-  v66 = 0;
-  v23 = [v22 initWithContentsOfFile:v17 options:0 error:&v66];
-  v26 = v66;
+  v65 = 0;
+  v23 = [v22 initWithContentsOfFile:v17 options:0 error:&v65];
+  v26 = v65;
   if (v23)
   {
     v27 = SecAccessControlCreateWithFlags(0, *MEMORY[0x277CDBF00], 0x40000000uLL, &error);
     if (v27)
     {
       v30 = *MEMORY[0x277CDC158];
-      v69[0] = *MEMORY[0x277CDBFD0];
-      v69[1] = v30;
+      v68[0] = *MEMORY[0x277CDBFD0];
+      v68[1] = v30;
       v31 = *MEMORY[0x277CDC160];
-      v70[0] = MEMORY[0x277CBEC28];
-      v70[1] = v31;
+      v69[0] = MEMORY[0x277CBEC28];
+      v69[1] = v31;
       v32 = *MEMORY[0x277CDBEC0];
-      v69[2] = *MEMORY[0x277CDC178];
-      v69[3] = v32;
-      v70[2] = v23;
-      v70[3] = v27;
+      v68[2] = *MEMORY[0x277CDC178];
+      v68[3] = v32;
+      v69[2] = v23;
+      v69[3] = v27;
       cf = v27;
-      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v70 forKeys:v69 count:4];
+      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v69 forKeys:v68 count:4];
       v34 = SecKeyCreateWithData([MEMORY[0x277CBEA90] data], v33, &error);
       v37 = v34;
       if (v34)
@@ -3597,17 +3440,17 @@ LABEL_34:
 
       else
       {
-        v61 = createMobileActivationError("copy_legacy_committed_uik", 74, @"com.apple.MobileActivation.ErrorDomain", -1, error, @"Failed to query UIK.", v35, v36, v60);
+        v60 = createMobileActivationError("copy_legacy_committed_uik", 74, @"com.apple.MobileActivation.ErrorDomain", -1, error, @"Failed to query UIK.", v35, v36, v59);
 
         v12 = 0;
-        v26 = v61;
+        v26 = v60;
       }
 
       CFRelease(cf);
       goto LABEL_40;
     }
 
-    createMobileActivationError("copy_legacy_committed_uik", 62, @"com.apple.MobileActivation.ErrorDomain", -1, error, @"Failed to create access control.", v28, v29, v60);
+    createMobileActivationError("copy_legacy_committed_uik", 62, @"com.apple.MobileActivation.ErrorDomain", -1, error, @"Failed to create access control.", v28, v29, v59);
   }
 
   else
@@ -3637,29 +3480,29 @@ LABEL_40:
     free(v15);
   }
 
-  v55 = v6;
+  v54 = v6;
   if (!v12)
   {
-    v56 = v26;
     v55 = v26;
+    v54 = v26;
   }
 
-  v57 = v55;
+  v56 = v54;
   if (!v12)
   {
-    v11 = createMobileActivationError("security_copy_system_key", 189, @"com.apple.MobileActivation.ErrorDomain", -1, v57, @"Failed to copy system key (legacy).", v58, v59, v60);
+    v11 = createMobileActivationError("security_copy_system_key", 189, @"com.apple.MobileActivation.ErrorDomain", -1, v56, @"Failed to copy system key (legacy).", v57, v58, v59);
     v43 = 0;
-    v6 = v57;
+    v6 = v56;
     goto LABEL_23;
   }
 
-  v6 = v57;
+  v6 = v56;
 LABEL_13:
   v40 = SecKeyCopyPublicKey(v12);
   v43 = v40;
   if (v40)
   {
-    v44 = SecKeyCopyExternalRepresentation(v40, &v65);
+    v44 = SecKeyCopyExternalRepresentation(v40, &v64);
     if (v44)
     {
       v45 = v44;
@@ -3673,7 +3516,7 @@ LABEL_13:
       goto LABEL_28;
     }
 
-    v49 = v65;
+    v49 = v64;
     v47 = @"Failed to copy public key buffer.";
     v48 = 208;
   }
@@ -3685,7 +3528,7 @@ LABEL_13:
     v49 = 0;
   }
 
-  v11 = createMobileActivationError("security_copy_system_key", v48, @"com.apple.MobileActivation.ErrorDomain", -1, v49, v47, v41, v42, v60);
+  v11 = createMobileActivationError("security_copy_system_key", v48, @"com.apple.MobileActivation.ErrorDomain", -1, v49, v47, v41, v42, v59);
 LABEL_23:
 
   if (a3)
@@ -3711,14 +3554,13 @@ LABEL_28:
     v52 = v12;
   }
 
-  if (v65)
+  if (v64)
   {
-    CFRelease(v65);
+    CFRelease(v64);
   }
 
-  v65 = 0;
+  v64 = 0;
 
-  v53 = *MEMORY[0x277D85DE8];
   return v52;
 }
 
@@ -3728,13 +3570,13 @@ id security_create_system_key_attestation(uint64_t a1, uint64_t a2, void *a3, vo
   cf = 0;
   if (!a1)
   {
-    v13 = createMobileActivationError("security_create_system_key_attestation", 242, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Invalid input(s)", v7, v8, v25);
+    v13 = createMobileActivationError("security_create_system_key_attestation", 242, @"com.apple.MobileActivation.ErrorDomain", -1, 0, @"Invalid input(s)", v7, v8, v24);
     v10 = 0;
     if (!a4)
     {
 LABEL_16:
-      v20 = 0;
-      v23 = 0;
+      v19 = 0;
+      v22 = 0;
       if (!v10)
       {
         goto LABEL_18;
@@ -3744,14 +3586,14 @@ LABEL_16:
     }
 
 LABEL_15:
-    v22 = v13;
+    v21 = v13;
     *a4 = v13;
     goto LABEL_16;
   }
 
-  v25 = 0;
-  v10 = security_copy_system_key(a2, 0, &v25);
-  v13 = v25;
+  v24 = 0;
+  v10 = security_copy_system_key(a2, 0, &v24);
+  v13 = v24;
   if (!v10)
   {
     v14 = @"Failed to copy attestation key.";
@@ -3772,7 +3614,6 @@ LABEL_15:
       goto LABEL_14;
     }
 
-    v18 = *MEMORY[0x277CDC410];
     if (!SecKeySetParameter())
     {
       v17 = cf;
@@ -3780,9 +3621,9 @@ LABEL_15:
       v15 = 259;
       v16 = -1;
 LABEL_14:
-      v21 = createMobileActivationError("security_create_system_key_attestation", v15, @"com.apple.MobileActivation.ErrorDomain", v16, v17, v14, v11, v12, v25);
+      v20 = createMobileActivationError("security_create_system_key_attestation", v15, @"com.apple.MobileActivation.ErrorDomain", v16, v17, v14, v11, v12, v24);
 
-      v13 = v21;
+      v13 = v20;
       if (!a4)
       {
         goto LABEL_16;
@@ -3802,10 +3643,10 @@ LABEL_14:
     goto LABEL_14;
   }
 
-  v20 = Attestation;
+  v19 = Attestation;
 LABEL_17:
   CFRelease(v10);
-  v23 = v20;
+  v22 = v19;
 LABEL_18:
   if (cf)
   {
@@ -3814,7 +3655,7 @@ LABEL_18:
 
   cf = 0;
 
-  return v23;
+  return v22;
 }
 
 id security_create_attestation(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -3862,10 +3703,10 @@ LABEL_10:
 
 id security_create_external_representation(__SecKey *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    a2 = createMobileActivationError("security_create_external_representation", 328, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid input.", a7, a8, v25);
+    a2 = createMobileActivationError("security_create_external_representation", 328, @"com.apple.MobileActivation.ErrorDomain", -2, 0, @"Invalid input.", a7, a8, v24);
     v13 = 0;
     if (a3)
     {
@@ -3896,7 +3737,7 @@ LABEL_7:
     v20 = @"Failed to encode RK as data.";
     v21 = 340;
 LABEL_10:
-    a2 = createMobileActivationError("security_create_external_representation", v21, @"com.apple.MobileActivation.ErrorDomain", -1, 0, v20, v11, v12, v25);
+    a2 = createMobileActivationError("security_create_external_representation", v21, @"com.apple.MobileActivation.ErrorDomain", -1, 0, v20, v11, v12, v24);
     if (a3)
     {
       goto LABEL_11;
@@ -3912,17 +3753,15 @@ LABEL_10:
   v18 = v15;
   if (a2)
   {
-    v26 = v16;
+    v25 = v16;
     v19 = [MEMORY[0x277CCABB0] numberWithBool:v17 != 0];
-    v27[0] = v19;
-    *a2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+    v26[0] = v19;
+    *a2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
 
     a2 = 0;
   }
 
 LABEL_12:
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -4160,24 +3999,23 @@ uint64_t DERParseBoolean(unsigned __int8 **a1, BOOL *a2)
 
 uint64_t DERParseInteger(uint64_t a1, _DWORD *a2)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v5[0] = 0xAAAAAAAAAAAAAAAALL;
-  result = DERParseInteger64(a1, v5);
+  v4[1] = *MEMORY[0x277D85DE8];
+  v4[0] = 0xAAAAAAAAAAAAAAAALL;
+  result = DERParseInteger64(a1, v4);
   if (!result)
   {
-    if (HIDWORD(v5[0]))
+    if (HIDWORD(v4[0]))
     {
-      result = 7;
+      return 7;
     }
 
     else
     {
       result = 0;
-      *a2 = v5[0];
+      *a2 = v4[0];
     }
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -4243,42 +4081,41 @@ LABEL_7:
 
 uint64_t DERDecodeSeqInit(uint64_t a1, void *a2, void *a3)
 {
-  v9[3] = *MEMORY[0x277D85DE8];
-  memset(v9, 170, 24);
-  result = DERDecodeItemPartialBufferGetLength(a1, v9, 0);
-  if (result)
+  v8[3] = *MEMORY[0x277D85DE8];
+  memset(v8, 170, 24);
+  result = DERDecodeItemPartialBufferGetLength(a1, v8, 0);
+  if (!result)
   {
-    goto LABEL_7;
-  }
-
-  v6 = v9[0];
-  *a2 = v9[0];
-  if (v6 >> 1 != 0x1000000000000008)
-  {
-    result = 2;
-    goto LABEL_7;
-  }
-
-  if (__CFADD__(v9[1], v9[2]))
-  {
-    __break(0x5513u);
-  }
-
-  else
-  {
-    v7 = v9[1] + v9[2];
-    if (v9[1] <= v9[1] + v9[2])
+    v6 = v8[0];
+    *a2 = v8[0];
+    if (v6 >> 1 == 0x1000000000000008)
     {
-      result = 0;
-      *a3 = v9[1];
-      a3[1] = v7;
-LABEL_7:
-      v8 = *MEMORY[0x277D85DE8];
-      return result;
+      if (__CFADD__(v8[1], v8[2]))
+      {
+        __break(0x5513u);
+      }
+
+      else
+      {
+        v7 = v8[1] + v8[2];
+        if (v8[1] <= v8[1] + v8[2])
+        {
+          result = 0;
+          *a3 = v8[1];
+          a3[1] = v7;
+          return result;
+        }
+      }
+
+      __break(0x5519u);
+    }
+
+    else
+    {
+      return 2;
     }
   }
 
-  __break(0x5519u);
   return result;
 }
 
@@ -4308,101 +4145,106 @@ unint64_t *DERDecodeSeqContentInit(unint64_t *result, unint64_t *a2)
 
 uint64_t DERDecodeSeqNext(unint64_t *a1, unint64_t *a2)
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v11[0] = 0;
+  v10[2] = *MEMORY[0x277D85DE8];
+  v10[0] = 0;
   v2 = *a1;
   v3 = a1[1];
   if (*a1 >= v3)
   {
-    result = 1;
-    goto LABEL_8;
+    return 1;
   }
 
-  v11[0] = *a1;
-  v11[1] = v3 - v2;
-  result = DERDecodeItemPartialBufferGetLength(v11, a2, 0);
-  if (result)
+  v10[0] = *a1;
+  v10[1] = v3 - v2;
+  result = DERDecodeItemPartialBufferGetLength(v10, a2, 0);
+  if (!result)
   {
-LABEL_8:
-    v10 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  v8 = a2[1];
-  v7 = a2[2];
-  if (!__CFADD__(v8, v7))
-  {
-    v9 = v8 + v7;
-    if (v9 <= a1[1] && *a1 <= v9)
+    v8 = a2[1];
+    v7 = a2[2];
+    if (!__CFADD__(v8, v7))
     {
-      result = 0;
-      *a1 = v9;
-      goto LABEL_8;
+      v9 = v8 + v7;
+      if (v9 <= a1[1] && *a1 <= v9)
+      {
+        result = 0;
+        *a1 = v9;
+        return result;
+      }
+
+      __break(0x5519u);
     }
 
-    __break(0x5519u);
+    __break(0x5513u);
   }
 
-  __break(0x5513u);
   return result;
 }
 
 uint64_t X509PolicySetFlagsForCommonNames(uint64_t a1)
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 104);
-  v6[0] = 0xAAAAAAAAAAAAAAAALL;
-  v6[1] = 0xAAAAAAAAAAAAAAAALL;
+  v5[0] = 0xAAAAAAAAAAAAAAAALL;
+  v5[1] = 0xAAAAAAAAAAAAAAAALL;
   if (v2 > a1 + 120)
   {
     __break(0x5519u);
   }
 
-  result = X509CertificateSubjectNameGetCommonName(v2, v6);
+  result = X509CertificateSubjectNameGetCommonName(v2, v5);
   if (!result)
   {
-    result = compare_octet_string(&iPhoneCAName, v6);
-    if (!result)
+    result = compare_octet_string(&iPhoneCAName, v5);
+    if (result)
+    {
+      result = compare_octet_string(&CodeSigningCAName, v5);
+      if (result)
+      {
+        result = compare_octet_string_partial(&MFi4AccessoryCAName, v5);
+        if (result)
+        {
+          result = compare_octet_string_partial(&MFi4AttestationCAName, v5);
+          if (result)
+          {
+            result = compare_octet_string_partial(&MFi4ProvisioningCAName, v5);
+            if (result)
+            {
+              return result;
+            }
+
+            v4 = 0x1000000000;
+          }
+
+          else
+          {
+            v4 = 0x800000000;
+          }
+        }
+
+        else
+        {
+          v4 = 0x400000000;
+        }
+      }
+
+      else
+      {
+        v4 = 0x800000000008;
+      }
+    }
+
+    else
     {
       v4 = 3840;
-      goto LABEL_13;
     }
 
-    result = compare_octet_string(&CodeSigningCAName, v6);
-    if (!result)
-    {
-      v4 = 0x800000000008;
-      goto LABEL_13;
-    }
-
-    result = compare_octet_string_partial(&MFi4AccessoryCAName, v6);
-    if (!result)
-    {
-      v4 = 0x400000000;
-      goto LABEL_13;
-    }
-
-    result = compare_octet_string_partial(&MFi4AttestationCAName, v6);
-    if (!result)
-    {
-      v4 = 0x800000000;
-      goto LABEL_13;
-    }
-
-    result = compare_octet_string_partial(&MFi4ProvisioningCAName, v6);
-    if (!result)
-    {
-      v4 = 0x1000000000;
-LABEL_13:
-      *(a1 + 240) |= v4;
-    }
+    *(a1 + 240) |= v4;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void X509PolicySetFlagsForMFI(uint64_t a1)
+double X509PolicySetFlagsForMFI(uint64_t a1)
 {
   v7[2] = *MEMORY[0x277D85DE8];
   v2 = (a1 + 104);
@@ -4415,33 +4257,31 @@ void X509PolicySetFlagsForMFI(uint64_t a1)
 
   if (!X509CertificateSubjectNameGetCommonName(v2, v7))
   {
-    if (!compare_octet_string_partial(&MFICommonNamePrefix, v7))
+    if (compare_octet_string_partial(&MFICommonNamePrefix, v7))
     {
-      v6 = 0;
-      if (X509CertificateGetNotBefore(a1, &v6))
-      {
-        goto LABEL_9;
-      }
-
-      memset(&v5, 0, sizeof(v5));
-      strptime("2006-05-31", "%F", &v5);
-      v3 = timegm(&v5);
-      if (difftime(v3, v6) >= 0.0)
-      {
-        goto LABEL_9;
-      }
-
-      *(a1 + 240) |= 0x8000000uLL;
+      goto LABEL_4;
     }
 
-    if (!compare_octet_string_partial(&MFi4ProvisioningHostNamePrefix, v7))
+    v6 = 0;
+    if (!X509CertificateGetNotBefore(a1, &v6))
     {
-      *(a1 + 240) |= 0x1000000000uLL;
+      memset(&v5, 0, sizeof(v5));
+      strptime("2006-05-31", "%F", &v5);
+      v4 = timegm(&v5);
+      result = difftime(v4, v6);
+      if (result < 0.0)
+      {
+        *(a1 + 240) |= 0x8000000uLL;
+LABEL_4:
+        if (!compare_octet_string_partial(&MFi4ProvisioningHostNamePrefix, v7))
+        {
+          *(a1 + 240) |= 0x1000000000uLL;
+        }
+      }
     }
   }
 
-LABEL_9:
-  v4 = *MEMORY[0x277D85DE8];
+  return result;
 }
 
 uint64_t X509PolicySetFlagsForRoots(uint64_t result, uint64_t a2)
@@ -4592,23 +4432,23 @@ LABEL_50:
 
 uint64_t X509PolicySetFlagsForTestAnchor(void *a1, uint64_t a2)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v7[0] = 0;
-  v7[1] = 0;
+  v6[2] = *MEMORY[0x277D85DE8];
   v6[0] = 0;
   v6[1] = 0;
+  v5[0] = 0;
+  v5[1] = 0;
   if (a2 + 88 > (a2 + 104))
   {
     __break(0x5519u);
   }
 
-  result = X509CertificateParseSPKI((a2 + 88), v7, 0, v6);
+  result = X509CertificateParseSPKI((a2 + 88), v6, 0, v5);
   if (!result)
   {
-    result = compare_octet_string(a1[4], v7);
+    result = compare_octet_string(a1[4], v6);
     if (!result)
     {
-      result = compare_octet_string(a1[3], v6);
+      result = compare_octet_string(a1[3], v5);
       if (!result)
       {
         *(a2 + 240) |= a1[1];
@@ -4616,29 +4456,28 @@ uint64_t X509PolicySetFlagsForTestAnchor(void *a1, uint64_t a2)
     }
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 unint64_t validateSignatureRSA(unint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
   v5 = 0;
-  v31 = *MEMORY[0x277D85DE8];
-  v27 = 0;
+  v27 = *MEMORY[0x277D85DE8];
+  v23 = 0;
   if (!result)
   {
-    goto LABEL_24;
+    return v5 & 1;
   }
 
   if (!a2)
   {
-    goto LABEL_24;
+    return v5 & 1;
   }
 
   v5 = 0;
   if (!a3 || !a4 || !a5)
   {
-    goto LABEL_24;
+    return v5 & 1;
   }
 
   if (a5 + 7 > a5 + 9)
@@ -4657,8 +4496,8 @@ unint64_t validateSignatureRSA(unint64_t result, uint64_t a2, uint64_t a3, uint6
     }
   }
 
-  v25 = 0xAAAAAAAAAAAAAAAALL;
-  v26 = 0xAAAAAAAAAAAAAAAALL;
+  v21 = 0xAAAAAAAAAAAAAAAALL;
+  v22 = 0xAAAAAAAAAAAAAAAALL;
   v10 = a5[9];
   v9 = a5[10];
   if (__CFADD__(v10, v9))
@@ -4671,11 +4510,11 @@ unint64_t validateSignatureRSA(unint64_t result, uint64_t a2, uint64_t a3, uint6
     goto LABEL_34;
   }
 
-  v25 = a5[9];
-  v26 = v10 + v9;
+  v21 = a5[9];
+  v22 = v10 + v9;
   if (v9)
   {
-    result = ccder_blob_check_null();
+    result = ccder_blob_check_null(&v21);
     if (!result)
     {
       goto LABEL_23;
@@ -4697,8 +4536,6 @@ unint64_t validateSignatureRSA(unint64_t result, uint64_t a2, uint64_t a3, uint6
   {
 LABEL_23:
     v5 = 0;
-LABEL_24:
-    v15 = *MEMORY[0x277D85DE8];
     return v5 & 1;
   }
 
@@ -4708,24 +4545,23 @@ LABEL_24:
     v12 = result << 6;
     if (result << 6 >= 0x400)
     {
-      v29 = 0xAAAAAAAAAAAAAAAALL;
-      v30 = -21846;
-      v28 = 6;
+      v25 = 0xAAAAAAAAAAAAAAAALL;
+      v26 = -21846;
+      v24 = 6;
       if (&vars0 == 82)
       {
         goto LABEL_35;
       }
 
       v13 = a5[4];
-      LOBYTE(v29) = v13;
-      if (&v28 > 0xFFFFFFFFFFFFFFFDLL)
+      LOBYTE(v25) = v13;
+      if (&v24 > 0xFFFFFFFFFFFFFFFDLL)
       {
         goto LABEL_35;
       }
 
       if (v13 < 0xA)
       {
-        v14 = a5[3];
         result = __memcpy_chk();
         if (result <= result + v13)
         {
@@ -4735,44 +4571,39 @@ LABEL_24:
           }
 
           result = MEMORY[0x28223BE20]();
-          v18 = (&v24 - 4 * v17);
-          v19 = 0;
-          *&v20 = 0xAAAAAAAAAAAAAAAALL;
-          *(&v20 + 1) = 0xAAAAAAAAAAAAAAAALL;
+          v16 = (&v20 - 4 * v15);
+          v17 = 0;
+          *&v18 = 0xAAAAAAAAAAAAAAAALL;
+          *(&v18 + 1) = 0xAAAAAAAAAAAAAAAALL;
           do
           {
-            v21 = &v18[v19 / 8];
-            *v21 = v20;
-            *(v21 + 1) = v20;
-            v19 += 32;
+            v19 = &v16[v17 / 8];
+            *v19 = v18;
+            *(v19 + 1) = v18;
+            v17 += 32;
           }
 
-          while ((v16 & 0x7FFFFFFFFFFFFFE0) != v19);
-          if (v18 + 4 <= &v24 && v18 <= v18 + 4)
+          while ((v14 & 0x7FFFFFFFFFFFFFE0) != v17);
+          if (v16 + 4 <= &v20 && v16 <= v16 + 4)
           {
-            *v18 = v11;
+            *v16 = v11;
             if (ccrsa_import_pub())
             {
               v5 = 0;
             }
 
-            else
+            else if (ccrsa_verify_pkcs1v15_allowshortsigs())
             {
-              v23 = a5[11];
-              v22 = a5[12];
-              if (ccrsa_verify_pkcs1v15_allowshortsigs())
-              {
-                v5 = 0;
-                v27 = 0;
-              }
-
-              else
-              {
-                v5 = v27;
-              }
+              v5 = 0;
+              v23 = 0;
             }
 
-            goto LABEL_24;
+            else
+            {
+              v5 = v23;
+            }
+
+            return v5 & 1;
           }
         }
       }
@@ -4792,7 +4623,7 @@ LABEL_36:
   return result;
 }
 
-uint64_t validateOIDs(uint64_t result, uint64_t a2, uint64_t a3)
+unint64_t validateOIDs(unint64_t result, uint64_t a2, uint64_t a3)
 {
   v5 = result;
   v6 = 0;
@@ -4865,22 +4696,22 @@ _UNKNOWN **oidForPubKeyLength()
 uint64_t *validateSignatureEC(uint64_t *result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v5 = 0;
-  v22 = *MEMORY[0x277D85DE8];
-  v21 = 0;
+  v19 = *MEMORY[0x277D85DE8];
+  v18 = 0;
   if (!result)
   {
-    goto LABEL_31;
+    return (v5 & 1);
   }
 
   if (!a2)
   {
-    goto LABEL_31;
+    return (v5 & 1);
   }
 
   v5 = 0;
   if (!a3 || !a4 || !a5)
   {
-    goto LABEL_31;
+    return (v5 & 1);
   }
 
   v7 = a5 + 72;
@@ -4909,8 +4740,6 @@ uint64_t *validateSignatureEC(uint64_t *result, uint64_t a2, uint64_t a3, uint64
   {
 LABEL_27:
     v5 = 0;
-LABEL_31:
-    v19 = *MEMORY[0x277D85DE8];
     return (v5 & 1);
   }
 
@@ -4934,7 +4763,7 @@ LABEL_31:
   }
 
   result = MEMORY[0x28223BE20]();
-  v14 = &v20[-16 * v13];
+  v14 = &v17[-16 * v13];
   v15 = 0;
   do
   {
@@ -4951,7 +4780,7 @@ LABEL_31:
   }
 
   *v14 = result;
-  if (v14 + 2 > v20 || v14 > v14 + 2)
+  if (v14 + 2 > v17 || v14 > v14 + 2)
   {
 LABEL_32:
     __break(0x5519u);
@@ -4972,21 +4801,19 @@ LABEL_35:
   result = ccec_x963_import_pub_size();
   if (result != 256 || *(a5 + 96) != 64)
   {
-    v18 = *(a5 + 88);
     if (ccec_verify())
     {
 LABEL_29:
-      v21 = 0;
+      v18 = 0;
     }
 
 LABEL_30:
-    v5 = v21;
-    goto LABEL_31;
+    v5 = v18;
+    return (v5 & 1);
   }
 
   if (*(a5 + 88) < 0xFFFFFFFFFFFFFFE0)
   {
-    v17 = *(a5 + 88);
     if (!ccec_verify_composite())
     {
       goto LABEL_30;
@@ -5036,18 +4863,16 @@ uint64_t ccec_cp_for_oid(int **a1)
 
 unint64_t CTCopyDeviceIdentifiers(unint64_t result, uint64_t a2, uint64_t a3)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = 327696;
   if (!result || !a2)
   {
-LABEL_10:
-    v7 = *MEMORY[0x277D85DE8];
     return v3;
   }
 
-  v13 = 0;
-  v14[0] = 0;
   v12 = 0;
+  v13[0] = 0;
+  v11 = 0;
   if (__CFADD__(result, a2))
   {
     __break(0x5513u);
@@ -5055,35 +4880,35 @@ LABEL_10:
 
   else if (result + a2 >= result)
   {
-    v11[0] = result;
-    v11[1] = result + a2;
-    v5 = CTConvertDashTerminatedHexstringTo64BitInteger(v11, v14);
+    v10[0] = result;
+    v10[1] = result + a2;
+    v5 = CTConvertDashTerminatedHexstringTo64BitInteger(v10, v13);
     v6 = 327697;
-    if (!v5 && !HIDWORD(v14[0]))
+    if (!v5 && !HIDWORD(v13[0]))
     {
-      if (CTConvertDashTerminatedHexstringTo64BitInteger(v11, &v13))
+      if (CTConvertDashTerminatedHexstringTo64BitInteger(v10, &v12))
       {
-        v6 = 327698;
+        return 327698;
       }
 
       else
       {
-        v8 = CTConvertDashTerminatedHexstringTo64BitInteger(v11, &v12);
+        v7 = CTConvertDashTerminatedHexstringTo64BitInteger(v10, &v11);
         v6 = 327699;
-        if (!v8)
+        if (!v7)
         {
-          v9 = v12;
-          if (v12 <= 0xFF)
+          v8 = v11;
+          if (v11 <= 0xFF)
           {
             v6 = 0;
             if (a3)
             {
-              v10 = v13;
-              *a3 = v14[0];
-              *(a3 + 8) = v10;
-              *(a3 + 16) = (v9 & 8) != 0;
-              *(a3 + 17) = (v9 & 4) != 0;
-              *(a3 + 18) = v9 & 3;
+              v9 = v12;
+              *a3 = v13[0];
+              *(a3 + 8) = v9;
+              *(a3 + 16) = (v8 & 8) != 0;
+              *(a3 + 17) = (v8 & 4) != 0;
+              *(a3 + 18) = v8 & 3;
               *(a3 + 24) = 0;
               *(a3 + 32) = 0;
             }
@@ -5092,8 +4917,7 @@ LABEL_10:
       }
     }
 
-    v3 = v6;
-    goto LABEL_10;
+    return v6;
   }
 
   __break(0x5519u);
@@ -5326,33 +5150,31 @@ unint64_t CTFillBAAIdentity(int a1, unint64_t a2, uint64_t a3, unint64_t a4)
 
 unint64_t CTEvaluateBAASystemTestRoot(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, unint64_t a7)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v11 = 0;
-  v12 = 0;
+  v12 = *MEMORY[0x277D85DE8];
   v10 = 0;
-  result = CTEvaluateCertsForPolicy(a1, a2, 1, 1, a5, a6, a3, a4, &v10, &v11, X509PolicyBAASystem);
+  v11 = 0;
+  v9 = 0;
+  result = CTEvaluateCertsForPolicy(a1, a2, 1, 1, a5, a6, a3, a4, &v9, &v10, X509PolicyBAASystem);
   if (!result)
   {
-    result = CTFillBAAIdentity(v10, v11, v12, a7);
+    return CTFillBAAIdentity(v9, v10, v11, a7);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 unint64_t CTEvaluateBAAUserTestRoot(unint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, void *a6, unint64_t a7)
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v11 = 0;
-  v12 = 0;
+  v12 = *MEMORY[0x277D85DE8];
   v10 = 0;
-  result = CTEvaluateCertsForPolicy(a1, a2, 1, 1, a5, a6, a3, a4, &v10, &v11, X509PolicyBAAUser);
+  v11 = 0;
+  v9 = 0;
+  result = CTEvaluateCertsForPolicy(a1, a2, 1, 1, a5, a6, a3, a4, &v9, &v10, X509PolicyBAAUser);
   if (!result)
   {
-    result = CTFillBAAIdentity(v10, v11, v12, a7);
+    return CTFillBAAIdentity(v9, v10, v11, a7);
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5386,93 +5208,77 @@ uint64_t compare_octet_string_partial(uint64_t a1, uint64_t a2)
   }
 }
 
-uint64_t ccder_blob_decode_Time(uint64_t *a1)
+uint64_t ccder_blob_decode_Time(unint64_t *a1, unint64_t *a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (*a1 > a1[1])
   {
-    goto LABEL_7;
+    goto LABEL_6;
   }
 
-  v4 = *a1;
-  if ((ccder_blob_decode_tl() & 1) == 0)
+  if (ccder_blob_decode_tl())
   {
-    if (*a1 <= a1[1])
-    {
-      v5 = *a1;
-      ccder_blob_decode_tl();
-      result = 0;
-      goto LABEL_6;
-    }
+    return 0;
+  }
 
-LABEL_7:
+  if (*a1 > a1[1])
+  {
+LABEL_6:
     __break(0x5519u);
   }
 
-  result = 0;
-LABEL_6:
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t ccder_blob_check_null()
-{
-  v2 = *MEMORY[0x277D85DE8];
-  result = ccder_blob_decode_tl();
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  ccder_blob_decode_tl();
+  return 0;
 }
 
 uint64_t CTEvaluateCertsForPolicy(unint64_t a1, uint64_t a2, char a3, int a4, void *a5, void *a6, uint64_t a7, uint64_t a8, void *a9, void *a10, __int128 *a11)
 {
-  v46 = *MEMORY[0x277D85DE8];
-  memset(v42, 170, sizeof(v42));
-  bzero(v43, 0x4C0uLL);
+  v45 = *MEMORY[0x277D85DE8];
+  memset(v41, 170, sizeof(v41));
+  bzero(v42, 0x4C0uLL);
+  v38 = 0xAAAAAAAAAAAAAAAALL;
   v39 = 0xAAAAAAAAAAAAAAAALL;
-  v40 = 0xAAAAAAAAAAAAAAAALL;
   if (__CFADD__(a1, a2))
   {
 LABEL_47:
     __break(0x5513u);
   }
 
-  v41 = 0xAAAAAAAAAAAAAAAALL;
+  v40 = 0xAAAAAAAAAAAAAAAALL;
   if (a1 + a2 < a1)
   {
     goto LABEL_46;
   }
 
-  v39 = a1;
-  v40 = a1 + a2;
-  result = X509ChainParseCertificateSet(&v39, v43, 4, &v42[2], &v41);
+  v38 = a1;
+  v39 = a1 + a2;
+  result = X509ChainParseCertificateSet(&v38, v42, 4, &v41[2], &v40);
   if (result)
   {
-    goto LABEL_34;
+    return result;
   }
 
-  if (v39 != v40)
+  if (v38 != v39)
   {
-    result = 327690;
-    goto LABEL_34;
+    return 327690;
   }
 
-  if ((a4 & 1) == 0 && !v44)
+  if ((a4 & 1) == 0 && !v43)
   {
-    X509ChainResetChain(v42, &v42[2]);
-    v20 = v42[0];
-    v21 = (v42[0] + 296);
-    if (!v42[0])
+    X509ChainResetChain(v41, &v41[2]);
+    v20 = v41[0];
+    v21 = (v41[0] + 296);
+    if (!v41[0])
     {
-      v21 = &v42[1];
+      v21 = &v41[1];
     }
 
-    *v21 = v45;
-    v42[0] = v43;
-    v45[0] = v20;
-    v45[1] = v42;
+    *v21 = v44;
+    v41[0] = v42;
+    v44[0] = v20;
+    v44[1] = v41;
 LABEL_23:
-    v38[0] = a7;
-    v38[1] = a8;
+    v37[0] = a7;
+    v37[1] = a8;
     if (a7)
     {
       v24 = a8 == 0;
@@ -5485,11 +5291,11 @@ LABEL_23:
 
     *&v25 = 0xAAAAAAAAAAAAAAAALL;
     *(&v25 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v37 = 0xAAAAAAAAAAAAAAAALL;
+    v36 = 0xAAAAAAAAAAAAAAAALL;
+    v34 = v25;
     v35 = v25;
-    v36 = v25;
-    v34 = *a11;
-    LOBYTE(v35) = *(a11 + 16);
+    v33 = *a11;
+    LOBYTE(v34) = *(a11 + 16);
     if (v24)
     {
       v26 = a3;
@@ -5500,54 +5306,57 @@ LABEL_23:
       v26 = 1;
     }
 
-    BYTE1(v35) = v26;
-    WORD1(v35) = *(a11 + 9);
+    BYTE1(v34) = v26;
+    WORD1(v34) = *(a11 + 9);
     if (!v24)
     {
       v27 = *(a11 + 4);
-      *(&v35 + 1) = v38;
-      *&v36 = v27;
+      *(&v34 + 1) = v37;
+      *&v35 = v27;
       v28 = oidForPubKeyLength();
 LABEL_33:
       v30 = *(a11 + 6);
-      *(&v36 + 1) = v28;
-      v37 = v30;
-      result = X509ChainCheckPathWithOptions(12, v42, &v34, 0);
+      *(&v35 + 1) = v28;
+      v36 = v30;
+      result = X509ChainCheckPathWithOptions(12, v41, &v33, 0);
       if (result)
       {
-        goto LABEL_34;
+        return result;
       }
 
-      v32 = v42[0];
-      if (!a5 || !a6 || !v42[0])
+      v31 = v41[0];
+      if (!a5 || !a6 || !v41[0])
       {
-        goto LABEL_40;
-      }
-
-      if (v42[0] < v42[0] + 304)
-      {
-        result = X509CertificateParseKey(v42[0], a5, a6);
-        if (result)
-        {
-          goto LABEL_34;
-        }
-
 LABEL_40:
-        if (a10 && v32)
+        if (a10 && v31)
         {
-          v33 = v32[32];
-          *a10 = v32[31];
-          a10[1] = v33;
+          v32 = v31[32];
+          *a10 = v31[31];
+          a10[1] = v32;
         }
 
         result = 0;
-        if (a9 && v32)
+        if (a9)
         {
-          result = 0;
-          *a9 = v32[30];
+          if (v31)
+          {
+            result = 0;
+            *a9 = v31[30];
+          }
         }
 
-        goto LABEL_34;
+        return result;
+      }
+
+      if (v41[0] < v41[0] + 304)
+      {
+        result = X509CertificateParseKey(v41[0], a5, a6);
+        if (result)
+        {
+          return result;
+        }
+
+        goto LABEL_40;
       }
 
       goto LABEL_46;
@@ -5557,8 +5366,8 @@ LABEL_40:
     {
       v29 = *(a11 + 4);
       v28 = *(a11 + 5);
-      *(&v35 + 1) = *(a11 + 3);
-      *&v36 = v29;
+      *(&v34 + 1) = *(a11 + 3);
+      *&v35 = v29;
       goto LABEL_33;
     }
 
@@ -5567,20 +5376,20 @@ LABEL_46:
     goto LABEL_47;
   }
 
-  if (v43[265] != 1)
+  if (v42[265] != 1)
   {
-    v23 = &v46;
-    v22 = v43;
+    v23 = &v45;
+    v22 = v42;
     goto LABEL_20;
   }
 
-  if (!v42[2])
+  if (!v41[2])
   {
     v22 = 0;
     goto LABEL_22;
   }
 
-  v22 = v42[2];
+  v22 = v41[2];
   do
   {
     if ((v22[265] & 1) == 0)
@@ -5598,8 +5407,8 @@ LABEL_46:
   }
 
   while (v22);
-  v23 = (v42[2] + 304);
-  v22 = v42[2];
+  v23 = (v41[2] + 304);
+  v22 = v41[2];
 LABEL_20:
   if (v22 + 304 > v23 || v22 > v22 + 304)
   {
@@ -5607,109 +5416,98 @@ LABEL_20:
   }
 
 LABEL_22:
-  result = X509ChainBuildPathPartial(v22, &v42[2], v42, a4 ^ 1u);
+  result = X509ChainBuildPathPartial(v22, &v41[2], v41, a4 ^ 1u);
   if (!result)
   {
     goto LABEL_23;
   }
 
-LABEL_34:
-  v31 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t X509ExtensionParseExtendedKeyUsage(unint64_t *a1, unint64_t *a2, void *a3)
+uint64_t X509ExtensionParseExtendedKeyUsage(unint64_t *a1, unint64_t *a2, unint64_t *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v6 = ccder_blob_decode_tl();
   result = 0;
-  if (!v6)
+  if (v6)
   {
-    goto LABEL_10;
-  }
-
-  if (*a1 > a1[1])
-  {
-    goto LABEL_11;
-  }
-
-  v11 = *a1;
-  v12 = a1[1];
-  result = ccder_blob_decode_tl();
-  if (!result)
-  {
-LABEL_10:
-    v10 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  if (v12 < v11 || v12 - v11 < 0xAAAAAAAAAAAAAAAALL)
-  {
-LABEL_11:
-    __break(0x5519u);
-  }
-
-  *a2 = v11;
-  *a3 = 0xAAAAAAAAAAAAAAAALL;
-  v8 = *a1;
-  if (*a1 < 0x5555555555555556)
-  {
-    v9 = v8 - 0x5555555555555556;
-    if (v8 <= v8 - 0x5555555555555556 && v9 <= a1[1])
+    if (*a1 > a1[1])
     {
-      *a1 = v9;
-      goto LABEL_10;
+      goto LABEL_11;
     }
 
-    goto LABEL_11;
+    v10 = *a1;
+    v11 = a1[1];
+    result = ccder_blob_decode_tl();
+    if (!result)
+    {
+      return result;
+    }
+
+    if (v11 < v10 || v11 - v10 < 0xAAAAAAAAAAAAAAAALL)
+    {
+      goto LABEL_11;
+    }
+
+    *a2 = v10;
+    *a3 = 0xAAAAAAAAAAAAAAAALL;
+    v8 = *a1;
+    if (*a1 >= 0x5555555555555556)
+    {
+      __break(0x5513u);
+      return result;
+    }
+
+    v9 = v8 - 0x5555555555555556;
+    if (v8 > v8 - 0x5555555555555556 || v9 > a1[1])
+    {
+LABEL_11:
+      __break(0x5519u);
+    }
+
+    *a1 = v9;
   }
 
-  __break(0x5513u);
   return result;
 }
 
 uint64_t X509ExtensionParseSubjectAltName(unint64_t *a1, unint64_t *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
   result = ccder_blob_decode_tl();
-  if (result != 1)
+  if (result == 1)
   {
-    goto LABEL_12;
-  }
-
-  v7 = a1[1];
-  v8 = v7 >= *a1;
-  v9 = v7 - *a1;
-  if (!v8 || v9 < 0xAAAAAAAAAAAAAAAALL)
-  {
-LABEL_13:
-    __break(0x5519u);
-  }
-
-  *a2 = *a1;
-  *a3 = 0xAAAAAAAAAAAAAAAALL;
-  v11 = *a1;
-  if (*a1 < 0x5555555555555556)
-  {
-    v12 = v11 - 0x5555555555555556;
-    if (v11 <= v11 - 0x5555555555555556 && v12 <= a1[1])
+    v7 = a1[1];
+    v8 = v7 >= *a1;
+    v9 = v7 - *a1;
+    if (!v8 || v9 < 0xAAAAAAAAAAAAAAAALL)
     {
-      *a1 = v12;
-LABEL_12:
-      v14 = *MEMORY[0x277D85DE8];
+      goto LABEL_13;
+    }
+
+    *a2 = *a1;
+    *a3 = 0xAAAAAAAAAAAAAAAALL;
+    v11 = *a1;
+    if (*a1 >= 0x5555555555555556)
+    {
+      __break(0x5513u);
       return result;
     }
 
-    goto LABEL_13;
+    v12 = v11 - 0x5555555555555556;
+    if (v11 > v11 - 0x5555555555555556 || v12 > a1[1])
+    {
+LABEL_13:
+      __break(0x5519u);
+    }
+
+    *a1 = v12;
   }
 
-  __break(0x5513u);
   return result;
 }
 
-uint64_t X509CertificateParseSPKI(unint64_t *a1, unint64_t *a2, unint64_t *a3, void *a4)
+uint64_t X509CertificateParseSPKI(unint64_t *a1, unint64_t *a2, unint64_t *a3, unint64_t *a4)
 {
-  v17 = *MEMORY[0x277D85DE8];
   v4 = *a1;
   v5 = a1[1];
   if (__CFADD__(*a1, v5))
@@ -5724,42 +5522,40 @@ uint64_t X509CertificateParseSPKI(unint64_t *a1, unint64_t *a2, unint64_t *a3, v
   }
 
   v10 = 655361;
-  v15 = *a1;
-  v16 = v6;
+  v14 = *a1;
+  v15 = v6;
   if (!ccder_blob_decode_tl())
   {
-    goto LABEL_29;
+    return v10;
   }
 
   if (!ccder_blob_decode_tl())
   {
-    v10 = 655363;
-    goto LABEL_29;
+    return 655363;
   }
 
-  if (v15 >= 0x5555555555555556)
+  if (v14 >= 0x5555555555555556)
   {
 LABEL_31:
     __break(0x5513u);
   }
 
-  if (v15 > v15 - 0x5555555555555556 || v15 - 0x5555555555555556 > v16)
+  if (v14 > v14 - 0x5555555555555556 || v14 - 0x5555555555555556 > v15)
   {
     goto LABEL_30;
   }
 
-  v14 = v15 - 0x5555555555555556;
+  v13 = v14 - 0x5555555555555556;
   if (!ccder_blob_decode_tl())
   {
-    v10 = 655362;
-    goto LABEL_29;
+    return 655362;
   }
 
   if (a2)
   {
-    if (v14 >= v15)
+    if (v13 >= v14)
     {
-      *a2 = v15;
+      *a2 = v14;
       a2[1] = 0xAAAAAAAAAAAAAAAALL;
       goto LABEL_12;
     }
@@ -5770,13 +5566,13 @@ LABEL_30:
   }
 
 LABEL_12:
-  v11 = v15 - 0x5555555555555556;
-  if (v15 > v15 - 0x5555555555555556 || v11 > v14)
+  v11 = v14 - 0x5555555555555556;
+  if (v14 > v14 - 0x5555555555555556 || v11 > v13)
   {
     goto LABEL_30;
   }
 
-  if (v11 == v14)
+  if (v11 == v13)
   {
     if (a3)
     {
@@ -5788,117 +5584,105 @@ LABEL_12:
   else if (a3)
   {
     *a3 = v11;
-    a3[1] = v14 - v11;
+    a3[1] = v13 - v11;
   }
 
-  if (v14 > v16 || v15 > v14)
+  if (v13 > v15 || v14 > v13)
   {
     goto LABEL_30;
   }
 
-  if (ccder_blob_decode_bitstring())
+  if (!ccder_blob_decode_bitstring())
   {
-    *a4 = 0;
-    a4[1] = 0;
-    if (v14 == v16)
-    {
-      v10 = 0;
-    }
+    return 655364;
+  }
 
-    else
-    {
-      v10 = 655365;
-    }
+  *a4 = 0;
+  a4[1] = 0;
+  if (v13 == v15)
+  {
+    return 0;
   }
 
   else
   {
-    v10 = 655364;
+    return 655365;
   }
-
-LABEL_29:
-  v12 = *MEMORY[0x277D85DE8];
-  return v10;
 }
 
 uint64_t X509CertificateParseKey(uint64_t a1, void *a2, void *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   result = 327691;
-  if (!a1 || !*(a1 + 96))
+  if (a1 && *(a1 + 96))
   {
-LABEL_8:
-    v8 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  result = a1 + 88;
-  v9 = 0;
-  v10 = 0;
-  if (a1 + 88 <= (a1 + 104))
-  {
-    result = X509CertificateParseSPKI(result, 0, 0, &v9);
-    if (!result && a2)
+    result = a1 + 88;
+    v8 = 0;
+    v9 = 0;
+    if (a1 + 88 > (a1 + 104))
     {
-      if (a3)
-      {
-        v7 = v10;
-        *a2 = v9;
-        *a3 = v7;
-      }
+      __break(0x5519u);
     }
 
-    goto LABEL_8;
+    else
+    {
+      result = X509CertificateParseSPKI(result, 0, 0, &v8);
+      if (!result && a2)
+      {
+        if (a3)
+        {
+          v7 = v9;
+          *a2 = v8;
+          *a3 = v7;
+        }
+      }
+    }
   }
 
-  __break(0x5519u);
   return result;
 }
 
-uint64_t X509CertificateCheckSignatureDigest(char a1, uint64_t a2, void *a3, __int128 *a4, __int128 *a5)
+uint64_t X509CertificateCheckSignatureDigest(char a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v21 = 0uLL;
-  v20 = 0uLL;
-  v18 = 0;
-  v19 = 0;
+  v17 = *MEMORY[0x277D85DE8];
+  v16 = 0uLL;
+  v15 = 0uLL;
+  v13 = 0;
+  v14 = 0;
   if (a2 + 88 > (a2 + 104))
   {
     goto LABEL_22;
   }
 
-  v9 = X509CertificateParseSPKI((a2 + 88), &v21, &v20, &v18);
-  if (!v9)
+  v7 = X509CertificateParseSPKI((a2 + 88), &v16, &v15, &v13);
+  if (!v7)
   {
-    v9 = 655632;
-    v12 = compare_octet_string(&v21, &rsaEncryption);
-    v13 = validateSignatureRSA;
-    if (v12)
+    v7 = 655632;
+    v9 = compare_octet_string(&v16, &rsaEncryption);
+    v10 = validateSignatureRSA;
+    if (v9)
     {
-      v14 = compare_octet_string(&v21, &ecPublicKey);
-      v13 = validateSignatureEC;
-      if (v14)
+      v11 = compare_octet_string(&v16, &ecPublicKey);
+      v10 = validateSignatureEC;
+      if (v11)
       {
-        v9 = 655617;
-        goto LABEL_3;
+        return 655617;
       }
     }
 
-    if (v15 = v13, v17 = *a5, v16 = *a4, (a1) && !compare_octet_string_raw(a4, &CTOidSha1, 5uLL) || (a1 & 4) != 0 && !compare_octet_string_raw(a4, &CTOidSha256, 9uLL) || (a1 & 8) != 0 && !compare_octet_string_raw(a4, &CTOidSha384, 9uLL) || (a1 & 0x10) != 0 && !compare_octet_string_raw(a4, &CTOidSha512, 9uLL))
+    if (v12 = v10, (a1) && !compare_octet_string_raw(a4, &CTOidSha1, 5uLL) || (a1 & 4) != 0 && !compare_octet_string_raw(a4, &CTOidSha256, 9uLL) || (a1 & 8) != 0 && !compare_octet_string_raw(a4, &CTOidSha384, 9uLL) || (a1 & 0x10) != 0 && !compare_octet_string_raw(a4, &CTOidSha512, 9uLL))
     {
-      if ((v19 || !v18) && (a3[1] || !*a3))
+      if ((v14 || !v13) && (a3[1] || !*a3))
       {
-        if (v15(v18))
+        if (v12(v13))
         {
-          v9 = 0;
+          return 0;
         }
 
         else
         {
-          v9 = 655648;
+          return 655648;
         }
-
-        goto LABEL_3;
       }
 
 LABEL_22:
@@ -5906,34 +5690,32 @@ LABEL_22:
     }
   }
 
-LABEL_3:
-  v10 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v7;
 }
 
-uint64_t X509CertificateCheckSignature(char a1, uint64_t a2, uint64_t *a3, uint64_t a4, __int128 *a5)
+uint64_t X509CertificateCheckSignature(char a1, uint64_t a2, void *a3, uint64_t a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
-  *&v8 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v13[2] = v8;
-  v13[3] = v8;
-  v13[0] = v8;
-  v13[1] = v8;
-  v12[0] = v13;
-  v12[1] = 64;
-  v11 = 0uLL;
-  result = X509MatchSignatureAlgorithm(a3, a4, v12, &v11);
+  v11 = *MEMORY[0x277D85DE8];
+  *&v6 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v10[2] = v6;
+  v10[3] = v6;
+  v10[0] = v6;
+  v10[1] = v6;
+  v9[0] = v10;
+  v9[1] = 64;
+  v8[0] = 0;
+  v8[1] = 0;
+  result = X509MatchSignatureAlgorithm(a3, a4, v9, v8, v10);
   if (!result)
   {
-    result = X509CertificateCheckSignatureDigest(a1, a2, v12, &v11, a5);
+    return X509CertificateCheckSignatureDigest(a1, a2, v9, v8);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t X509MatchSignatureAlgorithm(uint64_t *a1, uint64_t a2, uint64_t a3, void *a4)
+uint64_t X509MatchSignatureAlgorithm(void *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
 {
   result = compare_octet_string_raw(a2, &sha1WithRSA_oid, 9uLL);
   if (!result)
@@ -5977,8 +5759,6 @@ LABEL_8:
     *(a3 + 8) = 20;
     ccsha1_di();
 LABEL_14:
-    v10 = *a1;
-    v9 = a1[1];
     ccdigest();
     return 0;
   }
@@ -6010,60 +5790,49 @@ LABEL_15:
   return result;
 }
 
-uint64_t X509CertificateCheckSignatureWithPublicKey(uint64_t *a1, uint64_t a2, __int128 *a3, uint64_t *a4, __int128 *a5, __int128 *a6)
+uint64_t X509CertificateCheckSignatureWithPublicKey(uint64_t *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5)
 {
-  v25 = *MEMORY[0x277D85DE8];
-  *&v11 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v11 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v24[2] = v11;
-  v24[3] = v11;
-  v24[0] = v11;
-  v24[1] = v11;
-  v22 = v24;
-  v23 = 64;
-  v21 = 0uLL;
-  matched = X509MatchSignatureAlgorithm(a4, a5, &v22, &v21);
+  v17 = *MEMORY[0x277D85DE8];
+  *&v7 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v16[2] = v7;
+  v16[3] = v7;
+  v16[0] = v7;
+  v16[1] = v7;
+  v14 = v16;
+  v15 = 64;
+  v13 = 0uLL;
+  matched = X509MatchSignatureAlgorithm(a4, a5, &v14, &v13, v16);
   if (matched)
   {
-    goto LABEL_13;
+    return matched;
   }
 
   matched = 655617;
-  v13 = compare_octet_string(a2, &rsaEncryption);
-  v14 = validateSignatureRSA;
-  if (v13)
+  v9 = compare_octet_string(a2, &rsaEncryption);
+  v10 = validateSignatureRSA;
+  if (v9)
   {
-    v15 = compare_octet_string(a2, &ecPublicKey);
-    v14 = validateSignatureEC;
-    if (v15)
+    v11 = compare_octet_string(a2, &ecPublicKey);
+    v10 = validateSignatureEC;
+    if (v11)
     {
-      goto LABEL_13;
+      return matched;
     }
   }
 
-  v19 = *a5;
-  v20 = *a6;
-  if (a3)
-  {
-    v16 = *a3;
-  }
-
   result = *a1;
-  if ((a1[1] || !result) && (!v22 || v23))
+  if ((a1[1] || !result) && (!v14 || v15))
   {
-    if (v14(result))
+    if (v10(result))
     {
-      matched = 0;
+      return 0;
     }
 
     else
     {
-      matched = 655648;
+      return 655648;
     }
-
-LABEL_13:
-    v18 = *MEMORY[0x277D85DE8];
-    return matched;
   }
 
   __break(0x5519u);
@@ -6072,10 +5841,9 @@ LABEL_13:
 
 uint64_t X509CertificateSubjectNameGetCommonName(unint64_t *a1, unint64_t *a2)
 {
-  v22 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   v3 = a1[1];
-  v21 = v3;
+  v20 = v3;
   if (__CFADD__(*a1, v3))
   {
     goto LABEL_61;
@@ -6087,8 +5855,8 @@ uint64_t X509CertificateSubjectNameGetCommonName(unint64_t *a1, unint64_t *a2)
     goto LABEL_60;
   }
 
-  v19 = *a1;
-  v20 = v4;
+  v18 = *a1;
+  v19 = v4;
   *a2 = 0;
   a2[1] = 0;
   if (a2 + 2 < a2)
@@ -6101,141 +5869,136 @@ uint64_t X509CertificateSubjectNameGetCommonName(unint64_t *a1, unint64_t *a2)
   {
     while (1)
     {
-      if (!ccder_blob_decode_tl() || !v21)
+      if (!ccder_blob_decode_tl() || !v20)
       {
-        v6 = 720898;
-        goto LABEL_59;
+        return 720898;
       }
 
-      v2 = v19;
-      if (__CFADD__(v19, v21))
+      v2 = v18;
+      if (__CFADD__(v18, v20))
       {
         break;
       }
 
-      v7 = v19 + v21;
-      if (v19 > v19 + v21 || v7 > v20)
+      v7 = v18 + v20;
+      if (v18 > v18 + v20 || v7 > v19)
       {
         goto LABEL_60;
       }
 
-      v17 = v19;
-      v18 = v19 + v21;
+      v16 = v18;
+      v17 = v18 + v20;
       while (v2 < v7)
       {
         if (!ccder_blob_decode_tl())
         {
-          v6 = 720899;
-          goto LABEL_59;
+          return 720899;
         }
 
-        if (__CFADD__(v17, v21))
+        if (__CFADD__(v16, v20))
         {
           goto LABEL_61;
         }
 
-        if (v17 > v17 + v21 || v17 + v21 > v18)
+        if (v16 > v16 + v20 || v16 + v20 > v17)
         {
           goto LABEL_60;
         }
 
-        v16 = v17 + v21;
+        v15 = v16 + v20;
         if (!ccder_blob_decode_tl())
         {
-          v6 = 720900;
-          goto LABEL_59;
+          return 720900;
         }
 
-        v2 = v17 + v21;
-        if (v17 > v16)
+        v2 = v16 + v20;
+        if (v16 > v15)
         {
           goto LABEL_60;
         }
 
-        if (__CFADD__(v17, v21))
+        if (__CFADD__(v16, v20))
         {
           goto LABEL_61;
         }
 
-        if (v17 > v17 + v21)
+        if (v16 > v16 + v20)
         {
           goto LABEL_60;
         }
 
-        v15 = v17 + v21;
-        if (v21 == 3 && *v17 == 1109 && *(v17 + 2) == 3)
+        v14 = v16 + v20;
+        if (v20 == 3 && *v16 == 1109 && *(v16 + 2) == 3)
         {
-          v13 = v17 + v21;
-          v14 = v17 + v21;
+          v12 = v16 + v20;
+          v13 = v16 + v20;
           if ((ccder_blob_decode_tl() & 1) == 0)
           {
-            if (v15 > v16)
+            if (v14 > v15)
             {
               goto LABEL_60;
             }
 
-            v13 = v17 + v21;
-            v14 = v17 + v21;
+            v12 = v16 + v20;
+            v13 = v16 + v20;
             if ((ccder_blob_decode_tl() & 1) == 0)
             {
-              if (v15 > v16)
+              if (v14 > v15)
               {
                 goto LABEL_60;
               }
 
-              v13 = v17 + v21;
-              v14 = v17 + v21;
+              v12 = v16 + v20;
+              v13 = v16 + v20;
               if (!ccder_blob_decode_tl())
               {
-                goto LABEL_59;
+                return v6;
               }
             }
           }
 
-          if (__CFADD__(v13, v21))
+          if (__CFADD__(v12, v20))
           {
             goto LABEL_61;
           }
 
-          v2 = v17 + v21;
-          if (v16 != v13 + v21)
+          v2 = v16 + v20;
+          if (v15 != v12 + v20)
           {
-            v6 = 720902;
-            goto LABEL_59;
+            return 720902;
           }
 
-          if (v14 < v13 || v21 > v14 - v13)
+          if (v13 < v12 || v20 > v13 - v12)
           {
             goto LABEL_60;
           }
 
-          *a2 = v13;
-          a2[1] = v21;
+          *a2 = v12;
+          a2[1] = v20;
         }
 
-        v7 = v19 + v21;
-        if (v2 > v18 || v17 > v2)
+        v7 = v18 + v20;
+        if (v2 > v17 || v16 > v2)
         {
           goto LABEL_60;
         }
 
-        v17 = v2;
+        v16 = v2;
       }
 
       if (v2 != v7)
       {
-        v6 = 720903;
-        goto LABEL_59;
+        return 720903;
       }
 
-      v4 = v20;
-      if (v2 > v20 || v19 > v2)
+      v4 = v19;
+      if (v2 > v19 || v18 > v2)
       {
         goto LABEL_60;
       }
 
-      v19 = v2;
-      if (v2 >= v20)
+      v18 = v2;
+      if (v2 >= v19)
       {
         goto LABEL_47;
       }
@@ -6250,16 +6013,14 @@ LABEL_47:
   {
     if (a2[1] && *a2)
     {
-      v6 = 0;
-      goto LABEL_59;
+      return 0;
     }
 
     *a2 = 0;
     a2[1] = 0;
     if (a2 + 2 >= a2)
     {
-      v6 = 720905;
-      goto LABEL_59;
+      return 720905;
     }
 
 LABEL_60:
@@ -6267,54 +6028,48 @@ LABEL_60:
     goto LABEL_61;
   }
 
-  v6 = 720904;
-LABEL_59:
-  v11 = *MEMORY[0x277D85DE8];
-  return v6;
+  return 720904;
 }
 
 BOOL X509CertificateValidAtTime(uint64_t a1, time_t a2)
 {
   result = 0;
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = 0;
-  v7[0] = 0;
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = 0;
+  v6[0] = 0;
   if (a1 && a2 != -1)
   {
-    result = !X509CertificateGetNotBefore(a1, v7) && !X509CertificateGetNotAfter(a1, &v6) && difftime(a2, v7[0]) >= 0.0 && difftime(a2, v6) <= 0.0;
+    return !X509CertificateGetNotBefore(a1, v6) && !X509CertificateGetNotAfter(a1, &v5) && difftime(a2, v6[0]) >= 0.0 && difftime(a2, v5) <= 0.0;
   }
 
-  v5 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t X509CertificateGetNotBefore(uint64_t a1, time_t *a2)
+unint64_t X509CertificateGetNotBefore(uint64_t a1, time_t *a2)
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = 0xAAAAAAAAAAAAAAAALL;
-  v5[1] = 0xAAAAAAAAAAAAAAAALL;
-  result = X509CertificateParseValidity(a1);
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = 0xAAAAAAAAAAAAAAAALL;
+  v4[1] = 0xAAAAAAAAAAAAAAAALL;
+  result = X509CertificateParseValidity(a1, v4, 0);
   if (!result)
   {
-    result = X509TimeConvert(v5, a2);
+    return X509TimeConvert(v4, a2);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-uint64_t X509CertificateGetNotAfter(uint64_t a1, time_t *a2)
+unint64_t X509CertificateGetNotAfter(uint64_t a1, time_t *a2)
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = 0xAAAAAAAAAAAAAAAALL;
-  v5[1] = 0xAAAAAAAAAAAAAAAALL;
-  result = X509CertificateParseValidity(a1);
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = 0xAAAAAAAAAAAAAAAALL;
+  v4[1] = 0xAAAAAAAAAAAAAAAALL;
+  result = X509CertificateParseValidity(a1, 0, v4);
   if (!result)
   {
-    result = X509TimeConvert(v5, a2);
+    return X509TimeConvert(v4, a2);
   }
 
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -6325,55 +6080,45 @@ BOOL X509CertificateIsValid(uint64_t a1)
   return X509CertificateValidAtTime(a1, v2);
 }
 
-uint64_t X509CertificateParseValidity(uint64_t result)
+uint64_t X509CertificateParseValidity(uint64_t result, unint64_t *a2, unint64_t *a3)
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v1 = 720906;
+  v9[2] = *MEMORY[0x277D85DE8];
+  v3 = 720906;
   if (!result)
   {
-    goto LABEL_13;
+    return v3;
   }
 
-  v2 = *(result + 72);
-  v3 = *(result + 80);
-  if (!v2 || v3 == 0)
+  v4 = *(result + 72);
+  v5 = *(result + 80);
+  if (!v4 || v5 == 0)
   {
-    goto LABEL_13;
+    return v3;
   }
 
-  if (__CFADD__(v2, v3))
+  if (__CFADD__(v4, v5))
   {
     __break(0x5513u);
   }
 
   else
   {
-    v5 = v2 + v3;
-    if (v2 <= v5)
+    v7 = v4 + v5;
+    if (v4 <= v7)
     {
-      v7[0] = *(result + 72);
-      v7[1] = v5;
-      if (ccder_blob_decode_Time(v7))
+      v9[0] = *(result + 72);
+      v9[1] = v7;
+      if (!ccder_blob_decode_Time(v9, a2))
       {
-        if (ccder_blob_decode_Time(v7))
-        {
-          v1 = 0;
-        }
-
-        else
-        {
-          v1 = 720908;
-        }
+        return 720907;
       }
 
-      else
+      if (ccder_blob_decode_Time(v9, a3))
       {
-        v1 = 720907;
+        return 0;
       }
 
-LABEL_13:
-      v6 = *MEMORY[0x277D85DE8];
-      return v1;
+      return 720908;
     }
   }
 
@@ -6381,38 +6126,37 @@ LABEL_13:
   return result;
 }
 
-char *X509TimeConvert(uint64_t *a1, time_t *a2)
+unint64_t X509TimeConvert(void *a1, time_t *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = 720909;
   if (!a1)
   {
-    goto LABEL_19;
+    return v2;
   }
 
   v4 = a1[1];
   if ((v4 | 2) != 0xF)
   {
-    goto LABEL_19;
+    return v2;
   }
 
-  v13.tm_zone = 0xAAAAAAAAAAAAAAAALL;
-  *v14 = 0;
+  v11.tm_zone = 0xAAAAAAAAAAAAAAAALL;
+  *v12 = 0;
   *&v6 = 0xAAAAAAAAAAAAAAAALL;
   *(&v6 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v13.tm_mon = v6;
-  *&v13.tm_isdst = v6;
-  *&v13.tm_sec = v6;
-  v15 = 0;
-  v7 = *a1;
+  *&v11.tm_mon = v6;
+  *&v11.tm_isdst = v6;
+  *&v11.tm_sec = v6;
+  v13 = 0;
   result = __memcpy_chk();
-  if (result > &result[v4])
+  if (result > result + v4)
   {
     goto LABEL_24;
   }
 
-  v9 = &v14[v4];
-  if (&v14[v4] >= &v16 || &v14[v4] < v14)
+  v8 = &v12[v4];
+  if (&v12[v4] >= &v14 || &v12[v4] < v12)
   {
     goto LABEL_24;
   }
@@ -6423,12 +6167,12 @@ char *X509TimeConvert(uint64_t *a1, time_t *a2)
     goto LABEL_26;
   }
 
-  v14[v4] = 0;
+  v12[v4] = 0;
   if (v4 != 13)
   {
-    if (v9 + 1 >= v9 && v9 + 1 <= &v16)
+    if (v8 + 1 >= v8 && v8 + 1 <= &v14)
     {
-      result = strptime(v14, "%Y%m%d%H%M%SZ", &v13);
+      result = strptime(v12, "%Y%m%d%H%M%SZ", &v11);
       goto LABEL_15;
     }
 
@@ -6436,53 +6180,45 @@ LABEL_24:
     __break(0x5519u);
   }
 
-  if (BYTE5(v15))
+  if (BYTE5(v13))
   {
     goto LABEL_24;
   }
 
-  result = strptime(v14, "%y%m%d%H%M%SZ", &v13);
-  if (result && v13.tm_year >= 150)
+  result = strptime(v12, "%y%m%d%H%M%SZ", &v11);
+  if (result && v11.tm_year >= 150)
   {
-    v13.tm_year -= 100;
+    v11.tm_year -= 100;
   }
 
 LABEL_15:
-  v10 = a1[1];
-  if (v10 >= 0x11)
+  v9 = a1[1];
+  if (v9 >= 0x11)
   {
 LABEL_26:
     __break(0x5512u);
     goto LABEL_27;
   }
 
-  if (!__CFADD__(v14, v10))
+  if (!__CFADD__(v12, v9))
   {
-    if (result == &v14[v10])
+    if (result != &v12[v9])
     {
-      v12 = timegm(&v13);
-      if (v12 == -1)
-      {
-        v2 = 720911;
-      }
-
-      else
-      {
-        v2 = 0;
-        if (a2)
-        {
-          *a2 = v12;
-        }
-      }
+      return 720910;
     }
 
-    else
+    v10 = timegm(&v11);
+    if (v10 == -1)
     {
-      v2 = 720910;
+      return 720911;
     }
 
-LABEL_19:
-    v11 = *MEMORY[0x277D85DE8];
+    v2 = 0;
+    if (a2)
+    {
+      *a2 = v10;
+    }
+
     return v2;
   }
 
@@ -6493,16 +6229,15 @@ LABEL_27:
 
 BOOL X509ExtensionParseComponentAuth(unint64_t *a1, void *a2, unint64_t *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
   v3 = a1[1];
   if (*a1 > v3)
   {
     goto LABEL_19;
   }
 
-  v14 = *a1;
-  v15 = a1[1];
-  v13 = v3 - *a1;
+  v13 = *a1;
+  v14 = a1[1];
+  v12 = v3 - *a1;
   if (ccder_blob_decode_tl())
   {
     goto LABEL_5;
@@ -6513,21 +6248,21 @@ BOOL X509ExtensionParseComponentAuth(unint64_t *a1, void *a2, unint64_t *a3)
     goto LABEL_19;
   }
 
-  v14 = *a1;
-  v15 = a1[1];
+  v13 = *a1;
+  v14 = a1[1];
   if (ccder_blob_decode_tl())
   {
 LABEL_5:
-    v8 = v14;
-    v7 = v15;
-    if (v14 > v15)
+    v8 = v13;
+    v7 = v14;
+    if (v13 > v14)
     {
       goto LABEL_19;
     }
 
-    *a1 = v14;
-    a1[1] = v15;
-    v9 = v13;
+    *a1 = v13;
+    a1[1] = v14;
+    v9 = v12;
   }
 
   else
@@ -6558,7 +6293,7 @@ LABEL_16:
       if (v8 <= v7)
       {
         *a1 = v10;
-        goto LABEL_18;
+        return v7 == v10;
       }
 
       goto LABEL_19;
@@ -6577,162 +6312,132 @@ LABEL_20:
     __break(0x5513u);
   }
 
-LABEL_18:
-  result = v7 == v10;
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return v7 == v10;
 }
 
-uint64_t X509ExtensionParseCertifiedChipIntermediate(unint64_t *a1, void *a2, unint64_t *a3)
+uint64_t X509ExtensionParseCertifiedChipIntermediate(unint64_t *a1, unint64_t *a2, unint64_t *a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
   result = ccder_blob_decode_tl();
-  if (!result)
+  if (result)
   {
-    goto LABEL_10;
-  }
-
-  v7 = *a1;
-  if (*a1 >= 0x5555555555555556)
-  {
-    __break(0x5513u);
-    goto LABEL_12;
-  }
-
-  v8 = v7 - 0x5555555555555556;
-  if (a1[1] != v7 - 0x5555555555555556)
-  {
-    result = 0;
-LABEL_10:
-    v9 = *MEMORY[0x277D85DE8];
-    return result;
-  }
-
-  *a2 |= 0x30000000000uLL;
-  if (a3)
-  {
-    if (v7 > v8)
+    v7 = *a1;
+    if (*a1 >= 0x5555555555555556)
     {
+      __break(0x5513u);
       goto LABEL_12;
     }
 
-    *a3 = v7;
-    a3[1] = 0xAAAAAAAAAAAAAAAALL;
-  }
-
-  if (v7 <= v8)
-  {
-    *a1 = v8;
-    result = 1;
-    goto LABEL_10;
-  }
-
-LABEL_12:
-  __break(0x5519u);
-  return result;
-}
-
-uint64_t X509ExtensionParseMFIAuthv3Leaf(unint64_t *a1)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  result = ccder_blob_decode_tl();
-  if (!result)
-  {
-    goto LABEL_7;
-  }
-
-  v3 = *a1;
-  if (*a1 >= 0x5555555555555556)
-  {
-    __break(0x5513u);
-  }
-
-  else
-  {
-    v4 = a1[1];
-    if (v4 != v3 - 0x5555555555555556)
+    v8 = v7 - 0x5555555555555556;
+    if (a1[1] != v7 - 0x5555555555555556)
     {
-      result = 0;
-LABEL_7:
-      v5 = *MEMORY[0x277D85DE8];
-      return result;
+      return 0;
     }
 
-    if (v3 <= v4)
-    {
-      *a1 = v3 - 0x5555555555555556;
-      result = 1;
-      goto LABEL_7;
-    }
-  }
-
-  __break(0x5519u);
-  return result;
-}
-
-uint64_t X509ExtensionParseMFISWAuth(unint64_t *a1, void *a2, unint64_t *a3)
-{
-  v10 = *MEMORY[0x277D85DE8];
-  result = ccder_blob_decode_tl();
-  if (!result)
-  {
-    goto LABEL_11;
-  }
-
-  v7 = *a1;
-  if (*a1 >= 0x5555555555555556)
-  {
-    __break(0x5513u);
-  }
-
-  else
-  {
-    v8 = a1[1];
-    if (v8 != v7 - 0x5555555555555556)
-    {
-      result = 0;
-LABEL_11:
-      v9 = *MEMORY[0x277D85DE8];
-      return result;
-    }
-
+    *a2 |= 0x30000000000uLL;
     if (a3)
     {
-      if (v8 < v7 || v8 - v7 < 0xAAAAAAAAAAAAAAAALL)
+      if (v7 > v8)
       {
-        goto LABEL_13;
+        goto LABEL_12;
       }
 
       *a3 = v7;
       a3[1] = 0xAAAAAAAAAAAAAAAALL;
     }
 
-    *a2 |= 0x30000000uLL;
     if (v7 <= v8)
     {
-      *a1 = v7 - 0x5555555555555556;
-      result = 1;
-      goto LABEL_11;
+      *a1 = v8;
+      return 1;
     }
+
+LABEL_12:
+    __break(0x5519u);
   }
 
-LABEL_13:
-  __break(0x5519u);
   return result;
 }
 
-uint64_t X509ExtensionParseGenericSSLMarker()
+uint64_t X509ExtensionParseMFIAuthv3Leaf(unint64_t *a1, void *a2, unint64_t *a3)
 {
-  v2 = *MEMORY[0x277D85DE8];
-  ccder_blob_decode_tl();
-  result = 0;
-  v1 = *MEMORY[0x277D85DE8];
+  result = ccder_blob_decode_tl();
+  if (result)
+  {
+    v5 = *a1;
+    if (*a1 >= 0x5555555555555556)
+    {
+      __break(0x5513u);
+    }
+
+    else
+    {
+      v6 = a1[1];
+      if (v6 != v5 - 0x5555555555555556)
+      {
+        return 0;
+      }
+
+      if (v5 <= v6)
+      {
+        *a1 = v5 - 0x5555555555555556;
+        return 1;
+      }
+    }
+
+    __break(0x5519u);
+  }
+
+  return result;
+}
+
+uint64_t X509ExtensionParseMFISWAuth(unint64_t *a1, void *a2, unint64_t *a3)
+{
+  result = ccder_blob_decode_tl();
+  if (result)
+  {
+    v7 = *a1;
+    if (*a1 >= 0x5555555555555556)
+    {
+      __break(0x5513u);
+    }
+
+    else
+    {
+      v8 = a1[1];
+      if (v8 != v7 - 0x5555555555555556)
+      {
+        return 0;
+      }
+
+      if (a3)
+      {
+        if (v8 < v7 || v8 - v7 < 0xAAAAAAAAAAAAAAAALL)
+        {
+          goto LABEL_13;
+        }
+
+        *a3 = v7;
+        a3[1] = 0xAAAAAAAAAAAAAAAALL;
+      }
+
+      *a2 |= 0x30000000uLL;
+      if (v7 <= v8)
+      {
+        *a1 = v7 - 0x5555555555555556;
+        return 1;
+      }
+    }
+
+LABEL_13:
+    __break(0x5519u);
+  }
+
   return result;
 }
 
 uint64_t X509ExtensionParseServerAuthMarker(uint64_t a1, unint64_t a2, uint64_t a3, void *a4, unint64_t *a5)
 {
-  result = ccder_blob_check_null();
+  result = ccder_blob_check_null(a1);
   if (result)
   {
     if (a2 > 0xFFFFFFFFFFFFFFF6)
@@ -6869,7 +6574,7 @@ LABEL_34:
     v10 = 0;
     v11 = a2 + 304 * a3;
     v12 = ~a2;
-    v13 = (a4 + 1);
+    v13 = a4 + 1;
     v14 = a3 - 1;
     v15 = (a2 + 272);
     while ((v10 * 304) >> 64 == (304 * v10) >> 63 && 304 * v10 <= v12)
@@ -7040,7 +6745,7 @@ unint64_t X509ChainBuildPathPartial(unint64_t result, unint64_t *a2, unint64_t *
   }
 
   *a3 = 0;
-  v5 = (a3 + 1);
+  v5 = a3 + 1;
   if (a3 + 1 < a3 || (v6 = result, a3[1] = a3, *(result + 288) = 0, result + 288 > result + 296) || (*a3 = result, a3[1] = result + 288, *(result + 296) = a3, result + 304 < result) || (v7 = result + 120, result + 120 > result + 136))
   {
 LABEL_38:
@@ -7051,24 +6756,24 @@ LABEL_38:
   {
     while (1)
     {
-      result = compare_octet_string(v7, (v6 + 13));
+      result = compare_octet_string(v7, v6 + 104);
       if (!result)
       {
         break;
       }
 
-      v10 = (v6 + 21);
-      if (!v6[22])
+      v10 = v6 + 168;
+      if (!*(v6 + 176))
       {
         goto LABEL_13;
       }
 
-      if (v10 > (v6 + 23))
+      if (v10 > v6 + 184)
       {
         goto LABEL_38;
       }
 
-      result = X509ChainGetCertificateUsingKeyIdentifier(a2, (v6 + 21));
+      result = X509ChainGetCertificateUsingKeyIdentifier(a2, v6 + 168);
       if (!result)
       {
         goto LABEL_13;
@@ -7114,17 +6819,17 @@ LABEL_13:
           while (v11);
         }
 
-        if (v10 > (v6 + 23))
+        if (v10 > v6 + 184)
         {
           goto LABEL_38;
         }
 
-        if (X509ChainGetAppleRootUsingKeyIdentifier((v6 + 21), 1))
+        if (X509ChainGetAppleRootUsingKeyIdentifier(v6 + 168, 1))
         {
           return 0;
         }
 
-        BAARootUsingKeyIdentifier = X509ChainGetBAARootUsingKeyIdentifier((v6 + 21));
+        BAARootUsingKeyIdentifier = X509ChainGetBAARootUsingKeyIdentifier(v6 + 168);
         if (a4)
         {
           v16 = 0;
@@ -7172,7 +6877,7 @@ LABEL_22:
         if (v11 <= v11 + 38)
         {
           *v14 = v11;
-          *v5 = v11 + 36;
+          *v5 = (v11 + 36);
           v7 = (v11 + 15);
           if (v11 + 15 <= v11 + 17)
           {
@@ -7188,7 +6893,7 @@ LABEL_22:
   return result;
 }
 
-uint64_t X509ChainGetAppleRootUsingKeyIdentifier(uint64_t result, int a2)
+unint64_t X509ChainGetAppleRootUsingKeyIdentifier(unint64_t result, int a2)
 {
   v2 = &numAppleRoots;
   if (!a2)
@@ -7244,7 +6949,7 @@ uint64_t X509ChainGetAppleRootUsingKeyIdentifier(uint64_t result, int a2)
   return result;
 }
 
-uint64_t X509ChainGetBAARootUsingKeyIdentifier(uint64_t result)
+unint64_t X509ChainGetBAARootUsingKeyIdentifier(unint64_t result)
 {
   v1 = numBAARoots;
   if (numBAARoots)
@@ -7297,7 +7002,7 @@ uint64_t X509ChainGetBAARootUsingKeyIdentifier(uint64_t result)
 uint64_t X509ChainCheckPathWithOptions(char a1, unint64_t *a2, uint64_t a3, uint64_t *a4)
 {
   v6 = a2;
-  v55[4] = *MEMORY[0x277D85DE8];
+  v54[4] = *MEMORY[0x277D85DE8];
   v8 = *a2;
   if (a3)
   {
@@ -7313,8 +7018,7 @@ uint64_t X509ChainCheckPathWithOptions(char a1, unint64_t *a2, uint64_t a3, uint
 
         if (compare_octet_string(v9, v8 + 208))
         {
-          result = 327701;
-          goto LABEL_128;
+          return 327701;
         }
 
         v8 = *v6;
@@ -7335,11 +7039,11 @@ uint64_t X509ChainCheckPathWithOptions(char a1, unint64_t *a2, uint64_t a3, uint
     goto LABEL_120;
   }
 
-  v51 = v6;
-  v52 = a4;
+  v50 = v6;
+  v51 = a4;
   v11 = 0;
   v12 = 0;
-  v53 = 0;
+  v52 = 0;
   v13 = -1;
   do
   {
@@ -7368,7 +7072,7 @@ LABEL_11:
 
     if (!a3)
     {
-      goto LABEL_124;
+      return v12 | 0x9000Du;
     }
 
     if (*(a3 + 16) == 1)
@@ -7382,7 +7086,7 @@ LABEL_11:
       AppleRootUsingKeyIdentifier = X509ChainGetBAARootUsingKeyIdentifier(v8 + 168);
 LABEL_63:
       v15 = AppleRootUsingKeyIdentifier;
-      v53 |= AppleRootUsingKeyIdentifier != 0;
+      v52 |= AppleRootUsingKeyIdentifier != 0;
       v16 = AppleRootUsingKeyIdentifier + 304;
       if (AppleRootUsingKeyIdentifier)
       {
@@ -7392,9 +7096,7 @@ LABEL_63:
 
     if ((*(a3 + 19) & 1) == 0)
     {
-LABEL_124:
-      result = v12 | 0x9000Du;
-      goto LABEL_128;
+      return v12 | 0x9000Du;
     }
 
     v15 = 0;
@@ -7410,13 +7112,13 @@ LABEL_12:
       if ((*(v8 + 265) & 1) == 0)
       {
         v49 = 589825;
-        goto LABEL_127;
+        return v12 | v49;
       }
 
       if ((*(v8 + 264) & 4) == 0)
       {
         v49 = 589826;
-        goto LABEL_127;
+        return v12 | v49;
       }
     }
 
@@ -7424,21 +7126,19 @@ LABEL_12:
     if (v18 && v18 < v11)
     {
       v49 = 589827;
-LABEL_127:
-      result = v12 | v49;
-      goto LABEL_128;
+      return v12 | v49;
     }
 
     if (*(v8 + 266) == 1)
     {
       v49 = 589831;
-      goto LABEL_127;
+      return v12 | v49;
     }
 
     if (compare_octet_string(v8 + 40, v8 + 152))
     {
       v49 = 589828;
-      goto LABEL_127;
+      return v12 | v49;
     }
 
     if ((v17 & 1) == 0 && *(v8 + 168) && *(v8 + 176))
@@ -7450,8 +7150,7 @@ LABEL_127:
 
       if (compare_octet_string(v8 + 168, v15 + 184))
       {
-        result = v12 | 0x9000Au;
-        goto LABEL_128;
+        return v12 | 0x9000Au;
       }
     }
 
@@ -7476,8 +7175,7 @@ LABEL_127:
 
     if (v15 != v8 && *(a3 + 18) == 1 && !X509CertificateIsValid(v8))
     {
-      result = v12 | 0x90009u;
-      goto LABEL_128;
+      return v12 | 0x90009u;
     }
 
 LABEL_38:
@@ -7506,7 +7204,7 @@ LABEL_38:
     if (v20 && (v20 & v13) == 0)
     {
       v49 = 589829;
-      goto LABEL_127;
+      return v12 | v49;
     }
 
 LABEL_46:
@@ -7518,10 +7216,10 @@ LABEL_46:
         goto LABEL_133;
       }
 
-      result = X509CertificateCheckSignature(a1, v15, (v8 + 16), v8 + 40, (v8 + 56));
+      result = X509CertificateCheckSignature(a1, v15, (v8 + 16), v8 + 40);
       if (result)
       {
-        goto LABEL_128;
+        return result;
       }
     }
 
@@ -7537,206 +7235,185 @@ LABEL_46:
   }
 
   while (v8);
-  v6 = v51;
-  a4 = v52;
-  v23 = v53;
+  v6 = v50;
+  a4 = v51;
+  v23 = v52;
   if (!a3)
   {
     goto LABEL_120;
   }
 
 LABEL_67:
-  if (!*a3)
+  if (*a3)
   {
-LABEL_71:
-    v25 = *(a3 + 24);
-    if (v25 && *(v25 + 8))
+    v24 = v21;
+    if ((v23 & 1) == 0 || (v24 = v21 + 1, v21 != -1))
     {
-      v26 = v21 << 8;
-      v27 = **(v6[1] + 8);
-      v28 = v27 + 304;
-      if ((*(a3 + 16) & 1) == 0)
+      if (*a3 != v24)
       {
-        memset(v55, 170, 32);
-        v29 = (v27 + 88);
-        v30 = v27 >= v28 || v29 > v27 + 104;
-        v54[0] = 0xAAAAAAAAAAAAAAAALL;
-        v54[1] = 0xAAAAAAAAAAAAAAAALL;
-        if (!v30)
+        return (v24 << 8) | 0x90006u;
+      }
+
+      goto LABEL_71;
+    }
+
+LABEL_134:
+    __break(0x5500u);
+  }
+
+LABEL_71:
+  v25 = *(a3 + 24);
+  if (v25 && *(v25 + 8))
+  {
+    v26 = v21 << 8;
+    v27 = **(v6[1] + 8);
+    v28 = v27 + 304;
+    if ((*(a3 + 16) & 1) == 0)
+    {
+      memset(v54, 170, 32);
+      v29 = (v27 + 88);
+      v30 = v27 >= v28 || v29 > v27 + 104;
+      v53[0] = 0xAAAAAAAAAAAAAAAALL;
+      v53[1] = 0xAAAAAAAAAAAAAAAALL;
+      if (!v30)
+      {
+        if (X509CertificateParseSPKI(v29, &v54[2], v53, v54))
         {
-          if (X509CertificateParseSPKI(v29, &v55[2], v54, v55))
+          goto LABEL_82;
+        }
+
+        if (compare_octet_string(&v54[2], *(a3 + 32)) || compare_octet_string(v54, *(a3 + 24)))
+        {
+          if (X509CertificateCheckSignatureWithPublicKey(*(a3 + 24), *(a3 + 32), *(a3 + 40), (v27 + 16), v27 + 40))
           {
 LABEL_82:
             v31 = 589832;
-LABEL_114:
-            result = v26 | v31;
-            goto LABEL_128;
+            return v26 | v31;
           }
-
-          if (compare_octet_string(&v55[2], *(a3 + 32)) || compare_octet_string(v55, *(a3 + 24)))
-          {
-            if (X509CertificateCheckSignatureWithPublicKey(*(a3 + 24), *(a3 + 32), *(a3 + 40), (v27 + 16), (v27 + 40), (v27 + 56)))
-            {
-              goto LABEL_82;
-            }
-          }
-
-          else if (!compare_octet_string(*(a3 + 32), &ecPublicKey))
-          {
-            compare_octet_string(v54, *(a3 + 40));
-          }
-
-LABEL_120:
-          result = 0;
-          if (a4)
-          {
-            *a4 = v13;
-          }
-
-          goto LABEL_128;
         }
 
-        goto LABEL_133;
-      }
-    }
+        else if (!compare_octet_string(*(a3 + 32), &ecPublicKey))
+        {
+          compare_octet_string(v53, *(a3 + 40));
+        }
 
-    else
-    {
-      if (*(a3 + 16) != 1)
-      {
         goto LABEL_120;
       }
 
-      v26 = v21 << 8;
-      v27 = **(v6[1] + 8);
-      v28 = v27 + 304;
-    }
-
-    if (v27 > v28)
-    {
       goto LABEL_133;
     }
+  }
 
-    v32 = 200;
-    v33 = 184;
-    if (v23)
+  else
+  {
+    if (*(a3 + 16) != 1)
     {
-      v32 = 184;
-      v33 = 168;
-    }
-
-    v34 = v27 + v33;
-    v35 = v27 + v33 + 16;
-    if (v35 > v27 + v32 || v34 > v35)
-    {
-      goto LABEL_133;
-    }
-
-    v37 = X509ChainGetAppleRootUsingKeyIdentifier(v34, *(a3 + 17));
-    if (!v37)
-    {
-      result = v26 | 0x9000Bu;
-      goto LABEL_128;
-    }
-
-    v38 = v37;
-    v39 = v37 + 304;
-    if ((v23 & 1) == 0)
-    {
-      v40 = v27 + 88 > v27 + 104 || v37 >= v39;
-      v41 = v37 + 88;
-      if (v40 || v41 > v37 + 104)
-      {
-        goto LABEL_133;
-      }
-
-      if (!compare_octet_string(v27 + 88, v41))
-      {
-        goto LABEL_120;
-      }
-    }
-
-    v43 = (v27 + 16);
-    v44 = v38 > v39 || v43 > v27 + 32;
-    v45 = v27 + 40;
-    v46 = (v27 + 56);
-    if (!v44 && v45 <= v46 && v46 <= v27 + 72)
-    {
-      if (X509CertificateCheckSignature(29, v38, v43, v45, v46))
-      {
-        v31 = 589836;
-        goto LABEL_114;
-      }
-
       goto LABEL_120;
     }
 
+    v26 = v21 << 8;
+    v27 = **(v6[1] + 8);
+    v28 = v27 + 304;
+  }
+
+  if (v27 > v28)
+  {
+    goto LABEL_133;
+  }
+
+  v32 = 200;
+  v33 = 184;
+  if (v23)
+  {
+    v32 = 184;
+    v33 = 168;
+  }
+
+  v34 = v27 + v33;
+  v35 = v27 + v33 + 16;
+  if (v35 > v27 + v32 || v34 > v35)
+  {
+    goto LABEL_133;
+  }
+
+  v37 = X509ChainGetAppleRootUsingKeyIdentifier(v34, *(a3 + 17));
+  if (!v37)
+  {
+    return v26 | 0x9000Bu;
+  }
+
+  v38 = v37;
+  v39 = v37 + 304;
+  if ((v23 & 1) == 0)
+  {
+    v40 = v27 + 88 > v27 + 104 || v37 >= v39;
+    v41 = v37 + 88;
+    if (v40 || v41 > v37 + 104)
+    {
+      goto LABEL_133;
+    }
+
+    if (!compare_octet_string(v27 + 88, v41))
+    {
+      goto LABEL_120;
+    }
+  }
+
+  v43 = (v27 + 16);
+  v44 = v38 > v39 || v43 > v27 + 32;
+  v45 = v27 + 40;
+  v46 = v27 + 56;
+  if (v44 || v45 > v46 || v46 > v27 + 72)
+  {
 LABEL_133:
     __break(0x5519u);
     goto LABEL_134;
   }
 
-  v24 = v21;
-  if (v23)
+  if (X509CertificateCheckSignature(29, v38, v43, v45))
   {
-    v24 = v21 + 1;
-    if (v21 == -1)
-    {
-LABEL_134:
-      __break(0x5500u);
-    }
+    v31 = 589836;
+    return v26 | v31;
   }
 
-  if (*a3 == v24)
+LABEL_120:
+  result = 0;
+  if (a4)
   {
-    goto LABEL_71;
+    *a4 = v13;
   }
 
-  result = (v24 << 8) | 0x90006u;
-LABEL_128:
-  v50 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void create_baa_info_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   v0 = copy_current_process_name();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2261FC000, MEMORY[0x277D86220], v1, "%{public}@ failed to load cryptex1 local policy (%@) (non-fatal). Client should adopt new option (kMAOptionsBAAPerformOperationsOverIPC=True), or update entitlements and/or sandbox rules.", v2, v3, v4, v5, v7);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2261FC000, MEMORY[0x277D86220], v1, "%{public}@ failed to load cryptex1 local policy (%@) (non-fatal). Client should adopt new option (kMAOptionsBAAPerformOperationsOverIPC=True), or update entitlements and/or sandbox rules.", v2, v3, v4, v5);
 }
 
 void create_baa_info_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   v0 = copy_current_process_name();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2261FC000, MEMORY[0x277D86220], v1, "%{public}@ failed to load boot manifest (%@) (non-fatal). Client should adopt new option (kMAOptionsBAAPerformOperationsOverIPC=True), or update entitlements and/or sandbox rules.", v2, v3, v4, v5, v7);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2261FC000, MEMORY[0x277D86220], v1, "%{public}@ failed to load boot manifest (%@) (non-fatal). Client should adopt new option (kMAOptionsBAAPerformOperationsOverIPC=True), or update entitlements and/or sandbox rules.", v2, v3, v4, v5);
 }
 
 void create_baa_info_cold_3()
 {
-  v8 = *MEMORY[0x277D85DE8];
   v0 = copy_current_process_name();
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_1(&dword_2261FC000, MEMORY[0x277D86220], v1, "%{public}@ failed to load cryptex1 manifest (%@) (non-fatal). Client should adopt new option (kMAOptionsBAAPerformOperationsOverIPC=True), or update entitlements and/or sandbox rules.", v2, v3, v4, v5, v7);
-
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_1(&dword_2261FC000, MEMORY[0x277D86220], v1, "%{public}@ failed to load cryptex1 manifest (%@) (non-fatal). Client should adopt new option (kMAOptionsBAAPerformOperationsOverIPC=True), or update entitlements and/or sandbox rules.", v2, v3, v4, v5);
 }
 
 void isSupportedDeviceIdentityClient_cold_2(void *a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   v1 = [a1 localizedDescription];
-  v3 = 138412290;
-  v4 = v1;
-  _os_log_fault_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "%@", &v3, 0xCu);
-
-  v2 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = v1;
+  _os_log_fault_impl(&dword_2261FC000, MEMORY[0x277D86220], OS_LOG_TYPE_FAULT, "%@", &v2, 0xCu);
 }
 
 void __getLAContextClass_block_invoke_cold_1()

@@ -7,25 +7,25 @@
 
 - (id)debugDescription
 {
-  v2 = isInternalBuild();
-  v3 = MEMORY[0x277CCACA8];
+  v3 = isInternalBuild();
+  v4 = MEMORY[0x277CCACA8];
   accessoryName = [self accessoryName];
-  if (v2)
+  if (v3)
   {
     setupID = [self setupID];
     setupCode = [self setupCode];
     flagsDescription = [self flagsDescription];
     categoryNumber = [self categoryNumber];
-    v9 = [v3 stringWithFormat:@"Accessory Setup payload: Name: %@, SetupID: %@, SetupCode: %@, Flags: %@, Category: %@", accessoryName, setupID, setupCode, flagsDescription, categoryNumber];
+    v10 = [v4 stringWithFormat:@"Accessory Setup payload: Name: %@, SetupID: %@, SetupCode: %@, Flags: %@, Category: %@", accessoryName, setupID, setupCode, flagsDescription, categoryNumber];
   }
 
   else
   {
     setupID = [self flagsDescription];
-    v9 = [v3 stringWithFormat:@"Accessory Setup payload: Name: %@, Flags: %@", accessoryName, setupID];
+    v10 = [v4 stringWithFormat:@"Accessory Setup payload: Name: %@, Flags: %@", accessoryName, setupID];
   }
 
-  return v9;
+  return v10;
 }
 
 - (id)flagsDescription
@@ -51,7 +51,7 @@
     [string appendString:@"BTLE  "];
   }
 
-  v3 = [string copy];
+  v3 = objc_msgSend_copy(string);
 
   return v3;
 }

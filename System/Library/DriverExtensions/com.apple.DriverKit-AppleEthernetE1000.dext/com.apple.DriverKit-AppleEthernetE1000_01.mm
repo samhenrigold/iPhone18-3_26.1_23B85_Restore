@@ -1470,20 +1470,21 @@ uint64_t e1000_determine_phy_address(uint64_t a1)
   return 4294967290;
 }
 
-uint64_t e1000_write_phy_reg_bm(uint64_t a1, unsigned int a2, int a3)
+uint64_t e1000_write_phy_reg_bm(uint64_t a1, uint64_t a2, int a3)
 {
+  v4 = a2;
   v16 = a3;
   v6 = (*(a1 + 896))();
   if (!v6)
   {
-    if (a2 >> 5 == 800)
+    if (v4 >> 5 == 800)
     {
-      v7 = e1000_access_phy_wakeup_reg_bm(a1, a2, &v16, 0, 0);
+      v7 = e1000_access_phy_wakeup_reg_bm(a1, v4, &v16, 0, 0);
     }
 
     else
     {
-      v10 = a2 == 31 || a2 == 25 || a2 >> 13 > 2;
+      v10 = v4 == 31 || v4 == 25 || v4 >> 13 > 2;
       if (v10)
       {
         v11 = 1;
@@ -1495,19 +1496,19 @@ uint64_t e1000_write_phy_reg_bm(uint64_t a1, unsigned int a2, int a3)
       }
 
       *(a1 + 1100) = v11;
-      if (a2 >= 0x10)
+      if (v4 >= 0x10)
       {
         v12 = !v10;
         v13 = v10 ? 5 : 0;
         v14 = v12 ? 22 : 31;
-        v6 = e1000_write_phy_reg_mdic(a1, v14, (a2 >> 5 << v13));
+        v6 = e1000_write_phy_reg_mdic(a1, v14, (v4 >> 5 << v13));
         if (v6)
         {
           goto LABEL_26;
         }
       }
 
-      v7 = e1000_write_phy_reg_mdic(a1, a2 & 0x1F, a3);
+      v7 = e1000_write_phy_reg_mdic(a1, v4 & 0x1F, a3);
     }
 
     v6 = v7;
@@ -1739,8 +1740,9 @@ void e1000_power_down_phy_copper(uint64_t a1)
   IODelay(0x3E8uLL);
 }
 
-uint64_t __e1000_read_phy_reg_hv(uint64_t a1, unsigned int a2, _WORD *a3, char a4, char a5)
+uint64_t __e1000_read_phy_reg_hv(uint64_t a1, uint64_t a2, _WORD *a3, char a4, char a5)
 {
+  v8 = a2;
   v10 = (a2 >> 5);
   if (v10 > 0x2FF)
   {
@@ -1764,14 +1766,14 @@ uint64_t __e1000_read_phy_reg_hv(uint64_t a1, unsigned int a2, _WORD *a3, char a
 
   if (v10 == 800)
   {
-    phy_reg_mdic = e1000_access_phy_wakeup_reg_bm(a1, a2, a3, 1, a5);
+    phy_reg_mdic = e1000_access_phy_wakeup_reg_bm(a1, v8, a3, 1, a5);
   }
 
   else if (v10 - 1 > 0x2FE)
   {
-    if ((a5 & 1) == 0 && (a2 & 0x1F | (32 * (a2 >> 21))) >= 0x10)
+    if ((a5 & 1) == 0 && (v8 & 0x1F | (32 * (v8 >> 21))) >= 0x10)
     {
-      v14 = v10 == 768 ? 0 : a2;
+      v14 = v10 == 768 ? 0 : v8;
       *(a1 + 1100) = 1;
       v12 = e1000_write_phy_reg_mdic(a1, 0x1Fu, v14 & 0xFFE0);
       *(a1 + 1100) = v11;
@@ -1781,12 +1783,12 @@ uint64_t __e1000_read_phy_reg_hv(uint64_t a1, unsigned int a2, _WORD *a3, char a
       }
     }
 
-    phy_reg_mdic = e1000_read_phy_reg_mdic(a1, a2 & 0x1F, a3);
+    phy_reg_mdic = e1000_read_phy_reg_mdic(a1, v8 & 0x1F, a3);
   }
 
   else
   {
-    phy_reg_mdic = e1000_access_phy_debug_regs_hv(a1, a2, a3, 1);
+    phy_reg_mdic = e1000_access_phy_debug_regs_hv(a1, v8, a3, 1);
   }
 
   v12 = phy_reg_mdic;
@@ -1799,8 +1801,9 @@ LABEL_18:
   return v12;
 }
 
-uint64_t __e1000_write_phy_reg_hv(uint64_t a1, unsigned int a2, int a3, char a4, char a5)
+uint64_t __e1000_write_phy_reg_hv(uint64_t a1, uint64_t a2, int a3, char a4, char a5)
 {
+  v8 = a2;
   v17 = a3;
   v10 = (a2 >> 5);
   if (v10 > 0x2FF)
@@ -1818,20 +1821,20 @@ uint64_t __e1000_write_phy_reg_hv(uint64_t a1, unsigned int a2, int a3, char a4,
   {
     if (v10 == 800)
     {
-      v13 = e1000_access_phy_wakeup_reg_bm(a1, a2, &v17, 0, a5);
+      v13 = e1000_access_phy_wakeup_reg_bm(a1, v8, &v17, 0, a5);
     }
 
     else if (v10 - 1 > 0x2FE)
     {
-      if ((a5 & 1) != 0 || (*(a1 + 1072) != 9 || !*(a1 + 1112) || (a3 & 0x800) == 0 || (a2 & 0x1F) != 0 || *(a1 + 1100) != 2 || (v16 = 32511, v13 = e1000_access_phy_debug_regs_hv(a1, 67, &v16, 0), !v13)) && ((a2 & 0x1F | (32 * (a2 >> 21))) < 0x10 || (v10 != 768 ? (v14 = a2) : (v14 = 0), *(a1 + 1100) = 1, v13 = e1000_write_phy_reg_mdic(a1, 0x1Fu, v14 & 0xFFE0), *(a1 + 1100) = v11, !v13)))
+      if ((a5 & 1) != 0 || (*(a1 + 1072) != 9 || !*(a1 + 1112) || (a3 & 0x800) == 0 || (v8 & 0x1F) != 0 || *(a1 + 1100) != 2 || (v16 = 32511, v13 = e1000_access_phy_debug_regs_hv(a1, 67, &v16, 0), !v13)) && ((v8 & 0x1F | (32 * (v8 >> 21))) < 0x10 || (v10 != 768 ? (v14 = v8) : (v14 = 0), *(a1 + 1100) = 1, v13 = e1000_write_phy_reg_mdic(a1, 0x1Fu, v14 & 0xFFE0), *(a1 + 1100) = v11, !v13)))
       {
-        v13 = e1000_write_phy_reg_mdic(a1, a2 & 0x1F, a3);
+        v13 = e1000_write_phy_reg_mdic(a1, v8 & 0x1F, a3);
       }
     }
 
     else
     {
-      v13 = e1000_access_phy_debug_regs_hv(a1, a2, &v17, 0);
+      v13 = e1000_access_phy_debug_regs_hv(a1, v8, &v17, 0);
     }
 
     v12 = v13;
@@ -3252,7 +3255,7 @@ uint64_t e1000_gig_downshift_workaround_ich8lan(uint64_t result)
       result = e1000_read_kmrn_reg_generic(result, 3, &v5);
       if (!result)
       {
-        v4 = v5 | 0x1000;
+        v4 = v5 | 0x1000u;
         v5 |= 0x1000u;
         result = e1000_write_kmrn_reg_generic(v3, 3, v4);
         if (!result)
@@ -3447,7 +3450,7 @@ uint64_t e1000_write_smbus_addr(uint64_t a1)
   IOPCIDevice::MemoryRead32(*(a1 + 16), 0, 0xCuLL, &readData);
   __dmb(1u);
   v2 = readData;
-  result = e1000_read_phy_reg_hv_locked(a1, 0x601Au, &v8);
+  result = e1000_read_phy_reg_hv_locked(a1, 24602, &v8);
   if (!result)
   {
     v4 = (v2 >> 12) & 3;
@@ -3459,7 +3462,7 @@ uint64_t e1000_write_smbus_addr(uint64_t a1)
       v8 = v5;
     }
 
-    return e1000_write_phy_reg_hv_locked(a1, 0x601Au, v5);
+    return e1000_write_phy_reg_hv_locked(a1, 24602, v5);
   }
 
   return result;
@@ -4056,7 +4059,7 @@ uint64_t e1000_setup_copper_link_ich8lan(uint64_t a1)
   v2 = readData & 0xFFFFE7FF;
   __dmb(2u);
   IOPCIDevice::MemoryWrite32(*(a1 + 16), 0, 0, v2 | 0x40);
-  result = e1000_write_kmrn_reg_generic(a1, 4, 0xFFFF);
+  result = e1000_write_kmrn_reg_generic(a1, 4, 0xFFFFLL);
   if (result)
   {
     return result;
@@ -4068,7 +4071,7 @@ uint64_t e1000_setup_copper_link_ich8lan(uint64_t a1)
     return result;
   }
 
-  v4 = v9 | 0x3F;
+  v4 = v9 | 0x3Fu;
   v9 |= 0x3Fu;
   result = e1000_write_kmrn_reg_generic(a1, 9, v4);
   if (result)
@@ -4713,7 +4716,7 @@ uint64_t e1000_rar_set_pch2lan(uint64_t a1, uint64_t a2, unsigned int a3)
     IOPCIDevice::MemoryRead32(*(a1 + 16), 0, 8uLL, &readData);
     __dmb(1u);
     __dmb(2u);
-    IOPCIDevice::MemoryWrite32(*(a1 + 16), 0, (v10 + 21556), v8);
+    IOPCIDevice::MemoryWrite32(*(a1 + 16), 0, v10 + 21556, v8);
     readData = 0;
     IOPCIDevice::MemoryRead32(*(a1 + 16), 0, 8uLL, &readData);
     __dmb(1u);
@@ -4740,7 +4743,7 @@ uint64_t e1000_rar_set_pch2lan(uint64_t a1, uint64_t a2, unsigned int a3)
     }
 
     readData = 0;
-    IOPCIDevice::MemoryRead32(*(a1 + 16), 0, (v10 + 21556), &readData);
+    IOPCIDevice::MemoryRead32(*(a1 + 16), 0, v10 + 21556, &readData);
     result = 0;
     __dmb(1u);
     if (readData != v8)
@@ -4977,7 +4980,7 @@ uint64_t e1000_led_off_pchlan(uint64_t a1)
   return (*(a1 + 1032))(a1, 24606, v2);
 }
 
-uint64_t e1000_rar_set_pch_lpt(uint64_t a1, uint64_t a2, unsigned int a3)
+uint64_t e1000_rar_set_pch_lpt(uint64_t a1, uint64_t a2, uint32_t a3)
 {
   v4 = *a2;
   v5 = *(a2 + 4);
@@ -5039,7 +5042,7 @@ uint64_t e1000_rar_set_pch_lpt(uint64_t a1, uint64_t a2, unsigned int a3)
     IOPCIDevice::MemoryRead32(*(a1 + 16), 0, 8uLL, &readData);
     __dmb(1u);
     __dmb(2u);
-    IOPCIDevice::MemoryWrite32(*(a1 + 16), 0, (v11 + 21508), v8);
+    IOPCIDevice::MemoryWrite32(*(a1 + 16), 0, v11 + 21508, v8);
     readData = 0;
     IOPCIDevice::MemoryRead32(*(a1 + 16), 0, 8uLL, &readData);
     __dmb(1u);
@@ -5066,7 +5069,7 @@ uint64_t e1000_rar_set_pch_lpt(uint64_t a1, uint64_t a2, unsigned int a3)
     }
 
     readData = 0;
-    IOPCIDevice::MemoryRead32(*(a1 + 16), 0, (v11 + 21508), &readData);
+    IOPCIDevice::MemoryRead32(*(a1 + 16), 0, v11 + 21508, &readData);
     result = 0;
     __dmb(1u);
     if (readData != v8)
@@ -5335,7 +5338,7 @@ LABEL_21:
                 v12 = 0;
               }
 
-              if (v11 <= 22 && !v12 || (v6 = e1000_write_smbus_addr(a1), !v6) && (readData = 0, IOPCIDevice::MemoryRead32(*(a1 + 16), 0, 0xE00uLL, &readData), __dmb(1u), v6 = e1000_write_phy_reg_hv_locked(a1, 0x601Eu, readData), !v6))
+              if (v11 <= 22 && !v12 || (v6 = e1000_write_smbus_addr(a1), !v6) && (readData = 0, IOPCIDevice::MemoryRead32(*(a1 + 16), 0, 0xE00uLL, &readData), __dmb(1u), v6 = e1000_write_phy_reg_hv_locked(a1, 24606, readData), !v6))
               {
                 v13 = 0;
                 v14 = (v9 >> 15) & 0x1FFE;
@@ -5750,7 +5753,7 @@ void e1000_release_swflag_ich8lan(uint64_t a1)
   }
 }
 
-uint64_t e1000_read_nvm_spt(uint64_t a1, unsigned int a2, unsigned int a3, uint64_t a4)
+uint64_t e1000_read_nvm_spt(uint64_t a1, unsigned int a2, signed int a3, uint64_t a4)
 {
   v26 = 0;
   v4 = *(a1 + 1232);
@@ -5811,7 +5814,7 @@ LABEL_29:
       else
       {
         v19 = v13 + a2;
-        v20 = v16 + 4 * (v13 + a2);
+        v20 = (v16 + 4 * (v13 + a2));
         if (*(v20 + 2) == 1 && (*(v16 + 4 * (v19 + 1) + 2) & 1) != 0)
         {
           goto LABEL_16;
@@ -5823,7 +5826,7 @@ LABEL_29:
           goto LABEL_28;
         }
 
-        if (*(v20 + 2))
+        if (v20[1])
         {
 LABEL_16:
           v22 = *v20;
@@ -5983,7 +5986,7 @@ LABEL_9:
   return updated;
 }
 
-uint64_t e1000_read_nvm_ich8lan(uint64_t a1, unsigned int a2, unsigned int a3, __int16 *a4)
+uint64_t e1000_read_nvm_ich8lan(uint64_t a1, unsigned int a2, signed int a3, __int16 *a4)
 {
   v19 = 0;
   v4 = *(a1 + 1232);
@@ -6096,13 +6099,13 @@ LABEL_10:
           }
 
           IODelay(0x64uLL);
-          if (e1000_retry_write_flash_byte_ich8lan(a1, v9 + v7, v12))
+          if (e1000_retry_write_flash_byte_ich8lan(a1, (v9 + v7), v12))
           {
             goto LABEL_24;
           }
 
           IODelay(0x64uLL);
-          if (e1000_retry_write_flash_byte_ich8lan(a1, v9 + v7 + 1, v13))
+          if (e1000_retry_write_flash_byte_ich8lan(a1, (v9 + v7 + 1), v13))
           {
             goto LABEL_24;
           }
@@ -6112,7 +6115,7 @@ LABEL_10:
         }
 
         while (v7 != 4096);
-        if (e1000_read_flash_data_ich8lan(a1, v9 + 38, 2, &v17) || e1000_retry_write_flash_byte_ich8lan(a1, (v9 + 38) | 1u, HIBYTE(v17) & 0xBF) || e1000_retry_write_flash_byte_ich8lan(a1, v8 + 39, 0))
+        if (e1000_read_flash_data_ich8lan(a1, v9 + 38, 2, &v17) || e1000_retry_write_flash_byte_ich8lan(a1, (v9 + 38) | 1u, HIBYTE(v17) & 0xBF) || e1000_retry_write_flash_byte_ich8lan(a1, (v8 + 39), 0))
         {
 LABEL_24:
           updated = 0xFFFFFFFFLL;
@@ -6223,7 +6226,7 @@ uint64_t e1000_validate_nvm_checksum_ich8lan(uint64_t a1)
   return result;
 }
 
-uint64_t e1000_write_nvm_ich8lan(uint64_t a1, unsigned int a2, unsigned int a3, __int16 *a4)
+uint64_t e1000_write_nvm_ich8lan(uint64_t a1, unsigned int a2, signed int a3, __int16 *a4)
 {
   v4 = *(a1 + 1232);
   v5 = v4 >= a2;
@@ -6351,24 +6354,20 @@ uint64_t e1000_read_flash_dword_ich8lan(uint64_t a1, unsigned int a2, _DWORD *a3
       __dmb(0xDu);
       v8 = *(*(a1 + 24) + 4) & 0xFCF90000 | 0x3000000;
       __dmb(0xEu);
-      v9 = *(a1 + 24);
-      *(v9 + 4) = v8;
-      v10 = *(v9 + 4);
+      *(*(a1 + 24) + 4) = v8;
       __dmb(0xEu);
-      v11 = *(a1 + 24);
-      *(v11 + 8) = v7;
-      v12 = *(v11 + 8);
+      *(*(a1 + 24) + 8) = v7;
       result = e1000_flash_cycle_ich8lan(a1);
       __dmb(0xDu);
-      v13 = *(a1 + 24);
+      v9 = *(a1 + 24);
       if (!result)
       {
-        *a3 = *(v13 + 16);
+        *a3 = *(v9 + 16);
         return result;
       }
     }
 
-    while ((*(v13 + 4) & 3) != 0 && v6++ < 0xA);
+    while ((*(v9 + 4) & 3) != 0 && v6++ < 0xA);
   }
 
   return 0xFFFFFFFFLL;
@@ -6395,34 +6394,30 @@ uint64_t e1000_read_flash_data_ich8lan(uint64_t a1, unsigned int a2, int a3, _WO
     __dmb(0xDu);
     v11 = *(*(a1 + 24) + 6) & 0xFCF9 | v10;
     __dmb(0xEu);
-    v12 = *(a1 + 24);
-    *(v12 + 6) = v11;
-    v13 = *(v12 + 6);
+    *(*(a1 + 24) + 6) = v11;
     __dmb(0xEu);
-    v14 = *(a1 + 24);
-    *(v14 + 8) = v9;
-    v15 = *(v14 + 8);
+    *(*(a1 + 24) + 8) = v9;
     result = e1000_flash_cycle_ich8lan(a1);
     __dmb(0xDu);
-    v16 = *(a1 + 24);
+    v12 = *(a1 + 24);
     if (!result)
     {
       break;
     }
 
-    if ((*(v16 + 4) & 3) == 0 || v8++ >= 0xA)
+    if ((*(v12 + 4) & 3) == 0 || v8++ >= 0xA)
     {
       return 0xFFFFFFFFLL;
     }
   }
 
-  v18 = *(v16 + 16);
+  v14 = *(v12 + 16);
   if (a3 == 1)
   {
-    LOWORD(v18) = v18;
+    LOWORD(v14) = v14;
   }
 
-  *a4 = v18;
+  *a4 = v14;
   return result;
 }
 
@@ -6440,31 +6435,29 @@ uint64_t e1000_flash_cycle_init_ich8lan(uint64_t a1)
   __dmb(0xEu);
   if (v5 < 25)
   {
-    v10 = *(a1 + 24);
-    *(v10 + 4) = v4;
-    v11 = *(v10 + 4);
+    *(*(a1 + 24) + 4) = v4;
     if ((v1 & 0x20) != 0)
     {
 LABEL_5:
-      v8 = 10000000;
+      v6 = 10000000;
       while (1)
       {
         __dmb(0xDu);
-        v9 = *(*(a1 + 24) + 4);
-        if ((v9 & 0x20) == 0)
+        v7 = *(*(a1 + 24) + 4);
+        if ((v7 & 0x20) == 0)
         {
           break;
         }
 
         IODelay(1uLL);
-        if (!--v8)
+        if (!--v6)
         {
           return 0xFFFFFFFFLL;
         }
       }
 
-      v12 = v9 | 1;
-      v13 = *(a1 + 284);
+      v8 = v7 | 1;
+      v9 = *(a1 + 284);
       __dmb(0xEu);
       goto LABEL_12;
     }
@@ -6472,32 +6465,26 @@ LABEL_5:
 
   else
   {
-    v6 = *(a1 + 24);
-    *(v6 + 4) = v4;
-    v7 = *(v6 + 4);
+    *(*(a1 + 24) + 4) = v4;
     if ((v1 & 0x20) != 0)
     {
       goto LABEL_5;
     }
   }
 
-  v12 = v1 | 7;
-  v13 = *(a1 + 284);
+  v8 = v1 | 7;
+  v9 = *(a1 + 284);
   __dmb(0xEu);
 LABEL_12:
   result = 0;
-  if (v13 < 25)
+  if (v9 < 25)
   {
-    v16 = *(a1 + 24);
-    *(v16 + 4) = v12;
-    v17 = *(v16 + 4);
+    *(*(a1 + 24) + 4) = v8;
   }
 
   else
   {
-    v14 = *(a1 + 24);
-    *(v14 + 4) = v12;
-    v15 = *(v14 + 4);
+    *(*(a1 + 24) + 4) = v8;
   }
 
   return result;
@@ -6523,36 +6510,32 @@ uint64_t e1000_flash_cycle_ich8lan(uint64_t a1)
   __dmb(0xEu);
   if (v6 < 25)
   {
-    v9 = *(a1 + 24);
-    *(v9 + 6) = v5;
-    v10 = *(v9 + 6);
+    *(*(a1 + 24) + 6) = v5;
   }
 
   else
   {
-    v7 = *(a1 + 24);
-    *(v7 + 4) = v5 << 16;
-    v8 = *(v7 + 4);
+    *(*(a1 + 24) + 4) = v5 << 16;
   }
 
-  v11 = 10000001;
+  v7 = 10000001;
   while (1)
   {
     __dmb(0xDu);
-    v12 = *(*(a1 + 24) + 4);
-    if (v12)
+    v8 = *(*(a1 + 24) + 4);
+    if (v8)
     {
       break;
     }
 
     IODelay(1uLL);
-    if (!--v11)
+    if (!--v7)
     {
       return 0xFFFFFFFFLL;
     }
   }
 
-  if ((v12 & 2) == 0)
+  if ((v8 & 2) == 0)
   {
     return 0;
   }
@@ -6636,22 +6619,16 @@ uint64_t e1000_erase_flash_bank_ich8lan(uint64_t a1, int a2)
       __dmb(0xEu);
       if (v18 < 25)
       {
-        v21 = *(a1 + 24);
-        *(v21 + 6) = v17;
-        v22 = *(v21 + 6);
+        *(*(a1 + 24) + 6) = v17;
       }
 
       else
       {
-        v19 = *(a1 + 24);
-        *(v19 + 4) = v17 << 16;
-        v20 = *(v19 + 4);
+        *(*(a1 + 24) + 4) = v17 << 16;
       }
 
       __dmb(0xEu);
-      v23 = *(a1 + 24);
-      *(v23 + 8) = v10;
-      v24 = *(v23 + 8);
+      *(*(a1 + 24) + 8) = v10;
       if (!e1000_flash_cycle_ich8lan(a1))
       {
         break;
@@ -6753,26 +6730,18 @@ uint64_t e1000_write_flash_data32_ich8lan(uint64_t a1, unsigned int a2, int a3)
       __dmb(0xEu);
       if (v11 < 25)
       {
-        v14 = *(a1 + 24);
-        *(v14 + 6) = v10;
-        v15 = *(v14 + 6);
+        *(*(a1 + 24) + 6) = v10;
       }
 
       else
       {
-        v12 = *(a1 + 24);
-        *(v12 + 4) = v10 << 16;
-        v13 = *(v12 + 4);
+        *(*(a1 + 24) + 4) = v10 << 16;
       }
 
       __dmb(0xEu);
-      v16 = *(a1 + 24);
-      *(v16 + 8) = v6;
-      v17 = *(v16 + 8);
+      *(*(a1 + 24) + 8) = v6;
       __dmb(0xEu);
-      v18 = *(a1 + 24);
-      *(v18 + 16) = a3;
-      v19 = *(v18 + 16);
+      *(*(a1 + 24) + 16) = a3;
       result = e1000_flash_cycle_ich8lan(a1);
       if (!result)
       {
@@ -6788,8 +6757,10 @@ uint64_t e1000_write_flash_data32_ich8lan(uint64_t a1, unsigned int a2, int a3)
   return 0xFFFFFFFFLL;
 }
 
-uint64_t e1000_retry_write_flash_byte_ich8lan(uint64_t a1, unsigned int a2, int a3)
+uint64_t e1000_retry_write_flash_byte_ich8lan(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v3 = a3;
+  v4 = a2;
   result = e1000_write_flash_byte_ich8lan(a1, a2, a3);
   if (result)
   {
@@ -6797,7 +6768,7 @@ uint64_t e1000_retry_write_flash_byte_ich8lan(uint64_t a1, unsigned int a2, int 
     while (1)
     {
       IODelay(0x64uLL);
-      if (!e1000_write_flash_byte_ich8lan(a1, a2, a3))
+      if (!e1000_write_flash_byte_ich8lan(a1, v4, v3))
       {
         break;
       }
@@ -6856,26 +6827,18 @@ uint64_t e1000_write_flash_byte_ich8lan(uint64_t a1, unsigned int a2, int a3)
       __dmb(0xEu);
       if (v11 < 25)
       {
-        v14 = *(a1 + 24);
-        *(v14 + 6) = v10;
-        v15 = *(v14 + 6);
+        *(*(a1 + 24) + 6) = v10;
       }
 
       else
       {
-        v12 = *(a1 + 24);
-        *(v12 + 4) = v10 << 16;
-        v13 = *(v12 + 4);
+        *(*(a1 + 24) + 4) = v10 << 16;
       }
 
       __dmb(0xEu);
-      v16 = *(a1 + 24);
-      *(v16 + 8) = v7;
-      v17 = *(v16 + 8);
+      *(*(a1 + 24) + 8) = v7;
       __dmb(0xEu);
-      v18 = *(a1 + 24);
-      *(v18 + 16) = a3;
-      v19 = *(v18 + 16);
+      *(*(a1 + 24) + 16) = a3;
       result = e1000_flash_cycle_ich8lan(a1);
       if (!result)
       {
@@ -9731,5 +9694,45 @@ uint64_t e1000_force_mac_fc_generic(uint64_t a1)
 
   __dmb(2u);
   IOPCIDevice::MemoryWrite32(*(a1 + 16), 0, 0, v4);
+  return 0;
+}
+
+uint64_t e1000_get_speed_and_duplex_copper_generic(uint64_t a1, __int16 *a2, __int16 *a3)
+{
+  readData = 0;
+  IOPCIDevice::MemoryRead32(*(a1 + 16), 0, 8uLL, &readData);
+  __dmb(1u);
+  v6 = readData;
+  if ((readData & 0x80) != 0)
+  {
+    v7 = *(a1 + 284) != 36 || (readData & 0x400000) == 0;
+    v8 = 2500;
+    v9 = 1000;
+  }
+
+  else
+  {
+    v7 = (readData & 0x40) == 0;
+    v8 = 100;
+    v9 = 10;
+  }
+
+  if (v7)
+  {
+    v8 = v9;
+  }
+
+  *a2 = v8;
+  if (v6)
+  {
+    v10 = 2;
+  }
+
+  else
+  {
+    v10 = 1;
+  }
+
+  *a3 = v10;
   return 0;
 }

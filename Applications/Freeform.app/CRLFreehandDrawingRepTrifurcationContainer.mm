@@ -331,13 +331,13 @@
       anchorShapeLayoutGeometryInRootAtRenderTime = self->_anchorShapeLayoutGeometryInRootAtRenderTime;
       if (anchorShapeLayoutGeometryInRootAtRenderTime)
       {
-        [(CRLCanvasLayoutGeometry *)anchorShapeLayoutGeometryInRootAtRenderTime transform];
+        objc_msgSend_transform(anchorShapeLayoutGeometryInRootAtRenderTime);
         CGAffineTransformInvert(&t1, &v40);
         geometryInRoot = [(CRLCanvasAbstractLayout *)self->_anchorShapeLayoutForTransform geometryInRoot];
         v17 = geometryInRoot;
         if (geometryInRoot)
         {
-          [geometryInRoot transform];
+          objc_msgSend_transform(geometryInRoot);
         }
 
         else

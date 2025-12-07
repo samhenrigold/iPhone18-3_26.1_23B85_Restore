@@ -30,7 +30,7 @@
 {
   if (self)
   {
-    if (*(self + 24))
+    if (self[3])
     {
       [(RBBundleProperties *)self _xpcBundleProperties];
     }
@@ -48,7 +48,7 @@
 
 - (NSString)bundleIdentifier
 {
-  _bundleProperties = [(RBBundleProperties *)self _bundleProperties];
+  _bundleProperties = [(RBBundleProperties *)&self->super.isa _bundleProperties];
   bundleIdentifier = [_bundleProperties bundleIdentifier];
 
   return bundleIdentifier;
@@ -86,7 +86,7 @@
 
 - (BOOL)usesSocketMonitoring
 {
-  _bundleProperties = [(RBBundleProperties *)self _bundleProperties];
+  _bundleProperties = [(RBBundleProperties *)&self->super.isa _bundleProperties];
   usesSocketMonitoring = [_bundleProperties usesSocketMonitoring];
 
   return usesSocketMonitoring;
@@ -94,7 +94,7 @@
 
 - (NSString)bundlePath
 {
-  _bundleProperties = [(RBBundleProperties *)self _bundleProperties];
+  _bundleProperties = [(RBBundleProperties *)&self->super.isa _bundleProperties];
   bundlePath = [_bundleProperties bundlePath];
 
   return bundlePath;
@@ -102,7 +102,7 @@
 
 - (NSString)executablePath
 {
-  _bundleProperties = [(RBBundleProperties *)self _bundleProperties];
+  _bundleProperties = [(RBBundleProperties *)&self->super.isa _bundleProperties];
   executablePath = [_bundleProperties executablePath];
 
   return executablePath;
@@ -110,7 +110,7 @@
 
 - (NSString)extensionPointIdentifier
 {
-  _bundleProperties = [(RBBundleProperties *)self _bundleProperties];
+  _bundleProperties = [(RBBundleProperties *)&self->super.isa _bundleProperties];
   extensionPointIdentifier = [_bundleProperties extensionPointIdentifier];
 
   return extensionPointIdentifier;
@@ -118,7 +118,7 @@
 
 - (BOOL)continuousBackgroundMode
 {
-  _bundleProperties = [(RBBundleProperties *)self _bundleProperties];
+  _bundleProperties = [(RBBundleProperties *)&self->super.isa _bundleProperties];
   continuousBackgroundMode = [_bundleProperties continuousBackgroundMode];
 
   return continuousBackgroundMode;
@@ -221,7 +221,7 @@
 
 - (BOOL)supportsBackgroundContentFetching
 {
-  _bundleProperties = [(RBBundleProperties *)self _bundleProperties];
+  _bundleProperties = [(RBBundleProperties *)&self->super.isa _bundleProperties];
   supportsBackgroundContentFetching = [_bundleProperties supportsBackgroundContentFetching];
 
   return supportsBackgroundContentFetching;
@@ -229,7 +229,7 @@
 
 - (BOOL)supportsBackgroundNetworkAuthentication
 {
-  _bundleProperties = [(RBBundleProperties *)self _bundleProperties];
+  _bundleProperties = [(RBBundleProperties *)&self->super.isa _bundleProperties];
   supportsBackgroundNetworkAuthentication = [_bundleProperties supportsBackgroundNetworkAuthentication];
 
   return supportsBackgroundNetworkAuthentication;
@@ -237,7 +237,7 @@
 
 - (BOOL)supportsBackgroundAudio
 {
-  _bundleProperties = [(RBBundleProperties *)self _bundleProperties];
+  _bundleProperties = [(RBBundleProperties *)&self->super.isa _bundleProperties];
   supportsBackgroundAudio = [_bundleProperties supportsBackgroundAudio];
 
   return supportsBackgroundAudio;
@@ -245,7 +245,7 @@
 
 - (BOOL)supportsUnboundedTaskCompletion
 {
-  _bundleProperties = [(RBBundleProperties *)self _bundleProperties];
+  _bundleProperties = [(RBBundleProperties *)&self->super.isa _bundleProperties];
   supportsUnboundedTaskCompletion = [_bundleProperties supportsUnboundedTaskCompletion];
 
   return supportsUnboundedTaskCompletion;
@@ -253,7 +253,7 @@
 
 - (BOOL)hasPreferredJetsamBand
 {
-  _bundleProperties = [(RBBundleProperties *)self _bundleProperties];
+  _bundleProperties = [(RBBundleProperties *)&self->super.isa _bundleProperties];
   hasPreferredJetsamBand = [_bundleProperties hasPreferredJetsamBand];
 
   return hasPreferredJetsamBand;
@@ -261,7 +261,7 @@
 
 - (int)preferredJetsamBand
 {
-  _bundleProperties = [(RBBundleProperties *)self _bundleProperties];
+  _bundleProperties = [(RBBundleProperties *)&self->super.isa _bundleProperties];
   preferredJetsamBand = [_bundleProperties preferredJetsamBand];
 
   return preferredJetsamBand;
@@ -286,7 +286,7 @@
 - (id)bundleInfoValuesForKeys:(id)keys
 {
   keysCopy = keys;
-  _bundleProperties = [(RBBundleProperties *)self _bundleProperties];
+  _bundleProperties = [(RBBundleProperties *)&self->super.isa _bundleProperties];
   v6 = [_bundleProperties bundleInfoValuesForKeys:keysCopy];
 
   return v6;

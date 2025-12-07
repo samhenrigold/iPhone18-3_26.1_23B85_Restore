@@ -5,7 +5,7 @@ void sub_100001004(uint64_t a1, void *a2, int a3)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v15 = v5;
+    v13 = v5;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "DeviceDiscovery: remoteDevice: %@", buf, 0xCu);
   }
 
@@ -13,7 +13,7 @@ void sub_100001004(uint64_t a1, void *a2, int a3)
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 67109120;
-    LODWORD(v15) = a3;
+    LODWORD(v13) = a3;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "DeviceDiscovery: canceling: %i", buf, 8u);
   }
 
@@ -22,11 +22,9 @@ void sub_100001004(uint64_t a1, void *a2, int a3)
   if (v5 && (a3 & 1) == 0)
   {
     v10 = [WeakRetained dispatchQueue];
-    v13 = *(a1 + 32);
     remote_device_set_connected_callback();
 
     v11 = [v9 dispatchQueue];
-    v12 = *(a1 + 32);
     remote_device_set_disconnected_callback();
   }
 }
@@ -191,36 +189,36 @@ void sub_100003210(uint64_t a1, void *a2)
   }
 }
 
-void sub_100003494(id *a1)
+void sub_100003494(id *a1, uint64_t a2)
 {
-  v2 = CheckerBoardLogHandleForCategory();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = CheckerBoardLogHandleForCategory();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = a1[4];
-    v4 = [a1[5] delegate];
+    v4 = a1[4];
+    v5 = [a1[5] delegate];
     *buf = 138412546;
-    v16 = v3;
-    v17 = 2112;
-    v18 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Dispatching message to delegate; message = %@, delegate = %@", buf, 0x16u);
+    v17 = v4;
+    v18 = 2112;
+    v19 = v5;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Dispatching message to delegate; message = %@, delegate = %@", buf, 0x16u);
   }
 
-  v5 = [a1[5] delegate];
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_100003624;
-  v12[3] = &unk_1000104B0;
-  v6 = a1[4];
-  *&v7 = v6;
-  *(&v7 + 1) = a1[5];
-  v11 = v7;
-  v8 = a1[6];
-  v9 = a1[7];
-  *&v10 = v8;
-  *(&v10 + 1) = v9;
-  v13 = v11;
-  v14 = v10;
-  [v5 didReceiveRemoteXPCMessage:v6 completion:v12];
+  v6 = [a1[5] delegate];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_100003624;
+  v13[3] = &unk_1000104B0;
+  v7 = a1[4];
+  *&v8 = v7;
+  *(&v8 + 1) = a1[5];
+  v12 = v8;
+  v9 = a1[6];
+  v10 = a1[7];
+  *&v11 = v9;
+  *(&v11 + 1) = v10;
+  v14 = v12;
+  v15 = v11;
+  [v6 didReceiveRemoteXPCMessage:v7 completion:v13];
 }
 
 void sub_100003624(uint64_t a1, void *a2)
@@ -255,10 +253,11 @@ void sub_100003624(uint64_t a1, void *a2)
   }
 }
 
-void sub_1000039B8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_1000039B8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
 uint64_t sub_100003F30(uint64_t a1, uint64_t a2, void *a3)
@@ -489,13 +488,21 @@ void sub_100007060(uint64_t a1, NSObject *a2)
 
 void sub_1000072F4(uint64_t a1, void *a2)
 {
-  v8 = [a2 delegate];
-  sub_1000039B8(&_mh_execute_header, v2, v3, "Received message, but delegate unable to receive it; message = %@, delegate = %@", v4, v5, v6, v7, 2u);
+  v3 = [a2 delegate];
+  *v10 = 138412546;
+  *&v10[4] = a1;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  sub_1000039B8(&_mh_execute_header, v4, v5, "Received message, but delegate unable to receive it; message = %@, delegate = %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }
 
 void sub_100007398(uint64_t *a1, uint64_t a2)
 {
   v2 = *a1;
-  v9 = [*(a2 + 40) delegate];
-  sub_1000039B8(&_mh_execute_header, v3, v4, "Did not get a reply message from delegate, but message has a reply class. May be a bug in the delegate. message = %@, delegate = %@", v5, v6, v7, v8, 2u);
+  v3 = [*(a2 + 40) delegate];
+  *v10 = 138412546;
+  *&v10[4] = v2;
+  *&v10[12] = 2112;
+  *&v10[14] = v3;
+  sub_1000039B8(&_mh_execute_header, v4, v5, "Did not get a reply message from delegate, but message has a reply class. May be a bug in the delegate. message = %@, delegate = %@", v6, v7, v8, v9, *v10, *&v10[8], *&v10[16]);
 }

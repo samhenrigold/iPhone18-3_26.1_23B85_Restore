@@ -33,11 +33,11 @@
 
 - (void)updateControls
 {
-  v3 = sub_100004F84();
+  v3 = sub_100004F84(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    LOWORD(v14) = 0;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "(UI) Asked to update Six-up Audio Controls", &v14, 2u);
+    LOWORD(v16) = 0;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "(UI) Asked to update Six-up Audio Controls", &v16, 2u);
   }
 
   v4 = +[UIApplication sharedApplication];
@@ -59,18 +59,19 @@
 
   if (frontmostCall || disconnectedReasonRequiresCallBackUI)
   {
-    if ([(PHAudioCallControlsView *)self needsReloadButtonViews])
+    needsReloadButtonViews = [(PHAudioCallControlsView *)self needsReloadButtonViews];
+    if (needsReloadButtonViews)
     {
       [(PHAudioCallControlsView *)self reloadButtonViews];
     }
 
     else
     {
-      v13 = sub_100004F84();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v15 = sub_100004F84(needsReloadButtonViews);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v14) = 0;
-        _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "(UI) No need to reload Six-up Audio Controls", &v14, 2u);
+        LOWORD(v16) = 0;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "(UI) No need to reload Six-up Audio Controls", &v16, 2u);
       }
     }
 
@@ -79,14 +80,14 @@
 
   else
   {
-    v10 = sub_100004F84();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_100004F84(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = +[TUCallCenter sharedInstance];
-      currentCalls = [v11 currentCalls];
-      v14 = 138412290;
-      v15 = currentCalls;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "(UI) Ignoring call to update controls since frontmostCall is nil (current calls are %@).", &v14, 0xCu);
+      v12 = +[TUCallCenter sharedInstance];
+      currentCalls = [v12 currentCalls];
+      v16 = 138412290;
+      v17 = currentCalls;
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "(UI) Ignoring call to update controls since frontmostCall is nil (current calls are %@).", &v16, 0xCu);
     }
   }
 }
@@ -455,7 +456,7 @@ LABEL_14:
 
 - (void)reloadButtonViews
 {
-  v4 = sub_100004F84();
+  v4 = sub_100004F84(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1206,7 +1207,7 @@ LABEL_11:
 
 - (void)updateBackgroundMaterial:(unint64_t)material
 {
-  v5 = sub_100004F84();
+  v5 = sub_100004F84(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
@@ -1307,7 +1308,7 @@ LABEL_14:
 {
   y = center.y;
   x = center.x;
-  [(PHAudioCallControlsView *)self transform];
+  objc_msgSend_transform(self, a2);
   if (CGAffineTransformIsIdentity(&v7))
   {
     v6.receiver = self;
@@ -1322,7 +1323,7 @@ LABEL_14:
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  [(PHAudioCallControlsView *)self transform];
+  objc_msgSend_transform(self, a2);
   if (CGAffineTransformIsIdentity(&v9))
   {
     v8.receiver = self;
@@ -1347,8 +1348,7 @@ LABEL_14:
     traitCollection2 = [(PHAudioCallControlsView *)self traitCollection];
     _backlightLuminance3 = [traitCollection2 _backlightLuminance];
 
-    [(PHAudioCallControlsView *)self setUserInteractionEnabled:_backlightLuminance3 != 1];
-    v10 = sub_100004F84();
+    v10 = sub_100004F84([(PHAudioCallControlsView *)self setUserInteractionEnabled:_backlightLuminance3 != 1]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 67109120;

@@ -721,10 +721,10 @@ LABEL_20:
   if (videoURLForUpdate && pairingIdentifier)
   {
     memset(buf, 0, 24);
-    [(PHAssetChangeRequest *)selfCopy2 videoDuration];
+    objc_msgSend_videoDuration(selfCopy2);
     v567 = 0uLL;
     v568 = 0;
-    [(PHAssetChangeRequest *)selfCopy2 imageDisplayTime];
+    objc_msgSend_imageDisplayTime(selfCopy2);
     v565 = *buf;
     v566 = *&buf[16];
     v563 = v567;
@@ -897,7 +897,7 @@ LABEL_67:
               packedBoundingBoxRect = [v74 packedBoundingBoxRect];
               [v74 startTime];
               v81 = v80;
-              [v74 duration];
+              objc_msgSend_duration(v74);
               v83 = v82;
               classificationType = [v74 classificationType];
               thumbnailIdentifier = [v74 thumbnailIdentifier];
@@ -1300,7 +1300,7 @@ LABEL_132:
       if (v173)
       {
 LABEL_161:
-        videoDuration2 = [contentEditingOutput assetAdjustmentsWithEditorBundleID:v161->_editorBundleID];
+        v158 = [contentEditingOutput assetAdjustmentsWithEditorBundleID:v161->_editorBundleID];
         if ([(PHAssetChangeRequest *)v161 isRevertingContentToOriginal])
         {
           [MEMORY[0x1E69BE258] assetAdjustmentOptionsForRevertingToOriginal];
@@ -1312,7 +1312,7 @@ LABEL_161:
         }
         v174 = ;
         temporalFacesHelper = v481;
-        [v492 setAdjustments:videoDuration2 options:v174];
+        [v492 setAdjustments:v158 options:v174];
 
         goto LABEL_165;
       }
@@ -1345,15 +1345,15 @@ LABEL_161:
     [v492 setPlaybackVariation:{objc_msgSend(playbackVariation2, "integerValue")}];
   }
 
-  videoDuration = [contentEditingOutput videoDuration];
+  v157 = objc_msgSend_videoDuration(contentEditingOutput);
 
-  if (!videoDuration || ![v492 isVideo])
+  if (!v157 || ![v492 isVideo])
   {
     goto LABEL_166;
   }
 
-  videoDuration2 = [contentEditingOutput videoDuration];
-  [videoDuration2 doubleValue];
+  v158 = objc_msgSend_videoDuration(contentEditingOutput);
+  [v158 doubleValue];
   [v492 setDuration:?];
 LABEL_165:
 
@@ -10692,9 +10692,11 @@ LABEL_22:
 
 uint64_t __38__PHAssetChangeRequest_recoverAssets___block_invoke()
 {
-  recoverAssets__s_cplAssetDirectoryPrefix = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", @"PhotoData", @"CPLAssets"];
+  v0 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@/%@", @"PhotoData", @"CPLAssets"];
+  v1 = recoverAssets__s_cplAssetDirectoryPrefix;
+  recoverAssets__s_cplAssetDirectoryPrefix = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (BOOL)performBatchExpungeAndWaitWithAssets:(id)assets deleteOptions:(id)options photoLibrary:(id)library error:(id *)error
@@ -10809,7 +10811,7 @@ uint64_t __38__PHAssetChangeRequest_recoverAssets___block_invoke()
   {
     if (v13)
     {
-      [v13 imageDisplayTime];
+      objc_msgSend_imageDisplayTime(v13);
     }
 
     else
@@ -10837,7 +10839,7 @@ uint64_t __38__PHAssetChangeRequest_recoverAssets___block_invoke()
 
   if (v13)
   {
-    [v13 videoDuration];
+    objc_msgSend_videoDuration(v13);
     if (pairingIdentifier)
     {
       goto LABEL_16;

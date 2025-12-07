@@ -13,10 +13,10 @@
 {
   if (objc_opt_class() == self)
   {
-    v2 = +[NSUserDefaults standardUserDefaults];
-    [v2 registerDefaults:&off_100549778];
+    v3 = +[NSUserDefaults standardUserDefaults];
+    [v3 registerDefaults:&off_100549778];
 
-    v3 = sub_100220330();
+    v4 = sub_100220330(self);
   }
 }
 
@@ -70,19 +70,19 @@
 
 - (id)allPurgeablesForVolume:(id)volume reason:(id)reason client:(id)client
 {
-  v5 = sub_1001C13C8();
+  v5 = sub_1001C13C8(ODRBackgroundMaintenance);
   sub_1001C14D8(v5);
 
-  v6 = sub_100220330();
+  v6 = sub_100220330(ODRManager);
   v7 = sub_100221A8C(v6, 1);
 
-  v8 = sub_100220330();
+  v8 = sub_100220330(ODRManager);
   v9 = sub_100221A8C(v8, 2);
 
-  v10 = sub_100220330();
+  v10 = sub_100220330(ODRManager);
   v11 = sub_100221A8C(v10, 3);
 
-  v12 = sub_100220330();
+  v12 = sub_100220330(ODRManager);
   v13 = sub_100221A8C(v12, 4);
 
   v20[0] = &off_1005472F0;
@@ -104,33 +104,31 @@
 
 - (int64_t)purgeableForVolume:(id)volume urgency:(int64_t)urgency client:(id)client
 {
-  urgencyCopy = urgency;
-  v6 = sub_1001C13C8();
+  v6 = sub_1001C13C8(ODRBackgroundMaintenance);
   sub_1001C14D8(v6);
 
-  v7 = sub_100220330();
-  v8 = sub_100221A8C(v7, urgencyCopy);
+  v7 = sub_100220330(ODRManager);
+  v8 = sub_100221A8C(v7, urgency);
 
   return v8;
 }
 
 - (int64_t)purgeForVolume:(id)volume urgency:(int64_t)urgency desiredPurge:(id)purge client:(id)client
 {
-  urgencyCopy = urgency;
   purgeCopy = purge;
-  v8 = sub_1001C13C8();
+  v8 = sub_1001C13C8(ODRBackgroundMaintenance);
   sub_1001C14D8(v8);
 
   unsignedLongLongValue = [purgeCopy unsignedLongLongValue];
-  v10 = sub_100220330();
-  v11 = sub_100221C68(v10, unsignedLongLongValue, urgencyCopy);
+  v10 = sub_100220330(ODRManager);
+  v11 = sub_100221C68(v10, unsignedLongLongValue, urgency);
 
   return v11;
 }
 
 - (void)cancelPurge
 {
-  v3 = sub_100220330();
+  v3 = sub_100220330(ODRManager);
   if (v3)
   {
     v2 = ASDLogHandleForCategory();

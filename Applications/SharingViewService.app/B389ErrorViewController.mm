@@ -8,7 +8,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1000ABB00();
+  sub_1000ABB00(selfCopy);
 }
 
 - (_TtC18SharingViewService23B389ErrorViewController)initWithContentView:(id)view

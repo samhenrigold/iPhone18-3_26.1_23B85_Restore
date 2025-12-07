@@ -13,7 +13,7 @@
 
 - (void)isIntelligenceEnabledWithCompletionHandler:(id)handler
 {
-  v5 = sub_100006410(&qword_1003A0110);
+  v5 = sub_100006410(&qword_1003A0110, &qword_100297980);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -94,7 +94,7 @@
   v5 = static Data._unconditionallyBridgeFromObjectiveC(_:)();
   v7 = v6;
 
-  _s5Setup25IntelligenceStateProviderC42applyStashedNotificationOnboardingDefaultsyy10Foundation4DataVF_0();
+  _s5Setup25IntelligenceStateProviderC42applyStashedNotificationOnboardingDefaultsyy10Foundation4DataVF_0(v5, v7);
   sub_100011804(v5, v7);
 }
 
@@ -107,7 +107,7 @@
   v6 = *(v5 + 8);
   selfCopy = self;
   v8 = v6(v4, v5);
-  sub_100006410(&qword_1003A0460);
+  sub_100006410(&qword_1003A0460, &qword_100297908);
   v9 = type metadata accessor for GenerativeModelsAvailability.Availability.UnavailableInfo.UnavailableReason();
   v10 = *(v9 - 8);
   v11 = (*(v10 + 80) + 32) & ~*(v10 + 80);

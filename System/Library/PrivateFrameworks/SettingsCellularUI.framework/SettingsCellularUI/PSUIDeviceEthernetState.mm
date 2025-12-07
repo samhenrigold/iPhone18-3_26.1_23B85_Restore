@@ -58,7 +58,7 @@ uint64_t __41__PSUIDeviceEthernetState_sharedInstance__block_invoke()
 
 - (BOOL)isConnectedOverEthernet
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CD9200] = [MEMORY[0x277CD9200] sharedDefaultEvaluator];
   path = [mEMORY[0x277CD9200] path];
 
@@ -67,8 +67,8 @@ uint64_t __41__PSUIDeviceEthernetState_sharedInstance__block_invoke()
     getLogger = [(PSUIDeviceEthernetState *)self getLogger];
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_ERROR))
     {
-      LOWORD(v10) = 0;
-      _os_log_error_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_ERROR, "[NWPathEvaluator path] empty", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_error_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_ERROR, "[NWPathEvaluator path] empty", &v9, 2u);
     }
 
     goto LABEL_11;
@@ -79,8 +79,8 @@ uint64_t __41__PSUIDeviceEthernetState_sharedInstance__block_invoke()
     getLogger = [(PSUIDeviceEthernetState *)self getLogger];
     if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v10) = 0;
-      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Network path is not available", &v10, 2u);
+      LOWORD(v9) = 0;
+      _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Network path is not available", &v9, 2u);
     }
 
 LABEL_11:
@@ -98,14 +98,13 @@ LABEL_11:
       v7 = "ON";
     }
 
-    v10 = 136315138;
-    v11 = v7;
-    _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "Ethernet : %s", &v10, 0xCu);
+    v9 = 136315138;
+    v10 = v7;
+    _os_log_debug_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEBUG, "Ethernet : %s", &v9, 0xCu);
   }
 
 LABEL_12:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

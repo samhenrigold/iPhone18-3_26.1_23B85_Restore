@@ -131,46 +131,46 @@ LABEL_12:
 
 - (void)considerMyNewLocation:(id)location
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   MapsSuggestionsSetMostRecentLocation(location);
   v4 = MapsSuggestionsCurrentBestLocation();
-  if (MapsSuggestionsLoggingIsVerbose())
+  if (MapsSuggestionsLoggingIsVerbose(v4, v5))
   {
-    v5 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v11 = v4;
-      _os_log_impl(&dword_1C5126000, v5, OS_LOG_TYPE_DEBUG, "Chose best location: %@", buf, 0xCu);
+      v12 = v4;
+      _os_log_impl(&dword_1C5126000, v6, OS_LOG_TYPE_DEBUG, "Chose best location: %@", buf, 0xCu);
     }
   }
 
   locationObservers = self->_locationObservers;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __60__MapsSuggestionsBaseLocationUpdater_considerMyNewLocation___block_invoke;
-  v8[3] = &unk_1E81F7400;
-  v7 = v4;
-  v9 = v7;
-  [(MapsSuggestionsObservers *)locationObservers callBlock:v8];
+  v9[0] = MEMORY[0x1E69E9820];
+  v9[1] = 3221225472;
+  v9[2] = __60__MapsSuggestionsBaseLocationUpdater_considerMyNewLocation___block_invoke;
+  v9[3] = &unk_1E81F7400;
+  v8 = v4;
+  v10 = v8;
+  [(MapsSuggestionsObservers *)locationObservers callBlock:v9];
 }
 
 void __60__MapsSuggestionsBaseLocationUpdater_considerMyNewLocation___block_invoke(uint64_t a1, void *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  if (MapsSuggestionsLoggingIsVerbose())
+  if (MapsSuggestionsLoggingIsVerbose(v3, v4))
   {
-    v4 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+    v5 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
     {
-      v5 = [v3 uniqueName];
-      v6 = *(a1 + 32);
-      v7 = 138412546;
-      v8 = v5;
-      v9 = 2112;
-      v10 = v6;
-      _os_log_impl(&dword_1C5126000, v4, OS_LOG_TYPE_DEBUG, "CALLING{%@} didUpdateLocation:%@", &v7, 0x16u);
+      v6 = [v3 uniqueName];
+      v7 = *(a1 + 32);
+      v8 = 138412546;
+      v9 = v6;
+      v10 = 2112;
+      v11 = v7;
+      _os_log_impl(&dword_1C5126000, v5, OS_LOG_TYPE_DEBUG, "CALLING{%@} didUpdateLocation:%@", &v8, 0x16u);
     }
   }
 
@@ -179,7 +179,7 @@ void __60__MapsSuggestionsBaseLocationUpdater_considerMyNewLocation___block_invo
 
 - (void)considerMyNewVisit:(id)visit
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   visitCopy = visit;
   if (MapsSuggestionsIsValidVisit(visitCopy))
   {
@@ -205,45 +205,45 @@ void __60__MapsSuggestionsBaseLocationUpdater_considerMyNewLocation___block_invo
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 136446978;
-        v20 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsBaseLocationUpdater.mm";
-        v21 = 1024;
-        v22 = 93;
-        v23 = 2082;
-        v24 = "_MapsSuggestionsVisitEventType _visitEventType(CLVisit *__strong)";
+        v22 = "/Library/Caches/com.apple.xbs/Sources/Maps/iOS/Suggestions/MapsSuggestionsBaseLocationUpdater.mm";
+        v23 = 1024;
+        v24 = 93;
         v25 = 2082;
-        v26 = "nil == (visit)";
+        v26 = "_MapsSuggestionsVisitEventType _visitEventType(CLVisit *__strong)";
+        v27 = 2082;
+        v28 = "nil == (visit)";
         _os_log_impl(&dword_1C5126000, v12, OS_LOG_TYPE_ERROR, "At %{public}s:%d, %{public}s forbids: %{public}s. Requires a visit", buf, 0x26u);
       }
 
       v10 = 0;
     }
 
-    if (MapsSuggestionsLoggingIsVerbose())
+    if (MapsSuggestionsLoggingIsVerbose(v13, v14))
     {
-      v13 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v15 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
-        v14 = "arrival";
+        v16 = "arrival";
         if (v10 == 2)
         {
-          v14 = "departure";
+          v16 = "departure";
         }
 
         *buf = 136315138;
-        v20 = v14;
-        _os_log_impl(&dword_1C5126000, v13, OS_LOG_TYPE_DEBUG, "BaseLocationUpdater visit %s", buf, 0xCu);
+        v22 = v16;
+        _os_log_impl(&dword_1C5126000, v15, OS_LOG_TYPE_DEBUG, "BaseLocationUpdater visit %s", buf, 0xCu);
       }
     }
 
     visitObservers = self->_visitObservers;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __57__MapsSuggestionsBaseLocationUpdater_considerMyNewVisit___block_invoke;
-    v16[3] = &unk_1E81F7428;
-    v18 = v10;
-    v17 = v6;
-    [(MapsSuggestionsObservers *)visitObservers callBlock:v16];
-    v11 = v17;
+    v18[0] = MEMORY[0x1E69E9820];
+    v18[1] = 3221225472;
+    v18[2] = __57__MapsSuggestionsBaseLocationUpdater_considerMyNewVisit___block_invoke;
+    v18[3] = &unk_1E81F7428;
+    v20 = v10;
+    v19 = v6;
+    [(MapsSuggestionsObservers *)visitObservers callBlock:v18];
+    v11 = v19;
   }
 
   else
@@ -252,7 +252,7 @@ void __60__MapsSuggestionsBaseLocationUpdater_considerMyNewLocation___block_invo
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v20 = visitCopy;
+      v22 = visitCopy;
       _os_log_impl(&dword_1C5126000, v11, OS_LOG_TYPE_ERROR, "Dropping invalid visit: %@", buf, 0xCu);
     }
   }
@@ -318,52 +318,52 @@ void __57__MapsSuggestionsBaseLocationUpdater_considerMyNewVisit___block_invoke(
 - (void)considerMyAllowanceAsLimited:(BOOL)limited
 {
   limitedCopy = limited;
-  v19 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v5 = MapsSuggestionsIsInCoarseLocation();
   if (v5 == limitedCopy)
   {
-    if (MapsSuggestionsLoggingIsVerbose())
+    if (MapsSuggestionsLoggingIsVerbose(v5, v6))
     {
-      v12 = GEOFindOrCreateLog();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+      v13 = GEOFindOrCreateLog();
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        LOWORD(v13) = 0;
-        _os_log_impl(&dword_1C5126000, v12, OS_LOG_TYPE_DEBUG, "Location allowance is the same. Doing nothing.", &v13, 2u);
+        LOWORD(v14) = 0;
+        _os_log_impl(&dword_1C5126000, v13, OS_LOG_TYPE_DEBUG, "Location allowance is the same. Doing nothing.", &v14, 2u);
       }
     }
   }
 
   else
   {
-    v6 = v5;
-    v7 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v7 = v5;
+    v8 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       uniqueName = [(MapsSuggestionsBaseLocationUpdater *)self uniqueName];
-      v9 = uniqueName;
-      v10 = "Precise";
-      if (v6)
+      v10 = uniqueName;
+      v11 = "Precise";
+      if (v7)
       {
-        v11 = "Coarse";
+        v12 = "Coarse";
       }
 
       else
       {
-        v11 = "Precise";
+        v12 = "Precise";
       }
 
-      v13 = 138412802;
-      v14 = uniqueName;
-      v16 = v11;
-      v15 = 2080;
+      v14 = 138412802;
+      v15 = uniqueName;
+      v17 = v12;
+      v16 = 2080;
       if (limitedCopy)
       {
-        v10 = "Coarse";
+        v11 = "Coarse";
       }
 
-      v17 = 2080;
-      v18 = v10;
-      _os_log_impl(&dword_1C5126000, v7, OS_LOG_TYPE_DEBUG, "%@ is switched from %s to %s", &v13, 0x20u);
+      v18 = 2080;
+      v19 = v11;
+      _os_log_impl(&dword_1C5126000, v8, OS_LOG_TYPE_DEBUG, "%@ is switched from %s to %s", &v14, 0x20u);
     }
 
     MapsSuggestionsSetInCoarseLocation(limitedCopy);
@@ -377,17 +377,17 @@ void __57__MapsSuggestionsBaseLocationUpdater_considerMyNewVisit___block_invoke(
 
 void __67__MapsSuggestionsBaseLocationUpdater_considerMyAllowanceAsLimited___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = a2;
-  if (MapsSuggestionsLoggingIsVerbose())
+  if (MapsSuggestionsLoggingIsVerbose(v2, v3))
   {
-    v3 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+    v4 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
-      v4 = [v2 uniqueName];
-      v5 = 138412290;
-      v6 = v4;
-      _os_log_impl(&dword_1C5126000, v3, OS_LOG_TYPE_DEBUG, "CALLING{%@} didLoseLocationPermission", &v5, 0xCu);
+      v5 = [v2 uniqueName];
+      v6 = 138412290;
+      v7 = v5;
+      _os_log_impl(&dword_1C5126000, v4, OS_LOG_TYPE_DEBUG, "CALLING{%@} didLoseLocationPermission", &v6, 0xCu);
     }
   }
 

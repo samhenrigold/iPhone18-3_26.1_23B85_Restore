@@ -14,7 +14,7 @@
   }
 
   contextCopy = context;
-  [(TUILayout *)self box];
+  objc_msgSend_box(self);
   v6 = v5 = self;
   urlString = [v6 urlString];
   baseUrl = [v6 baseUrl];
@@ -26,9 +26,9 @@
   controller = [(TUILayout *)v5 controller];
   manager = [controller manager];
   imageResourceCache = [manager imageResourceCache];
-  v16 = [(TUILayout *)v5 box];
+  v16 = objc_msgSend_box(v5);
   posterFrameUrlString = [v16 posterFrameUrlString];
-  v18 = [(TUILayout *)v5 box];
+  v18 = objc_msgSend_box(v5);
   baseUrl2 = [v18 baseUrl];
   [contextCopy contentsScale];
   v41 = [imageResourceCache imageResourceForTemplatedURL:posterFrameUrlString baseURL:baseUrl2 naturalSize:v10 contentsScale:{v12, v20}];
@@ -69,19 +69,19 @@
   rootCopy = root;
   [(TUILayout *)&v32 appendAnchorsToSet:setCopy inRoot:rootCopy];
   axis = [setCopy axis];
-  [(TUILayout *)self computedTransformInAncestorLayout:rootCopy];
+  objc_msgSend_computedTransformInAncestorLayout_(self);
 
   y = CGPointZero.y;
   v10 = y * 0.0 + 0.0 * CGPointZero.x + 0.0;
   [(TUILayout *)self computeHeight];
   v12 = v10 + v11;
   v13 = [TUITrigger alloc];
-  v14 = [(TUILayout *)self box];
+  v14 = objc_msgSend_box(self);
   topTriggerName = [v14 topTriggerName];
   v16 = [(TUITrigger *)v13 initWithName:topTriggerName];
 
   v17 = [TUITrigger alloc];
-  v18 = [(TUILayout *)self box];
+  v18 = objc_msgSend_box(self);
   bottomTriggerName = [v18 bottomTriggerName];
   v20 = [(TUITrigger *)v17 initWithName:bottomTriggerName];
 
@@ -93,12 +93,12 @@
     [(TUILayout *)self computeWidth];
     v23 = v21 + v22;
     v24 = [TUITrigger alloc];
-    v25 = [(TUILayout *)self box];
+    v25 = objc_msgSend_box(self);
     leftTriggerName = [v25 leftTriggerName];
     v27 = [(TUITrigger *)v24 initWithName:leftTriggerName];
 
     v28 = [TUITrigger alloc];
-    v29 = [(TUILayout *)self box];
+    v29 = objc_msgSend_box(self);
     rightTriggerName = [v29 rightTriggerName];
     v31 = [(TUITrigger *)v28 initWithName:rightTriggerName];
 

@@ -742,15 +742,6 @@
   }
 
   objc_sync_exit(obj);
-  *MEMORY[0x1E69E9840];
-}
-
-void __73__CBAdaptationClient_handleBrightnessSystemNotificationForKey_withValue___block_invoke(uint64_t a1)
-{
-  v1 = *(a1 + 48);
-  v2 = *(a1 + 32);
-  (*(*(a1 + 40) + 16))();
-  _Block_release(*(a1 + 40));
 }
 
 - (BOOL)registerNotificationCallbackBlock:(id)block withQueue:(id)queue
@@ -878,11 +869,10 @@ void __73__CBAdaptationClient_handleBrightnessSystemNotificationForKey_withValue
   {
     [(BrightnessSystemClient *)self->bsc registerNotificationForKey:v6];
     MEMORY[0x1E69E5920](v6);
-    v7 = 1;
+    return 1;
   }
 
-  *MEMORY[0x1E69E9840];
-  return v7 & 1;
+  return v7;
 }
 
 - (void)unregisterNotificationForType:(unint64_t)type
@@ -938,8 +928,6 @@ void __73__CBAdaptationClient_handleBrightnessSystemNotificationForKey_withValue
     [(BrightnessSystemClient *)self->bsc unregisterNotificationForKey:v5];
     MEMORY[0x1E69E5920](v5);
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 @end

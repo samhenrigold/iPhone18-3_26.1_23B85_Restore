@@ -2,6 +2,7 @@
 + (id)applicationInfoForBundleIdentifier:(id)identifier;
 + (id)applicationInfoForBundleURL:(id)l;
 + (id)clientIdentifierSaltForBundleIdentifier:(id)identifier error:(id *)error;
++ (id)clientIdentifierSaltWithVendorIdentifier:(id)identifier deviceSpecific:(BOOL)specific error:(id *)error;
 + (id)logCategory;
 - (BOOL)isEqual:(id)equal;
 - (HMDApplicationInfo)init;
@@ -108,19 +109,17 @@
 
 - (id)attributeDescriptions
 {
-  v13[2] = *MEMORY[0x277D85DE8];
+  v12[2] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   bundleIdentifier = [(HMDApplicationInfo *)self bundleIdentifier];
   v5 = [v3 initWithName:@"Bundle Identifier" value:bundleIdentifier];
-  v13[0] = v5;
+  v12[0] = v5;
   v6 = objc_alloc(MEMORY[0x277D0F778]);
   vendorIdentifier = [(HMDApplicationInfo *)self vendorIdentifier];
   defaultFormatter = [MEMORY[0x277D0F8D8] defaultFormatter];
   v9 = [v6 initWithName:@"Vendor Identifier" value:vendorIdentifier options:1 formatter:defaultFormatter];
-  v13[1] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v12[1] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:2];
 
   return v10;
 }
@@ -196,11 +195,11 @@
   v9 = [(HMDApplicationInfo *)&v19 init];
   if (v9)
   {
-    v10 = [v8 copy];
+    v10 = objc_msgSend_copy(v8);
     bundleURL = v9->_bundleURL;
     v9->_bundleURL = v10;
 
-    v12 = [identifierCopy copy];
+    v12 = objc_msgSend_copy(identifierCopy);
     bundleIdentifier = v9->_bundleIdentifier;
     v9->_bundleIdentifier = v12;
 
@@ -240,12 +239,42 @@
 
 uint64_t __33__HMDApplicationInfo_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v9_84840;
-  logCategory__hmf_once_v9_84840 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v9_84840;
+  logCategory__hmf_once_v9_84840 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
+}
+
++ (id)clientIdentifierSaltWithVendorIdentifier:(id)identifier deviceSpecific:(BOOL)specific error:(id *)error
+{
+  specificCopy = specific;
+  identifierCopy = identifier;
+  if (identifierCopy)
+  {
+    v8 = [HMDHomeManager createIdentifierSalt:identifierCopy deviceSpecific:specificCopy];
+    v9 = v8;
+    if (error && !v8)
+    {
+      v10 = @"Unable to generate device specific salt.";
+LABEL_7:
+      [MEMORY[0x277CCA9B8] hmErrorWithCode:2 description:0 reason:v10 suggestion:0];
+      *error = v9 = 0;
+    }
+  }
+
+  else
+  {
+    if (error)
+    {
+      v10 = @"Unable to determine vendor identifier.";
+      goto LABEL_7;
+    }
+
+    v9 = 0;
+  }
+
+  return v9;
 }
 
 + (id)clientIdentifierSaltForBundleIdentifier:(id)identifier error:(id *)error
@@ -261,7 +290,7 @@ uint64_t __33__HMDApplicationInfo_logCategory__block_invoke()
 
 + (id)applicationInfoForBundleIdentifier:(id)identifier
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   if (!identifierCopy)
   {
@@ -277,18 +306,18 @@ uint64_t __33__HMDApplicationInfo_logCategory__block_invoke()
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v21 = v9;
-    v22 = 2112;
-    v23 = identifierCopy;
-    v24 = 2112;
-    v25 = v5;
+    v20 = v9;
+    v21 = 2112;
+    v22 = identifierCopy;
+    v23 = 2112;
+    v24 = v5;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Initializing application info with URL: %@, extension: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v19 = 0;
-  v10 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v19];
-  v11 = v19;
+  v18 = 0;
+  v10 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:identifierCopy allowPlaceholder:0 error:&v18];
+  v11 = v18;
   applicationState = [v10 applicationState];
   isValid = [applicationState isValid];
 
@@ -314,14 +343,13 @@ uint64_t __33__HMDApplicationInfo_logCategory__block_invoke()
 LABEL_10:
 
 LABEL_11:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
 
 + (id)applicationInfoForBundleURL:(id)l
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if (!lCopy)
   {
@@ -337,18 +365,18 @@ LABEL_11:
   {
     v9 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v21 = v9;
-    v22 = 2112;
-    v23 = lCopy;
-    v24 = 2112;
-    v25 = v5;
+    v20 = v9;
+    v21 = 2112;
+    v22 = lCopy;
+    v23 = 2112;
+    v24 = v5;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Initializing application info with URL: %@, extension: %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v6);
-  v19 = 0;
-  v10 = [objc_alloc(MEMORY[0x277CC1E70]) initWithURL:lCopy allowPlaceholder:0 error:&v19];
-  v11 = v19;
+  v18 = 0;
+  v10 = [objc_alloc(MEMORY[0x277CC1E70]) initWithURL:lCopy allowPlaceholder:0 error:&v18];
+  v11 = v18;
   applicationState = [v10 applicationState];
   isValid = [applicationState isValid];
 
@@ -374,7 +402,6 @@ LABEL_11:
 LABEL_10:
 
 LABEL_11:
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

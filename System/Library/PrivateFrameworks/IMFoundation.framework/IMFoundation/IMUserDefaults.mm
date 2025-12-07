@@ -9,14 +9,10 @@
 + (NSString)writePushPayloadsToDiskPath;
 + (id)sharedDefaults;
 + (int64_t)phoneNumberValidationMode;
++ (void)setEnableEngram:(BOOL)engram;
++ (void)setEnableLiveDeliveryWarmUp:(BOOL)up;
 + (void)setPhoneNumberValidationMode:(int64_t)mode;
 + (void)setPhoneNumberValidationPreflightTestData:(id)data;
-- (id)copyKeyListForAppID:(id)d;
-- (id)copyMultipleForCurrentKeys:(id)keys appID:(id)d;
-- (id)copyValueForKey:(id)key appID:(id)d;
-- (void)setMultiple:(id)multiple remove:(id)remove appID:(id)d;
-- (void)setValue:(void *)value forKey:(id)key appID:(id)d;
-- (void)synchronizeAppID:(id)d;
 @end
 
 @implementation IMUserDefaults
@@ -54,6 +50,14 @@
   v6 = objc_msgSend_BOOLForKey_(v4, v5, @"ShouldDisableFailFastWhenSatelliteIsAvailable");
 
   return v6;
+}
+
++ (void)setEnableEngram:(BOOL)engram
+{
+  engramCopy = engram;
+  v4 = objc_alloc(MEMORY[0x1E695E000]);
+  v7 = objc_msgSend_initWithSuiteName_(v4, v5, @"com.apple.ids");
+  objc_msgSend_setBool_forKey_(v7, v6, engramCopy, @"EnableEngramVersion");
 }
 
 + (BOOL)isEngramEnabled
@@ -99,6 +103,14 @@
   return v6;
 }
 
++ (void)setEnableLiveDeliveryWarmUp:(BOOL)up
+{
+  upCopy = up;
+  v4 = objc_alloc(MEMORY[0x1E695E000]);
+  v7 = objc_msgSend_initWithSuiteName_(v4, v5, @"com.apple.ids");
+  objc_msgSend_setBool_forKey_(v7, v6, upCopy, @"EnableLiveDeliveryWarmUp");
+}
+
 + (BOOL)isLiveDeliveryWarmUpEnabled
 {
   v2 = objc_alloc(MEMORY[0x1E695E000]);
@@ -133,48 +145,6 @@
   v6 = objc_msgSend_stringForKey_(v4, v5, @"WritePushPayloadsToDiskPath");
 
   return v6;
-}
-
-- (void)setValue:(void *)value forKey:(id)key appID:(id)d
-{
-  v5 = *MEMORY[0x1E695E8B8];
-  v6 = *MEMORY[0x1E695E898];
-  MEMORY[0x1EEE66B58](self, sel_setValue_forKey_applicationID_userName_hostName_, value);
-}
-
-- (void)setMultiple:(id)multiple remove:(id)remove appID:(id)d
-{
-  v5 = *MEMORY[0x1E695E8B8];
-  v6 = *MEMORY[0x1E695E898];
-  MEMORY[0x1EEE66B58](self, sel_setMultiple_remove_applicationID_userName_hostName_, multiple);
-}
-
-- (void)synchronizeAppID:(id)d
-{
-  v3 = *MEMORY[0x1E695E8B8];
-  v4 = *MEMORY[0x1E695E898];
-  MEMORY[0x1EEE66B58](self, sel_synchronizeApplicationID_userName_hostName_, d);
-}
-
-- (id)copyKeyListForAppID:(id)d
-{
-  v3 = *MEMORY[0x1E695E8B8];
-  v4 = *MEMORY[0x1E695E898];
-  return MEMORY[0x1EEE66B58](self, sel_copyKeyListForApplicationID_userName_hostName_, d);
-}
-
-- (id)copyMultipleForCurrentKeys:(id)keys appID:(id)d
-{
-  v4 = *MEMORY[0x1E695E8B8];
-  v5 = *MEMORY[0x1E695E898];
-  return MEMORY[0x1EEE66B58](self, sel_copyMultipleForCurrentKeys_applicationID_userName_hostName_, keys);
-}
-
-- (id)copyValueForKey:(id)key appID:(id)d
-{
-  v4 = *MEMORY[0x1E695E8B8];
-  v5 = *MEMORY[0x1E695E898];
-  return MEMORY[0x1EEE66B58](self, sel_copyValueForKey_applicationID_userName_hostName_, key);
 }
 
 @end

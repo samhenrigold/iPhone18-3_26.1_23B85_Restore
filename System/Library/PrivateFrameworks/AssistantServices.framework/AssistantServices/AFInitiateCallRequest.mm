@@ -42,14 +42,12 @@
 
 - (id)description
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   call = self->_call;
-  v8 = @"call";
-  v9[0] = call;
-  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = @"call";
+  v8[0] = call;
+  v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [(AFSiriRequest *)self _descriptionWithProperties:v4];
-
-  v6 = *MEMORY[0x1E69E9840];
 
   return v5;
 }

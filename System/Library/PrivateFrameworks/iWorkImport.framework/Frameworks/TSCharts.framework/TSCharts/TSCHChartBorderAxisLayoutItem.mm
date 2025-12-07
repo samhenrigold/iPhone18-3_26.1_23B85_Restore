@@ -8,23 +8,23 @@
 - (void)buildSubTree
 {
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  objc_msgSend_layoutSettings(self, v4, v5, v6, v7);
-  if ((v76 & 1) == 0)
+  objc_msgSend_layoutSettings(self, v4, v5, v6);
+  if ((v75 & 1) == 0)
   {
-    v8 = [TSCHChartAxisTitleLayoutItem alloc];
-    v13 = objc_msgSend_initWithParent_(v8, v9, v10, v11, v12, self);
+    v7 = [TSCHChartAxisTitleLayoutItem alloc];
+    v12 = objc_msgSend_initWithParent_(v7, v8, v9, v10, v11, self);
     axisTitle = self->super._axisTitle;
-    self->super._axisTitle = v13;
+    self->super._axisTitle = v12;
 
-    objc_msgSend_addObject_(v3, v15, v16, v17, v18, self->super._axisTitle);
+    objc_msgSend_addObject_(v3, v14, v15, v16, v17, self->super._axisTitle);
   }
 
-  v19 = [TSCHChartAxisLineLayoutItem alloc];
-  v24 = objc_msgSend_initWithParent_(v19, v20, v21, v22, v23, self);
+  v18 = [TSCHChartAxisLineLayoutItem alloc];
+  v23 = objc_msgSend_initWithParent_(v18, v19, v20, v21, v22, self);
   axisLine = self->super._axisLine;
-  self->super._axisLine = v24;
+  self->super._axisLine = v23;
 
-  objc_msgSend_addObject_(v3, v26, v27, v28, v29, self->super._axisLine);
+  objc_msgSend_addObject_(v3, v25, v26, v27, v28, self->super._axisLine);
   axisPosition = self->super._axisPosition;
   if (axisPosition == 1 || axisPosition == 4)
   {
@@ -37,28 +37,28 @@
 
   else
   {
-    v34 = [TSCHChartReferenceLineLabelPaddingLayoutItem alloc];
-    v39 = objc_msgSend_referenceLineLabelAxisID(self, v35, v36, v37, v38);
-    v44 = objc_msgSend_initWithParent_axisID_(v34, v40, v41, v42, v43, self, v39);
-    v45 = self->super._refLineLabelPadding;
-    self->super._refLineLabelPadding = v44;
+    v33 = [TSCHChartReferenceLineLabelPaddingLayoutItem alloc];
+    v38 = objc_msgSend_referenceLineLabelAxisID(self, v34, v35, v36, v37);
+    v43 = objc_msgSend_initWithParent_axisID_(v33, v39, v40, v41, v42, self, v38);
+    v44 = self->super._refLineLabelPadding;
+    self->super._refLineLabelPadding = v43;
 
-    objc_msgSend_addObject_(v3, v46, v47, v48, v49, self->super._refLineLabelPadding);
-    v50 = [TSCHChartReferenceLineLabelsLayoutItem alloc];
-    v55 = objc_msgSend_referenceLineLabelAxisID(self, v51, v52, v53, v54);
-    v60 = objc_msgSend_initWithParent_axisID_(v50, v56, v57, v58, v59, self, v55);
-    v61 = self->super._refLineLabels;
-    self->super._refLineLabels = v60;
+    objc_msgSend_addObject_(v3, v45, v46, v47, v48, self->super._refLineLabelPadding);
+    v49 = [TSCHChartReferenceLineLabelsLayoutItem alloc];
+    v54 = objc_msgSend_referenceLineLabelAxisID(self, v50, v51, v52, v53);
+    v59 = objc_msgSend_initWithParent_axisID_(v49, v55, v56, v57, v58, self, v54);
+    v60 = self->super._refLineLabels;
+    self->super._refLineLabels = v59;
 
-    objc_msgSend_addObject_(v3, v62, v63, v64, v65, self->super._refLineLabels);
+    objc_msgSend_addObject_(v3, v61, v62, v63, v64, self->super._refLineLabels);
   }
 
-  v70 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEA60], v66, v67, v68, v69, v3);
-  objc_msgSend_setChildren_(self, v71, v72, v73, v74, v70);
+  v69 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEA60], v65, v66, v67, v68, v3);
+  objc_msgSend_setChildren_(self, v70, v71, v72, v73, v69);
 
-  v75.receiver = self;
-  v75.super_class = TSCHChartBorderAxisLayoutItem;
-  [(TSCHChartLayoutItem *)&v75 buildSubTree];
+  v74.receiver = self;
+  v74.super_class = TSCHChartBorderAxisLayoutItem;
+  [(TSCHChartLayoutItem *)&v74 buildSubTree];
 }
 
 - (id)renderersWithRep:(id)rep

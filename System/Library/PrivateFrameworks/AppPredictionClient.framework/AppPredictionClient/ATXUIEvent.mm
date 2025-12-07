@@ -257,47 +257,48 @@
   if (protoCopy)
   {
     objc_opt_class();
-    if ((objc_opt_isKindOfClass() & 1) == 0)
+    isKindOfClass = objc_opt_isKindOfClass();
+    if ((isKindOfClass & 1) == 0)
     {
-      v5 = __atxlog_handle_default();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
+      v6 = __atxlog_handle_default(isKindOfClass);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
-        [ATXUIEvent initWithProto:];
+        [ATXUIEvent initWithProto:?];
       }
 
       selfCopy = 0;
       goto LABEL_29;
     }
 
-    v5 = protoCopy;
-    consumerSubType = [(ATXPBUIEvent *)v5 consumerSubType];
-    v15 = 0;
-    v7 = [MEMORY[0x1E698B028] consumerSubtypeForString:consumerSubType found:&v15];
-    if (v15 == 1)
+    v6 = protoCopy;
+    consumerSubType = [(ATXPBUIEvent *)v6 consumerSubType];
+    v16 = 0;
+    v8 = [MEMORY[0x1E698B028] consumerSubtypeForString:consumerSubType found:&v16];
+    if (v16 == 1)
     {
-      v8 = v7;
+      v9 = v8;
       selfCopy = 0;
-      if (v7 <= 33)
+      if (v8 <= 33)
       {
-        if (v7)
+        if (v8)
         {
-          if (v7 == 9)
+          if (v8 == 9)
           {
-            v10 = off_1E80BF9D0;
+            v11 = off_1E80BF9D0;
             goto LABEL_26;
           }
 
-          if (v7 == 22)
+          if (v8 == 22)
           {
-            v10 = off_1E80BF510;
+            v11 = off_1E80BF510;
             goto LABEL_26;
           }
 
 LABEL_20:
-          v11 = __atxlog_handle_default();
-          if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+          v12 = __atxlog_handle_default(v8);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
           {
-            [(ATXUIEvent *)self initWithProto:v8];
+            [(ATXUIEvent *)self initWithProto:v9];
           }
 
           selfCopy = 0;
@@ -307,23 +308,23 @@ LABEL_20:
 
       else
       {
-        if (v7 <= 42)
+        if (v8 <= 42)
         {
-          if (v7 == 34)
+          if (v8 == 34)
           {
-            v10 = off_1E80BF400;
+            v11 = off_1E80BF400;
             goto LABEL_26;
           }
 
-          if (v7 == 35)
+          if (v8 == 35)
           {
-            v10 = off_1E80BF0D0;
+            v11 = off_1E80BF0D0;
 LABEL_26:
-            v12 = objc_alloc(*v10);
-            event = [(ATXPBUIEvent *)v5 event];
-            v11 = [v12 initWithProtoData:event];
+            v13 = objc_alloc(*v11);
+            event = [(ATXPBUIEvent *)v6 event];
+            v12 = [v13 initWithProtoData:event];
 
-            self = [(ATXUIEvent *)self initWithConsumerSubType:v8 event:v11];
+            self = [(ATXUIEvent *)self initWithConsumerSubType:v9 event:v12];
             selfCopy = self;
 LABEL_27:
 
@@ -333,13 +334,13 @@ LABEL_27:
           goto LABEL_20;
         }
 
-        if (v7 == 43)
+        if (v8 == 43)
         {
-          v10 = 0x1E69C5BE8;
+          v11 = 0x1E69C5BE8;
           goto LABEL_26;
         }
 
-        if (v7 != 50)
+        if (v8 != 50)
         {
           goto LABEL_20;
         }
@@ -526,12 +527,12 @@ LABEL_7:
   _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
 }
 
-- (void)initWithProto:.cold.1()
+- (void)initWithProto:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v6 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v7 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2_0();
-  _os_log_fault_impl(v1, v2, v3, v4, v5, 0xCu);
+  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 - (void)initWithProto:(uint64_t)a1 .cold.2(uint64_t a1, unsigned __int8 a2)

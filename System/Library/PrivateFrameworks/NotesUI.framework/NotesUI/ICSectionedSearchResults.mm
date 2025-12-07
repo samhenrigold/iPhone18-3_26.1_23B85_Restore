@@ -150,7 +150,7 @@
   {
     v5 = [MEMORY[0x1E695DFA8] set];
     userInfo = [changeCopy userInfo];
-    v7 = [userInfo objectForKeyedSubscript:*MEMORY[0x1E695D2F8]];
+    v7 = objc_msgSend_objectForKeyedSubscript_(userInfo);
 
     if ([v7 count])
     {
@@ -159,7 +159,7 @@
 
     v25 = v7;
     userInfo2 = [changeCopy userInfo];
-    v9 = [userInfo2 objectForKeyedSubscript:*MEMORY[0x1E695D4D0]];
+    v9 = objc_msgSend_objectForKeyedSubscript_(userInfo2);
 
     if ([v9 count])
     {
@@ -212,7 +212,7 @@
     allObjects = [v10 allObjects];
     v21 = [(ICSectionedSearchResults *)self removeSearchResultsWithIdentifiers:allObjects forHiding:0];
 
-    if (v21 || ([changeCopy userInfo], v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v22, "objectForKeyedSubscript:", *MEMORY[0x1E695D330]), v23 = objc_claimAutoreleasedReturnValue(), v23, v22, v23))
+    if (v21 || ([changeCopy userInfo], v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend_objectForKeyedSubscript_(v22), v23 = objc_claimAutoreleasedReturnValue(), v23, v22, v23))
     {
       objc_initWeak(&location, self);
       block[0] = MEMORY[0x1E69E9820];
@@ -258,7 +258,7 @@ void __45__ICSectionedSearchResults_objectsDidChange___block_invoke(uint64_t a1)
       {
         v10 = [(ICSectionedSearchResults *)self searchResultSectionForSectionIndex:i];
         hiddenSearchResults = [v10 hiddenSearchResults];
-        v12 = [hiddenSearchResults objectForKeyedSubscript:searchIndexingIdentifier];
+        v12 = objc_msgSend_objectForKeyedSubscript_(hiddenSearchResults);
 
         if (!v12)
         {
@@ -310,7 +310,7 @@ LABEL_11:
       {
         v9 = [(ICSectionedSearchResults *)self searchResultSectionForSectionIndex:i];
         unhiddenSearchResults = [v9 unhiddenSearchResults];
-        v11 = [unhiddenSearchResults objectForKeyedSubscript:searchIndexingIdentifier];
+        v11 = objc_msgSend_objectForKeyedSubscript_(unhiddenSearchResults);
 
         if (!v11)
         {
@@ -367,7 +367,7 @@ LABEL_11:
   {
     searchResultsBySection = [(ICSectionedSearchResults *)self searchResultsBySection];
     v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v3];
-    v7 = [searchResultsBySection objectForKeyedSubscript:v6];
+    v7 = objc_msgSend_objectForKeyedSubscript_(searchResultsBySection);
     searchResults = [v7 searchResults];
     v9 = [searchResults count];
 
@@ -495,7 +495,7 @@ uint64_t __51__ICSectionedSearchResults_searchResultWithObject___block_invoke(ui
 
   searchResultsBySection = [(ICSectionedSearchResults *)self searchResultsBySection];
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:index];
-  v8 = [searchResultsBySection objectForKeyedSubscript:v7];
+  v8 = objc_msgSend_objectForKeyedSubscript_(searchResultsBySection);
 
   return v8;
 }
@@ -871,7 +871,7 @@ LABEL_18:
           }
 
           v17 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v15];
-          array = [dictionary objectForKeyedSubscript:v17];
+          array = objc_msgSend_objectForKeyedSubscript_(dictionary);
 
           if (!array)
           {
@@ -933,7 +933,7 @@ LABEL_18:
         }
 
         v13 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:integerValue];
-        v14 = [sectionCopy objectForKeyedSubscript:v13];
+        v14 = objc_msgSend_objectForKeyedSubscript_(sectionCopy);
 
         v8 += [v14 count];
         [(ICSectionedSearchResults *)self addSearchResults:v14 toSection:integerValue];
@@ -1009,7 +1009,7 @@ uint64_t __69__ICSectionedSearchResults_filterSearchResultsUsingVisiblityTesting
   {
     searchResultsBySection = [(ICSectionedSearchResults *)self searchResultsBySection];
     v8 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:i];
-    v9 = [searchResultsBySection objectForKeyedSubscript:v8];
+    v9 = objc_msgSend_objectForKeyedSubscript_(searchResultsBySection);
 
     v5 |= [v9 removeSearchResultForIdentifier:identifierCopy forHiding:1];
   }
@@ -1109,10 +1109,10 @@ LABEL_14:
   {
     searchResultsBySection = [(ICSectionedSearchResults *)self searchResultsBySection];
     v10 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v7];
-    v11 = [searchResultsBySection objectForKeyedSubscript:v10];
+    v11 = objc_msgSend_objectForKeyedSubscript_(searchResultsBySection);
 
     identifierToSearchResult = [v11 identifierToSearchResult];
-    v13 = [identifierToSearchResult objectForKeyedSubscript:searchIndexingIdentifier];
+    v13 = objc_msgSend_objectForKeyedSubscript_(identifierToSearchResult);
 
     if (v13)
     {

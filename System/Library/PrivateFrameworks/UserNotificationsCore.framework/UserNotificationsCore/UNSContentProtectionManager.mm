@@ -2,6 +2,7 @@
 - (BOOL)deviceUnlockedSinceBoot;
 - (BOOL)isProtectedDataAvailable;
 - (UNSContentProtectionManager)init;
+- (id)contentProtectionStrategyForMinimumProtection:(id)protection excludedFromBackup:(BOOL)backup;
 - (int64_t)_queue_keyBagLockState;
 - (int64_t)observedState;
 - (void)_queue_adjustContentProtectionStateWithBlock:(id)block;
@@ -39,7 +40,7 @@
   return v4;
 }
 
-uint64_t __44__UNSContentProtectionManager_observedState__block_invoke(uint64_t a1)
+void *__44__UNSContentProtectionManager_observedState__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_observedState];
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -57,7 +58,7 @@ void __35__UNSContentProtectionManager_init__block_invoke_2(uint64_t a1)
   [v3 _queue_adjustContentProtectionStateWithBlock:v2];
 }
 
-uint64_t __35__UNSContentProtectionManager_init__block_invoke_3(uint64_t a1)
+void *__35__UNSContentProtectionManager_init__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) _queue_keyBagLockState];
   *(*(a1 + 32) + 8) = result;
@@ -159,19 +160,17 @@ uint64_t __35__UNSContentProtectionManager_init__block_invoke(uint64_t a1)
 
 uint64_t __60__UNSContentProtectionManager_addContentProtectionObserver___block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *MEMORY[0x1E6983360];
   if (os_log_type_enabled(*MEMORY[0x1E6983360], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138543362;
-    v7 = v3;
-    _os_log_impl(&dword_1DA7A9000, v2, OS_LOG_TYPE_DEFAULT, "Added content protection observer %{public}@", &v6, 0xCu);
+    v5 = 138543362;
+    v6 = v3;
+    _os_log_impl(&dword_1DA7A9000, v2, OS_LOG_TYPE_DEFAULT, "Added content protection observer %{public}@", &v5, 0xCu);
   }
 
-  result = [*(*(a1 + 40) + 32) addObserver:*(a1 + 32) forKey:@"*"];
-  v5 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(*(a1 + 40) + 32) addObserver:*(a1 + 32) forKey:@"*"];
 }
 
 - (void)removeContentProtectionObserver:(id)observer
@@ -210,9 +209,28 @@ uint64_t __60__UNSContentProtectionManager_addContentProtectionObserver___block_
   return selfCopy;
 }
 
+- (id)contentProtectionStrategyForMinimumProtection:(id)protection excludedFromBackup:(BOOL)backup
+{
+  backupCopy = backup;
+  protectionCopy = protection;
+  if (*MEMORY[0x1E696A3A8] == protectionCopy)
+  {
+    v7 = [[UNCAtomicDataContentProtectionStrategy alloc] initWithFileProtectionType:*MEMORY[0x1E696A3A8] excludeFromBackup:backupCopy];
+  }
+
+  else
+  {
+    v7 = [[UNCHybridContentProtectionStrategy alloc] initWithFileProtectionType:protectionCopy excludeFromBackup:backupCopy delegate:self];
+  }
+
+  v8 = v7;
+
+  return v8;
+}
+
 - (void)_queue_adjustContentProtectionStateWithBlock:(id)block
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   queue = self->_queue;
   blockCopy = block;
   dispatch_assert_queue_V2(queue);
@@ -269,9 +287,9 @@ uint64_t __60__UNSContentProtectionManager_addContentProtectionObserver___block_
       }
 
       *buf = 138543618;
-      v29 = v19;
-      v30 = 2114;
-      v31 = v21;
+      v28 = v19;
+      v29 = 2114;
+      v30 = v21;
       v24 = v16;
       _os_log_impl(&dword_1DA7A9000, v24, OS_LOG_TYPE_DEFAULT, "Ignoring no-op keybag transition (%{public}@ -> %{public}@)", buf, 0x16u);
     }
@@ -302,23 +320,21 @@ uint64_t __60__UNSContentProtectionManager_addContentProtectionObserver___block_
       }
 
       *buf = 138543618;
-      v29 = v18;
-      v30 = 2114;
-      v31 = v20;
+      v28 = v18;
+      v29 = 2114;
+      v30 = v20;
       v22 = v16;
       _os_log_impl(&dword_1DA7A9000, v22, OS_LOG_TYPE_DEFAULT, "Key bag transitioning from %{public}@ to %{public}@", buf, 0x16u);
     }
 
     observable = self->_observable;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __76__UNSContentProtectionManager__queue_adjustContentProtectionStateWithBlock___block_invoke;
-    v26[3] = &__block_descriptor_33_e40_v16__0___UNCContentProtectionObserver__8l;
-    v27 = v11;
-    [(UNCKeyedObservable *)observable notifyObserversKey:@"*" usingBlock:v26];
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __76__UNSContentProtectionManager__queue_adjustContentProtectionStateWithBlock___block_invoke;
+    v25[3] = &__block_descriptor_33_e40_v16__0___UNCContentProtectionObserver__8l;
+    v26 = v11;
+    [(UNCKeyedObservable *)observable notifyObserversKey:@"*" usingBlock:v25];
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 @end

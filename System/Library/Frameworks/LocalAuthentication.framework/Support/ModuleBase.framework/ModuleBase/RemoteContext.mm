@@ -34,7 +34,7 @@
 
 - (void)dealloc
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (LA_LOG_once_0 != -1)
   {
     [RemoteContext dealloc];
@@ -48,10 +48,9 @@
     _os_log_impl(&dword_238BBF000, v3, OS_LOG_TYPE_DEFAULT, "%{public}@ deallocated", buf, 0xCu);
   }
 
-  v5.receiver = self;
-  v5.super_class = RemoteContext;
-  [(RemoteContext *)&v5 dealloc];
-  v4 = *MEMORY[0x277D85DE8];
+  v4.receiver = self;
+  v4.super_class = RemoteContext;
+  [(RemoteContext *)&v4 dealloc];
 }
 
 - (id)description

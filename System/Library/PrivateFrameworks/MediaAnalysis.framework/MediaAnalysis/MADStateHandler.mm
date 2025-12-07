@@ -50,11 +50,11 @@
   return v2;
 }
 
-void __37__MADStateHandler_sharedStateHandler__block_invoke()
+void __37__MADStateHandler_sharedStateHandler__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_alloc_init(objc_opt_class());
-  v1 = sharedStateHandler_instance;
-  sharedStateHandler_instance = v0;
+  v2 = objc_alloc_init(objc_opt_class());
+  v3 = sharedStateHandler_instance;
+  sharedStateHandler_instance = v2;
 }
 
 - (void)addBreadcrumb:(id)breadcrumb

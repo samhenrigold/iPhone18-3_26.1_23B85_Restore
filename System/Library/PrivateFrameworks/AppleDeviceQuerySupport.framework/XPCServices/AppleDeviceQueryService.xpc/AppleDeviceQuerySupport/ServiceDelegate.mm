@@ -13,22 +13,22 @@
   v6 = +[(ZhuGeSingletonService *)ZhuGeService];
   [connectionCopy setExportedObject:v6];
 
-  if (isZhuGeInRestoreOS())
+  if (isZhuGeInRestoreOS(v7, v8))
   {
-    v7 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___ZhuGeRestoreLogProtocol];
-    [connectionCopy setRemoteObjectInterface:v7];
+    v9 = [NSXPCInterface interfaceWithProtocol:&OBJC_PROTOCOL___ZhuGeRestoreLogProtocol];
+    [connectionCopy setRemoteObjectInterface:v9];
   }
 
   [connectionCopy activate];
-  v8 = +[(ZhuGeSingletonService *)ZhuGeLockerService];
-  [v8 setXpcConnection:connectionCopy];
+  v10 = +[(ZhuGeSingletonService *)ZhuGeLockerService];
+  [v10 setXpcConnection:connectionCopy];
 
-  v12 = 0;
-  v9 = [ZhuGeSupportAssistant getSharedInstanceByName:@"OBJC_CLASS_$_ZhuGeLockerArmory" withError:&v12];
-  v10 = v9;
-  if (v9)
+  v14 = 0;
+  v11 = [ZhuGeSupportAssistant getSharedInstanceByName:@"OBJC_CLASS_$_ZhuGeLockerArmory" withError:&v14];
+  v12 = v11;
+  if (v11)
   {
-    [v9 setXpcConnection:connectionCopy];
+    [v11 setXpcConnection:connectionCopy];
   }
 
   return 1;

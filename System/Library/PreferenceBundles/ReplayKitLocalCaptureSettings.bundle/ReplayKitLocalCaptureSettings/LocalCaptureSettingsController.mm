@@ -17,7 +17,11 @@
 - (void)setSwitchState:(__CFString *)state value:(id)value;
 - (void)showDocumentPicker:(id)picker;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation LocalCaptureSettingsController
@@ -41,6 +45,76 @@
 
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterAddObserver(DarwinNotifyCenter, self, sub_1714, @"com.apple.replaykit.audioOnlyPreferenceChanged", 0, CFNotificationSuspensionBehaviorDeliverImmediately);
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  if (__RPLogLevel <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v8 = "[LocalCaptureSettingsController viewWillAppear:]";
+    v9 = 1024;
+    v10 = 51;
+    _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
+  }
+
+  v6.receiver = self;
+  v6.super_class = LocalCaptureSettingsController;
+  [(LocalCaptureSettingsController *)&v6 viewWillAppear:appearCopy];
+  table = [(LocalCaptureSettingsController *)self table];
+  [table reloadData];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  if (__RPLogLevel <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v7 = "[LocalCaptureSettingsController viewDidAppear:]";
+    v8 = 1024;
+    v9 = 57;
+    _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
+  }
+
+  v5.receiver = self;
+  v5.super_class = LocalCaptureSettingsController;
+  [(LocalCaptureSettingsController *)&v5 viewDidAppear:appearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  if (__RPLogLevel <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v7 = "[LocalCaptureSettingsController viewWillDisappear:]";
+    v8 = 1024;
+    v9 = 62;
+    _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
+  }
+
+  v5.receiver = self;
+  v5.super_class = LocalCaptureSettingsController;
+  [(LocalCaptureSettingsController *)&v5 viewWillDisappear:disappearCopy];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  if (__RPLogLevel <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v7 = "[LocalCaptureSettingsController viewDidDisappear:]";
+    v8 = 1024;
+    v9 = 67;
+    _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
+  }
+
+  v5.receiver = self;
+  v5.super_class = LocalCaptureSettingsController;
+  [(LocalCaptureSettingsController *)&v5 viewDidDisappear:disappearCopy];
 }
 
 - (void)dealloc

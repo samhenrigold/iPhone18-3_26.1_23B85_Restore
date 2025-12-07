@@ -151,7 +151,7 @@
         }
 
         v8 = *(*(&v13 + 1) + 8 * v7);
-        [(PTCinematographyFrame *)self time];
+        objc_msgSend_time(self);
         v9 = v11;
         v10 = v12;
         [v8 setTime:&v9];
@@ -292,7 +292,7 @@
 - (NSString)description
 {
   v3 = MEMORY[0x277CCACA8];
-  [(PTCinematographyFrame *)self time];
+  objc_msgSend_time(self, a2);
   v4 = NSStringFromCMTime(&v13);
   focusDetection = [(PTCinematographyFrame *)self focusDetection];
   focusIdentifier = [focusDetection focusIdentifier];
@@ -359,10 +359,10 @@
     if (objc_opt_isKindOfClass())
     {
       v5 = equalCopy;
-      [(PTCinematographyFrame *)self time];
+      objc_msgSend_time(self);
       if (v5)
       {
-        [(PTCinematographyFrame *)v5 time];
+        objc_msgSend_time(v5);
       }
 
       else
@@ -404,7 +404,7 @@
 
 - (unint64_t)hash
 {
-  [(PTCinematographyFrame *)self time];
+  objc_msgSend_time(self, a2);
   Seconds = CMTimeGetSeconds(&time);
   [(PTCinematographyFrame *)self aperture];
   v5 = v4 + Seconds * 600.0;
@@ -417,7 +417,7 @@
   v4 = objc_alloc_init(PTCinematographyFrame);
   if (v4)
   {
-    [(PTCinematographyFrame *)self time];
+    objc_msgSend_time(self);
     v15 = v17;
     v16 = v18;
     [(PTCinematographyFrame *)v4 setTime:&v15];
@@ -725,9 +725,9 @@
 - (id)_initWithCinematographyDictionary:(id)dictionary
 {
   dictionaryCopy = dictionary;
-  v49.receiver = self;
-  v49.super_class = PTCinematographyFrame;
-  v5 = [(PTCinematographyFrame *)&v49 init];
+  v50.receiver = self;
+  v50.super_class = PTCinematographyFrame;
+  v5 = [(PTCinematographyFrame *)&v50 init];
   if (v5)
   {
     v6 = [dictionaryCopy objectForKeyedSubscript:@"trackers"];
@@ -755,9 +755,9 @@
 
     else
     {
-      LODWORD(v48.value) = 0;
+      LODWORD(v49.value) = 0;
       v15 = [dictionaryCopy objectForKeyedSubscript:@"coefficients"];
-      v17 = [v5 _focusDetectionFromCoefficientsDictionary:v15 coefficient:&v48];
+      v17 = [v5 _focusDetectionFromCoefficientsDictionary:v15 coefficient:&v49];
       v18 = *(v5 + 9);
       *(v5 + 9) = v17;
 
@@ -765,91 +765,91 @@
       v20 = *(v5 + 11);
       *(v5 + 11) = trackNumber;
 
-      *(v5 + 6) = 1.0 - *&v48.value;
+      *(v5 + 6) = 1.0 - *&v49.value;
       if (!*(v5 + 9))
       {
-        v21 = _PTLogSystem();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+        v22 = _PTLogSystem(v21);
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
-          [(PTCinematographyFrame(Private) *)v15 _initWithCinematographyDictionary:v21];
+          [(PTCinematographyFrame(Private) *)v15 _initWithCinematographyDictionary:v22];
         }
       }
     }
 
-    v22 = [dictionaryCopy objectForKeyedSubscript:@"transition_elapsed_time"];
-    [v22 floatValue];
-    *(v5 + 7) = v23;
+    v23 = [dictionaryCopy objectForKeyedSubscript:@"transition_elapsed_time"];
+    [v23 floatValue];
+    *(v5 + 7) = v24;
 
-    v24 = [dictionaryCopy objectForKeyedSubscript:@"transition_duration"];
-    [v24 floatValue];
-    *(v5 + 8) = v25;
+    v25 = [dictionaryCopy objectForKeyedSubscript:@"transition_duration"];
+    [v25 floatValue];
+    *(v5 + 8) = v26;
 
-    v26 = [dictionaryCopy objectForKeyedSubscript:@"base_track_id"];
-    v27 = v26;
-    if (!v26)
+    v27 = [dictionaryCopy objectForKeyedSubscript:@"base_track_id"];
+    v28 = v27;
+    if (!v27)
     {
-      v27 = *(v5 + 11);
+      v28 = *(v5 + 11);
     }
 
-    objc_storeStrong(v5 + 12, v27);
+    objc_storeStrong(v5 + 12, v28);
 
-    v28 = [dictionaryCopy objectForKeyedSubscript:@"user_track_id"];
-    v29 = *(v5 + 13);
-    *(v5 + 13) = v28;
+    v29 = [dictionaryCopy objectForKeyedSubscript:@"user_track_id"];
+    v30 = *(v5 + 13);
+    *(v5 + 13) = v29;
 
-    v30 = [dictionaryCopy objectForKeyedSubscript:@"user_focus_strong"];
-    v5[8] = [v30 BOOLValue];
+    v31 = [dictionaryCopy objectForKeyedSubscript:@"user_focus_strong"];
+    v5[8] = [v31 BOOLValue];
 
-    v31 = [dictionaryCopy objectForKeyedSubscript:@"user_focus_group"];
-    v5[9] = [v31 BOOLValue];
+    v32 = [dictionaryCopy objectForKeyedSubscript:@"user_focus_group"];
+    v5[9] = [v32 BOOLValue];
 
-    v32 = [dictionaryCopy objectForKeyedSubscript:@"frame"];
-    v33 = *(v5 + 5);
-    *(v5 + 5) = v32;
+    v33 = [dictionaryCopy objectForKeyedSubscript:@"frame"];
+    v34 = *(v5 + 5);
+    *(v5 + 5) = v33;
 
-    v34 = [dictionaryCopy objectForKeyedSubscript:@"ptime"];
-    CMTimeFromPTCinematographyDictionary(&v48, v34);
-    *(v5 + 136) = v48;
+    v35 = [dictionaryCopy objectForKeyedSubscript:@"ptime"];
+    CMTimeFromPTCinematographyDictionary(&v49, v35);
+    *(v5 + 136) = v49;
 
-    v35 = [dictionaryCopy objectForKeyedSubscript:@"aperture"];
-    [v35 floatValue];
-    *(v5 + 3) = v36;
+    v36 = [dictionaryCopy objectForKeyedSubscript:@"aperture"];
+    [v36 floatValue];
+    *(v5 + 3) = v37;
 
-    v37 = [dictionaryCopy objectForKeyedSubscript:@"disparity"];
-    [v37 floatValue];
-    *(v5 + 4) = v38;
+    v38 = [dictionaryCopy objectForKeyedSubscript:@"disparity"];
+    [v38 floatValue];
+    *(v5 + 4) = v39;
 
-    v39 = [dictionaryCopy objectForKeyedSubscript:@"_raw_disparity"];
+    v40 = [dictionaryCopy objectForKeyedSubscript:@"_raw_disparity"];
     if (objc_opt_respondsToSelector())
     {
-      [v39 floatValue];
+      [v40 floatValue];
     }
 
     else
     {
-      v41 = *(v5 + 9);
-      if (v41)
+      v42 = *(v5 + 9);
+      if (v42)
       {
-        [v41 focusDistance];
+        [v42 focusDistance];
       }
 
       else
       {
-        v40 = *(v5 + 4);
+        v41 = *(v5 + 4);
       }
     }
 
-    *(v5 + 5) = v40;
-    v42 = [dictionaryCopy objectForKeyedSubscript:@"_snapshot"];
-    v43 = *(v5 + 6);
-    *(v5 + 6) = v42;
+    *(v5 + 5) = v41;
+    v43 = [dictionaryCopy objectForKeyedSubscript:@"_snapshot"];
+    v44 = *(v5 + 6);
+    *(v5 + 6) = v43;
 
-    v44 = [dictionaryCopy objectForKeyedSubscript:@"_snapshot_policy"];
-    *(v5 + 7) = [v44 unsignedIntegerValue];
+    v45 = [dictionaryCopy objectForKeyedSubscript:@"_snapshot_policy"];
+    *(v5 + 7) = [v45 unsignedIntegerValue];
 
-    v45 = [dictionaryCopy objectForKeyedSubscript:@"detector_did_run"];
-    v46 = *(v5 + 8);
-    *(v5 + 8) = v45;
+    v46 = [dictionaryCopy objectForKeyedSubscript:@"detector_did_run"];
+    v47 = *(v5 + 8);
+    *(v5 + 8) = v46;
   }
 
   return v5;
@@ -936,7 +936,7 @@
   _frameNumber = [(PTCinematographyFrame *)self _frameNumber];
   [v12 setObject:_frameNumber forKeyedSubscript:@"frame"];
 
-  [(PTCinematographyFrame *)self time];
+  objc_msgSend_time(self);
   v18 = PTCinematographyDictionaryFromCMTime(v37);
   [v12 setObject:v18 forKeyedSubscript:@"ptime"];
 
@@ -1066,7 +1066,7 @@
 
 + (void)_debugLogFrame:(id)frame label:(id)label
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   frameCopy = frame;
   labelCopy = label;
   focusDetection = [frameCopy focusDetection];
@@ -1080,72 +1080,72 @@
   v16 = v15;
   v18 = v17;
 
-  v19 = _PTLogSystem();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v20 = _PTLogSystem(v19);
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     _frameNumber = [frameCopy _frameNumber];
-    v20 = MEMORY[0x277CCABB0];
+    v21 = MEMORY[0x277CCABB0];
     [frameCopy focusDistance];
-    v21 = [v20 numberWithFloat:?];
-    v22 = MEMORY[0x277CCABB0];
+    v22 = [v21 numberWithFloat:?];
+    v23 = MEMORY[0x277CCABB0];
     [frameCopy aperture];
-    v23 = [v22 numberWithFloat:?];
+    v24 = [v23 numberWithFloat:?];
     userFocusTrackNumber = [frameCopy userFocusTrackNumber];
-    v25 = &stru_2837D16E8;
+    v26 = &stru_2837D16E8;
     if (userFocusTrackNumber)
     {
-      v33 = MEMORY[0x277CCACA8];
+      v34 = MEMORY[0x277CCACA8];
       [frameCopy userFocusTrackNumber];
-      v26 = v34 = v23;
-      v27 = v21;
+      v27 = v35 = v24;
+      v28 = v22;
       if ([frameCopy isUserFocusGroup])
       {
-        v28 = @"g";
+        v29 = @"g";
       }
 
       else
       {
-        v28 = &stru_2837D16E8;
+        v29 = &stru_2837D16E8;
       }
 
       isUserFocusStrong = [frameCopy isUserFocusStrong];
-      v30 = @"+";
+      v31 = @"+";
       if (!isUserFocusStrong)
       {
-        v30 = &stru_2837D16E8;
+        v31 = &stru_2837D16E8;
       }
 
-      v32 = v28;
-      v21 = v27;
-      v35 = v26;
-      v31 = v26;
-      v23 = v34;
-      v25 = [v33 stringWithFormat:@" userFocusTrackNumber: %@ %@%@", v31, v32, v30];;
+      v33 = v29;
+      v22 = v28;
+      v36 = v27;
+      v32 = v27;
+      v24 = v35;
+      v26 = [v34 stringWithFormat:@" userFocusTrackNumber: %@ %@%@", v32, v33, v31];;
     }
 
     *buf = 138414850;
-    v38 = labelCopy;
-    v39 = 2112;
-    v40 = _frameNumber;
-    v41 = 2112;
-    v42 = focusIdentifier;
-    v43 = 2112;
-    v44 = focusTrackNumber;
-    v45 = 2112;
-    v46 = v21;
-    v47 = 2112;
-    v48 = v23;
-    v49 = 2112;
-    v50 = v25;
-    v51 = 2048;
-    v52 = v12;
-    v53 = 2048;
-    v54 = v14;
-    v55 = 2048;
-    v56 = v16;
-    v57 = 2048;
-    v58 = v18;
-    _os_log_debug_impl(&dword_2243FB000, v19, OS_LOG_TYPE_DEBUG, "%@ Frame %@: focus %@ (%@), disparity %@, aperture %@%@ rect { %.3f, %.3f, %.3f, %.3f }", buf, 0x70u);
+    v39 = labelCopy;
+    v40 = 2112;
+    v41 = _frameNumber;
+    v42 = 2112;
+    v43 = focusIdentifier;
+    v44 = 2112;
+    v45 = focusTrackNumber;
+    v46 = 2112;
+    v47 = v22;
+    v48 = 2112;
+    v49 = v24;
+    v50 = 2112;
+    v51 = v26;
+    v52 = 2048;
+    v53 = v12;
+    v54 = 2048;
+    v55 = v14;
+    v56 = 2048;
+    v57 = v16;
+    v58 = 2048;
+    v59 = v18;
+    _os_log_debug_impl(&dword_2243FB000, v20, OS_LOG_TYPE_DEBUG, "%@ Frame %@: focus %@ (%@), disparity %@, aperture %@%@ rect { %.3f, %.3f, %.3f, %.3f }", buf, 0x70u);
     if (userFocusTrackNumber)
     {
     }
@@ -1154,21 +1154,21 @@
 
 - (void)focusOnNothing
 {
-  v3 = _PTLogSystem();
+  v3 = _PTLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     [(PTCinematographyFrame(Private) *)v3 focusOnNothing];
   }
 
-  v4 = _PTLogSystem();
-  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
+  v5 = _PTLogSystem(v4);
+  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG);
 
-  if (v5)
+  if (v6)
   {
-    v6 = _PTLogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v8 = _PTLogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
-      [(PTCinematographyFrame(Private) *)v6 focusOnNothing];
+      [(PTCinematographyFrame(Private) *)v8 focusOnNothing];
     }
   }
 
@@ -1203,7 +1203,7 @@
   v10 = LODWORD(v8);
   if (pullerCopy)
   {
-    [(PTCinematographyFrame *)self time];
+    objc_msgSend_time(self);
     LODWORD(v11) = v9;
     [pullerCopy pullTowardFocusDistance:v14 time:v11];
     v10 = LODWORD(v8);

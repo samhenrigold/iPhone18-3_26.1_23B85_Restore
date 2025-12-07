@@ -109,12 +109,10 @@ void __24__EAEmailAddressSet_log__block_invoke(uint64_t a1)
 
 - (EAEmailAddressSet)initWithSerializedRepresentation:(id)representation
 {
-  v9 = *MEMORY[0x277D85DE8];
   representationCopy = representation;
   v5 = [objc_alloc(MEMORY[0x277CCAAC8]) initForReadingFromData:representationCopy error:0];
   v6 = [(EAEmailAddressSet *)self initWithCoder:v5];
 
-  v7 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -247,37 +245,35 @@ void __24__EAEmailAddressSet_log__block_invoke(uint64_t a1)
 
 - (id)allObjects
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[EAEmailAddressSet count](self, "count")}];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   internalSet = [(EAEmailAddressSet *)self internalSet];
-  v5 = [internalSet countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v5 = [internalSet countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v5)
   {
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(internalSet);
         }
 
-        emailAddress = [*(*(&v11 + 1) + 8 * i) emailAddress];
+        emailAddress = [*(*(&v10 + 1) + 8 * i) emailAddress];
         [v3 addObject:emailAddress];
       }
 
-      v5 = [internalSet countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [internalSet countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v3;
 }

@@ -67,26 +67,25 @@
     }
 
     v8 = v7;
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     v10 = v8;
     if (v9)
     {
       v11 = v9;
-      v12 = *v21;
+      v12 = *v20;
       while (2)
       {
-        for (i = 0; i != v11; i = i + 1)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v8);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
             v10 = 0;
@@ -94,7 +93,7 @@
           }
         }
 
-        v11 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v11)
         {
           continue;
@@ -107,31 +106,31 @@
     }
 
 LABEL_16:
-    v16 = v10;
+    v15 = v10;
 
     if ([v4 isEqualToString:@"currentAssets"])
     {
-      v15 = objc_alloc_init(PDCRemoteAssetPreviewController);
-      v17 = [infoCopy objectForKeyedSubscript:@"photoLibraryURLString"];
-      v18 = [NSURL URLWithString:v17];
-      [(PDCRemoteAssetPreviewController *)v15 setPhotoLibraryURL:v18];
+      v14 = objc_alloc_init(PDCRemoteAssetPreviewController);
+      v16 = [infoCopy objectForKeyedSubscript:@"photoLibraryURLString"];
+      v17 = [NSURL URLWithString:v16];
+      [(PDCRemoteAssetPreviewController *)v14 setPhotoLibraryURL:v17];
 
-      [(PDCRemoteAssetPreviewController *)v15 setAssetLocalIdentifiers:v16];
-      [(PDCRemoteAssetPreviewController *)v15 setResizePreviewToFillParentView:1];
+      [(PDCRemoteAssetPreviewController *)v14 setAssetLocalIdentifiers:v15];
+      [(PDCRemoteAssetPreviewController *)v14 setResizePreviewToFillParentView:1];
     }
 
     else
     {
-      v15 = 0;
+      v14 = 0;
     }
   }
 
   else
   {
-    v15 = 0;
+    v14 = 0;
   }
 
-  return v15;
+  return v14;
 }
 
 @end

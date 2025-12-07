@@ -8,17 +8,17 @@
 
 - (id)handleRequest:(id)request presentingViewController:(id)controller
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   requestCopy = request;
   controllerCopy = controller;
   v8 = controllerCopy;
   if (requestCopy && controllerCopy)
   {
-    v23[0] = @"AMSAuthenticateTaskCoordinatorItemKeyRequest";
-    v23[1] = @"AMSAuthenticateTaskCoordinatorItemKeyPresentingViewController";
-    v24[0] = requestCopy;
-    v24[1] = controllerCopy;
-    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
+    v22[0] = @"AMSAuthenticateTaskCoordinatorItemKeyRequest";
+    v22[1] = @"AMSAuthenticateTaskCoordinatorItemKeyPresentingViewController";
+    v23[0] = requestCopy;
+    v23[1] = controllerCopy;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:v22 count:2];
     v10 = [(AMSAuthenticateTaskCoordinator *)self handleRequestDictionary:v9];
   }
 
@@ -50,11 +50,11 @@
       selfCopy = ;
       v18 = AMSHashIfNeeded();
       *buf = 138543874;
-      v26 = selfCopy;
-      v27 = 2114;
-      v28 = v18;
-      v29 = 2114;
-      v30 = v8;
+      v25 = selfCopy;
+      v26 = 2114;
+      v27 = v18;
+      v28 = 2114;
+      v29 = v8;
       _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@ Missing a required parameter, unable to process the authenticate request. request = %{public}@ presentingViewController = %{public}@", buf, 0x20u);
       if (v13)
       {
@@ -69,8 +69,6 @@
   }
 
   v20 = v10;
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }

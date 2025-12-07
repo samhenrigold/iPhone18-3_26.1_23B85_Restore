@@ -1,4 +1,5 @@
 @interface ENSQLiteConnection
+- (BOOL)_executeSQL:(id)l cacheStatement:(BOOL)statement error:(id *)error bindingHandler:(id)handler enumerationHandler:(id)enumerationHandler;
 - (BOOL)_prepareStatementForSQL:(id)l cache:(BOOL)cache error:(id *)error statementHandler:(id)handler;
 - (BOOL)_stepStatement:(sqlite3_stmt *)statement hasRow:(BOOL *)row error:(id *)error;
 - (BOOL)executeUncachedSQLStatements:(id)statements error:(id *)error;
@@ -8,6 +9,7 @@
 - (BOOL)truncateWithError:(id *)error;
 - (ENSQLiteConnection)initWithDatabaseURL:(id)l;
 - (id)_initWithDatabaseURL:(id)l;
+- (id)_lastErrorWithResultCode:(int)code;
 - (int)openWithError:(id *)error;
 - (int64_t)lastInsertedRowID;
 - (void)close;
@@ -81,30 +83,34 @@
     if (v9)
     {
       v4 = v9;
+      v10 = @"opening database";
     }
 
     else
     {
-      v10 = sqlite3_exec(*p_db, "PRAGMA auto_vacuum = 2;", 0, 0, 0);
-      if (v10)
+      v11 = sqlite3_exec(*p_db, "PRAGMA auto_vacuum = 2;", 0, 0, 0);
+      if (v11)
       {
-        v4 = v10;
+        v4 = v11;
+        v10 = @"setting auto_vacuum";
       }
 
       else
       {
-        v11 = sqlite3_exec(*p_db, "PRAGMA cache_size = 512;", 0, 0, 0);
-        if (v11)
+        v12 = sqlite3_exec(*p_db, "PRAGMA cache_size = 512;", 0, 0, 0);
+        if (v12)
         {
-          v4 = v11;
+          v4 = v12;
+          v10 = @"setting cache_size";
         }
 
         else
         {
-          v12 = sqlite3_exec(*p_db, "PRAGMA journal_mode = WAL;", 0, 0, 0);
-          if (v12)
+          v13 = sqlite3_exec(*p_db, "PRAGMA journal_mode = WAL;", 0, 0, 0);
+          if (v13)
           {
-            v4 = v12;
+            v4 = v13;
+            v10 = @"setting journal_mode";
           }
 
           else
@@ -114,6 +120,8 @@
             {
               return v4;
             }
+
+            v10 = @"enabling foreign keys";
           }
         }
       }
@@ -121,7 +129,7 @@
 
     if (gLogCategory__ENSQLiteConnection <= 90 && (gLogCategory__ENSQLiteConnection != -1 || _LogCategory_Initialize()))
     {
-      [(ENSQLiteConnection *)p_db openWithError:v4];
+      [(ENSQLiteConnection *)p_db openWithError:v4, v10, fileSystemRepresentation];
       if (!error)
       {
         return v4;
@@ -229,7 +237,7 @@
 
     else
     {
-      v16 = ENErrorF();
+      v16 = ENErrorF(11, "SQLite transaction block failed without an error.");
       *error = v16;
     }
   }
@@ -242,7 +250,7 @@
     v19 = v21;
     if (v18 && gLogCategory__ENSQLiteConnection <= 90 && (gLogCategory__ENSQLiteConnection != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF_safe();
+      LogPrintF_safe(&gLogCategory__ENSQLiteConnection, "[ENSQLiteConnection performTransactionWithType:error:usingBlock:]", 90, "Failed to roll back transaction: %@", v19);
     }
 
 LABEL_24:
@@ -258,34 +266,34 @@ LABEL_25:
 
 - (BOOL)executeUncachedSQLStatements:(id)statements error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   statementsCopy = statements;
-  v7 = [statementsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [statementsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(statementsCopy);
         }
 
-        if (![(ENSQLiteConnection *)self executeUncachedSQL:*(*(&v14 + 1) + 8 * i) error:error, v14])
+        if (![(ENSQLiteConnection *)self executeUncachedSQL:*(*(&v13 + 1) + 8 * i) error:error, v13])
         {
           v11 = 0;
           goto LABEL_11;
         }
       }
 
-      v8 = [statementsCopy countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [statementsCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v8)
       {
         continue;
@@ -298,8 +306,35 @@ LABEL_25:
   v11 = 1;
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
+}
+
+- (BOOL)_executeSQL:(id)l cacheStatement:(BOOL)statement error:(id *)error bindingHandler:(id)handler enumerationHandler:(id)enumerationHandler
+{
+  statementCopy = statement;
+  lCopy = l;
+  handlerCopy = handler;
+  enumerationHandlerCopy = enumerationHandler;
+  if (!self->_db)
+  {
+    [ENSQLiteConnection _executeSQL:cacheStatement:error:bindingHandler:enumerationHandler:];
+  }
+
+  selfCopy = self;
+  objc_sync_enter(selfCopy);
+  v20[0] = MEMORY[0x277D85DD0];
+  v20[1] = 3221225472;
+  v20[2] = __89__ENSQLiteConnection__executeSQL_cacheStatement_error_bindingHandler_enumerationHandler___block_invoke;
+  v20[3] = &unk_278FD2A40;
+  v16 = handlerCopy;
+  v21 = v16;
+  v17 = enumerationHandlerCopy;
+  v22 = v17;
+  v20[4] = selfCopy;
+  v18 = [(ENSQLiteConnection *)selfCopy _prepareStatementForSQL:lCopy cache:statementCopy error:error statementHandler:v20];
+
+  objc_sync_exit(selfCopy);
+  return v18;
 }
 
 uint64_t __89__ENSQLiteConnection__executeSQL_cacheStatement_error_bindingHandler_enumerationHandler___block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -398,7 +433,7 @@ LABEL_14:
 
       if (isSensitiveLoggingAllowed && gLogCategory_ENSQLiteConnection <= 90 && (gLogCategory_ENSQLiteConnection != -1 || _LogCategory_Initialize()))
       {
-        [ENSQLiteConnection _prepareStatementForSQL:v15 cache:? error:? statementHandler:?];
+        [ENSQLiteConnection _prepareStatementForSQL:v15 cache:lCopy error:? statementHandler:?];
         if (error)
         {
           goto LABEL_14;
@@ -513,7 +548,7 @@ LABEL_23:
 
   if (isSensitiveLoggingAllowed && v12 >= gLogCategory_ENSQLiteConnection && (gLogCategory_ENSQLiteConnection != -1 || _LogCategory_Initialize()))
   {
-    [ENSQLiteConnection _stepStatement:statement hasRow:self error:v11];
+    [(ENSQLiteConnection *)statement _stepStatement:v11 hasRow:v12 error:?];
     if (error)
     {
       goto LABEL_15;
@@ -564,6 +599,54 @@ LABEL_15:
   return _sqlite3_db_truncate() == 0;
 }
 
+- (id)_lastErrorWithResultCode:(int)code
+{
+  v3 = *&code;
+  if (self->_db)
+  {
+    if (code)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_9:
+    v5 = 0;
+    goto LABEL_10;
+  }
+
+  [ENSQLiteConnection _lastErrorWithResultCode:];
+  if (!v3)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_3:
+  if (v3 == 23)
+  {
+    v5 = ENErrorF(16, "Database inaccessible");
+  }
+
+  else
+  {
+    fileSystemRepresentation = [(NSURL *)self->_fileURL fileSystemRepresentation];
+    db = self->_db;
+    v8 = MEMORY[0x277CCACA0];
+    v9 = sqlite3_errmsg(db);
+    v10 = "<unavailable>";
+    if (v9)
+    {
+      v10 = v9;
+    }
+
+    v11 = [v8 stringWithFormat:@"[%d, %s]", v3, v10];
+    v5 = ENErrorF(11, "SQLite error at %s: %@", fileSystemRepresentation, v11);
+  }
+
+LABEL_10:
+
+  return v5;
+}
+
 - (void)initWithDatabaseURL:.cold.1()
 {
   OUTLINED_FUNCTION_1_5();
@@ -580,18 +663,18 @@ LABEL_15:
   [v0 handleFailureInMethod:@"fileURL.isFileURL" object:? file:? lineNumber:? description:?];
 }
 
-- (void)openWithError:(sqlite3 *)a1 .cold.1(sqlite3 **a1, uint64_t a2)
+- (void)openWithError:(uint64_t)a3 .cold.1(sqlite3 **a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v3 = MEMORY[0x277CCACA0];
-  v4 = sqlite3_errmsg(*a1);
-  v5 = "<unavailable>";
-  if (v4)
+  v7 = MEMORY[0x277CCACA0];
+  v8 = sqlite3_errmsg(*a1);
+  v9 = "<unavailable>";
+  if (v8)
   {
-    v5 = v4;
+    v9 = v8;
   }
 
-  v6 = [v3 stringWithFormat:@"[%d, %s]", a2, v5];
-  LogPrintF_safe();
+  v10 = [v7 stringWithFormat:@"[%d, %s]", a2, v9];
+  LogPrintF_safe(&gLogCategory__ENSQLiteConnection, "[ENSQLiteConnection openWithError:]", 90, "SQLite error when %@ at %s: %@", a3, a4, v10);
 }
 
 - (void)lastInsertedRowID
@@ -627,18 +710,18 @@ LABEL_15:
   [v0 handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 }
 
-- (void)_prepareStatementForSQL:(sqlite3 *)a1 cache:(uint64_t)a2 error:statementHandler:.cold.1(sqlite3 **a1, uint64_t a2)
+- (void)_prepareStatementForSQL:(uint64_t)a3 cache:error:statementHandler:.cold.1(sqlite3 **a1, uint64_t a2, uint64_t a3)
 {
-  v3 = MEMORY[0x277CCACA0];
-  v4 = sqlite3_errmsg(*a1);
-  v5 = "<unavailable>";
-  if (v4)
+  v5 = MEMORY[0x277CCACA0];
+  v6 = sqlite3_errmsg(*a1);
+  v7 = "<unavailable>";
+  if (v6)
   {
-    v5 = v4;
+    v7 = v6;
   }
 
-  v6 = [v3 stringWithFormat:@"[%d, %s]", a2, v5];
-  LogPrintF_safe();
+  v8 = [v5 stringWithFormat:@"[%d, %s]", a2, v7];
+  LogPrintF_safe(&gLogCategory_ENSQLiteConnection, "[ENSQLiteConnection _prepareStatementForSQL:cache:error:statementHandler:]", 90, "Could not prepare statement: %@: %@", a3, v8);
 }
 
 - (void)_prepareStatementForSQL:(uint64_t *)a1 cache:error:statementHandler:.cold.2(uint64_t *a1)
@@ -649,20 +732,20 @@ LABEL_15:
   [v3 handleFailureInMethod:v4 object:? file:? lineNumber:? description:?];
 }
 
-- (void)_stepStatement:(sqlite3_stmt *)a1 hasRow:(uint64_t)a2 error:(uint64_t)a3 .cold.1(sqlite3_stmt *a1, uint64_t a2, uint64_t a3)
+- (void)_stepStatement:(uint64_t)a3 hasRow:(uint64_t)a4 error:.cold.1(sqlite3_stmt *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  sqlite3_sql(a1);
-  v5 = *(a2 + 8);
-  v6 = MEMORY[0x277CCACA0];
-  v7 = sqlite3_errmsg(v5);
-  v8 = "<unavailable>";
-  if (v7)
+  v7 = sqlite3_sql(a1);
+  v8 = *(a2 + 8);
+  v9 = MEMORY[0x277CCACA0];
+  v10 = sqlite3_errmsg(v8);
+  v11 = "<unavailable>";
+  if (v10)
   {
-    v8 = v7;
+    v11 = v10;
   }
 
-  v9 = [v6 stringWithFormat:@"[%d, %s]", a3, v8];
-  LogPrintF_safe();
+  v12 = [v9 stringWithFormat:@"[%d, %s]", a3, v11];
+  LogPrintF_safe(&gLogCategory_ENSQLiteConnection, "[ENSQLiteConnection _stepStatement:hasRow:error:]", a4, "Step failed with error: %s: %@", v7, v12);
 }
 
 - (void)truncateWithError:.cold.1()

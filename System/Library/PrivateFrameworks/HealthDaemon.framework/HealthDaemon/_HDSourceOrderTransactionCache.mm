@@ -26,7 +26,7 @@
 
 - (id)orderedSourceIDsForBundleIdentifier:(void *)identifier database:(uint64_t)database error:
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v7 = a2;
   identifierCopy = identifier;
   if (self)
@@ -48,8 +48,8 @@
       v14 = identifierCopy;
       v15 = HDSourceEntityPredicateForSourceWithBundleIdentifier(v13);
       v16 = [MEMORY[0x277D10B68] orderingTermWithProperty:@"uuid" entityClass:objc_opt_class() ascending:1];
-      v21[0] = v16;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:1];
+      v20[0] = v16;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:1];
       v18 = [HDSourceEntity sourcesWithPredicate:v15 orderingTerms:v17 includeDeleted:0 database:v14 error:database];
 
       if (v18)
@@ -73,8 +73,6 @@
   {
     v12 = 0;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v12;
 }

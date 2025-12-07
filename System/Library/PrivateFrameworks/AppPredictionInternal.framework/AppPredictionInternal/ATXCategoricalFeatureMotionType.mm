@@ -12,10 +12,10 @@
     return off_2785A2098[type];
   }
 
-  v4 = __atxlog_handle_relevance_model();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+  v5 = __atxlog_handle_relevance_model(self);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    [ATXCategoricalFeatureMotionType featureNameForATXMotionType:];
+    [ATXCategoricalFeatureMotionType featureNameForATXMotionType:?];
   }
 
   return @"<Unexpected Category Value>";
@@ -29,45 +29,39 @@
   if (locationMotionContext)
   {
     locationMotionContext2 = [contextCopy locationMotionContext];
-    v8 = -[ATXCategoricalFeatureMotionType featureNameForATXMotionType:](self, "featureNameForATXMotionType:", [locationMotionContext2 motionType]);
+    v9 = -[ATXCategoricalFeatureMotionType featureNameForATXMotionType:](self, "featureNameForATXMotionType:", [locationMotionContext2 motionType]);
   }
 
   else
   {
-    v9 = __atxlog_handle_relevance_model();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = __atxlog_handle_relevance_model(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      [ATXCategoricalFeatureMotionType categoricalFeatureValueForContext:candidate:];
+      [ATXCategoricalFeatureMotionType categoricalFeatureValueForContext:? candidate:?];
     }
 
-    v8 = @"<Unexpected Category Value>";
+    v9 = @"<Unexpected Category Value>";
   }
 
-  return v8;
+  return v9;
 }
 
-- (void)featureNameForATXMotionType:.cold.1()
+- (void)featureNameForATXMotionType:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_4();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
-- (void)categoricalFeatureValueForContext:candidate:.cold.1()
+- (void)categoricalFeatureValueForContext:(uint64_t)a1 candidate:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_0_4();
-  _os_log_fault_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_fault_impl(v3, v4, v5, v6, v7, 0xCu);
 }
 
 @end

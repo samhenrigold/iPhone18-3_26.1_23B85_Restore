@@ -83,36 +83,34 @@ ATXBiomeAppLaunchWrapper *__84__ATXAppLaunchMacEventProvider_biomePublisherWithB
   v14[4] = platform;
   v7 = [v5 _pas_filteredArrayWithTest:v14];
 
-  v8 = __atxlog_handle_modes();
-  v9 = v8;
+  v9 = __atxlog_handle_modes(v8);
+  v10 = v9;
   if (v6)
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(ATXAppLaunchMacEventProvider *)v6 remoteDevicesForDevicePlatform:v9];
+      [(ATXAppLaunchMacEventProvider *)v6 remoteDevicesForDevicePlatform:v10];
     }
 
-    v10 = 0;
+    v11 = 0;
   }
 
   else
   {
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
-      v11 = [v7 count];
+      v12 = [v7 count];
       *buf = 134218240;
-      v17 = v11;
+      v17 = v12;
       v18 = 2048;
       platformCopy = platform;
-      _os_log_impl(&dword_2263AA000, v9, OS_LOG_TYPE_INFO, "ATXAppLaunchMacEventProvider: Got %lu remote devices for BMDevicePlatform: %ld", buf, 0x16u);
+      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_INFO, "ATXAppLaunchMacEventProvider: Got %lu remote devices for BMDevicePlatform: %ld", buf, 0x16u);
     }
 
-    v10 = v7;
+    v11 = v7;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
-  return v10;
+  return v11;
 }
 
 - (id)eventsFromPublisher
@@ -156,7 +154,7 @@ void __51__ATXAppLaunchMacEventProvider_eventsFromPublisher__block_invoke_2(uint
 
 - (id)aggregationEventsFromEvent:(id)event
 {
-  v23[1] = *MEMORY[0x277D85DE8];
+  v22[1] = *MEMORY[0x277D85DE8];
   eventCopy = event;
   if ([(ATXAppLaunchMacEventProvider *)self isEventFromProvider:eventCopy])
   {
@@ -179,8 +177,8 @@ void __51__ATXAppLaunchMacEventProvider_eventsFromPublisher__block_invoke_2(uint
         v11 = v10;
 
         v12 = objc_alloc(MEMORY[0x277CEB390]);
-        v23[0] = v11;
-        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:1];
+        v22[0] = v11;
+        v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:1];
         v14 = [v12 initWithBundleId:v7 itunesGenreIds:v13];
 
         v15 = [ATXModeEvent alloc];
@@ -208,8 +206,6 @@ void __51__ATXAppLaunchMacEventProvider_eventsFromPublisher__block_invoke_2(uint
   {
     v20 = 0;
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 
   return v20;
 }
@@ -259,11 +255,10 @@ void __51__ATXAppLaunchMacEventProvider_eventsFromPublisher__block_invoke_2(uint
 
 - (void)remoteDevicesForDevicePlatform:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXAppLaunchMacEventProvider: Biome couldn't fetch remote devices with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "ATXAppLaunchMacEventProvider: Biome couldn't fetch remote devices with error: %@", &v2, 0xCu);
 }
 
 @end

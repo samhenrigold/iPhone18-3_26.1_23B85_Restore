@@ -52,9 +52,11 @@
     }
 
     [(VSSearchBarDelegate *)self setText:v9];
+
+    barCopy = v10;
   }
 
-  MEMORY[0x2821F96F8]();
+  MEMORY[0x2821F96F8](searchBar, barCopy);
 }
 
 @end

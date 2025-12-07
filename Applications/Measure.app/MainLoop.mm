@@ -80,7 +80,7 @@
 
 - (void)session:(id)session didUpdateAnchors:(id)anchors
 {
-  sub_100018630(0, &unk_1004A8730);
+  sub_100018630(0, &unk_1004A8730, ARAnchor_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sessionCopy = session;
   selfCopy = self;
@@ -90,7 +90,7 @@
 
 - (void)session:(id)session didRemoveAnchors:(id)anchors
 {
-  sub_100018630(0, &unk_1004A8730);
+  sub_100018630(0, &unk_1004A8730, ARAnchor_ptr);
   v4 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   MeasureCore.shared.unsafeMutableAddressor();
 
@@ -102,7 +102,7 @@
 
 - (void)session:(id)session didAddAnchors:(id)anchors
 {
-  sub_100018630(0, &unk_1004A8730);
+  sub_100018630(0, &unk_1004A8730, ARAnchor_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   sessionCopy = session;
   selfCopy = self;

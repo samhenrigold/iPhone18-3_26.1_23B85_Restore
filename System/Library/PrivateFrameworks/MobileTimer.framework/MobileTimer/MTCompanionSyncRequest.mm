@@ -93,19 +93,12 @@ void __35__MTCompanionSyncRequest_complete___block_invoke(uint64_t a1)
 void __45__MTCompanionSyncRequest_addCompletionBlock___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  if (*(v2 + 8) & 1) != 0 || (v3 = *(v2 + 32), v4 = _Block_copy(*(a1 + 40)), [v3 addObject:v4], v4, v2 = *(a1 + 32), (*(v2 + 8)))
+  if (*(v2 + 8) & 1) != 0 || (v3 = *(v2 + 32), v4 = _Block_copy(*(a1 + 40)), [v3 addObject:v4], v4, v5 = *(a1 + 32), (*(v5 + 8)) || *(v5 + 24))
   {
-    v5 = *(v2 + 24);
+    v6 = *(*(a1 + 40) + 16);
+
+    v6();
   }
-
-  else if (!*(v2 + 24))
-  {
-    return;
-  }
-
-  v6 = *(*(a1 + 40) + 16);
-
-  v6();
 }
 
 - (NSString)description

@@ -8,12 +8,10 @@
 
 - (id)description
 {
-  v7[1] = *MEMORY[0x1E69E9840];
-  v7[0] = @"eventStatuses";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:1];
+  v6[1] = *MEMORY[0x1E69E9840];
+  v6[0] = @"eventStatuses";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:1];
   v4 = DMFObjectDescriptionWithProperties(self, v3);
-
-  v5 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

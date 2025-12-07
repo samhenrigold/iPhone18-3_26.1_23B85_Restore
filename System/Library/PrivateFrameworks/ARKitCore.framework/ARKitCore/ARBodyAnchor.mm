@@ -45,7 +45,7 @@
   stateCopy = state;
   v5 = [ARBodyAnchor alloc];
   identifier = [(ARAnchor *)self identifier];
-  [(ARAnchor *)self transform];
+  objc_msgSend_transform(self);
   v7 = [(ARBodyAnchor *)v5 initWithIdentifier:identifier transform:stateCopy tracked:self->_skeletonData skeletonData:?];
 
   return v7;

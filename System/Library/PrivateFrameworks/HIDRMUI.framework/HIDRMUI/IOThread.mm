@@ -22,49 +22,47 @@
 
 + (void)incrementClassCount
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_250977000, MEMORY[0x277D86220], a3, "Incremented class count! (sClassCount: %lu)", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = sClassCount;
+  OUTLINED_FUNCTION_0_0(&dword_250977000, MEMORY[0x277D86220], a3, "Incremented class count! (sClassCount: %lu)", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)decrementClassCount
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0(&dword_250977000, MEMORY[0x277D86220], a3, "Last instance deallocated! Setting timer for %lu seconds...", a5, a6, a7, a8, 0);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 134217984;
+  *(&v8 + 4) = 10;
+  OUTLINED_FUNCTION_0_0(&dword_250977000, MEMORY[0x277D86220], a3, "Last instance deallocated! Setting timer for %lu seconds...", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __31__IOThread_decrementClassCount__block_invoke(uint64_t a1)
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  objc_sync_enter(v2);
-  v3 = sClassCount;
+  v18 = *MEMORY[0x277D85DE8];
+  v1 = *(a1 + 32);
+  objc_sync_enter(v1);
+  v2 = sClassCount;
+  v3 = MEMORY[0x277D86220];
   v4 = MEMORY[0x277D86220];
-  v5 = MEMORY[0x277D86220];
-  v6 = os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG);
-  if (v3)
+  v5 = os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG);
+  if (v2)
   {
-    if (v6)
+    if (v5)
     {
-      v7 = *(a1 + 32);
-      v8 = objc_opt_class();
-      v9 = NSStringFromClass(v8);
-      __31__IOThread_decrementClassCount__block_invoke_cold_1(v9, buf);
+      v6 = objc_opt_class();
+      v7 = NSStringFromClass(v6);
+      __31__IOThread_decrementClassCount__block_invoke_cold_1(v7, buf);
     }
 
-    v10 = MEMORY[0x277D86220];
+    v8 = MEMORY[0x277D86220];
 LABEL_11:
 
     goto LABEL_12;
   }
 
-  if (v6)
+  if (v5)
   {
-    v11 = *(a1 + 32);
-    v12 = objc_opt_class();
-    v13 = NSStringFromClass(v12);
-    __31__IOThread_decrementClassCount__block_invoke_cold_2(v13, buf);
+    v9 = objc_opt_class();
+    v10 = NSStringFromClass(v9);
+    __31__IOThread_decrementClassCount__block_invoke_cold_2(v10, buf);
   }
 
   if (sThread)
@@ -72,29 +70,27 @@ LABEL_11:
     [sThread cancel];
     if (sRunLoop)
     {
-      v14 = dispatch_semaphore_create(0);
-      v15 = sRunLoop;
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __31__IOThread_decrementClassCount__block_invoke_1;
-      v19[3] = &unk_2796A31C0;
-      v16 = v14;
-      v20 = v16;
-      [v15 performBlock:v19];
-      dispatch_semaphore_wait(v16, 0xFFFFFFFFFFFFFFFFLL);
-      v17 = sRunLoop;
+      v11 = dispatch_semaphore_create(0);
+      v12 = sRunLoop;
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __31__IOThread_decrementClassCount__block_invoke_1;
+      v15[3] = &unk_2796A31C0;
+      v13 = v11;
+      v16 = v13;
+      [v12 performBlock:v15];
+      dispatch_semaphore_wait(v13, 0xFFFFFFFFFFFFFFFFLL);
+      v14 = sRunLoop;
       sRunLoop = 0;
     }
 
-    v10 = sThread;
+    v8 = sThread;
     sThread = 0;
     goto LABEL_11;
   }
 
 LABEL_12:
-  objc_sync_exit(v2);
-
-  v18 = *MEMORY[0x277D85DE8];
+  objc_sync_exit(v1);
 }
 
 intptr_t __31__IOThread_decrementClassCount__block_invoke_1(uint64_t a1)

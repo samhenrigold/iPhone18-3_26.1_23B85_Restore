@@ -58,26 +58,25 @@
 
   if (secKeyRef)
   {
-    v14 = v7;
+    v15 = v7;
   }
 
   else
   {
-    v15 = MessageProtectionLog();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = MessageProtectionLog(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [SecKeyRSAPublic initWithData:? error:?];
     }
 
-    v14 = 0;
+    v15 = 0;
     if (error)
     {
       *error = error;
     }
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-  return v14;
+  return v15;
 }
 
 - (id)encryptData:(id)data error:(id *)error
@@ -89,13 +88,13 @@
 
   if (v8)
   {
-    v9 = v8;
+    v10 = v8;
   }
 
   else
   {
-    v10 = MessageProtectionLog();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = MessageProtectionLog(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [SecKeyRSAPublic encryptData:? error:?];
     }
@@ -111,20 +110,18 @@
 
 - (void)initWithData:(CFTypeRef *)a1 error:.cold.1(CFTypeRef *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = CFCopyDescription(*a1);
-  OUTLINED_FUNCTION_0_2(&dword_22B404000, v2, v3, "Failed to initialize an RSA Key with error: %@.", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_2(&dword_22B404000, v2, v3, "Failed to initialize an RSA Key with error: %@.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 - (void)encryptData:(CFTypeRef *)a1 error:.cold.1(CFTypeRef *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = CFCopyDescription(*a1);
-  OUTLINED_FUNCTION_0_2(&dword_22B404000, v2, v3, "Failed to encrypt with RSA: %@.", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_2(&dword_22B404000, v2, v3, "Failed to encrypt with RSA: %@.", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

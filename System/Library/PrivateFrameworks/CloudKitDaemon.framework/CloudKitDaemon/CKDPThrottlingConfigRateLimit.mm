@@ -167,7 +167,6 @@ LABEL_7:
   has = self->_has;
   if ((has & 8) != 0)
   {
-    intervalLengthSec = self->_intervalLengthSec;
     PBDataWriterWriteInt32Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -187,7 +186,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  allowedRequestCount = self->_allowedRequestCount;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -202,7 +200,6 @@ LABEL_4:
   }
 
 LABEL_12:
-  repeatEverySec = self->_repeatEverySec;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -217,12 +214,10 @@ LABEL_5:
   }
 
 LABEL_13:
-  startTimeSecondsAfterUnixEpoch = self->_startTimeSecondsAfterUnixEpoch;
   PBDataWriterWriteInt64Field();
   if (*&self->_has)
   {
 LABEL_6:
-    startTimeSecondsAfterLocalMidnight = self->_startTimeSecondsAfterLocalMidnight;
     PBDataWriterWriteInt64Field();
   }
 

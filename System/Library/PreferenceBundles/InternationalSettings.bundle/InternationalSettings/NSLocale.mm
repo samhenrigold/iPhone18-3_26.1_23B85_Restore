@@ -116,11 +116,11 @@ LABEL_22:
 + (id)_distinctiveLanguageIdentifierForLanguageIdentifier:(id)identifier
 {
   v3 = sub_211EC();
-  sub_20448(v3);
+  sub_20448(v3, v4);
 
-  v4 = sub_211BC();
+  v5 = sub_211BC();
 
-  return v4;
+  return v5;
 }
 
 @end

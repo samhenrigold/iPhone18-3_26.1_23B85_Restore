@@ -13,30 +13,30 @@
 
 - (TSTFontInfoCache)initWithName:(id)name
 {
-  v24.receiver = self;
-  v24.super_class = TSTFontInfoCache;
-  v3 = [(TSTFontInfoCache *)&v24 init];
+  v21.receiver = self;
+  v21.super_class = TSTFontInfoCache;
+  v3 = [(TSTFontInfoCache *)&v21 init];
   v4 = v3;
   if (v3)
   {
     pthread_rwlock_init(&v3->_rwlock, 0);
     v4->_resolvedTextStyleLock._os_unfair_lock_opaque = 0;
     __dmb(0xBu);
-    v9 = objc_msgSend_array(MEMORY[0x277CBEB18], v5, v6, v7, v8);
+    v8 = objc_msgSend_array(MEMORY[0x277CBEB18], v5, v6, v7);
     strongReferences = v4->_strongReferences;
-    v4->_strongReferences = v9;
+    v4->_strongReferences = v8;
 
-    v15 = objc_msgSend_strongToStrongObjectsMapTable(MEMORY[0x277CCAB00], v11, v12, v13, v14);
+    v13 = objc_msgSend_strongToStrongObjectsMapTable(MEMORY[0x277CCAB00], v10, v11, v12);
     propertyMapToTextStyleMap = v4->_propertyMapToTextStyleMap;
-    v4->_propertyMapToTextStyleMap = v15;
+    v4->_propertyMapToTextStyleMap = v13;
 
-    v17 = MEMORY[0x277D811B0];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = sub_221406570;
-    v22[3] = &unk_2784649F8;
-    v23 = v4;
-    objc_msgSend_performWithApplication_(v17, v18, v22, v19, v20);
+    v15 = MEMORY[0x277D811B0];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = sub_221406570;
+    v19[3] = &unk_2784649F8;
+    v20 = v4;
+    objc_msgSend_performWithApplication_(v15, v16, v19, v17);
   }
 
   return v4;
@@ -52,9 +52,9 @@
 
 - (id)fontInfoForTextStyle:(id)style
 {
-  v25[0] = style;
+  styleCopy = style;
   pthread_rwlock_rdlock(&self->_rwlock);
-  v5 = sub_2210BE30C(&self->_cache.__table_.__bucket_list_.__ptr_, v25);
+  v5 = sub_2210BE30C(&self->_cache.__table_.__bucket_list_.__ptr_, &styleCopy);
   if (v5)
   {
     v6 = v5[3];
@@ -65,24 +65,24 @@
   else
   {
     pthread_rwlock_unlock(&self->_rwlock);
-    if (objc_msgSend_canQuicklyMeasureParagraphStyle_(MEMORY[0x277D80F78], v8, style, v9, v10))
+    if (objc_msgSend_canQuicklyMeasureParagraphStyle_(MEMORY[0x277D80F78], v8, style, v9))
     {
       pthread_rwlock_wrlock(&self->_rwlock);
-      v11 = sub_2210BE30C(&self->_cache.__table_.__bucket_list_.__ptr_, v25);
-      if (v11)
+      v10 = sub_2210BE30C(&self->_cache.__table_.__bucket_list_.__ptr_, &styleCopy);
+      if (v10)
       {
-        v7 = v11[3];
+        v7 = v10[3];
       }
 
       else
       {
-        v15 = objc_msgSend_textMeasurerBundleForParagraphStyle_(MEMORY[0x277D80F78], v12, style, v13, v14);
-        v16 = [TSTFontInfoCacheEntry alloc];
-        v7 = objc_msgSend_initWithTextMeasurerBundle_(v16, v17, v15, v18, v19);
-        v25[2] = v25;
-        v20 = sub_221406DB0(&self->_cache.__table_.__bucket_list_.__ptr_, v25);
-        objc_storeStrong(v20 + 3, v7);
-        objc_msgSend_addObject_(self->_strongReferences, v21, style, v22, v23);
+        v13 = objc_msgSend_textMeasurerBundleForParagraphStyle_(MEMORY[0x277D80F78], v11, style, v12);
+        v14 = [TSTFontInfoCacheEntry alloc];
+        v7 = objc_msgSend_initWithTextMeasurerBundle_(v14, v15, v13, v16);
+        v22 = &styleCopy;
+        v17 = sub_221406DB0(&self->_cache.__table_.__bucket_list_.__ptr_, &styleCopy, &unk_2217E1BCC, &v22);
+        objc_storeStrong(v17 + 3, v7);
+        objc_msgSend_addObject_(self->_strongReferences, v18, style, v19);
       }
 
       pthread_rwlock_unlock(&self->_rwlock);
@@ -102,18 +102,18 @@
   stringCopy = string;
   if (stringCopy)
   {
-    v10 = objc_msgSend_fontInfoForTextStyle_(self, v6, style, v7, v8);
-    v15 = v10;
-    if (v10)
+    v9 = objc_msgSend_fontInfoForTextStyle_(self, v6, style, v7);
+    v13 = v9;
+    if (v9)
     {
-      v16 = MEMORY[0x277D80F78];
-      v17 = objc_msgSend_textMeasurerBundle(v10, v11, v12, v13, v14);
-      LODWORD(v16) = objc_msgSend_canQuicklyMeasureString_textMeasurerBundle_(v16, v18, stringCopy, v17, v19);
+      v14 = MEMORY[0x277D80F78];
+      v15 = objc_msgSend_textMeasurerBundle(v9, v10, v11, v12);
+      LODWORD(v14) = objc_msgSend_canQuicklyMeasureString_textMeasurerBundle_(v14, v16, stringCopy, v15);
 
-      if (v16)
+      if (v14)
       {
-        v15 = v15;
-        v20 = v15;
+        v13 = v13;
+        v17 = v13;
         goto LABEL_7;
       }
     }
@@ -121,25 +121,25 @@
 
   else
   {
-    v15 = 0;
+    v13 = 0;
   }
 
-  v20 = 0;
+  v17 = 0;
 LABEL_7:
 
-  return v20;
+  return v17;
 }
 
 - (id)resolvedTextStyleWithPropertyMap:(id)map
 {
   mapCopy = map;
   os_unfair_lock_lock(&self->_resolvedTextStyleLock);
-  isVariation = objc_msgSend_objectForKey_(self->_propertyMapToTextStyleMap, v5, mapCopy, v6, v7);
+  isVariation = objc_msgSend_objectForKey_(self->_propertyMapToTextStyleMap, v5, mapCopy, v6);
   if (!isVariation)
   {
-    v9 = objc_alloc(MEMORY[0x277D80EC8]);
-    isVariation = objc_msgSend_initWithContext_name_overridePropertyMap_isVariation_(v9, v10, 0, 0, mapCopy, 0);
-    objc_msgSend_setObject_forKey_(self->_propertyMapToTextStyleMap, v11, isVariation, mapCopy, v12);
+    v8 = objc_alloc(MEMORY[0x277D80EC8]);
+    isVariation = objc_msgSend_initWithContext_name_overridePropertyMap_isVariation_(v8, v9, 0, 0, mapCopy, 0);
+    objc_msgSend_setObject_forKey_(self->_propertyMapToTextStyleMap, v10, isVariation, mapCopy);
   }
 
   os_unfair_lock_unlock(&self->_resolvedTextStyleLock);
@@ -153,7 +153,7 @@ LABEL_7:
   sub_2211A89A4(&self->_cache);
   pthread_rwlock_unlock(&self->_rwlock);
   os_unfair_lock_lock(&self->_resolvedTextStyleLock);
-  objc_msgSend_removeAllObjects(self->_propertyMapToTextStyleMap, v4, v5, v6, v7);
+  objc_msgSend_removeAllObjects(self->_propertyMapToTextStyleMap, v4, v5, v6);
 
   os_unfair_lock_unlock(&self->_resolvedTextStyleLock);
 }
@@ -164,7 +164,7 @@ LABEL_7:
   sub_2211A89A4(&self->_cache);
   pthread_rwlock_unlock(&self->_rwlock);
   os_unfair_lock_lock(&self->_resolvedTextStyleLock);
-  objc_msgSend_removeAllObjects(self->_propertyMapToTextStyleMap, v4, v5, v6, v7);
+  objc_msgSend_removeAllObjects(self->_propertyMapToTextStyleMap, v4, v5, v6);
 
   os_unfair_lock_unlock(&self->_resolvedTextStyleLock);
 }

@@ -154,13 +154,13 @@ void ___ef_log_EDPersistenceDatabaseConnectionPool_block_invoke()
     if (!v5)
     {
       ++self->_totalCurrentReaderConnections;
-      v15 = _ef_log_EDPersistenceDatabaseConnectionPool();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v16 = _ef_log_EDPersistenceDatabaseConnectionPool(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         totalCurrentReaderConnections = self->_totalCurrentReaderConnections;
         *buf = 134217984;
         v21 = totalCurrentReaderConnections;
-        _os_log_impl(&dword_1C61EF000, v15, OS_LOG_TYPE_DEFAULT, "Creating a new read connection, now %lu connections", buf, 0xCu);
+        _os_log_impl(&dword_1C61EF000, v16, OS_LOG_TYPE_DEFAULT, "Creating a new read connection, now %lu connections", buf, 0xCu);
       }
     }
 
@@ -182,8 +182,6 @@ LABEL_17:
   [(EDPersistenceDatabaseConnectionPool *)self _unlockForConnectionType:type resource:v6];
 LABEL_18:
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return connection;
 }
 
@@ -196,7 +194,7 @@ LABEL_18:
     add = atomic_fetch_add(&self->_writersWaiting, 1u);
     if (add >= 1)
     {
-      v8 = _ef_log_EDPersistenceDatabaseConnectionPool();
+      v8 = _ef_log_EDPersistenceDatabaseConnectionPool(self);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         v14 = 67109120;
@@ -205,29 +203,27 @@ LABEL_18:
       }
     }
 
-    [(NSLock *)self->_writerLock lock];
-    v9 = atomic_fetch_add(p_writersWaiting, 0xFFFFFFFF);
-    v10 = v9 - 1;
-    if (v9 > 1)
+    lock = [(NSLock *)self->_writerLock lock];
+    v10 = atomic_fetch_add(p_writersWaiting, 0xFFFFFFFF);
+    v11 = v10 - 1;
+    if (v10 > 1)
     {
-      v11 = _ef_log_EDPersistenceDatabaseConnectionPool();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = _ef_log_EDPersistenceDatabaseConnectionPool(lock);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         v14 = 67109120;
-        v15 = v10;
-        _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_DEFAULT, "acquired write connection (%d waiters)", &v14, 8u);
+        v15 = v11;
+        _os_log_impl(&dword_1C61EF000, v12, OS_LOG_TYPE_DEFAULT, "acquired write connection (%d waiters)", &v14, 8u);
       }
     }
   }
 
-  result = type == 0;
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return type == 0;
 }
 
 - (void)checkInConnection:(id)connection
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   [(NSLock *)self->_checkoutLock lock];
   v6 = [(NSMapTable *)self->_checkoutMap objectForKey:connectionCopy];
@@ -253,42 +249,47 @@ LABEL_18:
       objc_storeStrong(&self->_writerConnection, v6);
     }
 
-    else if ([(EDPersistenceDatabaseConnectionPool *)self _shouldAddReaderConnectionBackToCache])
-    {
-      [(NSMutableSet *)self->_cache addObject:v6];
-      if ([(NSMutableSet *)self->_cache count]> self->_minimumCachedReaderConnections)
-      {
-        v9 = _ef_log_EDPersistenceDatabaseConnectionPool();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
-        {
-          v10 = [(NSMutableSet *)self->_cache count];
-          v18 = 134217984;
-          v19 = v10;
-          _os_log_impl(&dword_1C61EF000, v9, OS_LOG_TYPE_INFO, "Adding reader connection back to cache, now %lu in cache", &v18, 0xCu);
-        }
-      }
-    }
-
     else
     {
-      --self->_totalCurrentReaderConnections;
-      v11 = _ef_log_EDPersistenceDatabaseConnectionPool();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      _shouldAddReaderConnectionBackToCache = [(EDPersistenceDatabaseConnectionPool *)self _shouldAddReaderConnectionBackToCache];
+      if (_shouldAddReaderConnectionBackToCache)
       {
-        totalCurrentReaderConnections = self->_totalCurrentReaderConnections;
-        v13 = [(NSMutableSet *)self->_cache count];
-        v18 = 134218240;
-        v19 = totalCurrentReaderConnections;
-        v20 = 2048;
-        v21 = v13;
-        _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_DEFAULT, "Reducing number of read connections, now %lu (%lu in cache)", &v18, 0x16u);
+        [(NSMutableSet *)self->_cache addObject:v6];
+        v10 = [(NSMutableSet *)self->_cache count];
+        if (v10 > self->_minimumCachedReaderConnections)
+        {
+          v11 = _ef_log_EDPersistenceDatabaseConnectionPool(v10);
+          if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+          {
+            v12 = [(NSMutableSet *)self->_cache count];
+            v19 = 134217984;
+            v20 = v12;
+            _os_log_impl(&dword_1C61EF000, v11, OS_LOG_TYPE_INFO, "Adding reader connection back to cache, now %lu in cache", &v19, 0xCu);
+          }
+        }
       }
 
-      v14 = [MEMORY[0x1E695DF00] now];
-      lastConnectionDisposalTime = self->_lastConnectionDisposalTime;
-      self->_lastConnectionDisposalTime = v14;
+      else
+      {
+        --self->_totalCurrentReaderConnections;
+        v13 = _ef_log_EDPersistenceDatabaseConnectionPool(_shouldAddReaderConnectionBackToCache);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        {
+          totalCurrentReaderConnections = self->_totalCurrentReaderConnections;
+          v15 = [(NSMutableSet *)self->_cache count];
+          v19 = 134218240;
+          v20 = totalCurrentReaderConnections;
+          v21 = 2048;
+          v22 = v15;
+          _os_log_impl(&dword_1C61EF000, v13, OS_LOG_TYPE_DEFAULT, "Reducing number of read connections, now %lu (%lu in cache)", &v19, 0x16u);
+        }
 
-      [connectionCopy close];
+        v16 = [MEMORY[0x1E695DF00] now];
+        lastConnectionDisposalTime = self->_lastConnectionDisposalTime;
+        self->_lastConnectionDisposalTime = v16;
+
+        [connectionCopy close];
+      }
     }
   }
 
@@ -303,8 +304,6 @@ LABEL_18:
 
   [(NSLock *)self->_cacheLock unlock];
   [(EDPersistenceDatabaseConnectionPool *)self _unlockForConnectionType:type resource:resource];
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_unlockForConnectionType:(unint64_t)type resource:(id)resource
@@ -317,7 +316,7 @@ LABEL_18:
 
 - (void)flush
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   [(NSLock *)self->_cacheLock lock];
   if ([(NSMutableSet *)self->_cache count])
@@ -337,39 +336,37 @@ LABEL_18:
 
   ++self->_cacheGeneration;
   [(NSLock *)self->_cacheLock unlock];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = v3;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
-    v9 = *v14;
+    v9 = *v13;
     do
     {
       v10 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v13 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        connection = [*(*(&v13 + 1) + 8 * v10) connection];
+        connection = [*(*(&v12 + 1) + 8 * v10) connection];
         [connection close];
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v8);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setCacheSize:(unint64_t)size

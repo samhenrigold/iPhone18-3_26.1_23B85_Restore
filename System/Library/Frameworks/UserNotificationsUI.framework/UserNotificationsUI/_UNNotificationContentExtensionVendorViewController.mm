@@ -30,17 +30,17 @@
 
 - (_UNNotificationContentExtensionVendorViewController)initWithNibName:(id)name bundle:(id)bundle
 {
-  v7.receiver = self;
-  v7.super_class = _UNNotificationContentExtensionVendorViewController;
-  v4 = [(_UNNotificationContentExtensionVendorViewController *)&v7 initWithNibName:name bundle:bundle];
-  v5 = v4;
+  v8.receiver = self;
+  v8.super_class = _UNNotificationContentExtensionVendorViewController;
+  v4 = [(_UNNotificationContentExtensionVendorViewController *)&v8 initWithNibName:name bundle:bundle];
+  v6 = v4;
   if (v4)
   {
     atomic_store(0, &v4->_invalidationOnceFlag);
-    UNRegisterUserNotificationsUILogging();
+    UNRegisterUserNotificationsUILogging(v4, v5);
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)dealloc
@@ -285,7 +285,7 @@
     v5 = UNLogExtensionsService;
     if (os_log_type_enabled(UNLogExtensionsService, OS_LOG_TYPE_ERROR))
     {
-      [_UNNotificationContentExtensionVendorViewController beginRequestWithExtensionContext:v5];
+      [(_UNNotificationContentExtensionVendorViewController *)v5 beginRequestWithExtensionContext:contextCopy];
     }
   }
 }
@@ -426,15 +426,15 @@ LABEL_5:
   _os_log_error_impl(&dword_23AB78000, v4, OS_LOG_TYPE_ERROR, "View controller %{public}@ in extension %{public}@ does not conform to protocol %{public}@", &v9, 0x20u);
 }
 
-- (void)beginRequestWithExtensionContext:(void *)a1 .cold.1(void *a1)
+- (void)beginRequestWithExtensionContext:(void *)a1 .cold.1(void *a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
-  v4 = 138543362;
-  v5 = v3;
-  _os_log_error_impl(&dword_23AB78000, v1, OS_LOG_TYPE_ERROR, "Unexpected extension context class: %{public}@", &v4, 0xCu);
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  v5 = 138543362;
+  v6 = v4;
+  _os_log_error_impl(&dword_23AB78000, v2, OS_LOG_TYPE_ERROR, "Unexpected extension context class: %{public}@", &v5, 0xCu);
 }
 
 @end

@@ -185,16 +185,16 @@
     extension = [(_ASExtensionViewController *)self extension];
     _plugIn = [extension _plugIn];
     containingUrl = [_plugIn containingUrl];
-    v28 = 0;
-    v15 = [v11 initWithURL:containingUrl allowPlaceholder:0 error:&v28];
-    v16 = v28;
+    v30 = 0;
+    v15 = [v11 initWithURL:containingUrl allowPlaceholder:0 error:&v30];
+    v16 = v30;
 
     if (v16)
     {
-      v17 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v19 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension(v17, v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
-        [_ASAccountAuthenticationModificationHostViewController prepareToCancelRequestWithHostContext:v17 error:v16 completion:?];
+        [_ASAccountAuthenticationModificationHostViewController prepareToCancelRequestWithHostContext:v19 error:v16 completion:?];
       }
 
       completionCopy[2](completionCopy);
@@ -213,29 +213,29 @@
       teamIdentifier = [v15 teamIdentifier];
       [v10 setTeamID:teamIdentifier];
 
-      v23 = objc_alloc_init(MEMORY[0x1E698DCE0]);
-      v24[0] = MEMORY[0x1E69E9820];
-      v24[1] = 3221225472;
-      v24[2] = __113___ASAccountAuthenticationModificationHostViewController_prepareToCancelRequestWithHostContext_error_completion___block_invoke;
-      v24[3] = &unk_1E7AF7AD0;
-      v25 = contextCopy;
+      v25 = objc_alloc_init(MEMORY[0x1E698DCE0]);
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = __113___ASAccountAuthenticationModificationHostViewController_prepareToCancelRequestWithHostContext_error_completion___block_invoke;
+      v26[3] = &unk_1E7AF7AD0;
+      v27 = contextCopy;
       selfCopy = self;
-      v27 = completionCopy;
-      [v23 revokeAuthorizationWithContext:v10 completion:v24];
+      v29 = completionCopy;
+      [v25 revokeAuthorizationWithContext:v10 completion:v26];
     }
   }
 
   else
   {
-    v29.receiver = self;
-    v29.super_class = _ASAccountAuthenticationModificationHostViewController;
-    [(_ASExtensionViewController *)&v29 prepareToCancelRequestWithHostContext:contextCopy error:error completion:completionCopy];
+    v31.receiver = self;
+    v31.super_class = _ASAccountAuthenticationModificationHostViewController;
+    [(_ASExtensionViewController *)&v31 prepareToCancelRequestWithHostContext:contextCopy error:error completion:completionCopy];
   }
 }
 
 - (void)getSignInWithAppleAuthorizationWithState:(id)state nonce:(id)nonce completion:(id)completion
 {
-  v40[1] = *MEMORY[0x1E69E9840];
+  v41[1] = *MEMORY[0x1E69E9840];
   stateCopy = state;
   nonceCopy = nonce;
   completionCopy = completion;
@@ -257,24 +257,24 @@
     extension = [(_ASExtensionViewController *)self extension];
     _plugIn = [extension _plugIn];
     containingUrl = [_plugIn containingUrl];
-    v36 = 0;
-    v18 = [v14 initWithURL:containingUrl allowPlaceholder:0 error:&v36];
-    v19 = v36;
+    v37 = 0;
+    v18 = [v14 initWithURL:containingUrl allowPlaceholder:0 error:&v37];
+    v19 = v37;
 
     if (v19)
     {
-      v20 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v22 = WBS_LOG_CHANNEL_PREFIXAccountAuthenticationModificationExtension(v20, v21);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
-        [_ASAccountAuthenticationModificationHostViewController getSignInWithAppleAuthorizationWithState:v20 nonce:v19 completion:?];
+        [_ASAccountAuthenticationModificationHostViewController getSignInWithAppleAuthorizationWithState:v22 nonce:v19 completion:?];
       }
 
-      v21 = MEMORY[0x1E696ABC0];
-      v37 = *MEMORY[0x1E696A588];
-      v38 = @"Couldn't get application record while fetching authorization.";
-      v22 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-      v23 = [v21 errorWithDomain:@"ASExtensionErrorDomain" code:0 userInfo:v22];
-      completionCopy[2](completionCopy, 0, v23);
+      v23 = MEMORY[0x1E696ABC0];
+      v38 = *MEMORY[0x1E696A588];
+      v39 = @"Couldn't get application record while fetching authorization.";
+      v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+      v25 = [v23 errorWithDomain:@"ASExtensionErrorDomain" code:0 userInfo:v24];
+      completionCopy[2](completionCopy, 0, v25);
     }
 
     else
@@ -283,8 +283,8 @@
       [v13 setState:stateCopy];
       [v13 setNonce:nonceCopy];
       entitlements = [v18 entitlements];
-      v26 = [entitlements objectForKey:@"application-identifier" ofClass:objc_opt_class()];
-      [v13 setAppID:v26];
+      v28 = [entitlements objectForKey:@"application-identifier" ofClass:objc_opt_class()];
+      [v13 setAppID:v28];
 
       bundleIdentifier = [v18 bundleIdentifier];
       [v13 setBundleID:bundleIdentifier];
@@ -292,32 +292,30 @@
       teamIdentifier = [v18 teamIdentifier];
       [v13 setTeamID:teamIdentifier];
 
-      v29 = [objc_alloc(MEMORY[0x1E698DD58]) initWithUpgradeContext:v13];
-      v30 = objc_alloc_init(MEMORY[0x1E698DCE0]);
-      v32[0] = MEMORY[0x1E69E9820];
-      v32[1] = 3221225472;
-      v32[2] = __116___ASAccountAuthenticationModificationHostViewController_getSignInWithAppleAuthorizationWithState_nonce_completion___block_invoke;
-      v32[3] = &unk_1E7AF7AF8;
-      objc_copyWeak(&v34, &location);
-      v33 = completionCopy;
-      [v30 performAuthorizationWithContext:v29 completion:v32];
+      v31 = [objc_alloc(MEMORY[0x1E698DD58]) initWithUpgradeContext:v13];
+      v32 = objc_alloc_init(MEMORY[0x1E698DCE0]);
+      v33[0] = MEMORY[0x1E69E9820];
+      v33[1] = 3221225472;
+      v33[2] = __116___ASAccountAuthenticationModificationHostViewController_getSignInWithAppleAuthorizationWithState_nonce_completion___block_invoke;
+      v33[3] = &unk_1E7AF7AF8;
+      objc_copyWeak(&v35, &location);
+      v34 = completionCopy;
+      [v32 performAuthorizationWithContext:v31 completion:v33];
 
-      objc_destroyWeak(&v34);
+      objc_destroyWeak(&v35);
       objc_destroyWeak(&location);
     }
   }
 
   else
   {
-    v24 = MEMORY[0x1E696ABC0];
-    v39 = *MEMORY[0x1E696A588];
-    v40[0] = @"Cannot request Sign in with Apple authorization in the middle of a strong password upgrade.";
-    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:&v39 count:1];
-    v13 = [v24 errorWithDomain:@"ASExtensionErrorDomain" code:0 userInfo:v19];
+    v26 = MEMORY[0x1E696ABC0];
+    v40 = *MEMORY[0x1E696A588];
+    v41[0] = @"Cannot request Sign in with Apple authorization in the middle of a strong password upgrade.";
+    v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+    v13 = [v26 errorWithDomain:@"ASExtensionErrorDomain" code:0 userInfo:v19];
     completionCopy[2](completionCopy, 0, v13);
   }
-
-  v31 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dismissRequestUI:(id)i
@@ -338,24 +336,18 @@
 
 - (void)prepareToCancelRequestWithHostContext:(void *)a1 error:(void *)a2 completion:.cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B1C8D000, v5, v6, "Failed to get application record to revoke authorization with error: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_0(&dword_1B1C8D000, v5, v6, "Failed to get application record to revoke authorization with error: %{public}@", v7, v8, v9, v10);
 }
 
 - (void)getSignInWithAppleAuthorizationWithState:(void *)a1 nonce:(void *)a2 completion:.cold.1(void *a1, void *a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 safari_privacyPreservingDescription];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_0(&dword_1B1C8D000, v5, v6, "Failed to get application record to request authorization due to error: %{public}@", v7, v8, v9, v10, v12);
-
-  v11 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_0_0(&dword_1B1C8D000, v5, v6, "Failed to get application record to request authorization due to error: %{public}@", v7, v8, v9, v10);
 }
 
 @end

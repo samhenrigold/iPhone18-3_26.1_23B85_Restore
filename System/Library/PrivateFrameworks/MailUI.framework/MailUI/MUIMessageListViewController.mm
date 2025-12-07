@@ -131,9 +131,11 @@
 
 uint64_t ___ef_log_MUIMessageListViewController_block_invoke()
 {
-  _ef_log_MUIMessageListViewController_log = os_log_create("com.apple.email", "MUIMessageListViewController");
+  v0 = os_log_create("com.apple.email", "MUIMessageListViewController");
+  v1 = _ef_log_MUIMessageListViewController_log;
+  _ef_log_MUIMessageListViewController_log = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (MessageListDataSource)dataSource
@@ -143,7 +145,7 @@ uint64_t ___ef_log_MUIMessageListViewController_block_invoke()
   if (!dataSource)
   {
     collectionView = [(MUIMessageListViewController *)self collectionView];
-    v5 = _ef_log_MUIMessageListViewController();
+    v5 = _ef_log_MUIMessageListViewController(collectionView);
     v6 = v5;
     if (collectionView)
     {
@@ -168,7 +170,7 @@ uint64_t ___ef_log_MUIMessageListViewController_block_invoke()
 
     else if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [MUIMessageListViewController dataSource];
+      [(MUIMessageListViewController *)self dataSource];
     }
 
     dataSource = self->_dataSource;
@@ -210,7 +212,7 @@ uint64_t ___ef_log_MUIMessageListViewController_block_invoke()
       }
 
       v7 = v6 + 1;
-      v8 = _ef_log_MUIMessageListViewController();
+      v8 = _ef_log_MUIMessageListViewController(v5);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
       {
         v9 = 134217984;
@@ -235,12 +237,12 @@ uint64_t ___ef_log_MUIMessageListViewController_block_invoke()
 
 - (id)createMessageListForReload
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   mailboxes = [(MUIMessageListViewController *)self mailboxes];
   if (![mailboxes count])
   {
-    v5 = _ef_log_MUIMessageListViewController();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _ef_log_MUIMessageListViewController(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [MUIMessageListViewController createMessageListForReload];
     }
@@ -252,18 +254,18 @@ uint64_t ___ef_log_MUIMessageListViewController_block_invoke()
 
   if (!messageRepository)
   {
-    v5 = _ef_log_MUIMessageListViewController();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = _ef_log_MUIMessageListViewController(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [MUIMessageListViewController createMessageListForReload];
     }
 
 LABEL_7:
-    v6 = 0;
+    v7 = 0;
     goto LABEL_8;
   }
 
-  v8 = objc_alloc_init(MEMORY[0x277D07178]);
+  v9 = objc_alloc_init(MEMORY[0x277D07178]);
   shouldDisplayGroupedSenders = [(MUIMessageListViewController *)self shouldDisplayGroupedSenders];
   unseenPredicate = [(MUIMessageListViewController *)self unseenPredicate];
   if (unseenPredicate)
@@ -276,7 +278,7 @@ LABEL_7:
 
   if (priorityPredicate2)
   {
-    [v8 setOrAddObject:priorityPredicate forKey:@"MessageListSectionPriority"];
+    [v9 setOrAddObject:priorityPredicate forKey:@"MessageListSectionPriority"];
   }
 
   if (shouldDisplayGroupedSenders)
@@ -284,123 +286,123 @@ LABEL_7:
     em_userDefaults = [MEMORY[0x277CBEBD0] em_userDefaults];
     preferredGroupedSenderGrouping = [em_userDefaults preferredGroupedSenderGrouping];
 
-    v15 = MEMORY[0x277D06E00];
+    v16 = MEMORY[0x277D06E00];
     messageRepository2 = [(MUIMessageListViewController *)self messageRepository];
-    v17 = [v15 groupedCommerceSenderMessageListForMailboxes:mailboxes withRepository:messageRepository2 grouping:preferredGroupedSenderGrouping sectionPredicates:v8 countOfItemsToPrecache:16];
+    v18 = [v16 groupedCommerceSenderMessageListForMailboxes:mailboxes withRepository:messageRepository2 grouping:preferredGroupedSenderGrouping sectionPredicates:v9 countOfItemsToPrecache:16];
 
-    state = _ef_log_MUIMessageListViewController();
+    state = _ef_log_MUIMessageListViewController(v19);
     if (os_log_type_enabled(state, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = objc_opt_class();
-      v20 = NSStringFromClass(v19);
-      query = [v17 query];
+      v21 = objc_opt_class();
+      v22 = NSStringFromClass(v21);
+      query = [v18 query];
       *buf = 138412802;
-      v55 = v20;
-      v56 = 2048;
+      v59 = v22;
+      v60 = 2048;
       selfCopy3 = self;
-      v58 = 2112;
-      v59 = query;
+      v62 = 2112;
+      v63 = query;
       _os_log_impl(&dword_214A5E000, state, OS_LOG_TYPE_DEFAULT, "<%@: %p> Created new grouped sender message list for mailboxes with query %@", buf, 0x20u);
     }
 
     goto LABEL_34;
   }
 
-  v51 = v8;
+  v55 = v9;
   state = [(MUIMessageListViewController *)self state];
   containsInbox = [state containsInbox];
-  v23 = 0;
-  v48 = priorityPredicate2;
+  v25 = 0;
+  v52 = priorityPredicate2;
   if (([state containsSent]& 1) == 0 && containsInbox)
   {
-    v23 = [(MUIMessageListViewController *)self shouldHideFollowUp]^ 1;
+    v25 = [(MUIMessageListViewController *)self shouldHideFollowUp]^ 1;
   }
 
-  v49 = containsInbox;
-  v50 = priorityPredicate;
+  v53 = containsInbox;
+  v54 = priorityPredicate;
   if ([mailboxes ef_any:&__block_literal_global_81_0])
   {
-    v24 = 32;
+    v26 = 32;
   }
 
   else
   {
-    v24 = 0;
+    v26 = 0;
   }
 
-  v25 = v24 | [state isSearch]^ 1;
+  v27 = v26 | [state isSearch]^ 1;
   if ([state containsInbox]&& [(MUIMessageListViewController *)self isThreaded])
   {
-    v25 |= 0x1000uLL;
+    v27 |= 0x1000uLL;
   }
 
-  v26 = MEMORY[0x277D06E08];
+  v28 = MEMORY[0x277D06E08];
   mailboxRepository = [(MUIMessageListViewController *)self mailboxRepository];
   senderSpecificMessageListItem = [(MUIMessageListViewController *)self senderSpecificMessageListItem];
   senderList = [senderSpecificMessageListItem senderList];
   firstObject = [senderList firstObject];
-  v31 = [v26 transformPredicateWithMailboxes:mailboxes mailboxTypeResolver:mailboxRepository shouldIncludeFollowUps:v23 shouldIncludeReadLater:v49 limitToSender:firstObject];
+  v33 = [v28 transformPredicateWithMailboxes:mailboxes mailboxTypeResolver:mailboxRepository shouldIncludeFollowUps:v25 shouldIncludeReadLater:v53 limitToSender:firstObject];
 
   sortDescriptors = [state sortDescriptors];
   LODWORD(senderSpecificMessageListItem) = [(MUIMessageListViewController *)self isThreaded];
-  v33 = MEMORY[0x277D06E00];
+  v35 = MEMORY[0x277D06E00];
   messageRepository3 = [(MUIMessageListViewController *)self messageRepository];
   if (senderSpecificMessageListItem)
   {
-    v17 = [v33 threadedMessageListForMailboxes:mailboxes withRepository:messageRepository3 additionalQueryOptions:v25 countOfItemsToPrecache:16 shouldUpdateDisplayDate:1 sortDescriptors:sortDescriptors sectionPredicates:v51 transformPredicate:v31];
+    v18 = [v35 threadedMessageListForMailboxes:mailboxes withRepository:messageRepository3 additionalQueryOptions:v27 countOfItemsToPrecache:16 shouldUpdateDisplayDate:1 sortDescriptors:sortDescriptors sectionPredicates:v55 transformPredicate:v33];
 
-    v35 = _ef_log_MUIMessageListViewController();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v38 = _ef_log_MUIMessageListViewController(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
-      v36 = objc_opt_class();
-      v37 = NSStringFromClass(v36);
-      query2 = [v17 query];
+      v39 = objc_opt_class();
+      v40 = NSStringFromClass(v39);
+      query2 = [v18 query];
       *buf = 138412802;
-      v55 = v37;
-      v56 = 2048;
+      v59 = v40;
+      v60 = 2048;
       selfCopy3 = self;
-      v58 = 2112;
-      v59 = query2;
-      v39 = "<%@: %p> Created new threaded list for mailboxes with query %@";
+      v62 = 2112;
+      v63 = query2;
+      v42 = "<%@: %p> Created new threaded list for mailboxes with query %@";
 LABEL_32:
-      _os_log_impl(&dword_214A5E000, v35, OS_LOG_TYPE_DEFAULT, v39, buf, 0x20u);
+      _os_log_impl(&dword_214A5E000, v38, OS_LOG_TYPE_DEFAULT, v42, buf, 0x20u);
     }
   }
 
   else
   {
-    v17 = [v33 simpleMessageListForMailboxes:mailboxes withRepository:messageRepository3 additionalQueryOptions:v25 countOfItemsToPrecache:16 shouldUpdateDisplayDate:1 sortDescriptors:sortDescriptors sectionPredicates:v51 transformPredicate:v31];
+    v18 = [v35 simpleMessageListForMailboxes:mailboxes withRepository:messageRepository3 additionalQueryOptions:v27 countOfItemsToPrecache:16 shouldUpdateDisplayDate:1 sortDescriptors:sortDescriptors sectionPredicates:v55 transformPredicate:v33];
 
-    v35 = _ef_log_MUIMessageListViewController();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v38 = _ef_log_MUIMessageListViewController(v43);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
     {
-      v40 = objc_opt_class();
-      v37 = NSStringFromClass(v40);
-      query2 = [v17 query];
+      v44 = objc_opt_class();
+      v40 = NSStringFromClass(v44);
+      query2 = [v18 query];
       *buf = 138412802;
-      v55 = v37;
-      v56 = 2048;
+      v59 = v40;
+      v60 = 2048;
       selfCopy3 = self;
-      v58 = 2112;
-      v59 = query2;
-      v39 = "<%@: %p> Created new non-threaded list for mailboxes with query %@";
+      v62 = 2112;
+      v63 = query2;
+      v42 = "<%@: %p> Created new non-threaded list for mailboxes with query %@";
       goto LABEL_32;
     }
   }
 
-  priorityPredicate2 = v48;
+  priorityPredicate2 = v52;
 
-  priorityPredicate = v50;
-  v8 = v51;
+  priorityPredicate = v54;
+  v9 = v55;
 LABEL_34:
 
   if (priorityPredicate2)
   {
-    query3 = [v17 query];
-    v52 = *MEMORY[0x277D06C10];
-    v53 = MEMORY[0x277CBEC38];
-    v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-    [query3 addTargetClassOptions:v42];
+    query3 = [v18 query];
+    v56 = *MEMORY[0x277D06C10];
+    v57 = MEMORY[0x277CBEC38];
+    v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v57 forKeys:&v56 count:1];
+    [query3 addTargetClassOptions:v46];
   }
 
   filterViewModel = [(MUIMessageListViewController *)self filterViewModel];
@@ -408,34 +410,34 @@ LABEL_34:
 
   if (isFilterEnabled)
   {
-    v45 = [(MUIMessageListViewController *)self shouldDisplayGroupedSenders]^ 1;
+    v49 = [(MUIMessageListViewController *)self shouldDisplayGroupedSenders]^ 1;
   }
 
   else
   {
-    v45 = 0;
+    v49 = 0;
   }
 
-  v46 = [(MUIMessageListViewController *)self _predicateForFiltersEnabled:v45];
-  if ([(MUIMessageListViewController *)self _shouldApplyFilterPredicate:v46])
+  v50 = [(MUIMessageListViewController *)self _predicateForFiltersEnabled:v49];
+  if ([(MUIMessageListViewController *)self _shouldApplyFilterPredicate:v50])
   {
-    [(MUIMessageListViewController *)self setCurrentFilterPredicate:v46];
+    [(MUIMessageListViewController *)self setCurrentFilterPredicate:v50];
     [(MUIMessageListViewController *)self refreshHighlightedMessagesController];
   }
 
-  if (v46)
+  if (v50)
   {
-    v47 = [v17 filteredMessageListWithPredicate:v46 userFiltered:v45];
+    v51 = [v18 filteredMessageListWithPredicate:v50 userFiltered:v49];
 
-    v17 = v47;
+    v18 = v51;
   }
 
-  v5 = v17;
+  v6 = v18;
 
-  v6 = v5;
+  v7 = v6;
 LABEL_8:
 
-  return v6;
+  return v7;
 }
 
 - (NSPredicate)priorityPredicate
@@ -485,11 +487,11 @@ LABEL_10:
   os_unfair_lock_lock(&self->_queueSuspensionTimeoutTokenLock);
   if (self->_queueSuspensionTimeoutToken)
   {
-    v3 = _ef_log_MUIMessageListViewController();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = _ef_log_MUIMessageListViewController(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_214A5E000, v3, OS_LOG_TYPE_DEFAULT, "[Launch] Cancel queue timeout", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_214A5E000, v4, OS_LOG_TYPE_DEFAULT, "[Launch] Cancel queue timeout", v6, 2u);
     }
 
     [(EFCancelable *)self->_queueSuspensionTimeoutToken cancel];
@@ -670,7 +672,7 @@ LABEL_10:
     {
       v10 = [em_userDefaults integerForKey:*MEMORY[0x277D06D18]];
       v4 = v10 > 2;
-      v11 = _ef_log_MUIMessageListViewController();
+      v11 = _ef_log_MUIMessageListViewController(v10);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
       {
         v12 = NSStringFromSelector(a2);
@@ -1127,8 +1129,8 @@ LABEL_20:
 
   if ((isConsentAccepted & 1) == 0)
   {
-    v9 = _ef_log_MUIMessageListViewController();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v10 = _ef_log_MUIMessageListViewController(v5);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
       [MUIMessageListViewController shouldIncludeMailCleanupFilter];
     }
@@ -1200,8 +1202,7 @@ LABEL_20:
   senderSpecificMessageListItem = [(MUIMessageListViewController *)self senderSpecificMessageListItem];
   [stateCopy updateWithMailboxes:mailboxesCopy senderSpecificMessageListItem:senderSpecificMessageListItem];
 
-  [stateCopy setCanShowReadLaterDate:{objc_msgSend(stateCopy, "containsOutbox") ^ 1}];
-  v9 = _ef_log_MUIMessageListViewController();
+  v9 = _ef_log_MUIMessageListViewController([stateCopy setCanShowReadLaterDate:{objc_msgSend(stateCopy, "containsOutbox") ^ 1}]);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     ef_publicDescription = [stateCopy ef_publicDescription];
@@ -1242,85 +1243,86 @@ LABEL_20:
 
 - (id)searchPredicateForMailboxes:(id)mailboxes
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   mailboxesCopy = mailboxes;
   v5 = objc_alloc_init(MEMORY[0x277CBEB18]);
   currentSuggestion = [(MUIMessageListViewController *)self currentSuggestion];
   mui_messageListSearchPredicate = [currentSuggestion mui_messageListSearchPredicate];
   [v5 ef_addOptionalObject:mui_messageListSearchPredicate];
   userQueryString = [(MUIMessageListViewController *)self userQueryString];
-  if ([userQueryString length])
+  v9 = [userQueryString length];
+  if (v9)
   {
-    v9 = [MEMORY[0x277D06E10] spotlightSearchPredicateForValue:userQueryString];
-    [v5 addObject:v9];
+    v10 = [MEMORY[0x277D06E10] spotlightSearchPredicateForValue:userQueryString];
+    [v5 addObject:v10];
   }
 
-  v10 = _ef_log_MUIMessageListViewController();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11 = _ef_log_MUIMessageListViewController(v9);
+  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     ef_publicDescription = [mui_messageListSearchPredicate ef_publicDescription];
-    v12 = [MEMORY[0x277D06D48] publicDescriptionForSuggestion:currentSuggestion];
-    v13 = [MEMORY[0x277D07198] partiallyRedactedStringForString:userQueryString];
-    v20 = 138412802;
-    v21 = ef_publicDescription;
-    v22 = 2112;
-    v23 = v12;
+    v13 = [MEMORY[0x277D06D48] publicDescriptionForSuggestion:currentSuggestion];
+    v14 = [MEMORY[0x277D07198] partiallyRedactedStringForString:userQueryString];
+    v22 = 138412802;
+    v23 = ef_publicDescription;
     v24 = 2112;
     v25 = v13;
-    _os_log_impl(&dword_214A5E000, v10, OS_LOG_TYPE_DEFAULT, "Generated remote search predicate:%@ for suggestion:%@ (%@)", &v20, 0x20u);
+    v26 = 2112;
+    v27 = v14;
+    _os_log_impl(&dword_214A5E000, v11, OS_LOG_TYPE_DEFAULT, "Generated remote search predicate:%@ for suggestion:%@ (%@)", &v22, 0x20u);
   }
 
   if ([mailboxesCopy count])
   {
-    _excludedMailboxesPredicate = [MEMORY[0x277D06E08] predicateForMessagesInMailboxes:mailboxesCopy];
-    [v5 ef_addOptionalObject:_excludedMailboxesPredicate];
-    v15 = _ef_log_MUIMessageListViewController();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v15 = [MEMORY[0x277D06E08] predicateForMessagesInMailboxes:mailboxesCopy];
+    v16 = _ef_log_MUIMessageListViewController([v5 ef_addOptionalObject:v15]);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v20 = 138412802;
-      v21 = _excludedMailboxesPredicate;
-      v22 = 2112;
-      v23 = currentSuggestion;
+      v22 = 138412802;
+      v23 = v15;
       v24 = 2112;
-      v25 = userQueryString;
-      _os_log_impl(&dword_214A5E000, v15, OS_LOG_TYPE_DEFAULT, "Generated localMailboxPredicate:%@ for suggestion:%@ (%@)", &v20, 0x20u);
+      v25 = currentSuggestion;
+      v26 = 2112;
+      v27 = userQueryString;
+      _os_log_impl(&dword_214A5E000, v16, OS_LOG_TYPE_DEFAULT, "Generated localMailboxPredicate:%@ for suggestion:%@ (%@)", &v22, 0x20u);
     }
   }
 
   else
   {
     _excludedMailboxesPredicate = [(MUIMessageListViewController *)self _excludedMailboxesPredicate];
+    v15 = _excludedMailboxesPredicate;
     if (_excludedMailboxesPredicate)
     {
-      [v5 addObject:_excludedMailboxesPredicate];
+      _excludedMailboxesPredicate = [v5 addObject:_excludedMailboxesPredicate];
     }
 
-    v15 = _ef_log_MUIMessageListViewController();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+    v16 = _ef_log_MUIMessageListViewController(_excludedMailboxesPredicate);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = [MEMORY[0x277D06D48] publicDescriptionForSuggestion:currentSuggestion];
-      v17 = [MEMORY[0x277D07198] partiallyRedactedStringForString:userQueryString];
-      v20 = 138412802;
-      v21 = _excludedMailboxesPredicate;
-      v22 = 2112;
-      v23 = v16;
+      v18 = [MEMORY[0x277D06D48] publicDescriptionForSuggestion:currentSuggestion];
+      v19 = [MEMORY[0x277D07198] partiallyRedactedStringForString:userQueryString];
+      v22 = 138412802;
+      v23 = v15;
       v24 = 2112;
-      v25 = v17;
-      _os_log_impl(&dword_214A5E000, v15, OS_LOG_TYPE_DEFAULT, "Generated excludeJunkAndTrashPredicate:%@ for suggestion:%@ (%@)", &v20, 0x20u);
+      v25 = v18;
+      v26 = 2112;
+      v27 = v19;
+      _os_log_impl(&dword_214A5E000, v16, OS_LOG_TYPE_DEFAULT, "Generated excludeJunkAndTrashPredicate:%@ for suggestion:%@ (%@)", &v22, 0x20u);
     }
   }
 
   if ([v5 count])
   {
-    v18 = [MEMORY[0x277CCA920] andPredicateWithSubpredicates:v5];
+    v20 = [MEMORY[0x277CCA920] andPredicateWithSubpredicates:v5];
   }
 
   else
   {
-    v18 = 0;
+    v20 = 0;
   }
 
-  return v18;
+  return v20;
 }
 
 - (id)_excludedMailboxesPredicate
@@ -1594,26 +1596,27 @@ id __65__MUIMessageListViewController__reportFilterChangeEvent_filters___block_i
 - (void)reloadDataSourceWithMessageList:(id)list applyEmptySnapshot:(BOOL)snapshot
 {
   snapshotCopy = snapshot;
-  v58 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   listCopy = list;
-  if (pthread_main_np() != 1)
+  v8 = pthread_main_np();
+  if (v8 != 1)
   {
     [MUIMessageListViewController reloadDataSourceWithMessageList:a2 applyEmptySnapshot:self];
   }
 
-  v8 = _ef_log_MUIMessageListViewController();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = _ef_log_MUIMessageListViewController(v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = objc_opt_class();
-    v10 = NSStringFromClass(v9);
+    v10 = objc_opt_class();
+    v11 = NSStringFromClass(v10);
     ef_publicDescription = [listCopy ef_publicDescription];
     *buf = 138412802;
-    v53 = v10;
-    v54 = 2048;
+    v54 = v11;
+    v55 = 2048;
     selfCopy = self;
-    v56 = 2112;
-    v57 = ef_publicDescription;
-    _os_log_impl(&dword_214A5E000, v8, OS_LOG_TYPE_DEFAULT, "<%@: %p> Reloading messageList:%@", buf, 0x20u);
+    v57 = 2112;
+    v58 = ef_publicDescription;
+    _os_log_impl(&dword_214A5E000, v9, OS_LOG_TYPE_DEFAULT, "<%@: %p> Reloading messageList:%@", buf, 0x20u);
   }
 
   configuredSections = [(MUIMessageListViewController *)self configuredSections];
@@ -1628,23 +1631,23 @@ id __65__MUIMessageListViewController__reportFilterChangeEvent_filters___block_i
   mailboxesPendingOldestItemsUpdates = [(MUIMessageListViewController *)self mailboxesPendingOldestItemsUpdates];
   [mailboxesPendingOldestItemsUpdates removeAllObjects];
 
-  v15 = MFMessageListLoadingSignpostLog();
+  v16 = MFMessageListLoadingSignpostLog();
   objectID = [listCopy objectID];
-  v17 = os_signpost_id_make_with_pointer(v15, objectID);
+  v18 = os_signpost_id_make_with_pointer(v16, objectID);
 
-  v18 = MFMessageListLoadingSignpostLog();
-  v19 = v18;
-  if (v17 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v18))
+  v19 = MFMessageListLoadingSignpostLog();
+  v20 = v19;
+  if (v18 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v19))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_214A5E000, v19, OS_SIGNPOST_INTERVAL_BEGIN, v17, "MessageListLoading", "Begin loading message list enableTelemetry=YES ", buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_214A5E000, v20, OS_SIGNPOST_INTERVAL_BEGIN, v18, "MessageListLoading", "Begin loading message list enableTelemetry=YES ", buf, 2u);
   }
 
   [(MUIMessageListViewController *)self cancelQueueSuspensionTimeout];
   mailboxes = [(MUIMessageListViewController *)self mailboxes];
-  v21 = [mailboxes ef_all:&__block_literal_global_86];
+  v22 = [mailboxes ef_all:&__block_literal_global_86];
   state = [(MUIMessageListViewController *)self state];
-  [state setShouldDisplayUnreadAndVIP:v21];
+  [state setShouldDisplayUnreadAndVIP:v22];
 
   [(MUIMessageListViewController *)self setSwipeActionVisible:0];
   if (listCopy)
@@ -1659,8 +1662,8 @@ id __65__MUIMessageListViewController__reportFilterChangeEvent_filters___block_i
     array2 = [MEMORY[0x277CBEB18] array];
     if (_os_feature_enabled_impl() && EMIsGreymatterAvailable() && MUIBucketAllowsPriorityMessageDisplay([(MUIMessageListViewController *)self selectedBucket]))
     {
-      v27 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionPriority" messageList:listCopy];
-      [array addObject:v27];
+      v28 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionPriority" messageList:listCopy];
+      [array addObject:v28];
     }
 
     else
@@ -1668,35 +1671,35 @@ id __65__MUIMessageListViewController__reportFilterChangeEvent_filters___block_i
       [array2 addObject:@"MessageListSectionPriority"];
     }
 
-    v28 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionRecent" messageList:listCopy];
-    [array addObject:v28];
+    v29 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionRecent" messageList:listCopy];
+    [array addObject:v29];
 
     if ([(MUIMessageListViewController *)self shouldDisplayGroupedSenders])
     {
-      v29 = MEMORY[0x277CBEB18];
-      v30 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionGroupedSenderUnseen" messageList:listCopy];
-      v31 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionGroupedSender" messageList:listCopy];
-      v32 = [v29 arrayWithObjects:{v30, v31, 0}];
+      v30 = MEMORY[0x277CBEB18];
+      v31 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionGroupedSenderUnseen" messageList:listCopy];
+      v32 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionGroupedSender" messageList:listCopy];
+      v33 = [v30 arrayWithObjects:{v31, v32, 0}];
 
-      v51[0] = @"MessageListSectionRecentUnseen";
-      v51[1] = @"MessageListSectionRecent";
-      v33 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
-      [array2 addObjectsFromArray:v33];
+      v52[0] = @"MessageListSectionRecentUnseen";
+      v52[1] = @"MessageListSectionRecent";
+      v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:2];
+      [array2 addObjectsFromArray:v34];
 
-      array = v32;
+      array = v33;
     }
 
     else
     {
-      v50[0] = @"MessageListSectionGroupedSenderUnseen";
-      v50[1] = @"MessageListSectionGroupedSender";
-      v34 = [MEMORY[0x277CBEA60] arrayWithObjects:v50 count:2];
-      [array2 addObjectsFromArray:v34];
+      v51[0] = @"MessageListSectionGroupedSenderUnseen";
+      v51[1] = @"MessageListSectionGroupedSender";
+      v35 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:2];
+      [array2 addObjectsFromArray:v35];
 
       if ([(MUIMessageListViewController *)self canShowUnseenSection])
       {
-        v35 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionRecentUnseen" messageList:listCopy];
-        [array insertObject:v35 atIndex:1];
+        v36 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionRecentUnseen" messageList:listCopy];
+        [array insertObject:v36 atIndex:1];
       }
 
       else
@@ -1712,8 +1715,8 @@ id __65__MUIMessageListViewController__reportFilterChangeEvent_filters___block_i
     {
       if ([(MUIMessageListViewController *)self _shouldDisplayHelpMailLearn])
       {
-        v38 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionHelpMailLearn"];
-        [array insertObject:v38 atIndex:0];
+        v39 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionHelpMailLearn"];
+        [array insertObject:v39 atIndex:0];
       }
 
       else
@@ -1724,8 +1727,8 @@ id __65__MUIMessageListViewController__reportFilterChangeEvent_filters___block_i
 
     if ([(MUIMessageListViewController *)self _shouldDisplayOnboardingTip])
     {
-      v39 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionOnboardingTip"];
-      [array insertObject:v39 atIndex:0];
+      v40 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionOnboardingTip"];
+      [array insertObject:v40 atIndex:0];
     }
 
     else
@@ -1743,18 +1746,18 @@ id __65__MUIMessageListViewController__reportFilterChangeEvent_filters___block_i
       else
       {
         dataSource = [(MUIMessageListViewController *)self dataSource];
-        v41 = [dataSource messageListSectionIsVisible:@"MessageListSectionBucketBar"];
+        v42 = [dataSource messageListSectionIsVisible:@"MessageListSectionBucketBar"];
 
-        if (v41)
+        if (v42)
         {
-          v42 = 1;
+          v43 = 1;
 LABEL_33:
           if (+[MUIiCloudMailCleanupService isFeatureAvailable])
           {
             if ([(MUIMessageListViewController *)self _shouldAttachMailCleanupSection])
             {
-              v44 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionMailCleanupTip"];
-              [array insertObject:v44 atIndex:0];
+              v45 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionMailCleanupTip"];
+              [array insertObject:v45 atIndex:0];
             }
 
             else
@@ -1763,11 +1766,11 @@ LABEL_33:
             }
           }
 
-          v45 = [[MessageListDataSourceUpdateRequest alloc] initWithSectionUpdates:array sectionsToRemove:array2 startsWithEmptySnapshot:snapshotCopy];
+          v46 = [[MessageListDataSourceUpdateRequest alloc] initWithSectionUpdates:array sectionsToRemove:array2 startsWithEmptySnapshot:snapshotCopy];
           dataSource2 = [(MUIMessageListViewController *)self dataSource];
-          [dataSource2 applyMessageListDataSourceUpdate:v45];
+          [dataSource2 applyMessageListDataSourceUpdate:v46];
 
-          if (v42)
+          if (v43)
           {
             bucketsViewController = [(MUIMessageListViewController *)self bucketsViewController];
             mailboxes2 = [(MUIMessageListViewController *)self mailboxes];
@@ -1780,12 +1783,12 @@ LABEL_33:
           goto LABEL_40;
         }
 
-        v43 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionBucketBar" messageList:0 shouldClearSnapshot:0];
-        [array insertObject:v43 atIndex:0];
+        v44 = [[MessageListSectionDataSourceUpdateRequest alloc] initWithSection:@"MessageListSectionBucketBar" messageList:0 shouldClearSnapshot:0];
+        [array insertObject:v44 atIndex:0];
       }
     }
 
-    v42 = 0;
+    v43 = 0;
     goto LABEL_33;
   }
 
@@ -1806,7 +1809,7 @@ BOOL __83__MUIMessageListViewController_reloadDataSourceWithMessageList_applyEmp
   v35 = *MEMORY[0x277D85DE8];
   listCopy = list;
   sectionsCopy = sections;
-  v10 = _ef_log_MUIMessageListViewController();
+  v10 = _ef_log_MUIMessageListViewController(sectionsCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     v11 = objc_opt_class();
@@ -1864,97 +1867,98 @@ BOOL __83__MUIMessageListViewController_reloadDataSourceWithMessageList_applyEmp
 
 - (void)reloadDataSourceWithSearchPredicate:(id)predicate
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
-  v5 = _ef_log_MUIMessageListViewController();
+  v5 = _ef_log_MUIMessageListViewController(predicateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     ef_publicDescription = [predicateCopy ef_publicDescription];
     *buf = 138412802;
-    v36 = v7;
-    v37 = 2048;
+    v37 = v7;
+    v38 = 2048;
     selfCopy2 = self;
-    v39 = 2114;
-    v40 = ef_publicDescription;
+    v40 = 2114;
+    v41 = ef_publicDescription;
     _os_log_impl(&dword_214A5E000, v5, OS_LOG_TYPE_DEFAULT, "<%@: %p> Reload data source with search predicate: %{public}@", buf, 0x20u);
   }
 
   [(MUIMessageListViewController *)self isThreaded];
-  v33 = objc_opt_class();
-  if ([MEMORY[0x277D06DA0] preferenceEnabled:48])
+  v34 = objc_opt_class();
+  v9 = [MEMORY[0x277D06DA0] preferenceEnabled:48];
+  if (v9)
   {
-    v9 = _ef_log_MUIMessageListViewController();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _ef_log_MUIMessageListViewController(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       ef_publicDescription2 = [predicateCopy ef_publicDescription];
       *buf = 138412802;
-      v36 = v11;
-      v37 = 2048;
+      v37 = v12;
+      v38 = 2048;
       selfCopy2 = self;
-      v39 = 2114;
-      v40 = ef_publicDescription2;
-      _os_log_impl(&dword_214A5E000, v9, OS_LOG_TYPE_DEFAULT, "<%@: %p> Disabling maild generated results: %{public}@", buf, 0x20u);
+      v40 = 2114;
+      v41 = ef_publicDescription2;
+      _os_log_impl(&dword_214A5E000, v10, OS_LOG_TYPE_DEFAULT, "<%@: %p> Disabling maild generated results: %{public}@", buf, 0x20u);
     }
 
-    v13 = 38;
+    v14 = 38;
   }
 
   else
   {
-    v13 = 34;
+    v14 = 34;
   }
 
-  v14 = objc_alloc_init(MEMORY[0x277D07178]);
-  v15 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{@"MessageListSectionIndexedSearch", @"MessageListSectionServerSearch", 0}];
+  v15 = objc_alloc_init(MEMORY[0x277D07178]);
+  v16 = [objc_alloc(MEMORY[0x277CBEB18]) initWithObjects:{@"MessageListSectionIndexedSearch", @"MessageListSectionServerSearch", 0}];
   if (_os_feature_enabled_impl())
   {
-    v13 |= 0x2000uLL;
-    [v15 addObject:@"MessageListSectionInstantAnswers"];
-    [v15 addObject:@"MessageListSectionTopHits"];
+    v14 |= 0x2000uLL;
+    [v16 addObject:@"MessageListSectionInstantAnswers"];
+    [v16 addObject:@"MessageListSectionTopHits"];
     _topHitsPredicate = [(MUIMessageListViewController *)self _topHitsPredicate];
-    [v14 setOrAddObject:_topHitsPredicate forKey:@"MessageListSectionTopHits"];
+    [v15 setOrAddObject:_topHitsPredicate forKey:@"MessageListSectionTopHits"];
   }
 
   _indexedMessagesPredicate = [(MUIMessageListViewController *)self _indexedMessagesPredicate];
-  [v14 setOrAddObject:_indexedMessagesPredicate forKey:@"MessageListSectionIndexedSearch"];
+  [v15 setOrAddObject:_indexedMessagesPredicate forKey:@"MessageListSectionIndexedSearch"];
 
-  v18 = predicateCopy;
-  if ([v14 count])
+  v19 = predicateCopy;
+  if ([v15 count])
   {
-    v19 = objc_alloc(MEMORY[0x277CBEB38]);
-    v20 = [v19 initWithObjectsAndKeys:{v14, *MEMORY[0x277D06C08], 0}];
+    v20 = objc_alloc(MEMORY[0x277CBEB38]);
+    v21 = [v20 initWithObjectsAndKeys:{v15, *MEMORY[0x277D06C08], 0}];
   }
 
   else
   {
-    v20 = 0;
+    v21 = 0;
   }
 
-  v21 = objc_alloc(MEMORY[0x277D06E80]);
-  v22 = [MEMORY[0x277D06E08] sortDescriptorForDateAscending:0];
-  v34 = v22;
-  v23 = [MEMORY[0x277CBEA60] arrayWithObjects:&v34 count:1];
+  v22 = objc_alloc(MEMORY[0x277D06E80]);
+  v23 = [MEMORY[0x277D06E08] sortDescriptorForDateAscending:0];
+  v35 = v23;
+  v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v35 count:1];
   currentSuggestion = [(MUIMessageListViewController *)self currentSuggestion];
-  v25 = v21;
-  v26 = v18;
-  v27 = [v25 initWithTargetClass:v33 predicate:v18 sortDescriptors:v23 suggestion:currentSuggestion limit:0 queryOptions:v13 targetClassOptions:v20 label:@"message list search"];
+  v26 = v22;
+  v27 = v19;
+  v28 = [v26 initWithTargetClass:v34 predicate:v19 sortDescriptors:v24 suggestion:currentSuggestion limit:0 queryOptions:v14 targetClassOptions:v21 label:@"message list search"];
 
   [(MUIMessageListViewController *)self setOldestItemsIDsByMailboxObjectID:0];
   mailboxesPendingOldestItemsUpdates = [(MUIMessageListViewController *)self mailboxesPendingOldestItemsUpdates];
   [mailboxesPendingOldestItemsUpdates removeAllObjects];
 
-  v29 = objc_alloc(MEMORY[0x277D06E00]);
+  v30 = objc_alloc(MEMORY[0x277D06E00]);
   messageRepository = [(MUIMessageListViewController *)self messageRepository];
-  v31 = [v29 initWithQuery:v27 repository:messageRepository];
+  v32 = [v30 initWithQuery:v28 repository:messageRepository];
 
   state = [(MUIMessageListViewController *)self state];
   [state setShouldDisplayUnreadAndVIP:1];
 
-  [(MUIMessageListViewController *)self reloadDataSourceWithMessageList:v31 sections:v15 applyEmptySnapshot:_os_feature_enabled_impl() ^ 1];
+  [(MUIMessageListViewController *)self reloadDataSourceWithMessageList:v32 sections:v16 applyEmptySnapshot:_os_feature_enabled_impl() ^ 1];
 }
 
 - (void)configureDelegatesForDataSource:(id)source
@@ -2029,7 +2033,7 @@ LABEL_10:
 void __94__MUIMessageListViewController_messageListDataSource_section_shouldSuspendUpdatesAfterChange___block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v2 = _ef_log_MUIMessageListViewController();
+  v2 = _ef_log_MUIMessageListViewController(WeakRetained);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *v4 = 0;
@@ -2197,35 +2201,36 @@ LABEL_9:
 
 - (BOOL)messageListDataSource:(id)source shouldAnimateNextUpdateInSectionDataSource:(id)dataSource change:(id)change
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   changeCopy = change;
-  if ([(MUIMessageListViewController *)self didNotifyExtendedLaunchTracker])
+  didNotifyExtendedLaunchTracker = [(MUIMessageListViewController *)self didNotifyExtendedLaunchTracker];
+  if (didNotifyExtendedLaunchTracker)
   {
     messageToDisplayOnReload = [(MUIMessageListViewController *)self messageToDisplayOnReload];
-    v8 = messageToDisplayOnReload == 0;
+    v9 = messageToDisplayOnReload == 0;
   }
 
   else
   {
-    v9 = _ef_log_MUIMessageListViewController();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _ef_log_MUIMessageListViewController(didNotifyExtendedLaunchTracker);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = objc_opt_class();
-      v11 = NSStringFromClass(v10);
+      v11 = objc_opt_class();
+      v12 = NSStringFromClass(v11);
       ef_publicDescription = [changeCopy ef_publicDescription];
-      v14 = 138412802;
-      v15 = v11;
-      v16 = 2048;
+      v15 = 138412802;
+      v16 = v12;
+      v17 = 2048;
       selfCopy = self;
-      v18 = 2114;
-      v19 = ef_publicDescription;
-      _os_log_impl(&dword_214A5E000, v9, OS_LOG_TYPE_DEFAULT, "<%@: %p> [Launch] Skip animation for message list change: %{public}@", &v14, 0x20u);
+      v19 = 2114;
+      v20 = ef_publicDescription;
+      _os_log_impl(&dword_214A5E000, v10, OS_LOG_TYPE_DEFAULT, "<%@: %p> [Launch] Skip animation for message list change: %{public}@", &v15, 0x20u);
     }
 
-    v8 = 0;
+    v9 = 0;
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)sectionDataSourceConfigurationWithSection:(id)section messageList:(id)list
@@ -2401,7 +2406,7 @@ LABEL_9:
 
 - (void)messageListSectionDataSource:(id)source didAddMessagesWithItemIdentifiers:(id)identifiers
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   identifiersCopy = identifiers;
   initialScrollItemID = [(MUIMessageListViewController *)self initialScrollItemID];
@@ -2426,15 +2431,15 @@ LABEL_9:
   if (referenceMessageListItem && [identifiersCopy count] == 1)
   {
     state = [identifiersCopy firstObject];
-    v15 = _ef_log_MUIMessageListViewController();
+    v15 = _ef_log_MUIMessageListViewController(state);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       v16 = NSStringFromSelector(a2);
-      v26 = 138543618;
-      v27 = v16;
-      v28 = 2114;
-      v29 = state;
-      _os_log_impl(&dword_214A5E000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ Set reference message list item for first item from drafts or outbox: %{public}@", &v26, 0x16u);
+      v27 = 138543618;
+      v28 = v16;
+      v29 = 2114;
+      v30 = state;
+      _os_log_impl(&dword_214A5E000, v15, OS_LOG_TYPE_DEFAULT, "%{public}@ Set reference message list item for first item from drafts or outbox: %{public}@", &v27, 0x16u);
     }
 
     dataSource2 = [(MUIMessageListViewController *)self dataSource];
@@ -2458,10 +2463,10 @@ LABEL_9:
 
       if (v24)
       {
-        v25 = _ef_log_MUIMessageListViewController();
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+        v26 = _ef_log_MUIMessageListViewController(v25);
+        if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
         {
-          [MUIMessageListViewController messageListSectionDataSource:a2 didAddMessagesWithItemIdentifiers:v25];
+          [MUIMessageListViewController messageListSectionDataSource:a2 didAddMessagesWithItemIdentifiers:v26];
         }
 
         [(MUIMessageListViewController *)self _shimmerViewIfNeeded];
@@ -2614,19 +2619,20 @@ void __87__MUIMessageListViewController_feedbackListViewModelForHelpMailLearnSec
   dataSource = [(MUIMessageListViewController *)self dataSource];
   v10 = [dataSource messageListItemForItemID:dCopy];
 
-  v16 = 0;
-  v11 = [v10 resultWithTimeout:&v16 error:1.0];
-  v12 = v16;
+  v18 = 0;
+  v11 = [v10 resultWithTimeout:&v18 error:1.0];
+  v12 = v18;
+  v13 = v12;
   if (!v11)
   {
-    v13 = _ef_log_MUIMessageListViewController();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = _ef_log_MUIMessageListViewController(v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      [MUIMessageListViewController messageSelectionStrategy:dCopy messageListItemForItemID:v12];
+      [MUIMessageListViewController messageSelectionStrategy:dCopy messageListItemForItemID:v13];
     }
 
-    v14 = _ef_log_MUIMessageListViewController();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+    v16 = _ef_log_MUIMessageListViewController(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       [MUIMessageListViewController messageSelectionStrategy:messageListItemForItemID:];
     }
@@ -2673,56 +2679,57 @@ void __87__MUIMessageListViewController_feedbackListViewModelForHelpMailLearnSec
 {
   animatedCopy = animated;
   visibleCopy = visible;
-  v38 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   dCopy = d;
-  v12 = _ef_log_MUIMessageListViewController();
+  v12 = _ef_log_MUIMessageListViewController(dCopy);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     v13 = objc_opt_class();
     v14 = NSStringFromClass(v13);
     v15 = NSStringFromSelector(a2);
-    v24 = 138413826;
-    v25 = v14;
-    v26 = 2048;
+    v25 = 138413826;
+    v26 = v14;
+    v27 = 2048;
     selfCopy = self;
-    v28 = 2112;
-    v29 = v15;
-    v30 = 2112;
-    v31 = dCopy;
-    v32 = 1024;
-    v33 = visibleCopy;
-    v34 = 2048;
+    v29 = 2112;
+    v30 = v15;
+    v31 = 2112;
+    v32 = dCopy;
+    v33 = 1024;
+    v34 = visibleCopy;
+    v35 = 2048;
     positionCopy = position;
-    v36 = 1024;
-    v37 = animatedCopy;
-    _os_log_impl(&dword_214A5E000, v12, OS_LOG_TYPE_DEFAULT, "<%@: %p> %@ - itemID:%@, scrollToVisible:%{BOOL}d, scrollPosition:%lu, animated:%{BOOL}d", &v24, 0x40u);
+    v37 = 1024;
+    v38 = animatedCopy;
+    _os_log_impl(&dword_214A5E000, v12, OS_LOG_TYPE_DEFAULT, "<%@: %p> %@ - itemID:%@, scrollToVisible:%{BOOL}d, scrollPosition:%lu, animated:%{BOOL}d", &v25, 0x40u);
   }
 
   dataSource = [(MUIMessageListViewController *)self dataSource];
   v17 = [dataSource indexPathForItemIdentifier:dCopy];
 
   collectionView = [(MUIMessageListViewController *)self collectionView];
+  v19 = collectionView;
   if (v17)
   {
     [(MUIMessageListViewController *)self setLastSelectedItemID:dCopy];
     if ([(MUIMessageListViewController *)self isInExpandedEnvironment])
     {
       _indexPathsForSelectedItems = [(MUIMessageListViewController *)self _indexPathsForSelectedItems];
-      v20 = [_indexPathsForSelectedItems containsObject:v17];
+      v21 = [_indexPathsForSelectedItems containsObject:v17];
 
-      if ((v20 & 1) == 0)
+      if ((v21 & 1) == 0)
       {
         [(MUIMessageListViewController *)self deselectSelectedItemsInCollectionView];
-        [collectionView mui_selectItemAtIndexPath:v17 animated:animatedCopy & ~visibleCopy scrollPosition:0];
+        [v19 mui_selectItemAtIndexPath:v17 animated:animatedCopy & ~visibleCopy scrollPosition:0];
       }
     }
 
     if (visibleCopy)
     {
       item = [v17 item];
-      if (item < [collectionView numberOfItemsInSection:{objc_msgSend(v17, "section")}] && (objc_msgSend(collectionView, "mui_isIndexPathVisible:", v17) & 1) == 0)
+      if (item < [v19 numberOfItemsInSection:{objc_msgSend(v17, "section")}] && (objc_msgSend(v19, "mui_isIndexPathVisible:", v17) & 1) == 0)
       {
-        [collectionView mui_scrollToItemAtIndexPath:v17 atScrollPosition:position animated:animatedCopy];
+        [v19 mui_scrollToItemAtIndexPath:v17 atScrollPosition:position animated:animatedCopy];
       }
     }
 
@@ -2734,14 +2741,14 @@ void __87__MUIMessageListViewController_feedbackListViewModelForHelpMailLearnSec
 
   else
   {
-    v22 = _ef_log_MUIMessageListViewController();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+    v23 = _ef_log_MUIMessageListViewController(collectionView);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
-      [MUIMessageListViewController selectRowOfItemID:scrollToVisible:scrollPosition:animated:];
+      [MUIMessageListViewController selectRowOfItemID:? scrollToVisible:? scrollPosition:? animated:?];
     }
 
     [(MUIMessageListViewController *)self setLastSelectedItemID:0];
-    [(MUIMessageListViewController *)self deselectAllItemsInCollectionView:collectionView animated:animatedCopy];
+    [(MUIMessageListViewController *)self deselectAllItemsInCollectionView:v19 animated:animatedCopy];
   }
 
   return v17 != 0;
@@ -2803,8 +2810,7 @@ void __87__MUIMessageListViewController_feedbackListViewModelForHelpMailLearnSec
   if ([helperCopy source] == 1)
   {
     lastSelectedMessageListItems = [(MUIMessageListViewController *)self lastSelectedMessageListItems];
-    [(MUIMessageListViewController *)self setLastSelectedMessageListItems:0];
-    v6 = _ef_log_MUIMessageListViewController();
+    v6 = _ef_log_MUIMessageListViewController([(MUIMessageListViewController *)self setLastSelectedMessageListItems:0]);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 134218242;
@@ -2842,8 +2848,7 @@ void __87__MUIMessageListViewController_feedbackListViewModelForHelpMailLearnSec
 void __52__MUIMessageListViewController_currentFocusChanged___block_invoke(uint64_t a1)
 {
   v9 = *MEMORY[0x277D85DE8];
-  [*(a1 + 32) setCurrentFocus:*(a1 + 40)];
-  v2 = _ef_log_MUIMessageListViewController();
+  v2 = _ef_log_MUIMessageListViewController([*(a1 + 32) setCurrentFocus:*(a1 + 40)]);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = [*(a1 + 40) ef_publicDescription];
@@ -3021,10 +3026,11 @@ LABEL_7:
 
 - (void)_shimmerViewIfNeededForPriorityCellWillDisplay:(BOOL)display
 {
-  if (![(MUIMessageListViewController *)self _shouldShimmer])
+  _shouldShimmer = [(MUIMessageListViewController *)self _shouldShimmer];
+  if ((_shouldShimmer & 1) == 0)
   {
-    v9 = _ef_log_MUIMessageListViewController();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+    v11 = _ef_log_MUIMessageListViewController(_shouldShimmer);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       [MUIMessageListViewController _shimmerViewIfNeededForPriorityCellWillDisplay:];
     }
@@ -3033,18 +3039,18 @@ LABEL_7:
   }
 
   _prioritySectionVisibleAndActive = [(MUIMessageListViewController *)self _prioritySectionVisibleAndActive];
-  v6 = _prioritySectionVisibleAndActive;
+  v7 = _prioritySectionVisibleAndActive;
   if (!_prioritySectionVisibleAndActive || display)
   {
-    [(MUIMessageListViewController *)self setHasPendingHighlightsShimmer:?];
-    if (!v6)
+    v10 = [(MUIMessageListViewController *)self setHasPendingHighlightsShimmer:?];
+    if (!v7)
     {
 LABEL_5:
-      v9 = _ef_log_MUIMessageListViewController();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v11 = _ef_log_MUIMessageListViewController(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(buf[0]) = 0;
-        _os_log_impl(&dword_214A5E000, v9, OS_LOG_TYPE_DEFAULT, "Need to play Priority shimmer but the scene is not active, will wait until the scene becomes active.", buf, 2u);
+        _os_log_impl(&dword_214A5E000, v11, OS_LOG_TYPE_DEFAULT, "Need to play Priority shimmer but the scene is not active, will wait until the scene becomes active.", buf, 2u);
       }
 
 LABEL_9:
@@ -3056,19 +3062,19 @@ LABEL_9:
   else
   {
     _hasHighlightedMessagesVisible = [(MUIMessageListViewController *)self _hasHighlightedMessagesVisible];
-    v8 = _hasHighlightedMessagesVisible;
-    [(MUIMessageListViewController *)self setHasPendingHighlightsShimmer:!_hasHighlightedMessagesVisible];
-    if (!v8)
+    v9 = _hasHighlightedMessagesVisible;
+    v10 = [(MUIMessageListViewController *)self setHasPendingHighlightsShimmer:!_hasHighlightedMessagesVisible];
+    if (!v9)
     {
       goto LABEL_5;
     }
   }
 
-  v10 = _ef_log_MUIMessageListViewController();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v12 = _ef_log_MUIMessageListViewController(v10);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(buf[0]) = 0;
-    _os_log_impl(&dword_214A5E000, v10, OS_LOG_TYPE_DEFAULT, "Did add new items to Priority, playing shimmer.", buf, 2u);
+    _os_log_impl(&dword_214A5E000, v12, OS_LOG_TYPE_DEFAULT, "Did add new items to Priority, playing shimmer.", buf, 2u);
   }
 
   objc_initWeak(buf, self);
@@ -3076,9 +3082,9 @@ LABEL_9:
   block[1] = 3221225472;
   block[2] = __79__MUIMessageListViewController__shimmerViewIfNeededForPriorityCellWillDisplay___block_invoke;
   block[3] = &unk_278188CD0;
-  objc_copyWeak(&v12, buf);
+  objc_copyWeak(&v14, buf);
   dispatch_async(MEMORY[0x277D85CD0], block);
-  objc_destroyWeak(&v12);
+  objc_destroyWeak(&v14);
   objc_destroyWeak(buf);
 }
 
@@ -3167,7 +3173,7 @@ void __79__MUIMessageListViewController__shimmerViewIfNeededForPriorityCellWillD
   bucketBarConfigurationIdentifier = [firstObject bucketBarConfigurationIdentifier];
   if (!bucketBarConfigurationIdentifier)
   {
-    v5 = _ef_log_MUIMessageListViewController();
+    v5 = _ef_log_MUIMessageListViewController(0);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       [(MUIMessageListViewController *)firstObject _mailboxBucketBarConfigurationIdentifier];
@@ -3179,40 +3185,40 @@ void __79__MUIMessageListViewController__shimmerViewIfNeededForPriorityCellWillD
 
 - (void)_updatePreviouslyHighlightedMessages
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   _mailboxBucketBarConfigurationIdentifier = [(MUIMessageListViewController *)self _mailboxBucketBarConfigurationIdentifier];
   dataSource = [(MUIMessageListViewController *)self dataSource];
   v5 = [dataSource itemIdentifiersForSection:@"MessageListSectionPriority"];
 
-  v6 = _ef_log_MUIMessageListViewController();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = _ef_log_MUIMessageListViewController(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     ef_shortDescriptionString = [v5 ef_shortDescriptionString];
-    v15 = 138543618;
-    v16 = ef_shortDescriptionString;
-    v17 = 2114;
-    v18 = _mailboxBucketBarConfigurationIdentifier;
-    _os_log_impl(&dword_214A5E000, v6, OS_LOG_TYPE_DEFAULT, "Updating shimmered message itemIDs:%{public}@ for mailbox:%{public}@", &v15, 0x16u);
+    v16 = 138543618;
+    v17 = ef_shortDescriptionString;
+    v18 = 2114;
+    v19 = _mailboxBucketBarConfigurationIdentifier;
+    _os_log_impl(&dword_214A5E000, v7, OS_LOG_TYPE_DEFAULT, "Updating shimmered message itemIDs:%{public}@ for mailbox:%{public}@", &v16, 0x16u);
   }
 
-  v8 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v9 = objc_alloc_init(MEMORY[0x277CBEB38]);
   em_userDefaults = [MEMORY[0x277CBEBD0] em_userDefaults];
-  v10 = *MEMORY[0x277D06CB0];
-  v11 = [em_userDefaults valueForKey:*MEMORY[0x277D06CB0]];
+  v11 = *MEMORY[0x277D06CB0];
+  v12 = [em_userDefaults valueForKey:*MEMORY[0x277D06CB0]];
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [v11 count])
+  if ((objc_opt_isKindOfClass() & 1) != 0 && [v12 count])
   {
-    v12 = [v11 mutableCopy];
+    v13 = [v12 mutableCopy];
 
-    v8 = v12;
+    v9 = v13;
   }
 
-  v13 = [v5 ef_compactMap:&__block_literal_global_122];
-  [v8 setObject:v13 forKeyedSubscript:_mailboxBucketBarConfigurationIdentifier];
+  v14 = [v5 ef_compactMap:&__block_literal_global_122];
+  [v9 setObject:v14 forKeyedSubscript:_mailboxBucketBarConfigurationIdentifier];
 
   em_userDefaults2 = [MEMORY[0x277CBEBD0] em_userDefaults];
-  [em_userDefaults2 setValue:v8 forKey:v10];
+  [em_userDefaults2 setValue:v9 forKey:v11];
 }
 
 - (id)_currentDataForItemIDsInPriority
@@ -3347,7 +3353,7 @@ void __79__MUIMessageListViewController__shimmerViewIfNeededForPriorityCellWillD
   MEMORY[0x277D82BE0](mailboxes);
   MEMORY[0x277D82BE0](self);
   v6 = sub_214CCD394();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA37B50);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CA37B50, &qword_214CF4EE8);
   v7 = sub_214CCF7E4();
   MUIMessageListViewController.bucketBarConfigurationController(_:isHidden:forMailboxes:)(controller, v6 & 1, v7);
 
@@ -3487,25 +3493,25 @@ void __79__MUIMessageListViewController__shimmerViewIfNeededForPriorityCellWillD
 
 - (void)_highlightNextMessageAfterDeletingMessagesWithItemIdentifiers:(void *)identifiers
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (identifiers)
   {
     messageSelectionStrategy = [identifiers messageSelectionStrategy];
     v5 = [messageSelectionStrategy itemIDToSelectAfterDeletedMessageItemIDs:v3];
 
-    v6 = _ef_log_MUIMessageListViewController();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = _ef_log_MUIMessageListViewController(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = objc_opt_class();
-      v8 = NSStringFromClass(v7);
+      v8 = objc_opt_class();
+      v9 = NSStringFromClass(v8);
       OUTLINED_FUNCTION_0_9();
       identifiersCopy = identifiers;
-      v11 = 2114;
-      v12 = v5;
-      v13 = 2114;
-      v14 = v3;
-      _os_log_impl(&dword_214A5E000, v6, OS_LOG_TYPE_DEFAULT, "<%@: %p> Highlight next message with item id: %{public}@, after deleting messages with ids: %{public}@", v9, 0x2Au);
+      v12 = 2114;
+      v13 = v5;
+      v14 = 2114;
+      v15 = v3;
+      _os_log_impl(&dword_214A5E000, v7, OS_LOG_TYPE_DEFAULT, "<%@: %p> Highlight next message with item id: %{public}@, after deleting messages with ids: %{public}@", v10, 0x2Au);
     }
 
     [identifiers selectRowOfItemID:v5 scrollToVisible:0 animated:0];
@@ -3546,11 +3552,11 @@ void __79__MUIMessageListViewController__shimmerViewIfNeededForPriorityCellWillD
 
 - (void)dataSource
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_9();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
 }
 
 - (void)messageListSectionDataSource:(const char *)a1 didAddMessagesWithItemIdentifiers:(NSObject *)a2 .cold.1(const char *a1, NSObject *a2)
@@ -3575,13 +3581,13 @@ void __79__MUIMessageListViewController__shimmerViewIfNeededForPriorityCellWillD
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
 }
 
-- (void)selectRowOfItemID:scrollToVisible:scrollPosition:animated:.cold.1()
+- (void)selectRowOfItemID:(uint64_t)a1 scrollToVisible:scrollPosition:animated:.cold.1(uint64_t a1)
 {
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_0_9();
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
+  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
 }
 
 - (void)_mailboxBucketBarConfigurationIdentifier

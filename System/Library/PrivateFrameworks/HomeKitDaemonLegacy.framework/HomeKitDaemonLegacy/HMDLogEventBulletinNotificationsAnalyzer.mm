@@ -24,7 +24,7 @@
 
 void __56__HMDLogEventBulletinNotificationsAnalyzer_runDailyTask__block_invoke(uint64_t a1, void *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [*(a1 + 32) topicEventGroup];
   v5 = [v4 summedEventCounters];
@@ -36,27 +36,27 @@ void __56__HMDLogEventBulletinNotificationsAnalyzer_runDailyTask__block_invoke(u
   v8 = [*(a1 + 32) topicEventGroup];
   v9 = [v8 eventCounters];
 
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
   v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v10 = v9;
-  v11 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v23;
+    v13 = *v22;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v23 != v13)
+        if (*v22 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = *(*(&v22 + 1) + 8 * i);
-        v16 = [v10 objectForKeyedSubscript:{v15, v22}];
+        v15 = *(*(&v21 + 1) + 8 * i);
+        v16 = [v10 objectForKeyedSubscript:{v15, v21}];
         v17 = [v16 unsignedIntegerValue];
 
         v18 = [*(a1 + 32) logEventSubmitter];
@@ -64,7 +64,7 @@ void __56__HMDLogEventBulletinNotificationsAnalyzer_runDailyTask__block_invoke(u
         [v18 submitLogEvent:v19];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v12);
@@ -72,8 +72,6 @@ void __56__HMDLogEventBulletinNotificationsAnalyzer_runDailyTask__block_invoke(u
 
   v20 = [*(a1 + 32) topicEventGroup];
   [v20 resetEventCounters];
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetAggregationAnalysisContext
@@ -146,12 +144,12 @@ void __56__HMDLogEventBulletinNotificationsAnalyzer_runDailyTask__block_invoke(u
 
 - (HMDLogEventBulletinNotificationsAnalyzer)initWithDataSource:(id)source notificationSettingsProvider:(id)provider
 {
-  v47[1] = *MEMORY[0x277D85DE8];
+  v46[1] = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   providerCopy = provider;
-  v46.receiver = self;
-  v46.super_class = HMDLogEventBulletinNotificationsAnalyzer;
-  v8 = [(HMDLogEventBulletinNotificationsAnalyzer *)&v46 init];
+  v45.receiver = self;
+  v45.super_class = HMDLogEventBulletinNotificationsAnalyzer;
+  v8 = [(HMDLogEventBulletinNotificationsAnalyzer *)&v45 init];
   v9 = v8;
   if (v8)
   {
@@ -200,26 +198,25 @@ void __56__HMDLogEventBulletinNotificationsAnalyzer_runDailyTask__block_invoke(u
       [legacyCountersManager4 addObserver:v33 forEventName:@"CameraReachability" requestGroup:@"BulletinTopicEventGroup"];
 
       objc_initWeak(&location, v9);
-      v40 = MEMORY[0x277D85DD0];
-      v41 = 3221225472;
-      v42 = __92__HMDLogEventBulletinNotificationsAnalyzer_initWithDataSource_notificationSettingsProvider___block_invoke;
-      v43 = &unk_279724810;
-      objc_copyWeak(&v44, &location);
-      [sourceCopy addConfigurationChangedObserver:&v40];
-      objc_destroyWeak(&v44);
+      v39 = MEMORY[0x277D85DD0];
+      v40 = 3221225472;
+      v41 = __92__HMDLogEventBulletinNotificationsAnalyzer_initWithDataSource_notificationSettingsProvider___block_invoke;
+      v42 = &unk_279724810;
+      objc_copyWeak(&v43, &location);
+      [sourceCopy addConfigurationChangedObserver:&v39];
+      objc_destroyWeak(&v43);
       objc_destroyWeak(&location);
     }
 
     logEventDispatcher = [sourceCopy logEventDispatcher];
-    v47[0] = objc_opt_class();
-    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v47 count:1];
+    v46[0] = objc_opt_class();
+    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v46 count:1];
     [logEventDispatcher addObserver:v9 forEventClasses:v36];
 
     dailyScheduler = [sourceCopy dailyScheduler];
     [dailyScheduler registerDailyTaskRunner:v9];
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -232,11 +229,10 @@ void __92__HMDLogEventBulletinNotificationsAnalyzer_initWithDataSource_notificat
 
 + (id)managedEventCounterRequestGroups
 {
-  v5[2] = *MEMORY[0x277D85DE8];
-  v5[0] = @"BulletinAggregationEventGroup";
-  v5[1] = @"BulletinTopicEventGroup";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"BulletinAggregationEventGroup";
+  v4[1] = @"BulletinTopicEventGroup";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:2];
 
   return v2;
 }

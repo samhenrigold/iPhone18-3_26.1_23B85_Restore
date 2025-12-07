@@ -9,6 +9,7 @@
 - (id)propertyForKey:(id)key ofBus:(id)bus error:(id *)error;
 - (void)addDeviceOnBusAsync:(id)async withType:(unint64_t)type matching:(id)matching reply:(id)reply;
 - (void)addDeviceOnBusAsync:(id)async withType:(unint64_t)type matching:(id)matching withSessionOwningDevice:(id)device reply:(id)reply;
+- (void)addMappingWithDeviceAsync:(id)async withProtocolID:(unsigned __int8)d options:(unsigned __int8)options commandToMap:(unint64_t)map command:(unint64_t)command repeat:(unint64_t)repeat reply:(id)reply;
 - (void)bus:(id)bus deviceHasBeenAdded:(id)added;
 - (void)bus:(id)bus deviceHasBeenRemoved:(id)removed;
 - (void)bus:(id)bus deviceHasBeenUpdated:(id)updated;
@@ -30,14 +31,19 @@
 - (void)cecDevice:(id)device requestSystemAudioModeStatusChangeTo:(unint64_t)to didFinishWithResult:(BOOL)result error:(id)error;
 - (void)cecDevice:(id)device standbyRequestHasBeenReceived:(id)received;
 - (void)cecDeviceShouldAssertActiveSource:(id)source;
+- (void)changeButtonCombinationAsync:(id)async delay:(double)delay enabled:(BOOL)enabled forDevice:(id)device reply:(id)reply;
 - (void)clearAllStoredCommandsFromDeviceAsync:(id)async reply:(id)reply;
 - (void)connectionInterrupted;
 - (void)dealloc;
 - (void)deleteDeviceAsync:(id)async fromBus:(id)bus reply:(id)reply;
 - (void)device:(id)device receivedHIDEvent:(id)event fromDevice:(id)fromDevice;
 - (void)endLearningWithDeviceAsync:(id)async reply:(id)reply;
+- (void)fakeCreateCECBusAsync:(unsigned __int16)async reply:(id)reply;
+- (void)fakeCreateRemoteCECDeviceAsync:(id)async bus:(id)bus logicalAddress:(unsigned __int8)address physicalAddress:(unsigned __int16)physicalAddress reply:(id)reply;
 - (void)fakeRemoveCECBusAsync:(id)async reply:(id)reply;
 - (void)fakeRemoveCECDeviceAsync:(id)async reply:(id)reply;
+- (void)fakeSetCECBusLinkStateAsync:(id)async linkState:(BOOL)state physicalAddress:(unsigned __int16)address reply:(id)reply;
+- (void)fakeSetCECDeviceLogicalAddressAsync:(id)async logicalAddress:(unsigned __int8)address reply:(id)reply;
 - (void)getExtendedPropertyAsyncForKey:(id)key ofDevice:(id)device reply:(id)reply;
 - (void)getPropertyAsyncForKey:(id)key ofBus:(id)bus reply:(id)reply;
 - (void)injectRXMessageAsync:(id)async forBus:(id)bus reply:(id)reply;
@@ -48,6 +54,7 @@
 - (void)learningSessionForDevice:(id)device status:(unint64_t)status;
 - (void)learningSessionForDeviceCommandDone:(id)done;
 - (void)mergeBus:(id)bus;
+- (void)performActiveSourceAsync:(id)async withMenus:(BOOL)menus reply:(id)reply;
 - (void)performDeckControlCommandAsync:(id)async controlMode:(unint64_t)mode targetDevice:(id)device reply:(id)reply;
 - (void)performDeckControlPlayAsync:(id)async playMode:(unint64_t)mode targetDevice:(id)device reply:(id)reply;
 - (void)performDeckControlRefreshStatusAsync:(id)async targetDevice:(id)device requestType:(unint64_t)type reply:(id)reply;
@@ -61,9 +68,13 @@
 - (void)performRequestAudioReturnChannelStatusChangeTo:(unint64_t)to withDeviceAsync:(id)async reply:(id)reply;
 - (void)performRequestAudioStatusAsync:(id)async reply:(id)reply;
 - (void)performRequestSystemAudioModeStatusChangeTo:(unint64_t)to withDeviceAsync:(id)async reply:(id)reply;
+- (void)performSetAudioMuteStatus:(BOOL)status withDeviceAsync:(id)async reply:(id)reply;
+- (void)performSetAudioReturnChannelControlEnabled:(BOOL)enabled withDeviceAsync:(id)async reply:(id)reply;
 - (void)performSetAudioVolumeStatus:(unint64_t)status withDeviceAsync:(id)async reply:(id)reply;
 - (void)performSetPowerStatus:(unint64_t)status withDeviceAsync:(id)async reply:(id)reply;
 - (void)performSetSupportedAudioFormats:(id)formats withDeviceAsync:(id)async reply:(id)reply;
+- (void)performSetSystemAudioControlEnabled:(BOOL)enabled withDeviceAsync:(id)async reply:(id)reply;
+- (void)performSetTrackAudioStatusEnabled:(BOOL)enabled pressTimeout:(int64_t)timeout pollInterval:(int64_t)interval withDeviceAsync:(id)async reply:(id)reply;
 - (void)performStandbyAsync:(id)async targetDevice:(id)device reply:(id)reply;
 - (void)performSystemAudioModeRequestAsync:(id)async withDesiredState:(unint64_t)state reply:(id)reply;
 - (void)queryBusesAsync:(id)async;
@@ -79,6 +90,7 @@
 - (void)setLoggingAsync:(id)async reply:(id)reply;
 - (void)setOSDNameAsync:(id)async forDevice:(id)device reply:(id)reply;
 - (void)setOsdNameAsync:(id)async forBus:(id)bus reply:(id)reply;
+- (void)setPairStateAsync:(BOOL)async forAppleRemote:(id)remote reply:(id)reply;
 - (void)setPropertyAsync:(id)async forKey:(id)key ofBus:(id)bus reply:(id)reply;
 - (void)setTvLanguageCodeAsync:(id)async forBus:(id)bus reply:(id)reply;
 - (void)startLearningCommandAsync:(unint64_t)async withDevice:(id)device reply:(id)reply;
@@ -88,6 +100,14 @@
 @end
 
 @implementation CoreRCManagerClient
+
+- (void)performActiveSourceAsync:(id)async withMenus:(BOOL)menus reply:(id)reply
+{
+  menusCopy = menus;
+  v8 = [-[CoreRCManagerClient connection](self "connection")];
+
+  [v8 performActiveSourceAsync:async withMenus:menusCopy reply:reply];
+}
 
 - (void)performDeckControlSetDeckStatusAsync:(unint64_t)async forDevice:(id)device reply:(id)reply
 {
@@ -145,11 +165,27 @@
   [v6 performRequestActiveSourceAsync:async reply:reply];
 }
 
+- (void)performSetSystemAudioControlEnabled:(BOOL)enabled withDeviceAsync:(id)async reply:(id)reply
+{
+  enabledCopy = enabled;
+  v8 = [-[CoreRCManagerClient connection](self "connection")];
+
+  [v8 performSetSystemAudioControlEnabled:enabledCopy withDeviceAsync:async reply:reply];
+}
+
 - (void)performSystemAudioModeRequestAsync:(id)async withDesiredState:(unint64_t)state reply:(id)reply
 {
   v8 = [-[CoreRCManagerClient connection](self "connection")];
 
   [v8 performSystemAudioModeRequestAsync:async withDesiredState:state reply:reply];
+}
+
+- (void)performSetAudioReturnChannelControlEnabled:(BOOL)enabled withDeviceAsync:(id)async reply:(id)reply
+{
+  enabledCopy = enabled;
+  v8 = [-[CoreRCManagerClient connection](self "connection")];
+
+  [v8 performSetAudioReturnChannelControlEnabled:enabledCopy withDeviceAsync:async reply:reply];
 }
 
 - (void)performRequestAudioReturnChannelStatusChangeTo:(unint64_t)to withDeviceAsync:(id)async reply:(id)reply
@@ -166,11 +202,27 @@
   [v8 performSetAudioVolumeStatus:status withDeviceAsync:async reply:reply];
 }
 
+- (void)performSetAudioMuteStatus:(BOOL)status withDeviceAsync:(id)async reply:(id)reply
+{
+  statusCopy = status;
+  v8 = [-[CoreRCManagerClient connection](self "connection")];
+
+  [v8 performSetAudioMuteStatus:statusCopy withDeviceAsync:async reply:reply];
+}
+
 - (void)performSetSupportedAudioFormats:(id)formats withDeviceAsync:(id)async reply:(id)reply
 {
   v8 = [-[CoreRCManagerClient connection](self "connection")];
 
   [v8 performSetSupportedAudioFormats:formats withDeviceAsync:async reply:reply];
+}
+
+- (void)performSetTrackAudioStatusEnabled:(BOOL)enabled pressTimeout:(int64_t)timeout pollInterval:(int64_t)interval withDeviceAsync:(id)async reply:(id)reply
+{
+  enabledCopy = enabled;
+  v12 = [-[CoreRCManagerClient connection](self "connection")];
+
+  [v12 performSetTrackAudioStatusEnabled:enabledCopy pressTimeout:timeout pollInterval:interval withDeviceAsync:async reply:reply];
 }
 
 - (void)performRequestAudioStatusAsync:(id)async reply:(id)reply
@@ -478,11 +530,57 @@
   [v6 setLoggingAsync:async reply:reply];
 }
 
+- (void)fakeCreateCECBusAsync:(unsigned __int16)async reply:(id)reply
+{
+  asyncCopy = async;
+  connection = [(CoreRCManagerClient *)self connection];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __63__CoreRCManagerClient_CECPrivate__fakeCreateCECBusAsync_reply___block_invoke;
+  v7[3] = &unk_278EA2960;
+  v7[4] = reply;
+  [objc_msgSend(connection remoteObjectProxyWithErrorHandler:{v7), "fakeCreateCECBusAsync:reply:", asyncCopy, reply}];
+}
+
 - (void)fakeRemoveCECBusAsync:(id)async reply:(id)reply
 {
   v6 = [-[CoreRCManagerClient connection](self "connection")];
 
   [v6 fakeRemoveCECBusAsync:async reply:reply];
+}
+
+- (void)fakeSetCECBusLinkStateAsync:(id)async linkState:(BOOL)state physicalAddress:(unsigned __int16)address reply:(id)reply
+{
+  addressCopy = address;
+  stateCopy = state;
+  v10 = [-[CoreRCManagerClient connection](self "connection")];
+
+  [v10 fakeSetCECBusLinkStateAsync:async linkState:stateCopy physicalAddress:addressCopy reply:reply];
+}
+
+- (void)fakeCreateRemoteCECDeviceAsync:(id)async bus:(id)bus logicalAddress:(unsigned __int8)address physicalAddress:(unsigned __int16)physicalAddress reply:(id)reply
+{
+  physicalAddressCopy = physicalAddress;
+  addressCopy = address;
+  connection = [(CoreRCManagerClient *)self connection];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __107__CoreRCManagerClient_CECPrivate__fakeCreateRemoteCECDeviceAsync_bus_logicalAddress_physicalAddress_reply___block_invoke;
+  v13[3] = &unk_278EA2960;
+  v13[4] = reply;
+  [objc_msgSend(connection remoteObjectProxyWithErrorHandler:{v13), "fakeCreateRemoteCECDeviceAsync:bus:logicalAddress:physicalAddress:reply:", async, bus, addressCopy, physicalAddressCopy, reply}];
+}
+
+- (void)fakeSetCECDeviceLogicalAddressAsync:(id)async logicalAddress:(unsigned __int8)address reply:(id)reply
+{
+  addressCopy = address;
+  connection = [(CoreRCManagerClient *)self connection];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __92__CoreRCManagerClient_CECPrivate__fakeSetCECDeviceLogicalAddressAsync_logicalAddress_reply___block_invoke;
+  v9[3] = &unk_278EA2960;
+  v9[4] = reply;
+  [objc_msgSend(connection remoteObjectProxyWithErrorHandler:{v9), "fakeSetCECDeviceLogicalAddressAsync:logicalAddress:reply:", async, addressCopy, reply}];
 }
 
 - (void)fakeRemoveCECDeviceAsync:(id)async reply:(id)reply
@@ -673,26 +771,26 @@ uint64_t __61__CoreRCManagerClient_extendedPropertyForKey_ofDevice_error___block
 
 - (id)buses
 {
-  v15 = 0;
-  v9 = 0;
-  v10 = &v9;
-  v11 = 0x3052000000;
-  v12 = __Block_byref_object_copy__2;
-  v13 = __Block_byref_object_dispose__2;
   v14 = 0;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __28__CoreRCManagerClient_buses__block_invoke;
-  v8[3] = &unk_278EA34C8;
-  v8[4] = self;
-  v8[5] = &v9;
-  if (CoreRCWaitForAsyncOperation(&v15, v8))
+  v8 = 0;
+  v9 = &v8;
+  v10 = 0x3052000000;
+  v11 = __Block_byref_object_copy__2;
+  v12 = __Block_byref_object_dispose__2;
+  v13 = 0;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __28__CoreRCManagerClient_buses__block_invoke;
+  v7[3] = &unk_278EA34C8;
+  v7[4] = self;
+  v7[5] = &v8;
+  if (CoreRCWaitForAsyncOperation(&v14, v7))
   {
-    [(CoreRCManagerClient *)self synchBuses:v10[5]];
+    [(CoreRCManagerClient *)self synchBuses:v9[5]];
   }
 
-  v3 = v15;
-  if (v15 && gLogCategory_CoreRCManager <= 90)
+  v3 = v14;
+  if (v14 && gLogCategory_CoreRCManager <= 90)
   {
     if (gLogCategory_CoreRCManager == -1)
     {
@@ -701,18 +799,17 @@ uint64_t __61__CoreRCManagerClient_extendedPropertyForKey_ofDevice_error___block
         goto LABEL_8;
       }
 
-      v3 = v15;
+      v3 = v14;
     }
 
-    v6 = v3;
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCManager, "[CoreRCManagerClient buses]", 90, "error: %@\n", v3);
   }
 
 LABEL_8:
-  v7.receiver = self;
-  v7.super_class = CoreRCManagerClient;
-  buses = [(CoreRCManager *)&v7 buses];
-  _Block_object_dispose(&v9, 8);
+  v6.receiver = self;
+  v6.super_class = CoreRCManagerClient;
+  buses = [(CoreRCManager *)&v6 buses];
+  _Block_object_dispose(&v8, 8);
   return buses;
 }
 
@@ -751,7 +848,7 @@ uint64_t __28__CoreRCManagerClient_buses__block_invoke_2(uint64_t a1, void *a2, 
 
 - (void)mergeBus:(id)bus
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (!bus)
   {
     [CoreRCManagerClient mergeBus:];
@@ -759,11 +856,11 @@ uint64_t __28__CoreRCManagerClient_buses__block_invoke_2(uint64_t a1, void *a2, 
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
-    v7 = 138412546;
+    v6 = 138412546;
     selfCopy = self;
-    v9 = 2112;
+    v8 = 2112;
     busCopy = bus;
-    _os_log_impl(&dword_247384000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "[CoreRC] manager: %@ mergeBus: %@", &v7, 0x16u);
+    _os_log_impl(&dword_247384000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "[CoreRC] manager: %@ mergeBus: %@", &v6, 0x16u);
   }
 
   v5 = [(CoreRCManager *)self managedBusEquivalentTo:bus];
@@ -776,13 +873,11 @@ uint64_t __28__CoreRCManagerClient_buses__block_invoke_2(uint64_t a1, void *a2, 
   {
     [(CoreRCManager *)self addBus:bus];
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)synchBuses:(id)buses
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (!buses)
   {
     [CoreRCManagerClient synchBuses:];
@@ -792,82 +887,80 @@ uint64_t __28__CoreRCManagerClient_buses__block_invoke_2(uint64_t a1, void *a2, 
   {
     *buf = 138412546;
     selfCopy = self;
-    v29 = 2112;
+    v28 = 2112;
     busesCopy = buses;
     _os_log_impl(&dword_247384000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "[CoreRC] manager: %@ synchBuses: %@", buf, 0x16u);
   }
 
   busesInternal = [(CoreRCManager *)self busesInternal];
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __34__CoreRCManagerClient_synchBuses___block_invoke;
-  v24[3] = &unk_278EA34F0;
-  v24[4] = buses;
-  v24[5] = self;
-  v6 = [(NSMutableSet *)busesInternal objectsPassingTest:v24];
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __34__CoreRCManagerClient_synchBuses___block_invoke;
+  v23[3] = &unk_278EA34F0;
+  v23[4] = buses;
+  v23[5] = self;
+  v6 = [(NSMutableSet *)busesInternal objectsPassingTest:v23];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
-  v7 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v21;
+    v9 = *v20;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v21 != v9)
+        if (*v20 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [(CoreRCManager *)self removeBus:*(*(&v20 + 1) + 8 * i)];
+        [(CoreRCManager *)self removeBus:*(*(&v19 + 1) + 8 * i)];
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v20 objects:v26 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v19 objects:v25 count:16];
     }
 
     while (v8);
   }
 
   [(NSMutableSet *)[(CoreRCManager *)self busesInternal] intersectSet:buses];
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
-  v11 = [buses countByEnumeratingWithState:&v16 objects:v25 count:16];
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
+  v11 = [buses countByEnumeratingWithState:&v15 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v17;
+    v13 = *v16;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v17 != v13)
+        if (*v16 != v13)
         {
           objc_enumerationMutation(buses);
         }
 
-        [(CoreRCManagerClient *)self mergeBus:*(*(&v16 + 1) + 8 * j)];
+        [(CoreRCManagerClient *)self mergeBus:*(*(&v15 + 1) + 8 * j)];
       }
 
-      v12 = [buses countByEnumeratingWithState:&v16 objects:v25 count:16];
+      v12 = [buses countByEnumeratingWithState:&v15 objects:v24 count:16];
     }
 
     while (v12);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)sendHIDEvent:(id)event fromDevice:(id)device toDevice:(id)toDevice error:(id *)error
 {
   if (gLogCategory_CoreRCDevice <= 10 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    [CoreRCManagerClient sendHIDEvent:fromDevice:toDevice:error:];
+    [CoreRCManagerClient sendHIDEvent:device fromDevice:toDevice toDevice:event error:?];
   }
 
   v12[0] = MEMORY[0x277D85DD0];
@@ -885,7 +978,7 @@ uint64_t __28__CoreRCManagerClient_buses__block_invoke_2(uint64_t a1, void *a2, 
 {
   if (gLogCategory_CoreRCDevice <= 10 && (gLogCategory_CoreRCDevice != -1 || _LogCategory_Initialize()))
   {
-    [CoreRCManagerClient sendCommand:fromDevice:toDevice:withDuration:error:];
+    [CoreRCManagerClient sendCommand:device fromDevice:toDevice toDevice:command withDuration:? error:?];
   }
 
   v14[0] = MEMORY[0x277D85DD0];
@@ -963,7 +1056,7 @@ uint64_t __28__CoreRCManagerClient_buses__block_invoke_2(uint64_t a1, void *a2, 
 
 - (void)busHasBeenAdded:(id)added
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!added)
   {
     [CoreRCManagerClient busHasBeenAdded:];
@@ -974,40 +1067,39 @@ uint64_t __28__CoreRCManagerClient_buses__block_invoke_2(uint64_t a1, void *a2, 
     connection = self->_connection;
     *buf = 138412802;
     selfCopy = self;
-    v11 = 2112;
+    v10 = 2112;
     addedCopy = added;
-    v13 = 2112;
-    v14 = connection;
+    v12 = 2112;
+    v13 = connection;
     _os_log_impl(&dword_247384000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "[CoreRC] manager: %@ busHasBeenAdded: %@ connection: %@", buf, 0x20u);
   }
 
   serialQueue = [(CoreRCManager *)self serialQueue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __39__CoreRCManagerClient_busHasBeenAdded___block_invoke;
-  v8[3] = &unk_278EA29D8;
-  v8[4] = self;
-  v8[5] = added;
-  dispatch_async(serialQueue, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __39__CoreRCManagerClient_busHasBeenAdded___block_invoke;
+  v7[3] = &unk_278EA29D8;
+  v7[4] = self;
+  v7[5] = added;
+  dispatch_async(serialQueue, v7);
 }
 
-uint64_t __39__CoreRCManagerClient_busHasBeenAdded___block_invoke(uint64_t a1)
+uint64_t __39__CoreRCManagerClient_busHasBeenAdded___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    __39__CoreRCManagerClient_busHasBeenAdded___block_invoke_cold_1(a1);
+    __39__CoreRCManagerClient_busHasBeenAdded___block_invoke_cold_1(a1, a2);
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
+  v4 = *(a1 + 40);
 
-  return [v2 mergeBus:v3];
+  return [v3 mergeBus:v4];
 }
 
 - (void)busHasBeenRemoved:(id)removed
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!removed)
   {
     [CoreRCManagerClient busHasBeenRemoved:];
@@ -1018,40 +1110,39 @@ uint64_t __39__CoreRCManagerClient_busHasBeenAdded___block_invoke(uint64_t a1)
     connection = self->_connection;
     *buf = 138412802;
     selfCopy = self;
-    v11 = 2112;
+    v10 = 2112;
     removedCopy = removed;
-    v13 = 2112;
-    v14 = connection;
+    v12 = 2112;
+    v13 = connection;
     _os_log_impl(&dword_247384000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "[CoreRC] manager: %@ busHasBeenRemoved: %@ connection: %@", buf, 0x20u);
   }
 
   serialQueue = [(CoreRCManager *)self serialQueue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __41__CoreRCManagerClient_busHasBeenRemoved___block_invoke;
-  v8[3] = &unk_278EA29D8;
-  v8[4] = self;
-  v8[5] = removed;
-  dispatch_async(serialQueue, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __41__CoreRCManagerClient_busHasBeenRemoved___block_invoke;
+  v7[3] = &unk_278EA29D8;
+  v7[4] = self;
+  v7[5] = removed;
+  dispatch_async(serialQueue, v7);
 }
 
-uint64_t __41__CoreRCManagerClient_busHasBeenRemoved___block_invoke(uint64_t a1)
+uint64_t __41__CoreRCManagerClient_busHasBeenRemoved___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    __41__CoreRCManagerClient_busHasBeenRemoved___block_invoke_cold_1(a1);
+    __41__CoreRCManagerClient_busHasBeenRemoved___block_invoke_cold_1(a1, a2);
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
+  v4 = *(a1 + 40);
 
-  return [v2 removeBus:v3];
+  return [v3 removeBus:v4];
 }
 
 - (void)busHasBeenUpdated:(id)updated
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (!updated)
   {
     [CoreRCManagerClient busHasBeenUpdated:];
@@ -1062,35 +1153,34 @@ uint64_t __41__CoreRCManagerClient_busHasBeenRemoved___block_invoke(uint64_t a1)
     connection = self->_connection;
     *buf = 138412802;
     selfCopy = self;
-    v11 = 2112;
+    v10 = 2112;
     updatedCopy = updated;
-    v13 = 2112;
-    v14 = connection;
+    v12 = 2112;
+    v13 = connection;
     _os_log_impl(&dword_247384000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "[CoreRC] manager: %@ busHasBeenUpdated: %@ connection: %@", buf, 0x20u);
   }
 
   serialQueue = [(CoreRCManager *)self serialQueue];
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __41__CoreRCManagerClient_busHasBeenUpdated___block_invoke;
-  v8[3] = &unk_278EA29D8;
-  v8[4] = self;
-  v8[5] = updated;
-  dispatch_async(serialQueue, v8);
-  v7 = *MEMORY[0x277D85DE8];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __41__CoreRCManagerClient_busHasBeenUpdated___block_invoke;
+  v7[3] = &unk_278EA29D8;
+  v7[4] = self;
+  v7[5] = updated;
+  dispatch_async(serialQueue, v7);
 }
 
-uint64_t __41__CoreRCManagerClient_busHasBeenUpdated___block_invoke(uint64_t a1)
+uint64_t __41__CoreRCManagerClient_busHasBeenUpdated___block_invoke(uint64_t a1, uint64_t a2)
 {
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    __41__CoreRCManagerClient_busHasBeenUpdated___block_invoke_cold_1(a1);
+    __41__CoreRCManagerClient_busHasBeenUpdated___block_invoke_cold_1(a1, a2);
   }
 
-  v2 = *(a1 + 32);
-  v3 = *(a1 + 40);
+  v3 = *(a1 + 32);
+  v4 = *(a1 + 40);
 
-  return [v2 mergeBus:v3];
+  return [v3 mergeBus:v4];
 }
 
 - (void)setLogging:(id)logging
@@ -1099,7 +1189,7 @@ uint64_t __41__CoreRCManagerClient_busHasBeenUpdated___block_invoke(uint64_t a1)
   LogControl();
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    [CoreRCManagerClient setLogging:];
+    [CoreRCManagerClient setLogging:logging];
   }
 }
 
@@ -1163,6 +1253,14 @@ uint64_t __41__CoreRCManagerClient_busHasBeenUpdated___block_invoke(uint64_t a1)
   [v8 setOSDNameAsync:async forDevice:device reply:reply];
 }
 
+- (void)setPairStateAsync:(BOOL)async forAppleRemote:(id)remote reply:(id)reply
+{
+  asyncCopy = async;
+  v8 = [-[CoreRCManagerClient connection](self "connection")];
+
+  [v8 setPairStateAsync:asyncCopy forAppleRemote:remote reply:reply];
+}
+
 - (void)startLearningCommandAsync:(unint64_t)async withDevice:(id)device reply:(id)reply
 {
   connection = [(CoreRCManagerClient *)self connection];
@@ -1179,6 +1277,15 @@ uint64_t __41__CoreRCManagerClient_busHasBeenUpdated___block_invoke(uint64_t a1)
   v6 = [-[CoreRCManagerClient connection](self "connection")];
 
   [v6 endLearningWithDeviceAsync:async reply:reply];
+}
+
+- (void)addMappingWithDeviceAsync:(id)async withProtocolID:(unsigned __int8)d options:(unsigned __int8)options commandToMap:(unint64_t)map command:(unint64_t)command repeat:(unint64_t)repeat reply:(id)reply
+{
+  optionsCopy = options;
+  dCopy = d;
+  v15 = [-[CoreRCManagerClient connection](self "connection")];
+
+  [v15 addMappingWithDeviceAsync:async withProtocolID:dCopy options:optionsCopy commandToMap:map command:command repeat:repeat reply:?];
 }
 
 - (void)addDeviceOnBusAsync:(id)async withType:(unint64_t)type matching:(id)matching reply:(id)reply
@@ -1265,6 +1372,18 @@ uint64_t __41__CoreRCManagerClient_busHasBeenUpdated___block_invoke(uint64_t a1)
   [objc_msgSend(connection remoteObjectProxyWithErrorHandler:{v15), "setCommandAsync:target:source:forButtonCombination:delay:reply:", async, target, source, combination, reply, delay}];
 }
 
+- (void)changeButtonCombinationAsync:(id)async delay:(double)delay enabled:(BOOL)enabled forDevice:(id)device reply:(id)reply
+{
+  enabledCopy = enabled;
+  connection = [(CoreRCManagerClient *)self connection];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __86__CoreRCManagerClient_IR__changeButtonCombinationAsync_delay_enabled_forDevice_reply___block_invoke;
+  v13[3] = &unk_278EA2960;
+  v13[4] = reply;
+  [objc_msgSend(connection remoteObjectProxyWithErrorHandler:{v13), "changeButtonCombinationAsync:delay:enabled:forDevice:reply:", async, enabledCopy, device, reply, delay}];
+}
+
 - (void)learningSessionForDevice:(id)device commandProgress:(id)progress
 {
   serialQueue = [(CoreRCManager *)self serialQueue];
@@ -1321,12 +1440,10 @@ void *__71__CoreRCManagerClient_CEC__cecBus_activeSourceHasChangedTo_fromDevice_
 {
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    v7 = *(a1 + 48);
-    v6 = *(a1 + 32);
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient(CEC) cecBus:activeSourceHasChangedTo:fromDevice:]_block_invoke", 10, "NOTIFY cecBus %@ activeSourceHasChangedTo %@ fromDevice %@\n", *(a1 + 32), *(a1 + 40), *(a1 + 48));
   }
 
-  result = [*(a1 + 56) managedBusEquivalentTo:{*(a1 + 32), v6, v7}];
+  result = [*(a1 + 56) managedBusEquivalentTo:*(a1 + 32)];
   if (result)
   {
     v3 = result;
@@ -1361,7 +1478,7 @@ void *__53__CoreRCManagerClient_CEC__cecBus_rxMessageReceived___block_invoke(uin
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
     OUTLINED_FUNCTION_6();
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient(CEC) cecBus:rxMessageReceived:]_block_invoke", 10, "NOTIFY cecBus %@ rxMessageReceived\n");
   }
 
   result = [*(a1 + 40) managedBusEquivalentTo:*(a1 + 32)];
@@ -1380,7 +1497,7 @@ void *__55__CoreRCManagerClient_CEC__cecBus_txMessageSent_error___block_invoke(u
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
     OUTLINED_FUNCTION_6();
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient(CEC) cecBus:txMessageSent:error:]_block_invoke", 10, "CoreRCManagerClient NOTIFY txMessageSent %@\n");
   }
 
   result = [*(a1 + 40) managedBusEquivalentTo:*(a1 + 32)];
@@ -1400,7 +1517,7 @@ void *__62__CoreRCManagerClient_CEC__cecDeviceShouldAssertActiveSource___block_i
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
     OUTLINED_FUNCTION_6();
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient(CEC) cecDeviceShouldAssertActiveSource:]_block_invoke", 10, "CoreRCManagerClient NOTIFY cecDeviceShouldAssertActiveSource %@\n");
   }
 
   result = [*(a1 + 40) managedDeviceEquivalentTo:*(a1 + 32)];
@@ -1417,41 +1534,38 @@ void *__67__CoreRCManagerClient_CEC__cecDevice_activeSourceStatusHasChanged___bl
 {
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    v2 = *(a1 + 32);
     if (*(a1 + 48))
     {
-      v3 = "YES";
+      v2 = "YES";
     }
 
     else
     {
-      v3 = "NO";
+      v2 = "NO";
     }
 
-    v6 = *(a1 + 32);
-    v7 = v3;
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient(CEC) cecDevice:activeSourceStatusHasChanged:]_block_invoke", 10, "CoreRCManagerClient NOTIFY cecDevice %@ activeSourceStatusHasChanged %s\n", *(a1 + 32), v2);
   }
 
-  result = [*(a1 + 40) managedDeviceEquivalentTo:{*(a1 + 32), v6, v7}];
+  result = [*(a1 + 40) managedDeviceEquivalentTo:*(a1 + 32)];
   if (result)
   {
-    v5 = *(a1 + 48);
+    v4 = *(a1 + 48);
 
-    return [result setIsActiveSource:v5];
+    return [result setIsActiveSource:v4];
   }
 
   return result;
 }
 
-uint64_t __80__CoreRCManagerClient_CEC__cecDevice_deckControlPlayHasBeenReceived_fromDevice___block_invoke()
+void *__80__CoreRCManagerClient_CEC__cecDevice_deckControlPlayHasBeenReceived_fromDevice___block_invoke()
 {
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
     v0 = OUTLINED_FUNCTION_2();
     CoreCECPlayModeString(v0);
     OUTLINED_FUNCTION_0();
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient(CEC) cecDevice:deckControlPlayHasBeenReceived:fromDevice:]_block_invoke", 10, "CoreRCManagerClient NOTIFY cecDevice %@ deckControlPlayHasBeenReceived %@ from %@\n");
   }
 
   result = OUTLINED_FUNCTION_3();
@@ -1469,14 +1583,14 @@ uint64_t __80__CoreRCManagerClient_CEC__cecDevice_deckControlPlayHasBeenReceived
   return result;
 }
 
-uint64_t __83__CoreRCManagerClient_CEC__cecDevice_deckControlCommandHasBeenReceived_fromDevice___block_invoke()
+void *__83__CoreRCManagerClient_CEC__cecDevice_deckControlCommandHasBeenReceived_fromDevice___block_invoke()
 {
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
     v0 = OUTLINED_FUNCTION_2();
     CoreCECDeckControlModeString(v0);
     OUTLINED_FUNCTION_0();
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient(CEC) cecDevice:deckControlCommandHasBeenReceived:fromDevice:]_block_invoke", 10, "CoreRCManagerClient NOTIFY cecDevice %@ deckControlCommandHasBeenReceived %@ from %@\n");
   }
 
   result = OUTLINED_FUNCTION_3();
@@ -1494,14 +1608,14 @@ uint64_t __83__CoreRCManagerClient_CEC__cecDevice_deckControlCommandHasBeenRecei
   return result;
 }
 
-uint64_t __81__CoreRCManagerClient_CEC__cecDevice_deckControlStatusHasBeenUpdated_fromDevice___block_invoke()
+void *__81__CoreRCManagerClient_CEC__cecDevice_deckControlStatusHasBeenUpdated_fromDevice___block_invoke()
 {
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
     v0 = OUTLINED_FUNCTION_2();
     CoreCECDeckInfoString(v0);
     OUTLINED_FUNCTION_0();
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient(CEC) cecDevice:deckControlStatusHasBeenUpdated:fromDevice:]_block_invoke", 10, "CoreRCManagerClient NOTIFY cecDevice %@ deckControlStatusHasBeenUpdated %@ from %@\n");
   }
 
   result = OUTLINED_FUNCTION_3();
@@ -1523,9 +1637,7 @@ void *__51__CoreRCManagerClient_CEC__cecDevice_featureAbort___block_invoke(uint6
 {
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient(CEC) cecDevice:featureAbort:]_block_invoke", 10, "CoreRCManagerClient NOTIFY cecDevice %@ featureAbort %@\n", *(a1 + 32), *(a1 + 40));
   }
 
   result = OUTLINED_FUNCTION_3();
@@ -1539,13 +1651,11 @@ void *__51__CoreRCManagerClient_CEC__cecDevice_featureAbort___block_invoke(uint6
   return result;
 }
 
-uint64_t __68__CoreRCManagerClient_CEC__cecDevice_standbyRequestHasBeenReceived___block_invoke(uint64_t a1)
+void *__68__CoreRCManagerClient_CEC__cecDevice_standbyRequestHasBeenReceived___block_invoke(uint64_t a1)
 {
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    v5 = *(a1 + 32);
-    v6 = *(a1 + 40);
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient(CEC) cecDevice:standbyRequestHasBeenReceived:]_block_invoke", 10, "CoreRCManagerClient NOTIFY cecDevice %@ standbyRequestHasBeenReceived %@\n", *(a1 + 32), *(a1 + 40));
   }
 
   result = OUTLINED_FUNCTION_3();
@@ -1559,14 +1669,14 @@ uint64_t __68__CoreRCManagerClient_CEC__cecDevice_standbyRequestHasBeenReceived_
   return result;
 }
 
-uint64_t __97__CoreRCManagerClient_CEC__cecDevice_receivedRequestAudioReturnChannelStatusChangeTo_fromDevice___block_invoke()
+void *__97__CoreRCManagerClient_CEC__cecDevice_receivedRequestAudioReturnChannelStatusChangeTo_fromDevice___block_invoke()
 {
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
     v0 = OUTLINED_FUNCTION_2();
     CoreCECActivationStatusString(v0);
     OUTLINED_FUNCTION_0();
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient(CEC) cecDevice:receivedRequestAudioReturnChannelStatusChangeTo:fromDevice:]_block_invoke", 10, "CoreRCManagerClient NOTIFY cecDevice:%@ receivedRequestARCStatusChangeTo:%@ fromDevice:%@\n");
   }
 
   result = OUTLINED_FUNCTION_3();
@@ -1587,32 +1697,31 @@ void *__104__CoreRCManagerClient_CEC__cecDevice_requestAudioReturnChannelStatusC
   {
     v2 = OUTLINED_FUNCTION_2();
     CoreCECActivationStatusString(v2);
-    v3 = *(a1 + 64);
     OUTLINED_FUNCTION_4();
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient(CEC) cecDevice:requestAudioReturnChannelStatusChangeTo:didFinishWithResult:error:]_block_invoke", 10, "CoreRCManagerClient NOTIFY cecDevice:%@ requestARCStatusChangeTo:%@ didFinishWithResult:%@ error:%@\n");
   }
 
   result = OUTLINED_FUNCTION_3();
   if (result)
   {
-    v5 = *(a1 + 56);
-    v6 = *(a1 + 64);
-    v7 = *(a1 + 40);
+    v4 = *(a1 + 56);
+    v5 = *(a1 + 64);
+    v6 = *(a1 + 40);
 
-    return [result requestAudioReturnChannelStatusChangeTo:v5 didFinishWithResult:v6 error:v7];
+    return [result requestAudioReturnChannelStatusChangeTo:v4 didFinishWithResult:v5 error:v6];
   }
 
   return result;
 }
 
-uint64_t __94__CoreRCManagerClient_CEC__cecDevice_receivedRequestSystemAudioModeStatusChangeTo_fromDevice___block_invoke()
+void *__94__CoreRCManagerClient_CEC__cecDevice_receivedRequestSystemAudioModeStatusChangeTo_fromDevice___block_invoke()
 {
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
     v0 = OUTLINED_FUNCTION_2();
     CoreCECActivationStatusString(v0);
     OUTLINED_FUNCTION_0();
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient(CEC) cecDevice:receivedRequestSystemAudioModeStatusChangeTo:fromDevice:]_block_invoke", 10, "CoreRCManagerClient NOTIFY cecDevice:%@ receivedRequestSystemAudioModeStatusChangeTo:%@ fromDevice:%@\n");
   }
 
   result = OUTLINED_FUNCTION_3();
@@ -1633,19 +1742,18 @@ void *__101__CoreRCManagerClient_CEC__cecDevice_requestSystemAudioModeStatusChan
   {
     v2 = OUTLINED_FUNCTION_2();
     CoreCECActivationStatusString(v2);
-    v3 = *(a1 + 64);
     OUTLINED_FUNCTION_4();
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient(CEC) cecDevice:requestSystemAudioModeStatusChangeTo:didFinishWithResult:error:]_block_invoke", 10, "CoreRCManagerClient NOTIFY cecDevice:%@ requestSystemAudioModeStatusChangeTo:%@ didFinishWithResult:%@ error:%@\n");
   }
 
   result = OUTLINED_FUNCTION_3();
   if (result)
   {
-    v5 = *(a1 + 56);
-    v6 = *(a1 + 64);
-    v7 = *(a1 + 40);
+    v4 = *(a1 + 56);
+    v5 = *(a1 + 64);
+    v6 = *(a1 + 40);
 
-    return [result requestSystemAudioModeStatusChangeTo:v5 didFinishWithResult:v6 error:v7];
+    return [result requestSystemAudioModeStatusChangeTo:v4 didFinishWithResult:v5 error:v6];
   }
 
   return result;
@@ -1656,7 +1764,7 @@ void *__69__CoreRCManagerClient_CEC__cecDevice_audioStatusReceived_muteStatus___
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
     OUTLINED_FUNCTION_6();
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient(CEC) cecDevice:audioStatusReceived:muteStatus:]_block_invoke", 10, "CoreRCManagerClient NOTIFY cecDeviceAudioStatusReceived %@\n");
   }
 
   result = [*(a1 + 40) managedDeviceEquivalentTo:*(a1 + 32)];
@@ -1697,12 +1805,10 @@ void *__46__CoreRCManagerClient_bus_deviceHasBeenAdded___block_invoke(uint64_t a
 {
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient bus:deviceHasBeenAdded:]_block_invoke", 10, "NOTIFY bus %@ deviceHasBeenAdded %@\n", *(a1 + 32), *(a1 + 40));
   }
 
-  result = [*(a1 + 48) managedBusEquivalentTo:{*(a1 + 32), v4, v5}];
+  result = [*(a1 + 48) managedBusEquivalentTo:*(a1 + 32)];
   if (result)
   {
     v3 = *(a1 + 40);
@@ -1717,12 +1823,10 @@ void *__48__CoreRCManagerClient_bus_deviceHasBeenRemoved___block_invoke(uint64_t
 {
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient bus:deviceHasBeenRemoved:]_block_invoke", 10, "NOTIFY bus %@ deviceHasBeenRemoved %@\n", *(a1 + 32), *(a1 + 40));
   }
 
-  result = [*(a1 + 48) managedBusEquivalentTo:{*(a1 + 32), v4, v5}];
+  result = [*(a1 + 48) managedBusEquivalentTo:*(a1 + 32)];
   if (result)
   {
     v3 = *(a1 + 40);
@@ -1737,12 +1841,10 @@ void *__48__CoreRCManagerClient_bus_deviceHasBeenUpdated___block_invoke(uint64_t
 {
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 40);
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient bus:deviceHasBeenUpdated:]_block_invoke", 10, "NOTIFY bus %@ deviceHasBeenUpdated %@\n", *(a1 + 32), *(a1 + 40));
   }
 
-  result = [*(a1 + 48) managedBusEquivalentTo:{*(a1 + 32), v4, v5}];
+  result = [*(a1 + 48) managedBusEquivalentTo:*(a1 + 32)];
   if (result)
   {
     v3 = *(a1 + 40);
@@ -1753,16 +1855,14 @@ void *__48__CoreRCManagerClient_bus_deviceHasBeenUpdated___block_invoke(uint64_t
   return result;
 }
 
-uint64_t __58__CoreRCManagerClient_device_receivedHIDEvent_fromDevice___block_invoke(uint64_t a1)
+void *__58__CoreRCManagerClient_device_receivedHIDEvent_fromDevice___block_invoke(uint64_t a1)
 {
   if (gLogCategory_CoreRCXPC <= 10 && (gLogCategory_CoreRCXPC != -1 || _LogCategory_Initialize()))
   {
-    v7 = *(a1 + 48);
-    v6 = *(a1 + 32);
-    LogPrintF();
+    LogPrintF(&gLogCategory_CoreRCXPC, "[CoreRCManagerClient device:receivedHIDEvent:fromDevice:]_block_invoke", 10, "CoreRCManagerClient NOTIFY device %@ EVENT <%@> RECEIVED from %@\n", *(a1 + 32), *(a1 + 40), *(a1 + 48));
   }
 
-  result = [*(a1 + 56) managedDeviceEquivalentTo:{*(a1 + 32), v6, v7}];
+  result = [*(a1 + 56) managedDeviceEquivalentTo:*(a1 + 32)];
   if (result)
   {
     v3 = result;
@@ -1789,39 +1889,18 @@ uint64_t __58__CoreRCManagerClient_device_receivedHIDEvent_fromDevice___block_in
   return result;
 }
 
-- (uint64_t)sendHIDEvent:fromDevice:toDevice:error:.cold.1()
+- (uint64_t)sendHIDEvent:(uint64_t)a3 fromDevice:toDevice:error:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  objc_opt_class();
-  objc_opt_class();
-  return LogPrintF();
+  v6 = objc_opt_class();
+  v7 = objc_opt_class();
+  return LogPrintF(&gLogCategory_CoreRCDevice, "[CoreRCManagerClient sendHIDEvent:fromDevice:toDevice:error:]", 10, "%@ %@ send EVENT <%@> To %@ %@\n", v6, a1, a3, v7, a2);
 }
 
-- (uint64_t)sendCommand:fromDevice:toDevice:withDuration:error:.cold.1()
+- (uint64_t)sendCommand:(uint64_t)a3 fromDevice:toDevice:withDuration:error:.cold.1(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  objc_opt_class();
-  objc_opt_class();
-  return LogPrintF();
-}
-
-uint64_t __39__CoreRCManagerClient_busHasBeenAdded___block_invoke_cold_1(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  objc_opt_class();
-  return LogPrintF();
-}
-
-uint64_t __41__CoreRCManagerClient_busHasBeenRemoved___block_invoke_cold_1(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  objc_opt_class();
-  return LogPrintF();
-}
-
-uint64_t __41__CoreRCManagerClient_busHasBeenUpdated___block_invoke_cold_1(uint64_t a1)
-{
-  v1 = *(a1 + 32);
-  objc_opt_class();
-  return LogPrintF();
+  v6 = objc_opt_class();
+  v7 = objc_opt_class();
+  return LogPrintF(&gLogCategory_CoreRCDevice, "[CoreRCManagerClient sendCommand:fromDevice:toDevice:withDuration:error:]", 10, "%@ %@ send COMMAND <%u> To %@ %@\n", v6, a1, a3, v7, a2);
 }
 
 void *__68__CoreRCManagerClient_IR__learningSessionForDevice_commandProgress___block_invoke(uint64_t a1)

@@ -210,7 +210,6 @@ LABEL_8:
   has = self->_has;
   if ((has & 2) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 4) == 0)
@@ -230,7 +229,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  deviceClass = self->_deviceClass;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -245,7 +243,6 @@ LABEL_4:
   }
 
 LABEL_11:
-  operationType = self->_operationType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -260,7 +257,6 @@ LABEL_5:
   }
 
 LABEL_12:
-  recordsChanged = self->_recordsChanged;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -272,7 +268,6 @@ LABEL_6:
     }
 
 LABEL_14:
-    timeIntervalSinceLastOperation = self->_timeIntervalSinceLastOperation;
     PBDataWriterWriteInt64Field();
     if ((*&self->_has & 0x20) == 0)
     {
@@ -283,7 +278,6 @@ LABEL_14:
   }
 
 LABEL_13:
-  errorCount = self->_errorCount;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if (has)
@@ -298,7 +292,6 @@ LABEL_7:
   }
 
 LABEL_15:
-  qualityOfService = self->_qualityOfService;
 
   PBDataWriterWriteInt32Field();
 }

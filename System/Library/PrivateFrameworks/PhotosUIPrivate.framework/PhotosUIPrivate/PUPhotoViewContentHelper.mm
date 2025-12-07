@@ -850,7 +850,7 @@ LABEL_30:
 {
   v10 = 0u;
   v11 = 0u;
-  [(PUPhotoViewContentHelper *)self badgeInfo];
+  objc_msgSend_badgeInfo(self, a2);
   flattensBadgeView = [(PUPhotoViewContentHelper *)self flattensBadgeView];
   IsNull = PXAssetBadgeInfoIsNull();
   v5 = [(PUPhotoViewContentHelper *)self _badgeView:0];

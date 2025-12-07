@@ -22,7 +22,7 @@
   v6 = sub_248030778();
   (*(*(v6 - 8) + 56))(self + v5, 1, 1, v6);
   v8.receiver = self;
-  v8.super_class = type metadata accessor for ProcessorTraceTapMessageHandler();
+  v8.super_class = type metadata accessor for ProcessorTraceTapMessageHandler(0);
   return [(DTTapMessageHandler *)&v8 initWithConfig:config];
 }
 
@@ -33,7 +33,7 @@
   v4 = sub_248030778();
   (*(*(v4 - 8) + 56))(self + v3, 1, 1, v4);
   v6.receiver = self;
-  v6.super_class = type metadata accessor for ProcessorTraceTapMessageHandler();
+  v6.super_class = type metadata accessor for ProcessorTraceTapMessageHandler(0);
   return [(DTProcessorTraceTapMessageHandler *)&v6 init];
 }
 

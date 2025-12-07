@@ -36,7 +36,7 @@
 
 + (id)localizedTitleForUseCase:(unint64_t)case assetCollectionReference:(id)reference withInputs:(id)inputs
 {
-  sub_1A3C38BD4();
+  sub_1A3C38BD4(0xD000000000000036);
   v5 = sub_1A524C634();
 
   return v5;
@@ -52,10 +52,11 @@
 + (id)makeCustomMenuElementForUseCase:(unint64_t)case assetCollectionReference:(id)reference withInput:(id)input handler:(id)handler
 {
   v7 = _Block_copy(handler);
-  *(swift_allocObject() + 16) = v7;
+  v8 = swift_allocObject();
+  *(v8 + 16) = v7;
   referenceCopy = reference;
-  swift_unknownObjectRetain();
-  sub_1A3E78E48();
+  v10 = swift_unknownObjectRetain();
+  sub_1A3E78E48(v10, sub_1A3E79128, v8);
 }
 
 + (id)createActivityWithTitle:(id)title actionType:(id)type actionSystemImageName:(id)name
@@ -87,9 +88,9 @@
   v6 = sub_1A524C674();
   v8 = v7;
   type metadata accessor for PXActionParameterKey();
-  sub_1A3C382BC(&unk_1EB1356B0, type metadata accessor for PXActionParameterKey);
-  sub_1A524C3E4();
-  return sub_1A3E78ABC(v6, v8, reference);
+  sub_1A3C382BC(&unk_1EB1356B0, type metadata accessor for PXActionParameterKey, &unk_1A5377DC0);
+  v9 = sub_1A524C3E4();
+  return sub_1A3E78ABC(v6, v8, reference, v9);
 }
 
 @end

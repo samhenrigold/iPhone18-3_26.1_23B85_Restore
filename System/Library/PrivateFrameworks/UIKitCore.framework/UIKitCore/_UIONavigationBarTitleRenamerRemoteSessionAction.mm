@@ -244,9 +244,9 @@
     }
 
     sessionIdentifier = [delegate sessionIdentifier];
-    v12 = [sessionIdentifier isEqual:v7];
+    isEqual = objc_msgSend_isEqual_(sessionIdentifier);
 
-    if ((v12 & 1) == 0)
+    if ((isEqual & 1) == 0)
     {
       currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
       [currentHandler2 handleFailureInMethod:a2 object:self file:@"_UIONavigationBarTitleRenamerRemoteSessionAction.m" lineNumber:189 description:{@"Invalid parameter not satisfying: %@", @"[session.sessionIdentifier isEqual:sessionID]"}];

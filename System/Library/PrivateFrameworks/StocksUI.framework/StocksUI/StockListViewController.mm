@@ -43,7 +43,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_220491CFC();
+  sub_220491CFC(selfCopy, v2);
 }
 
 - (int64_t)preferredStatusBarStyle
@@ -66,7 +66,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_2204A4054(change);
+  sub_2204A4054(change, selfCopy);
 }
 
 - (void)scrollViewDidScroll:(id)scroll
@@ -79,19 +79,19 @@
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_2204A498C();
+  sub_2204A498C(selfCopy, v2);
 }
 
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_2204A921C();
+  sub_2204A921C(selfCopy, v2);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_2204C02F0(appear);
+  sub_2204C02F0(appear, selfCopy);
 }
 
 - (void)scrollViewDidEndDecelerating:(void *)decelerating
@@ -125,15 +125,16 @@
 
 - (void)setToolbarItems:(id)items animated:(BOOL)animated
 {
+  animatedCopy = animated;
   itemsCopy = items;
   if (items)
   {
-    sub_22044D56C(0, &qword_28127E850);
+    sub_22044D56C(0, &qword_28127E850, 0x277D751E0);
     itemsCopy = sub_2208916EC();
   }
 
   selfCopy = self;
-  sub_220762EBC(itemsCopy, animated);
+  sub_220762EBC(itemsCopy, animatedCopy);
 }
 
 - (void)presentSearchFromBarButtonItem
@@ -241,7 +242,7 @@
   sub_22076BA14();
   if (v2)
   {
-    sub_22044D56C(0, &qword_281299860);
+    sub_22044D56C(0, &qword_281299860, 0x277D75650);
     v3 = sub_2208916DC();
   }
 
@@ -256,7 +257,7 @@
 - (void)deleteItem
 {
   selfCopy = self;
-  sub_220769AC4();
+  sub_220769AC4(v2);
 }
 
 - (void)delete:(id)delete
@@ -271,13 +272,13 @@
 
   else
   {
-    memset(v6, 0, sizeof(v6));
+    memset(v7, 0, sizeof(v7));
     selfCopy2 = self;
   }
 
-  sub_220769AC4();
+  sub_220769AC4(v5);
 
-  sub_22056D130(v6);
+  sub_22056D130(v7);
 }
 
 - (BOOL)canPerformAction:(SEL)action withSender:(id)sender

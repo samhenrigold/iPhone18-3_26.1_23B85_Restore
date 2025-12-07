@@ -110,7 +110,7 @@ LABEL_11:
     v56 = metrics9;
     if (metrics9)
     {
-      [metrics9 arrowMetrics];
+      objc_msgSend_arrowMetrics(metrics9);
     }
 
     else
@@ -126,7 +126,7 @@ LABEL_11:
     shieldImage2 = metrics10;
     if (metrics10)
     {
-      [metrics10 junctionArrowMetrics];
+      objc_msgSend_junctionArrowMetrics(metrics10);
     }
 
     else

@@ -493,7 +493,7 @@
   {
     sub_1007A3504();
     swift_unknownObjectRelease();
-    sub_1000076D4(&v7, &v8);
+    sub_1000076D4(v7, v8);
     type metadata accessor for ContainerHost();
     swift_dynamicCast();
 
@@ -626,8 +626,8 @@
 
   else
   {
-    v8 = sub_1000122C0();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = sub_1000122C0(v5);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10079404C();
     }
@@ -1213,8 +1213,7 @@
   }
 
   [applicationCopy setMinimumBackgroundFetchInterval:3600.0];
-  [INPreferences requestSiriAuthorization:&stru_100A0AF10];
-  v35 = sub_1000122C0();
+  v35 = sub_1000122C0([INPreferences requestSiriAuthorization:&stru_100A0AF10]);
   if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -1554,72 +1553,72 @@
 
 - (void)_startLibraryReloadForLaunchWhenNeeded
 {
-  v19[0] = 0;
-  v19[1] = v19;
-  v19[2] = 0x3032000000;
-  v19[3] = sub_1001CCEB4;
-  v19[4] = sub_1001CCEE0;
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_1001CCEE8;
-  v18[3] = &unk_100A033C8;
-  v18[4] = self;
-  v20 = objc_retainBlock(v18);
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x2020000000;
-  v17 = 0;
+  v20[0] = 0;
+  v20[1] = v20;
+  v20[2] = 0x3032000000;
+  v20[3] = sub_1001CCEB4;
+  v20[4] = sub_1001CCEE0;
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_1001CCEE8;
+  v19[3] = &unk_100A033C8;
+  v19[4] = self;
+  v21 = objc_retainBlock(v19);
+  v15 = 0;
+  v16 = &v15;
+  v17 = 0x2020000000;
+  v18 = 0;
   appLaunchCoordinator = [(BKAppDelegate *)self appLaunchCoordinator];
-  v13[0] = _NSConcreteStackBlock;
-  v13[1] = 3221225472;
-  v13[2] = sub_1001CCEF0;
-  v13[3] = &unk_100A0B118;
-  v13[4] = &v14;
-  v13[5] = v19;
-  [appLaunchCoordinator appLaunchCoordinatorOnConditionMask:512 blockID:@"_startLibraryReloadForLaunchWhenNeeded extended reloadLibrary" performBlock:v13];
+  v14[0] = _NSConcreteStackBlock;
+  v14[1] = 3221225472;
+  v14[2] = sub_1001CCEF0;
+  v14[3] = &unk_100A0B118;
+  v14[4] = &v15;
+  v14[5] = v20;
+  [appLaunchCoordinator appLaunchCoordinatorOnConditionMask:512 blockID:@"_startLibraryReloadForLaunchWhenNeeded extended reloadLibrary" performBlock:v14];
 
   appLaunchCoordinator2 = [(BKAppDelegate *)self appLaunchCoordinator];
-  v12[0] = _NSConcreteStackBlock;
-  v12[1] = 3221225472;
-  v12[2] = sub_1001CD064;
-  v12[3] = &unk_100A0B118;
-  v12[4] = &v14;
-  v12[5] = v19;
-  [appLaunchCoordinator2 appLaunchCoordinatorOnConditionMask:256 blockID:@"_startLibraryReloadForLaunchWhenNeeded carPlay reloadLibrary" performBlock:v12];
+  v13[0] = _NSConcreteStackBlock;
+  v13[1] = 3221225472;
+  v13[2] = sub_1001CD064;
+  v13[3] = &unk_100A0B118;
+  v13[4] = &v15;
+  v13[5] = v20;
+  [appLaunchCoordinator2 appLaunchCoordinatorOnConditionMask:256 blockID:@"_startLibraryReloadForLaunchWhenNeeded carPlay reloadLibrary" performBlock:v13];
 
-  v5 = sub_1000122C0();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = sub_1000122C0(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = +[UIApplication sharedApplication];
-    applicationState = [v6 applicationState];
+    v7 = +[UIApplication sharedApplication];
+    applicationState = [v7 applicationState];
     *buf = 134217984;
-    v22 = applicationState;
-    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Library Reload: Initial applicationState: %ld", buf, 0xCu);
+    v23 = applicationState;
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Library Reload: Initial applicationState: %ld", buf, 0xCu);
   }
 
-  v8 = dispatch_time(0, 500000000);
+  v9 = dispatch_time(0, 500000000);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1001CD134;
   block[3] = &unk_100A055C0;
-  block[4] = &v14;
-  block[5] = v19;
-  dispatch_after(v8, &_dispatch_main_q, block);
-  if ((v15[3] & 1) == 0)
+  block[4] = &v15;
+  block[5] = v20;
+  dispatch_after(v9, &_dispatch_main_q, block);
+  if ((v16[3] & 1) == 0)
   {
-    v9 = dispatch_time(0, 5000000000);
-    v10[0] = _NSConcreteStackBlock;
-    v10[1] = 3221225472;
-    v10[2] = sub_1001CD2AC;
-    v10[3] = &unk_100A04BD8;
-    v10[4] = self;
-    v10[5] = &v14;
-    v10[6] = v19;
-    dispatch_after(v9, &_dispatch_main_q, v10);
+    v10 = dispatch_time(0, 5000000000);
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_1001CD2AC;
+    v11[3] = &unk_100A04BD8;
+    v11[4] = self;
+    v11[5] = &v15;
+    v11[6] = v20;
+    dispatch_after(v10, &_dispatch_main_q, v11);
   }
 
-  _Block_object_dispose(&v14, 8);
-  _Block_object_dispose(v19, 8);
+  _Block_object_dispose(&v15, 8);
+  _Block_object_dispose(v20, 8);
 }
 
 - (void)_didFinishUpgradingWithOptions:(id)options
@@ -1878,7 +1877,7 @@
 
 - (void)_applicationDidBecomeActive:(id)active
 {
-  v4 = sub_1000122C0();
+  v4 = sub_1000122C0(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v11 = 0;
@@ -1922,7 +1921,7 @@
 
 - (void)_applicationWillResignActive:(id)active
 {
-  v4 = sub_1000122C0();
+  v4 = sub_1000122C0(self);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -1997,7 +1996,7 @@
 - (void)_extendedLaunchComplete:(id)complete
 {
   completeCopy = complete;
-  v5 = sub_1000122C0();
+  v5 = sub_1000122C0(completeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     name = [completeCopy name];
@@ -2409,30 +2408,37 @@
 {
   object = [changed object];
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) != 0 && [object currentReachabilityStatus] && (objc_msgSend(object, "connectionRequired") & 1) == 0)
+  if (objc_opt_isKindOfClass())
   {
-    v5 = sub_1000122C0();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    if ([object currentReachabilityStatus])
     {
-      liverpoolStatusMonitor = [(BKAppDelegate *)self liverpoolStatusMonitor];
-      isCloudKitEnabled = [liverpoolStatusMonitor isCloudKitEnabled];
-      v8 = "NO";
-      if (isCloudKitEnabled)
+      connectionRequired = [object connectionRequired];
+      if ((connectionRequired & 1) == 0)
       {
-        v8 = "YES";
+        v6 = sub_1000122C0(connectionRequired);
+        if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+        {
+          liverpoolStatusMonitor = [(BKAppDelegate *)self liverpoolStatusMonitor];
+          isCloudKitEnabled = [liverpoolStatusMonitor isCloudKitEnabled];
+          v9 = "NO";
+          if (isCloudKitEnabled)
+          {
+            v9 = "YES";
+          }
+
+          v12 = 136315138;
+          v13 = v9;
+          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Network now reachable.  Is user opted in: %s", &v12, 0xCu);
+        }
+
+        ubiquityStatusMonitor = [(BKAppDelegate *)self ubiquityStatusMonitor];
+        isICloudDriveEnabled = [ubiquityStatusMonitor isICloudDriveEnabled];
+
+        if (isICloudDriveEnabled)
+        {
+          [(BKAppDelegate *)self _reloadUbiquityDataSources];
+        }
       }
-
-      v11 = 136315138;
-      v12 = v8;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "Network now reachable.  Is user opted in: %s", &v11, 0xCu);
-    }
-
-    ubiquityStatusMonitor = [(BKAppDelegate *)self ubiquityStatusMonitor];
-    isICloudDriveEnabled = [ubiquityStatusMonitor isICloudDriveEnabled];
-
-    if (isICloudDriveEnabled)
-    {
-      [(BKAppDelegate *)self _reloadUbiquityDataSources];
     }
   }
 }
@@ -2645,7 +2651,7 @@
 
   else
   {
-    v14 = sub_1000122C0();
+    v14 = sub_1000122C0(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_100794018();
@@ -2690,7 +2696,7 @@
 - (void)clientDetectedStoreChangeAndAccountChange:(id)change
 {
   changeCopy = change;
-  v5 = sub_1000122C0();
+  v5 = sub_1000122C0(changeCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -2715,7 +2721,7 @@
 - (void)clientDetectedStoreChange:(id)change
 {
   changeCopy = change;
-  v4 = sub_1000122C0();
+  v4 = sub_1000122C0(changeCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -2764,12 +2770,13 @@
 {
   errorCopy = error;
   operationCopy = operation;
+  v7 = operationCopy;
   if (errorCopy)
   {
-    v7 = sub_1000122C0();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = sub_1000122C0(operationCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100794080(operationCopy, errorCopy, v7);
+      sub_100794080(v7, errorCopy, v8);
     }
   }
 }
@@ -3029,7 +3036,7 @@ LABEL_8:
   v11 = v10;
   sub_1001ED2F8(_swiftEmptyArrayStorage);
   type metadata accessor for OpenExternalURLOptionsKey(0);
-  sub_10023D404(&qword_100AE01C0, type metadata accessor for OpenExternalURLOptionsKey);
+  sub_10023D404(&qword_100AE01C0, type metadata accessor for OpenExternalURLOptionsKey, &unk_10080E21C);
   isa = sub_1007A2024().super.isa;
 
   [sharedApplication openURL:v11 options:isa completionHandler:0];
@@ -3063,7 +3070,7 @@ LABEL_8:
 
 - (void)flushJetMetricsWithCompletionHandler:(id)handler
 {
-  v5 = sub_1001F1160(&qword_100AD67D0);
+  v5 = sub_1001F1160(&qword_100AD67D0, &qword_100814660);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);

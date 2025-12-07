@@ -172,21 +172,8 @@
             v33 = v32 = v13;
             v34 = [(_DASTimelinePredictor *)selfCopy computeSlotForDate:v33 relativeToDate:v67 slotDuration:v68 totalSlotsInDay:resolutionCopy2];
 
-            if (v34 != integerValue)
+            if (v34 != integerValue || (v13 = v32, v35 = v32[116], [v23 timestamp], -[NSErrorUserInfoKey dateFromAbsoluteTime:](v35, "dateFromAbsoluteTime:"), v36 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v36, "timeIntervalSinceDate:", v27), v38 = v37, v36, v38 >= resolutionCopy2))
             {
-              goto LABEL_16;
-            }
-
-            v13 = v32;
-            v35 = v32[116];
-            [v23 timestamp];
-            v36 = [(NSErrorUserInfoKey *)v35 dateFromAbsoluteTime:?];
-            [v36 timeIntervalSinceDate:v27];
-            v38 = v37;
-
-            if (v38 >= resolutionCopy2)
-            {
-LABEL_16:
               v39 = [v69 objectForKeyedSubscript:v24];
               if (!v39)
               {
@@ -244,7 +231,7 @@ LABEL_16:
         v83 = v45;
         [v71 sortUsingComparator:v81];
         v47 = +[NSMutableDictionary dictionary];
-        v48 = [v71 count];
+        v48 = objc_msgSend_count(v71);
         if (v48 >= topCopy)
         {
           v49 = topCopy;
@@ -919,7 +906,7 @@ LABEL_16:
   v22 = self->_log;
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v23 = +[NSNumber numberWithUnsignedInteger:](NSNumber, "numberWithUnsignedInteger:", [v36[5] count]);
+    v23 = [NSNumber numberWithUnsignedInteger:objc_msgSend_count(v36[5])];
     v24 = v36[5];
     *buf = 138413058;
     v42 = v14;

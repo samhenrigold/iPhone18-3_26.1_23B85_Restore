@@ -68,32 +68,30 @@ double __43__CSVTUIEndpointAnalyzer_setStartWaitTime___block_invoke(uint64_t a1)
 
 - (void)_reportStartpointAtTsInSecs:(double)secs
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315138;
-    v9 = "[CSVTUIEndpointAnalyzer _reportStartpointAtTsInSecs:]";
-    _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s Reporting start speech", &v8, 0xCu);
+    v7 = 136315138;
+    v8 = "[CSVTUIEndpointAnalyzer _reportStartpointAtTsInSecs:]";
+    _os_log_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEFAULT, "%s Reporting start speech", &v7, 0xCu);
   }
 
   self->_nnvadState = 1;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained endpointer:self didDetectStartpointAtTime:secs];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_reportEndpointAtTsInSecs:(double)secs
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277D01970];
   v6 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
-    v18 = 136315138;
-    v19 = "[CSVTUIEndpointAnalyzer _reportEndpointAtTsInSecs:]";
-    _os_log_impl(&dword_225E12000, v6, OS_LOG_TYPE_DEFAULT, "%s Reporting end speech", &v18, 0xCu);
+    v17 = 136315138;
+    v18 = "[CSVTUIEndpointAnalyzer _reportEndpointAtTsInSecs:]";
+    _os_log_impl(&dword_225E12000, v6, OS_LOG_TYPE_DEFAULT, "%s Reporting end speech", &v17, 0xCu);
   }
 
   self->_nnvadState = 2;
@@ -109,44 +107,40 @@ double __43__CSVTUIEndpointAnalyzer_setStartWaitTime___block_invoke(uint64_t a1)
   if (os_log_type_enabled(*v5, OS_LOG_TYPE_DEFAULT))
   {
     isAnchorTimeBuffered = self->_isAnchorTimeBuffered;
-    v18 = 136315650;
-    v19 = "[CSVTUIEndpointAnalyzer _reportEndpointAtTsInSecs:]";
-    v20 = 2050;
-    v21 = v13;
-    v22 = 1026;
-    v23 = isAnchorTimeBuffered;
-    _os_log_impl(&dword_225E12000, v14, OS_LOG_TYPE_DEFAULT, "%s endpointedBuffer.hostTime=%{public}llu, isAnchorTimeBuffered=%{public}d", &v18, 0x1Cu);
+    v17 = 136315650;
+    v18 = "[CSVTUIEndpointAnalyzer _reportEndpointAtTsInSecs:]";
+    v19 = 2050;
+    v20 = v13;
+    v21 = 1026;
+    v22 = isAnchorTimeBuffered;
+    _os_log_impl(&dword_225E12000, v14, OS_LOG_TYPE_DEFAULT, "%s endpointedBuffer.hostTime=%{public}llu, isAnchorTimeBuffered=%{public}d", &v17, 0x1Cu);
   }
 
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained endpointer:self didDetectHardEndpointAtTime:secs];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)request:(id)request didFailWithError:(id)error
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   errorCopy = error;
   v7 = *MEMORY[0x277D015D8];
   if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_DEFAULT))
   {
-    v9 = 136315650;
-    v10 = "[CSVTUIEndpointAnalyzer request:didFailWithError:]";
-    v11 = 2114;
-    v12 = requestCopy;
-    v13 = 2114;
-    v14 = errorCopy;
-    _os_log_impl(&dword_225E12000, v7, OS_LOG_TYPE_DEFAULT, "%s request: %{public}@, returnedError: %{public}@", &v9, 0x20u);
+    v8 = 136315650;
+    v9 = "[CSVTUIEndpointAnalyzer request:didFailWithError:]";
+    v10 = 2114;
+    v11 = requestCopy;
+    v12 = 2114;
+    v13 = errorCopy;
+    _os_log_impl(&dword_225E12000, v7, OS_LOG_TYPE_DEFAULT, "%s request: %{public}@, returnedError: %{public}@", &v8, 0x20u);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)request:(id)request didProduceResult:(id)result
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   resultCopy = result;
   v8 = resultCopy;
@@ -156,7 +150,7 @@ double __43__CSVTUIEndpointAnalyzer_setStartWaitTime___block_invoke(uint64_t a1)
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v16 = "[CSVTUIEndpointAnalyzer request:didProduceResult:]";
+      v15 = "[CSVTUIEndpointAnalyzer request:didProduceResult:]";
       _os_log_impl(&dword_225E12000, v9, OS_LOG_TYPE_DEFAULT, "%s Processing finished. Not scheduling", buf, 0xCu);
     }
   }
@@ -164,52 +158,48 @@ double __43__CSVTUIEndpointAnalyzer_setStartWaitTime___block_invoke(uint64_t a1)
   else
   {
     queue = self->_queue;
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __51__CSVTUIEndpointAnalyzer_request_didProduceResult___block_invoke;
-    v12[3] = &unk_278579350;
-    v13 = resultCopy;
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __51__CSVTUIEndpointAnalyzer_request_didProduceResult___block_invoke;
+    v11[3] = &unk_278579350;
+    v12 = resultCopy;
     selfCopy = self;
-    dispatch_async(queue, v12);
+    dispatch_async(queue, v11);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
-void __51__CSVTUIEndpointAnalyzer_request_didProduceResult___block_invoke(uint64_t a1)
+void __51__CSVTUIEndpointAnalyzer_request_didProduceResult___block_invoke(uint64_t a1, const char *a2)
 {
   v10 = *MEMORY[0x277D85DE8];
-  v2 = *(a1 + 32);
-  if (v2)
+  v3 = *(a1 + 32);
+  if (v3)
   {
-    [v2 timeRange];
+    objc_msgSend_timeRange(v3, a2);
     if (v7 >= 1)
     {
-      v3 = *(a1 + 40);
-      v4 = v3[6];
-      switch(v4)
+      v4 = *(a1 + 40);
+      v5 = v4[6];
+      switch(v5)
       {
         case 2:
-          v5 = *MEMORY[0x277D01970];
+          v6 = *MEMORY[0x277D01970];
           if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315138;
             v9 = "[CSVTUIEndpointAnalyzer request:didProduceResult:]_block_invoke";
-            _os_log_debug_impl(&dword_225E12000, v5, OS_LOG_TYPE_DEBUG, "%s Processing finished. Ignoring", buf, 0xCu);
+            _os_log_debug_impl(&dword_225E12000, v6, OS_LOG_TYPE_DEBUG, "%s Processing finished. Ignoring", buf, 0xCu);
           }
 
           break;
         case 1:
-          [v3 _checkSNObservationForEndpoint:*(a1 + 32)];
+          [v4 _checkSNObservationForEndpoint:*(a1 + 32)];
           break;
         case 0:
-          [v3 _checkSNObservationForStartpoint:*(a1 + 32)];
+          [v4 _checkSNObservationForStartpoint:*(a1 + 32)];
           break;
       }
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkSNObservationForEndpoint:(id)endpoint
@@ -224,7 +214,7 @@ void __51__CSVTUIEndpointAnalyzer_request_didProduceResult___block_invoke(uint64
 
 - (void)_checkSNObservationForStartpoint:(id)startpoint
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   startpointCopy = startpoint;
   [(CSVTUIEndpointAnalyzer *)self _effectiveAudioTimeInSecsForSNObservation:startpointCopy];
   v6 = v5;
@@ -232,7 +222,6 @@ void __51__CSVTUIEndpointAnalyzer_request_didProduceResult___block_invoke(uint64
 
   if (detected)
   {
-    v8 = *MEMORY[0x277D85DE8];
 
     [(CSVTUIEndpointAnalyzer *)self _reportStartpointAtTsInSecs:v6];
   }
@@ -242,22 +231,20 @@ void __51__CSVTUIEndpointAnalyzer_request_didProduceResult___block_invoke(uint64
     startWaitTime = self->_startWaitTime;
     if (v6 > startWaitTime)
     {
-      v10 = *MEMORY[0x277D01970];
+      v9 = *MEMORY[0x277D01970];
       if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
       {
-        v12 = 136315650;
-        v13 = "[CSVTUIEndpointAnalyzer _checkSNObservationForStartpoint:]";
+        v10 = 136315650;
+        v11 = "[CSVTUIEndpointAnalyzer _checkSNObservationForStartpoint:]";
+        v12 = 2050;
+        v13 = v6;
         v14 = 2050;
-        v15 = v6;
-        v16 = 2050;
-        v17 = startWaitTime;
-        _os_log_impl(&dword_225E12000, v10, OS_LOG_TYPE_DEFAULT, "%s No Startpt detected even after %{public}f secs. startWaitTime=%{public}f secs", &v12, 0x20u);
+        v15 = startWaitTime;
+        _os_log_impl(&dword_225E12000, v9, OS_LOG_TYPE_DEFAULT, "%s No Startpt detected even after %{public}f secs. startWaitTime=%{public}f secs", &v10, 0x20u);
       }
 
       [(CSVTUIEndpointAnalyzer *)self _reportEndpointAtTsInSecs:v6];
     }
-
-    v11 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -265,7 +252,7 @@ void __51__CSVTUIEndpointAnalyzer_request_didProduceResult___block_invoke(uint64
 {
   if (observation)
   {
-    [observation timeRange];
+    objc_msgSend_timeRange(observation, a2);
     v4 = v6;
   }
 
@@ -291,16 +278,16 @@ void __51__CSVTUIEndpointAnalyzer_request_didProduceResult___block_invoke(uint64
 
 void __52__CSVTUIEndpointAnalyzer_recordingStoppedForReason___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 40);
-    v7 = 136315394;
-    v8 = "[CSVTUIEndpointAnalyzer recordingStoppedForReason:]_block_invoke";
-    v9 = 2050;
-    v10 = v3;
-    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s Recording Stopped For Reason: %{public}ld", &v7, 0x16u);
+    v6 = 136315394;
+    v7 = "[CSVTUIEndpointAnalyzer recordingStoppedForReason:]_block_invoke";
+    v8 = 2050;
+    v9 = v3;
+    _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s Recording Stopped For Reason: %{public}ld", &v6, 0x16u);
   }
 
   *(*(a1 + 32) + 48) = 2;
@@ -308,18 +295,16 @@ void __52__CSVTUIEndpointAnalyzer_recordingStoppedForReason___block_invoke(uint6
   v4 = *(a1 + 32);
   v5 = *(v4 + 136);
   *(v4 + 136) = 0;
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stopEndpointer
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315138;
-    v8 = "[CSVTUIEndpointAnalyzer stopEndpointer]";
+    v7 = "[CSVTUIEndpointAnalyzer stopEndpointer]";
     _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s ", buf, 0xCu);
   }
 
@@ -331,7 +316,6 @@ void __52__CSVTUIEndpointAnalyzer_recordingStoppedForReason___block_invoke(uint6
   block[3] = &unk_2785797A8;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __40__CSVTUIEndpointAnalyzer_stopEndpointer__block_invoke(uint64_t a1)
@@ -358,7 +342,7 @@ void __40__CSVTUIEndpointAnalyzer_stopEndpointer__block_invoke(uint64_t a1)
 
 void __60__CSVTUIEndpointAnalyzer_processAudioSamplesAsynchronously___block_invoke(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   if (v1[6] == 2)
   {
@@ -366,7 +350,7 @@ void __60__CSVTUIEndpointAnalyzer_processAudioSamplesAsynchronously___block_invo
     if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315138;
-      v17 = "[CSVTUIEndpointAnalyzer processAudioSamplesAsynchronously:]_block_invoke";
+      v16 = "[CSVTUIEndpointAnalyzer processAudioSamplesAsynchronously:]_block_invoke";
       _os_log_impl(&dword_225E12000, v2, OS_LOG_TYPE_DEFAULT, "%s Processing Done. Returning", buf, 0xCu);
     }
   }
@@ -385,13 +369,13 @@ void __60__CSVTUIEndpointAnalyzer_processAudioSamplesAsynchronously___block_invo
         v7 = v5[7];
         v8 = v5[13];
         *buf = 136315906;
-        v17 = "[CSVTUIEndpointAnalyzer processAudioSamplesAsynchronously:]_block_invoke";
-        v18 = 2050;
-        v19 = v6;
-        v20 = 2050;
-        v21 = v7;
-        v22 = 2050;
-        v23 = v8;
+        v16 = "[CSVTUIEndpointAnalyzer processAudioSamplesAsynchronously:]_block_invoke";
+        v17 = 2050;
+        v18 = v6;
+        v19 = 2050;
+        v20 = v7;
+        v21 = 2050;
+        v22 = v8;
         _os_log_impl(&dword_225E12000, v4, OS_LOG_TYPE_DEFAULT, "%s Rx first sample: %{public}ld, _numSamplesReceived=%{public}lu, _vtEndInSampleCount=%{public}lu", buf, 0x2Au);
       }
 
@@ -405,23 +389,21 @@ void __60__CSVTUIEndpointAnalyzer_processAudioSamplesAsynchronously___block_invo
     v9 = *(a1 + 40);
     v11 = *(v10 + 56);
     v12 = *(v10 + 104);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __60__CSVTUIEndpointAnalyzer_processAudioSamplesAsynchronously___block_invoke_13;
-    v15[3] = &unk_278577D10;
-    v15[4] = v10;
-    [v9 skipSamplesAtStartSuchThatNumSamplesReceivedSoFar:v11 reachesACountOf:v12 completionHandler:v15];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __60__CSVTUIEndpointAnalyzer_processAudioSamplesAsynchronously___block_invoke_13;
+    v14[3] = &unk_278577D10;
+    v14[4] = v10;
+    [v9 skipSamplesAtStartSuchThatNumSamplesReceivedSoFar:v11 reachesACountOf:v12 completionHandler:v14];
     *(*(a1 + 32) + 56) += [*(a1 + 40) numSamples];
     v13 = [*(a1 + 40) dataForChannel:*(*(a1 + 32) + 24)];
     [*(*(a1 + 32) + 136) addSamples:objc_msgSend(v13 numSamples:{"bytes"), objc_msgSend(*(a1 + 40), "numSamples")}];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __60__CSVTUIEndpointAnalyzer_processAudioSamplesAsynchronously___block_invoke_13(uint64_t a1, void *a2, uint64_t a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   *(*(a1 + 32) + 160) += a3;
   v6 = *(a1 + 32);
@@ -434,13 +416,13 @@ void __60__CSVTUIEndpointAnalyzer_processAudioSamplesAsynchronously___block_invo
       v8 = *(a1 + 32);
       v9 = *(v8 + 160);
       LODWORD(v8) = *(v8 + 11);
-      v12 = 136315650;
-      v13 = "[CSVTUIEndpointAnalyzer processAudioSamplesAsynchronously:]_block_invoke";
-      v14 = 2050;
-      v15 = v9;
-      v16 = 1026;
-      v17 = v8;
-      _os_log_impl(&dword_225E12000, v7, OS_LOG_TYPE_DEFAULT, "%s _numSamplesSkippedForVT=%{public}lu, _finishedSkippingSamplesForVT=%{public}d", &v12, 0x1Cu);
+      v11 = 136315650;
+      v12 = "[CSVTUIEndpointAnalyzer processAudioSamplesAsynchronously:]_block_invoke";
+      v13 = 2050;
+      v14 = v9;
+      v15 = 1026;
+      v16 = v8;
+      _os_log_impl(&dword_225E12000, v7, OS_LOG_TYPE_DEFAULT, "%s _numSamplesSkippedForVT=%{public}lu, _finishedSkippingSamplesForVT=%{public}d", &v11, 0x1Cu);
     }
   }
 
@@ -450,8 +432,6 @@ void __60__CSVTUIEndpointAnalyzer_processAudioSamplesAsynchronously___block_invo
     [*(*(a1 + 32) + 32) analyzeAudioBuffer:v10 atAudioFramePosition:*(*(a1 + 32) + 40)];
     *(*(a1 + 32) + 40) += [v10 frameLength];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_pcmBufferForAudioChunk:(id)chunk
@@ -488,7 +468,7 @@ void __60__CSVTUIEndpointAnalyzer_processAudioSamplesAsynchronously___block_invo
 
 void __63__CSVTUIEndpointAnalyzer_handleVoiceTriggerWithActivationInfo___block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 40) objectForKeyedSubscript:@"triggerEndSeconds"];
   [v2 floatValue];
   *(*(a1 + 32) + 96) = v3;
@@ -510,26 +490,24 @@ void __63__CSVTUIEndpointAnalyzer_handleVoiceTriggerWithActivationInfo___block_i
     v12 = *(v7 + 120);
     v13 = *(v7 + 160);
     LODWORD(v7) = *(v7 + 11);
-    v15 = 136316930;
-    v16 = "[CSVTUIEndpointAnalyzer handleVoiceTriggerWithActivationInfo:]_block_invoke";
-    v17 = 2050;
-    v18 = v9;
-    v19 = 2050;
-    v20 = v10;
-    v21 = 2050;
-    v22 = v11;
-    v23 = 2050;
-    v24 = v12;
-    v25 = 2050;
-    v26 = v13;
-    v27 = 1026;
-    v28 = v7;
-    v29 = 2114;
-    v30 = v8;
-    _os_log_impl(&dword_225E12000, v6, OS_LOG_TYPE_DEFAULT, "%s triggerEndSeconds: %{public}f, _vtEndInSampleCount: %{public}lu, _vtExtraAudioAtStartInMs: %{public}lu,  _nnvadAudioOriginInMs: %{public}f, _numSamplesSkippedForVT: %{public}lu, _finishedSkippingSamplesForVT: %{public}d, voiceTriggerInfo: %{public}@,", &v15, 0x4Eu);
+    v14 = 136316930;
+    v15 = "[CSVTUIEndpointAnalyzer handleVoiceTriggerWithActivationInfo:]_block_invoke";
+    v16 = 2050;
+    v17 = v9;
+    v18 = 2050;
+    v19 = v10;
+    v20 = 2050;
+    v21 = v11;
+    v22 = 2050;
+    v23 = v12;
+    v24 = 2050;
+    v25 = v13;
+    v26 = 1026;
+    v27 = v7;
+    v28 = 2114;
+    v29 = v8;
+    _os_log_impl(&dword_225E12000, v6, OS_LOG_TYPE_DEFAULT, "%s triggerEndSeconds: %{public}f, _vtEndInSampleCount: %{public}lu, _vtExtraAudioAtStartInMs: %{public}lu,  _nnvadAudioOriginInMs: %{public}f, _numSamplesSkippedForVT: %{public}lu, _finishedSkippingSamplesForVT: %{public}d, voiceTriggerInfo: %{public}@,", &v14, 0x4Eu);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetForNewRequestWithSampleRate:(unint64_t)rate
@@ -546,16 +524,16 @@ void __63__CSVTUIEndpointAnalyzer_handleVoiceTriggerWithActivationInfo___block_i
 
 void __59__CSVTUIEndpointAnalyzer_resetForNewRequestWithSampleRate___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x277D01970];
   v3 = *MEMORY[0x277D01970];
   if (os_log_type_enabled(*MEMORY[0x277D01970], OS_LOG_TYPE_DEFAULT))
   {
     v4 = *(a1 + 40);
     *buf = 136315394;
-    v23 = "[CSVTUIEndpointAnalyzer resetForNewRequestWithSampleRate:]_block_invoke";
-    v24 = 2048;
-    v25 = v4;
+    v22 = "[CSVTUIEndpointAnalyzer resetForNewRequestWithSampleRate:]_block_invoke";
+    v23 = 2048;
+    v24 = v4;
     _os_log_impl(&dword_225E12000, v3, OS_LOG_TYPE_DEFAULT, "%s NewReq: sampleRate: %lu", buf, 0x16u);
   }
 
@@ -600,9 +578,9 @@ void __59__CSVTUIEndpointAnalyzer_resetForNewRequestWithSampleRate___block_invok
   v13 = [objc_alloc(MEMORY[0x277CDC920]) initWithRequestType:0];
   v14 = *(a1 + 32);
   v15 = *(v14 + 32);
-  v21 = 0;
-  v16 = [v15 addRequest:v13 withObserver:v14 error:&v21];
-  v17 = v21;
+  v20 = 0;
+  v16 = [v15 addRequest:v13 withObserver:v14 error:&v20];
+  v17 = v20;
   v18 = v17;
   if (!v16 || v17)
   {
@@ -610,14 +588,12 @@ void __59__CSVTUIEndpointAnalyzer_resetForNewRequestWithSampleRate___block_invok
     if (os_log_type_enabled(*v2, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v23 = "[CSVTUIEndpointAnalyzer resetForNewRequestWithSampleRate:]_block_invoke";
-      v24 = 2112;
-      v25 = v18;
+      v22 = "[CSVTUIEndpointAnalyzer resetForNewRequestWithSampleRate:]_block_invoke";
+      v23 = 2112;
+      v24 = v18;
       _os_log_impl(&dword_225E12000, v19, OS_LOG_TYPE_DEFAULT, "%s Err: %@", buf, 0x16u);
     }
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (CSVTUIEndpointAnalyzer)init

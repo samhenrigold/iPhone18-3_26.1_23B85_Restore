@@ -60,29 +60,18 @@
 
 - (id)copyAgentData
 {
-  if (self)
-  {
-    nrUUID = self->_nrUUID;
-  }
-
-  v4 = _NRCopyLogObjectForNRUUID();
+  v3 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
-    if (self)
-    {
-      v6 = self->_nrUUID;
-    }
-
-    v7 = _NRCopyLogObjectForNRUUID();
-    state = self->_state.state;
-    _NRLogWithArgs();
+    v5 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v5, 1, "%s%.30s:%-4d Updating agent data - state: %u", ", "[NRQuickRelayAgent copyAgentData]"", 106, self->_state.state);
   }
 
-  v8 = [NSData alloc];
+  v6 = [NSData alloc];
 
-  return [v8 initWithBytes:&self->_state length:1];
+  return [v6 initWithBytes:&self->_state length:1];
 }
 
 - (id)description
@@ -120,56 +109,45 @@
 
 - (void)dealloc
 {
-  if (self)
-  {
-    nrUUID = self->_nrUUID;
-  }
-
-  v4 = _NRCopyLogObjectForNRUUID();
+  v3 = _NRCopyLogObjectForNRUUID();
   IsLevelEnabled = _NRLogIsLevelEnabled();
 
   if (IsLevelEnabled)
   {
     if (self)
     {
-      v6 = self->_nrUUID;
+      nrUUID = self->_nrUUID;
     }
 
     else
     {
-      v6 = 0;
+      nrUUID = 0;
     }
 
-    v7 = v6;
-    v8 = _NRCopyLogObjectForNRUUID();
-    v16 = 74;
-    selfCopy = self;
-    selfCopy2 = "";
-    v15 = "[NRQuickRelayAgent dealloc]";
-    _NRLogWithArgs();
+    v6 = nrUUID;
+    v7 = _NRCopyLogObjectForNRUUID();
+    _NRLogWithArgs(v7, 0, "%s%.30s:%-4d Dealloc: %@", ", "[NRQuickRelayAgent dealloc]"", 74, self);
   }
 
   if (self)
   {
     if (self->_isRegistered)
     {
-      v9 = self->_nrUUID;
-      v10 = _NRCopyLogObjectForNRUUID();
-      v11 = _NRLogIsLevelEnabled();
+      v8 = _NRCopyLogObjectForNRUUID();
+      v9 = _NRLogIsLevelEnabled();
 
-      if (v11)
+      if (v9)
       {
-        v12 = self->_nrUUID;
-        v13 = _NRCopyLogObjectForNRUUID();
-        selfCopy2 = self;
-        _NRLogWithArgs();
+        v10 = self->_nrUUID;
+        v11 = _NRCopyLogObjectForNRUUID();
+        _NRLogWithArgs(v11, 17, "Agent dealloc'd while registered: %@", self);
       }
     }
   }
 
-  v18.receiver = self;
-  v18.super_class = NRQuickRelayAgent;
-  [(NRQuickRelayAgent *)&v18 dealloc:selfCopy2];
+  v12.receiver = self;
+  v12.super_class = NRQuickRelayAgent;
+  [(NRQuickRelayAgent *)&v12 dealloc];
 }
 
 + (id)agentDomain

@@ -57,7 +57,7 @@
 
 + (id)hf_attributedStringForString:()HFAdditions withAppendedString:asURL:withAttributes:
 {
-  v21[1] = *MEMORY[0x277D85DE8];
+  v20[1] = *MEMORY[0x277D85DE8];
   v9 = a5;
   v10 = a6;
   v11 = a4;
@@ -69,13 +69,11 @@
 
   if (v14 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v20 = *MEMORY[0x277D740E8];
-    v21[0] = v9;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:&v20 count:1];
+    v19 = *MEMORY[0x277D740E8];
+    v20[0] = v9;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:&v19 count:1];
     [v13 addAttributes:v17 range:{v14, v16}];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -92,7 +90,7 @@
 
 + (id)hf_attributedLinkStringForAttributedString:()HFAdditions linkString:linkURL:
 {
-  v23[3] = *MEMORY[0x277D85DE8];
+  v22[3] = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   v9 = a5;
@@ -109,21 +107,19 @@
 
   else
   {
-    v22[0] = *MEMORY[0x277D740C0];
+    v21[0] = *MEMORY[0x277D740C0];
     hf_keyColor = [MEMORY[0x277D75348] hf_keyColor];
     v17 = *MEMORY[0x277D740E8];
-    v23[0] = hf_keyColor;
-    v23[1] = v9;
+    v22[0] = hf_keyColor;
+    v22[1] = v9;
     v18 = *MEMORY[0x277D741F0];
-    v22[1] = v17;
-    v22[2] = v18;
-    v23[2] = &unk_282524150;
-    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:3];
+    v21[1] = v17;
+    v21[2] = v18;
+    v22[2] = &unk_282524150;
+    v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
 
     [v10 addAttributes:v19 range:{v12, v14}];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
@@ -373,10 +369,10 @@
 
 + (id)hf_attributedStringWithInflectableAccessoryStatus:()HFAdditions accessoryName:forcePluralAgreement:markdownFormat:
 {
-  v67 = *MEMORY[0x277D85DE8];
+  v66 = *MEMORY[0x277D85DE8];
   v11 = a3;
-  v43 = a4;
-  v42 = a6;
+  v42 = a4;
+  v41 = a6;
   objc_opt_class();
   if ((objc_opt_isKindOfClass() & 1) == 0 || ![(__CFString *)v11 length])
   {
@@ -388,7 +384,7 @@ LABEL_21:
   }
 
   objc_opt_class();
-  if ((objc_opt_isKindOfClass() & 1) == 0 || ![v43 length] || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (objc_msgSend(v42, "string"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "length"), v12, !v13))
+  if ((objc_opt_isKindOfClass() & 1) == 0 || ![v42 length] || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (objc_msgSend(v41, "string"), v12 = objc_claimAutoreleasedReturnValue(), v13 = objc_msgSend(v12, "length"), v12, !v13))
   {
     v29 = objc_alloc(MEMORY[0x277CCA898]);
     v30 = v11;
@@ -398,31 +394,31 @@ LABEL_21:
   if ([(__CFString *)v11 containsString:@"%"])
   {
     v14 = [MEMORY[0x277CCA900] characterSetWithCharactersInString:@" "];
-    v40 = v11;
+    v39 = v11;
     v15 = [(__CFString *)v11 componentsSeparatedByCharactersInSet:v14];
 
     v16 = objc_opt_new();
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
     obj = v15;
-    v17 = [obj countByEnumeratingWithState:&v44 objects:v66 count:16];
+    v17 = [obj countByEnumeratingWithState:&v43 objects:v65 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v45;
+      v19 = *v44;
       v20 = *MEMORY[0x277CCA290];
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v45 != v19)
+          if (*v44 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v22 = *(*(&v44 + 1) + 8 * i);
+          v22 = *(*(&v43 + 1) + 8 * i);
           if ([v22 containsString:@"%"])
           {
             [v16 na_safeAddObject:v22];
@@ -431,19 +427,19 @@ LABEL_21:
           else
           {
             v23 = MEMORY[0x277CCA898];
-            v63 = v43;
-            v64 = v20;
-            v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v63 count:1];
-            v65 = v24;
-            v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
-            v26 = [v23 localizedAttributedStringWithFormat:v42 context:v25, v22];
+            v62 = v42;
+            v63 = v20;
+            v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v62 count:1];
+            v64 = v24;
+            v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
+            v26 = [v23 localizedAttributedStringWithFormat:v41 context:v25, v22];
             string = [v26 string];
 
             [v16 na_safeAddObject:string];
           }
         }
 
-        v18 = [obj countByEnumeratingWithState:&v44 objects:v66 count:16];
+        v18 = [obj countByEnumeratingWithState:&v43 objects:v65 count:16];
       }
 
       while (v18);
@@ -456,41 +452,39 @@ LABEL_21:
 
   else
   {
-    v33 = v11;
-    v34 = MEMORY[0x277CCA898];
-    v35 = *MEMORY[0x277CCA290];
-    v60 = v43;
+    v32 = v11;
+    v33 = MEMORY[0x277CCA898];
+    v34 = *MEMORY[0x277CCA290];
+    v59 = v42;
+    v60 = v34;
+    v35 = [MEMORY[0x277CBEA60] arrayWithObjects:&v59 count:1];
     v61 = v35;
-    v36 = [MEMORY[0x277CBEA60] arrayWithObjects:&v60 count:1];
-    v62 = v36;
-    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
-    v28 = [v34 localizedAttributedStringWithFormat:v42 context:v37, v33];
+    v36 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v61 forKeys:&v60 count:1];
+    v28 = [v33 localizedAttributedStringWithFormat:v41 context:v36, v32];
 
-    v38 = HFLogForCategory(0);
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+    v37 = HFLogForCategory(0);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
-      v39 = NSStringFromSelector(a2);
+      v38 = NSStringFromSelector(a2);
       *buf = 138413570;
       selfCopy = self;
-      v50 = 2112;
-      v51 = v39;
-      v52 = 2112;
-      v53 = v43;
-      v54 = 2112;
-      v55 = v33;
-      v56 = 2112;
-      v57 = v28;
-      v58 = 1024;
-      v59 = a5;
-      _os_log_debug_impl(&dword_20D9BF000, v38, OS_LOG_TYPE_DEBUG, "%@: %@ accessoryName: %@ | accessoryStatus: %@ | outputString: %@ | forcePluralAgreement:%{BOOL}d", buf, 0x3Au);
+      v49 = 2112;
+      v50 = v38;
+      v51 = 2112;
+      v52 = v42;
+      v53 = 2112;
+      v54 = v32;
+      v55 = 2112;
+      v56 = v28;
+      v57 = 1024;
+      v58 = a5;
+      _os_log_debug_impl(&dword_20D9BF000, v37, OS_LOG_TYPE_DEBUG, "%@: %@ accessoryName: %@ | accessoryStatus: %@ | outputString: %@ | forcePluralAgreement:%{BOOL}d", buf, 0x3Au);
     }
 
-    v11 = v33;
+    v11 = v32;
   }
 
 LABEL_22:
-
-  v31 = *MEMORY[0x277D85DE8];
 
   return v28;
 }

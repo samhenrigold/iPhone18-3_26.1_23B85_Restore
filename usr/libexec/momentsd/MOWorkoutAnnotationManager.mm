@@ -737,29 +737,19 @@ LABEL_35:
               patterns = [v61 patterns];
               v63 = [patterns objectForKeyedSubscript:@"kEventPatternType"];
               intValue = [v63 intValue];
-              if (intValue)
+              if (intValue || ([v94 eventIdentifier], v96 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v96, "UUIDString"), firstObject6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v61, "patterns"), v95 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v95, "objectForKeyedSubscript:", @"kEventPatternAnomalousEventIdentifier"), v25 = objc_claimAutoreleasedReturnValue(), (objc_msgSend(firstObject6, "isEqualToString:", v25) & 1) == 0))
               {
-                goto LABEL_19;
-              }
-
-              eventIdentifier = [v94 eventIdentifier];
-              firstObject6 = [eventIdentifier UUIDString];
-              patterns2 = [v61 patterns];
-              v25 = [patterns2 objectForKeyedSubscript:@"kEventPatternAnomalousEventIdentifier"];
-              if (([firstObject6 isEqualToString:v25] & 1) == 0)
-              {
-LABEL_19:
                 v98 = v63;
                 v99 = patterns;
-                patterns3 = [v61 patterns];
-                v66 = [patterns3 objectForKeyedSubscript:@"kEventPatternType"];
+                patterns2 = [v61 patterns];
+                v66 = [patterns2 objectForKeyedSubscript:@"kEventPatternType"];
                 v100 = v61;
                 if ([v66 intValue] == 2)
                 {
-                  patterns4 = [v61 patterns];
-                  v68 = [patterns4 objectForKeyedSubscript:@"kEventPatternRoutineEventIdentifierList"];
-                  eventIdentifier2 = [v94 eventIdentifier];
-                  uUIDString = [eventIdentifier2 UUIDString];
+                  patterns3 = [v61 patterns];
+                  v68 = [patterns3 objectForKeyedSubscript:@"kEventPatternRoutineEventIdentifierList"];
+                  eventIdentifier = [v94 eventIdentifier];
+                  uUIDString = [eventIdentifier UUIDString];
                   v97 = [v68 containsObject:uUIDString];
 
                   v58 = v91;
@@ -2550,6 +2540,20 @@ LABEL_56:
   }
 
   return v19;
+}
+
+- (void)majorVisitsFromVisits:(void *)a1 referenceDate:.cold.1(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 count];
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v1, v2, "majorVisitsFromVisits, group count, %lu", v3, v4, v5, v6, v7, DWORD2(v7));
+}
+
+- (void)filterPhoneVisits:(void *)a1 farFromWorkoutEvents:forEventBundle:.cold.1(void *a1)
+{
+  LODWORD(v7) = 134217984;
+  *(&v7 + 4) = [a1 count];
+  OUTLINED_FUNCTION_0_6(&_mh_execute_header, v1, v2, "Filter phone visits: candidate visit event count is %lu", v3, v4, v5, v6, v7, DWORD2(v7));
 }
 
 @end

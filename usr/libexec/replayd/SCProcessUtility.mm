@@ -1,4 +1,6 @@
 @interface SCProcessUtility
++ (BOOL)isProcessRunning:(int)running;
++ (id)applicationProcessIdListForProcessId:(int)id hostProcessIdentifier:(int *)identifier;
 + (id)listAllRunningProcesses:(id)processes;
 + (id)listOfProcessesMatchingSameParentPid:(int)pid withProcessList:(id)list;
 + (int)avcdProcessId;
@@ -7,6 +9,129 @@
 @end
 
 @implementation SCProcessUtility
+
++ (id)applicationProcessIdListForProcessId:(int)id hostProcessIdentifier:(int *)identifier
+{
+  v4 = *&id;
+  if (!dword_1000B6840 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446466;
+    v36 = "+[SCProcessUtility applicationProcessIdListForProcessId:hostProcessIdentifier:]";
+    v37 = 1024;
+    v38 = 58;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d ", buf, 0x12u);
+  }
+
+  v5 = [SCProcessUtility listAllRunningProcesses:0];
+  v6 = [NSNumber numberWithInt:v4];
+  v34 = 0;
+  v7 = [RBSProcessHandle handleForIdentifier:v6 error:&v34];
+  v32 = v34;
+  hostProcess = [v7 hostProcess];
+  v9 = [hostProcess pid];
+
+  v10 = [SCProcessUtility isValidProcessId:v9];
+  v33 = v4;
+  v30 = v9;
+  if (v10)
+  {
+    v11 = v5;
+    v12 = [SCProcessUtility getHostedPidsForPid:v4];
+    v13 = [v12 mutableCopy];
+    v14 = 0;
+    v15 = 0;
+    v16 = v13;
+  }
+
+  else
+  {
+    v9 = [SCProcessUtility parentProcessIdForProcessId:v4];
+    if (![SCProcessUtility isValidProcessId:v9])
+    {
+      v17 = 0;
+      v16 = 0;
+      v15 = 0;
+      goto LABEL_10;
+    }
+
+    v11 = v5;
+    v12 = [SCProcessUtility listOfProcessesMatchingSameParentPid:v9 withProcessList:v5];
+    v13 = [v12 mutableCopy];
+    v16 = 0;
+    v14 = v9;
+    v15 = v13;
+  }
+
+  v17 = v10 ^ 1;
+
+  v18 = [NSNumber numberWithInt:v9];
+  [v13 addObject:v18];
+
+  *identifier = v9;
+  LODWORD(v9) = v14;
+  v5 = v11;
+LABEL_10:
+  if (!dword_1000B6840 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136447234;
+    v36 = "+[SCProcessUtility applicationProcessIdListForProcessId:hostProcessIdentifier:]";
+    v37 = 1024;
+    v38 = 85;
+    v39 = 1024;
+    v40 = v33;
+    v41 = 1024;
+    *v42 = v30;
+    *&v42[4] = 1024;
+    *&v42[6] = v9;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [DEBUG] %{public}s:%d processId=%d hostPid=%d parentPid=%d", buf, 0x24u);
+  }
+
+  if ((v10 | v17))
+  {
+    v19 = v33;
+  }
+
+  else
+  {
+    v19 = v33;
+    if ([SCProcessUtility isValidProcessId:v33])
+    {
+      v20 = [SCProcessUtility getHostedPidsForPid:v33];
+      v21 = [v20 mutableCopy];
+
+      v22 = [SCProcessUtility listOfProcessesMatchingSameParentPid:v33 withProcessList:v5];
+      v23 = [v22 mutableCopy];
+
+      v24 = [NSNumber numberWithInt:v33];
+      [v23 addObject:v24];
+
+      *identifier = v33;
+      v16 = v21;
+      v15 = v23;
+    }
+  }
+
+  v25 = [v15 arrayByAddingObjectsFromArray:v16];
+  v26 = [v25 mutableCopy];
+
+  if (dword_1000B6840 <= 1 && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136446978;
+    v36 = "+[SCProcessUtility applicationProcessIdListForProcessId:hostProcessIdentifier:]";
+    v37 = 1024;
+    v38 = 96;
+    v39 = 1024;
+    v40 = v19;
+    v41 = 2112;
+    *v42 = v26;
+    _os_log_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d processId=%d has relatedPids=%@", buf, 0x22u);
+  }
+
+  v27 = [NSSet setWithArray:v26];
+  allObjects = [v27 allObjects];
+
+  return allObjects;
+}
 
 + (int)parentProcessIdForProcessId:(int)id
 {
@@ -261,6 +386,26 @@ LABEL_25:
   }
 
   return unsignedIntValue;
+}
+
++ (BOOL)isProcessRunning:(int)running
+{
+  v3 = [NSNumber numberWithInt:*&running];
+  v8 = 0;
+  v4 = [RBSProcessHandle handleForIdentifier:v3 error:&v8];
+
+  if (v4)
+  {
+    currentState = [v4 currentState];
+    isRunning = [currentState isRunning];
+  }
+
+  else
+  {
+    isRunning = 0;
+  }
+
+  return isRunning;
 }
 
 @end

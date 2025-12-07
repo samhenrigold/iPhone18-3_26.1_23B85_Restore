@@ -7,7 +7,7 @@
 
 - (void)observeEvent:(id)event
 {
-  type metadata accessor for CloudKitQueryLogEvent();
+  type metadata accessor for CloudKitQueryLogEvent(0);
   v4 = swift_dynamicCastClass();
   if (v4)
   {
@@ -19,7 +19,7 @@
 
   else
   {
-    type metadata accessor for EventsAsyncSequenceLogEvent();
+    type metadata accessor for EventsAsyncSequenceLogEvent(0);
     v8 = swift_dynamicCastClass();
     if (!v8)
     {

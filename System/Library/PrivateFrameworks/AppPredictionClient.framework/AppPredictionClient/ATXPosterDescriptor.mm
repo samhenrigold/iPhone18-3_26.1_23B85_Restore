@@ -142,7 +142,7 @@ LABEL_12:
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
   if (!v5)
   {
-    v6 = __atxlog_handle_lock_screen();
+    v6 = __atxlog_handle_lock_screen(0);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [ATXPosterDescriptor initWithCoder:v6];
@@ -154,7 +154,7 @@ LABEL_12:
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"extensionBundleIdentifier"];
   if (!v6)
   {
-    v11 = __atxlog_handle_lock_screen();
+    v11 = __atxlog_handle_lock_screen(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [ATXPosterDescriptor initWithCoder:v11];

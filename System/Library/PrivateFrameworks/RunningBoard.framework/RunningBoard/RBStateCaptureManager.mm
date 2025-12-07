@@ -204,9 +204,9 @@ void __36__RBStateCaptureManager_removeItem___block_invoke(uint64_t a1)
 
 - (void)addItemWithTitle:(uint64_t)a3 identifier:(uint64_t)a4 block:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_2_2(&dword_262485000, a2, a3, "Duplicate identifier detected: %{public}@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_2_2(&dword_262485000, a2, a3, "Duplicate identifier detected: %{public}@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

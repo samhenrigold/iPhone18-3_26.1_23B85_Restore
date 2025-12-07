@@ -9,9 +9,9 @@
 - (W5PeerFileTransferListener)initWithTransferManager:(id)manager
 {
   managerCopy = manager;
-  v10.receiver = self;
-  v10.super_class = W5PeerFileTransferListener;
-  v5 = [(W5PeerFileTransferListener *)&v10 init];
+  v11.receiver = self;
+  v11.super_class = W5PeerFileTransferListener;
+  v5 = [(W5PeerFileTransferListener *)&v11 init];
   v6 = v5;
   if (managerCopy && v5)
   {
@@ -26,13 +26,14 @@
     p_super = sub_100098A04();
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315650;
-      v12 = "[W5PeerFileTransferListener initWithTransferManager:]";
-      v13 = 2080;
-      v14 = "W5PeerFileTransferListener.m";
-      v15 = 1024;
-      v16 = 37;
-      _os_log_send_and_compose_impl();
+      v12 = 136315650;
+      v13 = "[W5PeerFileTransferListener initWithTransferManager:]";
+      v14 = 2080;
+      v15 = "W5PeerFileTransferListener.m";
+      v16 = 1024;
+      v17 = 37;
+      LODWORD(v10) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, p_super, 0, "[wifivelocity] %s (%s:%u) init error!", &v12, v10, LODWORD(v11.receiver));
     }
 
     v6 = 0;
@@ -52,19 +53,19 @@
     v8 = sub_100098A04();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v30 = 136316418;
-      v31 = "[W5PeerFileTransferListener handleClientRequest:]";
-      v32 = 2080;
-      v33 = "W5PeerFileTransferListener.m";
-      v34 = 1024;
-      *v35 = 47;
-      *&v35[4] = 2114;
-      *&v35[6] = requestCopy;
-      v36 = 2114;
-      v37 = v6;
+      v32 = 136316418;
+      v33 = "[W5PeerFileTransferListener handleClientRequest:]";
+      v34 = 2080;
+      v35 = "W5PeerFileTransferListener.m";
+      v36 = 1024;
+      *v37 = 47;
+      *&v37[4] = 2114;
+      *&v37[6] = requestCopy;
       v38 = 2114;
-      v39 = version;
-      _os_log_send_and_compose_impl();
+      v39 = v6;
+      v40 = 2114;
+      v41 = version;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) incoming request='%{public}@', payload='%{public}@' version='%{public}@'", &v32, 58);
     }
 
     v9 = objc_alloc_init(W5PeerFileTransferResponsePayload);
@@ -78,20 +79,21 @@
       if (type == 2)
       {
         remotePath = [v6 remotePath];
-        v23 = sub_100098A04();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v24 = sub_100098A04();
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
-          v30 = 138543362;
-          v31 = remotePath;
-          _os_log_send_and_compose_impl();
+          v32 = 138543362;
+          v33 = remotePath;
+          LODWORD(v29) = 12;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v24, 0, "[wifivelocity] Request received to list files in directory: %{public}@", &v32, v29);
         }
 
-        v17 = remotePath != 0;
+        v18 = remotePath != 0;
         if (remotePath)
         {
           [(W5PeerFileTransferResponsePayload *)v9 setStatus:1];
-          v24 = [(W5PeerFileTransferListener *)self _listFiles:remotePath];
-          [(W5PeerFileTransferResponsePayload *)v9 setFiles:v24];
+          v25 = [(W5PeerFileTransferListener *)self _listFiles:remotePath];
+          [(W5PeerFileTransferResponsePayload *)v9 setFiles:v25];
 
           handler = [requestCopy handler];
           (*(handler + 16))(handler, v9, 0);
@@ -102,8 +104,9 @@
           handler = sub_100098A04();
           if (os_log_type_enabled(handler, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v30) = 0;
-            _os_log_send_and_compose_impl();
+            LOWORD(v32) = 0;
+            LODWORD(v29) = 2;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, handler, 0, "[wifivelocity] nil Directory Path", &v32, v29);
           }
         }
       }
@@ -112,7 +115,7 @@
       {
         if (type != 1)
         {
-          v17 = 0;
+          v18 = 0;
 LABEL_28:
 
           goto LABEL_29;
@@ -125,16 +128,18 @@ LABEL_28:
         v16 = sub_100098A04();
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          [v6 publicKey];
-          v30 = 138543874;
-          v31 = remotePath2;
-          v33 = v32 = 2114;
+          publicKey2 = [v6 publicKey];
+          v32 = 138543874;
+          v33 = remotePath2;
           v34 = 2114;
-          *v35 = remotePath;
-          _os_log_send_and_compose_impl();
+          v35 = publicKey2;
+          v36 = 2114;
+          *v37 = remotePath;
+          LODWORD(v29) = 32;
+          _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v16, 0, "[wifivelocity] Request received to send file: %{public}@, peer public key: %{public}@, targetID: %{public}@", &v32, v29);
         }
 
-        v17 = remotePath2 != 0;
+        v18 = remotePath2 != 0;
         if (remotePath2)
         {
           [(W5FileTransferManager *)self->_transferManager initializeSenderWithTargetID:remotePath peerPublicKey:publicKey];
@@ -149,11 +154,12 @@ LABEL_28:
 
         else
         {
-          v26 = sub_100098A04();
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+          v27 = sub_100098A04();
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
           {
-            LOWORD(v30) = 0;
-            _os_log_send_and_compose_impl();
+            LOWORD(v32) = 0;
+            LODWORD(v29) = 2;
+            _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v27, 0, "[wifivelocity] nil File Path", &v32, v29);
           }
         }
       }
@@ -161,21 +167,22 @@ LABEL_28:
 
     else
     {
-      v20 = sub_100098A04();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      v21 = sub_100098A04();
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
       {
-        v30 = 138543362;
-        v31 = version;
-        _os_log_send_and_compose_impl();
+        v32 = 138543362;
+        v33 = version;
+        LODWORD(v29) = 12;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v21, 0, "[wifivelocity] Request received with invalid version: %{public}@", &v32, v29);
       }
 
       [(W5PeerFileTransferResponsePayload *)v9 setStatus:2];
-      v28 = NSLocalizedFailureReasonErrorKey;
-      v29 = @"W5PeerFileListenerUnsupportedVersion";
-      v17 = 1;
-      v21 = [NSDictionary dictionaryWithObjects:&v29 forKeys:&v28 count:1];
-      v22 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:11 userInfo:v21];
-      [(W5PeerFileTransferResponsePayload *)v9 setError:v22];
+      v30 = NSLocalizedFailureReasonErrorKey;
+      v31 = @"W5PeerFileListenerUnsupportedVersion";
+      v18 = 1;
+      v22 = [NSDictionary dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v23 = [NSError errorWithDomain:@"com.apple.wifivelocity.error" code:11 userInfo:v22];
+      [(W5PeerFileTransferResponsePayload *)v9 setError:v23];
 
       remotePath = [requestCopy handler];
       (*(remotePath + 2))(remotePath, v9, 0);
@@ -184,10 +191,10 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  v17 = 0;
+  v18 = 0;
 LABEL_29:
 
-  return v17;
+  return v18;
 }
 
 - (id)_listFiles:(id)files
@@ -212,7 +219,7 @@ LABEL_29:
       v26 = 139;
       v27 = 2114;
       v28 = filesCopy;
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v8, 0, "[wifivelocity] %s (%s:%u) Unable to list contents of: %{public}@", &v21, 38);
     }
   }
 

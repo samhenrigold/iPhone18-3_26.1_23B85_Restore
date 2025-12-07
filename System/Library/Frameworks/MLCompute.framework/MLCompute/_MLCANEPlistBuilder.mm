@@ -1,6 +1,7 @@
 @interface _MLCANEPlistBuilder
 + (BOOL)createReshapeUnitsWithLayer:(id)layer reshapeUnits:(id *)units reshapeResultTensors:(id *)tensors;
 + (id)buildBiasParamsWithBiases:(id)biases;
++ (id)constantTensorWithShape:(id)shape data:(id)data dataType:(int)type tensorLabel:(id)label;
 + (id)createConstantTensorUnitWithTensor:(id)tensor;
 + (id)createReshapeUnitWithSourceTensor:(id)tensor layer:(id)layer resultShape:(id)shape;
 + (id)createUnitWithLayer:(id)layer unitParams:(id)params;
@@ -27,22 +28,22 @@
 
 - (_MLCANEPlistBuilder)init
 {
-  v17[3] = *MEMORY[0x277D85DE8];
-  v15.receiver = self;
-  v15.super_class = _MLCANEPlistBuilder;
-  v2 = [(_MLCANEPlistBuilder *)&v15 init];
+  v16[3] = *MEMORY[0x277D85DE8];
+  v14.receiver = self;
+  v14.super_class = _MLCANEPlistBuilder;
+  v2 = [(_MLCANEPlistBuilder *)&v14 init];
   if (v2)
   {
-    v17[0] = kMLCCurrentANEIRVersion[0];
-    v16[0] = @"Version";
-    v16[1] = @"Networks";
+    v16[0] = kMLCCurrentANEIRVersion[0];
+    v15[0] = @"Version";
+    v15[1] = @"Networks";
     v3 = MEMORY[0x277CBEBF8];
     v4 = [MEMORY[0x277CBEBF8] mutableCopy];
-    v17[1] = v4;
-    v16[2] = @"ProcedureList";
+    v16[1] = v4;
+    v15[2] = @"ProcedureList";
     v5 = [v3 mutableCopy];
-    v17[2] = v5;
-    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+    v16[2] = v5;
+    v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
     v7 = [v6 mutableCopy];
     plist = v2->_plist;
     v2->_plist = v7;
@@ -56,13 +57,12 @@
     v2->_weightTensorsWithDeviceMemory = v11;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 + (id)createUnitWithLayer:(id)layer unitParams:(id)params
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   paramsCopy = params;
   v8 = [paramsCopy objectForKeyedSubscript:kMLCANENetUnitType[0]];
@@ -71,40 +71,40 @@
   {
     aSelector = a2;
     v9 = [MEMORY[0x277CBEC10] mutableCopy];
-    v53 = [paramsCopy objectForKeyedSubscript:kMLCANENetUnitType[0]];
+    v52 = [paramsCopy objectForKeyedSubscript:kMLCANENetUnitType[0]];
     [NSObject setObject:v9 forKeyedSubscript:"setObject:forKeyedSubscript:"];
     v10 = [paramsCopy mutableCopy];
     [v10 removeObjectForKey:kMLCANENetUnitType[0]];
-    v51 = v10;
-    v52 = [v10 copy];
+    v50 = v10;
+    v51 = [v10 copy];
 
     label = [layerCopy label];
-    v54 = v9;
+    v53 = v9;
     [v9 setObject:label forKeyedSubscript:@"Name"];
 
     v12 = MEMORY[0x277CBEBF8];
     v13 = [MEMORY[0x277CBEBF8] mutableCopy];
     v14 = [v12 mutableCopy];
+    v60 = 0u;
     v61 = 0u;
     v62 = 0u;
     v63 = 0u;
-    v64 = 0u;
     sourceTensors = [layerCopy sourceTensors];
-    v16 = [sourceTensors countByEnumeratingWithState:&v61 objects:v71 count:16];
+    v16 = [sourceTensors countByEnumeratingWithState:&v60 objects:v70 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v62;
+      v18 = *v61;
       while (2)
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v62 != v18)
+          if (*v61 != v18)
           {
             objc_enumerationMutation(sourceTensors);
           }
 
-          v20 = *(*(&v61 + 1) + 8 * i);
+          v20 = *(*(&v60 + 1) + 8 * i);
           descriptor = [v20 descriptor];
           dataType = [descriptor dataType];
 
@@ -114,22 +114,22 @@
             log = +[MLCLog framework];
             if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
             {
-              v48 = NSStringFromSelector(aSelector);
+              v47 = NSStringFromSelector(aSelector);
               *buf = 138412802;
-              *&buf[4] = v48;
-              v67 = 1024;
-              v68 = dataType;
-              v69 = 2112;
-              v70 = v20;
+              *&buf[4] = v47;
+              v66 = 1024;
+              v67 = dataType;
+              v68 = 2112;
+              v69 = v20;
               _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%@: unsupported data type=%d for source tensor=%@", buf, 0x1Cu);
             }
 
             v44 = 0;
 LABEL_34:
-            v39 = v53;
-            v38 = v54;
-            v42 = v51;
-            v41 = v52;
+            v39 = v52;
+            v38 = v53;
+            v42 = v50;
+            v41 = v51;
             goto LABEL_35;
           }
 
@@ -139,7 +139,7 @@ LABEL_34:
           [v14 addObject:label2];
         }
 
-        v17 = [sourceTensors countByEnumeratingWithState:&v61 objects:v71 count:16];
+        v17 = [sourceTensors countByEnumeratingWithState:&v60 objects:v70 count:16];
         if (v17)
         {
           continue;
@@ -149,31 +149,31 @@ LABEL_34:
       }
     }
 
-    [v54 setObject:v13 forKeyedSubscript:@"InputType"];
-    [v54 setObject:v14 forKeyedSubscript:@"Bottom"];
+    [v53 setObject:v13 forKeyedSubscript:@"InputType"];
+    [v53 setObject:v14 forKeyedSubscript:@"Bottom"];
     v26 = MEMORY[0x277CBEBF8];
     sourceTensors = [MEMORY[0x277CBEBF8] mutableCopy];
     log = [v26 mutableCopy];
+    v56 = 0u;
     v57 = 0u;
     v58 = 0u;
     v59 = 0u;
-    v60 = 0u;
     obj = [layerCopy resultTensors];
-    v27 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
+    v27 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
     if (v27)
     {
       v28 = v27;
-      v29 = *v58;
+      v29 = *v57;
       while (2)
       {
         for (j = 0; j != v28; ++j)
         {
-          if (*v58 != v29)
+          if (*v57 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v31 = *(*(&v57 + 1) + 8 * j);
+          v31 = *(*(&v56 + 1) + 8 * j);
           descriptor2 = [v31 descriptor];
           dataType2 = [descriptor2 dataType];
 
@@ -183,13 +183,13 @@ LABEL_34:
             v45 = +[MLCLog framework];
             if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
             {
-              v49 = NSStringFromSelector(aSelector);
+              v48 = NSStringFromSelector(aSelector);
               *buf = 138412802;
-              *&buf[4] = v49;
-              v67 = 1024;
-              v68 = dataType2;
-              v69 = 2112;
-              v70 = v31;
+              *&buf[4] = v48;
+              v66 = 1024;
+              v67 = dataType2;
+              v68 = 2112;
+              v69 = v31;
               _os_log_error_impl(&dword_238C1D000, v45, OS_LOG_TYPE_ERROR, "%@: unsupported data type=%d for result tensor=%@", buf, 0x1Cu);
             }
 
@@ -205,7 +205,7 @@ LABEL_34:
           [log addObject:v36];
         }
 
-        v28 = [obj countByEnumeratingWithState:&v57 objects:v65 count:16];
+        v28 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
         if (v28)
         {
           continue;
@@ -216,25 +216,25 @@ LABEL_34:
     }
 
     v37 = [sourceTensors objectAtIndexedSubscript:0];
-    v38 = v54;
-    [v54 setObject:v37 forKeyedSubscript:@"OutputType"];
+    v38 = v53;
+    [v53 setObject:v37 forKeyedSubscript:@"OutputType"];
 
-    v39 = v53;
-    if (([v53 isEqualToString:@"Broadcast"] & 1) == 0 && (objc_msgSend(v53, "isEqualToString:", @"Reshape") & 1) == 0 && (objc_msgSend(v53, "isEqualToString:", @"InputView") & 1) == 0)
+    v39 = v52;
+    if (([v52 isEqualToString:@"Broadcast"] & 1) == 0 && (objc_msgSend(v52, "isEqualToString:", @"Reshape") & 1) == 0 && (objc_msgSend(v52, "isEqualToString:", @"InputView") & 1) == 0)
     {
       v40 = [log objectAtIndexedSubscript:0];
-      [v54 setObject:v40 forKeyedSubscript:@"OutputChannels"];
+      [v53 setObject:v40 forKeyedSubscript:@"OutputChannels"];
     }
 
-    v41 = v52;
-    v42 = v51;
-    if ([v52 count])
+    v41 = v51;
+    v42 = v50;
+    if ([v51 count])
     {
-      v43 = [v52 mutableCopy];
-      [v54 setObject:v43 forKeyedSubscript:@"Params"];
+      v43 = [v51 mutableCopy];
+      [v53 setObject:v43 forKeyedSubscript:@"Params"];
     }
 
-    v44 = v54;
+    v44 = v53;
 LABEL_35:
   }
 
@@ -249,8 +249,6 @@ LABEL_35:
     v44 = 0;
     v41 = paramsCopy;
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 
   return v44;
 }
@@ -310,7 +308,7 @@ LABEL_9:
 
 + (id)createReshapeUnitWithSourceTensor:(id)tensor layer:(id)layer resultShape:(id)shape
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   tensorCopy = tensor;
   layerCopy = layer;
   shapeCopy = shape;
@@ -339,8 +337,8 @@ LABEL_9:
     [v11 setObject:v23 forKeyedSubscript:@"ReshapedWidth"];
 
     v24 = [_MLCANEPlistBuilder createUnitWithLayer:layerCopy unitParams:v11];
-    v38[0] = tensorCopy;
-    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
+    v37[0] = tensorCopy;
+    v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
     v26 = ANE_ValidateReshapeUnit(v25, v24, 1);
 
     if (v26)
@@ -353,14 +351,14 @@ LABEL_9:
       v28 = +[MLCLog framework];
       if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
-        v31 = NSStringFromSelector(a2);
-        v32 = 138412802;
-        v33 = v31;
-        v34 = 2112;
-        v35 = v24;
-        v36 = 2112;
-        v37 = layerCopy;
-        _os_log_error_impl(&dword_238C1D000, v28, OS_LOG_TYPE_ERROR, "%@: the reshape unit=%@ of layer=%@ failed validation", &v32, 0x20u);
+        v30 = NSStringFromSelector(a2);
+        v31 = 138412802;
+        v32 = v30;
+        v33 = 2112;
+        v34 = v24;
+        v35 = 2112;
+        v36 = layerCopy;
+        _os_log_error_impl(&dword_238C1D000, v28, OS_LOG_TYPE_ERROR, "%@: the reshape unit=%@ of layer=%@ failed validation", &v31, 0x20u);
       }
 
       v27 = 0;
@@ -377,8 +375,6 @@ LABEL_9:
 
     v27 = 0;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v27;
 }
@@ -473,22 +469,22 @@ LABEL_15:
 
 + (int)createBroadcastUnitWithSourceTensor:(id)tensor targetShape:(id)shape layer:(id)layer broadcastUnit:(id *)unit broadcastResultTensor:(id *)resultTensor
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   tensorCopy = tensor;
   shapeCopy = shape;
   layerCopy = layer;
   if ([shapeCopy count] == 4)
   {
-    v52 = 0;
-    ANE_GetTensor4DShapeWithOnePrepended(tensorCopy, &v52);
-    v15 = v52;
-    v51 = [MEMORY[0x277CBEBF8] mutableCopy];
+    v51 = 0;
+    ANE_GetTensor4DShapeWithOnePrepended(tensorCopy, &v51);
+    v15 = v51;
+    v50 = [MEMORY[0x277CBEBF8] mutableCopy];
     if ([v15 count])
     {
       unitCopy = unit;
       resultTensorCopy = resultTensor;
-      v49 = tensorCopy;
-      v50 = layerCopy;
+      v48 = tensorCopy;
+      v49 = layerCopy;
       v16 = 0;
       v17 = 1;
       do
@@ -502,18 +498,18 @@ LABEL_15:
         if (unsignedIntegerValue != 1 && unsignedIntegerValue != unsignedIntegerValue2)
         {
           v37 = +[MLCLog framework];
-          tensorCopy = v49;
+          tensorCopy = v48;
           if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
           {
-            v43 = NSStringFromSelector(a2);
-            descriptor = [v49 descriptor];
+            v42 = NSStringFromSelector(a2);
+            descriptor = [v48 descriptor];
             shape = [descriptor shape];
             *buf = 138412802;
-            v59 = v43;
-            v60 = 2112;
-            v61 = shape;
-            v62 = 2112;
-            v63 = shapeCopy;
+            v58 = v42;
+            v59 = 2112;
+            v60 = shape;
+            v61 = 2112;
+            v62 = shapeCopy;
             _os_log_error_impl(&dword_238C1D000, v37, OS_LOG_TYPE_ERROR, "%@: the shape of source tensor is not broadcastable to the target shape. source shape=%@, target shape=%@", buf, 0x20u);
           }
 
@@ -533,7 +529,7 @@ LABEL_15:
           v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:unsignedIntegerValue2];
           [v22 setObject:v24 forKeyedSubscript:@"Size"];
 
-          [v51 addObject:v22];
+          [v50 addObject:v22];
           v17 = 2;
         }
 
@@ -545,37 +541,37 @@ LABEL_15:
       {
         v32 = 0;
         v25 = 0;
-        tensorCopy = v49;
+        tensorCopy = v48;
         goto LABEL_21;
       }
 
-      v56[0] = kMLCANENetUnitType[0];
-      v56[1] = @"BroadcastInfo";
-      v57[0] = @"Broadcast";
-      v57[1] = v51;
-      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:2];
-      v46 = layerCopy = v50;
-      v25 = [_MLCANEPlistBuilder createUnitWithLayer:v50 unitParams:?];
-      tensorCopy = v49;
-      descriptor2 = [v49 descriptor];
+      v55[0] = kMLCANENetUnitType[0];
+      v55[1] = @"BroadcastInfo";
+      v56[0] = @"Broadcast";
+      v56[1] = v50;
+      [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:v55 count:2];
+      v45 = layerCopy = v49;
+      v25 = [_MLCANEPlistBuilder createUnitWithLayer:v49 unitParams:?];
+      tensorCopy = v48;
+      descriptor2 = [v48 descriptor];
       dataType = [descriptor2 dataType];
 
       v28 = ANE_GetANECIRDataTypeWithMLCDataType(dataType);
       if (v28)
       {
-        label = [v49 label];
-        v55 = label;
-        v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
+        label = [v48 label];
+        v54 = label;
+        v30 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
         [v25 setObject:v30 forKeyedSubscript:@"Bottom"];
 
-        v54 = v28;
-        v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v54 count:1];
+        v53 = v28;
+        v31 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
         [v25 setObject:v31 forKeyedSubscript:@"InputType"];
 
         [v25 setObject:v28 forKeyedSubscript:@"OutputType"];
         v32 = [MLCTensor tensorWithShape:shapeCopy dataType:dataType];
-        v53 = v49;
-        v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v53 count:1];
+        v52 = v48;
+        v33 = [MEMORY[0x277CBEA60] arrayWithObjects:&v52 count:1];
         LOBYTE(v30) = ANE_ValidateBroadcastUnit(v33, v32, v25, 1);
 
         if (v30)
@@ -587,15 +583,15 @@ LABEL_15:
 
           v17 = 2;
 LABEL_21:
-          layerCopy = v50;
+          layerCopy = v49;
           goto LABEL_22;
         }
 
-        v40 = +[MLCLog framework];
-        v41 = resultTensorCopy;
-        v42 = v46;
-        layerCopy = v50;
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v39 = +[MLCLog framework];
+        v40 = resultTensorCopy;
+        v41 = v45;
+        layerCopy = v49;
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           +[_MLCANEPlistBuilder createBroadcastUnitWithSourceTensor:targetShape:layer:broadcastUnit:broadcastResultTensor:];
         }
@@ -603,19 +599,19 @@ LABEL_21:
 
       else
       {
-        v40 = +[MLCLog framework];
-        if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+        v39 = +[MLCLog framework];
+        if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
         {
           [_MLCANEPlistBuilder createBroadcastUnitWithSourceTensor:a2 targetShape:? layer:? broadcastUnit:? broadcastResultTensor:?];
         }
 
         v32 = 0;
-        v41 = resultTensorCopy;
-        v42 = v46;
+        v40 = resultTensorCopy;
+        v41 = v45;
       }
 
       *unitCopy = 0;
-      *v41 = 0;
+      *v40 = 0;
 
       v17 = 2;
     }
@@ -643,13 +639,12 @@ LABEL_22:
     *resultTensor = 0;
   }
 
-  v38 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 + (id)createConstantTensorUnitWithTensor:(id)tensor
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   tensorCopy = tensor;
   v5 = [MEMORY[0x277CBEC10] mutableCopy];
   label = [tensorCopy label];
@@ -662,9 +657,9 @@ LABEL_22:
   if (v9)
   {
     [v5 setObject:v9 forKeyedSubscript:@"ConstantType"];
-    v19 = 0;
-    ANE_GetTensor4DShapeWithOnePrepended(tensorCopy, &v19);
-    v10 = v19;
+    v18 = 0;
+    ANE_GetTensor4DShapeWithOnePrepended(tensorCopy, &v18);
+    v10 = v18;
     v11 = [v10 objectAtIndexedSubscript:3];
     [v5 setObject:v11 forKeyedSubscript:@"ConstantWidth"];
 
@@ -684,27 +679,38 @@ LABEL_22:
     v15 = +[MLCLog framework];
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v18 = NSStringFromSelector(a2);
+      v17 = NSStringFromSelector(a2);
       *buf = 138412802;
-      v21 = v18;
-      v22 = 1024;
-      v23 = dataType;
-      v24 = 2112;
-      v25 = tensorCopy;
+      v20 = v17;
+      v21 = 1024;
+      v22 = dataType;
+      v23 = 2112;
+      v24 = tensorCopy;
       _os_log_error_impl(&dword_238C1D000, v15, OS_LOG_TYPE_ERROR, "%@: unsupported data type=%d of tensor=%@", buf, 0x1Cu);
     }
 
     v14 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v14;
+}
+
++ (id)constantTensorWithShape:(id)shape data:(id)data dataType:(int)type tensorLabel:(id)label
+{
+  v6 = *&type;
+  labelCopy = label;
+  v10 = [MLCTensor tensorWithShape:shape data:data dataType:v6];
+  [v10 setComputeFlags:{objc_msgSend(v10, "computeFlags") | 2}];
+  v11 = [labelCopy stringByAppendingString:@"_const"];
+
+  [v10 setLabel:v11];
+
+  return v10;
 }
 
 - (BOOL)addInputs:(id)inputs ofUnit:(id)unit ofOperation:(id)operation toProcedure:(id)procedure toNetwork:(id)network
 {
-  v64 = *MEMORY[0x277D85DE8];
+  v63 = *MEMORY[0x277D85DE8];
   inputsCopy = inputs;
   unitCopy = unit;
   operationCopy = operation;
@@ -713,7 +719,7 @@ LABEL_22:
   if ([inputsCopy count])
   {
     aSelector = a2;
-    v45 = procedureCopy;
+    v44 = procedureCopy;
     v14 = [procedureCopy objectForKeyedSubscript:@"InputList"];
     v15 = [v14 mutableCopy];
 
@@ -722,28 +728,28 @@ LABEL_22:
       v15 = [MEMORY[0x277CBEBF8] mutableCopy];
     }
 
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
-    v46 = inputsCopy;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
+    v45 = inputsCopy;
     v16 = inputsCopy;
-    v17 = [v16 countByEnumeratingWithState:&v53 objects:v63 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v52 objects:v62 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v54;
-      v47 = v16;
+      v19 = *v53;
+      v46 = v16;
       while (2)
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v54 != v19)
+          if (*v53 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v53 + 1) + 8 * i);
+          v21 = *(*(&v52 + 1) + 8 * i);
           if (ANE_CanProgramANECConstantTensorUnit(v21))
           {
             [(_MLCANEPlistBuilder *)self addConstantTensor:v21 toNetwork:networkCopy];
@@ -767,30 +773,30 @@ LABEL_22:
               v39 = +[MLCLog framework];
               if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
               {
-                v42 = NSStringFromSelector(aSelector);
+                v41 = NSStringFromSelector(aSelector);
                 dataType = [descriptor dataType];
                 *buf = 138412802;
-                v58 = v42;
-                v59 = 1024;
-                v60 = dataType;
-                v61 = 2112;
-                v62 = v21;
+                v57 = v41;
+                v58 = 1024;
+                v59 = dataType;
+                v60 = 2112;
+                v61 = v21;
                 _os_log_error_impl(&dword_238C1D000, v39, OS_LOG_TYPE_ERROR, "%@: unsupported data type=%d for tensor=%@", buf, 0x1Cu);
               }
 
               v38 = 0;
-              procedureCopy = v45;
-              inputsCopy = v46;
-              v37 = v47;
+              procedureCopy = v44;
+              inputsCopy = v45;
+              v37 = v46;
               goto LABEL_20;
             }
 
             v27 = v26;
             [v22 setObject:v26 forKeyedSubscript:@"InputType"];
-            v52 = 0;
-            ANE_GetTensor4DShapeWithOnePrepended(v21, &v52);
+            v51 = 0;
+            ANE_GetTensor4DShapeWithOnePrepended(v21, &v51);
             v28 = v19;
-            v29 = v52;
+            v29 = v51;
             [v29 objectAtIndexedSubscript:3];
             v31 = v30 = v15;
             [v22 setObject:v31 forKeyedSubscript:@"InputWidth"];
@@ -813,11 +819,11 @@ LABEL_22:
             [v22 setObject:v36 forKeyedSubscript:@"BatchSize"];
 
             [v30 addObject:v22];
-            v16 = v47;
+            v16 = v46;
           }
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v53 objects:v63 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v52 objects:v62 count:16];
         if (v18)
         {
           continue;
@@ -828,10 +834,10 @@ LABEL_22:
     }
 
     v37 = [v15 copy];
-    procedureCopy = v45;
-    [v45 setObject:v37 forKeyedSubscript:@"InputList"];
+    procedureCopy = v44;
+    [v44 setObject:v37 forKeyedSubscript:@"InputList"];
     v38 = 1;
-    inputsCopy = v46;
+    inputsCopy = v45;
 LABEL_20:
   }
 
@@ -840,13 +846,12 @@ LABEL_20:
     v38 = 1;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v38;
 }
 
 - (BOOL)addOutputs:(id)outputs ofOperation:(id)operation toProcedure:(id)procedure toNetwork:(id)network
 {
-  v63 = *MEMORY[0x277D85DE8];
+  v62 = *MEMORY[0x277D85DE8];
   outputsCopy = outputs;
   operationCopy = operation;
   procedureCopy = procedure;
@@ -862,32 +867,32 @@ LABEL_20:
       v13 = [MEMORY[0x277CBEBF8] mutableCopy];
     }
 
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     v14 = outputsCopy;
-    v49 = [v14 countByEnumeratingWithState:&v52 objects:v62 count:16];
-    if (v49)
+    v48 = [v14 countByEnumeratingWithState:&v51 objects:v61 count:16];
+    if (v48)
     {
-      v48 = *v53;
+      v47 = *v52;
       *&v15 = 138412802;
-      v41 = v15;
-      v43 = procedureCopy;
-      v44 = outputsCopy;
+      v40 = v15;
+      v42 = procedureCopy;
+      v43 = outputsCopy;
       obj = v14;
-      v46 = v13;
+      v45 = v13;
       while (2)
       {
-        for (i = 0; i != v49; ++i)
+        for (i = 0; i != v48; ++i)
         {
-          if (*v53 != v48)
+          if (*v52 != v47)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v52 + 1) + 8 * i);
-          [v17 setComputeFlags:{objc_msgSend(v17, "computeFlags", v41) | 4}];
+          v17 = *(*(&v51 + 1) + 8 * i);
+          [v17 setComputeFlags:{objc_msgSend(v17, "computeFlags", v40) | 4}];
           v18 = [MEMORY[0x277CBEC10] mutableCopy];
           [v18 setObject:operationCopy forKeyedSubscript:@"OperationName"];
           parentLayers = [v17 parentLayers];
@@ -903,10 +908,10 @@ LABEL_20:
 
 LABEL_22:
             v37 = 0;
-            procedureCopy = v43;
-            outputsCopy = v44;
+            procedureCopy = v42;
+            outputsCopy = v43;
             v36 = obj;
-            v13 = v46;
+            v13 = v45;
             goto LABEL_23;
           }
 
@@ -914,7 +919,7 @@ LABEL_22:
           v22 = [deviceOps objectAtIndexedSubscript:0];
           units = [v22 units];
 
-          v51 = units;
+          v50 = units;
           v24 = [units objectAtIndexedSubscript:{objc_msgSend(units, "count") - 1}];
           v25 = [v24 objectForKeyedSubscript:@"Name"];
 
@@ -930,7 +935,7 @@ LABEL_22:
             v30 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:interleave];
             [v18 setObject:v30 forKeyedSubscript:@"OutputInterleave"];
 
-            [v46 addObject:v18];
+            [v45 addObject:v18];
             v31 = [MEMORY[0x277CBEC10] mutableCopy];
             [v31 setObject:label forKeyedSubscript:@"OutputName"];
             [v31 setObject:v25 forKeyedSubscript:@"Bottom"];
@@ -949,12 +954,12 @@ LABEL_22:
             {
               v34 = NSStringFromSelector(aSelector);
               dataType = [descriptor dataType];
-              *buf = v41;
-              v57 = v34;
-              v58 = 1024;
-              v59 = dataType;
-              v60 = 2112;
-              v61 = v17;
+              *buf = v40;
+              v56 = v34;
+              v57 = 1024;
+              v58 = dataType;
+              v59 = 2112;
+              v60 = v17;
               _os_log_error_impl(&dword_238C1D000, v31, OS_LOG_TYPE_ERROR, "%@: unsupported data type=%d for tensor=%@", buf, 0x1Cu);
             }
           }
@@ -966,11 +971,11 @@ LABEL_22:
         }
 
         v14 = obj;
-        procedureCopy = v43;
-        outputsCopy = v44;
-        v13 = v46;
-        v49 = [obj countByEnumeratingWithState:&v52 objects:v62 count:16];
-        if (v49)
+        procedureCopy = v42;
+        outputsCopy = v43;
+        v13 = v45;
+        v48 = [obj countByEnumeratingWithState:&v51 objects:v61 count:16];
+        if (v48)
         {
           continue;
         }
@@ -990,13 +995,12 @@ LABEL_23:
     v37 = 1;
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v37;
 }
 
 - (void)unitBottomNamesWithSourceTensor:(id)tensor liveInputs:(id)inputs unitBottomNames:(id)names sourceTensorsToLiveUp:(id)up
 {
-  v46 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   tensorCopy = tensor;
   inputsCopy = inputs;
   namesCopy = names;
@@ -1020,30 +1024,30 @@ LABEL_29:
     goto LABEL_33;
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
-  v33 = tensorCopy;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
+  v32 = tensorCopy;
   obj = [tensorCopy parentLayers];
-  v15 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v15 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
   selfCopy2 = self;
   if (v15)
   {
     v17 = v15;
-    v18 = *v38;
-    v35 = upCopy;
+    v18 = *v37;
+    v34 = upCopy;
     while (2)
     {
       v19 = 0;
       do
       {
-        if (*v38 != v18)
+        if (*v37 != v18)
         {
           objc_enumerationMutation(obj);
         }
 
-        v20 = *(*(&v37 + 1) + 8 * v19);
+        v20 = *(*(&v36 + 1) + 8 * v19);
         objc_opt_class();
         if (objc_opt_isKindOfClass() & 1) != 0 && !ANE_IsAneCompiledLayer(v20) || (objc_opt_class(), (objc_opt_isKindOfClass()))
         {
@@ -1075,9 +1079,9 @@ LABEL_29:
               if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315394;
-                v43 = "lastUnitNameOfLayer";
-                v44 = 2112;
-                v45 = v24;
+                v42 = "lastUnitNameOfLayer";
+                v43 = 2112;
+                v44 = v24;
                 _os_log_error_impl(&dword_238C1D000, v29, OS_LOG_TYPE_ERROR, "%s: layer=%@ does not have any unit compiled", buf, 0x16u);
               }
 
@@ -1093,9 +1097,9 @@ LABEL_29:
             if (os_log_type_enabled(units, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v43 = "lastUnitNameOfLayer";
-              v44 = 2112;
-              v45 = v24;
+              v42 = "lastUnitNameOfLayer";
+              v43 = 2112;
+              v44 = v24;
               _os_log_error_impl(&dword_238C1D000, units, OS_LOG_TYPE_ERROR, "%s: layer=%@ is not compiled with ANE device", buf, 0x16u);
             }
 
@@ -1111,21 +1115,21 @@ LABEL_29:
               [_MLCANEPlistBuilder unitBottomNamesWithSourceTensor:liveInputs:unitBottomNames:sourceTensorsToLiveUp:];
             }
 
-            tensorCopy = v33;
-            upCopy = v35;
+            tensorCopy = v32;
+            upCopy = v34;
             goto LABEL_33;
           }
 
           [namesCopy addObject:v22];
           inputsCopy = v23;
-          upCopy = v35;
+          upCopy = v34;
         }
 
         ++v19;
       }
 
       while (v17 != v19);
-      v17 = [obj countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v17 = [obj countByEnumeratingWithState:&v36 objects:v40 count:16];
       if (v17)
       {
         continue;
@@ -1135,15 +1139,13 @@ LABEL_29:
     }
   }
 
-  tensorCopy = v33;
+  tensorCopy = v32;
 LABEL_33:
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)addUnitsAndInputsAndOutpusOfLayer:(id)layer toNetwork:(id)network toProcedure:(id)procedure operationName:(id)name liveInputs:(id)inputs liveOutputs:(id)outputs
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   networkCopy = network;
   procedureCopy = procedure;
@@ -1165,109 +1167,109 @@ LABEL_33:
     v22 = [deviceOps objectAtIndexedSubscript:0];
 
     units = [v22 units];
-    v75 = units;
+    v74 = units;
     if (units && [units count])
     {
-      v69 = v22;
-      v70 = nameCopy;
-      v73 = networkCopy;
-      v74 = v20;
-      v71 = procedureCopy;
+      v68 = v22;
+      v69 = nameCopy;
+      v72 = networkCopy;
+      v73 = v20;
+      v70 = procedureCopy;
       v24 = [MEMORY[0x277CBEC10] mutableCopy];
+      v87 = 0u;
       v88 = 0u;
       v89 = 0u;
       v90 = 0u;
-      v91 = 0u;
       sourceTensors = [layerCopy sourceTensors];
-      v26 = [sourceTensors countByEnumeratingWithState:&v88 objects:v102 count:16];
+      v26 = [sourceTensors countByEnumeratingWithState:&v87 objects:v101 count:16];
       if (v26)
       {
         v27 = v26;
-        v28 = *v89;
+        v28 = *v88;
         do
         {
           for (i = 0; i != v27; ++i)
           {
-            if (*v89 != v28)
+            if (*v88 != v28)
             {
               objc_enumerationMutation(sourceTensors);
             }
 
-            v30 = *(*(&v88 + 1) + 8 * i);
+            v30 = *(*(&v87 + 1) + 8 * i);
             label = [v30 label];
             [v24 setObject:v30 forKeyedSubscript:label];
           }
 
-          v27 = [sourceTensors countByEnumeratingWithState:&v88 objects:v102 count:16];
+          v27 = [sourceTensors countByEnumeratingWithState:&v87 objects:v101 count:16];
         }
 
         while (v27);
       }
 
-      v32 = v75;
-      v20 = v74;
-      if ([v75 count])
+      v32 = v74;
+      v20 = v73;
+      if ([v74 count])
       {
         v34 = 0;
         v35 = MEMORY[0x277CBEBF8];
         *&v33 = 138413058;
-        v66 = v33;
-        v68 = layerCopy;
+        v65 = v33;
+        v67 = layerCopy;
         while (1)
         {
-          v67 = v34;
-          v36 = [v32 objectAtIndexedSubscript:{v34, v66}];
+          v66 = v34;
+          v36 = [v32 objectAtIndexedSubscript:{v34, v65}];
           v37 = [v36 objectForKeyedSubscript:@"Name"];
           [v20 addObject:v37];
           v38 = [v36 objectForKeyedSubscript:@"Bottom"];
           v39 = [v35 mutableCopy];
-          v77 = [v35 mutableCopy];
+          v76 = [v35 mutableCopy];
+          v83 = 0u;
           v84 = 0u;
           v85 = 0u;
           v86 = 0u;
-          v87 = 0u;
           obj = v38;
-          v40 = [obj countByEnumeratingWithState:&v84 objects:v101 count:16];
+          v40 = [obj countByEnumeratingWithState:&v83 objects:v100 count:16];
           v41 = v37;
           if (v40)
           {
             v42 = v40;
-            v43 = *v85;
+            v43 = *v84;
             while (2)
             {
               for (j = 0; j != v42; ++j)
               {
-                if (*v85 != v43)
+                if (*v84 != v43)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v45 = *(*(&v84 + 1) + 8 * j);
+                v45 = *(*(&v83 + 1) + 8 * j);
                 v46 = [v24 objectForKeyedSubscript:v45];
                 if (v46)
                 {
                   v47 = [MEMORY[0x277CBEBF8] mutableCopy];
-                  [(_MLCANEPlistBuilder *)self unitBottomNamesWithSourceTensor:v46 liveInputs:inputsCopy unitBottomNames:v47 sourceTensorsToLiveUp:v77];
+                  [(_MLCANEPlistBuilder *)self unitBottomNamesWithSourceTensor:v46 liveInputs:inputsCopy unitBottomNames:v47 sourceTensorsToLiveUp:v76];
                   if (![v47 count])
                   {
                     v54 = +[MLCLog framework];
                     if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
                     {
-                      v64 = NSStringFromSelector(aSelector);
+                      v63 = NSStringFromSelector(aSelector);
                       *buf = 138412802;
-                      v94 = v64;
-                      v95 = 2112;
-                      v96 = v36;
-                      v97 = 2112;
-                      v98 = v68;
+                      v93 = v63;
+                      v94 = 2112;
+                      v95 = v36;
+                      v96 = 2112;
+                      v97 = v67;
                       _os_log_error_impl(&dword_238C1D000, v54, OS_LOG_TYPE_ERROR, "%@: failed to get the unit bottom names for the unit=%@ of layer=%@", buf, 0x20u);
                     }
 
                     v53 = 0;
-                    layerCopy = v68;
-                    networkCopy = v73;
-                    nameCopy = v70;
-                    procedureCopy = v71;
+                    layerCopy = v67;
+                    networkCopy = v72;
+                    nameCopy = v69;
+                    procedureCopy = v70;
                     goto LABEL_56;
                   }
 
@@ -1281,7 +1283,7 @@ LABEL_33:
               }
 
               v37 = v41;
-              v42 = [obj countByEnumeratingWithState:&v84 objects:v101 count:16];
+              v42 = [obj countByEnumeratingWithState:&v83 objects:v100 count:16];
               if (v42)
               {
                 continue;
@@ -1294,37 +1296,37 @@ LABEL_33:
           v48 = [v39 copy];
           [v36 setObject:v48 forKeyedSubscript:@"Bottom"];
 
-          networkCopy = v73;
-          v49 = [(_MLCANEPlistBuilder *)self addInputs:v77 ofUnit:v36 ofOperation:v70 toProcedure:v71 toNetwork:v73];
+          networkCopy = v72;
+          v49 = [(_MLCANEPlistBuilder *)self addInputs:v76 ofUnit:v36 ofOperation:v69 toProcedure:v70 toNetwork:v72];
           if (v49)
           {
-            [v73 setObject:v36 forKeyedSubscript:v37];
-            layerCopy = v68;
-            v20 = v74;
+            [v72 setObject:v36 forKeyedSubscript:v37];
+            layerCopy = v67;
+            v20 = v73;
           }
 
           else
           {
             v50 = +[MLCLog framework];
-            layerCopy = v68;
-            v20 = v74;
+            layerCopy = v67;
+            v20 = v73;
             if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
             {
               v52 = NSStringFromSelector(aSelector);
-              *buf = v66;
-              v94 = v52;
-              v95 = 2112;
-              v96 = v77;
-              v97 = 2112;
-              v98 = v36;
-              v99 = 2112;
-              v100 = v68;
+              *buf = v65;
+              v93 = v52;
+              v94 = 2112;
+              v95 = v76;
+              v96 = 2112;
+              v97 = v36;
+              v98 = 2112;
+              v99 = v67;
               _os_log_error_impl(&dword_238C1D000, v50, OS_LOG_TYPE_ERROR, "%@: failed to add live inputs=%@ of the unit=%@ of layer=%@", buf, 0x2Au);
 
               v37 = v41;
             }
 
-            networkCopy = v73;
+            networkCopy = v72;
           }
 
           if (!v49)
@@ -1332,67 +1334,67 @@ LABEL_33:
             break;
           }
 
-          v34 = v67 + 1;
-          v32 = v75;
-          v51 = [v75 count];
+          v34 = v66 + 1;
+          v32 = v74;
+          v51 = [v74 count];
           v35 = MEMORY[0x277CBEBF8];
-          if (v67 + 1 >= v51)
+          if (v66 + 1 >= v51)
           {
             goto LABEL_43;
           }
         }
 
         v53 = 0;
-        nameCopy = v70;
-        procedureCopy = v71;
+        nameCopy = v69;
+        procedureCopy = v70;
       }
 
       else
       {
 LABEL_43:
         v55 = [v20 copy];
-        [v73 setObject:v55 forKeyedSubscript:@"Units"];
+        [v72 setObject:v55 forKeyedSubscript:@"Units"];
 
         v36 = [MEMORY[0x277CBEBF8] mutableCopy];
+        v79 = 0u;
         v80 = 0u;
         v81 = 0u;
         v82 = 0u;
-        v83 = 0u;
         resultTensors = [layerCopy resultTensors];
-        v57 = [resultTensors countByEnumeratingWithState:&v80 objects:v92 count:16];
+        v57 = [resultTensors countByEnumeratingWithState:&v79 objects:v91 count:16];
         if (v57)
         {
           v58 = v57;
-          v59 = *v81;
+          v59 = *v80;
           do
           {
             for (k = 0; k != v58; ++k)
             {
-              if (*v81 != v59)
+              if (*v80 != v59)
               {
                 objc_enumerationMutation(resultTensors);
               }
 
-              v61 = *(*(&v80 + 1) + 8 * k);
+              v61 = *(*(&v79 + 1) + 8 * k);
               if ([outputsCopy containsObject:v61])
               {
                 [v36 addObject:v61];
               }
             }
 
-            v58 = [resultTensors countByEnumeratingWithState:&v80 objects:v92 count:16];
+            v58 = [resultTensors countByEnumeratingWithState:&v79 objects:v91 count:16];
           }
 
           while (v58);
         }
 
-        nameCopy = v70;
-        procedureCopy = v71;
-        networkCopy = v73;
-        v53 = [(_MLCANEPlistBuilder *)self addOutputs:v36 ofOperation:v70 toProcedure:v71 toNetwork:v73];
+        nameCopy = v69;
+        procedureCopy = v70;
+        networkCopy = v72;
+        v53 = [(_MLCANEPlistBuilder *)self addOutputs:v36 ofOperation:v69 toProcedure:v70 toNetwork:v72];
         if (v53)
         {
-          v20 = v74;
+          v20 = v73;
         }
 
         else
@@ -1400,22 +1402,22 @@ LABEL_43:
           v41 = +[MLCLog framework];
           if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
-            v65 = NSStringFromSelector(aSelector);
+            v64 = NSStringFromSelector(aSelector);
             *buf = 138412802;
-            v94 = v65;
-            v95 = 2112;
-            v96 = v36;
-            v97 = 2112;
-            v98 = layerCopy;
+            v93 = v64;
+            v94 = 2112;
+            v95 = v36;
+            v96 = 2112;
+            v97 = layerCopy;
             _os_log_error_impl(&dword_238C1D000, v41, OS_LOG_TYPE_ERROR, "%@: failed to add live outputs=%@ of layer=%@", buf, 0x20u);
           }
 
 LABEL_56:
-          v20 = v74;
+          v20 = v73;
         }
       }
 
-      v22 = v69;
+      v22 = v68;
     }
 
     else
@@ -1441,13 +1443,12 @@ LABEL_56:
     v53 = 0;
   }
 
-  v62 = *MEMORY[0x277D85DE8];
   return v53;
 }
 
 - (BOOL)addConstantTensor:(id)tensor toNetwork:(id)network
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   tensorCopy = tensor;
   networkCopy = network;
   label = [tensorCopy label];
@@ -1482,14 +1483,14 @@ LABEL_56:
       v15 = [deviceMemory objectAtIndexedSubscript:deviceIndex];
       if ([v15 count] == 2)
       {
-        v37 = [deviceMemory objectAtIndexedSubscript:deviceIndex];
-        v16 = [v37 objectAtIndexedSubscript:0];
+        v36 = [deviceMemory objectAtIndexedSubscript:deviceIndex];
+        v16 = [v36 objectAtIndexedSubscript:0];
         objc_opt_class();
-        v38 = v16;
+        v37 = v16;
         if (objc_opt_isKindOfClass())
         {
-          v35 = [deviceMemory objectAtIndexedSubscript:deviceIndex];
-          v17 = [v35 objectAtIndexedSubscript:1];
+          v34 = [deviceMemory objectAtIndexedSubscript:deviceIndex];
+          v17 = [v34 objectAtIndexedSubscript:1];
           objc_opt_class();
           isKindOfClass = objc_opt_isKindOfClass();
 
@@ -1536,8 +1537,8 @@ LABEL_17:
 
               else
               {
-                v39[0] = label2;
-                v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v39 count:1];
+                v38[0] = label2;
+                v30 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
                 v27 = [v30 mutableCopy];
               }
 
@@ -1568,48 +1569,47 @@ LABEL_16:
   v10 = 1;
 LABEL_26:
 
-  v33 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 - (BOOL)queryAndAddConstantTensors:(id)tensors ofLayer:(id)layer toNetwork:(id)network
 {
   aSelector = a2;
-  v73 = *MEMORY[0x277D85DE8];
+  v72 = *MEMORY[0x277D85DE8];
   tensorsCopy = tensors;
   layerCopy = layer;
   networkCopy = network;
   if (ANE_IsAneCompiledLayer(layerCopy))
   {
-    v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
     v57 = 0u;
+    v58 = 0u;
+    v55 = 0u;
+    v56 = 0u;
     obj = tensorsCopy;
-    v48 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
-    if (!v48)
+    v47 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
+    if (!v47)
     {
       v35 = 1;
       goto LABEL_43;
     }
 
-    v49 = *v57;
+    v48 = *v56;
     v11 = @"Bottom";
-    v45 = tensorsCopy;
-    v46 = networkCopy;
-    v47 = layerCopy;
+    v44 = tensorsCopy;
+    v45 = networkCopy;
+    v46 = layerCopy;
     selfCopy = self;
 LABEL_4:
     v12 = 0;
     while (1)
     {
-      if (*v57 != v49)
+      if (*v56 != v48)
       {
         objc_enumerationMutation(obj);
       }
 
-      v52 = v12;
-      v13 = *(*(&v56 + 1) + 8 * v12);
+      v51 = v12;
+      v13 = *(*(&v55 + 1) + 8 * v12);
       weightOps = [(_MLCANEPlistBuilder *)self weightOps];
       v15 = [weightOps queryConstantTensor:v13];
 
@@ -1630,63 +1630,63 @@ LABEL_4:
         v17 = [deviceOps objectAtIndexedSubscript:0];
         units = [v17 units];
 
-        v43 = v13;
+        v42 = v13;
         label = [v13 label];
-        v51 = v15;
+        v50 = v15;
         label2 = [v15 label];
         v21 = units;
         v22 = label;
         v23 = label2;
+        v59 = 0u;
         v60 = 0u;
         v61 = 0u;
         v62 = 0u;
-        v63 = 0u;
-        v53 = v21;
-        v55 = [v21 countByEnumeratingWithState:&v60 objects:buf count:16];
-        if (!v55)
+        v52 = v21;
+        v54 = [v21 countByEnumeratingWithState:&v59 objects:buf count:16];
+        if (!v54)
         {
 
           v34 = v21;
 LABEL_38:
           v36 = +[MLCLog framework];
-          v15 = v51;
+          v15 = v50;
           if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
           {
-            v39 = NSStringFromSelector(aSelector);
-            label3 = [v43 label];
-            label4 = [v51 label];
+            v38 = NSStringFromSelector(aSelector);
+            label3 = [v42 label];
+            label4 = [v50 label];
             *buf = 138413058;
-            v66 = v39;
-            v67 = 2112;
-            v68 = label3;
-            v69 = 2112;
-            v70 = label4;
-            v71 = 2112;
-            v72 = v53;
+            v65 = v38;
+            v66 = 2112;
+            v67 = label3;
+            v68 = 2112;
+            v69 = label4;
+            v70 = 2112;
+            v71 = v52;
             _os_log_error_impl(&dword_238C1D000, v36, OS_LOG_TYPE_ERROR, "%@: failed to replace unit bottom name %@ with %@ in units=%@", buf, 0x2Au);
 
-            v34 = v53;
+            v34 = v52;
           }
 
-          networkCopy = v46;
-          layerCopy = v47;
+          networkCopy = v45;
+          layerCopy = v46;
 LABEL_41:
 
           goto LABEL_42;
         }
 
         v24 = 0;
-        v54 = *v61;
+        v53 = *v60;
         do
         {
-          for (i = 0; i != v55; ++i)
+          for (i = 0; i != v54; ++i)
           {
-            if (*v61 != v54)
+            if (*v60 != v53)
             {
-              objc_enumerationMutation(v53);
+              objc_enumerationMutation(v52);
             }
 
-            v26 = *(*(&v60 + 1) + 8 * i);
+            v26 = *(*(&v59 + 1) + 8 * i);
             v27 = [v26 objectForKeyedSubscript:v11];
             v28 = [v27 mutableCopy];
 
@@ -1723,21 +1723,21 @@ LABEL_41:
             }
           }
 
-          v55 = [v53 countByEnumeratingWithState:&v60 objects:buf count:16];
+          v54 = [v52 countByEnumeratingWithState:&v59 objects:buf count:16];
         }
 
-        while (v55);
+        while (v54);
 
-        v34 = v53;
-        tensorsCopy = v45;
+        v34 = v52;
+        tensorsCopy = v44;
         if ((v24 & 1) == 0)
         {
           goto LABEL_38;
         }
 
-        networkCopy = v46;
-        layerCopy = v47;
-        v15 = v51;
+        networkCopy = v45;
+        layerCopy = v46;
+        v15 = v50;
         self = selfCopy;
       }
 
@@ -1752,12 +1752,12 @@ LABEL_41:
         goto LABEL_41;
       }
 
-      v12 = v52 + 1;
-      if (v52 + 1 == v48)
+      v12 = v51 + 1;
+      if (v51 + 1 == v47)
       {
         v35 = 1;
-        v48 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
-        if (v48)
+        v47 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
+        if (v47)
         {
           goto LABEL_4;
         }
@@ -1777,7 +1777,6 @@ LABEL_42:
   v35 = 0;
 LABEL_43:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v35;
 }
 
@@ -2344,7 +2343,7 @@ LABEL_13:
 
 - (BOOL)buildProcedureWithLayer:(id)layer
 {
-  v45[2] = *MEMORY[0x277D85DE8];
+  v44[2] = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   if (!ANE_IsAneCompiledLayer(layerCopy))
   {
@@ -2373,90 +2372,90 @@ LABEL_7:
     goto LABEL_8;
   }
 
-  v11 = MEMORY[0x277CBEC10];
+  v10 = MEMORY[0x277CBEC10];
   v7 = [MEMORY[0x277CBEC10] mutableCopy];
-  v12 = MEMORY[0x277CCACA8];
+  v11 = MEMORY[0x277CCACA8];
   label = [layerCopy label];
-  v14 = [v12 stringWithFormat:@"%@%@", @"procedure_", label];
+  v13 = [v11 stringWithFormat:@"%@%@", @"procedure_", label];
 
-  v15 = [v11 mutableCopy];
-  v16 = MEMORY[0x277CCACA8];
+  v14 = [v10 mutableCopy];
+  v15 = MEMORY[0x277CCACA8];
   label2 = [layerCopy label];
-  v18 = v14;
-  v19 = [v16 stringWithFormat:@"%@%@", @"network_", label2];
+  v17 = v13;
+  v18 = [v15 stringWithFormat:@"%@%@", @"network_", label2];
 
-  [v7 setObject:v14 forKeyedSubscript:@"Name"];
-  v44[0] = @"OperationName";
-  v44[1] = @"NetworkName";
-  v45[0] = @"op0";
-  v45[1] = v19;
-  v42 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v45 forKeys:v44 count:2];
-  v43 = v42;
-  v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v43 count:1];
-  [v7 setObject:v20 forKeyedSubscript:@"OperationList"];
+  [v7 setObject:v13 forKeyedSubscript:@"Name"];
+  v43[0] = @"OperationName";
+  v43[1] = @"NetworkName";
+  v44[0] = @"op0";
+  v44[1] = v18;
+  v41 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:2];
+  v42 = v41;
+  v19 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
+  [v7 setObject:v19 forKeyedSubscript:@"OperationList"];
 
-  if ([(_MLCANEPlistBuilder *)self addWeightsOfLayer:layerCopy toNetwork:v15])
+  if ([(_MLCANEPlistBuilder *)self addWeightsOfLayer:layerCopy toNetwork:v14])
   {
-    v41 = v14;
-    v21 = MEMORY[0x277CBEB98];
+    v40 = v13;
+    v20 = MEMORY[0x277CBEB98];
     sourceTensors = [layerCopy sourceTensors];
-    v23 = [v21 setWithArray:sourceTensors];
+    v22 = [v20 setWithArray:sourceTensors];
 
-    v24 = MEMORY[0x277CBEB98];
+    v23 = MEMORY[0x277CBEB98];
     resultTensors = [layerCopy resultTensors];
-    v26 = [v24 setWithArray:resultTensors];
+    v25 = [v23 setWithArray:resultTensors];
 
-    v40 = v26;
-    v8 = [(_MLCANEPlistBuilder *)self addUnitsAndInputsAndOutpusOfLayer:layerCopy toNetwork:v15 toProcedure:v7 operationName:@"op0" liveInputs:v23 liveOutputs:v26];
+    v39 = v25;
+    v8 = [(_MLCANEPlistBuilder *)self addUnitsAndInputsAndOutpusOfLayer:layerCopy toNetwork:v14 toProcedure:v7 operationName:@"op0" liveInputs:v22 liveOutputs:v25];
     if (v8)
     {
       weightOps = [(_MLCANEPlistBuilder *)self weightOps];
       weightFiles = [weightOps weightFiles];
-      v29 = [weightFiles count];
+      v28 = [weightFiles count];
 
-      if (v29)
+      if (v28)
       {
         weightOps2 = [(_MLCANEPlistBuilder *)self weightOps];
         weightFiles2 = [weightOps2 weightFiles];
-        v32 = [weightFiles2 copy];
-        [v15 setObject:v32 forKeyedSubscript:@"Weights"];
+        v31 = [weightFiles2 copy];
+        [v14 setObject:v31 forKeyedSubscript:@"Weights"];
       }
 
       plist = [(_MLCANEPlistBuilder *)self plist];
-      v34 = [plist objectForKeyedSubscript:@"Networks"];
+      v33 = [plist objectForKeyedSubscript:@"Networks"];
 
-      [v34 addObject:v19];
+      [v33 addObject:v18];
       plist2 = [(_MLCANEPlistBuilder *)self plist];
-      [plist2 setObject:v15 forKeyedSubscript:v19];
+      [plist2 setObject:v14 forKeyedSubscript:v18];
 
       plist3 = [(_MLCANEPlistBuilder *)self plist];
-      v37 = [plist3 objectForKeyedSubscript:@"ProcedureList"];
+      v36 = [plist3 objectForKeyedSubscript:@"ProcedureList"];
 
-      [v37 addObject:v7];
+      [v36 addObject:v7];
       deviceOps = [layerCopy deviceOps];
-      v39 = [deviceOps objectAtIndexedSubscript:0];
+      v38 = [deviceOps objectAtIndexedSubscript:0];
 
-      v18 = v41;
-      [v39 setProcedureName:v41];
-      [v39 setProcedureIndex:{objc_msgSend(v37, "count") - 1}];
+      v17 = v40;
+      [v38 setProcedureName:v40];
+      [v38 setProcedureIndex:{objc_msgSend(v36, "count") - 1}];
     }
 
     else
     {
-      v34 = +[MLCLog framework];
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v33 = +[MLCLog framework];
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
       {
         [_MLCANEPlistBuilder buildProcedureWithLayer:];
       }
 
-      v18 = v41;
+      v17 = v40;
     }
   }
 
   else
   {
-    v23 = +[MLCLog framework];
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+    v22 = +[MLCLog framework];
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       [_MLCANEPlistBuilder buildProcedureWithLayer:];
     }
@@ -2465,13 +2464,12 @@ LABEL_7:
   }
 
 LABEL_8:
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
 - (BOOL)buildProcedureWithRootLayer:(id)layer aneSubgraphLayerList:(id)list liveInputs:(id)inputs liveOutputs:(id)outputs
 {
-  v89[2] = *MEMORY[0x277D85DE8];
+  v88[2] = *MEMORY[0x277D85DE8];
   layerCopy = layer;
   listCopy = list;
   inputsCopy = inputs;
@@ -2494,24 +2492,24 @@ LABEL_8:
   label = [layerCopy label];
   v15 = [v13 stringWithFormat:@"%@%@", @"procedure_", label];
 
-  v67 = [v11 mutableCopy];
+  v66 = [v11 mutableCopy];
   v16 = MEMORY[0x277CCACA8];
-  v63 = layerCopy;
+  v62 = layerCopy;
   label2 = [layerCopy label];
   v18 = v12;
   v19 = [v16 stringWithFormat:@"%@%@", @"network_", label2];
 
-  v61 = v15;
+  v60 = v15;
   v20 = v15;
   v21 = v19;
   [v12 setObject:v20 forKeyedSubscript:@"Name"];
-  v88[0] = @"OperationName";
-  v88[1] = @"NetworkName";
-  v89[0] = @"op0";
-  v89[1] = v19;
-  v62 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v89 forKeys:v88 count:2];
-  v87 = v62;
-  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:1];
+  v87[0] = @"OperationName";
+  v87[1] = @"NetworkName";
+  v88[0] = @"op0";
+  v88[1] = v19;
+  v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v88 forKeys:v87 count:2];
+  v86 = v61;
+  v22 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:1];
   [v12 setObject:v22 forKeyedSubscript:@"OperationList"];
 
   v23 = [listCopy count];
@@ -2525,13 +2523,13 @@ LABEL_26:
     v47 = selfCopy2;
     v48 = [weightFiles count];
 
-    v44 = v67;
+    v44 = v66;
     if (v48)
     {
       weightOps2 = [(_MLCANEPlistBuilder *)v47 weightOps];
       weightFiles2 = [weightOps2 weightFiles];
       v51 = [weightFiles2 copy];
-      [v67 setObject:v51 forKeyedSubscript:@"Weights"];
+      [v66 setObject:v51 forKeyedSubscript:@"Weights"];
     }
 
     plist = [(_MLCANEPlistBuilder *)v47 plist];
@@ -2539,17 +2537,17 @@ LABEL_26:
 
     [v29 addObject:v21];
     plist2 = [(_MLCANEPlistBuilder *)v47 plist];
-    [plist2 setObject:v67 forKeyedSubscript:v21];
+    [plist2 setObject:v66 forKeyedSubscript:v21];
 
     plist3 = [(_MLCANEPlistBuilder *)v47 plist];
     v55 = [plist3 objectForKeyedSubscript:@"ProcedureList"];
 
     [v55 addObject:v18];
-    deviceOps = [v63 deviceOps];
+    deviceOps = [v62 deviceOps];
     v57 = [deviceOps objectAtIndexedSubscript:0];
 
-    v58 = v61;
-    [v57 setProcedureName:v61];
+    v58 = v60;
+    [v57 setProcedureName:v60];
     [v57 setProcedureIndex:{-[NSObject count](v55, "count") - 1}];
 
     v27 = 1;
@@ -2559,10 +2557,10 @@ LABEL_26:
   v26 = v23;
   v27 = 0;
   v28 = 0;
-  v65 = v12;
-  v66 = listCopy;
-  v64 = v21;
-  v70 = v23;
+  v64 = v12;
+  v65 = listCopy;
+  v63 = v21;
+  v69 = v23;
   while (1)
   {
     v29 = [listCopy objectAtIndexedSubscript:v28];
@@ -2572,50 +2570,50 @@ LABEL_26:
       goto LABEL_25;
     }
 
-    v72 = v28;
+    v71 = v28;
     if (ANE_IsPaddingLayerAndNotCompiledForANE(v29))
     {
-      v83 = 0u;
-      v84 = 0u;
-      v81 = 0u;
       v82 = 0u;
+      v83 = 0u;
+      v80 = 0u;
+      v81 = 0u;
       obj = [v29 resultTensors];
-      v75 = [obj countByEnumeratingWithState:&v81 objects:v86 count:16];
-      if (v75)
+      v74 = [obj countByEnumeratingWithState:&v80 objects:v85 count:16];
+      if (v74)
       {
-        v74 = *v82;
+        v73 = *v81;
         do
         {
           v30 = 0;
           do
           {
-            if (*v82 != v74)
+            if (*v81 != v73)
             {
               objc_enumerationMutation(obj);
             }
 
-            v76 = v30;
-            v31 = *(*(&v81 + 1) + 8 * v30);
+            v75 = v30;
+            v31 = *(*(&v80 + 1) + 8 * v30);
+            v76 = 0u;
             v77 = 0u;
             v78 = 0u;
             v79 = 0u;
-            v80 = 0u;
             childLayers = [v31 childLayers];
-            v33 = [childLayers countByEnumeratingWithState:&v77 objects:v85 count:16];
+            v33 = [childLayers countByEnumeratingWithState:&v76 objects:v84 count:16];
             if (v33)
             {
               v34 = v33;
-              v35 = *v78;
+              v35 = *v77;
               do
               {
                 for (i = 0; i != v34; ++i)
                 {
-                  if (*v78 != v35)
+                  if (*v77 != v35)
                   {
                     objc_enumerationMutation(childLayers);
                   }
 
-                  deviceOps2 = [*(*(&v77 + 1) + 8 * i) deviceOps];
+                  deviceOps2 = [*(*(&v76 + 1) + 8 * i) deviceOps];
                   v38 = [deviceOps2 objectAtIndexedSubscript:0];
 
                   objc_opt_class();
@@ -2633,40 +2631,40 @@ LABEL_26:
                   ANE_ApplyPaddingSizes(v29, v43);
                 }
 
-                v34 = [childLayers countByEnumeratingWithState:&v77 objects:v85 count:16];
+                v34 = [childLayers countByEnumeratingWithState:&v76 objects:v84 count:16];
               }
 
               while (v34);
             }
 
-            v30 = v76 + 1;
+            v30 = v75 + 1;
           }
 
-          while (v76 + 1 != v75);
-          v75 = [obj countByEnumeratingWithState:&v81 objects:v86 count:16];
+          while (v75 + 1 != v74);
+          v74 = [obj countByEnumeratingWithState:&v80 objects:v85 count:16];
         }
 
-        while (v75);
+        while (v74);
       }
 
-      v18 = v65;
-      listCopy = v66;
-      v26 = v70;
+      v18 = v64;
+      listCopy = v65;
+      v26 = v69;
       v25 = inputsCopy;
-      v21 = v64;
+      v21 = v63;
       selfCopy2 = self;
-      v28 = v72;
+      v28 = v71;
       goto LABEL_25;
     }
 
-    v44 = v67;
-    if (![(_MLCANEPlistBuilder *)selfCopy2 addWeightsOfLayer:v29 toNetwork:v67])
+    v44 = v66;
+    if (![(_MLCANEPlistBuilder *)selfCopy2 addWeightsOfLayer:v29 toNetwork:v66])
     {
       break;
     }
 
-    v26 = v70;
-    if (![(_MLCANEPlistBuilder *)selfCopy2 addUnitsAndInputsAndOutpusOfLayer:v29 toNetwork:v67 toProcedure:v18 operationName:@"op0" liveInputs:v25 liveOutputs:outputsCopy])
+    v26 = v69;
+    if (![(_MLCANEPlistBuilder *)selfCopy2 addUnitsAndInputsAndOutpusOfLayer:v29 toNetwork:v66 toProcedure:v18 operationName:@"op0" liveInputs:v25 liveOutputs:outputsCopy])
     {
       v55 = +[MLCLog framework];
       if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
@@ -2674,8 +2672,8 @@ LABEL_26:
         [_MLCANEPlistBuilder buildProcedureWithLayer:];
       }
 
-      v58 = v61;
-      v44 = v67;
+      v58 = v60;
+      v44 = v66;
       goto LABEL_29;
     }
 
@@ -2694,51 +2692,50 @@ LABEL_25:
     [_MLCANEPlistBuilder buildProcedureWithLayer:];
   }
 
-  v58 = v61;
+  v58 = v60;
 LABEL_29:
 
-  layerCopy = v63;
+  layerCopy = v62;
 LABEL_33:
 
-  v59 = *MEMORY[0x277D85DE8];
   return v27;
 }
 
 - (void)releaseWeights
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   weightOps = [(_MLCANEPlistBuilder *)self weightOps];
   [weightOps reset];
 
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   weightTensorsWithDeviceMemory = [(_MLCANEPlistBuilder *)self weightTensorsWithDeviceMemory];
-  v6 = [weightTensorsWithDeviceMemory countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [weightTensorsWithDeviceMemory countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(weightTensorsWithDeviceMemory);
         }
 
-        deviceMemory = [*(*(&v13 + 1) + 8 * v9) deviceMemory];
+        deviceMemory = [*(*(&v12 + 1) + 8 * v9) deviceMemory];
         [deviceMemory removeAllObjects];
 
         ++v9;
       }
 
       while (v7 != v9);
-      v7 = [weightTensorsWithDeviceMemory countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [weightTensorsWithDeviceMemory countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
@@ -2748,393 +2745,301 @@ LABEL_33:
   [weightTensorsWithDeviceMemory2 removeAllObjects];
 
   objc_autoreleasePoolPop(v3);
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 + (void)createUnitWithLayer:unitParams:.cold.1()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)buildBiasParamsWithBiases:(const char *)a1 .cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)buildBiasParamsWithBiases:.cold.2()
 {
   OUTLINED_FUNCTION_5_0();
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = NSStringFromSelector(v1);
+  v7 = NSStringFromSelector(v1);
   [v0 dataType];
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)createReshapeUnitWithSourceTensor:(const char *)a1 layer:resultShape:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)createReshapeUnitsWithLayer:(uint64_t)a1 reshapeUnits:(NSObject *)a2 reshapeResultTensors:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "+[_MLCANEPlistBuilder createReshapeUnitsWithLayer:reshapeUnits:reshapeResultTensors:]";
-  v5 = 2048;
-  v6 = a1;
-  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: unsupported source shape count=%lu", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "+[_MLCANEPlistBuilder createReshapeUnitsWithLayer:reshapeUnits:reshapeResultTensors:]";
+  v4 = 2048;
+  v5 = a1;
+  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: unsupported source shape count=%lu", &v2, 0x16u);
 }
 
 + (void)createReshapeUnitsWithLayer:reshapeUnits:reshapeResultTensors:.cold.2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: failed to create the reshape unit for layer=%@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: failed to create the reshape unit for layer=%@", v1, 0x16u);
 }
 
 + (void)createBroadcastUnitWithSourceTensor:(const char *)a1 targetShape:layer:broadcastUnit:broadcastResultTensor:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 + (void)createBroadcastUnitWithSourceTensor:targetShape:layer:broadcastUnit:broadcastResultTensor:.cold.2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136315650;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_1();
-  v5 = v0;
-  v6 = v1;
-  _os_log_error_impl(&dword_238C1D000, v2, OS_LOG_TYPE_ERROR, "%s: the broadcast unit=%@ for layer=%@ failed validation", v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_error_impl(&dword_238C1D000, v2, OS_LOG_TYPE_ERROR, "%s: the broadcast unit=%@ for layer=%@ failed validation", v3, 0x20u);
 }
 
 + (void)createBroadcastUnitWithSourceTensor:(const char *)a1 targetShape:layer:broadcastUnit:broadcastResultTensor:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x12u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addOutputs:ofOperation:toProcedure:toNetwork:.cold.1()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)unitBottomNamesWithSourceTensor:liveInputs:unitBottomNames:sourceTensorsToLiveUp:.cold.1()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addUnitsAndInputsAndOutpusOfLayer:toNetwork:toProcedure:operationName:liveInputs:liveOutputs:.cold.2()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addConstantTensor:toNetwork:.cold.1()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addConstantTensor:toNetwork:.cold.2()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)queryAndAddConstantTensors:ofLayer:toNetwork:.cold.3()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addWeightsOfConvolutionLayer:.cold.1()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addWeightsOfConvolutionLayer:.cold.2()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addWeightsOfConvolutionLayer:.cold.3()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addWeightsOfConvolutionLayer:.cold.4()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addWeightsOfConvolutionLayer:.cold.5()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addWeightsOfConvolutionLayer:(const char *)a1 .cold.6(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addWeightsOfConvolutionLayer:(const char *)a1 .cold.7(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addWeightsOfConvolutionLayer:(float)a3 .cold.8(uint64_t a1, NSObject *a2, float a3)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "[_MLCANEPlistBuilder addWeightsOfConvolutionLayer:]";
-  v6 = 2048;
-  v7 = a3;
-  v8 = 2112;
-  v9 = a1;
-  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: the absolute values of all weights are below %.8f and considered to be all 0's. weight tensor=%@", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "[_MLCANEPlistBuilder addWeightsOfConvolutionLayer:]";
+  v5 = 2048;
+  v6 = a3;
+  v7 = 2112;
+  v8 = a1;
+  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: the absolute values of all weights are below %.8f and considered to be all 0's. weight tensor=%@", &v3, 0x20u);
 }
 
 - (void)addWeightsOfConvolutionLayer:.cold.9()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addWeightsOfFullyConnectedLayer:toNetwork:.cold.2()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addScalesAndBiasesOfGocUnit:tensorWithBiases:tensorWithScales:.cold.1()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addScalesAndBiasesOfGocUnit:tensorWithBiases:tensorWithScales:.cold.2()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addWeightsOfNormalizationLayer:.cold.2()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)buildProcedureWithLayer:.cold.1()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)buildProcedureWithLayer:.cold.2()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)buildProcedureWithLayer:.cold.3()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)buildProcedureWithLayer:.cold.4()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)buildProcedureWithRootLayer:aneSubgraphLayerList:liveInputs:liveOutputs:.cold.1()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

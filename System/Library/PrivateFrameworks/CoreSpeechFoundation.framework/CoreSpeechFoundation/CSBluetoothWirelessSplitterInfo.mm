@@ -12,28 +12,28 @@
 
 - (BOOL)_hasDeviceTemporaryPairedNotInContacts
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   if (self->_splitterEnabled)
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     v2 = self->_splitterDeviceList;
-    v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v3)
     {
-      v4 = *v10;
+      v4 = *v9;
       while (2)
       {
         for (i = 0; i != v3; ++i)
         {
-          if (*v10 != v4)
+          if (*v9 != v4)
           {
             objc_enumerationMutation(v2);
           }
 
-          v6 = *(*(&v9 + 1) + 8 * i);
+          v6 = *(*(&v8 + 1) + 8 * i);
           if ([v6 supportDoAP] & 1) == 0 && (objc_msgSend(v6, "isTemporaryPairedNotInContacts"))
           {
             LOBYTE(v3) = 1;
@@ -41,7 +41,7 @@
           }
         }
 
-        v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
         if (v3)
         {
           continue;
@@ -59,7 +59,6 @@ LABEL_14:
     LOBYTE(v3) = 0;
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -78,66 +77,59 @@ LABEL_14:
 
 - (unint64_t)splitterState
 {
-  v15 = *MEMORY[0x1E69E9840];
-  if (self->_splitterEnabled)
+  v14 = *MEMORY[0x1E69E9840];
+  if (!self->_splitterEnabled)
   {
-    v12 = 0u;
-    v13 = 0u;
-    v10 = 0u;
-    v11 = 0u;
-    v2 = self->_splitterDeviceList;
-    v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
-    if (!v3)
-    {
+    return 1;
+  }
 
-LABEL_16:
-      result = 2;
-      goto LABEL_17;
-    }
+  v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
+  v2 = self->_splitterDeviceList;
+  v3 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  if (!v3)
+  {
 
-    v4 = v3;
-    v5 = 0;
-    v6 = *v11;
-    do
+    return 2;
+  }
+
+  v4 = v3;
+  v5 = 0;
+  v6 = *v10;
+  do
+  {
+    for (i = 0; i != v4; ++i)
     {
-      for (i = 0; i != v4; ++i)
+      if (*v10 != v6)
       {
-        if (*v11 != v6)
-        {
-          objc_enumerationMutation(v2);
-        }
-
-        v5 += [*(*(&v10 + 1) + 8 * i) supportDoAP] & 1;
+        objc_enumerationMutation(v2);
       }
 
-      v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 += [*(*(&v9 + 1) + 8 * i) supportDoAP] & 1;
     }
 
-    while (v4);
+    v4 = [(NSMutableArray *)v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  }
 
-    if (v5 == 1)
-    {
-      result = 3;
-    }
+  while (v4);
 
-    else
-    {
-      result = 4;
-    }
-
-    if (!v5)
-    {
-      goto LABEL_16;
-    }
+  if (v5 == 1)
+  {
+    result = 3;
   }
 
   else
   {
-    result = 1;
+    result = 4;
   }
 
-LABEL_17:
-  v9 = *MEMORY[0x1E69E9840];
+  if (!v5)
+  {
+    return 2;
+  }
+
   return result;
 }
 
@@ -158,44 +150,43 @@ LABEL_17:
 
 - (id)description
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   string = [MEMORY[0x1E696AD60] string];
   [string appendFormat:@"[SplitterEnabled(%d)]", self->_splitterEnabled];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   v4 = self->_splitterDeviceList;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     v8 = 1;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         address = [v10 address];
         [string appendFormat:@"[Device%d(%@) DoAP(%d)]", v8, address, objc_msgSend(v10, "supportDoAP")];
 
         v8 = (v8 + 1);
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v6);
   }
 
   [string appendFormat:@"[SplitterState:%d]", -[CSBluetoothWirelessSplitterInfo splitterState](self, "splitterState")];
-  v12 = *MEMORY[0x1E69E9840];
 
   return string;
 }

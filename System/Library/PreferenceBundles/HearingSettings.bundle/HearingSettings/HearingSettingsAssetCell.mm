@@ -5,6 +5,7 @@
 - (void)configureConstraints;
 - (void)prepareForReuse;
 - (void)refreshCellContentsWithSpecifier:(id)specifier;
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated;
 - (void)updateDownloadLabel;
 - (void)updateDownloadProgress:(id)progress;
 @end
@@ -154,28 +155,29 @@
       downloadSize = [v6 downloadSize];
       [downloadSize floatValue];
       v10 = v9;
-      v16 = 0;
-      v17 = &v16;
-      v18 = 0x2020000000;
+      v17 = 0;
+      v18 = &v17;
+      v19 = 0x2020000000;
       v11 = off_574B8;
-      v19 = off_574B8;
+      v20 = off_574B8;
       if (!off_574B8)
       {
-        v15[0] = _NSConcreteStackBlock;
-        v15[1] = 3221225472;
-        v15[2] = sub_21798;
-        v15[3] = &unk_48A48;
-        v15[4] = &v16;
-        sub_21798(v15);
-        v11 = v17[3];
+        v16[0] = _NSConcreteStackBlock;
+        v16[1] = 3221225472;
+        v16[2] = sub_21798;
+        v16[3] = &unk_48A48;
+        v16[4] = &v17;
+        sub_21798(v16);
+        v11 = v18[3];
       }
 
-      _Block_object_dispose(&v16, 8);
+      _Block_object_dispose(&v17, 8);
       if (!v11)
       {
-        v14 = sub_2CF1C();
-        _Block_object_dispose(&v16, 8);
-        _Unwind_Resume(v14);
+        sub_2CF1C();
+        v15 = v14;
+        _Block_object_dispose(&v17, 8);
+        _Unwind_Resume(v15);
       }
 
       v12 = v11(v10);
@@ -244,6 +246,14 @@
       sub_2CF40(progressCopy, v6);
     }
   }
+}
+
+- (void)setEditing:(BOOL)editing animated:(BOOL)animated
+{
+  v5.receiver = self;
+  v5.super_class = HearingSettingsAssetCell;
+  [(HearingSettingsAssetCell *)&v5 setEditing:editing animated:animated];
+  [(HearingSettingsAssetCell *)self updateDownloadLabel];
 }
 
 - (id)accessibilityValue

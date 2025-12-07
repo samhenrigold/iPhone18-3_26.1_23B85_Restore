@@ -153,9 +153,9 @@
   representations2 = [(_UISticker *)self representations];
   firstObject = [representations2 firstObject];
   role = [firstObject role];
-  v8 = [role isEqualToString:@"com.apple.stickers.role.animated"];
+  isEqualToString = objc_msgSend_isEqualToString_(role);
 
-  return v8;
+  return isEqualToString;
 }
 
 @end

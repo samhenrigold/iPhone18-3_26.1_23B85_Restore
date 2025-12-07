@@ -90,7 +90,7 @@ void __77___CNCombineLatestObservable_observableAtIndex_didReceiveResult_forObse
   [v3 removeIndex:*(a1 + 56)];
 
   v4 = [*(a1 + 32) silentObservableIndexes];
-  LODWORD(v3) = (off_1EF43FF28)(&__block_literal_global_68, v4);
+  LODWORD(v3) = off_1EF43FF28(&__block_literal_global_68, v4);
 
   if (v3)
   {
@@ -120,7 +120,7 @@ void __71___CNCombineLatestObservable_observableAtIndexDidComplete_forObserver__
   [v5 removeIndex:*(a1 + 48)];
 
   v6 = [*(a1 + 32) activeObservableIndexes];
-  LODWORD(v5) = (off_1EF43FF28)(&__block_literal_global_68, v6);
+  LODWORD(v5) = off_1EF43FF28(&__block_literal_global_68, v6);
 
   if (v5)
   {

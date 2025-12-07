@@ -32,54 +32,55 @@
 void __63__MTSubscriptionEntitlementsObserver_initWithDelegate_onQueue___block_invoke(uint64_t a1)
 {
   os_unfair_lock_lock((*(a1 + 32) + 8));
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2050000000;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2050000000;
   v2 = getASDSubscriptionEntitlementsClass_softClass;
-  v22 = getASDSubscriptionEntitlementsClass_softClass;
+  v23 = getASDSubscriptionEntitlementsClass_softClass;
   if (!getASDSubscriptionEntitlementsClass_softClass)
   {
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __getASDSubscriptionEntitlementsClass_block_invoke;
-    v17 = &unk_1E856B060;
-    v18 = &v19;
-    __getASDSubscriptionEntitlementsClass_block_invoke(&v14);
-    v2 = v20[3];
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = __getASDSubscriptionEntitlementsClass_block_invoke;
+    v18 = &unk_1E856B060;
+    v19 = &v20;
+    __getASDSubscriptionEntitlementsClass_block_invoke(&v15);
+    v2 = v21[3];
   }
 
   v3 = v2;
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v20, 8);
   v4 = objc_opt_new();
   [*(a1 + 32) setEntitlements:v4];
 
   v5 = [MEMORY[0x1E696AD88] defaultCenter];
   v6 = *(a1 + 32);
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x2020000000;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x2020000000;
   v7 = getASDSubscriptionEntitlementsPodcastDidChangeNotificationSymbolLoc_ptr;
-  v22 = getASDSubscriptionEntitlementsPodcastDidChangeNotificationSymbolLoc_ptr;
+  v23 = getASDSubscriptionEntitlementsPodcastDidChangeNotificationSymbolLoc_ptr;
   if (!getASDSubscriptionEntitlementsPodcastDidChangeNotificationSymbolLoc_ptr)
   {
-    v14 = MEMORY[0x1E69E9820];
-    v15 = 3221225472;
-    v16 = __getASDSubscriptionEntitlementsPodcastDidChangeNotificationSymbolLoc_block_invoke;
-    v17 = &unk_1E856B060;
-    v18 = &v19;
+    v15 = MEMORY[0x1E69E9820];
+    v16 = 3221225472;
+    v17 = __getASDSubscriptionEntitlementsPodcastDidChangeNotificationSymbolLoc_block_invoke;
+    v18 = &unk_1E856B060;
+    v19 = &v20;
     v8 = AppStoreDaemonLibrary();
     v9 = dlsym(v8, "ASDSubscriptionEntitlementsPodcastDidChangeNotification");
-    *(v18[1] + 24) = v9;
-    getASDSubscriptionEntitlementsPodcastDidChangeNotificationSymbolLoc_ptr = *(v18[1] + 24);
-    v7 = v20[3];
+    *(v19[1] + 24) = v9;
+    getASDSubscriptionEntitlementsPodcastDidChangeNotificationSymbolLoc_ptr = *(v19[1] + 24);
+    v7 = v21[3];
   }
 
-  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(&v20, 8);
   if (!v7)
   {
-    v13 = __63__MTSubscriptionEntitlementsObserver_initWithDelegate_onQueue___block_invoke_cold_1();
-    _Block_object_dispose(&v19, 8);
-    _Unwind_Resume(v13);
+    __63__MTSubscriptionEntitlementsObserver_initWithDelegate_onQueue___block_invoke_cold_1();
+    v14 = v13;
+    _Block_object_dispose(&v20, 8);
+    _Unwind_Resume(v14);
   }
 
   v10 = *(a1 + 32);
@@ -113,11 +114,11 @@ void __60__MTSubscriptionEntitlementsObserver_entitlementsDidChange___block_invo
   return WeakRetained;
 }
 
-uint64_t __63__MTSubscriptionEntitlementsObserver_initWithDelegate_onQueue___block_invoke_cold_1()
+void __63__MTSubscriptionEntitlementsObserver_initWithDelegate_onQueue___block_invoke_cold_1()
 {
-  dlerror();
-  abort_report_np();
-  return __getASDSubscriptionEntitlementsClass_block_invoke_cold_1();
+  v0 = dlerror();
+  abort_report_np("%s", v0);
+  __getASDSubscriptionEntitlementsClass_block_invoke_cold_1();
 }
 
 @end

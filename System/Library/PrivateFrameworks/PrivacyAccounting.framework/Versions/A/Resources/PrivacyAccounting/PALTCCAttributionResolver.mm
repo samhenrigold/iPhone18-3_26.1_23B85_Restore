@@ -33,7 +33,7 @@
     v11 = accessor2;
     if (accessor2)
     {
-      [accessor2 auditToken];
+      objc_msgSend_auditToken(accessor2);
     }
 
     v13 = PAAuthenticatedClientIdentity();

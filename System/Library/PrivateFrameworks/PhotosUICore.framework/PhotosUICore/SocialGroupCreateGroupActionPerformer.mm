@@ -16,9 +16,9 @@
   v6 = sub_1A524C674();
   v8 = v7;
   type metadata accessor for PXActionParameterKey();
-  sub_1A3C38278(&unk_1EB1356B0);
-  sub_1A524C3E4();
-  return sub_1A48443F0(v6, v8, reference);
+  sub_1A3C38278(&unk_1EB1356B0, &unk_1A5377DC0);
+  v9 = sub_1A524C3E4();
+  return sub_1A48443F0(v6, v8, reference, v9);
 }
 
 @end

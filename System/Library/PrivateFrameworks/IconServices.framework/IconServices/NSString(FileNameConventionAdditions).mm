@@ -1,6 +1,6 @@
 @interface NSString(FileNameConventionAdditions)
-- (id)_IS_imageMetadataFromFileName;
-- (id)_IS_scaleableResourceMetadataFromFileName;
+- (ISResourceMetaData)_IS_imageMetadataFromFileName;
+- (ISResourceMetaData)_IS_scaleableResourceMetadataFromFileName;
 - (id)imageMetadataFromFileName;
 - (id)scaleableResourceMetadataFromFileName;
 @end
@@ -85,7 +85,7 @@
   return v2;
 }
 
-- (id)_IS_imageMetadataFromFileName
+- (ISResourceMetaData)_IS_imageMetadataFromFileName
 {
   v2 = objc_opt_new();
   if (_IS_imageMetadataFromFileName_onceToken != -1)
@@ -175,7 +175,7 @@ LABEL_22:
   return v24;
 }
 
-- (id)_IS_scaleableResourceMetadataFromFileName
+- (ISResourceMetaData)_IS_scaleableResourceMetadataFromFileName
 {
   v2 = objc_opt_new();
   if (_IS_scaleableResourceMetadataFromFileName_onceToken != -1)

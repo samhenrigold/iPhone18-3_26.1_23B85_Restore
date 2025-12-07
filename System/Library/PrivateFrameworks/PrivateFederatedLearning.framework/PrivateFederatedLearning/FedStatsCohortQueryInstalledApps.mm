@@ -37,19 +37,19 @@
 
 - (FedStatsCohortQueryInstalledApps)init
 {
-  v13[2] = *MEMORY[0x277D85DE8];
-  v11.receiver = self;
-  v11.super_class = FedStatsCohortQueryInstalledApps;
-  v2 = [(FedStatsCohortQueryInstalledApps *)&v11 init];
+  v12[2] = *MEMORY[0x277D85DE8];
+  v10.receiver = self;
+  v10.super_class = FedStatsCohortQueryInstalledApps;
+  v2 = [(FedStatsCohortQueryInstalledApps *)&v10 init];
   if (v2)
   {
-    v12[0] = @"media";
+    v11[0] = @"media";
     v3 = [MEMORY[0x277CBEB58] set];
-    v12[1] = @"phone";
-    v13[0] = v3;
+    v11[1] = @"phone";
+    v12[0] = v3;
     v4 = [MEMORY[0x277CBEB58] set];
-    v13[1] = v4;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
+    v12[1] = v4;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
     domainToInstalledApps = v2->_domainToInstalledApps;
     v2->_domainToInstalledApps = v5;
 
@@ -61,7 +61,6 @@
     v2->_numOfPhoneApps = [v8 count];
   }
 
-  v9 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -84,12 +83,12 @@
 
 - (void)resolveDomainToBundleIds
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v3 = +[_PFLLog framework];
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v12) = 0;
-    _os_log_impl(&dword_21A3C2000, v3, OS_LOG_TYPE_INFO, "FedStatsCohortQueryInstalledApps#resolveDomainToBundleIds start.", &v12, 2u);
+    LOWORD(v11) = 0;
+    _os_log_impl(&dword_21A3C2000, v3, OS_LOG_TYPE_INFO, "FedStatsCohortQueryInstalledApps#resolveDomainToBundleIds start.", &v11, 2u);
   }
 
   date = [MEMORY[0x277CBEAA8] date];
@@ -100,9 +99,9 @@
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     domainToInstalledApps = self->_domainToInstalledApps;
-    v12 = 138412290;
-    v13 = domainToInstalledApps;
-    _os_log_impl(&dword_21A3C2000, v5, OS_LOG_TYPE_INFO, "FedStatsCohortQueryInstalledApps#resolveDomainToBundleIds resolved domain to bundle ids: %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = domainToInstalledApps;
+    _os_log_impl(&dword_21A3C2000, v5, OS_LOG_TYPE_INFO, "FedStatsCohortQueryInstalledApps#resolveDomainToBundleIds resolved domain to bundle ids: %@", &v11, 0xCu);
   }
 
   date2 = [MEMORY[0x277CBEAA8] date];
@@ -112,17 +111,15 @@
   v10 = +[_PFLLog framework];
   if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
-    v12 = 134217984;
-    v13 = v9;
-    _os_log_impl(&dword_21A3C2000, v10, OS_LOG_TYPE_INFO, "FedStatsCohortQueryInstalledApps#resolveDomainToBundleIds complete in %fms", &v12, 0xCu);
+    v11 = 134217984;
+    v12 = v9;
+    _os_log_impl(&dword_21A3C2000, v10, OS_LOG_TYPE_INFO, "FedStatsCohortQueryInstalledApps#resolveDomainToBundleIds complete in %fms", &v11, 0xCu);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)lsAppRecords
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v3 = [MEMORY[0x277CC1E70] enumeratorWithOptions:0];
   nextObject = [v3 nextObject];
   if (nextObject)
@@ -130,8 +127,8 @@
     v6 = nextObject;
     v7 = 0x278252000uLL;
     *&v5 = 138412802;
-    v24 = v5;
-    v25 = v3;
+    v23 = v5;
+    v24 = v3;
     do
     {
       bundleIdentifier = [v6 bundleIdentifier];
@@ -161,16 +158,16 @@
           if (os_log_type_enabled(framework, OS_LOG_TYPE_DEBUG))
           {
             supportedIntentMediaCategories3 = [v6 supportedIntentMediaCategories];
-            *buf = v24;
-            v27 = bundleIdentifier;
-            v28 = 2112;
-            v29 = supportedIntents;
-            v30 = 2112;
-            v31 = supportedIntentMediaCategories3;
+            *buf = v23;
+            v26 = bundleIdentifier;
+            v27 = 2112;
+            v28 = supportedIntents;
+            v29 = 2112;
+            v30 = supportedIntentMediaCategories3;
             _os_log_debug_impl(&dword_21A3C2000, framework, OS_LOG_TYPE_DEBUG, "bundle record: %@ has supported intent %@ and supported media categories: %@", buf, 0x20u);
           }
 
-          v3 = v25;
+          v3 = v24;
         }
       }
 
@@ -180,7 +177,7 @@
         if (os_log_type_enabled(framework2, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v27 = v6;
+          v26 = v6;
           _os_log_error_impl(&dword_21A3C2000, framework2, OS_LOG_TYPE_ERROR, "Error enumerating app records; app record: %@ has nil bundle identifier", buf, 0xCu);
         }
       }
@@ -192,37 +189,33 @@
 
     while (nextObject2);
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)lsPluginKitExtensions
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   allObjects = [INTENT_MEDIA_SUPPORTED_INTENTS allObjects];
   v4 = *MEMORY[0x277CD3858];
   v5 = *MEMORY[0x277CD3828];
-  v13[0] = *MEMORY[0x277CCA0F8];
-  v13[1] = v5;
-  v14[0] = v4;
-  v14[1] = allObjects;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+  v12[0] = *MEMORY[0x277CCA0F8];
+  v12[1] = v5;
+  v13[0] = v4;
+  v13[1] = allObjects;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   defaultWorkspace = [MEMORY[0x277CC1E80] defaultWorkspace];
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __57__FedStatsCohortQueryInstalledApps_lsPluginKitExtensions__block_invoke;
-  v10[3] = &unk_278253538;
-  v11 = v6;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __57__FedStatsCohortQueryInstalledApps_lsPluginKitExtensions__block_invoke;
+  v9[3] = &unk_278253538;
+  v10 = v6;
   selfCopy = self;
   v8 = v6;
-  [defaultWorkspace enumeratePluginsMatchingQuery:v8 withBlock:v10];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [defaultWorkspace enumeratePluginsMatchingQuery:v8 withBlock:v9];
 }
 
 void __57__FedStatsCohortQueryInstalledApps_lsPluginKitExtensions__block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -256,14 +249,14 @@ void __57__FedStatsCohortQueryInstalledApps_lsPluginKitExtensions__block_invoke(
         v16 = +[_PFLLog framework];
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
-          v18 = [v5 bundleIdentifier];
-          v19 = 138412802;
-          v20 = v18;
-          v21 = 2112;
-          v22 = v11;
-          v23 = 2112;
-          v24 = v10;
-          _os_log_debug_impl(&dword_21A3C2000, v16, OS_LOG_TYPE_DEBUG, "pluginkit record: %@ has supported intent %@ and supported media categories: %@", &v19, 0x20u);
+          v17 = [v5 bundleIdentifier];
+          v18 = 138412802;
+          v19 = v17;
+          v20 = 2112;
+          v21 = v11;
+          v22 = 2112;
+          v23 = v10;
+          _os_log_debug_impl(&dword_21A3C2000, v16, OS_LOG_TYPE_DEBUG, "pluginkit record: %@ has supported intent %@ and supported media categories: %@", &v18, 0x20u);
         }
       }
     }
@@ -277,8 +270,6 @@ void __57__FedStatsCohortQueryInstalledApps_lsPluginKitExtensions__block_invoke(
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_isSupportedIntentMediaApp:(id)app :(id)a4 :(id)a5
@@ -359,25 +350,22 @@ uint64_t __64__FedStatsCohortQueryInstalledApps_applyFilteringForMediaDomain__bl
 
 void __57__FedStatsCohortQueryInstalledApps_lsPluginKitExtensions__block_invoke_cold_1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = [a2 localizedDescription];
-  v7 = 138412546;
-  v8 = v4;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_21A3C2000, a3, OS_LOG_TYPE_ERROR, "Error enumerating plugins; matching query: %@, error: %@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138412546;
+  v7 = v4;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_21A3C2000, a3, OS_LOG_TYPE_ERROR, "Error enumerating plugins; matching query: %@, error: %@", &v6, 0x16u);
 }
 
 void __57__FedStatsCohortQueryInstalledApps_lsPluginKitExtensions__block_invoke_cold_2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_21A3C2000, a2, OS_LOG_TYPE_ERROR, "Error enumerating plugins; missing containing bundle of plugin: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_21A3C2000, a2, OS_LOG_TYPE_ERROR, "Error enumerating plugins; missing containing bundle of plugin: %@", &v2, 0xCu);
 }
 
 @end

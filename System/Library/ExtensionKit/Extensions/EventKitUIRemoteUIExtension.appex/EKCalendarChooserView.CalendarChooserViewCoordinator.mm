@@ -18,14 +18,20 @@
   v7 = _Block_copy(completion);
   if (v7)
   {
-    *(swift_allocObject() + 16) = v7;
+    v8 = swift_allocObject();
+    *(v8 + 16) = v7;
     v7 = sub_1000107F0;
+  }
+
+  else
+  {
+    v8 = 0;
   }
 
   controllerCopy = controller;
   selfCopy = self;
   sub_1000104C0(controllerCopy);
-  sub_100002EB0(v7);
+  sub_100002EB0(v7, v8);
 }
 
 - (_TtCV27EventKitUIRemoteUIExtension21EKCalendarChooserView30CalendarChooserViewCoordinator)init

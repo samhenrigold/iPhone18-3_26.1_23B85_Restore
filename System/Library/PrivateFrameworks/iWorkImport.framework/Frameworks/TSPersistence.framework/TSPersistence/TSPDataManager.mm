@@ -4,6 +4,7 @@
 + (void)readWithURL:(id)l handler:(id)handler;
 - (BOOL)attemptToMaterializeData:(id)data dataURL:(id)l dataURLType:(int64_t)type;
 - (BOOL)hasIncompleteDataIncludeUnmaterialized:(BOOL)unmaterialized includeMissing:(BOOL)missing includeExternalReference:(BOOL)reference;
+- (BOOL)linkOrCloneTemporaryURL:(id)l fromURL:(id)rL canLink:(BOOL)link;
 - (BOOL)migrateDataToTemporaryStorageFromPackage:(id)package;
 - (BOOL)prepareSaveWithOldPackage:(id)package saveOperationState:(id)state;
 - (BOOL)prepareTemporaryDataStorageForData:(id)data temporaryDataStorage:(id *)storage;
@@ -18,20 +19,26 @@
 - (TSPDataManager)initWithContext:(id)context;
 - (TSPObjectContext)context;
 - (id).cxx_construct;
+- (id)addNewDataForStorage:(id)storage digest:(id)digest hasValidatedDigestMatch:(BOOL)match filename:(id)filename;
 - (id)copyData:(id)data;
 - (id)dataForDigest:(id)digest;
 - (id)dataForDigestImpl:(id)impl documentResourceInfo:(id)info skipDocumentResourcesLookup:(BOOL)lookup expectedLength:(unint64_t)length accessorBlock:(id)block;
 - (id)dataForDocumentResourceInfo:(id)info fromFileURL:(id)l;
+- (id)dataForExistingData:(id)data digest:(id)digest hasValidatedDigestMatch:(BOOL)match filename:(id)filename temporaryDataStorageURL:(id)l;
 - (id)dataForIdentifier:(int64_t)identifier;
 - (id)dataForIdentifierImpl:(int64_t)impl;
 - (id)dataFromExternalReferenceURL:(id)l filename:(id)filename useFileCoordination:(BOOL)coordination;
 - (id)dataFromFileURL:(id)l filename:(id)filename useFileCoordination:(BOOL)coordination;
 - (id)dataFromNSData:(id)data filename:(id)filename;
 - (id)dataFromReadChannel:(id)channel filename:(id)filename;
+- (id)dataFromReadChannel:(id)channel filename:(id)filename dataURL:(id)l canLink:(BOOL)link;
+- (id)dataFromURL:(id)l filename:(id)filename useFileCoordination:(BOOL)coordination;
 - (id)dataOrNilForIdentifier:(int64_t)identifier;
 - (id)dataWithStorage:(id)storage digest:(id)digest hasValidatedDigestMatch:(BOOL)match filename:(id)filename skipDocumentResourcesLookup:(BOOL)lookup accessorBlock:(id)block;
+- (id)dataWithTemporaryDataStorageURL:(id)l digest:(id)digest hasValidatedDigestMatch:(BOOL)match filename:(id)filename;
 - (id)documentResourceDataForInfo:(id)info withStorage:(id)storage filename:(id)filename;
 - (id)preferredFilenameForDocumentResourceInfo:(id)info;
+- (id)remoteDataWithURL:(id)l digest:(id)digest filename:(id)filename length:(unint64_t)length canDownload:(BOOL)download downloadPriority:(int64_t)priority uploadStatus:(int64_t)status modificationDate:(id)self0;
 - (id)temporaryDataStorageURLForFilename:(id)filename;
 - (id)unmaterializedRemoteDataIncludingExpiredUploads:(BOOL)uploads includingDataNotInDocument:(BOOL)document;
 - (int)openTemporaryURL:(id)l;
@@ -40,6 +47,7 @@
 - (void)coordinateReadingNewFileURL:(id)l byAccessor:(id)accessor;
 - (void)dataForDigest:(id)digest queue:(id)queue completion:(id)completion;
 - (void)dataFromFileURL:(id)l filename:(id)filename context:(id)context completionQueue:(id)queue completion:(id)completion;
+- (void)dataFromReadChannel:(id)channel filename:(id)filename dataURL:(id)l canLink:(BOOL)link completion:(id)completion;
 - (void)didSaveWithSaveOperationState:(id)state;
 - (void)enumerateAllDataUsingBlock:(id)block;
 - (void)findExistingDataForReadChannel:(id)channel dataURL:(id)l dataURLType:(int64_t)type readHandler:(id)handler completion:(id)completion;
@@ -116,6 +124,30 @@
 
     objc_msgSend_logBacktraceThrottled(v11, v9, v10);
   }
+}
+
+- (id)dataFromURL:(id)l filename:(id)filename useFileCoordination:(BOOL)coordination
+{
+  coordinationCopy = coordination;
+  lCopy = l;
+  filenameCopy = filename;
+  if (objc_msgSend_isFileURL(lCopy, v10, v11))
+  {
+    v13 = objc_msgSend_dataFromFileURL_filename_useFileCoordination_(self, v12, lCopy, filenameCopy, coordinationCopy);
+  }
+
+  else
+  {
+    v14 = MEMORY[0x277D81150];
+    v15 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSPDataManager dataFromURL:filename:useFileCoordination:]");
+    v17 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v16, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v14, v18, v15, v17, 162, 0, "Unsupported URL scheme");
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v19, v20);
+    v13 = 0;
+  }
+
+  return v13;
 }
 
 - (id)dataFromFileURL:(id)l filename:(id)filename useFileCoordination:(BOOL)coordination
@@ -217,6 +249,105 @@ LABEL_5:
   v4 = objc_msgSend_dataFromReadChannel_filename_dataURL_canLink_(self, a2, channel, filename, 0, 0);
 
   return v4;
+}
+
+- (id)dataFromReadChannel:(id)channel filename:(id)filename dataURL:(id)l canLink:(BOOL)link
+{
+  linkCopy = link;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x3032000000;
+  v24 = sub_2769C7DC0;
+  v25 = sub_2769C7DD0;
+  v26 = 0;
+  lCopy = l;
+  filenameCopy = filename;
+  channelCopy = channel;
+  v13 = dispatch_semaphore_create(0);
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v18[2] = sub_2769C8518;
+  v18[3] = &unk_27A6E33E0;
+  v20 = &v21;
+  v14 = v13;
+  v19 = v14;
+  objc_msgSend_dataFromReadChannel_filename_dataURL_canLink_completion_(self, v15, channelCopy, filenameCopy, lCopy, linkCopy, v18);
+
+  dispatch_semaphore_wait(v14, 0xFFFFFFFFFFFFFFFFLL);
+  v16 = v22[5];
+
+  _Block_object_dispose(&v21, 8);
+
+  return v16;
+}
+
+- (void)dataFromReadChannel:(id)channel filename:(id)filename dataURL:(id)l canLink:(BOOL)link completion:(id)completion
+{
+  linkCopy = link;
+  channelCopy = channel;
+  filenameCopy = filename;
+  lCopy = l;
+  completionCopy = completion;
+  objc_msgSend_willCreateData(self, v16, v17);
+  v19 = objc_msgSend_temporaryDataStorageURLForFilename_(self, v18, filenameCopy);
+  aBlock[0] = MEMORY[0x277D85DD0];
+  aBlock[1] = 3221225472;
+  aBlock[2] = sub_2769C8830;
+  aBlock[3] = &unk_27A6E3408;
+  aBlock[4] = self;
+  v20 = filenameCopy;
+  v34 = v20;
+  v21 = v19;
+  v35 = v21;
+  v22 = completionCopy;
+  v36 = v22;
+  v24 = _Block_copy(aBlock);
+  if (lCopy && objc_msgSend_linkOrCloneTemporaryURL_fromURL_canLink_(self, v23, v21, lCopy, linkCopy))
+  {
+    v30[0] = MEMORY[0x277D85DD0];
+    v30[1] = 3221225472;
+    v30[2] = sub_2769C88FC;
+    v30[3] = &unk_27A6E3430;
+    v30[4] = self;
+    v31 = v21;
+    v32 = v24;
+    objc_msgSend_findExistingDataForReadChannel_dataURL_dataURLType_readHandler_completion_(self, v25, channelCopy, v31, 2, 0, v30);
+
+    v26 = v31;
+  }
+
+  else
+  {
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = sub_2769C89A8;
+    v28[3] = &unk_27A6E3458;
+    v29 = v24;
+    objc_msgSend_findExistingDataForReadChannel_dataURL_dataURLType_temporaryDataStorageURL_keepTemporaryFileOnSuccess_completion_(self, v27, channelCopy, lCopy, 1, v21, 0, v28);
+    v26 = v29;
+  }
+}
+
+- (id)dataForExistingData:(id)data digest:(id)digest hasValidatedDigestMatch:(BOOL)match filename:(id)filename temporaryDataStorageURL:(id)l
+{
+  matchCopy = match;
+  dataCopy = data;
+  digestCopy = digest;
+  filenameCopy = filename;
+  lCopy = l;
+  if (dataCopy)
+  {
+    hasValidatedDigestMatch_filename = dataCopy;
+  }
+
+  else
+  {
+    v17 = [TSPTemporaryDataStorage alloc];
+    v19 = objc_msgSend_initWithTemporaryDataStorageURL_decryptionInfo_(v17, v18, lCopy, 0);
+    hasValidatedDigestMatch_filename = objc_msgSend_addNewDataForStorage_digest_hasValidatedDigestMatch_filename_(self, v20, v19, digestCopy, matchCopy, filenameCopy);
+  }
+
+  return hasValidatedDigestMatch_filename;
 }
 
 - (void)findExistingDataForReadChannel:(id)channel dataURL:(id)l dataURLType:(int64_t)type temporaryDataStorageURL:(id)rL keepTemporaryFileOnSuccess:(BOOL)success completion:(id)completion
@@ -605,33 +736,32 @@ LABEL_5:
   return v18;
 }
 
+- (id)remoteDataWithURL:(id)l digest:(id)digest filename:(id)filename length:(unint64_t)length canDownload:(BOOL)download downloadPriority:(int64_t)priority uploadStatus:(int64_t)status modificationDate:(id)self0
+{
+  downloadCopy = download;
+  lCopy = l;
+  digestCopy = digest;
+  filenameCopy = filename;
+  dateCopy = date;
+  WeakRetained = objc_loadWeakRetained(&self->_context);
+  v21 = objc_msgSend_documentPackage(WeakRetained, v19, v20);
+  v24 = objc_msgSend_decryptionKey(v21, v22, v23);
+
+  v25 = [TSPRemoteDataStorage alloc];
+  canDownload_downloadPriority_uploadStatus_modificationDate = objc_msgSend_initWithRemoteURL_length_encryptionKey_canDownload_downloadPriority_uploadStatus_modificationDate_(v25, v26, lCopy, length, v24, downloadCopy, priority, status, dateCopy);
+  v29 = objc_msgSend_dataWithStorage_digest_hasValidatedDigestMatch_filename_skipDocumentResourcesLookup_accessorBlock_(self, v28, canDownload_downloadPriority_uploadStatus_modificationDate, digestCopy, 0, filenameCopy, 1, 0);
+  objc_msgSend_setDelegate_(canDownload_downloadPriority_uploadStatus_modificationDate, v30, v29);
+
+  return v29;
+}
+
 - (id)copyData:(id)data
 {
   dataCopy = data;
   v7 = objc_msgSend_storage(dataCopy, v5, v6);
   v10 = v7;
-  if (!v7)
+  if (v7 && ((objc_msgSend_readOnly(v7, v8, v9) & 1) != 0 || (objc_msgSend_context(dataCopy, v11, v12), (v15 = objc_claimAutoreleasedReturnValue()) != 0) && (objc_msgSend_context(dataCopy, v13, v14), v16 = objc_claimAutoreleasedReturnValue(), objc_msgSend_context(self, v17, v18), v19 = objc_claimAutoreleasedReturnValue(), v19, v16, v15, v16 != v19)))
   {
-    goto LABEL_8;
-  }
-
-  if (objc_msgSend_readOnly(v7, v8, v9))
-  {
-    goto LABEL_5;
-  }
-
-  v15 = objc_msgSend_context(dataCopy, v11, v12);
-  if (!v15)
-  {
-    goto LABEL_8;
-  }
-
-  v16 = objc_msgSend_context(dataCopy, v13, v14);
-  v19 = objc_msgSend_context(self, v17, v18);
-
-  if (v16 != v19)
-  {
-LABEL_5:
     v38 = 0;
     v39 = &v38;
     v40 = 0x3032000000;
@@ -673,7 +803,6 @@ LABEL_5:
 
   else
   {
-LABEL_8:
     v28 = dataCopy;
   }
 
@@ -793,9 +922,9 @@ LABEL_8:
   v9 = dataCopy;
   if (!storage)
   {
-    TSUSetCrashReporterInfo();
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unexpected NULL argument.", "[TSPDataManager prepareTemporaryDataStorageForData:temporaryDataStorage:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm", 768);
     v37 = MEMORY[0x277D81150];
-    v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "[TSPDataManager prepareTemporaryDataStorageForData:temporaryDataStorage:]", "[TSPDataManager prepareTemporaryDataStorageForData:temporaryDataStorage:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm", 768);
+    v39 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v38, "[TSPDataManager prepareTemporaryDataStorageForData:temporaryDataStorage:]");
     v41 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v40, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm");
     objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v37, v42, v39, v41, 768, 1, "Unexpected NULL argument.");
 
@@ -1294,38 +1423,38 @@ LABEL_71:
 
 - (void)enumerateAllDataUsingBlock:(id)block
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   blockCopy = block;
   if (blockCopy)
   {
-    v18 = 0;
+    v17 = 0;
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v7 = objc_msgSend_allData(self, v4, v5, 0);
-    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v14, v19, 16);
+    v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v8, &v13, v18, 16);
     if (v9)
     {
-      v10 = *v15;
+      v10 = *v14;
 LABEL_4:
       v11 = 0;
       while (1)
       {
-        if (*v15 != v10)
+        if (*v14 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        blockCopy[2](blockCopy, *(*(&v14 + 1) + 8 * v11), &v18);
-        if (v18)
+        blockCopy[2](blockCopy, *(*(&v13 + 1) + 8 * v11), &v17);
+        if (v17)
         {
           break;
         }
 
         if (v9 == ++v11)
         {
-          v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v12, &v14, v19, 16);
+          v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(v7, v12, &v13, v18, 16);
           if (v9)
           {
             goto LABEL_4;
@@ -1336,8 +1465,6 @@ LABEL_4:
       }
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)allData
@@ -1587,6 +1714,35 @@ LABEL_7:
   return v12;
 }
 
+- (BOOL)linkOrCloneTemporaryURL:(id)l fromURL:(id)rL canLink:(BOOL)link
+{
+  linkCopy = link;
+  lCopy = l;
+  rLCopy = rL;
+  v11 = rLCopy;
+  if (lCopy)
+  {
+    if ((objc_msgSend_isFileURL(rLCopy, v9, v10) & 1) == 0)
+    {
+      v13 = MEMORY[0x277D81150];
+      v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSPDataManager linkOrCloneTemporaryURL:fromURL:canLink:]");
+      v16 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v13, v17, v14, v16, 1259, 0, "Can't link or clone to non-file URL");
+
+      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v18, v19);
+    }
+
+    canLink_error = objc_msgSend_linkOrCloneItemAtURL_toURL_canLink_error_(TSPFileManager, v12, v11, lCopy, linkCopy, 0);
+  }
+
+  else
+  {
+    canLink_error = 0;
+  }
+
+  return canLink_error;
+}
+
 - (id)temporaryDataStorageURLForFilename:(id)filename
 {
   filenameCopy = filename;
@@ -1620,6 +1776,36 @@ LABEL_7:
   _Block_object_dispose(&v17, 8);
 
   return v12;
+}
+
+- (id)dataWithTemporaryDataStorageURL:(id)l digest:(id)digest hasValidatedDigestMatch:(BOOL)match filename:(id)filename
+{
+  matchCopy = match;
+  lCopy = l;
+  digestCopy = digest;
+  filenameCopy = filename;
+  v13 = [TSPTemporaryDataStorage alloc];
+  v15 = objc_msgSend_initWithTemporaryDataStorageURL_decryptionInfo_(v13, v14, lCopy, 0);
+  v28 = 0;
+  v29 = &v28;
+  v30 = 0x2020000000;
+  v31 = 0;
+  v22 = MEMORY[0x277D85DD0];
+  v23 = 3221225472;
+  v24 = sub_2769CEDD4;
+  v25 = &unk_27A6E34F8;
+  v27 = &v28;
+  v16 = lCopy;
+  v26 = v16;
+  v20 = objc_msgSend_dataWithStorage_digest_hasValidatedDigestMatch_filename_skipDocumentResourcesLookup_accessorBlock_(self, v17, v15, digestCopy, matchCopy, filenameCopy, 0, &v22);
+  if (*(v29 + 24) == 1)
+  {
+    objc_msgSend_leakTemporaryFile(v15, v18, v19, v22, v23, v24, v25);
+  }
+
+  _Block_object_dispose(&v28, 8);
+
+  return v20;
 }
 
 - (id)dataFromExternalReferenceURL:(id)l filename:(id)filename useFileCoordination:(BOOL)coordination
@@ -2183,15 +2369,15 @@ LABEL_29:
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
         v88 = objc_opt_class();
-        v97 = NSStringFromClass(v88);
-        TSUSetCrashReporterInfo();
+        v89 = NSStringFromClass(v88);
+        TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Unexpected temporary data storage URL class: %{public}@", "[TSPDataManager attemptToMaterializeData:dataURL:dataURLType:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm", 1691, v89);
 
-        v89 = MEMORY[0x277D81150];
-        v91 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v90, "[TSPDataManager attemptToMaterializeData:dataURL:dataURLType:]", "[TSPDataManager attemptToMaterializeData:dataURL:dataURLType:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm", 1691, v97);
-        v93 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v92, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm");
-        v94 = objc_opt_class();
-        v95 = NSStringFromClass(v94);
-        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v89, v96, v91, v93, 1691, 1, "Unexpected temporary data storage URL class: %{public}@", v95);
+        v90 = MEMORY[0x277D81150];
+        v92 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v91, "[TSPDataManager attemptToMaterializeData:dataURL:dataURLType:]");
+        v94 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v93, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm");
+        v95 = objc_opt_class();
+        v96 = NSStringFromClass(v95);
+        objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v90, v97, v92, v94, 1691, 1, "Unexpected temporary data storage URL class: %{public}@", v96);
 
         TSUCrashBreakpoint();
         abort();
@@ -2228,29 +2414,69 @@ LABEL_30:
   return v5 & 1;
 }
 
+- (id)addNewDataForStorage:(id)storage digest:(id)digest hasValidatedDigestMatch:(BOOL)match filename:(id)filename
+{
+  matchCopy = match;
+  storageCopy = storage;
+  digestCopy = digest;
+  filenameCopy = filename;
+  if (!objc_msgSend_length(filenameCopy, v13, v14))
+  {
+    v17 = MEMORY[0x277D81150];
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v15, "[TSPDataManager addNewDataForStorage:digest:hasValidatedDigestMatch:filename:]");
+    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v21, v18, v20, 1725, 0, "Unexpected empty filename for storage: %@", storageCopy);
+
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v22, v23);
+    v24 = @"data";
+
+    filenameCopy = v24;
+  }
+
+  v25 = objc_msgSend_date(MEMORY[0x277CBEAA8], v15, v16);
+  v26 = [TSPData alloc];
+  hasValidatedDigestMatch_filename_lastModificationDate_storage_manager = objc_msgSend_initWithIdentifier_digest_hasValidatedDigestMatch_filename_lastModificationDate_storage_manager_(v26, v27, self->_nextNewIdentifier, digestCopy, matchCopy, filenameCopy, v25, storageCopy, self);
+  v29 = objc_autoreleasePoolPush();
+  objc_msgSend_addData_(self, v30, hasValidatedDigestMatch_filename_lastModificationDate_storage_manager);
+  objc_autoreleasePoolPop(v29);
+  ++self->_nextNewIdentifier;
+  v33 = objc_msgSend_context(self, v31, v32);
+  v34 = UnsafePointer();
+  sub_276A19D24(v37, matchCopy, v25, v34, 0, 0);
+  if (v33)
+  {
+    objc_msgSend_setProperties_forData_(v33, v35, v37, hasValidatedDigestMatch_filename_lastModificationDate_storage_manager);
+  }
+
+  else
+  {
+  }
+
+  return hasValidatedDigestMatch_filename_lastModificationDate_storage_manager;
+}
+
 - (void)addData:(id)data
 {
-  v70 = *MEMORY[0x277D85DE8];
+  v69 = *MEMORY[0x277D85DE8];
   dataCopy = data;
-  v67[0] = objc_msgSend_identifier(dataCopy, v5, v6);
-  v7 = sub_2769ABC64(&self->_identifierToDataMap.__table_.__bucket_list_.__ptr_, v67);
+  v65 = objc_msgSend_identifier(dataCopy, v5, v6);
+  v7 = sub_2769ABC64(&self->_identifierToDataMap.__table_.__bucket_list_.__ptr_, &v65);
   if (v7 && (WeakRetained = objc_loadWeakRetained(v7 + 3), (v11 = WeakRetained) != 0))
   {
     if (WeakRetained != dataCopy)
     {
-      v12 = v67[0];
+      v12 = v65;
       v13 = objc_msgSend_storage(dataCopy, v9, v10);
-      v65 = objc_msgSend_storage(v11, v14, v15);
-      v64 = v12;
-      TSUSetCrashReporterInfo();
+      v16 = objc_msgSend_storage(v11, v14, v15);
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Should not have two TSPData instances with the same identifier %llu: %@ (%@) and %@ (%@).", "[TSPDataManager addData:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm", 1751, v12, dataCopy, v13, v11, v16);
 
-      v16 = MEMORY[0x277D81150];
-      v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v17, "[TSPDataManager addData:]", "[TSPDataManager addData:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm", 1751, v64, dataCopy, v13, v11, v65);
-      v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm");
-      v21 = v67[0];
-      v24 = objc_msgSend_storage(dataCopy, v22, v23);
-      v27 = objc_msgSend_storage(v11, v25, v26);
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v16, v28, v18, v20, 1751, 1, "Should not have two TSPData instances with the same identifier %llu: %@ (%@) and %@ (%@).", v21, dataCopy, v24, v11, v27);
+      v17 = MEMORY[0x277D81150];
+      v19 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v18, "[TSPDataManager addData:]");
+      v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v20, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm");
+      v22 = v65;
+      v25 = objc_msgSend_storage(dataCopy, v23, v24);
+      v28 = objc_msgSend_storage(v11, v26, v27);
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v29, v19, v21, 1751, 1, "Should not have two TSPData instances with the same identifier %llu: %@ (%@) and %@ (%@).", v22, dataCopy, v25, v11, v28);
 
       TSUCrashBreakpoint();
       goto LABEL_5;
@@ -2259,60 +2485,60 @@ LABEL_30:
 
   else
   {
-    *&v68 = v67;
-    v29 = sub_2769D2AB0(&self->_identifierToDataMap.__table_.__bucket_list_.__ptr_, v67);
-    objc_storeWeak(v29 + 3, dataCopy);
+    *&v67 = &v65;
+    v30 = sub_2769D2AB0(&self->_identifierToDataMap.__table_.__bucket_list_.__ptr_, &v65, &unk_276C11CA0, &v67);
+    objc_storeWeak(v30 + 3, dataCopy);
     v11 = 0;
   }
 
-  v68 = 0uLL;
-  v69 = 0;
-  v30 = objc_msgSend_digest(dataCopy, v9, v10);
-  v33 = objc_msgSend_digestData(v30, v31, v32);
-  v34 = *v33;
-  v69 = *(v33 + 16);
-  v68 = v34;
+  v67 = 0uLL;
+  v68 = 0;
+  v31 = objc_msgSend_digest(dataCopy, v9, v10);
+  v34 = objc_msgSend_digestData(v31, v32, v33);
+  v35 = *v34;
+  v68 = *(v34 + 16);
+  v67 = v35;
 
-  v35 = sub_2769D299C(&self->_digestToDataMap.__table_.__bucket_list_.__ptr_, &v68);
-  if (!v35)
+  v36 = sub_2769D299C(&self->_digestToDataMap.__table_.__bucket_list_.__ptr_, &v67);
+  if (!v36)
   {
 
     goto LABEL_12;
   }
 
-  v36 = objc_loadWeakRetained(v35 + 5);
+  v37 = objc_loadWeakRetained(v36 + 5);
 
-  if (!v36)
+  if (!v37)
   {
 LABEL_12:
-    v67[2] = &v68;
-    v40 = sub_2769D2D0C(&self->_digestToDataMap.__table_.__bucket_list_.__ptr_, &v68);
-    objc_storeWeak(v40 + 5, dataCopy);
-    v39 = 0;
+    v66 = &v67;
+    v41 = sub_2769D2D0C(&self->_digestToDataMap.__table_.__bucket_list_.__ptr_, &v67, &unk_276C11CA0, &v66);
+    objc_storeWeak(v41 + 5, dataCopy);
+    v40 = 0;
     goto LABEL_13;
   }
 
-  if (v36 != dataCopy)
+  if (v37 != dataCopy)
   {
-    v43 = objc_msgSend_digestString(dataCopy, v37, v38);
+    v43 = objc_msgSend_digestString(dataCopy, v38, v39);
     v46 = objc_msgSend_storage(dataCopy, v44, v45);
-    v66 = objc_msgSend_storage(v36, v47, v48);
-    TSUSetCrashReporterInfo();
+    v49 = objc_msgSend_storage(v37, v47, v48);
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Should not have two TSPData instances with the same digest %{public}@: %@ (%@) and %@ (%@).", "[TSPDataManager addData:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm", 1760, v43, dataCopy, v46, v37, v49);
 
-    v49 = MEMORY[0x277D81150];
-    v51 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v50, "[TSPDataManager addData:]", "[TSPDataManager addData:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm", 1760, v43, dataCopy, v46, v36, v66);
-    v53 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v52, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm");
-    v56 = objc_msgSend_digestString(dataCopy, v54, v55);
-    v59 = objc_msgSend_storage(dataCopy, v57, v58);
-    v62 = objc_msgSend_storage(v36, v60, v61);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v49, v63, v51, v53, 1760, 1, "Should not have two TSPData instances with the same digest %{public}@: %@ (%@) and %@ (%@).", v56, dataCopy, v59, v36, v62);
+    v50 = MEMORY[0x277D81150];
+    v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v51, "[TSPDataManager addData:]");
+    v54 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPDataManager.mm");
+    v57 = objc_msgSend_digestString(dataCopy, v55, v56);
+    v60 = objc_msgSend_storage(dataCopy, v58, v59);
+    v63 = objc_msgSend_storage(v37, v61, v62);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v50, v64, v52, v54, 1760, 1, "Should not have two TSPData instances with the same digest %{public}@: %@ (%@) and %@ (%@).", v57, dataCopy, v60, v37, v63);
 
     TSUCrashBreakpoint();
 LABEL_5:
     abort();
   }
 
-  v39 = v36;
+  v40 = v37;
 LABEL_13:
   if (self->_hasExternalReferences)
   {
@@ -2321,12 +2547,10 @@ LABEL_13:
 
   else
   {
-    v41 = objc_msgSend_storage(dataCopy, v37, v38);
+    v42 = objc_msgSend_storage(dataCopy, v38, v39);
     objc_opt_class();
     self->_hasExternalReferences = objc_opt_isKindOfClass() & 1;
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (NSSet)dataWarnings

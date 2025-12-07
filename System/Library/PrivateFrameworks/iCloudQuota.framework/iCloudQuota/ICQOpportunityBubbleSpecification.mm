@@ -7,106 +7,104 @@
 
 - (ICQOpportunityBubbleSpecification)initWithOpportunityBubble:(id)bubble andOpportunitySheet:(id)sheet
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   bubbleCopy = bubble;
   sheetCopy = sheet;
-  v27.receiver = self;
-  v27.super_class = ICQOpportunityBubbleSpecification;
-  v8 = [(ICQOpportunityBubbleSpecification *)&v27 init];
+  v25.receiver = self;
+  v25.super_class = ICQOpportunityBubbleSpecification;
+  v8 = [(ICQOpportunityBubbleSpecification *)&v25 init];
   if (!v8)
   {
 LABEL_10:
-    v20 = v8;
+    v19 = v8;
     goto LABEL_16;
   }
 
-  v9 = [bubbleCopy objectForKeyedSubscript:@"appId"];
+  v9 = objc_msgSend_objectForKeyedSubscript_(bubbleCopy);
   appId = v8->_appId;
   v8->_appId = v9;
 
-  v11 = v8->_appId;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v12 = [bubbleCopy objectForKeyedSubscript:@"opportunityBubbleDetails"];
+    v11 = objc_msgSend_objectForKeyedSubscript_(bubbleCopy);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v13 = [(ICQOpportunityFlowSpecification *)[ICQOpportunityBubbleDetailsSpecification alloc] initWithServerDictionary:v12];
+      v12 = [(ICQOpportunityFlowSpecification *)[ICQOpportunityBubbleDetailsSpecification alloc] initWithServerDictionary:v11];
       bubbleDetails = v8->_bubbleDetails;
-      v8->_bubbleDetails = v13;
+      v8->_bubbleDetails = v12;
     }
 
     if (sheetCopy)
     {
-      v15 = [sheetCopy objectForKeyedSubscript:@"opportunitySheetDetails"];
+      v14 = objc_msgSend_objectForKeyedSubscript_(sheetCopy);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v16 = [(ICQOpportunityFlowSpecification *)[ICQOpportunitySheetDetailsSpecification alloc] initWithServerDictionary:v15];
+        v15 = [(ICQOpportunityFlowSpecification *)[ICQOpportunitySheetDetailsSpecification alloc] initWithServerDictionary:v14];
         sheetDetails = v8->_sheetDetails;
-        v8->_sheetDetails = v16;
+        v8->_sheetDetails = v15;
       }
     }
 
-    v18 = [[_ICQOpportunityBubbleReportingSpecification alloc] initWithServerDictionary:bubbleCopy];
+    v17 = [[_ICQOpportunityBubbleReportingSpecification alloc] initWithServerDictionary:bubbleCopy];
     reportingDetails = v8->_reportingDetails;
-    v8->_reportingDetails = v18;
+    v8->_reportingDetails = v17;
 
     goto LABEL_10;
   }
 
   if (v8->_appId)
   {
-    v21 = _ICQGetLogSystem();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+    v20 = _ICQGetLogSystem();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = objc_opt_class();
-      Name = class_getName(v22);
-      v24 = v8->_appId;
+      v21 = objc_opt_class();
+      Name = class_getName(v21);
+      v23 = v8->_appId;
       *buf = 136315394;
-      v29 = Name;
-      v30 = 2112;
-      v31 = v24;
-      _os_log_impl(&dword_275572000, v21, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
+      v27 = Name;
+      v28 = 2112;
+      v29 = v23;
+      _os_log_impl(&dword_275572000, v20, OS_LOG_TYPE_DEFAULT, "GUARD_OBJECT_CLASS: expected %s, got %@", buf, 0x16u);
     }
   }
 
-  v20 = 0;
+  v19 = 0;
 LABEL_16:
 
-  v25 = *MEMORY[0x277D85DE8];
-  return v20;
+  return v19;
 }
 
 - (id)serverUIURL
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   bubbleDetails = [(ICQOpportunityBubbleSpecification *)self bubbleDetails];
 
   if (bubbleDetails)
   {
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     bubbleDetails2 = [(ICQOpportunityBubbleSpecification *)self bubbleDetails];
     actions = [bubbleDetails2 actions];
 
-    bubbleDetails = [actions countByEnumeratingWithState:&v12 objects:v16 count:16];
+    bubbleDetails = [actions countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (bubbleDetails)
     {
-      v6 = *v13;
+      v6 = *v12;
       while (2)
       {
         for (i = 0; i != bubbleDetails; i = i + 1)
         {
-          if (*v13 != v6)
+          if (*v12 != v6)
           {
             objc_enumerationMutation(actions);
           }
 
-          v8 = *(*(&v12 + 1) + 8 * i);
+          v8 = *(*(&v11 + 1) + 8 * i);
           serverUIURL = [v8 serverUIURL];
 
           if (serverUIURL)
@@ -116,7 +114,7 @@ LABEL_16:
           }
         }
 
-        bubbleDetails = [actions countByEnumeratingWithState:&v12 objects:v16 count:16];
+        bubbleDetails = [actions countByEnumeratingWithState:&v11 objects:v15 count:16];
         if (bubbleDetails)
         {
           continue;
@@ -128,8 +126,6 @@ LABEL_16:
 
 LABEL_12:
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return bubbleDetails;
 }

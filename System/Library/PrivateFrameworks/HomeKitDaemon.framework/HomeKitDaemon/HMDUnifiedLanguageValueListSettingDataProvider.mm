@@ -17,17 +17,17 @@
 
 - (id)languageValueList
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dataSourceDataProviders = [(HMDUnifiedLanguageValueListSettingDataProvider *)self dataSourceDataProviders];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
-  v3 = [dataSourceDataProviders countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v3 = [dataSourceDataProviders countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v13;
+    v5 = *v12;
     v6 = MEMORY[0x277CBEBF8];
     do
     {
@@ -35,12 +35,12 @@
       v8 = v6;
       do
       {
-        if (*v13 != v5)
+        if (*v12 != v5)
         {
           objc_enumerationMutation(dataSourceDataProviders);
         }
 
-        languageValueList = [*(*(&v12 + 1) + 8 * v7) languageValueList];
+        languageValueList = [*(*(&v11 + 1) + 8 * v7) languageValueList];
         v6 = [HMDUnifiedLanguageValueListSettingDataProvider unifyLanguageValues:v8 withValues:languageValueList];
 
         ++v7;
@@ -48,7 +48,7 @@
       }
 
       while (v4 != v7);
-      v4 = [dataSourceDataProviders countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v4 = [dataSourceDataProviders countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v4);
@@ -59,14 +59,12 @@
     v6 = MEMORY[0x277CBEBF8];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 - (id)dataSourceDataProviders
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   dataSource = [(HMDUnifiedLanguageValueListSettingDataProvider *)self dataSource];
   v4 = dataSource;
   if (dataSource)
@@ -82,16 +80,14 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       v9 = HMFGetLogIdentifier();
-      v12 = 138543362;
-      v13 = v9;
-      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get host accessories due to no data source", &v12, 0xCu);
+      v11 = 138543362;
+      v12 = v9;
+      _os_log_impl(&dword_229538000, v8, OS_LOG_TYPE_ERROR, "%{public}@Failed to get host accessories due to no data source", &v11, 0xCu);
     }
 
     objc_autoreleasePoolPop(v6);
     v5 = MEMORY[0x277CBEBF8];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -110,10 +106,9 @@
 
 void __61__HMDUnifiedLanguageValueListSettingDataProvider_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_55854;
-  logCategory__hmf_once_v2_55854 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_55854;
+  logCategory__hmf_once_v2_55854 = v0;
 }
 
 + (id)unifyLanguageValues:(id)values withValues:(id)withValues

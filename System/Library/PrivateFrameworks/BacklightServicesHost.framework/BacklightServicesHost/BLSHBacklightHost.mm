@@ -10,14 +10,14 @@
 + (id)sharedBacklightHost
 {
   os_unfair_lock_lock(&_classLock_1);
-  v3 = _sharedBacklightHost;
+  v4 = _sharedBacklightHost;
   os_unfair_lock_unlock(&_classLock_1);
-  if (!v3)
+  if (!v4)
   {
     +[(BLSHBacklightHost *)a2];
   }
 
-  return v3;
+  return v4;
 }
 
 + (void)registerSharedBacklightHost:(id)host
@@ -26,12 +26,12 @@
   os_unfair_lock_lock(&_classLock_1);
   if (!hostCopy)
   {
-    [BLSHBacklightHost registerSharedBacklightHost:a2];
+    [(BLSHBacklightHost *)a2 registerSharedBacklightHost:self];
   }
 
   if (_sharedBacklightHost)
   {
-    [BLSHBacklightHost registerSharedBacklightHost:a2];
+    [(BLSHBacklightHost *)a2 registerSharedBacklightHost:self];
   }
 
   _sharedBacklightHost = hostCopy;
@@ -66,53 +66,53 @@ void __49__BLSHBacklightHost_registerSharedBacklightHost___block_invoke(uint64_t
   os_unfair_lock_unlock(&_classLock_1);
 }
 
-+ (void)registerSharedBacklightHost:(const char *)a1 .cold.1(const char *a1)
++ (void)registerSharedBacklightHost:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"_sharedBacklightHost == nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"_sharedBacklightHost == nil", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-+ (void)registerSharedBacklightHost:(const char *)a1 .cold.2(const char *a1)
++ (void)registerSharedBacklightHost:(const char *)a1 .cold.2(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"sharedBacklightHost != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"sharedBacklightHost != nil", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 + (void)sharedBacklightHost
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"sharedBacklightHost != nil"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(self);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(self);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"sharedBacklightHost != nil", v11, v12);
+    OUTLINED_FUNCTION_1_1(&dword_21FD11000, MEMORY[0x277D86220], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

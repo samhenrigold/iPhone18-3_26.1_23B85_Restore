@@ -12,11 +12,11 @@
 
 - (ASDRepairOptions)initWithBundleID:(id)d
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   dCopy = d;
-  v11.receiver = self;
-  v11.super_class = ASDRepairOptions;
-  v6 = [(ASDRepairOptions *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = ASDRepairOptions;
+  v6 = [(ASDRepairOptions *)&v10 init];
   v7 = v6;
   if (v6)
   {
@@ -25,22 +25,21 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v13 = dCopy;
+      v12 = dCopy;
       _os_log_impl(&dword_1B8220000, v8, OS_LOG_TYPE_INFO, "(RepairService) Created repair options with bundleID: %@", buf, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (ASDRepairOptions)initWithBundlePath:(id)path
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   pathCopy = path;
-  v11.receiver = self;
-  v11.super_class = ASDRepairOptions;
-  v6 = [(ASDRepairOptions *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = ASDRepairOptions;
+  v6 = [(ASDRepairOptions *)&v10 init];
   v7 = v6;
   if (v6)
   {
@@ -49,12 +48,11 @@
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v13 = pathCopy;
+      v12 = pathCopy;
       _os_log_impl(&dword_1B8220000, v8, OS_LOG_TYPE_INFO, "(RepairService) Created repair options with path: %@", buf, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -145,11 +143,11 @@
 
 - (ASDRepairOptions)initWithCoder:(id)coder
 {
-  v23[9] = *MEMORY[0x1E69E9840];
+  v22[9] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v22.receiver = self;
-  v22.super_class = ASDRepairOptions;
-  v5 = [(ASDRepairOptions *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = ASDRepairOptions;
+  v5 = [(ASDRepairOptions *)&v21 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"accountDSID"];
@@ -175,16 +173,16 @@
 
     v5->_isBackground = [coderCopy decodeBoolForKey:@"isBackground"];
     v15 = MEMORY[0x1E695DFD8];
-    v23[0] = objc_opt_class();
-    v23[1] = objc_opt_class();
-    v23[2] = objc_opt_class();
-    v23[3] = objc_opt_class();
-    v23[4] = objc_opt_class();
-    v23[5] = objc_opt_class();
-    v23[6] = objc_opt_class();
-    v23[7] = objc_opt_class();
-    v23[8] = objc_opt_class();
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:9];
+    v22[0] = objc_opt_class();
+    v22[1] = objc_opt_class();
+    v22[2] = objc_opt_class();
+    v22[3] = objc_opt_class();
+    v22[4] = objc_opt_class();
+    v22[5] = objc_opt_class();
+    v22[6] = objc_opt_class();
+    v22[7] = objc_opt_class();
+    v22[8] = objc_opt_class();
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:9];
     v17 = [v15 setWithArray:v16];
     v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"relaunchOptions"];
     relaunchOptions = v5->_relaunchOptions;
@@ -197,7 +195,6 @@
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

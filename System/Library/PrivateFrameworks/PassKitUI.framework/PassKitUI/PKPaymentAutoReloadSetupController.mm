@@ -172,7 +172,7 @@ LABEL_11:
           v26 = v25;
           if (v25)
           {
-            [v25 decimalValue];
+            objc_msgSend_decimalValue(v25);
           }
 
           else
@@ -192,7 +192,7 @@ LABEL_11:
           defaultAmountSuggestions = v56;
           if (v29)
           {
-            [v29 decimalValue];
+            objc_msgSend_decimalValue(v29);
           }
 
           else
@@ -1013,25 +1013,25 @@ void __114__PKPaymentAutoReloadSetupController__didUpdateAutoReloadWithAmount_th
   dispatch_async(MEMORY[0x1E69E96A0], v4);
 }
 
-void __114__PKPaymentAutoReloadSetupController__didUpdateAutoReloadWithAmount_threshold_paymentMethodIdentifier_completion___block_invoke_2(uint64_t a1)
+void __114__PKPaymentAutoReloadSetupController__didUpdateAutoReloadWithAmount_threshold_paymentMethodIdentifier_completion___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   if ((*(a1 + 40) & 1) == 0)
   {
-    v2 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+    v3 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
-      *v6 = 0;
-      _os_log_error_impl(&dword_1BD026000, v2, OS_LOG_TYPE_ERROR, "Error: Device failed to present payment coordinator!", v6, 2u);
+      *v7 = 0;
+      _os_log_error_impl(&dword_1BD026000, v3, OS_LOG_TYPE_ERROR, "Error: Device failed to present payment coordinator!", v7, 2u);
     }
 
     [*(a1 + 32) _showGenericErrorAlert:0];
-    v3 = *(*(a1 + 32) + 120);
-    if (v3)
+    v4 = *(*(a1 + 32) + 120);
+    if (v4)
     {
-      (*(v3 + 16))(v3, 0);
-      v4 = *(a1 + 32);
-      v5 = *(v4 + 120);
-      *(v4 + 120) = 0;
+      (*(v4 + 16))(v4, 0);
+      v5 = *(a1 + 32);
+      v6 = *(v5 + 120);
+      *(v5 + 120) = 0;
     }
   }
 }

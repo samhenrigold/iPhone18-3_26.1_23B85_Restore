@@ -51,16 +51,16 @@
 
 + (void)homeCountryCode
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1859F0000, a2, a3, "Invalid home country code: %@. Phone numbers and postal addresses may not be processed correctly.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_1859F0000, a2, a3, "Invalid home country code: %@. Phone numbers and postal addresses may not be processed correctly.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 + (void)currentCountryCode
 {
-  v9 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0_0(&dword_1859F0000, a2, a3, "Invalid network country code: %@. Phone numbers and postal addresses may not be processed correctly.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0_0(&dword_1859F0000, a2, a3, "Invalid network country code: %@. Phone numbers and postal addresses may not be processed correctly.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

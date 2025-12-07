@@ -1,6 +1,7 @@
 @interface CDXSetExtensionEnabledOperation
 - (BOOL)_loadExtensionDataWithError:(id *)error;
 - (CDXSetExtensionEnabledOperation)initWithExtensionIdentifier:(id)identifier enabled:(BOOL)enabled loadExtensionDataOperation:(id)operation queue:(id)queue store:(id)store identificationEntriesChangedNotifier:(id)notifier;
+- (CDXSetExtensionEnabledOperation)initWithExtensionIdentifier:(id)identifier enabled:(BOOL)enabled loadExtensionDataOperation:(id)operation store:(id)store;
 - (void)performWithCompletionHandler:(id)handler;
 @end
 
@@ -34,6 +35,20 @@
   }
 
   return v19;
+}
+
+- (CDXSetExtensionEnabledOperation)initWithExtensionIdentifier:(id)identifier enabled:(BOOL)enabled loadExtensionDataOperation:(id)operation store:(id)store
+{
+  enabledCopy = enabled;
+  storeCopy = store;
+  operationCopy = operation;
+  identifierCopy = identifier;
+  v13 = dispatch_queue_create("com.apple.callkit.calldirectory.setextensionenabledoperation", 0);
+  v14 = [CDXNotifydNotifier alloc];
+  v15 = [(CDXNotifydNotifier *)v14 initWithNotificationName:CXCallDirectoryManagerIdentificationEntriesChangedNotification];
+  v16 = [(CDXSetExtensionEnabledOperation *)self initWithExtensionIdentifier:identifierCopy enabled:enabledCopy loadExtensionDataOperation:operationCopy queue:v13 store:storeCopy identificationEntriesChangedNotifier:v15];
+
+  return v16;
 }
 
 - (void)performWithCompletionHandler:(id)handler

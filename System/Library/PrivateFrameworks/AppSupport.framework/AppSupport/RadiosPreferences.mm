@@ -8,6 +8,8 @@
 - (void)initializeSCPrefs:(id)prefs;
 - (void)notifyTarget:(unsigned int)target;
 - (void)release;
+- (void)setAirplaneMode:(BOOL)mode;
+- (void)setAirplaneModeInNSS:(BOOL)s;
 - (void)setAirplaneModeWithoutMirroring:(BOOL)mirroring;
 - (void)setTelephonyState:(BOOL)state fromBundleID:(id)d;
 - (void)setValue:(void *)value forKey:(id)key;
@@ -90,7 +92,7 @@
 + (BOOL)shouldMirrorAirplaneMode
 {
   v8 = 0;
-  if (!NanoPreferencesSyncLibraryCore())
+  if (!NanoPreferencesSyncLibraryCore(0))
   {
     NSLog(@"Class NPSDomainAccessor could not be loaded.");
 LABEL_7:
@@ -128,6 +130,102 @@ LABEL_7:
 
   v6 = v8 & v5;
   return v6 & 1;
+}
+
+- (void)setAirplaneMode:(BOOL)mode
+{
+  modeCopy = mode;
+  v10 = *MEMORY[0x1E69E9840];
+  if (mode)
+  {
+    callStackSymbols = [MEMORY[0x1E696AF00] callStackSymbols];
+    radios_prefs_log = self->radios_prefs_log;
+    if (os_log_type_enabled(radios_prefs_log, OS_LOG_TYPE_DEFAULT))
+    {
+      v7[0] = 67109378;
+      v7[1] = 1;
+      v8 = 2114;
+      v9 = [callStackSymbols componentsJoinedByString:@"\n"];
+      _os_log_impl(&dword_195E6C000, radios_prefs_log, OS_LOG_TYPE_DEFAULT, "Setting airplane mode enabled: %i, backtrace:\n%{public}@", v7, 0x12u);
+    }
+  }
+
+  if ([objc_opt_class() shouldMirrorAirplaneMode])
+  {
+    [(RadiosPreferences *)self setAirplaneModeInNSS:modeCopy];
+  }
+
+  else
+  {
+    [(RadiosPreferences *)self setAirplaneModeWithoutMirroring:modeCopy];
+  }
+}
+
+- (void)setAirplaneModeInNSS:(BOOL)s
+{
+  sCopy = s;
+  if (NanoSystemSettingsLibraryCore(0))
+  {
+    v13 = 0;
+    v14 = &v13;
+    v15 = 0x3052000000;
+    v16 = __Block_byref_object_copy__0;
+    v17 = __Block_byref_object_dispose__0;
+    v18 = 0;
+    v5 = dispatch_semaphore_create(0);
+    v6 = dispatch_queue_attr_make_with_qos_class(0, QOS_CLASS_USER_INITIATED, 0);
+    v7 = dispatch_queue_create("com.apple.AppSupport.AirplaneMode.NSSManager", v6);
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x3052000000;
+    v23 = __Block_byref_object_copy__0;
+    v8 = getNSSManagerClass_softClass;
+    v24 = __Block_byref_object_dispose__0;
+    v25 = getNSSManagerClass_softClass;
+    if (!getNSSManagerClass_softClass)
+    {
+      v19[0] = MEMORY[0x1E69E9820];
+      v19[1] = 3221225472;
+      v19[2] = __getNSSManagerClass_block_invoke;
+      v19[3] = &unk_1E7450E18;
+      v19[4] = &v20;
+      __getNSSManagerClass_block_invoke(v19);
+      v8 = v21[5];
+    }
+
+    _Block_object_dispose(&v20, 8);
+    v9 = [[v8 alloc] initWithQueue:v7];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __42__RadiosPreferences_setAirplaneModeInNSS___block_invoke;
+    v12[3] = &unk_1E7450EE0;
+    v12[4] = v5;
+    v12[5] = &v13;
+    [v9 enableAirplaneMode:sCopy completionHandler:v12];
+    v10 = dispatch_time(0, 5000000000);
+    if (dispatch_semaphore_wait(v5, v10) >= 1)
+    {
+      radios_prefs_log = self->radios_prefs_log;
+      if (os_log_type_enabled(radios_prefs_log, OS_LOG_TYPE_FAULT))
+      {
+        [(RadiosPreferences *)sCopy setAirplaneModeInNSS:?];
+      }
+    }
+
+    if (v14[5])
+    {
+      [(RadiosPreferences *)self setAirplaneModeWithoutMirroring:sCopy];
+    }
+
+    _Block_object_dispose(&v13, 8);
+  }
+
+  else
+  {
+    NSLog(@"Class NSSManager could not be loaded.");
+
+    [(RadiosPreferences *)self setAirplaneModeWithoutMirroring:sCopy];
+  }
 }
 
 - (void)setAirplaneModeWithoutMirroring:(BOOL)mirroring
@@ -168,12 +266,12 @@ LABEL_7:
 - (void)setTelephonyState:(BOOL)state fromBundleID:(id)d
 {
   stateCopy = state;
-  v18[2] = *MEMORY[0x1E69E9840];
-  v17[0] = @"TelephonyEnabled";
-  v17[1] = @"bundle_identifier";
-  v18[0] = [MEMORY[0x1E696AD98] numberWithBool:?];
-  v18[1] = d;
-  -[RadiosPreferences setValue:forKey:](self, "setValue:forKey:", [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2], @"TelephonyState");
+  v17[2] = *MEMORY[0x1E69E9840];
+  v16[0] = @"TelephonyEnabled";
+  v16[1] = @"bundle_identifier";
+  v17[0] = [MEMORY[0x1E696AD98] numberWithBool:?];
+  v17[1] = d;
+  -[RadiosPreferences setValue:forKey:](self, "setValue:forKey:", [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2], @"TelephonyState");
   DarwinNotifyCenter = CFNotificationCenterGetDarwinNotifyCenter();
   CFNotificationCenterPostNotification(DarwinNotifyCenter, @"RadiosPreferencesAirplaneModeDidChangeNotification", 0, 0, 1u);
   [d UTF8String];
@@ -200,16 +298,15 @@ LABEL_7:
         v10 = @"Off";
       }
 
-      v13 = 138412546;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v10;
-      _os_log_impl(&dword_195E6C000, v9, OS_LOG_TYPE_INFO, "Cellular Enabled: %@ ==>> %@", &v13, 0x16u);
+      v12 = 138412546;
+      v13 = v11;
+      v14 = 2112;
+      v15 = v10;
+      _os_log_impl(&dword_195E6C000, v9, OS_LOG_TYPE_INFO, "Cellular Enabled: %@ ==>> %@", &v12, 0x16u);
     }
   }
 
   ct_green_tea_logger_destroy();
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initializeSCPrefs:(id)prefs
@@ -292,11 +389,10 @@ LABEL_7:
 
 - (void)setAirplaneModeInNSS:(char)a1 .cold.1(char a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1 & 1;
-  _os_log_fault_impl(&dword_195E6C000, a2, OS_LOG_TYPE_FAULT, "Call to NanoSystemSettings to %d airplane mode timed out", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1 & 1;
+  _os_log_fault_impl(&dword_195E6C000, a2, OS_LOG_TYPE_FAULT, "Call to NanoSystemSettings to %d airplane mode timed out", v2, 8u);
 }
 
 @end

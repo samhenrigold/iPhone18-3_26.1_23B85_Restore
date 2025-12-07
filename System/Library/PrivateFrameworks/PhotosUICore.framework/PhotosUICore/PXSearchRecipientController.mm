@@ -207,7 +207,7 @@ LABEL_3:
   v13 = _searchDataSource;
   if (_searchDataSource)
   {
-    [_searchDataSource firstItemIndexPath];
+    objc_msgSend_firstItemIndexPath(_searchDataSource);
   }
 
   else
@@ -236,9 +236,9 @@ LABEL_3:
   _Block_object_dispose(&v24, 8);
 }
 
-void __94__PXSearchRecipientController_autocompleteResultsController_tintColorForRecipient_completion___block_invoke(uint64_t a1, _OWORD *a2, _BYTE *a3)
+void __94__PXSearchRecipientController_autocompleteResultsController_tintColorForRecipient_completion___block_invoke(void *a1, _OWORD *a2, _BYTE *a3)
 {
-  v5 = *(a1 + 32);
+  v5 = a1[4];
   v6 = a2[1];
   v19[0] = *a2;
   v19[1] = v6;
@@ -252,8 +252,8 @@ void __94__PXSearchRecipientController_autocompleteResultsController_tintColorFo
     }
 
     v10 = [MEMORY[0x1E696AAA8] currentHandler];
-    v15 = *(a1 + 64);
-    v16 = *(a1 + 40);
+    v15 = a1[8];
+    v16 = a1[5];
     v17 = objc_opt_class();
     v14 = NSStringFromClass(v17);
     v18 = [v7 px_descriptionForAssertionMessage];
@@ -263,8 +263,8 @@ void __94__PXSearchRecipientController_autocompleteResultsController_tintColorFo
   else
   {
     v10 = [MEMORY[0x1E696AAA8] currentHandler];
-    v11 = *(a1 + 64);
-    v12 = *(a1 + 40);
+    v11 = a1[8];
+    v12 = a1[5];
     v13 = objc_opt_class();
     v14 = NSStringFromClass(v13);
     [v10 handleFailureInMethod:v11 object:v12 file:@"PXSearchRecipientController.m" lineNumber:174 description:{@"%@ should be an instance inheriting from %@, but it is nil", @"[searchDataSource recipientSearchResultAtSimpleIndexPath:indexPath]", v14}];
@@ -272,11 +272,11 @@ void __94__PXSearchRecipientController_autocompleteResultsController_tintColorFo
 
 LABEL_3:
   v8 = [v7 recipient];
-  v9 = PXComposeRecipientEqualToComposeRecipient(v8, *(a1 + 48));
+  v9 = PXComposeRecipientEqualToComposeRecipient(v8, a1[6]);
 
   if (v9)
   {
-    objc_storeStrong((*(*(a1 + 56) + 8) + 40), v7);
+    objc_storeStrong((*(a1[7] + 8) + 40), v7);
     *a3 = 1;
   }
 }

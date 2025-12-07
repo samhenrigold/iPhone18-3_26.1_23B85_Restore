@@ -16,6 +16,8 @@
 - (void)showTransitionWithRange:(_NSRange)range WithCompletionHandler:(id)handler;
 - (void)startTimer;
 - (void)teardown;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation ButtonSwitchInputViewController
@@ -458,6 +460,14 @@ LABEL_7:
   }
 
   [(ButtonSwitchInputViewController *)self showNextSegment];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ButtonSwitchInputViewController;
+  [(ButtonSwitchInputViewController *)&v4 viewWillAppear:appear];
+  [(ButtonSwitchInputViewController *)self setupView];
 }
 
 - (void)setupTouchButtonInteractions
@@ -1025,6 +1035,14 @@ LABEL_27:
   }
 
 LABEL_28:
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = ButtonSwitchInputViewController;
+  [(ButtonSwitchInputViewController *)&v4 viewDidAppear:appear];
+  [(ButtonSwitchInputViewController *)self startTimer];
 }
 
 - (void)handleHIDEvent:(__IOHIDEvent *)event

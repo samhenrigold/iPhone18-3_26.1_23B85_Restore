@@ -54,22 +54,21 @@ void __55__BLSHCriticalAssertTester__triggerTestCriticalAssert___block_invoke(ui
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     v4 = NSStringFromSelector(*(a1 + 48));
-    v5 = *(a1 + 40);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = *(a1 + 40);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
+    v7 = *(a1 + 40);
     *buf = 138544642;
-    v10 = v4;
-    v11 = 2114;
-    v12 = v7;
-    v13 = 2048;
-    v14 = v8;
-    v15 = 2114;
-    v16 = @"BLSHCriticalAssertTester.m";
-    v17 = 1024;
-    v18 = 27;
-    v19 = 2114;
-    v20 = v3;
+    v9 = v4;
+    v10 = 2114;
+    v11 = v6;
+    v12 = 2048;
+    v13 = v7;
+    v14 = 2114;
+    v15 = @"BLSHCriticalAssertTester.m";
+    v16 = 1024;
+    v17 = 27;
+    v18 = 2114;
+    v19 = v3;
     _os_log_error_impl(&dword_21FD11000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
   }
 

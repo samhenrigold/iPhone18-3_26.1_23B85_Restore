@@ -56,7 +56,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_1908C0014();
+  sub_1908C0014(selfCopy);
 }
 
 - (_TtC7ChatKit25AcceptedContactBannerView)initWithFrame:(CGRect)frame

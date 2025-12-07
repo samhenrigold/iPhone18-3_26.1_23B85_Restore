@@ -6,7 +6,7 @@
 
 - (void)tv_addLanguageAwareness:()TVUIKitAdditions
 {
-  v84[1] = *MEMORY[0x277D85DE8];
+  v83[1] = *MEMORY[0x277D85DE8];
   v4 = a3;
   selfCopy = self;
   string = [self string];
@@ -14,61 +14,61 @@
   if (v6)
   {
     v7 = v6;
-    v50 = v4;
-    v74 = 0u;
-    v75 = 0u;
-    v72 = 0u;
+    v49 = v4;
     v73 = 0u;
-    v70 = 0u;
+    v74 = 0u;
     v71 = 0u;
-    v68 = 0u;
+    v72 = 0u;
     v69 = 0u;
-    v66 = 0u;
+    v70 = 0u;
     v67 = 0u;
-    v64 = 0u;
+    v68 = 0u;
     v65 = 0u;
-    v62 = 0u;
+    v66 = 0u;
     v63 = 0u;
-    *buffer = 0u;
+    v64 = 0u;
     v61 = 0u;
-    v76 = string;
-    v79 = 0;
-    v80 = v6;
+    v62 = 0u;
+    *buffer = 0u;
+    v60 = 0u;
+    v75 = string;
+    v78 = 0;
+    v79 = v6;
     CharactersPtr = CFStringGetCharactersPtr(string);
     CStringPtr = 0;
-    v77 = CharactersPtr;
+    v76 = CharactersPtr;
     if (!CharactersPtr)
     {
       CStringPtr = CFStringGetCStringPtr(string, 0x600u);
     }
 
-    v54 = 0;
-    v55 = 0uLL;
+    v53 = 0;
+    v54 = 0uLL;
     v10 = 0;
     range2 = 0;
-    v52 = 0;
-    v48 = 0;
-    v57 = 0;
+    v51 = 0;
+    v47 = 0;
+    v56 = 0;
     v11 = 0;
+    v80 = 0;
     v81 = 0;
-    v82 = 0;
-    v78 = CStringPtr;
-    v45 = v7 - 1;
-    v46 = string;
-    v49 = *MEMORY[0x277D74200];
+    v77 = CStringPtr;
+    v44 = v7 - 1;
+    v45 = string;
+    v48 = *MEMORY[0x277D74200];
     v12 = -1;
-    v47 = *MEMORY[0x277D74118];
+    v46 = *MEMORY[0x277D74118];
     v13 = 0x7FFFFFFFFFFFFFFFLL;
     v14 = 0x7FFFFFFFFFFFFFFFLL;
-    v53 = v7;
+    v52 = v7;
     while (1)
     {
-      v56 = v13;
+      v55 = v13;
       v15 = v10;
-      v59 = 0;
-      CharacterAtIndex = AMPCFStringGetCharacterAtIndex(buffer, v10, &v59);
-      v17 = v59;
-      v10 += v59;
+      v58 = 0;
+      CharacterAtIndex = AMPCFStringGetCharacterAtIndex(buffer, v10, &v58);
+      v17 = v58;
+      v10 += v58;
       v18 = (CharacterAtIndex - 8206) < 2 || CharacterAtIndex == 0;
       if (v18 || CharacterAtIndex == 65532)
       {
@@ -139,7 +139,7 @@
                 {
 LABEL_87:
                   v32 = 1;
-                  [selfCopy replaceCharactersInRange:v15 withString:{1, @"\n", v45}];
+                  [selfCopy replaceCharactersInRange:v15 withString:{1, @"\n", v44}];
                   LODWORD(v31) = 1;
                   v33 = 1;
                   goto LABEL_88;
@@ -159,7 +159,7 @@ LABEL_87:
 
 LABEL_79:
             LODWORD(v31) = 1;
-            if (v26 != 13 || v10 > v45)
+            if (v26 != 13 || v10 > v44)
             {
               v32 = 1;
 LABEL_88:
@@ -206,20 +206,20 @@ LABEL_88:
           case 19:
           case 20:
           case 21:
-            v29 = v48 == 0;
+            v29 = v47 == 0;
             v28 = 1;
             v31 = 8;
-            ++v48;
+            ++v47;
             goto LABEL_91;
           case 22:
-            if (v48)
+            if (v47)
             {
-              v29 = --v48 == 0;
+              v29 = --v47 == 0;
             }
 
             else
             {
-              v48 = 0;
+              v47 = 0;
               v29 = 0;
             }
 
@@ -232,11 +232,11 @@ LABEL_88:
             v29 = 0;
 LABEL_91:
             v11 += v17;
-            if (v48 || v29)
+            if (v47 || v29)
             {
               v33 = 0;
               v30 = 0;
-              v57 |= v12 != -1;
+              v56 |= v12 != -1;
 LABEL_101:
               LODWORD(v31) = v28;
 LABEL_102:
@@ -250,7 +250,7 @@ LABEL_102:
               {
                 if (v14 == 0x7FFFFFFFFFFFFFFFLL)
                 {
-                  v48 = 0;
+                  v47 = 0;
                   v33 = 0;
                   v30 = 0;
                   v14 = 0x7FFFFFFFFFFFFFFFLL;
@@ -260,13 +260,13 @@ LABEL_102:
                     v43 = v15;
                   }
 
-                  v56 = v43;
+                  v55 = v43;
                 }
 
                 else
                 {
 LABEL_129:
-                  v48 = 0;
+                  v47 = 0;
                   v33 = 0;
                   v30 = 0;
                 }
@@ -287,7 +287,7 @@ LABEL_129:
                 }
 
 LABEL_118:
-                v48 = 0;
+                v47 = 0;
                 v33 = 0;
                 v30 = 0;
                 LODWORD(v31) = 1;
@@ -295,7 +295,7 @@ LABEL_118:
                 break;
               }
 
-              v48 = 0;
+              v47 = 0;
               v33 = 0;
               v30 = 0;
               goto LABEL_131;
@@ -319,7 +319,7 @@ LABEL_118:
               }
 
               v42 = v31 == 1;
-              v48 = 0;
+              v47 = 0;
               LODWORD(v31) = 1;
               if (v42)
               {
@@ -343,7 +343,7 @@ LABEL_118:
             {
               if (v31 == 2)
               {
-                v48 = 0;
+                v47 = 0;
                 v33 = 0;
                 v30 = 0;
                 if (v12 == -1)
@@ -360,7 +360,7 @@ LABEL_132:
 
               if (v31 != 3)
               {
-                v48 = 0;
+                v47 = 0;
                 v33 = 0;
                 v30 = 0;
                 if (v14 == 0x7FFFFFFFFFFFFFFFLL)
@@ -384,17 +384,17 @@ LABEL_132:
               v14 = v13;
               if (v13 != 0x7FFFFFFFFFFFFFFFLL)
               {
-                v48 = 0;
+                v47 = 0;
                 v33 = 0;
                 v30 = 0;
                 LODWORD(v31) = 1;
                 goto LABEL_102;
               }
 
-              v48 = 0;
+              v47 = 0;
               v33 = 0;
               v30 = 0;
-              v56 = 0x7FFFFFFFFFFFFFFFLL;
+              v55 = 0x7FFFFFFFFFFFFFFFLL;
               LODWORD(v31) = v28;
               v32 = v28;
               v14 = v15;
@@ -405,7 +405,7 @@ LABEL_132:
       }
 
       range2 += v17;
-      if (v10 == v53)
+      if (v10 == v52)
       {
         v30 = 1;
         v14 = 0x7FFFFFFFFFFFFFFFLL;
@@ -419,7 +419,7 @@ LABEL_132:
           v14 = 0x7FFFFFFFFFFFFFFFLL;
         }
 
-        v13 = v56;
+        v13 = v55;
         if (v31)
         {
           v13 = 0x7FFFFFFFFFFFFFFFLL;
@@ -433,20 +433,20 @@ LABEL_132:
 
       if (v12 == 1)
       {
-        ++*(&v55 + 1);
+        ++*(&v54 + 1);
       }
 
       else if (!v12)
       {
-        *&v55 = v55 + 1;
+        *&v54 = v54 + 1;
       }
 
-      if (((v11 != 0) & v57) == 1)
+      if (((v11 != 0) & v56) == 1)
       {
         v20 = [MEMORY[0x277CCABB0] numberWithInteger:v12];
-        v84[0] = v20;
-        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v84 count:1];
-        [selfCopy addAttribute:v49 value:v21 range:{v54, v11}];
+        v83[0] = v20;
+        v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v83 count:1];
+        [selfCopy addAttribute:v48 value:v21 range:{v53, v11}];
       }
 
       if (v30)
@@ -455,23 +455,23 @@ LABEL_132:
       }
 
       v11 = 0;
-      v57 = 0;
+      v56 = 0;
       v12 = -1;
 LABEL_57:
-      v54 = v10;
+      v53 = v10;
 LABEL_58:
-      if (v10 == v53)
+      if (v10 == v52)
       {
-        v4 = v50;
-        string = v46;
+        v4 = v49;
+        string = v45;
         goto LABEL_134;
       }
     }
 
-    if (*(&v55 + 1) && *(&v55 + 1) / (*(&v55 + 1) + v55) >= 0.4)
+    if (*(&v54 + 1) && *(&v54 + 1) / (*(&v54 + 1) + v54) >= 0.4)
     {
-      v22 = v50;
-      v23 = v52;
+      v22 = v49;
+      v23 = v51;
       if (defaultParagraphStyle_sOnceForRightToLeft != -1)
       {
         [NSMutableAttributedString(TVUIKitAdditions) tv_addLanguageAwareness:];
@@ -483,9 +483,9 @@ LABEL_58:
 
     else
     {
-      v22 = v50;
-      v23 = v52;
-      if (v55 == 0)
+      v22 = v49;
+      v23 = v51;
+      if (v54 == 0)
       {
         if (defaultParagraphStyle_sOnceForNatural != -1)
         {
@@ -517,26 +517,26 @@ LABEL_54:
 
       if (v36)
       {
-        [selfCopy addAttribute:v47 value:v35 range:{v23, range2}];
+        [selfCopy addAttribute:v46 value:v35 range:{v23, range2}];
       }
 
       v11 = 0;
-      v57 = 0;
+      v56 = 0;
       range2 = 0;
-      v55 = 0uLL;
+      v54 = 0uLL;
       v12 = -1;
-      v52 = v10;
+      v51 = v10;
       goto LABEL_57;
     }
 
-    v83.location = 0;
-    v83.length = 0;
-    v37 = [selfCopy attribute:v47 atIndex:v23 effectiveRange:&v83];
+    v82.location = 0;
+    v82.length = 0;
+    v37 = [selfCopy attribute:v46 atIndex:v23 effectiveRange:&v82];
     if (v37)
     {
-      v85.location = v23;
-      v85.length = range2;
-      v38 = NSIntersectionRange(v83, v85);
+      v84.location = v23;
+      v84.length = range2;
+      v38 = NSIntersectionRange(v82, v84);
       if (v38.location == v23 && v38.length == range2 && [v37 baseWritingDirection] == v24)
       {
         v35 = v37;
@@ -546,7 +546,7 @@ LABEL_53:
         goto LABEL_54;
       }
 
-      v39 = [v37 tv_paragraphStyleWithBaseWritingDirection:{v24, v45}];
+      v39 = [v37 tv_paragraphStyleWithBaseWritingDirection:{v24, v44}];
     }
 
     else
@@ -560,8 +560,6 @@ LABEL_53:
   }
 
 LABEL_134:
-
-  v44 = *MEMORY[0x277D85DE8];
 }
 
 @end

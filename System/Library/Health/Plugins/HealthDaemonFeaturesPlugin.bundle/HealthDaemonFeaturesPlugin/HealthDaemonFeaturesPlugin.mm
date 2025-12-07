@@ -1,4 +1,4 @@
-uint64_t type metadata accessor for _HealthDaemonFeaturesPlugin()
+uint64_t type metadata accessor for _HealthDaemonFeaturesPlugin(uint64_t a1)
 {
   result = qword_8130;
   if (!qword_8130)

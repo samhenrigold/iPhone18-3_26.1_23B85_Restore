@@ -55,62 +55,62 @@
   return v4;
 }
 
-void __90__CLKComplicationTemplateGraphicBezelCircularText__validEmbeddedTemplateClassNamesForKey___block_invoke()
+void __90__CLKComplicationTemplateGraphicBezelCircularText__validEmbeddedTemplateClassNamesForKey___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v36[16] = *MEMORY[0x277D85DE8];
-  v31 = MEMORY[0x277CBEB98];
-  v0 = objc_opt_class();
-  v35 = NSStringFromClass(v0);
-  v36[0] = v35;
-  v1 = objc_opt_class();
-  v34 = NSStringFromClass(v1);
-  v36[1] = v34;
+  v38[16] = *MEMORY[0x277D85DE8];
+  v33 = MEMORY[0x277CBEB98];
   v2 = objc_opt_class();
-  v33 = NSStringFromClass(v2);
-  v36[2] = v33;
+  v37 = NSStringFromClass(v2);
+  v38[0] = v37;
   v3 = objc_opt_class();
-  v32 = NSStringFromClass(v3);
-  v36[3] = v32;
+  v36 = NSStringFromClass(v3);
+  v38[1] = v36;
   v4 = objc_opt_class();
-  v30 = NSStringFromClass(v4);
-  v36[4] = v30;
+  v35 = NSStringFromClass(v4);
+  v38[2] = v35;
   v5 = objc_opt_class();
-  v29 = NSStringFromClass(v5);
-  v36[5] = v29;
+  v34 = NSStringFromClass(v5);
+  v38[3] = v34;
   v6 = objc_opt_class();
-  v28 = NSStringFromClass(v6);
-  v36[6] = v28;
+  v32 = NSStringFromClass(v6);
+  v38[4] = v32;
   v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v36[7] = v8;
+  v31 = NSStringFromClass(v7);
+  v38[5] = v31;
+  v8 = objc_opt_class();
+  v30 = NSStringFromClass(v8);
+  v38[6] = v30;
   v9 = objc_opt_class();
   v10 = NSStringFromClass(v9);
-  v36[8] = v10;
+  v38[7] = v10;
   v11 = objc_opt_class();
   v12 = NSStringFromClass(v11);
-  v36[9] = v12;
+  v38[8] = v12;
   v13 = objc_opt_class();
   v14 = NSStringFromClass(v13);
-  v36[10] = v14;
+  v38[9] = v14;
   v15 = objc_opt_class();
   v16 = NSStringFromClass(v15);
-  v36[11] = v16;
+  v38[10] = v16;
   v17 = objc_opt_class();
   v18 = NSStringFromClass(v17);
-  v36[12] = v18;
+  v38[11] = v18;
   v19 = objc_opt_class();
   v20 = NSStringFromClass(v19);
-  v36[13] = v20;
+  v38[12] = v20;
   v21 = objc_opt_class();
   v22 = NSStringFromClass(v21);
-  v36[14] = v22;
+  v38[13] = v22;
   v23 = objc_opt_class();
   v24 = NSStringFromClass(v23);
-  v36[15] = v24;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:16];
-  v26 = [v31 setWithArray:v25];
-  v27 = _validEmbeddedTemplateClassNamesForKey____classNames;
-  _validEmbeddedTemplateClassNamesForKey____classNames = v26;
+  v38[14] = v24;
+  v25 = objc_opt_class();
+  v26 = NSStringFromClass(v25);
+  v38[15] = v26;
+  v27 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:16];
+  v28 = [v33 setWithArray:v27];
+  v29 = _validEmbeddedTemplateClassNamesForKey____classNames;
+  _validEmbeddedTemplateClassNamesForKey____classNames = v28;
 }
 
 - (BOOL)needsSerializableCopy

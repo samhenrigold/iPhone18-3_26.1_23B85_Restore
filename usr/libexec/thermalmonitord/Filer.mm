@@ -37,7 +37,7 @@
 
   else if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
   {
-    sub_100057790(file, &v11);
+    sub_100057790();
   }
 
   objc_autoreleasePoolPop(v6);
@@ -54,7 +54,7 @@
   [(NSInputStream *)v5 close];
   if (!v6)
   {
-    sub_1000578AC(file, &v10);
+    sub_1000578AC();
 LABEL_9:
     v7 = *buf;
     goto LABEL_6;
@@ -261,7 +261,7 @@ LABEL_7:
     {
       if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
       {
-        sub_1000579D0(&v18);
+        sub_1000579D0();
       }
 
       goto LABEL_7;
@@ -273,7 +273,7 @@ LABEL_7:
       {
         if (os_log_type_enabled(qword_1000AB718, OS_LOG_TYPE_ERROR))
         {
-          sub_100057A48(&v4->_path);
+          sub_100057A48();
         }
 
         goto LABEL_7;

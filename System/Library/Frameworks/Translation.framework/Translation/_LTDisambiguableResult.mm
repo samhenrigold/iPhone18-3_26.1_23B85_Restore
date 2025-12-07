@@ -26,7 +26,7 @@
 
 - (_LTDisambiguableResult)initWithDictionary:(id)dictionary
 {
-  v128 = *MEMORY[0x277D85DE8];
+  v123 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   if (dictionaryCopy)
   {
@@ -58,7 +58,7 @@
       if (!v9 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
       {
 
-        v12 = 0;
+        v11 = 0;
         goto LABEL_128;
       }
 
@@ -69,23 +69,21 @@
       }
 
       v10 = 0;
-      v11 = 0x277CBE000uLL;
 LABEL_14:
-      v12 = [v9 objectAtIndexedSubscript:v10];
-      v105 = v12;
-      if (v12)
+      v11 = [v9 objectAtIndexedSubscript:v10];
+      v100 = v11;
+      if (v11)
       {
-        v13 = *(v11 + 2752);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
-          v12 = 0;
+          v11 = 0;
           goto LABEL_127;
         }
 
-        v96 = v10;
-        v14 = [(_LTDisambiguableResult *)v12 objectForKeyedSubscript:@"translated_tokens"];
-        if (!v14)
+        v91 = v10;
+        v12 = [(_LTDisambiguableResult *)v11 objectForKeyedSubscript:@"translated_tokens"];
+        if (!v12)
         {
           goto LABEL_125;
         }
@@ -96,186 +94,184 @@ LABEL_14:
           goto LABEL_125;
         }
 
-        v15 = [(_LTDisambiguableResult *)v12 objectForKeyedSubscript:@"meta_info_data"];
-        if (!v15)
+        v13 = [(_LTDisambiguableResult *)v11 objectForKeyedSubscript:@"meta_info_data"];
+        if (!v13)
         {
           goto LABEL_124;
         }
 
-        v16 = *(v11 + 2752);
-        v109 = v15;
+        v104 = v13;
         objc_opt_class();
         isKindOfClass = objc_opt_isKindOfClass();
-        v15 = v109;
+        v13 = v104;
         if ((isKindOfClass & 1) == 0)
         {
           goto LABEL_124;
         }
 
-        v18 = [v109 objectForKeyedSubscript:@"romanization"];
-        if (v18)
+        v15 = [v104 objectForKeyedSubscript:@"romanization"];
+        if (v15)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v19 = v18;
+            v16 = v15;
           }
 
           else
           {
-            v19 = 0;
+            v16 = 0;
           }
         }
 
         else
         {
-          v19 = 0;
+          v16 = 0;
         }
 
-        v98 = v19;
+        v93 = v16;
 
-        v20 = [v109 objectForKeyedSubscript:@"selection_spans"];
-        if (!v20 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+        v17 = [v104 objectForKeyedSubscript:@"selection_spans"];
+        if (!v17 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
         {
 LABEL_123:
 
-          v15 = v109;
+          v13 = v104;
 LABEL_124:
 
 LABEL_125:
-          v12 = 0;
+          v11 = 0;
 LABEL_126:
 
           goto LABEL_127;
         }
 
         array2 = [MEMORY[0x277CBEB18] array];
-        v120 = 0u;
-        v121 = 0u;
-        v122 = 0u;
-        v123 = 0u;
-        obj = v20;
-        v102 = [obj countByEnumeratingWithState:&v120 objects:v127 count:16];
-        if (!v102)
+        v115 = 0u;
+        v116 = 0u;
+        v117 = 0u;
+        v118 = 0u;
+        obj = v17;
+        v97 = [obj countByEnumeratingWithState:&v115 objects:v122 count:16];
+        if (!v97)
         {
           goto LABEL_106;
         }
 
-        v103 = *v121;
-        v107 = v14;
+        v98 = *v116;
+        v102 = v12;
         while (1)
         {
-          v21 = 0;
+          v18 = 0;
           do
           {
-            if (*v121 != v103)
+            if (*v116 != v98)
             {
               objc_enumerationMutation(obj);
             }
 
-            v108 = v21;
-            v22 = *(*(&v120 + 1) + 8 * v21);
-            if (!v22)
+            v103 = v18;
+            v19 = *(*(&v115 + 1) + 8 * v18);
+            if (!v19)
             {
               goto LABEL_122;
             }
 
-            v23 = *(v11 + 2752);
             objc_opt_class();
             if ((objc_opt_isKindOfClass() & 1) == 0)
             {
               goto LABEL_122;
             }
 
-            v119 = 0;
-            v110 = v22;
-            v24 = [v22 objectForKeyedSubscript:@"source"];
-            v25 = rangeFromDictionary(v24, &v119);
-            v27 = v26;
+            v114 = 0;
+            v105 = v19;
+            v20 = [v19 objectForKeyedSubscript:@"source"];
+            v21 = rangeFromDictionary(v20, &v114);
+            v23 = v22;
 
-            if (v119)
+            if (v114)
             {
               goto LABEL_111;
             }
 
-            v28 = [v8 lt_codeUnitsRangeFromCodePointsRange:{v25, v27}];
-            v100 = v29;
-            v101 = v28;
-            if (v28 == 0x7FFFFFFFFFFFFFFFLL)
+            v24 = [v8 lt_codeUnitsRangeFromCodePointsRange:{v21, v23}];
+            v95 = v25;
+            v96 = v24;
+            if (v24 == 0x7FFFFFFFFFFFFFFFLL)
             {
 LABEL_38:
-              v14 = v107;
-              v36 = v110;
+              v12 = v102;
+              v32 = v105;
               goto LABEL_39;
             }
 
-            v30 = [v110 objectForKeyedSubscript:@"projection"];
-            v31 = rangeFromDictionary(v30, &v119);
-            v33 = v32;
+            v26 = [v105 objectForKeyedSubscript:@"projection"];
+            v27 = rangeFromDictionary(v26, &v114);
+            v29 = v28;
 
-            if (v119)
+            if (v114)
             {
 LABEL_111:
-              v14 = v107;
-              v22 = v110;
+              v12 = v102;
+              v19 = v105;
 LABEL_122:
 
-              v20 = obj;
+              v17 = obj;
               goto LABEL_123;
             }
 
-            v34 = [v107 lt_codeUnitsRangeFromCodePointsRange:{v31, v33}];
-            if (v34 == 0x7FFFFFFFFFFFFFFFLL)
+            v30 = [v102 lt_codeUnitsRangeFromCodePointsRange:{v27, v29}];
+            if (v30 == 0x7FFFFFFFFFFFFFFFLL)
             {
               goto LABEL_38;
             }
 
-            v90 = v35;
-            v91 = v34;
+            v85 = v31;
+            v86 = v30;
             array3 = [MEMORY[0x277CBEB18] array];
-            v22 = v110;
-            v38 = [v110 objectForKeyedSubscript:@"alternatives"];
-            if (!v38 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+            v19 = v105;
+            v34 = [v105 objectForKeyedSubscript:@"alternatives"];
+            if (!v34 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
             {
 LABEL_121:
 
-              v14 = v107;
+              v12 = v102;
               goto LABEL_122;
             }
 
-            v117 = 0u;
-            v118 = 0u;
-            v115 = 0u;
-            v116 = 0u;
-            v93 = v38;
-            v39 = v38;
-            v40 = [v39 countByEnumeratingWithState:&v115 objects:v126 count:16];
-            if (!v40)
+            v112 = 0u;
+            v113 = 0u;
+            v110 = 0u;
+            v111 = 0u;
+            v88 = v34;
+            v35 = v34;
+            v36 = [v35 countByEnumeratingWithState:&v110 objects:v121 count:16];
+            if (!v36)
             {
               goto LABEL_104;
             }
 
-            v41 = *v116;
-            v94 = array3;
-            v95 = v9;
-            v92 = v39;
-            v88 = *v116;
+            v37 = *v111;
+            v89 = array3;
+            v90 = v9;
+            v87 = v35;
+            v83 = *v111;
             do
             {
-              v87 = v40;
-              v42 = 0;
+              v82 = v36;
+              v38 = 0;
               do
               {
-                if (*v116 != v41)
+                if (*v111 != v37)
                 {
-                  v43 = v42;
-                  objc_enumerationMutation(v39);
-                  v42 = v43;
+                  v39 = v38;
+                  objc_enumerationMutation(v35);
+                  v38 = v39;
                 }
 
-                v89 = v42;
-                v97 = *(*(&v115 + 1) + 8 * v42);
-                if (!v97)
+                v84 = v38;
+                v92 = *(*(&v110 + 1) + 8 * v38);
+                if (!v92)
                 {
                   goto LABEL_120;
                 }
@@ -286,43 +282,43 @@ LABEL_121:
                   goto LABEL_120;
                 }
 
-                v113 = 0u;
-                v114 = 0u;
-                v111 = 0u;
-                v112 = 0u;
-                v44 = [&unk_284DC9858 countByEnumeratingWithState:&v111 objects:v125 count:16];
-                if (v44)
+                v108 = 0u;
+                v109 = 0u;
+                v106 = 0u;
+                v107 = 0u;
+                v40 = [&unk_284DC9858 countByEnumeratingWithState:&v106 objects:v120 count:16];
+                if (v40)
                 {
-                  v45 = v44;
-                  v46 = *v112;
+                  v41 = v40;
+                  v42 = *v107;
 LABEL_52:
-                  v47 = 0;
+                  v43 = 0;
                   while (1)
                   {
-                    if (*v112 != v46)
+                    if (*v107 != v42)
                     {
                       objc_enumerationMutation(&unk_284DC9858);
                     }
 
-                    v48 = *(*(&v111 + 1) + 8 * v47);
-                    if (!v48)
+                    v44 = *(*(&v106 + 1) + 8 * v43);
+                    if (!v44)
                     {
                       goto LABEL_119;
                     }
 
                     objc_opt_class();
-                    v49 = objc_opt_isKindOfClass();
+                    v45 = objc_opt_isKindOfClass();
 
-                    v22 = v110;
-                    if ((v49 & 1) == 0)
+                    v19 = v105;
+                    if ((v45 & 1) == 0)
                     {
                       goto LABEL_120;
                     }
 
-                    if (v45 == ++v47)
+                    if (v41 == ++v43)
                     {
-                      v45 = [&unk_284DC9858 countByEnumeratingWithState:&v111 objects:v125 count:16];
-                      if (v45)
+                      v41 = [&unk_284DC9858 countByEnumeratingWithState:&v106 objects:v120 count:16];
+                      if (v41)
                       {
                         goto LABEL_52;
                       }
@@ -332,251 +328,250 @@ LABEL_52:
                   }
                 }
 
-                v50 = [v97 objectForKeyedSubscript:@"alternative_description_index"];
-                if (v50)
+                v46 = [v92 objectForKeyedSubscript:@"alternative_description_index"];
+                if (v46)
                 {
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v51 = v50;
+                    v47 = v46;
                   }
 
                   else
                   {
-                    v51 = 0;
+                    v47 = 0;
                   }
                 }
 
                 else
                 {
-                  v51 = 0;
+                  v47 = 0;
                 }
 
-                v48 = v51;
+                v44 = v47;
 
-                v52 = [v97 objectForKeyedSubscript:@"translation_phrase_index"];
-                if (v52)
+                v48 = [v92 objectForKeyedSubscript:@"translation_phrase_index"];
+                if (v48)
                 {
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v53 = v52;
+                    v49 = v48;
                   }
 
                   else
                   {
-                    v53 = 0;
+                    v49 = 0;
                   }
                 }
 
                 else
                 {
-                  v53 = 0;
+                  v49 = 0;
                 }
 
-                v54 = v53;
+                v50 = v49;
 
-                v55 = [v97 objectForKeyedSubscript:@"selection_span_index"];
-                if (v55)
+                v51 = [v92 objectForKeyedSubscript:@"selection_span_index"];
+                if (v51)
                 {
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v56 = v55;
+                    v52 = v51;
                   }
 
                   else
                   {
-                    v56 = 0;
+                    v52 = 0;
                   }
                 }
 
                 else
                 {
-                  v56 = 0;
+                  v52 = 0;
                 }
 
-                v57 = v56;
+                v53 = v52;
 
-                if (!v48 || !v54 || !v57)
+                if (!v44 || !v50 || !v53)
                 {
                   goto LABEL_118;
                 }
 
-                unsignedIntegerValue = [v48 unsignedIntegerValue];
-                unsignedIntegerValue2 = [v54 unsignedIntegerValue];
-                unsignedIntegerValue3 = [v57 unsignedIntegerValue];
-                v59 = [v7 objectAtIndexedSubscript:unsignedIntegerValue];
-                if (!v59)
+                unsignedIntegerValue = [v44 unsignedIntegerValue];
+                unsignedIntegerValue2 = [v50 unsignedIntegerValue];
+                unsignedIntegerValue3 = [v53 unsignedIntegerValue];
+                v55 = [v7 objectAtIndexedSubscript:unsignedIntegerValue];
+                if (!v55)
                 {
-                  v64 = 0;
+                  v60 = 0;
 LABEL_117:
 
 LABEL_118:
 LABEL_119:
 
-                  v22 = v110;
+                  v19 = v105;
 LABEL_120:
 
-                  array3 = v94;
-                  v9 = v95;
-                  v38 = v93;
+                  array3 = v89;
+                  v9 = v90;
+                  v34 = v88;
                   goto LABEL_121;
                 }
 
-                v85 = v57;
-                v86 = v54;
+                v80 = v53;
+                v81 = v50;
                 objc_opt_class();
-                v9 = v95;
+                v9 = v90;
                 if ((objc_opt_isKindOfClass() & 1) == 0)
                 {
-                  v64 = v59;
+                  v60 = v55;
 LABEL_116:
-                  v57 = v85;
-                  v54 = v86;
+                  v53 = v80;
+                  v50 = v81;
                   goto LABEL_117;
                 }
 
-                v60 = genderPayloadValueForDescription(v59, @"gender");
-                v61 = genderPayloadValueForDescription(v59, @"default_gender");
-                v81 = v59;
-                v82 = v60;
-                if (v60 && v61)
+                v56 = genderPayloadValueForDescription(v55, @"gender");
+                v57 = genderPayloadValueForDescription(v55, @"default_gender");
+                v76 = v55;
+                v77 = v56;
+                if (v56 && v57)
                 {
-                  v62 = v61;
-                  v63 = +[_LTUnvalidatedEdgeInfo genderEdgeInfoWithTargetPhraseIndex:targetLinkIndex:gender:defaultGender:](_LTUnvalidatedEdgeInfo, "genderEdgeInfoWithTargetPhraseIndex:targetLinkIndex:gender:defaultGender:", unsignedIntegerValue2, unsignedIntegerValue3, [v60 unsignedIntegerValue], objc_msgSend(v61, "unsignedIntegerValue"));
-                  array3 = v94;
-                  [v94 addObject:v63];
+                  v58 = v57;
+                  v59 = +[_LTUnvalidatedEdgeInfo genderEdgeInfoWithTargetPhraseIndex:targetLinkIndex:gender:defaultGender:](_LTUnvalidatedEdgeInfo, "genderEdgeInfoWithTargetPhraseIndex:targetLinkIndex:gender:defaultGender:", unsignedIntegerValue2, unsignedIntegerValue3, [v56 unsignedIntegerValue], objc_msgSend(v57, "unsignedIntegerValue"));
+                  array3 = v89;
+                  [v89 addObject:v59];
                   goto LABEL_100;
                 }
 
-                v80 = v61;
-                v64 = v59;
+                v75 = v57;
+                v60 = v55;
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  v65 = v64;
+                  v61 = v60;
                 }
 
                 else
                 {
-                  v65 = 0;
+                  v61 = 0;
                 }
 
-                v66 = v65;
-                if (v66)
+                v62 = v61;
+                if (v62)
                 {
-                  v79 = v66;
-                  v67 = [v66 objectForKeyedSubscript:@"type"];
-                  array3 = v94;
-                  if (!v67)
+                  v74 = v62;
+                  v63 = [v62 objectForKeyedSubscript:@"type"];
+                  array3 = v89;
+                  if (!v63)
                   {
-                    v69 = 0;
-                    v78 = 0;
+                    v65 = 0;
+                    v73 = 0;
                     goto LABEL_94;
                   }
 
-                  v68 = v67;
+                  v64 = v63;
                   objc_opt_class();
                   if (objc_opt_isKindOfClass())
                   {
-                    v78 = v68;
-                    if ([v68 isEqualToString:@"meaning"])
+                    v73 = v64;
+                    if ([v64 isEqualToString:@"meaning"])
                     {
-                      v69 = [v79 objectForKeyedSubscript:@"payload"];
-                      if (v69)
+                      v65 = [v74 objectForKeyedSubscript:@"payload"];
+                      if (v65)
                       {
                         objc_opt_class();
                         if (objc_opt_isKindOfClass())
                         {
-                          v63 = [v69 objectForKeyedSubscript:@"definition"];
+                          v59 = [v65 objectForKeyedSubscript:@"definition"];
                           goto LABEL_96;
                         }
                       }
 
 LABEL_94:
-                      v63 = 0;
+                      v59 = 0;
 LABEL_96:
 
-                      array3 = v94;
+                      array3 = v89;
                     }
 
                     else
                     {
-                      v63 = 0;
+                      v59 = 0;
                     }
 
-                    v66 = v79;
+                    v62 = v74;
                     goto LABEL_98;
                   }
 
-                  v69 = v68;
-                  v63 = 0;
-                  v78 = 0;
+                  v65 = v64;
+                  v59 = 0;
+                  v73 = 0;
                   goto LABEL_96;
                 }
 
-                v63 = 0;
-                array3 = v94;
+                v59 = 0;
+                array3 = v89;
 LABEL_98:
 
-                if (!v63)
+                if (!v59)
                 {
 
                   goto LABEL_116;
                 }
 
-                v70 = [_LTUnvalidatedEdgeInfo meaningEdgeInfoWithTargetPhraseIndex:unsignedIntegerValue2 targetLinkIndex:unsignedIntegerValue3 meaningDescription:v63];
-                [array3 addObject:v70];
+                v66 = [_LTUnvalidatedEdgeInfo meaningEdgeInfoWithTargetPhraseIndex:unsignedIntegerValue2 targetLinkIndex:unsignedIntegerValue3 meaningDescription:v59];
+                [array3 addObject:v66];
 
-                v62 = v80;
+                v58 = v75;
 LABEL_100:
 
-                v41 = v88;
-                v42 = v89 + 1;
-                v22 = v110;
-                v39 = v92;
+                v37 = v83;
+                v38 = v84 + 1;
+                v19 = v105;
+                v35 = v87;
               }
 
-              while (v89 + 1 != v87);
-              v40 = [v92 countByEnumeratingWithState:&v115 objects:v126 count:16];
-              v41 = v88;
+              while (v84 + 1 != v82);
+              v36 = [v87 countByEnumeratingWithState:&v110 objects:v121 count:16];
+              v37 = v83;
             }
 
-            while (v40);
+            while (v36);
 LABEL_104:
 
-            v71 = [[_LTDisambiguationLinkConfiguration alloc] initWithSourceRange:v101 targetRange:v100 unvalidatedAdjacencyList:v91, v90, array3];
-            [array2 addObject:v71];
+            v67 = [[_LTDisambiguationLinkConfiguration alloc] initWithSourceRange:v96 targetRange:v95 unvalidatedAdjacencyList:v86, v85, array3];
+            [array2 addObject:v67];
 
-            v36 = v110;
-            v14 = v107;
+            v32 = v105;
+            v12 = v102;
 LABEL_39:
 
-            v21 = v108 + 1;
-            v11 = 0x277CBE000;
+            v18 = v103 + 1;
           }
 
-          while (v108 + 1 != v102);
-          v72 = [obj countByEnumeratingWithState:&v120 objects:v127 count:16];
-          v102 = v72;
-          if (!v72)
+          while (v103 + 1 != v97);
+          v68 = [obj countByEnumeratingWithState:&v115 objects:v122 count:16];
+          v97 = v68;
+          if (!v68)
           {
 LABEL_106:
 
-            v73 = [[_LTDisambiguationNode alloc] initWithText:v14 links:array2 romanization:v98];
-            [array addObject:v73];
+            v69 = [[_LTDisambiguationNode alloc] initWithText:v12 links:array2 romanization:v93];
+            [array addObject:v69];
 
-            v10 = v96 + 1;
-            if (v96 + 1 >= [v9 count])
+            v10 = v91 + 1;
+            if (v91 + 1 >= [v9 count])
             {
 LABEL_107:
-              v74 = [[_LTDisambiguableSentence alloc] initWithSourceText:v8 targetPhrases:array selectedPhraseIndex:0];
-              v75 = [_LTDisambiguableResult alloc];
-              v105 = v74;
-              v124 = v74;
-              v14 = [MEMORY[0x277CBEA60] arrayWithObjects:&v124 count:1];
-              v12 = [(_LTDisambiguableResult *)v75 initWithSentences:v14];
+              v70 = [[_LTDisambiguableSentence alloc] initWithSourceText:v8 targetPhrases:array selectedPhraseIndex:0];
+              v71 = [_LTDisambiguableResult alloc];
+              v100 = v70;
+              v119 = v70;
+              v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v119 count:1];
+              v11 = [(_LTDisambiguableResult *)v71 initWithSentences:v12];
               goto LABEL_126;
             }
 
@@ -593,54 +588,53 @@ LABEL_128:
     else
     {
 
-      v12 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
 
-    v12 = 0;
+    v11 = 0;
   }
 
-  v76 = *MEMORY[0x277D85DE8];
-  return v12;
+  return v11;
 }
 
 - (_LTDisambiguableResult)initWithSentences:(id)sentences
 {
   sentencesCopy = sentences;
-  v12.receiver = self;
-  v12.super_class = _LTDisambiguableResult;
-  v5 = [(_LTDisambiguableResult *)&v12 init];
+  v13.receiver = self;
+  v13.super_class = _LTDisambiguableResult;
+  v5 = [(_LTDisambiguableResult *)&v13 init];
   if (!v5)
   {
 LABEL_6:
-    v8 = 0;
+    v9 = 0;
     goto LABEL_7;
   }
 
   if (![sentencesCopy count])
   {
-    v9 = _LTOSLogDisambiguation();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v10 = _LTOSLogDisambiguation(0, v6);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      *v11 = 0;
-      _os_log_impl(&dword_23AAF5000, v9, OS_LOG_TYPE_INFO, "Not creating disambiguable result because there's no sentences to create it with", v11, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_23AAF5000, v10, OS_LOG_TYPE_INFO, "Not creating disambiguable result because there's no sentences to create it with", v12, 2u);
     }
 
     goto LABEL_6;
   }
 
-  v6 = [sentencesCopy copy];
+  v7 = [sentencesCopy copy];
   sentences = v5->_sentences;
-  v5->_sentences = v6;
+  v5->_sentences = v7;
 
   [(_LTDisambiguableResult *)v5 _commonInit];
-  v8 = v5;
+  v9 = v5;
 LABEL_7:
 
-  return v8;
+  return v9;
 }
 
 - (_LTDisambiguableResult)initWithSentences:(id)sentences joinedWithString:(id)string
@@ -680,10 +674,10 @@ LABEL_7:
   [resultsCopy enumerateObjectsUsingBlock:&v19];
   v11 = [self alloc];
   v12 = [v11 initWithSentences:{v9, v19, v20, v21, v22}];
-  v13 = _LTOSLogDisambiguation();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v14 = _LTOSLogDisambiguation(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
-    v16 = v13;
+    v16 = v14;
     v17 = [resultsCopy count];
     v18 = [v9 count];
     *buf = 134218498;
@@ -695,8 +689,6 @@ LABEL_7:
     _os_log_debug_impl(&dword_23AAF5000, v16, OS_LOG_TYPE_DEBUG, "Combined %zu disambiguationResults with total of %zu sentences into combined disambiguationResult: %{public}@", buf, 0x20u);
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
@@ -705,39 +697,41 @@ LABEL_7:
   resultsCopy = results;
   v5 = [resultsCopy _ltCompactMap:&__block_literal_global_1];
   v6 = [v5 count];
-  if (v6 == [resultsCopy count])
+  v7 = [resultsCopy count];
+  if (v6 == v7)
   {
-    v7 = [_LTDisambiguableResult combineResults:v5 joinedWithString:@" "];
-    hasDisambiguations = [v7 hasDisambiguations];
-    v9 = _LTOSLogDisambiguation();
-    v10 = v9;
-    if (hasDisambiguations)
+    v9 = [_LTDisambiguableResult combineResults:v5 joinedWithString:@" "];
+    hasDisambiguations = [v9 hasDisambiguations];
+    v11 = hasDisambiguations;
+    v13 = _LTOSLogDisambiguation(hasDisambiguations, v12);
+    v14 = v13;
+    if (v11)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
       {
-        [(_LTDisambiguableResult *)v7 combinedDisambiguableResultFromTranslationResults:v10 joinedWithString:resultsCopy];
+        [(_LTDisambiguableResult *)v9 combinedDisambiguableResultFromTranslationResults:v14 joinedWithString:resultsCopy];
       }
     }
 
-    else if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    else if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
     {
-      *v13 = 0;
-      _os_log_impl(&dword_23AAF5000, v10, OS_LOG_TYPE_INFO, "Combined paragraph disambiguableResult has no disambiguations, but returning it anyway since it may be later combined with other disambiguable results", v13, 2u);
+      *v17 = 0;
+      _os_log_impl(&dword_23AAF5000, v14, OS_LOG_TYPE_INFO, "Combined paragraph disambiguableResult has no disambiguations, but returning it anyway since it may be later combined with other disambiguable results", v17, 2u);
     }
   }
 
   else
   {
-    v11 = _LTOSLogDisambiguation();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v15 = _LTOSLogDisambiguation(v7, v8);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      [(_LTDisambiguableResult *)v11 combinedDisambiguableResultFromTranslationResults:v5 joinedWithString:resultsCopy];
+      [(_LTDisambiguableResult *)v15 combinedDisambiguableResultFromTranslationResults:v5 joinedWithString:resultsCopy];
     }
 
-    v7 = 0;
+    v9 = 0;
   }
 
-  return v7;
+  return v9;
 }
 
 - (id)sentenceWithUUID:(id)d
@@ -765,122 +759,119 @@ LABEL_7:
 
 - (NSString)targetText
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_sentences;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        targetText = [*(*(&v13 + 1) + 8 * i) targetText];
+        targetText = [*(*(&v12 + 1) + 8 * i) targetText];
         [string appendString:targetText];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [string copy];
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (NSString)sourceText
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_sentences;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        sourceText = [*(*(&v13 + 1) + 8 * i) sourceText];
+        sourceText = [*(*(&v12 + 1) + 8 * i) sourceText];
         [string appendString:sourceText];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [string copy];
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (NSString)romanization
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = [(NSArray *)self->_sentences _ltCompactMap:&__block_literal_global_9];
   v4 = [(NSArray *)self->_sentences count];
-  if (v4 == [v3 count])
+  v5 = [v3 count];
+  if (v4 == v5)
   {
-    v5 = [v3 componentsJoinedByString:&stru_284DBB9B8];
+    v7 = [v3 componentsJoinedByString:&stru_284DBB9B8];
   }
 
   else
   {
-    v6 = _LTOSLogRomanization();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+    v8 = _LTOSLogRomanization(v5, v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v7 = v6;
-      v8 = [v3 count];
-      v9 = [(NSArray *)self->_sentences count];
-      v12 = 134218240;
-      v13 = v8;
-      v14 = 2048;
-      v15 = v9;
-      _os_log_impl(&dword_23AAF5000, v7, OS_LOG_TYPE_INFO, "Not returning romanization for disambiguable result since only %zu out of %zu sentences had romanization", &v12, 0x16u);
+      v9 = v8;
+      v10 = [v3 count];
+      v11 = [(NSArray *)self->_sentences count];
+      v13 = 134218240;
+      v14 = v10;
+      v15 = 2048;
+      v16 = v11;
+      _os_log_impl(&dword_23AAF5000, v9, OS_LOG_TYPE_INFO, "Not returning romanization for disambiguable result since only %zu out of %zu sentences had romanization", &v13, 0x16u);
     }
 
-    v5 = 0;
+    v7 = 0;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
-  return v5;
+  return v7;
 }
 
 - (id)generateAttributedStringForLocation:(unint64_t)location withGlobalAttributes:(id)attributes attributeProvider:(id)provider
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   attributesCopy = attributes;
   providerCopy = provider;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
-  v21 = WeakRetained;
+  v20 = WeakRetained;
   if (objc_opt_respondsToSelector())
   {
     v11 = [WeakRetained excludedTypesForResult:{self, WeakRetained}];
@@ -892,37 +883,36 @@ LABEL_7:
   }
 
   v12 = objc_alloc_init(MEMORY[0x277CCAB48]);
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
   v25 = 0u;
-  v26 = 0u;
   obj = [(_LTDisambiguableResult *)self sentences];
-  v13 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+  v13 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v24;
+    v15 = *v23;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v24 != v15)
+        if (*v23 != v15)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = [*(*(&v23 + 1) + 8 * i) _generateAttributedStringForLocation:location result:self excludedTypes:v11 globalAttributes:attributesCopy attributeProvider:{providerCopy, v21}];
+        v17 = [*(*(&v22 + 1) + 8 * i) _generateAttributedStringForLocation:location result:self excludedTypes:v11 globalAttributes:attributesCopy attributeProvider:{providerCopy, v20}];
         [v12 appendAttributedString:v17];
       }
 
-      v14 = [obj countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v14 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
     }
 
     while (v14);
   }
 
   v18 = [v12 copy];
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }
@@ -979,7 +969,7 @@ LABEL_7:
 
 - (void)disambiguableSentence:(id)sentence didSelectNode:(id)node atIndex:(unint64_t)index withSelection:(id)selection
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   sentenceCopy = sentence;
   selectionCopy = selection;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -989,28 +979,28 @@ LABEL_7:
     [v11 disambiguableResult:self didChangeResultForSentence:sentenceCopy withSelection:selectionCopy];
   }
 
-  v19 = sentenceCopy;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
+  v18 = sentenceCopy;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   allObjects = [(NSHashTable *)self->_observers allObjects];
-  v13 = [allObjects countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v13 = [allObjects countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v21;
+    v15 = *v20;
     do
     {
       v16 = 0;
       do
       {
-        if (*v21 != v15)
+        if (*v20 != v15)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v17 = *(*(&v20 + 1) + 8 * v16);
+        v17 = *(*(&v19 + 1) + 8 * v16);
         if (objc_opt_respondsToSelector())
         {
           [v17 disambiguableResultDidUpdate:self];
@@ -1020,13 +1010,11 @@ LABEL_7:
       }
 
       while (v14 != v16);
-      v14 = [allObjects countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v14 = [allObjects countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v14);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)excludedTypesForDisambiguableSentence:(id)sentence
@@ -1047,17 +1035,17 @@ LABEL_7:
 
 - (_LTDisambiguableResult)initWithCoder:(id)coder
 {
-  v15[2] = *MEMORY[0x277D85DE8];
+  v14[2] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v14.receiver = self;
-  v14.super_class = _LTDisambiguableResult;
-  v5 = [(_LTDisambiguableResult *)&v14 init];
+  v13.receiver = self;
+  v13.super_class = _LTDisambiguableResult;
+  v5 = [(_LTDisambiguableResult *)&v13 init];
   if (v5)
   {
     v6 = MEMORY[0x277CBEB98];
-    v15[0] = objc_opt_class();
-    v15[1] = objc_opt_class();
-    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:2];
+    v14[0] = objc_opt_class();
+    v14[1] = objc_opt_class();
+    v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
     v8 = [v6 setWithArray:v7];
 
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"sentences"];
@@ -1068,7 +1056,6 @@ LABEL_7:
     v11 = v5;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -1082,42 +1069,40 @@ LABEL_7:
 
 - (void)_commonInit
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   weakObjectsHashTable = [MEMORY[0x277CCAA50] weakObjectsHashTable];
   observers = self->_observers;
   self->_observers = weakObjectsHashTable;
 
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
   v12 = 0u;
+  v13 = 0u;
+  v10 = 0u;
+  v11 = 0u;
   v5 = self->_sentences;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v12;
+    v8 = *v11;
     do
     {
       v9 = 0;
       do
       {
-        if (*v12 != v8)
+        if (*v11 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        [*(*(&v11 + 1) + 8 * v9++) setDelegate:{self, v11}];
+        [*(*(&v10 + 1) + 8 * v9++) setDelegate:{self, v10}];
       }
 
       while (v7 != v9);
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v7);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (_LTDisambiguableResultDelegate)delegate
@@ -1129,25 +1114,21 @@ LABEL_7:
 
 + (void)combinedDisambiguableResultFromTranslationResults:(void *)a3 joinedWithString:.cold.1(void *a1, void *a2, void *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v5 = a1;
   [a2 count];
   [a3 count];
   OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(&dword_23AAF5000, v5, OS_LOG_TYPE_ERROR, "Unable to create combined paragraph disambiguableResult from array of translationResults because only %zu out of %zu translationResults had disambiguableResults set", v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_23AAF5000, v5, OS_LOG_TYPE_ERROR, "Unable to create combined paragraph disambiguableResult from array of translationResults because only %zu out of %zu translationResults had disambiguableResults set", v6, 0x16u);
 }
 
 + (void)combinedDisambiguableResultFromTranslationResults:(void *)a3 joinedWithString:.cold.2(uint64_t a1, void *a2, void *a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v4 = a2;
   [a3 count];
   OUTLINED_FUNCTION_0_0();
-  _os_log_debug_impl(&dword_23AAF5000, v4, OS_LOG_TYPE_DEBUG, "Created combined disambiguation result: %{public}@; from %zu individual translation results", v6, 0x16u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_23AAF5000, v4, OS_LOG_TYPE_DEBUG, "Created combined disambiguation result: %{public}@; from %zu individual translation results", v5, 0x16u);
 }
 
 @end

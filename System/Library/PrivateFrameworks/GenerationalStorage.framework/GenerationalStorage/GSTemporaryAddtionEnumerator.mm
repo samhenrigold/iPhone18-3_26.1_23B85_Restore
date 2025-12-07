@@ -8,13 +8,13 @@
 
 - (GSTemporaryAddtionEnumerator)initWithStorage:(id)storage nameSpace:(id)space withOptions:(unint64_t)options withoutOptions:(unint64_t)withoutOptions ordering:(int)ordering
 {
-  v38[1] = *MEMORY[0x277D85DE8];
+  v37[1] = *MEMORY[0x277D85DE8];
   storageCopy = storage;
   spaceCopy = space;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-  v37.receiver = self;
-  v37.super_class = GSTemporaryAddtionEnumerator;
-  v16 = [(GSTemporaryAddtionEnumerator *)&v37 init];
+  v36.receiver = self;
+  v36.super_class = GSTemporaryAddtionEnumerator;
+  v16 = [(GSTemporaryAddtionEnumerator *)&v36 init];
   v17 = v16;
   if (v16)
   {
@@ -25,31 +25,31 @@
     v17->_nameSpace = v18;
 
     objc_storeStrong(&v17->_storage, storage);
-    v36 = 0;
-    v20 = [storageCopy _URLForNameSpace:spaceCopy createIfNeeded:0 allowMissing:1 error:&v36];
-    v21 = v36;
-    v22 = v36;
+    v35 = 0;
+    v20 = [storageCopy _URLForNameSpace:spaceCopy createIfNeeded:0 allowMissing:1 error:&v35];
+    v21 = v35;
+    v22 = v35;
     if (v20)
     {
       objc_initWeak(&location, v17);
-      v38[0] = *MEMORY[0x277CBE7B0];
-      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v38 count:1];
-      v33[0] = MEMORY[0x277D85DD0];
-      v33[1] = 3221225472;
-      v33[2] = __94__GSTemporaryAddtionEnumerator_initWithStorage_nameSpace_withOptions_withoutOptions_ordering___block_invoke;
-      v33[3] = &unk_279697A18;
-      objc_copyWeak(&v34, &location);
-      v24 = [defaultManager enumeratorAtURL:v20 includingPropertiesForKeys:v23 options:1 errorHandler:v33];
+      v37[0] = *MEMORY[0x277CBE7B0];
+      v23 = [MEMORY[0x277CBEA60] arrayWithObjects:v37 count:1];
+      v32[0] = MEMORY[0x277D85DD0];
+      v32[1] = 3221225472;
+      v32[2] = __94__GSTemporaryAddtionEnumerator_initWithStorage_nameSpace_withOptions_withoutOptions_ordering___block_invoke;
+      v32[3] = &unk_279697A18;
+      objc_copyWeak(&v33, &location);
+      v24 = [defaultManager enumeratorAtURL:v20 includingPropertiesForKeys:v23 options:1 errorHandler:v32];
 
       if (ordering)
       {
         enumerator = [v24 allObjects];
-        v31[0] = MEMORY[0x277D85DD0];
-        v31[1] = 3221225472;
-        v31[2] = __94__GSTemporaryAddtionEnumerator_initWithStorage_nameSpace_withOptions_withoutOptions_ordering___block_invoke_2;
-        v31[3] = &__block_descriptor_36_e25_q24__0__NSURL_8__NSURL_16l;
+        v30[0] = MEMORY[0x277D85DD0];
+        v30[1] = 3221225472;
+        v30[2] = __94__GSTemporaryAddtionEnumerator_initWithStorage_nameSpace_withOptions_withoutOptions_ordering___block_invoke_2;
+        v30[3] = &__block_descriptor_36_e25_q24__0__NSURL_8__NSURL_16l;
         orderingCopy = ordering;
-        v26 = [enumerator sortedArrayUsingComparator:v31];
+        v26 = [enumerator sortedArrayUsingComparator:v30];
         array = v17->_array;
         v17->_array = v26;
       }
@@ -61,7 +61,7 @@
         v17->_enumerator = v28;
       }
 
-      objc_destroyWeak(&v34);
+      objc_destroyWeak(&v33);
       objc_destroyWeak(&location);
     }
 
@@ -78,7 +78,6 @@
     v22 = 0;
   }
 
-  v29 = *MEMORY[0x277D85DE8];
   return v17;
 }
 

@@ -53,7 +53,7 @@
   selfCopy = self;
   sub_10000E448(editorCopy);
 
-  sub_100012904(0, &qword_10012FAF0);
+  sub_100012904(0, &qword_10012FAF0, PREditingLook_ptr);
   v6.super.isa = sub_1000E9A74().super.isa;
 
   return v6.super.isa;

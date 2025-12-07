@@ -1,1731 +1,4 @@
-void sub_1000836DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void sub_100083758(uint64_t a1)
-{
-  v2 = objc_autoreleasePoolPush();
-  v3[0] = _NSConcreteStackBlock;
-  v3[1] = 3321888768;
-  v3[2] = sub_100083844;
-  v3[3] = &unk_10013D178;
-  sub_10001EF44(v4, a1 + 32);
-  sub_100083844(v3);
-  sub_10001E0C0(v4);
-  objc_autoreleasePoolPop(v2);
-}
-
-void sub_100083864(uint64_t a1, void *a2, void *a3, void *a4)
-{
-  v7 = a2;
-  v8 = a3;
-  v9 = a4;
-  v10 = *(a1 + 32);
-  v11 = v7;
-  v12 = v8;
-  v13 = v9;
-  if (v13)
-  {
-    v14 = SALogObjectGeneral;
-    if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_ERROR))
-    {
-      *buf = 68289539;
-      v31 = 0;
-      v32 = 2082;
-      v33 = "";
-      v34 = 2113;
-      *v35 = v12;
-      *&v35[8] = 2113;
-      *&v35[10] = v13;
-      v15 = "{msg%{public}.0s:#safd,downloadFailed, response:%{private, location:escape_only}@, error:%{private, location:escape_only}@}";
-      v16 = v14;
-      v17 = 38;
-LABEL_19:
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_ERROR, v15, buf, v17);
-    }
-
-LABEL_20:
-
-LABEL_21:
-    v25 = 0;
-    goto LABEL_22;
-  }
-
-  if (!v12)
-  {
-    v18 = -1;
-    goto LABEL_16;
-  }
-
-  v18 = [v12 statusCode];
-  if (v18 != 200)
-  {
-LABEL_16:
-    v26 = SALogObjectGeneral;
-    if (!os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_20;
-    }
-
-    *buf = 68289539;
-    v31 = 0;
-    v32 = 2082;
-    v33 = "";
-    v34 = 1025;
-    *v35 = v18;
-    *&v35[4] = 2113;
-    *&v35[6] = v12;
-    v15 = "{msg%{public}.0s:#safd,downloadFailedWithResponse, resultCode:%{private}d, response:%{private, location:escape_only}@}";
-    v16 = v26;
-LABEL_18:
-    v17 = 34;
-    goto LABEL_19;
-  }
-
-  v19 = SALogObjectGeneral;
-  if (!v11)
-  {
-    if (!os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_20;
-    }
-
-    *buf = 68289539;
-    v31 = 0;
-    v32 = 2082;
-    v33 = "";
-    v34 = 1025;
-    *v35 = 200;
-    *&v35[4] = 2113;
-    *&v35[6] = v12;
-    v15 = "{msg%{public}.0s:#safd,tempFileInvalid, resultCode:%{private}d, response:%{private, location:escape_only}@}";
-    v16 = v19;
-    goto LABEL_18;
-  }
-
-  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 68289539;
-    v31 = 0;
-    v32 = 2082;
-    v33 = "";
-    v34 = 1025;
-    *v35 = 200;
-    *&v35[4] = 2113;
-    *&v35[6] = v12;
-    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#safd,downloadSuccess, resultCode:%{private}d, response:%{private, location:escape_only}@}", buf, 0x22u);
-  }
-
-  v20 = [v11 path];
-  v21 = [v20 UTF8String];
-  v22 = (a1 + 40);
-  v23 = a1 + 40;
-  if (*(a1 + 63) < 0)
-  {
-    v23 = *v22;
-  }
-
-  v24 = sub_1000746E8(v21, v23);
-
-  if (!v24)
-  {
-    goto LABEL_21;
-  }
-
-  if (*(a1 + 63) < 0)
-  {
-    v22 = *v22;
-  }
-
-  v25 = sub_1000743F8(v22, *(a1 + 96));
-LABEL_22:
-  v27 = *v10;
-  v28[0] = _NSConcreteStackBlock;
-  v28[1] = 3321888768;
-  v28[2] = sub_100083C3C;
-  v28[3] = &unk_10013D1A8;
-  v28[4] = v10;
-  sub_10001EF44(v29, a1 + 64);
-  v29[32] = v25;
-  dispatch_async(v27, v28);
-  sub_10001E0C0(v29);
-}
-
-void sub_100083C3C(uint64_t a1)
-{
-  v2 = *(a1 + 32);
-  v3 = objc_autoreleasePoolPush();
-  v4[0] = _NSConcreteStackBlock;
-  v4[1] = 3321888768;
-  v4[2] = sub_100083D40;
-  v4[3] = &unk_10013D1A8;
-  v4[4] = v2;
-  sub_10001EF44(v5, a1 + 40);
-  v5[32] = *(a1 + 72);
-  sub_100083D40(v4);
-  sub_10001E0C0(v5);
-  objc_autoreleasePoolPop(v3);
-}
-
-uint64_t sub_100083D54(uint64_t a1, uint64_t a2)
-{
-  if (*(a2 + 63) < 0)
-  {
-    sub_100004CEC((a1 + 40), *(a2 + 40), *(a2 + 48));
-  }
-
-  else
-  {
-    v4 = *(a2 + 40);
-    *(a1 + 56) = *(a2 + 56);
-    *(a1 + 40) = v4;
-  }
-
-  return sub_10001EF44(a1 + 64, a2 + 64);
-}
-
-void sub_100083DAC(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 63) < 0)
-  {
-    operator delete(*(v1 + 40));
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_100083DC8(uint64_t a1)
-{
-  sub_10001E0C0(a1 + 64);
-  if (*(a1 + 63) < 0)
-  {
-    v2 = *(a1 + 40);
-
-    operator delete(v2);
-  }
-}
-
-void sub_100083F8C(id a1)
-{
-  qword_10014ADA8 = objc_alloc_init(SAFileDownloaderDelegate);
-
-  _objc_release_x1();
-}
-
-void sub_100083FC8(uint64_t a1)
-{
-  v2 = SALogObjectGeneral;
-  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-  {
-    v3 = (a1 + 24);
-    if (*(a1 + 47) < 0)
-    {
-      if (*(a1 + 32))
-      {
-        v3 = *v3;
-      }
-
-      else
-      {
-        v3 = "<empty>";
-      }
-    }
-
-    else if (!*(a1 + 47))
-    {
-      v3 = "<empty>";
-    }
-
-    v4 = (a1 + 72);
-    if (*(a1 + 95) < 0)
-    {
-      v4 = *v4;
-    }
-
-    v5 = (a1 + 96);
-    if (*(a1 + 119) < 0)
-    {
-      v5 = *v5;
-    }
-
-    v7 = *(a1 + 12);
-    v6 = *(a1 + 16);
-    v9 = *(a1 + 4);
-    v8 = *(a1 + 8);
-    v10 = (a1 + 120);
-    if (*(a1 + 143) < 0)
-    {
-      v10 = *v10;
-    }
-
-    v11[0] = 68291075;
-    v11[1] = 0;
-    v12 = 2082;
-    v13 = "";
-    v14 = 1025;
-    v15 = v9;
-    v16 = 1025;
-    v17 = v7;
-    v18 = 1025;
-    v19 = v6;
-    v20 = 1025;
-    v21 = v8;
-    v22 = 2081;
-    v23 = v3;
-    v24 = 2081;
-    v25 = v4;
-    v26 = 2081;
-    v27 = v5;
-    v28 = 2081;
-    v29 = v10;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#countryAssetConfig,log, pullpc:%{private}d, appc:%{private}d, efficacyParticipationPercentage:%{private}d, wowControls:%{private}d, pullCname:%{private, location:escape_only}s, efficacyManifestFileName:%{private, location:escape_only}s, codebookFileName:%{private, location:escape_only}s, countrySupport:%{private, location:escape_only}s}", v11, 0x52u);
-  }
-}
-
-void sub_100084138(const void **a1, _DWORD *a2)
-{
-  v5 = a1[1];
-  v4 = a1[2];
-  if (v5 >= v4)
-  {
-    v7 = *a1;
-    v8 = v5 - *a1;
-    v9 = (v8 >> 2) + 1;
-    if (v9 >> 62)
-    {
-      sub_10000509C();
-    }
-
-    v10 = v4 - v7;
-    if (v10 >> 1 > v9)
-    {
-      v9 = v10 >> 1;
-    }
-
-    v11 = v10 >= 0x7FFFFFFFFFFFFFFCLL;
-    v12 = 0x3FFFFFFFFFFFFFFFLL;
-    if (!v11)
-    {
-      v12 = v9;
-    }
-
-    if (v12)
-    {
-      sub_10001CF60(a1, v12);
-    }
-
-    v13 = (4 * (v8 >> 2));
-    *v13 = *a2;
-    v6 = v13 + 1;
-    memcpy(0, v7, v8);
-    v14 = *a1;
-    *a1 = 0;
-    a1[1] = v6;
-    a1[2] = 0;
-    if (v14)
-    {
-      operator delete(v14);
-    }
-  }
-
-  else
-  {
-    *v5 = *a2;
-    v6 = v5 + 1;
-  }
-
-  a1[1] = v6;
-}
-
-void sub_100084218(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  v4 = SALogObjectGeneral;
-  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 68289283;
-    *&buf[4] = 0;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    *&buf[18] = 2113;
-    *&buf[20] = v3;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#countryAssetConfig,onAssetReceived, asset:%{private, location:escape_only}@}", buf, 0x1Cu);
-  }
-
-  v5 = v3;
-  v6 = SALogObjectGeneral;
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 68289283;
-    *&buf[4] = 0;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    *&buf[18] = 2113;
-    *&buf[20] = v5;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#dbg,#countryAssetConfig,readAPNConfigAsset, asset:%{private, location:escape_only}@}", buf, 0x1Cu);
-  }
-
-  v105 = v5;
-
-  if (!v5)
-  {
-    v12 = SALogObjectGeneral;
-    if (!os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_98;
-    }
-
-    *buf = 68289026;
-    *&buf[4] = 0;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    v13 = "{msg%{public}.0s:#countryAssetConfig,#warning,readAPNConfigAsset,nilAssetDictionary}";
-    goto LABEL_22;
-  }
-
-  v7 = [v5 objectForKey:@"config"];
-  if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-  {
-
-    v12 = SALogObjectGeneral;
-    if (!os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_98;
-    }
-
-    *buf = 68289026;
-    *&buf[4] = 0;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    v13 = "{msg%{public}.0s:#countryAssetConfig,#warning,readAPNConfigAsset,nilConfig}";
-LABEL_22:
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, v13, buf, 0x12u);
-    goto LABEL_98;
-  }
-
-  v8 = v7;
-
-  if (*(a1 + 143) < 0)
-  {
-    operator delete(*(a1 + 120));
-  }
-
-  *(a1 + 120) = 0;
-  *(a1 + 128) = 0;
-  *(a1 + 136) = 0;
-  v9 = [v8 objectForKey:{@"countrySupport", v5}];
-  if (v9)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      SACommonUtils::getStringValue(v9, buf);
-      if (*(a1 + 143) < 0)
-      {
-        operator delete(*(a1 + 120));
-      }
-
-      *(a1 + 120) = *buf;
-      *(a1 + 136) = *&buf[16];
-    }
-  }
-
-  v10 = [v8 objectForKey:@"metrics"];
-  if (v10 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    v11 = v10;
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  *(a1 + 4) = -1;
-  v14 = [v11 objectForKey:@"pullpc"];
-  if (v14)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      *(a1 + 4) = [v14 intValue];
-    }
-  }
-
-  *(a1 + 12) = -1;
-  v15 = [v11 objectForKey:@"appc"];
-  if (v15)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      *(a1 + 12) = [v15 intValue];
-    }
-  }
-
-  *(a1 + 16) = 100;
-  v16 = [v11 objectForKey:@"efficacyParticipationPercentage"];
-  if (v16)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      *(a1 + 16) = [v16 intValue];
-    }
-  }
-
-  *(a1 + 144) = -1;
-  v17 = [v11 objectForKey:@"onAlertReceivedDuration"];
-  if (v17)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      *(a1 + 144) = [v17 intValue];
-    }
-  }
-
-  *(a1 + 232) = 1;
-  v18 = [v11 objectForKey:@"motionHarvestOnlyInCountry"];
-  if (v18)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      *(a1 + 232) = [v18 intValue] != 0;
-    }
-  }
-
-  v19 = [v8 objectForKey:@"apns"];
-  if (v19 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    v20 = v19;
-  }
-
-  else
-  {
-    v20 = 0;
-  }
-
-  *(a1 + 8) = 1;
-  v21 = [v20 objectForKey:@"wowControls"];
-  if (v21)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      *(a1 + 8) = [v21 intValue];
-    }
-  }
-
-  v22 = [v8 objectForKey:@"pull"];
-  if (v22 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    v23 = v22;
-  }
-
-  else
-  {
-    v23 = 0;
-  }
-
-  if (*(a1 + 47) < 0)
-  {
-    operator delete(*(a1 + 24));
-  }
-
-  *(a1 + 24) = 0;
-  *(a1 + 32) = 0;
-  *(a1 + 40) = 0;
-  v24 = [v23 objectForKey:@"server"];
-  if (v24)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      SACommonUtils::getStringValue(v24, buf);
-      if (*(a1 + 47) < 0)
-      {
-        operator delete(*(a1 + 24));
-      }
-
-      *(a1 + 24) = *buf;
-      *(a1 + 40) = *&buf[16];
-    }
-  }
-
-  v25 = [v8 objectForKey:@"livability"];
-  if (v25 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    v26 = v25;
-  }
-
-  else
-  {
-    v26 = 0;
-  }
-
-  if (*(a1 + 71) < 0)
-  {
-    operator delete(*(a1 + 48));
-  }
-
-  *(a1 + 48) = 0;
-  *(a1 + 56) = 0;
-  *(a1 + 64) = 0;
-  v27 = [v26 objectForKey:@"weaEnrichmentChannel"];
-  if (v27)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      SACommonUtils::getStringValue(v27, buf);
-      if (*(a1 + 71) < 0)
-      {
-        operator delete(*(a1 + 48));
-      }
-
-      *(a1 + 48) = *buf;
-      *(a1 + 64) = *&buf[16];
-    }
-  }
-
-  v28 = [v8 objectForKey:@"security"];
-  if (v28 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    v29 = v28;
-  }
-
-  else
-  {
-    v29 = 0;
-  }
-
-  v30 = [v29 objectForKey:@"codebookFileName"];
-  if (v30)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      SACommonUtils::getStringValue(v30, buf);
-      if (*(a1 + 119) < 0)
-      {
-        operator delete(*(a1 + 96));
-      }
-
-      *(a1 + 96) = *buf;
-      *(a1 + 112) = *&buf[16];
-    }
-  }
-
-  v31 = [v29 objectForKey:@"codebookDownloadPeriodSeconds"];
-  if (v31)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      *(a1 + 20) = [v31 intValue];
-    }
-  }
-
-  v32 = [v8 objectForKey:@"edcfu"];
-  if (v32 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    v33 = v32;
-  }
-
-  else
-  {
-    v33 = 0;
-  }
-
-  *(a1 + 236) = 0;
-  v34 = [v33 objectForKey:@"uptakeCoefficient"];
-  if (v34)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      [v34 doubleValue];
-      *&v35 = v35;
-      *(a1 + 236) = LODWORD(v35);
-    }
-  }
-
-  v36 = [v8 objectForKey:@"features"];
-  if (v36 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    v37 = v36;
-  }
-
-  else
-  {
-    v37 = 0;
-  }
-
-  *(a1 + 320) = 1;
-  v38 = [v37 objectForKey:@"richHI"];
-  if (v38)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      *(a1 + 320) = [v38 intValue] != 0;
-    }
-  }
-
-  *(a1 + 321) = 1;
-  v39 = [v37 objectForKey:@"mapsDisplay"];
-  if (v39)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      *(a1 + 321) = [v39 intValue] != 0;
-    }
-  }
-
-  *a1 = 1;
-  v5 = v105;
-LABEL_98:
-
-  v40 = v105;
-  v41 = SALogObjectGeneral;
-  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 68289283;
-    *&buf[4] = 0;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    *&buf[18] = 2113;
-    *&buf[20] = v40;
-    _os_log_impl(&_mh_execute_header, v41, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#countryAssetConfig,readEqSensingAsset, asset:%{private, location:escape_only}@}", buf, 0x1Cu);
-  }
-
-  if (!v105)
-  {
-    v48 = SALogObjectGeneral;
-    if (!os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_129;
-    }
-
-    *buf = 68289026;
-    *&buf[4] = 0;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    v49 = "{msg%{public}.0s:#countryAssetConfig,readEqSensingAsset,nil asset dictionary}";
-    goto LABEL_114;
-  }
-
-  v42 = [v40 objectForKey:@"config"];
-  if (!v42 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-  {
-
-    v48 = SALogObjectGeneral;
-    if (!os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_129;
-    }
-
-    *buf = 68289026;
-    *&buf[4] = 0;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    v49 = "{msg%{public}.0s:#countryAssetConfig,readEqSensingAsset,nil config}";
-LABEL_114:
-    _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_DEFAULT, v49, buf, 0x12u);
-    goto LABEL_129;
-  }
-
-  v43 = [v42 objectForKey:@"eqSensing"];
-  if (v43 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    *(a1 + 160) = 0xBFF0000000000000;
-    v44 = [v43 objectForKey:@"manifestDownloadPeriod"];
-    if (v44)
-    {
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        [v44 doubleValue];
-        *(a1 + 160) = v45;
-      }
-    }
-
-    v46 = (a1 + 168);
-    if (*(a1 + 191) < 0)
-    {
-      *(a1 + 176) = 0;
-      v47 = *(a1 + 168);
-    }
-
-    else
-    {
-      *(a1 + 191) = 0;
-      v47 = (a1 + 168);
-    }
-
-    *v47 = 0;
-    v51 = [v43 objectForKey:{@"manifestFileName", v105}];
-    if (v51)
-    {
-      objc_opt_class();
-      if (objc_opt_isKindOfClass())
-      {
-        SACommonUtils::getStringValue(v51, buf);
-        if (*(a1 + 191) < 0)
-        {
-          operator delete(*v46);
-        }
-
-        *v46 = *buf;
-        *(a1 + 184) = *&buf[16];
-      }
-    }
-
-    v106 = 0;
-    *__str = 0;
-    SACommonUtils::readArrayFromKey(v43, @"motionHarvestToggles", &v106, __str);
-    v52 = *__str;
-    if (v52)
-    {
-      v53 = [NSArray arrayWithArray:v52];
-      v54 = *(a1 + 192);
-      *(a1 + 192) = v53;
-    }
-
-    v55 = SALogObjectGeneral;
-    if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 68289283;
-      *&buf[4] = 0;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 2113;
-      *&buf[20] = v52;
-      _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#countryAssetConfig,readEqSensingAsset, toggles:%{private, location:escape_only}@}", buf, 0x1Cu);
-    }
-  }
-
-  else
-  {
-
-    v50 = SALogObjectGeneral;
-    if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 68289026;
-      *&buf[4] = 0;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#countryAssetConfig,readEqSensingAsset,nil eqSensing dictionary}", buf, 0x12u);
-    }
-  }
-
-LABEL_129:
-  v56 = v40;
-  v57 = SALogObjectGeneral;
-  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 68289283;
-    *&buf[4] = 0;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    *&buf[18] = 2113;
-    *&buf[20] = v56;
-    _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#countryAssetConfig,readRollingMetricAsset, metrics:%{private, location:escape_only}@}", buf, 0x1Cu);
-  }
-
-  if (!v105)
-  {
-    v61 = SALogObjectGeneral;
-    if (!os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_165;
-    }
-
-    *buf = 68289026;
-    *&buf[4] = 0;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    v62 = "{msg%{public}.0s:#countryAssetConfig,readRollingMetricAsset,nilAssetDictionary}";
-    goto LABEL_141;
-  }
-
-  v58 = [v56 objectForKey:@"config"];
-  if (!v58 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-  {
-
-    v61 = SALogObjectGeneral;
-    if (!os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_165;
-    }
-
-    *buf = 68289026;
-    *&buf[4] = 0;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    v62 = "{msg%{public}.0s:#countryAssetConfig,readRollingMetricAsset,nilConfig}";
-LABEL_141:
-    _os_log_impl(&_mh_execute_header, v61, OS_LOG_TYPE_DEFAULT, v62, buf, 0x12u);
-    goto LABEL_165;
-  }
-
-  v59 = [v58 objectForKey:@"metrics"];
-  if (v59 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    v60 = v59;
-  }
-
-  else
-  {
-    v60 = 0;
-  }
-
-  v63 = SALogObjectGeneral;
-  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 68289283;
-    *&buf[4] = 0;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    *&buf[18] = 2113;
-    *&buf[20] = v60;
-    _os_log_impl(&_mh_execute_header, v63, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#countryAssetConfig,readRollingMetricAsset, metricsData:%{private, location:escape_only}@}", buf, 0x1Cu);
-  }
-
-  memset(__str, 0, 24);
-  v64 = [v60 objectForKey:{@"rmEnable", v105}];
-  if (v64)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v65 = [v64 intValue]!= 0;
-
-      *(a1 + 148) = v65 | 0x100;
-      v64 = SALogObjectGeneral;
-      if (os_log_type_enabled(v64, OS_LOG_TYPE_DEFAULT))
-      {
-        if ((*(a1 + 149) & 1) == 0)
-        {
-          sub_100086A78();
-        }
-
-        v66 = *(a1 + 148);
-        *buf = 68289282;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 1026;
-        *&buf[20] = v66;
-        _os_log_impl(&_mh_execute_header, v64, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#countryAssetConfig,readRollingMetricAsset, rmSupport:%{public}d}", buf, 0x18u);
-      }
-    }
-  }
-
-  v67 = [v60 objectForKey:@"rmPeriodInSeconds"];
-  if (v67)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v68 = [v67 intValue];
-
-      *(a1 + 152) = v68;
-      *(a1 + 156) = 1;
-      v67 = SALogObjectGeneral;
-      if (os_log_type_enabled(v67, OS_LOG_TYPE_DEFAULT))
-      {
-        if ((*(a1 + 156) & 1) == 0)
-        {
-          sub_100086A78();
-        }
-
-        v69 = *(a1 + 152);
-        *buf = 68289282;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        *&buf[18] = 1026;
-        *&buf[20] = v69;
-        _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#countryAssetConfig,readRollingMetricAsset, metricPeriod:%{public}d}", buf, 0x18u);
-      }
-    }
-  }
-
-  v70 = [v60 objectForKey:@"efficacyManifestFileName"];
-  if (v70 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-  {
-    SACommonUtils::getStringValue(v70, buf);
-    *__str = *buf;
-    *&__str[16] = *&buf[16];
-
-    v71 = (a1 + 72);
-    std::string::operator=((a1 + 72), __str);
-    v72 = SALogObjectGeneral;
-    if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-    {
-      if (*(a1 + 95) < 0)
-      {
-        v71 = *v71;
-      }
-
-      *buf = 68289283;
-      *&buf[4] = 0;
-      *&buf[8] = 2082;
-      *&buf[10] = "";
-      *&buf[18] = 2081;
-      *&buf[20] = v71;
-      _os_log_impl(&_mh_execute_header, v72, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#countryAssetConfig,readRollingMetricAsset, efficacyManifestFileName:%{private, location:escape_only}s}", buf, 0x1Cu);
-    }
-
-    if ((__str[23] & 0x80000000) != 0)
-    {
-      operator delete(*__str);
-    }
-  }
-
-  else
-  {
-  }
-
-LABEL_165:
-  v73 = v56;
-  v74 = [v73 objectForKey:@"config"];
-  if (v74)
-  {
-    objc_opt_class();
-    if (objc_opt_isKindOfClass())
-    {
-      v75 = [v74 objectForKey:@"mapConfig"];
-      if (!v75 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
-      {
-
-        v99 = SALogObjectGeneral;
-        if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 68289026;
-          *&buf[4] = 0;
-          *&buf[8] = 2082;
-          *&buf[10] = "";
-          _os_log_impl(&_mh_execute_header, v99, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#countryAssetConfig,readMapCacheAsset,mapConfigNil}", buf, 0x12u);
-        }
-
-        goto LABEL_215;
-      }
-
-      *(a1 + 244) = 259200;
-      v76 = [v75 objectForKey:@"cacheIntervalSeconds"];
-      if (v76)
-      {
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          [v76 doubleValue];
-          *(a1 + 244) = v77;
-        }
-      }
-
-      *(a1 + 248) = 0x408F400000000000;
-      v78 = [v75 objectForKey:@"distinctLocationDistanceMeters"];
-      if (v78)
-      {
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          [v78 doubleValue];
-          *(a1 + 248) = v79;
-        }
-      }
-
-      *(a1 + 256) = 0x40F5180000000000;
-      v80 = [v75 objectForKey:@"cacheHistorySeconds"];
-      if (v80)
-      {
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          [v80 doubleValue];
-          *(a1 + 256) = v81;
-        }
-      }
-
-      *(a1 + 296) = 3600;
-      v82 = [v75 objectForKey:@"minDwellingDurationForRegionToMapsPrecacheSeconds"];
-      if (v82)
-      {
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          [v82 doubleValue];
-          *(a1 + 296) = v83;
-        }
-      }
-
-      *(a1 + 300) = 5;
-      v84 = [v75 objectForKey:@"maxNumberOfRegionsAllowedForMapsPrecache"];
-      if (v84)
-      {
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          [v84 doubleValue];
-          *(a1 + 300) = v85;
-        }
-      }
-
-      *(a1 + 304) = 100000;
-      v86 = [v75 objectForKey:@"radiusOfRegionForMapsPrecachingMeters"];
-      if (v86)
-      {
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          [v86 doubleValue];
-          *(a1 + 304) = v87;
-        }
-      }
-
-      *(a1 + 308) = 1209600;
-      v88 = [v75 objectForKey:@"mapsPrecachingExpirationAgeSeconds"];
-      if (v88)
-      {
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          [v88 doubleValue];
-          *(a1 + 308) = v89;
-        }
-      }
-
-      *(a1 + 312) = 2592000;
-      v90 = [v75 objectForKey:@"mapsPrecachingLOILookBackTimeSeconds"];
-      if (v90)
-      {
-        objc_opt_class();
-        if (objc_opt_isKindOfClass())
-        {
-          [v90 doubleValue];
-          *(a1 + 312) = v91;
-        }
-      }
-
-      *(a1 + 240) = *(a1 + 244) > 0;
-      v92 = [v75 objectForKey:@"cacheRadiiKm"];
-      if (v92 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
-      {
-        if ([v92 count])
-        {
-          v108 = 0u;
-          v109 = 0u;
-          memset(__str, 0, sizeof(__str));
-          v92 = v92;
-          v93 = [v92 countByEnumeratingWithState:__str objects:buf count:16];
-          if (v93)
-          {
-            v94 = **&__str[16];
-            do
-            {
-              for (i = 0; i != v93; i = i + 1)
-              {
-                if (**&__str[16] != v94)
-                {
-                  objc_enumerationMutation(v92);
-                }
-
-                v96 = *(*&__str[8] + 8 * i);
-                if (v96)
-                {
-                  objc_opt_class();
-                  if (objc_opt_isKindOfClass())
-                  {
-                    [v96 doubleValue];
-                    v106 = (v97 * 1000.0);
-                    sub_100084138((a1 + 272), &v106);
-                  }
-                }
-              }
-
-              v93 = [v92 countByEnumeratingWithState:__str objects:buf count:16];
-            }
-
-            while (v93);
-          }
-
-LABEL_214:
-LABEL_215:
-
-          goto LABEL_216;
-        }
-      }
-
-      else
-      {
-
-        v92 = 0;
-      }
-
-      *buf = 100000;
-      sub_100084138((a1 + 272), buf);
-      *buf = 200000;
-      sub_100084138((a1 + 272), buf);
-      *buf = 400000;
-      sub_100084138((a1 + 272), buf);
-      *buf = 500000;
-      sub_100084138((a1 + 272), buf);
-      v100 = SALogObjectGeneral;
-      if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-      {
-        *buf = 68289026;
-        *&buf[4] = 0;
-        *&buf[8] = 2082;
-        *&buf[10] = "";
-        _os_log_impl(&_mh_execute_header, v100, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#countryAssetConfig,readMapCacheAsset,cacheRadiiKmNil}", buf, 0x12u);
-      }
-
-      goto LABEL_214;
-    }
-  }
-
-  v98 = SALogObjectGeneral;
-  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 68289026;
-    *&buf[4] = 0;
-    *&buf[8] = 2082;
-    *&buf[10] = "";
-    _os_log_impl(&_mh_execute_header, v98, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#countryAssetConfig,readMapCacheAsset,configIsNil}", buf, 0x12u);
-  }
-
-LABEL_216:
-
-  v101 = *(a1 + 200);
-  if (!v101)
-  {
-    operator new();
-  }
-
-  sub_10006F5C0(v101, v73);
-  v102 = *(a1 + 208);
-  if (!v102)
-  {
-    operator new();
-  }
-
-  sub_10006F5C0(v102, v73);
-  v103 = *(a1 + 216);
-  if (!v103)
-  {
-    operator new();
-  }
-
-  sub_10006F5C0(v103, v73);
-  v104 = *(a1 + 224);
-  if (!v104)
-  {
-    operator new();
-  }
-
-  sub_10006F5C0(v104, v73);
-  *a1 = 1;
-}
-
-void sub_10008628C(uint64_t a1, double *a2)
-{
-  v4 = SALogObjectGeneral;
-  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-  {
-    *__p = 68289026;
-    *&__p[8] = 2082;
-    *&__p[10] = "";
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#countryAssetConfig,getEarthquakeSensingConfig}", __p, 0x12u);
-  }
-
-  v5 = *(sub_100042820() + 45);
-  v6 = sub_100042820();
-  if (*(v6 + 391) < 0)
-  {
-    sub_100004CEC(__p, v6[46], v6[47]);
-  }
-
-  else
-  {
-    *__p = *(v6 + 23);
-    *&__p[16] = v6[48];
-  }
-
-  if (v5 <= 0.0)
-  {
-    v5 = *(a1 + 160);
-  }
-
-  *a2 = v5;
-  v7 = (a2 + 1);
-  v8 = __p[23];
-  if (__p[23] < 0)
-  {
-    v8 = *&__p[8];
-  }
-
-  if (v8)
-  {
-    v9 = __p;
-  }
-
-  else
-  {
-    v9 = (a1 + 168);
-  }
-
-  std::string::operator=(v7, v9);
-  if ((__p[23] & 0x80000000) != 0)
-  {
-    operator delete(*__p);
-  }
-}
-
-void sub_1000863D8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void sub_1000863FC(unsigned __int8 *a1, BOOL *a2)
-{
-  v4 = SALogObjectGeneral;
-  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-  {
-    v11 = 68289026;
-    v12 = 0;
-    v13 = 2082;
-    v14 = "";
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#countryAssetConfig,getRollingMetrics}", &v11, 0x12u);
-  }
-
-  if ((sub_100042820()[35] & 0x80000000) != 0)
-  {
-    if (a1[149] == 1)
-    {
-      v5 = a1[148];
-    }
-
-    else
-    {
-      v5 = 0;
-    }
-  }
-
-  else
-  {
-    v5 = *(sub_100042820() + 70);
-  }
-
-  *a2 = v5 != 0;
-  if ((*(sub_100042820() + 71) & 0x80000000) == 0)
-  {
-    v7 = sub_100042820() + 71;
-LABEL_12:
-    LODWORD(v6) = *v7;
-    v8 = v6;
-    goto LABEL_13;
-  }
-
-  if (a1[156] == 1)
-  {
-    v7 = a1 + 152;
-    goto LABEL_12;
-  }
-
-  v8 = 4294967300.0;
-LABEL_13:
-  *(a2 + 1) = v8;
-  v9 = SALogObjectGeneral;
-  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-  {
-    v10 = *a2;
-    v11 = 68289538;
-    v12 = 0;
-    v13 = 2082;
-    v14 = "";
-    v15 = 1026;
-    v16 = v10;
-    v17 = 2050;
-    v18 = v8;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#countryAssetConfig,getRollingMetrics, rmSupported:%{public}d, rollingPeriodSeconds:%{public}lu}", &v11, 0x22u);
-  }
-}
-
-void sub_1000865C4(uint64_t a1, void *a2, void *a3, float64_t a4, float64_t a5)
-{
-  sub_10008672C(a1, &v31);
-  v7 = v31;
-  v8 = v32;
-  if (v31 != v32)
-  {
-    v9.f64[0] = a4;
-    v9.f64[1] = a5;
-    v14 = v9;
-    do
-    {
-      sub_10006E650(v15, v7);
-      v10 = vmovn_s64(vcgeq_f64(v14, v25));
-      v10.i32[0] = vuzp1_s16(v10, v10).u32[0];
-      v10.i32[1] = vuzp1_s16(*&v25, vmovn_s64(vcgeq_f64(v26, v14))).i32[1];
-      if (vminv_u16(v10))
-      {
-        v11 = v24;
-        *a2 = v23;
-        *a3 = v11;
-      }
-
-      v33 = &v30;
-      sub_100005208(&v33);
-      v33 = &v29;
-      sub_100005208(&v33);
-      if (__p)
-      {
-        v28 = __p;
-        operator delete(__p);
-      }
-
-      if (v22 < 0)
-      {
-        operator delete(v21);
-      }
-
-      if (v20 < 0)
-      {
-        operator delete(v19);
-      }
-
-      if (v18 < 0)
-      {
-        operator delete(v17);
-      }
-
-      if (v16 < 0)
-      {
-        operator delete(v15[1]);
-      }
-
-      v7 += 280;
-    }
-
-    while (v7 != v8);
-  }
-
-  v15[0] = &v31;
-  sub_10006EB04(v15);
-}
-
-void sub_100086710(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void **a14)
-{
-  a14 = (v14 - 112);
-  sub_10006EB04(&a14);
-  _Unwind_Resume(a1);
-}
-
-void sub_10008672C(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  v4 = SALogObjectGeneral;
-  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEBUG))
-  {
-    v6[0] = 68289026;
-    v6[1] = 0;
-    v7 = 2082;
-    v8 = "";
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEBUG, "{msg%{public}.0s:#dbg,#asset,getApnsTransportConfigData}", v6, 0x12u);
-  }
-
-  v5 = *(a1 + 200);
-  *a2 = 0;
-  a2[1] = 0;
-  a2[2] = 0;
-  if (v5)
-  {
-    sub_100086AC4(a2, *(v5 + 8), *(v5 + 16), 0xAF8AF8AF8AF8AF8BLL * ((*(v5 + 16) - *(v5 + 8)) >> 3));
-  }
-}
-
-void sub_100086834(uint64_t a1, uint64_t *a2)
-{
-  v2 = *(a1 + 224);
-  if (v2)
-  {
-    if ((v2 + 8) != a2)
-    {
-      v5 = *(v2 + 8);
-      v4 = *(v2 + 16);
-      v6 = v4 - v5;
-      v7 = a2[2];
-      v8 = *a2;
-      if (v7 - *a2 < (v4 - v5))
-      {
-        v9 = 0xCCCCCCCCCCCCCCCDLL * (v6 >> 3);
-        if (v8)
-        {
-          v10 = a2[1];
-          v11 = *a2;
-          if (v10 != v8)
-          {
-            do
-            {
-              v10 -= 40;
-              sub_1000470C4(v10);
-            }
-
-            while (v10 != v8);
-            v11 = *a2;
-          }
-
-          a2[1] = v8;
-          operator delete(v11);
-          v7 = 0;
-          *a2 = 0;
-          a2[1] = 0;
-          a2[2] = 0;
-        }
-
-        if (v9 <= 0x666666666666666)
-        {
-          v12 = 0xCCCCCCCCCCCCCCCDLL * (v7 >> 3);
-          v13 = 2 * v12;
-          if (2 * v12 <= v9)
-          {
-            v13 = v9;
-          }
-
-          if (v12 >= 0x333333333333333)
-          {
-            v14 = 0x666666666666666;
-          }
-
-          else
-          {
-            v14 = v13;
-          }
-
-          if (v14 <= 0x666666666666666)
-          {
-            sub_1000799C0(a2, v14);
-          }
-        }
-
-        sub_10000509C();
-      }
-
-      v16 = a2[1] - v8;
-      if (v16 >= v6)
-      {
-        v17 = sub_100086D08(v5, v4, *a2);
-        for (i = a2[1]; i != v17; sub_1000470C4(i))
-        {
-          i -= 40;
-        }
-
-        a2[1] = v17;
-      }
-
-      else
-      {
-        sub_100086D08(v5, (v5 + v16), *a2);
-        a2[1] = sub_100086C20(v5 + v16, v4, a2[1]);
-      }
-    }
-  }
-
-  else
-  {
-    v15 = SALogObjectGeneral;
-    if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
-    {
-      v19[0] = 68289026;
-      v19[1] = 0;
-      v20 = 2082;
-      v21 = "";
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#countryAssetConfig,getGeoChannelMaps,asset not defined}", v19, 0x12u);
-    }
-  }
-}
-
-void sub_100086A78()
-{
-  exception = __cxa_allocate_exception(8uLL);
-}
-
-uint64_t sub_100086AC4(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
-{
-  if (a4)
-  {
-    sub_100086B4C(result, a4);
-  }
-
-  return result;
-}
-
-void sub_100086B2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9)
-{
-  *(v9 + 8) = v10;
-  sub_10006EB04(&a9);
-  _Unwind_Resume(a1);
-}
-
-void sub_100086B4C(uint64_t a1, unint64_t a2)
-{
-  if (a2 < 0xEA0EA0EA0EA0EBLL)
-  {
-    sub_10006EAA8(a1, a2);
-  }
-
-  sub_10000509C();
-}
-
-uint64_t sub_100086B9C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  if (a2 != a3)
-  {
-    v6 = a2;
-    v7 = 0;
-    do
-    {
-      sub_10006E650(a4, v6);
-      v6 += 280;
-      a4 += 280;
-      v7 -= 280;
-    }
-
-    while (v6 != a3);
-  }
-
-  return a4;
-}
-
-void sub_100086BFC(_Unwind_Exception *exception_object)
-{
-  if (v2)
-  {
-    v4 = v1 - 280;
-    do
-    {
-      v4 = sub_10006E900(v4) - 280;
-      v2 += 280;
-    }
-
-    while (v2);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t sub_100086C20(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  if (a1 != a2)
-  {
-    v6 = 0;
-    do
-    {
-      v7 = a3 + v6;
-      v8 = a1 + v6;
-      v9 = *(a1 + v6 + 8);
-      *v7 = *(a1 + v6);
-      *(v7 + 8) = v9;
-      if (v9)
-      {
-        atomic_fetch_add_explicit((v9 + 8), 1uLL, memory_order_relaxed);
-      }
-
-      if (*(v8 + 39) < 0)
-      {
-        sub_100004CEC((v7 + 16), *(v8 + 16), *(a1 + v6 + 24));
-      }
-
-      else
-      {
-        v10 = *(v8 + 16);
-        *(v7 + 32) = *(v8 + 32);
-        *(v7 + 16) = v10;
-      }
-
-      v6 += 40;
-    }
-
-    while (v8 + 40 != a2);
-    a3 += v6;
-  }
-
-  return a3;
-}
-
-void sub_100086CCC(_Unwind_Exception *exception_object)
-{
-  v4 = v1 + v2;
-  v5 = *(v4 + 8);
-  if (v5)
-  {
-    sub_10002A838(v5);
-  }
-
-  if (v2)
-  {
-    v6 = v4 - 40;
-    v7 = -v2;
-    do
-    {
-      sub_1000470C4(v6);
-      v6 -= 40;
-      v7 += 40;
-    }
-
-    while (v7);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t sub_100086D08(uint64_t *a1, uint64_t *a2, uint64_t a3)
-{
-  if (a1 != a2)
-  {
-    v5 = a1;
-    do
-    {
-      v7 = *v5;
-      v6 = v5[1];
-      if (v6)
-      {
-        atomic_fetch_add_explicit((v6 + 8), 1uLL, memory_order_relaxed);
-      }
-
-      v8 = *(a3 + 8);
-      *a3 = v7;
-      *(a3 + 8) = v6;
-      if (v8)
-      {
-        sub_10002A838(v8);
-      }
-
-      std::string::operator=((a3 + 16), (v5 + 2));
-      a3 += 40;
-      v5 += 5;
-    }
-
-    while (v5 != a2);
-  }
-
-  return a3;
-}
-
-BOOL sub_100086D84(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
+BOOL sub_100086D84(uint64_t a1, void *a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
 {
   v8 = SACommonUtils::copyDataAndReturnNewLen((a3 + 36), (a1 + *a4), a2, 4u, 4uLL, a4, a7);
   v9 = v8;
@@ -1750,7 +23,7 @@ BOOL sub_100086D84(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uin
   return v9 != 0;
 }
 
-BOOL sub_100086E90(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
+BOOL sub_100086E90(uint64_t a1, void *a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
 {
   v17 = 0;
   v10 = SACommonUtils::copyDataAndReturnNewLen(&v17, (a1 + *a4), a2, 1u, 1uLL, a4, a7);
@@ -1794,7 +67,7 @@ BOOL sub_100086E90(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uin
   return v11 != 0;
 }
 
-BOOL sub_10008703C(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
+BOOL sub_10008703C(uint64_t a1, void *a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
 {
   v8 = SACommonUtils::copyDataAndReturnNewLen((a3 + 42), (a1 + *a4), a2, 2u, 2uLL, a4, a7);
   v9 = v8;
@@ -1819,7 +92,7 @@ BOOL sub_10008703C(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uin
   return v9 != 0;
 }
 
-BOOL sub_100087148(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
+BOOL sub_100087148(uint64_t a1, void *a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
 {
   v8 = SACommonUtils::copyDataAndReturnNewLen((a3 + 96), (a1 + *a4), a2, 1u, 1uLL, a4, a7);
   v9 = v8;
@@ -1844,7 +117,7 @@ BOOL sub_100087148(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uin
   return v9 != 0;
 }
 
-BOOL sub_100087254(uint64_t a1, void *a2, int *a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int *a7)
+BOOL sub_100087254(uint64_t a1, void *a2, unsigned int *a3, uint64_t a4, uint64_t a5, uint64_t a6, unsigned int *a7)
 {
   v13 = 0;
   v8 = SACommonUtils::copyDataAndReturnNewLen(&v13, (a1 + *a3), a2, 1u, 1uLL, a3, a7);
@@ -1870,7 +143,7 @@ BOOL sub_100087254(uint64_t a1, void *a2, int *a3, uint64_t a4, uint64_t a5, uin
   return v9 != 0;
 }
 
-BOOL sub_100087364(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
+BOOL sub_100087364(uint64_t a1, void *a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
 {
   v8 = SACommonUtils::copyDataAndReturnNewLen((a3 + 46), (a1 + *a4), a2, 1u, 1uLL, a4, a7);
   v9 = v8;
@@ -1895,7 +168,7 @@ BOOL sub_100087364(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uin
   return v9 != 0;
 }
 
-BOOL sub_100087470(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
+BOOL sub_100087470(uint64_t a1, void *a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
 {
   v8 = SACommonUtils::copyDataAndReturnNewLen((a3 + 47), (a1 + *a4), a2, 1u, 1uLL, a4, a7);
   v9 = v8;
@@ -1920,7 +193,7 @@ BOOL sub_100087470(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uin
   return v9 != 0;
 }
 
-BOOL sub_10008757C(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
+BOOL sub_10008757C(uint64_t a1, void *a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
 {
   v18 = 0;
   v10 = SACommonUtils::copyDataAndReturnNewLen(&v18, (a1 + *a4), a2, 1u, 1uLL, a4, a7);
@@ -1964,7 +237,7 @@ BOOL sub_10008757C(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uin
   return v11 != 0;
 }
 
-BOOL sub_100087724(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
+BOOL sub_100087724(uint64_t a1, void *a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
 {
   v18 = 0;
   v9 = SACommonUtils::copyDataAndReturnNewLen(&v18, (a1 + *a4), a2, 5u, 5uLL, a4, a7);
@@ -2012,7 +285,7 @@ BOOL sub_100087724(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uin
   return v10 != 0;
 }
 
-BOOL sub_1000878E4(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
+BOOL sub_1000878E4(uint64_t a1, void *a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
 {
   v9 = SACommonUtils::copyDataAndReturnNewLen((a3 + 60), (a1 + *a4), a2, 1u, 1uLL, a4, a7);
   v10 = v9;
@@ -2040,7 +313,7 @@ BOOL sub_1000878E4(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uin
   return v10 != 0;
 }
 
-BOOL sub_1000879FC(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
+BOOL sub_1000879FC(uint64_t a1, void *a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
 {
   v8 = SACommonUtils::copyDataAndReturnNewLen((a3 + 61), (a1 + *a4), a2, 1u, 1uLL, a4, a7);
   v9 = v8;
@@ -2065,7 +338,7 @@ BOOL sub_1000879FC(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uin
   return v9 != 0;
 }
 
-BOOL sub_100087B08(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
+BOOL sub_100087B08(uint64_t a1, void *a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
 {
   v8 = SACommonUtils::copyDataAndReturnNewLen((a3 + 62), (a1 + *a4), a2, 2u, 2uLL, a4, a7);
   v9 = v8;
@@ -2090,7 +363,7 @@ BOOL sub_100087B08(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uin
   return v9 != 0;
 }
 
-BOOL sub_100087C14(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
+BOOL sub_100087C14(uint64_t a1, void *a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
 {
   v8 = SACommonUtils::copyDataAndReturnNewLen((a3 + 64), (a1 + *a4), a2, 2u, 2uLL, a4, a7);
   v9 = v8;
@@ -2115,7 +388,7 @@ BOOL sub_100087C14(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uin
   return v9 != 0;
 }
 
-BOOL sub_100087D20(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
+BOOL sub_100087D20(uint64_t a1, void *a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
 {
   v8 = SACommonUtils::copyDataAndReturnNewLen((a3 + 66), (a1 + *a4), a2, 1u, 1uLL, a4, a7);
   v9 = v8;
@@ -2140,7 +413,7 @@ BOOL sub_100087D20(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uin
   return v9 != 0;
 }
 
-BOOL sub_100087E2C(uint64_t a1, void *a2, uint64_t a3, int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
+BOOL sub_100087E2C(uint64_t a1, void *a2, uint64_t a3, unsigned int *a4, uint64_t a5, uint64_t a6, unsigned int *a7)
 {
   v8 = SACommonUtils::copyDataAndReturnNewLen((a3 + 72), (a1 + *a4), a2, *(a3 + 66), *(a3 + 66), a4, a7);
   v9 = v8;
@@ -3926,9 +2199,9 @@ LABEL_175:
   return v25;
 }
 
-void sub_10008A738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_10008A738(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   sub_10008B014(va);
   _Unwind_Resume(a1);
 }
@@ -4471,12 +2744,12 @@ void *sub_10008B058(void *a1, void *a2, uint64_t a3, uint64_t a4)
   return a1;
 }
 
-void sub_10008B1D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10008B1D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100017F8C(va);
-  sub_10001E0C0(v3 + 56);
-  sub_10008B31C(v3 + 24);
+  sub_10001E0C0(v4 + 56);
+  sub_10008B31C(v4 + 24);
 
   _Unwind_Resume(a1);
 }
@@ -5037,9 +3310,9 @@ void sub_10008C550(uint64_t a1, char a2)
   }
 }
 
-void sub_10008C75C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10008C75C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   sub_1000733B0(va);
   _Unwind_Resume(a1);
 }
@@ -5770,9 +4043,9 @@ LABEL_68:
   }
 }
 
-void sub_10008DAD0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10008DAD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_10008DBD0(va);
   _Unwind_Resume(a1);
 }
@@ -5826,13 +4099,6 @@ id sub_10008DD14(uint64_t a1, void *a2)
   result = objc_retainBlock(*(a1 + 8));
   a2[1] = result;
   return result;
-}
-
-uint64_t sub_10008DD5C(uint64_t a1)
-{
-  v1 = *(a1 + 8);
-  *(a1 + 8) = 0;
-  return _objc_release_x1();
 }
 
 uint64_t sub_10008DD6C(uint64_t a1, id *a2)
@@ -5948,7 +4214,7 @@ void sub_10008E0EC()
     _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#asset,init}", buf, 0x12u);
   }
 
-  sub_100090E94();
+  sub_100090E94(buf);
 }
 
 void sub_10008E22C(_Unwind_Exception *a1)
@@ -6023,17 +4289,17 @@ void sub_10008E270(uint64_t a1)
   }
 }
 
-void sub_10008E3E0(uint64_t a1, void *a2)
+void sub_10008E3E0(char *a1, void *a2)
 {
   v2 = a2;
   v3 = SALogObjectGeneral;
   if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 68289283;
-    v23[0] = 2082;
-    *&v23[1] = &unk_1000E37F0;
-    v24 = 2113;
-    v25 = v2;
+    v24[0] = 2082;
+    *&v24[1] = &unk_1000E37F0;
+    v25 = 2113;
+    v26 = v2;
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#assetConfig,onAssetReceived, asset:%{private, location:escape_only}@}", buf, 0x1Cu);
   }
 
@@ -6044,33 +4310,33 @@ void sub_10008E3E0(uint64_t a1, void *a2)
     if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 68289026;
-      v23[0] = 2082;
-      *&v23[1] = &unk_1000E37F0;
+      v24[0] = 2082;
+      *&v24[1] = &unk_1000E37F0;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#assetConfig,onAssetReceived,asset nil}", buf, 0x12u);
     }
 
-    sub_100090E94();
+    sub_100090E94(buf);
   }
 
-  v19 = 0u;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
+  v19 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v5)
   {
-    v6 = *v18;
+    v6 = *v19;
     do
     {
       for (i = 0; i != v5; i = i + 1)
       {
-        if (*v18 != v6)
+        if (*v19 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v17 + 1) + 8 * i);
+        v8 = *(*(&v18 + 1) + 8 * i);
         if (v8 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
         {
           v9 = [v4 objectForKey:v8];
@@ -6082,7 +4348,7 @@ void sub_10008E3E0(uint64_t a1, void *a2)
               v10 = v8;
               sub_1000060C4(&__p, [v8 UTF8String]);
               v11 = v9;
-              sub_100090E94();
+              sub_100090E94(&v16);
             }
           }
 
@@ -6090,10 +4356,10 @@ void sub_10008E3E0(uint64_t a1, void *a2)
           if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 68289283;
-            v23[0] = 2082;
-            *&v23[1] = &unk_1000E37F0;
-            v24 = 2113;
-            v25 = v9;
+            v24[0] = 2082;
+            *&v24[1] = &unk_1000E37F0;
+            v25 = 2113;
+            v26 = v9;
             _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#assetConfig,onAssetReceived,invalid countryAsset, countryAssetId:%{private, location:escape_only}@}", buf, 0x1Cu);
           }
         }
@@ -6104,16 +4370,16 @@ void sub_10008E3E0(uint64_t a1, void *a2)
           if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 68289283;
-            v23[0] = 2082;
-            *&v23[1] = &unk_1000E37F0;
-            v24 = 2113;
-            v25 = v8;
+            v24[0] = 2082;
+            *&v24[1] = &unk_1000E37F0;
+            v25 = 2113;
+            v26 = v8;
             _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#assetConfig,onAssetReceived,invalid country, countryNameId:%{private, location:escape_only}@}", buf, 0x1Cu);
           }
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v18 objects:v22 count:16];
     }
 
     while (v5);
@@ -6149,7 +4415,7 @@ void sub_10008E9FC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void sub_10008EA1C(const std::string *a1@<X0>, void *a2@<X8>)
+void sub_10008EA1C(const std::string *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_100090278(&v18, a1);
   v4 = SALogObjectGeneral;
@@ -6170,7 +4436,7 @@ void sub_10008EA1C(const std::string *a1@<X0>, void *a2@<X8>)
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#assetConfig,currentCountryAssetConfig, currentCountryAssetKey:%{private, location:escape_only}s}", buf, 0x1Cu);
   }
 
-  if (!sub_10005B888(&a1[1].__r_.__value_.__l.__size_, &v18.__r_.__value_.__l.__data_))
+  if (!sub_10005B888(&a1[1].__r_.__value_.__l.__size_, &v18))
   {
     v12 = SALogObjectGeneral;
     if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
@@ -6182,7 +4448,7 @@ void sub_10008EA1C(const std::string *a1@<X0>, void *a2@<X8>)
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#assetConfig,currentCountryAssetConfig,config not found}", buf, 0x12u);
     }
 
-    sub_100090E94();
+    sub_100090E94(a2);
   }
 
   sub_100090278(&__p, a1);
@@ -6262,7 +4528,7 @@ LABEL_25:
   a2[1] = v16;
   if (v16)
   {
-    atomic_fetch_add_explicit(v16 + 1, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v16 + 8), 1uLL, memory_order_relaxed);
   }
 
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
@@ -6333,7 +4599,7 @@ void sub_10008EF84(const std::string *a1, void *a2, void *a3, float64_t a4, floa
   }
 
   sub_10008EA1C(a1, &v11);
-  sub_1000865C4(v11, a2, a3, a4, a5);
+  sub_1000865C4(a4, a5, v11, a2, a3);
   if (v12[0])
   {
     sub_10002A838(v12[0]);
@@ -6803,10 +5069,10 @@ __n128 sub_10008F62C(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_10008FD78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_10008FD78(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  sub_10006B400(va, v5);
+  va_start(va, a9);
+  sub_10006B400(va, v9);
   _Unwind_Resume(a1);
 }
 
@@ -6880,7 +5146,7 @@ void sub_10008FF1C(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_1000900A0(const std::string *a1@<X0>, void *a2@<X8>)
+void sub_1000900A0(const std::string *a1@<X0>, uint64_t *a2@<X8>)
 {
   sub_10008EA1C(a1, &v4);
   sub_10008672C(v4, a2);
@@ -6966,12 +5232,11 @@ __n128 sub_100090218(uint64_t a1, uint64_t a2)
 
 void sub_100090278(std::string *a1, const std::string *a2)
 {
-  a1->__r_.__value_.__r.__words[0] = 0;
-  a1->__r_.__value_.__l.__size_ = 0;
+  *&a1->__r_.__value_.__l.__data_ = 0uLL;
   a1->__r_.__value_.__r.__words[2] = 0;
   v4 = sub_100002DB0();
   std::string::operator=(a1, (v4 + 5));
-  if (!sub_10005B888(&a2[1].__r_.__value_.__l.__size_, &a1->__r_.__value_.__l.__data_))
+  if (!sub_10005B888(&a2[1].__r_.__value_.__l.__size_, a1))
   {
     std::string::operator=(a1, a2);
   }
@@ -7076,10 +5341,10 @@ void sub_1000904B8(const std::string *a1, void *a2)
   }
 }
 
-void sub_100090520(uint64_t a1, void *a2)
+void sub_100090520(uint64_t a1, const void **a2)
 {
-  v4 = sub_100039B6C(a1, a2 + 16);
-  *(a2 + 1) = v4;
+  v4 = sub_100039B6C(a1, a2 + 2);
+  a2[1] = v4;
   v5 = *(a1 + 8);
   v6 = (*(a1 + 24) + 1);
   v7 = *(a1 + 32);
@@ -7233,7 +5498,7 @@ LABEL_13:
     }
   }
 
-  v26 = *(a2 + 1);
+  v26 = a2[1];
   if (v17 > 1)
   {
     if (v26 >= v5)
@@ -7257,7 +5522,7 @@ LABEL_13:
       goto LABEL_66;
     }
 
-    v27 = *(*a2 + 8);
+    v27 = *(*a2 + 1);
     if (v17 > 1)
     {
       if (v27 >= v5)
@@ -7280,7 +5545,7 @@ LABEL_65:
   *v19 = a2;
   if (*a2)
   {
-    v27 = *(*a2 + 8);
+    v27 = *(*a2 + 1);
     if (v17 > 1)
     {
       if (v27 >= v5)
@@ -7430,10 +5695,10 @@ LABEL_13:
       break;
     }
 
-    v21 = v18[1];
+    v21 = *(v18 + 8);
     if (v16.u32[0] > 1uLL)
     {
-      v22 = v18[1];
+      v22 = *(v18 + 8);
       if (v21 >= v6)
       {
         v22 = v21 % v6;
@@ -7450,7 +5715,7 @@ LABEL_13:
       break;
     }
 
-    v23 = v21 == a2 && *(v18 + 8) == *a3;
+    v23 = v21 == a2 && *(v18 + 16) == *a3;
     v24 = v23 != (v19 & 1);
     v25 = v19 & v24;
     v19 |= v24;
@@ -7460,7 +5725,7 @@ LABEL_13:
   return result;
 }
 
-void *sub_100090D08(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *sub_100090D08(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -7671,35 +5936,35 @@ void sub_100091190(uint64_t a1)
   }
 }
 
-const void **sub_100091304(void *a1, const void **a2)
+const void **sub_100091304(void *a1, uint64_t *a2, __int128 **a3)
 {
-  v4 = sub_100039B6C(a1, a2);
-  v5 = v4;
-  v6 = a1[1];
-  if (!*&v6)
+  v5 = sub_100039B6C(a1, a2);
+  v6 = v5;
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v7 = vcnt_s8(v6);
-  v7.i16[0] = vaddlv_u8(v7);
-  v8 = v7.u32[0];
-  if (v7.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  v9 = v8.u32[0];
+  if (v8.u32[0] > 1uLL)
   {
-    v9 = v4;
-    if (v4 >= *&v6)
+    v10 = v5;
+    if (v5 >= *&v7)
     {
-      v9 = v4 % *&v6;
+      v10 = v5 % *&v7;
     }
   }
 
   else
   {
-    v9 = (*&v6 - 1) & v4;
+    v10 = (*&v7 - 1) & v5;
   }
 
-  v10 = *(*a1 + 8 * v9);
-  if (!v10 || (v11 = *v10) == 0)
+  v11 = *(*a1 + 8 * v10);
+  if (!v11 || (v12 = *v11) == 0)
   {
 LABEL_18:
     operator new();
@@ -7707,49 +5972,49 @@ LABEL_18:
 
   while (1)
   {
-    v12 = v11[1];
-    if (v12 == v5)
+    v13 = v12[1];
+    if (v13 == v6)
     {
       break;
     }
 
-    if (v8 > 1)
+    if (v9 > 1)
     {
-      if (v12 >= *&v6)
+      if (v13 >= *&v7)
       {
-        v12 %= *&v6;
+        v13 %= *&v7;
       }
     }
 
     else
     {
-      v12 &= *&v6 - 1;
+      v13 &= *&v7 - 1;
     }
 
-    if (v12 != v9)
+    if (v13 != v10)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v11 = *v11;
-    if (!v11)
+    v12 = *v12;
+    if (!v12)
     {
       goto LABEL_18;
     }
   }
 
-  if (!sub_10004E530(a1, v11 + 2, a2))
+  if (!sub_10004E530(a1, v12 + 2, a2))
   {
     goto LABEL_17;
   }
 
-  return v11;
+  return v12;
 }
 
-void sub_10009158C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_10009158C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_100071DBC(va);
   _Unwind_Resume(a1);
 }
@@ -7823,7 +6088,7 @@ LABEL_6:
   }
 }
 
-void sub_1000917A8(uint64_t a1, double *a2, uint64_t a3)
+void sub_1000917A8(uint64_t a1, double *a2, uint64_t **a3)
 {
   v3 = SALogObjectGeneral;
   if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
@@ -7985,7 +6250,7 @@ void sub_1000917A8(uint64_t a1, double *a2, uint64_t a3)
                     }
 
                     *v66 = v62;
-                    sub_100047118(a3, &__dst);
+                    sub_100047118(a3, &__dst, &__dst);
                     if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
                     {
                       operator delete(__dst.__r_.__value_.__l.__data_);
@@ -8135,7 +6400,7 @@ void sub_1000917A8(uint64_t a1, double *a2, uint64_t a3)
                     }
 
                     *v66 = v62;
-                    sub_100047118(a3, &__dst);
+                    sub_100047118(a3, &__dst, &__dst);
                     if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
                     {
                       operator delete(__dst.__r_.__value_.__l.__data_);
@@ -8243,7 +6508,7 @@ void sub_10009201C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_100092130(uint64_t a1, double *a2, uint64_t a3)
+void sub_100092130(uint64_t a1, double *a2, uint64_t **a3)
 {
   v5 = SALogObjectGeneral;
   if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
@@ -8409,7 +6674,7 @@ void sub_100092130(uint64_t a1, double *a2, uint64_t a3)
 
                   a3 = v30;
                   *v45 = v41;
-                  sub_100047118(v30, &__dst);
+                  sub_100047118(v30, &__dst, &__dst);
                   if (SHIBYTE(__dst.__r_.__value_.__r.__words[2]) < 0)
                   {
                     operator delete(__dst.__r_.__value_.__l.__data_);
@@ -8636,7 +6901,7 @@ void sub_100092BD4(void *a1, void *a2)
   v5[0] = off_10013D5A0;
   v5[1] = a1;
   v5[3] = v5;
-  sub_10009320C((a1 + 3), v4, 30.0);
+  sub_10009320C((a1 + 3), v4, v5, 30.0);
 }
 
 void sub_100092CBC(_Unwind_Exception *a1)
@@ -8696,7 +6961,7 @@ LABEL_8:
   sub_100092E8C((a1 + 24), v7, v6);
 }
 
-void sub_100092E8C(unsigned __int8 *a1, unsigned __int8 *a2, double a3)
+void sub_100092E8C(double *a1, unsigned __int8 *a2, double a3)
 {
   v6 = SALogObjectGeneral;
   if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
@@ -8712,16 +6977,16 @@ void sub_100092E8C(unsigned __int8 *a1, unsigned __int8 *a2, double a3)
 
   if (a3 < 0.0)
   {
-    a3 = *(a1 + 1);
+    a3 = a1[1];
   }
 
   if (a3 == 0.0)
   {
     v7 = *a2;
-    if ((a1[64] & 1) != 0 || a1[1] != 1 || *a1 != v7)
+    if ((a1[8] & 1) != 0 || *(a1 + 1) != 1 || *a1 != v7)
     {
       *a1 = v7 | 0x100;
-      a1[64] = 0;
+      *(a1 + 64) = 0;
       (*(**(a1 + 3) + 40))(*(a1 + 3));
       v8 = *(a1 + 2);
       block[0] = _NSConcreteStackBlock;
@@ -8736,10 +7001,10 @@ void sub_100092E8C(unsigned __int8 *a1, unsigned __int8 *a2, double a3)
   else
   {
     v9 = *a2;
-    if (a1[1] != 1 || *a1 != v9)
+    if (*(a1 + 1) != 1 || *a1 != v9)
     {
       *a1 = v9 | 0x100;
-      a1[64] = 0;
+      *(a1 + 64) = 0;
       (*(**(a1 + 3) + 40))(*(a1 + 3));
       sub_1000935DC(a1);
     }
@@ -8793,12 +7058,12 @@ uint64_t sub_10009318C(uint64_t a1)
   return a1;
 }
 
-void sub_10009320C(uint64_t a1, void *a2, double a3)
+void sub_10009320C(uint64_t a1, void *a2, uint64_t a3, double a4)
 {
-  v5 = a2;
+  v6 = a2;
   *a1 = 0;
-  *(a1 + 8) = a3;
-  *(a1 + 16) = v5;
+  *(a1 + 8) = a4;
+  *(a1 + 16) = v6;
   operator new();
 }
 
@@ -8901,9 +7166,9 @@ uint64_t sub_1000935DC(uint64_t a1)
   return sub_10000F274(v3);
 }
 
-void sub_100093688(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_100093688(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   sub_10000F274(va);
   _Unwind_Resume(a1);
 }
@@ -9695,7 +7960,7 @@ LABEL_15:
   if (v16 && (*(v16 + 32) & 1) != 0)
   {
     v17 = (v1 + 72);
-    SACommonUtils::getHashForString((v1 + 72), buf);
+    SACommonUtils::getHashForString(buf, (v1 + 72));
     sub_100094618(&v35, __p, buf);
     if ((buf[23] & 0x80000000) != 0)
     {
@@ -9810,4 +8075,1676 @@ LABEL_60:
   {
     operator delete(__p[0]);
   }
+}
+
+void sub_100094FC8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, uint64_t a28, uint64_t a29, int a30, __int16 a31, char a32, char a33, uint64_t a34, uint64_t a35, void *__p, uint64_t a37, int a38, __int16 a39, char a40, char a41)
+{
+  sub_10001E0C0(v43 - 120);
+  if (a41 < 0)
+  {
+    operator delete(__p);
+  }
+
+  if (a14 < 0)
+  {
+    operator delete(a9);
+  }
+
+  if (a20 < 0)
+  {
+    operator delete(a15);
+  }
+
+  if (a26 < 0)
+  {
+    operator delete(a21);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100095088(uint64_t a1, uint64_t a2)
+{
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void sub_1000950D4(void **a1, void *a2)
+{
+  *a1 = a2;
+  a1[1] = 0;
+  v3 = SALogObjectGeneral;
+  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 68289026;
+    *&buf[4] = 0;
+    *v17 = 2082;
+    *&v17[2] = &unk_1000F6ADB;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#ehmd,init}", buf, 0x12u);
+  }
+
+  *buf = -1.0;
+  sub_1000060C4(v17, &unk_1000F6ADB);
+  v19 = 0;
+  v4 = sub_10008E020();
+  sub_10008E914(v4, buf);
+  v15[0] = off_10013D820;
+  v15[1] = &stru_10013D7F0;
+  v15[3] = v15;
+  v5 = SALogObjectGeneral;
+  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    if (v18 >= 0)
+    {
+      v6 = v17;
+    }
+
+    else
+    {
+      v6 = *v17;
+    }
+
+    *v7 = 68289539;
+    v8 = 0;
+    v9 = 2082;
+    v10 = &unk_1000F6ADB;
+    v11 = 1025;
+    v12 = *buf;
+    v13 = 2081;
+    v14 = v6;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#ehmd,int, manifestDownloadPeriod:%{private}d, manifestFileName:%{private, location:escape_only}s}", v7, 0x22u);
+  }
+
+  [@"com.apple.safetyalerts.ehmd" UTF8String];
+  operator new();
+}
+
+void sub_1000953B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, void *__p, uint64_t a11, int a12, __int16 a13, char a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, char a22, uint64_t a23, uint64_t a24, uint64_t a25, char a26)
+{
+  if (a15 < 0)
+  {
+    operator delete(__p);
+  }
+
+  sub_10009483C(&a16);
+  operator delete();
+}
+
+void sub_100095448(id a1, const void *a2, BOOL a3)
+{
+  v3 = a3;
+  v5 = SALogObjectGeneral;
+  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    if (*(a2 + 23) >= 0)
+    {
+      v6 = a2;
+    }
+
+    else
+    {
+      v6 = *a2;
+    }
+
+    *buf = 68289539;
+    v13 = 0;
+    v14 = 2082;
+    v15 = &unk_1000F6ADB;
+    v16 = 2081;
+    v17 = v6;
+    v18 = 1025;
+    v19 = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#ehmd,download completed, filePath:%{private, location:escape_only}s, result:%{private}hhd}", buf, 0x22u);
+  }
+
+  v7 = [NSNumber numberWithInt:!v3, @"status"];
+  v11 = v7;
+  v8 = [NSDictionary dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+
+  v9 = sub_10004ECB4();
+  sub_10004FD8C(v9, 3, v8);
+}
+
+uint64_t sub_1000955B8(uint64_t a1)
+{
+  if (*(a1 + 31) < 0)
+  {
+    operator delete(*(a1 + 8));
+  }
+
+  return a1;
+}
+
+id *sub_1000955F4(id *a1)
+{
+  v2 = SALogObjectGeneral;
+  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    v4[0] = 68289026;
+    v4[1] = 0;
+    v5 = 2082;
+    v6 = &unk_1000F6ADB;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#ehmd,released}", v4, 0x12u);
+  }
+
+  sub_100095764(a1 + 1, 0);
+
+  return a1;
+}
+
+void sub_1000956C4(uint64_t a1)
+{
+  if (*(a1 + 8))
+  {
+    v3 = -1.0;
+    sub_1000060C4(__p, &unk_1000F6ADB);
+    v6 = 0;
+    v2 = sub_10008E020();
+    sub_10008E914(v2, &v3);
+    sub_100093FFC(*(a1 + 8), __p, v3);
+    sub_1000941A0(*(a1 + 8));
+
+    if (v5 < 0)
+    {
+      operator delete(__p[0]);
+    }
+  }
+}
+
+void sub_100095750(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  sub_1000955B8(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100095764(uint64_t *a1, uint64_t a2)
+{
+  result = *a1;
+  *a1 = a2;
+  if (result)
+  {
+    sub_1000944FC(result);
+
+    operator delete();
+  }
+
+  return result;
+}
+
+void sub_1000957DC(uint64_t a1)
+{
+
+  operator delete();
+}
+
+id sub_100095830(uint64_t a1, void *a2)
+{
+  *a2 = off_10013D820;
+  result = objc_retainBlock(*(a1 + 8));
+  a2[1] = result;
+  return result;
+}
+
+uint64_t sub_10009589C(uint64_t a1, uint64_t a2)
+{
+  if (sub_10000F5B0(a2, &off_10013D890))
+  {
+    return a1 + 8;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+void sub_1000958E8(uint64_t a1)
+{
+  v2 = SALogObjectGeneral;
+  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    v3 = *(a1 + 96);
+    v4 = *(a1 + 88);
+    v5 = *(a1 + 32);
+    v6 = *(a1 + 72);
+    *buf = 68290051;
+    v20 = 0;
+    v21 = 2082;
+    v22 = "";
+    v23 = 2049;
+    *v24 = v5;
+    *&v24[8] = 2049;
+    v25 = v6;
+    *v26 = 1025;
+    *&v26[2] = v4;
+    v27 = 1025;
+    v28 = v3;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bleRelayDelayAsset,log, BatteryConfigSize:%{private}lu, DensityConfigSize:%{private}lu, backOffTimeMS:%{private}d, gracePeriodMS:%{private}d}", buf, 0x32u);
+  }
+
+  v7 = *(a1 + 24);
+  if (v7)
+  {
+    v8 = SALogObjectGeneral;
+    do
+    {
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      {
+        v9 = *(v7 + 10);
+        v10 = *(v7 + 3);
+        v11 = *(v7 + 4);
+        v12 = *(v7 + 4);
+        *buf = 68290051;
+        v20 = 0;
+        v21 = 2082;
+        v22 = "";
+        v23 = 1025;
+        *v24 = v11;
+        *&v24[4] = 1025;
+        *&v24[6] = v10;
+        LOWORD(v25) = 1025;
+        *(&v25 + 2) = v12;
+        HIWORD(v25) = 1025;
+        *v26 = v9;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bleRelayDelayAsset,log,batteryConfig, level:%{private}d, minDelay:%{private}d, maxDelay:%{private}d, weight:%{private}d}", buf, 0x2Au);
+        v8 = SALogObjectGeneral;
+      }
+
+      v7 = *v7;
+    }
+
+    while (v7);
+  }
+
+  v13 = *(a1 + 64);
+  if (v13)
+  {
+    v14 = SALogObjectGeneral;
+    do
+    {
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      {
+        v15 = *(v13 + 10);
+        v16 = *(v13 + 3);
+        v17 = *(v13 + 4);
+        v18 = *(v13 + 4);
+        *buf = 68290051;
+        v20 = 0;
+        v21 = 2082;
+        v22 = "";
+        v23 = 1025;
+        *v24 = v17;
+        *&v24[4] = 1025;
+        *&v24[6] = v16;
+        LOWORD(v25) = 1025;
+        *(&v25 + 2) = v18;
+        HIWORD(v25) = 1025;
+        *v26 = v15;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bleRelayDelayAsset,log,densityConfig, level:%{private}d, minDelay:%{private}d, maxDelay:%{private}d, weight:%{private}d}", buf, 0x2Au);
+        v14 = SALogObjectGeneral;
+      }
+
+      v13 = *v13;
+    }
+
+    while (v13);
+  }
+}
+
+uint64_t sub_100095B54(uint64_t a1, void *a2)
+{
+  v63 = a2;
+  v3 = SALogObjectGeneral;
+  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 68289026;
+    v76 = 2082;
+    v77 = "";
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bleRelayDelayAsset,loadFromDictionary}", buf, 0x12u);
+  }
+
+  if (!v63)
+  {
+    v8 = SALogObjectGeneral;
+    if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289026;
+      v76 = 2082;
+      v77 = "";
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bleRelayDelayAsset,loadFromDictionary,asset nil}", buf, 0x12u);
+    }
+
+    goto LABEL_14;
+  }
+
+  v4 = [v63 objectForKey:@"relayDelayConfig"];
+  if (!v4 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0))
+  {
+
+    v7 = SALogObjectGeneral;
+    if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289026;
+      v76 = 2082;
+      v77 = "";
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bleRelayDelayAsset,loadFromDictionary,bleDelayConf nil}", buf, 0x12u);
+    }
+
+LABEL_14:
+    (*(*a1 + 32))(a1);
+    v9 = 0;
+    goto LABEL_15;
+  }
+
+  v62 = v4;
+  v5 = [v4 objectForKey:@"overridePolicy"];
+  if (v5 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v6 = [v5 intValue];
+  }
+
+  else
+  {
+    v6 = 2;
+  }
+
+  *(a1 + 88) = 0xBFF0000000000000;
+  v11 = [v62 objectForKey:@"backOffTimeMS"];
+  if (v11)
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      *(a1 + 88) = [v11 intValue];
+    }
+  }
+
+  *(a1 + 96) = 0xBFF0000000000000;
+  v12 = [v62 objectForKey:@"gracePeriodMS"];
+  if (v12)
+  {
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
+    {
+      *(a1 + 96) = [v12 intValue];
+    }
+  }
+
+  v13 = [v62 objectForKey:@"batteryConfig"];
+  if (v13 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    v60 = v13;
+  }
+
+  else
+  {
+    v60 = 0;
+  }
+
+  v61 = [v62 objectForKey:@"densityConfig"];
+  if (v61 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+  {
+    *(a1 + 104) = v6;
+    if (v60)
+    {
+      v71 = 0u;
+      v72 = 0u;
+      v69 = 0u;
+      v70 = 0u;
+      v14 = v60;
+      v15 = [v14 countByEnumeratingWithState:&v69 objects:v74 count:16];
+      if (v15)
+      {
+        v16 = *v70;
+        do
+        {
+          for (i = 0; i != v15; i = i + 1)
+          {
+            if (*v70 != v16)
+            {
+              objc_enumerationMutation(v14);
+            }
+
+            v18 = *(*(&v69 + 1) + 8 * i);
+            if (v18)
+            {
+              objc_opt_class();
+              if (objc_opt_isKindOfClass())
+              {
+                v68 = 0;
+                v19 = [v18 objectForKey:@"level"];
+                if (v19)
+                {
+                  objc_opt_class();
+                  if (objc_opt_isKindOfClass())
+                  {
+                    [v19 doubleValue];
+                    v68 = v20;
+                  }
+                }
+
+                v21 = [v18 objectForKey:@"minDelayMS"];
+                v22 = 0.0;
+                if (v21)
+                {
+                  objc_opt_class();
+                  if (objc_opt_isKindOfClass())
+                  {
+                    [v21 doubleValue];
+                    v22 = v23;
+                  }
+                }
+
+                v24 = [v18 objectForKey:@"maxDelayMS"];
+                v25 = 0.0;
+                if (v24)
+                {
+                  objc_opt_class();
+                  if (objc_opt_isKindOfClass())
+                  {
+                    [v24 doubleValue];
+                    v25 = v26;
+                  }
+                }
+
+                v27 = [v18 objectForKey:@"weightPercentage"];
+                if (v27 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+                {
+                  [v27 doubleValue];
+                  v29 = v28;
+                }
+
+                else
+                {
+                  v29 = 0;
+                }
+
+                *buf = &v68;
+                v30 = sub_100096A04((a1 + 8), v68, buf);
+                *(v30 + 3) = v22;
+                *(v30 + 4) = v25;
+                *(v30 + 10) = v29;
+              }
+            }
+          }
+
+          v15 = [v14 countByEnumeratingWithState:&v69 objects:v74 count:16];
+        }
+
+        while (v15);
+      }
+
+      v66 = 0u;
+      v67 = 0u;
+      v64 = 0u;
+      v65 = 0u;
+      v31 = v61;
+      v32 = [v31 countByEnumeratingWithState:&v64 objects:v73 count:16];
+      if (v32)
+      {
+        v33 = *v65;
+        do
+        {
+          for (j = 0; j != v32; j = j + 1)
+          {
+            if (*v65 != v33)
+            {
+              objc_enumerationMutation(v31);
+            }
+
+            v35 = *(*(&v64 + 1) + 8 * j);
+            if (v35)
+            {
+              objc_opt_class();
+              if (objc_opt_isKindOfClass())
+              {
+                v68 = 0;
+                v36 = [v35 objectForKey:@"level"];
+                if (v36)
+                {
+                  objc_opt_class();
+                  if (objc_opt_isKindOfClass())
+                  {
+                    [v36 doubleValue];
+                    v68 = v37;
+                  }
+                }
+
+                v38 = [v35 objectForKey:@"minDelayMS"];
+                v39 = 0.0;
+                if (v38)
+                {
+                  objc_opt_class();
+                  if (objc_opt_isKindOfClass())
+                  {
+                    [v38 doubleValue];
+                    v39 = v40;
+                  }
+                }
+
+                v41 = [v35 objectForKey:@"maxDelayMS"];
+                v42 = 0.0;
+                if (v41)
+                {
+                  objc_opt_class();
+                  if (objc_opt_isKindOfClass())
+                  {
+                    [v41 doubleValue];
+                    v42 = v43;
+                  }
+                }
+
+                v44 = [v35 objectForKey:@"weightPercentage"];
+                if (v44 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
+                {
+                  [v44 doubleValue];
+                  v46 = v45;
+                }
+
+                else
+                {
+                  v46 = 0;
+                }
+
+                *buf = &v68;
+                v47 = sub_100096A04((a1 + 48), v68, buf);
+                *(v47 + 3) = v39;
+                *(v47 + 4) = v42;
+                *(v47 + 10) = v46;
+              }
+            }
+          }
+
+          v32 = [v31 countByEnumeratingWithState:&v64 objects:v73 count:16];
+        }
+
+        while (v32);
+      }
+
+      v48 = (a1 + 24);
+      do
+      {
+        v48 = *v48;
+        if (!v48)
+        {
+          v55 = (a1 + 64);
+          while (1)
+          {
+            v55 = *v55;
+            if (!v55)
+            {
+              break;
+            }
+
+            if (*(v55 + 10) <= 0x64u)
+            {
+              v56 = v55[3];
+              if (v56 >= 0.0)
+              {
+                v57 = v55[4];
+                if (v57 >= 0.0 && v56 <= v57)
+                {
+                  continue;
+                }
+              }
+            }
+
+            v52 = SALogObjectGeneral;
+            if (!os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+            {
+              goto LABEL_110;
+            }
+
+            *buf = 68289026;
+            v76 = 2082;
+            v77 = "";
+            v53 = "{msg%{public}.0s:invalid density config}";
+            goto LABEL_109;
+          }
+
+          if (*(a1 + 88) >= 0.0 && *(a1 + 96) >= 0.0)
+          {
+            (*(*a1 + 16))(a1);
+            v9 = 1;
+            goto LABEL_92;
+          }
+
+          v52 = SALogObjectGeneral;
+          if (!os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+          {
+            goto LABEL_110;
+          }
+
+          *buf = 68289026;
+          v76 = 2082;
+          v77 = "";
+          v53 = "{msg%{public}.0s:invalid backoff or grace period}";
+          goto LABEL_109;
+        }
+
+        if (*(v48 + 10) > 0x64u)
+        {
+          break;
+        }
+
+        v49 = *(v48 + 3);
+        if (v49 < 0.0)
+        {
+          break;
+        }
+
+        v50 = *(v48 + 4);
+      }
+
+      while (v50 >= 0.0 && v49 <= v50);
+      v52 = SALogObjectGeneral;
+      if (!os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_110;
+      }
+
+      *buf = 68289026;
+      v76 = 2082;
+      v77 = "";
+      v53 = "{msg%{public}.0s:invalid battery config}";
+LABEL_109:
+      _os_log_impl(&_mh_execute_header, v52, OS_LOG_TYPE_DEFAULT, v53, buf, 0x12u);
+LABEL_110:
+      v59 = SALogObjectGeneral;
+      if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 68289026;
+        v76 = 2082;
+        v77 = "";
+        _os_log_impl(&_mh_execute_header, v59, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bleRelayDelayAsset,loadFromDictionary,invalid asset,fallback to fail safe}", buf, 0x12u);
+      }
+
+      (*(*a1 + 32))(a1);
+      goto LABEL_91;
+    }
+
+    v31 = v61;
+  }
+
+  else
+  {
+
+    v31 = 0;
+    *(a1 + 104) = v6;
+  }
+
+  v54 = SALogObjectGeneral;
+  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 68289283;
+    v76 = 2082;
+    v77 = "";
+    v78 = 2113;
+    v79 = v62;
+    _os_log_impl(&_mh_execute_header, v54, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bleRelayDelayAsset,loadFromDictionary,bucket nil, bleDelayConf:%{private, location:escape_only}@}", buf, 0x1Cu);
+  }
+
+  (*(*a1 + 32))(a1);
+LABEL_91:
+  v9 = 0;
+LABEL_92:
+
+LABEL_15:
+  return v9;
+}
+
+uint64_t sub_1000967F0(uint64_t a1)
+{
+  v2 = SALogObjectGeneral;
+  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 68289026;
+    *&buf[4] = 0;
+    v8 = 2082;
+    v9 = "";
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bleRelayDelayAsset,loadFailSafe}", buf, 0x12u);
+  }
+
+  sub_1000173F4(a1 + 8);
+  v6 = 0;
+  *buf = &v6;
+  v3 = sub_100096C38((a1 + 8), 0, buf);
+  *(v3 + 3) = xmmword_1000E0550;
+  *(v3 + 10) = 100;
+  v6 = 0;
+  *buf = &v6;
+  v4 = sub_100096C38((a1 + 48), 0, buf);
+  *(v4 + 3) = xmmword_1000E0550;
+  *(v4 + 10) = 0;
+  *(a1 + 88) = xmmword_1000E3C60;
+  *(a1 + 104) = 2;
+  return (*(*a1 + 16))(a1);
+}
+
+void *sub_100096944(void *a1)
+{
+  *a1 = off_10013D8B0;
+  sub_100017590((a1 + 6));
+  sub_100017590((a1 + 1));
+  return a1;
+}
+
+void sub_100096990(void *a1)
+{
+  *a1 = off_10013D8B0;
+  sub_100017590((a1 + 6));
+  sub_100017590((a1 + 1));
+
+  operator delete();
+}
+
+uint64_t *sub_100096A04(void *a1, unsigned int a2, _DWORD **a3)
+{
+  v3 = a1[1];
+  if (!v3)
+  {
+    goto LABEL_18;
+  }
+
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
+  {
+    v5 = a2;
+    if (v3 <= a2)
+    {
+      v5 = a2 % v3;
+    }
+  }
+
+  else
+  {
+    v5 = (v3 - 1) & a2;
+  }
+
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v8 = v7[1];
+    if (v8 == a2)
+    {
+      break;
+    }
+
+    if (v4.u32[0] > 1uLL)
+    {
+      if (v8 >= v3)
+      {
+        v8 %= v3;
+      }
+    }
+
+    else
+    {
+      v8 &= v3 - 1;
+    }
+
+    if (v8 != v5)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v7 = *v7;
+    if (!v7)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (*(v7 + 4) != a2)
+  {
+    goto LABEL_17;
+  }
+
+  return v7;
+}
+
+uint64_t *sub_100096C38(void *a1, unsigned int a2, _DWORD **a3)
+{
+  v3 = a1[1];
+  if (!v3)
+  {
+    goto LABEL_18;
+  }
+
+  v4 = vcnt_s8(v3);
+  v4.i16[0] = vaddlv_u8(v4);
+  if (v4.u32[0] > 1uLL)
+  {
+    v5 = a2;
+    if (v3 <= a2)
+    {
+      v5 = a2 % v3;
+    }
+  }
+
+  else
+  {
+    v5 = (v3 - 1) & a2;
+  }
+
+  v6 = *(*a1 + 8 * v5);
+  if (!v6 || (v7 = *v6) == 0)
+  {
+LABEL_18:
+    operator new();
+  }
+
+  while (1)
+  {
+    v8 = v7[1];
+    if (v8 == a2)
+    {
+      break;
+    }
+
+    if (v4.u32[0] > 1uLL)
+    {
+      if (v8 >= v3)
+      {
+        v8 %= v3;
+      }
+    }
+
+    else
+    {
+      v8 &= v3 - 1;
+    }
+
+    if (v8 != v5)
+    {
+      goto LABEL_18;
+    }
+
+LABEL_17:
+    v7 = *v7;
+    if (!v7)
+    {
+      goto LABEL_18;
+    }
+  }
+
+  if (*(v7 + 4) != a2)
+  {
+    goto LABEL_17;
+  }
+
+  return v7;
+}
+
+uint64_t sub_100096E6C(uint64_t a1, void *a2, void *a3)
+{
+  v5 = a2;
+  *a1 = xmmword_1000E3C90;
+  *(a1 + 16) = 0u;
+  *(a1 + 32) = 0u;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = 1;
+  *(a1 + 88) = 5;
+  *(a1 + 96) = 0xBFF0000000000000;
+  *(a1 + 104) = 257;
+  *(a1 + 108) = 0;
+  *(a1 + 112) = 0;
+  *(a1 + 128) = 0;
+  v6 = v5;
+  *(a1 + 192) = 1852534357;
+  *(a1 + 136) = v6;
+  *(a1 + 152) = 0;
+  *(a1 + 156) = 0;
+  *(a1 + 160) = 0;
+  *(a1 + 176) = 0;
+  v7 = a1 + 176;
+  *(a1 + 184) = 0;
+  *(a1 + 144) = 0;
+  *(a1 + 148) = 0;
+  *(a1 + 168) = a1 + 176;
+  *(a1 + 215) = 7;
+  strcpy((a1 + 195), "nown");
+  *(a1 + 216) = *a3;
+  v8 = a3[1];
+  *(a1 + 224) = v8;
+  if (v8)
+  {
+    atomic_fetch_add_explicit((v8 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  *(a1 + 232) = 0;
+  v9 = SALogObjectGeneral;
+  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 68289026;
+    *&buf[4] = 0;
+    *v31 = 2082;
+    *&v31[2] = "";
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,init}", buf, 0x12u);
+  }
+
+  v10 = sub_100042820();
+  *(a1 + 120) = v10[83];
+  v11 = SASettings::instance(v10);
+  v29[0] = off_10013D908;
+  v29[3] = v29;
+  (*(*v11 + 16))(v11, v29);
+  sub_10000F274(v29);
+  *v31 = 0;
+  *&v31[8] = 0;
+  *buf = v31;
+  sub_10003906C(*(a1 + 176));
+  v12 = *v31;
+  *(a1 + 168) = *buf;
+  *(a1 + 176) = v12;
+  v13 = *&v31[8];
+  *(a1 + 184) = *&v31[8];
+  if (v13)
+  {
+    v12[2] = v7;
+    *buf = v31;
+    *v31 = 0;
+    *&v31[8] = 0;
+    v12 = 0;
+  }
+
+  else
+  {
+    *(a1 + 168) = v7;
+  }
+
+  sub_10003906C(v12);
+  v14 = objc_alloc_init(CWFInterface);
+  v15 = *(a1 + 128);
+  *(a1 + 128) = v14;
+
+  v16 = SALogObjectGeneral;
+  if (!*(a1 + 128) && os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 68289026;
+    *&buf[4] = 0;
+    *v31 = 2082;
+    *&v31[2] = "";
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,init,unable to create cwInterface}", buf, 0x12u);
+    v16 = SALogObjectGeneral;
+  }
+
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 68289026;
+    *&buf[4] = 0;
+    *v31 = 2082;
+    *&v31[2] = "";
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,registerForLinkQualityNotifications}", buf, 0x12u);
+  }
+
+  v17 = *(a1 + 128);
+  if (v17)
+  {
+    [v17 activate];
+    v18 = SALogObjectGeneral;
+    if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289026;
+      *&buf[4] = 0;
+      *v31 = 2082;
+      *&v31[2] = "";
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,setupMonitoringEvent}", buf, 0x12u);
+    }
+
+    v19 = *(a1 + 128);
+    if (v19)
+    {
+      *buf = _NSConcreteStackBlock;
+      *v31 = 3221225472;
+      *&v31[8] = sub_100001C48;
+      *&v31[16] = &unk_10013D140;
+      v32 = a1;
+      [v19 setEventHandler:buf];
+    }
+
+    else
+    {
+      v21 = SALogObjectGeneral;
+      if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 68289026;
+        *&buf[4] = 0;
+        *v31 = 2082;
+        *&v31[2] = "";
+        _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,setupMonitoringEvent,cwInterface nil}", buf, 0x12u);
+      }
+    }
+
+    v22 = *(a1 + 128);
+    v28 = 0;
+    [v22 startMonitoringEventType:7 error:&v28];
+    v23 = v28;
+    if (v23)
+    {
+      v24 = SALogObjectGeneral;
+      if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 68289282;
+        *v31 = 2082;
+        *&v31[2] = "";
+        *&v31[10] = 2114;
+        *&v31[12] = v23;
+        _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,registerForLinkQualityNotifications, error:%{public, location:escape_only}@}", buf, 0x1Cu);
+      }
+    }
+  }
+
+  else
+  {
+    v20 = SALogObjectGeneral;
+    if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289026;
+      *&buf[4] = 0;
+      *v31 = 2082;
+      *&v31[2] = "";
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,registerForLinkQualityNotifications,cwInterface is nil}", buf, 0x12u);
+    }
+  }
+
+  v25 = *(a1 + 120);
+  v26 = SALogObjectGeneral;
+  if (v25 <= 0.0)
+  {
+    if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_ERROR))
+    {
+      *buf = 68289026;
+      *&buf[4] = 0;
+      *v31 = 2082;
+      *&v31[2] = "";
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_ERROR, "{msg%{public}.0s:#bm,setupBgSysTask,invalid submission period}", buf, 0x12u);
+    }
+  }
+
+  else
+  {
+    if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289283;
+      *&buf[4] = 0;
+      *v31 = 2082;
+      *&v31[2] = "";
+      *&v31[10] = 2049;
+      *&v31[12] = v25;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,setupBgSysTask, fSubmissionPeriod:%{private}0.1f}", buf, 0x1Cu);
+    }
+
+    sub_10001D128((a1 + 16), [@"com.apple.safetyalerts.bm" UTF8String]);
+    objc_storeStrong((a1 + 40), *(a1 + 136));
+    *buf = off_10013D988;
+    *v31 = a1;
+    *&v31[16] = buf;
+    sub_10001CBD0((a1 + 48), buf);
+    *(a1 + 88) = 4;
+    *(a1 + 96) = *(a1 + 120);
+    *(a1 + 104) = 0;
+    *(a1 + 80) = 1;
+    sub_100060DE4(a1 + 16);
+    sub_10000F274(buf);
+  }
+
+  return a1;
+}
+
+void sub_100097500(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  sub_10000F274(va);
+  v18 = *(v13 + 224);
+  if (v18)
+  {
+    sub_10002A838(v18);
+  }
+
+  if (*(v13 + 215) < 0)
+  {
+    operator delete(*v16);
+  }
+
+  sub_10003906C(*(v13 + 176));
+
+  sub_10001CB38(v15);
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_100097574(uint64_t a1)
+{
+  v2 = SALogObjectGeneral;
+  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = 68289026;
+    v9 = 0;
+    v10 = 2082;
+    v11 = "";
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,released}", &v8, 0x12u);
+    v2 = SALogObjectGeneral;
+  }
+
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  {
+    v8 = 68289026;
+    v9 = 0;
+    v10 = 2082;
+    v11 = "";
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,unregisterForLinkQualityNotifications}", &v8, 0x12u);
+  }
+
+  v3 = *(a1 + 128);
+  if (v3)
+  {
+    [v3 stopMonitoringEventType:7];
+    v4 = *(a1 + 128);
+    if (v4)
+    {
+      [v4 invalidate];
+      v5 = *(a1 + 128);
+      *(a1 + 128) = 0;
+    }
+  }
+
+  v6 = *(a1 + 224);
+  if (v6)
+  {
+    sub_10002A838(v6);
+  }
+
+  if (*(a1 + 215) < 0)
+  {
+    operator delete(*(a1 + 192));
+  }
+
+  sub_10003906C(*(a1 + 176));
+
+  sub_10001CB38(a1 + 16);
+  return a1;
+}
+
+void sub_1000976F4(_Unwind_Exception *a1, int a2)
+{
+  if (a2)
+  {
+    sub_10000DB70(a1);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_100097700(uint64_t a1)
+{
+  v2 = SALogObjectGeneral;
+  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    v5[0] = 68289026;
+    v5[1] = 0;
+    v6 = 2082;
+    v7 = "";
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,onInitCompleted}", v5, 0x12u);
+  }
+
+  v3 = *(a1 + 176);
+  *(a1 + 232) = 1;
+  if (v3)
+  {
+    v4 = a1 + 176;
+    do
+    {
+      if (*(v3 + 28) >= 1)
+      {
+        v4 = v3;
+      }
+
+      v3 = *(v3 + 8 * (*(v3 + 28) < 1));
+    }
+
+    while (v3);
+    if (v4 != a1 + 176 && *(v4 + 28) <= 1)
+    {
+      sub_100098914((a1 + 168), 1);
+      sub_100097810(a1);
+    }
+  }
+}
+
+void sub_100097810(uint64_t a1)
+{
+  v2 = SALogObjectGeneral;
+  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 68289026;
+    *&buf[4] = 0;
+    *v12 = 2082;
+    *&v12[2] = "";
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,submitMetrics}", buf, 0x12u);
+  }
+
+  v3 = *(a1 + 184);
+  if (v3)
+  {
+    v4 = SALogObjectGeneral;
+    if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 68289283;
+      *&buf[4] = 0;
+      *v12 = 2082;
+      *&v12[2] = "";
+      *&v12[10] = 2049;
+      *&v12[12] = v3;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,submitMetrics,fetch in progress, count:%{private}lu}", buf, 0x1Cu);
+    }
+  }
+
+  else
+  {
+    v5 = SALogObjectGeneral;
+    v6 = os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT);
+    if (v6 && (*buf = 68289026, *&buf[4] = 0, *v12 = 2082, *&v12[2] = "", _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,submitAdvertisorStatusMetrics}", buf, 0x12u), (v7 = *(a1 + 184)) != 0))
+    {
+      v8 = SALogObjectGeneral;
+      v9 = os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT);
+      if (v9)
+      {
+        *buf = 68289283;
+        *&buf[4] = 0;
+        *v12 = 2082;
+        *&v12[2] = "";
+        *&v12[10] = 2049;
+        *&v12[12] = v7;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,submitAdvertisorStatusMetrics,fetch in progress, count:%{private}lu}", buf, 0x1Cu);
+      }
+    }
+
+    else
+    {
+      v10 = SACommonUtils::currentHourOfDay(v6);
+      *buf = _NSConcreteStackBlock;
+      *v12 = 3221225472;
+      *&v12[8] = sub_100098354;
+      *&v12[16] = &unk_10013B300;
+      v13 = a1;
+      v14 = v10;
+      v9 = AnalyticsSendEventLazy();
+    }
+
+    SACommonUtils::currentHourOfDay(v9);
+    AnalyticsSendEventLazy();
+  }
+}
+
+void sub_100097AD4(uint64_t a1)
+{
+  v2 = *(a1 + 40);
+  v3 = objc_autoreleasePoolPush();
+  if ([*(a1 + 32) type] == 7)
+  {
+    v4 = [*(a1 + 32) info];
+    v5 = [v4 objectForKeyedSubscript:CWFEventLinkQualityMetricKey];
+
+    v6 = [v5 CCA];
+    if ((*(v2 + 152) & 1) == 0)
+    {
+      *(v2 + 152) = 1;
+    }
+
+    *(v2 + 148) = v6;
+    [v5 rxRate];
+    if (v7 != 0.0)
+    {
+      [v5 rxRate];
+      if ((*(v2 + 160) & 1) == 0)
+      {
+        *(v2 + 160) = 1;
+      }
+
+      *(v2 + 156) = v8;
+    }
+  }
+
+  else
+  {
+    v9 = SALogObjectGeneral;
+    if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+    {
+      v10[0] = 68289026;
+      v10[1] = 0;
+      v11 = 2082;
+      v12 = "";
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,setupMonitoringEvent,unexpected type}", v10, 0x12u);
+    }
+  }
+
+  objc_autoreleasePoolPop(v3);
+}
+
+void sub_100097C64(uint64_t a1, int a2)
+{
+  v4 = SALogObjectGeneral;
+  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    v5[0] = 68289283;
+    v5[1] = 0;
+    v6 = 2082;
+    v7 = "";
+    v8 = 1025;
+    v9 = a2;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,onEnhancedDeliveryStateChanged, isEnhancedDeliveryEnabled:%{private}hhd}", v5, 0x18u);
+  }
+
+  *(a1 + 144) = a2 | 0x100;
+}
+
+void sub_100097D3C(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  v3 = SALogObjectGeneral;
+  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    *v4 = 68289026;
+    *&v4[8] = 2082;
+    *&v4[10] = "";
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm,bgSysTaskCallback,biome done}", v4, 0x12u);
+  }
+
+  sub_100097E68(v2, 0);
+  (*(**(v2 + 216) + 152))(v4, *(a1 + 40));
+  if (*(v2 + 215) < 0)
+  {
+    operator delete(*(v2 + 192));
+  }
+
+  *(v2 + 192) = *v4;
+  *(v2 + 208) = *&v4[16];
+  sub_100097810(v2);
+}
+
+void sub_100097E68(uint64_t result, uint64_t a2)
+{
+  v2 = result + 176;
+  v3 = *(result + 176);
+  if (v3)
+  {
+    v4 = (result + 168);
+    v5 = v2;
+    do
+    {
+      if (*(v3 + 28) >= a2)
+      {
+        v5 = v3;
+      }
+
+      v3 = *(v3 + 8 * (*(v3 + 28) < a2));
+    }
+
+    while (v3);
+    if (v5 != v2 && *(v5 + 28) <= a2)
+    {
+      sub_100098914(v4, a2);
+    }
+  }
+}
+
+NSMutableDictionary *sub_100097EB0(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  v3 = objc_opt_new();
+  v4 = [NSNumber numberWithInt:*(a1 + 40)];
+  [v3 setObject:v4 forKeyedSubscript:@"timeofSample"];
+
+  v5 = [NSNumber numberWithDouble:*(sub_100002DB0() + 20)];
+  [v3 setObject:v5 forKeyedSubscript:@"batteryChargeLevel"];
+
+  v6 = [NSNumber numberWithBool:*(v2 + 233)];
+  [v3 setObject:v6 forKeyedSubscript:@"isBleOn"];
+
+  v7 = sub_100002DB0();
+  v8 = [NSNumber numberWithBool:*(v7 + 127) & *(v7 + 126) & 1];
+  [v3 setObject:v8 forKeyedSubscript:@"isSubscribedtoESA"];
+
+  v9 = sub_100002DB0();
+  v10 = [NSNumber numberWithBool:*(v9 + 113) & v9[7] & 1];
+  [v3 setObject:v10 forKeyedSubscript:@"isWifiDataReachable"];
+
+  v11 = sub_100002DB0();
+  v12 = [NSNumber numberWithBool:*(v11 + 129) & v11[8] & 1];
+  [v3 setObject:v12 forKeyedSubscript:@"isCellularDataReachable"];
+
+  v13 = sub_100002DB0();
+  v14 = [NSNumber numberWithBool:*(v13 + 105) & *(v13 + 104) & 1];
+  [v3 setObject:v14 forKeyedSubscript:@"deviceInCoveredRegion"];
+
+  if (*(v2 + 145) == 1)
+  {
+    v15 = [NSNumber numberWithBool:*(v2 + 144)];
+    [v3 setObject:v15 forKeyedSubscript:@"isEnhancedDeliveryEnabled"];
+  }
+
+  if (*(v2 + 147) == 1)
+  {
+    v16 = [NSNumber numberWithBool:*(v2 + 146)];
+    [v3 setObject:v16 forKeyedSubscript:@"isType22ScanActive"];
+  }
+
+  if (*(v2 + 152) == 1)
+  {
+    v17 = sub_100002DB0();
+    if (*(v17 + 113) == 1 && *(v17 + 112) == 1)
+    {
+      if (*(v2 + 152) != 1)
+      {
+        goto LABEL_24;
+      }
+
+      v18 = [NSNumber numberWithInt:sub_10009826C(*(v2 + 148))];
+      [v3 setObject:v18 forKeyedSubscript:@"wifiCCA"];
+    }
+  }
+
+  if (*(v2 + 160) == 1)
+  {
+    v19 = sub_100002DB0();
+    if (*(v19 + 113) == 1 && *(v19 + 112) == 1)
+    {
+      if (*(v2 + 160))
+      {
+        v20 = [NSNumber numberWithInt:*(v2 + 156)];
+        [v3 setObject:v20 forKeyedSubscript:@"wifiRxPhyRate"];
+
+        goto LABEL_15;
+      }
+
+LABEL_24:
+      sub_100086A78();
+    }
+  }
+
+LABEL_15:
+  v21 = (v2 + 192);
+  if (*(v2 + 215) < 0)
+  {
+    if (!*(v2 + 200))
+    {
+      goto LABEL_21;
+    }
+
+    v21 = *v21;
+    goto LABEL_20;
+  }
+
+  if (*(v2 + 215))
+  {
+LABEL_20:
+    v22 = [NSString stringWithUTF8String:v21];
+    [v3 setObject:v22 forKeyedSubscript:@"apsdInterface"];
+  }
+
+LABEL_21:
+
+  return v3;
+}
+
+void sub_10009821C(_Unwind_Exception *a1)
+{
+  v3 = v2;
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t sub_10009826C(unsigned int a1)
+{
+  v2 = SALogObjectGeneral;
+  if (os_log_type_enabled(SALogObjectGeneral, OS_LOG_TYPE_DEFAULT))
+  {
+    v5[0] = 68289283;
+    v5[1] = 0;
+    v6 = 2082;
+    v7 = "";
+    v8 = 1025;
+    v9 = a1;
+    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "{msg%{public}.0s:#bm, wifiCCA:%{private}d}", v5, 0x18u);
+  }
+
+  if (a1 <= 0x63)
+  {
+    v3 = a1 / 0xAu + 1;
+  }
+
+  else
+  {
+    v3 = 11;
+  }
+
+  if ((a1 & 0x80000000) == 0)
+  {
+    return v3;
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+NSMutableDictionary *sub_100098354(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  v3 = objc_opt_new();
+  v4 = [NSNumber numberWithInt:*(a1 + 40)];
+  [v3 setObject:v4 forKeyedSubscript:@"timeofSample"];
+
+  v5 = [NSNumber numberWithDouble:*(sub_100002DB0() + 20)];
+  [v3 setObject:v5 forKeyedSubscript:@"batteryChargeLevel"];
+
+  v6 = [NSNumber numberWithBool:*(v2 + 233)];
+  [v3 setObject:v6 forKeyedSubscript:@"isBleOn"];
+
+  v7 = sub_100002DB0();
+  v8 = [NSNumber numberWithBool:*(v7 + 127) & *(v7 + 126) & 1];
+  [v3 setObject:v8 forKeyedSubscript:@"isSubscribedtoESA"];
+
+  v9 = sub_100002DB0();
+  v10 = [NSNumber numberWithBool:*(v9 + 113) & v9[7] & 1];
+  [v3 setObject:v10 forKeyedSubscript:@"isWifiDataReachable"];
+
+  v11 = sub_100002DB0();
+  v12 = [NSNumber numberWithBool:*(v11 + 129) & v11[8] & 1];
+  [v3 setObject:v12 forKeyedSubscript:@"isCellularDataReachable"];
+
+  v13 = sub_100002DB0();
+  v14 = [NSNumber numberWithBool:*(v13 + 105) & *(v13 + 104) & 1];
+  [v3 setObject:v14 forKeyedSubscript:@"deviceInCoveredRegion"];
+
+  if (*(v2 + 145) == 1)
+  {
+    v16 = [NSNumber numberWithBool:*(v2 + 144)];
+    [v3 setObject:v16 forKeyedSubscript:@"isEnhancedDeliveryEnabled"];
+  }
+
+  if (*(v2 + 147) == 1)
+  {
+    v17 = [NSNumber numberWithBool:*(v2 + 146)];
+    [v3 setObject:v17 forKeyedSubscript:@"isType22ScanActive"];
+  }
+
+  if (*(v2 + 152) == 1)
+  {
+    v15 = sub_100002DB0();
+    if (*(v15 + 113) == 1 && *(v15 + 112) == 1)
+    {
+      if (*(v2 + 152) != 1)
+      {
+        goto LABEL_24;
+      }
+
+      v18 = [NSNumber numberWithInt:sub_10009826C(*(v2 + 148))];
+      [v3 setObject:v18 forKeyedSubscript:@"wifiCCA"];
+    }
+  }
+
+  if (*(v2 + 160) == 1)
+  {
+    v15 = sub_100002DB0();
+    if (*(v15 + 113) == 1 && *(v15 + 112) == 1)
+    {
+      if (*(v2 + 160))
+      {
+        v19 = [NSNumber numberWithInt:*(v2 + 156)];
+        [v3 setObject:v19 forKeyedSubscript:@"wifiRxPhyRate"];
+
+        goto LABEL_15;
+      }
+
+LABEL_24:
+      sub_100086A78();
+    }
+  }
+
+LABEL_15:
+  v20 = (v2 + 192);
+  if (*(v2 + 215) < 0)
+  {
+    if (!*(v2 + 200))
+    {
+      goto LABEL_21;
+    }
+
+    v20 = *v20;
+    goto LABEL_20;
+  }
+
+  if (*(v2 + 215))
+  {
+LABEL_20:
+    v21 = [NSString stringWithUTF8String:v20];
+    [v3 setObject:v21 forKeyedSubscript:@"apsdInterface"];
+  }
+
+LABEL_21:
+  v22 = [NSNumber numberWithBool:SACommonUtils::isLivabiltyEnabled(v15)];
+  [v3 setObject:v22 forKeyedSubscript:@"isLiveOn"];
+
+  v23 = sub_100002DB0();
+  v24 = [NSNumber numberWithBool:*(v23 + 139) & *(v23 + 138) & 1];
+  [v3 setObject:v24 forKeyedSubscript:@"isAdvertiser"];
+
+  return v3;
 }

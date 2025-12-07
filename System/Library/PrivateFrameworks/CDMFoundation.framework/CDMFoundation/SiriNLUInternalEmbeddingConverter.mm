@@ -42,31 +42,31 @@
 
 + (id)convertFromProtoEmbeddingResponseCommand:(id)command
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   commandCopy = command;
   v4 = commandCopy;
   if (commandCopy)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
     embeddingTensorOutputs = [commandCopy embeddingTensorOutputs];
-    v6 = [embeddingTensorOutputs countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v6 = [embeddingTensorOutputs countByEnumeratingWithState:&v18 objects:v24 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
 LABEL_4:
       v9 = 0;
       while (1)
       {
-        if (*v20 != v8)
+        if (*v19 != v8)
         {
           objc_enumerationMutation(embeddingTensorOutputs);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * v9);
+        v10 = *(*(&v18 + 1) + 8 * v9);
         if ([v10 isStableEmbeddingsVersion])
         {
           break;
@@ -74,7 +74,7 @@ LABEL_4:
 
         if (v7 == ++v9)
         {
-          v7 = [embeddingTensorOutputs countByEnumeratingWithState:&v19 objects:v25 count:16];
+          v7 = [embeddingTensorOutputs countByEnumeratingWithState:&v18 objects:v24 count:16];
           if (v7)
           {
             goto LABEL_4;
@@ -108,7 +108,7 @@ LABEL_13:
       if (os_log_type_enabled(embeddingTensor, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315138;
-        v24 = "+[SiriNLUInternalEmbeddingConverter convertFromProtoEmbeddingResponseCommand:]";
+        v23 = "+[SiriNLUInternalEmbeddingConverter convertFromProtoEmbeddingResponseCommand:]";
         _os_log_error_impl(&dword_1DC287000, embeddingTensor, OS_LOG_TYPE_ERROR, "%s [ERR]: No stable model version found in embedding response! Returning nil", buf, 0xCu);
       }
 
@@ -121,14 +121,12 @@ LABEL_13:
     v16 = 0;
   }
 
-  v17 = *MEMORY[0x1E69E9840];
-
   return v16;
 }
 
 + (id)convertFromEmbeddingResponseCommand:(id)command
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   commandCopy = command;
   if (commandCopy)
   {
@@ -148,32 +146,32 @@ LABEL_13:
       [v8 setEmbeddingDim:{objc_msgSend(commandCopy, "embeddingDim")}];
       [v8 setNumLayer:{objc_msgSend(commandCopy, "numLayers")}];
       [v8 setNumToken:{objc_msgSend(commandCopy, "numTokens")}];
-      v20 = 0u;
-      v21 = 0u;
-      v18 = 0u;
       v19 = 0u;
+      v20 = 0u;
+      v17 = 0u;
+      v18 = 0u;
       embeddingTensor2 = [commandCopy embeddingTensor];
       values = [embeddingTensor2 values];
 
-      v11 = [values countByEnumeratingWithState:&v18 objects:v24 count:16];
+      v11 = [values countByEnumeratingWithState:&v17 objects:v23 count:16];
       if (v11)
       {
         v12 = v11;
-        v13 = *v19;
+        v13 = *v18;
         do
         {
           for (i = 0; i != v12; ++i)
           {
-            if (*v19 != v13)
+            if (*v18 != v13)
             {
               objc_enumerationMutation(values);
             }
 
-            [*(*(&v18 + 1) + 8 * i) floatValue];
+            [*(*(&v17 + 1) + 8 * i) floatValue];
             [v8 addValues:?];
           }
 
-          v12 = [values countByEnumeratingWithState:&v18 objects:v24 count:16];
+          v12 = [values countByEnumeratingWithState:&v17 objects:v23 count:16];
         }
 
         while (v12);
@@ -183,7 +181,7 @@ LABEL_13:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         *buf = 136315138;
-        v23 = "+[SiriNLUInternalEmbeddingConverter convertFromEmbeddingResponseCommand:]";
+        v22 = "+[SiriNLUInternalEmbeddingConverter convertFromEmbeddingResponseCommand:]";
       }
 
       [v8 setEmbedderId:@"rdar://72698550"];
@@ -195,8 +193,6 @@ LABEL_13:
   {
     v4 = 0;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

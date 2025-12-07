@@ -30,13 +30,12 @@
 
 - (void)setLabel:(id)label
 {
-  v6.receiver = self;
-  v6.super_class = MTLIOAccelIOCommandQueue;
-  [(_MTLObjectWithLabel *)&v6 setLabel:?];
+  v5.receiver = self;
+  v5.super_class = MTLIOAccelIOCommandQueue;
+  [(_MTLObjectWithLabel *)&v5 setLabel:?];
   if (**MEMORY[0x1E69A8488])
   {
     [(_MTLIOCommandQueue *)self globalTraceObjectID];
-    labelTraceID = self->super._labelTraceID;
     [label cStringUsingEncoding:1];
     self->super._labelTraceID = IOAccelDeviceTraceObjectLabel();
   }

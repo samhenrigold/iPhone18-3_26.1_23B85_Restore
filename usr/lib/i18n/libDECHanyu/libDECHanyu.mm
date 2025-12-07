@@ -91,11 +91,11 @@ LABEL_9:
   return 0;
 }
 
-uint64_t _citrus_DECHanyu_stdenc_cstomb(uint64_t a1, void *a2, unint64_t a3, unsigned int a4, unsigned int a5, uint64_t *a6, void *a7)
+uint64_t _citrus_DECHanyu_stdenc_cstomb(uint64_t a1, void *a2, unint64_t a3, unsigned int a4, uint64_t a5, uint64_t *a6, void *a7)
 {
   if (a4 == -1)
   {
-    a5 = 0;
+    LODWORD(a5) = 0;
     return _citrus_DECHanyu_wcrtomb_priv(a2, a3, a5, a6, a7);
   }
 
@@ -116,7 +116,7 @@ uint64_t _citrus_DECHanyu_stdenc_cstomb(uint64_t a1, void *a2, unint64_t a3, uns
       v8 = -1026850816;
     }
 
-    a5 |= v8 & 0xFFFFFF7F | ((a4 & 1) << 7);
+    LODWORD(a5) = v8 & 0xFFFFFF7F | ((a4 & 1) << 7) | a5;
     return _citrus_DECHanyu_wcrtomb_priv(a2, a3, a5, a6, a7);
   }
 
@@ -128,7 +128,7 @@ uint64_t _citrus_DECHanyu_stdenc_cstomb(uint64_t a1, void *a2, unint64_t a3, uns
   return 92;
 }
 
-uint64_t _citrus_DECHanyu_stdenc_mbtowc(uint64_t a1, int *a2, unsigned __int8 **a3, uint64_t a4, uint64_t *a5, void *a6, uint64_t a7)
+uint64_t _citrus_DECHanyu_stdenc_mbtowc(uint64_t a1, unsigned int *a2, unsigned __int8 **a3, uint64_t a4, uint64_t *a5, void *a6, uint64_t a7)
 {
   v9 = _citrus_DECHanyu_mbrtowc_priv(a2, a3, a4, a5, a6);
   v10 = v9;

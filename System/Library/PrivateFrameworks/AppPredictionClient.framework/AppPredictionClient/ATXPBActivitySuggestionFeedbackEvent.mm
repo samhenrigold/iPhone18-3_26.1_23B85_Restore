@@ -6,16 +6,17 @@
 - (__CFString)locationAsString:(__CFString *)string;
 - (__CFString)suggestionTypeAsString:(__CFString *)string;
 - (double)date;
+- (id)clearSerializedAcceptedTriggers;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
 - (id)serializedAcceptedTriggersAtIndex:(id *)index;
+- (id)serializedAcceptedTriggersCount;
 - (uint64_t)StringAsEventType:(uint64_t)type;
 - (uint64_t)StringAsLocation:(uint64_t)location;
 - (uint64_t)StringAsSuggestionType:(uint64_t)type;
 - (uint64_t)activity;
 - (uint64_t)addSerializedAcceptedTriggers:(uint64_t)triggers;
-- (uint64_t)clearSerializedAcceptedTriggers;
 - (uint64_t)eventType;
 - (uint64_t)hasDate;
 - (uint64_t)hasEventType;
@@ -23,7 +24,6 @@
 - (uint64_t)hasSuggestionType;
 - (uint64_t)location;
 - (uint64_t)serializedAcceptedTriggers;
-- (uint64_t)serializedAcceptedTriggersCount;
 - (uint64_t)setDate:(uint64_t)result;
 - (uint64_t)setEventType:(uint64_t)result;
 - (uint64_t)setHasDate:(uint64_t)result;
@@ -746,11 +746,11 @@ LABEL_4:
   return result;
 }
 
-- (uint64_t)clearSerializedAcceptedTriggers
+- (id)clearSerializedAcceptedTriggers
 {
   if (result)
   {
-    return [*(result + 32) removeAllObjects];
+    return [result[4] removeAllObjects];
   }
 
   return result;
@@ -780,11 +780,11 @@ LABEL_4:
   return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
-- (uint64_t)serializedAcceptedTriggersCount
+- (id)serializedAcceptedTriggersCount
 {
   if (result)
   {
-    return [*(result + 32) count];
+    return [result[4] count];
   }
 
   return result;

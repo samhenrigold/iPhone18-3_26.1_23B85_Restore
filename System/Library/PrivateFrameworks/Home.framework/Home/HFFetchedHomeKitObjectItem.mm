@@ -59,7 +59,7 @@ LABEL_7:
 
 id __58__HFFetchedHomeKitObjectItem__subclass_updateWithOptions___block_invoke(uint64_t a1, void *a2)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -70,12 +70,12 @@ id __58__HFFetchedHomeKitObjectItem__subclass_updateWithOptions___block_invoke(u
       [WeakRetained setHomeKitObject:v3];
     }
 
-    v17 = @"dependentHomeKitObjects";
+    v16 = @"dependentHomeKitObjects";
     v6 = MEMORY[0x277CBEB98];
     v7 = [v5 homeKitObject];
     v8 = [v6 setWithObject:v7];
-    v18[0] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+    v17[0] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
 
     v10 = MEMORY[0x277D2C900];
     v11 = [HFItemUpdateOutcome outcomeWithResults:v9];
@@ -89,34 +89,30 @@ id __58__HFFetchedHomeKitObjectItem__subclass_updateWithOptions___block_invoke(u
     v12 = [v13 futureWithError:v14];
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 id __58__HFFetchedHomeKitObjectItem__subclass_updateWithOptions___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = HFLogForCategory(0x2CuLL);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 32));
     *buf = 138412546;
-    v15 = WeakRetained;
-    v16 = 2112;
-    v17 = v3;
+    v14 = WeakRetained;
+    v15 = 2112;
+    v16 = v3;
     _os_log_error_impl(&dword_20D9BF000, v4, OS_LOG_TYPE_ERROR, "%@: Failed to fetch HomeKit object with error: %@. Recovering and hiding update result.", buf, 0x16u);
   }
 
   v5 = MEMORY[0x277D2C900];
-  v12 = @"hidden";
-  v13 = MEMORY[0x277CBEC38];
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v13 forKeys:&v12 count:1];
+  v11 = @"hidden";
+  v12 = MEMORY[0x277CBEC38];
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
   v7 = [HFItemUpdateOutcome outcomeWithResults:v6];
   v8 = [v5 futureWithResult:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

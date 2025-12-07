@@ -282,7 +282,7 @@
   v5 = [(OITSUPointerSet *)self count];
   v6 = [array count];
   v7 = v6 + v5;
-  MEMORY[0x28223BE20]();
+  MEMORY[0x28223BE20](v6);
   v9 = v12 - v8;
   if (v6 + v5 >= 0x41)
   {

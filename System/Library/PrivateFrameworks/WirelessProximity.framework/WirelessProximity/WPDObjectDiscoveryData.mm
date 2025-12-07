@@ -12,7 +12,7 @@
 
 + (id)objectDiscoveryReportFromAdvReport:(id)report
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   reportCopy = report;
   v4 = [reportCopy objectForKeyedSubscript:@"kDeviceTime"];
   v5 = MEMORY[0x277CBEAA8];
@@ -22,9 +22,9 @@
   v8 = [reportCopy objectForKeyedSubscript:@"kDeviceAddress"];
   v9 = [v7 dataWithData:v8];
 
-  v45 = [reportCopy objectForKeyedSubscript:@"kDeviceRSSI"];
+  v44 = [reportCopy objectForKeyedSubscript:@"kDeviceRSSI"];
   v10 = [reportCopy objectForKeyedSubscript:@"kDeviceChannel"];
-  v44 = [reportCopy objectForKeyedSubscript:@"kDeviceDataSaturated"];
+  v43 = [reportCopy objectForKeyedSubscript:@"kDeviceDataSaturated"];
   v11 = [reportCopy objectForKeyedSubscript:@"kDeviceAdvertisingData"];
   v12 = [v11 length];
   v13 = v12 - 4;
@@ -42,7 +42,7 @@
 
     v14 = 0;
 LABEL_13:
-    v42 = v4;
+    v41 = v4;
     if (WPLogInitOnce != -1)
     {
       +[WPDObjectDiscoveryData objectDiscoveryReportFromAdvReport:];
@@ -53,13 +53,13 @@ LABEL_13:
     if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
     {
       *buf = 134218752;
-      v49 = v13;
-      v50 = 1024;
-      v51 = 1;
-      v52 = 2048;
-      v53 = v14;
-      v54 = 2048;
-      v55 = v13 + ~v14;
+      v48 = v13;
+      v49 = 1024;
+      v50 = 1;
+      v51 = 2048;
+      v52 = v14;
+      v53 = 2048;
+      v54 = v13 + ~v14;
       _os_log_debug_impl(&dword_274327000, v16, OS_LOG_TYPE_DEBUG, "ObjectDiscovery length payload:%ld state:%d data:%ld optional:%ld", buf, 0x26u);
     }
 
@@ -75,7 +75,7 @@ LABEL_13:
     }
 
     bytes = [v17 bytes];
-    v43 = [MEMORY[0x277CCABB0] numberWithChar:*bytes];
+    v42 = [MEMORY[0x277CCABB0] numberWithChar:*bytes];
     data = [MEMORY[0x277CBEA90] data];
     if (v13 >= 1)
     {
@@ -99,20 +99,20 @@ LABEL_13:
     *mutableBytes &= 0xFCu;
     mutableBytes2 = [v9 mutableBytes];
     *mutableBytes2 = *mutableBytes2 & 0x3F | (v26 << 6);
-    v46[0] = @"kSPDeviceAddress";
+    v45[0] = @"kSPDeviceAddress";
     v30 = v9;
     v31 = [MEMORY[0x277CBEA90] dataWithData:v9];
-    v47[0] = v31;
-    v47[1] = v6;
+    v46[0] = v31;
+    v46[1] = v6;
     v32 = v6;
-    v46[1] = @"kSPScanDate";
-    v46[2] = @"kSPrssi";
-    v47[2] = v45;
-    v47[3] = data;
-    v46[3] = @"kSPAdvertisementData";
-    v46[4] = @"kSPStatus";
-    v47[4] = v43;
-    v46[5] = @"kSPOptional";
+    v45[1] = @"kSPScanDate";
+    v45[2] = @"kSPrssi";
+    v46[2] = v44;
+    v46[3] = data;
+    v45[3] = @"kSPAdvertisementData";
+    v45[4] = @"kSPStatus";
+    v46[4] = v42;
+    v45[5] = @"kSPOptional";
     v33 = [MEMORY[0x277CBEA90] dataWithData:v27];
     v34 = v33;
     v35 = &unk_28835C708;
@@ -121,18 +121,18 @@ LABEL_13:
       v35 = v10;
     }
 
-    v47[5] = v33;
-    v47[6] = v35;
-    v46[6] = @"kSPChannel";
-    v46[7] = @"kSPSaturated";
-    v36 = v44;
-    if (!v44)
+    v46[5] = v33;
+    v46[6] = v35;
+    v45[6] = @"kSPChannel";
+    v45[7] = @"kSPSaturated";
+    v36 = v43;
+    if (!v43)
     {
       v36 = MEMORY[0x277CBEC28];
     }
 
-    v47[7] = v36;
-    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v47 forKeys:v46 count:8];
+    v46[7] = v36;
+    v37 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v46 forKeys:v45 count:8];
 
     if (WPLogInitOnce != -1)
     {
@@ -156,8 +156,8 @@ LABEL_13:
       +[WPDObjectDiscoveryData objectDiscoveryReportFromAdvReport:];
     }
 
-    v4 = v42;
-    v11 = v41;
+    v4 = v41;
+    v11 = v40;
     goto LABEL_41;
   }
 
@@ -191,8 +191,6 @@ LABEL_13:
   v37 = 0;
 LABEL_41:
 
-  v39 = *MEMORY[0x277D85DE8];
-
   return v37;
 }
 
@@ -208,7 +206,7 @@ LABEL_41:
 
   if (os_log_type_enabled(WiProxLog, OS_LOG_TYPE_DEBUG))
   {
-    [WPDObjectDiscoveryData applyMaskToAddress:mutableBytes];
+    +[WPDObjectDiscoveryData applyMaskToAddress:];
   }
 
   return v4 >> 6;
@@ -291,7 +289,7 @@ void __52__WPDObjectDiscoveryData_addressesFromNearbyTokens___block_invoke(uint6
 
 - (id)updateWithKey:(id)key Status:(unsigned __int8)status Reserved:(id)reserved
 {
-  v35[1] = *MEMORY[0x277D85DE8];
+  v34[1] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   reservedCopy = reserved;
   v10 = [keyCopy length];
@@ -300,11 +298,11 @@ void __52__WPDObjectDiscoveryData_addressesFromNearbyTokens___block_invoke(uint6
   {
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"bad ObjectDiscovery key of length %lu", objc_msgSend(keyCopy, "length")];
     v13 = MEMORY[0x277CCA9B8];
-    v34 = *MEMORY[0x277CCA450];
-    v35[0] = v12;
+    v33 = *MEMORY[0x277CCA450];
+    v34[0] = v12;
     v14 = MEMORY[0x277CBEAC0];
-    v15 = v35;
-    v16 = &v34;
+    v15 = v34;
+    v16 = &v33;
 LABEL_6:
     v18 = [v14 dictionaryWithObjects:v15 forKeys:v16 count:1];
     v19 = [v13 errorWithDomain:@"WPErrorDomain" code:8 userInfo:v18];
@@ -317,11 +315,11 @@ LABEL_6:
   {
     v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"bad ObjectDiscovery reserved bytes length %lu", objc_msgSend(reservedCopy, "length")];
     v13 = MEMORY[0x277CCA9B8];
-    v32 = *MEMORY[0x277CCA450];
-    v33 = v12;
+    v31 = *MEMORY[0x277CCA450];
+    v32 = v12;
     v14 = MEMORY[0x277CBEAC0];
-    v15 = &v33;
-    v16 = &v32;
+    v15 = &v32;
+    v16 = &v31;
     goto LABEL_6;
   }
 
@@ -366,42 +364,7 @@ LABEL_6:
   v19 = 0;
 LABEL_16:
 
-  v30 = *MEMORY[0x277D85DE8];
-
   return v19;
-}
-
-+ (void)objectDiscoveryReportFromAdvReport:.cold.9()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)objectDiscoveryReportFromAdvReport:.cold.11()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)objectDiscoveryReportFromAdvReport:.cold.13()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)applyMaskToAddress:(_BYTE *)a1 .cold.2(_BYTE *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = (*a1 & 0xC0) != 128;
-  OUTLINED_FUNCTION_0_1();
-  _os_log_debug_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

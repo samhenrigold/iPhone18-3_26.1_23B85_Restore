@@ -421,7 +421,7 @@ LABEL_9:
 {
   dispatch_assert_queue_V2(self->_q);
   v62 = 0.0;
-  if ((sub_10002B8BC(+[NSXPCConnection currentConnection], reading, &self->_defaults->super.isa, self, &v62) & 1) == 0)
+  if (!sub_10002B8BC(+[NSXPCConnection currentConnection], reading, &self->_defaults->super.isa, self, &v62))
   {
     v11 = qword_100071B30;
     if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_DEFAULT))
@@ -573,7 +573,7 @@ LABEL_20:
       _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Requested start time %{public}f before the last authorized time for bundle %{public}@, sensor %{public}@. Adjusting start time to %{public}f", buf, 0x2Au);
     }
 
-    segment = [(NSURL *)sub_10001ADB4(v21) lastPathComponent];
+    segment = [(NSURL *)sub_10001ADB4(RDFileURLs lastPathComponent];
     [reading to];
     if (v21 > v25)
     {
@@ -1000,7 +1000,7 @@ LABEL_33:
   {
     v14 = v13;
     authStore = self->_authStore;
-    [(NSXPCConnection *)v5 auditToken];
+    objc_msgSend_auditToken(v5);
     if (![(SRAuthorizationStore *)authStore checkAccessForService:*&v14 auditToken:buf])
     {
       v46 = qword_100071B30;
@@ -1185,9 +1185,9 @@ LABEL_18:
     }
   }
 
-  lastPathComponent = [(NSURL *)sub_10001ADB4(v40) lastPathComponent];
-  lastPathComponent2 = [(NSURL *)sub_10001ADB4(v40 + 0.000000999999997) lastPathComponent];
-  lastPathComponent3 = [(NSURL *)sub_10001ADB4(v40 + 0.000000999999997) lastPathComponent];
+  lastPathComponent = [(NSURL *)sub_10001ADB4(RDFileURLs lastPathComponent];
+  lastPathComponent2 = [(NSURL *)sub_10001ADB4(RDFileURLs lastPathComponent];
+  lastPathComponent3 = [(NSURL *)sub_10001ADB4(RDFileURLs lastPathComponent];
   v51 = objc_autoreleasePoolPush();
   *buf = 0;
   v52 = sub_10000AA38(v26, lastPathComponent, lastPathComponent2, lastPathComponent3, buf);
@@ -2784,7 +2784,7 @@ LABEL_102:
   }
 
   v46 = +[NSFileManager defaultManager];
-  v47 = sub_10001AD14();
+  v47 = sub_10001AD14(RDFileURLs);
   v48 = sub_1000186E4(v46, v47, runCopy);
   v45 = __OFADD__(v20, v48);
   v20 += v48;
@@ -2828,7 +2828,7 @@ LABEL_35:
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v4 = sub_100019058();
+    v4 = sub_100019058(SRSensorsCache);
     obj = sub_1000193F0(v4);
     v5 = [(SRSensorDescriptionEnumerator *)obj countByEnumeratingWithState:&v20 objects:v24 count:16];
     if (v5)
@@ -3571,7 +3571,7 @@ LABEL_13:
 
     if (self->_active)
     {
-      sub_10001DB60();
+      sub_10001DB60(RDNotifier);
     }
   }
 
@@ -3614,88 +3614,88 @@ LABEL_13:
   if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138543362;
-    v31 = sub_10001B58C(v5);
+    v32 = sub_10001B58C(v5, v7);
     _os_log_debug_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "Got a request to dumpClients from: %{public}@", buf, 0xCu);
   }
 
-  v28 = 0;
-  if (sub_10002BB64(v5, @"com.apple.private.sensorkit.diagnostics.allow", 0, 0, @"com.apple.private.sensorkit.debugging.allow", &self->_defaults->super.isa, self, &v28))
+  v29 = 0;
+  if (sub_10002BB64(v5, @"com.apple.private.sensorkit.diagnostics.allow", 0, 0, @"com.apple.private.sensorkit.debugging.allow", &self->_defaults->super.isa, self, &v29))
   {
     replyCopy = reply;
-    v7 = +[NSMutableDictionary dictionary];
+    v8 = +[NSMutableDictionary dictionary];
     context = objc_autoreleasePoolPush();
-    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v8 = sub_100019058();
-    v9 = sub_1000193F0(v8);
-    v10 = [(SRSensorDescriptionEnumerator *)v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
-    if (v10)
+    v28 = 0u;
+    v9 = sub_100019058(SRSensorsCache);
+    v10 = sub_1000193F0(v9);
+    v11 = [(SRSensorDescriptionEnumerator *)v10 countByEnumeratingWithState:&v25 objects:v30 count:16];
+    if (v11)
     {
-      v11 = v10;
-      v12 = *v25;
+      v12 = v11;
+      v13 = *v26;
       do
       {
-        for (i = 0; i != v11; i = i + 1)
+        for (i = 0; i != v12; i = i + 1)
         {
-          if (*v25 != v12)
+          if (*v26 != v13)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v14 = *(*(&v24 + 1) + 8 * i);
-          v15 = objc_autoreleasePoolPush();
-          name = [v14 name];
+          v15 = *(*(&v25 + 1) + 8 * i);
+          v16 = objc_autoreleasePoolPush();
+          name = [v15 name];
           clientInterest = self->_clientInterest;
           if (clientInterest)
           {
-            v18 = [(NSCache *)clientInterest->_clientInterestCache rd_objectsForSensor:name fallbackURL:sub_10001AAE4(clientInterest->_fileURLs, name)];
+            v19 = [(NSCache *)clientInterest->_clientInterestCache rd_objectsForSensor:name fallbackURL:sub_10001AAE4(clientInterest->_fileURLs, name)];
           }
 
           else
           {
-            v18 = 0;
+            v19 = 0;
           }
 
-          [v7 setObject:objc_msgSend(v18 forKeyedSubscript:{"allObjects"), name}];
-          v19 = qword_100071B30;
+          [v8 setObject:objc_msgSend(v19 forKeyedSubscript:{"allObjects"), name}];
+          v20 = qword_100071B30;
           if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_DEFAULT))
           {
-            v20 = [v7 objectForKeyedSubscript:name];
+            v21 = [v8 objectForKeyedSubscript:name];
             *buf = 138543618;
-            v31 = name;
-            v32 = 2114;
-            v33 = v20;
-            _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "clients for %{public}@: %{public}@", buf, 0x16u);
+            v32 = name;
+            v33 = 2114;
+            v34 = v21;
+            _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "clients for %{public}@: %{public}@", buf, 0x16u);
           }
 
-          objc_autoreleasePoolPop(v15);
+          objc_autoreleasePoolPop(v16);
         }
 
-        v11 = [(SRSensorDescriptionEnumerator *)v9 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v12 = [(SRSensorDescriptionEnumerator *)v10 countByEnumeratingWithState:&v25 objects:v30 count:16];
       }
 
-      while (v11);
+      while (v12);
     }
 
     objc_autoreleasePoolPop(context);
-    replyCopy[2](replyCopy, v7, 0);
+    replyCopy[2](replyCopy, v8, 0);
   }
 
   else
   {
-    v21 = qword_100071B30;
+    v22 = qword_100071B30;
     if (os_log_type_enabled(qword_100071B30, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
-      v31 = v5;
-      v32 = 2114;
-      v33 = v28;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Connection %{public}@ not valid because %{public}@", buf, 0x16u);
+      v32 = v5;
+      v33 = 2114;
+      v34 = v29;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "Connection %{public}@ not valid because %{public}@", buf, 0x16u);
     }
 
-    (*(reply + 2))(reply, &__NSDictionary0__struct, v28);
+    (*(reply + 2))(reply, &__NSDictionary0__struct, v29);
   }
 }
 
@@ -3771,7 +3771,7 @@ LABEL_13:
     v21 = 0u;
     v22 = 0u;
     v23 = 0u;
-    v7 = sub_100019058();
+    v7 = sub_100019058(SRSensorsCache);
     v8 = sub_1000193F0(v7);
     v9 = [(SRSensorDescriptionEnumerator *)v8 countByEnumeratingWithState:&v20 objects:v25 count:16];
     if (v9)

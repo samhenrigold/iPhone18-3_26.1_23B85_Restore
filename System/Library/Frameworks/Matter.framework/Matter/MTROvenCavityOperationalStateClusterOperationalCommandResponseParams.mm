@@ -55,11 +55,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:valueCopy clusterID:72 commandID:4 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v14)
   {
     sub_2393C5AAC(v13);
-    sub_2393C5ADC(v13, *(v14 + 1), *(v14 + 3));
+    sub_2393C5ADC(v13, *(v14 + 8), *(v14 + 24));
     v8 = sub_2393C6FD0(v13, 256);
     if (!v8)
     {
@@ -128,22 +128,22 @@ LABEL_6:
     [commandResponseState2 setErrorStateLabel:0];
 
 LABEL_5:
-    v17 = *(struct + 32);
-    v16 = struct + 32;
-    if (v17 == 1)
+    v19 = *(struct + 32);
+    v18 = struct + 32;
+    if (v19 == 1)
     {
-      v18 = sub_238DE36B8(v16);
-      v19 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v18 length:v18[1] encoding:4];
+      v20 = sub_238DE36B8(v18, v14);
+      v21 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v20 length:v20[1] encoding:4];
       commandResponseState3 = [(MTROvenCavityOperationalStateClusterOperationalCommandResponseParams *)self commandResponseState];
-      [commandResponseState3 setErrorStateDetails:v19];
+      [commandResponseState3 setErrorStateDetails:v21];
 
       commandResponseState4 = [(MTROvenCavityOperationalStateClusterOperationalCommandResponseParams *)self commandResponseState];
       errorStateDetails = [commandResponseState4 errorStateDetails];
 
       if (!errorStateDetails)
       {
-        v13 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-        v14 = 0x2D0800000000;
+        v15 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+        v16 = 0x2D0800000000;
         goto LABEL_8;
       }
     }
@@ -154,16 +154,16 @@ LABEL_5:
       [commandResponseState5 setErrorStateDetails:0];
     }
 
-    v14 = 0;
-    v23 = 0;
-    v13 = 0;
+    v16 = 0;
+    v25 = 0;
+    v15 = 0;
     goto LABEL_11;
   }
 
-  v8 = sub_238DE36B8(struct + 8);
-  v9 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v8 length:v8[1] encoding:4];
+  v9 = sub_238DE36B8(struct + 8, v8);
+  v10 = [objc_alloc(MEMORY[0x277CCACA8]) initWithBytes:*v9 length:v9[1] encoding:4];
   commandResponseState6 = [(MTROvenCavityOperationalStateClusterOperationalCommandResponseParams *)self commandResponseState];
-  [commandResponseState6 setErrorStateLabel:v9];
+  [commandResponseState6 setErrorStateLabel:v10];
 
   commandResponseState7 = [(MTROvenCavityOperationalStateClusterOperationalCommandResponseParams *)self commandResponseState];
   errorStateLabel = [commandResponseState7 errorStateLabel];
@@ -173,15 +173,15 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  v13 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
-  v14 = 0x2CFF00000000;
+  v15 = "/Library/Caches/com.apple.xbs/Sources/CHIPFramework/connectedhomeip/src/darwin/Framework/CHIP/zap-generated/MTRCommandPayloadsObjc.mm";
+  v16 = 0x2CFF00000000;
 LABEL_8:
-  v23 = 47;
+  v25 = 47;
 LABEL_11:
-  v25 = v23 | v14;
-  result.mFile = v13;
-  result.mError = v25;
-  result.mLine = HIDWORD(v25);
+  v27 = v25 | v16;
+  result.mFile = v15;
+  result.mError = v27;
+  result.mLine = HIDWORD(v27);
   return result;
 }
 

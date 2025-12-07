@@ -276,7 +276,7 @@
   v9 = self->_circularView;
   if (v9)
   {
-    [(CDRichComplicationTemplateView *)v9 transform];
+    objc_msgSend_transform(v9);
     v10 = self->_circularView;
   }
 

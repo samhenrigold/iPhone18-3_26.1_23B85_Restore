@@ -1,13 +1,13 @@
-id XBLogFetchRequests()
+id XBLogFetchRequests(uint64_t a1)
 {
   if (XBLogFetchRequests_onceToken != -1)
   {
     XBLogFetchRequests_cold_1();
   }
 
-  v1 = XBLogFetchRequests___logObj;
+  v2 = XBLogFetchRequests___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t XBStatusBarStateMaskMatchesSettings(uint64_t a1, void *a2)
@@ -31,9 +31,9 @@ uint64_t XBStatusBarStateMaskMatchesSettings(uint64_t a1, void *a2)
   return v5;
 }
 
-void sub_26B5F08B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26B5F08B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -105,7 +105,7 @@ uint64_t XBStatusBarStateMatchesSettings(uint64_t a1, void *a2)
   return v5;
 }
 
-uint64_t __XBStatusBarStateMaskMatchesSettings_block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__XBStatusBarStateMaskMatchesSettings_block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = XBStatusBarStateMatchesSettings(a2, *(a1 + 32));
   *(*(*(a1 + 40) + 8) + 24) = result;
@@ -136,28 +136,28 @@ uint64_t XBInterfaceOrientationMaskForInterfaceOrientationPair(uint64_t a1)
   }
 }
 
-id FAKE_NIL_PTR()
+id FAKE_NIL_PTR(uint64_t a1)
 {
   if (FAKE_NIL_PTR_onceToken != -1)
   {
     FAKE_NIL_PTR_cold_1();
   }
 
-  v1 = FAKE_NIL_PTR___fakeNil;
+  v2 = FAKE_NIL_PTR___fakeNil;
 
-  return v1;
+  return v2;
 }
 
-id XBLogSnapshot()
+id XBLogSnapshot(uint64_t a1)
 {
   if (XBLogSnapshot_onceToken != -1)
   {
     XBLogSnapshot_cold_1();
   }
 
-  v1 = XBLogSnapshot___logObj;
+  v2 = XBLogSnapshot___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t XBImageOrientationForInterfaceOrientationRotation(uint64_t a1, uint64_t a2)
@@ -265,7 +265,7 @@ id XBLibraryPathForSandboxPath(void *a1)
   v1 = a1;
   if (!v1)
   {
-    v1 = XBCachedNSHomeDirectory();
+    v1 = XBCachedNSHomeDirectory(0);
   }
 
   v2 = [v1 stringByAppendingPathComponent:@"Library"];
@@ -289,35 +289,35 @@ id XBSnapshotPathForBundleIdentifierWithSandboxPath(void *a1, void *a2)
   return v5;
 }
 
-id XBLogFileManifest()
+id XBLogFileManifest(uint64_t a1)
 {
   if (XBLogFileManifest_onceToken != -1)
   {
     XBLogFileManifest_cold_1();
   }
 
-  v1 = XBLogFileManifest___logObj;
+  v2 = XBLogFileManifest___logObj;
 
-  return v1;
+  return v2;
 }
 
-void sub_26B5F2A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26B5F2A80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-id XBLogSnapshotReaper()
+id XBLogSnapshotReaper(uint64_t a1)
 {
   if (XBLogSnapshotReaper_onceToken != -1)
   {
     XBLogSnapshotReaper_cold_1();
   }
 
-  v1 = XBLogSnapshotReaper___logObj;
+  v2 = XBLogSnapshotReaper___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t XBApplicationSnapshotOnDiskFormatForFileExtension(void *a1)
@@ -367,16 +367,16 @@ uint64_t __XBLogSnapshot_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id XBLogMemory()
+id XBLogMemory(uint64_t a1)
 {
   if (XBLogMemory_onceToken != -1)
   {
     XBLogMemory_cold_1();
   }
 
-  v1 = XBLogMemory___logObj;
+  v2 = XBLogMemory___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __XBLogMemory_block_invoke()
@@ -400,16 +400,16 @@ uint64_t __XBLogSnapshotReaper_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id XBLogDaemonLifecycle()
+id XBLogDaemonLifecycle(uint64_t a1)
 {
   if (XBLogDaemonLifecycle_onceToken != -1)
   {
     XBLogDaemonLifecycle_cold_1();
   }
 
-  v1 = XBLogDaemonLifecycle___logObj;
+  v2 = XBLogDaemonLifecycle___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __XBLogDaemonLifecycle_block_invoke()
@@ -419,16 +419,16 @@ uint64_t __XBLogDaemonLifecycle_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id XBLogCapture()
+id XBLogCapture(uint64_t a1)
 {
   if (XBLogCapture_onceToken != -1)
   {
     XBLogCapture_cold_1();
   }
 
-  v1 = XBLogCapture___logObj;
+  v2 = XBLogCapture___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __XBLogCapture_block_invoke()
@@ -445,16 +445,16 @@ uint64_t __XBLogFileManifest_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id XBLogPurge()
+id XBLogPurge(uint64_t a1)
 {
   if (XBLogPurge_onceToken != -1)
   {
     XBLogPurge_cold_1();
   }
 
-  v1 = XBLogPurge___logObj;
+  v2 = XBLogPurge___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __XBLogPurge_block_invoke()
@@ -464,16 +464,16 @@ uint64_t __XBLogPurge_block_invoke()
   return MEMORY[0x2821F96F8]();
 }
 
-id XBLogCommon()
+id XBLogCommon(uint64_t a1)
 {
   if (XBLogCommon_onceToken != -1)
   {
     XBLogCommon_cold_1();
   }
 
-  v1 = XBLogCommon___logObj;
+  v2 = XBLogCommon___logObj;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __XBLogCommon_block_invoke()
@@ -639,9 +639,9 @@ LABEL_22:
   return v10;
 }
 
-void sub_26B5F7798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26B5F7798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -681,16 +681,16 @@ BOOL XBEnsureDirectoryExistsAtPath(void *a1)
   return v3;
 }
 
-id XBCachedNSHomeDirectory()
+id XBCachedNSHomeDirectory(uint64_t a1)
 {
   if (XBCachedNSHomeDirectory_onceToken != -1)
   {
     XBCachedNSHomeDirectory_cold_1();
   }
 
-  v1 = XBCachedNSHomeDirectory_sHomeDir;
+  v2 = XBCachedNSHomeDirectory_sHomeDir;
 
-  return v1;
+  return v2;
 }
 
 void __XBCachedNSHomeDirectory_block_invoke()
@@ -745,7 +745,7 @@ id XBLegacyCachesSnapshotPathForNonSandboxedSystemApplications()
 
 uint64_t XBDeleteLegacyCachesSnapshotPathForSandboxedApplicationIfNeeded(void *a1)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 bundleIdentifier];
   v3 = [v1 dataContainerURL];
@@ -759,138 +759,142 @@ uint64_t XBDeleteLegacyCachesSnapshotPathForSandboxedApplicationIfNeeded(void *a
 
     v7 = [MEMORY[0x277CCAA00] defaultManager];
     v8 = v7;
-    if (v6 && [v7 fileExistsAtPath:v6])
+    if (v6 && (v9 = [v7 fileExistsAtPath:v6], v9))
     {
-      v9 = XBLogFileManifest();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+      v10 = XBLogFileManifest(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543874;
-        v18 = v2;
-        v19 = 2114;
-        v20 = v4;
-        v21 = 2114;
-        v22 = v6;
-        _os_log_impl(&dword_26B5EF000, v9, OS_LOG_TYPE_DEFAULT, "Deleting legacy cache snapshots path for bundleID: %{public}@, sandboxPath: %{public}@, legacySnapshotsPath: %{public}@", buf, 0x20u);
+        v19 = v2;
+        v20 = 2114;
+        v21 = v4;
+        v22 = 2114;
+        v23 = v6;
+        _os_log_impl(&dword_26B5EF000, v10, OS_LOG_TYPE_DEFAULT, "Deleting legacy cache snapshots path for bundleID: %{public}@, sandboxPath: %{public}@, legacySnapshotsPath: %{public}@", buf, 0x20u);
       }
 
-      v16 = 0;
-      v10 = [v8 removeItemAtPath:v6 error:&v16];
-      v11 = v16;
-      v12 = v11;
-      if ((v10 & 1) == 0 && v11)
+      v17 = 0;
+      v11 = [v8 removeItemAtPath:v6 error:&v17];
+      v12 = v17;
+      v13 = v12;
+      if ((v11 & 1) == 0 && v12)
       {
-        v13 = XBLogFileManifest();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v14 = XBLogFileManifest(v12);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           *buf = 138544130;
-          v18 = v2;
-          v19 = 2114;
-          v20 = v4;
-          v21 = 2114;
-          v22 = v6;
-          v23 = 2114;
-          v24 = v12;
-          _os_log_error_impl(&dword_26B5EF000, v13, OS_LOG_TYPE_ERROR, "Error deleting legacy cache snapshots path for bundleID %{public}@, sandboxPath: %{public}@, legacySnapshotsPath: %{public}@: %{public}@", buf, 0x2Au);
+          v19 = v2;
+          v20 = 2114;
+          v21 = v4;
+          v22 = 2114;
+          v23 = v6;
+          v24 = 2114;
+          v25 = v13;
+          _os_log_error_impl(&dword_26B5EF000, v14, OS_LOG_TYPE_ERROR, "Error deleting legacy cache snapshots path for bundleID %{public}@, sandboxPath: %{public}@, legacySnapshotsPath: %{public}@: %{public}@", buf, 0x2Au);
         }
       }
 
-      v14 = 1;
+      v15 = 1;
     }
 
     else
     {
-      v14 = 0;
+      v15 = 0;
     }
   }
 
   else
   {
-    v14 = 0;
+    v15 = 0;
   }
 
-  return v14;
+  return v15;
 }
 
 uint64_t XBDeleteLegacyCachesSnapshotPathForNonSandboxedApplicationIfNeeded(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v1 = [a1 bundleIdentifier];
   if (v1)
   {
     v2 = [MEMORY[0x277CCAA00] defaultManager];
     v3 = XBLegacyCachesSnapshotPathForNonSandboxedSystemApplications();
     v4 = [v3 stringByAppendingPathComponent:v1];
-    if (v4 && [v2 fileExistsAtPath:v4])
+    if (v4 && (v5 = [v2 fileExistsAtPath:v4], v5))
     {
-      v5 = XBLogFileManifest();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = XBLogFileManifest(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v14 = v1;
-        _os_log_impl(&dword_26B5EF000, v5, OS_LOG_TYPE_DEFAULT, "Deleting legacy cache snapshots path for non-sandboxed system app: %{public}@", buf, 0xCu);
+        v15 = v1;
+        _os_log_impl(&dword_26B5EF000, v6, OS_LOG_TYPE_DEFAULT, "Deleting legacy cache snapshots path for non-sandboxed system app: %{public}@", buf, 0xCu);
       }
 
-      v12 = 0;
-      v6 = [v2 removeItemAtPath:v4 error:&v12];
-      v7 = v12;
-      v8 = v7;
-      if ((v6 & 1) == 0 && v7)
+      v13 = 0;
+      v7 = [v2 removeItemAtPath:v4 error:&v13];
+      v8 = v13;
+      v9 = v8;
+      if ((v7 & 1) == 0 && v8)
       {
-        v9 = XBLogFileManifest();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v10 = XBLogFileManifest(v8);
+        if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
         {
           *buf = 138543874;
-          v14 = v1;
-          v15 = 2114;
-          v16 = v4;
-          v17 = 2114;
-          v18 = v8;
-          _os_log_error_impl(&dword_26B5EF000, v9, OS_LOG_TYPE_ERROR, "Error deleting legacy cache snapshots path for non-sandboxed system app %{public}@ at %{public}@: %{public}@", buf, 0x20u);
+          v15 = v1;
+          v16 = 2114;
+          v17 = v4;
+          v18 = 2114;
+          v19 = v9;
+          _os_log_error_impl(&dword_26B5EF000, v10, OS_LOG_TYPE_ERROR, "Error deleting legacy cache snapshots path for non-sandboxed system app %{public}@ at %{public}@: %{public}@", buf, 0x20u);
         }
       }
 
-      v10 = 1;
+      v11 = 1;
     }
 
     else
     {
-      v10 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 void XBDeleteLegacyCachesSnapshotPathForNonSandboxedApplicationsIfNeeded()
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCAA00] defaultManager];
   v1 = XBLegacyCachesSnapshotPathForNonSandboxedSystemApplications();
-  if (v1 && [v0 fileExistsAtPath:v1])
+  if (v1)
   {
-    v2 = XBLogFileManifest();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v2 = [v0 fileExistsAtPath:v1];
+    if (v2)
     {
-      *buf = 138543362;
-      v9 = v1;
-      _os_log_impl(&dword_26B5EF000, v2, OS_LOG_TYPE_DEFAULT, "Deleting legacy cache snapshots path for non-sandboxed system apps: %{public}@", buf, 0xCu);
-    }
-
-    v7 = 0;
-    v3 = [v0 removeItemAtPath:v1 error:&v7];
-    v4 = v7;
-    v5 = v4;
-    if ((v3 & 1) == 0 && v4)
-    {
-      v6 = XBLogFileManifest();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v3 = XBLogFileManifest(v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
       {
-        XBDeleteLegacyCachesSnapshotPathForNonSandboxedApplicationsIfNeeded_cold_1(v1, v5, v6);
+        *buf = 138543362;
+        v10 = v1;
+        _os_log_impl(&dword_26B5EF000, v3, OS_LOG_TYPE_DEFAULT, "Deleting legacy cache snapshots path for non-sandboxed system apps: %{public}@", buf, 0xCu);
+      }
+
+      v8 = 0;
+      v4 = [v0 removeItemAtPath:v1 error:&v8];
+      v5 = v8;
+      v6 = v5;
+      if ((v4 & 1) == 0 && v5)
+      {
+        v7 = XBLogFileManifest(v5);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+        {
+          XBDeleteLegacyCachesSnapshotPathForNonSandboxedApplicationsIfNeeded_cold_1(v1, v6, v7);
+        }
       }
     }
   }
@@ -954,6 +958,13 @@ LABEL_5:
 LABEL_8:
 
   return v4;
+}
+
+void sub_26B5FA22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, ...)
+{
+  va_start(va, a52);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
@@ -1028,7 +1039,7 @@ uint64_t XBInterfaceOrientationForString(void *a1)
   return v2;
 }
 
-uint64_t XBInterfaceOrientationForAffineTransform()
+uint64_t XBInterfaceOrientationForAffineTransform(_OWORD *a1)
 {
   BSRadiansFromAffineTransform();
   if (BSFloatIsZero())
@@ -1185,7 +1196,7 @@ LABEL_23:
   return v3;
 }
 
-uint64_t _XBDebugCaptureIsEnabled()
+uint64_t _XBDebugCaptureIsEnabled(uint64_t a1, uint64_t a2)
 {
   if (_XBDebugCaptureIsEnabled_onceToken != -1)
   {
@@ -1197,11 +1208,12 @@ uint64_t _XBDebugCaptureIsEnabled()
 
 void _XBPreparedLaunchInterfaceForCapture(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v11 = a2;
   v12 = a3;
   v13 = a4;
   v14 = a5;
+  v15 = v14;
   if (a6)
   {
     goto LABEL_5;
@@ -1215,83 +1227,83 @@ void _XBPreparedLaunchInterfaceForCapture(uint64_t a1, void *a2, void *a3, void 
   if (_XBDebugCaptureIsEnabled_sEncodingEnabled == 1)
   {
 LABEL_5:
-    v15 = XBLogCapture();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v16 = XBLogCapture(v14);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      _XBPreparedLaunchInterfaceForCapture_cold_2(v11, v15);
+      _XBPreparedLaunchInterfaceForCapture_cold_2(v11, v16);
     }
 
-    v16 = MEMORY[0x277CCACA8];
-    v17 = [MEMORY[0x277CCAC38] processInfo];
-    v18 = [v16 stringWithFormat:@"splashboardd-%d", objc_msgSend(v17, "processIdentifier")];
+    v17 = MEMORY[0x277CCACA8];
+    v18 = [MEMORY[0x277CCAC38] processInfo];
+    v19 = [v17 stringWithFormat:@"splashboardd-%d", objc_msgSend(v18, "processIdentifier")];
 
-    v19 = MEMORY[0x277CCACA8];
-    v20 = [v12 bundleIdentifier];
-    v34 = v12;
+    v20 = MEMORY[0x277CCACA8];
+    v21 = [v12 bundleIdentifier];
+    v36 = v12;
     if ([v13 interfaceOrientation] == 1)
     {
-      v21 = v11;
-      v22 = @"UIInterfaceOrientationPortrait";
+      v22 = v11;
+      v23 = @"UIInterfaceOrientationPortrait";
     }
 
     else
     {
-      v21 = v11;
+      v22 = v11;
       if ([v13 interfaceOrientation] == 4)
       {
-        v22 = @"UIInterfaceOrientationLandscapeLeft";
+        v23 = @"UIInterfaceOrientationLandscapeLeft";
       }
 
       else if ([v13 interfaceOrientation] == 3)
       {
-        v22 = @"UIInterfaceOrientationLandscapeRight";
+        v23 = @"UIInterfaceOrientationLandscapeRight";
       }
 
       else if ([v13 interfaceOrientation] == 2)
       {
-        v22 = @"UIInterfaceOrientationPortraitUpsideDown";
+        v23 = @"UIInterfaceOrientationPortraitUpsideDown";
       }
 
       else
       {
-        v22 = 0;
+        v23 = 0;
       }
     }
 
-    v23 = XBStringForUserInterfaceStyle([v13 userInterfaceStyle]);
+    v24 = XBStringForUserInterfaceStyle([v13 userInterfaceStyle]);
     [v13 naturalSize];
-    v25 = v24;
+    v26 = v25;
     [v13 naturalSize];
-    v27 = [v19 stringWithFormat:@"%@-%@-%@-%.fx%.f-%u", v20, v22, v23, v25, v26, a1];
+    v28 = [v20 stringWithFormat:@"%@-%@-%@-%.fx%.f-%u", v21, v23, v24, v26, v27, a1];
 
-    v28 = NSTemporaryDirectory();
-    v29 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@.caar", v18, v27];
-    v30 = [v28 stringByAppendingPathComponent:v29];
+    v29 = NSTemporaryDirectory();
+    v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@-%@.caar", v19, v28];
+    v31 = [v29 stringByAppendingPathComponent:v30];
 
     if (a6)
     {
-      v31 = v30;
-      *a6 = v30;
+      v32 = v31;
+      *a6 = v31;
     }
 
-    v11 = v21;
-    v32 = [v21 layer];
-    [v30 UTF8String];
+    v11 = v22;
+    v33 = [v22 layer];
+    [v31 UTF8String];
     CAEncodeLayerTreeToFile();
 
-    v33 = XBLogCapture();
-    v12 = v34;
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
+    v35 = XBLogCapture(v34);
+    v12 = v36;
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138544130;
-      v36 = v30;
-      v37 = 2114;
-      v38 = v34;
+      v38 = v31;
       v39 = 2114;
-      v40 = v13;
+      v40 = v36;
       v41 = 2114;
-      v42 = v14;
-      _os_log_impl(&dword_26B5EF000, v33, OS_LOG_TYPE_DEFAULT, "splashboardd wrote an encoded launch interface to: %{public}@\nappInfo: %{public}@\nlaunchRequest: %{public}@\nlaunchInterface: %{public}@", buf, 0x2Au);
+      v42 = v13;
+      v43 = 2114;
+      v44 = v15;
+      _os_log_impl(&dword_26B5EF000, v35, OS_LOG_TYPE_DEFAULT, "splashboardd wrote an encoded launch interface to: %{public}@\nappInfo: %{public}@\nlaunchRequest: %{public}@\nlaunchInterface: %{public}@", buf, 0x2Au);
     }
   }
 }
@@ -1303,10 +1315,11 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_26B5FDAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_26B5FDAB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 160), 8);
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -1317,27 +1330,29 @@ uint64_t __Block_byref_object_copy__1(uint64_t result, uint64_t a2)
   return result;
 }
 
-void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void OUTLINED_FUNCTION_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x16u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-uint64_t OUTLINED_FUNCTION_6()
+uint64_t OUTLINED_FUNCTION_6(uint64_t a1, uint64_t *a2)
 {
 
   return objc_opt_class();
 }
 
-void sub_26B5FF608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26B5FF608(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1355,10 +1370,11 @@ __CFString *NSStringFromXBApplicationSnapshotOnDiskFormat(uint64_t a1)
   }
 }
 
-void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 uint64_t __Block_byref_object_copy__2(uint64_t result, uint64_t a2)
@@ -1393,7 +1409,7 @@ void _fsEventStreamCallback(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uin
           v16 = v7;
           v17 = v11;
           v18 = v10;
-          v19 = XBLogFileManifest();
+          v19 = XBLogFileManifest(v14);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
           {
             *buf = v30;
@@ -1446,16 +1462,16 @@ void _fsEventStreamCallback(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, uin
   }
 }
 
-void sub_26B60C3E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26B60C3E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26B60F1A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26B60F1A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1483,13 +1499,6 @@ void ___fsEventStreamCallback_block_invoke(uint64_t a1, void *a2)
   }
 }
 
-uint64_t ___fsEventStreamCallback_block_invoke_2()
-{
-  result = BSContinuousMachTimeNow();
-  __LastLogEventTime = v1;
-  return result;
-}
-
 double ___fsEventStreamCallback_block_invoke_3(uint64_t a1)
 {
   result = *(a1 + 32);
@@ -1504,10 +1513,11 @@ void OUTLINED_FUNCTION_6_0(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_error_impl(a1, log, OS_LOG_TYPE_ERROR, a4, va, 0x16u);
 }
 
-void OUTLINED_FUNCTION_10(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_10(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_15(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint8_t *a5)
@@ -1516,10 +1526,10 @@ void OUTLINED_FUNCTION_15(void *a1, NSObject *a2, uint64_t a3, const char *a4, u
   _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, a5, 0x16u);
 }
 
-void sub_26B6103C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61, uint64_t a62, uint64_t a63)
+void sub_26B6103C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a61, 8);
-  _Block_object_dispose(&a67, 8);
+  _Block_object_dispose(&a65, 8);
   _Block_object_dispose(&STACK[0x200], 8);
   _Unwind_Resume(a1);
 }
@@ -1531,9 +1541,9 @@ uint64_t __Block_byref_object_copy__3(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_26B6109A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_26B6109A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1544,9 +1554,9 @@ void OUTLINED_FUNCTION_2_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, 
   _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, a5, 0xCu);
 }
 
-void sub_26B6122B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26B6122B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1580,20 +1590,20 @@ __CFString *XBStringForUserInterfaceStyle(unint64_t a1)
 
 BOOL XBValidateResource(void *a1, void *a2, int a3, void *a4, void *a5)
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   v9 = COERCE_DOUBLE(a1);
   v10 = a2;
   v11 = a4;
   staticCode = 0;
-  v12 = XBLogCapture();
+  v12 = XBLogCapture(v11);
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138543874;
-    v81 = v9;
-    v82 = 2114;
-    v83 = v10;
-    v84 = 2114;
-    v85 = v11;
+    v82 = v9;
+    v83 = 2114;
+    v84 = v10;
+    v85 = 2114;
+    v86 = v11;
     _os_log_impl(&dword_26B5EF000, v12, OS_LOG_TYPE_DEFAULT, "Validating resource %{public}@.%{public}@ in %{public}@", buf, 0x20u);
   }
 
@@ -1612,8 +1622,8 @@ BOOL XBValidateResource(void *a1, void *a2, int a3, void *a4, void *a5)
   v17 = [v13 pathForResource:*&v9 ofType:v10];
   if (v17)
   {
-    v70 = v10;
-    v71 = v17;
+    v71 = v10;
+    v72 = v17;
     v18 = v13;
     goto LABEL_9;
   }
@@ -1623,8 +1633,8 @@ BOOL XBValidateResource(void *a1, void *a2, int a3, void *a4, void *a5)
   v19 = [v18 pathForResource:*&v9 ofType:v10];
   if (v19)
   {
-    v70 = v10;
-    v71 = v19;
+    v71 = v10;
+    v72 = v19;
 LABEL_9:
     v20 = [v13 bundleIdentifier];
     v21 = v20;
@@ -1673,18 +1683,18 @@ LABEL_9:
     if (v35)
     {
       v36 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed to create SecStaticCodeRef: %d, %@ v%@", v35, v23, v26];
-      v37 = XBLogCapture();
+      v37 = XBLogCapture(v36);
       if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
       {
         XBValidateResource_cold_1();
       }
 
-      v69 = v36;
+      v70 = v36;
       if (!a5)
       {
         v42 = 0;
-        v10 = v70;
-        v43 = v71;
+        v10 = v71;
+        v43 = v72;
 LABEL_45:
 
         goto LABEL_46;
@@ -1697,53 +1707,53 @@ LABEL_45:
       v41 = v39;
 
       v42 = 0;
-      v10 = v70;
-      v43 = v71;
+      v10 = v71;
+      v43 = v72;
     }
 
     else
     {
-      v43 = v71;
-      v44 = [MEMORY[0x277CBEBC0] fileURLWithPath:v71];
-      v68 = [MEMORY[0x277CBEAA8] date];
-      v69 = v44;
+      v43 = v72;
+      v44 = [MEMORY[0x277CBEBC0] fileURLWithPath:v72];
+      v69 = [MEMORY[0x277CBEAA8] date];
+      v70 = v44;
       if (a3)
       {
-        v66 = v18;
-        v67 = v9;
+        v67 = v18;
+        v68 = v9;
         v45 = objc_alloc_init(MEMORY[0x277CCAA00]);
         v46 = *MEMORY[0x277CBE868];
-        v79 = *MEMORY[0x277CBE868];
+        v80 = *MEMORY[0x277CBE868];
         v47 = v44;
         v42 = 1;
-        v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v79 count:1];
-        v65 = v45;
+        v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v80 count:1];
+        v66 = v45;
         v49 = [v45 enumeratorAtURL:v47 includingPropertiesForKeys:v48 options:4 errorHandler:0];
 
-        v75 = 0u;
         v76 = 0u;
-        v73 = 0u;
+        v77 = 0u;
         v74 = 0u;
+        v75 = 0u;
         v50 = v49;
-        v51 = [v50 countByEnumeratingWithState:&v73 objects:v78 count:16];
+        v51 = [v50 countByEnumeratingWithState:&v74 objects:v79 count:16];
         if (v51)
         {
           v52 = v51;
-          v64 = v13;
-          v53 = *v74;
+          v65 = v13;
+          v53 = *v75;
           while (2)
           {
             for (i = 0; i != v52; ++i)
             {
-              if (*v74 != v53)
+              if (*v75 != v53)
               {
                 objc_enumerationMutation(v50);
               }
 
-              v55 = *(*(&v73 + 1) + 8 * i);
-              v72 = 0;
-              [v55 getResourceValue:&v72 forKey:v46 error:0];
-              v56 = v72;
+              v55 = *(*(&v74 + 1) + 8 * i);
+              v73 = 0;
+              [v55 getResourceValue:&v73 forKey:v46 error:0];
+              v56 = v73;
               if (([v56 BOOLValue] & 1) == 0 && !validateFile(v23, v26, v55, staticCode, a5))
               {
 
@@ -1752,7 +1762,7 @@ LABEL_45:
               }
             }
 
-            v52 = [v50 countByEnumeratingWithState:&v73 objects:v78 count:16];
+            v52 = [v50 countByEnumeratingWithState:&v74 objects:v79 count:16];
             if (v52)
             {
               continue;
@@ -1763,12 +1773,12 @@ LABEL_45:
 
           v42 = 1;
 LABEL_39:
-          v13 = v64;
-          v43 = v71;
+          v13 = v65;
+          v43 = v72;
         }
 
-        v18 = v66;
-        v9 = v67;
+        v18 = v67;
+        v9 = v68;
       }
 
       else
@@ -1776,16 +1786,16 @@ LABEL_39:
         v42 = validateFile(v23, v26, v44, staticCode, a5);
       }
 
-      v41 = v68;
-      [v68 timeIntervalSinceNow];
-      v61 = v60;
-      v62 = XBLogCapture();
-      v10 = v70;
-      if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+      v41 = v69;
+      v60 = [v69 timeIntervalSinceNow];
+      v62 = v61;
+      v63 = XBLogCapture(v60);
+      v10 = v71;
+      if (os_log_type_enabled(v63, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v81 = -v61;
-        _os_log_impl(&dword_26B5EF000, v62, OS_LOG_TYPE_DEFAULT, "Validated resource in %fs", buf, 0xCu);
+        v82 = -v62;
+        _os_log_impl(&dword_26B5EF000, v63, OS_LOG_TYPE_DEFAULT, "Validated resource in %fs", buf, 0xCu);
       }
 
       CFRelease(staticCode);
@@ -1795,7 +1805,7 @@ LABEL_39:
   }
 
   v57 = [MEMORY[0x277CCACA8] stringWithFormat:@"Could not find the resource '%@' in bundle %@.", *&v9, v18];
-  v58 = XBLogCapture();
+  v58 = XBLogCapture(v57);
   if (os_log_type_enabled(v58, OS_LOG_TYPE_ERROR))
   {
     XBValidateResource_cold_1();
@@ -1825,7 +1835,7 @@ BOOL validateFile(void *a1, void *a2, void *a3, uint64_t a4, void *a5)
   v8 = a1;
   v9 = a2;
   v10 = a3;
-  v11 = XBLogCapture();
+  v11 = XBLogCapture(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     validateFile_cold_1();
@@ -1858,7 +1868,7 @@ BOOL validateFile(void *a1, void *a2, void *a3, uint64_t a4, void *a5)
 
   if (v13)
   {
-    v14 = XBLogCapture();
+    v14 = XBLogCapture(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       validateFile_cold_2();

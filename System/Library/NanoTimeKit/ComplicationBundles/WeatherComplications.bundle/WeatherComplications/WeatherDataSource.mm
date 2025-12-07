@@ -24,11 +24,11 @@
 
 - (_TtC20WeatherComplications17WeatherDataSource)initWithComplication:(id)complication family:(int64_t)family forDevice:(id)device
 {
-  v16.receiver = self;
-  v16.super_class = type metadata accessor for WeatherDataSource();
+  v15.receiver = self;
+  v15.super_class = type metadata accessor for WeatherDataSource(0);
   complicationCopy = complication;
   deviceCopy = device;
-  v10 = [(BaseDataSource *)&v16 initWithComplication:complicationCopy family:family forDevice:deviceCopy];
+  v10 = [(BaseDataSource *)&v15 initWithComplication:complicationCopy family:family forDevice:deviceCopy];
   v11 = qword_27E1C55C0;
   v12 = v10;
   if (v11 != -1)
@@ -36,12 +36,10 @@
     swift_once();
   }
 
-  v15 = xmmword_27E1C7770;
+  v14 = xmmword_27E1C7770;
   swift_unknownObjectRetain();
 
-  v13 = *(&v12->super.super.super.super.isa + OBJC_IVAR____TtC20WeatherComplications14BaseDataSource_templateFormatter);
-  *(&v12->super.super.super.super.isa + OBJC_IVAR____TtC20WeatherComplications14BaseDataSource_templateFormatter) = v15;
-
+  *(&v12->super.super.super.super.isa + OBJC_IVAR____TtC20WeatherComplications14BaseDataSource_templateFormatter) = v14;
   swift_unknownObjectRelease();
   return v12;
 }

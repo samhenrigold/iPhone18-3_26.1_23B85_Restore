@@ -519,20 +519,7 @@ LABEL_173:
 
             parameters4 = [(LNActionMetadata *)v6 parameters];
 
-            if (!parameters4)
-            {
-              goto LABEL_41;
-            }
-
-            v39 = MEMORY[0x1E695DFD8];
-            parameters5 = [(LNActionMetadata *)self parameters];
-            v40 = [v39 setWithArray:parameters5];
-            v41 = MEMORY[0x1E695DFD8];
-            parameters6 = [(LNActionMetadata *)v6 parameters];
-            v43 = [v41 setWithArray:parameters6];
-            v171 = [v40 isEqualToSet:v43];
-
-            if (!v171)
+            if (!parameters4 || (v39 = MEMORY[0x1E695DFD8], -[LNActionMetadata parameters](self, "parameters"), v173 = objc_claimAutoreleasedReturnValue(), [v39 setWithArray:v173], v40 = objc_claimAutoreleasedReturnValue(), v41 = MEMORY[0x1E695DFD8], -[LNActionMetadata parameters](v6, "parameters"), v42 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v41, "setWithArray:", v42), v43 = objc_claimAutoreleasedReturnValue(), v171 = objc_msgSend(v40, "isEqualToSet:", v43), v43, v42, v40, v173, !v171))
             {
 LABEL_41:
               LOBYTE(parameters3) = 0;
@@ -1393,147 +1380,147 @@ LABEL_177:
   v17 = objc_opt_class();
   v18 = objc_opt_class();
   v19 = objc_opt_class();
-  v74 = objc_opt_class();
-  v20 = [v13 setWithObjects:{v14, v15, v16, v17, v18, v19, v74, objc_opt_class(), 0}];
-  v104 = [coderCopy decodeObjectOfClasses:v20 forKey:@"systemProtocolMetadata"];
+  v20 = objc_opt_class();
+  v21 = [v13 setWithObjects:{v14, v15, v16, v17, v18, v19, v20, objc_opt_class(), 0}];
+  v104 = [coderCopy decodeObjectOfClasses:v21 forKey:@"systemProtocolMetadata"];
 
-  v21 = MEMORY[0x1E695DFD8];
-  v22 = objc_opt_class();
-  v23 = [v21 setWithObjects:{v22, objc_opt_class(), 0}];
-  v105 = [coderCopy decodeObjectOfClasses:v23 forKey:@"mangledTypeNameByBundleIdentifier"];
+  v22 = MEMORY[0x1E695DFD8];
+  v23 = objc_opt_class();
+  v24 = [v22 setWithObjects:{v23, objc_opt_class(), 0}];
+  v105 = [coderCopy decodeObjectOfClasses:v24 forKey:@"mangledTypeNameByBundleIdentifier"];
 
-  v24 = 0;
+  v25 = 0;
   if (!v107)
   {
     selfCopy6 = self;
-    v30 = v102;
-    v25 = v103;
-    v27 = v100;
-    v26 = v101;
-    v29 = v98;
-    v28 = v99;
+    v31 = v102;
+    v26 = v103;
+    v28 = v100;
+    v27 = v101;
+    v30 = v98;
+    v29 = v99;
     goto LABEL_15;
   }
 
-  v25 = v103;
-  v27 = v100;
-  v26 = v101;
-  v29 = v98;
-  v28 = v99;
+  v26 = v103;
+  v28 = v100;
+  v27 = v101;
+  v30 = v98;
+  v29 = v99;
   if (!v103)
   {
     selfCopy6 = self;
-    v30 = v102;
+    v31 = v102;
     goto LABEL_15;
   }
 
-  v30 = v102;
+  v31 = v102;
   if (!v106)
   {
     selfCopy6 = self;
 LABEL_15:
-    v31 = v104;
+    v32 = v104;
     goto LABEL_16;
   }
 
-  v31 = v104;
+  v32 = v104;
   if (!v104 || !v102)
   {
     selfCopy6 = self;
 LABEL_16:
-    v32 = v105;
+    v33 = v105;
     goto LABEL_17;
   }
 
-  v32 = v105;
+  v33 = v105;
   if (v105)
   {
     v88 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"customIntentClassName"];
     v87 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"actionConfiguration"];
-    v33 = MEMORY[0x1E695DFD8];
-    v34 = objc_opt_class();
+    v34 = MEMORY[0x1E695DFD8];
     v35 = objc_opt_class();
     v36 = objc_opt_class();
     v37 = objc_opt_class();
     v38 = objc_opt_class();
-    v39 = [v33 setWithObjects:{v34, v35, v36, v37, v38, objc_opt_class(), 0}];
-    v86 = [coderCopy decodeObjectOfClasses:v39 forKey:@"typeSpecificMetadata"];
+    v39 = objc_opt_class();
+    v40 = [v34 setWithObjects:{v35, v36, v37, v38, v39, objc_opt_class(), 0}];
+    v86 = [coderCopy decodeObjectOfClasses:v40 forKey:@"typeSpecificMetadata"];
 
     v80 = [coderCopy decodeIntegerForKey:@"bundleMetadataVersion"];
-    v40 = MEMORY[0x1E695DFD8];
-    v41 = objc_opt_class();
+    v41 = MEMORY[0x1E695DFD8];
     v42 = objc_opt_class();
     v43 = objc_opt_class();
     v44 = objc_opt_class();
     v45 = objc_opt_class();
     v46 = objc_opt_class();
-    v47 = [v40 setWithObjects:{v41, v42, v43, v44, v45, v46, objc_opt_class(), 0}];
-    v82 = [coderCopy decodeObjectOfClasses:v47 forKey:@"shortcutsMetadata"];
+    v47 = objc_opt_class();
+    v48 = [v41 setWithObjects:{v42, v43, v44, v45, v46, v47, objc_opt_class(), 0}];
+    v82 = [coderCopy decodeObjectOfClasses:v48 forKey:@"shortcutsMetadata"];
 
-    v48 = MEMORY[0x1E695DFD8];
-    v49 = objc_opt_class();
+    v49 = MEMORY[0x1E695DFD8];
     v50 = objc_opt_class();
-    v51 = [v48 setWithObjects:{v49, v50, objc_opt_class(), 0}];
-    v85 = [coderCopy decodeObjectOfClasses:v51 forKey:@"availabilityAnnotations"];
+    v51 = objc_opt_class();
+    v52 = [v49 setWithObjects:{v50, v51, objc_opt_class(), 0}];
+    v85 = [coderCopy decodeObjectOfClasses:v52 forKey:@"availabilityAnnotations"];
 
-    v52 = MEMORY[0x1E695DFD8];
-    v53 = objc_opt_class();
-    v54 = [v52 setWithObjects:{v53, objc_opt_class(), 0}];
-    v84 = [coderCopy decodeObjectOfClasses:v54 forKey:@"requiredCapabilities"];
+    v53 = MEMORY[0x1E695DFD8];
+    v54 = objc_opt_class();
+    v55 = [v53 setWithObjects:{v54, objc_opt_class(), 0}];
+    v84 = [coderCopy decodeObjectOfClasses:v55 forKey:@"requiredCapabilities"];
 
     v83 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"attributionBundleIdentifier"];
     v81 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sideEffect"];
-    v55 = MEMORY[0x1E695DFD8];
-    v56 = objc_opt_class();
-    v57 = [v55 setWithObjects:{v56, objc_opt_class(), 0}];
-    v58 = [coderCopy decodeObjectOfClasses:v57 forKey:@"assistantDefinedSchemas"];
+    v56 = MEMORY[0x1E695DFD8];
+    v57 = objc_opt_class();
+    v58 = [v56 setWithObjects:{v57, objc_opt_class(), 0}];
+    v59 = [coderCopy decodeObjectOfClasses:v58 forKey:@"assistantDefinedSchemas"];
 
-    v59 = MEMORY[0x1E695DFD8];
-    v60 = objc_opt_class();
-    v61 = [v59 setWithObjects:{v60, objc_opt_class(), 0}];
-    v62 = [coderCopy decodeObjectOfClasses:v61 forKey:@"assistantDefinedSchemaTraits"];
+    v60 = MEMORY[0x1E695DFD8];
+    v61 = objc_opt_class();
+    v62 = [v60 setWithObjects:{v61, objc_opt_class(), 0}];
+    v63 = [coderCopy decodeObjectOfClasses:v62 forKey:@"assistantDefinedSchemaTraits"];
 
-    v63 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"visibilityMetadata"];
-    if (!v63)
+    v64 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"visibilityMetadata"];
+    if (!v64)
     {
-      v63 = -[LNVisibilityMetadata initWithIsDiscoverable:assistantOnly:]([LNVisibilityMetadata alloc], "initWithIsDiscoverable:assistantOnly:", [coderCopy decodeBoolForKey:@"isDiscoverable"], 0);
+      v64 = -[LNVisibilityMetadata initWithIsDiscoverable:assistantOnly:]([LNVisibilityMetadata alloc], "initWithIsDiscoverable:assistantOnly:", [coderCopy decodeBoolForKey:@"isDiscoverable"], 0);
     }
 
-    v64 = v89 != 0;
-    v65 = v63;
-    v79 = v63;
+    v65 = v89 != 0;
+    v66 = v64;
+    v79 = v64;
     v90 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"fullyQualifiedTypeName"];
-    v66 = MEMORY[0x1E695DFD8];
-    v67 = objc_opt_class();
-    v68 = [v66 setWithObjects:{v67, objc_opt_class(), 0}];
-    v69 = [coderCopy decodeObjectOfClasses:v68 forKey:@"allowedTargets"];
+    v67 = MEMORY[0x1E695DFD8];
+    v68 = objc_opt_class();
+    v69 = [v67 setWithObjects:{v68, objc_opt_class(), 0}];
+    v70 = [coderCopy decodeObjectOfClasses:v69 forKey:@"allowedTargets"];
 
-    v77 = v62;
-    v78 = v65;
-    v76 = v58;
-    v31 = v104;
+    v77 = v63;
+    v78 = v66;
+    v76 = v59;
+    v32 = v104;
     v75 = v92;
-    v29 = v98;
-    LOBYTE(v73) = v64;
-    v28 = v99;
-    v93 = v62;
-    v27 = v100;
+    v30 = v98;
+    LOBYTE(v74) = v65;
+    v29 = v99;
+    v93 = v63;
+    v28 = v100;
     selfCopy5 = self;
-    v30 = v102;
-    v25 = v103;
-    v95 = v58;
-    v26 = v101;
-    v24 = [(LNActionMetadata *)selfCopy5 initWithIdentifier:v107 mangledTypeName:v103 mangledTypeNameByBundleIdentifier:v105 effectiveBundleIdentifiers:v102 bundleMetadataVersion:v80 title:v101 descriptionMetadata:v100 deprecationMetadata:v99 openAppWhenRun:v73 supportedModes:v91 explicitAuthenticationPolicy:v97 outputType:v98 outputFlags:v75 parameters:v106 systemProtocolMetadata:v104 actionConfiguration:v87 typeSpecificMetadata:v86 customIntentClassName:v88 availabilityAnnotations:v85 shortcutsMetadata:v82 requiredCapabilities:v84 attributionBundleIdentifier:v83 sideEffect:v81 assistantDefinedSchemas:v76 assistantDefinedSchemaTraits:v77 visibilityMetadata:v78 fullyQualifiedTypeName:v90 constraints:v96 allowedTargets:v69];
+    v31 = v102;
+    v26 = v103;
+    v95 = v59;
+    v27 = v101;
+    v25 = [(LNActionMetadata *)selfCopy5 initWithIdentifier:v107 mangledTypeName:v103 mangledTypeNameByBundleIdentifier:v105 effectiveBundleIdentifiers:v102 bundleMetadataVersion:v80 title:v101 descriptionMetadata:v100 deprecationMetadata:v99 openAppWhenRun:v74 supportedModes:v91 explicitAuthenticationPolicy:v97 outputType:v98 outputFlags:v75 parameters:v106 systemProtocolMetadata:v104 actionConfiguration:v87 typeSpecificMetadata:v86 customIntentClassName:v88 availabilityAnnotations:v85 shortcutsMetadata:v82 requiredCapabilities:v84 attributionBundleIdentifier:v83 sideEffect:v81 assistantDefinedSchemas:v76 assistantDefinedSchemaTraits:v77 visibilityMetadata:v78 fullyQualifiedTypeName:v90 constraints:v96 allowedTargets:v70];
 
-    selfCopy6 = v24;
+    selfCopy6 = v25;
     goto LABEL_16;
   }
 
   selfCopy6 = self;
-  v31 = v104;
+  v32 = v104;
 LABEL_17:
 
-  return v24;
+  return v25;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -1715,7 +1702,7 @@ LABEL_17:
 
 - (LNActionMetadata)initWithIdentifier:(id)identifier mangledTypeName:(id)name mangledTypeNameByBundleIdentifier:(id)bundleIdentifier effectiveBundleIdentifiers:(id)identifiers bundleMetadataVersion:(int64_t)version title:(id)title descriptionMetadata:(id)metadata deprecationMetadata:(id)self0 openAppWhenRun:(BOOL)self1 supportedModes:(unint64_t)self2 explicitAuthenticationPolicy:(id)self3 outputType:(id)self4 outputFlags:(unint64_t)self5 parameters:(id)self6 systemProtocolMetadata:(id)self7 actionConfiguration:(id)self8 typeSpecificMetadata:(id)self9 customIntentClassName:(id)className availabilityAnnotations:(id)annotations shortcutsMetadata:(id)shortcutsMetadata requiredCapabilities:(id)capabilities attributionBundleIdentifier:(id)attributionBundleIdentifier sideEffect:(id)effect assistantDefinedSchemas:(id)schemas assistantDefinedSchemaTraits:(id)traits visibilityMetadata:(id)visibilityMetadata fullyQualifiedTypeName:(id)typeName constraints:(id)identifier0 allowedTargets:(id)identifier1
 {
-  v131[1] = *MEMORY[0x1E69E9840];
+  v130[1] = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
   bundleIdentifierCopy = bundleIdentifier;
@@ -1744,10 +1731,10 @@ LABEL_17:
   if (!identifierCopy)
   {
     [MEMORY[0x1E696AAA8] currentHandler];
-    v102 = v101 = specificMetadataCopy;
-    [v102 handleFailureInMethod:a2 object:self file:@"LNActionMetadata.m" lineNumber:106 description:{@"Invalid parameter not satisfying: %@", @"identifier"}];
+    v101 = v100 = specificMetadataCopy;
+    [v101 handleFailureInMethod:a2 object:self file:@"LNActionMetadata.m" lineNumber:106 description:{@"Invalid parameter not satisfying: %@", @"identifier"}];
 
-    specificMetadataCopy = v101;
+    specificMetadataCopy = v100;
   }
 
   v41 = nameCopy;
@@ -1781,16 +1768,16 @@ LABEL_17:
   [currentHandler3 handleFailureInMethod:a2 object:self file:@"LNActionMetadata.m" lineNumber:109 description:{@"Invalid parameter not satisfying: %@", @"visibilityMetadata"}];
 
 LABEL_7:
-  v129.receiver = self;
-  v129.super_class = LNActionMetadata;
-  v43 = [(LNActionMetadata *)&v129 init];
+  v128.receiver = self;
+  v128.super_class = LNActionMetadata;
+  v43 = [(LNActionMetadata *)&v128 init];
   if (!v43)
   {
     v82 = titleCopy;
     goto LABEL_32;
   }
 
-  v110 = specificMetadataCopy;
+  v109 = specificMetadataCopy;
   v44 = [identifierCopy copy];
   identifier = v43->_identifier;
   v43->_identifier = v44;
@@ -1898,10 +1885,10 @@ LABEL_19:
         v82 = titleCopy;
         if (!v85)
         {
-          v130 = @"com.apple.link.systemProtocol.ForegroundContinuable";
+          v129 = @"com.apple.link.systemProtocol.ForegroundContinuable";
           v86 = objc_opt_new();
-          v131[0] = v86;
-          v87 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v131 forKeys:&v130 count:1];
+          v130[0] = v86;
+          v87 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v130 forKeys:&v129 count:1];
           v88 = [protocolMetadataCopy if_dictionaryByAddingEntriesFromDictionary:v87];
 
           protocolMetadataCopy = v88;
@@ -1985,11 +1972,10 @@ LABEL_27:
 
   v98 = v43;
   configurationCopy = v79;
-  specificMetadataCopy = v110;
+  specificMetadataCopy = v109;
   bundleIdentifierCopy = v78;
 LABEL_32:
 
-  v99 = *MEMORY[0x1E69E9840];
   return v43;
 }
 
@@ -2690,7 +2676,7 @@ LABEL_10:
 
 - (LNActionMetadata)initWithIdentifier:(id)identifier mangledTypeName:(id)name mangledTypeNameByBundleIdentifier:(id)bundleIdentifier effectiveBundleIdentifiers:(id)identifiers bundleMetadataVersion:(int64_t)version title:(id)title descriptionMetadata:(id)metadata openAppWhenRun:(BOOL)self0 authenticationPolicy:(int64_t)self1 outputType:(id)self2 outputFlags:(unint64_t)self3 parameters:(id)self4 systemProtocols:(id)self5 actionConfiguration:(id)self6 typeSpecificMetadata:(id)self7 customIntentClassName:(id)self8 availabilityAnnotations:(id)self9 shortcutsMetadata:(id)shortcutsMetadata
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   nameCopy = name;
   bundleIdentifierCopy = bundleIdentifier;
@@ -2706,42 +2692,41 @@ LABEL_10:
   annotationsCopy = annotations;
   shortcutsMetadataCopy = shortcutsMetadata;
   v27 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(protocolsCopy, "count")}];
+  v52 = 0u;
   v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
   v28 = protocolsCopy;
-  v29 = [v28 countByEnumeratingWithState:&v53 objects:v57 count:16];
+  v29 = [v28 countByEnumeratingWithState:&v52 objects:v56 count:16];
   if (v29)
   {
     v30 = v29;
-    v31 = *v54;
+    v31 = *v53;
     do
     {
       for (i = 0; i != v30; ++i)
       {
-        if (*v54 != v31)
+        if (*v53 != v31)
         {
           objc_enumerationMutation(v28);
         }
 
-        v33 = *(*(&v53 + 1) + 8 * i);
+        v33 = *(*(&v52 + 1) + 8 * i);
         v34 = objc_alloc_init(LNEmptySystemProtocolMetadata);
         identifier = [v33 identifier];
         [v27 setValue:v34 forKey:identifier];
       }
 
-      v30 = [v28 countByEnumeratingWithState:&v53 objects:v57 count:16];
+      v30 = [v28 countByEnumeratingWithState:&v52 objects:v56 count:16];
     }
 
     while (v30);
   }
 
-  LOBYTE(v38) = run;
-  v47 = [(LNActionMetadata *)self initWithIdentifier:identifierCopy mangledTypeName:nameCopy mangledTypeNameByBundleIdentifier:bundleIdentifierCopy effectiveBundleIdentifiers:identifiersCopy bundleMetadataVersion:version title:titleCopy descriptionMetadata:metadataCopy openAppWhenRun:v38 authenticationPolicy:policy outputType:typeCopy outputFlags:flags parameters:parametersCopy systemProtocolMetadata:v27 actionConfiguration:configurationCopy typeSpecificMetadata:specificMetadataCopy customIntentClassName:classNameCopy availabilityAnnotations:annotationsCopy shortcutsMetadata:shortcutsMetadataCopy];
+  LOBYTE(v37) = run;
+  v46 = [(LNActionMetadata *)self initWithIdentifier:identifierCopy mangledTypeName:nameCopy mangledTypeNameByBundleIdentifier:bundleIdentifierCopy effectiveBundleIdentifiers:identifiersCopy bundleMetadataVersion:version title:titleCopy descriptionMetadata:metadataCopy openAppWhenRun:v37 authenticationPolicy:policy outputType:typeCopy outputFlags:flags parameters:parametersCopy systemProtocolMetadata:v27 actionConfiguration:configurationCopy typeSpecificMetadata:specificMetadataCopy customIntentClassName:classNameCopy availabilityAnnotations:annotationsCopy shortcutsMetadata:shortcutsMetadataCopy];
 
-  v36 = *MEMORY[0x1E69E9840];
-  return v47;
+  return v46;
 }
 
 - (LNActionMetadata)initWithIdentifier:(id)identifier mangledTypeName:(id)name mangledTypeNameByBundleIdentifier:(id)bundleIdentifier effectiveBundleIdentifiers:(id)identifiers bundleMetadataVersion:(int64_t)version title:(id)title descriptionMetadata:(id)metadata deprecationMetadata:(id)self0 openAppWhenRun:(BOOL)self1 discoverable:(BOOL)self2 authenticationPolicy:(int64_t)self3 outputType:(id)self4 outputFlags:(unint64_t)self5 parameters:(id)self6 systemProtocolMetadata:(id)self7 actionConfiguration:(id)self8 typeSpecificMetadata:(id)self9 customIntentClassName:(id)className availabilityAnnotations:(id)annotations shortcutsMetadata:(id)shortcutsMetadata requiredCapabilities:(id)capabilities attributionBundleIdentifier:(id)attributionBundleIdentifier sideEffect:(id)effect assistantDefinedSchemas:(id)schemas assistantDefinedSchemaTraits:(id)traits

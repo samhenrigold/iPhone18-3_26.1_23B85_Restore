@@ -8791,13 +8791,13 @@ void *serializeStructureFields(void *a1, uint64_t a2)
   return result;
 }
 
-uint64_t serialize_GLPSubroutineUniformObject(void *a1, unint64_t a2)
+uint64_t serialize_GLPSubroutineUniformObject(void *a1, const char **a2)
 {
   result = serialize_pointer(a1, a2);
   if (result)
   {
-    serialize_GLPString(a1, *a2, *(a2 + 8));
-    v5 = *(a2 + 16);
+    serialize_GLPString(a1, *a2, a2[1]);
+    v5 = a2[2];
 
     return serialize_GLPType(a1, v5);
   }
@@ -8992,34 +8992,35 @@ uint64_t glpMakeMainReturnFragment(void *a1, __n128 *a2, uint64_t *a3, uint64_t 
 
 uint64_t glpMakeIncrementFragment(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t a4)
 {
-  Allocator = glpCompilerGetAllocator(a1);
+  glpCompilerGetAllocator();
+  v9 = v8;
   SaType = glpASTNodeGetSaType(a3);
   PrimitiveType = glpPrimitiveTypeGetPrimitiveType(SaType);
   ScalarType = glpPrimitiveTypeGetScalarType(PrimitiveType);
-  v23 = *a2;
-  v24 = a2[1].n128_u64[0];
-  glpMakePrimitiveTypeNode(Allocator, &v23, ScalarType);
-  v13 = v12;
-  v14 = glpGetPrimitiveType(5u);
+  v24 = *a2;
+  v25 = a2[1].n128_u64[0];
+  glpMakePrimitiveTypeNode(v9, &v24, ScalarType);
+  v14 = v13;
+  v15 = glpGetPrimitiveType(5u);
   IntConstant = glpCompilerGetIntConstant(a1, 1);
-  v23 = *a2;
-  v24 = a2[1].n128_u64[0];
-  glpMakeConstantNode(Allocator, &v23, v14, IntConstant);
-  v17 = v16;
-  v23 = *a2;
-  v24 = a2[1].n128_u64[0];
-  glpMakeConstructorCallNode(Allocator, &v23);
-  v19 = v18;
-  glpConstructorCallNodeSetType(v18, v13);
-  glpCallNodeAddArg(Allocator, v19, v17);
-  v23 = *a2;
-  v24 = a2[1].n128_u64[0];
-  AddNode = glpMakeAddNode(Allocator, &v23);
+  v24 = *a2;
+  v25 = a2[1].n128_u64[0];
+  glpMakeConstantNode(v9, &v24, v15, IntConstant);
+  v18 = v17;
+  v24 = *a2;
+  v25 = a2[1].n128_u64[0];
+  glpMakeConstructorCallNode(v9, &v24);
+  v20 = v19;
+  glpConstructorCallNodeSetType(v19, v14);
+  glpCallNodeAddArg(v9, v20, v18);
+  v24 = *a2;
+  v25 = a2[1].n128_u64[0];
+  AddNode = glpMakeAddNode(v9, &v24);
   glpBinaryOperatorNodeSetLhs(AddNode, a4);
-  glpBinaryOperatorNodeSetRhs(AddNode, v19);
-  v23 = *a2;
-  v24 = a2[1].n128_u64[0];
-  AssignNode = glpMakeAssignNode(Allocator, &v23, 0);
+  glpBinaryOperatorNodeSetRhs(AddNode, v20);
+  v24 = *a2;
+  v25 = a2[1].n128_u64[0];
+  AssignNode = glpMakeAssignNode(v9, &v24, 0);
   glpBinaryOperatorNodeSetLhs(AssignNode, a3);
   glpBinaryOperatorNodeSetRhs(AssignNode, AddNode);
   return glpSANode(a1, AssignNode);
@@ -9027,34 +9028,35 @@ uint64_t glpMakeIncrementFragment(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t
 
 uint64_t glpMakeDecrementFragment(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t a4)
 {
-  Allocator = glpCompilerGetAllocator(a1);
+  glpCompilerGetAllocator();
+  v9 = v8;
   SaType = glpASTNodeGetSaType(a3);
   PrimitiveType = glpPrimitiveTypeGetPrimitiveType(SaType);
   ScalarType = glpPrimitiveTypeGetScalarType(PrimitiveType);
-  v23 = *a2;
-  v24 = a2[1].n128_u64[0];
-  glpMakePrimitiveTypeNode(Allocator, &v23, ScalarType);
-  v13 = v12;
-  v14 = glpGetPrimitiveType(5u);
+  v24 = *a2;
+  v25 = a2[1].n128_u64[0];
+  glpMakePrimitiveTypeNode(v9, &v24, ScalarType);
+  v14 = v13;
+  v15 = glpGetPrimitiveType(5u);
   IntConstant = glpCompilerGetIntConstant(a1, 1);
-  v23 = *a2;
-  v24 = a2[1].n128_u64[0];
-  glpMakeConstantNode(Allocator, &v23, v14, IntConstant);
-  v17 = v16;
-  v23 = *a2;
-  v24 = a2[1].n128_u64[0];
-  glpMakeConstructorCallNode(Allocator, &v23);
-  v19 = v18;
-  glpConstructorCallNodeSetType(v18, v13);
-  glpCallNodeAddArg(Allocator, v19, v17);
-  v23 = *a2;
-  v24 = a2[1].n128_u64[0];
-  SubtractNode = glpMakeSubtractNode(Allocator, &v23);
+  v24 = *a2;
+  v25 = a2[1].n128_u64[0];
+  glpMakeConstantNode(v9, &v24, v15, IntConstant);
+  v18 = v17;
+  v24 = *a2;
+  v25 = a2[1].n128_u64[0];
+  glpMakeConstructorCallNode(v9, &v24);
+  v20 = v19;
+  glpConstructorCallNodeSetType(v19, v14);
+  glpCallNodeAddArg(v9, v20, v18);
+  v24 = *a2;
+  v25 = a2[1].n128_u64[0];
+  SubtractNode = glpMakeSubtractNode(v9, &v24);
   glpBinaryOperatorNodeSetLhs(SubtractNode, a4);
-  glpBinaryOperatorNodeSetRhs(SubtractNode, v19);
-  v23 = *a2;
-  v24 = a2[1].n128_u64[0];
-  AssignNode = glpMakeAssignNode(Allocator, &v23, 0);
+  glpBinaryOperatorNodeSetRhs(SubtractNode, v20);
+  v24 = *a2;
+  v25 = a2[1].n128_u64[0];
+  AssignNode = glpMakeAssignNode(v9, &v24, 0);
   glpBinaryOperatorNodeSetLhs(AssignNode, a3);
   glpBinaryOperatorNodeSetRhs(AssignNode, SubtractNode);
   return glpSANode(a1, AssignNode);
@@ -9062,29 +9064,30 @@ uint64_t glpMakeDecrementFragment(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t
 
 uint64_t glpMakeConstantValueFragment(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t a4)
 {
-  Allocator = glpCompilerGetAllocator(a1);
+  glpCompilerGetAllocator();
   v11 = *a2;
   v12 = a2[1].n128_u64[0];
-  glpMakeConstantNode(Allocator, &v11, a3, a4);
+  glpMakeConstantNode(v8, &v11, a3, a4);
   return glpSANode(a1, v9);
 }
 
 uint64_t glpMakeArrayIndexOffsetFragment(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  Allocator = glpCompilerGetAllocator(a1);
+  glpCompilerGetAllocator();
+  v11 = v10;
   PrimitiveType = glpGetPrimitiveType(5u);
-  v17 = *a2;
-  v18 = a2[1].n128_u64[0];
-  glpMakeConstantNode(Allocator, &v17, PrimitiveType, a5);
-  v13 = v12;
-  v17 = *a2;
-  v18 = a2[1].n128_u64[0];
-  MultiplyNode = glpMakeMultiplyNode(Allocator, &v17);
+  v18 = *a2;
+  v19 = a2[1].n128_u64[0];
+  glpMakeConstantNode(v11, &v18, PrimitiveType, a5);
+  v14 = v13;
+  v18 = *a2;
+  v19 = a2[1].n128_u64[0];
+  MultiplyNode = glpMakeMultiplyNode(v11, &v18);
   glpBinaryOperatorNodeSetLhs(MultiplyNode, a4);
-  glpBinaryOperatorNodeSetRhs(MultiplyNode, v13);
-  v17 = *a2;
-  v18 = a2[1].n128_u64[0];
-  AddNode = glpMakeAddNode(Allocator, &v17);
+  glpBinaryOperatorNodeSetRhs(MultiplyNode, v14);
+  v18 = *a2;
+  v19 = a2[1].n128_u64[0];
+  AddNode = glpMakeAddNode(v11, &v18);
   glpBinaryOperatorNodeSetLhs(AddNode, a3);
   glpBinaryOperatorNodeSetRhs(AddNode, MultiplyNode);
   return glpSANode(a1, AddNode);
@@ -9092,88 +9095,90 @@ uint64_t glpMakeArrayIndexOffsetFragment(uint64_t a1, __n128 *a2, uint64_t a3, u
 
 uint64_t glpMakeFieldOffsetFragment(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t a4)
 {
-  Allocator = glpCompilerGetAllocator(a1);
+  glpCompilerGetAllocator();
+  v9 = v8;
   PrimitiveType = glpGetPrimitiveType(5u);
-  v14 = *a2;
-  v15 = a2[1].n128_u64[0];
-  glpMakeConstantNode(Allocator, &v14, PrimitiveType, a4);
-  v11 = v10;
-  v14 = *a2;
-  v15 = a2[1].n128_u64[0];
-  AddNode = glpMakeAddNode(Allocator, &v14);
+  v15 = *a2;
+  v16 = a2[1].n128_u64[0];
+  glpMakeConstantNode(v9, &v15, PrimitiveType, a4);
+  v12 = v11;
+  v15 = *a2;
+  v16 = a2[1].n128_u64[0];
+  AddNode = glpMakeAddNode(v9, &v15);
   glpBinaryOperatorNodeSetLhs(AddNode, a3);
-  glpBinaryOperatorNodeSetRhs(AddNode, v11);
+  glpBinaryOperatorNodeSetRhs(AddNode, v12);
   return glpSANode(a1, AddNode);
 }
 
 uint64_t glpMakeIfExprFragment(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  Allocator = glpCompilerGetAllocator(a1);
+  glpCompilerGetAllocator();
+  v16 = v15;
   SaFlags = glpASTNodeGetSaFlags(a7);
-  v17 = glpPrecisionQualifierFromSaFlags(SaFlags);
-  v42 = *a2;
-  v43 = a2[1].n128_u64[0];
-  glpMakeKeywordQualifierNode(Allocator, &v42, v17);
-  v19 = v18;
-  v42 = *a2;
-  v43 = a2[1].n128_u64[0];
-  glpMakeQualifiedTypeNode(Allocator, &v42);
-  v21 = v20;
-  glpQualifiedTypeNodeSetType(v20, a5);
-  glpQualifiedTypeNodeSetQualifiers(v21, v19);
-  v42 = *a2;
-  v43 = a2[1].n128_u64[0];
-  glpMakeVariableDeclarationNode(Allocator, &v42, a3, a4, 0);
-  v23 = v22;
-  glpVariableDeclarationNodeSetType(v22, v21);
-  glpVariableDeclarationNodeSetInitializer(v23, 0);
-  v42 = *a2;
-  v43 = a2[1].n128_u64[0];
-  glpMakeVariableIdentifierNode(Allocator, &v42, a3, a4);
-  v25 = v24;
-  v42 = *a2;
-  v43 = a2[1].n128_u64[0];
-  AssignNode = glpMakeAssignNode(Allocator, &v42, 0);
-  glpBinaryOperatorNodeSetLhs(AssignNode, v25);
+  v18 = glpPrecisionQualifierFromSaFlags(SaFlags);
+  v43 = *a2;
+  v44 = a2[1].n128_u64[0];
+  glpMakeKeywordQualifierNode(v16, &v43, v18);
+  v20 = v19;
+  v43 = *a2;
+  v44 = a2[1].n128_u64[0];
+  glpMakeQualifiedTypeNode(v16, &v43);
+  v22 = v21;
+  glpQualifiedTypeNodeSetType(v21, a5);
+  glpQualifiedTypeNodeSetQualifiers(v22, v20);
+  v43 = *a2;
+  v44 = a2[1].n128_u64[0];
+  glpMakeVariableDeclarationNode(v16, &v43, a3, a4, 0);
+  v24 = v23;
+  glpVariableDeclarationNodeSetType(v23, v22);
+  glpVariableDeclarationNodeSetInitializer(v24, 0);
+  v43 = *a2;
+  v44 = a2[1].n128_u64[0];
+  glpMakeVariableIdentifierNode(v16, &v43, a3, a4);
+  v26 = v25;
+  v43 = *a2;
+  v44 = a2[1].n128_u64[0];
+  AssignNode = glpMakeAssignNode(v16, &v43, 0);
+  glpBinaryOperatorNodeSetLhs(AssignNode, v26);
   glpBinaryOperatorNodeSetRhs(AssignNode, a7);
-  v42 = *a2;
-  v43 = a2[1].n128_u64[0];
-  glpMakeBlockNode(Allocator, &v42, 0);
-  v28 = v27;
-  glpBlockNodeAddStatement(Allocator, v27, AssignNode);
-  v42 = *a2;
-  v43 = a2[1].n128_u64[0];
-  glpMakeVariableIdentifierNode(Allocator, &v42, a3, a4);
-  v30 = v29;
-  v42 = *a2;
-  v43 = a2[1].n128_u64[0];
-  v31 = glpMakeAssignNode(Allocator, &v42, 0);
-  glpBinaryOperatorNodeSetLhs(v31, v30);
-  glpBinaryOperatorNodeSetRhs(v31, a8);
-  v42 = *a2;
-  v43 = a2[1].n128_u64[0];
-  glpMakeBlockNode(Allocator, &v42, 0);
-  v33 = v32;
-  glpBlockNodeAddStatement(Allocator, v32, v31);
-  v42 = *a2;
-  v43 = a2[1].n128_u64[0];
-  glpMakeIfStatementNode(Allocator, &v42);
-  v35 = v34;
-  glpIfStatementNodeSetCond(v34, a6);
-  glpIfStatementNodeSetIfStatement(v35, v28);
-  glpIfStatementNodeSetElseStatement(v35, v33);
-  v42 = *a2;
-  v43 = a2[1].n128_u64[0];
-  glpMakeVariableIdentifierNode(Allocator, &v42, a3, a4);
-  v37 = v36;
-  v42 = *a2;
-  v43 = a2[1].n128_u64[0];
-  glpMakeCommaExprNode(Allocator, &v42, 0);
-  v39 = v38;
-  glpCommaExprNodeAddExpr(Allocator, v38, v23);
-  glpCommaExprNodeAddExpr(Allocator, v39, v35);
-  glpCommaExprNodeAddExpr(Allocator, v39, v37);
-  return glpSANode(a1, v39);
+  v43 = *a2;
+  v44 = a2[1].n128_u64[0];
+  glpMakeBlockNode(v16, &v43, 0);
+  v29 = v28;
+  glpBlockNodeAddStatement(v16, v28, AssignNode);
+  v43 = *a2;
+  v44 = a2[1].n128_u64[0];
+  glpMakeVariableIdentifierNode(v16, &v43, a3, a4);
+  v31 = v30;
+  v43 = *a2;
+  v44 = a2[1].n128_u64[0];
+  v32 = glpMakeAssignNode(v16, &v43, 0);
+  glpBinaryOperatorNodeSetLhs(v32, v31);
+  glpBinaryOperatorNodeSetRhs(v32, a8);
+  v43 = *a2;
+  v44 = a2[1].n128_u64[0];
+  glpMakeBlockNode(v16, &v43, 0);
+  v34 = v33;
+  glpBlockNodeAddStatement(v16, v33, v32);
+  v43 = *a2;
+  v44 = a2[1].n128_u64[0];
+  glpMakeIfStatementNode(v16, &v43);
+  v36 = v35;
+  glpIfStatementNodeSetCond(v35, a6);
+  glpIfStatementNodeSetIfStatement(v36, v29);
+  glpIfStatementNodeSetElseStatement(v36, v34);
+  v43 = *a2;
+  v44 = a2[1].n128_u64[0];
+  glpMakeVariableIdentifierNode(v16, &v43, a3, a4);
+  v38 = v37;
+  v43 = *a2;
+  v44 = a2[1].n128_u64[0];
+  glpMakeCommaExprNode(v16, &v43, 0);
+  v40 = v39;
+  glpCommaExprNodeAddExpr(v16, v39, v24);
+  glpCommaExprNodeAddExpr(v16, v40, v36);
+  glpCommaExprNodeAddExpr(v16, v40, v38);
+  return glpSANode(a1, v40);
 }
 
 uint64_t glpMakeTypedVariableFragment(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t a4, uint64_t *a5, uint64_t a6)
@@ -9218,67 +9223,67 @@ uint64_t glpMakeArrayAccessFragment(uint64_t a1, __n128 *a2, uint64_t a3, uint64
   return v12;
 }
 
-uint64_t glpMakeAssignFragment(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t a4)
+uint64_t glpMakeAssignFragment(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  Allocator = glpCompilerGetAllocator(a1);
+  glpCompilerGetAllocator();
   v11 = *a2;
-  v12 = a2[1].n128_u64[0];
-  AssignNode = glpMakeAssignNode(Allocator, &v11, 0);
+  v12 = *(a2 + 16);
+  AssignNode = glpMakeAssignNode(v8, &v11, 0);
   glpBinaryOperatorNodeSetLhs(AssignNode, a3);
   glpBinaryOperatorNodeSetRhs(AssignNode, a4);
   return glpSANode(a1, AssignNode);
 }
 
-uint64_t glpMakeEqualFragment(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t a4)
+uint64_t glpMakeEqualFragment(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  Allocator = glpCompilerGetAllocator(a1);
+  glpCompilerGetAllocator();
   v11 = *a2;
-  v12 = a2[1].n128_u64[0];
-  EqualNode = glpMakeEqualNode(Allocator, &v11, 0);
+  v12 = *(a2 + 16);
+  EqualNode = glpMakeEqualNode(v8, &v11, 0);
   glpBinaryOperatorNodeSetLhs(EqualNode, a3);
   glpBinaryOperatorNodeSetRhs(EqualNode, a4);
   return glpSANode(a1, EqualNode);
 }
 
-uint64_t glpMakeNotEqualFragment(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t a4)
+uint64_t glpMakeNotEqualFragment(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  Allocator = glpCompilerGetAllocator(a1);
+  glpCompilerGetAllocator();
   v11 = *a2;
-  v12 = a2[1].n128_u64[0];
-  NotEqualNode = glpMakeNotEqualNode(Allocator, &v11, 0);
+  v12 = *(a2 + 16);
+  NotEqualNode = glpMakeNotEqualNode(v8, &v11, 0);
   glpBinaryOperatorNodeSetLhs(NotEqualNode, a3);
   glpBinaryOperatorNodeSetRhs(NotEqualNode, a4);
   return glpSANode(a1, NotEqualNode);
 }
 
-uint64_t glpMakeLogicalAndFragment(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t a4)
+uint64_t glpMakeLogicalAndFragment(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  Allocator = glpCompilerGetAllocator(a1);
+  glpCompilerGetAllocator();
   v11 = *a2;
-  v12 = a2[1].n128_u64[0];
-  LogicalAndNode = glpMakeLogicalAndNode(Allocator, &v11);
+  v12 = *(a2 + 16);
+  LogicalAndNode = glpMakeLogicalAndNode(v8, &v11);
   glpBinaryOperatorNodeSetLhs(LogicalAndNode, a3);
   glpBinaryOperatorNodeSetRhs(LogicalAndNode, a4);
   return glpSANode(a1, LogicalAndNode);
 }
 
-uint64_t glpMakeLogicalOrFragment(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t a4)
+uint64_t glpMakeLogicalOrFragment(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  Allocator = glpCompilerGetAllocator(a1);
+  glpCompilerGetAllocator();
   v11 = *a2;
-  v12 = a2[1].n128_u64[0];
-  LogicalOrNode = glpMakeLogicalOrNode(Allocator, &v11);
+  v12 = *(a2 + 16);
+  LogicalOrNode = glpMakeLogicalOrNode(v8, &v11);
   glpBinaryOperatorNodeSetLhs(LogicalOrNode, a3);
   glpBinaryOperatorNodeSetRhs(LogicalOrNode, a4);
   return glpSANode(a1, LogicalOrNode);
 }
 
-uint64_t glpMakeAddFragment(uint64_t a1, __n128 *a2, uint64_t a3, uint64_t a4)
+uint64_t glpMakeAddFragment(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  Allocator = glpCompilerGetAllocator(a1);
+  glpCompilerGetAllocator();
   v11 = *a2;
-  v12 = a2[1].n128_u64[0];
-  AddNode = glpMakeAddNode(Allocator, &v11);
+  v12 = *(a2 + 16);
+  AddNode = glpMakeAddNode(v8, &v11);
   glpBinaryOperatorNodeSetLhs(AddNode, a3);
   glpBinaryOperatorNodeSetRhs(AddNode, a4);
   return glpSANode(a1, AddNode);
@@ -9458,35 +9463,35 @@ uint64_t glpMakeForFragment(void *a1, __n128 *a2, uint64_t a3, uint64_t a4, uint
   return v23;
 }
 
-uint64_t glpDumpASTNodeToStringBuffer(uint64_t *a1, unint64_t a2)
+uint64_t *glpDumpASTNodeToStringBuffer(uint64_t *a1, unint64_t a2)
 {
   PointerHash = glpMakePointerHash(&GLP_MALLOC_ALLOCATOR);
-  writeASTNode(PointerHash, a1, a2, 0, 1, v5, v6, v7, v15);
-  glpStringBufferAppendFormat(a1, "\n", v8, v9, v10, v11, v12, v13, v16);
+  writeASTNode(PointerHash, a1, a2, 0, 1);
+  glpStringBufferAppendFormat(a1, "\n");
 
   return glpDestroyPointerHash(PointerHash);
 }
 
-uint64_t writeASTNode(uint64_t a1, uint64_t *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+uint64_t writeASTNode(uint64_t a1, uint64_t *a2, unint64_t a3, uint64_t a4, int a5)
 {
-  v9 = a4;
+  v5 = a4;
   if (a3 == -1)
   {
     if (a4)
     {
-      v12 = "<<FAILED>>";
+      v8 = "<<FAILED>>";
       do
       {
-        glpStringBufferAppendFormat(a2, "    ", a3, a4, a5, a6, a7, a8, v47);
-        LODWORD(v9) = v9 - 1;
+        glpStringBufferAppendFormat(a2, "    ");
+        --v5;
       }
 
-      while (v9);
+      while (v5);
     }
 
     else
     {
-      v12 = "<<FAILED>>";
+      v8 = "<<FAILED>>";
     }
   }
 
@@ -9496,487 +9501,484 @@ uint64_t writeASTNode(uint64_t a1, uint64_t *a2, unint64_t a3, uint64_t a4, uint
     {
       if (a4)
       {
-        v12 = "NIL";
+        v8 = "NIL";
         do
         {
-          glpStringBufferAppendFormat(a2, "    ", a3, a4, a5, a6, a7, a8, v47);
-          LODWORD(v9) = v9 - 1;
+          glpStringBufferAppendFormat(a2, "    ");
+          --v5;
         }
 
-        while (v9);
+        while (v5);
       }
 
       else
       {
-        v12 = "NIL";
+        v8 = "NIL";
       }
 
       goto LABEL_127;
     }
 
-    v13 = a5;
     if (a1)
     {
       if (glpPointerHashGet(a1, a3))
       {
-        if (v9)
+        if (v5)
         {
-          v22 = v9;
+          v12 = v5;
           do
           {
-            glpStringBufferAppendFormat(a2, "    ", v15, v16, v17, v18, v19, v20, v47);
-            --v22;
+            glpStringBufferAppendFormat(a2, "    ");
+            --v12;
           }
 
-          while (v22);
-          glpStringBufferAppendFormat(a2, "<<PREVIOUSLY VISITED:\n", v15, v16, v17, v18, v19, v20, v47);
-          writeASTNode(0, a2, a3, (v9 + 1), 0);
-          glpStringBufferAppendFormat(a2, "\n", v23, v24, v25, v26, v27, v28, v48);
-          v12 = ">>\n";
+          while (v12);
+          glpStringBufferAppendFormat(a2, "<<PREVIOUSLY VISITED:\n");
+          writeASTNode(0, a2, a3, (v5 + 1), 0);
+          glpStringBufferAppendFormat(a2, "\n");
+          v8 = ">>\n";
           do
           {
-            glpStringBufferAppendFormat(a2, "    ", a3, a4, a5, a6, a7, a8, v49);
-            LODWORD(v9) = v9 - 1;
+            glpStringBufferAppendFormat(a2, "    ");
+            --v5;
           }
 
-          while (v9);
-          goto LABEL_127;
+          while (v5);
         }
 
-        glpStringBufferAppendFormat(a2, "<<PREVIOUSLY VISITED:\n", v15, v16, v17, v18, v19, v20, v47);
-        writeASTNode(0, a2, a3, 1, 0);
-        v12 = ">>\n";
-        v42 = "\n";
-LABEL_126:
-        glpStringBufferAppendFormat(a2, v42, v36, v37, v38, v39, v40, v41, v47);
+        else
+        {
+          glpStringBufferAppendFormat(a2, "<<PREVIOUSLY VISITED:\n");
+          writeASTNode(0, a2, a3, 1, 0);
+          v8 = ">>\n";
+          glpStringBufferAppendFormat(a2, "\n");
+        }
+
         goto LABEL_127;
       }
 
-      glpPointerHashPut(a1, a3, 1, v21);
+      glpPointerHashPut(a1, a3, 1, v11);
     }
 
-    if (v9)
+    if (v5)
     {
-      v29 = v9;
+      v13 = v5;
       do
       {
-        glpStringBufferAppendFormat(a2, "    ", a3, a4, a5, a6, a7, a8, v47);
-        --v29;
+        glpStringBufferAppendFormat(a2, "    ");
+        --v13;
       }
 
-      while (v29);
+      while (v13);
     }
 
     switch(glpASTNodeGetKind(a3))
     {
       case 0u:
-        writeTypeConversion(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeTypeConversion(a2, a3, v5);
         break;
       case 1u:
-        writeVariableIdentifier(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeVariableIdentifier(a2, a3, v5);
         break;
       case 2u:
-        writeTypeIdentifier(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeTypeIdentifier(a2, a3, v5);
         break;
       case 3u:
-        writeConstant(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeConstant(a2, a3, v5);
         break;
       case 4u:
-        writeArrayAccess(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeArrayAccess(a2, a3);
         break;
       case 5u:
-        writeFieldAccess(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeFieldAccess(a2, a3, v5);
         break;
       case 6u:
-        writeUndeterminedCall(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeUndeterminedCall(a2, a3);
         break;
       case 7u:
-        writeFunctionCall(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeFunctionCall(a2, a3, v5);
         break;
       case 8u:
-        writeSubroutineArrayCall(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeSubroutineArrayCall(a2, a3);
         break;
       case 9u:
-        writeMethodCall(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeMethodCall(a2, a3, v5);
         break;
       case 0xAu:
-        writeConstructorCall(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeConstructorCall(a2, a3);
         break;
       case 0xBu:
-        writePostincrement(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writePostincrement(a2, a3);
         break;
       case 0xCu:
-        writePostdecrement(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writePostdecrement(a2, a3);
         break;
       case 0xDu:
-        writePreincrement(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writePreincrement(a2, a3);
         break;
       case 0xEu:
-        writePredecrement(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writePredecrement(a2, a3);
         break;
       case 0xFu:
-        writeUnaryPlus(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeUnaryPlus(a2, a3);
         break;
       case 0x10u:
-        writeNegate(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeNegate(a2, a3);
         break;
       case 0x11u:
-        writeLogicalNot(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeLogicalNot(a2, a3);
         break;
       case 0x12u:
-        writeBitwiseNot(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeBitwiseNot(a2, a3);
         break;
       case 0x13u:
-        writeMultiply(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeMultiply(a2, a3);
         break;
       case 0x14u:
-        writeDivide(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeDivide(a2, a3);
         break;
       case 0x15u:
-        writeModulo(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeModulo(a2, a3);
         break;
       case 0x16u:
-        writeAdd(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeAdd(a2, a3);
         break;
       case 0x17u:
-        writeSubtract(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeSubtract(a2, a3);
         break;
       case 0x18u:
-        writeShiftLeft(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeShiftLeft(a2, a3);
         break;
       case 0x19u:
-        writeShiftRight(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeShiftRight(a2, a3);
         break;
       case 0x1Au:
-        writeLess(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeLess(a2, a3);
         break;
       case 0x1Bu:
-        writeLessEqual(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeLessEqual(a2, a3);
         break;
       case 0x1Cu:
-        writeGreater(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeGreater(a2, a3);
         break;
       case 0x1Du:
-        writeGreaterEqual(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeGreaterEqual(a2, a3);
         break;
       case 0x1Eu:
-        writeEqual(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeEqual(a2, a3);
         break;
       case 0x1Fu:
-        writeNotEqual(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeNotEqual(a2, a3);
         break;
       case 0x20u:
-        writeLogicalAnd(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeLogicalAnd(a2, a3);
         break;
       case 0x21u:
-        writeLogicalOr(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeLogicalOr(a2, a3);
         break;
       case 0x22u:
-        writeLogicalXor(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeLogicalXor(a2, a3);
         break;
       case 0x23u:
-        writeBitwiseAnd(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeBitwiseAnd(a2, a3);
         break;
       case 0x24u:
-        writeBitwiseOr(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeBitwiseOr(a2, a3);
         break;
       case 0x25u:
-        writeBitwiseXor(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeBitwiseXor(a2, a3);
         break;
       case 0x26u:
-        writeIfExpr(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeIfExpr(a2, a3);
         break;
       case 0x27u:
-        writeAssign(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeAssign(a2, a3);
         break;
       case 0x28u:
-        writeOpAssign(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeOpAssign(a2, a3);
         break;
       case 0x29u:
-        writeReadInput(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeReadInput(a2, a3);
         break;
       case 0x2Au:
-        writeWriteOutput(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeWriteOutput(a2, a3);
         break;
       case 0x2Bu:
-        writeCommaExpr(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeCommaExpr(a2, a3);
         break;
       case 0x2Cu:
-        writeParameterDeclaration(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeParameterDeclaration(a2, a3, v5);
         break;
       case 0x2Du:
-        writeFunctionPrototype(a2, a3, v9, v31, v32, v33, v34, v35, v47);
+        writeFunctionPrototype(a2, a3, v5);
         break;
       case 0x2Eu:
-        writeVariableDeclaration(a2, a3, v9, v31, v32, v33, v34, v35, v47);
+        writeVariableDeclaration(a2, a3, v5);
         break;
       case 0x2Fu:
-        writeVariableDeclarationGroup(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeVariableDeclarationGroup(a2, a3);
         break;
       case 0x30u:
-        writePrecisionDeclaration(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writePrecisionDeclaration(a2, a3);
         break;
       case 0x31u:
-        writeQualifiedDeclaration(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeQualifiedDeclaration(a2, a3);
         break;
       case 0x32u:
-        writeQualifiedDeclarationGroup(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeQualifiedDeclarationGroup(a2, a3);
         break;
       case 0x33u:
-        writeFunctionDefinition(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeFunctionDefinition(a2, a3);
         break;
       case 0x34u:
-        writeQualifiedType(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeQualifiedType(a2, a3);
         break;
       case 0x35u:
-        writePrimitiveType(a2, a3, v9, v31, v32, v33, v34, v35);
+        writePrimitiveType(a2, a3, v5);
         break;
       case 0x36u:
-        writeArrayType(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeArrayType(a2, a3);
         break;
       case 0x37u:
-        writeFieldDeclaration(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeFieldDeclaration(a2, a3, v5);
         break;
       case 0x38u:
-        writeStructType(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeStructType(a2, a3, v5);
         break;
       case 0x39u:
-        writeInterfaceBlock(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeInterfaceBlock(a2, a3, v5);
         break;
       case 0x3Au:
-        writeLayoutType(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeLayoutType(a2, a3);
         break;
       case 0x3Bu:
-        writeKeywordQualifier(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeKeywordQualifier(a2, a3, v5);
         break;
       case 0x3Cu:
-        writeLayoutQualifier(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeLayoutQualifier(a2, a3);
         break;
       case 0x3Du:
-        writeSubroutineTypeList(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeSubroutineTypeList(a2, a3);
         break;
       case 0x3Eu:
-        writeQualifierList(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeQualifierList(a2, a3);
         break;
       case 0x3Fu:
-        writeGlobalTypeQualifier(a2, a3, v9, v31, v32, v33, v34, v35, v47);
+        writeGlobalTypeQualifier(a2, a3, v5);
         break;
       case 0x40u:
-        writeLayoutPair(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeLayoutPair(a2, a3, v5);
         break;
       case 0x41u:
-        writeExpressionStatement(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeExpressionStatement(a2, a3);
         break;
       case 0x42u:
-        writeBlock(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeBlock(a2, a3, v5);
         break;
       case 0x43u:
-        writeIfStatement(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeIfStatement(a2, a3);
         break;
       case 0x44u:
-        writeLoopStatement(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeLoopStatement(a2, a3);
         break;
       case 0x45u:
-        writeSwitchStatement(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeSwitchStatement(a2, a3);
         break;
       case 0x46u:
-        writeCaseStatement(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeCaseStatement(a2, a3);
         break;
       case 0x47u:
-        writeDefaultStatement(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeDefaultStatement(a2, a3);
         break;
       case 0x48u:
-        writeBreakStatement(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeBreakStatement(a2, a3);
         break;
       case 0x49u:
-        writeContinueStatement(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeContinueStatement(a2, a3);
         break;
       case 0x4Au:
-        writeDiscardStatement(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeDiscardStatement(a2, a3);
         break;
       case 0x4Bu:
-        writeReturnStatement(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeReturnStatement(a2, a3);
         break;
       case 0x4Cu:
-        writeTopLevel(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeTopLevel(a2, a3);
         break;
       case 0x4Du:
-        writeAvailabilityDeclaration(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeAvailabilityDeclaration(a2, a3);
         break;
       case 0x4Eu:
-        writeRawCall(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeRawCall(a2, a3, v5);
         break;
       case 0x4Fu:
-        writeSubroutineRawCall(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeSubroutineRawCall(a2, a3, v5);
         break;
       case 0x50u:
-        writeOffset(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeOffset(a2, a3, v5);
         break;
       case 0x51u:
-        writeLValue(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeLValue(a2, a3, v5);
         break;
       case 0x52u:
-        writeRValue(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeRValue(a2, a3);
         break;
       case 0x53u:
-        writeIBPartialDeref(a2, a3, v30, v31, v32, v33, v34, v35, v47);
+        writeIBPartialDeref(a2, a3);
         break;
       case 0x54u:
-        writePPStreamOp(a2, a3, v9, v31, v32, v33, v34, v35);
+        writePPStreamOp(a2, a3, v5);
         break;
       case 0x55u:
-        writeSubroutineUniform(a2, a3, v9, v31, v32, v33, v34, v35);
+        writeSubroutineUniform(a2, a3, v5);
         break;
       default:
         abort();
     }
 
-    if (!v13)
+    if (a5)
     {
-      if (v9 == -1)
+      if (glpASTNodeGetChildCount(a3))
       {
-        v12 = ")";
-        v42 = "<<KIDS ELIDED TO AVOID RECURSION>>";
+        v14 = 0;
+        v8 = ")";
+        do
+        {
+          if (v14)
+          {
+            glpStringBufferAppendFormat(a2, "\n");
+          }
+
+          Child = glpASTNodeGetChild(a3, v14);
+          writeASTNode(a1, a2, Child, (v5 + 1), 1);
+          ++v14;
+        }
+
+        while (v14 < glpASTNodeGetChildCount(a3));
       }
 
       else
       {
-        v45 = v9 + 1;
-        v12 = ")";
-        v42 = "<<KIDS ELIDED TO AVOID RECURSION>>";
-        do
-        {
-          glpStringBufferAppendFormat(a2, "    ", v36, v37, v38, v39, v40, v41, v47);
-          --v45;
-        }
-
-        while (v45);
+        v8 = ")";
       }
-
-      goto LABEL_126;
-    }
-
-    if (glpASTNodeGetChildCount(a3))
-    {
-      v43 = 0;
-      v12 = ")";
-      do
-      {
-        if (v43)
-        {
-          glpStringBufferAppendFormat(a2, "\n", a3, a4, a5, a6, a7, a8, v47);
-        }
-
-        Child = glpASTNodeGetChild(a3, v43);
-        writeASTNode(a1, a2, Child, (v9 + 1), 1);
-        ++v43;
-      }
-
-      while (v43 < glpASTNodeGetChildCount(a3));
     }
 
     else
     {
-      v12 = ")";
+      if (v5 == -1)
+      {
+        v8 = ")";
+      }
+
+      else
+      {
+        v16 = v5 + 1;
+        v8 = ")";
+        do
+        {
+          glpStringBufferAppendFormat(a2, "    ");
+          --v16;
+        }
+
+        while (v16);
+      }
+
+      glpStringBufferAppendFormat(a2, "<<KIDS ELIDED TO AVOID RECURSION>>");
     }
   }
 
 LABEL_127:
 
-  return glpStringBufferAppendFormat(a2, v12, a3, a4, a5, a6, a7, a8, a9);
+  return glpStringBufferAppendFormat(a2, v8);
 }
 
-void *writeTypeConversion(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *writeTypeConversion(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(TypeConversion:", a3, a4, a5, a6, a7, a8, v33);
+  glpStringBufferAppendFormat(a1, "(TypeConversion:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v34);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v35);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
-  v24 = glpTypeConversionNodeGetToPrecision(a2);
-  glpAppendFlagDescription(a1, v24);
+  v7 = glpTypeConversionNodeGetToPrecision(a2);
+  glpAppendFlagDescription(a1, v7);
   glpStringBufferAppendCString(a1, " ");
-  v25 = glpTypeConversionNodeGetToType(a2);
-  glpDumpTypeToStringBuffer(a1, v25, v26, v27, v28, v29, v30, v31, v35);
+  v8 = glpTypeConversionNodeGetToType(a2);
+  glpDumpTypeToStringBuffer(a1, v8);
 
   return glpStringBufferAppendCString(a1, "\n");
 }
 
-uint64_t writeVariableIdentifier(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t writeVariableIdentifier(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(VariableIdentifier:", a3, a4, a5, a6, a7, a8, v33);
+  glpStringBufferAppendFormat(a1, "(VariableIdentifier:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v34);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v35);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
   glpVariableIdentifierNodeGetName(a2);
-  v25 = v24;
-  glpVariableIdentifierNodeGetName(a2);
-  return glpStringBufferAppendFormat(a1, "%.*s -> ", v26, v27, v28, v29, v30, v31, v25);
+  v8 = v7;
+  Name = glpVariableIdentifierNodeGetName(a2);
+  return glpStringBufferAppendFormat(a1, "%.*s -> ", v8, Name);
 }
 
-uint64_t writeTypeIdentifier(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t writeTypeIdentifier(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(TypeIdentifier:", a3, a4, a5, a6, a7, a8, v33);
+  glpStringBufferAppendFormat(a1, "(TypeIdentifier:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v34);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v35);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
   glpTypeIdentifierNodeGetName(a2);
-  v25 = v24;
-  glpTypeIdentifierNodeGetName(a2);
-  return glpStringBufferAppendFormat(a1, "%.*s", v26, v27, v28, v29, v30, v31, v25);
+  v8 = v7;
+  Name = glpTypeIdentifierNodeGetName(a2);
+  return glpStringBufferAppendFormat(a1, "%.*s", v8, Name);
 }
 
-void *writeConstant(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void *writeConstant(uint64_t *a1, uint64_t a2, int a3)
 {
-  v8 = a3;
-  glpStringBufferAppendFormat(a1, "(Constant:", a3, a4, a5, a6, a7, a8, v27);
+  glpStringBufferAppendFormat(a1, "(Constant:");
   writeSAInfo(a1, a2);
-  glpStringBufferAppendFormat(a1, "\n", v11, v12, v13, v14, v15, v16, v28);
-  if (v8 != -1)
+  glpStringBufferAppendFormat(a1, "\n");
+  if (a3 != -1)
   {
-    v23 = v8 + 1;
+    v6 = a3 + 1;
     do
     {
-      glpStringBufferAppendFormat(a1, "    ", v17, v18, v19, v20, v21, v22, v29);
-      --v23;
+      glpStringBufferAppendFormat(a1, "    ");
+      --v6;
     }
 
-    while (v23);
+    while (v6);
   }
 
   Type = glpConstantNodeGetType(a2);

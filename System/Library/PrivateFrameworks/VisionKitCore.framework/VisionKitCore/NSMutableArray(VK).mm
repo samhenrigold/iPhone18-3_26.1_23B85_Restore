@@ -24,10 +24,10 @@
 {
   if (a3)
   {
-    return [self addObject:?];
+    return [result addObject:?];
   }
 
-  return self;
+  return result;
 }
 
 - (uint64_t)vk_randomize
@@ -54,10 +54,10 @@
 {
   if (a3)
   {
-    return [self addObjectsFromArray:?];
+    return [result addObjectsFromArray:?];
   }
 
-  return self;
+  return result;
 }
 
 - (void)vk_insertNonNilObject:()VK atIndex:

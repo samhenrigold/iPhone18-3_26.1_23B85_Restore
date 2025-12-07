@@ -320,7 +320,7 @@ LABEL_9:
     [currentHandler handleFailureInMethod:a2 object:self file:@"PXGadgetCollectionViewLayout.m" lineNumber:71 description:{@"Invalid parameter not satisfying: %@", @"interSectionSpacing >= 0"}];
   }
 
-  PXFloatApproximatelyEqualToFloat();
+  PXFloatApproximatelyEqualToFloat(spacing);
 }
 
 - (void)setColumnWidth:(double)width

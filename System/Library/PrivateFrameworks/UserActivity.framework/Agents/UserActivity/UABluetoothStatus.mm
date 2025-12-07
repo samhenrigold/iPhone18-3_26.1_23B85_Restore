@@ -212,17 +212,17 @@ LABEL_29:
 - (void)attachToBluetoothSession
 {
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v3 = objc_sync_enter(selfCopy);
   if (!selfCopy->_attached && !selfCopy->_attachInProcess)
   {
     selfCopy->_attachInProcess = 1;
-    v3 = sub_100046FB4();
+    v4 = sub_100046FB4(v3);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100046FF8;
     block[3] = &unk_1000C4CC0;
     block[4] = selfCopy;
-    dispatch_async(v3, block);
+    dispatch_async(v4, block);
   }
 
   objc_sync_exit(selfCopy);
@@ -234,31 +234,31 @@ LABEL_29:
   objc_sync_enter(selfCopy);
   if (selfCopy->_attached)
   {
-    v8[0] = 0;
-    v8[1] = v8;
-    v8[2] = 0x3032000000;
-    v8[3] = sub_100001F34;
-    v8[4] = sub_10004729C;
-    v9 = selfCopy->_cbManager;
+    v9[0] = 0;
+    v9[1] = v9;
+    v9[2] = 0x3032000000;
+    v9[3] = sub_100001F34;
+    v9[4] = sub_10004729C;
+    v10 = selfCopy->_cbManager;
     cbManager = selfCopy->_cbManager;
     selfCopy->_cbManager = 0;
 
-    v4 = sub_100046FB4();
+    v5 = sub_100046FB4(v4);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000472A4;
     block[3] = &unk_1000C57A0;
-    block[4] = v8;
-    dispatch_async(v4, block);
+    block[4] = v9;
+    dispatch_async(v5, block);
 
-    v5 = sub_100001A30(0);
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v6 = sub_100001A30(0);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      *v6 = 0;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "BLUETOOTH: Detached from bluetooth session.", v6, 2u);
+      *v7 = 0;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "BLUETOOTH: Detached from bluetooth session.", v7, 2u);
     }
 
-    _Block_object_dispose(v8, 8);
+    _Block_object_dispose(v9, 8);
   }
 
   objc_sync_exit(selfCopy);

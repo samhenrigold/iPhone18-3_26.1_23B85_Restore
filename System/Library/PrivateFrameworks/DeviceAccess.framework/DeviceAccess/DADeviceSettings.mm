@@ -70,37 +70,37 @@
   {
     if (MEMORY[0x24C1DC9E0](objectCopy) == MEMORY[0x277D86468])
     {
-      v17 = 0;
+      v10 = 0;
       if (CUXPCDecodeNSString() && CUXPCDecodeNSData() && CUXPCDecodeNSString() && CUXPCDecodeNSString() && CUXPCDecodeBool())
       {
-        v14 = v7;
+        v8 = v7;
       }
 
       else
       {
-        v14 = 0;
+        v8 = 0;
       }
     }
 
     else if (error)
     {
-      DAErrorF(350004, "XPC non-dict", v8, v9, v10, v11, v12, v13, v16);
-      *error = v14 = 0;
+      DAErrorF(350004, "XPC non-dict");
+      *error = v8 = 0;
     }
 
     else
     {
-      v14 = 0;
+      v8 = 0;
     }
   }
 
   else
   {
-    [DADeviceSettings initWithXPCObject:error error:&v17];
-    v14 = v17;
+    [DADeviceSettings initWithXPCObject:error error:&v10];
+    v8 = v10;
   }
 
-  return v14;
+  return v8;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -129,75 +129,92 @@
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
+  }
+
+  v31 = v4;
+  if ((level & 0x8000000) != 0)
+  {
+    v6 = 0;
+  }
+
+  else
+  {
+    v30 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v30, &v31, "%@", v5);
+    v6 = v30;
   }
 
   iconType = self->_iconType;
   if (iconType)
   {
-    v6 = iconType;
-    identifier = [(UTType *)v6 identifier];
-    CUAppendF();
-    v7 = v4;
+    v29 = v6;
+    v8 = iconType;
+    identifier = [(UTType *)v8 identifier];
+    CUAppendF(&v29, &v31, "type %@", identifier);
+    v10 = v29;
 
-    v4 = v7;
+    v6 = v10;
   }
 
   displayName = self->_displayName;
   if (displayName)
   {
-    v20 = displayName;
-    CUAppendF();
-    v9 = v4;
+    v28 = v6;
+    v12 = displayName;
+    CUAppendF(&v28, &v31, "name '%@'", v12);
+    v13 = v28;
 
-    v4 = v9;
+    v6 = v13;
   }
 
   bridgingIdentifier = self->_bridgingIdentifier;
   if (bridgingIdentifier)
   {
-    v11 = bridgingIdentifier;
-    v21 = CUPrintNSDataAddress();
-    CUAppendF();
-    v12 = v4;
+    v27 = v6;
+    v15 = bridgingIdentifier;
+    v16 = CUPrintNSDataAddress();
+    CUAppendF(&v27, &v31, "classic '%@'", v16);
+    v17 = v27;
 
-    v4 = v12;
+    v6 = v17;
   }
 
   SSID = self->_SSID;
   if (SSID)
   {
-    v22 = SSID;
-    CUAppendF();
-    v14 = v4;
+    v26 = v6;
+    v19 = SSID;
+    CUAppendF(&v26, &v31, "SSID %@", v19);
+    v20 = v26;
 
-    v4 = v14;
+    v6 = v20;
   }
 
   if (self->_userInitiated)
   {
-    CUAppendF();
-    v15 = v4;
+    v25 = v6;
+    CUAppendF(&v25, &v31, "userInitiated %s", "yes");
+    v21 = v25;
 
-    v4 = v15;
+    v6 = v21;
   }
 
-  v16 = &stru_285B4C350;
-  if (v4)
+  v22 = &stru_285B4C350;
+  if (v6)
   {
-    v16 = v4;
+    v22 = v6;
   }
 
-  v17 = v16;
+  v23 = v22;
 
-  return v17;
+  return v23;
 }
 
 - (void)initWithXPCObject:(void *)a1 error:(void *)a2 .cold.1(void *a1, void *a2)
@@ -205,7 +222,7 @@
   if (a1)
   {
     v4 = [objc_opt_class() description];
-    *a1 = DAErrorF(350004, "%@ init failed", v5, v6, v7, v8, v9, v10, v4);
+    *a1 = DAErrorF(350004, "%@ init failed", v4);
   }
 
   *a2 = 0;

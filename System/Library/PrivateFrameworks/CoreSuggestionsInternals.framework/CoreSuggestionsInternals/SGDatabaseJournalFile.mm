@@ -21,7 +21,7 @@
 
 - (void)unlink
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if (self->_dead)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -41,15 +41,15 @@
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       path = self->_path;
-      v7 = *__error();
-      v8 = __error();
-      v9 = strerror(*v8);
+      v6 = *__error();
+      v7 = __error();
+      v8 = strerror(*v7);
       *buf = 138412802;
-      v13 = path;
-      v14 = 1024;
-      v15 = v7;
-      v16 = 2080;
-      v17 = v9;
+      v12 = path;
+      v13 = 1024;
+      v14 = v6;
+      v15 = 2080;
+      v16 = v8;
       _os_log_error_impl(&dword_231E60000, v4, OS_LOG_TYPE_ERROR, "Could not remove %@: errno=%i: %s", buf, 0x1Cu);
     }
   }
@@ -58,8 +58,6 @@
   {
     self->_dead = 1;
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)clear
@@ -80,7 +78,7 @@
 
 - (id)read
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   if (self->_dead)
   {
     currentHandler = [MEMORY[0x277CCA890] currentHandler];
@@ -109,11 +107,11 @@
         v10 = __error();
         v11 = strerror(*v10);
         *buf = 138412802;
-        *v32 = path;
-        *&v32[8] = 1024;
-        v33[0] = v9;
-        LOWORD(v33[1]) = 2080;
-        *(&v33[1] + 2) = v11;
+        *v31 = path;
+        *&v31[8] = 1024;
+        v32[0] = v9;
+        LOWORD(v32[1]) = 2080;
+        *(&v32[1] + 2) = v11;
         v12 = "Could not read from journal file %@: errno=%i: %s";
         v13 = v7;
         v14 = 28;
@@ -133,9 +131,9 @@ LABEL_33:
         goto LABEL_11;
       }
 
-      v27 = self->_path;
+      v26 = self->_path;
       *buf = 138412290;
-      *v32 = v27;
+      *v31 = v26;
       v12 = "Journal file truncated: %@";
 LABEL_32:
       v13 = v7;
@@ -143,11 +141,11 @@ LABEL_32:
       goto LABEL_33;
     }
 
-    v17 = *v4;
+    v16 = *v4;
     if (*v4 == -1347426410)
     {
-      v18 = v4[1];
-      if (v6 - 12 != v18)
+      v17 = v4[1];
+      if (v6 - 12 != v17)
       {
         v7 = sgLogHandle();
         if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
@@ -155,27 +153,27 @@ LABEL_32:
           goto LABEL_11;
         }
 
-        v24 = self->_path;
+        v23 = self->_path;
         *buf = 138412290;
-        *v32 = v24;
+        *v31 = v23;
         v12 = "Journal file truncated: %@";
         goto LABEL_32;
       }
 
-      v19 = adler32(0, v4 + 12, v18);
-      if (v4[2] != v19)
+      v18 = adler32(0, v4 + 12, v17);
+      if (v4[2] != v18)
       {
         v7 = sgLogHandle();
         if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
-          v25 = self->_path;
-          v26 = v4[2];
+          v24 = self->_path;
+          v25 = v4[2];
           *buf = 138412802;
-          *v32 = v25;
-          *&v32[8] = 1024;
-          v33[0] = v19;
-          LOWORD(v33[1]) = 1024;
-          *(&v33[1] + 2) = v26;
+          *v31 = v24;
+          *&v31[8] = 1024;
+          v32[0] = v18;
+          LOWORD(v32[1]) = 1024;
+          *(&v32[1] + 2) = v25;
           v12 = "Journal file checksum mismatch: %@: %u / %u";
           v13 = v7;
           v14 = 24;
@@ -190,14 +188,14 @@ LABEL_12:
         goto LABEL_13;
       }
 
-      v20 = objc_alloc(MEMORY[0x277CBEA90]);
-      v21 = v4[1];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __29__SGDatabaseJournalFile_read__block_invoke;
-      v30[3] = &__block_descriptor_40_e12_v24__0_v8Q16l;
-      v30[4] = v4;
-      len = [v20 initWithBytesNoCopy:v4 + 3 length:v21 deallocator:v30];
+      v19 = objc_alloc(MEMORY[0x277CBEA90]);
+      v20 = v4[1];
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __29__SGDatabaseJournalFile_read__block_invoke;
+      v29[3] = &__block_descriptor_40_e12_v24__0_v8Q16l;
+      v29[4] = v4;
+      len = [v19 initWithBytesNoCopy:v4 + 3 length:v20 deallocator:v29];
     }
 
     else
@@ -206,13 +204,13 @@ LABEL_12:
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          v23 = self->_path;
+          v22 = self->_path;
           *buf = 67109634;
-          *v32 = -1347426410;
-          *&v32[4] = 1024;
-          *&v32[6] = v17;
-          LOWORD(v33[0]) = 2112;
-          *(v33 + 2) = v23;
+          *v31 = -1347426410;
+          *&v31[4] = 1024;
+          *&v31[6] = v16;
+          LOWORD(v32[0]) = 2112;
+          *(v32 + 2) = v22;
           _os_log_error_impl(&dword_231E60000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Journal file has invalid magic number: expected 0x%x, got 0x%x: %@", buf, 0x18u);
         }
 
@@ -224,14 +222,13 @@ LABEL_12:
   }
 
 LABEL_13:
-  v15 = *MEMORY[0x277D85DE8];
 
   return len;
 }
 
 - (void)write:(id)write
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   writeCopy = write;
   if (self->_len)
   {
@@ -252,28 +249,28 @@ LABEL_13:
   }
 
   v6 = adler32(0, [writeCopy bytes], objc_msgSend(writeCopy, "length"));
-  v16[0] = -1347426410;
-  v16[1] = [writeCopy length];
-  v16[2] = v6;
-  v23.iov_base = v16;
-  v23.iov_len = 12;
+  v15[0] = -1347426410;
+  v15[1] = [writeCopy length];
+  v15[2] = v6;
+  v22.iov_base = v15;
+  v22.iov_len = 12;
   bytes = [writeCopy bytes];
-  v25 = [writeCopy length];
-  if (writev(self->_fd, &v23, 2) < 0)
+  v24 = [writeCopy length];
+  if (writev(self->_fd, &v22, 2) < 0)
   {
     v7 = sgLogHandle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       path = self->_path;
-      v10 = *__error();
-      v11 = __error();
-      v12 = strerror(*v11);
+      v9 = *__error();
+      v10 = __error();
+      v11 = strerror(*v10);
       *buf = 138412802;
-      v18 = path;
-      v19 = 1024;
-      v20 = v10;
-      v21 = 2080;
-      v22 = v12;
+      v17 = path;
+      v18 = 1024;
+      v19 = v9;
+      v20 = 2080;
+      v21 = v11;
       _os_log_error_impl(&dword_231E60000, v7, OS_LOG_TYPE_ERROR, "Could not write to journal file %@: errno=%i: %s", buf, 0x1Cu);
     }
   }
@@ -283,8 +280,6 @@ LABEL_13:
     self->_len = [writeCopy length] + 12;
     self->_written = 1;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dealloc
@@ -318,11 +313,11 @@ LABEL_13:
 
 - (SGDatabaseJournalFile)initWithPath:(id)path
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v22.receiver = self;
-  v22.super_class = SGDatabaseJournalFile;
-  v6 = [(SGDatabaseJournalFile *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = SGDatabaseJournalFile;
+  v6 = [(SGDatabaseJournalFile *)&v21 init];
   v7 = v6;
   if (!v6)
   {
@@ -338,25 +333,25 @@ LABEL_13:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       path = v7->_path;
-      v19 = *__error();
-      v20 = __error();
-      v21 = strerror(*v20);
-      v29.st_dev = 138412802;
-      *&v29.st_mode = path;
-      WORD2(v29.st_ino) = 1024;
-      *(&v29.st_ino + 6) = v19;
-      HIWORD(v29.st_uid) = 2080;
-      *&v29.st_gid = v21;
-      _os_log_error_impl(&dword_231E60000, v10, OS_LOG_TYPE_ERROR, "Could not open %@: errno=%i: %s", &v29, 0x1Cu);
+      v18 = *__error();
+      v19 = __error();
+      v20 = strerror(*v19);
+      v28.st_dev = 138412802;
+      *&v28.st_mode = path;
+      WORD2(v28.st_ino) = 1024;
+      *(&v28.st_ino + 6) = v18;
+      HIWORD(v28.st_uid) = 2080;
+      *&v28.st_gid = v20;
+      _os_log_error_impl(&dword_231E60000, v10, OS_LOG_TYPE_ERROR, "Could not open %@: errno=%i: %s", &v28, 0x1Cu);
     }
 
     goto LABEL_10;
   }
 
-  memset(&v29, 0, sizeof(v29));
-  if (!fstat(v8, &v29))
+  memset(&v28, 0, sizeof(v28));
+  if (!fstat(v8, &v28))
   {
-    v7->_len = v29.st_size;
+    v7->_len = v28.st_size;
 LABEL_12:
     v11 = v7;
     goto LABEL_13;
@@ -365,16 +360,16 @@ LABEL_12:
   v9 = sgLogHandle();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    v14 = v7->_path;
-    v15 = *__error();
-    v16 = __error();
-    v17 = strerror(*v16);
+    v13 = v7->_path;
+    v14 = *__error();
+    v15 = __error();
+    v16 = strerror(*v15);
     *buf = 138412802;
-    v24 = v14;
-    v25 = 1024;
-    v26 = v15;
-    v27 = 2080;
-    v28 = v17;
+    v23 = v13;
+    v24 = 1024;
+    v25 = v14;
+    v26 = 2080;
+    v27 = v16;
     _os_log_error_impl(&dword_231E60000, v9, OS_LOG_TYPE_ERROR, "Could not fstat %@: errno=%i: %s", buf, 0x1Cu);
   }
 
@@ -383,7 +378,6 @@ LABEL_10:
   v11 = 0;
 LABEL_13:
 
-  v12 = *MEMORY[0x277D85DE8];
   return v11;
 }
 

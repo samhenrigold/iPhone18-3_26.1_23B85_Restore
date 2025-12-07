@@ -18,59 +18,58 @@
 
 - (void)didDetectNDEFMessages:(id)messages fromTags:(id)tags connectedTagIndex:(unint64_t)index updateUICallback:(id)callback
 {
-  v108 = *MEMORY[0x277D85DE8];
+  v105 = *MEMORY[0x277D85DE8];
   messagesCopy = messages;
   tagsCopy = tags;
   callbackCopy = callback;
-  v14 = 0x277CBE000uLL;
-  v76 = callbackCopy;
-  v77 = tagsCopy;
+  v73 = callbackCopy;
+  v74 = tagsCopy;
   if ([(NFCReaderSession *)self delegateType]== 5)
   {
-    v15 = messagesCopy;
+    v14 = messagesCopy;
     callbackCopy[2](callbackCopy, 0);
     [(NFCReaderSession *)self didDetectTags:tagsCopy connectedTagIndex:index];
-    v16 = objc_opt_new();
+    v15 = objc_opt_new();
+    v91 = 0u;
+    v92 = 0u;
+    v93 = 0u;
     v94 = 0u;
-    v95 = 0u;
-    v96 = 0u;
-    v97 = 0u;
-    v17 = tagsCopy;
-    v18 = [v17 countByEnumeratingWithState:&v94 objects:v107 count:16];
-    if (v18)
+    v16 = tagsCopy;
+    v17 = [v16 countByEnumeratingWithState:&v91 objects:v104 count:16];
+    if (v17)
     {
-      v19 = v18;
-      v20 = *v95;
+      v18 = v17;
+      v19 = *v92;
       do
       {
-        for (i = 0; i != v19; ++i)
+        for (i = 0; i != v18; ++i)
         {
-          if (*v95 != v20)
+          if (*v92 != v19)
           {
-            objc_enumerationMutation(v17);
+            objc_enumerationMutation(v16);
           }
 
-          v22 = [[NFCNDEFTag alloc] initWithSession:self tag:*(*(&v94 + 1) + 8 * i) startupConfig:0];
-          [v16 addObject:v22];
+          v21 = [[NFCNDEFTag alloc] initWithSession:self tag:*(*(&v91 + 1) + 8 * i) startupConfig:0];
+          [v15 addObject:v21];
         }
 
-        v19 = [v17 countByEnumeratingWithState:&v94 objects:v107 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v91 objects:v104 count:16];
       }
 
-      while (v19);
+      while (v18);
     }
 
-    v23 = v16;
-    if ([v16 count])
+    v22 = v15;
+    if ([v15 count])
     {
-      v92[0] = MEMORY[0x277D85DD0];
-      v92[1] = 3221225472;
-      v92[2] = sub_2372B74D8;
-      v92[3] = &unk_278A29E60;
-      v92[4] = self;
-      v23 = v16;
-      v93 = v23;
-      [(NFCReaderSession *)self submitBlockOnDelegateQueue:v92];
+      v89[0] = MEMORY[0x277D85DD0];
+      v89[1] = 3221225472;
+      v89[2] = sub_2372B74D8;
+      v89[3] = &unk_278A29E60;
+      v89[4] = self;
+      v22 = v15;
+      v90 = v22;
+      [(NFCReaderSession *)self submitBlockOnDelegateQueue:v89];
     }
 
     else
@@ -78,241 +77,237 @@
       Logger = NFLogGetLogger();
       if (Logger)
       {
-        v61 = Logger;
+        v59 = Logger;
         Class = object_getClass(self);
         isMetaClass = class_isMetaClass(Class);
         ClassName = object_getClassName(self);
         Name = sel_getName(a2);
-        v65 = !isMetaClass;
-        v23 = v16;
-        v66 = 45;
-        if (!v65)
+        v63 = !isMetaClass;
+        v22 = v15;
+        v64 = 45;
+        if (!v63)
         {
-          v66 = 43;
+          v64 = 43;
         }
 
-        v61(4, "%c[%{public}s %{public}s]:%i No suitable NDEF tag found", v66, ClassName, Name, 73);
+        v59(4, "%c[%{public}s %{public}s]:%i No suitable NDEF tag found", v64, ClassName, Name, 73);
       }
 
-      v67 = NFSharedLogGetLogger();
-      if (os_log_type_enabled(v67, OS_LOG_TYPE_ERROR))
+      v65 = NFSharedLogGetLogger();
+      if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
       {
-        v68 = object_getClass(self);
-        if (class_isMetaClass(v68))
+        v66 = object_getClass(self);
+        if (class_isMetaClass(v66))
         {
-          v69 = 43;
+          v67 = 43;
         }
 
         else
         {
-          v69 = 45;
+          v67 = 45;
         }
 
-        v70 = object_getClassName(self);
-        v71 = sel_getName(a2);
+        v68 = object_getClassName(self);
+        v69 = sel_getName(a2);
         *buf = 67109890;
-        v100 = v69;
-        v101 = 2082;
-        v102 = v70;
-        v23 = v16;
-        v103 = 2082;
-        v104 = v71;
-        v105 = 1024;
-        v106 = 73;
-        _os_log_impl(&dword_23728C000, v67, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i No suitable NDEF tag found", buf, 0x22u);
+        v97 = v67;
+        v98 = 2082;
+        v99 = v68;
+        v22 = v15;
+        v100 = 2082;
+        v101 = v69;
+        v102 = 1024;
+        v103 = 73;
+        _os_log_impl(&dword_23728C000, v65, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i No suitable NDEF tag found", buf, 0x22u);
       }
     }
 
-    v59 = v76;
-    v58 = v77;
+    v57 = v73;
+    v56 = v74;
   }
 
   else
   {
     selfCopy = self;
-    v79 = objc_opt_new();
+    v76 = objc_opt_new();
     callbackCopy[2](callbackCopy, 1);
-    v90 = 0u;
-    v91 = 0u;
+    v87 = 0u;
     v88 = 0u;
-    v89 = 0u;
-    v75 = messagesCopy;
+    v85 = 0u;
+    v86 = 0u;
+    v72 = messagesCopy;
     obj = messagesCopy;
-    v81 = [obj countByEnumeratingWithState:&v88 objects:v98 count:16];
-    if (v81)
+    v78 = [obj countByEnumeratingWithState:&v85 objects:v95 count:16];
+    if (v78)
     {
-      v80 = *v89;
+      v77 = *v86;
       do
       {
-        v24 = 0;
+        v23 = 0;
         do
         {
-          if (*v89 != v80)
+          if (*v86 != v77)
           {
             objc_enumerationMutation(obj);
           }
 
-          v82 = v24;
-          v25 = *(*(&v88 + 1) + 8 * v24);
-          v26 = *(v14 + 2840);
-          v83 = objc_opt_new();
-          records = [v25 records];
-          v28 = [records count];
+          v79 = v23;
+          v24 = *(*(&v85 + 1) + 8 * v23);
+          v80 = objc_opt_new();
+          records = [v24 records];
+          v26 = [records count];
 
-          if (v28)
+          if (v26)
           {
-            v29 = 0;
-            v30 = 0;
+            v27 = 0;
+            v28 = 0;
             do
             {
-              records2 = [v25 records];
-              v32 = [records2 objectAtIndexedSubscript:v29];
+              records2 = [v24 records];
+              v30 = [records2 objectAtIndexedSubscript:v27];
 
-              typeNameFormat = [v32 typeNameFormat];
-              type = [v32 type];
-              identifier = [v32 identifier];
-              v35 = objc_alloc(MEMORY[0x277CBEB28]);
-              payload = [v32 payload];
-              v37 = [v35 initWithData:payload];
+              typeNameFormat = [v30 typeNameFormat];
+              type = [v30 type];
+              identifier = [v30 identifier];
+              v33 = objc_alloc(MEMORY[0x277CBEB28]);
+              payload = [v30 payload];
+              v35 = [v33 initWithData:payload];
 
-              if ([v32 chunked] && objc_msgSend(type, "length"))
+              if ([v30 chunked] && objc_msgSend(type, "length"))
               {
-                v38 = v30 + 1;
-                [v25 records];
-                v39 = v84 = v37;
-                v40 = [v39 count];
+                v36 = v28 + 1;
+                [v24 records];
+                v37 = v81 = v35;
+                v38 = [v37 count];
 
-                v37 = v84;
-                if (v40 > v30 + 1)
+                v35 = v81;
+                if (v38 > v28 + 1)
                 {
-                  v41 = v38;
+                  v39 = v36;
                   while (1)
                   {
-                    records3 = [v25 records];
-                    v43 = [records3 objectAtIndexedSubscript:v41];
+                    records3 = [v24 records];
+                    v41 = [records3 objectAtIndexedSubscript:v39];
 
-                    identifier2 = [v43 identifier];
+                    identifier2 = [v41 identifier];
                     if ([identifier2 length])
                     {
                       goto LABEL_32;
                     }
 
-                    v45 = v25;
-                    type2 = [v43 type];
+                    v43 = v24;
+                    type2 = [v41 type];
                     if ([type2 length])
                     {
 
-                      v25 = v45;
+                      v24 = v43;
 LABEL_32:
 
                       goto LABEL_36;
                     }
 
-                    v47 = typeNameFormat;
-                    typeNameFormat2 = [v43 typeNameFormat];
+                    v45 = typeNameFormat;
+                    typeNameFormat2 = [v41 typeNameFormat];
 
                     if (typeNameFormat2 != 6)
                     {
-                      v25 = v45;
+                      v24 = v43;
                       goto LABEL_35;
                     }
 
-                    payload2 = [v43 payload];
-                    [v84 appendData:payload2];
+                    payload2 = [v41 payload];
+                    [v81 appendData:payload2];
 
-                    v25 = v45;
-                    if (([v43 chunked] & 1) == 0)
+                    v24 = v43;
+                    if (([v41 chunked] & 1) == 0)
                     {
                       break;
                     }
 
-                    ++v41;
-                    records4 = [v45 records];
-                    v51 = [records4 count];
+                    ++v39;
+                    records4 = [v43 records];
+                    v49 = [records4 count];
 
-                    ++v30;
-                    typeNameFormat = v47;
-                    if (v51 <= v41)
+                    ++v28;
+                    typeNameFormat = v45;
+                    if (v49 <= v39)
                     {
-                      v38 = v30 + 1;
+                      v36 = v28 + 1;
                       goto LABEL_37;
                     }
                   }
 
-                  ++v30;
+                  ++v28;
 LABEL_35:
-                  typeNameFormat = v47;
+                  typeNameFormat = v45;
 LABEL_36:
 
-                  v38 = v30;
+                  v36 = v28;
 LABEL_37:
-                  v37 = v84;
+                  v35 = v81;
                 }
               }
 
               else
               {
-                v38 = v30;
+                v36 = v28;
               }
 
-              v52 = [[NFCNDEFPayload alloc] initWithFormat:typeNameFormat type:type identifier:identifier payload:v37 chunkSize:0];
-              [v83 addObject:v52];
+              v50 = [[NFCNDEFPayload alloc] initWithFormat:typeNameFormat type:type identifier:identifier payload:v35 chunkSize:0];
+              [v80 addObject:v50];
 
-              v30 = v38 + 1;
-              v29 = v38 + 1;
-              records5 = [v25 records];
-              v54 = [records5 count];
+              v28 = v36 + 1;
+              v27 = v36 + 1;
+              records5 = [v24 records];
+              v52 = [records5 count];
             }
 
-            while (v54 > v29);
+            while (v52 > v27);
           }
 
-          v55 = [[NFCNDEFMessage alloc] initWithNDEFRecords:v83];
-          records6 = [(NFCNDEFMessage *)v55 records];
-          v57 = [records6 count];
+          v53 = [[NFCNDEFMessage alloc] initWithNDEFRecords:v80];
+          records6 = [(NFCNDEFMessage *)v53 records];
+          v55 = [records6 count];
 
-          if (v57)
+          if (v55)
           {
-            [v79 addObject:v55];
+            [v76 addObject:v53];
           }
 
-          v24 = v82 + 1;
-          v14 = 0x277CBE000;
+          v23 = v79 + 1;
         }
 
-        while (v82 + 1 != v81);
-        v81 = [obj countByEnumeratingWithState:&v88 objects:v98 count:16];
+        while (v79 + 1 != v78);
+        v78 = [obj countByEnumeratingWithState:&v85 objects:v95 count:16];
       }
 
-      while (v81);
+      while (v78);
     }
 
-    v23 = v79;
-    v58 = v77;
-    if ([v79 count])
+    v22 = v76;
+    v56 = v74;
+    if ([v76 count])
     {
-      selfCopy->_tagsRead += [v77 count];
+      selfCopy->_tagsRead += [v74 count];
       if ([(NFCReaderSession *)selfCopy delegateType]== 4)
       {
-        v86[0] = MEMORY[0x277D85DD0];
-        v86[1] = 3221225472;
-        v86[2] = sub_2372B7554;
-        v86[3] = &unk_278A29E60;
-        v86[4] = selfCopy;
-        v87 = v79;
-        [(NFCReaderSession *)selfCopy submitBlockOnDelegateQueue:v86];
+        v83[0] = MEMORY[0x277D85DD0];
+        v83[1] = 3221225472;
+        v83[2] = sub_2372B7554;
+        v83[3] = &unk_278A29E60;
+        v83[4] = selfCopy;
+        v84 = v76;
+        [(NFCReaderSession *)selfCopy submitBlockOnDelegateQueue:v83];
       }
     }
 
-    v15 = v75;
-    v59 = v76;
+    v14 = v72;
+    v57 = v73;
     if (selfCopy->_invalidateAfterFirstRead)
     {
       [(NFCReaderSession *)selfCopy invalidateSessionWithReason:204];
     }
   }
-
-  v72 = *MEMORY[0x277D85DE8];
 }
 
 - (NFCNDEFReaderSession)initWithDelegate:(id)delegate queue:(dispatch_queue_t)queue invalidateAfterFirstRead:(BOOL)invalidateAfterFirstRead
@@ -356,7 +351,7 @@ LABEL_37:
 
 - (void)restartPolling
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v4 = _os_activity_create(&dword_23728C000, "NFCNDEFReaderSession restartPolling", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
   *state = 0;
   *&state[8] = 0;
@@ -365,9 +360,9 @@ LABEL_37:
 
   if ([(NFCReaderSession *)self delegateType]== 5)
   {
-    v18.receiver = self;
-    v18.super_class = NFCNDEFReaderSession;
-    [(NFCReaderSession *)&v18 restartPolling];
+    v17.receiver = self;
+    v17.super_class = NFCNDEFReaderSession;
+    [(NFCReaderSession *)&v17 restartPolling];
   }
 
   else
@@ -409,20 +404,18 @@ LABEL_37:
       *&state[4] = v13;
       *&state[8] = 2082;
       *&state[10] = v14;
-      v20 = 2082;
-      v21 = v15;
-      v22 = 1024;
-      v23 = 185;
+      v19 = 2082;
+      v20 = v15;
+      v21 = 1024;
+      v22 = 185;
       _os_log_impl(&dword_23728C000, v11, OS_LOG_TYPE_DEFAULT, "%c[%{public}s %{public}s]:%i Delegate conforms to [NFCNDEFReaderSessionDelegate readerSession:didDetectTags]; polling is auto restarted.", state, 0x22u);
     }
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectToTag:(id)tag completionHandler:(void *)completionHandler
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v7 = tag;
   v8 = completionHandler;
   v9 = _os_activity_create(&dword_23728C000, "NFCNDEFReaderSession connectToTag:completionHandler", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_IF_NONE_PRESENT);
@@ -435,9 +428,9 @@ LABEL_37:
   if (objc_opt_isKindOfClass())
   {
     v10 = v7;
-    v44 = 0;
-    v11 = [v10 isMatchingSession:self outError:&v44];
-    v12 = v44;
+    v43 = 0;
+    v11 = [v10 isMatchingSession:self outError:&v43];
+    v12 = v43;
     if (v11)
     {
       [v10 _connectWithCompletionHandler:v8];
@@ -445,13 +438,13 @@ LABEL_37:
 
     else
     {
-      v38 = MEMORY[0x277D85DD0];
-      v39 = 3221225472;
-      v40 = sub_2372B7D08;
-      v41 = &unk_278A29D48;
-      v43 = v8;
-      v42 = v12;
-      [(NFCReaderSession *)self submitBlockOnDelegateQueue:&v38];
+      v37 = MEMORY[0x277D85DD0];
+      v38 = 3221225472;
+      v39 = sub_2372B7D08;
+      v40 = &unk_278A29D48;
+      v42 = v8;
+      v41 = v12;
+      [(NFCReaderSession *)self submitBlockOnDelegateQueue:&v37];
       Logger = NFLogGetLogger();
       if (Logger)
       {
@@ -466,7 +459,7 @@ LABEL_37:
           v29 = 43;
         }
 
-        v25(3, "%c[%{public}s %{public}s]:%i Only tag from the current session is allowed", v29, ClassName, Name, 207, v38, v39, v40, v41);
+        v25(3, "%c[%{public}s %{public}s]:%i Only tag from the current session is allowed", v29, ClassName, Name, 207, v37, v38, v39, v40);
       }
 
       v30 = NFSharedLogGetLogger();
@@ -489,10 +482,10 @@ LABEL_37:
         *&state[4] = v32;
         *&state[8] = 2082;
         *&state[10] = v33;
-        v48 = 2082;
-        v49 = v34;
-        v50 = 1024;
-        v51 = 207;
+        v47 = 2082;
+        v48 = v34;
+        v49 = 1024;
+        v50 = 207;
         _os_log_impl(&dword_23728C000, v30, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Only tag from the current session is allowed", state, 0x22u);
       }
     }
@@ -500,12 +493,12 @@ LABEL_37:
 
   else
   {
-    v45[0] = MEMORY[0x277D85DD0];
-    v45[1] = 3221225472;
-    v45[2] = sub_2372B7CA0;
-    v45[3] = &unk_278A29C38;
-    v46 = v8;
-    [(NFCReaderSession *)self submitBlockOnDelegateQueue:v45];
+    v44[0] = MEMORY[0x277D85DD0];
+    v44[1] = 3221225472;
+    v44[2] = sub_2372B7CA0;
+    v44[3] = &unk_278A29C38;
+    v45 = v8;
+    [(NFCReaderSession *)self submitBlockOnDelegateQueue:v44];
     v13 = NFLogGetLogger();
     if (v13)
     {
@@ -513,14 +506,14 @@ LABEL_37:
       v15 = object_getClass(self);
       v16 = class_isMetaClass(v15);
       v17 = object_getClassName(self);
-      v36 = sel_getName(a2);
+      v35 = sel_getName(a2);
       v18 = 45;
       if (v16)
       {
         v18 = 43;
       }
 
-      v14(3, "%c[%{public}s %{public}s]:%i Invalid tag object", v18, v17, v36, 197);
+      v14(3, "%c[%{public}s %{public}s]:%i Invalid tag object", v18, v17, v35, 197);
     }
 
     v19 = NFSharedLogGetLogger();
@@ -543,22 +536,20 @@ LABEL_37:
       *&state[4] = v21;
       *&state[8] = 2082;
       *&state[10] = v22;
-      v48 = 2082;
-      v49 = v23;
-      v50 = 1024;
-      v51 = 197;
+      v47 = 2082;
+      v48 = v23;
+      v49 = 1024;
+      v50 = 197;
       _os_log_impl(&dword_23728C000, v19, OS_LOG_TYPE_ERROR, "%c[%{public}s %{public}s]:%i Invalid tag object", state, 0x22u);
     }
 
-    v10 = v46;
+    v10 = v45;
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_callbackDidBecomeActive
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   if ([(NFCReaderSession *)self delegateType]!= 4 && [(NFCReaderSession *)self delegateType]!= 5)
   {
     Logger = NFLogGetLogger();
@@ -597,14 +588,14 @@ LABEL_37:
     }
 
     *buf = 67110146;
-    v32 = v26;
-    v33 = 2082;
-    v34 = object_getClassName(self);
-    v35 = 2082;
-    v36 = sel_getName(a2);
-    v37 = 1024;
-    v38 = 226;
-    v39 = 2048;
+    v31 = v26;
+    v32 = 2082;
+    v33 = object_getClassName(self);
+    v34 = 2082;
+    v35 = sel_getName(a2);
+    v36 = 1024;
+    v37 = 226;
+    v38 = 2048;
     delegateType2 = [(NFCReaderSession *)self delegateType];
     v15 = "%c[%{public}s %{public}s]:%i Unknown delegate type: %ld";
     v16 = v12;
@@ -615,31 +606,37 @@ LABEL_37:
   delegate = [(NFCReaderSession *)self delegate];
   v5 = objc_opt_respondsToSelector();
 
-  if ((v5 & 1) == 0)
+  if (v5)
   {
-    v6 = NFLogGetLogger();
-    if (v6)
-    {
-      v7 = v6;
-      v8 = object_getClass(self);
-      v9 = class_isMetaClass(v8);
-      v10 = object_getClassName(self);
-      v28 = sel_getName(a2);
-      v11 = 45;
-      if (v9)
-      {
-        v11 = 43;
-      }
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = sub_2372B8054;
+    v29[3] = &unk_278A29F00;
+    v29[4] = self;
+    [(NFCReaderSession *)self submitBlockOnDelegateQueue:v29];
+    return;
+  }
 
-      v7(4, "%c[%{public}s %{public}s]:%i Delegate does not implement -readerSessionDidBecomeActive: method", v11, v10, v28, 223);
+  v6 = NFLogGetLogger();
+  if (v6)
+  {
+    v7 = v6;
+    v8 = object_getClass(self);
+    v9 = class_isMetaClass(v8);
+    v10 = object_getClassName(self);
+    v27 = sel_getName(a2);
+    v11 = 45;
+    if (v9)
+    {
+      v11 = 43;
     }
 
-    v12 = NFSharedLogGetLogger();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_24;
-    }
+    v7(4, "%c[%{public}s %{public}s]:%i Delegate does not implement -readerSessionDidBecomeActive: method", v11, v10, v27, 223);
+  }
 
+  v12 = NFSharedLogGetLogger();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+  {
     v13 = object_getClass(self);
     if (class_isMetaClass(v13))
     {
@@ -652,31 +649,21 @@ LABEL_37:
     }
 
     *buf = 67109890;
-    v32 = v14;
-    v33 = 2082;
-    v34 = object_getClassName(self);
-    v35 = 2082;
-    v36 = sel_getName(a2);
-    v37 = 1024;
-    v38 = 223;
+    v31 = v14;
+    v32 = 2082;
+    v33 = object_getClassName(self);
+    v34 = 2082;
+    v35 = sel_getName(a2);
+    v36 = 1024;
+    v37 = 223;
     v15 = "%c[%{public}s %{public}s]:%i Delegate does not implement -readerSessionDidBecomeActive: method";
     v16 = v12;
     v17 = 34;
 LABEL_23:
     _os_log_impl(&dword_23728C000, v16, OS_LOG_TYPE_ERROR, v15, buf, v17);
-LABEL_24:
-
-    goto LABEL_25;
   }
 
-  v30[0] = MEMORY[0x277D85DD0];
-  v30[1] = 3221225472;
-  v30[2] = sub_2372B8054;
-  v30[3] = &unk_278A29F00;
-  v30[4] = self;
-  [(NFCReaderSession *)self submitBlockOnDelegateQueue:v30];
-LABEL_25:
-  v27 = *MEMORY[0x277D85DE8];
+LABEL_24:
 }
 
 @end

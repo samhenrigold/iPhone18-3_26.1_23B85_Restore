@@ -120,7 +120,7 @@
   v18 = unk_2603433A8;
   v19 = xmmword_2603433B8;
   v20 = unk_2603433C8;
-  *a3 = [-[PAEOverlappingCircles multiplyMatrix:byMatrix:](self multiplyMatrix:-[PAEOverlappingCircles multiplyMatrix:byMatrix:](self byMatrix:{"multiplyMatrix:byMatrix:", objc_msgSend(a7, "inversePixelTransform"), -[FxMatrix44 initWithMatrix44Data:]([FxMatrix44 alloc], "initWithMatrix44Data:", v13)), -[FxMatrix44 initWithMatrix44Data:]([FxMatrix44 alloc], "initWithMatrix44Data:", v21)), "matrix"}];
+  *a3 = [-[PAEOverlappingCircles multiplyMatrix:byMatrix:](self multiplyMatrix:-[PAEOverlappingCircles multiplyMatrix:byMatrix:](self byMatrix:{"multiplyMatrix:byMatrix:", objc_msgSend_inversePixelTransform(a7), -[FxMatrix44 initWithMatrix44Data:]([FxMatrix44 alloc], "initWithMatrix44Data:", v13)), -[FxMatrix44 initWithMatrix44Data:]([FxMatrix44 alloc], "initWithMatrix44Data:", v21)), "matrix"}];
 }
 
 - (BOOL)canThrowRenderOutput:(id)output withInfo:(id *)info

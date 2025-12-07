@@ -168,7 +168,7 @@ uint64_t __45__DATrustHandler__serverSuffixesToAlwaysFail__block_invoke()
 
 - (void)handleTrust:(__SecTrust *)trust forHost:(id)host forAccount:(id)account withCompletionBlock:(id)block
 {
-  v60 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   hostCopy = host;
   accountCopy = account;
   blockCopy = block;
@@ -255,7 +255,7 @@ LABEL_26:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v59 = 1;
+    v58 = 1;
 LABEL_27:
     blockCopy[2](blockCopy, v20);
     goto LABEL_28;
@@ -297,15 +297,15 @@ LABEL_31:
     goto LABEL_31;
   }
 
-  if (SecTrustGetCertificateCount(trust) && (SecTrustGetCertificateAtIndex(trust, 0), (v31 = SecCertificateGetSHA1Digest()) != 0))
+  if (SecTrustGetCertificateCount(trust) && (SecTrustGetCertificateAtIndex(trust, 0), (v30 = SecCertificateGetSHA1Digest()) != 0))
   {
-    v29 = v31;
-    v32 = [(DATrustHandler *)self haveWarnedAboutCert:v31 forHost:hostCopy];
+    v29 = v30;
+    v31 = [(DATrustHandler *)self haveWarnedAboutCert:v30 forHost:hostCopy];
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v59 = 1;
-    if (v32)
+    v58 = 1;
+    if (v31)
     {
 LABEL_47:
       v20 = 0;
@@ -319,32 +319,32 @@ LABEL_47:
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x2020000000;
-    v59 = 1;
+    v58 = 1;
   }
 
   if (([MEMORY[0x277D03910] promptForAllCerts] & 1) == 0)
   {
     lowercaseString = [hostCopy lowercaseString];
     _serverSuffixesToAlwaysFail = [(DATrustHandler *)self _serverSuffixesToAlwaysFail];
-    v53[0] = MEMORY[0x277D85DD0];
-    v53[1] = 3221225472;
-    v53[2] = __69__DATrustHandler_handleTrust_forHost_forAccount_withCompletionBlock___block_invoke;
-    v53[3] = &unk_278F13998;
-    v35 = lowercaseString;
-    v54 = v35;
-    v55 = buf;
-    [_serverSuffixesToAlwaysFail enumerateObjectsUsingBlock:v53];
+    v52[0] = MEMORY[0x277D85DD0];
+    v52[1] = 3221225472;
+    v52[2] = __69__DATrustHandler_handleTrust_forHost_forAccount_withCompletionBlock___block_invoke;
+    v52[3] = &unk_278F13998;
+    v34 = lowercaseString;
+    v53 = v34;
+    v54 = buf;
+    [_serverSuffixesToAlwaysFail enumerateObjectsUsingBlock:v52];
   }
 
   if (!*(*&buf[8] + 24))
   {
-    v41 = DALoggingwithCategory();
-    v42 = *(v12 + 4);
-    if (os_log_type_enabled(v41, v42))
+    v40 = DALoggingwithCategory();
+    v41 = *(v12 + 4);
+    if (os_log_type_enabled(v40, v41))
     {
-      *v56 = 138412290;
-      v57 = hostCopy;
-      _os_log_impl(&dword_24844D000, v41, v42, "IT'S A TARP!!! We received an untrusted cert for %@. You really think we're going to fall for that?", v56, 0xCu);
+      *v55 = 138412290;
+      v56 = hostCopy;
+      _os_log_impl(&dword_24844D000, v40, v41, "IT'S A TARP!!! We received an untrusted cert for %@. You really think we're going to fall for that?", v55, 0xCu);
     }
 
     if ((*(*&buf[8] + 24) & 1) == 0)
@@ -353,51 +353,49 @@ LABEL_47:
     }
   }
 
-  v36 = DALoggingwithCategory();
-  if (os_log_type_enabled(v36, v13))
+  v35 = DALoggingwithCategory();
+  if (os_log_type_enabled(v35, v13))
   {
-    *v56 = 138412290;
-    v57 = hostCopy;
-    _os_log_impl(&dword_24844D000, v36, v13, "prompting certificate for host: %@", v56, 0xCu);
+    *v55 = 138412290;
+    v56 = hostCopy;
+    _os_log_impl(&dword_24844D000, v35, v13, "prompting certificate for host: %@", v55, 0xCu);
   }
 
-  v37 = objc_opt_new();
-  [v37 setTrust:trust];
-  [v37 setHost:hostCopy];
-  [v37 setService:v14];
+  v36 = objc_opt_new();
+  [v36 setTrust:trust];
+  [v36 setHost:hostCopy];
+  [v36 setService:v14];
   delegate = [(DATrustHandler *)self delegate];
   accountDescription = [delegate accountDescription];
-  [v37 setConnectionDisplayName:accountDescription];
+  [v36 setConnectionDisplayName:accountDescription];
 
   if (bOOLValue)
   {
-    v40 = objc_opt_new();
-    [v40 setObject:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277CF9738]];
+    v39 = objc_opt_new();
+    [v39 setObject:MEMORY[0x277CBEC28] forKey:*MEMORY[0x277CF9738]];
   }
 
   else
   {
-    v40 = 0;
+    v39 = 0;
   }
 
   CFRetain(trust);
-  v46[0] = MEMORY[0x277D85DD0];
-  v46[1] = 3221225472;
-  v46[2] = __69__DATrustHandler_handleTrust_forHost_forAccount_withCompletionBlock___block_invoke_11;
-  v46[3] = &unk_278F139E8;
+  v45[0] = MEMORY[0x277D85DD0];
+  v45[1] = 3221225472;
+  v45[2] = __69__DATrustHandler_handleTrust_forHost_forAccount_withCompletionBlock___block_invoke_11;
+  v45[3] = &unk_278F139E8;
   v29 = v29;
-  v47 = v29;
+  v46 = v29;
   selfCopy = self;
-  v49 = hostCopy;
+  v48 = hostCopy;
   trustCopy = trust;
-  v50 = v14;
-  v51 = blockCopy;
-  [v37 showPromptWithOptions:v40 responseBlock:v46];
+  v49 = v14;
+  v50 = blockCopy;
+  [v36 showPromptWithOptions:v39 responseBlock:v45];
 
 LABEL_28:
   _Block_object_dispose(buf, 8);
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 void __69__DATrustHandler_handleTrust_forHost_forAccount_withCompletionBlock___block_invoke(uint64_t a1, void *a2, _BYTE *a3)
@@ -432,40 +430,38 @@ void __69__DATrustHandler_handleTrust_forHost_forAccount_withCompletionBlock___b
   dispatch_async(v4, block);
 }
 
-uint64_t __69__DATrustHandler_handleTrust_forHost_forAccount_withCompletionBlock___block_invoke_2(uint64_t a1)
+uint64_t __69__DATrustHandler_handleTrust_forHost_forAccount_withCompletionBlock___block_invoke_2(uint64_t a1, uint64_t a2)
 {
   v11 = *MEMORY[0x277D85DE8];
-  v2 = DALoggingwithCategory();
-  v3 = *(MEMORY[0x277D03988] + 6);
-  if (os_log_type_enabled(v2, v3))
+  v3 = DALoggingwithCategory();
+  v4 = *(MEMORY[0x277D03988] + 6);
+  if (os_log_type_enabled(v3, v4))
   {
-    v4 = *(a1 + 80);
+    v5 = *(a1 + 80);
     v10[0] = 67109120;
-    v10[1] = v4;
-    _os_log_impl(&dword_24844D000, v2, v3, "got prompt response %d", v10, 8u);
+    v10[1] = v5;
+    _os_log_impl(&dword_24844D000, v3, v4, "got prompt response %d", v10, 8u);
   }
 
-  v5 = *(a1 + 32);
-  if (v5)
+  v6 = *(a1 + 32);
+  if (v6)
   {
-    [*(a1 + 40) setHaveWarnedAboutCert:v5 forHost:*(a1 + 48)];
+    [*(a1 + 40) setHaveWarnedAboutCert:v6 forHost:*(a1 + 48)];
   }
 
   if (*(a1 + 80) == 2)
   {
-    v6 = [MEMORY[0x277CF9710] defaultTrustManager];
-    [v6 allowTrust:*(a1 + 72) forHost:*(a1 + 48) service:*(a1 + 56)];
+    v7 = [MEMORY[0x277CF9710] defaultTrustManager];
+    [v7 allowTrust:*(a1 + 72) forHost:*(a1 + 48) service:*(a1 + 56)];
   }
 
-  v7 = *(a1 + 72);
-  if (v7)
+  v8 = *(a1 + 72);
+  if (v8)
   {
-    CFRelease(v7);
+    CFRelease(v8);
   }
 
-  result = (*(*(a1 + 64) + 16))(*(a1 + 64), *(a1 + 80) != 0);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 64) + 16))(*(a1 + 64), *(a1 + 80) != 0);
 }
 
 - (BOOL)handleTrustChallenge:(id)challenge forAccount:(id)account completionHandler:(id)handler
@@ -514,45 +510,45 @@ uint64_t __68__DATrustHandler_handleTrustChallenge_forAccount_completionHandler_
   return MEMORY[0x2821F96F8]();
 }
 
-void __68__DATrustHandler_handleTrustChallenge_forAccount_completionHandler___block_invoke_2(uint64_t a1)
+void __68__DATrustHandler_handleTrustChallenge_forAccount_completionHandler___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = DALoggingwithCategory();
-  v3 = *(MEMORY[0x277D03988] + 6);
-  if (os_log_type_enabled(v2, v3))
+  v3 = DALoggingwithCategory();
+  v4 = *(MEMORY[0x277D03988] + 6);
+  if (os_log_type_enabled(v3, v4))
   {
     *buf = 0;
-    _os_log_impl(&dword_24844D000, v2, v3, "Grabbing trust challenge lock...", buf, 2u);
+    _os_log_impl(&dword_24844D000, v3, v4, "Grabbing trust challenge lock...", buf, 2u);
   }
 
   dispatch_semaphore_wait(handleTrustChallenge_forAccount_completionHandler__outstandingTrustChallengeLock, 0xFFFFFFFFFFFFFFFFLL);
-  v4 = DALoggingwithCategory();
-  if (os_log_type_enabled(v4, v3))
+  v5 = DALoggingwithCategory();
+  if (os_log_type_enabled(v5, v4))
   {
     *buf = 0;
-    _os_log_impl(&dword_24844D000, v4, v3, "Lock acquired. Checking trust.", buf, 2u);
+    _os_log_impl(&dword_24844D000, v5, v4, "Lock acquired. Checking trust.", buf, 2u);
   }
 
-  v5 = [*(a1 + 32) protectionSpace];
-  v6 = [v5 host];
+  v6 = [*(a1 + 32) protectionSpace];
+  v7 = [v6 host];
 
-  v7 = [*(a1 + 32) protectionSpace];
-  v8 = [v7 serverTrust];
+  v8 = [*(a1 + 32) protectionSpace];
+  v9 = [v8 serverTrust];
 
-  v9 = *(a1 + 40);
-  v10 = *(a1 + 48);
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __68__DATrustHandler_handleTrustChallenge_forAccount_completionHandler___block_invoke_17;
-  v11[3] = &unk_278F13A10;
-  v12 = *(a1 + 56);
-  v13 = *(a1 + 32);
-  v14 = *(a1 + 64);
-  [v9 handleTrust:v8 forHost:v6 forAccount:v10 withCompletionBlock:v11];
+  v10 = *(a1 + 40);
+  v11 = *(a1 + 48);
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __68__DATrustHandler_handleTrustChallenge_forAccount_completionHandler___block_invoke_17;
+  v12[3] = &unk_278F13A10;
+  v13 = *(a1 + 56);
+  v14 = *(a1 + 32);
+  v15 = *(a1 + 64);
+  [v10 handleTrust:v9 forHost:v7 forAccount:v11 withCompletionBlock:v12];
 }
 
 void __68__DATrustHandler_handleTrustChallenge_forAccount_completionHandler___block_invoke_17(uint64_t a1, int a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v4 = +[DAPowerAssertionManager sharedPowerAssertionManager];
   [v4 reattainPowerAssertionsForGroupIdentifier:*(a1 + 32)];
 
@@ -566,9 +562,9 @@ void __68__DATrustHandler_handleTrustChallenge_forAccount_completionHandler___bl
       v7 = &stru_285AA6518;
     }
 
-    v15 = 138412290;
-    v16 = v7;
-    _os_log_impl(&dword_24844D000, v5, v6, "%@Continuing connection", &v15, 0xCu);
+    v14 = 138412290;
+    v15 = v7;
+    _os_log_impl(&dword_24844D000, v5, v6, "%@Continuing connection", &v14, 0xCu);
   }
 
   dispatch_semaphore_signal(handleTrustChallenge_forAccount_completionHandler__outstandingTrustChallengeLock);
@@ -589,23 +585,20 @@ void __68__DATrustHandler_handleTrustChallenge_forAccount_completionHandler___bl
       v13 = [*(a1 + 40) sender];
       [v13 useCredential:v10 forAuthenticationChallenge:*(a1 + 40)];
     }
-
-    goto LABEL_12;
   }
 
-  v12 = *(a1 + 48);
-  if (!v12)
+  else
   {
+    v12 = *(a1 + 48);
+    if (v12)
+    {
+      (*(v12 + 16))(v12, 1, 0);
+      return;
+    }
+
     v10 = [*(a1 + 40) sender];
     [v10 continueWithoutCredentialForAuthenticationChallenge:*(a1 + 40)];
-LABEL_12:
-
-    goto LABEL_13;
   }
-
-  (*(v12 + 16))(v12, 1, 0);
-LABEL_13:
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (DATrustHandlerDelegate)delegate

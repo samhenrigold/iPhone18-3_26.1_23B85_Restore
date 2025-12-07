@@ -45,13 +45,13 @@ void __34__DRSSystemProfile_sharedInstance__block_invoke()
   v1 = sharedInstance_sharedProfile;
   sharedInstance_sharedProfile = v0;
 
-  v2 = DPLogHandle_SystemProfile();
-  if (os_signpost_enabled(v2))
+  v3 = DPLogHandle_SystemProfile(v2);
+  if (os_signpost_enabled(v3))
   {
-    v3 = [sharedInstance_sharedProfile build];
-    v4 = [sharedInstance_sharedProfile buildVariant];
-    v5 = [sharedInstance_sharedProfile deviceCategory];
-    v6 = [sharedInstance_sharedProfile deviceModel];
+    v4 = [sharedInstance_sharedProfile build];
+    v5 = [sharedInstance_sharedProfile buildVariant];
+    v6 = [sharedInstance_sharedProfile deviceCategory];
+    v7 = [sharedInstance_sharedProfile deviceModel];
     v22 = [sharedInstance_sharedProfile platformString];
     v21 = [sharedInstance_sharedProfile deviceHash];
     v20 = [sharedInstance_sharedProfile isInternal];
@@ -60,39 +60,39 @@ void __34__DRSSystemProfile_sharedInstance__block_invoke()
     v17 = [sharedInstance_sharedProfile customerApprovesAnalytics];
     v16 = [sharedInstance_sharedProfile isLogUploadEnabled];
     v15 = [sharedInstance_sharedProfile isTaskingEnabled];
-    v7 = [sharedInstance_sharedProfile uploadSessionUploadCapBytes];
-    v8 = [sharedInstance_sharedProfile hwModel];
-    v9 = v8;
-    if (v8)
+    v8 = [sharedInstance_sharedProfile uploadSessionUploadCapBytes];
+    v9 = [sharedInstance_sharedProfile hwModel];
+    v10 = v9;
+    if (v9)
     {
-      v10 = v8;
+      v11 = v9;
     }
 
     else
     {
-      v10 = @"-";
+      v11 = @"-";
     }
 
-    v11 = [sharedInstance_sharedProfile isLikelyCarryGroupNum];
-    v12 = v11;
+    v12 = [sharedInstance_sharedProfile isLikelyCarryGroupNum];
+    v13 = v12;
     *buf = 138546946;
-    if (v11)
+    if (v12)
     {
-      v13 = v11;
+      v14 = v12;
     }
 
     else
     {
-      v13 = @"-";
+      v14 = @"-";
     }
 
-    v24 = v3;
+    v24 = v4;
     v25 = 2114;
-    v26 = v4;
+    v26 = v5;
     v27 = 2114;
-    v28 = v5;
+    v28 = v6;
     v29 = 2114;
-    v30 = v6;
+    v30 = v7;
     v31 = 2114;
     v32 = v22;
     v33 = 2050;
@@ -110,15 +110,13 @@ void __34__DRSSystemProfile_sharedInstance__block_invoke()
     v45 = 1026;
     v46 = v15;
     v47 = 2050;
-    v48 = v7;
+    v48 = v8;
     v49 = 2114;
-    v50 = v10;
+    v50 = v11;
     v51 = 2114;
-    v52 = v13;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v2, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SystemProfileSingleton", "build                       = %{public}@\nbuildVariant                = %{public}@\ndeviceCategory              = %{public}@\ndeviceModel                 = %{public}@\nplatformString              = %{public}@\ndeviceHash                  = %{public}#llx\nisInternal                  = %{public}u\nisSeed                      = %{public}u\nisCarrier                   = %{public}u\ncustomerApprovesAnalytics   = %{public}u\nisLogUploadEnabled          = %{public}u\nisTaskingEnabled            = %{public}u\nuploadSessionUploadCapBytes = %{public}llu\nhwModel                     = %{public}@n\nisLikelyCarry               = %{public}@n\n", buf, 0x80u);
+    v52 = v14;
+    _os_signpost_emit_with_name_impl(&dword_232906000, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "SystemProfileSingleton", "build                       = %{public}@\nbuildVariant                = %{public}@\ndeviceCategory              = %{public}@\ndeviceModel                 = %{public}@\nplatformString              = %{public}@\ndeviceHash                  = %{public}#llx\nisInternal                  = %{public}u\nisSeed                      = %{public}u\nisCarrier                   = %{public}u\ncustomerApprovesAnalytics   = %{public}u\nisLogUploadEnabled          = %{public}u\nisTaskingEnabled            = %{public}u\nuploadSessionUploadCapBytes = %{public}llu\nhwModel                     = %{public}@n\nisLikelyCarry               = %{public}@n\n", buf, 0x80u);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_populateDeviceCategory
@@ -141,20 +139,20 @@ void __34__DRSSystemProfile_sharedInstance__block_invoke()
     goto LABEL_6;
   }
 
-  v5 = DPLogHandle_SystemProfile();
-  if (os_signpost_enabled(v5))
+  v6 = DPLogHandle_SystemProfile(v5);
+  if (os_signpost_enabled(v6))
   {
-    *v9 = 0;
+    *v10 = 0;
   }
 
-  v6 = MGGetStringAnswer();
-  if (v6)
+  v7 = MGGetStringAnswer();
+  if (v7)
   {
-    v4 = v6;
+    v4 = v7;
 LABEL_6:
     deviceModel = self->_deviceModel;
     self->_deviceModel = v4;
-    v8 = v4;
+    v9 = v4;
   }
 }
 
@@ -191,7 +189,7 @@ LABEL_6:
 
   else
   {
-    v5 = DPLogHandle_SystemProfileError();
+    v5 = DPLogHandle_SystemProfileError(0);
     if (os_signpost_enabled(v5))
     {
       *buf = 0;
@@ -212,39 +210,40 @@ LABEL_6:
 + (unint64_t)hashForSHA256Digest:(id)digest
 {
   digestCopy = digest;
-  if ([digestCopy length] != 32)
+  v4 = [digestCopy length];
+  if (v4 != 32)
   {
-    v9 = DPLogHandle_SystemProfileError();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v10 = DPLogHandle_SystemProfileError(v4);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      [(DRSSystemProfile *)digestCopy hashForSHA256Digest:v9];
+      [(DRSSystemProfile *)digestCopy hashForSHA256Digest:v10];
     }
 
     goto LABEL_9;
   }
 
   bytes = [digestCopy bytes];
-  v5 = [digestCopy length];
-  v6 = (v5 >> 3);
-  if (!(v5 >> 3))
+  v6 = [digestCopy length];
+  v7 = (v6 >> 3);
+  if (!(v6 >> 3))
   {
 LABEL_9:
-    v7 = 0;
+    v8 = 0;
     goto LABEL_10;
   }
 
-  v7 = 0;
+  v8 = 0;
   do
   {
-    v8 = *bytes++;
-    v7 ^= v8;
-    --v6;
+    v9 = *bytes++;
+    v8 ^= v9;
+    --v7;
   }
 
-  while (v6);
+  while (v7);
 LABEL_10:
 
-  return v7;
+  return v8;
 }
 
 - (void)_populateDeviceHash
@@ -252,17 +251,17 @@ LABEL_10:
   v19 = *MEMORY[0x277D85DE8];
   v3 = MGCopyAnswer();
   v4 = v3;
-  if (v3 && [v3 length] && !objc_msgSend(v4, "isEqualToString:", @"ffffffffffffffffffffffffffffffffffffffff"))
+  if (v3 && (v3 = [v3 length]) != 0 && (v3 = objc_msgSend(v4, "isEqualToString:", @"ffffffffffffffffffffffffffffffffffffffff"), !v3))
   {
-    v7 = [objc_opt_class() SHA256DigestForString:v4];
+    v6 = [objc_opt_class() SHA256DigestForString:v4];
     deviceSHA256Digest = self->_deviceSHA256Digest;
-    self->_deviceSHA256Digest = v7;
+    self->_deviceSHA256Digest = v6;
 
-    v9 = objc_opt_class();
+    v8 = objc_opt_class();
     deviceSHA256Digest = [(DRSSystemProfile *)self deviceSHA256Digest];
-    self->_deviceHash = [v9 hashForSHA256Digest:deviceSHA256Digest];
+    self->_deviceHash = [v8 hashForSHA256Digest:deviceSHA256Digest];
 
-    v5 = DPLogHandle_SystemProfile();
+    v5 = DPLogHandle_SystemProfile(v10);
     if (os_signpost_enabled(v5))
     {
       deviceHash = [(DRSSystemProfile *)self deviceHash];
@@ -279,14 +278,12 @@ LABEL_10:
 
   else
   {
-    v5 = DPLogHandle_SystemProfileError();
+    v5 = DPLogHandle_SystemProfileError(v3);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
     {
       [(DRSSystemProfile *)v5 _populateDeviceHash];
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (NSString)platformString
@@ -319,19 +316,20 @@ LABEL_10:
   if ([(DRSSystemProfile *)self isInternal])
   {
     v14 = 32;
-    if (sysctlbyname("hw.model", v17, &v14, 0, 0))
+    v3 = sysctlbyname("hw.model", v17, &v14, 0, 0);
+    if (v3)
     {
-      v3 = DPLogHandle_SystemProfile();
-      if (os_signpost_enabled(v3))
+      v4 = DPLogHandle_SystemProfile(v3);
+      if (os_signpost_enabled(v4))
       {
-        v4 = *__error();
-        v5 = __error();
-        v6 = strerror(*v5);
+        v5 = *__error();
+        v6 = __error();
+        v7 = strerror(*v6);
         *buf = 67109378;
-        LODWORD(v16[0]) = v4;
+        LODWORD(v16[0]) = v5;
         WORD2(v16[0]) = 2082;
-        *(v16 + 6) = v6;
-        _os_signpost_emit_with_name_impl(&dword_232906000, v3, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HWModelLookupFailure", "Failed to lookup hw.model: %d %{public}s", buf, 0x12u);
+        *(v16 + 6) = v7;
+        _os_signpost_emit_with_name_impl(&dword_232906000, v4, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HWModelLookupFailure", "Failed to lookup hw.model: %d %{public}s", buf, 0x12u);
       }
 
       hwModel = self->_hwModel;
@@ -344,7 +342,7 @@ LABEL_10:
       v11 = self->_hwModel;
       self->_hwModel = v10;
 
-      hwModel = DPLogHandle_SystemProfile();
+      hwModel = DPLogHandle_SystemProfile(v12);
       if (os_signpost_enabled(hwModel))
       {
         hwModel = [(DRSSystemProfile *)self hwModel];
@@ -353,77 +351,73 @@ LABEL_10:
         _os_signpost_emit_with_name_impl(&dword_232906000, hwModel, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "HWModelLookupSuccess", "hw.model: '%{public}@'", buf, 0xCu);
       }
     }
-
-    v13 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v8 = self->_hwModel;
+    v9 = self->_hwModel;
     self->_hwModel = 0;
-    v9 = *MEMORY[0x277D85DE8];
   }
 }
 
 - (void)_populateIsCarry
 {
-  v19 = *MEMORY[0x277D85DE8];
-  if ([(DRSSystemProfile *)self isInternal])
+  v20 = *MEMORY[0x277D85DE8];
+  isInternal = [(DRSSystemProfile *)self isInternal];
+  if (isInternal)
   {
-    v3 = CFPreferencesCopyValue(@"ExperimentGroup", @"com.apple.da", @"mobile", *MEMORY[0x277CBF010]);
-    lowercaseString = [v3 lowercaseString];
+    v4 = CFPreferencesCopyValue(@"ExperimentGroup", @"com.apple.da", @"mobile", *MEMORY[0x277CBF010]);
+    lowercaseString = [v4 lowercaseString];
 
-    v5 = MEMORY[0x277CCABB0];
+    v6 = MEMORY[0x277CCABB0];
     if (([lowercaseString containsString:@"carry"]& 1) != 0)
     {
-      v6 = 1;
+      v7 = 1;
     }
 
     else
     {
-      v6 = [lowercaseString containsString:@"walkabout"];
+      v7 = [lowercaseString containsString:@"walkabout"];
     }
 
-    v7 = [v5 numberWithInt:v6];
+    v8 = [v6 numberWithInt:v7];
     isLikelyCarryGroupNum = self->_isLikelyCarryGroupNum;
-    self->_isLikelyCarryGroupNum = v7;
+    self->_isLikelyCarryGroupNum = v8;
 
-    v9 = DPLogHandle_SystemProfile();
-    if (os_signpost_enabled(v9))
+    v11 = DPLogHandle_SystemProfile(v10);
+    if (os_signpost_enabled(v11))
     {
       isLikelyCarryGroupNum = [(DRSSystemProfile *)self isLikelyCarryGroupNum];
       bOOLValue = [isLikelyCarryGroupNum BOOLValue];
-      v12 = @"Not likely carry";
+      v14 = @"Not likely carry";
       if (bOOLValue)
       {
-        v12 = @"Likely carry";
+        v14 = @"Likely carry";
       }
 
-      v13 = @"<no string>";
+      v15 = @"<no string>";
       if (lowercaseString)
       {
-        v13 = lowercaseString;
+        v15 = lowercaseString;
       }
 
-      v15 = 138543618;
-      v16 = v12;
-      v17 = 2114;
-      v18 = v13;
-      _os_signpost_emit_with_name_impl(&dword_232906000, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "IsLikelyCarryLookup", "Decided that the device is: '%{public}@' based on experimental group string: '%{public}@'", &v15, 0x16u);
+      v16 = 138543618;
+      v17 = v14;
+      v18 = 2114;
+      v19 = v15;
+      _os_signpost_emit_with_name_impl(&dword_232906000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "IsLikelyCarryLookup", "Decided that the device is: '%{public}@' based on experimental group string: '%{public}@'", &v16, 0x16u);
     }
   }
 
   else
   {
-    lowercaseString = DPLogHandle_SystemProfile();
+    lowercaseString = DPLogHandle_SystemProfile(isInternal);
     if (os_signpost_enabled(lowercaseString))
     {
-      LOWORD(v15) = 0;
-      _os_signpost_emit_with_name_impl(&dword_232906000, lowercaseString, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "IsLikelyCarryLookupSkipped", "We dont reason about carry for non-Internal devices", &v15, 2u);
+      LOWORD(v16) = 0;
+      _os_signpost_emit_with_name_impl(&dword_232906000, lowercaseString, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "IsLikelyCarryLookupSkipped", "We dont reason about carry for non-Internal devices", &v16, 2u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isSeed
@@ -531,30 +525,31 @@ LABEL_10:
 {
   v13 = *MEMORY[0x277D85DE8];
   customerApprovesAnalytics = [(DRSSystemProfile *)self customerApprovesAnalytics];
+  v4 = customerApprovesAnalytics;
   if (customerApprovesAnalytics)
   {
-    v4 = ![(DRSSystemProfile *)self isCarrier];
+    customerApprovesAnalytics = [(DRSSystemProfile *)self isCarrier];
+    v5 = customerApprovesAnalytics ^ 1;
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  v5 = DPLogHandle_SystemProfile();
-  if (os_signpost_enabled(v5))
+  v6 = DPLogHandle_SystemProfile(customerApprovesAnalytics);
+  if (os_signpost_enabled(v6))
   {
     v8[0] = 67240704;
-    v8[1] = customerApprovesAnalytics;
+    v8[1] = v4;
     v9 = 1026;
     isCarrier = [(DRSSystemProfile *)self isCarrier];
     v11 = 1026;
-    v12 = v4;
-    _os_signpost_emit_with_name_impl(&dword_232906000, v5, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "IsTaskingEnabledDetails", "customerApprovesAnalytics = %{public}u isCarrier = %{public}u isTaskingEnabled = %{public}u", v8, 0x14u);
+    v12 = v5;
+    _os_signpost_emit_with_name_impl(&dword_232906000, v6, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, "IsTaskingEnabledDetails", "customerApprovesAnalytics = %{public}u isCarrier = %{public}u isTaskingEnabled = %{public}u", v8, 0x14u);
   }
 
-  v6 = *MEMORY[0x277D85DE8];
-  return v4;
+  return v5;
 }
 
 + (unint64_t)uploadSessionUploadCapBytesWithIsInternal:(BOOL)internal isSeed:(BOOL)seed deviceModelHash:(unint64_t)hash
@@ -596,9 +591,8 @@ LABEL_10:
   return uploadSessionUploadCapBytes_cap_0;
 }
 
-void __47__DRSSystemProfile_uploadSessionUploadCapBytes__block_invoke(uint64_t a1)
+void __47__DRSSystemProfile_uploadSessionUploadCapBytes__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
   v3 = objc_opt_class();
   v4 = [*(a1 + 32) isInternal];
   v5 = [*(a1 + 32) isSeed];
@@ -641,7 +635,7 @@ void __40__DRSSystemProfile_automatedDeviceGroup__block_invoke()
 
 void __40__DRSSystemProfile_automatedDeviceGroup__block_invoke_120(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) allowsAutomatedDeviceGroupOverride];
   v3 = *(a1 + 32);
   if (v2)
@@ -651,91 +645,89 @@ void __40__DRSSystemProfile_automatedDeviceGroup__block_invoke_120(uint64_t a1)
     v6 = *(v5 + 40);
     *(v5 + 40) = v4;
 
-    v7 = DPLogHandle_SystemProfile();
-    if (os_signpost_enabled(v7))
+    v8 = DPLogHandle_SystemProfile(v7);
+    if (os_signpost_enabled(v8))
     {
-      v8 = *(*(*(a1 + 40) + 8) + 40);
-      v22 = 138543362;
-      v23 = v8;
-      v9 = "AutomatedDeviceGroupOverridden";
-      v10 = "Got an overridden value: '%{public}@'";
-      v11 = v7;
-      v12 = 12;
+      v9 = *(*(*(a1 + 40) + 8) + 40);
+      v25 = 138543362;
+      v26 = v9;
+      v10 = "AutomatedDeviceGroupOverridden";
+      v11 = "Got an overridden value: '%{public}@'";
+      v12 = v8;
+      v13 = 12;
 LABEL_10:
-      _os_signpost_emit_with_name_impl(&dword_232906000, v11, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v9, v10, &v22, v12);
+      _os_signpost_emit_with_name_impl(&dword_232906000, v12, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v10, v11, &v25, v13);
       goto LABEL_15;
     }
 
     goto LABEL_15;
   }
 
-  if ([v3 isInternal])
+  v14 = [v3 isInternal];
+  if (v14)
   {
-    [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
-    if (v13 - *&automatedDeviceGroup_lastQueryTimestamp >= 60.0)
+    v15 = [MEMORY[0x277CBEAA8] timeIntervalSinceReferenceDate];
+    if (v16 - *&automatedDeviceGroup_lastQueryTimestamp >= 60.0)
     {
-      automatedDeviceGroup_lastQueryTimestamp = *&v13;
-      v17 = [MEMORY[0x277D36B80] automatedDeviceGroup];
-      v18 = automatedDeviceGroup_automatedDeviceGroup;
-      automatedDeviceGroup_automatedDeviceGroup = v17;
+      automatedDeviceGroup_lastQueryTimestamp = *&v16;
+      v20 = [MEMORY[0x277D36B80] automatedDeviceGroup];
+      v21 = automatedDeviceGroup_automatedDeviceGroup;
+      automatedDeviceGroup_automatedDeviceGroup = v20;
 
-      v14 = DPLogHandle_SystemProfile();
-      if (os_signpost_enabled(v14))
+      v17 = DPLogHandle_SystemProfile(v22);
+      if (os_signpost_enabled(v17))
       {
-        v22 = 138543362;
-        v23 = automatedDeviceGroup_automatedDeviceGroup;
-        v15 = "AutomatedDeviceGroupLookup";
-        v16 = "Got a new automated device group: '%{public}@'";
+        v25 = 138543362;
+        v26 = automatedDeviceGroup_automatedDeviceGroup;
+        v18 = "AutomatedDeviceGroupLookup";
+        v19 = "Got a new automated device group: '%{public}@'";
         goto LABEL_13;
       }
     }
 
     else
     {
-      v14 = DPLogHandle_SystemProfile();
-      if (os_signpost_enabled(v14))
+      v17 = DPLogHandle_SystemProfile(v15);
+      if (os_signpost_enabled(v17))
       {
-        v22 = 134217984;
-        v23 = 0x404E000000000000;
-        v15 = "AutomatedDeviceGroupLookupHysteresis";
-        v16 = "Skipping fresh lookup due to hysteresis of %.2fsec";
+        v25 = 134217984;
+        v26 = 0x404E000000000000;
+        v18 = "AutomatedDeviceGroupLookupHysteresis";
+        v19 = "Skipping fresh lookup due to hysteresis of %.2fsec";
 LABEL_13:
-        _os_signpost_emit_with_name_impl(&dword_232906000, v14, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v15, v16, &v22, 0xCu);
+        _os_signpost_emit_with_name_impl(&dword_232906000, v17, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v18, v19, &v25, 0xCu);
       }
     }
 
-    v19 = *(*(a1 + 40) + 8);
-    v20 = automatedDeviceGroup_automatedDeviceGroup;
-    v7 = *(v19 + 40);
-    *(v19 + 40) = v20;
+    v23 = *(*(a1 + 40) + 8);
+    v24 = automatedDeviceGroup_automatedDeviceGroup;
+    v8 = *(v23 + 40);
+    *(v23 + 40) = v24;
     goto LABEL_15;
   }
 
-  v7 = DPLogHandle_SystemProfile();
-  if (os_signpost_enabled(v7))
+  v8 = DPLogHandle_SystemProfile(v14);
+  if (os_signpost_enabled(v8))
   {
-    LOWORD(v22) = 0;
-    v9 = "AutomatedDeviceGroupSkipped";
-    v10 = "Skipping automated device group lookup since we are not 'Internal'";
-    v11 = v7;
-    v12 = 2;
+    LOWORD(v25) = 0;
+    v10 = "AutomatedDeviceGroupSkipped";
+    v11 = "Skipping automated device group lookup since we are not 'Internal'";
+    v12 = v8;
+    v13 = 2;
     goto LABEL_10;
   }
 
 LABEL_15:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (void)hashForSHA256Digest:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218240;
-  v5 = [a1 length];
-  v6 = 1024;
-  v7 = 32;
-  _os_log_fault_impl(&dword_232906000, a2, OS_LOG_TYPE_FAULT, "Attempted to generate a hash from a digest of unexpected length %lu (expected %d)", &v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218240;
+  v4 = [a1 length];
+  v5 = 1024;
+  v6 = 32;
+  _os_log_fault_impl(&dword_232906000, a2, OS_LOG_TYPE_FAULT, "Attempted to generate a hash from a digest of unexpected length %lu (expected %d)", &v3, 0x12u);
 }
 
 @end

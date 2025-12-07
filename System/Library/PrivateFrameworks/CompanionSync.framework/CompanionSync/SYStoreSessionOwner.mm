@@ -69,7 +69,6 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  v10 = WeakRetained[8];
   if (!isResetSync)
   {
     if ((WeakRetained[8] & 0x400) == 0)

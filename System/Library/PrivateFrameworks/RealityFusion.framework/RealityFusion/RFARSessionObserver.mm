@@ -44,23 +44,25 @@
 void __43__RFARSessionObserver_processAddedAnchors___block_invoke()
 {
   v0 = MEMORY[0x28223BE20]();
-  v100 = *MEMORY[0x277D85DE8];
-  v41 = 0;
-  v42 = 0;
+  v98 = *MEMORY[0x277D85DE8];
+  v39 = 0;
+  v40 = 0;
+  v33 = 0u;
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  memset(v39, 0, sizeof(v39));
-  v40 = 0;
+  memset(v37, 0, sizeof(v37));
+  v38 = 0;
+  v41 = 0u;
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
   v45 = 0u;
-  v46 = 0u;
-  v47 = 0u;
-  v48 = 1065353216;
-  v49 = 0;
-  v69 = 0;
+  v46 = 1065353216;
+  v47 = 0;
+  v67 = 0;
+  v78 = 0;
+  v79 = 0;
   v80 = 0;
   v81 = 0;
   v82 = 0;
@@ -78,11 +80,7 @@ void __43__RFARSessionObserver_processAddedAnchors___block_invoke()
   v94 = 0;
   v95 = 0;
   v96 = 0;
-  v97 = 0;
-  v98 = 0;
-  v68 = 0;
-  v67 = 0u;
-  v66 = 0u;
+  v66 = 0;
   v65 = 0u;
   v64 = 0u;
   v63 = 0u;
@@ -99,80 +97,82 @@ void __43__RFARSessionObserver_processAddedAnchors___block_invoke()
   v52 = 0u;
   v51 = 0u;
   v50 = 0u;
-  v74 = 0;
-  v73 = 0u;
-  v72 = 0u;
+  v49 = 0u;
+  v48 = 0u;
+  v72 = 0;
   v71 = 0u;
   v70 = 0u;
+  v69 = 0u;
+  v68 = 0u;
+  v73 = 0u;
+  v74 = 0u;
   v75 = 0u;
   v76 = 0u;
-  v77 = 0u;
-  v78 = 0u;
-  v79 = 0;
-  memset(v27, 0, 24);
+  v77 = 0;
+  memset(v25, 0, 24);
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v16 = v0;
+  v14 = v0;
   v1 = *(v0 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v23 objects:v34 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v21 objects:v32 count:16];
   if (v2)
   {
-    v3 = *v24;
+    v3 = *v22;
     do
     {
       v4 = 0;
       do
       {
-        if (*v24 != v3)
+        if (*v22 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        *&v29 = *(*(&v23 + 1) + 8 * v4);
-        std::vector<ARAnchor * {__strong}>::emplace_back<ARAnchor * {__strong}&>(v27, &v29);
+        *&v27 = *(*(&v21 + 1) + 8 * v4);
+        std::vector<ARAnchor * {__strong}>::emplace_back<ARAnchor * {__strong}&>(v25, &v27);
 
         ++v4;
       }
 
       while (v2 != v4);
-      v2 = [v1 countByEnumeratingWithState:&v23 objects:v34 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v21 objects:v32 count:16];
     }
 
     while (v2);
   }
 
-  v33[0] = &unk_287408190;
-  v33[3] = v33;
-  std::function<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::operator()(&v29, v33, *(v16 + 32));
-  std::vector<rf::data_flow::provider::InputMesh>::__vdeallocate(&v35);
-  v35 = v29;
-  *&v36 = v30;
+  v31[0] = &unk_287408190;
+  v31[3] = v31;
+  std::function<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::operator()(&v27, v31, *(v14 + 32));
+  std::vector<rf::data_flow::provider::InputMesh>::__vdeallocate(&v33);
+  v33 = v27;
+  *&v34 = v28;
+  v28 = 0;
+  v27 = 0uLL;
+  rf::data_flow::provider::InputData::~InputData(&v27);
+  *(&v27 + 1) = v25;
+  v29 = 0;
   v30 = 0;
-  v29 = 0uLL;
-  rf::data_flow::provider::InputData::~InputData(&v29);
-  *(&v29 + 1) = v27;
-  v31 = 0;
-  v32 = 0;
-  std::vector<rf::data_flow::EnvironmentProbe>::vector[abi:ne200100]<std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>,rf::data_flow::EnvironmentProbe (*)(ARAnchor *)>>(&v17, &v29);
-  std::vector<rf::data_flow::EnvironmentProbe>::__vdeallocate(&v50);
-  v50 = v17;
-  *&v51 = v18;
+  std::vector<rf::data_flow::EnvironmentProbe>::vector[abi:ne200100]<std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>,rf::data_flow::EnvironmentProbe (*)(ARAnchor *)>>(&v15, &v27);
+  std::vector<rf::data_flow::EnvironmentProbe>::__vdeallocate(&v48);
+  v48 = v15;
+  *&v49 = v16;
+  v16 = 0;
+  v15 = 0uLL;
+  v97 = &v15;
+  std::vector<rf::data_flow::EnvironmentProbe>::__destroy_vector::operator()[abi:ne200100](&v97);
+  v5 = *(v14 + 40);
+  *(&v15 + 1) = v25;
+  v13 = v5;
+  *&v15 = v13;
+  v17 = 0;
   v18 = 0;
-  v17 = 0uLL;
-  v99 = &v17;
-  std::vector<rf::data_flow::EnvironmentProbe>::__destroy_vector::operator()[abi:ne200100](&v99);
-  v5 = *(v16 + 40);
-  *(&v17 + 1) = v27;
-  v15 = v5;
-  *&v17 = v15;
-  v19 = 0;
   v20 = 0;
-  v22 = 0;
-  v21 = 0uLL;
-  v7 = std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](&v17 + 8);
-  v8 = *(*(&v17 + 1) + 8);
+  v19 = 0uLL;
+  v7 = std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](&v15 + 8);
+  v8 = *(*(&v15 + 1) + 8);
   if (v8 == v7)
   {
     v10 = 0;
@@ -203,35 +203,33 @@ void __43__RFARSessionObserver_processAddedAnchors___block_invoke()
     while (v7 != v8);
   }
 
-  std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](&v17 + 8);
-  v12 = *(*(&v17 + 1) + 8);
-  v27[3] = &v21;
-  v28 = 0;
+  std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](&v15 + 8);
+  v25[3] = &v19;
+  v26 = 0;
   if (v10)
   {
-    std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__vallocate[abi:ne200100](&v21, v10);
+    std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__vallocate[abi:ne200100](&v19, v10);
   }
 
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__vdeallocate(v39 + 1);
-  *(v39 + 8) = v21;
-  *(&v39[1] + 1) = v22;
-  v22 = 0;
-  v21 = 0uLL;
-  *&v29 = &v21;
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__destroy_vector::operator()[abi:ne200100](&v29);
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__vdeallocate(v37 + 1);
+  *(v37 + 8) = v19;
+  *(&v37[1] + 1) = v20;
+  v20 = 0;
+  v19 = 0uLL;
+  *&v27 = &v19;
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__destroy_vector::operator()[abi:ne200100](&v27);
 
-  v13 = *(*(v16 + 40) + 32);
-  if (!v13)
+  v12 = *(*(v14 + 40) + 32);
+  if (!v12)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  (*(*v13 + 48))(v13, &v35);
-  std::__function::__value_func<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::~__value_func[abi:ne200100](v33);
-  *&v29 = v27;
-  std::vector<ARAnchor * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v29);
-  rf::data_flow::provider::InputData::~InputData(&v35);
-  v14 = *MEMORY[0x277D85DE8];
+  (*(*v12 + 48))(v12, &v33);
+  std::__function::__value_func<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::~__value_func[abi:ne200100](v31);
+  *&v27 = v25;
+  std::vector<ARAnchor * {__strong}>::__destroy_vector::operator()[abi:ne200100](&v27);
+  rf::data_flow::provider::InputData::~InputData(&v33);
 }
 
 - (void)processUpdatedAnchors:(id)anchors
@@ -252,23 +250,26 @@ void __43__RFARSessionObserver_processAddedAnchors___block_invoke()
 void __45__RFARSessionObserver_processUpdatedAnchors___block_invoke()
 {
   v0 = MEMORY[0x28223BE20]();
-  v82 = *MEMORY[0x277D85DE8];
-  v40 = 0;
-  v41 = 0;
-  memset(v34, 0, sizeof(v34));
+  v79 = *MEMORY[0x277D85DE8];
+  v37 = 0;
+  v38 = 0;
+  memset(v31, 0, sizeof(v31));
+  v32 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 0;
+  v36 = 0;
+  v39 = 0u;
+  v40 = 0u;
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
-  v47 = 1065353216;
-  v48 = 0;
-  v52 = 0;
+  v44 = 1065353216;
+  v45 = 0;
+  v49 = 0;
+  v60 = 0;
+  v61 = 0;
+  v62 = 0;
   v63 = 0;
   v64 = 0;
   v65 = 0;
@@ -285,85 +286,78 @@ void __45__RFARSessionObserver_processUpdatedAnchors___block_invoke()
   v76 = 0;
   v77 = 0;
   v78 = 0;
-  v79 = 0;
-  v80 = 0;
-  v81 = 0;
-  v51 = 0;
-  memset(v50, 0, sizeof(v50));
-  v49 = 0u;
-  v57 = 0;
-  v56 = 0u;
-  v55 = 0u;
-  v54 = 0u;
+  v48 = 0;
+  memset(v47, 0, sizeof(v47));
+  v46 = 0u;
+  v54 = 0;
   v53 = 0u;
+  v52 = 0u;
+  v51 = 0u;
+  v50 = 0u;
+  v55 = 0u;
+  v56 = 0u;
+  v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
-  v60 = 0u;
-  v61 = 0u;
-  v62 = 0;
-  memset(v27, 0, 24);
+  v59 = 0;
+  memset(v24, 0, 24);
+  v20 = 0u;
+  v21 = 0u;
+  v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
   v1 = *(v0 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v23 objects:v33 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v20 objects:v30 count:16];
   if (v2)
   {
-    v3 = *v24;
+    v3 = *v21;
     do
     {
-      v4 = 0;
-      do
+      for (i = 0; i != v2; ++i)
       {
-        if (*v24 != v3)
+        if (*v21 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        v29[0] = *(*(&v23 + 1) + 8 * v4);
-        std::vector<ARAnchor * {__strong}>::emplace_back<ARAnchor * {__strong}&>(v27, v29);
-
-        ++v4;
+        v26[0] = *(*(&v20 + 1) + 8 * i);
+        std::vector<ARAnchor * {__strong}>::emplace_back<ARAnchor * {__strong}&>(v24, v26);
       }
 
-      while (v2 != v4);
-      v2 = [v1 countByEnumeratingWithState:&v23 objects:v33 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v20 objects:v30 count:16];
     }
 
     while (v2);
   }
 
-  v32[0] = &unk_287408220;
-  v32[3] = v32;
-  std::function<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::operator()(v29, v32, *(v0 + 32));
-  std::vector<rf::data_flow::provider::InputMesh>::__vdeallocate(&v34[1] + 1);
-  *(&v34[1] + 8) = v30;
-  *(&v34[2] + 1) = v31;
-  v31 = 0;
-  v30 = 0uLL;
-  rf::data_flow::provider::InputData::~InputData(v29);
-  v29[1] = v27;
-  LOBYTE(v30) = 0;
-  BYTE8(v30) = 0;
-  std::vector<rf::data_flow::EnvironmentProbe>::vector[abi:ne200100]<std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>,rf::data_flow::EnvironmentProbe (*)(ARAnchor *)>>(&v17, v29);
-  std::vector<rf::data_flow::EnvironmentProbe>::__vdeallocate(v50 + 1);
-  *(v50 + 8) = v17;
-  *(&v50[1] + 1) = v18;
-  v18 = 0;
-  v17 = 0uLL;
-  *&v21 = &v17;
-  std::vector<rf::data_flow::EnvironmentProbe>::__destroy_vector::operator()[abi:ne200100](&v21);
+  v29[0] = &unk_287408220;
+  v29[3] = v29;
+  std::function<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::operator()(v26, v29, *(v0 + 32));
+  std::vector<rf::data_flow::provider::InputMesh>::__vdeallocate(&v31[1] + 1);
+  *(&v31[1] + 8) = v27;
+  *(&v31[2] + 1) = v28;
+  v28 = 0;
+  v27 = 0uLL;
+  rf::data_flow::provider::InputData::~InputData(v26);
+  v26[1] = v24;
+  LOBYTE(v27) = 0;
+  BYTE8(v27) = 0;
+  std::vector<rf::data_flow::EnvironmentProbe>::vector[abi:ne200100]<std::ranges::transform_view[abi:llvm18_nua]<std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>,rf::data_flow::EnvironmentProbe (*)(ARAnchor *)>>(&v14, v26);
+  std::vector<rf::data_flow::EnvironmentProbe>::__vdeallocate(v47 + 1);
+  *(v47 + 8) = v14;
+  *(&v47[1] + 1) = v15;
+  v15 = 0;
+  v14 = 0uLL;
+  *&v18 = &v14;
+  std::vector<rf::data_flow::EnvironmentProbe>::__destroy_vector::operator()[abi:ne200100](&v18);
   v5 = *(v0 + 40);
-  *(&v17 + 1) = v27;
+  *(&v14 + 1) = v24;
   v6 = v5;
-  *&v17 = v6;
+  *&v14 = v6;
+  v16 = 0;
+  v17 = 0;
   v19 = 0;
-  v20 = 0;
-  v22 = 0;
-  v21 = 0uLL;
-  v8 = std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](&v17 + 8);
-  v9 = *(*(&v17 + 1) + 8);
+  v18 = 0uLL;
+  v8 = std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](&v14 + 8);
+  v9 = *(*(&v14 + 1) + 8);
   if (v9 == v8)
   {
     v11 = 0;
@@ -394,36 +388,33 @@ void __45__RFARSessionObserver_processUpdatedAnchors___block_invoke()
     while (v8 != v9);
   }
 
-  std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](&v17 + 8);
-  v13 = v0;
-  v14 = *(*(&v17 + 1) + 8);
-  v27[3] = &v21;
-  v28 = 0;
+  std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](&v14 + 8);
+  v24[3] = &v18;
+  v25 = 0;
   if (v11)
   {
-    std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__vallocate[abi:ne200100](&v21, v11);
+    std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__vallocate[abi:ne200100](&v18, v11);
   }
 
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__vdeallocate(&v35);
-  v35 = v21;
-  *&v36 = v22;
-  v22 = 0;
-  v21 = 0uLL;
-  v29[0] = &v21;
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__destroy_vector::operator()[abi:ne200100](v29);
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__vdeallocate(&v32);
+  v32 = v18;
+  *&v33 = v19;
+  v19 = 0;
+  v18 = 0uLL;
+  v26[0] = &v18;
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__destroy_vector::operator()[abi:ne200100](v26);
 
-  v15 = *(*(v13 + 40) + 32);
-  if (!v15)
+  v13 = *(*(v0 + 40) + 32);
+  if (!v13)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  (*(*v15 + 48))(v15, v34);
-  std::__function::__value_func<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::~__value_func[abi:ne200100](v32);
-  v29[0] = v27;
-  std::vector<ARAnchor * {__strong}>::__destroy_vector::operator()[abi:ne200100](v29);
-  rf::data_flow::provider::InputData::~InputData(v34);
-  v16 = *MEMORY[0x277D85DE8];
+  (*(*v13 + 48))(v13, v31);
+  std::__function::__value_func<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::~__value_func[abi:ne200100](v29);
+  v26[0] = v24;
+  std::vector<ARAnchor * {__strong}>::__destroy_vector::operator()[abi:ne200100](v26);
+  rf::data_flow::provider::InputData::~InputData(v31);
 }
 
 - (void)processRemovedAnchors:(id)anchors
@@ -444,25 +435,28 @@ void __45__RFARSessionObserver_processUpdatedAnchors___block_invoke()
 void __45__RFARSessionObserver_processRemovedAnchors___block_invoke()
 {
   v0 = MEMORY[0x28223BE20]();
-  v110 = *MEMORY[0x277D85DE8];
-  v52 = 0;
-  v53 = 0;
-  memset(v44, 0, sizeof(v44));
+  v107 = *MEMORY[0x277D85DE8];
+  v49 = 0;
+  v50 = 0;
+  memset(v41, 0, sizeof(v41));
   __p = 0u;
-  v46 = 0u;
+  v43 = 0u;
+  v44 = 0u;
+  v45 = 0u;
+  memset(v46, 0, sizeof(v46));
   v47 = 0u;
-  v48 = 0u;
-  memset(v49, 0, sizeof(v49));
-  v50 = 0u;
-  v51 = 0;
+  v48 = 0;
+  v51 = 0u;
+  v52 = 0u;
+  v53 = 0u;
   v54 = 0u;
   v55 = 0u;
-  v56 = 0u;
-  v57 = 0u;
-  v58 = 0u;
-  v59 = 1065353216;
-  v60 = 0;
-  v80 = 0;
+  v56 = 1065353216;
+  v57 = 0;
+  v77 = 0;
+  v88 = 0;
+  v89 = 0;
+  v90 = 0;
   v91 = 0;
   v92 = 0;
   v93 = 0;
@@ -479,89 +473,86 @@ void __45__RFARSessionObserver_processRemovedAnchors___block_invoke()
   v104 = 0;
   v105 = 0;
   v106 = 0;
-  v107 = 0;
-  v108 = 0;
-  v109 = 0;
-  v79 = 0;
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
+  v76 = 0;
   v74 = 0u;
-  v71 = 0u;
+  v75 = 0u;
   v72 = 0u;
-  v69 = 0u;
+  v73 = 0u;
   v70 = 0u;
-  v67 = 0u;
+  v71 = 0u;
   v68 = 0u;
-  v65 = 0u;
+  v69 = 0u;
   v66 = 0u;
-  v63 = 0u;
+  v67 = 0u;
   v64 = 0u;
-  v61 = 0u;
+  v65 = 0u;
   v62 = 0u;
-  v85 = 0;
-  v84 = 0u;
-  v83 = 0u;
-  v82 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
+  v82 = 0;
   v81 = 0u;
+  v80 = 0u;
+  v79 = 0u;
+  v78 = 0u;
+  v83 = 0u;
+  v84 = 0u;
+  v85 = 0u;
   v86 = 0u;
-  v87 = 0u;
-  v88 = 0u;
-  v89 = 0u;
-  v90 = 0;
-  memset(v35, 0, 24);
+  v87 = 0;
+  memset(v32, 0, 24);
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
-  v33 = 0u;
-  v34 = 0u;
-  v23 = v0;
+  v20 = v0;
   v1 = *(v0 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v31 objects:v43 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v28 objects:v40 count:16];
   if (v2)
   {
-    v3 = *v32;
+    v3 = *v29;
     do
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v32 != v3)
+        if (*v29 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        v39[0] = *(*(&v31 + 1) + 8 * i);
-        std::vector<ARAnchor * {__strong}>::emplace_back<ARAnchor * {__strong}&>(v35, v39);
+        v36[0] = *(*(&v28 + 1) + 8 * i);
+        std::vector<ARAnchor * {__strong}>::emplace_back<ARAnchor * {__strong}&>(v32, v36);
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v31 objects:v43 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v28 objects:v40 count:16];
     }
 
     while (v2);
   }
 
-  v42[0] = &unk_2874082A0;
-  v42[3] = v42;
-  std::function<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::operator()(v39, v42, *(v23 + 32));
+  v39[0] = &unk_2874082A0;
+  v39[3] = v39;
+  std::function<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::operator()(v36, v39, *(v20 + 32));
   if (__p)
   {
     *(&__p + 1) = __p;
     operator delete(__p);
   }
 
-  __p = v40;
-  *&v46 = v41;
-  v41 = 0;
-  v40 = 0uLL;
-  rf::data_flow::provider::InputData::~InputData(v39);
-  v24 = v35;
-  LOBYTE(v26) = 0;
-  v27 = 0;
+  __p = v37;
+  *&v43 = v38;
   v38 = 0;
   v37 = 0uLL;
-  v6 = std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](&v24);
-  v7 = v24[1];
+  rf::data_flow::provider::InputData::~InputData(v36);
+  v21 = v32;
+  LOBYTE(v23) = 0;
+  v24 = 0;
+  v35 = 0;
+  v34 = 0uLL;
+  v6 = std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](&v21);
+  v7 = v21[1];
   if (v7 == v6)
   {
     v9 = 0;
@@ -592,90 +583,87 @@ void __45__RFARSessionObserver_processRemovedAnchors___block_invoke()
     while (v6 != v7);
   }
 
-  std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](&v24);
+  std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](&v21);
   if (v9)
   {
-    v11 = v24[1];
-    std::vector<rf::data_flow::RFUUID>::__vallocate[abi:ne200100](&v37, v9);
+    std::vector<rf::data_flow::RFUUID>::__vallocate[abi:ne200100](&v34, v9);
   }
 
-  if (v64)
+  if (v61)
   {
-    *(&v64 + 1) = v64;
-    operator delete(v64);
+    *(&v61 + 1) = v61;
+    operator delete(v61);
   }
 
-  v64 = v37;
-  *&v65 = v38;
-  v12 = *(v23 + 40);
-  v25 = v35;
-  v13 = v12;
-  v24 = v13;
+  v61 = v34;
+  *&v62 = v35;
+  v11 = *(v20 + 40);
+  v22 = v32;
+  v12 = v11;
+  v21 = v12;
+  v24 = 0;
+  v25 = 0;
   v27 = 0;
-  v28 = 0;
-  v30 = 0;
-  v29 = 0uLL;
-  v15 = std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](&v25);
-  v16 = *(v25 + 1);
-  if (v16 == v15)
+  v26 = 0uLL;
+  v14 = std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](&v22);
+  v15 = *(v22 + 1);
+  if (v15 == v14)
   {
-    v18 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v17 = v14;
-    v18 = 0;
+    v16 = v13;
+    v17 = 0;
     do
     {
-      v19 = v15 + 1;
-      v15 = *(*v17 + 1);
-      while (v19 != v15)
+      v18 = v14 + 1;
+      v14 = *(*v16 + 1);
+      while (v18 != v14)
       {
-        if (v17[1](*v19))
+        if (v16[1](*v18))
         {
-          v15 = v19;
+          v14 = v18;
           break;
         }
 
-        ++v19;
+        ++v18;
       }
 
-      ++v18;
+      ++v17;
     }
 
-    while (v15 != v16);
+    while (v14 != v15);
   }
 
-  std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](&v25);
-  v20 = *(v25 + 1);
-  v35[3] = &v29;
-  v36 = 0;
-  if (v18)
+  std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](&v22);
+  v32[3] = &v26;
+  v33 = 0;
+  if (v17)
   {
-    std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__vallocate[abi:ne200100](&v29, v18);
+    std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__vallocate[abi:ne200100](&v26, v17);
   }
 
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__vdeallocate(&v49[1]);
-  *&v49[1] = v29;
-  v49[3] = v30;
-  v30 = 0;
-  v29 = 0uLL;
-  v39[0] = &v29;
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__destroy_vector::operator()[abi:ne200100](v39);
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__vdeallocate(&v46[1]);
+  *&v46[1] = v26;
+  v46[3] = v27;
+  v27 = 0;
+  v26 = 0uLL;
+  v36[0] = &v26;
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__destroy_vector::operator()[abi:ne200100](v36);
 
-  v21 = *(*(v23 + 40) + 32);
-  if (!v21)
+  v19 = *(*(v20 + 40) + 32);
+  if (!v19)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  (*(*v21 + 48))(v21, v44);
-  std::__function::__value_func<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::~__value_func[abi:ne200100](v42);
-  v39[0] = v35;
-  std::vector<ARAnchor * {__strong}>::__destroy_vector::operator()[abi:ne200100](v39);
-  rf::data_flow::provider::InputData::~InputData(v44);
-  v22 = *MEMORY[0x277D85DE8];
+  (*(*v19 + 48))(v19, v41);
+  std::__function::__value_func<rf::data_flow::provider::InputData ()(NSArray<ARAnchor *> *)>::~__value_func[abi:ne200100](v39);
+  v36[0] = v32;
+  std::vector<ARAnchor * {__strong}>::__destroy_vector::operator()[abi:ne200100](v36);
+  rf::data_flow::provider::InputData::~InputData(v41);
 }
 
 - (void)processUpdatedExternalAnchors:(id)anchors
@@ -695,20 +683,22 @@ void __45__RFARSessionObserver_processRemovedAnchors___block_invoke()
 
 void __53__RFARSessionObserver_processUpdatedExternalAnchors___block_invoke(uint64_t a1)
 {
-  v91 = *MEMORY[0x277D85DE8];
-  v32 = 0;
-  v33 = 0;
-  memset(v29, 0, sizeof(v29));
-  v30 = 0u;
+  v89 = *MEMORY[0x277D85DE8];
+  v30 = 0;
   v31 = 0;
+  memset(v27, 0, sizeof(v27));
+  v28 = 0u;
+  v29 = 0;
+  v32 = 0u;
+  v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
-  v37 = 0u;
-  v38 = 0u;
-  v39 = 1065353216;
-  v40 = 0;
-  v60 = 0;
+  v37 = 1065353216;
+  v38 = 0;
+  v58 = 0;
+  v69 = 0;
+  v70 = 0;
   v71 = 0;
   v72 = 0;
   v73 = 0;
@@ -726,11 +716,7 @@ void __53__RFARSessionObserver_processUpdatedExternalAnchors___block_invoke(uint
   v85 = 0;
   v86 = 0;
   v87 = 0;
-  v88 = 0;
-  v89 = 0;
-  v59 = 0;
-  v57 = 0u;
-  v58 = 0u;
+  v57 = 0;
   v55 = 0u;
   v56 = 0u;
   v53 = 0u;
@@ -747,54 +733,56 @@ void __53__RFARSessionObserver_processUpdatedExternalAnchors___block_invoke(uint
   v44 = 0u;
   v41 = 0u;
   v42 = 0u;
-  v65 = 0;
-  v64 = 0u;
-  v63 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v63 = 0;
   v62 = 0u;
   v61 = 0u;
+  v60 = 0u;
+  v59 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
-  v69 = 0u;
-  v70 = 0;
-  memset(v26, 0, 24);
+  v68 = 0;
+  memset(v24, 0, 24);
+  v20 = 0u;
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
   v1 = *(a1 + 32);
-  v2 = [v1 countByEnumeratingWithState:&v22 objects:v28 count:16];
+  v2 = [v1 countByEnumeratingWithState:&v20 objects:v26 count:16];
   if (v2)
   {
-    v3 = *v23;
+    v3 = *v21;
     do
     {
       for (i = 0; i != v2; ++i)
       {
-        if (*v23 != v3)
+        if (*v21 != v3)
         {
           objc_enumerationMutation(v1);
         }
 
-        v90[0] = *(*(&v22 + 1) + 8 * i);
-        std::vector<ARAnchor * {__strong}>::emplace_back<ARAnchor * {__strong}&>(v26, v90);
+        v88[0] = *(*(&v20 + 1) + 8 * i);
+        std::vector<ARAnchor * {__strong}>::emplace_back<ARAnchor * {__strong}&>(v24, v88);
       }
 
-      v2 = [v1 countByEnumeratingWithState:&v22 objects:v28 count:16];
+      v2 = [v1 countByEnumeratingWithState:&v20 objects:v26 count:16];
     }
 
     while (v2);
   }
 
   v5 = *(a1 + 40);
-  v17[0] = v26;
-  v15 = v5;
-  v18 = 0;
+  v15[0] = v24;
+  v13 = v5;
+  v16 = 0;
+  v17 = 0;
   v19 = 0;
-  v21 = 0;
-  v20 = 0uLL;
-  v7 = std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](v17);
-  v8 = *(v17[0] + 8);
+  v18 = 0uLL;
+  v7 = std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](v15);
+  v8 = *(v15[0] + 8);
   if (v8 == v7)
   {
     v10 = 0;
@@ -825,84 +813,82 @@ void __53__RFARSessionObserver_processUpdatedExternalAnchors___block_invoke(uint
     while (v7 != v8);
   }
 
-  std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](v17);
-  v12 = *(v17[0] + 8);
-  v26[3] = &v20;
-  v27 = 0;
+  std::ranges::filter_view[abi:llvm18_nua]<std::ranges::ref_view<std::vector<ARAnchor * {__strong}>>,BOOL (*)(ARAnchor *)>::begin[abi:ne200100](v15);
+  v24[3] = &v18;
+  v25 = 0;
   if (v10)
   {
-    std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__vallocate[abi:ne200100](&v20, v10);
+    std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__vallocate[abi:ne200100](&v18, v10);
   }
 
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__vdeallocate(&v30);
-  v30 = v20;
-  v31 = v21;
-  v21 = 0;
-  v20 = 0uLL;
-  v90[0] = &v20;
-  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__destroy_vector::operator()[abi:ne200100](v90);
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__vdeallocate(&v28);
+  v28 = v18;
+  v29 = v19;
+  v19 = 0;
+  v18 = 0uLL;
+  v88[0] = &v18;
+  std::vector<std::variant<rf::data_flow::CustomAnchor,rf::data_flow::PlaneAnchor,rf::data_flow::ImageAnchor,rf::data_flow::ObjectAnchor,rf::data_flow::FaceAnchor,rf::data_flow::BodyAnchor>>::__destroy_vector::operator()[abi:ne200100](v88);
 
-  v13 = *(*(a1 + 40) + 32);
-  if (!v13)
+  v12 = *(*(a1 + 40) + 32);
+  if (!v12)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  (*(*v13 + 48))(v13, v29);
-  v90[0] = v26;
-  std::vector<ARAnchor * {__strong}>::__destroy_vector::operator()[abi:ne200100](v90);
-  rf::data_flow::provider::InputData::~InputData(v29);
-  v14 = *MEMORY[0x277D85DE8];
+  (*(*v12 + 48))(v12, v27);
+  v88[0] = v24;
+  std::vector<ARAnchor * {__strong}>::__destroy_vector::operator()[abi:ne200100](v88);
+  rf::data_flow::provider::InputData::~InputData(v27);
 }
 
 - (void)setCallback:(function<void (rf::data_flow::provider::InputData)&&
 {
-  v11[3] = *MEMORY[0x277D85DE8];
+  v10[3] = *MEMORY[0x277D85DE8];
   f = a3->__f_.__f_;
   if (f)
   {
     if (f == a3)
     {
-      v10 = v9;
-      (*(*f->__f_.__buf_.__data + 24))(f, v9);
+      v9 = v8;
+      (*(*f->__f_.__buf_.__data + 24))(f, v8);
     }
 
     else
     {
-      v10 = (*(*f->__f_.__buf_.__data + 16))(f, a2);
+      v9 = (*(*f->__f_.__buf_.__data + 16))(f, a2);
     }
   }
 
   else
   {
-    v10 = 0;
+    v9 = 0;
   }
 
   v5 = self + 8;
-  if (v9 != self + 8)
+  if (v8 != self + 8)
   {
-    v6 = v10;
+    v6 = v9;
     v7 = *(self + 4);
-    if (v10 == v9)
+    if (v9 == v8)
     {
       if (v7 == v5)
       {
-        (*(*v10 + 24))();
-        (*(*v10 + 32))(v10);
-        v10 = 0;
-        (*(**(self + 4) + 24))(*(self + 4), v9);
+        (*(*v9 + 24))();
+        (*(*v9 + 32))(v9);
+        v9 = 0;
+        (*(**(self + 4) + 24))(*(self + 4), v8);
         (*(**(self + 4) + 32))(*(self + 4));
         *(self + 4) = 0;
-        v10 = v9;
-        (*(v11[0] + 24))(v11, self + 8);
-        (*(v11[0] + 32))(v11);
+        v9 = v8;
+        (*(v10[0] + 24))(v10, self + 8);
+        (*(v10[0] + 32))(v10);
       }
 
       else
       {
-        (*(*v10 + 24))();
-        (*(*v10 + 32))(v10);
-        v10 = *(self + 4);
+        (*(*v9 + 24))();
+        (*(*v9 + 32))(v9);
+        v9 = *(self + 4);
       }
 
       *(self + 4) = v5;
@@ -910,26 +896,25 @@ void __53__RFARSessionObserver_processUpdatedExternalAnchors___block_invoke(uint
 
     else if (v7 == v5)
     {
-      (*(*v7 + 24))(*(self + 4), v9);
+      (*(*v7 + 24))(*(self + 4), v8);
       (*(**(self + 4) + 32))(*(self + 4));
-      *(self + 4) = v10;
-      v10 = v9;
+      *(self + 4) = v9;
+      v9 = v8;
     }
 
     else
     {
-      v10 = *(self + 4);
+      v9 = *(self + 4);
       *(self + 4) = v6;
     }
   }
 
-  std::__function::__value_func<void ()(rf::data_flow::provider::InputData &&)>::~__value_func[abi:ne200100](v9);
-  v8 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<void ()(rf::data_flow::provider::InputData &&)>::~__value_func[abi:ne200100](v8);
 }
 
 - (void)updateSession:(id)session withTime:(double)time
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   sessionCopy = session;
   std::mutex::lock((self + 96));
   v7 = *(self + 10);
@@ -946,7 +931,7 @@ void __53__RFARSessionObserver_processUpdatedExternalAnchors___block_invoke(uint
         v13 = uUIDString;
         uTF8String = [uUIDString UTF8String];
         *buf = 136446210;
-        v20 = uTF8String;
+        v19 = uTF8String;
         _os_log_impl(&dword_2617CB000, v10, OS_LOG_TYPE_DEFAULT, "RFARSessionObserver: Attempting to re-add anchor %{public}s in queue to ARKit", buf, 0xCu);
       }
 
@@ -967,8 +952,6 @@ void __53__RFARSessionObserver_processUpdatedExternalAnchors___block_invoke(uint
   }
 
   std::mutex::unlock((self + 96));
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id).cxx_construct

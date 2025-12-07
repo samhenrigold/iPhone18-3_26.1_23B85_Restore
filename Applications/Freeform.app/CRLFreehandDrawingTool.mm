@@ -224,7 +224,7 @@
         v13 = *(*(&v28 + 1) + 8 * i);
         if (v13)
         {
-          [*(*(&v28 + 1) + 8 * i) transformInRoot];
+          objc_msgSend_transformInRoot(*(*(&v28 + 1) + 8 * i));
         }
 
         else

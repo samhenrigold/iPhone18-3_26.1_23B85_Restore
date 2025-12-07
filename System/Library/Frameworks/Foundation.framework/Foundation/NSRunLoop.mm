@@ -3,13 +3,13 @@
 
 @implementation NSRunLoop
 
-uint64_t __41__NSRunLoop_NSRunLoop___portInvalidated___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+id *__41__NSRunLoop_NSRunLoop___portInvalidated___block_invoke(id *result, id a2, uint64_t a3, uint64_t a4)
 {
-  if (*(result + 32) == a2)
+  if (result[4] == a2)
   {
     v6 = result;
-    [*(result + 40) addObject:?];
-    v7 = *(v6 + 48);
+    [result[5] addObject:a3];
+    v7 = v6[6];
 
     return [v7 addIndexesInRange:{a4, 2}];
   }
@@ -17,15 +17,15 @@ uint64_t __41__NSRunLoop_NSRunLoop___portInvalidated___block_invoke(uint64_t res
   return result;
 }
 
-uint64_t __46__NSRunLoop_NSRunLoop___containsPort_forMode___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+id *__46__NSRunLoop_NSRunLoop___containsPort_forMode___block_invoke(id *result, id a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  if (*(result + 32) == a2)
+  if (result[4] == a2)
   {
     v6 = result;
-    result = [*(result + 40) isEqual:?];
+    result = [result[5] isEqual:{a3, a4}];
     if (result)
     {
-      *(*(*(v6 + 48) + 8) + 24) = 1;
+      *(*(v6[6] + 1) + 24) = 1;
       *a5 = 1;
     }
   }
@@ -33,19 +33,19 @@ uint64_t __46__NSRunLoop_NSRunLoop___containsPort_forMode___block_invoke(uint64_
   return result;
 }
 
-uint64_t __44__NSRunLoop_NSRunLoop___removePort_forMode___block_invoke(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+id *__44__NSRunLoop_NSRunLoop___removePort_forMode___block_invoke(id *result, id a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  if (*(result + 32) == a2)
+  if (result[4] == a2)
   {
     v7 = result;
-    result = [*(result + 40) isEqual:?];
+    result = [result[5] isEqual:a3];
     if (result)
     {
-      v8 = *(*(v7 + 56) + 8);
-      if (*(*(*(v7 + 48) + 8) + 24) == 0x7FFFFFFFFFFFFFFFLL)
+      v8 = *(v7[7] + 1);
+      if (*(*(v7[6] + 1) + 24) == 0x7FFFFFFFFFFFFFFFLL)
       {
         *(v8 + 24) = 1;
-        *(*(*(v7 + 48) + 8) + 24) = a4;
+        *(*(v7[6] + 1) + 24) = a4;
       }
 
       else

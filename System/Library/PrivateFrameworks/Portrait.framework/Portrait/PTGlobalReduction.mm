@@ -16,9 +16,9 @@
   height = size.height;
   width = size.width;
   contextCopy = context;
-  v123.receiver = self;
-  v123.super_class = PTGlobalReduction;
-  v11 = [(PTGlobalReduction *)&v123 init];
+  v133.receiver = self;
+  v133.super_class = PTGlobalReduction;
+  v11 = [(PTGlobalReduction *)&v133 init];
   v12 = v11;
   if (v11)
   {
@@ -33,9 +33,9 @@
 
       if (v12->_parallelReductionTextureSimd)
       {
-        v16 = [contextCopy computePipelineStateFor:@"parallelReductionTextureMinMaxSimd" withConstants:0];
+        v17 = [contextCopy computePipelineStateFor:@"parallelReductionTextureMinMaxSimd" withConstants:0];
         parallelReductionTextureMinMaxSimd = v12->_parallelReductionTextureMinMaxSimd;
-        v12->_parallelReductionTextureMinMaxSimd = v16;
+        v12->_parallelReductionTextureMinMaxSimd = v17;
 
         if (v12->_parallelReductionTextureMinMaxSimd)
         {
@@ -43,102 +43,103 @@
           v12->simdReductionThreadsPerGroup.width = 4;
           v12->simdReductionThreadsPerGroup.height = threadExecutionWidth >> 2;
           v12->simdReductionThreadsPerGroup.depth = 1;
-          if ([(MTLComputePipelineState *)v12->_parallelReductionTextureSimd maxTotalThreadsPerThreadgroup]< v12->simdReductionThreadsPerGroup.height * v12->simdReductionThreadsPerGroup.width)
+          maxTotalThreadsPerThreadgroup = [(MTLComputePipelineState *)v12->_parallelReductionTextureSimd maxTotalThreadsPerThreadgroup];
+          if (maxTotalThreadsPerThreadgroup < v12->simdReductionThreadsPerGroup.height * v12->simdReductionThreadsPerGroup.width)
           {
-            v19 = _PTLogSystem();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+            v22 = _PTLogSystem(maxTotalThreadsPerThreadgroup);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
             {
-              [(PTGlobalReduction *)v19 initWithMetalContext:v20 textureSize:v21 pixelFormat:v22, v23, v24, v25, v26];
+              [(PTGlobalReduction *)v22 initWithMetalContext:v23 textureSize:v24 pixelFormat:v25, v26, v27, v28, v29];
             }
           }
 
-          v27 = objc_opt_new();
-          v28 = width;
-          v29 = height;
-          v30 = height;
+          v30 = objc_opt_new();
           v31 = width;
+          v32 = height;
+          v33 = height;
+          v34 = width;
           while (1)
           {
-            v32 = 2 * v12->simdReductionThreadsPerGroup.width;
-            v33 = 2 * v12->simdReductionThreadsPerGroup.height;
-            if (v32 >= v31 && v33 >= v30)
+            v35 = 2 * v12->simdReductionThreadsPerGroup.width;
+            v36 = 2 * v12->simdReductionThreadsPerGroup.height;
+            if (v35 >= v34 && v36 >= v33)
             {
               break;
             }
 
-            v31 = vcvtps_s32_f32(v31 / v32);
-            v30 = vcvtps_s32_f32(v30 / v33);
+            v34 = vcvtps_s32_f32(v34 / v35);
+            v33 = vcvtps_s32_f32(v33 / v36);
             textureUtil = [(PTMetalContext *)v12->_metalContext textureUtil];
-            v35 = [textureUtil createWithWidth:v31 height:v30 pixelFormat:format];
+            v38 = [textureUtil createWithWidth:v34 height:v33 pixelFormat:format];
 
-            if (!v35)
+            if (!v38)
             {
-              v70 = _PTLogSystem();
-              if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+              v79 = _PTLogSystem(v39);
+              if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
               {
-                [(PTGlobalReduction *)v70 initWithMetalContext:v71 textureSize:v72 pixelFormat:v73, v74, v75, v76, v77];
+                [(PTGlobalReduction *)v79 initWithMetalContext:v80 textureSize:v81 pixelFormat:v82, v83, v84, v85, v86];
               }
 
               goto LABEL_46;
             }
 
-            [v27 addObject:v35];
+            [v30 addObject:v38];
           }
 
-          v99 = [v27 copy];
+          v108 = [v30 copy];
           simdTextures = v12->_simdTextures;
-          v12->_simdTextures = v99;
+          v12->_simdTextures = v108;
 
-          for (i = objc_opt_new(); ; [i addObject:v27])
+          for (i = objc_opt_new(); ; [i addObject:v30])
           {
 
-            v102 = 2 * v12->simdReductionThreadsPerGroup.width;
-            v103 = 2 * v12->simdReductionThreadsPerGroup.height;
-            if (v102 >= v28 && v103 >= v29)
+            v111 = 2 * v12->simdReductionThreadsPerGroup.width;
+            v112 = 2 * v12->simdReductionThreadsPerGroup.height;
+            if (v111 >= v31 && v112 >= v32)
             {
-              v121 = [i copy];
+              v131 = [i copy];
               simdMinMaxTextures = v12->_simdMinMaxTextures;
-              v12->_simdMinMaxTextures = v121;
+              v12->_simdMinMaxTextures = v131;
 
               goto LABEL_48;
             }
 
-            v28 = vcvtps_s32_f32(v28 / v102);
-            v29 = 2 * vcvtps_s32_f32(v29 / v103);
+            v31 = vcvtps_s32_f32(v31 / v111);
+            v32 = 2 * vcvtps_s32_f32(v32 / v112);
             textureUtil2 = [(PTMetalContext *)v12->_metalContext textureUtil];
-            v27 = [textureUtil2 createWithWidth:v28 height:v29 pixelFormat:format];
+            v30 = [textureUtil2 createWithWidth:v31 height:v32 pixelFormat:format];
 
-            if (!v27)
+            if (!v30)
             {
               break;
             }
           }
 
-          v70 = _PTLogSystem();
-          if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+          v79 = _PTLogSystem(v114);
+          if (os_log_type_enabled(v79, OS_LOG_TYPE_ERROR))
           {
-            [(PTGlobalReduction *)v70 initWithMetalContext:v114 textureSize:v115 pixelFormat:v116, v117, v118, v119, v120];
+            [(PTGlobalReduction *)v79 initWithMetalContext:v124 textureSize:v125 pixelFormat:v126, v127, v128, v129, v130];
           }
 
-          v27 = i;
+          v30 = i;
 LABEL_46:
 
           goto LABEL_41;
         }
 
-        v48 = _PTLogSystem();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v57 = _PTLogSystem(v19);
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
         {
-          [(PTGlobalReduction *)v48 initWithMetalContext:v78 textureSize:v79 pixelFormat:v80, v81, v82, v83, v84];
+          [(PTGlobalReduction *)v57 initWithMetalContext:v87 textureSize:v88 pixelFormat:v89, v90, v91, v92, v93];
         }
       }
 
       else
       {
-        v48 = _PTLogSystem();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v57 = _PTLogSystem(v16);
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
         {
-          [(PTGlobalReduction *)v48 initWithMetalContext:v56 textureSize:v57 pixelFormat:v58, v59, v60, v61, v62];
+          [(PTGlobalReduction *)v57 initWithMetalContext:v65 textureSize:v66 pixelFormat:v67, v68, v69, v70, v71];
         }
       }
     }
@@ -146,9 +147,9 @@ LABEL_46:
     else
     {
       textureUtil3 = [(PTMetalContext *)v12->_metalContext textureUtil];
-      v37 = [textureUtil3 createWithWidth:((width + 1.0) * 0.5) height:((height + 1.0) * 0.5) pixelFormat:format];
+      v41 = [textureUtil3 createWithWidth:((width + 1.0) * 0.5) height:((height + 1.0) * 0.5) pixelFormat:format];
       texPing = v12->_texPing;
-      v12->_texPing = v37;
+      v12->_texPing = v41;
 
       if (v12->_texPing)
       {
@@ -159,82 +160,82 @@ LABEL_46:
 
         if (v12->_texPong)
         {
-          v42 = [contextCopy computePipelineStateFor:@"parallelReductionAverage" withConstants:0];
+          v48 = [contextCopy computePipelineStateFor:@"parallelReductionAverage" withConstants:0];
           parallelReductionAverage = v12->_parallelReductionAverage;
-          v12->_parallelReductionAverage = v42;
+          v12->_parallelReductionAverage = v48;
 
           if (v12->_parallelReductionAverage)
           {
-            v44 = [contextCopy computePipelineStateFor:@"parallelReductionMax" withConstants:0];
+            v51 = [contextCopy computePipelineStateFor:@"parallelReductionMax" withConstants:0];
             parallelReductionMax = v12->_parallelReductionMax;
-            v12->_parallelReductionMax = v44;
+            v12->_parallelReductionMax = v51;
 
             if (v12->_parallelReductionMax)
             {
-              v46 = [contextCopy computePipelineStateFor:@"parallelReductionMin" withConstants:0];
+              v54 = [contextCopy computePipelineStateFor:@"parallelReductionMin" withConstants:0];
               parallelReductionMin = v12->_parallelReductionMin;
-              v12->_parallelReductionMin = v46;
+              v12->_parallelReductionMin = v54;
 
               if (v12->_parallelReductionMin)
               {
 LABEL_48:
-                v112 = v12;
+                v122 = v12;
                 goto LABEL_42;
               }
 
-              v48 = _PTLogSystem();
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+              v57 = _PTLogSystem(v56);
+              if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
               {
-                [(PTGlobalReduction *)v48 initWithMetalContext:v49 textureSize:v50 pixelFormat:v51, v52, v53, v54, v55];
+                [(PTGlobalReduction *)v57 initWithMetalContext:v58 textureSize:v59 pixelFormat:v60, v61, v62, v63, v64];
               }
             }
 
             else
             {
-              v48 = _PTLogSystem();
-              if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+              v57 = _PTLogSystem(v53);
+              if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
               {
-                [(PTGlobalReduction *)v48 initWithMetalContext:v105 textureSize:v106 pixelFormat:v107, v108, v109, v110, v111];
+                [(PTGlobalReduction *)v57 initWithMetalContext:v115 textureSize:v116 pixelFormat:v117, v118, v119, v120, v121];
               }
             }
           }
 
           else
           {
-            v48 = _PTLogSystem();
-            if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+            v57 = _PTLogSystem(v50);
+            if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
             {
-              [(PTGlobalReduction *)v48 initWithMetalContext:v92 textureSize:v93 pixelFormat:v94, v95, v96, v97, v98];
+              [(PTGlobalReduction *)v57 initWithMetalContext:v101 textureSize:v102 pixelFormat:v103, v104, v105, v106, v107];
             }
           }
         }
 
         else
         {
-          v48 = _PTLogSystem();
-          if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+          v57 = _PTLogSystem(v47);
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
           {
-            [(PTGlobalReduction *)v48 initWithMetalContext:v85 textureSize:v86 pixelFormat:v87, v88, v89, v90, v91];
+            [(PTGlobalReduction *)v57 initWithMetalContext:v94 textureSize:v95 pixelFormat:v96, v97, v98, v99, v100];
           }
         }
       }
 
       else
       {
-        v48 = _PTLogSystem();
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v57 = _PTLogSystem(v43);
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
         {
-          [(PTGlobalReduction *)v48 initWithMetalContext:v63 textureSize:v64 pixelFormat:v65, v66, v67, v68, v69];
+          [(PTGlobalReduction *)v57 initWithMetalContext:v72 textureSize:v73 pixelFormat:v74, v75, v76, v77, v78];
         }
       }
     }
   }
 
 LABEL_41:
-  v112 = 0;
+  v122 = 0;
 LABEL_42:
 
-  return v112;
+  return v122;
 }
 
 - (void)parallelReductionAverage:(id)average inTexture:(id)texture outGlobalAverage:(id)globalAverage
@@ -254,17 +255,18 @@ LABEL_42:
   maxCopy = max;
   textureCopy = texture;
   bufferCopy = buffer;
-  if ([bufferCopy length] <= 3)
+  v11 = [bufferCopy length];
+  if (v11 <= 3)
   {
-    v12 = _PTLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _PTLogSystem(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(PTGlobalReduction *)v12 parallelReductionMax:v13 inTexture:v14 globalMaxBuffer:v15, v16, v17, v18, v19];
+      [(PTGlobalReduction *)v13 parallelReductionMax:v14 inTexture:v15 globalMaxBuffer:v16, v17, v18, v19, v20];
     }
   }
 
-  LODWORD(v11) = 1.0;
-  [(PTGlobalReduction *)self parallelReduction:maxCopy inTexture:textureCopy globalBuffer:bufferCopy offset:0 pipelineState:self->_parallelReductionMax reductionType:1 factor:v11];
+  LODWORD(v12) = 1.0;
+  [(PTGlobalReduction *)self parallelReduction:maxCopy inTexture:textureCopy globalBuffer:bufferCopy offset:0 pipelineState:self->_parallelReductionMax reductionType:1 factor:v12];
 }
 
 - (void)parallelReductionMin:(id)min inTexture:(id)texture globalMinBuffer:(id)buffer
@@ -272,17 +274,18 @@ LABEL_42:
   minCopy = min;
   textureCopy = texture;
   bufferCopy = buffer;
-  if ([bufferCopy length] <= 3)
+  v11 = [bufferCopy length];
+  if (v11 <= 3)
   {
-    v12 = _PTLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _PTLogSystem(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(PTGlobalReduction *)v12 parallelReductionMax:v13 inTexture:v14 globalMaxBuffer:v15, v16, v17, v18, v19];
+      [(PTGlobalReduction *)v13 parallelReductionMax:v14 inTexture:v15 globalMaxBuffer:v16, v17, v18, v19, v20];
     }
   }
 
-  LODWORD(v11) = 1.0;
-  [(PTGlobalReduction *)self parallelReduction:minCopy inTexture:textureCopy globalBuffer:bufferCopy offset:0 pipelineState:self->_parallelReductionMin reductionType:0 factor:v11];
+  LODWORD(v12) = 1.0;
+  [(PTGlobalReduction *)self parallelReduction:minCopy inTexture:textureCopy globalBuffer:bufferCopy offset:0 pipelineState:self->_parallelReductionMin reductionType:0 factor:v12];
 }
 
 - (void)parallelReductionMinMax:(id)max inTexture:(id)texture globalMinMaxBuffer:(id)buffer
@@ -290,12 +293,13 @@ LABEL_42:
   maxCopy = max;
   textureCopy = texture;
   bufferCopy = buffer;
-  if ([bufferCopy length] <= 7)
+  v11 = [bufferCopy length];
+  if (v11 <= 7)
   {
-    v12 = _PTLogSystem();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = _PTLogSystem(v11);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      [(PTGlobalReduction *)v12 parallelReductionMinMax:v13 inTexture:v14 globalMinMaxBuffer:v15, v16, v17, v18, v19];
+      [(PTGlobalReduction *)v13 parallelReductionMinMax:v14 inTexture:v15 globalMinMaxBuffer:v16, v17, v18, v19, v20];
     }
   }
 
@@ -306,10 +310,10 @@ LABEL_42:
 
   else
   {
-    LODWORD(v11) = 1.0;
-    [(PTGlobalReduction *)self parallelReduction:maxCopy inTexture:textureCopy globalBuffer:bufferCopy offset:0 pipelineState:self->_parallelReductionMin reductionType:0 factor:v11];
-    LODWORD(v20) = 1.0;
-    [(PTGlobalReduction *)self parallelReduction:maxCopy inTexture:textureCopy globalBuffer:bufferCopy offset:4 pipelineState:self->_parallelReductionMax reductionType:1 factor:v20];
+    LODWORD(v12) = 1.0;
+    [(PTGlobalReduction *)self parallelReduction:maxCopy inTexture:textureCopy globalBuffer:bufferCopy offset:0 pipelineState:self->_parallelReductionMin reductionType:0 factor:v12];
+    LODWORD(v21) = 1.0;
+    [(PTGlobalReduction *)self parallelReduction:maxCopy inTexture:textureCopy globalBuffer:bufferCopy offset:4 pipelineState:self->_parallelReductionMax reductionType:1 factor:v21];
   }
 }
 
@@ -331,7 +335,7 @@ LABEL_42:
     computeCommandEncoder = [reduction computeCommandEncoder];
     if (!computeCommandEncoder)
     {
-      v20 = _PTLogSystem();
+      v20 = _PTLogSystem(0);
       if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [(PTRaytracingUtils *)v20 disparityApplyPostModifier:v21 inDisparity:v22 outDisparity:v23 postModifier:v24, v25, v26, v27];
@@ -444,7 +448,7 @@ LABEL_42:
   computeCommandEncoder = [simd computeCommandEncoder];
   if (!computeCommandEncoder)
   {
-    v16 = _PTLogSystem();
+    v16 = _PTLogSystem(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       [(PTRaytracingUtils *)v16 disparityApplyPostModifier:v17 inDisparity:v18 outDisparity:v19 postModifier:v20, v21, v22, v23];
@@ -532,7 +536,7 @@ LABEL_42:
     computeCommandEncoder = [simdCopy computeCommandEncoder];
     if (!computeCommandEncoder)
     {
-      v17 = _PTLogSystem();
+      v17 = _PTLogSystem(0);
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [PTGlobalReduction parallelReductionTextureMinMaxSimd:buf inTexture:v24 globalBuffer:v17];
@@ -553,6 +557,69 @@ LABEL_42:
   }
 
   while ([(NSArray *)self->_simdMinMaxTextures count]> v10++);
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 textureSize:(uint64_t)a4 pixelFormat:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_parallelReductionMin";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 textureSize:(uint64_t)a4 pixelFormat:(uint64_t)a5 .cold.2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_parallelReductionMax";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 textureSize:(uint64_t)a4 pixelFormat:(uint64_t)a5 .cold.3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_parallelReductionAverage";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 textureSize:(uint64_t)a4 pixelFormat:(uint64_t)a5 .cold.4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_texPong";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 textureSize:(uint64_t)a4 pixelFormat:(uint64_t)a5 .cold.5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_texPing";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 textureSize:(uint64_t)a4 pixelFormat:(uint64_t)a5 .cold.6(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_parallelReductionTextureSimd.maxTotalThreadsPerThreadgroup >= simdReductionThreadsPerGroup.width * simdReductionThreadsPerGroup.height";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 textureSize:(uint64_t)a4 pixelFormat:(uint64_t)a5 .cold.7(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "tex";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 textureSize:(uint64_t)a4 pixelFormat:(uint64_t)a5 .cold.9(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_parallelReductionTextureMinMaxSimd";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+- (void)initWithMetalContext:(uint64_t)a3 textureSize:(uint64_t)a4 pixelFormat:(uint64_t)a5 .cold.10(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "_parallelReductionTextureSimd";
+  OUTLINED_FUNCTION_0(&dword_2243FB000, a1, a3, "Assertion failed %s", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)parallelReductionTextureMinMaxSimd:(uint8_t *)buf inTexture:(void *)a2 globalBuffer:(os_log_t)log .cold.1(uint8_t *buf, void *a2, os_log_t log)

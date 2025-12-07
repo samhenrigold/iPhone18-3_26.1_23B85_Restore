@@ -204,7 +204,8 @@
 
 - (void)ensureWidgetObjectInjected
 {
-  if (!-[THWWebBridgeController injectedWidgetObject](self, "injectedWidgetObject") && -[THWWebBridgeController p_injectFileContents:](self, "p_injectFileContents:", [THBundle() pathForResource:@"AppleWidgetController" ofType:@"js"]))
+  injectedWidgetObject = [(THWWebBridgeController *)self injectedWidgetObject];
+  if ((injectedWidgetObject & 1) == 0 && -[THWWebBridgeController p_injectFileContents:](self, "p_injectFileContents:", [THBundle(injectedWidgetObject v4)]))
   {
 
     [(THWWebBridgeController *)self setInjectedWidgetObject:1];

@@ -316,7 +316,7 @@ void __90__SBWindowSceneStatusBarManager_HomeScreenLegibility__updateHomeScreenS
       _statusBarWindowClass = [objc_opt_class() _statusBarWindowClass];
       _statusBarClass = [objc_opt_class() _statusBarClass];
       statusBarWindowForEmbeddedDisplay = [[_statusBarWindowClass alloc] initWithWindowScene:v8];
-      [statusBarWindowForEmbeddedDisplay frame];
+      objc_msgSend_frame(statusBarWindowForEmbeddedDisplay);
       v17 = v16;
       v19 = v18;
       v21 = v20;

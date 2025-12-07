@@ -153,14 +153,15 @@ void __40__VUIAppReviewManager_isFeatureEnabled___block_invoke(uint64_t a1)
 
 - (void)processAddToUpNext
 {
-  v15 = *MEMORY[0x1E69E9840];
-  if ([(VUIAppReviewManager *)self _isYouthAccount])
+  v17 = *MEMORY[0x1E69E9840];
+  _isYouthAccount = [(VUIAppReviewManager *)self _isYouthAccount];
+  if (_isYouthAccount)
   {
-    v3 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = VUIDefaultLogObject(_isYouthAccount);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v3, OS_LOG_TYPE_DEFAULT, "VUIAppReviewManager: Skip Add to Up Next -- Ineligible Account", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "VUIAppReviewManager: Skip Add to Up Next -- Ineligible Account", buf, 2u);
     }
   }
 
@@ -170,27 +171,27 @@ void __40__VUIAppReviewManager_isFeatureEnabled___block_invoke(uint64_t a1)
     ++self->_numberOfAddToUpNexts;
     [standardUserDefaults setInteger:? forKey:?];
 
-    v5 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v7 = VUIDefaultLogObject(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       numberOfAddToUpNexts = self->_numberOfAddToUpNexts;
       numberOfAddToUpNextsBeforePrompting = self->_numberOfAddToUpNextsBeforePrompting;
       *buf = 134218240;
-      v12 = numberOfAddToUpNexts;
-      v13 = 2048;
-      v14 = numberOfAddToUpNextsBeforePrompting;
-      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUIAppReviewManager: Add to Up Next -- up next: %lu/%lu", buf, 0x16u);
+      v14 = numberOfAddToUpNexts;
+      v15 = 2048;
+      v16 = numberOfAddToUpNextsBeforePrompting;
+      _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, "VUIAppReviewManager: Add to Up Next -- up next: %lu/%lu", buf, 0x16u);
     }
 
     objc_initWeak(buf, self);
-    v8 = dispatch_time(0, 2000000000);
+    v10 = dispatch_time(0, 2000000000);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __41__VUIAppReviewManager_processAddToUpNext__block_invoke;
     block[3] = &unk_1E872E4B8;
-    objc_copyWeak(&v10, buf);
-    dispatch_after(v8, MEMORY[0x1E69E96A0], block);
-    objc_destroyWeak(&v10);
+    objc_copyWeak(&v12, buf);
+    dispatch_after(v10, MEMORY[0x1E69E96A0], block);
+    objc_destroyWeak(&v12);
     objc_destroyWeak(buf);
   }
 }
@@ -198,13 +199,14 @@ void __40__VUIAppReviewManager_isFeatureEnabled___block_invoke(uint64_t a1)
 void __41__VUIAppReviewManager_processAddToUpNext__block_invoke(uint64_t a1)
 {
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  if ([WeakRetained _shouldAttemptToPrompt])
+  v2 = [WeakRetained _shouldAttemptToPrompt];
+  if (v2)
   {
-    v2 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+    v3 = VUIDefaultLogObject(v2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      *v3 = 0;
-      _os_log_impl(&dword_1E323F000, v2, OS_LOG_TYPE_DEFAULT, "VUIAppReviewManager: initiate user prompt triggered by Add to Up Next", v3, 2u);
+      *v4 = 0;
+      _os_log_impl(&dword_1E323F000, v3, OS_LOG_TYPE_DEFAULT, "VUIAppReviewManager: initiate user prompt triggered by Add to Up Next", v4, 2u);
     }
 
     [WeakRetained _attemptToPrompt];
@@ -221,25 +223,26 @@ void __41__VUIAppReviewManager_processAddToUpNext__block_invoke(uint64_t a1)
 
 - (void)_handleIsPlaybackUIBeingShownDidChange:(id)change
 {
-  if ([(VUIAppReviewManager *)self _isYouthAccount])
+  _isYouthAccount = [(VUIAppReviewManager *)self _isYouthAccount];
+  if (_isYouthAccount)
   {
-    v4 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = VUIDefaultLogObject(_isYouthAccount);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1E323F000, v4, OS_LOG_TYPE_DEFAULT, "VUIAppReviewManager: Skip Playback -- Ineligible Account", buf, 2u);
+      _os_log_impl(&dword_1E323F000, v5, OS_LOG_TYPE_DEFAULT, "VUIAppReviewManager: Skip Playback -- Ineligible Account", buf, 2u);
     }
   }
 
   else
   {
-    v5 = +[VUIAppReviewManager sharedInstance];
-    v6[0] = MEMORY[0x1E69E9820];
-    v6[1] = 3221225472;
-    v6[2] = __62__VUIAppReviewManager__handleIsPlaybackUIBeingShownDidChange___block_invoke;
-    v6[3] = &unk_1E872F758;
-    v6[4] = self;
-    [v5 isFeatureEnabled:v6];
+    v6 = +[VUIAppReviewManager sharedInstance];
+    v7[0] = MEMORY[0x1E69E9820];
+    v7[1] = 3221225472;
+    v7[2] = __62__VUIAppReviewManager__handleIsPlaybackUIBeingShownDidChange___block_invoke;
+    v7[3] = &unk_1E872F758;
+    v7[4] = self;
+    [v6 isFeatureEnabled:v7];
   }
 }
 
@@ -268,7 +271,7 @@ void __62__VUIAppReviewManager__handleIsPlaybackUIBeingShownDidChange___block_in
 
 void __62__VUIAppReviewManager__handleIsPlaybackUIBeingShownDidChange___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   +[_TtC8VideosUI8VideosUI handlePlaybackDidEndForTCC];
   v2 = +[_TtC8VideosUI8VideosUI getFullorHalfSheetPromptedAt];
@@ -280,29 +283,30 @@ void __62__VUIAppReviewManager__handleIsPlaybackUIBeingShownDidChange___block_in
 
     if (v4)
     {
-      v5 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = VUIDefaultLogObject(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
-        v6 = "VUIAppReviewManager: Skip Playback -- Playback UI being shown";
+        LOWORD(v20) = 0;
+        v7 = "VUIAppReviewManager: Skip Playback -- Playback UI being shown";
 LABEL_8:
-        v7 = v5;
-        v8 = 2;
+        v9 = v6;
+        v10 = 2;
 LABEL_9:
-        _os_log_impl(&dword_1E323F000, v7, OS_LOG_TYPE_DEFAULT, v6, &v16, v8);
+        _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, v7, &v20, v10);
         goto LABEL_10;
       }
 
       goto LABEL_10;
     }
 
-    if ([WeakRetained lastPlaybackEvent] == 1)
+    v8 = [WeakRetained lastPlaybackEvent];
+    if (v8 == 1)
     {
-      v5 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = VUIDefaultLogObject(1);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
-        v6 = "VUIAppReviewManager: Skip Playback -- There was an error";
+        LOWORD(v20) = 0;
+        v7 = "VUIAppReviewManager: Skip Playback -- There was an error";
         goto LABEL_8;
       }
 
@@ -314,61 +318,62 @@ LABEL_10:
 
     if (*(WeakRetained + 6) < *(WeakRetained + 5))
     {
-      v5 = VUIDefaultLogObject();
-      if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = VUIDefaultLogObject(v8);
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_10;
       }
 
-      v9 = WeakRetained[5];
-      v10 = WeakRetained[6];
-      v16 = 134218240;
-      v17 = v9;
-      v18 = 2048;
-      v19 = v10;
-      v6 = "VUIAppReviewManager: Skip Playback -- live events or less than completion threshold %.02f -- progress %.02f";
-      v7 = v5;
-      v8 = 22;
+      v11 = WeakRetained[5];
+      v12 = WeakRetained[6];
+      v20 = 134218240;
+      v21 = v11;
+      v22 = 2048;
+      v23 = v12;
+      v7 = "VUIAppReviewManager: Skip Playback -- live events or less than completion threshold %.02f -- progress %.02f";
+      v9 = v6;
+      v10 = 22;
       goto LABEL_9;
     }
 
-    v11 = [MEMORY[0x1E695E000] standardUserDefaults];
+    v13 = [MEMORY[0x1E695E000] standardUserDefaults];
     ++WeakRetained[2];
-    [v11 setInteger:? forKey:?];
+    [v13 setInteger:? forKey:?];
 
-    v12 = VUIDefaultLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v15 = VUIDefaultLogObject(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = WeakRetained[2];
-      v14 = WeakRetained[4];
-      v16 = 134218240;
-      v17 = v13;
-      v18 = 2048;
-      v19 = v14;
-      _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUIAppReviewManager: Playback did end -- playback: %lu/%lu", &v16, 0x16u);
+      v16 = WeakRetained[2];
+      v17 = WeakRetained[4];
+      v20 = 134218240;
+      v21 = v16;
+      v22 = 2048;
+      v23 = v17;
+      _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "VUIAppReviewManager: Playback did end -- playback: %lu/%lu", &v20, 0x16u);
     }
 
     if ([WeakRetained lastPlaybackEvent] == 2)
     {
-      v5 = VUIDefaultLogObject();
-      if (!os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = VUIDefaultLogObject(2);
+      if (!os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_10;
       }
 
-      LOWORD(v16) = 0;
-      v6 = "VUIAppReviewManager: Skip Playback -- Upsell presented";
+      LOWORD(v20) = 0;
+      v7 = "VUIAppReviewManager: Skip Playback -- Upsell presented";
       goto LABEL_8;
     }
 
     [WeakRetained _resetStates];
-    if ([WeakRetained _shouldAttemptToPrompt])
+    v18 = [WeakRetained _shouldAttemptToPrompt];
+    if (v18)
     {
-      v15 = VUIDefaultLogObject();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+      v19 = VUIDefaultLogObject(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        LOWORD(v16) = 0;
-        _os_log_impl(&dword_1E323F000, v15, OS_LOG_TYPE_DEFAULT, "VUIAppReviewManager: Initiate prompt. Triggered by playback", &v16, 2u);
+        LOWORD(v20) = 0;
+        _os_log_impl(&dword_1E323F000, v19, OS_LOG_TYPE_DEFAULT, "VUIAppReviewManager: Initiate prompt. Triggered by playback", &v20, 2u);
       }
 
       [WeakRetained _attemptToPrompt];
@@ -422,17 +427,17 @@ LABEL_11:
   windowScene = [vui_keyWindow windowScene];
   [_TtC8VideosUI8VideosUI requestAppStoreReview:windowScene];
 
-  v12 = VUIDefaultLogObject();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v13 = VUIDefaultLogObject(v12);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
   {
-    *v13 = 0;
-    _os_log_impl(&dword_1E323F000, v12, OS_LOG_TYPE_DEFAULT, "VUIAppReviewManager: Attempted to prompt", v13, 2u);
+    *v14 = 0;
+    _os_log_impl(&dword_1E323F000, v13, OS_LOG_TYPE_DEFAULT, "VUIAppReviewManager: Attempted to prompt", v14, 2u);
   }
 }
 
 - (BOOL)_shouldAttemptToPrompt
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v3 = +[VUITVAppLauncher sharedInstance];
   appController = [v3 appController];
 
@@ -450,16 +455,16 @@ LABEL_11:
 
 LABEL_4:
 LABEL_5:
-    v8 = VUIDefaultLogObject();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = VUIDefaultLogObject(v8);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
 LABEL_9:
-      v12 = 0;
+      v13 = 0;
       goto LABEL_10;
     }
 
-    LOWORD(v22) = 0;
-    v9 = "VUIAppReviewManager: Already presenting";
+    LOWORD(v24) = 0;
+    v10 = "VUIAppReviewManager: Already presenting";
     goto LABEL_7;
   }
 
@@ -473,8 +478,8 @@ LABEL_9:
 
   if (self->_numberOfAddToUpNexts < self->_numberOfAddToUpNextsBeforePrompting && self->_numberOfPlaybacks < self->_numberOfPlaybacksBeforePrompting)
   {
-    v8 = VUIDefaultLogObject();
-    if (!os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = VUIDefaultLogObject(v8);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       goto LABEL_9;
     }
@@ -483,50 +488,51 @@ LABEL_9:
     numberOfPlaybacks = self->_numberOfPlaybacks;
     numberOfAddToUpNextsBeforePrompting = self->_numberOfAddToUpNextsBeforePrompting;
     numberOfPlaybacksBeforePrompting = self->_numberOfPlaybacksBeforePrompting;
-    v22 = 134218752;
-    v23 = numberOfAddToUpNexts;
-    v24 = 2048;
-    v25 = numberOfAddToUpNextsBeforePrompting;
+    v24 = 134218752;
+    v25 = numberOfAddToUpNexts;
     v26 = 2048;
-    v27 = numberOfPlaybacks;
+    v27 = numberOfAddToUpNextsBeforePrompting;
     v28 = 2048;
-    v29 = numberOfPlaybacksBeforePrompting;
-    v9 = "VUIAppReviewManager: -- conditions not met -- up next: %lu/%lu -- playback: %lu/%lu";
-    v10 = v8;
-    v11 = 42;
+    v29 = numberOfPlaybacks;
+    v30 = 2048;
+    v31 = numberOfPlaybacksBeforePrompting;
+    v10 = "VUIAppReviewManager: -- conditions not met -- up next: %lu/%lu -- playback: %lu/%lu";
+    v11 = v9;
+    v12 = 42;
     goto LABEL_8;
   }
 
   shouldAttemptPromptReview = [(AMSSharedStoreReview *)self->_sharedStoreReview shouldAttemptPromptReview];
-  v8 = VUIDefaultLogObject();
-  v21 = os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT);
-  if (!shouldAttemptPromptReview)
+  v22 = shouldAttemptPromptReview;
+  v9 = VUIDefaultLogObject(shouldAttemptPromptReview);
+  v23 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
+  if (!v22)
   {
-    if (!v21)
+    if (!v23)
     {
       goto LABEL_9;
     }
 
-    LOWORD(v22) = 0;
-    v9 = "VUIAppReviewManager: [AMSSharedStoreReview shouldAttemptPromptReview] returned NO";
+    LOWORD(v24) = 0;
+    v10 = "VUIAppReviewManager: [AMSSharedStoreReview shouldAttemptPromptReview] returned NO";
 LABEL_7:
-    v10 = v8;
-    v11 = 2;
+    v11 = v9;
+    v12 = 2;
 LABEL_8:
-    _os_log_impl(&dword_1E323F000, v10, OS_LOG_TYPE_DEFAULT, v9, &v22, v11);
+    _os_log_impl(&dword_1E323F000, v11, OS_LOG_TYPE_DEFAULT, v10, &v24, v12);
     goto LABEL_9;
   }
 
-  if (v21)
+  if (v23)
   {
-    LOWORD(v22) = 0;
-    _os_log_impl(&dword_1E323F000, v8, OS_LOG_TYPE_DEFAULT, "VUIAppReviewManager: [AMSSharedStoreReview shouldAttemptPromptReview] returned YES", &v22, 2u);
+    LOWORD(v24) = 0;
+    _os_log_impl(&dword_1E323F000, v9, OS_LOG_TYPE_DEFAULT, "VUIAppReviewManager: [AMSSharedStoreReview shouldAttemptPromptReview] returned YES", &v24, 2u);
   }
 
-  v12 = 1;
+  v13 = 1;
 LABEL_10:
 
-  return v12;
+  return v13;
 }
 
 @end

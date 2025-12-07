@@ -96,20 +96,24 @@ void __53__PUITreatImageRequest_secureCodableTreatmentClasses__block_invoke()
 {
   if (identifier)
   {
-    self->_identifier = [identifier copy];
+    v4 = [identifier copy];
+    identifier = self->_identifier;
+    self->_identifier = v4;
   }
 
   else
   {
-    v4 = MEMORY[0x1E696AEC0];
-    v5 = objc_opt_class();
-    NSStringFromClass(v5);
-    v6 = [v4 stringWithFormat:@"TreatImage(%@)", objc_claimAutoreleasedReturnValue()];
-    identifier = self->_identifier;
-    self->_identifier = v6;
+    v6 = MEMORY[0x1E696AEC0];
+    v7 = objc_opt_class();
+    v10 = NSStringFromClass(v7);
+    v8 = [v6 stringWithFormat:@"TreatImage(%@)", v10];
+    v9 = self->_identifier;
+    self->_identifier = v8;
+
+    identifier = v10;
   }
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, identifier);
 }
 
 - (void)dealloc

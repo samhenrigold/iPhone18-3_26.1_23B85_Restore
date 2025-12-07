@@ -201,27 +201,27 @@ LABEL_28:
   }
 }
 
-void __59__RTBluePOIWiFiScanner_onLeechWifiScanResultsNotification___block_invoke(uint64_t a1)
+void __59__RTBluePOIWiFiScanner_onLeechWifiScanResultsNotification___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v2 = [*(a1 + 32) scanResults];
-    if (v2)
+    v3 = [*(a1 + 32) scanResults];
+    if (v3)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
-        v3 = _rt_log_facility_get_os_log(RTLogFacilityBluePOI);
-        if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+        v4 = _rt_log_facility_get_os_log(RTLogFacilityBluePOI);
+        if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
         {
-          v4 = 134217984;
-          v5 = [v2 count];
-          _os_log_impl(&dword_2304B3000, v3, OS_LOG_TYPE_INFO, "WiFiScanner, leech, count %lu", &v4, 0xCu);
+          v5 = 134217984;
+          v6 = [v3 count];
+          _os_log_impl(&dword_2304B3000, v4, OS_LOG_TYPE_INFO, "WiFiScanner, leech, count %lu", &v5, 0xCu);
         }
       }
 
-      [*(a1 + 40) _processWifiScanResults:v2];
+      [*(a1 + 40) _processWifiScanResults:v3];
     }
   }
 }

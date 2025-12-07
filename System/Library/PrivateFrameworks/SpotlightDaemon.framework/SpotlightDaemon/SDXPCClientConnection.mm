@@ -8,19 +8,17 @@
 
 - (void)invalidationHandler
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   serviceName = [self serviceName];
-  v5 = 138412290;
-  v6 = serviceName;
-  _os_log_error_impl(&dword_231A35000, a2, OS_LOG_TYPE_ERROR, "##### connection invalidated %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = serviceName;
+  _os_log_error_impl(&dword_231A35000, a2, OS_LOG_TYPE_ERROR, "##### connection invalidated %@", &v4, 0xCu);
 }
 
 - (void)handleError:(id)error
 {
   string = xpc_dictionary_get_string(error, *MEMORY[0x277D86400]);
-  v5 = logForCSLogCategoryDefault();
+  v5 = logForCSLogCategoryDefault(string);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     [(SDXPCClientConnection *)string handleError:v5];
@@ -48,15 +46,13 @@
 
 - (void)handleError:(NSObject *)a3 .cold.1(uint64_t a1, void *a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [a2 serviceName];
-  v7 = 136315394;
-  v8 = a1;
-  v9 = 2112;
-  v10 = v5;
-  _os_log_error_impl(&dword_231A35000, a3, OS_LOG_TYPE_ERROR, "### Connection error %s for %@ ####", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
+  v7 = a1;
+  v8 = 2112;
+  v9 = v5;
+  _os_log_error_impl(&dword_231A35000, a3, OS_LOG_TYPE_ERROR, "### Connection error %s for %@ ####", &v6, 0x16u);
 }
 
 @end

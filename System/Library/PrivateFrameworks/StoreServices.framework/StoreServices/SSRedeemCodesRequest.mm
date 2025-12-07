@@ -80,15 +80,15 @@ id __45__SSRedeemCodesRequest_authenticationContext__block_invoke(uint64_t a1)
   dispatch_sync(dispatchQueue, v4);
 }
 
-uint64_t __49__SSRedeemCodesRequest_setAuthenticationContext___block_invoke(uint64_t result)
+void *__49__SSRedeemCodesRequest_setAuthenticationContext___block_invoke(void *result)
 {
-  v1 = *(*(result + 32) + 96);
-  if (v1 != *(result + 40))
+  v1 = *(result[4] + 96);
+  if (v1 != result[5])
   {
     v2 = result;
 
-    result = [*(v2 + 40) copy];
-    *(*(v2 + 32) + 96) = result;
+    result = [v2[5] copy];
+    *(v2[4] + 96) = result;
   }
 
   return result;
@@ -96,8 +96,8 @@ uint64_t __49__SSRedeemCodesRequest_setAuthenticationContext___block_invoke(uint
 
 - (void)startWithRedeemResponseBlock:(id)block
 {
-  v43 = *MEMORY[0x1E69E9840];
-  if (SSIsInternalBuild() && _os_feature_enabled_impl())
+  v44 = *MEMORY[0x1E69E9840];
+  if (SSIsInternalBuild(self, a2) && _os_feature_enabled_impl())
   {
     v5 = +[SSLogConfig sharedStoreServicesConfig];
     if (!v5)
@@ -116,29 +116,27 @@ uint64_t __49__SSRedeemCodesRequest_setAuthenticationContext___block_invoke(uint
       v7 = shouldLog;
     }
 
-    if (os_log_type_enabled([v5 OSLogObject], OS_LOG_TYPE_DEBUG))
+    oSLogObject = [v5 OSLogObject];
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEBUG))
     {
-      v8 = v7;
+      v9 = v7;
     }
 
     else
     {
-      v8 = v7 & 2;
+      v9 = v7 & 2;
     }
 
-    if (v8)
+    if (v9)
     {
-      v37 = 136446210;
-      v38 = "[SSRedeemCodesRequest startWithRedeemResponseBlock:]";
-      LODWORD(v35) = 12;
-      v34 = &v37;
-      v9 = _os_log_send_and_compose_impl();
-      if (v9)
+      v38 = 136446210;
+      v39 = "[SSRedeemCodesRequest startWithRedeemResponseBlock:]";
+      if (v10)
       {
-        v10 = v9;
-        v11 = [MEMORY[0x1E696AEC0] stringWithCString:v9 encoding:{4, &v37, v35}];
-        free(v10);
-        SSFileLog(v5, @"%@", v12, v13, v14, v15, v16, v17, v11);
+        v11 = v10;
+        v12 = [MEMORY[0x1E696AEC0] stringWithCString:v10 encoding:4];
+        free(v11);
+        SSFileLog(v5, @"%@", v13, v14, v15, v16, v17, v18, v12);
       }
     }
   }
@@ -148,60 +146,66 @@ uint64_t __49__SSRedeemCodesRequest_setAuthenticationContext___block_invoke(uint
     [(SSRedeemCodesRequest *)self setLogCorrelationKey:AMSGenerateLogCorrelationKey()];
   }
 
-  v18 = +[SSLogConfig sharedConfig];
-  if (!v18)
+  v19 = +[SSLogConfig sharedConfig];
+  if (!v19)
   {
-    v18 = +[SSLogConfig sharedConfig];
+    v19 = +[SSLogConfig sharedConfig];
   }
 
-  shouldLog2 = [v18 shouldLog];
-  if ([v18 shouldLogToDisk])
+  shouldLog2 = [v19 shouldLog];
+  if ([v19 shouldLogToDisk])
   {
-    v20 = shouldLog2 | 2;
+    LODWORD(v21) = shouldLog2 | 2;
   }
 
   else
   {
-    v20 = shouldLog2;
+    LODWORD(v21) = shouldLog2;
   }
 
-  if (!os_log_type_enabled([v18 OSLogObject], OS_LOG_TYPE_DEFAULT))
+  oSLogObject2 = [v19 OSLogObject];
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_DEFAULT))
   {
-    v20 &= 2u;
+    v21 = v21;
   }
 
-  if (v20)
+  else
   {
-    v21 = objc_opt_class();
+    v21 &= 2u;
+  }
+
+  if (v21)
+  {
+    v23 = objc_opt_class();
     logCorrelationKey = [(SSRedeemCodesRequest *)self logCorrelationKey];
     redeemCodes = [(SSRedeemCodesRequest *)self redeemCodes];
-    v37 = 138543874;
-    v38 = v21;
-    v39 = 2114;
-    v40 = logCorrelationKey;
-    v41 = 2112;
-    v42 = redeemCodes;
-    LODWORD(v35) = 32;
-    v24 = _os_log_send_and_compose_impl();
-    if (v24)
+    v38 = 138543874;
+    v39 = v23;
+    v40 = 2114;
+    v41 = logCorrelationKey;
+    v42 = 2112;
+    v43 = redeemCodes;
+    LODWORD(v36) = 32;
+    v26 = _os_log_send_and_compose_impl(v21, 0, 0, 0, &dword_1D48BA000, oSLogObject2, 0, "%{public}@: [%{public}@] Starting redeem operation for codes: %@", &v38, v36);
+    if (v26)
     {
-      v25 = v24;
-      v26 = [MEMORY[0x1E696AEC0] stringWithCString:v24 encoding:{4, &v37, v35}];
-      free(v25);
-      SSFileLog(v18, @"%@", v27, v28, v29, v30, v31, v32, v26);
+      v27 = v26;
+      v28 = [MEMORY[0x1E696AEC0] stringWithCString:v26 encoding:4];
+      free(v27);
+      SSFileLog(v19, @"%@", v29, v30, v31, v32, v33, v34, v28);
     }
   }
 
   global_queue = dispatch_get_global_queue(0, 0);
   dispatch_async(global_queue, &__block_literal_global_23);
-  v36[0] = MEMORY[0x1E69E9820];
-  v36[1] = 3221225472;
-  v36[2] = __53__SSRedeemCodesRequest_startWithRedeemResponseBlock___block_invoke_2;
-  v36[3] = &unk_1E84AF748;
-  v36[5] = global_queue;
-  v36[6] = block;
-  v36[4] = self;
-  [(SSRequest *)self _startWithMessageID:91 messageBlock:v36];
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __53__SSRedeemCodesRequest_startWithRedeemResponseBlock___block_invoke_2;
+  v37[3] = &unk_1E84AF748;
+  v37[5] = global_queue;
+  v37[6] = block;
+  v37[4] = self;
+  [(SSRequest *)self _startWithMessageID:91 messageBlock:v37];
 }
 
 uint64_t __53__SSRedeemCodesRequest_startWithRedeemResponseBlock___block_invoke()
@@ -240,34 +244,39 @@ void __53__SSRedeemCodesRequest_startWithRedeemResponseBlock___block_invoke_2(ui
       v8 = [v7 shouldLog];
       if ([v7 shouldLogToDisk])
       {
-        v9 = v8 | 2;
+        LODWORD(v9) = v8 | 2;
       }
 
       else
       {
-        v9 = v8;
+        LODWORD(v9) = v8;
       }
 
-      if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_ERROR))
+      v10 = [v7 OSLogObject];
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      {
+        v9 = v9;
+      }
+
+      else
       {
         v9 &= 2u;
       }
 
       if (!v9)
       {
-        goto LABEL_26;
+        goto LABEL_28;
       }
 
-      v10 = objc_opt_class();
-      v11 = [*(a1 + 32) logCorrelationKey];
+      v11 = objc_opt_class();
+      v12 = [*(a1 + 32) logCorrelationKey];
       *v27 = 138543874;
-      *&v27[4] = v10;
+      *&v27[4] = v11;
       *&v27[12] = 2114;
-      *&v27[14] = v11;
+      *&v27[14] = v12;
       *&v27[22] = 2114;
       v28 = AMSLogableError();
-      LODWORD(v26) = 32;
-      v25 = v27;
+      v13 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &dword_1D48BA000, v10, 16, "%{public}@: [%{public}@] Redeem failed with error = %{public}@", v27, 32, *v27, *&v27[8], v28);
     }
 
     else
@@ -277,47 +286,51 @@ void __53__SSRedeemCodesRequest_startWithRedeemResponseBlock___block_invoke_2(ui
         v7 = +[SSLogConfig sharedConfig];
       }
 
-      v12 = [v7 shouldLog];
+      v14 = [v7 shouldLog];
       if ([v7 shouldLogToDisk])
       {
-        v13 = v12 | 2;
+        LODWORD(v15) = v14 | 2;
       }
 
       else
       {
-        v13 = v12;
+        LODWORD(v15) = v14;
       }
 
-      if (!os_log_type_enabled([v7 OSLogObject], OS_LOG_TYPE_DEFAULT))
+      v16 = [v7 OSLogObject];
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
-        v13 &= 2u;
+        v15 = v15;
       }
 
-      if (!v13)
+      else
       {
-        goto LABEL_26;
+        v15 &= 2u;
       }
 
-      v14 = objc_opt_class();
-      v15 = [*(a1 + 32) logCorrelationKey];
+      if (!v15)
+      {
+        goto LABEL_28;
+      }
+
+      v17 = objc_opt_class();
+      v18 = [*(a1 + 32) logCorrelationKey];
       *v27 = 138543618;
-      *&v27[4] = v14;
+      *&v27[4] = v17;
       *&v27[12] = 2114;
-      *&v27[14] = v15;
-      LODWORD(v26) = 22;
-      v25 = v27;
+      *&v27[14] = v18;
+      v13 = _os_log_send_and_compose_impl(v15, 0, 0, 0, &dword_1D48BA000, v16, 0, "%{public}@: [%{public}@] Redeem finished with a response.", v27, 22, *v27, *&v27[8], v28);
     }
 
-    v16 = _os_log_send_and_compose_impl();
-    if (v16)
+    if (v13)
     {
-      v17 = v16;
-      v18 = [MEMORY[0x1E696AEC0] stringWithCString:v16 encoding:{4, v27, v26, *v27, *&v27[16]}];
-      free(v17);
-      SSFileLog(v7, @"%@", v19, v20, v21, v22, v23, v24, v18);
+      v19 = v13;
+      v20 = [MEMORY[0x1E696AEC0] stringWithCString:v13 encoding:4];
+      free(v19);
+      SSFileLog(v7, @"%@", v21, v22, v23, v24, v25, v26, v20);
     }
 
-LABEL_26:
+LABEL_28:
     (*(*(a1 + 48) + 16))();
   }
 
@@ -357,20 +370,20 @@ uint64_t __49__SSRedeemCodesRequest_startWithCompletionBlock___block_invoke(uint
 {
   if (encoding && MEMORY[0x1DA6E0380](encoding, a2) == MEMORY[0x1E69E9E80])
   {
-    v7.receiver = self;
-    v7.super_class = SSRedeemCodesRequest;
-    v5 = [(SSRequest *)&v7 init];
+    v10.receiver = self;
+    v10.super_class = SSRedeemCodesRequest;
+    v5 = [(SSRequest *)&v10 init];
     if (v5)
     {
       v5->_authenticationContext = [[SSAuthenticationContext alloc] initWithXPCEncoding:xpc_dictionary_get_value(encoding, "0")];
-      objc_opt_class();
-      v5->_redeemCodes = SSXPCDictionaryCopyCFObjectWithClass(encoding, "1");
+      v7 = objc_opt_class();
+      v5->_redeemCodes = SSXPCDictionaryCopyCFObjectWithClass(encoding, "1", v7);
       v5->_headless = xpc_dictionary_get_BOOL(encoding, "2");
       v5->_cameraRecognized = xpc_dictionary_get_BOOL(encoding, "3");
-      objc_opt_class();
-      v5->_logCorrelationKey = SSXPCDictionaryCopyCFObjectWithClass(encoding, "4");
-      objc_opt_class();
-      v5->_params = SSXPCDictionaryCopyCFObjectWithClass(encoding, "5");
+      v8 = objc_opt_class();
+      v5->_logCorrelationKey = SSXPCDictionaryCopyCFObjectWithClass(encoding, "4", v8);
+      v9 = objc_opt_class();
+      v5->_params = SSXPCDictionaryCopyCFObjectWithClass(encoding, "5", v9);
     }
   }
 

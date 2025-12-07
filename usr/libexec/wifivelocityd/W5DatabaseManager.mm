@@ -177,9 +177,9 @@
 {
   fetchCopy = fetch;
   _getWADeviceAnalyticsClient = [(W5DatabaseManager *)self _getWADeviceAnalyticsClient];
-  v11 = 0;
-  v6 = [_getWADeviceAnalyticsClient performFetch:fetchCopy error:&v11];
-  v7 = v11;
+  v12 = 0;
+  v6 = [_getWADeviceAnalyticsClient performFetch:fetchCopy error:&v12];
+  v7 = v12;
 
   if (v7)
   {
@@ -187,13 +187,14 @@
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [fetchCopy description];
-      v12 = 136315650;
-      v13 = "[W5DatabaseManager performFetch:]";
-      v14 = 2112;
-      v15 = v10;
-      v16 = 2112;
-      v17 = v7;
-      _os_log_send_and_compose_impl();
+      v13 = 136315650;
+      v14 = "[W5DatabaseManager performFetch:]";
+      v15 = 2112;
+      v16 = v10;
+      v17 = 2112;
+      v18 = v7;
+      v11 = 32;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v9, 0, "[wifivelocity] %s: failed to fetch %@ with %@", &v13, v11);
     }
   }
 

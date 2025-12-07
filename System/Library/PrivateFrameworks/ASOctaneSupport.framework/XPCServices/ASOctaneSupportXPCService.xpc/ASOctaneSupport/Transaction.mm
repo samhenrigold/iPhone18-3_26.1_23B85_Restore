@@ -37,7 +37,7 @@
 {
   sub_1001F6998();
   sub_1001F6998();
-  sub_1000C6CF8();
+  sub_1000C6CF8(d);
   return result;
 }
 

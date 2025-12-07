@@ -38,11 +38,11 @@
 
 + (id)decodeEncodedCLIPFeatureVector:(id)vector withError:(id *)error
 {
-  sub_22F740E20();
-  sub_22F3BC0F0();
-  v5 = v4;
+  v4 = sub_22F740E20();
+  sub_22F3BC0F0(v4, v5, v6);
+  v8 = v7;
 
-  return v5;
+  return v8;
 }
 
 - (PGMomentIngestCLIPFeatureVectorExtractor)init

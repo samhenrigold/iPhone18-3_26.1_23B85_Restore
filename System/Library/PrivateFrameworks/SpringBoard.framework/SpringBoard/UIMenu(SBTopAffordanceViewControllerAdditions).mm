@@ -1,11 +1,11 @@
 @interface UIMenu(SBTopAffordanceViewControllerAdditions)
 + (uint64_t)_supportsSurfacingSelectionState;
-- (uint64_t)_sb_setSurfacesSelectionState:()SBTopAffordanceViewControllerAdditions;
+- (void)_sb_setSurfacesSelectionState:()SBTopAffordanceViewControllerAdditions;
 @end
 
 @implementation UIMenu(SBTopAffordanceViewControllerAdditions)
 
-- (uint64_t)_sb_setSurfacesSelectionState:()SBTopAffordanceViewControllerAdditions
+- (void)_sb_setSurfacesSelectionState:()SBTopAffordanceViewControllerAdditions
 {
   result = [objc_opt_class() _supportsSurfacingSelectionState];
   if (result)

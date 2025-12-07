@@ -150,7 +150,6 @@
 
 - (id)popularityScore
 {
-  v16 = *MEMORY[0x277D85DE8];
   qualities = [self qualities];
 
   if (!qualities)
@@ -176,17 +175,17 @@
     v8 = [v7 countByEnumeratingWithState:? objects:? count:?];
     if (v8)
     {
-      v9 = *v15;
+      v9 = *v14;
       while (2)
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(qualities4);
           }
 
-          v11 = *(v14 + 8 * i);
+          v11 = *(v13 + 8 * i);
           if ([v11 type] == 1)
           {
             v8 = +[TBPopularityScore popularityScoreWithValue:](TBPopularityScore, "popularityScoreWithValue:", [v11 score]);
@@ -214,14 +213,11 @@ LABEL_19:
     v8 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)qualityScore
 {
-  v16 = *MEMORY[0x277D85DE8];
   qualities = [self qualities];
 
   if (!qualities)
@@ -247,17 +243,17 @@ LABEL_19:
     v8 = [v7 countByEnumeratingWithState:? objects:? count:?];
     if (v8)
     {
-      v9 = *v15;
+      v9 = *v14;
       while (2)
       {
         for (i = 0; i != v8; i = i + 1)
         {
-          if (*v15 != v9)
+          if (*v14 != v9)
           {
             objc_enumerationMutation(qualities4);
           }
 
-          v11 = *(v14 + 8 * i);
+          v11 = *(v13 + 8 * i);
           if ([v11 type] == 2)
           {
             v8 = +[TBQualityScore qualityScoreWithValue:](TBQualityScore, "qualityScoreWithValue:", [v11 score]);
@@ -284,8 +280,6 @@ LABEL_15:
 LABEL_19:
     v8 = 0;
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v8;
 }

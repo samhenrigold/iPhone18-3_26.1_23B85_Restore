@@ -24,43 +24,44 @@ void __stream_SendMessageCreatingReply_block_invoke_2(uint64_t a1)
     }
 
     *(*(*(a1 + 32) + 8) + 24) = v3;
-    if (*(*(*(a1 + 32) + 8) + 24))
+    v4 = *(*(*(a1 + 32) + 8) + 24);
+    if (v4)
     {
-      __stream_SendMessageCreatingReply_block_invoke_2_cold_2();
+      __stream_SendMessageCreatingReply_block_invoke_2_cold_2(v4);
     }
 
     else
     {
-      v4 = *(a1 + 48);
-      if (v4)
+      v5 = *(a1 + 48);
+      if (v5)
       {
-        *v4 = *(v2 + 160);
+        *v5 = *(v2 + 160);
         *(*(a1 + 40) + 160) = 0;
       }
     }
   }
 
-  v5 = *(*(a1 + 40) + 168);
-  if (v5)
+  v6 = *(*(a1 + 40) + 168);
+  if (v6)
   {
-    dispatch_release(v5);
+    dispatch_release(v6);
     *(*(a1 + 40) + 168) = 0;
   }
 }
 
-void __stream_SendMessageCreatingReply_block_invoke(uint64_t a1)
+void __stream_SendMessageCreatingReply_block_invoke(uint64_t result)
 {
-  v7 = *(a1 + 56);
-  v8 = *(a1 + 88);
-  v9 = *(a1 + 64);
-  v2 = *(a1 + 72);
+  v5 = *(result + 56);
+  v6 = *(result + 88);
+  v7 = *(result + 64);
+  v2 = *(result + 72);
   if (*(v2 + 72))
   {
     __stream_SendMessageCreatingReply_block_invoke_cold_1();
     return;
   }
 
-  if (!*(*(a1 + 80) + 9))
+  if (!*(*(result + 80) + 9))
   {
     __stream_SendMessageCreatingReply_block_invoke_cold_2();
     return;
@@ -77,32 +78,30 @@ void __stream_SendMessageCreatingReply_block_invoke(uint64_t a1)
           goto LABEL_11;
         }
 
-        v2 = *(a1 + 72);
+        v2 = *(result + 72);
       }
 
-      v6 = *(v2 + 88);
-      LogPrintF();
+      LogPrintF(&gLogCategory_APTransportStream, "OSStatus stream_SendMessageCreatingReply(FigTransportStreamRef, OSType, CMBlockBufferRef, CMBlockBufferRef *)_block_invoke", 33554522, "### %@ - Can't send a second message while we have one already in flight.\n", *(v2 + 88), v5, v6, v7);
     }
 
 LABEL_11:
-    *(*(*(a1 + 32) + 8) + 24) = -6709;
+    *(*(*(result + 32) + 8) + 24) = -6709;
     return;
   }
 
-  *(*(*(a1 + 40) + 8) + 24) = *(v2 + 176);
-  *(*(*(a1 + 48) + 8) + 24) = dispatch_semaphore_create(0);
-  v3 = *(a1 + 72);
+  *(*(*(result + 40) + 8) + 24) = *(v2 + 176);
+  *(*(*(result + 48) + 8) + 24) = dispatch_semaphore_create(0);
+  v3 = *(result + 72);
   *(v3 + 152) = 0;
-  *(v3 + 168) = *(*(*(a1 + 48) + 8) + 24);
-  dispatch_retain(*(*(a1 + 72) + 168));
-  CFRetain(*(a1 + 56));
-  v4 = *(a1 + 64);
+  *(v3 + 168) = *(*(*(result + 48) + 8) + 24);
+  dispatch_retain(*(*(result + 72) + 168));
+  CFRetain(*(result + 56));
+  v4 = *(result + 64);
   if (v4)
   {
     CFRetain(v4);
   }
 
-  v5 = *(*(a1 + 72) + 64);
   APSDispatchAsyncFHelper();
 }
 

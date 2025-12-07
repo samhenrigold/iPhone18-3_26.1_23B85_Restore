@@ -7,18 +7,16 @@
 
 + (void)logAnalyticsEventNamed:(id)named
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v10[1] = *MEMORY[0x1E69E9840];
   namedCopy = named;
   isSeniorUser = [self isSeniorUser];
-  v10 = @"u65_flag";
+  v9 = @"u65_flag";
   v6 = [MEMORY[0x1E696AD98] numberWithBool:isSeniorUser];
-  v11[0] = v6;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v10[0] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
 
   v8 = v7;
   AnalyticsSendEventLazy();
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 + (BOOL)isSeniorUser

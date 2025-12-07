@@ -3,6 +3,7 @@
 - (MessageSummaryLoader)initWithMessage:(id)message;
 - (id)_bodyLoader;
 - (id)requestSummary;
+- (id)requestSummaryImmediatelyFromDownloadedMessage:(id)message downloadIfNecessary:(BOOL)necessary;
 - (int64_t)priority;
 - (void)cancelSummaryRequest;
 - (void)notifyContentsAvailable:(id)available forMessage:(id)message;
@@ -76,6 +77,13 @@
   v3[4] = self;
   v2 = +[EFScheduler mainThreadScheduler];
   [v2 performBlock:v3];
+}
+
+- (id)requestSummaryImmediatelyFromDownloadedMessage:(id)message downloadIfNecessary:(BOOL)necessary
+{
+  v4 = [MessageBodyLoader copySummaryForMessage:message downloadIfNecessary:necessary];
+
+  return v4;
 }
 
 - (void)notifyContentsAvailable:(id)available forMessage:(id)message

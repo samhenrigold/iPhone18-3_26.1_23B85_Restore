@@ -448,7 +448,7 @@ void __65__UITableViewCell__ensureInitializeSystemAppearanceModifications__block
 
 - (void)_setupTableViewCellCommon
 {
-  v24[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   [objc_opt_class() _ensureInitializeSystemAppearanceModifications];
   [(UITableViewCell *)self setSelectionFadeDuration:0.5];
   __asm { FMOV            V0.2D, #-1.0 }
@@ -456,53 +456,52 @@ void __65__UITableViewCell__ensureInitializeSystemAppearanceModifications__block
   *&self->_separatorInset.top = _Q0;
   *&self->_separatorInset.bottom = _Q0;
   self->_tableCellFlags = vorrq_s8(self->_tableCellFlags, xmmword_18A682810);
-  v23 = 0;
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
+  v22 = 0;
   v20 = 0u;
-  v17 = 0u;
+  v21 = 0u;
   v18 = 0u;
-  *obj = 0u;
+  v19 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  *obj = 0u;
+  v15 = 0u;
   _constants = [(UITableViewCell *)self _constants];
-  tableCellFlags = self->_tableCellFlags;
-  v10 = [UICellConfigurationState _readonlyCellStateFromViewConfigurationState:?];
+  v9 = [UICellConfigurationState _readonlyCellStateFromViewConfigurationState:?];
   traitCollection = [(UIView *)self traitCollection];
   if (_constants)
   {
-    [_constants defaultCellBackgroundPropertiesForTableViewStyle:HIDWORD(tableCellFlags) & 0x1F state:v10 traitCollection:traitCollection];
+    objc_msgSend_defaultCellBackgroundPropertiesForTableViewStyle_state_traitCollection_(_constants);
   }
 
   else
   {
-    v23 = 0;
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
+    v22 = 0;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
-    *obj = 0u;
+    v19 = 0u;
     v16 = 0u;
+    v17 = 0u;
+    *obj = 0u;
+    v15 = 0u;
   }
 
   objc_storeStrong(&self->_selectionTintColor, obj[1]);
-  v12 = v16;
-  v13 = v12;
-  if (v12)
+  v11 = v15;
+  v12 = v11;
+  if (v11)
   {
-    v24[0] = v12;
-    v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:1];
+    v23[0] = v11;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
   }
 
   else
   {
-    v14 = 0;
+    v13 = 0;
   }
 
-  objc_storeStrong(&self->_selectionEffects, v14);
-  if (v13)
+  objc_storeStrong(&self->_selectionEffects, v13);
+  if (v12)
   {
   }
 
@@ -1130,7 +1129,7 @@ uint64_t __52__UITableViewCell__resetBackgroundViewConfiguration__block_invoke(u
 
       else if (v17 && v18)
       {
-        v13 = ![(UICellAccessoryConfiguration *)v17 isEqual:v18];
+        v13 = objc_msgSend_isEqual_(v17) ^ 1;
       }
 
       v16 = *(p_tableCellFlags + 1);
@@ -1199,7 +1198,7 @@ LABEL_28:
 
       if (v20 && v21)
       {
-        v23 = ![(UICellAccessoryConfiguration *)v20 isEqual:v21];
+        v23 = objc_msgSend_isEqual_(v20) ^ 1;
         goto LABEL_18;
       }
 
@@ -2147,7 +2146,7 @@ LABEL_11:
   [(UITableViewCell *)self setMultipleSelectionBackgroundView:0];
 }
 
-uint64_t __48__UITableViewCell__resetBackgroundViewsAndColor__block_invoke(uint64_t a1)
+void *__48__UITableViewCell__resetBackgroundViewsAndColor__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) setBackgroundColor:0];
   *(*(a1 + 32) + 408) &= ~0x1000000000000000uLL;
@@ -3356,44 +3355,45 @@ void __65__UITableViewCell__ensureInitializeSystemAppearanceModifications__block
 
 void __39__UITableViewCell__initializeForIdiom___block_invoke(uint64_t a1)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v19[1] = *MEMORY[0x1E69E9840];
   v2 = [UITraitCollection traitCollectionWithUserInterfaceIdiom:*(a1 + 32)];
   v3 = _UITableConstantsForTraitCollection(v2);
-  v16 = 0;
+  v18 = 0;
+  v16 = 0u;
+  v17 = 0u;
   v14 = 0u;
   v15 = 0u;
   v12 = 0u;
   v13 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v8 = 0u;
-  v9 = 0u;
   v4 = [UICellConfigurationState _readonlyCellState:?];
   if (v3)
   {
-    [v3 defaultCellBackgroundPropertiesForTableViewStyle:0 state:v4 traitCollection:{v2, v8}];
+    objc_msgSend_defaultCellBackgroundPropertiesForTableViewStyle_state_traitCollection_(v3, v10);
   }
 
   else
   {
-    v16 = 0;
+    v18 = 0;
+    v16 = 0u;
+    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
     v12 = 0u;
     v13 = 0u;
     v10 = 0u;
     v11 = 0u;
-    v8 = 0u;
-    v9 = 0u;
   }
 
   v5 = *(a1 + 40);
-  v17[0] = _UIAppearanceContainerForUserInterfaceIdiom();
-  v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
-  v7 = [v5 appearanceWhenContainedInInstancesOfClasses:v6];
-  [v7 setBackgroundColor:*(&v8 + 1)];
+  v6 = _UIAppearanceContainerForUserInterfaceIdiom(*(a1 + 32));
+  v19[0] = v7;
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v19 count:{1, v6}];
+  v9 = [v5 appearanceWhenContainedInInstancesOfClasses:v8];
+  [v9 setBackgroundColor:*(&v10 + 1)];
 
-  __destructor_8_s8_s16_s24_s80(&v8);
+  __destructor_8_s8_s16_s24_s80(&v10);
 }
 
 - (BOOL)_shouldChangeOpaqueStateOfView:(id)view
@@ -4728,9 +4728,9 @@ LABEL_12:
 
       font = [(UILabel *)v6->_textLabel font];
       _defaultFont = [(UITableViewCell *)v6 _defaultFont];
-      v35 = [font isEqual:_defaultFont];
+      isEqual = objc_msgSend_isEqual_(font);
 
-      if ((v35 & 1) == 0)
+      if ((isEqual & 1) == 0)
       {
         *p_tableCellFlags |= 0x4000000000uLL;
       }
@@ -5128,7 +5128,7 @@ LABEL_48:
   v4 = text;
   v5 = v4;
   v8 = v4;
-  if (v4 && (v6 = [(NSString *)v4 isEqualToString:&stru_1EFB14550], v5 = v8, !v6))
+  if (v4 && (isEqualToString = objc_msgSend_isEqualToString_(v4, v4, &stru_1EFB14550), v5 = v8, (isEqualToString & 1) == 0))
   {
     _textLabel = [(UITableViewCell *)self _textLabel];
     [_textLabel setText:v8];
@@ -5294,9 +5294,9 @@ LABEL_48:
 
     if (v5 && v6)
     {
-      v8 = [v5 isEqual:v6];
+      isEqual = objc_msgSend_isEqual_(v5);
 
-      if (v8)
+      if (isEqual)
       {
         goto LABEL_20;
       }
@@ -5675,7 +5675,7 @@ LABEL_44:
     v16 = viewForContentConfiguration;
     if (objc_opt_respondsToSelector())
     {
-      v17 = [v16 supportsConfiguration:v15];
+      isEqualToString = [v16 supportsConfiguration:v15];
     }
 
     else
@@ -5725,12 +5725,12 @@ LABEL_44:
         v24 = 0;
       }
 
-      v17 = [v21 isEqualToString:v24];
+      isEqualToString = objc_msgSend_isEqualToString_(v21);
       a2 = v33;
     }
 
     *(&self->_tableCellFlags + 1) |= 0x4000000000uLL;
-    if (!v17)
+    if (!isEqualToString)
     {
       if (!iCopy)
       {
@@ -6259,9 +6259,9 @@ LABEL_21:
     {
       if (v6 && backgroundColor)
       {
-        v8 = [backgroundColor isEqual:v6];
+        isEqual = objc_msgSend_isEqual_(backgroundColor);
 
-        if (v8)
+        if (isEqual)
         {
           goto LABEL_11;
         }
@@ -6284,7 +6284,7 @@ LABEL_21:
 LABEL_11:
 }
 
-uint64_t __46__UITableViewCell__setDefaultBackgroundColor___block_invoke(uint64_t a1)
+void *__46__UITableViewCell__setDefaultBackgroundColor___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = v2[52];
@@ -6303,7 +6303,7 @@ uint64_t __46__UITableViewCell__setDefaultBackgroundColor___block_invoke(uint64_
     [(UITableViewCell *)self _setNeedsSeparatorUpdate];
     separatorColor = self->_separatorColor;
     v7 = +[UIColor tableSeparatorDarkColor];
-    if ([(UIColor *)separatorColor isEqual:v7])
+    if (objc_msgSend_isEqual_(separatorColor))
     {
     }
 
@@ -6311,7 +6311,7 @@ uint64_t __46__UITableViewCell__setDefaultBackgroundColor___block_invoke(uint64_
     {
       v8 = self->_separatorColor;
       v9 = +[UIColor tableSeparatorLightColor];
-      LOBYTE(v8) = [(UIColor *)v8 isEqual:v9];
+      LOBYTE(v8) = objc_msgSend_isEqual_(v8);
 
       colorCopy = v10;
       if (v8)
@@ -7108,11 +7108,11 @@ uint64_t __55__UITableViewCell_showSelectedBackgroundView_animated___block_invok
   return [v3 _performConfigurationStateUpdate];
 }
 
-uint64_t __55__UITableViewCell_showSelectedBackgroundView_animated___block_invoke_2(uint64_t result)
+id *__55__UITableViewCell_showSelectedBackgroundView_animated___block_invoke_2(id *result)
 {
-  if ((*(result + 40) & 1) == 0)
+  if ((result[5] & 1) == 0)
   {
-    return [*(result + 32) _deselectAnimationFinished];
+    return [result[4] _deselectAnimationFinished];
   }
 
   return result;
@@ -8110,9 +8110,9 @@ LABEL_3:
 
       v13 = *(*(&v21 + 1) + 8 * v12);
       identifier = [v13 identifier];
-      v15 = [identifier isEqualToString:@"expand"];
+      isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-      if (v15)
+      if (isEqualToString)
       {
         break;
       }
@@ -8451,7 +8451,7 @@ LABEL_9:
       v16[3] = &unk_1E70F9B38;
       v16[4] = self;
       v16[5] = v11;
-      [(UIView *)0.3 _animateCollectionTableAnimationWithDuration:UIView delay:4 options:v15 animations:v16 completion:?];
+      [UIView _animateCollectionTableAnimationWithDuration:v15 delay:v16 options:0.3 animations:0.0 completion:?];
     }
 
     else
@@ -9397,9 +9397,9 @@ void __69__UITableViewCell__setSectionLocation_animated_forceBackgroundSetup___b
     goto LABEL_10;
   }
 
-  v14 = [v10 isEqual:v11];
+  isEqual = objc_msgSend_isEqual_(v10, v11, v11);
 
-  if ((v14 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_10:
     v15 = self->__editingControlTintColors;
@@ -9597,7 +9597,7 @@ LABEL_11:
     *&v32[6] = v20;
     *&v32[7] = v12;
     *&v32[8] = Height;
-    [(UIView *)0.3 _animateCollectionTableAnimationWithDuration:UIView delay:0 options:v32 animations:0 completion:?];
+    [UIView _animateCollectionTableAnimationWithDuration:v32 delay:0 options:0.3 animations:0.0 completion:?];
   }
 }
 
@@ -9739,14 +9739,14 @@ LABEL_11:
       *&v76[10] = v68;
       *&v76[11] = v71;
       *&v76[12] = v67;
-      [(UIView *)0.3 _animateCollectionTableAnimationWithDuration:UIView delay:0 options:v76 animations:0 completion:?];
+      [UIView _animateCollectionTableAnimationWithDuration:v76 delay:0 options:0.3 animations:0.0 completion:?];
       v75[0] = MEMORY[0x1E69E9820];
       v75[1] = 3221225472;
       v75[2] = __68__UITableViewCell__animateInnerShadowForInsertion_withRowAnimation___block_invoke_2;
       v75[3] = &unk_1E70F32F0;
       v75[4] = self;
       *&v75[5] = v69;
-      [(UIView *)0.15 _animateCollectionTableAnimationWithDuration:v70 delay:UIView options:0 animations:v75 completion:0];
+      [UIView _animateCollectionTableAnimationWithDuration:v75 delay:0 options:0.15 animations:v70 completion:?];
     }
   }
 }
@@ -9967,7 +9967,7 @@ LABEL_8:
   v13 = v12;
   if (animatedCopy)
   {
-    [(UIView *)0.3 _animateCollectionTableAnimationWithDuration:UIView delay:0 options:v12 animations:0 completion:?];
+    [UIView _animateCollectionTableAnimationWithDuration:v12 delay:0 options:0.3 animations:0.0 completion:?];
   }
 
   else
@@ -10692,41 +10692,41 @@ void __37__UITableViewCell_setTableViewStyle___block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
   v3 = v2[52];
-  v17 = 0;
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
+  v16 = 0;
   v14 = 0u;
-  v11 = 0u;
+  v15 = 0u;
   v12 = 0u;
-  v9 = 0u;
+  v13 = 0u;
   v10 = 0u;
+  v11 = 0u;
+  v8 = 0u;
+  v9 = 0u;
   v4 = [v2 _constants];
   v5 = [*(a1 + 32) _tableView];
-  v6 = [v5 _tableStyle];
-  v7 = [UICellConfigurationState _readonlyCellState:?];
-  v8 = [*(a1 + 32) traitCollection];
+  [v5 _tableStyle];
+  v6 = [UICellConfigurationState _readonlyCellState:?];
+  v7 = [*(a1 + 32) traitCollection];
   if (v4)
   {
-    [v4 defaultCellBackgroundPropertiesForTableViewStyle:v6 state:v7 traitCollection:v8];
+    objc_msgSend_defaultCellBackgroundPropertiesForTableViewStyle_state_traitCollection_(v4);
   }
 
   else
   {
-    v17 = 0;
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
+    v16 = 0;
     v14 = 0u;
-    v11 = 0u;
+    v15 = 0u;
     v12 = 0u;
-    v9 = 0u;
+    v13 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
   }
 
-  [*(a1 + 32) setBackgroundColor:*(&v9 + 1)];
+  [*(a1 + 32) setBackgroundColor:*(&v8 + 1)];
   *(*(a1 + 32) + 416) = *(*(a1 + 32) + 416) & 0xFFFFFF7FFFFFFFFFLL | (((v3 >> 39) & 1) << 39);
-  __destructor_8_s8_s16_s24_s80(&v9);
+  __destructor_8_s8_s16_s24_s80(&v8);
 }
 
 - (void)_startToEditTextField
@@ -11701,9 +11701,9 @@ LABEL_35:
     v13 = buttonCopy;
     if (buttonCopy)
     {
-      menu = [(UIButton *)buttonCopy menu];
+      v7 = objc_msgSend_menu(buttonCopy);
 
-      if (!menu)
+      if (!v7)
       {
         currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
         [currentHandler handleFailureInMethod:a2 object:self file:@"UITableViewCell.m" lineNumber:7069 description:{@"Popup menu button must be configured with a menu: %@", v13}];

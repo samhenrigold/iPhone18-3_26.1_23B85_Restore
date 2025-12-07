@@ -116,31 +116,31 @@
 
 - (id)requestBody
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   [v3 switchToCodePage:10];
   [v3 openTag:5];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v4 = self->_emailAddresses;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v27 objects:v31 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v29;
+    v7 = *v28;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v29 != v7)
+        if (*v28 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v28 + 1) + 8 * i);
-        if ([v9 hasPrefix:{@"mailto:", v28}])
+        v9 = *(*(&v27 + 1) + 8 * i);
+        if ([v9 hasPrefix:{@"mailto:", v27}])
         {
           v10 = [v9 substringFromIndex:{objc_msgSend(@"mailto:", "length")}];
           [v3 appendTag:16 withStringContent:v10];
@@ -152,7 +152,7 @@
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v27 objects:v31 count:16];
     }
 
     while (v6);
@@ -209,8 +209,6 @@
   [v3 closeTag:5];
   data = [v3 data];
 
-  v26 = *MEMORY[0x277D85DE8];
-
   return data;
 }
 
@@ -224,7 +222,7 @@
 
 - (BOOL)processContext:(id)context
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   currentlyParsingItem = [(ASTask *)self currentlyParsingItem];
 
@@ -358,13 +356,12 @@ LABEL_17:
   v16 = 0;
 LABEL_31:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
 - (void)finishWithError:(id)error
 {
-  v96 = *MEMORY[0x277D85DE8];
+  v95 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = [(ASTask *)self taskStatusForError:errorCopy];
   if (!errorCopy)
@@ -379,8 +376,8 @@ LABEL_31:
       {
         *buf = 138412546;
         selfCopy2 = objc_opt_class();
-        v92 = 2112;
-        *v93 = v8;
+        v91 = 2112;
+        *v92 = v8;
         v16 = selfCopy2;
         _os_log_impl(&dword_24A0AC000, v15, type, "%@ Parsed response of %@", buf, 0x16u);
       }
@@ -398,64 +395,64 @@ LABEL_31:
       responses = [v8 responses];
       v12 = [v18 dictionaryWithCapacity:{objc_msgSend(responses, "count")}];
 
-      v87 = 0u;
-      v88 = 0u;
-      v85 = 0u;
       v86 = 0u;
+      v87 = 0u;
+      v84 = 0u;
+      v85 = 0u;
       responses2 = [v8 responses];
-      v64 = [responses2 countByEnumeratingWithState:&v85 objects:v95 count:16];
-      if (v64)
+      v63 = [responses2 countByEnumeratingWithState:&v84 objects:v94 count:16];
+      if (v63)
       {
-        v59 = v8;
-        v60 = 0;
-        v63 = *v86;
+        v58 = v8;
+        v59 = 0;
+        v62 = *v85;
         selfCopy = self;
-        v61 = responses2;
-        v62 = v12;
+        v60 = responses2;
+        v61 = v12;
         do
         {
           v21 = 0;
           do
           {
-            if (*v86 != v63)
+            if (*v85 != v62)
             {
               objc_enumerationMutation(responses2);
             }
 
-            v66 = v21;
-            v22 = *(*(&v85 + 1) + 8 * v21);
+            v65 = v21;
+            v22 = *(*(&v84 + 1) + 8 * v21);
             emailAddress = [v22 emailAddress];
             v24 = objc_opt_new();
-            v65 = emailAddress;
+            v64 = emailAddress;
             [v12 setObject:v24 forKeyedSubscript:emailAddress];
             easStatus2 = [v22 easStatus];
             [v24 setStatus:{-[ASResolveRecipientsTask responseStatusForExchangeStatus:](self, "responseStatusForExchangeStatus:", objc_msgSend(easStatus2, "intValue"))}];
 
             if ([v24 status] == 2)
             {
-              v83 = 0u;
-              v84 = 0u;
-              v81 = 0u;
               v82 = 0u;
+              v83 = 0u;
+              v80 = 0u;
+              v81 = 0u;
               obj = [v22 recipients];
-              v26 = [obj countByEnumeratingWithState:&v81 objects:v94 count:16];
+              v26 = [obj countByEnumeratingWithState:&v80 objects:v93 count:16];
               if (v26)
               {
                 v27 = v26;
-                v28 = *v82;
-                v69 = *v82;
+                v28 = *v81;
+                v68 = *v81;
                 do
                 {
                   v29 = 0;
-                  v70 = v27;
+                  v69 = v27;
                   do
                   {
-                    if (*v82 != v28)
+                    if (*v81 != v28)
                     {
                       objc_enumerationMutation(obj);
                     }
 
-                    v30 = *(*(&v81 + 1) + 8 * v29);
+                    v30 = *(*(&v80 + 1) + 8 * v29);
                     emailAddress2 = [v30 emailAddress];
                     certificates = [v30 certificates];
                     v33 = certificates;
@@ -469,7 +466,7 @@ LABEL_31:
                       {
                         recipientCount = [v34 recipientCount];
                         intValue = [recipientCount intValue];
-                        v72 = v34;
+                        v71 = v34;
                         certCount = [v34 certCount];
                         intValue2 = [certCount intValue];
 
@@ -478,55 +475,55 @@ LABEL_31:
                           v40 = DALoggingwithCategory();
                           if (os_log_type_enabled(v40, type))
                           {
-                            recipientCount2 = [v72 recipientCount];
+                            recipientCount2 = [v71 recipientCount];
                             intValue3 = [recipientCount2 intValue];
-                            certCount2 = [v72 certCount];
+                            certCount2 = [v71 certCount];
                             intValue4 = [certCount2 intValue];
                             *buf = 138412802;
                             selfCopy2 = emailAddress2;
-                            v92 = 1024;
-                            *v93 = intValue3;
-                            *&v93[4] = 1024;
-                            *&v93[6] = intValue4;
+                            v91 = 1024;
+                            *v92 = intValue3;
+                            *&v92[4] = 1024;
+                            *&v92[6] = intValue4;
                             _os_log_impl(&dword_24A0AC000, v40, type, "for email address %@, we have %d recipients, but only %d certs", buf, 0x18u);
                           }
 
                           [v24 setCertificatesStatus:66];
                         }
 
-                        v79 = 0u;
-                        v80 = 0u;
-                        v77 = 0u;
                         v78 = 0u;
-                        certificates2 = [v72 certificates];
-                        v46 = [certificates2 countByEnumeratingWithState:&v77 objects:v89 count:16];
+                        v79 = 0u;
+                        v76 = 0u;
+                        v77 = 0u;
+                        certificates2 = [v71 certificates];
+                        v46 = [certificates2 countByEnumeratingWithState:&v76 objects:v88 count:16];
                         if (v46)
                         {
                           v47 = v46;
-                          v48 = *v78;
+                          v48 = *v77;
                           do
                           {
                             for (i = 0; i != v47; ++i)
                             {
-                              if (*v78 != v48)
+                              if (*v77 != v48)
                               {
                                 objc_enumerationMutation(certificates2);
                               }
 
-                              v50 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:*(*(&v77 + 1) + 8 * i) options:0];
+                              v50 = [objc_alloc(MEMORY[0x277CBEA90]) initWithBase64EncodedString:*(*(&v76 + 1) + 8 * i) options:0];
                               [v24 addCert:v50 forEmailAddress:emailAddress2];
                             }
 
-                            v47 = [certificates2 countByEnumeratingWithState:&v77 objects:v89 count:16];
+                            v47 = [certificates2 countByEnumeratingWithState:&v76 objects:v88 count:16];
                           }
 
                           while (v47);
                         }
 
                         self = selfCopy;
-                        v28 = v69;
-                        v27 = v70;
-                        v33 = v72;
+                        v28 = v68;
+                        v27 = v69;
+                        v33 = v71;
                       }
 
                       else
@@ -567,26 +564,26 @@ LABEL_31:
                   }
 
                   while (v29 != v27);
-                  v27 = [obj countByEnumeratingWithState:&v81 objects:v94 count:16];
+                  v27 = [obj countByEnumeratingWithState:&v80 objects:v93 count:16];
                 }
 
                 while (v27);
               }
 
-              responses2 = v61;
-              v12 = v62;
+              responses2 = v60;
+              v12 = v61;
             }
 
-            v21 = v66 + 1;
+            v21 = v65 + 1;
           }
 
-          while (v66 + 1 != v64);
-          v64 = [responses2 countByEnumeratingWithState:&v85 objects:v95 count:16];
+          while (v65 + 1 != v63);
+          v63 = [responses2 countByEnumeratingWithState:&v84 objects:v94 count:16];
         }
 
-        while (v64);
-        v8 = v59;
-        errorCopy = v60;
+        while (v63);
+        v8 = v58;
+        errorCopy = v59;
       }
 
       v13 = 2;
@@ -636,8 +633,8 @@ LABEL_31:
     {
       *buf = 138412546;
       selfCopy2 = objc_opt_class();
-      v92 = 2112;
-      *v93 = errorCopy;
+      v91 = 2112;
+      *v92 = errorCopy;
       v11 = selfCopy2;
       _os_log_impl(&dword_24A0AC000, v8, v10, "%@ failed: %@", buf, 0x16u);
     }
@@ -650,20 +647,18 @@ LABEL_58:
 
   if (![(ASTask *)self attemptRetryWithStatus:v13 error:errorCopy])
   {
-    v73[0] = MEMORY[0x277D85DD0];
-    v73[1] = 3221225472;
-    v73[2] = __43__ASResolveRecipientsTask_finishWithError___block_invoke;
-    v73[3] = &unk_278FC7D70;
-    v73[4] = self;
-    v76 = v13;
-    v74 = errorCopy;
-    v75 = v12;
-    [(ASTask *)self finishWithError:v74 afterDelegateCallout:v73];
+    v72[0] = MEMORY[0x277D85DD0];
+    v72[1] = 3221225472;
+    v72[2] = __43__ASResolveRecipientsTask_finishWithError___block_invoke;
+    v72[3] = &unk_278FC7D70;
+    v72[4] = self;
+    v75 = v13;
+    v73 = errorCopy;
+    v74 = v12;
+    [(ASTask *)self finishWithError:v73 afterDelegateCallout:v72];
   }
 
   [(ASTask *)self setCurrentlyParsingItem:0];
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 void __43__ASResolveRecipientsTask_finishWithError___block_invoke(void *a1)

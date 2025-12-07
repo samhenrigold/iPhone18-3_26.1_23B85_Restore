@@ -31,7 +31,7 @@
   v10 = [MEMORY[0x277CCABB0] numberWithLongLong:{-[HMDSharedUserInviteOwnerSendLogEvent totalInvitationCreateAndSendMS](self, "totalInvitationCreateAndSendMS") - -[HMDSharedUserInviteOwnerSendLogEvent createShareMS](self, "createShareMS") - (-[HMDSharedUserInviteOwnerSendLogEvent sendInvitationMS](self, "sendInvitationMS") + -[HMDSharedUserInviteOwnerSendLogEvent addUserToShareMS](self, "addUserToShareMS"))}];
   [v3 setObject:v10 forKeyedSubscript:@"totalUnassociatedDurationMS"];
 
-  v11 = [v3 copy];
+  v11 = objc_msgSend_copy(v3);
 
   return v11;
 }

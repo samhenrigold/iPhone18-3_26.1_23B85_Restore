@@ -108,10 +108,10 @@
 
 - (id)dictionary
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v25.receiver = self;
-  v25.super_class = LKSwitchOperation;
-  dictionary = [(LKOperation *)&v25 dictionary];
+  v26 = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = LKSwitchOperation;
+  dictionary = [(LKOperation *)&v24 dictionary];
   v4 = [dictionary mutableCopy];
 
   recoverEMCSOperation = [(LKSwitchOperation *)self recoverEMCSOperation];
@@ -119,26 +119,26 @@
   [v4 setObject:dictionary2 forKeyedSubscript:@"recoverKeychainOperation"];
 
   v7 = objc_opt_new();
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   keychainItemsAddedAfterRecoverEMCS = [(LKSwitchOperation *)self keychainItemsAddedAfterRecoverEMCS];
-  v9 = [keychainItemsAddedAfterRecoverEMCS countByEnumeratingWithState:&v21 objects:v26 count:16];
+  v9 = [keychainItemsAddedAfterRecoverEMCS countByEnumeratingWithState:&v20 objects:v25 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v22;
+    v11 = *v21;
     do
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v22 != v11)
+        if (*v21 != v11)
         {
           objc_enumerationMutation(keychainItemsAddedAfterRecoverEMCS);
         }
 
-        v13 = *(*(&v21 + 1) + 8 * i);
+        v13 = *(*(&v20 + 1) + 8 * i);
         keychainItemAdded = [v13 keychainItemAdded];
 
         if (keychainItemAdded)
@@ -148,7 +148,7 @@
         }
       }
 
-      v10 = [keychainItemsAddedAfterRecoverEMCS countByEnumeratingWithState:&v21 objects:v26 count:16];
+      v10 = [keychainItemsAddedAfterRecoverEMCS countByEnumeratingWithState:&v20 objects:v25 count:16];
     }
 
     while (v10);
@@ -169,7 +169,6 @@
   [v4 setObject:switchTypeString forKeyedSubscript:@"switchType"];
 
   v18 = [v4 copy];
-  v19 = *MEMORY[0x277D85DE8];
 
   return v18;
 }

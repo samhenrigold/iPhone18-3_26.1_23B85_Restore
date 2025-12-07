@@ -20,19 +20,17 @@
 
 - (void)_deleteObjectsForOldKeys
 {
-  v5[7] = *MEMORY[0x1E69E9840];
+  v4[7] = *MEMORY[0x1E69E9840];
   dictionary = [(FCTodayPrivateData *)self dictionary];
-  v5[0] = @"FCTodayWidgetDropboxDataRecentlyReadArticlesDataDictionaryKey";
-  v5[1] = @"FCTodayWidgetPrivateDataRecentlySeenArticlesDataDictionaryKey2";
-  v5[2] = @"FCTodayWidgetPrivateDataRecentlyReadHistoryItemsDataDictionaryKey";
-  v5[3] = @"FCTodayWidgetDropboxDataFeldsparIDDictionaryKey";
-  v5[4] = @"FCTodayPrivateDataBundleSubscriptionStateDictionaryKey";
-  v5[5] = @"FCTodayPrivateDataBundleIAPDictionaryKey";
-  v5[6] = @"FCTodayPrivateDataAutoFavoriteTagIDsDataDictionaryKey";
-  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:7];
+  v4[0] = @"FCTodayWidgetDropboxDataRecentlyReadArticlesDataDictionaryKey";
+  v4[1] = @"FCTodayWidgetPrivateDataRecentlySeenArticlesDataDictionaryKey2";
+  v4[2] = @"FCTodayWidgetPrivateDataRecentlyReadHistoryItemsDataDictionaryKey";
+  v4[3] = @"FCTodayWidgetDropboxDataFeldsparIDDictionaryKey";
+  v4[4] = @"FCTodayPrivateDataBundleSubscriptionStateDictionaryKey";
+  v4[5] = @"FCTodayPrivateDataBundleIAPDictionaryKey";
+  v4[6] = @"FCTodayPrivateDataAutoFavoriteTagIDsDataDictionaryKey";
+  v3 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:7];
   [dictionary removeObjectsForKeys:v3];
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (FCMutableTodayPrivateData)init
@@ -63,32 +61,31 @@
 
 - (FCMutableTodayPrivateData)initWithDictionary:(id)dictionary
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   if (!dictionaryCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "dictionary"];
+    v8 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "dictionary"];
     *buf = 136315906;
-    v12 = "[FCMutableTodayPrivateData initWithDictionary:]";
-    v13 = 2080;
-    v14 = "FCFileCoordinatedTodayDropbox.m";
-    v15 = 1024;
-    v16 = 250;
-    v17 = 2114;
-    v18 = v9;
+    v11 = "[FCMutableTodayPrivateData initWithDictionary:]";
+    v12 = 2080;
+    v13 = "FCFileCoordinatedTodayDropbox.m";
+    v14 = 1024;
+    v15 = 250;
+    v16 = 2114;
+    v17 = v8;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v10.receiver = self;
-  v10.super_class = FCMutableTodayPrivateData;
-  v5 = [(FCTodayPrivateData *)&v10 initWithDictionary:dictionaryCopy];
+  v9.receiver = self;
+  v9.super_class = FCMutableTodayPrivateData;
+  v5 = [(FCTodayPrivateData *)&v9 initWithDictionary:dictionaryCopy];
   v6 = v5;
   if (v5)
   {
     [(FCMutableTodayPrivateData *)v5 _deleteObjectsForOldKeys];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v6;
 }
 

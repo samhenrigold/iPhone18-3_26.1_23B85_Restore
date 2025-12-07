@@ -3,7 +3,7 @@
 
 @implementation SetRateAndAnchorTime
 
-uint64_t __audioHoseManagerBuffered_SetRateAndAnchorTime_block_invoke(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t __audioHoseManagerBuffered_SetRateAndAnchorTime_block_invoke(uint64_t result, uint64_t a2, uint64_t *a3)
 {
   v4 = result;
   v6 = (result + 64);
@@ -18,8 +18,8 @@ uint64_t __audioHoseManagerBuffered_SetRateAndAnchorTime_block_invoke(uint64_t r
     v7 = MEMORY[0x277CBED10];
   }
 
-  v8 = (a3 + 44);
-  if (*(a3 + 44) == v5)
+  v8 = a3 + 11;
+  if (*(a3 + 11) == v5)
   {
     if (gLogCategory_APAudioHoseManagerBuffered <= 50)
     {
@@ -40,7 +40,7 @@ uint64_t __audioHoseManagerBuffered_SetRateAndAnchorTime_block_invoke(uint64_t r
   {
     if (gLogCategory_APAudioHoseManagerBuffered <= 50 && (gLogCategory_APAudioHoseManagerBuffered != -1 || _LogCategory_Initialize()))
     {
-      __audioHoseManagerBuffered_SetRateAndAnchorTime_block_invoke_cold_1(v4);
+      __audioHoseManagerBuffered_SetRateAndAnchorTime_block_invoke_cold_1(v4, v6, a3);
     }
 
     v9 = *(v4 + 32);
@@ -105,27 +105,37 @@ uint64_t __audioHoseManagerBuffered_SetRateAndAnchorTime_block_invoke(uint64_t r
   return result;
 }
 
-uint64_t __audioHoseManagerBuffered_SetRateAndAnchorTime_block_invoke_cold_1(uint64_t a1)
+uint64_t __audioHoseManagerBuffered_SetRateAndAnchorTime_block_invoke_cold_1(uint64_t a1, unsigned int *a2, uint64_t *a3)
 {
-  if (*(a1 + 32))
+  v5 = *(a1 + 32);
+  if (v5)
   {
-    CMBaseObjectGetDerivedStorage();
+    DerivedStorage = CMBaseObjectGetDerivedStorage();
   }
 
+  else
+  {
+    DerivedStorage = "";
+  }
+
+  v13 = *a2;
+  v14 = *a3;
+  v12 = DerivedStorage;
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v7, v8, v9, v10, v5, v12, v13, v14);
 }
 
 uint64_t __audioHoseManagerBuffered_SetRateAndAnchorTime_block_invoke_cold_2(uint64_t a1)
 {
-  if (*(a1 + 32))
+  v1 = *(a1 + 32);
+  if (v1)
   {
     CMBaseObjectGetDerivedStorage();
   }
 
   OUTLINED_FUNCTION_28_1();
   OUTLINED_FUNCTION_2_0();
-  return LogPrintF();
+  return LogPrintF(v2, v3, v4, v5, v1);
 }
 
 @end

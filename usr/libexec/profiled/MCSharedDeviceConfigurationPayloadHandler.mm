@@ -23,9 +23,9 @@
   v12 = MCErrorArray();
   v13 = MCErrorTypeFatal;
   v14 = [NSError MCErrorWithDomain:v11 code:46000 descriptionArray:v12 errorType:MCErrorTypeFatal, 0];
-  mCCopyAsPrimaryError = [v14 MCCopyAsPrimaryError];
+  v15 = objc_msgSend_MCCopyAsPrimaryError(v14);
 
-  if (!mCCopyAsPrimaryError)
+  if (!v15)
   {
 LABEL_9:
     v27 = 1;
@@ -36,7 +36,7 @@ LABEL_9:
   payload = [(MCNewPayloadHandler *)self payload];
   friendlyName = [payload friendlyName];
   v19 = MCErrorArray();
-  v20 = [NSError MCErrorWithDomain:v16 code:4001 descriptionArray:v19 underlyingError:mCCopyAsPrimaryError errorType:v13, friendlyName, 0];
+  v20 = [NSError MCErrorWithDomain:v16 code:4001 descriptionArray:v19 underlyingError:v15 errorType:v13, friendlyName, 0];
 
   if (error)
   {

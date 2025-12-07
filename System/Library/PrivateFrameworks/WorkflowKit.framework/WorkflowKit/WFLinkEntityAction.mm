@@ -101,10 +101,10 @@
 
 uint64_t __45__WFLinkEntityAction_entityParameterMetadata__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 name];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 name];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 - (id)actualEntityParameterNameFromPossibleNames:(id)names

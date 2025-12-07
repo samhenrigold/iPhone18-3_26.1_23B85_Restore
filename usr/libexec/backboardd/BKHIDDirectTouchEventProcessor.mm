@@ -14,6 +14,8 @@
 - (id)_queue_digitizerStateForService:(id)service;
 - (id)_queue_displayInfoForDisplay:(id)display createIfNeeded:(BOOL)needed;
 - (id)_queue_servicesMatchingSenderDescriptor:(id)descriptor;
+- (id)_queue_slotRecordForSlotID:(unsigned int)d;
+- (id)_queue_touchStreamClientForReference:(unsigned int)reference;
 - (id)_queue_touchStreamInfoForDisplayUUID:(id)d createIfNeeded:(BOOL)needed;
 - (id)authenticationSpecificationForSlotID:(unsigned int)d registrantEntitled:(BOOL *)entitled;
 - (id)cancelAndSuppressTouchesOnDisplay:(id)display reason:(id)reason;
@@ -28,6 +30,7 @@
 - (void)_queue_enumerateTouchStreamsForAllDisplaysUsingBlock:(id)block;
 - (void)_queue_invalidateTouchStreamClient:(id)client reason:(id)reason;
 - (void)_queue_resetTouchAuthenticationInitialSampleEvent;
+- (void)_queue_windowServerDidDeleteSlotID:(unsigned int)d;
 - (void)addTouchAuthenticationSpecifications:(id)specifications registrantEntitled:(BOOL)entitled;
 - (void)appendDescriptionToFormatter:(id)formatter;
 - (void)applyExtendedHitTestInformationForCAScreenCoordinates:(CGPoint)coordinates displayUUID:(id)d toPathAttributes:(id)attributes secureName:(unsigned int)name excludeContextIDs:(id)ds;
@@ -338,6 +341,25 @@ LABEL_27:
   }
 }
 
+- (id)_queue_slotRecordForSlotID:(unsigned int)d
+{
+  if (d)
+  {
+    v3 = *&d;
+    dispatch_assert_queue_V2(self->_queue);
+    queue_slotIDToSlotRecord = self->_queue_slotIDToSlotRecord;
+    v6 = [NSNumber numberWithUnsignedInt:v3];
+    v7 = [(NSMutableDictionary *)queue_slotIDToSlotRecord objectForKeyedSubscript:v6];
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  return v7;
+}
+
 - (id)_queue_applyCachedPropertiesToMultitouchService:(id)service
 {
   dispatch_assert_queue_V2(self->_queue);
@@ -383,6 +405,17 @@ LABEL_27:
   }
 
   return v12;
+}
+
+- (id)_queue_touchStreamClientForReference:(unsigned int)reference
+{
+  v3 = *&reference;
+  dispatch_assert_queue_V2(self->_queue);
+  queue_referenceToTouchStreamClient = self->_queue_referenceToTouchStreamClient;
+  v6 = [NSNumber numberWithUnsignedInt:v3];
+  v7 = [(NSMutableDictionary *)queue_referenceToTouchStreamClient objectForKeyedSubscript:v6];
+
+  return v7;
 }
 
 - (unsigned)_queue_addTouchStreamClient:(id)client toDisplayUUID:(id)d versionedPID:(int64_t)iD
@@ -1505,6 +1538,27 @@ LABEL_15:
   }
 }
 
+- (void)_queue_windowServerDidDeleteSlotID:(unsigned int)d
+{
+  v3 = *&d;
+  dispatch_assert_queue_V2(self->_queue);
+  if ([(NSMutableDictionary *)self->_queue_slotIDToSlotRecord count])
+  {
+    v5 = BKLogTouchEvents();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    {
+      v7[0] = 67109120;
+      v7[1] = v3;
+      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "CA didDeleteSlot:%X", v7, 8u);
+    }
+
+    v6 = [NSNumber numberWithUnsignedInt:v3];
+    [(NSMutableDictionary *)self->_queue_slotIDToSlotRecord removeObjectForKey:v6];
+    [(NSMutableOrderedSet *)self->_queue_touchEnterSlotIDs removeObject:v6];
+    [(BKHIDDirectTouchEventProcessor *)self _queue_resetTouchAuthenticationInitialSampleEvent];
+  }
+}
+
 - (void)applyExtendedHitTestInformationForCAScreenCoordinates:(CGPoint)coordinates displayUUID:(id)d toPathAttributes:(id)attributes secureName:(unsigned int)name excludeContextIDs:(id)ds
 {
   y = coordinates.y;
@@ -2074,13 +2128,13 @@ LABEL_15:
 - (BKHIDDirectTouchEventProcessor)initWithContext:(id)context
 {
   obj = objc_alloc_init(BKHIDEventHitTestDispatcher);
-  v42 = sub_100008F48();
-  v44 = +[BKIOHIDServicePersistentPropertyController digitizerServicePersistentPropertyController];
-  if (self && (v63.receiver = self, v63.super_class = BKHIDDirectTouchEventProcessor, v5 = [(BKHIDDirectTouchEventProcessor *)&v63 init], (v6 = v5) != 0))
+  v41 = sub_100008F48();
+  v43 = +[BKIOHIDServicePersistentPropertyController digitizerServicePersistentPropertyController];
+  if (self && (v62.receiver = self, v62.super_class = BKHIDDirectTouchEventProcessor, v5 = [(BKHIDDirectTouchEventProcessor *)&v62 init], (v6 = v5) != 0))
   {
     objc_storeStrong(&v5->_dispatcher, obj);
-    objc_storeStrong(&v6->_touchEventServer, v42);
-    objc_storeStrong(&v6->_persistentPropertyController, v44);
+    objc_storeStrong(&v6->_touchEventServer, v41);
+    objc_storeStrong(&v6->_persistentPropertyController, v43);
     v7 = BSDispatchQueueCreateWithFixedPriority();
     queue = v6->_queue;
     v6->_queue = v7;
@@ -2088,39 +2142,39 @@ LABEL_15:
     serviceMatcherDataProvider = [context serviceMatcherDataProvider];
     v10 = [BKIOHIDServiceSimplePersistentPropertySupport alloc];
     v11 = +[BKSHIDEventSenderDescriptor stylusOpaqueTouchDigitizer];
-    v12 = [v10 initWithSenderDescriptor:v11 matcherDataProvider:serviceMatcherDataProvider persistentPropertyController:v44];
+    v12 = [v10 initWithSenderDescriptor:v11 matcherDataProvider:serviceMatcherDataProvider persistentPropertyController:v43];
     pencilOpaqueTouchPersistentPropertySupport = v6->_pencilOpaqueTouchPersistentPropertySupport;
     v6->_pencilOpaqueTouchPersistentPropertySupport = v12;
 
-    [v44 registerHandler:v6->_pencilOpaqueTouchPersistentPropertySupport];
+    [v43 registerHandler:v6->_pencilOpaqueTouchPersistentPropertySupport];
     v14 = objc_alloc_init(NSMutableArray);
-    v61 = 0u;
-    v62 = 0u;
-    v59 = 0u;
     v60 = 0u;
+    v61 = 0u;
+    v58 = 0u;
+    v59 = 0u;
     v15 = +[BKHIDDirectTouchEventProcessor digitizerMatchingDictionaries];
-    v16 = [v15 countByEnumeratingWithState:&v59 objects:v66 count:16];
+    v16 = [v15 countByEnumeratingWithState:&v58 objects:v65 count:16];
     if (v16)
     {
-      v17 = *v60;
+      v17 = *v59;
       do
       {
         v18 = 0;
         do
         {
-          if (*v60 != v17)
+          if (*v59 != v17)
           {
             objc_enumerationMutation(v15);
           }
 
-          v19 = [[BKIOHIDServiceMatcher alloc] initWithMatchingDictionary:*(*(&v59 + 1) + 8 * v18) dataProvider:serviceMatcherDataProvider];
+          v19 = [[BKIOHIDServiceMatcher alloc] initWithMatchingDictionary:*(*(&v58 + 1) + 8 * v18) dataProvider:serviceMatcherDataProvider];
           [v14 addObject:v19];
 
           v18 = v18 + 1;
         }
 
         while (v16 != v18);
-        v16 = [v15 countByEnumeratingWithState:&v59 objects:v66 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v58 objects:v65 count:16];
       }
 
       while (v16);
@@ -2133,39 +2187,39 @@ LABEL_15:
     v21 = [[BSContinuousMachTimer alloc] initWithIdentifier:@"BKHIDDirectTouchEventProcessor-WaitForMainDigitizer"];
     objc_storeStrong(&v6->_queue_mainDisplayDigitizerSentinelTimer, v21);
     v22 = v6->_queue;
-    v55[0] = _NSConcreteStackBlock;
-    v55[1] = 3221225472;
-    v55[2] = sub_100051F30;
-    v55[3] = &unk_1000FB2B0;
-    objc_copyWeak(&v57, &location);
-    v56 = v21;
-    v41 = v56;
-    [v56 scheduleWithFireInterval:v22 leewayInterval:v55 queue:60.0 handler:5.0];
-    v53 = 0u;
-    v54 = 0u;
-    v51 = 0u;
+    v54[0] = _NSConcreteStackBlock;
+    v54[1] = 3221225472;
+    v54[2] = sub_100051F30;
+    v54[3] = &unk_1000FB2B0;
+    objc_copyWeak(&v56, &location);
+    v55 = v21;
+    v40 = v55;
+    [v55 scheduleWithFireInterval:v22 leewayInterval:v54 queue:60.0 handler:5.0];
     v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
     v23 = v14;
-    v24 = [v23 countByEnumeratingWithState:&v51 objects:v65 count:16];
+    v24 = [v23 countByEnumeratingWithState:&v50 objects:v64 count:16];
     if (v24)
     {
-      v25 = *v52;
+      v25 = *v51;
       do
       {
         v26 = 0;
         do
         {
-          if (*v52 != v25)
+          if (*v51 != v25)
           {
             objc_enumerationMutation(v23);
           }
 
-          [*(*(&v51 + 1) + 8 * v26) startObserving:v6 queue:v6->_queue];
+          [*(*(&v50 + 1) + 8 * v26) startObserving:v6 queue:v6->_queue];
           v26 = v26 + 1;
         }
 
         while (v24 != v26);
-        v24 = [v23 countByEnumeratingWithState:&v51 objects:v65 count:16];
+        v24 = [v23 countByEnumeratingWithState:&v50 objects:v64 count:16];
       }
 
       while (v24);
@@ -2177,49 +2231,48 @@ LABEL_15:
     v30 = [v27 observeDefault:v28 onQueue:v29 withBlock:&stru_1000FB2D0];
 
     v31 = [NSString stringWithUTF8String:"digitizerVisualizeTouches"];
-    v64[0] = v31;
+    v63[0] = v31;
     v32 = [NSString stringWithUTF8String:"digitizerVisualizeHitTestRegions"];
-    v64[1] = v32;
-    v33 = [NSArray arrayWithObjects:v64 count:2];
-    v49[0] = _NSConcreteStackBlock;
-    v49[1] = 3221225472;
-    v49[2] = sub_100052030;
-    v49[3] = &unk_1000FD150;
+    v63[1] = v32;
+    v33 = [NSArray arrayWithObjects:v63 count:2];
+    v48[0] = _NSConcreteStackBlock;
+    v48[1] = 3221225472;
+    v48[2] = sub_100052030;
+    v48[3] = &unk_1000FD150;
     v34 = v6;
-    v50 = v34;
-    v35 = [v27 observeDefaults:v33 onQueue:v29 withBlock:v49];
+    v49 = v34;
+    v35 = [v27 observeDefaults:v33 onQueue:v29 withBlock:v48];
 
-    v36 = v6->_queue;
-    v47[1] = _NSConcreteStackBlock;
-    v47[2] = 3221225472;
-    v47[3] = sub_1000520BC;
-    v47[4] = &unk_1000FCCF8;
-    objc_copyWeak(&v48, &location);
-    v37 = BSLogAddStateCaptureBlockWithTitle();
-    v38 = +[CAWindowServer serverIfRunning];
-    v45[0] = _NSConcreteStackBlock;
-    v45[1] = 3221225472;
-    v45[2] = sub_100052134;
-    v45[3] = &unk_1000FB318;
-    objc_copyWeak(v47, &location);
-    v39 = v34;
-    v46 = v39;
-    [v38 setSlotDeletionCallback:v45];
+    v46[1] = _NSConcreteStackBlock;
+    v46[2] = 3221225472;
+    v46[3] = sub_1000520BC;
+    v46[4] = &unk_1000FCCF8;
+    objc_copyWeak(&v47, &location);
+    v36 = BSLogAddStateCaptureBlockWithTitle();
+    v37 = +[CAWindowServer serverIfRunning];
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = sub_100052134;
+    v44[3] = &unk_1000FB318;
+    objc_copyWeak(v46, &location);
+    v38 = v34;
+    v45 = v38;
+    [v37 setSlotDeletionCallback:v44];
 
-    [(BKIOHIDServicePersistentPropertyController *)v6->_persistentPropertyController registerHandler:v39];
-    objc_destroyWeak(v47);
-    objc_destroyWeak(&v48);
+    [(BKIOHIDServicePersistentPropertyController *)v6->_persistentPropertyController registerHandler:v38];
+    objc_destroyWeak(v46);
+    objc_destroyWeak(&v47);
 
-    objc_destroyWeak(&v57);
+    objc_destroyWeak(&v56);
     objc_destroyWeak(&location);
   }
 
   else
   {
-    v39 = 0;
+    v38 = 0;
   }
 
-  return v39;
+  return v38;
 }
 
 + (NSArray)digitizerMatchingDictionaries

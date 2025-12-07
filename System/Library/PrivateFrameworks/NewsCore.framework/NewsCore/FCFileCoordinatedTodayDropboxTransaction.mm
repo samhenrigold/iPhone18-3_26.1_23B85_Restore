@@ -78,20 +78,20 @@
 
 + (id)transactionToMutateSeenArticlesWithInsertedOrUpdatedHistoryItems:(id)items deletedArticleIDs:(id)ds
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   dsCopy = ds;
   if (!itemsCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "insertedOrUpdatedHistoryItems"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "insertedOrUpdatedHistoryItems"];
     *buf = 136315906;
-    v13 = "+[FCFileCoordinatedTodayDropboxTransaction transactionToMutateSeenArticlesWithInsertedOrUpdatedHistoryItems:deletedArticleIDs:]";
-    v14 = 2080;
-    v15 = "FCFileCoordinatedTodayDropbox.m";
-    v16 = 1024;
-    v17 = 394;
-    v18 = 2114;
-    v19 = v10;
+    v12 = "+[FCFileCoordinatedTodayDropboxTransaction transactionToMutateSeenArticlesWithInsertedOrUpdatedHistoryItems:deletedArticleIDs:]";
+    v13 = 2080;
+    v14 = "FCFileCoordinatedTodayDropbox.m";
+    v15 = 1024;
+    v16 = 394;
+    v17 = 2114;
+    v18 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (dsCopy)
@@ -107,57 +107,55 @@
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "deletedArticleIDs"];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "deletedArticleIDs"];
     *buf = 136315906;
-    v13 = "+[FCFileCoordinatedTodayDropboxTransaction transactionToMutateSeenArticlesWithInsertedOrUpdatedHistoryItems:deletedArticleIDs:]";
-    v14 = 2080;
-    v15 = "FCFileCoordinatedTodayDropbox.m";
-    v16 = 1024;
-    v17 = 395;
-    v18 = 2114;
-    v19 = v11;
+    v12 = "+[FCFileCoordinatedTodayDropboxTransaction transactionToMutateSeenArticlesWithInsertedOrUpdatedHistoryItems:deletedArticleIDs:]";
+    v13 = 2080;
+    v14 = "FCFileCoordinatedTodayDropbox.m";
+    v15 = 1024;
+    v16 = 395;
+    v17 = 2114;
+    v18 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
 LABEL_6:
   v7 = [objc_alloc(objc_opt_class()) initWithTransactionType:0 insertedOrUpdatedHistoryItems:itemsCopy deletedArticleIDs:dsCopy];
 
-  v8 = *MEMORY[0x1E69E9840];
-
   return v7;
 }
 
 + (id)collapsedTransactionOfTransactions:(id)transactions
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   transactionsCopy = transactions;
   orderedSet = [MEMORY[0x1E695DFA0] orderedSet];
   dictionary = [MEMORY[0x1E695DF90] dictionary];
+  v64 = 0u;
   v65 = 0u;
   v66 = 0u;
   v67 = 0u;
-  v68 = 0u;
-  v49 = transactionsCopy;
+  v48 = transactionsCopy;
   obj = [transactionsCopy copy];
-  v5 = [obj countByEnumeratingWithState:&v65 objects:v79 count:16];
+  v5 = [obj countByEnumeratingWithState:&v64 objects:v78 count:16];
   if (v5)
   {
     v6 = v5;
     v7 = 0;
-    v8 = *v66;
-    v50 = *v66;
+    v8 = *v65;
+    v49 = *v65;
     do
     {
       v9 = 0;
-      v51 = v6;
+      v50 = v6;
       do
       {
-        if (*v66 != v8)
+        if (*v65 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v65 + 1) + 8 * v9);
+        v10 = *(*(&v64 + 1) + 8 * v9);
         transactionType = [v10 transactionType];
         v12 = transactionType;
         if (transactionType)
@@ -172,7 +170,7 @@ LABEL_6:
 
         else
         {
-          v53 = v9;
+          v52 = v9;
           deletedArticleIDs = [v10 deletedArticleIDs];
           v14 = [deletedArticleIDs count];
 
@@ -198,26 +196,26 @@ LABEL_6:
             }
           }
 
-          v63 = 0u;
-          v64 = 0u;
-          v61 = 0u;
           v62 = 0u;
+          v63 = 0u;
+          v60 = 0u;
+          v61 = 0u;
           insertedOrUpdatedHistoryItems = [v10 insertedOrUpdatedHistoryItems];
-          v20 = [insertedOrUpdatedHistoryItems countByEnumeratingWithState:&v61 objects:v78 count:16];
+          v20 = [insertedOrUpdatedHistoryItems countByEnumeratingWithState:&v60 objects:v77 count:16];
           if (v20)
           {
             v21 = v20;
-            v22 = *v62;
+            v22 = *v61;
             do
             {
               for (i = 0; i != v21; ++i)
               {
-                if (*v62 != v22)
+                if (*v61 != v22)
                 {
                   objc_enumerationMutation(insertedOrUpdatedHistoryItems);
                 }
 
-                v24 = *(*(&v61 + 1) + 8 * i);
+                v24 = *(*(&v60 + 1) + 8 * i);
                 articleID = [v24 articleID];
                 if (articleID)
                 {
@@ -242,58 +240,58 @@ LABEL_6:
                 }
               }
 
-              v21 = [insertedOrUpdatedHistoryItems countByEnumeratingWithState:&v61 objects:v78 count:16];
+              v21 = [insertedOrUpdatedHistoryItems countByEnumeratingWithState:&v60 objects:v77 count:16];
             }
 
             while (v21);
           }
 
-          v9 = v53;
+          v9 = v52;
           v12 = 0;
-          v8 = v50;
-          v6 = v51;
+          v8 = v49;
+          v6 = v50;
         }
 
         ++v9;
       }
 
       while (v9 != v6);
-      v6 = [obj countByEnumeratingWithState:&v65 objects:v79 count:16];
+      v6 = [obj countByEnumeratingWithState:&v64 objects:v78 count:16];
     }
 
     while (v6);
-    v54 = v12;
+    v53 = v12;
   }
 
   else
   {
     v7 = 0;
-    v54 = 1;
+    v53 = 1;
   }
 
   v30 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(orderedSet, "count")}];
+  v56 = 0u;
   v57 = 0u;
   v58 = 0u;
   v59 = 0u;
-  v60 = 0u;
   v31 = orderedSet;
-  v32 = [v31 countByEnumeratingWithState:&v57 objects:v77 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v56 objects:v76 count:16];
   v33 = v7;
   if (v32)
   {
     v34 = v32;
-    v35 = *v58;
+    v35 = *v57;
     v36 = MEMORY[0x1E69E9C10];
     do
     {
       for (j = 0; j != v34; ++j)
       {
-        if (*v58 != v35)
+        if (*v57 != v35)
         {
           objc_enumerationMutation(v31);
         }
 
-        v38 = [dictionary objectForKeyedSubscript:*(*(&v57 + 1) + 8 * j)];
+        v38 = [dictionary objectForKeyedSubscript:*(*(&v56 + 1) + 8 * j)];
         if (v38)
         {
           [v30 addObject:v38];
@@ -303,20 +301,20 @@ LABEL_6:
         {
           v39 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"invalid nil value for '%s'", "existingItem"];
           *buf = 136315906;
-          v70 = "+[FCFileCoordinatedTodayDropboxTransaction collapsedTransactionOfTransactions:]";
-          v71 = 2080;
-          v72 = "FCFileCoordinatedTodayDropbox.m";
-          v73 = 1024;
-          v74 = 497;
-          v75 = 2114;
-          v76 = v39;
+          v69 = "+[FCFileCoordinatedTodayDropboxTransaction collapsedTransactionOfTransactions:]";
+          v70 = 2080;
+          v71 = "FCFileCoordinatedTodayDropbox.m";
+          v72 = 1024;
+          v73 = 497;
+          v74 = 2114;
+          v75 = v39;
           _os_log_error_impl(&dword_1B63EF000, v36, OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
           v7 = v33;
         }
       }
 
-      v34 = [v31 countByEnumeratingWithState:&v57 objects:v77 count:16];
+      v34 = [v31 countByEnumeratingWithState:&v56 objects:v76 count:16];
     }
 
     while (v34);
@@ -338,9 +336,7 @@ LABEL_6:
 
   v44 = [FCFileCoordinatedTodayDropboxTransaction alloc];
   v45 = [v30 copy];
-  v46 = [(FCFileCoordinatedTodayDropboxTransaction *)v44 initWithTransactionType:v54 insertedOrUpdatedHistoryItems:v45 deletedArticleIDs:v43];
-
-  v47 = *MEMORY[0x1E69E9840];
+  v46 = [(FCFileCoordinatedTodayDropboxTransaction *)v44 initWithTransactionType:v53 insertedOrUpdatedHistoryItems:v45 deletedArticleIDs:v43];
 
   return v46;
 }
@@ -385,50 +381,50 @@ LABEL_6:
 
 void __68__FCFileCoordinatedTodayDropboxTransaction_todayPrivateDataAccessor__block_invoke(id *a1, void *a2)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = MEMORY[0x1E695DF70];
-  v27 = v3;
+  v26 = v3;
   v5 = [v3 recentlySeenHistoryItems];
   v6 = [v4 arrayWithArray:v5];
 
   v7 = [a1[4] fc_setByTransformingWithBlock:&__block_literal_global_13];
   v8 = objc_opt_new();
   v9 = objc_opt_new();
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __68__FCFileCoordinatedTodayDropboxTransaction_todayPrivateDataAccessor__block_invoke_3;
-  v32[3] = &unk_1E7C37500;
-  v25 = v7;
-  v33 = v25;
+  v31[0] = MEMORY[0x1E69E9820];
+  v31[1] = 3221225472;
+  v31[2] = __68__FCFileCoordinatedTodayDropboxTransaction_todayPrivateDataAccessor__block_invoke_3;
+  v31[3] = &unk_1E7C37500;
+  v24 = v7;
+  v32 = v24;
   v10 = v8;
-  v34 = v10;
+  v33 = v10;
   v11 = v9;
-  v35 = v11;
-  [v6 enumerateObjectsUsingBlock:v32];
-  v26 = v6;
-  v24 = v11;
+  v34 = v11;
+  [v6 enumerateObjectsUsingBlock:v31];
+  v25 = v6;
+  v23 = v11;
   [v6 removeObjectsAtIndexes:v11];
-  v30 = 0u;
-  v31 = 0u;
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   v12 = a1[4];
-  v13 = [v12 countByEnumeratingWithState:&v28 objects:v36 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v27 objects:v35 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v29;
+    v15 = *v28;
     do
     {
       for (i = 0; i != v14; ++i)
       {
-        if (*v29 != v15)
+        if (*v28 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        v17 = *(*(&v28 + 1) + 8 * i);
+        v17 = *(*(&v27 + 1) + 8 * i);
         v18 = [v17 articleID];
         v19 = [v10 objectForKeyedSubscript:v18];
 
@@ -439,24 +435,22 @@ void __68__FCFileCoordinatedTodayDropboxTransaction_todayPrivateDataAccessor__bl
         }
       }
 
-      v14 = [v12 countByEnumeratingWithState:&v28 objects:v36 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v27 objects:v35 count:16];
     }
 
     while (v14);
   }
 
-  [v26 addObjectsFromArray:a1[4]];
+  [v25 addObjectsFromArray:a1[4]];
   v21 = [a1[6] allObjects];
-  v22 = [v26 fc_arrayByRemovingObjectsInArray:v21];
+  v22 = [v25 fc_arrayByRemovingObjectsInArray:v21];
 
-  if ([v26 count] >= 0x65)
+  if ([v25 count] >= 0x65)
   {
-    [v26 removeObjectsInRange:{0, objc_msgSend(v26, "count") - 100}];
+    [v25 removeObjectsInRange:{0, objc_msgSend(v25, "count") - 100}];
   }
 
-  [v27 setRecentlySeenHistoryItems:v26];
-
-  v23 = *MEMORY[0x1E69E9840];
+  [v26 setRecentlySeenHistoryItems:v25];
 }
 
 void __68__FCFileCoordinatedTodayDropboxTransaction_todayPrivateDataAccessor__block_invoke_3(id *a1, void *a2, uint64_t a3)
@@ -479,20 +473,20 @@ void __68__FCFileCoordinatedTodayDropboxTransaction_todayPrivateDataAccessor__bl
 
 + (void)_mergeItem:(id)item intoItem:(id)intoItem
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   intoItemCopy = intoItem;
   if (!itemCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "rightItem"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "rightItem"];
     *buf = 136315906;
-    v13 = "+[FCFileCoordinatedTodayDropboxTransaction _mergeItem:intoItem:]";
-    v14 = 2080;
-    v15 = "FCFileCoordinatedTodayDropbox.m";
-    v16 = 1024;
-    v17 = 600;
-    v18 = 2114;
-    v19 = v10;
+    v12 = "+[FCFileCoordinatedTodayDropboxTransaction _mergeItem:intoItem:]";
+    v13 = 2080;
+    v14 = "FCFileCoordinatedTodayDropbox.m";
+    v15 = 1024;
+    v16 = 600;
+    v17 = 2114;
+    v18 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
 
     if (intoItemCopy)
@@ -508,15 +502,15 @@ void __68__FCFileCoordinatedTodayDropboxTransaction_todayPrivateDataAccessor__bl
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "leftItem"];
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "leftItem"];
     *buf = 136315906;
-    v13 = "+[FCFileCoordinatedTodayDropboxTransaction _mergeItem:intoItem:]";
-    v14 = 2080;
-    v15 = "FCFileCoordinatedTodayDropbox.m";
-    v16 = 1024;
-    v17 = 601;
-    v18 = 2114;
-    v19 = v11;
+    v12 = "+[FCFileCoordinatedTodayDropboxTransaction _mergeItem:intoItem:]";
+    v13 = 2080;
+    v14 = "FCFileCoordinatedTodayDropbox.m";
+    v15 = 1024;
+    v16 = 601;
+    v17 = 2114;
+    v18 = v10;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -524,8 +518,6 @@ LABEL_6:
   v7 = FCCheckedProtocolCast(&unk_1F2ECDE28, intoItemCopy);
   v8 = FCCheckedProtocolCast(&unk_1F2ECDCD8, itemCopy);
   FCMergeHistoryItemSeenFields(v7, v8);
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

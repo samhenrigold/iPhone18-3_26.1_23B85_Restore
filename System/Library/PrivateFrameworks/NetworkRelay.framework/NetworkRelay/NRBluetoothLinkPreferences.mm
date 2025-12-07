@@ -42,8 +42,9 @@ LABEL_4:
   {
 
 LABEL_21:
+    v28 = v6;
     v8 = nrCopyLogObj_461();
-    _NRLogWithArgs(v8, 16, "%s%.30s:%-4d %llu > UINT32_MAX, capping", v24, v25, v26, v27, v28, "");
+    _NRLogWithArgs(v8, 16, "%s%.30s:%-4d %llu > UINT32_MAX, capping", ", "[NRBluetoothLinkPreferences combinePreferences:]"", 225, v28);
     goto LABEL_4;
   }
 
@@ -69,17 +70,18 @@ LABEL_5:
 
     else
     {
-      v29 = v20;
-      v30 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
+      v24 = v20;
+      v25 = os_log_type_enabled(v20, OS_LOG_TYPE_ERROR);
 
-      if (!v30)
+      if (!v25)
       {
         goto LABEL_8;
       }
     }
 
+    v29 = v11;
     inputBytesPerSecond = nrCopyLogObj_461();
-    _NRLogWithArgs(inputBytesPerSecond, 16, "%s%.30s:%-4d %llu > UINT32_MAX, capping", v31, v32, v33, v34, v35, "");
+    _NRLogWithArgs(inputBytesPerSecond, 16, "%s%.30s:%-4d %llu > UINT32_MAX, capping", ", "[NRBluetoothLinkPreferences combinePreferences:]"", 226, v29);
   }
 
   else
@@ -109,15 +111,16 @@ LABEL_10:
   {
 
 LABEL_25:
+    v30 = v16;
     outputBytesPerSecond = nrCopyLogObj_461();
-    _NRLogWithArgs(outputBytesPerSecond, 16, "%s%.30s:%-4d %llu > UINT32_MAX, capping", v38, v39, v40, v41, v42, "");
+    _NRLogWithArgs(outputBytesPerSecond, 16, "%s%.30s:%-4d %llu > UINT32_MAX, capping", ", "[NRBluetoothLinkPreferences combinePreferences:]"", 227, v30);
     goto LABEL_10;
   }
 
-  v36 = v21;
-  v37 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
+  v26 = v21;
+  v27 = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
 
-  if (v37)
+  if (v27)
   {
     goto LABEL_25;
   }
@@ -305,9 +308,9 @@ LABEL_11:
 
 - (NRBluetoothLinkPreferences)init
 {
-  v15.receiver = self;
-  v15.super_class = NRBluetoothLinkPreferences;
-  v2 = [(NRLinkPreferences *)&v15 initWithLinkType:1];
+  v10.receiver = self;
+  v10.super_class = NRBluetoothLinkPreferences;
+  v2 = [(NRLinkPreferences *)&v10 initWithLinkType:1];
   v3 = v2;
   if (!v2)
   {
@@ -328,7 +331,7 @@ LABEL_11:
     }
 
     v9 = nrCopyLogObj_461();
-    _NRLogWithArgs(v9, 17, "Failed to initialize link preferences object", v10, v11, v12, v13, v14, v15.receiver);
+    _NRLogWithArgs(v9, 17, "Failed to initialize link preferences object");
 
     goto LABEL_3;
   }

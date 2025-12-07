@@ -1,5 +1,6 @@
 @interface MSIncidentReport
 + (Class)managedClass;
+- (MSIncidentReport)initWithCountryCode:(id)code positionIndex:(int64_t)index type:(signed __int16)type;
 - (MSIncidentReport)initWithObject:(id)object store:(id)store lazyLoad:(BOOL)load parent:(BOOL)parent;
 - (MSIncidentReport)initWithStore:(id)store countryCode:(id)code positionIndex:(int64_t)index type:(signed __int16)type;
 - (NSString)countryCode;
@@ -12,6 +13,41 @@
 @end
 
 @implementation MSIncidentReport
+
+- (MSIncidentReport)initWithCountryCode:(id)code positionIndex:(int64_t)index type:(signed __int16)type
+{
+  typeCopy = type;
+  if (code)
+  {
+    sub_1B63BEBD4();
+    v9 = v8;
+  }
+
+  else
+  {
+    v9 = 0;
+  }
+
+  if (qword_1EDB0F2A0 != -1)
+  {
+    swift_once();
+  }
+
+  v10 = qword_1EDB0F2A8;
+  if (v9)
+  {
+    v11 = sub_1B63BEBC4();
+  }
+
+  else
+  {
+    v11 = 0;
+  }
+
+  v12 = [(MSIncidentReport *)self initWithStore:v10 countryCode:v11 positionIndex:index type:typeCopy];
+
+  return v12;
+}
 
 - (MSIncidentReport)initWithStore:(id)store countryCode:(id)code positionIndex:(int64_t)index type:(signed __int16)type
 {
@@ -47,20 +83,20 @@
 - (NSString)countryCode
 {
   selfCopy = self;
-  sub_1B6308408();
-  v4 = v3;
+  sub_1B6308408(selfCopy, v3);
+  v5 = v4;
 
-  if (v4)
+  if (v5)
   {
-    v5 = sub_1B63BEBC4();
+    v6 = sub_1B63BEBC4();
   }
 
   else
   {
-    v5 = 0;
+    v6 = 0;
   }
 
-  return v5;
+  return v6;
 }
 
 - (void)setCountryCode:(id)code

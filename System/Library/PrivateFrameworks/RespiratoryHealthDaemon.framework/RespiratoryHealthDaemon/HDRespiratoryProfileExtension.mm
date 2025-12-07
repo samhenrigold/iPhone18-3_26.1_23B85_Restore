@@ -32,14 +32,14 @@
 
 - (HDRespiratoryProfileExtension)initWithProfile:(id)profile featureAvailabilityManager:(id)manager companionAnalysisAvailabilityManager:(id)availabilityManager ageGatingDefaults:(id)defaults
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   managerCopy = manager;
   availabilityManagerCopy = availabilityManager;
   defaultsCopy = defaults;
-  v38.receiver = self;
-  v38.super_class = HDRespiratoryProfileExtension;
-  v14 = [(HDRespiratoryProfileExtension *)&v38 init];
+  v37.receiver = self;
+  v37.super_class = HDRespiratoryProfileExtension;
+  v14 = [(HDRespiratoryProfileExtension *)&v37 init];
   v15 = v14;
   if (v14)
   {
@@ -60,7 +60,7 @@
     {
       v21 = objc_opt_class();
       *buf = 138543362;
-      v40 = v21;
+      v39 = v21;
       v22 = v21;
       _os_log_impl(&dword_262086000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] Plugin loaded", buf, 0xCu);
     }
@@ -94,7 +94,6 @@
     [mEMORY[0x277D10AF8] addObject:v15];
   }
 
-  v36 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -134,33 +133,30 @@
 
 uint64_t __80__HDRespiratoryProfileExtension_observeValueForKeyPath_ofObject_change_context___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v2 = HKLogRespiratoryCategory();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 32);
-    v4 = objc_opt_class();
-    v6 = *(a1 + 40);
-    v5 = *(a1 + 48);
-    v7 = *MEMORY[0x277CCA300];
-    v8 = v4;
-    v9 = [v5 objectForKeyedSubscript:v7];
-    v10 = [*(a1 + 48) objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
-    v13 = 138544130;
-    v14 = v4;
+    v3 = objc_opt_class();
+    v5 = *(a1 + 40);
+    v4 = *(a1 + 48);
+    v6 = *MEMORY[0x277CCA300];
+    v7 = v3;
+    v8 = [v4 objectForKeyedSubscript:v6];
+    v9 = [*(a1 + 48) objectForKeyedSubscript:*MEMORY[0x277CCA2F0]];
+    v11 = 138544130;
+    v12 = v3;
+    v13 = 2114;
+    v14 = v5;
     v15 = 2114;
-    v16 = v6;
+    v16 = v8;
     v17 = 2114;
     v18 = v9;
-    v19 = 2114;
-    v20 = v10;
-    _os_log_impl(&dword_262086000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@ changed: %{public}@ -> %{public}@", &v13, 0x2Au);
+    _os_log_impl(&dword_262086000, v2, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@ changed: %{public}@ -> %{public}@", &v11, 0x2Au);
   }
 
-  result = [*(a1 + 32) _updateBackgroundRecordingSettings];
-  v12 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _updateBackgroundRecordingSettings];
 }
 
 - (id)oxygenSaturationSessionWithDelegate:(id)delegate queue:(id)queue
@@ -225,53 +221,49 @@ LABEL_7:
 
 - (void)featureAvailabilityProvidingDidUpdateOnboardingCompletion:(id)completion
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   _HKInitializeLogging();
   v5 = HKLogRespiratoryCategory();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138543362;
+    v6 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_262086000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received notice of onboarding completion change", &v7, 0xCu);
+    _os_log_impl(&dword_262086000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received notice of onboarding completion change", &v6, 0xCu);
   }
 
   [(HDRespiratoryProfileExtension *)self _updateBackgroundRecordingSettings];
   [(HDRespiratoryProfileExtension *)self _setupOrResetSettingsIfNeededWithFeatureAvailabilityManager:completionCopy];
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)featureAvailabilityExtensionOnboardingCompletionDataDidBecomeAvailable:(id)available
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = HKLogRespiratoryCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_262086000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received notice of onboarding completion data becoming available", &v6, 0xCu);
+    _os_log_impl(&dword_262086000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received notice of onboarding completion data becoming available", &v5, 0xCu);
   }
 
   [(HDRespiratoryProfileExtension *)self _updateBackgroundRecordingSettings];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)featureAvailabilityExtensionDidUpdateRegionAvailability:(id)availability
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = HKLogRespiratoryCategory();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = 138543362;
+    v5 = 138543362;
     selfCopy = self;
-    _os_log_impl(&dword_262086000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received notice of region list change", &v6, 0xCu);
+    _os_log_impl(&dword_262086000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Received notice of region list change", &v5, 0xCu);
   }
 
   [(HDRespiratoryProfileExtension *)self _updateBackgroundRecordingSettings];
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setupSettingsWithProfile:(id)profile
@@ -286,17 +278,17 @@ LABEL_7:
 
 - (void)_setupOrResetSettingsIfNeededWithFeatureAvailabilityManager:(id)manager
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v17 = 0;
-  v4 = [manager featureOnboardingRecordWithError:&v17];
-  v5 = v17;
+  v19 = *MEMORY[0x277D85DE8];
+  v16 = 0;
+  v4 = [manager featureOnboardingRecordWithError:&v16];
+  v5 = v16;
   if (!v4)
   {
     _HKInitializeLogging();
     mEMORY[0x277CCDD30]2 = HKLogRespiratoryCategory();
     if (os_log_type_enabled(mEMORY[0x277CCDD30]2, OS_LOG_TYPE_ERROR))
     {
-      [HDRespiratoryProfileExtension _setupOrResetSettingsIfNeededWithFeatureAvailabilityManager:];
+      [HDRespiratoryProfileExtension _setupOrResetSettingsIfNeededWithFeatureAvailabilityManager:?];
     }
 
     goto LABEL_15;
@@ -315,7 +307,7 @@ LABEL_7:
       {
         v9 = objc_opt_class();
         *buf = 138543362;
-        v19 = v9;
+        v18 = v9;
         v10 = v9;
         _os_log_impl(&dword_262086000, v8, OS_LOG_TYPE_DEFAULT, "[%{public}@] Removing user defaults settings", buf, 0xCu);
       }
@@ -347,7 +339,7 @@ LABEL_15:
     {
       v14 = objc_opt_class();
       *buf = 138543362;
-      v19 = v14;
+      v18 = v14;
       v15 = v14;
       _os_log_impl(&dword_262086000, v13, OS_LOG_TYPE_DEFAULT, "[%{public}@] Initializing defaults settings", buf, 0xCu);
     }
@@ -356,18 +348,13 @@ LABEL_15:
   }
 
 LABEL_16:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateBackgroundRecordingSettings
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_0_0(v0);
-  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Failed to check if Blood Oxygen is supported with error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_0_0(v1);
+  OUTLINED_FUNCTION_1(&dword_262086000, v3, v4, "[%{public}@] Failed to check if Blood Oxygen is supported with error: %@", v5, v6, v7, v8);
 }
 
 - (id)diagnosticDescription
@@ -403,14 +390,11 @@ LABEL_16:
   return WeakRetained;
 }
 
-- (void)_setupOrResetSettingsIfNeededWithFeatureAvailabilityManager:.cold.1()
+- (void)_setupOrResetSettingsIfNeededWithFeatureAvailabilityManager:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = OUTLINED_FUNCTION_0_0(v0);
-  OUTLINED_FUNCTION_1(&dword_262086000, v2, v3, "[%{public}@] Failed to remove user defaults settings with error: %@", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v1 = objc_opt_class();
+  v2 = OUTLINED_FUNCTION_0_0(v1);
+  OUTLINED_FUNCTION_1(&dword_262086000, v3, v4, "[%{public}@] Failed to remove user defaults settings with error: %@", v5, v6, v7, v8);
 }
 
 @end

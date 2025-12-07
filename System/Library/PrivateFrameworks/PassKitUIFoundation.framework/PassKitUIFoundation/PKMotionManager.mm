@@ -23,9 +23,11 @@
 
 uint64_t __32__PKMotionManager_sharedManager__block_invoke()
 {
-  sharedManager_manager = [[PKMotionManager alloc] _init];
+  v0 = [[PKMotionManager alloc] _init];
+  v1 = sharedManager_manager;
+  sharedManager_manager = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (id)_init
@@ -63,40 +65,38 @@ uint64_t __32__PKMotionManager_sharedManager__block_invoke()
 
 - (void)updateWithMotion:(id)motion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   motionCopy = motion;
   v5 = [(NSHashTable *)self->_clients copy];
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        [*(*(&v12 + 1) + 8 * v10++) motionManager:self didReceiveMotion:{motionCopy, v12}];
+        [*(*(&v11 + 1) + 8 * v10++) motionManager:self didReceiveMotion:{motionCopy, v11}];
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerClient:(id)client

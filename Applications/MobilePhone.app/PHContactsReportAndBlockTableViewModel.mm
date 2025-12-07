@@ -140,7 +140,7 @@
 
 - (void)blockContacts:(id)contacts safetyCheckPresenter:(id)presenter
 {
-  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact);
+  type metadata accessor for NSMutableArray(0, &lazy cache variable for type metadata for CNContact, CNContact_ptr);
   v6 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   presenterCopy = presenter;
   selfCopy = self;

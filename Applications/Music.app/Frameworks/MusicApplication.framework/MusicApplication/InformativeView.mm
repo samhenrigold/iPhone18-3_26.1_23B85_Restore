@@ -25,22 +25,23 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_22F074();
+  sub_22F074(selfCopy);
 }
 
 - (void)music_inheritedLayoutInsetsDidChange
 {
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for InformativeView();
-  v2 = v4.receiver;
-  [(InformativeView *)&v4 music_inheritedLayoutInsetsDidChange];
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for InformativeView();
+  v2 = v5.receiver;
+  [(InformativeView *)&v5 music_inheritedLayoutInsetsDidChange];
   [v2 setNeedsLayout];
   v3 = *&v2[OBJC_IVAR____TtC16MusicApplication15InformativeView_layoutInvalidationHandler];
   if (v3)
   {
+    v4 = *&v2[OBJC_IVAR____TtC16MusicApplication15InformativeView_layoutInvalidationHandler + 8];
 
     v3(v2);
-    sub_17654(v3);
+    sub_17654(v3, v4);
   }
 }
 

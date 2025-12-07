@@ -35,7 +35,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_29E11D324();
+  sub_29E11D324(selfCopy);
 }
 
 - (void)nextButtonTapped:(id)tapped
@@ -46,7 +46,7 @@
   swift_unknownObjectRelease();
   sub_29E11D4BC();
 
-  sub_29DE93B3C(&v5);
+  sub_29DE93B3C(v5);
 }
 
 - (void)cancelButtonTapped:(id)tapped

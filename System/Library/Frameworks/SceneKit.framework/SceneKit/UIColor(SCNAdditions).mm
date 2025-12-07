@@ -26,31 +26,31 @@
 + (uint64_t)scn_colorWithLinearDisplayP3Red:()SCNAdditions green:blue:alpha:
 {
   components[4] = *MEMORY[0x277D85DE8];
-  components[0] = self;
-  components[1] = a2;
-  components[2] = a3;
-  components[3] = a4;
-  v4 = C3DColorSpaceLinearDisplayP3();
-  v5 = CGColorCreate(v4, components);
-  v6 = [MEMORY[0x277D75348] colorWithCGColor:v5];
-  CGColorRelease(v5);
-  return v6;
+  components[0] = a3;
+  components[1] = a4;
+  components[2] = a5;
+  components[3] = a6;
+  v6 = C3DColorSpaceLinearDisplayP3(self, a2);
+  v7 = CGColorCreate(v6, components);
+  v8 = [MEMORY[0x277D75348] colorWithCGColor:v7];
+  CGColorRelease(v7);
+  return v8;
 }
 
 + (uint64_t)scn_colorWithModelIORed:()SCNAdditions green:blue:alpha:options:
 {
   components[4] = *MEMORY[0x277D85DE8];
-  components[0] = self;
-  components[1] = a2;
-  components[2] = a3;
-  components[3] = a4;
-  v4 = C3DColorSpaceITUR_709();
-  v5 = CGColorCreate(v4, components);
-  ExtendedSRGBWithCGColor = C3DCGColorCreateExtendedSRGBWithCGColor(v5);
-  v7 = [MEMORY[0x277D75348] colorWithCGColor:ExtendedSRGBWithCGColor];
+  components[0] = a3;
+  components[1] = a4;
+  components[2] = a5;
+  components[3] = a6;
+  v6 = C3DColorSpaceITUR_709(self, a2);
+  v7 = CGColorCreate(v6, components);
+  ExtendedSRGBWithCGColor = C3DCGColorCreateExtendedSRGBWithCGColor(v7, v8);
+  v10 = [MEMORY[0x277D75348] colorWithCGColor:ExtendedSRGBWithCGColor];
   CGColorRelease(ExtendedSRGBWithCGColor);
-  CGColorRelease(v5);
-  return v7;
+  CGColorRelease(v7);
+  return v10;
 }
 
 - (double)scn_colorComponentsForModelIO

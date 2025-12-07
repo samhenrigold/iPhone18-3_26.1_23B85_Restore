@@ -443,49 +443,49 @@
   }
 
   managedObjectContext = [bookCopy managedObjectContext];
-  v10 = AEBundle();
+  v10 = AEBundle(managedObjectContext);
   v11 = [v10 localizedStringForKey:@"PDF Password Protected" value:&stru_1E7188 table:0];
-  v12 = AEBundle();
+  v12 = AEBundle(v11);
   v13 = [v12 localizedStringForKey:@"Please type the password below." value:&stru_1E7188 table:0];
   v14 = [UIAlertController alertControllerWithTitle:v11 message:v13 preferredStyle:1];
 
-  v15 = AEBundle();
-  v16 = [v15 localizedStringForKey:@"Cancel" value:&stru_1E7188 table:0];
-  v38[0] = _NSConcreteStackBlock;
-  v38[1] = 3221225472;
-  v38[2] = sub_3B8E8;
-  v38[3] = &unk_1E38E8;
-  v38[4] = self;
-  v17 = completionCopy;
-  v40 = v17;
-  v18 = v14;
-  v39 = v18;
-  v19 = [UIAlertAction actionWithTitle:v16 style:1 handler:v38];
-  [v18 addAction:v19];
+  v16 = AEBundle(v15);
+  v17 = [v16 localizedStringForKey:@"Cancel" value:&stru_1E7188 table:0];
+  v40[0] = _NSConcreteStackBlock;
+  v40[1] = 3221225472;
+  v40[2] = sub_3B8E8;
+  v40[3] = &unk_1E38E8;
+  v40[4] = self;
+  v18 = completionCopy;
+  v42 = v18;
+  v19 = v14;
+  v41 = v19;
+  v20 = [UIAlertAction actionWithTitle:v17 style:1 handler:v40];
+  [v19 addAction:v20];
 
-  v20 = AEBundle();
-  v21 = [v20 localizedStringForKey:@"OK" value:&stru_1E7188 table:0];
-  v31[0] = _NSConcreteStackBlock;
-  v31[1] = 3221225472;
-  v31[2] = sub_3B96C;
-  v31[3] = &unk_1E3910;
-  v32 = v18;
-  v33 = bookCopy;
-  v34 = managedObjectContext;
+  v22 = AEBundle(v21);
+  v23 = [v22 localizedStringForKey:@"OK" value:&stru_1E7188 table:0];
+  v33[0] = _NSConcreteStackBlock;
+  v33[1] = 3221225472;
+  v33[2] = sub_3B96C;
+  v33[3] = &unk_1E3910;
+  v34 = v19;
+  v35 = bookCopy;
+  v36 = managedObjectContext;
   selfCopy = self;
-  v36 = transactionCopy;
-  v37 = v17;
-  v22 = transactionCopy;
-  v23 = v17;
-  v24 = managedObjectContext;
-  v25 = bookCopy;
-  v26 = v18;
-  v27 = [UIAlertAction actionWithTitle:v21 style:0 handler:v31];
-  [v26 addAction:v27];
+  v38 = transactionCopy;
+  v39 = v18;
+  v24 = transactionCopy;
+  v25 = v18;
+  v26 = managedObjectContext;
+  v27 = bookCopy;
+  v28 = v19;
+  v29 = [UIAlertAction actionWithTitle:v23 style:0 handler:v33];
+  [v28 addAction:v29];
 
-  [v26 addTextFieldWithConfigurationHandler:&stru_1E3950];
-  v28 = +[AEAssetEngine appInfoMgr];
-  [v28 presentViewController:v26 transaction:v22 animated:1 completion:0];
+  [v28 addTextFieldWithConfigurationHandler:&stru_1E3950];
+  v30 = +[AEAssetEngine appInfoMgr];
+  [v30 presentViewController:v28 transaction:v24 animated:1 completion:0];
 }
 
 @end

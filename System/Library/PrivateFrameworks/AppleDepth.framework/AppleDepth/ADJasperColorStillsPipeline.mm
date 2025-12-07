@@ -22,8 +22,8 @@
     [v18 intrinsicMatrix];
     self[20] = 500.0 / (correctedTransform * v20);
     v21 = objc_opt_new();
-    [v21 setRotation:*scale];
-    [v21 setStd:*results];
+    [(ADJasperToColorTransformCorrectionResult *)v21 setRotation:*scale];
+    [(ADJasperToColorTransformCorrectionResult *)v21 setStd:*results];
     if (a12)
     {
       v22 = v21;

@@ -286,9 +286,9 @@ LABEL_16:
     goto LABEL_8;
   }
 
-  v7 = [(NSString *)v5 isEqual:v6];
+  isEqual = objc_msgSend_isEqual_(v5, v6, v6);
 
-  if ((v7 & 1) == 0)
+  if ((isEqual & 1) == 0)
   {
 LABEL_8:
     [(_UINavigationBarPalette *)self _clearAssistants];

@@ -1,374 +1,13 @@
-uint64_t PinPPTarget(float a1, float a2, uint64_t a3, uint64_t a4, float *a5)
+void sub_257B5FC7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  if (kMTMBLinearPitchBandwidth)
-  {
-    MTBEDebugParams::GetParam(kMTMBLinearPitchBandwidth, &dword_27F8F2908, a5, *&dword_27F8F2908);
-    kMTMBLinearPitchBandwidth = 0;
-  }
-
-  v7 = (*&dword_27F8F2908 * a2) * 0.01;
-  v8 = a2 - v7;
-  v9 = v7 + a2;
-  if (v8 < a1)
-  {
-    v8 = a1;
-  }
-
-  if (v8 < v9)
-  {
-    v9 = v8;
-  }
-
-  return v9;
-}
-
-uint64_t MTMBDemi::SetBoundaryPitch(MTMBDemi *this, int a2, float *a3, double a4, float a5)
-{
-  v44 = a3;
-  v50 = *MEMORY[0x277D85DE8];
-  if (kMTMBPowerThreshold)
-  {
-    MTBEDebugParams::GetParam(kMTMBPowerThreshold, &dword_27F8F28C8, a3, *&dword_27F8F28C8);
-    kMTMBPowerThreshold = 0;
-  }
-
-  v6 = *&dword_27F8F28C8;
-  if (kMTMBPPThreshold)
-  {
-    MTBEDebugParams::GetParam(kMTMBPPThreshold, &qword_27F8F28B8, qword_27F8F28B8);
-    kMTMBPPThreshold = 0;
-  }
-
-  v45 = qword_27F8F28B8;
-  if (kMTMBNumPPConsidered)
-  {
-    MTBEDebugParams::GetParam(kMTMBNumPPConsidered, &qword_27F8F28D8, qword_27F8F28D8);
-    kMTMBNumPPConsidered = 0;
-  }
-
-  v7 = qword_27F8F28D8;
-  if (qword_27F8F28D8 <= 3)
-  {
-    v7 = 3;
-  }
-
-  v46 = v7;
-  memset(v47, 0, sizeof(v47));
-  v48 = 0u;
-  *(this + 84) = 0;
-  *(this + 92) = 0;
-  v43 = (this + 84);
-  if (*(this + 2))
-  {
-    if (kMTMBLogBoundaryPitch)
-    {
-      MTBEDebugParams::GetParam(kMTMBLogBoundaryPitch, &byte_27F8F2898, byte_27F8F2898);
-      kMTMBLogBoundaryPitch = 0;
-    }
-
-    if (byte_27F8F2898 == 1)
-    {
-      v8 = *MEMORY[0x277D85DF8];
-      v9 = MTMBDemiProperties::Phon(*(this + 13), v49);
-      fprintf(v8, "SetBoundaryPitch %s %d %d\n", v9, a2, v44);
-    }
-
-    if (*(this + 2) >= 1)
-    {
-      v10 = 0;
-      v11 = 0;
-      v12 = 0;
-      LOWORD(v13) = 0;
-      v14 = 0;
-      v15 = 0;
-      v16 = *this;
-      while (1)
-      {
-        if (v16[8])
-        {
-          v13 = v16[4];
-          if (v45 <= v13)
-          {
-            v21 = 0;
-          }
-
-          else
-          {
-            v21 = (MTMBSegment::RawPower(v16) * 0.00012207) > v6;
-            v13 = v16[4];
-          }
-
-          if (!v15)
-          {
-            v15 = v13;
-          }
-
-          v18 = v13;
-          if (v21 || v12 && (LOWORD(a5) = *(*(*(&v47[0] + 1) + (((*(&v48 + 1) + v48 - 1) >> 8) & 0xFFFFFFFFFFFFF8)) + 2 * ((*(&v48 + 1) + v48 - 1) & 0x7FF)), fabsf((v13 / LODWORD(a5)) + -1.0) < 0.05) && (v18 = v12, fabsf((v13 / v12) + -1.0) < 0.15))
-          {
-            if (kMTMBLogBoundaryPitch)
-            {
-              MTBEDebugParams::GetParam(kMTMBLogBoundaryPitch, &byte_27F8F2898, (byte_27F8F2898 & 1));
-              kMTMBLogBoundaryPitch = 0;
-              v22 = v16[4];
-              if (byte_27F8F2898)
-              {
-                goto LABEL_35;
-              }
-            }
-
-            else
-            {
-              v22 = v13;
-              if (byte_27F8F2898)
-              {
-LABEL_35:
-                fprintf(*MEMORY[0x277D85DF8], " %d", v22);
-                LOWORD(v22) = v16[4];
-              }
-            }
-
-            if (!v14)
-            {
-              v14 = v22;
-            }
-
-            *(this + 24) = 0;
-            PPRingBuffer::push_back(&v46, v22);
-            if (a2 && !*v43)
-            {
-              *v43 = v16[4];
-            }
-
-            if (v44)
-            {
-              *(this + 43) = v16[4];
-            }
-
-            if (*(&v48 + 1) != v46)
-            {
-              goto LABEL_67;
-            }
-
-            v23 = PPRingBuffer::min(&v46);
-            v25 = PPRingBuffer::max(&v46);
-            if (kMTMBPPRangeTheshold)
-            {
-              MTBEDebugParams::GetParam(kMTMBPPRangeTheshold, &dword_27F8F28E8, v24, *&dword_27F8F28E8);
-              kMTMBPPRangeTheshold = 0;
-            }
-
-            a5 = (22050.0 / v23) - (22050.0 / v25);
-            if (a5 >= *&dword_27F8F28E8)
-            {
-              goto LABEL_67;
-            }
-
-            if ((v44 & 1) == 0)
-            {
-              if (kMTMBLinearPitchUseMedian)
-              {
-                MTBEDebugParams::GetParam(kMTMBLinearPitchUseMedian, &byte_27F8F28F8, byte_27F8F28F8);
-                kMTMBLinearPitchUseMedian = 0;
-              }
-
-              if (byte_27F8F28F8 == 1)
-              {
-                v26 = PPRingBuffer::median(&v46);
-              }
-
-              else
-              {
-                v26 = *(*(*(&v47[0] + 1) + (((*(&v48 + 1) + v48 - 1) >> 8) & 0xFFFFFFFFFFFFF8)) + 2 * ((*(&v48 + 1) + v48 - 1) & 0x7FF));
-              }
-
-              *(this + 43) = v26;
-            }
-
-            if (!*v43)
-            {
-              v29 = byte_27F8F28F8;
-              if (kMTMBLinearPitchUseMedian)
-              {
-                MTBEDebugParams::GetParam(kMTMBLinearPitchUseMedian, &byte_27F8F28F8, (byte_27F8F28F8 & 1));
-                kMTMBLinearPitchUseMedian = 0;
-                v29 = byte_27F8F28F8;
-              }
-
-              v10 = 0;
-              if (v29)
-              {
-                *v43 = PPRingBuffer::median(&v46);
-              }
-
-              else
-              {
-                *v43 = *(*(*(&v47[0] + 1) + ((v48 >> 8) & 0xFFFFFFFFFFFFF8)) + 2 * (v48 & 0x7FF));
-              }
-            }
-
-            else
-            {
-LABEL_67:
-              v10 = 0;
-            }
-
-            goto LABEL_68;
-          }
-
-          v27 = byte_27F8F2898;
-          if (kMTMBLogBoundaryPitch)
-          {
-            MTBEDebugParams::GetParam(kMTMBLogBoundaryPitch, &byte_27F8F2898, (byte_27F8F2898 & 1));
-            kMTMBLogBoundaryPitch = 0;
-            v27 = byte_27F8F2898;
-          }
-
-          if (v27)
-          {
-            fprintf(*MEMORY[0x277D85DF8], " (%d)", v16[4]);
-          }
-
-          PPRingBuffer::clear(&v46);
-          v28 = v16[4];
-          if (!v14)
-          {
-            *(this + 23) += v28;
-          }
-
-          v18 = 0;
-          v10 = 0;
-          *(this + 24) += v28;
-        }
-
-        else
-        {
-          v17 = byte_27F8F2898;
-          if (kMTMBLogBoundaryPitch)
-          {
-            MTBEDebugParams::GetParam(kMTMBLogBoundaryPitch, &byte_27F8F2898, (byte_27F8F2898 & 1));
-            kMTMBLogBoundaryPitch = 0;
-            v17 = byte_27F8F2898;
-          }
-
-          if (v17)
-          {
-            fprintf(*MEMORY[0x277D85DF8], " <%d>", v16[4]);
-          }
-
-          if (!v14)
-          {
-            *(this + 23) += v16[4];
-          }
-
-          PPRingBuffer::clear(&v46);
-          v18 = 0;
-          v19 = v16[4];
-          if (v15)
-          {
-            v20 = 0;
-          }
-
-          else
-          {
-            v20 = v16[4];
-          }
-
-          v11 += v20;
-          *(this + 24) += v19;
-          v10 += v19;
-        }
-
-LABEL_68:
-        v16 += 16;
-        v12 = v18;
-        if (v16 >= *this + 32 * *(this + 2))
-        {
-          goto LABEL_76;
-        }
-      }
-    }
-
-    v15 = 0;
-    LOWORD(v13) = 0;
-    v11 = 0;
-    v10 = 0;
-LABEL_76:
-    if (*v43)
-    {
-      if (*(this + 43))
-      {
-LABEL_81:
-        if (kMTMBWordLinearPitch)
-        {
-          MTBEDebugParams::GetParam(kMTMBWordLinearPitch, &byte_27F8F2868, byte_27F8F2868);
-          kMTMBWordLinearPitch = 0;
-        }
-
-        if (byte_27F8F2868 == 1 && (v30 = *(this + 13)) != 0 && (MTMBDemiProperties::UseWordPitch(v30) & 1) == 0 && (v31 = *(this + 13), (v32 = *(v31 + 32)) != 0) && *v43)
-        {
-          v33 = *(this + 25);
-          v34 = v32;
-          v35 = *(v31 + 40);
-          v36 = 22050.0 / *(v35 + 4 * vcvtms_s32_f32((*(this + 23) / v33) * v32));
-          v37 = v33 - *(this + 24);
-          *(this + 40) = v36;
-          v38 = (22050.0 / *(v35 + 4 * vcvtms_s32_f32((v37 / v33) * v34)));
-        }
-
-        else
-        {
-          *(this + 40) = *(this + 42);
-          LOWORD(v38) = *(this + 43);
-        }
-
-        *(this + 41) = v38;
-        v39 = byte_27F8F2898;
-        if (kMTMBLogBoundaryPitch)
-        {
-          MTBEDebugParams::GetParam(kMTMBLogBoundaryPitch, &byte_27F8F2898, (byte_27F8F2898 & 1));
-          kMTMBLogBoundaryPitch = 0;
-          v39 = byte_27F8F2898;
-        }
-
-        if (v39)
-        {
-          fprintf(*MEMORY[0x277D85DF8], "\n -> %d\\%d %d\\%d\n", *(this + 42), *(this + 23), *(this + 43), *(this + 24));
-        }
-
-        goto LABEL_94;
-      }
-
-      *(this + 43) = v13;
-    }
-
-    else
-    {
-      *(this + 42) = v15;
-      *(this + 43) = v13;
-      *(this + 23) = v11;
-    }
-
-    *(this + 24) = v10;
-    goto LABEL_81;
-  }
-
-LABEL_94:
-  result = std::deque<unsigned short>::~deque[abi:ne200100](v47);
-  v41 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-void sub_257B5FC7C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
-{
-  va_start(va, a10);
+  va_start(va, a17);
   std::deque<unsigned short>::~deque[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
 
-void *PPRingBuffer::push_back(PPRingBuffer *this, __int16 a2)
+void PPRingBuffer::push_back(PPRingBuffer *this, __int16 a2)
 {
-  v5 = a2;
+  v4 = a2;
   v3 = *(this + 6);
   if (v3 == *this)
   {
@@ -377,7 +16,7 @@ void *PPRingBuffer::push_back(PPRingBuffer *this, __int16 a2)
     std::deque<unsigned short>::__maybe_remove_front_spare[abi:ne200100](this + 8, 1);
   }
 
-  return std::deque<unsigned short>::push_back(this + 1, &v5);
+  std::deque<unsigned short>::push_back(this + 1, &v4);
 }
 
 uint64_t PPRingBuffer::min(PPRingBuffer *this)
@@ -393,9 +32,9 @@ uint64_t PPRingBuffer::min(PPRingBuffer *this)
 
   else
   {
-    v2 = &(*v1)[2 * (v10 & 0x7FF)];
+    v2 = (*v1 + 2 * (v10 & 0x7FF));
     v3 = (v8 + 8 * ((v11 + v10) >> 11));
-    v4 = &(*v3)[2 * ((v11 + v10) & 0x7FF)];
+    v4 = (*v3 + 2 * ((v11 + v10) & 0x7FF));
   }
 
   std::__sort_dispatch[abi:ne200100]<std::_ClassicAlgPolicy,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>,std::__less<void,void>>(v1, v2, v3, v4, &v12);
@@ -404,9 +43,9 @@ uint64_t PPRingBuffer::min(PPRingBuffer *this)
   return v5;
 }
 
-void sub_257B5FDC8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257B5FDC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::deque<unsigned short>::~deque[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -424,9 +63,9 @@ uint64_t PPRingBuffer::max(PPRingBuffer *this)
 
   else
   {
-    v2 = &(*v1)[2 * (v10 & 0x7FF)];
+    v2 = (*v1 + 2 * (v10 & 0x7FF));
     v3 = (v8 + 8 * ((v11 + v10) >> 11));
-    v4 = &(*v3)[2 * ((v11 + v10) & 0x7FF)];
+    v4 = (*v3 + 2 * ((v11 + v10) & 0x7FF));
   }
 
   std::__sort_dispatch[abi:ne200100]<std::_ClassicAlgPolicy,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>,std::__less<void,void>>(v1, v2, v3, v4, &v12);
@@ -435,9 +74,9 @@ uint64_t PPRingBuffer::max(PPRingBuffer *this)
   return v5;
 }
 
-void sub_257B5FEA4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257B5FEA4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::deque<unsigned short>::~deque[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -455,9 +94,9 @@ uint64_t PPRingBuffer::median(PPRingBuffer *this)
 
   else
   {
-    v2 = &(*v1)[2 * (v11 & 0x7FF)];
+    v2 = (*v1 + 2 * (v11 & 0x7FF));
     v3 = (v9 + 8 * ((v12 + v11) >> 11));
-    v4 = &(*v3)[2 * ((v12 + v11) & 0x7FF)];
+    v4 = (*v3 + 2 * ((v12 + v11) & 0x7FF));
   }
 
   std::__sort_dispatch[abi:ne200100]<std::_ClassicAlgPolicy,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>,std::__less<void,void>>(v1, v2, v3, v4, &v13);
@@ -472,9 +111,9 @@ uint64_t PPRingBuffer::median(PPRingBuffer *this)
   return v6;
 }
 
-void sub_257B5FFA0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257B5FFA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::deque<unsigned short>::~deque[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -533,10 +172,10 @@ void MTMBSlackPitchInterpolator::~MTMBSlackPitchInterpolator(void **this)
   JUMPOUT(0x259C6DA90);
 }
 
-uint64_t std::deque<unsigned short>::deque(uint64_t a1, void *a2)
+unint64_t *std::deque<unsigned short>::deque(unint64_t *a1, void *a2)
 {
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 2) = 0u;
   *a1 = 0u;
   v4 = a2[4];
   v5 = a2[1];
@@ -561,7 +200,7 @@ uint64_t std::deque<unsigned short>::deque(uint64_t a1, void *a2)
   return a1;
 }
 
-uint64_t *std::deque<unsigned short>::__append<std::__deque_iterator<unsigned short,unsigned short const*,unsigned short const&,unsigned short const* const*,long,2048l>,0>(void *a1, char **a2, char *a3, char *a4, char *a5)
+void *std::deque<unsigned short>::__append<std::__deque_iterator<unsigned short,unsigned short const*,unsigned short const&,unsigned short const* const*,long,2048l>,0>(unint64_t *a1, char **a2, char *a3, char *a4, char *a5)
 {
   if (a5 == a3)
   {
@@ -576,7 +215,7 @@ uint64_t *std::deque<unsigned short>::__append<std::__deque_iterator<unsigned sh
   return std::deque<unsigned short>::__append_with_size[abi:ne200100]<std::__deque_iterator<unsigned short,unsigned short const*,unsigned short const&,unsigned short const* const*,long,2048l>>(a1, a2, a3, v5);
 }
 
-uint64_t *std::deque<unsigned short>::__append_with_size[abi:ne200100]<std::__deque_iterator<unsigned short,unsigned short const*,unsigned short const&,unsigned short const* const*,long,2048l>>(void *a1, char **a2, char *a3, unint64_t a4)
+void *std::deque<unsigned short>::__append_with_size[abi:ne200100]<std::__deque_iterator<unsigned short,unsigned short const*,unsigned short const&,unsigned short const* const*,long,2048l>>(unint64_t *a1, char **a2, char *a3, unint64_t a4)
 {
   v8 = a1[1];
   v9 = a1[2];
@@ -675,10 +314,9 @@ uint64_t *std::deque<unsigned short>::__append_with_size[abi:ne200100]<std::__de
   return result;
 }
 
-void *std::deque<unsigned short>::__add_back_capacity(void *result, unint64_t a2)
+void std::deque<unsigned short>::__add_back_capacity(unint64_t *a1, unint64_t a2)
 {
-  v2 = result;
-  v3 = result[2] - result[1];
+  v3 = a1[2] - a1[1];
   if (v3)
   {
     v4 = a2;
@@ -699,7 +337,7 @@ void *std::deque<unsigned short>::__add_back_capacity(void *result, unint64_t a2
     v5 = v4 >> 11;
   }
 
-  v6 = result[4];
+  v6 = a1[4];
   if (v5 >= v6 >> 11)
   {
     v7 = v6 >> 11;
@@ -712,19 +350,19 @@ void *std::deque<unsigned short>::__add_back_capacity(void *result, unint64_t a2
 
   if (v5 <= v6 >> 11)
   {
-    for (result[4] = v6 - (v7 << 11); v7; --v7)
+    for (a1[4] = v6 - (v7 << 11); v7; --v7)
     {
-      v14 = v2[1];
+      v14 = a1[1];
       v16[0] = *v14;
-      v2[1] = v14 + 1;
-      result = std::__split_buffer<unsigned short *>::emplace_back<unsigned short *&>(v2, v16);
+      a1[1] = (v14 + 1);
+      std::__split_buffer<unsigned short *>::emplace_back<unsigned short *&>(a1, v16);
     }
   }
 
   else
   {
     v8 = v5 - v7;
-    v9 = result[3] - *result;
+    v9 = a1[3] - *a1;
     if (v5 - v7 > (v9 >> 3) - (v3 >> 3))
     {
       v10 = v3 >> 3;
@@ -740,10 +378,10 @@ void *std::deque<unsigned short>::__add_back_capacity(void *result, unint64_t a2
       }
 
       v13 = v10 - v7;
-      v18 = result;
+      v18 = a1;
       if (v12)
       {
-        std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short *>>(result, v12);
+        std::__allocate_at_least[abi:ne200100]<std::allocator<unsigned short *>>(a1, v12);
       }
 
       v16[0] = 0;
@@ -754,7 +392,7 @@ void *std::deque<unsigned short>::__add_back_capacity(void *result, unint64_t a2
 
     if (v8)
     {
-      if (result[3] != result[2])
+      if (a1[3] != a1[2])
       {
         operator new();
       }
@@ -762,16 +400,14 @@ void *std::deque<unsigned short>::__add_back_capacity(void *result, unint64_t a2
       operator new();
     }
 
-    for (result[4] -= v7 << 11; v7; --v7)
+    for (a1[4] -= v7 << 11; v7; --v7)
     {
-      v15 = v2[1];
+      v15 = a1[1];
       v16[0] = *v15;
-      v2[1] = v15 + 1;
-      result = std::__split_buffer<unsigned short *>::emplace_back<unsigned short *&>(v2, v16);
+      a1[1] = (v15 + 1);
+      std::__split_buffer<unsigned short *>::emplace_back<unsigned short *&>(a1, v16);
     }
   }
-
-  return result;
 }
 
 void sub_257B60618(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, void *__p, uint64_t a12, uint64_t a13)
@@ -784,7 +420,7 @@ void sub_257B60618(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-uint64_t *std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>::operator+[abi:ne200100](uint64_t a1, uint64_t a2)
+void *std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>::operator+[abi:ne200100](uint64_t a1, uint64_t a2)
 {
   result = *a1;
   if (a2)
@@ -793,20 +429,18 @@ uint64_t *std::__deque_iterator<unsigned short,unsigned short *,unsigned short &
     if (v4 < 1)
     {
       result -= (2047 - v4) >> 11;
-      v6 = *result;
     }
 
     else
     {
       result += v4 >> 11;
-      v5 = *result;
     }
   }
 
   return result;
 }
 
-char **std::__sort_dispatch[abi:ne200100]<std::_ClassicAlgPolicy,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>,std::__less<void,void>>(char **a1, unsigned __int16 *a2, char **a3, unsigned __int16 *a4, uint64_t a5)
+uint64_t std::__sort_dispatch[abi:ne200100]<std::_ClassicAlgPolicy,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>,std::__less<void,void>>(char *a1, unsigned __int16 *a2, char *a3, unsigned __int16 *a4, uint64_t a5)
 {
   if (a4 == a2 || (v5 = ((a4 - *a3) >> 1) + ((a3 - a1) << 8), v6 = a2 - *a1, v5 == v6 >> 1))
   {
@@ -821,7 +455,7 @@ char **std::__sort_dispatch[abi:ne200100]<std::_ClassicAlgPolicy,std::__deque_it
   return std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>,false>(a1, a2, a3, a4, a5, 2 * v7, 1);
 }
 
-char **std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>,false>(char **result, unsigned __int16 *a2, char **a3, unsigned __int16 *a4, uint64_t a5, uint64_t a6, char a7)
+uint64_t std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>,false>(uint64_t result, unsigned __int16 *a2, char *a3, unsigned __int16 *a4, uint64_t a5, uint64_t a6, char a7)
 {
   v136 = result;
   v137 = a2;
@@ -837,7 +471,7 @@ char **std::__introsort<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__d
     result = v136;
     v13 = *a3;
     v14 = *v136;
-    v15 = ((v9 - *a3) >> 1) + ((a3 - v136) << 8) - (v11 - *v136);
+    v15 = ((v9 - *a3) >> 1) + ((a3 - v136) << 8) - ((v11 - *v136) >> 1);
     if (v15 > 2)
     {
       break;
@@ -897,12 +531,12 @@ LABEL_11:
       v20 = (v9 - *a3) >> 1;
       if (v20 < 2)
       {
-        v21 = &a3[-((2048 - v20) >> 11)][2 * (~(2048 - v20) & 0x7FF)];
+        v21 = (*&a3[-8 * ((2048 - v20) >> 11)] + 2 * (~(2048 - v20) & 0x7FF));
       }
 
       else
       {
-        v21 = &(*(a3 + (((v20 - 1) >> 8) & 0xFFFFFFFFFFFFF8)))[2 * ((v20 - 1) & 0x7FF)];
+        v21 = (*&a3[((v20 - 1) >> 8) & 0xFFFFFFFFFFFFF8] + 2 * ((v20 - 1) & 0x7FF));
       }
 
       v25 = v137;
@@ -961,12 +595,12 @@ LABEL_50:
     v18 = (v9 - *a3) >> 1;
     if (v18 < 2)
     {
-      v19 = &a3[-((2048 - v18) >> 11)][2 * (~(2048 - v18) & 0x7FF)];
+      v19 = (*&a3[-8 * ((2048 - v18) >> 11)] + 2 * (~(2048 - v18) & 0x7FF));
     }
 
     else
     {
-      v19 = &(*(a3 + (((v18 - 1) >> 8) & 0xFFFFFFFFFFFFF8)))[2 * ((v18 - 1) & 0x7FF)];
+      v19 = (*&a3[((v18 - 1) >> 8) & 0xFFFFFFFFFFFFF8] + 2 * ((v18 - 1) & 0x7FF));
     }
 
     v22 = *v17;
@@ -1012,18 +646,18 @@ LABEL_50:
     }
 
 LABEL_36:
-    v34 = v137 - *v136;
+    v34 = (v137 - *v136) >> 1;
     if (v34 < 0)
     {
       v38 = 2046 - v34;
-      v36 = v136[-(v38 >> 11)];
+      v36 = *&v136[-8 * (v38 >> 11)];
       v37 = ~v38 & 0x7FFLL;
     }
 
     else
     {
       v35 = v34 + 1;
-      v36 = *(v136 + ((v35 >> 8) & 0xFFFFFFFFFFFFF8));
+      v36 = *&v136[(v35 >> 8) & 0xFFFFFFFFFFFFF8];
       v37 = v35 & 0x7FF;
     }
 
@@ -1032,12 +666,12 @@ LABEL_36:
     v41 = (v9 - *a3) >> 1;
     if (v41 < 3)
     {
-      v42 = &a3[-((2049 - v41) >> 11)][2 * (~(2049 - v41) & 0x7FF)];
+      v42 = (*&a3[-8 * ((2049 - v41) >> 11)] + 2 * (~(2049 - v41) & 0x7FF));
     }
 
     else
     {
-      v42 = &(*(a3 + (((v41 - 2) >> 8) & 0xFFFFFFFFFFFFF8)))[2 * ((v41 - 2) & 0x7FF)];
+      v42 = (*&a3[((v41 - 2) >> 8) & 0xFFFFFFFFFFFFF8] + 2 * ((v41 - 2) & 0x7FF));
     }
 
     v43 = *v40;
@@ -1083,18 +717,18 @@ LABEL_36:
     }
 
 LABEL_56:
-    v51 = v137 - *v136;
+    v51 = (v137 - *v136) >> 1;
     if (v51 < -1)
     {
       v55 = 2045 - v51;
-      v53 = v136[-(v55 >> 11)];
+      v53 = *&v136[-8 * (v55 >> 11)];
       v54 = ~v55 & 0x7FFLL;
     }
 
     else
     {
       v52 = v51 + 2;
-      v53 = *(v136 + ((v52 >> 8) & 0xFFFFFFFFFFFFF8));
+      v53 = *&v136[(v52 >> 8) & 0xFFFFFFFFFFFFF8];
       v54 = v52 & 0x7FF;
     }
 
@@ -1103,12 +737,12 @@ LABEL_56:
     v58 = (v9 - *a3) >> 1;
     if (v58 < 4)
     {
-      v59 = &a3[-((2050 - v58) >> 11)][2 * (~(2050 - v58) & 0x7FF)];
+      v59 = (*&a3[-8 * ((2050 - v58) >> 11)] + 2 * (~(2050 - v58) & 0x7FF));
     }
 
     else
     {
-      v59 = &(*(a3 + (((v58 - 3) >> 8) & 0xFFFFFFFFFFFFF8)))[2 * ((v58 - 3) & 0x7FF)];
+      v59 = (*&a3[((v58 - 3) >> 8) & 0xFFFFFFFFFFFFF8] + 2 * ((v58 - 3) & 0x7FF));
     }
 
     v60 = *v57;
@@ -1216,15 +850,15 @@ LABEL_52:
 
 LABEL_81:
     v49 = v136;
-    v79 = v25 - *v136;
+    v79 = (v25 - *v136) >> 1;
     if (v79 < 2)
     {
-      v80 = &v136[-((2048 - v79) >> 11)][~(2048 - v79) & 0x7FF];
+      v80 = (*&v136[-8 * ((2048 - v79) >> 11)] + 2 * (~(2048 - v79) & 0x7FF));
     }
 
     else
     {
-      v80 = &(*(v136 + (((v79 - 1) >> 8) & 0xFFFFFFFFFFFFF8)))[(v79 - 1) & 0x7FF];
+      v80 = (*&v136[((v79 - 1) >> 8) & 0xFFFFFFFFFFFFF8] + 2 * ((v79 - 1) & 0x7FF));
     }
 
     if (*v80 >= *v25)
@@ -1250,14 +884,14 @@ LABEL_85:
     if (v84 < 0)
     {
       v89 = 2046 - v84;
-      v86 = &v81[-(v89 >> 11)];
+      v86 = &v81[-8 * (v89 >> 11)];
       v87 = (*v86 + 2 * (~v89 & 0x7FF));
     }
 
     else
     {
       v85 = v84 + 1;
-      v86 = &v81[v85 >> 11];
+      v86 = &v81[8 * (v85 >> 11)];
       v87 = (*v86 + 2 * (v85 & 0x7FF));
     }
 
@@ -1281,11 +915,11 @@ LABEL_94:
       a7 = 0;
     }
 
-    v90 = (v82 + 2);
-    if (v82 + 2 - *v81 == 4096)
+    v90 = v82 + 1;
+    if ((v82 - *v81 + 2) == 4096)
     {
-      v91 = v81[1];
-      ++v81;
+      v91 = *(v81 + 1);
+      v81 += 8;
       v90 = v91;
     }
 
@@ -1301,15 +935,15 @@ LABEL_98:
 
   if (v15 == 3)
   {
-    v92 = v11 - v14;
+    v92 = (v11 - v14) >> 1;
     if (v92 < 0)
     {
-      v93 = &v136[-((2046 - v92) >> 11)][~(2046 - v92) & 0x7FF];
+      v93 = (*&v136[-8 * ((2046 - v92) >> 11)] + 2 * (~(2046 - v92) & 0x7FF));
     }
 
     else
     {
-      v93 = &(*(v136 + (((v92 + 1) >> 8) & 0xFFFFFFFFFFFFF8)))[(v92 + 1) & 0x7FF];
+      v93 = (*&v136[((v92 + 1) >> 8) & 0xFFFFFFFFFFFFF8] + 2 * ((v92 + 1) & 0x7FF));
     }
 
     if (v9 == v13)
@@ -1366,13 +1000,13 @@ LABEL_168:
   if (v15 == 4)
   {
     v99 = v11 - v14;
-    v100 = v11 - v14;
+    v100 = (v11 - v14) >> 1;
     if (v100 < 0)
     {
-      v93 = &v136[-((2046 - v100) >> 11)][~(2046 - v100) & 0x7FF];
+      v93 = (*&v136[-8 * ((2046 - v100) >> 11)] + 2 * (~(2046 - v100) & 0x7FF));
       if (v99 != -2)
       {
-        v105 = &v136[-((2045 - v100) >> 11)][~(2045 - v100) & 0x7FF];
+        v105 = (*&v136[-8 * ((2045 - v100) >> 11)] + 2 * (~(2045 - v100) & 0x7FF));
 LABEL_138:
         if (v9 == v13)
         {
@@ -1455,11 +1089,11 @@ LABEL_166:
 
     else
     {
-      v93 = &(*(v136 + (((v100 + 1) >> 8) & 0xFFFFFFFFFFFFF8)))[(v100 + 1) & 0x7FF];
+      v93 = (*&v136[((v100 + 1) >> 8) & 0xFFFFFFFFFFFFF8] + 2 * ((v100 + 1) & 0x7FF));
       v101 = v100 + 2;
     }
 
-    v105 = &(*(v136 + ((v101 >> 8) & 0xFFFFFFFFFFFFF8)))[v101 & 0x7FF];
+    v105 = (*&v136[(v101 >> 8) & 0xFFFFFFFFFFFFF8] + 2 * (v101 & 0x7FF));
     goto LABEL_138;
   }
 
@@ -1469,35 +1103,35 @@ LABEL_166:
   }
 
   v94 = v11 - v14;
-  v95 = v11 - v14;
+  v95 = (v11 - v14) >> 1;
   if ((v95 & 0x8000000000000000) == 0)
   {
-    v93 = &(*(v136 + (((v95 + 1) >> 8) & 0xFFFFFFFFFFFFF8)))[(v95 + 1) & 0x7FF];
+    v93 = (*&v136[((v95 + 1) >> 8) & 0xFFFFFFFFFFFFF8] + 2 * ((v95 + 1) & 0x7FF));
     v96 = v95 + 2;
     goto LABEL_125;
   }
 
-  v93 = &v136[-((2046 - v95) >> 11)][~(2046 - v95) & 0x7FF];
+  v93 = (*&v136[-8 * ((2046 - v95) >> 11)] + 2 * (~(2046 - v95) & 0x7FF));
   if (v94 == -2)
   {
     v96 = 1;
 LABEL_125:
-    v105 = &(*(v136 + ((v96 >> 8) & 0xFFFFFFFFFFFFF8)))[v96 & 0x7FF];
+    v105 = (*&v136[(v96 >> 8) & 0xFFFFFFFFFFFFF8] + 2 * (v96 & 0x7FF));
     v106 = v95 + 3;
 LABEL_126:
-    v107 = &(*(v136 + ((v106 >> 8) & 0xFFFFFFFFFFFFF8)))[v106 & 0x7FF];
+    v107 = (*&v136[(v106 >> 8) & 0xFFFFFFFFFFFFF8] + 2 * (v106 & 0x7FF));
   }
 
   else
   {
-    v105 = &v136[-((2045 - v95) >> 11)][~(2045 - v95) & 0x7FF];
+    v105 = (*&v136[-8 * ((2045 - v95) >> 11)] + 2 * (~(2045 - v95) & 0x7FF));
     if (v95 >= 0xFFFFFFFFFFFFFFFELL)
     {
       v106 = 1;
       goto LABEL_126;
     }
 
-    v107 = &v136[-((2044 - v95) >> 11)][~(2044 - v95) & 0x7FF];
+    v107 = (*&v136[-8 * ((2044 - v95) >> 11)] + 2 * (~(2044 - v95) & 0x7FF));
   }
 
   if (v9 == v13)
@@ -1616,11 +1250,11 @@ unsigned __int16 **std::__insertion_sort[abi:ne200100]<std::_ClassicAlgPolicy,st
       if (v4 == v5)
       {
         v7 = result - 1;
-        v8 = (*(result - 1) + 2048);
+        v8 = *(result - 1) + 2048;
       }
 
-      v11 = *(v8 - 2);
-      v9 = (v8 - 2);
+      v11 = *(v8 - 1);
+      v9 = v8 - 1;
       v10 = v11;
       v12 = *v4;
       if (v12 < v11)
@@ -1694,7 +1328,7 @@ unsigned __int16 *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlg
       }
 
       v14 = *v12;
-      v15 = &(*v12)[v11 & 0x7FF];
+      v15 = (*v12 + 2 * (v11 & 0x7FF));
       v16 = *v9;
       v17 = *v15;
       if (v16 < v17)
@@ -1706,7 +1340,8 @@ unsigned __int16 *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlg
           *result = v17;
           if (v15 == v14)
           {
-            v19 = *--v12;
+            v19 = *(v12 - 1);
+            v12 -= 4;
             v14 = v19;
             v15 = v19 + 2048;
           }
@@ -1733,19 +1368,19 @@ unsigned __int16 *std::__insertion_sort_unguarded[abi:ne200100]<std::_ClassicAlg
   return result;
 }
 
-char **std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>,std::__less<void,void> &>(char **result, unsigned __int16 *a2, unsigned __int16 **a3, unsigned __int16 *a4)
+char **std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>,std::__less<void,void> &>(char **result, unsigned __int16 *a2, char **a3, unsigned __int16 *a4)
 {
   v4 = *a2;
   v5 = *a3;
-  v6 = a4 - *a3;
+  v6 = (a4 - *a3) >> 1;
   if (v6 < 2)
   {
-    v7 = &a3[-((2048 - v6) >> 11)][~(2048 - v6) & 0x7FF];
+    v7 = &a3[-((2048 - v6) >> 11)][2 * (~(2048 - v6) & 0x7FF)];
   }
 
   else
   {
-    v7 = &(*(a3 + (((v6 - 1) >> 8) & 0xFFFFFFFFFFFFF8)))[(v6 - 1) & 0x7FF];
+    v7 = &(*(a3 + (((v6 - 1) >> 8) & 0xFFFFFFFFFFFFF8)))[2 * ((v6 - 1) & 0x7FF)];
   }
 
   v8 = *result;
@@ -1754,8 +1389,7 @@ char **std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy
     v9 = a2;
     do
     {
-      v9 += 2;
-      if (v9 - v8 == 4096)
+      if (++v9 - v8 == 4096)
       {
         v11 = result[1];
         ++result;
@@ -1772,8 +1406,7 @@ char **std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy
     v9 = a2;
     do
     {
-      v9 += 2;
-      if (v9 - v8 == 4096)
+      if (++v9 - v8 == 4096)
       {
         v10 = result[1];
         ++result;
@@ -1793,7 +1426,7 @@ char **std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy
       {
         v12 = *--a3;
         v5 = v12;
-        a4 = v12 + 2048;
+        a4 = (v12 + 4096);
       }
 
       v13 = *--a4;
@@ -1809,8 +1442,7 @@ char **std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy
     *a4 = v14;
     do
     {
-      v9 += 2;
-      if (v9 - v8 == 4096)
+      if (++v9 - v8 == 4096)
       {
         v15 = result[1];
         ++result;
@@ -1826,7 +1458,7 @@ char **std::__partition_with_equals_on_left[abi:ne200100]<std::_ClassicAlgPolicy
       {
         v16 = *--a3;
         v5 = v16;
-        a4 = v16 + 2048;
+        a4 = (v16 + 4096);
       }
 
       v17 = *--a4;
@@ -1996,7 +1628,7 @@ char **std::__partition_with_equals_on_right[abi:ne200100]<std::_ClassicAlgPolic
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>>(char *a1, unsigned __int16 *a2, char *a3, uint64_t a4)
+BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>>(char *a1, unsigned __int16 *a2, char *a3, unsigned __int16 *a4)
 {
   if (a4 == a2)
   {
@@ -2023,19 +1655,19 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
 
       if (v4 == a4)
       {
-        a4 = *(a3 - 1) + 4096;
+        a4 = (*(a3 - 1) + 4096);
       }
 
       v20 = *v9;
       v21 = *a2;
-      v22 = *(a4 - 2);
+      v22 = *(a4 - 1);
       if (v20 < v21)
       {
         if (v22 >= v20)
         {
           *a2 = v20;
           *v9 = v21;
-          v36 = *(a4 - 2);
+          v36 = *(a4 - 1);
           if (v36 >= v21)
           {
             return 1;
@@ -2049,7 +1681,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
           *a2 = v22;
         }
 
-        *(a4 - 2) = v21;
+        *(a4 - 1) = v21;
         return 1;
       }
 
@@ -2059,7 +1691,7 @@ BOOL std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,std::
       }
 
       *v9 = v22;
-      *(a4 - 2) = v20;
+      *(a4 - 1) = v20;
 LABEL_103:
       v73 = *v9;
       v74 = *a2;
@@ -2091,7 +1723,7 @@ LABEL_103:
 LABEL_37:
             if (v4 == a4)
             {
-              a4 = *(a3 - 1) + 4096;
+              a4 = (*(a3 - 1) + 4096);
             }
 
             v26 = *v9;
@@ -2163,7 +1795,7 @@ LABEL_88:
               }
             }
 
-            v66 = *(a4 - 2);
+            v66 = *(a4 - 1);
             v67 = *v25;
             if (v66 >= v67)
             {
@@ -2171,7 +1803,7 @@ LABEL_88:
             }
 
             *v25 = v66;
-            *(a4 - 2) = v67;
+            *(a4 - 1) = v67;
             v68 = *v25;
             v69 = *v23;
             if (v68 >= v69)
@@ -2223,7 +1855,7 @@ LABEL_36:
 LABEL_48:
         if (v4 == a4)
         {
-          a4 = *(a3 - 1) + 4096;
+          a4 = (*(a3 - 1) + 4096);
         }
 
         v31 = *v9;
@@ -2261,14 +1893,14 @@ LABEL_48:
           if (v31 >= v32)
           {
 LABEL_99:
-            v70 = *(a4 - 2);
+            v70 = *(a4 - 1);
             if (v70 >= v31)
             {
               return 1;
             }
 
             *v23 = v70;
-            *(a4 - 2) = v31;
+            *(a4 - 1) = v31;
             goto LABEL_101;
           }
 
@@ -2307,15 +1939,15 @@ LABEL_99:
   {
     if (v4 == a4)
     {
-      a4 = *(a3 - 1) + 4096;
+      a4 = (*(a3 - 1) + 4096);
     }
 
-    v11 = *(a4 - 2);
+    v11 = *(a4 - 1);
     v12 = *a2;
     if (v11 < v12)
     {
       *a2 = v11;
-      *(a4 - 2) = v12;
+      *(a4 - 1) = v12;
     }
 
     return 1;
@@ -2484,7 +2116,7 @@ LABEL_68:
   return v75 == a4;
 }
 
-char **std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>>(uint64_t *a1, unsigned __int16 *a2, char **a3, unsigned __int16 *a4, char **a5, unsigned __int16 *a6, uint64_t a7)
+char **std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>>(char *a1, char *a2, char **a3, char *a4, char **a5, char *a6, uint64_t a7)
 {
   if (a2 != a4)
   {
@@ -2494,7 +2126,7 @@ char **std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less
     v41 = a2;
     v14 = (a3 - a1) << 8;
     v15 = *a3;
-    v16 = ((a4 - *a3) >> 1) + v14 - ((a2 - *a1) >> 1);
+    v16 = ((a4 - *a3) >> 1) + v14 - (&a2[-*a1] >> 1);
     if (v16 >= 2)
     {
       v39 = (a3 - a1) << 8;
@@ -2511,7 +2143,7 @@ char **std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less
       while (v17 != -1);
       v15 = *v11;
       v14 = v39;
-      v16 = v39 + ((v10 - *v11) >> 1) - ((a2 - *a1) >> 1);
+      v16 = v39 + ((v10 - *v11) >> 1) - (&a2[-*a1] >> 1);
     }
 
     if (v10 == a6)
@@ -2535,7 +2167,8 @@ char **std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less
           v15 = *a5;
         }
 
-        if (++v22 - v15 == 4096)
+        v22 += 2;
+        if (v22 - v15 == 4096)
         {
           v25 = a5[1];
           ++a5;
@@ -2545,7 +2178,7 @@ char **std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less
       }
 
       while (v22 != a6);
-      v16 = v14 + ((v10 - *v11) >> 1) - ((a2 - *a1) >> 1);
+      v16 = v14 + ((v10 - *v11) >> 1) - (&a2[-*a1] >> 1);
     }
 
     if (v16 >= 2)
@@ -2588,7 +2221,7 @@ char **std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less
 
           else
           {
-            v35 = ((v29 - a1) << 8) + ((v33 - v34) >> 1) - ((a2 - *a1) >> 1);
+            v35 = ((v29 - a1) << 8) + ((v33 - v34) >> 1) - (&a2[-*a1] >> 1);
           }
 
           std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>>(a1, a2, v29, v33, a7, v35);
@@ -2601,7 +2234,7 @@ char **std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less
           v10 = (v36 + 4096);
         }
 
-        --v10;
+        v10 -= 2;
       }
 
       while (v16-- > 2);
@@ -2611,7 +2244,7 @@ char **std::__partial_sort_impl[abi:ne200100]<std::_ClassicAlgPolicy,std::__less
   return a5;
 }
 
-uint64_t *std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>>(uint64_t *result, _WORD *a2, uint64_t a3, uint64_t a4, char *a5, _WORD *a6)
+char *std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>>(char *result, _WORD *a2, uint64_t a3, uint64_t a4, char *a5, _WORD *a6)
 {
   v6 = a6;
   v21[0] = result;
@@ -2638,12 +2271,12 @@ uint64_t *std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void
       if (v11 + 2 < a4)
       {
         v14 = (v13 - *result) >> 1;
-        v15 = (v14 < 0 ? result[-((2046 - v14) >> 11)] + 2 * (~(2046 - v14) & 0x7FF) : *(result + (((v14 + 1) >> 8) & 0xFFFFFFFFFFFFF8)) + 2 * ((v14 + 1) & 0x7FF));
+        v15 = (v14 < 0 ? *&result[-8 * ((2046 - v14) >> 11)] + 2 * (~(2046 - v14) & 0x7FF) : *&result[((v14 + 1) >> 8) & 0xFFFFFFFFFFFFF8] + 2 * ((v14 + 1) & 0x7FF));
         if (*v13 < *v15)
         {
           if ((++v13 - *result) == 4096)
           {
-            v13 = result[1];
+            v13 = *(result + 1);
           }
 
           v12 = v11 + 2;
@@ -2669,12 +2302,12 @@ uint64_t *std::__sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void
           if (v18 + 2 < a4)
           {
             v19 = (v13 - *result) >> 1;
-            v20 = (v19 < 0 ? result[-((2046 - v19) >> 11)] + 2 * (~(2046 - v19) & 0x7FF) : *(result + (((v19 + 1) >> 8) & 0xFFFFFFFFFFFFF8)) + 2 * ((v19 + 1) & 0x7FF));
+            v20 = (v19 < 0 ? *&result[-8 * ((2046 - v19) >> 11)] + 2 * (~(2046 - v19) & 0x7FF) : *&result[((v19 + 1) >> 8) & 0xFFFFFFFFFFFFF8] + 2 * ((v19 + 1) & 0x7FF));
             if (*v13 < *v20)
             {
               if ((++v13 - *result) == 4096)
               {
-                v13 = result[1];
+                v13 = *(result + 1);
               }
 
               v12 = v18 + 2;
@@ -2737,7 +2370,7 @@ void *std::__floyd_sift_down[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<vo
   return result;
 }
 
-uint64_t *std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>>(uint64_t *result, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
+void *std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,void> &,std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>>(void *result, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
   v15[0] = result;
   v15[1] = a2;
@@ -2779,38 +2412,38 @@ uint64_t *std::__sift_up[abi:ne200100]<std::_ClassicAlgPolicy,std::__less<void,v
   return result;
 }
 
-void std::deque<unsigned short>::resize(void *a1, unint64_t a2)
+void std::deque<unsigned short>::resize(unint64_t *result, unint64_t a2)
 {
-  v3 = a1[5];
+  v3 = result[5];
   v4 = a2 >= v3;
   v5 = a2 - v3;
   if (v5 != 0 && v4)
   {
 
-    std::deque<unsigned short>::__append(a1, v5);
+    std::deque<unsigned short>::__append(result, v5);
   }
 
   else if (!v4)
   {
-    v6 = a1[1];
-    if (a1[2] == v6)
+    v6 = result[1];
+    if (result[2] == v6)
     {
       v7 = 0;
     }
 
     else
     {
-      v7 = *(v6 + 8 * (a1[4] >> 11)) + 2 * (a1[4] & 0x7FFLL);
+      v7 = *(v6 + 8 * (result[4] >> 11)) + 2 * (result[4] & 0x7FF);
     }
 
-    v10[0] = v6 + 8 * (a1[4] >> 11);
+    v10[0] = v6 + 8 * (result[4] >> 11);
     v10[1] = v7;
     v8 = std::__deque_iterator<unsigned short,unsigned short *,unsigned short &,unsigned short **,long,2048l>::operator+[abi:ne200100](v10, a2);
-    std::deque<unsigned short>::__erase_to_end(a1, v8, v9);
+    std::deque<unsigned short>::__erase_to_end(result, v8, v9);
   }
 }
 
-void std::deque<unsigned short>::__append(void *a1, unint64_t a2)
+void std::deque<unsigned short>::__append(unint64_t *a1, unint64_t a2)
 {
   v4 = a1[1];
   v5 = a1[2];
@@ -3097,12 +2730,11 @@ void MTMBSelectGlue::VisitIntonationalPhrase(MTMBSelectGlue *this, MTFESpeechEle
 {
   if (MTBEDebugFlags::sMEOWDebug)
   {
-    HIDWORD(a2[2].var5);
     operator new[]();
   }
 
   *(this + 5) = 0;
-  v4 = (a2[2].var3 + 4 * SLODWORD(a2[2].var5));
+  v4 = a2[2].var3 + 4 * SLODWORD(a2[2].var5);
   *(this + 7) = 0;
   *(this + 8) = v4;
   *(this + 107) = 0;
@@ -3159,7 +2791,7 @@ LABEL_16:
   }
 }
 
-uint64_t MTMBSelectGlue::VisitIntermediatePhrase(MTMBSelectGlue *this, MTFESpeechElement *a2)
+MTFESpeechElement *MTMBSelectGlue::VisitIntermediatePhrase(MTMBSelectGlue *this, MTFESpeechElement *a2)
 {
   result = MTFESpeechElement::VisitChildren(a2, this);
   if (*(this + 24) == 1)
@@ -3580,12 +3212,12 @@ void MTMBSelectGlue::ForceGluePitch(MTMBSelectGlue *this)
   operator new();
 }
 
-void sub_257B63858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_257B63858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
-  MEOWVectorBase::~MEOWVectorBase((v15 + 72));
+  va_start(va, a22);
+  MEOWVectorBase::~MEOWVectorBase((v22 + 72));
   MTMBDemi::~MTMBDemi(va);
-  MTMBDemi::~MTMBDemi((v16 - 144));
+  MTMBDemi::~MTMBDemi((v23 - 144));
   _Unwind_Resume(a1);
 }
 
@@ -3603,7 +3235,7 @@ void MTMBSelectGlue::Next(uint64_t a1@<X0>, uint64_t a2@<X1>, _DWORD *a3@<X8>)
 uint64_t MTMBSelectGlue::FindBreath(uint64_t result, uint64_t a2, uint64_t a3, unsigned __int8 *a4, int a5)
 {
   v9 = result;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (*(a4 + 1) != -1 && *(result + 107) == 1 && *(a2 + 64) >= 30.0)
   {
     v10 = *a4;
@@ -3612,9 +3244,9 @@ uint64_t MTMBSelectGlue::FindBreath(uint64_t result, uint64_t a2, uint64_t a3, u
     {
       if (a5)
       {
-        MEOWDiphoneSliceInfo::MEOWDiphoneSliceInfo(&v28);
-        LOBYTE(v28) = 1;
-        BYTE1(v28) = v10;
+        MEOWDiphoneSliceInfo::MEOWDiphoneSliceInfo(&v27);
+        LOBYTE(v27) = 1;
+        BYTE1(v27) = v10;
         if ((*(a3 + 72) & 0x1400) != 0)
         {
           v11 = 2;
@@ -3625,17 +3257,17 @@ uint64_t MTMBSelectGlue::FindBreath(uint64_t result, uint64_t a2, uint64_t a3, u
           v11 = 1;
         }
 
-        v29 = 1;
-        v30 = v11;
+        v28 = 1;
+        v29 = v11;
         v12 = *(v9 + 64);
-        v31 = *(v9 + 88);
-        v32 = v12 - 4 * v31;
-        v33 = 257;
-        (*(**(v9 + 32) + 40))(*(v9 + 32), &v28);
+        v30 = *(v9 + 88);
+        v31 = v12 - 4 * v30;
+        v32 = 257;
+        (*(**(v9 + 32) + 40))(*(v9 + 32), &v27);
         MTMBSelectGlue::HandleInstructions(v9);
-        MEOWAnchorSliceInfo::MEOWAnchorSliceInfo(v20);
-        *v20 = *a4;
-        (*(**(v9 + 32) + 64))(*(v9 + 32), v20);
+        MEOWAnchorSliceInfo::MEOWAnchorSliceInfo(v19);
+        *v19 = *a4;
+        (*(**(v9 + 32) + 64))(*(v9 + 32), v19);
         v13 = *(v9 + 32);
         v14 = (*(*v13 + 80))(v13) - 1;
         v15 = (*(**(v9 + 32) + 120))(*(v9 + 32));
@@ -3644,23 +3276,23 @@ uint64_t MTMBSelectGlue::FindBreath(uint64_t result, uint64_t a2, uint64_t a3, u
 
       else
       {
-        MEOWDemiSliceInfo::MEOWDemiSliceInfo(v20, 0);
-        LOBYTE(v28) = 1;
-        BYTE1(v28) = v10;
-        *&v31 = 0;
-        BYTE8(v31) = 0;
-        v34 = 0;
-        v20[0] = 1;
-        v20[1] = v10;
-        v21 = 1;
+        MEOWDemiSliceInfo::MEOWDemiSliceInfo(v19, 0);
+        LOBYTE(v27) = 1;
+        BYTE1(v27) = v10;
+        *&v30 = 0;
+        BYTE8(v30) = 0;
+        v33 = 0;
+        v19[0] = 1;
+        v19[1] = v10;
+        v20 = 1;
         v17 = *(v9 + 64) - 4 * *(v9 + 88);
-        v22 = *(v9 + 88);
-        v23 = 0;
-        v24 = v17;
+        v21 = *(v9 + 88);
+        v22 = 0;
+        v23 = v17;
+        v24 = 1;
         v25 = 1;
-        v26 = 1;
-        v27 = &v28;
-        (*(**(v9 + 32) + 56))(*(v9 + 32), v20);
+        v26 = &v27;
+        (*(**(v9 + 32) + 56))(*(v9 + 32), v19);
         MTMBSelectGlue::HandleInstructions(v9);
         v16 = (*(**(v9 + 32) + 120))(*(v9 + 32));
       }
@@ -3686,15 +3318,17 @@ uint64_t MTMBSelectGlue::FindBreath(uint64_t result, uint64_t a2, uint64_t a3, u
         *(a2 + 93) = 1;
         *(a2 + 94) = v10;
         *(a2 + 90) = v18;
-        if (v10 && a5)
+        if (v10)
         {
-          *(a3 + 92) = 1;
-          *(a3 + 93) = v10;
-          *(a3 + 88) = v18;
+          if (a5)
+          {
+            *(a3 + 92) = 1;
+            *(a3 + 93) = v10;
+            *(a3 + 88) = v18;
+          }
         }
 
-        result = (*(**(v9 + 32) + 88))(*(v9 + 32));
-        goto LABEL_23;
+        return (*(**(v9 + 32) + 88))(*(v9 + 32));
       }
 
       result = (*(**(v9 + 32) + 88))(*(v9 + 32));
@@ -3703,13 +3337,11 @@ uint64_t MTMBSelectGlue::FindBreath(uint64_t result, uint64_t a2, uint64_t a3, u
 
   if (a5)
   {
-    v28 = -65536;
-    *v20 = *a4;
-    result = MTMBSelectGlue::FindGlue(v9, a2, a3, &v28, v20);
+    v27 = -65536;
+    *v19 = *a4;
+    return MTMBSelectGlue::FindGlue(v9, a2, a3, &v27, v19);
   }
 
-LABEL_23:
-  v19 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3739,7 +3371,7 @@ uint64_t *MTMBSelectGlue::HandleInstructions(MTMBSelectGlue *this)
   return MTMBUnitInstructions::NextSlice(this + 14);
 }
 
-void *MTMBDiphoneVariants::AddPassThrough(MTMBDiphoneVariants *this)
+MEOWVectorBase *MTMBDiphoneVariants::AddPassThrough(MTMBDiphoneVariants *this)
 {
   result = MEOWVectorBase::Append(this);
   v3 = *this + 144 * *(this + 2);
@@ -3750,12 +3382,12 @@ void *MTMBDiphoneVariants::AddPassThrough(MTMBDiphoneVariants *this)
   return result;
 }
 
-void *MTMBDiphoneVariants::AddVariant(void *this, MEOWReader *a2, unsigned int a3, unsigned int a4)
+MEOWVectorBase *MTMBDiphoneVariants::AddVariant(MEOWVectorBase *this, MEOWReader *a2, unsigned int a3, unsigned int a4)
 {
   v4 = a4;
   v5 = a3;
   v6 = this;
-  v7 = this[2];
+  v7 = *(this + 2);
   if (v7)
   {
     v8 = (*this + 1);
@@ -3776,7 +3408,7 @@ LABEL_6:
     if (this)
     {
       this = MEOWVectorBase::Append(v6);
-      v9 = *v6 + 144 * v6[2];
+      v9 = *v6 + 144 * *(v6 + 2);
       *(v9 - 144) = v5;
       *(v9 - 143) = v4;
       *(v9 - 136) = 0;
@@ -3788,7 +3420,7 @@ LABEL_6:
   return this;
 }
 
-void *MTMBDiphoneVariants::AddVariants(void *result, MEOWReader *this, _BYTE *a3, unsigned __int8 *a4)
+MEOWVectorBase *MTMBDiphoneVariants::AddVariants(MEOWVectorBase *result, MEOWReader *this, _BYTE *a3, unsigned __int8 *a4)
 {
   v4 = *a3;
   if (*a3)
@@ -3810,7 +3442,7 @@ void *MTMBDiphoneVariants::AddVariants(void *result, MEOWReader *this, _BYTE *a3
           if (result)
           {
             result = MEOWVectorBase::Append(v8);
-            v15 = *v8 + 144 * v8[2];
+            v15 = *v8 + 144 * *(v8 + 2);
             *(v15 - 144) = v13;
             *(v15 - 143) = v14;
             *(v15 - 136) = 0;
@@ -3846,7 +3478,7 @@ void MTMBDiphoneVariants::AddLeftContext(void *a1, MEOWReader *a2, void *a3)
   MTMBDiphoneVariants::AddContext(a1, a2, 0, v4, v3);
 }
 
-void MTMBDiphoneVariants::AddContext(void *a1, MEOWReader *this, int a3, void *a4, void *a5)
+void MTMBDiphoneVariants::AddContext(void *result, MEOWReader *this, int a3, void *a4, void *a5)
 {
   if (a4[2])
   {
@@ -3862,7 +3494,7 @@ void MTMBDiphoneVariants::AddContext(void *a1, MEOWReader *this, int a3, void *a
       {
         v14 = 0;
         v15 = (*a4 + a4[1] * v10);
-        v16 = (*a1 + 1);
+        v16 = (*result + 1);
         while (1)
         {
           if (a3)
@@ -4131,7 +3763,7 @@ uint64_t MTMBDiphoneSlice::SelectCandidate(uint64_t this, MEOWReader *a2, __int1
   return this;
 }
 
-void MTMBSelectUnits::MTMBSelectUnits(MTMBSelectUnits *this, MEOWReader *a2, MTBEPersistentParam *a3, BOOL a4, char a5)
+void MTMBSelectUnits::MTMBSelectUnits(MTMBSelectUnits *this, MEOWReader *a2, MTBEPersistentParam *a3, int a4, char a5)
 {
   *this = &unk_2868F81B8;
   *(this + 1) = &unk_2868F8238;
@@ -4359,9 +3991,9 @@ LABEL_17:
   return this;
 }
 
-void sub_257B64A88(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_257B64A88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   MTFESpeechVisitor::~MTFESpeechVisitor(va);
   _Unwind_Resume(a1);
 }
@@ -4477,14 +4109,14 @@ MTMBSelectUnits *MTMBSelectUnits::VisitIntermediatePhrase(MTMBSelectUnits *this,
 
 uint64_t MTMBSelectUnits::FindWordCandidates(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, int a5, int a6)
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   if (MEOWReader::GetWordDescriptor(*(a1 + 16), a3, a4))
   {
     v12 = (a2 + 200);
     v13 = *a3;
     if (a2 + 200 == *a3)
     {
-      goto LABEL_30;
+      return 1;
     }
 
     goto LABEL_29;
@@ -4626,9 +4258,7 @@ LABEL_28:
         v13 = __dst;
 LABEL_29:
         *a3 = strcpy(v12, v13);
-LABEL_30:
-        v29 = 1;
-        goto LABEL_82;
+        return 1;
       }
     }
 
@@ -4700,7 +4330,7 @@ LABEL_30:
                 WordCandidates = MTMBSelectUnits::FindWordCandidates(a1, a2, a3, a4, 0, 0);
                 if (WordCandidates)
                 {
-                  MTMBSelectUnits::AddMorphWord(WordCandidates, a2, "S");
+                  MTMBSelectUnits::AddMorphWord(WordCandidates, a2, "S", 1);
                 }
               }
 
@@ -4723,7 +4353,7 @@ LABEL_47:
               v40 = MTMBSelectUnits::FindWordCandidates(a1, a2, a3, a4, 0, 0);
               if (v40)
               {
-                MTMBSelectUnits::AddMorphWord(v40, a2, "ES");
+                MTMBSelectUnits::AddMorphWord(v40, a2, "ES", 2);
               }
             }
 
@@ -4734,7 +4364,7 @@ LABEL_73:
         }
 
 LABEL_44:
-        v47 = *(v33 + 48);
+        v46 = *(v33 + 48);
         __dst[v30] = 0;
         *a3 = __dst;
         if (MTMBSelectUnits::IsSafeToMorph(a1, __dst, v15 - 1, *(v33 + 58)))
@@ -4743,12 +4373,12 @@ LABEL_44:
           if (v37)
           {
 LABEL_77:
-            MTMBSelectUnits::AddMorphWord(v37, a2, "S");
+            MTMBSelectUnits::AddMorphWord(v37, a2, "S", 1);
           }
         }
 
         __dst[v30] = 83;
-        v35 = v47;
+        v35 = v46;
         goto LABEL_47;
       }
     }
@@ -4770,23 +4400,16 @@ LABEL_74:
   }
 
 LABEL_78:
-  if (a6 && MTMBSelectUnits::FindHyphenatedConstituents(a1, a2))
+  if (!a6 || !MTMBSelectUnits::FindHyphenatedConstituents(a1, a2))
   {
-    *a3 = a2 + 200;
-    *(a3 + 8) = *(a2 + 86);
-    *(a3 + 10) = *(a2 + 92);
-    *(a3 + 26) = 0;
-    v29 = MTMBSelectUnits::FindWordCandidates(a1, a2, a3, a4, 1, 0);
+    return 0;
   }
 
-  else
-  {
-    v29 = 0;
-  }
-
-LABEL_82:
-  v45 = *MEMORY[0x277D85DE8];
-  return v29;
+  *a3 = a2 + 200;
+  *(a3 + 8) = *(a2 + 86);
+  *(a3 + 10) = *(a2 + 92);
+  *(a3 + 26) = 0;
+  return MTMBSelectUnits::FindWordCandidates(a1, a2, a3, a4, 1, 0);
 }
 
 BOOL MTMBSelectUnits::IsSafeToMorph(MTMBSelectUnits *this, const char *a2, uint64_t a3, int a4)
@@ -4804,10 +4427,10 @@ BOOL MTMBSelectUnits::IsSafeToMorph(MTMBSelectUnits *this, const char *a2, uint6
 
 uint64_t MTMBSelectUnits::FindHyphenatedConstituents(MTMBSelectUnits *this, MTFESpeechElement *a2)
 {
-  v20[31] = *MEMORY[0x277D85DE8];
+  v18[31] = *MEMORY[0x277D85DE8];
   p_var5 = &a2[3].var5;
-  v18 = MTFEFirstPhoneme(a2);
-  v5 = &v19 - 4;
+  v16 = MTFEFirstPhoneme(a2);
+  v5 = &v17[-32];
   v6 = -1;
   while (1)
   {
@@ -4815,17 +4438,17 @@ uint64_t MTMBSelectUnits::FindHyphenatedConstituents(MTMBSelectUnits *this, MTFE
     v8 = strchr(p_var5, 45);
     v9 = v8;
     v10 = v8 ? v8 - p_var5 : strlen(p_var5);
-    v5[4] = p_var5;
+    *(v5 + 4) = p_var5;
     Temp = SLTokenCreateTemp();
-    v5[5] = Temp;
-    v5[6] = 0;
-    if (!SLDictLookup::Lookup(*(*(this + 3) + 88), *(*(*(this + 3) + 88) + 8), p_var5, v10, Temp) || !MTMBConstituent::FindHomograph((v5 + 4), a2, &v18))
+    *(v5 + 5) = Temp;
+    *(v5 + 6) = 0;
+    if (!SLDictLookup::Lookup(*(*(this + 3) + 88), *(*(*(this + 3) + 88) + 8), p_var5, v10, Temp) || !MTMBConstituent::FindHomograph((v5 + 32), a2, &v16))
     {
       break;
     }
 
     p_var5 = v9 + 1;
-    v5 += 4;
+    v5 += 32;
     v6 = v7 - 1;
     if (!v9)
     {
@@ -4834,7 +4457,7 @@ uint64_t MTMBSelectUnits::FindHyphenatedConstituents(MTMBSelectUnits *this, MTFE
         MTMBConstituent::SplitWord(v5, a2);
       }
 
-      MTMBConstituent::SetWord(&v19, a2);
+      MTMBConstituent::SetWord(v17, a2);
       v12 = 1;
       goto LABEL_12;
     }
@@ -4843,23 +4466,20 @@ uint64_t MTMBSelectUnits::FindHyphenatedConstituents(MTMBSelectUnits *this, MTFE
   v12 = 0;
   if (!v7)
   {
-    goto LABEL_14;
+    return v12;
   }
 
 LABEL_12:
   v13 = -v7;
-  v14 = v20;
+  v14 = v18;
   do
   {
-    v15 = *v14;
     v14 += 4;
     SLTokenRelease();
     --v13;
   }
 
   while (v13);
-LABEL_14:
-  v16 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -4871,61 +4491,59 @@ uint64_t MTMBConstituent::FindHomograph(MTMBConstituent *this, MTFEWord *a2, MTF
   }
 
   var0_low = SLOWORD((*a3)->var5[1].var0);
-  v7 = *(this + 1);
-  v8 = SLTokenCountHomographs();
-  if (v8 >= 1)
+  v7 = SLTokenCountHomographs();
+  if (v7 >= 1)
   {
-    v9 = v8;
-    for (i = 0; i != v9; ++i)
+    v8 = v7;
+    for (i = 0; i != v8; ++i)
     {
-      v11 = *(this + 1);
       *(this + 2) = SLTokenGetHomograph();
       Phonemes = SLHomographGetPhonemes();
       BytePtr = CFDataGetBytePtr(Phonemes);
       Length = CFDataGetLength(Phonemes);
-      v15 = *a3;
+      v13 = *a3;
       if (*a3)
       {
 LABEL_5:
-        v16 = 0;
+        v14 = 0;
         while (1)
         {
-          v17 = Length - v16;
-          if (Length == v16)
+          v15 = Length - v14;
+          if (Length == v14)
           {
             break;
           }
 
-          v18 = *(v15 + 32);
-          if (*(v18 + 32) != a2)
+          v16 = *(v13 + 32);
+          if (*(v16 + 32) != a2)
           {
             break;
           }
 
-          v19 = *(v15 + 58);
-          v20 = BytePtr[v16];
-          if (v19 == v20)
+          v17 = *(v13 + 58);
+          v18 = BytePtr[v14];
+          if (v17 == v18)
           {
             goto LABEL_57;
           }
 
-          if (BytePtr[v16] <= 0x20u)
+          if (BytePtr[v14] <= 0x20u)
           {
-            if (BytePtr[v16] > 2u)
+            if (BytePtr[v14] > 2u)
             {
-              if (BytePtr[v16] <= 9u)
+              if (BytePtr[v14] <= 9u)
               {
-                if (BytePtr[v16] <= 7u)
+                if (BytePtr[v14] <= 7u)
                 {
-                  if ((v20 - 3) >= 2)
+                  if ((v18 - 3) >= 2)
                   {
-                    if (v20 != 7 || v19 != 22)
+                    if (v18 != 7 || v17 != 22)
                     {
                       break;
                     }
                   }
 
-                  else if (v19 != 20)
+                  else if (v17 != 20)
                   {
                     break;
                   }
@@ -4933,32 +4551,32 @@ LABEL_5:
                   goto LABEL_49;
                 }
 
-                if (v20 != 8)
+                if (v18 != 8)
                 {
 LABEL_39:
-                  if (v19 != 23)
+                  if (v17 != 23)
                   {
                     break;
                   }
 
 LABEL_49:
-                  if (Length - 1 == v16)
+                  if (Length - 1 == v14)
                   {
                     break;
                   }
 
-                  v21 = &BytePtr[v16 + 1];
-                  if (*v21 != 32)
+                  v19 = &BytePtr[v14 + 1];
+                  if (*v19 != 32)
                   {
                     break;
                   }
 
-                  v17 = ~v16 + Length;
+                  v15 = ~v14 + Length;
                   goto LABEL_58;
                 }
 
 LABEL_43:
-                if (v19 != 12)
+                if (v17 != 12)
                 {
                   break;
                 }
@@ -4966,11 +4584,11 @@ LABEL_43:
                 goto LABEL_49;
               }
 
-              if (BytePtr[v16] <= 0x10u)
+              if (BytePtr[v14] <= 0x10u)
               {
-                if (v20 != 10)
+                if (v18 != 10)
                 {
-                  if (v20 != 11)
+                  if (v18 != 11)
                   {
                     break;
                   }
@@ -4981,14 +4599,14 @@ LABEL_43:
 
               else
               {
-                if (v20 == 17)
+                if (v18 == 17)
                 {
                   goto LABEL_39;
                 }
 
-                if (v20 != 18)
+                if (v18 != 18)
                 {
-                  if (v20 != 32 || v19 != 26)
+                  if (v18 != 32 || v17 != 26)
                   {
                     break;
                   }
@@ -4997,7 +4615,7 @@ LABEL_43:
                 }
               }
 
-              if (v19 != 24)
+              if (v17 != 24)
               {
                 break;
               }
@@ -5005,7 +4623,7 @@ LABEL_43:
               goto LABEL_49;
             }
 
-            if ((v20 - 1) >= 2)
+            if ((v18 - 1) >= 2)
             {
               break;
             }
@@ -5013,36 +4631,36 @@ LABEL_43:
 
           else
           {
-            if ((v20 - 52) > 0x17)
+            if ((v18 - 52) > 0x17)
             {
               goto LABEL_34;
             }
 
-            if (((1 << (v20 - 52)) & 0xC00140) == 0)
+            if (((1 << (v18 - 52)) & 0xC00140) == 0)
             {
-              if (v20 == 52)
+              if (v18 == 52)
               {
-                if (v19 != 48)
+                if (v17 != 48)
                 {
                   break;
                 }
 
-                v15 = *(v15 + 40);
-                if (!v15 || *(v15 + 58) != 44)
+                v13 = *(v13 + 40);
+                if (!v13 || *(v13 + 58) != 44)
                 {
                   break;
                 }
               }
 
-              else if (v20 == 53)
+              else if (v18 == 53)
               {
-                if (v19 != 49)
+                if (v17 != 49)
                 {
                   break;
                 }
 
-                v15 = *(v15 + 40);
-                if (!v15 || *(v15 + 58) != 45)
+                v13 = *(v13 + 40);
+                if (!v13 || *(v13 + 58) != 45)
                 {
                   break;
                 }
@@ -5051,29 +4669,29 @@ LABEL_43:
               else
               {
 LABEL_34:
-                if (v20 == 33)
+                if (v18 == 33)
                 {
-                  if (v19 != 27)
+                  if (v17 != 27)
                   {
                     break;
                   }
                 }
 
-                else if (v20 != 48 || v19 != 55)
+                else if (v18 != 48 || v17 != 55)
                 {
                   break;
                 }
               }
 
 LABEL_57:
-              v21 = &BytePtr[v16];
+              v19 = &BytePtr[v14];
 LABEL_58:
-              Length = v17 - 1;
-              if (v17 != 1)
+              Length = v15 - 1;
+              if (v15 != 1)
               {
-                BytePtr = v21 + 1;
-                v15 = *(v15 + 40);
-                if (v15)
+                BytePtr = v19 + 1;
+                v13 = *(v13 + 40);
+                if (v13)
                 {
                   goto LABEL_5;
                 }
@@ -5081,20 +4699,20 @@ LABEL_58:
                 break;
               }
 
-              v18 = *(v15 + 32);
+              v16 = *(v13 + 32);
 LABEL_62:
-              if (v15 != *(v18 + 24))
+              if (v13 != *(v16 + 24))
               {
                 break;
               }
 
-              *(this + 3) = *(v18 + 56) - var0_low + 1;
-              *a3 = *(v15 + 40);
+              *(this + 3) = *(v16 + 56) - var0_low + 1;
+              *a3 = *(v13 + 40);
               return 1;
             }
           }
 
-          if (Length == ++v16)
+          if (Length == ++v14)
           {
             goto LABEL_62;
           }
@@ -5115,52 +4733,48 @@ _DWORD *MTMBConstituent::SetWord(const char **this, MTFESpeechElement *a2)
     *v4 = 0;
   }
 
-  v5 = this[2];
   SLHomographGetPOS();
   BYTE6(a2[1].var4) = SLFirstPOSInSet();
-  v6 = this[2];
   *(&a2[1].var5 + 4) = SLHomographGetTags();
-  v7 = (&a2[1].var5 + 4);
-  *(&a2[1].var6 + 4) = v8;
-  v9 = this[1];
-  v10 = SLTokenCountHomographs();
-  if (v10 >= 1)
+  v5 = &a2[1].var5 + 2;
+  *(&a2[1].var6 + 4) = v6;
+  v7 = SLTokenCountHomographs();
+  if (v7 >= 1)
   {
-    v11 = v10;
-    for (i = 0; i != v11; ++i)
+    v8 = v7;
+    for (i = 0; i != v8; ++i)
     {
-      v13 = this[1];
       if (SLTokenGetHomograph() != this[2])
       {
-        v24[0] = SLHomographGetTags();
-        v24[1] = v14;
-        v15 = LOWORD(v24[0]);
-        if (LOWORD(v24[0]))
+        v20[0] = SLHomographGetTags();
+        v20[1] = v10;
+        v11 = LOWORD(v20[0]);
+        if (LOWORD(v20[0]))
         {
-          v16 = v24 + 1;
+          v12 = v20 + 1;
           do
           {
-            v18 = *v16++;
-            v17 = v18;
+            v14 = *v12++;
+            v13 = v14;
             if ((SLWordTagSet::find((&a2[1].var5 + 4)) & 1) == 0)
             {
-              v19 = v17 ^ 1;
+              v15 = v13 ^ 1;
               if ((SLWordTagSet::find((&a2[1].var5 + 4)) & 1) == 0)
               {
-                v20 = v7->var0[0];
-                if (v20 <= 6)
+                v16 = *v5;
+                if (v16 <= 6)
                 {
-                  v21 = v20 + 1;
-                  v7->var0[0] = v21;
-                  v7->var0[v21] = v19;
+                  v17 = v16 + 1;
+                  *v5 = v17;
+                  v5[v17] = v15;
                 }
               }
             }
 
-            --v15;
+            --v11;
           }
 
-          while (v15);
+          while (v11);
         }
       }
     }
@@ -5244,7 +4858,7 @@ MTMBSelectUnits *MTMBSelectUnits::VisitWord(MTMBSelectUnits *this, MTFESpeechEle
         MEOWReader::GetWordData(*(v3 + 2), &v20, v18, v19);
         if (*(v3 + 248) == 3)
         {
-          MTMBSelectUnits::AddFirstDemiSlice(v3);
+          MTMBSelectUnits::AddFirstDemiSlice(v3, v18);
         }
 
         MEOWVectorBase::Swap(v3 + 19, v18);
@@ -5288,24 +4902,11 @@ MTMBSelectUnits *MTMBSelectUnits::VisitWord(MTMBSelectUnits *this, MTFESpeechEle
   return this;
 }
 
-void sub_257B661B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_257B661B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   MEOWVectorBase::~MEOWVectorBase(va);
   _Unwind_Resume(a1);
-}
-
-void MTMBSelectUnits::AddFirstDemiSlice(uint64_t a1)
-{
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = *(*(a1 + 48) + 40);
-  if (!v1)
-  {
-    v1 = &MTFEPhonemeFlags::sSIL;
-  }
-
-  v2 = v1[5];
-  operator new();
 }
 
 uint64_t *MTMBSelectUnits::AddSlice(MTMBSelectUnits *this, MTMBUnitSlice *a2)
@@ -5325,7 +4926,7 @@ uint64_t *MTMBSelectUnits::AddSlice(MTMBSelectUnits *this, MTMBUnitSlice *a2)
     }
   }
 
-  MEOWVectorBase::Append(this + 12);
+  MEOWVectorBase::Append((this + 96));
   *(*(this + 12) + 8 * *(this + 14) - 8) = a2;
   v5 = 0;
   if (MTMBUnitInstructions::ReadyInQueue(this + 128, this + 17, &v5))
@@ -5379,10 +4980,10 @@ MTMBSelectUnits *MTMBSelectUnits::VisitCommand(MTMBSelectUnits *this, MTFEComman
 
 MTMBSelectUnits *MTMBSelectUnits::VisitPhoneme(MTMBSelectUnits *this, MTFESpeechElement *a2)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   if (*(this + 234))
   {
-    goto LABEL_59;
+    return this;
   }
 
   v3 = this;
@@ -5480,8 +5081,8 @@ MTMBSelectUnits *MTMBSelectUnits::VisitPhoneme(MTMBSelectUnits *this, MTFESpeech
     MEOWReader::SubstituteFirst(*(this + 2), this + 264, this + 265);
   }
 
-  LOWORD(v46) = 0;
-  this = MEOWReader::SubstituteDemis(*(v3 + 2), v3 + 264, v3 + 265, v3 + 266, &v46 + 1, &v46);
+  LOWORD(v45) = 0;
+  this = MEOWReader::SubstituteDemis(*(v3 + 2), v3 + 264, v3 + 265, v3 + 266, &v45 + 1, &v45);
   v21 = this;
   if (this)
   {
@@ -5510,8 +5111,8 @@ MTMBSelectUnits *MTMBSelectUnits::VisitPhoneme(MTMBSelectUnits *this, MTFESpeech
 
       else
       {
-        MEOWPhon::Name(BYTE1(v46));
-        MEOWPhon::Name(v46);
+        MEOWPhon::Name(BYTE1(v45));
+        MEOWPhon::Name(v45);
         MEOWPhon::Name(*(v3 + 265));
         this = fprintf(v23, "MEOW Substitution %s-%s -> %s(-%s)-(%s-)%s\n");
       }
@@ -5520,24 +5121,92 @@ MTMBSelectUnits *MTMBSelectUnits::VisitPhoneme(MTMBSelectUnits *this, MTFESpeech
 
   v28 = vcvtms_u32_f32(*&a2[1].var1 * *(&a2[1].var2 + 2));
   v29 = *(v3 + 248);
-  if ((v29 - 3) >= 2)
+  if ((v29 - 3) < 2)
   {
-    if (*(v3 + 248) && v29 != 2)
+    if (v21)
     {
-      goto LABEL_56;
+      if (*(v3 + 264))
+      {
+        *(*(v3 + 6) + 94) = BYTE1(v45);
+        operator new();
+      }
+
+      goto LABEL_45;
     }
 
-    goto LABEL_45;
+    v30 = *(v3 + 265);
+    if ((v21 & 2) != 0)
+    {
+      *(*(v3 + 6) + 94) = v30;
+    }
+
+    BYTE4(a2[1].var5) = *(v3 + 264);
+    BYTE5(a2[1].var5) = v30;
+    BYTE6(a2[1].var5) = *(v3 + 266);
+    MEOWDiphoneSliceInfo::MEOWDiphoneSliceInfo(v38);
+    v31 = *(v3 + 265);
+    v38[0] = *(v3 + 264);
+    v38[1] = v31;
+    v39 = *v17;
+    v40 = *(v3 + 125);
+    v32 = *(v3 + 11);
+    v41 = *(v3 + 32);
+    v42 = v28;
+    v43 = v32;
+    var5 = a2->var5;
+    if (var5->var3 == a2)
+    {
+      v34 = *(v3 + 28);
+      while (var5 != v34 || (*(v34 + 57) & 0x10) != 0)
+      {
+        v35 = var5->var5->var3 == var5;
+        var5 = var5->var5;
+        if (!v35)
+        {
+          goto LABEL_40;
+        }
+      }
+
+      v44 = 1;
+      if (v31)
+      {
+        goto LABEL_51;
+      }
+    }
+
+    else
+    {
+LABEL_40:
+      if (v31)
+      {
+        goto LABEL_51;
+      }
+    }
+
+    this = (*(**(v3 + 5) + 80))(*(v3 + 5));
+    if (!this)
+    {
+      if (*(v3 + 265))
+      {
+        v37 = 3;
+LABEL_55:
+        *(v3 + 248) = v37;
+        goto LABEL_56;
+      }
+
+LABEL_54:
+      this = MTMBSelectUnits::EvaluatePath(v3, 1);
+      v37 = 4;
+      goto LABEL_55;
+    }
+
+LABEL_51:
+    (*(**(v3 + 5) + 32))(*(v3 + 5), v38);
+    operator new();
   }
 
-  if (v21)
+  if (!*(v3 + 248) || v29 == 2)
   {
-    if (*(v3 + 264))
-    {
-      *(*(v3 + 6) + 94) = BYTE1(v46);
-      operator new();
-    }
-
 LABEL_45:
     v36 = *(v3 + 265);
     if (v36)
@@ -5545,14 +5214,14 @@ LABEL_45:
       BYTE4(a2[1].var5) = *(v3 + 264);
       BYTE5(a2[1].var5) = v36;
       BYTE6(a2[1].var5) = *(v3 + 266);
-      MEOWDemiSliceInfo::MEOWDemiSliceInfo(v39, 1);
+      MEOWDemiSliceInfo::MEOWDemiSliceInfo(v38, 1);
       if (*(v3 + 248) == 2)
       {
         __s[0] = 0;
-        *v47 = *(v3 + 19) + 4;
-        v48 = 8;
-        v49 = *(v3 + 21);
-        MEOWDemiSliceInfo::PhonemeSet::AddPhonemes(__s, v47);
+        *v46 = *(v3 + 19) + 4;
+        v47 = 8;
+        v48 = *(v3 + 21);
+        MEOWDemiSliceInfo::PhonemeSet::AddPhonemes(__s, v46);
         operator new();
       }
 
@@ -5562,74 +5231,6 @@ LABEL_45:
     goto LABEL_54;
   }
 
-  v30 = *(v3 + 265);
-  if ((v21 & 2) != 0)
-  {
-    *(*(v3 + 6) + 94) = v30;
-  }
-
-  BYTE4(a2[1].var5) = *(v3 + 264);
-  BYTE5(a2[1].var5) = v30;
-  BYTE6(a2[1].var5) = *(v3 + 266);
-  MEOWDiphoneSliceInfo::MEOWDiphoneSliceInfo(v39);
-  v31 = *(v3 + 265);
-  v39[0] = *(v3 + 264);
-  v39[1] = v31;
-  v40 = *v17;
-  v41 = *(v3 + 125);
-  v32 = *(v3 + 11);
-  v42 = *(v3 + 32);
-  v43 = v28;
-  v44 = v32;
-  var5 = a2->var5;
-  if (var5->var3 == a2)
-  {
-    v34 = *(v3 + 28);
-    while (var5 != v34 || (*(v34 + 57) & 0x10) != 0)
-    {
-      v35 = var5->var5->var3 == var5;
-      var5 = var5->var5;
-      if (!v35)
-      {
-        goto LABEL_40;
-      }
-    }
-
-    v45 = 1;
-    if (v31)
-    {
-LABEL_51:
-      (*(**(v3 + 5) + 32))(*(v3 + 5), v39);
-      operator new();
-    }
-  }
-
-  else
-  {
-LABEL_40:
-    if (v31)
-    {
-      goto LABEL_51;
-    }
-  }
-
-  this = (*(**(v3 + 5) + 80))(*(v3 + 5));
-  if (this)
-  {
-    goto LABEL_51;
-  }
-
-  if (!*(v3 + 265))
-  {
-LABEL_54:
-    this = MTMBSelectUnits::EvaluatePath(v3, 1);
-    v37 = 4;
-    goto LABEL_55;
-  }
-
-  v37 = 3;
-LABEL_55:
-  *(v3 + 248) = v37;
 LABEL_56:
   *(v3 + 11) += 4 * *(v3 + 32) + 4 * v28;
   *(v3 + 32) = *&a2[1].var1 - v28;
@@ -5640,8 +5241,6 @@ LABEL_56:
   }
 
   *(v3 + 9) = 0;
-LABEL_59:
-  v38 = *MEMORY[0x277D85DE8];
   return this;
 }
 
@@ -5817,7 +5416,7 @@ _BYTE *MEOWDemiSliceInfo::PhonemeSet::AddPhonemes(_BYTE *__s, void *a2)
       if (!__s)
       {
         *v4 = ++v7;
-        *(v6 + v9) = v8;
+        v6[v9] = v8;
         v2 = a2[2];
       }
 
@@ -5839,7 +5438,7 @@ void MEOWAnchorSliceInfo::MEOWAnchorSliceInfo(MEOWAnchorSliceInfo *this)
   *this = 0;
 }
 
-void MEOWSearchLatticeImpl::MEOWSearchLatticeImpl(MEOWSearchLatticeImpl *this, MEOWReader *a2)
+void MEOWSearchLatticeImpl::MEOWSearchLatticeImpl(MEOWSearchLatticeImpl *this, MEOWReader *a2, char a3)
 {
   *this = &unk_2868F8458;
   *(this + 1) = a2;
@@ -5892,7 +5491,7 @@ void MEOWSearchLatticeImpl::~MEOWSearchLatticeImpl(MEOWSearchLatticeImpl *this)
   JUMPOUT(0x259C6DA90);
 }
 
-void MEOWSearchLatticeImpl::AddWordSlice(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
+void MEOWSearchLatticeImpl::AddWordSlice(uint64_t a1, const char **a2, unsigned __int8 *a3)
 {
   MEOWVectorBase::MEOWVectorBase(v13, 8);
   MEOWVectorBase::MEOWVectorBase(v12, 1);
@@ -5928,7 +5527,7 @@ void MEOWSearchLatticeImpl::AddWordSlice(uint64_t a1, uint64_t a2, unsigned __in
     MEOWSearchLatticeImpl::Null2WordCull(a1, a2, v13, a3);
   }
 
-  MEOWUnitCostWindow::MEOWUnitCostWindow(v11, *(a2 + 40), 1, 0.0);
+  MEOWUnitCostWindow::MEOWUnitCostWindow(v11, a2[5], 1, 0.0);
   SLML::Vector<float>::Vector(&v10, __N);
 }
 
@@ -5942,17 +5541,18 @@ void sub_257B68054(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void MEOWSearchLatticeImpl::AllocateCostVectors(MEOWSearchLatticeImpl *this, unint64_t a2, int a3)
+void MEOWSearchLatticeImpl::AllocateCostVectors(MEOWSearchLatticeImpl *this, unint64_t a2, uint64_t a3)
 {
+  v3 = a3;
   if (*(*(this + 25) + 12) < a2)
   {
-    SLML::Vector<float>::ResizeStorage();
+    SLML::Vector<float>::ResizeStorage(this + 192, a2);
   }
 
   *(this + 48) = a2;
   if (*(*(this + 28) + 12) < a2)
   {
-    SLML::Vector<float>::ResizeStorage();
+    SLML::Vector<float>::ResizeStorage(this + 216, a2);
   }
 
   *(this + 54) = a2;
@@ -5962,20 +5562,20 @@ void MEOWSearchLatticeImpl::AllocateCostVectors(MEOWSearchLatticeImpl *this, uni
   }
 
   *(this + 22) = a2;
-  if ((a3 & 0x80000000) == 0)
+  if ((v3 & 0x80000000) == 0)
   {
     v6 = *(this + 32);
-    if (*(v6 + 8) < a2 || *(v6 + 12) < a3)
+    if (*(v6 + 8) < a2 || *(v6 + 12) < v3)
     {
-      SLML::Matrix<float>::ResizeStorage();
+      SLML::Matrix<float>::ResizeStorage(this + 240, a2, v3);
     }
 
     *(this + 60) = a2;
-    *(this + 61) = a3;
+    *(this + 61) = v3;
     SLML::Matrix<float>::operator=(this + 240, 0.0);
     if (*(*(this + 35) + 12) < a2)
     {
-      SLML::Vector<float>::ResizeStorage();
+      SLML::Vector<float>::ResizeStorage(this + 272, a2);
     }
 
     *(this + 68) = a2;
@@ -6130,16 +5730,16 @@ void MEOWSearchLatticeImpl::AddBreathDiphoneSlice(uint64_t a1, unsigned __int8 *
   SLML::Vector<float>::Vector(&v5, __N);
 }
 
-void MEOWSearchLatticeImpl::AddDemiSlice(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
+void MEOWSearchLatticeImpl::AddDemiSlice(uint64_t a1, __int128 *a2, unsigned __int8 *a3)
 {
-  if (*(a2 + 40))
+  if (*(a2 + 5))
   {
     v6 = 0;
     v7 = 0;
     v8 = 0;
     do
     {
-      v9 = (*(a2 + 48) + v6);
+      v9 = (*(a2 + 6) + v6);
       v10 = MEOWReader::CountDiphones(*(a1 + 8), *v9, v9[1]);
       *(v9 + 1) = v10;
       v7 += v10;
@@ -6147,7 +5747,7 @@ void MEOWSearchLatticeImpl::AddDemiSlice(uint64_t a1, uint64_t a2, unsigned __in
       v6 += 144;
     }
 
-    while (v8 < *(a2 + 40));
+    while (v8 < *(a2 + 5));
   }
 
   else
@@ -6172,7 +5772,7 @@ void MEOWSearchLatticeImpl::AddDemiSlice(uint64_t a1, uint64_t a2, unsigned __in
 
     if (v12 == 6)
     {
-      MEOWSearchLatticeImpl::Word2Demi(a1, a2);
+      MEOWSearchLatticeImpl::Word2Demi(a1, a2, a3);
     }
 
     v13 = *MEMORY[0x277D85DF8];
@@ -6203,9 +5803,9 @@ LABEL_18:
   SLML::Vector<float>::Vector(&v15, v7);
 }
 
-void MEOWSearchLatticeImpl::AddBreathDemiSlice(uint64_t a1, uint64_t a2)
+void MEOWSearchLatticeImpl::AddBreathDemiSlice(uint64_t a1, __int128 *a2)
 {
-  __N = MEOWReader::CountDiphones(*(a1 + 8), **(a2 + 48), *(*(a2 + 48) + 1));
+  __N = MEOWReader::CountDiphones(*(a1 + 8), **(a2 + 6), *(*(a2 + 6) + 1));
   MEOWSearchLatticeImpl::AllocateCostVectors(a1, __N, 3);
   v3 = *(a1 + 56);
   MEOWVectorBase::Append((a1 + 72));
@@ -6225,19 +5825,19 @@ void MEOWSearchLatticeImpl::AddBreathDemiSlice(uint64_t a1, uint64_t a2)
   SLML::Vector<float>::Vector(&v5, __N);
 }
 
-uint64_t MEOWSearchLatticeImpl::AddAnchorSlice(uint64_t a1, unsigned __int8 *a2)
+uint64_t MEOWSearchLatticeImpl::AddAnchorSlice(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
 {
   MEOWSearchLatticeImpl::AllocateCostVectors(a1, 1uLL, 0);
-  v4 = *(a1 + 56);
+  v5 = *(a1 + 56);
   MEOWVectorBase::Append((a1 + 72));
-  *(*(a1 + 72) + 8 * *(a1 + 88) - 8) = v4;
-  v5 = *(a1 + 24);
-  if (v5 == 1)
+  *(*(a1 + 72) + 8 * *(a1 + 88) - 8) = v5;
+  v6 = *(a1 + 24);
+  if (v6 == 1)
   {
     MEOWSearchLatticeImpl::Diphone2Anchor(a1, a2);
   }
 
-  else if (v5)
+  else if (v6)
   {
     fwrite("Illegal concatenation for anchor slice.\n", 0x28uLL, 1uLL, *MEMORY[0x277D85DF8]);
     MTBEAbort(*(a1 + 16));
@@ -6251,31 +5851,31 @@ uint64_t MEOWSearchLatticeImpl::AddAnchorSlice(uint64_t a1, unsigned __int8 *a2)
 
   if (*(a1 + 29) == 1)
   {
-    v6 = MEMORY[0x277D85E08];
-    v7 = *MEMORY[0x277D85E08];
-    v8 = MEOWPhon::Name(*a2);
-    v9 = MEOWPhon::Name(a2[1]);
-    fprintf(v7, "Anchor %s-%s#%u\n", v8, v9, bswap32(*(a2 + 1)) >> 16);
+    v7 = MEMORY[0x277D85E08];
+    v8 = *MEMORY[0x277D85E08];
+    v9 = MEOWPhon::Name(*a2);
+    v10 = MEOWPhon::Name(a2[1]);
+    fprintf(v8, "Anchor %s-%s#%u\n", v9, v10, bswap32(*(a2 + 1)) >> 16);
     if (*(a1 + 24))
     {
-      v10 = *(a1 + 40);
-      v11 = *v6;
-      if (v10)
+      v11 = *(a1 + 40);
+      v12 = *v7;
+      if (v11)
       {
-        v12 = *(v10 + 2 * *(*(a1 + 72) + 8 * *(a1 + 88) - 8));
+        v13 = *(v11 + 2 * *(*(a1 + 72) + 8 * *(a1 + 88) - 8));
 LABEL_12:
-        fprintf(v11, "   0 %3d   %6g  %6g\n", v12, **(a1 + 208), **(a1 + 232));
-        fflush(*v6);
+        fprintf(v12, "   0 %3d   %6g  %6g\n", v13, **(a1 + 208), **(a1 + 232));
+        fflush(*v7);
         goto LABEL_13;
       }
     }
 
     else
     {
-      v11 = *v6;
+      v12 = *v7;
     }
 
-    v12 = -1;
+    v13 = -1;
     goto LABEL_12;
   }
 
@@ -6397,7 +5997,7 @@ uint64_t SLML::Matrix<float>::operator=(uint64_t a1, float a2)
   return a1;
 }
 
-void SLML::copy(unsigned int *a1, unsigned int *a2)
+void SLML::copy(unsigned int *a1, const char *a2)
 {
   v4 = *a1;
   v5 = *a2;
@@ -6409,7 +6009,7 @@ void SLML::copy(unsigned int *a1, unsigned int *a2)
   v6 = *(a1 + 2);
   v7 = a1[1];
   v8 = *(a2 + 2);
-  v9 = a2[1];
+  v9 = *(a2 + 1);
 
   cblas_scopy(v4, v6, v7, v8, v9);
 }
@@ -6968,7 +6568,7 @@ LABEL_69:
   return result;
 }
 
-_WORD *std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,MEOWCompareIndexed &,unsigned short *,0>(_WORD *result, unsigned __int16 *a2, __int16 *a3, _WORD *a4, _WORD *a5, uint64_t *a6)
+_WORD *std::__sort5[abi:ne200100]<std::_ClassicAlgPolicy,MEOWCompareIndexed &,unsigned short *,0>(_WORD *result, unsigned __int16 *a2, unsigned __int16 *a3, unsigned __int16 *a4, _WORD *a5, uint64_t *a6)
 {
   v6 = *a2;
   v7 = *a2;
@@ -8044,7 +7644,7 @@ void MEOWSearchLatticeImpl::SetStride(unsigned __int8 *a1@<X1>, void *a2@<X8>)
   a2[2] = v2;
 }
 
-void MEOWSearchLatticeImpl::MatchContexts(MEOWReader **this, unsigned int a2, unsigned int a3, char a4, MEOWPhon *a5)
+void MEOWSearchLatticeImpl::MatchContexts(MEOWReader **this, uint64_t a2, _BOOL8 a3, char a4, MEOWPhon *a5)
 {
   MEOWVectorBase::MEOWVectorBase(v11, 1);
   MEOWReader::GetAdjacent(this[1], a2, a3, a5 ^ 1, v11, (this + 41));
@@ -8055,14 +7655,14 @@ void MEOWSearchLatticeImpl::MatchContexts(MEOWReader **this, unsigned int a2, un
   MEOWVectorBase::~MEOWVectorBase(v11);
 }
 
-void sub_257B6CCF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_257B6CCF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   MEOWVectorBase::~MEOWVectorBase(va);
   _Unwind_Resume(a1);
 }
 
-void MEOWSearchLatticeImpl::MatchContexts(uint64_t a1, unsigned int a2, unsigned int a3, __int128 *a4, MEOWPhon *a5)
+void MEOWSearchLatticeImpl::MatchContexts(uint64_t a1, uint64_t a2, _BOOL8 a3, __int128 *a4, MEOWPhon *a5)
 {
   MEOWVectorBase::MEOWVectorBase(v14, 1);
   MEOWReader::GetAdjacent(*(a1 + 8), a2, a3, a5 ^ 1, v14, (a1 + 328));
@@ -8075,9 +7675,9 @@ void MEOWSearchLatticeImpl::MatchContexts(uint64_t a1, unsigned int a2, unsigned
   MEOWVectorBase::~MEOWVectorBase(v14);
 }
 
-void sub_257B6CDBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_257B6CDBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   MEOWVectorBase::~MEOWVectorBase(va);
   _Unwind_Resume(a1);
 }
@@ -8108,9 +7708,9 @@ void MEOWSearchLatticeImpl::WeedCandidates(uint64_t a1, void *a2)
   MEOWVectorBase::~MEOWVectorBase(v7);
 }
 
-void MEOWSearchLatticeImpl::WeedCandidates(MEOWSearchLatticeImpl *this, unsigned int a2, unsigned int a3)
+void MEOWSearchLatticeImpl::WeedCandidates(MEOWSearchLatticeImpl *this, uint64_t a2, _BOOL8 a3)
 {
-  MEOWVectorBase::MEOWVectorBase(v10, 2);
+  MEOWVectorBase::MEOWVectorBase(v12, 2);
   if (*(this + 22))
   {
     v6 = 0;
@@ -8119,31 +7719,31 @@ void MEOWSearchLatticeImpl::WeedCandidates(MEOWSearchLatticeImpl *this, unsigned
       v7 = *(*(this + 20) + 2 * v6);
       v8 = *(this + 1);
       DemiRecord = MEOWReader::GetDemiRecord(v8, a2, a3, v7, 0);
-      if (MEOWReader::IsWordOnly(v8, DemiRecord))
+      if (MEOWReader::IsWordOnly(v8, DemiRecord, v10, v11))
       {
         break;
       }
 
-      MEOWVectorBase::Append(v10);
-      *(v10[0] + v11 - 1) = v7;
+      MEOWVectorBase::Append(v12);
+      *(v12[0] + v13 - 1) = v7;
       ++v6;
     }
 
     while (v6 < *(this + 22));
   }
 
-  if (v11)
+  if (v13)
   {
-    MEOWVectorBase::Swap(v10, (this + 160));
+    MEOWVectorBase::Swap(v12, (this + 160));
   }
 
-  MEOWVectorBase::~MEOWVectorBase(v10);
+  MEOWVectorBase::~MEOWVectorBase(v12);
 }
 
 void MEOWSearchLatticeImpl::CullCandidates(MEOWSearchLatticeImpl *this, unint64_t a2, const char *a3, ...)
 {
-  v16[201] = *MEMORY[0x277D85DE8];
-  bzero(v16, 0x648uLL);
+  v15[201] = *MEMORY[0x277D85DE8];
+  bzero(v15, 0x648uLL);
   v5 = *(this + 22);
   if (v5)
   {
@@ -8152,7 +7752,7 @@ void MEOWSearchLatticeImpl::CullCandidates(MEOWSearchLatticeImpl *this, unint64_
     do
     {
       v8 = *v6++;
-      ++v16[*(v7 + v8)];
+      ++v15[*(v7 + v8)];
       --v5;
     }
 
@@ -8163,7 +7763,7 @@ void MEOWSearchLatticeImpl::CullCandidates(MEOWSearchLatticeImpl *this, unint64_
   v10 = 0;
   do
   {
-    v10 += v16[v9];
+    v10 += v15[v9];
     if (v10 >= a2)
     {
       break;
@@ -8175,10 +7775,10 @@ void MEOWSearchLatticeImpl::CullCandidates(MEOWSearchLatticeImpl *this, unint64_
   while (v9 != 201);
   if (v10 > 2 * a2)
   {
-    LODWORD(v9) = v9 - (v10 - v16[v9] > a2 >> 1);
+    LODWORD(v9) = v9 - (v10 - v15[v9] > a2 >> 1);
   }
 
-  MEOWVectorBase::MEOWVectorBase(v15, 2);
+  MEOWVectorBase::MEOWVectorBase(v14, 2);
   v11 = *(this + 22);
   if (v11)
   {
@@ -8187,16 +7787,15 @@ void MEOWSearchLatticeImpl::CullCandidates(MEOWSearchLatticeImpl *this, unint64_
       v13 = *(*(this + 20) + 2 * i);
       if (v9 >= *(*(this + 37) + v13))
       {
-        MEOWVectorBase::Append(v15);
-        *(v15[0] + v15[2] - 1) = v13;
+        MEOWVectorBase::Append(v14);
+        *(v14[0] + v14[2] - 1) = v13;
         v11 = *(this + 22);
       }
     }
   }
 
-  MEOWVectorBase::Swap(v15, (this + 160));
-  MEOWVectorBase::~MEOWVectorBase(v15);
-  v14 = *MEMORY[0x277D85DE8];
+  MEOWVectorBase::Swap(v14, (this + 160));
+  MEOWVectorBase::~MEOWVectorBase(v14);
 }
 
 void MEOWSearchLatticeImpl::Null2Diphone(uint64_t a1, unsigned __int8 *a2, unsigned __int8 *a3)
@@ -8254,9 +7853,9 @@ void MEOWSearchLatticeImpl::Null2Diphone(uint64_t a1, unsigned __int8 *a2, unsig
   }
 }
 
-void sub_257B6D24C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_257B6D24C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   MEOWVectorBase::~MEOWVectorBase(va);
   _Unwind_Resume(a1);
 }
@@ -8308,9 +7907,9 @@ void MEOWSearchLatticeImpl::Diphone2Diphone(uint64_t a1, unsigned __int8 *a2, un
   MEOWVectorBase::~MEOWVectorBase(v17);
 }
 
-void sub_257B6D410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_257B6D410(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   MEOWVectorBase::~MEOWVectorBase(va);
   _Unwind_Resume(a1);
 }
@@ -8429,11 +8028,11 @@ void MEOWSearchLatticeImpl::Demi2Diphone(uint64_t a1, unsigned __int8 *a2, unsig
   MEOWVectorBase::~MEOWVectorBase(&v28);
 }
 
-void sub_257B6D77C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_257B6D77C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   MEOWVectorBase::~MEOWVectorBase(va);
-  MEOWVectorBase::~MEOWVectorBase((v11 - 96));
+  MEOWVectorBase::~MEOWVectorBase((v18 - 96));
   _Unwind_Resume(a1);
 }
 
@@ -8476,14 +8075,14 @@ void MEOWSearchLatticeImpl::Null2Demi(MEOWSearchLatticeImpl *this, const MEOWDem
   }
 }
 
-void sub_257B6D8D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_257B6D8D4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void *);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void *);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
   MEOWVectorBase::~MEOWVectorBase(va);
   MEOWVectorBase::~MEOWVectorBase(va1);
   _Unwind_Resume(a1);
@@ -8623,11 +8222,11 @@ void MEOWSearchLatticeImpl::Demi2Demi(uint64_t a1, uint64_t a2, unsigned __int8 
   MEOWVectorBase::~MEOWVectorBase(v32);
 }
 
-void sub_257B6DCF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_257B6DCF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   MEOWVectorBase::~MEOWVectorBase(va);
-  MEOWVectorBase::~MEOWVectorBase((v13 - 96));
+  MEOWVectorBase::~MEOWVectorBase((v20 - 96));
   _Unwind_Resume(a1);
 }
 
@@ -8714,7 +8313,7 @@ void MEOWSearchLatticeImpl::Diphone2Anchor(uint64_t a1, _DWORD *a2)
   MEOWVectorBase::~MEOWVectorBase(v12);
 }
 
-void MEOWSearchLatticeImpl::Word2Demi(uint64_t a1, uint64_t a2)
+void MEOWSearchLatticeImpl::Word2Demi(uint64_t a1, uint64_t a2, unsigned __int8 *a3)
 {
   if (kDemiThreshold)
   {
@@ -8722,7 +8321,6 @@ void MEOWSearchLatticeImpl::Word2Demi(uint64_t a1, uint64_t a2)
     kDemiThreshold = 0;
   }
 
-  *(a2 + 40);
   MEOWVectorBase::MEOWVectorBase(&v5, 2);
   MEOWVectorBase::MEOWVectorBase(v4, 1);
   SLML::Vector<float>::Vector(&v3, 0);
@@ -8759,25 +8357,20 @@ void MEOWSearchLatticeImpl::Diphone2Demi(uint64_t a1, uint64_t a2, unsigned __in
   v5 = MEOWPhon::sDWt[*(a1 + 433)];
   if (*(a2 + 40) != 1)
   {
-    MEOWVectorBase::MEOWVectorBase(v22, 60);
+    MEOWVectorBase::MEOWVectorBase(v21, 60);
     MEOWVectorBase::MEOWVectorBase(__src, 60);
-    MEOWVectorBase::MEOWVectorBase(&v19, 60);
+    MEOWVectorBase::MEOWVectorBase(&v18, 60);
     if (kDemiThreshold)
     {
       MTBEDebugParams::GetParam(kDemiThreshold, &qword_27F8F2AB8, qword_27F8F2AB8);
       kDemiThreshold = 0;
     }
 
-    if ((*(a2 + 40) - 1) > 1)
-    {
-      v11 = *(a2 + 40) - 1;
-    }
-
-    MEOWVectorBase::MEOWVectorBase(&v18, 2);
-    SLML::Vector<float>::Vector(&v17, 0);
+    MEOWVectorBase::MEOWVectorBase(&v17, 2);
+    SLML::Vector<float>::Vector(&v16, 0);
   }
 
-  MEOWVectorBase::MEOWVectorBase(v22, 60);
+  MEOWVectorBase::MEOWVectorBase(v21, 60);
   MEOWVectorBase::MEOWVectorBase(__src, 60);
   MEOWSearchLatticeImpl::WeedCandidates(a1, **(a2 + 48), *(*(a2 + 48) + 1));
   if (kDiphoneThreshold)
@@ -8795,19 +8388,19 @@ void MEOWSearchLatticeImpl::Diphone2Demi(uint64_t a1, uint64_t a2, unsigned __in
     v10 = v7[1];
     if (v7[80])
     {
-      *&v19 = v7 + 81;
-      *(&v19 + 1) = 1;
-      v20 = v8;
-      MEOWSearchLatticeImpl::MatchContexts(a1, v9, v10, &v19, 0);
+      *&v18 = v7 + 81;
+      *(&v18 + 1) = 1;
+      v19 = v8;
+      MEOWSearchLatticeImpl::MatchContexts(a1, v9, v10, &v18, 0);
     }
 
     else
     {
-      v12 = *a3;
-      *&v19 = a3 + 1;
-      *(&v19 + 1) = 1;
-      v20 = v12;
-      MEOWSearchLatticeImpl::MatchContexts(a1, v9, v10, &v19, 0);
+      v11 = *a3;
+      *&v18 = a3 + 1;
+      *(&v18 + 1) = 1;
+      v19 = v11;
+      MEOWSearchLatticeImpl::MatchContexts(a1, v9, v10, &v18, 0);
     }
 
     MEOWSearchLatticeImpl::MatchContexts(a1, **(a2 + 48), *(*(a2 + 48) + 1), *(a1 + 432), 1);
@@ -8818,17 +8411,17 @@ void MEOWSearchLatticeImpl::Diphone2Demi(uint64_t a1, uint64_t a2, unsigned __in
       kDiphoneThreshold = 0;
     }
 
-    v13 = qword_27F8F2AA8;
-    v14 = MEOWPhon::Name(**(a2 + 48));
-    v15 = MEOWPhon::Name(*(*(a2 + 48) + 1));
-    MEOWSearchLatticeImpl::CullCandidates(a1, v13, v16, v14, v15);
+    v12 = qword_27F8F2AA8;
+    v13 = MEOWPhon::Name(**(a2 + 48));
+    v14 = MEOWPhon::Name(*(*(a2 + 48) + 1));
+    MEOWSearchLatticeImpl::CullCandidates(a1, v12, v15, v13, v14);
   }
 
-  MEOWReader::GetDistanceCookies(*(a1 + 8), *(a1 + 432), *(a1 + 433), 1, v22, (a1 + 104));
+  MEOWReader::GetDistanceCookies(*(a1 + 8), *(a1 + 432), *(a1 + 433), 1, v21, (a1 + 104));
   MEOWReader::GetDistanceCookies(*(a1 + 8), **(a2 + 48), *(*(a2 + 48) + 1), 0, __src, (a1 + 160));
-  MEOWSearchLatticeImpl::Cookie2Cookie(a1, (a1 + 104), v22, __src, 0, 0, 0, v5);
+  MEOWSearchLatticeImpl::Cookie2Cookie(a1, (a1 + 104), v21, __src, 0, 0, 0, v5);
   MEOWVectorBase::~MEOWVectorBase(__src);
-  MEOWVectorBase::~MEOWVectorBase(v22);
+  MEOWVectorBase::~MEOWVectorBase(v21);
 }
 
 void sub_257B6EB80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, uint64_t a27, uint64_t a28, uint64_t a29, void *a30)
@@ -8841,7 +8434,7 @@ void sub_257B6EB80(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void MEOWSearchLatticeImpl::Word2WordCull(MEOWSearchLatticeImpl *a1, uint64_t a2, void *a3, unsigned __int8 *a4)
 {
-  *&v17[63] = *MEMORY[0x277D85DE8];
+  *&v16[63] = *MEMORY[0x277D85DE8];
   if (kWordThreshold)
   {
     MTBEDebugParams::GetParam(kWordThreshold, &qword_27F8F2B08, qword_27F8F2B08);
@@ -8852,33 +8445,33 @@ void MEOWSearchLatticeImpl::Word2WordCull(MEOWSearchLatticeImpl *a1, uint64_t a2
   {
     *(a1 + 39) = 0;
     __s = 0;
-    *&v14 = *(a1 + 45) + 4;
-    *(&v14 + 1) = 8;
-    v15 = *(a1 + 47);
-    MEOWDemiSliceInfo::PhonemeSet::AddPhonemes(&__s, &v14);
-    *&v14 = *a3;
-    *(&v14 + 1) = 8;
-    v15 = a3[2];
-    v11 = v17;
-    v12 = 1;
-    v13 = __s;
-    MEOWSearchLatticeImpl::MatchContexts(a1, &v14, &v11, 0);
-    *&v14 = *a3 + 5;
-    *(&v14 + 1) = 8;
-    v15 = a3[2];
+    *&v13 = *(a1 + 45) + 4;
+    *(&v13 + 1) = 8;
+    v14 = *(a1 + 47);
+    MEOWDemiSliceInfo::PhonemeSet::AddPhonemes(&__s, &v13);
+    *&v13 = *a3;
+    *(&v13 + 1) = 8;
+    v14 = a3[2];
+    v10 = v16;
+    v11 = 1;
+    v12 = __s;
+    MEOWSearchLatticeImpl::MatchContexts(a1, &v13, &v10, 0);
+    *&v13 = *a3 + 5;
+    *(&v13 + 1) = 8;
+    v14 = a3[2];
     v8 = *a4;
-    v11 = a4 + 1;
-    v12 = 1;
-    v13 = v8;
-    MEOWSearchLatticeImpl::MatchContexts(a1, &v14, &v11, 1);
-    *&v14 = *a3 + 1;
-    *(&v14 + 1) = 8;
-    v15 = a3[2];
-    MEOWSearchLatticeImpl::MatchContexts(a1, &v14, *(a2 + 57), 1);
-    *&v14 = *a3 + 4;
-    *(&v14 + 1) = 8;
-    v15 = a3[2];
-    MEOWSearchLatticeImpl::MatchContexts(a1, &v14, *(a2 + 58), 0);
+    v10 = a4 + 1;
+    v11 = 1;
+    v12 = v8;
+    MEOWSearchLatticeImpl::MatchContexts(a1, &v13, &v10, 1);
+    *&v13 = *a3 + 1;
+    *(&v13 + 1) = 8;
+    v14 = a3[2];
+    MEOWSearchLatticeImpl::MatchContexts(a1, &v13, *(a2 + 57), 1);
+    *&v13 = *a3 + 4;
+    *(&v13 + 1) = 8;
+    v14 = a3[2];
+    MEOWSearchLatticeImpl::MatchContexts(a1, &v13, *(a2 + 58), 0);
     if (kWordThreshold)
     {
       MTBEDebugParams::GetParam(kWordThreshold, &qword_27F8F2B08, qword_27F8F2B08);
@@ -8887,8 +8480,6 @@ void MEOWSearchLatticeImpl::Word2WordCull(MEOWSearchLatticeImpl *a1, uint64_t a2
 
     MEOWSearchLatticeImpl::CullCandidates(a1, qword_27F8F2B08, v9, *a2);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 _UNKNOWN **MEOWSearchLatticeImpl::Word2Word(uint64_t a1, float a2, uint64_t a3, float *a4, uint64_t *a5)
@@ -9023,7 +8614,7 @@ _UNKNOWN **MEOWSearchLatticeImpl::Word2Word(uint64_t a1, float a2, uint64_t a3, 
 
 void MEOWSearchLatticeImpl::Null2WordCull(MEOWSearchLatticeImpl *a1, uint64_t a2, void *a3, unsigned __int8 *a4)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (kWordThreshold)
   {
     MTBEDebugParams::GetParam(kWordThreshold, &qword_27F8F2B08, qword_27F8F2B08);
@@ -9033,29 +8624,29 @@ void MEOWSearchLatticeImpl::Null2WordCull(MEOWSearchLatticeImpl *a1, uint64_t a2
   if (qword_27F8F2B08 && a3[2] > qword_27F8F2B08)
   {
     *(a1 + 39) = 0;
-    v15 = 1;
-    *&v13 = *a3;
-    *(&v13 + 1) = 8;
-    v14 = a3[2];
-    v11 = &v15 + 1;
-    v12 = vdupq_n_s64(1uLL);
-    MEOWSearchLatticeImpl::MatchContexts(a1, &v13, &v11, 0);
-    *&v13 = *a3 + 5;
-    *(&v13 + 1) = 8;
-    v14 = a3[2];
+    v14 = 1;
+    *&v12 = *a3;
+    *(&v12 + 1) = 8;
+    v13 = a3[2];
+    v10 = &v14 + 1;
+    v11 = vdupq_n_s64(1uLL);
+    MEOWSearchLatticeImpl::MatchContexts(a1, &v12, &v10, 0);
+    *&v12 = *a3 + 5;
+    *(&v12 + 1) = 8;
+    v13 = a3[2];
     v8 = *a4;
-    v11 = (a4 + 1);
-    v12.i64[0] = 1;
-    v12.i64[1] = v8;
-    MEOWSearchLatticeImpl::MatchContexts(a1, &v13, &v11, 1);
-    *&v13 = *a3 + 1;
-    *(&v13 + 1) = 8;
-    v14 = a3[2];
-    MEOWSearchLatticeImpl::MatchContexts(a1, &v13, *(a2 + 57), 1);
-    *&v13 = *a3 + 4;
-    *(&v13 + 1) = 8;
-    v14 = a3[2];
-    MEOWSearchLatticeImpl::MatchContexts(a1, &v13, *(a2 + 58), 0);
+    v10 = a4 + 1;
+    v11.i64[0] = 1;
+    v11.i64[1] = v8;
+    MEOWSearchLatticeImpl::MatchContexts(a1, &v12, &v10, 1);
+    *&v12 = *a3 + 1;
+    *(&v12 + 1) = 8;
+    v13 = a3[2];
+    MEOWSearchLatticeImpl::MatchContexts(a1, &v12, *(a2 + 57), 1);
+    *&v12 = *a3 + 4;
+    *(&v12 + 1) = 8;
+    v13 = a3[2];
+    MEOWSearchLatticeImpl::MatchContexts(a1, &v12, *(a2 + 58), 0);
     if (kWordThreshold)
     {
       MTBEDebugParams::GetParam(kWordThreshold, &qword_27F8F2B08, qword_27F8F2B08);
@@ -9064,11 +8655,9 @@ void MEOWSearchLatticeImpl::Null2WordCull(MEOWSearchLatticeImpl *a1, uint64_t a2
 
     MEOWSearchLatticeImpl::CullCandidates(a1, qword_27F8F2B08, v9, *a2);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
-unint64_t MEOWSearchLatticeImpl::Null2Word(uint64_t a1, float a2, uint64_t a3, float *a4, uint64_t *a5)
+uint64_t *MEOWSearchLatticeImpl::Null2Word(uint64_t a1, float a2, uint64_t a3, float *a4, uint64_t *a5)
 {
   if (kWordContextSubst)
   {
@@ -9313,7 +8902,7 @@ void MEOWSearchLatticeImpl::Demi2Word(uint64_t a1, uint64_t a2, uint64_t *a3, ui
   }
 }
 
-unint64_t MEOWSearchLatticeImpl::Word2Null(uint64_t a1, float a2, uint64_t a3, float *a4, uint64_t *a5)
+uint64_t *MEOWSearchLatticeImpl::Word2Null(uint64_t a1, float a2, uint64_t a3, float *a4, uint64_t *a5)
 {
   if (kWordContextSubst)
   {
@@ -9370,22 +8959,22 @@ unint64_t MEOWSearchLatticeImpl::Word2Null(uint64_t a1, float a2, uint64_t a3, f
 
 __n128 MEOWSearchLatticeLookahead::AddWordSlice(MEOWSearchLatticeLookahead *this, const MEOWWordSliceInfo *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (*(this + 135))
   {
     __s[0] = 0;
     if (*(this + 6) == 6)
     {
-      MEOWVectorBase::MEOWVectorBase(v10, 8);
-      MEOWVectorBase::MEOWVectorBase(v9, 1);
-      MEOWReader::GetWordDescriptor(*(this + 1), a2, v11);
-      MEOWReader::GetWordData(*(this + 1), v11, v10, v9);
-      v8[0] = v10[0] + 1;
-      v8[1] = 8;
-      v8[2] = v10[2];
-      MEOWDemiSliceInfo::PhonemeSet::AddPhonemes(__s, v8);
+      MEOWVectorBase::MEOWVectorBase(v9, 8);
+      MEOWVectorBase::MEOWVectorBase(v8, 1);
+      MEOWReader::GetWordDescriptor(*(this + 1), a2, v10);
+      MEOWReader::GetWordData(*(this + 1), v10, v9, v8);
+      v7[0] = v9[0] + 1;
+      v7[1] = 8;
+      v7[2] = v9[2];
+      MEOWDemiSliceInfo::PhonemeSet::AddPhonemes(__s, v7);
+      MEOWVectorBase::~MEOWVectorBase(v8);
       MEOWVectorBase::~MEOWVectorBase(v9);
-      MEOWVectorBase::~MEOWVectorBase(v10);
     }
 
     MEOWSearchLatticeLookahead::DispatchCurrentSlice(this, __s);
@@ -9399,13 +8988,12 @@ __n128 MEOWSearchLatticeLookahead::AddWordSlice(MEOWSearchLatticeLookahead *this
   *(this + 42) = v5;
   *(this + 43) = v6;
   *(this + 41) = result;
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-void sub_257B6FA00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_257B6FA00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   MEOWVectorBase::~MEOWVectorBase(va);
   _Unwind_Resume(a1);
 }
@@ -9422,7 +9010,7 @@ void MEOWSearchLatticeLookahead::DispatchCurrentSlice(uint64_t a1, unsigned __in
       case 2:
         MEOWSearchLatticeImpl::AddBreathDiphoneSlice(a1, (a1 + 544));
       case 3:
-        MEOWSearchLatticeImpl::AddDemiSlice(a1, a1 + 584, a2);
+        MEOWSearchLatticeImpl::AddDemiSlice(a1, (a1 + 584), a2);
     }
 
 LABEL_12:
@@ -9433,20 +9021,20 @@ LABEL_12:
 
   if (v3 == 4)
   {
-    MEOWSearchLatticeImpl::AddBreathDemiSlice(a1, a1 + 584);
+    MEOWSearchLatticeImpl::AddBreathDemiSlice(a1, (a1 + 584));
   }
 
   if (v3 != 5)
   {
     if (v3 == 6)
     {
-      MEOWSearchLatticeImpl::AddWordSlice(a1, a1 + 656, a2);
+      MEOWSearchLatticeImpl::AddWordSlice(a1, (a1 + 656), a2);
     }
 
     goto LABEL_12;
   }
 
-  MEOWSearchLatticeImpl::AddAnchorSlice(a1, (a1 + 648));
+  MEOWSearchLatticeImpl::AddAnchorSlice(a1, (a1 + 648), a2);
 LABEL_15:
   if (*(a1 + 736))
   {
@@ -9478,13 +9066,13 @@ LABEL_15:
 
 __n128 MEOWSearchLatticeLookahead::AddDiphoneSlice(__n128 *this, __n128 *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (this[33].n128_u32[3])
   {
     v4 = a2->n128_u8[1];
-    v8[0] = 1;
-    v8[1] = v4;
-    MEOWSearchLatticeLookahead::DispatchCurrentSlice(this, v8);
+    v7[0] = 1;
+    v7[1] = v4;
+    MEOWSearchLatticeLookahead::DispatchCurrentSlice(this, v7);
   }
 
   this[33].n128_u32[3] = 1;
@@ -9493,19 +9081,18 @@ __n128 MEOWSearchLatticeLookahead::AddDiphoneSlice(__n128 *this, __n128 *a2)
   this[36].n128_u16[0] = a2[2].n128_u16[0];
   this[34] = result;
   this[35] = v6;
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 __n128 MEOWSearchLatticeLookahead::AddBreathDiphoneSlice(__n128 *this, __n128 *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (this[33].n128_u32[3])
   {
     v4 = a2->n128_u8[1];
-    v8[0] = 1;
-    v8[1] = v4;
-    MEOWSearchLatticeLookahead::DispatchCurrentSlice(this, v8);
+    v7[0] = 1;
+    v7[1] = v4;
+    MEOWSearchLatticeLookahead::DispatchCurrentSlice(this, v7);
   }
 
   this[33].n128_u32[3] = 2;
@@ -9514,21 +9101,20 @@ __n128 MEOWSearchLatticeLookahead::AddBreathDiphoneSlice(__n128 *this, __n128 *a
   this[36].n128_u16[0] = a2[2].n128_u16[0];
   this[34] = result;
   this[35] = v6;
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 __n128 MEOWSearchLatticeLookahead::AddDemiSlice(MEOWSearchLatticeLookahead *this, const MEOWDemiSliceInfo *a2)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*(this + 135))
   {
     __s[0] = 0;
     v4 = *(a2 + 5);
-    v9[0] = *(a2 + 6) + 1;
-    v9[1] = 144;
-    v9[2] = v4;
-    MEOWDemiSliceInfo::PhonemeSet::AddPhonemes(__s, v9);
+    v8[0] = *(a2 + 6) + 1;
+    v8[1] = 144;
+    v8[2] = v4;
+    MEOWDemiSliceInfo::PhonemeSet::AddPhonemes(__s, v8);
     MEOWSearchLatticeLookahead::DispatchCurrentSlice(this, __s);
   }
 
@@ -9540,17 +9126,16 @@ __n128 MEOWSearchLatticeLookahead::AddDemiSlice(MEOWSearchLatticeLookahead *this
   *(this + 600) = v6;
   *(this + 616) = v7;
   *(this + 584) = result;
-  v8 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 __n128 MEOWSearchLatticeLookahead::AddBreathDemiSlice(MEOWSearchLatticeLookahead *this, const MEOWDemiSliceInfo *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if (*(this + 135))
   {
-    v8[0] = 0;
-    MEOWSearchLatticeLookahead::DispatchCurrentSlice(this, v8);
+    v7[0] = 0;
+    MEOWSearchLatticeLookahead::DispatchCurrentSlice(this, v7);
   }
 
   *(this + 135) = 4;
@@ -9561,62 +9146,56 @@ __n128 MEOWSearchLatticeLookahead::AddBreathDemiSlice(MEOWSearchLatticeLookahead
   *(this + 600) = v5;
   *(this + 616) = v6;
   *(this + 584) = result;
-  v7 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void MEOWSearchLatticeLookahead::AddAnchorSlice(MEOWSearchLatticeLookahead *this, const MEOWAnchorSliceInfo *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (*(this + 135))
   {
     v4 = *(a2 + 1);
-    v6[0] = 1;
-    v6[1] = v4;
-    MEOWSearchLatticeLookahead::DispatchCurrentSlice(this, v6);
+    v5[0] = 1;
+    v5[1] = v4;
+    MEOWSearchLatticeLookahead::DispatchCurrentSlice(this, v5);
   }
 
   *(this + 135) = 5;
   *(this + 162) = *a2;
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t MEOWSearchLatticeLookahead::AddSilenceSlice(MEOWSearchLatticeLookahead *this)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (*(this + 135))
   {
-    v4[0] = 1;
-    MEOWSearchLatticeLookahead::DispatchCurrentSlice(this, v4);
+    v3[0] = 1;
+    MEOWSearchLatticeLookahead::DispatchCurrentSlice(this, v3);
   }
 
   *(this + 135) = 0;
-  LOBYTE(v4[0]) = 0;
-  result = MEOWSearchLatticeImpl::AddSilenceSlice(this);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  LOBYTE(v3[0]) = 0;
+  return MEOWSearchLatticeImpl::AddSilenceSlice(this);
 }
 
-void *MEOWSearchLatticeLookahead::Veto(MEOWSearchLatticeLookahead *this, uint64_t a2)
+MEOWVectorBase *MEOWSearchLatticeLookahead::Veto(MEOWSearchLatticeLookahead *this, uint64_t a2)
 {
-  result = MEOWVectorBase::Append(this + 90);
+  result = MEOWVectorBase::Append((this + 720));
   *(*(this + 90) + 8 * *(this + 92) - 8) = a2;
   return result;
 }
 
 uint64_t MEOWSearchLatticeLookahead::BestPath(MEOWSearchLatticeLookahead *this)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (*(this + 135))
   {
-    v4[0] = 0;
-    MEOWSearchLatticeLookahead::DispatchCurrentSlice(this, v4);
+    v3[0] = 0;
+    MEOWSearchLatticeLookahead::DispatchCurrentSlice(this, v3);
     *(this + 135) = 0;
   }
 
-  result = MEOWSearchLatticeImpl::BestPath(this);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  return MEOWSearchLatticeImpl::BestPath(this);
 }
 
 uint64_t MEOWSearchLatticeLookahead::size(MEOWSearchLatticeLookahead *this)
@@ -9800,4 +9379,1298 @@ void SentenceLog::SentenceLog(SentenceLog *this)
   *(this + 5) = &unk_2868F8748;
   *(this + 6) = &unk_2868F8768;
   *(this + 7) = &unk_2868F8790;
+}
+
+void SentenceLog::~SentenceLog(SentenceLog *this)
+{
+  MiniToolbox::BaseCompositeElement<SpeechElementLog,std::list>::~BaseCompositeElement(this);
+
+  JUMPOUT(0x259C6DA90);
+}
+
+uint64_t MiniToolbox::CompositeElement<SpeechElementLog,MiniToolbox::CompositeElementNonComparable,MiniToolbox::Clonable,std::list>::Clone(void *a1)
+{
+  v2 = (*(*a1 + 24))(a1);
+  v3 = a1[2];
+  if (v3 != a1 + 1)
+  {
+    *((*(**(v3 + 16) + 16))(*(v3 + 16)) + 32) = v2;
+    operator new();
+  }
+
+  return v2;
+}
+
+void non-virtual thunk toSentenceLog::~SentenceLog(SentenceLog *this)
+{
+  MiniToolbox::BaseCompositeElement<SpeechElementLog,std::list>::~BaseCompositeElement(this - 5);
+}
+
+{
+  MiniToolbox::BaseCompositeElement<SpeechElementLog,std::list>::~BaseCompositeElement(this - 5);
+
+  JUMPOUT(0x259C6DA90);
+}
+
+{
+  MiniToolbox::BaseCompositeElement<SpeechElementLog,std::list>::~BaseCompositeElement(this - 6);
+}
+
+{
+  MiniToolbox::BaseCompositeElement<SpeechElementLog,std::list>::~BaseCompositeElement(this - 6);
+
+  JUMPOUT(0x259C6DA90);
+}
+
+{
+  MiniToolbox::BaseCompositeElement<SpeechElementLog,std::list>::~BaseCompositeElement(this - 7);
+}
+
+{
+  MiniToolbox::BaseCompositeElement<SpeechElementLog,std::list>::~BaseCompositeElement(this - 7);
+
+  JUMPOUT(0x259C6DA90);
+}
+
+void MiniToolbox::BaseCompositeElement<SpeechElementLog,std::list>::~BaseCompositeElement(SentenceLog *a1)
+{
+  MiniToolbox::BaseCompositeElement<SpeechElementLog,std::list>::~BaseCompositeElement(a1);
+
+  JUMPOUT(0x259C6DA90);
+}
+
+void *MiniToolbox::BaseCompositeElement<SpeechElementLog,std::list>::~BaseCompositeElement(void *a1)
+{
+  *a1 = &unk_2868F88A8;
+  MiniToolbox::BaseCompositeElement<SpeechElementLog,std::list>::DeleteAllChildren(a1);
+  std::__list_imp<SpeechChannelManager *>::clear(a1 + 1);
+  return a1;
+}
+
+void *MiniToolbox::BaseCompositeElement<SpeechElementLog,std::list>::DeleteAllChildren(uint64_t a1)
+{
+  v1 = (a1 + 8);
+  for (i = *(a1 + 16); i != v1; i = i[1])
+  {
+    v3 = i[2];
+    if (v3)
+    {
+      (*(*v3 + 8))(v3);
+    }
+  }
+
+  return std::__list_imp<SpeechChannelManager *>::clear(v1);
+}
+
+uint64_t (***MiniToolbox::BaseVisitable<void>::AcceptImpl<SentenceLog>(int a1, void *lpsrc))(void)
+{
+  if (result)
+  {
+    v3 = **result;
+
+    return v3();
+  }
+
+  return result;
+}
+
+MTFESpeechElement *MTFEPlaceBoundaries::VisitIntonationalPhrase(MTFESpeechElement *this, MTFESpeechElement *a2)
+{
+  if (!BYTE4(a2[2].var6) && !a2[3].var6)
+  {
+    v3 = this;
+    this->var6 = 0;
+    *&this->var4 = 0u;
+    *&this->var1 = 0u;
+    LOBYTE(this[1].var5) = 1;
+    MTFESpeechElement::VisitChildren(a2, this);
+    LOBYTE(v3[1].var5) = 0;
+    *&v3->var1 = 0u;
+    *&v3->var4 = 0u;
+    v3->var6 = 0;
+
+    return MTFESpeechElement::VisitChildren(a2, v3);
+  }
+
+  return this;
+}
+
+MTFESpeechElement *MTFEPlaceBoundaries::VisitIntermediatePhrase(MTFEPlaceBoundaries *this, MTFESpeechElement *a2)
+{
+  v2 = a2;
+  *(this + 13) = a2;
+  do
+  {
+    *(this + 89) = 0;
+    *(this + 12) = 0;
+    *(this + 3) = 0;
+    *(this + 10) = 0;
+    result = MTFESpeechElement::VisitChildren(v2, this);
+    v5 = v2 == *(this + 13);
+    v2 = *(this + 13);
+  }
+
+  while (!v5);
+  return result;
+}
+
+void MTFEPlaceBoundaries::VisitWord(MTFEPlaceBoundaries *this, MTFEWord *a2)
+{
+  MTFECommands::Visit(&a2->var18, this);
+  if (a2->var12 == 60)
+  {
+    v4 = 0;
+    v138 = 0;
+LABEL_4:
+    Word = MTFEWord::NextWord(a2);
+    goto LABEL_5;
+  }
+
+  v4 = MTFEWord::PrevWord(a2);
+  Word = 0;
+  var12 = a2->var12;
+  v138 = 0;
+  if (var12 != 62)
+  {
+    goto LABEL_4;
+  }
+
+LABEL_5:
+  v136 = 0;
+  v137 = 0;
+  var15 = a2->var15;
+  v135 = -1;
+  v134 = -1;
+  v133 = -1;
+  v132 = -1;
+  v131 = -1;
+  if (v4)
+  {
+    MTFEWord::POSForPrev(v4, &v135, 0, &v138);
+    if (v138)
+    {
+      MTFEWord::POSForPrev(v138, &v134, 0, 0);
+    }
+  }
+
+  if (Word)
+  {
+    MTFEWord::POSForNext(Word, &v133, 0, &v137);
+  }
+
+  if (v137)
+  {
+    MTFEWord::POSForNext(v137, &v132, 0, &v136);
+  }
+
+  if (v136)
+  {
+    MTFEWord::POSForNext(v136, &v131, 0, 0);
+  }
+
+  v8 = 1 << var15;
+  v9 = v135;
+  if (v135 == 255)
+  {
+    v10 = 0;
+  }
+
+  else
+  {
+    v10 = 1 << v135;
+  }
+
+  if (v4 && (v8 & 0x41) != 0)
+  {
+    if ((v10 & 0x41) != 0)
+    {
+LABEL_25:
+      v11 = 1;
+      goto LABEL_26;
+    }
+
+    if ((v8 & 0x413E) == 0)
+    {
+      goto LABEL_31;
+    }
+  }
+
+  else if (!v4 || (v8 & 0x413E) == 0)
+  {
+    goto LABEL_31;
+  }
+
+  if (v135 == 14)
+  {
+    goto LABEL_25;
+  }
+
+LABEL_31:
+  v11 = 0;
+  if (!v4 || var15 != 5)
+  {
+LABEL_26:
+    if (var15 == 11 && strchr(a2->var27, 39))
+    {
+      if (a2->var11)
+      {
+        if (!Word)
+        {
+          goto LABEL_39;
+        }
+      }
+
+      else
+      {
+        a2->var11 = 2;
+        if (!Word)
+        {
+          goto LABEL_39;
+        }
+      }
+
+      if (!HIBYTE(Word[1].var0))
+      {
+        HIBYTE(Word[1].var0) = 2;
+        if ((v11 & 1) == 0)
+        {
+          goto LABEL_40;
+        }
+
+        goto LABEL_34;
+      }
+    }
+
+LABEL_39:
+    if (!v11)
+    {
+      goto LABEL_40;
+    }
+
+LABEL_34:
+    if (*(this + 88))
+    {
+      v12 = 1;
+    }
+
+    else
+    {
+      v13 = *(this + 10) + 1;
+      *(this + 10) = v13;
+      v12 = v13 < 0xA;
+    }
+
+    goto LABEL_41;
+  }
+
+  if ((v10 & 0x30) != 0)
+  {
+    goto LABEL_34;
+  }
+
+LABEL_40:
+  v12 = 0;
+  *(this + 10) = 0;
+LABEL_41:
+  if (*(this + 89) == 1)
+  {
+    if (Word)
+    {
+      v14 = *(this + 1);
+      if (v14 >= 2 && ((v12 | ((Word[1].var0 & 0x40) >> 6)) & 1) == 0 && ((a2->var8 & 0x40) == 0 || a2->var6) && (!v4 || HIBYTE(v4[1].var0) <= 2u) && a2->var11 - 1 >= 2)
+      {
+        if ((v10 & 0x3E) != 0)
+        {
+          if (SLWordTagSet::find(&a2->var17))
+          {
+            goto LABEL_58;
+          }
+
+          v14 = *(this + 1);
+          v9 = v135;
+        }
+
+        *(this + 6) = *(this + 2);
+        *(this + 7) = v14;
+        *(this + 4) = *(this + 2);
+        *(this + 12) = a2;
+        v15 = *(this + 88);
+        if (v9 != 14)
+        {
+          v15 = 0;
+        }
+
+        if (var15 != 4)
+        {
+          v15 = 0;
+        }
+
+        *(this + 90) = v15;
+      }
+    }
+  }
+
+LABEL_58:
+  if ((a2->var8 & 0x40) == 0)
+  {
+    if (!*(this + 4))
+    {
+      *(this + 4) = 1;
+      v16 = a2;
+      do
+      {
+        if ((v16[1].var0 & 0x40) != 0)
+        {
+          break;
+        }
+
+        ++*(this + 4);
+        v16 = MTFEWord::NextWord(v16);
+      }
+
+      while (v16);
+    }
+
+    v17 = *(this + 5);
+    if (!v17)
+    {
+      v17 = 1;
+      *(this + 5) = 1;
+      if (a2)
+      {
+        v18 = a2;
+        do
+        {
+          if ((v18[1].var0 & 0x40) != 0 && BYTE6(v18[1].var4) == 31)
+          {
+            break;
+          }
+
+          ++*(this + 5);
+          v18 = MTFEWord::NextWord(v18);
+        }
+
+        while (v18);
+        v17 = *(this + 5);
+      }
+    }
+
+    *(this + 8) = vaddq_s64(*(this + 8), vdupq_n_s64(1uLL));
+    *(this + 24) = vaddq_s64(*(this + 24), xmmword_257B8C8E0);
+    *(this + 5) = v17 - 1;
+    if (var15 == 255)
+    {
+      v19 = 0xBu;
+      if (!v4)
+      {
+        goto LABEL_82;
+      }
+    }
+
+    else
+    {
+      v19 = MTFEPlaceBoundaries::sPos2Class[var15];
+      if (!v4)
+      {
+        goto LABEL_82;
+      }
+    }
+
+    if ((v4[1].var0 & 0x40) == 0)
+    {
+      if (v135 == 255)
+      {
+        v20 = 0xBu;
+      }
+
+      else
+      {
+        v20 = MTFEPlaceBoundaries::sPos2Class[v135];
+      }
+
+LABEL_83:
+      if (!v138 || (v138->var8 & 0x40) != 0)
+      {
+        v21 = 0xCu;
+        if (!Word)
+        {
+          goto LABEL_96;
+        }
+      }
+
+      else if (v134 == 255)
+      {
+        v21 = 0xBu;
+        if (!Word)
+        {
+          goto LABEL_96;
+        }
+      }
+
+      else
+      {
+        v21 = MTFEPlaceBoundaries::sPos2Class[v134];
+        if (!Word)
+        {
+          goto LABEL_96;
+        }
+      }
+
+      if ((Word[1].var0 & 0x40) == 0)
+      {
+        if (v133 == 255)
+        {
+          v22 = 0xBu;
+        }
+
+        else
+        {
+          v22 = MTFEPlaceBoundaries::sPos2Class[v133];
+        }
+
+LABEL_97:
+        if (!v137 || (v137->var8 & 0x40) != 0)
+        {
+          v23 = 0xCu;
+        }
+
+        else if (v132 == 255)
+        {
+          v23 = 0xBu;
+        }
+
+        else
+        {
+          v23 = MTFEPlaceBoundaries::sPos2Class[v132];
+        }
+
+        if (!v136 || (v136->var8 & 0x40) != 0)
+        {
+          v24 = 0xCu;
+        }
+
+        else if (v131 == 255)
+        {
+          v24 = 0xBu;
+        }
+
+        else
+        {
+          v24 = MTFEPlaceBoundaries::sPos2Class[v131];
+        }
+
+        v129 = MTFEPlaceBoundaries::sC2CD[v19];
+        v127 = MTFEPlaceBoundaries::sC2CP[v19];
+        v25 = MTFEPlaceBoundaries::sC2L2[v21];
+        v130 = MTFEPlaceBoundaries::sC2LR[v20];
+        v26 = MTFEPlaceBoundaries::sC2LR[v23];
+        v27 = MTFEPlaceBoundaries::sC2LR[v24];
+        v125 = MTFEPlaceBoundaries::sC2LR[v22];
+        v126 = MTFEPlaceBoundaries::sC2RD[v22];
+        v128 = MTFEPlaceBoundaries::sC2CC[v19];
+        if (Word && v133 == 7)
+        {
+          if (LOBYTE(Word[3].var5) == 79 && BYTE1(Word[3].var5) == 70)
+          {
+            v28 = 0;
+            v29 = BYTE2(Word[3].var5) == 0;
+            goto LABEL_118;
+          }
+        }
+
+        else
+        {
+          v29 = 0;
+          v28 = 0;
+          if (!Word || v133 != 15)
+          {
+LABEL_118:
+            v124 = v28;
+            if (kMTFEDebugBoundaries)
+            {
+              MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, byte_27F8F2B48);
+              kMTFEDebugBoundaries = 0;
+            }
+
+            v30 = v27;
+            v31 = v26;
+            if (byte_27F8F2B48 == 1)
+            {
+              fprintf(*MEMORY[0x277D85DF8], "\nBnd after %s\n", a2->var27);
+              v32 = byte_27F8F2B48;
+              if (kMTFEDebugBoundaries)
+              {
+                MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                kMTFEDebugBoundaries = 0;
+                v32 = byte_27F8F2B48;
+              }
+
+              if (v32)
+              {
+                fwrite("Bnd", 3uLL, 1uLL, *MEMORY[0x277D85DF8]);
+                v33 = byte_27F8F2B48;
+                if (kMTFEDebugBoundaries)
+                {
+                  MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                  kMTFEDebugBoundaries = 0;
+                  v33 = byte_27F8F2B48;
+                }
+
+                if (v33)
+                {
+                  fprintf(*MEMORY[0x277D85DF8], " %s=%d", "l2", v25);
+                  v34 = byte_27F8F2B48;
+                  if (kMTFEDebugBoundaries)
+                  {
+                    MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                    kMTFEDebugBoundaries = 0;
+                    v34 = byte_27F8F2B48;
+                  }
+
+                  if (v34)
+                  {
+                    fprintf(*MEMORY[0x277D85DF8], " %s=%d", "lp", v130);
+                    v35 = byte_27F8F2B48;
+                    if (kMTFEDebugBoundaries)
+                    {
+                      MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                      kMTFEDebugBoundaries = 0;
+                      v35 = byte_27F8F2B48;
+                    }
+
+                    if (v35)
+                    {
+                      fprintf(*MEMORY[0x277D85DF8], " %s=%d", "cd", v129);
+                      v36 = byte_27F8F2B48;
+                      if (kMTFEDebugBoundaries)
+                      {
+                        MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                        kMTFEDebugBoundaries = 0;
+                        v36 = byte_27F8F2B48;
+                      }
+
+                      if (v36)
+                      {
+                        fprintf(*MEMORY[0x277D85DF8], " %s=%d", "cc", v128);
+                        v37 = byte_27F8F2B48;
+                        if (kMTFEDebugBoundaries)
+                        {
+                          MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                          kMTFEDebugBoundaries = 0;
+                          v37 = byte_27F8F2B48;
+                        }
+
+                        if (v37)
+                        {
+                          fprintf(*MEMORY[0x277D85DF8], " %s=%d", "cp", v127);
+                          v38 = byte_27F8F2B48;
+                          if (kMTFEDebugBoundaries)
+                          {
+                            MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                            kMTFEDebugBoundaries = 0;
+                            v38 = byte_27F8F2B48;
+                          }
+
+                          if (v38)
+                          {
+                            fprintf(*MEMORY[0x277D85DF8], " %s=%d", "rd", v126);
+                            v39 = byte_27F8F2B48;
+                            if (kMTFEDebugBoundaries)
+                            {
+                              MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                              kMTFEDebugBoundaries = 0;
+                              v39 = byte_27F8F2B48;
+                            }
+
+                            if (v39)
+                            {
+                              fprintf(*MEMORY[0x277D85DF8], " %s=%d", "rp", v125);
+                              v40 = byte_27F8F2B48;
+                              if (kMTFEDebugBoundaries)
+                              {
+                                MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                                kMTFEDebugBoundaries = 0;
+                                v40 = byte_27F8F2B48;
+                              }
+
+                              if (v40)
+                              {
+                                fprintf(*MEMORY[0x277D85DF8], " %s=%d", "r2", v26);
+                                v41 = byte_27F8F2B48;
+                                if (kMTFEDebugBoundaries)
+                                {
+                                  MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                                  kMTFEDebugBoundaries = 0;
+                                  v41 = byte_27F8F2B48;
+                                }
+
+                                if (v41)
+                                {
+                                  fprintf(*MEMORY[0x277D85DF8], " %s=%d", "r3", v27);
+                                  v42 = byte_27F8F2B48;
+                                  if (kMTFEDebugBoundaries)
+                                  {
+                                    MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                                    kMTFEDebugBoundaries = 0;
+                                    v42 = byte_27F8F2B48;
+                                  }
+
+                                  if (v42)
+                                  {
+                                    fprintf(*MEMORY[0x277D85DF8], " %s=%d", "fFromStart", *(this + 2));
+                                    v43 = byte_27F8F2B48;
+                                    if (kMTFEDebugBoundaries)
+                                    {
+                                      MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                                      kMTFEDebugBoundaries = 0;
+                                      v43 = byte_27F8F2B48;
+                                    }
+
+                                    if (v43)
+                                    {
+                                      fprintf(*MEMORY[0x277D85DF8], " %s=%d", "fFromLastSIL", *(this + 1));
+                                      v44 = byte_27F8F2B48;
+                                      if (kMTFEDebugBoundaries)
+                                      {
+                                        MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                                        kMTFEDebugBoundaries = 0;
+                                        v44 = byte_27F8F2B48;
+                                      }
+
+                                      if (v44)
+                                      {
+                                        fprintf(*MEMORY[0x277D85DF8], " %s=%d", "fFromLastBnd", *(this + 3));
+                                        v45 = byte_27F8F2B48;
+                                        if (kMTFEDebugBoundaries)
+                                        {
+                                          MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                                          kMTFEDebugBoundaries = 0;
+                                          v45 = byte_27F8F2B48;
+                                        }
+
+                                        if (v45)
+                                        {
+                                          fprintf(*MEMORY[0x277D85DF8], " %s=%d", "fToNextSIL", *(this + 4));
+                                          v46 = byte_27F8F2B48;
+                                          if (kMTFEDebugBoundaries)
+                                          {
+                                            MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                                            kMTFEDebugBoundaries = 0;
+                                            v46 = byte_27F8F2B48;
+                                          }
+
+                                          if (v46)
+                                          {
+                                            fprintf(*MEMORY[0x277D85DF8], " %s=%d", "fToNextPunct", *(this + 5));
+                                            v47 = byte_27F8F2B48;
+                                            if (kMTFEDebugBoundaries)
+                                            {
+                                              MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                                              kMTFEDebugBoundaries = 0;
+                                              v47 = byte_27F8F2B48;
+                                            }
+
+                                            if (v47)
+                                            {
+                                              fprintf(*MEMORY[0x277D85DF8], " %s=%d", "genitiveContext", v29);
+                                              v48 = byte_27F8F2B48;
+                                              if (kMTFEDebugBoundaries)
+                                              {
+                                                MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                                                kMTFEDebugBoundaries = 0;
+                                                v48 = byte_27F8F2B48;
+                                              }
+
+                                              if (v48)
+                                              {
+                                                fprintf(*MEMORY[0x277D85DF8], " %s=%d", "infinitiveContext", v124);
+                                                v49 = byte_27F8F2B48;
+                                                if (kMTFEDebugBoundaries)
+                                                {
+                                                  MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                                                  kMTFEDebugBoundaries = 0;
+                                                  v49 = byte_27F8F2B48;
+                                                }
+
+                                                if (v49)
+                                                {
+                                                  fputc(10, *MEMORY[0x277D85DF8]);
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
+            v50 = *(this + 89);
+            if (*(this + 88) == 1)
+            {
+              v51 = *(this + 2);
+              if (kMTFEDebugBoundaries)
+              {
+                MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                kMTFEDebugBoundaries = 0;
+                if (byte_27F8F2B48)
+                {
+LABEL_179:
+                  fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", 1.0644, "sSilCoeffs.fIntercept");
+                  v52 = kMTFEDebugBoundaries;
+                  v53 = byte_27F8F2B48;
+                  goto LABEL_185;
+                }
+              }
+
+              else if (byte_27F8F2B48)
+              {
+                goto LABEL_179;
+              }
+
+              v53 = 0;
+              v52 = 0;
+LABEL_185:
+              v57 = 1.0;
+              if (!v50)
+              {
+                v57 = v51;
+              }
+
+              v58 = floorf(logf(v57) / 0.47);
+              if (v52)
+              {
+                MTBEDebugParams::GetParam(v52, &byte_27F8F2B48, (v53 & 1));
+                kMTFEDebugBoundaries = 0;
+                v59 = v127;
+                if (byte_27F8F2B48)
+                {
+LABEL_189:
+                  fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", (v58 * 0.25655), "sSilCoeffs.fFromLastSilWrds*XFormWordCount(fromLastSIL)");
+                  v60 = kMTFEDebugBoundaries;
+                  v61 = byte_27F8F2B48;
+                  goto LABEL_199;
+                }
+              }
+
+              else
+              {
+                v59 = v127;
+                if (v53)
+                {
+                  goto LABEL_189;
+                }
+              }
+
+              v61 = 0;
+              v60 = 0;
+LABEL_199:
+              v68 = ((1.0644 + 0.0) + (0.25655 * v58)) + (-0.14236 * floorf(logf(*(this + 5)) / 0.47));
+              if (v60)
+              {
+                MTBEDebugParams::GetParam(v60, &byte_27F8F2B48, (v61 & 1));
+                kMTFEDebugBoundaries = 0;
+                if (byte_27F8F2B48)
+                {
+                  goto LABEL_201;
+                }
+              }
+
+              else if (v61)
+              {
+LABEL_201:
+                v69 = *MEMORY[0x277D85DF8];
+                v70 = logf(*(this + 5));
+                fprintf(v69, "Bnd %7.3f [%s]\n", (-0.14236 * floorf(v70 / 0.47)), "sSilCoeffs.fFromEndPunctWrds*XFormWordCount(fToNextPunct)");
+                v71 = byte_27F8F2B48;
+                v72 = v29;
+                v73 = v68 + (-0.64336 * v29);
+                if (kMTFEDebugBoundaries)
+                {
+                  MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                  kMTFEDebugBoundaries = 0;
+                  v71 = byte_27F8F2B48;
+                }
+
+                v74 = v125;
+                v75 = v128;
+                if (v71)
+                {
+                  fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", (-0.64336 * v72), "sSilCoeffs.fGenitiveContextBit*genitiveContext");
+                  v76 = v73 + (-0.47091 * v124);
+                  if (kMTFEDebugBoundaries)
+                  {
+                    MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                    kMTFEDebugBoundaries = 0;
+                    if (byte_27F8F2B48)
+                    {
+LABEL_250:
+                      fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", (-0.47091 * v124), "sSilCoeffs.fInfinitiveContextBit*infinitiveContext");
+                      v98 = &MTFEPlaceBoundaries::sSilCoeffs[3 * v129 + v125];
+                      v100 = *(v98 + 5);
+                      v99 = (v98 + 5);
+                      v87 = v76 + v100;
+                      if (kMTFEDebugBoundaries)
+                      {
+                        MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                        kMTFEDebugBoundaries = 0;
+                        if (byte_27F8F2B48)
+                        {
+LABEL_258:
+                          fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", *v99, "sSilCoeffs.fCurDet_RightPos[cd][rp]");
+                          v104 = &MTFEPlaceBoundaries::sSilCoeffs[11 * v128 + v126];
+                          v106 = *(v104 + 26);
+                          v105 = (v104 + 26);
+                          v88 = v87 + v106;
+                          if (kMTFEDebugBoundaries)
+                          {
+                            MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                            kMTFEDebugBoundaries = 0;
+                            if (byte_27F8F2B48)
+                            {
+LABEL_266:
+                              fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", *v105, "sSilCoeffs.fCurCrs_RightDet[cc][rd]");
+                              v110 = &MTFEPlaceBoundaries::sSilCoeffs[6 * v25 + 2 * v130 + v59];
+                              v112 = *(v110 + 59);
+                              v111 = (v110 + 59);
+                              v89 = v88 + v112;
+                              if (kMTFEDebugBoundaries)
+                              {
+                                MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                                kMTFEDebugBoundaries = 0;
+                                if (byte_27F8F2B48)
+                                {
+LABEL_274:
+                                  fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", *v111, "sSilCoeffs.fLeft2Pos_LeftPos_CurPos[l2][lp][cp]");
+                                  v116 = &MTFEPlaceBoundaries::sSilCoeffs[6 * v130 + 3 * v59 + v125];
+                                  v90 = v89 + *(v116 + 71);
+                                  if (kMTFEDebugBoundaries)
+                                  {
+                                    MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                                    kMTFEDebugBoundaries = 0;
+                                    if (byte_27F8F2B48)
+                                    {
+                                      goto LABEL_282;
+                                    }
+                                  }
+
+                                  else if (byte_27F8F2B48)
+                                  {
+LABEL_282:
+                                    fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", *(v116 + 71), "sSilCoeffs.fLeftPos_CurPos_RightPos[lp][cp][rp]");
+                                    v118 = byte_27F8F2B48;
+                                    v119 = &MTFEPlaceBoundaries::sSilCoeffs[27 * v128 + 9 * v125 + 3 * v31 + v30];
+                                    v91 = v90 + *(v119 + 89);
+                                    if (kMTFEDebugBoundaries)
+                                    {
+                                      MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                                      kMTFEDebugBoundaries = 0;
+                                      v118 = byte_27F8F2B48;
+                                    }
+
+                                    if (v118)
+                                    {
+                                      fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", *(v119 + 89), "sSilCoeffs.fCurCrs_RightPos_Right2Pos_Right3Pos[cc][rp][r2][r3]");
+                                      v120 = byte_27F8F2B48;
+                                      if (kMTFEDebugBoundaries)
+                                      {
+                                        MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                                        kMTFEDebugBoundaries = 0;
+                                        v120 = byte_27F8F2B48;
+                                      }
+
+                                      if (v120)
+                                      {
+                                        fprintf(*MEMORY[0x277D85DF8], "Bnd=%7.3f\n", v91);
+                                      }
+                                    }
+
+LABEL_225:
+                                    if (kMTFESilThreshold)
+                                    {
+                                      MTBEDebugParams::GetParam(kMTFESilThreshold, &dword_27F8F2B58, v67, *&dword_27F8F2B58);
+                                      kMTFESilThreshold = 0;
+                                    }
+
+                                    if (v91 <= *&dword_27F8F2B58)
+                                    {
+                                      if (*(this + 89) != 1)
+                                      {
+                                        return;
+                                      }
+
+                                      v92 = 50.0;
+LABEL_244:
+                                      MTFEPlaceBoundaries::InsertBreak(this, v92);
+                                      return;
+                                    }
+
+                                    goto LABEL_241;
+                                  }
+
+LABEL_224:
+                                  v91 = v90 + *&MTFEPlaceBoundaries::sSilCoeffs[27 * v75 + 89 + 9 * v74 + 3 * v31 + v30];
+                                  goto LABEL_225;
+                                }
+                              }
+
+                              else if (byte_27F8F2B48)
+                              {
+                                goto LABEL_274;
+                              }
+
+LABEL_223:
+                              v90 = v89 + *&MTFEPlaceBoundaries::sSilCoeffs[6 * v130 + 71 + 3 * v59 + v74];
+                              goto LABEL_224;
+                            }
+                          }
+
+                          else if (byte_27F8F2B48)
+                          {
+                            goto LABEL_266;
+                          }
+
+LABEL_222:
+                          v89 = v88 + *&MTFEPlaceBoundaries::sSilCoeffs[6 * v25 + 59 + 2 * v130 + v59];
+                          goto LABEL_223;
+                        }
+                      }
+
+                      else if (byte_27F8F2B48)
+                      {
+                        goto LABEL_258;
+                      }
+
+LABEL_221:
+                      v88 = v87 + *&MTFEPlaceBoundaries::sSilCoeffs[11 * v75 + 26 + v126];
+                      goto LABEL_222;
+                    }
+                  }
+
+                  else if (byte_27F8F2B48)
+                  {
+                    goto LABEL_250;
+                  }
+
+LABEL_220:
+                  v87 = v76 + *&MTFEPlaceBoundaries::sSilCoeffs[3 * v129 + 5 + v74];
+                  goto LABEL_221;
+                }
+
+LABEL_219:
+                v76 = v73 + (-0.47091 * v124);
+                goto LABEL_220;
+              }
+
+              v73 = v68 + (-0.64336 * v29);
+              v74 = v125;
+              v75 = v128;
+              goto LABEL_219;
+            }
+
+            v54 = *(this + 6);
+            if (kMTFEDebugBoundaries)
+            {
+              MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+              kMTFEDebugBoundaries = 0;
+              if (byte_27F8F2B48)
+              {
+LABEL_182:
+                fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", 1.5773, "sPhrCoeffs.fIntercept");
+                v55 = kMTFEDebugBoundaries;
+                v56 = byte_27F8F2B48;
+                goto LABEL_192;
+              }
+            }
+
+            else if (byte_27F8F2B48)
+            {
+              goto LABEL_182;
+            }
+
+            v56 = 0;
+            v55 = 0;
+LABEL_192:
+            v62 = 1.0;
+            if (!v50)
+            {
+              v62 = v54;
+            }
+
+            v63 = floorf(logf(v62) / 0.47);
+            if (v55)
+            {
+              MTBEDebugParams::GetParam(v55, &byte_27F8F2B48, (v56 & 1));
+              kMTFEDebugBoundaries = 0;
+              v64 = v127;
+              if (byte_27F8F2B48)
+              {
+LABEL_196:
+                fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", (v63 * 0.22623), "sPhrCoeffs.fFromLastBndWrds*XFormWordCount(fromLastBnd)");
+                v65 = kMTFEDebugBoundaries;
+                v66 = byte_27F8F2B48;
+                goto LABEL_209;
+              }
+            }
+
+            else
+            {
+              v64 = v127;
+              if (v56)
+              {
+                goto LABEL_196;
+              }
+            }
+
+            v66 = 0;
+            v65 = 0;
+LABEL_209:
+            v78 = ((1.5773 + 0.0) + (0.22623 * v63)) + (-0.0552 * floorf(logf(*(this + 4)) / 0.47));
+            if (v65)
+            {
+              MTBEDebugParams::GetParam(v65, &byte_27F8F2B48, (v66 & 1));
+              kMTFEDebugBoundaries = 0;
+              if (byte_27F8F2B48)
+              {
+                goto LABEL_211;
+              }
+            }
+
+            else if (v66)
+            {
+LABEL_211:
+              v79 = *MEMORY[0x277D85DF8];
+              v80 = logf(*(this + 4));
+              fprintf(v79, "Bnd %7.3f [%s]\n", (-0.0552 * floorf(v80 / 0.47)), "sPhrCoeffs.fFromEndSilWrds*XFormWordCount(fToNextSIL)");
+              v81 = byte_27F8F2B48;
+              v82 = v29;
+              v83 = v78 + (-0.24608 * v29);
+              if (kMTFEDebugBoundaries)
+              {
+                MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                kMTFEDebugBoundaries = 0;
+                v81 = byte_27F8F2B48;
+              }
+
+              v84 = v125;
+              v85 = v128;
+              if (v81)
+              {
+                fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", (-0.24608 * v82), "sPhrCoeffs.fGenitiveContextBit*genitiveContext");
+                v86 = v83 + (-0.01337 * v124);
+                if (kMTFEDebugBoundaries)
+                {
+                  MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                  kMTFEDebugBoundaries = 0;
+                  if (byte_27F8F2B48)
+                  {
+LABEL_254:
+                    fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", (-0.01337 * v124), "sPhrCoeffs.fInfinitiveContextBit*infinitiveContext");
+                    v101 = &MTFEPlaceBoundaries::sPhrCoeffs[3 * v129 + v125];
+                    v103 = *(v101 + 5);
+                    v102 = (v101 + 5);
+                    v93 = v86 + v103;
+                    if (kMTFEDebugBoundaries)
+                    {
+                      MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                      kMTFEDebugBoundaries = 0;
+                      if (byte_27F8F2B48)
+                      {
+LABEL_262:
+                        fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", *v102, "sPhrCoeffs.fCurDet_RightPos[cd][rp]");
+                        v107 = &MTFEPlaceBoundaries::sPhrCoeffs[11 * v128 + v126];
+                        v109 = *(v107 + 26);
+                        v108 = (v107 + 26);
+                        v94 = v93 + v109;
+                        if (kMTFEDebugBoundaries)
+                        {
+                          MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                          kMTFEDebugBoundaries = 0;
+                          if (byte_27F8F2B48)
+                          {
+LABEL_270:
+                            fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", *v108, "sPhrCoeffs.fCurCrs_RightDet[cc][rd]");
+                            v113 = &MTFEPlaceBoundaries::sPhrCoeffs[6 * v25 + 2 * v130 + v64];
+                            v115 = *(v113 + 59);
+                            v114 = (v113 + 59);
+                            v95 = v94 + v115;
+                            if (kMTFEDebugBoundaries)
+                            {
+                              MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                              kMTFEDebugBoundaries = 0;
+                              if (byte_27F8F2B48)
+                              {
+LABEL_278:
+                                fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", *v114, "sPhrCoeffs.fLeft2Pos_LeftPos_CurPos[l2][lp][cp]");
+                                v117 = &MTFEPlaceBoundaries::sPhrCoeffs[6 * v130 + 3 * v64 + v125];
+                                v96 = v95 + *(v117 + 71);
+                                if (kMTFEDebugBoundaries)
+                                {
+                                  MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                                  kMTFEDebugBoundaries = 0;
+                                  if (byte_27F8F2B48)
+                                  {
+                                    goto LABEL_290;
+                                  }
+                                }
+
+                                else if (byte_27F8F2B48)
+                                {
+LABEL_290:
+                                  fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", *(v117 + 71), "sPhrCoeffs.fLeftPos_CurPos_RightPos[lp][cp][rp]");
+                                  v121 = byte_27F8F2B48;
+                                  v122 = &MTFEPlaceBoundaries::sPhrCoeffs[27 * v128 + 9 * v125 + 3 * v31 + v30];
+                                  v97 = v96 + *(v122 + 89);
+                                  if (kMTFEDebugBoundaries)
+                                  {
+                                    MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                                    kMTFEDebugBoundaries = 0;
+                                    v121 = byte_27F8F2B48;
+                                  }
+
+                                  if (v121)
+                                  {
+                                    fprintf(*MEMORY[0x277D85DF8], "Bnd %7.3f [%s]\n", *(v122 + 89), "sPhrCoeffs.fCurCrs_RightPos_Right2Pos_Right3Pos[cc][rp][r2][r3]");
+                                    v123 = byte_27F8F2B48;
+                                    if (kMTFEDebugBoundaries)
+                                    {
+                                      MTBEDebugParams::GetParam(kMTFEDebugBoundaries, &byte_27F8F2B48, (byte_27F8F2B48 & 1));
+                                      kMTFEDebugBoundaries = 0;
+                                      v123 = byte_27F8F2B48;
+                                    }
+
+                                    if (v123)
+                                    {
+                                      fprintf(*MEMORY[0x277D85DF8], "Bnd=%7.3f\n", v97);
+                                    }
+                                  }
+
+LABEL_238:
+                                  if (kMTFEPhrThreshold)
+                                  {
+                                    MTBEDebugParams::GetParam(kMTFEPhrThreshold, &dword_27F8F2B68, v77, *&dword_27F8F2B68);
+                                    kMTFEPhrThreshold = 0;
+                                  }
+
+                                  if (v97 <= *&dword_27F8F2B68)
+                                  {
+                                    if (*(this + 89) != 1)
+                                    {
+                                      return;
+                                    }
+
+                                    v92 = 0.0;
+                                    goto LABEL_244;
+                                  }
+
+LABEL_241:
+                                  *(this + 89) = 1;
+                                  return;
+                                }
+
+LABEL_237:
+                                v97 = v96 + *&MTFEPlaceBoundaries::sPhrCoeffs[27 * v85 + 89 + 9 * v84 + 3 * v31 + v30];
+                                goto LABEL_238;
+                              }
+                            }
+
+                            else if (byte_27F8F2B48)
+                            {
+                              goto LABEL_278;
+                            }
+
+LABEL_236:
+                            v96 = v95 + *&MTFEPlaceBoundaries::sPhrCoeffs[6 * v130 + 71 + 3 * v64 + v84];
+                            goto LABEL_237;
+                          }
+                        }
+
+                        else if (byte_27F8F2B48)
+                        {
+                          goto LABEL_270;
+                        }
+
+LABEL_235:
+                        v95 = v94 + *&MTFEPlaceBoundaries::sPhrCoeffs[6 * v25 + 59 + 2 * v130 + v64];
+                        goto LABEL_236;
+                      }
+                    }
+
+                    else if (byte_27F8F2B48)
+                    {
+                      goto LABEL_262;
+                    }
+
+LABEL_234:
+                    v94 = v93 + *&MTFEPlaceBoundaries::sPhrCoeffs[11 * v85 + 26 + v126];
+                    goto LABEL_235;
+                  }
+                }
+
+                else if (byte_27F8F2B48)
+                {
+                  goto LABEL_254;
+                }
+
+LABEL_233:
+                v93 = v86 + *&MTFEPlaceBoundaries::sPhrCoeffs[3 * v129 + 5 + v84];
+                goto LABEL_234;
+              }
+
+LABEL_232:
+              v86 = v83 + (-0.01337 * v124);
+              goto LABEL_233;
+            }
+
+            v83 = v78 + (-0.24608 * v29);
+            v84 = v125;
+            v85 = v128;
+            goto LABEL_232;
+          }
+
+          if (LOBYTE(Word[3].var5) == 84 && BYTE1(Word[3].var5) == 79)
+          {
+            v29 = 0;
+            v28 = BYTE2(Word[3].var5) == 0;
+            goto LABEL_118;
+          }
+        }
+
+        v29 = 0;
+        v28 = 0;
+        goto LABEL_118;
+      }
+
+LABEL_96:
+      v22 = 0xCu;
+      goto LABEL_97;
+    }
+
+LABEL_82:
+    v20 = 0xCu;
+    goto LABEL_83;
+  }
+
+  if (Word && *(this + 89) == 1)
+  {
+    MTFEPlaceBoundaries::InsertBreak(this, 0.0);
+  }
+
+  *(this + 89) = 0;
+  *(this + 1) = 0;
+  *(this + 4) = 0;
+  if (var15 == 31)
+  {
+    *(this + 5) = 0;
+  }
 }

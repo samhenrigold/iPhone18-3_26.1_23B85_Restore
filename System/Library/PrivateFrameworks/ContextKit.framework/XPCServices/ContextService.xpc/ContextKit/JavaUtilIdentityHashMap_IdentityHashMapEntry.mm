@@ -31,16 +31,16 @@
 
   else
   {
-    v5 = [JavaUtilMap_Entry_class_() isInstance:equal];
+    v5 = [JavaUtilMap_Entry_class_(self a2)];
     if (v5)
     {
-      v6 = JavaUtilMap_Entry_class_();
+      v7 = JavaUtilMap_Entry_class_(v5, v6);
       if (!equal)
       {
         JreThrowNullPointerException();
       }
 
-      if (([v6 isInstance:equal] & 1) == 0)
+      if (([v7 isInstance:equal] & 1) == 0)
       {
         JreThrowClassCastException();
       }

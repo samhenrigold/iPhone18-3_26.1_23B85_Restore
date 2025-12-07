@@ -3,6 +3,7 @@
 - (BOOL)_startCBCentralManager;
 - (BOOL)_startCBCentralManagerAndWaitForPowerOn;
 - (BOOL)connectBLEAddress:(id)address advertiseServiceUUID:(id)d readerIdentCharacteristic:(id)characteristic onDeviceConnection:(id)connection onDisconnect:(id)disconnect onDataRx:(id)rx;
+- (BOOL)connectPeripheral:(id)peripheral delay:(unsigned __int8)delay;
 - (BOOL)discoverMDOCServiceCharacteristics:(id)characteristics;
 - (BOOL)setupGATTServerCharacteristics:(id)characteristics;
 - (BOOL)writeData:(id)data toUUID:(id)d;
@@ -16,6 +17,7 @@
 - (void)_activateConnectionBlock:(unint64_t)block connectionState:(BOOL)state;
 - (void)_activateDisconnectBlock:(unint64_t)block;
 - (void)_activateRxCallbackWithData:(id)data lastPacket:(BOOL)packet;
+- (void)_signalConnectionStateChange:(unsigned __int8)change;
 - (void)centralManager:(id)manager didConnectPeripheral:(id)peripheral;
 - (void)centralManager:(id)manager didDisconnectPeripheral:(id)peripheral error:(id)error;
 - (void)centralManager:(id)manager didDiscoverPeripheral:(id)peripheral advertisementData:(id)data RSSI:(id)i;
@@ -23,6 +25,7 @@
 - (void)centralManagerDidUpdateState:(id)state;
 - (void)invalidateAndUpdateStateSignal:(BOOL)signal reason:(unint64_t)reason;
 - (void)invalidatePeripheral;
+- (void)openL2CAP:(unsigned __int16)p;
 - (void)peripheral:(id)peripheral didDiscoverCharacteristicsForService:(id)service error:(id)error;
 - (void)peripheral:(id)peripheral didDiscoverServices:(id)services;
 - (void)peripheral:(id)peripheral didModifyServices:(id)services;
@@ -492,6 +495,15 @@ LABEL_20:
   os_activity_scope_leave(&v12);
 
   sub_10001934C(self->_sender, v5, v6, v7, v8, v9, v10, v11, v12.opaque[0]);
+}
+
+- (void)openL2CAP:(unsigned __int16)p
+{
+  pCopy = p;
+  sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[ISO18013_3_Central openL2CAP:]", 263, self, @"LE: opening L2CAP 0x%X", v3, v4, p);
+  remoteReader = self->_remoteReader;
+
+  [(CBPeripheral *)remoteReader openL2CAPChannel:pCopy];
 }
 
 - (void)stream:(id)stream handleEvent:(unint64_t)event
@@ -1031,6 +1043,35 @@ LABEL_17:
   return v10;
 }
 
+- (BOOL)connectPeripheral:(id)peripheral delay:(unsigned __int8)delay
+{
+  delayCopy = delay;
+  peripheralCopy = peripheral;
+  sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[ISO18013_3_Central connectPeripheral:delay:]", 526, self, @"LE: Connecting to peripheral %@", v8, v9, peripheralCopy);
+  if (!self->_remoteReader && self->_centralManager)
+  {
+    objc_storeStrong(&self->_remoteReader, peripheral);
+    centralManager = self->_centralManager;
+    v14[0] = CBConnectPeripheralOptionHideFromBTSettings;
+    v14[1] = CBConnectPeripheralOptionNotifyOnConnectionKey;
+    v15[0] = &__kCFBooleanTrue;
+    v15[1] = &off_10005F688;
+    v14[2] = CBConnectPeripheralOptionNotifyOnDisconnectionKey;
+    v14[3] = CBConnectPeripheralOptionNotifyOnNotificationKey;
+    v15[2] = &off_10005F688;
+    v15[3] = &off_10005F688;
+    v14[4] = CBConnectPeripheralOptionStartDelayKey;
+    v11 = [NSNumber numberWithUnsignedChar:delayCopy];
+    v14[5] = CBConnectPeripheralOptionConnectionUseCase;
+    v15[4] = v11;
+    v15[5] = &off_10005F6A0;
+    v12 = [NSDictionary dictionaryWithObjects:v15 forKeys:v14 count:6];
+    [(CBCentralManager *)centralManager connectPeripheral:peripheralCopy options:v12];
+  }
+
+  return 1;
+}
+
 - (ISO18013_3_Central)initWithWorkQueue:(id)queue callbackQueue:(id)callbackQueue
 {
   queueCopy = queue;
@@ -1453,13 +1494,58 @@ LABEL_6:
 
     else
     {
-      v7 = objc_alloc_init(NSMutableData);
-      rxBuffer = self->_rxBuffer;
-      self->_rxBuffer = v7;
+      self->_rxBuffer = objc_alloc_init(NSMutableData);
 
       _objc_release_x1();
     }
   }
+}
+
+- (void)_signalConnectionStateChange:(unsigned __int8)change
+{
+  changeCopy = change;
+  sub_10002483C(OS_LOG_TYPE_DEFAULT, 0, "[ISO18013_3_Central _signalConnectionStateChange:]", 875, self, @"LE: ConnectionStateChange=%d", v3, v4, change);
+  v6 = [NSData dataWithBytes:&changeCopy length:1];
+  getStateCharacteristicUUID = [(ISO18013_3_Central *)self getStateCharacteristicUUID];
+  v8 = [(ISO18013_3_Central *)self getCharacteristic:getStateCharacteristicUUID];
+
+  if (v8)
+  {
+    [(CBPeripheral *)self->_remoteReader writeValue:v6 forCharacteristic:v8 type:1];
+    if (changeCopy == 2)
+    {
+      v9 = sub_100024AE0();
+      if (os_signpost_enabled(v9))
+      {
+        *buf = 0;
+        v10 = "BT_StateUpdate02";
+        v11 = buf;
+        goto LABEL_8;
+      }
+
+LABEL_9:
+
+      goto LABEL_10;
+    }
+
+    if (changeCopy == 1)
+    {
+      v9 = sub_100024AE0();
+      if (os_signpost_enabled(v9))
+      {
+        v13 = 0;
+        v10 = "BT_StateUpdate01";
+        v11 = &v13;
+LABEL_8:
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v9, OS_SIGNPOST_EVENT, 0xEEEEB0B5B2B2EEEELL, v10, &unk_10005485E, v11, 2u);
+        goto LABEL_9;
+      }
+
+      goto LABEL_9;
+    }
+  }
+
+LABEL_10:
 }
 
 - (id)_extractFromMessage:(const char *)message length:(unint64_t)length lastPacket:(BOOL *)packet

@@ -43,7 +43,7 @@
 
 - (id)outputImage
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v54 = *MEMORY[0x1E69E9840];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -66,70 +66,71 @@
 
   inputDescriptionsByName = [(MLModelDescription *)[(MLModel *)self->inputModel modelDescription] inputDescriptionsByName];
   v5 = [MEMORY[0x1E695DFD8] setWithArray:{-[NSDictionary allKeys](inputDescriptionsByName, "allKeys")}];
-  if (v3 != [v5 count])
+  v6 = [v5 count];
+  if (v3 != v6)
   {
-    v18 = ci_logger_filter();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    v22 = ci_logger_filter(v6, v7);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
-      [CICoreMLModelFilter outputImage];
+      [(CICoreMLModelFilter *)self outputImage];
     }
 
     return 0;
   }
 
-  v42 = 0u;
-  v43 = 0u;
-  v40 = 0u;
-  v41 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v40 objects:v48 count:16];
-  if (v6)
+  v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
+  v8 = [v5 countByEnumeratingWithState:&v45 objects:v53 count:16];
+  if (v8)
   {
-    v7 = v6;
-    v8 = 0;
-    v9 = *v41;
+    v9 = v8;
+    v10 = 0;
+    v11 = *v46;
     while (2)
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v41 != v9)
+        if (*v46 != v11)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v40 + 1) + 8 * i);
-        v12 = [(NSDictionary *)[(MLModelDescription *)[(MLModel *)self->inputModel modelDescription] inputDescriptionsByName] objectForKey:v11];
-        if (!v12 || (v13 = [v12 type], (v13 - 6) <= 0xFFFFFFFFFFFFFFFDLL))
+        v13 = *(*(&v45 + 1) + 8 * i);
+        v14 = [(NSDictionary *)[(MLModelDescription *)[(MLModel *)self->inputModel modelDescription] inputDescriptionsByName] objectForKey:v13];
+        if (!v14 || (v14 = [v14 type], (v14 - 6) <= 0xFFFFFFFFFFFFFFFDLL))
         {
-          v23 = ci_logger_filter();
-          if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+          v27 = ci_logger_filter(v14, v15);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
-            [CICoreMLModelFilter outputImage];
+            [(CICoreMLModelFilter *)self outputImage];
           }
 
           return 0;
         }
 
-        v14 = v13;
-        v15 = channelCountOfName(self->inputModel, v11, 0);
-        if (v15 > 4 || ((1 << v15) & 0x1A) == 0)
+        v16 = v14;
+        v17 = channelCountOfName(self->inputModel, v13, 0);
+        if (v17 > 4 || ((1 << v17) & 0x1A) == 0)
         {
-          v37 = ci_logger_filter();
-          if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+          v42 = ci_logger_filter(v17, v18);
+          if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
           {
-            [CICoreMLModelFilter outputImage];
+            [(CICoreMLModelFilter *)self outputImage];
           }
 
           return 0;
         }
 
-        if (v8)
+        if (v10)
         {
-          if (v8 != v14)
+          if (v10 != v16)
           {
-            v32 = ci_logger_filter();
-            if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+            v37 = ci_logger_filter(v17, v18);
+            if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
             {
-              [CICoreMLModelFilter outputImage];
+              [(CICoreMLModelFilter *)self outputImage];
             }
 
             return 0;
@@ -138,23 +139,23 @@
 
         else
         {
-          v8 = v14;
+          v10 = v16;
         }
 
-        if (v3 >= 2 && ![(CIImage *)self->inputImage objectForKey:v11])
+        if (v3 >= 2 && ![(CIImage *)self->inputImage objectForKey:v13])
         {
-          v36 = ci_logger_filter();
-          if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+          v41 = ci_logger_filter(0, v20);
+          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
           {
-            [CICoreMLModelFilter outputImage];
+            [(CICoreMLModelFilter *)self outputImage];
           }
 
           return 0;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v40 objects:v48 count:16];
-      if (v7)
+      v9 = [v5 countByEnumeratingWithState:&v45 objects:v53 count:16];
+      if (v9)
       {
         continue;
       }
@@ -162,84 +163,84 @@
       break;
     }
 
-    v17 = v8 == 4;
+    v21 = v10 == 4;
   }
 
   else
   {
-    v17 = 0;
+    v21 = 0;
   }
 
   intValue = [(NSNumber *)self->inputHeadIndex intValue];
   outputDescriptionsByName = [(MLModelDescription *)[(MLModel *)self->inputModel modelDescription] outputDescriptionsByName];
-  if (outputDescriptionsByName && (v21 = outputDescriptionsByName, [(NSDictionary *)outputDescriptionsByName count]> intValue))
+  if (outputDescriptionsByName && (v25 = outputDescriptionsByName, [(NSDictionary *)outputDescriptionsByName count]> intValue))
   {
-    v22 = [(NSArray *)[(NSDictionary *)v21 allKeys] objectAtIndex:intValue];
+    v26 = [(NSArray *)[(NSDictionary *)v25 allKeys] objectAtIndex:intValue];
   }
 
   else
   {
-    v22 = 0;
+    v26 = 0;
   }
 
-  v24 = [-[NSDictionary objectForKey:](-[MLModelDescription outputDescriptionsByName](-[MLModel modelDescription](self->inputModel "modelDescription")];
-  v25 = channelCountOfName(self->inputModel, v22, 1);
-  if (v24 == 5)
+  v28 = [-[NSDictionary objectForKey:](-[MLModelDescription outputDescriptionsByName](-[MLModel modelDescription](self->inputModel "modelDescription")];
+  v29 = channelCountOfName(self->inputModel, v26, 1);
+  if (v28 == 5)
   {
     goto LABEL_42;
   }
 
-  if (v24 != 4)
+  if (v28 != 4)
   {
-    v31 = ci_logger_filter();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    v36 = ci_logger_filter(v29, v30);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
     {
-      [CICoreMLModelFilter outputImage];
+      [(CICoreMLModelFilter *)self outputImage];
     }
 
     return 0;
   }
 
-  if (v25 > 4 || ((1 << v25) & 0x1A) == 0)
+  if (v29 > 4 || ((1 << v29) & 0x1A) == 0)
   {
-    v38 = ci_logger_filter();
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
+    v43 = ci_logger_filter(v29, v30);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
-      [CICoreMLModelFilter outputImage];
+      [(CICoreMLModelFilter *)self outputImage];
     }
 
     return 0;
   }
 
-  if (v3 == 1 && v17)
+  if (v3 == 1 && v21)
   {
-    v26 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1C0]);
+    v31 = CGColorSpaceCreateWithName(*MEMORY[0x1E695F1C0]);
     anyObject = [v5 anyObject];
     inputImage = self->inputImage;
-    v46 = anyObject;
-    v47 = inputImage;
-    v29 = process([MEMORY[0x1E695DF20] dictionaryWithObjects:&v47 forKeys:&v46 count:1], self->inputModel, v22, self->_logName, 0, v26);
-    CGColorSpaceRelease(v26);
-    return v29;
+    v51 = anyObject;
+    v52 = inputImage;
+    v34 = process([MEMORY[0x1E695DF20] dictionaryWithObjects:&v52 forKeys:&v51 count:1], self->inputModel, v26, self->_logName, 0, v31);
+    CGColorSpaceRelease(v31);
+    return v34;
   }
 
 LABEL_42:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v30 = self->inputImage;
+    v35 = self->inputImage;
   }
 
   else
   {
     anyObject2 = [v5 anyObject];
-    v35 = self->inputImage;
-    v44 = anyObject2;
-    v45 = v35;
-    v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+    v40 = self->inputImage;
+    v49 = anyObject2;
+    v50 = v40;
+    v35 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
   }
 
-  return process(v30, self->inputModel, v22, self->_logName, [(NSNumber *)self->inputSoftmaxNormalization BOOLValue], 0);
+  return process(v35, self->inputModel, v26, self->_logName, [(NSNumber *)self->inputSoftmaxNormalization BOOLValue], 0);
 }
 
 - (void)outputImage
@@ -247,7 +248,7 @@ LABEL_42:
   [objc_opt_class() description];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
+  _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
 }
 
 @end

@@ -40,18 +40,18 @@
 - (RPDiscovery)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v14.receiver = self;
-  v14.super_class = RPDiscovery;
-  v5 = [(RPDiscovery *)&v14 init];
+  v15.receiver = self;
+  v15.super_class = RPDiscovery;
+  v5 = [(RPDiscovery *)&v15 init];
   v6 = v5;
   if (v5)
   {
     objc_storeStrong(&v5->_dispatchQueue, MEMORY[0x1E69E96A0]);
     v6->_ucat = &gLogCategory_RPDiscovery;
-    v15 = 0;
+    v16 = 0;
     if (NSDecodeSInt64RangedIfPresent())
     {
-      v6->_changeFlags = v15;
+      v6->_changeFlags = v16;
     }
 
     v7 = coderCopy;
@@ -67,16 +67,16 @@
     label = v6->_label;
     if (label)
     {
-      v10 = label;
-      [(NSString *)v10 UTF8String];
-      LogCategoryReplaceF();
+      v10 = qword_1EB97A928;
+      v11 = label;
+      LogCategoryReplaceF(&v6->_ucat, "%s-%s", v10, [(NSString *)v11 UTF8String]);
     }
 
-    v11 = v8;
+    v12 = v8;
     objc_opt_class();
     NSDecodeObjectIfPresent();
 
-    v12 = v6;
+    v13 = v6;
   }
 
   return v6;
@@ -131,31 +131,27 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__1;
-  v24 = __Block_byref_object_dispose__1;
-  v25 = 0;
-  v19 = 0;
-  changeFlags = self->_changeFlags;
-  controlFlags = self->_controlFlags;
-  serviceType = self->_serviceType;
-  NSAppendPrintF();
-  objc_storeStrong(&v25, 0);
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__1;
+  v20 = __Block_byref_object_dispose__1;
+  v21 = 0;
+  v15 = 0;
+  NSAppendPrintF(&v15, "RPDiscovery: ST '%@', CtlF %#ll{flags} ChgF %#{flags}", self->_serviceType, self->_controlFlags, &unk_1B6F2D8D6, self->_changeFlags, &unk_1B6F2DB5B);
+  objc_storeStrong(&v21, v15);
   if (level <= 30)
   {
-    v5 = v21;
-    obj = v21[5];
-    v12 = [(NSMutableDictionary *)self->_endpointMap count:serviceType];
-    NSAppendPrintF();
+    v5 = v17;
+    obj = v17[5];
+    NSAppendPrintF(&obj, ", %d endpoints", [(NSMutableDictionary *)self->_endpointMap count]);
     objc_storeStrong(v5 + 5, obj);
     if (level <= 20)
     {
-      v6 = v21;
-      v17 = v21[5];
-      NSAppendPrintF();
-      objc_storeStrong(v6 + 5, v17);
+      v6 = v17;
+      v13 = v17[5];
+      NSAppendPrintF(&v13, "\n");
+      objc_storeStrong(v6 + 5, v13);
       if (level >= 11)
       {
         v7 = 50;
@@ -167,39 +163,38 @@
       }
 
       endpointMap = self->_endpointMap;
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __36__RPDiscovery_descriptionWithLevel___block_invoke;
-      v15[3] = &unk_1E7C93A58;
-      v15[4] = &v20;
-      v16 = v7;
-      [(NSMutableDictionary *)endpointMap enumerateKeysAndObjectsUsingBlock:v15, v12];
+      v11[0] = MEMORY[0x1E69E9820];
+      v11[1] = 3221225472;
+      v11[2] = __36__RPDiscovery_descriptionWithLevel___block_invoke;
+      v11[3] = &unk_1E7C93A58;
+      v11[4] = &v16;
+      v12 = v7;
+      [(NSMutableDictionary *)endpointMap enumerateKeysAndObjectsUsingBlock:v11];
     }
   }
 
-  v9 = v21[5];
-  _Block_object_dispose(&v20, 8);
+  v9 = v17[5];
+  _Block_object_dispose(&v16, 8);
 
   return v9;
 }
 
-void __36__RPDiscovery_descriptionWithLevel___block_invoke(uint64_t a1)
+void __36__RPDiscovery_descriptionWithLevel___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v1 = *(*(a1 + 32) + 8);
-  obj = *(v1 + 40);
-  v2 = *(a1 + 40);
-  v3 = CUDescriptionWithLevel();
-  NSAppendPrintF();
-  objc_storeStrong((v1 + 40), obj);
+  v3 = *(*(a1 + 32) + 8);
+  obj = *(v3 + 40);
+  v4 = CUDescriptionWithLevel();
+  NSAppendPrintF(&obj, "    %@\n", v4);
+  objc_storeStrong((v3 + 40), obj);
 }
 
 - (void)setLabel:(id)label
 {
   objc_storeStrong(&self->_label, label);
   labelCopy = label;
-  v4 = labelCopy;
-  [labelCopy UTF8String];
-  LogCategoryReplaceF();
+  v5 = qword_1EB97A928;
+  v6 = labelCopy;
+  LogCategoryReplaceF(&self->_ucat, "%s-%s", v5, [labelCopy UTF8String]);
 }
 
 - (void)activateWithCompletion:(id)completion
@@ -223,21 +218,21 @@ void __36__RPDiscovery_descriptionWithLevel___block_invoke(uint64_t a1)
   objc_sync_exit(selfCopy);
 }
 
-void __38__RPDiscovery_activateWithCompletion___block_invoke(uint64_t a1)
+void __38__RPDiscovery_activateWithCompletion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v2 = *(a1 + 32);
-  if (*(v2 + 24) == 1)
+  v9 = *(a1 + 32);
+  if (*(v9 + 24) == 1)
   {
-    v3 = RPErrorF();
-    v4 = **(*(a1 + 32) + 40);
-    v13 = v3;
-    if (v4 <= 115)
+    v10 = RPErrorF(4294896148, "Activate after invalidate", a3, a4, a5, a6, a7, a8, v18);
+    v11 = *(*(a1 + 32) + 40);
+    v19 = v10;
+    if (*v11 <= 115)
     {
-      if (v4 == -1)
+      if (*v11 == -1)
       {
-        v7 = _LogCategory_Initialize();
-        v3 = v13;
-        if (!v7)
+        v14 = _LogCategory_Initialize();
+        v10 = v19;
+        if (!v14)
         {
           goto LABEL_13;
         }
@@ -245,16 +240,16 @@ void __38__RPDiscovery_activateWithCompletion___block_invoke(uint64_t a1)
         v11 = *(*(a1 + 32) + 40);
       }
 
-      LogPrintF();
-      v3 = v13;
+      LogPrintF(v11, "[RPDiscovery activateWithCompletion:]_block_invoke", 115, "### Activate failed: %{error}\n", v10);
+      v10 = v19;
     }
 
 LABEL_13:
-    v8 = *(a1 + 40);
-    if (v8)
+    v15 = *(a1 + 40);
+    if (v15)
     {
-      (*(v8 + 16))(v8, v13);
-      v3 = v13;
+      (*(v15 + 16))(v15, v19);
+      v10 = v19;
     }
 
     return;
@@ -262,23 +257,23 @@ LABEL_13:
 
   if (*(a1 + 48) == 1)
   {
-    v5 = **(v2 + 40);
-    if (v5 > 30)
+    v12 = *(v9 + 40);
+    if (*v12 > 30)
     {
       goto LABEL_19;
     }
 
-    if (v5 == -1)
+    if (*v12 == -1)
     {
       if (!_LogCategory_Initialize())
       {
 LABEL_19:
-        v9 = *(a1 + 40);
-        if (v9)
+        v16 = *(a1 + 40);
+        if (v16)
         {
-          v10 = *(v9 + 16);
+          v17 = *(v16 + 16);
 
-          v10();
+          v17();
         }
 
         return;
@@ -287,54 +282,45 @@ LABEL_19:
       v12 = *(*(a1 + 32) + 40);
     }
 
-    LogPrintF();
+    LogPrintF(v12, "[RPDiscovery activateWithCompletion:]_block_invoke", 30, "Activate when already activated\n");
     goto LABEL_19;
   }
 
-  v6 = *(a1 + 40);
+  v13 = *(a1 + 40);
 
-  [v2 _activateWithCompletion:v6 reactivate:0];
+  [v9 _activateWithCompletion:v13 reactivate:{0, a5, a6, a7, a8}];
 }
 
 - (void)_activateWithCompletion:(id)completion reactivate:(BOOL)reactivate
 {
   reactivateCopy = reactivate;
   completionCopy = completion;
-  var0 = self->_ucat->var0;
+  ucat = self->_ucat;
+  var0 = ucat->var0;
   if (!reactivateCopy)
   {
     if (var0 > 30)
     {
-      goto LABEL_18;
+      goto LABEL_11;
     }
 
     if (var0 == -1)
     {
       if (!_LogCategory_Initialize())
       {
-        goto LABEL_18;
+        goto LABEL_11;
       }
 
       ucat = self->_ucat;
     }
 
-    if (self->_targetUserSession)
-    {
-      v9 = "(TargetUserSession)";
-    }
-
-    else
-    {
-      v9 = "";
-    }
-
-    v15 = v9;
-    goto LABEL_14;
+    LogPrintF(ucat, "[RPDiscovery _activateWithCompletion:reactivate:]", 30, "Activate %s\n");
+    goto LABEL_11;
   }
 
   if (var0 > 30)
   {
-    goto LABEL_18;
+    goto LABEL_11;
   }
 
   if (var0 != -1)
@@ -344,44 +330,32 @@ LABEL_19:
 
   if (_LogCategory_Initialize())
   {
-    v10 = self->_ucat;
+    ucat = self->_ucat;
 LABEL_4:
-    if (self->_targetUserSession)
-    {
-      v8 = "(TargetUserSession)";
-    }
-
-    else
-    {
-      v8 = "";
-    }
-
-    v15 = v8;
-LABEL_14:
-    LogPrintF();
+    LogPrintF(ucat, "[RPDiscovery _activateWithCompletion:reactivate:]", 30, "Re-activate %s\n");
   }
 
-LABEL_18:
+LABEL_11:
   if ([(RPDiscovery *)self _ensureXPCStarted])
   {
     xpcCnx = self->_xpcCnx;
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __50__RPDiscovery__activateWithCompletion_reactivate___block_invoke;
-    v19[3] = &unk_1E7C93500;
-    v21 = reactivateCopy;
-    v19[4] = self;
-    v12 = completionCopy;
-    v20 = v12;
-    v13 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v19];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __50__RPDiscovery__activateWithCompletion_reactivate___block_invoke_2;
-    v16[3] = &unk_1E7C93528;
-    v18 = reactivateCopy;
-    v16[4] = self;
-    v17 = v12;
-    [v13 xpcDiscoveryActivate:self completion:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __50__RPDiscovery__activateWithCompletion_reactivate___block_invoke;
+    v15[3] = &unk_1E7C93500;
+    v17 = reactivateCopy;
+    v15[4] = self;
+    v10 = completionCopy;
+    v16 = v10;
+    v11 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v15];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __50__RPDiscovery__activateWithCompletion_reactivate___block_invoke_2;
+    v12[3] = &unk_1E7C93528;
+    v14 = reactivateCopy;
+    v12[4] = self;
+    v13 = v10;
+    [v11 xpcDiscoveryActivate:self completion:v12];
   }
 
   else
@@ -396,46 +370,47 @@ LABEL_18:
 
 void __50__RPDiscovery__activateWithCompletion_reactivate___block_invoke(uint64_t a1, void *a2)
 {
-  v8 = a2;
-  v3 = **(*(a1 + 32) + 40);
-  if (*(a1 + 48) != 1)
+  v6 = a2;
+  v3 = *(*(a1 + 32) + 40);
+  v4 = *v3;
+  if (*(a1 + 48) == 1)
   {
-    if (v3 > 90)
+    if (v4 > 90)
     {
       goto LABEL_12;
     }
 
-    if (v3 == -1)
+    if (v4 != -1)
+    {
+      goto LABEL_4;
+    }
+
+    if (_LogCategory_Initialize())
+    {
+      v3 = *(*(a1 + 32) + 40);
+LABEL_4:
+      LogPrintF(v3, "[RPDiscovery _activateWithCompletion:reactivate:]_block_invoke", 90, "### Re-activate XPC error: %{error}\n", v6);
+    }
+  }
+
+  else
+  {
+    if (v4 > 90)
+    {
+      goto LABEL_12;
+    }
+
+    if (v4 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_12;
       }
 
-      v6 = *(*(a1 + 32) + 40);
+      v3 = *(*(a1 + 32) + 40);
     }
 
-    v7 = v8;
-    goto LABEL_8;
-  }
-
-  if (v3 > 90)
-  {
-    goto LABEL_12;
-  }
-
-  if (v3 != -1)
-  {
-    goto LABEL_4;
-  }
-
-  if (_LogCategory_Initialize())
-  {
-    v4 = *(*(a1 + 32) + 40);
-LABEL_4:
-    v7 = v8;
-LABEL_8:
-    LogPrintF();
+    LogPrintF(v3, "[RPDiscovery _activateWithCompletion:reactivate:]_block_invoke", 90, "### Activate XPC error: %{error}\n", v6);
   }
 
 LABEL_12:
@@ -449,204 +424,197 @@ LABEL_12:
 
 void __50__RPDiscovery__activateWithCompletion_reactivate___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v47 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (!v6)
   {
-    v8 = *(a1 + 32);
-    objc_sync_enter(v8);
-    v41 = 0u;
-    v42 = 0u;
-    v43 = 0u;
-    v44 = 0u;
-    v9 = v5;
-    v10 = [v9 countByEnumeratingWithState:&v41 objects:v46 count:16];
-    if (v10)
+    v9 = *(a1 + 32);
+    objc_sync_enter(v9);
+    v35 = 0u;
+    v36 = 0u;
+    v37 = 0u;
+    v38 = 0u;
+    v10 = v5;
+    v11 = [v10 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    if (v11)
     {
-      v11 = *v42;
+      v12 = *v36;
       do
       {
-        for (i = 0; i != v10; ++i)
+        for (i = 0; i != v11; ++i)
         {
-          if (*v42 != v11)
+          if (*v36 != v12)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v10);
           }
 
-          v13 = *(*(&v41 + 1) + 8 * i);
-          v14 = *(*(a1 + 32) + 16);
-          if (!v14)
+          v14 = *(*(&v35 + 1) + 8 * i);
+          v15 = *(*(a1 + 32) + 16);
+          if (!v15)
           {
-            v15 = objc_alloc_init(MEMORY[0x1E695DF90]);
-            v16 = *(a1 + 32);
-            v17 = *(v16 + 16);
-            *(v16 + 16) = v15;
+            v16 = objc_alloc_init(MEMORY[0x1E695DF90]);
+            v17 = *(a1 + 32);
+            v18 = *(v17 + 16);
+            *(v17 + 16) = v16;
 
-            v14 = *(*(a1 + 32) + 16);
+            v15 = *(*(a1 + 32) + 16);
           }
 
-          v18 = [v13 identifier];
-          [v14 setObject:v13 forKeyedSubscript:v18];
+          v19 = [v14 identifier];
+          [v15 setObject:v14 forKeyedSubscript:v19];
         }
 
-        v10 = [v9 countByEnumeratingWithState:&v41 objects:v46 count:16];
+        v11 = [v10 countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
-      while (v10);
+      while (v11);
     }
 
-    objc_sync_exit(v8);
-    v19 = **(*(a1 + 32) + 40);
+    objc_sync_exit(v9);
+    v20 = *(*(a1 + 32) + 40);
+    v21 = *v20;
     if (*(a1 + 48) == 1)
     {
-      if (v19 > 30)
+      if (v21 <= 30)
       {
-LABEL_38:
-        v27 = *(a1 + 40);
-        if (v27)
+        if (v21 == -1)
         {
-          (*(v27 + 16))(v27, 0);
+          if (!_LogCategory_Initialize())
+          {
+            goto LABEL_38;
+          }
+
+          v20 = *(*(a1 + 32) + 40);
         }
 
-        v28 = _Block_copy(*(*(a1 + 32) + 104));
-        if (v28)
+        LogPrintF(v20, "-[RPDiscovery _activateWithCompletion:reactivate:]_block_invoke_2", 30, "Re-activated: %d existing\n", [v10 count]);
+      }
+    }
+
+    else if (v21 <= 30)
+    {
+      if (v21 == -1)
+      {
+        if (!_LogCategory_Initialize())
         {
-          v39 = 0u;
-          v40 = 0u;
-          v37 = 0u;
-          v38 = 0u;
-          v29 = v9;
-          v30 = [v29 countByEnumeratingWithState:&v37 objects:v45 count:16];
-          if (v30)
+          goto LABEL_38;
+        }
+
+        v20 = *(*(a1 + 32) + 40);
+      }
+
+      LogPrintF(v20, "-[RPDiscovery _activateWithCompletion:reactivate:]_block_invoke_2", 30, "Activated: %d existing\n", [v10 count]);
+    }
+
+LABEL_38:
+    v25 = *(a1 + 40);
+    if (v25)
+    {
+      (*(v25 + 16))(v25, 0);
+    }
+
+    v26 = _Block_copy(*(*(a1 + 32) + 104));
+    if (v26)
+    {
+      v33 = 0u;
+      v34 = 0u;
+      v31 = 0u;
+      v32 = 0u;
+      v27 = v10;
+      v28 = [v27 countByEnumeratingWithState:&v31 objects:v39 count:16];
+      if (v28)
+      {
+        v29 = *v32;
+        do
+        {
+          for (j = 0; j != v28; ++j)
           {
-            v31 = *v38;
-            do
+            if (*v32 != v29)
             {
-              for (j = 0; j != v30; ++j)
-              {
-                if (*v38 != v31)
-                {
-                  objc_enumerationMutation(v29);
-                }
-
-                v28[2](v28, *(*(&v37 + 1) + 8 * j));
-              }
-
-              v30 = [v29 countByEnumeratingWithState:&v37 objects:v45 count:16];
+              objc_enumerationMutation(v27);
             }
 
-            while (v30);
+            v26[2](v26, *(*(&v31 + 1) + 8 * j));
           }
+
+          v28 = [v27 countByEnumeratingWithState:&v31 objects:v39 count:16];
         }
 
-        v6 = 0;
-        goto LABEL_50;
-      }
-
-      if (v19 == -1)
-      {
-        v24 = *(*(a1 + 32) + 40);
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_38;
-        }
-
-        v25 = *(*(a1 + 32) + 40);
+        while (v28);
       }
     }
 
-    else
-    {
-      if (v19 > 30)
-      {
-        goto LABEL_38;
-      }
-
-      if (v19 == -1)
-      {
-        v26 = *(*(a1 + 32) + 40);
-        if (!_LogCategory_Initialize())
-        {
-          goto LABEL_38;
-        }
-
-        v35 = *(*(a1 + 32) + 40);
-      }
-    }
-
-    [v9 count];
-    LogPrintF();
-    goto LABEL_38;
+    v6 = 0;
+    goto LABEL_50;
   }
 
-  v7 = **(*(a1 + 32) + 40);
-  if (*(a1 + 48) != 1)
+  v7 = *(*(a1 + 32) + 40);
+  v8 = *v7;
+  if (*(a1 + 48) == 1)
   {
-    if (v7 > 90)
+    if (v8 > 90)
     {
       goto LABEL_29;
     }
 
-    if (v7 == -1)
+    if (v8 != -1)
+    {
+      goto LABEL_5;
+    }
+
+    if (_LogCategory_Initialize())
+    {
+      v7 = *(*(a1 + 32) + 40);
+LABEL_5:
+      LogPrintF(v7, "[RPDiscovery _activateWithCompletion:reactivate:]_block_invoke_2", 90, "### Re-activate failed: %{error}\n", v6);
+    }
+  }
+
+  else
+  {
+    if (v8 > 90)
+    {
+      goto LABEL_29;
+    }
+
+    if (v8 == -1)
     {
       if (!_LogCategory_Initialize())
       {
         goto LABEL_29;
       }
 
-      v34 = *(*(a1 + 32) + 40);
+      v7 = *(*(a1 + 32) + 40);
     }
 
-    v36 = v6;
-    goto LABEL_22;
-  }
-
-  if (v7 > 90)
-  {
-    goto LABEL_29;
-  }
-
-  if (v7 != -1)
-  {
-    goto LABEL_5;
-  }
-
-  if (_LogCategory_Initialize())
-  {
-    v20 = *(*(a1 + 32) + 40);
-LABEL_5:
-    v36 = v6;
-LABEL_22:
-    LogPrintF();
+    LogPrintF(v7, "[RPDiscovery _activateWithCompletion:reactivate:]_block_invoke_2", 90, "### Activate failed: %{error}\n", v6);
   }
 
 LABEL_29:
   if ([v6 code] == -71168)
   {
-    v21 = *(a1 + 40);
-    if (v21)
+    v22 = *(a1 + 40);
+    if (v22)
     {
-      v22 = *(v21 + 16);
+      v23 = *(v22 + 16);
 LABEL_34:
-      v22();
+      v23();
     }
   }
 
   else
   {
     [*(a1 + 32) _scheduleRetry];
-    v23 = *(a1 + 40);
-    if (v23)
+    v24 = *(a1 + 40);
+    if (v24)
     {
-      v22 = *(v23 + 16);
+      v23 = *(v24 + 16);
       goto LABEL_34;
     }
   }
 
 LABEL_50:
-
-  v33 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_ensureXPCStarted
@@ -669,23 +637,23 @@ LABEL_50:
 
     [(NSXPCConnection *)self->_xpcCnx setExportedObject:self];
     [(NSXPCConnection *)self->_xpcCnx setRemoteObjectInterface:v3];
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __32__RPDiscovery__ensureXPCStarted__block_invoke;
-    v14[3] = &unk_1E7C92CE8;
-    v14[4] = self;
-    [(NSXPCConnection *)self->_xpcCnx setInterruptionHandler:v14];
     v13[0] = MEMORY[0x1E69E9820];
     v13[1] = 3221225472;
-    v13[2] = __32__RPDiscovery__ensureXPCStarted__block_invoke_2;
+    v13[2] = __32__RPDiscovery__ensureXPCStarted__block_invoke;
     v13[3] = &unk_1E7C92CE8;
     v13[4] = self;
-    [(NSXPCConnection *)self->_xpcCnx setInvalidationHandler:v13];
+    [(NSXPCConnection *)self->_xpcCnx setInterruptionHandler:v13];
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __32__RPDiscovery__ensureXPCStarted__block_invoke_2;
+    v12[3] = &unk_1E7C92CE8;
+    v12[4] = self;
+    [(NSXPCConnection *)self->_xpcCnx setInvalidationHandler:v12];
     [(NSXPCConnection *)self->_xpcCnx resume];
-    var0 = self->_ucat->var0;
-    if (var0 <= 10)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 10)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -695,7 +663,7 @@ LABEL_50:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[RPDiscovery _ensureXPCStarted]", 10, "XPC started\n");
     }
 
 LABEL_6:
@@ -711,24 +679,25 @@ uint64_t __32__RPDiscovery__ensureXPCStarted__block_invoke_2(uint64_t a1)
   *(v2 + 48) = 0;
 
   v4 = *(a1 + 32);
-  v5 = **(v4 + 40);
+  v5 = *(v4 + 40);
+  v6 = *v5;
   if (*(v4 + 24) == 1)
   {
-    if (v5 <= 30)
+    if (v6 <= 30)
     {
-      if (v5 == -1)
+      if (v6 == -1)
       {
-        v6 = _LogCategory_Initialize();
+        v7 = _LogCategory_Initialize();
         v4 = *(a1 + 32);
-        if (!v6)
+        if (!v7)
         {
           goto LABEL_9;
         }
 
-        v9 = *(v4 + 40);
+        v5 = *(v4 + 40);
       }
 
-      LogPrintF();
+      LogPrintF(v5, "[RPDiscovery _ensureXPCStarted]_block_invoke_2", 30, "XPC invalidated\n");
       v4 = *(a1 + 32);
     }
 
@@ -737,21 +706,21 @@ LABEL_9:
     return [v4 _invalidated];
   }
 
-  if (v5 <= 90)
+  if (v6 <= 90)
   {
-    if (v5 == -1)
+    if (v6 == -1)
     {
-      v8 = _LogCategory_Initialize();
+      v9 = _LogCategory_Initialize();
       v4 = *(a1 + 32);
-      if (!v8)
+      if (!v9)
       {
         goto LABEL_13;
       }
 
-      v10 = *(v4 + 40);
+      v5 = *(v4 + 40);
     }
 
-    LogPrintF();
+    LogPrintF(v5, "[RPDiscovery _ensureXPCStarted]_block_invoke_2", 90, "### XPC invalidated...will retry\n");
     v4 = *(a1 + 32);
   }
 
@@ -763,13 +732,13 @@ LABEL_13:
 - (void)_interrupted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  var0 = self->_ucat->var0;
-  if (var0 <= 50)
+  ucat = self->_ucat;
+  if (ucat->var0 <= 50)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(ucat, "[RPDiscovery _interrupted]", 50, "### Interrupted\n");
       goto LABEL_5;
     }
 
@@ -807,36 +776,36 @@ LABEL_5:
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __25__RPDiscovery_invalidate__block_invoke(uint64_t result)
+void *__25__RPDiscovery_invalidate__block_invoke(void *result)
 {
-  v5 = *(result + 32);
+  v5 = result[4];
   if (*(v5 + 24))
   {
     return result;
   }
 
-  v16 = v2;
-  v17 = v1;
+  v15 = v2;
+  v16 = v1;
   v6 = result;
   *(v5 + 24) = 1;
-  v7 = *(result + 32);
-  v8 = **(v7 + 40);
-  if (v8 <= 30)
+  v7 = result[4];
+  v8 = *(v7 + 40);
+  if (*v8 <= 30)
   {
-    if (v8 == -1)
+    if (*v8 == -1)
     {
       v9 = _LogCategory_Initialize();
-      v7 = *(v6 + 32);
+      v7 = v6[4];
       if (!v9)
       {
         goto LABEL_6;
       }
 
-      v15 = *(v7 + 40);
+      v8 = *(v7 + 40);
     }
 
-    LogPrintF();
-    v7 = *(v6 + 32);
+    LogPrintF(v8, "[RPDiscovery invalidate]_block_invoke", 30, "Invalidating\n", v2, v16, v3);
+    v7 = v6[4];
   }
 
 LABEL_6:
@@ -845,13 +814,13 @@ LABEL_6:
   {
     v11 = v10;
     dispatch_source_cancel(v11);
-    v12 = *(v6 + 32);
+    v12 = v6[4];
     v13 = *(v12 + 32);
     *(v12 + 32) = 0;
   }
 
-  [*(*(v6 + 32) + 48) invalidate];
-  v14 = *(v6 + 32);
+  [*(v6[4] + 48) invalidate];
+  v14 = v6[4];
 
   return [v14 _invalidated];
 }
@@ -891,10 +860,10 @@ LABEL_6:
     self->_invalidationHandler = 0;
 
     self->_invalidateDone = 1;
-    var0 = self->_ucat->var0;
-    if (var0 <= 30)
+    ucat = self->_ucat;
+    if (ucat->var0 <= 30)
     {
-      if (var0 == -1)
+      if (ucat->var0 == -1)
       {
         if (!_LogCategory_Initialize())
         {
@@ -904,7 +873,7 @@ LABEL_6:
         ucat = self->_ucat;
       }
 
-      LogPrintF();
+      LogPrintF(ucat, "[RPDiscovery _invalidated]", 30, "Invalidated\n");
     }
   }
 }
@@ -924,7 +893,6 @@ LABEL_6:
     handler[3] = &unk_1E7C92CE8;
     handler[4] = self;
     dispatch_source_set_event_handler(v5, handler);
-    v6 = self->_retryTimer;
     CUDispatchTimerSet();
     dispatch_resume(self->_retryTimer);
   }
@@ -933,13 +901,13 @@ LABEL_6:
 _BYTE *__29__RPDiscovery__scheduleRetry__block_invoke(uint64_t a1)
 {
   v2 = *(a1 + 32);
-  v3 = **(v2 + 40);
-  if (v3 <= 30)
+  v3 = *(v2 + 40);
+  if (*v3 <= 30)
   {
-    if (v3 != -1)
+    if (*v3 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(v3, "[RPDiscovery _scheduleRetry]_block_invoke", 30, "Retry timer fired\n");
       v2 = *(a1 + 32);
       goto LABEL_5;
     }
@@ -948,7 +916,7 @@ LABEL_3:
     v2 = *(a1 + 32);
     if (v4)
     {
-      v10 = *(v2 + 40);
+      v3 = *(v2 + 40);
       goto LABEL_3;
     }
   }
@@ -996,14 +964,14 @@ LABEL_5:
 
 - (void)_lostAllEndpoints
 {
-  v19 = *MEMORY[0x1E69E9840];
-  var0 = self->_ucat->var0;
-  if (var0 <= 30)
+  v17 = *MEMORY[0x1E69E9840];
+  ucat = self->_ucat;
+  if (ucat->var0 <= 30)
   {
-    if (var0 != -1)
+    if (ucat->var0 != -1)
     {
 LABEL_3:
-      LogPrintF();
+      LogPrintF(ucat, "[RPDiscovery _lostAllEndpoints]", 30, "Removing all endpoints\n");
       goto LABEL_5;
     }
 
@@ -1025,30 +993,28 @@ LABEL_5:
     [(NSMutableDictionary *)selfCopy->_endpointMap removeAllObjects];
     objc_sync_exit(selfCopy);
 
-    v16 = 0u;
-    v17 = 0u;
     v14 = 0u;
     v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     v8 = allValues;
-    v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v9)
     {
-      v10 = *v15;
+      v10 = *v13;
       do
       {
-        v11 = 0;
-        do
+        for (i = 0; i != v9; ++i)
         {
-          if (*v15 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(v8);
           }
 
-          v4[2](v4, *(*(&v14 + 1) + 8 * v11++));
+          v4[2](v4, *(*(&v12 + 1) + 8 * i));
         }
 
-        while (v9 != v11);
-        v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
@@ -1060,8 +1026,6 @@ LABEL_5:
     [(NSMutableDictionary *)endpointMap removeAllObjects];
     objc_sync_exit(selfCopy);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)xpcDiscoveryFoundEndpoint:(id)endpoint

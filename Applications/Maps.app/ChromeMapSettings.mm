@@ -680,7 +680,7 @@ LABEL_45:
         if (isAuthorizedForPreciseLocation)
         {
           memset(buf, 0, sizeof(buf));
-          [v27 _userTrackingBehavior];
+          objc_msgSend__userTrackingBehavior(v27);
           buf[0] = 0;
           *location = *buf;
           location[2] = *&buf[16];

@@ -77,18 +77,25 @@ _DWORD *__69__ICStateHandler_addStateHandlerWithName_sysdiagnoseOnly_stateBlock_
   return v9;
 }
 
++ (void)addStateHandlerWithName:(uint64_t)a3 sysdiagnoseOnly:(uint64_t)a4 stateBlock:(uint64_t)a5 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_3(&dword_1D4576000, a2, a3, "Adding os_state handler: %s", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
 void __69__ICStateHandler_addStateHandlerWithName_sysdiagnoseOnly_stateBlock___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_3(&dword_1D4576000, v0, v1, "Skipped os_state handler: %s", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_3(&dword_1D4576000, v0, v1, "Skipped os_state handler: %s", v2, v3, v4, v5);
 }
 
 void __69__ICStateHandler_addStateHandlerWithName_sysdiagnoseOnly_stateBlock___block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_2_1(*MEMORY[0x1E69E9840]);
   OUTLINED_FUNCTION_6();
-  OUTLINED_FUNCTION_3(&dword_1D4576000, v0, v1, "Processing os_state handler: %s", v2, v3, v4, v5, v6);
+  OUTLINED_FUNCTION_3(&dword_1D4576000, v0, v1, "Processing os_state handler: %s", v2, v3, v4, v5);
 }
 
 void __69__ICStateHandler_addStateHandlerWithName_sysdiagnoseOnly_stateBlock___block_invoke_cold_3()

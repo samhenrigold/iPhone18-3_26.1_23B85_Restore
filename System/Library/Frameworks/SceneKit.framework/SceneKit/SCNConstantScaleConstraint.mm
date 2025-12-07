@@ -12,18 +12,19 @@
 
 - (SCNConstantScaleConstraint)init
 {
-  v5.receiver = self;
-  v5.super_class = SCNConstantScaleConstraint;
-  v2 = [(SCNConstraint *)&v5 init];
+  v7.receiver = self;
+  v7.super_class = SCNConstantScaleConstraint;
+  v2 = [(SCNConstraint *)&v7 init];
+  v4 = v2;
   if (v2)
   {
-    ConstantScale = C3DConstraintCreateConstantScale();
-    v2->_scale = 1.0;
-    v2->super._constraintRef = ConstantScale;
-    v2->_screenSpace = 1;
+    ConstantScale = C3DConstraintCreateConstantScale(v2, v3);
+    v4->_scale = 1.0;
+    v4->super._constraintRef = ConstantScale;
+    v4->_screenSpace = 1;
   }
 
-  return v2;
+  return v4;
 }
 
 + (id)constantScaleConstraint
@@ -80,21 +81,22 @@
 
 - (SCNConstantScaleConstraint)initWithCoder:(id)coder
 {
-  v7.receiver = self;
-  v7.super_class = SCNConstantScaleConstraint;
-  v4 = [(SCNConstraint *)&v7 initWithCoder:?];
+  v9.receiver = self;
+  v9.super_class = SCNConstantScaleConstraint;
+  v4 = [(SCNConstraint *)&v9 initWithCoder:?];
+  v6 = v4;
   if (v4)
   {
-    v4->super._constraintRef = C3DConstraintCreateConstantScale();
-    v5 = +[SCNTransaction immediateMode];
+    v4->super._constraintRef = C3DConstraintCreateConstantScale(v4, v5);
+    v7 = +[SCNTransaction immediateMode];
     [SCNTransaction setImmediateMode:1];
-    -[SCNConstantScaleConstraint setScreenSpace:](v4, "setScreenSpace:", [coder decodeBoolForKey:@"screenSpace"]);
+    -[SCNConstantScaleConstraint setScreenSpace:](v6, "setScreenSpace:", [coder decodeBoolForKey:@"screenSpace"]);
     [coder decodeFloatForKey:@"scale"];
-    [(SCNConstantScaleConstraint *)v4 setScale:?];
-    [SCNTransaction setImmediateMode:v5];
+    [(SCNConstantScaleConstraint *)v6 setScale:?];
+    [SCNTransaction setImmediateMode:v7];
   }
 
-  return v4;
+  return v6;
 }
 
 @end

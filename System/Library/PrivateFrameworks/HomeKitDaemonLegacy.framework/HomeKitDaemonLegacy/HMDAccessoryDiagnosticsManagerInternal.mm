@@ -32,15 +32,13 @@
 
 - (id)attributeDescriptions
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   accessory = [(HMDAccessoryDiagnosticsManagerInternal *)self accessory];
   uuid = [accessory uuid];
   v6 = [v3 initWithName:@"Accessory UUID" value:uuid];
-  v10[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v9[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
 
   return v7;
 }
@@ -126,7 +124,7 @@ void __78__HMDAccessoryDiagnosticsManagerInternal_notifyClientsOfSupportedDiagno
 
 - (void)_handleDiagnosticsTransferRequest:(id)request
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   v5 = objc_autoreleasePoolPush();
   selfCopy = self;
@@ -135,7 +133,7 @@ void __78__HMDAccessoryDiagnosticsManagerInternal_notifyClientsOfSupportedDiagno
   {
     v8 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v26 = v8;
+    v25 = v8;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Received message to start diagnostics transfer", buf, 0xCu);
   }
 
@@ -150,9 +148,9 @@ void __78__HMDAccessoryDiagnosticsManagerInternal_notifyClientsOfSupportedDiagno
 
     if (v12)
     {
-      v24 = 0;
-      v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v12 error:&v24];
-      v14 = v24;
+      v23 = 0;
+      v13 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v12 error:&v23];
+      v14 = v23;
     }
 
     else
@@ -168,9 +166,9 @@ void __78__HMDAccessoryDiagnosticsManagerInternal_notifyClientsOfSupportedDiagno
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v22;
-      v27 = 2112;
-      v28 = v14;
+      v25 = v22;
+      v26 = 2112;
+      v27 = v14;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Decoded diagnostics options with error %@", buf, 0x16u);
     }
 
@@ -195,9 +193,9 @@ void __78__HMDAccessoryDiagnosticsManagerInternal_notifyClientsOfSupportedDiagno
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v26 = v18;
-      v27 = 2112;
-      v28 = requestCopy;
+      v25 = v18;
+      v26 = 2112;
+      v27 = requestCopy;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_INFO, "%{public}@Diagnostics transfer request message: %@ when accessory is not reachable", buf, 0x16u);
     }
 
@@ -205,26 +203,22 @@ void __78__HMDAccessoryDiagnosticsManagerInternal_notifyClientsOfSupportedDiagno
     v14 = [MEMORY[0x277CCA9B8] hmErrorWithCode:4];
     [requestCopy respondWithError:v14];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerForMessages
 {
-  v12[3] = *MEMORY[0x277D85DE8];
+  v11[3] = *MEMORY[0x277D85DE8];
   msgDispatcher = [(HMDAccessoryDiagnosticsManagerInternal *)self msgDispatcher];
   v4 = *MEMORY[0x277CCEA30];
   v5 = [HMDXPCMessagePolicy policyWithEntitlements:32773];
   v6 = +[HMDRemoteMessagePolicy defaultSecurePolicy];
-  v12[1] = v6;
+  v11[1] = v6;
   accessory = [(HMDAccessoryDiagnosticsManagerInternal *)self accessory];
   home = [accessory home];
   v9 = [HMDUserMessagePolicy userMessagePolicyWithHome:home userPrivilege:4 remoteAccessRequired:0];
-  v12[2] = v9;
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:3];
+  v11[2] = v9;
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:3];
   [msgDispatcher registerForMessage:v4 receiver:self policies:v10 selector:sel__handleDiagnosticsTransferRequest_];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDAccessoryDiagnosticsManagerInternal)initWithAccessory:(id)accessory
@@ -272,12 +266,11 @@ void __78__HMDAccessoryDiagnosticsManagerInternal_notifyClientsOfSupportedDiagno
 
 uint64_t __53__HMDAccessoryDiagnosticsManagerInternal_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v4_43181;
-  logCategory__hmf_once_v4_43181 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v4_43181;
+  logCategory__hmf_once_v4_43181 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

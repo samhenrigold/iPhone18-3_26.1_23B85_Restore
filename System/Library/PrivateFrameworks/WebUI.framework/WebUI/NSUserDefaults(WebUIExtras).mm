@@ -11,9 +11,9 @@
     +[NSUserDefaults(WebUIExtras) webui_defaults];
   }
 
-  v1 = webui_defaults_userDefaults;
+  v2 = webui_defaults_userDefaults;
 
-  return v1;
+  return v2;
 }
 
 @end

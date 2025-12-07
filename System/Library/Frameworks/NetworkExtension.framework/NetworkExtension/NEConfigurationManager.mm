@@ -81,7 +81,7 @@
 
 - (void)addGroups:(id)groups forApp:(id)app
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   groupsCopy = groups;
   appCopy = app;
   os_unfair_lock_lock(&self->_lock);
@@ -91,27 +91,27 @@
     [(NEConfigurationManager *)self setAppGroupMap:v8];
   }
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v9 = groupsCopy;
-  v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v22;
+    v12 = *v21;
     do
     {
       v13 = 0;
       do
       {
-        if (*v22 != v12)
+        if (*v21 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = *(*(&v21 + 1) + 8 * v13);
+        v14 = *(*(&v20 + 1) + 8 * v13);
         if (self)
         {
           appGroupMap = self->_appGroupMap;
@@ -122,9 +122,9 @@
           appGroupMap = 0;
         }
 
-        v16 = [(NSMutableDictionary *)appGroupMap objectForKeyedSubscript:*(*(&v21 + 1) + 8 * v13), v21];
+        v16 = [(NSMutableDictionary *)appGroupMap objectForKeyedSubscript:*(*(&v20 + 1) + 8 * v13), v20];
         v17 = v16;
-        if (!v16 || ([v16 isEqualToString:appCopy] & 1) == 0)
+        if (!v16 || (objc_msgSend_isEqualToString_(v16) & 1) == 0)
         {
           [(NEConfigurationManager *)self setAppGroupsChanged:1];
         }
@@ -145,7 +145,7 @@
       }
 
       while (v11 != v13);
-      v19 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v19 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
       v11 = v19;
     }
 
@@ -153,7 +153,6 @@
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setAppGroupMap:(uint64_t)map
@@ -192,29 +191,29 @@ LABEL_5:
 
 - (id)getCurrentUserUUIDForConfigurationID:(id)d fromIndex:(id)index
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   dCopy = d;
   indexCopy = index;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v7 = [indexCopy objectForKeyedSubscript:{@"UserMap", 0}];
-  v8 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v19;
+    v10 = *v18;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v19 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v18 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         v13 = [indexCopy objectForKeyedSubscript:@"UserMap"];
         v14 = [v13 objectForKeyedSubscript:v12];
 
@@ -226,7 +225,7 @@ LABEL_5:
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v9)
       {
         continue;
@@ -238,8 +237,6 @@ LABEL_5:
 
   v15 = 0;
 LABEL_12:
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -376,7 +373,7 @@ void __82__NEConfigurationManager_fetchClientListenerWithBundleID_completionQueu
 
 - (void)showLocalNetworkAlertForApp:(id)app pid:(int)pid uuid:(id)uuid query:(id)query hasEntitlement:(BOOL)entitlement completionQueue:(id)queue handler:(id)handler
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   uuidCopy = uuid;
   queryCopy = query;
   queueCopy = queue;
@@ -408,7 +405,7 @@ void __82__NEConfigurationManager_fetchClientListenerWithBundleID_completionQueu
   block[1] = 3221225472;
   block[2] = __108__NEConfigurationManager_showLocalNetworkAlertForApp_pid_uuid_query_hasEntitlement_completionQueue_handler___block_invoke;
   block[3] = &unk_1E7F0B600;
-  v35 = handlerCopy;
+  v34 = handlerCopy;
   dispatch_async(queueCopy, block);
 
   if (pid)
@@ -464,46 +461,42 @@ LABEL_18:
 
 LABEL_16:
   xpc_dictionary_set_BOOL(v20, "has-entitlement", entitlement);
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __108__NEConfigurationManager_showLocalNetworkAlertForApp_pid_uuid_query_hasEntitlement_completionQueue_handler___block_invoke_258;
-  v31[3] = &unk_1E7F07AA0;
-  v32 = queueCopy;
-  v33 = handlerCopy;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __108__NEConfigurationManager_showLocalNetworkAlertForApp_pid_uuid_query_hasEntitlement_completionQueue_handler___block_invoke_258;
+  v30[3] = &unk_1E7F07AA0;
+  v31 = queueCopy;
+  v32 = handlerCopy;
   v28 = handlerCopy;
   v29 = queueCopy;
-  [(NEConfigurationManager *)self sendRequest:v20 responseHandler:v31];
-
-  v30 = *MEMORY[0x1E69E9840];
+  [(NEConfigurationManager *)self sendRequest:v20 responseHandler:v30];
 }
 
 uint64_t __108__NEConfigurationManager_showLocalNetworkAlertForApp_pid_uuid_query_hasEntitlement_completionQueue_handler___block_invoke(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    v5[0] = 67109120;
-    v5[1] = 0;
-    _os_log_error_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_ERROR, "Calling handler with failure: %u", v5, 8u);
+    v4[0] = 67109120;
+    v4[1] = 0;
+    _os_log_error_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_ERROR, "Calling handler with failure: %u", v4, 8u);
   }
 
-  result = (*(*(a1 + 32) + 16))();
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 void __108__NEConfigurationManager_showLocalNetworkAlertForApp_pid_uuid_query_hasEntitlement_completionQueue_handler___block_invoke_258(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = a4;
   v7 = ne_log_obj();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 134218242;
-    v17 = a3;
-    v18 = 2112;
-    v19 = v6;
+    v16 = a3;
+    v17 = 2112;
+    v18 = v6;
     _os_log_debug_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_DEBUG, "Got response, result_code: %llu, response_data: %@", buf, 0x16u);
   }
 
@@ -546,7 +539,7 @@ LABEL_13:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      LODWORD(v17) = value;
+      LODWORD(v16) = value;
       _os_log_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_INFO, "App got response: %u", buf, 8u);
     }
 
@@ -555,39 +548,34 @@ LABEL_13:
 
   LOBYTE(value) = 0;
 LABEL_16:
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __108__NEConfigurationManager_showLocalNetworkAlertForApp_pid_uuid_query_hasEntitlement_completionQueue_handler___block_invoke_259;
-  v13[3] = &unk_1E7F0AB40;
-  v15 = value;
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __108__NEConfigurationManager_showLocalNetworkAlertForApp_pid_uuid_query_hasEntitlement_completionQueue_handler___block_invoke_259;
+  v12[3] = &unk_1E7F0AB40;
+  v14 = value;
   v11 = *(a1 + 32);
-  v14 = *(a1 + 40);
-  dispatch_async(v11, v13);
-
-  v12 = *MEMORY[0x1E69E9840];
+  v13 = *(a1 + 40);
+  dispatch_async(v11, v12);
 }
 
 uint64_t __108__NEConfigurationManager_showLocalNetworkAlertForApp_pid_uuid_query_hasEntitlement_completionQueue_handler___block_invoke_259(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = ne_log_obj();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
   {
     v3 = *(a1 + 40);
-    v7[0] = 67109120;
-    v7[1] = v3;
-    _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_INFO, "Calling handler with newly allowed state: %u", v7, 8u);
+    v5[0] = 67109120;
+    v5[1] = v3;
+    _os_log_impl(&dword_1BA83C000, v2, OS_LOG_TYPE_INFO, "Calling handler with newly allowed state: %u", v5, 8u);
   }
 
-  v4 = *(a1 + 40);
-  result = (*(*(a1 + 32) + 16))();
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*(a1 + 32) + 16))();
 }
 
 - (void)triggerLocalAuthenticationForConfigurationWithID:(id)d withCompletionQueue:(id)queue handler:(id)handler
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   queueCopy = queue;
   handlerCopy = handler;
   dCopy = d;
@@ -598,17 +586,15 @@ uint64_t __108__NEConfigurationManager_showLocalNetworkAlertForApp_pid_uuid_quer
   [dCopy getUUIDBytes:uu];
 
   xpc_dictionary_set_uuid(v11, "config-identifier", uu);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __103__NEConfigurationManager_triggerLocalAuthenticationForConfigurationWithID_withCompletionQueue_handler___block_invoke;
-  v15[3] = &unk_1E7F07AA0;
-  v16 = queueCopy;
-  v17 = handlerCopy;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __103__NEConfigurationManager_triggerLocalAuthenticationForConfigurationWithID_withCompletionQueue_handler___block_invoke;
+  v14[3] = &unk_1E7F07AA0;
+  v15 = queueCopy;
+  v16 = handlerCopy;
   v12 = handlerCopy;
   v13 = queueCopy;
-  [(NEConfigurationManager *)self sendRequest:v11 responseHandler:v15];
-
-  v14 = *MEMORY[0x1E69E9840];
+  [(NEConfigurationManager *)self sendRequest:v11 responseHandler:v14];
 }
 
 - (void)copyIdentities:(id)identities fromDomain:(int64_t)domain withCompletionQueue:(id)queue handler:(id)handler
@@ -652,20 +638,20 @@ uint64_t __108__NEConfigurationManager_showLocalNetworkAlertForApp_pid_uuid_quer
 
 void __80__NEConfigurationManager_copyIdentities_fromDomain_withCompletionQueue_handler___block_invoke(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = ne_log_obj();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     v9 = *(a1 + 32);
     *buf = 138413058;
-    v19 = v9;
-    v20 = 1024;
-    v21 = a2;
-    v22 = 2048;
-    v23 = a3;
-    v24 = 2048;
-    v25 = v7;
+    v18 = v9;
+    v19 = 1024;
+    v20 = a2;
+    v21 = 2048;
+    v22 = a3;
+    v23 = 2048;
+    v24 = v7;
     _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_INFO, "%@ Loaded identities from nehelper, ipc_success = %d, result_code = %lld, response_data = %p", buf, 0x26u);
   }
 
@@ -679,18 +665,16 @@ void __80__NEConfigurationManager_copyIdentities_fromDomain_withCompletionQueue_
     v10 = 0;
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __80__NEConfigurationManager_copyIdentities_fromDomain_withCompletionQueue_handler___block_invoke_248;
-  v15[3] = &unk_1E7F0B588;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __80__NEConfigurationManager_copyIdentities_fromDomain_withCompletionQueue_handler___block_invoke_248;
+  v14[3] = &unk_1E7F0B588;
   v11 = *(a1 + 40);
   v12 = *(a1 + 48);
-  v16 = v10;
-  v17 = v12;
+  v15 = v10;
+  v16 = v12;
   v13 = v10;
-  dispatch_async(v11, v15);
-
-  v14 = *MEMORY[0x1E69E9840];
+  dispatch_async(v11, v14);
 }
 
 void __80__NEConfigurationManager_copyIdentities_fromDomain_withCompletionQueue_handler___block_invoke_2(uint64_t a1)
@@ -750,7 +734,7 @@ void __90__NEConfigurationManager_handleApplicationsRemoved_completionQueue_with
 
 void __90__NEConfigurationManager_handleApplicationsRemoved_completionQueue_withCompletionHandler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v92 = *MEMORY[0x1E69E9840];
+  v91 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -763,7 +747,7 @@ void __90__NEConfigurationManager_handleApplicationsRemoved_completionQueue_with
     Property = objc_getProperty(Property, v3, 88, 1);
   }
 
-  v72 = [Property allValues];
+  v71 = [Property allValues];
   v6 = SCPreferencesCreate(*MEMORY[0x1E695E480], @"NEConfigurationManager remove prefs", 0);
   v7 = ne_log_obj();
   v8 = v7;
@@ -772,11 +756,11 @@ void __90__NEConfigurationManager_handleApplicationsRemoved_completionQueue_with
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v67 = SCError();
+      v66 = SCError();
       *buf = 136315394;
-      v86 = SCErrorString(v67);
-      v87 = 1024;
-      LODWORD(v88) = SCError();
+      v85 = SCErrorString(v66);
+      v86 = 1024;
+      LODWORD(v87) = SCError();
       _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "SCPreferencesCreate failed while handling application removal: %s (%d)", buf, 0x12u);
     }
 
@@ -786,9 +770,9 @@ void __90__NEConfigurationManager_handleApplicationsRemoved_completionQueue_with
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v86 = "[NEConfigurationManager handleApplicationsRemoved:completionQueue:withCompletionHandler:]_block_invoke";
-    v87 = 1024;
-    LODWORD(v88) = 2594;
+    v85 = "[NEConfigurationManager handleApplicationsRemoved:completionQueue:withCompletionHandler:]_block_invoke";
+    v86 = 1024;
+    LODWORD(v87) = 2594;
     _os_log_debug_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEBUG, "%s:%d: Locking SCPreferences", buf, 0x12u);
   }
 
@@ -797,13 +781,13 @@ void __90__NEConfigurationManager_handleApplicationsRemoved_completionQueue_with
     v65 = ne_log_obj();
     if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
     {
-      v68 = SCError();
-      v69 = SCErrorString(v68);
-      v70 = SCError();
+      v67 = SCError();
+      v68 = SCErrorString(v67);
+      v69 = SCError();
       *buf = 136315394;
-      v86 = v69;
-      v87 = 1024;
-      LODWORD(v88) = v70;
+      v85 = v68;
+      v86 = 1024;
+      LODWORD(v87) = v69;
       _os_log_error_impl(&dword_1BA83C000, v65, OS_LOG_TYPE_ERROR, "SCPreferencesLock failed while handling application removal: %s (%d)", buf, 0x12u);
     }
 
@@ -814,34 +798,34 @@ LABEL_81:
     goto LABEL_82;
   }
 
-  v71 = 0;
-  v83 = 0u;
-  v84 = 0u;
-  v81 = 0u;
+  v70 = 0;
   v82 = 0u;
-  obj = v72;
-  v9 = [obj countByEnumeratingWithState:&v81 objects:v91 count:16];
+  v83 = 0u;
+  v80 = 0u;
+  v81 = 0u;
+  obj = v71;
+  v9 = [obj countByEnumeratingWithState:&v80 objects:v90 count:16];
   if (!v9)
   {
     goto LABEL_72;
   }
 
   v10 = v9;
-  v11 = *v82;
-  v80 = a1;
-  v73 = *v82;
+  v11 = *v81;
+  v79 = a1;
+  v72 = *v81;
   do
   {
     v12 = 0;
-    v76 = v10;
+    v75 = v10;
     do
     {
-      if (*v82 != v11)
+      if (*v81 != v11)
       {
         objc_enumerationMutation(obj);
       }
 
-      v13 = *(*(&v81 + 1) + 8 * v12);
+      v13 = *(*(&v80 + 1) + 8 * v12);
       v14 = [v13 pluginType];
       v15 = [v13 payloadInfo];
       if (v15)
@@ -876,7 +860,7 @@ LABEL_22:
           {
             v21 = [v13 name];
             *buf = 138412290;
-            v86 = v21;
+            v85 = v21;
             _os_log_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_INFO, "Removing configuration %@ because the corresponding VPN application has been removed", buf, 0xCu);
           }
 
@@ -905,11 +889,11 @@ LABEL_22:
             {
               v61 = [v13 name];
               *buf = 136315650;
-              v86 = "[NEConfigurationManager handleApplicationsRemoved:completionQueue:withCompletionHandler:]_block_invoke";
-              v87 = 2112;
-              v88 = v61;
-              v89 = 2112;
-              v90 = v15;
+              v85 = "[NEConfigurationManager handleApplicationsRemoved:completionQueue:withCompletionHandler:]_block_invoke";
+              v86 = 2112;
+              v87 = v61;
+              v88 = 2112;
+              v89 = v15;
               _os_log_error_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_ERROR, "%s: failed to remove configuration %@: %@", buf, 0x20u);
             }
 
@@ -937,7 +921,7 @@ LABEL_33:
       v28 = [v13 contentFilter];
       v29 = [v28 perApp];
 
-      v79 = v14;
+      v78 = v14;
       if (v29)
       {
         v30 = [v13 contentFilter];
@@ -1001,8 +985,8 @@ LABEL_43:
 
         if (v40)
         {
-          v75 = v37;
-          v78 = [v39 mutableCopy];
+          v74 = v37;
+          v77 = [v39 mutableCopy];
           v41 = [v39 count];
           if (v41 >= 1)
           {
@@ -1021,7 +1005,7 @@ LABEL_43:
               }
 
               --v42;
-              a1 = v80;
+              a1 = v79;
               if (v42 <= 1)
               {
                 goto LABEL_54;
@@ -1034,27 +1018,27 @@ LABEL_43:
               v48 = [v44 matchSigningIdentifier];
               v49 = [v13 name];
               *buf = 138412546;
-              v86 = v48;
-              v87 = 2112;
-              v88 = v49;
+              v85 = v48;
+              v86 = 2112;
+              v87 = v49;
               _os_log_impl(&dword_1BA83C000, v47, OS_LOG_TYPE_INFO, "Removing app rule %@ from configuration %@ because the corresponding application has been removed", buf, 0x16u);
             }
 
-            [v78 removeObjectAtIndex:v43];
-            a1 = v80;
+            [v77 removeObjectAtIndex:v43];
+            a1 = v79;
           }
 
 LABEL_54:
-          v50 = v78;
-          v51 = [v78 count];
-          v11 = v73;
-          v10 = v76;
+          v50 = v77;
+          v51 = [v77 count];
+          v11 = v72;
+          v10 = v75;
           if (v51 != [v39 count])
           {
             v53 = v27;
-            if (!v75 || (v53 = v36) != 0)
+            if (!v74 || (v53 = v36) != 0)
             {
-              [v53 setAppRules:v78];
+              [v53 setAppRules:v77];
             }
 
             v54 = *(a1 + 32);
@@ -1074,7 +1058,7 @@ LABEL_54:
 
             v59 = [(NEConfigurationManager *)v54 saveConfigurationToDisk:v13 updateSCPreferences:prefs currentSignature:v58 userUUID:0 notifyNow:1 isUpgrade:0];
 
-            v10 = v76;
+            v10 = v75;
             if (v59)
             {
               v60 = ne_log_obj();
@@ -1082,17 +1066,17 @@ LABEL_54:
               {
                 v62 = [v13 name];
                 *buf = 136315650;
-                v86 = "[NEConfigurationManager handleApplicationsRemoved:completionQueue:withCompletionHandler:]_block_invoke";
-                v87 = 2112;
-                v88 = v62;
-                v89 = 2112;
-                v90 = v59;
+                v85 = "[NEConfigurationManager handleApplicationsRemoved:completionQueue:withCompletionHandler:]_block_invoke";
+                v86 = 2112;
+                v87 = v62;
+                v88 = 2112;
+                v89 = v59;
                 _os_log_error_impl(&dword_1BA83C000, v60, OS_LOG_TYPE_ERROR, "%s: failed to save %@: %@", buf, 0x20u);
               }
             }
 
-            a1 = v80;
-            v50 = v78;
+            a1 = v79;
+            v50 = v77;
           }
         }
       }
@@ -1103,7 +1087,7 @@ LABEL_66:
     }
 
     while (v12 != v10);
-    v63 = [obj countByEnumeratingWithState:&v81 objects:v91 count:16];
+    v63 = [obj countByEnumeratingWithState:&v80 objects:v90 count:16];
     v10 = v63;
   }
 
@@ -1114,9 +1098,9 @@ LABEL_72:
   if (os_log_type_enabled(v64, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v86 = "[NEConfigurationManager handleApplicationsRemoved:completionQueue:withCompletionHandler:]_block_invoke";
-    v87 = 1024;
-    LODWORD(v88) = 2668;
+    v85 = "[NEConfigurationManager handleApplicationsRemoved:completionQueue:withCompletionHandler:]_block_invoke";
+    v86 = 1024;
+    LODWORD(v87) = 2668;
     _os_log_debug_impl(&dword_1BA83C000, v64, OS_LOG_TYPE_DEBUG, "%s:%d: Unlocking SCPreferences", buf, 0x12u);
   }
 
@@ -1124,11 +1108,10 @@ LABEL_72:
   CFRelease(prefs);
   dispatch_semaphore_signal(*(a1 + 40));
   dispatch_async(*(a1 + 56), *(a1 + 64));
-  v4 = v71;
+  v4 = v70;
 LABEL_82:
 
 LABEL_83:
-  v66 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadConfigurationsInternal:(void *)internal withCompletionHandler:
@@ -1150,9 +1133,9 @@ LABEL_83:
 
 void __75__NEConfigurationManager_loadConfigurationsInternal_withCompletionHandler___block_invoke(id *a1, void *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v4 = a2;
-  if (v4 || (v12 = a1[4]) == 0 || !objc_getProperty(v12, v3, 56, 1))
+  if (v4 || (v11 = a1[4]) == 0 || !objc_getProperty(v11, v3, 56, 1))
   {
     v5 = a1[4];
     if (v5 && objc_getProperty(v5, v3, 80, 1))
@@ -1177,11 +1160,11 @@ void __75__NEConfigurationManager_loadConfigurationsInternal_withCompletionHandl
       v10 = ne_log_obj();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        v22 = a1[4];
+        v21 = a1[4];
         *buf = 138412546;
-        v26 = v22;
-        v27 = 2112;
-        v28 = v4;
+        v25 = v21;
+        v26 = 2112;
+        v27 = v4;
         _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "%@ Failed to load configurations: %@", buf, 0x16u);
       }
     }
@@ -1189,8 +1172,8 @@ void __75__NEConfigurationManager_loadConfigurationsInternal_withCompletionHandl
     goto LABEL_11;
   }
 
-  v13 = a1[4];
-  if (!v13)
+  v12 = a1[4];
+  if (!v12)
   {
 
 LABEL_11:
@@ -1198,50 +1181,49 @@ LABEL_11:
     goto LABEL_12;
   }
 
-  if (v13[20])
+  if (v12[20])
   {
     goto LABEL_11;
   }
 
-  if (v13[23])
+  if (v12[23])
   {
     goto LABEL_11;
   }
 
-  v14 = [(NEConfigurationManager *)v13 copyChangedConfigurationIDs:?];
-  if (!v14)
+  v13 = [(NEConfigurationManager *)v12 copyChangedConfigurationIDs:?];
+  if (!v13)
   {
     goto LABEL_11;
   }
 
-  v15 = v14;
-  v16 = xpc_dictionary_create(0, 0, 0);
-  v17 = [objc_alloc(MEMORY[0x1E696ACC8]) initRequiringSecureCoding:1];
-  v18 = ne_log_obj();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+  v14 = v13;
+  v15 = xpc_dictionary_create(0, 0, 0);
+  v16 = [objc_alloc(MEMORY[0x1E696ACC8]) initRequiringSecureCoding:1];
+  v17 = ne_log_obj();
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_DEFAULT, "Sending load command to nehelper", buf, 2u);
+    _os_log_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_DEFAULT, "Sending load command to nehelper", buf, 2u);
   }
 
-  [v17 encodeObject:v15 forKey:@"config-identifiers"];
-  [v17 finishEncoding];
-  v19 = [v17 encodedData];
-  v20 = xpc_data_create([v19 bytes], objc_msgSend(v19, "length"));
-  [(NEConfigurationManager *)a1[4] clearLoadedConfigurationsWithIDs:v15];
-  xpc_dictionary_set_int64(v16, "config-operation", 2);
-  xpc_dictionary_set_value(v16, "config-ids-data", v20);
-  v21 = a1[4];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __75__NEConfigurationManager_loadConfigurationsInternal_withCompletionHandler___block_invoke_202;
-  v23[3] = &unk_1E7F07AA0;
-  v23[4] = v21;
-  v24 = a1[6];
-  [(NEConfigurationManager *)v21 sendRequest:v16 responseHandler:v23];
+  [v16 encodeObject:v14 forKey:@"config-identifiers"];
+  [v16 finishEncoding];
+  v18 = [v16 encodedData];
+  v19 = xpc_data_create([v18 bytes], objc_msgSend(v18, "length"));
+  [(NEConfigurationManager *)a1[4] clearLoadedConfigurationsWithIDs:v14];
+  xpc_dictionary_set_int64(v15, "config-operation", 2);
+  xpc_dictionary_set_value(v15, "config-ids-data", v19);
+  v20 = a1[4];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __75__NEConfigurationManager_loadConfigurationsInternal_withCompletionHandler___block_invoke_202;
+  v22[3] = &unk_1E7F07AA0;
+  v22[4] = v20;
+  v23 = a1[6];
+  [(NEConfigurationManager *)v20 sendRequest:v15 responseHandler:v22];
 
 LABEL_12:
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getCurrentIndexWithCompletionHandler:(_BYTE *)handler
@@ -1288,9 +1270,9 @@ LABEL_12:
 
 void __63__NEConfigurationManager_getCurrentIndexWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v152 = *MEMORY[0x1E69E9840];
+  v151 = *MEMORY[0x1E69E9840];
   [(NEConfigurationManager *)*(a1 + 32) registerForChangeNotifications];
-  v120 = a1;
+  v119 = a1;
   v3 = *(a1 + 32);
   if (!v3)
   {
@@ -1319,7 +1301,7 @@ void __63__NEConfigurationManager_getCurrentIndexWithCompletionHandler___block_i
   }
 
   state64[0] = 0;
-  v8 = *(v120 + 32);
+  v8 = *(v119 + 32);
   if (v8)
   {
     v9 = *(v8 + 28);
@@ -1337,16 +1319,16 @@ void __63__NEConfigurationManager_getCurrentIndexWithCompletionHandler___block_i
     v14 = ne_log_obj();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(v120 + 32);
+      v17 = *(v119 + 32);
       if (v17)
       {
         LODWORD(v17) = *(v17 + 28);
       }
 
       *buf = 136315394;
-      v149 = "com.apple.neconfigurationchanged";
-      v150 = 1024;
-      *v151 = v17;
+      v148 = "com.apple.neconfigurationchanged";
+      v149 = 1024;
+      *v150 = v17;
       v16 = "Failed to get the current %s (token %u) notification state because the server is not found";
       goto LABEL_22;
     }
@@ -1361,16 +1343,16 @@ LABEL_24:
     v14 = ne_log_obj();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v15 = *(v120 + 32);
+      v15 = *(v119 + 32);
       if (v15)
       {
         LODWORD(v15) = *(v15 + 28);
       }
 
       *buf = 136315394;
-      v149 = "com.apple.neconfigurationchanged";
-      v150 = 1024;
-      *v151 = v15;
+      v148 = "com.apple.neconfigurationchanged";
+      v149 = 1024;
+      *v150 = v15;
       v16 = "Failed to get the current %s (token %u) notification state because the notification does not exist";
 LABEL_22:
       _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, v16, buf, 0x12u);
@@ -1385,18 +1367,18 @@ LABEL_22:
     v14 = ne_log_obj();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      v117 = *(v120 + 32);
-      if (v117)
+      v116 = *(v119 + 32);
+      if (v116)
       {
-        LODWORD(v117) = *(v117 + 28);
+        LODWORD(v116) = *(v116 + 28);
       }
 
       *buf = 136315650;
-      v149 = "com.apple.neconfigurationchanged";
-      v150 = 1024;
-      *v151 = v117;
-      *&v151[4] = 1024;
-      *&v151[6] = v11;
+      v148 = "com.apple.neconfigurationchanged";
+      v149 = 1024;
+      *v150 = v116;
+      *&v150[4] = 1024;
+      *&v150[6] = v11;
       _os_log_fault_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_FAULT, "Failed to get the current %s (token %u) notification state: %u", buf, 0x18u);
     }
 
@@ -1404,7 +1386,7 @@ LABEL_22:
   }
 
   v12 = state64[0] & 0x7FFFFFFFFFFFFLL;
-  v13 = *(v120 + 32);
+  v13 = *(v119 + 32);
   if (v13)
   {
     v13 = *(v13 + 104);
@@ -1412,23 +1394,23 @@ LABEL_22:
 
   if (v13 == v12)
   {
-    (*(*(v120 + 40) + 16))();
-    goto LABEL_135;
+    (*(*(v119 + 40) + 16))();
+    return;
   }
 
   v48 = ne_log_obj();
   if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
   {
-    v49 = *(v120 + 32);
+    v49 = *(v119 + 32);
     if (v49)
     {
       v49 = *(v49 + 104);
     }
 
     *buf = 134218240;
-    v149 = v49;
-    v150 = 2048;
-    *v151 = v12;
+    v148 = v49;
+    v149 = 2048;
+    *v150 = v12;
     _os_log_impl(&dword_1BA83C000, v48, OS_LOG_TYPE_INFO, "current generation (%lld) does not equal posted generation (%llu), fetching a new index", buf, 0x16u);
   }
 
@@ -1440,56 +1422,56 @@ LABEL_22:
       goto LABEL_24;
     }
 
-    v50 = *(v120 + 32);
+    v50 = *(v119 + 32);
     if (v50)
     {
       LODWORD(v50) = *(v50 + 28);
     }
 
     *buf = 134218240;
-    v149 = state64[0];
-    v150 = 1024;
-    *v151 = v50;
+    v148 = state64[0];
+    v149 = 1024;
+    *v150 = v50;
     v16 = "current generation is 0, notification state == %llu, token == %u";
     goto LABEL_22;
   }
 
 LABEL_25:
-  v18 = *(v120 + 32);
-  if (!v18 || (objc_setProperty_atomic(v18, v5, 0, 56), (v19 = *(v120 + 32)) == 0) || (*(v19 + 21) & 1) != 0)
+  v18 = *(v119 + 32);
+  if (!v18 || (objc_setProperty_atomic(v18, v5, 0, 56), (v19 = *(v119 + 32)) == 0) || (*(v19 + 21) & 1) != 0)
   {
 LABEL_28:
     v20 = xpc_dictionary_create(0, 0, 0);
     xpc_dictionary_set_int64(v20, "config-operation", 1);
-    v21 = *(v120 + 32);
-    v130[0] = MEMORY[0x1E69E9820];
-    v130[1] = 3221225472;
-    v130[2] = __63__NEConfigurationManager_getCurrentIndexWithCompletionHandler___block_invoke_123;
-    v130[3] = &unk_1E7F07AA0;
-    v130[4] = v21;
-    v131 = *(v120 + 40);
-    [(NEConfigurationManager *)v21 sendRequest:v20 responseHandler:v130];
+    v21 = *(v119 + 32);
+    v129[0] = MEMORY[0x1E69E9820];
+    v129[1] = 3221225472;
+    v129[2] = __63__NEConfigurationManager_getCurrentIndexWithCompletionHandler___block_invoke_123;
+    v129[3] = &unk_1E7F07AA0;
+    v129[4] = v21;
+    v130 = *(v119 + 40);
+    [(NEConfigurationManager *)v21 sendRequest:v20 responseHandler:v129];
 
-    goto LABEL_135;
+    return;
   }
 
-  self = *(v120 + 32);
+  self = *(v119 + 32);
   v22 = [MEMORY[0x1E696AC08] defaultManager];
   v23 = [v22 isReadableFileAtPath:@"/Library/Preferences/com.apple.networkextension.plist"];
 
   if (v23)
   {
-    v141 = 0;
-    obj = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:@"/Library/Preferences/com.apple.networkextension.plist" options:0 error:&v141];
-    v127 = v141;
+    v140 = 0;
+    obj = [MEMORY[0x1E695DEF0] dataWithContentsOfFile:@"/Library/Preferences/com.apple.networkextension.plist" options:0 error:&v140];
+    v126 = v140;
     *(self + 20) = 1;
     if (obj)
     {
       v24 = [objc_alloc(MEMORY[0x1E696ACD0]) initForReadingFromData:obj error:0];
       [v24 setClass:objc_opt_class() forClassName:@"NEVPNAppRule"];
       [v24 setClass:objc_opt_class() forClassName:@"NEVPNProtocolPlugin"];
-      v121 = [v24 decodeInt64ForKey:@"Generation"];
-      v123 = [v24 decodeInt64ForKey:@"Version"];
+      v120 = [v24 decodeInt64ForKey:@"Generation"];
+      v122 = [v24 decodeInt64ForKey:@"Version"];
       v25 = MEMORY[0x1E695DFD8];
       v26 = objc_opt_class();
       v27 = objc_opt_class();
@@ -1498,35 +1480,35 @@ LABEL_28:
       v30 = [v25 setWithObjects:{v26, v27, v28, v29, objc_opt_class(), 0}];
       v31 = [v24 decodeObjectOfClasses:v30 forKey:@"Index"];
 
-      if (!v31 || v123)
+      if (!v31 || v122)
       {
         goto LABEL_73;
       }
 
-      v139 = 0u;
-      v140 = 0u;
-      v137 = 0u;
       v138 = 0u;
+      v139 = 0u;
+      v136 = 0u;
+      v137 = 0u;
       v32 = v31;
-      v33 = [v32 countByEnumeratingWithState:&v137 objects:buf count:16];
+      v33 = [v32 countByEnumeratingWithState:&v136 objects:buf count:16];
       if (v33)
       {
         v34 = 0;
         v35 = 0;
-        v36 = *v138;
+        v36 = *v137;
         do
         {
           for (i = 0; i != v33; ++i)
           {
-            if (*v138 != v36)
+            if (*v137 != v36)
             {
               objc_enumerationMutation(v32);
             }
 
-            v38 = *(*(&v137 + 1) + 8 * i);
+            v38 = *(*(&v136 + 1) + 8 * i);
             if (!v34)
             {
-              v34 = [v32 objectForKeyedSubscript:*(*(&v137 + 1) + 8 * i)];
+              v34 = [v32 objectForKeyedSubscript:*(*(&v136 + 1) + 8 * i)];
             }
 
             v39 = [v34 allKeys];
@@ -1538,7 +1520,7 @@ LABEL_28:
             [v35 setObject:v39 forKeyedSubscript:v38];
           }
 
-          v33 = [v32 countByEnumeratingWithState:&v137 objects:buf count:16];
+          v33 = [v32 countByEnumeratingWithState:&v136 objects:buf count:16];
         }
 
         while (v33);
@@ -1549,11 +1531,11 @@ LABEL_28:
           goto LABEL_72;
         }
 
-        v146[0] = @"ConfigurationProperties";
-        v146[1] = @"UserMap";
-        v147[0] = v34;
-        v147[1] = v35;
-        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v147 forKeys:v146 count:2];
+        v145[0] = @"ConfigurationProperties";
+        v145[1] = @"UserMap";
+        v146[0] = v34;
+        v146[1] = v35;
+        v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v146 forKeys:v145 count:2];
       }
 
       else
@@ -1566,7 +1548,7 @@ LABEL_28:
 LABEL_72:
 LABEL_73:
       v47 = v31;
-      if (v123)
+      if (v122)
       {
         v46 = [v24 decodeObjectOfClass:objc_opt_class() forKey:@"SCPreferencesSignature2"];
       }
@@ -1579,11 +1561,11 @@ LABEL_73:
         v54 = [v51 setWithObjects:{v52, v53, objc_opt_class(), 0}];
         v55 = [v24 decodeObjectOfClasses:v54 forKey:@"SCPreferencesSignature"];
 
-        memset(v136, 0, sizeof(v136));
+        memset(v135, 0, sizeof(v135));
         v56 = v55;
-        if ([v56 countByEnumeratingWithState:v136 objects:state64 count:16])
+        if ([v56 countByEnumeratingWithState:v135 objects:state64 count:16])
         {
-          v46 = [v56 objectForKeyedSubscript:**(&v136[0] + 1)];
+          v46 = [v56 objectForKeyedSubscript:**(&v135[0] + 1)];
         }
 
         else
@@ -1599,16 +1581,16 @@ LABEL_73:
     if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v149 = self;
-      v150 = 2112;
-      *v151 = @"/Library/Preferences/com.apple.networkextension.plist";
+      v148 = self;
+      v149 = 2112;
+      *v150 = @"/Library/Preferences/com.apple.networkextension.plist";
       _os_log_error_impl(&dword_1BA83C000, v44, OS_LOG_TYPE_ERROR, "%@ Failed to read data from %@", buf, 0x16u);
     }
 
     v45 = [(NEConfigurationManager *)self errorWithCode:0 specifics:?];
 
     v24 = 0;
-    v127 = v45;
+    v126 = v45;
   }
 
   else
@@ -1622,18 +1604,18 @@ LABEL_73:
       if (!v42)
       {
         v24 = 0;
-        v121 = 0;
+        v120 = 0;
         v46 = 0;
         v47 = 0;
-        v127 = 0;
+        v126 = 0;
 LABEL_80:
         objc_setProperty_atomic(self, v43, v24, 96);
-        *(self + 13) = v121;
+        *(self + 13) = v120;
         objc_setProperty_atomic(self, v57, v46, 120);
         goto LABEL_81;
       }
 
-      v127 = [(NEConfigurationManager *)self errorWithCode:0 specifics:?];
+      v126 = [(NEConfigurationManager *)self errorWithCode:0 specifics:?];
     }
 
     else
@@ -1647,7 +1629,7 @@ LABEL_80:
       {
         [(NEConfigurationManager *)self errorWithCode:0 specifics:?];
       }
-      v127 = ;
+      v126 = ;
     }
 
     v24 = 0;
@@ -1656,15 +1638,15 @@ LABEL_80:
   v46 = 0;
   v47 = 0;
 LABEL_81:
-  v58 = v127;
+  v58 = v126;
   newValue = v47;
 
-  v59 = v127;
+  v59 = v126;
   if ((*(self + 20) & 1) == 0)
   {
     v108 = v59;
 
-    v109 = *(v120 + 32);
+    v109 = *(v119 + 32);
     if (v109 && (*(v109 + 23) & 1) != 0)
     {
       goto LABEL_134;
@@ -1673,14 +1655,14 @@ LABEL_81:
     goto LABEL_28;
   }
 
-  v118 = v59;
+  v117 = v59;
   if (v59)
   {
     v61 = ne_log_obj();
     if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v149 = v118;
+      v148 = v117;
       _os_log_error_impl(&dword_1BA83C000, v61, OS_LOG_TYPE_ERROR, "Failed to read the index: %@", buf, 0xCu);
     }
   }
@@ -1691,7 +1673,7 @@ LABEL_81:
     if (os_log_type_enabled(v110, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v149 = self;
+      v148 = self;
       _os_log_impl(&dword_1BA83C000, v110, OS_LOG_TYPE_DEFAULT, "%@ No configurations exist", buf, 0xCu);
     }
 
@@ -1705,10 +1687,10 @@ LABEL_81:
 
   if (!v63)
   {
-    v143 = @"user-uuid";
+    v142 = @"user-uuid";
     v65 = [self userUUID];
-    v144 = v65;
-    v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v144 forKeys:&v143 count:1];
+    v143 = v65;
+    v66 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v143 forKeys:&v142 count:1];
     v67 = [(NEConfigurationManager *)self filterIndexWithFilter:v66];
     objc_setProperty_atomic(self, v68, v67, 56);
   }
@@ -1725,38 +1707,38 @@ LABEL_81:
     goto LABEL_131;
   }
 
-  v134 = 0u;
-  v135 = 0u;
-  v132 = 0u;
   v133 = 0u;
+  v134 = 0u;
+  v131 = 0u;
+  v132 = 0u;
   obja = [objc_getProperty(self v72];
-  v73 = [obja countByEnumeratingWithState:&v132 objects:v142 count:16];
+  v73 = [obja countByEnumeratingWithState:&v131 objects:v141 count:16];
   if (!v73)
   {
-    v122 = 0;
+    v121 = 0;
     v74 = 0;
 
     goto LABEL_127;
   }
 
-  v122 = 0;
+  v121 = 0;
   v74 = 0;
-  v128 = *v133;
+  v127 = *v132;
   do
   {
     for (j = 0; j != v73; ++j)
     {
-      if (*v133 != v128)
+      if (*v132 != v127)
       {
         objc_enumerationMutation(obja);
       }
 
-      v76 = *(*(&v132 + 1) + 8 * j);
+      v76 = *(*(&v131 + 1) + 8 * j);
       v77 = ne_log_obj();
       if (os_log_type_enabled(v77, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v149 = v76;
+        v148 = v76;
         _os_log_impl(&dword_1BA83C000, v77, OS_LOG_TYPE_INFO, "Decoding %@", buf, 0xCu);
       }
 
@@ -1791,22 +1773,22 @@ LABEL_81:
 
             v93 = [v83 applicationIdentifier];
             v94 = [v91 objectForKeyedSubscript:@"ApplicationID"];
-            v95 = [v93 isEqualToString:v94];
+            isEqualToString = objc_msgSend_isEqualToString_(v93);
 
-            if ((v95 & 1) == 0)
+            if ((isEqualToString & 1) == 0)
             {
               v92 = [v91 mutableCopy];
               v96 = [v83 applicationIdentifier];
               [v92 setObject:v96 forKeyedSubscript:@"ApplicationID"];
 
-              if (!v122)
+              if (!v121)
               {
                 v98 = [objc_getProperty(self v97];
-                v122 = [v98 mutableCopy];
+                v121 = [v98 mutableCopy];
               }
 
               v99 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v92];
-              [v122 setObject:v99 forKeyedSubscript:v78];
+              [v121 setObject:v99 forKeyedSubscript:v78];
 
 LABEL_107:
             }
@@ -1820,7 +1802,7 @@ LABEL_107:
         if (os_log_type_enabled(v100, OS_LOG_TYPE_FAULT))
         {
           *buf = 138412290;
-          v149 = v78;
+          v148 = v78;
           _os_log_fault_impl(&dword_1BA83C000, v100, OS_LOG_TYPE_FAULT, "Failed to decode %@", buf, 0xCu);
         }
 
@@ -1836,15 +1818,15 @@ LABEL_107:
       }
     }
 
-    v73 = [obja countByEnumeratingWithState:&v132 objects:v142 count:16];
+    v73 = [obja countByEnumeratingWithState:&v131 objects:v141 count:16];
   }
 
   while (v73);
 
-  if (v122)
+  if (v121)
   {
     v103 = [objc_getProperty(self v102];
-    v104 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v122];
+    v104 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v121];
     [v103 setObject:v104 forKeyedSubscript:@"ConfigurationProperties"];
 
     v105 = [MEMORY[0x1E695DF20] dictionaryWithDictionary:v103];
@@ -1886,9 +1868,7 @@ LABEL_131:
   }
 
 LABEL_134:
-  (*(*(v120 + 40) + 16))();
-LABEL_135:
-  v116 = *MEMORY[0x1E69E9840];
+  (*(*(v119 + 40) + 16))();
 }
 
 uint64_t __39__NEConfigurationManager_executeBlock___block_invoke(uint64_t a1)
@@ -1899,12 +1879,11 @@ uint64_t __39__NEConfigurationManager_executeBlock___block_invoke(uint64_t a1)
     *(v2 + 25) = 1;
   }
 
-  v3 = *(a1 + 40);
   result = (*(*(a1 + 40) + 16))();
-  v5 = *(a1 + 32);
-  if (v5)
+  v4 = *(a1 + 32);
+  if (v4)
   {
-    *(v5 + 25) = 0;
+    *(v4 + 25) = 0;
   }
 
   return result;
@@ -1912,7 +1891,7 @@ uint64_t __39__NEConfigurationManager_executeBlock___block_invoke(uint64_t a1)
 
 - (void)registerForChangeNotifications
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (val && *(val + 7) == -1)
   {
     out_token = -1;
@@ -1922,7 +1901,7 @@ uint64_t __39__NEConfigurationManager_executeBlock___block_invoke(uint64_t a1)
     handler[1] = 3221225472;
     handler[2] = __56__NEConfigurationManager_registerForChangeNotifications__block_invoke;
     handler[3] = &unk_1E7F0AA30;
-    objc_copyWeak(&v8, &location);
+    objc_copyWeak(&v7, &location);
     v4 = notify_register_dispatch("com.apple.neconfigurationchanged", &out_token, v3, handler);
 
     if (v4)
@@ -1931,7 +1910,7 @@ uint64_t __39__NEConfigurationManager_executeBlock___block_invoke(uint64_t a1)
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v12 = v4;
+        v11 = v4;
         _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "notify_register_dispatch failed: %d", buf, 8u);
       }
     }
@@ -1941,11 +1920,9 @@ uint64_t __39__NEConfigurationManager_executeBlock___block_invoke(uint64_t a1)
       *(val + 7) = out_token;
     }
 
-    objc_destroyWeak(&v8);
+    objc_destroyWeak(&v7);
     objc_destroyWeak(&location);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __63__NEConfigurationManager_getCurrentIndexWithCompletionHandler___block_invoke_123(uint64_t a1, int a2, uint64_t a3, void *a4)
@@ -2007,7 +1984,7 @@ void __63__NEConfigurationManager_getCurrentIndexWithCompletionHandler___block_i
 
 - (id)errorWithCode:(void *)code specifics:
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   codeCopy = code;
   if (self)
   {
@@ -2080,9 +2057,9 @@ void __63__NEConfigurationManager_getCurrentIndexWithCompletionHandler___block_i
     }
 
     v7 = MEMORY[0x1E696ABC0];
-    v12 = *MEMORY[0x1E696A578];
-    v13[0] = v6;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x1E696A578];
+    v12[0] = v6;
+    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v9 = [v7 errorWithDomain:@"NEConfigurationErrorDomain" code:a2 userInfo:v8];
   }
 
@@ -2091,14 +2068,12 @@ void __63__NEConfigurationManager_getCurrentIndexWithCompletionHandler___block_i
     v9 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
 - (id)filterIndexWithFilter:(void *)filter
 {
-  v80 = *MEMORY[0x1E69E9840];
+  v79 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (!filter || !objc_getProperty(filter, v3, 56, 1))
   {
@@ -2115,79 +2090,79 @@ void __63__NEConfigurationManager_getCurrentIndexWithCompletionHandler___block_i
   }
 
   v8 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v60 = [v4 objectForKeyedSubscript:@"plugin-types"];
-  v59 = [v4 objectForKeyedSubscript:@"application-id"];
+  v59 = [v4 objectForKeyedSubscript:@"plugin-types"];
+  v58 = [v4 objectForKeyedSubscript:@"application-id"];
   v10 = [objc_getProperty(filter v9];
   v11 = [v4 objectForKeyedSubscript:@"user-uuid"];
   v12 = [v10 objectForKeyedSubscript:v11];
   [v8 addObjectsFromArray:v12];
 
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
   v70 = 0u;
+  v71 = 0u;
+  v68 = 0u;
+  v69 = 0u;
   self = filter;
   v14 = [objc_getProperty(filter v13];
   v15 = NEGetNullUUID();
   v16 = [v14 objectForKeyedSubscript:v15];
 
-  v17 = [v16 countByEnumeratingWithState:&v69 objects:v79 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v68 objects:v78 count:16];
   if (v17)
   {
     v18 = v17;
-    v19 = *v70;
+    v19 = *v69;
     do
     {
       for (i = 0; i != v18; ++i)
       {
-        if (*v70 != v19)
+        if (*v69 != v19)
         {
           objc_enumerationMutation(v16);
         }
 
-        v21 = *(*(&v69 + 1) + 8 * i);
+        v21 = *(*(&v68 + 1) + 8 * i);
         if (([v8 containsObject:v21] & 1) == 0)
         {
           [v8 addObject:v21];
         }
       }
 
-      v18 = [v16 countByEnumeratingWithState:&v69 objects:v79 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v68 objects:v78 count:16];
     }
 
     while (v18);
   }
 
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
   v66 = 0u;
+  v67 = 0u;
+  v64 = 0u;
+  v65 = 0u;
   v23 = [objc_getProperty(self v22];
   v24 = NEGetRootUUID();
   v25 = [v23 objectForKeyedSubscript:v24];
 
-  v26 = [v25 countByEnumeratingWithState:&v65 objects:v78 count:16];
+  v26 = [v25 countByEnumeratingWithState:&v64 objects:v77 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v66;
+    v28 = *v65;
     do
     {
       for (j = 0; j != v27; ++j)
       {
-        if (*v66 != v28)
+        if (*v65 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = *(*(&v65 + 1) + 8 * j);
+        v30 = *(*(&v64 + 1) + 8 * j);
         if (([v8 containsObject:v30] & 1) == 0)
         {
           [v8 addObject:v30];
         }
       }
 
-      v27 = [v25 countByEnumeratingWithState:&v65 objects:v78 count:16];
+      v27 = [v25 countByEnumeratingWithState:&v64 objects:v77 count:16];
     }
 
     while (v27);
@@ -2199,12 +2174,12 @@ void __63__NEConfigurationManager_getCurrentIndexWithCompletionHandler___block_i
     goto LABEL_55;
   }
 
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
   v62 = 0u;
+  v63 = 0u;
+  v60 = 0u;
+  v61 = 0u;
   v31 = v8;
-  v32 = [v31 countByEnumeratingWithState:&v61 objects:v77 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v60 objects:v76 count:16];
   if (!v32)
   {
     v49 = 0;
@@ -2214,23 +2189,23 @@ LABEL_53:
   }
 
   v34 = v32;
-  v55 = v4;
-  v58 = 0;
+  v54 = v4;
+  v57 = 0;
   v35 = @"ConfigurationProperties";
-  v36 = *v62;
+  v36 = *v61;
   v37 = self;
   do
   {
     v38 = 0;
-    v57 = v34;
+    v56 = v34;
     do
     {
-      if (*v62 != v36)
+      if (*v61 != v36)
       {
         objc_enumerationMutation(v31);
       }
 
-      v39 = *(*(&v61 + 1) + 8 * v38);
+      v39 = *(*(&v60 + 1) + 8 * v38);
       v40 = [objc_getProperty(v37 v33];
       v41 = [v40 objectForKeyedSubscript:v39];
 
@@ -2238,13 +2213,13 @@ LABEL_53:
       {
         v42 = v35;
         v43 = v31;
-        if ((isa_nsarray(v60) & 1) != 0 || isa_nsstring(v59))
+        if ((isa_nsarray(v59) & 1) != 0 || isa_nsstring(v58))
         {
-          v44 = [v41 objectForKeyedSubscript:{@"PluginType", v55}];
+          v44 = [v41 objectForKeyedSubscript:{@"PluginType", v54}];
           v45 = [v41 objectForKeyedSubscript:@"ApplicationID"];
-          if (isa_nsarray(v60) && isa_nsstring(v44))
+          if (isa_nsarray(v59) && isa_nsstring(v44))
           {
-            v46 = [v60 containsObject:v44];
+            v46 = [v59 containsObject:v44];
           }
 
           else
@@ -2252,9 +2227,9 @@ LABEL_53:
             v46 = 0;
           }
 
-          if (isa_nsstring(v59) && isa_nsstring(v45))
+          if (isa_nsstring(v58) && isa_nsstring(v45))
           {
-            v47 = [v59 isEqualToString:v45] | v46;
+            v47 = objc_msgSend_isEqualToString_(v58) | v46;
 
             if ((v47 & 1) == 0)
             {
@@ -2271,20 +2246,20 @@ LABEL_44:
               v31 = v43;
               v35 = v42;
               v37 = self;
-              v34 = v57;
+              v34 = v56;
               goto LABEL_45;
             }
           }
         }
 
-        v48 = v58;
-        if (!v58)
+        v48 = v57;
+        if (!v57)
         {
           v48 = objc_alloc_init(MEMORY[0x1E695DF90]);
         }
 
-        v58 = v48;
-        [v48 setObject:v41 forKeyedSubscript:{v39, v55}];
+        v57 = v48;
+        [v48 setObject:v41 forKeyedSubscript:{v39, v54}];
         goto LABEL_44;
       }
 
@@ -2294,37 +2269,35 @@ LABEL_45:
     }
 
     while (v34 != v38);
-    v34 = [v31 countByEnumeratingWithState:&v61 objects:v77 count:16];
+    v34 = [v31 countByEnumeratingWithState:&v60 objects:v76 count:16];
   }
 
   while (v34);
 
-  v49 = v58;
-  if (v58)
+  v49 = v57;
+  if (v57)
   {
-    v75[0] = @"UserMap";
-    v4 = v55;
-    v50 = [v55 objectForKeyedSubscript:@"user-uuid"];
-    v73 = v50;
-    allKeys = [v58 allKeys];
-    v74 = allKeys;
-    v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v74 forKeys:&v73 count:1];
-    v75[1] = v35;
-    v76[0] = v52;
-    v76[1] = v58;
-    v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v76 forKeys:v75 count:2];
+    v74[0] = @"UserMap";
+    v4 = v54;
+    v50 = [v54 objectForKeyedSubscript:@"user-uuid"];
+    v72 = v50;
+    allKeys = [v57 allKeys];
+    v73 = allKeys;
+    v52 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v73 forKeys:&v72 count:1];
+    v74[1] = v35;
+    v75[0] = v52;
+    v75[1] = v57;
+    v49 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v75 forKeys:v74 count:2];
 
-    v31 = v58;
+    v31 = v57;
     goto LABEL_53;
   }
 
-  v4 = v55;
+  v4 = v54;
 LABEL_55:
 
 LABEL_56:
 LABEL_57:
-
-  v53 = *MEMORY[0x1E69E9840];
 
   return v49;
 }
@@ -2360,40 +2333,40 @@ LABEL_57:
 
 - (void)clearLoadedConfigurationsWithIDs:(void *)ds
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (ds)
   {
-    v16 = 0u;
-    v17 = 0u;
-    v14 = 0u;
     v15 = 0u;
-    v5 = [v3 countByEnumeratingWithState:&v14 objects:v20 count:16];
+    v16 = 0u;
+    v13 = 0u;
+    v14 = 0u;
+    v5 = [v3 countByEnumeratingWithState:&v13 objects:v19 count:16];
     if (v5)
     {
       v7 = v5;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
+          v10 = *(*(&v13 + 1) + 8 * i);
           v11 = ne_log_obj();
           if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            v19 = v10;
+            v18 = v10;
             _os_log_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_DEFAULT, "Clearing %@ from the loaded configurations", buf, 0xCu);
           }
         }
 
-        v7 = [v4 countByEnumeratingWithState:&v14 objects:v20 count:16];
+        v7 = [v4 countByEnumeratingWithState:&v13 objects:v19 count:16];
       }
 
       while (v7);
@@ -2402,23 +2375,20 @@ LABEL_57:
     [objc_getProperty(ds v6];
     [objc_getProperty(ds v12];
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)didLoadConfiguration:(void *)configuration
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   if (!configuration)
   {
-    v24 = *MEMORY[0x1E69E9840];
     return;
   }
 
   v3 = a2;
-  v25 = [objc_getProperty(configuration v4];
+  v23 = [objc_getProperty(configuration v4];
   identifier = [v3 identifier];
-  v6 = [v25 objectForKeyedSubscript:identifier];
+  v6 = [v23 objectForKeyedSubscript:identifier];
   v7 = [v6 objectForKeyedSubscript:@"Signature"];
   v8 = v3;
   v9 = v7;
@@ -2430,7 +2400,7 @@ LABEL_57:
     {
       identifier2 = [v8 identifier];
       *buf = 138412290;
-      v27 = identifier2;
+      v25 = identifier2;
       _os_log_impl(&dword_1BA83C000, identifier4, OS_LOG_TYPE_DEFAULT, "Adding %@ to the loaded configurations", buf, 0xCu);
     }
 
@@ -2461,17 +2431,16 @@ LABEL_57:
 
     identifier5 = [v8 identifier];
     *buf = 138412290;
-    v27 = identifier5;
+    v25 = identifier5;
     _os_log_fault_impl(&dword_1BA83C000, identifier4, OS_LOG_TYPE_FAULT, "Missing a signature for %@", buf, 0xCu);
   }
 
 LABEL_10:
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (void)copyChangedConfigurationIDs:(void *)ds
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (ds)
   {
@@ -2500,40 +2469,40 @@ LABEL_10:
 
     if (v6)
     {
-      v24 = 0u;
-      v25 = 0u;
-      v22 = 0u;
       v23 = 0u;
+      v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       v12 = v6;
-      v13 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
       if (v13)
       {
         v14 = v13;
         v15 = 0;
-        v16 = *v23;
+        v16 = *v22;
         do
         {
           for (i = 0; i != v14; ++i)
           {
-            if (*v23 != v16)
+            if (*v22 != v16)
             {
               objc_enumerationMutation(v12);
             }
 
-            v18 = *(*(&v22 + 1) + 8 * i);
+            v18 = *(*(&v21 + 1) + 8 * i);
             if ([(NEConfigurationManager *)ds configurationHasChanged:v18])
             {
               if (!v15)
               {
                 v19 = objc_alloc(MEMORY[0x1E695DF70]);
-                v15 = [v19 initWithCapacity:{0, v22}];
+                v15 = [v19 initWithCapacity:{0, v21}];
               }
 
-              [v15 addObject:{v18, v22}];
+              [v15 addObject:{v18, v21}];
             }
           }
 
-          v14 = [v12 countByEnumeratingWithState:&v22 objects:v26 count:16];
+          v14 = [v12 countByEnumeratingWithState:&v21 objects:v25 count:16];
         }
 
         while (v14);
@@ -2558,7 +2527,6 @@ LABEL_24:
 
 LABEL_26:
 
-  v20 = *MEMORY[0x1E69E9840];
   return ds;
 }
 
@@ -2616,7 +2584,7 @@ void __39__NEConfigurationManager_notifyChanges__block_invoke(uint64_t a1, const
 
 - (uint64_t)configurationHasChanged:(void *)changed
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (!changed)
   {
@@ -2656,11 +2624,11 @@ void __39__NEConfigurationManager_notifyChanges__block_invoke(uint64_t a1, const
     v12 = ne_log_obj();
     if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v17 = 138412290;
-      v18 = v4;
+      v16 = 138412290;
+      v17 = v4;
       v13 = "Configuration %@ was removed";
 LABEL_19:
-      _os_log_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_INFO, v13, &v17, 0xCu);
+      _os_log_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_INFO, v13, &v16, 0xCu);
     }
 
 LABEL_20:
@@ -2677,8 +2645,8 @@ LABEL_20:
     {
       if (v14)
       {
-        v17 = 138412290;
-        v18 = v4;
+        v16 = 138412290;
+        v17 = v4;
         v13 = "Configuration %@ has changed";
         goto LABEL_19;
       }
@@ -2686,8 +2654,8 @@ LABEL_20:
 
     else if (v14)
     {
-      v17 = 138412290;
-      v18 = v4;
+      v16 = 138412290;
+      v17 = v4;
       v13 = "Configuration %@ has not been loaded yet";
       goto LABEL_19;
     }
@@ -2700,20 +2668,19 @@ LABEL_11:
 LABEL_21:
 
 LABEL_22:
-  v15 = *MEMORY[0x1E69E9840];
   return v11;
 }
 
 void __56__NEConfigurationManager_registerForChangeNotifications__block_invoke(uint64_t a1, int a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v16 = "com.apple.neconfigurationchanged";
-    v17 = 1024;
-    v18 = a2;
+    v15 = "com.apple.neconfigurationchanged";
+    v16 = 1024;
+    v17 = a2;
     _os_log_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEFAULT, "Received a %s notification with token %d", buf, 0x12u);
   }
 
@@ -2729,22 +2696,22 @@ void __56__NEConfigurationManager_registerForChangeNotifications__block_invoke(u
 
       if (Property)
       {
-        v13[0] = MEMORY[0x1E69E9820];
-        v13[1] = 3221225472;
-        v13[2] = __56__NEConfigurationManager_registerForChangeNotifications__block_invoke_136;
-        v13[3] = &unk_1E7F0B4A8;
-        v14 = v7;
-        [(NEConfigurationManager *)v14 getCurrentIndexWithCompletionHandler:v13];
+        v12[0] = MEMORY[0x1E69E9820];
+        v12[1] = 3221225472;
+        v12[2] = __56__NEConfigurationManager_registerForChangeNotifications__block_invoke_136;
+        v12[3] = &unk_1E7F0B4A8;
+        v13 = v7;
+        [(NEConfigurationManager *)v13 getCurrentIndexWithCompletionHandler:v12];
       }
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __56__NEConfigurationManager_registerForChangeNotifications__block_invoke_136(uint64_t a1, void *a2)
 {
-  if (!a2)
+  v3 = a2;
+  v4 = v3;
+  if (!v3)
   {
     v3 = *(a1 + 32);
     if (v3)
@@ -2752,16 +2719,17 @@ uint64_t __56__NEConfigurationManager_registerForChangeNotifications__block_invo
       if ((v3[20] & 1) == 0)
       {
         [(NEConfigurationManager *)v3 notifyChanges];
+        v4 = 0;
       }
     }
   }
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v4);
 }
 
 void __75__NEConfigurationManager_loadConfigurationsInternal_withCompletionHandler___block_invoke_202(uint64_t a1, char a2, uint64_t a3, void *a4)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v7 = a4;
   v8 = v7;
   if (v7 && MEMORY[0x1BFAFC5E0](v7) == MEMORY[0x1E69E9E70])
@@ -2779,22 +2747,22 @@ void __75__NEConfigurationManager_loadConfigurationsInternal_withCompletionHandl
 
     if (isa_nsarray(v17))
     {
-      v28 = 0u;
-      v29 = 0u;
-      v26 = 0u;
       v27 = 0u;
+      v28 = 0u;
+      v25 = 0u;
+      v26 = 0u;
       v18 = v17;
-      v19 = [v18 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v19 = [v18 countByEnumeratingWithState:&v25 objects:v31 count:16];
       if (v19)
       {
         v20 = v19;
-        v21 = *v27;
+        v21 = *v26;
         do
         {
           v22 = 0;
           do
           {
-            if (*v27 != v21)
+            if (*v26 != v21)
             {
               objc_enumerationMutation(v18);
             }
@@ -2803,7 +2771,7 @@ void __75__NEConfigurationManager_loadConfigurationsInternal_withCompletionHandl
           }
 
           while (v20 != v22);
-          v20 = [v18 countByEnumeratingWithState:&v26 objects:v32 count:16];
+          v20 = [v18 countByEnumeratingWithState:&v25 objects:v31 count:16];
         }
 
         while (v20);
@@ -2845,55 +2813,53 @@ void __75__NEConfigurationManager_loadConfigurationsInternal_withCompletionHandl
   if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
     *buf = 134217984;
-    v31 = a3;
+    v30 = a3;
     _os_log_error_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_ERROR, "load failed with error: %lld", buf, 0xCu);
   }
 
   a3 = [(NEConfigurationManager *)*(a1 + 32) errorWithCode:a3 specifics:0];
 LABEL_24:
   (*(*(a1 + 40) + 16))();
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeGroupsForApp:(uint64_t)app
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (app)
   {
     os_unfair_lock_lock((app + 16));
     v4 = objc_alloc_init(MEMORY[0x1E695DF70]);
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v5 = *(app + 128);
-    v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v15;
+      v8 = *v14;
       do
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v15 != v8)
+          if (*v14 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v14 + 1) + 8 * i);
-          v11 = [*(app + 128) objectForKeyedSubscript:{v10, v14}];
-          v12 = [v11 isEqualToString:v3];
+          v10 = *(*(&v13 + 1) + 8 * i);
+          v11 = [*(app + 128) objectForKeyedSubscript:{v10, v13}];
+          isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-          if (v12)
+          if (isEqualToString)
           {
             [v4 addObject:v10];
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       }
 
       while (v7);
@@ -2907,18 +2873,16 @@ LABEL_24:
 
     os_unfair_lock_unlock((app + 16));
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (_BYTE)removeConfigurationFromDisk:(const __SCPreferences *)disk updateSCPreferences:
 {
-  v93 = *MEMORY[0x1E69E9840];
+  v92 = *MEMORY[0x1E69E9840];
   v6 = a2;
   if (self)
   {
-    v85 = 0;
     v84 = 0;
+    v83 = 0;
     if ((self[23] & 1) == 0)
     {
       self = [(NEConfigurationManager *)self errorWithCode:0 specifics:?];
@@ -2944,49 +2908,49 @@ LABEL_54:
     v12 = [v8 objectForKeyedSubscript:@"ConfigurationProperties"];
     [v12 removeObjectForKey:v6];
 
-    v82 = 0u;
-    v83 = 0u;
-    v80 = 0u;
     v81 = 0u;
+    v82 = 0u;
+    v79 = 0u;
+    v80 = 0u;
     v13 = [v8 objectForKeyedSubscript:@"UserMap"];
-    v14 = [v13 countByEnumeratingWithState:&v80 objects:v88 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v79 objects:v87 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v81;
+      v16 = *v80;
       do
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v81 != v16)
+          if (*v80 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v80 + 1) + 8 * i);
+          v18 = *(*(&v79 + 1) + 8 * i);
           v19 = [v8 objectForKeyedSubscript:@"UserMap"];
           v20 = [v19 objectForKeyedSubscript:v18];
 
           [v20 removeObject:v6];
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v80 objects:v88 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v79 objects:v87 count:16];
       }
 
       while (v15);
     }
 
     v21 = selfCopy;
-    v22 = [selfCopy copyAppGroupMapDidChange:&v84];
-    if (v22 && v84 == 1)
+    v22 = [selfCopy copyAppGroupMapDidChange:&v83];
+    if (v22 && v83 == 1)
     {
       [v8 setObject:v22 forKeyedSubscript:@"AppGroupMap"];
-      os_unfair_lock_lock((selfCopy + 16));
+      os_unfair_lock_lock(selfCopy + 4);
       [selfCopy setAppGroupsChanged:0];
-      os_unfair_lock_unlock((selfCopy + 16));
+      os_unfair_lock_unlock(selfCopy + 4);
     }
 
-    v23 = *(selfCopy + 104);
+    v23 = *(selfCopy + 13);
     if (v23 <= 0x7FFFFFFFFFFFELL)
     {
       v24 = v23 + 1;
@@ -2998,10 +2962,10 @@ LABEL_54:
     }
 
     v25 = [objc_alloc(MEMORY[0x1E696ACC8]) initRequiringSecureCoding:1];
-    v72 = v24;
+    v71 = v24;
     [v25 encodeInt64:v24 forKey:@"Generation"];
     [v25 encodeInt64:1 forKey:@"Version"];
-    v74 = v25;
+    v73 = v25;
     [v25 encodeObject:v8 forKey:@"Index"];
     if (objc_getProperty(selfCopy, v26, 56, 1))
     {
@@ -3012,23 +2976,23 @@ LABEL_54:
         [v28 clearSystemKeychain];
       }
 
-      v78 = 0u;
-      v79 = 0u;
-      v76 = 0u;
       v77 = 0u;
+      v78 = 0u;
+      v75 = 0u;
+      v76 = 0u;
       v30 = [v8 objectForKeyedSubscript:@"ConfigurationProperties"];
-      v31 = [v30 countByEnumeratingWithState:&v76 objects:v87 count:16];
+      v31 = [v30 countByEnumeratingWithState:&v75 objects:v86 count:16];
       if (v31)
       {
         v33 = v31;
-        v34 = *v77;
+        v34 = *v76;
         do
         {
           v35 = 0;
           v36 = v29;
           do
           {
-            if (*v77 != v34)
+            if (*v76 != v34)
             {
               objc_enumerationMutation(v30);
             }
@@ -3039,7 +3003,7 @@ LABEL_54:
             {
               identifier = [v29 identifier];
               uUIDString = [identifier UUIDString];
-              [v74 encodeObject:v29 forKey:uUIDString];
+              [v73 encodeObject:v29 forKey:uUIDString];
 
               v21 = selfCopy;
               [NEConfigurationManager updateFlags:v29 withConfiguration:?];
@@ -3050,7 +3014,7 @@ LABEL_54:
           }
 
           while (v33 != v35);
-          v33 = [v30 countByEnumeratingWithState:&v76 objects:v87 count:16];
+          v33 = [v30 countByEnumeratingWithState:&v75 objects:v86 count:16];
         }
 
         while (v33);
@@ -3085,12 +3049,12 @@ LABEL_54:
         if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
         {
           uUIDString3 = [v42 UUIDString];
-          v67 = SCError();
-          v68 = SCErrorString(v67);
+          v66 = SCError();
+          v67 = SCErrorString(v66);
           *buf = 138412546;
-          v90 = uUIDString3;
-          v91 = 2080;
-          v92 = v68;
+          v89 = uUIDString3;
+          v90 = 2080;
+          v91 = v67;
           _os_log_error_impl(&dword_1BA83C000, v59, OS_LOG_TYPE_ERROR, "SCNetworkServiceRemove failed for configuration %@: %s", buf, 0x16u);
         }
 
@@ -3116,12 +3080,12 @@ LABEL_53:
         if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
           uUIDString4 = [v42 UUIDString];
-          v70 = SCError();
-          v71 = SCErrorString(v70);
+          v69 = SCError();
+          v70 = SCErrorString(v69);
           *buf = 138412546;
-          v90 = uUIDString4;
-          v91 = 2080;
-          v92 = v71;
+          v89 = uUIDString4;
+          v90 = 2080;
+          v91 = v70;
           _os_log_error_impl(&dword_1BA83C000, v47, OS_LOG_TYPE_ERROR, "SCPreferencesApplyChanges failed while removing configuration %@: %s", buf, 0x16u);
         }
 
@@ -3135,22 +3099,22 @@ LABEL_53:
       }
 
 LABEL_42:
-      [v74 encodeObject:objc_getProperty(v21 forKey:{v27, 120, 1), @"SCPreferencesSignature2"}];
-      [v74 finishEncoding];
-      encodedData = [v74 encodedData];
+      [v73 encodeObject:objc_getProperty(v21 forKey:{v27, 120, 1), @"SCPreferencesSignature2"}];
+      [v73 finishEncoding];
+      encodedData = [v73 encodedData];
       v51 = [encodedData writeToFile:@"/Library/Preferences/com.apple.networkextension.plist" atomically:1];
 
       if (v51)
       {
-        v21[13] = v72;
+        v21[13] = v71;
         v52 = [v8 copy];
         objc_setProperty_atomic(v21, v53, v52, 56);
 
-        v86 = v6;
-        v54 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v86 count:1];
+        v85 = v6;
+        v54 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v85 count:1];
         [(NEConfigurationManager *)v21 clearLoadedConfigurationsWithIDs:v54];
 
-        [(NEConfigurationManager *)v21 postChangeNotificationWithGeneration:v72 andFlags:v85 onlyIfChanged:0];
+        [(NEConfigurationManager *)v21 postChangeNotificationWithGeneration:v71 andFlags:v84 onlyIfChanged:0];
         self = 0;
         goto LABEL_55;
       }
@@ -3168,9 +3132,9 @@ LABEL_42:
     {
       uUIDString5 = [v42 UUIDString];
       *buf = 138412546;
-      v90 = uUIDString5;
-      v91 = 2112;
-      v92 = v57;
+      v89 = uUIDString5;
+      v90 = 2112;
+      v91 = v57;
       _os_log_error_impl(&dword_1BA83C000, v58, OS_LOG_TYPE_ERROR, "SCPreferencesCommitChanges failed while removing configuration %@: %@", buf, 0x16u);
     }
 
@@ -3181,19 +3145,17 @@ LABEL_42:
 
 LABEL_55:
 
-  v63 = *MEMORY[0x1E69E9840];
-
   return self;
 }
 
 - (id)saveConfigurationToDisk:(const __SCPreferences *)disk updateSCPreferences:(void *)preferences currentSignature:(void *)signature userUUID:(int)d notifyNow:(char)now isUpgrade:
 {
-  v459 = *MEMORY[0x1E69E9840];
+  v458 = *MEMORY[0x1E69E9840];
   v12 = a2;
   preferencesCopy = preferences;
   signatureCopy = signature;
-  v403 = v12;
-  v405 = signatureCopy;
+  v402 = v12;
+  v404 = signatureCopy;
   if (!self)
   {
     v47 = 0;
@@ -3203,13 +3165,13 @@ LABEL_55:
   v15 = signatureCopy;
   dCopy = d;
   pluginType = [v12 pluginType];
-  v435 = 0;
+  v434 = 0;
   v17 = v12;
   objc_opt_self();
   alwaysOnVPN = [v17 alwaysOnVPN];
   selfCopy = self;
-  v411 = v17;
-  v404 = pluginType;
+  v410 = v17;
+  v403 = pluginType;
   if (!alwaysOnVPN || ([v17 alwaysOnVPN], v12 = objc_claimAutoreleasedReturnValue(), (objc_msgSend(v12, "isEnabled") & 1) == 0))
   {
     v19 = [v17 VPN];
@@ -3224,7 +3186,7 @@ LABEL_55:
 LABEL_43:
 
 LABEL_44:
-        v17 = v411;
+        v17 = v410;
         if (!alwaysOnVPN)
         {
           goto LABEL_46;
@@ -3242,10 +3204,10 @@ LABEL_44:
       v23 = preferencesCopy;
     }
 
-    appVPN = [v411 appVPN];
+    appVPN = [v410 appVPN];
     if (appVPN)
     {
-      pluginType = [v411 appVPN];
+      pluginType = [v410 appVPN];
       if ([pluginType isEnabled])
       {
         isEnabled = 1;
@@ -3253,8 +3215,8 @@ LABEL_44:
 LABEL_41:
 
 LABEL_42:
-        pluginType = v404;
-        v15 = v405;
+        pluginType = v403;
+        v15 = v404;
         preferencesCopy = v23;
         if (!v21)
         {
@@ -3265,10 +3227,10 @@ LABEL_42:
       }
     }
 
-    contentFilter = [v411 contentFilter];
+    contentFilter = [v410 contentFilter];
     if (contentFilter)
     {
-      contentFilter2 = [v411 contentFilter];
+      contentFilter2 = [v410 contentFilter];
       if ([contentFilter2 isEnabled])
       {
         isEnabled = 1;
@@ -3284,17 +3246,17 @@ LABEL_40:
         goto LABEL_41;
       }
 
-      v415 = contentFilter2;
+      v414 = contentFilter2;
     }
 
-    dnsProxy = [v411 dnsProxy];
+    dnsProxy = [v410 dnsProxy];
     if (dnsProxy)
     {
-      dnsProxy2 = [v411 dnsProxy];
+      dnsProxy2 = [v410 dnsProxy];
       if ([dnsProxy2 isEnabled])
       {
         isEnabled = 1;
-        contentFilter2 = v415;
+        contentFilter2 = v414;
 LABEL_37:
 
 LABEL_38:
@@ -3308,15 +3270,15 @@ LABEL_38:
       }
     }
 
-    dnsSettings = [v411 dnsSettings];
+    dnsSettings = [v410 dnsSettings];
     if (dnsSettings)
     {
-      dnsSettings2 = [v411 dnsSettings];
+      dnsSettings2 = [v410 dnsSettings];
       if ([dnsSettings2 isEnabled])
       {
         isEnabled = 1;
         v27 = dnsSettings;
-        contentFilter2 = v415;
+        contentFilter2 = v414;
 LABEL_35:
 
 LABEL_36:
@@ -3329,32 +3291,32 @@ LABEL_36:
       }
     }
 
-    appPush = [v411 appPush];
+    appPush = [v410 appPush];
     if (appPush)
     {
-      appPush2 = [v411 appPush];
+      appPush2 = [v410 appPush];
       if ([appPush2 isEnabled])
       {
         isEnabled = 1;
-        contentFilter2 = v415;
+        contentFilter2 = v414;
         goto LABEL_33;
       }
 
-      v400 = pluginType;
-      v374 = v23;
+      v399 = pluginType;
+      v373 = v23;
     }
 
     else
     {
-      v400 = pluginType;
-      v374 = v23;
+      v399 = pluginType;
+      v373 = v23;
     }
 
-    relay = [v411 relay];
+    relay = [v410 relay];
     if (relay)
     {
       v30 = relay;
-      relay2 = [v411 relay];
+      relay2 = [v410 relay];
       isEnabled = [relay2 isEnabled];
     }
 
@@ -3363,9 +3325,9 @@ LABEL_36:
       isEnabled = 0;
     }
 
-    v23 = v374;
-    pluginType = v400;
-    contentFilter2 = v415;
+    v23 = v373;
+    pluginType = v399;
+    contentFilter2 = v414;
     if (!appPush)
     {
 LABEL_34:
@@ -3387,7 +3349,7 @@ LABEL_33:
 LABEL_45:
 
 LABEL_46:
-  v434 = 0;
+  v433 = 0;
   if ((*(self + 23) & 1) == 0)
   {
     v47 = [(NEConfigurationManager *)self errorWithCode:0 specifics:?];
@@ -3422,13 +3384,13 @@ LABEL_46:
     if (!v39)
     {
 
-      v17 = v411;
+      v17 = v410;
       goto LABEL_56;
     }
 
     v40 = v39;
-    v375 = preferencesCopy;
-    v370 = v35;
+    v374 = preferencesCopy;
+    v369 = v35;
     v41 = [v36 VPN];
     protocol = [v41 protocol];
     if (protocol)
@@ -3442,10 +3404,10 @@ LABEL_46:
       type2 = [protocol2 type];
 
       self = selfCopy;
-      pluginType = v404;
-      v35 = v370;
-      v17 = v411;
-      preferencesCopy = v375;
+      pluginType = v403;
+      v35 = v369;
+      v17 = v410;
+      preferencesCopy = v374;
       if (type == type2)
       {
         goto LABEL_58;
@@ -3456,8 +3418,8 @@ LABEL_56:
       goto LABEL_61;
     }
 
-    pluginType = v404;
-    v17 = v411;
+    pluginType = v403;
+    v17 = v410;
   }
 
 LABEL_58:
@@ -3537,36 +3499,36 @@ LABEL_75:
     goto LABEL_103;
   }
 
-  v444 = 0u;
-  v445 = 0u;
-  v442 = 0u;
   v443 = 0u;
+  v444 = 0u;
+  v441 = 0u;
+  v442 = 0u;
   alwaysOnVPN3 = [v36 alwaysOnVPN];
   interfaceProtocolMapping = [alwaysOnVPN3 interfaceProtocolMapping];
 
-  v78 = [interfaceProtocolMapping countByEnumeratingWithState:&v442 objects:v446 count:16];
+  v78 = [interfaceProtocolMapping countByEnumeratingWithState:&v441 objects:v445 count:16];
   if (!v78)
   {
     goto LABEL_99;
   }
 
   v79 = v78;
-  v371 = v35;
-  v376 = preferencesCopy;
+  v370 = v35;
+  v375 = preferencesCopy;
   v80 = 0;
-  v81 = *v443;
+  v81 = *v442;
   do
   {
     v82 = 0;
     v83 = v80;
     do
     {
-      if (*v443 != v81)
+      if (*v442 != v81)
       {
         objc_enumerationMutation(interfaceProtocolMapping);
       }
 
-      v84 = *(*(&v442 + 1) + 8 * v82);
+      v84 = *(*(&v441 + 1) + 8 * v82);
       contentFilter2 = [v36 alwaysOnVPN];
       interfaceProtocolMapping2 = [contentFilter2 interfaceProtocolMapping];
       v80 = [interfaceProtocolMapping2 objectForKeyedSubscript:v84];
@@ -3623,27 +3585,27 @@ LABEL_95:
     }
 
     while (v79 != v82);
-    v79 = [interfaceProtocolMapping countByEnumeratingWithState:&v442 objects:v446 count:16];
+    v79 = [interfaceProtocolMapping countByEnumeratingWithState:&v441 objects:v445 count:16];
   }
 
   while (v79);
 
-  preferencesCopy = v376;
-  pluginType = v404;
-  v15 = v405;
+  preferencesCopy = v375;
+  pluginType = v403;
+  v15 = v404;
   self = selfCopy;
-  v35 = v371;
+  v35 = v370;
 LABEL_99:
 
-  v17 = v411;
+  v17 = v410;
 LABEL_100:
 
   v95 = ne_log_obj();
   if (os_log_type_enabled(v95, OS_LOG_TYPE_DEBUG))
   {
-    *v446 = 136315138;
+    *v445 = 136315138;
     selfCopy10 = "[NEConfigurationManager saveConfigurationToDisk:updateSCPreferences:currentSignature:userUUID:notifyNow:isUpgrade:]";
-    _os_log_debug_impl(&dword_1BA83C000, v95, OS_LOG_TYPE_DEBUG, "%s clean up system keychain for reset protocol", v446, 0xCu);
+    _os_log_debug_impl(&dword_1BA83C000, v95, OS_LOG_TYPE_DEBUG, "%s clean up system keychain for reset protocol", v445, 0xCu);
   }
 
   [(NEConfiguration *)v36 syncWithKeychainInDomain:?];
@@ -3654,16 +3616,16 @@ LABEL_103:
   }
 
   generateSignature = [v17 generateSignature];
-  v397 = [self copyAppGroupMapDidChange:&v434];
+  v396 = [self copyAppGroupMapDidChange:&v433];
   v97 = objc_getProperty(self, v96, 56, 1);
-  v407 = [(NEConfigurationManager *)self makeMutableCopyOfIndex:v97];
-  v98 = [v407 objectForKeyedSubscript:@"ConfigurationProperties"];
+  v406 = [(NEConfigurationManager *)self makeMutableCopyOfIndex:v97];
+  v98 = [v406 objectForKeyedSubscript:@"ConfigurationProperties"];
   identifier2 = [v17 identifier];
   v54 = [v98 objectForKeyedSubscript:identifier2];
 
   if (!v54)
   {
-    v369 = 0;
+    v368 = 0;
     if (!preferencesCopy)
     {
       goto LABEL_120;
@@ -3686,18 +3648,18 @@ LABEL_103:
     v51 = 0;
     v52 = 0;
 LABEL_114:
-    v48 = v397;
+    v48 = v396;
     v53 = generateSignature;
-    v55 = v407;
+    v55 = v406;
     goto LABEL_115;
   }
 
   v102 = v54;
   v103 = v35;
-  v369 = v102;
+  v368 = v102;
   v104 = [v102 objectForKeyedSubscript:@"Signature"];
   v105 = [generateSignature isEqualToData:v104];
-  v106 = v434;
+  v106 = v433;
 
   if (v105 && (v106 & 1) == 0)
   {
@@ -3715,34 +3677,34 @@ LABEL_114:
   {
     if (pluginType)
     {
-      v285 = [v369 objectForKeyedSubscript:@"PluginType"];
-      if (!v285 || (v286 = v285, [v369 objectForKeyedSubscript:@"PluginType"], v287 = objc_claimAutoreleasedReturnValue(), v288 = objc_msgSend(pluginType, "isEqualToString:", v287), v287, v286, (v288 & 1) == 0))
+      v284 = [v368 objectForKeyedSubscript:@"PluginType"];
+      if (!v284 || (v285 = v284, [v368 objectForKeyedSubscript:@"PluginType"], v286 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(pluginType), v286, v285, (isEqualToString & 1) == 0))
       {
         selfCopy3 = self;
-        v326 = 3;
+        v325 = 3;
         goto LABEL_401;
       }
     }
 
-    applicationIdentifier = [v411 applicationIdentifier];
+    applicationIdentifier = [v410 applicationIdentifier];
     if (!applicationIdentifier)
     {
       goto LABEL_120;
     }
 
-    v290 = applicationIdentifier;
-    v291 = [v369 objectForKeyedSubscript:@"ApplicationID"];
-    if (v291)
+    v289 = applicationIdentifier;
+    v290 = [v368 objectForKeyedSubscript:@"ApplicationID"];
+    if (v290)
     {
-      contentFilter2 = [v411 applicationIdentifier];
-      v292 = [v369 objectForKeyedSubscript:@"ApplicationID"];
-      if ([contentFilter2 isEqualToString:v292])
+      contentFilter2 = [v410 applicationIdentifier];
+      v291 = [v368 objectForKeyedSubscript:@"ApplicationID"];
+      if (objc_msgSend_isEqualToString_(contentFilter2))
       {
 
         goto LABEL_120;
       }
 
-      obj = v292;
+      obj = v291;
       if (!pluginType)
       {
         goto LABEL_398;
@@ -3754,23 +3716,23 @@ LABEL_114:
       goto LABEL_399;
     }
 
-    v425 = v291;
-    v378 = preferencesCopy;
-    v327 = [v369 objectForKeyedSubscript:@"PluginType"];
-    if (v327)
+    v424 = v290;
+    v377 = preferencesCopy;
+    v326 = [v368 objectForKeyedSubscript:@"PluginType"];
+    if (v326)
     {
-      v328 = v327;
-      v418 = contentFilter2;
-      v329 = [v369 objectForKeyedSubscript:@"PluginType"];
-      v330 = [pluginType isEqualToString:v329];
+      v327 = v326;
+      v417 = contentFilter2;
+      v328 = [v368 objectForKeyedSubscript:@"PluginType"];
+      v329 = objc_msgSend_isEqualToString_(pluginType);
 
-      if (v425)
+      if (v424)
       {
       }
 
       v35 = v103;
-      preferencesCopy = v378;
-      if (v330)
+      preferencesCopy = v377;
+      if (v329)
       {
         goto LABEL_120;
       }
@@ -3778,24 +3740,24 @@ LABEL_114:
       goto LABEL_400;
     }
 
-    if (!v291)
+    if (!v290)
     {
 LABEL_399:
 
 LABEL_400:
       selfCopy3 = self;
-      v326 = 4;
+      v325 = 4;
 LABEL_401:
-      v47 = [(NEConfigurationManager *)selfCopy3 errorWithCode:v326 specifics:0];
+      v47 = [(NEConfigurationManager *)selfCopy3 errorWithCode:v325 specifics:0];
       encodedData = 0;
       v50 = 0;
       v51 = 0;
       v52 = 0;
 LABEL_402:
-      v48 = v397;
+      v48 = v396;
       v53 = generateSignature;
-      v55 = v407;
-      v54 = v369;
+      v55 = v406;
+      v54 = v368;
       goto LABEL_115;
     }
 
@@ -3805,124 +3767,124 @@ LABEL_398:
   }
 
 LABEL_120:
-  v109 = objc_alloc_init(MEMORY[0x1E695DF90]);
-  [v109 setObject:generateSignature forKeyedSubscript:@"Signature"];
+  v108 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  [v108 setObject:generateSignature forKeyedSubscript:@"Signature"];
   if (pluginType)
   {
-    [v109 setObject:pluginType forKeyedSubscript:@"PluginType"];
+    [v108 setObject:pluginType forKeyedSubscript:@"PluginType"];
   }
 
-  v110 = v411;
-  applicationIdentifier2 = [v411 applicationIdentifier];
+  v109 = v410;
+  applicationIdentifier2 = [v410 applicationIdentifier];
 
   if (applicationIdentifier2)
   {
-    applicationIdentifier3 = [v411 applicationIdentifier];
-    [v109 setObject:applicationIdentifier3 forKeyedSubscript:@"ApplicationID"];
+    applicationIdentifier3 = [v410 applicationIdentifier];
+    [v108 setObject:applicationIdentifier3 forKeyedSubscript:@"ApplicationID"];
   }
 
-  v372 = v35;
-  v377 = preferencesCopy;
-  v113 = [v407 objectForKeyedSubscript:@"ConfigurationProperties"];
-  identifier3 = [v411 identifier];
-  v401 = v109;
-  [v113 setObject:v109 forKeyedSubscript:identifier3];
+  v371 = v35;
+  v376 = preferencesCopy;
+  v112 = [v406 objectForKeyedSubscript:@"ConfigurationProperties"];
+  identifier3 = [v410 identifier];
+  v400 = v108;
+  [v112 setObject:v108 forKeyedSubscript:identifier3];
 
-  if (v434 == 1 && v397)
+  if (v433 == 1 && v396)
   {
-    [v407 setObject:v397 forKeyedSubscript:@"AppGroupMap"];
+    [v406 setObject:v396 forKeyedSubscript:@"AppGroupMap"];
     os_unfair_lock_lock((self + 16));
     [self setAppGroupsChanged:0];
     os_unfair_lock_unlock((self + 16));
   }
 
-  if (v15 && ![(NEConfiguration *)v411 isSupportedBySC]|| (NEGetNullUUID(), v115 = objc_claimAutoreleasedReturnValue(), v15, (v15 = v115) != 0))
+  if (v15 && ![(NEConfiguration *)v410 isSupportedBySC]|| (NEGetNullUUID(), v114 = objc_claimAutoreleasedReturnValue(), v15, (v15 = v114) != 0))
   {
-    v116 = [v407 objectForKeyedSubscript:@"UserMap"];
-    v117 = [v116 objectForKeyedSubscript:v15];
-    v118 = isa_nsarray(v117);
+    v115 = [v406 objectForKeyedSubscript:@"UserMap"];
+    v116 = [v115 objectForKeyedSubscript:v15];
+    v117 = isa_nsarray(v116);
 
-    if ((v118 & 1) == 0)
+    if ((v117 & 1) == 0)
     {
-      v119 = objc_alloc_init(MEMORY[0x1E695DF70]);
-      v120 = [v407 objectForKeyedSubscript:@"UserMap"];
-      [v120 setObject:v119 forKeyedSubscript:v15];
+      v118 = objc_alloc_init(MEMORY[0x1E695DF70]);
+      v119 = [v406 objectForKeyedSubscript:@"UserMap"];
+      [v119 setObject:v118 forKeyedSubscript:v15];
     }
 
-    v121 = [v407 objectForKeyedSubscript:@"UserMap"];
-    v405 = v15;
-    v122 = [v121 objectForKeyedSubscript:v15];
+    v120 = [v406 objectForKeyedSubscript:@"UserMap"];
+    v404 = v15;
+    v121 = [v120 objectForKeyedSubscript:v15];
 
-    identifier4 = [v411 identifier];
-    v124 = [v122 containsObject:identifier4];
+    identifier4 = [v410 identifier];
+    v123 = [v121 containsObject:identifier4];
 
-    if ((v124 & 1) == 0)
+    if ((v123 & 1) == 0)
     {
-      identifier5 = [v411 identifier];
-      [v122 addObject:identifier5];
+      identifier5 = [v410 identifier];
+      [v121 addObject:identifier5];
     }
   }
 
   else
   {
-    v405 = 0;
+    v404 = 0;
   }
 
-  v126 = *(self + 104);
-  if (v126 <= 0x7FFFFFFFFFFFELL)
+  v125 = *(self + 104);
+  if (v125 <= 0x7FFFFFFFFFFFELL)
   {
-    v127 = v126 + 1;
+    v126 = v125 + 1;
   }
 
   else
   {
-    v127 = 1;
+    v126 = 1;
   }
 
-  v128 = [objc_alloc(MEMORY[0x1E696ACC8]) initRequiringSecureCoding:1];
+  v127 = [objc_alloc(MEMORY[0x1E696ACC8]) initRequiringSecureCoding:1];
   v50 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  [v128 encodeInt64:v127 forKey:@"Generation"];
-  [v128 encodeInt64:1 forKey:@"Version"];
-  v410 = v128;
-  v414 = v50;
-  if (objc_getProperty(self, v129, 56, 1))
+  [v127 encodeInt64:v126 forKey:@"Generation"];
+  [v127 encodeInt64:1 forKey:@"Version"];
+  v409 = v127;
+  v413 = v50;
+  if (objc_getProperty(self, v128, 56, 1))
   {
-    v357 = v127;
-    [objc_getProperty(self v130];
+    v356 = v126;
+    [objc_getProperty(self v129];
+    v429 = 0u;
     v430 = 0u;
     v431 = 0u;
-    v432 = 0u;
-    obja = v433 = 0u;
-    v131 = [obja countByEnumeratingWithState:&v430 objects:v441 count:16];
-    if (!v131)
+    obja = v432 = 0u;
+    v130 = [obja countByEnumeratingWithState:&v429 objects:v440 count:16];
+    if (!v130)
     {
-      v373 = 0;
+      v372 = 0;
       goto LABEL_347;
     }
 
-    v132 = v131;
-    v133 = 0;
-    v373 = 0;
-    v424 = *v431;
+    v131 = v130;
+    v132 = 0;
+    v372 = 0;
+    v423 = *v430;
     while (1)
     {
-      v134 = 0;
-      v417 = v132;
+      v133 = 0;
+      v416 = v131;
       do
       {
-        if (*v431 != v424)
+        if (*v430 != v423)
         {
           objc_enumerationMutation(obja);
         }
 
-        v135 = *(*(&v430 + 1) + 8 * v134);
-        identifier6 = [v110 identifier];
-        v137 = [v135 isEqual:identifier6];
+        v134 = *(*(&v429 + 1) + 8 * v133);
+        identifier6 = [v109 identifier];
+        v136 = [v134 isEqual:identifier6];
 
-        if ((v137 & 1) == 0)
+        if ((v136 & 1) == 0)
         {
-          v138 = [objc_getProperty(self v138];
-          if (!v138)
+          v137 = [objc_getProperty(self v137];
+          if (!v137)
           {
             goto LABEL_175;
           }
@@ -3934,89 +3896,89 @@ LABEL_120:
           }
 
           selfCopy5 = self;
-          v141 = v110;
-          v142 = v138;
+          v140 = v109;
+          v141 = v137;
           objc_opt_self();
-          v422 = v142;
-          alwaysOnVPN4 = [v142 alwaysOnVPN];
+          v421 = v141;
+          alwaysOnVPN4 = [v141 alwaysOnVPN];
 
           if (alwaysOnVPN4)
           {
-            contentFilter3 = [v141 contentFilter];
+            contentFilter3 = [v140 contentFilter];
 
             if (contentFilter3)
             {
-              v145 = 0;
+              v144 = 0;
             }
 
             else
             {
-              v145 = -1;
+              v144 = -1;
             }
 
 LABEL_155:
 
             self = selfCopy5;
-            if (v145 != -1)
+            if (v144 != -1)
             {
-              if (v145 == 1)
+              if (v144 == 1)
               {
                 goto LABEL_157;
               }
 
               isEnabled = 1;
-              v50 = v414;
-              v132 = v417;
+              v50 = v413;
+              v131 = v416;
 LABEL_174:
-              [v50 addObject:v138];
-              uUIDString = [v135 UUIDString];
-              [v128 encodeObject:v138 forKey:uUIDString];
+              [v50 addObject:v137];
+              uUIDString = [v134 UUIDString];
+              [v127 encodeObject:v137 forKey:uUIDString];
 
-              [NEConfigurationManager updateFlags:v138 withConfiguration:?];
+              [NEConfigurationManager updateFlags:v137 withConfiguration:?];
 LABEL_175:
 
               goto LABEL_176;
             }
 
-            v132 = v417;
+            v131 = v416;
 LABEL_162:
-            [NEConfigurationManager disableConfiguration:v141 onDemandOnly:?];
-            generateSignature2 = [v141 generateSignature];
-            [v401 setObject:generateSignature2 forKeyedSubscript:@"Signature"];
+            [NEConfigurationManager disableConfiguration:v140 onDemandOnly:?];
+            generateSignature2 = [v140 generateSignature];
+            [v400 setObject:generateSignature2 forKeyedSubscript:@"Signature"];
             isEnabled = 0;
-            v50 = v414;
+            v50 = v413;
 LABEL_173:
 
             goto LABEL_174;
           }
 
-          alwaysOnVPN5 = [v141 alwaysOnVPN];
+          alwaysOnVPN5 = [v140 alwaysOnVPN];
 
           if (alwaysOnVPN5)
           {
-            contentFilter4 = [v142 contentFilter];
-            v145 = contentFilter4 == 0;
+            contentFilter4 = [v141 contentFilter];
+            v144 = contentFilter4 == 0;
 
             goto LABEL_155;
           }
 
-          grade = [v141 grade];
-          v132 = v417;
-          if (grade == [v142 grade])
+          grade = [v140 grade];
+          v131 = v416;
+          if (grade == [v141 grade])
           {
-            v153 = [v141 VPN];
-            if (v153)
+            v152 = [v140 VPN];
+            if (v152)
             {
-              v154 = v153;
-              v155 = [v141 VPN];
-              if ([v155 isEnabled] && (objc_msgSend(v142, "VPN"), (v156 = objc_claimAutoreleasedReturnValue()) != 0))
+              v153 = v152;
+              v154 = [v140 VPN];
+              if ([v154 isEnabled] && (objc_msgSend(v141, "VPN"), (v155 = objc_claimAutoreleasedReturnValue()) != 0))
               {
-                v157 = v156;
-                v358 = [v422 VPN];
-                isEnabled2 = [v358 isEnabled];
+                v156 = v155;
+                v357 = [v421 VPN];
+                isEnabled2 = [v357 isEnabled];
 
                 self = selfCopy;
-                v128 = v410;
+                v127 = v409;
                 if (isEnabled2)
                 {
                   goto LABEL_334;
@@ -4026,68 +3988,68 @@ LABEL_173:
               else
               {
 
-                v128 = v410;
+                v127 = v409;
               }
             }
           }
 
-          grade2 = [v141 grade];
-          if (grade2 != [v422 grade])
+          grade2 = [v140 grade];
+          if (grade2 != [v421 grade])
           {
             goto LABEL_192;
           }
 
-          contentFilter5 = [v141 contentFilter];
+          contentFilter5 = [v140 contentFilter];
           if (!contentFilter5)
           {
             goto LABEL_192;
           }
 
-          v161 = contentFilter5;
-          contentFilter6 = [v141 contentFilter];
+          v160 = contentFilter5;
+          contentFilter6 = [v140 contentFilter];
           if ([contentFilter6 isEnabled])
           {
-            contentFilter7 = [v422 contentFilter];
+            contentFilter7 = [v421 contentFilter];
             if (contentFilter7)
             {
-              v380 = contentFilter7;
-              contentFilter8 = [v422 contentFilter];
+              v379 = contentFilter7;
+              contentFilter8 = [v421 contentFilter];
               if ([contentFilter8 isEnabled])
               {
-                contentFilter9 = [v141 contentFilter];
+                contentFilter9 = [v140 contentFilter];
                 grade3 = [contentFilter9 grade];
-                contentFilter10 = [v422 contentFilter];
+                contentFilter10 = [v421 contentFilter];
                 grade4 = [contentFilter10 grade];
 
                 if (grade3 != grade4)
                 {
-                  v128 = v410;
+                  v127 = v409;
                   goto LABEL_192;
                 }
 
-                externalIdentifier = [v422 externalIdentifier];
+                externalIdentifier = [v421 externalIdentifier];
 
                 self = selfCopy;
                 if (externalIdentifier)
                 {
-                  v166 = v133 + 1;
-                  externalIdentifier2 = [v141 externalIdentifier];
-                  v128 = v410;
+                  v165 = v132 + 1;
+                  externalIdentifier2 = [v140 externalIdentifier];
+                  v127 = v409;
                   if (externalIdentifier2)
                   {
 
-                    ++v133;
-                    if (v166 >= 7)
+                    ++v132;
+                    if (v165 >= 7)
                     {
-                      v168 = ne_log_obj();
-                      if (os_log_type_enabled(v168, OS_LOG_TYPE_DEFAULT))
+                      v167 = ne_log_obj();
+                      if (os_log_type_enabled(v167, OS_LOG_TYPE_DEFAULT))
                       {
-                        name = [v141 name];
-                        *v455 = 136315394;
-                        v456 = "+[NEConfigurationManager configuration:overlapsWithOtherConfiguration:sameTypeCount:perAppCount:]";
-                        v457 = 2112;
-                        v458 = name;
-                        _os_log_impl(&dword_1BA83C000, v168, OS_LOG_TYPE_DEFAULT, "%s: Exceeded perApp Content Filter limit, %@ superceded", v455, 0x16u);
+                        name = [v140 name];
+                        *v454 = 136315394;
+                        v455 = "+[NEConfigurationManager configuration:overlapsWithOtherConfiguration:sameTypeCount:perAppCount:]";
+                        v456 = 2112;
+                        v457 = name;
+                        _os_log_impl(&dword_1BA83C000, v167, OS_LOG_TYPE_DEFAULT, "%s: Exceeded perApp Content Filter limit, %@ superceded", v454, 0x16u);
                       }
 
                       goto LABEL_223;
@@ -4096,90 +4058,90 @@ LABEL_173:
 
                   else
                   {
-                    ++v133;
+                    ++v132;
                   }
 
 LABEL_192:
-                  appVPN5 = [v141 appVPN];
-                  v171 = v422;
+                  appVPN5 = [v140 appVPN];
+                  v170 = v421;
                   if (appVPN5)
                   {
                     appRules = appVPN5;
-                    appVPN6 = [v141 appVPN];
-                    if (![appVPN6 isEnabled] || (objc_msgSend(v422, "appVPN"), (v174 = objc_claimAutoreleasedReturnValue()) == 0))
+                    appVPN6 = [v140 appVPN];
+                    if (![appVPN6 isEnabled] || (objc_msgSend(v421, "appVPN"), (v173 = objc_claimAutoreleasedReturnValue()) == 0))
                     {
 
-                      v128 = v410;
+                      v127 = v409;
                       goto LABEL_213;
                     }
 
-                    v175 = v174;
-                    [v422 appVPN];
-                    v176 = v360 = appRules;
-                    isEnabled3 = [v176 isEnabled];
+                    v174 = v173;
+                    [v421 appVPN];
+                    v175 = v359 = appRules;
+                    isEnabled3 = [v175 isEnabled];
 
-                    v128 = v410;
+                    v127 = v409;
                     if (isEnabled3)
                     {
+                      v452 = 0u;
                       v453 = 0u;
-                      v454 = 0u;
                       memset(buf, 0, sizeof(buf));
-                      appVPN7 = [v141 appVPN];
+                      appVPN7 = [v140 appVPN];
                       appRules = [appVPN7 appRules];
 
-                      v346 = [appRules countByEnumeratingWithState:buf objects:v446 count:16];
-                      if (v346)
+                      v345 = [appRules countByEnumeratingWithState:buf objects:v445 count:16];
+                      if (v345)
                       {
-                        v178 = **&buf[16];
-                        v361 = appRules;
-                        v342 = **&buf[16];
+                        v177 = **&buf[16];
+                        v360 = appRules;
+                        v341 = **&buf[16];
                         do
                         {
-                          v179 = 0;
+                          v178 = 0;
                           do
                           {
-                            if (**&buf[16] != v178)
+                            if (**&buf[16] != v177)
                             {
-                              v180 = v179;
+                              v179 = v178;
                               objc_enumerationMutation(appRules);
-                              v179 = v180;
+                              v178 = v179;
                             }
 
-                            v350 = v179;
-                            v181 = *(*&buf[8] + 8 * v179);
+                            v349 = v178;
+                            v180 = *(*&buf[8] + 8 * v178);
+                            v435 = 0u;
                             v436 = 0u;
                             v437 = 0u;
                             v438 = 0u;
-                            v439 = 0u;
-                            appVPN8 = [v171 appVPN];
+                            appVPN8 = [v170 appVPN];
                             appRules2 = [appVPN8 appRules];
 
-                            v382 = appRules2;
-                            v184 = [appRules2 countByEnumeratingWithState:&v436 objects:&v442 count:16];
-                            if (v184)
+                            v381 = appRules2;
+                            v183 = [appRules2 countByEnumeratingWithState:&v435 objects:&v441 count:16];
+                            if (v183)
                             {
-                              v185 = v184;
-                              v186 = *v437;
+                              v184 = v183;
+                              v185 = *v436;
                               while (2)
                               {
-                                for (i = 0; i != v185; ++i)
+                                for (i = 0; i != v184; ++i)
                                 {
-                                  if (*v437 != v186)
+                                  if (*v436 != v185)
                                   {
-                                    objc_enumerationMutation(v382);
+                                    objc_enumerationMutation(v381);
                                   }
 
-                                  if ([v181 overlapsWithRule:*(*(&v436 + 1) + 8 * i)])
+                                  if ([v180 overlapsWithRule:*(*(&v435 + 1) + 8 * i)])
                                   {
 
                                     self = selfCopy;
-                                    v110 = v411;
+                                    v109 = v410;
                                     goto LABEL_333;
                                   }
                                 }
 
-                                v185 = [v382 countByEnumeratingWithState:&v436 objects:&v442 count:16];
-                                if (v185)
+                                v184 = [v381 countByEnumeratingWithState:&v435 objects:&v441 count:16];
+                                if (v184)
                                 {
                                   continue;
                                 }
@@ -4188,123 +4150,123 @@ LABEL_192:
                               }
                             }
 
-                            v179 = v350 + 1;
-                            v128 = v410;
-                            v171 = v422;
-                            appRules = v361;
-                            v178 = v342;
+                            v178 = v349 + 1;
+                            v127 = v409;
+                            v170 = v421;
+                            appRules = v360;
+                            v177 = v341;
                           }
 
-                          while (v350 + 1 != v346);
-                          v346 = [v361 countByEnumeratingWithState:buf objects:v446 count:16];
+                          while (v349 + 1 != v345);
+                          v345 = [v360 countByEnumeratingWithState:buf objects:v445 count:16];
                         }
 
-                        while (v346);
+                        while (v345);
                       }
 
 LABEL_213:
                     }
                   }
 
-                  dnsProxy3 = [v141 dnsProxy];
+                  dnsProxy3 = [v140 dnsProxy];
                   if (!dnsProxy3)
                   {
                     goto LABEL_225;
                   }
 
-                  v189 = dnsProxy3;
-                  dnsProxy4 = [v141 dnsProxy];
-                  if (![dnsProxy4 isEnabled] || (objc_msgSend(v422, "dnsProxy"), (v191 = objc_claimAutoreleasedReturnValue()) == 0))
+                  v188 = dnsProxy3;
+                  dnsProxy4 = [v140 dnsProxy];
+                  if (![dnsProxy4 isEnabled] || (objc_msgSend(v421, "dnsProxy"), (v190 = objc_claimAutoreleasedReturnValue()) == 0))
                   {
 
-                    v128 = v410;
+                    v127 = v409;
                     goto LABEL_225;
                   }
 
-                  v192 = v191;
-                  dnsProxy5 = [v422 dnsProxy];
+                  v191 = v190;
+                  dnsProxy5 = [v421 dnsProxy];
                   isEnabled4 = [dnsProxy5 isEnabled];
 
-                  v110 = v411;
-                  v128 = v410;
+                  v109 = v410;
+                  v127 = v409;
                   if (!isEnabled4)
                   {
                     goto LABEL_225;
                   }
 
-                  externalIdentifier3 = [v141 externalIdentifier];
+                  externalIdentifier3 = [v140 externalIdentifier];
 
-                  externalIdentifier4 = [v422 externalIdentifier];
+                  externalIdentifier4 = [v421 externalIdentifier];
 
                   if (externalIdentifier3)
                   {
-                    v128 = v410;
+                    v127 = v409;
                     if (!externalIdentifier4)
                     {
-                      v168 = ne_log_obj();
-                      if (os_log_type_enabled(v168, OS_LOG_TYPE_DEFAULT))
+                      v167 = ne_log_obj();
+                      if (os_log_type_enabled(v167, OS_LOG_TYPE_DEFAULT))
                       {
-                        name2 = [v141 name];
-                        *v455 = 136315394;
-                        v456 = "+[NEConfigurationManager configuration:overlapsWithOtherConfiguration:sameTypeCount:perAppCount:]";
-                        v457 = 2112;
-                        v458 = name2;
-                        _os_log_impl(&dword_1BA83C000, v168, OS_LOG_TYPE_DEFAULT, "%s: Concurrent perApp and system DNS Proxy not allowed, %@ superceded", v455, 0x16u);
+                        name2 = [v140 name];
+                        *v454 = 136315394;
+                        v455 = "+[NEConfigurationManager configuration:overlapsWithOtherConfiguration:sameTypeCount:perAppCount:]";
+                        v456 = 2112;
+                        v457 = name2;
+                        _os_log_impl(&dword_1BA83C000, v167, OS_LOG_TYPE_DEFAULT, "%s: Concurrent perApp and system DNS Proxy not allowed, %@ superceded", v454, 0x16u);
                       }
 
                       self = selfCopy;
 LABEL_223:
 
 LABEL_325:
-                      v128 = v410;
+                      v127 = v409;
                       goto LABEL_162;
                     }
 
 LABEL_225:
-                    dnsSettings3 = [v141 dnsSettings];
+                    dnsSettings3 = [v140 dnsSettings];
                     if (dnsSettings3)
                     {
                       dnsSettings7 = dnsSettings3;
-                      dnsSettings4 = [v141 dnsSettings];
+                      dnsSettings4 = [v140 dnsSettings];
                       if (![dnsSettings4 isEnabled])
                       {
                         goto LABEL_241;
                       }
 
-                      dnsSettings5 = [v422 dnsSettings];
+                      dnsSettings5 = [v421 dnsSettings];
                       if (!dnsSettings5)
                       {
                         goto LABEL_240;
                       }
 
-                      v201 = dnsSettings5;
-                      dnsSettings6 = [v422 dnsSettings];
+                      v200 = dnsSettings5;
+                      dnsSettings6 = [v421 dnsSettings];
                       isEnabled5 = [dnsSettings6 isEnabled];
 
-                      v110 = v411;
-                      v128 = v410;
+                      v109 = v410;
+                      v127 = v409;
                       if (isEnabled5)
                       {
-                        dnsSettings7 = [v141 dnsSettings];
+                        dnsSettings7 = [v140 dnsSettings];
                         dnsSettings4 = [dnsSettings7 settings];
-                        dnsSettings8 = [v422 dnsSettings];
+                        dnsSettings8 = [v421 dnsSettings];
                         settings = [dnsSettings8 settings];
                         if (dnsSettings4)
                         {
                           matchDomains = [dnsSettings4 matchDomains];
-                          v351 = [matchDomains count];
+                          v350 = [matchDomains count];
 
                           matchDomains2 = [settings matchDomains];
-                          v204 = [matchDomains2 count];
+                          v203 = [matchDomains2 count];
 
-                          v363 = v204;
-                          if (!(v351 | v204))
+                          v362 = v203;
+                          if (!(v350 | v203))
                           {
 LABEL_324:
 
-                            grade5 = [v422 grade];
+                            grade5 = [v421 grade];
                             self = selfCopy;
-                            if (grade5 >= [v141 grade])
+                            if (grade5 >= [v140 grade])
                             {
                               goto LABEL_334;
                             }
@@ -4312,41 +4274,41 @@ LABEL_324:
                             goto LABEL_325;
                           }
 
-                          if (v351 && v204)
+                          if (v350 && v203)
                           {
-                            v205 = 0;
-                            v339 = dnsSettings7;
-                            v343 = dnsSettings4;
+                            v204 = 0;
+                            v338 = dnsSettings7;
+                            v342 = dnsSettings4;
                             while (2)
                             {
                               matchDomains3 = [dnsSettings4 matchDomains];
-                              v338 = v205;
-                              v207 = [matchDomains3 objectAtIndexedSubscript:v205];
+                              v337 = v204;
+                              v206 = [matchDomains3 objectAtIndexedSubscript:v204];
 
-                              v208 = 0;
+                              v207 = 0;
                               do
                               {
                                 matchDomains4 = [settings matchDomains];
-                                v210 = [matchDomains4 objectAtIndexedSubscript:v208];
+                                v209 = [matchDomains4 objectAtIndexedSubscript:v207];
 
-                                if ([v207 hasSuffix:v210] & 1) != 0 || (objc_msgSend(v210, "hasSuffix:", v207))
+                                if ([v206 hasSuffix:v209] & 1) != 0 || (objc_msgSend(v209, "hasSuffix:", v206))
                                 {
 
-                                  v110 = v411;
-                                  dnsSettings7 = v339;
-                                  dnsSettings4 = v343;
+                                  v109 = v410;
+                                  dnsSettings7 = v338;
+                                  dnsSettings4 = v342;
                                   goto LABEL_324;
                                 }
 
-                                ++v208;
+                                ++v207;
                               }
 
-                              while (v363 != v208);
+                              while (v362 != v207);
 
-                              v205 = v338 + 1;
-                              dnsSettings7 = v339;
-                              dnsSettings4 = v343;
-                              if (v338 + 1 != v351)
+                              v204 = v337 + 1;
+                              dnsSettings7 = v338;
+                              dnsSettings4 = v342;
+                              if (v337 + 1 != v350)
                               {
                                 continue;
                               }
@@ -4357,138 +4319,138 @@ LABEL_324:
                         }
 
 LABEL_240:
-                        v128 = v410;
+                        v127 = v409;
 LABEL_241:
                       }
                     }
 
-                    externalIdentifier5 = [v141 externalIdentifier];
+                    externalIdentifier5 = [v140 externalIdentifier];
                     if (!externalIdentifier5)
                     {
-                      dnsProxy6 = [v141 dnsProxy];
+                      dnsProxy6 = [v140 dnsProxy];
                       if (!dnsProxy6)
                       {
                         goto LABEL_250;
                       }
 
                       externalIdentifier5 = dnsProxy6;
-                      dnsProxy7 = [v141 dnsProxy];
+                      dnsProxy7 = [v140 dnsProxy];
                       if ([dnsProxy7 isEnabled])
                       {
-                        dnsSettings9 = [v422 dnsSettings];
+                        dnsSettings9 = [v421 dnsSettings];
                         if (dnsSettings9)
                         {
-                          v215 = dnsSettings9;
-                          dnsSettings10 = [v422 dnsSettings];
+                          v214 = dnsSettings9;
+                          dnsSettings10 = [v421 dnsSettings];
                           isEnabled6 = [dnsSettings10 isEnabled];
 
-                          v110 = v411;
-                          v128 = v410;
+                          v109 = v410;
+                          v127 = v409;
                           if (isEnabled6)
                           {
                             goto LABEL_311;
                           }
 
 LABEL_250:
-                          externalIdentifier6 = [v422 externalIdentifier];
+                          externalIdentifier6 = [v421 externalIdentifier];
                           if (!externalIdentifier6)
                           {
-                            dnsProxy8 = [v422 dnsProxy];
+                            dnsProxy8 = [v421 dnsProxy];
                             if (!dnsProxy8)
                             {
                               goto LABEL_258;
                             }
 
                             externalIdentifier6 = dnsProxy8;
-                            dnsProxy9 = [v422 dnsProxy];
+                            dnsProxy9 = [v421 dnsProxy];
                             if ([dnsProxy9 isEnabled])
                             {
-                              dnsSettings11 = [v141 dnsSettings];
+                              dnsSettings11 = [v140 dnsSettings];
                               if (dnsSettings11)
                               {
-                                v221 = dnsSettings11;
-                                dnsSettings12 = [v141 dnsSettings];
+                                v220 = dnsSettings11;
+                                dnsSettings12 = [v140 dnsSettings];
                                 isEnabled7 = [dnsSettings12 isEnabled];
 
-                                v110 = v411;
-                                v128 = v410;
+                                v109 = v410;
+                                v127 = v409;
                                 if (isEnabled7)
                                 {
                                   goto LABEL_311;
                                 }
 
 LABEL_258:
-                                appPush3 = [v141 appPush];
+                                appPush3 = [v140 appPush];
                                 if (!appPush3)
                                 {
                                   goto LABEL_267;
                                 }
 
-                                v224 = appPush3;
-                                appPush4 = [v141 appPush];
+                                v223 = appPush3;
+                                appPush4 = [v140 appPush];
                                 if ([appPush4 isEnabled])
                                 {
-                                  appPush5 = [v422 appPush];
+                                  appPush5 = [v421 appPush];
                                   if (appPush5)
                                   {
-                                    v388 = appPush5;
-                                    appPush6 = [v422 appPush];
+                                    v387 = appPush5;
+                                    appPush6 = [v421 appPush];
                                     if ([appPush6 isEnabled])
                                     {
-                                      appPush7 = [v141 appPush];
+                                      appPush7 = [v140 appPush];
                                       pluginType2 = [appPush7 pluginType];
-                                      appPush8 = [v422 appPush];
+                                      appPush8 = [v421 appPush];
                                       pluginType3 = [appPush8 pluginType];
-                                      v348 = [pluginType2 isEqualToString:pluginType3];
+                                      v347 = objc_msgSend_isEqualToString_(pluginType2);
 
-                                      v128 = v410;
-                                      if (v348)
+                                      v127 = v409;
+                                      if (v347)
                                       {
-                                        appPush9 = [v141 appPush];
-                                        appPush10 = [v422 appPush];
-                                        v230 = [appPush9 overlapsWithConfiguration:appPush10];
+                                        appPush9 = [v140 appPush];
+                                        appPush10 = [v421 appPush];
+                                        v229 = [appPush9 overlapsWithConfiguration:appPush10];
 
-                                        v128 = v410;
-                                        if (v230)
+                                        v127 = v409;
+                                        if (v229)
                                         {
                                           goto LABEL_319;
                                         }
                                       }
 
 LABEL_267:
-                                      relay3 = [v141 relay];
+                                      relay3 = [v140 relay];
                                       if (relay3)
                                       {
-                                        v232 = relay3;
-                                        relay4 = [v141 relay];
-                                        if ([relay4 isEnabled] && (objc_msgSend(v422, "relay"), (v234 = objc_claimAutoreleasedReturnValue()) != 0))
+                                        v231 = relay3;
+                                        relay4 = [v140 relay];
+                                        if ([relay4 isEnabled] && (objc_msgSend(v421, "relay"), (v233 = objc_claimAutoreleasedReturnValue()) != 0))
                                         {
-                                          v235 = v234;
-                                          relay5 = [v422 relay];
+                                          v234 = v233;
+                                          relay5 = [v421 relay];
                                           isEnabled8 = [relay5 isEnabled];
 
-                                          v128 = v410;
+                                          v127 = v409;
                                           if (isEnabled8)
                                           {
-                                            relay6 = [v141 relay];
-                                            relay7 = [v422 relay];
-                                            v239 = [relay6 overlapsWithRelayConfiguration:relay7];
+                                            relay6 = [v140 relay];
+                                            relay7 = [v421 relay];
+                                            v238 = [relay6 overlapsWithRelayConfiguration:relay7];
 
-                                            v128 = v410;
-                                            if (v239)
+                                            v127 = v409;
+                                            if (v238)
                                             {
-                                              grade6 = [v422 grade];
+                                              grade6 = [v421 grade];
                                               self = selfCopy;
-                                              v110 = v411;
-                                              if (grade6 < [v141 grade])
+                                              v109 = v410;
+                                              if (grade6 < [v140 grade])
                                               {
                                                 goto LABEL_325;
                                               }
 
-                                              payloadInfo = [v422 payloadInfo];
+                                              payloadInfo = [v421 payloadInfo];
                                               if ([payloadInfo profileSource]== 2)
                                               {
-                                                payloadInfo2 = [v141 payloadInfo];
+                                                payloadInfo2 = [v140 payloadInfo];
                                                 profileSource = [payloadInfo2 profileSource];
 
                                                 if (profileSource == 2)
@@ -4497,36 +4459,36 @@ LABEL_334:
                                                   selfCopy5 = self;
 
 LABEL_157:
-                                                  v50 = v414;
-                                                  [NEConfigurationManager disableConfiguration:v422 onDemandOnly:?];
-                                                  v148 = [obja objectForKeyedSubscript:v135];
-                                                  generateSignature2 = [v148 mutableCopy];
+                                                  v50 = v413;
+                                                  [NEConfigurationManager disableConfiguration:v421 onDemandOnly:?];
+                                                  v147 = [obja objectForKeyedSubscript:v134];
+                                                  generateSignature2 = [v147 mutableCopy];
 
-                                                  generateSignature3 = [v422 generateSignature];
+                                                  generateSignature3 = [v421 generateSignature];
                                                   [generateSignature2 setObject:generateSignature3 forKeyedSubscript:@"Signature"];
 
-                                                  v151 = [v407 objectForKeyedSubscript:@"ConfigurationProperties"];
-                                                  [v151 setObject:generateSignature2 forKeyedSubscript:v135];
+                                                  v150 = [v406 objectForKeyedSubscript:@"ConfigurationProperties"];
+                                                  [v150 setObject:generateSignature2 forKeyedSubscript:v134];
 
                                                   if (disk)
                                                   {
-                                                    v128 = v410;
-                                                    if ([(NEConfiguration *)v422 isSupportedBySC])
+                                                    v127 = v409;
+                                                    if ([(NEConfiguration *)v421 isSupportedBySC])
                                                     {
-                                                      if (([(NEConfiguration *)v422 applyChangesToSCServiceInPreferences:disk]& 1) == 0)
+                                                      if (([(NEConfiguration *)v421 applyChangesToSCServiceInPreferences:disk]& 1) == 0)
                                                       {
-                                                        v317 = MEMORY[0x1E696AEC0];
-                                                        v318 = SCError();
-                                                        v319 = [v317 stringWithCString:SCErrorString(v318) encoding:4];
-                                                        v47 = [(NEConfigurationManager *)selfCopy5 errorWithCode:v319 specifics:?];
+                                                        v316 = MEMORY[0x1E696AEC0];
+                                                        v317 = SCError();
+                                                        v318 = [v316 stringWithCString:SCErrorString(v317) encoding:4];
+                                                        v47 = [(NEConfigurationManager *)selfCopy5 errorWithCode:v318 specifics:?];
 
                                                         encodedData = 0;
-                                                        preferencesCopy = v377;
-                                                        v35 = v372;
+                                                        preferencesCopy = v376;
+                                                        v35 = v371;
                                                         goto LABEL_378;
                                                       }
 
-                                                      v373 = 1;
+                                                      v372 = 1;
                                                     }
 
                                                     isEnabled = 1;
@@ -4535,18 +4497,18 @@ LABEL_157:
                                                   else
                                                   {
                                                     isEnabled = 1;
-                                                    v128 = v410;
+                                                    v127 = v409;
                                                   }
 
                                                   self = selfCopy5;
-                                                  v132 = v417;
+                                                  v131 = v416;
                                                   goto LABEL_173;
                                                 }
 
                                                 goto LABEL_325;
                                               }
 
-                                              v361 = payloadInfo;
+                                              v360 = payloadInfo;
 LABEL_333:
 
                                               goto LABEL_334;
@@ -4557,66 +4519,66 @@ LABEL_333:
                                         else
                                         {
 
-                                          v128 = v410;
+                                          v127 = v409;
                                         }
                                       }
 
-                                      grade7 = [v141 grade];
-                                      if (grade7 != [v422 grade])
+                                      grade7 = [v140 grade];
+                                      if (grade7 != [v421 grade])
                                       {
                                         goto LABEL_314;
                                       }
 
-                                      relay8 = [v141 relay];
+                                      relay8 = [v140 relay];
                                       if (!relay8)
                                       {
                                         goto LABEL_287;
                                       }
 
-                                      v245 = relay8;
-                                      relay9 = [v141 relay];
+                                      v244 = relay8;
+                                      relay9 = [v140 relay];
                                       if ([relay9 isEnabled])
                                       {
-                                        v247 = [v422 VPN];
-                                        if (v247)
+                                        v246 = [v421 VPN];
+                                        if (v246)
                                         {
-                                          v391 = v247;
-                                          v248 = [v422 VPN];
-                                          if ([v248 isEnabled])
+                                          v390 = v246;
+                                          v247 = [v421 VPN];
+                                          if ([v247 isEnabled])
                                           {
-                                            relay10 = [v141 relay];
-                                            v249 = [v422 VPN];
-                                            v353 = [relay10 overlapsWithVPNConfiguration:v249];
+                                            relay10 = [v140 relay];
+                                            v248 = [v421 VPN];
+                                            v352 = [relay10 overlapsWithVPNConfiguration:v248];
 
-                                            v110 = v411;
-                                            v128 = v410;
-                                            if (v353)
+                                            v109 = v410;
+                                            v127 = v409;
+                                            if (v352)
                                             {
                                               goto LABEL_311;
                                             }
 
 LABEL_287:
-                                            v250 = [v141 VPN];
-                                            if (v250)
+                                            v249 = [v140 VPN];
+                                            if (v249)
                                             {
-                                              v251 = v250;
-                                              v252 = [v141 VPN];
-                                              if ([v252 isEnabled])
+                                              v250 = v249;
+                                              v251 = [v140 VPN];
+                                              if ([v251 isEnabled])
                                               {
-                                                relay11 = [v422 relay];
+                                                relay11 = [v421 relay];
                                                 if (relay11)
                                                 {
-                                                  v392 = relay11;
-                                                  relay12 = [v422 relay];
+                                                  v391 = relay11;
+                                                  relay12 = [v421 relay];
                                                   if ([relay12 isEnabled])
                                                   {
-                                                    relay13 = [v422 relay];
-                                                    v255 = [v141 VPN];
-                                                    v354 = [relay13 overlapsWithVPNConfiguration:v255];
+                                                    relay13 = [v421 relay];
+                                                    v254 = [v140 VPN];
+                                                    v353 = [relay13 overlapsWithVPNConfiguration:v254];
 
-                                                    v110 = v411;
-                                                    v128 = v410;
-                                                    if (v354)
+                                                    v109 = v410;
+                                                    v127 = v409;
+                                                    if (v353)
                                                     {
                                                       goto LABEL_311;
                                                     }
@@ -4624,33 +4586,33 @@ LABEL_287:
                                                     goto LABEL_298;
                                                   }
 
-                                                  v128 = v410;
+                                                  v127 = v409;
                                                 }
                                               }
                                             }
 
 LABEL_298:
-                                            relay14 = [v141 relay];
+                                            relay14 = [v140 relay];
                                             if (relay14)
                                             {
-                                              v261 = relay14;
-                                              relay15 = [v141 relay];
+                                              v260 = relay14;
+                                              relay15 = [v140 relay];
                                               if ([relay15 isEnabled])
                                               {
-                                                appVPN9 = [v422 appVPN];
+                                                appVPN9 = [v421 appVPN];
                                                 if (appVPN9)
                                                 {
-                                                  v393 = appVPN9;
-                                                  appVPN10 = [v422 appVPN];
+                                                  v392 = appVPN9;
+                                                  appVPN10 = [v421 appVPN];
                                                   if ([appVPN10 isEnabled])
                                                   {
-                                                    relay16 = [v141 relay];
-                                                    appVPN11 = [v422 appVPN];
-                                                    v355 = [relay16 overlapsWithAppVPNConfiguration:appVPN11];
+                                                    relay16 = [v140 relay];
+                                                    appVPN11 = [v421 appVPN];
+                                                    v354 = [relay16 overlapsWithAppVPNConfiguration:appVPN11];
 
-                                                    v110 = v411;
-                                                    v128 = v410;
-                                                    if (v355)
+                                                    v109 = v410;
+                                                    v127 = v409;
+                                                    if (v354)
                                                     {
                                                       goto LABEL_311;
                                                     }
@@ -4658,33 +4620,33 @@ LABEL_298:
                                                     goto LABEL_306;
                                                   }
 
-                                                  v128 = v410;
+                                                  v127 = v409;
                                                 }
                                               }
                                             }
 
 LABEL_306:
-                                            appVPN12 = [v141 appVPN];
+                                            appVPN12 = [v140 appVPN];
                                             if (appVPN12)
                                             {
-                                              v267 = appVPN12;
-                                              appVPN13 = [v141 appVPN];
+                                              v266 = appVPN12;
+                                              appVPN13 = [v140 appVPN];
                                               if ([appVPN13 isEnabled])
                                               {
-                                                relay17 = [v422 relay];
+                                                relay17 = [v421 relay];
                                                 if (relay17)
                                                 {
-                                                  v394 = relay17;
-                                                  relay18 = [v422 relay];
+                                                  v393 = relay17;
+                                                  relay18 = [v421 relay];
                                                   if ([relay18 isEnabled])
                                                   {
-                                                    relay19 = [v422 relay];
-                                                    appVPN14 = [v141 appVPN];
-                                                    v356 = [relay19 overlapsWithAppVPNConfiguration:appVPN14];
+                                                    relay19 = [v421 relay];
+                                                    appVPN14 = [v140 appVPN];
+                                                    v355 = [relay19 overlapsWithAppVPNConfiguration:appVPN14];
 
-                                                    v110 = v411;
-                                                    v128 = v410;
-                                                    if (v356)
+                                                    v109 = v410;
+                                                    v127 = v409;
+                                                    if (v355)
                                                     {
 LABEL_311:
                                                       self = selfCopy;
@@ -4694,36 +4656,36 @@ LABEL_311:
                                                     goto LABEL_314;
                                                   }
 
-                                                  v128 = v410;
+                                                  v127 = v409;
                                                 }
                                               }
                                             }
 
 LABEL_314:
-                                            hotspot = [v141 hotspot];
+                                            hotspot = [v140 hotspot];
                                             if (hotspot)
                                             {
-                                              v273 = hotspot;
-                                              hotspot2 = [v141 hotspot];
-                                              if ([hotspot2 isEnabled] && (objc_msgSend(v422, "hotspot"), (v275 = objc_claimAutoreleasedReturnValue()) != 0))
+                                              v272 = hotspot;
+                                              hotspot2 = [v140 hotspot];
+                                              if ([hotspot2 isEnabled] && (objc_msgSend(v421, "hotspot"), (v274 = objc_claimAutoreleasedReturnValue()) != 0))
                                               {
-                                                v276 = v275;
-                                                hotspot3 = [v422 hotspot];
+                                                v275 = v274;
+                                                hotspot3 = [v421 hotspot];
                                                 isEnabled9 = [hotspot3 isEnabled];
 
-                                                v128 = v410;
+                                                v127 = v409;
                                                 if (isEnabled9)
                                                 {
-                                                  hotspot4 = [v141 hotspot];
-                                                  hotspot5 = [v422 hotspot];
-                                                  v280 = [hotspot4 overlapsWithConfiguration:hotspot5];
+                                                  hotspot4 = [v140 hotspot];
+                                                  hotspot5 = [v421 hotspot];
+                                                  v279 = [hotspot4 overlapsWithConfiguration:hotspot5];
 
-                                                  v128 = v410;
-                                                  if (v280)
+                                                  v127 = v409;
+                                                  if (v279)
                                                   {
 LABEL_319:
                                                     self = selfCopy;
-                                                    v110 = v411;
+                                                    v109 = v410;
                                                     goto LABEL_334;
                                                   }
                                                 }
@@ -4732,18 +4694,18 @@ LABEL_319:
                                               else
                                               {
 
-                                                v128 = v410;
+                                                v127 = v409;
                                               }
                                             }
 
                                             isEnabled = 1;
                                             self = selfCopy;
-                                            v110 = v411;
-                                            v50 = v414;
+                                            v109 = v410;
+                                            v50 = v413;
                                             goto LABEL_174;
                                           }
 
-                                          v128 = v410;
+                                          v127 = v409;
                                         }
                                       }
 
@@ -4756,83 +4718,83 @@ LABEL_319:
                               }
                             }
 
-                            v128 = v410;
+                            v127 = v409;
                           }
 
                           goto LABEL_258;
                         }
                       }
 
-                      v128 = v410;
+                      v127 = v409;
                     }
 
                     goto LABEL_250;
                   }
 
-                  v361 = ne_log_obj();
-                  v256 = os_log_type_enabled(v361, OS_LOG_TYPE_DEFAULT);
+                  v360 = ne_log_obj();
+                  v255 = os_log_type_enabled(v360, OS_LOG_TYPE_DEFAULT);
                   if (externalIdentifier4)
                   {
                     self = selfCopy;
-                    if (!v256)
+                    if (!v255)
                     {
                       goto LABEL_333;
                     }
 
-                    name3 = [v141 name];
-                    *v455 = 136315394;
-                    v456 = "+[NEConfigurationManager configuration:overlapsWithOtherConfiguration:sameTypeCount:perAppCount:]";
-                    v457 = 2112;
-                    v458 = name3;
-                    v258 = v361;
-                    v259 = "%s: Concurrent perApp and system DNS Proxy not allowed, %@ supercedes";
+                    name3 = [v140 name];
+                    *v454 = 136315394;
+                    v455 = "+[NEConfigurationManager configuration:overlapsWithOtherConfiguration:sameTypeCount:perAppCount:]";
+                    v456 = 2112;
+                    v457 = name3;
+                    v257 = v360;
+                    v258 = "%s: Concurrent perApp and system DNS Proxy not allowed, %@ supercedes";
                   }
 
                   else
                   {
                     self = selfCopy;
-                    if (!v256)
+                    if (!v255)
                     {
                       goto LABEL_333;
                     }
 
-                    name3 = [v141 name];
-                    *v455 = 136315394;
-                    v456 = "+[NEConfigurationManager configuration:overlapsWithOtherConfiguration:sameTypeCount:perAppCount:]";
-                    v457 = 2112;
-                    v458 = name3;
-                    v258 = v361;
-                    v259 = "%s: Only one system DNS Proxy is allowed, %@ supercedes";
+                    name3 = [v140 name];
+                    *v454 = 136315394;
+                    v455 = "+[NEConfigurationManager configuration:overlapsWithOtherConfiguration:sameTypeCount:perAppCount:]";
+                    v456 = 2112;
+                    v457 = name3;
+                    v257 = v360;
+                    v258 = "%s: Only one system DNS Proxy is allowed, %@ supercedes";
                   }
                 }
 
                 else
                 {
-                  externalIdentifier7 = [v141 externalIdentifier];
+                  externalIdentifier7 = [v140 externalIdentifier];
 
-                  v128 = v410;
+                  v127 = v409;
                   if (externalIdentifier7)
                   {
                     goto LABEL_192;
                   }
 
-                  v283 = ne_log_obj();
-                  v361 = v283;
-                  if (!os_log_type_enabled(v283, OS_LOG_TYPE_DEFAULT))
+                  v282 = ne_log_obj();
+                  v360 = v282;
+                  if (!os_log_type_enabled(v282, OS_LOG_TYPE_DEFAULT))
                   {
                     goto LABEL_333;
                   }
 
-                  name3 = [v141 name];
-                  *v455 = 136315394;
-                  v456 = "+[NEConfigurationManager configuration:overlapsWithOtherConfiguration:sameTypeCount:perAppCount:]";
-                  v457 = 2112;
-                  v458 = name3;
-                  v258 = v283;
-                  v259 = "%s: Only one system Content Filter is allowed, %@ supercedes";
+                  name3 = [v140 name];
+                  *v454 = 136315394;
+                  v455 = "+[NEConfigurationManager configuration:overlapsWithOtherConfiguration:sameTypeCount:perAppCount:]";
+                  v456 = 2112;
+                  v457 = name3;
+                  v257 = v282;
+                  v258 = "%s: Only one system Content Filter is allowed, %@ supercedes";
                 }
 
-                _os_log_impl(&dword_1BA83C000, v258, OS_LOG_TYPE_DEFAULT, v259, v455, 0x16u);
+                _os_log_impl(&dword_1BA83C000, v257, OS_LOG_TYPE_DEFAULT, v258, v454, 0x16u);
 
                 goto LABEL_333;
               }
@@ -4843,57 +4805,57 @@ LABEL_319:
         }
 
 LABEL_176:
-        ++v134;
+        ++v133;
       }
 
-      while (v134 != v132);
-      v284 = [obja countByEnumeratingWithState:&v430 objects:v441 count:16];
-      v132 = v284;
-      if (!v284)
+      while (v133 != v131);
+      v283 = [obja countByEnumeratingWithState:&v429 objects:v440 count:16];
+      v131 = v283;
+      if (!v283)
       {
 LABEL_347:
 
-        v127 = v357;
+        v126 = v356;
         goto LABEL_348;
       }
     }
   }
 
-  v373 = 0;
+  v372 = 0;
 LABEL_348:
-  [v50 addObject:v110];
-  identifier7 = [v110 identifier];
+  [v50 addObject:v109];
+  identifier7 = [v109 identifier];
   uUIDString2 = [identifier7 UUIDString];
-  [v128 encodeObject:v110 forKey:uUIDString2];
+  [v127 encodeObject:v109 forKey:uUIDString2];
 
-  [NEConfigurationManager updateFlags:v110 withConfiguration:?];
-  [v128 encodeObject:v407 forKey:@"Index"];
-  isSupportedBySC = [(NEConfiguration *)v110 isSupportedBySC];
+  [NEConfigurationManager updateFlags:v109 withConfiguration:?];
+  [v127 encodeObject:v406 forKey:@"Index"];
+  isSupportedBySC = [(NEConfiguration *)v109 isSupportedBySC];
   diskCopy2 = disk;
-  if (!disk || (preferencesCopy = v377, v35 = v372, !isSupportedBySC))
+  if (!disk || (preferencesCopy = v376, v35 = v371, !isSupportedBySC))
   {
 LABEL_352:
-    if (disk && (v373 & 1) != 0)
+    if (disk && (v372 & 1) != 0)
     {
       if (!SCPreferencesCommitChanges(disk))
       {
-        v321 = MEMORY[0x1E696AEC0];
-        v322 = SCError();
-        v323 = [v321 stringWithCString:SCErrorString(v322) encoding:4];
-        v324 = ne_log_obj();
-        if (os_log_type_enabled(v324, OS_LOG_TYPE_ERROR))
+        v320 = MEMORY[0x1E696AEC0];
+        v321 = SCError();
+        v322 = [v320 stringWithCString:SCErrorString(v321) encoding:4];
+        v323 = ne_log_obj();
+        if (os_log_type_enabled(v323, OS_LOG_TYPE_ERROR))
         {
-          name4 = [v110 name];
-          *v446 = 138412802;
+          name4 = [v109 name];
+          *v445 = 138412802;
           selfCopy10 = self;
-          v448 = 2112;
-          v449 = name4;
-          v450 = 2112;
-          v451 = v323;
-          _os_log_error_impl(&dword_1BA83C000, v324, OS_LOG_TYPE_ERROR, "%@: SCPreferencesCommitChanges failed with configuration %@: %@", v446, 0x20u);
+          v447 = 2112;
+          v448 = name4;
+          v449 = 2112;
+          v450 = v322;
+          _os_log_error_impl(&dword_1BA83C000, v323, OS_LOG_TYPE_ERROR, "%@: SCPreferencesCommitChanges failed with configuration %@: %@", v445, 0x20u);
         }
 
-        v47 = [(NEConfigurationManager *)self errorWithCode:v323 specifics:?];
+        v47 = [(NEConfigurationManager *)self errorWithCode:v322 specifics:?];
 
         encodedData = 0;
         goto LABEL_386;
@@ -4901,171 +4863,170 @@ LABEL_352:
 
       if (!SCPreferencesApplyChanges(disk))
       {
-        v299 = ne_log_obj();
-        if (os_log_type_enabled(v299, OS_LOG_TYPE_ERROR))
+        v298 = ne_log_obj();
+        if (os_log_type_enabled(v298, OS_LOG_TYPE_ERROR))
         {
-          name5 = [v110 name];
-          v336 = SCError();
-          v337 = SCErrorString(v336);
-          *v446 = 138412802;
+          name5 = [v109 name];
+          v335 = SCError();
+          v336 = SCErrorString(v335);
+          *v445 = 138412802;
           selfCopy10 = self;
-          v448 = 2112;
-          v449 = name5;
-          v450 = 2080;
-          v451 = v337;
-          _os_log_error_impl(&dword_1BA83C000, v299, OS_LOG_TYPE_ERROR, "%@: SCPreferencesApplyChanges failed with configuration %@: %s", v446, 0x20u);
+          v447 = 2112;
+          v448 = name5;
+          v449 = 2080;
+          v450 = v336;
+          _os_log_error_impl(&dword_1BA83C000, v298, OS_LOG_TYPE_ERROR, "%@: SCPreferencesApplyChanges failed with configuration %@: %s", v445, 0x20u);
         }
 
         diskCopy2 = disk;
       }
 
-      if (objc_getProperty(self, v298, 120, 1))
+      if (objc_getProperty(self, v297, 120, 1))
       {
         Signature = SCPreferencesGetSignature(diskCopy2);
-        objc_setProperty_atomic(self, v301, Signature, 120);
+        objc_setProperty_atomic(self, v300, Signature, 120);
       }
     }
 
-    [v128 encodeObject:objc_getProperty(self forKey:{v296, 120, 1), @"SCPreferencesSignature2"}];
-    [v128 finishEncoding];
-    encodedData = [v128 encodedData];
+    [v127 encodeObject:objc_getProperty(self forKey:{v295, 120, 1), @"SCPreferencesSignature2"}];
+    [v127 finishEncoding];
+    encodedData = [v127 encodedData];
     if ([encodedData length] <= 0x200000)
     {
       if ([encodedData writeToFile:@"/Library/Preferences/com.apple.networkextension.plist" atomically:1])
       {
-        objc_setProperty_atomic(self, v305, 0, 80);
-        objc_setProperty_atomic(self, v306, 0, 88);
-        *(self + 104) = v127;
-        v55 = v407;
-        v307 = [v407 copy];
-        objc_setProperty_atomic(self, v308, v307, 56);
+        objc_setProperty_atomic(self, v304, 0, 80);
+        objc_setProperty_atomic(self, v305, 0, 88);
+        *(self + 104) = v126;
+        v55 = v406;
+        v306 = [v406 copy];
+        objc_setProperty_atomic(self, v307, v306, 56);
 
-        v428 = 0u;
-        v429 = 0u;
-        v426 = 0u;
         v427 = 0u;
-        v309 = v50;
-        v310 = [v309 countByEnumeratingWithState:&v426 objects:v440 count:16];
-        v54 = v369;
-        if (v310)
+        v428 = 0u;
+        v425 = 0u;
+        v426 = 0u;
+        v308 = v50;
+        v309 = [v308 countByEnumeratingWithState:&v425 objects:v439 count:16];
+        v54 = v368;
+        if (v309)
         {
-          v311 = v310;
-          v312 = *v427;
+          v310 = v309;
+          v311 = *v426;
           do
           {
-            for (j = 0; j != v311; ++j)
+            for (j = 0; j != v310; ++j)
             {
-              if (*v427 != v312)
+              if (*v426 != v311)
               {
-                objc_enumerationMutation(v309);
+                objc_enumerationMutation(v308);
               }
 
               [(NEConfigurationManager *)self didLoadConfiguration:?];
             }
 
-            v311 = [v309 countByEnumeratingWithState:&v426 objects:v440 count:16];
+            v310 = [v308 countByEnumeratingWithState:&v425 objects:v439 count:16];
           }
 
-          while (v311);
+          while (v310);
         }
 
-        v414 = v309;
+        v413 = v308;
 
         if (dCopy)
         {
-          [(NEConfigurationManager *)self postChangeNotificationWithGeneration:v127 andFlags:v435 onlyIfChanged:0];
+          [(NEConfigurationManager *)self postChangeNotificationWithGeneration:v126 andFlags:v434 onlyIfChanged:0];
         }
 
         v47 = 0;
-        preferencesCopy = v377;
-        v35 = v372;
-        v48 = v397;
+        preferencesCopy = v376;
+        v35 = v371;
+        v48 = v396;
         v53 = generateSignature;
         goto LABEL_387;
       }
 
-      v320 = ne_log_obj();
-      if (os_log_type_enabled(v320, OS_LOG_TYPE_ERROR))
+      v319 = ne_log_obj();
+      if (os_log_type_enabled(v319, OS_LOG_TYPE_ERROR))
       {
-        name6 = [v110 name];
-        *v446 = 138412802;
+        name6 = [v109 name];
+        *v445 = 138412802;
         selfCopy10 = self;
-        v448 = 2112;
-        v449 = name6;
-        v450 = 2080;
-        v451 = "/Library/Preferences/com.apple.networkextension.plist";
-        _os_log_error_impl(&dword_1BA83C000, v320, OS_LOG_TYPE_ERROR, "%@: Cannot save configuration %@, failed to write to %s", v446, 0x20u);
+        v447 = 2112;
+        v448 = name6;
+        v449 = 2080;
+        v450 = "/Library/Preferences/com.apple.networkextension.plist";
+        _os_log_error_impl(&dword_1BA83C000, v319, OS_LOG_TYPE_ERROR, "%@: Cannot save configuration %@, failed to write to %s", v445, 0x20u);
       }
 
       selfCopy11 = self;
-      v304 = 6;
+      v303 = 6;
     }
 
     else
     {
-      v302 = ne_log_obj();
-      if (os_log_type_enabled(v302, OS_LOG_TYPE_ERROR))
+      v301 = ne_log_obj();
+      if (os_log_type_enabled(v301, OS_LOG_TYPE_ERROR))
       {
-        name7 = [v110 name];
-        v332 = [encodedData length];
-        *v446 = 138412802;
+        name7 = [v109 name];
+        v331 = [encodedData length];
+        *v445 = 138412802;
         selfCopy10 = self;
-        v448 = 2112;
-        v449 = name7;
-        v450 = 2048;
-        v451 = v332;
-        _os_log_error_impl(&dword_1BA83C000, v302, OS_LOG_TYPE_ERROR, "%@: Cannot save configuration %@, the total size of the NetworkExtension configuration is too large (%lu bytes)", v446, 0x20u);
+        v447 = 2112;
+        v448 = name7;
+        v449 = 2048;
+        v450 = v331;
+        _os_log_error_impl(&dword_1BA83C000, v301, OS_LOG_TYPE_ERROR, "%@: Cannot save configuration %@, the total size of the NetworkExtension configuration is too large (%lu bytes)", v445, 0x20u);
       }
 
       selfCopy11 = self;
-      v304 = 20;
+      v303 = 20;
     }
 
-    v47 = [(NEConfigurationManager *)selfCopy11 errorWithCode:v304 specifics:0];
+    v47 = [(NEConfigurationManager *)selfCopy11 errorWithCode:v303 specifics:0];
 LABEL_386:
-    preferencesCopy = v377;
-    v54 = v369;
-    v35 = v372;
-    v48 = v397;
+    preferencesCopy = v376;
+    v54 = v368;
+    v35 = v371;
+    v48 = v396;
     v53 = generateSignature;
-    v55 = v407;
+    v55 = v406;
 LABEL_387:
-    v51 = v401;
-    v52 = v410;
-    v50 = v414;
+    v51 = v400;
+    v52 = v409;
+    v50 = v413;
     goto LABEL_115;
   }
 
-  if (([(NEConfiguration *)v110 applyChangesToSCServiceInPreferences:disk]& 1) != 0)
+  if (([(NEConfiguration *)v109 applyChangesToSCServiceInPreferences:disk]& 1) != 0)
   {
-    v373 = 1;
+    v372 = 1;
     goto LABEL_352;
   }
 
-  v314 = MEMORY[0x1E696AEC0];
-  v315 = SCError();
-  v316 = [v314 stringWithCString:SCErrorString(v315) encoding:4];
-  v47 = [(NEConfigurationManager *)self errorWithCode:v316 specifics:?];
+  v313 = MEMORY[0x1E696AEC0];
+  v314 = SCError();
+  v315 = [v313 stringWithCString:SCErrorString(v314) encoding:4];
+  v47 = [(NEConfigurationManager *)self errorWithCode:v315 specifics:?];
 
   encodedData = 0;
 LABEL_378:
-  v48 = v397;
+  v48 = v396;
   v53 = generateSignature;
-  v52 = v128;
-  v55 = v407;
-  v54 = v369;
-  v51 = v401;
+  v52 = v127;
+  v55 = v406;
+  v54 = v368;
+  v51 = v400;
 LABEL_115:
 
 LABEL_116:
-  v107 = *MEMORY[0x1E69E9840];
 
   return v47;
 }
 
 - (id)makeMutableCopyOfIndex:(id)index
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
   if (!index)
@@ -5100,42 +5061,42 @@ LABEL_8:
   v10 = objc_alloc_init(MEMORY[0x1E695DF90]);
   if (v9)
   {
-    v21 = v6;
-    v22 = v5;
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
+    v20 = v6;
+    v21 = v5;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v11 = v6;
-    v12 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v12 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v24;
+      v14 = *v23;
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v24 != v14)
+          if (*v23 != v14)
           {
             objc_enumerationMutation(v11);
           }
 
-          v16 = *(*(&v23 + 1) + 8 * i);
-          v17 = [v11 objectForKeyedSubscript:{v16, v21, v22, v23}];
+          v16 = *(*(&v22 + 1) + 8 * i);
+          v17 = [v11 objectForKeyedSubscript:{v16, v20, v21, v22}];
           v18 = [v17 mutableCopy];
           [v10 setObject:v18 forKeyedSubscript:v16];
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v22 objects:v26 count:16];
       }
 
       while (v13);
     }
 
     [index setObject:v10 forKeyedSubscript:@"UserMap"];
-    v6 = v21;
-    v5 = v22;
+    v6 = v20;
+    v5 = v21;
   }
 
   else
@@ -5144,7 +5105,6 @@ LABEL_8:
   }
 
 LABEL_19:
-  v19 = *MEMORY[0x1E69E9840];
 
   return index;
 }
@@ -5446,17 +5406,17 @@ LABEL_26:
 
 - (void)postChangeNotificationWithGeneration:(uint64_t)generation andFlags:(int)flags onlyIfChanged:
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (!self)
   {
-    goto LABEL_14;
+    return;
   }
 
   [(NEConfigurationManager *)self registerForChangeNotifications];
   v8 = self[7];
   if (v8 == -1)
   {
-    goto LABEL_14;
+    return;
   }
 
   if (flags)
@@ -5469,11 +5429,11 @@ LABEL_26:
       {
 LABEL_13:
 
-        goto LABEL_14;
+        return;
       }
 
       *buf = 134217984;
-      v33 = state64;
+      v32 = state64;
       v10 = "Not posting a change notification because the current notify state is equal to the new notify state (%llx)";
       v11 = v9;
       v12 = 12;
@@ -5492,48 +5452,48 @@ LABEL_8:
     v9 = ne_log_obj();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      v30 = self[7];
+      v29 = self[7];
       *buf = 136315650;
-      v33 = "com.apple.neconfigurationchanged";
-      v34 = 1024;
-      v35 = v30;
-      v36 = 1024;
-      v37 = v14;
+      v32 = "com.apple.neconfigurationchanged";
+      v33 = 1024;
+      v34 = v29;
+      v35 = 1024;
+      v36 = v14;
       _os_log_fault_impl(&dword_1BA83C000, v9, OS_LOG_TYPE_FAULT, "Failed to set the %s (token %u) notification state: %u", buf, 0x18u);
     }
 
     goto LABEL_13;
   }
 
-  v16 = notify_post("com.apple.neconfigurationchanged");
-  v17 = ne_log_obj();
-  v18 = v17;
-  if (v16)
+  v15 = notify_post("com.apple.neconfigurationchanged");
+  v16 = ne_log_obj();
+  v17 = v16;
+  if (v15)
   {
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315138;
-      v33 = "com.apple.neconfigurationchanged";
-      _os_log_fault_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_FAULT, "Failed to post the %s notification", buf, 0xCu);
+      v32 = "com.apple.neconfigurationchanged";
+      _os_log_fault_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_FAULT, "Failed to post the %s notification", buf, 0xCu);
     }
 
-    goto LABEL_14;
+    return;
   }
 
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v33 = a2;
-    _os_log_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_DEFAULT, "Successfully posted generation %lld", buf, 0xCu);
+    v32 = a2;
+    _os_log_impl(&dword_1BA83C000, v17, OS_LOG_TYPE_DEFAULT, "Successfully posted generation %lld", buf, 0xCu);
   }
 
   if ((generation & 0x8000000000000) != 0)
   {
-    v19 = ne_log_obj();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v18 = ne_log_obj();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_DEFAULT, "VPN configuration is enabled", buf, 2u);
+      _os_log_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_DEFAULT, "VPN configuration is enabled", buf, 2u);
     }
 
     if ((generation & 0x8000000000000000) == 0)
@@ -5553,11 +5513,11 @@ LABEL_23:
     goto LABEL_23;
   }
 
-  v20 = ne_log_obj();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+  v19 = ne_log_obj();
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_DEFAULT, "On Demand configuration is enabled", buf, 2u);
+    _os_log_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_DEFAULT, "On Demand configuration is enabled", buf, 2u);
   }
 
   if ((generation & 0x80000000000000) == 0)
@@ -5572,11 +5532,11 @@ LABEL_24:
   }
 
 LABEL_40:
-  v21 = ne_log_obj();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v20 = ne_log_obj();
+  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_DEFAULT, "VPN IncludeAllNetworks configuration is enabled", buf, 2u);
+    _os_log_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_DEFAULT, "VPN IncludeAllNetworks configuration is enabled", buf, 2u);
   }
 
   if ((generation & 0x4000000000000000) == 0)
@@ -5591,11 +5551,11 @@ LABEL_25:
   }
 
 LABEL_43:
-  v22 = ne_log_obj();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+  v21 = ne_log_obj();
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_DEFAULT, "App VPN configuration is enabled", buf, 2u);
+    _os_log_impl(&dword_1BA83C000, v21, OS_LOG_TYPE_DEFAULT, "App VPN configuration is enabled", buf, 2u);
   }
 
   if ((generation & 0x2000000000000000) == 0)
@@ -5610,11 +5570,11 @@ LABEL_26:
   }
 
 LABEL_46:
-  v23 = ne_log_obj();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+  v22 = ne_log_obj();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_DEFAULT, "Always On VPN is enabled", buf, 2u);
+    _os_log_impl(&dword_1BA83C000, v22, OS_LOG_TYPE_DEFAULT, "Always On VPN is enabled", buf, 2u);
   }
 
   if ((generation & 0x800000000000000) == 0)
@@ -5629,11 +5589,11 @@ LABEL_27:
   }
 
 LABEL_49:
-  v24 = ne_log_obj();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+  v23 = ne_log_obj();
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_DEFAULT, "DNS proxy is enabled", buf, 2u);
+    _os_log_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_DEFAULT, "DNS proxy is enabled", buf, 2u);
   }
 
   if ((generation & 0x200000000000000) == 0)
@@ -5648,11 +5608,11 @@ LABEL_28:
   }
 
 LABEL_52:
-  v25 = ne_log_obj();
-  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+  v24 = ne_log_obj();
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_DEFAULT, "DNS settings are enabled", buf, 2u);
+    _os_log_impl(&dword_1BA83C000, v24, OS_LOG_TYPE_DEFAULT, "DNS settings are enabled", buf, 2u);
   }
 
   if ((generation & 0x1000000000000000) == 0)
@@ -5667,11 +5627,11 @@ LABEL_29:
   }
 
 LABEL_55:
-  v26 = ne_log_obj();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+  v25 = ne_log_obj();
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_DEFAULT, "Content Filter is enabled", buf, 2u);
+    _os_log_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_DEFAULT, "Content Filter is enabled", buf, 2u);
   }
 
   if ((generation & 0x10000000000000) == 0)
@@ -5686,11 +5646,11 @@ LABEL_30:
   }
 
 LABEL_58:
-  v27 = ne_log_obj();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
+  v26 = ne_log_obj();
+  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_DEFAULT, "URL Filter is enabled", buf, 2u);
+    _os_log_impl(&dword_1BA83C000, v26, OS_LOG_TYPE_DEFAULT, "URL Filter is enabled", buf, 2u);
   }
 
   if ((generation & 0x400000000000000) == 0)
@@ -5705,11 +5665,11 @@ LABEL_31:
   }
 
 LABEL_61:
-  v28 = ne_log_obj();
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  v27 = ne_log_obj();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_DEFAULT, "Path Controller is enabled", buf, 2u);
+    _os_log_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_DEFAULT, "Path Controller is enabled", buf, 2u);
   }
 
   if ((generation & 0x100000000000000) == 0)
@@ -5717,22 +5677,9 @@ LABEL_61:
 LABEL_32:
     if ((generation & 0x20000000000000) == 0)
     {
-      goto LABEL_14;
+      return;
     }
 
-    goto LABEL_67;
-  }
-
-LABEL_64:
-  v29 = ne_log_obj();
-  if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_DEFAULT, "App push is enabled", buf, 2u);
-  }
-
-  if ((generation & 0x20000000000000) != 0)
-  {
 LABEL_67:
     v9 = ne_log_obj();
     if (!os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
@@ -5747,8 +5694,18 @@ LABEL_67:
     goto LABEL_8;
   }
 
-LABEL_14:
-  v15 = *MEMORY[0x1E69E9840];
+LABEL_64:
+  v28 = ne_log_obj();
+  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_DEFAULT, "App push is enabled", buf, 2u);
+  }
+
+  if ((generation & 0x20000000000000) != 0)
+  {
+    goto LABEL_67;
+  }
 }
 
 uint64_t __56__NEConfigurationManager_updateFlags_withConfiguration___block_invoke(uint64_t a1, void *a2)
@@ -5883,39 +5840,39 @@ void __53__NEConfigurationManager_setChangedQueue_andHandler___block_invoke(uint
 
 void __74__NEConfigurationManager_removeConfiguration_withCompletionQueue_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v20 = *(a1 + 32);
-      v21 = [*(a1 + 40) name];
+      v19 = *(a1 + 32);
+      v20 = [*(a1 + 40) name];
       *buf = 138412802;
-      v30 = v20;
-      v31 = 2112;
-      v32 = v21;
-      v33 = 2112;
-      v34 = v3;
+      v29 = v19;
+      v30 = 2112;
+      v31 = v20;
+      v32 = 2112;
+      v33 = v3;
       _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "%@: Failed to get the configuration index while removing configuration %@: %@", buf, 0x20u);
     }
 
     v5 = *(a1 + 32);
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __74__NEConfigurationManager_removeConfiguration_withCompletionQueue_handler___block_invoke_246;
-    v23[3] = &unk_1E7F0B588;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __74__NEConfigurationManager_removeConfiguration_withCompletionQueue_handler___block_invoke_246;
+    v22[3] = &unk_1E7F0B588;
     v6 = *(a1 + 48);
-    v25 = *(a1 + 56);
-    v24 = v3;
-    [(NEConfigurationManager *)v5 executeCallbackOnQueue:v6 callback:v23];
+    v24 = *(a1 + 56);
+    v23 = v3;
+    [(NEConfigurationManager *)v5 executeCallbackOnQueue:v6 callback:v22];
   }
 
   else
   {
     *uuid = 0;
-    v37 = 0;
+    v36 = 0;
     v7 = xpc_dictionary_create(0, 0, 0);
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
@@ -5923,16 +5880,16 @@ void __74__NEConfigurationManager_removeConfiguration_withCompletionQueue_handle
       v9 = *(a1 + 32);
       v10 = [*(a1 + 40) name];
       *buf = 138412546;
-      v30 = v9;
-      v31 = 2112;
-      v32 = v10;
+      v29 = v9;
+      v30 = 2112;
+      v31 = v10;
       _os_log_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_DEFAULT, "%@: Removing configuration %@", buf, 0x16u);
     }
 
     v11 = *(a1 + 32);
     v12 = [*(a1 + 40) identifier];
-    v35 = v12;
-    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+    v34 = v12;
+    v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v34 count:1];
     [(NEConfigurationManager *)v11 clearLoadedConfigurationsWithIDs:v13];
 
     v14 = [*(a1 + 40) identifier];
@@ -5940,27 +5897,25 @@ void __74__NEConfigurationManager_removeConfiguration_withCompletionQueue_handle
 
     xpc_dictionary_set_int64(v7, "config-operation", 4);
     xpc_dictionary_set_uuid(v7, "config-identifier", uuid);
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __74__NEConfigurationManager_removeConfiguration_withCompletionQueue_handler___block_invoke_244;
-    v26[3] = &unk_1E7F07328;
-    v22 = *(a1 + 32);
-    v15 = *(&v22 + 1);
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = __74__NEConfigurationManager_removeConfiguration_withCompletionQueue_handler___block_invoke_244;
+    v25[3] = &unk_1E7F07328;
+    v21 = *(a1 + 32);
+    v15 = *(&v21 + 1);
     v16 = *(a1 + 48);
     v17 = *(a1 + 56);
     *&v18 = v16;
     *(&v18 + 1) = v17;
-    v27 = v22;
-    v28 = v18;
-    [(NEConfigurationManager *)v22 sendRequest:v7 responseHandler:v26];
+    v26 = v21;
+    v27 = v18;
+    [(NEConfigurationManager *)v21 sendRequest:v7 responseHandler:v25];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __74__NEConfigurationManager_removeConfiguration_withCompletionQueue_handler___block_invoke_244(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v7 = a4;
   if (a2)
   {
@@ -5978,14 +5933,14 @@ void __74__NEConfigurationManager_removeConfiguration_withCompletionQueue_handle
     v11 = ne_log_obj();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v21 = *(a1 + 32);
-      v22 = [*(a1 + 40) name];
+      v20 = *(a1 + 32);
+      v21 = [*(a1 + 40) name];
       *buf = 138412802;
-      v27 = v21;
-      v28 = 2112;
-      v29 = v22;
-      v30 = 2112;
-      v31 = v10;
+      v26 = v20;
+      v27 = 2112;
+      v28 = v21;
+      v29 = 2112;
+      v30 = v10;
       _os_log_error_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_ERROR, "%@: Failed to remove configuration %@: %@", buf, 0x20u);
     }
   }
@@ -5998,9 +5953,9 @@ void __74__NEConfigurationManager_removeConfiguration_withCompletionQueue_handle
       v13 = *(a1 + 32);
       v14 = [*(a1 + 40) name];
       *buf = 138412546;
-      v27 = v13;
-      v28 = 2112;
-      v29 = v14;
+      v26 = v13;
+      v27 = 2112;
+      v28 = v14;
       _os_log_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_DEFAULT, "%@: Successfully removed configuration %@", buf, 0x16u);
     }
 
@@ -6014,23 +5969,21 @@ void __74__NEConfigurationManager_removeConfiguration_withCompletionQueue_handle
   }
 
   v16 = *(a1 + 32);
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __74__NEConfigurationManager_removeConfiguration_withCompletionQueue_handler___block_invoke_245;
-  v23[3] = &unk_1E7F0B588;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __74__NEConfigurationManager_removeConfiguration_withCompletionQueue_handler___block_invoke_245;
+  v22[3] = &unk_1E7F0B588;
   v17 = *(a1 + 48);
   v18 = *(a1 + 56);
-  v24 = v10;
-  v25 = v18;
+  v23 = v10;
+  v24 = v18;
   v19 = v10;
-  [(NEConfigurationManager *)v16 executeCallbackOnQueue:v17 callback:v23];
-
-  v20 = *MEMORY[0x1E69E9840];
+  [(NEConfigurationManager *)v16 executeCallbackOnQueue:v17 callback:v22];
 }
 
 - (void)saveConfiguration:(id)configuration withCompletionQueue:(id)queue handler:(id)handler
 {
-  v105 = *MEMORY[0x1E69E9840];
+  v104 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   queueCopy = queue;
   handlerCopy = handler;
@@ -6046,21 +5999,21 @@ void __74__NEConfigurationManager_removeConfiguration_withCompletionQueue_handle
       name = [configurationCopy name];
       *buf = 138412802;
       selfCopy = self;
-      v101 = 2112;
-      v102 = name;
-      v103 = 2112;
-      v104 = v50;
+      v100 = 2112;
+      v101 = name;
+      v102 = 2112;
+      v103 = v50;
       _os_log_error_impl(&dword_1BA83C000, v51, OS_LOG_TYPE_ERROR, "%@ Failed to save configuration %@ because it is invalid: %@", buf, 0x20u);
     }
 
-    v95[0] = MEMORY[0x1E69E9820];
-    v95[1] = 3221225472;
-    v95[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke;
-    v95[3] = &unk_1E7F0B588;
-    v96 = v50;
-    v97 = handlerCopy;
+    v94[0] = MEMORY[0x1E69E9820];
+    v94[1] = 3221225472;
+    v94[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke;
+    v94[3] = &unk_1E7F0B588;
+    v95 = v50;
+    v96 = handlerCopy;
     v52 = v50;
-    [(NEConfigurationManager *)self executeCallbackOnQueue:queueCopy callback:v95];
+    [(NEConfigurationManager *)self executeCallbackOnQueue:queueCopy callback:v94];
 
     goto LABEL_52;
   }
@@ -6114,46 +6067,46 @@ void __74__NEConfigurationManager_removeConfiguration_withCompletionQueue_handle
   }
 
   [Property allKeys];
+  v90 = 0u;
   v91 = 0u;
   v92 = 0u;
-  v93 = 0u;
-  v16 = v94 = 0u;
-  v77 = [v16 countByEnumeratingWithState:&v91 objects:v98 count:16];
-  if (!v77)
+  v16 = v93 = 0u;
+  v76 = [v16 countByEnumeratingWithState:&v90 objects:v97 count:16];
+  if (!v76)
   {
 LABEL_43:
 
 LABEL_44:
-    v78[0] = MEMORY[0x1E69E9820];
-    v78[1] = 3221225472;
-    v78[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_2_224;
-    v78[3] = &unk_1E7F072B0;
-    v78[4] = self;
-    v79 = configurationCopy;
-    v80 = queueCopy;
-    v81 = handlerCopy;
-    [(NEConfigurationManager *)self getCurrentIndexWithCompletionHandler:v78];
+    v77[0] = MEMORY[0x1E69E9820];
+    v77[1] = 3221225472;
+    v77[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_2_224;
+    v77[3] = &unk_1E7F072B0;
+    v77[4] = self;
+    v78 = configurationCopy;
+    v79 = queueCopy;
+    v80 = handlerCopy;
+    [(NEConfigurationManager *)self getCurrentIndexWithCompletionHandler:v77];
 
     goto LABEL_52;
   }
 
-  v72 = v12;
-  v73 = handlerCopy;
+  v71 = v12;
+  v72 = handlerCopy;
   v18 = 0;
-  v76 = *v92;
-  v74 = queueCopy;
-  v75 = configurationCopy;
+  v75 = *v91;
+  v73 = queueCopy;
+  v74 = configurationCopy;
 LABEL_8:
   v19 = 0;
   while (1)
   {
     v20 = v18;
-    if (*v92 != v76)
+    if (*v91 != v75)
     {
       objc_enumerationMutation(v16);
     }
 
-    v21 = *(*(&v91 + 1) + 8 * v19);
+    v21 = *(*(&v90 + 1) + 8 * v19);
     if (self)
     {
       v22 = objc_getProperty(self, v17, 88, 1);
@@ -6200,7 +6153,7 @@ LABEL_22:
         externalIdentifier3 = [configurationCopy externalIdentifier];
         v35 = [externalIdentifier2 isEqual:externalIdentifier3];
 
-        configurationCopy = v75;
+        configurationCopy = v74;
         self = selfCopy2;
         v16 = v23;
         if (v35)
@@ -6208,35 +6161,35 @@ LABEL_22:
           v53 = ne_log_obj();
           if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
           {
-            v66 = objc_opt_class();
-            v67 = v66;
+            v65 = objc_opt_class();
+            v66 = v65;
             externalIdentifier4 = [v18 externalIdentifier];
             name2 = [v18 name];
             *buf = 138412802;
-            selfCopy = v66;
-            v101 = 2112;
-            v102 = externalIdentifier4;
-            v103 = 2112;
-            v104 = name2;
+            selfCopy = v65;
+            v100 = 2112;
+            v101 = externalIdentifier4;
+            v102 = 2112;
+            v103 = name2;
             _os_log_error_impl(&dword_1BA83C000, v53, OS_LOG_TYPE_ERROR, "%@ saveConfiguration: failed to save - perApp UUID %@ already assigned to another configuration - %@", buf, 0x20u);
 
-            configurationCopy = v75;
+            configurationCopy = v74;
           }
 
           v54 = [(NEConfigurationManager *)selfCopy2 errorWithCode:@"Duplicate perApp UUID" specifics:?];
-          v82[0] = MEMORY[0x1E69E9820];
-          v82[1] = 3221225472;
-          v82[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_223;
-          v82[3] = &unk_1E7F0B588;
-          handlerCopy = v73;
-          v83 = v54;
-          v84 = v73;
+          v81[0] = MEMORY[0x1E69E9820];
+          v81[1] = 3221225472;
+          v81[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_223;
+          v81[3] = &unk_1E7F0B588;
+          handlerCopy = v72;
+          v82 = v54;
+          v83 = v72;
           v55 = v54;
           v56 = selfCopy2;
-          queueCopy = v74;
-          [(NEConfigurationManager *)v56 executeCallbackOnQueue:v74 callback:v82];
+          queueCopy = v73;
+          [(NEConfigurationManager *)v56 executeCallbackOnQueue:v73 callback:v81];
 
-          v57 = v84;
+          v57 = v83;
           goto LABEL_51;
         }
 
@@ -6247,16 +6200,16 @@ LABEL_22:
     self = selfCopy2;
     v16 = v23;
 LABEL_27:
-    if (v77 == ++v19)
+    if (v76 == ++v19)
     {
-      v48 = [v16 countByEnumeratingWithState:&v91 objects:v98 count:16];
-      v77 = v48;
+      v48 = [v16 countByEnumeratingWithState:&v90 objects:v97 count:16];
+      v76 = v48;
       if (!v48)
       {
 
-        handlerCopy = v73;
-        queueCopy = v74;
-        v12 = v72;
+        handlerCopy = v72;
+        queueCopy = v73;
+        v12 = v71;
         goto LABEL_43;
       }
 
@@ -6310,9 +6263,9 @@ LABEL_18:
   profileIdentifier = [payloadInfo4 profileIdentifier];
   payloadInfo5 = [configurationCopy payloadInfo];
   profileIdentifier2 = [payloadInfo5 profileIdentifier];
-  v45 = [profileIdentifier isEqualToString:profileIdentifier2];
+  isEqualToString = objc_msgSend_isEqualToString_(profileIdentifier);
 
-  if (v45)
+  if (isEqualToString)
   {
     if (selfCopy2)
     {
@@ -6324,89 +6277,85 @@ LABEL_18:
       v47 = 0;
     }
 
-    v85[0] = MEMORY[0x1E69E9820];
-    v85[1] = 3221225472;
-    configurationCopy = v75;
-    v85[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_2;
-    v85[3] = &unk_1E7F07300;
-    v85[4] = selfCopy2;
-    v87 = v40;
-    v86 = v18;
-    [(NEConfigurationManager *)selfCopy2 removeConfiguration:v86 withCompletionQueue:v47 handler:v85];
+    v84[0] = MEMORY[0x1E69E9820];
+    v84[1] = 3221225472;
+    configurationCopy = v74;
+    v84[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_2;
+    v84[3] = &unk_1E7F07300;
+    v84[4] = selfCopy2;
+    v86 = v40;
+    v85 = v18;
+    [(NEConfigurationManager *)selfCopy2 removeConfiguration:v85 withCompletionQueue:v47 handler:v84];
 
     goto LABEL_22;
   }
 
   v55 = [MEMORY[0x1E696AEC0] stringWithFormat:@"multiple system-wide %s configurations are not allowed", v40];
-  v62 = ne_log_obj();
+  v61 = ne_log_obj();
   v16 = v23;
-  if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
   {
-    v70 = objc_opt_class();
+    v69 = objc_opt_class();
     *buf = 138412546;
-    selfCopy = v70;
-    v101 = 2112;
-    v102 = v55;
-    v71 = v70;
-    _os_log_error_impl(&dword_1BA83C000, v62, OS_LOG_TYPE_ERROR, "%@ saveConfiguration: %@", buf, 0x16u);
+    selfCopy = v69;
+    v100 = 2112;
+    v101 = v55;
+    v70 = v69;
+    _os_log_error_impl(&dword_1BA83C000, v61, OS_LOG_TYPE_ERROR, "%@ saveConfiguration: %@", buf, 0x16u);
   }
 
-  v63 = [(NEConfigurationManager *)selfCopy2 errorWithCode:v55 specifics:?];
-  v88[0] = MEMORY[0x1E69E9820];
-  v88[1] = 3221225472;
-  v88[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_219;
-  v88[3] = &unk_1E7F0B588;
-  handlerCopy = v73;
-  v64 = v73;
+  v62 = [(NEConfigurationManager *)selfCopy2 errorWithCode:v55 specifics:?];
+  v87[0] = MEMORY[0x1E69E9820];
+  v87[1] = 3221225472;
+  v87[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_219;
+  v87[3] = &unk_1E7F0B588;
+  handlerCopy = v72;
+  v63 = v72;
+  v88 = v62;
   v89 = v63;
-  v90 = v64;
-  v57 = v63;
-  v65 = selfCopy2;
-  queueCopy = v74;
-  [(NEConfigurationManager *)v65 executeCallbackOnQueue:v74 callback:v88];
+  v57 = v62;
+  v64 = selfCopy2;
+  queueCopy = v73;
+  [(NEConfigurationManager *)v64 executeCallbackOnQueue:v73 callback:v87];
 
-  configurationCopy = v75;
+  configurationCopy = v74;
 LABEL_51:
-  v12 = v72;
+  v12 = v71;
 
 LABEL_52:
-  v58 = *MEMORY[0x1E69E9840];
 }
 
 void __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_2(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = *(a1 + 32);
-      v7 = objc_opt_class();
-      v10 = a1 + 40;
-      v8 = *(a1 + 40);
-      v9 = *(v10 + 8);
-      v11 = v7;
-      v12 = [v8 name];
-      v13 = 138413058;
+      v5 = objc_opt_class();
+      v8 = a1 + 40;
+      v6 = *(a1 + 40);
+      v7 = *(v8 + 8);
+      v9 = v5;
+      v10 = [v6 name];
+      v11 = 138413058;
+      v12 = v5;
+      v13 = 2080;
       v14 = v7;
-      v15 = 2080;
-      v16 = v9;
+      v15 = 2112;
+      v16 = v10;
       v17 = 2112;
-      v18 = v12;
-      v19 = 2112;
-      v20 = v3;
-      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "%@ saveConfiguration: failed to remove old %s config: %@: %@", &v13, 0x2Au);
+      v18 = v3;
+      _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "%@ saveConfiguration: failed to remove old %s config: %@: %@", &v11, 0x2Au);
     }
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_2_224(uint64_t a1, void *a2)
 {
-  v118 = *MEMORY[0x1E69E9840];
+  v117 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
@@ -6417,27 +6366,27 @@ void __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler_
       v34 = *(a1 + 32);
       v35 = [*(a1 + 40) name];
       *buf = 138412802;
-      v113 = v34;
-      v114 = 2112;
-      v115 = v35;
-      v116 = 2112;
-      v117 = v4;
+      v112 = v34;
+      v113 = 2112;
+      v114 = v35;
+      v115 = 2112;
+      v116 = v4;
       _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "%@: Failed to get the configuration index while saving configuration %@: %@", buf, 0x20u);
     }
 
     v6 = *(a1 + 32);
-    v91[0] = MEMORY[0x1E69E9820];
-    v91[1] = 3221225472;
-    v91[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_242;
-    v91[3] = &unk_1E7F0B588;
+    v90[0] = MEMORY[0x1E69E9820];
+    v90[1] = 3221225472;
+    v90[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_242;
+    v90[3] = &unk_1E7F0B588;
     v7 = *(a1 + 48);
     v8 = *(a1 + 56);
-    v92 = v4;
-    v93 = v8;
+    v91 = v4;
+    v92 = v8;
     v9 = v4;
-    [(NEConfigurationManager *)v6 executeCallbackOnQueue:v7 callback:v91];
+    [(NEConfigurationManager *)v6 executeCallbackOnQueue:v7 callback:v90];
 
-    v10 = v93;
+    v10 = v92;
     goto LABEL_55;
   }
 
@@ -6453,26 +6402,26 @@ void __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler_
       v60 = *(a1 + 32);
       v61 = [*(a1 + 40) name];
       *buf = 138412546;
-      v113 = v60;
-      v114 = 2112;
-      v115 = v61;
+      v112 = v60;
+      v113 = 2112;
+      v114 = v61;
       _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "%@ Failed to save configuration %@ because the local copy is stale", buf, 0x16u);
     }
 
     v15 = [(NEConfigurationManager *)*(a1 + 32) errorWithCode:0 specifics:?];
     v16 = *(a1 + 32);
-    v105[0] = MEMORY[0x1E69E9820];
-    v105[1] = 3221225472;
-    v105[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_225;
-    v105[3] = &unk_1E7F0B588;
+    v104[0] = MEMORY[0x1E69E9820];
+    v104[1] = 3221225472;
+    v104[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_225;
+    v104[3] = &unk_1E7F0B588;
     v17 = *(a1 + 48);
     v18 = *(a1 + 56);
-    v106 = v15;
-    v107 = v18;
+    v105 = v15;
+    v106 = v18;
     v9 = v15;
-    [(NEConfigurationManager *)v16 executeCallbackOnQueue:v17 callback:v105];
+    [(NEConfigurationManager *)v16 executeCallbackOnQueue:v17 callback:v104];
 
-    v10 = v107;
+    v10 = v106;
     goto LABEL_55;
   }
 
@@ -6493,11 +6442,11 @@ void __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler_
     v24 = *(a1 + 32);
     v25 = [*(a1 + 40) name];
     *buf = 138412802;
-    v113 = v24;
-    v114 = 2112;
-    v115 = v25;
-    v116 = 2112;
-    v117 = v9;
+    v112 = v24;
+    v113 = 2112;
+    v114 = v25;
+    v115 = 2112;
+    v116 = v9;
     _os_log_impl(&dword_1BA83C000, v23, OS_LOG_TYPE_DEFAULT, "%@ Saving configuration %@ with existing signature %@", buf, 0x20u);
   }
 
@@ -6519,63 +6468,43 @@ void __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler_
   if (v28)
   {
     v29 = [*(a1 + 40) VPN];
-    if (!v29)
-    {
-      goto LABEL_21;
-    }
-
-    v30 = v29;
-    v31 = [v28 VPN];
-    v32 = [v31 protocol];
-
-    if (v32)
+    if (v29 && (v30 = v29, [v28 VPN], v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v31, "protocol"), v32 = objc_claimAutoreleasedReturnValue(), v32, v31, v30, v32))
     {
       v33 = [v28 VPN];
     }
 
     else
     {
-LABEL_21:
       v36 = [v28 appVPN];
-      if (!v36)
+      if (!v36 || (v37 = v36, [v28 appVPN], v38 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v38, "protocol"), v39 = objc_claimAutoreleasedReturnValue(), v39, v38, v37, !v39))
       {
-        goto LABEL_26;
-      }
-
-      v37 = v36;
-      v38 = [v28 appVPN];
-      v39 = [v38 protocol];
-
-      if (!v39)
-      {
-LABEL_26:
         v43 = [v28 alwaysOnVPN];
 
         if (v43)
         {
-          v110 = 0u;
-          v111 = 0u;
-          v108 = 0u;
           v109 = 0u;
+          v110 = 0u;
+          v107 = 0u;
+          v108 = 0u;
           v44 = [v28 alwaysOnVPN];
           v45 = [v44 interfaceProtocolMapping];
 
           obj = v45;
-          v46 = [v45 countByEnumeratingWithState:&v108 objects:buf count:16];
+          v46 = [v45 countByEnumeratingWithState:&v107 objects:buf count:16];
           if (v46)
           {
             v47 = v46;
-            v48 = *v109;
+            v48 = *v108;
             while (2)
             {
               for (i = 0; i != v47; ++i)
               {
-                if (*v109 != v48)
+                if (*v108 != v48)
                 {
                   objc_enumerationMutation(obj);
                 }
 
-                v50 = *(*(&v108 + 1) + 8 * i);
+                v50 = *(*(&v107 + 1) + 8 * i);
                 v51 = [v28 alwaysOnVPN];
                 v52 = [v51 interfaceProtocolMapping];
                 v53 = [v52 objectForKeyedSubscript:v50];
@@ -6588,7 +6517,7 @@ LABEL_26:
                 }
               }
 
-              v47 = [obj countByEnumeratingWithState:&v108 objects:buf count:16];
+              v47 = [obj countByEnumeratingWithState:&v107 objects:buf count:16];
               if (v47)
               {
                 continue;
@@ -6638,21 +6567,21 @@ LABEL_40:
             }
           }
 
-          v94[0] = MEMORY[0x1E69E9820];
-          v94[1] = 3221225472;
-          v94[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_2_238;
-          v94[3] = &unk_1E7F07328;
+          v93[0] = MEMORY[0x1E69E9820];
+          v93[1] = 3221225472;
+          v93[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_2_238;
+          v93[3] = &unk_1E7F07328;
           *obja = *(a1 + 32);
           v78 = obja[1];
           v79 = *(a1 + 48);
           v80 = *(a1 + 56);
           *&v81 = v79;
           *(&v81 + 1) = v80;
-          v95 = *obja;
-          v96 = v81;
-          [(NEConfigurationManager *)obja[0] sendRequest:v69 responseHandler:v94];
+          v94 = *obja;
+          v95 = v81;
+          [(NEConfigurationManager *)obja[0] sendRequest:v69 responseHandler:v93];
 
-          v70 = *(&v95 + 1);
+          v70 = *(&v94 + 1);
         }
 
         else
@@ -6660,33 +6589,33 @@ LABEL_40:
           v71 = ne_log_obj();
           if (os_log_type_enabled(v71, OS_LOG_TYPE_ERROR))
           {
-            v86 = *(a1 + 32);
-            v87 = [*(a1 + 40) identifier];
-            v88 = [v63 length];
+            v85 = *(a1 + 32);
+            v86 = [*(a1 + 40) identifier];
+            v87 = [v63 length];
             *buf = 138412802;
-            v113 = v86;
-            v114 = 2112;
-            v115 = v87;
-            v116 = 2048;
-            v117 = v88;
+            v112 = v85;
+            v113 = 2112;
+            v114 = v86;
+            v115 = 2048;
+            v116 = v87;
             _os_log_error_impl(&dword_1BA83C000, v71, OS_LOG_TYPE_ERROR, "%@ Configuration %@ is too large (%lu)", buf, 0x20u);
           }
 
           v72 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"The configuration is too large (%lu bytes). The maximum size is %d bytes", objc_msgSend(v63, "length"), 0x80000];
           v73 = *(a1 + 32);
-          v97[0] = MEMORY[0x1E69E9820];
-          v97[1] = 3221225472;
-          v97[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_234;
-          v97[3] = &unk_1E7F0AAA0;
+          v96[0] = MEMORY[0x1E69E9820];
+          v96[1] = 3221225472;
+          v96[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_234;
+          v96[3] = &unk_1E7F0AAA0;
           v74 = *(a1 + 48);
           v75 = *(a1 + 56);
-          v98 = v72;
-          v99 = v75;
-          v97[4] = *(a1 + 32);
+          v97 = v72;
+          v98 = v75;
+          v96[4] = *(a1 + 32);
           v69 = v72;
-          [(NEConfigurationManager *)v73 executeCallbackOnQueue:v74 callback:v97];
+          [(NEConfigurationManager *)v73 executeCallbackOnQueue:v74 callback:v96];
 
-          v70 = v99;
+          v70 = v98;
         }
       }
 
@@ -6695,33 +6624,33 @@ LABEL_40:
         v64 = ne_log_obj();
         if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
         {
-          v83 = *(a1 + 32);
-          v84 = [*(a1 + 40) identifier];
-          v85 = [v63 length];
+          v82 = *(a1 + 32);
+          v83 = [*(a1 + 40) identifier];
+          v84 = [v63 length];
           *buf = 138412802;
-          v113 = v83;
-          v114 = 2112;
-          v115 = v84;
-          v116 = 2048;
-          v117 = v85;
+          v112 = v82;
+          v113 = 2112;
+          v114 = v83;
+          v115 = 2048;
+          v116 = v84;
           _os_log_error_impl(&dword_1BA83C000, v64, OS_LOG_TYPE_ERROR, "%@ Configuration %@ is too large (%lu)", buf, 0x20u);
         }
 
         v65 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"The configuration is too large (%lu bytes). The maximum size is %d bytes", objc_msgSend(v63, "length"), 0x80000];
         v66 = *(a1 + 32);
-        v100[0] = MEMORY[0x1E69E9820];
-        v100[1] = 3221225472;
-        v100[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_233;
-        v100[3] = &unk_1E7F0AAA0;
+        v99[0] = MEMORY[0x1E69E9820];
+        v99[1] = 3221225472;
+        v99[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_233;
+        v99[3] = &unk_1E7F0AAA0;
         v67 = *(a1 + 48);
         v68 = *(a1 + 56);
-        v101 = v65;
-        v102 = v68;
-        v100[4] = *(a1 + 32);
+        v100 = v65;
+        v101 = v68;
+        v99[4] = *(a1 + 32);
         v69 = v65;
-        [(NEConfigurationManager *)v66 executeCallbackOnQueue:v67 callback:v100];
+        [(NEConfigurationManager *)v66 executeCallbackOnQueue:v67 callback:v99];
 
-        v70 = v102;
+        v70 = v101;
       }
 
       goto LABEL_55;
@@ -6735,25 +6664,24 @@ LABEL_36:
     v55 = *(a1 + 32);
     v56 = [*(a1 + 40) name];
     *buf = 138412546;
-    v113 = v55;
-    v114 = 2112;
-    v115 = v56;
+    v112 = v55;
+    v113 = 2112;
+    v114 = v56;
     _os_log_impl(&dword_1BA83C000, v54, OS_LOG_TYPE_DEFAULT, "%@ Configuration %@ is unchanged", buf, 0x16u);
   }
 
   v57 = *(a1 + 32);
-  v103[0] = MEMORY[0x1E69E9820];
-  v103[1] = 3221225472;
-  v103[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_226;
-  v103[3] = &unk_1E7F0B588;
+  v102[0] = MEMORY[0x1E69E9820];
+  v102[1] = 3221225472;
+  v102[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_226;
+  v102[3] = &unk_1E7F0B588;
   v58 = *(a1 + 48);
   v59 = *(a1 + 56);
-  v103[4] = *(a1 + 32);
-  v104 = v59;
-  [(NEConfigurationManager *)v57 executeCallbackOnQueue:v58 callback:v103];
+  v102[4] = *(a1 + 32);
+  v103 = v59;
+  [(NEConfigurationManager *)v57 executeCallbackOnQueue:v58 callback:v102];
 
 LABEL_55:
-  v82 = *MEMORY[0x1E69E9840];
 }
 
 void __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_226(uint64_t a1)
@@ -6779,7 +6707,7 @@ void __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler_
 
 void __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_2_238(uint64_t a1, int a2, uint64_t a3, void *a4)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v7 = a4;
   if (a2)
   {
@@ -6797,28 +6725,28 @@ void __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler_
     v11 = ne_log_obj();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v27 = *(a1 + 32);
-      v28 = [*(a1 + 40) name];
+      v26 = *(a1 + 32);
+      v27 = [*(a1 + 40) name];
       *buf = 138412802;
-      v38 = v27;
-      v39 = 2112;
-      v40 = v28;
-      v41 = 2112;
-      v42 = v10;
+      v37 = v26;
+      v38 = 2112;
+      v39 = v27;
+      v40 = 2112;
+      v41 = v10;
       _os_log_error_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_ERROR, "%@ Failed to save configuration %@: %@", buf, 0x20u);
     }
 
     v12 = *(a1 + 32);
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_239;
-    v33[3] = &unk_1E7F0B588;
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_239;
+    v32[3] = &unk_1E7F0B588;
     v13 = *(a1 + 48);
     v14 = *(a1 + 56);
-    v34 = v10;
-    v35 = v14;
+    v33 = v10;
+    v34 = v14;
     v15 = v10;
-    [(NEConfigurationManager *)v12 executeCallbackOnQueue:v13 callback:v33];
+    [(NEConfigurationManager *)v12 executeCallbackOnQueue:v13 callback:v32];
   }
 
   else
@@ -6829,68 +6757,64 @@ void __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler_
       v17 = *(a1 + 32);
       v18 = [*(a1 + 40) name];
       *buf = 138412546;
-      v38 = v17;
-      v39 = 2112;
-      v40 = v18;
+      v37 = v17;
+      v38 = 2112;
+      v39 = v18;
       _os_log_impl(&dword_1BA83C000, v16, OS_LOG_TYPE_DEFAULT, "%@ Successfully saved configuration %@", buf, 0x16u);
     }
 
     v19 = *(a1 + 32);
     v20 = [*(a1 + 40) identifier];
-    v36 = v20;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v36 count:1];
-    v30[0] = MEMORY[0x1E69E9820];
-    v30[1] = 3221225472;
-    v30[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_240;
-    v30[3] = &unk_1E7F072B0;
-    v29 = *(a1 + 32);
-    v22 = *(&v29 + 1);
+    v35 = v20;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v35 count:1];
+    v29[0] = MEMORY[0x1E69E9820];
+    v29[1] = 3221225472;
+    v29[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_240;
+    v29[3] = &unk_1E7F072B0;
+    v28 = *(a1 + 32);
+    v22 = *(&v28 + 1);
     v23 = *(a1 + 48);
     v24 = *(a1 + 56);
     *&v25 = v23;
     *(&v25 + 1) = v24;
-    v31 = v29;
-    v32 = v25;
-    [(NEConfigurationManager *)v19 loadConfigurationsInternal:v21 withCompletionHandler:v30];
+    v30 = v28;
+    v31 = v25;
+    [(NEConfigurationManager *)v19 loadConfigurationsInternal:v21 withCompletionHandler:v29];
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_240(uint64_t a1, void *a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = ne_log_obj();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 32);
-      v9 = [*(a1 + 40) name];
-      v10 = [*(a1 + 40) identifier];
+      v7 = *(a1 + 32);
+      v8 = [*(a1 + 40) name];
+      v9 = [*(a1 + 40) identifier];
       *buf = 138413058;
-      v14 = v8;
-      v15 = 2112;
-      v16 = v9;
-      v17 = 2112;
-      v18 = v10;
-      v19 = 2112;
-      v20 = v3;
+      v13 = v7;
+      v14 = 2112;
+      v15 = v8;
+      v16 = 2112;
+      v17 = v9;
+      v18 = 2112;
+      v19 = v3;
       _os_log_error_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_ERROR, "%@ Failed to load %@ (%@) after saving it: %@", buf, 0x2Au);
     }
   }
 
   v5 = *(a1 + 32);
-  v11[0] = MEMORY[0x1E69E9820];
-  v11[1] = 3221225472;
-  v11[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_241;
-  v11[3] = &unk_1E7F0B600;
+  v10[0] = MEMORY[0x1E69E9820];
+  v10[1] = 3221225472;
+  v10[2] = __72__NEConfigurationManager_saveConfiguration_withCompletionQueue_handler___block_invoke_241;
+  v10[3] = &unk_1E7F0B600;
   v6 = *(a1 + 48);
-  v12 = *(a1 + 56);
-  [(NEConfigurationManager *)v5 executeCallbackOnQueue:v6 callback:v11];
-
-  v7 = *MEMORY[0x1E69E9840];
+  v11 = *(a1 + 56);
+  [(NEConfigurationManager *)v5 executeCallbackOnQueue:v6 callback:v10];
 }
 
 - (void)loadConfigurationsWithCompletionQueue:(id)queue handler:(id)handler
@@ -6961,7 +6885,7 @@ LABEL_7:
 
 - (void)loadConfigurationAndUserWithID:(id)d withCompletionQueue:(id)queue handler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dCopy = d;
   queueCopy = queue;
   handlerCopy = handler;
@@ -6971,48 +6895,46 @@ LABEL_7:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v27 = dCopy;
+      v26 = dCopy;
       _os_log_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_INFO, "Loading configuration with identifier %@", buf, 0xCu);
     }
 
-    v25 = dCopy;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __85__NEConfigurationManager_loadConfigurationAndUserWithID_withCompletionQueue_handler___block_invoke;
-    v21[3] = &unk_1E7F072B0;
-    v21[4] = self;
-    v22 = dCopy;
-    v23 = queueCopy;
-    v24 = handlerCopy;
+    v24 = dCopy;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __85__NEConfigurationManager_loadConfigurationAndUserWithID_withCompletionQueue_handler___block_invoke;
+    v20[3] = &unk_1E7F072B0;
+    v20[4] = self;
+    v21 = dCopy;
+    v22 = queueCopy;
+    v23 = handlerCopy;
     v13 = handlerCopy;
-    [(NEConfigurationManager *)self loadConfigurationsInternal:v12 withCompletionHandler:v21];
+    [(NEConfigurationManager *)self loadConfigurationsInternal:v12 withCompletionHandler:v20];
 
-    v14 = v22;
+    v14 = v21;
   }
 
   else
   {
     v15 = [(NEConfigurationManager *)self errorWithCode:0 specifics:?];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __85__NEConfigurationManager_loadConfigurationAndUserWithID_withCompletionQueue_handler___block_invoke_2;
-    v18[3] = &unk_1E7F0B588;
-    v19 = v15;
-    v20 = handlerCopy;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __85__NEConfigurationManager_loadConfigurationAndUserWithID_withCompletionQueue_handler___block_invoke_2;
+    v17[3] = &unk_1E7F0B588;
+    v18 = v15;
+    v19 = handlerCopy;
     v16 = handlerCopy;
     v12 = v15;
-    [(NEConfigurationManager *)self executeCallbackOnQueue:queueCopy callback:v18];
+    [(NEConfigurationManager *)self executeCallbackOnQueue:queueCopy callback:v17];
 
-    v14 = v20;
+    v14 = v19;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __85__NEConfigurationManager_loadConfigurationAndUserWithID_withCompletionQueue_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = *(a1 + 32);
   if (v5)
@@ -7028,35 +6950,35 @@ void __85__NEConfigurationManager_loadConfigurationAndUserWithID_withCompletionQ
       v8 = [Property objectForKeyedSubscript:*(a1 + 40)];
       if (v8)
       {
-        v37 = a1;
-        v38 = v4;
+        v36 = a1;
+        v37 = v4;
         v9 = *(a1 + 32);
         v11 = v8;
         if (v9)
         {
           v12 = [objc_getProperty(v9 v10];
           v13 = objc_alloc_init(MEMORY[0x1E695DF70]);
+          v43 = 0u;
           v44 = 0u;
           v45 = 0u;
           v46 = 0u;
-          v47 = 0u;
           v14 = v12;
-          v15 = [v14 countByEnumeratingWithState:&v44 objects:buf count:16];
+          v15 = [v14 countByEnumeratingWithState:&v43 objects:buf count:16];
           if (v15)
           {
             v16 = v15;
-            v17 = *v45;
+            v17 = *v44;
             do
             {
               for (i = 0; i != v16; ++i)
               {
-                if (*v45 != v17)
+                if (*v44 != v17)
                 {
                   objc_enumerationMutation(v14);
                 }
 
-                v19 = *(*(&v44 + 1) + 8 * i);
-                v20 = [v14 objectForKeyedSubscript:{v19, v37, v38}];
+                v19 = *(*(&v43 + 1) + 8 * i);
+                v20 = [v14 objectForKeyedSubscript:{v19, v36, v37}];
                 v21 = [v11 identifier];
                 v22 = [v20 containsObject:v21];
 
@@ -7066,7 +6988,7 @@ void __85__NEConfigurationManager_loadConfigurationAndUserWithID_withCompletionQ
                 }
               }
 
-              v16 = [v14 countByEnumeratingWithState:&v44 objects:buf count:16];
+              v16 = [v14 countByEnumeratingWithState:&v43 objects:buf count:16];
             }
 
             while (v16);
@@ -7090,8 +7012,8 @@ void __85__NEConfigurationManager_loadConfigurationAndUserWithID_withCompletionQ
           v24 = 0;
         }
 
-        a1 = v37;
-        v4 = v38;
+        a1 = v36;
+        v4 = v37;
         goto LABEL_28;
       }
     }
@@ -7112,11 +7034,11 @@ void __85__NEConfigurationManager_loadConfigurationAndUserWithID_withCompletionQ
     v28 = ne_log_obj();
     if (os_log_type_enabled(v28, OS_LOG_TYPE_FAULT))
     {
-      v36 = *(a1 + 40);
+      v35 = *(a1 + 40);
       *buf = 138412546;
-      v49 = v36;
-      v50 = 2112;
-      v51 = v4;
+      v48 = v35;
+      v49 = 2112;
+      v50 = v4;
       _os_log_fault_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_FAULT, "Failed to load configuration with identifier %@: %@", buf, 0x16u);
     }
   }
@@ -7126,27 +7048,25 @@ void __85__NEConfigurationManager_loadConfigurationAndUserWithID_withCompletionQ
 LABEL_28:
 
   v29 = *(a1 + 32);
-  v39[0] = MEMORY[0x1E69E9820];
-  v39[1] = 3221225472;
-  v39[2] = __85__NEConfigurationManager_loadConfigurationAndUserWithID_withCompletionQueue_handler___block_invoke_210;
-  v39[3] = &unk_1E7F0A2F0;
+  v38[0] = MEMORY[0x1E69E9820];
+  v38[1] = 3221225472;
+  v38[2] = __85__NEConfigurationManager_loadConfigurationAndUserWithID_withCompletionQueue_handler___block_invoke_210;
+  v38[3] = &unk_1E7F0A2F0;
   v30 = *(a1 + 48);
   v31 = *(a1 + 56);
-  v40 = v11;
-  v41 = v24;
-  v42 = v4;
-  v43 = v31;
+  v39 = v11;
+  v40 = v24;
+  v41 = v4;
+  v42 = v31;
   v32 = v4;
   v33 = v24;
   v34 = v11;
-  [(NEConfigurationManager *)v29 executeCallbackOnQueue:v30 callback:v39];
-
-  v35 = *MEMORY[0x1E69E9840];
+  [(NEConfigurationManager *)v29 executeCallbackOnQueue:v30 callback:v38];
 }
 
 - (void)loadConfigurationWithID:(id)d withCompletionQueue:(id)queue handler:(id)handler
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   dCopy = d;
   queueCopy = queue;
   handlerCopy = handler;
@@ -7156,48 +7076,46 @@ LABEL_28:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v27 = dCopy;
+      v26 = dCopy;
       _os_log_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_INFO, "Loading configuration with identifier %@", buf, 0xCu);
     }
 
-    v25 = dCopy;
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v25 count:1];
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = __78__NEConfigurationManager_loadConfigurationWithID_withCompletionQueue_handler___block_invoke;
-    v21[3] = &unk_1E7F072B0;
-    v21[4] = self;
-    v22 = dCopy;
-    v23 = queueCopy;
-    v24 = handlerCopy;
+    v24 = dCopy;
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v24 count:1];
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __78__NEConfigurationManager_loadConfigurationWithID_withCompletionQueue_handler___block_invoke;
+    v20[3] = &unk_1E7F072B0;
+    v20[4] = self;
+    v21 = dCopy;
+    v22 = queueCopy;
+    v23 = handlerCopy;
     v13 = handlerCopy;
-    [(NEConfigurationManager *)self loadConfigurationsInternal:v12 withCompletionHandler:v21];
+    [(NEConfigurationManager *)self loadConfigurationsInternal:v12 withCompletionHandler:v20];
 
-    v14 = v22;
+    v14 = v21;
   }
 
   else
   {
     v15 = [(NEConfigurationManager *)self errorWithCode:0 specifics:?];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __78__NEConfigurationManager_loadConfigurationWithID_withCompletionQueue_handler___block_invoke_2;
-    v18[3] = &unk_1E7F0B588;
-    v19 = v15;
-    v20 = handlerCopy;
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __78__NEConfigurationManager_loadConfigurationWithID_withCompletionQueue_handler___block_invoke_2;
+    v17[3] = &unk_1E7F0B588;
+    v18 = v15;
+    v19 = handlerCopy;
     v16 = handlerCopy;
     v12 = v15;
-    [(NEConfigurationManager *)self executeCallbackOnQueue:queueCopy callback:v18];
+    [(NEConfigurationManager *)self executeCallbackOnQueue:queueCopy callback:v17];
 
-    v14 = v20;
+    v14 = v19;
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __78__NEConfigurationManager_loadConfigurationWithID_withCompletionQueue_handler___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = *(a1 + 32);
   if (!v5)
@@ -7212,11 +7130,11 @@ LABEL_8:
       v12 = ne_log_obj();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
       {
-        v19 = *(a1 + 40);
+        v18 = *(a1 + 40);
         *buf = 138412546;
-        v25 = v19;
-        v26 = 2112;
-        v27 = v4;
+        v24 = v18;
+        v25 = 2112;
+        v26 = v4;
         _os_log_fault_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_FAULT, "Failed to load configuration with identifier %@: %@", buf, 0x16u);
       }
     }
@@ -7251,20 +7169,18 @@ LABEL_6:
 
 LABEL_13:
   v13 = *(a1 + 32);
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __78__NEConfigurationManager_loadConfigurationWithID_withCompletionQueue_handler___block_invoke_209;
-  v20[3] = &unk_1E7F0AAA0;
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __78__NEConfigurationManager_loadConfigurationWithID_withCompletionQueue_handler___block_invoke_209;
+  v19[3] = &unk_1E7F0AAA0;
   v14 = *(a1 + 48);
   v15 = *(a1 + 56);
-  v22 = v4;
-  v23 = v15;
-  v21 = v8;
+  v21 = v4;
+  v22 = v15;
+  v20 = v8;
   v16 = v4;
   v17 = v8;
-  [(NEConfigurationManager *)v13 executeCallbackOnQueue:v14 callback:v20];
-
-  v18 = *MEMORY[0x1E69E9840];
+  [(NEConfigurationManager *)v13 executeCallbackOnQueue:v14 callback:v19];
 }
 
 - (void)loadConfigurations:(id)configurations withFilter:(id)filter completionQueue:(id)queue completionHandler:(id)handler
@@ -7291,7 +7207,7 @@ LABEL_13:
 
 void __90__NEConfigurationManager_loadConfigurations_withFilter_completionQueue_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v60 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = *(a1 + 32);
   if (!v5)
@@ -7320,7 +7236,7 @@ LABEL_33:
   v10 = [v9 BOOLValue];
 
   v11 = *(a1 + 48);
-  v45 = v8;
+  v44 = v8;
   v12 = [v8 objectForKeyedSubscript:@"ConfigurationProperties"];
   v13 = [v12 allKeys];
 
@@ -7335,14 +7251,14 @@ LABEL_33:
     v11 = [Property allKeys];
   }
 
-  v46 = v6;
-  v47 = v4;
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
+  v45 = v6;
+  v46 = v4;
   v56 = 0u;
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
   v16 = v11;
-  v17 = [v16 countByEnumeratingWithState:&v55 objects:v59 count:16];
+  v17 = [v16 countByEnumeratingWithState:&v54 objects:v58 count:16];
   if (!v17)
   {
     v19 = 0;
@@ -7351,18 +7267,18 @@ LABEL_33:
 
   v18 = v17;
   v19 = 0;
-  v20 = *v56;
-  v48 = v13;
+  v20 = *v55;
+  v47 = v13;
   do
   {
     for (i = 0; i != v18; ++i)
     {
-      if (*v56 != v20)
+      if (*v55 != v20)
       {
         objc_enumerationMutation(v16);
       }
 
-      v22 = *(*(&v55 + 1) + 8 * i);
+      v22 = *(*(&v54 + 1) + 8 * i);
       if ([v13 containsObject:v22])
       {
         v24 = *(a1 + 32);
@@ -7400,7 +7316,7 @@ LABEL_21:
             a1 = v29;
             v19 = v28;
             v16 = v27;
-            v13 = v48;
+            v13 = v47;
 LABEL_26:
 
             continue;
@@ -7412,7 +7328,7 @@ LABEL_26:
           a1 = v29;
           v19 = v28;
           v16 = v27;
-          v13 = v48;
+          v13 = v47;
           if (v34)
           {
             goto LABEL_26;
@@ -7424,7 +7340,7 @@ LABEL_26:
           v35 = objc_alloc(MEMORY[0x1E695DF70]);
           v36 = [*(a1 + 48) count];
           v37 = v35;
-          v13 = v48;
+          v13 = v47;
           v19 = [v37 initWithCapacity:v36];
         }
 
@@ -7433,15 +7349,15 @@ LABEL_26:
       }
     }
 
-    v18 = [v16 countByEnumeratingWithState:&v55 objects:v59 count:16];
+    v18 = [v16 countByEnumeratingWithState:&v54 objects:v58 count:16];
   }
 
   while (v18);
 LABEL_31:
 
-  v6 = v46;
-  v4 = v47;
-  v38 = v45;
+  v6 = v45;
+  v4 = v46;
+  v38 = v44;
 LABEL_34:
   block[0] = MEMORY[0x1E69E9820];
   block[1] = 3221225472;
@@ -7449,17 +7365,15 @@ LABEL_34:
   block[3] = &unk_1E7F072D8;
   v39 = *(a1 + 56);
   v40 = *(a1 + 64);
-  v50 = v19;
-  v51 = v4;
-  v53 = v40;
-  v54 = v6;
-  v52 = v38;
+  v49 = v19;
+  v50 = v4;
+  v52 = v40;
+  v53 = v6;
+  v51 = v38;
   v41 = v38;
   v42 = v4;
   v43 = v19;
   dispatch_async(v39, block);
-
-  v44 = *MEMORY[0x1E69E9840];
 }
 
 - (void)loadIndexWithFilter:(id)filter completionQueue:(id)queue handler:(id)handler
@@ -7572,9 +7486,9 @@ void __85__NEConfigurationManager_syncConfigurationsWithSC_completionQueue_compl
 
 void __85__NEConfigurationManager_syncConfigurationsWithSC_completionQueue_completionHandler___block_invoke_3(uint64_t a1, void *a2)
 {
-  v89 = *MEMORY[0x1E69E9840];
-  v64 = a2;
-  if (v64)
+  v88 = *MEMORY[0x1E69E9840];
+  v63 = a2;
+  if (v63)
   {
     v3 = ne_log_obj();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
@@ -7582,7 +7496,7 @@ void __85__NEConfigurationManager_syncConfigurationsWithSC_completionQueue_compl
       *buf = 136315394;
       *&buf[4] = "[NEConfigurationManager syncConfigurationsWithSC:completionQueue:completionHandler:]_block_invoke_3";
       *&buf[12] = 2112;
-      *&buf[14] = v64;
+      *&buf[14] = v63;
       _os_log_error_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_ERROR, "%s failed to load configurations: %@", buf, 0x16u);
     }
 
@@ -7591,27 +7505,27 @@ LABEL_4:
 LABEL_5:
     v4 = 0;
     newValue = 0;
-    v66 = 0;
+    v65 = 0;
     goto LABEL_6;
   }
 
   prefs = SCPreferencesCreate(*MEMORY[0x1E695E480], @"NEConfigurationManager prefs sync", 0);
-  v9 = ne_log_obj();
-  v3 = v9;
+  v8 = ne_log_obj();
+  v3 = v8;
   if (!prefs)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v60 = SCError();
+      v59 = SCError();
       *buf = 136315138;
-      *&buf[4] = SCErrorString(v60);
+      *&buf[4] = SCErrorString(v59);
       _os_log_error_impl(&dword_1BA83C000, v3, OS_LOG_TYPE_ERROR, "SCPreferencesCreate failed: %s", buf, 0xCu);
     }
 
     goto LABEL_4;
   }
 
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
     *&buf[4] = "[NEConfigurationManager syncConfigurationsWithSC:completionQueue:completionHandler:]_block_invoke";
@@ -7622,14 +7536,14 @@ LABEL_5:
 
   if (!SCPreferencesLock(prefs, 1u))
   {
-    v28 = ne_log_obj();
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v27 = ne_log_obj();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v61 = SCError();
-      v62 = SCErrorString(v61);
+      v60 = SCError();
+      v61 = SCErrorString(v60);
       *buf = 136315138;
-      *&buf[4] = v62;
-      _os_log_error_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_ERROR, "SCPreferencesLock failed: %s", buf, 0xCu);
+      *&buf[4] = v61;
+      _os_log_error_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_ERROR, "SCPreferencesLock failed: %s", buf, 0xCu);
     }
 
     CFRelease(prefs);
@@ -7639,246 +7553,246 @@ LABEL_5:
   Property = *(a1 + 32);
   if (Property)
   {
-    Property = objc_getProperty(Property, v10, 120, 1);
+    Property = objc_getProperty(Property, v9, 120, 1);
   }
 
-  v66 = Property;
+  v65 = Property;
   newValue = SCPreferencesGetSignature(prefs);
-  if (v66 && ([v66 isEqualToData:newValue] & 1) != 0)
+  if (v65 && ([v65 isEqualToData:newValue] & 1) != 0)
   {
-    v12 = ne_log_obj();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+    v11 = ne_log_obj();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_INFO, "SCPreferences signature matches saved signature, change origin was NetworkExtension", buf, 2u);
+      _os_log_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_INFO, "SCPreferences signature matches saved signature, change origin was NetworkExtension", buf, 2u);
     }
 
     goto LABEL_67;
   }
 
-  v78 = 0;
-  v79 = &v78;
-  v80 = 0x2020000000;
-  v81 = 0;
-  v13 = ne_log_obj();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+  v77 = 0;
+  v78 = &v77;
+  v79 = 0x2020000000;
+  v80 = 0;
+  v12 = ne_log_obj();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
     *&buf[4] = newValue;
     *&buf[12] = 2112;
-    *&buf[14] = v66;
-    _os_log_impl(&dword_1BA83C000, v13, OS_LOG_TYPE_INFO, "SCPreferences signature (%@) does not match saved signature (%@), checking updated configurations", buf, 0x16u);
+    *&buf[14] = v65;
+    _os_log_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_INFO, "SCPreferences signature (%@) does not match saved signature (%@), checking updated configurations", buf, 0x16u);
   }
 
-  v15 = *(a1 + 32);
-  if (v15)
+  v14 = *(a1 + 32);
+  if (v14)
   {
-    objc_setProperty_atomic(v15, v14, newValue, 120);
-    v16 = *(a1 + 32);
+    objc_setProperty_atomic(v14, v13, newValue, 120);
+    v15 = *(a1 + 32);
   }
 
   else
   {
-    v16 = 0;
+    v15 = 0;
   }
 
-  v17 = *(a1 + 40);
+  v16 = *(a1 + 40);
   applier[0] = MEMORY[0x1E69E9820];
   applier[1] = 3221225472;
   applier[2] = __85__NEConfigurationManager_syncConfigurationsWithSC_completionQueue_completionHandler___block_invoke_195;
   applier[3] = &unk_1E7F07288;
-  applier[4] = v16;
-  v75 = 0;
-  v76 = &v78;
-  v77 = prefs;
-  xpc_array_apply(v17, applier);
-  v19 = v79;
-  v20 = *(a1 + 32);
-  if (*(v79 + 24) == 1)
+  applier[4] = v15;
+  v74 = 0;
+  v75 = &v77;
+  v76 = prefs;
+  xpc_array_apply(v16, applier);
+  v18 = v78;
+  v19 = *(a1 + 32);
+  if (*(v78 + 24) == 1)
   {
-    if (v20)
+    if (v19)
     {
-      *v82 = 0;
+      *v81 = 0;
+      v82 = 0u;
       v83 = 0u;
       v84 = 0u;
       v85 = 0u;
-      v86 = 0u;
-      v21 = objc_getProperty(v20, v18, 88, 1);
-      v23 = [v21 countByEnumeratingWithState:&v83 objects:buf count:16];
-      if (v23)
+      v20 = objc_getProperty(v19, v17, 88, 1);
+      v22 = [v20 countByEnumeratingWithState:&v82 objects:buf count:16];
+      if (v22)
       {
-        v24 = *v84;
+        v23 = *v83;
         do
         {
-          for (i = 0; i != v23; ++i)
+          for (i = 0; i != v22; ++i)
           {
-            if (*v84 != v24)
+            if (*v83 != v23)
             {
-              objc_enumerationMutation(v21);
+              objc_enumerationMutation(v20);
             }
 
-            v26 = [objc_getProperty(v20 v22];
-            [NEConfigurationManager updateFlags:v82 withConfiguration:v26];
+            v25 = [objc_getProperty(v19 v21];
+            [NEConfigurationManager updateFlags:v81 withConfiguration:v25];
           }
 
-          v23 = [v21 countByEnumeratingWithState:&v83 objects:buf count:16];
+          v22 = [v20 countByEnumeratingWithState:&v82 objects:buf count:16];
         }
 
-        while (v23);
-        v27 = *v82;
+        while (v22);
+        v26 = *v81;
       }
 
       else
       {
-        v27 = 0;
+        v26 = 0;
       }
 
-      [(NEConfigurationManager *)v20 postChangeNotificationWithGeneration:v27 andFlags:0 onlyIfChanged:?];
-      v19 = v79;
+      [(NEConfigurationManager *)v19 postChangeNotificationWithGeneration:v26 andFlags:0 onlyIfChanged:?];
+      v18 = v78;
     }
 
-    if (v19[3])
+    if (v18[3])
     {
       goto LABEL_66;
     }
 
-    v20 = *(a1 + 32);
+    v19 = *(a1 + 32);
   }
 
-  if (v20)
+  if (v19)
   {
-    v29 = ne_log_obj();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    v28 = ne_log_obj();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_1BA83C000, v29, OS_LOG_TYPE_INFO, "Updating the saved SCPreferences signature", buf, 2u);
+      _os_log_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_INFO, "Updating the saved SCPreferences signature", buf, 2u);
     }
 
-    if (*(v20 + 23))
+    if (*(v19 + 23))
     {
-      v30 = [objc_alloc(MEMORY[0x1E696ACC8]) initRequiringSecureCoding:1];
-      v31 = v30;
-      if (*(v20 + 104) >= 1)
+      v29 = [objc_alloc(MEMORY[0x1E696ACC8]) initRequiringSecureCoding:1];
+      v30 = v29;
+      if (*(v19 + 104) >= 1)
       {
-        [NSObject encodeInt64:v30 forKey:"encodeInt64:forKey:"];
+        [NSObject encodeInt64:v29 forKey:"encodeInt64:forKey:"];
       }
 
-      [v31 encodeInt64:1 forKey:@"Version", prefs];
-      if (objc_getProperty(v20, v32, 56, 1))
+      [v30 encodeInt64:1 forKey:@"Version", prefs];
+      if (objc_getProperty(v19, v31, 56, 1))
       {
-        [v31 encodeObject:objc_getProperty(v20 forKey:v33, 56, 1), @"Index"];
-        v85 = 0u;
-        v86 = 0u;
-        v83 = 0u;
+        [v30 encodeObject:objc_getProperty(v19 forKey:v32, 56, 1), @"Index"];
         v84 = 0u;
-        v35 = [objc_getProperty(v20 v34];
-        v37 = [v35 countByEnumeratingWithState:&v83 objects:buf count:16];
-        if (v37)
+        v85 = 0u;
+        v82 = 0u;
+        v83 = 0u;
+        v34 = [objc_getProperty(v19 v33];
+        v36 = [v34 countByEnumeratingWithState:&v82 objects:buf count:16];
+        if (v36)
         {
-          v38 = *v84;
+          v37 = *v83;
           do
           {
-            for (j = 0; j != v37; ++j)
+            for (j = 0; j != v36; ++j)
             {
-              if (*v84 != v38)
+              if (*v83 != v37)
               {
-                objc_enumerationMutation(v35);
+                objc_enumerationMutation(v34);
               }
 
-              v40 = [objc_getProperty(v20 v36];
-              v41 = v40;
-              if (v40)
+              v39 = [objc_getProperty(v19 v35];
+              v40 = v39;
+              if (v39)
               {
-                v42 = [v40 identifier];
-                v43 = [v42 UUIDString];
-                [v31 encodeObject:v41 forKey:v43];
+                v41 = [v39 identifier];
+                v42 = [v41 UUIDString];
+                [v30 encodeObject:v40 forKey:v42];
               }
             }
 
-            v37 = [v35 countByEnumeratingWithState:&v83 objects:buf count:16];
+            v36 = [v34 countByEnumeratingWithState:&v82 objects:buf count:16];
           }
 
-          while (v37);
+          while (v36);
         }
       }
 
-      [v31 encodeObject:objc_getProperty(v20 forKey:v33, 120, 1), @"SCPreferencesSignature2"];
-      [v31 finishEncoding];
-      v44 = [v31 encodedData];
-      v45 = [v44 writeToFile:@"/Library/Preferences/com.apple.networkextension.plist" atomically:1];
+      [v30 encodeObject:objc_getProperty(v19 forKey:v32, 120, 1), @"SCPreferencesSignature2"];
+      [v30 finishEncoding];
+      v43 = [v30 encodedData];
+      v44 = [v43 writeToFile:@"/Library/Preferences/com.apple.networkextension.plist" atomically:1];
 
-      if ((v45 & 1) == 0)
+      if ((v44 & 1) == 0)
       {
-        v46 = ne_log_obj();
-        if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
+        v45 = ne_log_obj();
+        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
-          *v82 = 0;
-          _os_log_error_impl(&dword_1BA83C000, v46, OS_LOG_TYPE_ERROR, "Failed to write the new file while updating the SCPreferences signature", v82, 2u);
+          *v81 = 0;
+          _os_log_error_impl(&dword_1BA83C000, v45, OS_LOG_TYPE_ERROR, "Failed to write the new file while updating the SCPreferences signature", v81, 2u);
         }
       }
     }
 
     else
     {
-      v31 = ne_log_obj();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v30 = ne_log_obj();
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        _os_log_error_impl(&dword_1BA83C000, v31, OS_LOG_TYPE_ERROR, "Some non-nehelper process is trying to save the SCPreferences signature", buf, 2u);
+        _os_log_error_impl(&dword_1BA83C000, v30, OS_LOG_TYPE_ERROR, "Some non-nehelper process is trying to save the SCPreferences signature", buf, 2u);
       }
     }
   }
 
 LABEL_66:
 
-  _Block_object_dispose(&v78, 8);
+  _Block_object_dispose(&v77, 8);
 LABEL_67:
-  v47 = ne_log_obj();
-  if (os_log_type_enabled(v47, OS_LOG_TYPE_DEBUG))
+  v46 = ne_log_obj();
+  if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
     *&buf[4] = "[NEConfigurationManager syncConfigurationsWithSC:completionQueue:completionHandler:]_block_invoke";
     *&buf[12] = 1024;
     *&buf[14] = 2008;
-    _os_log_debug_impl(&dword_1BA83C000, v47, OS_LOG_TYPE_DEBUG, "%s:%d: Unlocking SCPreferences", buf, 0x12u);
+    _os_log_debug_impl(&dword_1BA83C000, v46, OS_LOG_TYPE_DEBUG, "%s:%d: Unlocking SCPreferences", buf, 0x12u);
   }
 
   SCPreferencesUnlock(prefs);
   CFRelease(prefs);
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
   v71 = 0u;
-  v49 = *(a1 + 32);
-  if (v49)
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
+  v48 = *(a1 + 32);
+  if (v48)
   {
-    v49 = objc_getProperty(v49, v48, 88, 1);
+    v48 = objc_getProperty(v48, v47, 88, 1);
   }
 
-  v50 = v49;
+  v49 = v48;
   v4 = 0;
-  v52 = [v50 countByEnumeratingWithState:&v70 objects:v87 count:16];
-  if (v52)
+  v51 = [v49 countByEnumeratingWithState:&v69 objects:v86 count:16];
+  if (v51)
   {
-    v53 = *v71;
+    v52 = *v70;
     do
     {
-      for (k = 0; k != v52; ++k)
+      for (k = 0; k != v51; ++k)
       {
-        if (*v71 != v53)
+        if (*v70 != v52)
         {
-          objc_enumerationMutation(v50);
+          objc_enumerationMutation(v49);
         }
 
-        v55 = *(*(&v70 + 1) + 8 * k);
-        v56 = *(a1 + 32);
-        if (v56)
+        v54 = *(*(&v69 + 1) + 8 * k);
+        v55 = *(a1 + 32);
+        if (v55)
         {
-          v56 = objc_getProperty(v56, v51, 88, 1);
+          v55 = objc_getProperty(v55, v50, 88, 1);
         }
 
-        v57 = [v56 objectForKeyedSubscript:{v55, prefs}];
-        if ([(NEConfiguration *)v57 isSupportedBySC])
+        v56 = [v55 objectForKeyedSubscript:{v54, prefs}];
+        if ([(NEConfiguration *)v56 isSupportedBySC])
         {
           if (!v4)
           {
@@ -7887,18 +7801,18 @@ LABEL_67:
 
           *buf = 0;
           *&buf[8] = 0;
-          v58 = [v57 identifier];
-          [v58 getUUIDBytes:buf];
+          v57 = [v56 identifier];
+          [v57 getUUIDBytes:buf];
 
-          v59 = xpc_uuid_create(buf);
-          xpc_array_append_value(v4, v59);
+          v58 = xpc_uuid_create(buf);
+          xpc_array_append_value(v4, v58);
         }
       }
 
-      v52 = [v50 countByEnumeratingWithState:&v70 objects:v87 count:16];
+      v51 = [v49 countByEnumeratingWithState:&v69 objects:v86 count:16];
     }
 
-    while (v52);
+    while (v51);
   }
 
 LABEL_6:
@@ -7909,17 +7823,15 @@ LABEL_6:
   block[3] = &unk_1E7F0B588;
   v5 = *(a1 + 56);
   v6 = *(a1 + 64);
-  v68 = v4;
-  v69 = v6;
+  v67 = v4;
+  v68 = v6;
   v7 = v4;
   dispatch_async(v5, block);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __85__NEConfigurationManager_syncConfigurationsWithSC_completionQueue_completionHandler___block_invoke_195(uint64_t a1, uint64_t a2, void *a3)
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v4 = MEMORY[0x1E696AFB0];
   v5 = a3;
   v6 = [v4 alloc];
@@ -7960,9 +7872,9 @@ uint64_t __85__NEConfigurationManager_syncConfigurationsWithSC_completionQueue_c
       if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
       {
         v21 = [(NEConfiguration *)v19 name];
-        v40 = 138412290;
+        v39 = 138412290;
         Name = v21;
-        _os_log_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_INFO, "Updating configuration %@ from the corresponding SCNetworkService", &v40, 0xCu);
+        _os_log_impl(&dword_1BA83C000, v20, OS_LOG_TYPE_INFO, "Updating configuration %@ from the corresponding SCNetworkService", &v39, 0xCu);
       }
 
       v22 = [(NEConfiguration *)v19 updateFromSCService:v11];
@@ -7973,10 +7885,10 @@ uint64_t __85__NEConfigurationManager_syncConfigurationsWithSC_completionQueue_c
       v28 = ne_log_obj();
       if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
       {
-        v40 = 138412290;
+        v39 = 138412290;
         Name = SCNetworkServiceGetName(v11);
         v29 = Name;
-        _os_log_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_INFO, "Creating a new configuration corresponding to SCNetworkService %@", &v40, 0xCu);
+        _os_log_impl(&dword_1BA83C000, v28, OS_LOG_TYPE_INFO, "Creating a new configuration corresponding to SCNetworkService %@", &v39, 0xCu);
       }
 
       v19 = [NEConfiguration alloc];
@@ -8014,12 +7926,12 @@ uint64_t __85__NEConfigurationManager_syncConfigurationsWithSC_completionQueue_c
           v35 = ne_log_obj();
           if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
           {
-            v39 = [(NEConfiguration *)v19 name];
-            v40 = 138412546;
-            Name = v39;
-            v42 = 2112;
-            v43 = v34;
-            _os_log_error_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_ERROR, "Failed to save configuration %@: %@", &v40, 0x16u);
+            v38 = [(NEConfiguration *)v19 name];
+            v39 = 138412546;
+            Name = v38;
+            v41 = 2112;
+            v42 = v34;
+            _os_log_error_impl(&dword_1BA83C000, v35, OS_LOG_TYPE_ERROR, "Failed to save configuration %@: %@", &v39, 0x16u);
           }
         }
       }
@@ -8049,9 +7961,9 @@ LABEL_41:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       v26 = [v16 name];
-      v40 = 138412290;
+      v39 = 138412290;
       Name = v26;
-      _os_log_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_INFO, "Configuration %@ no longer has a corresponding SCNetworkService, removing it", &v40, 0xCu);
+      _os_log_impl(&dword_1BA83C000, v25, OS_LOG_TYPE_INFO, "Configuration %@ no longer has a corresponding SCNetworkService, removing it", &v39, 0xCu);
     }
 
     v19 = [(NEConfigurationManager *)*(a1 + 32) removeConfigurationFromDisk:v8 updateSCPreferences:0];
@@ -8060,12 +7972,12 @@ LABEL_41:
       v27 = ne_log_obj();
       if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
       {
-        v38 = [v16 name];
-        v40 = 138412546;
-        Name = v38;
-        v42 = 2112;
-        v43 = v19;
-        _os_log_error_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_ERROR, "Failed to remove configuration %@: %@", &v40, 0x16u);
+        v37 = [v16 name];
+        v39 = 138412546;
+        Name = v37;
+        v41 = 2112;
+        v42 = v19;
+        _os_log_error_impl(&dword_1BA83C000, v27, OS_LOG_TYPE_ERROR, "Failed to remove configuration %@: %@", &v39, 0x16u);
       }
     }
 
@@ -8084,7 +7996,6 @@ LABEL_42:
     CFRelease(v11);
   }
 
-  v36 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
@@ -8138,7 +8049,7 @@ void __88__NEConfigurationManager_removeConfigurationFromDisk_completionQueue_co
 
 void __88__NEConfigurationManager_removeConfigurationFromDisk_completionQueue_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = SCPreferencesCreate(*MEMORY[0x1E695E480], @"NEConfigurationManager remove prefs", 0);
   if (v2)
   {
@@ -8147,9 +8058,9 @@ void __88__NEConfigurationManager_removeConfigurationFromDisk_completionQueue_co
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v24 = "[NEConfigurationManager removeConfigurationFromDisk:completionQueue:completionHandler:]_block_invoke";
-      v25 = 1024;
-      LODWORD(v26) = 1818;
+      v23 = "[NEConfigurationManager removeConfigurationFromDisk:completionQueue:completionHandler:]_block_invoke";
+      v24 = 1024;
+      LODWORD(v25) = 1818;
       _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%s:%d: Locking SCPreferences", buf, 0x12u);
     }
 
@@ -8164,7 +8075,7 @@ void __88__NEConfigurationManager_removeConfigurationFromDisk_completionQueue_co
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v24 = v6;
+      v23 = v6;
       _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "SCPreferencesLock failed while removing a configuration: %@", buf, 0xCu);
     }
 
@@ -8180,7 +8091,7 @@ void __88__NEConfigurationManager_removeConfigurationFromDisk_completionQueue_co
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v24 = v6;
+      v23 = v6;
       _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "SCPreferencesCreate failed: %@", buf, 0xCu);
     }
 
@@ -8196,11 +8107,11 @@ LABEL_18:
       v13 = *(a1 + 32);
       v14 = [*(a1 + 40) UUIDString];
       *buf = 138412802;
-      v24 = v13;
-      v25 = 2112;
-      v26 = v14;
-      v27 = 2112;
-      v28 = v8;
+      v23 = v13;
+      v24 = 2112;
+      v25 = v14;
+      v26 = 2112;
+      v27 = v8;
       _os_log_error_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_ERROR, "%@ Failed to remove configuration %@ from disk: %@", buf, 0x20u);
     }
 
@@ -8216,9 +8127,9 @@ LABEL_13:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v24 = "[NEConfigurationManager removeConfigurationFromDisk:completionQueue:completionHandler:]_block_invoke";
-      v25 = 1024;
-      LODWORD(v26) = 1834;
+      v23 = "[NEConfigurationManager removeConfigurationFromDisk:completionQueue:completionHandler:]_block_invoke";
+      v24 = 1024;
+      LODWORD(v25) = 1834;
       _os_log_debug_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_DEBUG, "%s:%d: Unlocking SCPreferences", buf, 0x12u);
     }
 
@@ -8237,9 +8148,9 @@ LABEL_13:
     v15 = *(a1 + 32);
     v16 = [*(a1 + 40) UUIDString];
     *buf = 138412546;
-    v24 = v15;
-    v25 = 2112;
-    v26 = v16;
+    v23 = v15;
+    v24 = 2112;
+    v25 = v16;
     _os_log_impl(&dword_1BA83C000, v12, OS_LOG_TYPE_INFO, "%@ Successfully removed configuration %@ from disk", buf, 0x16u);
   }
 
@@ -8256,15 +8167,13 @@ LABEL_23:
       block[1] = 3221225472;
       block[2] = __88__NEConfigurationManager_removeConfigurationFromDisk_completionQueue_completionHandler___block_invoke_190;
       block[3] = &unk_1E7F0B588;
-      v22 = v18;
-      v21 = v8;
+      v21 = v18;
+      v20 = v8;
       dispatch_async(v17, block);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 56));
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 - (void)saveConfigurationToDisk:(id)disk currentSignature:(id)signature userUUID:(id)d isUpgrade:(BOOL)upgrade completionQueue:(id)queue completionHandler:(id)handler
@@ -8330,7 +8239,7 @@ void __120__NEConfigurationManager_saveConfigurationToDisk_currentSignature_user
 
 void __120__NEConfigurationManager_saveConfigurationToDisk_currentSignature_userUUID_isUpgrade_completionQueue_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v2 = SCPreferencesCreate(*MEMORY[0x1E695E480], @"NEConfigurationManager save prefs", 0);
   if (v2)
   {
@@ -8339,9 +8248,9 @@ void __120__NEConfigurationManager_saveConfigurationToDisk_currentSignature_user
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v30 = "[NEConfigurationManager saveConfigurationToDisk:currentSignature:userUUID:isUpgrade:completionQueue:completionHandler:]_block_invoke";
-      v31 = 1024;
-      LODWORD(v32) = 1648;
+      v29 = "[NEConfigurationManager saveConfigurationToDisk:currentSignature:userUUID:isUpgrade:completionQueue:completionHandler:]_block_invoke";
+      v30 = 1024;
+      LODWORD(v31) = 1648;
       _os_log_debug_impl(&dword_1BA83C000, v4, OS_LOG_TYPE_DEBUG, "%s:%d: Locking SCPreferences", buf, 0x12u);
     }
 
@@ -8356,7 +8265,7 @@ void __120__NEConfigurationManager_saveConfigurationToDisk_currentSignature_user
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v30 = v6;
+      v29 = v6;
       _os_log_error_impl(&dword_1BA83C000, v7, OS_LOG_TYPE_ERROR, "SCPreferencesLock failed while saving a configuration: %@", buf, 0xCu);
     }
 
@@ -8372,7 +8281,7 @@ void __120__NEConfigurationManager_saveConfigurationToDisk_currentSignature_user
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v30 = v6;
+      v29 = v6;
       _os_log_error_impl(&dword_1BA83C000, v10, OS_LOG_TYPE_ERROR, "SCPreferencesCreate failed: %@", buf, 0xCu);
     }
 
@@ -8393,9 +8302,9 @@ LABEL_13:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v30 = "[NEConfigurationManager saveConfigurationToDisk:currentSignature:userUUID:isUpgrade:completionQueue:completionHandler:]_block_invoke";
-      v31 = 1024;
-      LODWORD(v32) = 1665;
+      v29 = "[NEConfigurationManager saveConfigurationToDisk:currentSignature:userUUID:isUpgrade:completionQueue:completionHandler:]_block_invoke";
+      v30 = 1024;
+      LODWORD(v31) = 1665;
       _os_log_debug_impl(&dword_1BA83C000, v11, OS_LOG_TYPE_DEBUG, "%s:%d: Unlocking SCPreferences", buf, 0x12u);
     }
 
@@ -8412,9 +8321,9 @@ LABEL_13:
       v21 = [*(a1 + 40) identifier];
       v22 = [v21 UUIDString];
       *buf = 138412546;
-      v30 = v20;
-      v31 = 2112;
-      v32 = v22;
+      v29 = v20;
+      v30 = 2112;
+      v31 = v22;
       _os_log_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_INFO, "%@ Successfully saved configuration %@ to disk", buf, 0x16u);
     }
 
@@ -8438,11 +8347,11 @@ LABEL_18:
     v17 = [v16 UUIDString];
     v19 = [v8 code];
     *buf = 138412802;
-    v30 = v18;
-    v31 = 2112;
-    v32 = v17;
-    v33 = 2048;
-    v34 = v19;
+    v29 = v18;
+    v30 = 2112;
+    v31 = v17;
+    v32 = 2048;
+    v33 = v19;
     _os_log_error_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_ERROR, "%@ Failed to save configuration %@ to disk: %ld", buf, 0x20u);
     goto LABEL_21;
   }
@@ -8453,9 +8362,9 @@ LABEL_18:
     v16 = [*(a1 + 40) identifier];
     v17 = [v16 UUIDString];
     *buf = 138412546;
-    v30 = v15;
-    v31 = 2112;
-    v32 = v17;
+    v29 = v15;
+    v30 = 2112;
+    v31 = v17;
     _os_log_impl(&dword_1BA83C000, v14, OS_LOG_TYPE_INFO, "%@ Skipped saving configuration %@ to disk, because it is unchanged", buf, 0x16u);
 LABEL_21:
   }
@@ -8472,20 +8381,18 @@ LABEL_27:
       block[1] = 3221225472;
       block[2] = __120__NEConfigurationManager_saveConfigurationToDisk_currentSignature_userUUID_isUpgrade_completionQueue_completionHandler___block_invoke_186;
       block[3] = &unk_1E7F0B588;
-      v28 = v24;
-      v27 = v8;
+      v27 = v24;
+      v26 = v8;
       dispatch_async(v23, block);
     }
   }
 
   dispatch_semaphore_signal(*(a1 + 72));
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyCurrentIndexWithConfigurationIDsExpunged:(id)expunged
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   expungedCopy = expunged;
   if (self)
   {
@@ -8500,27 +8407,27 @@ LABEL_27:
   }
 
   v8 = [(NEConfigurationManager *)selfCopy makeMutableCopyOfIndex:?];
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   obj = expungedCopy;
-  v9 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
+  v9 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v48;
+    v11 = *v47;
     do
     {
       v12 = 0;
       do
       {
-        if (*v48 != v11)
+        if (*v47 != v11)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v47 + 1) + 8 * v12);
+        v13 = *(*(&v46 + 1) + 8 * v12);
         v14 = [v8 objectForKeyedSubscript:@"ConfigurationProperties"];
         [v14 removeObjectForKey:v13];
 
@@ -8528,7 +8435,7 @@ LABEL_27:
       }
 
       while (v10 != v12);
-      v10 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
+      v10 = [obj countByEnumeratingWithState:&v46 objects:v52 count:16];
     }
 
     while (v10);
@@ -8537,48 +8444,48 @@ LABEL_27:
   v15 = [v8 objectForKeyedSubscript:@"UserMap"];
   allKeys = [v15 allKeys];
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
-  v34 = allKeys;
-  v36 = [v34 countByEnumeratingWithState:&v43 objects:v52 count:16];
-  if (v36)
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
+  v33 = allKeys;
+  v35 = [v33 countByEnumeratingWithState:&v42 objects:v51 count:16];
+  if (v35)
   {
-    v35 = *v44;
+    v34 = *v43;
     do
     {
       v17 = 0;
       do
       {
-        if (*v44 != v35)
+        if (*v43 != v34)
         {
-          objc_enumerationMutation(v34);
+          objc_enumerationMutation(v33);
         }
 
-        v38 = v17;
-        v18 = *(*(&v43 + 1) + 8 * v17);
+        v37 = v17;
+        v18 = *(*(&v42 + 1) + 8 * v17);
+        v38 = 0u;
         v39 = 0u;
         v40 = 0u;
         v41 = 0u;
-        v42 = 0u;
         v19 = obj;
-        v20 = [v19 countByEnumeratingWithState:&v39 objects:v51 count:16];
+        v20 = [v19 countByEnumeratingWithState:&v38 objects:v50 count:16];
         if (v20)
         {
           v21 = v20;
-          v22 = *v40;
+          v22 = *v39;
           do
           {
             v23 = 0;
             do
             {
-              if (*v40 != v22)
+              if (*v39 != v22)
               {
                 objc_enumerationMutation(v19);
               }
 
-              v24 = *(*(&v39 + 1) + 8 * v23);
+              v24 = *(*(&v38 + 1) + 8 * v23);
               v25 = [v8 objectForKeyedSubscript:@"UserMap"];
               v26 = [v25 objectForKeyedSubscript:v18];
               [v26 removeObject:v24];
@@ -8587,7 +8494,7 @@ LABEL_27:
             }
 
             while (v21 != v23);
-            v21 = [v19 countByEnumeratingWithState:&v39 objects:v51 count:16];
+            v21 = [v19 countByEnumeratingWithState:&v38 objects:v50 count:16];
           }
 
           while (v21);
@@ -8603,18 +8510,17 @@ LABEL_27:
           [v30 removeObjectForKey:v18];
         }
 
-        v17 = v38 + 1;
+        v17 = v37 + 1;
       }
 
-      while (v38 + 1 != v36);
-      v36 = [v34 countByEnumeratingWithState:&v43 objects:v52 count:16];
+      while (v37 + 1 != v35);
+      v35 = [v33 countByEnumeratingWithState:&v42 objects:v51 count:16];
     }
 
-    while (v36);
+    while (v35);
   }
 
   v31 = [objc_alloc(MEMORY[0x1E695DF20]) initWithDictionary:v8];
-  v32 = *MEMORY[0x1E69E9840];
   return v31;
 }
 
@@ -8630,7 +8536,7 @@ LABEL_27:
 
 void __40__NEConfigurationManager_postGeneration__block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
@@ -8639,8 +8545,8 @@ void __40__NEConfigurationManager_postGeneration__block_invoke(uint64_t a1, void
     {
       *buf = 136315394;
       *&buf[4] = "[NEConfigurationManager postGeneration]_block_invoke";
-      v22 = 2112;
-      v23 = v4;
+      v21 = 2112;
+      v22 = v4;
       _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "%s: failed to load the configurations: %@", buf, 0x16u);
     }
 
@@ -8648,10 +8554,10 @@ void __40__NEConfigurationManager_postGeneration__block_invoke(uint64_t a1, void
   }
 
   *buf = 0;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   Property = *(a1 + 32);
   if (Property)
   {
@@ -8659,31 +8565,31 @@ void __40__NEConfigurationManager_postGeneration__block_invoke(uint64_t a1, void
   }
 
   v7 = Property;
-  v9 = [v7 countByEnumeratingWithState:&v17 objects:v24 count:16];
+  v9 = [v7 countByEnumeratingWithState:&v16 objects:v23 count:16];
   if (v9)
   {
-    v10 = *v18;
+    v10 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * i);
+        v12 = *(*(&v16 + 1) + 8 * i);
         v13 = *(a1 + 32);
         if (v13)
         {
           v13 = objc_getProperty(v13, v8, 88, 1);
         }
 
-        v14 = [v13 objectForKeyedSubscript:{v12, v17}];
+        v14 = [v13 objectForKeyedSubscript:{v12, v16}];
         [NEConfigurationManager updateFlags:buf withConfiguration:v14];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v17 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v16 objects:v23 count:16];
     }
 
     while (v9);
@@ -8708,8 +8614,6 @@ LABEL_20:
   }
 
 LABEL_22:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (id)incomingMessageHandler
@@ -8909,9 +8813,11 @@ LABEL_20:
 
 uint64_t __50__NEConfigurationManager_sharedManagerForAllUsers__block_invoke()
 {
-  sharedManagerForAllUsers_g_manager = [[NEConfigurationManager alloc] initWithUserUUID:?];
+  v0 = [[NEConfigurationManager alloc] initWithUserUUID:?];
+  v1 = sharedManagerForAllUsers_g_manager;
+  sharedManagerForAllUsers_g_manager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (id)sharedManager
@@ -8928,9 +8834,11 @@ uint64_t __50__NEConfigurationManager_sharedManagerForAllUsers__block_invoke()
 
 uint64_t __39__NEConfigurationManager_sharedManager__block_invoke()
 {
-  sharedManager_g_manager = objc_alloc_init(NEConfigurationManager);
+  v0 = objc_alloc_init(NEConfigurationManager);
+  v1 = sharedManager_g_manager;
+  sharedManager_g_manager = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

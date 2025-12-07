@@ -83,9 +83,9 @@
     +[CNContact(SafariSharedExtras) safari_oneTimeCodeViewDescriptors];
   }
 
-  v1 = safari_oneTimeCodeViewDescriptors_descriptors;
+  v2 = safari_oneTimeCodeViewDescriptors_descriptors;
 
-  return v1;
+  return v2;
 }
 
 - (id)safari_valueForWBSProxyProperty:()SafariSharedExtras
@@ -282,26 +282,27 @@
   {
     service = [v6 service];
 LABEL_5:
-    v9 = service;
+    v11 = service;
     goto LABEL_9;
   }
 
-  if ([v7 isEqualToString:*MEMORY[0x1E695C468]])
+  v9 = [v7 isEqualToString:*MEMORY[0x1E695C468]];
+  if (v9)
   {
     service = [v6 username];
     goto LABEL_5;
   }
 
-  v10 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+  v12 = WBS_LOG_CHANNEL_PREFIXAutoFill(v9, v10);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
   {
-    [(CNContact(SafariSharedExtras) *)v5 safari_valueStringForWBSComponent:v10 inInstantMessageAddress:v11, v12, v13, v14, v15, v16];
+    [(CNContact(SafariSharedExtras) *)v5 safari_valueStringForWBSComponent:v12 inInstantMessageAddress:v13, v14, v15, v16, v17, v18];
   }
 
-  v9 = 0;
+  v11 = 0;
 LABEL_9:
 
-  return v9;
+  return v11;
 }
 
 + (id)safari_valueStringForWBSComponent:()SafariSharedExtras inAddress:
@@ -313,7 +314,7 @@ LABEL_9:
   {
     street = [v6 street];
 LABEL_13:
-    v9 = street;
+    v11 = street;
     goto LABEL_14;
   }
 
@@ -341,22 +342,23 @@ LABEL_13:
     goto LABEL_13;
   }
 
-  if ([v7 isEqualToString:*MEMORY[0x1E695CC10]])
+  v9 = [v7 isEqualToString:*MEMORY[0x1E695CC10]];
+  if (v9)
   {
     street = [v6 ISOCountryCode];
     goto LABEL_13;
   }
 
-  v11 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v13 = WBS_LOG_CHANNEL_PREFIXAutoFill(v9, v10);
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
   {
-    [(CNContact(SafariSharedExtras) *)v5 safari_valueStringForWBSComponent:v11 inAddress:v12, v13, v14, v15, v16, v17];
+    [(CNContact(SafariSharedExtras) *)v5 safari_valueStringForWBSComponent:v13 inAddress:v14, v15, v16, v17, v18, v19];
   }
 
-  v9 = 0;
+  v11 = 0;
 LABEL_14:
 
-  return v9;
+  return v11;
 }
 
 + (id)safari_valueStringForValue:()SafariSharedExtras wbsProperty:wbsComponent:
@@ -421,13 +423,14 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  if ([v11 isEqualToString:*MEMORY[0x1E695C2B0]])
+  v20 = [v11 isEqualToString:*MEMORY[0x1E695C2B0]];
+  if (v20)
   {
     currentCalendar = v8;
-    v20 = [v10 length];
+    v22 = [v10 length];
     value3 = [currentCalendar value];
     value = value3;
-    if (v20)
+    if (v22)
     {
       [self safari_valueStringForWBSComponent:v10 inInstantMessageAddress:value3];
     }
@@ -440,10 +443,10 @@ LABEL_7:
     goto LABEL_4;
   }
 
-  v22 = WBS_LOG_CHANNEL_PREFIXAutoFill();
-  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  v24 = WBS_LOG_CHANNEL_PREFIXAutoFill(v20, v21);
+  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
   {
-    [(CNContact(SafariSharedExtras) *)v9 safari_valueStringForValue:v22 wbsProperty:v23 wbsComponent:v24, v25, v26, v27, v28];
+    [(CNContact(SafariSharedExtras) *)v9 safari_valueStringForValue:v24 wbsProperty:v25 wbsComponent:v26, v27, v28, v29, v30];
   }
 
   stringValue = 0;
@@ -484,6 +487,27 @@ LABEL_13:
   }
 
   return v5;
+}
+
++ (void)safari_valueStringForWBSComponent:()SafariSharedExtras inInstantMessageAddress:.cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_6(&dword_1BB6F3000, a2, a3, "Instant Message Address component is not supported: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)safari_valueStringForWBSComponent:()SafariSharedExtras inAddress:.cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_6(&dword_1BB6F3000, a2, a3, "Address component is not supported: %@", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
++ (void)safari_valueStringForValue:()SafariSharedExtras wbsProperty:wbsComponent:.cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_6(&dword_1BB6F3000, a2, a3, "Failed to find value for %@ property in Contacts", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

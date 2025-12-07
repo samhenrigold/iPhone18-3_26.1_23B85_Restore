@@ -11,8 +11,8 @@
 
 - (id)_dictionaryRepresentation
 {
-  v11[2] = *MEMORY[0x1E69E9840];
-  v10[0] = @"intent";
+  v10[2] = *MEMORY[0x1E69E9840];
+  v9[0] = @"intent";
   intent = self->_intent;
   null = intent;
   if (!intent)
@@ -20,8 +20,8 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v10[1] = @"intentResponse";
-  v11[0] = null;
+  v9[1] = @"intentResponse";
+  v10[0] = null;
   intentResponse = self->_intentResponse;
   null2 = intentResponse;
   if (!intentResponse)
@@ -29,8 +29,8 @@
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v11[1] = null2;
-  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = null2;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:v9 count:2];
   if (intentResponse)
   {
     if (intent)
@@ -49,7 +49,6 @@
   }
 
 LABEL_7:
-  v8 = *MEMORY[0x1E69E9840];
 
   return v7;
 }

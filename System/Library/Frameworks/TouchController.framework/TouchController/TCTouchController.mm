@@ -218,50 +218,49 @@
 
 - (void)buildSharedQuadBuffers
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v10[0] = xmmword_23AAEE148;
-  v10[1] = unk_23AAEE158;
-  v10[2] = xmmword_23AAEE168;
-  v10[3] = unk_23AAEE178;
-  LODWORD(v9) = 3;
-  v3 = [(MTLDevice *)self->_device newBufferWithBytes:v10 length:64 options:0, 0x2000200010000, v9];
+  v10 = *MEMORY[0x277D85DE8];
+  v9[0] = xmmword_23AAEE148;
+  v9[1] = unk_23AAEE158;
+  v9[2] = xmmword_23AAEE168;
+  v9[3] = unk_23AAEE178;
+  LODWORD(v8) = 3;
+  v3 = [(MTLDevice *)self->_device newBufferWithBytes:v9 length:64 options:0, 0x2000200010000, v8];
   quadVertexBuffer = self->_quadVertexBuffer;
   self->_quadVertexBuffer = v3;
 
   [(MTLBuffer *)self->_quadVertexBuffer setLabel:@"Quad Vertex Buffer"];
-  v5 = [(MTLDevice *)self->_device newBufferWithBytes:&v8 length:12 options:0];
+  v5 = [(MTLDevice *)self->_device newBufferWithBytes:&v7 length:12 options:0];
   quadIndexBuffer = self->_quadIndexBuffer;
   self->_quadIndexBuffer = v5;
 
   [(MTLBuffer *)self->_quadIndexBuffer setLabel:@"Quad Index Buffer"];
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setDrawableSize:(CGSize)size
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   self->_drawableSize = size;
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   v3 = self->_controls;
-  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         if (objc_opt_respondsToSelector())
         {
           [v8 layoutIfNeeded];
@@ -271,18 +270,16 @@
       }
 
       while (v5 != v7);
-      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [(NSMutableArray *)v3 countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)renderUsingRenderCommandEncoder:(id)encoder
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   encoderCopy = encoder;
   controls = [(TCTouchController *)self controls];
   v6 = [controls count];
@@ -301,31 +298,31 @@
     }
 
     self->_deltaTime = v9 - time;
+    v32 = 0u;
     v33 = 0u;
     v34 = 0u;
     v35 = 0u;
-    v36 = 0u;
     touchpads = [(TCTouchController *)self touchpads];
-    v12 = [touchpads countByEnumeratingWithState:&v33 objects:v37 count:16];
+    v12 = [touchpads countByEnumeratingWithState:&v32 objects:v36 count:16];
     if (v12)
     {
       v13 = v12;
-      v14 = *v34;
+      v14 = *v33;
       do
       {
         v15 = 0;
         do
         {
-          if (*v34 != v14)
+          if (*v33 != v14)
           {
             objc_enumerationMutation(touchpads);
           }
 
-          [*(*(&v33 + 1) + 8 * v15++) resetDeltas];
+          [*(*(&v32 + 1) + 8 * v15++) resetDeltas];
         }
 
         while (v13 != v15);
-        v13 = [touchpads countByEnumeratingWithState:&v33 objects:v37 count:16];
+        v13 = [touchpads countByEnumeratingWithState:&v32 objects:v36 count:16];
       }
 
       while (v13);
@@ -392,42 +389,40 @@ LABEL_21:
 LABEL_23:
     self->_time = v9;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_renderButtonQuadsWithCommandEncoder:(id)encoder
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   encoderCopy = encoder;
   v5 = objc_opt_new();
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
   v57 = 0u;
-  v58 = 0u;
   v6 = self->_controls;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v55 objects:v67 count:16];
+  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v54 objects:v66 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v56;
+    v9 = *v55;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v56 != v9)
+        if (*v55 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v55 + 1) + 8 * i);
+        v11 = *(*(&v54 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           [v11 collectQuadDataInto:v5];
         }
       }
 
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v55 objects:v67 count:16];
+      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v54 objects:v66 count:16];
     }
 
     while (v8);
@@ -442,43 +437,43 @@ LABEL_23:
     width = self->_drawableSize.width;
     mainScreen = [MEMORY[0x277D759A0] mainScreen];
     [mainScreen scale];
-    v50 = v15;
+    v49 = v15;
 
     v16.f64[0] = width;
     v16.f64[1] = self->_drawableSize.height;
-    v53 = v16;
+    v52 = v16;
     mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
     [mainScreen2 scale];
-    v48 = v18;
+    v47 = v18;
 
     contents = [(MTLBuffer *)self->_instanceBuffer contents];
     if ([v5 count])
     {
       v20 = 0;
-      v21.f64[0] = v50;
-      v21.f64[1] = v48;
-      v22 = vcvt_f32_f64(vdivq_f64(v53, v21));
+      v21.f64[0] = v49;
+      v21.f64[1] = v47;
+      v22 = vcvt_f32_f64(vdivq_f64(v52, v21));
       v23 = v22.f32[1];
       *v24.f32 = vdiv_f32(vadd_f32(v22, 0), vsub_f32(0, v22));
-      v47 = COERCE_UNSIGNED_INT(2.0 / v22.f32[0]);
+      v46 = COERCE_UNSIGNED_INT(2.0 / v22.f32[0]);
       v22.i32[0] = 0;
       v22.f32[1] = 2.0 / v22.f32[1];
-      v46 = v22;
+      v45 = v22;
       v24.i64[1] = 0x3F8000003F000000;
-      v49 = v24;
+      v48 = v24;
       do
       {
         v25 = [v5 objectAtIndexedSubscript:v20];
         [v25 position];
         *&v26 = v26;
-        v51 = LODWORD(v26);
+        v50 = LODWORD(v26);
         [v25 position];
         v28 = v27;
         [v25 size];
         *&v29 = v29;
-        v54 = LODWORD(v29);
+        v53 = LODWORD(v29);
         [v25 size];
-        v31.i32[0] = v51;
+        v31.i32[0] = v50;
         v30 = 0;
         v31.f32[1] = v23 - v28;
         v31.i32[2] = 0;
@@ -486,42 +481,42 @@ LABEL_23:
         *&v32 = v32;
         LODWORD(v33) = 0;
         HIDWORD(v33) = LODWORD(v32);
-        v59 = v54;
-        v60 = v33;
-        v61 = xmmword_23AAEE0F0;
-        v62 = xmmword_23AAEE100;
+        v58 = v53;
+        v59 = v33;
+        v60 = xmmword_23AAEE0F0;
+        v61 = xmmword_23AAEE100;
+        v62 = 0u;
         v63 = 0u;
         v64 = 0u;
         v65 = 0u;
-        v66 = 0u;
         do
         {
-          *(&v63 + v30) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_23AAEE110, COERCE_FLOAT(*(&v59 + v30))), xmmword_23AAEE120, *(&v59 + v30), 1), xmmword_23AAEE0F0, *(&v59 + v30), 2), v31, *(&v59 + v30), 3);
+          *(&v62 + v30) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(xmmword_23AAEE110, COERCE_FLOAT(*(&v58 + v30))), xmmword_23AAEE120, *(&v58 + v30), 1), xmmword_23AAEE0F0, *(&v58 + v30), 2), v31, *(&v58 + v30), 3);
           v30 += 16;
         }
 
         while (v30 != 64);
         v34 = 0;
+        v58 = v62;
         v59 = v63;
         v60 = v64;
         v61 = v65;
-        v62 = v66;
+        v62 = 0u;
         v63 = 0u;
         v64 = 0u;
         v65 = 0u;
-        v66 = 0u;
         do
         {
-          *(&v63 + v34) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v47, COERCE_FLOAT(*(&v59 + v34))), v46, *(&v59 + v34), 1), xmmword_23AAEE130, *(&v59 + v34), 2), v49, *(&v59 + v34), 3);
+          *(&v62 + v34) = vmlaq_laneq_f32(vmlaq_laneq_f32(vmlaq_lane_f32(vmulq_n_f32(v46, COERCE_FLOAT(*(&v58 + v34))), v45, *(&v58 + v34), 1), xmmword_23AAEE130, *(&v58 + v34), 2), v48, *(&v58 + v34), 3);
           v34 += 16;
         }
 
         while (v34 != 64);
-        v35 = v64;
-        v36 = v65;
-        v37 = v66;
+        v35 = v63;
+        v36 = v64;
+        v37 = v65;
         v38 = contents + 96 * v20;
-        *v38 = v63;
+        *v38 = v62;
         *(v38 + 16) = v35;
         *(v38 + 32) = v36;
         *(v38 + 48) = v37;
@@ -561,258 +556,244 @@ LABEL_23:
       while (v41 < [v5 count]);
     }
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (NSArray)buttons
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_controls;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v3 addObject:{v9, v12}];
+          [v3 addObject:{v9, v11}];
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (NSArray)switches
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_controls;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v3 addObject:{v9, v12}];
+          [v3 addObject:{v9, v11}];
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (NSArray)thumbsticks
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_controls;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v3 addObject:{v9, v12}];
+          [v3 addObject:{v9, v11}];
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (NSArray)directionPads
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_controls;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v3 addObject:{v9, v12}];
+          [v3 addObject:{v9, v11}];
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (NSArray)throttles
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_controls;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v3 addObject:{v9, v12}];
+          [v3 addObject:{v9, v11}];
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 - (NSArray)touchpads
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = self->_controls;
-  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v12 + 1) + 8 * i);
+        v9 = *(*(&v11 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
-          [v3 addObject:{v9, v12}];
+          [v3 addObject:{v9, v11}];
         }
       }
 
-      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [(NSMutableArray *)v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -1019,9 +1000,7 @@ LABEL_12:
 
 - (void)removeAllControls
 {
-  v3 = objc_opt_new();
-  controls = self->_controls;
-  self->_controls = v3;
+  self->_controls = objc_opt_new();
 
   MEMORY[0x2821F96F8]();
 }
@@ -1030,28 +1009,28 @@ LABEL_12:
 {
   y = point.y;
   x = point.x;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   controls = [(TCTouchController *)self controls];
   reverseObjectEnumerator = [controls reverseObjectEnumerator];
 
-  v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v7)
   {
-    v8 = *v16;
+    v8 = *v15;
     while (2)
     {
       for (i = 0; i != v7; i = i + 1)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(reverseObjectEnumerator);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         if (objc_opt_respondsToSelector())
         {
           collider = [v10 collider];
@@ -1065,7 +1044,7 @@ LABEL_12:
         }
       }
 
-      v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [reverseObjectEnumerator countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v7)
       {
         continue;
@@ -1076,8 +1055,6 @@ LABEL_12:
   }
 
 LABEL_12:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -1391,7 +1368,7 @@ LABEL_43:
 
 - (void)automaticallyLayoutControlsForLabels:(id)labels
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   labelsCopy = labels;
   [(TCTouchController *)self removeAllControls];
   v4 = +[TCControlLabel buttonA];
@@ -1439,45 +1416,45 @@ LABEL_43:
   v18 = +[TCControlLabel rightThumbstick];
   [(TCTouchController *)self _makeHiddenThumbstickWithLabel:v18 colliderShape:3];
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   obj = self->_controls;
-  v19 = [(NSMutableArray *)obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+  v19 = [(NSMutableArray *)obj countByEnumeratingWithState:&v36 objects:v41 count:16];
   if (v19)
   {
     v20 = v19;
-    v21 = *v38;
+    v21 = *v37;
     do
     {
       for (i = 0; i != v20; ++i)
       {
-        if (*v38 != v21)
+        if (*v37 != v21)
         {
           objc_enumerationMutation(obj);
         }
 
-        v23 = *(*(&v37 + 1) + 8 * i);
+        v23 = *(*(&v36 + 1) + 8 * i);
+        v32 = 0u;
         v33 = 0u;
         v34 = 0u;
         v35 = 0u;
-        v36 = 0u;
         v24 = labelsCopy;
-        v25 = [v24 countByEnumeratingWithState:&v33 objects:v41 count:16];
+        v25 = [v24 countByEnumeratingWithState:&v32 objects:v40 count:16];
         if (v25)
         {
-          v26 = *v34;
+          v26 = *v33;
           while (2)
           {
             for (j = 0; j != v25; ++j)
             {
-              if (*v34 != v26)
+              if (*v33 != v26)
               {
                 objc_enumerationMutation(v24);
               }
 
-              v28 = *(*(&v33 + 1) + 8 * j);
+              v28 = *(*(&v32 + 1) + 8 * j);
               label = [v23 label];
               LOBYTE(v28) = [v28 isEqual:label];
 
@@ -1488,7 +1465,7 @@ LABEL_43:
               }
             }
 
-            v25 = [v24 countByEnumeratingWithState:&v33 objects:v41 count:16];
+            v25 = [v24 countByEnumeratingWithState:&v32 objects:v40 count:16];
             if (v25)
             {
               continue;
@@ -1503,13 +1480,11 @@ LABEL_16:
         [v23 setEnabled:v25];
       }
 
-      v20 = [(NSMutableArray *)obj countByEnumeratingWithState:&v37 objects:v42 count:16];
+      v20 = [(NSMutableArray *)obj countByEnumeratingWithState:&v36 objects:v41 count:16];
     }
 
     while (v20);
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_makeButtonWithAnchor:(int64_t)anchor offset:(CGPoint)offset label:(id)label colliderShape:(int64_t)shape

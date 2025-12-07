@@ -44,7 +44,7 @@
 {
   if (self->_scale != scale)
   {
-    objc_msgSend_willModify(self, a2, v3);
+    [(KNLiveVideoInfo *)self willModify];
     self->_scale = scale;
   }
 }
@@ -65,7 +65,7 @@
   p_normalizedOffset = &self->_normalizedOffset;
   if (self->_normalizedOffset.x != offset.x || self->_normalizedOffset.y != offset.y)
   {
-    objc_msgSend_willModify(self, a2, v3);
+    [(KNLiveVideoInfo *)self willModify];
     p_normalizedOffset->x = x;
     p_normalizedOffset->y = y;
   }
@@ -75,7 +75,7 @@
 {
   if (self->_maskKind != kind)
   {
-    objc_msgSend_willModify(self, a2, kind);
+    [(KNLiveVideoInfo *)self willModify];
     self->_maskKind = kind;
   }
 }
@@ -84,7 +84,7 @@
 {
   if (self->_maskCornerRadius != radius)
   {
-    objc_msgSend_willModify(self, a2, v3);
+    [(KNLiveVideoInfo *)self willModify];
     self->_maskCornerRadius = radius;
   }
 }
@@ -93,7 +93,7 @@
 {
   if (self->_backgroundKind != kind)
   {
-    objc_msgSend_willModify(self, a2, kind);
+    [(KNLiveVideoInfo *)self willModify];
     self->_backgroundKind = kind;
   }
 }
@@ -103,12 +103,12 @@
   fillCopy = fill;
   if (self->_backgroundFill != fillCopy)
   {
-    v10 = fillCopy;
-    objc_msgSend_willModify(self, v5, v6);
-    v9 = objc_msgSend_copy(v10, v7, v8);
+    v6 = fillCopy;
+    [(KNLiveVideoInfo *)self willModify];
+    v5 = [(TSDFill *)v6 copy];
 
-    objc_storeStrong(&self->_backgroundFill, v9);
-    fillCopy = v9;
+    objc_storeStrong(&self->_backgroundFill, v5);
+    fillCopy = v5;
   }
 }
 
@@ -116,9 +116,9 @@
 {
   contextCopy = context;
   styleCopy = style;
-  v18.receiver = self;
-  v18.super_class = KNLiveVideoInfo;
-  v10 = [(KNLiveVideoInfo *)&v18 initWithContext:contextCopy geometry:geometry];
+  v15.receiver = self;
+  v15.super_class = KNLiveVideoInfo;
+  v10 = [(KNLiveVideoInfo *)&v15 initWithContext:contextCopy geometry:geometry];
   v11 = v10;
   if (v10)
   {
@@ -126,12 +126,11 @@
     v11->_scale = 1.0;
     v11->_maskKind = 0;
     v11->_backgroundKind = 0;
-    v12 = objc_opt_class();
-    v14 = objc_msgSend_i_makeArchivedMoviePosterImageDataWithContext_(v12, v13, contextCopy);
+    v12 = [objc_opt_class() i_makeArchivedMoviePosterImageDataWithContext:contextCopy];
     archivedMoviePosterImageData = v11->_archivedMoviePosterImageData;
-    v11->_archivedMoviePosterImageData = v14;
+    v11->_archivedMoviePosterImageData = v12;
 
-    objc_msgSend_didAddReferenceToData_(v11, v16, v11->_archivedMoviePosterImageData);
+    [(KNLiveVideoInfo *)v11 didAddReferenceToData:v11->_archivedMoviePosterImageData];
   }
 
   return v11;
@@ -140,27 +139,26 @@
 - (KNLiveVideoSource)source
 {
   objc_opt_class();
-  v5 = objc_msgSend_context(self, v3, v4);
-  v8 = objc_msgSend_documentRoot(v5, v6, v7);
-  v9 = TSUCheckedDynamicCast();
+  context = [(KNLiveVideoInfo *)self context];
+  documentRoot = [context documentRoot];
+  v5 = TSUCheckedDynamicCast();
 
-  v12 = objc_msgSend_show(v9, v10, v11);
-  v15 = objc_msgSend_theme(v12, v13, v14);
-  v18 = objc_msgSend_liveVideoSourceCollection(v15, v16, v17);
+  show = [v5 show];
+  theme = [show theme];
+  liveVideoSourceCollection = [theme liveVideoSourceCollection];
 
-  sourceId = self->_sourceId;
-  if (!sourceId || (objc_msgSend_sourceWithObjectUUID_(v18, v19, sourceId), (v21 = objc_claimAutoreleasedReturnValue()) == 0))
+  if (!self->_sourceId || ([liveVideoSourceCollection sourceWithObjectUUID:?], (defaultSource = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    v21 = objc_msgSend_defaultSource(v18, v19, sourceId);
+    defaultSource = [liveVideoSourceCollection defaultSource];
   }
 
-  return v21;
+  return defaultSource;
 }
 
 - (void)setSource:(id)source
 {
-  v5 = objc_msgSend_objectUUID(source, a2, source);
-  objc_msgSend_setI_sourceId_(self, v4, v5);
+  objectUUID = [source objectUUID];
+  [(KNLiveVideoInfo *)self setI_sourceId:objectUUID];
 }
 
 - (void)setI_sourceId:(id)id
@@ -169,71 +167,71 @@
   sourceId = self->_sourceId;
   if (idCopy | sourceId)
   {
-    v14 = idCopy;
-    isEqual = objc_msgSend_isEqual_(sourceId, idCopy, idCopy);
-    idCopy = v14;
-    if ((isEqual & 1) == 0)
+    v9 = idCopy;
+    v6 = [(NSUUID *)sourceId isEqual:idCopy];
+    idCopy = v9;
+    if ((v6 & 1) == 0)
     {
-      objc_msgSend_willModify(self, v14, v7);
-      v10 = objc_msgSend_copy(v14, v8, v9);
-      v11 = self->_sourceId;
-      self->_sourceId = v10;
+      [(KNLiveVideoInfo *)self willModify];
+      v7 = [v9 copy];
+      v8 = self->_sourceId;
+      self->_sourceId = v7;
 
-      objc_msgSend_p_updateSlideNodeLiveVideoSourceUsage(self, v12, v13);
-      idCopy = v14;
+      [(KNLiveVideoInfo *)self p_updateSlideNodeLiveVideoSourceUsage];
+      idCopy = v9;
     }
   }
 }
 
 - (int64_t)effectiveMaskKind
 {
-  v4 = objc_msgSend_geometry(self, a2, v2);
-  v6 = objc_msgSend_effectiveMaskKindForGeometry_(self, v5, v4);
+  geometry = [(KNLiveVideoInfo *)self geometry];
+  v4 = [(KNLiveVideoInfo *)self effectiveMaskKindForGeometry:geometry];
 
-  return v6;
+  return v4;
 }
 
 - (int64_t)effectiveMaskKindForGeometry:(id)geometry
 {
   geometryCopy = geometry;
-  if (objc_msgSend_maskKind(self, v5, v6) == 1)
+  if ([(KNLiveVideoInfo *)self maskKind]== 1)
   {
-    objc_msgSend_size(geometryCopy, v7, v8);
-    v11 = vabdd_f64(v9, v10) < 0.00999999978 || v9 == v10;
+    [geometryCopy size];
+    v7 = vabdd_f64(v5, v6) < 0.00999999978 || v5 == v6;
   }
 
   else
   {
-    v11 = 0;
+    v7 = 0;
   }
 
-  return v11;
+  return v7;
 }
 
 - (int64_t)backgroundKind
 {
-  v3 = objc_msgSend_i_archivedBackgroundKind(self, a2, v2);
-  v4 = objc_opt_class();
+  i_archivedBackgroundKind = [(KNLiveVideoInfo *)self i_archivedBackgroundKind];
+  v3 = objc_opt_class();
 
-  return objc_msgSend_i_backgroundKindForArchivedBackgroundKind_(v4, v5, v3);
+  return [v3 i_backgroundKindForArchivedBackgroundKind:i_archivedBackgroundKind];
 }
 
 - (void)setBackgroundKind:(int64_t)kind
 {
-  objc_msgSend_setI_archivedBackgroundKind_(self, a2, kind == 1);
+  [(KNLiveVideoInfo *)self setI_archivedBackgroundKind:kind == 1];
 
-  objc_msgSend_p_updateSlideNodeLiveVideoSourceUsage(self, v4, v5);
+  [(KNLiveVideoInfo *)self p_updateSlideNodeLiveVideoSourceUsage];
 }
 
 - (int64_t)effectiveBackgroundKind
 {
-  v4 = objc_msgSend_backgroundKind(self, a2, v2);
-  v7 = objc_msgSend_source(self, v5, v6);
-  v9 = objc_msgSend_supportsBackgroundKind_(v7, v8, v4);
+  backgroundKind = [(KNLiveVideoInfo *)self backgroundKind];
+  source = [(KNLiveVideoInfo *)self source];
+  v5 = [source supportsBackgroundKind:backgroundKind];
 
-  if (v9)
+  if (v5)
   {
-    return v4;
+    return backgroundKind;
   }
 
   else
@@ -246,21 +244,21 @@
 {
   if (self->_isPlaceholder != placeholder)
   {
-    objc_msgSend_willModify(self, a2, placeholder);
+    [(KNLiveVideoInfo *)self willModify];
     self->_isPlaceholder = placeholder;
 
-    objc_msgSend_p_updateSlideNodeLiveVideoSourceUsage(self, v5, v6);
+    [(KNLiveVideoInfo *)self p_updateSlideNodeLiveVideoSourceUsage];
   }
 }
 
 - (void)p_updateSlideNodeLiveVideoSourceUsage
 {
-  v2 = objc_msgSend_parentSlideNodeForInfo_(KNSlideNode, a2, self);
+  v2 = [KNSlideNode parentSlideNodeForInfo:self];
   if (v2)
   {
-    v5 = v2;
-    objc_msgSend_updateLiveVideoSourceUsage(v2, v3, v4);
-    v2 = v5;
+    v3 = v2;
+    [v2 updateLiveVideoSourceUsage];
+    v2 = v3;
   }
 }
 
@@ -268,33 +266,32 @@
 {
   contextCopy = context;
   v4 = TSDBitmapContextCreate();
-  v7 = objc_msgSend_blackColor(MEMORY[0x277D81180], v5, v6);
-  v10 = objc_msgSend_CGColor(v7, v8, v9);
-  CGContextSetFillColorWithColor(v4, v10);
+  blackColor = [MEMORY[0x277D81180] blackColor];
+  CGContextSetFillColorWithColor(v4, [blackColor CGColor]);
 
-  v17.origin.x = 0.0;
-  v17.origin.y = 0.0;
-  v17.size.width = 1.0;
-  v17.size.height = 1.0;
-  CGContextFillRect(v4, v17);
+  v11.origin.x = 0.0;
+  v11.origin.y = 0.0;
+  v11.size.width = 1.0;
+  v11.size.height = 1.0;
+  CGContextFillRect(v4, v11);
   Image = CGBitmapContextCreateImage(v4);
   CGContextRelease(v4);
-  v12 = CGImagePNGRepresentation();
-  v14 = objc_msgSend_dataFromNSData_filename_context_(MEMORY[0x277D80828], v13, v12, @"blankMoviePosterImage.png", contextCopy);
+  v7 = CGImagePNGRepresentation();
+  v8 = [MEMORY[0x277D80828] dataFromNSData:v7 filename:@"blankMoviePosterImage.png" context:contextCopy];
 
   CGImageRelease(Image);
 
-  return v14;
+  return v8;
 }
 
 - (BOOL)canAspectRatioLockBeChangedByUser
 {
-  v7.receiver = self;
-  v7.super_class = KNLiveVideoInfo;
-  canAspectRatioLockBeChangedByUser = [(KNLiveVideoInfo *)&v7 canAspectRatioLockBeChangedByUser];
+  v5.receiver = self;
+  v5.super_class = KNLiveVideoInfo;
+  canAspectRatioLockBeChangedByUser = [(KNLiveVideoInfo *)&v5 canAspectRatioLockBeChangedByUser];
   if (canAspectRatioLockBeChangedByUser)
   {
-    LOBYTE(canAspectRatioLockBeChangedByUser) = objc_msgSend_effectiveMaskKind(self, v4, v5) != 1;
+    LOBYTE(canAspectRatioLockBeChangedByUser) = [(KNLiveVideoInfo *)self effectiveMaskKind]!= 1;
   }
 
   return canAspectRatioLockBeChangedByUser;
@@ -302,18 +299,18 @@
 
 - (id)defaultDescriptiveName
 {
-  v3 = objc_msgSend_source(self, a2, v2);
-  v6 = objc_msgSend_name(v3, v4, v5);
+  source = [(KNLiveVideoInfo *)self source];
+  name = [source name];
 
-  return v6;
+  return name;
 }
 
 - (id)typeName
 {
-  v2 = sub_275DC204C();
-  v4 = objc_msgSend_localizedStringForKey_value_table_(v2, v3, @"Live Video", &stru_2884D8E20, @"Keynote");
+  v2 = sub_275DC204C(self);
+  v3 = [v2 localizedStringForKey:@"Live Video" value:&stru_2884D8E20 table:@"Keynote"];
 
-  return v4;
+  return v3;
 }
 
 - (void)setStyle:(id)style
@@ -326,25 +323,25 @@
     sub_275E5A140();
   }
 
-  v7 = v4;
+  v5 = v4;
   if (v4 != self->_style)
   {
-    v8 = objc_msgSend_properties(MEMORY[0x277D80340], v5, v6);
-    objc_msgSend_willChangeProperties_(self, v9, v8);
+    properties = [MEMORY[0x277D80340] properties];
+    [(KNLiveVideoInfo *)self willChangeProperties:properties];
 
-    objc_msgSend_willModify(self, v10, v11);
-    objc_storeStrong(&self->_style, v7);
+    [(KNLiveVideoInfo *)self willModify];
+    objc_storeStrong(&self->_style, v5);
   }
 }
 
 - (id)pastedPropertyMapForStyle:(id)style tailLineEndInfo:(int)info
 {
-  v4 = objc_msgSend_fullPropertyMap(style, a2, style, *&info);
-  v7 = objc_msgSend_copy(v4, v5, v6);
+  fullPropertyMap = [style fullPropertyMap];
+  v5 = [fullPropertyMap copy];
 
-  objc_msgSend_validatePastedPropertyMap_(MEMORY[0x277D80340], v8, v7);
+  [MEMORY[0x277D80340] validatePastedPropertyMap:v5];
 
-  return v7;
+  return v5;
 }
 
 - (BOOL)containsProperty:(int)property
@@ -359,38 +356,38 @@
   switch(property)
   {
     case 4582:
-      v3 = objc_msgSend_backgroundFill(self, a2, *&property);
+      backgroundFill = [(KNLiveVideoInfo *)self backgroundFill];
       break;
     case 4578:
       v4 = MEMORY[0x277CCAE60];
-      objc_msgSend_normalizedOffset(self, a2, *&property);
-      v10[0] = v5;
-      v10[1] = v6;
-      v3 = objc_msgSend_valueWithBytes_objCType_(v4, v7, v10, "{CGPoint=dd}");
+      [(KNLiveVideoInfo *)self normalizedOffset];
+      v9[0] = v5;
+      v9[1] = v6;
+      backgroundFill = [v4 valueWithBytes:v9 objCType:"{CGPoint=dd}"];
       break;
     case 4576:
-      v3 = objc_msgSend_source(self, a2, *&property);
+      backgroundFill = [(KNLiveVideoInfo *)self source];
       break;
     default:
-      v9.receiver = self;
-      v9.super_class = KNLiveVideoInfo;
-      v3 = [(KNLiveVideoInfo *)&v9 objectForProperty:?];
+      v8.receiver = self;
+      v8.super_class = KNLiveVideoInfo;
+      backgroundFill = [(KNLiveVideoInfo *)&v8 objectForProperty:?];
       break;
   }
 
-  return v3;
+  return backgroundFill;
 }
 
 - (int)intValueForProperty:(int)property
 {
   if (property == 4581)
   {
-    v3 = objc_msgSend_backgroundKind(self, a2, *&property);
-    if (v3 < 0x80000000)
+    backgroundKind = [(KNLiveVideoInfo *)self backgroundKind];
+    if (backgroundKind < 0x80000000)
     {
-      if (v3 > 0xFFFFFFFF7FFFFFFFLL)
+      if (backgroundKind > 0xFFFFFFFF7FFFFFFFLL)
       {
-        return v3;
+        return backgroundKind;
       }
 
       sub_275E5A1F4();
@@ -406,29 +403,29 @@
     {
       v5.receiver = self;
       v5.super_class = KNLiveVideoInfo;
-      LODWORD(v3) = [(KNLiveVideoInfo *)&v5 intValueForProperty:?];
-      return v3;
+      LODWORD(backgroundKind) = [(KNLiveVideoInfo *)&v5 intValueForProperty:?];
+      return backgroundKind;
     }
 
-    v3 = objc_msgSend_maskKind(self, a2, *&property);
-    if (v3 < 0x80000000)
+    backgroundKind = [(KNLiveVideoInfo *)self maskKind];
+    if (backgroundKind < 0x80000000)
     {
-      if (v3 > 0xFFFFFFFF7FFFFFFFLL)
+      if (backgroundKind > 0xFFFFFFFF7FFFFFFFLL)
       {
-        return v3;
+        return backgroundKind;
       }
 
       sub_275E5A2FC();
 LABEL_15:
-      LODWORD(v3) = 0x80000000;
-      return v3;
+      LODWORD(backgroundKind) = 0x80000000;
+      return backgroundKind;
     }
 
     sub_275E5A380();
   }
 
-  LODWORD(v3) = 0x7FFFFFFF;
-  return v3;
+  LODWORD(backgroundKind) = 0x7FFFFFFF;
+  return backgroundKind;
 }
 
 - (double)doubleValueForProperty:(int)property
@@ -436,13 +433,13 @@ LABEL_15:
   if (property == 4580)
   {
 
-    objc_msgSend_maskCornerRadius(self, a2, *&property);
+    [(KNLiveVideoInfo *)self maskCornerRadius];
   }
 
   else if (property == 4577)
   {
 
-    objc_msgSend_scale(self, a2, *&property);
+    [(KNLiveVideoInfo *)self scale];
   }
 
   else
@@ -462,23 +459,23 @@ LABEL_15:
   v4 = TSUProtocolCast();
   if (v4)
   {
-    v6 = v4;
-    objc_msgSend_visitKNLiveVideoInfo_(v4, v5, self, &unk_2885462B0);
-    v4 = v6;
+    v5 = v4;
+    [v4 visitKNLiveVideoInfo:{self, &unk_2885462B0}];
+    v4 = v5;
   }
 }
 
 - (id)animationFilters
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v7[2] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277CBEB98]);
   v3 = *MEMORY[0x277D80570];
-  v9[0] = *MEMORY[0x277D805A0];
-  v9[1] = v3;
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v4, v9, 2);
-  v7 = objc_msgSend_initWithArray_(v2, v6, v5);
+  v7[0] = *MEMORY[0x277D805A0];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:2];
+  v5 = [v2 initWithArray:v4];
 
-  return v7;
+  return v5;
 }
 
 - (int64_t)mixingTypeWithObject:(id)object context:(id)context
@@ -493,53 +490,53 @@ LABEL_15:
     goto LABEL_33;
   }
 
-  v11 = objc_msgSend_source(self, v9, v10);
-  objc_msgSend_source(v8, v12, v13);
+  source = [(KNLiveVideoInfo *)self source];
+  [v8 source];
 
-  v16 = objc_msgSend_geometry(self, v14, v15);
-  v19 = objc_msgSend_geometry(v8, v17, v18);
-  objc_msgSend_mixingTypeWithObject_context_(v16, v20, v19, contextCopy);
+  geometry = [(KNLiveVideoInfo *)self geometry];
+  geometry2 = [v8 geometry];
+  [geometry mixingTypeWithObject:geometry2 context:contextCopy];
   TSDMixingTypeBestFromMixingTypes();
 
-  v21 = MEMORY[0x277CCABB0];
-  objc_msgSend_scale(self, v22, v23);
-  v26 = objc_msgSend_numberWithDouble_(v21, v24, v25);
-  v27 = MEMORY[0x277CCABB0];
-  objc_msgSend_scale(v8, v28, v29);
-  v32 = objc_msgSend_numberWithDouble_(v27, v30, v31);
-  objc_msgSend_mixingTypeWithObject_context_(v26, v33, v32, contextCopy);
+  v12 = MEMORY[0x277CCABB0];
+  [(KNLiveVideoInfo *)self scale];
+  v13 = [v12 numberWithDouble:?];
+  v14 = MEMORY[0x277CCABB0];
+  [v8 scale];
+  v15 = [v14 numberWithDouble:?];
+  [v13 mixingTypeWithObject:v15 context:contextCopy];
   TSDMixingTypeBestFromMixingTypes();
 
-  v34 = MEMORY[0x277CCAE60];
-  objc_msgSend_normalizedOffset(self, v35, v36);
-  v164[0] = v37;
-  v164[1] = v38;
-  v40 = objc_msgSend_valueWithBytes_objCType_(v34, v39, v164, "{CGPoint=dd}");
-  v41 = MEMORY[0x277CCAE60];
-  objc_msgSend_normalizedOffset(v8, v42, v43);
-  v163[0] = v44;
-  v163[1] = v45;
-  v47 = objc_msgSend_valueWithBytes_objCType_(v41, v46, v163, "{CGPoint=dd}");
-  objc_msgSend_mixingTypeWithObject_context_(v40, v48, v47, contextCopy);
-  v49 = TSDMixingTypeBestFromMixingTypes();
+  v16 = MEMORY[0x277CCAE60];
+  [(KNLiveVideoInfo *)self normalizedOffset];
+  v80[0] = v17;
+  v80[1] = v18;
+  v19 = [v16 valueWithBytes:v80 objCType:"{CGPoint=dd}"];
+  v20 = MEMORY[0x277CCAE60];
+  [v8 normalizedOffset];
+  v79[0] = v21;
+  v79[1] = v22;
+  v23 = [v20 valueWithBytes:v79 objCType:"{CGPoint=dd}"];
+  [v19 mixingTypeWithObject:v23 context:contextCopy];
+  v24 = TSDMixingTypeBestFromMixingTypes();
 
-  if (v49 != 1)
+  if (v24 != 1)
   {
-    v52 = objc_msgSend_maskKind(self, v50, v51);
-    if (v52 == objc_msgSend_maskKind(v8, v53, v54))
+    maskKind = [(KNLiveVideoInfo *)self maskKind];
+    if (maskKind == [v8 maskKind])
     {
-      if (v52 || (objc_msgSend_maskCornerRadius(self, v50, v51), v65 = v64, objc_msgSend_maskCornerRadius(v8, v66, v67), v65 == v68))
+      if (maskKind || (-[KNLiveVideoInfo maskCornerRadius](self, "maskCornerRadius"), v32 = v31, [v8 maskCornerRadius], v32 == v33))
       {
-        v55 = objc_msgSend_backgroundKind(self, v50, v51);
-        if (v55 == objc_msgSend_backgroundKind(v8, v56, v57) && v55 == 1)
+        backgroundKind = [(KNLiveVideoInfo *)self backgroundKind];
+        if (backgroundKind == [v8 backgroundKind] && backgroundKind == 1)
         {
-          v58 = objc_msgSend_backgroundFill(self, v50, v51);
-          v61 = objc_msgSend_backgroundFill(v8, v59, v60);
+          backgroundFill = [(KNLiveVideoInfo *)self backgroundFill];
+          backgroundFill2 = [v8 backgroundFill];
           objc_opt_class();
-          v62 = TSUCheckedClassAndProtocolCast();
+          v29 = TSUCheckedClassAndProtocolCast();
           objc_opt_class();
-          v162 = &unk_2885032E0;
-          v63 = TSUCheckedClassAndProtocolCast();
+          v78 = &unk_2885032E0;
+          v30 = TSUCheckedClassAndProtocolCast();
           TSDMixingTypeWithObjects();
           TSDMixingTypeBestFromMixingTypes();
         }
@@ -547,31 +544,31 @@ LABEL_15:
     }
   }
 
-  v69 = objc_msgSend_style(self, v50, v51, v162);
-  v72 = objc_msgSend_style(v8, v70, v71);
+  style = [(KNLiveVideoInfo *)self style];
+  style2 = [v8 style];
   TSDMixingTypeWithObjects();
-  v73 = TSDMixingTypeBestFromMixingTypes();
+  v36 = TSDMixingTypeBestFromMixingTypes();
 
-  if (v73 == 1)
+  if (v36 == 1)
   {
     goto LABEL_33;
   }
 
-  v76 = objc_msgSend_reflection(self, v74, v75);
-  v77 = v76 != 0;
+  reflection = [(KNLiveVideoInfo *)self reflection];
+  v38 = reflection != 0;
 
-  v80 = objc_msgSend_reflection(v8, v78, v79);
+  reflection2 = [v8 reflection];
 
-  if (v77 == (v80 == 0))
+  if (v38 == (reflection2 == 0))
   {
     goto LABEL_33;
   }
 
-  v83 = objc_msgSend_shadow(self, v81, v82);
-  v86 = v83;
-  if (v83)
+  shadow = [(KNLiveVideoInfo *)self shadow];
+  v41 = shadow;
+  if (shadow)
   {
-    isEnabled = objc_msgSend_isEnabled(v83, v84, v85);
+    isEnabled = [shadow isEnabled];
   }
 
   else
@@ -579,14 +576,14 @@ LABEL_15:
     isEnabled = 0;
   }
 
-  v88 = objc_msgSend_shadow(v8, v84, v85);
-  v91 = v88;
-  if (!v88)
+  shadow2 = [v8 shadow];
+  v44 = shadow2;
+  if (!shadow2)
   {
-    v94 = 0;
+    isEnabled2 = 0;
 LABEL_25:
 
-    if (isEnabled != v94)
+    if (isEnabled != isEnabled2)
     {
       goto LABEL_33;
     }
@@ -594,69 +591,69 @@ LABEL_25:
     goto LABEL_26;
   }
 
-  v94 = objc_msgSend_isEnabled(v88, v89, v90);
-  if ((isEnabled & v94) != 1)
+  isEnabled2 = [shadow2 isEnabled];
+  if ((isEnabled & isEnabled2) != 1)
   {
     goto LABEL_25;
   }
 
-  v95 = objc_msgSend_shadowType(v86, v92, v93);
-  if (v95 != objc_msgSend_shadowType(v91, v96, v97) || (objc_msgSend_radius(v86, v98, v99), v101 = v100, objc_msgSend_radius(v91, v102, v103), v101 != v106) && vabdd_f64(v101, v106) >= 0.00999999978 || (objc_msgSend_angle(v86, v104, v105), v108 = v107, objc_msgSend_angle(v91, v109, v110), v108 != v113) && vabdd_f64(v108, v113) >= 0.00999999978 || (objc_msgSend_offset(v86, v111, v112), v115 = v114, objc_msgSend_offset(v91, v116, v117), v115 != v118) && vabdd_f64(v115, v118) >= 0.00999999978)
+  shadowType = [v41 shadowType];
+  if (shadowType != [v44 shadowType] || (objc_msgSend(v41, "radius"), v48 = v47, objc_msgSend(v44, "radius"), v48 != v49) && vabdd_f64(v48, v49) >= 0.00999999978 || (objc_msgSend(v41, "angle"), v51 = v50, objc_msgSend(v44, "angle"), v51 != v52) && vabdd_f64(v51, v52) >= 0.00999999978 || (objc_msgSend(v41, "offset"), v54 = v53, objc_msgSend(v44, "offset"), v54 != v55) && vabdd_f64(v54, v55) >= 0.00999999978)
   {
 
 LABEL_33:
-    v135 = 1;
+    v62 = 1;
     goto LABEL_34;
   }
 
 LABEL_26:
-  v121 = objc_msgSend_stroke(self, v119, v120);
-  v124 = objc_msgSend_stroke(v8, v122, v123);
-  v127 = v124;
-  if ((v121 != 0) != (v124 != 0))
+  stroke = [(KNLiveVideoInfo *)self stroke];
+  stroke2 = [v8 stroke];
+  v58 = stroke2;
+  if ((stroke != 0) != (stroke2 != 0))
   {
-    v128 = 1;
+    v59 = 1;
   }
 
   else
   {
-    v128 = v73;
+    v59 = v36;
   }
 
-  if (!v121 || !v124)
+  if (!stroke || !stroke2)
   {
     goto LABEL_54;
   }
 
-  isFrame = objc_msgSend_isFrame(v121, v125, v126);
-  v132 = objc_msgSend_isFrame(v127, v130, v131);
-  if (isFrame != v132)
+  isFrame = [stroke isFrame];
+  isFrame2 = [v58 isFrame];
+  if (isFrame != isFrame2)
   {
 LABEL_32:
 
     goto LABEL_33;
   }
 
-  if ((isFrame & v132) == 1)
+  if ((isFrame & isFrame2) == 1)
   {
     objc_opt_class();
-    v137 = TSUDynamicCast();
+    v64 = TSUDynamicCast();
     objc_opt_class();
-    v138 = TSUDynamicCast();
-    v141 = v138;
-    if (v137 && v138)
+    v65 = TSUDynamicCast();
+    v66 = v65;
+    if (v64 && v65)
     {
-      v142 = objc_msgSend_archivableFrameName(v137, v139, v140);
-      v145 = objc_msgSend_archivableFrameName(v141, v143, v144);
-      if (objc_msgSend_isEqualToString_(v142, v146, v145))
+      archivableFrameName = [v64 archivableFrameName];
+      archivableFrameName2 = [v66 archivableFrameName];
+      if ([archivableFrameName isEqualToString:archivableFrameName2])
       {
-        objc_msgSend_assetScale(v137, v147, v148);
-        v150 = v149;
-        objc_msgSend_assetScale(v141, v151, v152);
-        v154 = v153;
-        v155 = vabdd_f64(v150, v153);
+        [v64 assetScale];
+        v70 = v69;
+        [v66 assetScale];
+        v72 = v71;
+        v73 = vabdd_f64(v70, v71);
 
-        if (v155 < 0.00999999978 || v150 == v154)
+        if (v73 < 0.00999999978 || v70 == v72)
         {
           goto LABEL_52;
         }
@@ -667,48 +664,48 @@ LABEL_32:
       }
     }
 
-    v73 = 1;
+    v36 = 1;
 LABEL_52:
 
 LABEL_53:
-    v128 = v73;
+    v59 = v36;
     goto LABEL_54;
   }
 
-  if ((isFrame | v132))
+  if ((isFrame | isFrame2))
   {
     goto LABEL_53;
   }
 
-  objc_msgSend_width(v121, v133, v134);
-  v158 = v157;
-  objc_msgSend_width(v127, v159, v160);
-  if (v158 == v161)
+  [stroke width];
+  v76 = v75;
+  [v58 width];
+  if (v76 == v77)
   {
     goto LABEL_53;
   }
 
-  v128 = v73;
-  if (vabdd_f64(v158, v161) >= 0.00999999978)
+  v59 = v36;
+  if (vabdd_f64(v76, v77) >= 0.00999999978)
   {
     goto LABEL_32;
   }
 
 LABEL_54:
 
-  if (v128 == 3)
+  if (v59 == 3)
   {
-    v135 = 2;
+    v62 = 2;
   }
 
   else
   {
-    v135 = v128;
+    v62 = v59;
   }
 
 LABEL_34:
 
-  return v135;
+  return v62;
 }
 
 - (id)mixedObjectWithFraction:(double)fraction ofObject:(id)object
@@ -733,9 +730,9 @@ LABEL_34:
     v7 = unarchiverCopy;
     v8 = MEMORY[0x277D80558];
     google::protobuf::internal::AssignDescriptors();
-    v10 = objc_msgSend_messageWithDescriptor_(v7, v9, *(*(v8 + 88) + 720));
+    v9 = [v7 messageWithDescriptor:*(*(v8 + 88) + 720)];
 
-    if (google::protobuf::internal::ExtensionSet::Has((v10 + 16)))
+    if (google::protobuf::internal::ExtensionSet::Has((v9 + 16)))
     {
       class = self;
     }
@@ -751,9 +748,9 @@ LABEL_34:
   unarchiverCopy = unarchiver;
   v4 = MEMORY[0x277D80558];
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v5, *(*(v4 + 88) + 720));
+  v5 = [unarchiverCopy messageWithDescriptor:*(*(v4 + 88) + 720)];
 
-  objc_msgSend_loadFromArchive_unarchiver_(self, v7, v6, unarchiverCopy);
+  [(KNLiveVideoInfo *)self loadFromArchive:v5 unarchiver:unarchiverCopy];
 }
 
 - (void)saveToArchiver:(id)archiver
@@ -761,9 +758,9 @@ LABEL_34:
   archiverCopy = archiver;
   v4 = MEMORY[0x277D80558];
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v5, sub_275D7C4DC, *(*(v4 + 88) + 720));
+  v5 = [archiverCopy messageWithNewFunction:sub_275D7C4DC descriptor:*(*(v4 + 88) + 720)];
 
-  objc_msgSend_saveToArchive_archiver_(self, v7, v6, archiverCopy);
+  [(KNLiveVideoInfo *)self saveToArchive:v5 archiver:archiverCopy];
 }
 
 - (void)loadFromArchive:(const void *)archive unarchiver:(id)unarchiver
@@ -779,43 +776,43 @@ LABEL_34:
     v7 = MEMORY[0x277D804B0];
   }
 
-  v28.receiver = self;
-  v28.super_class = KNLiveVideoInfo;
-  [(KNLiveVideoInfo *)&v28 loadFromArchive:v7 unarchiver:unarchiverCopy];
+  v26.receiver = self;
+  v26.super_class = KNLiveVideoInfo;
+  [(KNLiveVideoInfo *)&v26 loadFromArchive:v7 unarchiver:unarchiverCopy];
   Message = google::protobuf::internal::ExtensionSet::GetMessage();
-  v10 = Message;
-  v11 = *(Message + 16);
-  if (v11)
+  v9 = Message;
+  v10 = *(Message + 16);
+  if (v10)
   {
-    v12 = objc_msgSend_readWeakObjectUUIDReferenceMessage_(unarchiverCopy, v9, *(Message + 24));
+    v11 = [unarchiverCopy readWeakObjectUUIDReferenceMessage:*(Message + 24)];
     sourceId = self->_sourceId;
-    self->_sourceId = v12;
+    self->_sourceId = v11;
 
-    v11 = *(v10 + 16);
+    v10 = *(v9 + 16);
   }
 
-  v14 = *(v10 + 48);
-  if ((v11 & 8) == 0)
+  v13 = *(v9 + 48);
+  if ((v10 & 8) == 0)
   {
-    v14 = 1.0;
+    v13 = 1.0;
   }
 
-  self->_scale = v14;
-  if ((v11 & 2) != 0)
+  self->_scale = v13;
+  if ((v10 & 2) != 0)
   {
-    TSPCGPointFromMessage(*(v10 + 32));
-    self->_normalizedOffset.x = v15;
-    self->_normalizedOffset.y = v16;
-    v11 = *(v10 + 16);
+    TSPCGPointFromMessage(*(v9 + 32));
+    self->_normalizedOffset.x = v14;
+    self->_normalizedOffset.y = v15;
+    v10 = *(v9 + 16);
   }
 
-  if ((v11 & 0x20) != 0)
+  if ((v10 & 0x20) != 0)
   {
-    self->_maskKind = *(v10 + 60);
-    if ((v11 & 0x40) == 0)
+    self->_maskKind = *(v9 + 60);
+    if ((v10 & 0x40) == 0)
     {
 LABEL_12:
-      if ((v11 & 0x80) == 0)
+      if ((v10 & 0x80) == 0)
       {
         goto LABEL_13;
       }
@@ -824,16 +821,16 @@ LABEL_12:
     }
   }
 
-  else if ((v11 & 0x40) == 0)
+  else if ((v10 & 0x40) == 0)
   {
     goto LABEL_12;
   }
 
-  self->_maskCornerRadius = *(v10 + 64);
-  if ((v11 & 0x80) == 0)
+  self->_maskCornerRadius = *(v9 + 64);
+  if ((v10 & 0x80) == 0)
   {
 LABEL_13:
-    if ((v11 & 4) == 0)
+    if ((v10 & 4) == 0)
     {
       goto LABEL_14;
     }
@@ -842,11 +839,11 @@ LABEL_13:
   }
 
 LABEL_24:
-  self->_backgroundKind = *(v10 + 72);
-  if ((v11 & 4) == 0)
+  self->_backgroundKind = *(v9 + 72);
+  if ((v10 & 4) == 0)
   {
 LABEL_14:
-    if ((v11 & 0x10) == 0)
+    if ((v10 & 0x10) == 0)
     {
       goto LABEL_16;
     }
@@ -855,249 +852,249 @@ LABEL_14:
   }
 
 LABEL_25:
-  v24 = objc_msgSend_instanceWithArchive_unarchiver_(MEMORY[0x277D80248], v9, *(v10 + 40), unarchiverCopy);
+  v22 = [MEMORY[0x277D80248] instanceWithArchive:*(v9 + 40) unarchiver:unarchiverCopy];
   backgroundFill = self->_backgroundFill;
-  self->_backgroundFill = v24;
+  self->_backgroundFill = v22;
 
-  if ((*(v10 + 16) & 0x10) != 0)
+  if ((*(v9 + 16) & 0x10) != 0)
   {
 LABEL_15:
-    self->_isPlaceholder = *(v10 + 56);
+    self->_isPlaceholder = *(v9 + 56);
   }
 
 LABEL_16:
-  v17 = *(archive + 15);
-  v27[0] = MEMORY[0x277D85DD0];
-  v27[1] = 3221225472;
-  v27[2] = sub_275D7BCCC;
-  v27[3] = &unk_27A6984E0;
-  v27[4] = self;
-  v18 = unarchiverCopy;
-  v20 = objc_opt_class();
-  if (v17)
+  v16 = *(archive + 15);
+  v25[0] = MEMORY[0x277D85DD0];
+  v25[1] = 3221225472;
+  v25[2] = sub_275D7BCCC;
+  v25[3] = &unk_27A6984E0;
+  v25[4] = self;
+  v17 = unarchiverCopy;
+  v18 = objc_opt_class();
+  if (v16)
   {
-    objc_msgSend_readReferenceMessage_class_protocol_completion_(v18, v19, v17, v20, 0, v27);
+    v19 = v16;
   }
 
   else
   {
-    objc_msgSend_readReferenceMessage_class_protocol_completion_(v18, v19, MEMORY[0x277D80A18], v20, 0, v27);
+    v19 = MEMORY[0x277D80A18];
   }
+
+  [v17 readReferenceMessage:v19 class:v18 protocol:0 completion:v25];
 
   if ((*(archive + 40) & 0x80) != 0)
   {
-    v22 = objc_msgSend_readDataReferenceMessage_(v18, v21, *(archive + 13));
+    v20 = [v17 readDataReferenceMessage:*(archive + 13)];
     archivedMoviePosterImageData = self->_archivedMoviePosterImageData;
-    self->_archivedMoviePosterImageData = v22;
+    self->_archivedMoviePosterImageData = v20;
   }
 
-  v26[0] = MEMORY[0x277D85DD0];
-  v26[1] = 3221225472;
-  v26[2] = sub_275D7BCE4;
-  v26[3] = &unk_27A698390;
-  v26[4] = self;
-  objc_msgSend_addFinalizeHandler_(v18, v21, v26);
+  v24[0] = MEMORY[0x277D85DD0];
+  v24[1] = 3221225472;
+  v24[2] = sub_275D7BCE4;
+  v24[3] = &unk_27A698390;
+  v24[4] = self;
+  [v17 addFinalizeHandler:v24];
 }
 
 - (void)saveToArchive:(void *)archive archiver:(id)archiver
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v57 = *MEMORY[0x277D85DE8];
   archiverCopy = archiver;
-  v75 = MEMORY[0x277D85DD0];
-  v76 = 3221225472;
-  v77 = sub_275D7C454;
-  v78 = &unk_27A697C88;
+  v48 = MEMORY[0x277D85DD0];
+  v49 = 3221225472;
+  v50 = sub_275D7C454;
+  v51 = &unk_27A697C88;
   archiveCopy = archive;
   v7 = archiverCopy;
-  v79 = v7;
+  v52 = v7;
   selfCopy = self;
-  objc_msgSend_pushScopeForField_message_usingBlock_(v7, v8, 1, archive, &v75);
-  objc_msgSend_setIgnoreAndPreserveRuleForField_message_(v7, v9, 100, archive, v75, v76, v77, v78);
+  [v7 pushScopeForField:1 message:archive usingBlock:&v48];
+  [v7 setIgnoreAndPreserveRuleForField:100 message:{archive, v48, v49, v50, v51}];
   sub_275E16A0C();
-  v10 = google::protobuf::internal::ExtensionSet::MutableMessage();
-  v12 = v10;
+  v8 = google::protobuf::internal::ExtensionSet::MutableMessage();
+  v9 = v8;
   sourceId = self->_sourceId;
   if (sourceId)
   {
-    *(v10 + 16) |= 1u;
-    v14 = *(v10 + 24);
-    if (!v14)
+    *(v8 + 16) |= 1u;
+    v11 = *(v8 + 24);
+    if (!v11)
     {
-      v15 = *(v10 + 8);
-      if (v15)
+      v12 = *(v8 + 8);
+      if (v12)
       {
-        v15 = *(v15 & 0xFFFFFFFFFFFFFFFELL);
+        v12 = *(v12 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v14 = MEMORY[0x277C8F000](v15);
-      *(v12 + 24) = v14;
+      v11 = MEMORY[0x277C8F000](v12);
+      *(v9 + 24) = v11;
     }
 
-    objc_msgSend_setWeakReferenceToObjectUUID_message_(v7, v11, sourceId, v14);
+    [v7 setWeakReferenceToObjectUUID:sourceId message:v11];
   }
 
-  v16 = *(v12 + 16);
-  *(v12 + 48) = self->_scale;
+  v13 = *(v9 + 16);
+  *(v9 + 48) = self->_scale;
   x = self->_normalizedOffset.x;
   y = self->_normalizedOffset.y;
-  *(v12 + 16) = v16 | 0xA;
-  v19 = *(v12 + 32);
-  if (!v19)
+  *(v9 + 16) = v13 | 0xA;
+  v16 = *(v9 + 32);
+  if (!v16)
   {
-    v20 = *(v12 + 8);
-    if (v20)
+    v17 = *(v9 + 8);
+    if (v17)
     {
-      v20 = *(v20 & 0xFFFFFFFFFFFFFFFELL);
+      v17 = *(v17 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v19 = MEMORY[0x277C8F020](v20);
-    *(v12 + 32) = v19;
+    v16 = MEMORY[0x277C8F020](v17);
+    *(v9 + 32) = v16;
   }
 
-  v85.x = x;
-  v85.y = y;
-  TSPCGPointCopyToMessage(v85, v19);
+  v58.x = x;
+  v58.y = y;
+  TSPCGPointCopyToMessage(v58, v16);
   maskKind = self->_maskKind;
   if (maskKind >= 0x80000000)
   {
-    v47 = MEMORY[0x277D81150];
-    v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[KNLiveVideoInfo(KNLiveVideoInfoPersistenceAdditions) saveToArchive:archiver:]");
-    v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfoPersistenceAdditions.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v47, v51, v48, v50, 135, 0, "Out-of-bounds type assignment was clamped to max");
+    v36 = MEMORY[0x277D81150];
+    v37 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoInfo(KNLiveVideoInfoPersistenceAdditions) saveToArchive:archiver:]"];
+    v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfoPersistenceAdditions.mm"];
+    [v36 handleFailureInFunction:v37 file:v38 lineNumber:135 isFatal:0 description:"Out-of-bounds type assignment was clamped to max"];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v52, v53);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
     LODWORD(maskKind) = 0x7FFFFFFF;
   }
 
   else if (maskKind <= 0xFFFFFFFF7FFFFFFFLL)
   {
-    v54 = MEMORY[0x277D81150];
-    v55 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[KNLiveVideoInfo(KNLiveVideoInfoPersistenceAdditions) saveToArchive:archiver:]");
-    v57 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v56, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfoPersistenceAdditions.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v54, v58, v55, v57, 135, 0, "Out-of-bounds type assignment was clamped to min");
+    v39 = MEMORY[0x277D81150];
+    v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoInfo(KNLiveVideoInfoPersistenceAdditions) saveToArchive:archiver:]"];
+    v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfoPersistenceAdditions.mm"];
+    [v39 handleFailureInFunction:v40 file:v41 lineNumber:135 isFatal:0 description:"Out-of-bounds type assignment was clamped to min"];
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v59, v60);
+    [MEMORY[0x277D81150] logBacktraceThrottled];
     LODWORD(maskKind) = 0x80000000;
   }
 
-  v23 = *(v12 + 16);
-  *(v12 + 60) = maskKind;
+  v19 = *(v9 + 16);
+  *(v9 + 60) = maskKind;
   maskCornerRadius = self->_maskCornerRadius;
-  v25 = v23 | 0x60;
-  *(v12 + 16) = v23 | 0x60;
-  *(v12 + 64) = maskCornerRadius;
+  v21 = v19 | 0x60;
+  *(v9 + 16) = v19 | 0x60;
+  *(v9 + 64) = maskCornerRadius;
   backgroundKind = self->_backgroundKind;
   if (backgroundKind)
   {
     if (backgroundKind >= 0x80000000)
     {
-      v61 = MEMORY[0x277D81150];
-      v62 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[KNLiveVideoInfo(KNLiveVideoInfoPersistenceAdditions) saveToArchive:archiver:]");
-      v64 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v63, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfoPersistenceAdditions.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v61, v65, v62, v64, 141, 0, "Out-of-bounds type assignment was clamped to max");
+      v42 = MEMORY[0x277D81150];
+      v43 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoInfo(KNLiveVideoInfoPersistenceAdditions) saveToArchive:archiver:]"];
+      v44 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfoPersistenceAdditions.mm"];
+      [v42 handleFailureInFunction:v43 file:v44 lineNumber:141 isFatal:0 description:"Out-of-bounds type assignment was clamped to max"];
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v66, v67);
-      LODWORD(v27) = 0x7FFFFFFF;
+      [MEMORY[0x277D81150] logBacktraceThrottled];
+      LODWORD(v23) = 0x7FFFFFFF;
     }
 
     else if (backgroundKind <= 0xFFFFFFFF7FFFFFFFLL)
     {
-      v68 = MEMORY[0x277D81150];
-      v69 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "[KNLiveVideoInfo(KNLiveVideoInfoPersistenceAdditions) saveToArchive:archiver:]");
-      v71 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v70, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfoPersistenceAdditions.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v68, v72, v69, v71, 141, 0, "Out-of-bounds type assignment was clamped to min");
+      v45 = MEMORY[0x277D81150];
+      v46 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNLiveVideoInfo(KNLiveVideoInfoPersistenceAdditions) saveToArchive:archiver:]"];
+      v47 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNLiveVideoInfoPersistenceAdditions.mm"];
+      [v45 handleFailureInFunction:v46 file:v47 lineNumber:141 isFatal:0 description:"Out-of-bounds type assignment was clamped to min"];
 
-      objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v73, v74);
-      LODWORD(v27) = 0x80000000;
+      [MEMORY[0x277D81150] logBacktraceThrottled];
+      LODWORD(v23) = 0x80000000;
     }
 
     else
     {
-      v27 = self->_backgroundKind;
+      v23 = self->_backgroundKind;
     }
 
-    *(v12 + 16) |= 0x80u;
-    *(v12 + 72) = v27;
-    v82 = 0x700000064;
-    v83 = 0;
-    objc_msgSend_setIgnoreAndPreserveRuleForFieldPath_message_(v7, v21, &v82, archive);
-    v25 = *(v12 + 16);
+    *(v9 + 16) |= 0x80u;
+    *(v9 + 72) = v23;
+    v55 = 0x700000064;
+    v56 = 0;
+    [v7 setIgnoreAndPreserveRuleForFieldPath:&v55 message:archive];
+    v21 = *(v9 + 16);
   }
 
   backgroundFill = self->_backgroundFill;
   if (backgroundFill)
   {
-    *(v12 + 16) = v25 | 4;
-    v29 = *(v12 + 40);
-    if (!v29)
+    *(v9 + 16) = v21 | 4;
+    v25 = *(v9 + 40);
+    if (!v25)
     {
-      v30 = *(v12 + 8);
-      if (v30)
+      v26 = *(v9 + 8);
+      if (v26)
       {
-        v30 = *(v30 & 0xFFFFFFFFFFFFFFFELL);
+        v26 = *(v26 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v29 = MEMORY[0x277C8EF70](v30);
-      *(v12 + 40) = v29;
+      v25 = MEMORY[0x277C8EF70](v26);
+      *(v9 + 40) = v25;
     }
 
-    objc_msgSend_saveToArchive_archiver_(backgroundFill, v21, v29, v7);
-    v82 = 0x800000064;
-    v83 = 0;
-    objc_msgSend_setIgnoreAndPreserveRuleForFieldPath_message_(v7, v31, &v82, archive);
-    v25 = *(v12 + 16);
+    [(TSDFill *)backgroundFill saveToArchive:v25 archiver:v7];
+    v55 = 0x800000064;
+    v56 = 0;
+    [v7 setIgnoreAndPreserveRuleForFieldPath:&v55 message:archive];
+    v21 = *(v9 + 16);
   }
 
   isPlaceholder = self->_isPlaceholder;
-  *(v12 + 16) = v25 | 0x10;
-  *(v12 + 56) = isPlaceholder;
+  *(v9 + 16) = v21 | 0x10;
+  *(v9 + 56) = isPlaceholder;
   *(archive + 10) |= 0x20000000u;
   *(archive + 206) = 1;
-  objc_msgSend_setIgnoreAndPreserveRuleForField_message_(v7, v21, 30, archive);
+  [v7 setIgnoreAndPreserveRuleForField:30 message:archive];
   style = self->_style;
   *(archive + 10) |= 0x200u;
-  v35 = *(archive + 15);
-  if (!v35)
+  v29 = *(archive + 15);
+  if (!v29)
   {
-    v36 = *(archive + 1);
-    if (v36)
+    v30 = *(archive + 1);
+    if (v30)
     {
-      v36 = *(v36 & 0xFFFFFFFFFFFFFFFELL);
+      v30 = *(v30 & 0xFFFFFFFFFFFFFFFELL);
     }
 
-    v35 = MEMORY[0x277C8F050](v36);
-    *(archive + 15) = v35;
+    v29 = MEMORY[0x277C8F050](v30);
+    *(archive + 15) = v29;
   }
 
-  objc_msgSend_setStrongReference_message_(v7, v33, style, v35);
+  [v7 setStrongReference:style message:v29];
   archivedMoviePosterImageData = self->_archivedMoviePosterImageData;
   if (archivedMoviePosterImageData)
   {
     *(archive + 10) |= 0x80u;
-    v39 = *(archive + 13);
-    if (!v39)
+    v32 = *(archive + 13);
+    if (!v32)
     {
-      v40 = *(archive + 1);
-      if (v40)
+      v33 = *(archive + 1);
+      if (v33)
       {
-        v40 = *(v40 & 0xFFFFFFFFFFFFFFFELL);
+        v33 = *(v33 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v39 = MEMORY[0x277C8EFD0](v40);
-      *(archive + 13) = v39;
+      v32 = MEMORY[0x277C8EFD0](v33);
+      *(archive + 13) = v32;
     }
 
-    objc_msgSend_setDataReference_message_(v7, v37, archivedMoviePosterImageData, v39);
+    [v7 setDataReference:archivedMoviePosterImageData message:v32];
   }
 
-  v41 = sub_275E53AD0();
-  v42 = sub_275E53AE0();
-  objc_msgSend_requiresDocumentReadVersion_writeVersion_featureIdentifier_(v7, v43, v41, v42, @"KNLiveVideos");
+  v34 = sub_275E53AD0();
+  [v7 requiresDocumentReadVersion:v34 writeVersion:sub_275E53AE0() featureIdentifier:@"KNLiveVideos"];
   if (backgroundKind)
   {
-    v44 = sub_275E53AD0();
-    v45 = sub_275E53AF0();
-    objc_msgSend_requiresDocumentReadVersion_writeVersion_featureIdentifier_(v7, v46, v44, v45, @"KNLiveVideoBackgrounds");
+    v35 = sub_275E53AD0();
+    [v7 requiresDocumentReadVersion:v35 writeVersion:sub_275E53AF0() featureIdentifier:@"KNLiveVideoBackgrounds"];
   }
 }
 

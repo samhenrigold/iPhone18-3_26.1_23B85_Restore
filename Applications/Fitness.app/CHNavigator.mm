@@ -76,11 +76,12 @@
   v6 = type metadata accessor for URL();
   v7 = *(v6 - 8);
   __chkstk_darwin(v6);
-  v9 = &v13 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   static URL._unconditionallyBridgeFromObjectiveC(_:)();
   contextCopy = context;
   selfCopy = self;
-  LOBYTE(self) = sub_1004DA120(v9, contextCopy);
+  sub_1004DA120(v9, contextCopy);
+  LOBYTE(self) = v12;
 
   (*(v7 + 8))(v9, v6);
   return self & 1;
@@ -88,13 +89,14 @@
 
 - (id)regexFormattedURL:(id)l
 {
-  static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v6 = v5;
   selfCopy = self;
-  sub_100041BB0();
+  sub_100041BB0(v4, v6);
 
-  v5 = String._bridgeToObjectiveC()();
+  v8 = String._bridgeToObjectiveC()();
 
-  return v5;
+  return v8;
 }
 
 - (CHNavigator)init

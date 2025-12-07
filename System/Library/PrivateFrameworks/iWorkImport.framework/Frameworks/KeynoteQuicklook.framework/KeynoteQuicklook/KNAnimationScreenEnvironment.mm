@@ -35,64 +35,66 @@
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277D811A8]);
-  v5 = objc_msgSend_initWithObject_(v3, v4, self);
-  v8 = objc_msgSend_colorSpace(self, v6, v7);
-  objc_msgSend_addField_format_(v5, v9, @"colorSpace", @"%@", v8);
-  if (objc_msgSend_hasActiveSceneCaptureState(self, v10, v11))
+  v3 = [objc_alloc(MEMORY[0x277D811A8]) initWithObject:self];
+  [v3 addField:@"colorSpace" format:{@"%@", -[KNAnimationScreenEnvironment colorSpace](self, "colorSpace")}];
+  if ([(KNAnimationScreenEnvironment *)self hasActiveSceneCaptureState])
   {
-    objc_msgSend_addField_format_(v5, v12, @"hasActiveSceneCaptureState", @"%@", @"YES");
+    v4 = @"YES";
   }
 
   else
   {
-    objc_msgSend_addField_format_(v5, v12, @"hasActiveSceneCaptureState", @"%@", @"NO");
+    v4 = @"NO";
   }
 
-  objc_msgSend_pixelAspectRatio(self, v13, v14);
-  objc_msgSend_addField_format_(v5, v15, @"pixelAspectRatio", @"%f", v16);
-  if (objc_msgSend_shouldDisableHDRSupport(self, v17, v18))
+  [v3 addField:@"hasActiveSceneCaptureState" format:{@"%@", v4}];
+  [(KNAnimationScreenEnvironment *)self pixelAspectRatio];
+  [v3 addField:@"pixelAspectRatio" format:{@"%f", v5}];
+  if ([(KNAnimationScreenEnvironment *)self shouldDisableHDRSupport])
   {
-    objc_msgSend_addField_format_(v5, v19, @"shouldDisableHDRSupport", @"%@", @"YES");
+    v6 = @"YES";
   }
 
   else
   {
-    objc_msgSend_addField_format_(v5, v19, @"shouldDisableHDRSupport", @"%@", @"NO");
+    v6 = @"NO";
   }
 
-  if (objc_msgSend_supportsHDR(self, v20, v21))
+  [v3 addField:@"shouldDisableHDRSupport" format:{@"%@", v6}];
+  if ([(KNAnimationScreenEnvironment *)self supportsHDR])
   {
-    objc_msgSend_addField_format_(v5, v22, @"supportsHDR", @"%@", @"YES");
+    v7 = @"YES";
   }
 
   else
   {
-    objc_msgSend_addField_format_(v5, v22, @"supportsHDR", @"%@", @"NO");
+    v7 = @"NO";
   }
 
-  if (objc_msgSend_isPQReferenceMode(self, v23, v24))
+  [v3 addField:@"supportsHDR" format:{@"%@", v7}];
+  if ([(KNAnimationScreenEnvironment *)self isPQReferenceMode])
   {
-    objc_msgSend_addField_format_(v5, v25, @"isPQReferenceMode", @"%@", @"YES");
+    v8 = @"YES";
   }
 
   else
   {
-    objc_msgSend_addField_format_(v5, v25, @"isPQReferenceMode", @"%@", @"NO");
+    v8 = @"NO";
   }
 
-  objc_msgSend_currentEDRHeadroom(self, v26, v27);
-  objc_msgSend_addField_format_(v5, v28, @"currentEDRHeadroom", @"%f", v29);
-  v32 = objc_msgSend_descriptionString(v5, v30, v31);
+  [v3 addField:@"isPQReferenceMode" format:{@"%@", v8}];
+  [(KNAnimationScreenEnvironment *)self currentEDRHeadroom];
+  [v3 addField:@"currentEDRHeadroom" format:{@"%f", v9}];
+  descriptionString = [v3 descriptionString];
 
-  return v32;
+  return descriptionString;
 }
 
 - (BOOL)isEqual:(id)equal
 {
   if (self == equal)
   {
-    LOBYTE(v28) = 1;
+    LOBYTE(v12) = 1;
   }
 
   else
@@ -101,57 +103,51 @@
     objc_opt_class();
     v5 = TSUDynamicCast();
 
-    if (v5 && (v8 = objc_msgSend_colorSpace(self, v6, v7), v8 == objc_msgSend_colorSpace(v5, v9, v10)) && (hasActiveSceneCaptureState = objc_msgSend_hasActiveSceneCaptureState(self, v11, v12), hasActiveSceneCaptureState == objc_msgSend_hasActiveSceneCaptureState(v5, v14, v15)) && (objc_msgSend_pixelAspectRatio(self, v16, v17), v19 = v18, objc_msgSend_pixelAspectRatio(v5, v20, v21), v19 == v24))
+    if (v5 && (v6 = -[KNAnimationScreenEnvironment colorSpace](self, "colorSpace"), v6 == [v5 colorSpace]) && (v7 = -[KNAnimationScreenEnvironment hasActiveSceneCaptureState](self, "hasActiveSceneCaptureState"), v7 == objc_msgSend(v5, "hasActiveSceneCaptureState")) && (-[KNAnimationScreenEnvironment pixelAspectRatio](self, "pixelAspectRatio"), v9 = v8, objc_msgSend(v5, "pixelAspectRatio"), v9 == v10))
     {
-      shouldDisableHDRSupport = objc_msgSend_shouldDisableHDRSupport(self, v22, v23);
-      v28 = shouldDisableHDRSupport ^ objc_msgSend_shouldDisableHDRSupport(v5, v26, v27) ^ 1;
+      shouldDisableHDRSupport = [(KNAnimationScreenEnvironment *)self shouldDisableHDRSupport];
+      v12 = shouldDisableHDRSupport ^ [v5 shouldDisableHDRSupport] ^ 1;
     }
 
     else
     {
-      LOBYTE(v28) = 0;
+      LOBYTE(v12) = 0;
     }
   }
 
-  return v28;
+  return v12;
 }
 
 - (unint64_t)hash
 {
   v3 = objc_alloc_init(MEMORY[0x277D811E8]);
-  v6 = objc_msgSend_colorSpace(self, v4, v5);
-  objc_msgSend_addObject_(v3, v7, v6);
-  hasActiveSceneCaptureState = objc_msgSend_hasActiveSceneCaptureState(self, v8, v9);
-  objc_msgSend_addBool_(v3, v11, hasActiveSceneCaptureState);
-  v14 = objc_msgSend_uiScreen(self, v12, v13);
-  objc_msgSend_addObject_(v3, v15, v14);
+  [v3 addObject:{-[KNAnimationScreenEnvironment colorSpace](self, "colorSpace")}];
+  [v3 addBool:{-[KNAnimationScreenEnvironment hasActiveSceneCaptureState](self, "hasActiveSceneCaptureState")}];
+  uiScreen = [(KNAnimationScreenEnvironment *)self uiScreen];
+  [v3 addObject:uiScreen];
 
-  v16 = MEMORY[0x277CCABB0];
-  objc_msgSend_pixelAspectRatio(self, v17, v18);
-  v21 = objc_msgSend_numberWithDouble_(v16, v19, v20);
-  objc_msgSend_addObject_(v3, v22, v21);
+  v5 = MEMORY[0x277CCABB0];
+  [(KNAnimationScreenEnvironment *)self pixelAspectRatio];
+  v6 = [v5 numberWithDouble:?];
+  [v3 addObject:v6];
 
-  shouldDisableHDRSupport = objc_msgSend_shouldDisableHDRSupport(self, v23, v24);
-  objc_msgSend_addBool_(v3, v26, shouldDisableHDRSupport);
-  v29 = objc_msgSend_hashValue(v3, v27, v28);
+  [v3 addBool:{-[KNAnimationScreenEnvironment shouldDisableHDRSupport](self, "shouldDisableHDRSupport")}];
+  hashValue = [v3 hashValue];
 
-  return v29;
+  return hashValue;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
   v4 = objc_alloc_init(KNAnimationScreenEnvironment);
-  v7 = objc_msgSend_colorSpace(self, v5, v6);
-  objc_msgSend_setColorSpace_(v4, v8, v7);
-  hasActiveSceneCaptureState = objc_msgSend_hasActiveSceneCaptureState(self, v9, v10);
-  objc_msgSend_setHasActiveSceneCaptureState_(v4, v12, hasActiveSceneCaptureState);
-  v15 = objc_msgSend_uiScreen(self, v13, v14);
-  objc_msgSend_setUiScreen_(v4, v16, v15);
+  [(KNAnimationScreenEnvironment *)v4 setColorSpace:[(KNAnimationScreenEnvironment *)self colorSpace]];
+  [(KNAnimationScreenEnvironment *)v4 setHasActiveSceneCaptureState:[(KNAnimationScreenEnvironment *)self hasActiveSceneCaptureState]];
+  uiScreen = [(KNAnimationScreenEnvironment *)self uiScreen];
+  [(KNAnimationScreenEnvironment *)v4 setUiScreen:uiScreen];
 
-  objc_msgSend_pixelAspectRatio(self, v17, v18);
-  objc_msgSend_setPixelAspectRatio_(v4, v19, v20);
-  shouldDisableHDRSupport = objc_msgSend_shouldDisableHDRSupport(self, v21, v22);
-  objc_msgSend_setShouldDisableHDRSupport_(v4, v24, shouldDisableHDRSupport);
+  [(KNAnimationScreenEnvironment *)self pixelAspectRatio];
+  [(KNAnimationScreenEnvironment *)v4 setPixelAspectRatio:?];
+  [(KNAnimationScreenEnvironment *)v4 setShouldDisableHDRSupport:[(KNAnimationScreenEnvironment *)self shouldDisableHDRSupport]];
   return v4;
 }
 
@@ -173,13 +169,13 @@
     return 1.0;
   }
 
-  objc_msgSend_currentEDRHeadroom(uiScreen, a2, v2);
+  [(UIScreen *)uiScreen currentEDRHeadroom];
   return result;
 }
 
 - (BOOL)supportsHDR
 {
-  if (objc_msgSend_shouldDisableHDRSupport(self, a2, v2) & 1) != 0 || (objc_msgSend_hasActiveSceneCaptureState(self, v4, v5))
+  if ([(KNAnimationScreenEnvironment *)self shouldDisableHDRSupport]|| [(KNAnimationScreenEnvironment *)self hasActiveSceneCaptureState])
   {
     LOBYTE(uiScreen) = 0;
   }
@@ -189,8 +185,8 @@
     uiScreen = self->_uiScreen;
     if (uiScreen)
     {
-      objc_msgSend_potentialEDRHeadroom(uiScreen, v6, v7);
-      LOBYTE(uiScreen) = v9 > 2.0;
+      [(UIScreen *)uiScreen potentialEDRHeadroom];
+      LOBYTE(uiScreen) = v4 > 2.0;
     }
   }
 

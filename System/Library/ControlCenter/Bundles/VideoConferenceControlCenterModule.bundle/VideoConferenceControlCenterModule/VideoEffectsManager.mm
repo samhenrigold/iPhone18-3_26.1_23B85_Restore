@@ -1,5 +1,6 @@
 @interface VideoEffectsManager
 - (BOOL)setIntensity:(float)intensity forEffect:(int)effect;
+- (BOOL)setState:(BOOL)state forEffect:(int)effect;
 - (VideoEffectsManager)init;
 - (id)getUnavailableString;
 - (id)unavailableStringForReason:(unint64_t)reason appName:(id)name forVideoEffect:(unint64_t)effect;
@@ -367,6 +368,70 @@ LABEL_19:
 LABEL_21:
 }
 
+- (BOOL)setState:(BOOL)state forEffect:(int)effect
+{
+  v4 = *&effect;
+  if (self->_bundleIdentifier)
+  {
+    if (effect > 2)
+    {
+      if ((effect - 3) < 2)
+      {
+        gestures = self->_gestures;
+        goto LABEL_14;
+      }
+    }
+
+    else
+    {
+      switch(effect)
+      {
+        case 0:
+          gestures = self->_centerStage;
+          goto LABEL_14;
+        case 1:
+          gestures = self->_backgroundBlur;
+          goto LABEL_14;
+        case 2:
+          gestures = self->_studioLighting;
+LABEL_14:
+          [(VideoEffects *)gestures setState:state withBundleID:?];
+          LOBYTE(v6) = 1;
+          return v6;
+      }
+    }
+
+    if (__RPLogLevel <= 2u)
+    {
+      v6 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+      if (!v6)
+      {
+        return v6;
+      }
+
+      sub_1EAF4(v4);
+    }
+
+LABEL_18:
+    LOBYTE(v6) = 0;
+    return v6;
+  }
+
+  if (__RPLogLevel > 2u)
+  {
+    goto LABEL_18;
+  }
+
+  v6 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);
+  if (v6)
+  {
+    sub_1EBBC();
+    goto LABEL_18;
+  }
+
+  return v6;
+}
+
 - (BOOL)setIntensity:(float)intensity forEffect:(int)effect
 {
   if (self->_bundleIdentifier)
@@ -459,9 +524,9 @@ LABEL_13:
   if (__RPLogLevel <= 1u && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v21 = "[VideoEffectsManager getUnavailableString]";
-    v22 = 1024;
-    v23 = 245;
+    v17 = "[VideoEffectsManager getUnavailableString]";
+    v18 = 1024;
+    v19 = 245;
     _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d ", buf, 0x12u);
   }
 
@@ -472,7 +537,7 @@ LABEL_13:
     {
       displayName = self->_displayName;
       selfCopy4 = self;
-      v10 = 1;
+      v8 = 1;
       goto LABEL_35;
     }
 
@@ -480,29 +545,27 @@ LABEL_13:
     {
       if ([(VideoEffects *)self->_backgroundBlur enabled]&& [(VideoEffects *)self->_centerStage enabled])
       {
-        v4 = self->_bundleIdentifier;
         UnavailableReasons = AVControlCenterVideoEffectsModuleGetUnavailableReasons();
-        v6 = self->_bundleIdentifier;
-        v7 = AVControlCenterVideoEffectsModuleGetUnavailableReasons();
+        v5 = AVControlCenterVideoEffectsModuleGetUnavailableReasons();
         displayName = self->_displayName;
-        if (UnavailableReasons != v7)
+        if (UnavailableReasons != v5)
         {
-          v16 = v7;
-          v17 = [(VideoEffectsManager *)self unavailableStringForReason:UnavailableReasons appName:displayName forVideoEffect:1];
-          v18 = [(VideoEffectsManager *)self unavailableStringForReason:v16 appName:self->_displayName forVideoEffect:0];
-          v19 = v18;
-          v12 = 0;
-          if (v17 && v18)
+          v12 = v5;
+          v13 = [(VideoEffectsManager *)self unavailableStringForReason:UnavailableReasons appName:displayName forVideoEffect:1];
+          v14 = [(VideoEffectsManager *)self unavailableStringForReason:v12 appName:self->_displayName forVideoEffect:0];
+          v15 = v14;
+          v10 = 0;
+          if (v13 && v14)
           {
-            v12 = [NSString stringWithFormat:@"%@ %@", v17, v18];
+            v10 = [NSString stringWithFormat:@"%@ %@", v13, v14];
           }
 
           goto LABEL_37;
         }
 
         selfCopy4 = self;
-        v10 = UnavailableReasons;
-        v11 = 2;
+        v8 = UnavailableReasons;
+        v9 = 2;
         goto LABEL_36;
       }
 
@@ -524,26 +587,25 @@ LABEL_13:
         if ([(VideoEffects *)self->_centerStage enabled])
         {
 LABEL_29:
-          v13 = self->_bundleIdentifier;
-          v10 = AVControlCenterVideoEffectsModuleGetUnavailableReasons();
+          v8 = AVControlCenterVideoEffectsModuleGetUnavailableReasons();
           displayName = self->_displayName;
           selfCopy4 = self;
 LABEL_35:
-          v11 = 0;
+          v9 = 0;
           goto LABEL_36;
         }
 
 LABEL_32:
-        v12 = 0;
+        v10 = 0;
 LABEL_37:
         if (__RPLogLevel <= 1u && os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446722;
-          v21 = "[VideoEffectsManager getUnavailableString]";
-          v22 = 1024;
-          v23 = 286;
-          v24 = 2112;
-          v25 = v12;
+          v17 = "[VideoEffectsManager getUnavailableString]";
+          v18 = 1024;
+          v19 = 286;
+          v20 = 2112;
+          v21 = v10;
           _os_log_impl(&dword_0, &_os_log_default, OS_LOG_TYPE_DEFAULT, " [INFO] %{public}s:%d unavailableString=%@", buf, 0x1Cu);
         }
 
@@ -556,13 +618,12 @@ LABEL_37:
       }
     }
 
-    v14 = self->_bundleIdentifier;
-    v10 = AVControlCenterVideoEffectsModuleGetUnavailableReasons();
+    v8 = AVControlCenterVideoEffectsModuleGetUnavailableReasons();
     displayName = self->_displayName;
     selfCopy4 = self;
-    v11 = 1;
+    v9 = 1;
 LABEL_36:
-    v12 = [(VideoEffectsManager *)selfCopy4 unavailableStringForReason:v10 appName:displayName forVideoEffect:v11];
+    v10 = [(VideoEffectsManager *)selfCopy4 unavailableStringForReason:v8 appName:displayName forVideoEffect:v9];
     goto LABEL_37;
   }
 
@@ -571,10 +632,10 @@ LABEL_36:
     sub_1ED5C();
   }
 
-  v12 = 0;
+  v10 = 0;
 LABEL_40:
 
-  return v12;
+  return v10;
 }
 
 - (id)unavailableStringForReason:(unint64_t)reason appName:(id)name forVideoEffect:(unint64_t)effect

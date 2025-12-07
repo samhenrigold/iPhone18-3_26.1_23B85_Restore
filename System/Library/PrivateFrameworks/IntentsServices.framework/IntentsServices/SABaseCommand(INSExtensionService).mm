@@ -12,7 +12,7 @@
 
 - (id)ins_afAnalyticsContext
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   v2 = +[INSAnalytics sharedAnalytics];
   v3 = [v2 contextDictionaryForCommand:self];
 
@@ -42,15 +42,13 @@
 
   if (metricsContext)
   {
-    v12 = @"metricsContext";
-    v13[0] = metricsContext;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = @"metricsContext";
+    v12[0] = metricsContext;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v8 = IFMergeDictionaries();
 
     v3 = v8;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -59,18 +57,8 @@
 {
   ins_jsonEncodedIntent = [self ins_jsonEncodedIntent];
 
-  if (!ins_jsonEncodedIntent)
+  if (!ins_jsonEncodedIntent || ([self ins_jsonEncodedIntent], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "dataUsingEncoding:", 4), v4 = objc_claimAutoreleasedReturnValue(), INIntentCreate(), ins_protobufEncodedIntent = objc_claimAutoreleasedReturnValue(), v4, v3, !ins_protobufEncodedIntent))
   {
-    goto LABEL_10;
-  }
-
-  ins_jsonEncodedIntent2 = [self ins_jsonEncodedIntent];
-  v4 = [ins_jsonEncodedIntent2 dataUsingEncoding:4];
-  ins_protobufEncodedIntent = INIntentCreate();
-
-  if (!ins_protobufEncodedIntent)
-  {
-LABEL_10:
     ins_protobufEncodedIntent = [self ins_protobufEncodedIntent];
 
     if (ins_protobufEncodedIntent)
@@ -96,7 +84,7 @@ LABEL_10:
 
 - (void)ins_invokeErrorCompletionHandler:()INSExtensionService forUnderlyingError:
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   v5 = a4;
   if (a3)
   {
@@ -175,21 +163,19 @@ LABEL_10:
     [v8 setErrorCode:*v13];
 LABEL_19:
     v20 = MEMORY[0x277CCA9B8];
-    v24 = *MEMORY[0x277CCA7E8];
-    v25[0] = v5;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x277CCA7E8];
+    v24[0] = v5;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v22 = [v20 errorWithDomain:v11 code:v17 userInfo:v21];
 
     v7[2](v7, v8, v22);
     kdebug_trace();
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ins_invokeErrorCompletionHandler:()INSExtensionService withErrorCode:underlyingError:
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   v8 = a3;
   v9 = a5;
   if (v8)
@@ -201,7 +187,7 @@ LABEL_19:
       v11 = ins_analyticsEndEventType;
     }
 
-    v25 = v11;
+    v24 = v11;
     if (a4 == 1316)
     {
       v12 = *MEMORY[0x277D48488];
@@ -216,9 +202,9 @@ LABEL_19:
     if (v9)
     {
       v14 = MEMORY[0x277CCA9B8];
-      v26 = *MEMORY[0x277CCA7E8];
-      v27[0] = v9;
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:&v26 count:1];
+      v25 = *MEMORY[0x277CCA7E8];
+      v26[0] = v9;
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:&v25 count:1];
       v16 = [v14 errorWithDomain:@"kAFAssistantErrorDomain" code:a4 userInfo:v15];
     }
 
@@ -236,47 +222,33 @@ LABEL_19:
     v21 = +[INSAnalytics sharedAnalytics];
     v22 = [v21 contextDictionaryForError:v16];
     v23 = IFMergeDictionaries();
-    [v19 logEventWithType:v25 context:v23 contextNoCopy:{1, v18, v22, 0}];
+    [v19 logEventWithType:v24 context:v23 contextNoCopy:{1, v18, v22, 0}];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)ins_sendIntent:()INSExtensionService toExtensionProxy:onQueue:completionHandler:
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v7 = a6;
   v8 = *MEMORY[0x277CD38C8];
   if (os_log_type_enabled(*MEMORY[0x277CD38C8], OS_LOG_TYPE_ERROR))
   {
-    v10 = 136315394;
-    v11 = "[SABaseCommand(INSExtensionService) ins_sendIntent:toExtensionProxy:onQueue:completionHandler:]";
-    v12 = 2112;
+    v9 = 136315394;
+    v10 = "[SABaseCommand(INSExtensionService) ins_sendIntent:toExtensionProxy:onQueue:completionHandler:]";
+    v11 = 2112;
     selfCopy = self;
-    _os_log_error_impl(&dword_25553C000, v8, OS_LOG_TYPE_ERROR, "%s %@ delivered to the wrong service", &v10, 0x16u);
+    _os_log_error_impl(&dword_25553C000, v8, OS_LOG_TYPE_ERROR, "%s %@ delivered to the wrong service", &v9, 0x16u);
   }
 
   [self ins_invokeErrorCompletionHandler:v7 withErrorCode:1303 underlyingError:0];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)ins_aceIntentResponse
 {
   ins_jsonEncodedIntentResponse = [self ins_jsonEncodedIntentResponse];
 
-  if (!ins_jsonEncodedIntentResponse)
+  if (!ins_jsonEncodedIntentResponse || ([self ins_jsonEncodedIntentResponse], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v3, "dataUsingEncoding:", 4), v4 = objc_claimAutoreleasedReturnValue(), INIntentResponseCreate(), v5 = objc_claimAutoreleasedReturnValue(), v4, v3, !v5))
   {
-    goto LABEL_3;
-  }
-
-  ins_jsonEncodedIntentResponse2 = [self ins_jsonEncodedIntentResponse];
-  v4 = [ins_jsonEncodedIntentResponse2 dataUsingEncoding:4];
-  v5 = INIntentResponseCreate();
-
-  if (!v5)
-  {
-LABEL_3:
     ins_protobufEncodedIntentResponse = [self ins_protobufEncodedIntentResponse];
 
     if (ins_protobufEncodedIntentResponse)

@@ -75,91 +75,92 @@
 
   if (!meCopy)
   {
-    v17 = CKFrameworkBundle();
-    v21 = [v17 localizedStringForKey:@"MESSAGE_RETRACTED_BY_PERSON_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
-    CKAttributedFormatString(transcriptRegularPreferredFontAttributes, transcriptEmphasizedPreferredFontAttributes, v21, v22, v23, v24, v25, v26, nameCopy);
-    v27 = LABEL_8:;
-    v28 = 0;
+    v18 = CKFrameworkBundle(v17);
+    v22 = [v18 localizedStringForKey:@"MESSAGE_RETRACTED_BY_PERSON_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
+    CKAttributedFormatString(transcriptRegularPreferredFontAttributes, transcriptEmphasizedPreferredFontAttributes, v22, v23, v24, v25, v26, v27, nameCopy);
+    v28 = LABEL_8:;
+    v29 = 0;
     goto LABEL_22;
   }
 
   if (!count)
   {
-    v29 = CKFrameworkBundle();
-    v17 = v29;
+    v30 = CKFrameworkBundle(v17);
+    v18 = v30;
     if (retractionCopy)
     {
-      v28 = [v29 localizedStringForKey:@"MESSAGE_RETRACTED_BY_ME_RETRACTION_FAILED_STATUS_ERROR_SUBSTRING_HARDSPACE" value:&stru_1F04268F8 table:@"ChatKit"];
+      v29 = [v30 localizedStringForKey:@"MESSAGE_RETRACTED_BY_ME_RETRACTION_FAILED_STATUS_ERROR_SUBSTRING_HARDSPACE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-      v17 = CKFrameworkBundle();
-      v21 = [v17 localizedStringForKey:@"MESSAGE_RETRACTED_BY_ME_RETRACTION_FAILED_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
-      v27 = CKAttributedFormatString(transcriptRegularPreferredFontAttributes, transcriptEmphasizedPreferredFontAttributes, v21, v30, v31, v32, v33, v34, v28);
+      v18 = CKFrameworkBundle(v31);
+      v22 = [v18 localizedStringForKey:@"MESSAGE_RETRACTED_BY_ME_RETRACTION_FAILED_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
+      v28 = CKAttributedFormatString(transcriptRegularPreferredFontAttributes, transcriptEmphasizedPreferredFontAttributes, v22, v32, v33, v34, v35, v36, v29);
       goto LABEL_22;
     }
 
-    v21 = [v29 localizedStringForKey:@"MESSAGE_RETRACTED_BY_ME_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
-    CKAttributedFormatString(transcriptRegularPreferredFontAttributes, transcriptEmphasizedPreferredFontAttributes, v21, v77, v78, v79, v80, v81, 0);
+    v22 = [v30 localizedStringForKey:@"MESSAGE_RETRACTED_BY_ME_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
+    CKAttributedFormatString(transcriptRegularPreferredFontAttributes, transcriptEmphasizedPreferredFontAttributes, v22, v81, v82, v83, v84, v85, 0);
     goto LABEL_8;
   }
 
-  v17 = namesCopy;
-  if ([v17 count] >= 4)
+  v18 = namesCopy;
+  if ([v18 count] >= 4)
   {
-    v18 = [v17 subarrayWithRange:{0, 2}];
+    v19 = [v18 subarrayWithRange:{0, 2}];
 
-    v17 = v18;
+    v18 = v19;
   }
 
-  v19 = [v17 count];
-  v20 = count - v19;
-  v84 = nameCopy;
-  v86 = namesCopy;
-  if (count != v19)
+  v20 = [v18 count];
+  v21 = count - v20;
+  v88 = nameCopy;
+  v90 = namesCopy;
+  if (count != v20)
   {
-    v35 = MEMORY[0x1E696AEC0];
-    v36 = CKFrameworkBundle();
-    v37 = [v36 localizedStringForKey:@"N_OTHER_PEOPLE" value:&stru_1F04268F8 table:@"ChatKit"];
-    v38 = [v35 localizedStringWithFormat:v37, v20];
+    v37 = MEMORY[0x1E696AEC0];
+    v38 = CKFrameworkBundle(v20);
+    v39 = [v38 localizedStringForKey:@"N_OTHER_PEOPLE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v40 = [v37 localizedStringWithFormat:v39, v21];
 
     mEMORY[0x1E69DC668] = [MEMORY[0x1E69DC668] sharedApplication];
     userInterfaceLayoutDirection = [mEMORY[0x1E69DC668] userInterfaceLayoutDirection];
 
     if (userInterfaceLayoutDirection == 1)
     {
-      v41 = @"\u200F";
+      v43 = @"\u200F";
     }
 
     else
     {
-      v41 = @"\u200E";
+      v43 = @"\u200E";
     }
 
-    v42 = [(__CFString *)v41 stringByAppendingString:v38];
+    v44 = [(__CFString *)v43 stringByAppendingString:v40];
 
-    v43 = [v17 arrayByAddingObject:v42];
+    v45 = [v18 arrayByAddingObject:v44];
 
-    v17 = v43;
+    v18 = v45;
   }
 
-  v21 = [MEMORY[0x1E696AD08] localizedStringByJoiningStrings:v17];
+  v46 = [MEMORY[0x1E696AD08] localizedStringByJoiningStrings:v18];
+  v22 = v46;
   if (retractionCopy)
   {
-    v44 = CKFrameworkBundle();
-    v28 = [v44 localizedStringForKey:@"MESSAGE_RETRACTED_BY_ME_WITH_UNSUPPORTED_RECIPIENTS_AND_RETRACTION_FAILED_STATUS_ERROR_SUBSTRING_HARDSPACE" value:&stru_1F04268F8 table:@"ChatKit"];
+    v47 = CKFrameworkBundle(v46);
+    v29 = [v47 localizedStringForKey:@"MESSAGE_RETRACTED_BY_ME_WITH_UNSUPPORTED_RECIPIENTS_AND_RETRACTION_FAILED_STATUS_ERROR_SUBSTRING_HARDSPACE" value:&stru_1F04268F8 table:@"ChatKit"];
 
-    v45 = MEMORY[0x1E696AEC0];
-    v46 = CKFrameworkBundle();
-    v47 = [v46 localizedStringForKey:@"MESSAGE_RETRACTED_BY_ME_WITH_N_UNSUPPORTED_RECIPIENTS_AND_RETRACTION_FAILED_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
-    v48 = [v45 localizedStringWithFormat:v47, count, v21, v28];
+    v48 = MEMORY[0x1E696AEC0];
+    v50 = CKFrameworkBundle(v49);
+    v51 = [v50 localizedStringForKey:@"MESSAGE_RETRACTED_BY_ME_WITH_N_UNSUPPORTED_RECIPIENTS_AND_RETRACTION_FAILED_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
+    v52 = [v48 localizedStringWithFormat:v51, count, v22, v29];
   }
 
   else
   {
-    v49 = MEMORY[0x1E696AEC0];
-    v46 = CKFrameworkBundle();
-    v47 = [v46 localizedStringForKey:@"MESSAGE_RETRACTED_BY_ME_WITH_N_UNSUPPORTED_RECIPIENTS_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
-    v48 = [v49 localizedStringWithFormat:v47, count, v21];
-    v28 = 0;
+    v53 = MEMORY[0x1E696AEC0];
+    v50 = CKFrameworkBundle(v46);
+    v51 = [v50 localizedStringForKey:@"MESSAGE_RETRACTED_BY_ME_WITH_N_UNSUPPORTED_RECIPIENTS_STATUS" value:&stru_1F04268F8 table:@"ChatKit"];
+    v52 = [v53 localizedStringWithFormat:v51, count, v22];
+    v29 = 0;
   }
 
   mEMORY[0x1E69DC668]2 = [MEMORY[0x1E69DC668] sharedApplication];
@@ -167,74 +168,74 @@
 
   if (userInterfaceLayoutDirection2 == 1)
   {
-    v52 = @"\u200F";
+    v56 = @"\u200F";
   }
 
   else
   {
-    v52 = @"\u200E";
+    v56 = @"\u200E";
   }
 
-  v53 = [(__CFString *)v52 stringByAppendingString:v48];
+  v57 = [(__CFString *)v56 stringByAppendingString:v52];
 
-  v27 = CKAttributedFormatString(transcriptRegularPreferredFontAttributes, transcriptEmphasizedPreferredFontAttributes, v53, v54, v55, v56, v57, v58, 0);
+  v28 = CKAttributedFormatString(transcriptRegularPreferredFontAttributes, transcriptEmphasizedPreferredFontAttributes, v57, v58, v59, v60, v61, v62, 0);
 
-  nameCopy = v84;
-  namesCopy = v86;
+  nameCopy = v88;
+  namesCopy = v90;
 LABEL_22:
 
-  if (v27 && [v28 length])
+  if (v28 && [v29 length])
   {
-    v85 = nameCopy;
-    v87 = namesCopy;
-    string = [v27 string];
-    v60 = [string rangeOfString:v28];
-    v62 = v61;
+    v89 = nameCopy;
+    v91 = namesCopy;
+    string = [v28 string];
+    v64 = [string rangeOfString:v29];
+    v66 = v65;
 
-    if (v60 == 0x7FFFFFFFFFFFFFFFLL)
+    if (v64 == 0x7FFFFFFFFFFFFFFFLL)
     {
-      nameCopy = v85;
-      namesCopy = v87;
+      nameCopy = v89;
+      namesCopy = v91;
     }
 
     else
     {
-      v82 = transcriptRegularPreferredFontAttributes;
-      v63 = [v27 mutableCopy];
-      v64 = +[CKUIBehavior sharedBehaviors];
-      transcriptErrorStampPreferredFontAttributes = [v64 transcriptErrorStampPreferredFontAttributes];
+      v86 = transcriptRegularPreferredFontAttributes;
+      v67 = [v28 mutableCopy];
+      v68 = +[CKUIBehavior sharedBehaviors];
+      transcriptErrorStampPreferredFontAttributes = [v68 transcriptErrorStampPreferredFontAttributes];
 
-      v83 = transcriptErrorStampPreferredFontAttributes;
-      [v63 setAttributes:transcriptErrorStampPreferredFontAttributes range:{v60, v62}];
-      string2 = [v63 string];
-      v67 = [string2 rangeOfString:@"(!)" options:0 range:{v60, v62}];
-      v69 = v68;
+      v87 = transcriptErrorStampPreferredFontAttributes;
+      [v67 setAttributes:transcriptErrorStampPreferredFontAttributes range:{v64, v66}];
+      string2 = [v67 string];
+      v71 = [string2 rangeOfString:@"(!)" options:0 range:{v64, v66}];
+      v73 = v72;
 
-      if (v67 != 0x7FFFFFFFFFFFFFFFLL)
+      if (v71 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        [v63 replaceCharactersInRange:v67 withString:{v69, &stru_1F04268F8}];
-        v70 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
-        v71 = +[CKUIBehavior sharedBehaviors];
-        messageStampWarningIconRed = [v71 messageStampWarningIconRed];
+        [v67 replaceCharactersInRange:v71 withString:{v73, &stru_1F04268F8}];
+        v74 = objc_alloc_init(MEMORY[0x1E69DB7F0]);
+        v75 = +[CKUIBehavior sharedBehaviors];
+        messageStampWarningIconRed = [v75 messageStampWarningIconRed];
 
-        [v70 setImage:messageStampWarningIconRed];
-        v73 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v70];
-        v74 = [v73 mutableCopy];
+        [v74 setImage:messageStampWarningIconRed];
+        v77 = [MEMORY[0x1E696AAB0] attributedStringWithAttachment:v74];
+        v78 = [v77 mutableCopy];
 
-        [v74 addAttributes:v83 range:{0, objc_msgSend(v74, "length")}];
-        [v63 insertAttributedString:v74 atIndex:v67];
+        [v78 addAttributes:v87 range:{0, objc_msgSend(v78, "length")}];
+        [v67 insertAttributedString:v78 atIndex:v71];
       }
 
-      v75 = [v63 copy];
+      v79 = [v67 copy];
 
-      v27 = v75;
-      nameCopy = v85;
-      namesCopy = v87;
-      transcriptRegularPreferredFontAttributes = v82;
+      v28 = v79;
+      nameCopy = v89;
+      namesCopy = v91;
+      transcriptRegularPreferredFontAttributes = v86;
     }
   }
 
-  return v27;
+  return v28;
 }
 
 - (id)loadTranscriptText

@@ -1,6 +1,5 @@
 @interface MCMApplicationTerminationAssertion
 - (MCMApplicationTerminationAssertion)initWithBundleIdentifier:(id)identifier reason:(id)reason;
-- (RBSTerminationAssertion)termAssertion;
 - (void)dealloc;
 - (void)invalidate;
 - (void)setTermAssertion:(id)assertion;
@@ -10,59 +9,45 @@
 
 - (void)setTermAssertion:(id)assertion
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = *MEMORY[0x1E69E9840];
   p_termAssertion = &self->_termAssertion;
 
   objc_storeStrong(p_termAssertion, assertion);
 }
 
-- (RBSTerminationAssertion)termAssertion
-{
-  result = self->_termAssertion;
-  v3 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return result;
-}
-
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   [(MCMApplicationTerminationAssertion *)self termAssertion];
   if (objc_claimAutoreleasedReturnValue())
   {
     __assert_rtn("[MCMApplicationTerminationAssertion dealloc]", "MCMApplicationTerminationAssertion.m", 93, "nil == self.termAssertion");
   }
 
-  v4.receiver = self;
-  v4.super_class = MCMApplicationTerminationAssertion;
-  [(MCMApplicationTerminationAssertion *)&v4 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v3.receiver = self;
+  v3.super_class = MCMApplicationTerminationAssertion;
+  [(MCMApplicationTerminationAssertion *)&v3 dealloc];
 }
 
 - (void)invalidate
 {
-  v6 = *MEMORY[0x1E69E9840];
   termAssertion = [(MCMApplicationTerminationAssertion *)self termAssertion];
   if (termAssertion)
   {
-    v5 = termAssertion;
+    v4 = termAssertion;
     [termAssertion invalidate];
     [(MCMApplicationTerminationAssertion *)self setTermAssertion:0];
-    termAssertion = v5;
+    termAssertion = v4;
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (MCMApplicationTerminationAssertion)initWithBundleIdentifier:(id)identifier reason:(id)reason
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   reasonCopy = reason;
-  v24.receiver = self;
-  v24.super_class = MCMApplicationTerminationAssertion;
-  v8 = [(MCMApplicationTerminationAssertion *)&v24 init];
+  v23.receiver = self;
+  v23.super_class = MCMApplicationTerminationAssertion;
+  v8 = [(MCMApplicationTerminationAssertion *)&v23 init];
   if (!v8 || !NSClassFromString(@"RBSProcessPredicate"))
   {
 LABEL_21:
@@ -77,7 +62,7 @@ LABEL_21:
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v26 = identifierCopy;
+      v25 = identifierCopy;
       _os_log_error_impl(&dword_1DF2C3000, v10, OS_LOG_TYPE_ERROR, "Failed to generate predicate for termination assertion for [%@]", buf, 0xCu);
     }
 
@@ -92,7 +77,7 @@ LABEL_21:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v26 = identifierCopy;
+      v25 = identifierCopy;
       _os_log_error_impl(&dword_1DF2C3000, v12, OS_LOG_TYPE_ERROR, "Failed to generate context for termination assertion for [%@]", buf, 0xCu);
     }
 
@@ -108,7 +93,7 @@ LABEL_21:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
-      v26 = identifierCopy;
+      v25 = identifierCopy;
       _os_log_error_impl(&dword_1DF2C3000, v19, OS_LOG_TYPE_ERROR, "Failed to init termination assertion for [%@]", buf, 0xCu);
     }
 
@@ -119,9 +104,9 @@ LABEL_16:
   }
 
   v14 = v13;
-  v23 = 0;
-  v15 = [v13 acquireWithError:&v23];
-  v16 = v23;
+  v22 = 0;
+  v15 = [v13 acquireWithError:&v22];
+  v16 = v22;
   if (v15)
   {
     v17 = v14;
@@ -135,9 +120,9 @@ LABEL_16:
     if (os_log_type_enabled(termAssertion, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412546;
-      v26 = identifierCopy;
-      v27 = 2112;
-      v28 = v16;
+      v25 = identifierCopy;
+      v26 = 2112;
+      v27 = v16;
       _os_log_error_impl(&dword_1DF2C3000, termAssertion, OS_LOG_TYPE_ERROR, "Failed to acquire termination assertion for [%@]: %@", buf, 0x16u);
     }
   }
@@ -151,7 +136,6 @@ LABEL_17:
   v20 = 0;
 LABEL_22:
 
-  v21 = *MEMORY[0x1E69E9840];
   return v20;
 }
 

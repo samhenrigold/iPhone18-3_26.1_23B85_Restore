@@ -138,7 +138,6 @@
   objc_storeStrong(&v53, 0);
   objc_storeStrong(&v54, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __74__AKSymmetricKeyController_registerForSymmetricKeyWithContext_completion___block_invoke(void *a1, void *a2, void *a3)
@@ -180,7 +179,6 @@ void __74__AKSymmetricKeyController_registerForSymmetricKeyWithContext_completio
 
   objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __74__AKSymmetricKeyController_registerForSymmetricKeyWithContext_completion___block_invoke_20(NSObject *a1, void *a2)
@@ -204,7 +202,6 @@ void __74__AKSymmetricKeyController_registerForSymmetricKeyWithContext_completio
   }
 
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 void __74__AKSymmetricKeyController_registerForSymmetricKeyWithContext_completion___block_invoke_22(void *a1, void *a2, void *a3)
@@ -238,7 +235,6 @@ void __74__AKSymmetricKeyController_registerForSymmetricKeyWithContext_completio
 
   objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x1E69E9840];
 }
 
 @end

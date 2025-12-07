@@ -68,36 +68,37 @@
   v3 = *&self->PSListController_opaque[OBJC_IVAR___PSListController__specifiers];
   if (!v3)
   {
-    v17 = OBJC_IVAR___PSListController__specifiers;
+    v18 = OBJC_IVAR___PSListController__specifiers;
     v4 = +[NSMutableArray array];
     [(NBSearchResultsViewController *)self searchResults];
-    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
-    obj = v22 = 0u;
-    v5 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
+    v22 = 0u;
+    obj = v23 = 0u;
+    v5 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
     if (!v5)
     {
       goto LABEL_19;
     }
 
     v6 = v5;
-    v7 = *v20;
+    v7 = *v21;
     while (1)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v20 != v7)
+        if (*v21 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
+        v9 = *(*(&v20 + 1) + 8 * i);
         objc_opt_class();
         v10 = BUDynamicCast();
         if (v10)
         {
           v11 = [(NBSearchResultsViewController *)self _specifierForMediaItem:v10];
+          v12 = v11;
           if (v11)
           {
             goto LABEL_9;
@@ -107,45 +108,45 @@
         else
         {
           objc_opt_class();
-          v12 = BUDynamicCast();
-          if (v12)
+          v13 = BUDynamicCast();
+          if (v13)
           {
-            v11 = [(NBSearchResultsViewController *)self _specifierForJaliscoItem:v12];
+            v12 = [(NBSearchResultsViewController *)self _specifierForJaliscoItem:v13];
           }
 
           else
           {
-            v11 = 0;
+            v12 = 0;
           }
 
-          if (v11)
+          if (v12)
           {
 LABEL_9:
-            [v4 addObject:v11];
+            [v4 addObject:v12];
             goto LABEL_17;
           }
         }
 
-        v13 = NBDefaultLog();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v14 = NBDefaultLog(v11);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412290;
-          v24 = v9;
-          _os_log_error_impl(&dword_0, v13, OS_LOG_TYPE_ERROR, "Attempted to format search result of invalid type (%@)", buf, 0xCu);
+          v25 = v9;
+          _os_log_error_impl(&dword_0, v14, OS_LOG_TYPE_ERROR, "Attempted to format search result of invalid type (%@)", buf, 0xCu);
         }
 
 LABEL_17:
       }
 
-      v6 = [obj countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v6 = [obj countByEnumeratingWithState:&v20 objects:v26 count:16];
       if (!v6)
       {
 LABEL_19:
-        v14 = [v4 copy];
-        v15 = *&self->PSListController_opaque[v17];
-        *&self->PSListController_opaque[v17] = v14;
+        v15 = [v4 copy];
+        v16 = *&self->PSListController_opaque[v18];
+        *&self->PSListController_opaque[v18] = v15;
 
-        v3 = *&self->PSListController_opaque[v17];
+        v3 = *&self->PSListController_opaque[v18];
         break;
       }
     }
@@ -244,7 +245,7 @@ LABEL_19:
 
   if (v8 >= v10)
   {
-    bk_storeID = NBDefaultLog();
+    bk_storeID = NBDefaultLog(v11);
     if (os_log_type_enabled(bk_storeID, OS_LOG_TYPE_ERROR))
     {
       sub_119A8(self, pathCopy);
@@ -255,33 +256,33 @@ LABEL_19:
 
   searchDataSource = [(NBSearchResultsViewController *)self searchDataSource];
   items = [searchDataSource items];
-  v13 = [items objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
+  v14 = [items objectAtIndexedSubscript:{objc_msgSend(pathCopy, "row")}];
 
   objc_opt_class();
-  v14 = BUDynamicCast();
-  v15 = v14;
-  if (v14)
+  v15 = BUDynamicCast();
+  v16 = v15;
+  if (v15)
   {
-    bk_storeID = [v14 bk_storeID];
+    bk_storeID = [v15 bk_storeID];
   }
 
   else
   {
     objc_opt_class();
-    v17 = BUDynamicCast();
-    v18 = v17;
-    if (v17)
+    v18 = BUDynamicCast();
+    v19 = v18;
+    if (v18)
     {
-      storeID = [v17 storeID];
+      storeID = [v18 storeID];
       bk_storeID = +[NSNumber numberWithUnsignedLongLong:](NSNumber, "numberWithUnsignedLongLong:", [storeID nb_uint64_t]);
     }
 
     else
     {
-      v20 = NBDefaultLog();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v21 = NBDefaultLog(0);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
-        sub_11A58(v13, pathCopy);
+        sub_11A58(v14, pathCopy);
       }
 
       bk_storeID = 0;

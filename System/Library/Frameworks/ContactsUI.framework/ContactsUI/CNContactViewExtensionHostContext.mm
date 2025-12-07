@@ -290,7 +290,7 @@ void __84__CNContactViewExtensionHostContext_updateEditing_doneButtonEnabled_don
 void __52__CNContactViewExtensionHostContext_protocolService__block_invoke(uint64_t a1, void *a2)
 {
   v6 = [a2 localizedDescription];
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewHostViewController.m", 250, 3, @"error calling service - %@", v2, v3, v4, v5, v6);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactViewHostViewController.m", 250, 3u, @"error calling service - %@", v2, v3, v4, v5, v6);
 }
 
 @end

@@ -23,6 +23,7 @@
 - (void)stopExcessiveMotionMonitoring;
 - (void)teardown;
 - (void)touchesBegan:(id)began withEvent:(id)event;
+- (void)viewDidAppear:(BOOL)appear;
 @end
 
 @implementation BatterySwellingViewController
@@ -258,6 +259,32 @@
   [(BatterySwellingViewController *)self setBatteryTemp:v4];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = BatterySwellingViewController;
+  [(BatterySwellingViewController *)&v7 viewDidAppear:appear];
+  if ([(BatterySwellingViewController *)self checkIfCorrectOrientation:5])
+  {
+    [(BatterySwellingViewController *)self setupAngleMonitoring];
+    inputs = [(BatterySwellingViewController *)self inputs];
+    [inputs samplingSetupTimeout];
+    v5 = [NSTimer scheduledTimerWithTimeInterval:self target:"setupForSamplingCompleted:" selector:0 userInfo:0 repeats:?];
+    [(BatterySwellingViewController *)self setSamplingSetupTimer:v5];
+  }
+
+  else
+  {
+    v6 = DiagnosticLogHandleForCategory();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    {
+      sub_100004FE8();
+    }
+
+    [(BatterySwellingViewController *)self endTestWithStatusCode:&off_10000C7F0];
+  }
+}
+
 - (id)instructionImageName
 {
   view = [(BatterySwellingViewController *)self view];
@@ -331,7 +358,7 @@
 
   if (attitude)
   {
-    [attitude rotationMatrix];
+    objc_msgSend_rotationMatrix(attitude, 0, 0, 0, 0);
   }
 
   v7 = acos(-0.0);
@@ -386,7 +413,7 @@ LABEL_11:
 
   if (attitude)
   {
-    [attitude rotationMatrix];
+    objc_msgSend_rotationMatrix(attitude, 0, 0, 0, 0);
   }
 
   v7 = acos(-0.0) + -1.57079633;

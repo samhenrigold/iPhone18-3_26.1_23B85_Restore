@@ -41,7 +41,7 @@
 
 - (void)insertPlaceholderForEventTypes:(id)types contactUUID:(id)d
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   dCopy = d;
   v8 = [(ASRelationshipFinalizationStore *)self _placeholderForContactUUID:dCopy];
@@ -55,7 +55,7 @@
       v11 = v10;
       token = [v8 token];
       *buf = 138412290;
-      v38 = token;
+      v37 = token;
       _os_log_impl(&dword_23E5E3000, v11, OS_LOG_TYPE_DEFAULT, "RelationshipManager found existing placeholder began token for this contact: %@", buf, 0xCu);
     }
 
@@ -76,44 +76,44 @@
   v16 = *v9;
   if (v15)
   {
-    v29 = v8;
+    v28 = v8;
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v38 = dCopy;
+      v37 = dCopy;
       _os_log_impl(&dword_23E5E3000, v16, OS_LOG_TYPE_DEFAULT, "RelationshipManager inserting placeholder contact: %@", buf, 0xCu);
     }
 
-    v30 = dCopy;
+    v29 = dCopy;
     relationshipStorage = [v15 relationshipStorage];
     v18 = [relationshipStorage relationshipForCloudType:self->_cloudType];
     v19 = [relationshipStorage remoteRelationshipForCloudType:self->_cloudType];
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v31 = typesCopy;
+    v30 = typesCopy;
     v20 = typesCopy;
-    v21 = [v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v33;
+      v23 = *v32;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v33 != v23)
+          if (*v32 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v32 + 1) + 8 * i);
+          v25 = *(*(&v31 + 1) + 8 * i);
           [v18 insertEventWithType:{objc_msgSend(v25, "integerValue")}];
           [v19 insertEventWithType:{objc_msgSend(v25, "integerValue")}];
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v32 objects:v36 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v22);
@@ -124,25 +124,23 @@
     [v15 setRelationshipStorage:relationshipStorage];
     v26 = [(ASContactsManager *)self->_contactsManager savePlaceholderContact:v15];
     v27 = [[ASRelationshipBeganPlaceholder alloc] initWithToken:v26];
-    dCopy = v30;
-    [(ASRelationshipFinalizationStore *)self _updatePlaceholder:v27 contactUUID:v30];
+    dCopy = v29;
+    [(ASRelationshipFinalizationStore *)self _updatePlaceholder:v27 contactUUID:v29];
 
-    typesCopy = v31;
-    v8 = v29;
+    typesCopy = v30;
+    v8 = v28;
   }
 
   else if (os_log_type_enabled(*v9, OS_LOG_TYPE_ERROR))
   {
     [ASRelationshipFinalizationStore insertPlaceholderForEventTypes:dCopy contactUUID:v16];
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removePlaceholderWithContactUUID:(id)d shouldNotify:(BOOL)notify
 {
   notifyCopy = notify;
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
   v7 = [(ASRelationshipFinalizationStore *)self _placeholderForContactUUID:dCopy];
   ASLoggingInitialize();
@@ -154,7 +152,7 @@
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v19 = dCopy;
+      v18 = dCopy;
       _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "Removing relationship began placeholder: %@", buf, 0xCu);
     }
 
@@ -170,7 +168,7 @@
       block[1] = 3221225472;
       block[2] = __81__ASRelationshipFinalizationStore_removePlaceholderWithContactUUID_shouldNotify___block_invoke;
       block[3] = &unk_278C4B278;
-      v17 = v7;
+      v16 = v7;
       dispatch_async(clientQueue, block);
     }
 
@@ -189,13 +187,11 @@
   {
     [ASRelationshipFinalizationStore removePlaceholderWithContactUUID:dCopy shouldNotify:v9];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __81__ASRelationshipFinalizationStore_removePlaceholderWithContactUUID_shouldNotify___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   ASLoggingInitialize();
   v2 = *MEMORY[0x277CE9008];
   if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
@@ -204,46 +200,44 @@ void __81__ASRelationshipFinalizationStore_removePlaceholderWithContactUUID_shou
     v4 = v2;
     v5 = [v3 blocksWaitingOnSuccess];
     *buf = 134217984;
-    v18 = [v5 count];
+    v17 = [v5 count];
     _os_log_impl(&dword_23E5E3000, v4, OS_LOG_TYPE_DEFAULT, "Friendship finalization success, executing %ld blocks waiting on success", buf, 0xCu);
   }
 
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v6 = [*(a1 + 32) blocksWaitingOnSuccess];
-  v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v13;
+    v9 = *v12;
     do
     {
       v10 = 0;
       do
       {
-        if (*v13 != v9)
+        if (*v12 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        (*(*(*(&v12 + 1) + 8 * v10++) + 16))();
+        (*(*(*(&v11 + 1) + 8 * v10++) + 16))();
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v8);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)performBlockWaitingOnInviteFinalizationForContactUUID:(id)d block:(id)block
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
   blockCopy = block;
   v8 = [(ASRelationshipFinalizationStore *)self _placeholderForContactUUID:dCopy];
@@ -254,7 +248,7 @@ void __81__ASRelationshipFinalizationStore_removePlaceholderWithContactUUID_shou
     if (os_log_type_enabled(*MEMORY[0x277CE9008], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = dCopy;
+      v14 = dCopy;
       _os_log_impl(&dword_23E5E3000, v9, OS_LOG_TYPE_DEFAULT, "RelationshipManager friendship is still finalizing, holding this action until complete for contact: %@", buf, 0xCu);
     }
 
@@ -268,11 +262,9 @@ void __81__ASRelationshipFinalizationStore_removePlaceholderWithContactUUID_shou
     block[1] = 3221225472;
     block[2] = __95__ASRelationshipFinalizationStore_performBlockWaitingOnInviteFinalizationForContactUUID_block___block_invoke;
     block[3] = &unk_278C4B228;
-    v13 = blockCopy;
+    v12 = blockCopy;
     dispatch_async(clientQueue, block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_placeholderForContactUUID:(id)d
@@ -326,32 +318,28 @@ void __81__ASRelationshipFinalizationStore_removePlaceholderWithContactUUID_shou
 
 - (void)insertPlaceholderForEventTypes:(uint64_t)a1 contactUUID:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23E5E3000, a2, OS_LOG_TYPE_ERROR, "RelationshipManager failed to find contact: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23E5E3000, a2, OS_LOG_TYPE_ERROR, "RelationshipManager failed to find contact: %@", &v2, 0xCu);
 }
 
 - (void)removePlaceholderWithContactUUID:(void *)a1 shouldNotify:(void *)a2 .cold.1(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 blocksWaitingOnSuccess];
-  v6 = 134217984;
-  v7 = [v4 count];
-  _os_log_error_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_ERROR, "Friendship finalization failed, not executing %ld blocks waiting on success", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 134217984;
+  v6 = [v4 count];
+  _os_log_error_impl(&dword_23E5E3000, v3, OS_LOG_TYPE_ERROR, "Friendship finalization failed, not executing %ld blocks waiting on success", &v5, 0xCu);
 }
 
 - (void)removePlaceholderWithContactUUID:(uint64_t)a1 shouldNotify:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_23E5E3000, a2, OS_LOG_TYPE_ERROR, "No existing relationship began placeholder for contact: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_23E5E3000, a2, OS_LOG_TYPE_ERROR, "No existing relationship began placeholder for contact: %@", &v2, 0xCu);
 }
 
 @end

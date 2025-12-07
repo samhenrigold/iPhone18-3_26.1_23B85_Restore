@@ -27,10 +27,10 @@
 
 - (BOOL)setStatusForShareSheetWorkflows:(unint64_t)workflows
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v11 = 0;
-  v5 = WFCanAccessUserDefaultsDomain(&v11);
-  v6 = v11;
+  v17 = *MEMORY[0x1E69E9840];
+  v10 = 0;
+  v5 = WFCanAccessUserDefaultsDomain(&v10, 1);
+  v6 = v10;
   v7 = v6;
   if (v5)
   {
@@ -47,11 +47,11 @@ LABEL_6:
     if (os_log_type_enabled(shortcutsUserDefaults, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v13 = "[WFSystemSurfaceWorkflowStatusRegistry setStatusForShareSheetWorkflows:]";
-      v14 = 2114;
-      v15 = @"com.apple.siri.shortcuts";
-      v16 = 2114;
-      v17 = v7;
+      v12 = "[WFSystemSurfaceWorkflowStatusRegistry setStatusForShareSheetWorkflows:]";
+      v13 = 2114;
+      v14 = @"com.apple.siri.shortcuts";
+      v15 = 2114;
+      v16 = v7;
       _os_log_impl(&dword_1B1DE3000, shortcutsUserDefaults, OS_LOG_TYPE_ERROR, "%s Failed to check whether or not we have access to %{public}@: %{public}@", buf, 0x20u);
     }
 
@@ -60,16 +60,15 @@ LABEL_6:
 
 LABEL_7:
 
-  v9 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (unint64_t)statusForShareSheetWorkflows
 {
-  v19 = *MEMORY[0x1E69E9840];
-  v12 = 0;
-  v3 = WFCanAccessUserDefaultsDomain(&v12);
-  v4 = v12;
+  v18 = *MEMORY[0x1E69E9840];
+  v11 = 0;
+  v3 = WFCanAccessUserDefaultsDomain(&v11, 0);
+  v4 = v11;
   v5 = v4;
   if (v3)
   {
@@ -95,11 +94,11 @@ LABEL_7:
       if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v14 = "[WFSystemSurfaceWorkflowStatusRegistry statusForShareSheetWorkflows]";
-        v15 = 2114;
-        v16 = @"com.apple.siri.shortcuts";
-        v17 = 2114;
-        v18 = v5;
+        v13 = "[WFSystemSurfaceWorkflowStatusRegistry statusForShareSheetWorkflows]";
+        v14 = 2114;
+        v15 = @"com.apple.siri.shortcuts";
+        v16 = 2114;
+        v17 = v5;
         _os_log_impl(&dword_1B1DE3000, v9, OS_LOG_TYPE_ERROR, "%s Failed to check whether or not we have access to %{public}@: %{public}@", buf, 0x20u);
       }
     }
@@ -107,7 +106,6 @@ LABEL_7:
     v8 = 0;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
   return v8;
 }
 

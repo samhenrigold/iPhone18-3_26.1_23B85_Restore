@@ -1,5 +1,6 @@
 @interface SafariSettingsUpdatableListItemsController
 - (SafariSettingsUpdatableListItemsController)init;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SafariSettingsUpdatableListItemsController
@@ -31,6 +32,36 @@
   }
 
   return v2;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v18.receiver = self;
+  v18.super_class = SafariSettingsUpdatableListItemsController;
+  [(SafariSettingsUpdatableListItemsController *)&v18 viewWillAppear:appear];
+  specifier = [(SafariSettingsUpdatableListItemsController *)self specifier];
+  identifier = [specifier identifier];
+
+  specifier2 = [(SafariSettingsUpdatableListItemsController *)self specifier];
+  name = [specifier2 name];
+
+  v17 = identifier;
+  v8 = [NSString stringWithFormat:@"settings-navigation://com.apple.Settings.Apps/com.apple.mobilesafari/%@", identifier];
+  v9 = [NSURL URLWithString:v8];
+  v10 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v10 bundleURL];
+
+  v12 = +[NSLocale currentLocale];
+  v13 = [[_NSLocalizedStringResource alloc] initWithKey:name table:0 locale:v12 bundleURL:bundleURL];
+  v14 = [[_NSLocalizedStringResource alloc] initWithKey:@"Safari" table:@"Safari" locale:v12 bundleURL:bundleURL];
+  v15 = [[_NSLocalizedStringResource alloc] initWithKey:@"Apps" table:@"Safari" locale:v12 bundleURL:bundleURL];
+  if (objc_opt_respondsToSelector())
+  {
+    v19[0] = v15;
+    v19[1] = v14;
+    v16 = [NSArray arrayWithObjects:v19 count:2];
+    [(SafariSettingsUpdatableListItemsController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.mobilesafari" title:v13 localizedNavigationComponents:v16 deepLink:v9];
+  }
 }
 
 @end

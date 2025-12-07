@@ -25,38 +25,38 @@ void __44___PSFeatureDictionary__removeObjectForKey___block_invoke(void *a1, voi
 
 void __59___PSFeatureDictionary_addEntriesFromDictionary_overwrite___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = (a1 + 32);
   v8 = [*(*(a1 + 32) + 8) objectForKeyedSubscript:v5];
   if (v8)
   {
-    v18 = v6;
-    v19 = v5;
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
+    v17 = v6;
+    v18 = v5;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     v9 = v6;
-    v10 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           if ((*(a1 + 40) & 1) == 0)
           {
-            v15 = [*v7 objectForKeyedSubscript:*(*(&v20 + 1) + 8 * i)];
+            v15 = [*v7 objectForKeyedSubscript:*(*(&v19 + 1) + 8 * i)];
 
             if (v15)
             {
@@ -65,26 +65,24 @@ void __59___PSFeatureDictionary_addEntriesFromDictionary_overwrite___block_invok
           }
 
           ++*(*v7 + 3);
-          v16 = [v9 objectForKeyedSubscript:{v14, v18, v19, v20}];
+          v16 = [v9 objectForKeyedSubscript:{v14, v17, v18, v19}];
           [v8 setObject:v16 forKeyedSubscript:v14];
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v11);
     }
 
-    v6 = v18;
-    v5 = v19;
+    v6 = v17;
+    v5 = v18;
   }
 
   else
   {
     __59___PSFeatureDictionary_addEntriesFromDictionary_overwrite___block_invoke_cold_1(v6, (a1 + 32), v5);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __44___PSFeatureDictionary_mutableCopyWithZone___block_invoke(uint64_t a1, void *a2, void *a3)

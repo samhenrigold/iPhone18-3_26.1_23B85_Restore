@@ -1015,7 +1015,7 @@ LABEL_12:
         *&buf.c = v74;
         *&buf.tx = v74;
         *&buf.a = v74;
-        [v60 transform];
+        objc_msgSend_transform(v60);
         v75 = v49 * -0.05 + 1.0;
         v90 = buf;
         CGAffineTransformTranslate(&v91, &v90, 0.0, (v73 - v73 * v75) * -0.5);

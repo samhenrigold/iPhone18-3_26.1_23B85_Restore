@@ -2,7 +2,6 @@
 - (BOOL)isEqual:(id)equal;
 - (OrgApacheLuceneUtilAutomatonStatePair)initWithInt:(int)int withInt:(int)withInt;
 - (OrgApacheLuceneUtilAutomatonStatePair)initWithInt:(int)int withInt:(int)withInt withInt:(int)a5;
-- (id)description;
 @end
 
 @implementation OrgApacheLuceneUtilAutomatonStatePair
@@ -43,13 +42,6 @@
   }
 
   return *(equal + 3) == self->s1_ && *(equal + 4) == self->s2_;
-}
-
-- (id)description
-{
-  s2 = self->s2_;
-  s1 = self->s1_;
-  return JreStrcat("$I$IC", a2, v2, v3, v4, v5, v6, v7, @"StatePair(s1=");
 }
 
 @end

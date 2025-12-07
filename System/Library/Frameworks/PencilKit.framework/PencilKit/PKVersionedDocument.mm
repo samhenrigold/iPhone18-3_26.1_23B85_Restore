@@ -393,8 +393,7 @@ LABEL_29:
   v5 = +[PKVersionedDocument versionedDocumentSerializationVersion];
   documentArchive2[36] |= 1u;
   *(documentArchive2 + 8) = v5;
-  [(PKVersionedDocument *)self documentArchive];
-  PB::PtrVector<versioned_document::Version>::emplace_back<>();
+  PB::PtrVector<versioned_document::Version>::emplace_back<>(([(PKVersionedDocument *)self documentArchive]+ 8));
 }
 
 - (void)saveToArchive:(void *)archive
@@ -423,7 +422,7 @@ LABEL_29:
     operator new();
   }
 
-  PB::PtrVector<versioned_document::Version>::emplace_back<>();
+  PB::PtrVector<versioned_document::Version>::emplace_back<>(archive + 1);
 }
 
 @end

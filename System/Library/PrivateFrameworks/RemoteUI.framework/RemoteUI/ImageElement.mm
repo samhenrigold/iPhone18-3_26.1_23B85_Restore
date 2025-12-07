@@ -36,7 +36,7 @@
 
 - (id)sourceURL
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9DBA0);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CD9DBA0, &unk_21BA92240);
   MEMORY[0x28223BE20](v3 - 8);
   v5 = &v14 - v4;
   v6 = *((*MEMORY[0x277D85000] & self->super.super.isa) + 0x100);

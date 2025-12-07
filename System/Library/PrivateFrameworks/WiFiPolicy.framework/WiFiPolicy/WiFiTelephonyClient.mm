@@ -13,8 +13,10 @@
 - (void)_getCurrentDataServiceContext;
 - (void)_updateCellularMEIAndDataStatus;
 - (void)carrierBundleChange:(id)change;
+- (void)connectionStateChanged:(id)changed connection:(int)connection dataConnectionStatusInfo:(id)info;
 - (void)displayStatusChanged:(id)changed status:(id)status;
 - (void)imsRegistrationChanged:(id)changed info:(id)info;
+- (void)reliableNetworkFallbackChanged:(BOOL)changed userEnabled:(BOOL)enabled;
 @end
 
 @implementation WiFiTelephonyClient
@@ -81,43 +83,43 @@ void __27__WiFiTelephonyClient_init__block_invoke(uint64_t a1)
 
 - (id)_getCurrentDataServiceContext
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   coreTelephonyClient = [(WiFiTelephonyClient *)self coreTelephonyClient];
 
   if (coreTelephonyClient)
   {
     coreTelephonyClient2 = [(WiFiTelephonyClient *)self coreTelephonyClient];
-    v24 = 0;
-    v5 = [coreTelephonyClient2 getSubscriptionInfoWithError:&v24];
-    v6 = v24;
+    v23 = 0;
+    v5 = [coreTelephonyClient2 getSubscriptionInfoWithError:&v23];
+    v6 = v23;
     subscriptions = [v5 subscriptions];
 
     coreTelephonyClient3 = [(WiFiTelephonyClient *)self coreTelephonyClient];
-    v23 = v6;
-    v9 = [coreTelephonyClient3 getCurrentDataSubscriptionContextSync:&v23];
-    v10 = v23;
+    v22 = v6;
+    v9 = [coreTelephonyClient3 getCurrentDataSubscriptionContextSync:&v22];
+    v10 = v22;
 
     if (!v9)
     {
-      v21 = 0u;
-      v22 = 0u;
-      v19 = 0u;
       v20 = 0u;
+      v21 = 0u;
+      v18 = 0u;
+      v19 = 0u;
       v11 = subscriptions;
-      v9 = [v11 countByEnumeratingWithState:&v19 objects:v25 count:16];
+      v9 = [v11 countByEnumeratingWithState:&v18 objects:v24 count:16];
       if (v9)
       {
-        v12 = *v20;
+        v12 = *v19;
         while (2)
         {
           for (i = 0; i != v9; i = i + 1)
           {
-            if (*v20 != v12)
+            if (*v19 != v12)
             {
               objc_enumerationMutation(v11);
             }
 
-            v14 = *(*(&v19 + 1) + 8 * i);
+            v14 = *(*(&v18 + 1) + 8 * i);
             userDataPreferred = [v14 userDataPreferred];
             intValue = [userDataPreferred intValue];
 
@@ -128,7 +130,7 @@ void __27__WiFiTelephonyClient_init__block_invoke(uint64_t a1)
             }
           }
 
-          v9 = [v11 countByEnumeratingWithState:&v19 objects:v25 count:16];
+          v9 = [v11 countByEnumeratingWithState:&v18 objects:v24 count:16];
           if (v9)
           {
             continue;
@@ -152,18 +154,15 @@ LABEL_16:
     v9 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
   return v9;
 }
 
 - (void)_updateCellularMEIAndDataStatus
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = 136315138;
-  v2 = "[WiFiTelephonyClient _updateCellularMEIAndDataStatus]";
-  _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: nil subscription", &v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v0 = 136315138;
+  v1 = "[WiFiTelephonyClient _updateCellularMEIAndDataStatus]";
+  _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: nil subscription", &v0, 0xCu);
 }
 
 void __54__WiFiTelephonyClient__updateCellularMEIAndDataStatus__block_invoke(uint64_t a1, void *a2)
@@ -187,6 +186,18 @@ uint64_t __54__WiFiTelephonyClient__updateCellularMEIAndDataStatus__block_invoke
   v3 = *(a1 + 40);
 
   return [v3 setImsRegistrationActiveAndOnWiFi:v2];
+}
+
+- (void)reliableNetworkFallbackChanged:(BOOL)changed userEnabled:(BOOL)enabled
+{
+  internalQueue = [(WiFiTelephonyClient *)self internalQueue];
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __66__WiFiTelephonyClient_reliableNetworkFallbackChanged_userEnabled___block_invoke;
+  v7[3] = &unk_2789C6688;
+  v7[4] = self;
+  enabledCopy = enabled;
+  dispatch_async(internalQueue, v7);
 }
 
 void __66__WiFiTelephonyClient_reliableNetworkFallbackChanged_userEnabled___block_invoke(uint64_t a1)
@@ -226,6 +237,17 @@ void __51__WiFiTelephonyClient_imsRegistrationChanged_info___block_invoke(uint64
     v4 = [*(a1 + 40) imsRegistrationStatusChangedHandler];
     v4[2]();
   }
+}
+
+- (void)connectionStateChanged:(id)changed connection:(int)connection dataConnectionStatusInfo:(id)info
+{
+  v6 = [(WiFiTelephonyClient *)self internalQueue:changed];
+  block[0] = MEMORY[0x277D85DD0];
+  block[1] = 3221225472;
+  block[2] = __82__WiFiTelephonyClient_connectionStateChanged_connection_dataConnectionStatusInfo___block_invoke;
+  block[3] = &unk_2789C6630;
+  block[4] = self;
+  dispatch_async(v6, block);
 }
 
 void __82__WiFiTelephonyClient_connectionStateChanged_connection_dataConnectionStatusInfo___block_invoke(uint64_t a1)
@@ -430,11 +452,10 @@ void __43__WiFiTelephonyClient_carrierBundleChange___block_invoke(uint64_t a1)
 
 - (void)_getCurrentDataServiceContext
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = 136315138;
-  v2 = "[WiFiTelephonyClient _getCurrentDataServiceContext]";
-  _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: nil coreTelephonyClient", &v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v0 = 136315138;
+  v1 = "[WiFiTelephonyClient _getCurrentDataServiceContext]";
+  _os_log_error_impl(&dword_2332D7000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "%s: nil coreTelephonyClient", &v0, 0xCu);
 }
 
 @end

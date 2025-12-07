@@ -9,47 +9,47 @@
 
 - (void)showMenuForAction:(id)action fromView:(id)view
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   actionCopy = action;
   viewCopy = view;
   objc_storeStrong(&self->_viewForMenu, view);
   array = [MEMORY[0x277CBEB18] array];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v22 = actionCopy;
+  v21 = actionCopy;
   obj = [actionCopy actionPickerItems];
-  v8 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v8 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v26;
+    v10 = *v25;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v26 != v10)
+        if (*v25 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v12 = *(*(&v25 + 1) + 8 * i);
+        v12 = *(*(&v24 + 1) + 8 * i);
         v13 = MEMORY[0x277D750C8];
         label = [v12 label];
         icon = [v12 icon];
-        v24[0] = MEMORY[0x277D85DD0];
-        v24[1] = 3221225472;
-        v24[2] = __55__BCSContextMenuController_showMenuForAction_fromView___block_invoke;
-        v24[3] = &unk_278D02448;
-        v24[4] = self;
-        v24[5] = v12;
-        v16 = [v13 actionWithTitle:label image:icon identifier:0 handler:v24];
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __55__BCSContextMenuController_showMenuForAction_fromView___block_invoke;
+        v23[3] = &unk_278D02448;
+        v23[4] = self;
+        v23[5] = v12;
+        v16 = [v13 actionWithTitle:label image:icon identifier:0 handler:v23];
 
         [array addObject:v16];
       }
 
-      v9 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v9 = [obj countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v9);
@@ -62,8 +62,6 @@
   v19 = [objc_alloc(MEMORY[0x277D753B8]) initWithDelegate:self];
   [(UIView *)self->_viewForMenu addInteraction:v19];
   [v19 _presentMenuAtLocation:{*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)}];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (id)contextMenuInteraction:(id)interaction configurationForMenuAtLocation:(CGPoint)location

@@ -3,6 +3,7 @@
 + (void)addSearchQueryCancelable:(id)cancelable;
 + (void)removeSearchQueryCancelable:(id)cancelable;
 - (MFSearchableIndexManager_iOS)initWithDatabase:(id)database messagePersistence:(id)persistence richLinkPersistence:(id)linkPersistence hookResponder:(id)responder;
+- (void)enableIndexingAndBeginScheduling:(BOOL)scheduling;
 @end
 
 @implementation MFSearchableIndexManager_iOS
@@ -54,6 +55,52 @@
   }
 
   return v14;
+}
+
+- (void)enableIndexingAndBeginScheduling:(BOOL)scheduling
+{
+  schedulingCopy = scheduling;
+  os_unfair_lock_lock(&self->_indexLock);
+  index = [(MFSearchableIndexManager_iOS *)self index];
+
+  if (!index)
+  {
+    v6 = [MFSearchableIndex_iOS alloc];
+    searchableIndexName = [objc_opt_class() searchableIndexName];
+    v8 = [(MFSearchableIndex_iOS *)v6 initWithName:searchableIndexName dataSource:self->_persistence];
+    [(MFSearchableIndexManager_iOS *)self setIndex:v8];
+
+    analytics = [(EDSearchableIndexManager *)self analytics];
+    index2 = [(MFSearchableIndexManager_iOS *)self index];
+    [index2 setAnalytics:analytics];
+
+    searchableIndexBundleID = [objc_opt_class() searchableIndexBundleID];
+    index3 = [(MFSearchableIndexManager_iOS *)self index];
+    [index3 setSearchableIndexBundleID:searchableIndexBundleID];
+
+    v13 = [objc_alloc(MEMORY[0x1E699B6B0]) initWithSchedulable:self->_index];
+    [(MFSearchableIndexManager_iOS *)self setScheduler:v13];
+
+    scheduler = [(MFSearchableIndexManager_iOS *)self scheduler];
+    index4 = [(MFSearchableIndexManager_iOS *)self index];
+    [index4 setSchedulableDelegate:scheduler];
+
+    v16 = objc_alloc(MEMORY[0x1E699B6D8]);
+    index5 = [(MFSearchableIndexManager_iOS *)self index];
+    messagePersistence = [(EDSearchableIndexPersistence *)self->_persistence messagePersistence];
+    v19 = [v16 initWithSearchableIndex:index5 persistence:messagePersistence];
+    [(EDSearchableIndexManager *)self setSpotlightDaemonClient:v19];
+  }
+
+  os_unfair_lock_unlock(&self->_indexLock);
+  messagePersistence2 = [(EDSearchableIndexPersistence *)self->_persistence messagePersistence];
+  messageFilesAreClassC = [messagePersistence2 messageFilesAreClassC];
+  scheduler2 = [(MFSearchableIndexManager_iOS *)self scheduler];
+  [scheduler2 setRequireClassA:messageFilesAreClassC ^ 1u];
+
+  v23.receiver = self;
+  v23.super_class = MFSearchableIndexManager_iOS;
+  [(EDSearchableIndexManager *)&v23 enableIndexingAndBeginScheduling:schedulingCopy];
 }
 
 @end

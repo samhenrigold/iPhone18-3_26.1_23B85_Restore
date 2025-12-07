@@ -1,5 +1,6 @@
 @interface NLLanguageModel
 + (id)languageModelWithOptions:(id)options error:(id *)error;
+- (BOOL)getConditionalProbabilityForTokenID:(unsigned int)d context:(const unsigned int *)context length:(unint64_t)length probability:(double *)probability;
 - (NLLanguageModel)initWithLocalization:(id)localization;
 - (double)conditionalProbabilityForEntry:(id)entry context:(id)context;
 - (double)conditionalProbabilityForWord:(id)word context:(id)context;
@@ -41,7 +42,7 @@
 
 + (id)languageModelWithOptions:(id)options error:(id *)error
 {
-  v19[1] = *MEMORY[0x1E69E9840];
+  v18[1] = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   v6 = localizationForOptions(optionsCopy);
   v7 = granularityForOptions(optionsCopy);
@@ -71,13 +72,11 @@ LABEL_6:
   {
     v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Failed to load language model for %@", v6];
     v14 = MEMORY[0x1E696ABC0];
-    v18 = *MEMORY[0x1E696A578];
-    v19[0] = v13;
-    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x1E696A578];
+    v18[0] = v13;
+    v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     *error = [v14 errorWithDomain:@"NLNaturalLanguageErrorDomain" code:11 userInfo:v15];
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -114,10 +113,9 @@ LABEL_6:
 
 - (id)languages
 {
-  v5[1] = *MEMORY[0x1E69E9840];
-  v5[0] = @"und";
-  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1];
-  v3 = *MEMORY[0x1E69E9840];
+  v4[1] = *MEMORY[0x1E69E9840];
+  v4[0] = @"und";
+  v2 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:1];
 
   return v2;
 }
@@ -129,6 +127,44 @@ LABEL_6:
   v5 = [v3 initWithLocaleIdentifier:localization];
 
   return v5;
+}
+
+- (BOOL)getConditionalProbabilityForTokenID:(unsigned int)d context:(const unsigned int *)context length:(unint64_t)length probability:(double *)probability
+{
+  v10 = 0xC03E000000000000;
+  if (self->_model)
+  {
+    LMLanguageModelConditionalProbability();
+    v10 = v7;
+    LODWORD(lexicon) = 1;
+    if (!probability)
+    {
+      return lexicon;
+    }
+  }
+
+  else
+  {
+    lexicon = self->_lexicon;
+    if (!lexicon)
+    {
+      return lexicon;
+    }
+
+    LODWORD(lexicon) = [(NLLexicon *)lexicon getProbabilityForTokenID:*&d probability:&v10, length];
+    if (!probability)
+    {
+      return lexicon;
+    }
+  }
+
+  if (lexicon)
+  {
+    *probability = v10;
+    LOBYTE(lexicon) = 1;
+  }
+
+  return lexicon;
 }
 
 - (double)conditionalProbabilityForEntry:(id)entry context:(id)context
@@ -185,9 +221,8 @@ LABEL_6:
   if (self->_model && self->_lexicon)
   {
     v9 = tokensForEntrySequence(contextCopy);
-    model = self->_model;
     [contextCopy count];
-    v11 = blockCopy;
+    v10 = blockCopy;
     LMLanguageModelEnumeratePredictionsWithBlock();
     if (v9)
     {
@@ -230,9 +265,8 @@ void __85__NLLanguageModel_enumeratePredictionsForContext_maxEntriesPerPredictio
 
       v13 = entrySequenceForStringWithOptionalBOS(contextCopy, lexicon, tokenizer, 1);
       v14 = tokensForEntrySequence(v13);
-      model = self->_model;
       [v13 count];
-      v16 = blockCopy;
+      v15 = blockCopy;
       LMLanguageModelEnumeratePredictionsWithBlock();
       if (v14)
       {
@@ -273,7 +307,6 @@ void __83__NLLanguageModel_enumeratePredictionsForContext_maxWordsPerPrediction_
   v5 = stringCopy;
   if (self->_model && (v6 = [stringCopy UTF8String]) != 0)
   {
-    model = self->_model;
     strlen(v6);
     TokenIDForUTF8String = LMLanguageModelGetTokenIDForUTF8String();
   }

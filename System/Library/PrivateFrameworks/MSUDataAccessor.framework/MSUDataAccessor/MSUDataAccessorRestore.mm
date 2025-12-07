@@ -1,5 +1,6 @@
 @interface MSUDataAccessorRestore
 - (id)copyMountPointForVolumeType:(int)type error:(id *)error;
+- (id)copyPathForPersonalizedData:(int)data error:(id *)error;
 - (id)findVolumesWithRole:(int)role;
 - (id)getVolumeWithUUID:(id)d;
 - (id)specialCaseAPTicketForRamdiskWithError:(id *)error;
@@ -63,7 +64,7 @@
 
 - (id)specialCaseAPTicketForRamdiskWithError:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   v5 = [defaultManager fileExistsAtPath:@"/private/var/Keychains/apticket.der"];
 
@@ -105,21 +106,21 @@ LABEL_27:
             v11 = @"sha1";
           }
 
+          v21 = 0u;
           v22 = 0u;
-          v23 = 0u;
           *md = 0u;
           if ([(__CFString *)v11 isEqualToString:@"sha1"])
           {
             CC_SHA1([v6 bytes], objc_msgSend(v6, "length"), md);
-            v17 = 20;
+            v16 = 20;
           }
 
           else
           {
             if (![(__CFString *)v11 isEqualToString:@"sha2-384"])
             {
-              v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unsupported crypto hash method %@", v11];
-              [MSUDataAccessor buildErrorForRef:error code:6005 description:v20];
+              v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unsupported crypto hash method %@", v11];
+              [MSUDataAccessor buildErrorForRef:error code:6005 description:v19];
 
               v13 = 0;
 LABEL_26:
@@ -128,15 +129,15 @@ LABEL_26:
             }
 
             CC_SHA384([v6 bytes], objc_msgSend(v6, "length"), md);
-            v17 = 48;
+            v16 = 48;
           }
 
-          v18 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:md length:v17 freeWhenDone:0];
+          v17 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:md length:v16 freeWhenDone:0];
           v13 = @"/private/var/Keychains/apticket.der";
-          if (([v18 isEqualToData:v8] & 1) == 0)
+          if (([v17 isEqualToData:v8] & 1) == 0)
           {
-            v19 = [MEMORY[0x277CCACA8] stringWithFormat:@"Found apticket at %@ but it does not match the boot manifest hash", @"/private/var/Keychains/apticket.der"];
-            [MSUDataAccessor buildErrorForRef:error code:6006 description:v19];
+            v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"Found apticket at %@ but it does not match the boot manifest hash", @"/private/var/Keychains/apticket.der"];
+            [MSUDataAccessor buildErrorForRef:error code:6006 description:v18];
 
             v13 = 0;
           }
@@ -159,39 +160,49 @@ LABEL_26:
     v13 = 0;
 LABEL_15:
 
-    goto LABEL_16;
+    return v13;
   }
 
-  v13 = 0;
-LABEL_16:
-  v15 = *MEMORY[0x277D85DE8];
-  return v13;
+  return 0;
+}
+
+- (id)copyPathForPersonalizedData:(int)data error:(id *)error
+{
+  v5 = *&data;
+  if (data != 2 || (result = [(MSUDataAccessorRestore *)self specialCaseAPTicketForRamdiskWithError:error]) == 0)
+  {
+    v8.receiver = self;
+    v8.super_class = MSUDataAccessorRestore;
+    return [(MSUDataAccessor *)&v8 copyPathForPersonalizedData:v5 error:error];
+  }
+
+  return result;
 }
 
 - (id)getVolumeWithUUID:(id)d
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   dCopy = d;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   allMedia = [MEMORY[0x277D82BF8] allMedia];
-  v5 = [allMedia countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [allMedia countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(allMedia);
         }
 
-        v9 = *(*(&v15 + 1) + 8 * i);
+        v9 = *(*(&v14 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -206,7 +217,7 @@ LABEL_16:
         }
       }
 
-      v6 = [allMedia countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [allMedia countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v6);
@@ -215,35 +226,33 @@ LABEL_16:
   v10 = 0;
 LABEL_12:
 
-  v13 = *MEMORY[0x277D85DE8];
-
   return v10;
 }
 
 - (id)findVolumesWithRole:(int)role
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   array = [MEMORY[0x277CBEB18] array];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   allMedia = [MEMORY[0x277D82BF8] allMedia];
-  v6 = [allMedia countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [allMedia countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v15;
+    v8 = *v14;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v15 != v8)
+        if (*v14 != v8)
         {
           objc_enumerationMutation(allMedia);
         }
 
-        v10 = *(*(&v14 + 1) + 8 * i);
+        v10 = *(*(&v13 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -255,13 +264,11 @@ LABEL_12:
         }
       }
 
-      v7 = [allMedia countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v7 = [allMedia countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return array;
 }

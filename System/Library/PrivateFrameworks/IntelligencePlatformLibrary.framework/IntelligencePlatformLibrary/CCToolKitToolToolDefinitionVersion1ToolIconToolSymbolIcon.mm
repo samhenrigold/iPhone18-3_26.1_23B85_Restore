@@ -142,7 +142,7 @@
 
   v11 = 0;
   v12 = MEMORY[0x1E6993AA0];
-  v44 = dataCopy;
+  v42 = dataCopy;
   while (2)
   {
     if (*&v7[*v10])
@@ -230,11 +230,10 @@ LABEL_34:
               v34 = objc_opt_class();
               NSStringFromClass(v34);
               v36 = v35 = error;
-              v37 = *&v7[*v10];
               v11 = CCSkipFieldErrorForMessage();
 
               error = v35;
-              dataCopy = v44;
+              dataCopy = v42;
               goto LABEL_44;
             }
 
@@ -308,7 +307,7 @@ LABEL_44:
         v33 = 24;
       }
 
-      v38 = *(&self->super.super.isa + v33);
+      v37 = *(&self->super.super.isa + v33);
       *(&self->super.super.isa + v33) = v32;
 
 LABEL_39:
@@ -328,22 +327,21 @@ LABEL_39:
 LABEL_47:
   if (!*&v7[*v10])
   {
-    v42 = 1;
+    v40 = 1;
     goto LABEL_51;
   }
 
 LABEL_48:
-  v39 = objc_opt_class();
-  v11 = NSStringFromClass(v39);
-  v40 = *&v7[*v10];
-  v41 = CCInvalidBufferErrorForMessage();
+  v38 = objc_opt_class();
+  v11 = NSStringFromClass(v38);
+  v39 = CCInvalidBufferErrorForMessage();
   CCSetError();
 
 LABEL_49:
-  v42 = 0;
+  v40 = 0;
 LABEL_51:
 
-  return v42;
+  return v40;
 }
 
 - (CCToolKitToolToolDefinitionVersion1ToolIconToolSymbolIcon)initWithName:(id)name style:(unsigned int)style foreground:(id)foreground background:(id)background error:(id *)error

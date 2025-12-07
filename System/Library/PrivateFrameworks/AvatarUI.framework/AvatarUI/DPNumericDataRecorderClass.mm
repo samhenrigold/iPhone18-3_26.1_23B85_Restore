@@ -14,7 +14,7 @@ double __get_DPNumericDataRecorderClass_block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __get_DPNumericDataRecorderClass_block_invoke_cold_1();
+    __get_DPNumericDataRecorderClass_block_invoke_cold_1();
     *&result = [(AVTFunCamAvatarPickerCollectionViewLayout *)v3 engagementInsetsForCollectionViewBounds:v4, v5];
   }
 

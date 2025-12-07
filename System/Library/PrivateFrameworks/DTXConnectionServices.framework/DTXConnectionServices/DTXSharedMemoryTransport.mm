@@ -3,6 +3,7 @@
 + (id)addressForPosixSharedMemoryWithName:(id)name;
 - (BOOL)_setupCreatingSharedMemory:(id)memory size:(int)size;
 - (BOOL)_setupWithShm:(DTXSharedMemory *)shm asCreator:(BOOL)creator;
+- (DTXSharedMemoryTransport)initWithLocalName:(id)name size:(int)size;
 - (DTXSharedMemoryTransport)initWithMappedMemory:(DTXSharedMemory *)memory;
 - (DTXSharedMemoryTransport)initWithMemoryAddress:(unint64_t)address inTask:(unsigned int)task;
 - (DTXSharedMemoryTransport)initWithRemoteAddress:(id)address;
@@ -58,7 +59,7 @@
 
 - (BOOL)_setupCreatingSharedMemory:(id)memory size:(int)size
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   memoryCopy = memory;
   v10 = objc_msgSend_UTF8String(memory, v8, v9);
   v11 = (2 * size);
@@ -76,7 +77,7 @@ LABEL_7:
       goto LABEL_9;
     }
 
-    goto LABEL_14;
+    return 0;
   }
 
   v12 = v10;
@@ -93,19 +94,19 @@ LABEL_7:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      v23 = *__error();
+      v22 = *__error();
       *buf = 136315906;
-      v26 = v12;
-      v27 = 2048;
-      v28 = v15;
+      v24 = v12;
+      v25 = 2048;
+      v26 = v15;
+      v27 = 1024;
+      v28 = 511;
       v29 = 1024;
-      v30 = 511;
-      v31 = 1024;
-      v32 = v23;
+      v30 = v22;
       _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Error creating shared memory (name: %s, size: %llu, permissions: %x): %d\n", buf, 0x22u);
     }
 
-    goto LABEL_14;
+    return 0;
   }
 
   v17 = v16;
@@ -114,8 +115,6 @@ LABEL_7:
   close(v17);
   if (v18 == -1)
   {
-LABEL_14:
-    v24 = *MEMORY[0x277D85DE8];
     return 0;
   }
 
@@ -135,18 +134,34 @@ LABEL_9:
   atomic_store(0, v18 + 12);
   atomic_store(getpid(), v18 + 10);
   atomic_store(0, v18 + 11);
-  v21 = *MEMORY[0x277D85DE8];
 
   return objc_msgSend__setupWithShm_asCreator_(self, v20, v18, 1);
 }
 
+- (DTXSharedMemoryTransport)initWithLocalName:(id)name size:(int)size
+{
+  v4 = *&size;
+  nameCopy = name;
+  v11.receiver = self;
+  v11.super_class = DTXSharedMemoryTransport;
+  v7 = [(DTXTransport *)&v11 init];
+  v9 = v7;
+  if (v7 && (objc_msgSend__setupCreatingSharedMemory_size_(v7, v8, nameCopy, v4) & 1) == 0)
+  {
+
+    v9 = 0;
+  }
+
+  return v9;
+}
+
 - (DTXSharedMemoryTransport)initWithRemoteAddress:(id)address
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   addressCopy = address;
-  v70.receiver = self;
-  v70.super_class = DTXSharedMemoryTransport;
-  v7 = [(DTXTransport *)&v70 initWithRemoteAddress:addressCopy];
+  v69.receiver = self;
+  v69.super_class = DTXSharedMemoryTransport;
+  v7 = [(DTXTransport *)&v69 initWithRemoteAddress:addressCopy];
   if (!v7)
   {
     goto LABEL_40;
@@ -199,7 +214,7 @@ LABEL_36:
         *&buf[12] = 2048;
         *&buf[14] = 4096;
         *&buf[22] = 1024;
-        LODWORD(v74) = v55;
+        LODWORD(v73) = v55;
         v56 = MEMORY[0x277D86220];
         v57 = "Unable to map shared memory %s with size %zu: %d\n";
 LABEL_34:
@@ -256,7 +271,7 @@ LABEL_37:
         *&buf[12] = 2048;
         *&buf[14] = v25;
         *&buf[22] = 1024;
-        LODWORD(v74) = v58;
+        LODWORD(v73) = v58;
         v56 = MEMORY[0x277D86220];
         v57 = "Unable to map shared memory %s with size %llu: %d\n";
         goto LABEL_34;
@@ -328,15 +343,15 @@ LABEL_37:
     goto LABEL_58;
   }
 
-  *v76 = 0;
-  v77 = v76;
-  v78 = 0x2020000000;
-  v79 = 0;
+  *v75 = 0;
+  v76 = v75;
+  v77 = 0x2020000000;
+  v78 = 0;
   *buf = MEMORY[0x277D85DD0];
   *&buf[8] = 3221225472;
   *&buf[16] = sub_247F4FD30;
-  v74 = &unk_278EEEFC8;
-  v75 = v76;
+  v73 = &unk_278EEEFC8;
+  v74 = v75;
   v54 = buf;
   if (mach_task_is_self(v52))
   {
@@ -345,24 +360,24 @@ LABEL_37:
 
   else
   {
-    v62 = *v46;
+    v61 = *v46;
     *cur_protection = 0;
     target_address = 0;
-    v63 = mach_vm_remap(v62, &target_address, 0x50uLL, 0, 1048577, v52, v45, 0, &cur_protection[1], cur_protection, 2u);
-    if (v63)
+    v62 = mach_vm_remap(v61, &target_address, 0x50uLL, 0, 1048577, v52, v45, 0, &cur_protection[1], cur_protection, 2u);
+    if (v62)
     {
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        *v80 = 134218496;
-        v81 = v45;
-        v82 = 1024;
-        v83 = v52;
-        v84 = 1024;
-        v85 = v63;
-        _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to map memory for address: %#llx in task: 0x%x (%d)\n", v80, 0x18u);
+        *v79 = 134218496;
+        v80 = v45;
+        v81 = 1024;
+        v82 = v52;
+        v83 = 1024;
+        v84 = v62;
+        _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to map memory for address: %#llx in task: 0x%x (%d)\n", v79, 0x18u);
       }
 
-      v64 = 0;
+      v63 = 0;
     }
 
     else
@@ -371,49 +386,49 @@ LABEL_37:
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
-          *v80 = 134218496;
-          v81 = v45;
-          v82 = 1024;
-          v83 = v52;
-          v84 = 1024;
-          v85 = cur_protection[1];
-          _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to map memory r/w for address: %#llx in task: 0x%x (%d)\n", v80, 0x18u);
+          *v79 = 134218496;
+          v80 = v45;
+          v81 = 1024;
+          v82 = v52;
+          v83 = 1024;
+          v84 = cur_protection[1];
+          _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to map memory r/w for address: %#llx in task: 0x%x (%d)\n", v79, 0x18u);
         }
 
-        mach_vm_deallocate(v62, target_address, 0x50uLL);
+        mach_vm_deallocate(v61, target_address, 0x50uLL);
       }
 
-      v64 = target_address;
+      v63 = target_address;
     }
 
-    (*&buf[16])(v54, v64);
-    mach_vm_deallocate(*v46, v64, 0x50uLL);
+    (*&buf[16])(v54, v63);
+    mach_vm_deallocate(*v46, v63, 0x50uLL);
   }
 
-  v65 = *(v77 + 3);
-  if (!v65)
+  v64 = *(v76 + 3);
+  if (!v64)
   {
     goto LABEL_57;
   }
 
   *cur_protection = 0;
   target_address = 0;
-  v66 = mach_vm_remap(v53, &target_address, v65, 0, 1048577, v52, v45, 0, &cur_protection[1], cur_protection, 2u);
-  if (v66)
+  v65 = mach_vm_remap(v53, &target_address, v64, 0, 1048577, v52, v45, 0, &cur_protection[1], cur_protection, 2u);
+  if (v65)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v80 = 134218496;
-      v81 = v45;
-      v82 = 1024;
-      v83 = v52;
-      v84 = 1024;
-      v85 = v66;
-      _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to map memory for address: %#llx in task: 0x%x (%d)\n", v80, 0x18u);
+      *v79 = 134218496;
+      v80 = v45;
+      v81 = 1024;
+      v82 = v52;
+      v83 = 1024;
+      v84 = v65;
+      _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to map memory for address: %#llx in task: 0x%x (%d)\n", v79, 0x18u);
     }
 
 LABEL_57:
-    _Block_object_dispose(v76, 8);
+    _Block_object_dispose(v75, 8);
     goto LABEL_58;
   }
 
@@ -421,33 +436,33 @@ LABEL_57:
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
     {
-      *v80 = 134218496;
-      v81 = v45;
-      v82 = 1024;
-      v83 = v52;
-      v84 = 1024;
-      v85 = cur_protection[1];
-      _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to map memory r/w for address: %#llx in task: 0x%x (%d)\n", v80, 0x18u);
+      *v79 = 134218496;
+      v80 = v45;
+      v81 = 1024;
+      v82 = v52;
+      v83 = 1024;
+      v84 = cur_protection[1];
+      _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to map memory r/w for address: %#llx in task: 0x%x (%d)\n", v79, 0x18u);
     }
 
-    mach_vm_deallocate(v53, target_address, v65);
+    mach_vm_deallocate(v53, target_address, v64);
   }
 
   v26 = target_address;
-  _Block_object_dispose(v76, 8);
+  _Block_object_dispose(v75, 8);
   if (!v26)
   {
     goto LABEL_59;
   }
 
-  v67 = atomic_load((v26 + 44));
-  if (!v67 || v67 == getpid())
+  v66 = atomic_load((v26 + 44));
+  if (!v66 || v66 == getpid())
   {
     atomic_store(getpid(), (v26 + 44));
-    v68 = *(v26 + 16);
-    if (v68)
+    v67 = *(v26 + 16);
+    if (v67)
     {
-      shm_unlink((v26 + v68));
+      shm_unlink((v26 + v67));
     }
 
     goto LABEL_59;
@@ -455,9 +470,9 @@ LABEL_57:
 
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    *v76 = 67109120;
-    *&v76[4] = v67;
-    _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to attach to shared memory - process %d already attached.\n", v76, 8u);
+    *v75 = 67109120;
+    *&v75[4] = v66;
+    _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to attach to shared memory - process %d already attached.\n", v75, 8u);
   }
 
 LABEL_58:
@@ -474,13 +489,12 @@ LABEL_39:
 
 LABEL_40:
 
-  v60 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
 - (DTXSharedMemoryTransport)initWithMemoryAddress:(unint64_t)address inTask:(unsigned int)task
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   if (!address)
   {
     goto LABEL_21;
@@ -498,19 +512,19 @@ LABEL_40:
     goto LABEL_21;
   }
 
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
-  v19[0] = MEMORY[0x277D85DD0];
-  v19[1] = 3221225472;
-  v20 = sub_247F4FD30;
-  v21 = &unk_278EEEFC8;
-  v22 = &v23;
-  v9 = v19;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x2020000000;
+  v25 = 0;
+  v18[0] = MEMORY[0x277D85DD0];
+  v18[1] = 3221225472;
+  v19 = sub_247F4FD30;
+  v20 = &unk_278EEEFC8;
+  v21 = &v22;
+  v9 = v18;
   if (mach_task_is_self(task))
   {
-    v20(v9, address);
+    v19(v9, address);
   }
 
   else
@@ -525,10 +539,10 @@ LABEL_40:
       {
         *buf = 134218496;
         addressCopy4 = address;
-        v31 = 1024;
+        v30 = 1024;
         taskCopy4 = task;
-        v33 = 1024;
-        v34 = v11;
+        v32 = 1024;
+        v33 = v11;
         _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to map memory for address: %#llx in task: 0x%x (%d)\n", buf, 0x18u);
       }
 
@@ -543,10 +557,10 @@ LABEL_40:
         {
           *buf = 134218496;
           addressCopy4 = address;
-          v31 = 1024;
+          v30 = 1024;
           taskCopy4 = task;
-          v33 = 1024;
-          v34 = cur_protection[1];
+          v32 = 1024;
+          v33 = cur_protection[1];
           _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to map memory r/w for address: %#llx in task: 0x%x (%d)\n", buf, 0x18u);
         }
 
@@ -556,15 +570,15 @@ LABEL_40:
       v12 = target_address;
     }
 
-    v20(v9, v12);
+    v19(v9, v12);
     mach_vm_deallocate(*v6, v12, 0x50uLL);
   }
 
-  v13 = v24[3];
+  v13 = v23[3];
   if (!v13)
   {
 LABEL_20:
-    _Block_object_dispose(&v23, 8);
+    _Block_object_dispose(&v22, 8);
 LABEL_21:
     selfCopy = 0;
     goto LABEL_22;
@@ -579,10 +593,10 @@ LABEL_21:
     {
       *buf = 134218496;
       addressCopy4 = address;
-      v31 = 1024;
+      v30 = 1024;
       taskCopy4 = task;
-      v33 = 1024;
-      v34 = v14;
+      v32 = 1024;
+      v33 = v14;
       _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to map memory for address: %#llx in task: 0x%x (%d)\n", buf, 0x18u);
     }
 
@@ -595,10 +609,10 @@ LABEL_21:
     {
       *buf = 134218496;
       addressCopy4 = address;
-      v31 = 1024;
+      v30 = 1024;
       taskCopy4 = task;
-      v33 = 1024;
-      v34 = cur_protection[1];
+      v32 = 1024;
+      v33 = cur_protection[1];
       _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to map memory r/w for address: %#llx in task: 0x%x (%d)\n", buf, 0x18u);
     }
 
@@ -606,25 +620,24 @@ LABEL_21:
   }
 
   selfCopy = target_address;
-  _Block_object_dispose(&v23, 8);
+  _Block_object_dispose(&v22, 8);
   if (selfCopy)
   {
-    self = objc_msgSend_initWithMappedMemory_(self, v18, selfCopy);
+    self = objc_msgSend_initWithMappedMemory_(self, v17, selfCopy);
     selfCopy = self;
   }
 
 LABEL_22:
 
-  v16 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
 - (DTXSharedMemoryTransport)initWithMappedMemory:(DTXSharedMemory *)memory
 {
-  v13 = *MEMORY[0x277D85DE8];
-  v10.receiver = self;
-  v10.super_class = DTXSharedMemoryTransport;
-  v5 = [(DTXTransport *)&v10 init];
+  v12 = *MEMORY[0x277D85DE8];
+  v9.receiver = self;
+  v9.super_class = DTXSharedMemoryTransport;
+  v5 = [(DTXTransport *)&v9 init];
   if (v5)
   {
     if (memory)
@@ -635,7 +648,7 @@ LABEL_22:
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
         {
           *buf = 67109120;
-          v12 = v6;
+          v11 = v6;
           _os_log_impl(&dword_247F3D000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Unable to attach to shared memory - process %d already attached.\n", buf, 8u);
         }
 
@@ -656,11 +669,10 @@ LABEL_22:
     if ((objc_msgSend__setupWithShm_asCreator_(v5, v4, memory, 0) & 1) == 0)
     {
 
-      v5 = 0;
+      return 0;
     }
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

@@ -848,13 +848,13 @@ uint64_t __50__ICQBackupController__setBackupEnabled_passcode___block_invoke_579
   return [*(a1 + 32) reloadSpecifiers];
 }
 
-void __50__ICQBackupController__setBackupEnabled_passcode___block_invoke_580()
+void __50__ICQBackupController__setBackupEnabled_passcode___block_invoke_580(uint64_t a1)
 {
-  v0 = _ICQGetLogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = _ICQGetLogSystem();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_275623000, v0, OS_LOG_TYPE_DEFAULT, "Presenting confirmation alert for Turn off iCloud Backup", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_275623000, v1, OS_LOG_TYPE_DEFAULT, "Presenting confirmation alert for Turn off iCloud Backup", v2, 2u);
   }
 }
 
@@ -2881,6 +2881,13 @@ LABEL_8:
   }
 
 LABEL_9:
+}
+
+void __62__ICQBackupController__persistBackupEnablementState_passcode___block_invoke_588_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*(*(a1 + 56) + 8) + 40);
+  OUTLINED_FUNCTION_0_4(&dword_275623000, a2, a3, "Error starting iCloud Backup: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

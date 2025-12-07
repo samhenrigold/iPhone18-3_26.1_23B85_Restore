@@ -11,9 +11,9 @@
     +[RMLog(statusPublisherDescription) statusPublisherDescription];
   }
 
-  v1 = statusPublisherDescription_result;
+  v2 = statusPublisherDescription_result;
 
-  return v1;
+  return v2;
 }
 
 @end

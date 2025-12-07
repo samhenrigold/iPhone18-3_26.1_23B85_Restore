@@ -1,5 +1,4 @@
 @interface SFUZipEntry
-- (BOOL)isBackedByFile;
 - (BOOL)isReadable;
 - (SFUZipEntry)initWithDataRepresentation:(id)representation compressionMethod:(int)method compressedSize:(unint64_t)size uncompressedSize:(unint64_t)uncompressedSize offset:(unint64_t)offset crc:(unsigned int)crc;
 - (id)backingFilePath;
@@ -204,13 +203,6 @@ LABEL_19:
   [bufferedInputStream close];
   fclose(v6);
   objc_autoreleasePoolPop(v5);
-}
-
-- (BOOL)isBackedByFile
-{
-  mArchiveDataRepresentation = self->mArchiveDataRepresentation;
-  objc_opt_class();
-  return objc_opt_isKindOfClass() & 1;
 }
 
 - (id)backingFilePath

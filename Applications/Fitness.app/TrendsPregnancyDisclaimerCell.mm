@@ -24,7 +24,7 @@
 - (_TtC10FitnessApp29TrendsPregnancyDisclaimerCell)initWithCoder:(id)coder
 {
   v4 = OBJC_IVAR____TtC10FitnessApp29TrendsPregnancyDisclaimerCell_textView;
-  sub_1000059F8(0, &qword_1008E2D40);
+  sub_1000059F8(0, &qword_1008E2D40, UILabel_ptr);
   *(&self->super.super.super.super.isa + v4) = sub_100555C98();
   result = _assertionFailure(_:_:file:line:flags:)();
   __break(1u);

@@ -36,60 +36,8 @@
 {
   resultCopy = result;
   v5 = resultCopy;
-  if (!resultCopy)
+  if (!resultCopy || (v6 = self->_qid == 0, [resultCopy qid], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (qid = self->_qid) != 0 && (objc_msgSend(v5, "qid"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](qid, "isEqual:", v10), v10, !v11) || (v12 = self->_domain == 0, objc_msgSend(v5, "domain"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14) || (domain = self->_domain) != 0 && (objc_msgSend(v5, "domain"), v16 = objc_claimAutoreleasedReturnValue(), v17 = -[NSString isEqual:](domain, "isEqual:", v16), v16, !v17) || (v18 = self->_confidence == 0, objc_msgSend(v5, "confidence"), v19 = objc_claimAutoreleasedReturnValue(), v20 = v19 != 0, v19, v18 == v20))
   {
-    goto LABEL_11;
-  }
-
-  v6 = self->_qid == 0;
-  v7 = [resultCopy qid];
-  v8 = v7 != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_11;
-  }
-
-  qid = self->_qid;
-  if (qid)
-  {
-    v10 = [v5 qid];
-    v11 = [(NSString *)qid isEqual:v10];
-
-    if (!v11)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v12 = self->_domain == 0;
-  domain = [v5 domain];
-  v14 = domain != 0;
-
-  if (v12 == v14)
-  {
-    goto LABEL_11;
-  }
-
-  domain = self->_domain;
-  if (domain)
-  {
-    domain2 = [v5 domain];
-    v17 = [(NSString *)domain isEqual:domain2];
-
-    if (!v17)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  v18 = self->_confidence == 0;
-  confidence = [v5 confidence];
-  v20 = confidence != 0;
-
-  if (v18 == v20)
-  {
-LABEL_11:
     v23 = 0;
   }
 
@@ -98,8 +46,8 @@ LABEL_11:
     confidence = self->_confidence;
     if (confidence)
     {
-      confidence2 = [v5 confidence];
-      v23 = [(NSNumber *)confidence isEqual:confidence2];
+      confidence = [v5 confidence];
+      v23 = [(NSNumber *)confidence isEqual:confidence];
     }
 
     else

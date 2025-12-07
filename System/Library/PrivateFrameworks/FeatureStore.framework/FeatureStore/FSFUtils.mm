@@ -77,7 +77,7 @@ LABEL_9:
 
 + (id)getBaseLocalPath
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   if (+[FSFUtils isPlatformiOS](FSFUtils, "isPlatformiOS") || +[FSFUtils isPlatformWatchOS](FSFUtils, "isPlatformWatchOS") || +[FSFUtils isPlatformtvOS])
   {
     v2 = @"/private/var/mobile/Library/Logs/com.apple.FeatureStore/";
@@ -86,30 +86,28 @@ LABEL_9:
   else if (+[FSFUtils isEnabledOnMacOS](FSFUtils, "isEnabledOnMacOS") && +[FSFUtils isPlatformMacOS])
   {
     geteuid();
-    bzero(v6, 0x400uLL);
+    bzero(v5, 0x400uLL);
     if (__user_local_dirname())
     {
-      v5 = [MEMORY[0x277CCACA8] stringWithUTF8String:v6];
+      v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:v5];
     }
 
     else
     {
-      v5 = NSHomeDirectory();
+      v4 = NSHomeDirectory();
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
       {
-        +[(FSFUtils *)v5];
+        +[(FSFUtils *)v4];
       }
     }
 
-    v2 = [v5 stringByAppendingString:@"com.apple.FeatureStore/"];
+    v2 = [v4 stringByAppendingString:@"com.apple.FeatureStore/"];
   }
 
   else
   {
     v2 = 0;
   }
-
-  v3 = *MEMORY[0x277D85DE8];
 
   return v2;
 }
@@ -133,25 +131,23 @@ LABEL_9:
 
 + (id)availableStreams
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   getStreamPath = [self getStreamPath];
-  v11 = 0;
-  v5 = [defaultManager contentsOfDirectoryAtPath:getStreamPath error:&v11];
-  v6 = v11;
+  v10 = 0;
+  v5 = [defaultManager contentsOfDirectoryAtPath:getStreamPath error:&v10];
+  v6 = v10;
 
   if (v6 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
   {
     getStreamPath2 = [self getStreamPath];
     v8 = [v6 debugDescription];
     *buf = 138412546;
-    v13 = getStreamPath2;
-    v14 = 2112;
-    v15 = v8;
+    v12 = getStreamPath2;
+    v13 = 2112;
+    v14 = v8;
     _os_log_impl(&dword_223066000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "Cannot get contents of stream path: %@ error: %@", buf, 0x16u);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -191,11 +187,10 @@ LABEL_9:
 
 + (void)getBaseLocalPath
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_223066000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not get user dir. Returning %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_223066000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not get user dir. Returning %@", &v1, 0xCu);
 }
 
 @end

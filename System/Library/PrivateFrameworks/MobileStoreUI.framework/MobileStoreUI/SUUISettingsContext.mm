@@ -152,19 +152,19 @@ LABEL_13:
 
 uint64_t __99__SUUISettingsContext__dequeueReusableSettingDescriptionWithReuseIdentifier_forViewElement_parent___block_invoke(uint64_t a1, id object)
 {
-  v3 = objc_getAssociatedObject(object, "com.apple.iTunesStoreUI.SUUISettingsContext.reuseIdentifier");
-  v4 = v3;
-  if (v3)
+  v2 = objc_getAssociatedObject(object, "com.apple.iTunesStoreUI.SUUISettingsContext.reuseIdentifier");
+  v3 = v2;
+  if (v2)
   {
-    v5 = [v3 isEqualToString:*(a1 + 32)];
+    isEqualToString = objc_msgSend_isEqualToString_(v2);
   }
 
   else
   {
-    v5 = 0;
+    isEqualToString = 0;
   }
 
-  return v5;
+  return isEqualToString;
 }
 
 - (void)_registerReuseClasses

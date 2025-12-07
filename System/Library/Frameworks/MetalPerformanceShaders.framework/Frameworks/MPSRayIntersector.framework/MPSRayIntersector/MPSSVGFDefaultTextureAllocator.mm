@@ -32,36 +32,36 @@
 
 - (id)textureWithPixelFormat:(MTLPixelFormat)pixelFormat width:(NSUInteger)width height:(NSUInteger)height
 {
-  v54 = *MEMORY[0x277D85DE8];
-  v49 = 0u;
-  v50 = 0u;
-  v51 = 0u;
-  v52 = 0u;
+  v35 = *MEMORY[0x277D85DE8];
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   textures = self->_textures;
-  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(textures, a2, &v49, v53, 16);
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(textures, a2, &v30, v34, 16);
   if (v10)
   {
-    v15 = v10;
-    v16 = *v50;
+    v13 = v10;
+    v14 = *v31;
 LABEL_3:
-    v17 = 0;
+    v15 = 0;
     while (1)
     {
-      if (*v50 != v16)
+      if (*v31 != v14)
       {
         objc_enumerationMutation(textures);
       }
 
-      v18 = *(*(&v49 + 1) + 8 * v17);
-      if (objc_msgSend_width(v18, v11, v12, v13, v14) == width && objc_msgSend_height(v18, v11, v12, v13, v14) == height && objc_msgSend_pixelFormat(v18, v11, v12, v13, v14) == pixelFormat)
+      v16 = *(*(&v30 + 1) + 8 * v15);
+      if (objc_msgSend_width(v16, v11, v12) == width && objc_msgSend_height(v16, v11, v12) == height && objc_msgSend_pixelFormat(v16, v11, v12) == pixelFormat)
       {
         break;
       }
 
-      if (v15 == ++v17)
+      if (v13 == ++v15)
       {
-        v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(textures, v11, &v49, v53, 16);
-        if (v15)
+        v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(textures, v11, &v30, v34, 16);
+        if (v13)
         {
           goto LABEL_3;
         }
@@ -70,47 +70,45 @@ LABEL_3:
       }
     }
 
-    if (!v18)
+    if (!v16)
     {
       goto LABEL_14;
     }
 
-    v19 = v18;
-    objc_msgSend_removeObject_(self->_textures, v20, v18, v21, v22);
-    v23 = v18;
+    v17 = v16;
+    objc_msgSend_removeObject_(self->_textures, v18, v16);
+    v19 = v16;
   }
 
   else
   {
 LABEL_14:
-    v24 = objc_alloc_init(MEMORY[0x277CD7058]);
-    objc_msgSend_setWidth_(v24, v25, width, v26, v27);
-    objc_msgSend_setHeight_(v24, v28, height, v29, v30);
-    objc_msgSend_setTextureType_(v24, v31, 2, v32, v33);
-    objc_msgSend_setPixelFormat_(v24, v34, pixelFormat, v35, v36);
-    objc_msgSend_setUsage_(v24, v37, 7, v38, v39);
-    objc_msgSend_setStorageMode_(v24, v40, 2, v41, v42);
+    v20 = objc_alloc_init(MEMORY[0x277CD7058]);
+    objc_msgSend_setWidth_(v20, v21, width);
+    objc_msgSend_setHeight_(v20, v22, height);
+    objc_msgSend_setTextureType_(v20, v23, 2);
+    objc_msgSend_setPixelFormat_(v20, v24, pixelFormat);
+    objc_msgSend_setUsage_(v20, v25, 7);
+    objc_msgSend_setStorageMode_(v20, v26, 2);
     device = self->_device;
     ++self->_allocatedTextureCount;
-    v23 = objc_msgSend_newTextureWithDescriptor_(device, v44, v24, v45, v46);
+    v19 = objc_msgSend_newTextureWithDescriptor_(device, v28, v20);
   }
 
-  result = v23;
-  v48 = *MEMORY[0x277D85DE8];
-  return result;
+  return v19;
 }
 
 - (void)returnTexture:(id)texture
 {
-  objc_msgSend_indexOfObject_(self->_textures, a2, texture, v3, v4);
-  if (objc_msgSend_indexOfObject_(self->_textures, v7, texture, v8, v9) != 0x7FFFFFFFFFFFFFFFLL)
+  objc_msgSend_indexOfObject_(self->_textures, a2, texture);
+  if (objc_msgSend_indexOfObject_(self->_textures, v5, texture) != 0x7FFFFFFFFFFFFFFFLL)
   {
-    sub_239E21D3C();
+    sub_239E21D3C(texture, v6);
   }
 
   textures = self->_textures;
 
-  objc_msgSend_addObject_(textures, v10, texture, v11, v12);
+  objc_msgSend_addObject_(textures, v6, texture);
 }
 
 @end

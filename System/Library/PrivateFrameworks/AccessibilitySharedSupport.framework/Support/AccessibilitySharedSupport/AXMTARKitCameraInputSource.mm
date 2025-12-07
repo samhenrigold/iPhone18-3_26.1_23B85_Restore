@@ -861,41 +861,42 @@ LABEL_15:
   _currentlyTrackedFaceAnchor = [(AXMTARKitCameraInputSource *)self _currentlyTrackedFaceAnchor];
   geometry = [_currentlyTrackedFaceAnchor geometry];
 
-  v67 = 0;
-  v68 = &v67;
-  v69 = 0x2020000000;
+  v68 = 0;
+  v69 = &v68;
+  v70 = 0x2020000000;
   v17 = qword_1000544C8;
-  v70 = qword_1000544C8;
+  v71 = qword_1000544C8;
   if (!qword_1000544C8)
   {
-    v65[2] = _NSConcreteStackBlock;
-    v65[3] = 3221225472;
-    v65[4] = sub_100008570;
-    v65[5] = &unk_100048BA8;
-    v66 = &v67;
+    v66[2] = _NSConcreteStackBlock;
+    v66[3] = 3221225472;
+    v66[4] = sub_100008570;
+    v66[5] = &unk_100048BA8;
+    v67 = &v68;
     v18 = sub_10000834C();
-    v68[3] = dlsym(v18, "ARNoseRidgeTip");
-    qword_1000544C8 = *(v66[1] + 24);
-    v17 = v68[3];
+    v69[3] = dlsym(v18, "ARNoseRidgeTip");
+    qword_1000544C8 = *(v67[1] + 24);
+    v17 = v69[3];
   }
 
-  _Block_object_dispose(&v67, 8);
+  _Block_object_dispose(&v68, 8);
   if (!v17)
   {
-    v59 = sub_100029794();
-    _Block_object_dispose(&v67, 8);
-    _Unwind_Resume(v59);
+    sub_100029794();
+    v60 = v59;
+    _Block_object_dispose(&v68, 8);
+    _Unwind_Resume(v60);
   }
 
-  v62 = v6;
-  v63 = v12;
+  v63 = v6;
+  v64 = v12;
   [geometry positionForLabeledFacePosition:*v17];
   [(AXMTARKitCameraInputSource *)self _project3DVertexOnto2DPlane:?];
   v20 = v19;
   v22 = v21;
   x = NSZeroPoint.x;
   y = NSZeroPoint.y;
-  v60 = v8;
+  v61 = v8;
   if ([geometry vertexCount])
   {
     v25 = 0;
@@ -971,11 +972,11 @@ LABEL_15:
     [v41 delta];
     v49 = fmin(fmax(v10 * -0.0055844577 + 9.311967, 3.593), 7.0) * v48;
     [v41 delta];
-    v51 = AXMTConstrainPointWithinBounds(v45 - v49, v47 + fmin(fmax(v63 * 0.0108096 + -8.68544, 1.0), 2.384) * v50, v62, v61, v10);
+    v51 = AXMTConstrainPointWithinBounds(v45 - v49, v47 + fmin(fmax(v64 * 0.0108096 + -8.68544, 1.0), 2.384) * v50, v63, v62, v10);
     v53 = v52;
-    *v64 = v51;
-    *&v64[1] = v52;
-    v54 = [NSValue valueWithBytes:v64 objCType:"{CGPoint=dd}"];
+    *v65 = v51;
+    *&v65[1] = v52;
+    v54 = [NSValue valueWithBytes:v65 objCType:"{CGPoint=dd}"];
     v55 = [NSMutableArray arrayWithObject:v54];
     [(AXMTARKitCameraInputSource *)self set_screenLookAtPoints:v55];
   }
@@ -986,10 +987,10 @@ LABEL_15:
     [(AXMTARKitCameraInputSource *)self set_trackingAreaPointMapper:v56];
 
     v51 = v10 * 0.5;
-    v53 = v63 * 0.5;
-    *v65 = v51;
-    *&v65[1] = v63 * 0.5;
-    v41 = [NSValue valueWithBytes:v65 objCType:"{CGPoint=dd}"];
+    v53 = v64 * 0.5;
+    *v66 = v51;
+    *&v66[1] = v64 * 0.5;
+    v41 = [NSValue valueWithBytes:v66 objCType:"{CGPoint=dd}"];
     v54 = [NSMutableArray arrayWithObject:v41];
     [(AXMTARKitCameraInputSource *)self set_screenLookAtPoints:v54];
   }

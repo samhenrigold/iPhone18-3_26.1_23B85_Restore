@@ -32,7 +32,7 @@
 
 + (void)setupSharedVirtualDeviceIfNecessary
 {
-  if (sub_100042C64())
+  if (sub_100042C64(self, a2))
   {
     [self reevaluateDeviceCleanupTimer];
     if (!qword_100218B48)
@@ -98,7 +98,7 @@
       }
 
       v7 = [AXDispatchTimer alloc];
-      v8 = sub_1000A8954();
+      v8 = sub_1000A8954(v7);
       v9 = [v7 initWithTargetSerialQueue:v8];
       v10 = qword_100218B58;
       qword_100218B58 = v9;
@@ -122,9 +122,9 @@
 
 - (id)_init
 {
-  v30.receiver = self;
-  v30.super_class = HNDVirtualHIDMouse;
-  v2 = [(HNDVirtualHIDMouse *)&v30 init];
+  v31.receiver = self;
+  v31.super_class = HNDVirtualHIDMouse;
+  v2 = [(HNDVirtualHIDMouse *)&v31 init];
   if (v2)
   {
     v3 = +[NSUUID UUID];
@@ -133,46 +133,46 @@
 
     uuid = [v2 uuid];
     uUIDString = [uuid UUIDString];
-    v26 = [NSString stringWithFormat:@"ASTVirtualHIDMouse.%@", uUIDString];
+    v27 = [NSString stringWithFormat:@"ASTVirtualHIDMouse.%@", uUIDString];
 
-    v35[0] = @"Virtual-AssistiveTouch";
-    v34[0] = @"Transport";
-    v34[1] = @"PhysicalDeviceUniqueID";
+    v36[0] = @"Virtual-AssistiveTouch";
+    v35[0] = @"Transport";
+    v35[1] = @"PhysicalDeviceUniqueID";
     uuid2 = [v2 uuid];
     uUIDString2 = [uuid2 UUIDString];
-    v35[1] = uUIDString2;
-    v34[2] = @"PrimaryUsagePage";
+    v36[1] = uUIDString2;
+    v35[2] = @"PrimaryUsagePage";
     v9 = [NSNumber numberWithUnsignedShort:1];
-    v35[2] = v9;
-    v34[3] = @"PrimaryUsage";
+    v36[2] = v9;
+    v35[3] = @"PrimaryUsage";
     v10 = [NSNumber numberWithUnsignedShort:2];
-    v35[3] = v10;
-    v35[4] = v26;
-    v34[4] = @"LocationID";
-    v34[5] = @"VendorID";
-    v35[5] = &off_1001E55C8;
-    v35[6] = &off_1001E55C8;
-    v34[6] = @"ProductID";
-    v34[7] = @"Authenticated";
-    v35[7] = &__kCFBooleanTrue;
-    v35[8] = &off_1001E55E0;
-    v34[8] = @"ReportInterval";
-    v34[9] = @"DeviceUsagePairs";
-    v31[0] = @"DeviceUsagePage";
+    v36[3] = v10;
+    v36[4] = v27;
+    v35[4] = @"LocationID";
+    v35[5] = @"VendorID";
+    v36[5] = &off_1001E55C8;
+    v36[6] = &off_1001E55C8;
+    v35[6] = @"ProductID";
+    v35[7] = @"Authenticated";
+    v36[7] = &__kCFBooleanTrue;
+    v36[8] = &off_1001E55E0;
+    v35[8] = @"ReportInterval";
+    v35[9] = @"DeviceUsagePairs";
+    v32[0] = @"DeviceUsagePage";
     v11 = [NSNumber numberWithUnsignedShort:1];
-    v31[1] = @"DeviceUsage";
-    v32[0] = v11;
+    v32[1] = @"DeviceUsage";
+    v33[0] = v11;
     v12 = [NSNumber numberWithUnsignedShort:2];
-    v32[1] = v12;
-    v13 = [NSDictionary dictionaryWithObjects:v32 forKeys:v31 count:2];
-    v33 = v13;
-    v14 = [NSArray arrayWithObjects:&v33 count:1];
-    v35[9] = v14;
-    v35[10] = &__kCFBooleanFalse;
-    v34[10] = @"HIDSupportsPointerAcceleration";
-    v34[11] = @"HIDSupportsScrollAcceleration";
-    v35[11] = &__kCFBooleanFalse;
-    v15 = [NSDictionary dictionaryWithObjects:v35 forKeys:v34 count:12];
+    v33[1] = v12;
+    v13 = [NSDictionary dictionaryWithObjects:v33 forKeys:v32 count:2];
+    v34 = v13;
+    v14 = [NSArray arrayWithObjects:&v34 count:1];
+    v36[9] = v14;
+    v36[10] = &__kCFBooleanFalse;
+    v35[10] = @"HIDSupportsPointerAcceleration";
+    v35[11] = @"HIDSupportsScrollAcceleration";
+    v36[11] = &__kCFBooleanFalse;
+    v15 = [NSDictionary dictionaryWithObjects:v36 forKeys:v35 count:12];
     v16 = *(v2 + 2);
     *(v2 + 2) = v15;
 
@@ -189,15 +189,15 @@
     v22 = *(v2 + 4);
     *(v2 + 4) = v21;
 
-    v23 = sub_1000A8954();
+    v24 = sub_1000A8954(v23);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000A8E18;
     block[3] = &unk_1001D36E8;
-    v28 = v2;
-    v29 = v23;
-    v24 = v23;
-    dispatch_sync(v24, block);
+    v29 = v2;
+    v30 = v24;
+    v25 = v24;
+    dispatch_sync(v25, block);
   }
 
   return v2;
@@ -226,23 +226,23 @@
   v6 = dispatch_time(0, 2000000000);
   dispatch_group_wait(waitForOpenGroup, v6);
 
-  v13 = 0;
-  v14 = &v13;
-  v15 = 0x2020000000;
-  v16 = 0;
-  v7 = sub_1000A8954();
-  v10[0] = _NSConcreteStackBlock;
-  v10[1] = 3221225472;
-  v10[2] = sub_1000A9088;
-  v10[3] = &unk_1001D6930;
-  v11 = eventCopy;
-  v12 = &v13;
-  v8 = eventCopy;
-  dispatch_sync(v7, v10);
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
+  v8 = sub_1000A8954(v7);
+  v11[0] = _NSConcreteStackBlock;
+  v11[1] = 3221225472;
+  v11[2] = sub_1000A9088;
+  v11[3] = &unk_1001D6930;
+  v12 = eventCopy;
+  v13 = &v14;
+  v9 = eventCopy;
+  dispatch_sync(v8, v11);
 
-  LOBYTE(v7) = *(v14 + 24);
-  _Block_object_dispose(&v13, 8);
-  return v7;
+  LOBYTE(v8) = *(v15 + 24);
+  _Block_object_dispose(&v14, 8);
+  return v8;
 }
 
 + (unint64_t)eventServiceID
@@ -270,7 +270,7 @@
   v12 = ASTLogMouse();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
-    sub_10012AB2C(x, y);
+    sub_10012AB2C(v11, x, y);
   }
 
   if (MouseEvent)
@@ -364,7 +364,7 @@
   v9 = ASTLogMouse();
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
-    sub_10012ABD0(x, y);
+    sub_10012ABD0(v8, x, y);
   }
 
   if (ScrollEvent)

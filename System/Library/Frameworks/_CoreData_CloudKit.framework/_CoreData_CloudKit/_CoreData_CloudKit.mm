@@ -5,7 +5,7 @@ id sub_23B6AF928@<X0>(id *a1@<X0>, void *a2@<X8>)
   return result;
 }
 
-void *(*sub_23B6AF970(uint64_t a1))(void *result, char a2)
+uint64_t (*sub_23B6AF970(uint64_t a1))()
 {
   *(a1 + 16) = v1;
   *a1 = [v1 databaseScope];
@@ -35,7 +35,7 @@ void *sub_23B6AF9C8(void *result, char a2)
   return result;
 }
 
-void (*NSPersistentCloudKitContainerOptions.databaseScope.modify(uint64_t *a1))(void *a1)
+uint64_t (*NSPersistentCloudKitContainerOptions.databaseScope.modify(uint64_t *a1))()
 {
   if (MEMORY[0x277D84FD8])
   {

@@ -54,7 +54,7 @@
           v11 = [v9 count];
           if (v11)
           {
-            v19 = sub_1000082E8(v11, v12, v13, v14, v15, v16, v17, v18, 0, 0, 0, 0, 0, 0, 0, 0, v41, v43.receiver, v43.super_class, v44);
+            v19 = sub_1000082E8(v11, v12, v13, v14, v15, v16, v17, v18, 0, 0, 0, 0, 0, 0, 0, 0, v41, v43.receiver, v43.super_class);
             if (v19)
             {
               v20 = v19;
@@ -86,7 +86,7 @@
                   }
                 }
 
-                v20 = sub_1000082E8(v24, v25, v26, v27, v28, v29, v30, v31, v33, v34, v35, v36, v37, v38, v39, v40, v42, v43.receiver, v43.super_class, v44);
+                v20 = sub_1000082E8(v24, v25, v26, v27, v28, v29, v30, v31, v33, v34, v35, v36, v37, v38, v39, v40, v42, v43.receiver, v43.super_class);
               }
 
               while (v20);

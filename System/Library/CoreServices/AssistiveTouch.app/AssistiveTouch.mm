@@ -451,24 +451,12 @@ void sub_1000061DC(uint64_t a1)
   *(v3 + 160) = v2;
 }
 
-id sub_1000064FC(uint64_t a1)
+id sub_1000064FC(uint64_t a1, uint64_t a2)
 {
-  v2 = ASTLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = ASTLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     if (_AXSAssistiveTouchEnabled())
-    {
-      v3 = @"YES";
-    }
-
-    else
-    {
-      v3 = @"NO";
-    }
-
-    v6 = 136315650;
-    v7 = "[HNDDeviceManager setDetectDevices:]_block_invoke";
-    if (_AXSAssistiveTouchScannerEnabled())
     {
       v4 = @"YES";
     }
@@ -478,11 +466,23 @@ id sub_1000064FC(uint64_t a1)
       v4 = @"NO";
     }
 
-    v8 = 2112;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "%s: attempting to enableMotionTrackingDevices, _AXSAssistiveTouchEnabled: %@, _AXSAssistiveTouchScannerEnabled: %@", &v6, 0x20u);
+    v7 = 136315650;
+    v8 = "[HNDDeviceManager setDetectDevices:]_block_invoke";
+    if (_AXSAssistiveTouchScannerEnabled())
+    {
+      v5 = @"YES";
+    }
+
+    else
+    {
+      v5 = @"NO";
+    }
+
+    v9 = 2112;
+    v10 = v4;
+    v11 = 2112;
+    v12 = v5;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%s: attempting to enableMotionTrackingDevices, _AXSAssistiveTouchEnabled: %@, _AXSAssistiveTouchScannerEnabled: %@", &v7, 0x20u);
   }
 
   result = _AXSAssistiveTouchEnabled();
@@ -504,9 +504,9 @@ void sub_100006960(uint64_t a1)
   [v2 updateCustomizableMouse:*(a1 + 32)];
 }
 
-void sub_100006E68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100006E68(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -572,9 +572,9 @@ void sub_100007BF4(uint64_t a1)
   [WeakRetained _checkBackboardEffectiveDeviceOrientation];
 }
 
-void sub_100008314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100008314(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -625,9 +625,9 @@ void sub_100008980(uint64_t a1, void *a2, int a3)
   _Block_object_dispose(&v8, 8);
 }
 
-void sub_100008ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100008ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -675,6 +675,13 @@ void sub_100008CE8(uint64_t a1, void *a2)
   {
     (*(*(a1 + 40) + 16))();
   }
+}
+
+void sub_100009388(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_1000093F0(uint64_t a1)
@@ -782,15 +789,18 @@ id sub_10000B030(uint64_t a1)
 
 void sub_10000B36C(id a1)
 {
-  qword_100218970 = [[SCATSwitchControlServerInstance alloc] _initServer];
+  v1 = [[SCATSwitchControlServerInstance alloc] _initServer];
+  v2 = qword_100218970;
+  qword_100218970 = v1;
 
-  _objc_release_x1();
+  _objc_release_x1(v1, v2);
 }
 
-void sub_10000CEFC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10000CEFC(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 2u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 2u);
 }
 
 void sub_10000DE80(uint64_t a1)
@@ -942,16 +952,16 @@ void sub_10000FCC8(void *a1, uint64_t a2, uint64_t a3, __IOHIDDevice *a4)
   v6 = ASTLogCommon();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412546;
-    v9 = a4;
-    v10 = 2080;
-    v11 = "matched";
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "===> IOHIDDeviceRef[%@] %s <===\n", &v8, 0x16u);
+    v9 = 138412546;
+    v10 = a4;
+    v11 = 2080;
+    v12 = "matched";
+    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "===> IOHIDDeviceRef[%@] %s <===\n", &v9, 0x16u);
   }
 
-  sub_10000FFD4(a4);
-  v7 = [a1 delegate];
-  [v7 deviceDetector:a1 didFindDevice:a4];
+  sub_10000FFD4(a4, v7);
+  v8 = [a1 delegate];
+  [v8 deviceDetector:a1 didFindDevice:a4];
 }
 
 void sub_10000FDB4(void *a1, uint64_t a2, uint64_t a3, __IOHIDDevice *a4)
@@ -960,20 +970,20 @@ void sub_10000FDB4(void *a1, uint64_t a2, uint64_t a3, __IOHIDDevice *a4)
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v10 = a4;
-    v11 = 2080;
-    v12 = "removed";
+    v11 = a4;
+    v12 = 2080;
+    v13 = "removed";
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "===> IOHIDDeviceRef[%@] %s <===\n", buf, 0x16u);
   }
 
-  sub_10000FFD4(a4);
-  v7 = [a1 delegate];
-  v8[0] = _NSConcreteStackBlock;
-  v8[1] = 3221225472;
-  v8[2] = sub_100010888;
-  v8[3] = &unk_1001D3820;
-  v8[4] = a4;
-  [v7 deviceDetector:a1 unloadDevicesPassingTest:v8];
+  sub_10000FFD4(a4, v7);
+  v8 = [a1 delegate];
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100010888;
+  v9[3] = &unk_1001D3820;
+  v9[4] = a4;
+  [v8 deviceDetector:a1 unloadDevicesPassingTest:v9];
 }
 
 void sub_10000FEE8(uint64_t a1)
@@ -983,216 +993,216 @@ void sub_10000FEE8(uint64_t a1)
   [v1 setMouseKeysEnabled:{objc_msgSend(v2, "assistiveTouchMouseKeysEnabled")}];
 }
 
-void sub_10000FFD4(__IOHIDDevice *a1)
+void sub_10000FFD4(__IOHIDDevice *a1, uint64_t a2)
 {
   if (a1)
   {
-    v2 = ASTLogCommon();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
-    {
-      v39 = 136315394;
-      v40 = "Transport";
-      v41 = 2112;
-      Property = IOHIDDeviceGetProperty(a1, @"Transport");
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
-    }
-
     v3 = ASTLogCommon();
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v4 = IOHIDDeviceGetProperty(a1, @"VendorID");
-      v39 = 136315394;
-      v40 = "VendorID";
-      v41 = 2112;
-      Property = v4;
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v40 = 136315394;
+      v41 = "Transport";
+      v42 = 2112;
+      Property = IOHIDDeviceGetProperty(a1, @"Transport");
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
 
-    v5 = ASTLogCommon();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+    v4 = ASTLogCommon();
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v6 = IOHIDDeviceGetProperty(a1, @"VendorIDSource");
-      v39 = 136315394;
-      v40 = "VendorIDSource";
-      v41 = 2112;
-      Property = v6;
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v5 = IOHIDDeviceGetProperty(a1, @"VendorID");
+      v40 = 136315394;
+      v41 = "VendorID";
+      v42 = 2112;
+      Property = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
 
-    v7 = ASTLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+    v6 = ASTLogCommon();
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
-      v8 = IOHIDDeviceGetProperty(a1, @"ProductID");
-      v39 = 136315394;
-      v40 = "ProductID";
-      v41 = 2112;
-      Property = v8;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v7 = IOHIDDeviceGetProperty(a1, @"VendorIDSource");
+      v40 = 136315394;
+      v41 = "VendorIDSource";
+      v42 = 2112;
+      Property = v7;
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
 
-    v9 = ASTLogCommon();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    v8 = ASTLogCommon();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v10 = IOHIDDeviceGetProperty(a1, @"VersionNumber");
-      v39 = 136315394;
-      v40 = "VersionNumber";
-      v41 = 2112;
-      Property = v10;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v9 = IOHIDDeviceGetProperty(a1, @"ProductID");
+      v40 = 136315394;
+      v41 = "ProductID";
+      v42 = 2112;
+      Property = v9;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
 
-    v11 = ASTLogCommon();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+    v10 = ASTLogCommon();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
     {
-      v12 = IOHIDDeviceGetProperty(a1, @"Manufacturer");
-      v39 = 136315394;
-      v40 = "Manufacturer";
-      v41 = 2112;
-      Property = v12;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v11 = IOHIDDeviceGetProperty(a1, @"VersionNumber");
+      v40 = 136315394;
+      v41 = "VersionNumber";
+      v42 = 2112;
+      Property = v11;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
 
-    v13 = ASTLogCommon();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    v12 = ASTLogCommon();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
     {
-      v14 = IOHIDDeviceGetProperty(a1, @"Product");
-      v39 = 136315394;
-      v40 = "Product";
-      v41 = 2112;
-      Property = v14;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v13 = IOHIDDeviceGetProperty(a1, @"Manufacturer");
+      v40 = 136315394;
+      v41 = "Manufacturer";
+      v42 = 2112;
+      Property = v13;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
 
-    v15 = ASTLogCommon();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+    v14 = ASTLogCommon();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v16 = IOHIDDeviceGetProperty(a1, @"SerialNumber");
-      v39 = 136315394;
-      v40 = "SerialNumber";
-      v41 = 2112;
-      Property = v16;
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v15 = IOHIDDeviceGetProperty(a1, @"Product");
+      v40 = 136315394;
+      v41 = "Product";
+      v42 = 2112;
+      Property = v15;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
 
-    v17 = ASTLogCommon();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+    v16 = ASTLogCommon();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v18 = IOHIDDeviceGetProperty(a1, @"CountryCode");
-      v39 = 136315394;
-      v40 = "CountryCode";
-      v41 = 2112;
-      Property = v18;
-      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v17 = IOHIDDeviceGetProperty(a1, @"SerialNumber");
+      v40 = 136315394;
+      v41 = "SerialNumber";
+      v42 = 2112;
+      Property = v17;
+      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
 
-    v19 = ASTLogCommon();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+    v18 = ASTLogCommon();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
     {
-      v20 = IOHIDDeviceGetProperty(a1, @"StandardType");
-      v39 = 136315394;
-      v40 = "StandardType";
-      v41 = 2112;
-      Property = v20;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v19 = IOHIDDeviceGetProperty(a1, @"CountryCode");
+      v40 = 136315394;
+      v41 = "CountryCode";
+      v42 = 2112;
+      Property = v19;
+      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
 
-    v21 = ASTLogCommon();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+    v20 = ASTLogCommon();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
     {
-      v22 = IOHIDDeviceGetProperty(a1, @"LocationID");
-      v39 = 136315394;
-      v40 = "LocationID";
-      v41 = 2112;
-      Property = v22;
-      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v21 = IOHIDDeviceGetProperty(a1, @"StandardType");
+      v40 = 136315394;
+      v41 = "StandardType";
+      v42 = 2112;
+      Property = v21;
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
 
-    v23 = ASTLogCommon();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
+    v22 = ASTLogCommon();
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
     {
-      v24 = IOHIDDeviceGetProperty(a1, @"DeviceUsage");
-      v39 = 136315394;
-      v40 = "DeviceUsage";
-      v41 = 2112;
-      Property = v24;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v23 = IOHIDDeviceGetProperty(a1, @"LocationID");
+      v40 = 136315394;
+      v41 = "LocationID";
+      v42 = 2112;
+      Property = v23;
+      _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
 
-    v25 = ASTLogCommon();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+    v24 = ASTLogCommon();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
     {
-      v26 = IOHIDDeviceGetProperty(a1, @"DeviceUsagePage");
-      v39 = 136315394;
-      v40 = "DeviceUsagePage";
-      v41 = 2112;
-      Property = v26;
-      _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v25 = IOHIDDeviceGetProperty(a1, @"DeviceUsage");
+      v40 = 136315394;
+      v41 = "DeviceUsage";
+      v42 = 2112;
+      Property = v25;
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
 
-    v27 = ASTLogCommon();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+    v26 = ASTLogCommon();
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
     {
-      v28 = IOHIDDeviceGetProperty(a1, @"DeviceUsagePairs");
-      v39 = 136315394;
-      v40 = "DeviceUsagePairs";
-      v41 = 2112;
-      Property = v28;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v27 = IOHIDDeviceGetProperty(a1, @"DeviceUsagePage");
+      v40 = 136315394;
+      v41 = "DeviceUsagePage";
+      v42 = 2112;
+      Property = v27;
+      _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
 
-    v29 = ASTLogCommon();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
+    v28 = ASTLogCommon();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
-      v30 = IOHIDDeviceGetProperty(a1, @"PrimaryUsage");
-      v39 = 136315394;
-      v40 = "PrimaryUsage";
-      v41 = 2112;
-      Property = v30;
-      _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v29 = IOHIDDeviceGetProperty(a1, @"DeviceUsagePairs");
+      v40 = 136315394;
+      v41 = "DeviceUsagePairs";
+      v42 = 2112;
+      Property = v29;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
 
-    v31 = ASTLogCommon();
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
+    v30 = ASTLogCommon();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
     {
-      v32 = IOHIDDeviceGetProperty(a1, @"PrimaryUsagePage");
-      v39 = 136315394;
-      v40 = "PrimaryUsagePage";
-      v41 = 2112;
-      Property = v32;
-      _os_log_impl(&_mh_execute_header, v31, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v31 = IOHIDDeviceGetProperty(a1, @"PrimaryUsage");
+      v40 = 136315394;
+      v41 = "PrimaryUsage";
+      v42 = 2112;
+      Property = v31;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
 
-    v33 = ASTLogCommon();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_INFO))
+    v32 = ASTLogCommon();
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
     {
-      v34 = IOHIDDeviceGetProperty(a1, @"ReportInterval");
-      v39 = 136315394;
-      v40 = "ReportInterval";
-      v41 = 2112;
-      Property = v34;
-      _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v33 = IOHIDDeviceGetProperty(a1, @"PrimaryUsagePage");
+      v40 = 136315394;
+      v41 = "PrimaryUsagePage";
+      v42 = 2112;
+      Property = v33;
+      _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
 
-    v35 = ASTLogCommon();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
+    v34 = ASTLogCommon();
+    if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
     {
-      v36 = IOHIDDeviceGetProperty(a1, @"ReportDescriptor");
-      v39 = 136315394;
-      v40 = "ReportDescriptor";
-      v41 = 2112;
-      Property = v36;
-      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v35 = IOHIDDeviceGetProperty(a1, @"ReportInterval");
+      v40 = 136315394;
+      v41 = "ReportInterval";
+      v42 = 2112;
+      Property = v35;
+      _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
 
-    v37 = ASTLogCommon();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+    v36 = ASTLogCommon();
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
     {
-      v38 = IOHIDDeviceGetProperty(a1, @"Reset");
-      v39 = 136315394;
-      v40 = "Reset";
-      v41 = 2112;
-      Property = v38;
-      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_INFO, "%s -- %@", &v39, 0x16u);
+      v37 = IOHIDDeviceGetProperty(a1, @"ReportDescriptor");
+      v40 = 136315394;
+      v41 = "ReportDescriptor";
+      v42 = 2112;
+      Property = v37;
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
+    }
+
+    v38 = ASTLogCommon();
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_INFO))
+    {
+      v39 = IOHIDDeviceGetProperty(a1, @"Reset");
+      v40 = 136315394;
+      v41 = "Reset";
+      v42 = 2112;
+      Property = v39;
+      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_INFO, "%s -- %@", &v40, 0x16u);
     }
   }
 }
@@ -1359,11 +1369,12 @@ void sub_100013F40(uint64_t a1)
   [v1 _setVirtualTrackpadEnabled:{objc_msgSend(v2, "assistiveTouchVirtualTrackpadEnabled")}];
 }
 
-void sub_100014120(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_100014120(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
-  objc_destroyWeak((v17 + 48));
+  va_start(va, location);
+  objc_destroyWeak((v16 + 48));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -1380,12 +1391,12 @@ void sub_100014154(uint64_t a1)
   }
 }
 
-id sub_100014894(uint64_t a1)
+id sub_100014894(uint64_t a1, uint64_t a2)
 {
-  [HNDHandManager screenFrame:]_0();
-  v2 = *(a1 + 32);
+  v3 = [HNDHandManager screenFrame:]_0(a1, a2);
+  v4 = *(a1 + 32);
 
-  return [v2 initializeScreenBounds];
+  return [v4 initializeScreenBounds];
 }
 
 void sub_100015168(uint64_t a1)
@@ -1564,106 +1575,106 @@ void sub_10001A478(uint64_t a1)
   }
 }
 
-id sub_10001B268(uint64_t a1)
+id sub_10001B268(uint64_t a1, uint64_t a2)
 {
-  v2 = ASTLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = ASTLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 40);
-    v5[0] = 67109120;
-    v5[1] = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "AST Handling orientation change: (hidden: %d)", v5, 8u);
+    v4 = *(a1 + 40);
+    v6[0] = 67109120;
+    v6[1] = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "AST Handling orientation change: (hidden: %d)", v6, 8u);
   }
 
   ++qword_100218990;
   return [*(a1 + 32) _updateViewsForOrientation];
 }
 
-void sub_10001B328(uint64_t a1)
+void sub_10001B328(uint64_t a1, uint64_t a2)
 {
-  v2 = ASTLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = ASTLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(a1 + 64);
+    v4 = *(a1 + 64);
     *buf = 67109120;
-    v23 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "AST windows: set windows visible again (rocker hidden: %d)", buf, 8u);
+    v24 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "AST windows: set windows visible again (rocker hidden: %d)", buf, 8u);
   }
 
   [*(*(a1 + 32) + 32) setHidden:0];
   [*(*(a1 + 32) + 40) setHidden:0];
   if ([*(a1 + 32) inNubbitMode] && (*(a1 + 64) & 1) == 0)
   {
-    v4 = *(a1 + 32);
-    [v4 _nubbitPointForEdgePosition];
-    [v4 _validateNubbitPosition:0 forKeyboard:?];
-    v7 = v5;
+    v5 = *(a1 + 32);
+    [v5 _nubbitPointForEdgePosition];
+    [v5 _validateNubbitPosition:0 forKeyboard:?];
     v8 = v6;
-    v9 = *(a1 + 32);
-    if (*(v9 + 1380) == 1)
+    v9 = v7;
+    v10 = *(a1 + 32);
+    if (*(v10 + 1380) == 1)
     {
-      v10 = [v9 _position:v5 isOverKeyboard:{v6, *(v9 + 1616), *(v9 + 1624), *(v9 + 1632), *(v9 + 1640)}];
-      v9 = *(a1 + 32);
-      if (v10)
+      v11 = [v10 _position:v6 isOverKeyboard:{v7, *(v10 + 1616), *(v10 + 1624), *(v10 + 1632), *(v10 + 1640)}];
+      v10 = *(a1 + 32);
+      if (v11)
       {
-        [v9 _nubbitPositionForKeyboardFrame:{*(v9 + 1616), *(v9 + 1624), *(v9 + 1632), *(v9 + 1640)}];
-        v7 = v11;
+        [v10 _nubbitPositionForKeyboardFrame:{*(v10 + 1616), *(v10 + 1624), *(v10 + 1632), *(v10 + 1640)}];
         v8 = v12;
-        v9 = *(a1 + 32);
+        v9 = v13;
+        v10 = *(a1 + 32);
       }
     }
 
-    v13 = [v9 activeRocker];
-    [v13 transitionMenuToNubbit:0 changeAlpha:0 animate:{v7, v8}];
+    v14 = [v10 activeRocker];
+    [v14 transitionMenuToNubbit:0 changeAlpha:0 animate:{v8, v9}];
   }
 
-  v14 = [*(a1 + 32) trackpadViewController];
-  [v14 handleOrientationChange];
+  v15 = [*(a1 + 32) trackpadViewController];
+  [v15 handleOrientationChange];
 
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_10001B58C;
-  v18[3] = &unk_1001D3B48;
-  v15 = *(a1 + 40);
-  v19 = *(a1 + 32);
-  v21 = *(a1 + 64);
-  v20 = *(a1 + 48);
-  v16[0] = _NSConcreteStackBlock;
-  v16[1] = 3221225472;
-  v16[2] = sub_10001B6AC;
-  v16[3] = &unk_1001D3B70;
-  v16[4] = v19;
-  v17 = v15;
-  [UIView animateWithDuration:v18 animations:v16 completion:0.2];
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_10001B58C;
+  v19[3] = &unk_1001D3B48;
+  v16 = *(a1 + 40);
+  v20 = *(a1 + 32);
+  v22 = *(a1 + 64);
+  v21 = *(a1 + 48);
+  v17[0] = _NSConcreteStackBlock;
+  v17[1] = 3221225472;
+  v17[2] = sub_10001B6AC;
+  v17[3] = &unk_1001D3B70;
+  v17[4] = v20;
+  v18 = v16;
+  [UIView animateWithDuration:v19 animations:v17 completion:0.2];
 }
 
-void sub_10001B58C(uint64_t a1)
+void sub_10001B58C(uint64_t a1, uint64_t a2)
 {
   if (!--qword_100218990)
   {
-    v2 = ASTLogCommon();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+    v3 = ASTLogCommon();
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      v3 = *(*(a1 + 32) + 1232);
-      v8[0] = 67109120;
-      v8[1] = v3;
-      _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "AST: orientation finished: visuals still hidden? %d", v8, 8u);
+      v4 = *(*(a1 + 32) + 1232);
+      v9[0] = 67109120;
+      v9[1] = v4;
+      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "AST: orientation finished: visuals still hidden? %d", v9, 8u);
     }
 
-    v4 = *(a1 + 32);
-    if ((v4[1232] & 1) == 0)
+    v5 = *(a1 + 32);
+    if ((v5[1232] & 1) == 0)
     {
       if ((*(a1 + 56) & 1) == 0)
       {
-        v5 = [v4 activeRocker];
-        [v5 setAlpha:*(a1 + 40)];
+        v6 = [v5 activeRocker];
+        [v6 setAlpha:*(a1 + 40)];
 
-        v4 = *(a1 + 32);
+        v5 = *(a1 + 32);
       }
 
-      v6 = [v4 trackpadViewController];
-      v7 = [v6 view];
-      [v7 setAlpha:*(a1 + 48)];
+      v7 = [v5 trackpadViewController];
+      v8 = [v7 view];
+      [v8 setAlpha:*(a1 + 48)];
     }
   }
 }
@@ -1881,23 +1892,23 @@ LABEL_9:
 LABEL_20:
 }
 
-void sub_10001DB54(uint64_t a1)
+void sub_10001DB54(uint64_t a1, uint64_t a2)
 {
-  v2 = ASTLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = ASTLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = NSStringFromPoint(*(a1 + 40));
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Moving bubble notification to pos: %@.", &v9, 0xCu);
+    v4 = NSStringFromPoint(*(a1 + 40));
+    v10 = 138412290;
+    v11 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Moving bubble notification to pos: %@.", &v10, 0xCu);
   }
 
-  v4 = *(a1 + 40);
-  v5 = *(a1 + 48);
-  v6 = *(a1 + 72);
-  v7 = *(a1 + 80);
-  v8 = [*(*(a1 + 32) + 152) bannerView];
-  [v8 setFrame:{v4, v5, v6, v7}];
+  v5 = *(a1 + 40);
+  v6 = *(a1 + 48);
+  v7 = *(a1 + 72);
+  v8 = *(a1 + 80);
+  v9 = [*(*(a1 + 32) + 152) bannerView];
+  [v9 setFrame:{v5, v6, v7, v8}];
 }
 
 id sub_10001EECC(uint64_t a1)
@@ -1946,10 +1957,11 @@ void sub_10001FA04(uint64_t a1)
   [WeakRetained _updateViewsForOrientation];
 }
 
-void sub_100020478(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100020478(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, &a9, 2u);
+  _os_log_fault_impl(a1, a2, OS_LOG_TYPE_FAULT, a4, va, 2u);
 }
 
 id sub_100022458(uint64_t a1)
@@ -1974,10 +1986,11 @@ id sub_100022A70(uint64_t a1)
   return [v2 resumeScanning];
 }
 
-void sub_100022F78(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_100022F78(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 2u);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 2u);
 }
 
 void sub_100022FA0(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -2187,24 +2200,24 @@ void sub_100024F40(uint64_t a1)
   objc_destroyWeak(&v3);
 }
 
-void sub_100025028(uint64_t a1)
+void sub_100025028(uint64_t a1, uint64_t a2)
 {
-  v2 = ASTLogCommon();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = ASTLogCommon();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v3 = *(*(a1 + 32) + 8);
-    v9[0] = 67109120;
-    v9[1] = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_INFO, "AST Windows: handManager orientation: %d", v9, 8u);
+    v4 = *(*(a1 + 32) + 8);
+    v10[0] = 67109120;
+    v10[1] = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_INFO, "AST Windows: handManager orientation: %d", v10, 8u);
   }
 
-  v4 = [*(a1 + 32) mainDisplayManager];
-  [v4 setOrientation:*(*(a1 + 32) + 8) withCompletion:0];
-
   v5 = [*(a1 + 32) mainDisplayManager];
-  v6 = [v5 orientation];
+  [v5 setOrientation:*(*(a1 + 32) + 8) withCompletion:0];
 
-  if (v6)
+  v6 = [*(a1 + 32) mainDisplayManager];
+  v7 = [v6 orientation];
+
+  if (v7)
   {
     [*(a1 + 32) setRefreshOrientationBackoffCount:0];
     [*(a1 + 32) setIsRefreshingOrientation:0];
@@ -2213,8 +2226,8 @@ void sub_100025028(uint64_t a1)
   else
   {
     [*(a1 + 32) setRefreshOrientationBackoffCount:{objc_msgSend(*(a1 + 32), "refreshOrientationBackoffCount") + 1}];
-    v7 = ASTLogCommon();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = ASTLogCommon();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_100128A3C();
     }
@@ -2239,7 +2252,7 @@ void sub_100025410(uint64_t a1, void *a2)
   [v5 restartWithCompletion:v6];
 }
 
-void sub_1000254A4(uint64_t a1)
+void sub_1000254A4(uint64_t a1, uint64_t a2)
 {
   if (_AXSAssistiveTouchScannerEnabled())
   {
@@ -2247,9 +2260,9 @@ void sub_1000254A4(uint64_t a1)
     AXPerformBlockAsynchronouslyOnMainThread();
   }
 
-  v2 = *(a1 + 32);
-  v3 = [*(a1 + 40) deviceManager];
-  [v2 deviceCountChanged:{objc_msgSend(v3, "deviceCount")}];
+  v3 = *(a1 + 32);
+  v4 = [*(a1 + 40) deviceManager];
+  [v3 deviceCountChanged:{objc_msgSend(v4, "deviceCount")}];
 }
 
 void sub_100025520(id a1)
@@ -2382,9 +2395,9 @@ LABEL_35:
   [v9 cancelDwellTimer];
 }
 
-void sub_100025F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100025F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2417,11 +2430,12 @@ void sub_1000263A0(uint64_t a1)
   [WeakRetained reloadFingerAppearance];
 }
 
-void sub_100026A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_100026A04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
 {
+  va_start(va, a30);
   _Block_object_dispose(&a27, 8);
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 160), 8);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 160), 8);
   _Unwind_Resume(a1);
 }
 
@@ -3218,9 +3232,9 @@ LABEL_13:
   }
 }
 
-void sub_10002DABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002DABC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3243,9 +3257,9 @@ uint64_t sub_10002DAD4(uint64_t a1, void *a2)
   return result;
 }
 
-void sub_10002DBC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002DBC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3363,9 +3377,9 @@ void sub_10002E8B8(uint64_t a1, void *a2)
   }
 }
 
-void sub_10002F4FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002F4FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3406,9 +3420,9 @@ void sub_10002F710(id a1, HNDDisplayManager *a2)
   [v2 cancelGesture];
 }
 
-void sub_10002F7F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002F7F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3428,9 +3442,9 @@ void sub_10002F810(uint64_t a1, void *a2)
   }
 }
 
-void sub_10002F92C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002F92C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3475,9 +3489,9 @@ id sub_10002FD78(uint64_t a1)
   }
 }
 
-void sub_10002FF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002FF54(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3566,9 +3580,9 @@ id sub_100030DF4(uint64_t a1)
   return [v2 cleanup];
 }
 
-void sub_10003102C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10003102C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3897,9 +3911,9 @@ id sub_1000368C4(uint64_t a1)
   return result;
 }
 
-void sub_10003746C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_10003746C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
+  va_start(va, a17);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3967,9 +3981,9 @@ void sub_1000375CC(id a1)
   qword_1002189F8 = v1;
 }
 
-void sub_100037B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100037B50(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4168,27 +4182,27 @@ void sub_10003DCA4(uint64_t a1)
   (*(v1 + 16))(v1, v2);
 }
 
-void sub_10003DDD0(uint64_t a1)
+void sub_10003DDD0(uint64_t a1, uint64_t a2)
 {
-  v2 = SWCHLogHW();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = SWCHLogHW();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    sub_1001290D8(a1, v2);
+    sub_1001290D8(a1, v3);
   }
 
   if (*(*(a1 + 48) + 16))
   {
-    v3 = [*(a1 + 32) addressString];
-    v4 = [v3 UTF8String];
+    v4 = [*(a1 + 32) addressString];
+    v5 = [v4 UTF8String];
 
-    WORD2(v13) = 0;
-    LODWORD(v13) = 0;
+    WORD2(v14) = 0;
+    LODWORD(v14) = 0;
     BTDeviceAddressFromString();
-    v12 = 0;
+    v13 = 0;
     if (BTDeviceFromAddress())
     {
-      v5 = SWCHLogHW();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = SWCHLogHW();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         sub_100129170();
       }
@@ -4196,57 +4210,57 @@ void sub_10003DDD0(uint64_t a1)
 
     else
     {
-      v8 = [*(a1 + 40) length];
-      [*(a1 + 40) getBytes:&v12 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0) length:v8];
+      v9 = [*(a1 + 40) length];
+      [*(a1 + 40) getBytes:&v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0) length:v9];
       [*(a1 + 40) length];
       BTAccessoryManagerSendCustomMessage();
-      v9 = SWCHLogHW();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v10 = SWCHLogHW();
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        v10 = *(a1 + 56);
-        v11 = *(a1 + 40);
+        v11 = *(a1 + 56);
+        v12 = *(a1 + 40);
         *buf = 67109634;
-        *v15 = v10;
-        *&v15[4] = 2112;
-        *&v15[6] = v11;
-        v16 = 2080;
-        v17 = v4;
-        _os_log_debug_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "sent custom message type %d data %@ to device %s", buf, 0x1Cu);
+        *v16 = v11;
+        *&v16[4] = 2112;
+        *&v16[6] = v12;
+        v17 = 2080;
+        v18 = v5;
+        _os_log_debug_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEBUG, "sent custom message type %d data %@ to device %s", buf, 0x1Cu);
       }
     }
   }
 
   else
   {
-    v6 = SWCHLogHW();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SWCHLogHW();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 138412290;
-      *v15 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Went to send custom message to device %@ but we had no session.", buf, 0xCu);
+      *v16 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Went to send custom message to device %@ but we had no session.", buf, 0xCu);
     }
   }
 }
 
-void sub_10003E0D8(uint64_t a1)
+void sub_10003E0D8(uint64_t a1, uint64_t a2)
 {
-  v2 = SWCHLogHW();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
+  v3 = SWCHLogHW();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    sub_1001291D8(a1, v2);
+    sub_1001291D8(a1, v3);
   }
 
   if (*(*(a1 + 40) + 16))
   {
-    v3 = [*(a1 + 32) addressString];
-    v4 = [v3 UTF8String];
+    v4 = [*(a1 + 32) addressString];
+    v5 = [v4 UTF8String];
 
     BTDeviceAddressFromString();
     if (BTDeviceFromAddress())
     {
-      v5 = SWCHLogHW();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = SWCHLogHW();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         sub_100129270();
       }
@@ -4254,34 +4268,34 @@ void sub_10003E0D8(uint64_t a1)
 
     else
     {
-      v8 = BTAccessoryManagerSendControlCommand();
-      v5 = SWCHLogHW();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+      v9 = BTAccessoryManagerSendControlCommand();
+      v6 = SWCHLogHW();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
       {
-        v9 = *(a1 + 52);
-        v10 = *(a1 + 48);
+        v10 = *(a1 + 52);
+        v11 = *(a1 + 48);
         *buf = 67109890;
-        *v12 = v9;
-        *&v12[4] = 1024;
-        *&v12[6] = v10;
-        v13 = 2080;
-        v14 = v4;
-        v15 = 1024;
-        v16 = v8;
-        _os_log_debug_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEBUG, "sent control message type %d value %u to device %s result %d", buf, 0x1Eu);
+        *v13 = v10;
+        *&v13[4] = 1024;
+        *&v13[6] = v11;
+        v14 = 2080;
+        v15 = v5;
+        v16 = 1024;
+        v17 = v9;
+        _os_log_debug_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEBUG, "sent control message type %d value %u to device %s result %d", buf, 0x1Eu);
       }
     }
   }
 
   else
   {
-    v6 = SWCHLogHW();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = SWCHLogHW();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = *(a1 + 32);
+      v8 = *(a1 + 32);
       *buf = 138412290;
-      *v12 = v7;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Went to send configuration message to device %@ but we had no session.", buf, 0xCu);
+      *v13 = v8;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Went to send configuration message to device %@ but we had no session.", buf, 0xCu);
     }
   }
 }
@@ -4619,11 +4633,12 @@ uint64_t sub_10003FE2C(void *a1, uint64_t a2, uint64_t a3, const void *a4)
 
   if (IOHIDEventGetType() != 14)
   {
-    if (IOHIDEventGetType() == 17 && sub_100042C64())
+    Type = IOHIDEventGetType();
+    if (Type == 17 && sub_100042C64(Type, v18))
     {
-      v17 = ASTLogEventManagement();
-      v14 = v17;
-      if (v10 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v17))
+      v19 = ASTLogEventManagement();
+      v14 = v19;
+      if (v10 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v19))
       {
         goto LABEL_36;
       }
@@ -4636,12 +4651,12 @@ uint64_t sub_10003FE2C(void *a1, uint64_t a2, uint64_t a3, const void *a4)
     v14 = a1;
     if (![v14 isCapturingEvents]|| ([v14 shouldCaptureEvent:a4]& 1) == 0)
     {
-      v22 = ASTLogEventManagement();
-      v23 = v22;
-      if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
+      v24 = ASTLogEventManagement();
+      v25 = v24;
+      if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v23, OS_SIGNPOST_INTERVAL_END, v7, "IOHIDEventFilterCallback event tap with priority:kAssistiveTouchEventFilterPriority", "For reason: !isCapturingEvents || !shouldCaptureEvent", buf, 2u);
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v25, OS_SIGNPOST_INTERVAL_END, v7, "IOHIDEventFilterCallback event tap with priority:kAssistiveTouchEventFilterPriority", "For reason: !isCapturingEvents || !shouldCaptureEvent", buf, 2u);
       }
 
       goto LABEL_36;
@@ -4649,99 +4664,99 @@ uint64_t sub_10003FE2C(void *a1, uint64_t a2, uint64_t a3, const void *a4)
 
     IsSwitchControlRunning = UIAccessibilityIsSwitchControlRunning();
     *buf = 0;
-    v43 = buf;
-    v44 = 0x3032000000;
-    v45 = sub_100040958;
-    v46 = sub_100040968;
-    v47 = 0;
+    v45 = buf;
+    v46 = 0x3032000000;
+    v47 = sub_100040958;
+    v48 = sub_100040968;
+    v49 = 0;
     if (IsSwitchControlRunning)
     {
       if ([v14 _shouldSwitchControlIgnoreHIDEvent:a4])
       {
-        v19 = ASTLogEventManagement();
-        v20 = v19;
-        if (v10 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v19))
+        v21 = ASTLogEventManagement();
+        v22 = v21;
+        if (v10 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v21))
         {
           goto LABEL_53;
         }
 
-        *v41 = 0;
-        v21 = "For reason: _shouldSwitchControlIgnoreHIDEvent";
+        *v43 = 0;
+        v23 = "For reason: _shouldSwitchControlIgnoreHIDEvent";
 LABEL_52:
-        _os_signpost_emit_with_name_impl(&_mh_execute_header, v20, OS_SIGNPOST_INTERVAL_END, v7, "IOHIDEventFilterCallback event tap with priority:kAssistiveTouchEventFilterPriority", v21, v41, 2u);
+        _os_signpost_emit_with_name_impl(&_mh_execute_header, v22, OS_SIGNPOST_INTERVAL_END, v7, "IOHIDEventFilterCallback event tap with priority:kAssistiveTouchEventFilterPriority", v23, v43, 2u);
 LABEL_53:
-        v24 = 0;
+        v26 = 0;
 LABEL_54:
 
         _Block_object_dispose(buf, 8);
         goto LABEL_37;
       }
 
-      v34 = +[SCATScannerManager sharedManager];
-      v35 = sub_100040970();
-      v36 = [v34 isSwitchWithSource:v35];
+      v36 = +[SCATScannerManager sharedManager];
+      v37 = sub_100040970(a4);
+      v38 = [v36 isSwitchWithSource:v37];
 
-      if ((v36 & 1) == 0)
+      if ((v38 & 1) == 0)
       {
-        v39 = ASTLogEventManagement();
-        v20 = v39;
-        if (v10 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v39))
+        v41 = ASTLogEventManagement();
+        v22 = v41;
+        if (v10 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v41))
         {
           goto LABEL_53;
         }
 
-        *v41 = 0;
-        v21 = "For reason: isSwitchWithSource";
+        *v43 = 0;
+        v23 = "For reason: isSwitchWithSource";
         goto LABEL_52;
       }
     }
 
     else
     {
-      v26 = [v14 delegate];
-      v27 = [v26 isPerformingGesture];
+      v28 = [v14 delegate];
+      v29 = [v28 isPerformingGesture];
 
-      if (v27)
+      if (v29)
       {
-        v28 = [AXEventRepresentation representationWithHIDEvent:a4 hidStreamIdentifier:@"AST-IOHIDFilter"];
-        v29 = *(v43 + 5);
-        *(v43 + 5) = v28;
+        v30 = [AXEventRepresentation representationWithHIDEvent:a4 hidStreamIdentifier:@"AST-IOHIDFilter"];
+        v31 = *(v45 + 5);
+        *(v45 + 5) = v30;
 
-        v30 = [*(v43 + 5) handInfo];
-        v31 = [v30 eventType];
+        v32 = [*(v45 + 5) handInfo];
+        v33 = [v32 eventType];
 
-        if (v31 == 1)
+        if (v33 == 1)
         {
-          v32 = [v14 delegate];
-          [v32 cancelCurrentGesture];
+          v34 = [v14 delegate];
+          [v34 cancelCurrentGesture];
 
-          v33 = ASTLogEventManagement();
-          v20 = v33;
-          if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
+          v35 = ASTLogEventManagement();
+          v22 = v35;
+          if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
           {
-            *v41 = 0;
-            _os_signpost_emit_with_name_impl(&_mh_execute_header, v20, OS_SIGNPOST_INTERVAL_END, v7, "IOHIDEventFilterCallback event tap with priority:kAssistiveTouchEventFilterPriority", "For reason: kAXEventHandTouched", v41, 2u);
+            *v43 = 0;
+            _os_signpost_emit_with_name_impl(&_mh_execute_header, v22, OS_SIGNPOST_INTERVAL_END, v7, "IOHIDEventFilterCallback event tap with priority:kAssistiveTouchEventFilterPriority", "For reason: kAXEventHandTouched", v43, 2u);
           }
 
-          v24 = 1;
+          v26 = 1;
           goto LABEL_54;
         }
       }
     }
 
     CFRetain(a4);
-    v40 = v14;
+    v42 = v14;
     AXPerformBlockAsynchronouslyOnMainThread();
-    v37 = ASTLogEventManagement();
-    v38 = v37;
-    if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v37))
+    v39 = ASTLogEventManagement();
+    v40 = v39;
+    if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v39))
     {
-      *v41 = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v38, OS_SIGNPOST_INTERVAL_END, v7, "IOHIDEventFilterCallback event tap with priority:kAssistiveTouchEventFilterPriority", "", v41, 2u);
+      *v43 = 0;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v40, OS_SIGNPOST_INTERVAL_END, v7, "IOHIDEventFilterCallback event tap with priority:kAssistiveTouchEventFilterPriority", "", v43, 2u);
     }
 
-    v24 = 1;
-    v20 = v40;
+    v26 = 1;
+    v22 = v42;
     goto LABEL_54;
   }
 
@@ -4757,15 +4772,15 @@ LABEL_54:
 LABEL_19:
   _os_signpost_emit_with_name_impl(&_mh_execute_header, v14, OS_SIGNPOST_INTERVAL_END, v7, "IOHIDEventFilterCallback event tap with priority:kAssistiveTouchEventFilterPriority", v15, buf, 2u);
 LABEL_36:
-  v24 = 0;
+  v26 = 0;
 LABEL_37:
 
-  return v24;
+  return v26;
 }
 
-void sub_1000403D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000403D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4777,15 +4792,15 @@ uint64_t sub_100040958(uint64_t result, uint64_t a2)
   return result;
 }
 
-id sub_100040970()
+id sub_100040970(uint64_t a1)
 {
   Type = IOHIDEventGetType();
-  v1 = 0;
+  v2 = 0;
   if (Type > 10)
   {
     if (Type == 11)
     {
-      v3 = &SCATSwitchSourceScreen;
+      v4 = &SCATSwitchSourceScreen;
       goto LABEL_13;
     }
 
@@ -4799,7 +4814,7 @@ id sub_100040970()
   {
     if (Type == 2)
     {
-      v3 = &SCATSwitchSourceMFI;
+      v4 = &SCATSwitchSourceMFI;
       goto LABEL_13;
     }
 
@@ -4811,23 +4826,23 @@ id sub_100040970()
     IntegerValue = IOHIDEventGetIntegerValue();
     if (IntegerValue == 7)
     {
-      v3 = &SCATSwitchSourceKeyboard;
+      v4 = &SCATSwitchSourceKeyboard;
       goto LABEL_13;
     }
 
     if (IntegerValue != 12)
     {
-      v1 = 0;
+      v2 = 0;
       goto LABEL_14;
     }
   }
 
-  v3 = &SCATSwitchSourceGamepad;
+  v4 = &SCATSwitchSourceGamepad;
 LABEL_13:
-  v1 = *v3;
+  v2 = *v4;
 LABEL_14:
 
-  return v1;
+  return v2;
 }
 
 void sub_100040A2C(uint64_t a1)
@@ -5109,26 +5124,26 @@ uint64_t sub_1000425F8()
   return result;
 }
 
-void sub_100042790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100042790(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-double sub_1000427AC(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4)
+double sub_1000427AC(uint64_t a1, uint64_t a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
 {
-  v15.origin.x = [HNDHandManager screenFrame:]_0();
-  v15.origin.y = v8;
-  v15.size.width = v9;
-  v15.size.height = v10;
-  v13.origin.x = a1;
-  v13.origin.y = a2;
-  v13.size.width = a3;
-  v13.size.height = a4;
-  v14 = CGRectIntersection(v13, v15);
-  x = v14.origin.x;
-  if (CGRectIsNull(v14))
+  v17.origin.x = [HNDHandManager screenFrame:]_0(a1, a2);
+  v17.origin.y = v10;
+  v17.size.width = v11;
+  v17.size.height = v12;
+  v15.origin.x = a3;
+  v15.origin.y = a4;
+  v15.size.width = a5;
+  v15.size.height = a6;
+  v16 = CGRectIntersection(v15, v17);
+  x = v16.origin.x;
+  if (CGRectIsNull(v16))
   {
     return CGRectZero.origin.x;
   }
@@ -5255,7 +5270,7 @@ LABEL_15:
   return v4;
 }
 
-uint64_t sub_100042C64()
+uint64_t sub_100042C64(uint64_t a1, uint64_t a2)
 {
   if (qword_100218A50 != -1)
   {
@@ -5291,7 +5306,7 @@ uint64_t sub_100042D94()
   return byte_100218A28;
 }
 
-void sub_100042F54(uint64_t a1, int a2, double *a3, uint64_t a4, double a5, double a6, double a7, double a8, double a9, double a10)
+void sub_100042F54(uint64_t a1, int a2, double *a3, uint64_t a4, double a5, double a6, __n128 a7, __n128 a8, __n128 a9, __n128 a10)
 {
   if (a4)
   {
@@ -5299,8 +5314,9 @@ void sub_100042F54(uint64_t a1, int a2, double *a3, uint64_t a4, double a5, doub
     v14 = a3 + 1;
     do
     {
-      *(v14 - 1) = (*(*(a1 + 40) + 16))(*(v14 - 1), *v14);
-      *v14 = v15;
+      a5 = (*(*(a1 + 40) + 16))(*(v14 - 1), *v14, a7, a8, a9, a10);
+      *(v14 - 1) = a5;
+      *v14 = a6;
       v14 += 2;
       --v13;
     }
@@ -5314,21 +5330,21 @@ void sub_100042F54(uint64_t a1, int a2, double *a3, uint64_t a4, double a5, doub
     {
       if (a2 == 1)
       {
-        v17 = *(a1 + 32);
-        v18 = *a3;
-        v19 = a3[1];
+        v16 = *(a1 + 32);
+        v17 = *a3;
+        v18 = a3[1];
 
-        [v17 addLineToPoint:{v18, v19}];
+        [v16 addLineToPoint:{v17, v18, a7.n128_f64[0], a8.n128_f64[0], a9.n128_f64[0], a10.n128_f64[0]}];
       }
     }
 
     else
     {
-      v32 = *(a1 + 32);
-      v33 = *a3;
-      v34 = a3[1];
+      v31 = *(a1 + 32);
+      v32 = *a3;
+      v33 = a3[1];
 
-      [v32 moveToPoint:{v33, v34}];
+      [v31 moveToPoint:{v32, v33, a7.n128_f64[0], a8.n128_f64[0], a9.n128_f64[0], a10.n128_f64[0]}];
     }
   }
 
@@ -5337,64 +5353,64 @@ void sub_100042F54(uint64_t a1, int a2, double *a3, uint64_t a4, double a5, doub
     switch(a2)
     {
       case 2:
-        v20 = *(a1 + 32);
-        v21 = a3[2];
-        v22 = a3[3];
-        v23 = *a3;
-        v24 = a3[1];
+        v19 = *(a1 + 32);
+        v20 = a3[2];
+        v21 = a3[3];
+        v22 = *a3;
+        v23 = a3[1];
 
-        [v20 addQuadCurveToPoint:v21 controlPoint:{v22, v23, v24, a9, a10}];
+        [v19 addQuadCurveToPoint:v20 controlPoint:{v21, v22, v23, a9.n128_f64[0], a10.n128_f64[0]}];
         break;
       case 3:
-        v25 = *(a1 + 32);
-        v26 = a3[4];
-        v27 = a3[5];
-        v28 = *a3;
-        v29 = a3[1];
-        v30 = a3[2];
-        v31 = a3[3];
+        v24 = *(a1 + 32);
+        v25 = a3[4];
+        v26 = a3[5];
+        v27 = *a3;
+        v28 = a3[1];
+        v29 = a3[2];
+        v30 = a3[3];
 
-        [v25 addCurveToPoint:v26 controlPoint1:v27 controlPoint2:{v28, v29, v30, v31}];
+        [v24 addCurveToPoint:v25 controlPoint1:v26 controlPoint2:{v27, v28, v29, v30}];
         break;
       case 4:
-        v16 = *(a1 + 32);
+        v15 = *(a1 + 32);
 
-        [v16 closePath];
+        [v15 closePath];
         break;
     }
   }
 }
 
-uint64_t sub_100043C20()
+uint64_t sub_100043C20(uint64_t a1, uint64_t a2)
 {
   if (byte_100218A38 == 1)
   {
-    v1 = byte_100218A39;
-    return v1 & 1;
+    v3 = byte_100218A39;
+    return v3 & 1;
   }
 
   if (AXDeviceHasHomeButton())
   {
-    v1 = 0;
-    return v1 & 1;
+    v3 = 0;
+    return v3 & 1;
   }
 
   return AXDeviceIsPhone();
 }
 
-uint64_t sub_100043C74()
+uint64_t sub_100043C74(uint64_t a1, uint64_t a2)
 {
   if (byte_100218A3A == 1)
   {
-    v0 = byte_100218A3B;
+    v2 = byte_100218A3B;
   }
 
   else
   {
-    v0 = AXDeviceHasHomeButton() ^ 1;
+    v2 = AXDeviceHasHomeButton() ^ 1;
   }
 
-  return v0 & 1;
+  return v2 & 1;
 }
 
 void sub_100043CB4(uint64_t a1)
@@ -5490,10 +5506,11 @@ void sub_100043E68(uint64_t a1)
   [v6 endUsingFeedback:a1];
 }
 
-HNDButtonStateContainer *sub_10004401C(unsigned int a1, unsigned int a2)
+HNDButtonStateContainer *sub_10004401C(unsigned int a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = sub_100044278(a1);
-  sub_100044278(a2);
+  sub_100044278(v2);
   v22[0] = _NSConcreteStackBlock;
   v22[1] = 3221225472;
   v22[2] = sub_100044314;
@@ -5530,7 +5547,7 @@ HNDButtonStateContainer *sub_10004401C(unsigned int a1, unsigned int a2)
     v11 = ASTLogMouse();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
-      sub_1001295B8(a1, a2, v11);
+      sub_1001295B8(a1, v2, v11);
     }
   }
 
@@ -5606,7 +5623,7 @@ uint64_t sub_1000443FC()
   return v0;
 }
 
-uint64_t sub_1000444F4()
+uint64_t sub_1000444F4(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_100218A60 = result;
@@ -6285,12 +6302,12 @@ void sub_10004A9D0(uint64_t a1)
   [WeakRetained resetVisibility:0];
 }
 
-void sub_10004BFB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_10004BFB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, ...)
 {
-  va_start(va, a16);
+  va_start(va, a23);
   objc_destroyWeak(va);
-  objc_destroyWeak((v16 - 208));
-  objc_destroyWeak((v16 - 200));
+  objc_destroyWeak((v23 - 208));
+  objc_destroyWeak((v23 - 200));
   _Unwind_Resume(a1);
 }
 
@@ -6359,9 +6376,9 @@ id sub_10004CA94(uint64_t a1)
   return [v2 setSelected:1];
 }
 
-void sub_10004D09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10004D09C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6382,6 +6399,13 @@ void sub_10004D0CC(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
     *a4 = 1;
   }
+}
+
+void sub_10004D934(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, ...)
+{
+  va_start(va, a26);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_10004D954(uint64_t a1)
@@ -7168,9 +7192,9 @@ void sub_10005589C(uint64_t a1, void *a2, uint64_t a3)
   [v10 addObject:v9];
 }
 
-void sub_100055C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100055C24(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7760,7 +7784,7 @@ void sub_10005DA74(id a1, NSError *a2)
 {
   if (a2)
   {
-    _AXLogWithFacility();
+    _AXLogWithFacility(0, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Received error from Speak This!: %@");
   }
 }
 
@@ -7826,31 +7850,31 @@ id sub_10005FD54(uint64_t a1)
   return result;
 }
 
-void sub_1000605D4(uint64_t a1)
+void sub_1000605D4(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (*(v2 + 168) == 1)
+  v3 = *(a1 + 32);
+  if (*(v3 + 168) == 1)
   {
-    v3 = ASTLogRocker();
-    v4 = v3;
-    v5 = *(a1 + 40);
-    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
+    v4 = ASTLogRocker();
+    v5 = v4;
+    v6 = *(a1 + 40);
+    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
     {
-      *v9 = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v4, OS_SIGNPOST_INTERVAL_END, v5, "Transition Menu to Nubbit", "", v9, 2u);
+      *v10 = 0;
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v5, OS_SIGNPOST_INTERVAL_END, v6, "Transition Menu to Nubbit", "", v10, 2u);
     }
   }
 
   else
   {
-    *(v2 + 168) = 1;
+    *(v3 + 168) = 1;
     [*(a1 + 32) _setBackgroundWithType:0];
     [*(a1 + 32) frame];
-    v12 = CGRectIntegral(v11);
-    v6 = *(a1 + 48);
-    v7 = *(a1 + 56);
+    v13 = CGRectIntegral(v12);
+    v7 = *(a1 + 48);
+    v8 = *(a1 + 56);
     [*(*(a1 + 32) + 200) bounds];
-    [*(a1 + 32) setFrame:{v6, v7}];
+    [*(a1 + 32) setFrame:{v7, v8}];
     [*(a1 + 32) _setMaskViewNubbitRadius];
     [*(a1 + 32) _layoutForegroundImageView];
     if (*(a1 + 64) == 1)
@@ -7861,9 +7885,9 @@ void sub_1000605D4(uint64_t a1)
     [*(*(a1 + 32) + 48) enumerateObjectsUsingBlock:&stru_1001D5448];
     [*(a1 + 32) _updateBackButtonVisibility];
     [*(*(a1 + 32) + 224) centerItems:*(*(a1 + 32) + 48)];
-    v8 = *(a1 + 32);
+    v9 = *(a1 + 32);
 
-    [v8 layoutIfNeeded];
+    [v9 layoutIfNeeded];
   }
 }
 
@@ -7900,28 +7924,28 @@ void sub_100060768(uint64_t a1)
   }
 }
 
-void sub_100060DB4(uint64_t a1)
+void sub_100060DB4(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 32);
-  if (*(v2 + 168) == 1)
+  v3 = *(a1 + 32);
+  if (*(v3 + 168) == 1)
   {
-    v3 = ASTLogRocker();
-    v4 = v3;
-    v5 = *(a1 + 48);
-    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v3))
+    v4 = ASTLogRocker();
+    v5 = v4;
+    v6 = *(a1 + 48);
+    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&_mh_execute_header, v4, OS_SIGNPOST_INTERVAL_END, v5, "Transition Nubbit to Menu", "", buf, 2u);
+      _os_signpost_emit_with_name_impl(&_mh_execute_header, v5, OS_SIGNPOST_INTERVAL_END, v6, "Transition Nubbit to Menu", "", buf, 2u);
     }
 
     return;
   }
 
-  *(v2 + 168) = 1;
-  v6 = [*(a1 + 32) displayManager];
-  v7 = [v6 usesSeparateRockerForFullMenu];
+  *(v3 + 168) = 1;
+  v7 = [*(a1 + 32) displayManager];
+  v8 = [v7 usesSeparateRockerForFullMenu];
 
-  if ((v7 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
     AXPerformBlockOnMainThreadAfterDelay();
   }
@@ -7930,13 +7954,13 @@ void sub_100060DB4(uint64_t a1)
   [*(a1 + 32) _layoutButtonsWithViewForCenteringAtStart:0 includingBackButton:1];
   [*(a1 + 32) frame];
   [*(*(a1 + 32) + 200) bounds];
-  v9 = v8;
-  v11 = v10;
-  v12 = *(a1 + 56) - v8 * 0.5;
-  v13 = *(a1 + 64) - v10 * 0.5;
-  v14 = roundf(v13);
-  v15 = [*(a1 + 32) displayManager];
-  if ([v15 orientation] != 1)
+  v10 = v9;
+  v12 = v11;
+  v13 = *(a1 + 56) - v9 * 0.5;
+  v14 = *(a1 + 64) - v11 * 0.5;
+  v15 = roundf(v14);
+  v16 = [*(a1 + 32) displayManager];
+  if ([v16 orientation] != 1)
   {
 
     goto LABEL_12;
@@ -7947,67 +7971,67 @@ void sub_100060DB4(uint64_t a1)
   if (!HasJindo)
   {
 LABEL_12:
-    v17 = [*(a1 + 32) displayManager];
-    [v17 safeAreaInsets];
-    v22 = v23;
+    v18 = [*(a1 + 32) displayManager];
+    [v18 safeAreaInsets];
+    v23 = v24;
     goto LABEL_13;
   }
 
-  v17 = [*(a1 + 32) displayManager];
-  [v17 foreheadRect];
-  v19 = v18;
-  v20 = [*(a1 + 32) displayManager];
-  [v20 foreheadRect];
-  v22 = v19 + v21 + 9.0;
+  v18 = [*(a1 + 32) displayManager];
+  [v18 foreheadRect];
+  v20 = v19;
+  v21 = [*(a1 + 32) displayManager];
+  [v21 foreheadRect];
+  v23 = v20 + v22 + 9.0;
 
 LABEL_13:
-  v24 = roundf(v12);
-  v25 = v14;
+  v25 = roundf(v13);
+  v26 = v15;
 
-  v26 = ASTLogCommon();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
+  v27 = ASTLogCommon();
+  if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
   {
     *buf = 134217984;
-    v39 = v22;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_INFO, "Safe Area: %f", buf, 0xCu);
+    v40 = v23;
+    _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Safe Area: %f", buf, 0xCu);
   }
 
-  if (v22 > v25)
+  if (v23 > v26)
   {
-    v27 = ASTLogCommon();
-    if (os_log_type_enabled(v27, OS_LOG_TYPE_INFO))
+    v28 = ASTLogCommon();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v39 = v22;
-      _os_log_impl(&_mh_execute_header, v27, OS_LOG_TYPE_INFO, "Menu is in safe area, moving down: %f", buf, 0xCu);
+      v40 = v23;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_INFO, "Menu is in safe area, moving down: %f", buf, 0xCu);
     }
 
-    v25 = v22;
+    v26 = v23;
   }
 
-  [*(a1 + 32) setFrame:{v24, v25, v9, v11}];
+  [*(a1 + 32) setFrame:{v25, v26, v10, v12}];
   [*(a1 + 32) _setMaskViewMenuRadius];
   [*(a1 + 32) layoutIfNeeded];
   [*(*(a1 + 32) + 160) setAlpha:0.0];
   [*(*(a1 + 32) + 160) frame];
-  v29 = v28;
-  v31 = v30;
+  v30 = v29;
+  v32 = v31;
   if ([*(*(a1 + 32) + 48) count] == 4)
   {
-    v32 = 2;
+    v33 = 2;
   }
 
   else
   {
-    v32 = [*(*(a1 + 32) + 48) count] != 6 && objc_msgSend(*(*(a1 + 32) + 48), "count") == 8;
+    v33 = [*(*(a1 + 32) + 48) count] != 6 && objc_msgSend(*(*(a1 + 32) + 48), "count") == 8;
   }
 
-  v33 = [*(*(a1 + 32) + 48) objectAtIndex:v32];
-  [v33 frame];
-  v35 = v34;
-  v37 = v36;
+  v34 = [*(*(a1 + 32) + 48) objectAtIndex:v33];
+  [v34 frame];
+  v36 = v35;
+  v38 = v37;
 
-  [*(*(a1 + 32) + 160) setFrame:{v35, v37, v29, v31}];
+  [*(*(a1 + 32) + 160) setFrame:{v36, v38, v30, v32}];
   (*(*(a1 + 40) + 16))();
 }
 
@@ -8212,11 +8236,12 @@ void sub_100068098(uint64_t a1)
   [WeakRetained repeatMouseKeyMovementAction:*(a1 + 40)];
 }
 
-void sub_100068208(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, char a17)
+void sub_100068208(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, id location, ...)
 {
-  objc_destroyWeak((v17 + 40));
+  va_start(va, location);
+  objc_destroyWeak((v16 + 40));
   objc_destroyWeak(&location);
-  _Block_object_dispose(&a17, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -8235,9 +8260,9 @@ void sub_100068238(uint64_t a1)
   [WeakRetained movePointerWithMouseKeyAction:*(a1 + 48) increment:*(*(*(a1 + 32) + 8) + 24)];
 }
 
-void sub_100068B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_100068B1C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8249,9 +8274,9 @@ void sub_100068B34(uint64_t a1)
   *(*(*(a1 + 40) + 8) + 24) = 0;
 }
 
-void sub_1000692C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000692C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8280,9 +8305,9 @@ id sub_1000692DC()
   return v1;
 }
 
-void sub_1000693A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000693A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8393,7 +8418,7 @@ uint64_t sub_10006A428()
   return v0;
 }
 
-uint64_t sub_10006A520()
+uint64_t sub_10006A520(uint64_t a1)
 {
   result = _sl_dlopen();
   qword_100218AB8 = result;
@@ -8476,7 +8501,7 @@ uint64_t sub_10006B7D0(uint64_t a1, void *a2)
 
   if (WeakRetained && [WeakRetained _isSpeechEnabled] && (objc_msgSend(v3, "accessibilityRespondsToUserInteraction") & 1) == 0)
   {
-    v39 = v3;
+    v41 = v3;
     _AXAssert();
   }
 
@@ -8485,89 +8510,90 @@ uint64_t sub_10006B7D0(uint64_t a1, void *a2)
   v8 = v7;
   v10 = v9;
   v12 = v11;
-  if (!_AXSMossdeepEnabled())
+  v13 = _AXSMossdeepEnabled();
+  if (!v13)
   {
-    v14 = [HNDHandManager screenFrame:]_0();
-    v16 = v15;
+    v16 = [HNDHandManager screenFrame:]_0(v13, v14);
     v18 = v17;
     v20 = v19;
+    v22 = v21;
     if (WeakRetained)
     {
-      v21 = WeakRetained[17];
-      v22 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v3 windowDisplayId]);
-      v23 = [v21 objectForKey:v22];
+      v23 = WeakRetained[17];
+      v24 = +[NSNumber numberWithUnsignedInt:](NSNumber, "numberWithUnsignedInt:", [v3 windowDisplayId]);
+      v25 = [v23 objectForKey:v24];
 
-      [v23 convertFrameToInterfaceOrientation:{v6, v8, v10, v12}];
-      v6 = v24;
-      v8 = v25;
-      v10 = v26;
-      v12 = v27;
-      if (v23)
+      [v25 convertFrameToInterfaceOrientation:{v6, v8, v10, v12}];
+      v6 = v26;
+      v8 = v27;
+      v10 = v28;
+      v12 = v29;
+      if (v25)
       {
-        [v23 screenBounds];
-        v14 = v28;
-        v16 = v29;
-        v18 = v30;
-        v20 = v31;
+        [v25 screenBounds];
+        v16 = v30;
+        v18 = v31;
+        v20 = v32;
+        v22 = v33;
       }
     }
 
-    v43.origin.x = v14;
-    v43.origin.y = v16;
-    v43.size.width = v18;
-    v43.size.height = v20;
+    v45.origin.x = v16;
+    v45.origin.y = v18;
+    v45.size.width = v20;
+    v45.size.height = v22;
+    v50.origin.x = v6;
+    v50.origin.y = v8;
+    v50.size.width = v10;
+    v50.size.height = v12;
+    v46 = CGRectIntersection(v45, v50);
+    x = v46.origin.x;
+    y = v46.origin.y;
+    width = v46.size.width;
+    height = v46.size.height;
+    v42 = CGRectGetWidth(v46);
+    v47.origin.x = x;
+    v47.origin.y = y;
+    v47.size.width = width;
+    v47.size.height = height;
+    v38 = v42 * CGRectGetHeight(v47);
     v48.origin.x = v6;
     v48.origin.y = v8;
     v48.size.width = v10;
     v48.size.height = v12;
-    v44 = CGRectIntersection(v43, v48);
-    x = v44.origin.x;
-    y = v44.origin.y;
-    width = v44.size.width;
-    height = v44.size.height;
-    v40 = CGRectGetWidth(v44);
-    v45.origin.x = x;
-    v45.origin.y = y;
-    v45.size.width = width;
-    v45.size.height = height;
-    v36 = v40 * CGRectGetHeight(v45);
-    v46.origin.x = v6;
-    v46.origin.y = v8;
-    v46.size.width = v10;
-    v46.size.height = v12;
-    v37 = CGRectGetWidth(v46);
-    v47.origin.x = v6;
-    v47.origin.y = v8;
-    v47.size.width = v10;
-    v47.size.height = v12;
-    if (v36 / (v37 * CGRectGetHeight(v47)) >= 0.8)
+    v39 = CGRectGetWidth(v48);
+    v49.origin.x = v6;
+    v49.origin.y = v8;
+    v49.size.width = v10;
+    v49.size.height = v12;
+    if (v38 / (v39 * CGRectGetHeight(v49)) >= 0.8)
     {
-      v13 = [*(a1 + 32) _isElementInIgnoredTouchRegions:v3] ^ 1;
+      v15 = [*(a1 + 32) _isElementInIgnoredTouchRegions:v3] ^ 1;
       goto LABEL_15;
     }
 
     goto LABEL_14;
   }
 
-  v41.origin.x = v6;
-  v41.origin.y = v8;
-  v41.size.width = v10;
-  v41.size.height = v12;
-  if (CGRectGetWidth(v41) <= 0.0)
+  v43.origin.x = v6;
+  v43.origin.y = v8;
+  v43.size.width = v10;
+  v43.size.height = v12;
+  if (CGRectGetWidth(v43) <= 0.0)
   {
 LABEL_14:
-    v13 = 0;
+    v15 = 0;
     goto LABEL_15;
   }
 
-  v42.origin.x = v6;
-  v42.origin.y = v8;
-  v42.size.width = v10;
-  v42.size.height = v12;
-  v13 = CGRectGetHeight(v42) > 0.0;
+  v44.origin.x = v6;
+  v44.origin.y = v8;
+  v44.size.width = v10;
+  v44.size.height = v12;
+  v15 = CGRectGetHeight(v44) > 0.0;
 LABEL_15:
 
-  return v13;
+  return v15;
 }
 
 void sub_10006BAAC(id a1)
@@ -8612,11 +8638,11 @@ void sub_10006CA64(int a1, int a2, int a3, CFTypeRef cf)
   dispatch_async(&_dispatch_main_q, v6);
 }
 
-void sub_10006CCC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10006CCC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v15 - 112), 8);
+  _Block_object_dispose((v22 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8677,51 +8703,50 @@ void sub_10006CF24(uint64_t a1)
   v6 = +[AXElement systemWideElement];
   [v6 setPassivelyListeningForEvents:1];
 
-  v21 = 0u;
-  v22 = 0u;
   v19 = 0u;
   v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v7 = *(a1 + 40);
-  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v20;
+    v10 = *v18;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v20 != v10)
+        if (*v18 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v19 + 1) + 8 * i);
+        v12 = *(*(&v17 + 1) + 8 * i);
         v13 = [v12 intValue];
         v14 = [*(a1 + 32) currentlyObservingNotifications];
         LOBYTE(v12) = [v14 containsObject:v12];
 
         if ((v12 & 1) == 0)
         {
-          v18 = AXObserverAddNotification(v2, v5, v13, *(a1 + 32));
-          LOBYTE(v17) = 1;
-          _AXLogWithFacility();
+          AXObserverAddNotification(v2, v5, v13, *(a1 + 32));
+          _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Registered for notification: %d, observer:%@. error: %ld");
           v15 = [*(a1 + 32) currentlyObservingNotifications];
           v16 = [NSNumber numberWithInt:v13];
           [v15 addObject:v16];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v9);
   }
 }
 
-void sub_10006D234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10006D234(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8732,44 +8757,37 @@ void sub_10006D24C(uint64_t a1)
   v3 = [v2 uiElement];
   v4 = [v3 axElement];
 
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v20;
+    v8 = *v16;
     do
     {
-      v9 = 0;
-      do
+      for (i = 0; i != v7; i = i + 1)
       {
-        if (*v20 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v19 + 1) + 8 * v9);
+        v10 = *(*(&v15 + 1) + 8 * i);
         v11 = [*(a1 + 40) currentlyObservingNotifications];
         v12 = [v11 containsObject:v10];
 
         if (v12)
         {
-          v17 = [v10 intValue];
-          v18 = AXObserverRemoveNotification(*(*(*(a1 + 48) + 8) + 24), v4, v17);
-          v16 = @"Unregistered for notification: %d, error: %ld";
-          LOBYTE(v15) = 1;
-          _AXLogWithFacility();
+          AXObserverRemoveNotification(*(*(*(a1 + 48) + 8) + 24), v4, [v10 intValue]);
+          _AXLogWithFacility(2, 0, 1, 0, 0, 0, 0, 0, 0.0, 1, @"Unregistered for notification: %d, error: %ld");
         }
-
-        v9 = v9 + 1;
       }
 
-      while (v7 != v9);
-      v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v7);

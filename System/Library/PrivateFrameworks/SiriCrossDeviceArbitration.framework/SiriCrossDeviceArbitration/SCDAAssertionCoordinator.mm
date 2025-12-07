@@ -23,89 +23,87 @@
 
 - (void)_invalidate
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v22 = "[SCDAAssertionCoordinator _invalidate]";
+    v21 = "[SCDAAssertionCoordinator _invalidate]";
     _os_log_debug_impl(&dword_1DA758000, v3, OS_LOG_TYPE_DEBUG, "%s ", buf, 0xCu);
   }
 
   allKeys = [(NSMutableDictionary *)self->_assertionsByUUID allKeys];
   v5 = [allKeys copy];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v7)
   {
     v9 = v7;
-    v10 = *v18;
+    v10 = *v17;
     *&v8 = 136315394;
-    v16 = v8;
+    v15 = v8;
     do
     {
       v11 = 0;
       do
       {
-        if (*v18 != v10)
+        if (*v17 != v10)
         {
           objc_enumerationMutation(v6);
         }
 
-        v12 = *(*(&v17 + 1) + 8 * v11);
+        v12 = *(*(&v16 + 1) + 8 * v11);
         v13 = SCDALogContextCore;
         if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
         {
-          *buf = v16;
-          v22 = "[SCDAAssertionCoordinator _invalidate]";
-          v23 = 2112;
+          *buf = v15;
+          v21 = "[SCDAAssertionCoordinator _invalidate]";
+          v22 = 2112;
           selfCopy = self;
           _os_log_error_impl(&dword_1DA758000, v13, OS_LOG_TYPE_ERROR, "%s %@ Invalidated", buf, 0x16u);
         }
 
-        v14 = [MEMORY[0x1E696ABC0] errorWithDomain:@"kSCDAErrorDomain" code:42 userInfo:{0, v16, v17}];
+        v14 = [MEMORY[0x1E696ABC0] errorWithDomain:@"kSCDAErrorDomain" code:42 userInfo:{0, v15, v16}];
         [(SCDAAssertionCoordinator *)self _deactivateAndRemoveAssertionWithUUID:v12 context:0 error:v14 options:0];
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v6 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v9 = [v6 countByEnumeratingWithState:&v16 objects:v24 count:16];
     }
 
     while (v9);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_deactivateAndRemoveAssertionWithUUID:(id)d context:(id)context error:(id)error options:(unint64_t)options
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   dCopy = d;
   contextCopy = context;
   errorCopy = error;
   v13 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
   {
-    v26 = v13;
-    v27 = SCDAAssertionRelinquishmentOptionsGetNames(options);
-    v28 = 136316162;
-    v29 = "[SCDAAssertionCoordinator _deactivateAndRemoveAssertionWithUUID:context:error:options:]";
-    v30 = 2112;
-    v31 = dCopy;
-    v32 = 2112;
-    v33 = contextCopy;
-    v34 = 2112;
-    v35 = errorCopy;
-    v36 = 2112;
-    v37 = v27;
-    _os_log_debug_impl(&dword_1DA758000, v26, OS_LOG_TYPE_DEBUG, "%s assertionUUID = %@, context = %@, error = %@, options = %@", &v28, 0x34u);
+    v25 = v13;
+    v26 = SCDAAssertionRelinquishmentOptionsGetNames(options);
+    v27 = 136316162;
+    v28 = "[SCDAAssertionCoordinator _deactivateAndRemoveAssertionWithUUID:context:error:options:]";
+    v29 = 2112;
+    v30 = dCopy;
+    v31 = 2112;
+    v32 = contextCopy;
+    v33 = 2112;
+    v34 = errorCopy;
+    v35 = 2112;
+    v36 = v26;
+    _os_log_debug_impl(&dword_1DA758000, v25, OS_LOG_TYPE_DEBUG, "%s assertionUUID = %@, context = %@, error = %@, options = %@", &v27, 0x34u);
 
     if (!dCopy)
     {
@@ -127,11 +125,11 @@
       v16 = SCDALogContextCore;
       if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
       {
-        v28 = 136315394;
-        v29 = "[SCDAAssertionCoordinator _deactivateAndRemoveAssertionWithUUID:context:error:options:]";
-        v30 = 2112;
-        v31 = v14;
-        _os_log_debug_impl(&dword_1DA758000, v16, OS_LOG_TYPE_DEBUG, "%s Skipped deactivating %@ because it is active and requested inactive only.", &v28, 0x16u);
+        v27 = 136315394;
+        v28 = "[SCDAAssertionCoordinator _deactivateAndRemoveAssertionWithUUID:context:error:options:]";
+        v29 = 2112;
+        v30 = v14;
+        _os_log_debug_impl(&dword_1DA758000, v16, OS_LOG_TYPE_DEBUG, "%s Skipped deactivating %@ because it is active and requested inactive only.", &v27, 0x16u);
       }
     }
 
@@ -146,13 +144,13 @@
         v19 = SCDALogContextCore;
         if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
         {
-          v28 = 136315650;
-          v29 = "[SCDAAssertionCoordinator _deactivateAndRemoveAssertionWithUUID:context:error:options:]";
-          v30 = 2048;
-          v31 = v17;
-          v32 = 2048;
-          v33 = v18;
-          _os_log_debug_impl(&dword_1DA758000, v19, OS_LOG_TYPE_DEBUG, "%s numberOfActiveAssertions: %llu -> %llu", &v28, 0x20u);
+          v27 = 136315650;
+          v28 = "[SCDAAssertionCoordinator _deactivateAndRemoveAssertionWithUUID:context:error:options:]";
+          v29 = 2048;
+          v30 = v17;
+          v31 = 2048;
+          v32 = v18;
+          _os_log_debug_impl(&dword_1DA758000, v19, OS_LOG_TYPE_DEBUG, "%s numberOfActiveAssertions: %llu -> %llu", &v27, 0x20u);
         }
 
         WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -166,13 +164,13 @@
       v23 = SCDALogContextCore;
       if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
       {
-        v28 = 136315650;
-        v29 = "[SCDAAssertionCoordinator _deactivateAndRemoveAssertionWithUUID:context:error:options:]";
-        v30 = 2048;
-        v31 = v21;
-        v32 = 2048;
-        v33 = v22;
-        _os_log_debug_impl(&dword_1DA758000, v23, OS_LOG_TYPE_DEBUG, "%s numberOfAssertions: %llu -> %llu", &v28, 0x20u);
+        v27 = 136315650;
+        v28 = "[SCDAAssertionCoordinator _deactivateAndRemoveAssertionWithUUID:context:error:options:]";
+        v29 = 2048;
+        v30 = v21;
+        v31 = 2048;
+        v32 = v22;
+        _os_log_debug_impl(&dword_1DA758000, v23, OS_LOG_TYPE_DEBUG, "%s numberOfAssertions: %llu -> %llu", &v27, 0x20u);
       }
 
       v24 = objc_loadWeakRetained(&self->_delegate);
@@ -181,12 +179,11 @@
   }
 
 LABEL_16:
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_activateAssertionWithUUID:(id)d
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   dCopy = d;
   v5 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
@@ -224,7 +221,7 @@ LABEL_16:
         *&buf[12] = 2048;
         *&buf[14] = v7;
         *&buf[22] = 2048;
-        v36 = *&v8;
+        v35 = *&v8;
         _os_log_debug_impl(&dword_1DA758000, v9, OS_LOG_TYPE_DEBUG, "%s numberOfActiveAssertions: %llu -> %llu", buf, 0x20u);
       }
 
@@ -239,15 +236,15 @@ LABEL_16:
       if (v14 > 0.0)
       {
         objc_initWeak(&location, self);
-        v30[0] = MEMORY[0x1E69E9820];
-        v30[1] = 3221225472;
-        v30[2] = __55__SCDAAssertionCoordinator__activateAssertionWithUUID___block_invoke;
-        v30[3] = &unk_1E85D2DD0;
-        objc_copyWeak(&v33, &location);
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = __55__SCDAAssertionCoordinator__activateAssertionWithUUID___block_invoke;
+        v29[3] = &unk_1E85D2DD0;
+        objc_copyWeak(&v32, &location);
         v15 = v6;
-        v31 = v15;
-        v32 = dCopy;
-        v16 = MEMORY[0x1E1270630](v30);
+        v30 = v15;
+        v31 = dCopy;
+        v16 = MEMORY[0x1E1270630](v29);
         context2 = [v15 context];
         effectiveDate = [context2 effectiveDate];
 
@@ -261,45 +258,43 @@ LABEL_16:
           *&buf[12] = 2112;
           *&buf[14] = v15;
           *&buf[22] = 2048;
-          v36 = v14 + v20;
+          v35 = v14 + v20;
           _os_log_debug_impl(&dword_1DA758000, v21, OS_LOG_TYPE_DEBUG, "%s Deactivating %@ in %f seconds...", buf, 0x20u);
         }
 
         *buf = 0;
         *&buf[8] = buf;
         *&buf[16] = 0x3032000000;
-        v36 = COERCE_DOUBLE(__Block_byref_object_copy_);
-        v37 = __Block_byref_object_dispose_;
-        v38 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_queue);
+        v35 = COERCE_DOUBLE(__Block_byref_object_copy_);
+        v36 = __Block_byref_object_dispose_;
+        v37 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_queue);
         v22 = *(*&buf[8] + 40);
         v23 = SCDADispatchTimeGetFromDateAndOffset(effectiveDate, v14);
         dispatch_source_set_timer(v22, v23, 0xFFFFFFFFFFFFFFFFLL, 0);
         v24 = *(*&buf[8] + 40);
-        v27[0] = MEMORY[0x1E69E9820];
-        v27[1] = 3221225472;
-        v27[2] = __55__SCDAAssertionCoordinator__activateAssertionWithUUID___block_invoke_107;
-        v27[3] = &unk_1E85D2DA8;
-        v28 = v16;
-        v29 = buf;
+        v26[0] = MEMORY[0x1E69E9820];
+        v26[1] = 3221225472;
+        v26[2] = __55__SCDAAssertionCoordinator__activateAssertionWithUUID___block_invoke_107;
+        v26[3] = &unk_1E85D2DA8;
+        v27 = v16;
+        v28 = buf;
         v25 = v16;
-        dispatch_source_set_event_handler(v24, v27);
+        dispatch_source_set_event_handler(v24, v26);
         dispatch_resume(*(*&buf[8] + 40));
 
         _Block_object_dispose(buf, 8);
-        objc_destroyWeak(&v33);
+        objc_destroyWeak(&v32);
         objc_destroyWeak(&location);
       }
     }
   }
 
 LABEL_12:
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __55__SCDAAssertionCoordinator__activateAssertionWithUUID___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -307,18 +302,16 @@ void __55__SCDAAssertionCoordinator__activateAssertionWithUUID___block_invoke(ui
     v5 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
     {
-      v7 = *(a1 + 32);
-      v8 = 136315394;
-      v9 = "[SCDAAssertionCoordinator _activateAssertionWithUUID:]_block_invoke";
-      v10 = 2112;
-      v11 = v7;
-      _os_log_debug_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEBUG, "%s Deactivating %@ now...", &v8, 0x16u);
+      v6 = *(a1 + 32);
+      v7 = 136315394;
+      v8 = "[SCDAAssertionCoordinator _activateAssertionWithUUID:]_block_invoke";
+      v9 = 2112;
+      v10 = v6;
+      _os_log_debug_impl(&dword_1DA758000, v5, OS_LOG_TYPE_DEBUG, "%s Deactivating %@ now...", &v7, 0x16u);
     }
 
     [WeakRetained _deactivateAndRemoveAssertionWithUUID:*(a1 + 40) context:v3 error:0 options:0];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __55__SCDAAssertionCoordinator__activateAssertionWithUUID___block_invoke_107(uint64_t a1)
@@ -346,7 +339,7 @@ void __55__SCDAAssertionCoordinator__activateAssertionWithUUID___block_invoke_2(
 
 - (void)_addAssertion:(id)assertion
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   assertionCopy = assertion;
   v5 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
@@ -387,7 +380,7 @@ LABEL_3:
           *&buf[12] = 2048;
           *&buf[14] = v16;
           *&buf[22] = 2048;
-          v40 = v17;
+          v39 = v17;
           _os_log_debug_impl(&dword_1DA758000, v18, OS_LOG_TYPE_DEBUG, "%s numberOfAssertions: %llu -> %llu", buf, 0x20u);
         }
 
@@ -396,16 +389,16 @@ LABEL_3:
         [WeakRetained assertionCoordinator:self didAddAssertion:assertionCopy isFirstAssertion:v19];
 
         objc_initWeak(&location, self);
-        v34[0] = MEMORY[0x1E69E9820];
-        v34[1] = 3221225472;
-        v34[2] = __42__SCDAAssertionCoordinator__addAssertion___block_invoke;
-        v34[3] = &unk_1E85D2D80;
-        objc_copyWeak(&v37, &location);
+        v33[0] = MEMORY[0x1E69E9820];
+        v33[1] = 3221225472;
+        v33[2] = __42__SCDAAssertionCoordinator__addAssertion___block_invoke;
+        v33[3] = &unk_1E85D2D80;
+        objc_copyWeak(&v36, &location);
         v21 = assertionCopy;
-        v35 = v21;
+        v34 = v21;
         v22 = uuid;
-        v36 = v22;
-        v23 = MEMORY[0x1E1270630](v34);
+        v35 = v22;
+        v23 = MEMORY[0x1E1270630](v33);
         v24 = v23;
         if (v13 <= 0.0)
         {
@@ -422,33 +415,33 @@ LABEL_3:
             *&buf[12] = 2112;
             *&buf[14] = v21;
             *&buf[22] = 2048;
-            v40 = *&v13;
+            v39 = *&v13;
             _os_log_debug_impl(&dword_1DA758000, v25, OS_LOG_TYPE_DEBUG, "%s Activating %@ in %f seconds...", buf, 0x20u);
           }
 
           *buf = 0;
           *&buf[8] = buf;
           *&buf[16] = 0x3032000000;
-          v40 = __Block_byref_object_copy_;
-          v41 = __Block_byref_object_dispose_;
-          v42 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_queue);
+          v39 = __Block_byref_object_copy_;
+          v40 = __Block_byref_object_dispose_;
+          v41 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, self->_queue);
           v26 = *(*&buf[8] + 40);
           v27 = SCDADispatchTimeGetFromDateAndOffset(effectiveDate, 0.0);
           dispatch_source_set_timer(v26, v27, 0xFFFFFFFFFFFFFFFFLL, 0);
           v28 = *(*&buf[8] + 40);
-          v31[0] = MEMORY[0x1E69E9820];
-          v31[1] = 3221225472;
-          v31[2] = __42__SCDAAssertionCoordinator__addAssertion___block_invoke_105;
-          v31[3] = &unk_1E85D2DA8;
-          v32 = v24;
-          v33 = buf;
-          dispatch_source_set_event_handler(v28, v31);
+          v30[0] = MEMORY[0x1E69E9820];
+          v30[1] = 3221225472;
+          v30[2] = __42__SCDAAssertionCoordinator__addAssertion___block_invoke_105;
+          v30[3] = &unk_1E85D2DA8;
+          v31 = v24;
+          v32 = buf;
+          dispatch_source_set_event_handler(v28, v30);
           dispatch_resume(*(*&buf[8] + 40));
 
           _Block_object_dispose(buf, 8);
         }
 
-        objc_destroyWeak(&v37);
+        objc_destroyWeak(&v36);
         objc_destroyWeak(&location);
         goto LABEL_21;
       }
@@ -461,7 +454,7 @@ LABEL_3:
         *&buf[12] = 2112;
         *&buf[14] = assertionCopy;
         *&buf[22] = 2048;
-        v40 = *&v14;
+        v39 = *&v14;
         _os_log_error_impl(&dword_1DA758000, v29, OS_LOG_TYPE_ERROR, "%s %@ expired %f seconds ago.", buf, 0x20u);
       }
     }
@@ -476,7 +469,7 @@ LABEL_3:
         *&buf[12] = 2112;
         *&buf[14] = assertionCopy;
         *&buf[22] = 2048;
-        v40 = *&v10;
+        v39 = *&v10;
         _os_log_error_impl(&dword_1DA758000, v11, OS_LOG_TYPE_ERROR, "%s %@ contains invalid expiration duration %f.", buf, 0x20u);
       }
     }
@@ -494,31 +487,27 @@ LABEL_21:
   }
 
 LABEL_22:
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __42__SCDAAssertionCoordinator__addAssertion___block_invoke(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
   {
     v3 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_DEBUG))
     {
-      v5 = *(a1 + 32);
-      v6 = 136315394;
-      v7 = "[SCDAAssertionCoordinator _addAssertion:]_block_invoke";
-      v8 = 2112;
-      v9 = v5;
-      _os_log_debug_impl(&dword_1DA758000, v3, OS_LOG_TYPE_DEBUG, "%s Activating %@ now...", &v6, 0x16u);
+      v4 = *(a1 + 32);
+      v5 = 136315394;
+      v6 = "[SCDAAssertionCoordinator _addAssertion:]_block_invoke";
+      v7 = 2112;
+      v8 = v4;
+      _os_log_debug_impl(&dword_1DA758000, v3, OS_LOG_TYPE_DEBUG, "%s Activating %@ now...", &v5, 0x16u);
     }
 
     [WeakRetained _activateAssertionWithUUID:*(a1 + 40)];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __42__SCDAAssertionCoordinator__addAssertion___block_invoke_105(uint64_t a1)
@@ -536,13 +525,13 @@ void __42__SCDAAssertionCoordinator__addAssertion___block_invoke_105(uint64_t a1
 
 - (void)invalidate
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v8 = "[SCDAAssertionCoordinator invalidate]";
-    v9 = 2112;
+    v7 = "[SCDAAssertionCoordinator invalidate]";
+    v8 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
   }
@@ -554,7 +543,6 @@ void __42__SCDAAssertionCoordinator__addAssertion___block_invoke_105(uint64_t a1
   block[3] = &unk_1E85D3850;
   block[4] = self;
   dispatch_async(queue, block);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)barrier:(id)barrier
@@ -629,24 +617,23 @@ uint64_t __62__SCDAAssertionCoordinator_getActiveAssertionsWithCompletion___bloc
 
 - (unint64_t)numberOfActiveAssertions
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = atomic_load(&self->_numberOfActiveAssertions);
   if ((v2 & 0x8000000000000000) != 0)
   {
     v3 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315394;
-      v7 = "[SCDAAssertionCoordinator numberOfActiveAssertions]";
-      v8 = 2048;
-      v9 = v2;
-      _os_log_error_impl(&dword_1DA758000, v3, OS_LOG_TYPE_ERROR, "%s numberOfActiveAssertions is %lld", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[SCDAAssertionCoordinator numberOfActiveAssertions]";
+      v7 = 2048;
+      v8 = v2;
+      _os_log_error_impl(&dword_1DA758000, v3, OS_LOG_TYPE_ERROR, "%s numberOfActiveAssertions is %lld", &v5, 0x16u);
     }
 
-    v2 = 0;
+    return 0;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -736,39 +723,38 @@ void __72__SCDAAssertionCoordinator_getPendingAndActiveAssertionsWithCompletion_
 
 - (unint64_t)numberOfPendingAndActiveAssertions
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v2 = atomic_load(&self->_numberOfAssertions);
   if ((v2 & 0x8000000000000000) != 0)
   {
     v3 = SCDALogContextCore;
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_ERROR))
     {
-      v6 = 136315394;
-      v7 = "[SCDAAssertionCoordinator numberOfPendingAndActiveAssertions]";
-      v8 = 2048;
-      v9 = v2;
-      _os_log_error_impl(&dword_1DA758000, v3, OS_LOG_TYPE_ERROR, "%s numberOfPendingAndActiveAssertions is %lld", &v6, 0x16u);
+      v5 = 136315394;
+      v6 = "[SCDAAssertionCoordinator numberOfPendingAndActiveAssertions]";
+      v7 = 2048;
+      v8 = v2;
+      _os_log_error_impl(&dword_1DA758000, v3, OS_LOG_TYPE_ERROR, "%s numberOfPendingAndActiveAssertions is %lld", &v5, 0x16u);
     }
 
-    v2 = 0;
+    return 0;
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
 - (void)relinquishAsertionsPassingTest:(id)test error:(id)error
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   testCopy = test;
   errorCopy = error;
   v8 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v15 = "[SCDAAssertionCoordinator relinquishAsertionsPassingTest:error:]";
-    v16 = 2112;
-    v17 = errorCopy;
+    v14 = "[SCDAAssertionCoordinator relinquishAsertionsPassingTest:error:]";
+    v15 = 2112;
+    v16 = errorCopy;
     _os_log_impl(&dword_1DA758000, v8, OS_LOG_TYPE_INFO, "%s error = %@", buf, 0x16u);
   }
 
@@ -780,61 +766,57 @@ void __72__SCDAAssertionCoordinator_getPendingAndActiveAssertionsWithCompletion_
     block[2] = __65__SCDAAssertionCoordinator_relinquishAsertionsPassingTest_error___block_invoke;
     block[3] = &unk_1E85D37D8;
     block[4] = self;
-    v13 = testCopy;
-    v12 = errorCopy;
+    v12 = testCopy;
+    v11 = errorCopy;
     dispatch_async(queue, block);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __65__SCDAAssertionCoordinator_relinquishAsertionsPassingTest_error___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v3 = *(*(a1 + 32) + 32);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __65__SCDAAssertionCoordinator_relinquishAsertionsPassingTest_error___block_invoke_2;
-  v17[3] = &unk_1E85D2D08;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __65__SCDAAssertionCoordinator_relinquishAsertionsPassingTest_error___block_invoke_2;
+  v16[3] = &unk_1E85D2D08;
   v4 = *(a1 + 48);
   v5 = *(a1 + 32);
-  v19 = v4;
-  v17[4] = v5;
+  v18 = v4;
+  v16[4] = v5;
   v6 = v2;
-  v18 = v6;
-  [v3 enumerateKeysAndObjectsUsingBlock:v17];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
+  v17 = v6;
+  [v3 enumerateKeysAndObjectsUsingBlock:v16];
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(a1 + 32) _deactivateAndRemoveAssertionWithUUID:*(*(&v13 + 1) + 8 * v11++) context:0 error:*(a1 + 40) options:{0, v13}];
+        [*(a1 + 32) _deactivateAndRemoveAssertionWithUUID:*(*(&v12 + 1) + 8 * v11++) context:0 error:*(a1 + 40) options:{0, v12}];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __65__SCDAAssertionCoordinator_relinquishAsertionsPassingTest_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -853,16 +835,16 @@ void __65__SCDAAssertionCoordinator_relinquishAsertionsPassingTest_error___block
 
 - (void)relinquishAsertionsPassingTest:(id)test context:(id)context
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   testCopy = test;
   contextCopy = context;
   v8 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v15 = "[SCDAAssertionCoordinator relinquishAsertionsPassingTest:context:]";
-    v16 = 2112;
-    v17 = contextCopy;
+    v14 = "[SCDAAssertionCoordinator relinquishAsertionsPassingTest:context:]";
+    v15 = 2112;
+    v16 = contextCopy;
     _os_log_impl(&dword_1DA758000, v8, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
@@ -874,61 +856,57 @@ void __65__SCDAAssertionCoordinator_relinquishAsertionsPassingTest_error___block
     block[2] = __67__SCDAAssertionCoordinator_relinquishAsertionsPassingTest_context___block_invoke;
     block[3] = &unk_1E85D37D8;
     block[4] = self;
-    v13 = testCopy;
-    v12 = contextCopy;
+    v12 = testCopy;
+    v11 = contextCopy;
     dispatch_async(queue, block);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __67__SCDAAssertionCoordinator_relinquishAsertionsPassingTest_context___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DFA8]);
   v3 = *(*(a1 + 32) + 32);
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __67__SCDAAssertionCoordinator_relinquishAsertionsPassingTest_context___block_invoke_2;
-  v17[3] = &unk_1E85D2D08;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __67__SCDAAssertionCoordinator_relinquishAsertionsPassingTest_context___block_invoke_2;
+  v16[3] = &unk_1E85D2D08;
   v4 = *(a1 + 48);
   v5 = *(a1 + 32);
-  v19 = v4;
-  v17[4] = v5;
+  v18 = v4;
+  v16[4] = v5;
   v6 = v2;
-  v18 = v6;
-  [v3 enumerateKeysAndObjectsUsingBlock:v17];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
+  v17 = v6;
+  [v3 enumerateKeysAndObjectsUsingBlock:v16];
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = v6;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(a1 + 32) _deactivateAndRemoveAssertionWithUUID:*(*(&v13 + 1) + 8 * v11++) context:*(a1 + 40) error:0 options:{0, v13}];
+        [*(a1 + 32) _deactivateAndRemoveAssertionWithUUID:*(*(&v12 + 1) + 8 * v11++) context:*(a1 + 40) error:0 options:{0, v12}];
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v19 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __67__SCDAAssertionCoordinator_relinquishAsertionsPassingTest_context___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -947,7 +925,7 @@ void __67__SCDAAssertionCoordinator_relinquishAsertionsPassingTest_context___blo
 
 - (void)relinquishAssertionWithUUID:(id)d error:(id)error options:(unint64_t)options
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dCopy = d;
   errorCopy = error;
   v10 = SCDALogContextCore;
@@ -956,35 +934,33 @@ void __67__SCDAAssertionCoordinator_relinquishAsertionsPassingTest_context___blo
     v11 = v10;
     v12 = SCDAAssertionRelinquishmentOptionsGetNames(options);
     *buf = 136315906;
-    v22 = "[SCDAAssertionCoordinator relinquishAssertionWithUUID:error:options:]";
-    v23 = 2112;
-    v24 = dCopy;
-    v25 = 2112;
-    v26 = errorCopy;
-    v27 = 2112;
-    v28 = v12;
+    v21 = "[SCDAAssertionCoordinator relinquishAssertionWithUUID:error:options:]";
+    v22 = 2112;
+    v23 = dCopy;
+    v24 = 2112;
+    v25 = errorCopy;
+    v26 = 2112;
+    v27 = v12;
     _os_log_impl(&dword_1DA758000, v11, OS_LOG_TYPE_INFO, "%s assertionUUID = %@, error = %@, options = %@", buf, 0x2Au);
   }
 
   queue = self->_queue;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __70__SCDAAssertionCoordinator_relinquishAssertionWithUUID_error_options___block_invoke;
-  v17[3] = &unk_1E85D2CE0;
-  v17[4] = self;
-  v18 = dCopy;
-  v19 = errorCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __70__SCDAAssertionCoordinator_relinquishAssertionWithUUID_error_options___block_invoke;
+  v16[3] = &unk_1E85D2CE0;
+  v16[4] = self;
+  v17 = dCopy;
+  v18 = errorCopy;
   optionsCopy = options;
   v14 = errorCopy;
   v15 = dCopy;
-  dispatch_async(queue, v17);
-
-  v16 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v16);
 }
 
 - (void)relinquishAssertionWithUUID:(id)d context:(id)context options:(unint64_t)options
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   dCopy = d;
   contextCopy = context;
   v10 = SCDALogContextCore;
@@ -993,72 +969,68 @@ void __67__SCDAAssertionCoordinator_relinquishAsertionsPassingTest_context___blo
     v11 = v10;
     v12 = SCDAAssertionRelinquishmentOptionsGetNames(options);
     *buf = 136315906;
-    v22 = "[SCDAAssertionCoordinator relinquishAssertionWithUUID:context:options:]";
-    v23 = 2112;
-    v24 = dCopy;
-    v25 = 2112;
-    v26 = contextCopy;
-    v27 = 2112;
-    v28 = v12;
+    v21 = "[SCDAAssertionCoordinator relinquishAssertionWithUUID:context:options:]";
+    v22 = 2112;
+    v23 = dCopy;
+    v24 = 2112;
+    v25 = contextCopy;
+    v26 = 2112;
+    v27 = v12;
     _os_log_impl(&dword_1DA758000, v11, OS_LOG_TYPE_INFO, "%s assertionUUID = %@, context = %@, options = %@", buf, 0x2Au);
   }
 
   queue = self->_queue;
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __72__SCDAAssertionCoordinator_relinquishAssertionWithUUID_context_options___block_invoke;
-  v17[3] = &unk_1E85D2CE0;
-  v17[4] = self;
-  v18 = dCopy;
-  v19 = contextCopy;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __72__SCDAAssertionCoordinator_relinquishAssertionWithUUID_context_options___block_invoke;
+  v16[3] = &unk_1E85D2CE0;
+  v16[4] = self;
+  v17 = dCopy;
+  v18 = contextCopy;
   optionsCopy = options;
   v14 = contextCopy;
   v15 = dCopy;
-  dispatch_async(queue, v17);
-
-  v16 = *MEMORY[0x1E69E9840];
+  dispatch_async(queue, v16);
 }
 
 - (id)acquireRelinquishableAssertionWithContext:(id)context relinquishmentHandler:(id)handler
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   contextCopy = context;
   handlerCopy = handler;
   v8 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v28 = "[SCDAAssertionCoordinator acquireRelinquishableAssertionWithContext:relinquishmentHandler:]";
-    v29 = 2112;
-    v30 = contextCopy;
+    v27 = "[SCDAAssertionCoordinator acquireRelinquishableAssertionWithContext:relinquishmentHandler:]";
+    v28 = 2112;
+    v29 = contextCopy;
     _os_log_impl(&dword_1DA758000, v8, OS_LOG_TYPE_INFO, "%s context = %@", buf, 0x16u);
   }
 
   atomic_fetch_add(&self->_numberOfAssertions, 1uLL);
   v9 = [_SCDAAssertionImpl alloc];
   v10 = objc_alloc_init(MEMORY[0x1E696AFB0]);
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __92__SCDAAssertionCoordinator_acquireRelinquishableAssertionWithContext_relinquishmentHandler___block_invoke;
-  v25[3] = &unk_1E85D2CB8;
-  v25[4] = self;
-  v26 = handlerCopy;
+  v24[0] = MEMORY[0x1E69E9820];
+  v24[1] = 3221225472;
+  v24[2] = __92__SCDAAssertionCoordinator_acquireRelinquishableAssertionWithContext_relinquishmentHandler___block_invoke;
+  v24[3] = &unk_1E85D2CB8;
+  v24[4] = self;
+  v25 = handlerCopy;
   v11 = handlerCopy;
-  v12 = [(_SCDAAssertionImpl *)v9 initWithUUID:v10 context:contextCopy relinquishmentHandler:v25];
+  v12 = [(_SCDAAssertionImpl *)v9 initWithUUID:v10 context:contextCopy relinquishmentHandler:v24];
 
   queue = self->_queue;
-  v19 = MEMORY[0x1E69E9820];
-  v20 = 3221225472;
-  v21 = __92__SCDAAssertionCoordinator_acquireRelinquishableAssertionWithContext_relinquishmentHandler___block_invoke_2;
-  v22 = &unk_1E85D38A0;
+  v18 = MEMORY[0x1E69E9820];
+  v19 = 3221225472;
+  v20 = __92__SCDAAssertionCoordinator_acquireRelinquishableAssertionWithContext_relinquishmentHandler___block_invoke_2;
+  v21 = &unk_1E85D38A0;
   selfCopy = self;
-  v24 = v12;
+  v23 = v12;
   v14 = v12;
-  dispatch_async(queue, &v19);
+  dispatch_async(queue, &v18);
   v15 = [_SCDAAssertionProxy alloc];
-  selfCopy = [(_SCDAAssertionProxy *)v15 initWithImpl:v14 coordinator:self, v19, v20, v21, v22, selfCopy];
-
-  v17 = *MEMORY[0x1E69E9840];
+  selfCopy = [(_SCDAAssertionProxy *)v15 initWithImpl:v14 coordinator:self, v18, v19, v20, v21, selfCopy];
 
   return selfCopy;
 }
@@ -1077,33 +1049,32 @@ uint64_t __92__SCDAAssertionCoordinator_acquireRelinquishableAssertionWithContex
 
 - (void)dealloc
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v3 = SCDALogContextCore;
   if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v7 = "[SCDAAssertionCoordinator dealloc]";
-    v8 = 2112;
+    v6 = "[SCDAAssertionCoordinator dealloc]";
+    v7 = 2112;
     selfCopy = self;
     _os_log_impl(&dword_1DA758000, v3, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
   }
 
   [(SCDAAssertionCoordinator *)self _invalidate];
-  v5.receiver = self;
-  v5.super_class = SCDAAssertionCoordinator;
-  [(SCDAAssertionCoordinator *)&v5 dealloc];
-  v4 = *MEMORY[0x1E69E9840];
+  v4.receiver = self;
+  v4.super_class = SCDAAssertionCoordinator;
+  [(SCDAAssertionCoordinator *)&v4 dealloc];
 }
 
 - (SCDAAssertionCoordinator)initWithIdentifier:(id)identifier queue:(id)queue delegate:(id)delegate
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   queueCopy = queue;
   delegateCopy = delegate;
-  v21.receiver = self;
-  v21.super_class = SCDAAssertionCoordinator;
-  v11 = [(SCDAAssertionCoordinator *)&v21 init];
+  v20.receiver = self;
+  v20.super_class = SCDAAssertionCoordinator;
+  v11 = [(SCDAAssertionCoordinator *)&v20 init];
   if (v11)
   {
     v12 = [identifierCopy copy];
@@ -1124,14 +1095,13 @@ uint64_t __92__SCDAAssertionCoordinator_acquireRelinquishableAssertionWithContex
     if (os_log_type_enabled(SCDALogContextCore, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v23 = "[SCDAAssertionCoordinator initWithIdentifier:queue:delegate:]";
-      v24 = 2112;
-      v25 = v11;
+      v22 = "[SCDAAssertionCoordinator initWithIdentifier:queue:delegate:]";
+      v23 = 2112;
+      v24 = v11;
       _os_log_impl(&dword_1DA758000, v18, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
     }
   }
 
-  v19 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

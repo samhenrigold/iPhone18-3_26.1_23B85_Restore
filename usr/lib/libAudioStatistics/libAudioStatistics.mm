@@ -308,12 +308,12 @@ void sub_296C8E450(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_296C8E980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_296C8E980(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
 
   caulk::xpc::sync_message<objc_object  {objcproto14ServerProtocol}* {__strong},NSDictionary * {__strong}>::~sync_message(va);
-  objc_sync_exit(v5);
+  objc_sync_exit(v9);
 
   _Unwind_Resume(a1);
 }
@@ -333,18 +333,17 @@ id GetLocalCAReporterObjectFromClient(CAReportingClient *a1, uint64_t a2)
 
 id caulk::xpc::message<objc_object  {objcproto14ServerProtocol}* {__strong},NSDictionary * {__strong}>::sync_proxy(void **a1)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v8, (a1 + 1));
+  v8 = *MEMORY[0x29EDCA608];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v7, (a1 + 1));
   v2 = *a1;
-  v6[0] = MEMORY[0x29EDCA5F8];
-  v6[1] = 3321888768;
-  v6[2] = ___ZN5caulk3xpc7messageIU8__strongPU25objcproto14ServerProtocol11objc_objectJU8__strongP12NSDictionaryEE10sync_proxyEv_block_invoke;
-  v6[3] = &__block_descriptor_64_ea8_32c75_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP12NSDictionaryEEEEEE_e17_v16__0__NSError_8l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v7, v8);
-  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v6];
+  v5[0] = MEMORY[0x29EDCA5F8];
+  v5[1] = 3321888768;
+  v5[2] = ___ZN5caulk3xpc7messageIU8__strongPU25objcproto14ServerProtocol11objc_objectJU8__strongP12NSDictionaryEE10sync_proxyEv_block_invoke;
+  v5[3] = &__block_descriptor_64_ea8_32c75_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP12NSDictionaryEEEEEE_e17_v16__0__NSError_8l;
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v6, v7);
+  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v5];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v6);
   std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v7);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v8);
-  v4 = *MEMORY[0x29EDCA608];
 
   return v3;
 }
@@ -358,17 +357,16 @@ void sub_296C8EC44(_Unwind_Exception *a1)
 
 id caulk::xpc::message<objc_object  {objcproto14ServerProtocol}* {__strong},NSDictionary * {__strong}>::reply(uint64_t a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v6, a1 + 8);
-  v4[0] = MEMORY[0x29EDCA5F8];
-  v4[1] = 3321888768;
-  v4[2] = ___ZN5caulk3xpc7messageIU8__strongPU25objcproto14ServerProtocol11objc_objectJU8__strongP12NSDictionaryEE5replyEv_block_invoke;
-  v4[3] = &__block_descriptor_64_ea8_32c75_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP12NSDictionaryEEEEEE_e34_v24__0__NSError_8__NSDictionary_16l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v5, v6);
-  v1 = MEMORY[0x29C261C60](v4);
+  v6 = *MEMORY[0x29EDCA608];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v5, a1 + 8);
+  v3[0] = MEMORY[0x29EDCA5F8];
+  v3[1] = 3321888768;
+  v3[2] = ___ZN5caulk3xpc7messageIU8__strongPU25objcproto14ServerProtocol11objc_objectJU8__strongP12NSDictionaryEE5replyEv_block_invoke;
+  v3[3] = &__block_descriptor_64_ea8_32c75_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP12NSDictionaryEEEEEE_e34_v24__0__NSError_8__NSDictionary_16l;
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v4, v5);
+  v1 = MEMORY[0x29C261C60](v3);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v4);
   std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v5);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v6);
-  v2 = *MEMORY[0x29EDCA608];
 
   return v1;
 }
@@ -382,18 +380,17 @@ id *caulk::xpc::sync_message<objc_object  {objcproto14ServerProtocol}* {__strong
 
 id caulk::xpc::message<objc_object  {objcproto26CAReportingServiceProtocol}* {__strong},NSDictionary * {__strong}>::sync_proxy(void **a1)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v8, (a1 + 1));
+  v8 = *MEMORY[0x29EDCA608];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v7, (a1 + 1));
   v2 = *a1;
-  v6[0] = MEMORY[0x29EDCA5F8];
-  v6[1] = 3321888768;
-  v6[2] = ___ZN5caulk3xpc7messageIU8__strongPU37objcproto26CAReportingServiceProtocol11objc_objectJU8__strongP12NSDictionaryEE10sync_proxyEv_block_invoke;
-  v6[3] = &__block_descriptor_64_ea8_32c75_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP12NSDictionaryEEEEEE_e17_v16__0__NSError_8l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v7, v8);
-  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v6];
+  v5[0] = MEMORY[0x29EDCA5F8];
+  v5[1] = 3321888768;
+  v5[2] = ___ZN5caulk3xpc7messageIU8__strongPU37objcproto26CAReportingServiceProtocol11objc_objectJU8__strongP12NSDictionaryEE10sync_proxyEv_block_invoke;
+  v5[3] = &__block_descriptor_64_ea8_32c75_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP12NSDictionaryEEEEEE_e17_v16__0__NSError_8l;
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v6, v7);
+  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v5];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v6);
   std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v7);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v8);
-  v4 = *MEMORY[0x29EDCA608];
 
   return v3;
 }
@@ -407,17 +404,16 @@ void sub_296C8EE9C(_Unwind_Exception *a1)
 
 id caulk::xpc::message<objc_object  {objcproto26CAReportingServiceProtocol}* {__strong},NSDictionary * {__strong}>::reply(uint64_t a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v6, a1 + 8);
-  v4[0] = MEMORY[0x29EDCA5F8];
-  v4[1] = 3321888768;
-  v4[2] = ___ZN5caulk3xpc7messageIU8__strongPU37objcproto26CAReportingServiceProtocol11objc_objectJU8__strongP12NSDictionaryEE5replyEv_block_invoke;
-  v4[3] = &__block_descriptor_64_ea8_32c75_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP12NSDictionaryEEEEEE_e34_v24__0__NSError_8__NSDictionary_16l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v5, v6);
-  v1 = MEMORY[0x29C261C60](v4);
+  v6 = *MEMORY[0x29EDCA608];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v5, a1 + 8);
+  v3[0] = MEMORY[0x29EDCA5F8];
+  v3[1] = 3321888768;
+  v3[2] = ___ZN5caulk3xpc7messageIU8__strongPU37objcproto26CAReportingServiceProtocol11objc_objectJU8__strongP12NSDictionaryEE5replyEv_block_invoke;
+  v3[3] = &__block_descriptor_64_ea8_32c75_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP12NSDictionaryEEEEEE_e34_v24__0__NSError_8__NSDictionary_16l;
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v4, v5);
+  v1 = MEMORY[0x29C261C60](v3);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v4);
   std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v5);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v6);
-  v2 = *MEMORY[0x29EDCA608];
 
   return v1;
 }
@@ -431,18 +427,17 @@ void sub_296C8F5E4(_Unwind_Exception *a1)
 
 id caulk::xpc::message<objc_object  {objcproto14ServerProtocol}* {__strong},NSDictionary * {__strong}>::async_proxy(void **a1)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v8, (a1 + 1));
+  v8 = *MEMORY[0x29EDCA608];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v7, (a1 + 1));
   v2 = *a1;
-  v6[0] = MEMORY[0x29EDCA5F8];
-  v6[1] = 3321888768;
-  v6[2] = ___ZN5caulk3xpc7messageIU8__strongPU25objcproto14ServerProtocol11objc_objectJU8__strongP12NSDictionaryEE11async_proxyEv_block_invoke;
-  v6[3] = &__block_descriptor_64_ea8_32c75_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP12NSDictionaryEEEEEE_e17_v16__0__NSError_8l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v7, v8);
-  v3 = [v2 remoteObjectProxyWithErrorHandler:v6];
+  v5[0] = MEMORY[0x29EDCA5F8];
+  v5[1] = 3321888768;
+  v5[2] = ___ZN5caulk3xpc7messageIU8__strongPU25objcproto14ServerProtocol11objc_objectJU8__strongP12NSDictionaryEE11async_proxyEv_block_invoke;
+  v5[3] = &__block_descriptor_64_ea8_32c75_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP12NSDictionaryEEEEEE_e17_v16__0__NSError_8l;
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v6, v7);
+  v3 = [v2 remoteObjectProxyWithErrorHandler:v5];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v6);
   std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v7);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v8);
-  v4 = *MEMORY[0x29EDCA608];
 
   return v3;
 }
@@ -456,18 +451,17 @@ void sub_296C8FD5C(_Unwind_Exception *a1)
 
 id caulk::xpc::message<objc_object  {objcproto26CAReportingServiceProtocol}* {__strong},NSDictionary * {__strong}>::async_proxy(void **a1)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v8, (a1 + 1));
+  v8 = *MEMORY[0x29EDCA608];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v7, (a1 + 1));
   v2 = *a1;
-  v6[0] = MEMORY[0x29EDCA5F8];
-  v6[1] = 3321888768;
-  v6[2] = ___ZN5caulk3xpc7messageIU8__strongPU37objcproto26CAReportingServiceProtocol11objc_objectJU8__strongP12NSDictionaryEE11async_proxyEv_block_invoke;
-  v6[3] = &__block_descriptor_64_ea8_32c75_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP12NSDictionaryEEEEEE_e17_v16__0__NSError_8l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v7, v8);
-  v3 = [v2 remoteObjectProxyWithErrorHandler:v6];
+  v5[0] = MEMORY[0x29EDCA5F8];
+  v5[1] = 3321888768;
+  v5[2] = ___ZN5caulk3xpc7messageIU8__strongPU37objcproto26CAReportingServiceProtocol11objc_objectJU8__strongP12NSDictionaryEE11async_proxyEv_block_invoke;
+  v5[3] = &__block_descriptor_64_ea8_32c75_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP12NSDictionaryEEEEEE_e17_v16__0__NSError_8l;
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::__value_func[abi:ne200100](v6, v7);
+  v3 = [v2 remoteObjectProxyWithErrorHandler:v5];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v6);
   std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v7);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v8);
-  v4 = *MEMORY[0x29EDCA608];
 
   return v3;
 }
@@ -486,31 +480,30 @@ void sub_296C8FF1C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_296C90210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_296C90210(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
-  v9 = v7;
+  va_start(va, a9);
+  v13 = v11;
 
   caulk::xpc::sync_message<objc_object  {objcproto14ServerProtocol}* {__strong},NSArray<NSNumber *> * {__strong}>::~sync_message(va);
-  objc_sync_exit(v5);
+  objc_sync_exit(v9);
 
   _Unwind_Resume(a1);
 }
 
 id caulk::xpc::message<objc_object  {objcproto26CAReportingServiceProtocol}* {__strong},NSArray<NSNumber *> * {__strong}>::sync_proxy(void **a1)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::__value_func[abi:ne200100](v8, (a1 + 1));
+  v8 = *MEMORY[0x29EDCA608];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::__value_func[abi:ne200100](v7, (a1 + 1));
   v2 = *a1;
-  v6[0] = MEMORY[0x29EDCA5F8];
-  v6[1] = 3321888768;
-  v6[2] = ___ZN5caulk3xpc7messageIU8__strongPU37objcproto26CAReportingServiceProtocol11objc_objectJU8__strongP7NSArrayIP8NSNumberEEE10sync_proxyEv_block_invoke;
-  v6[3] = &__block_descriptor_64_ea8_32c81_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP7NSArrayIP8NSNumberEEEEEEE_e17_v16__0__NSError_8l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::__value_func[abi:ne200100](v7, v8);
-  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v6];
+  v5[0] = MEMORY[0x29EDCA5F8];
+  v5[1] = 3321888768;
+  v5[2] = ___ZN5caulk3xpc7messageIU8__strongPU37objcproto26CAReportingServiceProtocol11objc_objectJU8__strongP7NSArrayIP8NSNumberEEE10sync_proxyEv_block_invoke;
+  v5[3] = &__block_descriptor_64_ea8_32c81_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP7NSArrayIP8NSNumberEEEEEEE_e17_v16__0__NSError_8l;
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::__value_func[abi:ne200100](v6, v7);
+  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v5];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::~__value_func[abi:ne200100](v6);
   std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::~__value_func[abi:ne200100](v7);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::~__value_func[abi:ne200100](v8);
-  v4 = *MEMORY[0x29EDCA608];
 
   return v3;
 }
@@ -524,22 +517,21 @@ void sub_296C903B0(_Unwind_Exception *a1)
 
 id caulk::xpc::message<objc_object  {objcproto26CAReportingServiceProtocol}* {__strong},NSArray<NSNumber *> * {__strong}>::reply(uint64_t a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::__value_func[abi:ne200100](v6, a1 + 8);
-  v4[0] = MEMORY[0x29EDCA5F8];
-  v4[1] = 3321888768;
-  v4[2] = ___ZN5caulk3xpc7messageIU8__strongPU37objcproto26CAReportingServiceProtocol11objc_objectJU8__strongP7NSArrayIP8NSNumberEEE5replyEv_block_invoke;
-  v4[3] = &__block_descriptor_64_ea8_32c81_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP7NSArrayIP8NSNumberEEEEEEE_e29_v24__0__NSError_8__NSArray_16l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::__value_func[abi:ne200100](v5, v6);
-  v1 = MEMORY[0x29C261C60](v4);
+  v6 = *MEMORY[0x29EDCA608];
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::__value_func[abi:ne200100](v5, a1 + 8);
+  v3[0] = MEMORY[0x29EDCA5F8];
+  v3[1] = 3321888768;
+  v3[2] = ___ZN5caulk3xpc7messageIU8__strongPU37objcproto26CAReportingServiceProtocol11objc_objectJU8__strongP7NSArrayIP8NSNumberEEE5replyEv_block_invoke;
+  v3[3] = &__block_descriptor_64_ea8_32c81_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJU8__strongP7NSArrayIP8NSNumberEEEEEEE_e29_v24__0__NSError_8__NSArray_16l;
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::__value_func[abi:ne200100](v4, v5);
+  v1 = MEMORY[0x29C261C60](v3);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::~__value_func[abi:ne200100](v4);
   std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::~__value_func[abi:ne200100](v5);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::~__value_func[abi:ne200100](v6);
-  v2 = *MEMORY[0x29EDCA608];
 
   return v1;
 }
 
-void sub_296C909AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, id a9)
+void sub_296C909AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   caulk::xpc::sync_message<objc_object  {objcproto14ServerProtocol}* {__strong},BOOL>::~sync_message(&a9);
 
@@ -549,18 +541,17 @@ void sub_296C909AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 id caulk::xpc::message<objc_object  {objcproto14ServerProtocol}* {__strong},BOOL>::sync_proxy(void **a1)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v8, (a1 + 1));
+  v8 = *MEMORY[0x29EDCA608];
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v7, (a1 + 1));
   v2 = *a1;
-  v6[0] = MEMORY[0x29EDCA5F8];
-  v6[1] = 3321888768;
-  v6[2] = ___ZN5caulk3xpc7messageIU8__strongPU25objcproto14ServerProtocol11objc_objectJbEE10sync_proxyEv_block_invoke;
-  v6[3] = &__block_descriptor_64_ea8_32c51_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJbEEEEEE_e17_v16__0__NSError_8l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v7, v8);
-  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v6];
+  v5[0] = MEMORY[0x29EDCA5F8];
+  v5[1] = 3321888768;
+  v5[2] = ___ZN5caulk3xpc7messageIU8__strongPU25objcproto14ServerProtocol11objc_objectJbEE10sync_proxyEv_block_invoke;
+  v5[3] = &__block_descriptor_64_ea8_32c51_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJbEEEEEE_e17_v16__0__NSError_8l;
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v6, v7);
+  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v5];
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v6);
   std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v7);
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v8);
-  v4 = *MEMORY[0x29EDCA608];
 
   return v3;
 }
@@ -574,18 +565,17 @@ void sub_296C90B98(_Unwind_Exception *a1)
 
 id caulk::xpc::message<objc_object  {objcproto26CAReportingServiceProtocol}* {__strong},BOOL>::sync_proxy(void **a1)
 {
-  v9 = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v8, (a1 + 1));
+  v8 = *MEMORY[0x29EDCA608];
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v7, (a1 + 1));
   v2 = *a1;
-  v6[0] = MEMORY[0x29EDCA5F8];
-  v6[1] = 3321888768;
-  v6[2] = ___ZN5caulk3xpc7messageIU8__strongPU37objcproto26CAReportingServiceProtocol11objc_objectJbEE10sync_proxyEv_block_invoke;
-  v6[3] = &__block_descriptor_64_ea8_32c51_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJbEEEEEE_e17_v16__0__NSError_8l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v7, v8);
-  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v6];
+  v5[0] = MEMORY[0x29EDCA5F8];
+  v5[1] = 3321888768;
+  v5[2] = ___ZN5caulk3xpc7messageIU8__strongPU37objcproto26CAReportingServiceProtocol11objc_objectJbEE10sync_proxyEv_block_invoke;
+  v5[3] = &__block_descriptor_64_ea8_32c51_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJbEEEEEE_e17_v16__0__NSError_8l;
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v6, v7);
+  v3 = [v2 synchronousRemoteObjectProxyWithErrorHandler:v5];
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v6);
   std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v7);
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v8);
-  v4 = *MEMORY[0x29EDCA608];
 
   return v3;
 }
@@ -599,17 +589,16 @@ void sub_296C90CB0(_Unwind_Exception *a1)
 
 id caulk::xpc::message<objc_object  {objcproto26CAReportingServiceProtocol}* {__strong},BOOL>::reply(uint64_t a1)
 {
-  v7 = *MEMORY[0x29EDCA608];
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v6, a1 + 8);
-  v4[0] = MEMORY[0x29EDCA5F8];
-  v4[1] = 3321888768;
-  v4[2] = ___ZN5caulk3xpc7messageIU8__strongPU37objcproto26CAReportingServiceProtocol11objc_objectJbEE5replyEv_block_invoke;
-  v4[3] = &__block_descriptor_64_ea8_32c51_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJbEEEEEE_e20_v20__0__NSError_8B16l;
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v5, v6);
-  v1 = MEMORY[0x29C261C60](v4);
+  v6 = *MEMORY[0x29EDCA608];
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v5, a1 + 8);
+  v3[0] = MEMORY[0x29EDCA5F8];
+  v3[1] = 3321888768;
+  v3[2] = ___ZN5caulk3xpc7messageIU8__strongPU37objcproto26CAReportingServiceProtocol11objc_objectJbEE5replyEv_block_invoke;
+  v3[3] = &__block_descriptor_64_ea8_32c51_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJbEEEEEE_e20_v20__0__NSError_8B16l;
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::__value_func[abi:ne200100](v4, v5);
+  v1 = MEMORY[0x29C261C60](v3);
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v4);
   std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v5);
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v6);
-  v2 = *MEMORY[0x29EDCA608];
 
   return v1;
 }
@@ -635,12 +624,12 @@ void sub_296C91E28(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_296C923A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_296C923A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
 
   caulk::xpc::sync_message<objc_object  {objcproto14ServerProtocol}* {__strong},NSDictionary * {__strong}>::~sync_message(va);
-  objc_sync_exit(v7);
+  objc_sync_exit(v13);
 
   _Unwind_Resume(a1);
 }
@@ -775,11 +764,11 @@ LABEL_14:
   return MEMORY[0x29C2618D0](&v16);
 }
 
-void sub_296C930B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296C930B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va, MEMORY[0x29EDC9538]);
-  MEMORY[0x29C2618D0](v2 + 112);
+  MEMORY[0x29C2618D0](v3 + 112);
   _Unwind_Resume(a1);
 }
 
@@ -981,21 +970,20 @@ void std::string::__init_copy_ctor_external(std::string *this, const std::string
 
 void *caulk::xpc::sync_message<objc_object  {objcproto14ServerProtocol}* {__strong},NSDictionary * {__strong}>::sync_message(void *a1, void *a2)
 {
-  v5[4] = *MEMORY[0x29EDCA608];
-  v5[0] = &unk_2A1DF11F8;
-  v5[1] = a1;
-  v5[3] = v5;
-  caulk::xpc::message<objc_object  {objcproto14ServerProtocol}* {__strong},NSDictionary * {__strong}>::message(a1, a2, v5);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v5);
+  v4[4] = *MEMORY[0x29EDCA608];
+  v4[0] = &unk_2A1DF11F8;
+  v4[1] = a1;
+  v4[3] = v4;
+  caulk::xpc::message<objc_object  {objcproto14ServerProtocol}* {__strong},NSDictionary * {__strong}>::message(a1, a2, v4);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v4);
   a1[5] = 0;
   a1[6] = 0;
-  v3 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
-void sub_296C9376C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296C9376C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1131,21 +1119,20 @@ void ___ZN5caulk3xpc7messageIU8__strongPU25objcproto14ServerProtocol11objc_objec
 
 void *caulk::xpc::sync_message<objc_object  {objcproto26CAReportingServiceProtocol}* {__strong},NSDictionary * {__strong}>::sync_message(void *a1, void *a2)
 {
-  v5[4] = *MEMORY[0x29EDCA608];
-  v5[0] = &unk_2A1DF10F0;
-  v5[1] = a1;
-  v5[3] = v5;
-  caulk::xpc::message<objc_object  {objcproto26CAReportingServiceProtocol}* {__strong},NSDictionary * {__strong}>::message(a1, a2, v5);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v5);
+  v4[4] = *MEMORY[0x29EDCA608];
+  v4[0] = &unk_2A1DF10F0;
+  v4[1] = a1;
+  v4[3] = v4;
+  caulk::xpc::message<objc_object  {objcproto26CAReportingServiceProtocol}* {__strong},NSDictionary * {__strong}>::message(a1, a2, v4);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](v4);
   a1[5] = 0;
   a1[6] = 0;
-  v3 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
-void sub_296C93CDC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296C93CDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(NSError *,std::tuple<NSDictionary * {__strong}> &&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1216,21 +1203,20 @@ void ___ZN5caulk3xpc7messageIU8__strongPU37objcproto26CAReportingServiceProtocol
 
 void *caulk::xpc::sync_message<objc_object  {objcproto14ServerProtocol}* {__strong},NSArray<NSNumber *> * {__strong}>::sync_message(void *a1, void *a2)
 {
-  v5[4] = *MEMORY[0x29EDCA608];
-  v5[0] = &unk_2A1DF11A0;
-  v5[1] = a1;
-  v5[3] = v5;
-  caulk::xpc::message<objc_object  {objcproto14ServerProtocol}* {__strong},NSArray<NSNumber *> * {__strong}>::message(a1, a2, v5);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::~__value_func[abi:ne200100](v5);
+  v4[4] = *MEMORY[0x29EDCA608];
+  v4[0] = &unk_2A1DF11A0;
+  v4[1] = a1;
+  v4[3] = v4;
+  caulk::xpc::message<objc_object  {objcproto14ServerProtocol}* {__strong},NSArray<NSNumber *> * {__strong}>::message(a1, a2, v4);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::~__value_func[abi:ne200100](v4);
   a1[5] = 0;
   a1[6] = 0;
-  v3 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
-void sub_296C944FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296C944FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1302,21 +1288,20 @@ uint64_t std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNu
 
 void *caulk::xpc::sync_message<objc_object  {objcproto26CAReportingServiceProtocol}* {__strong},NSArray<NSNumber *> * {__strong}>::sync_message(void *a1, void *a2)
 {
-  v5[4] = *MEMORY[0x29EDCA608];
-  v5[0] = &unk_2A1DF1098;
-  v5[1] = a1;
-  v5[3] = v5;
-  caulk::xpc::message<objc_object  {objcproto26CAReportingServiceProtocol}* {__strong},NSArray<NSNumber *> * {__strong}>::message(a1, a2, v5);
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::~__value_func[abi:ne200100](v5);
+  v4[4] = *MEMORY[0x29EDCA608];
+  v4[0] = &unk_2A1DF1098;
+  v4[1] = a1;
+  v4[3] = v4;
+  caulk::xpc::message<objc_object  {objcproto26CAReportingServiceProtocol}* {__strong},NSArray<NSNumber *> * {__strong}>::message(a1, a2, v4);
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::~__value_func[abi:ne200100](v4);
   a1[5] = 0;
   a1[6] = 0;
-  v3 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
-void sub_296C947FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296C947FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(NSError *,std::tuple<NSArray<NSNumber *> * {__strong}> &&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1387,21 +1372,20 @@ void ___ZN5caulk3xpc7messageIU8__strongPU37objcproto26CAReportingServiceProtocol
 
 uint64_t caulk::xpc::sync_message<objc_object  {objcproto14ServerProtocol}* {__strong},BOOL>::sync_message(uint64_t a1, void *a2)
 {
-  v5[4] = *MEMORY[0x29EDCA608];
-  v5[0] = &unk_2A1DF1148;
-  v5[1] = a1;
-  v5[3] = v5;
-  caulk::xpc::message<objc_object  {objcproto14ServerProtocol}* {__strong},BOOL>::message(a1, a2, v5);
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v5);
+  v4[4] = *MEMORY[0x29EDCA608];
+  v4[0] = &unk_2A1DF1148;
+  v4[1] = a1;
+  v4[3] = v4;
+  caulk::xpc::message<objc_object  {objcproto14ServerProtocol}* {__strong},BOOL>::message(a1, a2, v4);
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v4);
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  v3 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
-void sub_296C94BB8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296C94BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1485,21 +1469,20 @@ void std::function<void ()(NSError *,std::tuple<BOOL> &&)>::operator()(uint64_t 
 
 uint64_t caulk::xpc::sync_message<objc_object  {objcproto26CAReportingServiceProtocol}* {__strong},BOOL>::sync_message(uint64_t a1, void *a2)
 {
-  v5[4] = *MEMORY[0x29EDCA608];
-  v5[0] = &unk_2A1DF1040;
-  v5[1] = a1;
-  v5[3] = v5;
-  caulk::xpc::message<objc_object  {objcproto26CAReportingServiceProtocol}* {__strong},BOOL>::message(a1, a2, v5);
-  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v5);
+  v4[4] = *MEMORY[0x29EDCA608];
+  v4[0] = &unk_2A1DF1040;
+  v4[1] = a1;
+  v4[3] = v4;
+  caulk::xpc::message<objc_object  {objcproto26CAReportingServiceProtocol}* {__strong},BOOL>::message(a1, a2, v4);
+  std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](v4);
   *(a1 + 40) = 0;
   *(a1 + 48) = 0;
-  v3 = *MEMORY[0x29EDCA608];
   return a1;
 }
 
-void sub_296C94F84(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296C94F84(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::__function::__value_func<void ()(NSError *,std::tuple<BOOL> &&)>::~__value_func[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -1583,17 +1566,17 @@ uint64_t CAReportingClientCreateReporterIDFromSessionID(uint64_t a1)
   }
 }
 
-uint64_t CAReportingClientCreateTestReporterID()
+int64_t CAReportingClientCreateTestReporterID()
 {
-  v14 = *MEMORY[0x29EDCA608];
+  v13 = *MEMORY[0x29EDCA608];
   v0 = *AA_ClientCategory();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136315394;
-    v9 = "CAReportingClientWrap.mm";
-    v10 = 1024;
-    v11 = 67;
-    _os_log_impl(&dword_296C89000, v0, OS_LOG_TYPE_DEFAULT, "%25s:%-5d CAReportingClientCreateTestReporterID called", &v8, 0x12u);
+    v7 = 136315394;
+    v8 = "CAReportingClientWrap.mm";
+    v9 = 1024;
+    v10 = 67;
+    _os_log_impl(&dword_296C89000, v0, OS_LOG_TYPE_DEFAULT, "%25s:%-5d CAReportingClientCreateTestReporterID called", &v7, 0x12u);
   }
 
   v1 = objc_autoreleasePoolPush();
@@ -1602,13 +1585,13 @@ uint64_t CAReportingClientCreateTestReporterID()
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [(CAReporter *)v2 reporterID];
-    v8 = 136315650;
-    v9 = "CAReportingClientWrap.mm";
-    v10 = 1024;
-    v11 = 71;
-    v12 = 2048;
-    v13 = v4;
-    _os_log_impl(&dword_296C89000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d CAReportingClientCreateTestReporterID { careporter_id=%lli }", &v8, 0x1Cu);
+    v7 = 136315650;
+    v8 = "CAReportingClientWrap.mm";
+    v9 = 1024;
+    v10 = 71;
+    v11 = 2048;
+    v12 = v4;
+    _os_log_impl(&dword_296C89000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d CAReportingClientCreateTestReporterID { careporter_id=%lli }", &v7, 0x1Cu);
   }
 
   if (v2)
@@ -1622,7 +1605,6 @@ uint64_t CAReportingClientCreateTestReporterID()
   }
 
   objc_autoreleasePoolPop(v1);
-  v6 = *MEMORY[0x29EDCA608];
   return v5;
 }
 
@@ -1714,23 +1696,20 @@ void sub_296C96584(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<pc_session *>::reserve(void *result, unint64_t a2)
+void std::vector<pc_session *>::reserve(void *a1, unint64_t a2)
 {
-  if (a2 > (result[2] - *result) >> 3)
+  if (a2 > (a1[2] - *a1) >> 3)
   {
     if (!(a2 >> 61))
     {
-      v2 = result[1] - *result;
-      std::__allocate_at_least[abi:ne200100]<std::allocator<pc_session *>>(result, a2);
+      std::__allocate_at_least[abi:ne200100]<std::allocator<pc_session *>>(a1, a2);
     }
 
     std::vector<pc_session *>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
-void sub_296C96CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
+void sub_296C96CF0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, id a26)
 {
   _Block_object_dispose(&a21, 8);
 
@@ -1768,7 +1747,7 @@ void std::__throw_bad_array_new_length[abi:ne200100]()
   __cxa_throw(v1, MEMORY[0x29EDC9488], MEMORY[0x29EDC9370]);
 }
 
-void *std::vector<pc_session *>::__assign_with_size[abi:ne200100]<pc_session **,pc_session **>(void *result, char *__src, char *a3, unint64_t a4)
+void **std::vector<pc_session *>::__assign_with_size[abi:ne200100]<pc_session **,pc_session **>(void **result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -1843,7 +1822,7 @@ void *std::vector<pc_session *>::__assign_with_size[abi:ne200100]<pc_session **,
   return result;
 }
 
-void std::vector<pc_session *>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<pc_session *>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -1917,11 +1896,11 @@ LABEL_14:
   return MEMORY[0x29C2618D0](&v18);
 }
 
-void sub_296C97900(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_296C97900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::ostringstream::~ostringstream(va, MEMORY[0x29EDC9538]);
-  MEMORY[0x29C2618D0](v2 + 112);
+  MEMORY[0x29C2618D0](v3 + 112);
   _Unwind_Resume(a1);
 }
 
@@ -1931,16 +1910,16 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   if (v13[0] == 1)
   {
     v6 = a1 + *(*a1 - 24);
-    v7 = *(v6 + 40);
-    v8 = *(v6 + 8);
-    v9 = *(v6 + 144);
+    v7 = *(v6 + 5);
+    v8 = *(v6 + 2);
+    v9 = *(v6 + 36);
     if (v9 == -1)
     {
       std::ios_base::getloc((a1 + *(*a1 - 24)));
       v10 = std::locale::use_facet(&v14, MEMORY[0x29EDC93D0]);
       v9 = (v10->__vftable[2].~facet_0)(v10, 32);
       std::locale::~locale(&v14);
-      *(v6 + 144) = v9;
+      *(v6 + 36) = v9;
     }
 
     if ((v8 & 0xB0) == 0x20)
@@ -1963,9 +1942,9 @@ void *std::__put_character_sequence[abi:ne200100]<char,std::char_traits<char>>(v
   return a1;
 }
 
-void sub_296C97A64(void *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10, uint64_t a11, std::locale a12)
+void sub_296C97A64(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, std::locale a12)
 {
-  MEMORY[0x29C261850](&a10);
+  MEMORY[0x29C261850](&a10, a2, a3, a4, a5, a6, a7, a8);
   __cxa_begin_catch(a1);
   std::ios_base::__set_badbit_and_consider_rethrow((v12 + *(*v12 - 24)));
   __cxa_end_catch();
@@ -2245,16 +2224,16 @@ id CAReportingUtilityAddDates(uint64_t a1)
   return v3;
 }
 
-id CAReportingUtilityGetReportingServerQueue()
+id CAReportingUtilityGetReportingServerQueue(uint64_t a1)
 {
   if (CAReportingUtilityGetReportingServerQueue::onceToken != -1)
   {
     CAReportingUtilityGetReportingServerQueue_cold_1();
   }
 
-  v1 = CAReportingUtilityGetReportingServerQueue::gReportingServerQueue;
+  v2 = CAReportingUtilityGetReportingServerQueue::gReportingServerQueue;
 
-  return v1;
+  return v2;
 }
 
 void __CAReportingUtilityGetReportingServerQueue_block_invoke()

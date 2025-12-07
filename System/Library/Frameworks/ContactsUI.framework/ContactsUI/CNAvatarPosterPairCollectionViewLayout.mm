@@ -14,14 +14,14 @@
 - (void)prepareForCollectionViewUpdates:(id)updates
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for CNAvatarPosterPairCollectionViewLayout();
+  v4.super_class = type metadata accessor for CNAvatarPosterPairCollectionViewLayout(0);
   [(CNAvatarPosterPairCollectionViewLayout *)&v4 prepareForCollectionViewUpdates:updates];
 }
 
 - (void)finalizeCollectionViewUpdates
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for CNAvatarPosterPairCollectionViewLayout();
+  v3.super_class = type metadata accessor for CNAvatarPosterPairCollectionViewLayout(0);
   v2 = v3.receiver;
   [(CNAvatarPosterPairCollectionViewLayout *)&v3 finalizeCollectionViewUpdates];
   *&v2[OBJC_IVAR____TtC10ContactsUI38CNAvatarPosterPairCollectionViewLayout_itemIndexPathsToDelete] = MEMORY[0x1E69E7CC0];

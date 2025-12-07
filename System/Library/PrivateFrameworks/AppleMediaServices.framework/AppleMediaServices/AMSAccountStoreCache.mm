@@ -105,16 +105,16 @@ uint64_t __29__AMSAccountStoreCache_cache__block_invoke()
   return v7;
 }
 
-void __49__AMSAccountStoreCache_accountStoreForMediaType___block_invoke(uint64_t a1, void *a2)
+void __49__AMSAccountStoreCache_accountStoreForMediaType___block_invoke(void *a1, void *a2)
 {
   v35 = *MEMORY[0x1E69E9840];
   v4 = a2;
-  v5 = [v4 objectForKeyedSubscript:*(a1 + 32)];
-  v6 = *(*(a1 + 40) + 8);
+  v5 = [v4 objectForKeyedSubscript:a1[4]];
+  v6 = *(a1[5] + 8);
   v7 = *(v6 + 40);
   *(v6 + 40) = v5;
 
-  v8 = *(*(*(a1 + 40) + 8) + 40);
+  v8 = *(*(a1[5] + 8) + 40);
   v9 = +[AMSLogConfig sharedAccountsConfig];
   v10 = v9;
   if (v8)
@@ -142,8 +142,8 @@ void __49__AMSAccountStoreCache_accountStoreForMediaType___block_invoke(uint64_t
         [v13 stringWithFormat:@"%@: ", v14];
       }
       v16 = ;
-      v23 = *(a1 + 32);
-      v24 = *(*(*(a1 + 40) + 8) + 40);
+      v23 = a1[4];
+      v24 = *(*(a1[5] + 8) + 40);
       *buf = 138543874;
       v30 = v16;
       v31 = 2114;
@@ -184,7 +184,7 @@ void __49__AMSAccountStoreCache_accountStoreForMediaType___block_invoke(uint64_t
         [v19 stringWithFormat:@"%@: ", v20];
       }
       v22 = ;
-      v25 = *(a1 + 32);
+      v25 = a1[4];
       *buf = 138543618;
       v30 = v22;
       v31 = 2114;
@@ -198,11 +198,11 @@ void __49__AMSAccountStoreCache_accountStoreForMediaType___block_invoke(uint64_t
     }
 
     v26 = [MEMORY[0x1E6959A48] _ams_newAccountStore];
-    v27 = *(*(a1 + 40) + 8);
+    v27 = *(a1[5] + 8);
     v28 = *(v27 + 40);
     *(v27 + 40) = v26;
 
-    [v4 setObject:*(*(*(a1 + 40) + 8) + 40) forKeyedSubscript:*(a1 + 32)];
+    [v4 setObject:*(*(a1[5] + 8) + 40) forKeyedSubscript:a1[4]];
   }
 }
 

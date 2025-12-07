@@ -36,18 +36,16 @@
 
 - (LACSharingManaging)sharingManager
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___LACPhoneIntegrationEnvironmentProvider_sharingManager);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (LACEligibilityHelping)eligibilityHelper
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___LACPhoneIntegrationEnvironmentProvider_eligibilityHelper);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (LACPhoneIntegrationEnvironmentProvider)initWithEligibilityHelper:(id)helper sharingManager:(id)manager workQueue:(id)queue
@@ -59,12 +57,11 @@
 
 - (void)dealloc
 {
-  v2 = *(&self->super.isa + OBJC_IVAR___LACPhoneIntegrationEnvironmentProvider_subscription);
   selfCopy = self;
   AKSEventsUnregister();
-  v4.receiver = selfCopy;
-  v4.super_class = LACPhoneIntegrationEnvironmentProvider;
-  [(LACPhoneIntegrationEnvironmentProvider *)&v4 dealloc];
+  v3.receiver = selfCopy;
+  v3.super_class = LACPhoneIntegrationEnvironmentProvider;
+  [(LACPhoneIntegrationEnvironmentProvider *)&v3 dealloc];
 }
 
 - (LACPhoneIntegrationEnvironmentProvider)init

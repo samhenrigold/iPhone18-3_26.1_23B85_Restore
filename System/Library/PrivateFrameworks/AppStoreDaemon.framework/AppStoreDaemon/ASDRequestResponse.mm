@@ -48,7 +48,7 @@
   error = self->_error;
   self->_error = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, error);
 }
 
 - (void)setError:(id)error
@@ -57,7 +57,7 @@
   error = self->_error;
   self->_error = v4;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v4, error);
 }
 
 - (id)copyWithZone:(_NSZone *)zone

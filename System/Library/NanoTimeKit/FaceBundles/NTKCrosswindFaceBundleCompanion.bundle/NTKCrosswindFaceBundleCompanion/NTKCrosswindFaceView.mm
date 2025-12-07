@@ -16,6 +16,7 @@
 - (void)_loadLayoutRules;
 - (void)_loadSnapshotContentViews;
 - (void)_prepareForEditing;
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group;
 - (void)_unloadSnapshotContentViews;
 - (void)_updateColors;
 - (void)_updateColorsWithPalette:(id)palette;
@@ -24,6 +25,8 @@
 - (void)_updateFrameRate;
 - (void)_updateGradientColorsWithPalette:(id)palette;
 - (void)_updateTimeViewColors;
+- (void)screenDidTurnOffAnimated:(BOOL)animated;
+- (void)screenWillTurnOnAnimated:(BOOL)animated;
 - (void)setDataMode:(int64_t)mode;
 - (void)setOverrideDate:(id)date duration:(double)duration;
 @end
@@ -127,6 +130,16 @@
   self->_cornerView = 0;
 }
 
+- (void)_renderSynchronouslyWithImageQueueDiscard:(BOOL)discard inGroup:(id)group
+{
+  discardCopy = discard;
+  v7.receiver = self;
+  v7.super_class = NTKCrosswindFaceView;
+  groupCopy = group;
+  [(NTKCrosswindFaceView *)&v7 _renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy];
+  [(CLKUIQuadView *)self->_quadView renderSynchronouslyWithImageQueueDiscard:discardCopy inGroup:groupCopy, v7.receiver, v7.super_class];
+}
+
 - (void)_applyFrozen
 {
   v3.receiver = self;
@@ -140,6 +153,22 @@
   v4.receiver = self;
   v4.super_class = NTKCrosswindFaceView;
   [(NTKCrosswindFaceView *)&v4 setDataMode:mode];
+  [(NTKCrosswindFaceView *)self _updateFrameRate];
+}
+
+- (void)screenWillTurnOnAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = NTKCrosswindFaceView;
+  [(NTKCrosswindFaceView *)&v4 screenWillTurnOnAnimated:animated];
+  [(NTKCrosswindFaceView *)self _updateFrameRate];
+}
+
+- (void)screenDidTurnOffAnimated:(BOOL)animated
+{
+  v4.receiver = self;
+  v4.super_class = NTKCrosswindFaceView;
+  [(NTKCrosswindFaceView *)&v4 screenDidTurnOffAnimated:animated];
   [(NTKCrosswindFaceView *)self _updateFrameRate];
 }
 

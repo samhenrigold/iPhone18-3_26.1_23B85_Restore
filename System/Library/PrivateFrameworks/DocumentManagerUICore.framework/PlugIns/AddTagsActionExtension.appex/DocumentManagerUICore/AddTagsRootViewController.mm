@@ -4,6 +4,7 @@
 - (_TtC22AddTagsActionExtension25AddTagsRootViewController)initWithRootViewController:(id)controller;
 - (void)done:(id)done;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AddTagsRootViewController
@@ -12,6 +13,37 @@
 {
   selfCopy = self;
   sub_100001DD0();
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for AddTagsRootViewController();
+  v4 = v9.receiver;
+  [(AddTagsRootViewController *)&v9 viewWillAppear:appearCopy];
+  view = [v4 view];
+  if (view)
+  {
+    v6 = view;
+    [view setNeedsLayout];
+
+    view2 = [v4 view];
+    if (view2)
+    {
+      v8 = view2;
+      [view2 layoutIfNeeded];
+
+      return;
+    }
+  }
+
+  else
+  {
+    __break(1u);
+  }
+
+  __break(1u);
 }
 
 - (void)done:(id)done

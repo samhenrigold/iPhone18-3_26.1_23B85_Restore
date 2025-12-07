@@ -13,77 +13,77 @@
   v3 = *&self->super.AXUISettingsBaseListController_opaque[OBJC_IVAR___PSListController__specifiers];
   if (!v3)
   {
-    v25 = OBJC_IVAR___PSListController__specifiers;
+    v27 = OBJC_IVAR___PSListController__specifiers;
     v4 = objc_alloc_init(NSMutableArray);
     captionPreviewSpecifiers = [(AXCaptionStyleChooserController *)selfCopy captionPreviewSpecifiers];
     [v4 addObjectsFromArray:captionPreviewSpecifiers];
 
-    v30 = v4;
+    v32 = v4;
     lastObject = [v4 lastObject];
     v7 = settingsLocString(@"FONT_CATEGORY_FOOTER_TEXT", @"CaptioningStyle");
-    v24 = lastObject;
+    v26 = lastObject;
     [lastObject setProperty:v7 forKey:PSFooterTextGroupKey];
 
+    v35 = 0u;
+    v36 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    obj = AXCaptionFonts();
-    v8 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
-    if (v8)
+    obj = AXCaptionFonts(v8, v9);
+    v10 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+    if (v10)
     {
-      v9 = v8;
-      v10 = *v32;
-      v29 = PSCellClassKey;
-      v27 = PSTitleKey;
-      v28 = PSIDKey;
+      v11 = v10;
+      v12 = *v34;
+      v31 = PSCellClassKey;
+      v29 = PSTitleKey;
+      v30 = PSIDKey;
       do
       {
-        for (i = 0; i != v9; i = i + 1)
+        for (i = 0; i != v11; i = i + 1)
         {
-          if (*v32 != v10)
+          if (*v34 != v12)
           {
             objc_enumerationMutation(obj);
           }
 
-          v12 = *(*(&v31 + 1) + 8 * i);
-          v13 = [v12 objectForKeyedSubscript:@"category"];
-          intValue = [v13 intValue];
+          v14 = *(*(&v33 + 1) + 8 * i);
+          v15 = [v14 objectForKeyedSubscript:@"category"];
+          intValue = [v15 intValue];
 
           if (intValue)
           {
-            v15 = [v12 objectForKeyedSubscript:@"category"];
-            v16 = AXCaptionFontCategoryName([v15 intValue]);
+            v17 = [v14 objectForKeyedSubscript:@"category"];
+            v18 = AXCaptionFontCategoryName([v17 intValue]);
 
-            v17 = [PSSpecifier preferenceSpecifierNamed:v16 target:selfCopy set:0 get:"_fontForCategory:" detail:objc_opt_class() cell:1 edit:0];
-            [v17 setProperty:objc_opt_class() forKey:v29];
-            [v12 objectForKeyedSubscript:@"category"];
-            v19 = v18 = selfCopy;
-            [v17 setProperty:v19 forKey:@"category"];
+            v19 = [PSSpecifier preferenceSpecifierNamed:v18 target:selfCopy set:0 get:"_fontForCategory:" detail:objc_opt_class() cell:1 edit:0];
+            [v19 setProperty:objc_opt_class() forKey:v31];
+            [v14 objectForKeyedSubscript:@"category"];
+            v21 = v20 = selfCopy;
+            [v19 setProperty:v21 forKey:@"category"];
 
-            v20 = [v12 objectForKeyedSubscript:@"name"];
-            [v17 setProperty:v20 forKey:v28];
+            v22 = [v14 objectForKeyedSubscript:@"name"];
+            [v19 setProperty:v22 forKey:v30];
 
-            selfCopy = v18;
-            v21 = [v12 objectForKeyedSubscript:@"isBold"];
-            [v17 setProperty:v21 forKey:@"isBold"];
+            selfCopy = v20;
+            v23 = [v14 objectForKeyedSubscript:@"isBold"];
+            [v19 setProperty:v23 forKey:@"isBold"];
 
-            [v17 setProperty:v16 forKey:v27];
-            [v17 setCellType:2];
-            [v30 addObject:v17];
+            [v19 setProperty:v18 forKey:v29];
+            [v19 setCellType:2];
+            [v32 addObject:v19];
           }
         }
 
-        v9 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v11 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
       }
 
-      while (v9);
+      while (v11);
     }
 
-    v22 = *&selfCopy->super.AXUISettingsBaseListController_opaque[v25];
-    *&selfCopy->super.AXUISettingsBaseListController_opaque[v25] = v30;
+    v24 = *&selfCopy->super.AXUISettingsBaseListController_opaque[v27];
+    *&selfCopy->super.AXUISettingsBaseListController_opaque[v27] = v32;
 
-    v3 = *&selfCopy->super.AXUISettingsBaseListController_opaque[v25];
+    v3 = *&selfCopy->super.AXUISettingsBaseListController_opaque[v27];
   }
 
   return v3;
@@ -114,62 +114,62 @@
   v5 = [categoryCopy propertyForKey:@"category"];
   intValue = [v5 intValue];
 
-  v27 = -1;
+  v29 = -1;
   [(AXCaptionStyleChooserController *)self profileId];
   MACaptionAppearancePrefIsSystemFont();
   [(AXCaptionStyleChooserController *)self profileId];
   v7 = MACaptionAppearancePrefCopyFontForStyle();
   if (!v7)
   {
-    v9 = AXCaptionDefaultFontForCategory(intValue);
-    v13 = [v9 objectForKeyedSubscript:@"displayName"];
+    v10 = AXCaptionDefaultFontForCategory(intValue, v8);
+    v15 = [v10 objectForKeyedSubscript:@"displayName"];
     goto LABEL_17;
   }
 
-  v8 = v7;
-  v9 = CGFontCopyPostScriptName(v7);
-  v23 = 0u;
-  v24 = 0u;
+  v9 = v7;
+  v10 = CGFontCopyPostScriptName(v7);
   v25 = 0u;
   v26 = 0u;
-  v10 = AXCaptionFonts();
-  v11 = [v10 countByEnumeratingWithState:&v23 objects:v28 count:16];
-  if (v11)
+  v27 = 0u;
+  v28 = 0u;
+  v12 = AXCaptionFonts(v10, v11);
+  v13 = [v12 countByEnumeratingWithState:&v25 objects:v30 count:16];
+  if (v13)
   {
-    v12 = v11;
-    v21 = v8;
-    v22 = categoryCopy;
-    v13 = 0;
-    v14 = *v24;
+    v14 = v13;
+    v23 = v9;
+    v24 = categoryCopy;
+    v15 = 0;
+    v16 = *v26;
     do
     {
-      for (i = 0; i != v12; i = i + 1)
+      for (i = 0; i != v14; i = i + 1)
       {
-        if (*v24 != v14)
+        if (*v26 != v16)
         {
-          objc_enumerationMutation(v10);
+          objc_enumerationMutation(v12);
         }
 
-        v16 = *(*(&v23 + 1) + 8 * i);
-        v17 = [v16 objectForKeyedSubscript:{@"name", v21, v22, v23}];
-        v18 = [v17 isEqualToString:v9];
+        v18 = *(*(&v25 + 1) + 8 * i);
+        v19 = [v18 objectForKeyedSubscript:{@"name", v23, v24, v25}];
+        v20 = [v19 isEqualToString:v10];
 
-        if (v18)
+        if (v20)
         {
-          v19 = [v16 objectForKeyedSubscript:@"displayName"];
+          v21 = [v18 objectForKeyedSubscript:@"displayName"];
 
-          v13 = v19;
+          v15 = v21;
         }
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
-    while (v12);
+    while (v14);
 
-    v8 = v21;
-    categoryCopy = v22;
-    if (v13)
+    v9 = v23;
+    categoryCopy = v24;
+    if (v15)
     {
       goto LABEL_16;
     }
@@ -179,12 +179,12 @@
   {
   }
 
-  v13 = CGFontCopyFullName(v8);
+  v15 = CGFontCopyFullName(v9);
 LABEL_16:
-  CFRelease(v8);
+  CFRelease(v9);
 LABEL_17:
 
-  return v13;
+  return v15;
 }
 
 @end

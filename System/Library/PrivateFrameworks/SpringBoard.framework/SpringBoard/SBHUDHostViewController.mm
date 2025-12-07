@@ -54,9 +54,9 @@ uint64_t __59___SBHUDHostViewController_dismissHUD_animated_completion___block_i
 {
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v8 = WeakRetained;
-  if (WeakRetained && (v5 = [*(*(a1 + 32) + 1000) containsObject:WeakRetained], WeakRetained = v8, a2) && v5)
+  if (WeakRetained && (v5 = objc_msgSend_containsObject_(*(*(a1 + 32) + 1000)), WeakRetained = v8, a2) && v5)
   {
-    [*(a1 + 32) _executeDismissHUD:v8 animated:0 completion:*(a1 + 40)];
+    v6 = [*(a1 + 32) _executeDismissHUD:v8 animated:0 completion:*(a1 + 40)];
   }
 
   else
@@ -64,11 +64,11 @@ uint64_t __59___SBHUDHostViewController_dismissHUD_animated_completion___block_i
     v6 = *(a1 + 40);
     if (v6)
     {
-      (*(v6 + 16))(v6, a2, WeakRetained);
+      v6 = (*(v6 + 16))(v6, a2, WeakRetained);
     }
   }
 
-  return MEMORY[0x2821F9730]();
+  return MEMORY[0x2821F9730](v6);
 }
 
 uint64_t __118___SBHUDHostViewController__buildTransitionContextToPresentHUD_dismissHUD_animated_delegate_containerView_completion___block_invoke(uint64_t result, uint64_t a2)

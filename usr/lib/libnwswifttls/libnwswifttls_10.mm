@@ -1,1938 +1,3 @@
-Swift::Int specialized MutableCollection<>.sort(by:)(char **a1)
-{
-  v2 = *a1;
-  if ((swift_isUniquelyReferenced_nonNull_native() & 1) == 0)
-  {
-    v2 = specialized _ContiguousArrayBuffer._consumeAndCreateNew()(v2);
-  }
-
-  v3 = *(v2 + 2);
-  v18[0] = (v2 + 32);
-  v18[1] = v3;
-  result = _minimumMergeRunLength(_:)(v3);
-  if (result >= v3)
-  {
-    if (v3 >= 2)
-    {
-      v8 = -1;
-      v9 = 1;
-      v10 = v2 + 32;
-      do
-      {
-        v11 = *&v2[2 * v9 + 32];
-        v12 = v8;
-        v13 = v10;
-        do
-        {
-          v14 = *v13;
-          if (v11 >= v14)
-          {
-            break;
-          }
-
-          *(v13 + 1) = v14;
-          *v13 = v11;
-          v13 -= 2;
-        }
-
-        while (!__CFADD__(v12++, 1));
-        ++v9;
-        v10 += 2;
-        --v8;
-      }
-
-      while (v9 != v3);
-    }
-  }
-
-  else
-  {
-    v5 = result;
-    v6 = v3 >> 1;
-    if (v3 >= 2)
-    {
-      v7 = static Array._allocateBufferUninitialized(minimumCapacity:)();
-      *(v7 + 16) = v6;
-    }
-
-    else
-    {
-      v7 = MEMORY[0x1E69E7CC0];
-    }
-
-    v16[0] = v7 + 32;
-    v16[1] = v6;
-    specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(v16, v17, v18, v5);
-    *(v7 + 16) = 0;
-  }
-
-  *a1 = v2;
-  return result;
-}
-
-uint64_t specialized closure #1 in UnsafeMutableBufferPointer._stableSortImpl(by:)(uint64_t result, uint64_t a2, uint64_t *a3, uint64_t a4)
-{
-  v83 = result;
-  v6 = a3[1];
-  if (v6 < 1)
-  {
-    v8 = MEMORY[0x1E69E7CC0];
-LABEL_88:
-    v5 = *v83;
-    if (!*v83)
-    {
-      goto LABEL_128;
-    }
-
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if ((result & 1) == 0)
-    {
-LABEL_122:
-      result = specialized _ArrayBuffer._consumeAndCreateNew()(v8);
-      v8 = result;
-    }
-
-    v75 = (v8 + 16);
-    v76 = *(v8 + 16);
-    if (v76 >= 2)
-    {
-      while (*a3)
-      {
-        v77 = (v8 + 16 * v76);
-        v78 = *v77;
-        v79 = &v75[2 * v76];
-        v80 = v79[1];
-        specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 2 * *v77), (*a3 + 2 * *v79), (*a3 + 2 * v80), v5);
-        if (v4)
-        {
-        }
-
-        if (v80 < v78)
-        {
-          goto LABEL_114;
-        }
-
-        if (v76 - 2 >= *v75)
-        {
-          goto LABEL_115;
-        }
-
-        *v77 = v78;
-        v77[1] = v80;
-        v81 = *v75 - v76;
-        if (*v75 < v76)
-        {
-          goto LABEL_116;
-        }
-
-        v76 = *v75 - 1;
-        result = memmove(v79, v79 + 2, 16 * v81);
-        *v75 = v76;
-        if (v76 <= 1)
-        {
-        }
-      }
-
-      goto LABEL_126;
-    }
-  }
-
-  v7 = 0;
-  v8 = MEMORY[0x1E69E7CC0];
-  v82 = a4;
-  while (1)
-  {
-    v9 = v7++;
-    if (v7 < v6)
-    {
-      v10 = *(*a3 + 2 * v7);
-      v11 = *(*a3 + 2 * v9);
-      v12 = v9 + 2;
-      v13 = v10;
-      while (v6 != v12)
-      {
-        v14 = *(*a3 + 2 * v12);
-        v15 = (v10 < v11) ^ (v14 >= v13);
-        ++v12;
-        v13 = v14;
-        if ((v15 & 1) == 0)
-        {
-          v7 = v12 - 1;
-          if (v10 >= v11)
-          {
-            goto LABEL_20;
-          }
-
-          goto LABEL_11;
-        }
-      }
-
-      v7 = v6;
-      if (v10 >= v11)
-      {
-        goto LABEL_20;
-      }
-
-LABEL_11:
-      if (v7 < v9)
-      {
-        goto LABEL_119;
-      }
-
-      if (v9 < v7)
-      {
-        v16 = v7 - 1;
-        v17 = v9;
-        do
-        {
-          if (v17 != v16)
-          {
-            v20 = *a3;
-            if (!*a3)
-            {
-              goto LABEL_125;
-            }
-
-            v18 = *(v20 + 2 * v17);
-            *(v20 + 2 * v17) = *(v20 + 2 * v16);
-            *(v20 + 2 * v16) = v18;
-          }
-        }
-
-        while (++v17 < v16--);
-        v6 = a3[1];
-      }
-    }
-
-LABEL_20:
-    if (v7 < v6)
-    {
-      if (__OFSUB__(v7, v9))
-      {
-        goto LABEL_118;
-      }
-
-      if (v7 - v9 < a4)
-      {
-        if (__OFADD__(v9, a4))
-        {
-          goto LABEL_120;
-        }
-
-        if (v9 + a4 < v6)
-        {
-          v6 = v9 + a4;
-        }
-
-        if (v6 < v9)
-        {
-LABEL_121:
-          __break(1u);
-          goto LABEL_122;
-        }
-
-        if (v7 != v6)
-        {
-          break;
-        }
-      }
-    }
-
-LABEL_37:
-    if (v7 < v9)
-    {
-      goto LABEL_117;
-    }
-
-    result = swift_isUniquelyReferenced_nonNull_native();
-    if ((result & 1) == 0)
-    {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, *(v8 + 16) + 1, 1, v8);
-      v8 = result;
-    }
-
-    v5 = *(v8 + 16);
-    v29 = *(v8 + 24);
-    v30 = v5 + 1;
-    if (v5 >= v29 >> 1)
-    {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v29 > 1), v5 + 1, 1, v8);
-      v8 = result;
-    }
-
-    *(v8 + 16) = v30;
-    v31 = v8 + 32;
-    v32 = (v8 + 32 + 16 * v5);
-    *v32 = v9;
-    v32[1] = v7;
-    v84 = *v83;
-    if (!*v83)
-    {
-      goto LABEL_127;
-    }
-
-    if (v5)
-    {
-      while (1)
-      {
-        v5 = v30 - 1;
-        if (v30 >= 4)
-        {
-          break;
-        }
-
-        if (v30 == 3)
-        {
-          v33 = *(v8 + 32);
-          v34 = *(v8 + 40);
-          v43 = __OFSUB__(v34, v33);
-          v35 = v34 - v33;
-          v36 = v43;
-LABEL_57:
-          if (v36)
-          {
-            goto LABEL_104;
-          }
-
-          v49 = (v8 + 16 * v30);
-          v51 = *v49;
-          v50 = v49[1];
-          v52 = __OFSUB__(v50, v51);
-          v53 = v50 - v51;
-          v54 = v52;
-          if (v52)
-          {
-            goto LABEL_106;
-          }
-
-          v55 = (v31 + 16 * v5);
-          v57 = *v55;
-          v56 = v55[1];
-          v43 = __OFSUB__(v56, v57);
-          v58 = v56 - v57;
-          if (v43)
-          {
-            goto LABEL_109;
-          }
-
-          if (__OFADD__(v53, v58))
-          {
-            goto LABEL_111;
-          }
-
-          if (v53 + v58 >= v35)
-          {
-            if (v35 < v58)
-            {
-              v5 = v30 - 2;
-            }
-
-            goto LABEL_79;
-          }
-
-          goto LABEL_72;
-        }
-
-        if (v30 < 2)
-        {
-          goto LABEL_112;
-        }
-
-        v59 = (v8 + 16 * v30);
-        v61 = *v59;
-        v60 = v59[1];
-        v43 = __OFSUB__(v60, v61);
-        v53 = v60 - v61;
-        v54 = v43;
-LABEL_72:
-        if (v54)
-        {
-          goto LABEL_108;
-        }
-
-        v62 = (v31 + 16 * v5);
-        v64 = *v62;
-        v63 = v62[1];
-        v43 = __OFSUB__(v63, v64);
-        v65 = v63 - v64;
-        if (v43)
-        {
-          goto LABEL_110;
-        }
-
-        if (v65 < v53)
-        {
-          goto LABEL_3;
-        }
-
-LABEL_79:
-        if (v5 - 1 >= v30)
-        {
-          __break(1u);
-LABEL_99:
-          __break(1u);
-LABEL_100:
-          __break(1u);
-LABEL_101:
-          __break(1u);
-LABEL_102:
-          __break(1u);
-LABEL_103:
-          __break(1u);
-LABEL_104:
-          __break(1u);
-LABEL_105:
-          __break(1u);
-LABEL_106:
-          __break(1u);
-LABEL_107:
-          __break(1u);
-LABEL_108:
-          __break(1u);
-LABEL_109:
-          __break(1u);
-LABEL_110:
-          __break(1u);
-LABEL_111:
-          __break(1u);
-LABEL_112:
-          __break(1u);
-LABEL_113:
-          __break(1u);
-LABEL_114:
-          __break(1u);
-LABEL_115:
-          __break(1u);
-LABEL_116:
-          __break(1u);
-LABEL_117:
-          __break(1u);
-LABEL_118:
-          __break(1u);
-LABEL_119:
-          __break(1u);
-LABEL_120:
-          __break(1u);
-          goto LABEL_121;
-        }
-
-        if (!*a3)
-        {
-          goto LABEL_124;
-        }
-
-        v70 = (v31 + 16 * (v5 - 1));
-        v71 = *v70;
-        v72 = (v31 + 16 * v5);
-        v73 = v72[1];
-        specialized _merge<A>(low:mid:high:buffer:by:)((*a3 + 2 * *v70), (*a3 + 2 * *v72), (*a3 + 2 * v73), v84);
-        if (v4)
-        {
-        }
-
-        if (v73 < v71)
-        {
-          goto LABEL_99;
-        }
-
-        if (v5 > *(v8 + 16))
-        {
-          goto LABEL_100;
-        }
-
-        *v70 = v71;
-        v70[1] = v73;
-        v74 = *(v8 + 16);
-        if (v5 >= v74)
-        {
-          goto LABEL_101;
-        }
-
-        v30 = v74 - 1;
-        result = memmove((v31 + 16 * v5), v72 + 2, 16 * (v74 - 1 - v5));
-        *(v8 + 16) = v74 - 1;
-        if (v74 <= 2)
-        {
-          goto LABEL_3;
-        }
-      }
-
-      v37 = v31 + 16 * v30;
-      v38 = *(v37 - 64);
-      v39 = *(v37 - 56);
-      v43 = __OFSUB__(v39, v38);
-      v40 = v39 - v38;
-      if (v43)
-      {
-        goto LABEL_102;
-      }
-
-      v42 = *(v37 - 48);
-      v41 = *(v37 - 40);
-      v43 = __OFSUB__(v41, v42);
-      v35 = v41 - v42;
-      v36 = v43;
-      if (v43)
-      {
-        goto LABEL_103;
-      }
-
-      v44 = (v8 + 16 * v30);
-      v46 = *v44;
-      v45 = v44[1];
-      v43 = __OFSUB__(v45, v46);
-      v47 = v45 - v46;
-      if (v43)
-      {
-        goto LABEL_105;
-      }
-
-      v43 = __OFADD__(v35, v47);
-      v48 = v35 + v47;
-      if (v43)
-      {
-        goto LABEL_107;
-      }
-
-      if (v48 >= v40)
-      {
-        v66 = (v31 + 16 * v5);
-        v68 = *v66;
-        v67 = v66[1];
-        v43 = __OFSUB__(v67, v68);
-        v69 = v67 - v68;
-        if (v43)
-        {
-          goto LABEL_113;
-        }
-
-        if (v35 < v69)
-        {
-          v5 = v30 - 2;
-        }
-
-        goto LABEL_79;
-      }
-
-      goto LABEL_57;
-    }
-
-LABEL_3:
-    v6 = a3[1];
-    a4 = v82;
-    if (v7 >= v6)
-    {
-      goto LABEL_88;
-    }
-  }
-
-  v21 = *a3;
-  v22 = *a3 + 2 * v7 - 2;
-  v23 = v9 - v7;
-LABEL_30:
-  v24 = *(v21 + 2 * v7);
-  v25 = v23;
-  v26 = v22;
-  while (1)
-  {
-    v27 = *v26;
-    if (v24 >= v27)
-    {
-LABEL_29:
-      ++v7;
-      v22 += 2;
-      --v23;
-      if (v7 != v6)
-      {
-        goto LABEL_30;
-      }
-
-      v7 = v6;
-      goto LABEL_37;
-    }
-
-    if (!v21)
-    {
-      break;
-    }
-
-    v26[1] = v27;
-    *v26-- = v24;
-    if (__CFADD__(v25++, 1))
-    {
-      goto LABEL_29;
-    }
-  }
-
-  __break(1u);
-LABEL_124:
-  __break(1u);
-LABEL_125:
-  __break(1u);
-LABEL_126:
-  __break(1u);
-LABEL_127:
-  __break(1u);
-LABEL_128:
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized _merge<A>(low:mid:high:buffer:by:)(unsigned __int16 *__dst, unsigned __int16 *__src, unsigned __int16 *a3, unsigned __int16 *a4)
-{
-  v4 = a4;
-  v5 = a3;
-  v6 = __src;
-  v7 = __dst;
-  v8 = __src - __dst;
-  v9 = __src - __dst;
-  v10 = a3 - __src;
-  v11 = a3 - __src;
-  if (v9 < v11)
-  {
-    if (a4 != __dst || &__dst[v9] <= a4)
-    {
-      memmove(a4, __dst, 2 * v9);
-    }
-
-    v12 = &v4[v9];
-    if (v8 < 2)
-    {
-LABEL_6:
-      v6 = v7;
-      goto LABEL_31;
-    }
-
-    while (1)
-    {
-      if (v6 >= v5)
-      {
-        goto LABEL_6;
-      }
-
-      v13 = *v6;
-      if (v13 < *v4)
-      {
-        break;
-      }
-
-      LOWORD(v13) = *v4;
-      v14 = v7 == v4++;
-      if (!v14)
-      {
-        goto LABEL_8;
-      }
-
-LABEL_9:
-      ++v7;
-      if (v4 >= v12)
-      {
-        goto LABEL_6;
-      }
-    }
-
-    v14 = v7 == v6++;
-    if (v14)
-    {
-      goto LABEL_9;
-    }
-
-LABEL_8:
-    *v7 = v13;
-    goto LABEL_9;
-  }
-
-  if (a4 != __src || &__src[v11] <= a4)
-  {
-    memmove(a4, __src, 2 * v11);
-  }
-
-  v12 = &v4[v11];
-  if (v10 >= 2 && v6 > v7)
-  {
-LABEL_20:
-    v15 = v6 - 1;
-    --v5;
-    v16 = v12;
-    do
-    {
-      v17 = v5 + 1;
-      v19 = *(v16 - 2);
-      v16 -= 2;
-      v18 = v19;
-      v20 = *v15;
-      if (v19 < v20)
-      {
-        if (v17 != v6)
-        {
-          *v5 = v20;
-        }
-
-        if (v12 <= v4 || (--v6, v15 <= v7))
-        {
-          v6 = v15;
-          goto LABEL_31;
-        }
-
-        goto LABEL_20;
-      }
-
-      if (v17 != v12)
-      {
-        *v5 = v18;
-      }
-
-      --v5;
-      v12 = v16;
-    }
-
-    while (v16 > v4);
-    v12 = v16;
-  }
-
-LABEL_31:
-  v21 = v12 - v4 + ((v12 - v4) >> 63);
-  if (v6 != v4 || v6 >= (v4 + (v21 & 0xFFFFFFFFFFFFFFFELL)))
-  {
-    memmove(v6, v4, 2 * (v21 >> 1));
-  }
-
-  return 1;
-}
-
-void *specialized Sequence._copySequenceContents(initializing:)(void *result, _WORD *a2, uint64_t a3, uint64_t a4)
-{
-  v4 = a4 + 56;
-  v5 = -1;
-  v6 = -1 << *(a4 + 32);
-  if (-v6 < 64)
-  {
-    v5 = ~(-1 << -v6);
-  }
-
-  v7 = v5 & *(a4 + 56);
-  if (!a2)
-  {
-LABEL_17:
-    v9 = 0;
-    a3 = 0;
-LABEL_23:
-    *result = a4;
-    result[1] = v4;
-    result[2] = ~v6;
-    result[3] = v9;
-    result[4] = v7;
-    return a3;
-  }
-
-  if (!a3)
-  {
-    v9 = 0;
-    goto LABEL_23;
-  }
-
-  if ((a3 & 0x8000000000000000) == 0)
-  {
-    v8 = 0;
-    v9 = 0;
-    v10 = (63 - v6) >> 6;
-    v11 = 1;
-    while (v7)
-    {
-LABEL_13:
-      v14 = __clz(__rbit64(v7));
-      v7 &= v7 - 1;
-      *a2 = *(*(a4 + 48) + ((v9 << 7) | (2 * v14)));
-      if (v11 == a3)
-      {
-        goto LABEL_23;
-      }
-
-      ++a2;
-      v8 = v11;
-      if (__OFADD__(v11++, 1))
-      {
-        __break(1u);
-        goto LABEL_17;
-      }
-    }
-
-    v12 = v9;
-    while (1)
-    {
-      v13 = v12 + 1;
-      if (__OFADD__(v12, 1))
-      {
-        __break(1u);
-        goto LABEL_25;
-      }
-
-      if (v13 >= v10)
-      {
-        break;
-      }
-
-      v7 = *(v4 + 8 * v13);
-      ++v12;
-      if (v7)
-      {
-        v9 = v13;
-        goto LABEL_13;
-      }
-    }
-
-    v7 = 0;
-    if (v10 <= (v9 + 1))
-    {
-      v16 = v9 + 1;
-    }
-
-    else
-    {
-      v16 = (63 - v6) >> 6;
-    }
-
-    v9 = v16 - 1;
-    a3 = v8;
-    goto LABEL_23;
-  }
-
-LABEL_25:
-  __break(1u);
-  return result;
-}
-
-uint64_t specialized static PAKEServerRecord.__derived_struct_equals(_:_:)(unsigned __int16 *a1, unsigned __int16 *a2)
-{
-  if (*a1 != *a2)
-  {
-    return 0;
-  }
-
-  if ((specialized static Data.== infix(_:_:)(*(a1 + 1), *(a1 + 2), *(a2 + 1), *(a2 + 2)) & 1) == 0)
-  {
-    goto LABEL_10;
-  }
-
-  if ((specialized static Data.== infix(_:_:)(*(a1 + 3), *(a1 + 4), *(a2 + 3), *(a2 + 4)) & 1) == 0)
-  {
-    goto LABEL_10;
-  }
-
-  if ((specialized static Data.== infix(_:_:)(*(a1 + 5), *(a1 + 6), *(a2 + 5), *(a2 + 6)) & 1) == 0)
-  {
-    goto LABEL_10;
-  }
-
-  if ((specialized static Data.== infix(_:_:)(*(a1 + 7), *(a1 + 8), *(a2 + 7), *(a2 + 8)) & 1) == 0)
-  {
-    goto LABEL_10;
-  }
-
-  v4 = *(a1 + 11);
-  v5 = *(a1 + 12);
-  v6 = *(a1 + 13);
-  v7 = *(a1 + 14);
-  v8 = *(a2 + 11);
-  v9 = *(a2 + 12);
-  v10 = *(a2 + 13);
-  v11 = *(a2 + 14);
-  v14 = *(a2 + 120);
-  v15 = *(a1 + 120);
-  if ((specialized static Data.== infix(_:_:)(*(a1 + 9), *(a1 + 10), *(a2 + 9), *(a2 + 10)) & 1) == 0)
-  {
-    goto LABEL_10;
-  }
-
-  if ((specialized static Data.== infix(_:_:)(v4, v5, v8, v9) & 1) != 0 && (specialized static Data.== infix(_:_:)(v6, v7, v10, v11) & 1) != 0 && ((v15 ^ v14) & 1) == 0)
-  {
-    v12 = *(a1 + 121) ^ *(a2 + 121) ^ 1;
-  }
-
-  else
-  {
-LABEL_10:
-    v12 = 0;
-  }
-
-  return v12 & 1;
-}
-
-uint64_t specialized static PAKEClientConfiguration.__derived_struct_equals(_:_:)(unsigned __int16 *a1, unsigned __int16 *a2)
-{
-  if (*a1 != *a2)
-  {
-    return 0;
-  }
-
-  if (specialized static Data.== infix(_:_:)(*(a1 + 1), *(a1 + 2), *(a2 + 1), *(a2 + 2)) & 1) != 0 && (specialized static Data.== infix(_:_:)(*(a1 + 3), *(a1 + 4), *(a2 + 3), *(a2 + 4)) & 1) != 0 && (specialized static Data.== infix(_:_:)(*(a1 + 5), *(a1 + 6), *(a2 + 5), *(a2 + 6)) & 1) != 0 && (specialized static Data.== infix(_:_:)(*(a1 + 7), *(a1 + 8), *(a2 + 7), *(a2 + 8)))
-  {
-    v4 = *(a1 + 9);
-    v5 = *(a1 + 10);
-    v6 = *(a1 + 11);
-    v7 = *(a1 + 12);
-    v8 = *(a1 + 13);
-    v9 = *(a1 + 14);
-    v10 = *(a1 + 120);
-    v11 = *(a2 + 9);
-    v12 = *(a2 + 10);
-    v13 = *(a2 + 11);
-    v14 = *(a2 + 12);
-    v15 = *(a2 + 13);
-    v16 = *(a2 + 14);
-    v17 = *(a2 + 120);
-    if ((specialized static Data.== infix(_:_:)(v4, v5, v11, v12) & 1) != 0 && (specialized static Data.== infix(_:_:)(v6, v7, v13, v14) & 1) != 0 && (specialized static Data.== infix(_:_:)(v8, v9, v15, v16) & 1) != 0 && ((v10 ^ v17) & 1) == 0)
-    {
-      return 1;
-    }
-  }
-
-  return 0;
-}
-
-uint64_t _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC15SwiftTLSLibrary10PAKESchemeV_SayAFGTt0g5Tf4g_n(uint64_t a1)
-{
-  v2 = *(a1 + 16);
-  v3 = lazy protocol witness table accessor for type PAKEScheme and conformance PAKEScheme();
-  result = MEMORY[0x1B274D700](v2, &type metadata for PAKEScheme, v3);
-  v8 = result;
-  if (v2)
-  {
-    v5 = (a1 + 32);
-    do
-    {
-      v6 = *v5++;
-      specialized Set._Variant.insert(_:)(&v7, v6);
-      --v2;
-    }
-
-    while (v2);
-    return v8;
-  }
-
-  return result;
-}
-
-uint64_t specialized PAKEServerRecords.init(_:)(void *a1)
-{
-  v2 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfC15SwiftTLSLibrary17PAKEServerRecordsV9RecordKeyV_AC0eG0VTt0g5Tf4g_n(MEMORY[0x1E69E7CC0]);
-  v3 = a1[2];
-  if (!v3)
-  {
-LABEL_22:
-
-    v49 = MEMORY[0x1E69E7CC0];
-    goto LABEL_23;
-  }
-
-  v4 = 0;
-  v5 = v3 - 1;
-  v6 = 4;
-  do
-  {
-    v7 = *&a1[v6 + 2];
-    v62 = *&a1[v6];
-    v63 = v7;
-    v8 = *&a1[v6 + 6];
-    v64 = *&a1[v6 + 4];
-    v65 = v8;
-    v9 = *&a1[v6 + 10];
-    v66 = *&a1[v6 + 8];
-    v67 = v9;
-    v68[0] = *&a1[v6 + 12];
-    *(v68 + 10) = *(&a1[v6 + 13] + 2);
-    v10 = *(&v63 + 1);
-    v12 = v64;
-    v11 = v65;
-    LOWORD(v69) = v62;
-    *(&v69 + 1) = *(&v64 + 1);
-    *&v70 = v65;
-    *(&v70 + 1) = *(&v63 + 1);
-    v71 = v64;
-    outlined init with copy of PAKEServerRecord(&v62, v60);
-    outlined init with copy of PAKEServerRecord(&v62, v60);
-    outlined copy of Data._Representation(*(&v12 + 1), v11);
-    outlined copy of Data._Representation(v10, v12);
-    isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v59 = v2;
-    v14 = specialized __RawDictionaryStorage.find<A>(_:)(&v69);
-    v16 = *(v2 + 16);
-    v17 = (v15 & 1) == 0;
-    v18 = __OFADD__(v16, v17);
-    v19 = v16 + v17;
-    if (v18)
-    {
-      __break(1u);
-LABEL_29:
-      __break(1u);
-LABEL_30:
-      KEY_TYPE_OF_DICTIONARY_VIOLATES_HASHABLE_REQUIREMENTS(_:)();
-      __break(1u);
-
-      __break(1u);
-      return result;
-    }
-
-    v20 = v15;
-    if (*(v2 + 24) < v19)
-    {
-      specialized _NativeDictionary._copyOrMoveAndResize(capacity:moveElements:)(v19, isUniquelyReferenced_nonNull_native);
-      v14 = specialized __RawDictionaryStorage.find<A>(_:)(&v69);
-      if ((v20 & 1) != (v21 & 1))
-      {
-        goto LABEL_30;
-      }
-
-LABEL_8:
-      if (v20)
-      {
-        goto LABEL_9;
-      }
-
-      goto LABEL_12;
-    }
-
-    if (isUniquelyReferenced_nonNull_native)
-    {
-      goto LABEL_8;
-    }
-
-    v35 = v14;
-    specialized _NativeDictionary.copy()();
-    v14 = v35;
-    if (v20)
-    {
-LABEL_9:
-      v2 = v59;
-      v22 = (v59[7] + (v14 << 7));
-      v23 = v22[3];
-      v25 = *v22;
-      v24 = v22[1];
-      v60[2] = v22[2];
-      v60[3] = v23;
-      v60[0] = v25;
-      v60[1] = v24;
-      v27 = v22[5];
-      v26 = v22[6];
-      v28 = v22[4];
-      *&v61[10] = *(v22 + 106);
-      v60[5] = v27;
-      *v61 = v26;
-      v60[4] = v28;
-      v29 = v62;
-      v30 = v63;
-      v31 = v65;
-      v22[2] = v64;
-      v22[3] = v31;
-      *v22 = v29;
-      v22[1] = v30;
-      v32 = v66;
-      v33 = v67;
-      v34 = v68[0];
-      *(v22 + 106) = *(v68 + 10);
-      v22[5] = v33;
-      v22[6] = v34;
-      v22[4] = v32;
-      outlined destroy of PAKEServerRecord(v60);
-      outlined destroy of PAKEServerRecords.RecordKey(&v69);
-      outlined destroy of PAKEServerRecord(&v62);
-      if (v5 == v4)
-      {
-        goto LABEL_16;
-      }
-
-      goto LABEL_14;
-    }
-
-LABEL_12:
-    v2 = v59;
-    v59[(v14 >> 6) + 8] |= 1 << v14;
-    v36 = v59[6] + 40 * v14;
-    v37 = v71;
-    v38 = v70;
-    *v36 = v69;
-    *(v36 + 16) = v38;
-    *(v36 + 32) = v37;
-    v39 = (v59[7] + (v14 << 7));
-    v40 = v66;
-    v41 = v67;
-    v42 = v68[0];
-    *(v39 + 106) = *(v68 + 10);
-    v39[5] = v41;
-    v39[6] = v42;
-    v39[4] = v40;
-    v44 = v64;
-    v43 = v65;
-    v45 = v63;
-    *v39 = v62;
-    v39[1] = v45;
-    v39[2] = v44;
-    v39[3] = v43;
-    outlined destroy of PAKEServerRecord(&v62);
-    v46 = v59[2];
-    v18 = __OFADD__(v46, 1);
-    v47 = v46 + 1;
-    if (v18)
-    {
-      goto LABEL_29;
-    }
-
-    v59[2] = v47;
-    if (v5 == v4)
-    {
-      goto LABEL_16;
-    }
-
-LABEL_14:
-    ++v4;
-    v6 += 16;
-  }
-
-  while (v4 < a1[2]);
-  __break(1u);
-LABEL_16:
-  v48 = a1[2];
-  if (!v48)
-  {
-    goto LABEL_22;
-  }
-
-  *&v62 = MEMORY[0x1E69E7CC0];
-  specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v48, 0);
-  v49 = v62;
-  v50 = *(v62 + 16);
-  v51 = 4;
-  do
-  {
-    v52 = a1[v51];
-    *&v62 = v49;
-    v53 = *(v49 + 24);
-    if (v50 >= v53 >> 1)
-    {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v53 > 1), v50 + 1, 1);
-      v49 = v62;
-    }
-
-    *(v49 + 16) = v50 + 1;
-    *(v49 + 2 * v50 + 32) = v52;
-    v51 += 16;
-    ++v50;
-    --v48;
-  }
-
-  while (v48);
-
-LABEL_23:
-  v54 = _sShyShyxGqd__nc7ElementQyd__RszSTRd__lufC15SwiftTLSLibrary10PAKESchemeV_SayAFGTt0g5Tf4g_n(v49);
-
-  v55 = *(v54 + 16);
-  if (v55)
-  {
-    v56 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfC15SwiftTLSLibrary10PAKESchemeV_Tt1g5(*(v54 + 16), 0);
-    v57 = specialized Sequence._copySequenceContents(initializing:)(&v62, v56 + 16, v55, v54);
-
-    outlined consume of Set<PAKEScheme>.Iterator._Variant();
-    if (v57 != v55)
-    {
-      __break(1u);
-      goto LABEL_26;
-    }
-  }
-
-  else
-  {
-LABEL_26:
-    v56 = MEMORY[0x1E69E7CC0];
-  }
-
-  *&v62 = v56;
-  specialized MutableCollection<>.sort(by:)(&v62);
-
-  return v2;
-}
-
-__n128 _s15SwiftTLSLibrary17PAKEServerRecordsV22findMatchingPAKERecordyAA0C6RecordV_AA9ExtensionO4PAKEO9PAKEShareVtSgAJ15PAKEClientHelloVAA8TLSErrorOYKFTf4nx_n@<Q0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, __int128 *a4@<X8>)
-{
-  v4 = a1[6];
-  v5 = *(v4 + 16);
-  if (!v5)
-  {
-LABEL_26:
-    _s15SwiftTLSLibrary16PAKEServerRecordV_AA9ExtensionO4PAKEO9PAKEShareVtSgWOi0_(&v80);
-LABEL_27:
-    v37 = v87;
-    a4[6] = v86;
-    a4[7] = v37;
-    v38 = v89;
-    a4[8] = v88;
-    a4[9] = v38;
-    v39 = v83;
-    a4[2] = v82;
-    a4[3] = v39;
-    v40 = v85;
-    a4[4] = v84;
-    a4[5] = v40;
-    result.n128_u64[0] = v80;
-    v41 = v81;
-    *a4 = v80;
-    a4[1] = v41;
-    return result;
-  }
-
-  v7 = a1[4];
-  v8 = a1[5];
-  v9 = a1[2];
-  v10 = v7 >> 62;
-  v54 = a1[3];
-  v51 = BYTE6(v7);
-  v11 = a1[1];
-  v12 = v11 >> 62;
-  v53 = *a1;
-  v49 = *a1 >> 32;
-  v50 = BYTE6(v11);
-  v13 = (v4 + 56);
-  while (1)
-  {
-    if (v10 > 1)
-    {
-      if (v10 == 2)
-      {
-        v14 = *(v54 + 24);
-      }
-
-      else
-      {
-        v14 = 0;
-      }
-    }
-
-    else
-    {
-      v14 = v51;
-      if (v10)
-      {
-        v14 = v54 >> 32;
-      }
-    }
-
-    if (v14 < v8)
-    {
-      __break(1u);
-LABEL_41:
-      __break(1u);
-      goto LABEL_42;
-    }
-
-    v56 = *(v13 - 12);
-    v52 = *v13;
-    v55 = *(v13 - 2);
-    v90 = *(v13 - 1);
-    outlined copy of Data._Representation(v55, v90);
-    v14 = Data._Representation.subscript.getter();
-    v16 = v15;
-    if (v12 > 1)
-    {
-      if (v12 == 2)
-      {
-        v17 = *(v53 + 24);
-      }
-
-      else
-      {
-        v17 = 0;
-      }
-    }
-
-    else
-    {
-      v17 = v50;
-      if (v12)
-      {
-        v17 = v49;
-      }
-    }
-
-    if (v17 < v9)
-    {
-      goto LABEL_41;
-    }
-
-    v18 = Data._Representation.subscript.getter();
-    v75 = v56;
-    v76 = v14;
-    v77 = v16;
-    v78 = v18;
-    v79 = v19;
-    if (*(a2 + 16))
-    {
-      v20 = specialized __RawDictionaryStorage.find<A>(_:)(&v75);
-      if (v21)
-      {
-        break;
-      }
-    }
-
-    v13 += 4;
-    outlined destroy of PAKEServerRecords.RecordKey(&v75);
-    outlined consume of Data._Representation(v55, v90);
-    if (!--v5)
-    {
-      goto LABEL_26;
-    }
-  }
-
-  v22 = (*(a2 + 56) + (v20 << 7));
-  v23 = v22[3];
-  v25 = *v22;
-  v24 = v22[1];
-  v68 = v22[2];
-  v69 = v23;
-  v66 = v25;
-  v67 = v24;
-  v27 = v22[5];
-  v26 = v22[6];
-  v28 = v22[4];
-  v14 = &v66;
-  *&v72[10] = *(v22 + 106);
-  v71 = v27;
-  *v72 = v26;
-  v70 = v28;
-  outlined init with copy of PAKEServerRecord(&v66, &v57);
-  if (one-time initialization token for SwiftTLSPAKELimiter == -1)
-  {
-    goto LABEL_21;
-  }
-
-LABEL_42:
-  swift_once();
-LABEL_21:
-  v29 = SwiftTLSPAKELimiter;
-  v30 = *(v14 + 88);
-  v73[0] = *(v14 + 72);
-  v73[1] = v30;
-  v73[2] = *(v14 + 104);
-  v74 = v72[24];
-  if ((*(*SwiftTLSPAKELimiter + 88))(v73, 32))
-  {
-    if (one-time initialization token for logger != -1)
-    {
-      swift_once();
-    }
-
-    v31 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v31, logger);
-    v32 = Logger.logObject.getter();
-    v33 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v32, v33))
-    {
-      v34 = swift_slowAlloc();
-      *v34 = 0;
-      v35 = "new server credential added to PAKE Limiter";
-LABEL_32:
-      _os_log_impl(&dword_1B25F5000, v32, v33, v35, v34, 2u);
-      MEMORY[0x1B274ECF0](v34, -1, -1);
-    }
-  }
-
-  else
-  {
-    if (one-time initialization token for logger != -1)
-    {
-      swift_once();
-    }
-
-    v42 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v42, logger);
-    v32 = Logger.logObject.getter();
-    v33 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v32, v33))
-    {
-      v34 = swift_slowAlloc();
-      *v34 = 0;
-      v35 = "server credential already tracked by PAKE Limiter";
-      goto LABEL_32;
-    }
-  }
-
-  if ((*(*v29 + 104))(v73))
-  {
-    outlined destroy of PAKEServerRecords.RecordKey(&v75);
-    v61 = v70;
-    v62 = v71;
-    *v63 = *v72;
-    *&v63[10] = *(v14 + 106);
-    v57 = v66;
-    v58 = v67;
-    v59 = v68;
-    v60 = v69;
-    LOWORD(v64) = v56;
-    *(&v64 + 1) = v55;
-    *&v65 = v90;
-    *(&v65 + 1) = v52;
-    _s15SwiftTLSLibrary23PAKEClientConfigurationVSgWOi_(&v57);
-    v86 = *v63;
-    v87 = *&v63[16];
-    v88 = v64;
-    v89 = v65;
-    v82 = v59;
-    v83 = v60;
-    v84 = v61;
-    v85 = v62;
-    v80 = v57;
-    v81 = v58;
-    goto LABEL_27;
-  }
-
-  if (one-time initialization token for logger != -1)
-  {
-    swift_once();
-  }
-
-  v43 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v43, logger);
-  v44 = Logger.logObject.getter();
-  v45 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v44, v45))
-  {
-    v46 = swift_slowAlloc();
-    *v46 = 0;
-    _os_log_impl(&dword_1B25F5000, v44, v45, "PAKE credential exhausted", v46, 2u);
-    MEMORY[0x1B274ECF0](v46, -1, -1);
-  }
-
-  v57 = xmmword_1B26CAC80;
-  LOBYTE(v58) = 2;
-  lazy protocol witness table accessor for type TLSError and conformance TLSError();
-  swift_willThrowTypedImpl();
-  outlined destroy of PAKEServerRecord(&v66);
-  outlined consume of Data._Representation(v55, v90);
-  outlined destroy of PAKEServerRecords.RecordKey(&v75);
-  result = xmmword_1B26CAC80;
-  *a3 = xmmword_1B26CAC80;
-  *(a3 + 16) = 2;
-  return result;
-}
-
-uint64_t _s15SwiftTLSLibrary17PAKEServerRecordsV23generateDummyPAKERecord10pakeScheme14clientIdentity06serverK0AA0C6RecordVAA10PAKESchemeV_10Foundation4DataVANtAA8TLSErrorOYKFZTf4nnnd_n@<X0>(int a1@<W0>, uint64_t a2@<X1>, unint64_t a3@<X2>, uint64_t a4@<X3>, unint64_t a5@<X4>, uint64_t a6@<X5>, _WORD *a7@<X8>)
-{
-  v77 = a4;
-  v75 = a3;
-  v74 = a2;
-  v73 = a7;
-  v82 = type metadata accessor for P256.KeyAgreement.PublicKey();
-  v81 = *(v82 - 8);
-  v10 = *(v81 + 64);
-  MEMORY[0x1EEE9AC00](v82);
-  v12 = &v70 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v80 = type metadata accessor for P256.KeyAgreement.PrivateKey();
-  v79 = *(v80 - 8);
-  v13 = *(v79 + 64);
-  MEMORY[0x1EEE9AC00](v80);
-  v15 = &v70 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = type metadata accessor for SymmetricKeySize();
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v16 - 8);
-  v18 = type metadata accessor for SymmetricKey();
-  v19 = *(v18 - 8);
-  v20 = *(v19 + 64);
-  MEMORY[0x1EEE9AC00](v18);
-  v22 = &v70 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v83 = a1;
-  if (a1 != 0xFFFF && a1 != 32150)
-  {
-    v87 = 0;
-    v88 = 0xE000000000000000;
-    _StringGuts.grow(_:)(26);
-
-    v87 = 0xD000000000000018;
-    v88 = 0x80000001B26CE210;
-    v52 = PAKEScheme.description.getter(v83);
-    MEMORY[0x1B274D610](v52);
-
-    v53 = v87;
-    v54 = v88;
-    LOBYTE(v89) = 1;
-    lazy protocol witness table accessor for type TLSError and conformance TLSError();
-    result = swift_willThrowTypedImpl();
-LABEL_27:
-    *a6 = v53;
-    *(a6 + 8) = v54;
-    *(a6 + 16) = 1;
-    return result;
-  }
-
-  v71 = a5;
-  v72 = a6;
-  SymmetricKeySize.init(bitCount:)();
-  SymmetricKey.init(size:)();
-  v23 = v78;
-  SymmetricKey.withUnsafeBytes<A>(_:)();
-  v24 = *(v19 + 8);
-  v24(v22, v18);
-  v76 = v87;
-  v78 = v88;
-  SymmetricKeySize.init(bitCount:)();
-  SymmetricKey.init(size:)();
-  SymmetricKey.withUnsafeBytes<A>(_:)();
-  v24(v22, v18);
-  v26 = v87;
-  v25 = v88;
-  P256.KeyAgreement.PrivateKey.init()();
-  P256.KeyAgreement.PrivateKey.publicKey.getter();
-  v27 = (*(v79 + 8))(v15, v80);
-  v28 = MEMORY[0x1B274D380](v27);
-  v30 = v29;
-  (*(v81 + 8))(v12, v82);
-  v84 = v26;
-  v85 = v25;
-  v90 = MEMORY[0x1E6969080];
-  v91 = MEMORY[0x1E6969078];
-  v87 = v28;
-  v88 = v30;
-  v31 = __swift_project_boxed_opaque_existential_0(&v87, MEMORY[0x1E6969080]);
-  v32 = *v31;
-  v33 = v31[1];
-  outlined copy of Data._Representation(v26, v25);
-  outlined copy of Data._Representation(v28, v30);
-  specialized Data._Representation.withUnsafeBytes<A>(_:)(v32, v33);
-  v81 = v23;
-  result = __swift_destroy_boxed_opaque_existential_0(&v87);
-  v36 = v84;
-  v35 = BYTE6(v85);
-  v37 = v85 >> 62;
-  v82 = v85;
-  if ((v85 >> 62) > 1)
-  {
-    if (v37 != 2)
-    {
-      goto LABEL_16;
-    }
-
-    v39 = *(v84 + 16);
-    v38 = *(v84 + 24);
-    v40 = __OFSUB__(v38, v39);
-    v41 = v38 - v39;
-    if (!v40)
-    {
-      if (v41 == 97)
-      {
-        goto LABEL_10;
-      }
-
-      goto LABEL_16;
-    }
-
-    __break(1u);
-LABEL_30:
-    __break(1u);
-    goto LABEL_31;
-  }
-
-  if (!v37)
-  {
-    if (BYTE6(v85) != 97)
-    {
-      goto LABEL_16;
-    }
-
-LABEL_10:
-    v42 = v84;
-    v79 = v26;
-    v80 = v25;
-    if (v83 == 32150 || v83 == 0xFFFF)
-    {
-      v43 = v77;
-      v44 = v71;
-      outlined copy of Data._Representation(v77, v71);
-      v45 = v74;
-      v46 = v75;
-      outlined copy of Data._Representation(v74, v75);
-      outlined copy of Data._Representation(v45, v46);
-      outlined copy of Data._Representation(v43, v44);
-      v47 = v76;
-      v48 = v78;
-      outlined copy of Data._Representation(v76, v78);
-      outlined consume of Data._Representation(v28, v30);
-      result = outlined consume of Data._Representation(v79, v80);
-      v49 = v73;
-      *v73 = v83;
-      *(v49 + 1) = v47;
-      *(v49 + 2) = v48;
-      *(v49 + 3) = v45;
-      *(v49 + 4) = v46;
-      *&v50 = v42;
-      *(&v50 + 1) = v82;
-      *(v49 + 5) = v43;
-      *(v49 + 6) = v44;
-      *&v51 = v47;
-      *(&v51 + 1) = v48;
-      *(v49 + 36) = v51;
-      *(v49 + 28) = v50;
-      *(v49 + 11) = v45;
-      *(v49 + 12) = v46;
-      *(v49 + 13) = v43;
-      *(v49 + 14) = v44;
-      v49[60] = 257;
-      return result;
-    }
-
-    v87 = 0;
-    v88 = 0xE000000000000000;
-    v61 = v77;
-    v62 = v71;
-    outlined copy of Data._Representation(v77, v71);
-    v63 = v74;
-    v64 = v75;
-    outlined copy of Data._Representation(v74, v75);
-    outlined copy of Data._Representation(v63, v64);
-    outlined copy of Data._Representation(v61, v62);
-    v65 = v76;
-    outlined copy of Data._Representation(v76, v78);
-    _StringGuts.grow(_:)(26);
-
-    v87 = 0xD000000000000018;
-    v88 = 0x80000001B26CE210;
-    v66 = v83;
-    v67 = PAKEScheme.description.getter(v83);
-    MEMORY[0x1B274D610](v67);
-
-    v53 = v87;
-    v54 = v88;
-    v84 = v87;
-    v85 = v88;
-    v86 = 1;
-    lazy protocol witness table accessor for type TLSError and conformance TLSError();
-    swift_willThrowTypedImpl();
-    outlined consume of Data._Representation(v28, v30);
-    outlined consume of Data._Representation(v79, v80);
-    LOWORD(v87) = v66;
-    *(&v87 + 2) = v101;
-    HIWORD(v87) = v102;
-    v88 = v65;
-    v89 = v78;
-    v90 = v63;
-    v91 = v64;
-    *&v68 = v42;
-    *(&v68 + 1) = v82;
-    v92 = v77;
-    v93 = v71;
-    *&v69 = v65;
-    *(&v69 + 1) = v78;
-    v94 = v68;
-    v95 = v69;
-    v96 = v63;
-    v97 = v64;
-    v98 = v77;
-    v99 = v71;
-    v100 = 257;
-    result = outlined destroy of PAKEServerRecord(&v87);
-    goto LABEL_26;
-  }
-
-  if (__OFSUB__(HIDWORD(v84), v84))
-  {
-    goto LABEL_30;
-  }
-
-  if (HIDWORD(v84) - v84 == 97)
-  {
-    goto LABEL_10;
-  }
-
-LABEL_16:
-  v87 = 0;
-  v88 = 0xE000000000000000;
-  _StringGuts.grow(_:)(60);
-  result = MEMORY[0x1B274D610](0xD000000000000034, 0x80000001B26CE320);
-  if (v37 > 1)
-  {
-    v55 = v36;
-    v56 = 0;
-    if (v37 != 2)
-    {
-      goto LABEL_25;
-    }
-
-    v58 = *(v36 + 16);
-    v57 = *(v36 + 24);
-    v40 = __OFSUB__(v57, v58);
-    v56 = v57 - v58;
-    if (!v40)
-    {
-      goto LABEL_25;
-    }
-
-    __break(1u);
-  }
-
-  else if (!v37)
-  {
-    v55 = v36;
-    v56 = v35;
-LABEL_25:
-    v84 = v56;
-    v59 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x1B274D610](v59);
-
-    MEMORY[0x1B274D610](540877088, 0xE400000000000000);
-    v84 = 97;
-    v60 = dispatch thunk of CustomStringConvertible.description.getter();
-    MEMORY[0x1B274D610](v60);
-
-    v53 = v87;
-    v54 = v88;
-    LOBYTE(v89) = 1;
-    lazy protocol witness table accessor for type TLSError and conformance TLSError();
-    swift_willThrowTypedImpl();
-    outlined consume of Data._Representation(v55, v82);
-    outlined consume of Data._Representation(v76, v78);
-    outlined consume of Data._Representation(v28, v30);
-    result = outlined consume of Data._Representation(v26, v25);
-LABEL_26:
-    a6 = v72;
-    goto LABEL_27;
-  }
-
-  LODWORD(v56) = HIDWORD(v36) - v36;
-  if (!__OFSUB__(HIDWORD(v36), v36))
-  {
-    v55 = v36;
-    v56 = v56;
-    goto LABEL_25;
-  }
-
-LABEL_31:
-  __break(1u);
-  return result;
-}
-
-double _s15SwiftTLSLibrary17PAKEServerRecordsV29findMatchingPAKERecordOrDummyyAA0C6RecordV_AA9ExtensionO4PAKEO9PAKEShareVtSgAJ15PAKEClientHelloVAA8TLSErrorOYKFTf4nx_n@<D0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, __int128 *a4@<X8>)
-{
-  *&result = _s15SwiftTLSLibrary17PAKEServerRecordsV22findMatchingPAKERecordyAA0C6RecordV_AA9ExtensionO4PAKEO9PAKEShareVtSgAJ15PAKEClientHelloVAA8TLSErrorOYKFTf4nx_n(a1, a2, v69, &v71).n128_u64[0];
-  if (v4)
-  {
-    v12 = v69[1];
-    v13 = v70;
-    *a3 = v69[0];
-    *(a3 + 8) = v12;
-    *(a3 + 16) = v13;
-    return result;
-  }
-
-  v65 = v75;
-  v66 = v76;
-  v67 = v77;
-  v68 = v78;
-  v61 = v71;
-  v62 = v72;
-  v63 = v73;
-  v64 = v74;
-  v14 = v79;
-  v86 = WORD3(v79);
-  v85 = *(&v79 + 2);
-  v15 = a1[6];
-  if (!*(v15 + 16))
-  {
-    __break(1u);
-LABEL_30:
-    __break(1u);
-LABEL_31:
-    __break(1u);
-    goto LABEL_32;
-  }
-
-  v16 = *a1;
-  v17 = a1[1];
-  v18 = v17 >> 62;
-  if ((v17 >> 62) > 1)
-  {
-    if (v18 == 2)
-    {
-      v19 = *(v16 + 24);
-    }
-
-    else
-    {
-      v19 = 0;
-    }
-  }
-
-  else if (v18)
-  {
-    v19 = v16 >> 32;
-  }
-
-  else
-  {
-    v19 = BYTE6(v17);
-  }
-
-  if (v19 < a1[2])
-  {
-    goto LABEL_30;
-  }
-
-  v39 = v80;
-  v40 = *(&v79 + 1);
-  v41 = *(&v80 + 1);
-  v7 = *(v15 + 32);
-  v6 = Data._Representation.subscript.getter();
-  v5 = v20;
-  v21 = a1[3];
-  v22 = a1[4];
-  v23 = v22 >> 62;
-  if ((v22 >> 62) > 1)
-  {
-    if (v23 == 2)
-    {
-      v24 = *(v21 + 24);
-    }
-
-    else
-    {
-      v24 = 0;
-    }
-  }
-
-  else if (v23)
-  {
-    v24 = v21 >> 32;
-  }
-
-  else
-  {
-    v24 = BYTE6(v22);
-  }
-
-  if (v24 < a1[5])
-  {
-    goto LABEL_31;
-  }
-
-  v38 = v14;
-  v25 = Data._Representation.subscript.getter();
-  v27 = v26;
-  _s15SwiftTLSLibrary17PAKEServerRecordsV23generateDummyPAKERecord10pakeScheme14clientIdentity06serverK0AA0C6RecordVAA10PAKESchemeV_10Foundation4DataVANtAA8TLSErrorOYKFZTf4nnnd_n(v7, v6, v5, v25, v26, v69, v81);
-  outlined consume of Data._Representation(v25, v27);
-  outlined consume of Data._Representation(v6, v5);
-  v14 = *(v15 + 32);
-  v6 = *(v15 + 40);
-  v5 = *(v15 + 48);
-  v7 = *(v15 + 56);
-  v84[6] = v77;
-  v84[7] = v78;
-  v84[8] = v79;
-  v84[9] = v80;
-  v84[2] = v73;
-  v84[3] = v74;
-  v84[4] = v75;
-  v84[5] = v76;
-  v84[0] = v71;
-  v84[1] = v72;
-  v28 = _s15SwiftTLSLibrary23PAKEClientConfigurationVSgWOg(v84);
-  outlined copy of Data._Representation(v6, v5);
-  if (v28 == 1)
-  {
-    if (one-time initialization token for logger == -1)
-    {
-LABEL_22:
-      v29 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v29, logger);
-      v30 = Logger.logObject.getter();
-      v31 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v30, v31))
-      {
-        v32 = swift_slowAlloc();
-        *v32 = 0;
-        _os_log_impl(&dword_1B25F5000, v30, v31, "Yielding dummy PAKE record", v32, 2u);
-        MEMORY[0x1B274ECF0](v32, -1, -1);
-      }
-
-      goto LABEL_25;
-    }
-
-LABEL_32:
-    swift_once();
-    goto LABEL_22;
-  }
-
-LABEL_25:
-  v83[6] = v77;
-  v83[7] = v78;
-  v83[8] = v79;
-  v83[9] = v80;
-  v83[2] = v73;
-  v83[3] = v74;
-  v83[4] = v75;
-  v83[5] = v76;
-  v83[0] = v71;
-  v83[1] = v72;
-  if (_s15SwiftTLSLibrary23PAKEClientConfigurationVSgWOg(v83) == 1)
-  {
-    v58 = v81[4];
-    v59 = v81[5];
-    *v60 = v82[0];
-    *&v60[10] = *(v82 + 10);
-    v54 = v81[0];
-    v55 = v81[1];
-    v56 = v81[2];
-    v57 = v81[3];
-  }
-
-  else
-  {
-    outlined consume of Data._Representation(v6, v5);
-    outlined destroy of PAKEServerRecord(v81);
-    v58 = v65;
-    v59 = v66;
-    *v60 = v67;
-    *&v60[16] = v68;
-    v54 = v61;
-    v55 = v62;
-    v56 = v63;
-    v57 = v64;
-    v53 = v86;
-    v5 = v39;
-    v6 = v40;
-    v52 = v85;
-    v14 = v38;
-    v7 = v41;
-  }
-
-  v46 = v58;
-  v47 = v59;
-  v48 = *v60;
-  v49 = *&v60[16];
-  v42 = v54;
-  v43 = v55;
-  v44 = v56;
-  v45 = v57;
-  LOWORD(v50) = v14;
-  WORD3(v50) = v53;
-  *(&v50 + 2) = v52;
-  *(&v50 + 1) = v6;
-  *&v51 = v5;
-  *(&v51 + 1) = v7;
-  _s15SwiftTLSLibrary23PAKEClientConfigurationVSgWOi_(&v42);
-  v33 = v49;
-  a4[6] = v48;
-  a4[7] = v33;
-  v34 = v51;
-  a4[8] = v50;
-  a4[9] = v34;
-  v35 = v45;
-  a4[2] = v44;
-  a4[3] = v35;
-  v36 = v47;
-  a4[4] = v46;
-  a4[5] = v36;
-  result = *&v42;
-  v37 = v43;
-  *a4 = v42;
-  a4[1] = v37;
-  return result;
-}
-
 unint64_t lazy protocol witness table accessor for type PAKEClientConfiguration and conformance PAKEClientConfiguration()
 {
   result = lazy protocol witness table cache variable for type PAKEClientConfiguration and conformance PAKEClientConfiguration;
@@ -2151,19 +216,19 @@ uint64_t storeEnumTagSinglePayload for PAKEServerRecords.RecordKey(uint64_t resu
   return result;
 }
 
-void type metadata completion function for PAKEServerState()
+void type metadata completion function for PAKEServerState(uint64_t a1)
 {
-  type metadata accessor for PAKEServerRecords?(319, &lazy cache variable for type metadata for Data?);
-  if (v0 <= 0x3F)
+  type metadata accessor for PAKEServerRecords?(319, &lazy cache variable for type metadata for Data?, MEMORY[0x1E6969080]);
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for SymmetricKey?();
-    if (v1 <= 0x3F)
+    type metadata accessor for SymmetricKey?(319);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for PAKEServerRecords?(319, &lazy cache variable for type metadata for Extension.PAKE.PAKEServerHello?);
-      if (v2 <= 0x3F)
+      type metadata accessor for PAKEServerRecords?(319, &lazy cache variable for type metadata for Extension.PAKE.PAKEServerHello?, &type metadata for Extension.PAKE.PAKEServerHello);
+      if (v3 <= 0x3F)
       {
         type metadata accessor for SPAKE2.Verifier();
-        if (v3 <= 0x3F)
+        if (v4 <= 0x3F)
         {
           swift_cvw_initStructMetadataWithLayoutString();
         }
@@ -2199,55 +264,46 @@ BOOL static Extension.TicketRequest.__derived_enum_equals(_:_:)(int a1, int a2)
 
 uint64_t ByteBuffer.writeTicketRequestExtension(_:)(unsigned int a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ((a1 & 0x10000) != 0)
   {
-    v15 = a1;
-    v18 = MEMORY[0x1E69E6290];
-    v19 = MEMORY[0x1E6969DF8];
-    v16 = &v15;
-    v17 = &v16;
-    v11 = __swift_project_boxed_opaque_existential_0(&v16, MEMORY[0x1E69E6290]);
-    v13 = *v11;
-    v12 = v11[1];
+    v5 = a1;
+    v8 = MEMORY[0x1E69E6290];
+    v9 = MEMORY[0x1E6969DF8];
+    v6 = &v5;
+    v7 = &v6;
+    __swift_project_boxed_opaque_existential_0(&v6, MEMORY[0x1E69E6290]);
     Data._Representation.append(contentsOf:)();
-    __swift_destroy_boxed_opaque_existential_0(&v16);
-    result = 1;
+    __swift_destroy_boxed_opaque_existential_0(&v6);
+    return 1;
   }
 
   else
   {
     v1 = a1 >> 8;
-    v15 = a1;
+    v5 = a1;
     v2 = MEMORY[0x1E69E6290];
     v3 = MEMORY[0x1E6969DF8];
-    v18 = MEMORY[0x1E69E6290];
-    v19 = MEMORY[0x1E6969DF8];
-    v16 = &v15;
-    v17 = &v16;
-    v4 = __swift_project_boxed_opaque_existential_0(&v16, MEMORY[0x1E69E6290]);
-    v6 = *v4;
-    v5 = v4[1];
+    v8 = MEMORY[0x1E69E6290];
+    v9 = MEMORY[0x1E6969DF8];
+    v6 = &v5;
+    v7 = &v6;
+    __swift_project_boxed_opaque_existential_0(&v6, MEMORY[0x1E69E6290]);
     Data._Representation.append(contentsOf:)();
-    __swift_destroy_boxed_opaque_existential_0(&v16);
-    v15 = v1;
-    v18 = v2;
-    v19 = v3;
-    v16 = &v15;
-    v17 = &v16;
-    v7 = __swift_project_boxed_opaque_existential_0(&v16, v2);
-    v9 = *v7;
-    v8 = v7[1];
+    __swift_destroy_boxed_opaque_existential_0(&v6);
+    v5 = v1;
+    v8 = v2;
+    v9 = v3;
+    v6 = &v5;
+    v7 = &v6;
+    __swift_project_boxed_opaque_existential_0(&v6, v2);
     Data._Representation.append(contentsOf:)();
-    __swift_destroy_boxed_opaque_existential_0(&v16);
-    result = 2;
+    __swift_destroy_boxed_opaque_existential_0(&v6);
+    return 2;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
-unint64_t _s15SwiftTLSLibrary10ByteBufferV26readTicketRequestExtension11messageTypeAA0H0O0fG0OAA09HandshakeJ0V_tAA8TLSErrorOYKF(unsigned __int8 a1)
+uint64_t _s15SwiftTLSLibrary10ByteBufferV26readTicketRequestExtension11messageTypeAA0H0O0fG0OAA09HandshakeJ0V_tAA8TLSErrorOYKF(unsigned __int8 a1)
 {
   if (a1 == 8)
   {
@@ -2369,25 +425,25 @@ void protocol witness for Hashable.hash(into:) in conformance Extension.TicketRe
   Hasher._combine(_:)(v2);
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Extension.TicketRequest()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Extension.TicketRequest(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 2);
+  v2 = *v1;
+  v3 = *(v1 + 2);
   Hasher.init(_seed:)();
-  if (v2)
+  if (v3)
   {
     MEMORY[0x1B274DB20](1);
-    LOBYTE(v3) = v1;
+    LOBYTE(v4) = v2;
   }
 
   else
   {
-    v3 = v1 >> 8;
+    v4 = v2 >> 8;
     MEMORY[0x1B274DB20](0);
-    Hasher._combine(_:)(v1);
+    Hasher._combine(_:)(v2);
   }
 
-  Hasher._combine(_:)(v3);
+  Hasher._combine(_:)(v4);
   return Hasher._finalize()();
 }
 
@@ -2598,31 +654,27 @@ LABEL_16:
 
 unint64_t specialized ByteBuffer.writeRecord<A>(_:)(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
-  LOBYTE(v27) = 23;
+  v22 = *MEMORY[0x1E69E9840];
+  LOBYTE(v17) = 23;
   v2 = MEMORY[0x1E69E6290];
   v3 = MEMORY[0x1E6969DF8];
-  v30 = MEMORY[0x1E69E6290];
-  v31 = MEMORY[0x1E6969DF8];
-  v28 = &v27;
-  v29 = (&v27 + 1);
-  v4 = __swift_project_boxed_opaque_existential_0(&v28, MEMORY[0x1E69E6290]);
-  v6 = *v4;
-  v5 = v4[1];
+  v20 = MEMORY[0x1E69E6290];
+  v21 = MEMORY[0x1E6969DF8];
+  v18 = &v17;
+  v19 = (&v17 + 1);
+  __swift_project_boxed_opaque_existential_0(&v18, MEMORY[0x1E69E6290]);
   Data._Representation.append(contentsOf:)();
-  __swift_destroy_boxed_opaque_existential_0(&v28);
-  v27 = 771;
-  v30 = v2;
-  v31 = v3;
-  v28 = &v27;
-  v29 = &v28;
-  v7 = __swift_project_boxed_opaque_existential_0(&v28, v2);
-  v9 = *v7;
-  v8 = v7[1];
+  __swift_destroy_boxed_opaque_existential_0(&v18);
+  v17 = 771;
+  v20 = v2;
+  v21 = v3;
+  v18 = &v17;
+  v19 = &v18;
+  __swift_project_boxed_opaque_existential_0(&v18, v2);
   Data._Representation.append(contentsOf:)();
-  __swift_destroy_boxed_opaque_existential_0(&v28);
-  v10 = *(a1 + 16);
-  if (v10 >> 16)
+  __swift_destroy_boxed_opaque_existential_0(&v18);
+  v4 = *(a1 + 16);
+  if (v4 >> 16)
   {
     __break(1u);
 LABEL_12:
@@ -2630,17 +682,15 @@ LABEL_12:
     goto LABEL_5;
   }
 
-  v27 = bswap32(v10) >> 16;
-  v30 = v2;
-  v31 = v3;
-  v28 = &v27;
-  v29 = &v28;
-  v11 = __swift_project_boxed_opaque_existential_0(&v28, v2);
-  v13 = *v11;
-  v12 = v11[1];
+  v17 = bswap32(v4) >> 16;
+  v20 = v2;
+  v21 = v3;
+  v18 = &v17;
+  v19 = &v18;
+  __swift_project_boxed_opaque_existential_0(&v18, v2);
   Data._Representation.append(contentsOf:)();
-  __swift_destroy_boxed_opaque_existential_0(&v28);
-  if (v10)
+  __swift_destroy_boxed_opaque_existential_0(&v18);
+  if (v4)
   {
     Data._Representation.append(contentsOf:)();
   }
@@ -2651,44 +701,44 @@ LABEL_12:
   }
 
 LABEL_5:
-  v14 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v14, logger);
-  v15 = Logger.logObject.getter();
-  v16 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v15, v16))
+  v5 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v5, logger);
+  v6 = Logger.logObject.getter();
+  v7 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v6, v7))
   {
-    v17 = swift_slowAlloc();
-    *v17 = 134217984;
-    *(v17 + 4) = v10;
-    _os_log_impl(&dword_1B25F5000, v15, v16, "wrote contentlength: %ld", v17, 0xCu);
-    MEMORY[0x1B274ECF0](v17, -1, -1);
+    v8 = swift_slowAlloc();
+    *v8 = 134217984;
+    *(v8 + 4) = v4;
+    _os_log_impl(&dword_1B25F5000, v6, v7, "wrote contentlength: %ld", v8, 0xCu);
+    MEMORY[0x1B274ECF0](v8, -1, -1);
   }
 
   swift_bridgeObjectRetain_n();
-  v18 = Logger.logObject.getter();
-  v19 = static os_log_type_t.debug.getter();
-  if (os_log_type_enabled(v18, v19))
+  v9 = Logger.logObject.getter();
+  v10 = static os_log_type_t.debug.getter();
+  if (os_log_type_enabled(v9, v10))
   {
-    v20 = swift_slowAlloc();
-    v21 = swift_slowAlloc();
-    v28 = v21;
-    *v20 = 136315906;
-    *(v20 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x80000001B26CDA10, &v28);
-    *(v20 + 12) = 2080;
-    v22 = ProtocolVersion.description.getter(771);
-    v24 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v22, v23, &v28);
+    v11 = swift_slowAlloc();
+    v12 = swift_slowAlloc();
+    v18 = v12;
+    *v11 = 136315906;
+    *(v11 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0xD000000000000010, 0x80000001B26CDA10, &v18);
+    *(v11 + 12) = 2080;
+    v13 = ProtocolVersion.description.getter(771);
+    v15 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v13, v14, &v18);
 
-    *(v20 + 14) = v24;
-    *(v20 + 22) = 2048;
+    *(v11 + 14) = v15;
+    *(v11 + 22) = 2048;
 
-    *(v20 + 24) = v10;
+    *(v11 + 24) = v4;
 
-    *(v20 + 32) = 2048;
-    *(v20 + 34) = v10 + 5;
-    _os_log_impl(&dword_1B25F5000, v18, v19, "wrote record with contentType: %s, protocolVersion: %s, contentLength: %ld, total: %ld", v20, 0x2Au);
+    *(v11 + 32) = 2048;
+    *(v11 + 34) = v4 + 5;
+    _os_log_impl(&dword_1B25F5000, v9, v10, "wrote record with contentType: %s, protocolVersion: %s, contentLength: %ld, total: %ld", v11, 0x2Au);
     swift_arrayDestroy();
-    MEMORY[0x1B274ECF0](v21, -1, -1);
-    MEMORY[0x1B274ECF0](v20, -1, -1);
+    MEMORY[0x1B274ECF0](v12, -1, -1);
+    MEMORY[0x1B274ECF0](v11, -1, -1);
   }
 
   else
@@ -2696,13 +746,12 @@ LABEL_5:
     swift_bridgeObjectRelease_n();
   }
 
-  v25 = *MEMORY[0x1E69E9840];
-  return v10 + 5;
+  return v4 + 5;
 }
 
 uint64_t TLSRecordHandler.pendingApplicationDataBytes.getter()
 {
-  v1 = (v0 + *(type metadata accessor for TLSRecordHandler() + 40));
+  v1 = (v0 + *(type metadata accessor for TLSRecordHandler(0) + 40));
   v2 = *v1;
   v3 = v1[1];
   v4 = v1[2];
@@ -2735,7 +784,7 @@ uint64_t TLSRecordHandler.pendingApplicationDataBytes.getter()
   return result;
 }
 
-uint64_t type metadata accessor for TLSRecordHandler()
+uint64_t type metadata accessor for TLSRecordHandler(uint64_t a1)
 {
   result = type metadata singleton initialization cache for TLSRecordHandler;
   if (!type metadata singleton initialization cache for TLSRecordHandler)
@@ -2748,45 +797,41 @@ uint64_t type metadata accessor for TLSRecordHandler()
 
 uint64_t TLSRecordHandler.receivedApplicationData.getter()
 {
-  v1 = (v0 + *(type metadata accessor for TLSRecordHandler() + 44));
+  v1 = v0 + *(type metadata accessor for TLSRecordHandler(0) + 44);
   v2 = *v1;
-  v3 = v1[2];
-  outlined copy of Data._Representation(*v1, v1[1]);
+  outlined copy of Data._Representation(*v1, *(v1 + 8));
   return v2;
 }
 
-uint64_t TLSRecordHandler.receivedApplicationData.setter(uint64_t a1, uint64_t a2, uint64_t a3)
+void TLSRecordHandler.receivedApplicationData.setter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = (v3 + *(type metadata accessor for TLSRecordHandler() + 44));
-  result = outlined consume of Data._Representation(*v7, v7[1]);
+  v7 = (v3 + *(type metadata accessor for TLSRecordHandler(0) + 44));
+  outlined consume of Data._Representation(*v7, v7[1]);
   *v7 = a1;
   v7[1] = a2;
   v7[2] = a3;
-  return result;
 }
 
 uint64_t TLSRecordHandler.outgoingBytes.getter()
 {
-  v1 = (v0 + *(type metadata accessor for TLSRecordHandler() + 48));
+  v1 = v0 + *(type metadata accessor for TLSRecordHandler(0) + 48);
   v2 = *v1;
-  v3 = v1[2];
-  outlined copy of Data._Representation(*v1, v1[1]);
+  outlined copy of Data._Representation(*v1, *(v1 + 8));
   return v2;
 }
 
-uint64_t TLSRecordHandler.outgoingBytes.setter(uint64_t a1, uint64_t a2, uint64_t a3)
+void TLSRecordHandler.outgoingBytes.setter(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v7 = (v3 + *(type metadata accessor for TLSRecordHandler() + 48));
-  result = outlined consume of Data._Representation(*v7, v7[1]);
+  v7 = (v3 + *(type metadata accessor for TLSRecordHandler(0) + 48));
+  outlined consume of Data._Representation(*v7, v7[1]);
   *v7 = a1;
   v7[1] = a2;
   v7[2] = a3;
-  return result;
 }
 
 uint64_t TLSRecordHandler.outgoingBytesCount.getter()
 {
-  v1 = (v0 + *(type metadata accessor for TLSRecordHandler() + 48));
+  v1 = (v0 + *(type metadata accessor for TLSRecordHandler(0) + 48));
   v2 = *v1;
   v3 = v1[1];
   v4 = v1[2];
@@ -2821,7 +866,7 @@ uint64_t TLSRecordHandler.outgoingBytesCount.getter()
 
 unint64_t TLSRecordHandler.bytesToReadCount.getter()
 {
-  result = *(v0 + *(type metadata accessor for TLSRecordHandler() + 20) + 24);
+  result = *(v0 + *(type metadata accessor for TLSRecordHandler(0) + 20) + 24);
   if ((result & 0x8000000000000000) != 0)
   {
     __break(1u);
@@ -2840,28 +885,27 @@ LABEL_5:
 uint64_t TLSRecordHandler.writeEncryptionLevelIsEarlyData.getter()
 {
   v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
-  v2 = *(*(v1 - 8) + 64);
   MEMORY[0x1EEE9AC00](v1 - 8);
-  v4 = &v9 - v3;
-  v5 = type metadata accessor for TLSRecordHandler();
-  outlined init with copy of EncryptionLevel?(v0 + *(v5 + 28), v4);
-  v6 = type metadata accessor for EncryptionLevel(0);
-  if ((*(*(v6 - 8) + 48))(v4, 1, v6) == 1)
+  v3 = &v8 - v2;
+  v4 = type metadata accessor for TLSRecordHandler(0);
+  outlined init with copy of EncryptionLevel?(v0 + *(v4 + 28), v3);
+  v5 = type metadata accessor for EncryptionLevel(0);
+  if ((*(*(v5 - 8) + 48))(v3, 1, v5) == 1)
   {
-    outlined destroy of P256.Signing.PrivateKey?(v4, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
+    outlined destroy of P256.Signing.PrivateKey?(v3, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
     return 0;
   }
 
   else if (swift_getEnumCaseMultiPayload())
   {
-    outlined destroy of EncryptionLevel(v4, type metadata accessor for EncryptionLevel);
+    outlined destroy of EncryptionLevel(v3, type metadata accessor for EncryptionLevel);
     return 0;
   }
 
   else
   {
-    v8 = type metadata accessor for SymmetricKey();
-    (*(*(v8 - 8) + 8))(v4, v8);
+    v7 = type metadata accessor for SymmetricKey();
+    (*(*(v7 - 8) + 8))(v3, v7);
     return 1;
   }
 }
@@ -2877,43 +921,40 @@ uint64_t TLSRecordHandler.getNegotiatedCiphersuite.getter()
 {
   v1 = v0;
   v2 = type metadata accessor for ServerHandshakeStateMachine(0);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v5 = &v19 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for HandshakeStateMachine(0);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v19 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for TLSHandshakeStateMachine(0);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v13 = &v19 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of TLSHandshakeStateMachine(v1, v13, type metadata accessor for TLSHandshakeStateMachine);
+  v4 = &v16 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for HandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v16 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for TLSHandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of TLSHandshakeStateMachine(v1, v10, type metadata accessor for TLSHandshakeStateMachine);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v13, v5, type metadata accessor for ServerHandshakeStateMachine);
-    v14 = ServerHandshakeStateMachine.negotiatedCiphersuite.getter();
-    v15 = type metadata accessor for ServerHandshakeStateMachine;
-    v16 = v5;
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v10, v4, type metadata accessor for ServerHandshakeStateMachine);
+    v11 = ServerHandshakeStateMachine.negotiatedCiphersuite.getter();
+    v12 = type metadata accessor for ServerHandshakeStateMachine;
+    v13 = v4;
   }
 
   else
   {
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v13, v9, type metadata accessor for HandshakeStateMachine);
-    v14 = HandshakeStateMachine.negotiatedCiphersuite.getter();
-    v15 = type metadata accessor for HandshakeStateMachine;
-    v16 = v9;
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v10, v7, type metadata accessor for HandshakeStateMachine);
+    v11 = HandshakeStateMachine.negotiatedCiphersuite.getter();
+    v12 = type metadata accessor for HandshakeStateMachine;
+    v13 = v7;
   }
 
-  outlined destroy of EncryptionLevel(v16, v15);
-  if ((v14 & 0x10000) != 0)
+  outlined destroy of EncryptionLevel(v13, v12);
+  if ((v11 & 0x10000) != 0)
   {
     return 0;
   }
 
   else
   {
-    return v14;
+    return v11;
   }
 }
 
@@ -2921,93 +962,83 @@ uint64_t TLSRecordHandler.getNegotiatedPAKE.getter()
 {
   v1 = v0;
   v2 = type metadata accessor for ServerHandshakeStateMachine(0);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v5 = &v18[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v6 = type metadata accessor for HandshakeStateMachine(0);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v18[-((v8 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  v10 = type metadata accessor for TLSHandshakeStateMachine(0);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v13 = &v18[-((v12 + 15) & 0xFFFFFFFFFFFFFFF0)];
-  outlined init with copy of TLSHandshakeStateMachine(v1, v13, type metadata accessor for TLSHandshakeStateMachine);
+  v4 = &v15[-((v3 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v5 = type metadata accessor for HandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v15[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  v8 = type metadata accessor for TLSHandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = &v15[-((v9 + 15) & 0xFFFFFFFFFFFFFFF0)];
+  outlined init with copy of TLSHandshakeStateMachine(v1, v10, type metadata accessor for TLSHandshakeStateMachine);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v13, v5, type metadata accessor for ServerHandshakeStateMachine);
-    v14 = ServerHandshakeStateMachine.negotiatedPAKE.getter();
-    v15 = type metadata accessor for ServerHandshakeStateMachine;
-    v16 = v5;
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v10, v4, type metadata accessor for ServerHandshakeStateMachine);
+    v11 = ServerHandshakeStateMachine.negotiatedPAKE.getter();
+    v12 = type metadata accessor for ServerHandshakeStateMachine;
+    v13 = v4;
   }
 
   else
   {
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v13, v9, type metadata accessor for HandshakeStateMachine);
-    v14 = HandshakeStateMachine.negotiatedPAKE.getter();
-    v15 = type metadata accessor for HandshakeStateMachine;
-    v16 = v9;
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v10, v7, type metadata accessor for HandshakeStateMachine);
+    v11 = HandshakeStateMachine.negotiatedPAKE.getter();
+    v12 = type metadata accessor for HandshakeStateMachine;
+    v13 = v7;
   }
 
-  outlined destroy of EncryptionLevel(v16, v15);
-  return v14 & 0x1FFFF;
+  outlined destroy of EncryptionLevel(v13, v12);
+  return v11 & 0x1FFFF;
 }
 
 uint64_t TLSRecordHandler.getNegotiatedEPSK.getter()
 {
   v1 = v0;
   v2 = type metadata accessor for ServerHandshakeStateMachine(0);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v5 = &v33 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = &v26 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
   ready = type metadata accessor for HandshakeState.ReadyState(0);
-  v6 = *(*(ready - 8) + 64);
   MEMORY[0x1EEE9AC00](ready);
-  v35 = &v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v34 = type metadata accessor for HandshakeState.EncryptedExtensionsState(0);
-  v8 = *(*(v34 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v34);
-  v33 = &v33 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for HandshakeState.ServerHelloState(0);
-  v11 = *(*(v10 - 8) + 64);
+  v28 = &v26 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = type metadata accessor for HandshakeState.EncryptedExtensionsState(0);
+  MEMORY[0x1EEE9AC00](v27);
+  v26 = &v26 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for HandshakeState.ServerHelloState(0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v26 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for HandshakeState(0);
   MEMORY[0x1EEE9AC00](v10);
-  v13 = &v33 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for HandshakeState(0);
-  v15 = *(*(v14 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v17 = &v33 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = type metadata accessor for HandshakeStateMachine(0);
-  v19 = *(*(v18 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v18);
-  v21 = &v33 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v22 = type metadata accessor for TLSHandshakeStateMachine(0);
-  v23 = *(*(v22 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v22);
-  v25 = &v33 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of TLSHandshakeStateMachine(v1, v25, type metadata accessor for TLSHandshakeStateMachine);
+  v12 = &v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for HandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v13);
+  v15 = &v26 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = type metadata accessor for TLSHandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v16);
+  v18 = &v26 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of TLSHandshakeStateMachine(v1, v18, type metadata accessor for TLSHandshakeStateMachine);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v25, v5, type metadata accessor for ServerHandshakeStateMachine);
-    v26 = ServerHandshakeStateMachine.negotiatedEPSK.getter();
-    v27 = type metadata accessor for ServerHandshakeStateMachine;
-    v28 = v5;
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v18, v4, type metadata accessor for ServerHandshakeStateMachine);
+    v19 = ServerHandshakeStateMachine.negotiatedEPSK.getter();
+    v20 = type metadata accessor for ServerHandshakeStateMachine;
+    v21 = v4;
 LABEL_13:
-    outlined destroy of EncryptionLevel(v28, v27);
-    return v26 & 1;
+    outlined destroy of EncryptionLevel(v21, v20);
+    return v19 & 1;
   }
 
-  _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v25, v21, type metadata accessor for HandshakeStateMachine);
-  outlined init with copy of TLSHandshakeStateMachine(&v21[*(v18 + 24)], v17, type metadata accessor for HandshakeState);
-  outlined destroy of EncryptionLevel(v21, type metadata accessor for HandshakeStateMachine);
+  _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v18, v15, type metadata accessor for HandshakeStateMachine);
+  outlined init with copy of TLSHandshakeStateMachine(&v15[*(v13 + 24)], v12, type metadata accessor for HandshakeState);
+  outlined destroy of EncryptionLevel(v15, type metadata accessor for HandshakeStateMachine);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload <= 2)
   {
     if (EnumCaseMultiPayload >= 2)
     {
-      _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v17, v13, type metadata accessor for HandshakeState.ServerHelloState);
-      v26 = v13[*(v10 + 36)];
-      v27 = type metadata accessor for HandshakeState.ServerHelloState;
-      v28 = v13;
+      _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v12, v9, type metadata accessor for HandshakeState.ServerHelloState);
+      v19 = v9[*(v7 + 36)];
+      v20 = type metadata accessor for HandshakeState.ServerHelloState;
+      v21 = v9;
       goto LABEL_13;
     }
   }
@@ -3016,105 +1047,99 @@ LABEL_13:
   {
     if (EnumCaseMultiPayload != 5)
     {
-      v30 = v35;
-      _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v17, v35, type metadata accessor for HandshakeState.ReadyState);
-      v26 = *(v30 + *(ready + 52));
-      v31 = type metadata accessor for HandshakeState.ReadyState;
+      v23 = v28;
+      _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v12, v28, type metadata accessor for HandshakeState.ReadyState);
+      v19 = *(v23 + *(ready + 52));
+      v24 = type metadata accessor for HandshakeState.ReadyState;
       goto LABEL_12;
     }
   }
 
   else if (EnumCaseMultiPayload == 3)
   {
-    v30 = v33;
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v17, v33, type metadata accessor for HandshakeState.EncryptedExtensionsState);
-    v26 = *(v30 + *(v34 + 40));
-    v31 = type metadata accessor for HandshakeState.EncryptedExtensionsState;
+    v23 = v26;
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v12, v26, type metadata accessor for HandshakeState.EncryptedExtensionsState);
+    v19 = *(v23 + *(v27 + 40));
+    v24 = type metadata accessor for HandshakeState.EncryptedExtensionsState;
 LABEL_12:
-    v27 = v31;
-    v28 = v30;
+    v20 = v24;
+    v21 = v23;
     goto LABEL_13;
   }
 
-  outlined destroy of EncryptionLevel(v17, type metadata accessor for HandshakeState);
-  v26 = 0;
-  return v26 & 1;
+  outlined destroy of EncryptionLevel(v12, type metadata accessor for HandshakeState);
+  v19 = 0;
+  return v19 & 1;
 }
 
 uint64_t TLSRecordHandler.getEPSKOffered.getter(uint64_t (*a1)(uint64_t), uint64_t (*a2)(uint64_t))
 {
   v5 = v2;
   v6 = type metadata accessor for ServerHandshakeStateMachine(0);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v24 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for HandshakeStateMachine(0);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v10 - 8);
-  v13 = &v24 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for TLSHandshakeStateMachine(0);
-  v15 = *(*(v14 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v14);
-  v17 = &v24 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of TLSHandshakeStateMachine(v5, v17, type metadata accessor for TLSHandshakeStateMachine);
+  v8 = &v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for HandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for TLSHandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v12);
+  v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of TLSHandshakeStateMachine(v5, v14, type metadata accessor for TLSHandshakeStateMachine);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v18 = _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v17, v9, type metadata accessor for ServerHandshakeStateMachine);
-    v19 = a2(v18);
-    v20 = type metadata accessor for ServerHandshakeStateMachine;
-    v21 = v9;
+    v15 = _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v14, v8, type metadata accessor for ServerHandshakeStateMachine);
+    v16 = a2(v15);
+    v17 = type metadata accessor for ServerHandshakeStateMachine;
+    v18 = v8;
   }
 
   else
   {
-    v22 = _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v17, v13, type metadata accessor for HandshakeStateMachine);
-    v19 = a1(v22);
-    v20 = type metadata accessor for HandshakeStateMachine;
-    v21 = v13;
+    v19 = _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v14, v11, type metadata accessor for HandshakeStateMachine);
+    v16 = a1(v19);
+    v17 = type metadata accessor for HandshakeStateMachine;
+    v18 = v11;
   }
 
-  outlined destroy of EncryptionLevel(v21, v20);
-  return v19 & 1;
+  outlined destroy of EncryptionLevel(v18, v17);
+  return v16 & 1;
 }
 
 uint64_t TLSRecordHandler.getNegotiatedGroup.getter()
 {
   v1 = v0;
   v2 = type metadata accessor for ServerHandshakeStateMachine(0);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v5 = &v21 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = type metadata accessor for HandshakeStateMachine(0);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v6 - 8);
-  v9 = &v21 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for TLSHandshakeStateMachine(0);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of TLSHandshakeStateMachine(v1, v13, type metadata accessor for TLSHandshakeStateMachine);
+  v4 = &v18 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for HandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v7 = &v18 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for TLSHandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v8);
+  v10 = &v18 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of TLSHandshakeStateMachine(v1, v10, type metadata accessor for TLSHandshakeStateMachine);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v13, v5, type metadata accessor for ServerHandshakeStateMachine);
-    v14 = ServerHandshakeStateMachine.negotiatedGroup.getter();
-    v16 = v15;
-    v17 = type metadata accessor for ServerHandshakeStateMachine;
-    v18 = v5;
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v10, v4, type metadata accessor for ServerHandshakeStateMachine);
+    v11 = ServerHandshakeStateMachine.negotiatedGroup.getter();
+    v13 = v12;
+    v14 = type metadata accessor for ServerHandshakeStateMachine;
+    v15 = v4;
   }
 
   else
   {
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v13, v9, type metadata accessor for HandshakeStateMachine);
-    v14 = HandshakeStateMachine.negotiatedGroup.getter();
-    v16 = v19;
-    v17 = type metadata accessor for HandshakeStateMachine;
-    v18 = v9;
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v10, v7, type metadata accessor for HandshakeStateMachine);
+    v11 = HandshakeStateMachine.negotiatedGroup.getter();
+    v13 = v16;
+    v14 = type metadata accessor for HandshakeStateMachine;
+    v15 = v7;
   }
 
-  outlined destroy of EncryptionLevel(v18, v17);
-  if (v16)
+  outlined destroy of EncryptionLevel(v15, v14);
+  if (v13)
   {
-    return v14;
+    return v11;
   }
 
   else
@@ -3125,7 +1150,7 @@ uint64_t TLSRecordHandler.getNegotiatedGroup.getter()
 
 uint64_t TLSRecordHandler.writeOutput()()
 {
-  v1 = (v0 + *(type metadata accessor for TLSRecordHandler() + 48));
+  v1 = (v0 + *(type metadata accessor for TLSRecordHandler(0) + 48));
   v2 = *v1;
   v3 = v1[1];
   result = v1[2];
@@ -3200,7 +1225,7 @@ uint64_t TLSRecordHandler.writeOutput()()
 
 uint64_t TLSRecordHandler.getOutputData(_:)(Swift::Int a1)
 {
-  v3 = (v1 + *(type metadata accessor for TLSRecordHandler() + 48));
+  v3 = (v1 + *(type metadata accessor for TLSRecordHandler(0) + 48));
   v4 = *v3;
   v5 = v3[1];
   result = v3[2];
@@ -3320,7 +1345,7 @@ LABEL_33:
 
 uint64_t TLSRecordHandler.getApplicationData(_:)(Swift::Int a1)
 {
-  v3 = (v1 + *(type metadata accessor for TLSRecordHandler() + 44));
+  v3 = (v1 + *(type metadata accessor for TLSRecordHandler(0) + 44));
   v4 = *v3;
   v5 = v3[1];
   result = v3[2];
@@ -3440,7 +1465,7 @@ LABEL_33:
 
 Swift::Int __swiftcall TLSRecordHandler.getApplicationDataLength()()
 {
-  v1 = (v0 + *(type metadata accessor for TLSRecordHandler() + 44));
+  v1 = (v0 + *(type metadata accessor for TLSRecordHandler(0) + 44));
   v2 = *v1;
   v3 = v1[1];
   v4 = v1[2];
@@ -3476,110 +1501,100 @@ Swift::Int __swiftcall TLSRecordHandler.getApplicationDataLength()()
 BOOL TLSRecordHandler.handshakeComplete.getter()
 {
   v1 = v0;
-  v26 = type metadata accessor for ServerHandshakeState(0);
-  v2 = *(*(v26 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v26);
-  v4 = &v25 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = type metadata accessor for ServerHandshakeStateMachine(0);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v5);
-  v8 = &v25 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for HandshakeState(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9);
-  v12 = &v25 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = type metadata accessor for HandshakeStateMachine(0);
-  v14 = *(*(v13 - 8) + 64);
+  v21 = type metadata accessor for ServerHandshakeState(0);
+  MEMORY[0x1EEE9AC00](v21);
+  v3 = &v20 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for ServerHandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v4);
+  v6 = &v20 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for HandshakeState(0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v20 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for HandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v20 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = type metadata accessor for TLSHandshakeStateMachine(0);
   MEMORY[0x1EEE9AC00](v13);
-  v16 = &v25 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = type metadata accessor for TLSHandshakeStateMachine(0);
-  v18 = *(*(v17 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v17);
-  v20 = &v25 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of TLSHandshakeStateMachine(v1, v20, type metadata accessor for TLSHandshakeStateMachine);
+  v15 = &v20 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of TLSHandshakeStateMachine(v1, v15, type metadata accessor for TLSHandshakeStateMachine);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v20, v8, type metadata accessor for ServerHandshakeStateMachine);
-    outlined init with copy of TLSHandshakeStateMachine(&v8[*(v5 + 24)], v4, type metadata accessor for ServerHandshakeState);
-    outlined destroy of EncryptionLevel(v8, type metadata accessor for ServerHandshakeStateMachine);
-    v21 = swift_getEnumCaseMultiPayload() > 6;
-    v22 = type metadata accessor for ServerHandshakeState;
-    v23 = v4;
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v15, v6, type metadata accessor for ServerHandshakeStateMachine);
+    outlined init with copy of TLSHandshakeStateMachine(&v6[*(v4 + 24)], v3, type metadata accessor for ServerHandshakeState);
+    outlined destroy of EncryptionLevel(v6, type metadata accessor for ServerHandshakeStateMachine);
+    v16 = swift_getEnumCaseMultiPayload() > 6;
+    v17 = type metadata accessor for ServerHandshakeState;
+    v18 = v3;
   }
 
   else
   {
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v20, v16, type metadata accessor for HandshakeStateMachine);
-    outlined init with copy of TLSHandshakeStateMachine(&v16[*(v13 + 24)], v12, type metadata accessor for HandshakeState);
-    outlined destroy of EncryptionLevel(v16, type metadata accessor for HandshakeStateMachine);
-    v21 = swift_getEnumCaseMultiPayload() > 5;
-    v22 = type metadata accessor for HandshakeState;
-    v23 = v12;
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v15, v12, type metadata accessor for HandshakeStateMachine);
+    outlined init with copy of TLSHandshakeStateMachine(&v12[*(v10 + 24)], v9, type metadata accessor for HandshakeState);
+    outlined destroy of EncryptionLevel(v12, type metadata accessor for HandshakeStateMachine);
+    v16 = swift_getEnumCaseMultiPayload() > 5;
+    v17 = type metadata accessor for HandshakeState;
+    v18 = v9;
   }
 
-  outlined destroy of EncryptionLevel(v23, v22);
-  return v21;
+  outlined destroy of EncryptionLevel(v18, v17);
+  return v16;
 }
 
 uint64_t TLSRecordHandler.handshakeStarted.getter()
 {
-  v25 = type metadata accessor for ServerHandshakeState(0);
-  v1 = *(*(v25 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v25);
-  v3 = &v24 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for ServerHandshakeStateMachine(0);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v4);
-  v7 = &v24 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for HandshakeState(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v24 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for HandshakeStateMachine(0);
-  v13 = *(*(v12 - 8) + 64);
+  v20 = type metadata accessor for ServerHandshakeState(0);
+  MEMORY[0x1EEE9AC00](v20);
+  v2 = &v19 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v3 = type metadata accessor for ServerHandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v3);
+  v5 = &v19 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = type metadata accessor for HandshakeState(0);
+  MEMORY[0x1EEE9AC00](v6);
+  v8 = &v19 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for HandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v9);
+  v11 = &v19 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for TLSHandshakeStateMachine(0);
   MEMORY[0x1EEE9AC00](v12);
-  v15 = &v24 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v16 = type metadata accessor for TLSHandshakeStateMachine(0);
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v16);
-  v19 = &v24 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of TLSHandshakeStateMachine(v0, v19, type metadata accessor for TLSHandshakeStateMachine);
+  v14 = &v19 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of TLSHandshakeStateMachine(v0, v14, type metadata accessor for TLSHandshakeStateMachine);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v19, v7, type metadata accessor for ServerHandshakeStateMachine);
-    outlined init with copy of TLSHandshakeStateMachine(&v7[*(v4 + 24)], v3, type metadata accessor for ServerHandshakeState);
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v14, v5, type metadata accessor for ServerHandshakeStateMachine);
+    outlined init with copy of TLSHandshakeStateMachine(&v5[*(v3 + 24)], v2, type metadata accessor for ServerHandshakeState);
     if (swift_getEnumCaseMultiPayload())
     {
-      v20 = 1;
+      v15 = 1;
     }
 
     else
     {
-      v20 = v7[24];
+      v15 = v5[24];
     }
 
-    outlined destroy of EncryptionLevel(v7, type metadata accessor for ServerHandshakeStateMachine);
-    v21 = type metadata accessor for ServerHandshakeState;
-    v22 = v3;
+    outlined destroy of EncryptionLevel(v5, type metadata accessor for ServerHandshakeStateMachine);
+    v16 = type metadata accessor for ServerHandshakeState;
+    v17 = v2;
   }
 
   else
   {
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v19, v15, type metadata accessor for HandshakeStateMachine);
-    outlined init with copy of TLSHandshakeStateMachine(&v15[*(v12 + 24)], v11, type metadata accessor for HandshakeState);
-    outlined destroy of EncryptionLevel(v15, type metadata accessor for HandshakeStateMachine);
-    v20 = swift_getEnumCaseMultiPayload() != 0;
-    v21 = type metadata accessor for HandshakeState;
-    v22 = v11;
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v14, v11, type metadata accessor for HandshakeStateMachine);
+    outlined init with copy of TLSHandshakeStateMachine(&v11[*(v9 + 24)], v8, type metadata accessor for HandshakeState);
+    outlined destroy of EncryptionLevel(v11, type metadata accessor for HandshakeStateMachine);
+    v15 = swift_getEnumCaseMultiPayload() != 0;
+    v16 = type metadata accessor for HandshakeState;
+    v17 = v8;
   }
 
-  outlined destroy of EncryptionLevel(v22, v21);
-  return v20;
+  outlined destroy of EncryptionLevel(v17, v16);
+  return v15;
 }
 
 uint64_t TLSRecordHandler.bufferedNetworkData.getter()
 {
-  v1 = type metadata accessor for TLSRecordHandler();
+  v1 = type metadata accessor for TLSRecordHandler(0);
   result = 0;
   v3 = (v0 + *(v1 + 20));
   v4 = v3[1];
@@ -3623,7 +1638,7 @@ uint64_t TLSRecordHandler.bufferedNetworkData.getter()
 
 double TLSRecordHandler.init(stateMachine:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = type metadata accessor for TLSRecordHandler();
+  v4 = type metadata accessor for TLSRecordHandler(0);
   v5 = v4[7];
   v6 = type metadata accessor for EncryptionLevel(0);
   v7 = *(*(v6 - 8) + 56);
@@ -3649,7 +1664,7 @@ double TLSRecordHandler.init(stateMachine:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<
   v13 = type metadata accessor for SymmetricKey();
   v14 = *(*(v13 - 8) + 56);
   v14(v12, 1, 1, v13);
-  v15 = type metadata accessor for TLSRecordProtector();
+  v15 = type metadata accessor for TLSRecordProtector(0);
   v16 = v15[6];
   v22 = v15[5];
   v14(v12 + v16, 1, 1, v13);
@@ -3682,40 +1697,37 @@ uint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV14startHandshakeyyAA8TLSErrorOYKF
 {
   v3 = v0;
   v4 = type metadata accessor for PartialHandshakeResult(0);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = (&v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = type metadata accessor for TLSHandshakeStateMachine(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8);
-  v11 = &v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for HandshakeStateMachine(0);
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v12 - 8);
-  v15 = &v21 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of TLSHandshakeStateMachine(v3, v11, type metadata accessor for TLSHandshakeStateMachine);
+  v6 = (&v18 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = type metadata accessor for TLSHandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v7);
+  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for HandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v10 - 8);
+  v12 = &v18 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of TLSHandshakeStateMachine(v3, v9, type metadata accessor for TLSHandshakeStateMachine);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    outlined destroy of EncryptionLevel(v11, type metadata accessor for TLSHandshakeStateMachine);
+    outlined destroy of EncryptionLevel(v9, type metadata accessor for TLSHandshakeStateMachine);
     if (one-time initialization token for logger != -1)
     {
       swift_once();
     }
 
-    v16 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v16, logger);
-    v17 = Logger.logObject.getter();
-    v18 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v17, v18))
+    v13 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v13, logger);
+    v14 = Logger.logObject.getter();
+    v15 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v14, v15))
     {
-      v19 = swift_slowAlloc();
-      *v19 = 0;
-      _os_log_impl(&dword_1B25F5000, v17, v18, "startHandshake called on server", v19, 2u);
-      MEMORY[0x1B274ECF0](v19, -1, -1);
+      v16 = swift_slowAlloc();
+      *v16 = 0;
+      _os_log_impl(&dword_1B25F5000, v14, v15, "startHandshake called on server", v16, 2u);
+      MEMORY[0x1B274ECF0](v16, -1, -1);
     }
 
-    v23 = xmmword_1B26CBEC0;
-    v24 = 2;
+    v20 = xmmword_1B26CBEC0;
+    v21 = 2;
     lazy protocol witness table accessor for type TLSError and conformance TLSError();
     swift_willThrowTypedImpl();
     return 30;
@@ -3723,20 +1735,20 @@ uint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV14startHandshakeyyAA8TLSErrorOYKF
 
   else
   {
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v11, v15, type metadata accessor for HandshakeStateMachine);
-    _s15SwiftTLSLibrary21HandshakeStateMachineV05startC0AA07PartialC6ResultVyAA8TLSErrorOYKF(&v22, v7);
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v9, v12, type metadata accessor for HandshakeStateMachine);
+    _s15SwiftTLSLibrary21HandshakeStateMachineV05startC0AA07PartialC6ResultVyAA8TLSErrorOYKF(&v19, v6);
     if (v1)
     {
-      v2 = v22;
-      outlined destroy of EncryptionLevel(v15, type metadata accessor for HandshakeStateMachine);
+      v2 = v19;
+      outlined destroy of EncryptionLevel(v12, type metadata accessor for HandshakeStateMachine);
     }
 
     else
     {
-      _s15SwiftTLSLibrary16TLSRecordHandlerV29processPartialHandshakeResult33_3A7BCC859838BE1761A4636F58F247A007partialgH0yAA0fgH0V_tAA8TLSErrorOYKF(v7);
-      outlined destroy of EncryptionLevel(v7, type metadata accessor for PartialHandshakeResult);
+      _s15SwiftTLSLibrary16TLSRecordHandlerV29processPartialHandshakeResult33_3A7BCC859838BE1761A4636F58F247A007partialgH0yAA0fgH0V_tAA8TLSErrorOYKF(v6);
+      outlined destroy of EncryptionLevel(v6, type metadata accessor for PartialHandshakeResult);
       outlined destroy of EncryptionLevel(v3, type metadata accessor for TLSHandshakeStateMachine);
-      _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v15, v3, type metadata accessor for HandshakeStateMachine);
+      _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v12, v3, type metadata accessor for HandshakeStateMachine);
       swift_storeEnumTagMultiPayload();
     }
   }
@@ -3747,126 +1759,124 @@ uint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV14startHandshakeyyAA8TLSErrorOYKF
 uint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV29processPartialHandshakeResult33_3A7BCC859838BE1761A4636F58F247A0LL07partialgH0yAA0fgH0V_tAA8TLSErrorOYKF(uint64_t *a1)
 {
   v2 = v1;
-  v62 = type metadata accessor for Data.Iterator();
-  v4 = *(v62 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v62);
-  v61 = &v58 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  v9 = MEMORY[0x1EEE9AC00](v7 - 8);
-  MEMORY[0x1EEE9AC00](v9);
-  v69 = &v58 - v11;
-  v12 = a1[1];
-  if (v12 >> 60 == 15)
+  v58 = type metadata accessor for Data.Iterator();
+  v4 = *(v58 - 8);
+  MEMORY[0x1EEE9AC00](v58);
+  v57 = &v54 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
+  v7 = MEMORY[0x1EEE9AC00](v6 - 8);
+  MEMORY[0x1EEE9AC00](v7);
+  v65 = &v54 - v9;
+  v10 = a1[1];
+  if (v10 >> 60 == 15)
   {
 LABEL_62:
-    v50 = v2;
-    v54 = v68;
-    v55 = _s15SwiftTLSLibrary16TLSRecordHandlerV23updateEncryptionSecrets33_3A7BCC859838BE1761A4636F58F247A0LLyyAA22PartialHandshakeResultVAA8TLSErrorOYKF(a1);
-    if (v54)
+    v46 = v2;
+    v50 = v64;
+    v51 = _s15SwiftTLSLibrary16TLSRecordHandlerV23updateEncryptionSecrets33_3A7BCC859838BE1761A4636F58F247A0LLyyAA22PartialHandshakeResultVAA8TLSErrorOYKF(a1);
+    if (v50)
     {
-      return v55;
+      return v51;
     }
 
-    return v50;
+    return v46;
   }
 
-  v63 = v10;
-  v13 = *a1;
-  v59 = a1;
-  v14 = a1[2];
-  outlined copy of Data._Representation(v13, v12);
-  result = v14;
-  v16 = (v12 >> 62);
-  v71 = v13;
-  v64 = v13 >> 32;
-  v60 = (v4 + 8);
-  v70 = BYTE6(v12);
-  v66 = v12;
-  v67 = v2;
-  v65 = v12 >> 62;
+  v59 = v8;
+  v11 = *a1;
+  v55 = a1;
+  v12 = a1[2];
+  outlined copy of Data._Representation(v11, v10);
+  result = v12;
+  v14 = (v10 >> 62);
+  v67 = v11;
+  v60 = v11 >> 32;
+  v56 = (v4 + 8);
+  v66 = BYTE6(v10);
+  v62 = v10;
+  v63 = v2;
+  v61 = v10 >> 62;
   while (1)
   {
-    if (v16 > 1)
+    if (v14 > 1)
     {
-      v21 = v16 == 2 ? *(v71 + 24) : 0;
+      v18 = v14 == 2 ? *(v67 + 24) : 0;
     }
 
     else
     {
-      v21 = v70;
-      if (v16)
+      v18 = v66;
+      if (v14)
       {
-        v21 = v64;
+        v18 = v60;
       }
     }
 
-    v22 = __OFSUB__(v21, result);
-    v23 = v21 - result;
-    if (v22)
+    v19 = __OFSUB__(v18, result);
+    v20 = v18 - result;
+    if (v19)
     {
       break;
     }
 
-    if (v23 < 1)
+    if (v20 < 1)
     {
-      outlined consume of Data._Representation(v71, v12);
-      a1 = v59;
+      outlined consume of Data._Representation(v67, v10);
+      a1 = v55;
       goto LABEL_62;
     }
 
-    if (v16 > 1)
+    if (v14 > 1)
     {
-      if (v16 == 2)
+      if (v14 == 2)
       {
-        v24 = *(v71 + 24);
+        v21 = *(v67 + 24);
       }
 
       else
       {
-        v24 = 0;
+        v21 = 0;
       }
     }
 
     else
     {
-      v24 = v70;
-      if (v16)
+      v21 = v66;
+      if (v14)
       {
-        v24 = v64;
+        v21 = v60;
       }
     }
 
-    v22 = __OFSUB__(v24, result);
-    v25 = v24 - result;
-    if (v22)
+    v19 = __OFSUB__(v21, result);
+    v22 = v21 - result;
+    if (v19)
     {
       goto LABEL_70;
     }
 
-    if (v25 >= 0x4000)
+    if (v22 >= 0x4000)
     {
-      v25 = 0x4000;
+      v22 = 0x4000;
     }
 
-    v26 = result + v25;
-    if (__OFADD__(result, v25))
+    v23 = result + v22;
+    if (__OFADD__(result, v22))
     {
       goto LABEL_71;
     }
 
-    if (v16 > 1)
+    if (v14 > 1)
     {
-      if (v16 == 2)
+      if (v14 == 2)
       {
-        if (*(v71 + 24) < v26)
+        if (*(v67 + 24) < v23)
         {
           goto LABEL_65;
         }
       }
 
-      else if (v26 > 0)
+      else if (v23 > 0)
       {
         goto LABEL_65;
       }
@@ -3874,116 +1884,116 @@ LABEL_62:
 
     else
     {
-      v27 = v70;
-      if (v16)
+      v24 = v66;
+      if (v14)
       {
-        v27 = v64;
+        v24 = v60;
       }
 
-      if (v27 < v26)
+      if (v24 < v23)
       {
 LABEL_65:
-        v50 = 0xD000000000000046;
-        v76 = 0xD000000000000046;
-        v77 = 0x80000001B26CE460;
-        v78 = 1;
+        v46 = 0xD000000000000046;
+        v72 = 0xD000000000000046;
+        v73 = 0x80000001B26CE460;
+        v74 = 1;
         lazy protocol witness table accessor for type TLSError and conformance TLSError();
         swift_willThrowTypedImpl();
-        v56 = v71;
-        v57 = v12;
+        v52 = v67;
+        v53 = v10;
 LABEL_67:
-        outlined consume of Data._Representation(v56, v57);
-        return v50;
+        outlined consume of Data._Representation(v52, v53);
+        return v46;
       }
     }
 
-    if (v26 < result)
+    if (v23 < result)
     {
       goto LABEL_72;
     }
 
     result = Data._Representation.subscript.getter();
-    v28 = result;
-    v30 = v29;
-    v31 = v29 >> 62;
-    if ((v29 >> 62) > 1)
+    v25 = result;
+    v27 = v26;
+    v28 = v26 >> 62;
+    if ((v26 >> 62) > 1)
     {
-      if (v31 != 2)
+      if (v28 != 2)
       {
         goto LABEL_41;
       }
 
       result = *(result + 16);
-      v32 = *(v28 + 24);
+      v29 = *(v25 + 24);
     }
 
     else
     {
-      if (!v31)
+      if (!v28)
       {
         goto LABEL_41;
       }
 
       result = result;
-      v32 = v28 >> 32;
+      v29 = v25 >> 32;
     }
 
-    if (v32 < result)
+    if (v29 < result)
     {
       goto LABEL_73;
     }
 
 LABEL_41:
-    v72 = Data._Representation.subscript.getter();
-    v34 = v33;
-    outlined consume of Data._Representation(v28, v30);
-    v81 = type metadata accessor for TLSRecordHandler();
-    v35 = v81[7];
-    v36 = v69;
-    outlined init with copy of EncryptionLevel?(v2 + v35, v69);
-    v37 = type metadata accessor for EncryptionLevel(0);
-    v38 = *(*(v37 - 8) + 48);
-    v39 = v38(v36, 1, v37);
-    result = outlined destroy of P256.Signing.PrivateKey?(v36, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
-    if (v39 == 1)
+    v68 = Data._Representation.subscript.getter();
+    v31 = v30;
+    outlined consume of Data._Representation(v25, v27);
+    v77 = type metadata accessor for TLSRecordHandler(0);
+    v32 = *(v77 + 28);
+    v33 = v65;
+    outlined init with copy of EncryptionLevel?(v2 + v32, v65);
+    v34 = type metadata accessor for EncryptionLevel(0);
+    v35 = *(*(v34 - 8) + 48);
+    v36 = v35(v33, 1, v34);
+    result = outlined destroy of P256.Signing.PrivateKey?(v33, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
+    if (v36 == 1)
     {
       goto LABEL_42;
     }
 
-    v43 = v63;
-    outlined init with copy of EncryptionLevel?(v2 + v35, v63);
-    if (v38(v43, 1, v37) == 1)
+    v40 = v59;
+    outlined init with copy of EncryptionLevel?(v2 + v32, v59);
+    if (v35(v40, 1, v34) == 1)
     {
-      outlined destroy of P256.Signing.PrivateKey?(v43, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
-      v41 = v72;
+      outlined destroy of P256.Signing.PrivateKey?(v40, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
+      v38 = v68;
     }
 
     else
     {
       EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-      v41 = v72;
+      v38 = v68;
       if (!EnumCaseMultiPayload)
       {
-        v53 = type metadata accessor for SymmetricKey();
-        result = (*(*(v53 - 8) + 8))(v43, v53);
+        v49 = type metadata accessor for SymmetricKey();
+        result = (*(*(v49 - 8) + 8))(v40, v49);
 LABEL_42:
-        v40 = v34 >> 62;
-        if ((v34 >> 62) > 1)
+        v37 = v31 >> 62;
+        if ((v31 >> 62) > 1)
         {
-          v2 = v67;
-          v41 = v72;
-          if (v40 == 2)
+          v2 = v63;
+          v38 = v68;
+          if (v37 == 2)
           {
-            v45 = *(v72 + 16);
-            v44 = *(v72 + 24);
-            v42 = v44 - v45;
-            if (__OFSUB__(v44, v45))
+            v42 = *(v68 + 16);
+            v41 = *(v68 + 24);
+            v39 = v41 - v42;
+            if (__OFSUB__(v41, v42))
             {
               goto LABEL_76;
             }
 
-            outlined copy of Data._Representation(v72, v34);
-            if (v42)
+            outlined copy of Data._Representation(v68, v31);
+            if (v39)
             {
               goto LABEL_58;
             }
@@ -3992,92 +2002,90 @@ LABEL_42:
 
         else
         {
-          v41 = v72;
-          if (!v40)
+          v38 = v68;
+          if (!v37)
           {
-            v42 = BYTE6(v34);
-            v2 = v67;
-            if (!BYTE6(v34))
+            v39 = BYTE6(v31);
+            v2 = v63;
+            if (!BYTE6(v31))
             {
               goto LABEL_3;
             }
 
 LABEL_58:
-            v17 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v42, 0);
-            v51 = v61;
-            v52 = Data._copyContents(initializing:)();
-            outlined consume of Data._Representation(v41, v34);
-            result = (*v60)(v51, v62);
-            if (v52 != v42)
+            v15 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v39, 0);
+            v47 = v57;
+            v48 = Data._copyContents(initializing:)();
+            outlined consume of Data._Representation(v38, v31);
+            result = (*v56)(v47, v58);
+            if (v48 != v39)
             {
               goto LABEL_74;
             }
 
 LABEL_4:
-            v18 = &protocol witness table for TLSPlaintext;
-            v80 = &protocol witness table for TLSPlaintext;
-            LOWORD(v76) = 790;
-            BYTE2(v76) = 3;
-            v16 = &type metadata for TLSPlaintext;
-            v79 = &type metadata for TLSPlaintext;
-            v77 = v17;
+            v16 = &protocol witness table for TLSPlaintext;
+            v76 = &protocol witness table for TLSPlaintext;
+            LOWORD(v72) = 790;
+            BYTE2(v72) = 3;
+            v14 = &type metadata for TLSPlaintext;
+            v75 = &type metadata for TLSPlaintext;
+            v73 = v15;
             goto LABEL_5;
           }
 
-          if (__OFSUB__(HIDWORD(v72), v72))
+          if (__OFSUB__(HIDWORD(v68), v68))
           {
             goto LABEL_75;
           }
 
-          v42 = HIDWORD(v72) - v72;
-          outlined copy of Data._Representation(v72, v34);
-          v2 = v67;
-          if (v42)
+          v39 = HIDWORD(v68) - v68;
+          outlined copy of Data._Representation(v68, v31);
+          v2 = v63;
+          if (v39)
           {
             goto LABEL_58;
           }
         }
 
 LABEL_3:
-        outlined consume of Data._Representation(v41, v34);
-        v17 = MEMORY[0x1E69E7CC0];
+        outlined consume of Data._Representation(v38, v31);
+        v15 = MEMORY[0x1E69E7CC0];
         goto LABEL_4;
       }
 
-      outlined destroy of EncryptionLevel(v43, type metadata accessor for EncryptionLevel);
+      outlined destroy of EncryptionLevel(v40, type metadata accessor for EncryptionLevel);
     }
 
-    outlined copy of Data._Representation(v41, v34);
-    v47 = _sSaySayxGqd__c7ElementQyd__RszSTRd__lufCs5UInt8V_10Foundation4DataVTt0g5(v41, v34);
-    v2 = v67;
-    v48 = v68;
-    v49 = v67 + v81[6];
-    v50 = _s15SwiftTLSLibrary18TLSRecordProtectorV7protect9plaintext17actualContentType13paddingLengthAA13TLSCiphertextVSays5UInt8VG_AA0hI0VSitAA8TLSErrorOYKF(v47, 22, 0);
+    outlined copy of Data._Representation(v38, v31);
+    v44 = _sSaySayxGqd__c7ElementQyd__RszSTRd__lufCs5UInt8V_10Foundation4DataVTt0g5(v38, v31);
+    v2 = v63;
+    v45 = v64;
+    v46 = _s15SwiftTLSLibrary18TLSRecordProtectorV7protect9plaintext17actualContentType13paddingLengthAA13TLSCiphertextVSays5UInt8VG_AA0hI0VSitAA8TLSErrorOYKF(v44, 22, 0);
 
-    v68 = v48;
-    if (v48)
+    v64 = v45;
+    if (v45)
     {
-      outlined consume of Data._Representation(v41, v34);
-      v56 = v71;
-      v57 = v66;
+      outlined consume of Data._Representation(v38, v31);
+      v52 = v67;
+      v53 = v62;
       goto LABEL_67;
     }
 
-    v75 = &protocol witness table for TLSCiphertext;
-    v74 = &type metadata for TLSCiphertext;
-    *&v73 = v50;
-    outlined init with take of ContiguousBytes(&v73, &v76);
-    v16 = v79;
-    v18 = v80;
+    v71 = &protocol witness table for TLSCiphertext;
+    v70 = &type metadata for TLSCiphertext;
+    *&v69 = v46;
+    outlined init with take of ContiguousBytes(&v69, &v72);
+    v14 = v75;
+    v16 = v76;
 LABEL_5:
-    v19 = __swift_project_boxed_opaque_existential_0(&v76, v16);
-    v20 = v2 + v81[12];
-    ByteBuffer.writeRecord<A>(_:)(v19, v16, v18);
-    outlined consume of Data._Representation(v41, v34);
-    __swift_destroy_boxed_opaque_existential_0(&v76);
-    result = v26;
-    LODWORD(v16) = v65;
-    v12 = v66;
+    v17 = __swift_project_boxed_opaque_existential_0(&v72, v14);
+    ByteBuffer.writeRecord<A>(_:)(v17, v14, v16);
+    outlined consume of Data._Representation(v38, v31);
+    __swift_destroy_boxed_opaque_existential_0(&v72);
+    result = v23;
+    LODWORD(v14) = v61;
+    v10 = v62;
   }
 
   __break(1u);
@@ -4102,32 +2110,29 @@ uint64_t TLSRecordHandler.addIncomingHandshakeBytes(_:)(uint64_t *a1)
 {
   v2 = v1;
   v4 = type metadata accessor for ServerHandshakeStateMachine(0);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = &v17 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for HandshakeStateMachine(0);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v8 - 8);
-  v11 = &v17 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v12 = type metadata accessor for TLSHandshakeStateMachine(0);
-  v13 = *(*(v12 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v12);
-  v15 = &v17 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of TLSHandshakeStateMachine(v2, v15, type metadata accessor for TLSHandshakeStateMachine);
+  v6 = &v14 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for HandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v9 = &v14 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v10 = type metadata accessor for TLSHandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v10);
+  v12 = &v14 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of TLSHandshakeStateMachine(v2, v12, type metadata accessor for TLSHandshakeStateMachine);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v15, v7, type metadata accessor for ServerHandshakeStateMachine);
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v12, v6, type metadata accessor for ServerHandshakeStateMachine);
     ServerHandshakeStateMachine.receivedNetworkData(_:)(a1);
     outlined destroy of EncryptionLevel(v2, type metadata accessor for TLSHandshakeStateMachine);
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v7, v2, type metadata accessor for ServerHandshakeStateMachine);
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v6, v2, type metadata accessor for ServerHandshakeStateMachine);
   }
 
   else
   {
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v15, v11, type metadata accessor for HandshakeStateMachine);
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v12, v9, type metadata accessor for HandshakeStateMachine);
     HandshakeStateMachine.receivedNetworkData(_:)(a1);
     outlined destroy of EncryptionLevel(v2, type metadata accessor for TLSHandshakeStateMachine);
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v11, v2, type metadata accessor for HandshakeStateMachine);
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v9, v2, type metadata accessor for HandshakeStateMachine);
   }
 
   return swift_storeEnumTagMultiPayload();
@@ -4136,224 +2141,212 @@ uint64_t TLSRecordHandler.addIncomingHandshakeBytes(_:)(uint64_t *a1)
 uint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV23updateEncryptionSecrets33_3A7BCC859838BE1761A4636F58F247A0LLyyAA22PartialHandshakeResultVAA8TLSErrorOYKF(uint64_t a1)
 {
   v2 = v1;
-  v82 = a1;
+  v74 = a1;
   v3 = type metadata accessor for SymmetricKey();
-  v78 = *(v3 - 8);
-  v79 = v3;
-  v4 = *(v78 + 64);
-  v5 = MEMORY[0x1EEE9AC00](v3);
-  v7 = &v70 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v5);
-  v75 = &v70 - v8;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  v11 = MEMORY[0x1EEE9AC00](v9 - 8);
-  v76 = &v70 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v11);
-  v14 = &v70 - v13;
-  v15 = type metadata accessor for EncryptionLevel(0);
-  v80 = *(v15 - 8);
-  v16 = *(v80 + 64);
-  v17 = MEMORY[0x1EEE9AC00](v15);
-  v73 = &v70 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = MEMORY[0x1EEE9AC00](v17);
-  v74 = &v70 - v20;
-  MEMORY[0x1EEE9AC00](v19);
-  v22 = &v70 - v21;
-  v23 = type metadata accessor for ServerHandshakeStateMachine(0);
-  v24 = *(*(v23 - 8) + 64);
+  v70 = *(v3 - 8);
+  v71 = v3;
+  v4 = MEMORY[0x1EEE9AC00](v3);
+  v6 = &v62 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v4);
+  v67 = &v62 - v7;
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
+  v9 = MEMORY[0x1EEE9AC00](v8 - 8);
+  v68 = &v62 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v9);
+  v12 = &v62 - v11;
+  v13 = type metadata accessor for EncryptionLevel(0);
+  v72 = *(v13 - 8);
+  v14 = MEMORY[0x1EEE9AC00](v13);
+  v65 = &v62 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v16 = MEMORY[0x1EEE9AC00](v14);
+  v66 = &v62 - v17;
+  MEMORY[0x1EEE9AC00](v16);
+  v19 = &v62 - v18;
+  v20 = type metadata accessor for ServerHandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v20 - 8);
+  v22 = &v62 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = type metadata accessor for HandshakeStateMachine(0);
   MEMORY[0x1EEE9AC00](v23 - 8);
-  v26 = &v70 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v27 = type metadata accessor for HandshakeStateMachine(0);
-  v28 = *(*(v27 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v27 - 8);
-  v30 = &v70 - ((v29 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v31 = type metadata accessor for TLSHandshakeStateMachine(0);
-  v32 = *(*(v31 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v31);
-  v34 = &v70 - ((v33 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of TLSHandshakeStateMachine(v2, v34, type metadata accessor for TLSHandshakeStateMachine);
+  v25 = &v62 - ((v24 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v26 = type metadata accessor for TLSHandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v26);
+  v28 = &v62 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of TLSHandshakeStateMachine(v2, v28, type metadata accessor for TLSHandshakeStateMachine);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v34, v26, type metadata accessor for ServerHandshakeStateMachine);
-    v35 = ServerHandshakeStateMachine.negotiatedCiphersuite.getter();
-    v36 = type metadata accessor for ServerHandshakeStateMachine;
-    v37 = v26;
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v28, v22, type metadata accessor for ServerHandshakeStateMachine);
+    v29 = ServerHandshakeStateMachine.negotiatedCiphersuite.getter();
+    v30 = type metadata accessor for ServerHandshakeStateMachine;
+    v31 = v22;
   }
 
   else
   {
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v34, v30, type metadata accessor for HandshakeStateMachine);
-    v35 = HandshakeStateMachine.negotiatedCiphersuite.getter();
-    v36 = type metadata accessor for HandshakeStateMachine;
-    v37 = v30;
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v28, v25, type metadata accessor for HandshakeStateMachine);
+    v29 = HandshakeStateMachine.negotiatedCiphersuite.getter();
+    v30 = type metadata accessor for HandshakeStateMachine;
+    v31 = v25;
   }
 
-  outlined destroy of EncryptionLevel(v37, v36);
-  v38 = v15;
-  v39 = v80;
-  if ((v35 & 0x10000) == 0)
+  outlined destroy of EncryptionLevel(v31, v30);
+  v32 = v13;
+  v33 = v72;
+  if ((v29 & 0x10000) == 0)
   {
-    v40 = v2 + *(type metadata accessor for TLSRecordHandler() + 24);
-    v41 = v40 + *(type metadata accessor for TLSRecordProtector() + 40);
-    *v41 = v35;
-    *(v41 + 2) = 0;
+    v34 = v2 + *(type metadata accessor for TLSRecordHandler(0) + 24);
+    v35 = v34 + *(type metadata accessor for TLSRecordProtector(0) + 40);
+    *v35 = v29;
+    *(v35 + 2) = 0;
   }
 
-  v77 = v2;
-  v72 = v7;
-  v42 = type metadata accessor for PartialHandshakeResult(0);
-  outlined init with copy of EncryptionLevel?(v82 + *(v42 + 24), v14);
-  v43 = *(v39 + 48);
-  if (v43(v14, 1, v38) == 1)
+  v69 = v2;
+  v64 = v6;
+  v36 = type metadata accessor for PartialHandshakeResult(0);
+  outlined init with copy of EncryptionLevel?(v74 + *(v36 + 24), v12);
+  v37 = *(v33 + 48);
+  if (v37(v12, 1, v32) == 1)
   {
-    outlined destroy of P256.Signing.PrivateKey?(v14, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
+    outlined destroy of P256.Signing.PrivateKey?(v12, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
   }
 
   else
   {
-    v71 = v43;
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v14, v22, type metadata accessor for EncryptionLevel);
-    v44 = type metadata accessor for TLSRecordHandler();
-    v45 = *(v44 + 32);
-    v46 = v77;
-    outlined destroy of P256.Signing.PrivateKey?(v77 + v45, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
-    outlined init with copy of TLSHandshakeStateMachine(v22, v46 + v45, type metadata accessor for EncryptionLevel);
-    (*(v39 + 56))(v46 + v45, 0, 1, v38);
-    v47 = v75;
-    v48 = TLSRecordHandler.calcNewKeyAndIV(newEncryptionLevel:)(v75, v22);
-    v49 = v46 + *(v44 + 24);
-    v50 = v81;
-    v51 = _s15SwiftTLSLibrary18TLSRecordProtectorV20checkKeyAndIVLengths3key2ivy9CryptoKit09SymmetricF0V_Says5UInt8VGtAA8TLSErrorOYKF(v47, v48);
-    if (v50)
+    v63 = v37;
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v12, v19, type metadata accessor for EncryptionLevel);
+    v38 = type metadata accessor for TLSRecordHandler(0);
+    v39 = *(v38 + 32);
+    v40 = v69;
+    outlined destroy of P256.Signing.PrivateKey?(v69 + v39, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
+    outlined init with copy of TLSHandshakeStateMachine(v19, v40 + v39, type metadata accessor for EncryptionLevel);
+    (*(v33 + 56))(v40 + v39, 0, 1, v32);
+    v41 = v67;
+    v42 = TLSRecordHandler.calcNewKeyAndIV(newEncryptionLevel:)(v67, v19);
+    v43 = v40 + *(v38 + 24);
+    v44 = v73;
+    v45 = _s15SwiftTLSLibrary18TLSRecordProtectorV20checkKeyAndIVLengths3key2ivy9CryptoKit09SymmetricF0V_Says5UInt8VGtAA8TLSErrorOYKF(v41, v42);
+    if (v44)
     {
 LABEL_14:
-      v35 = v51;
+      v29 = v45;
 
-      (*(v78 + 8))(v47, v79);
-      outlined destroy of EncryptionLevel(v22, type metadata accessor for EncryptionLevel);
-      return v35;
+      (*(v70 + 8))(v41, v71);
+      outlined destroy of EncryptionLevel(v19, type metadata accessor for EncryptionLevel);
+      return v29;
     }
 
-    v81 = 0;
-    v70 = v38;
-    outlined destroy of EncryptionLevel(v22, type metadata accessor for EncryptionLevel);
-    v52 = type metadata accessor for TLSRecordProtector();
-    v53 = v52[6];
-    outlined destroy of P256.Signing.PrivateKey?(v49 + v53, &_s9CryptoKit12SymmetricKeyVSgMd, &_s9CryptoKit12SymmetricKeyVSgMR);
-    v55 = v78;
-    v54 = v79;
-    (*(v78 + 32))(v49 + v53, v47, v79);
-    (*(v55 + 56))(v49 + v53, 0, 1, v54);
-    v35 = v52[7];
-    v56 = *(v49 + v35);
+    v73 = 0;
+    v62 = v32;
+    outlined destroy of EncryptionLevel(v19, type metadata accessor for EncryptionLevel);
+    v46 = type metadata accessor for TLSRecordProtector(0);
+    v47 = v46[6];
+    outlined destroy of P256.Signing.PrivateKey?(v43 + v47, &_s9CryptoKit12SymmetricKeyVSgMd, &_s9CryptoKit12SymmetricKeyVSgMR);
+    v49 = v70;
+    v48 = v71;
+    (*(v70 + 32))(v43 + v47, v41, v71);
+    (*(v49 + 56))(v43 + v47, 0, 1, v48);
+    v29 = v46[7];
 
-    *(v49 + v35) = v48;
-    *(v49 + v52[9]) = 0;
-    v38 = v70;
-    v43 = v71;
+    *(v43 + v29) = v42;
+    *(v43 + v46[9]) = 0;
+    v32 = v62;
+    v37 = v63;
   }
 
-  v57 = v76;
-  outlined init with copy of EncryptionLevel?(v82 + *(v42 + 20), v76);
-  if (v43(v57, 1, v38) != 1)
+  v50 = v68;
+  outlined init with copy of EncryptionLevel?(v74 + *(v36 + 20), v68);
+  if (v37(v50, 1, v32) != 1)
   {
-    v22 = v74;
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v57, v74, type metadata accessor for EncryptionLevel);
-    v58 = type metadata accessor for TLSRecordHandler();
-    v59 = *(v58 + 28);
-    v60 = v77;
-    outlined destroy of P256.Signing.PrivateKey?(v77 + v59, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
-    outlined init with copy of TLSHandshakeStateMachine(v22, v60 + v59, type metadata accessor for EncryptionLevel);
-    (*(v80 + 56))(v60 + v59, 0, 1, v38);
-    v35 = v73;
-    outlined init with copy of TLSHandshakeStateMachine(v22, v73, type metadata accessor for EncryptionLevel);
+    v19 = v66;
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v50, v66, type metadata accessor for EncryptionLevel);
+    v51 = type metadata accessor for TLSRecordHandler(0);
+    v52 = *(v51 + 28);
+    v53 = v69;
+    outlined destroy of P256.Signing.PrivateKey?(v69 + v52, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
+    outlined init with copy of TLSHandshakeStateMachine(v19, v53 + v52, type metadata accessor for EncryptionLevel);
+    (*(v72 + 56))(v53 + v52, 0, 1, v32);
+    v29 = v65;
+    outlined init with copy of TLSHandshakeStateMachine(v19, v65, type metadata accessor for EncryptionLevel);
     if (!swift_getEnumCaseMultiPayload())
     {
-      outlined destroy of EncryptionLevel(v22, type metadata accessor for EncryptionLevel);
-      (*(v78 + 8))(v35, v79);
-      return v35;
+      outlined destroy of EncryptionLevel(v19, type metadata accessor for EncryptionLevel);
+      (*(v70 + 8))(v29, v71);
+      return v29;
     }
 
-    outlined destroy of EncryptionLevel(v35, type metadata accessor for EncryptionLevel);
-    v47 = v72;
-    v61 = TLSRecordHandler.calcNewKeyAndIV(newEncryptionLevel:)(v72, v22);
-    v62 = v60 + *(v58 + 24);
-    v63 = v81;
-    v51 = _s15SwiftTLSLibrary18TLSRecordProtectorV20checkKeyAndIVLengths3key2ivy9CryptoKit09SymmetricF0V_Says5UInt8VGtAA8TLSErrorOYKF(v47, v61);
-    if (!v63)
+    outlined destroy of EncryptionLevel(v29, type metadata accessor for EncryptionLevel);
+    v41 = v64;
+    v54 = TLSRecordHandler.calcNewKeyAndIV(newEncryptionLevel:)(v64, v19);
+    v55 = v53 + *(v51 + 24);
+    v56 = v73;
+    v45 = _s15SwiftTLSLibrary18TLSRecordProtectorV20checkKeyAndIVLengths3key2ivy9CryptoKit09SymmetricF0V_Says5UInt8VGtAA8TLSErrorOYKF(v41, v54);
+    if (!v56)
     {
-      v35 = 0;
-      outlined destroy of EncryptionLevel(v22, type metadata accessor for EncryptionLevel);
-      outlined destroy of P256.Signing.PrivateKey?(v62, &_s9CryptoKit12SymmetricKeyVSgMd, &_s9CryptoKit12SymmetricKeyVSgMR);
-      v66 = v78;
-      v65 = v79;
-      (*(v78 + 32))(v62, v47, v79);
-      (*(v66 + 56))(v62, 0, 1, v65);
-      v67 = type metadata accessor for TLSRecordProtector();
-      v68 = *(v67 + 20);
-      v69 = *(v62 + v68);
+      v29 = 0;
+      outlined destroy of EncryptionLevel(v19, type metadata accessor for EncryptionLevel);
+      outlined destroy of P256.Signing.PrivateKey?(v55, &_s9CryptoKit12SymmetricKeyVSgMd, &_s9CryptoKit12SymmetricKeyVSgMR);
+      v59 = v70;
+      v58 = v71;
+      (*(v70 + 32))(v55, v41, v71);
+      (*(v59 + 56))(v55, 0, 1, v58);
+      v60 = type metadata accessor for TLSRecordProtector(0);
+      v61 = *(v60 + 20);
 
-      *(v62 + v68) = v61;
-      *(v62 + *(v67 + 32)) = 0;
-      return v35;
+      *(v55 + v61) = v54;
+      *(v55 + *(v60 + 32)) = 0;
+      return v29;
     }
 
     goto LABEL_14;
   }
 
-  outlined destroy of P256.Signing.PrivateKey?(v57, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
-  return v35;
+  outlined destroy of P256.Signing.PrivateKey?(v50, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
+  return v29;
 }
 
-uint64_t TLSRecordHandler.calcNewKeyAndIV(newEncryptionLevel:)(uint64_t a1, uint64_t a2)
+void *TLSRecordHandler.calcNewKeyAndIV(newEncryptionLevel:)(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for EncryptionLevel(0);
-  v5 = *(*(v4 - 8) + 64);
   MEMORY[0x1EEE9AC00](v4 - 8);
-  v7 = v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = type metadata accessor for SymmetricKey();
-  v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x1EEE9AC00](v8);
-  v13 = v23 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = MEMORY[0x1EEE9AC00](v11);
-  v16 = v23 - v15;
-  MEMORY[0x1EEE9AC00](v14);
-  v18 = v23 - v17;
-  outlined init with copy of TLSHandshakeStateMachine(a2, v7, type metadata accessor for EncryptionLevel);
-  (*(v9 + 32))(v18, v7, v8);
-  v19 = MEMORY[0x1E69E7CC0];
-  _s9CryptoKit4HKDFV15SwiftTLSLibraryE11expandLabel6secret5label7context6lengthAA12SymmetricKeyVqd___SSqd_0_Sit10Foundation15ContiguousBytesRd__AlMRd_0_r0_lFZAA6SHA384V_AKSays5UInt8VGTt4g5(7955819, 0xE300000000000000, MEMORY[0x1E69E7CC0], 0x20uLL, v16);
-  _s9CryptoKit4HKDFV15SwiftTLSLibraryE11expandLabel6secret5label7context6lengthAA12SymmetricKeyVqd___SSqd_0_Sit10Foundation15ContiguousBytesRd__AlMRd_0_r0_lFZAA6SHA384V_AKSays5UInt8VGTt4g5(30313, 0xE200000000000000, v19, 0xCuLL, v13);
-  v20 = *(v9 + 8);
-  v20(v18, v8);
-  (*(v9 + 16))(a1, v16, v8);
+  v6 = v21 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for SymmetricKey();
+  v8 = *(v7 - 8);
+  v9 = MEMORY[0x1EEE9AC00](v7);
+  v11 = v21 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = MEMORY[0x1EEE9AC00](v9);
+  v14 = v21 - v13;
+  MEMORY[0x1EEE9AC00](v12);
+  v16 = v21 - v15;
+  outlined init with copy of TLSHandshakeStateMachine(a2, v6, type metadata accessor for EncryptionLevel);
+  (*(v8 + 32))(v16, v6, v7);
+  v17 = MEMORY[0x1E69E7CC0];
+  _s9CryptoKit4HKDFV15SwiftTLSLibraryE11expandLabel6secret5label7context6lengthAA12SymmetricKeyVqd___SSqd_0_Sit10Foundation15ContiguousBytesRd__AlMRd_0_r0_lFZAA6SHA384V_AKSays5UInt8VGTt4g5(7955819, 0xE300000000000000, MEMORY[0x1E69E7CC0], 0x20uLL, v14);
+  _s9CryptoKit4HKDFV15SwiftTLSLibraryE11expandLabel6secret5label7context6lengthAA12SymmetricKeyVqd___SSqd_0_Sit10Foundation15ContiguousBytesRd__AlMRd_0_r0_lFZAA6SHA384V_AKSays5UInt8VGTt4g5(30313, 0xE200000000000000, v17, 0xCuLL, v11);
+  v18 = *(v8 + 8);
+  v18(v16, v7);
+  (*(v8 + 16))(a1, v14, v7);
   SymmetricKey.withUnsafeBytes<A>(_:)();
-  v21 = _sSaySayxGqd__c7ElementQyd__RszSTRd__lufCs5UInt8V_10Foundation4DataVTt0g5(v23[2], v23[3]);
-  v20(v13, v8);
-  v20(v16, v8);
-  return v21;
+  v19 = _sSaySayxGqd__c7ElementQyd__RszSTRd__lufCs5UInt8V_10Foundation4DataVTt0g5(v21[2], v21[3]);
+  v18(v11, v7);
+  v18(v14, v7);
+  return v19;
 }
 
 uint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV14parseOneRecord33_3A7BCC859838BE1761A4636F58F247A0LLAA0C0OSgyAA8TLSErrorOYKF()
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
-  v3 = *(*(v2 - 8) + 64);
   MEMORY[0x1EEE9AC00](v2 - 8);
-  v5 = v32 - v4;
-  v6 = type metadata accessor for TLSRecordHandler();
-  outlined init with copy of EncryptionLevel?(v0 + v6[8], v5);
-  v7 = type metadata accessor for EncryptionLevel(0);
-  v8 = (*(*(v7 - 8) + 48))(v5, 1, v7);
-  outlined destroy of P256.Signing.PrivateKey?(v5, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
-  v9 = v6[5];
-  if (v8 == 1)
+  v4 = v30 - v3;
+  v5 = type metadata accessor for TLSRecordHandler(0);
+  outlined init with copy of EncryptionLevel?(v0 + *(v5 + 32), v4);
+  v6 = type metadata accessor for EncryptionLevel(0);
+  v7 = (*(*(v6 - 8) + 48))(v4, 1, v6);
+  outlined destroy of P256.Signing.PrivateKey?(v4, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
+  if (v7 == 1)
   {
     result = _s15SwiftTLSLibrary15TLSRecordParserV20parsePlaintextRecordAA12TLSPlaintextVSgyAA8TLSErrorOYKF();
     if (!v1)
     {
-      if (v11)
+      if (v9)
       {
         return result & 0xFFFFFF;
       }
@@ -4370,19 +2363,19 @@ uint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV14parseOneRecord33_3A7BCC859838BE
   result = _s15SwiftTLSLibrary15TLSRecordParserV21parseCiphertextRecordAA13TLSCiphertextVSgyAA8TLSErrorOYKF();
   if (v1)
   {
-    v14 = v12;
-    v15 = *(v0 + v6[9]);
-    v16 = result;
-    v34 = v13;
-    if (v15)
+    v12 = v10;
+    v13 = *(v0 + *(v5 + 36));
+    v14 = result;
+    v32 = v11;
+    if (v13)
     {
 LABEL_8:
-      v32[1] = result;
-      v32[2] = v14;
-      v33 = v13;
+      v30[1] = result;
+      v30[2] = v12;
+      v31 = v11;
       lazy protocol witness table accessor for type TLSError and conformance TLSError();
       swift_willThrowTypedImpl();
-      return v16;
+      return v14;
     }
 
     if (one-time initialization token for logger != -1)
@@ -4390,417 +2383,396 @@ LABEL_8:
       swift_once();
     }
 
-    v17 = type metadata accessor for Logger();
-    v18 = __swift_project_value_buffer(v17, logger);
-    v19 = v34;
-    outlined copy of TLSError(v16, v14, v34);
-    v32[0] = v18;
-    v20 = Logger.logObject.getter();
-    v21 = static os_log_type_t.debug.getter();
-    outlined consume of TLSError(v16, v14, v19);
-    if (os_log_type_enabled(v20, v21))
+    v15 = type metadata accessor for Logger();
+    v16 = __swift_project_value_buffer(v15, logger);
+    v17 = v32;
+    outlined copy of TLSError(v14, v12, v32);
+    v30[0] = v16;
+    v18 = Logger.logObject.getter();
+    v19 = static os_log_type_t.debug.getter();
+    outlined consume of TLSError(v14, v12, v17);
+    if (os_log_type_enabled(v18, v19))
     {
-      v22 = swift_slowAlloc();
-      v23 = swift_slowAlloc();
-      *v22 = 138412290;
+      v20 = swift_slowAlloc();
+      v21 = swift_slowAlloc();
+      *v20 = 138412290;
       lazy protocol witness table accessor for type TLSError and conformance TLSError();
       swift_allocError();
-      *v24 = v16;
-      *(v24 + 8) = v14;
-      v25 = v34;
-      *(v24 + 16) = v34;
-      outlined copy of TLSError(v16, v14, v25);
-      v26 = _swift_stdlib_bridgeErrorToNSError();
-      *(v22 + 4) = v26;
-      *v23 = v26;
-      _os_log_impl(&dword_1B25F5000, v20, v21, "error parsing first potential ciphertext record: %@. checking for plaintext alert.", v22, 0xCu);
-      outlined destroy of P256.Signing.PrivateKey?(v23, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
-      MEMORY[0x1B274ECF0](v23, -1, -1);
-      MEMORY[0x1B274ECF0](v22, -1, -1);
+      *v22 = v14;
+      *(v22 + 8) = v12;
+      v23 = v32;
+      *(v22 + 16) = v32;
+      outlined copy of TLSError(v14, v12, v23);
+      v24 = _swift_stdlib_bridgeErrorToNSError();
+      *(v20 + 4) = v24;
+      *v21 = v24;
+      _os_log_impl(&dword_1B25F5000, v18, v19, "error parsing first potential ciphertext record: %@. checking for plaintext alert.", v20, 0xCu);
+      outlined destroy of P256.Signing.PrivateKey?(v21, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+      MEMORY[0x1B274ECF0](v21, -1, -1);
+      MEMORY[0x1B274ECF0](v20, -1, -1);
     }
 
-    v28 = _s15SwiftTLSLibrary15TLSRecordParserV20parsePlaintextRecordAA12TLSPlaintextVSgyAA8TLSErrorOYKF();
-    if (!v27)
+    v26 = _s15SwiftTLSLibrary15TLSRecordParserV20parsePlaintextRecordAA12TLSPlaintextVSgyAA8TLSErrorOYKF();
+    if (!v25)
     {
-      outlined consume of TLSError(v16, v14, v34);
+      outlined consume of TLSError(v14, v12, v32);
       return 0;
     }
 
-    if (v28 != 21)
+    if (v26 != 21)
     {
 
-      LOBYTE(v13) = v34;
-      result = v16;
+      LOBYTE(v11) = v32;
+      result = v14;
       goto LABEL_8;
     }
 
-    outlined consume of TLSError(v16, v14, v34);
-    v29 = Logger.logObject.getter();
-    v30 = static os_log_type_t.debug.getter();
-    if (os_log_type_enabled(v29, v30))
+    outlined consume of TLSError(v14, v12, v32);
+    v27 = Logger.logObject.getter();
+    v28 = static os_log_type_t.debug.getter();
+    if (os_log_type_enabled(v27, v28))
     {
-      v31 = swift_slowAlloc();
-      *v31 = 0;
-      _os_log_impl(&dword_1B25F5000, v29, v30, "Received plaintext alert record", v31, 2u);
-      MEMORY[0x1B274ECF0](v31, -1, -1);
+      v29 = swift_slowAlloc();
+      *v29 = 0;
+      _os_log_impl(&dword_1B25F5000, v27, v28, "Received plaintext alert record", v29, 2u);
+      MEMORY[0x1B274ECF0](v29, -1, -1);
     }
 
-    return *&v28 & 0xFFFF15;
+    return *&v26 & 0xFFFF15;
   }
 
   else if (result)
   {
-    *(v0 + v6[9]) = 1;
+    *(v0 + *(v5 + 36)) = 1;
   }
 
   return result;
 }
 
-uint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV21processHandshakeInput33_3A7BCC859838BE1761A4636F58F247A0LLyySays5UInt8VGzAA8TLSErrorOYKF(uint64_t *a1)
+void _s15SwiftTLSLibrary16TLSRecordHandlerV21processHandshakeInput33_3A7BCC859838BE1761A4636F58F247A0LLyySays5UInt8VGzAA8TLSErrorOYKF(uint64_t *a1)
 {
   v3 = v2;
   v4 = v1;
-  v6 = type metadata accessor for ServerHandshakeStateMachine(0);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v6 - 8);
-  v58 = &v54 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = type metadata accessor for HandshakeStateMachine(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v9 - 8);
-  v57 = &v54 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v74 = type metadata accessor for TLSHandshakeStateMachine(0);
-  v12 = *(*(v74 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v74);
-  v14 = &v54 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SwiftTLSLibrary22PartialHandshakeResultVSgMd, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMR);
-  v16 = *(*(v15 - 8) + 64);
-  v17 = MEMORY[0x1EEE9AC00](v15 - 8);
-  v56 = &v54 - ((v18 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v19 = MEMORY[0x1EEE9AC00](v17);
-  v63 = &v54 - v20;
-  v21 = MEMORY[0x1EEE9AC00](v19);
-  v23 = &v54 - v22;
+  v5 = type metadata accessor for ServerHandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v5 - 8);
+  v48 = &v44 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = type metadata accessor for HandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v7 - 8);
+  v47 = &v44 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v64 = type metadata accessor for TLSHandshakeStateMachine(0);
+  MEMORY[0x1EEE9AC00](v64);
+  v10 = &v44 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SwiftTLSLibrary22PartialHandshakeResultVSgMd, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMR);
+  v12 = MEMORY[0x1EEE9AC00](v11 - 8);
+  v46 = &v44 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = MEMORY[0x1EEE9AC00](v12);
+  v53 = &v44 - v15;
+  v16 = MEMORY[0x1EEE9AC00](v14);
+  v18 = &v44 - v17;
+  MEMORY[0x1EEE9AC00](v16);
+  v20 = &v44 - v19;
+  v21 = type metadata accessor for PartialHandshakeResult(0);
+  v52 = *(v21 - 8);
   MEMORY[0x1EEE9AC00](v21);
-  v25 = &v54 - v24;
-  v26 = type metadata accessor for PartialHandshakeResult(0);
-  v62 = *(v26 - 8);
-  v27 = *(v62 + 64);
-  MEMORY[0x1EEE9AC00](v26);
-  v29 = (&v54 - ((v28 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v30 = *a1;
+  v23 = (&v44 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
 
-  v64 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSayAEG_Tt0g5Tf4g_n(v31);
-  v33 = v32;
+  v54 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSayAEG_Tt0g5Tf4g_n(v24);
+  v26 = v25;
 
-  v34 = 0;
-  v35 = v33 >> 62;
-  if ((v33 >> 62) > 1)
+  v27 = 0;
+  v28 = v26 >> 62;
+  if ((v26 >> 62) > 1)
   {
-    v36 = v64;
-    if (v35 == 2)
+    v29 = v54;
+    if (v28 == 2)
     {
-      v34 = *(v64 + 16);
+      v27 = *(v54 + 16);
     }
   }
 
   else
   {
-    v36 = v64;
-    if (v35)
+    v29 = v54;
+    if (v28)
     {
-      v34 = v64;
+      v27 = v54;
     }
   }
 
-  v71 = v36;
-  v72 = v33;
-  v73 = v34;
-  TLSRecordHandler.addIncomingHandshakeBytes(_:)(&v71);
-  v37 = type metadata accessor for TLSRecordHandler();
-  v64 = v4 + *(v37 + 56);
-  v59 = v4 + 2;
-  v60 = v37;
-  v38 = (v62 + 56);
-  v61 = (v62 + 56);
-  v62 += 48;
-  v55 = v29;
+  v61 = v29;
+  v62 = v26;
+  v63 = v27;
+  TLSRecordHandler.addIncomingHandshakeBytes(_:)(&v61);
+  v30 = type metadata accessor for TLSRecordHandler(0);
+  v54 = v1 + *(v30 + 56);
+  v49 = v1 + 2;
+  v50 = v30;
+  v31 = (v52 + 7);
+  v51 = (v52 + 7);
+  v52 += 6;
+  v45 = v23;
   while (1)
   {
-    if (*(v64 + 2) == 1)
+    if (*(v54 + 2) == 1)
     {
-      (*v38)(v23, 1, 1, v26);
+      (*v31)(v18, 1, 1, v21);
       goto LABEL_11;
     }
 
-    v39 = *v38;
-    if ((*(v59 + *(v60 + 52)) & 1) == 0)
+    v32 = *v31;
+    if ((*(v49 + *(v50 + 52)) & 1) == 0)
     {
       break;
     }
 
-    v39(v23, 1, 1, v26);
+    v32(v18, 1, 1, v21);
 LABEL_11:
-    outlined init with copy of TLSHandshakeStateMachine(v4, v14, type metadata accessor for TLSHandshakeStateMachine);
+    outlined init with copy of TLSHandshakeStateMachine(v4, v10, type metadata accessor for TLSHandshakeStateMachine);
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      v40 = v23;
-      v41 = v58;
-      _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v14, v58, type metadata accessor for ServerHandshakeStateMachine);
-      v42 = v56;
-      _s15SwiftTLSLibrary27ServerHandshakeStateMachineV07processD0AA07PartialD6ResultVSgyAA8TLSErrorOYKF(&v68, v56);
+      v33 = v18;
+      v34 = v48;
+      _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v10, v48, type metadata accessor for ServerHandshakeStateMachine);
+      v35 = v46;
+      _s15SwiftTLSLibrary27ServerHandshakeStateMachineV07processD0AA07PartialD6ResultVSgyAA8TLSErrorOYKF(&v58, v46);
       if (v3)
       {
-        v52 = v68;
-        v51 = v69;
-        v53 = v70;
+        v42 = v58;
+        v41 = v59;
+        v43 = v60;
         outlined destroy of EncryptionLevel(v4, type metadata accessor for TLSHandshakeStateMachine);
-        outlined init with copy of TLSHandshakeStateMachine(v41, v4, type metadata accessor for ServerHandshakeStateMachine);
+        outlined init with copy of TLSHandshakeStateMachine(v34, v4, type metadata accessor for ServerHandshakeStateMachine);
         swift_storeEnumTagMultiPayload();
-        v45 = v52;
-        v65 = v52;
-        v66 = v51;
-        v67 = v53;
+        v55 = v42;
+        v56 = v41;
+        v57 = v43;
         lazy protocol witness table accessor for type TLSError and conformance TLSError();
         swift_willThrowTypedImpl();
-        outlined destroy of EncryptionLevel(v41, type metadata accessor for ServerHandshakeStateMachine);
-        v50 = v40;
-        goto LABEL_25;
+        outlined destroy of EncryptionLevel(v34, type metadata accessor for ServerHandshakeStateMachine);
+        v40 = v33;
+        goto LABEL_24;
       }
 
-      v3 = 0;
-      outlined destroy of P256.Signing.PrivateKey?(v23, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMd, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMR);
-      outlined init with take of PartialHandshakeResult?(v42, v23);
+      outlined destroy of P256.Signing.PrivateKey?(v18, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMd, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMR);
+      outlined init with take of PartialHandshakeResult?(v35, v18);
       outlined destroy of EncryptionLevel(v4, type metadata accessor for TLSHandshakeStateMachine);
-      _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v41, v4, type metadata accessor for ServerHandshakeStateMachine);
+      _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v34, v4, type metadata accessor for ServerHandshakeStateMachine);
       swift_storeEnumTagMultiPayload();
-      v29 = v55;
+      v23 = v45;
     }
 
     else
     {
-      v43 = v57;
-      _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v14, v57, type metadata accessor for HandshakeStateMachine);
-      _s15SwiftTLSLibrary21HandshakeStateMachineV07processC0AA07PartialC6ResultVSgyAA8TLSErrorOYKF(&v68, v63);
+      v36 = v47;
+      _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v10, v47, type metadata accessor for HandshakeStateMachine);
+      _s15SwiftTLSLibrary21HandshakeStateMachineV07processC0AA07PartialC6ResultVSgyAA8TLSErrorOYKF(&v58, v53);
       if (v3)
       {
-        v48 = v68;
-        v47 = v69;
-        v49 = v70;
+        v38 = v58;
+        v37 = v59;
+        v39 = v60;
         outlined destroy of EncryptionLevel(v4, type metadata accessor for TLSHandshakeStateMachine);
-        outlined init with copy of TLSHandshakeStateMachine(v43, v4, type metadata accessor for HandshakeStateMachine);
+        outlined init with copy of TLSHandshakeStateMachine(v36, v4, type metadata accessor for HandshakeStateMachine);
         swift_storeEnumTagMultiPayload();
-        v45 = v48;
-        v65 = v48;
-        v66 = v47;
-        v67 = v49;
+        v55 = v38;
+        v56 = v37;
+        v57 = v39;
         lazy protocol witness table accessor for type TLSError and conformance TLSError();
         swift_willThrowTypedImpl();
-        outlined destroy of EncryptionLevel(v43, type metadata accessor for HandshakeStateMachine);
-        v50 = v23;
-LABEL_25:
-        outlined destroy of P256.Signing.PrivateKey?(v50, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMd, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMR);
-        goto LABEL_26;
+        outlined destroy of EncryptionLevel(v36, type metadata accessor for HandshakeStateMachine);
+        v40 = v18;
+LABEL_24:
+        outlined destroy of P256.Signing.PrivateKey?(v40, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMd, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMR);
+        goto LABEL_25;
       }
 
-      v3 = 0;
-      outlined destroy of P256.Signing.PrivateKey?(v23, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMd, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMR);
-      outlined init with take of PartialHandshakeResult?(v63, v23);
+      outlined destroy of P256.Signing.PrivateKey?(v18, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMd, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMR);
+      outlined init with take of PartialHandshakeResult?(v53, v18);
       outlined destroy of EncryptionLevel(v4, type metadata accessor for TLSHandshakeStateMachine);
-      _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v43, v4, type metadata accessor for HandshakeStateMachine);
+      _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v36, v4, type metadata accessor for HandshakeStateMachine);
       swift_storeEnumTagMultiPayload();
     }
 
-    outlined init with take of PartialHandshakeResult?(v23, v25);
-    if ((*v62)(v25, 1, v26) == 1)
+    outlined init with take of PartialHandshakeResult?(v18, v20);
+    if ((*v52)(v20, 1, v21) == 1)
     {
       goto LABEL_19;
     }
 
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v25, v29, type metadata accessor for PartialHandshakeResult);
-    _s15SwiftTLSLibrary16TLSRecordHandlerV29processPartialHandshakeResult33_3A7BCC859838BE1761A4636F58F247A007partialgH0yAA0fgH0V_tAA8TLSErrorOYKF(v29);
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v20, v23, type metadata accessor for PartialHandshakeResult);
+    _s15SwiftTLSLibrary16TLSRecordHandlerV29processPartialHandshakeResult33_3A7BCC859838BE1761A4636F58F247A007partialgH0yAA0fgH0V_tAA8TLSErrorOYKF(v23);
     v3 = 0;
-    outlined destroy of EncryptionLevel(v29, type metadata accessor for PartialHandshakeResult);
-    v38 = v61;
+    outlined destroy of EncryptionLevel(v23, type metadata accessor for PartialHandshakeResult);
+    v31 = v51;
   }
 
-  v39(v25, 1, 1, v26);
+  v32(v20, 1, 1, v21);
 LABEL_19:
-  outlined destroy of P256.Signing.PrivateKey?(v25, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMd, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMR);
-  if (!TLSRecordHandler.handshakeComplete.getter())
+  outlined destroy of P256.Signing.PrivateKey?(v20, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMd, &_s15SwiftTLSLibrary22PartialHandshakeResultVSgMR);
+  if (TLSRecordHandler.handshakeComplete.getter())
   {
-    return outlined consume of Data._Representation(v71, v72);
+    _s15SwiftTLSLibrary16TLSRecordHandlerV19sendApplicationData33_3A7BCC859838BE1761A4636F58F247A0LLyyAA8TLSErrorOYKF();
   }
 
-  v44 = _s15SwiftTLSLibrary16TLSRecordHandlerV19sendApplicationData33_3A7BCC859838BE1761A4636F58F247A0LLyyAA8TLSErrorOYKF();
-  if (!v3)
-  {
-    return outlined consume of Data._Representation(v71, v72);
-  }
-
-  v45 = v44;
-LABEL_26:
-  outlined consume of Data._Representation(v71, v72);
-  return v45;
+LABEL_25:
+  outlined consume of Data._Representation(v61, v62);
 }
 
-uint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV19sendApplicationData33_3A7BCC859838BE1761A4636F58F247A0LLyyAA8TLSErrorOYKF()
+void _s15SwiftTLSLibrary16TLSRecordHandlerV19sendApplicationData33_3A7BCC859838BE1761A4636F58F247A0LLyyAA8TLSErrorOYKF()
 {
-  v3 = v0;
-  v50 = type metadata accessor for Data.Iterator();
-  v4 = *(v50 - 8);
-  v5 = *(v4 + 64);
-  MEMORY[0x1EEE9AC00](v50);
-  v49 = &v44 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = type metadata accessor for TLSRecordHandler();
-  if (*(v0 + *(result + 56) + 2) != 1)
+  v48 = type metadata accessor for Data.Iterator();
+  v2 = *(v48 - 8);
+  MEMORY[0x1EEE9AC00](v48);
+  v47 = &v42 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = type metadata accessor for TLSRecordHandler(0);
+  if (*(v0 + *(v4 + 56) + 2) != 1)
   {
-    return v2;
+    return;
   }
 
-  v8 = result;
-  v9 = (v0 + *(result + 40));
-  v10 = v9[1];
-  v11 = (v10 >> 62);
-  v46 = *v9;
-  v45 = v46 >> 32;
-  v47 = (v4 + 8);
-  v48 = BYTE6(v10);
-  v51 = v10 >> 62;
-  v52 = v1;
+  v5 = v4;
+  v6 = (v0 + *(v4 + 40));
+  v7 = v6[1];
+  v8 = v7 >> 62;
+  v44 = *v6;
+  v43 = v44 >> 32;
+  v45 = (v2 + 8);
+  v46 = BYTE6(v7);
+  v49 = v7 >> 62;
+  v50 = v1;
   while (1)
   {
-    v12 = v9[2];
-    if (v11 > 1)
+    v9 = v6[2];
+    if (v8 > 1)
     {
-      v13 = v11 == 2 ? *(v46 + 24) : 0;
+      v10 = v8 == 2 ? *(v44 + 24) : 0;
     }
 
     else
     {
-      v13 = v48;
-      if (v11)
+      v10 = v46;
+      if (v8)
       {
-        v13 = v45;
+        v10 = v43;
       }
     }
 
-    v14 = __OFSUB__(v13, v12);
-    v15 = v13 - v12;
-    if (v14)
+    v11 = __OFSUB__(v10, v9);
+    v12 = v10 - v9;
+    if (v11)
     {
       break;
     }
 
-    result = *v9;
-    v16 = v9[1];
-    if (v15 < 1)
+    v13 = *v6;
+    v14 = v6[1];
+    if (v12 < 1)
     {
-      outlined consume of Data._Representation(result, v16);
-      *v9 = xmmword_1B26C6130;
-      v9[2] = 0;
-      return v2;
+      outlined consume of Data._Representation(v13, v14);
+      *v6 = xmmword_1B26C6130;
+      v6[2] = 0;
+      return;
     }
 
-    v17 = v16 >> 62;
-    if ((v16 >> 62) > 1)
+    v15 = v14 >> 62;
+    if ((v14 >> 62) > 1)
     {
-      if (v17 == 2)
+      if (v15 == 2)
       {
-        v18 = *(result + 24);
+        v16 = *(v13 + 24);
       }
 
       else
       {
-        v18 = 0;
+        v16 = 0;
       }
     }
 
-    else if (v17)
+    else if (v15)
     {
-      v18 = result >> 32;
+      v16 = v13 >> 32;
     }
 
     else
     {
-      v18 = BYTE6(v16);
+      v16 = BYTE6(v14);
     }
 
-    v14 = __OFSUB__(v18, v12);
-    v19 = v18 - v12;
-    if (v14)
+    v11 = __OFSUB__(v16, v9);
+    v17 = v16 - v9;
+    if (v11)
     {
       goto LABEL_52;
     }
 
-    if (v19 >= 0x4000)
+    if (v17 >= 0x4000)
     {
-      v20 = 0x4000;
+      v18 = 0x4000;
     }
 
     else
     {
-      v20 = v19;
+      v18 = v17;
     }
 
-    result = ByteBuffer.readSlice(length:)(v20);
-    if (v21 >> 60 == 15)
+    v19 = ByteBuffer.readSlice(length:)(v18);
+    if (v20 >> 60 == 15)
     {
-      v2 = 0xD000000000000046;
-      v53 = 0xD000000000000046;
-      v54 = 0x80000001B26CE460;
-      v55 = 1;
+      v51 = 0xD000000000000046;
+      v52 = 0x80000001B26CE460;
+      v53 = 1;
       lazy protocol witness table accessor for type TLSError and conformance TLSError();
       swift_willThrowTypedImpl();
-      return v2;
+      return;
     }
 
-    v23 = result;
-    v24 = v21;
-    v25 = v21 >> 62;
-    if ((v21 >> 62) > 1)
+    v22 = v19;
+    v23 = v20;
+    v24 = v20 >> 62;
+    if ((v20 >> 62) > 1)
     {
-      if (v25 == 2)
+      if (v24 == 2)
       {
-        v26 = *(result + 24);
+        v25 = *(v19 + 24);
       }
 
       else
       {
-        v26 = 0;
+        v25 = 0;
       }
     }
 
-    else if (v25)
+    else if (v24)
     {
-      v26 = result >> 32;
+      v25 = v19 >> 32;
     }
 
     else
     {
-      v26 = BYTE6(v21);
+      v25 = BYTE6(v20);
     }
 
-    if (v26 < v22)
+    if (v25 < v21)
     {
       goto LABEL_53;
     }
 
-    v56 = Data._Representation.subscript.getter();
-    v28 = v27;
-    result = outlined consume of ByteBuffer?(v23, v24);
-    v29 = v28 >> 62;
-    if ((v28 >> 62) > 1)
+    v54 = Data._Representation.subscript.getter();
+    v27 = v26;
+    outlined consume of ByteBuffer?(v22, v23);
+    v28 = v27 >> 62;
+    if ((v27 >> 62) > 1)
     {
-      v31 = v56;
-      if (v29 != 2)
+      v30 = v54;
+      if (v28 != 2)
       {
         goto LABEL_44;
       }
 
-      v33 = *(v56 + 16);
-      v32 = *(v56 + 24);
-      v30 = v32 - v33;
-      if (__OFSUB__(v32, v33))
+      v32 = *(v54 + 16);
+      v31 = *(v54 + 24);
+      v29 = v31 - v32;
+      if (__OFSUB__(v31, v32))
       {
         goto LABEL_56;
       }
@@ -4808,11 +2780,11 @@ uint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV19sendApplicationData33_3A7BCC859
 
     else
     {
-      if (!v29)
+      if (!v28)
       {
-        v30 = BYTE6(v28);
-        v31 = v56;
-        if (!BYTE6(v28))
+        v29 = BYTE6(v27);
+        v30 = v54;
+        if (!BYTE6(v27))
         {
           goto LABEL_44;
         }
@@ -4820,59 +2792,55 @@ uint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV19sendApplicationData33_3A7BCC859
         goto LABEL_42;
       }
 
-      v31 = v56;
-      if (__OFSUB__(HIDWORD(v56), v56))
+      v30 = v54;
+      if (__OFSUB__(HIDWORD(v54), v54))
       {
         goto LABEL_55;
       }
 
-      v30 = HIDWORD(v56) - v56;
+      v29 = HIDWORD(v54) - v54;
     }
 
-    outlined copy of Data._Representation(v31, v28);
-    if (!v30)
+    outlined copy of Data._Representation(v30, v27);
+    if (!v29)
     {
 LABEL_44:
-      outlined consume of Data._Representation(v31, v28);
-      v34 = MEMORY[0x1E69E7CC0];
+      outlined consume of Data._Representation(v30, v27);
+      v33 = MEMORY[0x1E69E7CC0];
       goto LABEL_45;
     }
 
 LABEL_42:
-    v34 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v30, 0);
-    v35 = v8;
-    v36 = v49;
-    v37 = Data._copyContents(initializing:)();
-    v38 = v31;
-    v39 = v37;
-    outlined consume of Data._Representation(v38, v28);
-    v40 = v36;
-    v8 = v35;
-    result = (*v47)(v40, v50);
-    if (v39 != v30)
+    v33 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v29, 0);
+    v34 = v5;
+    v35 = v47;
+    v36 = Data._copyContents(initializing:)();
+    v37 = v30;
+    v38 = v36;
+    outlined consume of Data._Representation(v37, v27);
+    v39 = v35;
+    v5 = v34;
+    (*v45)(v39, v48);
+    if (v38 != v29)
     {
       goto LABEL_54;
     }
 
 LABEL_45:
-    v11 = v9;
-    v41 = v3 + *(v8 + 24);
-    v42 = v52;
-    v2 = _s15SwiftTLSLibrary18TLSRecordProtectorV7protect9plaintext17actualContentType13paddingLengthAA13TLSCiphertextVSays5UInt8VG_AA0hI0VSitAA8TLSErrorOYKF(v34, 23, 0);
+    v40 = v50;
+    v41 = _s15SwiftTLSLibrary18TLSRecordProtectorV7protect9plaintext17actualContentType13paddingLengthAA13TLSCiphertextVSays5UInt8VG_AA0hI0VSitAA8TLSErrorOYKF(v33, 23, 0);
 
-    v52 = v42;
-    if (v42)
+    v50 = v40;
+    if (v40)
     {
-      outlined consume of Data._Representation(v56, v28);
-      return v2;
+      outlined consume of Data._Representation(v54, v27);
+      return;
     }
 
-    v43 = v3 + *(v8 + 48);
-    specialized ByteBuffer.writeRecord<A>(_:)(v2);
-    outlined consume of Data._Representation(v56, v28);
+    specialized ByteBuffer.writeRecord<A>(_:)(v41);
+    outlined consume of Data._Representation(v54, v27);
 
-    v9 = v11;
-    LODWORD(v11) = v51;
+    LODWORD(v8) = v49;
   }
 
   __break(1u);
@@ -4886,29 +2854,21 @@ LABEL_55:
   __break(1u);
 LABEL_56:
   __break(1u);
-  return result;
 }
 
-uint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV18addApplicationDatayyAA10ByteBufferVzAA8TLSErrorOYKF(uint64_t *a1)
+void _s15SwiftTLSLibrary16TLSRecordHandlerV18addApplicationDatayyAA10ByteBufferVzAA8TLSErrorOYKF(uint64_t *a1)
 {
-  v4 = v1 + *(type metadata accessor for TLSRecordHandler() + 40);
+  type metadata accessor for TLSRecordHandler(0);
   ByteBuffer.writeBuffer(_:)(a1);
-  result = TLSRecordHandler.handshakeComplete.getter();
-  if (result)
+  if (TLSRecordHandler.handshakeComplete.getter())
   {
-    result = _s15SwiftTLSLibrary16TLSRecordHandlerV19sendApplicationData33_3A7BCC859838BE1761A4636F58F247A0LLyyAA8TLSErrorOYKF();
-    if (!v2)
-    {
-      return 1;
-    }
+    _s15SwiftTLSLibrary16TLSRecordHandlerV19sendApplicationData33_3A7BCC859838BE1761A4636F58F247A0LLyyAA8TLSErrorOYKF();
   }
-
-  return result;
 }
 
 uint64_t TLSRecordHandler.alertRead.setter(int a1)
 {
-  result = type metadata accessor for TLSRecordHandler();
+  result = type metadata accessor for TLSRecordHandler(0);
   v4 = v1 + *(result + 52);
   *v4 = a1;
   *(v4 + 2) = BYTE2(a1) & 1;
@@ -4917,7 +2877,7 @@ uint64_t TLSRecordHandler.alertRead.setter(int a1)
 
 uint64_t TLSRecordHandler.alertWrote.setter(int a1)
 {
-  result = type metadata accessor for TLSRecordHandler();
+  result = type metadata accessor for TLSRecordHandler(0);
   v4 = v1 + *(result + 56);
   *v4 = a1;
   *(v4 + 2) = BYTE2(a1) & 1;
@@ -4926,14 +2886,14 @@ uint64_t TLSRecordHandler.alertWrote.setter(int a1)
 
 uint64_t TLSRecordHandler.closureAlertRead.setter(char a1)
 {
-  result = type metadata accessor for TLSRecordHandler();
+  result = type metadata accessor for TLSRecordHandler(0);
   *(v1 + *(result + 60)) = a1;
   return result;
 }
 
 uint64_t TLSRecordHandler.tlsError.getter()
 {
-  v1 = v0 + *(type metadata accessor for TLSRecordHandler() + 64);
+  v1 = v0 + *(type metadata accessor for TLSRecordHandler(0) + 64);
   v2 = *v1;
   outlined copy of TLSError?(*v1, *(v1 + 8), *(v1 + 16));
   return v2;
@@ -4941,7 +2901,7 @@ uint64_t TLSRecordHandler.tlsError.getter()
 
 uint64_t TLSRecordHandler.tlsError.setter(uint64_t a1, uint64_t a2, char a3)
 {
-  v7 = v3 + *(type metadata accessor for TLSRecordHandler() + 64);
+  v7 = v3 + *(type metadata accessor for TLSRecordHandler(0) + 64);
   result = outlined consume of TLSError?(*v7, *(v7 + 8), *(v7 + 16));
   *v7 = a1;
   *(v7 + 8) = a2;
@@ -4951,7 +2911,7 @@ uint64_t TLSRecordHandler.tlsError.setter(uint64_t a1, uint64_t a2, char a3)
 
 uint64_t TLSRecordHandler.alertSentOrReceived.getter()
 {
-  v1 = type metadata accessor for TLSRecordHandler();
+  v1 = type metadata accessor for TLSRecordHandler(0);
   if (*(v0 + *(v1 + 52) + 2) == 1)
   {
     v2 = *(v0 + *(v1 + 56) + 2) ^ 1;
@@ -4968,50 +2928,49 @@ uint64_t TLSRecordHandler.alertSentOrReceived.getter()
 unint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV9sendAlert33_3A7BCC859838BE1761A4636F58F247A0LLyyAA0F0VAA8TLSErrorOYKF(__int16 a1)
 {
   v3 = v1;
-  v76 = *MEMORY[0x1E69E9840];
+  v66 = *MEMORY[0x1E69E9840];
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  v7 = MEMORY[0x1EEE9AC00](v5 - 8);
-  v9 = &v63 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v7);
-  v11 = &v63 - v10;
-  v12 = type metadata accessor for TLSRecordHandler();
-  v13 = v1 + *(v12 + 56);
-  if (*(v13 + 2) == 1)
+  v6 = MEMORY[0x1EEE9AC00](v5 - 8);
+  v8 = &v53 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v6);
+  v10 = &v53 - v9;
+  v11 = type metadata accessor for TLSRecordHandler(0);
+  v12 = v1 + *(v11 + 56);
+  if (*(v12 + 2) == 1)
   {
-    *v13 = a1;
-    *(v13 + 2) = 0;
-    v65 = v2;
-    v66 = v12;
+    *v12 = a1;
+    *(v12 + 2) = 0;
+    v55 = v2;
+    v56 = v11;
     if (a1 != 1 || HIBYTE(a1))
     {
-      v64 = v1;
+      v54 = v1;
       if (one-time initialization token for logger != -1)
       {
         swift_once();
       }
 
-      v20 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v20, logger);
-      v21 = Logger.logObject.getter();
-      v22 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v21, v22))
+      v19 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v19, logger);
+      v20 = Logger.logObject.getter();
+      v21 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v20, v21))
       {
+        v22 = swift_slowAlloc();
         v23 = swift_slowAlloc();
-        v24 = swift_slowAlloc();
-        v70 = v24;
-        *v23 = 136315138;
-        v25 = Alert.description.getter(a1);
-        v27 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v26, &v70);
+        v60 = v23;
+        *v22 = 136315138;
+        v24 = Alert.description.getter(a1);
+        v26 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v24, v25, &v60);
 
-        *(v23 + 4) = v27;
-        _os_log_impl(&dword_1B25F5000, v21, v22, "write alert %s", v23, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0(v24);
-        MEMORY[0x1B274ECF0](v24, -1, -1);
+        *(v22 + 4) = v26;
+        _os_log_impl(&dword_1B25F5000, v20, v21, "write alert %s", v22, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v23);
         MEMORY[0x1B274ECF0](v23, -1, -1);
+        MEMORY[0x1B274ECF0](v22, -1, -1);
       }
 
-      v3 = v64;
+      v3 = v54;
     }
 
     else
@@ -5021,168 +2980,162 @@ unint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV9sendAlert33_3A7BCC859838BE1761A
         swift_once();
       }
 
-      v14 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v14, logger);
-      v15 = Logger.logObject.getter();
-      v16 = static os_log_type_t.info.getter();
-      if (os_log_type_enabled(v15, v16))
+      v13 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v13, logger);
+      v14 = Logger.logObject.getter();
+      v15 = static os_log_type_t.info.getter();
+      if (os_log_type_enabled(v14, v15))
       {
-        v17 = v3;
-        v18 = swift_slowAlloc();
-        *v18 = 0;
-        _os_log_impl(&dword_1B25F5000, v15, v16, "write alert close notify", v18, 2u);
-        v19 = v18;
-        v3 = v17;
-        MEMORY[0x1B274ECF0](v19, -1, -1);
+        v16 = v3;
+        v17 = swift_slowAlloc();
+        *v17 = 0;
+        _os_log_impl(&dword_1B25F5000, v14, v15, "write alert close notify", v17, 2u);
+        v18 = v17;
+        v3 = v16;
+        MEMORY[0x1B274ECF0](v18, -1, -1);
       }
     }
 
-    v74 = xmmword_1B26C6130;
-    v75 = 0;
-    LOBYTE(v67) = a1;
-    v28 = MEMORY[0x1E69E6290];
-    v29 = MEMORY[0x1E6969DF8];
-    v72 = MEMORY[0x1E69E6290];
-    v73 = MEMORY[0x1E6969DF8];
-    v70 = &v67;
-    v71 = &v67 + 1;
-    v30 = __swift_project_boxed_opaque_existential_0(&v70, MEMORY[0x1E69E6290]);
-    v32 = *v30;
-    v31 = v30[1];
+    v64 = xmmword_1B26C6130;
+    v65 = 0;
+    LOBYTE(v57) = a1;
+    v27 = MEMORY[0x1E69E6290];
+    v28 = MEMORY[0x1E6969DF8];
+    v62 = MEMORY[0x1E69E6290];
+    v63 = MEMORY[0x1E6969DF8];
+    v60 = &v57;
+    v61 = &v57 + 1;
+    __swift_project_boxed_opaque_existential_0(&v60, MEMORY[0x1E69E6290]);
     Data._Representation.append(contentsOf:)();
-    __swift_destroy_boxed_opaque_existential_0(&v70);
-    LOBYTE(v67) = HIBYTE(a1);
-    v72 = v28;
-    v73 = v29;
-    v70 = &v67;
-    v71 = &v67 + 1;
-    v33 = __swift_project_boxed_opaque_existential_0(&v70, v28);
-    v35 = *v33;
-    v34 = v33[1];
+    __swift_destroy_boxed_opaque_existential_0(&v60);
+    LOBYTE(v57) = HIBYTE(a1);
+    v62 = v27;
+    v63 = v28;
+    v60 = &v57;
+    v61 = &v57 + 1;
+    __swift_project_boxed_opaque_existential_0(&v60, v27);
     Data._Representation.append(contentsOf:)();
-    __swift_destroy_boxed_opaque_existential_0(&v70);
-    v36 = v66;
-    v37 = *(v66 + 28);
-    outlined init with copy of EncryptionLevel?(v3 + v37, v11);
-    v38 = type metadata accessor for EncryptionLevel(0);
-    v39 = *(*(v38 - 8) + 48);
-    LODWORD(v28) = v39(v11, 1, v38);
-    outlined destroy of P256.Signing.PrivateKey?(v11, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
-    v40 = v28 == 1;
-    v41 = v65;
-    if (!v40)
+    __swift_destroy_boxed_opaque_existential_0(&v60);
+    v29 = *(v56 + 28);
+    outlined init with copy of EncryptionLevel?(v3 + v29, v10);
+    v30 = type metadata accessor for EncryptionLevel(0);
+    v31 = *(*(v30 - 8) + 48);
+    LODWORD(v27) = v31(v10, 1, v30);
+    outlined destroy of P256.Signing.PrivateKey?(v10, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
+    v32 = v27 == 1;
+    v33 = v55;
+    if (!v32)
     {
-      outlined init with copy of EncryptionLevel?(v3 + v37, v9);
-      v45 = v39(v9, 1, v38);
-      if (v45 == 1)
+      outlined init with copy of EncryptionLevel?(v3 + v29, v8);
+      v37 = v31(v8, 1, v30);
+      if (v37 == 1)
       {
-        outlined destroy of P256.Signing.PrivateKey?(v9, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
+        outlined destroy of P256.Signing.PrivateKey?(v8, &_s15SwiftTLSLibrary15EncryptionLevelOSgMd, &_s15SwiftTLSLibrary15EncryptionLevelOSgMR);
         goto LABEL_25;
       }
 
       if (swift_getEnumCaseMultiPayload())
       {
-        outlined destroy of EncryptionLevel(v9, type metadata accessor for EncryptionLevel);
+        outlined destroy of EncryptionLevel(v8, type metadata accessor for EncryptionLevel);
 LABEL_25:
-        v43 = *(&v74 + 1);
-        v42 = v74;
-        v47 = *(&v74 + 1) >> 62;
-        if ((*(&v74 + 1) >> 62) > 1)
+        v35 = *(&v64 + 1);
+        v34 = v64;
+        v39 = *(&v64 + 1) >> 62;
+        if ((*(&v64 + 1) >> 62) > 1)
         {
-          if (v47 != 2)
+          if (v39 != 2)
           {
             goto LABEL_37;
           }
 
-          v49 = *(v74 + 24);
+          v41 = *(v64 + 24);
         }
 
         else
         {
-          if (!v47)
+          if (!v39)
           {
-            v48 = v3;
+            v40 = v3;
 LABEL_38:
-            v55 = Data._Representation.subscript.getter();
-            v57 = _sSaySayxGqd__c7ElementQyd__RszSTRd__lufCs5UInt8V_10Foundation4DataVTt0g5(v55, v56);
-            v58 = v48 + *(v36 + 24);
-            v1 = _s15SwiftTLSLibrary18TLSRecordProtectorV7protect9plaintext17actualContentType13paddingLengthAA13TLSCiphertextVSays5UInt8VG_AA0hI0VSitAA8TLSErrorOYKF(v57, 21, 0);
-            if (v41)
+            v47 = Data._Representation.subscript.getter();
+            v49 = _sSaySayxGqd__c7ElementQyd__RszSTRd__lufCs5UInt8V_10Foundation4DataVTt0g5(v47, v48);
+            v1 = _s15SwiftTLSLibrary18TLSRecordProtectorV7protect9plaintext17actualContentType13paddingLengthAA13TLSCiphertextVSays5UInt8VG_AA0hI0VSitAA8TLSErrorOYKF(v49, 21, 0);
+            if (v33)
             {
-              outlined consume of Data._Representation(v42, v43);
+              outlined consume of Data._Representation(v34, v35);
 
-              goto LABEL_42;
+              return v1;
             }
 
-            v68 = &type metadata for TLSCiphertext;
-            v69 = &protocol witness table for TLSCiphertext;
-            *&v67 = v1;
-            outlined init with take of ContiguousBytes(&v67, &v70);
-            v53 = v72;
-            v54 = v73;
-            v3 = v48;
+            v58 = &type metadata for TLSCiphertext;
+            v59 = &protocol witness table for TLSCiphertext;
+            *&v57 = v1;
+            outlined init with take of ContiguousBytes(&v57, &v60);
+            v45 = v62;
+            v46 = v63;
+            v3 = v40;
 LABEL_41:
-            v59 = __swift_project_boxed_opaque_existential_0(&v70, v53);
-            v1 = v3 + *(v66 + 48);
-            ByteBuffer.writeRecord<A>(_:)(v59, v53, v54);
-            outlined consume of Data._Representation(v42, v43);
-            __swift_destroy_boxed_opaque_existential_0(&v70);
-            goto LABEL_42;
+            v50 = __swift_project_boxed_opaque_existential_0(&v60, v45);
+            v1 = v3 + *(v56 + 48);
+            ByteBuffer.writeRecord<A>(_:)(v50, v45, v46);
+            outlined consume of Data._Representation(v34, v35);
+            __swift_destroy_boxed_opaque_existential_0(&v60);
+            return v1;
           }
 
-          v49 = v74 >> 32;
+          v41 = v64 >> 32;
         }
 
-        v48 = v3;
-        if ((v49 & 0x8000000000000000) == 0)
+        v40 = v3;
+        if ((v41 & 0x8000000000000000) == 0)
         {
           goto LABEL_38;
         }
 
         __break(1u);
 LABEL_37:
-        v48 = v3;
+        v40 = v3;
         goto LABEL_38;
       }
 
-      v62 = type metadata accessor for SymmetricKey();
-      (*(*(v62 - 8) + 8))(v9, v62);
+      v52 = type metadata accessor for SymmetricKey();
+      (*(*(v52 - 8) + 8))(v8, v52);
     }
 
-    v43 = *(&v74 + 1);
-    v42 = v74;
-    v44 = *(&v74 + 1) >> 62;
-    if ((*(&v74 + 1) >> 62) > 1)
+    v35 = *(&v64 + 1);
+    v34 = v64;
+    v36 = *(&v64 + 1) >> 62;
+    if ((*(&v64 + 1) >> 62) > 1)
     {
-      if (v44 != 2)
+      if (v36 != 2)
       {
 LABEL_33:
-        v50 = Data._Representation.subscript.getter();
-        v52 = _sSaySayxGqd__c7ElementQyd__RszSTRd__lufCs5UInt8V_10Foundation4DataVTt0g5(v50, v51);
-        v53 = &type metadata for TLSPlaintext;
-        v54 = &protocol witness table for TLSPlaintext;
-        v72 = &type metadata for TLSPlaintext;
-        v73 = &protocol witness table for TLSPlaintext;
-        LOWORD(v70) = 789;
-        BYTE2(v70) = 3;
-        v71 = v52;
+        v42 = Data._Representation.subscript.getter();
+        v44 = _sSaySayxGqd__c7ElementQyd__RszSTRd__lufCs5UInt8V_10Foundation4DataVTt0g5(v42, v43);
+        v45 = &type metadata for TLSPlaintext;
+        v46 = &protocol witness table for TLSPlaintext;
+        v62 = &type metadata for TLSPlaintext;
+        v63 = &protocol witness table for TLSPlaintext;
+        LOWORD(v60) = 789;
+        BYTE2(v60) = 3;
+        v61 = v44;
         goto LABEL_41;
       }
 
-      v46 = *(v74 + 24);
+      v38 = *(v64 + 24);
     }
 
     else
     {
-      if (!v44)
+      if (!v36)
       {
         goto LABEL_33;
       }
 
-      v46 = v74 >> 32;
+      v38 = v64 >> 32;
     }
 
-    if (v46 < 0)
+    if (v38 < 0)
     {
       __break(1u);
     }
@@ -5190,86 +3143,84 @@ LABEL_33:
     goto LABEL_33;
   }
 
-LABEL_42:
-  v60 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
-NSObject *_s15SwiftTLSLibrary16TLSRecordHandlerV9readAlert33_3A7BCC859838BE1761A4636F58F247A0LLyySays5UInt8VGAA8TLSErrorOYKF()
+NSObject *_s15SwiftTLSLibrary16TLSRecordHandlerV9readAlert33_3A7BCC859838BE1761A4636F58F247A0LLyySays5UInt8VGAA8TLSErrorOYKF(uint64_t a1)
 {
-  v2 = v0;
+  v3 = v1;
 
-  v4 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSayAEG_Tt0g5Tf4g_n(v3);
-  v6 = v5;
+  v5 = _s10Foundation4DataVyACxcSTRzs5UInt8V7ElementRtzlufCSayAEG_Tt0g5Tf4g_n(v4);
+  v7 = v6;
 
-  v7 = v6 >> 62;
-  if ((v6 >> 62) > 1)
+  v8 = v7 >> 62;
+  if ((v7 >> 62) > 1)
   {
-    v8 = 0;
-    if (v7 == 2)
+    v9 = 0;
+    if (v8 == 2)
     {
-      v8 = *(v4 + 16);
+      v9 = *(v5 + 16);
     }
   }
 
   else
   {
-    v8 = v4;
-    if (!v7)
+    v9 = v5;
+    if (!v8)
     {
-      v8 = 0;
+      v9 = 0;
     }
   }
 
-  v30 = v4;
-  v31 = v6;
-  v32 = v8;
-  v9 = _s15SwiftTLSLibrary10ByteBufferV11readInteger2asxSgxm_ts010FixedWidthF0RzlFs5UInt8V_Tt0g5();
-  v10 = &v30;
-  v11 = _s15SwiftTLSLibrary10ByteBufferV11readInteger2asxSgxm_ts010FixedWidthF0RzlFs5UInt8V_Tt0g5();
-  if (((v9 | v11) & 0x100) != 0)
+  v31 = v5;
+  v32 = v7;
+  v33 = v9;
+  v10 = _s15SwiftTLSLibrary10ByteBufferV11readInteger2asxSgxm_ts010FixedWidthF0RzlFs5UInt8V_Tt0g5();
+  v11 = &v31;
+  v12 = _s15SwiftTLSLibrary10ByteBufferV11readInteger2asxSgxm_ts010FixedWidthF0RzlFs5UInt8V_Tt0g5();
+  if (((v10 | v12) & 0x100) != 0)
   {
     goto LABEL_22;
   }
 
-  if (v9 != 1 || v11)
+  if (v10 != 1 || v12)
   {
-    v19 = v11;
+    v20 = v12;
     if (one-time initialization token for logger != -1)
     {
       swift_once();
     }
 
-    v20 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v20, logger);
-    v10 = Logger.logObject.getter();
-    v21 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v10, v21))
+    v21 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v21, logger);
+    v11 = Logger.logObject.getter();
+    v22 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v11, v22))
     {
-      v22 = swift_slowAlloc();
       v23 = swift_slowAlloc();
-      v33 = v23;
-      *v22 = 136315138;
-      v24 = v9 | (v19 << 8);
-      v25 = Alert.description.getter(v24);
-      v27 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v25, v26, &v33);
+      v24 = swift_slowAlloc();
+      v34 = v24;
+      *v23 = 136315138;
+      v25 = v10 | (v20 << 8);
+      v26 = Alert.description.getter(v25);
+      v28 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v26, v27, &v34);
 
-      *(v22 + 4) = v27;
-      _os_log_impl(&dword_1B25F5000, v10, v21, "read alert %s", v22, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v23);
+      *(v23 + 4) = v28;
+      _os_log_impl(&dword_1B25F5000, v11, v22, "read alert %s", v23, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v24);
+      MEMORY[0x1B274ECF0](v24, -1, -1);
       MEMORY[0x1B274ECF0](v23, -1, -1);
-      MEMORY[0x1B274ECF0](v22, -1, -1);
     }
 
     else
     {
 
-      v24 = v9 | (v19 << 8);
+      v25 = v10 | (v20 << 8);
     }
 
-    v28 = v2 + *(type metadata accessor for TLSRecordHandler() + 52);
-    *v28 = v24;
-    v28[2] = 0;
+    v29 = v3 + *(type metadata accessor for TLSRecordHandler(0) + 52);
+    *v29 = v25;
+    v29[2] = 0;
     goto LABEL_22;
   }
 
@@ -5278,35 +3229,35 @@ NSObject *_s15SwiftTLSLibrary16TLSRecordHandlerV9readAlert33_3A7BCC859838BE1761A
     swift_once();
   }
 
-  v12 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v12, logger);
-  v13 = Logger.logObject.getter();
-  v14 = static os_log_type_t.info.getter();
-  if (os_log_type_enabled(v13, v14))
+  v13 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v13, logger);
+  v14 = Logger.logObject.getter();
+  v15 = static os_log_type_t.info.getter();
+  if (os_log_type_enabled(v14, v15))
   {
-    v15 = swift_slowAlloc();
-    *v15 = 0;
-    _os_log_impl(&dword_1B25F5000, v13, v14, "read alert close notify", v15, 2u);
-    MEMORY[0x1B274ECF0](v15, -1, -1);
+    v16 = swift_slowAlloc();
+    *v16 = 0;
+    _os_log_impl(&dword_1B25F5000, v14, v15, "read alert close notify", v16, 2u);
+    MEMORY[0x1B274ECF0](v16, -1, -1);
   }
 
-  v16 = type metadata accessor for TLSRecordHandler();
-  v17 = v2 + *(v16 + 52);
-  *v17 = 1;
-  v17[2] = 0;
-  *(&v2->isa + *(v16 + 60)) = 1;
-  v10 = v2;
-  v18 = _s15SwiftTLSLibrary16TLSRecordHandlerV9sendAlert33_3A7BCC859838BE1761A4636F58F247A0LLyyAA0F0VAA8TLSErrorOYKF(1);
-  if (!v1)
+  v17 = type metadata accessor for TLSRecordHandler(0);
+  v18 = v3 + *(v17 + 52);
+  *v18 = 1;
+  v18[2] = 0;
+  *(&v3->isa + *(v17 + 60)) = 1;
+  v11 = v3;
+  v19 = _s15SwiftTLSLibrary16TLSRecordHandlerV9sendAlert33_3A7BCC859838BE1761A4636F58F247A0LLyyAA0F0VAA8TLSErrorOYKF(1);
+  if (!v2)
   {
 LABEL_22:
-    outlined consume of Data._Representation(v30, v31);
-    return v10;
+    outlined consume of Data._Representation(v31, v32);
+    return v11;
   }
 
-  v10 = v18;
-  outlined consume of Data._Representation(v30, v31);
-  return v10;
+  v11 = v19;
+  outlined consume of Data._Representation(v31, v32);
+  return v11;
 }
 
 uint64_t TLSRecordHandler.tlsErrorToAlert(error:)(uint64_t a1, uint64_t a2, char a3)
@@ -5336,154 +3287,153 @@ uint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV18processNetworkData07networkG2In
 {
   v4 = v1;
   v6 = type metadata accessor for TLSHandshakeStateMachine(0);
-  v7 = *(*(v6 - 8) + 64);
   MEMORY[0x1EEE9AC00](v6);
-  v9 = v50 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for TLSRecordHandler();
-  if (*(v4 + v10[13] + 2) == 1 && (*(v4 + v10[14] + 2) & 1) != 0)
+  v8 = v48 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for TLSRecordHandler(0);
+  if (*(v4 + v9[13] + 2) == 1 && (*(v4 + v9[14] + 2) & 1) != 0)
   {
-    v50[2] = v6;
-    v51 = v10;
-    v11 = *a1;
+    v48[2] = v6;
+    v49 = v9;
+    v10 = *a1;
     v3 = a1[1];
-    v54 = a1[2];
-    outlined copy of Data._Representation(v11, v3);
-    v12 = _s15SwiftTLSLibrary16TLSRecordHandlerV18processNetworkData07networkG2InyAA10ByteBufferVz_tAA8TLSErrorOYKFyAGzAIYKXEfU_(a1, v4);
+    v52 = a1[2];
+    outlined copy of Data._Representation(v10, v3);
+    v11 = _s15SwiftTLSLibrary16TLSRecordHandlerV18processNetworkData07networkG2InyAA10ByteBufferVz_tAA8TLSErrorOYKFyAGzAIYKXEfU_(a1, v4);
     if (v2)
     {
+      v14 = v11;
       v15 = v12;
       v16 = v13;
-      v17 = v14;
       outlined consume of Data._Representation(*a1, a1[1]);
-      *a1 = v11;
+      *a1 = v10;
       a1[1] = v3;
-      a1[2] = v54;
-      *&v52 = v15;
-      *(&v52 + 1) = v16;
-      v53 = v17;
-      v54 = lazy protocol witness table accessor for type TLSError and conformance TLSError();
+      a1[2] = v52;
+      *&v50 = v14;
+      *(&v50 + 1) = v15;
+      v51 = v16;
+      v52 = lazy protocol witness table accessor for type TLSError and conformance TLSError();
       swift_willThrowTypedImpl();
-      v18 = v16;
-      v3 = v15;
+      v17 = v15;
+      v3 = v14;
       if (one-time initialization token for logger != -1)
       {
         swift_once();
       }
 
-      v19 = type metadata accessor for Logger();
-      v20 = __swift_project_value_buffer(v19, logger);
-      outlined copy of TLSError(v15, v16, v17);
-      v50[1] = v20;
-      v21 = Logger.logObject.getter();
-      v22 = static os_log_type_t.error.getter();
-      outlined consume of TLSError(v15, v16, v17);
-      v23 = v17;
-      if (os_log_type_enabled(v21, v22))
+      v18 = type metadata accessor for Logger();
+      v19 = __swift_project_value_buffer(v18, logger);
+      outlined copy of TLSError(v14, v15, v16);
+      v48[1] = v19;
+      v20 = Logger.logObject.getter();
+      v21 = static os_log_type_t.error.getter();
+      outlined consume of TLSError(v14, v15, v16);
+      v22 = v16;
+      if (os_log_type_enabled(v20, v21))
       {
-        v24 = v18;
-        v25 = swift_slowAlloc();
-        v50[0] = swift_slowAlloc();
-        *v25 = 138412290;
+        v23 = v17;
+        v24 = swift_slowAlloc();
+        v48[0] = swift_slowAlloc();
+        *v24 = 138412290;
         swift_allocError();
-        *v26 = v15;
-        *(v26 + 8) = v24;
-        *(v26 + 16) = v23;
-        outlined copy of TLSError(v15, v24, v23);
-        v3 = v15;
-        v27 = _swift_stdlib_bridgeErrorToNSError();
-        *(v25 + 4) = v27;
-        v28 = v50[0];
-        *v50[0] = v27;
-        _os_log_impl(&dword_1B25F5000, v21, v22, "error processing network data: %@", v25, 0xCu);
-        outlined destroy of P256.Signing.PrivateKey?(v28, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        *v25 = v14;
+        *(v25 + 8) = v23;
+        *(v25 + 16) = v22;
+        outlined copy of TLSError(v14, v23, v22);
+        v3 = v14;
+        v26 = _swift_stdlib_bridgeErrorToNSError();
+        *(v24 + 4) = v26;
+        v27 = v48[0];
+        *v48[0] = v26;
+        _os_log_impl(&dword_1B25F5000, v20, v21, "error processing network data: %@", v24, 0xCu);
+        outlined destroy of P256.Signing.PrivateKey?(v27, &_sSo8NSObjectCSgMd, &_sSo8NSObjectCSgMR);
+        MEMORY[0x1B274ECF0](v27, -1, -1);
+        v28 = v24;
+        v17 = v23;
         MEMORY[0x1B274ECF0](v28, -1, -1);
-        v29 = v25;
-        v18 = v24;
-        MEMORY[0x1B274ECF0](v29, -1, -1);
       }
 
       if (TLSRecordHandler.handshakeStarted.getter())
       {
-        v30 = TLSRecordHandler.tlsErrorToAlert(error:)(v3, v18, v23);
-        if (v30 > 0xFFu || v30 != 1)
+        v29 = TLSRecordHandler.tlsErrorToAlert(error:)(v3, v17, v22);
+        if (v29 > 0xFFu || v29 != 1)
         {
-          v31 = v4 + v51[16];
-          v32 = *v31;
-          v33 = *(v31 + 8);
-          v34 = v3;
-          v35 = *(v31 + 16);
-          v36 = v30;
-          outlined copy of TLSError(v34, v18, v23);
-          v37 = v35;
-          v3 = v34;
-          outlined consume of TLSError?(v32, v33, v37);
-          v30 = v36;
-          *v31 = v34;
-          *(v31 + 8) = v18;
-          *(v31 + 16) = v23;
+          v30 = v4 + v49[16];
+          v31 = *v30;
+          v32 = *(v30 + 8);
+          v33 = v3;
+          v34 = *(v30 + 16);
+          v35 = v29;
+          outlined copy of TLSError(v33, v17, v22);
+          v36 = v34;
+          v3 = v33;
+          outlined consume of TLSError?(v31, v32, v36);
+          v29 = v35;
+          *v30 = v33;
+          *(v30 + 8) = v17;
+          *(v30 + 16) = v22;
         }
 
-        _s15SwiftTLSLibrary16TLSRecordHandlerV9sendAlert33_3A7BCC859838BE1761A4636F58F247A0LLyyAA0F0VAA8TLSErrorOYKF(v30);
-        *&v52 = v3;
-        *(&v52 + 1) = v18;
-        v53 = v23;
+        _s15SwiftTLSLibrary16TLSRecordHandlerV9sendAlert33_3A7BCC859838BE1761A4636F58F247A0LLyyAA0F0VAA8TLSErrorOYKF(v29);
+        *&v50 = v3;
+        *(&v50 + 1) = v17;
+        v51 = v22;
         swift_willThrowTypedImpl();
       }
 
       else
       {
-        outlined consume of TLSError(v3, v18, v23);
-        outlined init with copy of TLSHandshakeStateMachine(v4, v9, type metadata accessor for TLSHandshakeStateMachine);
+        outlined consume of TLSError(v3, v17, v22);
+        outlined init with copy of TLSHandshakeStateMachine(v4, v8, type metadata accessor for TLSHandshakeStateMachine);
         EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
-        outlined destroy of EncryptionLevel(v9, type metadata accessor for TLSHandshakeStateMachine);
+        outlined destroy of EncryptionLevel(v8, type metadata accessor for TLSHandshakeStateMachine);
         if (EnumCaseMultiPayload == 1)
         {
-          v42 = ", resumptionCount: ";
+          v40 = ", resumptionCount: ";
         }
 
         else
         {
-          v42 = "alid Client Hello";
+          v40 = "alid Client Hello";
         }
 
-        v43 = Logger.logObject.getter();
-        v44 = static os_log_type_t.error.getter();
+        v41 = Logger.logObject.getter();
+        v42 = static os_log_type_t.error.getter();
 
-        if (os_log_type_enabled(v43, v44))
+        if (os_log_type_enabled(v41, v42))
         {
           if (EnumCaseMultiPayload == 1)
           {
-            v45 = 0xD000000000000041;
+            v43 = 0xD000000000000041;
           }
 
           else
           {
-            v45 = 0xD000000000000065;
+            v43 = 0xD000000000000065;
           }
 
-          v46 = swift_slowAlloc();
-          v47 = swift_slowAlloc();
-          *&v52 = v47;
-          *v46 = 136315138;
-          v48 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v45, v42 | 0x8000000000000000, &v52);
+          v44 = swift_slowAlloc();
+          v45 = swift_slowAlloc();
+          *&v50 = v45;
+          *v44 = 136315138;
+          v46 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v43, v40 | 0x8000000000000000, &v50);
 
-          *(v46 + 4) = v48;
-          _os_log_impl(&dword_1B25F5000, v43, v44, "TLS error occurred from processing network data before handshake started: %s", v46, 0xCu);
-          __swift_destroy_boxed_opaque_existential_0(v47);
-          MEMORY[0x1B274ECF0](v47, -1, -1);
-          MEMORY[0x1B274ECF0](v46, -1, -1);
+          *(v44 + 4) = v46;
+          _os_log_impl(&dword_1B25F5000, v41, v42, "TLS error occurred from processing network data before handshake started: %s", v44, 0xCu);
+          __swift_destroy_boxed_opaque_existential_0(v45);
+          MEMORY[0x1B274ECF0](v45, -1, -1);
+          MEMORY[0x1B274ECF0](v44, -1, -1);
         }
 
         else
         {
         }
 
-        v49 = v4 + v51[16];
-        outlined consume of TLSError?(*v49, *(v49 + 8), *(v49 + 16));
-        *v49 = xmmword_1B26CBED0;
-        *(v49 + 16) = 2;
-        v52 = xmmword_1B26CBED0;
-        v53 = 2;
+        v47 = v4 + v49[16];
+        outlined consume of TLSError?(*v47, *(v47 + 8), *(v47 + 16));
+        *v47 = xmmword_1B26CBED0;
+        *(v47 + 16) = 2;
+        v50 = xmmword_1B26CBED0;
+        v51 = 2;
         swift_willThrowTypedImpl();
         return 37;
       }
@@ -5491,17 +3441,16 @@ uint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV18processNetworkData07networkG2In
 
     else
     {
-      outlined consume of Data._Representation(v11, v3);
+      outlined consume of Data._Representation(v10, v3);
     }
   }
 
   else
   {
-    v38 = (v4 + v10[5]);
-    v39 = v38[2];
-    outlined consume of ByteBuffer?(*v38, v38[1]);
-    *v38 = xmmword_1B26C5EF0;
-    v38[2] = 0;
+    v37 = (v4 + v9[5]);
+    outlined consume of ByteBuffer?(*v37, v37[1]);
+    *v37 = xmmword_1B26C5EF0;
+    v37[2] = 0;
   }
 
   return v3;
@@ -5510,135 +3459,129 @@ uint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV18processNetworkData07networkG2In
 uint64_t _s15SwiftTLSLibrary16TLSRecordHandlerV18processNetworkData07networkG2InyAA10ByteBufferVz_tAA8TLSErrorOYKFyAGzAIYKXEfU_(uint64_t *a1, uint64_t a2)
 {
   v5 = v2;
-  v95 = type metadata accessor for ServerHandshakeState(0);
-  v8 = *(*(v95 - 8) + 64);
-  v9 = MEMORY[0x1EEE9AC00](v95);
-  v89 = &v83 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v9);
-  v86 = &v83 - v11;
-  v94 = type metadata accessor for ServerHandshakeStateMachine(0);
-  v12 = *(*(v94 - 8) + 64);
-  v13 = MEMORY[0x1EEE9AC00](v94);
-  v15 = &v83 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v13);
-  v85 = &v83 - v16;
-  v93 = type metadata accessor for HandshakeState(0);
-  v17 = *(*(v93 - 8) + 64);
-  v18 = MEMORY[0x1EEE9AC00](v93);
-  v88 = &v83 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v88 = type metadata accessor for ServerHandshakeState(0);
+  v8 = MEMORY[0x1EEE9AC00](v88);
+  v82 = &v76 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v8);
+  v79 = &v76 - v10;
+  v87 = type metadata accessor for ServerHandshakeStateMachine(0);
+  v11 = MEMORY[0x1EEE9AC00](v87);
+  v13 = &v76 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v11);
+  v78 = &v76 - v14;
+  v86 = type metadata accessor for HandshakeState(0);
+  v15 = MEMORY[0x1EEE9AC00](v86);
+  v81 = &v76 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v15);
+  v77 = &v76 - v17;
+  v85 = type metadata accessor for HandshakeStateMachine(0);
+  v18 = MEMORY[0x1EEE9AC00](v85);
+  v80 = &v76 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
   MEMORY[0x1EEE9AC00](v18);
-  v84 = &v83 - v20;
-  v92 = type metadata accessor for HandshakeStateMachine(0);
-  v21 = *(*(v92 - 8) + 64);
-  v22 = MEMORY[0x1EEE9AC00](v92);
-  v87 = &v83 - ((v23 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v22);
-  v83 = &v83 - v24;
-  v98 = type metadata accessor for TLSHandshakeStateMachine(0);
-  v25 = *(*(v98 - 8) + 64);
-  v26 = MEMORY[0x1EEE9AC00](v98);
-  v97 = &v83 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v26);
-  v90 = &v83 - v28;
-  v29 = type metadata accessor for TLSRecordHandler();
-  v30 = *(*(v29 - 8) + 64);
-  v31 = MEMORY[0x1EEE9AC00](v29);
-  v96 = &v83 - ((v32 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v33 = MEMORY[0x1EEE9AC00](v31);
-  v35 = &v83 - v34;
-  v99 = v33;
-  v36 = (a2 + *(v33 + 20));
+  v76 = &v76 - v20;
+  v91 = type metadata accessor for TLSHandshakeStateMachine(0);
+  v21 = MEMORY[0x1EEE9AC00](v91);
+  v90 = &v76 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v21);
+  v83 = &v76 - v23;
+  v24 = type metadata accessor for TLSRecordHandler(0);
+  v25 = MEMORY[0x1EEE9AC00](v24);
+  v89 = &v76 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v27 = MEMORY[0x1EEE9AC00](v25);
+  v29 = &v76 - v28;
+  v92 = v27;
+  v30 = (a2 + *(v27 + 20));
   HandshakeMessageParser.appendBytes(_:)(a1);
-  v37 = v36[1];
-  if (v37 >> 60 == 15)
+  v31 = v30[1];
+  if (v31 >> 60 == 15)
   {
     return v4;
   }
 
-  v100 = v15;
-  v91 = v35;
+  v93 = v13;
+  v84 = v29;
   while (1)
   {
-    v38 = *v36;
-    v39 = v37 >> 62;
-    if ((v37 >> 62) > 1)
+    v32 = *v30;
+    v33 = v31 >> 62;
+    if ((v31 >> 62) > 1)
     {
-      if (v39 == 2)
+      if (v33 == 2)
       {
-        v40 = *(v38 + 24);
+        v34 = *(v32 + 24);
       }
 
       else
       {
-        v40 = 0;
+        v34 = 0;
       }
     }
 
     else
     {
-      v40 = BYTE6(v37);
-      v41 = v38 >> 32;
-      if (v39)
+      v34 = BYTE6(v31);
+      v35 = v32 >> 32;
+      if (v33)
       {
-        v40 = v41;
+        v34 = v35;
       }
     }
 
-    v42 = v36[2];
-    v43 = __OFSUB__(v40, v42);
-    v44 = v40 - v42;
-    if (v43)
+    v36 = v30[2];
+    v37 = __OFSUB__(v34, v36);
+    v38 = v34 - v36;
+    if (v37)
     {
       __break(1u);
       goto LABEL_67;
     }
 
-    if (v44 < 1)
+    if (v38 < 1)
     {
       return v4;
     }
 
-    v45 = _s15SwiftTLSLibrary16TLSRecordHandlerV14parseOneRecord33_3A7BCC859838BE1761A4636F58F247A0LLAA0C0OSgyAA8TLSErrorOYKF();
-    v4 = v45;
-    v5 = v46;
-    v3 = v47;
-    if (v2 || v47 == -1)
+    v39 = _s15SwiftTLSLibrary16TLSRecordHandlerV14parseOneRecord33_3A7BCC859838BE1761A4636F58F247A0LLAA0C0OSgyAA8TLSErrorOYKF();
+    v4 = v39;
+    v5 = v40;
+    v3 = v41;
+    if (v2 || v41 == -1)
     {
       return v4;
     }
 
-    if (v47)
+    if (v41)
     {
       break;
     }
 
-    if ((v45 - 21) >= 2u)
+    if ((v39 - 21) >= 2u)
     {
       if (one-time initialization token for logger == -1)
       {
 LABEL_41:
-        v67 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v67, logger);
-        outlined copy of TLSRecord();
-        v68 = Logger.logObject.getter();
-        v69 = static os_log_type_t.error.getter();
+        v60 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v60, logger);
+        outlined copy of TLSRecord(v4, v5, 0);
+        v61 = Logger.logObject.getter();
+        v62 = static os_log_type_t.error.getter();
         outlined consume of TLSRecord?(v4, v5, v3);
-        if (!os_log_type_enabled(v68, v69))
+        if (!os_log_type_enabled(v61, v62))
         {
           goto LABEL_64;
         }
 
-        v70 = swift_slowAlloc();
-        v71 = swift_slowAlloc();
-        *&v101 = v71;
-        *v70 = 136315138;
-        v72 = ContentType.description.getter(v4);
-        v74 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v72, v73, &v101);
+        v63 = swift_slowAlloc();
+        v64 = swift_slowAlloc();
+        *&v94 = v64;
+        *v63 = 136315138;
+        v65 = ContentType.description.getter(v4);
+        v67 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v65, v66, &v94);
 
-        *(v70 + 4) = v74;
-        _os_log_impl(&dword_1B25F5000, v68, v69, "got a plaintext record with type not handshake or alert: %s", v70, 0xCu);
-        __swift_destroy_boxed_opaque_existential_0(v71);
-        MEMORY[0x1B274ECF0](v71, -1, -1);
+        *(v63 + 4) = v67;
+        _os_log_impl(&dword_1B25F5000, v61, v62, "got a plaintext record with type not handshake or alert: %s", v63, 0xCu);
+        __swift_destroy_boxed_opaque_existential_0(v64);
+        MEMORY[0x1B274ECF0](v64, -1, -1);
         goto LABEL_63;
       }
 
@@ -5647,40 +3590,40 @@ LABEL_67:
       goto LABEL_41;
     }
 
-    v103 = v46;
-    if (v45 == 21)
+    v96 = v40;
+    if (v39 == 21)
     {
-      v55 = v96;
-      outlined init with copy of TLSHandshakeStateMachine(a2, v96, type metadata accessor for TLSRecordHandler);
-      v56 = v97;
-      outlined init with copy of TLSHandshakeStateMachine(v55, v97, type metadata accessor for TLSHandshakeStateMachine);
-      outlined copy of TLSRecord();
-      outlined destroy of EncryptionLevel(v55, type metadata accessor for TLSRecordHandler);
+      v49 = v89;
+      outlined init with copy of TLSHandshakeStateMachine(a2, v89, type metadata accessor for TLSRecordHandler);
+      v50 = v90;
+      outlined init with copy of TLSHandshakeStateMachine(v49, v90, type metadata accessor for TLSHandshakeStateMachine);
+      outlined copy of TLSRecord(v4, v5, 0);
+      outlined destroy of EncryptionLevel(v49, type metadata accessor for TLSRecordHandler);
       if (swift_getEnumCaseMultiPayload() == 1)
       {
-        _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v56, v15, type metadata accessor for ServerHandshakeStateMachine);
-        v57 = v89;
-        outlined init with copy of TLSHandshakeStateMachine(&v15[*(v94 + 24)], v89, type metadata accessor for ServerHandshakeState);
+        _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v50, v13, type metadata accessor for ServerHandshakeStateMachine);
+        v51 = v82;
+        outlined init with copy of TLSHandshakeStateMachine(&v13[*(v87 + 24)], v82, type metadata accessor for ServerHandshakeState);
         if (swift_getEnumCaseMultiPayload())
         {
-          outlined destroy of EncryptionLevel(v15, type metadata accessor for ServerHandshakeStateMachine);
-          outlined destroy of EncryptionLevel(v57, type metadata accessor for ServerHandshakeState);
-          v35 = v91;
+          outlined destroy of EncryptionLevel(v13, type metadata accessor for ServerHandshakeStateMachine);
+          outlined destroy of EncryptionLevel(v51, type metadata accessor for ServerHandshakeState);
+          v29 = v84;
         }
 
         else
         {
-          v65 = v57;
-          v66 = v100[24];
-          outlined destroy of EncryptionLevel(v100, type metadata accessor for ServerHandshakeStateMachine);
-          outlined destroy of EncryptionLevel(v65, type metadata accessor for ServerHandshakeState);
-          v35 = v91;
-          if ((v66 & 1) == 0)
+          v58 = v51;
+          v59 = v93[24];
+          outlined destroy of EncryptionLevel(v93, type metadata accessor for ServerHandshakeStateMachine);
+          outlined destroy of EncryptionLevel(v58, type metadata accessor for ServerHandshakeState);
+          v29 = v84;
+          if ((v59 & 1) == 0)
           {
 LABEL_43:
             outlined consume of TLSRecord?(v4, v5, v3);
-            v101 = xmmword_1B26CBEE0;
-            v102 = 2;
+            v94 = xmmword_1B26CBEE0;
+            v95 = 2;
             lazy protocol witness table accessor for type TLSError and conformance TLSError();
             swift_willThrowTypedImpl();
             outlined consume of TLSRecord?(v4, v5, v3);
@@ -5691,79 +3634,79 @@ LABEL_43:
 
       else
       {
-        v58 = v56;
-        v59 = v87;
-        _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v58, v87, type metadata accessor for HandshakeStateMachine);
-        v60 = v88;
-        outlined init with copy of TLSHandshakeStateMachine(v59 + *(v92 + 24), v88, type metadata accessor for HandshakeState);
-        outlined destroy of EncryptionLevel(v59, type metadata accessor for HandshakeStateMachine);
-        LODWORD(v59) = swift_getEnumCaseMultiPayload();
-        outlined destroy of EncryptionLevel(v60, type metadata accessor for HandshakeState);
-        v35 = v91;
-        if (!v59)
+        v52 = v50;
+        v53 = v80;
+        _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v52, v80, type metadata accessor for HandshakeStateMachine);
+        v54 = v81;
+        outlined init with copy of TLSHandshakeStateMachine(v53 + *(v85 + 24), v81, type metadata accessor for HandshakeState);
+        outlined destroy of EncryptionLevel(v53, type metadata accessor for HandshakeStateMachine);
+        LODWORD(v53) = swift_getEnumCaseMultiPayload();
+        outlined destroy of EncryptionLevel(v54, type metadata accessor for HandshakeState);
+        v29 = v84;
+        if (!v53)
         {
           goto LABEL_43;
         }
       }
 
-      _s15SwiftTLSLibrary16TLSRecordHandlerV9readAlert33_3A7BCC859838BE1761A4636F58F247A0LLyySays5UInt8VGAA8TLSErrorOYKF();
+      _s15SwiftTLSLibrary16TLSRecordHandlerV9readAlert33_3A7BCC859838BE1761A4636F58F247A0LLyySays5UInt8VGAA8TLSErrorOYKF(v5);
     }
 
     else
     {
-      outlined copy of TLSRecord();
-      _s15SwiftTLSLibrary16TLSRecordHandlerV21processHandshakeInput33_3A7BCC859838BE1761A4636F58F247A0LLyySays5UInt8VGzAA8TLSErrorOYKF(&v103);
+      outlined copy of TLSRecord(v39, v40, 0);
+      _s15SwiftTLSLibrary16TLSRecordHandlerV21processHandshakeInput33_3A7BCC859838BE1761A4636F58F247A0LLyySays5UInt8VGzAA8TLSErrorOYKF(&v96);
     }
 
     outlined consume of TLSRecord?(v4, v5, v3);
     outlined consume of TLSRecord?(v4, v5, v3);
 LABEL_6:
-    v37 = v36[1];
+    v31 = v30[1];
     v2 = 0;
-    v15 = v100;
-    if (v37 >> 60 == 15)
+    v13 = v93;
+    if (v31 >> 60 == 15)
     {
       return v4;
     }
   }
 
-  v48 = a2 + *(v99 + 24);
-  v50 = _s15SwiftTLSLibrary18TLSRecordProtectorV9deprotect10ciphertextAA17DeprotectedRecordVAA13TLSCiphertextV_tAA8TLSErrorOYKF(v45);
-  v103 = v50;
-  if (v49 == 21)
+  v42 = _s15SwiftTLSLibrary18TLSRecordProtectorV9deprotect10ciphertextAA17DeprotectedRecordVAA13TLSCiphertextV_tAA8TLSErrorOYKF(v39);
+  v44 = v42;
+  v96 = v42;
+  if (v43 == 21)
   {
-    _s15SwiftTLSLibrary16TLSRecordHandlerV9readAlert33_3A7BCC859838BE1761A4636F58F247A0LLyySays5UInt8VGAA8TLSErrorOYKF();
+    _s15SwiftTLSLibrary16TLSRecordHandlerV9readAlert33_3A7BCC859838BE1761A4636F58F247A0LLyySays5UInt8VGAA8TLSErrorOYKF(v42);
     goto LABEL_37;
   }
 
-  if (v49 == 22)
+  if (v43 == 22)
   {
-    _s15SwiftTLSLibrary16TLSRecordHandlerV21processHandshakeInput33_3A7BCC859838BE1761A4636F58F247A0LLyySays5UInt8VGzAA8TLSErrorOYKF(&v103);
+    _s15SwiftTLSLibrary16TLSRecordHandlerV21processHandshakeInput33_3A7BCC859838BE1761A4636F58F247A0LLyySays5UInt8VGzAA8TLSErrorOYKF(&v96);
     goto LABEL_37;
   }
 
-  if (v49 != 23)
+  if (v43 != 23)
   {
-    v75 = v49;
+    v68 = v43;
 
-    if (v75)
+    if (v68)
     {
-      if (v75 == 20)
+      if (v68 == 20)
       {
         if (one-time initialization token for logger != -1)
         {
           swift_once();
         }
 
-        v76 = type metadata accessor for Logger();
-        __swift_project_value_buffer(v76, logger);
-        v68 = Logger.logObject.getter();
-        v77 = static os_log_type_t.error.getter();
-        if (os_log_type_enabled(v68, v77))
+        v69 = type metadata accessor for Logger();
+        __swift_project_value_buffer(v69, logger);
+        v61 = Logger.logObject.getter();
+        v70 = static os_log_type_t.error.getter();
+        if (os_log_type_enabled(v61, v70))
         {
-          v70 = swift_slowAlloc();
-          *v70 = 0;
-          v78 = "got an encrypted change cipher spec message";
+          v63 = swift_slowAlloc();
+          *v63 = 0;
+          v71 = "got an encrypted change cipher spec message";
           goto LABEL_62;
         }
 
@@ -5775,18 +3718,18 @@ LABEL_6:
         swift_once();
       }
 
-      v81 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v81, logger);
-      v68 = Logger.logObject.getter();
-      v77 = static os_log_type_t.error.getter();
-      if (!os_log_type_enabled(v68, v77))
+      v74 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v74, logger);
+      v61 = Logger.logObject.getter();
+      v70 = static os_log_type_t.error.getter();
+      if (!os_log_type_enabled(v61, v70))
       {
         goto LABEL_64;
       }
 
-      v70 = swift_slowAlloc();
-      *v70 = 0;
-      v78 = "got an encrypted record with an unrecognized content type";
+      v63 = swift_slowAlloc();
+      *v63 = 0;
+      v71 = "got an encrypted record with an unrecognized content type";
     }
 
     else
@@ -5796,51 +3739,50 @@ LABEL_6:
         swift_once();
       }
 
-      v80 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v80, logger);
-      v68 = Logger.logObject.getter();
-      v77 = static os_log_type_t.error.getter();
-      if (!os_log_type_enabled(v68, v77))
+      v73 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v73, logger);
+      v61 = Logger.logObject.getter();
+      v70 = static os_log_type_t.error.getter();
+      if (!os_log_type_enabled(v61, v70))
       {
         goto LABEL_64;
       }
 
-      v70 = swift_slowAlloc();
-      *v70 = 0;
-      v78 = "got an encrypted record with an invalid content type";
+      v63 = swift_slowAlloc();
+      *v63 = 0;
+      v71 = "got an encrypted record with an invalid content type";
     }
 
 LABEL_62:
-    _os_log_impl(&dword_1B25F5000, v68, v77, v78, v70, 2u);
+    _os_log_impl(&dword_1B25F5000, v61, v70, v71, v63, 2u);
 LABEL_63:
-    MEMORY[0x1B274ECF0](v70, -1, -1);
+    MEMORY[0x1B274ECF0](v63, -1, -1);
     goto LABEL_64;
   }
 
-  outlined init with copy of TLSHandshakeStateMachine(a2, v35, type metadata accessor for TLSRecordHandler);
-  v51 = v90;
-  outlined init with copy of TLSHandshakeStateMachine(v35, v90, type metadata accessor for TLSHandshakeStateMachine);
+  outlined init with copy of TLSHandshakeStateMachine(a2, v29, type metadata accessor for TLSRecordHandler);
+  v45 = v83;
+  outlined init with copy of TLSHandshakeStateMachine(v29, v83, type metadata accessor for TLSHandshakeStateMachine);
   if (swift_getEnumCaseMultiPayload() == 1)
   {
-    v52 = v51;
-    v53 = v85;
-    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v52, v85, type metadata accessor for ServerHandshakeStateMachine);
-    v54 = v86;
-    outlined init with copy of TLSHandshakeStateMachine(v53 + *(v94 + 24), v86, type metadata accessor for ServerHandshakeState);
-    outlined destroy of EncryptionLevel(v53, type metadata accessor for ServerHandshakeStateMachine);
-    LODWORD(v53) = swift_getEnumCaseMultiPayload();
-    outlined destroy of EncryptionLevel(v54, type metadata accessor for ServerHandshakeState);
-    v35 = v91;
-    outlined destroy of EncryptionLevel(v91, type metadata accessor for TLSRecordHandler);
-    if (v53 <= 6)
+    v46 = v45;
+    v47 = v78;
+    _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v46, v78, type metadata accessor for ServerHandshakeStateMachine);
+    v48 = v79;
+    outlined init with copy of TLSHandshakeStateMachine(v47 + *(v87 + 24), v79, type metadata accessor for ServerHandshakeState);
+    outlined destroy of EncryptionLevel(v47, type metadata accessor for ServerHandshakeStateMachine);
+    LODWORD(v47) = swift_getEnumCaseMultiPayload();
+    outlined destroy of EncryptionLevel(v48, type metadata accessor for ServerHandshakeState);
+    v29 = v84;
+    outlined destroy of EncryptionLevel(v84, type metadata accessor for TLSRecordHandler);
+    if (v47 <= 6)
     {
       goto LABEL_50;
     }
 
 LABEL_35:
-    if (*(v50 + 16))
+    if (*(v44 + 16))
     {
-      v64 = a2 + *(v99 + 44);
       Data._Representation.append(contentsOf:)();
     }
 
@@ -5850,17 +3792,17 @@ LABEL_37:
     goto LABEL_6;
   }
 
-  v61 = v51;
-  v62 = v83;
-  _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v61, v83, type metadata accessor for HandshakeStateMachine);
-  v63 = v84;
-  outlined init with copy of TLSHandshakeStateMachine(v62 + *(v92 + 24), v84, type metadata accessor for HandshakeState);
-  outlined destroy of EncryptionLevel(v62, type metadata accessor for HandshakeStateMachine);
-  LODWORD(v62) = swift_getEnumCaseMultiPayload();
-  outlined destroy of EncryptionLevel(v63, type metadata accessor for HandshakeState);
-  v35 = v91;
-  outlined destroy of EncryptionLevel(v91, type metadata accessor for TLSRecordHandler);
-  if (v62 >= 6)
+  v55 = v45;
+  v56 = v76;
+  _s15SwiftTLSLibrary27ServerHandshakeStateMachineVWObTm_0(v55, v76, type metadata accessor for HandshakeStateMachine);
+  v57 = v77;
+  outlined init with copy of TLSHandshakeStateMachine(v56 + *(v85 + 24), v77, type metadata accessor for HandshakeState);
+  outlined destroy of EncryptionLevel(v56, type metadata accessor for HandshakeStateMachine);
+  LODWORD(v56) = swift_getEnumCaseMultiPayload();
+  outlined destroy of EncryptionLevel(v57, type metadata accessor for HandshakeState);
+  v29 = v84;
+  outlined destroy of EncryptionLevel(v84, type metadata accessor for TLSRecordHandler);
+  if (v56 >= 6)
   {
     goto LABEL_35;
   }
@@ -5872,51 +3814,50 @@ LABEL_50:
     swift_once();
   }
 
-  v79 = type metadata accessor for Logger();
-  __swift_project_value_buffer(v79, logger);
-  v68 = Logger.logObject.getter();
-  v77 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(v68, v77))
+  v72 = type metadata accessor for Logger();
+  __swift_project_value_buffer(v72, logger);
+  v61 = Logger.logObject.getter();
+  v70 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(v61, v70))
   {
-    v70 = swift_slowAlloc();
-    *v70 = 0;
-    v78 = "got application data before handshake complete";
+    v63 = swift_slowAlloc();
+    *v63 = 0;
+    v71 = "got application data before handshake complete";
     goto LABEL_62;
   }
 
 LABEL_64:
 
-  v101 = xmmword_1B26C6430;
-  v102 = 2;
+  v94 = xmmword_1B26C6430;
+  v95 = 2;
   lazy protocol witness table accessor for type TLSError and conformance TLSError();
   swift_willThrowTypedImpl();
   outlined consume of TLSRecord?(v4, v5, v3);
   return 4;
 }
 
-uint64_t specialized Collection._copyToContiguousArray()(uint64_t a1, unint64_t a2)
+void *specialized Collection._copyToContiguousArray()(uint64_t a1, unint64_t a2)
 {
   v4 = type metadata accessor for Data.Iterator();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   result = MEMORY[0x1EEE9AC00](v4);
-  v9 = &v18 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = a2 >> 62;
+  v8 = &v17 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = a2 >> 62;
   if ((a2 >> 62) > 1)
   {
-    if (v10 != 2)
+    if (v9 != 2)
     {
 LABEL_12:
       outlined consume of Data._Representation(a1, a2);
       return MEMORY[0x1E69E7CC0];
     }
 
-    v13 = *(a1 + 16);
-    v12 = *(a1 + 24);
-    v11 = v12 - v13;
-    if (!__OFSUB__(v12, v13))
+    v12 = *(a1 + 16);
+    v11 = *(a1 + 24);
+    v10 = v11 - v12;
+    if (!__OFSUB__(v11, v12))
     {
-      if (v11)
+      if (v10)
       {
         goto LABEL_8;
       }
@@ -5931,12 +3872,12 @@ LABEL_15:
 
   else
   {
-    if (v10)
+    if (v9)
     {
       goto LABEL_10;
     }
 
-    v11 = BYTE6(a2);
+    v10 = BYTE6(a2);
     if (!BYTE6(a2))
     {
       goto LABEL_12;
@@ -5945,28 +3886,28 @@ LABEL_15:
 LABEL_8:
     while (1)
     {
-      v14 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v11, 0);
-      v15 = Data._copyContents(initializing:)();
+      v13 = _ss22_ContiguousArrayBufferV19_uninitializedCount15minimumCapacityAByxGSi_SitcfCs5UInt8V_Tt1gq5(v10, 0);
+      v14 = Data._copyContents(initializing:)();
       outlined consume of Data._Representation(a1, a2);
-      v16 = *(v5 + 8);
+      v15 = *(v5 + 8);
       v5 += 8;
-      v16(v9, v4);
-      result = v14;
-      if (v15 == v11)
+      v15(v8, v4);
+      result = v13;
+      if (v14 == v10)
       {
         break;
       }
 
       __break(1u);
 LABEL_10:
-      v17 = HIDWORD(a1) - a1;
+      v16 = HIDWORD(a1) - a1;
       if (__OFSUB__(HIDWORD(a1), a1))
       {
         goto LABEL_15;
       }
 
-      v11 = v17;
-      if (!v17)
+      v10 = v16;
+      if (!v16)
       {
         goto LABEL_12;
       }
@@ -5992,22 +3933,22 @@ unint64_t specialized Data.InlineData.init(count:)(unint64_t result)
   return result;
 }
 
-void type metadata completion function for TLSRecordHandler()
+void type metadata completion function for TLSRecordHandler(uint64_t a1)
 {
   type metadata accessor for TLSHandshakeStateMachine(319);
-  if (v0 <= 0x3F)
+  if (v1 <= 0x3F)
   {
-    type metadata accessor for TLSRecordProtector();
-    if (v1 <= 0x3F)
+    type metadata accessor for TLSRecordProtector(319);
+    if (v2 <= 0x3F)
     {
-      type metadata accessor for EncryptionLevel?();
-      if (v2 <= 0x3F)
+      type metadata accessor for EncryptionLevel?(319);
+      if (v3 <= 0x3F)
       {
-        type metadata accessor for PAKEServerRecords?(319, &lazy cache variable for type metadata for Alert?);
-        if (v3 <= 0x3F)
+        type metadata accessor for PAKEServerRecords?(319, &lazy cache variable for type metadata for Alert?, &type metadata for Alert);
+        if (v4 <= 0x3F)
         {
-          type metadata accessor for PAKEServerRecords?(319, &lazy cache variable for type metadata for TLSError?);
-          if (v4 <= 0x3F)
+          type metadata accessor for PAKEServerRecords?(319, &lazy cache variable for type metadata for TLSError?, &type metadata for TLSError);
+          if (v5 <= 0x3F)
           {
             swift_cvw_initStructMetadataWithLayoutString();
           }
@@ -6017,15 +3958,15 @@ void type metadata completion function for TLSRecordHandler()
   }
 }
 
-void type metadata accessor for EncryptionLevel?()
+void type metadata accessor for EncryptionLevel?(uint64_t a1)
 {
   if (!lazy cache variable for type metadata for EncryptionLevel?)
   {
     type metadata accessor for EncryptionLevel(255);
-    v0 = type metadata accessor for Optional();
-    if (!v1)
+    v1 = type metadata accessor for Optional();
+    if (!v2)
     {
-      atomic_store(v0, &lazy cache variable for type metadata for EncryptionLevel?);
+      atomic_store(v1, &lazy cache variable for type metadata for EncryptionLevel?);
     }
   }
 }
@@ -6058,7 +3999,7 @@ uint64_t outlined init with copy of TLSHandshakeStateMachine(uint64_t a1, uint64
   return a2;
 }
 
-uint64_t static Extension.ApplicationLayerProtocolNegotiation.__derived_enum_equals(_:_:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, char a6)
+uint64_t static Extension.ApplicationLayerProtocolNegotiation.__derived_enum_equals(_:_:)(uint64_t a1, uint64_t a2, char a3, uint64_t a4, uint64_t a5, char a6, __n128 a7, __n128 a8, __n128 a9)
 {
   if ((a3 & 1) == 0)
   {
@@ -6097,20 +4038,18 @@ uint64_t Extension.ApplicationLayerProtocolNegotiation.hash(into:)(uint64_t a1, 
 
   else
   {
-    MEMORY[0x1B274DB20](0);
+    MEMORY[0x1B274DB20](0, a2, a3);
     v6 = *(a2 + 16);
     result = MEMORY[0x1B274DB20](v6);
     if (v6)
     {
-      v7 = (a2 + 40);
+      v7 = a2 + 40;
       do
       {
-        v8 = *(v7 - 1);
-        v9 = *v7;
 
         String.hash(into:)();
 
-        v7 += 2;
+        v7 += 16;
         --v6;
       }
 
@@ -6137,15 +4076,13 @@ Swift::Int Extension.ApplicationLayerProtocolNegotiation.hashValue.getter(uint64
     MEMORY[0x1B274DB20](v5);
     if (v5)
     {
-      v6 = (a1 + 40);
+      v6 = a1 + 40;
       do
       {
-        v7 = *(v6 - 1);
-        v8 = *v6;
 
         String.hash(into:)();
 
-        v6 += 2;
+        v6 += 16;
         --v5;
       }
 
@@ -6156,25 +4093,24 @@ Swift::Int Extension.ApplicationLayerProtocolNegotiation.hashValue.getter(uint64
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Extension.ApplicationLayerProtocolNegotiation()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Extension.ApplicationLayerProtocolNegotiation(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = *(v0 + 8);
-  v3 = *(v0 + 16);
+  v2 = *v1;
+  v3 = *(v1 + 8);
+  v4 = *(v1 + 16);
   Hasher.init(_seed:)();
-  Extension.ApplicationLayerProtocolNegotiation.hash(into:)(v5, v1, v2, v3);
+  Extension.ApplicationLayerProtocolNegotiation.hash(into:)(v6, v2, v3, v4);
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Extension.ApplicationLayerProtocolNegotiation(uint64_t a1, uint64_t a2)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Extension.ApplicationLayerProtocolNegotiation(uint64_t a1, uint64_t a2, __n128 a3, __n128 a4, __n128 a5)
 {
-  v3 = *a1;
-  v4 = *(a2 + 16);
+  v6 = *a1;
   if ((*(a1 + 16) & 1) == 0)
   {
     if ((*(a2 + 16) & 1) == 0)
     {
-      return _sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(v3, *a2);
+      return _sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(v6, *a2);
     }
 
     return 0;
@@ -6185,8 +4121,8 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Ext
     return 0;
   }
 
-  v5 = *(a1 + 8);
-  if (v3 == *a2 && v5 == *(a2 + 8))
+  v7 = *(a1 + 8);
+  if (v6 == *a2 && v7 == *(a2 + 8))
   {
     return 1;
   }
@@ -6209,7 +4145,7 @@ unint64_t lazy protocol witness table accessor for type Extension.ApplicationLay
   return result;
 }
 
-uint64_t specialized closure #3 in Data.append<A>(contentsOf:)(uint64_t result, uint64_t a2, uint64_t a3)
+uint64_t specialized closure #3 in Data.append<A>(contentsOf:)(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (!result)
   {
@@ -6225,7 +4161,7 @@ LABEL_6:
   }
 
   result = _StringGuts.copyUTF8(into:)();
-  if ((v3 & 1) == 0)
+  if ((v5 & 1) == 0)
   {
 
     return 0;
@@ -6238,39 +4174,26 @@ LABEL_7:
 
 uint64_t partial apply for specialized closure #3 in Data.append<A>(contentsOf:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
-  v6 = *(v3 + 32);
-  v7 = *v6;
-  v8 = v6[1];
-  result = specialized closure #3 in Data.append<A>(contentsOf:)(a1, a2, *(v3 + 16));
+  result = specialized closure #3 in Data.append<A>(contentsOf:)(a1, a2, *(v3 + 16), **(v3 + 32), *(*(v3 + 32) + 8));
   if (!v4)
   {
     *a3 = result;
-    a3[1] = v10;
-    a3[2] = v11;
-    a3[3] = v12;
+    a3[1] = v7;
+    a3[2] = v8;
+    a3[3] = v9;
   }
 
   return result;
 }
 
-uint64_t static HashFunction.zeroHash.getter(uint64_t a1)
+uint64_t static HashFunction.zeroHash.getter(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 - 8);
-  v3 = *(v2 + 64);
+  v3 = *(a1 - 8);
   MEMORY[0x1EEE9AC00](a1);
   v5 = &v7 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   dispatch thunk of HashFunction.init()();
   dispatch thunk of HashFunction.finalize()();
-  return (*(v2 + 8))(v5, a1);
-}
-
-uint64_t partial apply for closure #1 in static HMAC.authenticationCode<A>(bytes:using:)()
-{
-  v1 = v0[2];
-  v2 = v0[4];
-  v3 = v0[6];
-  lazy protocol witness table accessor for type UnsafeRawBufferPointer and conformance UnsafeRawBufferPointer();
-  return static HMAC.authenticationCode<A>(for:using:)();
+  return (*(v3 + 8))(v5, a1);
 }
 
 uint64_t static Extension.ServerName.__derived_enum_equals(_:_:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, unint64_t a5, uint64_t a6)
@@ -6288,49 +4211,50 @@ uint64_t static Extension.ServerName.__derived_enum_equals(_:_:)(uint64_t a1, un
   return specialized static ByteBuffer.== infix(_:_:)(a1, a2, a3, a4, a5, a6);
 }
 
-uint64_t Extension.ServerName.hash(into:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+void Extension.ServerName.hash(into:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
   if (a3 >> 60 == 15)
   {
-    return MEMORY[0x1B274DB20](1);
+    MEMORY[0x1B274DB20](1, a2);
   }
 
-  result = MEMORY[0x1B274DB20](0);
-  v8 = a3 >> 62;
-  if ((a3 >> 62) > 1)
+  else
   {
-    v9 = 0;
-    if (v8 == 2)
+    MEMORY[0x1B274DB20](0);
+    v7 = a3 >> 62;
+    if ((a3 >> 62) > 1)
     {
-      v9 = *(a2 + 24);
+      v8 = 0;
+      if (v7 == 2)
+      {
+        v8 = *(a2 + 24);
+      }
+    }
+
+    else if (v7)
+    {
+      v8 = a2 >> 32;
+    }
+
+    else
+    {
+      v8 = BYTE6(a3);
+    }
+
+    if (v8 < a4)
+    {
+      __break(1u);
+    }
+
+    else
+    {
+      v9 = Data._Representation.subscript.getter();
+      v11 = v10;
+      Data.hash(into:)();
+
+      outlined consume of Data._Representation(v9, v11);
     }
   }
-
-  else if (v8)
-  {
-    v9 = a2 >> 32;
-  }
-
-  else
-  {
-    v9 = BYTE6(a3);
-  }
-
-  if (v9 < a4)
-  {
-    __break(1u);
-  }
-
-  else
-  {
-    v10 = Data._Representation.subscript.getter();
-    v12 = v11;
-    Data.hash(into:)();
-
-    return outlined consume of Data._Representation(v10, v12);
-  }
-
-  return result;
 }
 
 uint64_t Extension.ServerName.hashValue.getter(uint64_t a1, unint64_t a2, uint64_t a3)
@@ -6376,13 +4300,13 @@ uint64_t Extension.ServerName.hashValue.getter(uint64_t a1, unint64_t a2, uint64
   return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Extension.ServerName()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Extension.ServerName(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v3 = v0[2];
+  v2 = *v1;
+  v3 = v1[1];
+  v4 = v1[2];
   Hasher.init(_seed:)();
-  Extension.ServerName.hash(into:)(v5, v1, v2, v3);
+  Extension.ServerName.hash(into:)(v6, v2, v3, v4);
   return Hasher._finalize()();
 }
 
@@ -6402,17 +4326,16 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Ext
   }
 }
 
-uint64_t _s15SwiftTLSLibrary10ByteBufferV14readServerName11messageTypeAA9ExtensionO0fG0OAA09HandshakeI0V_tAA8TLSErrorOYKFA2CzAMYKXEfU_@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+void _s15SwiftTLSLibrary10ByteBufferV14readServerName11messageTypeAA9ExtensionO0fG0OAA09HandshakeI0V_tAA8TLSErrorOYKFA2CzAMYKXEfU_(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
 {
   v4 = 0;
   v5 = 0;
-  v49 = *MEMORY[0x1E69E9840];
   v6 = 0xF000000000000000;
   while (1)
   {
-    v46 = v6;
-    v45 = v4;
-    result = *a1;
+    v45 = v6;
+    v44 = v4;
+    v7 = *a1;
     v8 = a1[1];
     v9 = a1[2];
     v10 = v8 >> 62;
@@ -6420,7 +4343,7 @@ uint64_t _s15SwiftTLSLibrary10ByteBufferV14readServerName11messageTypeAA9Extensi
     {
       if (v10 == 2)
       {
-        v11 = *(result + 24);
+        v11 = *(v7 + 24);
       }
 
       else
@@ -6431,7 +4354,7 @@ uint64_t _s15SwiftTLSLibrary10ByteBufferV14readServerName11messageTypeAA9Extensi
 
     else if (v10)
     {
-      v11 = result >> 32;
+      v11 = v7 >> 32;
     }
 
     else
@@ -6444,16 +4367,18 @@ uint64_t _s15SwiftTLSLibrary10ByteBufferV14readServerName11messageTypeAA9Extensi
     if (v12)
     {
       __break(1u);
+LABEL_93:
+      __break(1u);
 LABEL_94:
       __break(1u);
+      __break(1u);
+      __break(1u);
+      __break(1u);
+      __break(1u);
+      __break(1u);
+      __break(1u);
+      __break(1u);
 LABEL_95:
-      __break(1u);
-      __break(1u);
-      __break(1u);
-      __break(1u);
-      __break(1u);
-      __break(1u);
-      __break(1u);
       __break(1u);
 LABEL_96:
       __break(1u);
@@ -6473,8 +4398,6 @@ LABEL_103:
       __break(1u);
 LABEL_104:
       __break(1u);
-LABEL_105:
-      __break(1u);
     }
 
     if (v13 < 1)
@@ -6484,25 +4407,25 @@ LABEL_105:
         *a3 = v4;
         a3[1] = v6;
         a3[2] = v5;
-        goto LABEL_92;
+        return;
       }
 
       lazy protocol witness table accessor for type TLSError and conformance TLSError();
-      result = swift_willThrowTypedImpl();
+      swift_willThrowTypedImpl();
       goto LABEL_86;
     }
 
     v14 = v9 + 1;
     if (__OFADD__(v9, 1))
     {
-      goto LABEL_94;
+      goto LABEL_93;
     }
 
     if (v10 > 1)
     {
       if (v10 == 2)
       {
-        if (*(result + 24) < v14)
+        if (*(v7 + 24) < v14)
         {
           goto LABEL_90;
         }
@@ -6516,7 +4439,7 @@ LABEL_105:
 
     else if (v10)
     {
-      if (result >> 32 < v14)
+      if (v7 >> 32 < v14)
       {
         goto LABEL_90;
       }
@@ -6527,26 +4450,26 @@ LABEL_105:
       goto LABEL_90;
     }
 
-    v47 = *a1;
-    v48 = a1[1];
+    v46 = *a1;
+    v47 = a1[1];
     if (v14 < v9)
     {
-      goto LABEL_95;
+      goto LABEL_94;
     }
 
-    outlined copy of Data._Representation(result, v8);
+    outlined copy of Data._Representation(v7, v8);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd, &_sSnySiGMR);
     lazy protocol witness table accessor for type Data and conformance Data();
     lazy protocol witness table accessor for type Range<Int> and conformance Range<A>();
     DataProtocol.copyBytes<A>(to:from:)();
-    outlined consume of Data._Representation(v47, v48);
+    outlined consume of Data._Representation(v46, v47);
     a1[2] = v14;
     v15 = *a1;
     v16 = a1[1];
     v17 = v14 + 2;
     if (__OFADD__(v14, 2))
     {
-      goto LABEL_96;
+      goto LABEL_95;
     }
 
     v19 = v16 >> 62;
@@ -6574,7 +4497,7 @@ LABEL_33:
 LABEL_36:
     if (v17 < v14)
     {
-      goto LABEL_97;
+      goto LABEL_96;
     }
 
     outlined copy of Data._Representation(v15, v16);
@@ -6586,7 +4509,7 @@ LABEL_36:
     v22 = v17 + v21;
     if (__OFADD__(v17, v21))
     {
-      goto LABEL_98;
+      goto LABEL_97;
     }
 
     v23 = *a1;
@@ -6627,7 +4550,7 @@ LABEL_44:
 LABEL_47:
     if (v22 < v17)
     {
-      goto LABEL_99;
+      goto LABEL_98;
     }
 
     v27 = Data._Representation.subscript.getter();
@@ -6665,13 +4588,13 @@ LABEL_47:
     v32 = v31 - v27;
     if (v12)
     {
-      goto LABEL_100;
+      goto LABEL_99;
     }
 
     v33 = v27 + v32;
     if (__OFADD__(v27, v32))
     {
-      goto LABEL_101;
+      goto LABEL_100;
     }
 
     if (v30 > 1)
@@ -6680,7 +4603,7 @@ LABEL_47:
       {
         if (v33 > 0)
         {
-          goto LABEL_105;
+          goto LABEL_104;
         }
 
         goto LABEL_66;
@@ -6701,17 +4624,17 @@ LABEL_47:
 
     if (v34 < v33)
     {
-      goto LABEL_104;
+      goto LABEL_103;
     }
 
 LABEL_66:
     if (v33 < v27)
     {
-      goto LABEL_102;
+      goto LABEL_101;
     }
 
-    v41 = v29;
-    v42 = v28;
+    v40 = v29;
+    v41 = v28;
     v35 = Data._Representation.subscript.getter();
     v4 = v35;
     v6 = v36;
@@ -6734,7 +4657,7 @@ LABEL_66:
     {
       if (v30 == 2)
       {
-        v38 = *(v41 + 24);
+        v38 = *(v40 + 24);
       }
 
       else
@@ -6745,17 +4668,17 @@ LABEL_66:
 
     else if (v30)
     {
-      v38 = v41 >> 32;
+      v38 = v40 >> 32;
     }
 
     else
     {
-      v38 = BYTE6(v42);
+      v38 = BYTE6(v41);
     }
 
     if (__OFSUB__(v38, v33))
     {
-      goto LABEL_103;
+      goto LABEL_102;
     }
 
     if (v38 != v33)
@@ -6763,25 +4686,25 @@ LABEL_66:
       lazy protocol witness table accessor for type TLSError and conformance TLSError();
       swift_willThrowTypedImpl();
       outlined consume of Data._Representation(v4, v6);
-      outlined consume of Data._Representation(v41, v42);
+      outlined consume of Data._Representation(v40, v41);
       outlined consume of Data._Representation(*a1, a1[1]);
       *a1 = v15;
       a1[1] = v16;
       a1[2] = v14;
       swift_willThrowTypedImpl();
-      result = outlined consume of ByteBuffer?(v45, v46);
+      outlined consume of ByteBuffer?(v44, v45);
       v39 = 1;
       goto LABEL_91;
     }
 
-    outlined consume of Data._Representation(v41, v42);
+    outlined consume of Data._Representation(v40, v41);
     outlined consume of Data._Representation(v15, v16);
-    if (v46 >> 60 != 15)
+    if (v45 >> 60 != 15)
     {
       lazy protocol witness table accessor for type TLSError and conformance TLSError();
       swift_willThrowTypedImpl();
       outlined consume of Data._Representation(v4, v6);
-      result = outlined consume of ByteBuffer?(v45, v46);
+      outlined consume of ByteBuffer?(v44, v45);
 LABEL_86:
       v39 = 5;
       goto LABEL_91;
@@ -6811,15 +4734,12 @@ LABEL_89:
 LABEL_90:
   lazy protocol witness table accessor for type TLSError and conformance TLSError();
   swift_willThrowTypedImpl();
-  result = outlined consume of ByteBuffer?(v45, v6);
+  outlined consume of ByteBuffer?(v44, v6);
   v39 = 0;
 LABEL_91:
   *a2 = v39;
   *(a2 + 8) = 0;
   *(a2 + 16) = 2;
-LABEL_92:
-  v40 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 unint64_t lazy protocol witness table accessor for type Extension.ServerName and conformance Extension.ServerName()
@@ -6926,93 +4846,87 @@ void *destructiveInjectEnumTag for Extension.ServerName(void *result, unsigned i
 
 uint64_t ByteBuffer.writeKeyShare(_:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = (a3 >> 60) & 3;
   if (!v5)
   {
-    v9 = *v4;
-    v10 = v4[1];
-    v11 = v10 >> 62;
-    if ((v10 >> 62) > 1)
+    v8 = *v4;
+    v9 = v4[1];
+    v10 = v9 >> 62;
+    if ((v9 >> 62) > 1)
     {
-      if (v11 == 2)
+      if (v10 == 2)
       {
-        v15 = *(v9 + 24);
+        v14 = *(v8 + 24);
       }
 
       else
       {
-        v15 = 0;
+        v14 = 0;
       }
     }
 
     else
     {
-      v13 = BYTE6(v10);
-      v14 = v9 >> 32;
-      if (v11)
+      v12 = BYTE6(v9);
+      v13 = v8 >> 32;
+      if (v10)
       {
-        v15 = v14;
+        v14 = v13;
       }
 
       else
       {
-        v15 = v13;
+        v14 = v12;
       }
     }
 
-    v25 = 0;
-    v28 = MEMORY[0x1E69E6290];
-    v29 = MEMORY[0x1E6969DF8];
-    v26 = &v25;
-    v27 = &v26;
-    v19 = __swift_project_boxed_opaque_existential_0(&v26, MEMORY[0x1E69E6290]);
-    v21 = *v19;
-    v20 = v19[1];
+    v17 = 0;
+    v20 = MEMORY[0x1E69E6290];
+    v21 = MEMORY[0x1E6969DF8];
+    v18 = &v17;
+    v19 = &v18;
+    __swift_project_boxed_opaque_existential_0(&v18, MEMORY[0x1E69E6290]);
     Data._Representation.append(contentsOf:)();
-    __swift_destroy_boxed_opaque_existential_0(&v26);
-    v22 = specialized Sequence.reduce<A>(into:_:)(0, a1);
-    if ((v22 & 0x8000000000000000) != 0)
+    __swift_destroy_boxed_opaque_existential_0(&v18);
+    v15 = specialized Sequence.reduce<A>(into:_:)(0, a1);
+    if ((v15 & 0x8000000000000000) != 0)
     {
       __break(1u);
     }
 
     else
     {
-      v23 = v22;
-      if (!(v22 >> 16))
+      v16 = v15;
+      if (!(v15 >> 16))
       {
-        _s15SwiftTLSLibrary10ByteBufferV10setInteger_2at2asSix_Sixmts010FixedWidthF0RzlFs6UInt16V_Tt1g5(v22, v15);
-        result = v23 + 2;
-        goto LABEL_17;
+        _s15SwiftTLSLibrary10ByteBufferV10setInteger_2at2asSix_Sixmts010FixedWidthF0RzlFs6UInt16V_Tt1g5(v15, v14);
+        return v16 + 2;
       }
     }
 
     __break(1u);
   }
 
-  if (v5 != 1)
+  if (v5 == 1)
   {
-    v25 = bswap32(a1) >> 16;
-    v28 = MEMORY[0x1E69E6290];
-    v29 = MEMORY[0x1E6969DF8];
-    v26 = &v25;
-    v27 = &v26;
-    v16 = __swift_project_boxed_opaque_existential_0(&v26, MEMORY[0x1E69E6290]);
-    v18 = *v16;
-    v17 = v16[1];
-    Data._Representation.append(contentsOf:)();
-    __swift_destroy_boxed_opaque_existential_0(&v26);
-    result = 2;
-LABEL_17:
-    v24 = *MEMORY[0x1E69E9840];
-    return result;
+    v6 = a3 & 0xCFFFFFFFFFFFFFFFLL;
+
+    return ByteBuffer.writeKeyShareEntry(_:)(a1, a2, v6, a4);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
-  v7 = a3 & 0xCFFFFFFFFFFFFFFFLL;
-
-  return ByteBuffer.writeKeyShareEntry(_:)(a1, a2, v7, a4);
+  else
+  {
+    v17 = bswap32(a1) >> 16;
+    v20 = MEMORY[0x1E69E6290];
+    v21 = MEMORY[0x1E6969DF8];
+    v18 = &v17;
+    v19 = &v18;
+    __swift_project_boxed_opaque_existential_0(&v18, MEMORY[0x1E69E6290]);
+    Data._Representation.append(contentsOf:)();
+    __swift_destroy_boxed_opaque_existential_0(&v18);
+    return 2;
+  }
 }
 
 uint64_t Extension.KeyShare.KeyShareEntry.description.getter(unsigned __int16 a1, uint64_t a2, unint64_t a3, uint64_t a4)
@@ -7061,70 +4975,71 @@ uint64_t Extension.KeyShare.KeyShareEntry.description.getter(unsigned __int16 a1
 
 void Extension.KeyShare.hash(into:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4, uint64_t a5)
 {
-  v7 = (a4 >> 60) & 3;
-  if (v7)
+  v5 = a2;
+  v6 = (a4 >> 60) & 3;
+  if (v6)
   {
-    if (v7 == 1)
+    if (v6 == 1)
     {
       MEMORY[0x1B274DB20](1);
-      Hasher._combine(_:)(a2);
-      v11 = a4 >> 62;
+      Hasher._combine(_:)(v5);
+      v10 = a4 >> 62;
       if ((a4 >> 62) > 1)
       {
-        v13 = a5;
-        if (v11 == 2)
+        v12 = a5;
+        if (v10 == 2)
         {
-          v12 = *(a3 + 24);
+          v11 = *(a3 + 24);
         }
 
         else
         {
-          v12 = 0;
+          v11 = 0;
         }
       }
 
       else
       {
-        if (v11)
+        if (v10)
         {
-          v12 = a3 >> 32;
+          v11 = a3 >> 32;
         }
 
         else
         {
-          v12 = BYTE6(a4);
+          v11 = BYTE6(a4);
         }
 
-        v13 = a5;
+        v12 = a5;
       }
 
-      if (v12 < v13)
+      if (v11 < v12)
       {
         __break(1u);
       }
 
       else
       {
-        v14 = Data._Representation.subscript.getter();
-        v16 = v15;
+        v13 = Data._Representation.subscript.getter();
+        v15 = v14;
         Data.hash(into:)();
 
-        outlined consume of Data._Representation(v14, v16);
+        outlined consume of Data._Representation(v13, v15);
       }
     }
 
     else
     {
-      MEMORY[0x1B274DB20](2);
-      Hasher._combine(_:)(a2);
+      MEMORY[0x1B274DB20](2, a2, a3);
+      Hasher._combine(_:)(v5);
     }
   }
 
   else
   {
-    MEMORY[0x1B274DB20](0);
+    MEMORY[0x1B274DB20](0, a2, a3);
 
-    specialized Array<A>.hash(into:)(a1, a2);
+    specialized Array<A>.hash(into:)();
   }
 }
 
@@ -7146,14 +5061,14 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Extensi
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Extension.KeyShare()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Extension.KeyShare(uint64_t a1)
 {
-  v1 = *v0;
-  v2 = v0[1];
-  v4 = v0[2];
-  v3 = v0[3];
+  v2 = *v1;
+  v3 = v1[1];
+  v5 = v1[2];
+  v4 = v1[3];
   Hasher.init(_seed:)();
-  Extension.KeyShare.hash(into:)(v6, v1, v2, v4, v3);
+  Extension.KeyShare.hash(into:)(v7, v2, v3, v5, v4);
   return Hasher._finalize()();
 }
 
@@ -7289,10 +5204,9 @@ LABEL_28:
   return result;
 }
 
-uint64_t _s15SwiftTLSLibrary10ByteBufferV12readKeyShare11messageType17helloRetryRequestAA9ExtensionO0fG0OAA09HandshakeI0V_SbtAA8TLSErrorOYKFSayAJ0fG5EntryVGACzXEfU_@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+void _s15SwiftTLSLibrary10ByteBufferV12readKeyShare11messageType17helloRetryRequestAA9ExtensionO0fG0OAA09HandshakeI0V_SbtAA8TLSErrorOYKFSayAJ0fG5EntryVGACzXEfU_(uint64_t *a1@<X0>, char **a2@<X8>)
 {
   v2 = a1;
-  v59 = *MEMORY[0x1E69E9840];
   v4 = *a1;
   v3 = a1[1];
   v5 = a1[2];
@@ -7341,9 +5255,9 @@ uint64_t _s15SwiftTLSLibrary10ByteBufferV12readKeyShare11messageType17helloRetry
     v11 = v10 + 31;
   }
 
-  result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, (v11 >> 5) & ~(v11 >> 63), 0, MEMORY[0x1E69E7CC0]);
+  v12 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, (v11 >> 5) & ~(v11 >> 63), 0, MEMORY[0x1E69E7CC0]);
   v13 = v2[1];
-  v52 = *v2;
+  v51 = *v2;
   v14 = v5 + 2;
   if (__OFADD__(v5, 2))
   {
@@ -7375,18 +5289,18 @@ LABEL_100:
     __break(1u);
   }
 
-  v15 = result;
+  v15 = v12;
   v16 = v13 >> 62;
-  v53 = BYTE6(v13);
-  v54 = v13 >> 62;
-  v55 = v2;
+  v52 = BYTE6(v13);
+  v53 = v13 >> 62;
+  v54 = v2;
   while (1)
   {
     if (v16 > 1)
     {
       if (v16 == 2)
       {
-        if (*(v52 + 24) < v14)
+        if (*(v51 + 24) < v14)
         {
           goto LABEL_87;
         }
@@ -7400,10 +5314,10 @@ LABEL_100:
 
     else
     {
-      v17 = v53;
+      v17 = v52;
       if (v16)
       {
-        v17 = v52 >> 32;
+        v17 = v51 >> 32;
       }
 
       if (v17 < v14)
@@ -7412,20 +5326,20 @@ LABEL_100:
       }
     }
 
-    v57 = *v2;
-    v58 = v2[1];
+    v56 = *v2;
+    v57 = v2[1];
     if (v14 < v5)
     {
       goto LABEL_89;
     }
 
-    v56 = v15;
+    v55 = v15;
     outlined copy of Data._Representation(*v2, v2[1]);
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd, &_sSnySiGMR);
     lazy protocol witness table accessor for type Data and conformance Data();
     lazy protocol witness table accessor for type Range<Int> and conformance Range<A>();
     DataProtocol.copyBytes<A>(to:from:)();
-    outlined consume of Data._Representation(v57, v58);
+    outlined consume of Data._Representation(v56, v57);
     v2[2] = v14;
     v18 = *v2;
     v19 = v2[1];
@@ -7651,40 +5565,39 @@ LABEL_64:
       swift_willThrowTypedImpl();
       outlined consume of Data._Representation(v44, v40);
       outlined consume of Data._Representation(v30, v31);
-      outlined consume of Data._Representation(*v55, v55[1]);
-      *v55 = v18;
-      v55[1] = v19;
-      v55[2] = v14;
+      outlined consume of Data._Representation(*v54, v54[1]);
+      *v54 = v18;
+      v54[1] = v19;
+      v54[2] = v14;
       swift_willThrowTypedImpl();
       swift_allocError();
-      *v50 = xmmword_1B26C66C0;
-      *(v50 + 16) = 2;
-      result = swift_unexpectedError();
+      *v49 = xmmword_1B26C66C0;
+      *(v49 + 16) = 2;
+      swift_unexpectedError();
       __break(1u);
-      return result;
+      return;
     }
 
     v45 = v41;
     outlined consume of Data._Representation(v30, v31);
-    result = outlined consume of Data._Representation(v18, v19);
-    v15 = v56;
-    v47 = *(v56 + 16);
-    v46 = *(v56 + 24);
+    outlined consume of Data._Representation(v18, v19);
+    v15 = v55;
+    v47 = *(v55 + 2);
+    v46 = *(v55 + 3);
     if (v47 >= v46 >> 1)
     {
-      result = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v46 > 1), v47 + 1, 1, v56);
-      v15 = result;
+      v15 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v46 > 1), v47 + 1, 1, v55);
     }
 
-    *(v15 + 16) = v47 + 1;
-    v48 = v15 + 32 * v47;
-    *(v48 + 32) = bswap32(0) >> 16;
-    *(v48 + 40) = v44;
-    *(v48 + 48) = v40;
-    *(v48 + 56) = v45;
+    *(v15 + 2) = v47 + 1;
+    v48 = &v15[32 * v47];
+    *(v48 + 16) = bswap32(0) >> 16;
+    *(v48 + 5) = v44;
+    *(v48 + 6) = v40;
+    *(v48 + 7) = v45;
     v14 = v5 + 2;
-    LODWORD(v16) = v54;
-    v2 = v55;
+    LODWORD(v16) = v53;
+    v2 = v54;
     if (__OFADD__(v5, 2))
     {
       goto LABEL_88;
@@ -7707,15 +5620,13 @@ LABEL_85:
   v24 = *v2;
   v25 = v2[1];
 LABEL_86:
-  result = outlined consume of Data._Representation(v24, v25);
+  outlined consume of Data._Representation(v24, v25);
   *v2 = v18;
   v2[1] = v19;
   v2[2] = v14;
-  v15 = v56;
+  v15 = v55;
 LABEL_87:
   *a2 = v15;
-  v49 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t specialized static Extension.KeyShare.__derived_enum_equals(_:_:)(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
@@ -7829,11 +5740,11 @@ uint64_t _s15SwiftTLSLibrary21ExportedAuthenticatorV13authenticator21handshakeSt
   *(a3 + 16) = 0;
   *(a3 + 24) = 0;
   HandshakeMessageParser.appendBytes(_:)(a1);
-  v5 = type metadata accessor for ExportedAuthenticator();
+  v5 = type metadata accessor for ExportedAuthenticator(0);
   return _s15SwiftTLSLibrary21HandshakeStateMachineVWObTm_1(a2, a3 + *(v5 + 24), type metadata accessor for HandshakeStateMachine);
 }
 
-uint64_t type metadata accessor for ExportedAuthenticator()
+uint64_t type metadata accessor for ExportedAuthenticator(uint64_t a1)
 {
   result = type metadata singleton initialization cache for ExportedAuthenticator;
   if (!type metadata singleton initialization cache for ExportedAuthenticator)
@@ -7844,86 +5755,79 @@ uint64_t type metadata accessor for ExportedAuthenticator()
   return result;
 }
 
-uint64_t _s15SwiftTLSLibrary21ExportedAuthenticatorV8validate9keyParserSay10Foundation4DataVGAHSgAHXE_tAA8TLSErrorOYKF(uint64_t (*a1)(void), int64_t a2)
+uint64_t _s15SwiftTLSLibrary21ExportedAuthenticatorV8validate9keyParserSay10Foundation4DataVGAHSgAHXE_tAA8TLSErrorOYKF(uint64_t (*a1)(void), uint64_t a2)
 {
-  v229 = a1;
-  v230 = a2;
+  v217 = a1;
+  v218 = a2;
   v4 = type metadata accessor for P256.Signing.ECDSASignature();
-  v222 = *(v4 - 8);
-  v223 = v4;
-  v5 = *(v222 + 64);
+  v210 = *(v4 - 8);
+  v211 = v4;
   MEMORY[0x1EEE9AC00](v4);
-  v225 = &v204 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CryptoKit4P256O7SigningO9PublicKeyVSgMd, &_s9CryptoKit4P256O7SigningO9PublicKeyVSgMR);
-  v8 = *(*(v7 - 8) + 64);
-  MEMORY[0x1EEE9AC00](v7 - 8);
-  v231 = &v204 - v9;
-  v10 = type metadata accessor for P256.Signing.PublicKey();
-  v11 = *(v10 - 8);
-  v227 = v10;
-  v228 = v11;
-  v12 = *(v11 + 64);
-  MEMORY[0x1EEE9AC00](v10);
-  v226 = &v204 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v213 = &v192 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CryptoKit4P256O7SigningO9PublicKeyVSgMd, &_s9CryptoKit4P256O7SigningO9PublicKeyVSgMR);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v219 = &v192 - v7;
+  v8 = type metadata accessor for P256.Signing.PublicKey();
+  v9 = *(v8 - 8);
+  v215 = v8;
+  v216 = v9;
+  MEMORY[0x1EEE9AC00](v8);
+  v214 = &v192 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   ready = type metadata accessor for HandshakeState.ReadyState(0);
-  v14 = *(*(ready - 8) + 64);
   MEMORY[0x1EEE9AC00](ready);
-  v16 = &v204 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  *&v232 = type metadata accessor for HandshakeState(0);
-  v17 = *(*(v232 - 8) + 64);
-  v18 = MEMORY[0x1EEE9AC00](v232);
-  v224 = &v204 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v20 = MEMORY[0x1EEE9AC00](v18);
-  v22 = &v204 - v21;
-  v23 = MEMORY[0x1EEE9AC00](v20);
-  v25 = &v204 - v24;
-  MEMORY[0x1EEE9AC00](v23);
-  v27 = &v204 - v26;
-  v28 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CryptoKit12SymmetricKeyVSgMd, &_s9CryptoKit12SymmetricKeyVSgMR);
-  v29 = *(*(v28 - 8) + 64);
-  v30 = MEMORY[0x1EEE9AC00](v28 - 8);
-  v32 = &v204 - ((v31 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x1EEE9AC00](v30);
-  v34 = &v204 - v33;
-  v35 = type metadata accessor for SymmetricKey();
-  v36 = *(*(v35 - 8) + 64);
-  v37 = MEMORY[0x1EEE9AC00](v35);
-  v38 = MEMORY[0x1EEE9AC00](v37);
+  v12 = &v192 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  *&v220 = type metadata accessor for HandshakeState(0);
+  v13 = MEMORY[0x1EEE9AC00](v220);
+  v212 = &v192 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = MEMORY[0x1EEE9AC00](v13);
+  v17 = &v192 - v16;
+  v18 = MEMORY[0x1EEE9AC00](v15);
+  v20 = &v192 - v19;
+  MEMORY[0x1EEE9AC00](v18);
+  v22 = &v192 - v21;
+  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s9CryptoKit12SymmetricKeyVSgMd, &_s9CryptoKit12SymmetricKeyVSgMR);
+  v24 = MEMORY[0x1EEE9AC00](v23 - 8);
+  v26 = &v192 - ((v25 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v24);
+  v28 = &v192 - v27;
+  v29 = type metadata accessor for SymmetricKey();
+  v30 = MEMORY[0x1EEE9AC00](v29);
+  v31 = MEMORY[0x1EEE9AC00](v30);
   if (v2[1] >> 60 == 15)
   {
     goto LABEL_2;
   }
 
-  v218 = v41;
-  v219 = &v204 - v39;
-  v220 = v40;
-  v221 = v38;
-  _s15SwiftTLSLibrary10ByteBufferV18rewindOnNilOrErroryxSgAeCzq_YKXEq_YKs0I0R_r0_lFAA22HandshakeMessageParserV11ParseResultV_AA8TLSErrorOTg504_s15a12TLSLibrary22jkl15V05parsecD0AC11mn7VSgyAA8o9OYKFAgA10cD11VzAIYKXEfU_AHTf1ncn_n(v2, v2, &v316, &v317);
+  v206 = v34;
+  v207 = &v192 - v32;
+  v208 = v33;
+  v209 = v31;
+  _s15SwiftTLSLibrary10ByteBufferV18rewindOnNilOrErroryxSgAeCzq_YKXEq_YKs0I0R_r0_lFAA22HandshakeMessageParserV11ParseResultV_AA8TLSErrorOTg504_s15a12TLSLibrary22jkl15V05parsecD0AC11mn7VSgyAA8o9OYKFAgA10cD11VzAIYKXEfU_AHTf1ncn_n(v2, v2, &v304, &v305);
   if (v3)
   {
-    return v316;
+    return v304;
   }
 
-  v217 = 0;
-  v304 = v323;
-  v305 = v324;
-  v300 = v319;
-  v301 = v320;
-  v303 = v322;
-  v302 = v321;
-  v299 = v318;
-  v298 = v317;
-  v313 = v323;
-  v314 = v324;
-  v309 = v319;
-  v310 = v320;
-  v312 = v322;
-  v311 = v321;
-  v306 = v325;
-  v315 = v325;
-  v308 = v318;
-  v307 = v317;
-  if (_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgWOg(&v307) == 1)
+  v205 = 0;
+  v292 = v311;
+  v293 = v312;
+  v288 = v307;
+  v289 = v308;
+  v291 = v310;
+  v290 = v309;
+  v287 = v306;
+  v286 = v305;
+  v301 = v311;
+  v302 = v312;
+  v297 = v307;
+  v298 = v308;
+  v300 = v310;
+  v299 = v309;
+  v294 = v313;
+  v303 = v313;
+  v296 = v306;
+  v295 = v305;
+  if (_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgWOg(&v295) == 1)
   {
 LABEL_2:
     if (one-time initialization token for logger != -1)
@@ -7931,173 +5835,173 @@ LABEL_2:
       swift_once();
     }
 
-    v42 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v42, logger);
-    v43 = Logger.logObject.getter();
-    v44 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v43, v44))
+    v35 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v35, logger);
+    v36 = Logger.logObject.getter();
+    v37 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v36, v37))
     {
-      v45 = swift_slowAlloc();
-      *v45 = 0;
-      _os_log_impl(&dword_1B25F5000, v43, v44, "incomplete message, invalid", v45, 2u);
-      MEMORY[0x1B274ECF0](v45, -1, -1);
+      v38 = swift_slowAlloc();
+      *v38 = 0;
+      _os_log_impl(&dword_1B25F5000, v36, v37, "incomplete message, invalid", v38, 2u);
+      MEMORY[0x1B274ECF0](v38, -1, -1);
     }
 
-    v232 = xmmword_1B26CC550;
-    v317 = xmmword_1B26CC550;
-    LOBYTE(v318) = 2;
+    v220 = xmmword_1B26CC550;
+    v305 = xmmword_1B26CC550;
+    LOBYTE(v306) = 2;
     lazy protocol witness table accessor for type TLSError and conformance TLSError();
     swift_willThrowTypedImpl();
-    return v232;
+    return v220;
   }
 
-  if (v315 != 4)
+  if (v303 != 4)
   {
     if (one-time initialization token for logger != -1)
     {
       swift_once();
     }
 
-    v54 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v54, logger);
-    v295 = v304;
-    v296 = v305;
-    v297 = v306;
-    v291 = v300;
-    v292 = v301;
-    v294 = v303;
-    v293 = v302;
-    v290 = v299;
-    v289 = v298;
-    outlined init with copy of HandshakeMessageParser.ParseResult(&v289, &v280);
-    v55 = Logger.logObject.getter();
-    v56 = static os_log_type_t.error.getter();
-    outlined destroy of P256.Signing.PrivateKey?(&v298, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-    if (os_log_type_enabled(v55, v56))
+    v47 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v47, logger);
+    v283 = v292;
+    v284 = v293;
+    v285 = v294;
+    v279 = v288;
+    v280 = v289;
+    v282 = v291;
+    v281 = v290;
+    v278 = v287;
+    v277 = v286;
+    outlined init with copy of HandshakeMessageParser.ParseResult(&v277, &v268);
+    v48 = Logger.logObject.getter();
+    v49 = static os_log_type_t.error.getter();
+    outlined destroy of P256.Signing.PrivateKey?(&v286, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+    if (os_log_type_enabled(v48, v49))
     {
-      v57 = swift_slowAlloc();
-      v58 = swift_slowAlloc();
-      *&v280 = v58;
-      *v57 = 136315138;
-      if (v315 > 3u)
+      v50 = swift_slowAlloc();
+      v51 = swift_slowAlloc();
+      *&v268 = v51;
+      *v50 = 136315138;
+      if (v303 > 3u)
       {
-        if (v315 > 5u)
+        if (v303 > 5u)
         {
-          if (v315 == 6)
+          if (v303 == 6)
           {
-            v59 = 0xE800000000000000;
-            v60 = 0x64656873696E6966;
+            v52 = 0xE800000000000000;
+            v53 = 0x64656873696E6966;
           }
 
           else
           {
-            v60 = 0xD000000000000010;
-            v59 = 0x80000001B26CD8F0;
+            v53 = 0xD000000000000010;
+            v52 = 0x80000001B26CD8F0;
           }
         }
 
-        else if (v315 == 4)
+        else if (v303 == 4)
         {
-          v60 = 0x6369666974726563;
-          v59 = 0xEB00000000657461;
+          v53 = 0x6369666974726563;
+          v52 = 0xEB00000000657461;
         }
 
         else
         {
-          v59 = 0x80000001B26CD910;
-          v60 = 0xD000000000000011;
+          v52 = 0x80000001B26CD910;
+          v53 = 0xD000000000000011;
         }
       }
 
-      else if (v315 > 1u)
+      else if (v303 > 1u)
       {
-        if (v315 == 2)
+        if (v303 == 2)
         {
-          v59 = 0x80000001B26CD950;
-          v60 = 0xD000000000000013;
+          v52 = 0x80000001B26CD950;
+          v53 = 0xD000000000000013;
         }
 
         else
         {
-          v59 = 0x80000001B26CD930;
-          v60 = 0xD000000000000012;
+          v52 = 0x80000001B26CD930;
+          v53 = 0xD000000000000012;
         }
       }
 
       else
       {
-        v59 = 0xEB000000006F6C6CLL;
-        if (v315)
+        v52 = 0xEB000000006F6C6CLL;
+        if (v303)
         {
-          v60 = 0x6548726576726573;
+          v53 = 0x6548726576726573;
         }
 
         else
         {
-          v60 = 0x6548746E65696C63;
+          v53 = 0x6548746E65696C63;
         }
       }
 
-      v68 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v60, v59, &v280);
+      v61 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v53, v52, &v268);
 
-      *(v57 + 4) = v68;
-      _os_log_impl(&dword_1B25F5000, v55, v56, "unexpected message %s", v57, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v58);
-      MEMORY[0x1B274ECF0](v58, -1, -1);
-      MEMORY[0x1B274ECF0](v57, -1, -1);
+      *(v50 + 4) = v61;
+      _os_log_impl(&dword_1B25F5000, v48, v49, "unexpected message %s", v50, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v51);
+      MEMORY[0x1B274ECF0](v51, -1, -1);
+      MEMORY[0x1B274ECF0](v50, -1, -1);
     }
 
-    v232 = xmmword_1B26CC550;
-    v280 = xmmword_1B26CC550;
-    LOBYTE(v281) = 2;
+    v220 = xmmword_1B26CC550;
+    v268 = xmmword_1B26CC550;
+    LOBYTE(v269) = 2;
     lazy protocol witness table accessor for type TLSError and conformance TLSError();
     swift_willThrowTypedImpl();
     goto LABEL_50;
   }
 
-  v216 = v16;
-  v48 = v310;
-  v49 = v2[1];
-  outlined copy of Data._Representation(*(&v308 + 1), v309);
-  v215 = v48;
+  v204 = v12;
+  v41 = v298;
+  v42 = v2[1];
+  outlined copy of Data._Representation(*(&v296 + 1), v297);
+  v203 = v41;
 
-  if (v49 >> 60 == 15)
+  if (v42 >> 60 == 15)
   {
     goto LABEL_14;
   }
 
-  v61 = v217;
-  _s15SwiftTLSLibrary10ByteBufferV18rewindOnNilOrErroryxSgAeCzq_YKXEq_YKs0I0R_r0_lFAA22HandshakeMessageParserV11ParseResultV_AA8TLSErrorOTg504_s15a12TLSLibrary22jkl15V05parsecD0AC11mn7VSgyAA8o9OYKFAgA10cD11VzAIYKXEfU_AHTf1ncn_n(v2, v2, &v316, &v289);
-  if (v61)
+  v54 = v205;
+  _s15SwiftTLSLibrary10ByteBufferV18rewindOnNilOrErroryxSgAeCzq_YKXEq_YKs0I0R_r0_lFAA22HandshakeMessageParserV11ParseResultV_AA8TLSErrorOTg504_s15a12TLSLibrary22jkl15V05parsecD0AC11mn7VSgyAA8o9OYKFAgA10cD11VzAIYKXEfU_AHTf1ncn_n(v2, v2, &v304, &v277);
+  if (v54)
   {
-    v232 = v316;
+    v220 = v304;
 LABEL_28:
-    outlined destroy of HandshakeMessage(&v308 + 8);
+    outlined destroy of HandshakeMessage(&v296 + 8);
 LABEL_50:
-    outlined destroy of P256.Signing.PrivateKey?(&v298, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-    return v232;
+    outlined destroy of P256.Signing.PrivateKey?(&v286, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+    return v220;
   }
 
-  v217 = 0;
-  v277 = v295;
-  v278 = v296;
-  v273 = v291;
-  v274 = v292;
-  v276 = v294;
-  v275 = v293;
-  v271 = v289;
-  v272 = v290;
-  v286 = v295;
-  v287 = v296;
-  v282 = v291;
-  v283 = v292;
-  v285 = v294;
-  v284 = v293;
-  v279 = v297;
-  v288 = v297;
-  v281 = v290;
-  v280 = v289;
-  if (_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgWOg(&v280) == 1)
+  v205 = 0;
+  v265 = v283;
+  v266 = v284;
+  v261 = v279;
+  v262 = v280;
+  v264 = v282;
+  v263 = v281;
+  v259 = v277;
+  v260 = v278;
+  v274 = v283;
+  v275 = v284;
+  v270 = v279;
+  v271 = v280;
+  v273 = v282;
+  v272 = v281;
+  v267 = v285;
+  v276 = v285;
+  v269 = v278;
+  v268 = v277;
+  if (_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgWOg(&v268) == 1)
   {
 LABEL_14:
     if (one-time initialization token for logger != -1)
@@ -8105,178 +6009,178 @@ LABEL_14:
       swift_once();
     }
 
-    v50 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v50, logger);
-    v51 = Logger.logObject.getter();
-    v52 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v51, v52))
+    v43 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v43, logger);
+    v44 = Logger.logObject.getter();
+    v45 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v44, v45))
     {
-      v53 = swift_slowAlloc();
-      *v53 = 0;
-      _os_log_impl(&dword_1B25F5000, v51, v52, "incomplete message, invalid", v53, 2u);
-      MEMORY[0x1B274ECF0](v53, -1, -1);
+      v46 = swift_slowAlloc();
+      *v46 = 0;
+      _os_log_impl(&dword_1B25F5000, v44, v45, "incomplete message, invalid", v46, 2u);
+      MEMORY[0x1B274ECF0](v46, -1, -1);
     }
 
-    v232 = xmmword_1B26CC550;
-    v289 = xmmword_1B26CC550;
-    LOBYTE(v290) = 2;
+    v220 = xmmword_1B26CC550;
+    v277 = xmmword_1B26CC550;
+    LOBYTE(v278) = 2;
     lazy protocol witness table accessor for type TLSError and conformance TLSError();
     swift_willThrowTypedImpl();
     goto LABEL_28;
   }
 
-  if (v288 != 5)
+  if (v276 != 5)
   {
     if (one-time initialization token for logger != -1)
     {
       swift_once();
     }
 
-    v69 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v69, logger);
-    v268 = v277;
-    v269 = v278;
-    v270 = v279;
-    v264 = v273;
-    v265 = v274;
-    v266 = v275;
-    v267 = v276;
-    v262 = v271;
-    v263 = v272;
-    outlined init with copy of HandshakeMessageParser.ParseResult(&v262, &v253);
-    v70 = Logger.logObject.getter();
-    v71 = static os_log_type_t.error.getter();
-    outlined destroy of P256.Signing.PrivateKey?(&v271, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-    if (os_log_type_enabled(v70, v71))
+    v62 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v62, logger);
+    v256 = v265;
+    v257 = v266;
+    v258 = v267;
+    v252 = v261;
+    v253 = v262;
+    v254 = v263;
+    v255 = v264;
+    v250 = v259;
+    v251 = v260;
+    outlined init with copy of HandshakeMessageParser.ParseResult(&v250, &v241);
+    v63 = Logger.logObject.getter();
+    v64 = static os_log_type_t.error.getter();
+    outlined destroy of P256.Signing.PrivateKey?(&v259, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+    if (os_log_type_enabled(v63, v64))
     {
-      v72 = swift_slowAlloc();
-      v73 = swift_slowAlloc();
-      *&v253 = v73;
-      *v72 = 136315138;
-      if (v288 > 3u)
+      v65 = swift_slowAlloc();
+      v66 = swift_slowAlloc();
+      *&v241 = v66;
+      *v65 = 136315138;
+      if (v276 > 3u)
       {
-        if (v288 > 5u)
+        if (v276 > 5u)
         {
-          if (v288 == 6)
+          if (v276 == 6)
           {
-            v74 = 0xE800000000000000;
-            v75 = 0x64656873696E6966;
+            v67 = 0xE800000000000000;
+            v68 = 0x64656873696E6966;
           }
 
           else
           {
-            v75 = 0xD000000000000010;
-            v74 = 0x80000001B26CD8F0;
+            v68 = 0xD000000000000010;
+            v67 = 0x80000001B26CD8F0;
           }
         }
 
-        else if (v288 == 4)
+        else if (v276 == 4)
         {
-          v75 = 0x6369666974726563;
-          v74 = 0xEB00000000657461;
+          v68 = 0x6369666974726563;
+          v67 = 0xEB00000000657461;
         }
 
         else
         {
-          v74 = 0x80000001B26CD910;
-          v75 = 0xD000000000000011;
+          v67 = 0x80000001B26CD910;
+          v68 = 0xD000000000000011;
         }
       }
 
-      else if (v288 > 1u)
+      else if (v276 > 1u)
       {
-        if (v288 == 2)
+        if (v276 == 2)
         {
-          v74 = 0x80000001B26CD950;
-          v75 = 0xD000000000000013;
+          v67 = 0x80000001B26CD950;
+          v68 = 0xD000000000000013;
         }
 
         else
         {
-          v74 = 0x80000001B26CD930;
-          v75 = 0xD000000000000012;
+          v67 = 0x80000001B26CD930;
+          v68 = 0xD000000000000012;
         }
       }
 
       else
       {
-        v74 = 0xEB000000006F6C6CLL;
-        if (v288)
+        v67 = 0xEB000000006F6C6CLL;
+        if (v276)
         {
-          v75 = 0x6548726576726573;
+          v68 = 0x6548726576726573;
         }
 
         else
         {
-          v75 = 0x6548746E65696C63;
+          v68 = 0x6548746E65696C63;
         }
       }
 
-      v82 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v75, v74, &v253);
+      v74 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v68, v67, &v241);
 
-      *(v72 + 4) = v82;
-      _os_log_impl(&dword_1B25F5000, v70, v71, "unexpected message %s", v72, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v73);
-      MEMORY[0x1B274ECF0](v73, -1, -1);
-      MEMORY[0x1B274ECF0](v72, -1, -1);
+      *(v65 + 4) = v74;
+      _os_log_impl(&dword_1B25F5000, v63, v64, "unexpected message %s", v65, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v66);
+      MEMORY[0x1B274ECF0](v66, -1, -1);
+      MEMORY[0x1B274ECF0](v65, -1, -1);
     }
 
     else
     {
     }
 
-    v232 = xmmword_1B26CC550;
-    v253 = xmmword_1B26CC550;
-    LOBYTE(v254) = 2;
+    v220 = xmmword_1B26CC550;
+    v241 = xmmword_1B26CC550;
+    LOBYTE(v242) = 2;
     lazy protocol witness table accessor for type TLSError and conformance TLSError();
     swift_willThrowTypedImpl();
     goto LABEL_78;
   }
 
-  v62 = v282;
-  v213 = v283;
-  v214 = *(&v282 + 1);
-  v63 = v2[1];
-  outlined copy of Data._Representation(v282, *(&v282 + 1));
-  if (v63 >> 60 == 15)
+  v55 = v270;
+  v201 = v271;
+  v202 = *(&v270 + 1);
+  v56 = v2[1];
+  outlined copy of Data._Representation(v270, *(&v270 + 1));
+  if (v56 >> 60 == 15)
   {
     goto LABEL_35;
   }
 
-  v76 = v217;
-  _s15SwiftTLSLibrary10ByteBufferV18rewindOnNilOrErroryxSgAeCzq_YKXEq_YKs0I0R_r0_lFAA22HandshakeMessageParserV11ParseResultV_AA8TLSErrorOTg504_s15a12TLSLibrary22jkl15V05parsecD0AC11mn7VSgyAA8o9OYKFAgA10cD11VzAIYKXEfU_AHTf1ncn_n(v2, v2, &v316, &v262);
-  if (v76)
+  v69 = v205;
+  _s15SwiftTLSLibrary10ByteBufferV18rewindOnNilOrErroryxSgAeCzq_YKXEq_YKs0I0R_r0_lFAA22HandshakeMessageParserV11ParseResultV_AA8TLSErrorOTg504_s15a12TLSLibrary22jkl15V05parsecD0AC11mn7VSgyAA8o9OYKFAgA10cD11VzAIYKXEfU_AHTf1ncn_n(v2, v2, &v304, &v250);
+  if (v69)
   {
-    v232 = v316;
-    outlined destroy of HandshakeMessage(&v281 + 8);
+    v220 = v304;
+    outlined destroy of HandshakeMessage(&v269 + 8);
 LABEL_78:
-    outlined destroy of HandshakeMessage(&v308 + 8);
+    outlined destroy of HandshakeMessage(&v296 + 8);
 LABEL_79:
-    outlined destroy of P256.Signing.PrivateKey?(&v271, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-    outlined destroy of P256.Signing.PrivateKey?(&v298, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-    return v232;
+    outlined destroy of P256.Signing.PrivateKey?(&v259, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+    outlined destroy of P256.Signing.PrivateKey?(&v286, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+    return v220;
   }
 
-  v217 = 0;
-  v250 = v268;
-  v251 = v269;
-  v246 = v264;
-  v247 = v265;
-  v248 = v266;
-  v249 = v267;
-  v244 = v262;
-  v245 = v263;
-  v259 = v268;
-  v260 = v269;
-  v255 = v264;
-  v256 = v265;
-  v257 = v266;
-  v258 = v267;
-  v252 = v270;
-  v261 = v270;
-  v253 = v262;
-  v254 = v263;
-  if (_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgWOg(&v253) == 1)
+  v205 = 0;
+  v238 = v256;
+  v239 = v257;
+  v234 = v252;
+  v235 = v253;
+  v236 = v254;
+  v237 = v255;
+  v232 = v250;
+  v233 = v251;
+  v247 = v256;
+  v248 = v257;
+  v243 = v252;
+  v244 = v253;
+  v245 = v254;
+  v246 = v255;
+  v240 = v258;
+  v249 = v258;
+  v241 = v250;
+  v242 = v251;
+  if (_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgWOg(&v241) == 1)
   {
 LABEL_35:
     if (one-time initialization token for logger != -1)
@@ -8284,290 +6188,288 @@ LABEL_35:
       swift_once();
     }
 
-    v64 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v64, logger);
-    v65 = Logger.logObject.getter();
-    v66 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v65, v66))
+    v57 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v57, logger);
+    v58 = Logger.logObject.getter();
+    v59 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v58, v59))
     {
-      v67 = swift_slowAlloc();
-      *v67 = 0;
-      _os_log_impl(&dword_1B25F5000, v65, v66, "incomplete message, invalid", v67, 2u);
-      MEMORY[0x1B274ECF0](v67, -1, -1);
+      v60 = swift_slowAlloc();
+      *v60 = 0;
+      _os_log_impl(&dword_1B25F5000, v58, v59, "incomplete message, invalid", v60, 2u);
+      MEMORY[0x1B274ECF0](v60, -1, -1);
     }
 
-    v232 = xmmword_1B26CC550;
-    v262 = xmmword_1B26CC550;
-    LOBYTE(v263) = 2;
+    v220 = xmmword_1B26CC550;
+    v250 = xmmword_1B26CC550;
+    LOBYTE(v251) = 2;
     lazy protocol witness table accessor for type TLSError and conformance TLSError();
     swift_willThrowTypedImpl();
-    outlined destroy of HandshakeMessage(&v281 + 8);
+    outlined destroy of HandshakeMessage(&v269 + 8);
     goto LABEL_78;
   }
 
-  v212 = v62;
-  if (v261 != 6)
+  v200 = v55;
+  if (v249 != 6)
   {
     if (one-time initialization token for logger != -1)
     {
       swift_once();
     }
 
-    v83 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v83, logger);
-    v241 = v250;
-    v242 = v251;
-    v243 = v252;
-    v237 = v246;
-    v238 = v247;
-    v239 = v248;
-    v240 = v249;
-    v235 = v244;
-    v236 = v245;
-    outlined init with copy of HandshakeMessageParser.ParseResult(&v235, &v233);
-    v84 = Logger.logObject.getter();
-    v85 = static os_log_type_t.error.getter();
-    outlined destroy of P256.Signing.PrivateKey?(&v244, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-    if (os_log_type_enabled(v84, v85))
+    v75 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v75, logger);
+    v229 = v238;
+    v230 = v239;
+    v231 = v240;
+    v225 = v234;
+    v226 = v235;
+    v227 = v236;
+    v228 = v237;
+    v223 = v232;
+    v224 = v233;
+    outlined init with copy of HandshakeMessageParser.ParseResult(&v223, &v221);
+    v76 = Logger.logObject.getter();
+    v77 = static os_log_type_t.error.getter();
+    outlined destroy of P256.Signing.PrivateKey?(&v232, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+    if (os_log_type_enabled(v76, v77))
     {
-      v86 = swift_slowAlloc();
-      v87 = swift_slowAlloc();
-      *&v233 = v87;
-      *v86 = 136315138;
-      if (v261 > 3u)
+      v78 = swift_slowAlloc();
+      v79 = swift_slowAlloc();
+      *&v221 = v79;
+      *v78 = 136315138;
+      if (v249 > 3u)
       {
-        if (v261 > 5u)
+        if (v249 > 5u)
         {
-          if (v261 == 6)
+          if (v249 == 6)
           {
-            v88 = 0xE800000000000000;
-            v89 = 0x64656873696E6966;
+            v80 = 0xE800000000000000;
+            v81 = 0x64656873696E6966;
           }
 
           else
           {
-            v89 = 0xD000000000000010;
-            v88 = 0x80000001B26CD8F0;
+            v81 = 0xD000000000000010;
+            v80 = 0x80000001B26CD8F0;
           }
         }
 
-        else if (v261 == 4)
+        else if (v249 == 4)
         {
-          v89 = 0x6369666974726563;
-          v88 = 0xEB00000000657461;
+          v81 = 0x6369666974726563;
+          v80 = 0xEB00000000657461;
         }
 
         else
         {
-          v88 = 0x80000001B26CD910;
-          v89 = 0xD000000000000011;
+          v80 = 0x80000001B26CD910;
+          v81 = 0xD000000000000011;
         }
       }
 
-      else if (v261 > 1u)
+      else if (v249 > 1u)
       {
-        if (v261 == 2)
+        if (v249 == 2)
         {
-          v88 = 0x80000001B26CD950;
-          v89 = 0xD000000000000013;
+          v80 = 0x80000001B26CD950;
+          v81 = 0xD000000000000013;
         }
 
         else
         {
-          v88 = 0x80000001B26CD930;
-          v89 = 0xD000000000000012;
+          v80 = 0x80000001B26CD930;
+          v81 = 0xD000000000000012;
         }
       }
 
       else
       {
-        v88 = 0xEB000000006F6C6CLL;
-        if (v261)
+        v80 = 0xEB000000006F6C6CLL;
+        if (v249)
         {
-          v89 = 0x6548726576726573;
+          v81 = 0x6548726576726573;
         }
 
         else
         {
-          v89 = 0x6548746E65696C63;
+          v81 = 0x6548746E65696C63;
         }
       }
 
-      v125 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v89, v88, &v233);
+      v115 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v81, v80, &v221);
 
-      *(v86 + 4) = v125;
-      _os_log_impl(&dword_1B25F5000, v84, v85, "unexpected message %s", v86, 0xCu);
-      __swift_destroy_boxed_opaque_existential_0(v87);
-      MEMORY[0x1B274ECF0](v87, -1, -1);
-      MEMORY[0x1B274ECF0](v86, -1, -1);
+      *(v78 + 4) = v115;
+      _os_log_impl(&dword_1B25F5000, v76, v77, "unexpected message %s", v78, 0xCu);
+      __swift_destroy_boxed_opaque_existential_0(v79);
+      MEMORY[0x1B274ECF0](v79, -1, -1);
+      MEMORY[0x1B274ECF0](v78, -1, -1);
     }
 
-    v232 = xmmword_1B26CC550;
-    v233 = xmmword_1B26CC550;
-    v234 = 2;
+    v220 = xmmword_1B26CC550;
+    v221 = xmmword_1B26CC550;
+    v222 = 2;
     lazy protocol witness table accessor for type TLSError and conformance TLSError();
     swift_willThrowTypedImpl();
-    outlined destroy of HandshakeMessage(&v281 + 8);
-    outlined destroy of HandshakeMessage(&v308 + 8);
-    outlined destroy of P256.Signing.PrivateKey?(&v244, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+    outlined destroy of HandshakeMessage(&v269 + 8);
+    outlined destroy of HandshakeMessage(&v296 + 8);
+    outlined destroy of P256.Signing.PrivateKey?(&v232, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
     goto LABEL_79;
   }
 
-  v209 = v255;
-  v207 = *(&v254 + 1);
-  v208 = *(&v255 + 1);
-  v77 = v2 + *(type metadata accessor for ExportedAuthenticator() + 24);
-  v210 = *(type metadata accessor for HandshakeStateMachine(0) + 24);
-  v211 = v77;
-  outlined init with copy of HandshakeState(&v77[v210], v27);
+  v197 = v243;
+  v195 = *(&v242 + 1);
+  v196 = *(&v243 + 1);
+  v70 = v2 + *(type metadata accessor for ExportedAuthenticator(0) + 24);
+  v198 = *(type metadata accessor for HandshakeStateMachine(0) + 24);
+  v199 = v70;
+  outlined init with copy of HandshakeState(&v70[v198], v22);
   if (swift_getEnumCaseMultiPayload() == 6)
   {
-    v78 = v216;
-    _s15SwiftTLSLibrary21HandshakeStateMachineVWObTm_1(v27, v216, type metadata accessor for HandshakeState.ReadyState);
-    v79 = *(ready + 44);
-    outlined copy of Data._Representation(*(&v254 + 1), v255);
-    specialized SessionKeyManager.generateTLSExporterKey(_:)(0xD00000000000002FLL, 0x80000001B26CE500, v34);
-    v80 = type metadata accessor for HandshakeState.ReadyState;
-    v81 = v78;
+    v71 = v204;
+    _s15SwiftTLSLibrary21HandshakeStateMachineVWObTm_1(v22, v204, type metadata accessor for HandshakeState.ReadyState);
+    outlined copy of Data._Representation(*(&v242 + 1), v243);
+    specialized SessionKeyManager.generateTLSExporterKey(_:)(0xD00000000000002FLL, 0x80000001B26CE500, v28);
+    v72 = type metadata accessor for HandshakeState.ReadyState;
+    v73 = v71;
   }
 
   else
   {
-    (*(v220 + 56))(v34, 1, 1, v221);
-    outlined copy of Data._Representation(*(&v254 + 1), v255);
-    v80 = type metadata accessor for HandshakeState;
-    v81 = v27;
+    (*(v208 + 56))(v28, 1, 1, v209);
+    outlined copy of Data._Representation(*(&v242 + 1), v243);
+    v72 = type metadata accessor for HandshakeState;
+    v73 = v22;
   }
 
-  _s15SwiftTLSLibrary14HandshakeStateOWOhTm_0(v81, v80);
-  v90 = v220;
-  v91 = *(v220 + 48);
-  if (v91(v34, 1, v221) == 1)
+  _s15SwiftTLSLibrary14HandshakeStateOWOhTm_0(v73, v72);
+  v82 = v208;
+  v83 = *(v208 + 48);
+  if (v83(v28, 1, v209) == 1)
   {
-    v32 = v34;
+    v26 = v28;
 LABEL_98:
-    outlined destroy of P256.Signing.PrivateKey?(v32, &_s9CryptoKit12SymmetricKeyVSgMd, &_s9CryptoKit12SymmetricKeyVSgMR);
+    outlined destroy of P256.Signing.PrivateKey?(v26, &_s9CryptoKit12SymmetricKeyVSgMd, &_s9CryptoKit12SymmetricKeyVSgMR);
     if (one-time initialization token for logger != -1)
     {
       swift_once();
     }
 
-    v96 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v96, logger);
-    v97 = Logger.logObject.getter();
-    v98 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v97, v98))
+    v87 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v87, logger);
+    v88 = Logger.logObject.getter();
+    v89 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v88, v89))
     {
-      v99 = swift_slowAlloc();
-      *v99 = 0;
-      _os_log_impl(&dword_1B25F5000, v97, v98, "failed to export keys", v99, 2u);
-      MEMORY[0x1B274ECF0](v99, -1, -1);
+      v90 = swift_slowAlloc();
+      *v90 = 0;
+      _os_log_impl(&dword_1B25F5000, v88, v89, "failed to export keys", v90, 2u);
+      MEMORY[0x1B274ECF0](v90, -1, -1);
     }
 
-    v232 = xmmword_1B26CC560;
-    v235 = xmmword_1B26CC560;
-    LOBYTE(v236) = 2;
+    v220 = xmmword_1B26CC560;
+    v223 = xmmword_1B26CC560;
+    LOBYTE(v224) = 2;
     lazy protocol witness table accessor for type TLSError and conformance TLSError();
     swift_willThrowTypedImpl();
-    outlined destroy of HandshakeMessage(&v281 + 8);
-    outlined destroy of HandshakeMessage(&v308 + 8);
-    outlined destroy of P256.Signing.PrivateKey?(&v244, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-    outlined destroy of P256.Signing.PrivateKey?(&v271, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-    outlined destroy of P256.Signing.PrivateKey?(&v298, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-    outlined destroy of HandshakeMessage(&v254 + 8);
-    return v232;
+    outlined destroy of HandshakeMessage(&v269 + 8);
+    outlined destroy of HandshakeMessage(&v296 + 8);
+    outlined destroy of P256.Signing.PrivateKey?(&v232, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+    outlined destroy of P256.Signing.PrivateKey?(&v259, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+    outlined destroy of P256.Signing.PrivateKey?(&v286, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+    outlined destroy of HandshakeMessage(&v242 + 8);
+    return v220;
   }
 
-  v92 = *(v90 + 32);
-  v92(v219, v34, v221);
-  outlined init with copy of HandshakeState(&v211[v210], v25);
+  v84 = *(v82 + 32);
+  v84(v207, v28, v209);
+  outlined init with copy of HandshakeState(&v199[v198], v20);
   if (swift_getEnumCaseMultiPayload() == 6)
   {
-    v93 = v25;
-    v25 = v216;
-    _s15SwiftTLSLibrary21HandshakeStateMachineVWObTm_1(v93, v216, type metadata accessor for HandshakeState.ReadyState);
-    v94 = &v25[*(ready + 44)];
-    specialized SessionKeyManager.generateTLSExporterKey(_:)(0xD00000000000002ALL, 0x80000001B26CE530, v32);
-    v95 = type metadata accessor for HandshakeState.ReadyState;
+    v85 = v20;
+    v20 = v204;
+    _s15SwiftTLSLibrary21HandshakeStateMachineVWObTm_1(v85, v204, type metadata accessor for HandshakeState.ReadyState);
+    specialized SessionKeyManager.generateTLSExporterKey(_:)(0xD00000000000002ALL, 0x80000001B26CE530, v26);
+    v86 = type metadata accessor for HandshakeState.ReadyState;
   }
 
   else
   {
-    (*(v220 + 56))(v32, 1, 1, v221);
-    v95 = type metadata accessor for HandshakeState;
+    (*(v208 + 56))(v26, 1, 1, v209);
+    v86 = type metadata accessor for HandshakeState;
   }
 
-  _s15SwiftTLSLibrary14HandshakeStateOWOhTm_0(v25, v95);
-  if (v91(v32, 1, v221) == 1)
+  _s15SwiftTLSLibrary14HandshakeStateOWOhTm_0(v20, v86);
+  if (v83(v26, 1, v209) == 1)
   {
-    (*(v220 + 8))(v219, v221);
+    (*(v208 + 8))(v207, v209);
     goto LABEL_98;
   }
 
-  v100 = (v92)(v218, v32, v221);
-  v235 = xmmword_1B26C6130;
-  *&v236 = 0;
-  MEMORY[0x1EEE9AC00](v100);
-  *(&v204 - 2) = &v235;
-  v101 = v217;
+  v91 = (v84)(v206, v26, v209);
+  v223 = xmmword_1B26C6130;
+  *&v224 = 0;
+  MEMORY[0x1EEE9AC00](v91);
+  *(&v192 - 2) = &v223;
+  v92 = v205;
   SymmetricKey.withUnsafeBytes<A>(_:)();
-  v102 = *(&v307 + 1) >> 62;
-  if ((*(&v307 + 1) >> 62) > 1)
+  v93 = *(&v295 + 1) >> 62;
+  if ((*(&v295 + 1) >> 62) > 1)
   {
-    v103 = 0;
-    if (v102 == 2)
+    v94 = 0;
+    if (v93 == 2)
     {
-      v103 = *(v307 + 24);
+      v94 = *(v295 + 24);
     }
   }
 
-  else if (v102)
+  else if (v93)
   {
-    v103 = v307 >> 32;
+    v94 = v295 >> 32;
   }
 
   else
   {
-    v103 = BYTE14(v307);
+    v94 = BYTE14(v295);
   }
 
-  if (v103 < v308)
+  if (v94 < v296)
   {
     __break(1u);
     goto LABEL_218;
   }
 
-  v104 = Data._Representation.subscript.getter();
-  v106 = v105;
-  specialized ByteBuffer.writeBytes<A>(_:)(v104, v105);
-  outlined consume of Data._Representation(v104, v106);
-  v107 = v235;
-  v108 = v236;
-  outlined init with copy of HandshakeState(&v211[v210], v22);
+  v95 = Data._Representation.subscript.getter();
+  v97 = v96;
+  specialized ByteBuffer.writeBytes<A>(_:)(v95, v96);
+  outlined consume of Data._Representation(v95, v97);
+  v98 = v223;
+  v99 = v224;
+  outlined init with copy of HandshakeState(&v199[v198], v17);
   if (swift_getEnumCaseMultiPayload() != 6)
   {
-    _s15SwiftTLSLibrary14HandshakeStateOWOhTm_0(v22, type metadata accessor for HandshakeState);
+    _s15SwiftTLSLibrary14HandshakeStateOWOhTm_0(v17, type metadata accessor for HandshakeState);
     if (one-time initialization token for logger == -1)
     {
 LABEL_120:
-      v121 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v121, logger);
-      v122 = Logger.logObject.getter();
-      v123 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v122, v123))
+      v111 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v111, logger);
+      v112 = Logger.logObject.getter();
+      v113 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v112, v113))
       {
-        v124 = swift_slowAlloc();
-        *v124 = 0;
-        _os_log_impl(&dword_1B25F5000, v122, v123, "failed to create authenticator hash", v124, 2u);
-        MEMORY[0x1B274ECF0](v124, -1, -1);
+        v114 = swift_slowAlloc();
+        *v114 = 0;
+        _os_log_impl(&dword_1B25F5000, v112, v113, "failed to create authenticator hash", v114, 2u);
+        MEMORY[0x1B274ECF0](v114, -1, -1);
       }
 
-      v232 = xmmword_1B26CC560;
-      v233 = xmmword_1B26CC560;
-      v234 = 2;
+      v220 = xmmword_1B26CC560;
+      v221 = xmmword_1B26CC560;
+      v222 = 2;
       lazy protocol witness table accessor for type TLSError and conformance TLSError();
       swift_willThrowTypedImpl();
-      outlined destroy of HandshakeMessage(&v308 + 8);
+      outlined destroy of HandshakeMessage(&v296 + 8);
       goto LABEL_134;
     }
 
@@ -8576,95 +6478,94 @@ LABEL_218:
     goto LABEL_120;
   }
 
-  v109 = v22;
-  v110 = v216;
-  _s15SwiftTLSLibrary21HandshakeStateMachineVWObTm_1(v109, v216, type metadata accessor for HandshakeState.ReadyState);
-  v111 = v110 + *(ready + 44);
-  v112 = specialized SessionKeyManager.generateHashForAuthenticator(_:)(v107, *(&v107 + 1), v108);
-  v114 = v113;
-  v116 = v115;
-  _s15SwiftTLSLibrary14HandshakeStateOWOhTm_0(v110, type metadata accessor for HandshakeState.ReadyState);
-  v117 = v112;
-  v205 = v114;
-  v206 = ExportedAuthenticator.generateDataToSignInAuthenticatorCertificateVerify(authenticatorTranscriptHash:)(v112, v114, v116);
-  v217 = v118;
-  v120 = v119;
-  _s15SwiftTLSLibrary21ExportedAuthenticatorV10extractKey18certificateMessage9keyParser9CryptoKit4P256O7SigningO06PublicF0VSgAA011CertificateH0V_10Foundation4DataVSgASXEtAA8TLSErrorOYKF(v215, v229, v230, &v316, v231);
-  if (v101)
+  v100 = v17;
+  v101 = v204;
+  _s15SwiftTLSLibrary21HandshakeStateMachineVWObTm_1(v100, v204, type metadata accessor for HandshakeState.ReadyState);
+  v102 = specialized SessionKeyManager.generateHashForAuthenticator(_:)(v98, *(&v98 + 1), v99);
+  v104 = v103;
+  v106 = v105;
+  _s15SwiftTLSLibrary14HandshakeStateOWOhTm_0(v101, type metadata accessor for HandshakeState.ReadyState);
+  v107 = v102;
+  v193 = v104;
+  v194 = ExportedAuthenticator.generateDataToSignInAuthenticatorCertificateVerify(authenticatorTranscriptHash:)(v102, v104, v106);
+  v205 = v108;
+  v110 = v109;
+  _s15SwiftTLSLibrary21ExportedAuthenticatorV10extractKey18certificateMessage9keyParser9CryptoKit4P256O7SigningO06PublicF0VSgAA011CertificateH0V_10Foundation4DataVSgASXEtAA8TLSErrorOYKF(v203, v217, v218, &v304, v219);
+  if (v92)
   {
-    v232 = v316;
+    v220 = v304;
 LABEL_133:
-    outlined consume of Data._Representation(v112, v205);
-    outlined destroy of HandshakeMessage(&v308 + 8);
-    outlined consume of Data._Representation(v206, v217);
+    outlined consume of Data._Representation(v102, v193);
+    outlined destroy of HandshakeMessage(&v296 + 8);
+    outlined consume of Data._Representation(v194, v205);
 LABEL_134:
-    outlined destroy of HandshakeMessage(&v281 + 8);
-    outlined destroy of P256.Signing.PrivateKey?(&v244, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-    outlined destroy of P256.Signing.PrivateKey?(&v271, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-    outlined destroy of P256.Signing.PrivateKey?(&v298, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+    outlined destroy of HandshakeMessage(&v269 + 8);
+    outlined destroy of P256.Signing.PrivateKey?(&v232, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+    outlined destroy of P256.Signing.PrivateKey?(&v259, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+    outlined destroy of P256.Signing.PrivateKey?(&v286, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
 LABEL_135:
-    v130 = v221;
-    v131 = *(v220 + 8);
-    v131(v218, v221);
-    v131(v219, v130);
-    outlined destroy of HandshakeMessage(&v254 + 8);
-    outlined consume of Data._Representation(v235, *(&v235 + 1));
-    return v232;
+    v120 = v209;
+    v121 = *(v208 + 8);
+    v121(v206, v209);
+    v121(v207, v120);
+    outlined destroy of HandshakeMessage(&v242 + 8);
+    outlined consume of Data._Representation(v223, *(&v223 + 1));
+    return v220;
   }
 
-  if ((*(v228 + 48))(v231, 1, v227) == 1)
+  if ((*(v216 + 48))(v219, 1, v215) == 1)
   {
-    outlined destroy of P256.Signing.PrivateKey?(v231, &_s9CryptoKit4P256O7SigningO9PublicKeyVSgMd, &_s9CryptoKit4P256O7SigningO9PublicKeyVSgMR);
+    outlined destroy of P256.Signing.PrivateKey?(v219, &_s9CryptoKit4P256O7SigningO9PublicKeyVSgMd, &_s9CryptoKit4P256O7SigningO9PublicKeyVSgMR);
     if (one-time initialization token for logger != -1)
     {
       swift_once();
     }
 
-    v126 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v126, logger);
-    v127 = Logger.logObject.getter();
-    v128 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v127, v128))
+    v116 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v116, logger);
+    v117 = Logger.logObject.getter();
+    v118 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v117, v118))
     {
-      v129 = swift_slowAlloc();
-      *v129 = 0;
-      _os_log_impl(&dword_1B25F5000, v127, v128, "failed to extract key from certificate", v129, 2u);
-      MEMORY[0x1B274ECF0](v129, -1, -1);
+      v119 = swift_slowAlloc();
+      *v119 = 0;
+      _os_log_impl(&dword_1B25F5000, v117, v118, "failed to extract key from certificate", v119, 2u);
+      MEMORY[0x1B274ECF0](v119, -1, -1);
     }
 
-    v232 = xmmword_1B26CC550;
-    v233 = xmmword_1B26CC550;
-    v234 = 2;
+    v220 = xmmword_1B26CC550;
+    v221 = xmmword_1B26CC550;
+    v222 = 2;
     lazy protocol witness table accessor for type TLSError and conformance TLSError();
     swift_willThrowTypedImpl();
     goto LABEL_133;
   }
 
-  (*(v228 + 32))(v226, v231, v227);
-  v132 = v214 >> 62;
-  if ((v214 >> 62) <= 1)
+  (*(v216 + 32))(v214, v219, v215);
+  v122 = v202 >> 62;
+  if ((v202 >> 62) <= 1)
   {
-    if (!v132)
+    if (!v122)
     {
-      v133 = BYTE6(v214);
+      v123 = BYTE6(v202);
       goto LABEL_144;
     }
 
-    v133 = v212 >> 32;
+    v123 = v200 >> 32;
     goto LABEL_142;
   }
 
-  if (v132 == 2)
+  if (v122 == 2)
   {
-    v133 = *(v212 + 24);
+    v123 = *(v200 + 24);
 LABEL_142:
-    outlined copy of Data._Representation(v282, *(&v282 + 1));
+    outlined copy of Data._Representation(v270, *(&v270 + 1));
     goto LABEL_144;
   }
 
-  v133 = 0;
+  v123 = 0;
 LABEL_144:
-  if (v133 < v213)
+  if (v123 < v201)
   {
     __break(1u);
 LABEL_220:
@@ -8674,82 +6575,82 @@ LABEL_221:
     goto LABEL_222;
   }
 
-  *&v233 = Data._Representation.subscript.getter();
-  *(&v233 + 1) = v134;
+  *&v221 = Data._Representation.subscript.getter();
+  *(&v221 + 1) = v124;
   lazy protocol witness table accessor for type Data and conformance Data();
   P256.Signing.ECDSASignature.init<A>(derRepresentation:)();
-  v231 = 0;
-  outlined destroy of HandshakeMessage(&v281 + 8);
-  v135 = v217 >> 62;
-  if ((v217 >> 62) > 1)
+  v219 = 0;
+  outlined destroy of HandshakeMessage(&v269 + 8);
+  v125 = v205 >> 62;
+  if ((v205 >> 62) > 1)
   {
-    if (v135 == 2)
+    if (v125 == 2)
     {
-      v136 = *(v206 + 24);
+      v126 = *(v194 + 24);
     }
 
     else
     {
-      v136 = 0;
+      v126 = 0;
     }
   }
 
-  else if (v135)
+  else if (v125)
   {
-    v136 = v206 >> 32;
+    v126 = v194 >> 32;
   }
 
   else
   {
-    v136 = BYTE6(v217);
+    v126 = BYTE6(v205);
   }
 
-  if (v136 < v120)
+  if (v126 < v110)
   {
     goto LABEL_221;
   }
 
-  *&v233 = Data._Representation.subscript.getter();
-  *(&v233 + 1) = v137;
-  v138 = P256.Signing.PublicKey.isValidSignature<A>(_:for:)();
-  outlined consume of Data._Representation(v233, *(&v233 + 1));
-  if ((v138 & 1) == 0)
+  *&v221 = Data._Representation.subscript.getter();
+  *(&v221 + 1) = v127;
+  v128 = P256.Signing.PublicKey.isValidSignature<A>(_:for:)();
+  outlined consume of Data._Representation(v221, *(&v221 + 1));
+  if ((v128 & 1) == 0)
   {
     if (one-time initialization token for logger == -1)
     {
 LABEL_158:
-      v141 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v141, logger);
-      v142 = Logger.logObject.getter();
-      v143 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v142, v143))
+      v131 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v131, logger);
+      v132 = Logger.logObject.getter();
+      v133 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v132, v133))
       {
-        v144 = swift_slowAlloc();
-        *v144 = 0;
-        _os_log_impl(&dword_1B25F5000, v142, v143, "signature validation failed", v144, 2u);
-        MEMORY[0x1B274ECF0](v144, -1, -1);
+        v134 = swift_slowAlloc();
+        *v134 = 0;
+        _os_log_impl(&dword_1B25F5000, v132, v133, "signature validation failed", v134, 2u);
+        MEMORY[0x1B274ECF0](v134, -1, -1);
       }
 
-      v145 = xmmword_1B26CC550;
+      v135 = xmmword_1B26CC550;
 LABEL_177:
-      v232 = v145;
-      v233 = v145;
-      v234 = 2;
+      v220 = v135;
+      v221 = v135;
+      v222 = 2;
       lazy protocol witness table accessor for type TLSError and conformance TLSError();
       swift_willThrowTypedImpl();
-      v164 = v117;
-      v165 = v205;
+      v153 = v107;
+      v154 = v193;
 LABEL_178:
-      outlined consume of Data._Representation(v164, v165);
-      outlined destroy of HandshakeMessage(&v308 + 8);
+      outlined consume of Data._Representation(v153, v154);
+      outlined destroy of HandshakeMessage(&v296 + 8);
 LABEL_179:
-      outlined consume of Data._Representation(v206, v217);
-      outlined destroy of HandshakeMessage(&v281 + 8);
-      outlined destroy of P256.Signing.PrivateKey?(&v244, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-      outlined destroy of P256.Signing.PrivateKey?(&v271, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-      outlined destroy of P256.Signing.PrivateKey?(&v298, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-      (*(v222 + 8))(v225, v223);
-      (*(v228 + 8))(v226, v227);
+      outlined consume of Data._Representation(v194, v205);
+      outlined destroy of HandshakeMessage(&v269 + 8);
+      outlined destroy of P256.Signing.PrivateKey?(&v232, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+      outlined destroy of P256.Signing.PrivateKey?(&v259, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+      outlined destroy of P256.Signing.PrivateKey?(&v286, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+      (*(v210 + 8))(v213, v211);
+      (*(v216 + 8))(v214, v215);
       goto LABEL_135;
     }
 
@@ -8758,62 +6659,62 @@ LABEL_222:
     goto LABEL_158;
   }
 
-  v139 = *(&v280 + 1) >> 62;
-  if ((*(&v280 + 1) >> 62) > 1)
+  v129 = *(&v268 + 1) >> 62;
+  if ((*(&v268 + 1) >> 62) > 1)
   {
-    if (v139 == 2)
+    if (v129 == 2)
     {
-      v140 = *(v280 + 24);
+      v130 = *(v268 + 24);
     }
 
     else
     {
-      v140 = 0;
+      v130 = 0;
     }
   }
 
-  else if (v139)
+  else if (v129)
   {
-    v140 = v280 >> 32;
+    v130 = v268 >> 32;
   }
 
   else
   {
-    v140 = BYTE14(v280);
+    v130 = BYTE14(v268);
   }
 
-  if (v140 < v281)
+  if (v130 < v269)
   {
     __break(1u);
     goto LABEL_224;
   }
 
-  v146 = Data._Representation.subscript.getter();
-  v148 = v147;
-  specialized ByteBuffer.writeBytes<A>(_:)(v146, v147);
-  outlined consume of Data._Representation(v146, v148);
-  v149 = v235;
-  v150 = v236;
-  outlined init with copy of HandshakeState(&v211[v210], v224);
+  v136 = Data._Representation.subscript.getter();
+  v138 = v137;
+  specialized ByteBuffer.writeBytes<A>(_:)(v136, v137);
+  outlined consume of Data._Representation(v136, v138);
+  v139 = v223;
+  v140 = v224;
+  outlined init with copy of HandshakeState(&v199[v198], v212);
   if (swift_getEnumCaseMultiPayload() != 6)
   {
-    _s15SwiftTLSLibrary14HandshakeStateOWOhTm_0(v224, type metadata accessor for HandshakeState);
+    _s15SwiftTLSLibrary14HandshakeStateOWOhTm_0(v212, type metadata accessor for HandshakeState);
     if (one-time initialization token for logger == -1)
     {
 LABEL_174:
-      v166 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v166, logger);
-      v167 = Logger.logObject.getter();
-      v168 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v167, v168))
+      v155 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v155, logger);
+      v156 = Logger.logObject.getter();
+      v157 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v156, v157))
       {
-        v169 = swift_slowAlloc();
-        *v169 = 0;
-        _os_log_impl(&dword_1B25F5000, v167, v168, "failed to create finished authenticator hash", v169, 2u);
-        MEMORY[0x1B274ECF0](v169, -1, -1);
+        v158 = swift_slowAlloc();
+        *v158 = 0;
+        _os_log_impl(&dword_1B25F5000, v156, v157, "failed to create finished authenticator hash", v158, 2u);
+        MEMORY[0x1B274ECF0](v158, -1, -1);
       }
 
-      v145 = xmmword_1B26CC560;
+      v135 = xmmword_1B26CC560;
       goto LABEL_177;
     }
 
@@ -8822,73 +6723,72 @@ LABEL_224:
     goto LABEL_174;
   }
 
-  v151 = v216;
-  _s15SwiftTLSLibrary21HandshakeStateMachineVWObTm_1(v224, v216, type metadata accessor for HandshakeState.ReadyState);
-  v152 = v151 + *(ready + 44);
-  v153 = specialized SessionKeyManager.generateHashForAuthenticator(_:)(v149, *(&v149 + 1), v150);
-  v155 = v154;
-  v157 = v156;
-  _s15SwiftTLSLibrary14HandshakeStateOWOhTm_0(v151, type metadata accessor for HandshakeState.ReadyState);
-  v216 = v153;
-  v224 = v155;
-  v229 = HandshakeStateMachine.generateHMACForAuthenticator(transcript:key:)(v153, v155, v157, v218);
-  v230 = v158;
-  ready = v159;
-  if (v159 >> 60 == 15)
+  v141 = v204;
+  _s15SwiftTLSLibrary21HandshakeStateMachineVWObTm_1(v212, v204, type metadata accessor for HandshakeState.ReadyState);
+  v142 = specialized SessionKeyManager.generateHashForAuthenticator(_:)(v139, *(&v139 + 1), v140);
+  v144 = v143;
+  v146 = v145;
+  _s15SwiftTLSLibrary14HandshakeStateOWOhTm_0(v141, type metadata accessor for HandshakeState.ReadyState);
+  v204 = v142;
+  v212 = v144;
+  v217 = HandshakeStateMachine.generateHMACForAuthenticator(transcript:key:)(v142, v144, v146, v206);
+  v218 = v147;
+  ready = v148;
+  if (v148 >> 60 == 15)
   {
     if (one-time initialization token for logger != -1)
     {
       swift_once();
     }
 
-    v160 = type metadata accessor for Logger();
-    __swift_project_value_buffer(v160, logger);
-    v161 = Logger.logObject.getter();
-    v162 = static os_log_type_t.error.getter();
-    if (os_log_type_enabled(v161, v162))
+    v149 = type metadata accessor for Logger();
+    __swift_project_value_buffer(v149, logger);
+    v150 = Logger.logObject.getter();
+    v151 = static os_log_type_t.error.getter();
+    if (os_log_type_enabled(v150, v151))
     {
-      v163 = swift_slowAlloc();
-      *v163 = 0;
-      _os_log_impl(&dword_1B25F5000, v161, v162, "failed to create finished authenticator HMAC", v163, 2u);
-      MEMORY[0x1B274ECF0](v163, -1, -1);
+      v152 = swift_slowAlloc();
+      *v152 = 0;
+      _os_log_impl(&dword_1B25F5000, v150, v151, "failed to create finished authenticator HMAC", v152, 2u);
+      MEMORY[0x1B274ECF0](v152, -1, -1);
     }
 
-    v232 = xmmword_1B26CC560;
-    v233 = xmmword_1B26CC560;
-    v234 = 2;
+    v220 = xmmword_1B26CC560;
+    v221 = xmmword_1B26CC560;
+    v222 = 2;
     lazy protocol witness table accessor for type TLSError and conformance TLSError();
     swift_willThrowTypedImpl();
-    outlined consume of Data._Representation(v117, v205);
-    v164 = v216;
-    v165 = v224;
+    outlined consume of Data._Representation(v107, v193);
+    v153 = v204;
+    v154 = v212;
     goto LABEL_178;
   }
 
-  v170 = ready >> 62;
+  v159 = ready >> 62;
   if ((ready >> 62) > 1)
   {
-    if (v170 == 2)
+    if (v159 == 2)
     {
-      v171 = *(v229 + 24);
+      v160 = *(v217 + 24);
     }
 
     else
     {
-      v171 = 0;
+      v160 = 0;
     }
   }
 
-  else if (v170)
+  else if (v159)
   {
-    v171 = v229 >> 32;
+    v160 = v217 >> 32;
   }
 
   else
   {
-    v171 = BYTE6(ready);
+    v160 = BYTE6(ready);
   }
 
-  if (v171 < v230)
+  if (v160 < v218)
   {
     __break(1u);
 LABEL_226:
@@ -8896,68 +6796,68 @@ LABEL_226:
     goto LABEL_227;
   }
 
-  v172 = Data._Representation.subscript.getter();
-  v174 = v173;
-  v175 = v209 >> 62;
-  if ((v209 >> 62) > 1)
+  v161 = Data._Representation.subscript.getter();
+  v163 = v162;
+  v164 = v197 >> 62;
+  if ((v197 >> 62) > 1)
   {
-    if (v175 == 2)
+    if (v164 == 2)
     {
-      v176 = *(v207 + 24);
+      v165 = *(v195 + 24);
     }
 
     else
     {
-      v176 = 0;
+      v165 = 0;
     }
   }
 
-  else if (v175)
+  else if (v164)
   {
-    v176 = v207 >> 32;
+    v165 = v195 >> 32;
   }
 
   else
   {
-    v176 = BYTE6(v209);
+    v165 = BYTE6(v197);
   }
 
-  if (v176 < v208)
+  if (v165 < v196)
   {
     goto LABEL_226;
   }
 
-  v177 = Data._Representation.subscript.getter();
-  v179 = v178;
-  v180 = specialized static Data.== infix(_:_:)(v172, v174, v177, v178);
-  outlined consume of Data._Representation(v177, v179);
-  outlined consume of Data._Representation(v172, v174);
-  if ((v180 & 1) == 0)
+  v166 = Data._Representation.subscript.getter();
+  v168 = v167;
+  v169 = specialized static Data.== infix(_:_:)(v161, v163, v166, v167);
+  outlined consume of Data._Representation(v166, v168);
+  outlined consume of Data._Representation(v161, v163);
+  if (!v169)
   {
     if (one-time initialization token for logger == -1)
     {
 LABEL_212:
-      v196 = type metadata accessor for Logger();
-      __swift_project_value_buffer(v196, logger);
-      v197 = Logger.logObject.getter();
-      v198 = static os_log_type_t.error.getter();
-      if (os_log_type_enabled(v197, v198))
+      v184 = type metadata accessor for Logger();
+      __swift_project_value_buffer(v184, logger);
+      v185 = Logger.logObject.getter();
+      v186 = static os_log_type_t.error.getter();
+      if (os_log_type_enabled(v185, v186))
       {
-        v199 = swift_slowAlloc();
-        *v199 = 0;
-        _os_log_impl(&dword_1B25F5000, v197, v198, "invalid finished payload", v199, 2u);
-        MEMORY[0x1B274ECF0](v199, -1, -1);
+        v187 = swift_slowAlloc();
+        *v187 = 0;
+        _os_log_impl(&dword_1B25F5000, v185, v186, "invalid finished payload", v187, 2u);
+        MEMORY[0x1B274ECF0](v187, -1, -1);
       }
 
-      v232 = xmmword_1B26CC550;
-      v233 = xmmword_1B26CC550;
-      v234 = 2;
+      v220 = xmmword_1B26CC550;
+      v221 = xmmword_1B26CC550;
+      v222 = 2;
       lazy protocol witness table accessor for type TLSError and conformance TLSError();
       swift_willThrowTypedImpl();
-      outlined consume of Data._Representation(v117, v205);
-      outlined consume of Data._Representation(v216, v224);
-      outlined destroy of HandshakeMessage(&v308 + 8);
-      outlined consume of ByteBuffer?(v229, ready);
+      outlined consume of Data._Representation(v107, v193);
+      outlined consume of Data._Representation(v204, v212);
+      outlined destroy of HandshakeMessage(&v296 + 8);
+      outlined consume of ByteBuffer?(v217, ready);
       goto LABEL_179;
     }
 
@@ -8966,164 +6866,159 @@ LABEL_227:
     goto LABEL_212;
   }
 
-  v181 = v215[2];
-  if (v181)
+  v170 = v203[2];
+  if (v170)
   {
-    *&v233 = MEMORY[0x1E69E7CC0];
-    v182 = v215;
+    *&v221 = MEMORY[0x1E69E7CC0];
+    v171 = v203;
 
-    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v181, 0);
-    *&v232 = v233;
-    v183 = v182 + 7;
+    specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(0, v170, 0);
+    *&v220 = v221;
+    v172 = v171 + 7;
     while (1)
     {
-      v184 = *(v183 - 3);
-      v185 = *(v183 - 2);
-      v186 = v185 >> 62;
-      if ((v185 >> 62) > 1)
+      v173 = *(v172 - 3);
+      v174 = *(v172 - 2);
+      v175 = v174 >> 62;
+      if ((v174 >> 62) > 1)
       {
-        v187 = v186 == 2 ? *(v184 + 24) : 0;
+        v176 = v175 == 2 ? *(v173 + 24) : 0;
       }
 
       else
       {
-        v187 = v186 ? v184 >> 32 : BYTE6(v185);
+        v176 = v175 ? v173 >> 32 : BYTE6(v174);
       }
 
-      if (v187 < *(v183 - 1))
+      if (v176 < *(v172 - 1))
       {
         goto LABEL_220;
       }
 
-      v188 = *v183;
-      outlined copy of Data._Representation(*(v183 - 3), *(v183 - 2));
+      outlined copy of Data._Representation(*(v172 - 3), *(v172 - 2));
 
-      v189 = Data._Representation.subscript.getter();
-      v191 = v190;
-      outlined consume of Data._Representation(v184, v185);
+      v177 = Data._Representation.subscript.getter();
+      v179 = v178;
+      outlined consume of Data._Representation(v173, v174);
 
-      *&v233 = v232;
-      v193 = *(v232 + 16);
-      v192 = *(v232 + 24);
-      if (v193 >= v192 >> 1)
+      *&v221 = v220;
+      v181 = *(v220 + 16);
+      v180 = *(v220 + 24);
+      if (v181 >= v180 >> 1)
       {
-        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v192 > 1), v193 + 1, 1);
-        *&v232 = v233;
+        specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v180 > 1), v181 + 1, 1);
+        *&v220 = v221;
       }
 
-      v194 = v232;
-      *(v232 + 16) = v193 + 1;
-      v195 = v194 + 16 * v193;
-      *(v195 + 32) = v189;
-      *(v195 + 40) = v191;
-      v183 += 4;
-      if (!--v181)
+      v182 = v220;
+      *(v220 + 16) = v181 + 1;
+      v183 = v182 + 16 * v181;
+      *(v183 + 32) = v177;
+      *(v183 + 40) = v179;
+      v172 += 4;
+      if (!--v170)
       {
-        outlined consume of Data._Representation(v117, v205);
-        outlined consume of Data._Representation(v216, v224);
-        outlined destroy of HandshakeMessage(&v308 + 8);
-        outlined consume of ByteBuffer?(v229, ready);
-        outlined consume of Data._Representation(v206, v217);
+        outlined consume of Data._Representation(v107, v193);
+        outlined consume of Data._Representation(v204, v212);
+        outlined destroy of HandshakeMessage(&v296 + 8);
+        outlined consume of ByteBuffer?(v217, ready);
+        outlined consume of Data._Representation(v194, v205);
 
-        outlined destroy of HandshakeMessage(&v281 + 8);
-        outlined destroy of P256.Signing.PrivateKey?(&v244, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-        outlined destroy of P256.Signing.PrivateKey?(&v271, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-        outlined destroy of P256.Signing.PrivateKey?(&v298, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-        (*(v222 + 8))(v225, v223);
-        (*(v228 + 8))(v226, v227);
-        v200 = v221;
-        v201 = *(v220 + 8);
-        v201(v218, v221);
-        v201(v219, v200);
-        outlined destroy of HandshakeMessage(&v254 + 8);
+        outlined destroy of HandshakeMessage(&v269 + 8);
+        outlined destroy of P256.Signing.PrivateKey?(&v232, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+        outlined destroy of P256.Signing.PrivateKey?(&v259, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+        outlined destroy of P256.Signing.PrivateKey?(&v286, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+        (*(v210 + 8))(v213, v211);
+        (*(v216 + 8))(v214, v215);
+        v188 = v209;
+        v189 = *(v208 + 8);
+        v189(v206, v209);
+        v189(v207, v188);
+        outlined destroy of HandshakeMessage(&v242 + 8);
         goto LABEL_216;
       }
     }
   }
 
-  outlined consume of Data._Representation(v117, v205);
-  outlined consume of Data._Representation(v216, v224);
-  outlined destroy of HandshakeMessage(&v308 + 8);
-  outlined consume of ByteBuffer?(v229, ready);
-  outlined consume of Data._Representation(v206, v217);
-  outlined destroy of HandshakeMessage(&v281 + 8);
-  outlined destroy of P256.Signing.PrivateKey?(&v244, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-  outlined destroy of P256.Signing.PrivateKey?(&v271, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-  outlined destroy of P256.Signing.PrivateKey?(&v298, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
-  (*(v222 + 8))(v225, v223);
-  (*(v228 + 8))(v226, v227);
-  v202 = v221;
-  v203 = *(v220 + 8);
-  v203(v218, v221);
-  v203(v219, v202);
-  outlined destroy of HandshakeMessage(&v254 + 8);
-  *&v232 = MEMORY[0x1E69E7CC0];
+  outlined consume of Data._Representation(v107, v193);
+  outlined consume of Data._Representation(v204, v212);
+  outlined destroy of HandshakeMessage(&v296 + 8);
+  outlined consume of ByteBuffer?(v217, ready);
+  outlined consume of Data._Representation(v194, v205);
+  outlined destroy of HandshakeMessage(&v269 + 8);
+  outlined destroy of P256.Signing.PrivateKey?(&v232, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+  outlined destroy of P256.Signing.PrivateKey?(&v259, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+  outlined destroy of P256.Signing.PrivateKey?(&v286, &_s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMd, _s15SwiftTLSLibrary22HandshakeMessageParserV11ParseResultVSgMR);
+  (*(v210 + 8))(v213, v211);
+  (*(v216 + 8))(v214, v215);
+  v190 = v209;
+  v191 = *(v208 + 8);
+  v191(v206, v209);
+  v191(v207, v190);
+  outlined destroy of HandshakeMessage(&v242 + 8);
+  *&v220 = MEMORY[0x1E69E7CC0];
 LABEL_216:
-  outlined consume of Data._Representation(v235, *(&v235 + 1));
-  return v232;
+  outlined consume of Data._Representation(v223, *(&v223 + 1));
+  return v220;
 }
 
 uint64_t ExportedAuthenticator.generateDataToSignInAuthenticatorCertificateVerify(authenticatorTranscriptHash:)(uint64_t a1, unint64_t a2, uint64_t a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v18 = xmmword_1B26C6130;
-  v19 = 0;
-  specialized Data.append<A>(contentsOf:)(64);
+  v16 = *MEMORY[0x1E69E9840];
+  v14 = xmmword_1B26C6130;
+  v15 = 0;
+  specialized Data.append<A>(contentsOf:)(64, 32);
   specialized Data.append<A>(contentsOf:)(0xD000000000000016, 0x80000001B26CE560);
   if (("authenticator finished key" & 0x1000000000000000) != 0)
   {
     String.UTF8View._foreignCount()();
   }
 
-  v16 = 0;
-  v17[3] = MEMORY[0x1E69E6290];
-  v17[4] = MEMORY[0x1E6969DF8];
-  v17[0] = &v16;
-  v17[1] = v17;
-  v6 = __swift_project_boxed_opaque_existential_0(v17, MEMORY[0x1E69E6290]);
-  v8 = *v6;
-  v7 = v6[1];
+  v12 = 0;
+  v13[3] = MEMORY[0x1E69E6290];
+  v13[4] = MEMORY[0x1E6969DF8];
+  v13[0] = &v12;
+  v13[1] = v13;
+  __swift_project_boxed_opaque_existential_0(v13, MEMORY[0x1E69E6290]);
   Data._Representation.append(contentsOf:)();
-  __swift_destroy_boxed_opaque_existential_0(v17);
-  v9 = a2 >> 62;
+  __swift_destroy_boxed_opaque_existential_0(v13);
+  v6 = a2 >> 62;
   if ((a2 >> 62) > 1)
   {
-    if (v9 == 2)
+    if (v6 == 2)
     {
-      v10 = *(a1 + 24);
+      v7 = *(a1 + 24);
     }
 
     else
     {
-      v10 = 0;
+      v7 = 0;
     }
   }
 
-  else if (v9)
+  else if (v6)
   {
-    v10 = a1 >> 32;
+    v7 = a1 >> 32;
   }
 
   else
   {
-    v10 = BYTE6(a2);
+    v7 = BYTE6(a2);
   }
 
-  if (v10 < a3)
+  if (v7 < a3)
   {
     __break(1u);
   }
 
-  v11 = Data._Representation.subscript.getter();
-  v13 = v12;
-  specialized ByteBuffer.writeBytes<A>(_:)(v11, v12);
-  outlined consume of Data._Representation(v11, v13);
-  result = v18;
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  v8 = Data._Representation.subscript.getter();
+  v10 = v9;
+  specialized ByteBuffer.writeBytes<A>(_:)(v8, v9);
+  outlined consume of Data._Representation(v8, v10);
+  return v14;
 }
 
-uint64_t _s15SwiftTLSLibrary21ExportedAuthenticatorV10extractKey18certificateMessage9keyParser9CryptoKit4P256O7SigningO06PublicF0VSgAA011CertificateH0V_10Foundation4DataVSgASXEtAA8TLSErrorOYKF@<X0>(void *a1@<X3>, uint64_t (*a2)(void)@<X4>, unint64_t a3@<X5>, uint64_t a4@<X6>, uint64_t a5@<X8>)
+void _s15SwiftTLSLibrary21ExportedAuthenticatorV10extractKey18certificateMessage9keyParser9CryptoKit4P256O7SigningO06PublicF0VSgAA011CertificateH0V_10Foundation4DataVSgASXEtAA8TLSErrorOYKF(void *a1@<X3>, uint64_t (*a2)(void)@<X4>, unint64_t a3@<X5>, uint64_t a4@<X6>, uint64_t a5@<X8>)
 {
   if (!a1[2])
   {
@@ -9181,7 +7076,8 @@ LABEL_10:
     outlined consume of Data._Representation(v11, v10);
 LABEL_12:
     v19 = type metadata accessor for P256.Signing.PublicKey();
-    return (*(*(v19 - 8) + 56))(a5, 1, 1, v19);
+    (*(*(v19 - 8) + 56))(a5, 1, 1, v19);
+    return;
   }
 
   outlined copy of Data._Representation(a2, a3);
@@ -9192,17 +7088,17 @@ LABEL_12:
     lazy protocol witness table accessor for type TLSError and conformance TLSError();
     swift_willThrowTypedImpl();
     outlined consume of ByteBuffer?(a2, a3);
-    result = outlined consume of Data._Representation(v11, v10);
+    outlined consume of Data._Representation(v11, v10);
     *a4 = xmmword_1B26C6420;
     *(a4 + 16) = 2;
-    return result;
+    return;
   }
 
 LABEL_17:
   outlined consume of Data._Representation(v11, v10);
   outlined consume of ByteBuffer?(a2, a3);
-  v21 = type metadata accessor for P256.Signing.PublicKey();
-  return (*(*(v21 - 8) + 56))(a5, 0, 1, v21);
+  v20 = type metadata accessor for P256.Signing.PublicKey();
+  (*(*(v20 - 8) + 56))(a5, 0, 1, v20);
 }
 
 uint64_t outlined init with copy of HandshakeState(uint64_t a1, uint64_t a2)
@@ -9212,10 +7108,10 @@ uint64_t outlined init with copy of HandshakeState(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t type metadata completion function for ExportedAuthenticator()
+uint64_t type metadata completion function for ExportedAuthenticator(uint64_t a1)
 {
   result = type metadata accessor for HandshakeStateMachine(319);
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     swift_cvw_initStructMetadataWithLayoutString();
     return 0;
@@ -9224,14 +7120,13 @@ uint64_t type metadata completion function for ExportedAuthenticator()
   return result;
 }
 
-uint64_t static CertificateMessage.__derived_struct_equals(_:_:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8)
+void static CertificateMessage.__derived_struct_equals(_:_:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, unint64_t a6, uint64_t a7, uint64_t a8)
 {
-  if ((specialized static ByteBuffer.== infix(_:_:)(a1, a2, a3, a5, a6, a7) & 1) == 0)
+  if (specialized static ByteBuffer.== infix(_:_:)(a1, a2, a3, a5, a6, a7))
   {
-    return 0;
-  }
 
-  return _sSasSQRzlE2eeoiySbSayxG_ABtFZ15SwiftTLSLibrary18CertificateMessageV0D5EntryV_Tt1g5(a4, a8);
+    _sSasSQRzlE2eeoiySbSayxG_ABtFZ15SwiftTLSLibrary18CertificateMessageV0D5EntryV_Tt1g5(a4, a8);
+  }
 }
 
 uint64_t CertificateMessage.hash(into:)(uint64_t result, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
@@ -9279,7 +7174,7 @@ uint64_t CertificateMessage.hash(into:)(uint64_t result, uint64_t a2, unint64_t 
   return result;
 }
 
-Swift::Int CertificateMessage.hashValue.getter(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+void *CertificateMessage.hashValue.getter(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = Hasher.init(_seed:)();
   v9 = a2 >> 62;
@@ -9368,49 +7263,49 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance CertificateMes
   return result;
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance CertificateMessage()
+void *protocol witness for Hashable._rawHashValue(seed:) in conformance CertificateMessage(uint64_t a1)
 {
-  v2 = *v0;
-  v1 = v0[1];
-  v4 = v0[2];
-  v3 = v0[3];
+  v3 = *v1;
+  v2 = v1[1];
+  v5 = v1[2];
+  v4 = v1[3];
   result = Hasher.init(_seed:)();
-  v6 = v1 >> 62;
-  if ((v1 >> 62) > 1)
+  v7 = v2 >> 62;
+  if ((v2 >> 62) > 1)
   {
-    if (v6 == 2)
+    if (v7 == 2)
     {
-      v7 = *(v2 + 24);
+      v8 = *(v3 + 24);
     }
 
     else
     {
-      v7 = 0;
+      v8 = 0;
     }
   }
 
-  else if (v6)
+  else if (v7)
   {
-    v7 = v2 >> 32;
+    v8 = v3 >> 32;
   }
 
   else
   {
-    v7 = BYTE6(v1);
+    v8 = BYTE6(v2);
   }
 
-  if (v7 < v4)
+  if (v8 < v5)
   {
     __break(1u);
   }
 
   else
   {
-    v8 = Data._Representation.subscript.getter();
-    v10 = v9;
+    v9 = Data._Representation.subscript.getter();
+    v11 = v10;
     Data.hash(into:)();
-    outlined consume of Data._Representation(v8, v10);
-    specialized Array<A>.hash(into:)(v11, v3);
+    outlined consume of Data._Representation(v9, v11);
+    specialized Array<A>.hash(into:)(v12, v4);
     return Hasher._finalize()();
   }
 
@@ -9429,9 +7324,9 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance Cer
   return a5(v5, v6);
 }
 
-uint64_t CertificateMessage.write(into:)(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
+unint64_t CertificateMessage.write(into:)(uint64_t *a1, uint64_t a2, unint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v10 = *a1;
   v11 = a1[1];
   v12 = v11 >> 62;
@@ -9459,103 +7354,101 @@ uint64_t CertificateMessage.write(into:)(uint64_t *a1, uint64_t a2, unint64_t a3
     }
   }
 
-  LOBYTE(v46) = 0;
+  LOBYTE(v36) = 0;
   v16 = MEMORY[0x1E69E6290];
   v17 = MEMORY[0x1E6969DF8];
-  v49 = MEMORY[0x1E69E6290];
-  v50 = MEMORY[0x1E6969DF8];
-  v47 = &v46;
-  v48 = (&v46 + 1);
-  v18 = __swift_project_boxed_opaque_existential_0(&v47, MEMORY[0x1E69E6290]);
-  v20 = *v18;
-  v19 = v18[1];
+  v39 = MEMORY[0x1E69E6290];
+  v40 = MEMORY[0x1E6969DF8];
+  v37 = &v36;
+  v38 = (&v36 + 1);
+  __swift_project_boxed_opaque_existential_0(&v37, MEMORY[0x1E69E6290]);
   Data._Representation.append(contentsOf:)();
-  __swift_destroy_boxed_opaque_existential_0(&v47);
-  v21 = a3 >> 62;
+  __swift_destroy_boxed_opaque_existential_0(&v37);
+  v18 = a3 >> 62;
   if ((a3 >> 62) > 1)
   {
-    if (v21 == 2)
+    if (v18 == 2)
     {
-      v23 = *(a2 + 16);
-      v22 = *(a2 + 24);
+      v20 = *(a2 + 16);
+      v19 = *(a2 + 24);
     }
 
     else
     {
-      v22 = 0;
-      v23 = 0;
+      v19 = 0;
+      v20 = 0;
     }
   }
 
   else
   {
-    if (v21)
+    if (v18)
     {
-      v22 = a2 >> 32;
+      v19 = a2 >> 32;
     }
 
     else
     {
-      v22 = BYTE6(a3);
+      v19 = BYTE6(a3);
     }
 
-    if (v21)
+    if (v18)
     {
-      v23 = a2;
+      v20 = a2;
     }
 
     else
     {
-      v23 = 0;
+      v20 = 0;
     }
   }
 
-  if (v22 < a4 || v22 < v23)
+  if (v19 < a4 || v19 < v20)
   {
     __break(1u);
     goto LABEL_43;
   }
 
-  v24 = Data._Representation.subscript.getter();
-  v26 = v25;
+  v21 = Data._Representation.subscript.getter();
+  v23 = v22;
   Data.append(_:)();
-  v27 = v26;
-  v28 = v26 >> 62;
-  if ((v26 >> 62) <= 1)
+  v24 = v23;
+  v25 = v23 >> 62;
+  if ((v23 >> 62) <= 1)
   {
-    if (!v28)
+    if (!v25)
     {
-      outlined consume of Data._Representation(v24, v26);
-      v24 = BYTE6(v26);
+      outlined consume of Data._Representation(v21, v23);
+      v21 = BYTE6(v23);
       goto LABEL_32;
     }
 
     goto LABEL_26;
   }
 
-  if (v28 != 2)
+  if (v25 != 2)
   {
     goto LABEL_31;
   }
 
-  v30 = *(v24 + 16);
-  v29 = *(v24 + 24);
-  outlined consume of Data._Representation(v24, v27);
-  v24 = v29 - v30;
-  if (__OFSUB__(v29, v30))
+  v27 = *(v21 + 16);
+  v26 = *(v21 + 24);
+  outlined consume of Data._Representation(v21, v24);
+  v21 = v26 - v27;
+  if (__OFSUB__(v26, v27))
   {
     __break(1u);
 LABEL_26:
-    outlined consume of Data._Representation(v24, v27);
-    if (__OFSUB__(HIDWORD(v24), v24))
+    outlined consume of Data._Representation(v21, v24);
+    if (__OFSUB__(HIDWORD(v21), v21))
     {
       goto LABEL_46;
     }
 
-    v24 = HIDWORD(v24) - v24;
+    v21 = HIDWORD(v21) - v21;
   }
 
-  if ((v24 & 0x8000000000000000) != 0)
+  if ((v21 & 0x8000000000000000) != 0)
   {
 LABEL_43:
     __break(1u);
@@ -9564,72 +7457,68 @@ LABEL_44:
     goto LABEL_45;
   }
 
-  if (v24 <= 0xFF)
+  if (v21 <= 0xFF)
   {
     goto LABEL_32;
   }
 
   __break(1u);
 LABEL_31:
-  outlined consume of Data._Representation(v24, v27);
-  v24 = 0;
+  outlined consume of Data._Representation(v21, v24);
+  v21 = 0;
 LABEL_32:
-  _s15SwiftTLSLibrary10ByteBufferV10setInteger_2at2asSix_Sixmts010FixedWidthF0RzlFs5UInt8V_Tt1g5(v24, v15);
-  v31 = *a1;
-  v32 = a1[1];
-  v33 = v32 >> 62;
-  if ((v32 >> 62) > 1)
+  _s15SwiftTLSLibrary10ByteBufferV10setInteger_2at2asSix_Sixmts010FixedWidthF0RzlFs5UInt8V_Tt1g5(v21, v15);
+  v28 = *a1;
+  v29 = a1[1];
+  v30 = v29 >> 62;
+  if ((v29 >> 62) > 1)
   {
-    if (v33 == 2)
+    if (v30 == 2)
     {
-      v34 = *(v31 + 24);
+      v31 = *(v28 + 24);
     }
 
     else
     {
-      v34 = 0;
+      v31 = 0;
     }
   }
 
-  else if (v33)
+  else if (v30)
   {
-    v34 = v31 >> 32;
+    v31 = v28 >> 32;
   }
 
   else
   {
-    v34 = BYTE6(v32);
+    v31 = BYTE6(v29);
   }
 
-  LOBYTE(v46) = 0;
-  v49 = v16;
-  v50 = v17;
-  v47 = &v46;
-  v48 = (&v46 + 1);
-  v35 = __swift_project_boxed_opaque_existential_0(&v47, v16);
-  v37 = *v35;
-  v36 = v35[1];
+  LOBYTE(v36) = 0;
+  v39 = v16;
+  v40 = v17;
+  v37 = &v36;
+  v38 = (&v36 + 1);
+  __swift_project_boxed_opaque_existential_0(&v37, v16);
   Data._Representation.append(contentsOf:)();
-  __swift_destroy_boxed_opaque_existential_0(&v47);
-  v46 = 0;
-  v49 = v16;
-  v50 = v17;
-  v47 = &v46;
-  v48 = &v47;
-  v38 = __swift_project_boxed_opaque_existential_0(&v47, v16);
-  v40 = *v38;
-  v39 = v38[1];
+  __swift_destroy_boxed_opaque_existential_0(&v37);
+  v36 = 0;
+  v39 = v16;
+  v40 = v17;
+  v37 = &v36;
+  v38 = &v37;
+  __swift_project_boxed_opaque_existential_0(&v37, v16);
   Data._Representation.append(contentsOf:)();
-  __swift_destroy_boxed_opaque_existential_0(&v47);
-  v41 = specialized Sequence.reduce<A>(into:_:)(0, a5);
-  if (v41 > 0xFFFFFF)
+  __swift_destroy_boxed_opaque_existential_0(&v37);
+  v32 = specialized Sequence.reduce<A>(into:_:)(0, a5);
+  if (v32 > 0xFFFFFF)
   {
     goto LABEL_44;
   }
 
-  v42 = v41;
-  v43 = _s15SwiftTLSLibrary10ByteBufferV10setInteger_2at2asSix_Sixmts010FixedWidthF0RzlFs5UInt8V_Tt1g5(SBYTE2(v41), v34);
-  if (__OFADD__(v34, v43))
+  v33 = v32;
+  v34 = _s15SwiftTLSLibrary10ByteBufferV10setInteger_2at2asSix_Sixmts010FixedWidthF0RzlFs5UInt8V_Tt1g5(SBYTE2(v32), v31);
+  if (__OFADD__(v31, v34))
   {
 LABEL_45:
     __break(1u);
@@ -9637,14 +7526,13 @@ LABEL_46:
     __break(1u);
   }
 
-  _s15SwiftTLSLibrary10ByteBufferV10setInteger_2at2asSix_Sixmts010FixedWidthF0RzlFs6UInt16V_Tt1g5(v42, v34 + v43);
-  v44 = *MEMORY[0x1E69E9840];
-  return v24 + v42 + 4;
+  _s15SwiftTLSLibrary10ByteBufferV10setInteger_2at2asSix_Sixmts010FixedWidthF0RzlFs6UInt16V_Tt1g5(v33, v31 + v34);
+  return v21 + v33 + 4;
 }
 
-uint64_t ByteBuffer.writeCertificateEntry(_:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
+unint64_t ByteBuffer.writeCertificateEntry(_:)(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   v9 = *v4;
   v10 = v4[1];
   v11 = v10 >> 62;
@@ -9672,113 +7560,109 @@ uint64_t ByteBuffer.writeCertificateEntry(_:)(uint64_t a1, unint64_t a2, uint64_
     }
   }
 
-  LOBYTE(v45) = 0;
+  LOBYTE(v35) = 0;
   v15 = MEMORY[0x1E69E6290];
   v16 = MEMORY[0x1E6969DF8];
-  v48 = MEMORY[0x1E69E6290];
-  v49 = MEMORY[0x1E6969DF8];
-  v46 = &v45;
-  v47 = (&v45 + 1);
-  v17 = __swift_project_boxed_opaque_existential_0(&v46, MEMORY[0x1E69E6290]);
-  v19 = *v17;
-  v18 = v17[1];
+  v38 = MEMORY[0x1E69E6290];
+  v39 = MEMORY[0x1E6969DF8];
+  v36 = &v35;
+  v37 = (&v35 + 1);
+  __swift_project_boxed_opaque_existential_0(&v36, MEMORY[0x1E69E6290]);
   Data._Representation.append(contentsOf:)();
-  __swift_destroy_boxed_opaque_existential_0(&v46);
-  v45 = 0;
-  v48 = v15;
-  v49 = v16;
-  v46 = &v45;
-  v47 = &v46;
-  v20 = __swift_project_boxed_opaque_existential_0(&v46, v15);
-  v22 = *v20;
-  v21 = v20[1];
+  __swift_destroy_boxed_opaque_existential_0(&v36);
+  v35 = 0;
+  v38 = v15;
+  v39 = v16;
+  v36 = &v35;
+  v37 = &v36;
+  __swift_project_boxed_opaque_existential_0(&v36, v15);
   Data._Representation.append(contentsOf:)();
-  __swift_destroy_boxed_opaque_existential_0(&v46);
-  v23 = a2 >> 62;
+  __swift_destroy_boxed_opaque_existential_0(&v36);
+  v17 = a2 >> 62;
   if ((a2 >> 62) > 1)
   {
-    if (v23 == 2)
+    if (v17 == 2)
     {
-      v24 = *(a1 + 16);
-      v25 = *(a1 + 24);
+      v18 = *(a1 + 16);
+      v19 = *(a1 + 24);
     }
 
     else
     {
-      v25 = 0;
-      v24 = 0;
+      v19 = 0;
+      v18 = 0;
     }
   }
 
-  else if (v23)
+  else if (v17)
   {
-    v24 = a1;
-    v25 = a1 >> 32;
+    v18 = a1;
+    v19 = a1 >> 32;
   }
 
   else
   {
-    v24 = 0;
-    v25 = BYTE6(a2);
+    v18 = 0;
+    v19 = BYTE6(a2);
   }
 
-  if (v25 < a3 || v25 < v24)
+  if (v19 < a3 || v19 < v18)
   {
     __break(1u);
     goto LABEL_40;
   }
 
-  v26 = Data._Representation.subscript.getter();
-  v28 = v27;
+  v20 = Data._Representation.subscript.getter();
+  v22 = v21;
   Data.append(_:)();
-  v29 = v28;
-  v30 = v28 >> 62;
-  if ((v28 >> 62) <= 1)
+  v23 = v22;
+  v24 = v22 >> 62;
+  if ((v22 >> 62) <= 1)
   {
-    if (!v30)
+    if (!v24)
     {
-      outlined consume of Data._Representation(v26, v28);
-      v26 = BYTE6(v28);
+      outlined consume of Data._Representation(v20, v22);
+      v20 = BYTE6(v22);
       goto LABEL_28;
     }
 
     goto LABEL_23;
   }
 
-  if (v30 != 2)
+  if (v24 != 2)
   {
     goto LABEL_27;
   }
 
-  v32 = *(v26 + 16);
-  v31 = *(v26 + 24);
-  outlined consume of Data._Representation(v26, v29);
-  v26 = v31 - v32;
-  if (__OFSUB__(v31, v32))
+  v26 = *(v20 + 16);
+  v25 = *(v20 + 24);
+  outlined consume of Data._Representation(v20, v23);
+  v20 = v25 - v26;
+  if (__OFSUB__(v25, v26))
   {
     __break(1u);
 LABEL_23:
-    outlined consume of Data._Representation(v26, v29);
-    if (__OFSUB__(HIDWORD(v26), v26))
+    outlined consume of Data._Representation(v20, v23);
+    if (__OFSUB__(HIDWORD(v20), v20))
     {
       goto LABEL_43;
     }
 
-    v26 = HIDWORD(v26) - v26;
+    v20 = HIDWORD(v20) - v20;
   }
 
-  if (v26 <= 0xFFFFFF)
+  if (v20 <= 0xFFFFFF)
   {
     goto LABEL_28;
   }
 
   __break(1u);
 LABEL_27:
-  outlined consume of Data._Representation(v26, v29);
-  v26 = 0;
+  outlined consume of Data._Representation(v20, v23);
+  v20 = 0;
 LABEL_28:
-  v33 = _s15SwiftTLSLibrary10ByteBufferV10setInteger_2at2asSix_Sixmts010FixedWidthF0RzlFs5UInt8V_Tt1g5(SBYTE2(v26), v14);
-  if (__OFADD__(v14, v33))
+  v27 = _s15SwiftTLSLibrary10ByteBufferV10setInteger_2at2asSix_Sixmts010FixedWidthF0RzlFs5UInt8V_Tt1g5(SBYTE2(v20), v14);
+  if (__OFADD__(v14, v27))
   {
 LABEL_40:
     __break(1u);
@@ -9787,51 +7671,49 @@ LABEL_41:
     goto LABEL_42;
   }
 
-  _s15SwiftTLSLibrary10ByteBufferV10setInteger_2at2asSix_Sixmts010FixedWidthF0RzlFs6UInt16V_Tt1g5(v26, v14 + v33);
-  v34 = *v4;
-  v35 = v4[1];
-  v36 = v35 >> 62;
-  if ((v35 >> 62) > 1)
+  _s15SwiftTLSLibrary10ByteBufferV10setInteger_2at2asSix_Sixmts010FixedWidthF0RzlFs6UInt16V_Tt1g5(v20, v14 + v27);
+  v28 = *v4;
+  v29 = v4[1];
+  v30 = v29 >> 62;
+  if ((v29 >> 62) > 1)
   {
-    if (v36 == 2)
+    if (v30 == 2)
     {
-      v37 = *(v34 + 24);
+      v31 = *(v28 + 24);
     }
 
     else
     {
-      v37 = 0;
+      v31 = 0;
     }
   }
 
-  else if (v36)
+  else if (v30)
   {
-    v37 = v34 >> 32;
+    v31 = v28 >> 32;
   }
 
   else
   {
-    v37 = BYTE6(v35);
+    v31 = BYTE6(v29);
   }
 
-  v45 = 0;
-  v48 = v15;
-  v49 = v16;
-  v46 = &v45;
-  v47 = &v46;
-  v38 = __swift_project_boxed_opaque_existential_0(&v46, v15);
-  v40 = *v38;
-  v39 = v38[1];
+  v35 = 0;
+  v38 = v15;
+  v39 = v16;
+  v36 = &v35;
+  v37 = &v36;
+  __swift_project_boxed_opaque_existential_0(&v36, v15);
   Data._Representation.append(contentsOf:)();
-  __swift_destroy_boxed_opaque_existential_0(&v46);
-  v41 = specialized Sequence.reduce<A>(into:_:)(0, a4);
-  if ((v41 & 0x8000000000000000) != 0)
+  __swift_destroy_boxed_opaque_existential_0(&v36);
+  v32 = specialized Sequence.reduce<A>(into:_:)(0, a4);
+  if ((v32 & 0x8000000000000000) != 0)
   {
     goto LABEL_41;
   }
 
-  v42 = v41;
-  if (v41 >> 16)
+  v33 = v32;
+  if (v32 >> 16)
   {
 LABEL_42:
     __break(1u);
@@ -9839,7 +7721,2154 @@ LABEL_43:
     __break(1u);
   }
 
-  _s15SwiftTLSLibrary10ByteBufferV10setInteger_2at2asSix_Sixmts010FixedWidthF0RzlFs6UInt16V_Tt1g5(v41, v37);
-  v43 = *MEMORY[0x1E69E9840];
-  return v26 + v42 + 5;
+  _s15SwiftTLSLibrary10ByteBufferV10setInteger_2at2asSix_Sixmts010FixedWidthF0RzlFs6UInt16V_Tt1g5(v32, v31);
+  return v20 + v33 + 5;
+}
+
+uint64_t _s15SwiftTLSLibrary10ByteBufferV20readCertificateEntryAA0F7MessageV0fG0VSgyAA8TLSErrorOYKF()
+{
+  v2 = v0;
+  v4 = *v0;
+  v3 = v0[1];
+  v5 = v0[2];
+  outlined copy of Data._Representation(*v0, v3);
+  v6 = _s15SwiftTLSLibrary10ByteBufferV11readInteger2asxSgxm_ts010FixedWidthF0RzlFs5UInt8V_Tt0g5();
+  if ((v6 & 0x100) != 0 || (v7 = v6, v8 = _s15SwiftTLSLibrary10ByteBufferV11readInteger2asxSgxm_ts010FixedWidthF0RzlFs6UInt16V_Tt0g5(), (v8 & 0x10000) != 0) || (v9 = ByteBuffer.readSlice(length:)(v8 | (v7 << 16)), v10 >> 60 == 15))
+  {
+    outlined consume of Data._Representation(*v0, v0[1]);
+LABEL_5:
+    result = 0;
+    *v2 = v4;
+    v2[1] = v3;
+    v2[2] = v5;
+    return result;
+  }
+
+  v22 = v9;
+  v23 = v10;
+  v24 = v11;
+  v13 = v10 >> 62;
+  if ((v10 >> 62) > 1)
+  {
+    if (v13 == 2)
+    {
+      v14 = *(v9 + 24);
+    }
+
+    else
+    {
+      v14 = 0;
+    }
+  }
+
+  else if (v13)
+  {
+    v14 = v9 >> 32;
+  }
+
+  else
+  {
+    v14 = BYTE6(v10);
+  }
+
+  result = v14 - v11;
+  if (__OFSUB__(v14, v11))
+  {
+    __break(1u);
+    goto LABEL_31;
+  }
+
+  result = ByteBuffer.readSlice(length:)(result);
+  if (v15 >> 60 == 15)
+  {
+LABEL_32:
+    __break(1u);
+    return result;
+  }
+
+  v16 = v23 >> 62;
+  if ((v23 >> 62) > 1)
+  {
+    if (v16 == 2)
+    {
+      v17 = *(v22 + 24);
+    }
+
+    else
+    {
+      v17 = 0;
+    }
+  }
+
+  else if (v16)
+  {
+    v17 = v22 >> 32;
+  }
+
+  else
+  {
+    v17 = BYTE6(v23);
+  }
+
+  if (__OFSUB__(v17, v24))
+  {
+LABEL_31:
+    __break(1u);
+    goto LABEL_32;
+  }
+
+  v18 = result;
+  v19 = v15;
+  if (v17 == v24)
+  {
+    outlined consume of Data._Representation(v22, v23);
+    outlined consume of Data._Representation(v4, v3);
+    v4 = *v2;
+    v3 = v2[1];
+    v5 = v2[2];
+    outlined copy of Data._Representation(*v2, v3);
+    v20 = _s15SwiftTLSLibrary10ByteBufferV24readVariableLengthVector15lengthFieldType_q_Sgxm_q_ACzAA8TLSErrorOYKXEtAHYKs17FixedWidthIntegerRzr0_lFAfCzAHYKXEfU_s6UInt16V_SayAA9ExtensionOGTg504_s15a12TLSLibrary10cd7VSayAA9q5OGAA8l121OIglozo_AcfHIeglrzo_TR04_s15a12TLSLibrary10cd47V20readCertificateEntryAA0F7MessageV0fG0VSgyAA8f27OYKF0E10ExtensionsL_ySayU22E10OGACzAKYKFTf3nnpf_nTf1nc_n(v2);
+    if (v1)
+    {
+      v21 = v20;
+      outlined consume of Data._Representation(*v2, v2[1]);
+      *v2 = v4;
+      v2[1] = v3;
+      v2[2] = v5;
+      lazy protocol witness table accessor for type TLSError and conformance TLSError();
+      swift_willThrowTypedImpl();
+      outlined consume of ByteBuffer?(v18, v19);
+      return v21;
+    }
+
+    else
+    {
+      if (!v20)
+      {
+        outlined consume of Data._Representation(*v2, v2[1]);
+        outlined consume of ByteBuffer?(v18, v19);
+        goto LABEL_5;
+      }
+
+      outlined consume of Data._Representation(v4, v3);
+      return v18;
+    }
+  }
+
+  else
+  {
+    lazy protocol witness table accessor for type TLSError and conformance TLSError();
+    swift_willThrowTypedImpl();
+    outlined consume of ByteBuffer?(v18, v19);
+    outlined consume of Data._Representation(v22, v23);
+    outlined consume of Data._Representation(*v2, v2[1]);
+    *v2 = v4;
+    v2[1] = v3;
+    v2[2] = v5;
+    swift_willThrowTypedImpl();
+    return 1;
+  }
+}
+
+uint64_t _s15SwiftTLSLibrary18CertificateMessageVAA09HandshakeD8ProtocolA2aDP5bytesxAA10ByteBufferVz_tAA8TLSErrorOYKcfCTW@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+{
+  result = _s15SwiftTLSLibrary18CertificateMessageV5bytesAcA10ByteBufferVz_tAA8TLSErrorOYKcfCTf4nd_n(a1);
+  if (v3)
+  {
+    *a2 = result;
+    *(a2 + 8) = v7;
+    *(a2 + 16) = v8;
+  }
+
+  else
+  {
+    *a3 = result;
+    a3[1] = v7;
+    a3[2] = v8;
+    a3[3] = v9;
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type CertificateMessage and conformance CertificateMessage()
+{
+  result = lazy protocol witness table cache variable for type CertificateMessage and conformance CertificateMessage;
+  if (!lazy protocol witness table cache variable for type CertificateMessage and conformance CertificateMessage)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type CertificateMessage and conformance CertificateMessage);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type CertificateMessage.CertificateEntry and conformance CertificateMessage.CertificateEntry()
+{
+  result = lazy protocol witness table cache variable for type CertificateMessage.CertificateEntry and conformance CertificateMessage.CertificateEntry;
+  if (!lazy protocol witness table cache variable for type CertificateMessage.CertificateEntry and conformance CertificateMessage.CertificateEntry)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type CertificateMessage.CertificateEntry and conformance CertificateMessage.CertificateEntry);
+  }
+
+  return result;
+}
+
+double _s15SwiftTLSLibrary11ServerHelloV5bytesAcA10ByteBufferVz_tAA8TLSErrorOYKcfC@<D0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, _OWORD *a3@<X8>)
+{
+  _s15SwiftTLSLibrary11ServerHelloV5bytesAcA10ByteBufferVz_tAA8TLSErrorOYKcfCTf4nd_n(a1, &v11, v13);
+  if (v3)
+  {
+    v6 = v12;
+    result = *&v11;
+    *a2 = v11;
+    *(a2 + 16) = v6;
+  }
+
+  else
+  {
+    v8 = v13[3];
+    a3[2] = v13[2];
+    a3[3] = v8;
+    v9 = v13[5];
+    a3[4] = v13[4];
+    a3[5] = v9;
+    result = *v13;
+    v10 = v13[1];
+    *a3 = v13[0];
+    a3[1] = v10;
+  }
+
+  return result;
+}
+
+__n128 ServerHello.init(legacyVersion:random:legacySessionIDEcho:cipherSuite:legacyCompressionMethod:extensions:)@<Q0>(__int16 a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, __int16 a7@<W6>, char a8@<W7>, uint64_t a9@<X8>, uint64_t a10)
+{
+  result = *a6;
+  v11 = *(a6 + 16);
+  *(a9 + 40) = *a6;
+  v12 = *(a6 + 32);
+  *a9 = a1;
+  *(a9 + 8) = a2;
+  *(a9 + 16) = a3;
+  *(a9 + 24) = a4;
+  *(a9 + 32) = a5;
+  *(a9 + 56) = v11;
+  *(a9 + 72) = v12;
+  *(a9 + 80) = a7;
+  *(a9 + 82) = a8;
+  *(a9 + 88) = a10;
+  return result;
+}
+
+BOOL ServerHello.isHelloRetryRequest.getter()
+{
+  v1 = v0[1];
+  v2 = v0[2];
+  v4 = v0[3];
+  v3 = v0[4];
+  if (one-time initialization token for helloRetryRequest != -1)
+  {
+    swift_once();
+  }
+
+  return v1 == static Random.helloRetryRequest && v2 == xmmword_1ED4D5F88 && v4 == *(&xmmword_1ED4D5F88 + 1) && v3 == qword_1ED4D5F98;
+}
+
+uint64_t ServerHello.random.setter(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4)
+{
+  v4[1] = result;
+  v4[2] = a2;
+  v4[3] = a3;
+  v4[4] = a4;
+  return result;
+}
+
+__n128 ServerHello.legacySessionIDEcho.getter@<Q0>(uint64_t a1@<X8>)
+{
+  v2 = *(v1 + 72);
+  result = *(v1 + 40);
+  v4 = *(v1 + 56);
+  *a1 = result;
+  *(a1 + 16) = v4;
+  *(a1 + 32) = v2;
+  return result;
+}
+
+__n128 ServerHello.legacySessionIDEcho.setter(uint64_t a1)
+{
+  result = *a1;
+  v3 = *(a1 + 16);
+  *(v1 + 40) = *a1;
+  *(v1 + 56) = v3;
+  *(v1 + 72) = *(a1 + 32);
+  return result;
+}
+
+uint64_t ServerHello.extensions.setter(uint64_t a1)
+{
+
+  *(v1 + 88) = a1;
+  return result;
+}
+
+uint64_t ServerHello.hash(into:)(uint64_t a1)
+{
+  v3 = *(v1 + 1);
+  Hasher._combine(_:)(*v1);
+  Hasher._combine(_:)(v3);
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = *(v1 + 32);
+  MEMORY[0x1B274DB60](*(v1 + 8));
+  MEMORY[0x1B274DB60](v4);
+  MEMORY[0x1B274DB60](v5);
+  MEMORY[0x1B274DB60](v6);
+  v7 = *(v1 + 40);
+  v8 = *(v1 + 48);
+  v9 = *(v1 + 56);
+  v10 = *(v1 + 64);
+  MEMORY[0x1B274DB20](*(v1 + 72));
+  MEMORY[0x1B274DB60](v7);
+  MEMORY[0x1B274DB60](v8);
+  MEMORY[0x1B274DB60](v9);
+  MEMORY[0x1B274DB60](v10);
+  Hasher._combine(_:)(*(v1 + 80));
+  Hasher._combine(_:)(*(v1 + 82));
+  v11 = *(v1 + 88);
+  v12 = *(v11 + 16);
+  result = MEMORY[0x1B274DB20](v12);
+  if (v12)
+  {
+    v14 = v11 + 32;
+    do
+    {
+      v15 = *(v14 + 16);
+      v20[0] = *v14;
+      v20[1] = v15;
+      v16 = *(v14 + 32);
+      v17 = *(v14 + 48);
+      v18 = *(v14 + 64);
+      v21 = *(v14 + 80);
+      v20[3] = v17;
+      v20[4] = v18;
+      v20[2] = v16;
+      outlined init with copy of Extension(v20, v19);
+      Extension.hash(into:)(a1);
+      result = outlined destroy of Extension(v20);
+      v14 += 88;
+      --v12;
+    }
+
+    while (v12);
+  }
+
+  return result;
+}
+
+Swift::Int ServerHello.hashValue.getter()
+{
+  Hasher.init(_seed:)();
+  ServerHello.hash(into:)(v1);
+  return Hasher._finalize()();
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ServerHello(uint64_t a1)
+{
+  Hasher.init(_seed:)();
+  ServerHello.hash(into:)(v2);
+  return Hasher._finalize()();
+}
+
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance ServerHello(_OWORD *a1, _OWORD *a2)
+{
+  v2 = a1[3];
+  v9[2] = a1[2];
+  v9[3] = v2;
+  v3 = a1[5];
+  v9[4] = a1[4];
+  v9[5] = v3;
+  v4 = a1[1];
+  v9[0] = *a1;
+  v9[1] = v4;
+  v5 = a2[3];
+  v10[2] = a2[2];
+  v10[3] = v5;
+  v6 = a2[5];
+  v10[4] = a2[4];
+  v10[5] = v6;
+  v7 = a2[1];
+  v10[0] = *a2;
+  v10[1] = v7;
+  return specialized static ServerHello.__derived_struct_equals(_:_:)(v9, v10) & 1;
+}
+
+unint64_t ServerHello.write(into:)(uint64_t *a1)
+{
+  v2 = v1;
+  v27 = *MEMORY[0x1E69E9840];
+  LOWORD(v21) = *v2;
+  v4 = MEMORY[0x1E69E6290];
+  v5 = MEMORY[0x1E6969DF8];
+  *(&v25 + 1) = MEMORY[0x1E69E6290];
+  v26 = MEMORY[0x1E6969DF8];
+  *&v24 = &v21;
+  *(&v24 + 1) = &v21 + 2;
+  __swift_project_boxed_opaque_existential_0(&v24, MEMORY[0x1E69E6290]);
+  Data._Representation.append(contentsOf:)();
+  __swift_destroy_boxed_opaque_existential_0(&v24);
+  v6 = *(v2 + 24);
+  v21 = *(v2 + 8);
+  v22 = v6;
+  *(&v25 + 1) = v4;
+  v26 = v5;
+  *&v24 = &v21;
+  *(&v24 + 1) = &v23;
+  __swift_project_boxed_opaque_existential_0(&v24, v4);
+  Data._Representation.append(contentsOf:)();
+  __swift_destroy_boxed_opaque_existential_0(&v24);
+  v7 = *(v2 + 56);
+  v24 = *(v2 + 40);
+  v25 = v7;
+  v26 = *(v2 + 72);
+  v8 = ByteBuffer.writeLegacySessionID(_:)(&v24);
+  v9 = v8 + 34;
+  if (__OFADD__(v8, 34))
+  {
+    __break(1u);
+    goto LABEL_16;
+  }
+
+  v20 = bswap32(*(v2 + 80)) >> 16;
+  *(&v22 + 1) = v4;
+  v23 = v5;
+  *&v21 = &v20;
+  *(&v21 + 1) = &v21;
+  __swift_project_boxed_opaque_existential_0(&v21, v4);
+  Data._Representation.append(contentsOf:)();
+  __swift_destroy_boxed_opaque_existential_0(&v21);
+  v10 = __OFADD__(v9, 2);
+  v11 = v9 + 2;
+  if (v10)
+  {
+LABEL_16:
+    __break(1u);
+    goto LABEL_17;
+  }
+
+  LOBYTE(v20) = *(v2 + 82);
+  *(&v22 + 1) = v4;
+  v23 = v5;
+  *&v21 = &v20;
+  *(&v21 + 1) = &v20 + 1;
+  __swift_project_boxed_opaque_existential_0(&v21, v4);
+  Data._Representation.append(contentsOf:)();
+  __swift_destroy_boxed_opaque_existential_0(&v21);
+  v10 = __OFADD__(v11, 1);
+  v12 = v11 + 1;
+  if (v10)
+  {
+LABEL_17:
+    __break(1u);
+LABEL_18:
+    __break(1u);
+    goto LABEL_19;
+  }
+
+  v13 = *a1;
+  v14 = a1[1];
+  v15 = v14 >> 62;
+  if ((v14 >> 62) > 1)
+  {
+    if (v15 == 2)
+    {
+      v16 = *(v13 + 24);
+    }
+
+    else
+    {
+      v16 = 0;
+    }
+  }
+
+  else if (v15)
+  {
+    v16 = v13 >> 32;
+  }
+
+  else
+  {
+    v16 = BYTE6(v14);
+  }
+
+  v20 = 0;
+  *(&v22 + 1) = v4;
+  v23 = v5;
+  *&v21 = &v20;
+  *(&v21 + 1) = &v21;
+  __swift_project_boxed_opaque_existential_0(&v21, v4);
+  Data._Representation.append(contentsOf:)();
+  __swift_destroy_boxed_opaque_existential_0(&v21);
+  v17 = specialized Sequence.reduce<A>(into:_:)(0, *(v2 + 88));
+  if ((v17 & 0x8000000000000000) != 0)
+  {
+    goto LABEL_18;
+  }
+
+  v18 = v17;
+  if (v17 >> 16)
+  {
+LABEL_19:
+    __break(1u);
+LABEL_20:
+    __break(1u);
+  }
+
+  _s15SwiftTLSLibrary10ByteBufferV10setInteger_2at2asSix_Sixmts010FixedWidthF0RzlFs6UInt16V_Tt1g5(v17, v16);
+  result = v12 + v18 + 2;
+  if (__OFADD__(v12, v18 + 2))
+  {
+    goto LABEL_20;
+  }
+
+  return result;
+}
+
+uint64_t specialized static ServerHello.__derived_struct_equals(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
+{
+  if (*a1 == *a2 && a1[1] == a2[1] && (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_s64(*(a1 + 8), *(a2 + 8)), vceqq_s64(*(a1 + 24), *(a2 + 24))))) & 1) != 0 && (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_s64(*(a1 + 40), *(a2 + 40)), vceqq_s64(*(a1 + 56), *(a2 + 56))))) & 1) != 0 && *(a1 + 9) == *(a2 + 9) && *(a1 + 40) == *(a2 + 40) && a1[82] == a2[82])
+  {
+    return _sSasSQRzlE2eeoiySbSayxG_ABtFZ15SwiftTLSLibrary9ExtensionO_Tt1g5(*(a1 + 11), *(a2 + 11));
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+unint64_t lazy protocol witness table accessor for type ServerHello and conformance ServerHello()
+{
+  result = lazy protocol witness table cache variable for type ServerHello and conformance ServerHello;
+  if (!lazy protocol witness table cache variable for type ServerHello and conformance ServerHello)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ServerHello and conformance ServerHello);
+  }
+
+  return result;
+}
+
+__n128 __swift_memcpy96_8(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 16);
+  *a1 = *a2;
+  *(a1 + 16) = v2;
+  result = *(a2 + 32);
+  v4 = *(a2 + 48);
+  v5 = *(a2 + 80);
+  *(a1 + 64) = *(a2 + 64);
+  *(a1 + 80) = v5;
+  *(a1 + 32) = result;
+  *(a1 + 48) = v4;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for ServerHello(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 96))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 88);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for ServerHello(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 88) = 0;
+    *(result + 72) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 96) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 88) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 96) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+uint64_t EncryptedExtensions.hash(into:)(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 16);
+  result = MEMORY[0x1B274DB20](v4);
+  if (v4)
+  {
+    v6 = a2 + 32;
+    do
+    {
+      v7 = *(v6 + 32);
+      v8 = *(v6 + 64);
+      v11[3] = *(v6 + 48);
+      v11[4] = v8;
+      v12 = *(v6 + 80);
+      v9 = *(v6 + 16);
+      v11[0] = *v6;
+      v11[1] = v9;
+      v11[2] = v7;
+      outlined init with copy of Extension(v11, v10);
+      Extension.hash(into:)(a1);
+      result = outlined destroy of Extension(v11);
+      v6 += 88;
+      --v4;
+    }
+
+    while (v4);
+  }
+
+  return result;
+}
+
+Swift::Int EncryptedExtensions.hashValue.getter(uint64_t a1)
+{
+  Hasher.init(_seed:)();
+  v2 = *(a1 + 16);
+  MEMORY[0x1B274DB20](v2);
+  if (v2)
+  {
+    v3 = a1 + 32;
+    do
+    {
+      v4 = *(v3 + 48);
+      v9[2] = *(v3 + 32);
+      v9[3] = v4;
+      v9[4] = *(v3 + 64);
+      v10 = *(v3 + 80);
+      v5 = *(v3 + 16);
+      v9[0] = *v3;
+      v9[1] = v5;
+      outlined init with copy of Extension(v9, &v7);
+      Extension.hash(into:)(v8);
+      outlined destroy of Extension(v9);
+      v3 += 88;
+      --v2;
+    }
+
+    while (v2);
+  }
+
+  return Hasher._finalize()();
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance EncryptedExtensions(uint64_t a1)
+{
+  v2 = *v1;
+  Hasher.init(_seed:)();
+  EncryptedExtensions.hash(into:)(v4, v2);
+  return Hasher._finalize()();
+}
+
+unint64_t EncryptedExtensions.write(into:)(uint64_t *a1, uint64_t a2)
+{
+  v13[5] = *MEMORY[0x1E69E9840];
+  v3 = *a1;
+  v4 = a1[1];
+  v5 = v4 >> 62;
+  if ((v4 >> 62) > 1)
+  {
+    v8 = 0;
+    if (v5 == 2)
+    {
+      v8 = *(v3 + 24);
+    }
+  }
+
+  else
+  {
+    v6 = BYTE6(v4);
+    v7 = v3 >> 32;
+    if (v5)
+    {
+      v8 = v7;
+    }
+
+    else
+    {
+      v8 = v6;
+    }
+  }
+
+  v12 = 0;
+  v13[3] = MEMORY[0x1E69E6290];
+  v13[4] = MEMORY[0x1E6969DF8];
+  v13[0] = &v12;
+  v13[1] = v13;
+  __swift_project_boxed_opaque_existential_0(v13, MEMORY[0x1E69E6290]);
+  Data._Representation.append(contentsOf:)();
+  __swift_destroy_boxed_opaque_existential_0(v13);
+  v9 = specialized Sequence.reduce<A>(into:_:)(0, a2);
+  if ((v9 & 0x8000000000000000) != 0)
+  {
+    __break(1u);
+LABEL_11:
+    __break(1u);
+  }
+
+  v10 = v9;
+  if (v9 >> 16)
+  {
+    goto LABEL_11;
+  }
+
+  _s15SwiftTLSLibrary10ByteBufferV10setInteger_2at2asSix_Sixmts010FixedWidthF0RzlFs6UInt16V_Tt1g5(v9, v8);
+  return v10 + 2;
+}
+
+uint64_t _s15SwiftTLSLibrary19EncryptedExtensionsVAA24HandshakeMessageProtocolA2aDP5bytesxAA10ByteBufferVz_tAA8TLSErrorOYKcfCTW@<X0>(uint64_t a1@<X1>, uint64_t *a2@<X8>, uint64_t *a3@<X0>)
+{
+  result = _s15SwiftTLSLibrary19EncryptedExtensionsV5bytesAcA10ByteBufferVz_tAA8TLSErrorOYKcfCTf4nd_n(a3);
+  if (v3)
+  {
+    *a1 = result;
+    *(a1 + 8) = v7;
+    *(a1 + 16) = v8;
+  }
+
+  else
+  {
+    *a2 = result;
+  }
+
+  return result;
+}
+
+uint64_t _s15SwiftTLSLibrary19EncryptedExtensionsV5bytesAcA10ByteBufferVz_tAA8TLSErrorOYKcfCTf4nd_n(uint64_t *a1)
+{
+  v4 = *a1;
+  v3 = a1[1];
+  v5 = a1[2];
+  outlined copy of Data._Representation(*a1, v3);
+  v6 = _s15SwiftTLSLibrary10ByteBufferV24readVariableLengthVector15lengthFieldType_q_Sgxm_q_ACzAA8TLSErrorOYKXEtAHYKs17FixedWidthIntegerRzr0_lFAfCzAHYKXEfU_s6UInt16V_SayAA9ExtensionOGTg504_s15a12TLSLibrary10cd7VSayAA9q5OGAA8l107OIglozo_AcfHIeglrzo_TR04_s15a43TLSLibrary19EncryptedExtensionsV5bytesAcA10cd7Vz_tAA8f23OYKcfc04readD0L_ySayU22E10OGAFzAHYKFTf3nnpf_nTf1nc_n(a1);
+  v7 = v6;
+  if (v1 || !v6)
+  {
+    outlined consume of Data._Representation(*a1, a1[1]);
+    *a1 = v4;
+    a1[1] = v3;
+    a1[2] = v5;
+    lazy protocol witness table accessor for type TLSError and conformance TLSError();
+    swift_willThrowTypedImpl();
+  }
+
+  else
+  {
+    outlined consume of Data._Representation(v4, v3);
+  }
+
+  return v7;
+}
+
+unint64_t lazy protocol witness table accessor for type EncryptedExtensions and conformance EncryptedExtensions()
+{
+  result = lazy protocol witness table cache variable for type EncryptedExtensions and conformance EncryptedExtensions;
+  if (!lazy protocol witness table cache variable for type EncryptedExtensions and conformance EncryptedExtensions)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type EncryptedExtensions and conformance EncryptedExtensions);
+  }
+
+  return result;
+}
+
+__n128 _s15SwiftTLSLibrary11ClientHelloV5bytesAcA10ByteBufferVz_tAA8TLSErrorOYKcfC@<Q0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  _s15SwiftTLSLibrary11ClientHelloV5bytesAcA10ByteBufferVz_tAA8TLSErrorOYKcfCTf4nd_n(a1, &v10, v12);
+  if (v3)
+  {
+    v7 = v11;
+    result.n128_u64[0] = v10;
+    *a2 = v10;
+    *(a2 + 16) = v7;
+  }
+
+  else
+  {
+    v8 = v12[5];
+    *(a3 + 64) = v12[4];
+    *(a3 + 80) = v8;
+    *(a3 + 96) = v13;
+    v9 = v12[1];
+    *a3 = v12[0];
+    *(a3 + 16) = v9;
+    result = v12[3];
+    *(a3 + 32) = v12[2];
+    *(a3 + 48) = result;
+  }
+
+  return result;
+}
+
+__n128 ClientHello.init(legacyVersion:random:legacySessionID:cipherSuites:legacyCompressionMethods:extensions:)@<Q0>(__int16 a1@<W0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, uint64_t a5@<X4>, uint64_t a6@<X5>, uint64_t a7@<X6>, uint64_t a8@<X7>, uint64_t a9@<X8>, uint64_t a10)
+{
+  result = *a6;
+  v11 = *(a6 + 16);
+  *(a9 + 40) = *a6;
+  *a9 = a1;
+  *(a9 + 8) = a2;
+  *(a9 + 16) = a3;
+  *(a9 + 24) = a4;
+  *(a9 + 32) = a5;
+  *(a9 + 56) = v11;
+  *(a9 + 72) = *(a6 + 32);
+  *(a9 + 80) = a7;
+  *(a9 + 88) = a8;
+  *(a9 + 96) = a10;
+  return result;
+}
+
+uint64_t ClientHello.extensions.setter(uint64_t a1)
+{
+
+  *(v1 + 96) = a1;
+  return result;
+}
+
+uint64_t ClientHello.hash(into:)(uint64_t a1)
+{
+  v3 = *(v1 + 1);
+  Hasher._combine(_:)(*v1);
+  Hasher._combine(_:)(v3);
+  v4 = *(v1 + 16);
+  v5 = *(v1 + 24);
+  v6 = *(v1 + 32);
+  MEMORY[0x1B274DB60](*(v1 + 8));
+  MEMORY[0x1B274DB60](v4);
+  MEMORY[0x1B274DB60](v5);
+  MEMORY[0x1B274DB60](v6);
+  v7 = *(v1 + 40);
+  v8 = *(v1 + 48);
+  v9 = *(v1 + 56);
+  v10 = *(v1 + 64);
+  MEMORY[0x1B274DB20](*(v1 + 72));
+  MEMORY[0x1B274DB60](v7);
+  MEMORY[0x1B274DB60](v8);
+  MEMORY[0x1B274DB60](v9);
+  MEMORY[0x1B274DB60](v10);
+  v11 = *(v1 + 80);
+  v12 = *(v11 + 16);
+  MEMORY[0x1B274DB20](v12);
+  if (v12)
+  {
+    v13 = (v11 + 32);
+    do
+    {
+      v14 = *v13++;
+      Hasher._combine(_:)(v14);
+      --v12;
+    }
+
+    while (v12);
+  }
+
+  v15 = *(v1 + 88);
+  v16 = *(v15 + 16);
+  MEMORY[0x1B274DB20](v16);
+  if (v16)
+  {
+    v17 = (v15 + 32);
+    do
+    {
+      v18 = *v17++;
+      Hasher._combine(_:)(v18);
+      --v16;
+    }
+
+    while (v16);
+  }
+
+  v19 = *(v1 + 96);
+  v20 = *(v19 + 16);
+  result = MEMORY[0x1B274DB20](v20);
+  if (v20)
+  {
+    v22 = v19 + 32;
+    do
+    {
+      v23 = *(v22 + 16);
+      v28[0] = *v22;
+      v28[1] = v23;
+      v24 = *(v22 + 32);
+      v25 = *(v22 + 48);
+      v26 = *(v22 + 64);
+      v29 = *(v22 + 80);
+      v28[3] = v25;
+      v28[4] = v26;
+      v28[2] = v24;
+      outlined init with copy of Extension(v28, v27);
+      Extension.hash(into:)(a1);
+      result = outlined destroy of Extension(v28);
+      v22 += 88;
+      --v20;
+    }
+
+    while (v20);
+  }
+
+  return result;
+}
+
+Swift::Int ClientHello.hashValue.getter()
+{
+  Hasher.init(_seed:)();
+  ClientHello.hash(into:)(v1);
+  return Hasher._finalize()();
+}
+
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance ClientHello(uint64_t a1)
+{
+  Hasher.init(_seed:)();
+  ClientHello.hash(into:)(v2);
+  return Hasher._finalize()();
+}
+
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance ClientHello(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a1 + 80);
+  v11[4] = *(a1 + 64);
+  v11[5] = v2;
+  v12 = *(a1 + 96);
+  v3 = *(a1 + 16);
+  v11[0] = *a1;
+  v11[1] = v3;
+  v4 = *(a1 + 48);
+  v11[2] = *(a1 + 32);
+  v11[3] = v4;
+  v5 = *(a2 + 16);
+  v13[0] = *a2;
+  v13[1] = v5;
+  v6 = *(a2 + 32);
+  v7 = *(a2 + 48);
+  v8 = *(a2 + 64);
+  v9 = *(a2 + 80);
+  v14 = *(a2 + 96);
+  v13[4] = v8;
+  v13[5] = v9;
+  v13[2] = v6;
+  v13[3] = v7;
+  return specialized static ClientHello.__derived_struct_equals(_:_:)(v11, v13) & 1;
+}
+
+void *_s15SwiftTLSLibrary11ClientHelloV5bytesAcA10ByteBufferVz_tAA8TLSErrorOYKcfc22readCompressionMethodsL_ySays5UInt8VGAFzF(uint64_t *a1)
+{
+  v2 = *a1;
+  v3 = a1[1];
+  result = a1[2];
+  v5 = v3 >> 62;
+  if ((v3 >> 62) > 1)
+  {
+    if (v5 == 2)
+    {
+      v6 = *(v2 + 24);
+    }
+
+    else
+    {
+      v6 = 0;
+    }
+  }
+
+  else
+  {
+    v6 = BYTE6(v3);
+    if (v5)
+    {
+      v6 = v2 >> 32;
+    }
+  }
+
+  v7 = __OFSUB__(v6, result);
+  v8 = v6 - result;
+  if (v7)
+  {
+    __break(1u);
+    goto LABEL_23;
+  }
+
+  v9 = result + v8;
+  if (__OFADD__(result, v8))
+  {
+LABEL_23:
+    __break(1u);
+LABEL_24:
+    __break(1u);
+    goto LABEL_25;
+  }
+
+  if (v5 > 1)
+  {
+    if (v5 != 2)
+    {
+      goto LABEL_19;
+    }
+
+    if (*(v2 + 24) >= v9)
+    {
+      goto LABEL_20;
+    }
+  }
+
+  else
+  {
+    if (v5)
+    {
+      v10 = v2 >> 32;
+    }
+
+    else
+    {
+      v10 = BYTE6(v3);
+    }
+
+    if (v10 >= v9)
+    {
+LABEL_20:
+      if (v9 >= result)
+      {
+        v11 = Data._Representation.subscript.getter();
+        result = _sSaySayxGqd__c7ElementQyd__RszSTRd__lufCs5UInt8V_10Foundation4DataVTt0g5(v11, v12);
+        a1[2] = v9;
+        return result;
+      }
+
+      goto LABEL_24;
+    }
+  }
+
+  __break(1u);
+LABEL_19:
+  if (v9 <= 0)
+  {
+    goto LABEL_20;
+  }
+
+LABEL_25:
+  __break(1u);
+  return result;
+}
+
+char *_s15SwiftTLSLibrary11ClientHelloV5bytesAcA10ByteBufferVz_tAA8TLSErrorOYKcfc14readExtensionsL_ySayAA9ExtensionOGAFzAHYKF(uint64_t *a1)
+{
+  v2 = v1;
+  v70 = *MEMORY[0x1E69E9840];
+  v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(0, 8, 0, MEMORY[0x1E69E7CC0]);
+  v5 = a1[1];
+  v47 = *a1;
+  LOWORD(v67) = 0;
+  v6 = a1[2];
+  v7 = v6 + 2;
+  if (__OFADD__(v6, 2))
+  {
+LABEL_61:
+    __break(1u);
+LABEL_62:
+    __break(1u);
+LABEL_63:
+    __break(1u);
+LABEL_64:
+    __break(1u);
+LABEL_65:
+    __break(1u);
+LABEL_66:
+    __break(1u);
+LABEL_67:
+    __break(1u);
+  }
+
+  v8 = v4;
+  v9 = v5 >> 62;
+  v48 = BYTE6(v5);
+  v49 = v5 >> 62;
+  while (1)
+  {
+    if (v9 <= 1)
+    {
+      v10 = v48;
+      if (v9)
+      {
+        v10 = v47 >> 32;
+      }
+
+LABEL_8:
+      if (v10 < v7)
+      {
+        return v8;
+      }
+
+      goto LABEL_11;
+    }
+
+    if (v9 == 2)
+    {
+      v10 = *(v47 + 24);
+      goto LABEL_8;
+    }
+
+    if (v7 >= 1)
+    {
+      return v8;
+    }
+
+LABEL_11:
+    v11 = *a1;
+    v12 = a1[1];
+    *&v61 = *a1;
+    *(&v61 + 1) = v12;
+    if (v7 < v6)
+    {
+      goto LABEL_62;
+    }
+
+    v50 = v8;
+    v51 = v2;
+    *&v53 = v6;
+    *(&v53 + 1) = v7;
+    v52 = v7;
+    outlined copy of Data._Representation(v11, v12);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSnySiGMd, &_sSnySiGMR);
+    lazy protocol witness table accessor for type Data and conformance Data();
+    lazy protocol witness table accessor for type Range<Int> and conformance Range<A>();
+    DataProtocol.copyBytes<A>(to:from:)();
+    outlined consume of Data._Representation(v61, *(&v61 + 1));
+    v13 = v67;
+    a1[2] = v52;
+    v15 = *a1;
+    v14 = a1[1];
+    LOWORD(v67) = 0;
+    v16 = v52 + 2;
+    if (__OFADD__(v52, 2))
+    {
+      goto LABEL_63;
+    }
+
+    v17 = v14 >> 62;
+    if ((v14 >> 62) > 1)
+    {
+      break;
+    }
+
+    if (v17)
+    {
+      v18 = v15 >> 32;
+    }
+
+    else
+    {
+      v18 = BYTE6(v14);
+    }
+
+LABEL_19:
+    if (v18 < v16)
+    {
+      goto LABEL_56;
+    }
+
+LABEL_22:
+    *&v61 = v15;
+    *(&v61 + 1) = v14;
+    if (v16 < v52)
+    {
+      goto LABEL_64;
+    }
+
+    *&v53 = v52;
+    *(&v53 + 1) = v52 + 2;
+    outlined copy of Data._Representation(v15, v14);
+    outlined copy of Data._Representation(v15, v14);
+    DataProtocol.copyBytes<A>(to:from:)();
+    outlined consume of Data._Representation(v61, *(&v61 + 1));
+    v19 = bswap32(v67) >> 16;
+    a1[2] = v16;
+    v20 = v16 + v19;
+    if (__OFADD__(v16, v19))
+    {
+      goto LABEL_65;
+    }
+
+    v21 = *a1;
+    v22 = a1[1];
+    v23 = v22 >> 62;
+    if ((v22 >> 62) <= 1)
+    {
+      if (v23)
+      {
+        v24 = v21 >> 32;
+      }
+
+      else
+      {
+        v24 = BYTE6(v22);
+      }
+
+LABEL_30:
+      if (v24 < v20)
+      {
+        goto LABEL_57;
+      }
+
+      goto LABEL_33;
+    }
+
+    if (v23 == 2)
+    {
+      v24 = *(v21 + 24);
+      goto LABEL_30;
+    }
+
+    if (v20 > 0)
+    {
+      goto LABEL_57;
+    }
+
+LABEL_33:
+    if (v20 < v16)
+    {
+      goto LABEL_66;
+    }
+
+    v25 = Data._Representation.subscript.getter();
+    v27 = 0;
+    a1[2] = v20;
+    v28 = v26 >> 62;
+    if ((v26 >> 62) > 1)
+    {
+      v29 = v51;
+      if (v28 == 2)
+      {
+        v27 = *(v25 + 16);
+      }
+    }
+
+    else
+    {
+      v29 = v51;
+      if (v28)
+      {
+        v27 = v25;
+      }
+    }
+
+    v67 = v25;
+    v68 = v26;
+    v69 = v27;
+    _s15SwiftTLSLibrary10ByteBufferV13readExtension11messageType17helloRetryRequestAA0F0OSgAA09HandshakeH0V_SbtAA8TLSErrorOYKFAhCzAMYKXEfU_(&v67, bswap32(v13) >> 16, 1, 0, v59, &v61);
+    if (v29)
+    {
+      v45 = v59[0];
+      v44 = v59[1];
+      v39 = v60;
+      v43 = v67;
+      v42 = v68;
+      goto LABEL_59;
+    }
+
+    v2 = 0;
+    v30 = v68 >> 62;
+    if ((v68 >> 62) > 1)
+    {
+      if (v30 == 2)
+      {
+        v31 = *(v67 + 24);
+      }
+
+      else
+      {
+        v31 = 0;
+      }
+    }
+
+    else if (v30)
+    {
+      v31 = v67 >> 32;
+    }
+
+    else
+    {
+      v31 = BYTE6(v68);
+    }
+
+    if (__OFSUB__(v31, v69))
+    {
+      goto LABEL_67;
+    }
+
+    if (v31 != v69)
+    {
+      v39 = 2;
+      v40 = v67;
+      v41 = v68;
+      lazy protocol witness table accessor for type TLSError and conformance TLSError();
+      swift_willThrowTypedImpl();
+      v55 = v63;
+      v56 = v64;
+      v57 = v65;
+      v58 = v66;
+      v53 = v61;
+      v54 = v62;
+      outlined destroy of Extension(&v53);
+      v42 = v41;
+      v43 = v40;
+      v44 = 0;
+      v45 = 1;
+LABEL_59:
+      outlined consume of Data._Representation(v43, v42);
+      outlined consume of Data._Representation(*a1, a1[1]);
+      *a1 = v15;
+      a1[1] = v14;
+      a1[2] = v52;
+      *&v61 = v45;
+      *(&v61 + 1) = v44;
+      LOBYTE(v62) = v39;
+      lazy protocol witness table accessor for type TLSError and conformance TLSError();
+      swift_willThrowTypedImpl();
+
+      return v45;
+    }
+
+    outlined consume of Data._Representation(v67, v68);
+    outlined consume of Data._Representation(v15, v14);
+    v58 = v66;
+    v56 = v64;
+    v57 = v65;
+    v54 = v62;
+    v55 = v63;
+    v53 = v61;
+    v8 = v50;
+    v33 = *(v50 + 2);
+    v32 = *(v50 + 3);
+    if (v33 >= v32 >> 1)
+    {
+      v8 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)((v32 > 1), v33 + 1, 1, v50);
+    }
+
+    LODWORD(v9) = v49;
+    *(v8 + 2) = v33 + 1;
+    v34 = &v8[88 * v33];
+    v35 = v54;
+    *(v34 + 2) = v53;
+    *(v34 + 3) = v35;
+    v36 = v55;
+    v37 = v56;
+    v38 = v57;
+    v34[112] = v58;
+    *(v34 + 5) = v37;
+    *(v34 + 6) = v38;
+    *(v34 + 4) = v36;
+    LOWORD(v67) = 0;
+    v6 = a1[2];
+    v7 = v6 + 2;
+    if (__OFADD__(v6, 2))
+    {
+      goto LABEL_61;
+    }
+  }
+
+  if (v17 == 2)
+  {
+    v18 = *(v15 + 24);
+    goto LABEL_19;
+  }
+
+  if (v16 < 1)
+  {
+    goto LABEL_22;
+  }
+
+LABEL_56:
+  outlined copy of Data._Representation(v15, v14);
+  v21 = *a1;
+  v22 = a1[1];
+LABEL_57:
+  outlined consume of Data._Representation(v21, v22);
+  *a1 = v15;
+  a1[1] = v14;
+  a1[2] = v52;
+  return v50;
+}
+
+uint64_t specialized static ClientHello.__derived_struct_equals(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
+{
+  if (*a1 != *a2 || a1[1] != a2[1] || (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_s64(*(a1 + 8), *(a2 + 8)), vceqq_s64(*(a1 + 24), *(a2 + 24))))) & 1) == 0 || (vminv_u16(vmovn_s32(vuzp1q_s32(vceqq_s64(*(a1 + 40), *(a2 + 40)), vceqq_s64(*(a1 + 56), *(a2 + 56))))) & 1) == 0 || *(a1 + 9) != *(a2 + 9) || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ15SwiftTLSLibrary11CipherSuiteV_Tt1g5(*(a1 + 10), *(a2 + 10)) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZs5UInt8V_Tt1g5(*(a1 + 11), *(a2 + 11)) & 1) == 0)
+  {
+    return 0;
+  }
+
+  v4 = *(a1 + 12);
+  v5 = *(a2 + 12);
+
+  return _sSasSQRzlE2eeoiySbSayxG_ABtFZ15SwiftTLSLibrary9ExtensionO_Tt1g5(v4, v5);
+}
+
+void _s15SwiftTLSLibrary11ClientHelloV5bytesAcA10ByteBufferVz_tAA8TLSErrorOYKcfCTf4nd_n(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+{
+  v7 = _s15SwiftTLSLibrary10ByteBufferV11readInteger2asxSgxm_ts010FixedWidthF0RzlFs6UInt16V_Tt0g5();
+  if ((v7 & 0x10000) != 0)
+  {
+    goto LABEL_7;
+  }
+
+  v8 = v7;
+  ByteBuffer.readRandom()(v49);
+  if (v50)
+  {
+    goto LABEL_7;
+  }
+
+  v10 = *a1;
+  v9 = a1[1];
+  v11 = a1[2];
+  outlined copy of Data._Representation(*a1, v9);
+  v12 = _s15SwiftTLSLibrary10ByteBufferV11readInteger2asxSgxm_ts010FixedWidthF0RzlFs5UInt8V_Tt0g5();
+  if ((v12 & 0x100) != 0)
+  {
+    goto LABEL_5;
+  }
+
+  v13 = ByteBuffer.readSlice(length:)(v12);
+  if (v14 >> 60 == 15)
+  {
+    goto LABEL_5;
+  }
+
+  v46 = v13;
+  v47 = v14;
+  v48 = v15;
+  _s15SwiftTLSLibrary10ByteBufferV19readLegacySessionIDAA0fgH0VSgyAA8TLSErrorOYKFAfCzAIYKXEfU_(&v46, v41, &v43);
+  if (v3)
+  {
+    v19 = v11;
+    v17 = v41[0];
+    v18 = v41[1];
+    v16 = v42;
+    v20 = v46;
+    v21 = v47;
+LABEL_22:
+    outlined consume of Data._Representation(v20, v21);
+    outlined consume of Data._Representation(*a1, a1[1]);
+    *a1 = v10;
+    a1[1] = v9;
+    a1[2] = v19;
+    *&v43 = v17;
+    *(&v43 + 1) = v18;
+    LOBYTE(v44) = v16;
+    lazy protocol witness table accessor for type TLSError and conformance TLSError();
+    swift_willThrowTypedImpl();
+    goto LABEL_8;
+  }
+
+  v22 = v47 >> 62;
+  if ((v47 >> 62) > 1)
+  {
+    if (v22 == 2)
+    {
+      v23 = *(v46 + 24);
+    }
+
+    else
+    {
+      v23 = 0;
+    }
+  }
+
+  else if (v22)
+  {
+    v23 = v46 >> 32;
+  }
+
+  else
+  {
+    v23 = BYTE6(v47);
+  }
+
+  if (__OFSUB__(v23, v48))
+  {
+    __break(1u);
+  }
+
+  else
+  {
+    if (v23 != v48)
+    {
+      v19 = v11;
+      v16 = 2;
+      v26 = v46;
+      v27 = v47;
+      lazy protocol witness table accessor for type TLSError and conformance TLSError();
+      swift_willThrowTypedImpl();
+      v21 = v27;
+      v20 = v26;
+      v18 = 0;
+      v17 = 1;
+      goto LABEL_22;
+    }
+
+    outlined consume of Data._Representation(v46, v47);
+    outlined consume of Data._Representation(v10, v9);
+    v38 = v44;
+    v39 = v43;
+    v37 = v45;
+    v10 = *a1;
+    v9 = a1[1];
+    v51 = a1[2];
+    outlined copy of Data._Representation(v10, v9);
+    v24 = _s15SwiftTLSLibrary10ByteBufferV24readVariableLengthVector15lengthFieldType_q_Sgxm_q_ACzAA8TLSErrorOYKXEtAHYKs17FixedWidthIntegerRzr0_lFAfCzAHYKXEfU_s6UInt16V_SayAA11CipherSuiteVGTg504_s15a12TLSLibrary10cd8VSayAA11qr5VGAA8L128OIglozo_AcfHIeglrzo_TR04_s15a35TLSLibrary11ClientHelloV5bytesAcA10cd7Vz_tAA8g12OYKcfc16reade17SuitesL_ySayAA0J5F6VGAFzFTf3nnpf_nTf1nc_n();
+    v25 = v24;
+    v11 = v51;
+    if (!v24)
+    {
+LABEL_5:
+      outlined consume of Data._Representation(*a1, a1[1]);
+LABEL_6:
+      *a1 = v10;
+      a1[1] = v9;
+      a1[2] = v11;
+LABEL_7:
+      v43 = 0uLL;
+      v16 = 2;
+      LOBYTE(v44) = 2;
+      lazy protocol witness table accessor for type TLSError and conformance TLSError();
+      swift_willThrowTypedImpl();
+      v17 = 0;
+      v18 = 0;
+LABEL_8:
+      *a2 = v17;
+      *(a2 + 8) = v18;
+      *(a2 + 16) = v16;
+      return;
+    }
+
+    outlined consume of Data._Representation(v10, v9);
+    v10 = *a1;
+    v28 = a1[1];
+    v51 = a1[2];
+    v35 = v28;
+    outlined copy of Data._Representation(v10, v28);
+    v29 = _s15SwiftTLSLibrary10ByteBufferV24readVariableLengthVector15lengthFieldType_q_Sgxm_q_ACzAA8TLSErrorOYKXEtAHYKs17FixedWidthIntegerRzr0_lFAfCzAHYKXEfU_s5UInt8V_SayAKGTg504_s15a12TLSLibrary10cd6VSays5p5VGAA8L134OIglozo_AcfHIeglrzo_TR04_s15a35TLSLibrary11ClientHelloV5bytesAcA10cd7Vz_tAA8f38OYKcfc22readCompressionMethodsL_ySays5E6VGAFzFTf3nnpf_nTf1nc_n();
+    v11 = v51;
+    v9 = v35;
+    v34 = v29;
+    if (!v29)
+    {
+      outlined consume of Data._Representation(*a1, a1[1]);
+
+      goto LABEL_6;
+    }
+
+    outlined consume of Data._Representation(v10, v35);
+    v10 = *a1;
+    v30 = a1[1];
+    v51 = a1[2];
+    v36 = v30;
+    outlined copy of Data._Representation(v10, v30);
+    v31 = _s15SwiftTLSLibrary10ByteBufferV24readVariableLengthVector15lengthFieldType_q_Sgxm_q_ACzAA8TLSErrorOYKXEtAHYKs17FixedWidthIntegerRzr0_lFAfCzAHYKXEfU_s6UInt16V_SayAA9ExtensionOGTg504_s15a12TLSLibrary10cd7VSayAA9q5OGAA8l107OIglozo_AcfHIeglrzo_TR04_s15a35TLSLibrary11ClientHelloV5bytesAcA10cd7Vz_tAA8f31OYKcfc14readExtensionsL_ySayU22E10OGAFzAHYKFTf3nnpf_nTf1nc_n(a1);
+    v32 = v51;
+    v33 = v31;
+    if (!v31)
+    {
+      outlined consume of Data._Representation(*a1, a1[1]);
+
+      v9 = v36;
+      v11 = v32;
+      goto LABEL_6;
+    }
+
+    outlined consume of Data._Representation(v10, v36);
+    *&v40[6] = v49[0];
+    *&v40[22] = v49[1];
+    *(a3 + 2) = *v40;
+    *a3 = bswap32(v8) >> 16;
+    *(a3 + 18) = *&v40[16];
+    *(a3 + 32) = *&v40[30];
+    *(a3 + 56) = v38;
+    *(a3 + 40) = v39;
+    *(a3 + 72) = v37;
+    *(a3 + 80) = v25;
+    *(a3 + 88) = v34;
+    *(a3 + 96) = v33;
+  }
+}
+
+unint64_t lazy protocol witness table accessor for type ClientHello and conformance ClientHello()
+{
+  result = lazy protocol witness table cache variable for type ClientHello and conformance ClientHello;
+  if (!lazy protocol witness table cache variable for type ClientHello and conformance ClientHello)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type ClientHello and conformance ClientHello);
+  }
+
+  return result;
+}
+
+__n128 __swift_memcpy104_8(uint64_t a1, __int128 *a2)
+{
+  v2 = *a2;
+  v3 = a2[2];
+  *(a1 + 16) = a2[1];
+  *(a1 + 32) = v3;
+  *a1 = v2;
+  result = a2[3];
+  v5 = a2[4];
+  v6 = a2[5];
+  *(a1 + 96) = *(a2 + 12);
+  *(a1 + 64) = v5;
+  *(a1 + 80) = v6;
+  *(a1 + 48) = result;
+  return result;
+}
+
+uint64_t getEnumTagSinglePayload for ClientHello(uint64_t a1, int a2)
+{
+  if (!a2)
+  {
+    return 0;
+  }
+
+  if (a2 < 0 && *(a1 + 104))
+  {
+    return *a1 + 0x80000000;
+  }
+
+  v2 = *(a1 + 80);
+  if (v2 >= 0xFFFFFFFF)
+  {
+    LODWORD(v2) = -1;
+  }
+
+  return (v2 + 1);
+}
+
+uint64_t storeEnumTagSinglePayload for ClientHello(uint64_t result, int a2, int a3)
+{
+  if (a2 < 0)
+  {
+    *(result + 72) = 0u;
+    *(result + 88) = 0u;
+    *(result + 56) = 0u;
+    *(result + 40) = 0u;
+    *(result + 24) = 0u;
+    *(result + 8) = 0u;
+    *result = a2 & 0x7FFFFFFF;
+    if (a3 < 0)
+    {
+      *(result + 104) = 1;
+    }
+  }
+
+  else
+  {
+    if ((a3 & 0x80000000) == 0)
+    {
+      if (!a2)
+      {
+        return result;
+      }
+
+LABEL_8:
+      *(result + 80) = (a2 - 1);
+      return result;
+    }
+
+    *(result + 104) = 0;
+    if (a2)
+    {
+      goto LABEL_8;
+    }
+  }
+
+  return result;
+}
+
+unint64_t GeneratedEphemeralPrivateKey.namedGroup.getter()
+{
+  v1 = type metadata accessor for GeneratedEphemeralPrivateKey(0);
+  MEMORY[0x1EEE9AC00](v1);
+  v3 = &v6 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of GeneratedEphemeralPrivateKey(v0, v3);
+  v4 = 0x11EC0018001DuLL >> (16 * swift_getEnumCaseMultiPayload());
+  outlined destroy of GeneratedEphemeralPrivateKey(v3, type metadata accessor for GeneratedEphemeralPrivateKey);
+  return v4;
+}
+
+uint64_t generateEphemeralKeyForNamedGroup(_:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+{
+  switch(a1)
+  {
+    case 0x11ECu:
+      X25519MLKEM768EphemeralKey.init()(a2);
+      v3 = type metadata accessor for GeneratedEphemeralPrivateKey(0);
+      goto LABEL_7;
+    case 0x1Du:
+      Curve25519.KeyAgreement.PrivateKey.init()();
+      v3 = type metadata accessor for GeneratedEphemeralPrivateKey(0);
+      goto LABEL_7;
+    case 0x18u:
+      P384.KeyAgreement.PrivateKey.init()();
+      v3 = type metadata accessor for GeneratedEphemeralPrivateKey(0);
+LABEL_7:
+      swift_storeEnumTagMultiPayload();
+      v4 = *(*(v3 - 8) + 56);
+      v5 = a2;
+      v6 = 0;
+      v7 = v3;
+      goto LABEL_9;
+  }
+
+  v8 = type metadata accessor for GeneratedEphemeralPrivateKey(0);
+  v4 = *(*(v8 - 8) + 56);
+  v7 = v8;
+  v5 = a2;
+  v6 = 1;
+LABEL_9:
+
+  return v4(v5, v6, 1, v7);
+}
+
+uint64_t _s15SwiftTLSLibrary28GeneratedEphemeralPrivateKeyO5encap06publicF4Data10Foundation0I0V_9CryptoKit09SymmetricF0VtAH_tAA8TLSErrorOYKF(uint64_t a1, uint64_t a2, unint64_t a3, void *a4)
+{
+  v39 = a4;
+  v5 = v4;
+  v44 = a3;
+  v41 = a2;
+  v38 = a1;
+  v6 = type metadata accessor for X25519MLKEM768EphemeralKey(0);
+  MEMORY[0x1EEE9AC00](v6 - 8);
+  v8 = &v37 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = type metadata accessor for P384EphemeralKey(0);
+  MEMORY[0x1EEE9AC00](v9 - 8);
+  v11 = &v37 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for SymmetricKey();
+  v37 = *(v12 - 8);
+  v13 = MEMORY[0x1EEE9AC00](v12);
+  v15 = &v37 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v13);
+  v17 = &v37 - v16;
+  v18 = type metadata accessor for Curve25519EphemeralKey(0);
+  MEMORY[0x1EEE9AC00](v18 - 8);
+  v20 = &v37 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v21 = type metadata accessor for GeneratedEphemeralPrivateKey(0);
+  MEMORY[0x1EEE9AC00](v21);
+  v23 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of GeneratedEphemeralPrivateKey(v5, v23);
+  EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
+  if (!EnumCaseMultiPayload)
+  {
+    outlined init with take of X25519MLKEM768EphemeralKey(v23, v20, type metadata accessor for Curve25519EphemeralKey);
+    v32 = v40;
+    v5 = v41;
+    v26 = v44;
+    _s15SwiftTLSLibrary22Curve25519EphemeralKeyV5decap14ciphertextData9CryptoKit09SymmetricE0V10Foundation0H0V_tAA8TLSErrorOYKF(v41, v44, &v42, v17);
+    if (v32)
+    {
+      v28 = *(&v42 + 1);
+      v27 = v42;
+      v29 = v43;
+      v30 = type metadata accessor for Curve25519EphemeralKey;
+      v31 = v20;
+      goto LABEL_9;
+    }
+
+    outlined destroy of GeneratedEphemeralPrivateKey(v20, type metadata accessor for Curve25519EphemeralKey);
+    (*(v37 + 32))(v38, v17, v12);
+LABEL_12:
+    outlined copy of Data._Representation(v5, v26);
+    return v5;
+  }
+
+  if (EnumCaseMultiPayload != 1)
+  {
+    outlined init with take of X25519MLKEM768EphemeralKey(v23, v8, type metadata accessor for X25519MLKEM768EphemeralKey);
+    v33 = v40;
+    v34 = _s15SwiftTLSLibrary26X25519MLKEM768EphemeralKeyV5encap06publicF4Data10Foundation0I0V_9CryptoKit09SymmetricF0VtAH_tAA8TLSErrorOYKF(v38, v41, v44, &v42);
+    if (!v33)
+    {
+      v5 = v34;
+      outlined destroy of GeneratedEphemeralPrivateKey(v8, type metadata accessor for X25519MLKEM768EphemeralKey);
+      return v5;
+    }
+
+    v28 = *(&v42 + 1);
+    v27 = v42;
+    v29 = v43;
+    v30 = type metadata accessor for X25519MLKEM768EphemeralKey;
+    v31 = v8;
+    goto LABEL_9;
+  }
+
+  outlined init with take of X25519MLKEM768EphemeralKey(v23, v11, type metadata accessor for P384EphemeralKey);
+  v25 = v40;
+  v5 = v41;
+  v26 = v44;
+  _s15SwiftTLSLibrary16P384EphemeralKeyV5decap14ciphertextData9CryptoKit09SymmetricE0V10Foundation0H0V_tAA8TLSErrorOYKF(v41, v44, &v42, v15);
+  if (!v25)
+  {
+    outlined destroy of GeneratedEphemeralPrivateKey(v11, type metadata accessor for P384EphemeralKey);
+    (*(v37 + 32))(v38, v15, v12);
+    goto LABEL_12;
+  }
+
+  v28 = *(&v42 + 1);
+  v27 = v42;
+  v29 = v43;
+  v30 = type metadata accessor for P384EphemeralKey;
+  v31 = v11;
+LABEL_9:
+  outlined destroy of GeneratedEphemeralPrivateKey(v31, v30);
+  v35 = v39;
+  *v39 = v27;
+  v35[1] = v28;
+  *(v35 + 16) = v29;
+  return v5;
+}
+
+double X25519MLKEM768EphemeralKey.init()@<D0>(uint64_t a1@<X8>)
+{
+  v2 = type metadata accessor for Curve25519.KeyAgreement.PublicKey();
+  v24 = *(v2 - 8);
+  v25 = v2;
+  MEMORY[0x1EEE9AC00](v2);
+  v4 = &v23 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v23 = type metadata accessor for MLKEM768.PublicKey();
+  v5 = *(v23 - 8);
+  MEMORY[0x1EEE9AC00](v23);
+  v7 = &v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for MLKEM768.PrivateKey();
+  v9 = *(v8 - 8);
+  MEMORY[0x1EEE9AC00](v8);
+  v11 = &v23 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for X25519MLKEM768EphemeralKey(0);
+  *(a1 + v12[7]) = 32;
+  *(a1 + v12[8]) = 1184;
+  *(a1 + v12[9]) = 1088;
+  Curve25519.KeyAgreement.PrivateKey.init()();
+  static MLKEM768.PrivateKey.generate()();
+  (*(v9 + 32))(a1 + v12[5], v11, v8);
+  MLKEM768.PrivateKey.publicKey.getter();
+  v13 = MLKEM768.PublicKey.rawRepresentation.getter();
+  v15 = v14;
+  (*(v5 + 8))(v7, v23);
+  Curve25519.KeyAgreement.PrivateKey.publicKey.getter();
+  v16 = Curve25519.KeyAgreement.PublicKey.rawRepresentation.getter();
+  v18 = v17;
+  (*(v24 + 8))(v4, v25);
+  *&v27[0] = v13;
+  *(&v27[0] + 1) = v15;
+  v26[3] = MEMORY[0x1E6969080];
+  v26[4] = MEMORY[0x1E6969078];
+  v26[0] = v16;
+  v26[1] = v18;
+  v19 = __swift_project_boxed_opaque_existential_0(v26, MEMORY[0x1E6969080]);
+  v20 = *v19;
+  v21 = v19[1];
+  outlined copy of Data._Representation(v13, v15);
+  outlined copy of Data._Representation(v16, v18);
+  specialized Data._Representation.withUnsafeBytes<A>(_:)(v20, v21, v27);
+  outlined consume of Data._Representation(v16, v18);
+  outlined consume of Data._Representation(v13, v15);
+  __swift_destroy_boxed_opaque_existential_0(v26);
+  result = *v27;
+  *(a1 + v12[6]) = v27[0];
+  return result;
+}
+
+uint64_t Curve25519EphemeralKey.publicKeyData.getter(uint64_t (*a1)(void), uint64_t (*a2)(uint64_t), uint64_t (*a3)(uint64_t))
+{
+  v5 = a1(0);
+  v6 = *(v5 - 8);
+  v7 = MEMORY[0x1EEE9AC00](v5);
+  v9 = &v13 - v8;
+  v10 = a2(v7);
+  v11 = a3(v10);
+  (*(v6 + 8))(v9, v5);
+  return v11;
+}
+
+uint64_t _s15SwiftTLSLibrary22Curve25519EphemeralKeyV5encap06publicE4Data10Foundation0H0V_9CryptoKit09SymmetricE0VtAH_tAA8TLSErrorOYKFTm(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4, void (*a5)(uint64_t, unint64_t, __int128 *))
+{
+  v18 = a1;
+  v10 = type metadata accessor for SymmetricKey();
+  v11 = *(v10 - 8);
+  MEMORY[0x1EEE9AC00](v10);
+  v13 = &v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  a5(a2, a3, &v16);
+  if (v5)
+  {
+    v14 = v17;
+    *a4 = v16;
+    *(a4 + 16) = v14;
+  }
+
+  else
+  {
+    (*(v11 + 32))(v18, v13, v10);
+    outlined copy of Data._Representation(a2, a3);
+  }
+
+  return a2;
+}
+
+uint64_t _s15SwiftTLSLibrary26X25519MLKEM768EphemeralKeyV5encap06publicF4Data10Foundation0I0V_9CryptoKit09SymmetricF0VtAH_tAA8TLSErrorOYKF(uint64_t a1, uint64_t a2, unint64_t a3, uint64_t a4)
+{
+  v64 = a1;
+  v66 = type metadata accessor for SymmetricKey();
+  v65 = *(v66 - 8);
+  MEMORY[0x1EEE9AC00](v66);
+  v67 = &v55 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v63 = type metadata accessor for KEM.EncapsulationResult();
+  v62 = *(v63 - 8);
+  MEMORY[0x1EEE9AC00](v63);
+  v70 = &v55 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = type metadata accessor for MLKEM768.PublicKey();
+  v12 = *(v11 - 8);
+  MEMORY[0x1EEE9AC00](v11);
+  v74 = &v55 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v14 = type metadata accessor for SymmetricKey();
+  v71 = *(v14 - 8);
+  v72 = v14;
+  MEMORY[0x1EEE9AC00](v14);
+  v76 = &v55 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v73 = type metadata accessor for SharedSecret();
+  v75 = *(v73 - 8);
+  v16 = MEMORY[0x1EEE9AC00](v73);
+  v18 = &v55 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x1EEE9AC00](v16);
+  v79 = &v55 - v19;
+  v20 = type metadata accessor for Curve25519.KeyAgreement.PublicKey();
+  v21 = MEMORY[0x1EEE9AC00](v20);
+  v23 = &v55 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  result = MEMORY[0x1EEE9AC00](v21);
+  v87 = &v55 - v26;
+  v27 = a3 >> 62;
+  v69 = v12;
+  if ((a3 >> 62) > 1)
+  {
+    v28 = 0;
+    if (v27 != 2)
+    {
+      goto LABEL_10;
+    }
+
+    v30 = *(a2 + 16);
+    v29 = *(a2 + 24);
+    v28 = v29 - v30;
+    if (!__OFSUB__(v29, v30))
+    {
+      goto LABEL_10;
+    }
+
+    __break(1u);
+  }
+
+  else if (!v27)
+  {
+    v28 = BYTE6(a3);
+    goto LABEL_10;
+  }
+
+  if (__OFSUB__(HIDWORD(a2), a2))
+  {
+LABEL_27:
+    __break(1u);
+    goto LABEL_28;
+  }
+
+  v28 = HIDWORD(a2) - a2;
+LABEL_10:
+  v68 = v11;
+  v77 = v25;
+  v78 = result;
+  result = type metadata accessor for X25519MLKEM768EphemeralKey(0);
+  v31 = *(v4 + *(result + 28));
+  v32 = *(v4 + *(result + 32));
+  v33 = __OFADD__(v31, v32);
+  v34 = v31 + v32;
+  if (v33)
+  {
+    __break(1u);
+    goto LABEL_27;
+  }
+
+  if (v28 < v34)
+  {
+    v80 = xmmword_1B26C7200;
+    v81 = 2;
+    lazy protocol witness table accessor for type TLSError and conformance TLSError();
+    swift_willThrowTypedImpl();
+    v35 = 9;
+LABEL_16:
+    *a4 = v35;
+    *(a4 + 8) = 0;
+    *(a4 + 16) = 2;
+    return v4;
+  }
+
+  v61 = a4;
+  v60 = v23;
+  outlined copy of Data._Representation(a2, a3);
+  specialized Collection.prefix(_:)(v32, a2, a3, &v80);
+  v36 = v80;
+  outlined copy of Data._Representation(a2, a3);
+  specialized Collection.dropFirst(_:)(v32, a2, a3, &v80);
+  v4 = *(&v80 + 1);
+  v37 = v80;
+  outlined copy of Data._Representation(v80, *(&v80 + 1));
+  Curve25519.KeyAgreement.PublicKey.init<A>(rawRepresentation:)();
+  if (v5)
+  {
+
+    v80 = xmmword_1B26C6420;
+    v81 = 2;
+    lazy protocol witness table accessor for type TLSError and conformance TLSError();
+    swift_willThrowTypedImpl();
+    outlined consume of Data._Representation(v36, *(&v36 + 1));
+    outlined consume of Data._Representation(v37, v4);
+    v35 = 32;
+    a4 = v61;
+    goto LABEL_16;
+  }
+
+  v57 = v37;
+  v58 = v4;
+  v59 = v36;
+  v38 = v79;
+  Curve25519.KeyAgreement.PrivateKey.sharedSecretFromKeyAgreement(with:)();
+  (*(v75 + 16))(v18, v38, v73);
+  lazy protocol witness table accessor for type SharedSecret and conformance SharedSecret();
+  SymmetricKey.init<A>(data:)();
+  v80 = v59;
+  outlined copy of Data._Representation(v59, *(&v59 + 1));
+  lazy protocol witness table accessor for type Data and conformance Data();
+  MLKEM768.PublicKey.init<A>(rawRepresentation:)();
+  MLKEM768.PublicKey.encapsulate()();
+  v39 = KEM.EncapsulationResult.sharedSecret.getter();
+  v85 = xmmword_1B26C6130;
+  v86 = 0;
+  MEMORY[0x1EEE9AC00](v39);
+  *(&v55 - 2) = &v85;
+  v40 = SymmetricKey.withUnsafeBytes<A>(_:)();
+  MEMORY[0x1EEE9AC00](v40);
+  *(&v55 - 2) = &v85;
+  SymmetricKey.withUnsafeBytes<A>(_:)();
+  v61 = 0;
+  result = v86;
+  v41 = *(&v85 + 1) >> 62;
+  if ((*(&v85 + 1) >> 62) > 1)
+  {
+    v44 = 0;
+    v42 = MEMORY[0x1E6969078];
+    v43 = v60;
+    if (v41 == 2)
+    {
+      v44 = *(v85 + 24);
+    }
+  }
+
+  else
+  {
+    v42 = MEMORY[0x1E6969078];
+    v43 = v60;
+    if (v41)
+    {
+      v44 = v85 >> 32;
+    }
+
+    else
+    {
+      v44 = BYTE14(v85);
+    }
+  }
+
+  if (v44 >= v86)
+  {
+    v60 = Data._Representation.subscript.getter();
+    v56 = v45;
+    v46 = KEM.EncapsulationResult.encapsulated.getter();
+    v48 = v47;
+    Curve25519.KeyAgreement.PrivateKey.publicKey.getter();
+    v49 = Curve25519.KeyAgreement.PublicKey.rawRepresentation.getter();
+    v51 = v50;
+    v77 = *(v77 + 8);
+    (v77)(v43, v78);
+    v84[0] = v46;
+    v84[1] = v48;
+    v82 = MEMORY[0x1E6969080];
+    v83 = v42;
+    *&v80 = v49;
+    *(&v80 + 1) = v51;
+    v52 = __swift_project_boxed_opaque_existential_0(&v80, MEMORY[0x1E6969080]);
+    v54 = *v52;
+    v53 = v52[1];
+    outlined copy of Data._Representation(v46, v48);
+    outlined copy of Data._Representation(v49, v51);
+    specialized Data._Representation.withUnsafeBytes<A>(_:)(v54, v53, v84);
+    outlined consume of Data._Representation(v49, v51);
+    outlined consume of Data._Representation(v46, v48);
+    __swift_destroy_boxed_opaque_existential_0(&v80);
+    v4 = v84[0];
+    *&v80 = v60;
+    *(&v80 + 1) = v56;
+    SymmetricKey.init<A>(data:)();
+    outlined consume of Data._Representation(v59, *(&v59 + 1));
+    outlined consume of Data._Representation(v57, v58);
+    (*(v65 + 8))(v67, v66);
+    (*(v62 + 8))(v70, v63);
+    (*(v71 + 8))(v76, v72);
+    (*(v75 + 8))(v79, v73);
+    outlined consume of Data._Representation(v85, *(&v85 + 1));
+    (*(v69 + 8))(v74, v68);
+    (v77)(v87, v78);
+    return v4;
+  }
+
+LABEL_28:
+  __break(1u);
+  return result;
 }

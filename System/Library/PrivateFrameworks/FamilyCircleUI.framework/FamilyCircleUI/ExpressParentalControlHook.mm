@@ -19,24 +19,22 @@
 
 - (_TtC14FamilyCircleUI26ExpressParentalControlHook)init
 {
-  v2 = type metadata accessor for ParentalControlStore();
-  v3 = *(v2 + 48);
-  v4 = *(v2 + 52);
-  v5 = swift_allocObject();
-  v6 = OBJC_IVAR____TtC14FamilyCircleUI20ParentalControlStore__presets;
-  v7 = sub_21BE2679C();
-  (*(*(v7 - 8) + 56))(v5 + v6, 1, 1, v7);
-  v8 = OBJC_IVAR____TtC14FamilyCircleUI20ParentalControlStore_currentSettings;
-  v9 = sub_21BE266DC();
-  (*(*(v9 - 8) + 56))(v5 + v8, 1, 1, v9);
-  v10 = OBJC_IVAR____TtC14FamilyCircleUI20ParentalControlStore_user;
-  v11 = sub_21BE2688C();
-  (*(*(v11 - 8) + 56))(v5 + v10, 1, 1, v11);
+  type metadata accessor for ParentalControlStore(0);
+  v2 = swift_allocObject();
+  v3 = OBJC_IVAR____TtC14FamilyCircleUI20ParentalControlStore__presets;
+  v4 = sub_21BE2679C();
+  (*(*(v4 - 8) + 56))(v2 + v3, 1, 1, v4);
+  v5 = OBJC_IVAR____TtC14FamilyCircleUI20ParentalControlStore_currentSettings;
+  v6 = sub_21BE266DC();
+  (*(*(v6 - 8) + 56))(v2 + v5, 1, 1, v6);
+  v7 = OBJC_IVAR____TtC14FamilyCircleUI20ParentalControlStore_user;
+  v8 = sub_21BE2688C();
+  (*(*(v8 - 8) + 56))(v2 + v7, 1, 1, v8);
   sub_21BE2670C();
-  v12 = sub_21BC3F624(v5);
+  v9 = sub_21BC3F624(v2);
   swift_getObjectType();
   swift_deallocPartialClassInstance();
-  return v12;
+  return v9;
 }
 
 - (BOOL)shouldMatchElement:(id)element
@@ -71,29 +69,28 @@
 - (void)processObjectModel:(RUIObjectModel *)model completion:(id)completion
 {
   v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CDB5790, &qword_21BE32800);
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x28223BE20](v7 - 8);
-  v10 = &v18 - v9;
-  v11 = _Block_copy(completion);
-  v12 = swift_allocObject();
-  v12[2] = model;
-  v12[3] = v11;
-  v12[4] = self;
-  v13 = sub_21BE28DAC();
-  (*(*(v13 - 8) + 56))(v10, 1, 1, v13);
+  v9 = &v17 - v8;
+  v10 = _Block_copy(completion);
+  v11 = swift_allocObject();
+  v11[2] = model;
+  v11[3] = v10;
+  v11[4] = self;
+  v12 = sub_21BE28DAC();
+  (*(*(v12 - 8) + 56))(v9, 1, 1, v12);
+  v13 = swift_allocObject();
+  v13[2] = 0;
+  v13[3] = 0;
+  v13[4] = &unk_21BE391E0;
+  v13[5] = v11;
   v14 = swift_allocObject();
   v14[2] = 0;
   v14[3] = 0;
-  v14[4] = &unk_21BE391E0;
-  v14[5] = v12;
-  v15 = swift_allocObject();
-  v15[2] = 0;
-  v15[3] = 0;
-  v15[4] = &unk_21BE32A10;
-  v15[5] = v14;
+  v14[4] = &unk_21BE32A10;
+  v14[5] = v13;
   modelCopy = model;
   selfCopy = self;
-  sub_21BDC4F90(0, 0, v10, &unk_21BE391F0, v15);
+  sub_21BDC4F90(0, 0, v9, &unk_21BE391F0, v14);
 }
 
 - (void)processElement:(id)element attributes:(id)attributes objectModel:(id)model completion:(id)completion

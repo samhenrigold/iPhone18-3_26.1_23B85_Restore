@@ -7,6 +7,7 @@
 - (TIKeyboardState)lastMessageKeyboardState;
 - (id)deleteLengthMetrics:(id)metrics nextWordEntryCandText:(id)text;
 - (void)addDoubleToTransientCounter:(double)counter forKey:(id)key andContext:(id)context andCandidateString:(id)string;
+- (void)addIntegerToTransientCounter:(int)counter forKey:(id)key andContext:(id)context andCandidateString:(id)string;
 - (void)handleDeleteWord:(id)word nextAction:(id)action;
 - (void)handlePath:(id)path;
 - (void)handleWordEntry:(id)entry;
@@ -130,9 +131,9 @@
   actionCopy = action;
   keyboardState = [actionCopy keyboardState];
   clientIdentifier = [keyboardState clientIdentifier];
-  v6 = [clientIdentifier isEqualToString:@"com.apple.MobileSMS"];
+  isEqualToString = objc_msgSend_isEqualToString_(clientIdentifier);
 
-  if (v6)
+  if (isEqualToString)
   {
     documentState = [actionCopy documentState];
     documentState2 = [keyboardState documentState];
@@ -195,7 +196,7 @@
 
 - (void)handleDeleteWord:(id)word nextAction:(id)action
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   wordCopy = word;
   actionCopy = action;
   if (wordCopy && ![wordCopy actionType])
@@ -230,7 +231,7 @@
           }
 
           [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:*v21 andContext:v17 andCandidateString:v12];
-          v43 = v18;
+          v42 = v18;
           acceptedCandidate4 = [v18 acceptedCandidate];
           [acceptedCandidate4 candidate];
           v24 = v23 = v17;
@@ -240,42 +241,42 @@
           v27 = v26;
           if ([v26 length])
           {
-            v42 = v23;
+            v41 = v23;
             candidatesOffered = [v8 candidatesOffered];
             lastObject = [candidatesOffered lastObject];
 
-            v48 = 0u;
-            v49 = 0u;
-            v46 = 0u;
             v47 = 0u;
-            v41 = lastObject;
+            v48 = 0u;
+            v45 = 0u;
+            v46 = 0u;
+            v40 = lastObject;
             obj = [lastObject predictions];
-            v30 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
+            v30 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
             v31 = 0x277CCA000uLL;
             if (v30)
             {
               v32 = v30;
-              v45 = *v47;
-              v40 = v12;
+              v44 = *v46;
+              v39 = v12;
               while (2)
               {
                 for (i = 0; i != v32; ++i)
                 {
                   v34 = v27;
-                  if (*v47 != v45)
+                  if (*v46 != v44)
                   {
                     objc_enumerationMutation(obj);
                   }
 
-                  candidate2 = [*(*(&v46 + 1) + 8 * i) candidate];
+                  candidate2 = [*(*(&v45 + 1) + 8 * i) candidate];
                   whitespaceCharacterSet3 = [*(v31 + 2304) whitespaceCharacterSet];
                   v37 = [candidate2 stringByTrimmingCharactersInSet:whitespaceCharacterSet3];
 
                   v27 = v34;
-                  if ([v34 isEqualToString:v37])
+                  if (objc_msgSend_isEqualToString_(v34))
                   {
-                    v12 = v40;
-                    [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenPathedWordsShownInCandidateBar andContext:v42 andCandidateString:v40];
+                    v12 = v39;
+                    [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenPathedWordsShownInCandidateBar andContext:v41 andCandidateString:v39];
 
                     goto LABEL_21;
                   }
@@ -283,8 +284,8 @@
                   v31 = 0x277CCA000;
                 }
 
-                v32 = [obj countByEnumeratingWithState:&v46 objects:v50 count:16];
-                v12 = v40;
+                v32 = [obj countByEnumeratingWithState:&v45 objects:v49 count:16];
+                v12 = v39;
                 if (v32)
                 {
                   continue;
@@ -297,8 +298,8 @@
 LABEL_21:
 
             v38 = [(TIFavoniusTypingSessionAnalyzer *)self deleteLengthMetrics:v12 nextWordEntryCandText:v27];
-            v17 = v42;
-            [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:v38 andContext:v42 andCandidateString:v12];
+            v17 = v41;
+            [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:v38 andContext:v41 andCandidateString:v12];
           }
 
           else
@@ -315,8 +316,6 @@ LABEL_21:
       }
     }
   }
-
-  v39 = *MEMORY[0x277D85DE8];
 }
 
 - (id)deleteLengthMetrics:(id)metrics nextWordEntryCandText:(id)text
@@ -529,7 +528,7 @@ LABEL_32:
 
 - (BOOL)updatePQTCountersForCandidate:(id)candidate withText:(id)text andContext:(id)context
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   candidateCopy = candidate;
   textCopy = text;
   contextCopy = context;
@@ -541,162 +540,162 @@ LABEL_32:
     if (proactiveTrigger)
     {
       triggerSourceType = [proactiveTrigger triggerSourceType];
-      v24 = candidateCopy;
+      v23 = candidateCopy;
       if (triggerSourceType >= 3)
       {
-        v22 = 0;
+        v21 = 0;
       }
 
       else
       {
         v14 = off_27872FAE8[triggerSourceType];
-        if ([(__CFString *)v14 isEqualToString:@"LanguageModeling"])
+        if (objc_msgSend_isEqualToString_(v14))
         {
           [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveSourceLanguageModeling andContext:contextCopy andCandidateString:textCopy];
         }
 
-        if ([(__CFString *)v14 isEqualToString:@"ResponseKit"])
+        if (objc_msgSend_isEqualToString_(v14))
         {
           [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveSourceResponseKit andContext:contextCopy andCandidateString:textCopy];
         }
 
-        v22 = v14;
-        if ([(__CFString *)v14 isEqualToString:@"TaggedTextField"])
+        v21 = v14;
+        if (objc_msgSend_isEqualToString_(v14))
         {
           [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveSourceTaggedTextField andContext:contextCopy andCandidateString:textCopy, v14];
         }
       }
 
-      v23 = v12;
+      v22 = v12;
       obj = TIStatisticsCategoriesForProactiveTrigger(v12);
       if (obj)
       {
-        v28 = 0u;
-        v29 = 0u;
-        v26 = 0u;
         v27 = 0u;
-        v15 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+        v28 = 0u;
+        v25 = 0u;
+        v26 = 0u;
+        v15 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
         if (v15)
         {
           v16 = v15;
-          v17 = *v27;
+          v17 = *v26;
           do
           {
             for (i = 0; i != v16; ++i)
             {
-              if (*v27 != v17)
+              if (*v26 != v17)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v19 = *(*(&v26 + 1) + 8 * i);
-              if ([v19 isEqualToString:{@"1stPerson", v22, v23}])
+              v19 = *(*(&v25 + 1) + 8 * i);
+              if (objc_msgSend_isEqualToString_(v19, v21, v22))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryFirstPerson andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"3rdPerson"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryThirdPerson andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"contactAnyPhone"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryContactAnyPhone andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"contactSpecificPhone"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryContactSpecificPhone andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"contactFax"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryContactFax andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"contactAnyAddress"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryContactAnyAddress andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"contactAddressHome"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryContactAddressHome andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"contactAddressWork"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryContactAddressWork andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"contactEmail"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryContactEmail andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"contactFaceTime"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryContactFaceTime andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"contactBio"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryContactBio andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"socialMedia"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategorySocialMedia andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"locationAutocompleteSendCurrentButton"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryLocationAutocompleteSendCurrentButton andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"recentGenericAddress"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryRecentGenericAddress andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"recentPhone"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryRecentPhone andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"recentAddress"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryRecentAddress andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"eventAvailability"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryEventAvailability andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"eventNext"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryEventNext andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"money"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryMoney andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"health"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryHealth andContext:contextCopy andCandidateString:textCopy];
               }
 
-              if ([v19 isEqualToString:@"navigation"])
+              if (objc_msgSend_isEqualToString_(v19))
               {
                 [(TIFavoniusTypingSessionAnalyzer *)self incrementTransientCounterForKey:kFeatureValueWithWordLenProactiveCategoryNavigation andContext:contextCopy andCandidateString:textCopy];
               }
             }
 
-            v16 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+            v16 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
           }
 
           while (v16);
@@ -704,7 +703,7 @@ LABEL_32:
       }
 
       LOBYTE(v12) = 1;
-      candidateCopy = v24;
+      candidateCopy = v23;
     }
   }
 
@@ -713,7 +712,6 @@ LABEL_32:
     LOBYTE(v12) = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -830,7 +828,7 @@ LABEL_32:
 
 - (void)updateDurationCounterForWord:(id)word forTypingContext:(id)context
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   wordCopy = word;
   contextCopy = context;
   acceptedCandidate = [wordCopy acceptedCandidate];
@@ -868,18 +866,18 @@ LABEL_23:
 
   else if (v14 >= 2)
   {
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     allTouches4 = [wordCopy allTouches];
-    v27 = [allTouches4 countByEnumeratingWithState:&v44 objects:v48 count:16];
+    v27 = [allTouches4 countByEnumeratingWithState:&v43 objects:v47 count:16];
     if (v27)
     {
       selfCopy2 = self;
-      v43 = contextCopy;
+      v42 = contextCopy;
       v28 = 0;
-      v29 = *v45;
+      v29 = *v44;
       v30 = 0.0;
       v31 = 0.0;
       v32 = 0.0;
@@ -887,15 +885,15 @@ LABEL_23:
       {
         for (i = 0; i != v27; ++i)
         {
-          if (*v45 != v29)
+          if (*v44 != v29)
           {
             objc_enumerationMutation(allTouches4);
           }
 
-          v34 = *(*(&v44 + 1) + 8 * i);
+          v34 = *(*(&v43 + 1) + 8 * i);
           if (-v28 == i)
           {
-            [*(*(&v44 + 1) + 8 * i) timestamp];
+            [*(*(&v43 + 1) + 8 * i) timestamp];
             v31 = v35;
             [v34 timestamp];
             v32 = v36;
@@ -924,13 +922,13 @@ LABEL_23:
         }
 
         v28 += v27;
-        v27 = [allTouches4 countByEnumeratingWithState:&v44 objects:v48 count:16];
+        v27 = [allTouches4 countByEnumeratingWithState:&v43 objects:v47 count:16];
       }
 
       while (v27);
       v27 = (v30 * 1000.0);
       self = selfCopy2;
-      contextCopy = v43;
+      contextCopy = v42;
     }
 
     v24 = kFeatureCounterDurationTappedWords;
@@ -938,8 +936,6 @@ LABEL_23:
     v23 = v27;
     goto LABEL_23;
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isPathable:(id)pathable context:(id)context
@@ -951,7 +947,7 @@ LABEL_23:
   v9 = [pathableCopy stringByTrimmingCharactersInSet:whitespaceAndNewlineCharacterSet];
 
   inputLanguage = [contextCopy inputLanguage];
-  LODWORD(pathableCopy) = [inputLanguage isEqualToString:@"zh"];
+  LODWORD(pathableCopy) = objc_msgSend_isEqualToString_(inputLanguage);
 
   if (!pathableCopy)
   {
@@ -1023,6 +1019,17 @@ LABEL_12:
   if ([string length])
   {
     [TIUserModeling addDoubleToTransientCounter:"addDoubleToTransientCounter:forKey:andCandidateLength:andContext:" forKey:keyCopy andCandidateLength:counter andContext:?];
+  }
+}
+
+- (void)addIntegerToTransientCounter:(int)counter forKey:(id)key andContext:(id)context andCandidateString:(id)string
+{
+  v8 = *&counter;
+  keyCopy = key;
+  contextCopy = context;
+  if ([string length])
+  {
+    [TIUserModeling addIntegerToTransientCounter:"addIntegerToTransientCounter:forKey:andCandidateLength:andContext:" forKey:v8 andCandidateLength:keyCopy andContext:?];
   }
 }
 

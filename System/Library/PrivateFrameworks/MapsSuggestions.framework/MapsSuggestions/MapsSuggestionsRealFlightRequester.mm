@@ -6,22 +6,22 @@
 
 @implementation MapsSuggestionsRealFlightRequester
 
-void __45__MapsSuggestionsRealFlightRequester_session__block_invoke()
+void __45__MapsSuggestionsRealFlightRequester_session__block_invoke(uint64_t a1)
 {
-  v0 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
-  v5 = [v0 objectForInfoDictionaryKey:*MEMORY[0x1E695E500]];
+  v1 = [MEMORY[0x1E696AAE8] bundleForClass:objc_opt_class()];
+  v6 = [v1 objectForInfoDictionaryKey:*MEMORY[0x1E695E500]];
 
-  if (![(__CFString *)v5 length])
+  if (![(__CFString *)v6 length])
   {
 
-    v5 = @"1.0";
+    v6 = @"1.0";
   }
 
-  v1 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FlightUtilities/%@", v5];
-  v2 = [objc_alloc(MEMORY[0x1E6998678]) initWithId:@"com.apple.flightutilities" userAgent:v1];
-  v3 = [MEMORY[0x1E6998670] sharedPARSessionWithConfiguration:v2];
-  v4 = _MergedGlobals_1;
-  _MergedGlobals_1 = v3;
+  v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FlightUtilities/%@", v6];
+  v3 = [objc_alloc(MEMORY[0x1E6998678]) initWithId:@"com.apple.flightutilities" userAgent:v2];
+  v4 = [MEMORY[0x1E6998670] sharedPARSessionWithConfiguration:v3];
+  v5 = _MergedGlobals_1;
+  _MergedGlobals_1 = v4;
 }
 
 - (NSString)uniqueName

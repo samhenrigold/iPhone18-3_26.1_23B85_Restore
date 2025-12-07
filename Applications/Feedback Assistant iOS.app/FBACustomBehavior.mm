@@ -19,17 +19,16 @@
 {
   if (*(self + OBJC_IVAR____TtC18Feedback_Assistant17FBACustomBehavior_answers))
   {
-    v2 = *(self + OBJC_IVAR____TtC18Feedback_Assistant17FBACustomBehavior_answers);
 
-    v3.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
+    v2.super.isa = Dictionary._bridgeToObjectiveC()().super.isa;
   }
 
   else
   {
-    v3.super.isa = 0;
+    v2.super.isa = 0;
   }
 
-  return v3.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setAnswers:(id)answers
@@ -44,7 +43,6 @@
     v4 = 0;
   }
 
-  v5 = *(self + OBJC_IVAR____TtC18Feedback_Assistant17FBACustomBehavior_answers);
   *(self + OBJC_IVAR____TtC18Feedback_Assistant17FBACustomBehavior_answers) = v4;
 }
 

@@ -134,12 +134,12 @@ void __59__CDPDSOSSecureBackupController_accountInfoWithCompletion___block_invok
 
 - (void)_accountInfoWithCompletion:(id)completion
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = _os_activity_create(&dword_24510B000, "cdp: Fetching Account Info", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
-  v11.opaque[0] = 0;
-  v11.opaque[1] = 0;
-  os_activity_scope_enter(v5, &v11);
+  v10.opaque[0] = 0;
+  v10.opaque[1] = 0;
+  os_activity_scope_enter(v5, &v10);
   accountInfoFetchSetupDictionary = [(CDPDSecureBackupConfiguration *)self->_configuration accountInfoFetchSetupDictionary];
   v7 = [accountInfoFetchSetupDictionary mutableCopy];
 
@@ -152,9 +152,7 @@ void __59__CDPDSOSSecureBackupController_accountInfoWithCompletion___block_invok
   }
 
   [(CDPDSecureBackupProxy *)self->_secureBackupProxy accountInfoWithInfo:v7 completion:completionCopy];
-  os_activity_scope_leave(&v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  os_activity_scope_leave(&v10);
 }
 
 - (void)isEligibleForCDPWithCompletion:(id)completion
@@ -266,7 +264,7 @@ LABEL_12:
 
 void __97__CDPDSOSSecureBackupController__getBackupRecordDevicesIncludingUnrecoverableRecords_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v66 = *MEMORY[0x277D85DE8];
+  v65 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   if (v5)
@@ -278,7 +276,7 @@ void __97__CDPDSOSSecureBackupController__getBackupRecordDevicesIncludingUnrecov
     }
   }
 
-  v50 = [MEMORY[0x277CBEB18] array];
+  v49 = [MEMORY[0x277CBEB18] array];
   v7 = [*(*(a1 + 32) + 16) desiresAllRecords];
   v8 = MEMORY[0x277CFB2A0];
   if (!v7)
@@ -286,13 +284,13 @@ void __97__CDPDSOSSecureBackupController__getBackupRecordDevicesIncludingUnrecov
     v8 = MEMORY[0x277CFB3D0];
   }
 
-  v49 = v4;
+  v48 = v4;
   [v4 objectForKeyedSubscript:*v8];
+  v54 = 0u;
   v55 = 0u;
   v56 = 0u;
-  v57 = 0u;
-  obj = v58 = 0u;
-  v9 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
+  obj = v57 = 0u;
+  v9 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
   if (!v9)
   {
     v11 = 0;
@@ -301,19 +299,19 @@ void __97__CDPDSOSSecureBackupController__getBackupRecordDevicesIncludingUnrecov
 
   v10 = v9;
   v11 = 0;
-  v52 = *v56;
+  v51 = *v55;
   do
   {
     v12 = 0;
     do
     {
-      if (*v56 != v52)
+      if (*v55 != v51)
       {
         objc_enumerationMutation(obj);
       }
 
-      v54 = v12;
-      v13 = *(*(&v55 + 1) + 8 * v12);
+      v53 = v12;
+      v13 = *(*(&v54 + 1) + 8 * v12);
       v14 = [objc_alloc(MEMORY[0x277CFD4C0]) initWithSecureBackupRecordInfo:v13];
       v15 = v14;
       if ([*(a1 + 32) fakeNearlyDepletedRecords])
@@ -322,7 +320,7 @@ void __97__CDPDSOSSecureBackupController__getBackupRecordDevicesIncludingUnrecov
         if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412290;
-          v60 = v15;
+          v59 = v15;
           _os_log_debug_impl(&dword_24510B000, v16, OS_LOG_TYPE_DEBUG, "**** DEBUG **** Setting fake remaining attempts value of 1 for %@", buf, 0xCu);
         }
 
@@ -334,7 +332,7 @@ void __97__CDPDSOSSecureBackupController__getBackupRecordDevicesIncludingUnrecov
       {
         if ([v14 remainingAttempts])
         {
-          [v50 addObject:v14];
+          [v49 addObject:v14];
         }
 
         else if (![v14 remainingAttempts])
@@ -344,9 +342,9 @@ void __97__CDPDSOSSecureBackupController__getBackupRecordDevicesIncludingUnrecov
           {
             v18 = [v15 remainingAttempts];
             *buf = 138412546;
-            v60 = v15;
-            v61 = 2048;
-            v62 = v18;
+            v59 = v15;
+            v60 = 2048;
+            v61 = v18;
             _os_log_impl(&dword_24510B000, v17, OS_LOG_TYPE_DEFAULT, "Disqualified device %@ because the remaining attempts is %lu", buf, 0x16u);
           }
         }
@@ -383,11 +381,11 @@ LABEL_29:
       {
         v26 = objc_opt_class();
         *buf = 138412802;
-        v60 = v15;
-        v61 = 2112;
-        v62 = v24;
-        v63 = 2112;
-        v64 = v26;
+        v59 = v15;
+        v60 = 2112;
+        v61 = v24;
+        v62 = 2112;
+        v63 = v26;
         v27 = v26;
         _os_log_impl(&dword_24510B000, v25, OS_LOG_TYPE_DEFAULT, "Backup record found for device %@ with date %@ (%@)", buf, 0x20u);
       }
@@ -398,11 +396,11 @@ LABEL_29:
         if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412802;
-          v60 = v24;
-          v61 = 2112;
-          v62 = v11;
-          v63 = 2112;
-          v64 = v15;
+          v59 = v24;
+          v60 = 2112;
+          v61 = v11;
+          v62 = 2112;
+          v63 = v15;
           _os_log_impl(&dword_24510B000, v29, OS_LOG_TYPE_DEFAULT, "Backup record date %@ is later than the previously known newest record (%@), promoting %@ as newest device record", buf, 0x20u);
         }
 
@@ -410,11 +408,11 @@ LABEL_29:
         v11 = v30;
       }
 
-      v12 = v54 + 1;
+      v12 = v53 + 1;
     }
 
-    while (v10 != v54 + 1);
-    v10 = [obj countByEnumeratingWithState:&v55 objects:v65 count:16];
+    while (v10 != v53 + 1);
+    v10 = [obj countByEnumeratingWithState:&v54 objects:v64 count:16];
   }
 
   while (v10);
@@ -424,14 +422,14 @@ LABEL_41:
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v60 = v11;
+    v59 = v11;
     _os_log_impl(&dword_24510B000, v31, OS_LOG_TYPE_DEFAULT, "Finished parsing multiple-iCSC records and found the newest record to be %@", buf, 0xCu);
   }
 
-  v32 = v50;
-  v33 = v48;
-  v34 = v49;
-  if ([v50 count])
+  v32 = v49;
+  v33 = v47;
+  v34 = v48;
+  if ([v49 count])
   {
     v35 = 1;
   }
@@ -439,28 +437,28 @@ LABEL_41:
   else
   {
     v36 = *MEMORY[0x277CFB330];
-    v37 = [v49 objectForKeyedSubscript:*MEMORY[0x277CFB330]];
+    v37 = [v48 objectForKeyedSubscript:*MEMORY[0x277CFB330]];
     v35 = v37 == 0;
     if (v37)
     {
-      v38 = [v49 objectForKeyedSubscript:v36];
+      v38 = [v48 objectForKeyedSubscript:v36];
       v39 = _CDPLogSystem();
       if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v60 = v38;
+        v59 = v38;
         _os_log_impl(&dword_24510B000, v39, OS_LOG_TYPE_DEFAULT, "Found a single-iCSC metadata record. Returning that as a faux-device using %@", buf, 0xCu);
       }
 
       v40 = [objc_alloc(MEMORY[0x277CFD4C0]) initWithSecureBackupMetadataInfo:v38];
-      v41 = [v49 objectForKeyedSubscript:*MEMORY[0x277CFB3C0]];
+      v41 = [v48 objectForKeyedSubscript:*MEMORY[0x277CFB3C0]];
       [v40 setHasRandomSecret:{objc_msgSend(v41, "BOOLValue")}];
 
-      v34 = v49;
-      [v50 removeAllObjects];
-      [v50 addObject:v40];
+      v34 = v48;
+      [v49 removeAllObjects];
+      [v49 addObject:v40];
 
-      v33 = v48;
+      v33 = v47;
     }
 
     else
@@ -473,7 +471,7 @@ LABEL_41:
       }
     }
 
-    v32 = v50;
+    v32 = v49;
   }
 
   v42 = _CDPLogSystem();
@@ -481,9 +479,9 @@ LABEL_41:
   {
     v43 = [v32 count];
     *buf = 134218240;
-    v60 = v43;
-    v61 = 1024;
-    LODWORD(v62) = v35;
+    v59 = v43;
+    v60 = 1024;
+    LODWORD(v61) = v35;
     _os_log_impl(&dword_24510B000, v42, OS_LOG_TYPE_DEFAULT, "Finished parsing backup records, returning %lu devices and isUsingMultipleICSC=%i", buf, 0x12u);
   }
 
@@ -494,10 +492,8 @@ LABEL_41:
     v46 = [v44 copy];
     (*(v45 + 16))(v45, v35, v46, v33);
 
-    v32 = v50;
+    v32 = v49;
   }
-
-  v47 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __97__CDPDSOSSecureBackupController__getBackupRecordDevicesIncludingUnrecoverableRecords_completion___block_invoke_39(uint64_t a1, void *a2, void *a3)
@@ -550,28 +546,26 @@ uint64_t __97__CDPDSOSSecureBackupController__getBackupRecordDevicesIncludingUnr
 
 - (void)checkForExistingRecordWithPeerId:(id)id completion:(id)completion
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   idCopy = id;
   completionCopy = completion;
   v8 = _CDPLogSystem();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = idCopy;
+    v15 = idCopy;
     _os_log_impl(&dword_24510B000, v8, OS_LOG_TYPE_DEFAULT, "Checking if the peer has a secure backup: %@", buf, 0xCu);
   }
 
   v9 = MEMORY[0x277CCAC30];
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __77__CDPDSOSSecureBackupController_checkForExistingRecordWithPeerId_completion___block_invoke;
-  v13[3] = &unk_278E24668;
-  v14 = idCopy;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __77__CDPDSOSSecureBackupController_checkForExistingRecordWithPeerId_completion___block_invoke;
+  v12[3] = &unk_278E24668;
+  v13 = idCopy;
   v10 = idCopy;
-  v11 = [v9 predicateWithBlock:v13];
+  v11 = [v9 predicateWithBlock:v12];
   [(CDPDSOSSecureBackupController *)self checkForExistingRecordMatchingPredicate:v11 forceFetch:1 completion:completionCopy];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __77__CDPDSOSSecureBackupController_checkForExistingRecordWithPeerId_completion___block_invoke(uint64_t a1, void *a2)
@@ -620,7 +614,7 @@ uint64_t __77__CDPDSOSSecureBackupController_checkForExistingRecordWithPeerId_co
 
 void __95__CDPDSOSSecureBackupController_checkForExistingRecordMatchingPredicate_forceFetch_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v6 = a4;
   if (v6)
   {
@@ -638,9 +632,9 @@ void __95__CDPDSOSSecureBackupController_checkForExistingRecordMatchingPredicate
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[NSObject count](v7, "count")}];
-      v12 = 138412290;
-      v13 = v10;
-      _os_log_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEFAULT, "Found %@ matching devices", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v10;
+      _os_log_impl(&dword_24510B000, v9, OS_LOG_TYPE_DEFAULT, "Found %@ matching devices", &v11, 0xCu);
     }
 
     if ([v7 count])
@@ -654,7 +648,6 @@ void __95__CDPDSOSSecureBackupController_checkForExistingRecordMatchingPredicate
 LABEL_9:
 
   (*(*(a1 + 40) + 16))();
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_clientMetadataWithSecretType:(unint64_t)type length:(unint64_t)length
@@ -806,25 +799,22 @@ uint64_t __75__CDPDSOSSecureBackupController_recoverSecureBackupWithContext_comp
       v13 = a1[4];
       v14 = a1[5];
       v15 = *(a1[7] + 8);
-      v24 = *(v15 + 40);
-      v16 = [v13 _recoverBackupDictionaryWithContext:v14 fallbackState:1 error:&v24];
-      objc_storeStrong((v15 + 40), v24);
+      v21 = *(v15 + 40);
+      v16 = [v13 _recoverBackupDictionaryWithContext:v14 fallbackState:1 error:&v21];
+      objc_storeStrong((v15 + 40), v21);
       v17 = *(a1[8] + 8);
       v18 = *(v17 + 40);
       *(v17 + 40) = v16;
     }
 
-    v19 = *(*(a1[8] + 8) + 40);
-    v20 = *(*(a1[7] + 8) + 40);
     return (*(a1[6] + 16))();
   }
 
   else
   {
-    v22 = a1[6];
-    v23 = *(a1[6] + 16);
+    v20 = *(a1[6] + 16);
 
-    return v23();
+    return v20();
   }
 }
 
@@ -863,7 +853,7 @@ LABEL_11:
 
 - (id)_recoverBackupDictionaryWithContext:(id)context fallbackState:(unint64_t)state error:(id *)error
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   v9 = _os_activity_create(&dword_24510B000, "cdp: Recovery Backup", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
@@ -898,9 +888,9 @@ LABEL_11:
   v16 = [MEMORY[0x277CE44D8] analyticsEventWithContext:self->_context eventName:*v14 category:*MEMORY[0x277CFD930]];
   v17 = objc_alloc_init(CDPDRemoteSecretValidationResult);
   secureBackupProxy = self->_secureBackupProxy;
-  v30 = 0;
-  v19 = [(CDPDSecureBackupProxy *)secureBackupProxy recoverWithInfo:v10 error:&v30];
-  v20 = v30;
+  v29 = 0;
+  v19 = [(CDPDSecureBackupProxy *)secureBackupProxy recoverWithInfo:v10 error:&v29];
+  v20 = v29;
   if (v20)
   {
     v21 = v20;
@@ -951,7 +941,6 @@ LABEL_11:
   }
 
   os_activity_scope_leave(&state);
-  v28 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
@@ -1082,27 +1071,17 @@ void __59__CDPDSOSSecureBackupController_accountInfoWithCompletion___block_invok
   _os_log_debug_impl(&dword_24510B000, log, OS_LOG_TYPE_DEBUG, "Fetching account info with %@", buf, 0xCu);
 }
 
-void __71__CDPDSOSSecureBackupController_backupRecordsArePresentWithCompletion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to check for secure backup records: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __71__CDPDSOSSecureBackupController_backupRecordsArePresentWithCompletion___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __71__CDPDSOSSecureBackupController_backupRecordsArePresentWithCompletion___block_invoke_cold_3(char a1, char a2, os_log_t log)
 {
   v3 = @"NO";
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v4 = @"YES";
@@ -1118,37 +1097,18 @@ void __71__CDPDSOSSecureBackupController_backupRecordsArePresentWithCompletion__
     v3 = @"YES";
   }
 
-  v6 = 138412546;
-  v7 = v4;
-  v8 = 2112;
-  v9 = v3;
-  _os_log_debug_impl(&dword_24510B000, log, OS_LOG_TYPE_DEBUG, "Secure backup hasSingleICSCBackup=%@ hasMultipleICSCBackups=%@", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __97__CDPDSOSSecureBackupController__getBackupRecordDevicesIncludingUnrecoverableRecords_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "SecureBackup returned error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = v4;
+  v7 = 2112;
+  v8 = v3;
+  _os_log_debug_impl(&dword_24510B000, log, OS_LOG_TYPE_DEBUG, "Secure backup hasSingleICSCBackup=%@ hasMultipleICSCBackups=%@", &v5, 0x16u);
 }
 
 - (void)checkForExistingRecordMatchingPredicate:forceFetch:completion:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_1_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __95__CDPDSOSSecureBackupController_checkForExistingRecordMatchingPredicate_forceFetch_completion___block_invoke_cold_1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Check for existing backup failed with error: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_shouldUseSBDCacheWithSecureBackupContext:fallbackState:.cold.1()
@@ -1165,22 +1125,6 @@ void __95__CDPDSOSSecureBackupController_checkForExistingRecordMatchingPredicate
   *(buf + 6) = 2112;
   *(buf + 14) = a2;
   _os_log_debug_impl(&dword_24510B000, log, OS_LOG_TYPE_DEBUG, "Attempting to recover SecureBackup secret from device %@ using info %@", buf, 0x16u);
-}
-
-- (void)_recoverBackupDictionaryWithContext:fallbackState:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Recovery error had additional info: %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)_recoverBackupDictionaryWithContext:fallbackState:error:.cold.3()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_0_0(&dword_24510B000, v0, v1, "Failed to recover SecureBackup with error %@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_recoverBackupDictionaryWithContext:fallbackState:error:.cold.4()

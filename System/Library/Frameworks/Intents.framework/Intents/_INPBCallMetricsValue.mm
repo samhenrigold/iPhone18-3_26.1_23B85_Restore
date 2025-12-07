@@ -177,13 +177,11 @@
   toCopy = to;
   if ([(_INPBCallMetricsValue *)self hasCallDuration])
   {
-    callDuration = self->_callDuration;
     PBDataWriterWriteDoubleField();
   }
 
   if ([(_INPBCallMetricsValue *)self hasTimeToEstablish])
   {
-    timeToEstablish = self->_timeToEstablish;
     PBDataWriterWriteDoubleField();
   }
 }

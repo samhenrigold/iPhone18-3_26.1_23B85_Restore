@@ -22,44 +22,42 @@
 
 - (void)layoutSubviews
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v14.receiver = self;
-  v14.super_class = INUICKPSynchronousRemoteView;
-  [(INUICKPSynchronousRemoteView *)&v14 layoutSubviews];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
+  v15 = *MEMORY[0x277D85DE8];
+  v13.receiver = self;
+  v13.super_class = INUICKPSynchronousRemoteView;
+  [(INUICKPSynchronousRemoteView *)&v13 layoutSubviews];
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   subviews = [(INUICKPSynchronousRemoteView *)self subviews];
-  v4 = [subviews countByEnumeratingWithState:&v10 objects:v15 count:16];
+  v4 = [subviews countByEnumeratingWithState:&v9 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v11;
+    v6 = *v10;
     do
     {
       v7 = 0;
       do
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(subviews);
         }
 
-        v8 = *(*(&v10 + 1) + 8 * v7);
+        v8 = *(*(&v9 + 1) + 8 * v7);
         [(INUICKPSynchronousRemoteView *)self bounds];
         [v8 setFrame:?];
         ++v7;
       }
 
       while (v5 != v7);
-      v5 = [subviews countByEnumeratingWithState:&v10 objects:v15 count:16];
+      v5 = [subviews countByEnumeratingWithState:&v9 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (INUICKPSynchronousRemoteViewDelegate)delegate

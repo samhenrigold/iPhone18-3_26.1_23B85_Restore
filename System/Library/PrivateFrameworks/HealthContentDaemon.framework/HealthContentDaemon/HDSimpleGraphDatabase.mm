@@ -5,8 +5,8 @@
 + (id)_entityClasses;
 + (id)unitTesting_didInitGraphDatabaseHandler;
 + (uint64_t)_createSchemaForDatabase:(void *)database behavior:(uint64_t)behavior error:;
-+ (uint64_t)_migrateDatabase:(uint64_t *)database fromVersion:(void *)version behavior:(uint64_t)behavior error:;
 + (uint64_t)_migrateDatabase:(uint64_t)database toVersion:(uint64_t)version function:(uint64_t)function error:;
++ (uint64_t)_migrateDatabase:(void *)database fromVersion:(void *)version behavior:(uint64_t)behavior error:;
 + (uint64_t)_openDatabase:(uint64_t)database error:;
 + (uint64_t)_readSchemaVersionForDatabase:(uint64_t)database error:;
 + (uint64_t)_removeExistingAndCreateDatabase:(uint64_t)database error:;
@@ -17,6 +17,7 @@
 - (BOOL)deleteWithError:(id *)error;
 - (BOOL)enumerateAttributesForNodeWithID:(int64_t)d includeDeleted:(BOOL)deleted error:(id *)error enumerationHandler:(id)handler;
 - (BOOL)foreignKeysEnable:(BOOL)enable error:(id *)error;
+- (BOOL)performTransactionWithError:(id *)error write:(BOOL)write block:(id)block;
 - (HDSimpleGraphDatabase)init;
 - (id)description;
 - (id)schemaVersionWithError:(id *)error;
@@ -137,13 +138,13 @@
 
 + (uint64_t)_validateOrCreateSchemaForDatabase:(uint64_t)database error:
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = objc_opt_self();
   mEMORY[0x277CCDD30] = [MEMORY[0x277CCDD30] sharedBehavior];
-  v22 = 0;
-  v7 = [(HDSimpleGraphDatabase *)v5 _readSchemaVersionForDatabase:v4 error:&v22];
-  v8 = v22;
+  v21 = 0;
+  v7 = [(HDSimpleGraphDatabase *)v5 _readSchemaVersionForDatabase:v4 error:&v21];
+  v8 = v21;
   if ([mEMORY[0x277CCDD30] supportsOntologyDatabaseFutureMigrations])
   {
     v9 = 10002;
@@ -184,10 +185,10 @@
   {
     if (v7)
     {
-      v20 = 0;
-      v21 = v7;
-      v12 = [(HDSimpleGraphDatabase *)v5 _migrateDatabase:v4 fromVersion:&v21 behavior:mEMORY[0x277CCDD30] error:&v20];
-      v13 = v20;
+      v19 = 0;
+      v20 = v7;
+      v12 = [(HDSimpleGraphDatabase *)v5 _migrateDatabase:v4 fromVersion:&v20 behavior:mEMORY[0x277CCDD30] error:&v19];
+      v13 = v19;
       _HKInitializeLogging();
       v14 = HKLogHealthOntology();
       v15 = v14;
@@ -196,13 +197,13 @@
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           *buf = 138544130;
-          v24 = v5;
-          v25 = 2048;
-          v26 = v21;
-          v27 = 2048;
-          v28 = 8;
-          v29 = 2112;
-          v30 = v13;
+          v23 = v5;
+          v24 = 2048;
+          v25 = v20;
+          v26 = 2048;
+          v27 = 8;
+          v28 = 2112;
+          v29 = v13;
           _os_log_error_impl(&dword_2514A1000, v15, OS_LOG_TYPE_ERROR, "%{public}@: Unable to migrate from schema version %ld (current for OS is %ld) %@", buf, 0x2Au);
         }
 
@@ -217,20 +218,20 @@ LABEL_19:
 
       else
       {
-        v18 = os_log_type_enabled(v14, OS_LOG_TYPE_INFO);
+        v17 = os_log_type_enabled(v14, OS_LOG_TYPE_INFO);
 
-        if (v18)
+        if (v17)
         {
-          v19 = HKLogHealthOntology();
-          if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+          v18 = HKLogHealthOntology();
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
           {
             *buf = 138543874;
-            v24 = v5;
-            v25 = 2048;
-            v26 = v7;
-            v27 = 2048;
-            v28 = v21;
-            _os_log_impl(&dword_2514A1000, v19, OS_LOG_TYPE_INFO, "%{public}@: Migrated from schema version %ld -> %ld", buf, 0x20u);
+            v23 = v5;
+            v24 = 2048;
+            v25 = v7;
+            v26 = 2048;
+            v27 = v20;
+            _os_log_impl(&dword_2514A1000, v18, OS_LOG_TYPE_INFO, "%{public}@: Migrated from schema version %ld -> %ld", buf, 0x20u);
           }
         }
       }
@@ -246,7 +247,6 @@ LABEL_5:
   v10 = 1;
 LABEL_20:
 
-  v16 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -288,37 +288,37 @@ LABEL_20:
   return v10;
 }
 
-+ (uint64_t)_migrateDatabase:(uint64_t *)database fromVersion:(void *)version behavior:(uint64_t)behavior error:
++ (uint64_t)_migrateDatabase:(void *)database fromVersion:(void *)version behavior:(uint64_t)behavior error:
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v25 = a2;
+  v36 = *MEMORY[0x277D85DE8];
+  v24 = a2;
   versionCopy = version;
   v9 = objc_opt_self();
   toVersion2 = *database;
   if (*database > 3)
   {
     v12 = v9;
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
-    v24 = versionCopy;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
+    v23 = versionCopy;
     v13 = [HDSimpleGraphDatabaseMigrator migrationStepsWithBehavior:versionCopy];
-    v14 = [v13 countByEnumeratingWithState:&v26 objects:v36 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v25 objects:v35 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v27;
+      v16 = *v26;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v27 != v16)
+          if (*v26 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v26 + 1) + 8 * i);
+          v18 = *(*(&v25 + 1) + 8 * i);
           if (toVersion2 < [v18 toVersion])
           {
             _HKInitializeLogging();
@@ -327,15 +327,15 @@ LABEL_20:
             {
               toVersion = [v18 toVersion];
               *buf = 138543874;
-              v31 = v12;
-              v32 = 2048;
-              v33 = toVersion2;
-              v34 = 2048;
-              v35 = toVersion;
+              v30 = v12;
+              v31 = 2048;
+              v32 = toVersion2;
+              v33 = 2048;
+              v34 = toVersion;
               _os_log_impl(&dword_2514A1000, v19, OS_LOG_TYPE_DEFAULT, "%{public}@: Migrate ontology database from schema %ld -> %ld", buf, 0x20u);
             }
 
-            v21 = +[HDSimpleGraphDatabase _migrateDatabase:toVersion:function:error:](v12, v25, [v18 toVersion], objc_msgSend(v18, "function"), behavior);
+            v21 = +[HDSimpleGraphDatabase _migrateDatabase:toVersion:function:error:](v12, v24, [v18 toVersion], objc_msgSend(v18, "function"), behavior);
             if (v21)
             {
               v11 = v21;
@@ -348,7 +348,7 @@ LABEL_20:
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v26 objects:v36 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v25 objects:v35 count:16];
         if (v15)
         {
           continue;
@@ -360,7 +360,7 @@ LABEL_20:
 
     v11 = 0;
 LABEL_17:
-    versionCopy = v24;
+    versionCopy = v23;
   }
 
   else
@@ -369,7 +369,6 @@ LABEL_17:
     v11 = 1;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v11;
 }
 
@@ -422,7 +421,7 @@ uint64_t __65__HDSimpleGraphDatabase__createSchemaForDatabase_behavior_error___b
 {
   v2 = a2;
   v3 = objc_opt_self();
-  v4 = +[HDSimpleGraphDatabase _entityClasses];
+  v4 = +[(HDSimpleGraphDatabase *)v3];
   supportsOntologyDatabaseFutureMigrations = [v2 supportsOntologyDatabaseFutureMigrations];
 
   if (supportsOntologyDatabaseFutureMigrations)
@@ -455,115 +454,110 @@ uint64_t __65__HDSimpleGraphDatabase__createSchemaForDatabase_behavior_error___b
   v3[2] = objc_opt_class();
   v3[3] = objc_opt_class();
   v3[4] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:5];
-  v1 = *MEMORY[0x277D85DE8];
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v3 count:5];
 
-  return v0;
+  return v1;
 }
 
 + (id)_createTableStatementsForEntityClasses:(uint64_t)classes
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_self();
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v11 = 0u;
   v12 = 0u;
   v13 = 0u;
   v14 = 0u;
-  v15 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v13;
+    v7 = *v12;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v13 != v7)
+        if (*v12 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        createTableSQL = [*(*(&v12 + 1) + 8 * i) createTableSQL];
+        createTableSQL = [*(*(&v11 + 1) + 8 * i) createTableSQL];
         [v3 addObject:createTableSQL];
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
 
 + (id)_createIndexStatementsForEntityClasses:(uint64_t)classes
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_self();
   v3 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   v4 = v2;
-  v5 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v23;
+    v7 = *v22;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v23 != v7)
+        if (*v22 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v22 + 1) + 8 * i);
+        v9 = *(*(&v21 + 1) + 8 * i);
+        v17 = 0u;
         v18 = 0u;
         v19 = 0u;
         v20 = 0u;
-        v21 = 0u;
         indices = [v9 indices];
-        v11 = [indices countByEnumeratingWithState:&v18 objects:v26 count:16];
+        v11 = [indices countByEnumeratingWithState:&v17 objects:v25 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v19;
+          v13 = *v18;
           do
           {
             for (j = 0; j != v12; ++j)
             {
-              if (*v19 != v13)
+              if (*v18 != v13)
               {
                 objc_enumerationMutation(indices);
               }
 
-              creationSQL = [*(*(&v18 + 1) + 8 * j) creationSQL];
+              creationSQL = [*(*(&v17 + 1) + 8 * j) creationSQL];
               [v3 addObject:creationSQL];
             }
 
-            v12 = [indices countByEnumeratingWithState:&v18 objects:v26 count:16];
+            v12 = [indices countByEnumeratingWithState:&v17 objects:v25 count:16];
           }
 
           while (v12);
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v21 objects:v26 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v3;
 }
@@ -628,6 +622,34 @@ uint64_t __67__HDSimpleGraphDatabase__migrateDatabase_toVersion_function_error__
   URL = self->_URL;
 
   return [HDSimpleGraphDatabase _removeExistingDatabaseAtURL:error error:?];
+}
+
+- (BOOL)performTransactionWithError:(id *)error write:(BOOL)write block:(id)block
+{
+  writeCopy = write;
+  blockCopy = block;
+  if (([(HDSQLiteDatabase *)self->_database isOpen]& 1) != 0)
+  {
+    isWriter = [(HDSQLiteDatabase *)self->_database isWriter];
+    [(HDSQLiteDatabase *)self->_database setWriter:writeCopy];
+    database = self->_database;
+    v13 = MEMORY[0x277D85DD0];
+    v14 = 3221225472;
+    v15 = __65__HDSimpleGraphDatabase_performTransactionWithError_write_block___block_invoke;
+    v16 = &unk_2796B8E30;
+    selfCopy = self;
+    v18 = blockCopy;
+    v11 = [(HDSQLiteDatabase *)database performTransactionWithType:writeCopy error:error usingBlock:&v13];
+    [(HDSQLiteDatabase *)self->_database setWriter:isWriter, v13, v14, v15, v16];
+  }
+
+  else
+  {
+    [MEMORY[0x277CCA9B8] hk_assignError:error code:100 format:@"Database not open"];
+    v11 = 0;
+  }
+
+  return v11;
 }
 
 - (BOOL)enumerateAttributesForNodeWithID:(int64_t)d includeDeleted:(BOOL)deleted error:(id *)error enumerationHandler:(id)handler
@@ -782,15 +804,14 @@ uint64_t __67__HDSimpleGraphDatabase__migrateDatabase_toVersion_function_error__
 
 + (void)_validateOrCreateSchemaForDatabase:(os_log_t)log error:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 138543874;
-  v5 = a1;
-  v6 = 2048;
-  v7 = a2;
-  v8 = 2048;
-  v9 = 8;
-  _os_log_error_impl(&dword_2514A1000, log, OS_LOG_TYPE_ERROR, "%{public}@: Graph database schema version '%ld' greater than current '%ld' (rollback detected)", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 138543874;
+  v4 = a1;
+  v5 = 2048;
+  v6 = a2;
+  v7 = 2048;
+  v8 = 8;
+  _os_log_error_impl(&dword_2514A1000, log, OS_LOG_TYPE_ERROR, "%{public}@: Graph database schema version '%ld' greater than current '%ld' (rollback detected)", &v3, 0x20u);
 }
 
 - (void)enumerateAttributesForNodeWithID:(uint64_t)a1 includeDeleted:(uint64_t)a2 error:(void *)a3 enumerationHandler:(void *)a4 .cold.1(uint64_t a1, uint64_t a2, void *a3, void *a4)

@@ -28,14 +28,16 @@
 
 - (void)enableVolumeHUD:(BOOL)d
 {
+  dCopy = d;
   selfCopy = self;
-  sub_10006195C(d);
+  sub_10006195C(dCopy);
 }
 
 - (void)setScreenToBrightness:(float)brightness animate:(BOOL)animate
 {
+  animateCopy = animate;
   selfCopy = self;
-  sub_100061B10(animate, brightness);
+  sub_100061B10(animateCopy, brightness);
 }
 
 - (void)displayAlertWithHeader:(id)header message:(id)message buttonStrings:(id)strings completion:(id)completion
@@ -50,14 +52,18 @@
   *(v15 + 16) = v7;
   selfCopy = self;
   sub_100066F04(v8, v10, v11, v13, v14, sub_100068D7C, v15);
+
+  v10, v17, v18, v19, v20, v21, v22, v23;
+  v13, v24, v25, v26, v27, v28, v29, v30;
+  v14, v31, v32, v33, v34, v35, v36, v37;
 }
 
 - (void)displayInstructions:(id)instructions style:(int)style imageLocators:(id)locators title:(id)title subtitle:(id)subtitle iconLocator:(id)locator options:(id)options navigationBarActions:(id)self0 completion:(id)aBlock
 {
-  v24 = _Block_copy(aBlock);
+  v74 = _Block_copy(aBlock);
   v13 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v14 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v23 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  v73 = static String._unconditionallyBridgeFromObjectiveC(_:)();
   v16 = v15;
   if (subtitle)
   {
@@ -76,16 +82,26 @@
   {
 LABEL_3:
     static String._unconditionallyBridgeFromObjectiveC(_:)();
+    locator = v19;
   }
 
 LABEL_4:
-  sub_10003C49C(&unk_1001FDF80);
-  v19 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  sub_10003C49C(&unk_1001FDF80, &qword_10017FE10);
   v20 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
-  v21 = swift_allocObject();
-  *(v21 + 16) = v24;
+  v21 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
+  v22 = swift_allocObject();
+  *(v22 + 16) = v74;
   selfCopy = self;
-  sub_100067194(v13, style, v14, v23, v16, v17, subtitle, v19, v20, sub_100068A24, v21);
+  sub_100067194(v13, style, v14, v73, v16, v17, subtitle, v20, v21, sub_100068A24, v22);
+
+  v13, v24, v25, v26, v27, v28, v29, v30;
+  v14, v31, v32, v33, v34, v35, v36, v37;
+  v16, v38, v39, v40, v41, v42, v43, v44;
+  locator, v45, v46, v47, v48, v49, v50, v51;
+  v20, v52, v53, v54, v55, v56, v57, v58;
+  v21, v59, v60, v61, v62, v63, v64, v65;
+
+  subtitle, v66, v67, v68, v69, v70, v71, v72;
 }
 
 - (DARootViewController)initWithNibName:(id)name bundle:(id)bundle
@@ -112,6 +128,8 @@ LABEL_4:
   v6 = v5;
   selfCopy = self;
   sub_100068570(v4, v6);
+
+  v6, v8, v9, v10, v11, v12, v13, v14;
 }
 
 - (void)remoteViewControllerDidSetStartingFlow:(id)flow
@@ -124,9 +142,12 @@ LABEL_4:
 - (void)remoteViewControllerDidSetHostBundleIdentifier:(id)identifier
 {
   v4 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  v5 = (self + OBJC_IVAR___DARootViewController_hostAppBundleIdentifier);
-  *v5 = v4;
-  v5[1] = v6;
+  v12 = (self + OBJC_IVAR___DARootViewController_hostAppBundleIdentifier);
+  v13 = *&self->hostAppBundleIdentifier[OBJC_IVAR___DARootViewController_hostAppBundleIdentifier];
+  *v12 = v4;
+  v12[1] = v5;
+
+  v13, v5, v6, v7, v8, v9, v10, v11;
 }
 
 - (uint64_t)remoteViewControllerDidDisappear
@@ -139,7 +160,7 @@ LABEL_4:
   v3 = *(v9 - 8);
   __chkstk_darwin(v9);
   v5 = &v9 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  sub_10003E110(0, &qword_1001FD040);
+  sub_10003E110(0, &qword_1001FD040, OS_dispatch_queue_ptr);
   v6 = static OS_dispatch_queue.main.getter();
   aBlock[4] = sub_100063D58;
   aBlock[5] = 0;
@@ -149,10 +170,10 @@ LABEL_4:
   aBlock[3] = &unk_1001C0BD8;
   v7 = _Block_copy(aBlock);
   static DispatchQoS.unspecified.getter();
-  aBlock[0] = _swiftEmptyArrayStorage;
-  sub_100068260(&qword_1001FDE60, &type metadata accessor for DispatchWorkItemFlags);
-  sub_10003C49C(&unk_1001FD050);
-  sub_10005C71C(&qword_1001FDE70, &unk_1001FD050);
+  aBlock[0] = &_swiftEmptyArrayStorage;
+  sub_100068260(&qword_1001FDE60, &type metadata accessor for DispatchWorkItemFlags, &protocol conformance descriptor for DispatchWorkItemFlags);
+  sub_10003C49C(&unk_1001FD050, &qword_10017F6A0);
+  sub_10005C71C(&qword_1001FDE70, &unk_1001FD050, &qword_10017F6A0, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   OS_dispatch_queue.async(group:qos:flags:execute:)();
   _Block_release(v7);

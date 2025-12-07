@@ -82,16 +82,16 @@
   string = [(NSAttributedString *)text string];
 
   sub_272434930();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280896200);
-  sub_2724103BC();
-  sub_27240A1B8();
-  v6 = sub_272434BC0();
-  v8 = v7;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_280896200, &qword_272436390);
+  v6 = sub_2724103BC();
+  sub_27240A1B8(v6, v7, v8);
+  v9 = sub_272434BC0();
+  v11 = v10;
 
-  v9 = v6;
-  v10 = v8;
-  result.length = v10;
-  result.location = v9;
+  v12 = v9;
+  v13 = v11;
+  result.length = v13;
+  result.location = v12;
   return result;
 }
 

@@ -308,11 +308,11 @@ LABEL_9:
 {
   if (!self->_writeChannel)
   {
-    TSUSetCrashReporterInfo();
-    v48 = MEMORY[0x277D81150];
-    v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]", "[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPCryptoComponentWriteChannel.mm", 265);
-    v52 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v51, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPCryptoComponentWriteChannel.mm");
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v48, v53, v50, v52, 265, 1, "Tried to write data when already closed.");
+    TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Tried to write data when already closed.", a2, closing, "[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPCryptoComponentWriteChannel.mm", 265);
+    v46 = MEMORY[0x277D81150];
+    v48 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v47, "[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]");
+    v50 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v49, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPCryptoComponentWriteChannel.mm");
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v46, v51, v48, v50, 265, 1, "Tried to write data when already closed.");
 
     TSUCrashBreakpoint();
     abort();
@@ -336,11 +336,11 @@ LABEL_9:
     self->_bufferPosition = v22;
     if (v22 > self->_bufferSize)
     {
-      TSUSetCrashReporterInfo();
-      v54 = MEMORY[0x277D81150];
-      v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v55, "[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]", "[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPCryptoComponentWriteChannel.mm", 296);
-      v58 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v57, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPCryptoComponentWriteChannel.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v54, v59, v56, v58, 296, 1, "Buffer overflow");
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Buffer overflow", "[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPCryptoComponentWriteChannel.mm", 296);
+      v52 = MEMORY[0x277D81150];
+      v54 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v53, "[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]");
+      v56 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v55, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPCryptoComponentWriteChannel.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v52, v57, v54, v56, 296, 1, "Buffer overflow");
 
       TSUCrashBreakpoint();
     }
@@ -356,11 +356,11 @@ LABEL_9:
         goto LABEL_11;
       }
 
-      TSUSetCrashReporterInfo();
-      v60 = MEMORY[0x277D81150];
-      v62 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v61, "[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]", "[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPCryptoComponentWriteChannel.mm", 297);
-      v64 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v63, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPCryptoComponentWriteChannel.mm");
-      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v60, v65, v62, v64, 297, 1, "Buffer overflow");
+      TSUSetCrashReporterInfo("Fatal Assertion failure: %{public}s %{public}s:%d Buffer overflow", "[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]", "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPCryptoComponentWriteChannel.mm", 297);
+      v58 = MEMORY[0x277D81150];
+      v60 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v59, "[TSPCryptoComponentWriteChannel _finalizeBlockForClosing:]");
+      v62 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v61, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/persistence/src/TSPCryptoComponentWriteChannel.mm");
+      objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v58, v63, v60, v62, 297, 1, "Buffer overflow");
 
       TSUCrashBreakpoint();
     }
@@ -424,10 +424,8 @@ LABEL_17:
   if (!closing)
   {
     encryptionInfo = self->_encryptionInfo;
-    encodedBlockLength = self->_encodedBlockLength;
-    decryptedBlockLength = self->_decryptedBlockLength;
-    v44 = TSUEncodedBlockInfoCreate();
-    objc_msgSend_addBlockInfo_(encryptionInfo, v45, v44);
+    v42 = TSUEncodedBlockInfoCreate();
+    objc_msgSend_addBlockInfo_(encryptionInfo, v43, v42);
 
     self->_encodedBlockLength = 0;
     self->_decryptedBlockLength = 0;

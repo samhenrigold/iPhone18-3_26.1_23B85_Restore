@@ -164,9 +164,7 @@ void __40__RemoteConfigurationController_dealloc__block_invoke(uint64_t a1)
     self->_appleConfigurationDidChange = 1;
   }
 
-  v10 = [[ProviderConfiguration alloc] initWithConfiguration:0];
-  v11 = self->_appleProviderConfiguration;
-  self->_appleProviderConfiguration = v10;
+  self->_appleProviderConfiguration = [[ProviderConfiguration alloc] initWithConfiguration:0];
 
   MEMORY[0x2821F96F8]();
 }
@@ -219,7 +217,6 @@ void __57__RemoteConfigurationController__dyldSourceVersionString__block_invoke(
   v0 = dyld_image_header_containing_address();
   if (v0)
   {
-    v1 = v0;
     if (*v0 == -17958193)
     {
       v2 = v0[4];
@@ -248,7 +245,7 @@ void __57__RemoteConfigurationController__dyldSourceVersionString__block_invoke(
       else
       {
 LABEL_16:
-        v6 = SSBOSLogRemoteConfiguration();
+        v6 = SSBOSLogRemoteConfiguration(v0, v1);
         if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
         {
           __57__RemoteConfigurationController__dyldSourceVersionString__block_invoke_cold_2();
@@ -258,17 +255,17 @@ LABEL_16:
 
     else
     {
-      v5 = SSBOSLogRemoteConfiguration();
+      v5 = SSBOSLogRemoteConfiguration(v0, v1);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
-        __57__RemoteConfigurationController__dyldSourceVersionString__block_invoke_cold_1(v1);
+        __57__RemoteConfigurationController__dyldSourceVersionString__block_invoke_cold_1();
       }
     }
   }
 
   else
   {
-    v4 = SSBOSLogRemoteConfiguration();
+    v4 = SSBOSLogRemoteConfiguration(0, v1);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       __57__RemoteConfigurationController__dyldSourceVersionString__block_invoke_cold_3();
@@ -295,7 +292,7 @@ uint64_t __59__RemoteConfigurationController__launchTimeBasedPercentile__block_i
 
 - (void)_initializeProviderConfigurationsWithConfiguration:(id)configuration
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v85 = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   if (configurationCopy)
   {
@@ -303,89 +300,92 @@ uint64_t __59__RemoteConfigurationController__launchTimeBasedPercentile__block_i
     _dyldSourceVersionString = [(RemoteConfigurationController *)self _dyldSourceVersionString];
     if (_dyldSourceVersionString)
     {
-      v56 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
-      v71 = 0u;
+      v62 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      v78 = 0u;
+      v79 = 0u;
+      v76 = 0u;
+      v77 = 0u;
       obj = [configurationCopy ssb_arrayForKey:@"Configurations"];
-      v50 = [obj countByEnumeratingWithState:&v70 objects:v78 count:16];
-      if (!v50)
+      v56 = [obj countByEnumeratingWithState:&v76 objects:v84 count:16];
+      if (!v56)
       {
         goto LABEL_49;
       }
 
-      v49 = *v71;
+      v55 = *v77;
       while (1)
       {
-        for (i = 0; i != v50; ++i)
+        for (i = 0; i != v56; ++i)
         {
-          if (*v71 != v49)
+          if (*v77 != v55)
           {
             objc_enumerationMutation(obj);
           }
 
-          v4 = *(*(&v70 + 1) + 8 * i);
+          v5 = *(*(&v76 + 1) + 8 * i);
           objc_opt_class();
-          if ((objc_opt_isKindOfClass() & 1) == 0)
+          isKindOfClass = objc_opt_isKindOfClass();
+          if ((isKindOfClass & 1) == 0)
           {
-            v5 = SSBOSLogRemoteConfiguration();
-            if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+            v8 = SSBOSLogRemoteConfiguration(isKindOfClass, v7);
+            if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
             {
-              v15 = objc_opt_class();
+              v22 = objc_opt_class();
               *buf = 138543362;
-              v77 = v15;
-              _os_log_error_impl(&dword_2255EE000, v5, OS_LOG_TYPE_ERROR, "Skipped an entry in the configuration. Expected a NSDictionary, got %{public}@", buf, 0xCu);
+              v83 = v22;
+              _os_log_error_impl(&dword_2255EE000, v8, OS_LOG_TYPE_ERROR, "Skipped an entry in the configuration. Expected a NSDictionary, got %{public}@", buf, 0xCu);
             }
 
             goto LABEL_47;
           }
 
-          v68 = 0u;
-          v69 = 0u;
-          v66 = 0u;
-          v67 = 0u;
-          v5 = [v4 ssb_arrayForKey:@"VersionRanges"];
-          v6 = [v5 countByEnumeratingWithState:&v66 objects:v75 count:16];
-          if (!v6)
+          v74 = 0u;
+          v75 = 0u;
+          v72 = 0u;
+          v73 = 0u;
+          v8 = [v5 ssb_arrayForKey:@"VersionRanges"];
+          v9 = [v8 countByEnumeratingWithState:&v72 objects:v81 count:16];
+          if (!v9)
           {
             goto LABEL_47;
           }
 
-          v7 = *v67;
+          v10 = *v73;
           while (2)
           {
-            for (j = 0; j != v6; ++j)
+            for (j = 0; j != v9; ++j)
             {
-              if (*v67 != v7)
+              if (*v73 != v10)
               {
-                objc_enumerationMutation(v5);
+                objc_enumerationMutation(v8);
               }
 
-              v9 = *(*(&v66 + 1) + 8 * j);
+              v12 = *(*(&v72 + 1) + 8 * j);
               objc_opt_class();
-              if ((objc_opt_isKindOfClass() & 1) == 0)
+              v13 = objc_opt_isKindOfClass();
+              if ((v13 & 1) == 0)
               {
-                v10 = SSBOSLogRemoteConfiguration();
-                if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+                v15 = SSBOSLogRemoteConfiguration(v13, v14);
+                if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
                 {
-                  v13 = objc_opt_class();
+                  v20 = objc_opt_class();
                   *buf = 138543362;
-                  v77 = v13;
-                  _os_log_error_impl(&dword_2255EE000, v10, OS_LOG_TYPE_ERROR, "Skipped an version range in the configuration. Expected a NSDictionary, got %{public}@", buf, 0xCu);
+                  v83 = v20;
+                  _os_log_error_impl(&dword_2255EE000, v15, OS_LOG_TYPE_ERROR, "Skipped an version range in the configuration. Expected a NSDictionary, got %{public}@", buf, 0xCu);
                 }
 
                 goto LABEL_25;
               }
 
-              v10 = [v9 ssb_stringForKey:@"MinVersion"];
-              v11 = [v9 ssb_stringForKey:@"MaxVersion"];
-              if (!-[NSObject length](v10, "length") || ![v11 length])
+              v15 = [v12 ssb_stringForKey:@"MinVersion"];
+              v16 = [v12 ssb_stringForKey:@"MaxVersion"];
+              v17 = [v15 length];
+              if (!v17 || (v17 = [v16 length]) == 0)
               {
-                v14 = SSBOSLogRemoteConfiguration();
-                if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+                v21 = SSBOSLogRemoteConfiguration(v17, v18);
+                if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
                 {
-                  [(RemoteConfigurationController *)&v64 _initializeProviderConfigurationsWithConfiguration:v65, v14];
+                  [(RemoteConfigurationController *)&v70 _initializeProviderConfigurationsWithConfiguration:v71, v21];
                 }
 
 LABEL_24:
@@ -394,81 +394,81 @@ LABEL_25:
                 continue;
               }
 
-              if ([_dyldSourceVersionString compare:v10 options:64] == -1)
+              if ([_dyldSourceVersionString compare:v15 options:64] == -1)
               {
                 goto LABEL_24;
               }
 
-              v12 = [_dyldSourceVersionString compare:v11 options:64] == 1;
+              v19 = [_dyldSourceVersionString compare:v16 options:64] == 1;
 
-              if (!v12)
+              if (!v19)
               {
 
-                v16 = [v4 objectForKey:@"Percentage To Apply To"];
-                v5 = v16;
-                if (!v16 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (v17 = [v5 unsignedIntegerValue], [(RemoteConfigurationController *)selfCopy _launchTimeBasedPercentile]< v17))
+                v23 = [v5 objectForKey:@"Percentage To Apply To"];
+                v8 = v23;
+                if (!v23 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (v24 = [v8 unsignedIntegerValue], [(RemoteConfigurationController *)selfCopy _launchTimeBasedPercentile]< v24))
                 {
-                  v62 = 0u;
-                  v63 = 0u;
-                  v60 = 0u;
-                  v61 = 0u;
-                  v51 = [v4 ssb_arrayForKey:{@"Providers", configurationCopy}];
-                  v54 = [v51 countByEnumeratingWithState:&v60 objects:v74 count:16];
-                  if (v54)
+                  v68 = 0u;
+                  v69 = 0u;
+                  v66 = 0u;
+                  v67 = 0u;
+                  v57 = [v5 ssb_arrayForKey:{@"Providers", configurationCopy}];
+                  v60 = [v57 countByEnumeratingWithState:&v66 objects:v80 count:16];
+                  if (v60)
                   {
-                    v53 = *v61;
+                    v59 = *v67;
 LABEL_36:
-                    v18 = 0;
+                    v25 = 0;
                     while (1)
                     {
-                      if (*v61 != v53)
+                      if (*v67 != v59)
                       {
-                        objc_enumerationMutation(v51);
+                        objc_enumerationMutation(v57);
                       }
 
-                      v19 = *(*(&v60 + 1) + 8 * v18);
+                      v26 = *(*(&v66 + 1) + 8 * v25);
                       objc_opt_class();
                       if ((objc_opt_isKindOfClass() & 1) == 0)
                       {
                         break;
                       }
 
-                      v20 = [v19 ssb_stringForKey:@"Provider To Turn Off"];
-                      v21 = [v56 objectForKeyedSubscript:v20];
-                      v22 = v19;
-                      if (v21)
+                      v27 = [v26 ssb_stringForKey:@"Provider To Turn Off"];
+                      v28 = [v62 objectForKeyedSubscript:v27];
+                      v29 = v26;
+                      if (v28)
                       {
-                        v58 = [v21 ssb_stringForKey:@"Provider To Turn Off"];
-                        v57 = v22;
-                        v55 = [v22 ssb_stringForKey:@"Provider To Turn Off"];
-                        v22 = v21;
-                        if ([v58 isEqualToString:?])
+                        v64 = [v28 ssb_stringForKey:@"Provider To Turn Off"];
+                        v63 = v29;
+                        v61 = [v29 ssb_stringForKey:@"Provider To Turn Off"];
+                        v29 = v28;
+                        if ([v64 isEqualToString:?])
                         {
-                          v22 = objc_alloc_init(MEMORY[0x277CBEB38]);
-                          [v22 setObject:v58 forKeyedSubscript:@"Provider To Turn Off"];
-                          v23 = [v21 ssb_arrayForKey:@"Regions To Turn Off"];
-                          v24 = [v57 ssb_arrayForKey:@"Regions To Turn Off"];
-                          v25 = mergeConfigurationArrayIfBothNotNil(v23, v24);
-                          [v22 setObject:v25 forKeyedSubscript:@"Regions To Turn Off"];
+                          v29 = objc_alloc_init(MEMORY[0x277CBEB38]);
+                          [v29 setObject:v64 forKeyedSubscript:@"Provider To Turn Off"];
+                          v30 = [v28 ssb_arrayForKey:@"Regions To Turn Off"];
+                          v31 = [v63 ssb_arrayForKey:@"Regions To Turn Off"];
+                          v32 = mergeConfigurationArrayIfBothNotNil(v30, v31);
+                          [v29 setObject:v32 forKeyedSubscript:@"Regions To Turn Off"];
 
-                          v26 = [v21 ssb_arrayForKey:@"Threat Types To Turn Off"];
-                          v27 = [v57 ssb_arrayForKey:@"Threat Types To Turn Off"];
-                          v28 = mergeConfigurationArrayIfBothNotNil(v26, v27);
-                          [v22 setObject:v28 forKeyedSubscript:@"Threat Types To Turn Off"];
+                          v33 = [v28 ssb_arrayForKey:@"Threat Types To Turn Off"];
+                          v34 = [v63 ssb_arrayForKey:@"Threat Types To Turn Off"];
+                          v35 = mergeConfigurationArrayIfBothNotNil(v33, v34);
+                          [v29 setObject:v35 forKeyedSubscript:@"Threat Types To Turn Off"];
 
-                          v29 = [v21 ssb_arrayForKey:@"Proxy Versions To Turn Off"];
-                          v30 = [v57 ssb_arrayForKey:@"Proxy Versions To Turn Off"];
-                          v31 = mergeConfigurationArray(v29, v30);
-                          [v22 setObject:v31 forKeyedSubscript:@"Proxy Versions To Turn Off"];
+                          v36 = [v28 ssb_arrayForKey:@"Proxy Versions To Turn Off"];
+                          v37 = [v63 ssb_arrayForKey:@"Proxy Versions To Turn Off"];
+                          v38 = mergeConfigurationArray(v36, v37);
+                          [v29 setObject:v38 forKeyedSubscript:@"Proxy Versions To Turn Off"];
                         }
                       }
 
-                      [v56 setObject:v22 forKeyedSubscript:v20];
+                      [v62 setObject:v29 forKeyedSubscript:v27];
 
-                      if (v54 == ++v18)
+                      if (v60 == ++v25)
                       {
-                        v54 = [v51 countByEnumeratingWithState:&v60 objects:v74 count:16];
-                        if (v54)
+                        v60 = [v57 countByEnumeratingWithState:&v66 objects:v80 count:16];
+                        if (v60)
                         {
                           goto LABEL_36;
                         }
@@ -483,8 +483,8 @@ LABEL_36:
               }
             }
 
-            v6 = [v5 countByEnumeratingWithState:&v66 objects:v75 count:16];
-            if (v6)
+            v9 = [v8 countByEnumeratingWithState:&v72 objects:v81 count:16];
+            if (v9)
             {
               continue;
             }
@@ -495,39 +495,39 @@ LABEL_36:
 LABEL_47:
         }
 
-        v50 = [obj countByEnumeratingWithState:&v70 objects:v78 count:16];
-        if (!v50)
+        v56 = [obj countByEnumeratingWithState:&v76 objects:v84 count:16];
+        if (!v56)
         {
 LABEL_49:
 
-          v32 = [v56 objectForKeyedSubscript:@"Google"];
-          v33 = [selfCopy->_googleProviderConfiguration isEqualToConfiguration:v32];
-          selfCopy->_googleConfigurationDidChange = !v33;
-          if (!v33)
+          v39 = [v62 objectForKeyedSubscript:@"Google"];
+          v40 = [selfCopy->_googleProviderConfiguration isEqualToConfiguration:v39];
+          selfCopy->_googleConfigurationDidChange = !v40;
+          if (!v40)
           {
-            v34 = [[ProviderConfiguration alloc] initWithConfiguration:v32];
+            v41 = [[ProviderConfiguration alloc] initWithConfiguration:v39];
             googleProviderConfiguration = selfCopy->_googleProviderConfiguration;
-            selfCopy->_googleProviderConfiguration = v34;
+            selfCopy->_googleProviderConfiguration = v41;
           }
 
-          v36 = [v56 objectForKeyedSubscript:{@"Tencent", configurationCopy}];
-          v37 = [selfCopy->_tencentProviderConfiguration isEqualToConfiguration:v36];
-          selfCopy->_tencentConfigurationDidChange = !v37;
-          if (!v37)
+          v43 = [v62 objectForKeyedSubscript:{@"Tencent", configurationCopy}];
+          v44 = [selfCopy->_tencentProviderConfiguration isEqualToConfiguration:v43];
+          selfCopy->_tencentConfigurationDidChange = !v44;
+          if (!v44)
           {
-            v38 = [[ProviderConfiguration alloc] initWithConfiguration:v36];
+            v45 = [[ProviderConfiguration alloc] initWithConfiguration:v43];
             tencentProviderConfiguration = selfCopy->_tencentProviderConfiguration;
-            selfCopy->_tencentProviderConfiguration = v38;
+            selfCopy->_tencentProviderConfiguration = v45;
           }
 
-          v40 = [v56 objectForKeyedSubscript:@"Apple"];
-          v41 = [selfCopy->_googleProviderConfiguration isEqualToConfiguration:v40];
-          selfCopy->_appleConfigurationDidChange = !v41;
-          if (!v41)
+          v47 = [v62 objectForKeyedSubscript:@"Apple"];
+          v48 = [selfCopy->_googleProviderConfiguration isEqualToConfiguration:v47];
+          selfCopy->_appleConfigurationDidChange = !v48;
+          if (!v48)
           {
-            v42 = [[ProviderConfiguration alloc] initWithConfiguration:v40];
+            v49 = [[ProviderConfiguration alloc] initWithConfiguration:v47];
             appleProviderConfiguration = selfCopy->_appleProviderConfiguration;
-            selfCopy->_appleProviderConfiguration = v42;
+            selfCopy->_appleProviderConfiguration = v49;
           }
 
           [(RemoteConfigurationController *)selfCopy _simplifyProviderConfigurations];
@@ -537,8 +537,8 @@ LABEL_49:
       }
     }
 
-    v44 = SSBOSLogRemoteConfiguration();
-    if (os_log_type_enabled(v44, OS_LOG_TYPE_FAULT))
+    v51 = SSBOSLogRemoteConfiguration(0, v4);
+    if (os_log_type_enabled(v51, OS_LOG_TYPE_FAULT))
     {
       [RemoteConfigurationController _initializeProviderConfigurationsWithConfiguration:];
     }
@@ -551,13 +551,11 @@ LABEL_60:
   {
     [(RemoteConfigurationController *)self _initializeToDefaultProviderConfigurations];
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_urlOfDownloadedConfiguration
 {
-  v19[4] = *MEMORY[0x277D85DE8];
+  v22[4] = *MEMORY[0x277D85DE8];
   v2 = geteuid();
   if (!v2)
   {
@@ -567,64 +565,62 @@ LABEL_60:
   v3 = getpwuid(v2);
   if (v3 && (pw_dir = v3->pw_dir) != 0)
   {
-    v5 = [MEMORY[0x277CBEBC0] fileURLWithFileSystemRepresentation:pw_dir isDirectory:1 relativeToURL:0];
-    v6 = v5;
-    if (v5)
+    v6 = [MEMORY[0x277CBEBC0] fileURLWithFileSystemRepresentation:pw_dir isDirectory:1 relativeToURL:0];
+    v8 = v6;
+    if (v6)
     {
-      v7 = [v5 URLByAppendingPathComponent:@"Library"];
-      v8 = [v7 URLByAppendingPathComponent:@"SafariSafeBrowsing" isDirectory:1];
+      v9 = [v6 URLByAppendingPathComponent:@"Library"];
+      v10 = [v9 URLByAppendingPathComponent:@"SafariSafeBrowsing" isDirectory:1];
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      path = [v8 path];
-      v19[0] = 0;
-      v11 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:v19];
-      v12 = v19[0];
+      path = [v10 path];
+      v22[0] = 0;
+      v13 = [defaultManager createDirectoryAtPath:path withIntermediateDirectories:1 attributes:0 error:v22];
+      v14 = v22[0];
 
-      if (v11)
+      if (v13)
       {
-        v13 = [@"SafeBrowsingRemoteConfiguration-1" stringByAppendingPathExtension:@"plist"];
-        v14 = [v8 URLByAppendingPathComponent:v13];
+        v17 = [@"SafeBrowsingRemoteConfiguration-1" stringByAppendingPathExtension:@"plist"];
+        v18 = [v10 URLByAppendingPathComponent:v17];
       }
 
       else
       {
-        v13 = SSBOSLogRemoteConfiguration();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v17 = SSBOSLogRemoteConfiguration(v15, v16);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
-          [v12 ssb_privacyPreservingDescription];
+          [v14 ssb_privacyPreservingDescription];
           objc_claimAutoreleasedReturnValue();
           [RemoteConfigurationController _urlOfDownloadedConfiguration];
         }
 
-        v14 = 0;
+        v18 = 0;
       }
     }
 
     else
     {
-      v16 = SSBOSLogRemoteConfiguration();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v20 = SSBOSLogRemoteConfiguration(0, v7);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         [RemoteConfigurationController _urlOfDownloadedConfiguration];
       }
 
-      v14 = 0;
+      v18 = 0;
     }
   }
 
   else
   {
-    v15 = SSBOSLogRemoteConfiguration();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v19 = SSBOSLogRemoteConfiguration(v3, v4);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       [RemoteConfigurationController _urlOfDownloadedConfiguration];
     }
 
-    v14 = 0;
+    v18 = 0;
   }
 
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v14;
+  return v18;
 }
 
 - (void)_loadConfigurationFromDiskIfNecessary
@@ -659,8 +655,8 @@ void __70__RemoteConfigurationController__loadConfigurationFromDiskIfNecessary__
 
         if (!*(*(a1 + 32) + 56))
         {
-          v10 = SSBOSLogRemoteConfiguration();
-          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          v12 = SSBOSLogRemoteConfiguration(v10, v11);
+          if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
           {
             __70__RemoteConfigurationController__loadConfigurationFromDiskIfNecessary__block_invoke_cold_1();
           }
@@ -672,7 +668,7 @@ void __70__RemoteConfigurationController__loadConfigurationFromDiskIfNecessary__
 
 - (void)_writeConfigurationToDisk:(id)disk
 {
-  v11[4] = *MEMORY[0x277D85DE8];
+  v12[4] = *MEMORY[0x277D85DE8];
   diskCopy = disk;
   _urlOfDownloadedConfiguration = [(RemoteConfigurationController *)self _urlOfDownloadedConfiguration];
   if (_urlOfDownloadedConfiguration)
@@ -685,14 +681,14 @@ void __70__RemoteConfigurationController__loadConfigurationFromDiskIfNecessary__
     else
     {
       defaultManager = [MEMORY[0x277CCAA00] defaultManager];
-      v11[0] = 0;
-      v7 = [defaultManager removeItemAtURL:_urlOfDownloadedConfiguration error:v11];
-      v8 = v11[0];
+      v12[0] = 0;
+      v7 = [defaultManager removeItemAtURL:_urlOfDownloadedConfiguration error:v12];
+      v8 = v12[0];
 
       if ((v7 & 1) == 0)
       {
-        v9 = SSBOSLogRemoteConfiguration();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v11 = SSBOSLogRemoteConfiguration(v9, v10);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           [v8 ssb_privacyPreservingDescription];
           objc_claimAutoreleasedReturnValue();
@@ -701,8 +697,6 @@ void __70__RemoteConfigurationController__loadConfigurationFromDiskIfNecessary__
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setCurrentConfiguration:(id)configuration
@@ -774,25 +768,22 @@ void __70__RemoteConfigurationController__loadConfigurationFromDiskIfNecessary__
 
 void __77__RemoteConfigurationController__downloadConfigurationWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v13 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
-  v10 = v9;
+  v11 = v9;
   if (!v7 && v9)
   {
-    v11 = SSBOSLogRemoteConfiguration();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = SSBOSLogRemoteConfiguration(v9, v10);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [v10 ssb_privacyPreservingDescription];
+      [v11 ssb_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       __77__RemoteConfigurationController__downloadConfigurationWithCompletionHandler___block_invoke_cold_1();
     }
   }
 
   (*(*(a1 + 32) + 16))();
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateConfigurationIfNecessary
@@ -842,28 +833,27 @@ void __64__RemoteConfigurationController__updateConfigurationIfNecessary__block_
 
 - (void)_didReceiveConfigurationData:(id)data
 {
-  v8[4] = *MEMORY[0x277D85DE8];
-  v8[0] = 0;
-  v4 = [MEMORY[0x277CCAC58] propertyListWithData:data options:0 format:0 error:v8];
-  v5 = v8[0];
+  v9[4] = *MEMORY[0x277D85DE8];
+  v9[0] = 0;
+  v4 = [MEMORY[0x277CCAC58] propertyListWithData:data options:0 format:0 error:v9];
+  v5 = v9[0];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
     [(RemoteConfigurationController *)self _setCurrentConfigurationOnInternalQueue:v4];
   }
 
   else
   {
-    v6 = SSBOSLogRemoteConfiguration();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = SSBOSLogRemoteConfiguration(isKindOfClass, v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [v5 ssb_privacyPreservingDescription];
       objc_claimAutoreleasedReturnValue();
       [RemoteConfigurationController _didReceiveConfigurationData:];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_shouldUpdateConfigurationGivenLastConfigurationUpdateAttemptDate:(id)date
@@ -982,17 +972,17 @@ void __66__RemoteConfigurationController__scheduleConfigurationUpdateDaily__bloc
   }
 }
 
-void __66__RemoteConfigurationController__scheduleConfigurationUpdateDaily__block_invoke_2(uint64_t a1)
+void __66__RemoteConfigurationController__scheduleConfigurationUpdateDaily__block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  v2 = SSBOSLogRemoteConfiguration();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = SSBOSLogRemoteConfiguration(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v5 = 0;
-    _os_log_impl(&dword_2255EE000, v2, OS_LOG_TYPE_INFO, "update timer fired", v5, 2u);
+    *v6 = 0;
+    _os_log_impl(&dword_2255EE000, v3, OS_LOG_TYPE_INFO, "update timer fired", v6, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
-  v4 = WeakRetained;
+  v5 = WeakRetained;
   if (WeakRetained)
   {
     [WeakRetained _updateConfigurationIfNecessary];
@@ -1182,15 +1172,6 @@ void __67__RemoteConfigurationController_forceUpdateConfigurationFromServer__blo
   dispatch_semaphore_signal(*(a1 + 40));
 }
 
-void __57__RemoteConfigurationController__dyldSourceVersionString__block_invoke_cold_1(int *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 8u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
 void __57__RemoteConfigurationController__dyldSourceVersionString__block_invoke_cold_2()
 {
   OUTLINED_FUNCTION_1_0();
@@ -1217,14 +1198,6 @@ void __57__RemoteConfigurationController__dyldSourceVersionString__block_invoke_
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_0_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 2u);
-}
-
-void __70__RemoteConfigurationController__loadConfigurationFromDiskIfNecessary__block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_writeConfigurationToDisk:.cold.1()

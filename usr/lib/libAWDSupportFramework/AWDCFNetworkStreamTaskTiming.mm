@@ -406,7 +406,6 @@ LABEL_15:
   has = self->_has;
   if ((has & 0x1000) != 0)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 0x800) == 0)
@@ -426,7 +425,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  taskCreationStart = self->_taskCreationStart;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x200) == 0)
@@ -441,7 +439,6 @@ LABEL_4:
   }
 
 LABEL_21:
-  resumeStart = self->_resumeStart;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 8) == 0)
@@ -456,7 +453,6 @@ LABEL_5:
   }
 
 LABEL_22:
-  connectionInit = self->_connectionInit;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -471,7 +467,6 @@ LABEL_6:
   }
 
 LABEL_23:
-  domainLookupStart = self->_domainLookupStart;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -486,7 +481,6 @@ LABEL_7:
   }
 
 LABEL_24:
-  domainLookupEnd = self->_domainLookupEnd;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -501,7 +495,6 @@ LABEL_8:
   }
 
 LABEL_25:
-  connectStart = self->_connectStart;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x400) == 0)
@@ -516,7 +509,6 @@ LABEL_9:
   }
 
 LABEL_26:
-  secureConnectionStart = self->_secureConnectionStart;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 1) == 0)
@@ -531,7 +523,6 @@ LABEL_10:
   }
 
 LABEL_27:
-  connectEnd = self->_connectEnd;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -546,7 +537,6 @@ LABEL_11:
   }
 
 LABEL_28:
-  connected = self->_connected;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x80) == 0)
@@ -561,7 +551,6 @@ LABEL_12:
   }
 
 LABEL_29:
-  firstWrite = self->_firstWrite;
   PBDataWriterWriteUint64Field();
   has = self->_has;
   if ((has & 0x40) == 0)
@@ -576,12 +565,10 @@ LABEL_13:
   }
 
 LABEL_30:
-  firstRead = self->_firstRead;
   PBDataWriterWriteUint64Field();
   if ((*&self->_has & 0x100) != 0)
   {
 LABEL_14:
-    isCellular = self->_isCellular;
     PBDataWriterWriteInt64Field();
   }
 

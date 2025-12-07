@@ -35,6 +35,7 @@
 - (void)_onQueue_updateByReplacingWithNewResponse:(id)response;
 - (void)_onQueue_updateWithNewDeviceLastPlayingDate:(id)date;
 - (void)_onQueue_updateWithNewPlaybackQueue:(id)queue;
+- (void)_onQueue_updateWithNewPlaybackState:(unsigned int)state;
 - (void)_onQueue_updateWithNewPlayerLastPlayingDate:(id)date;
 - (void)_onQueue_updateWithNewSupportedCommands:(id)commands;
 - (void)_registerForEndpointChangesIfNeeded;
@@ -58,7 +59,7 @@
 
 - (void)beginLoadingUpdates
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (![(MRQHONowPlayingController *)self updateLoadingEnabled])
   {
     v3 = _MRLogForCategory(1uLL);
@@ -66,22 +67,20 @@
     {
       v4 = [(MRQHONowPlayingController *)self uid];
       *buf = 138543362;
-      v11 = v4;
+      v10 = v4;
       _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> Begin loading updates.", buf, 0xCu);
     }
 
     v5 = [(MRQHONowPlayingController *)self uid];
     client = [(MRQHONowPlayingController *)self client];
     player = [(MRQHONowPlayingController *)self player];
-    v9[0] = MEMORY[0x1E69E9820];
-    v9[1] = 3221225472;
-    v9[2] = __48__MRQHONowPlayingController_beginLoadingUpdates__block_invoke;
-    v9[3] = &unk_1E769C090;
-    v9[4] = self;
-    [(MRQHONowPlayingController *)self _loadNowPlayingStateForUID:v5 client:client player:player completion:v9];
+    v8[0] = MEMORY[0x1E69E9820];
+    v8[1] = 3221225472;
+    v8[2] = __48__MRQHONowPlayingController_beginLoadingUpdates__block_invoke;
+    v8[3] = &unk_1E769C090;
+    v8[4] = self;
+    [(MRQHONowPlayingController *)self _loadNowPlayingStateForUID:v5 client:client player:player completion:v8];
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)updateLoadingEnabled
@@ -122,9 +121,9 @@
 - (void)_unregisterForEndpointChanges
 {
   v3 = [(MRQHONowPlayingController *)self uid];
-  v4 = [v3 isEqualToString:@"proactiveEndpoint"];
+  isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-  if (v4)
+  if (isEqualToString)
   {
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
     [defaultCenter removeObserver:self name:@"kMRMediaRemoteActiveSystemEndpointDidChangeNotification" object:0];
@@ -179,9 +178,9 @@
   if (![(MRQHONowPlayingController *)self registeredForEndpointChanges])
   {
     v3 = [(MRQHONowPlayingController *)self uid];
-    v4 = [v3 isEqualToString:@"proactiveEndpoint"];
+    isEqualToString = objc_msgSend_isEqualToString_(v3);
 
-    if (v4)
+    if (isEqualToString)
     {
       defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
       [defaultCenter addObserver:self selector:sel__handleActiveSystemEndpointChangedNotification_ name:@"kMRMediaRemoteActiveSystemEndpointDidChangeNotification" object:0];
@@ -286,7 +285,7 @@ void __37__MRQHONowPlayingController_response__block_invoke(uint64_t a1)
 
 void __64__MRQHONowPlayingController__registerForEndpointChangesIfNeeded__block_invoke(uint64_t a1, void *a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -294,22 +293,22 @@ void __64__MRQHONowPlayingController__registerForEndpointChangesIfNeeded__block_
     v5 = [WeakRetained endpoint];
     v6 = [v5 uniqueIdentifier];
     v7 = [v4 uniqueIdentifier];
-    v8 = [v6 isEqualToString:v7];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if ((v8 & 1) == 0)
+    if ((isEqualToString & 1) == 0)
     {
       v9 = _MRLogForCategory(1uLL);
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
       {
         v10 = [WeakRetained uid];
         v11 = [WeakRetained endpoint];
-        v16 = 138543874;
-        v17 = v10;
-        v18 = 2114;
-        v19 = v11;
-        v20 = 2114;
-        v21 = v4;
-        _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> reloading due to change in endpoint. Current endpoint: %{public}@. New endpoint: %{public}@.", &v16, 0x20u);
+        v15 = 138543874;
+        v16 = v10;
+        v17 = 2114;
+        v18 = v11;
+        v19 = 2114;
+        v20 = v4;
+        _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> reloading due to change in endpoint. Current endpoint: %{public}@. New endpoint: %{public}@.", &v15, 0x20u);
       }
 
       v12 = [v4 outputDevices];
@@ -321,8 +320,6 @@ void __64__MRQHONowPlayingController__registerForEndpointChangesIfNeeded__block_
       [WeakRetained _reloadForCompleteInvalidation];
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (id)localRouteController
@@ -389,21 +386,20 @@ void __64__MRQHONowPlayingController__registerForEndpointChangesIfNeeded__block_
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v3 = _MRLogForCategory(1uLL);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v4 = [(MRQHONowPlayingController *)self uid];
     *buf = 138543362;
-    v8 = v4;
+    v7 = v4;
     _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> Deallocating.", buf, 0xCu);
   }
 
   [(MRQHONowPlayingController *)self _unregisterForPlayerPathInvalidations];
-  v6.receiver = self;
-  v6.super_class = MRQHONowPlayingController;
-  [(MRQHONowPlayingController *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = MRQHONowPlayingController;
+  [(MRQHONowPlayingController *)&v5 dealloc];
 }
 
 - (void)endLoadingUpdates
@@ -417,30 +413,29 @@ void __64__MRQHONowPlayingController__registerForEndpointChangesIfNeeded__block_
   dispatch_async(queue, block);
 }
 
-uint64_t __46__MRQHONowPlayingController_endLoadingUpdates__block_invoke(uint64_t result)
+void *__46__MRQHONowPlayingController_endLoadingUpdates__block_invoke(void *result)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 11) == 1)
+  v6 = *MEMORY[0x1E69E9840];
+  if (*(result[4] + 11) == 1)
   {
     v1 = result;
     v2 = _MRLogForCategory(1uLL);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = [*(v1 + 32) uid];
-      v5 = 138543362;
-      v6 = v3;
-      _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> End loading updates.", &v5, 0xCu);
+      v3 = [v1[4] uid];
+      v4 = 138543362;
+      v5 = v3;
+      _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> End loading updates.", &v4, 0xCu);
     }
 
-    [*(v1 + 32) _unregisterForEndpointChanges];
-    [*(v1 + 32) _unregisterForPlayerPathInvalidations];
-    [*(v1 + 32) _unregisterNotificationHandlers];
-    [*(v1 + 32) _onQueue_clearState];
-    [*(v1 + 32) setEndpointObserverGroupUID:0];
-    result = [*(v1 + 32) setUpdateLoadingEnabled:0];
+    [v1[4] _unregisterForEndpointChanges];
+    [v1[4] _unregisterForPlayerPathInvalidations];
+    [v1[4] _unregisterNotificationHandlers];
+    [v1[4] _onQueue_clearState];
+    [v1[4] setEndpointObserverGroupUID:0];
+    return [v1[4] setUpdateLoadingEnabled:0];
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -532,41 +527,39 @@ void __61__MRQHONowPlayingController__reloadForPlayerPathInvalidation__block_inv
 
 void __81__MRQHONowPlayingController__loadNowPlayingStateForUID_client_player_completion___block_invoke(id *a1)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   [a1[4] _onQueue_clearState];
   v2 = _MRLogForCategory(1uLL);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = a1[5];
     *buf = 138543362;
-    v17 = v3;
+    v16 = v3;
     _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> Begin resolving endpoint.", buf, 0xCu);
   }
 
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __81__MRQHONowPlayingController__loadNowPlayingStateForUID_client_player_completion___block_invoke_17;
-  v12[3] = &unk_1E769C0B8;
+  v11[0] = MEMORY[0x1E69E9820];
+  v11[1] = 3221225472;
+  v11[2] = __81__MRQHONowPlayingController__loadNowPlayingStateForUID_client_player_completion___block_invoke_17;
+  v11[3] = &unk_1E769C0B8;
   v4 = a1[4];
   v5 = a1[5];
   *&v6 = v5;
   *(&v6 + 1) = a1[4];
-  v11 = v6;
-  v15 = a1[8];
+  v10 = v6;
+  v14 = a1[8];
   v7 = a1[6];
   v8 = a1[7];
   *&v9 = v7;
   *(&v9 + 1) = v8;
-  v13 = v11;
-  v14 = v9;
-  [v4 _onQueue_retrieveEndpointForUID:v5 completion:v12];
-
-  v10 = *MEMORY[0x1E69E9840];
+  v12 = v10;
+  v13 = v9;
+  [v4 _onQueue_retrieveEndpointForUID:v5 completion:v11];
 }
 
 void __81__MRQHONowPlayingController__loadNowPlayingStateForUID_client_player_completion___block_invoke_17(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = _MRLogForCategory(1uLL);
@@ -587,23 +580,21 @@ void __81__MRQHONowPlayingController__loadNowPlayingStateForUID_client_player_co
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [*(a1 + 40) uid];
-      v11 = 138543618;
-      v12 = v9;
-      v13 = 2114;
-      v14 = v5;
-      _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> Resolved to Endpoint: %{public}@.", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2114;
+      v13 = v5;
+      _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> Resolved to Endpoint: %{public}@.", &v10, 0x16u);
     }
 
     [*(a1 + 40) setEndpoint:v5];
     [*(a1 + 40) _loadNowPlayingStateForEndpoint:v5 client:*(a1 + 48) player:*(a1 + 56) completion:*(a1 + 64)];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_loadNowPlayingStateForEndpoint:(id)endpoint client:(id)client player:(id)player completion:(id)completion
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   completionCopy = completion;
   playerCopy = player;
@@ -613,22 +604,20 @@ void __81__MRQHONowPlayingController__loadNowPlayingStateForUID_client_player_co
   {
     v15 = [(MRQHONowPlayingController *)self uid];
     *buf = 138543618;
-    v21 = v15;
-    v22 = 2114;
-    v23 = endpointCopy;
+    v20 = v15;
+    v21 = 2114;
+    v22 = endpointCopy;
     _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> Begin resolving player path for endpoint %{public}@.", buf, 0x16u);
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __86__MRQHONowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke;
-  v18[3] = &unk_1E769C130;
-  v18[4] = self;
-  v19 = completionCopy;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __86__MRQHONowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke;
+  v17[3] = &unk_1E769C130;
+  v17[4] = self;
+  v18 = completionCopy;
   v16 = completionCopy;
-  [(MRQHONowPlayingController *)self _createPlayerPathForEndpoint:endpointCopy client:clientCopy player:playerCopy completion:v18];
-
-  v17 = *MEMORY[0x1E69E9840];
+  [(MRQHONowPlayingController *)self _createPlayerPathForEndpoint:endpointCopy client:clientCopy player:playerCopy completion:v17];
 }
 
 void __86__MRQHONowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -662,7 +651,7 @@ void __86__MRQHONowPlayingController__loadNowPlayingStateForEndpoint_client_play
 
 void __86__MRQHONowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_19(uint64_t a1, void *a2, void *a3)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -686,9 +675,9 @@ void __86__MRQHONowPlayingController__loadNowPlayingStateForEndpoint_client_play
     {
       v10 = [*v8 uid];
       *buf = 138543618;
-      v25 = v10;
-      v26 = 2112;
-      v27 = v5;
+      v24 = v10;
+      v25 = 2112;
+      v26 = v5;
       _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> Resolved to player path: %@.", buf, 0x16u);
     }
 
@@ -700,14 +689,14 @@ void __86__MRQHONowPlayingController__loadNowPlayingStateForEndpoint_client_play
     {
       v12 = [*v8 uid];
       *buf = 138543362;
-      v25 = v12;
+      v24 = v12;
       _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> Begin loading data.", buf, 0xCu);
     }
 
     v13 = *v8;
-    v23 = 0;
-    v14 = [v13 _loadNowPlayingStateForPlayerPath:v5 error:&v23];
-    v15 = v23;
+    v22 = 0;
+    v14 = [v13 _loadNowPlayingStateForPlayerPath:v5 error:&v22];
+    v15 = v22;
     v16 = _MRLogForCategory(1uLL);
     v17 = v16;
     if (v15)
@@ -722,9 +711,9 @@ void __86__MRQHONowPlayingController__loadNowPlayingStateForEndpoint_client_play
     {
       v21 = [*v8 uid];
       *buf = 138543618;
-      v25 = v21;
-      v26 = 2112;
-      v27 = v14;
+      v24 = v21;
+      v25 = 2112;
+      v26 = v14;
       _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> End loading data. Response: %@.", buf, 0x16u);
     }
 
@@ -747,8 +736,6 @@ void __86__MRQHONowPlayingController__loadNowPlayingStateForEndpoint_client_play
     v20 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:42];
     (*(v19 + 16))(v19, 0, v20);
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_loadNowPlayingStateForPlayerPath:(id)path error:(id *)error
@@ -950,48 +937,42 @@ void __69__MRQHONowPlayingController__loadNowPlayingStateForPlayerPath_error___b
   pathCopy = path;
   [(MRQHONowPlayingController *)self setRequestingQueue:1];
   v12 = +[MRPlaybackQueueRequest defaultPlaybackQueueRequest];
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3221225472;
-  v14[2] = __104__MRQHONowPlayingController__onQueue_requestPlaybackQueueForPlayerPath_includeArtwork_queue_completion___block_invoke;
-  v14[3] = &unk_1E769C1F8;
-  v14[4] = self;
-  v15 = completionCopy;
   v13 = completionCopy;
-  MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync(v12, pathCopy, queueCopy, v14);
+  MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync();
 }
 
 void __104__MRQHONowPlayingController__onQueue_requestPlaybackQueueForPlayerPath_includeArtwork_queue_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   [*(a1 + 32) setRequestingQueue:0];
   v4 = a2;
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   v5 = [*(a1 + 32) deferredContentItemsToMerge];
-  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v16;
+    v8 = *v15;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v16 != v8)
+        if (*v15 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         v11 = [v10 identifier];
         v12 = [v4 contentItemForIdentifier:v11];
 
         [v12 mergeFrom:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v7);
@@ -1001,12 +982,11 @@ void __104__MRQHONowPlayingController__onQueue_requestPlaybackQueueForPlayerPath
   [v13 removeAllObjects];
 
   (*(*(a1 + 40) + 16))();
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_onQueue_requestAndUpdateArtworkForContentItems:(id)items forPlayerPath:(id)path withReason:(id)reason
 {
-  v101 = *MEMORY[0x1E69E9840];
+  v100 = *MEMORY[0x1E69E9840];
   itemsCopy = items;
   pathCopy = path;
   reasonCopy = reason;
@@ -1018,32 +998,32 @@ void __104__MRQHONowPlayingController__onQueue_requestPlaybackQueueForPlayerPath
   {
     v11 = [(MRQHONowPlayingController *)self uid];
     *buf = 138543618;
-    v95 = v11;
-    v96 = 2114;
-    v97 = reasonCopy;
+    v94 = v11;
+    v95 = 2114;
+    v96 = reasonCopy;
     _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> _requestAndUpdateArtworkForContentItems because %{public}@.", buf, 0x16u);
   }
 
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
   v90 = 0u;
+  v91 = 0u;
+  v88 = 0u;
+  v89 = 0u;
   obj = itemsCopy;
-  v78 = [obj countByEnumeratingWithState:&v89 objects:v100 count:16];
-  if (v78)
+  v77 = [obj countByEnumeratingWithState:&v88 objects:v99 count:16];
+  if (v77)
   {
-    v77 = *v90;
+    v76 = *v89;
     selfCopy = self;
     do
     {
-      for (i = 0; i != v78; ++i)
+      for (i = 0; i != v77; ++i)
       {
-        if (*v90 != v77)
+        if (*v89 != v76)
         {
           objc_enumerationMutation(obj);
         }
 
-        v13 = *(*(&v89 + 1) + 8 * i);
+        v13 = *(*(&v88 + 1) + 8 * i);
         playbackQueue = [(MRNowPlayingPlayerResponse *)self->_response playbackQueue];
         identifier = [v13 identifier];
         v16 = [playbackQueue contentItemForIdentifier:identifier];
@@ -1054,7 +1034,7 @@ void __104__MRQHONowPlayingController__onQueue_requestPlaybackQueueForPlayerPath
           metadata = [v17 metadata];
           if ([metadata artworkAvailable])
           {
-            v80 = 1;
+            v79 = 1;
           }
 
           else
@@ -1063,14 +1043,14 @@ void __104__MRQHONowPlayingController__onQueue_requestPlaybackQueueForPlayerPath
             artworkURL = [metadata2 artworkURL];
             if (artworkURL)
             {
-              v80 = 1;
+              v79 = 1;
             }
 
             else
             {
               metadata3 = [v17 metadata];
               artworkIdentifier = [metadata3 artworkIdentifier];
-              v80 = artworkIdentifier != 0;
+              v79 = artworkIdentifier != 0;
             }
           }
 
@@ -1085,15 +1065,15 @@ void __104__MRQHONowPlayingController__onQueue_requestPlaybackQueueForPlayerPath
             artworkIdentifier3 = [metadata5 artworkIdentifier];
             metadata6 = [v17 metadata];
             artworkIdentifier4 = [metadata6 artworkIdentifier];
-            v79 = [artworkIdentifier3 isEqual:artworkIdentifier4] ^ 1;
+            v78 = [artworkIdentifier3 isEqual:artworkIdentifier4] ^ 1;
           }
 
           else
           {
-            v79 = 0;
+            v78 = 0;
           }
 
-          v82 = i;
+          v81 = i;
 
           metadata7 = [v13 metadata];
           artworkURL2 = [metadata7 artworkURL];
@@ -1115,18 +1095,18 @@ void __104__MRQHONowPlayingController__onQueue_requestPlaybackQueueForPlayerPath
 
           self = selfCopy;
           v17 = v35;
-          i = v82;
-          if ((v80 & ((imageData == 0) | v79 | v38)) == 1)
+          i = v81;
+          if ((v79 & ((imageData == 0) | v78 | v38)) == 1)
           {
-            v87[0] = MEMORY[0x1E69E9820];
-            v87[1] = 3221225472;
-            v87[2] = __102__MRQHONowPlayingController__onQueue_requestAndUpdateArtworkForContentItems_forPlayerPath_withReason___block_invoke;
-            v87[3] = &unk_1E769C220;
-            v87[4] = selfCopy;
-            v81 = v17;
+            v86[0] = MEMORY[0x1E69E9820];
+            v86[1] = 3221225472;
+            v86[2] = __102__MRQHONowPlayingController__onQueue_requestAndUpdateArtworkForContentItems_forPlayerPath_withReason___block_invoke;
+            v86[3] = &unk_1E769C220;
+            v86[4] = selfCopy;
+            v80 = v17;
             v39 = v17;
-            v88 = v39;
-            v40 = MEMORY[0x1A58E3570](v87);
+            v87 = v39;
+            v40 = MEMORY[0x1A58E3570](v86);
             cachedNowPlayingArtwork = [(MRQHONowPlayingController *)selfCopy cachedNowPlayingArtwork];
             if (!cachedNowPlayingArtwork)
             {
@@ -1169,23 +1149,23 @@ LABEL_25:
                     metadata12 = [v39 metadata];
                     artworkIdentifier6 = [metadata12 artworkIdentifier];
                     *buf = 138543874;
-                    v95 = v52;
-                    v96 = 2114;
-                    v97 = identifier2;
-                    v98 = 2114;
-                    v99 = artworkIdentifier6;
+                    v94 = v52;
+                    v95 = 2114;
+                    v96 = identifier2;
+                    v97 = 2114;
+                    v98 = artworkIdentifier6;
                     _os_log_impl(&dword_1A2860000, v51, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> downloading artwork for content item %{public}@, artwork %{public}@.", buf, 0x20u);
                   }
 
                   queue2 = [(MRQHONowPlayingController *)selfCopy queue];
-                  v85[0] = MEMORY[0x1E69E9820];
-                  v85[1] = 3221225472;
-                  v85[2] = __102__MRQHONowPlayingController__onQueue_requestAndUpdateArtworkForContentItems_forPlayerPath_withReason___block_invoke_37;
-                  v85[3] = &unk_1E769C248;
-                  v86 = v40;
-                  [(MRQHONowPlayingController *)selfCopy _downloadContentItemArtwork:v13 queue:queue2 completion:v85];
+                  v84[0] = MEMORY[0x1E69E9820];
+                  v84[1] = 3221225472;
+                  v84[2] = __102__MRQHONowPlayingController__onQueue_requestAndUpdateArtworkForContentItems_forPlayerPath_withReason___block_invoke_37;
+                  v84[3] = &unk_1E769C248;
+                  v85 = v40;
+                  [(MRQHONowPlayingController *)selfCopy _downloadContentItemArtwork:v13 queue:queue2 completion:v84];
 
-                  cachedNowPlayingArtwork2 = v86;
+                  cachedNowPlayingArtwork2 = v85;
                 }
 
                 else
@@ -1199,33 +1179,33 @@ LABEL_31:
                     metadata13 = [v39 metadata];
                     artworkIdentifier7 = [metadata13 artworkIdentifier];
                     *buf = 138543874;
-                    v95 = v59;
-                    v96 = 2114;
-                    v97 = identifier3;
-                    v98 = 2114;
-                    v99 = artworkIdentifier7;
+                    v94 = v59;
+                    v95 = 2114;
+                    v96 = identifier3;
+                    v97 = 2114;
+                    v98 = artworkIdentifier7;
                     _os_log_impl(&dword_1A2860000, v58, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> requesting artwork for content item %{public}@, artwork %{public}@.", buf, 0x20u);
                   }
 
                   identifier4 = [v13 identifier];
-                  v93 = identifier4;
-                  v64 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v93 count:1];
+                  v92 = identifier4;
+                  v64 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v92 count:1];
                   queue3 = [(MRQHONowPlayingController *)selfCopy queue];
-                  v83[0] = MEMORY[0x1E69E9820];
-                  v83[1] = 3221225472;
-                  v83[2] = __102__MRQHONowPlayingController__onQueue_requestAndUpdateArtworkForContentItems_forPlayerPath_withReason___block_invoke_38;
-                  v83[3] = &unk_1E769C270;
+                  v82[0] = MEMORY[0x1E69E9820];
+                  v82[1] = 3221225472;
+                  v82[2] = __102__MRQHONowPlayingController__onQueue_requestAndUpdateArtworkForContentItems_forPlayerPath_withReason___block_invoke_38;
+                  v82[3] = &unk_1E769C270;
                   v66 = v40;
-                  v83[4] = v13;
-                  v84 = v66;
-                  [(MRQHONowPlayingController *)selfCopy _requestContentItemArtwork:v64 forPlayerPath:pathCopy queue:queue3 completion:v83];
+                  v82[4] = v13;
+                  v83 = v66;
+                  [(MRQHONowPlayingController *)selfCopy _requestContentItemArtwork:v64 forPlayerPath:pathCopy queue:queue3 completion:v82];
 
-                  cachedNowPlayingArtwork2 = v84;
+                  cachedNowPlayingArtwork2 = v83;
                 }
 
 LABEL_38:
 
-                v17 = v81;
+                v17 = v80;
                 goto LABEL_39;
               }
             }
@@ -1238,11 +1218,11 @@ LABEL_38:
               metadata14 = [v39 metadata];
               artworkIdentifier8 = [metadata14 artworkIdentifier];
               *buf = 138543874;
-              v95 = v68;
-              v96 = 2114;
-              v97 = identifier5;
-              v98 = 2114;
-              v99 = artworkIdentifier8;
+              v94 = v68;
+              v95 = 2114;
+              v96 = identifier5;
+              v97 = 2114;
+              v98 = artworkIdentifier8;
               _os_log_impl(&dword_1A2860000, v67, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> Artwork cache hit for content item %{public}@, artwork %{public}@.", buf, 0x20u);
             }
 
@@ -1255,18 +1235,16 @@ LABEL_38:
 LABEL_39:
       }
 
-      v78 = [obj countByEnumeratingWithState:&v89 objects:v100 count:16];
+      v77 = [obj countByEnumeratingWithState:&v88 objects:v99 count:16];
     }
 
-    while (v78);
+    while (v77);
   }
-
-  v72 = *MEMORY[0x1E69E9840];
 }
 
 void __102__MRQHONowPlayingController__onQueue_requestAndUpdateArtworkForContentItems_forPlayerPath_withReason___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -1284,9 +1262,9 @@ void __102__MRQHONowPlayingController__onQueue_requestAndUpdateArtworkForContent
     v9 = [*(*(a1 + 32) + 48) playbackQueue];
     v10 = [v9 contentItemWithOffset:0];
     v11 = [v10 identifier];
-    v12 = [v8 isEqualToString:v11];
+    isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-    if (v12)
+    if (isEqualToString)
     {
       v13 = [*(a1 + 40) metadata];
       v14 = [v13 artworkIdentifier];
@@ -1310,9 +1288,9 @@ LABEL_13:
           v20 = [*(a1 + 40) metadata];
           v21 = [v20 artworkIdentifier];
           *buf = 138543618;
-          v33 = v19;
-          v34 = 2114;
-          v35 = v21;
+          v32 = v19;
+          v33 = 2114;
+          v34 = v21;
           _os_log_impl(&dword_1A2860000, v18, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> updated artwork cache with %{public}@.", buf, 0x16u);
         }
 
@@ -1331,8 +1309,8 @@ LABEL_14:
 
     [(MRContentItem *)v24 setArtwork:v5];
     v25 = *(a1 + 32);
-    v31 = v24;
-    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v31 count:1];
+    v30 = v24;
+    v26 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
     v27 = [v25 _onQueue_updateByMergingContentItemChanges:v26];
 
     if ([v27 count])
@@ -1342,17 +1320,15 @@ LABEL_14:
       {
         v29 = [*(a1 + 32) uid];
         *buf = 138543618;
-        v33 = v29;
-        v34 = 2114;
-        v35 = v27;
+        v32 = v29;
+        v33 = 2114;
+        v34 = v27;
         _os_log_impl(&dword_1A2860000, v28, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> updated artwork for content items %{public}@.", buf, 0x16u);
       }
 
       [*(a1 + 32) _notifyDelegateOfUpdatedArtwork:v27];
     }
   }
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 void __102__MRQHONowPlayingController__onQueue_requestAndUpdateArtworkForContentItems_forPlayerPath_withReason___block_invoke_38(uint64_t a1, void *a2, void *a3)
@@ -1378,13 +1354,9 @@ void __102__MRQHONowPlayingController__onQueue_requestAndUpdateArtworkForContent
 
   [(MRPlaybackQueueRequest *)v13 setArtworkHeight:1200.0];
   [(MRPlaybackQueueRequest *)v13 setArtworkWidth:1200.0];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __87__MRQHONowPlayingController__requestContentItemArtwork_forPlayerPath_queue_completion___block_invoke;
-  v15[3] = &unk_1E769C298;
-  v16 = completionCopy;
+  v15 = completionCopy;
   v14 = completionCopy;
-  MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync(v13, pathCopy, queueCopy, v15);
+  MRMediaRemoteRequestNowPlayingPlaybackQueueForPlayerSync();
 }
 
 - (void)_downloadContentItemArtwork:(id)artwork queue:(id)queue completion:(id)completion
@@ -1430,32 +1402,29 @@ void __74__MRQHONowPlayingController__downloadContentItemArtwork_queue_completio
 
 void __74__MRQHONowPlayingController__downloadContentItemArtwork_queue_completion___block_invoke_2(uint64_t a1)
 {
-  v14[2] = *MEMORY[0x1E69E9840];
+  v12[2] = *MEMORY[0x1E69E9840];
   if (*(a1 + 32))
   {
     v2 = *MEMORY[0x1E696AA08];
-    v14[0] = *(a1 + 32);
+    v12[0] = *(a1 + 32);
     v3 = *MEMORY[0x1E696A588];
-    v13[0] = v2;
-    v13[1] = v3;
+    v11[0] = v2;
+    v11[1] = v3;
     v4 = MEMORY[0x1E696AEC0];
     v5 = [*(a1 + 40) identifier];
     v6 = [v4 stringWithFormat:@"Failed to download artwork for content item %@", v5];
-    v14[1] = v6;
-    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v12[1] = v6;
+    v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
 
     v8 = [objc_alloc(MEMORY[0x1E696ABC0]) initWithMRError:2 userInfo:v7];
     (*(*(a1 + 56) + 16))();
-
-    v9 = *MEMORY[0x1E69E9840];
   }
 
   else
   {
-    v10 = *(a1 + 56);
-    v12 = [[MRArtwork alloc] initWithImageData:*(a1 + 48) height:0 width:0];
-    (*(v10 + 16))(v10);
-    v11 = *MEMORY[0x1E69E9840];
+    v9 = *(a1 + 56);
+    v10 = [[MRArtwork alloc] initWithImageData:*(a1 + 48) height:0 width:0];
+    (*(v9 + 16))(v9);
   }
 }
 
@@ -1519,6 +1488,17 @@ void __89__MRQHONowPlayingController__requestPlayerLastPlayingDateForPlayerPath_
   self->_response = responseCopy;
 }
 
+- (void)_onQueue_updateWithNewPlaybackState:(unsigned int)state
+{
+  v3 = *&state;
+  queue = [(MRQHONowPlayingController *)self queue];
+  dispatch_assert_queue_V2(queue);
+
+  response = self->_response;
+
+  [(MRNowPlayingPlayerResponse *)response setPlaybackState:v3];
+}
+
 - (void)_onQueue_updateWithNewDeviceLastPlayingDate:(id)date
 {
   dateCopy = date;
@@ -1557,37 +1537,37 @@ void __89__MRQHONowPlayingController__requestPlayerLastPlayingDateForPlayerPath_
 
 - (id)_onQueue_updateByMergingContentItemChanges:(id)changes
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   changesCopy = changes;
   queue = [(MRQHONowPlayingController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  v46 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v41 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v45 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v40 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v48 = 0u;
   v49 = 0u;
   v50 = 0u;
   v51 = 0u;
-  v52 = 0u;
   obj = changesCopy;
-  v6 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
+  v6 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v50;
+    v8 = *v49;
     selfCopy = self;
-    v43 = *v50;
+    v42 = *v49;
     do
     {
       v9 = 0;
-      v44 = v7;
+      v43 = v7;
       do
       {
-        if (*v50 != v8)
+        if (*v49 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v49 + 1) + 8 * v9);
+        v10 = *(*(&v48 + 1) + 8 * v9);
         playbackQueue = [(MRNowPlayingPlayerResponse *)self->_response playbackQueue];
         identifier = [v10 identifier];
         v13 = [playbackQueue contentItemForIdentifier:identifier];
@@ -1603,7 +1583,7 @@ void __89__MRQHONowPlayingController__requestPlayerLastPlayingDateForPlayerPath_
             if ((artworkAvailable & 1) == 0)
             {
 LABEL_17:
-              [v41 addObject:v10];
+              [v40 addObject:v10];
               goto LABEL_20;
             }
           }
@@ -1623,12 +1603,12 @@ LABEL_17:
             artworkURL3 = [metadata5 artworkURL];
             v24 = [artworkURL2 isEqual:artworkURL3];
 
-            v7 = v44;
-            v8 = v43;
+            v7 = v43;
+            v8 = v42;
 
             if ((v24 & 1) == 0)
             {
-              [v41 addObject:v10];
+              [v40 addObject:v10];
               goto LABEL_19;
             }
           }
@@ -1648,8 +1628,8 @@ LABEL_17:
             artworkIdentifier3 = [metadata8 artworkIdentifier];
             v32 = [artworkIdentifier2 isEqual:artworkIdentifier3];
 
-            v7 = v44;
-            v8 = v43;
+            v7 = v43;
+            v8 = v42;
 
             self = selfCopy;
             if ((v32 & 1) == 0)
@@ -1660,7 +1640,7 @@ LABEL_17:
 LABEL_20:
             [v13 mergeFrom:v10];
             identifier2 = [v13 identifier];
-            [v46 addObject:identifier2];
+            [v45 addObject:identifier2];
 
             goto LABEL_21;
           }
@@ -1676,15 +1656,15 @@ LABEL_21:
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v49 objects:v53 count:16];
+      v7 = [obj countByEnumeratingWithState:&v48 objects:v52 count:16];
     }
 
     while (v7);
   }
 
-  if ([v41 count])
+  if ([v40 count])
   {
-    v34 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v41 copyItems:1];
+    v34 = [objc_alloc(MEMORY[0x1E695DEC8]) initWithArray:v40 copyItems:1];
     queue2 = [(MRQHONowPlayingController *)self queue];
     selfCopy2 = self;
     v37 = queue2;
@@ -1693,14 +1673,12 @@ LABEL_21:
     block[2] = __72__MRQHONowPlayingController__onQueue_updateByMergingContentItemChanges___block_invoke;
     block[3] = &unk_1E769A4A0;
     block[4] = selfCopy2;
-    v48 = v34;
+    v47 = v34;
     v38 = v34;
     dispatch_async(v37, block);
   }
 
-  v39 = *MEMORY[0x1E69E9840];
-
-  return v46;
+  return v45;
 }
 
 void __72__MRQHONowPlayingController__onQueue_updateByMergingContentItemChanges___block_invoke(uint64_t a1)
@@ -1718,7 +1696,7 @@ void __72__MRQHONowPlayingController__onQueue_updateByMergingContentItemChanges_
   queue = [(MRQHONowPlayingController *)self queue];
   dispatch_assert_queue_V2(queue);
 
-  if ([dCopy isEqualToString:@"proactiveEndpoint"])
+  if (objc_msgSend_isEqualToString_(dCopy))
   {
     queue2 = [(MRQHONowPlayingController *)self queue];
     v22[0] = MEMORY[0x1E69E9820];
@@ -1785,7 +1763,7 @@ void __72__MRQHONowPlayingController__onQueue_retrieveEndpointForUID_completion_
 
 - (void)_createPlayerPathForEndpoint:(id)endpoint client:(id)client player:(id)player completion:(id)completion
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   endpointCopy = endpoint;
   clientCopy = client;
   playerCopy = player;
@@ -1794,25 +1772,23 @@ void __72__MRQHONowPlayingController__onQueue_retrieveEndpointForUID_completion_
   v15 = [(MRQHONowPlayingController *)self uid];
   v16 = [v14 stringWithFormat:@"MRQHONowPlayingController-%@", v15];
 
-  v28 = @"MREndpointConnectionReasonUserInfoKey";
-  v29[0] = v16;
-  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __83__MRQHONowPlayingController__createPlayerPathForEndpoint_client_player_completion___block_invoke;
-  v23[3] = &unk_1E769AF98;
-  v26 = playerCopy;
-  v27 = completionCopy;
-  v23[4] = self;
-  v24 = endpointCopy;
-  v25 = clientCopy;
+  v27 = @"MREndpointConnectionReasonUserInfoKey";
+  v28[0] = v16;
+  v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __83__MRQHONowPlayingController__createPlayerPathForEndpoint_client_player_completion___block_invoke;
+  v22[3] = &unk_1E769AF98;
+  v25 = playerCopy;
+  v26 = completionCopy;
+  v22[4] = self;
+  v23 = endpointCopy;
+  v24 = clientCopy;
   v18 = playerCopy;
   v19 = clientCopy;
   v20 = endpointCopy;
   v21 = completionCopy;
-  [v20 connectToExternalDeviceWithUserInfo:v17 completion:v23];
-
-  v22 = *MEMORY[0x1E69E9840];
+  [v20 connectToExternalDeviceWithUserInfo:v17 completion:v22];
 }
 
 void __83__MRQHONowPlayingController__createPlayerPathForEndpoint_client_player_completion___block_invoke(id *a1, void *a2)
@@ -1841,17 +1817,16 @@ void __83__MRQHONowPlayingController__createPlayerPathForEndpoint_client_player_
 {
   if (*(a1 + 32))
   {
-    v2 = *(a1 + 64);
-    v3 = *(*(a1 + 64) + 16);
+    v2 = *(*(a1 + 64) + 16);
 
-    v3();
+    v2();
   }
 
   else
   {
-    v4 = [MRPlayerPath alloc];
-    v5 = [*(a1 + 40) origin];
-    v6 = [(MRPlayerPath *)v4 initWithOrigin:v5 client:*(a1 + 48) player:*(a1 + 56)];
+    v3 = [MRPlayerPath alloc];
+    v4 = [*(a1 + 40) origin];
+    v5 = [(MRPlayerPath *)v3 initWithOrigin:v4 client:*(a1 + 48) player:*(a1 + 56)];
 
     (*(*(a1 + 64) + 16))();
   }
@@ -2329,7 +2304,7 @@ void __58__MRQHONowPlayingController__notifyDelegateOfInvalidation__block_invoke
 
 void __69__MRQHONowPlayingController__handlePlaybackQueueChangedNotification___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"kMRNowPlayingPlayerPathUserInfoKey"];
 
@@ -2355,9 +2330,9 @@ void __69__MRQHONowPlayingController__handlePlaybackQueueChangedNotification___b
     v8 = [*(a1 + 40) uid];
     v9 = *(a1 + 40);
     *buf = 138543618;
-    v17 = v8;
-    v18 = 2048;
-    v19 = v9;
+    v16 = v8;
+    v17 = 2048;
+    v18 = v9;
     _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@ : %p> processing PlaybackQueueDidChangeNotification.", buf, 0x16u);
   }
 
@@ -2367,15 +2342,14 @@ void __69__MRQHONowPlayingController__handlePlaybackQueueChangedNotification___b
   v11 = *(a1 + 40);
   v12 = [v11 resolvedPlayerPath];
   v13 = [*(a1 + 40) queue];
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3221225472;
-  v15[2] = __69__MRQHONowPlayingController__handlePlaybackQueueChangedNotification___block_invoke_96;
-  v15[3] = &unk_1E769C3B0;
-  v15[4] = *(a1 + 40);
-  [v11 _onQueue_requestPlaybackQueueForPlayerPath:v12 includeArtwork:1 queue:v13 completion:v15];
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3221225472;
+  v14[2] = __69__MRQHONowPlayingController__handlePlaybackQueueChangedNotification___block_invoke_96;
+  v14[3] = &unk_1E769C3B0;
+  v14[4] = *(a1 + 40);
+  [v11 _onQueue_requestPlaybackQueueForPlayerPath:v12 includeArtwork:1 queue:v13 completion:v14];
 
 LABEL_8:
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __69__MRQHONowPlayingController__handlePlaybackQueueChangedNotification___block_invoke_96(uint64_t a1, void *a2, uint64_t a3)
@@ -2424,7 +2398,7 @@ void __69__MRQHONowPlayingController__handlePlaybackQueueChangedNotification___b
 
 void __81__MRQHONowPlayingController__handlePlaybackQueueContentItemsChangedNotification___block_invoke(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"kMRNowPlayingPlayerPathUserInfoKey"];
 
@@ -2456,11 +2430,11 @@ void __81__MRQHONowPlayingController__handlePlaybackQueueContentItemsChangedNoti
     if (v12)
     {
       v13 = [*(a1 + 40) uid];
-      v19 = 138543618;
-      v20 = v13;
-      v21 = 2114;
-      v22 = v9;
-      _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> deferring PlaybackQueueContentItemsChangedNotification for content items %{public}@ because we are requesting a new playback queue.", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v13;
+      v20 = 2114;
+      v21 = v9;
+      _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> deferring PlaybackQueueContentItemsChangedNotification for content items %{public}@ because we are requesting a new playback queue.", &v18, 0x16u);
     }
 
     v14 = [*(a1 + 40) deferredContentItemsToMerge];
@@ -2472,11 +2446,11 @@ void __81__MRQHONowPlayingController__handlePlaybackQueueContentItemsChangedNoti
     if (v12)
     {
       v15 = [*(a1 + 40) uid];
-      v19 = 138543618;
-      v20 = v15;
-      v21 = 2114;
-      v22 = v9;
-      _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> processing PlaybackQueueContentItemsChangedNotification for content items %{public}@.", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v15;
+      v20 = 2114;
+      v21 = v9;
+      _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> processing PlaybackQueueContentItemsChangedNotification for content items %{public}@.", &v18, 0x16u);
     }
 
     v14 = [*(a1 + 40) _onQueue_updateByMergingContentItemChanges:v8];
@@ -2486,11 +2460,11 @@ void __81__MRQHONowPlayingController__handlePlaybackQueueContentItemsChangedNoti
       if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
       {
         v17 = [*(a1 + 40) uid];
-        v19 = 138543618;
-        v20 = v17;
-        v21 = 2114;
-        v22 = v14;
-        _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> updated content items %{public}@.", &v19, 0x16u);
+        v18 = 138543618;
+        v19 = v17;
+        v20 = 2114;
+        v21 = v14;
+        _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> updated content items %{public}@.", &v18, 0x16u);
       }
 
       [*(a1 + 40) _notifyDelegateOfUpdatedContentItems:v14];
@@ -2498,7 +2472,6 @@ void __81__MRQHONowPlayingController__handlePlaybackQueueContentItemsChangedNoti
   }
 
 LABEL_16:
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handlePlaybackQueueContentItemsArtworkChangedNotification:(id)notification
@@ -2517,7 +2490,7 @@ LABEL_16:
 
 void __88__MRQHONowPlayingController__handlePlaybackQueueContentItemsArtworkChangedNotification___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"kMRNowPlayingPlayerPathUserInfoKey"];
 
@@ -2549,11 +2522,11 @@ void __88__MRQHONowPlayingController__handlePlaybackQueueContentItemsArtworkChan
     if (v12)
     {
       v13 = [*(a1 + 40) uid];
-      v17 = 138543618;
-      v18 = v13;
-      v19 = 2114;
-      v20 = v9;
-      _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> ignoring PlaybackQueueContentItemsArtworkChangedNotification for content items %{public}@ ", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v13;
+      v18 = 2114;
+      v19 = v9;
+      _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> ignoring PlaybackQueueContentItemsArtworkChangedNotification for content items %{public}@ ", &v16, 0x16u);
     }
   }
 
@@ -2562,11 +2535,11 @@ void __88__MRQHONowPlayingController__handlePlaybackQueueContentItemsArtworkChan
     if (v12)
     {
       v14 = [*(a1 + 40) uid];
-      v17 = 138543618;
-      v18 = v14;
-      v19 = 2114;
-      v20 = v9;
-      _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> processing PlaybackQueueContentItemsArtworkChangedNotification for content items %{public}@.", &v17, 0x16u);
+      v16 = 138543618;
+      v17 = v14;
+      v18 = 2114;
+      v19 = v9;
+      _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> processing PlaybackQueueContentItemsArtworkChangedNotification for content items %{public}@.", &v16, 0x16u);
     }
 
     v15 = *(a1 + 40);
@@ -2575,7 +2548,6 @@ void __88__MRQHONowPlayingController__handlePlaybackQueueContentItemsArtworkChan
   }
 
 LABEL_12:
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_handlePlaybackStateChangedNotification:(id)notification
@@ -2594,7 +2566,7 @@ LABEL_12:
 
 void __69__MRQHONowPlayingController__handlePlaybackStateChangedNotification___block_invoke(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"kMRNowPlayingPlayerPathUserInfoKey"];
 
@@ -2622,9 +2594,9 @@ void __69__MRQHONowPlayingController__handlePlaybackStateChangedNotification___b
   {
     v10 = [*(a1 + 40) uid];
     *buf = 138543618;
-    v18 = v10;
-    v19 = 2114;
-    v20 = MRMediaRemoteCopyPlaybackStateDescription([v8 intValue]);
+    v17 = v10;
+    v18 = 2114;
+    v19 = MRMediaRemoteCopyPlaybackStateDescription([v8 intValue]);
     _os_log_impl(&dword_1A2860000, v9, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> processing PlaybackStateDidChangeNotification with new PlaybackState %{public}@.", buf, 0x16u);
   }
 
@@ -2637,16 +2609,15 @@ void __69__MRQHONowPlayingController__handlePlaybackStateChangedNotification___b
     v12 = *(a1 + 40);
     v13 = [v12 resolvedPlayerPath];
     v14 = [*(a1 + 40) queue];
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __69__MRQHONowPlayingController__handlePlaybackStateChangedNotification___block_invoke_106;
-    v16[3] = &unk_1E769C3F8;
-    v16[4] = *(a1 + 40);
-    [v12 _requestPlayerLastPlayingDateForPlayerPath:v13 queue:v14 completion:v16];
+    v15[0] = MEMORY[0x1E69E9820];
+    v15[1] = 3221225472;
+    v15[2] = __69__MRQHONowPlayingController__handlePlaybackStateChangedNotification___block_invoke_106;
+    v15[3] = &unk_1E769C3F8;
+    v15[4] = *(a1 + 40);
+    [v12 _requestPlayerLastPlayingDateForPlayerPath:v13 queue:v14 completion:v15];
   }
 
 LABEL_10:
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __69__MRQHONowPlayingController__handlePlaybackStateChangedNotification___block_invoke_106(uint64_t a1, void *a2)
@@ -2673,7 +2644,7 @@ void __69__MRQHONowPlayingController__handlePlaybackStateChangedNotification___b
 
 void __73__MRQHONowPlayingController__handleSupportedCommandsChangedNotification___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKeyedSubscript:@"kMRNowPlayingPlayerPathUserInfoKey"];
 
@@ -2698,22 +2669,21 @@ void __73__MRQHONowPlayingController__handleSupportedCommandsChangedNotification
   {
     v8 = [*(a1 + 40) uid];
     *buf = 138543362;
-    v15 = v8;
+    v14 = v8;
     _os_log_impl(&dword_1A2860000, v7, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> processing SupportedCommandsDidChangeNotification.", buf, 0xCu);
   }
 
   v9 = *(a1 + 40);
   v10 = [v9 resolvedPlayerPath];
   v11 = [*(a1 + 40) queue];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __73__MRQHONowPlayingController__handleSupportedCommandsChangedNotification___block_invoke_107;
-  v13[3] = &unk_1E769C420;
-  v13[4] = *(a1 + 40);
-  [v9 _requestSupportedCommandsForPlayerPath:v10 queue:v11 completion:v13];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __73__MRQHONowPlayingController__handleSupportedCommandsChangedNotification___block_invoke_107;
+  v12[3] = &unk_1E769C420;
+  v12[4] = *(a1 + 40);
+  [v9 _requestSupportedCommandsForPlayerPath:v10 queue:v11 completion:v12];
 
 LABEL_8:
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __73__MRQHONowPlayingController__handleSupportedCommandsChangedNotification___block_invoke_107(uint64_t a1, void *a2, uint64_t a3)
@@ -2735,13 +2705,13 @@ void __73__MRQHONowPlayingController__handleSupportedCommandsChangedNotification
 
 - (void)_handleActiveSystemEndpointChangedNotification:(id)notification
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   userInfo = [notification userInfo];
   v5 = [userInfo objectForKeyedSubscript:@"kMRMediaRemoteActiveEndpointTypeUserInfoKey"];
   intValue = [v5 intValue];
 
   v7 = [(MRQHONowPlayingController *)self uid];
-  LODWORD(v5) = [v7 isEqualToString:@"proactiveEndpoint"];
+  LODWORD(v5) = objc_msgSend_isEqualToString_(v7);
 
   if (v5 && intValue == 1)
   {
@@ -2749,21 +2719,19 @@ void __73__MRQHONowPlayingController__handleSupportedCommandsChangedNotification
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = [(MRQHONowPlayingController *)self uid];
-      v11 = 138543362;
-      v12 = v9;
-      _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> reloading due to ASE change.", &v11, 0xCu);
+      v10 = 138543362;
+      v11 = v9;
+      _os_log_impl(&dword_1A2860000, v8, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> reloading due to ASE change.", &v10, 0xCu);
     }
 
     [(MRQHONowPlayingController *)self _notifyDelegateOfInvalidation];
     [(MRQHONowPlayingController *)self _reloadForCompleteInvalidation];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __72__MRQHONowPlayingController__registerForPlayerPathInvalidationsIfNeeded__block_invoke(uint64_t a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   if (WeakRetained)
   {
@@ -2771,94 +2739,75 @@ void __72__MRQHONowPlayingController__registerForPlayerPathInvalidationsIfNeeded
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = [WeakRetained uid];
-      v5 = 138543362;
-      v6 = v3;
-      _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> reloading due to player path invalidation.", &v5, 0xCu);
+      v4 = 138543362;
+      v5 = v3;
+      _os_log_impl(&dword_1A2860000, v2, OS_LOG_TYPE_DEFAULT, "[MRQHONPC] <%{public}@> reloading due to player path invalidation.", &v4, 0xCu);
     }
 
     [WeakRetained _notifyDelegateOfInvalidation];
     [WeakRetained _reloadForPlayerPathInvalidation];
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 void __81__MRQHONowPlayingController__loadNowPlayingStateForUID_client_player_completion___block_invoke_17_cold_1(uint64_t a1, NSObject *a2)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 32);
-  v4 = 138543362;
-  v5 = v2;
-  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[MRQHONPC] %{public}@ Unable to discover endpoint.", &v4, 0xCu);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 138543362;
+  v4 = v2;
+  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[MRQHONPC] %{public}@ Unable to discover endpoint.", &v3, 0xCu);
 }
 
 void __86__MRQHONowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2_2();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*(v0 + 32) uid];
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __86__MRQHONowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_19_cold_1()
 {
   OUTLINED_FUNCTION_2_2();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*(v0 + 32) uid];
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __86__MRQHONowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_19_cold_2(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v7 = [*(a1 + 32) uid];
+  v6 = [*(a1 + 32) uid];
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __86__MRQHONowPlayingController__loadNowPlayingStateForEndpoint_client_player_completion___block_invoke_19_cold_3()
 {
   OUTLINED_FUNCTION_2_2();
-  v8 = *MEMORY[0x1E69E9840];
   v1 = [*v0 uid];
   OUTLINED_FUNCTION_1_4();
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __102__MRQHONowPlayingController__onQueue_requestAndUpdateArtworkForContentItems_forPlayerPath_withReason___block_invoke_cold_1()
 {
   OUTLINED_FUNCTION_2_2();
   v1 = v0;
-  v10 = *MEMORY[0x1E69E9840];
   v2 = [*(v0 + 32) uid];
-  v9 = [*(v1 + 40) identifier];
+  v8 = [*(v1 + 40) identifier];
   OUTLINED_FUNCTION_0_7();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 void __89__MRQHONowPlayingController__requestPlayerLastPlayingDateForPlayerPath_queue_completion___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[MRQHONPC] Failed to retrieve player last playing date with error: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_1A2860000, a2, OS_LOG_TYPE_ERROR, "[MRQHONPC] Failed to retrieve player last playing date with error: %{public}@", &v2, 0xCu);
 }
 
 @end

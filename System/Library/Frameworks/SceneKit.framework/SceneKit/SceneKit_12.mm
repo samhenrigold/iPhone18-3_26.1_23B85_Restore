@@ -1,3 +1,134 @@
+void C3DEnginePipelineUpdateNode(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(a3 + 228);
+  if (v6)
+  {
+    for (i = 0; i != v6; ++i)
+    {
+      ElementInSpanAtIndex = C3DRendererElementStoreGetElementInSpanAtIndex(*(a1 + 48), *(a3 + 224), i);
+      __UntrackRendererElementsDependencies(a1, ElementInSpanAtIndex);
+    }
+  }
+
+  v9 = *(a3 + 232);
+  if (v9)
+  {
+    v10 = *v9;
+    if (*v9)
+    {
+      v11 = 0;
+      do
+      {
+        v12 = *(a3 + 232) + 12 * v11;
+        v13 = *(v12 + 16);
+        if (v13)
+        {
+          v14 = 0;
+          v15 = *(v12 + 12) | (v13 << 32);
+          do
+          {
+            v16 = C3DRendererElementStoreGetElementInSpanAtIndex(*(a1 + 48), v15, v14);
+            if (v16)
+            {
+              __UntrackRendererElementsDependencies(a1, v16);
+            }
+
+            ++v14;
+          }
+
+          while (v13 != v14);
+        }
+
+        ++v11;
+      }
+
+      while (v11 != v10);
+    }
+  }
+
+  C3DRendererElementStoreDeallocateSpanForNode(a1, a3);
+  if ((C3DNodeIsHidden(a3, v17) & 1) == 0)
+  {
+    RenderableAttributeHash = C3DNodeGetRenderableAttributeHash(a3, v18);
+    if (RenderableAttributeHash)
+    {
+
+      _C3DEnginePipelineAllocateAndTrackRendererElements(a1, a2, a3, RenderableAttributeHash);
+    }
+  }
+}
+
+uint64_t C3DEnginePipelineSyncRendererElement(uint64_t a1, uint64_t a2, unsigned int a3)
+{
+  C3DRendererElementStoreSyncRendererElement(*(a1 + 48), a2, a3);
+  result = *(a1 + 16);
+  if (result)
+  {
+    v7[0] = MEMORY[0x277D85DD0];
+    v7[1] = 3221225472;
+    v7[2] = __C3DEnginePipelineSyncRendererElement_block_invoke;
+    v7[3] = &__block_descriptor_44_e29_v16__0____C3DEngineContext__8l;
+    v7[4] = a2;
+    v8 = a3;
+    return C3DSceneEnumerateEngineContexts(result, v7);
+  }
+
+  return result;
+}
+
+void *__C3DEnginePipelineSyncRendererElement_block_invoke(uint64_t a1, uint64_t a2)
+{
+  ProgramHashCodeStore = C3DEngineContextGetProgramHashCodeStore(a2, a2);
+  C3DProgramHashCodeStoreInvalidateRendererElement(ProgramHashCodeStore, *(a1 + 32));
+  SortSystem = C3DEngineContextGetSortSystem(a2, v5);
+  v7 = *(a1 + 32);
+
+  return C3DSortSystemInvalidateKeyForRendererElement(SortSystem, v7);
+}
+
+uint64_t C3DEnginePipelineInvalidateAllProgramHashCode(uint64_t a1)
+{
+  result = *(a1 + 16);
+  if (result)
+  {
+    return C3DSceneEnumerateEngineContexts(result, &__block_literal_global_5);
+  }
+
+  return result;
+}
+
+uint64_t __C3DEnginePipelineInvalidateAllProgramHashCode_block_invoke(uint64_t a1, uint64_t a2)
+{
+  ProgramHashCodeStore = C3DEngineContextGetProgramHashCodeStore(a2, a2);
+  C3DProgramHashCodeStoreClear(ProgramHashCodeStore);
+  SortSystem = C3DEngineContextGetSortSystem(a2, v4);
+
+  return C3DSortSystemInvalidate(SortSystem);
+}
+
+uint64_t __ResyncAllNodes(uint64_t *a1, uint64_t a2)
+{
+  v3 = *a1;
+  v2 = a1[1];
+  result = C3DEngineContextGetScene(v2, a2);
+  if (result)
+  {
+    result = C3DSceneGetRootNode(result, v5);
+    if (result)
+    {
+      v6[0] = MEMORY[0x277D85DD0];
+      v6[1] = 3221225472;
+      v6[2] = ____ResyncAllNodes_block_invoke;
+      v6[3] = &__block_descriptor_48_e315_q16__0____C3DNode____C3DEntity____CFRuntimeBase_QAQ__v____CFString_____CFString_____CFDictionary_____C3DScene_q_____C3DNode_____C3DNode_____C3DNode_i____C3DMatrix4x4__16f__4_____4__________C3DMatrix4x4_BfQib1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b3b1______SS_I_________C3DGeometry_____C3DDeformerStack_f_____8l;
+      v6[4] = v3;
+      v6[5] = v2;
+      return C3DNodeApplyHierarchy(result, v6);
+    }
+  }
+
+  return result;
+}
+
 void C3DEnginePipelineRemoveNodeFromRendering(uint64_t a1, uint64_t a2)
 {
   v4 = *(a2 + 228);
@@ -53,10 +184,10 @@ void C3DEnginePipelineRemoveNodeFromRendering(uint64_t a1, uint64_t a2)
 
 uint64_t C3DEnginePipelineAddNodeToRendering(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
-  result = C3DNodeIsHiddenOrIsHiddenByAncestor(a3);
+  result = C3DNodeIsHiddenOrIsHiddenByAncestor(a3, a2);
   if ((result & 1) == 0 && !a3[57])
   {
-    result = C3DNodeGetRenderableAttributeHash(a3);
+    result = C3DNodeGetRenderableAttributeHash(a3, v7);
     if (result)
     {
       _C3DEnginePipelineAllocateAndTrackRendererElements(a1, a2, a3, result);
@@ -68,17 +199,18 @@ uint64_t C3DEnginePipelineAddNodeToRendering(uint64_t a1, uint64_t a2, _DWORD *a
   return result;
 }
 
-void __HandleNodeNotification(_DWORD *a1, unsigned int a2, uint64_t *a3)
+void __HandleNodeNotification(void *a1, uint64_t a2, uint64_t *a3)
 {
+  v4 = a2;
   v6 = *a3;
   v7 = a3[1];
   if (a2 != 1)
   {
-    v8 = scn_default_log();
+    v8 = scn_default_log(a1, a2);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      __HandleNodeNotification_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
-      if ((a2 & 0x80000) == 0)
+      __HandleNodeNotification_cold_1(v8, a2, v9, v10, v11, v12, v13, v14);
+      if ((v4 & 0x80000) == 0)
       {
         goto LABEL_5;
       }
@@ -87,7 +219,7 @@ void __HandleNodeNotification(_DWORD *a1, unsigned int a2, uint64_t *a3)
     }
   }
 
-  if ((a2 & 0x80000) != 0)
+  if ((v4 & 0x80000) != 0)
   {
 LABEL_4:
     C3DEnginePipelineRemoveNodeFromRendering(v6, a1);
@@ -95,43 +227,43 @@ LABEL_4:
   }
 
 LABEL_5:
-  if ((a2 & 0x100000) != 0)
+  if ((v4 & 0x100000) != 0)
   {
-    v16 = C3DGetScene(a1);
+    v15 = C3DGetScene(a1, a2);
     if (C3DNodeHasCamera(a1))
     {
       C3DEngineContextSetDefaultPointOfView(a3[1], 0);
     }
 
-    if (v16 == C3DEngineContextGetScene(a3[1]))
+    if (v15 == C3DEngineContextGetScene(a3[1], v16))
     {
       C3DEnginePipelineAddNodeToRendering(v6, v7, a1);
       return;
     }
   }
 
-  if ((a2 & 0x3F000) == 0)
+  if ((v4 & 0x3F000) == 0)
   {
     goto LABEL_16;
   }
 
-  if ((a2 & 0x1000) != 0)
+  if ((v4 & 0x1000) != 0)
   {
     C3DEnginePipelineSyncNodeAttribute(v6, a1, @"kMeshKey", a3);
-    if ((a2 & 0x2000) == 0)
+    if ((v4 & 0x2000) == 0)
     {
 LABEL_12:
-      if ((a2 & 0x4000) == 0)
+      if ((v4 & 0x4000) == 0)
       {
         goto LABEL_13;
       }
 
 LABEL_20:
       C3DEnginePipelineSyncNodeAttribute(v6, a1, @"kLightKey", a3);
-      if ((a2 & 0x20000) == 0)
+      if ((v4 & 0x20000) == 0)
       {
 LABEL_14:
-        if ((a2 & 0x8000) == 0)
+        if ((v4 & 0x8000) == 0)
         {
           goto LABEL_16;
         }
@@ -143,41 +275,41 @@ LABEL_14:
     }
   }
 
-  else if ((a2 & 0x2000) == 0)
+  else if ((v4 & 0x2000) == 0)
   {
     goto LABEL_12;
   }
 
   C3DEnginePipelineSyncNodeAttribute(v6, a1, @"kCameraKey", a3);
   C3DEngineContextSetDefaultPointOfView(a3[1], 0);
-  if ((a2 & 0x4000) != 0)
+  if ((v4 & 0x4000) != 0)
   {
     goto LABEL_20;
   }
 
 LABEL_13:
-  if ((a2 & 0x20000) == 0)
+  if ((v4 & 0x20000) == 0)
   {
     goto LABEL_14;
   }
 
 LABEL_21:
   C3DEnginePipelineSyncNodeAttribute(v6, a1, @"kDeformerStackKey", a3);
-  if ((a2 & 0x8000) != 0)
+  if ((v4 & 0x8000) != 0)
   {
 LABEL_15:
     C3DEnginePipelineSyncNodeAttribute(v6, a1, @"rendererDelegate", a3);
   }
 
 LABEL_16:
-  v17 = (a2 >> 7) & 8 | (a2 >> 9) & 4;
+  v17 = (v4 >> 7) & 8 | (v4 >> 9) & 4;
   if (v17)
   {
     C3DEnginePipelineUpdateNodeRendererElements(v6, a1, v17);
   }
 }
 
-uint64_t C3DEnginePipelineUpdateNodeRendererElements(uint64_t result, uint64_t a2, int a3)
+uint64_t C3DEnginePipelineUpdateNodeRendererElements(uint64_t result, uint64_t a2, unsigned int a3)
 {
   v3 = *(a2 + 228);
   if (v3)
@@ -199,7 +331,7 @@ uint64_t C3DEnginePipelineUpdateNodeRendererElements(uint64_t result, uint64_t a
   return result;
 }
 
-void __HandleMaterialDidChangeNotifications(void *key, __int16 a2, uint64_t a3)
+void __HandleMaterialDidChangeNotifications(void *key, uint64_t a2, uint64_t a3)
 {
   context[2] = *MEMORY[0x277D85DE8];
   if (a2 == 2)
@@ -220,7 +352,7 @@ void __HandleMaterialDidChangeNotifications(void *key, __int16 a2, uint64_t a3)
 
   else
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(key, a2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
       __HandleMaterialDidChangeNotifications_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
@@ -228,43 +360,46 @@ void __HandleMaterialDidChangeNotifications(void *key, __int16 a2, uint64_t a3)
   }
 }
 
-uint64_t __ApplyMaterialDidChange(uint64_t a1, uint64_t **a2)
+uint64_t __ApplyMaterialDidChange(_BOOL8 a1, uint64_t **a2)
 {
+  v3 = a1;
   if (!a1)
   {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
+    v4 = scn_default_log(0, a2);
+    a1 = os_log_type_enabled(v4, OS_LOG_TYPE_FAULT);
+    if (a1)
     {
-      __RemoveVRAMResourceFromDic_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      __RemoveVRAMResourceFromDic_cold_1(v4, a2, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  v12 = *a2;
+  v11 = *a2;
   if (!*a2)
   {
-    v13 = scn_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v12 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
     {
-      __ApplyMaterialDidChange_cold_2(v13, v14, v15, v16, v17, v18, v19, v20);
+      __ApplyMaterialDidChange_cold_2(v12, v13, v14, v15, v16, v17, v18, v19);
     }
   }
 
-  Node = C3DRendererElementGetNode(a1);
+  Node = C3DRendererElementGetNode(v3);
   if (Node)
   {
-    C3DNodeBoundingBoxDidUpdate(Node);
+    C3DNodeBoundingBoxDidUpdate(Node, v21);
   }
 
-  return C3DEnginePipelineSyncRendererElement(*v12, a1, 27);
+  return C3DEnginePipelineSyncRendererElement(*v11, v3, 0x1Bu);
 }
 
-void __HandleGeometryDidChangeNotifications(uint64_t a1, __int16 a2, __int128 *a3)
+void __HandleGeometryDidChangeNotifications(uint64_t result, uint64_t a2, __int128 *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  v15 = *a3;
-  if (a2 == 3 || (v5 = scn_default_log(), !os_log_type_enabled(v5, OS_LOG_TYPE_FAULT)))
+  v3 = a2;
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = *a3;
+  if (a2 == 3 || (v5 = scn_default_log(result, a2), !os_log_type_enabled(v5, OS_LOG_TYPE_FAULT)))
   {
-    if ((a2 & 0x400) == 0)
+    if ((v3 & 0x400) == 0)
     {
       goto LABEL_5;
     }
@@ -272,27 +407,27 @@ void __HandleGeometryDidChangeNotifications(uint64_t a1, __int16 a2, __int128 *a
     goto LABEL_4;
   }
 
-  __HandleGeometryDidChangeNotifications_cold_1(v5, v6, v7, v8, v9, v10, v11, v12);
-  if ((a2 & 0x400) != 0)
+  __HandleGeometryDidChangeNotifications_cold_1(v5, a2, v6, v7, v8, v9, v10, v11);
+  if ((v3 & 0x400) != 0)
   {
 LABEL_4:
-    v16 = xmmword_282DC46A8;
-    v17 = qword_282DC46B8;
-    *&v18 = v15;
-    *(&v18 + 1) = a1;
-    RootNode = C3DSceneGetRootNode(*(v15 + 16));
-    C3DNodeIterateTree(RootNode, &v16, 0, &v18);
+    v15 = xmmword_282DC46A8;
+    v16 = qword_282DC46B8;
+    *&v17 = v14;
+    *(&v17 + 1) = result;
+    RootNode = C3DSceneGetRootNode(*(v14 + 16), a2);
+    C3DNodeIterateTree(RootNode, &v15, 0, &v17);
   }
 
 LABEL_5:
-  if ((a2 & 0x800) != 0)
+  if ((v3 & 0x800) != 0)
   {
-    v16 = xmmword_282DC46C0;
-    v17 = qword_282DC46D0;
-    v18 = v15;
-    v19 = a1;
-    v14 = C3DSceneGetRootNode(*(v15 + 16));
-    C3DNodeIterateTree(v14, &v16, 0, &v18);
+    v15 = xmmword_282DC46C0;
+    v16 = qword_282DC46D0;
+    v17 = v14;
+    v18 = result;
+    v13 = C3DSceneGetRootNode(*(v14 + 16), a2);
+    C3DNodeIterateTree(v13, &v15, 0, &v17);
   }
 }
 
@@ -300,9 +435,9 @@ uint64_t __InvalidateRendererElementsHashCodeForGeometry(uint64_t a1, uint64_t *
 {
   v3 = *a2;
   v4 = a2[1];
-  if (C3DNodeGetGeometry(a1) == v4)
+  if (C3DNodeGetGeometry(a1, a2) == v4)
   {
-    C3DEnginePipelineUpdateNodeRendererElements(v3, a1, 3);
+    C3DEnginePipelineUpdateNodeRendererElements(v3, a1, 3u);
   }
 
   return 0;
@@ -313,7 +448,7 @@ uint64_t __RebuildRendererElementsForGeometry(_DWORD *a1, uint64_t *a2)
   v3 = *a2;
   v4 = a2[1];
   v5 = a2[2];
-  if (C3DNodeGetGeometry(a1) == v5)
+  if (C3DNodeGetGeometry(a1, a2) == v5)
   {
     C3DEnginePipelineRemoveNodeFromRendering(v3, a1);
     C3DEnginePipelineAddNodeToRendering(v3, v4, a1);
@@ -322,31 +457,32 @@ uint64_t __RebuildRendererElementsForGeometry(_DWORD *a1, uint64_t *a2)
   return 0;
 }
 
-void __HandleLightDidChangeNotifications(uint64_t a1, __int16 a2, __int128 *a3)
+void __HandleLightDidChangeNotifications(uint64_t result, uint64_t a2, __int128 *a3)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v3 = a2;
+  v20 = *MEMORY[0x277D85DE8];
   v5 = *a3;
-  if (a2 != 4 && (v16 = *a3, v6 = scn_default_log(), v7 = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT), v5 = v16, v7))
+  if (a2 != 4 && (v15 = *a3, v6 = scn_default_log(result, a2), v7 = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT), v5 = v15, v7))
   {
-    __HandleLightDidChangeNotifications_cold_1(v6, v8, v9, v10, v11, v12, v13, v14);
-    v5 = v16;
-    if ((a2 & 0x200) == 0)
+    __HandleLightDidChangeNotifications_cold_1(v6, a2, v8, v9, v10, v11, v12, v13);
+    v5 = v15;
+    if ((v3 & 0x200) == 0)
     {
       return;
     }
   }
 
-  else if ((a2 & 0x200) == 0)
+  else if ((v3 & 0x200) == 0)
   {
     return;
   }
 
-  v17 = xmmword_282DC46D8;
-  v18 = qword_282DC46E8;
-  v19 = v5;
-  v20 = a1;
-  RootNode = C3DSceneGetRootNode(*(v5 + 16));
-  C3DNodeIterateTree(RootNode, &v17, 0, &v19);
+  v16 = xmmword_282DC46D8;
+  v17 = qword_282DC46E8;
+  v18 = v5;
+  v19 = result;
+  RootNode = C3DSceneGetRootNode(*(v5 + 16), a2);
+  C3DNodeIterateTree(RootNode, &v16, 0, &v18);
 }
 
 uint64_t __RebuildRendererElementsForLight(_DWORD *a1, uint64_t *a2)
@@ -354,7 +490,7 @@ uint64_t __RebuildRendererElementsForLight(_DWORD *a1, uint64_t *a2)
   v3 = *a2;
   v4 = a2[1];
   v5 = a2[2];
-  if (C3DNodeGetLight(a1) == v5)
+  if (C3DNodeGetLight(a1, a2) == v5)
   {
     C3DEnginePipelineRemoveNodeFromRendering(v3, a1);
     C3DEnginePipelineAddNodeToRendering(v3, v4, a1);
@@ -363,49 +499,49 @@ uint64_t __RebuildRendererElementsForLight(_DWORD *a1, uint64_t *a2)
   return 0;
 }
 
-CFIndex C3DEnginePipelineApplyNotificationQueue(uint64_t *a1)
+void *C3DEnginePipelineApplyNotificationQueue(uint64_t *a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      __ApplyMaterialDidChange_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      __ApplyMaterialDidChange_cold_2(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
   v10 = *a1;
-  NotificationQueue = C3DEnginePipelineGetNotificationQueue(*a1);
-  v12 = NotificationQueue;
+  NotificationQueue = C3DEnginePipelineGetNotificationQueue(*a1, a2);
+  v13 = NotificationQueue;
   if (NotificationQueue)
   {
-    v13 = C3DEngineNotificationQueueNeedsFullReset(NotificationQueue);
+    v14 = C3DEngineNotificationQueueNeedsFullReset(NotificationQueue);
   }
 
   else
   {
-    v13 = 0;
+    v14 = 0;
   }
 
-  PointOfViewIfAny = C3DEngineContextGetPointOfViewIfAny(a1[1]);
-  v16 = PointOfViewIfAny && (Camera = C3DNodeGetCamera(PointOfViewIfAny)) != 0 && C3DCameraGetScreenSpaceAmbientOcclusionIntensity(Camera) > 0.0;
-  v17 = *(v10 + 58);
-  v18 = v17 != v16;
-  if (v17 != v16)
+  PointOfViewIfAny = C3DEngineContextGetPointOfViewIfAny(a1[1], v12);
+  v18 = PointOfViewIfAny && (Camera = C3DNodeGetCamera(PointOfViewIfAny, v16)) != 0 && C3DCameraGetScreenSpaceAmbientOcclusionIntensity(Camera, v16) > 0.0;
+  v19 = *(v10 + 58);
+  v20 = v19 != v18;
+  if (v19 != v18)
   {
-    *(v10 + 58) = v16;
+    *(v10 + 58) = v18;
   }
 
-  v19 = C3DSceneGetFogEndDistance(*(v10 + 16)) > 0.0;
-  if (*(v10 + 56) != v19)
+  v21 = C3DSceneGetFogEndDistance(*(v10 + 16), v16) > 0.0;
+  if (*(v10 + 56) != v21)
   {
-    *(v10 + 56) = v19;
-    v18 = 1;
+    *(v10 + 56) = v21;
+    v20 = 1;
   }
 
-  if (!C3DEngineContextIsClusteredShadingEnabled(a1[1]) || (LightingSystem = C3DSceneGetLightingSystem(*(v10 + 16))) == 0)
+  if (!C3DEngineContextIsClusteredShadingEnabled(a1[1]) || (LightingSystem = C3DSceneGetLightingSystem(*(v10 + 16), v22)) == 0)
   {
-    if (!v18)
+    if (!v20)
     {
       goto LABEL_21;
     }
@@ -413,65 +549,65 @@ CFIndex C3DEnginePipelineApplyNotificationQueue(uint64_t *a1)
     goto LABEL_20;
   }
 
-  if ((v18 | C3DLightingSystemGetGlobalLightHashCodeForCaching(LightingSystem, a1[1], v10 + 60)))
+  if ((v20 | C3DLightingSystemGetGlobalLightHashCodeForCaching(LightingSystem, a1[1], v10 + 60)))
   {
 LABEL_20:
     C3DRendererElementStoreApplyForAllRendererElements(*(v10 + 48), __ResyncRendererElements, v10);
   }
 
 LABEL_21:
-  if (v12)
+  if (v13)
   {
-    C3DEngineNotificationQueueSwapForApplying(v12);
-    if (v13)
+    C3DEngineNotificationQueueSwapForApplying(v13, v22);
+    if (v14)
     {
-      __ResyncAllNodes(a1);
+      __ResyncAllNodes(a1, v25);
     }
 
     else
     {
-      TypeID = C3DNodeGetTypeID();
-      C3DEngineNotificationQueueApplyForEntityType(v12, TypeID, __HandleNodeNotification, a1);
-      v22 = C3DGeometryGetTypeID();
-      C3DEngineNotificationQueueApplyForEntityType(v12, v22, __HandleGeometryDidChangeNotifications, a1);
-      v23 = C3DMaterialGetTypeID();
-      C3DEngineNotificationQueueApplyForEntityType(v12, v23, __HandleMaterialDidChangeNotifications, a1);
-      v24 = C3DLightGetTypeID();
-      C3DEngineNotificationQueueApplyForEntityType(v12, v24, __HandleLightDidChangeNotifications, a1);
+      TypeID = C3DNodeGetTypeID(v24, v25);
+      C3DEngineNotificationQueueApplyForEntityType(v13, TypeID, __HandleNodeNotification, a1);
+      v29 = C3DGeometryGetTypeID(v27, v28);
+      C3DEngineNotificationQueueApplyForEntityType(v13, v29, __HandleGeometryDidChangeNotifications, a1);
+      v32 = C3DMaterialGetTypeID(v30, v31);
+      C3DEngineNotificationQueueApplyForEntityType(v13, v32, __HandleMaterialDidChangeNotifications, a1);
+      v35 = C3DLightGetTypeID(v33, v34);
+      C3DEngineNotificationQueueApplyForEntityType(v13, v35, __HandleLightDidChangeNotifications, a1);
     }
   }
 
-  RendererElementStore = C3DEnginePipelineGetRendererElementStore(v10);
-  Capacity = C3DRendererElementStoreGetCapacity(RendererElementStore);
-  ProgramHashCodeStore = C3DEngineContextGetProgramHashCodeStore(a1[1]);
+  RendererElementStore = C3DEnginePipelineGetRendererElementStore(v10, v22);
+  Capacity = C3DRendererElementStoreGetCapacity(RendererElementStore, v37);
+  ProgramHashCodeStore = C3DEngineContextGetProgramHashCodeStore(a1[1], v39);
   C3DProgramHashCodeStoreSetCapacity(ProgramHashCodeStore, Capacity);
-  SortSystem = C3DEngineContextGetSortSystem(a1[1]);
+  SortSystem = C3DEngineContextGetSortSystem(a1[1], v41);
   C3DSortSystemSetCapacity(SortSystem, Capacity);
   return C3DSortSystemPrepare(SortSystem, v10);
 }
 
-uint64_t C3DEnginePipelineGetNotificationQueue(uint64_t a1)
+uint64_t C3DEnginePipelineGetNotificationQueue(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DEngineContextRenderScene_cold_3(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DEngineContextRenderScene_cold_3(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 32);
 }
 
-uint64_t C3DEnginePipelineGetRendererElementStore(uint64_t a1)
+uint64_t C3DEnginePipelineGetRendererElementStore(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DEngineContextRenderScene_cold_3(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DEngineContextRenderScene_cold_3(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -483,7 +619,7 @@ void __HandleNodeWillDieNotification(uint64_t a1, uint64_t a2, __CFString *a3, u
   context[2] = *MEMORY[0x277D85DE8];
   if (@"kC3DNotificationNodeWillDie" != a3)
   {
-    v6 = scn_default_log();
+    v6 = scn_default_log(a1, a2);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
     {
       __HandleNodeWillDieNotification_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
@@ -501,7 +637,7 @@ void __HandleNodeWillDieNotification(uint64_t a1, uint64_t a2, __CFString *a3, u
 
 void __TrackRendererElementsDependencies(uint64_t a1, const void *a2)
 {
-  Material = C3DRendererElementGetMaterial(a2);
+  Material = C3DRendererElementGetMaterial(a2, a2);
   if (Material)
   {
     v5 = Material;
@@ -521,24 +657,24 @@ uint64_t __TrackRenderNodeDependencies(uint64_t a1, const void *a2)
 {
   if (!a2)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(a1, 0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
+      C3DGeometryTrackNode_cold_2(v4, a2, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  if (C3DNodeGetLight(a2))
+  if (C3DNodeGetLight(a2, a2))
   {
     C3DEnginePipelineAddNodeForKeyIfAbsent(a1, a2, @"kLightKey");
   }
 
-  if (C3DNodeGetCamera(a2))
+  if (C3DNodeGetCamera(a2, v11))
   {
     C3DEnginePipelineAddNodeForKeyIfAbsent(a1, a2, @"kCameraKey");
   }
 
-  result = C3DNodeGetDeformerStack(a2);
+  result = C3DNodeGetDeformerStack(a2, v12);
   if (result)
   {
     return C3DEnginePipelineAddNodeForKeyIfAbsent(a1, a2, @"kDeformerStackKey");
@@ -547,11 +683,12 @@ uint64_t __TrackRenderNodeDependencies(uint64_t a1, const void *a2)
   return result;
 }
 
-BOOL C3DEnginePipelineAddNodeForKeyIfAbsent(uint64_t a1, const void *a2, void *key)
+BOOL C3DEnginePipelineAddNodeForKeyIfAbsent(_BOOL8 a1, const void *a2, void *key)
 {
-  if (!a1 && (v6 = scn_default_log(), os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
+  v5 = a1;
+  if (!a1 && (v6 = scn_default_log(0, a2), a1 = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
   {
-    C3DEngineContextRenderScene_cold_3(v6, v7, v8, v9, v10, v11, v12, v13);
+    C3DEngineContextRenderScene_cold_3(v6, a2, v7, v8, v9, v10, v11, v12);
     if (a2)
     {
       goto LABEL_6;
@@ -563,55 +700,56 @@ BOOL C3DEnginePipelineAddNodeForKeyIfAbsent(uint64_t a1, const void *a2, void *k
     goto LABEL_6;
   }
 
-  v14 = scn_default_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+  v13 = scn_default_log(a1, a2);
+  a1 = os_log_type_enabled(v13, OS_LOG_TYPE_FAULT);
+  if (a1)
   {
-    C3DGeometryTrackNode_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
+    C3DGeometryTrackNode_cold_2(v13, a2, v14, v15, v16, v17, v18, v19);
   }
 
 LABEL_6:
   if (!key)
   {
-    v22 = scn_default_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    v20 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      _C3DAnimationManagerGetAnimationNodeForKey_cold_3(v22, v23, v24, v25, v26, v27, v28, v29);
+      _C3DAnimationManagerGetAnimationNodeForKey_cold_3(v20, v21, v22, v23, v24, v25, v26, v27);
     }
   }
 
-  NodesForKey = __C3DEnginePipelineGetNodesForKey(a1, key, 1, 0);
-  v31 = CFSetContainsValue(NodesForKey, a2);
-  if (!v31)
+  NodesForKey = __C3DEnginePipelineGetNodesForKey(v5, key, 1, 0);
+  v29 = CFSetContainsValue(NodesForKey, a2);
+  if (!v29)
   {
     CFSetAddValue(NodesForKey, a2);
   }
 
-  return v31 == 0;
+  return v29 == 0;
 }
 
 void __UntrackRendererElementsDependencies(uint64_t a1, const void *a2)
 {
   if (!a2)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(a1, 0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
-      _C3DRendererElementSync_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
+      _C3DRendererElementSync_cold_1(v4, a2, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  Material = C3DRendererElementGetMaterial(a2);
+  Material = C3DRendererElementGetMaterial(a2, a2);
   if (Material)
   {
-    v13 = Material;
+    v12 = Material;
     Value = CFDictionaryGetValue(*(a1 + 40), Material);
     if (Value)
     {
-      v15 = Value;
+      v14 = Value;
       CFSetRemoveValue(Value, a2);
-      if (!CFSetGetCount(v15))
+      if (!CFSetGetCount(v14))
       {
-        CFDictionaryRemoveValue(*(a1 + 40), v13);
+        CFDictionaryRemoveValue(*(a1 + 40), v12);
       }
     }
   }
@@ -621,7 +759,7 @@ uint64_t __UntrackNodeDependencies(uint64_t a1, const void *a2)
 {
   if (!a2)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(a1, 0);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DGeometryTrackNode_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -632,11 +770,12 @@ uint64_t __UntrackNodeDependencies(uint64_t a1, const void *a2)
   return C3DEnginePipelineRemoveNodeForKey(a1, a2, @"kDeformerStackKey");
 }
 
-uint64_t C3DEnginePipelineRemoveNodeForKey(uint64_t a1, const void *a2, void *key)
+uint64_t C3DEnginePipelineRemoveNodeForKey(_BOOL8 a1, const void *a2, void *key)
 {
-  if (!a1 && (v6 = scn_default_log(), os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
+  v5 = a1;
+  if (!a1 && (v6 = scn_default_log(0, a2), a1 = os_log_type_enabled(v6, OS_LOG_TYPE_FAULT)))
   {
-    C3DEngineContextRenderScene_cold_3(v6, v7, v8, v9, v10, v11, v12, v13);
+    C3DEngineContextRenderScene_cold_3(v6, a2, v7, v8, v9, v10, v11, v12);
     if (a2)
     {
       goto LABEL_6;
@@ -648,26 +787,27 @@ uint64_t C3DEnginePipelineRemoveNodeForKey(uint64_t a1, const void *a2, void *ke
     goto LABEL_6;
   }
 
-  v14 = scn_default_log();
-  if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
+  v13 = scn_default_log(a1, a2);
+  a1 = os_log_type_enabled(v13, OS_LOG_TYPE_FAULT);
+  if (a1)
   {
-    C3DGeometryTrackNode_cold_2(v14, v15, v16, v17, v18, v19, v20, v21);
+    C3DGeometryTrackNode_cold_2(v13, a2, v14, v15, v16, v17, v18, v19);
   }
 
 LABEL_6:
   if (!key)
   {
-    v22 = scn_default_log();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
+    v20 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      _C3DAnimationManagerGetAnimationNodeForKey_cold_3(v22, v23, v24, v25, v26, v27, v28, v29);
+      _C3DAnimationManagerGetAnimationNodeForKey_cold_3(v20, v21, v22, v23, v24, v25, v26, v27);
     }
   }
 
-  result = __C3DEnginePipelineGetNodesForKey(a1, key, 0, 0);
+  result = __C3DEnginePipelineGetNodesForKey(v5, key, 0, 0);
   if (result)
   {
-    v31 = result;
+    v29 = result;
     if (CFSetGetCount(result) < 1)
     {
       return 0;
@@ -675,10 +815,10 @@ LABEL_6:
 
     else
     {
-      result = CFSetContainsValue(v31, a2);
+      result = CFSetContainsValue(v29, a2);
       if (result)
       {
-        CFSetRemoveValue(v31, a2);
+        CFSetRemoveValue(v29, a2);
         return 1;
       }
     }
@@ -692,63 +832,63 @@ void _C3DEnginePipelineAllocateAndTrackRendererElements(uint64_t a1, uint64_t a2
   SpanForNode = C3DRendererElementStoreAllocateSpanForNode(a1, a2, a3, a4);
   if (SpanForNode != 0xFFFFFFFF)
   {
-    v7 = SpanForNode;
-    v8 = HIDWORD(SpanForNode);
+    v8 = SpanForNode;
+    v9 = HIDWORD(SpanForNode);
     if (HIDWORD(SpanForNode))
     {
-      v17 = 0;
+      v18 = 0;
       *(a3 + 224) = SpanForNode;
       do
       {
-        ElementInSpanAtIndex = C3DRendererElementStoreGetElementInSpanAtIndex(*(a1 + 48), *(a3 + 224), v17);
+        ElementInSpanAtIndex = C3DRendererElementStoreGetElementInSpanAtIndex(*(a1 + 48), *(a3 + 224), v18);
         __TrackRendererElementsDependencies(a1, ElementInSpanAtIndex);
-        ++v17;
+        ++v18;
       }
 
-      while (v8 != v17);
+      while (v9 != v18);
     }
 
     else
     {
-      v9 = scn_default_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+      v10 = scn_default_log(SpanForNode, v7);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
       {
-        _C3DEnginePipelineAllocateAndTrackRendererElements_cold_1(v9, v10, v11, v12, v13, v14, v15, v16);
+        _C3DEnginePipelineAllocateAndTrackRendererElements_cold_1(v10, v11, v12, v13, v14, v15, v16, v17);
       }
 
-      *(a3 + 224) = v7;
+      *(a3 + 224) = v8;
     }
 
     if (C3DNodeHasGeometryLOD(a3))
     {
-      Geometry = C3DNodeGetGeometry(a3);
+      Geometry = C3DNodeGetGeometry(a3, v20);
       if (Geometry)
       {
-        LOD = C3DGeometryGetLOD(Geometry);
+        LOD = C3DGeometryGetLOD(Geometry, v22);
         Count = CFArrayGetCount(LOD);
         if (Count >= 1)
         {
-          v22 = Count;
-          for (i = 0; i != v22; ++i)
+          v25 = Count;
+          for (i = 0; i != v25; ++i)
           {
-            v24 = *(a3 + 232) + 12 * i;
-            v25 = *(v24 + 16);
-            if (v25)
+            v27 = *(a3 + 232) + 12 * i;
+            v28 = *(v27 + 16);
+            if (v28)
             {
-              v26 = 0;
-              v27 = *(v24 + 12) | (v25 << 32);
+              v29 = 0;
+              v30 = *(v27 + 12) | (v28 << 32);
               do
               {
-                v28 = C3DRendererElementStoreGetElementInSpanAtIndex(*(a1 + 48), v27, v26);
-                if (v28)
+                v31 = C3DRendererElementStoreGetElementInSpanAtIndex(*(a1 + 48), v30, v29);
+                if (v31)
                 {
-                  __TrackRendererElementsDependencies(a1, v28);
+                  __TrackRendererElementsDependencies(a1, v31);
                 }
 
-                ++v26;
+                ++v29;
               }
 
-              while (v25 != v26);
+              while (v28 != v29);
             }
           }
         }
@@ -818,193 +958,194 @@ const void *__C3DEnginePipelineGetNodesForKey(uint64_t a1, void *key, int a3, in
   return Value;
 }
 
-void sub_21BFD1E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21BFD1E0C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void C3DEnginePipelineReset(uint64_t a1)
+void C3DEnginePipelineReset(void *a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DEnginePipelineReset_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DEnginePipelineReset_cold_1(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
-  v10 = *(a1 + 40);
+  v10 = a1[5];
   if (v10)
   {
     CFDictionaryRemoveAllValues(v10);
   }
 
-  C3DRendererElementStoreClear(*(a1 + 48));
-  v11 = *(a1 + 24);
+  C3DRendererElementStoreClear(a1[6], a2);
+  v11 = a1[3];
   if (v11)
   {
     CFRelease(v11);
-    *(a1 + 24) = 0;
+    a1[3] = 0;
   }
 }
 
 void C3DEnginePipelineRenderSubTree(void *a1, uint64_t a2)
 {
-  v128[1] = *MEMORY[0x277D85DE8];
+  v146[1] = *MEMORY[0x277D85DE8];
   if (!a1)
   {
-    v3 = scn_default_log();
+    v3 = scn_default_log(0, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      __ApplyMaterialDidChange_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
+      __ApplyMaterialDidChange_cold_2(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
-  v11 = a1[1];
-  v12 = a1[2];
-  RenderContext = C3DEngineContextGetRenderContext(v11);
-  FXContext = C3DEngineContextGetFXContext(v11);
-  SortSystem = C3DEngineContextGetSortSystem(v11);
-  v14 = *(FXContext + 120);
-  Stats = C3DEngineContextGetStats(v11);
-  v15 = *(*a1 + 48);
-  if (!v12)
+  v10 = a1[1];
+  v11 = a1[2];
+  RenderContext = C3DEngineContextGetRenderContext(v10, a2);
+  FXContext = C3DEngineContextGetFXContext(v10, v12);
+  SortSystem = C3DEngineContextGetSortSystem(v10, v14);
+  v15 = *(FXContext + 120);
+  Stats = C3DEngineContextGetStats(v10, v16);
+  v124 = Stats;
+  v19 = *(*a1 + 48);
+  if (!v11)
   {
-    v16 = scn_default_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v20 = scn_default_log(Stats, v18);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
     {
-      C3DEnginePipelineRenderSubTree_cold_2(v16, v17, v18, v19, v20, v21, v22, v23);
+      C3DEnginePipelineRenderSubTree_cold_2(v20, v18, v21, v22, v23, v24, v25, v26);
     }
   }
 
-  Pass = C3DFXPassInstanceGetPass(v12);
-  RendererContextGL = C3DEngineContextGetRendererContextGL(v11);
-  v90 = v15;
-  if (RendererContextGL && (RendererElementState = C3DEngineContextGetRendererElementState(v11)) != 0)
+  Pass = C3DFXPassInstanceGetPass(v11, v18);
+  RendererContextGL = C3DEngineContextGetRendererContextGL(v10, v28);
+  v108 = v19;
+  if (RendererContextGL && (RendererElementState = C3DEngineContextGetRendererElementState(v10)) != 0)
   {
-    v101 = RendererElementState;
-    C3DRendererElementStateBeginProcessing(RendererElementState, Pass, v11);
-    v93 = 0;
+    v119 = RendererElementState;
+    C3DRendererElementStateBeginProcessing(RendererElementState, Pass, v10);
+    v111 = 0;
   }
 
   else
   {
-    v101 = 0;
-    v93 = 1;
+    v119 = 0;
+    v111 = 1;
   }
 
-  v104 = a1;
-  v94 = Pass;
-  v95 = FXContext;
-  v96 = v11;
-  v107 = C3DFXPassRequiresLighting(*(v12 + 4736));
-  ProgramHashCodeStore = C3DEngineContextGetProgramHashCodeStore(*(v12 + 4816));
-  v87 = v12 + 80;
-  v27 = *(*(v12 + 80) + 48);
-  Capacity = C3DRendererElementStoreGetCapacity(v27);
+  v122 = a1;
+  v112 = Pass;
+  v113 = FXContext;
+  v114 = v10;
+  v125 = C3DFXPassRequiresLighting(*(v11 + 4736), v29);
+  ProgramHashCodeStore = C3DEngineContextGetProgramHashCodeStore(*(v11 + 4816), v31);
+  v105 = v11 + 80;
+  v33 = *(*(v11 + 80) + 48);
+  Capacity = C3DRendererElementStoreGetCapacity(v33, v34);
   C3DProgramHashCodeStoreSetCapacity(ProgramHashCodeStore, Capacity);
-  IsClusteredShadingEnabled = C3DEngineContextIsClusteredShadingEnabled(*(v12 + 4816));
-  v29 = C3DEngineContextGetFXContext(*(v12 + 4816));
-  LightingSystem = C3DSceneGetLightingSystem(*(v12 + 4808));
-  C3DLightingSystemBeginQueries(LightingSystem, v12 + (*(v29 + 120) << 6) + 3168, *(v12 + 4816));
-  v127 = 0;
-  v125 = 0u;
-  v126 = 0u;
-  v123 = 0u;
-  v124 = 0u;
-  v121 = 0u;
-  v122 = 0u;
-  C3DLightingSystemGetLightingContext(LightingSystem, *(v12 + 4816), &v121);
-  v128[0] = 0;
-  v120 = 0;
-  v98 = LightingSystem;
-  InfiniteLightSet = C3DLightingSystemGetInfiniteLightSet(LightingSystem, v128, &v120);
+  IsClusteredShadingEnabled = C3DEngineContextIsClusteredShadingEnabled(*(v11 + 4816));
+  v37 = C3DEngineContextGetFXContext(*(v11 + 4816), v36);
+  LightingSystem = C3DSceneGetLightingSystem(*(v11 + 4808), v38);
+  C3DLightingSystemBeginQueries(LightingSystem, v11 + (*(v37 + 120) << 6) + 3168, *(v11 + 4816));
+  v145 = 0;
+  v143 = 0u;
+  v144 = 0u;
+  v141 = 0u;
+  v142 = 0u;
+  v139 = 0u;
+  v140 = 0u;
+  C3DLightingSystemGetLightingContext(LightingSystem, *(v11 + 4816), &v139);
+  v146[0] = 0;
+  v138 = 0;
+  v116 = LightingSystem;
+  InfiniteLightSet = C3DLightingSystemGetInfiniteLightSet(LightingSystem, v146, &v138);
   if (InfiniteLightSet)
   {
-    C3DLightingSystemCheckLightingSetTextureUsage(LightingSystem, v128);
-    LightingSetProgramHashCodes = C3DLightingSystemGetLightingSetProgramHashCodes(LightingSystem, v128, &v121.i32[1]);
-    v121.i16[0] = (LightingSetProgramHashCodes << 7) | v121.i16[0] & 0x807F;
+    C3DLightingSystemCheckLightingSetTextureUsage(LightingSystem, v146);
+    LightingSetProgramHashCodes = C3DLightingSystemGetLightingSetProgramHashCodes(LightingSystem, v146, &v139.i32[1]);
+    v139.i16[0] = (LightingSetProgramHashCodes << 7) | v139.i16[0] & 0x807F;
   }
 
-  v88 = v14;
-  v97 = v12 + 16 * v14;
-  v32 = *(v97 + 5000);
-  v105 = v12;
-  if (v32)
+  v106 = v15;
+  v115 = v11 + 16 * v15;
+  v42 = *(v115 + 5000);
+  v123 = v11;
+  if (v42)
   {
-    v33 = *(v97 + 4992);
-    v102 = ProgramHashCodeStore;
-    v103 = v27;
+    v43 = *(v115 + 4992);
+    v120 = ProgramHashCodeStore;
+    v121 = v33;
     do
     {
-      v34 = *v33++;
-      v15 = v15 & 0xFFFFFFFF00000000 | v34;
-      Element = C3DRendererElementStoreGetElement(v27, v15);
+      v44 = *v43++;
+      v19 = v19 & 0xFFFFFFFF00000000 | v44;
+      Element = C3DRendererElementStoreGetElement(v33, v19);
       if (!C3DRendererElementIsRendererDelegate(Element))
       {
-        v36 = *(Element + 8);
-        v37 = *(Element + 72);
-        if ((v37 & 0x40) != 0)
+        v46 = *(Element + 8);
+        v47 = *(Element + 72);
+        if ((v47 & 0x40) != 0)
         {
           if (!IsClusteredShadingEnabled)
           {
             if (InfiniteLightSet)
             {
-              *(Element + 56) = v128[0];
+              *(Element + 56) = v146[0];
             }
 
             else
             {
-              v111 = 0u;
-              v112 = 0u;
-              C3DNodeGetLocalBoundingBox(v36, &v111);
-              WorldMatrix = C3DNodeGetWorldMatrix(v36);
-              v118 = 0u;
-              v119 = 0u;
-              v39 = WorldMatrix[1];
-              v40 = WorldMatrix[2];
-              v41 = vaddq_f32(WorldMatrix[3], vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v39, *v111.f32, 1), *WorldMatrix, v111.f32[0]), v40, v111, 2));
-              v41.i32[3] = 1.0;
-              v42 = v112;
-              v42.i32[1] = v112.i32[0];
-              v42.i32[2] = v112.i32[0];
-              v43 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(*WorldMatrix, v42)), vabsq_f32(vmulq_f32(vuzp2q_s32(vdupq_lane_s32(*v112.f32, 1), v112), v39))), vabsq_f32(vmulq_f32(vzip2q_s32(vtrn1q_s32(v112, v112), v112), v40)));
-              v118 = v41;
-              v119 = v43;
-              CategoryBitMask = C3DNodeGetCategoryBitMask(v36);
-              C3DLightingSystemQuery(v98, &v118, CategoryBitMask, (Element + 56));
-              v45 = C3DLightingSystemGetLightingSetProgramHashCodes(v98, Element + 56, &v121.i32[1]);
-              v121.i16[0] = (v45 << 7) | v121.i16[0] & 0x807F;
-              v37 = *(Element + 72);
+              v129 = 0u;
+              v130 = 0u;
+              C3DNodeGetLocalBoundingBox(v46, &v129);
+              WorldMatrix = C3DNodeGetWorldMatrix(v46, v48);
+              v136 = 0u;
+              v137 = 0u;
+              v50 = *(WorldMatrix + 16);
+              v51 = *(WorldMatrix + 32);
+              v52 = vaddq_f32(*(WorldMatrix + 48), vmlaq_laneq_f32(vmlaq_n_f32(vmulq_lane_f32(v50, *v129.f32, 1), *WorldMatrix, v129.f32[0]), v51, v129, 2));
+              v52.i32[3] = 1.0;
+              v53 = v130;
+              v53.i32[1] = v130.i32[0];
+              v53.i32[2] = v130.i32[0];
+              v54 = vaddq_f32(vaddq_f32(vabsq_f32(vmulq_f32(*WorldMatrix, v53)), vabsq_f32(vmulq_f32(vuzp2q_s32(vdupq_lane_s32(*v130.f32, 1), v130), v50))), vabsq_f32(vmulq_f32(vzip2q_s32(vtrn1q_s32(v130, v130), v130), v51)));
+              v136 = v52;
+              v137 = v54;
+              CategoryBitMask = C3DNodeGetCategoryBitMask(v46, v55);
+              C3DLightingSystemQuery(v116, &v136, CategoryBitMask, (Element + 56));
+              v57 = C3DLightingSystemGetLightingSetProgramHashCodes(v116, Element + 56, &v139.i32[1]);
+              v139.i16[0] = (v57 << 7) | v139.i16[0] & 0x807F;
+              v47 = *(Element + 72);
             }
           }
 
-          *(Element + 72) = (8 * v121.i16[0]) & 0x380 | v37 & 0xFC7F;
+          *(Element + 72) = (8 * v139.i16[0]) & 0x380 | v47 & 0xFC7F;
         }
 
-        v46 = C3DFXPassInstanceGetPass(v12);
-        PreferredRenderMode = C3DEngineContextGetPreferredRenderMode(*(v12 + 4816));
-        ProgramHashCodeForRenderElement = C3DProgramHashCodeStoreGetProgramHashCodeForRenderElement(ProgramHashCodeStore, Element, v46, PreferredRenderMode);
+        v58 = C3DFXPassInstanceGetPass(v11, v40);
+        PreferredRenderMode = C3DEngineContextGetPreferredRenderMode(*(v11 + 4816));
+        ProgramHashCodeForRenderElement = C3DProgramHashCodeStoreGetProgramHashCodeForRenderElement(ProgramHashCodeStore, Element, v58, PreferredRenderMode);
         if (ProgramHashCodeForRenderElement)
         {
-          if (v107)
+          if (v125)
           {
             if (!IsClusteredShadingEnabled)
             {
               goto LABEL_29;
             }
 
-            v115 = v125;
-            v116 = v126;
-            v117 = v127;
-            v111 = v121;
-            v112 = v122;
-            v113 = v123;
-            v114 = v124;
-            if (!C3DProgramHashCodeMatchLightHashCodesAndLightingContext(ProgramHashCodeForRenderElement, &v111))
+            v133 = v143;
+            v134 = v144;
+            v135 = v145;
+            v129 = v139;
+            v130 = v140;
+            v131 = v141;
+            v132 = v142;
+            if (!C3DProgramHashCodeMatchLightHashCodesAndLightingContext(ProgramHashCodeForRenderElement, &v129))
             {
               goto LABEL_29;
             }
@@ -1013,155 +1154,155 @@ void C3DEnginePipelineRenderSubTree(void *a1, uint64_t a2)
 
         else
         {
-          v49 = *(v12 + 4736);
-          if (!v49 || !C3DFXPassGetOverridingProgramHashCode(0, v49, Element))
+          v40 = *(v11 + 4736);
+          if (!v40 || !C3DFXPassGetOverridingProgramHashCode(0, v40, Element))
           {
 LABEL_29:
-            Mesh = C3DRendererElementGetMesh(Element);
-            MeshElement = C3DRendererElementGetMeshElement(Element);
-            Geometry = C3DRendererElementGetGeometry(Element);
-            Material = C3DRendererElementGetMaterial(Element);
-            v54 = *(Element + 8);
-            if (v54)
+            Mesh = C3DRendererElementGetMesh(Element, v40);
+            MeshElement = C3DRendererElementGetMeshElement(Element, v62);
+            Geometry = C3DRendererElementGetGeometry(Element, v64);
+            Material = C3DRendererElementGetMaterial(Element, v66);
+            v68 = *(Element + 8);
+            if (v68)
             {
-              if ((*(v54 + 221) & 0x10) != 0)
+              if ((*(v68 + 221) & 0x10) != 0)
               {
-                v55 = *(Element + 40);
-                if (v55)
+                v69 = *(Element + 40);
+                if (v69)
                 {
-                  C3DFXTechniqueEnsureThatPassesShouldExecute(v55);
+                  C3DFXTechniqueEnsureThatPassesShouldExecute(v69, v68);
                 }
               }
             }
 
-            v12 = v105;
-            v109 = (*(v12 + 24) << 16) | (((8 * (*(v12 + 27) & 3)) & 0x9F | (*(Element + 72) >> 11) & 7 | (32 * (*(v12 + 28) & 3u))) << 24) | C3DEngineContextGetCommonProfileConditioners(*(v105 + 4816)) | v109 & 0xFFFFFFFF00000000;
-            v56 = C3DProgramHashCodeCreate(v36, Geometry, Mesh, MeshElement, &v121, Material, v109);
-            ProgramHashCodeStore = v102;
-            C3DProgramHashCodeStoreRegisterProgramForRendererElement(v102, Element, v56, *(v105 + 4736), 0);
-            if (v56)
+            v11 = v123;
+            v127 = (*(v11 + 24) << 16) | (((8 * (*(v11 + 27) & 3)) & 0x9F | (*(Element + 72) >> 11) & 7 | (32 * (*(v11 + 28) & 3u))) << 24) | C3DEngineContextGetCommonProfileConditioners(*(v123 + 4816)) | v127 & 0xFFFFFFFF00000000;
+            v70 = C3DProgramHashCodeCreate(v46, Geometry, Mesh, MeshElement, &v139, Material, v127);
+            ProgramHashCodeStore = v120;
+            C3DProgramHashCodeStoreRegisterProgramForRendererElement(v120, Element, v70, *(v123 + 4736), 0);
+            if (v70)
             {
-              CFRelease(v56);
+              CFRelease(v70);
             }
 
-            v27 = v103;
+            v33 = v121;
           }
         }
       }
 
-      --v32;
+      --v42;
     }
 
-    while (v32);
+    while (v42);
   }
 
-  if (C3DFXPassGetDrawInstruction(*v12) != 6)
+  if (C3DFXPassGetDrawInstruction(*v11, v40) != 6)
   {
-    v57 = CACurrentMediaTime();
-    ParticleManager = C3DSceneGetParticleManager(*(v12 + 4808), 0);
+    v72 = CACurrentMediaTime();
+    ParticleManager = C3DSceneGetParticleManager(*(v11 + 4808), 0);
     if (ParticleManager)
     {
-      v59 = ParticleManager;
-      if (C3DFXPassGetLayerMask(*v12))
+      v75 = ParticleManager;
+      if (C3DFXPassGetLayerMask(*v11, v74))
       {
-        C3DParticleManagerCull(v59, v87, v96, v88, 0, 0);
+        C3DParticleManagerCull(v75, v105, v114, v106, 0, 0);
       }
     }
 
-    *(Stats + 120) = *(Stats + 120) + CACurrentMediaTime() - v57;
+    *(v124 + 120) = *(v124 + 120) + CACurrentMediaTime() - v72;
   }
 
-  if (v107)
+  if (v125)
   {
-    v60 = C3DSceneGetLightingSystem(*(v12 + 4808));
-    C3DLightingSystemEndQueries(v60);
+    v76 = C3DSceneGetLightingSystem(*(v11 + 4808), v71);
+    C3DLightingSystemEndQueries(v76);
   }
 
-  v61 = *(v97 + 5000);
-  v62 = *(v97 + 4992);
-  v63 = CACurrentMediaTime();
-  C3DSortSystemSyncKeys(SortSystem, v96, v62, v61, 0);
-  C3DSortSystemSort(SortSystem, v96, v62, v61);
-  *(Stats + 152) = *(Stats + 152) + CACurrentMediaTime() - v63;
-  if (C3DEngineContextGetMaxDrawingCommand(v96))
+  v77 = *(v115 + 5000);
+  v78 = *(v115 + 4992);
+  v79 = CACurrentMediaTime();
+  C3DSortSystemSyncKeys(SortSystem, v114, v78, v77, 0);
+  C3DSortSystemSort(SortSystem, v114, v78, v77);
+  *(v124 + 152) = *(v124 + 152) + CACurrentMediaTime() - v79;
+  if (C3DEngineContextGetMaxDrawingCommand(v114))
   {
-    v64 = C3DEngineContextGetStats(v96);
-    v65 = C3DEngineContextGetMaxDrawingCommand(v96) + ~*(v64 + 12);
-    if (v61 >= v65)
+    v81 = C3DEngineContextGetStats(v114, v80);
+    v82 = C3DEngineContextGetMaxDrawingCommand(v114) + ~*(v81 + 12);
+    if (v77 >= v82)
     {
-      v66 = v65;
+      v83 = v82;
     }
 
     else
     {
-      v66 = v61;
+      v83 = v77;
     }
 
-    v67 = 0;
-    if (C3DEngineContextGetIsolateMode(v96) && v64)
+    v84 = 0;
+    if (C3DEngineContextGetIsolateMode(v114) && v81)
     {
-      v61 = (v61 + *(v64 + 12) + 1);
-      MaxDrawingCommand = C3DEngineContextGetMaxDrawingCommand(v96);
-      v69 = v66 - 1;
-      if (!v66)
+      v77 = (v77 + *(v81 + 12) + 1);
+      MaxDrawingCommand = C3DEngineContextGetMaxDrawingCommand(v114);
+      v86 = v83 - 1;
+      if (!v83)
       {
-        v69 = 0;
+        v86 = 0;
       }
 
-      if (v61 >= MaxDrawingCommand)
+      if (v77 >= MaxDrawingCommand)
       {
-        v67 = v69;
+        v84 = v86;
       }
 
       else
       {
-        v67 = 0;
+        v84 = 0;
       }
     }
   }
 
   else
   {
-    v67 = 0;
-    v66 = v61;
+    v84 = 0;
+    v83 = v77;
   }
 
-  v70 = CACurrentMediaTime();
+  v87 = CACurrentMediaTime();
   if (RenderContext)
   {
-    v104[40] = v107;
-    [(SCNMTLRenderContext *)RenderContext processRendererElements:v62 count:v66 engineIterationContext:v104];
+    *(v122 + 40) = v125;
+    [(SCNMTLRenderContext *)RenderContext processRendererElements:v78 count:v83 engineIterationContext:v122];
   }
 
   else
   {
-    WarmUpAbortHandler = C3DEngineContextGetWarmUpAbortHandler(v96);
-    v72 = v66 >= v67;
-    v73 = v66 - v67;
-    if (v73 != 0 && v72)
+    WarmUpAbortHandler = C3DEngineContextGetWarmUpAbortHandler(v114);
+    v89 = v83 >= v84;
+    v90 = v83 - v84;
+    if (v90 != 0 && v89)
     {
-      v61 = WarmUpAbortHandler;
-      v74 = (v62 + 4 * v67);
+      v77 = WarmUpAbortHandler;
+      v91 = (v78 + 4 * v84);
       do
       {
-        v75 = *v74++;
-        v62 = v62 & 0xFFFFFFFF00000000 | v75;
-        v76 = C3DRendererElementStoreGetElement(v90, v62);
-        C3DRendererElementStateProcessRendererElement(v101, v76, v104);
-        if (v61 && ((*(v61 + 16))(v61) & 1) != 0)
+        v92 = *v91++;
+        v78 = v78 & 0xFFFFFFFF00000000 | v92;
+        v93 = C3DRendererElementStoreGetElement(v108, v78);
+        C3DRendererElementStateProcessRendererElement(v119, v93, v122);
+        if (v77 && ((*(v77 + 16))(v77) & 1) != 0)
         {
           break;
         }
 
-        ++*(Stats + 12);
-        --v73;
+        ++*(v124 + 12);
+        --v90;
       }
 
-      while (v73);
+      while (v90);
     }
   }
 
-  *(Stats + 152) = *(Stats + 152) + CACurrentMediaTime() - v70;
+  *(v124 + 152) = *(v124 + 152) + CACurrentMediaTime() - v87;
   if (RendererContextGL)
   {
     ShowsAuthoringEnvironment = C3DRendererContextGetShowsAuthoringEnvironment(RendererContextGL);
@@ -1172,70 +1313,70 @@ LABEL_29:
     ShowsAuthoringEnvironment = 0;
   }
 
-  v78 = RenderContext;
+  v95 = RenderContext;
   if (RenderContext)
   {
-    v78 = [(SCNMTLRenderContext *)RenderContext showsAuthoringEnvironment];
+    v95 = [(SCNMTLRenderContext *)RenderContext showsAuthoringEnvironment];
   }
 
-  if (v78 | ShowsAuthoringEnvironment)
+  if (v95 | ShowsAuthoringEnvironment)
   {
-    AuthoringEnvironment = C3DEngineContextGetAuthoringEnvironment(v96, 1);
+    AuthoringEnvironment = C3DEngineContextGetAuthoringEnvironment(v114, 1);
     if (C3DAuthoringEnvironmentShouldDisplayConstraints(AuthoringEnvironment))
     {
-      ControllerManager = C3DSceneGetControllerManager(*(*v104 + 16));
+      ControllerManager = C3DSceneGetControllerManager(*(*v122 + 16), v97);
       C3DConstraintManagerAppendAuthoringInfo(ControllerManager, AuthoringEnvironment);
     }
 
-    if (*(v95 + 248) == v94)
+    if (*(v113 + 248) == v112)
     {
-      v82 = *(v105 + 5000);
-      if (v82)
+      v100 = *(v123 + 5000);
+      if (v100)
       {
-        v83 = *(v105 + 4992);
+        v101 = *(v123 + 4992);
         do
         {
-          v84 = *v83++;
-          v61 = v61 & 0xFFFFFFFF00000000 | v84;
-          v85 = C3DRendererElementStoreGetElement(v90, v61);
-          v86 = *(v85 + 8);
-          if (v86)
+          v102 = *v101++;
+          v77 = v77 & 0xFFFFFFFF00000000 | v102;
+          v103 = C3DRendererElementStoreGetElement(v108, v77);
+          v104 = *(v103 + 8);
+          if (v104)
           {
-            C3DAuthoringEnvironmentAppendDebugNode(AuthoringEnvironment, v86, v85);
+            C3DAuthoringEnvironmentAppendDebugNode(AuthoringEnvironment, v104, v103);
           }
 
-          --v82;
+          --v100;
         }
 
-        while (v82);
+        while (v100);
       }
 
-      v110[0] = MEMORY[0x277D85DD0];
-      v110[1] = 3221225472;
-      v110[2] = __C3DEnginePipelineRenderSubTree_block_invoke;
-      v110[3] = &__block_descriptor_40_e315_q16__0____C3DNode____C3DEntity____CFRuntimeBase_QAQ__v____CFString_____CFString_____CFDictionary_____C3DScene_q_____C3DNode_____C3DNode_____C3DNode_i____C3DMatrix4x4__16f__4_____4__________C3DMatrix4x4_BfQib1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b3b1______SS_I_________C3DGeometry_____C3DDeformerStack_f_____8l;
-      v110[4] = AuthoringEnvironment;
-      C3DNodeApplyHierarchy(a2, v110);
+      v128[0] = MEMORY[0x277D85DD0];
+      v128[1] = 3221225472;
+      v128[2] = __C3DEnginePipelineRenderSubTree_block_invoke;
+      v128[3] = &__block_descriptor_40_e315_q16__0____C3DNode____C3DEntity____CFRuntimeBase_QAQ__v____CFString_____CFString_____CFDictionary_____C3DScene_q_____C3DNode_____C3DNode_____C3DNode_i____C3DMatrix4x4__16f__4_____4__________C3DMatrix4x4_BfQib1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b1b3b1______SS_I_________C3DGeometry_____C3DDeformerStack_f_____8l;
+      v128[4] = AuthoringEnvironment;
+      C3DNodeApplyHierarchy(a2, v128);
       C3DAuthoringEnvironmentDrawZbufferDependant(AuthoringEnvironment);
     }
 
-    if (v105 == *(v95 + 256))
+    if (v123 == *(v113 + 256))
     {
-      C3DAuthoringEnvironmentDrawZbufferIndependant(AuthoringEnvironment, v80);
+      C3DAuthoringEnvironmentDrawZbufferIndependant(AuthoringEnvironment, v98);
     }
 
     C3DAuthoringEnvironmentDrawPending(AuthoringEnvironment);
   }
 
-  if ((v93 & 1) == 0)
+  if ((v111 & 1) == 0)
   {
-    C3DRendererElementStateEndProcessing(v101, v94, v96);
+    C3DRendererElementStateEndProcessing(v119, v112, v114);
   }
 }
 
-uint64_t __C3DEnginePipelineRenderSubTree_block_invoke(uint64_t a1, float32x4_t *a2)
+uint64_t __C3DEnginePipelineRenderSubTree_block_invoke(uint64_t a1, void *a2)
 {
-  if (C3DNodeIsHiddenOrTransparent(a2))
+  if (C3DNodeIsHiddenOrTransparent(a2, a2))
   {
     return 1;
   }
@@ -1246,10 +1387,10 @@ uint64_t __C3DEnginePipelineRenderSubTree_block_invoke(uint64_t a1, float32x4_t 
 
 void C3DEnginePipelineGetRenderComponentsForRenderPass(uint64_t a1, void *a2, uint64_t a3, uint64_t *a4, uint64_t *a5, uint64_t *a6, uint64_t a7)
 {
-  RenderContext = C3DEngineContextGetRenderContext(a3);
+  RenderContext = C3DEngineContextGetRenderContext(a3, a2);
   if (!RenderContext)
   {
-    if (a2 && C3DFXPassIsOverridingPrograms(a2))
+    if (a2 && C3DFXPassIsOverridingPrograms(a2, v15))
     {
       OverridingProgramHashCode = C3DFXPassGetOverridingProgramHashCode(a3, a2, a1);
     }
@@ -1260,15 +1401,15 @@ void C3DEnginePipelineGetRenderComponentsForRenderPass(uint64_t a1, void *a2, ui
     }
 
     MaterialForRenderPass = C3DRendererElementGetMaterialForRenderPass(a1, a2);
-    v18 = MaterialForRenderPass;
-    if (!MaterialForRenderPass || C3DMaterialGetTechnique(MaterialForRenderPass))
+    v19 = MaterialForRenderPass;
+    if (!MaterialForRenderPass || C3DMaterialGetTechnique(MaterialForRenderPass, v22))
     {
-      if (!a2 || (Program = C3DFXPassGetProgram(a2)) == 0)
+      if (!a2 || (Program = C3DFXPassGetProgram(a2, v22)) == 0)
       {
         Technique = *(a1 + 40);
-        if (v18 && !Technique)
+        if (v19 && !Technique)
         {
-          Technique = C3DMaterialGetTechnique(v18);
+          Technique = C3DMaterialGetTechnique(v19, v22);
         }
 
         if (Technique)
@@ -1276,10 +1417,10 @@ void C3DEnginePipelineGetRenderComponentsForRenderPass(uint64_t a1, void *a2, ui
           goto LABEL_38;
         }
 
-        v23 = scn_default_log();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v25 = scn_default_log(0, v22);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          C3DEnginePipelineGetRenderComponentsForRenderPass_cold_4(v23);
+          C3DEnginePipelineGetRenderComponentsForRenderPass_cold_4(v25);
         }
 
         return;
@@ -1304,22 +1445,22 @@ LABEL_41:
       }
 
 LABEL_40:
-      *a4 = v18;
+      *a4 = v19;
       goto LABEL_41;
     }
 
     if (!OverridingProgramHashCode)
     {
-      ProgramHashCodeStore = C3DEngineContextGetProgramHashCodeStore(a3);
+      ProgramHashCodeStore = C3DEngineContextGetProgramHashCodeStore(a3, v22);
       PreferredRenderMode = C3DEngineContextGetPreferredRenderMode(a3);
       OverridingProgramHashCode = C3DProgramHashCodeStoreGetProgramHashCodeForRenderElement(ProgramHashCodeStore, a1, a2, PreferredRenderMode);
     }
 
-    CommonProfile = C3DMaterialGetCommonProfile(v18);
+    CommonProfile = C3DMaterialGetCommonProfile(v19, v22);
     if (!CommonProfile)
     {
-      v27 = scn_default_log();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+      v30 = scn_default_log(0, v28);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
       {
         goto LABEL_48;
       }
@@ -1328,47 +1469,47 @@ LABEL_40:
     goto LABEL_49;
   }
 
-  v15 = RenderContext;
-  v16 = C3DEngineContextGetProgramHashCodeStore(a3);
+  v16 = RenderContext;
+  v17 = C3DEngineContextGetProgramHashCodeStore(a3, v15);
   if (a2)
   {
-    v17 = C3DRendererElementGetMaterialForRenderPass(a1, a2);
+    v18 = C3DRendererElementGetMaterialForRenderPass(a1, a2);
   }
 
   else
   {
     if (C3DRendererElementIsRendererDelegate(a1))
     {
-      v18 = 0;
+      v19 = 0;
       goto LABEL_30;
     }
 
-    if ((*(a1 + 72) & 0x400) != 0 || ![(SCNMTLRenderContext *)v15 getCurrentPassMaterial])
+    if ((*(a1 + 72) & 0x400) != 0 || ![(SCNMTLRenderContext *)v16 getCurrentPassMaterial])
     {
-      v18 = *(a1 + 32);
+      v19 = *(a1 + 32);
       goto LABEL_30;
     }
 
-    v17 = [(SCNMTLRenderContext *)v15 getCurrentPassMaterial];
+    v18 = [(SCNMTLRenderContext *)v16 getCurrentPassMaterial];
   }
 
-  v18 = v17;
+  v19 = v18;
 LABEL_30:
-  v35 = [(SCNMTLRenderContext *)v15 getCurrentPassHash];
-  ProgramHashCodeForRenderElement = C3DProgramHashCodeStoreGetProgramHashCodeForRenderElement(v16, a1, a2, v35);
-  if (v18)
+  v38 = [(SCNMTLRenderContext *)v16 getCurrentPassHash];
+  ProgramHashCodeForRenderElement = C3DProgramHashCodeStoreGetProgramHashCodeForRenderElement(v17, a1, a2, v38);
+  if (v19)
   {
     OverridingProgramHashCode = ProgramHashCodeForRenderElement;
-    if (!C3DMaterialGetTechnique(v18))
+    if (!C3DMaterialGetTechnique(v19, v40))
     {
-      CommonProfile = C3DMaterialGetCommonProfile(v18);
+      CommonProfile = C3DMaterialGetCommonProfile(v19, v40);
       if (!CommonProfile)
       {
-        v27 = scn_default_log();
-        if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+        v30 = scn_default_log(0, v41);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_FAULT))
         {
 LABEL_48:
-          C3DEnginePipelineGetRenderComponentsForRenderPass_cold_1(v27, v28, v29, v30, v31, v32, v33, v34);
+          C3DEnginePipelineGetRenderComponentsForRenderPass_cold_1(v30, v31, v32, v33, v34, v35, v36, v37);
         }
       }
 
@@ -1385,7 +1526,7 @@ LABEL_49:
 
   if (a2)
   {
-    Program = C3DFXPassGetProgram(a2);
+    Program = C3DFXPassGetProgram(a2, v40);
     if (Program)
     {
       goto LABEL_39;
@@ -1393,9 +1534,9 @@ LABEL_49:
   }
 
   Technique = *(a1 + 40);
-  if (v18 && !Technique)
+  if (v19 && !Technique)
   {
-    Technique = C3DMaterialGetTechnique(v18);
+    Technique = C3DMaterialGetTechnique(v19, v40);
   }
 
   if (Technique)
@@ -1405,44 +1546,45 @@ LABEL_38:
     goto LABEL_39;
   }
 
-  v37 = scn_default_log();
-  if (os_log_type_enabled(v37, OS_LOG_TYPE_FAULT))
+  v42 = scn_default_log(0, v40);
+  if (os_log_type_enabled(v42, OS_LOG_TYPE_FAULT))
   {
-    C3DFXTechniqueAppendPass_cold_1(v37, v38, v39, v40, v41, v42, v43, v44);
+    C3DFXTechniqueAppendPass_cold_1(v42, v43, v44, v45, v46, v47, v48, v49);
   }
 }
 
 BOOL C3DTriangle3BarycentricCoordinates(_OWORD *a1, __int128 *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = a1[1];
-  v11 = *a1;
-  v12 = DWORD2(v3);
-  v13 = 1065353216;
-  v14 = v4;
-  v15 = DWORD2(v4);
-  v16 = 1065353216;
+  v13 = *a1;
+  v14 = DWORD2(v3);
+  v15 = 1065353216;
+  v16 = v4;
+  v17 = DWORD2(v4);
+  v18 = 1065353216;
   v5 = a1[2];
-  v17 = *(a1 + 4);
-  v18 = DWORD2(v5);
-  v19 = 1065353216;
+  v19 = *(a1 + 4);
+  v20 = DWORD2(v5);
+  v21 = 1065353216;
   v6 = *a2;
-  v20 = *a2;
-  v21 = DWORD2(v6);
-  v22 = 1065353216;
-  v7 = C3DGaussianSolve(&v11, 4u, 3, a3);
+  v22 = *a2;
+  v23 = DWORD2(v6);
+  v24 = 1065353216;
+  v7 = C3DGaussianSolve(&v13, 4, 3, a3);
+  v9 = v7;
   if (!v7)
   {
-    v8 = scn_default_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v10 = scn_default_log(v7, v8);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_21BEF7000, v8, OS_LOG_TYPE_DEFAULT, "Warning: C3DTriangle3BarycentricCoordinates: unable to solve the equation", v10, 2u);
+      *v12 = 0;
+      _os_log_impl(&dword_21BEF7000, v10, OS_LOG_TYPE_DEFAULT, "Warning: C3DTriangle3BarycentricCoordinates: unable to solve the equation", v12, 2u);
     }
   }
 
-  return v7;
+  return v9;
 }
 
 BOOL C3DTriangle3ContainsPoint(float32x4_t *a1, float32x4_t *a2)
@@ -1495,7 +1637,7 @@ void C3D::BlitPass::BlitPass(C3D::BlitPass *this, C3D::RenderGraph *a2, C3D::Pas
   *(v3 + 32) = 4;
 }
 
-float compute_sh(uint64_t a1, unsigned int a2, int a3, int a4, float *a5)
+float compute_sh(uint64_t a1, unsigned int a2, int a3, unsigned int a4, float *a5)
 {
   v49 = *MEMORY[0x277D85DE8];
   LODWORD(v6) = 0;
@@ -1628,7 +1770,7 @@ LABEL_22:
         v32 = vmulq_n_f32(*(a1 + 16 * (v8 * a2 + v19)), *&v31);
         v33 = &v44;
         v34 = v43;
-        v35 = (a4 * a4);
+        v35 = a4 * a4;
         do
         {
           v36 = *v33++;
@@ -1653,7 +1795,7 @@ LABEL_25:
   {
     v37 = 2 * v7;
     v38 = v43;
-    v39 = (a4 * a4);
+    v39 = a4 * a4;
     v40 = a5;
     do
     {
@@ -1730,11 +1872,11 @@ void convert_rgba8unorm_to_rgbaf32(char *a1, int a2, char *a3, int a4, int a5, u
           }
 
           *v13 = v20;
-          v13[1] = v22;
-          v13[2] = v23;
-          v13[3] = v18.f32[3];
+          *(v13 + 1) = v22;
+          *(v13 + 2) = v23;
+          *(v13 + 3) = v18.i32[3];
           ++v14;
-          v13 += 4;
+          v13 += 16;
           --v15;
         }
 
@@ -1913,12 +2055,14 @@ void __SCNRenderThread_start__(void *a1)
   pthread_exit(0);
 }
 
-void C3DRendererContextSetTypedBytesUniformAtLocation(uint64_t a1, uint64_t location, int a3, GLfloat *v, int a5)
+void C3DRendererContextSetTypedBytesUniformAtLocation(_BOOL8 a1, uint64_t location, uint64_t a3, float32x2_t *v, int a5)
 {
-  v35 = *MEMORY[0x277D85DE8];
-  if (!a1 && (v10 = scn_default_log(), os_log_type_enabled(v10, OS_LOG_TYPE_FAULT)))
+  v7 = a3;
+  v9 = a1;
+  v33 = *MEMORY[0x277D85DE8];
+  if (!a1 && (v10 = scn_default_log(0, location), a1 = os_log_type_enabled(v10, OS_LOG_TYPE_FAULT)))
   {
-    C3DEngineContextRenderScene_cold_2(v10, v11, v12, v13, v14, v15, v16, v17);
+    C3DEngineContextRenderScene_cold_2(v10, location, v11, v12, v13, v14, v15, v16);
     if (a5)
     {
       goto LABEL_6;
@@ -1930,108 +2074,109 @@ void C3DRendererContextSetTypedBytesUniformAtLocation(uint64_t a1, uint64_t loca
     goto LABEL_6;
   }
 
-  v18 = scn_default_log();
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
+  v17 = scn_default_log(a1, location);
+  a1 = os_log_type_enabled(v17, OS_LOG_TYPE_FAULT);
+  if (a1)
   {
-    C3DRendererContextSetMatrix4x4UniformAtLocation_cold_1(v18, v19, v20, v21, v22, v23, v24, v25);
+    C3DRendererContextSetMatrix4x4UniformAtLocation_cold_1(v17, location, v18, v19, v20, v21, v22, v23);
   }
 
 LABEL_6:
-  if (a3 <= 9)
+  if (v7 <= 9)
   {
-    if (a3 > 5)
+    if (v7 > 5)
     {
-      if (a3 != 6)
+      if (v7 != 6)
       {
-        if (a3 == 8)
+        if (v7 == 8)
         {
-          C3DRendererContextSetVector2UniformAtLocation(a1, location, v, a5);
+          C3DRendererContextSetVector2UniformAtLocation(v9, location, v, a5);
           return;
         }
 
-        if (a3 == 9)
+        if (v7 == 9)
         {
-          C3DRendererContextSetVector3UniformAtLocation(a1, location, v, a5);
+          C3DRendererContextSetVector3UniformAtLocation(v9, location, v, a5);
           return;
         }
 
         goto LABEL_37;
       }
 
-      v31 = *v;
-      *v34.i32 = v31;
-      v27 = a5;
-      v30 = &v34;
-      v28 = a1;
-      v29 = location;
+      v29 = *v;
+      *v32.i32 = v29;
+      v25 = a5;
+      v28 = &v32;
+      v26 = v9;
+      v27 = location;
     }
 
     else
     {
-      if (a3 != 1)
+      if (v7 != 1)
       {
-        if (a3 == 2)
+        if (v7 == 2)
         {
-          v26 = *v;
+          v24 = v->i32[0];
           goto LABEL_31;
         }
 
-        if (a3 == 3)
+        if (v7 == 3)
         {
-          v26 = *v;
+          v24 = v->u8[0];
 LABEL_31:
-          C3DRendererContextSetIntUniformAtLocation(a1, location, v26);
+          C3DRendererContextSetIntUniformAtLocation(v9, location, v24);
           return;
         }
 
         goto LABEL_37;
       }
 
-      v27 = a5;
-      v28 = a1;
-      v29 = location;
-      v30 = v;
+      v25 = a5;
+      v26 = v9;
+      v27 = location;
+      v28 = v;
     }
 
-    C3DRendererContextSetFloatUniformAtLocation(v28, v29, v30, v27);
+    C3DRendererContextSetFloatUniformAtLocation(v26, v27, v28, v25);
     return;
   }
 
-  if (a3 > 17)
+  if (v7 > 17)
   {
-    switch(a3)
+    switch(v7)
     {
       case 18:
-        *v34.i8 = vcvt_s32_f32(*v);
-        C3DRendererContextSetInt2UniformAtLocation(a1, location, v34.i32, a5);
+        *v32.i8 = vcvt_s32_f32(*v);
+        C3DRendererContextSetInt2UniformAtLocation(v9, location, v32.i32, a5);
         return;
       case 19:
         for (i = 0; i != 3; ++i)
         {
-          v34.i32[i] = v[i];
+          v32.i32[i] = v->f32[i];
         }
 
-        C3DRendererContextSetInt3UniformAtLocation(a1, location, v34.i32, a5);
+        C3DRendererContextSetInt3UniformAtLocation(v9, location, v32.i32, a5);
         return;
       case 20:
-        v34 = vcvtq_s32_f32(*v);
-        C3DRendererContextSetInt4UniformAtLocation(a1, location, v34.i32, a5);
+        v32 = vcvtq_s32_f32(*v->f32);
+        C3DRendererContextSetInt4UniformAtLocation(v9, location, v32.i32, a5);
         return;
     }
   }
 
   else
   {
-    switch(a3)
+    switch(v7)
     {
       case 10:
-        C3DRendererContextSetVector4UniformAtLocation(a1, location, v, a5);
+        C3DRendererContextSetVector4UniformAtLocation(v9, location, v, a5);
         return;
       case 11:
-        C3DRendererContextSetMatrix4x4UniformAtLocation(a1, location, v, a5);
+        C3DRendererContextSetMatrix4x4UniformAtLocation(v9, location, v, a5);
         return;
       case 13:
-        C3DRendererContextSetColor4UniformAtLocation(a1, location, v, a5);
+        C3DRendererContextSetColor4UniformAtLocation(v9, location, v, a5);
         return;
     }
   }
@@ -2040,10 +2185,10 @@ LABEL_37:
   if ((C3DRendererContextSetTypedBytesUniformAtLocation_done & 1) == 0)
   {
     C3DRendererContextSetTypedBytesUniformAtLocation_done = 1;
-    v33 = scn_default_log();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v31 = scn_default_log(a1, location);
+    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
     {
-      C3DRendererContextSetTypedBytesUniformAtLocation_cold_3(a3, v33);
+      C3DRendererContextSetTypedBytesUniformAtLocation_cold_3(v7, v31);
     }
   }
 }
@@ -2052,19 +2197,19 @@ void C3DRendererContextSetValueUniformAtLocation(uint64_t a1, uint64_t a2, uint6
 {
   if (!a3)
   {
-    v10 = scn_default_log();
+    v10 = scn_default_log(a1, a2);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_FAULT))
     {
-      __RemoveVRAMResourceFromDic_cold_1(v10, v11, v12, v13, v14, v15, v16, v17);
+      __RemoveVRAMResourceFromDic_cold_1(v10, a2, v11, v12, v13, v14, v15, v16);
     }
   }
 
-  Type = C3DValueGetType(a3);
+  Type = C3DValueGetType(a3, a2);
   if (Type == a4)
   {
     v19 = a4;
 LABEL_44:
-    Bytes = C3DValueGetBytes(a3);
+    Bytes = C3DValueGetBytes(a3, v18);
     C3DRendererContextSetTypedBytesUniformAtLocation(a1, a2, v19, Bytes, a5);
     return;
   }
@@ -2208,7 +2353,7 @@ LABEL_43:
   if ((C3DRendererContextSetValueUniformAtLocation_done & 1) == 0)
   {
     C3DRendererContextSetValueUniformAtLocation_done = 1;
-    v25 = scn_default_log();
+    v25 = scn_default_log(Type, v18);
     if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
     {
       C3DRendererContextSetValueUniformAtLocation_cold_2(v25);
@@ -2273,66 +2418,67 @@ id C3DFXProgramCFFinalize(void *a1)
 {
   LocalCenter = CFNotificationCenterGetLocalCenter();
   CFNotificationCenterPostNotification(LocalCenter, @"kC3DNotificationProgramWillDie", a1, 0, 1u);
-  v3 = a1[9];
-  if (v3)
+  v4 = a1[9];
+  if (v4)
   {
-    CFRelease(v3);
+    CFRelease(v4);
     a1[9] = 0;
   }
 
-  return C3DEntityCFFinalize(a1);
+  return C3DEntityCFFinalize(a1, v3);
 }
 
-uint64_t C3DFXProgramDelegateGetUserInfo(uint64_t a1)
+uint64_t C3DFXProgramDelegateGetUserInfo(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DFXProgramDelegateGetUserInfo_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DFXProgramDelegateGetUserInfo_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 48);
 }
 
-uint64_t C3DFXProgramGetProfile(uint64_t a1)
+uint64_t C3DFXProgramGetProfile(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DResourceManagerMakeProgramResident_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DResourceManagerMakeProgramResident_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return *(a1 + 64);
 }
 
-void C3DFXProgramSetProfile(uint64_t a1, int a2)
+void C3DFXProgramSetProfile(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  v2 = a2;
+  if (!result)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DResourceManagerMakeProgramResident_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  *(a1 + 64) = a2;
+  *(result + 64) = v2;
 }
 
-uint64_t C3DFXProgramDelegateGetCallbacks(uint64_t a1)
+uint64_t C3DFXProgramDelegateGetCallbacks(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DFXProgramDelegateGetUserInfo_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DFXProgramDelegateGetUserInfo_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -2343,7 +2489,7 @@ CFTypeRef C3DFXProgramSetDelegate(uint64_t a1, CFTypeRef cf)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, cf);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DResourceManagerMakeProgramResident_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -2375,32 +2521,33 @@ CFTypeRef C3DFXProgramSetDelegate(uint64_t a1, CFTypeRef cf)
   return result;
 }
 
-uint64_t C3DFXProgramIsClientProgram(uint64_t a1)
+uint64_t C3DFXProgramIsClientProgram(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DResourceManagerMakeProgramResident_cold_2(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DResourceManagerMakeProgramResident_cold_2(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
   return (*(a1 + 68) >> 1) & 1;
 }
 
-void C3DFXProgramSetClientProgram(uint64_t a1, int a2)
+void C3DFXProgramSetClientProgram(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  v2 = a2;
+  if (!result)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DResourceManagerMakeProgramResident_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  if (a2)
+  if (v2)
   {
     v12 = 2;
   }
@@ -2410,21 +2557,22 @@ void C3DFXProgramSetClientProgram(uint64_t a1, int a2)
     v12 = 0;
   }
 
-  *(a1 + 68) = *(a1 + 68) & 0xFD | v12;
+  *(result + 68) = *(result + 68) & 0xFD | v12;
 }
 
-void C3DFXProgramSetOpaque(uint64_t a1, char a2)
+void C3DFXProgramSetOpaque(uint64_t result, uint64_t a2)
 {
-  if (!a1)
+  v2 = a2;
+  if (!result)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DResourceManagerMakeProgramResident_cold_2(v4, v5, v6, v7, v8, v9, v10, v11);
     }
   }
 
-  *(a1 + 68) = *(a1 + 68) & 0xFE | a2;
+  *(result + 68) = *(result + 68) & 0xFE | v2;
 }
 
 void SCNSetPerformanceStatisticsEnabled(int a1)
@@ -2573,13 +2721,13 @@ uint64_t _SCNStartCollectingPerformanceStatisticsForPid(int a1)
 
   else
   {
-    if ((atomic_load_explicit(&_MergedGlobals, memory_order_acquire) & 1) == 0)
+    if ((atomic_load_explicit(_MergedGlobals, memory_order_acquire) & 1) == 0)
     {
       _SCNStartCollectingPerformanceStatisticsForPid_cold_1();
     }
 
     v19 = &v18;
-    v8 = std::__hash_table<std::__hash_value_type<int,SCNPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SCNPerformanceDataMapping>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(qword_27CDD9F40, &v18);
+    v8 = std::__hash_table<std::__hash_value_type<int,SCNPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SCNPerformanceDataMapping>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(qword_27CDD9F40, &v18, &std::piecewise_construct, &v19);
     v8[3] = v1;
     v8[4] = v3;
     v8[5] = v5;
@@ -2592,9 +2740,9 @@ uint64_t _SCNStartCollectingPerformanceStatisticsForPid(int a1)
   return v4;
 }
 
-void sub_21BFD4F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_21BFD4F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2602,7 +2750,7 @@ void sub_21BFD4F74(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 uint64_t _SCNStopCollectingPerformanceStatisticsForPid(int a1)
 {
   v4 = a1;
-  if ((atomic_load_explicit(&_MergedGlobals, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals, memory_order_acquire) & 1) == 0)
   {
     _SCNStopCollectingPerformanceStatisticsForPid_cold_1();
   }
@@ -2677,7 +2825,7 @@ void *_SCNGetPerformanceStatisticsFromPerformanceData(unsigned __int8 *a1, int a
 uint64_t *_SCNGetPerformanceStatisticsForPid(int a1)
 {
   v4 = a1;
-  if ((atomic_load_explicit(&_MergedGlobals, memory_order_acquire) & 1) == 0)
+  if ((atomic_load_explicit(_MergedGlobals, memory_order_acquire) & 1) == 0)
   {
     _SCNStopCollectingPerformanceStatisticsForPid_cold_1();
   }
@@ -2703,9 +2851,9 @@ uint64_t *_SCNGetPerformanceStatisticsForPid(int a1)
   return v1;
 }
 
-void sub_21BFD5404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_21BFD5404(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__hash_table<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>>>::~__hash_table(va);
   _Unwind_Resume(a1);
 }
@@ -2797,7 +2945,7 @@ void *_SCNGetCollectedShadersForPid()
           v6 = *(*(&v13 + 1) + 8 * i);
           if ([v6 hasPrefix:@"commonProfile_"])
           {
-            if ([objc_msgSend(v6 "pathExtension")])
+            if (objc_msgSend_isEqualToString_([v6 pathExtension]))
             {
               v7 = [v1 stringByAppendingPathComponent:v6];
               v8 = [MEMORY[0x277CCACA8] stringWithContentsOfFile:v7 encoding:4 error:0];
@@ -2824,9 +2972,9 @@ void *_SCNGetCollectedShadersForPid()
   return v12;
 }
 
-void sub_21BFD5858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
+void sub_21BFD5858(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
-  va_start(va, a17);
+  va_start(va, a24);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2843,8 +2991,8 @@ CFTypeRef SCNSetShaderCollectionEnabled(CFTypeRef result)
   {
     if (result)
     {
-      v6[3] = v1;
-      v6[4] = v2;
+      v8[3] = v1;
+      v8[4] = v2;
       v3 = [objc_msgSend(objc_msgSend(MEMORY[0x277CCAA00] "defaultManager")];
       v4 = [MEMORY[0x277CCAA00] defaultManager];
       if ([v4 fileExistsAtPath:{objc_msgSend(v3, "path")}])
@@ -2852,13 +3000,14 @@ CFTypeRef SCNSetShaderCollectionEnabled(CFTypeRef result)
         [v4 removeItemAtURL:v3 error:0];
       }
 
-      v6[0] = 0;
-      if (([v4 createDirectoryAtURL:v3 withIntermediateDirectories:1 attributes:0 error:v6] & 1) == 0)
+      v8[0] = 0;
+      v5 = [v4 createDirectoryAtURL:v3 withIntermediateDirectories:1 attributes:0 error:v8];
+      if ((v5 & 1) == 0)
       {
-        v5 = scn_default_log();
-        if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+        v7 = scn_default_log(v5, v6);
+        if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
         {
-          SCNSetShaderCollectionEnabled_cold_1(v3, v6, v5);
+          SCNSetShaderCollectionEnabled_cold_1(v3, v8, v7);
         }
 
         v3 = 0;
@@ -2871,10 +3020,10 @@ CFTypeRef SCNSetShaderCollectionEnabled(CFTypeRef result)
   return result;
 }
 
-uint64_t C3DShouldCollectGeneratedShaders()
+uint64_t C3DShouldCollectGeneratedShaders(uint64_t a1, uint64_t a2)
 {
   {
-    v0 = 1;
+    v2 = 1;
   }
 
   else
@@ -2884,13 +3033,13 @@ uint64_t C3DShouldCollectGeneratedShaders()
       C3DShouldCollectGeneratedShaders_cold_1();
     }
 
-    v0 = C3DShouldCollectGeneratedShaders::traceResources;
+    v2 = C3DShouldCollectGeneratedShaders::traceResources;
   }
 
-  return v0 & 1;
+  return v2 & 1;
 }
 
-uint64_t __C3DShouldCollectGeneratedShaders_block_invoke()
+void *__C3DShouldCollectGeneratedShaders_block_invoke()
 {
   result = [objc_msgSend(MEMORY[0x277CBEBD0] "standardUserDefaults")];
   C3DShouldCollectGeneratedShaders::traceResources = result;
@@ -2917,33 +3066,33 @@ uint64_t ___ZL26_SCNGetDebuggingInfoForPidi_block_invoke(uint64_t a1, uint64_t a
   return result;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,SCNPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SCNPerformanceDataMapping>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,SCNPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SCNPerformanceDataMapping>>>::__emplace_unique_key_args<int,std::piecewise_construct_t const&,std::tuple<int const&>,std::tuple<>>(void *a1, int *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v4 = *a2;
+  v5 = a1[1];
+  if (!*&v5)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v6 = vcnt_s8(v5);
+  v6.i16[0] = vaddlv_u8(v6);
+  if (v6.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v7 = *a2;
+    if (*&v5 <= v4)
     {
-      v5 = v2 % *&v3;
+      v7 = v4 % *&v5;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v7 = (*&v5 - 1) & v4;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v8 = *(*a1 + 8 * v7);
+  if (!v8 || (v9 = *v8) == 0)
   {
 LABEL_18:
     operator new();
@@ -2951,44 +3100,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v10 = v9[1];
+    if (v10 == v4)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v6.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v10 >= *&v5)
       {
-        v8 %= *&v3;
+        v10 %= *&v5;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v10 &= *&v5 - 1;
     }
 
-    if (v8 != v5)
+    if (v10 != v7)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v9 = *v9;
+    if (!v9)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v9 + 4) != v4)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v9;
 }
 
 uint64_t std::unordered_map<int,SCNPerformanceDataMapping>::unordered_map(uint64_t a1, uint64_t a2)
@@ -2999,39 +3148,39 @@ uint64_t std::unordered_map<int,SCNPerformanceDataMapping>::unordered_map(uint64
   std::__hash_table<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<int,SCNPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SCNPerformanceDataMapping>>>::__emplace_unique_key_args<int,std::pair<int const,SCNPerformanceDataMapping> const&>(a1, i + 4);
+    std::__hash_table<std::__hash_value_type<int,SCNPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SCNPerformanceDataMapping>>>::__emplace_unique_key_args<int,std::pair<int const,SCNPerformanceDataMapping> const&>(a1, i + 4, i + 1);
   }
 
   return a1;
 }
 
-uint64_t *std::__hash_table<std::__hash_value_type<int,SCNPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SCNPerformanceDataMapping>>>::__emplace_unique_key_args<int,std::pair<int const,SCNPerformanceDataMapping> const&>(void *a1, int *a2)
+uint64_t *std::__hash_table<std::__hash_value_type<int,SCNPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SCNPerformanceDataMapping>>>::__emplace_unique_key_args<int,std::pair<int const,SCNPerformanceDataMapping> const&>(void *a1, int *a2, _OWORD *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3039,44 +3188,44 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (*(v7 + 4) != v2)
+  if (*(v8 + 4) != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
 uint64_t *std::__hash_table<std::__hash_value_type<int,SCNPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SCNPerformanceDataMapping>>>::find<int>(void *a1, int *a2)
@@ -3327,15 +3476,17 @@ uint64_t _C3DInitNumberArrayWithPropertyList(const void *a1, char *a2, CFErrorRe
     {
       ValueAtIndex = CFArrayGetValueAtIndex(a1, v9);
       v11 = CFGetTypeID(ValueAtIndex);
-      if (v11 != CFNumberGetTypeID())
+      TypeID = CFNumberGetTypeID();
+      if (v11 != TypeID)
       {
         break;
       }
 
-      if (!CFNumberGetValue(ValueAtIndex, kCFNumberFloatType, v4))
+      Value = CFNumberGetValue(ValueAtIndex, kCFNumberFloatType, v4);
+      if (!Value)
       {
-        v16 = scn_default_log();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+        v20 = scn_default_log(Value, v15);
+        if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
         {
           _C3DInitNumberArrayWithPropertyList_cold_2();
         }
@@ -3350,8 +3501,8 @@ uint64_t _C3DInitNumberArrayWithPropertyList(const void *a1, char *a2, CFErrorRe
       }
     }
 
-    v15 = scn_default_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v19 = scn_default_log(TypeID, v13);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       _C3DInitNumberArrayWithPropertyList_cold_1();
     }
@@ -3359,8 +3510,8 @@ uint64_t _C3DInitNumberArrayWithPropertyList(const void *a1, char *a2, CFErrorRe
 
   else
   {
-    v13 = scn_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v17 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       _C3DInitNumberArrayWithPropertyList_cold_3();
     }
@@ -3598,18 +3749,18 @@ LABEL_9:
   CFArrayAppendValue(v4, a1);
 }
 
-uint64_t C3DBaseTypeForCFNumberType(uint64_t a1)
+uint64_t C3DBaseTypeForCFNumberType(uint64_t a1, uint64_t a2)
 {
-  v1 = a1 - 5;
-  if (a1 - 5) < 9 && ((0x19Du >> v1))
+  v2 = a1 - 5;
+  if (a1 - 5) < 9 && ((0x19Du >> v2))
   {
-    return word_21C2A19EC[v1];
+    return word_21C2A19EC[v2];
   }
 
   else
   {
-    v3 = scn_default_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    v4 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       C3DBaseTypeForCFNumberType_cold_1();
     }
@@ -3618,82 +3769,59 @@ uint64_t C3DBaseTypeForCFNumberType(uint64_t a1)
   }
 }
 
-BOOL C3DConvertToPlatformIndependentData(char *__src, char *__dst, unint64_t a3, unint64_t a4, int a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9)
+BOOL C3DConvertToPlatformIndependentData(uint64_t __src, _DWORD *__dst, unint64_t a3, unint64_t a4, int a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
+  v14 = __dst;
+  v15 = __src;
   if (a8 * a7 > a3)
   {
-    v16 = scn_default_log();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+    v16 = scn_default_log(__src, __dst);
+    __src = os_log_type_enabled(v16, OS_LOG_TYPE_FAULT);
+    if (__src)
     {
-      C3DConvertToPlatformIndependentData_cold_1(v16, v17, v18, v19, v20, v21, v22, v23);
+      C3DConvertToPlatformIndependentData_cold_1(v16, __dst, v17, v18, v19, v20, v21, v22);
     }
   }
 
   if (a9 * a7 > a4)
   {
-    v24 = scn_default_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v23 = scn_default_log(__src, __dst);
+    __src = os_log_type_enabled(v23, OS_LOG_TYPE_FAULT);
+    if (__src)
     {
-      C3DConvertToPlatformIndependentData_cold_2(v24, v25, v26, v27, v28, v29, v30, v31);
+      C3DConvertToPlatformIndependentData_cold_2(v23, __dst, v24, v25, v26, v27, v28, v29);
     }
   }
 
   if (a7 >= 1)
   {
-    v32 = 0;
-    v33 = a5 - 1;
+    v30 = 0;
+    v31 = a5 - 1;
     while (2)
     {
-      switch(v33)
+      switch(v31)
       {
         case 0:
           if (a6 >= 1)
           {
-            v42 = 0;
+            v40 = 0;
             do
             {
-              *&__dst[4 * v42] = bswap32(*&__src[4 * v42]);
-              ++v42;
+              v14[v40] = bswap32(v15[v40]);
+              ++v40;
             }
 
-            while (a6 > v42);
+            while (a6 > v40);
           }
 
           goto LABEL_66;
         case 1:
           if (a6 >= 1)
           {
-            v45 = 0;
-            do
-            {
-              *&__dst[4 * v45] = *&__src[4 * v45];
-              ++v45;
-            }
-
-            while (a6 > v45);
-          }
-
-          goto LABEL_66;
-        case 2:
-        case 3:
-        case 15:
-          memcpy(__dst, __src, a6);
-          goto LABEL_66;
-        case 4:
-          v41 = scn_default_log();
-          if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
-          {
-            C3DConvertToPlatformIndependentData_cold_3(&v60, v61, v41);
-          }
-
-          goto LABEL_66;
-        case 5:
-          if (a6 >= 1)
-          {
             v43 = 0;
             do
             {
-              *&__dst[8 * v43] = bswap64(*&__src[8 * v43]);
+              v14[v43] = v15[v43];
               ++v43;
             }
 
@@ -3701,132 +3829,160 @@ BOOL C3DConvertToPlatformIndependentData(char *__src, char *__dst, unint64_t a3,
           }
 
           goto LABEL_66;
+        case 2:
+        case 3:
+        case 15:
+          __src = memcpy(v14, v15, a6);
+          goto LABEL_66;
+        case 4:
+          v39 = scn_default_log(__src, __dst);
+          __src = os_log_type_enabled(v39, OS_LOG_TYPE_ERROR);
+          if (__src)
+          {
+            C3DConvertToPlatformIndependentData_cold_3(&v58, v59, v39);
+          }
+
+          goto LABEL_66;
+        case 5:
+          if (a6 >= 1)
+          {
+            v41 = 0;
+            do
+            {
+              *&v14[2 * v41] = bswap64(*&v15[2 * v41]);
+              ++v41;
+            }
+
+            while (a6 > v41);
+          }
+
+          goto LABEL_66;
         case 6:
           if (a6 >= 1)
           {
-            v44 = 0;
+            v42 = 0;
             do
             {
-              *&__dst[4 * v44] = bswap32(*&__src[4 * v44]);
-              ++v44;
+              v14[v42] = bswap32(v15[v42]);
+              ++v42;
             }
 
-            while (a6 > v44);
+            while (a6 > v42);
           }
 
           goto LABEL_66;
         case 7:
           if (a6 >= 1)
           {
-            v52 = 0;
-            v53 = 0;
+            v50 = 0;
+            v51 = 0;
             do
             {
-              *&__dst[4 * v53] = vrev32_s8(*&__src[4 * v53]);
-              ++v52;
-              v53 += 2;
+              *&v14[v51] = vrev32_s8(*&v15[v51]);
+              ++v50;
+              v51 += 2;
             }
 
-            while (a6 > v52);
+            while (a6 > v50);
           }
 
           goto LABEL_66;
         case 8:
           if (a6 >= 1)
           {
-            v36 = 0;
-            v37 = 0;
+            v34 = 0;
+            v35 = 0;
             do
             {
-              v38 = 4 * v37;
-              *&__dst[v38] = vrev32_s8(*&__src[v38]);
-              *&__dst[v38 + 8] = bswap32(*&__src[v38 + 8]);
-              ++v36;
-              v37 += 3;
+              v36 = v35;
+              *&v14[v36] = vrev32_s8(*&v15[v36]);
+              v14[v36 + 2] = bswap32(v15[v36 + 2]);
+              ++v34;
+              v35 += 3;
             }
 
-            while (a6 > v36);
+            while (a6 > v34);
           }
 
           goto LABEL_66;
         case 9:
           if (a6 >= 1)
           {
-            v39 = 0;
-            v40 = 0;
+            v37 = 0;
+            v38 = 0;
             do
             {
-              *&__dst[4 * v40] = vrev32q_s8(*&__src[4 * v40]);
-              ++v39;
-              v40 += 4;
+              *&v14[v38] = vrev32q_s8(*&v15[v38]);
+              ++v37;
+              v38 += 4;
             }
 
-            while (a6 > v39);
+            while (a6 > v37);
           }
 
           goto LABEL_66;
         case 10:
           if (a6 >= 1)
           {
-            v46 = 0;
-            v47 = 0;
+            v44 = 0;
+            v45 = 0;
             do
             {
-              v48 = 16 * v46;
-              v49 = 16 * v46 + 16;
-              if (v49 > (16 * v46))
+              v46 = 16 * v44;
+              v47 = 16 * v44 + 16;
+              if (v47 > (16 * v44))
               {
                 do
                 {
-                  *&__dst[4 * v48] = bswap32(*&__src[4 * v48]);
-                  ++v48;
+                  v14[v46] = bswap32(v15[v46]);
+                  ++v46;
                 }
 
-                while (v49 > v48);
+                while (v47 > v46);
               }
 
-              v46 = ++v47;
+              v44 = ++v45;
             }
 
-            while (v47 < a6);
+            while (v45 < a6);
           }
 
           goto LABEL_66;
         case 11:
           if (a6 >= 1)
           {
-            v54 = 0;
-            v55 = 0;
+            v52 = 0;
+            v53 = 0;
             do
             {
-              v56 = 9 * v54;
-              v57 = v56 + 9;
-              while (v57 > v56)
+              v54 = 9 * v52;
+              v55 = v54 + 9;
+              while (v55 > v54)
               {
-                *&__dst[4 * v56] = bswap32(*&__src[4 * v56]);
-                LOWORD(v56) = v56 + 1;
+                v14[v54] = bswap32(v15[v54]);
+                LOWORD(v54) = v54 + 1;
               }
 
-              v54 = ++v55;
+              v52 = ++v53;
             }
 
-            while (v55 < a6);
+            while (v53 < a6);
           }
 
           goto LABEL_66;
         case 12:
           if (a6 >= 1)
           {
-            v50 = 0;
-            v51 = 0;
+            v48 = 0;
+            v49 = 0;
             do
             {
-              *&__dst[4 * v50] = vrev32q_s8(*&__src[4 * v50]);
-              ++v51;
-              v50 += 4;
+              *&v14[v48] = vrev32q_s8(*&v15[v48]);
+              ++v49;
+              v48 += 4;
             }
 
-            while (a6 > v51);
+            while (a6 > v49);
           }
 
           goto LABEL_66;
@@ -3834,46 +3990,46 @@ BOOL C3DConvertToPlatformIndependentData(char *__src, char *__dst, unint64_t a3,
         case 16:
           if (a6 >= 1)
           {
-            v34 = 0;
+            v32 = 0;
             do
             {
-              *&__dst[2 * v34] = *&__src[2 * v34];
-              ++v34;
+              *(v14 + v32) = *(v15 + v32);
+              ++v32;
             }
 
-            while (a6 > v34);
+            while (a6 > v32);
           }
 
           goto LABEL_66;
         case 14:
           if (a6 >= 1)
           {
-            v35 = 0;
+            v33 = 0;
             do
             {
-              *&__dst[2 * v35] = *&__src[2 * v35];
-              ++v35;
+              *(v14 + v33) = *(v15 + v33);
+              ++v33;
             }
 
-            while (a6 > v35);
+            while (a6 > v33);
           }
 
           goto LABEL_66;
         case 22:
         case 23:
-          *__dst = *__src;
+          *v14 = *v15;
 LABEL_66:
-          __dst += a9;
-          __src += a8;
-          if (++v32 == a7)
+          v14 = (v14 + a9);
+          v15 = (v15 + a8);
+          if (++v30 == a7)
           {
             return 1;
           }
 
           continue;
         default:
-          v59 = scn_default_log();
-          result = os_log_type_enabled(v59, OS_LOG_TYPE_ERROR);
+          v57 = scn_default_log(__src, __dst);
+          result = os_log_type_enabled(v57, OS_LOG_TYPE_ERROR);
           if (result)
           {
             C3DConvertToPlatformIndependentData_cold_4();
@@ -3888,7 +4044,7 @@ LABEL_66:
   return 1;
 }
 
-BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a3, unint64_t a4, unsigned int a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9)
+BOOL C3DConvertFromPlatformIndependentData(_DWORD *__src, _DWORD *__dst, unint64_t a3, unint64_t a4, unsigned int a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
   if (a8 * a7 <= a3)
   {
@@ -3896,9 +4052,11 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
     {
       if (a7 >= 1)
       {
+        v15 = __dst;
+        v16 = __src;
         if (a5 - 6 >= 0xF && (a5 > 0x18 || ((1 << a5) & 0x1800016) == 0))
         {
-          v42 = scn_default_log();
+          v42 = scn_default_log(__src, __dst);
           result = os_log_type_enabled(v42, OS_LOG_TYPE_ERROR);
           if (result)
           {
@@ -3915,13 +4073,13 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
         {
           switch(v18)
           {
-            case 0u:
+            case 0:
               if (a6 >= 1)
               {
                 v40 = 0;
                 do
                 {
-                  *&__dst[4 * v40] = bswap32(*&__src[4 * v40]);
+                  v15[v40] = bswap32(v16[v40]);
                   ++v40;
                 }
 
@@ -3929,13 +4087,13 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
               }
 
               break;
-            case 1u:
+            case 1:
               if (a6 >= 1)
               {
                 v36 = 0;
                 do
                 {
-                  *&__dst[4 * v36] = *&__src[4 * v36];
+                  v15[v36] = v16[v36];
                   ++v36;
                 }
 
@@ -3943,17 +4101,17 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
               }
 
               break;
-            case 3u:
-            case 0xFu:
-              memcpy(__dst, __src, a6);
+            case 3:
+            case 15:
+              memcpy(v15, v16, a6);
               break;
-            case 5u:
+            case 5:
               if (a6 >= 1)
               {
                 v34 = 0;
                 do
                 {
-                  *&__dst[8 * v34] = bswap64(*&__src[8 * v34]);
+                  *&v15[2 * v34] = bswap64(*&v16[2 * v34]);
                   ++v34;
                 }
 
@@ -3961,13 +4119,13 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
               }
 
               break;
-            case 6u:
+            case 6:
               if (a6 >= 1)
               {
                 v35 = 0;
                 do
                 {
-                  *&__dst[4 * v35] = bswap32(*&__src[4 * v35]);
+                  v15[v35] = bswap32(v16[v35]);
                   ++v35;
                 }
 
@@ -3975,16 +4133,16 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
               }
 
               break;
-            case 7u:
-            case 0x11u:
+            case 7:
+            case 17:
               if (a6 >= 1)
               {
                 v26 = 0;
                 v27 = 0;
                 do
                 {
-                  *&__dst[4 * v26] = bswap32(*&__src[4 * v26]);
-                  *&__dst[(4 * v26) | 4] = bswap32(*&__src[(4 * v26) | 4]);
+                  v15[v26] = bswap32(v16[v26]);
+                  *(v15 + ((4 * v26) | 4)) = bswap32(*(v16 + ((4 * v26) | 4)));
                   ++v27;
                   v26 += 2;
                 }
@@ -3993,18 +4151,18 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
               }
 
               break;
-            case 8u:
-            case 0x12u:
+            case 8:
+            case 18:
               if (a6 >= 1)
               {
                 v20 = 0;
                 v21 = 0;
                 do
                 {
-                  v22 = 4 * v20;
-                  *&__dst[v22] = bswap32(*&__src[v22]);
-                  *&__dst[v22 + 4] = bswap32(*&__src[v22 + 4]);
-                  *&__dst[v22 + 8] = bswap32(*&__src[v22 + 8]);
+                  v22 = v20;
+                  v15[v22] = bswap32(v16[v22]);
+                  v15[v22 + 1] = bswap32(v16[v22 + 1]);
+                  v15[v22 + 2] = bswap32(v16[v22 + 2]);
                   ++v21;
                   v20 += 3;
                 }
@@ -4013,8 +4171,8 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
               }
 
               break;
-            case 9u:
-            case 0x13u:
+            case 9:
+            case 19:
               if (a6 >= 1)
               {
                 v23 = 0;
@@ -4022,10 +4180,10 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
                 do
                 {
                   v25 = 4 * v23;
-                  *&__dst[v25] = bswap32(*&__src[v25]);
-                  *&__dst[v25 | 4] = bswap32(*&__src[v25 | 4]);
-                  *&__dst[v25 | 8] = bswap32(*&__src[v25 | 8]);
-                  *&__dst[v25 | 0xC] = bswap32(*&__src[v25 | 0xC]);
+                  v15[v25 / 4] = bswap32(v16[v25 / 4]);
+                  *(v15 + (v25 | 4)) = bswap32(*(v16 + (v25 | 4)));
+                  *(v15 + (v25 | 8)) = bswap32(*(v16 + (v25 | 8)));
+                  *(v15 + (v25 | 0xC)) = bswap32(*(v16 + (v25 | 0xC)));
                   ++v24;
                   v23 += 4;
                 }
@@ -4034,18 +4192,18 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
               }
 
               break;
-            case 0xAu:
+            case 10:
               if (a6 >= 1)
               {
                 v31 = 0;
                 do
                 {
-                  v32 = 64 * v31;
+                  v32 = 16 * v31;
                   v33 = 16;
                   do
                   {
-                    *&__dst[v32] = bswap32(*&__src[v32]);
-                    v32 += 4;
+                    v15[v32] = bswap32(v16[v32]);
+                    ++v32;
                     --v33;
                   }
 
@@ -4057,18 +4215,18 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
               }
 
               break;
-            case 0xBu:
+            case 11:
               if (a6 >= 1)
               {
                 v28 = 0;
                 do
                 {
-                  v29 = 36 * v28;
+                  v29 = 9 * v28;
                   v30 = 9;
                   do
                   {
-                    *&__dst[v29] = bswap32(*&__src[v29]);
-                    v29 += 4;
+                    v15[v29] = bswap32(v16[v29]);
+                    ++v29;
                     --v30;
                   }
 
@@ -4080,7 +4238,7 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
               }
 
               break;
-            case 0xCu:
+            case 12:
               if (a6 >= 1)
               {
                 v37 = 0;
@@ -4088,10 +4246,10 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
                 do
                 {
                   v39 = 4 * v37;
-                  *&__dst[v39] = bswap32(*&__src[v39]);
-                  *&__dst[v39 | 4] = bswap32(*&__src[v39 | 4]);
-                  *&__dst[v39 | 8] = bswap32(*&__src[v39 | 8]);
-                  *&__dst[v39 | 0xC] = bswap32(*&__src[v39 | 0xC]);
+                  v15[v39 / 4] = bswap32(v16[v39 / 4]);
+                  *(v15 + (v39 | 4)) = bswap32(*(v16 + (v39 | 4)));
+                  *(v15 + (v39 | 8)) = bswap32(*(v16 + (v39 | 8)));
+                  *(v15 + (v39 | 0xC)) = bswap32(*(v16 + (v39 | 0xC)));
                   ++v38;
                   v37 += 4;
                 }
@@ -4100,14 +4258,14 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
               }
 
               break;
-            case 0xDu:
-            case 0x10u:
+            case 13:
+            case 16:
               if (a6 >= 1)
               {
                 v19 = 0;
                 do
                 {
-                  *&__dst[2 * v19] = *&__src[2 * v19];
+                  *(v15 + v19) = *(v16 + v19);
                   ++v19;
                 }
 
@@ -4115,13 +4273,13 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
               }
 
               break;
-            case 0xEu:
+            case 14:
               if (a6 >= 1)
               {
                 v41 = 0;
                 do
                 {
-                  *&__dst[2 * v41] = *&__src[2 * v41];
+                  *(v15 + v41) = *(v16 + v41);
                   ++v41;
                 }
 
@@ -4130,12 +4288,12 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
 
               break;
             default:
-              *__dst = *__src;
+              *v15 = *v16;
               break;
           }
 
-          __dst += a9;
-          __src += a8;
+          v15 = (v15 + a9);
+          v16 = (v16 + a8);
           ++v17;
         }
 
@@ -4145,7 +4303,7 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
       return 1;
     }
 
-    v12 = scn_default_log();
+    v12 = scn_default_log(__src, __dst);
     result = os_log_type_enabled(v12, OS_LOG_TYPE_ERROR);
     if (result)
     {
@@ -4156,7 +4314,7 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
 
   else
   {
-    v9 = scn_default_log();
+    v9 = scn_default_log(__src, __dst);
     result = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
     if (result)
     {
@@ -4170,80 +4328,81 @@ BOOL C3DConvertFromPlatformIndependentData(char *__src, char *__dst, unint64_t a
 
 CFDataRef C3DCopyLittleEndianToHostRepresentationOfData(const __CFData *a1, uint64_t a2, uint64_t a3)
 {
-  v5 = C3DBaseTypeForCFNumberType(a2);
-  v6 = C3DSizeOfBaseType(v5);
+  v5 = C3DBaseTypeForCFNumberType(a2, a2);
+  v7 = C3DSizeOfBaseType(v5, v6);
   if (!v5)
   {
     return 0;
   }
 
-  v7 = v6 * a3;
-  if (!(v6 * a3))
+  v8 = v7 * a3;
+  if (!(v7 * a3))
   {
     return 0;
   }
 
-  v8 = malloc_type_malloc(v6 * a3, 0x24FDF311uLL);
+  v9 = malloc_type_malloc(v7 * a3, 0x24FDF311uLL);
   BytePtr = CFDataGetBytePtr(a1);
   Length = CFDataGetLength(a1);
-  v11 = C3DSizeOfBaseType(v5);
-  v12 = C3DSizeOfBaseType(v5);
-  if (!C3DConvertFromPlatformIndependentData(BytePtr, v8, Length, v7, v5, 1, a3, v11, v12))
+  v13 = C3DSizeOfBaseType(v5, v12);
+  v15 = C3DSizeOfBaseType(v5, v14);
+  if (!C3DConvertFromPlatformIndependentData(BytePtr, v9, Length, v8, v5, 1, a3, v13, v15))
   {
-    free(v8);
+    free(v9);
     return 0;
   }
 
-  v13 = *MEMORY[0x277CBECE8];
-  v14 = *MEMORY[0x277CBECE8];
+  v16 = *MEMORY[0x277CBECE8];
+  v17 = *MEMORY[0x277CBECE8];
 
-  return CFDataCreateWithBytesNoCopy(v13, v8, v7, v14);
+  return CFDataCreateWithBytesNoCopy(v16, v9, v8, v17);
 }
 
-uint64_t C3DSizeOfBaseType(int a1)
+uint64_t C3DSizeOfBaseType(uint64_t a1, uint64_t a2)
 {
+  v2 = a1;
   if (a1 >= 46)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DSizeOfBaseType_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DSizeOfBaseType_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
-  return __C3DSizeOfBaseTypeArray[a1];
+  return __C3DSizeOfBaseTypeArray[v2];
 }
 
 CFDataRef C3DCopyHostToLittleEndianRepresentationOfData(const __CFData *a1, uint64_t a2, uint64_t a3)
 {
   Length = CFDataGetLength(a1);
-  v7 = C3DBaseTypeForCFNumberType(a2);
-  v8 = C3DSizeOfBaseType(v7);
-  if (!v7)
+  v8 = C3DBaseTypeForCFNumberType(a2, v7);
+  v10 = C3DSizeOfBaseType(v8, v9);
+  if (!v8)
   {
     return 0;
   }
 
-  v9 = v8 * a3;
-  if (!(v8 * a3))
+  v11 = v10 * a3;
+  if (!(v10 * a3))
   {
     return 0;
   }
 
-  v10 = malloc_type_malloc(v8 * a3, 0x2F96E996uLL);
+  v12 = malloc_type_malloc(v10 * a3, 0x2F96E996uLL);
   BytePtr = CFDataGetBytePtr(a1);
-  v12 = C3DSizeOfBaseType(v7);
-  v13 = C3DSizeOfBaseType(v7);
-  if (!C3DConvertToPlatformIndependentData(BytePtr, v10, Length, v9, v7, 1, a3, v12, v13))
+  v15 = C3DSizeOfBaseType(v8, v14);
+  v17 = C3DSizeOfBaseType(v8, v16);
+  if (!C3DConvertToPlatformIndependentData(BytePtr, v12, Length, v11, v8, 1, a3, v15, v17))
   {
-    free(v10);
+    free(v12);
     return 0;
   }
 
-  v14 = *MEMORY[0x277CBECE8];
-  v15 = *MEMORY[0x277CBECE8];
+  v18 = *MEMORY[0x277CBECE8];
+  v19 = *MEMORY[0x277CBECE8];
 
-  return CFDataCreateWithBytesNoCopy(v14, v10, v9, v15);
+  return CFDataCreateWithBytesNoCopy(v18, v12, v11, v19);
 }
 
 uint64_t C3DBaseTypeArraySizeFromString(const __CFString *a1)
@@ -4284,7 +4443,7 @@ uint64_t C3DBaseTypeFromGLSLString(const __CFString *a1)
 
 uint64_t __C3DBaseTypeFromGLSLString(const __CFString *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (CFStringCompare(a1, @"int", 0) == kCFCompareEqualTo || CFStringCompare(a1, @"BOOL", 0) == kCFCompareEqualTo)
   {
     return 2;
@@ -4338,13 +4497,13 @@ uint64_t __C3DBaseTypeFromGLSLString(const __CFString *a1)
   result = CFStringCompare(a1, @"none", 0);
   if (result)
   {
-    v3 = scn_default_log();
-    result = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    v4 = scn_default_log(result, v3);
+    result = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
     if (result)
     {
-      v4 = 138412290;
-      v5 = a1;
-      _os_log_impl(&dword_21BEF7000, v3, OS_LOG_TYPE_DEFAULT, "Warning: C3DBaseTypeFromGLSLString: unknown type name '%@'", &v4, 0xCu);
+      v5 = 138412290;
+      v6 = a1;
+      _os_log_impl(&dword_21BEF7000, v4, OS_LOG_TYPE_DEFAULT, "Warning: C3DBaseTypeFromGLSLString: unknown type name '%@'", &v5, 0xCu);
       return 0;
     }
   }
@@ -4374,7 +4533,7 @@ uint64_t C3DBaseTypeFromMetalString(const __CFString *a1)
 
 uint64_t __C3DBaseTypeFromMetalString(const __CFString *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (CFStringCompare(a1, @"int", 0) == kCFCompareEqualTo)
   {
     return 2;
@@ -4433,13 +4592,13 @@ uint64_t __C3DBaseTypeFromMetalString(const __CFString *a1)
   result = CFStringCompare(a1, @"none", 0);
   if (result)
   {
-    v3 = scn_default_log();
-    result = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    v4 = scn_default_log(result, v3);
+    result = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
     if (result)
     {
-      v4 = 138412290;
-      v5 = a1;
-      _os_log_impl(&dword_21BEF7000, v3, OS_LOG_TYPE_DEFAULT, "Warning: C3DBaseTypeFromMetalString: unknown type name '%@'", &v4, 0xCu);
+      v5 = 138412290;
+      v6 = a1;
+      _os_log_impl(&dword_21BEF7000, v4, OS_LOG_TYPE_DEFAULT, "Warning: C3DBaseTypeFromMetalString: unknown type name '%@'", &v5, 0xCu);
       return 0;
     }
   }
@@ -4469,7 +4628,7 @@ uint64_t C3DBaseTypeFromMetalOrGLSLString(const __CFString *a1)
 
 uint64_t __C3DBaseTypeFromMetalOrGLSLString(const __CFString *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   if (CFStringCompare(a1, @"int", 0) == kCFCompareEqualTo)
   {
     return 2;
@@ -4528,13 +4687,13 @@ uint64_t __C3DBaseTypeFromMetalOrGLSLString(const __CFString *a1)
   result = CFStringCompare(a1, @"none", 0);
   if (result)
   {
-    v3 = scn_default_log();
-    result = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
+    v4 = scn_default_log(result, v3);
+    result = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
     if (result)
     {
-      v4 = 138412290;
-      v5 = a1;
-      _os_log_impl(&dword_21BEF7000, v3, OS_LOG_TYPE_DEFAULT, "Warning: C3DBaseTypeFromMetalOrGLSLString: unknown type name '%@'", &v4, 0xCu);
+      v5 = 138412290;
+      v6 = a1;
+      _os_log_impl(&dword_21BEF7000, v4, OS_LOG_TYPE_DEFAULT, "Warning: C3DBaseTypeFromMetalOrGLSLString: unknown type name '%@'", &v5, 0xCu);
       return 0;
     }
   }
@@ -4542,14 +4701,14 @@ uint64_t __C3DBaseTypeFromMetalOrGLSLString(const __CFString *a1)
   return result;
 }
 
-__CFString *C3DBaseTypeStringDescription(int a1)
+__CFString *C3DBaseTypeStringDescription(uint64_t a1, uint64_t a2)
 {
   if (a1 >= 46)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DSizeOfBaseType_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DSizeOfBaseType_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
 
     return @"unknown type";
@@ -4566,7 +4725,7 @@ __CFString *C3DBaseTypeStringDescription(int a1)
   }
 }
 
-uint64_t C3DBaseTypeGetComponentType(unsigned int a1)
+uint64_t C3DBaseTypeGetComponentType(uint64_t a1, uint64_t a2)
 {
   if (a1 < 0x2E)
   {
@@ -4575,8 +4734,8 @@ uint64_t C3DBaseTypeGetComponentType(unsigned int a1)
 
   else
   {
-    v1 = scn_default_log();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v2 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       C3DBaseTypeGetComponentType_cold_1();
     }
@@ -4585,15 +4744,15 @@ uint64_t C3DBaseTypeGetComponentType(unsigned int a1)
   }
 }
 
-uint64_t C3DBaseTypeGetComponentCount(unsigned int a1)
+uint64_t C3DBaseTypeGetComponentCount(uint64_t a1, uint64_t a2)
 {
   if (a1 < 0x2E)
   {
     return HIBYTE(__C3DBaseTypeDescArray[3 * a1 + 1]);
   }
 
-  v1 = scn_default_log();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v2 = scn_default_log(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     C3DBaseTypeGetComponentType_cold_1();
   }
@@ -4601,15 +4760,15 @@ uint64_t C3DBaseTypeGetComponentCount(unsigned int a1)
   return 1;
 }
 
-uint64_t C3DBaseTypeGetBytesPerComponent(unsigned int a1)
+uint64_t C3DBaseTypeGetBytesPerComponent(uint64_t a1, uint64_t a2)
 {
   if (a1 < 0x2E)
   {
     return LOBYTE(__C3DBaseTypeDescArray[3 * a1 + 1]);
   }
 
-  v1 = scn_default_log();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v2 = scn_default_log(a1, a2);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     C3DBaseTypeGetComponentType_cold_1();
   }
@@ -4617,28 +4776,28 @@ uint64_t C3DBaseTypeGetBytesPerComponent(unsigned int a1)
   return 0;
 }
 
-uint64_t C3DBaseTypeIsFloatingValue(unsigned int a1)
+uint64_t C3DBaseTypeIsFloatingValue(uint64_t a1, uint64_t a2)
 {
   if (a1 < 0x2E)
   {
-    v2 = __C3DBaseTypeDescArray[3 * a1 + 2];
+    v3 = __C3DBaseTypeDescArray[3 * a1 + 2];
   }
 
   else
   {
-    v1 = scn_default_log();
-    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+    v2 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       C3DBaseTypeGetComponentType_cold_1();
     }
 
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2 & 1;
+  return v3 & 1;
 }
 
-uint64_t C3DBaseTypeGetCompoundType(int a1, int a2)
+uint64_t C3DBaseTypeGetCompoundType(uint64_t a1, uint64_t a2)
 {
   LOWORD(v2) = a1;
   if (a1 <= 15)
@@ -4649,7 +4808,7 @@ uint64_t C3DBaseTypeGetCompoundType(int a1, int a2)
       {
         if ((a2 - 1) >= 4)
         {
-          v13 = scn_default_log();
+          v13 = scn_default_log(a1, a2);
           if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
           {
             C3DBaseTypeGetCompoundType_cold_2();
@@ -4672,7 +4831,7 @@ uint64_t C3DBaseTypeGetCompoundType(int a1, int a2)
 
         if ((a2 - 1) >= 4)
         {
-          v14 = scn_default_log();
+          v14 = scn_default_log(a1, a2);
           if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
             C3DBaseTypeGetCompoundType_cold_1();
@@ -4700,7 +4859,7 @@ uint64_t C3DBaseTypeGetCompoundType(int a1, int a2)
               return v2;
             }
 
-            v20 = scn_default_log();
+            v20 = scn_default_log(a1, a2);
             if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
               C3DBaseTypeGetCompoundType_cold_9();
@@ -4709,10 +4868,10 @@ uint64_t C3DBaseTypeGetCompoundType(int a1, int a2)
 
           LOWORD(v2) = 4;
           return v2;
-        case 14:
+        case 0xE:
           if ((a2 - 1) >= 4)
           {
-            v15 = scn_default_log();
+            v15 = scn_default_log(a1, a2);
             if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
             {
               C3DBaseTypeGetCompoundType_cold_5();
@@ -4725,10 +4884,10 @@ uint64_t C3DBaseTypeGetCompoundType(int a1, int a2)
           v3 = 16 * (a2 - 1);
           v4 = 0x2200210020000ELL;
           break;
-        case 15:
+        case 0xF:
           if ((a2 - 1) >= 4)
           {
-            v18 = scn_default_log();
+            v18 = scn_default_log(a1, a2);
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               C3DBaseTypeGetCompoundType_cold_3();
@@ -4754,7 +4913,7 @@ uint64_t C3DBaseTypeGetCompoundType(int a1, int a2)
   {
     switch(a1)
     {
-      case 22:
+      case 0x16:
         if (a2 != 1)
         {
           if (a2 == 4)
@@ -4763,7 +4922,7 @@ uint64_t C3DBaseTypeGetCompoundType(int a1, int a2)
             return v2;
           }
 
-          v23 = scn_default_log();
+          v23 = scn_default_log(a1, a2);
           if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
           {
             C3DBaseTypeGetCompoundType_cold_8();
@@ -4772,10 +4931,10 @@ uint64_t C3DBaseTypeGetCompoundType(int a1, int a2)
 
         LOWORD(v2) = 22;
         return v2;
-      case 35:
+      case 0x23:
         if ((a2 - 1) >= 4)
         {
-          v17 = scn_default_log();
+          v17 = scn_default_log(a1, a2);
           if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
           {
             C3DBaseTypeGetCompoundType_cold_6();
@@ -4790,10 +4949,10 @@ uint64_t C3DBaseTypeGetCompoundType(int a1, int a2)
         }
 
         return v2;
-      case 39:
+      case 0x27:
         if ((a2 - 1) >= 4)
         {
-          v19 = scn_default_log();
+          v19 = scn_default_log(a1, a2);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             C3DBaseTypeGetCompoundType_cold_4();
@@ -4813,7 +4972,7 @@ uint64_t C3DBaseTypeGetCompoundType(int a1, int a2)
 LABEL_42:
     if (a2 != 1)
     {
-      v5 = scn_default_log();
+      v5 = scn_default_log(a1, a2);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
       {
         C3DBaseTypeGetCompoundType_cold_12(v5, v6, v7, v8, v9, v10, v11, v12);
@@ -4833,7 +4992,7 @@ LABEL_42:
         return v2;
       }
 
-      v22 = scn_default_log();
+      v22 = scn_default_log(a1, a2);
       LOWORD(v2) = 16;
       if (!os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
@@ -4859,7 +5018,7 @@ LABEL_42:
           return v2;
         }
 
-        v21 = scn_default_log();
+        v21 = scn_default_log(a1, a2);
         if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           C3DBaseTypeGetCompoundType_cold_10();
@@ -4875,7 +5034,7 @@ LABEL_42:
 
   if ((a2 - 1) >= 4)
   {
-    v16 = scn_default_log();
+    v16 = scn_default_log(a1, a2);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       C3DBaseTypeGetCompoundType_cold_7();
@@ -4892,11 +5051,12 @@ LABEL_42:
   return v2;
 }
 
-BOOL C3DBaseTypeDescription(int a1, uint64_t *a2, uint64_t *a3, _BYTE *a4)
+BOOL C3DBaseTypeDescription(_BOOL8 a1, uint64_t *a2, uint64_t *a3, _BYTE *a4)
 {
-  if (a1 >= 46 && (v8 = scn_default_log(), os_log_type_enabled(v8, OS_LOG_TYPE_FAULT)))
+  v7 = a1;
+  if (a1 >= 46 && (v8 = scn_default_log(a1, a2), a1 = os_log_type_enabled(v8, OS_LOG_TYPE_FAULT)))
   {
-    C3DSizeOfBaseType_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
+    C3DSizeOfBaseType_cold_1(v8, a2, v9, v10, v11, v12, v13, v14);
     if (a2)
     {
       goto LABEL_4;
@@ -4912,20 +5072,20 @@ LABEL_4:
     }
   }
 
-  v16 = scn_default_log();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+  v15 = scn_default_log(a1, a2);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_FAULT))
   {
-    C3DBaseTypeDescription_cold_2(v16, v17, v18, v19, v20, v21, v22, v23);
+    C3DBaseTypeDescription_cold_2(v15, v16, v17, v18, v19, v20, v21, v22);
   }
 
 LABEL_8:
-  v24 = &__C3DBaseTypeDescArray[3 * a1];
-  v25 = v24[3];
-  *a2 = v24[2];
-  *a3 = v25;
-  LOBYTE(v24) = v24[4];
-  *a4 = v24 & 1;
-  return C3DBaseTypeFromDescription(*a2, v25, v24 & 1) == a1;
+  v23 = &__C3DBaseTypeDescArray[3 * v7];
+  v24 = v23[3];
+  *a2 = v23[2];
+  *a3 = v24;
+  LOBYTE(v23) = v23[4];
+  *a4 = v23 & 1;
+  return C3DBaseTypeFromDescription(*a2, v24, v23 & 1) == v7;
 }
 
 uint64_t C3DBaseTypeFromDescription(uint64_t a1, uint64_t a2, int a3)
@@ -4976,8 +5136,9 @@ LABEL_25:
     if ((C3DBaseTypeFromDescription_done_155 & 1) == 0)
     {
       C3DBaseTypeFromDescription_done_155 = 1;
-      v10 = scn_default_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v10 = scn_default_log(a1, a2);
+      a1 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+      if (a1)
       {
         C3DBaseTypeFromDescription_cold_1();
       }
@@ -5016,8 +5177,9 @@ LABEL_13:
       if ((C3DBaseTypeFromDescription_done & 1) == 0)
       {
         C3DBaseTypeFromDescription_done = 1;
-        v9 = scn_default_log();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+        v9 = scn_default_log(a1, a2);
+        a1 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
+        if (a1)
         {
           C3DBaseTypeFromDescription_cold_1();
         }
@@ -5049,7 +5211,7 @@ LABEL_13:
   }
 
 LABEL_31:
-  v11 = scn_default_log();
+  v11 = scn_default_log(a1, a2);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
   {
     C3DBaseTypeFromDescription_cold_3();
@@ -5059,11 +5221,12 @@ LABEL_31:
   return v8;
 }
 
-float32_t C3DAddBaseType(int a1, float32x2_t *a2, float32x2_t *a3, float32x4_t *a4, float32x4_t a5)
+float32_t C3DAddBaseType(_BOOL8 a1, float32x2_t *a2, float32x2_t *a3, float32x4_t *a4, float32x4_t a5)
 {
-  if (!a2 && (v9 = scn_default_log(), os_log_type_enabled(v9, OS_LOG_TYPE_FAULT)))
+  v8 = a1;
+  if (!a2 && (v9 = scn_default_log(a1, 0), a1 = os_log_type_enabled(v9, OS_LOG_TYPE_FAULT)))
   {
-    C3DAddBaseType_cold_1(v9, v10, v11, v12, v13, v14, v15, v16);
+    C3DAddBaseType_cold_1(v9, a2, v10, v11, v12, v13, v14, v15);
     if (a3)
     {
       goto LABEL_6;
@@ -5075,23 +5238,25 @@ float32_t C3DAddBaseType(int a1, float32x2_t *a2, float32x2_t *a3, float32x4_t *
     goto LABEL_6;
   }
 
-  v17 = scn_default_log();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+  v16 = scn_default_log(a1, a2);
+  a1 = os_log_type_enabled(v16, OS_LOG_TYPE_FAULT);
+  if (a1)
   {
-    C3DAddBaseType_cold_2(v17, v18, v19, v20, v21, v22, v23, v24);
+    C3DAddBaseType_cold_2(v16, a2, v17, v18, v19, v20, v21, v22);
   }
 
 LABEL_6:
   if (!a4)
   {
-    v25 = scn_default_log();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    v23 = scn_default_log(a1, a2);
+    a1 = os_log_type_enabled(v23, OS_LOG_TYPE_FAULT);
+    if (a1)
     {
-      C3DAddBaseType_cold_3(v25, v26, v27, v28, v29, v30, v31, v32);
+      C3DAddBaseType_cold_3(v23, a2, v24, v25, v26, v27, v28, v29);
     }
   }
 
-  switch(a1)
+  switch(v8)
   {
     case 1:
     case 7:
@@ -5106,8 +5271,8 @@ LABEL_6:
     case 5:
     case 12:
     case 16:
-      v33 = scn_default_log();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v30 = scn_default_log(a1, a2);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         C3DAddBaseType_cold_5();
       }
@@ -5140,16 +5305,16 @@ LABEL_20:
       a4->i16[0] = a3->i16[0] + a2->i16[0];
       break;
     case 15:
-      v35 = scn_default_log();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v32 = scn_default_log(a1, a2);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         C3DAddBaseType_cold_4();
       }
 
       break;
     default:
-      v34 = scn_default_log();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v31 = scn_default_log(a1, a2);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         C3DAddBaseType_cold_6();
       }
@@ -5160,11 +5325,12 @@ LABEL_20:
   return a5.f32[0];
 }
 
-float32_t C3DConcatBaseType(int a1, float32x2_t *a2, float32x2_t *a3, float32x4_t *a4, float32x4_t a5)
+float32_t C3DConcatBaseType(_BOOL8 a1, float32x2_t *a2, float32x2_t *a3, float32x4_t *a4, float32x4_t a5)
 {
-  if (!a2 && (v9 = scn_default_log(), os_log_type_enabled(v9, OS_LOG_TYPE_FAULT)))
+  v8 = a1;
+  if (!a2 && (v9 = scn_default_log(a1, 0), a1 = os_log_type_enabled(v9, OS_LOG_TYPE_FAULT)))
   {
-    C3DAddBaseType_cold_1(v9, v10, v11, v12, v13, v14, v15, v16);
+    C3DAddBaseType_cold_1(v9, a2, v10, v11, v12, v13, v14, v15);
     if (a3)
     {
       goto LABEL_6;
@@ -5176,36 +5342,38 @@ float32_t C3DConcatBaseType(int a1, float32x2_t *a2, float32x2_t *a3, float32x4_
     goto LABEL_6;
   }
 
-  v17 = scn_default_log();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+  v16 = scn_default_log(a1, a2);
+  a1 = os_log_type_enabled(v16, OS_LOG_TYPE_FAULT);
+  if (a1)
   {
-    C3DAddBaseType_cold_2(v17, v18, v19, v20, v21, v22, v23, v24);
+    C3DAddBaseType_cold_2(v16, a2, v17, v18, v19, v20, v21, v22);
   }
 
 LABEL_6:
   if (!a4)
   {
-    v25 = scn_default_log();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    v23 = scn_default_log(a1, a2);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
     {
-      C3DAddBaseType_cold_3(v25, v26, v27, v28, v29, v30, v31, v32);
+      C3DAddBaseType_cold_3(v23, v24, v25, v26, v27, v28, v29, v30);
     }
   }
 
-  if (a1 != 11)
+  if (v8 != 11)
   {
-    return C3DAddBaseType(a1, a2, a3, a4, a5);
+    return C3DAddBaseType(v8, a2, a3, a4, a5);
   }
 
-  v33 = C3DMatrix4x4Mult(a2, a3, a4);
-  return *&v33;
+  v31 = C3DMatrix4x4Mult(a2, a3, a4);
+  return *&v31;
 }
 
-float32_t C3DSubBaseType(int a1, float32x2_t *a2, float32x2_t *a3, float32x4_t *a4, float32x4_t a5)
+float32_t C3DSubBaseType(_BOOL8 a1, float32x2_t *a2, float32x2_t *a3, float32x4_t *a4, float32x4_t a5)
 {
-  if (!a2 && (v9 = scn_default_log(), os_log_type_enabled(v9, OS_LOG_TYPE_FAULT)))
+  v8 = a1;
+  if (!a2 && (v9 = scn_default_log(a1, 0), a1 = os_log_type_enabled(v9, OS_LOG_TYPE_FAULT)))
   {
-    C3DAddBaseType_cold_1(v9, v10, v11, v12, v13, v14, v15, v16);
+    C3DAddBaseType_cold_1(v9, a2, v10, v11, v12, v13, v14, v15);
     if (a3)
     {
       goto LABEL_6;
@@ -5217,23 +5385,25 @@ float32_t C3DSubBaseType(int a1, float32x2_t *a2, float32x2_t *a3, float32x4_t *
     goto LABEL_6;
   }
 
-  v17 = scn_default_log();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
+  v16 = scn_default_log(a1, a2);
+  a1 = os_log_type_enabled(v16, OS_LOG_TYPE_FAULT);
+  if (a1)
   {
-    C3DAddBaseType_cold_2(v17, v18, v19, v20, v21, v22, v23, v24);
+    C3DAddBaseType_cold_2(v16, a2, v17, v18, v19, v20, v21, v22);
   }
 
 LABEL_6:
   if (!a4)
   {
-    v25 = scn_default_log();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
+    v23 = scn_default_log(a1, a2);
+    a1 = os_log_type_enabled(v23, OS_LOG_TYPE_FAULT);
+    if (a1)
     {
-      C3DAddBaseType_cold_3(v25, v26, v27, v28, v29, v30, v31, v32);
+      C3DAddBaseType_cold_3(v23, a2, v24, v25, v26, v27, v28, v29);
     }
   }
 
-  switch(a1)
+  switch(v8)
   {
     case 1:
     case 7:
@@ -5248,8 +5418,8 @@ LABEL_6:
     case 5:
     case 12:
     case 16:
-      v33 = scn_default_log();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v30 = scn_default_log(a1, a2);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         C3DSubBaseType_cold_5();
       }
@@ -5282,16 +5452,16 @@ LABEL_20:
       a4->i16[0] = a2->i16[0] - a3->i16[0];
       break;
     case 15:
-      v35 = scn_default_log();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v32 = scn_default_log(a1, a2);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         C3DSubBaseType_cold_4();
       }
 
       break;
     default:
-      v34 = scn_default_log();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v31 = scn_default_log(a1, a2);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
         C3DSubBaseType_cold_6();
       }
@@ -5302,11 +5472,12 @@ LABEL_20:
   return a5.f32[0];
 }
 
-UInt8 *C3DCreateCStringFromStringWithEncoding(CFStringRef theString, CFStringEncoding a2)
+UInt8 *C3DCreateCStringFromStringWithEncoding(CFStringRef theString, uint64_t a2)
 {
+  v2 = a2;
   if (!theString)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, a2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DCreateCStringFromStringWithEncoding_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -5314,23 +5485,23 @@ UInt8 *C3DCreateCStringFromStringWithEncoding(CFStringRef theString, CFStringEnc
   }
 
   Length = CFStringGetLength(theString);
-  MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, a2);
+  MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length, v2);
   if ((MaximumSizeForEncoding & 0x8000000000000000) == 0)
   {
-    v14 = MaximumSizeForEncoding;
-    v15 = malloc_type_calloc(MaximumSizeForEncoding + 1, 1uLL, 0x3E99D061uLL);
-    v18.location = 0;
-    v18.length = Length;
-    if (CFStringGetBytes(theString, v18, a2, 0x20u, 0, v15, v14 + 1, 0))
+    v15 = MaximumSizeForEncoding;
+    v16 = malloc_type_calloc(MaximumSizeForEncoding + 1, 1uLL, 0x3E99D061uLL);
+    v19.location = 0;
+    v19.length = Length;
+    if (CFStringGetBytes(theString, v19, v2, 0x20u, 0, v16, v15 + 1, 0))
     {
-      return v15;
+      return v16;
     }
 
-    free(v15);
+    free(v16);
   }
 
-  v16 = scn_default_log();
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+  v17 = scn_default_log(MaximumSizeForEncoding, v14);
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
   {
     C3DCreateCStringFromStringWithEncoding_cold_2();
   }
@@ -5352,7 +5523,7 @@ id C3DCopyRelativeFromFolderURL(void *a1, void *a2)
   if (v3)
   {
     v4 = &stru_282DCC058;
-    while (([v3 isEqualToString:@"/"] & 1) == 0)
+    while ((objc_msgSend_isEqualToString_(v3) & 1) == 0)
     {
       if ([v7 hasPrefix:v3])
       {
@@ -5415,30 +5586,30 @@ uint64_t C3DMakePowerOfTwo(int a1)
   return v2;
 }
 
-double C3DParseVersionNumber(CFStringRef theString)
+double C3DParseVersionNumber(CFStringRef theString, uint64_t a2)
 {
   if (theString)
   {
     ArrayBySeparatingStrings = CFStringCreateArrayBySeparatingStrings(0, theString, @".");
     if (CFArrayGetCount(ArrayBySeparatingStrings) < 1)
     {
-      v3 = 0.0;
+      v4 = 0.0;
     }
 
     else
     {
-      v2 = 0;
-      v3 = 0.0;
-      v4 = 1.0;
+      v3 = 0;
+      v4 = 0.0;
+      v5 = 1.0;
       do
       {
-        ValueAtIndex = CFArrayGetValueAtIndex(ArrayBySeparatingStrings, v2);
-        v3 = v3 + CFStringGetIntValue(ValueAtIndex) * v4;
-        v4 = v4 / 100.0;
-        ++v2;
+        ValueAtIndex = CFArrayGetValueAtIndex(ArrayBySeparatingStrings, v3);
+        v4 = v4 + CFStringGetIntValue(ValueAtIndex) * v5;
+        v5 = v5 / 100.0;
+        ++v3;
       }
 
-      while (v2 < CFArrayGetCount(ArrayBySeparatingStrings));
+      while (v3 < CFArrayGetCount(ArrayBySeparatingStrings));
     }
 
     CFRelease(ArrayBySeparatingStrings);
@@ -5446,19 +5617,19 @@ double C3DParseVersionNumber(CFStringRef theString)
 
   else
   {
-    v6 = scn_default_log();
-    v3 = 0.0;
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = scn_default_log(0, a2);
+    v4 = 0.0;
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_21BEF7000, v6, OS_LOG_TYPE_DEFAULT, "Warning: C3DParseVersionNumber - No version found", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_21BEF7000, v7, OS_LOG_TYPE_DEFAULT, "Warning: C3DParseVersionNumber - No version found", v9, 2u);
     }
   }
 
-  return v3;
+  return v4;
 }
 
-const char *SCNStringGetCString(const char *result)
+char *SCNStringGetCString(char *result)
 {
   if (result)
   {
@@ -5823,7 +5994,7 @@ CFURLRef C3DCopyResolvedURLFromFileURL(const __CFURL *a1)
 CFStringRef C3DCopyResolvedPathFromPath(const __CFString *a1)
 {
   v5 = *MEMORY[0x277D85DE8];
-  v1 = C3DCreateCStringFromStringWithEncoding(a1, 0x8000100u);
+  v1 = C3DCreateCStringFromStringWithEncoding(a1, 134217984);
   realpath_DARWIN_EXTSN(v1, cStr);
   v2 = CFStringCreateWithCString(0, cStr, 0x8000100u);
   free(v1);
@@ -6207,16 +6378,16 @@ uint64_t C3DStringNamed(void *a1)
   v1 = C3DURLOfResourceNamed(a1);
   if (v1)
   {
-    v2 = v1;
-    v3 = MEMORY[0x277CCACA8];
+    v3 = v1;
+    v4 = MEMORY[0x277CCACA8];
 
-    return [v3 stringWithContentsOfURL:v2 encoding:4 error:0];
+    return [v4 stringWithContentsOfURL:v3 encoding:4 error:0];
   }
 
   else
   {
-    v5 = scn_default_log();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = scn_default_log(0, v2);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       C3DStringNamed_cold_1();
     }
@@ -6231,7 +6402,7 @@ CFURLRef C3DURLOfResourceNamed(void *a1)
   if (result)
   {
     v3 = [a1 lastPathComponent];
-    if ([a1 isEqualToString:v3])
+    if (objc_msgSend_isEqualToString_(a1))
     {
       v4 = 0;
     }
@@ -6336,10 +6507,10 @@ LABEL_15:
   return v3;
 }
 
-uint64_t C3DDictionaryNamed(void *a1)
+void *C3DDictionaryNamed(void *a1)
 {
   v2 = C3DGetTextResourceWithNameAllowingHotReload(a1);
-  if (!v2 || (v3 = [v2 dataUsingEncoding:4], v7 = 0, (result = objc_msgSend(MEMORY[0x277CCAC58], "propertyListWithData:options:format:error:", v3, 0, &v7, 0)) == 0))
+  if (!v2 || (v3 = [v2 dataUsingEncoding:4], v8 = 0, (result = objc_msgSend(MEMORY[0x277CCAC58], "propertyListWithData:options:format:error:", v3, 0, &v8, 0)) == 0))
   {
     v5 = C3DURLOfResourceNamed(a1);
     if (v5)
@@ -6349,8 +6520,8 @@ uint64_t C3DDictionaryNamed(void *a1)
 
     else
     {
-      v6 = scn_default_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = scn_default_log(0, v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         C3DDictionaryNamed_cold_1();
       }
@@ -6362,9 +6533,9 @@ uint64_t C3DDictionaryNamed(void *a1)
   return result;
 }
 
-uint64_t C3DJsonNamed(void *a1, uint64_t a2)
+void *C3DJsonNamed(void *a1, uint64_t a2)
 {
-  v14 = 0;
+  v17 = 0;
   v4 = C3DGetTextResourceWithNameAllowingHotReload(a1);
   if (v4)
   {
@@ -6375,11 +6546,11 @@ uint64_t C3DJsonNamed(void *a1, uint64_t a2)
     }
 
     v6 = [v5 dataUsingEncoding:4];
-    result = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:0 error:&v14];
-    if (v14)
+    result = [MEMORY[0x277CCAAA0] JSONObjectWithData:v6 options:0 error:&v17];
+    if (v17)
     {
-      v8 = scn_default_log();
-      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = scn_default_log(result, v8);
+      if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         return 0;
       }
@@ -6395,11 +6566,11 @@ LABEL_6:
     }
   }
 
-  v9 = C3DURLOfResourceNamed(a1);
-  if (!v9)
+  v10 = C3DURLOfResourceNamed(a1);
+  if (!v10)
   {
-    v13 = scn_default_log();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v16 = scn_default_log(0, v11);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       C3DJsonNamed_cold_3();
     }
@@ -6407,18 +6578,18 @@ LABEL_6:
     return 0;
   }
 
-  v10 = [MEMORY[0x277CCACA8] stringWithContentsOfURL:v9 encoding:4 error:0];
+  v12 = [MEMORY[0x277CCACA8] stringWithContentsOfURL:v10 encoding:4 error:0];
   if (a2)
   {
-    v10 = (*(a2 + 16))(a2, v10);
+    v12 = (*(a2 + 16))(a2, v12);
   }
 
-  v11 = [v10 dataUsingEncoding:4];
-  result = [MEMORY[0x277CCAAA0] JSONObjectWithData:v11 options:0 error:&v14];
-  if (v14)
+  v13 = [v12 dataUsingEncoding:4];
+  result = [MEMORY[0x277CCAAA0] JSONObjectWithData:v13 options:0 error:&v17];
+  if (v17)
   {
-    v12 = scn_default_log();
-    if (!os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v15 = scn_default_log(result, v14);
+    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       return 0;
     }
@@ -6443,8 +6614,8 @@ uint64_t C3DDataFromMTLBuffer(void *a1)
     if ((C3DDataFromMTLBuffer_done & 1) == 0)
     {
       C3DDataFromMTLBuffer_done = 1;
-      v2 = scn_default_log();
-      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+      v3 = scn_default_log(2, v2);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         C3DDataFromMTLBuffer_cold_1();
       }
@@ -6455,11 +6626,11 @@ uint64_t C3DDataFromMTLBuffer(void *a1)
 
   else
   {
-    v4 = MEMORY[0x277CBEA90];
-    v5 = [a1 contents];
-    v6 = [a1 length];
+    v5 = MEMORY[0x277CBEA90];
+    v6 = [a1 contents];
+    v7 = [a1 length];
 
-    return [v4 dataWithBytesNoCopy:v5 length:v6 freeWhenDone:0];
+    return [v5 dataWithBytesNoCopy:v6 length:v7 freeWhenDone:0];
   }
 }
 
@@ -6473,55 +6644,58 @@ uint64_t C3DASTCIsSupported()
   return kASTCIsSupported;
 }
 
-void _SCNSetLinearRenderingEnabled(int a1)
+void _SCNSetLinearRenderingEnabled(uint64_t a1, uint64_t a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v2 = a1;
+  v6 = *MEMORY[0x277D85DE8];
   if (C3DLinearRenderingIsEnabled_onceToken != -1)
   {
     C3DLinearRenderingIsEnabled_cold_1();
   }
 
-  v2 = scn_default_log();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = scn_default_log(a1, a2);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    v4[0] = 67109120;
-    v4[1] = a1;
-    _os_log_impl(&dword_21BEF7000, v2, OS_LOG_TYPE_INFO, "Info: linear rendering forced to %d", v4, 8u);
+    v5[0] = 67109120;
+    v5[1] = v2;
+    _os_log_impl(&dword_21BEF7000, v3, OS_LOG_TYPE_INFO, "Info: linear rendering forced to %d", v5, 8u);
   }
 
-  if (a1)
+  if (v2)
   {
     if (C3DMetalIsSupported_onceToken != -1)
     {
       _SCNSetLinearRenderingEnabled_cold_2();
     }
 
-    v3 = C3DMetalIsSupported_supported;
+    v4 = C3DMetalIsSupported_supported;
   }
 
   else
   {
-    v3 = 0;
+    v4 = 0;
   }
 
-  _gC3DEnableLinearRendering = v3 & 1;
+  _gC3DEnableLinearRendering = v4 & 1;
 }
 
-uint64_t C3DDeduceSphericalHarmonicsOrderFromDataLength(unint64_t a1)
+uint64_t C3DDeduceSphericalHarmonicsOrderFromDataLength(_BOOL8 a1, uint64_t a2)
 {
+  v2 = a1;
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    a1 = os_log_type_enabled(v3, OS_LOG_TYPE_FAULT);
+    if (a1)
     {
-      C3DDeduceSphericalHarmonicsOrderFromDataLength_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DDeduceSphericalHarmonicsOrderFromDataLength_cold_1(v3, a2, v4, v5, v6, v7, v8, v9);
     }
   }
 
-  v10 = sqrt((a1 / 0xC));
-  if (12 * (v10 * v10) != a1)
+  v10 = sqrt((v2 / 0xC));
+  if (12 * (v10 * v10) != v2)
   {
-    v11 = scn_default_log();
+    v11 = scn_default_log(a1, a2);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
     {
       C3DDeduceSphericalHarmonicsOrderFromDataLength_cold_2();
@@ -6531,7 +6705,7 @@ uint64_t C3DDeduceSphericalHarmonicsOrderFromDataLength(unint64_t a1)
   return v10;
 }
 
-uint64_t C3DIsRunningInXcode()
+uint64_t C3DIsRunningInXcode(uint64_t a1, uint64_t a2)
 {
   if (C3DIsRunningInXcode_onceToken != -1)
   {
@@ -6548,7 +6722,7 @@ Class __C3DIsRunningInXcode_block_invoke()
   return result;
 }
 
-uint64_t C3DIsRunningInSCNTool()
+uint64_t C3DIsRunningInSCNTool(uint64_t a1, uint64_t a2)
 {
   if (C3DIsRunningInSCNTool_onceToken != -1)
   {
@@ -6565,7 +6739,7 @@ Class __C3DIsRunningInSCNTool_block_invoke()
   return result;
 }
 
-uint64_t C3DPBROpacityIsEnabled()
+uint64_t C3DPBROpacityIsEnabled(uint64_t a1, uint64_t a2)
 {
   if (C3DPBROpacityIsEnabled_onceToken != -1)
   {
@@ -6575,9 +6749,9 @@ uint64_t C3DPBROpacityIsEnabled()
   return C3DPBROpacityIsEnabled_usePBROpacity;
 }
 
-uint64_t __C3DPBROpacityIsEnabled_block_invoke()
+uint64_t __C3DPBROpacityIsEnabled_block_invoke(uint64_t a1, uint64_t a2)
 {
-  result = C3DWasLinkedBeforeMajorOSYear2023();
+  result = C3DWasLinkedBeforeMajorOSYear2023(a1, a2);
   C3DPBROpacityIsEnabled_usePBROpacity = result ^ 1;
   return result;
 }
@@ -6768,9 +6942,9 @@ uint64_t __C3DCFDictionaryApplyBlockBySortingStringKeys_block_invoke(uint64_t a1
 
 void _serializableCFTypeIDs()
 {
-  if (!_serializableCFTypeIDs_serializableTypes)
+  if (!_serializableCFTypeIDs_serializableTypes[0])
   {
-    _serializableCFTypeIDs_serializableTypes = CFNumberGetTypeID();
+    _serializableCFTypeIDs_serializableTypes[0] = CFNumberGetTypeID();
     qword_27CDD9FA8 = CFDataGetTypeID();
     qword_27CDD9FB0 = CFStringGetTypeID();
     qword_27CDD9FB8 = CFDateGetTypeID();
@@ -6788,7 +6962,7 @@ void OUTLINED_FUNCTION_5_3(void *a1, uint64_t a2, os_log_t log, const char *a4, 
 
 uint64_t SCNNodeGetBoundingSphere(void *a1, int a2)
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v77 = *MEMORY[0x277D85DE8];
   if (![a1 count])
   {
     return 0;
@@ -6800,221 +6974,221 @@ uint64_t SCNNodeGetBoundingSphere(void *a1, int a2)
     return 0;
   }
 
-  v5 = C3DGetScene(v4);
-  if (!v5)
+  v6 = C3DGetScene(v4, v5);
+  if (!v6)
   {
     return 0;
   }
 
-  v6 = v5;
-  C3DSceneLock(v5);
-  v68[0] = MEMORY[0x277D85DD0];
-  v68[1] = 3221225472;
-  v69 = __SCNNodeGetBoundingSphere_block_invoke;
-  v70 = &__block_descriptor_40_e5_v8__0l;
-  v71 = v6;
-  memset(v66, 0, sizeof(v66));
-  v67 = 1065353216;
-  std::__hash_table<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>>>::__rehash<true>(v66, vcvtps_u32_f32([a1 count] / 1.0));
-  v64 = 0u;
+  v8 = v6;
+  C3DSceneLock(v6, v7);
+  v71[0] = MEMORY[0x277D85DD0];
+  v71[1] = 3221225472;
+  v72 = __SCNNodeGetBoundingSphere_block_invoke;
+  v73 = &__block_descriptor_40_e5_v8__0l;
+  v74 = v8;
+  memset(v69, 0, sizeof(v69));
+  v70 = 1065353216;
+  std::__hash_table<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>>>::__rehash<true>(v69, vcvtps_u32_f32([a1 count] / 1.0));
+  v67 = 0u;
+  v68 = 0u;
   v65 = 0u;
-  v62 = 0u;
-  v63 = 0u;
-  v7 = [a1 countByEnumeratingWithState:&v62 objects:v73 count:16];
-  if (v7)
+  v66 = 0u;
+  v9 = [a1 countByEnumeratingWithState:&v65 objects:v76 count:16];
+  if (v9)
   {
-    v8 = *v63;
+    v10 = *v66;
     do
     {
-      for (i = 0; i != v7; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v63 != v8)
+        if (*v66 != v10)
         {
           objc_enumerationMutation(a1);
         }
 
-        v10 = *(*(&v62 + 1) + 8 * i);
-        v59 = [v10 nodeRef];
-        v50 = &v59;
-        std::__hash_table<std::__hash_value_type<__C3DNode *,SCNNode *>,std::__unordered_map_hasher<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::hash<__C3DNode *>,std::equal_to<__C3DNode *>,true>,std::__unordered_map_equal<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::equal_to<__C3DNode *>,std::hash<__C3DNode *>,true>,std::allocator<std::__hash_value_type<__C3DNode *,SCNNode *>>>::__emplace_unique_key_args<__C3DNode *,std::piecewise_construct_t const&,std::tuple<__C3DNode *&&>,std::tuple<>>(v66, &v59)[3] = v10;
+        v12 = *(*(&v65 + 1) + 8 * i);
+        v62 = [v12 nodeRef];
+        v53 = &v62;
+        std::__hash_table<std::__hash_value_type<__C3DNode *,SCNNode *>,std::__unordered_map_hasher<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::hash<__C3DNode *>,std::equal_to<__C3DNode *>,true>,std::__unordered_map_equal<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::equal_to<__C3DNode *>,std::hash<__C3DNode *>,true>,std::allocator<std::__hash_value_type<__C3DNode *,SCNNode *>>>::__emplace_unique_key_args<__C3DNode *,std::piecewise_construct_t const&,std::tuple<__C3DNode *&&>,std::tuple<>>(v69, &v62, &std::piecewise_construct, &v53)[3] = v12;
       }
 
-      v7 = [a1 countByEnumeratingWithState:&v62 objects:v73 count:16];
+      v9 = [a1 countByEnumeratingWithState:&v65 objects:v76 count:16];
     }
 
-    while (v7);
+    while (v9);
   }
 
-  v59 = 0xA00000000;
-  v60 = v61;
-  v55 = 0u;
-  v56 = 0u;
-  v57 = 0u;
+  v62 = 0xA00000000;
+  v63 = v64;
   v58 = 0u;
-  v11 = [a1 countByEnumeratingWithState:&v55 objects:v72 count:{16, v61}];
-  if (v11)
+  v59 = 0u;
+  v60 = 0u;
+  v61 = 0u;
+  v13 = [a1 countByEnumeratingWithState:&v58 objects:v75 count:{16, v64}];
+  if (v13)
   {
-    v12 = *v56;
+    v14 = *v59;
     do
     {
-      for (j = 0; j != v11; ++j)
+      for (j = 0; j != v13; ++j)
       {
-        if (*v56 != v12)
+        if (*v59 != v14)
         {
           objc_enumerationMutation(a1);
         }
 
-        v50 = [*(*(&v55 + 1) + 8 * j) nodeRef];
-        v14 = std::__hash_table<std::__hash_value_type<__C3DNode *,SCNNode *>,std::__unordered_map_hasher<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::hash<__C3DNode *>,std::equal_to<__C3DNode *>,true>,std::__unordered_map_equal<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::equal_to<__C3DNode *>,std::hash<__C3DNode *>,true>,std::allocator<std::__hash_value_type<__C3DNode *,SCNNode *>>>::find<__C3DNode *>(v66, &v50);
-        std::__hash_table<std::__hash_value_type<int,SCNPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SCNPerformanceDataMapping>>>::erase(v66, v14);
-        v15 = v50;
-        v53[0] = MEMORY[0x277D85DD0];
-        v53[1] = 3321888768;
-        v53[2] = __SCNNodeGetBoundingSphere_block_invoke_2;
-        v53[3] = &__block_descriptor_80_e8_32c115_ZTSNSt3__113unordered_mapIP9__C3DNodeP7SCNNodeNS_4hashIS2_EENS_8equal_toIS2_EENS_9allocatorINS_4pairIKS2_S4_EEEEEE_e20_q16__0____C3DNode__8l;
-        std::unordered_map<__C3DNode *,SCNNode *>::unordered_map(v54, v66);
-        v54[5] = &v59;
-        C3DNodeApplyHierarchySkippingHiddenNodes(v15, v53);
-        std::__hash_table<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>>>::~__hash_table(v54);
+        v53 = [*(*(&v58 + 1) + 8 * j) nodeRef];
+        v16 = std::__hash_table<std::__hash_value_type<__C3DNode *,SCNNode *>,std::__unordered_map_hasher<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::hash<__C3DNode *>,std::equal_to<__C3DNode *>,true>,std::__unordered_map_equal<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::equal_to<__C3DNode *>,std::hash<__C3DNode *>,true>,std::allocator<std::__hash_value_type<__C3DNode *,SCNNode *>>>::find<__C3DNode *>(v69, &v53);
+        std::__hash_table<std::__hash_value_type<int,SCNPerformanceDataMapping>,std::__unordered_map_hasher<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::hash<int>,std::equal_to<int>,true>,std::__unordered_map_equal<int,std::__hash_value_type<int,SCNPerformanceDataMapping>,std::equal_to<int>,std::hash<int>,true>,std::allocator<std::__hash_value_type<int,SCNPerformanceDataMapping>>>::erase(v69, v16);
+        v17 = v53;
+        v56[0] = MEMORY[0x277D85DD0];
+        v56[1] = 3321888768;
+        v56[2] = __SCNNodeGetBoundingSphere_block_invoke_2;
+        v56[3] = &__block_descriptor_80_e8_32c115_ZTSNSt3__113unordered_mapIP9__C3DNodeP7SCNNodeNS_4hashIS2_EENS_8equal_toIS2_EENS_9allocatorINS_4pairIKS2_S4_EEEEEE_e20_q16__0____C3DNode__8l;
+        std::unordered_map<__C3DNode *,SCNNode *>::unordered_map(v57, v69);
+        v57[5] = &v62;
+        C3DNodeApplyHierarchySkippingHiddenNodes(v17, v56);
+        std::__hash_table<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>>>::~__hash_table(v57);
       }
 
-      v11 = [a1 countByEnumeratingWithState:&v55 objects:v72 count:16];
+      v13 = [a1 countByEnumeratingWithState:&v58 objects:v75 count:16];
     }
 
-    while (v11);
+    while (v13);
   }
 
-  v50 = 0xA00000000;
-  v51 = v52;
-  v16 = v59;
-  if (v59)
+  v53 = 0xA00000000;
+  v54 = v55;
+  v18 = v62;
+  if (v62)
   {
-    v17 = 0;
-    v18 = v60;
-    v19 = 8 * v59;
-    v47 = 0u;
+    v19 = 0;
+    v20 = v63;
+    v21 = 8 * v62;
+    v50 = 0u;
     do
     {
-      v20 = *v18;
-      if (C3DGetBoundingSphere(*v18, 0, &v49))
+      v22 = *v20;
+      if (C3DGetBoundingSphere(*v20, 0, &v52))
       {
-        WorldMatrix = C3DNodeGetWorldMatrix(v20);
-        C3DSphereXFormMatrix4x4(&v49, WorldMatrix, &v49);
-        if ((v17 & 1) != 0 && (v22 = vsubq_f32(v47, v49), v23 = vmulq_f32(v22, v22), v24 = sqrtf(v23.f32[2] + vaddv_f32(*v23.f32)), (v47.f32[3] + v24) >= v49.f32[3]))
+        WorldMatrix = C3DNodeGetWorldMatrix(v22, v23);
+        C3DSphereXFormMatrix4x4(&v52, WorldMatrix, &v52);
+        if ((v19 & 1) != 0 && (v25 = vsubq_f32(v50, v52), v26 = vmulq_f32(v25, v25), v27 = sqrtf(v26.f32[2] + vaddv_f32(*v26.f32)), (v50.f32[3] + v27) >= v52.f32[3]))
         {
-          if ((v49.f32[3] + v24) > v47.f32[3])
+          if ((v52.f32[3] + v27) > v50.f32[3])
           {
-            v27 = ((v47.f32[3] + v49.f32[3]) + v24) * 0.5;
-            v28 = vmlaq_n_f32(v47, v22, (v47.f32[3] - v27) / v24);
-            v28.f32[3] = v27;
-            v47 = v28;
+            v30 = ((v50.f32[3] + v52.f32[3]) + v27) * 0.5;
+            v31 = vmlaq_n_f32(v50, v25, (v50.f32[3] - v30) / v27);
+            v31.f32[3] = v30;
+            v50 = v31;
           }
 
-          v17 = 1;
+          v19 = 1;
         }
 
         else
         {
-          v17 = 1;
-          v47 = v49;
+          v19 = 1;
+          v50 = v52;
         }
       }
 
-      else if ((a2 & 1) != 0 && (C3DNodeHasCamera(v20) & 1) != 0 || (a2 & 0x100) != 0 && (C3DNodeHasLight(v20) & 1) != 0 || (ParticleSystems = C3DNodeGetParticleSystems(v20)) != 0 && (Count = CFArrayGetCount(ParticleSystems), (a2 & 0x10000) != 0) && Count > 0 || (a2 & 0x1000000) != 0 && !C3DNodeHasChildren(v20))
+      else if ((a2 & 1) != 0 && (C3DNodeHasCamera(v22) & 1) != 0 || (a2 & 0x100) != 0 && (C3DNodeHasLight(v22, v23) & 1) != 0 || (ParticleSystems = C3DNodeGetParticleSystems(v22, v23)) != 0 && (Count = CFArrayGetCount(ParticleSystems), (a2 & 0x10000) != 0) && Count > 0 || (a2 & 0x1000000) != 0 && !C3DNodeHasChildren(v22))
       {
-        v48.n128_u32[2] = 0;
-        v48.n128_u64[0] = 0;
-        C3DNodeGetWorldPosition(v20, &v48);
-        _ZN3C3D5ArrayIDv3_fLj10ENS_15MallocAllocatorEE9push_backIRS1_EEvOT_(&v50, &v48);
+        v51.n128_u32[2] = 0;
+        v51.n128_u64[0] = 0;
+        C3DNodeGetWorldPosition(v22, &v51);
+        _ZN3C3D5ArrayIDv3_fLj10ENS_15MallocAllocatorEE9push_backIRS1_EEvOT_(&v53, &v51);
       }
 
-      ++v18;
-      v19 -= 8;
+      ++v20;
+      v21 -= 8;
     }
 
-    while (v19);
-    v29 = v51;
-    v16 = v50;
-    v30 = v47;
+    while (v21);
+    v32 = v54;
+    v18 = v53;
+    v33 = v50;
   }
 
   else
   {
-    v17 = 0;
-    v30 = 0uLL;
-    v29 = v52;
+    v19 = 0;
+    v33 = 0uLL;
+    v32 = v55;
   }
 
-  v32 = v30.f32[3];
-  if (v30.f32[3] >= 1.0 || v30.f32[3] <= 0.0)
+  v35 = v33.f32[3];
+  if (v33.f32[3] >= 1.0 || v33.f32[3] <= 0.0)
   {
-    v32 = 1.0;
+    v35 = 1.0;
   }
 
-  v34 = v30.i64[1];
-  v35 = v30.i64[0];
-  if (v16)
+  v37 = v33.i64[1];
+  v38 = v33.i64[0];
+  if (v18)
   {
-    v36 = 16 * v16;
-    v37 = v29;
+    v39 = 16 * v18;
+    v40 = v32;
     do
     {
-      v38 = *v37;
-      v38.f32[3] = v32;
-      v39 = v38.i64[1];
-      v31 = v37->i64[0];
-      if (v17)
+      v41 = *v40;
+      v41.f32[3] = v35;
+      v42 = v41.i64[1];
+      v34 = v40->i64[0];
+      if (v19)
       {
-        v40.i64[0] = v35;
-        v40.i64[1] = v34;
-        v41 = vsubq_f32(v40, *v37);
-        v42 = vmulq_f32(v41, v41);
-        v43 = sqrtf(v42.f32[2] + vaddv_f32(*v42.f32));
-        if ((*(&v34 + 1) + v43) >= v32)
+        v43.i64[0] = v38;
+        v43.i64[1] = v37;
+        v44 = vsubq_f32(v43, *v40);
+        v45 = vmulq_f32(v44, v44);
+        v46 = sqrtf(v45.f32[2] + vaddv_f32(*v45.f32));
+        if ((*(&v37 + 1) + v46) >= v35)
         {
-          v31 = v35;
-          v39 = v34;
-          if ((v32 + v43) > *(&v34 + 1))
+          v34 = v38;
+          v42 = v37;
+          if ((v35 + v46) > *(&v37 + 1))
           {
-            v44 = vmlaq_n_f32(v40, vsubq_f32(v40, v38), (*(&v34 + 1) - (((v32 + *(&v34 + 1)) + v43) * 0.5)) / v43);
-            v44.f32[3] = ((v32 + *(&v34 + 1)) + v43) * 0.5;
-            v39 = v44.i64[1];
-            v31 = v44.i64[0];
+            v47 = vmlaq_n_f32(v43, vsubq_f32(v43, v41), (*(&v37 + 1) - (((v35 + *(&v37 + 1)) + v46) * 0.5)) / v46);
+            v47.f32[3] = ((v35 + *(&v37 + 1)) + v46) * 0.5;
+            v42 = v47.i64[1];
+            v34 = v47.i64[0];
           }
         }
       }
 
-      ++v37;
-      v17 = 1;
-      v35 = v31;
-      v34 = v39;
-      v36 -= 16;
+      ++v40;
+      v19 = 1;
+      v38 = v34;
+      v37 = v42;
+      v39 -= 16;
     }
 
-    while (v36);
+    while (v39);
   }
 
   else
   {
-    v31 = v30.i64[0];
+    v34 = v33.i64[0];
   }
 
-  if (v29 != v52)
+  if (v32 != v55)
   {
-    free(v29);
+    free(v32);
   }
 
-  if (v60 != v46)
+  if (v63 != v49)
   {
-    free(v60);
+    free(v63);
   }
 
-  std::__hash_table<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>>>::~__hash_table(v66);
-  v69(v68);
-  return v31;
+  std::__hash_table<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>>>::~__hash_table(v69);
+  (v72)(v71);
+  return v34;
 }
 
-void sub_21BFDB384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, void *a58)
+void sub_21BFDB384(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, void *a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, void *a58)
 {
   if (a58 != a9)
   {
@@ -7038,50 +7212,50 @@ uint64_t __SCNNodeGetBoundingSphere_block_invoke_2(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-__n128 _ZN3C3D5ArrayIDv3_fLj10ENS_15MallocAllocatorEE9push_backIRS1_EEvOT_(uint64_t a1, __n128 *a2)
+__n128 _ZN3C3D5ArrayIDv3_fLj10ENS_15MallocAllocatorEE9push_backIRS1_EEvOT_(unsigned int *a1, __n128 *a2)
 {
   v4 = *a1;
-  if ((*a1 + 1) > *(a1 + 4))
+  if (*a1 + 1 > a1[1])
   {
     _ZN3C3D5ArrayIDv3_fLj10ENS_15MallocAllocatorEE14GrowCapacityByEjb(a1, 1, 0);
     v4 = *a1;
   }
 
   result = *a2;
-  *(*(a1 + 8) + 16 * v4) = *a2;
+  *(*(a1 + 1) + 16 * v4) = *a2;
   ++*a1;
   return result;
 }
 
-void *std::__hash_table<std::__hash_value_type<__C3DNode *,SCNNode *>,std::__unordered_map_hasher<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::hash<__C3DNode *>,std::equal_to<__C3DNode *>,true>,std::__unordered_map_equal<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::equal_to<__C3DNode *>,std::hash<__C3DNode *>,true>,std::allocator<std::__hash_value_type<__C3DNode *,SCNNode *>>>::__emplace_unique_key_args<__C3DNode *,std::piecewise_construct_t const&,std::tuple<__C3DNode *&&>,std::tuple<>>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<__C3DNode *,SCNNode *>,std::__unordered_map_hasher<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::hash<__C3DNode *>,std::equal_to<__C3DNode *>,true>,std::__unordered_map_equal<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::equal_to<__C3DNode *>,std::hash<__C3DNode *>,true>,std::allocator<std::__hash_value_type<__C3DNode *,SCNNode *>>>::__emplace_unique_key_args<__C3DNode *,std::piecewise_construct_t const&,std::tuple<__C3DNode *&&>,std::tuple<>>(void *a1, void *a2, uint64_t a3, void **a4)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v4 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v5 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v4 >> 47) ^ v4);
+  v6 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+  v7 = a1[1];
+  if (!*&v7)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v8 = vcnt_s8(v7);
+  v8.i16[0] = vaddlv_u8(v8);
+  if (v8.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v9 = 0x9DDFEA08EB382D69 * (v5 ^ (v5 >> 47));
+    if (v6 >= *&v7)
     {
-      v7 = v4 % *&v5;
+      v9 = v6 % *&v7;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v9 = v6 & (*&v7 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -7089,44 +7263,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v12 = v11[1];
+    if (v12 == v6)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v8.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v12 >= *&v7)
       {
-        v10 %= *&v5;
+        v12 %= *&v7;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v12 &= *&v7 - 1;
     }
 
-    if (v10 != v7)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v11[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v11;
 }
 
 void *std::__hash_table<std::__hash_value_type<__C3DNode *,SCNNode *>,std::__unordered_map_hasher<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::hash<__C3DNode *>,std::equal_to<__C3DNode *>,true>,std::__unordered_map_equal<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::equal_to<__C3DNode *>,std::hash<__C3DNode *>,true>,std::allocator<std::__hash_value_type<__C3DNode *,SCNNode *>>>::find<__C3DNode *>(void *a1, void *a2)
@@ -7162,45 +7336,37 @@ void *std::__hash_table<std::__hash_value_type<__C3DNode *,SCNNode *>,std::__uno
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v10 == v5)
     {
-      v10 = result[1];
-      if (v10 == v5)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -7238,45 +7404,37 @@ void *std::__hash_table<std::__hash_value_type<__C3DNode *,SCNNode *>,std::__uno
     return 0;
   }
 
-  result = *v8;
-  if (*v8)
+  for (result = *v8; result; result = *result)
   {
-    do
+    v10 = result[1];
+    if (v5 == v10)
     {
-      v10 = result[1];
-      if (v5 == v10)
+      if (result[2] == *a2)
       {
-        if (result[2] == *a2)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v6.u32[0] > 1uLL)
+      {
+        if (v10 >= *&v2)
         {
-          return result;
+          v10 %= *&v2;
         }
       }
 
       else
       {
-        if (v6.u32[0] > 1uLL)
-        {
-          if (v10 >= *&v2)
-          {
-            v10 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v10 &= *&v2 - 1;
-        }
-
-        if (v10 != v7)
-        {
-          return 0;
-        }
+        v10 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v10 != v7)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
@@ -7290,41 +7448,41 @@ uint64_t std::unordered_map<__C3DNode *,SCNNode *>::unordered_map(uint64_t a1, u
   std::__hash_table<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,SCNMTLLightSetData>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,SCNMTLLightSetData>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<std::__hash_value_type<__C3DNode *,SCNNode *>,std::__unordered_map_hasher<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::hash<__C3DNode *>,std::equal_to<__C3DNode *>,true>,std::__unordered_map_equal<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::equal_to<__C3DNode *>,std::hash<__C3DNode *>,true>,std::allocator<std::__hash_value_type<__C3DNode *,SCNNode *>>>::__emplace_unique_key_args<__C3DNode *,std::pair<__C3DNode * const,SCNNode *> const&>(a1, i + 2);
+    std::__hash_table<std::__hash_value_type<__C3DNode *,SCNNode *>,std::__unordered_map_hasher<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::hash<__C3DNode *>,std::equal_to<__C3DNode *>,true>,std::__unordered_map_equal<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::equal_to<__C3DNode *>,std::hash<__C3DNode *>,true>,std::allocator<std::__hash_value_type<__C3DNode *,SCNNode *>>>::__emplace_unique_key_args<__C3DNode *,std::pair<__C3DNode * const,SCNNode *> const&>(a1, i + 2, i + 1);
   }
 
   return a1;
 }
 
-void *std::__hash_table<std::__hash_value_type<__C3DNode *,SCNNode *>,std::__unordered_map_hasher<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::hash<__C3DNode *>,std::equal_to<__C3DNode *>,true>,std::__unordered_map_equal<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::equal_to<__C3DNode *>,std::hash<__C3DNode *>,true>,std::allocator<std::__hash_value_type<__C3DNode *,SCNNode *>>>::__emplace_unique_key_args<__C3DNode *,std::pair<__C3DNode * const,SCNNode *> const&>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<__C3DNode *,SCNNode *>,std::__unordered_map_hasher<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::hash<__C3DNode *>,std::equal_to<__C3DNode *>,true>,std::__unordered_map_equal<__C3DNode *,std::__hash_value_type<__C3DNode *,SCNNode *>,std::equal_to<__C3DNode *>,std::hash<__C3DNode *>,true>,std::allocator<std::__hash_value_type<__C3DNode *,SCNNode *>>>::__emplace_unique_key_args<__C3DNode *,std::pair<__C3DNode * const,SCNNode *> const&>(void *a1, void *a2, _OWORD *a3)
 {
-  v2 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
-  v3 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v2 >> 47) ^ v2);
-  v4 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-  v5 = a1[1];
-  if (!*&v5)
+  v3 = 0x9DDFEA08EB382D69 * ((8 * (*a2 & 0x1FFFFFFFLL) + 8) ^ HIDWORD(*a2));
+  v4 = 0x9DDFEA08EB382D69 * (HIDWORD(*a2) ^ (v3 >> 47) ^ v3);
+  v5 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  if (v7.u32[0] > 1uLL)
   {
-    v7 = 0x9DDFEA08EB382D69 * (v3 ^ (v3 >> 47));
-    if (v4 >= *&v5)
+    v8 = 0x9DDFEA08EB382D69 * (v4 ^ (v4 >> 47));
+    if (v5 >= *&v6)
     {
-      v7 = v4 % *&v5;
+      v8 = v5 % *&v6;
     }
   }
 
   else
   {
-    v7 = v4 & (*&v5 - 1);
+    v8 = v5 & (*&v6 - 1);
   }
 
-  v8 = *(*a1 + 8 * v7);
-  if (!v8 || (v9 = *v8) == 0)
+  v9 = *(*a1 + 8 * v8);
+  if (!v9 || (v10 = *v9) == 0)
   {
 LABEL_18:
     operator new();
@@ -7332,44 +7490,44 @@ LABEL_18:
 
   while (1)
   {
-    v10 = v9[1];
-    if (v10 == v4)
+    v11 = v10[1];
+    if (v11 == v5)
     {
       break;
     }
 
-    if (v6.u32[0] > 1uLL)
+    if (v7.u32[0] > 1uLL)
     {
-      if (v10 >= *&v5)
+      if (v11 >= *&v6)
       {
-        v10 %= *&v5;
+        v11 %= *&v6;
       }
     }
 
     else
     {
-      v10 &= *&v5 - 1;
+      v11 &= *&v6 - 1;
     }
 
-    if (v10 != v7)
+    if (v11 != v8)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v9 = *v9;
-    if (!v9)
+    v10 = *v10;
+    if (!v10)
     {
       goto LABEL_18;
     }
   }
 
-  if (v9[2] != *a2)
+  if (v10[2] != *a2)
   {
     goto LABEL_17;
   }
 
-  return v9;
+  return v10;
 }
 
 void _ZN3C3D5ArrayIDv3_fLj10ENS_15MallocAllocatorEE14GrowCapacityByEjb(unsigned int *a1, int a2, int a3)
@@ -7427,14 +7585,14 @@ uint64_t C3DFXShaderCreate(int a1)
   return result;
 }
 
-uint64_t C3DFXShaderGetStage(uint64_t a1)
+uint64_t C3DFXShaderGetStage(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DFXShaderGetStage_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DFXShaderGetStage_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -7445,7 +7603,7 @@ CFTypeRef C3DFXShaderSetSource(uint64_t a1, CFTypeRef cf)
 {
   if (!a1)
   {
-    v4 = scn_default_log();
+    v4 = scn_default_log(0, cf);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
     {
       C3DFXShaderGetStage_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
@@ -7477,14 +7635,14 @@ CFTypeRef C3DFXShaderSetSource(uint64_t a1, CFTypeRef cf)
   return result;
 }
 
-uint64_t C3DFXShaderGetSource(uint64_t a1)
+uint64_t C3DFXShaderGetSource(uint64_t a1, uint64_t a2)
 {
   if (!a1)
   {
-    v2 = scn_default_log();
-    if (os_log_type_enabled(v2, OS_LOG_TYPE_FAULT))
+    v3 = scn_default_log(0, a2);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
-      C3DFXShaderGetSource_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
+      C3DFXShaderGetSource_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
     }
   }
 
@@ -7563,8 +7721,9 @@ uint64_t C3DLightProbesSystemCreate()
   return result;
 }
 
-void _resizeProbesData(uint64_t a1, int a2)
+void _resizeProbesData(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   v4 = *(a1 + 232);
   if (v4 == 2)
   {
@@ -7577,41 +7736,43 @@ void _resizeProbesData(uint64_t a1, int a2)
     v5 = 112;
 LABEL_5:
     v6 = malloc_type_calloc((a2 + 4), v5, 0xE872879EuLL);
-    v7 = malloc_type_calloc((a2 + 4), 0x10uLL, 0x1000040451B5BE8uLL);
+    v7 = malloc_type_calloc((v2 + 4), 0x10uLL, 0x1000040451B5BE8uLL);
+    v9 = v7;
     if (*(a1 + 24))
     {
       if (!*(a1 + 36))
       {
-        v8 = scn_default_log();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+        v10 = scn_default_log(v7, v8);
+        v7 = os_log_type_enabled(v10, OS_LOG_TYPE_FAULT);
+        if (v7)
         {
-          _resizeProbesData_cold_1(v8, v9, v10, v11, v12, v13, v14, v15);
+          _resizeProbesData_cold_1(v10, v8, v11, v12, v13, v14, v15, v16);
         }
       }
 
       if (!*(a1 + 16))
       {
-        v16 = scn_default_log();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_FAULT))
+        v17 = scn_default_log(v7, v8);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
         {
-          _resizeProbesData_cold_2(v16, v17, v18, v19, v20, v21, v22, v23);
+          _resizeProbesData_cold_2(v17, v18, v19, v20, v21, v22, v23, v24);
         }
       }
 
       memcpy(v6, *(a1 + 24), (*(a1 + 36) + 4) * v5);
       free(*(a1 + 24));
-      memcpy(v7, *(a1 + 16), 16 * (*(a1 + 36) + 4));
+      memcpy(v9, *(a1 + 16), 16 * (*(a1 + 36) + 4));
       free(*(a1 + 16));
     }
 
-    *(a1 + 16) = v7;
+    *(a1 + 16) = v9;
     *(a1 + 24) = v6;
-    *(a1 + 36) = a2;
+    *(a1 + 36) = v2;
     return;
   }
 
-  v24 = scn_default_log();
-  if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  v25 = scn_default_log(a1, a2);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
     _resizeProbesData_cold_3();
   }
@@ -7782,13 +7943,13 @@ void _computeTetrahedronMatrices(uint64_t a1, simd_float3x3 a2)
 
 void _computeNeighbourIndexes(uint64_t a1, unsigned int a2)
 {
-  *&v62[5] = *MEMORY[0x277D85DE8];
-  v58 = malloc_type_calloc(8uLL, (*(a1 + 32) + 4), 0x2004093837F09uLL);
+  *&v61[5] = *MEMORY[0x277D85DE8];
+  v57 = malloc_type_calloc(8uLL, (*(a1 + 32) + 4), 0x2004093837F09uLL);
   if (a2)
   {
     v4 = 0;
     v5 = *(a1 + 48);
-    v55 = a2;
+    v54 = a2;
     v6 = v5 + 16;
     do
     {
@@ -7814,11 +7975,11 @@ void _computeNeighbourIndexes(uint64_t a1, unsigned int a2)
           v11 = v10;
         }
 
-        Mutable = v58[v11];
+        Mutable = v57[v11];
         if (!Mutable)
         {
           Mutable = C3DIndexSetCreateMutable();
-          v58[v11] = Mutable;
+          v57[v11] = Mutable;
         }
 
         v9 += 3;
@@ -7832,92 +7993,92 @@ void _computeNeighbourIndexes(uint64_t a1, unsigned int a2)
     }
 
     while (v4 != a2);
-    for (i = 0; i != v55; ++i)
+    for (i = 0; i != v54; ++i)
     {
-      v14 = 0;
-      v56 = v5 + 48 * i;
-      v57 = v56 + 16;
+      v16 = 0;
+      v55 = v5 + 48 * i;
+      v56 = v55 + 16;
       do
       {
-        if (*(v57 + 4 * v14) == -1)
+        if (*(v56 + 4 * v16) == -1)
         {
-          v15 = &g_TetrahedronFaces[3 * v14];
-          v16 = *(v56 + 4 * *v15);
-          v17 = *(v56 + 4 * v15[1]);
-          v18 = *(v56 + 4 * v15[2]);
-          if (v16 >= v17)
-          {
-            v19 = v17;
-          }
-
-          else
-          {
-            v19 = v16;
-          }
-
-          if (v16 <= v17)
-          {
-            v20 = v17;
-          }
-
-          else
-          {
-            v20 = v16;
-          }
-
-          if (v19 >= v18)
-          {
-            v21 = v18;
-          }
-
-          else
+          v17 = &g_TetrahedronFaces[3 * v16];
+          v18 = *(v55 + 4 * *v17);
+          v19 = *(v55 + 4 * v17[1]);
+          v20 = *(v55 + 4 * v17[2]);
+          if (v18 >= v19)
           {
             v21 = v19;
           }
 
-          if (v20 <= v18)
+          else
+          {
+            v21 = v18;
+          }
+
+          if (v18 <= v19)
+          {
+            v22 = v19;
+          }
+
+          else
           {
             v22 = v18;
           }
 
-          else
+          if (v21 >= v20)
           {
-            v22 = v20;
-          }
-
-          if (v21 != v17 && v22 != v17)
-          {
-            v18 = v17;
-          }
-
-          if (v21 == v16 || v22 == v16)
-          {
-            v25 = v18;
+            v23 = v20;
           }
 
           else
           {
-            v25 = v16;
+            v23 = v21;
           }
 
-          v26 = v58[v21];
-          if (!v26)
+          if (v22 <= v20)
           {
-            v27 = scn_default_log();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_FAULT))
+            v24 = v20;
+          }
+
+          else
+          {
+            v24 = v22;
+          }
+
+          if (v23 != v19 && v24 != v19)
+          {
+            v20 = v19;
+          }
+
+          if (v23 == v18 || v24 == v18)
+          {
+            v27 = v20;
+          }
+
+          else
+          {
+            v27 = v18;
+          }
+
+          v28 = v57[v23];
+          if (!v28)
+          {
+            v29 = scn_default_log(FirstIndex, v14);
+            if (os_log_type_enabled(v29, OS_LOG_TYPE_FAULT))
             {
-              _computeNeighbourIndexes_cold_1(v61, v62, v27);
+              _computeNeighbourIndexes_cold_1(v60, v61, v29);
             }
           }
 
-          FirstIndex = C3DIndexSetGetFirstIndex(v26);
+          FirstIndex = C3DIndexSetGetFirstIndex(v28);
           if (FirstIndex != -1)
           {
-            v29 = FirstIndex;
+            v14 = FirstIndex;
             v30 = -1;
             do
             {
-              if (v29 == i)
+              if (v14 == i)
               {
                 v31 = -1;
               }
@@ -7925,7 +8086,7 @@ void _computeNeighbourIndexes(uint64_t a1, unsigned int a2)
               else
               {
                 v32 = 0;
-                v33 = v5 + 48 * v29;
+                v33 = v5 + 48 * v14;
                 v34 = &dword_21C2A1A78;
                 do
                 {
@@ -7972,11 +8133,11 @@ void _computeNeighbourIndexes(uint64_t a1, unsigned int a2)
                     v35 = v36;
                   }
 
-                  v43 = v38 == v21 && v35 == v25;
-                  v44 = v39 == v22;
+                  v43 = v38 == v23 && v35 == v27;
+                  v44 = v39 == v24;
                   if (v43 && v44)
                   {
-                    v31 = v29;
+                    v31 = v14;
                   }
 
                   else
@@ -7996,63 +8157,65 @@ void _computeNeighbourIndexes(uint64_t a1, unsigned int a2)
                 while (!v45);
               }
 
-              IndexGreaterThanIndex = C3DIndexSetGetIndexGreaterThanIndex(v26, v29);
+              FirstIndex = C3DIndexSetGetIndexGreaterThanIndex(v28, v14);
               if (v31 != -1)
               {
                 break;
               }
 
-              v29 = IndexGreaterThanIndex;
+              v14 = FirstIndex;
             }
 
-            while (IndexGreaterThanIndex != -1);
+            while (FirstIndex != -1);
             if (v31 != -1)
             {
-              v47 = v5 + 48 * v31 + 4 * v30;
-              v49 = *(v47 + 16);
-              v48 = (v47 + 16);
-              if (v49 != -1)
+              v46 = v5 + 48 * v31 + 4 * v30;
+              v48 = *(v46 + 16);
+              v47 = (v46 + 16);
+              if (v48 != -1)
               {
-                v50 = scn_default_log();
-                if (os_log_type_enabled(v50, OS_LOG_TYPE_FAULT))
+                v49 = scn_default_log(FirstIndex, v14);
+                FirstIndex = os_log_type_enabled(v49, OS_LOG_TYPE_FAULT);
+                if (FirstIndex)
                 {
-                  _computeNeighbourIndexes_cold_2(v59, &v60, v50);
+                  _computeNeighbourIndexes_cold_2(v58, &v59, v49);
                 }
               }
 
-              *(v57 + 4 * v14) = v31;
-              *v48 = i;
+              *(v56 + 4 * v16) = v31;
+              *v47 = i;
             }
           }
         }
 
-        ++v14;
+        ++v16;
       }
 
-      while (v14 != 4);
+      while (v16 != 4);
     }
   }
 
-  v51 = *(a1 + 32);
-  if (v51)
+  v50 = *(a1 + 32);
+  if (v50)
   {
-    for (j = 0; j < v51; ++j)
+    for (j = 0; j < v50; ++j)
     {
-      v53 = v58[j];
-      if (v53)
+      v52 = v57[j];
+      if (v52)
       {
-        CFRelease(v53);
-        v58[j] = 0;
-        v51 = *(a1 + 32);
+        CFRelease(v52);
+        v57[j] = 0;
+        v50 = *(a1 + 32);
       }
     }
   }
 
-  free(v58);
+  free(v57);
 }
 
-void C3DLightProbesSystemSetProbesCount(uint64_t a1, unsigned int a2)
+void C3DLightProbesSystemSetProbesCount(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
   if (a2)
   {
     if (*(a1 + 36) < a2)
@@ -8071,7 +8234,7 @@ void C3DLightProbesSystemSetProbesCount(uint64_t a1, unsigned int a2)
     *(a1 + 36) = 0;
   }
 
-  *(a1 + 32) = a2;
+  *(a1 + 32) = v2;
   *(a1 + 228) = 1;
 }
 
@@ -8085,88 +8248,89 @@ void __cleanupTetrahedronsData(void **a1)
   a1[24] = 0;
 }
 
-void C3DLightProbesSystemSetProbeData(uint64_t a1, uint64_t a2, float32x4_t *a3, uint64_t a4)
+void C3DLightProbesSystemSetProbeData(uint64_t a1, uint64_t a2, _BOOL8 a3, uint64_t a4)
 {
-  v41 = *MEMORY[0x277D85DE8];
-  v36.n128_u32[2] = 0;
+  v45 = *MEMORY[0x277D85DE8];
+  v40.n128_u32[2] = 0;
   v6 = a2 + 4;
-  v36.n128_u64[0] = 0;
-  C3DNodeGetWorldPosition(a3, &v36);
-  *(*(a1 + 16) + 16 * v6) = v36;
+  v40.n128_u64[0] = 0;
+  C3DNodeGetWorldPosition(a3, &v40);
+  *(*(a1 + 16) + 16 * v6) = v40;
   v7 = *(a1 + 232);
-  IrradianceSH = C3DLightGetIrradianceSH(a4);
+  IrradianceSH = C3DLightGetIrradianceSH(a4, v8);
   if (IrradianceSH)
   {
-    v9 = IrradianceSH;
-    v10 = v7 * v7;
-    if (12 * v7 * v7 != CFDataGetLength(IrradianceSH))
+    v10 = IrradianceSH;
+    v11 = v7 * v7;
+    Length = CFDataGetLength(IrradianceSH);
+    if (12 * v7 * v7 != Length)
     {
-      v11 = scn_default_log();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_FAULT))
+      v14 = scn_default_log(Length, v13);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
       {
-        C3DLightProbesSystemSetProbeData_cold_1(v11, v12, v13, v14, v15, v16, v17, v18);
+        C3DLightProbesSystemSetProbeData_cold_1(v14, v15, v16, v17, v18, v19, v20, v21);
       }
     }
 
-    BytePtr = CFDataGetBytePtr(v9);
-    v20 = &BytePtr[4 * v10];
-    v37[0] = BytePtr;
-    v37[1] = v20;
-    v21 = &BytePtr[8 * v10];
-    v37[2] = v21;
+    BytePtr = CFDataGetBytePtr(v10);
+    v24 = &BytePtr[4 * v11];
+    v41[0] = BytePtr;
+    v41[1] = v24;
+    v25 = &BytePtr[8 * v11];
+    v41[2] = v25;
     if (v7 == 3)
     {
-      v23 = 0;
-      v24 = *(a1 + 24);
-      v25 = vdup_n_s32(0xBEA6C6BC);
+      v27 = 0;
+      v28 = *(a1 + 24);
+      v29 = vdup_n_s32(0xBEA6C6BC);
       do
       {
-        v26 = v37[v23];
-        v27.i32[0] = *(v26 + 12);
-        v27.i32[1] = *(v26 + 4);
-        *&v28 = vmul_f32(v27, v25);
-        *(&v28 + 2) = *(v26 + 8) * 0.32573;
-        *(&v28 + 3) = (*(v26 + 24) * -0.078848) + (*v26 * 0.28209);
-        *(&v38 + v23++) = v28;
+        v30 = v41[v27];
+        v31.i32[0] = *(v30 + 12);
+        v31.i32[1] = *(v30 + 4);
+        *&v32 = vmul_f32(v31, v29);
+        *(&v32 + 2) = *(v30 + 8) * 0.32573;
+        *(&v32 + 3) = (*(v30 + 24) * -0.078848) + (*v30 * 0.28209);
+        *(&v42 + v27++) = v32;
       }
 
-      while (v23 != 3);
-      v29 = 0;
-      v30 = (v24 + 112 * v6);
-      v31 = v39;
-      *v30 = v38;
-      v30[1] = v31;
-      v30[2] = v40;
+      while (v27 != 3);
+      v33 = 0;
+      v34 = (v28 + 112 * v6);
+      v35 = v43;
+      *v34 = v42;
+      v34[1] = v35;
+      v34[2] = v44;
       do
       {
-        *(&v38 + v29) = vmulq_f32(*(v37[v29] + 16), xmmword_21C2A1A40);
-        ++v29;
+        *(&v42 + v33) = vmulq_f32(*(v41[v33] + 16), xmmword_21C2A1A40);
+        ++v33;
       }
 
-      while (v29 != 3);
-      v32 = v39;
-      v30[3] = v38;
-      v30[4] = v32;
-      v30[5] = v40;
-      v33.i32[0] = *(BytePtr + 8);
-      v33.i32[1] = *(v20 + 8);
-      *&v34 = vmul_f32(v33, vdup_n_s32(0x3E0BD8A0u));
-      *(&v34 + 1) = __PAIR64__(1.0, *(v21 + 8) * 0.13657);
-      v30[6] = v34;
+      while (v33 != 3);
+      v36 = v43;
+      v34[3] = v42;
+      v34[4] = v36;
+      v34[5] = v44;
+      v37.i32[0] = *(BytePtr + 8);
+      v37.i32[1] = *(v24 + 8);
+      *&v38 = vmul_f32(v37, vdup_n_s32(0x3E0BD8A0u));
+      *(&v38 + 1) = __PAIR64__(1.0, *(v25 + 8) * 0.13657);
+      v34[6] = v38;
     }
 
     else if (v7 == 2)
     {
-      v22 = (*(a1 + 24) + 48 * v6);
-      *v22 = *BytePtr;
-      v22[1] = *v20;
-      v22[2] = *v21;
+      v26 = (*(a1 + 24) + 48 * v6);
+      *v26 = *BytePtr;
+      v26[1] = *v24;
+      v26[2] = *v25;
     }
 
     else
     {
-      v35 = scn_default_log();
-      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
+      v39 = scn_default_log(BytePtr, v23);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         C3DLightProbesSystemSetProbeData_cold_2();
       }
@@ -8176,7 +8340,7 @@ void C3DLightProbesSystemSetProbeData(uint64_t a1, uint64_t a2, float32x4_t *a3,
 
 void C3DLightProbesBeginQueries(uint64_t a1, uint64_t x1_0)
 {
-  *(&v167[1] + 4) = *MEMORY[0x277D85DE8];
+  *(&v164[1] + 4) = *MEMORY[0x277D85DE8];
   *(a1 + 240) = x1_0;
   *(a1 + 248) = 0;
   if (*(a1 + 228) != 1)
@@ -8196,14 +8360,14 @@ void C3DLightProbesBeginQueries(uint64_t a1, uint64_t x1_0)
   *(a1 + 48) = malloc_type_valloc(16 * (v2 + 2 * v2), 0x1000040EED21634uLL);
   *(a1 + 64) = malloc_type_valloc(16 * (v2 + 2 * v2), 0x1000040EED21634uLL);
   v3 = malloc_type_calloc(8uLL, v2, 0x100004000313F17uLL);
-  v159 = malloc_type_calloc(0xCuLL, v2, 0x10000403E1C8BA9uLL);
-  v148 = malloc_type_calloc(8uLL, v2, 0x100004000313F17uLL);
-  v146 = v2;
+  v156 = malloc_type_calloc(0xCuLL, v2, 0x10000403E1C8BA9uLL);
+  v145 = malloc_type_calloc(8uLL, v2, 0x100004000313F17uLL);
+  v143 = v2;
   v4 = malloc_type_calloc(v2, 1uLL, 0x100004077774924uLL);
   v5 = v4;
   v6 = *(a1 + 48);
   v7 = *(a1 + 32);
-  v149 = *(a1 + 16);
+  v146 = *(a1 + 16);
   if (v7)
   {
     v8 = (*(a1 + 16) + 64);
@@ -8253,17 +8417,19 @@ void C3DLightProbesBeginQueries(uint64_t a1, uint64_t x1_0)
   v23 = vdupq_lane_s32(v15, 0);
   do
   {
-    *(v149 + v22 * 16) = vmlaq_f32(v14, v23, g_TetrahedronVertices[v22]);
+    *(v146 + v22 * 16) = vmlaq_f32(v14, v23, g_TetrahedronVertices[v22]);
     ++v22;
   }
 
   while (v22 != 4);
   *v6 = xmmword_21C280330;
   *v4 = 1;
-  if (!computeTetrahedronCircumsphereMatrix(v6, v149))
+  v24 = computeTetrahedronCircumsphereMatrix(v6, v146);
+  if ((v24 & 1) == 0)
   {
-    v24 = scn_default_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    v26 = scn_default_log(v24, v25);
+    v24 = os_log_type_enabled(v26, OS_LOG_TYPE_ERROR);
+    if (v24)
     {
       C3DLightProbesBeginQueries_cold_1();
       if (v7)
@@ -8272,7 +8438,7 @@ void C3DLightProbesBeginQueries(uint64_t a1, uint64_t x1_0)
       }
 
 LABEL_152:
-      LODWORD(v25) = 1;
+      LODWORD(v27) = 1;
       goto LABEL_153;
     }
   }
@@ -8283,208 +8449,208 @@ LABEL_152:
   }
 
 LABEL_18:
-  v145 = 0;
-  v142 = v6 + 2;
-  LODWORD(v25) = 1;
-  v151 = v5;
-  v152 = v3;
-  v150 = v6;
-  v143 = v7;
+  v142 = 0;
+  v139 = v6 + 2;
+  LODWORD(v27) = 1;
+  v148 = v5;
+  v149 = v3;
+  v147 = v6;
+  v140 = v7;
   do
   {
-    while (!v25)
+    while (!v27)
     {
-      v87 = 0;
-      if (++v145 == v7)
+      v25 = 0;
+      if (++v142 == v7)
       {
         goto LABEL_168;
       }
     }
 
-    v26 = 0;
-    v147 = 0;
-    v27 = *(v149 + 16 * (v145 + 4));
-    v144 = v25;
-    v28 = v25;
-    v29 = v142;
+    v28 = 0;
+    v144 = 0;
+    v29 = *(v146 + 16 * (v142 + 4));
+    v141 = v27;
+    v30 = v27;
+    v31 = v139;
     do
     {
-      v30 = vsubq_f32(v27, *v29);
-      v31 = vmulq_f32(v30, v30);
-      if (COERCE_FLOAT(HIDWORD(*v29)) + 0.00001 >= (v31.f32[2] + vaddv_f32(*v31.f32)))
+      v32 = vsubq_f32(v29, *v31);
+      v33 = vmulq_f32(v32, v32);
+      if (COERCE_FLOAT(HIDWORD(*v31)) + 0.00001 >= (v33.f32[2] + vaddv_f32(*v33.f32)))
       {
-        v3[v147] = v26;
-        v5[v26] = 0;
-        ++v147;
+        v3[v144] = v28;
+        v5[v28] = 0;
+        ++v144;
       }
 
-      ++v26;
-      v29 += 3;
+      ++v28;
+      v31 += 3;
     }
 
-    while (v28 != v26);
-    if (!v147)
+    while (v30 != v28);
+    if (!v144)
     {
-      LODWORD(v25) = v144;
+      LODWORD(v27) = v141;
       goto LABEL_148;
     }
 
-    v32 = 0;
-    v33 = 0;
-    v34 = v147;
+    v34 = 0;
+    v35 = 0;
+    v36 = v144;
     do
     {
-      v35 = 0;
-      v36 = v3[v32];
-      v156 = &v6[3 * v36];
-      v153 = v36;
-      v154 = v32;
+      v37 = 0;
+      v38 = v3[v34];
+      v153 = &v6[3 * v38];
+      v150 = v38;
+      v151 = v34;
       do
       {
-        v37 = 0;
-        v38 = &g_TetrahedronFaces[3 * v35];
-        v39 = v38[1];
-        v40 = v156->i32[*v38];
-        v41 = v156->i32[v39];
-        v42 = v38[2];
-        v43 = v156->i32[v42];
-        if (v40 >= v41)
+        v39 = 0;
+        v40 = &g_TetrahedronFaces[3 * v37];
+        v41 = v40[1];
+        v42 = v153->i32[*v40];
+        v43 = v153->i32[v41];
+        v44 = v40[2];
+        v45 = v153->i32[v44];
+        if (v42 >= v43)
         {
-          v44 = v156->i32[v39];
+          v46 = v153->i32[v41];
         }
 
         else
         {
-          v44 = v40;
+          v46 = v42;
         }
 
-        if (v40 <= v41)
+        if (v42 <= v43)
         {
-          v45 = v156->i32[v39];
+          v47 = v153->i32[v41];
         }
 
         else
         {
-          v45 = v40;
+          v47 = v42;
         }
 
-        if (v44 >= v43)
+        if (v46 >= v45)
         {
-          v44 = v156->i32[v42];
+          v46 = v153->i32[v44];
         }
 
-        if (v45 <= v43)
+        if (v47 <= v45)
         {
-          v45 = v156->i32[v42];
+          v47 = v153->i32[v44];
         }
 
-        if (v44 == v41 || v45 == v41)
+        if (v46 == v43 || v47 == v43)
         {
-          v41 = v156->i32[v42];
+          v43 = v153->i32[v44];
         }
 
-        if (v44 != v40 && v45 != v40)
+        if (v46 != v42 && v47 != v42)
         {
-          v41 = v40;
+          v43 = v42;
         }
 
-        v48 = 1;
+        v50 = 1;
         while (1)
         {
-          v49 = v3[v37];
-          if (v49 != v36)
+          v51 = v3[v39];
+          if (v51 != v38)
           {
             break;
           }
 
 LABEL_78:
-          v48 = ++v37 < v34;
-          if (v37 == v34)
+          v50 = ++v39 < v36;
+          if (v39 == v36)
           {
             goto LABEL_81;
           }
         }
 
-        v50 = &v6[3 * v49];
-        v51 = &dword_21C2A1A78;
-        v52 = 4;
+        v52 = &v6[3 * v51];
+        v53 = &dword_21C2A1A78;
+        v54 = 4;
         while (1)
         {
-          v53 = v50->i32[*(v51 - 2)];
-          v54 = v50->i32[*(v51 - 1)];
-          v55 = v50->i32[*v51];
-          if (v53 >= v54)
+          v24 = v52->i32[*(v53 - 2)];
+          v25 = v52->i32[*(v53 - 1)];
+          v55 = v52->i32[*v53];
+          if (v24 >= v25)
           {
-            v56 = v50->i32[*(v51 - 1)];
+            v56 = v52->i32[*(v53 - 1)];
           }
 
           else
           {
-            v56 = v50->i32[*(v51 - 2)];
+            v56 = v52->i32[*(v53 - 2)];
           }
 
-          if (v53 <= v54)
+          if (v24 <= v25)
           {
-            v57 = v50->i32[*(v51 - 1)];
+            v57 = v52->i32[*(v53 - 1)];
           }
 
           else
           {
-            v57 = v50->i32[*(v51 - 2)];
+            v57 = v52->i32[*(v53 - 2)];
           }
 
           if (v56 >= v55)
           {
-            v56 = v50->i32[*v51];
+            v56 = v52->i32[*v53];
           }
 
           if (v57 <= v55)
           {
-            v57 = v50->i32[*v51];
+            v57 = v52->i32[*v53];
           }
 
-          if (v56 == v54 || v57 == v54)
+          if (v56 == v25 || v57 == v25)
           {
-            v54 = v50->i32[*v51];
+            v25 = v52->i32[*v53];
           }
 
-          if (v56 == v53 || v57 == v53)
+          if (v56 == v24 || v57 == v24)
           {
-            v53 = v54;
+            v24 = v25;
           }
 
-          v60 = v56 == v44 && v53 == v41;
-          if (v60 && v57 == v45)
+          v60 = v56 == v46 && v24 == v43;
+          if (v60 && v57 == v47)
           {
             break;
           }
 
-          v51 += 3;
-          if (!--v52)
+          v53 += 3;
+          if (!--v54)
           {
             goto LABEL_78;
           }
         }
 
-        if (v48)
+        if (v50)
         {
           goto LABEL_113;
         }
 
 LABEL_81:
-        v155 = v35;
+        v152 = v37;
         v62 = 0;
-        v63 = v33;
-        v64 = &v159[3 * v33];
-        *v64 = v40;
-        v64[1] = v156->i32[v39];
-        v64[2] = v156->i32[v42];
-        v158 = v33;
-        v157 = v64;
+        v63 = v35;
+        v64 = &v156[3 * v35];
+        *v64 = v42;
+        v64[1] = v153->i32[v41];
+        v64[2] = v153->i32[v44];
+        v155 = v35;
+        v154 = v64;
         while (1)
         {
           v65 = v62 == 2 ? 0 : v62 + 1;
-          if (v33)
+          if (v35)
           {
             break;
           }
@@ -8496,13 +8662,13 @@ LABEL_81:
           }
 
 LABEL_104:
-          LODWORD(v40) = v64[++v62];
+          LODWORD(v42) = v64[++v62];
         }
 
         v66 = 0;
         v67 = 0;
         v68 = v64[v65];
-        v69 = v159;
+        v69 = v156;
         do
         {
           v70 = 0;
@@ -8510,7 +8676,7 @@ LABEL_104:
           do
           {
             v72 = v69[v70];
-            if (v72 == v40 || v72 == v68)
+            if (v72 == v42 || v72 == v68)
             {
               ++v71;
             }
@@ -8521,10 +8687,11 @@ LABEL_104:
           while (v70 != 3);
           if (v71 >= 3)
           {
-            v74 = scn_default_log();
-            if (os_log_type_enabled(v74, OS_LOG_TYPE_FAULT))
+            v74 = scn_default_log(v24, v25);
+            v24 = os_log_type_enabled(v74, OS_LOG_TYPE_FAULT);
+            if (v24)
             {
-              C3DLightProbesBeginQueries_cold_2(v166, v167, v74);
+              C3DLightProbesBeginQueries_cold_2(v163, v164, v74);
             }
           }
 
@@ -8538,8 +8705,8 @@ LABEL_104:
         }
 
         while (v66 != v63);
-        v33 = v158;
-        v64 = v157;
+        v35 = v155;
+        v64 = v154;
         if (v62 != 2 && v67 <= 1)
         {
           goto LABEL_104;
@@ -8547,48 +8714,48 @@ LABEL_104:
 
         v76 = v62 > 2 || v67 < 2;
 LABEL_112:
-        v6 = v150;
-        v5 = v151;
-        v32 = v154;
-        v35 = v155;
-        v33 += v76;
-        v3 = v152;
-        v34 = v147;
-        v36 = v153;
+        v6 = v147;
+        v5 = v148;
+        v34 = v151;
+        v37 = v152;
+        v35 += v76;
+        v3 = v149;
+        v36 = v144;
+        v38 = v150;
 LABEL_113:
-        ++v35;
+        ++v37;
       }
 
-      while (v35 != 4);
-      v148[v32++] = v36;
+      while (v37 != 4);
+      v145[v34++] = v38;
     }
 
-    while (v32 != v34);
-    if (v33)
+    while (v34 != v36);
+    if (v35)
     {
-      v77 = v33;
-      v78 = v159 + 2;
-      v25 = v144;
-      v79 = v147;
+      v77 = v35;
+      v78 = v156 + 2;
+      v27 = v141;
+      v79 = v144;
       do
       {
         if (v79)
         {
-          v80 = v25;
+          v80 = v27;
           v81 = v79 - 1;
-          v82 = v148[v79 - 1];
+          v82 = v145[v79 - 1];
         }
 
         else
         {
-          v83 = (v25 + 1);
-          v82 = v25;
-          if (v25 >= v146)
+          v83 = (v27 + 1);
+          v82 = v27;
+          if (v27 >= v143)
           {
-            v84 = scn_default_log();
+            v84 = scn_default_log(v24, v25);
             if (os_log_type_enabled(v84, OS_LOG_TYPE_ERROR))
             {
-              C3DLightProbesBeginQueries_cold_3(&buf, v161, v84);
+              C3DLightProbesBeginQueries_cold_3(&buf, v158, v84);
             }
           }
 
@@ -8601,8 +8768,9 @@ LABEL_113:
         v86 = &v6[3 * v82];
         v86->i64[0] = *(v78 - 1);
         v86->i32[2] = v85;
-        v86->i32[3] = v145 + 4;
-        if (computeTetrahedronCircumsphereMatrix(v86, v149))
+        v86->i32[3] = v142 + 4;
+        v24 = computeTetrahedronCircumsphereMatrix(v86, v146);
+        if (v24)
         {
           v79 = v81;
         }
@@ -8610,13 +8778,13 @@ LABEL_113:
         else
         {
           v5[v82] = 0;
-          v148[v81] = v82;
+          v145[v81] = v82;
           v79 = v81 + 1;
         }
 
         v78 += 3;
         --v77;
-        v25 = v80;
+        v27 = v80;
       }
 
       while (v77);
@@ -8624,201 +8792,201 @@ LABEL_113:
 
     else
     {
-      LODWORD(v25) = v144;
-      v79 = v147;
+      LODWORD(v27) = v141;
+      v79 = v144;
     }
 
     if (v79)
     {
-      v88 = 0;
-      v89 = v79;
-      v90 = v25 - 1;
+      v87 = 0;
+      v88 = v79;
+      v89 = v27 - 1;
       do
       {
-        v91 = v148[v88];
-        v92 = v90;
+        v90 = v145[v87];
+        v91 = v89;
         do
         {
-          v93 = v92;
-          v94 = v5[v92--];
-          if (v94)
+          v92 = v91;
+          v93 = v5[v91--];
+          if (v93)
           {
-            v95 = 0;
+            v94 = 0;
           }
 
           else
           {
-            v95 = v91 < v93;
+            v94 = v90 < v92;
           }
         }
 
-        while (v95);
-        LODWORD(v25) = v25 - 1;
-        if (v91 >= v93)
+        while (v94);
+        LODWORD(v27) = v27 - 1;
+        if (v90 >= v92)
         {
-          if (v25 > v91)
+          if (v27 > v90)
           {
-            v104 = v25;
-            v105 = scn_default_log();
-            v106 = os_log_type_enabled(v105, OS_LOG_TYPE_FAULT);
-            LODWORD(v25) = v104;
-            if (v106)
+            v102 = v27;
+            v103 = scn_default_log(v24, v25);
+            v24 = os_log_type_enabled(v103, OS_LOG_TYPE_FAULT);
+            LODWORD(v27) = v102;
+            if (v24)
             {
-              C3DLightProbesBeginQueries_cold_4(v162, &v163, v105);
-              LODWORD(v25) = v104;
+              C3DLightProbesBeginQueries_cold_4(v159, &v160, v103);
+              LODWORD(v27) = v102;
             }
           }
         }
 
         else
         {
-          if (!v94)
+          if (!v93)
           {
-            v96 = v25;
-            v97 = scn_default_log();
-            v98 = os_log_type_enabled(v97, OS_LOG_TYPE_FAULT);
-            LODWORD(v25) = v96;
-            if (v98)
+            v95 = v27;
+            v96 = scn_default_log(v24, v25);
+            v24 = os_log_type_enabled(v96, OS_LOG_TYPE_FAULT);
+            LODWORD(v27) = v95;
+            if (v24)
             {
-              C3DLightProbesBeginQueries_cold_5(v164, &v165, v97);
-              LODWORD(v25) = v96;
+              C3DLightProbesBeginQueries_cold_5(v161, &v162, v96);
+              LODWORD(v27) = v95;
             }
           }
 
-          v99 = &v6[3 * v93];
-          v100 = *v99;
-          v101 = v99[1];
-          v102 = v99[2];
-          f32 = v6[3 * v91].f32;
-          f32[1] = v101;
-          f32[2] = v102;
-          *f32 = v100;
-          v5[v91] = 1;
-          v5[v93] = 0;
+          v97 = &v6[3 * v92];
+          v98 = *v97;
+          v99 = v97[1];
+          v100 = v97[2];
+          f32 = v6[3 * v90].f32;
+          f32[1] = v99;
+          f32[2] = v100;
+          *f32 = v98;
+          v5[v90] = 1;
+          v5[v92] = 0;
         }
 
-        ++v88;
-        --v90;
+        ++v87;
+        --v89;
       }
 
-      while (v88 != v89);
+      while (v87 != v88);
     }
 
 LABEL_148:
-    v7 = v143;
-    ++v145;
+    v7 = v140;
+    ++v142;
   }
 
-  while (v145 != v143);
-  if (!v25)
+  while (v142 != v140);
+  if (!v27)
   {
-    v87 = 0;
+    LODWORD(v25) = 0;
     goto LABEL_168;
   }
 
 LABEL_153:
-  v107 = 0;
+  v104 = 0;
   __asm { FMOV            V0.4S, #0.25 }
 
   do
   {
-    v111 = &v6[3 * v107];
-    v112 = vmulq_f32(vaddq_f32(vaddq_f32(vaddq_f32(*(v149 + 16 * *v111), *(v149 + 16 * v111[1])), *(v149 + 16 * v111[2])), *(v149 + 16 * v111[3])), _Q0);
-    v113 = &dword_21C2A1A78;
-    v114 = 4;
+    v108 = &v6[3 * v104];
+    v109 = vmulq_f32(vaddq_f32(vaddq_f32(vaddq_f32(*(v146 + 16 * *v108), *(v146 + 16 * v108[1])), *(v146 + 16 * v108[2])), *(v146 + 16 * v108[3])), _Q0);
+    v110 = &dword_21C2A1A78;
+    v111 = 4;
     do
     {
-      v115 = *(v113 - 2);
-      v116 = *(v113 - 1);
-      v117 = v111[v115];
-      v118 = *(v149 + 16 * v117);
-      v119 = v111[v116];
-      v120 = vsubq_f32(*(v149 + 16 * v119), v118);
-      v121 = vsubq_f32(*(v149 + 16 * v111[*v113]), v118);
-      v122 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v121, v121), v121, 0xCuLL), vnegq_f32(v120)), v121, vextq_s8(vuzp1q_s32(v120, v120), v120, 0xCuLL));
-      v123 = vextq_s8(vuzp1q_s32(v122, v122), v122, 0xCuLL);
-      v124 = vmulq_f32(v122, v122);
-      *&v125 = v124.f32[1] + (v124.f32[2] + v124.f32[0]);
-      *v124.f32 = vrsqrte_f32(v125);
-      v126 = vmulq_n_f32(v123, vmul_f32(*v124.f32, vrsqrts_f32(v125, vmul_f32(*v124.f32, *v124.f32))).f32[0]);
-      v127 = vmulq_f32(v118, v126);
-      v128 = vmulq_f32(v112, v126);
-      *v127.i8 = vadd_f32(vzip1_s32(*&vextq_s8(v128, v128, 8uLL), *&vextq_s8(v127, v127, 8uLL)), vadd_f32(vzip1_s32(*v128.i8, *v127.i8), vzip2_s32(*v128.i8, *v127.i8)));
-      if (vcgt_f32(*v127.i8, vdup_lane_s32(*v127.i8, 1)).u8[0])
+      v112 = *(v110 - 2);
+      v113 = *(v110 - 1);
+      v114 = v108[v112];
+      v115 = *(v146 + 16 * v114);
+      v116 = v108[v113];
+      v117 = vsubq_f32(*(v146 + 16 * v116), v115);
+      v118 = vsubq_f32(*(v146 + 16 * v108[*v110]), v115);
+      v119 = vmlaq_f32(vmulq_f32(vextq_s8(vuzp1q_s32(v118, v118), v118, 0xCuLL), vnegq_f32(v117)), v118, vextq_s8(vuzp1q_s32(v117, v117), v117, 0xCuLL));
+      v120 = vextq_s8(vuzp1q_s32(v119, v119), v119, 0xCuLL);
+      v121 = vmulq_f32(v119, v119);
+      *&v122 = v121.f32[1] + (v121.f32[2] + v121.f32[0]);
+      *v121.f32 = vrsqrte_f32(v122);
+      v123 = vmulq_n_f32(v120, vmul_f32(*v121.f32, vrsqrts_f32(v122, vmul_f32(*v121.f32, *v121.f32))).f32[0]);
+      v124 = vmulq_f32(v115, v123);
+      v125 = vmulq_f32(v109, v123);
+      *v124.i8 = vadd_f32(vzip1_s32(*&vextq_s8(v125, v125, 8uLL), *&vextq_s8(v124, v124, 8uLL)), vadd_f32(vzip1_s32(*v125.i8, *v124.i8), vzip2_s32(*v125.i8, *v124.i8)));
+      if (vcgt_f32(*v124.i8, vdup_lane_s32(*v124.i8, 1)).u8[0])
       {
-        v111[v115] = v119;
-        v111[v116] = v117;
+        v108[v112] = v116;
+        v108[v113] = v114;
       }
 
-      v113 += 3;
-      --v114;
+      v110 += 3;
+      --v111;
     }
 
-    while (v114);
-    ++v107;
+    while (v111);
+    ++v104;
   }
 
-  while (v107 != v25);
-  v129 = 0;
-  v87 = 0;
-  v130.i64[0] = 0x300000003;
-  v130.i64[1] = 0x300000003;
-  v131 = v6;
+  while (v104 != v27);
+  v126 = 0;
+  LODWORD(v25) = 0;
+  v127.i64[0] = 0x300000003;
+  v127.i64[1] = 0x300000003;
+  v128 = v6;
   do
   {
-    if (v131->i32[0] >= 4 && v131->i32[1] >= 4 && v131->i32[2] >= 4 && v131->i32[3] >= 4)
+    if (v128->i32[0] >= 4 && v128->i32[1] >= 4 && v128->i32[2] >= 4 && v128->i32[3] >= 4)
     {
-      if (v129 != v87)
+      if (v126 != v25)
       {
-        v132 = &v6[3 * v87];
-        v133 = *v131;
-        v134 = v131[2];
-        v132[1] = v131[1];
-        v132[2] = v134;
-        *v132 = v133;
+        v129 = &v6[3 * v25];
+        v130 = *v128;
+        v131 = v128[2];
+        v129[1] = v128[1];
+        v129[2] = v131;
+        *v129 = v130;
       }
 
-      v6[3 * v87] = vaddq_s32(v6[3 * v87], v130);
-      ++v87;
+      v6[3 * v25] = vaddq_s32(v6[3 * v25], v127);
+      LODWORD(v25) = v25 + 1;
     }
 
-    ++v129;
-    v131 += 3;
+    ++v126;
+    v128 += 3;
   }
 
-  while (v25 != v129);
+  while (v27 != v126);
 LABEL_168:
-  *(a1 + 224) = v87;
-  _computeNeighbourIndexes(a1, v87);
-  _computeTetrahedronMatrices(a1, v168);
-  v136 = *(a1 + 224);
-  if (v136)
+  *(a1 + 224) = v25;
+  _computeNeighbourIndexes(a1, v25);
+  _computeTetrahedronMatrices(a1, v165);
+  v133 = *(a1 + 224);
+  if (v133)
   {
-    v137 = (*(a1 + 48) + 32);
-    v138 = 0uLL;
-    v139 = *(a1 + 224);
+    v134 = (*(a1 + 48) + 32);
+    v135 = 0uLL;
+    v136 = *(a1 + 224);
     do
     {
-      v140 = *v137;
-      v137 += 3;
-      v135.i32[1] = v140.i32[1];
-      v138 = vaddq_f32(v138, v140);
-      --v139;
+      v137 = *v134;
+      v134 += 3;
+      v132.i32[1] = v137.i32[1];
+      v135 = vaddq_f32(v135, v137);
+      --v136;
     }
 
-    while (v139);
+    while (v136);
   }
 
   else
   {
-    v138 = 0uLL;
+    v135 = 0uLL;
   }
 
-  *v135.i32 = v136;
-  *(a1 + 208) = vdivq_f32(v138, vdupq_lane_s32(v135, 0));
+  *v132.i32 = v133;
+  *(a1 + 208) = vdivq_f32(v135, vdupq_lane_s32(v132, 0));
   free(v3);
-  free(v159);
-  free(v148);
+  free(v156);
+  free(v145);
   free(v5);
 }
 
@@ -8868,7 +9036,7 @@ __n128 __triangleBarycentricCoords(float32x4_t a1, float32x4_t a2, float32x4_t a
   return result;
 }
 
-BOOL __lookupTetrahedron(uint64_t a1, unsigned int *a2, float32x4_t *a3, int32x4_t a4, float a5)
+BOOL __lookupTetrahedron(uint64_t a1, unsigned int *a2, float32x4_t *a3, float32x4_t a4, float a5)
 {
   v5 = *(a1 + 224);
   if (!v5)
@@ -8882,7 +9050,7 @@ BOOL __lookupTetrahedron(uint64_t a1, unsigned int *a2, float32x4_t *a3, int32x4
   v47 = *(a1 + 64);
   v10 = *(a1 + 192);
   v42 = vdupq_laneq_s32(a4, 2);
-  v43 = vdupq_lane_s32(*a4.i8, 1);
+  v43 = vdupq_lane_s32(*a4.f32, 1);
   if (*a2 >= v5)
   {
     v11 = 0;
@@ -8971,7 +9139,7 @@ BOOL __lookupTetrahedron(uint64_t a1, unsigned int *a2, float32x4_t *a3, int32x4
   if (v11 == -1)
   {
     v50 = v22;
-    v31 = scn_default_log();
+    v31 = scn_default_log(a1, a2);
     v32 = os_log_type_enabled(v31, OS_LOG_TYPE_FAULT);
     v22 = v50;
     if (v32)
@@ -9005,12 +9173,12 @@ void __debugDrawQuery(void *a1, unsigned int a2, float32x4_t a3, float a4)
   C3DAuthoringEnvironmentAppendDebugSegment(a1[31], 0, &v8, 0, *(v5 + 16 * v6[3]), a3);
 }
 
-float32x4_t C3DLightProbesQuerySH2(uint64_t a1, unsigned int *a2, float32x4_t *a3, int32x4_t a4)
+float32x4_t C3DLightProbesQuerySH2(uint64_t a1, unsigned int *a2, float32x4_t *a3, float32x4_t a4)
 {
   if (!a2)
   {
     v35 = a4;
-    v7 = scn_default_log();
+    v7 = scn_default_log(a1, 0);
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_FAULT);
     a4 = v35;
     if (v8)
@@ -9028,7 +9196,7 @@ float32x4_t C3DLightProbesQuerySH2(uint64_t a1, unsigned int *a2, float32x4_t *a
   {
     v19 = (v18 + 48 * *v17);
     result = v36;
-    v21 = vmulq_n_f32(*v19, v36.n128_f32[0]);
+    v21 = vmulq_n_f32(*v19, v36.f32[0]);
     *a3 = v21;
     v22 = vmulq_n_f32(v19[1], result.f32[0]);
     a3[1] = v22;
@@ -9056,10 +9224,10 @@ float32x4_t C3DLightProbesQuerySH2(uint64_t a1, unsigned int *a2, float32x4_t *a
 
   else
   {
-    v33 = v18 + 48 * *v17;
+    v33 = (v18 + 48 * *v17);
     result = *v33;
-    v34 = *(v33 + 32);
-    a3[1] = *(v33 + 16);
+    v34 = v33[2];
+    a3[1] = v33[1];
     a3[2] = v34;
     *a3 = result;
   }
@@ -9067,13 +9235,13 @@ float32x4_t C3DLightProbesQuerySH2(uint64_t a1, unsigned int *a2, float32x4_t *a
   return result;
 }
 
-float32x4_t C3DLightProbesQueryBoxSH3(void *a1, unsigned int *a2, float32x4_t *a3, int32x4_t a4, float32x4_t a5)
+float32x4_t C3DLightProbesQueryBoxSH3(void *a1, unsigned int *a2, float32x4_t *a3, float32x4_t a4, float32x4_t a5)
 {
   v54 = a4;
   if (!a2)
   {
     v53 = a5;
-    v8 = scn_default_log();
+    v8 = scn_default_log(a1, 0);
     v9 = os_log_type_enabled(v8, OS_LOG_TYPE_FAULT);
     a5 = v53;
     a4 = v54;
@@ -9180,12 +9348,12 @@ float32x4_t C3DLightProbesQueryBoxSH3(void *a1, unsigned int *a2, float32x4_t *a
   return result;
 }
 
-float32x4_t C3DLightProbesQuerySH3(void *a1, unsigned int *a2, float32x4_t *a3, int32x4_t a4)
+float32x4_t C3DLightProbesQuerySH3(void *a1, unsigned int *a2, float32x4_t *a3, float32x4_t a4)
 {
   v51 = a4;
   if (!a2)
   {
-    v7 = scn_default_log();
+    v7 = scn_default_log(a1, 0);
     v8 = os_log_type_enabled(v7, OS_LOG_TYPE_FAULT);
     a4 = v51;
     if (v8)
@@ -9296,7 +9464,7 @@ __n128 C3DLightProbesSetGlobalSH3(uint64_t a1, uint64_t a2, uint64_t a3, __n128 
   {
     if (a3 != 108)
     {
-      v6 = scn_default_log();
+      v6 = scn_default_log(a1, a2);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
       {
         C3DLightProbesSetGlobalSH3_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
@@ -9425,7 +9593,7 @@ double C3D::DOFFinalBlurPass::setup(C3D::DOFFinalBlurPass *this)
   *(v3 + 16) = fmax(*(v2 + 8) * 0.5 / **(this + 14), 1.0);
   *(v3 + 18) = fmax(*(v2 + 12) * 0.5 / **(this + 14), 1.0);
   *(v3 + 28) = 115;
-  v4 = C3D::PassDescriptor::inputAtIndex((this + 32), 1u);
+  v4 = C3D::PassDescriptor::inputAtIndex((this + 32), 1);
   *(v4 + 8) = "DOFCoCBlurred";
   *(v4 + 16) = fmax(*(v2 + 8) * 0.5 / **(this + 14) * 0.25, 1.0);
   *(v4 + 18) = fmax(*(v2 + 12) * 0.5 / **(this + 14) * 0.25, 1.0);
@@ -9438,21 +9606,19 @@ double C3D::DOFFinalBlurPass::setup(C3D::DOFFinalBlurPass *this)
   return result;
 }
 
-uint64_t C3D::DOFFinalBlurPass::compile(C3D::DOFFinalBlurPass *this)
+void C3D::DOFFinalBlurPass::compile(C3D::DOFFinalBlurPass *this, uint64_t a2)
 {
-  RenderContext = C3DEngineContextGetRenderContext(*(this + 2));
+  RenderContext = C3DEngineContextGetRenderContext(*(this + 2), a2);
   [(SCNMTLRenderContext *)RenderContext resourceManager];
   [(SCNMTLRenderContext *)RenderContext device];
-  v3 = (2 * *(*(this + 14) + 4)) | *(*(this + 14) + 20);
-  v4 = 0xC6A4A7935BD1E995 * ((*(*this + 64))(this) ^ 0x35253C9ADE8F4CA8 ^ (0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v3) ^ ((0xC6A4A7935BD1E995 * v3) >> 47))));
-  result = C3D::RenderGraphResourceManager::get(*(*(this + 3) + 128), (0xC6A4A7935BD1E995 * (v4 ^ (v4 >> 47))) ^ ((0xC6A4A7935BD1E995 * (v4 ^ (v4 >> 47))) >> 47));
-  *(this + 15) = result;
-  if (!result)
+  v4 = (2 * *(*(this + 14) + 4)) | *(*(this + 14) + 20);
+  v5 = 0xC6A4A7935BD1E995 * ((*(*this + 64))(this) ^ 0x35253C9ADE8F4CA8 ^ (0xC6A4A7935BD1E995 * ((0xC6A4A7935BD1E995 * v4) ^ ((0xC6A4A7935BD1E995 * v4) >> 47))));
+  v6 = C3D::RenderGraphResourceManager::get(*(*(this + 3) + 128), (0xC6A4A7935BD1E995 * (v5 ^ (v5 >> 47))) ^ ((0xC6A4A7935BD1E995 * (v5 ^ (v5 >> 47))) >> 47));
+  *(this + 15) = v6;
+  if (!v6)
   {
     operator new();
   }
-
-  return result;
 }
 
 uint64_t C3D::DOFFinalBlurPass::execute(C3D::Pass *a1, SCNMTLComputeCommandEncoder **a2)
@@ -9477,7 +9643,7 @@ uint64_t C3D::DOFFinalBlurPass::execute(C3D::Pass *a1, SCNMTLComputeCommandEncod
   v3->_offsets[0] = v5;
   v3->_buffersToBind[0] |= 1uLL;
 LABEL_5:
-  v7 = C3D::SmartPtr<SCNMTLRenderPipeline *,C3D::detail::NSRetainFct,C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 15) + 40);
+  v7 = C3D::SmartPtr<SCNMTLRenderPipeline *,C3D::detail::NSRetainFct,C3D::detail::NSReleaseFct>::operator SCNMTLRenderPipeline *(*(a1 + 15) + 40, a2);
   if (v3->_buffers[1] == v7)
   {
     if (!v3->_offsets[1])
@@ -9494,35 +9660,35 @@ LABEL_5:
   v3->_offsets[1] = 0;
   v3->_buffersToBind[0] |= 2uLL;
 LABEL_9:
-  v8 = C3D::SmartPtr<SCNMTLComputePipeline *,C3D::detail::NSRetainFct,C3D::detail::NSReleaseFct>::operator SCNMTLComputePipeline *(*(a1 + 15) + 24);
-  v9 = [(SCNMTLOpenSubdivComputeEvaluator *)v8 computeEvaluator];
-  SCNMTLComputeCommandEncoder::dispatchOne(v3, v9);
-  v10 = C3D::Pass::inputTextureAtIndex(a1, 0);
-  if (v3->_textures[0] != v10)
+  v9 = C3D::SmartPtr<SCNMTLComputePipeline *,C3D::detail::NSRetainFct,C3D::detail::NSReleaseFct>::operator SCNMTLComputePipeline *(*(a1 + 15) + 24, v8);
+  v10 = [(SCNMTLOpenSubdivComputeEvaluator *)v9 computeEvaluator];
+  SCNMTLComputeCommandEncoder::dispatchOne(v3, v10);
+  v11 = C3D::Pass::inputTextureAtIndex(a1, 0);
+  if (v3->_textures[0] != v11)
   {
-    v3->_textures[0] = v10;
+    v3->_textures[0] = v11;
     v3->_texturesToBind[0] |= 1uLL;
   }
 
-  v11 = C3D::Pass::inputTextureAtIndex(a1, 1u);
-  if (v3->_textures[1] != v11)
+  v12 = C3D::Pass::inputTextureAtIndex(a1, 1);
+  if (v3->_textures[1] != v12)
   {
-    v3->_textures[1] = v11;
+    v3->_textures[1] = v12;
     v3->_texturesToBind[0] |= 2uLL;
   }
 
-  v12 = C3D::Pass::outputTextureAtIndex(a1, 0);
-  if (v3->_textures[2] != v12)
+  v13 = C3D::Pass::outputTextureAtIndex(a1, 0);
+  if (v3->_textures[2] != v13)
   {
-    v3->_textures[2] = v12;
+    v3->_textures[2] = v13;
     v3->_texturesToBind[0] |= 4uLL;
   }
 
-  v13 = C3D::Pass::outputTextureAtIndex(a1, 0);
-  v14 = C3D::SmartPtr<SCNMTLComputePipeline *,C3D::detail::NSRetainFct,C3D::detail::NSReleaseFct>::operator SCNMTLComputePipeline *(*(a1 + 15) + 16);
-  v15 = [(SCNMTLOpenSubdivComputeEvaluator *)v14 computeEvaluator];
+  v14 = C3D::Pass::outputTextureAtIndex(a1, 0);
+  v16 = C3D::SmartPtr<SCNMTLComputePipeline *,C3D::detail::NSRetainFct,C3D::detail::NSReleaseFct>::operator SCNMTLComputePipeline *(*(a1 + 15) + 16, v15);
+  v17 = [(SCNMTLOpenSubdivComputeEvaluator *)v16 computeEvaluator];
 
-  return SCNMTLComputeCommandEncoder::dispatchOnTexture2D(v3, v13, v15);
+  return SCNMTLComputeCommandEncoder::dispatchOnTexture2D(v3, v14, v17);
 }
 
 void C3D::DOFFinalBlurPassResource::~DOFFinalBlurPassResource(C3D::DOFFinalBlurPassResource *this)
@@ -9572,160 +9738,4 @@ void C3D::DOFFinalBlurPassResource::~DOFFinalBlurPassResource(C3D::DOFFinalBlurP
   }
 
   JUMPOUT(0x21CF07610);
-}
-
-uint64_t C3DMaterialDefaultUVSetForProperty(int a1)
-{
-  if (a1 == 4)
-  {
-    return -1;
-  }
-
-  else
-  {
-    return 0;
-  }
-}
-
-uint64_t C3DEffectCommonProfileIsEffectPropertyEnabledForLightingModel(int a1, int a2)
-{
-  if ((C3DEffectCommonProfileIsEffectPropertyEnabledForLightingModel_lightingModelsCapsReady & 1) == 0)
-  {
-    v4 = a1;
-    v5 = a2;
-    v2 = 0;
-    *(&dword_27CDD97BA + 1) = 0;
-    xmmword_27CDD979C = 0u;
-    unk_27CDD97AC = 0u;
-    xmmword_27CDD977C = 0u;
-    unk_27CDD978C = 0u;
-    xmmword_27CDD975C = 0u;
-    unk_27CDD976C = 0u;
-    xmmword_27CDD973C = 0u;
-    unk_27CDD974C = 0u;
-    C3DEffectCommonProfileIsEffectPropertyEnabledForLightingModel_lightingModelsCapabilities = 0u;
-    while (1)
-    {
-      if (v2 <= 2)
-      {
-        if (v2)
-        {
-          if (v2 == 1)
-          {
-            *(&xmmword_27CDD973C + 5) = 0x101010100010101;
-            *(&xmmword_27CDD973C + 13) = 257;
-            *(&xmmword_27CDD973C + 15) = 0;
-            byte_27CDD974F = 0;
-            unk_27CDD9750 = 1;
-            unk_27CDD9752 = 16843009;
-          }
-
-          else
-          {
-            unk_27CDD9756 = 0x101010101010101;
-            WORD1(xmmword_27CDD975C) = 257;
-            DWORD1(xmmword_27CDD975C) = 0;
-            BYTE8(xmmword_27CDD975C) = 0;
-            *(&xmmword_27CDD975C + 9) = 16843009;
-            *(&xmmword_27CDD975C + 13) = 257;
-          }
-        }
-
-        else
-        {
-          LODWORD(C3DEffectCommonProfileIsEffectPropertyEnabledForLightingModel_lightingModelsCapabilities) = 65793;
-          WORD2(C3DEffectCommonProfileIsEffectPropertyEnabledForLightingModel_lightingModelsCapabilities) = 257;
-          BYTE6(C3DEffectCommonProfileIsEffectPropertyEnabledForLightingModel_lightingModelsCapabilities) = 1;
-          *(&C3DEffectCommonProfileIsEffectPropertyEnabledForLightingModel_lightingModelsCapabilities + 7) = 0;
-          BYTE11(C3DEffectCommonProfileIsEffectPropertyEnabledForLightingModel_lightingModelsCapabilities) = 0;
-          HIDWORD(C3DEffectCommonProfileIsEffectPropertyEnabledForLightingModel_lightingModelsCapabilities) = 0x1000000;
-          LOBYTE(xmmword_27CDD973C) = 0;
-          *(&xmmword_27CDD973C + 1) = 16843009;
-        }
-      }
-
-      else if (v2 > 4)
-      {
-        if (v2 != 5)
-        {
-          *(&xmmword_27CDD979C + 14) = 0;
-          unk_27CDD97B2 = 0;
-          dword_27CDD97BA = 0x10000;
-          byte_27CDD97BE = 0;
-          C3DEffectCommonProfileIsEffectPropertyEnabledForLightingModel_lightingModelsCapsReady = 1;
-          a1 = v4;
-          a2 = v5;
-          return *(&C3DEffectCommonProfileIsEffectPropertyEnabledForLightingModel_lightingModelsCapabilities + 21 * a1 + a2);
-        }
-
-        dword_27CDD9795 = 65537;
-        word_27CDD9799 = 256;
-        byte_27CDD979B = C3DWasLinkedBeforeMajorOSYear2018() ^ 1;
-        *&xmmword_27CDD979C = 0x101010101010101;
-        BYTE8(xmmword_27CDD979C) = 1;
-        *(&xmmword_27CDD979C + 9) = 0x10000;
-        BYTE13(xmmword_27CDD979C) = 0;
-      }
-
-      else if (v2 == 3)
-      {
-        *(&xmmword_27CDD975C + 15) = 0x101010101010101;
-        word_27CDD9773 = 257;
-        unk_27CDD9775 = 0;
-        byte_27CDD9779 = 0;
-        *algn_27CDD977A = 16843009;
-        WORD1(xmmword_27CDD977C) = 257;
-      }
-
-      else
-      {
-        DWORD1(xmmword_27CDD977C) = 65537;
-        WORD4(xmmword_27CDD977C) = 257;
-        BYTE10(xmmword_27CDD977C) = 1;
-        *(&xmmword_27CDD977C + 11) = 0;
-        unk_27CDD978F = 1;
-        unk_27CDD9791 = 16843009;
-      }
-
-      ++v2;
-    }
-  }
-
-  return *(&C3DEffectCommonProfileIsEffectPropertyEnabledForLightingModel_lightingModelsCapabilities + 21 * a1 + a2);
-}
-
-void _C3DEffectCommonProfileReleaseSlot(uint64_t a1, unsigned int a2)
-{
-  if (!a1)
-  {
-    v4 = scn_default_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
-    {
-      _C3DEffectCommonProfileReleaseSlot_cold_1(v4, v5, v6, v7, v8, v9, v10, v11);
-    }
-  }
-
-  if (a2 <= 0xF)
-  {
-    v12 = qword_21C2A1B18[a2];
-    v13 = *(a1 + v12);
-    if (v13)
-    {
-      CFRelease(v13);
-      *(a1 + v12) = 0;
-    }
-  }
-}
-
-void *C3DEffectCommonProfileDefaultColorForEffectProperty(int a1)
-{
-  if ((a1 - 1) > 0xD)
-  {
-    return &c3dBlack;
-  }
-
-  else
-  {
-    return *(&off_2782FDD68 + (a1 - 1));
-  }
 }

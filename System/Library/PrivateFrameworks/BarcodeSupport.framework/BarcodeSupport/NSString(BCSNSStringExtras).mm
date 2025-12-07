@@ -22,7 +22,7 @@
 
 - (id)_bcs_unescapedString
 {
-  v2 = [self rangeOfString:@"\\""];
+  v2 = [self rangeOfString:@"\"];
   if (v2 == 0x7FFFFFFFFFFFFFFFLL)
   {
     selfCopy = self;

@@ -26,7 +26,7 @@
 
 - (BOOL)_checkForValidContents:(id)contents outError:(id *)error
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   contentsCopy = contents;
   if (!error)
   {
@@ -34,12 +34,12 @@
   }
 
   errorCopy = error;
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = contentsCopy;
-  v7 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+  v7 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
   if (!v7)
   {
     v17 = 0;
@@ -47,17 +47,17 @@
   }
 
   v8 = v7;
-  v9 = *v35;
+  v9 = *v34;
   while (2)
   {
     for (i = 0; i != v8; ++i)
     {
-      if (*v35 != v9)
+      if (*v34 != v9)
       {
         objc_enumerationMutation(obj);
       }
 
-      v11 = *(*(&v34 + 1) + 8 * i);
+      v11 = *(*(&v33 + 1) + 8 * i);
       v12 = [v11 objectForKey:@"DefaultsDomainName"];
       if (([v12 isEqualToString:@"com.apple.managedCarrier"] & 1) == 0)
       {
@@ -89,25 +89,25 @@ LABEL_30:
         goto LABEL_30;
       }
 
-      v32 = 0u;
-      v33 = 0u;
-      v30 = 0u;
       v31 = 0u;
+      v32 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       v16 = v15;
-      v17 = [v16 countByEnumeratingWithState:&v30 objects:v38 count:16];
+      v17 = [v16 countByEnumeratingWithState:&v29 objects:v37 count:16];
       if (v17)
       {
-        v18 = *v31;
+        v18 = *v30;
         while (2)
         {
           for (j = 0; j != v17; j = j + 1)
           {
-            if (*v31 != v18)
+            if (*v30 != v18)
             {
               objc_enumerationMutation(v16);
             }
 
-            v20 = [*(*(&v30 + 1) + 8 * j) objectForKey:@"apn"];
+            v20 = [*(*(&v29 + 1) + 8 * j) objectForKey:@"apn"];
             if (!v20)
             {
               v17 = [(MCAPNPayload *)self _validationErrorType:2002 forInvalidKey:@"apn"];
@@ -115,7 +115,7 @@ LABEL_30:
             }
           }
 
-          v17 = [v16 countByEnumeratingWithState:&v30 objects:v38 count:16];
+          v17 = [v16 countByEnumeratingWithState:&v29 objects:v37 count:16];
           if (v17)
           {
             continue;
@@ -133,7 +133,7 @@ LABEL_21:
       }
     }
 
-    v8 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+    v8 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
     v17 = 0;
     if (v8)
     {
@@ -151,59 +151,58 @@ LABEL_31:
     *errorCopy = v17;
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v17 == 0;
 }
 
 - (void)_finishInitializationWithContents:(id)contents
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   contentsCopy = contents;
   array = [MEMORY[0x1E695DF70] array];
+  v30 = 0u;
   v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
   obj = contentsCopy;
-  v25 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
-  if (v25)
+  v24 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
+  if (v24)
   {
-    v24 = *v32;
+    v23 = *v31;
     do
     {
       v5 = 0;
       do
       {
-        if (*v32 != v24)
+        if (*v31 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v26 = v5;
-        v6 = [*(*(&v31 + 1) + 8 * v5) objectForKey:@"DefaultsData"];
+        v25 = v5;
+        v6 = [*(*(&v30 + 1) + 8 * v5) objectForKey:@"DefaultsData"];
         v7 = [v6 objectForKey:@"apns"];
 
-        v29 = 0u;
-        v30 = 0u;
-        v27 = 0u;
         v28 = 0u;
+        v29 = 0u;
+        v26 = 0u;
+        v27 = 0u;
         v8 = v7;
-        v9 = [v8 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v9 = [v8 countByEnumeratingWithState:&v26 objects:v34 count:16];
         if (v9)
         {
           v10 = v9;
-          v11 = *v28;
+          v11 = *v27;
           do
           {
             v12 = 0;
             do
             {
-              if (*v28 != v11)
+              if (*v27 != v11)
               {
                 objc_enumerationMutation(v8);
               }
 
-              v13 = *(*(&v27 + 1) + 8 * v12);
+              v13 = *(*(&v26 + 1) + 8 * v12);
               v14 = objc_alloc_init(MCAPNInfo);
               v15 = [v13 objectForKey:@"apn"];
               [(MCAPNInfo *)v14 setApnName:v15];
@@ -235,47 +234,45 @@ LABEL_31:
             }
 
             while (v10 != v12);
-            v10 = [v8 countByEnumeratingWithState:&v27 objects:v35 count:16];
+            v10 = [v8 countByEnumeratingWithState:&v26 objects:v34 count:16];
           }
 
           while (v10);
         }
 
-        v5 = v26 + 1;
+        v5 = v25 + 1;
       }
 
-      while (v26 + 1 != v25);
-      v25 = [obj countByEnumeratingWithState:&v31 objects:v36 count:16];
+      while (v25 + 1 != v24);
+      v24 = [obj countByEnumeratingWithState:&v30 objects:v35 count:16];
     }
 
-    while (v25);
+    while (v24);
   }
 
   if ([array count])
   {
     objc_storeStrong(&self->_apnInfos, array);
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (MCAPNPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
-  v31.receiver = self;
-  v31.super_class = MCAPNPayload;
-  v9 = [(MCPayload *)&v31 initWithDictionary:dictionaryCopy profile:profile outError:error];
+  v30.receiver = self;
+  v30.super_class = MCAPNPayload;
+  v9 = [(MCPayload *)&v30 initWithDictionary:dictionaryCopy profile:profile outError:error];
   if (v9)
   {
-    v30 = 0;
-    v10 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"PayloadContent" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v30];
-    v11 = v30;
+    v29 = 0;
+    v10 = [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"PayloadContent" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v29];
+    v11 = v29;
     if (!v11 && v10)
     {
-      v29 = 0;
-      [(MCAPNPayload *)v9 _checkForValidContents:v10 outError:&v29];
-      v11 = v29;
+      v28 = 0;
+      [(MCAPNPayload *)v9 _checkForValidContents:v10 outError:&v28];
+      v11 = v28;
     }
 
     profile = [(MCPayload *)v9 profile];
@@ -283,14 +280,14 @@ LABEL_31:
 
     if (isStub)
     {
-      if (v11 || (v28 = 0, [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"WasInstalled" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v28], v27 = objc_claimAutoreleasedReturnValue(), v11 = v28, !v27))
+      if (v11 || (v27 = 0, [MCProfile removeOptionalObjectInDictionary:dictionaryCopy key:@"WasInstalled" type:objc_opt_class() errorDomain:@"MCPayloadErrorDomain" invalidDataCode:2003 invalidDataErrorString:@"ERROR_PAYLOAD_FIELD_INVALID_P_FIELD" outError:&v27], v26 = objc_claimAutoreleasedReturnValue(), v11 = v27, !v26))
       {
         v9->_wasInstalled = 1;
       }
 
       else
       {
-        v9->_wasInstalled = [v27 BOOLValue];
+        v9->_wasInstalled = [v26 BOOLValue];
       }
     }
 
@@ -317,9 +314,9 @@ LABEL_31:
         v20 = v19;
         mCVerboseDescription = [v15 MCVerboseDescription];
         *buf = 138543618;
-        v33 = v19;
-        v34 = 2114;
-        v35 = mCVerboseDescription;
+        v32 = v19;
+        v33 = 2114;
+        v34 = mCVerboseDescription;
         _os_log_impl(&dword_1A795B000, v18, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
       }
 
@@ -334,9 +331,9 @@ LABEL_31:
         v23 = v22;
         friendlyName = [(MCPayload *)v9 friendlyName];
         *buf = 138543618;
-        v33 = friendlyName;
-        v34 = 2114;
-        v35 = dictionaryCopy;
+        v32 = friendlyName;
+        v33 = 2114;
+        v34 = dictionaryCopy;
         _os_log_impl(&dword_1A795B000, v23, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
       }
     }
@@ -347,89 +344,84 @@ LABEL_31:
     }
   }
 
-  v25 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 - (id)apnDefaults
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](self->_apnInfos, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_apnInfos;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        defaultsRepresentation = [*(*(&v13 + 1) + 8 * i) defaultsRepresentation];
+        defaultsRepresentation = [*(*(&v12 + 1) + 8 * i) defaultsRepresentation];
         [v3 addObject:defaultsRepresentation];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [MEMORY[0x1E695DF20] dictionaryWithObject:v3 forKey:@"apns"];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
 
 - (id)_strippedAPNDefaults
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](self->_apnInfos, "count")}];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   v4 = self->_apnInfos;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        strippedDefaultsRepresentation = [*(*(&v13 + 1) + 8 * i) strippedDefaultsRepresentation];
+        strippedDefaultsRepresentation = [*(*(&v12 + 1) + 8 * i) strippedDefaultsRepresentation];
         if (strippedDefaultsRepresentation)
         {
           [v3 addObject:strippedDefaultsRepresentation];
         }
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
 
   v10 = [MEMORY[0x1E695DF20] dictionaryWithObject:v3 forKey:@"apns"];
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -498,28 +490,28 @@ LABEL_31:
 
 - (id)payloadDescriptionKeyValueSections
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
+  v40 = 0u;
   v41 = 0u;
   v42 = 0u;
   v43 = 0u;
-  v44 = 0u;
   obj = self->_apnInfos;
-  v4 = [(NSArray *)obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+  v4 = [(NSArray *)obj countByEnumeratingWithState:&v40 objects:v44 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v42;
+    v6 = *v41;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v42 != v6)
+        if (*v41 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v41 + 1) + 8 * i);
+        v8 = *(*(&v40 + 1) + 8 * i);
         v9 = objc_opt_new();
         apnName = [v8 apnName];
 
@@ -591,7 +583,7 @@ LABEL_31:
         }
       }
 
-      v5 = [(NSArray *)obj countByEnumeratingWithState:&v41 objects:v45 count:16];
+      v5 = [(NSArray *)obj countByEnumeratingWithState:&v40 objects:v44 count:16];
     }
 
     while (v5);
@@ -602,8 +594,6 @@ LABEL_31:
 
     v3 = 0;
   }
-
-  v38 = *MEMORY[0x1E69E9840];
 
   return v3;
 }

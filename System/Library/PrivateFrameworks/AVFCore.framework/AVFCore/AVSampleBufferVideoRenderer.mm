@@ -155,7 +155,7 @@
   else
   {
     self->_controlTimebaseSetByUserIsInUse = 0;
-    _targetReadOnlyTimebaseAtDummyTimebase();
+    _targetReadOnlyTimebaseAtDummyTimebase(self->_readOnlyVideoQueueTimebase);
   }
 
   _Block_object_dispose(&v15, 8);
@@ -223,8 +223,8 @@ void __50__AVSampleBufferVideoRenderer_setControlTimebase___block_invoke(void *a
     else
     {
       self->_addedToSynchronizer = 0;
-      _targetReadOnlyTimebaseAtDummyTimebase();
-      _targetReadOnlyTimebaseAtDummyTimebase();
+      _targetReadOnlyTimebaseAtDummyTimebase(self->_readOnlyVideoQueueTimebase);
+      _targetReadOnlyTimebaseAtDummyTimebase(self->_readOnlyRenderingTimebase);
     }
 
     v8 = v19;
@@ -243,15 +243,15 @@ void __50__AVSampleBufferVideoRenderer_setControlTimebase___block_invoke(void *a
   return v9 & 1;
 }
 
-uint64_t __62__AVSampleBufferVideoRenderer__setSynchronizerTimebase_error___block_invoke(uint64_t result)
+void *__62__AVSampleBufferVideoRenderer__setSynchronizerTimebase_error___block_invoke(void *result)
 {
-  *(*(result + 32) + 176) = *(result + 56) != 0;
-  if (*(*(result + 32) + 177) == 1)
+  *(result[4] + 176) = result[7] != 0;
+  if (*(result[4] + 177) == 1)
   {
     v1 = result;
     result = AVErrorForClientProgrammingError([MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D930] reason:@"The display layer or video renderer cannot be added to a synchronizer if the control timebase has already been set." userInfo:0]);
-    *(*(*(v1 + 40) + 8) + 40) = result;
-    *(*(*(v1 + 48) + 8) + 24) = 0;
+    *(*(v1[5] + 8) + 40) = result;
+    *(*(v1[6] + 8) + 24) = 0;
   }
 
   return result;
@@ -372,10 +372,10 @@ CFTypeRef __58__AVSampleBufferVideoRenderer__readOnlyVideoQueueTimebase__block_i
   return v15;
 }
 
-uint64_t __59__AVSampleBufferVideoRenderer__createVideoQueue_errorStep___block_invoke(uint64_t a1)
+uint64_t __59__AVSampleBufferVideoRenderer__createVideoQueue_errorStep___block_invoke(void *a1)
 {
   result = FigVideoQueueCreateRemoteWithOptions();
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(a1[4] + 8) + 24) = result;
   return result;
 }
 
@@ -620,7 +620,7 @@ void *__101__AVSampleBufferVideoRenderer__refreshAboveHighWaterLevelAndAlwaysSta
 
 void *__48__AVSampleBufferVideoRenderer__setStatus_error___block_invoke(void *result)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v1 = result[7];
   v2 = result[4];
   if (v1 > *(v2 + 24))
@@ -654,7 +654,7 @@ void *__48__AVSampleBufferVideoRenderer__setStatus_error___block_invoke(void *re
 {
   if (status)
   {
-    v4 = AVLocalizedErrorWithUnderlyingOSStatus(status, 0);
+    v4 = AVLocalizedErrorWithUnderlyingOSStatus(*&status, 0);
 
     [(AVSampleBufferVideoRenderer *)self _setStatus:2 error:v4];
   }
@@ -685,6 +685,7 @@ void *__48__AVSampleBufferVideoRenderer__setStatus_error___block_invoke(void *re
 
 void __56__AVSampleBufferVideoRenderer__resetStatusWithOSStatus___block_invoke(uint64_t a1)
 {
+  v3 = *MEMORY[0x1E69E9840];
   if (dword_1EAEFCE70)
   {
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
@@ -806,6 +807,7 @@ uint64_t __65__AVSampleBufferVideoRenderer__setRequiresFlushToResumeDecoding___b
 
 uint64_t __70__AVSampleBufferVideoRenderer__setCreateVideoQueueFailedWithOSStatus___block_invoke(uint64_t result)
 {
+  v2 = *MEMORY[0x1E69E9840];
   *(*(result + 32) + 122) = *(result + 40) != 0;
   if (dword_1EAEFCE70)
   {
@@ -887,9 +889,9 @@ uint64_t __70__AVSampleBufferVideoRenderer__setCreateVideoQueueFailedWithOSStatu
   }
 }
 
-uint64_t __59__AVSampleBufferVideoRenderer__updatePreferredDynamicRange__block_invoke(uint64_t a1)
+uint64_t __59__AVSampleBufferVideoRenderer__updatePreferredDynamicRange__block_invoke(void *a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   CMBaseObject = FigVideoQueueGetCMBaseObject();
   v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
   if (v4)
@@ -902,7 +904,7 @@ uint64_t __59__AVSampleBufferVideoRenderer__updatePreferredDynamicRange__block_i
     result = 4294954514;
   }
 
-  *(*(*(a1 + 40) + 8) + 24) = result;
+  *(*(a1[5] + 8) + 24) = result;
   return result;
 }
 
@@ -927,7 +929,7 @@ uint64_t __59__AVSampleBufferVideoRenderer__updatePreferredDynamicRange__block_i
   return v3;
 }
 
-uint64_t __52__AVSampleBufferVideoRenderer_preferredDynamicRange__block_invoke(uint64_t a1)
+void *__52__AVSampleBufferVideoRenderer_preferredDynamicRange__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 128) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -957,10 +959,10 @@ void __56__AVSampleBufferVideoRenderer_setPreferredDynamicRange___block_invoke(u
 - (AVSampleBufferVideoRenderer)init
 {
   v35 = *MEMORY[0x1E69E9840];
-  v27.receiver = self;
-  v27.super_class = AVSampleBufferVideoRenderer;
-  v28 = [[AVTelemetryInterval alloc] initAndStartWith:58];
-  v2 = [(AVSampleBufferVideoRenderer *)&v27 init];
+  v26.receiver = self;
+  v26.super_class = AVSampleBufferVideoRenderer;
+  v27 = [[AVTelemetryInterval alloc] initAndStartWith:58];
+  v2 = [(AVSampleBufferVideoRenderer *)&v26 init];
   if (v2)
   {
     v2->_loggingIdentifier = [[AVCommonLoggingIdentifier alloc] initWithIdentifierSuffix:0x1F0A918B0 prefixlength:3];
@@ -985,18 +987,18 @@ void __56__AVSampleBufferVideoRenderer_setPreferredDynamicRange___block_invoke(u
     v2->_applicationStateMonitor = +[AVApplicationStateMonitor sharedApplicationStateMonitor];
     objc_initWeak(&location, v2);
     defaultCenter = [MEMORY[0x1E696AD88] defaultCenter];
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __35__AVSampleBufferVideoRenderer_init__block_invoke;
-    v24[3] = &unk_1E7460BB0;
-    objc_copyWeak(&v25, &location);
-    v2->_didFinishSuspensionNotificationToken = [defaultCenter addObserverForName:@"_UIApplicationDidFinishSuspensionSnapshotNotification" object:0 queue:0 usingBlock:v24];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __35__AVSampleBufferVideoRenderer_init__block_invoke;
+    v23[3] = &unk_1E7460BB0;
+    objc_copyWeak(&v24, &location);
+    v2->_didFinishSuspensionNotificationToken = [defaultCenter addObserverForName:@"_UIApplicationDidFinishSuspensionSnapshotNotification" object:0 queue:0 usingBlock:v23];
     *&v2->_preventsDisplaySleepDuringVideoPlayback = 257;
     v2->_videoOutputs = objc_alloc_init(MEMORY[0x1E695DF70]);
     [(AVSampleBufferVideoRenderer *)v2 setPreferredDynamicRange:*MEMORY[0x1E69792A0]];
     if ([(AVSampleBufferVideoRenderer *)v2 _initializeTimebases])
     {
-      objc_destroyWeak(&v25);
+      objc_destroyWeak(&v24);
       objc_destroyWeak(&location);
       goto LABEL_9;
     }
@@ -1007,7 +1009,7 @@ void __56__AVSampleBufferVideoRenderer_setPreferredDynamicRange___block_invoke(u
     v2->_previousSourceRect.origin = *MEMORY[0x1E695F058];
     v2->_previousSourceRect.size = v12;
     v2->_createVideoQueueFailed = 0;
-    *v23 = 0;
+    *v22 = 0;
     v13 = [-[AVSampleBufferVideoRenderer currentFigVideoQueueFactory](v2 "currentFigVideoQueueFactory")];
     if (v13)
     {
@@ -1020,17 +1022,17 @@ void __56__AVSampleBufferVideoRenderer_setPreferredDynamicRange___block_invoke(u
           fig_log_call_emit_and_clean_up_after_send_and_compose();
         }
 
-        [(AVSampleBufferVideoRenderer *)v2 _setCreateVideoQueueFailedWithOSStatus:v13, v21, v22];
+        [(AVSampleBufferVideoRenderer *)v2 _setCreateVideoQueueFailedWithOSStatus:v13];
         [(AVSampleBufferVideoRenderer *)v2 _resetStatusWithOSStatus:v13];
         [(AVSampleBufferVideoRenderer *)v2 _setRequiresFlushToResumeDecoding:1];
         v2->_videoQueue = 0;
-        objc_destroyWeak(&v25);
+        objc_destroyWeak(&v24);
         objc_destroyWeak(&location);
         goto LABEL_11;
       }
 
       v2->_videoQueue = 0;
-      objc_destroyWeak(&v25);
+      objc_destroyWeak(&v24);
       objc_destroyWeak(&location);
 LABEL_9:
 
@@ -1038,9 +1040,9 @@ LABEL_9:
       goto LABEL_18;
     }
 
-    v2->_videoQueue = *v23;
+    v2->_videoQueue = *v22;
     [(AVSampleBufferVideoRenderer *)v2 _addFigVideoQueueListeners];
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(&location);
   }
 
@@ -1050,37 +1052,38 @@ LABEL_11:
   if (dword_1EAEFCE70)
   {
     LODWORD(location) = 0;
-    v23[0] = OS_LOG_TYPE_DEFAULT;
+    v22[0] = OS_LOG_TYPE_DEFAULT;
     v15 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     v16 = location;
-    if (os_log_type_enabled(v15, v23[0]))
+    v17 = v22[0];
+    if (os_log_type_enabled(v15, v22[0]))
     {
-      v17 = v16;
+      v18 = v16;
     }
 
     else
     {
-      v17 = v16 & 0xFFFFFFFE;
+      v18 = v16 & 0xFFFFFFFE;
     }
 
-    if (v17)
+    if (v18)
     {
       _loggingDescription = [(AVSampleBufferVideoRenderer *)v2 _loggingDescription];
       videoQueue = v2->_videoQueue;
-      v29 = 136315650;
-      v30 = "[AVSampleBufferVideoRenderer init]";
-      v31 = 2114;
-      v32 = _loggingDescription;
-      v33 = 2048;
-      v34 = videoQueue;
-      _os_log_send_and_compose_impl();
+      v28 = 136315650;
+      v29 = "[AVSampleBufferVideoRenderer init]";
+      v30 = 2114;
+      v31 = _loggingDescription;
+      v32 = 2048;
+      v33 = videoQueue;
+      _os_log_send_and_compose_impl(v18, 0, v34, 128, &dword_196061000, v15, v17, "<<<< AVSampleBufferVideoRenderer >>>> %s: %{public}@ [%p]", &v28, 32);
     }
 
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
 LABEL_18:
-  AVTelemetryIntervalEnd(&v28);
+  AVTelemetryIntervalEnd(&v27);
   return v2;
 }
 
@@ -1601,18 +1604,18 @@ id __66__AVSampleBufferVideoRenderer_attachedToExternalContentKeySession__block_
   }
 }
 
-uint64_t __49__AVSampleBufferVideoRenderer_removeDisplayLayer__block_invoke()
+uint64_t __49__AVSampleBufferVideoRenderer_removeDisplayLayer__block_invoke(uint64_t a1)
 {
   CMBaseObject = FigVideoQueueGetCMBaseObject();
   VTable = CMBaseObjectGetVTable();
-  v3 = *(VTable + 8);
+  v4 = *(VTable + 8);
   result = VTable + 8;
-  v4 = *(v3 + 56);
-  if (v4)
+  v5 = *(v4 + 56);
+  if (v5)
   {
-    v5 = *MEMORY[0x1E6973D08];
+    v6 = *MEMORY[0x1E6973D08];
 
-    return v4(CMBaseObject, v5, 0);
+    return v5(CMBaseObject, v6, 0);
   }
 
   return result;
@@ -1790,7 +1793,7 @@ const __CFArray *__54__AVSampleBufferVideoRenderer_isReadyForMoreMediaData__bloc
   return v3;
 }
 
-uint64_t __36__AVSampleBufferVideoRenderer_error__block_invoke(uint64_t a1)
+void *__36__AVSampleBufferVideoRenderer_error__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 32) copy];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -2066,7 +2069,7 @@ void __81__AVSampleBufferVideoRenderer__computeSampleBufferEnqueueingInfoForSamp
   {
     if (CMSampleBufferGetFormatDescription(buffer))
     {
-      [(AVSampleBufferVideoRenderer *)self _computeSampleBufferEnqueueingInfoForSampleBuffer:buffer, 0, 0, 0, 0, 0, 0, 0, 0];
+      objc_msgSend__computeSampleBufferEnqueueingInfoForSampleBuffer_(self, 0, 0, 0, 0, 0, 0, 0, 0);
       [(AVSampleBufferVideoRenderer *)self enqueueSampleBuffer:buffer bufferEnqueueingInfo:v14];
     }
   }
@@ -2344,7 +2347,7 @@ void __82__AVSampleBufferVideoRenderer_flushWithRemovalOfDisplayedImage_completi
   [*(*(a1 + 32) + 232) addObject:v2];
 }
 
-uint64_t __82__AVSampleBufferVideoRenderer_flushWithRemovalOfDisplayedImage_completionHandler___block_invoke_3(uint64_t a1)
+void *__82__AVSampleBufferVideoRenderer_flushWithRemovalOfDisplayedImage_completionHandler___block_invoke_3(uint64_t a1)
 {
   v11 = *MEMORY[0x1E69E9840];
   v6 = 0u;
@@ -2367,7 +2370,8 @@ uint64_t __82__AVSampleBufferVideoRenderer_flushWithRemovalOfDisplayedImage_comp
           objc_enumerationMutation(v1);
         }
 
-        [*(*(&v6 + 1) + 8 * v5++) _resetLastImageTime];
+        [*(*(&v6 + 1) + 8 * v5) _resetLastImageTime];
+        v5 = v5 + 1;
       }
 
       while (v3 != v5);
@@ -2462,7 +2466,7 @@ uint64_t __82__AVSampleBufferVideoRenderer_flushWithRemovalOfDisplayedImage_comp
   _Block_object_dispose(&v6, 8);
 }
 
-uint64_t __45__AVSampleBufferVideoRenderer__flushComplete__block_invoke(uint64_t a1)
+void *__45__AVSampleBufferVideoRenderer__flushComplete__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 232) count];
   if (result)
@@ -2601,11 +2605,11 @@ void __70__AVSampleBufferVideoRenderer__completedDecodeForPrerollForRequestID___
 
 - (void)prerollDecodeWithCompletionHandler:(id)handler
 {
-  v20 = *MEMORY[0x1E69E9840];
-  v16 = 0;
-  v17 = &v16;
-  v18 = 0x2020000000;
-  v19 = 0;
+  v18 = *MEMORY[0x1E69E9840];
+  v14 = 0;
+  v15 = &v14;
+  v16 = 0x2020000000;
+  v17 = 0;
   v5 = FigAtomicIncrement32();
   [(AVSampleBufferVideoRenderer *)self _callOldPrerollCompletionHandlerWithSuccess:0 andSetNewPrerollCompletionHandler:handler forRequestID:v5];
   _copyVideoQueue = [(AVSampleBufferVideoRenderer *)self _copyVideoQueue];
@@ -2616,7 +2620,7 @@ void __70__AVSampleBufferVideoRenderer__completedDecodeForPrerollForRequestID___
 
   if (dword_1EAEFCE70)
   {
-    v15 = 0;
+    v13 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
@@ -2628,19 +2632,19 @@ void __70__AVSampleBufferVideoRenderer__completedDecodeForPrerollForRequestID___
   block[1] = 3221225472;
   block[2] = __66__AVSampleBufferVideoRenderer_prerollDecodeWithCompletionHandler___block_invoke;
   block[3] = &unk_1E7465830;
-  block[4] = &v16;
+  block[4] = &v14;
   block[5] = _copyVideoQueue;
-  v13 = v5;
+  v11 = v5;
   dispatch_sync(videoQueueQueue, block);
-  v9 = *(v17 + 6);
+  v9 = *(v15 + 6);
   CFRelease(_copyVideoQueue);
   if (v9)
   {
 LABEL_5:
-    [(AVSampleBufferVideoRenderer *)self _callOldPrerollCompletionHandlerWithSuccess:0 andSetNewPrerollCompletionHandler:0 forRequestID:0, v10, v11];
+    [(AVSampleBufferVideoRenderer *)self _callOldPrerollCompletionHandlerWithSuccess:0 andSetNewPrerollCompletionHandler:0 forRequestID:0];
   }
 
-  _Block_object_dispose(&v16, 8);
+  _Block_object_dispose(&v14, 8);
 }
 
 uint64_t __66__AVSampleBufferVideoRenderer_prerollDecodeWithCompletionHandler___block_invoke(uint64_t a1)
@@ -2999,9 +3003,9 @@ uint64_t __62__AVSampleBufferVideoRenderer__updateVideoTargetsOnVideoQueue__bloc
   return result;
 }
 
-uint64_t __62__AVSampleBufferVideoRenderer__updateVideoTargetsOnVideoQueue__block_invoke_2(uint64_t a1)
+uint64_t __62__AVSampleBufferVideoRenderer__updateVideoTargetsOnVideoQueue__block_invoke_2(void *a1)
 {
-  v2 = *(*(*(a1 + 40) + 8) + 24);
+  v2 = *(*(a1[5] + 8) + 24);
   CMBaseObject = FigVideoQueueGetCMBaseObject();
   v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
   if (v4)
@@ -3014,7 +3018,7 @@ uint64_t __62__AVSampleBufferVideoRenderer__updateVideoTargetsOnVideoQueue__bloc
     result = 4294954514;
   }
 
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(a1[4] + 8) + 24) = result;
   return result;
 }
 
@@ -3191,20 +3195,20 @@ void __63__AVSampleBufferVideoRenderer__setContentLayerOnFigVideoQueue___block_i
 
 - (void)_didFinishSuspension:(id)suspension
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (dword_1EAEFCE70)
   {
-    v12 = 0;
+    v10 = 0;
     type = OS_LOG_TYPE_DEFAULT;
     os_log_and_send_and_compose_flags_and_os_log_type = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
     os_log_type_enabled(os_log_and_send_and_compose_flags_and_os_log_type, OS_LOG_TYPE_DEFAULT);
     fig_log_call_emit_and_clean_up_after_send_and_compose();
   }
 
-  v5 = [(AVSampleBufferVideoRenderer *)self _copyVideoQueue:suspension];
-  if (v5)
+  _copyVideoQueue = [(AVSampleBufferVideoRenderer *)self _copyVideoQueue];
+  if (_copyVideoQueue)
   {
-    v6 = v5;
+    v6 = _copyVideoQueue;
     videoQueueQueue = self->_videoQueueQueue;
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
@@ -3219,20 +3223,20 @@ void __63__AVSampleBufferVideoRenderer__setContentLayerOnFigVideoQueue___block_i
   [(AVSampleBufferVideoRenderer *)self _setStatus:2 error:AVLocalizedError(@"AVFoundationErrorDomain", -11847, 0)];
 }
 
-uint64_t __52__AVSampleBufferVideoRenderer__didFinishSuspension___block_invoke()
+uint64_t __52__AVSampleBufferVideoRenderer__didFinishSuspension___block_invoke(uint64_t a1)
 {
   result = FigVideoQueueGetCMBaseObject();
   if (result)
   {
-    v1 = result;
+    v2 = result;
     VTable = CMBaseObjectGetVTable();
-    v3 = *(VTable + 8);
+    v4 = *(VTable + 8);
     result = VTable + 8;
-    v4 = *(v3 + 24);
-    if (v4)
+    v5 = *(v4 + 24);
+    if (v5)
     {
 
-      return v4(v1);
+      return v5(v2);
     }
   }
 
@@ -3514,9 +3518,9 @@ uint64_t __94__AVSampleBufferVideoRenderer_AVSampleBufferVideoRendererImageProte
   return v6;
 }
 
-uint64_t __90__AVSampleBufferVideoRenderer_AVSampleBufferVideoRendererImageProtection__preventsCapture__block_invoke(uint64_t a1)
+uint64_t __90__AVSampleBufferVideoRenderer_AVSampleBufferVideoRendererImageProtection__preventsCapture__block_invoke(void *a1)
 {
-  v2 = *(*(a1 + 40) + 8);
+  v2 = *(a1[5] + 8);
   CMBaseObject = FigVideoQueueGetCMBaseObject();
   v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);
   if (v4)
@@ -3529,7 +3533,7 @@ uint64_t __90__AVSampleBufferVideoRenderer_AVSampleBufferVideoRendererImageProte
     result = 4294954514;
   }
 
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(a1[4] + 8) + 24) = result;
   return result;
 }
 
@@ -3959,9 +3963,9 @@ __n128 __115__AVSampleBufferVideoRenderer_PowerOptimization___setUpcomingPresent
   AVTelemetryIntervalEnd(&v12);
 }
 
-uint64_t __100__AVSampleBufferVideoRenderer_PowerOptimization__expectMinimumUpcomingSampleBufferPresentationTime___block_invoke(uint64_t a1)
+uint64_t __100__AVSampleBufferVideoRenderer_PowerOptimization__expectMinimumUpcomingSampleBufferPresentationTime___block_invoke(void *a1)
 {
-  v2 = *(a1 + 48);
+  v2 = a1[6];
   CMBaseObject = FigVideoQueueGetCMBaseObject();
   v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
   if (v4)
@@ -3974,7 +3978,7 @@ uint64_t __100__AVSampleBufferVideoRenderer_PowerOptimization__expectMinimumUpco
     result = 4294954514;
   }
 
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(a1[4] + 8) + 24) = result;
   return result;
 }
 
@@ -4017,9 +4021,9 @@ uint64_t __100__AVSampleBufferVideoRenderer_PowerOptimization__expectMinimumUpco
   AVTelemetryIntervalEnd(&v10);
 }
 
-uint64_t __116__AVSampleBufferVideoRenderer_PowerOptimization__expectMonotonicallyIncreasingUpcomingSampleBufferPresentationTimes__block_invoke(uint64_t a1)
+uint64_t __116__AVSampleBufferVideoRenderer_PowerOptimization__expectMonotonicallyIncreasingUpcomingSampleBufferPresentationTimes__block_invoke(void *a1)
 {
-  v2 = *(a1 + 48);
+  v2 = a1[6];
   CMBaseObject = FigVideoQueueGetCMBaseObject();
   v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
   if (v4)
@@ -4032,7 +4036,7 @@ uint64_t __116__AVSampleBufferVideoRenderer_PowerOptimization__expectMonotonical
     result = 4294954514;
   }
 
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(a1[4] + 8) + 24) = result;
   return result;
 }
 
@@ -4080,9 +4084,9 @@ uint64_t __116__AVSampleBufferVideoRenderer_PowerOptimization__expectMonotonical
   AVTelemetryIntervalEnd(&v12);
 }
 
-uint64_t __103__AVSampleBufferVideoRenderer_PowerOptimization__resetUpcomingSampleBufferPresentationTimeExpectations__block_invoke(uint64_t a1)
+uint64_t __103__AVSampleBufferVideoRenderer_PowerOptimization__resetUpcomingSampleBufferPresentationTimeExpectations__block_invoke(void *a1)
 {
-  v2 = *(a1 + 48);
+  v2 = a1[6];
   CMBaseObject = FigVideoQueueGetCMBaseObject();
   v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
   if (v4)
@@ -4095,7 +4099,7 @@ uint64_t __103__AVSampleBufferVideoRenderer_PowerOptimization__resetUpcomingSamp
     result = 4294954514;
   }
 
-  *(*(*(a1 + 32) + 8) + 24) = result;
+  *(*(a1[4] + 8) + 24) = result;
   return result;
 }
 
@@ -4120,7 +4124,7 @@ uint64_t __103__AVSampleBufferVideoRenderer_PowerOptimization__resetUpcomingSamp
   return v3;
 }
 
-uint64_t __82__AVSampleBufferVideoRenderer_PowerOptimization__recommendedPixelBufferAttributes__block_invoke(uint64_t a1)
+void *__82__AVSampleBufferVideoRenderer_PowerOptimization__recommendedPixelBufferAttributes__block_invoke(uint64_t a1)
 {
   v12[3] = *MEMORY[0x1E69E9840];
   if (*(*(a1 + 32) + 48) == 1)
@@ -4227,9 +4231,9 @@ void __86__AVSampleBufferVideoRenderer_AVSampleBufferVideoRendererOutputs___upda
   _Block_object_dispose(v12, 8);
 }
 
-uint64_t __86__AVSampleBufferVideoRenderer_AVSampleBufferVideoRendererOutputs___updateVideoOutputs__block_invoke_2(uint64_t a1)
+uint64_t __86__AVSampleBufferVideoRenderer_AVSampleBufferVideoRendererOutputs___updateVideoOutputs__block_invoke_2(void *a1)
 {
-  v2 = *(a1 + 32);
+  v2 = a1[4];
   CMBaseObject = FigVideoQueueGetCMBaseObject();
   v4 = *(*(CMBaseObjectGetVTable() + 8) + 56);
   if (v4)
@@ -4242,7 +4246,7 @@ uint64_t __86__AVSampleBufferVideoRenderer_AVSampleBufferVideoRendererOutputs___
     result = 4294954514;
   }
 
-  *(*(*(a1 + 40) + 8) + 24) = result;
+  *(*(a1[5] + 8) + 24) = result;
   return result;
 }
 
@@ -4277,7 +4281,7 @@ uint64_t __86__AVSampleBufferVideoRenderer_AVSampleBufferVideoRendererOutputs___
   AVTelemetryIntervalEnd(&v18);
 }
 
-uint64_t __77__AVSampleBufferVideoRenderer_AVSampleBufferVideoRendererOutputs__addOutput___block_invoke(void *a1)
+void *__77__AVSampleBufferVideoRenderer_AVSampleBufferVideoRendererOutputs__addOutput___block_invoke(void *a1)
 {
   result = [*(a1[4] + 208) containsObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result;
@@ -4323,7 +4327,7 @@ uint64_t __77__AVSampleBufferVideoRenderer_AVSampleBufferVideoRendererOutputs__a
   AVTelemetryIntervalEnd(&v18);
 }
 
-uint64_t __80__AVSampleBufferVideoRenderer_AVSampleBufferVideoRendererOutputs__removeOutput___block_invoke(void *a1)
+void *__80__AVSampleBufferVideoRenderer_AVSampleBufferVideoRendererOutputs__removeOutput___block_invoke(void *a1)
 {
   result = [*(a1[4] + 208) indexOfObject:a1[5]];
   *(*(a1[6] + 8) + 24) = result != 0x7FFFFFFFFFFFFFFFLL;
@@ -4402,6 +4406,7 @@ id __74__AVSampleBufferVideoRenderer_AVSampleBufferVideoRendererOutputs__outputs
 
 uint64_t __91__AVSampleBufferVideoRenderer_AVSampleBufferVideoRendererOutputs__copyDisplayedPixelBuffer__block_invoke(uint64_t a1)
 {
+  v8 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 48) + 8);
   CMBaseObject = FigVideoQueueGetCMBaseObject();
   v4 = *(*(CMBaseObjectGetVTable() + 8) + 48);

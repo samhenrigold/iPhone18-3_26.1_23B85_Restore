@@ -14,7 +14,7 @@
 
 - (BOOL)_populateModelInterfaceParameters
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   modelDescription = [(MLModel *)self->_coremlModel modelDescription];
   inputDescriptionsByName = [modelDescription inputDescriptionsByName];
 
@@ -39,9 +39,9 @@
       v14 = CSLogContextFacilityCoreSpeech;
       if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
       {
-        v18 = 136315138;
-        v19 = "[CSFCoreMLComputeBackend _populateModelInterfaceParameters]";
-        _os_log_error_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_ERROR, "%s Unable to extract input tensor descriptors", &v18, 0xCu);
+        v17 = 136315138;
+        v18 = "[CSFCoreMLComputeBackend _populateModelInterfaceParameters]";
+        _os_log_error_impl(&dword_1DDA4B000, v14, OS_LOG_TYPE_ERROR, "%s Unable to extract input tensor descriptors", &v17, 0xCu);
       }
     }
   }
@@ -51,15 +51,14 @@
     v15 = CSLogContextFacilityCoreSpeech;
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_ERROR))
     {
-      v18 = 136315138;
-      v19 = "[CSFCoreMLComputeBackend _populateModelInterfaceParameters]";
-      _os_log_error_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_ERROR, "%s Unable to extract input tensor descriptors", &v18, 0xCu);
+      v17 = 136315138;
+      v18 = "[CSFCoreMLComputeBackend _populateModelInterfaceParameters]";
+      _os_log_error_impl(&dword_1DDA4B000, v15, OS_LOG_TYPE_ERROR, "%s Unable to extract input tensor descriptors", &v17, 0xCu);
     }
 
     v13 = 0;
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -108,43 +107,43 @@
 
 - (id)_convertOuputsToNSArrayWithCoreMLOutputs:(id)outputs error:(id *)error
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   outputsCopy = outputs;
-  v61 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v60 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v72 = 0u;
   v73 = 0u;
   v74 = 0u;
   v75 = 0u;
-  v76 = 0u;
   obj = [outputsCopy featureNames];
-  v63 = [obj countByEnumeratingWithState:&v73 objects:v80 count:16];
+  v62 = [obj countByEnumeratingWithState:&v72 objects:v79 count:16];
   v6 = 0;
-  if (v63)
+  if (v62)
   {
-    v62 = *v74;
-    v56 = *MEMORY[0x1E696A578];
+    v61 = *v73;
+    v55 = *MEMORY[0x1E696A578];
     errorCopy = error;
-    v60 = outputsCopy;
+    v59 = outputsCopy;
 LABEL_3:
     v7 = 0;
     while (1)
     {
-      v67 = v6;
-      if (*v74 != v62)
+      v66 = v6;
+      if (*v73 != v61)
       {
         objc_enumerationMutation(obj);
       }
 
-      v8 = *(*(&v73 + 1) + 8 * v7);
-      v9 = [outputsCopy featureValueForName:{v8, v56}];
+      v8 = *(*(&v72 + 1) + 8 * v7);
+      v9 = [outputsCopy featureValueForName:{v8, v55}];
       multiArrayValue = [v9 multiArrayValue];
       shape = [multiArrayValue shape];
       v12 = +[CSFTensorProperties propertyWithShape:dataType:](CSFTensorProperties, "propertyWithShape:dataType:", shape, -[CSFCoreMLComputeBackend _getComputeDataTypeForMLType:](self, "_getComputeDataTypeForMLType:", [multiArrayValue dataType]));
-      v69 = multiArrayValue;
+      v68 = multiArrayValue;
       if ([shape count] == 1)
       {
-        v65 = v9;
+        v64 = v9;
         v13 = v8;
-        v14 = v61;
+        v14 = v60;
         v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
         v16 = [shape objectAtIndexedSubscript:0];
         unsignedLongValue = [v16 unsignedLongValue];
@@ -166,13 +165,13 @@ LABEL_3:
         }
 
         v22 = [CSFComputeDataBuffer alloc];
-        v23 = v67;
-        v72 = v67;
-        v24 = &v72;
-        v66 = v12;
-        v25 = [(CSFComputeDataBuffer *)v22 initWithInputArray:v15 name:v13 properties:v12 errOut:&v72];
+        v23 = v66;
+        v71 = v66;
+        v24 = &v71;
+        v65 = v12;
+        v25 = [(CSFComputeDataBuffer *)v22 initWithInputArray:v15 name:v13 properties:v12 errOut:&v71];
         v26 = errorCopy;
-        v27 = v60;
+        v27 = v59;
       }
 
       else
@@ -182,21 +181,21 @@ LABEL_3:
           if (error)
           {
             v49 = MEMORY[0x1E696ABC0];
-            v77 = v56;
+            v76 = v55;
             v50 = [MEMORY[0x1E696AEC0] stringWithFormat:@"output shape not supported"];
-            v78 = v50;
-            v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v78 forKeys:&v77 count:1];
+            v77 = v50;
+            v51 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v77 forKeys:&v76 count:1];
             *error = [v49 errorWithDomain:@"com.apple.corespeech" code:2455 userInfo:v51];
           }
 
           v47 = 0;
-          v6 = v67;
+          v6 = v66;
           goto LABEL_28;
         }
 
-        v57 = v8;
-        v65 = v9;
-        v66 = v12;
+        v56 = v8;
+        v64 = v9;
+        v65 = v12;
         v15 = objc_alloc_init(MEMORY[0x1E695DF70]);
         v28 = [shape objectAtIndexedSubscript:0];
         unsignedLongValue3 = [v28 unsignedLongValue];
@@ -204,10 +203,10 @@ LABEL_3:
         if (unsignedLongValue3)
         {
           v30 = 0;
-          v68 = v15;
+          v67 = v15;
           do
           {
-            v70 = objc_alloc_init(MEMORY[0x1E695DF70]);
+            v69 = objc_alloc_init(MEMORY[0x1E695DF70]);
             v31 = [shape objectAtIndexedSubscript:1];
             unsignedLongValue4 = [v31 unsignedLongValue];
 
@@ -218,13 +217,13 @@ LABEL_3:
               do
               {
                 v35 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v30];
-                v79[0] = v35;
+                v78[0] = v35;
                 v36 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v34];
-                v79[1] = v36;
-                [MEMORY[0x1E695DEC8] arrayWithObjects:v79 count:2];
+                v78[1] = v36;
+                [MEMORY[0x1E695DEC8] arrayWithObjects:v78 count:2];
                 v38 = v37 = v33;
-                v39 = [v69 objectForKeyedSubscript:v38];
-                [v70 addObject:v39];
+                v39 = [v68 objectForKeyedSubscript:v38];
+                [v69 addObject:v39];
 
                 v33 = v37;
                 ++v34;
@@ -235,9 +234,9 @@ LABEL_3:
               while (v34 < unsignedLongValue5);
             }
 
-            v42 = [v70 copy];
-            v15 = v68;
-            [v68 addObject:v42];
+            v42 = [v69 copy];
+            v15 = v67;
+            [v67 addObject:v42];
 
             ++v30;
             v43 = [v33 objectAtIndexedSubscript:0];
@@ -250,13 +249,13 @@ LABEL_3:
         }
 
         v45 = [CSFComputeDataBuffer alloc];
-        v23 = v67;
-        v71 = v67;
-        v24 = &v71;
-        v13 = v57;
-        v25 = [(CSFComputeDataBuffer *)v45 initWithInputArray:v15 name:v57 properties:v66 errOut:&v71];
-        v27 = v60;
-        v14 = v61;
+        v23 = v66;
+        v70 = v66;
+        v24 = &v70;
+        v13 = v56;
+        v25 = [(CSFComputeDataBuffer *)v45 initWithInputArray:v15 name:v56 properties:v65 errOut:&v70];
+        v27 = v59;
+        v14 = v60;
         v26 = errorCopy;
       }
 
@@ -284,22 +283,22 @@ LABEL_3:
         outputsCopy = v27;
       }
 
-      v9 = v65;
-      v12 = v66;
+      v9 = v64;
+      v12 = v65;
 LABEL_28:
 
       if (!v47)
       {
 
         v53 = 0;
-        v52 = v61;
+        v52 = v60;
         goto LABEL_33;
       }
 
-      if (++v7 == v63)
+      if (++v7 == v62)
       {
-        v63 = [obj countByEnumeratingWithState:&v73 objects:v80 count:16];
-        if (v63)
+        v62 = [obj countByEnumeratingWithState:&v72 objects:v79 count:16];
+        if (v62)
         {
           goto LABEL_3;
         }
@@ -309,18 +308,16 @@ LABEL_28:
     }
   }
 
-  v52 = v61;
-  v53 = [v61 copy];
+  v52 = v60;
+  v53 = [v60 copy];
 LABEL_33:
-
-  v54 = *MEMORY[0x1E69E9840];
 
   return v53;
 }
 
 - (id)_convertDataBufferToMLMultiArray:(id)array error:(id *)error
 {
-  v21[2] = *MEMORY[0x1E69E9840];
+  v20[2] = *MEMORY[0x1E69E9840];
   arrayCopy = array;
   tensorProperties = [arrayCopy tensorProperties];
   shape = [tensorProperties shape];
@@ -352,16 +349,16 @@ LABEL_33:
     }
 
     v12 = [shape objectAtIndexedSubscript:1];
-    v21[0] = v12;
-    v21[1] = &unk_1F5916A78;
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:2];
+    v20[0] = v12;
+    v20[1] = &unk_1F5916A78;
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v20 count:2];
   }
 
   v13 = objc_alloc(MEMORY[0x1E695FEC8]);
   data = [arrayCopy data];
-  v20 = 0;
-  v15 = [v13 initWithDataPointer:objc_msgSend(data shape:"bytes") dataType:shape strides:v10 deallocator:v11 error:{0, &v20}];
-  v16 = v20;
+  v19 = 0;
+  v15 = [v13 initWithDataPointer:objc_msgSend(data shape:"bytes") dataType:shape strides:v10 deallocator:v11 error:{0, &v19}];
+  v16 = v19;
 
   if (error)
   {
@@ -370,37 +367,36 @@ LABEL_33:
   }
 
 LABEL_8:
-  v18 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
 
 - (id)_convertInputToCoreMLInputs:(id)inputs error:(id *)error
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   inputsCopy = inputs;
-  v34 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v33 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v36 = 0u;
   v37 = 0u;
   v38 = 0u;
   v39 = 0u;
-  v40 = 0u;
   v7 = inputsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v37 objects:v47 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v36 objects:v46 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v38;
+    v10 = *v37;
     errorCopy = error;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v38 != v10)
+        if (*v37 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v37 + 1) + 8 * i);
+        v12 = *(*(&v36 + 1) + 8 * i);
         v13 = [v7 objectForKeyedSubscript:{v12, errorCopy}];
         v14 = [(NSDictionary *)self->_inputSpecs objectForKeyedSubscript:v12];
         tensorProperties = [v13 tensorProperties];
@@ -409,10 +405,10 @@ LABEL_8:
         if ((v16 & 1) == 0)
         {
           v26 = MEMORY[0x1E696ABC0];
-          v45 = *MEMORY[0x1E696A578];
+          v44 = *MEMORY[0x1E696A578];
           v27 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to read interface specs"];
-          v46 = v27;
-          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+          v45 = v27;
+          v28 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
           v22 = [v26 errorWithDomain:@"com.apple.corespeech" code:2455 userInfo:v28];
 
           if (errorCopy)
@@ -424,9 +420,9 @@ LABEL_8:
           goto LABEL_25;
         }
 
-        v36 = 0;
-        v17 = [(CSFCoreMLComputeBackend *)self _convertDataBufferToMLMultiArray:v13 error:&v36];
-        v18 = v36;
+        v35 = 0;
+        v17 = [(CSFCoreMLComputeBackend *)self _convertDataBufferToMLMultiArray:v13 error:&v35];
+        v18 = v35;
         if (v17)
         {
           v19 = v18 == 0;
@@ -452,10 +448,10 @@ LABEL_25:
           goto LABEL_26;
         }
 
-        [v34 setObject:v17 forKeyedSubscript:v12];
+        [v33 setObject:v17 forKeyedSubscript:v12];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v37 objects:v47 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v36 objects:v46 count:16];
       error = errorCopy;
       if (v9)
       {
@@ -466,9 +462,9 @@ LABEL_25:
     }
   }
 
-  v35 = 0;
-  v20 = [objc_alloc(MEMORY[0x1E695FE40]) initWithDictionary:v34 error:&v35];
-  v21 = v35;
+  v34 = 0;
+  v20 = [objc_alloc(MEMORY[0x1E695FE40]) initWithDictionary:v33 error:&v34];
+  v21 = v34;
   v22 = v21;
   if (v21)
   {
@@ -482,9 +478,9 @@ LABEL_25:
     if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v42 = "[CSFCoreMLComputeBackend _convertInputToCoreMLInputs:error:]";
-      v43 = 2112;
-      v44 = v22;
+      v41 = "[CSFCoreMLComputeBackend _convertInputToCoreMLInputs:error:]";
+      v42 = 2112;
+      v43 = v22;
       _os_log_impl(&dword_1DDA4B000, v24, OS_LOG_TYPE_DEFAULT, "%s features input conversion to MLDictionaryFeatureProvider with error: %@", buf, 0x16u);
     }
 
@@ -498,8 +494,6 @@ LABEL_25:
   }
 
 LABEL_26:
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v25;
 }
@@ -624,19 +618,19 @@ void __62__CSFCoreMLComputeBackend__fetchTensorPropertiesWithFeatDesc___block_in
 
 - (CSFCoreMLComputeBackend)initWithModelFile:(id)file error:(id *)error
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   fileCopy = file;
-  v23.receiver = self;
-  v23.super_class = CSFCoreMLComputeBackend;
-  v7 = [(CSFCoreMLComputeBackend *)&v23 init];
+  v22.receiver = self;
+  v22.super_class = CSFCoreMLComputeBackend;
+  v7 = [(CSFCoreMLComputeBackend *)&v22 init];
   if (v7)
   {
     v8 = [MEMORY[0x1E695DFF8] fileURLWithPath:fileCopy];
     v9 = objc_alloc_init(MEMORY[0x1E695FEB8]);
     [v9 setComputeUnits:0];
-    v22 = 0;
-    v10 = [MEMORY[0x1E695FE98] modelWithContentsOfURL:v8 configuration:v9 error:&v22];
-    v11 = v22;
+    v21 = 0;
+    v10 = [MEMORY[0x1E695FE98] modelWithContentsOfURL:v8 configuration:v9 error:&v21];
+    v11 = v21;
     coremlModel = v7->_coremlModel;
     v7->_coremlModel = v10;
 
@@ -663,10 +657,10 @@ LABEL_10:
       if (error)
       {
         v17 = MEMORY[0x1E696ABC0];
-        v24 = *MEMORY[0x1E696A578];
+        v23 = *MEMORY[0x1E696A578];
         v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Unable to read interface specs"];
-        v25[0] = v18;
-        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+        v24[0] = v18;
+        v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
         *error = [v17 errorWithDomain:@"com.apple.corespeech" code:2457 userInfo:v19];
       }
 
@@ -677,7 +671,6 @@ LABEL_10:
   v16 = v7;
 LABEL_11:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v16;
 }
 

@@ -23,12 +23,10 @@
 
 - (NSString)identifier
 {
-  v2 = *(self + OBJC_IVAR___HDRepeatingBackgroundTask_identifier);
-  v3 = *(self + OBJC_IVAR___HDRepeatingBackgroundTask_identifier + 8);
 
-  v4 = sub_2515BB8DC();
+  v2 = sub_2515BB8DC();
 
-  return v4;
+  return v2;
 }
 
 - (void)set_currentTask:(id)task
@@ -83,7 +81,6 @@
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
   v6 = (self + OBJC_IVAR___HDRepeatingBackgroundTask_handler);
-  v7 = *(self + OBJC_IVAR___HDRepeatingBackgroundTask_handler + 8);
   *v6 = sub_2515A89A4;
   v6[1] = v5;
 }
@@ -97,15 +94,13 @@
 
 - (HDBackgroundTaskCondition)condition
 {
-  v2 = *(self + OBJC_IVAR___HDRepeatingBackgroundTask_condition);
-  v3 = swift_unknownObjectRetain();
+  v2 = swift_unknownObjectRetain();
 
-  return v3;
+  return v2;
 }
 
 - (void)setCondition:(id)condition
 {
-  v3 = *(self + OBJC_IVAR___HDRepeatingBackgroundTask_condition);
   *(self + OBJC_IVAR___HDRepeatingBackgroundTask_condition) = condition;
   swift_unknownObjectRetain();
 

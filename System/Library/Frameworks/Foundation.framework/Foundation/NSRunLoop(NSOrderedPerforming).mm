@@ -1,12 +1,12 @@
 @interface NSRunLoop(NSOrderedPerforming)
-- (uint64_t)cancelPerformSelector:()NSOrderedPerforming target:argument:;
-- (uint64_t)cancelPerformSelectorsWithTarget:()NSOrderedPerforming;
-- (uint64_t)performSelector:()NSOrderedPerforming target:argument:order:modes:;
+- (__CFRunLoop)cancelPerformSelector:()NSOrderedPerforming target:argument:;
+- (__CFRunLoop)cancelPerformSelectorsWithTarget:()NSOrderedPerforming;
+- (__CFRunLoop)performSelector:()NSOrderedPerforming target:argument:order:modes:;
 @end
 
 @implementation NSRunLoop(NSOrderedPerforming)
 
-- (uint64_t)performSelector:()NSOrderedPerforming target:argument:order:modes:
+- (__CFRunLoop)performSelector:()NSOrderedPerforming target:argument:order:modes:
 {
   v33 = *MEMORY[0x1E69E9840];
   result = [self getCFRunLoop];
@@ -88,7 +88,7 @@
   return result;
 }
 
-- (uint64_t)cancelPerformSelector:()NSOrderedPerforming target:argument:
+- (__CFRunLoop)cancelPerformSelector:()NSOrderedPerforming target:argument:
 {
   v35 = *MEMORY[0x1E69E9840];
   result = [self getCFRunLoop];
@@ -180,7 +180,7 @@
   return result;
 }
 
-- (uint64_t)cancelPerformSelectorsWithTarget:()NSOrderedPerforming
+- (__CFRunLoop)cancelPerformSelectorsWithTarget:()NSOrderedPerforming
 {
   v28 = *MEMORY[0x1E69E9840];
   result = [self getCFRunLoop];

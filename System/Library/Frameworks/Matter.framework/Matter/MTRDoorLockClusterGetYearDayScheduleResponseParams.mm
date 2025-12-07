@@ -85,11 +85,11 @@
     goto LABEL_10;
   }
 
-  [MTRBaseDevice _responseDataForCommand:v6 clusterID:257 commandID:15 error:error];
+  objc_msgSend__responseDataForCommand_clusterID_commandID_error_(MTRBaseDevice);
   if (v18)
   {
     sub_2393C5AAC(v17);
-    sub_2393C5ADC(v17, *(v18 + 1), *(v18 + 3));
+    sub_2393C5ADC(v17, *(v18 + 8), *(v18 + 24));
     v8 = sub_2393C6FD0(v17, 256);
     if (!v8)
     {
@@ -158,8 +158,8 @@ LABEL_6:
 
   if (*(struct + 8) == 1)
   {
-    v8 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*sub_238DE3698(struct + 8)];
-    [(MTRDoorLockClusterGetYearDayScheduleResponseParams *)self setLocalStartTime:v8];
+    v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{*sub_238DE3698(struct + 8, v8)}];
+    [(MTRDoorLockClusterGetYearDayScheduleResponseParams *)self setLocalStartTime:v9];
   }
 
   else
@@ -167,12 +167,12 @@ LABEL_6:
     [(MTRDoorLockClusterGetYearDayScheduleResponseParams *)self setLocalStartTime:0];
   }
 
-  v10 = *(struct + 16);
-  v9 = struct + 16;
-  if (v10 == 1)
+  v12 = *(struct + 16);
+  v11 = struct + 16;
+  if (v12 == 1)
   {
-    v11 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:*sub_238DE3698(v9)];
-    [(MTRDoorLockClusterGetYearDayScheduleResponseParams *)self setLocalEndTime:v11];
+    v13 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{*sub_238DE3698(v11, v10)}];
+    [(MTRDoorLockClusterGetYearDayScheduleResponseParams *)self setLocalEndTime:v13];
   }
 
   else
@@ -180,11 +180,11 @@ LABEL_6:
     [(MTRDoorLockClusterGetYearDayScheduleResponseParams *)self setLocalEndTime:0];
   }
 
-  v12 = 0;
-  v13 = 0;
-  result.mFile = v13;
-  result.mError = v12;
-  result.mLine = HIDWORD(v12);
+  v14 = 0;
+  v15 = 0;
+  result.mFile = v15;
+  result.mError = v14;
+  result.mLine = HIDWORD(v14);
   return result;
 }
 

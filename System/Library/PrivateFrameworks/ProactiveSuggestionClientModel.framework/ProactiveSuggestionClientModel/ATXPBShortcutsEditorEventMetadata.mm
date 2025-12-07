@@ -39,7 +39,6 @@
 {
   if (*&self->_has)
   {
-    numStepsInShortcut = self->_numStepsInShortcut;
     PBDataWriterWriteUint32Field();
   }
 }

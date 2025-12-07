@@ -32,7 +32,7 @@
         v9 = 8 * v16;
         do
         {
-          WebKit::WebPageProxy::cocoaView(*v8, &v14);
+          WebKit::WebPageProxy::cocoaView(&v14, *v8);
           v10 = v14;
           if (v14)
           {

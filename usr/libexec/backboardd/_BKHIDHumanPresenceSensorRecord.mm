@@ -116,12 +116,11 @@
 - (id)description
 {
   v3 = [BSDescriptionBuilder builderWithObject:self];
-  status = self->_status;
-  v5 = NSStringFromBKSHIDServicesHumanPresenceStatus();
-  v6 = [v3 appendObject:v5 withName:@"status"];
+  v4 = NSStringFromBKSHIDServicesHumanPresenceStatus();
+  v5 = [v3 appendObject:v4 withName:@"status"];
 
-  v7 = [v3 appendFloat:@"proximityInCentimeters" withName:self->_proximityInCentimeters];
-  v8 = [v3 appendBool:self->_humanIsPresent withName:@"humanIsPresent"];
+  v6 = [v3 appendFloat:@"proximityInCentimeters" withName:self->_proximityInCentimeters];
+  v7 = [v3 appendBool:self->_humanIsPresent withName:@"humanIsPresent"];
   build = [v3 build];
 
   return build;

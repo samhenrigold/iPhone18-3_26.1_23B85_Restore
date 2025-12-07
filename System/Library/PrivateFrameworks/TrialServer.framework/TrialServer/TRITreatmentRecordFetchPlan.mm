@@ -80,39 +80,8 @@ LABEL_3:
 {
   planCopy = plan;
   v5 = planCopy;
-  if (!planCopy)
+  if (!planCopy || (v6 = self->_recordId == 0, [planCopy recordId], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (recordId = self->_recordId) != 0 && (objc_msgSend(v5, "recordId"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[CKRecordID isEqual:](recordId, "isEqual:", v10), v10, !v11) || (v12 = self->_assetIndexes == 0, objc_msgSend(v5, "assetIndexes"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13 != 0, v13, v12 == v14))
   {
-    goto LABEL_8;
-  }
-
-  v6 = self->_recordId == 0;
-  recordId = [planCopy recordId];
-  v8 = recordId != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_8;
-  }
-
-  recordId = self->_recordId;
-  if (recordId)
-  {
-    recordId2 = [v5 recordId];
-    v11 = [(CKRecordID *)recordId isEqual:recordId2];
-
-    if (!v11)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  v12 = self->_assetIndexes == 0;
-  assetIndexes = [v5 assetIndexes];
-  v14 = assetIndexes != 0;
-
-  if (v12 == v14)
-  {
-LABEL_8:
     v17 = 0;
   }
 
@@ -121,8 +90,8 @@ LABEL_8:
     assetIndexes = self->_assetIndexes;
     if (assetIndexes)
     {
-      assetIndexes2 = [v5 assetIndexes];
-      v17 = [(NSIndexSet *)assetIndexes isEqual:assetIndexes2];
+      assetIndexes = [v5 assetIndexes];
+      v17 = [(NSIndexSet *)assetIndexes isEqual:assetIndexes];
     }
 
     else

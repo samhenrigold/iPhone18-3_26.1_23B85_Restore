@@ -75,7 +75,7 @@
 
 - (VSTrialVoice)initWithFactorLevel:(id)level
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   levelCopy = level;
   factor = [levelCopy factor];
   name = [factor name];
@@ -164,8 +164,8 @@
 
         factor2 = [levelCopy factor];
         name2 = [factor2 name];
-        v33 = 138412290;
-        v34 = name2;
+        v32 = 138412290;
+        v33 = name2;
         v30 = "#Trial Error: voice is not deployed. It will be ignored. Factor name: %@";
       }
 
@@ -181,12 +181,12 @@ LABEL_29:
 
         factor2 = [levelCopy factor];
         name2 = [factor2 name];
-        v33 = 138412290;
-        v34 = name2;
+        v32 = 138412290;
+        v33 = name2;
         v30 = "#Trial Error: voice should be as directory. Factor name: %@";
       }
 
-      _os_log_error_impl(&dword_272850000, factor3, OS_LOG_TYPE_ERROR, v30, &v33, 0xCu);
+      _os_log_error_impl(&dword_272850000, factor3, OS_LOG_TYPE_ERROR, v30, &v32, 0xCu);
     }
 
     else
@@ -202,9 +202,9 @@ LABEL_30:
 
       factor3 = [levelCopy factor];
       factor2 = [factor3 name];
-      v33 = 138412290;
-      v34 = factor2;
-      _os_log_error_impl(&dword_272850000, directoryValue, OS_LOG_TYPE_ERROR, "#Trial Error: Factor has no level. It will be ignored. Factor name: %@", &v33, 0xCu);
+      v32 = 138412290;
+      v33 = factor2;
+      _os_log_error_impl(&dword_272850000, directoryValue, OS_LOG_TYPE_ERROR, "#Trial Error: Factor has no level. It will be ignored. Factor name: %@", &v32, 0xCu);
     }
 
     goto LABEL_29;
@@ -214,13 +214,12 @@ LABEL_20:
   v26 = v7;
 LABEL_31:
 
-  v31 = *MEMORY[0x277D85DE8];
   return v26;
 }
 
 - (VSTrialVoice)initWithFactorName:(id)name
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   if ([nameCopy hasPrefix:@"com.apple.siri.tts.voice"] && (objc_msgSend(nameCopy, "hasSuffix:", @".version") & 1) == 0)
   {
@@ -251,9 +250,9 @@ LABEL_31:
       v13 = VSGetLogDefault();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
-        v16 = 138412290;
-        v17 = nameCopy;
-        _os_log_error_impl(&dword_272850000, v13, OS_LOG_TYPE_ERROR, "#Trial Unexpected voice factor name: %@", &v16, 0xCu);
+        v15 = 138412290;
+        v16 = nameCopy;
+        _os_log_error_impl(&dword_272850000, v13, OS_LOG_TYPE_ERROR, "#Trial Unexpected voice factor name: %@", &v15, 0xCu);
       }
 
       selfCopy = 0;
@@ -265,7 +264,6 @@ LABEL_31:
     selfCopy = 0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

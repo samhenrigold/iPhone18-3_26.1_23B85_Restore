@@ -13,10 +13,10 @@
 
 - (SPUIMaskedLabelsStackView)init
 {
-  v36[4] = *MEMORY[0x277D85DE8];
-  v35.receiver = self;
-  v35.super_class = SPUIMaskedLabelsStackView;
-  v2 = [(SPUIMaskedLabelsStackView *)&v35 init];
+  v35[4] = *MEMORY[0x277D85DE8];
+  v34.receiver = self;
+  v34.super_class = SPUIMaskedLabelsStackView;
+  v2 = [(SPUIMaskedLabelsStackView *)&v34 init];
   v3 = v2;
   if (v2)
   {
@@ -85,14 +85,14 @@
     [fillerView setContentCompressionResistancePriority:0 forAxis:0.0];
 
     completionLabel3 = [(SPUIMaskedLabelsStackView *)v3 completionLabel];
-    v36[0] = completionLabel3;
+    v35[0] = completionLabel3;
     bridgeLabel2 = [(SPUIMaskedLabelsStackView *)v3 bridgeLabel];
-    v36[1] = bridgeLabel2;
+    v35[1] = bridgeLabel2;
     extensionLabel3 = [(SPUIMaskedLabelsStackView *)v3 extensionLabel];
-    v36[2] = extensionLabel3;
+    v35[2] = extensionLabel3;
     fillerView2 = [(SPUIMaskedLabelsStackView *)v3 fillerView];
-    v36[3] = fillerView2;
-    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:4];
+    v35[3] = fillerView2;
+    v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:4];
     [(SPUIMaskedLabelsStackView *)v3 setArrangedSubviews:v31];
 
     if ([MEMORY[0x277D65D28] enableFloatingWindow])
@@ -102,30 +102,27 @@
     }
   }
 
-  v33 = *MEMORY[0x277D85DE8];
   return v3;
 }
 
 - (void)resetStringOffset
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   typedString = [(SPUIMaskedLabelsStackView *)self typedString];
 
   if (typedString)
   {
     typedString2 = [(SPUIMaskedLabelsStackView *)self typedString];
-    v9 = *MEMORY[0x277D740A8];
+    v8 = *MEMORY[0x277D740A8];
     completionLabel = [(SPUIMaskedLabelsStackView *)self completionLabel];
     font = [completionLabel font];
-    v10[0] = font;
-    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v9[0] = font;
+    v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     [typedString2 sizeWithAttributes:v7];
     [(SPUIMaskedLabelsStackView *)self setCompletionStringOffset:?];
 
     [(SPUIMaskedLabelsStackView *)self setNeedsLayout];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)isRTL

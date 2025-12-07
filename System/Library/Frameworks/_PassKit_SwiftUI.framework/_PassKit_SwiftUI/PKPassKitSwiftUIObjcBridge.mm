@@ -3,6 +3,8 @@
 + (BOOL)didAddPasses:(id)passes;
 + (BOOL)passbookHasBeenDeleted;
 + (CGSize)passContentSize:(CGSize)size;
++ (CGSize)sizeRoundToPixelWithScale:(CGSize)scale scale:(double)a4;
++ (CGSize)sizeScaleAspectFit:(CGSize)fit container:(CGSize)container;
 + (id)appBundleIdentifer;
 + (id)dynamicPaymentButtonForPaymentRequest:(id)request style:(int64_t)style size:(CGSize)size type:(int64_t)type interfaceStyle:(int64_t)interfaceStyle;
 + (id)dynamicPaymentButtonForType:(int64_t)type style:(int64_t)style size:(CGSize)size interfaceStyle:(int64_t)interfaceStyle action:(id)action;
@@ -39,6 +41,22 @@
   passbookHasBeenDeleted = [mEMORY[0x277D37FC8] passbookHasBeenDeleted];
 
   return passbookHasBeenDeleted;
+}
+
++ (CGSize)sizeRoundToPixelWithScale:(CGSize)scale scale:(double)a4
+{
+  MEMORY[0x282198558](self, a2, scale, *&scale.height, a4);
+  result.height = v5;
+  result.width = v4;
+  return result;
+}
+
++ (CGSize)sizeScaleAspectFit:(CGSize)fit container:(CGSize)container
+{
+  MEMORY[0x282198568](self, a2, fit, *&fit.height, container, *&container.height);
+  result.height = v5;
+  result.width = v4;
+  return result;
 }
 
 + (id)uiImageFromPDF:(id)f size:(CGSize)size scaleFactor:(double)factor

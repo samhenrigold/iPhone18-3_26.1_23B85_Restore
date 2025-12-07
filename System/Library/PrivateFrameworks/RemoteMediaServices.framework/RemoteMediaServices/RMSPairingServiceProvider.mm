@@ -76,19 +76,19 @@
 - (void)netServiceBrowser:(id)browser didFindService:(id)service moreComing:(BOOL)coming
 {
   comingCopy = coming;
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   browserCopy = browser;
   serviceCopy = service;
   name = [serviceCopy name];
   pairedNetworkNames = self->_pairedNetworkNames;
-  if (pairedNetworkNames && ![(NSArray *)pairedNetworkNames containsObject:name])
+  if (pairedNetworkNames && (v12 = [(NSArray *)pairedNetworkNames containsObject:name], (v12 & 1) == 0))
   {
-    v12 = RMSLogger();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = RMSLogger(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v15 = name;
-      _os_log_impl(&dword_261E98000, v12, OS_LOG_TYPE_DEFAULT, "Discovered a paired service with network name [%@] that doesn't have a matching pairing record, disregarding", buf, 0xCu);
+      v16 = name;
+      _os_log_impl(&dword_261E98000, v13, OS_LOG_TYPE_DEFAULT, "Discovered a paired service with network name [%@] that doesn't have a matching pairing record, disregarding", buf, 0xCu);
     }
 
     [(NSMutableDictionary *)self->_unmonitoredServices setObject:serviceCopy forKeyedSubscript:name];
@@ -96,9 +96,9 @@
 
   else
   {
-    v13.receiver = self;
-    v13.super_class = RMSPairingServiceProvider;
-    [(RMSBonjourServiceProvider *)&v13 netServiceBrowser:browserCopy didFindService:serviceCopy moreComing:comingCopy];
+    v14.receiver = self;
+    v14.super_class = RMSPairingServiceProvider;
+    [(RMSBonjourServiceProvider *)&v14 netServiceBrowser:browserCopy didFindService:serviceCopy moreComing:comingCopy];
   }
 }
 

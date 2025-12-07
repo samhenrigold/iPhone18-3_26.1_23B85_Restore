@@ -168,7 +168,7 @@ LABEL_9:
     v8 = [sourceCopy assetReferenceAtIndexPath:pathCopy];
     if (v8)
     {
-      v9 = [(PUAssetsDataSource *)self indexPathForAssetReference:v8];
+      v9 = objc_msgSend_indexPathForAssetReference_(self);
       goto LABEL_7;
     }
 
@@ -197,7 +197,7 @@ LABEL_11:
   v5 = referenceCopy;
   if (referenceCopy && ([referenceCopy dataSourceIdentifier], v6 = objc_claimAutoreleasedReturnValue(), -[PUTilingDataSource identifier](self, "identifier"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "isEqual:", v7), v7, v6, !v8))
   {
-    v10 = [(PUAssetsDataSource *)self indexPathForAssetReference:v5];
+    v10 = objc_msgSend_indexPathForAssetReference_(self);
     if (v10)
     {
       v9 = [(PUAssetsDataSource *)self assetReferenceAtIndexPath:v10];

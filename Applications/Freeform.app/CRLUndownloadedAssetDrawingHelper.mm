@@ -19,7 +19,7 @@
 - (_TtC8Freeform33CRLUndownloadedAssetDrawingHelper)initWithRep:(id)rep
 {
   repCopy = rep;
-  v4 = sub_1012538FC();
+  v4 = sub_1012538FC(repCopy);
 
   return v4;
 }

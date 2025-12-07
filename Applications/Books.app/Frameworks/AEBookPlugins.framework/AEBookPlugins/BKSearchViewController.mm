@@ -139,9 +139,9 @@
 
 - (void)viewDidLoad
 {
-  v64.receiver = self;
-  v64.super_class = BKSearchViewController;
-  [(BKSearchViewController *)&v64 viewDidLoad];
+  v68.receiver = self;
+  v68.super_class = BKSearchViewController;
+  [(BKSearchViewController *)&v68 viewDidLoad];
   v3 = [UIView alloc];
   y = CGRectZero.origin.y;
   width = CGRectZero.size.width;
@@ -195,135 +195,135 @@
   [searchBar setDelegate:self];
 
   LODWORD(uiSearchController2) = self->_contentType;
-  v20 = AEBundle();
-  v21 = v20;
+  v21 = AEBundle(v20);
+  v22 = v21;
   if (uiSearchController2 == 2)
   {
-    v22 = @"In this PDF";
+    v23 = @"In this PDF";
   }
 
   else
   {
-    v22 = @"In this book";
+    v23 = @"In this book";
   }
 
-  v23 = [v20 localizedStringForKey:v22 value:&stru_1E7188 table:0];
+  v24 = [v21 localizedStringForKey:v23 value:&stru_1E7188 table:0];
   uiSearchController3 = [(BKSearchViewController *)self uiSearchController];
   searchBar2 = [uiSearchController3 searchBar];
-  [searchBar2 setPlaceholder:v23];
+  [searchBar2 setPlaceholder:v24];
 
-  LODWORD(v23) = self->_contentType;
-  v26 = AEBundle();
-  v27 = v26;
-  if (v23 == 2)
+  LODWORD(v24) = self->_contentType;
+  v28 = AEBundle(v27);
+  v29 = v28;
+  if (v24 == 2)
   {
-    v28 = @"Search PDF";
+    v30 = @"Search PDF";
   }
 
   else
   {
-    v28 = @"Search Book";
+    v30 = @"Search Book";
   }
 
-  v29 = [v26 localizedStringForKey:v28 value:&stru_1E7188 table:0];
+  v31 = [v28 localizedStringForKey:v30 value:&stru_1E7188 table:0];
   navigationItem = [(BKSearchViewController *)self navigationItem];
-  [navigationItem setTitle:v29];
+  [navigationItem setTitle:v31];
 
   uiSearchController4 = [(BKSearchViewController *)self uiSearchController];
   searchBar3 = [uiSearchController4 searchBar];
   searchField = self->_searchField;
   self->_searchField = searchBar3;
 
-  v34 = [[UIView alloc] initWithFrame:{CGRectZero.origin.x, y, width, height}];
+  v36 = [[UIView alloc] initWithFrame:{CGRectZero.origin.x, y, width, height}];
   footer = self->_footer;
-  self->_footer = v34;
+  self->_footer = v36;
 
   [(UIView *)self->_footer setTranslatesAutoresizingMaskIntoConstraints:0];
   [(UIView *)self->_container addSubview:self->_footer];
   [(UIView *)self->_footer bounds];
-  v36 = CGRectGetWidth(v65);
-  v37 = +[UIScreen mainScreen];
-  [v37 scale];
-  v39 = 1.0 / v38;
+  v38 = CGRectGetWidth(v69);
+  v39 = +[UIScreen mainScreen];
+  [v39 scale];
+  v41 = 1.0 / v40;
 
-  v40 = [[BEHairlineDividerView alloc] initWithFrame:{0.0, 0.0, v36, v39}];
+  v42 = [[BEHairlineDividerView alloc] initWithFrame:{0.0, 0.0, v38, v41}];
   footerTopBorderView = self->_footerTopBorderView;
-  self->_footerTopBorderView = v40;
+  self->_footerTopBorderView = v42;
 
   [(BEHairlineDividerView *)self->_footerTopBorderView setAutoresizingMask:2];
   [(BEHairlineDividerView *)self->_footerTopBorderView setHorizontal:1];
   [(UIView *)self->_footer addSubview:self->_footerTopBorderView];
-  v42 = [UIFont systemFontOfSize:17.0];
-  v43 = [UIButton buttonWithType:1];
+  v44 = [UIFont systemFontOfSize:17.0];
+  v45 = [UIButton buttonWithType:1];
   googleButton = self->_googleButton;
-  self->_googleButton = v43;
+  self->_googleButton = v45;
 
   [(UIButton *)self->_googleButton setTranslatesAutoresizingMaskIntoConstraints:0];
   [(UIView *)self->_footer addSubview:self->_googleButton];
   titleLabel = [(UIButton *)self->_googleButton titleLabel];
-  [titleLabel setFont:v42];
-  [v42 pointSize];
-  [titleLabel setMinimumScaleFactor:8.0 / v46];
+  [titleLabel setFont:v44];
+  [v44 pointSize];
+  [titleLabel setMinimumScaleFactor:8.0 / v48];
   [titleLabel setAdjustsFontSizeToFitWidth:1];
   [titleLabel setTextAlignment:1];
   if ([(BKSearchViewController *)self _isRTL])
   {
-    v47 = 2;
+    v49 = 2;
   }
 
   else
   {
-    v47 = 1;
+    v49 = 1;
   }
 
-  [(UIButton *)self->_googleButton setContentHorizontalAlignment:v47];
-  [(UIButton *)self->_googleButton addTarget:self action:"searchWeb:" forControlEvents:64];
-  v48 = self->_googleButton;
-  v49 = AEBundle();
-  v50 = [v49 localizedStringForKey:@"Search Web" value:&stru_1E7188 table:0];
-  [(UIButton *)v48 setTitle:v50 forState:0];
-
+  [(UIButton *)self->_googleButton setContentHorizontalAlignment:v49];
+  v50 = [(UIButton *)self->_googleButton addTarget:self action:"searchWeb:" forControlEvents:64];
   v51 = self->_googleButton;
-  v52 = [[UIPointerInteraction alloc] initWithDelegate:self];
-  [(UIButton *)v51 addInteraction:v52];
+  v52 = AEBundle(v50);
+  v53 = [v52 localizedStringForKey:@"Search Web" value:&stru_1E7188 table:0];
+  [(UIButton *)v51 setTitle:v53 forState:0];
 
-  v53 = [UIButton buttonWithType:1];
+  v54 = self->_googleButton;
+  v55 = [[UIPointerInteraction alloc] initWithDelegate:self];
+  [(UIButton *)v54 addInteraction:v55];
+
+  v56 = [UIButton buttonWithType:1];
   wikipediaButton = self->_wikipediaButton;
-  self->_wikipediaButton = v53;
+  self->_wikipediaButton = v56;
 
   [(UIButton *)self->_wikipediaButton setTranslatesAutoresizingMaskIntoConstraints:0];
   [(UIView *)self->_footer addSubview:self->_wikipediaButton];
   titleLabel2 = [(UIButton *)self->_wikipediaButton titleLabel];
-  [titleLabel2 setFont:v42];
-  [v42 pointSize];
-  [titleLabel2 setMinimumScaleFactor:8.0 / v56];
+  [titleLabel2 setFont:v44];
+  [v44 pointSize];
+  [titleLabel2 setMinimumScaleFactor:8.0 / v59];
   [titleLabel2 setAdjustsFontSizeToFitWidth:1];
   [titleLabel2 setTextAlignment:1];
   if ([(BKSearchViewController *)self _isRTL])
   {
-    v57 = 1;
+    v60 = 1;
   }
 
   else
   {
-    v57 = 2;
+    v60 = 2;
   }
 
-  [(UIButton *)self->_wikipediaButton setContentHorizontalAlignment:v57];
-  [(UIButton *)self->_wikipediaButton addTarget:self action:"searchWikipedia:" forControlEvents:64];
-  v58 = self->_wikipediaButton;
-  v59 = AEBundle();
-  v60 = [v59 localizedStringForKey:@"Search Wikipedia" value:&stru_1E7188 table:0];
-  [(UIButton *)v58 setTitle:v60 forState:0];
+  [(UIButton *)self->_wikipediaButton setContentHorizontalAlignment:v60];
+  v61 = [(UIButton *)self->_wikipediaButton addTarget:self action:"searchWikipedia:" forControlEvents:64];
+  v62 = self->_wikipediaButton;
+  v63 = AEBundle(v61);
+  v64 = [v63 localizedStringForKey:@"Search Wikipedia" value:&stru_1E7188 table:0];
+  [(UIButton *)v62 setTitle:v64 forState:0];
 
-  v61 = self->_wikipediaButton;
-  v62 = [[UIPointerInteraction alloc] initWithDelegate:self];
-  [(UIButton *)v61 addInteraction:v62];
+  v65 = self->_wikipediaButton;
+  v66 = [[UIPointerInteraction alloc] initWithDelegate:self];
+  [(UIButton *)v65 addInteraction:v66];
 
   [(BKSearchViewController *)self _buildConstraints];
   [(BKSearchViewController *)self _updateContentSize:0];
-  v63 = +[NSNotificationCenter defaultCenter];
-  [v63 addObserver:self selector:"contentSizeCategoryDidChange" name:UIContentSizeCategoryDidChangeNotification object:0];
+  v67 = +[NSNotificationCenter defaultCenter];
+  [v67 addObserver:self selector:"contentSizeCategoryDidChange" name:UIContentSizeCategoryDidChangeNotification object:0];
 }
 
 - (void)_buildConstraints
@@ -1272,10 +1272,10 @@ LABEL_27:
 
 - (void)searchWikipedia:(id)wikipedia
 {
-  v10 = +[NSLocale preferredLanguages];
-  if ([v10 count])
+  v11 = +[NSLocale preferredLanguages];
+  if ([v11 count])
   {
-    v4 = [v10 objectAtIndex:0];
+    v4 = [v11 objectAtIndex:0];
   }
 
   else
@@ -1285,14 +1285,14 @@ LABEL_27:
 
   v5 = [(__CFString *)v4 substringToIndex:2];
 
-  v6 = AEBundle();
-  v7 = [v6 localizedStringForKey:@"https://%2$@.wikipedia.org/wiki/%1$@" value:&stru_1E7188 table:0];
+  v7 = AEBundle(v6);
+  v8 = [v7 localizedStringForKey:@"https://%2$@.wikipedia.org/wiki/%1$@" value:&stru_1E7188 table:0];
   _escapedSearchString = [(BKSearchViewController *)self _escapedSearchString];
-  v9 = [NSString stringWithFormat:v7, _escapedSearchString, v5];
+  v10 = [NSString stringWithFormat:v8, _escapedSearchString, v5];
 
-  if (v9)
+  if (v10)
   {
-    [(BKSearchViewController *)self openURLUsingNSString:v9];
+    [(BKSearchViewController *)self openURLUsingNSString:v10];
   }
 }
 
@@ -1374,19 +1374,19 @@ LABEL_27:
     [v16 setSelectedBackgroundView:v21];
   }
 
-  v42 = v15;
+  v44 = v15;
   searchController2 = [(BKSearchViewController *)self searchController];
   searchString = [searchController2 searchString];
 
-  v41 = searchString;
+  v43 = searchString;
   if ([(BKSearchViewController *)self showPhysicalPages])
   {
     v24 = [(BKSearchViewController *)self physicalPageMapForPageTitle:searchString];
     v25 = [v24 valueForKey:@"name"];
 
-    v26 = AEBundle();
-    v27 = [v26 localizedStringForKey:@"Page %@" value:&stru_1E7188 table:0];
-    v28 = [NSString stringWithFormat:v27, v25];
+    v27 = AEBundle(v26);
+    v28 = [v27 localizedStringForKey:@"Page %@" value:&stru_1E7188 table:0];
+    v29 = [NSString stringWithFormat:v28, v25];
   }
 
   else
@@ -1395,26 +1395,26 @@ LABEL_27:
     searchDelegate = [(BKSearchViewController *)self searchDelegate];
     v25 = [searchDelegate searchViewController:self chapterNameForSearchResult:0 pageNumber:integerValue];
 
-    v32 = AEBundle();
-    v26 = v32;
+    v34 = AEBundle(v33);
+    v27 = v34;
     if (v25)
     {
-      v27 = [v32 localizedStringForKey:@"Page %@ value:%@" table:{&stru_1E7188, 0}];
-      v33 = [NSNumberFormatter imaxLocalizedUnsignedInteger:integerValue usesGroupingSeparator:0];
-      [NSString stringWithFormat:v27, v33, v25];
+      v28 = [v34 localizedStringForKey:@"Page %@ value:%@" table:{&stru_1E7188, 0}];
+      v35 = [NSNumberFormatter imaxLocalizedUnsignedInteger:integerValue usesGroupingSeparator:0];
+      [NSString stringWithFormat:v28, v35, v25];
     }
 
     else
     {
-      v27 = [v32 localizedStringForKey:@"Page %@" value:&stru_1E7188 table:0];
-      v33 = [NSNumberFormatter imaxLocalizedUnsignedInteger:integerValue usesGroupingSeparator:0];
-      [NSString stringWithFormat:v27, v33, v40];
+      v28 = [v34 localizedStringForKey:@"Page %@" value:&stru_1E7188 table:0];
+      v35 = [NSNumberFormatter imaxLocalizedUnsignedInteger:integerValue usesGroupingSeparator:0];
+      [NSString stringWithFormat:v28, v35, v42];
     }
-    v28 = ;
+    v29 = ;
   }
 
   textLabel2 = [v16 textLabel];
-  [textLabel2 setText:v28];
+  [textLabel2 setText:v29];
 
   backgroundColor = [(UITableView *)self->_resultsTable backgroundColor];
   [v16 setBackgroundColor:backgroundColor];
@@ -1472,51 +1472,52 @@ LABEL_14:
 - (id)tableView:(id)view viewForHeaderInSection:(int64_t)section
 {
   viewCopy = view;
+  v7 = viewCopy;
   if (section == 1)
   {
-    v7 = @"Text";
+    v8 = @"Text";
   }
 
   else
   {
-    if (section || ![(BKSearchViewController *)self searchStringIsPageNumber])
+    if (section || (viewCopy = [(BKSearchViewController *)self searchStringIsPageNumber], !viewCopy))
     {
-      v8 = 0;
+      v9 = 0;
       goto LABEL_8;
     }
 
-    v7 = @"Page Number";
+    v8 = @"Page Number";
   }
 
-  v9 = AEBundle();
-  v8 = [v9 localizedStringForKey:v7 value:&stru_1E7188 table:0];
+  v10 = AEBundle(viewCopy);
+  v9 = [v10 localizedStringForKey:v8 value:&stru_1E7188 table:0];
 
 LABEL_8:
   themePage = [(BKSearchViewController *)self themePage];
-  v11 = [viewCopy dequeueReusableHeaderFooterViewWithIdentifier:@"BKSearchTableHeaderViewIdentifier"];
-  if (!v11)
+  v12 = [v7 dequeueReusableHeaderFooterViewWithIdentifier:@"BKSearchTableHeaderViewIdentifier"];
+  if (!v12)
   {
-    v11 = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"BKSearchTableHeaderViewIdentifier"];
+    v12 = [[UITableViewHeaderFooterView alloc] initWithReuseIdentifier:@"BKSearchTableHeaderViewIdentifier"];
   }
 
-  textLabel = [v11 textLabel];
-  [textLabel setText:v8];
+  textLabel = [v12 textLabel];
+  [textLabel setText:v9];
 
   secondaryTextColor = [themePage secondaryTextColor];
-  textLabel2 = [v11 textLabel];
+  textLabel2 = [v12 textLabel];
   [textLabel2 setTextColor:secondaryTextColor];
 
-  v18[0] = _NSConcreteStackBlock;
-  v18[1] = 3221225472;
-  v18[2] = sub_94CA4;
-  v18[3] = &unk_1E4F00;
-  v19 = themePage;
-  v20 = viewCopy;
-  v15 = viewCopy;
-  v16 = themePage;
-  [v11 _setBackgroundViewConfigurationProvider:v18];
+  v19[0] = _NSConcreteStackBlock;
+  v19[1] = 3221225472;
+  v19[2] = sub_94CA4;
+  v19[3] = &unk_1E4F00;
+  v20 = themePage;
+  v21 = v7;
+  v16 = v7;
+  v17 = themePage;
+  [v12 _setBackgroundViewConfigurationProvider:v19];
 
-  return v11;
+  return v12;
 }
 
 - (double)tableView:(id)view heightForHeaderInSection:(int64_t)section
@@ -1549,11 +1550,11 @@ LABEL_8:
       [activityIndicator2 startAnimating];
     }
 
-    v10 = AEBundle();
-    v11 = [v10 localizedStringForKey:@"Searching…" value:&stru_1E7188 table:0];
+    v11 = AEBundle(v9);
+    v12 = [v11 localizedStringForKey:@"Searching…" value:&stru_1E7188 table:0];
 
 LABEL_13:
-    v23 = 0;
+    v25 = 0;
     goto LABEL_14;
   }
 
@@ -1564,7 +1565,7 @@ LABEL_13:
 
   if (wasAborted)
   {
-    v14 = @"Search Cancelled";
+    v16 = @"Search Cancelled";
     goto LABEL_11;
   }
 
@@ -1573,7 +1574,7 @@ LABEL_13:
 
   if (hasPartialResults)
   {
-    v14 = @"Load More…";
+    v16 = @"Load More…";
     goto LABEL_11;
   }
 
@@ -1582,32 +1583,32 @@ LABEL_13:
 
   if (searchWasCompleted)
   {
-    v14 = @"Search Completed";
+    v16 = @"Search Completed";
 LABEL_11:
-    v19 = AEBundle();
-    v11 = [v19 localizedStringForKey:v14 value:&stru_1E7188 table:0];
+    v21 = AEBundle(v15);
+    v12 = [v21 localizedStringForKey:v16 value:&stru_1E7188 table:0];
 
-    if (v11)
+    if (v12)
     {
       searchController5 = [(BKSearchViewController *)self searchController];
       results = [searchController5 results];
-      v22 = [results count];
+      v24 = [results count];
 
-      v23 = [NSString ae_searchResultDetailTextWithCount:v22];
+      v25 = [NSString ae_searchResultDetailTextWithCount:v24];
       goto LABEL_14;
     }
 
     goto LABEL_13;
   }
 
-  v23 = 0;
-  v11 = 0;
+  v25 = 0;
+  v12 = 0;
 LABEL_14:
   textLabel = [cellCopy textLabel];
-  [textLabel setText:v11];
+  [textLabel setText:v12];
 
   detailTextLabel = [cellCopy detailTextLabel];
-  [detailTextLabel setText:v23];
+  [detailTextLabel setText:v25];
 }
 
 - (void)_configureLoadingCell:(id)cell
@@ -1723,11 +1724,11 @@ LABEL_14:
   v27 = v26;
   v29 = v28;
 
-  v64.origin.x = v23;
-  v64.origin.y = v25;
-  v64.size.width = v27;
-  v64.size.height = v29;
-  [cellCopy setMaxWidth:CGRectGetWidth(v64)];
+  v65.origin.x = v23;
+  v65.origin.y = v25;
+  v65.size.width = v27;
+  v65.size.height = v29;
+  [cellCopy setMaxWidth:CGRectGetWidth(v65)];
   searchController = [(BKSearchViewController *)self searchController];
   results = [searchController results];
   v32 = [results count];
@@ -1791,7 +1792,7 @@ LABEL_22:
             v46 = &stru_1E7188;
           }
 
-          v50 = [NSNumberFormatter imaxLocalizedUnsignedInteger:integerValue usesGroupingSeparator:0];
+          v51 = [NSNumberFormatter imaxLocalizedUnsignedInteger:integerValue usesGroupingSeparator:0];
           goto LABEL_35;
         }
 
@@ -1802,11 +1803,11 @@ LABEL_22:
         {
           if (v42)
           {
-            v49 = AEBundle();
-            v50 = &stru_1E7188;
-            v51 = [v49 localizedStringForKey:@"%@ value:%@" table:{&stru_1E7188, 0}];
+            v50 = AEBundle(v49);
+            v51 = &stru_1E7188;
+            v52 = [v50 localizedStringForKey:@"%@ value:%@" table:{&stru_1E7188, 0}];
             pageTitle3 = [v36 pageTitle];
-            v46 = [NSString stringWithFormat:v51, v42, pageTitle3];
+            v46 = [NSString stringWithFormat:v52, v42, pageTitle3];
 
 LABEL_35:
             titleLabel2 = [cellCopy titleLabel];
@@ -1817,12 +1818,12 @@ LABEL_35:
             [resultLabel3 setText:text];
 
             searchStringRange = [v36 searchStringRange];
-            v59 = v58;
+            v60 = v59;
             resultLabel4 = [cellCopy resultLabel];
-            [resultLabel4 setBoldRange:{searchStringRange, v59}];
+            [resultLabel4 setBoldRange:{searchStringRange, v60}];
 
             pageNumberLabel2 = [cellCopy pageNumberLabel];
-            [pageNumberLabel2 setText:v50];
+            [pageNumberLabel2 setText:v51];
 
             [cellCopy applyLabelFonts];
             [cellCopy updateConstraintsIfNeeded];
@@ -1837,7 +1838,7 @@ LABEL_35:
         {
           if (!v42)
           {
-            v50 = &stru_1E7188;
+            v51 = &stru_1E7188;
             v46 = &stru_1E7188;
             goto LABEL_35;
           }
@@ -1846,7 +1847,7 @@ LABEL_35:
         }
 
         v46 = pageTitle4;
-        v50 = &stru_1E7188;
+        v51 = &stru_1E7188;
         goto LABEL_35;
       }
 

@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)routeTypeAsString:(int)string;
 - (int)StringAsRouteType:(id)type;
 - (int)routeType;
 - (unint64_t)hash;
@@ -56,6 +57,21 @@
   {
     return 0;
   }
+}
+
+- (id)routeTypeAsString:(int)string
+{
+  if (string >= 0x19)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27992BC90[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsRouteType:(id)type
@@ -279,25 +295,24 @@ LABEL_15:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if (self->_uniqueIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_routeName)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 4) != 0)
   {
-    supportsVolumeControl = self->_supportsVolumeControl;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -316,15 +331,13 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  picked = self->_picked;
   PBDataWriterWriteBOOLField();
-  toCopy = v9;
+  toCopy = v6;
   if (*&self->_has)
   {
 LABEL_8:
-    routeType = self->_routeType;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_9:
@@ -463,7 +476,6 @@ LABEL_4:
       goto LABEL_25;
     }
 
-    v8 = *(equalCopy + 33);
     if (self->_supportsVolumeControl)
     {
       if ((*(equalCopy + 33) & 1) == 0)
@@ -490,7 +502,6 @@ LABEL_4:
       goto LABEL_25;
     }
 
-    v9 = *(equalCopy + 32);
     if (self->_picked)
     {
       if ((*(equalCopy + 32) & 1) == 0)

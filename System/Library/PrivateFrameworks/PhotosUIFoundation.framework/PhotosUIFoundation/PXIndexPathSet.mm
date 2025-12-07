@@ -226,7 +226,7 @@ void __99__PXIndexPathSet_indexPathSetByFilteringAndReplacingDataSourceIdentifie
 
 - (PXSimpleIndexPath)indexPathLessThanIndexPath:(SEL)path
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   *retstr = *PXSimpleIndexPathNull;
   dataSourceIdentifier = a4->dataSourceIdentifier;
   if (!a4->dataSourceIdentifier)
@@ -242,22 +242,24 @@ void __99__PXIndexPathSet_indexPathSetByFilteringAndReplacingDataSourceIdentifie
     {
       section = self->section;
       v12 = [MEMORY[0x1E696AD98] numberWithInteger:a4->dataSourceIdentifier];
-      v35 = [section objectForKeyedSubscript:v12];
+      v36 = [section objectForKeyedSubscript:v12];
 
-      if (v35)
+      v14 = v36;
+      if (v36)
       {
-        v13 = [v35 indexLessThanIndex:a4->section];
+        v13 = [v36 indexLessThanIndex:a4->section];
+        v14 = v36;
         if (v13 != 0x7FFFFFFFFFFFFFFFLL)
         {
           retstr->dataSourceIdentifier = dataSourceIdentifier;
           retstr->section = v13;
-          v14.f64[0] = NAN;
-          v14.f64[1] = NAN;
-          *&retstr->item = vnegq_f64(v14);
+          v15.f64[0] = NAN;
+          v15.f64[1] = NAN;
+          *&retstr->item = vnegq_f64(v15);
         }
       }
 
-      return MEMORY[0x1EEE66BB8]();
+      return MEMORY[0x1EEE66BB8](v13, v14);
     }
 
     subitem = a4->subitem;
@@ -273,65 +275,65 @@ LABEL_14:
       goto LABEL_32;
     }
 
-    v15 = self->subitem;
-    v16 = [MEMORY[0x1E696AD98] numberWithInteger:a4->dataSourceIdentifier];
-    v17 = [v15 objectForKeyedSubscript:v16];
+    v16 = self->subitem;
+    v17 = [MEMORY[0x1E696AD98] numberWithInteger:a4->dataSourceIdentifier];
+    v18 = [v16 objectForKeyedSubscript:v17];
 
-    v18 = [MEMORY[0x1E696AD98] numberWithInteger:a4->section];
-    v19 = [v17 objectForKeyedSubscript:v18];
+    v19 = [MEMORY[0x1E696AD98] numberWithInteger:a4->section];
+    v20 = [v18 objectForKeyedSubscript:v19];
 
-    if (v19 && (v20 = [v19 indexLessThanIndex:a4->item], v20 != 0x7FFFFFFFFFFFFFFFLL))
+    if (v20 && (v21 = [v20 indexLessThanIndex:a4->item], v21 != 0x7FFFFFFFFFFFFFFFLL))
     {
-      v32 = a4->section;
+      v33 = a4->section;
       retstr->dataSourceIdentifier = dataSourceIdentifier;
-      retstr->section = v32;
-      retstr->item = v20;
+      retstr->section = v33;
+      retstr->item = v21;
       retstr->subitem = 0x7FFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v21 = objc_alloc_init(MEMORY[0x1E696AD50]);
-      v36 = 0u;
+      v22 = objc_alloc_init(MEMORY[0x1E696AD50]);
       v37 = 0u;
       v38 = 0u;
       v39 = 0u;
-      allKeys = [v17 allKeys];
-      v23 = [allKeys countByEnumeratingWithState:&v36 objects:v40 count:16];
-      if (v23)
+      v40 = 0u;
+      allKeys = [v18 allKeys];
+      v24 = [allKeys countByEnumeratingWithState:&v37 objects:v41 count:16];
+      if (v24)
       {
-        v24 = v23;
-        v25 = *v37;
+        v25 = v24;
+        v26 = *v38;
         do
         {
-          for (i = 0; i != v24; ++i)
+          for (i = 0; i != v25; ++i)
           {
-            if (*v37 != v25)
+            if (*v38 != v26)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            [v21 addIndex:{objc_msgSend(*(*(&v36 + 1) + 8 * i), "unsignedIntegerValue")}];
+            [v22 addIndex:{objc_msgSend(*(*(&v37 + 1) + 8 * i), "unsignedIntegerValue")}];
           }
 
-          v24 = [allKeys countByEnumeratingWithState:&v36 objects:v40 count:16];
+          v25 = [allKeys countByEnumeratingWithState:&v37 objects:v41 count:16];
         }
 
-        while (v24);
+        while (v25);
       }
 
-      v27 = [v21 indexLessThanIndex:a4->section];
-      if (v27 != 0x7FFFFFFFFFFFFFFFLL)
+      v28 = [v22 indexLessThanIndex:a4->section];
+      if (v28 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v28 = v27;
-        v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v27];
-        v30 = [v17 objectForKeyedSubscript:v29];
+        v29 = v28;
+        v30 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v28];
+        v31 = [v18 objectForKeyedSubscript:v30];
 
-        lastIndex = [v30 lastIndex];
+        lastIndex = [v31 lastIndex];
         if (lastIndex != 0x7FFFFFFFFFFFFFFFLL)
         {
           retstr->dataSourceIdentifier = dataSourceIdentifier;
-          retstr->section = v28;
+          retstr->section = v29;
           retstr->item = lastIndex;
           retstr->subitem = 0x7FFFFFFFFFFFFFFFLL;
         }
@@ -345,8 +347,8 @@ LABEL_14:
   {
 LABEL_32:
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v34 = NSStringFromSelector(path);
-    [currentHandler handleFailureInMethod:path object:selfCopy file:@"PXIndexPathSet.m" lineNumber:483 description:{@"%@ not implementd for subitems", v34}];
+    v35 = NSStringFromSelector(path);
+    [currentHandler handleFailureInMethod:path object:selfCopy file:@"PXIndexPathSet.m" lineNumber:483 description:{@"%@ not implementd for subitems", v35}];
 
     abort();
   }
@@ -356,7 +358,7 @@ LABEL_32:
 
 - (PXSimpleIndexPath)indexPathGreaterThanIndexPath:(SEL)path
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   *retstr = *PXSimpleIndexPathNull;
   dataSourceIdentifier = a4->dataSourceIdentifier;
   if (!a4->dataSourceIdentifier)
@@ -372,22 +374,24 @@ LABEL_32:
     {
       section = self->section;
       v12 = [MEMORY[0x1E696AD98] numberWithInteger:a4->dataSourceIdentifier];
-      v35 = [section objectForKeyedSubscript:v12];
+      v36 = [section objectForKeyedSubscript:v12];
 
-      if (v35)
+      v14 = v36;
+      if (v36)
       {
-        v13 = [v35 indexGreaterThanIndex:a4->section];
+        v13 = [v36 indexGreaterThanIndex:a4->section];
+        v14 = v36;
         if (v13 != 0x7FFFFFFFFFFFFFFFLL)
         {
           retstr->dataSourceIdentifier = dataSourceIdentifier;
           retstr->section = v13;
-          v14.f64[0] = NAN;
-          v14.f64[1] = NAN;
-          *&retstr->item = vnegq_f64(v14);
+          v15.f64[0] = NAN;
+          v15.f64[1] = NAN;
+          *&retstr->item = vnegq_f64(v15);
         }
       }
 
-      return MEMORY[0x1EEE66BB8]();
+      return MEMORY[0x1EEE66BB8](v13, v14);
     }
 
     subitem = a4->subitem;
@@ -403,65 +407,65 @@ LABEL_14:
       goto LABEL_32;
     }
 
-    v15 = self->subitem;
-    v16 = [MEMORY[0x1E696AD98] numberWithInteger:a4->dataSourceIdentifier];
-    v17 = [v15 objectForKeyedSubscript:v16];
+    v16 = self->subitem;
+    v17 = [MEMORY[0x1E696AD98] numberWithInteger:a4->dataSourceIdentifier];
+    v18 = [v16 objectForKeyedSubscript:v17];
 
-    v18 = [MEMORY[0x1E696AD98] numberWithInteger:a4->section];
-    v19 = [v17 objectForKeyedSubscript:v18];
+    v19 = [MEMORY[0x1E696AD98] numberWithInteger:a4->section];
+    v20 = [v18 objectForKeyedSubscript:v19];
 
-    if (v19 && (v20 = [v19 indexGreaterThanIndex:a4->item], v20 != 0x7FFFFFFFFFFFFFFFLL))
+    if (v20 && (v21 = [v20 indexGreaterThanIndex:a4->item], v21 != 0x7FFFFFFFFFFFFFFFLL))
     {
-      v32 = a4->section;
+      v33 = a4->section;
       retstr->dataSourceIdentifier = dataSourceIdentifier;
-      retstr->section = v32;
-      retstr->item = v20;
+      retstr->section = v33;
+      retstr->item = v21;
       retstr->subitem = 0x7FFFFFFFFFFFFFFFLL;
     }
 
     else
     {
-      v21 = objc_alloc_init(MEMORY[0x1E696AD50]);
-      v36 = 0u;
+      v22 = objc_alloc_init(MEMORY[0x1E696AD50]);
       v37 = 0u;
       v38 = 0u;
       v39 = 0u;
-      allKeys = [v17 allKeys];
-      v23 = [allKeys countByEnumeratingWithState:&v36 objects:v40 count:16];
-      if (v23)
+      v40 = 0u;
+      allKeys = [v18 allKeys];
+      v24 = [allKeys countByEnumeratingWithState:&v37 objects:v41 count:16];
+      if (v24)
       {
-        v24 = v23;
-        v25 = *v37;
+        v25 = v24;
+        v26 = *v38;
         do
         {
-          for (i = 0; i != v24; ++i)
+          for (i = 0; i != v25; ++i)
           {
-            if (*v37 != v25)
+            if (*v38 != v26)
             {
               objc_enumerationMutation(allKeys);
             }
 
-            [v21 addIndex:{objc_msgSend(*(*(&v36 + 1) + 8 * i), "unsignedIntegerValue")}];
+            [v22 addIndex:{objc_msgSend(*(*(&v37 + 1) + 8 * i), "unsignedIntegerValue")}];
           }
 
-          v24 = [allKeys countByEnumeratingWithState:&v36 objects:v40 count:16];
+          v25 = [allKeys countByEnumeratingWithState:&v37 objects:v41 count:16];
         }
 
-        while (v24);
+        while (v25);
       }
 
-      v27 = [v21 indexGreaterThanIndex:a4->section];
-      if (v27 != 0x7FFFFFFFFFFFFFFFLL)
+      v28 = [v22 indexGreaterThanIndex:a4->section];
+      if (v28 != 0x7FFFFFFFFFFFFFFFLL)
       {
-        v28 = v27;
-        v29 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v27];
-        v30 = [v17 objectForKeyedSubscript:v29];
+        v29 = v28;
+        v30 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:v28];
+        v31 = [v18 objectForKeyedSubscript:v30];
 
-        firstIndex = [v30 firstIndex];
+        firstIndex = [v31 firstIndex];
         if (firstIndex != 0x7FFFFFFFFFFFFFFFLL)
         {
           retstr->dataSourceIdentifier = dataSourceIdentifier;
-          retstr->section = v28;
+          retstr->section = v29;
           retstr->item = firstIndex;
           retstr->subitem = 0x7FFFFFFFFFFFFFFFLL;
         }
@@ -475,8 +479,8 @@ LABEL_14:
   {
 LABEL_32:
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    v34 = NSStringFromSelector(path);
-    [currentHandler handleFailureInMethod:path object:selfCopy file:@"PXIndexPathSet.m" lineNumber:446 description:{@"%@ not implementd for subitems", v34}];
+    v35 = NSStringFromSelector(path);
+    [currentHandler handleFailureInMethod:path object:selfCopy file:@"PXIndexPathSet.m" lineNumber:446 description:{@"%@ not implementd for subitems", v35}];
 
     abort();
   }
@@ -1128,7 +1132,7 @@ void __54__PXIndexPathSet_enumerateSectionIndexSetsUsingBlock___block_invoke(uin
 {
   v10 = 0u;
   v11 = 0u;
-  result = [(PXIndexPathSet *)self anySectionIndexPath];
+  result = objc_msgSend_anySectionIndexPath(self, a3);
   if (v10)
   {
     v6 = v10;
@@ -1139,7 +1143,7 @@ void __54__PXIndexPathSet_enumerateSectionIndexSetsUsingBlock___block_invoke(uin
   {
     v8 = 0u;
     v9 = 0u;
-    result = [(PXIndexPathSet *)self anyItemIndexPath];
+    result = objc_msgSend_anyItemIndexPath(self);
     if (!v8)
     {
       *&retstr->dataSourceIdentifier = 0u;
@@ -1373,7 +1377,7 @@ uint64_t __23__PXIndexPathSet_count__block_invoke_3(uint64_t a1, uint64_t a2, ui
   return v10;
 }
 
-uint64_t __32__PXIndexPathSet_intersectsSet___block_invoke(uint64_t a1, _OWORD *a2, _BYTE *a3)
+void *__32__PXIndexPathSet_intersectsSet___block_invoke(uint64_t a1, _OWORD *a2, _BYTE *a3)
 {
   v5 = *(a1 + 32);
   v6 = a2[1];

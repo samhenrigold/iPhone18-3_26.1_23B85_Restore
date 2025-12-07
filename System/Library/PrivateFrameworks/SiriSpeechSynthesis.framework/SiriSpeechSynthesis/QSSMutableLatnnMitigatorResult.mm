@@ -4,6 +4,7 @@
 - (double)score;
 - (double)threshold;
 - (id)copyWithZone:(_NSZone *)zone;
+- (void)setProcessed:(BOOL)processed;
 - (void)setScore:(double)score;
 - (void)setThreshold:(double)threshold;
 - (void)setVersion:(id)version;
@@ -44,6 +45,12 @@
 - (void)setVersion:(id)version
 {
   v4 = [version copy];
+  [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
+}
+
+- (void)setProcessed:(BOOL)processed
+{
+  v4 = [objc_alloc(MEMORY[0x277CCABB0]) initWithBool:processed];
   [NSMutableDictionary setObject:"setObject:forKeyedSubscript:" forKeyedSubscript:?];
 }
 

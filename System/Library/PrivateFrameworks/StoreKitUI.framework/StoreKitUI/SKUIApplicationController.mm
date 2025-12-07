@@ -2,6 +2,7 @@
 + (SKUIConfigurationPreloader)configurationPreloader;
 + (id)_referrerAppForSourceApplication:(id)application launchURL:(id *)l;
 + (id)applicationOptionsWithLaunchOptions:(id)options;
++ (void)configurationPreloader;
 + (void)finishedWithConfigurationPreloader;
 + (void)prepareForLaunch;
 - (BOOL)URLResolver:(id)resolver shouldPerformDefaultActionForURL:(id)l;
@@ -104,6 +105,7 @@
 - (void)evaluateBlockWhenLoaded:(id)loaded;
 - (void)getModalSourceViewForElementIdentifier:(id)identifier completionBlock:(id)block;
 - (void)hideStatusOverlayForProvider:(id)provider animated:(BOOL)animated;
+- (void)init;
 - (void)loadApplicationWithOptions:(id)options;
 - (void)modalDocumentControllerDidFinish:(id)finish;
 - (void)navigationController:(id)controller didShowViewController:(id)viewController animated:(BOOL)animated;
@@ -160,43 +162,14 @@
 
 + (void)finishedWithConfigurationPreloader
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v2 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
-      if (v2)
-      {
-        [(SKUIApplicationController *)v2 finishedWithConfigurationPreloader:v3];
-      }
-    }
-  }
-
-  v10 = _SKUIApplicationControllerConfigurationPreloader;
-  _SKUIApplicationControllerConfigurationPreloader = 0;
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIApplicationController finishedWithConfigurationPreloader]";
 }
 
 + (void)prepareForLaunch
 {
-  if (os_variant_has_internal_content())
-  {
-    if (_os_feature_enabled_impl())
-    {
-      v3 = os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG);
-      if (v3)
-      {
-        [(SKUIApplicationController *)v3 prepareForLaunch:v4];
-      }
-    }
-  }
-
-  v11 = objc_autoreleasePoolPush();
-  +[SKUIMetricsAppLaunchEvent createPendingLaunchEvent];
-  [SKUIMetricsAppLaunchEvent withPendingLaunchEvent:&__block_literal_global_42];
-  configurationPreloader = [self configurationPreloader];
-  [configurationPreloader preloadConfigurationForPurpose:0 withCompletionBlock:&__block_literal_global_33];
-
-  objc_autoreleasePoolPop(v11);
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIApplicationController prepareForLaunch]";
 }
 
 void __45__SKUIApplicationController_prepareForLaunch__block_invoke(uint64_t a1, void *a2)
@@ -210,7 +183,7 @@ void __45__SKUIApplicationController_prepareForLaunch__block_invoke(uint64_t a1,
 
 void __45__SKUIApplicationController_prepareForLaunch__block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v4 = a2;
   v5 = a3;
   if (!v4)
@@ -240,10 +213,9 @@ void __45__SKUIApplicationController_prepareForLaunch__block_invoke_2(uint64_t a
 
     if (v10)
     {
-      v13 = 138412290;
-      v14 = v5;
-      LODWORD(v12) = 12;
-      v11 = _os_log_send_and_compose_impl();
+      v12 = 138412290;
+      v13 = v5;
+      v11 = _os_log_send_and_compose_impl(v10, 0, 0, 0, &dword_215BAE000, v9, 0, "Could not preload configuration, reason: %@", &v12, 12);
 
       if (!v11)
       {
@@ -252,7 +224,7 @@ LABEL_14:
         goto LABEL_15;
       }
 
-      v9 = [MEMORY[0x277CCACA8] stringWithCString:v11 encoding:{4, &v13, v12}];
+      v9 = [MEMORY[0x277CCACA8] stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
@@ -454,9 +426,9 @@ void __45__SKUIApplicationController_prepareForLaunch__block_invoke_39(uint64_t 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v22 = v7;
-    v10 = [self _referrerAppForSourceApplication:v9 launchURL:&v22];
-    v11 = v22;
+    v24 = v7;
+    v10 = [self _referrerAppForSourceApplication:v9 launchURL:&v24];
+    v11 = v24;
 
     [v5 setObject:v10 forKey:@"refApp"];
     v7 = v11;
@@ -476,24 +448,25 @@ void __45__SKUIApplicationController_prepareForLaunch__block_invoke_39(uint64_t 
   v15 = *MEMORY[0x277D76678];
   v16 = [optionsCopy objectForKey:*MEMORY[0x277D76678]];
   objc_opt_class();
-  if (objc_opt_isKindOfClass())
+  isKindOfClass = objc_opt_isKindOfClass();
+  if (isKindOfClass)
   {
-    v17 = SKUIMobileCoreServicesFramework();
-    v18 = *SKUIWeakLinkedSymbolForString("LSReferrerURLKey", v17);
-    if (v18)
+    v19 = SKUIMobileCoreServicesFramework(isKindOfClass, v18);
+    v20 = *SKUIWeakLinkedSymbolForString("LSReferrerURLKey", v19);
+    if (v20)
     {
-      v19 = [v16 objectForKey:v18];
+      v21 = [v16 objectForKey:v20];
     }
 
     else
     {
-      v19 = 0;
+      v21 = 0;
     }
 
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      [v5 setObject:v19 forKey:@"refUrl"];
+      [v5 setObject:v21 forKey:@"refUrl"];
     }
 
     else
@@ -501,7 +474,7 @@ void __45__SKUIApplicationController_prepareForLaunch__block_invoke_39(uint64_t 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        absoluteString2 = [v19 absoluteString];
+        absoluteString2 = [v21 absoluteString];
         [v5 setObject:absoluteString2 forKey:@"refUrl"];
       }
     }
@@ -521,7 +494,7 @@ void __45__SKUIApplicationController_prepareForLaunch__block_invoke_39(uint64_t 
 {
   v25 = *MEMORY[0x277D85DE8];
   applicationCopy = application;
-  if ([applicationCopy isEqualToString:@"com.apple.ios.StoreKitUIService"])
+  if (objc_msgSend_isEqualToString_(applicationCopy))
   {
     lCopy = l;
     v6 = [MEMORY[0x277CCACE0] componentsWithURL:*l resolvingAgainstBaseURL:0];
@@ -548,9 +521,9 @@ void __45__SKUIApplicationController_prepareForLaunch__block_invoke_39(uint64_t 
 
           v13 = *(*(&v20 + 1) + 8 * i);
           name = [v13 name];
-          v15 = [name isEqualToString:@"SKUIServiceRefApp"];
+          isEqualToString = objc_msgSend_isEqualToString_(name);
 
-          if (v15)
+          if (isEqualToString)
           {
             value = [v13 value];
 
@@ -631,7 +604,7 @@ void __45__SKUIApplicationController_prepareForLaunch__block_invoke_39(uint64_t 
   dispatch_after(v9, MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __57__SKUIApplicationController_applicationWillResignActive___block_invoke(uint64_t a1)
+void *__57__SKUIApplicationController_applicationWillResignActive___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) endBackgroundTask:*(*(a1 + 40) + 192)];
   *(*(a1 + 40) + 192) = *MEMORY[0x277D767B0];
@@ -1134,9 +1107,9 @@ LABEL_8:
 void __53__SKUIApplicationController_selectTabWithIdentifier___block_invoke(uint64_t a1, void *a2, unint64_t a3, _BYTE *a4)
 {
   v7 = [a2 tabIdentifier];
-  v8 = [v7 isEqualToString:*(a1 + 32)];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v8)
+  if (isEqualToString)
   {
     if ([*(a1 + 40) count] > a3)
     {
@@ -2217,9 +2190,9 @@ LABEL_27:
 - (int64_t)modalDocumentController:(id)controller barStyleForStackItem:(id)item
 {
   presentationType = [item presentationType];
-  v6 = [presentationType isEqualToString:0x28280B088];
+  isEqualToString = objc_msgSend_isEqualToString_(presentationType);
 
-  if (!v6)
+  if (!isEqualToString)
   {
     return 0;
   }
@@ -2688,7 +2661,7 @@ void __82__SKUIApplicationController_navigationController_willShowViewController
       supportedInterfaceOrientations = 30;
     }
 
-    else if (SKUIAllowsLandscapePhone())
+    else if (SKUIAllowsLandscapePhone(v8, v9))
     {
       supportedInterfaceOrientations = 26;
     }
@@ -2896,8 +2869,8 @@ LABEL_8:
     rootViewController = [(SKUIApplicationController *)self rootViewController];
     view = [rootViewController view];
 
-    [view bounds];
-    if (v20 > SKUICompactThreshold())
+    bounds = [view bounds];
+    if (v22 > SKUICompactThreshold(bounds, v21))
     {
       [(SKUIModalDocumentController *)self->_modalDocumentController presentOverlayViewControllersFromNavigationController:navigationController];
 
@@ -2910,8 +2883,8 @@ LABEL_8:
   delegate = [(SKUIApplicationController *)self delegate];
   if (v9 < [(NSArray *)self->_tabBarItems count]&& (objc_opt_respondsToSelector() & 1) != 0)
   {
-    v22 = [(NSArray *)self->_tabBarItems objectAtIndex:v9];
-    [delegate application:self didSelectTabBarItem:v22];
+    v24 = [(NSArray *)self->_tabBarItems objectAtIndex:v9];
+    [delegate application:self didSelectTabBarItem:v24];
   }
 
 LABEL_21:
@@ -3008,20 +2981,20 @@ LABEL_21:
     self->_floatingStatusOverlayViewController = 0;
   }
 
-  v39[0] = MEMORY[0x277D85DD0];
-  v39[1] = 3221225472;
-  v39[2] = __93__SKUIApplicationController_tabBarController_willTransitionToSize_withTransitionCoordinator___block_invoke;
-  v39[3] = &unk_2781FECA0;
-  v39[4] = self;
-  v42 = width;
-  v43 = height;
-  v44 = v11;
-  v45 = v12;
+  v40[0] = MEMORY[0x277D85DD0];
+  v40[1] = 3221225472;
+  v40[2] = __93__SKUIApplicationController_tabBarController_willTransitionToSize_withTransitionCoordinator___block_invoke;
+  v40[3] = &unk_2781FECA0;
+  v40[4] = self;
+  v43 = width;
+  v44 = height;
+  v45 = v11;
+  v46 = v12;
   v14 = controllerCopy;
-  v40 = v14;
+  v41 = v14;
   v15 = coordinatorCopy;
-  v41 = v15;
-  [v15 animateAlongsideTransition:0 completion:v39];
+  v42 = v15;
+  [v15 animateAlongsideTransition:0 completion:v40];
   delegate = [(SKUIApplicationController *)self delegate];
   if (objc_opt_respondsToSelector())
   {
@@ -3040,7 +3013,7 @@ LABEL_21:
 
   v25 = v24 == 0;
   v26 = v22 == 0;
-  v38 = delegate;
+  v39 = delegate;
   if ([selectedViewController conformsToProtocol:&unk_2829AECD8])
   {
     v25 = [selectedViewController documentViewControllerIsCompactForWidth:width];
@@ -3070,21 +3043,21 @@ LABEL_21:
   v36 = [(SKUIApplicationController *)self _overlayNavigationControllerForViewController:selectedViewController];
   if (SKUIUserInterfaceIdiom(self->_clientContext) == 1 && v36)
   {
-    if (width <= SKUICompactThreshold())
+    if (width <= SKUICompactThreshold(1, v37))
     {
-      v37 = v36;
+      v38 = v36;
     }
 
     else
     {
-      v37 = 0;
+      v38 = 0;
     }
 
-    [(SKUIModalDocumentController *)self->_modalDocumentController setOverlayNavigationController:v37 withTransitionCoordinator:v15];
+    [(SKUIModalDocumentController *)self->_modalDocumentController setOverlayNavigationController:v38 withTransitionCoordinator:v15];
   }
 }
 
-uint64_t __93__SKUIApplicationController_tabBarController_willTransitionToSize_withTransitionCoordinator___block_invoke(uint64_t a1)
+void *__93__SKUIApplicationController_tabBarController_willTransitionToSize_withTransitionCoordinator___block_invoke(uint64_t a1)
 {
   [*(*(a1 + 32) + 32) sendApplicationWindowSizeDidUpdate:{*(a1 + 56), *(a1 + 64)}];
   result = [*(a1 + 32) _needsStatusOverlay];
@@ -3161,7 +3134,7 @@ LABEL_10:
       supportedInterfaceOrientations = 30;
     }
 
-    else if (SKUIAllowsLandscapePhone())
+    else if (SKUIAllowsLandscapePhone(v10, v11))
     {
       supportedInterfaceOrientations = 26;
     }
@@ -3473,30 +3446,30 @@ void __59__SKUIApplicationController__storeFrontChangeNotification___block_invok
 
 - (void)_updateOverlayNavigationController:(id)controller
 {
-  v12 = [(SKUIApplicationController *)self _overlayNavigationControllerForViewController:controller];
+  v14 = [(SKUIApplicationController *)self _overlayNavigationControllerForViewController:controller];
   v5 = SKUIUserInterfaceIdiom(self->_clientContext) == 1;
-  v4 = v12;
-  v5 = !v5 || v12 == 0;
+  v4 = v14;
+  v5 = !v5 || v14 == 0;
   if (!v5)
   {
     mEMORY[0x277D75128] = [MEMORY[0x277D75128] sharedApplication];
     keyWindow = [mEMORY[0x277D75128] keyWindow];
-    [keyWindow bounds];
-    v9 = v8;
-    v10 = SKUICompactThreshold();
+    bounds = [keyWindow bounds];
+    v10 = v9;
+    v12 = SKUICompactThreshold(bounds, v11);
 
-    if (v9 <= v10)
+    if (v10 <= v12)
     {
-      v11 = v12;
+      v13 = v14;
     }
 
     else
     {
-      v11 = 0;
+      v13 = 0;
     }
 
-    [(SKUIModalDocumentController *)self->_modalDocumentController setOverlayNavigationController:v11 withTransitionCoordinator:0];
-    v4 = v12;
+    [(SKUIModalDocumentController *)self->_modalDocumentController setOverlayNavigationController:v13 withTransitionCoordinator:0];
+    v4 = v14;
   }
 }
 
@@ -4184,9 +4157,9 @@ LABEL_11:
     storeFrontCopy = v10;
   }
 
-  v11 = [frontCopy isEqualToString:storeFrontCopy];
+  isEqualToString = objc_msgSend_isEqualToString_(frontCopy);
 
-  return v11;
+  return isEqualToString;
 }
 
 - (id)_launchOptionsWithURL:(id)l
@@ -4780,10 +4753,10 @@ LABEL_16:
 
 uint64_t __55__SKUIApplicationController__reloadRootViewControllers__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 tabIdentifier];
-  v4 = [v3 isEqualToString:*(a1 + 32)];
+  v2 = [a2 tabIdentifier];
+  isEqualToString = objc_msgSend_isEqualToString_(v2);
 
-  return v4;
+  return isEqualToString;
 }
 
 void __55__SKUIApplicationController__reloadRootViewControllers__block_invoke_2(uint64_t a1, void *a2)
@@ -4926,8 +4899,7 @@ uint64_t __55__SKUIApplicationController__reloadRootViewControllers__block_invok
 - (BOOL)_shouldUseLegacyURLHandlingForExternalURL:(id)l
 {
   lCopy = l;
-  actionString = [lCopy actionString];
-  v10 = ([actionString isEqualToString:@"account"] & 1) != 0 || (objc_msgSend(actionString, "isEqualToString:", @"donate") & 1) != 0 || (objc_msgSend(actionString, "isEqualToString:", @"gift") & 1) != 0 || (objc_msgSend(actionString, "isEqualToString:", @"redeem") & 1) != 0 || (objc_msgSend(lCopy, "underlyingURL"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "host"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v7, "length"), v7, v6, !v8) || (+[SKUIURLResolver tabIdentifierForURL:](SKUIURLResolver, "tabIdentifierForURL:", lCopy), v9 = objc_claimAutoreleasedReturnValue(), v9, v9) || self->_scriptLoadState == 4;
+  v10 = (objc_msgSend_isEqualToString_(actionString) & 1) != 0 || (objc_msgSend_isEqualToString_(actionString) & 1) != 0 || (objc_msgSend_isEqualToString_(actionString) & 1) != 0 || (objc_msgSend_isEqualToString_(actionString) & 1) != 0 || ([lCopy underlyingURL], v6 = actionString = [lCopy actionString];
 
   return v10;
 }
@@ -5098,45 +5070,47 @@ void __95__SKUIApplicationController__showStatusOverlayForNavigationController_v
 
 - (void)_startScriptContextWithURL:(id)l
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   lCopy = l;
   v5 = objc_opt_class();
   v6 = NSStringFromClass(v5);
   NSLog(&cfstr_StartScriptWit.isa, v6, lCopy);
 
-  if (([MEMORY[0x277CCACC8] isMainThread] & 1) == 0)
+  isMainThread = [MEMORY[0x277CCACC8] isMainThread];
+  if ((isMainThread & 1) == 0)
   {
     mEMORY[0x277D69B38] = [MEMORY[0x277D69B38] sharedConfig];
     shouldLog = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v13 = shouldLog | 2;
+      v16 = shouldLog | 2;
     }
 
     else
     {
-      v13 = shouldLog;
+      v16 = shouldLog;
     }
 
     oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = v13;
+      v17 = v16;
     }
 
     else
     {
-      v14 = v13 & 2;
+      v17 = v16 & 2;
     }
 
-    if (!v14)
+    if (!v17)
     {
       goto LABEL_21;
     }
 
-    LODWORD(v32) = 138412290;
-    *(&v32 + 4) = lCopy;
-    LODWORD(v31) = 12;
+    LODWORD(v39) = 138412290;
+    *(&v39 + 4) = lCopy;
+    LODWORD(v38) = 12;
+    v14 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &dword_215BAE000, oSLogObject, 0, "ignoring call to _startScriptContextWithURL that was not on main thread: URL %@", &v39, v38, v39);
     goto LABEL_19;
   }
 
@@ -5146,91 +5120,92 @@ void __95__SKUIApplicationController__showStatusOverlayForNavigationController_v
     shouldLog2 = [mEMORY[0x277D69B38] shouldLog];
     if ([mEMORY[0x277D69B38] shouldLogToDisk])
     {
-      v9 = shouldLog2 | 2;
+      v11 = shouldLog2 | 2;
     }
 
     else
     {
-      v9 = shouldLog2;
+      v11 = shouldLog2;
     }
 
     oSLogObject = [mEMORY[0x277D69B38] OSLogObject];
     if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = v9;
+      v13 = v11;
     }
 
     else
     {
-      v11 = v9 & 2;
+      v13 = v11 & 2;
     }
 
-    if (!v11)
+    if (!v13)
     {
       goto LABEL_21;
     }
 
-    LODWORD(v32) = 138412290;
-    *(&v32 + 4) = lCopy;
-    LODWORD(v31) = 12;
+    LODWORD(v39) = 138412290;
+    *(&v39 + 4) = lCopy;
+    LODWORD(v38) = 12;
+    v14 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &dword_215BAE000, oSLogObject, 0, "ignoring call to _startScriptContextWithURL when there is already a scriptContext: URL %@", &v39, v38, v39);
 LABEL_19:
-    v15 = _os_log_send_and_compose_impl();
+    v18 = v14;
 
-    if (!v15)
+    if (!v18)
     {
 LABEL_22:
 
       goto LABEL_23;
     }
 
-    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v15 encoding:{4, &v32, v31, v32}];
-    free(v15);
+    oSLogObject = [MEMORY[0x277CCACA8] stringWithCString:v18 encoding:4];
+    free(v18);
     SSFileLog();
 LABEL_21:
 
     goto LABEL_22;
   }
 
-  SKUIInitializeDOMFeatureFactory();
-  SKUIInitializeViewElementFactory();
-  SKUIInitializeViewElementStyleFactory();
-  v16 = [lCopy copy];
+  SKUIInitializeDOMFeatureFactory(isMainThread, v8);
+  SKUIInitializeViewElementFactory(v19, v20);
+  SKUIInitializeViewElementStyleFactory(v21, v22);
+  v23 = [lCopy copy];
   applicationScriptURL = self->_applicationScriptURL;
-  self->_applicationScriptURL = v16;
+  self->_applicationScriptURL = v23;
 
   uRLBag = [(SKUIClientContext *)self->_clientContext URLBag];
-  v19 = MEMORY[0x277D69C88];
+  v26 = MEMORY[0x277D69C88];
   uRLBagContext = [uRLBag URLBagContext];
-  [v19 setURLBag:uRLBag forContext:uRLBagContext];
+  [v26 setURLBag:uRLBag forContext:uRLBagContext];
 
   requiresLocalBootstrapScript = [(SKUIApplicationControllerOptions *)self->_options requiresLocalBootstrapScript];
-  v22 = [objc_alloc(MEMORY[0x277D1B028]) initWithApplication:self mode:requiresLocalBootstrapScript delegate:self];
+  v29 = [objc_alloc(MEMORY[0x277D1B028]) initWithApplication:self mode:requiresLocalBootstrapScript delegate:self];
   scriptContext = self->_scriptContext;
-  self->_scriptContext = v22;
+  self->_scriptContext = v29;
 
   [(IKAppContext *)self->_scriptContext setRemoteInspectionEnabled:1];
   [(IKAppContext *)self->_scriptContext setMescalPrimeEnabledForXHRRequests:self->_mescalPrimeEnabledForXHRRequests];
-  v24 = self->_scriptContext;
+  v31 = self->_scriptContext;
   [(SKUIApplicationControllerOptions *)self->_options bootstrapScriptTimeoutInterval];
-  [(IKAppContext *)v24 setAppScriptTimeoutInterval:?];
+  [(IKAppContext *)v31 setAppScriptTimeoutInterval:?];
   [(SKUIClientContext *)self->_clientContext _setScriptAppContext:self->_scriptContext];
   if ([(SKUIApplicationControllerOptions *)self->_options isBootstrapScriptFallbackEnabled])
   {
     storeFrontIdentifier = [(SKUIClientContext *)self->_clientContext storeFrontIdentifier];
     if (storeFrontIdentifier)
     {
-      v26 = storeFrontIdentifier;
+      v33 = storeFrontIdentifier;
       isBootstrapScriptFallbackDisabled = [(SKUIClientContext *)self->_clientContext isBootstrapScriptFallbackDisabled];
 
       if (!isBootstrapScriptFallbackDisabled)
       {
         storeFrontIdentifier2 = [(SKUIClientContext *)self->_clientContext storeFrontIdentifier];
-        v29 = [SKUIBootstrapScriptFallback cacheFilenameForStoreFrontIdentifier:storeFrontIdentifier2];
+        v36 = [SKUIBootstrapScriptFallback cacheFilenameForStoreFrontIdentifier:storeFrontIdentifier2];
 
-        v30 = [[SKUIBootstrapScriptFallback alloc] initWithFilename:v29];
+        v37 = [[SKUIBootstrapScriptFallback alloc] initWithFilename:v36];
         [(SKUIApplicationControllerOptions *)self->_options bootstrapScriptFallbackMaximumAge];
-        [(SKUIBootstrapScriptFallback *)v30 setMaximumAge:?];
-        [(IKAppContext *)self->_scriptContext setAppScriptFallbackHandler:v30];
+        [(SKUIBootstrapScriptFallback *)v37 setMaximumAge:?];
+        [(IKAppContext *)self->_scriptContext setAppScriptFallbackHandler:v37];
       }
     }
   }
@@ -5586,6 +5561,36 @@ LABEL_10:
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
++ (void)configurationPreloader
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUIApplicationController configurationPreloader]";
+}
+
+- (void)init
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIApplicationController init]";
+}
+
+- (void)initWithClientContextClass:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIApplicationController initWithClientContextClass:]";
+}
+
+- (void)initWithClientContextClass:(uint64_t)a3 tabBarControllerStyle:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIApplicationController initWithClientContextClass:tabBarControllerStyle:]";
+}
+
+- (void)initWithClientContextClass:(uint64_t)a3 options:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUIApplicationController initWithClientContextClass:options:]";
 }
 
 @end

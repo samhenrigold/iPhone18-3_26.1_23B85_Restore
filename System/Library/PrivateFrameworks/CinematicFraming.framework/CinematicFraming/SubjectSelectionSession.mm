@@ -1299,46 +1299,46 @@ LABEL_37:
 
 - (int)_initGaze
 {
-  v3 = *MEMORY[0x277CC4DE0];
-  v39[0] = *MEMORY[0x277CC4E08];
-  v39[1] = v3;
-  v40[0] = MEMORY[0x277CBEC38];
-  v40[1] = MEMORY[0x277CBEC38];
-  v39[2] = *MEMORY[0x277CC4DE8];
-  v40[2] = MEMORY[0x277CBEC10];
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:v39 count:3];
+  v4 = *MEMORY[0x277CC4DE0];
+  v43[0] = *MEMORY[0x277CC4E08];
+  v43[1] = v4;
+  v44[0] = MEMORY[0x277CBEC38];
+  v44[1] = MEMORY[0x277CBEC38];
+  v43[2] = *MEMORY[0x277CC4DE8];
+  v44[2] = MEMORY[0x277CBEC10];
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v44 forKeys:v43 count:3];
   gazeInputName = self->_gazeInputName;
   self->_gazeInputName = @"image";
 
   self->_gazeFaceSize = vdupq_n_s64(0x4070000000000000uLL);
   self->_gazeScoreThreshold = 0.4;
-  if (VisionCoreLibraryCore())
+  if (VisionCoreLibraryCore(0))
   {
-    v34 = v4;
-    v6 = [objc_alloc(getVisionCoreResourceVersionClass()) initWithMajor:2 minor:0 micro:0];
+    v37 = v5;
+    v7 = [objc_alloc(getVisionCoreResourceVersionClass()) initWithMajor:2 minor:0 micro:0];
     VisionCoreProcessingDescriptorClass = getVisionCoreProcessingDescriptorClass();
-    v8 = getVisionCoreInferenceNetworkIdentifierCamGaze();
-    v38 = 0;
-    v9 = [VisionCoreProcessingDescriptorClass descriptorForIdentifier:v8 version:v6 error:&v38];
-    v10 = v38;
+    v9 = getVisionCoreInferenceNetworkIdentifierCamGaze();
+    v42 = 0;
+    v10 = [VisionCoreProcessingDescriptorClass descriptorForIdentifier:v9 version:v7 error:&v42];
+    v11 = v42;
 
-    if (v9)
+    if (v10)
     {
-      v11 = v10;
-      v12 = v6;
+      v12 = v11;
+      v13 = v7;
     }
 
     else
     {
-      v12 = [objc_alloc(getVisionCoreResourceVersionClass()) initWithMajor:1 minor:0 micro:0];
+      v13 = [objc_alloc(getVisionCoreResourceVersionClass()) initWithMajor:1 minor:0 micro:0];
 
-      v15 = getVisionCoreProcessingDescriptorClass();
-      v16 = getVisionCoreInferenceNetworkIdentifierCamGaze();
-      v37 = v10;
-      v9 = [v15 descriptorForIdentifier:v16 version:v12 error:&v37];
-      v11 = v37;
+      v16 = getVisionCoreProcessingDescriptorClass();
+      v17 = getVisionCoreInferenceNetworkIdentifierCamGaze();
+      v41 = v11;
+      v10 = [v16 descriptorForIdentifier:v17 version:v13 error:&v41];
+      v12 = v41;
 
-      if (!v9)
+      if (!v10)
       {
         OUTLINED_FUNCTION_0_2();
         gazeProbabilitiesOutput = 0;
@@ -1349,50 +1349,50 @@ LABEL_37:
       self->_gazeScoreThreshold = 0.2;
     }
 
-    onlyInputImage = [v9 onlyInputImage];
+    onlyInputImage = [v10 onlyInputImage];
     if (onlyInputImage)
     {
-      gazeProbabilitiesOutput = [v9 gazeProbabilitiesOutput];
+      gazeProbabilitiesOutput = [v10 gazeProbabilitiesOutput];
       if (gazeProbabilitiesOutput)
       {
-        v19 = v12;
-        v20 = [v9 URL];
-        v36 = v11;
-        v13 = [v20 VisionCoreFileSystemPathAndReturnError:&v36];
-        v21 = v36;
+        v20 = v13;
+        v21 = [v10 URL];
+        v40 = v12;
+        v14 = [v21 VisionCoreFileSystemPathAndReturnError:&v40];
+        v22 = v40;
 
-        if (v13)
+        if (v14)
         {
           pixelWidth = [onlyInputImage pixelWidth];
           pixelHeight = [onlyInputImage pixelHeight];
           self->_gazeFaceSize.width = pixelWidth;
           self->_gazeFaceSize.height = pixelHeight;
           name = [onlyInputImage name];
-          v25 = self->_gazeInputName;
+          v26 = self->_gazeInputName;
           self->_gazeInputName = name;
 
           pixelFormatType = [onlyInputImage pixelFormatType];
           name2 = [gazeProbabilitiesOutput name];
-          v26 = 0;
-          v11 = v21;
-          v12 = v19;
-          v27 = 1;
+          v27 = 0;
+          v12 = v22;
+          v13 = v20;
+          v28 = 1;
         }
 
         else
         {
           OUTLINED_FUNCTION_0_2();
-          v26 = -12782;
-          v11 = v21;
+          v27 = -12782;
+          v12 = v22;
           name2 = @"camgaze_probs";
-          v12 = v19;
-          v27 = 0;
+          v13 = v20;
+          v28 = 0;
         }
 
 LABEL_11:
 
-        v4 = v34;
-        if (!v27)
+        v5 = v37;
+        if (!v28)
         {
           goto LABEL_23;
         }
@@ -1410,61 +1410,63 @@ LABEL_11:
     }
 
 LABEL_30:
-    v27 = 0;
-    v26 = -12782;
-    v13 = @"/System/Library/PrivateFrameworks/VisionCore.framework/camgaze_classification_3class_light-nxbrsq87z6_23998_BGR_opt.espresso.net";
+    v28 = 0;
+    v27 = -12782;
+    v14 = @"/System/Library/PrivateFrameworks/VisionCore.framework/camgaze_classification_3class_light-nxbrsq87z6_23998_BGR_opt.espresso.net";
     name2 = @"camgaze_probs";
     goto LABEL_11;
   }
 
   OUTLINED_FUNCTION_0_2();
-  v11 = 0;
-  v13 = @"/System/Library/PrivateFrameworks/VisionCore.framework/camgaze_classification_3class_light-nxbrsq87z6_23998_BGR_opt.espresso.net";
+  v12 = 0;
+  v14 = @"/System/Library/PrivateFrameworks/VisionCore.framework/camgaze_classification_3class_light-nxbrsq87z6_23998_BGR_opt.espresso.net";
   name2 = @"camgaze_probs";
 LABEL_12:
   context = espresso_create_context();
   self->_espressoContext = context;
-  if ((context || (v29 = espresso_create_context(), (self->_espressoContext = v29) != 0)) && (plan = espresso_create_plan(), (self->_espressoPlan = plan) != 0))
+  if ((context || (v30 = espresso_create_context(), (self->_espressoContext = v30) != 0)) && (plan = espresso_create_plan(), (self->_espressoPlan = plan) != 0))
   {
-    [(__CFString *)v13 UTF8String];
+    [(__CFString *)v14 UTF8String];
     if (espresso_plan_add_network())
     {
       goto LABEL_24;
     }
 
-    if (espresso_plan_set_priority())
+    v32 = espresso_plan_set_priority();
+    if (v32)
     {
+      v36 = v32;
       fig_log_get_emitter();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v36, v2, v2, v37, v38, v40, v41, v42);
     }
 
     if (espresso_plan_build() || ([(__CFString *)name2 UTF8String], espresso_network_bind_buffer()))
     {
 LABEL_24:
-      v26 = -12782;
+      v27 = -12782;
     }
 
     else
     {
-      v31 = *MEMORY[0x277CBECE8];
-      v32 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], self->_gazeFaceSize.width, self->_gazeFaceSize.height, pixelFormatType, v4, &self->_gazeFacePixelBuffer);
-      if (!v32)
+      v33 = *MEMORY[0x277CBECE8];
+      v34 = CVPixelBufferCreate(*MEMORY[0x277CBECE8], self->_gazeFaceSize.width, self->_gazeFaceSize.height, pixelFormatType, v5, &self->_gazeFacePixelBuffer);
+      if (!v34)
       {
-        v32 = VTPixelTransferSessionCreate(v31, &self->_pixelTransferSession);
+        v34 = VTPixelTransferSessionCreate(v33, &self->_pixelTransferSession);
       }
 
-      v26 = v32;
+      v27 = v34;
     }
   }
 
   else
   {
-    v26 = -12786;
+    v27 = -12786;
   }
 
 LABEL_23:
 
-  return v26;
+  return v27;
 }
 
 - (int)_runGazeInference:(__CVBuffer *)inference faceRect:(CGRect)rect gazeScore:(float *)score
@@ -1476,49 +1478,61 @@ LABEL_23:
   v11 = rect.origin.x * CVPixelBufferGetWidth(inference);
   v12 = y * CVPixelBufferGetHeight(inference);
   v13 = width * CVPixelBufferGetWidth(inference);
-  v20.size.height = height * CVPixelBufferGetHeight(inference);
-  v20.origin.x = v11;
-  v20.origin.y = v12;
-  v20.size.width = v13;
-  DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v20);
+  v29.size.height = height * CVPixelBufferGetHeight(inference);
+  v29.origin.x = v11;
+  v29.origin.y = v12;
+  v29.size.width = v13;
+  DictionaryRepresentation = CGRectCreateDictionaryRepresentation(v29);
   v15 = VTSessionSetProperty(self->_pixelTransferSession, *MEMORY[0x277CE28B8], DictionaryRepresentation);
   if (v15)
   {
-    v18 = v15;
+    v19 = v15;
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_1();
-    FigDebugAssert3();
+    FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v21, v22, v23, v24, v25, v26, v27, v28);
     v16 = 0;
   }
 
   else
   {
-    v21.size.width = self->_gazeFaceSize.width;
-    v21.size.height = self->_gazeFaceSize.height;
-    v21.origin.x = 0.0;
-    v21.origin.y = 0.0;
-    v16 = CGRectCreateDictionaryRepresentation(v21);
+    v30.size.width = self->_gazeFaceSize.width;
+    v30.size.height = self->_gazeFaceSize.height;
+    v30.origin.x = 0.0;
+    v30.origin.y = 0.0;
+    v16 = CGRectCreateDictionaryRepresentation(v30);
     v17 = VTSessionSetProperty(self->_pixelTransferSession, *MEMORY[0x277CE2868], v16);
-    if (v17 || (v17 = VTPixelTransferSessionTransferImage(self->_pixelTransferSession, inference, self->_gazeFacePixelBuffer)) != 0)
+    if (v17)
     {
-      v18 = v17;
+      v19 = v17;
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_1();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
 
     else
     {
-      [(NSString *)self->_gazeInputName UTF8String];
-      if (espresso_network_bind_cvpixelbuffer() || espresso_plan_execute_sync())
+      v18 = VTPixelTransferSessionTransferImage(self->_pixelTransferSession, inference, self->_gazeFacePixelBuffer);
+      if (v18)
       {
-        v18 = -12782;
+        v19 = v18;
+        fig_log_get_emitter();
+        OUTLINED_FUNCTION_1_1();
+        FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
       }
 
       else
       {
-        v18 = 0;
-        *score = *(self->_gazeOutput.data + 1);
+        [(NSString *)self->_gazeInputName UTF8String];
+        if (espresso_network_bind_cvpixelbuffer() || espresso_plan_execute_sync())
+        {
+          v19 = -12782;
+        }
+
+        else
+        {
+          v19 = 0;
+          *score = *(self->_gazeOutput.data + 1);
+        }
       }
     }
   }
@@ -1533,7 +1547,7 @@ LABEL_23:
     CFRelease(v16);
   }
 
-  return v18;
+  return v19;
 }
 
 @end

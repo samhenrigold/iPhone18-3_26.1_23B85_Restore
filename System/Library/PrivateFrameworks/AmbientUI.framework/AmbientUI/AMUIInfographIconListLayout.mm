@@ -72,7 +72,7 @@
 
   else
   {
-    v7 = AMUILogInfograph();
+    v7 = AMUILogInfograph(self);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [AMUIInfographIconListLayout layoutInsetsForOrientation:?];
@@ -93,8 +93,8 @@
 
 - (SBHIconAccessoryVisualConfiguration)iconAccessoryVisualConfiguration
 {
-  _defaultIconListLayout = [(AMUIInfographIconListLayout *)self _defaultIconListLayout];
-  iconAccessoryVisualConfiguration = [_defaultIconListLayout iconAccessoryVisualConfiguration];
+  v3 = objc_msgSend__defaultIconListLayout(self, a2);
+  iconAccessoryVisualConfiguration = [v3 iconAccessoryVisualConfiguration];
   [(AMUIInfographIconListLayout *)self widgetScaleFactor];
   v6 = v5;
   [iconAccessoryVisualConfiguration size];
@@ -131,8 +131,8 @@
 
 - (SBIconImageInfo)_defaultSmallWidgetIconImageInfo
 {
-  _defaultIconListLayout = [(AMUIInfographIconListLayout *)self _defaultIconListLayout];
-  [_defaultIconListLayout iconImageInfoForGridSizeClass:*MEMORY[0x277D66548]];
+  v3 = objc_msgSend__defaultIconListLayout(self, a3);
+  [v3 iconImageInfoForGridSizeClass:*MEMORY[0x277D66548]];
 
   return result;
 }
@@ -147,7 +147,7 @@
 
 - (double)widgetScaleFactor
 {
-  [(AMUIInfographIconListLayout *)self _widgetDimensionForScreenType:self->_screenType];
+  objc_msgSend__widgetDimensionForScreenType_(self, a2, self->_screenType);
   v4 = v3;
   [(AMUIInfographIconListLayout *)self _defaultSmallWidgetIconImageInfo];
   return v4 / v5;
@@ -178,24 +178,23 @@
   if ([objc_opt_class() _shouldUseLegacyContentMargins])
   {
     [(AMUIInfographIconListLayout *)self _defaultSmallWidgetIconImageInfo];
-    screenType = self->_screenType;
     SBHGetScreenSpecification();
     BSFloatRoundForScale();
   }
 
   else
   {
-    [(AMUIInfographIconListLayout *)self _widgetDimensionForScreenType:self->_screenType];
-    v6 = v7 * ratio;
+    objc_msgSend__widgetDimensionForScreenType_(self);
+    v5 = v6 * ratio;
   }
 
-  v8 = v6;
-  v9 = v6;
-  v10 = v6;
-  result.right = v10;
-  result.bottom = v9;
-  result.left = v8;
-  result.top = v6;
+  v7 = v5;
+  v8 = v5;
+  v9 = v5;
+  result.right = v9;
+  result.bottom = v8;
+  result.left = v7;
+  result.top = v5;
   return result;
 }
 
@@ -210,7 +209,7 @@
 
   else
   {
-    v6 = AMUILogInfograph();
+    v6 = AMUILogInfograph(self);
     if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       [AMUIInfographIconListLayout iconSpacingForOrientation:?];
@@ -268,24 +267,20 @@ uint64_t __61__AMUIInfographIconListLayout__shouldUseLegacyContentMargins__block
   return result;
 }
 
-- (void)layoutInsetsForOrientation:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)layoutInsetsForOrientation:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  v2 = SBHStringForScreenType();
-  OUTLINED_FUNCTION_0_2(&dword_23F38B000, v3, v4, "Requesting layout insets for unexpected screen type: %{public}@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v1 = SBHStringForScreenType();
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_2(&dword_23F38B000, v2, v3, "Requesting layout insets for unexpected screen type: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
-- (void)iconSpacingForOrientation:(uint64_t *)a1 .cold.1(uint64_t *a1)
+- (void)iconSpacingForOrientation:(void *)a1 .cold.1(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
-  v2 = SBHStringForScreenType();
-  OUTLINED_FUNCTION_0_2(&dword_23F38B000, v3, v4, "Requesting icon spacing for unexpected screen type: %{public}@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  v1 = SBHStringForScreenType();
+  LODWORD(v8) = 138543362;
+  *(&v8 + 4) = v1;
+  OUTLINED_FUNCTION_0_2(&dword_23F38B000, v2, v3, "Requesting icon spacing for unexpected screen type: %{public}@", v4, v5, v6, v7, v8, DWORD2(v8));
 }
 
 @end

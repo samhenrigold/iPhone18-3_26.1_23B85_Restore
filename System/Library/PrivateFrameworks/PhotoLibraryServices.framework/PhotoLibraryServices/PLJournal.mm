@@ -45,7 +45,7 @@
   v16[1] = *MEMORY[0x1E69E9840];
   dCopy = d;
   attributesCopy = attributes;
-  if ([attributesCopy count])
+  if (objc_msgSend_count(attributesCopy))
   {
     payloadClass = [(PLJournal *)self payloadClass];
     v11 = [[payloadClass alloc] initWithPayloadID:dCopy payloadVersion:-[objc_class payloadVersion](payloadClass nilAttributes:{"payloadVersion"), 0}];
@@ -568,7 +568,7 @@ void __44__PLJournal_currentPayloadVersionWithError___block_invoke(uint64_t a1, 
   }
 }
 
-uint64_t __44__PLJournal_currentPayloadVersionWithError___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__44__PLJournal_currentPayloadVersionWithError___block_invoke_2(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 payloadVersion];
   *(*(*(a1 + 32) + 8) + 24) = result;
@@ -1096,9 +1096,9 @@ LABEL_20:
       v28 = [metadata objectForKeyedSubscript:@"snapshotChecksum"];
 
       finalizedChecksum2 = [(PLJournalChecksumContext *)v14 finalizedChecksum];
-      v30 = [v28 isEqualToString:finalizedChecksum2];
+      isEqualToString = objc_msgSend_isEqualToString_(v28);
 
-      if (v30)
+      if (isEqualToString)
       {
         v31 = MEMORY[0x1E696ABC0];
         v32 = *MEMORY[0x1E69BFF48];
@@ -1858,7 +1858,7 @@ void __118__PLJournal__performSnapshotsForBaseURL_snapshotMode_payloadClasses_sn
   v7 = [v6 _readMetadataPending:1];
 
   v8 = [v7 objectForKeyedSubscript:@"snapshotChecksum"];
-  if (!v8 || ([v11 objectForKeyedSubscript:@"snapshotChecksum"], v9 = objc_claimAutoreleasedReturnValue(), v10 = objc_msgSend(v9, "isEqualToString:", v8), v9, (v10 & 1) == 0))
+  if (!v8 || ([v11 objectForKeyedSubscript:@"snapshotChecksum"], v9 = objc_claimAutoreleasedReturnValue(), isEqualToString = objc_msgSend_isEqualToString_(v9), v9, (isEqualToString & 1) == 0))
   {
     *(*(*(a1 + 32) + 8) + 24) = 0;
     *a4 = 1;

@@ -43,10 +43,11 @@
 
   v7 = (self + OBJC_IVAR___ICCollaborationButtonsController_didPressManageShareButton);
   v8 = *(self + OBJC_IVAR___ICCollaborationButtonsController_didPressManageShareButton);
+  v9 = *(self + OBJC_IVAR___ICCollaborationButtonsController_didPressManageShareButton + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_10000C840(v8);
+  sub_10000C840(v8, v9);
 }
 
 - (ICCloudSyncingObject)cloudObject
@@ -54,9 +55,11 @@
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
-  static Published.subscript.getter();
+  static Published.subscript.getter(&v6);
 
-  return v5;
+  v4 = v6;
+
+  return v4;
 }
 
 - (void)setCloudObject:(id)object
@@ -75,9 +78,9 @@
   swift_getKeyPath();
   swift_getKeyPath();
   selfCopy = self;
-  static Published.subscript.getter();
+  static Published.subscript.getter(&v6);
 
-  sub_1000054A4(0, &qword_1006C5F80);
+  sub_1000054A4(0, &qword_1006C5F80, CKShareParticipant_ptr);
   v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v4.super.isa;
@@ -85,7 +88,7 @@
 
 - (void)setActiveParticipants:(id)participants
 {
-  sub_1000054A4(0, &qword_1006C5F80);
+  sub_1000054A4(0, &qword_1006C5F80, CKShareParticipant_ptr);
   static Array._unconditionallyBridgeFromObjectiveC(_:)();
   swift_getKeyPath();
   swift_getKeyPath();
@@ -160,7 +163,7 @@
   selfCopy = self;
   sub_10039E8F8();
 
-  sub_1000054A4(0, &qword_1006C5F80);
+  sub_1000054A4(0, &qword_1006C5F80, CKShareParticipant_ptr);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;

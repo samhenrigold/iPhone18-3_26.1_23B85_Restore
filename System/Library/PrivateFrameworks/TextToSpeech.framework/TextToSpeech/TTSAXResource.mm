@@ -210,13 +210,12 @@
 {
   v2 = sub_1A957B308();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x1EEE9AC00](v2, v5);
-  v7 = &v13[-((v6 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
-  v8 = OBJC_IVAR___TTSAXResource_voice;
+  MEMORY[0x1EEE9AC00](v2);
+  v5 = &v11[-((v4 + 15) & 0xFFFFFFFFFFFFFFF0) - 8];
+  v6 = OBJC_IVAR___TTSAXResource_voice;
   swift_beginAccess();
-  memcpy(v14, &self[v8], sizeof(v14));
-  result = sub_1A932D058(v14);
+  memcpy(v12, &self[v6], sizeof(v12));
+  result = sub_1A932D058(v12);
   if (result == 1)
   {
     __break(1u);
@@ -224,15 +223,15 @@
 
   else
   {
-    memcpy(v13, v14, sizeof(v13));
+    memcpy(v11, v12, sizeof(v11));
     selfCopy = self;
-    CoreSynthesizer.Voice.primaryLocale.getter(v7);
+    CoreSynthesizer.Voice.primaryLocale.getter(v5);
     Locale.legacyIdentifier.getter();
 
-    (*(v3 + 8))(v7, v2);
-    v11 = sub_1A957C0C8();
+    (*(v3 + 8))(v5, v2);
+    v9 = sub_1A957C0C8();
 
-    return v11;
+    return v9;
   }
 
   return result;

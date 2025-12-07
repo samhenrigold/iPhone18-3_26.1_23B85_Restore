@@ -43,30 +43,28 @@
 
 void __41__PLValueUtilties_formatterFromDataType___block_invoke()
 {
-  v4[9] = *MEMORY[0x1E69E9840];
-  v3[0] = &unk_1F540A080;
-  v3[1] = &unk_1F540A0B0;
-  v4[0] = &unk_1F540A098;
-  v4[1] = &unk_1F540A0C8;
-  v3[2] = &unk_1F540A0E0;
-  v3[3] = &unk_1F540A110;
-  v4[2] = &unk_1F540A0F8;
-  v4[3] = &unk_1F540A128;
-  v3[4] = &unk_1F540A140;
-  v3[5] = &unk_1F540A170;
-  v4[4] = &unk_1F540A158;
-  v4[5] = &unk_1F540A188;
-  v3[6] = &unk_1F540A1A0;
-  v3[7] = &unk_1F540A1D0;
-  v4[6] = &unk_1F540A1B8;
-  v4[7] = &unk_1F540A1E8;
-  v3[8] = &unk_1F540A200;
-  v4[8] = &unk_1F540A218;
-  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v4 forKeys:v3 count:9];
+  v3[9] = *MEMORY[0x1E69E9840];
+  v2[0] = &unk_1F540A080;
+  v2[1] = &unk_1F540A0B0;
+  v3[0] = &unk_1F540A098;
+  v3[1] = &unk_1F540A0C8;
+  v2[2] = &unk_1F540A0E0;
+  v2[3] = &unk_1F540A110;
+  v3[2] = &unk_1F540A0F8;
+  v3[3] = &unk_1F540A128;
+  v2[4] = &unk_1F540A140;
+  v2[5] = &unk_1F540A170;
+  v3[4] = &unk_1F540A158;
+  v3[5] = &unk_1F540A188;
+  v2[6] = &unk_1F540A1A0;
+  v2[7] = &unk_1F540A1D0;
+  v3[6] = &unk_1F540A1B8;
+  v3[7] = &unk_1F540A1E8;
+  v2[8] = &unk_1F540A200;
+  v3[8] = &unk_1F540A218;
+  v0 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v3 forKeys:v2 count:9];
   v1 = formatterFromDataType__PPSPBDatatypeToPLVFormater;
   formatterFromDataType__PPSPBDatatypeToPLVFormater = v0;
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 + (void)resetTimestampFormaterTimezone

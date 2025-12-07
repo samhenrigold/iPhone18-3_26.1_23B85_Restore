@@ -31,9 +31,10 @@
 - (id)downloadAtIndex:(int64_t)index
 {
 
-  v4 = sub_1003AD64C(index);
+  sub_1003AD64C(index);
+  v5 = v4;
 
-  return v4;
+  return v5;
 }
 
 - (int64_t)numberOfDownloads

@@ -66,151 +66,147 @@ void sub_100001804(uint64_t a1, void *a2, void *a3)
   }
 }
 
-void sub_1000019E8(uint64_t a1)
+void sub_1000019E8(id *a1)
 {
-  v2 = [*(a1 + 32) hmf_numberForKey:kSiriIntentRequestTypeKey];
+  v2 = [a1[4] hmf_numberForKey:kSiriIntentRequestTypeKey];
   v3 = [v2 unsignedIntegerValue];
 
   v4 = HMStringFromIntentRequestType();
-  v5 = [*(a1 + 40) intentTimer];
+  v5 = [a1[5] intentTimer];
 
   if (v5)
   {
-    v6 = *(a1 + 48);
+    v6 = a1[6];
     if (v6)
     {
       if ([v6 code] != 82 || v3)
       {
-        v23 = [*(a1 + 48) code];
+        v21 = [a1[6] code];
         v7 = objc_autoreleasePoolPush();
-        v8 = *(a1 + 40);
-        v24 = HMFGetOSLogHandle();
-        v9 = v24;
-        if (v23 == 10)
+        v8 = a1[5];
+        v22 = HMFGetOSLogHandle();
+        v9 = v22;
+        if (v21 == 10)
         {
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
           {
             v10 = HMFGetLogIdentifier();
-            v25 = *(a1 + 56);
-            v12 = HMIntentOutcomeUnsecuringNotAllowed;
-            v13 = HMINControlHomeIntentShortDescription();
-            v29 = 138543618;
-            v30 = v10;
-            v31 = 2112;
-            v32 = v13;
-            v14 = "%{public}@Execution is not allowed for intent: [ %@ ]";
+            v11 = HMIntentOutcomeUnsecuringNotAllowed;
+            v12 = HMINControlHomeIntentShortDescription();
+            v25 = 138543618;
+            v26 = v10;
+            v27 = 2112;
+            v28 = v12;
+            v13 = "%{public}@Execution is not allowed for intent: [ %@ ]";
             goto LABEL_15;
           }
 
-          v26 = &HMIntentOutcomeUnsecuringNotAllowed;
+          v23 = &HMIntentOutcomeUnsecuringNotAllowed;
         }
 
         else
         {
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             v10 = HMFGetLogIdentifier();
-            v27 = *(a1 + 56);
-            v12 = HMIntentOutcomeFailure;
-            v13 = HMINControlHomeIntentShortDescription();
-            v28 = *(a1 + 48);
-            v29 = 138544130;
-            v30 = v10;
+            v11 = HMIntentOutcomeFailure;
+            v12 = HMINControlHomeIntentShortDescription();
+            v24 = a1[6];
+            v25 = 138544130;
+            v26 = v10;
+            v27 = 2112;
+            v28 = v12;
+            v29 = 2112;
+            v30 = v4;
             v31 = 2112;
-            v32 = v13;
-            v33 = 2112;
-            v34 = v4;
-            v35 = 2112;
-            v36 = v28;
-            v14 = "%{public}@Failed to %@ intent: [ %@ ] - error %@";
-            v20 = v9;
-            v21 = OS_LOG_TYPE_ERROR;
-            v22 = 42;
+            v32 = v24;
+            v13 = "%{public}@Failed to %@ intent: [ %@ ] - error %@";
+            v18 = v9;
+            v19 = OS_LOG_TYPE_ERROR;
+            v20 = 42;
             goto LABEL_19;
           }
 
-          v26 = &HMIntentOutcomeFailure;
+          v23 = &HMIntentOutcomeFailure;
         }
       }
 
       else
       {
         v7 = objc_autoreleasePoolPush();
-        v8 = *(a1 + 40);
+        v8 = a1[5];
         v9 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
         {
           v10 = HMFGetLogIdentifier();
-          v11 = *(a1 + 56);
-          v12 = HMIntentOutcomeUnsecuringUnlockRequired;
-          v13 = HMINControlHomeIntentShortDescription();
-          v29 = 138543618;
-          v30 = v10;
-          v31 = 2112;
-          v32 = v13;
-          v14 = "%{public}@Unlock required for intent: [ %@ ]";
+          v11 = HMIntentOutcomeUnsecuringUnlockRequired;
+          v12 = HMINControlHomeIntentShortDescription();
+          v25 = 138543618;
+          v26 = v10;
+          v27 = 2112;
+          v28 = v12;
+          v13 = "%{public}@Unlock required for intent: [ %@ ]";
 LABEL_15:
-          v20 = v9;
-          v21 = OS_LOG_TYPE_INFO;
-          v22 = 22;
+          v18 = v9;
+          v19 = OS_LOG_TYPE_INFO;
+          v20 = 22;
           goto LABEL_19;
         }
 
-        v26 = &HMIntentOutcomeUnsecuringUnlockRequired;
+        v23 = &HMIntentOutcomeUnsecuringUnlockRequired;
       }
     }
 
     else
     {
       v7 = objc_autoreleasePoolPush();
-      v8 = *(a1 + 40);
+      v8 = a1[5];
       v9 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
       {
         v10 = HMFGetLogIdentifier();
-        v19 = *(a1 + 56);
-        v12 = HMIntentOutcomeSuccess;
-        v13 = HMINControlHomeIntentShortDescription();
-        v29 = 138543874;
-        v30 = v10;
-        v31 = 2112;
-        v32 = v13;
-        v33 = 2112;
-        v34 = v4;
-        v14 = "%{public}@Intent: [ %@ ] is %@ successfully";
-        v20 = v9;
-        v21 = OS_LOG_TYPE_INFO;
-        v22 = 32;
+        v11 = HMIntentOutcomeSuccess;
+        v12 = HMINControlHomeIntentShortDescription();
+        v25 = 138543874;
+        v26 = v10;
+        v27 = 2112;
+        v28 = v12;
+        v29 = 2112;
+        v30 = v4;
+        v13 = "%{public}@Intent: [ %@ ] is %@ successfully";
+        v18 = v9;
+        v19 = OS_LOG_TYPE_INFO;
+        v20 = 32;
 LABEL_19:
-        _os_log_impl(&_mh_execute_header, v20, v21, v14, &v29, v22);
+        _os_log_impl(&_mh_execute_header, v18, v19, v13, &v25, v20);
 
 LABEL_24:
         objc_autoreleasePoolPop(v7);
-        [*(a1 + 40) _reportToResponseHandlerWithOutcome:v12];
-        [*(a1 + 40) _resetIntentTimer];
+        [a1[5] _reportToResponseHandlerWithOutcome:v11];
+        [a1[5] _resetIntentTimer];
         goto LABEL_25;
       }
 
-      v26 = &HMIntentOutcomeSuccess;
+      v23 = &HMIntentOutcomeSuccess;
     }
 
-    v12 = *v26;
+    v11 = *v23;
     goto LABEL_24;
   }
 
-  v15 = objc_autoreleasePoolPush();
-  v16 = *(a1 + 40);
-  v17 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+  v14 = objc_autoreleasePoolPush();
+  v15 = a1[5];
+  v16 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
   {
-    v18 = HMFGetLogIdentifier();
-    v29 = 138543618;
-    v30 = v18;
-    v31 = 2112;
-    v32 = v4;
-    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "%{public}@%@ time takes too long. Timer already fired", &v29, 0x16u);
+    v17 = HMFGetLogIdentifier();
+    v25 = 138543618;
+    v26 = v17;
+    v27 = 2112;
+    v28 = v4;
+    _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%{public}@%@ time takes too long. Timer already fired", &v25, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v15);
+  objc_autoreleasePoolPop(v14);
 LABEL_25:
 }

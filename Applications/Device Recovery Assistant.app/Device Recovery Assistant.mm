@@ -4,7 +4,7 @@ uint64_t sub_100002BE0(uint64_t a1)
   result = _AXSVoiceOverTouchEnabled();
   if (!result)
   {
-    v2 = sub_100012608();
+    v2 = sub_100012608(result);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
       v3 = 136446210;
@@ -21,24 +21,24 @@ uint64_t sub_100002BE0(uint64_t a1)
 
 id sub_1000039D0(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100012608();
+  v4 = sub_100012608(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 136446466;
-    v9 = "[Application _showPowerDownView]_block_invoke";
-    v10 = 2048;
-    v11 = a2;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: Power menu response was %lu", &v8, 0x16u);
+    v9 = 136446466;
+    v10 = "[Application _showPowerDownView]_block_invoke";
+    v11 = 2048;
+    v12 = a2;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: Power menu response was %lu", &v9, 0x16u);
   }
 
   if (a2 == 1)
   {
-    v6 = sub_100012608();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_100012608(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136446210;
-      v9 = "[Application _showPowerDownView]_block_invoke";
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: Power down cancelled.", &v8, 0xCu);
+      v9 = 136446210;
+      v10 = "[Application _showPowerDownView]_block_invoke";
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: Power down cancelled.", &v9, 0xCu);
     }
 
     goto LABEL_10;
@@ -46,16 +46,16 @@ id sub_1000039D0(uint64_t a1, uint64_t a2)
 
   if (!a2)
   {
-    v5 = sub_100012608();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = sub_100012608(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = 136446210;
-      v9 = "[Application _showPowerDownView]_block_invoke";
-      _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Shutting down device…", &v8, 0xCu);
+      v9 = 136446210;
+      v10 = "[Application _showPowerDownView]_block_invoke";
+      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: Shutting down device…", &v9, 0xCu);
     }
 
-    v6 = +[DeviceRecoveryController sharedController];
-    [v6 shutdownWithCompletion:&stru_100028720];
+    v7 = +[DeviceRecoveryController sharedController];
+    [v7 shutdownWithCompletion:&stru_100028720];
 LABEL_10:
   }
 
@@ -66,7 +66,7 @@ void sub_100003B7C(id a1, NSError *a2, NSDictionary *a3)
 {
   v4 = a2;
   v5 = a3;
-  v6 = sub_100012608();
+  v6 = sub_100012608(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = 136446722;
@@ -81,26 +81,26 @@ void sub_100003B7C(id a1, NSError *a2, NSDictionary *a3)
 
 id sub_100004098(uint64_t a1, uint64_t a2)
 {
-  v4 = sub_100012608();
+  v4 = sub_100012608(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136446466;
-    v8 = "[Application _showMenuView]_block_invoke";
-    v9 = 2048;
-    v10 = a2;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: Menu sheet response was %lu", &v7, 0x16u);
+    v8 = 136446466;
+    v9 = "[Application _showMenuView]_block_invoke";
+    v10 = 2048;
+    v11 = a2;
+    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: Menu sheet response was %lu", &v8, 0x16u);
   }
 
   if (a2 > 2)
   {
     if ((a2 - 3) < 2)
     {
-      v5 = sub_100012608();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+      v6 = sub_100012608(v5);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = 136446210;
-        v8 = "[Application _showMenuView]_block_invoke";
-        _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "%{public}s: Menu sheet cancelled or debug option selected.", &v7, 0xCu);
+        v8 = 136446210;
+        v9 = "[Application _showMenuView]_block_invoke";
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: Menu sheet cancelled or debug option selected.", &v8, 0xCu);
       }
     }
   }
@@ -196,15 +196,16 @@ void sub_100005058(uint64_t a1, void *a2)
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [v3 eventMask];
-  v6 = sub_100012608();
-  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
-  if (v5)
+  v6 = v5;
+  v7 = sub_100012608(v5);
+  v8 = os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT);
+  if (v6)
   {
-    if (v7)
+    if (v8)
     {
-      v8 = 136446210;
-      v9 = "[DisplayManager init]_block_invoke";
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Dimming for idle", &v8, 0xCu);
+      v9 = 136446210;
+      v10 = "[DisplayManager init]_block_invoke";
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Dimming for idle", &v9, 0xCu);
     }
 
     [WeakRetained dimDisplay];
@@ -212,13 +213,13 @@ void sub_100005058(uint64_t a1, void *a2)
 
   else
   {
-    if (v7)
+    if (v8)
     {
-      v8 = 136446466;
-      v9 = "[DisplayManager init]_block_invoke";
-      v10 = 2112;
-      v11 = v3;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Reset idle for event %@", &v8, 0x16u);
+      v9 = 136446466;
+      v10 = "[DisplayManager init]_block_invoke";
+      v11 = 2112;
+      v12 = v3;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: [DisplayManager] Reset idle for event %@", &v9, 0x16u);
     }
 
     [WeakRetained resetIdleTimerAndUndim:1];
@@ -262,7 +263,7 @@ void sub_1000073F0(uint64_t a1)
 
 uint64_t sub_100007D98(uint64_t a1)
 {
-  v2 = sub_100012608();
+  v2 = sub_100012608(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -276,7 +277,7 @@ uint64_t sub_100007D98(uint64_t a1)
 
 uint64_t sub_100007E64(uint64_t a1)
 {
-  v2 = sub_100012608();
+  v2 = sub_100012608(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -290,7 +291,7 @@ uint64_t sub_100007E64(uint64_t a1)
 
 uint64_t sub_100007F30(uint64_t a1)
 {
-  v2 = sub_100012608();
+  v2 = sub_100012608(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -304,7 +305,7 @@ uint64_t sub_100007F30(uint64_t a1)
 
 uint64_t sub_100007FFC(uint64_t a1)
 {
-  v2 = sub_100012608();
+  v2 = sub_100012608(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -318,7 +319,7 @@ uint64_t sub_100007FFC(uint64_t a1)
 
 uint64_t sub_1000080C8(uint64_t a1)
 {
-  v2 = sub_100012608();
+  v2 = sub_100012608(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -337,7 +338,7 @@ uint64_t sub_1000080C8(uint64_t a1)
 
 uint64_t sub_100008448(uint64_t a1)
 {
-  v2 = sub_100012608();
+  v2 = sub_100012608(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -350,7 +351,7 @@ uint64_t sub_100008448(uint64_t a1)
 
 void sub_100008684(uint64_t a1)
 {
-  v2 = sub_100012608();
+  v2 = sub_100012608(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136446210;
@@ -385,7 +386,7 @@ id *sub_1000091A4(id *result, uint64_t a2)
   if (!a2)
   {
     v2 = result;
-    v3 = sub_100012608();
+    v3 = sub_100012608(result);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
       v4 = 136446210;
@@ -639,7 +640,7 @@ void sub_10000A044(uint64_t a1)
 void sub_10000A090(id a1, NSError *a2, NSDictionary *a3)
 {
   v3 = a2;
-  v4 = sub_100012608();
+  v4 = sub_100012608(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136446466;
@@ -673,7 +674,7 @@ void sub_10000A270(uint64_t a1)
 void sub_10000A2BC(id a1, NSError *a2, NSDictionary *a3)
 {
   v3 = a2;
-  v4 = sub_100012608();
+  v4 = sub_100012608(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136446466;
@@ -755,53 +756,54 @@ uint64_t start(int a1, char **a2)
   v5 = +[DeviceRecoveryController sharedController];
   v6 = [v5 mainOSLanguageCode];
 
-  v7 = sub_100012608();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = sub_100012608(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v22 = "main";
-    v23 = 2114;
-    v24 = v6;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: Language from mainOS is = %{public}@", buf, 0x16u);
+    v24 = "main";
+    v25 = 2114;
+    v26 = v6;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "%{public}s: Language from mainOS is = %{public}@", buf, 0x16u);
   }
 
   if ([v6 length])
   {
-    v8 = +[NSUserDefaults standardUserDefaults];
-    v19 = @"preferredLanguageCode";
-    v20 = v6;
-    v9 = [NSDictionary dictionaryWithObjects:&v20 forKeys:&v19 count:1];
-    [v8 registerDefaults:v9];
+    v9 = +[NSUserDefaults standardUserDefaults];
+    v21 = @"preferredLanguageCode";
+    v22 = v6;
+    v10 = [NSDictionary dictionaryWithObjects:&v22 forKeys:&v21 count:1];
+    [v9 registerDefaults:v10];
   }
 
-  v10 = +[NSUserDefaults standardUserDefaults];
-  v11 = [v10 stringForKey:@"preferredLanguageCode"];
+  v11 = +[NSUserDefaults standardUserDefaults];
+  v12 = [v11 stringForKey:@"preferredLanguageCode"];
 
-  if ([v11 length])
+  v13 = [v12 length];
+  if (v13)
   {
-    v12 = sub_100012608();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v14 = sub_100012608(v13);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136446466;
-      v22 = "main";
-      v23 = 2114;
-      v24 = v11;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "%{public}s: Setting preferred language to: %{public}@", buf, 0x16u);
+      v24 = "main";
+      v25 = 2114;
+      v26 = v12;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%{public}s: Setting preferred language to: %{public}@", buf, 0x16u);
     }
 
-    [NSLocale setPreferredLanguageAndUpdateLocale:v11];
+    [NSLocale setPreferredLanguageAndUpdateLocale:v12];
   }
 
-  v13 = FBSystemShellInitialize();
+  v15 = FBSystemShellInitialize();
 
   objc_autoreleasePoolPop(v4);
-  v14 = objc_autoreleasePoolPush();
-  v15 = objc_opt_class();
-  v16 = NSStringFromClass(v15);
-  objc_autoreleasePoolPop(v14);
-  v17 = UIApplicationMain(a1, a2, 0, v16);
+  v16 = objc_autoreleasePoolPush();
+  v17 = objc_opt_class();
+  v18 = NSStringFromClass(v17);
+  objc_autoreleasePoolPop(v16);
+  v19 = UIApplicationMain(a1, a2, 0, v18);
 
-  return v17;
+  return v19;
 }
 
 void sub_10000C13C(id a1, FBMutableSystemShellInitializationOptions *a2)
@@ -854,7 +856,7 @@ void sub_10000C6B0(uint64_t a1)
 
 void sub_10000E83C(uint64_t a1)
 {
-  v2 = sub_100012608();
+  v2 = sub_100012608(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -868,7 +870,7 @@ void sub_10000E83C(uint64_t a1)
 
 void sub_10000F928(uint64_t a1)
 {
-  v2 = sub_100012608();
+  v2 = sub_100012608(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -882,7 +884,7 @@ void sub_10000F928(uint64_t a1)
 
 void sub_10000FBDC(uint64_t a1)
 {
-  v2 = sub_100012608();
+  v2 = sub_100012608(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v4 = 136446210;
@@ -950,15 +952,16 @@ void sub_10001022C(uint64_t a1, void *a2)
   }
 }
 
-void sub_10001053C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void sub_10001053C(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0xCu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0xCu);
 }
 
-void sub_100011428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100011428(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -993,16 +996,16 @@ void sub_1000117B8(uint64_t a1)
 
   if (v2)
   {
-    v3 = sub_100012608();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = sub_100012608(v3);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = 136446210;
-      v6 = "[WelcomeViewController menuItems]_block_invoke_2";
-      _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "%{public}s: Calling delegate for boot to NeRD from welcome.", &v5, 0xCu);
+      v6 = 136446210;
+      v7 = "[WelcomeViewController menuItems]_block_invoke_2";
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%{public}s: Calling delegate for boot to NeRD from welcome.", &v6, 0xCu);
     }
 
-    v4 = [*(a1 + 32) delegate];
-    [v4 welcomeViewControllerDidChooseNeRD:*(a1 + 32)];
+    v5 = [*(a1 + 32) delegate];
+    [v5 welcomeViewControllerDidChooseNeRD:*(a1 + 32)];
   }
 }
 
@@ -1018,16 +1021,16 @@ void sub_10001250C(uint64_t a1)
   [v1 setEnabled:1];
 }
 
-id sub_100012608()
+id sub_100012608(uint64_t a1)
 {
   if (qword_100032178 != -1)
   {
     sub_100012EB4();
   }
 
-  v1 = off_100032100;
+  v2 = off_100032100;
 
-  return v1;
+  return v2;
 }
 
 void sub_10001264C(id a1)
@@ -1038,16 +1041,16 @@ void sub_10001264C(id a1)
   _objc_release_x1();
 }
 
-id sub_100012690()
+id sub_100012690(uint64_t a1)
 {
   if (qword_100032180 != -1)
   {
     sub_100012EC8();
   }
 
-  v1 = off_100032108;
+  v2 = off_100032108;
 
-  return v1;
+  return v2;
 }
 
 void sub_1000126D4(id a1)
@@ -1091,4 +1094,32 @@ void sub_100012C30()
   sub_100006ECC();
   sub_100006EE0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
+}
+
+void sub_100012CD4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SceneManager sceneDidActivate:]";
+  sub_10001053C(&_mh_execute_header, a1, a3, "%{public}s: (#function) (scene)", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100012D4C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SceneManager sceneDidDeactivate:withContext:]";
+  sub_10001053C(&_mh_execute_header, a1, a3, "%{public}s: (#function) (scene) (context?.error)", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100012DC4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SceneManager workspace:didAddScene:]";
+  sub_10001053C(&_mh_execute_header, a1, a3, "%{public}s: (#function) (scene)", a5, a6, a7, a8, v8, DWORD2(v8));
+}
+
+void sub_100012E3C(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SceneManager workspace:willRemoveScene:]";
+  sub_10001053C(&_mh_execute_header, a1, a3, "%{public}s: (#function) (scene)", a5, a6, a7, a8, v8, DWORD2(v8));
 }

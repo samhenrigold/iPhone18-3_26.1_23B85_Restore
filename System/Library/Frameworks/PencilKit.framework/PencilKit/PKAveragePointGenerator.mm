@@ -335,8 +335,8 @@
     v22 = v12;
     if (v4)
     {
-      [v4 transform];
-      [v4 _inkTransform];
+      objc_msgSend_transform(v4);
+      objc_msgSend__inkTransform(v4);
       v11 = sqrt(v24 * v24 + v23 * v23);
       v14 = v24;
       v13 = v23;
@@ -369,7 +369,7 @@
       {
         if (path)
         {
-          [path decompressedPointAt:v18];
+          objc_msgSend_decompressedPointAt_(path);
         }
 
         v20 = 0.0;

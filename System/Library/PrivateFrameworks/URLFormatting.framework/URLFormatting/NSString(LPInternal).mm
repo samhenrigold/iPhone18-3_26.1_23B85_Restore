@@ -26,32 +26,32 @@
 
 + (void)_lp_reverseEnumerateComponents:()LPInternal usingBlock:
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a3;
   v6 = a4;
-  v20 = 0;
+  v19 = 0;
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
-  v15 = v5;
+  v14 = v5;
   reverseObjectEnumerator = [v5 reverseObjectEnumerator];
-  v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v21 count:16];
+  v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v15 objects:v20 count:16];
   if (v8)
   {
     v9 = 0;
     v10 = 0;
-    v11 = *v17;
+    v11 = *v16;
 LABEL_3:
     v12 = 0;
     while (1)
     {
-      if (*v17 != v11)
+      if (*v16 != v11)
       {
         objc_enumerationMutation(reverseObjectEnumerator);
       }
 
-      v13 = *(*(&v16 + 1) + 8 * v12);
+      v13 = *(*(&v15 + 1) + 8 * v12);
       if (v10)
       {
         [v10 insertString:@"." atIndex:0];
@@ -63,8 +63,8 @@ LABEL_3:
       }
 
       [v10 insertString:v13 atIndex:0];
-      v6[2](v6, v10, v9, &v20);
-      if (v20)
+      v6[2](v6, v10, v9, &v19);
+      if (v19)
       {
         break;
       }
@@ -72,7 +72,7 @@ LABEL_3:
       ++v9;
       if (v8 == ++v12)
       {
-        v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v16 objects:v21 count:16];
+        v8 = [reverseObjectEnumerator countByEnumeratingWithState:&v15 objects:v20 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -87,8 +87,6 @@ LABEL_3:
   {
     v10 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_lp_highLevelDomainFromComponents:()LPInternal indexOfFirstHighLevelDomainComponent:indexOfFirstTopLevelDomainComponent:
@@ -167,6 +165,7 @@ LABEL_3:
 
 - (id)_lp_simplifiedUserVisibleURLStringWithSimplifications:()LPInternal forDisplayOnly:
 {
+  v4 = a3;
   selfCopy = self;
   v5 = [selfCopy copy];
   v7 = [v5 rangeOfString:@"://" options:2];
@@ -233,7 +232,7 @@ LABEL_14:
   v21 = v18 | v20;
   if (v8 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    if ((((a3 & 0x20) != 0) & (v18 | v20)) == 1)
+    if ((((v4 & 0x20) != 0) & (v18 | v20)) == 1)
     {
       v22 = [selfCopy rangeOfString:@":" options:4 range:{v8, v17}];
       v23 = v22;
@@ -250,14 +249,14 @@ LABEL_14:
       }
     }
 
-    if ((((a3 & 0x10) != 0) & (v18 | v20)) == 1)
+    if ((((v4 & 0x10) != 0) & (v18 | v20)) == 1)
     {
       v26 = [v5 substringToIndex:v17 + v8];
 
       v5 = v26;
     }
 
-    if ((a3 & 0x400) != 0)
+    if ((v4 & 0x400) != 0)
     {
       v19 = [v5 rangeOfString:@"#"];
       if (v19 != 0x7FFFFFFFFFFFFFFFLL)
@@ -268,7 +267,7 @@ LABEL_14:
       }
     }
 
-    if ((a3 & 4) != 0)
+    if ((v4 & 4) != 0)
     {
       v28 = [v5 rangeOfString:@"#"];
       if (v28 == [v5 length] - 1)
@@ -305,14 +304,14 @@ LABEL_14:
     }
   }
 
-  v36 = ((a3 & 2) != 0) & v20;
+  v36 = ((v4 & 2) != 0) & v20;
   v37 = 8;
   if (!v36)
   {
     v37 = 0;
   }
 
-  if (a3 & v18)
+  if (v4 & v18)
   {
     v38 = 1;
   }
@@ -322,7 +321,7 @@ LABEL_14:
     v38 = v36;
   }
 
-  if (a3 & v18)
+  if (v4 & v18)
   {
     v39 = 7;
   }
@@ -332,7 +331,7 @@ LABEL_14:
     v39 = v37;
   }
 
-  v40 = (v8 != 0x7FFFFFFFFFFFFFFFLL) & (a3 >> 7) & *&v21;
+  v40 = (v8 != 0x7FFFFFFFFFFFFFFFLL) & (v4 >> 7) & *&v21;
   if (v40)
   {
     v41 = v8;
@@ -361,14 +360,14 @@ LABEL_14:
     }
   }
 
-  if ((a3 & 0x348) != 0 && ((v8 != 0x7FFFFFFFFFFFFFFFLL) & v21) != 0)
+  if ((v4 & 0x348) != 0 && ((v8 != 0x7FFFFFFFFFFFFFFFLL) & v21) != 0)
   {
     v45 = [v5 substringWithRange:{v8, v17}];
     v46 = [v45 componentsSeparatedByString:@"."];
-    if ((a3 & 0x100) != 0)
+    if ((v4 & 0x100) != 0)
     {
       v47 = [v45 _lp_lengthOfDeepSubdomainsFromComponents:v46];
-      if ((a3 & 8) == 0)
+      if ((v4 & 8) == 0)
       {
         goto LABEL_61;
       }
@@ -377,7 +376,7 @@ LABEL_14:
     else
     {
       v47 = 0;
-      if ((a3 & 8) == 0)
+      if ((v4 & 8) == 0)
       {
         goto LABEL_61;
       }
@@ -412,12 +411,12 @@ LABEL_67:
     }
 
 LABEL_61:
-    if ((a3 & 0x40) != 0 && [v45 _lp_hasCaseInsensitiveSubstring:@"m." startingAt:v47])
+    if ((v4 & 0x40) != 0 && [v45 _lp_hasCaseInsensitiveSubstring:@"m." startingAt:v47])
     {
       v47 += 2;
     }
 
-    else if ((a3 & 0x200) != 0 && [v45 _lp_hasCaseInsensitiveSubstring:@"mobile." startingAt:v47])
+    else if ((v4 & 0x200) != 0 && [v45 _lp_hasCaseInsensitiveSubstring:@"mobile." startingAt:v47])
     {
       v47 += 7;
     }

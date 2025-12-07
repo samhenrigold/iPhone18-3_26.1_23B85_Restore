@@ -30,14 +30,14 @@
 
 - (_HMAccessoryProfile)initWithCoder:(id)coder
 {
-  v26[2] = *MEMORY[0x1E69E9840];
+  v25[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"HM.accessoryProfileUUID"];
   v6 = [objc_alloc(MEMORY[0x1E696AFB0]) initWithUUIDString:v5];
   v7 = MEMORY[0x1E695DFD8];
-  v26[0] = objc_opt_class();
-  v26[1] = objc_opt_class();
-  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:2];
+  v25[0] = objc_opt_class();
+  v25[1] = objc_opt_class();
+  v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:2];
   v9 = [v7 setWithArray:v8];
   v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"services"];
 
@@ -62,20 +62,19 @@
     if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
       v17 = HMFGetLogIdentifier();
-      v20 = 138543874;
-      v21 = v17;
-      v22 = 2112;
-      v23 = v6;
-      v24 = 2112;
-      v25 = v10;
-      _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded profileUniqueIdentifier: %@ services: %@", &v20, 0x20u);
+      v19 = 138543874;
+      v20 = v17;
+      v21 = 2112;
+      v22 = v6;
+      v23 = 2112;
+      v24 = v10;
+      _os_log_impl(&dword_19BB39000, v16, OS_LOG_TYPE_ERROR, "%{public}@Could not initialize from decoded profileUniqueIdentifier: %@ services: %@", &v19, 0x20u);
     }
 
     objc_autoreleasePoolPop(v15);
     v14 = 0;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -118,34 +117,34 @@
 
 - (id)assistantIdentifier
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{-[NSArray count](self->_services, "count")}];
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v4 = self->_services;
-  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v5 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v17;
+    v7 = *v16;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v17 != v7)
+        if (*v16 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
         v9 = MEMORY[0x1E696AEC0];
-        instanceID = [*(*(&v16 + 1) + 8 * i) instanceID];
+        instanceID = [*(*(&v15 + 1) + 8 * i) instanceID];
         v11 = [v9 stringWithFormat:@"%@", instanceID];
         [v3 addObject:v11];
       }
 
-      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v6 = [(NSArray *)v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v6);
@@ -153,8 +152,6 @@
 
   profileUniqueIdentifier = [(_HMAccessoryProfile *)self profileUniqueIdentifier];
   v13 = hm_assistantIdentifierWithSalts(@"SV", profileUniqueIdentifier, v3);
-
-  v14 = *MEMORY[0x1E69E9840];
 
   return v13;
 }

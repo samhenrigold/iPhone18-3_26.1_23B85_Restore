@@ -61,28 +61,28 @@
 
 - (id)remoteActionsForPreferredContextType:(int64_t)type
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   deviceRemoteActions = [(AXRemoteDevice *)self deviceRemoteActions];
-  v5 = [deviceRemoteActions countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [deviceRemoteActions countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
     v8 = MEMORY[0x277CBEBF8];
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v16 != v7)
+        if (*v15 != v7)
         {
           objc_enumerationMutation(deviceRemoteActions);
         }
 
-        v10 = *(*(&v15 + 1) + 8 * i);
+        v10 = *(*(&v14 + 1) + 8 * i);
         if ([v10 preferredContextType] == type)
         {
           remoteActions = [v10 remoteActions];
@@ -98,7 +98,7 @@
         }
       }
 
-      v6 = [deviceRemoteActions countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v6 = [deviceRemoteActions countByEnumeratingWithState:&v14 objects:v18 count:16];
       if (v6)
       {
         continue;
@@ -116,8 +116,6 @@
   v8 = v8;
   remoteActions = v8;
 LABEL_15:
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return remoteActions;
 }
@@ -150,7 +148,7 @@ LABEL_15:
 
 - (void)_setRemoteAction:(id)action forHandGestureEventUsage:(int64_t)usage
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   actionCopy = action;
   if ((usage - 2) > 2)
   {
@@ -171,14 +169,12 @@ LABEL_15:
     deviceGestureCustomizations2 = [(AXRemoteDevice *)self deviceGestureCustomizations];
     [deviceGestureCustomizations2 setObject:actionCopy forKeyedSubscript:v7];
 
-    v15 = @"HandGestureCustomizedActions";
+    v14 = @"HandGestureCustomizedActions";
     deviceGestureCustomizations3 = [(AXRemoteDevice *)self deviceGestureCustomizations];
-    v16[0] = deviceGestureCustomizations3;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
+    v15[0] = deviceGestureCustomizations3;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
     [(AXRemoteDevice *)self sendPayload:v13 withEventID:@"com.apple.AXRemoteServices.DefaultEventID"];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)connectIfNecessary:(id)necessary
@@ -268,17 +264,17 @@ uint64_t __37__AXRemoteDevice_connectIfNecessary___block_invoke_2(uint64_t a1)
 
 void __37__AXRemoteDevice_connectIfNecessary___block_invoke_3(id *a1, void *a2)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = ax_remote_connection_log();
+  v4 = ax_remote_connection_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     WeakRetained = objc_loadWeakRetained(a1 + 7);
     v6 = [WeakRetained device];
     *buf = 138412546;
-    v23 = v6;
-    v24 = 2112;
-    v25 = v3;
+    v22 = v6;
+    v23 = 2112;
+    v24 = v3;
     _os_log_impl(&dword_22952F000, v4, OS_LOG_TYPE_INFO, "Connected to device: %@ with error: %@", buf, 0x16u);
   }
 
@@ -289,42 +285,40 @@ void __37__AXRemoteDevice_connectIfNecessary___block_invoke_3(id *a1, void *a2)
 
   else
   {
-    v20 = @"requestsVoiceOverEnabled";
+    v19 = @"requestsVoiceOverEnabled";
     v7 = [MEMORY[0x277CCABB0] numberWithUnsignedChar:_AXSVoiceOverTouchEnabled()];
-    v21 = v7;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+    v20 = v7;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
 
-    v19[0] = MEMORY[0x277CBEC38];
-    v18[0] = @"isConnecting";
-    v18[1] = @"connectingDeviceName";
+    v18[0] = MEMORY[0x277CBEC38];
+    v17[0] = @"isConnecting";
+    v17[1] = @"connectingDeviceName";
     v9 = [a1[4] _deviceName];
-    v19[1] = v9;
-    v18[2] = @"connectingDeviceOptions";
-    v19[2] = v8;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+    v18[1] = v9;
+    v17[2] = @"connectingDeviceOptions";
+    v18[2] = v8;
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
 
     v11 = a1[5];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __37__AXRemoteDevice_connectIfNecessary___block_invoke_6;
-    v13[3] = &unk_2786658F8;
-    objc_copyWeak(&v17, a1 + 7);
-    v14 = 0;
-    v16 = a1[6];
-    v15 = a1[5];
-    [v11 sendRequestID:@"com.apple.AXRemoteServices.ConnectionSetup" request:v10 options:0 responseHandler:v13];
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __37__AXRemoteDevice_connectIfNecessary___block_invoke_6;
+    v12[3] = &unk_2786658F8;
+    objc_copyWeak(&v16, a1 + 7);
+    v13 = 0;
+    v15 = a1[6];
+    v14 = a1[5];
+    [v11 sendRequestID:@"com.apple.AXRemoteServices.ConnectionSetup" request:v10 options:0 responseHandler:v12];
 
-    objc_destroyWeak(&v17);
+    objc_destroyWeak(&v16);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __37__AXRemoteDevice_connectIfNecessary___block_invoke_6(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
   v55 = *MEMORY[0x277D85DE8];
   v6 = a2;
-  v7 = ax_remote_connection_log();
+  v7 = ax_remote_connection_log(v6);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -375,22 +369,23 @@ void __37__AXRemoteDevice_connectIfNecessary___block_invoke_6(uint64_t a1, void 
           v21 = [v20 objectForKeyedSubscript:{@"preferredContextType", v37}];
           v22 = [v20 objectForKeyedSubscript:@"actionsList"];
           objc_opt_class();
-          if (objc_opt_isKindOfClass() & 1) != 0 && (objc_opt_class(), (objc_opt_isKindOfClass()))
+          isKindOfClass = objc_opt_isKindOfClass();
+          if (isKindOfClass & 1) != 0 && (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass))
           {
-            v23 = [v21 integerValue];
-            v24 = AXRLocalizedSectionTitleForPreferredContextType(v23);
-            v25 = [[AXRDeviceRemoteActionSectionContainer alloc] initWithLocalizedTitle:v24 preferredContextType:v23 remoteActions:v22];
-            [v43 addObject:v25];
+            v24 = [v21 integerValue];
+            v25 = AXRLocalizedSectionTitleForPreferredContextType(v24);
+            v26 = [[AXRDeviceRemoteActionSectionContainer alloc] initWithLocalizedTitle:v25 preferredContextType:v24 remoteActions:v22];
+            [v43 addObject:v26];
           }
 
           else
           {
-            v24 = ax_remote_connection_log();
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+            v25 = ax_remote_connection_log(isKindOfClass);
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
             {
               *buf = 138412290;
               v50 = v20;
-              _os_log_fault_impl(&dword_22952F000, v24, OS_LOG_TYPE_FAULT, "unexpected payload data types: %@", buf, 0xCu);
+              _os_log_fault_impl(&dword_22952F000, v25, OS_LOG_TYPE_FAULT, "unexpected payload data types: %@", buf, 0xCu);
             }
           }
         }
@@ -402,29 +397,29 @@ void __37__AXRemoteDevice_connectIfNecessary___block_invoke_6(uint64_t a1, void 
     }
 
     v12 = v39;
-    v26 = [v39 integerValue];
-    v27 = objc_loadWeakRetained((v41 + 56));
-    [v27 setDeviceType:v26];
+    v27 = [v39 integerValue];
+    v28 = objc_loadWeakRetained((v41 + 56));
+    [v28 setDeviceType:v27];
 
     v13 = v38;
-    v28 = [v38 integerValue];
-    v29 = objc_loadWeakRetained((v41 + 56));
-    [v29 setContextType:v28];
-
+    v29 = [v38 integerValue];
     v30 = objc_loadWeakRetained((v41 + 56));
-    [v30 setDeviceRemoteActions:v43];
+    [v30 setContextType:v29];
 
     v31 = objc_loadWeakRetained((v41 + 56));
-    v32 = [v31 deviceGestureCustomizations];
+    [v31 setDeviceRemoteActions:v43];
+
+    v32 = objc_loadWeakRetained((v41 + 56));
+    v33 = [v32 deviceGestureCustomizations];
     v14 = v37;
-    [v32 addEntriesFromDictionary:v37];
+    [v33 addEntriesFromDictionary:v37];
 
-    v33 = objc_loadWeakRetained((v41 + 56));
-    [v33 setConnected:1];
+    v34 = objc_loadWeakRetained((v41 + 56));
+    [v34 setConnected:1];
 
-    v34 = *(v41 + 40);
-    v35 = objc_loadWeakRetained((v41 + 56));
-    [v35 setDeviceLinkClient:v34];
+    v35 = *(v41 + 40);
+    v36 = objc_loadWeakRetained((v41 + 56));
+    [v36 setDeviceLinkClient:v35];
 
     (*(*(v41 + 48) + 16))();
     v6 = v42;
@@ -435,8 +430,6 @@ void __37__AXRemoteDevice_connectIfNecessary___block_invoke_6(uint64_t a1, void 
   {
     (*(*(a1 + 48) + 16))();
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_deviceName
@@ -452,27 +445,25 @@ void __37__AXRemoteDevice_connectIfNecessary___block_invoke_6(uint64_t a1, void 
 
 - (void)disconnect
 {
-  v11[2] = *MEMORY[0x277D85DE8];
-  v11[0] = MEMORY[0x277CBEC28];
-  v10[0] = @"isConnecting";
-  v10[1] = @"connectingDeviceName";
+  v10[2] = *MEMORY[0x277D85DE8];
+  v10[0] = MEMORY[0x277CBEC28];
+  v9[0] = @"isConnecting";
+  v9[1] = @"connectingDeviceName";
   _deviceName = [(AXRemoteDevice *)self _deviceName];
-  v11[1] = _deviceName;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
+  v10[1] = _deviceName;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
 
   objc_initWeak(&location, self);
   deviceLinkClient = [(AXRemoteDevice *)self deviceLinkClient];
-  v7[0] = MEMORY[0x277D85DD0];
-  v7[1] = 3221225472;
-  v7[2] = __28__AXRemoteDevice_disconnect__block_invoke;
-  v7[3] = &unk_278665948;
-  objc_copyWeak(&v8, &location);
-  [deviceLinkClient sendRequestID:@"com.apple.AXRemoteServices.ConnectionSetup" request:v4 options:0 responseHandler:v7];
+  v6[0] = MEMORY[0x277D85DD0];
+  v6[1] = 3221225472;
+  v6[2] = __28__AXRemoteDevice_disconnect__block_invoke;
+  v6[3] = &unk_278665948;
+  objc_copyWeak(&v7, &location);
+  [deviceLinkClient sendRequestID:@"com.apple.AXRemoteServices.ConnectionSetup" request:v4 options:0 responseHandler:v6];
 
-  objc_destroyWeak(&v8);
+  objc_destroyWeak(&v7);
   objc_destroyWeak(&location);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __28__AXRemoteDevice_disconnect__block_invoke(uint64_t a1)
@@ -493,81 +484,79 @@ void __28__AXRemoteDevice_disconnect__block_invoke(uint64_t a1)
 
 - (void)sendPayload:(id)payload withEventID:(id)d withTimeout:(double)timeout completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   dCopy = d;
   completionCopy = completion;
-  v13 = ax_remote_connection_log();
+  v13 = ax_remote_connection_log(completionCopy);
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 138412802;
-    v24 = payloadCopy;
-    v25 = 2112;
-    v26 = dCopy;
-    v27 = 2048;
+    v23 = payloadCopy;
+    v24 = 2112;
+    v25 = dCopy;
+    v26 = 2048;
     timeoutCopy = timeout;
     _os_log_impl(&dword_22952F000, v13, OS_LOG_TYPE_INFO, "sending payload: %@, eventID: %@, timeout %.2fs", buf, 0x20u);
   }
 
   objc_initWeak(buf, self);
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __65__AXRemoteDevice_sendPayload_withEventID_withTimeout_completion___block_invoke;
-  v18[3] = &unk_2786659B8;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __65__AXRemoteDevice_sendPayload_withEventID_withTimeout_completion___block_invoke;
+  v17[3] = &unk_2786659B8;
   v14 = completionCopy;
-  v21 = v14;
-  v22[1] = *&timeout;
-  objc_copyWeak(v22, buf);
+  v20 = v14;
+  v21[1] = *&timeout;
+  objc_copyWeak(v21, buf);
   v15 = dCopy;
-  v19 = v15;
+  v18 = v15;
   v16 = payloadCopy;
-  v20 = v16;
-  [(AXRemoteDevice *)self connectIfNecessary:v18];
+  v19 = v16;
+  [(AXRemoteDevice *)self connectIfNecessary:v17];
 
-  objc_destroyWeak(v22);
+  objc_destroyWeak(v21);
   objc_destroyWeak(buf);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __65__AXRemoteDevice_sendPayload_withEventID_withTimeout_completion___block_invoke(uint64_t a1, char a2)
 {
-  v19[5] = *MEMORY[0x277D85DE8];
+  v18[5] = *MEMORY[0x277D85DE8];
   if (a2)
   {
     v3 = MEMORY[0x277CBEC38];
     v4 = *MEMORY[0x277D44290];
-    v18[0] = *MEMORY[0x277D44288];
-    v18[1] = v4;
-    v19[0] = MEMORY[0x277CBEC38];
-    v19[1] = MEMORY[0x277CBEC38];
-    v18[2] = *MEMORY[0x277D442F0];
+    v17[0] = *MEMORY[0x277D44288];
+    v17[1] = v4;
+    v18[0] = MEMORY[0x277CBEC38];
+    v18[1] = MEMORY[0x277CBEC38];
+    v17[2] = *MEMORY[0x277D442F0];
     v5 = [MEMORY[0x277CCABB0] numberWithDouble:*(a1 + 64)];
     v6 = *MEMORY[0x277D44268];
-    v19[2] = v5;
-    v19[3] = v3;
+    v18[2] = v5;
+    v18[3] = v3;
     v7 = *MEMORY[0x277D44270];
-    v18[3] = v6;
-    v18[4] = v7;
-    v19[4] = &unk_283CD5390;
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:5];
+    v17[3] = v6;
+    v17[4] = v7;
+    v18[4] = &unk_283CD5390;
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
 
     WeakRetained = objc_loadWeakRetained((a1 + 56));
     v10 = [WeakRetained deviceLinkClient];
     v11 = *(a1 + 32);
     v12 = *(a1 + 40);
     v13 = *MEMORY[0x277D44228];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = __65__AXRemoteDevice_sendPayload_withEventID_withTimeout_completion___block_invoke_20;
-    v16[3] = &unk_278665990;
-    v17 = *(a1 + 48);
-    [v10 sendEventID:v11 event:v12 destinationID:v13 options:v8 completion:v16];
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = __65__AXRemoteDevice_sendPayload_withEventID_withTimeout_completion___block_invoke_20;
+    v15[3] = &unk_278665990;
+    v16 = *(a1 + 48);
+    [v10 sendEventID:v11 event:v12 destinationID:v13 options:v8 completion:v15];
   }
 
   else
   {
-    v14 = ax_remote_connection_log();
+    v14 = ax_remote_connection_log(a1);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       __65__AXRemoteDevice_sendPayload_withEventID_withTimeout_completion___block_invoke_cold_1(v14);
@@ -575,24 +564,21 @@ void __65__AXRemoteDevice_sendPayload_withEventID_withTimeout_completion___block
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __65__AXRemoteDevice_sendPayload_withEventID_withTimeout_completion___block_invoke_20(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  v4 = ax_remote_connection_log();
+  v4 = ax_remote_connection_log(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_22952F000, v4, OS_LOG_TYPE_INFO, "event sent with error: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_22952F000, v4, OS_LOG_TYPE_INFO, "event sent with error: %@", &v5, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))(*(a1 + 32), v3 == 0);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (AXRemoteDeviceConnectionDelegate)connectionDelegate

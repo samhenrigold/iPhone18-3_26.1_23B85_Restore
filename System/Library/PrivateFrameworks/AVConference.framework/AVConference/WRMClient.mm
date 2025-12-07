@@ -2001,7 +2001,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_CallID: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_CallID: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.3()
@@ -2011,7 +2011,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_Timestamp: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_Timestamp: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.4()
@@ -2021,7 +2021,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TotalPlaybacks: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TotalPlaybacks: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.5()
@@ -2031,7 +2031,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_PlaybacksInSpeech: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_PlaybacksInSpeech: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.6()
@@ -2041,7 +2041,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TotalErasures: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TotalErasures: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.7()
@@ -2051,7 +2051,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_ErasuresInSpeech: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_ErasuresInSpeech: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.8()
@@ -2061,7 +2061,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_ErasuresInSilence: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_ErasuresInSilence: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.9()
@@ -2071,7 +2071,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_ErasuresInVideo: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_ErasuresInVideo: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.10()
@@ -2081,7 +2081,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TotalPacketsReceived: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TotalPacketsReceived: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.11()
@@ -2091,7 +2091,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_PrimaryVideoPacketReceivedCount: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_PrimaryVideoPacketReceivedCount: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.12()
@@ -2101,7 +2101,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_PrimaryAudioPacketReceivedCount: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_PrimaryAudioPacketReceivedCount: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.13()
@@ -2111,7 +2111,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tWRMAVConferencePeriodicReport_TotalVideoPacketReceivedCount: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tWRMAVConferencePeriodicReport_TotalVideoPacketReceivedCount: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.14()
@@ -2121,7 +2121,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TotalAudioPacketReceivedCount: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TotalAudioPacketReceivedCount: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.15()
@@ -2131,7 +2131,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TotalVideoPacketExpectedReceivedCount: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TotalVideoPacketExpectedReceivedCount: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.16()
@@ -2141,7 +2141,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TotalAudioPacketExpectedReceivedCount: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TotalAudioPacketExpectedReceivedCount: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.17()
@@ -2151,7 +2151,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_SpeechPacketsReceived: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_SpeechPacketsReceived: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.18()
@@ -2161,7 +2161,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMMAVConferencePeriodicReport_SIDPacketsReceived: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMMAVConferencePeriodicReport_SIDPacketsReceived: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.19()
@@ -2171,7 +2171,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMMAVConferencPeriodicReport_RTT: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMMAVConferencPeriodicReport_RTT: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.20()
@@ -2181,7 +2181,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMMAVConferencePeriodicReport_CountSinceRTTupdated: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMMAVConferencePeriodicReport_CountSinceRTTupdated: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.21()
@@ -2191,7 +2191,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TxPacketsCount: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TxPacketsCount: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.22()
@@ -2201,7 +2201,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TxPacketLoss: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TxPacketLoss: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.23()
@@ -2211,7 +2211,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_CountSinceTxPacketLossReported: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_CountSinceTxPacketLossReported: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.24()
@@ -2221,7 +2221,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_RxJitter: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_RxJitter: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.25()
@@ -2231,7 +2231,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TxJitter: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TxJitter: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.26()
@@ -2241,7 +2241,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_CountSinceTxJitterUpdated: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_CountSinceTxJitterUpdated: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.27()
@@ -2251,7 +2251,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_NominalJitterBufferQueueSize: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_NominalJitterBufferQueueSize: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.28()
@@ -2261,7 +2261,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TargetJitterQueueSize: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TargetJitterQueueSize: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.29()
@@ -2271,7 +2271,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_CallType: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_CallType: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.30()
@@ -2281,7 +2281,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_BWEstimation: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_BWEstimation: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.31()
@@ -2291,7 +2291,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TargetBitRate: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_TargetBitRate: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.32()
@@ -2301,7 +2301,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_AdaptationPacketLoss: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_AdaptationPacketLoss: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.33()
@@ -2311,7 +2311,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_OneWayRelativeDelay: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_OneWayRelativeDelay: %llu", v3, v4, v5, v6);
 }
 
 - (void)dumpReport:.cold.34()
@@ -2321,7 +2321,7 @@ LABEL_10:
   OUTLINED_FUNCTION_2_5();
   OUTLINED_FUNCTION_6();
   OUTLINED_FUNCTION_34_5();
-  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_LinkType: %llu", v3, v4, v5, v6, v7);
+  OUTLINED_FUNCTION_8_2(&dword_1DB56E000, v1, v2, " [%s] %s:%d WRMClient:\tkWRMAVConferencePeriodicReport_LinkType: %llu", v3, v4, v5, v6);
 }
 
 - (void)reportImmediateMetric:value:.cold.1()

@@ -1,8 +1,10 @@
 @interface TIKeyboardInputManager_vi
 + (void)cleanupUnikey;
 + (void)setupUnikey;
+- (BOOL)canHandleCharacter:(unsigned __int16)character;
 - (BOOL)shouldDynamicallySwitchBetweenPrimaryAndSecondary;
 - (TIKeyboardInputManager_vi)initWithConfig:(id)config keyboardState:(id)state;
+- (id)addInput:(id)input flags:(unsigned int)flags point:(CGPoint)point firstDelete:(unint64_t *)delete;
 - (id)decomposeTelex:(id)telex;
 - (id)deleteFromInput:(unint64_t *)input;
 - (id)externalStringToInternal:(id)internal ignoreCompositionDisabled:(BOOL)disabled useReverseMap:(BOOL)map;
@@ -14,6 +16,8 @@
 - (void)createTransliterator;
 - (void)dealloc;
 - (void)initImplementation;
+- (void)setInput:(id)input withIndex:(unsigned int)index;
+- (void)setInputIndex:(unsigned int)index;
 - (void)updateChoseSecondaryOnBackspaceIntoWord;
 - (void)updateUnikeyWithVietnameseType:(int)type;
 @end
@@ -128,14 +132,14 @@
 
 - (void)createTransliterator
 {
-  v30[1] = *MEMORY[0x29EDCA608];
+  v29[1] = *MEMORY[0x29EDCA608];
   v2 = TIBundleForInputMode();
   v3 = [v2 pathForResource:@"vi_TelexTransliterator" ofType:@"txt"];
   if (v3)
   {
-    v30[0] = 0;
-    v4 = [MEMORY[0x29EDBA0F8] stringWithContentsOfFile:v3 encoding:4 error:v30];
-    v5 = v30[0];
+    v29[0] = 0;
+    v4 = [MEMORY[0x29EDBA0F8] stringWithContentsOfFile:v3 encoding:4 error:v29];
+    v5 = v29[0];
     v6 = v5;
     if (!v4)
     {
@@ -171,27 +175,27 @@
 
     else
     {
-      v29 = 0;
+      v28 = 0;
       MEMORY[0x2A1C7C4A8](v8);
-      [@"vi_TelexTransliterator" getCharacters:&v22 - ((v11 + 15) & 0x1FFFFFFF0) range:0];
+      [@"vi_TelexTransliterator" getCharacters:&v21 - ((v11 + 15) & 0x1FFFFFFF0) range:0];
       [v4 getCharacters:v7];
       v10 = utrans_openU();
-      v12 = v29;
-      if (v29 >= 1)
+      v12 = v28;
+      if (v28 >= 1)
       {
         v13 = 32;
-        if (v27 >= 1 && v26 <= 0)
+        if (v26 >= 1 && v25 <= 0)
         {
-          v13 = v7[v27];
+          v13 = v7[v26];
         }
 
-        v23 = v13;
-        v24 = v27;
+        v22 = v13;
+        v23 = v26;
         v14 = 8;
-        v25 = &v22;
+        v24 = &v21;
         do
         {
-          if (!*(&v26 + v14))
+          if (!*(&v25 + v14))
           {
             break;
           }
@@ -201,9 +205,9 @@
 
         while (v14 != 40);
         v15 = [MEMORY[0x29EDBA0F8] stringWithCharacters:? length:?];
-        v16 = &v29;
+        v16 = &v28;
         v17 = 40;
-        while (*(&v26 + v17))
+        while (*(&v25 + v17))
         {
           v17 += 2;
           if (v17 == 72)
@@ -212,11 +216,11 @@
           }
         }
 
-        v16 = (&v26 + v17);
+        v16 = (&v25 + v17);
 LABEL_26:
-        v18 = [MEMORY[0x29EDBA0F8] stringWithCharacters:v28 length:((v16 - v28) >> 1)];
+        v18 = [MEMORY[0x29EDBA0F8] stringWithCharacters:v27 length:((v16 - v27) >> 1)];
         v19 = u_errorName(v12);
-        NSLog(&cfstr_ParseErrorSFor.isa, v19, @"vi_TelexTransliterator", v26, v24, v15, v23, v18);
+        NSLog(&cfstr_ParseErrorSFor.isa, v19, @"vi_TelexTransliterator", v25, v23, v15, v22, v18);
       }
 
       if (!v7)
@@ -235,7 +239,6 @@ LABEL_29:
   v10 = 0;
 LABEL_30:
 
-  v20 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
@@ -247,25 +250,114 @@ LABEL_30:
     self->m_transliterator = [(TIKeyboardInputManager_vi *)self createTransliterator];
   }
 
-  v10 = [telexCopy length];
-  v5 = malloc_type_malloc(6 * v10, 0x1000040BDFB0063uLL);
+  v9 = [telexCopy length];
+  v5 = malloc_type_malloc(6 * v9, 0x1000040BDFB0063uLL);
   if (v5)
   {
     v6 = v5;
     [telexCopy getCharacters:v5 range:{0, objc_msgSend(telexCopy, "length")}];
-    m_transliterator = self->m_transliterator;
     utrans_transUChars();
-    v8 = [MEMORY[0x29EDBA0F8] stringWithCharacters:v6 length:v10];
+    v7 = [MEMORY[0x29EDBA0F8] stringWithCharacters:v6 length:v9];
     free(v6);
   }
 
   else
   {
     NSLog(&cfstr_CouldnTCreateU.isa);
-    v8 = 0;
+    v7 = 0;
   }
 
-  return v8;
+  return v7;
+}
+
+- (id)addInput:(id)input flags:(unsigned int)flags point:(CGPoint)point firstDelete:(unint64_t *)delete
+{
+  y = point.y;
+  x = point.x;
+  v9 = *&flags;
+  v25 = *MEMORY[0x29EDCA608];
+  inputCopy = input;
+  compositionDisabled = [(TIKeyboardInputManager_vi *)self compositionDisabled];
+  v13 = *MEMORY[0x29EDC7290];
+  v14 = *(&self->super.super.super.super.isa + v13);
+  v15 = v14[24];
+  TIInputManager::input_string(&v24, v14);
+  v17 = KB::ns_string(&v24, v16);
+  KB::String::~String(&v24);
+  if (compositionDisabled)
+  {
+    [(TIKeyboardInputManager_vi *)self setCompositionDisabled:1];
+    if (![(TIKeyboardInputManager_vi *)self compositionDisabled])
+    {
+      v18 = *(&self->super.super.super.super.isa + *MEMORY[0x29EDC7288]) != 0;
+      goto LABEL_6;
+    }
+  }
+
+  else
+  {
+    -[TIKeyboardInputManager_vi setCompositionDisabled:](self, "setCompositionDisabled:", [v17 length] > v15);
+  }
+
+  v18 = 0;
+LABEL_6:
+  self->m_useInternalIndex = v18;
+  if ((v9 & 0x80) != 0)
+  {
+    v19 = inputCopy;
+    v20 = *(&self->super.super.super.super.isa + v13);
+    KB::utf8_string(&v24, v19, v21);
+    TIInputManager::add_input(v20, &v24);
+    KB::String::~String(&v24);
+    [*(&self->super.super.super.super.isa + *MEMORY[0x29EDC7288]) setString:v19];
+  }
+
+  else
+  {
+    v23.receiver = self;
+    v23.super_class = TIKeyboardInputManager_vi;
+    v19 = [(TIKeyboardInputManager_vi *)&v23 addInput:inputCopy flags:v9 point:delete firstDelete:x, y];
+  }
+
+  self->m_useInternalIndex = 0;
+  if ([inputCopy isEqualToString:@" "])
+  {
+    [(TIKeyboardInputManager_vi *)self setCompositionDisabled:0];
+  }
+
+  return v19;
+}
+
+- (BOOL)canHandleCharacter:(unsigned __int16)character
+{
+  characterCopy = character;
+  letterCharacterSet = [MEMORY[0x29EDB9F50] letterCharacterSet];
+  v6 = [letterCharacterSet characterIsMember:characterCopy];
+
+  if (v6)
+  {
+    return 1;
+  }
+
+  vietnameseType = [(TIKeyboardInputManager_vi *)self vietnameseType];
+  switch(vietnameseType)
+  {
+    case 3:
+      tI_vietnameseVIQRSpecialsCharacterSet = [MEMORY[0x29EDB9F50] TI_vietnameseVIQRSpecialsCharacterSet];
+      goto LABEL_9;
+    case 2:
+      tI_vietnameseVIQRSpecialsCharacterSet = [MEMORY[0x29EDB9F50] TI_vietnameseVNISpecialsCharacterSet];
+      goto LABEL_9;
+    case 1:
+      tI_vietnameseVIQRSpecialsCharacterSet = [MEMORY[0x29EDB9F50] TI_vietnameseTelexSpecialsCharacterSet];
+LABEL_9:
+      v10 = tI_vietnameseVIQRSpecialsCharacterSet;
+      v11 = [tI_vietnameseVIQRSpecialsCharacterSet characterIsMember:characterCopy];
+
+      return v11;
+  }
+
+  return 0;
 }
 
 - (id)externalStringToInternal:(id)internal ignoreCompositionDisabled:(BOOL)disabled useReverseMap:(BOOL)map
@@ -384,6 +476,33 @@ LABEL_30:
   [(TIKeyboardInputManager_vi *)&v2 acceptInput];
 }
 
+- (void)setInput:(id)input withIndex:(unsigned int)index
+{
+  v4 = *&index;
+  inputCopy = input;
+  if ([(TIKeyboardInputManager_vi *)self shouldDynamicallySwitchBetweenPrimaryAndSecondary])
+  {
+    v7 = [(TIKeyboardInputManager_vi *)self decomposeTelex:inputCopy];
+    -[TIKeyboardInputManager_vi setCompositionDisabled:](self, "setCompositionDisabled:", [inputCopy isEqualToString:v7]);
+  }
+
+  if (![(TIKeyboardInputManager_vi *)self compositionDisabled])
+  {
+    -[TIKeyboardInputManager_vi setCompositionDisabled:](self, "setCompositionDisabled:", [inputCopy length] > v4);
+  }
+
+  v8.receiver = self;
+  v8.super_class = TIKeyboardInputManager_vi;
+  [(TIKeyboardInputManager_mul *)&v8 setInput:inputCopy withIndex:v4];
+}
+
+- (void)setInputIndex:(unsigned int)index
+{
+  v3.receiver = self;
+  v3.super_class = TIKeyboardInputManager_vi;
+  [(TIKeyboardInputManager_vi *)&v3 setInputIndex:*&index];
+}
+
 - (unsigned)inputIndex
 {
   if (self->m_useInternalIndex)
@@ -404,14 +523,14 @@ LABEL_30:
 
 - (unint64_t)deleteLengthForString:(id)string
 {
-  v15[4] = *MEMORY[0x29EDCA608];
+  v14[4] = *MEMORY[0x29EDCA608];
   stringCopy = string;
   v5 = [stringCopy length];
   v6 = v5 != 0;
   v7 = *MEMORY[0x29EDC7290];
-  TIInputManager::input_string(v15, *(&self->super.super.super.super.isa + v7));
-  v9 = KB::ns_string(v15, v8);
-  KB::String::~String(v15);
+  TIInputManager::input_string(v14, *(&self->super.super.super.super.isa + v7));
+  v9 = KB::ns_string(v14, v8);
+  KB::String::~String(v14);
   v10 = (*(&self->super.super.super.super.isa + v7))[24];
   if (v10 >= v5 && [v9 length] >= v10)
   {
@@ -424,13 +543,12 @@ LABEL_30:
     }
   }
 
-  v13 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
 - (id)deleteFromInput:(unint64_t *)input
 {
-  v31[4] = *MEMORY[0x29EDCA608];
+  v30[4] = *MEMORY[0x29EDCA608];
   if (input)
   {
     *input = 1;
@@ -452,19 +570,19 @@ LABEL_30:
 
     if (v7 || (v8 = inputIndex, v9 = *MEMORY[0x29EDC7288], [*(&self->super.super.super.super.isa + v9) length] < inputIndex))
     {
-      v30.receiver = self;
-      v30.super_class = TIKeyboardInputManager_vi;
-      v10 = [(TIKeyboardInputManager_vi *)&v30 deleteFromInput:input];
+      v29.receiver = self;
+      v29.super_class = TIKeyboardInputManager_vi;
+      v10 = [(TIKeyboardInputManager_vi *)&v29 deleteFromInput:input];
     }
 
     else
     {
-      v29 = v8;
-      TIInputManager::input_string(v31, *(&self->super.super.super.super.isa + v5));
-      v12 = KB::ns_string(v31, v11);
+      v28 = v8;
+      TIInputManager::input_string(v30, *(&self->super.super.super.super.isa + v5));
+      v12 = KB::ns_string(v30, v11);
       v13 = [(TIKeyboardInputManager_mul *)self internalStringToExternal:v12];
 
-      KB::String::~String(v31);
+      KB::String::~String(v30);
       v14 = [v13 rangeOfComposedCharacterSequenceAtIndex:v8 - 1];
       v16 = [v13 substringWithRange:{v14, v15}];
       v17 = [(TIKeyboardInputManager_mul *)self externalStringToInternal:v16];
@@ -485,14 +603,14 @@ LABEL_30:
         while (v19 > v20++);
       }
 
-      TIInputManager::input_string(v31, *(&self->super.super.super.super.isa + v5));
-      v23 = KB::ns_string(v31, v22);
-      KB::String::~String(v31);
+      TIInputManager::input_string(v30, *(&self->super.super.super.super.isa + v5));
+      v23 = KB::ns_string(v30, v22);
+      KB::String::~String(v30);
       v24 = [(TIKeyboardInputManager_mul *)self internalStringToExternal:v23];
       v25 = [v23 substringToIndex:(*(&self->super.super.super.super.isa + v5))[24]];
       v26 = [(TIKeyboardInputManager_mul *)self internalStringToExternal:v25];
 
-      v10 = [(TIKeyboardInputManager_vi *)self suffixOfDesiredString:v26 toAppendToInputString:*(&self->super.super.super.super.isa + v9) withInputIndex:v29 afterDeletionCount:input];
+      v10 = [(TIKeyboardInputManager_vi *)self suffixOfDesiredString:v26 toAppendToInputString:*(&self->super.super.super.super.isa + v9) withInputIndex:v28 afterDeletionCount:input];
       [*(&self->super.super.super.super.isa + v9) setString:v24];
       if (![v10 length])
       {
@@ -507,8 +625,6 @@ LABEL_30:
     v10 = 0;
   }
 
-  v27 = *MEMORY[0x29EDCA608];
-
   return v10;
 }
 
@@ -516,21 +632,18 @@ LABEL_30:
 {
   if (type <= 3)
   {
-    v3 = dword_29EA84830[type];
     UnikeySetInputMethod();
   }
 }
 
 - (void)updateChoseSecondaryOnBackspaceIntoWord
 {
-  v7[4] = *MEMORY[0x29EDCA608];
-  TIInputManager::input_string(v7, *(&self->super.super.super.super.isa + *MEMORY[0x29EDC7290]));
-  v4 = KB::ns_string(v7, v3);
-  KB::String::~String(v7);
+  v6[4] = *MEMORY[0x29EDCA608];
+  TIInputManager::input_string(v6, *(&self->super.super.super.super.isa + *MEMORY[0x29EDC7290]));
+  v4 = KB::ns_string(v6, v3);
+  KB::String::~String(v6);
   v5 = [(TIKeyboardInputManager_vi *)self internalStringToExternal:v4 ignoreCompositionDisabled:1];
   -[TIKeyboardInputManager_mul setChoseSecondary:](self, "setChoseSecondary:", [v5 isEqualToString:*(&self->super.super.super.super.isa + *MEMORY[0x29EDC7288])] ^ 1);
-
-  v6 = *MEMORY[0x29EDCA608];
 }
 
 @end

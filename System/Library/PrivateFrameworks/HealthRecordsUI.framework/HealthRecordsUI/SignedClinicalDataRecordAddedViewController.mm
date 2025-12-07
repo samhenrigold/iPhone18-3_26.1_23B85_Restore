@@ -10,7 +10,7 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_1D126C3A8();
+  sub_1D126C3A8(v2);
 }
 
 - (void)doneButtonTapped

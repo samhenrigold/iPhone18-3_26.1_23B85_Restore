@@ -63,13 +63,13 @@
   os_unfair_lock_unlock(&_connectionsLock);
   if (v2)
   {
-    v3 = v2;
+    v4 = v2;
   }
 
   else
   {
-    v4 = FBLogProcessWorkspace();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = FBLogProcessWorkspace(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       +[(FBWorkspaceConnection *)v1];
     }
@@ -144,9 +144,9 @@
 
     [_connectionsLock_connectionByConnection removeObjectForKey:selfCopy[2]];
     os_unfair_lock_unlock(&_connectionsLock);
-    [selfCopy[2] invalidate];
+    [(os_unfair_lock *)selfCopy[2] invalidate];
     *(selfCopy + 32) = 0;
-    if ([v2 count])
+    if ([(os_unfair_lock *)v2 count])
     {
       v7 = v2;
     }
@@ -310,7 +310,7 @@ void __106__FBWorkspaceConnection__workspaceLock_setConnection_withInterface_act
 
 - (void)_flushConnectBlocksWithProxy:(uint64_t)proxy
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (proxy)
   {
@@ -320,39 +320,37 @@ void __106__FBWorkspaceConnection__workspaceLock_setConnection_withInterface_act
     *(proxy + 24) = 0;
 
     [(FBWorkspace *)*(proxy + 8) _unlock];
-    v14 = 0u;
-    v15 = 0u;
-    v12 = 0u;
     v13 = 0u;
+    v14 = 0u;
+    v11 = 0u;
+    v12 = 0u;
     v6 = v4;
-    v7 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v13;
+      v9 = *v12;
       do
       {
         v10 = 0;
         do
         {
-          if (*v13 != v9)
+          if (*v12 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          (*(*(*(&v12 + 1) + 8 * v10) + 16))(*(*(&v12 + 1) + 8 * v10));
+          (*(*(*(&v11 + 1) + 8 * v10) + 16))(*(*(&v11 + 1) + 8 * v10));
           ++v10;
         }
 
         while (v8 != v10);
-        v8 = [v6 countByEnumeratingWithState:&v12 objects:v16 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v11 objects:v15 count:16];
       }
 
       while (v8);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)remoteProcess
@@ -386,8 +384,7 @@ void __106__FBWorkspaceConnection__workspaceLock_setConnection_withInterface_act
 
 - (void)_workspaceLock_setConnection:(uint64_t)a1 withInterface:(char *)a2 activationHandler:invalidationHandler:.cold.1(uint64_t a1, char *a2)
 {
-  v12 = _connectionsLock_connectionByConnection;
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"should not be possible to have an existing mapping for connection=%p : existing=%@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"should not be possible to have an existing mapping for connection=%p : existing=%@", a1, _connectionsLock_connectionByConnection];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -395,7 +392,7 @@ void __106__FBWorkspaceConnection__workspaceLock_setConnection_withInterface_act
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -405,7 +402,7 @@ void __106__FBWorkspaceConnection__workspaceLock_setConnection_withInterface_act
 
 - (void)_workspaceLock_setConnection:(uint64_t)a1 withInterface:(char *)a2 activationHandler:invalidationHandler:.cold.2(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot set connection if we've already been invalidated : conn=%@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"cannot set connection if we've already been invalidated : conn=%@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -413,7 +410,7 @@ void __106__FBWorkspaceConnection__workspaceLock_setConnection_withInterface_act
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -461,7 +458,7 @@ void __106__FBWorkspaceConnection__workspaceLock_setConnection_withInterface_act
 
 - (void)_workspaceScene:(char *)a1 enqueueConnectBlock:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"block != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -469,7 +466,7 @@ void __106__FBWorkspaceConnection__workspaceLock_setConnection_withInterface_act
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"block != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -486,8 +483,10 @@ void __106__FBWorkspaceConnection__workspaceLock_setConnection_withInterface_act
     objc_claimAutoreleasedReturnValue();
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
+    LODWORD(v10) = 138544642;
+    *(&v10 + 4) = self;
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, 2u);
+    OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
   }
 
   [v2 UTF8String];
@@ -521,7 +520,7 @@ void __106__FBWorkspaceConnection__workspaceLock_setConnection_withInterface_act
 
 - (void)workspaceLock_enqueueConnectBlock:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"block != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -529,7 +528,7 @@ void __106__FBWorkspaceConnection__workspaceLock_setConnection_withInterface_act
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"block != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -539,14 +538,13 @@ void __106__FBWorkspaceConnection__workspaceLock_setConnection_withInterface_act
 
 - (void)workspaceLock_invalidate
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v1 = NSStringFromSelector(self);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(self);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  LODWORD(v10) = 138544642;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_4(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 @end

@@ -75,8 +75,8 @@ void __49__CNContactNavBarAvatarView_setShowing_animated___block_invoke(uint64_t
   }
 
   avatarView = [(CNContactNavBarAvatarView *)self avatarView];
-  contacts = [avatarView contacts];
-  v9 = [contacts _cn_isIdenticalToArray:v6];
+  v8 = objc_msgSend_contacts(avatarView);
+  v9 = [v8 _cn_isIdenticalToArray:v6];
 
   avatarView2 = [(CNContactNavBarAvatarView *)self avatarView];
   v11 = avatarView2;

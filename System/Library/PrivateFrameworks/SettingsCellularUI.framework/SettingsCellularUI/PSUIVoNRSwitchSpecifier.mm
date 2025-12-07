@@ -7,6 +7,7 @@
 - (id)groupFooterText;
 - (void)reloadSelfInListController;
 - (void)setUpPhoneCallWillEndWarningSpecifier;
+- (void)setVoNREnabled:(BOOL)enabled;
 - (void)setVoNREnabled:(id)enabled specifier:(id)specifier;
 - (void)showPhoneCallWillEndWarning;
 @end
@@ -75,7 +76,7 @@
 
 - (id)getVoNREnabled
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = [(PSUICoreTelephonyCapabilitiesCache *)self->_capabilitiesCache capabilityEnabledVoNR:self->_subscriptionContext];
   getLogger = [(PSUIVoNRSwitchSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
@@ -86,20 +87,19 @@
       v5 = "ON";
     }
 
-    v9 = 136315138;
-    v10 = v5;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "VoNR state is : %s", &v9, 0xCu);
+    v8 = 136315138;
+    v9 = v5;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "VoNR state is : %s", &v8, 0xCu);
   }
 
   v6 = [MEMORY[0x277CCABB0] numberWithBool:v3];
-  v7 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
 
 - (void)setVoNREnabled:(id)enabled specifier:(id)specifier
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   bOOLValue = [enabled BOOLValue];
   getLogger = [(PSUIVoNRSwitchSpecifier *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
@@ -110,17 +110,15 @@
       v7 = @"enable";
     }
 
-    v9 = 138412290;
-    v10 = v7;
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "attempting to %@ VoNR", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v7;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "attempting to %@ VoNR", &v8, 0xCu);
   }
 
   if ((bOOLValue & 1) != 0 || ![(PSUIVoNRSwitchSpecifier *)self showDisableVoNRWarningsIfNeeded])
   {
     [(PSUIVoNRSwitchSpecifier *)self setVoNREnabled:bOOLValue];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)showDisableVoNRWarningsIfNeeded
@@ -191,6 +189,28 @@
     [(PSConfirmationSpecifier *)self->_phoneCallWillEndWarning setConfirmationAction:sel_setVoNROff];
     [(PSConfirmationSpecifier *)self->_phoneCallWillEndWarning setConfirmationCancelAction:sel_reloadSelfInListController];
   }
+}
+
+- (void)setVoNREnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v9 = *MEMORY[0x277D85DE8];
+  getLogger = [(PSUIVoNRSwitchSpecifier *)self getLogger];
+  if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
+  {
+    v6 = "OFF";
+    if (enabledCopy)
+    {
+      v6 = "ON";
+    }
+
+    v7 = 136315138;
+    v8 = v6;
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "Setting VoNR state : %s", &v7, 0xCu);
+  }
+
+  [(PSUICoreTelephonyCapabilitiesCache *)self->_capabilitiesCache setCapabilityVoNR:self->_subscriptionContext enabled:enabledCopy];
+  [(PSUIVoNRSwitchSpecifier *)self reloadSelfInListController];
 }
 
 - (void)reloadSelfInListController

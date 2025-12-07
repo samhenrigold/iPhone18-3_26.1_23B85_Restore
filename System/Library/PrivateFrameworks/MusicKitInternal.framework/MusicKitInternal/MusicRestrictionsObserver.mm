@@ -13,7 +13,7 @@
 
   notificationCopy = notification;
   selfCopy = self;
-  sub_1D528D648();
+  sub_1D528D648(notification);
 }
 
 @end

@@ -28,6 +28,7 @@
 - (void)beginObservingVolume;
 - (void)endObservingHapticState;
 - (void)endObservingHaptics;
+- (void)mediaControlsVolumeController:(id)controller didUpdateSplitRoute:(BOOL)route;
 - (void)playDefaultHapticPreview;
 - (void)playPreview;
 - (void)playProminentHapticPreview;
@@ -35,7 +36,10 @@
 - (void)setCurrentListeningMode:(id)mode;
 - (void)setHapticIntensity:(float)intensity;
 - (void)setHapticState:(int64_t)state;
+- (void)setMuted:(BOOL)muted;
+- (void)setProminentHapticEnabled:(BOOL)enabled;
 - (void)setVolumeValue:(float)value;
+- (void)setVolumeValue:(float)value muted:(BOOL)muted overrideEULimit:(BOOL)limit;
 - (void)updateCachedHapticState;
 - (void)volumeController:(id)controller EUVolumeLimitDidChange:(float)change;
 - (void)volumeController:(id)controller mutedStateDidChange:(BOOL)change;
@@ -431,7 +435,7 @@ void __48__NACVolumeControllerLocal_beginObservingVolume__block_invoke_2(uint64_
   dispatch_async(MEMORY[0x277D85CD0], block);
 }
 
-uint64_t __44__NACVolumeControllerLocal__setVolumeValue___block_invoke(uint64_t a1)
+void *__44__NACVolumeControllerLocal__setVolumeValue___block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) isEqualToString:@"Ringtone"];
   if (result)
@@ -442,6 +446,21 @@ uint64_t __44__NACVolumeControllerLocal__setVolumeValue___block_invoke(uint64_t 
   }
 
   return result;
+}
+
+- (void)setMuted:(BOOL)muted
+{
+  mutedCopy = muted;
+  _volumeController = [(NACVolumeControllerLocal *)self _volumeController];
+  [_volumeController setMuted:mutedCopy];
+}
+
+- (void)setVolumeValue:(float)value muted:(BOOL)muted overrideEULimit:(BOOL)limit
+{
+  mutedCopy = muted;
+  [(NACVolumeControllerLocal *)self setVolumeValue:muted, limit];
+
+  [(NACVolumeControllerLocal *)self setMuted:mutedCopy];
 }
 
 - (void)allowUserToExceedEUVolumeLimit
@@ -661,6 +680,39 @@ void __70__NACVolumeControllerLocal_routingControllerAvailableRoutesDidChange___
   }
 }
 
+- (void)mediaControlsVolumeController:(id)controller didUpdateSplitRoute:(BOOL)route
+{
+  v5 = [(NACVolumeControllerLocal *)self availableListeningModes:controller];
+  obj = v5;
+  if (v5 != self->_lastNotifiedAvailableListeningModes && ([(NSOrderedSet *)v5 isEqual:?]& 1) == 0)
+  {
+    objc_storeStrong(&self->_lastNotifiedAvailableListeningModes, obj);
+    WeakRetained = objc_loadWeakRetained(&self->_delegate);
+    v7 = objc_opt_respondsToSelector();
+
+    if (v7)
+    {
+      v8 = objc_loadWeakRetained(&self->_delegate);
+      [v8 volumeControllerDidUpdateAvailableListeningModes:self];
+    }
+  }
+
+  currentListeningMode = [(NACVolumeControllerLocal *)self currentListeningMode];
+  v10 = currentListeningMode;
+  if (currentListeningMode != self->_lastNotifiedCurrentListeningMode && ([(NSString *)currentListeningMode isEqual:?]& 1) == 0)
+  {
+    objc_storeStrong(&self->_lastNotifiedCurrentListeningMode, v10);
+    v11 = objc_loadWeakRetained(&self->_delegate);
+    v12 = objc_opt_respondsToSelector();
+
+    if (v12)
+    {
+      v13 = objc_loadWeakRetained(&self->_delegate);
+      [v13 volumeControllerDidUpdateCurrentListeningMode:self];
+    }
+  }
+}
+
 - (void)setHapticState:(int64_t)state
 {
   v5 = NACProminentEnabledFromState(state);
@@ -741,11 +793,10 @@ void __51__NACVolumeControllerLocal_updateCachedHapticState__block_invoke_2(uint
 
 - (void)beginObservingHapticState
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_25AEBF000, a2, OS_LOG_TYPE_ERROR, "Failed to set AVSC notifications attribute: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_25AEBF000, a2, OS_LOG_TYPE_ERROR, "Failed to set AVSC notifications attribute: %@", &v2, 0xCu);
 }
 
 - (void)endObservingHapticState
@@ -765,23 +816,21 @@ void __51__NACVolumeControllerLocal_updateCachedHapticState__block_invoke_2(uint
 
 - (void)_setHapticIntensity:(id)intensity
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   [intensity floatValue];
   v5 = NACSystemHapticValueForUIValue(v4);
   v6 = NMLogForCategory(4);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 134217984;
-    v11 = v5;
-    _os_log_impl(&dword_25AEBF000, v6, OS_LOG_TYPE_DEFAULT, "Handling set haptic intensity. Setting haptic intensity: %f", &v10, 0xCu);
+    v9 = 134217984;
+    v10 = v5;
+    _os_log_impl(&dword_25AEBF000, v6, OS_LOG_TYPE_DEFAULT, "Handling set haptic intensity. Setting haptic intensity: %f", &v9, 0xCu);
   }
 
   mEMORY[0x277D26E58] = [MEMORY[0x277D26E58] sharedAVSystemController];
   *&v8 = v5;
   [mEMORY[0x277D26E58] setVibeIntensityTo:v8];
   [(NACVolumeControllerLocal *)self updateCachedHapticState];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (float)hapticIntensity
@@ -817,6 +866,17 @@ void __51__NACVolumeControllerLocal_updateCachedHapticState__block_invoke_2(uint
 {
   v2 = +[NACXPCClient sharedClient];
   [v2 playProminentHapticPreview];
+}
+
+- (void)setProminentHapticEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  if ([(NACVolumeControllerLocal *)self isProminentHapticEnabled]!= enabled)
+  {
+    [MEMORY[0x277D71F50] _setWatchPrefersSalientToneAndVibration:enabledCopy];
+
+    [(NACVolumeControllerLocal *)self updateCachedHapticState];
+  }
 }
 
 - (void)_updateMutedStateFromVolumeController:(id)controller

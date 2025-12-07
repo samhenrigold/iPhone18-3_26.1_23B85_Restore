@@ -1,125 +1,3 @@
-uint64_t FileDescriptor._writeAll<A>(toAbsoluteOffset:_:)(uint64_t a1, uint64_t a2, int a3, uint64_t a4, uint64_t a5)
-{
-  v9[4] = a3;
-  v10 = a1;
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss6ResultOySi6System5ErrnoVGMd, &_ss6ResultOySi6System5ErrnoVGMR);
-  Sequence._withRawBufferPointer<A>(_:)(partial apply for closure #1 in FileDescriptor._writeAll<A>(toAbsoluteOffset:_:), v9, a4, v7, a5, &v11);
-  return v11;
-}
-
-ssize_t closure #1 in FileDescriptor._writeAll<A>(toAbsoluteOffset:_:)@<X0>(int __fd@<W2>, ssize_t result@<X0>, uint64_t a3@<X1>, uint64_t a4@<X3>, uint64_t a5@<X8>)
-{
-  v7 = result;
-  v9 = 0;
-  v10 = a3 - result;
-  while (2)
-  {
-    if (v7)
-    {
-      v11 = v10 - v9;
-      if (v10 > v9)
-      {
-        v12 = a4 + v9;
-        if (!__OFADD__(a4, v9))
-        {
-          v13 = (v9 + v7);
-          goto LABEL_9;
-        }
-
-        __break(1u);
-        break;
-      }
-
-      v15 = 0;
-LABEL_16:
-      *a5 = v10;
-      *(a5 + 8) = v15;
-      return result;
-    }
-
-    if ((v9 & 0x8000000000000000) == 0)
-    {
-      v10 = 0;
-      v15 = 0;
-      goto LABEL_16;
-    }
-
-    v12 = a4 + v9;
-    if (!__OFADD__(a4, v9))
-    {
-      v13 = 0;
-      v11 = 0;
-LABEL_9:
-      while (1)
-      {
-        result = pwrite(__fd, v13, v11, v12);
-        if (result != -1)
-        {
-          break;
-        }
-
-        result = MEMORY[0x1E1278E40]();
-        if (result != 4)
-        {
-          goto LABEL_15;
-        }
-      }
-
-      v14 = __OFADD__(v9, result);
-      v9 += result;
-      if (!v14)
-      {
-        continue;
-      }
-
-      __break(1u);
-LABEL_15:
-      v10 = result;
-      v15 = 1;
-      goto LABEL_16;
-    }
-
-    break;
-  }
-
-  __break(1u);
-  return result;
-}
-
-unint64_t lazy protocol witness table accessor for type Errno and conformance Errno()
-{
-  result = lazy protocol witness table cache variable for type Errno and conformance Errno;
-  if (!lazy protocol witness table cache variable for type Errno and conformance Errno)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Errno and conformance Errno);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Errno and conformance Errno;
-  if (!lazy protocol witness table cache variable for type Errno and conformance Errno)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Errno and conformance Errno);
-  }
-
-  return result;
-}
-
-{
-  result = lazy protocol witness table cache variable for type Errno and conformance Errno;
-  if (!lazy protocol witness table cache variable for type Errno and conformance Errno)
-  {
-    result = swift_getWitnessTable();
-    atomic_store(result, &lazy protocol witness table cache variable for type Errno and conformance Errno);
-  }
-
-  return result;
-}
-
 unint64_t specialized Collection<>.firstIndex(of:)(uint64_t a1, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   v4 = HIBYTE(a4) & 0xF;
@@ -154,9 +32,9 @@ unint64_t specialized Collection<>.firstIndex(of:)(uint64_t a1, uint64_t a2, uin
   return v8;
 }
 
-Swift::Int FilePath.Component.init(platformString:)@<X0>(const char *a1@<X0>, uint64_t a2@<X8>)
+Swift::Int FilePath.Component.init(platformString:)@<X0>(uint64_t a1@<X8>, const char *a2@<X0>)
 {
-  v3 = specialized SystemString.init(platformString:)(a1);
+  v3 = specialized SystemString.init(platformString:)(a2);
   result = FilePath.Component.init(_:)(v3, &v8);
   v5 = v8;
   v6 = v9;
@@ -167,22 +45,14 @@ Swift::Int FilePath.Component.init(platformString:)@<X0>(const char *a1@<X0>, ui
     v5 = v7;
   }
 
-  *a2 = v5;
-  *(a2 + 16) = v6;
+  *a1 = v5;
+  *(a1 + 16) = v6;
   return result;
 }
 
-uint64_t FilePath.Component.withPlatformString<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+Swift::Int FilePath.Root.init(platformString:)@<X0>(_OWORD *a1@<X8>, const char *a2@<X0>)
 {
-  v9 = *v3;
-  v10 = *(v3 + 1);
-  v7 = lazy protocol witness table accessor for type FilePath.Component and conformance FilePath.Component();
-  return _StrSlice._withPlatformString<A>(_:)(a1, a2, &type metadata for FilePath.Component, a3, v7);
-}
-
-Swift::Int FilePath.Root.init(platformString:)@<X0>(const char *a1@<X0>, _OWORD *a2@<X8>)
-{
-  v3 = specialized SystemString.init(platformString:)(a1);
+  v3 = specialized SystemString.init(platformString:)(a2);
   result = FilePath.Root.init(_:)(v3, &v7);
   v5 = v7;
   if (!v7)
@@ -192,7 +62,7 @@ Swift::Int FilePath.Root.init(platformString:)@<X0>(const char *a1@<X0>, _OWORD 
     v5 = v6;
   }
 
-  *a2 = v5;
+  *a1 = v5;
   return result;
 }
 
@@ -206,14 +76,6 @@ double FilePath.Root.init(_:)@<D0>(uint64_t a1@<X0>, uint64_t a2@<X1>, _OWORD *a
   return result;
 }
 
-uint64_t FilePath.Root.withPlatformString<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v9 = *v3;
-  v10 = v3[1];
-  v7 = lazy protocol witness table accessor for type FilePath.Root and conformance FilePath.Root();
-  return _StrSlice._withPlatformString<A>(_:)(a1, a2, &type metadata for FilePath.Root, a3, v7);
-}
-
 void protocol witness for ExpressibleByStringLiteral.init(stringLiteral:) in conformance FilePath(uint64_t *a1@<X0>, size_t *a2@<X8>)
 {
   v3 = specialized String.withCString<A>(_:)(*a1, a1[1]);
@@ -222,7 +84,7 @@ void protocol witness for ExpressibleByStringLiteral.init(stringLiteral:) in con
   *a2 = v3;
 }
 
-uint64_t FilePath.Component.init(stringLiteral:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+uint64_t FilePath.Component.init(stringLiteral:)@<X0>(uint64_t a1@<X0>, uint64_t a2@<X1>, uint64_t **a3@<X8>)
 {
   v4 = specialized String.withCString<A>(_:)(a1, a2);
   FilePath.Component.init(_:)(v4, v9);
@@ -246,7 +108,7 @@ uint64_t FilePath.Component.init(stringLiteral:)@<X0>(uint64_t a1@<X0>, uint64_t
   return result;
 }
 
-uint64_t protocol witness for ExpressibleByStringLiteral.init(stringLiteral:) in conformance FilePath.Component@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X8>)
+uint64_t protocol witness for ExpressibleByStringLiteral.init(stringLiteral:) in conformance FilePath.Component@<X0>(uint64_t *a1@<X0>, uint64_t **a2@<X8>)
 {
   v3 = specialized String.withCString<A>(_:)(*a1, a1[1]);
   FilePath.Component.init(_:)(v3, v8);
@@ -316,33 +178,30 @@ uint64_t protocol witness for ExpressibleByStringLiteral.init(stringLiteral:) in
 
 Swift::String __swiftcall String.init(decoding:)(System::FilePath decoding)
 {
-  v1 = *decoding._storage.nullTerminatedStorage._rawValue;
-  v2 = String.init(cString:)();
-  v4 = v3;
+  v1 = String.init(cString:)();
+  v3 = v2;
 
-  v5 = v2;
-  v6 = v4;
-  result._object = v6;
-  result._countAndFlagsBits = v5;
+  v4 = v1;
+  v5 = v3;
+  result._object = v5;
+  result._countAndFlagsBits = v4;
   return result;
 }
 
 uint64_t FilePath.debugDescription.getter()
 {
-  v3 = *v0;
   FilePath.description.getter();
-  v1 = String.debugDescription.getter();
+  v0 = String.debugDescription.getter();
 
-  return v1;
+  return v0;
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance FilePath()
 {
-  v3 = *v0;
   FilePath.description.getter();
-  v1 = String.debugDescription.getter();
+  v0 = String.debugDescription.getter();
 
-  return v1;
+  return v0;
 }
 
 uint64_t FilePath.Component.description.getter()
@@ -359,22 +218,18 @@ uint64_t FilePath.Component.description.getter()
 
 uint64_t FilePath.Component.debugDescription.getter()
 {
-  v3 = *v0;
-  v4 = *(v0 + 1);
   FilePath.Component.description.getter();
-  v1 = String.debugDescription.getter();
+  v0 = String.debugDescription.getter();
 
-  return v1;
+  return v0;
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance FilePath.Component()
 {
-  v3 = *v0;
-  v4 = *(v0 + 1);
   FilePath.Component.description.getter();
-  v1 = String.debugDescription.getter();
+  v0 = String.debugDescription.getter();
 
-  return v1;
+  return v0;
 }
 
 void FilePath.Root.description.getter()
@@ -396,22 +251,18 @@ void FilePath.Root.description.getter()
 
 uint64_t FilePath.Root.debugDescription.getter()
 {
-  v3 = *v0;
-  v4 = v0[1];
   FilePath.Root.description.getter();
-  v1 = String.debugDescription.getter();
+  v0 = String.debugDescription.getter();
 
-  return v1;
+  return v0;
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance FilePath.Root()
 {
-  v3 = *v0;
-  v4 = v0[1];
   FilePath.Root.description.getter();
-  v1 = String.debugDescription.getter();
+  v0 = String.debugDescription.getter();
 
-  return v1;
+  return v0;
 }
 
 void FilePath.Root.string.getter()
@@ -450,7 +301,7 @@ uint64_t String.init(decoding:)(unint64_t *a1, uint64_t (*a2)(unint64_t))
   v5 = a1[2];
 
   v6 = _s6System0A6StringVyACxcSlRzAA0A4CharV7ElementRtzlufCs5SliceVyACG_Tt0g5(v4, v5, v3);
-  v7 = a2(v6 + 32);
+  v7 = a2((v6 + 32));
 
   return v7;
 }
@@ -468,7 +319,7 @@ unint64_t *String.init(decoding:)(unint64_t *result, uint64_t (*a2)(unint64_t))
     v4 = *result;
 
     v5 = _s6System0A6StringVyACxcSlRzAA0A4CharV7ElementRtzlufCs5SliceVyACG_Tt0g5(0, v2, v4);
-    v6 = a2(v5 + 32);
+    v6 = a2((v5 + 32));
 
     return v6;
   }
@@ -476,11 +327,11 @@ unint64_t *String.init(decoding:)(unint64_t *result, uint64_t (*a2)(unint64_t))
   return result;
 }
 
-void FilePath.init(platformString:)(const char *a1@<X0>, size_t *a2@<X8>)
+void FilePath.init(platformString:)(uint64_t *a1@<X8>, const char *a2@<X0>)
 {
-  v3 = specialized SystemString.init(platformString:)(a1);
+  v3 = specialized SystemString.init(platformString:)(a2);
   SystemString._normalizeSeparators()();
-  *a2 = v3;
+  *a1 = v3;
 }
 
 System::FilePath __swiftcall FilePath.init(cString:)(Swift::OpaquePointer cString)
@@ -580,7 +431,7 @@ uint64_t specialized Collection.firstIndex(where:)(uint64_t result, uint64_t a2,
     while (v4)
     {
       v9 = *(v7 + v6);
-      result = v5(&v9);
+      result = v5(&v9, a2);
       if (v3 || (result & 1) != 0)
       {
         return v6;
@@ -607,16 +458,15 @@ LABEL_13:
   return result;
 }
 
-uint64_t SystemString.replaceSubrange<A>(_:with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t SystemString.replaceSubrange<A>(_:with:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v4 = *(*(a4 - 8) + 64);
   MEMORY[0x1EEE9AC00](a1);
   (*(v6 + 16))(&v10 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v7, v8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay6System0A4CharVGMd, &_sSay6System0A4CharVGMR);
   return Array.replaceSubrange<A>(_:with:)();
 }
 
-uint64_t Slice<>.withPlatformString<A>(_:)(uint64_t a1, uint64_t a2, unint64_t a3, unint64_t a4, unint64_t a5, uint64_t a6)
+uint64_t Slice<>.withPlatformString<A>(_:)(uint64_t a1, uint64_t a2, char *a3, char *a4, unint64_t a5, uint64_t a6)
 {
 
   v13[2] = a6;
@@ -626,7 +476,7 @@ uint64_t Slice<>.withPlatformString<A>(_:)(uint64_t a1, uint64_t a2, unint64_t a
   SystemString.withNullTerminatedSystemChars<A>(_:)(partial apply for closure #1 in SystemString.withPlatformString<A>(_:), v13, v14, a6);
 }
 
-uint64_t specialized RangeReplaceableCollection.init(repeating:count:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
+char *specialized RangeReplaceableCollection.init(repeating:count:)@<X0>(char *result@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X3>, void *a5@<X8>)
 {
   v5 = result;
   if (a4)
@@ -670,17 +520,17 @@ LABEL_6:
   return result;
 }
 
-uint64_t specialized RangeReplaceableCollection.removeFirst()@<X0>(uint64_t a1@<X8>)
+uint64_t *specialized RangeReplaceableCollection.removeFirst()@<X0>(uint64_t a1@<X8>)
 {
   result = *v1;
   v4 = v1[1];
-  if (v4 == *(*v1 + 16) - 1)
+  if (v4 == (*(*v1 + 16) - 1))
   {
     __break(1u);
     goto LABEL_7;
   }
 
-  result = specialized Collection.first.getter(v4, result, &v5);
+  result = specialized Collection.first.getter(&v5, v4, result);
   if (!v5)
   {
 LABEL_7:
@@ -877,7 +727,6 @@ uint64_t protocol witness for MutableCollection.subscript.setter in conformance 
     if (*(*v3 + 16) > v5)
     {
       v4 = *a1;
-      v6 = *v3;
       result = swift_isUniquelyReferenced_nonNull_native();
       if (result)
       {
@@ -943,7 +792,6 @@ uint64_t protocol witness for MutableCollection.subscript.modify in conformance 
 
   if (v6 > v5)
   {
-    v8 = *(a1 + 16);
     result = swift_isUniquelyReferenced_nonNull_native();
     if ((result & 1) == 0)
     {
@@ -961,9 +809,9 @@ LABEL_14:
     result = specialized _ArrayBuffer._consumeAndCreateNew()(v4);
     v4 = result;
 LABEL_5:
-    v10 = *(v4 + 16);
-    v7 = v5 > v10;
-    if (v5 < v10)
+    v9 = *(v4 + 16);
+    v7 = v5 > v9;
+    if (v5 < v9)
     {
       goto LABEL_12;
     }
@@ -984,9 +832,9 @@ LABEL_7:
   if (v5 < *(v4 + 16))
   {
 LABEL_12:
-    v11 = *a1;
+    v10 = *a1;
     *(v4 + v5 + 32) = v3;
-    *v11 = v4;
+    *v10 = v4;
     return result;
   }
 
@@ -994,12 +842,12 @@ LABEL_12:
   return result;
 }
 
-uint64_t protocol witness for MutableCollection.subscript.setter in conformance SystemString(uint64_t a1, uint64_t *a2)
+uint64_t protocol witness for MutableCollection.subscript.setter in conformance SystemString(unint64_t *a1, uint64_t *a2)
 {
-  specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(v2, *a2, a2[1], *a1, *(a1 + 8), *(a1 + 16));
+  specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(v2, *a2, a2[1], *a1, a1[1], a1[2]);
 }
 
-void (*protocol witness for MutableCollection.subscript.modify in conformance SystemString(void *a1, uint64_t *a2))(void *a1)
+uint64_t (*protocol witness for MutableCollection.subscript.modify in conformance SystemString(void *a1, uint64_t *a2))()
 {
   if (MEMORY[0x1E69E7D08])
   {
@@ -1081,7 +929,6 @@ void MutableCollection<>.subscript.modifyspecialized (unint64_t **a1, char a2)
   v8 = (*a1)[3];
   if (a2)
   {
-    v9 = (*a1)[2];
 
     specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(v6, v8, v5, v3, v4, v7);
   }
@@ -1091,17 +938,15 @@ void MutableCollection<>.subscript.modifyspecialized (unint64_t **a1, char a2)
     specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)((*a1)[5], v8, v5, v3, v4, v7);
   }
 
-  v10 = v2[2];
-
   free(v2);
 }
 
-uint64_t protocol witness for MutableCollection.partition(by:) in conformance SystemString@<X0>(uint64_t (*a1)(char *)@<X0>, uint64_t *a2@<X8>)
+uint64_t protocol witness for MutableCollection.partition(by:) in conformance SystemString@<X0>(uint64_t *a1@<X8>, uint64_t (*a2)(char *)@<X0>)
 {
-  result = specialized MutableCollection<>.partition(by:)(a1);
+  result = specialized MutableCollection<>.partition(by:)(a2);
   if (!v2)
   {
-    *a2 = result;
+    *a1 = result;
   }
 
   return result;
@@ -1206,7 +1051,7 @@ uint64_t *protocol witness for BidirectionalCollection.formIndex(before:) in con
   return result;
 }
 
-uint64_t (*protocol witness for Collection.subscript.read in conformance SystemString(uint64_t (*result)(), unint64_t *a2))()
+void (*protocol witness for Collection.subscript.read in conformance SystemString(void (*result)(), unint64_t *a2))()
 {
   v3 = *a2;
   if ((*a2 & 0x8000000000000000) != 0)
@@ -1348,12 +1193,12 @@ void *protocol witness for Sequence._copyToContiguousArray() in conformance Syst
   return v1;
 }
 
-uint64_t protocol witness for RangeReplaceableCollection.replaceSubrange<A>(_:with:) in conformance SystemString(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t protocol witness for RangeReplaceableCollection.replaceSubrange<A>(_:with:) in conformance SystemString(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  SystemString.replaceSubrange<A>(_:with:)(*a1, a1[1], a2, a3);
-  v5 = *(*(a3 - 8) + 8);
+  SystemString.replaceSubrange<A>(_:with:)(*a1, a1[1], a2, a3, a4);
+  v6 = *(*(a3 - 8) + 8);
 
-  return v5(a2, a3);
+  return v6(a2, a3);
 }
 
 char *protocol witness for RangeReplaceableCollection.reserveCapacity(_:) in conformance SystemString(char *result)
@@ -1390,10 +1235,10 @@ char *protocol witness for RangeReplaceableCollection.reserveCapacity(_:) in con
   return result;
 }
 
-uint64_t protocol witness for RangeReplaceableCollection.init(repeating:count:) in conformance SystemString@<X0>(char *a1@<X0>, uint64_t a2@<X1>, uint64_t *a3@<X8>)
+char *protocol witness for RangeReplaceableCollection.init(repeating:count:) in conformance SystemString@<X0>(char *a1@<X0>, char **a2@<X8>, uint64_t a3@<X1>)
 {
-  result = specialized RangeReplaceableCollection.init(repeating:count:)(*a1, a2);
-  *a3 = result;
+  result = specialized RangeReplaceableCollection.init(repeating:count:)(*a1, a3);
+  *a2 = result;
   return result;
 }
 
@@ -1469,7 +1314,7 @@ char *protocol witness for RangeReplaceableCollection.removeAll(keepingCapacity:
   return result;
 }
 
-char *protocol witness for RangeReplaceableCollection.removeAll(where:) in conformance SystemString(uint64_t a1, uint64_t a2)
+char *protocol witness for RangeReplaceableCollection.removeAll(where:) in conformance SystemString(uint64_t (*a1)(void), uint64_t a2)
 {
   result = specialized MutableCollection._halfStablePartition(isSuffixElement:)(a1, a2);
   if (!v3)
@@ -1493,18 +1338,16 @@ uint64_t SystemString.encode(to:)(void *a1, uint64_t a2)
 {
   v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy6System0D6StringV10CodingKeys33_4B88B1E6A2D930290BCBF95D50E4424CLLOGMd, &_ss22KeyedEncodingContainerVy6System0D6StringV10CodingKeys33_4B88B1E6A2D930290BCBF95D50E4424CLLOGMR);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x1EEE9AC00](v4);
-  v8 = v11 - v7;
-  v9 = a1[4];
+  v7 = v9 - v6;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type SystemString.CodingKeys and conformance SystemString.CodingKeys();
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v11[1] = a2;
+  v9[1] = a2;
   __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay6System0A4CharVGMd, &_sSay6System0A4CharVGMR);
-  lazy protocol witness table accessor for type [SystemChar] and conformance <A> [A](&lazy protocol witness table cache variable for type [SystemChar] and conformance <A> [A], lazy protocol witness table accessor for type SystemChar and conformance SystemChar);
+  lazy protocol witness table accessor for type [SystemChar] and conformance <A> [A](&lazy protocol witness table cache variable for type [SystemChar] and conformance <A> [A], lazy protocol witness table accessor for type SystemChar and conformance SystemChar, MEMORY[0x1E69E6300]);
   KeyedEncodingContainer.encode<A>(_:forKey:)();
-  return (*(v5 + 8))(v8, v4);
+  return (*(v5 + 8))(v7, v4);
 }
 
 Swift::Int SystemString.hashValue.getter(uint64_t a1)
@@ -1547,12 +1390,12 @@ void protocol witness for Hashable.hash(into:) in conformance SystemString()
   }
 }
 
-void *protocol witness for Decodable.init(from:) in conformance SystemString@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+void *protocol witness for Decodable.init(from:) in conformance SystemString@<X0>(uint64_t *a1@<X8>, void *a2@<X0>)
 {
-  result = specialized SystemString.init(from:)(a1);
+  result = specialized SystemString.init(from:)(a2);
   if (!v2)
   {
-    *a2 = result;
+    *a1 = result;
   }
 
   return result;
@@ -1568,11 +1411,10 @@ uint64_t protocol witness for ExpressibleByStringLiteral.init(stringLiteral:) in
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance SystemString()
 {
-  v1 = *(*v0 + 16) - 1;
   static String._fromUTF8Repairing(_:)();
-  v2 = String.debugDescription.getter();
+  v0 = String.debugDescription.getter();
 
-  return v2;
+  return v0;
 }
 
 unint64_t lazy protocol witness table accessor for type SystemString and conformance SystemString()
@@ -1709,7 +1551,21 @@ unint64_t lazy protocol witness table accessor for type Int and conformance Int(
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type Slice<SystemString> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type Range<Int> and conformance <> Range<A>(unint64_t *a1, uint64_t a2)
+{
+  result = *a1;
+  if (!result)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_sSnySiGMd, &_sSnySiGMR);
+    lazy protocol witness table accessor for type Int and conformance Int();
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type Slice<SystemString> and conformance <> Slice<A>(unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -1723,52 +1579,51 @@ uint64_t lazy protocol witness table accessor for type Slice<SystemString> and c
   return result;
 }
 
-uint64_t _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(uint64_t (*a1)(char *, uint64_t, char *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t _ss12_ArrayBufferV010withUnsafeB17Pointer_nonNativeyqd__qd__SRyxGqd_0_YKXEqd_0_YKs5ErrorRd_0_r0_lF(uint64_t (*a1)(unint64_t, uint64_t, char *), uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   v22 = a8;
   v11 = *(a6 - 8);
-  v12 = *(v11 + 64);
   MEMORY[0x1EEE9AC00](a1);
-  v14 = &v21 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  AssociatedObject = _ArrayBuffer.getOrAllocateAssociatedObjectBuffer()(v15);
+  v13 = &v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  AssociatedObject = _ArrayBuffer.getOrAllocateAssociatedObjectBuffer()(v14, v15);
   v17 = (*(*(a4 - 8) + 80) + 32) & ~*(*(a4 - 8) + 80);
-  v18 = *(AssociatedObject + 2);
+  v18 = AssociatedObject[2];
 
   v19 = v23;
-  result = a1(&AssociatedObject[v17], v18, v14);
+  result = a1(AssociatedObject + v17, v18, v13);
   if (v19)
   {
-    return (*(v11 + 32))(v22, v14, a6);
+    return (*(v11 + 32))(v22, v13, a6);
   }
 
   return result;
 }
 
-void *_ArrayBuffer.getOrAllocateAssociatedObjectBuffer()(uint64_t a1)
+void *_ArrayBuffer.getOrAllocateAssociatedObjectBuffer()(uint64_t a1, uint64_t a2)
 {
   if (a1 < 0)
   {
-    v1 = a1;
+    v2 = a1;
   }
 
   else
   {
-    v1 = (a1 & 0xFFFFFFFFFFFFFF8);
+    v2 = (a1 & 0xFFFFFFFFFFFFFF8);
   }
 
-  AssociatedObject = objc_getAssociatedObject(v1, MEMORY[0x1E69E7CC0]);
+  AssociatedObject = objc_getAssociatedObject(v2, MEMORY[0x1E69E7CC0]);
   if (AssociatedObject)
   {
-    v3 = AssociatedObject;
+    v4 = AssociatedObject;
   }
 
   else
   {
-    objc_sync_enter(v1);
-    v4 = objc_getAssociatedObject(v1, MEMORY[0x1E69E7CC0]);
-    if (v4)
+    objc_sync_enter(v2);
+    v5 = objc_getAssociatedObject(v2, MEMORY[0x1E69E7CC0]);
+    if (v5)
     {
-      v3 = v4;
+      v4 = v5;
       swift_retain_n();
     }
 
@@ -1776,15 +1631,15 @@ void *_ArrayBuffer.getOrAllocateAssociatedObjectBuffer()(uint64_t a1)
     {
       type metadata accessor for _ArrayBuffer();
       swift_getWitnessTable();
-      v3 = _copyCollectionToContiguousArray<A>(_:)();
+      v4 = _copyCollectionToContiguousArray<A>(_:)();
 
-      objc_setAssociatedObject(v1, MEMORY[0x1E69E7CC0], v3, 1);
+      objc_setAssociatedObject(v2, MEMORY[0x1E69E7CC0], v4, 1);
     }
 
-    objc_sync_exit(v1);
+    objc_sync_exit(v2);
   }
 
-  return v3;
+  return v4;
 }
 
 void *specialized _copyCollectionToContiguousArray<A>(_:)(uint64_t a1, uint64_t a2)
@@ -1861,7 +1716,6 @@ uint64_t specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(uint64_t *a1,
   v8 = a5;
   v9 = a4;
   v6 = a1;
-  v14 = *a1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if ((result & 1) == 0)
   {
@@ -1871,48 +1725,48 @@ uint64_t specialized _writeBackMutableSlice<A, B>(_:bounds:slice:)(uint64_t *a1,
   while (1)
   {
     *v6 = v12;
-    v16 = v9 == v8;
-    v17 = v10 == v11;
+    v15 = v9 == v8;
+    v16 = v10 == v11;
     if (v10 == v11 || v9 == v8)
     {
       break;
     }
 
-    v18 = v8 - 1;
-    v19 = v11 - 1;
-    v20 = v9;
-    while (v20 < v8)
+    v17 = v8 - 1;
+    v18 = v11 - 1;
+    v19 = v9;
+    while (v19 < v8)
     {
       if ((v9 & 0x8000000000000000) != 0)
       {
         goto LABEL_24;
       }
 
-      v21 = *(v7 + 16);
-      if (v21 <= v20)
+      v20 = *(v7 + 16);
+      if (v20 <= v19)
       {
         goto LABEL_25;
       }
 
-      v22 = *(v12 + 16);
-      if (v22 <= v10)
+      v21 = *(v12 + 16);
+      if (v21 <= v10)
       {
         goto LABEL_26;
       }
 
-      v23 = v22 - 1;
-      *(v12 + 32 + v10) = *(v7 + 32 + v20);
-      if (v20 >= v21 - 1 || v10 >= v23)
+      v22 = v21 - 1;
+      *(v12 + 32 + v10) = *(v7 + 32 + v19);
+      if (v19 >= v20 - 1 || v10 >= v22)
       {
         goto LABEL_27;
       }
 
-      v16 = v18 == v20;
-      v17 = v19 == v10;
-      if (v19 != v10)
+      v15 = v17 == v19;
+      v16 = v18 == v10;
+      if (v18 != v10)
       {
         ++v10;
-        if (v18 != v20++)
+        if (v17 != v19++)
         {
           continue;
         }
@@ -1943,13 +1797,13 @@ LABEL_31:
 
 LABEL_20:
   *v6 = v12;
-  if (!v17)
+  if (!v16)
   {
     __break(1u);
     goto LABEL_33;
   }
 
-  if (!v16)
+  if (!v15)
   {
 LABEL_33:
     __break(1u);
@@ -2162,7 +2016,7 @@ LABEL_19:
   return result;
 }
 
-uint64_t specialized MutableCollection._halfStablePartition(isSuffixElement:)(uint64_t a1, uint64_t a2)
+uint64_t specialized MutableCollection._halfStablePartition(isSuffixElement:)(uint64_t (*a1)(void), uint64_t a2)
 {
   v5 = a1;
   v6 = *v3;
@@ -2278,7 +2132,7 @@ LABEL_30:
   return result;
 }
 
-size_t specialized SystemString.init(platformString:)(const char *a1)
+void *specialized SystemString.init(platformString:)(const char *a1)
 {
   result = strlen(a1);
   v3 = result + 1;
@@ -2302,13 +2156,13 @@ size_t specialized SystemString.init(platformString:)(const char *a1)
   return result;
 }
 
-uint64_t specialized RangeReplaceableCollection.init(repeating:count:)(char a1, uint64_t a2)
+char *specialized RangeReplaceableCollection.init(repeating:count:)(char a1, uint64_t a2)
 {
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy6System0D4CharVGMd, &_ss23_ContiguousArrayStorageCy6System0D4CharVGMR);
   result = swift_allocObject();
   v5 = result;
-  *(result + 16) = xmmword_1DAD5C620;
-  *(result + 32) = 0;
+  *(result + 1) = xmmword_1DAD5C620;
+  result[32] = 0;
   if (!a2)
   {
     return v5;
@@ -2346,15 +2200,13 @@ uint64_t specialized RangeReplaceableCollection.init(repeating:count:)(char a1, 
   return result;
 }
 
-void *specialized SystemString.init(from:)(uint64_t *a1)
+void *specialized SystemString.init(from:)(void *a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy6System0D6StringV10CodingKeys33_4B88B1E6A2D930290BCBF95D50E4424CLLOGMd, &_ss22KeyedDecodingContainerVy6System0D6StringV10CodingKeys33_4B88B1E6A2D930290BCBF95D50E4424CLLOGMR);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = &v13 - v6;
-  v8 = a1[4];
-  v9 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
+  v6 = &v11 - v5;
+  v7 = __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type SystemString.CodingKeys and conformance SystemString.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
   if (v1)
@@ -2365,28 +2217,28 @@ void *specialized SystemString.init(from:)(uint64_t *a1)
   else
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay6System0A4CharVGMd, &_sSay6System0A4CharVGMR);
-    lazy protocol witness table accessor for type [SystemChar] and conformance <A> [A](&lazy protocol witness table cache variable for type [SystemChar] and conformance <A> [A], lazy protocol witness table accessor for type SystemChar and conformance SystemChar);
+    lazy protocol witness table accessor for type [SystemChar] and conformance <A> [A](&lazy protocol witness table cache variable for type [SystemChar] and conformance <A> [A], lazy protocol witness table accessor for type SystemChar and conformance SystemChar, MEMORY[0x1E69E6330]);
     KeyedDecodingContainer.decode<A>(_:forKey:)();
-    v9 = v14;
-    v11 = v14[2];
-    if (!v11 || *(v14 + v11 + 31))
+    v7 = v12;
+    v9 = v12[2];
+    if (!v9 || *(v12 + v9 + 31))
     {
       goto LABEL_13;
     }
 
-    v12 = 32;
-    while (*(v14 + v12))
+    v10 = 32;
+    while (*(v12 + v10))
     {
-      ++v12;
-      if (!--v11)
+      ++v10;
+      if (!--v9)
       {
         goto LABEL_13;
       }
     }
 
-    if (v11 == 1)
+    if (v9 == 1)
     {
-      (*(v4 + 8))(v7, v3);
+      (*(v4 + 8))(v6, v3);
       __swift_destroy_boxed_opaque_existential_1(a1);
     }
 
@@ -2395,15 +2247,15 @@ void *specialized SystemString.init(from:)(uint64_t *a1)
 LABEL_13:
       type metadata accessor for DecodingError();
       swift_allocError();
-      lazy protocol witness table accessor for type DefaultIndices<FilePath.ComponentView> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type KeyedDecodingContainer<SystemString.CodingKeys> and conformance KeyedDecodingContainer<A>, &_ss22KeyedDecodingContainerVy6System0D6StringV10CodingKeys33_4B88B1E6A2D930290BCBF95D50E4424CLLOGMd, &_ss22KeyedDecodingContainerVy6System0D6StringV10CodingKeys33_4B88B1E6A2D930290BCBF95D50E4424CLLOGMR);
+      lazy protocol witness table accessor for type DefaultIndices<FilePath.ComponentView> and conformance DefaultIndices<A>(&lazy protocol witness table cache variable for type KeyedDecodingContainer<SystemString.CodingKeys> and conformance KeyedDecodingContainer<A>, &_ss22KeyedDecodingContainerVy6System0D6StringV10CodingKeys33_4B88B1E6A2D930290BCBF95D50E4424CLLOGMd, &_ss22KeyedDecodingContainerVy6System0D6StringV10CodingKeys33_4B88B1E6A2D930290BCBF95D50E4424CLLOGMR, MEMORY[0x1E69E6F50]);
       static DecodingError.dataCorruptedError<A>(forKey:in:debugDescription:)();
       swift_willThrow();
-      (*(v4 + 8))(v7, v3);
+      (*(v4 + 8))(v6, v3);
       __swift_destroy_boxed_opaque_existential_1(a1);
     }
   }
 
-  return v9;
+  return v7;
 }
 
 unint64_t lazy protocol witness table accessor for type SystemString.CodingKeys and conformance SystemString.CodingKeys()
@@ -2451,7 +2303,7 @@ unint64_t lazy protocol witness table accessor for type SystemString.CodingKeys 
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type [SystemChar] and conformance <A> [A](unint64_t *a1, void (*a2)(void))
+uint64_t lazy protocol witness table accessor for type [SystemChar] and conformance <A> [A](unint64_t *a1, void (*a2)(void), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2477,14 +2329,12 @@ void *partial apply for closure #1 in SystemString.withContiguousMutableStorageI
 
   else
   {
-    v9[1] = v6;
-    v9[2] = v1;
-    v9[4] = v2;
-    v9[5] = v3;
+    v8[1] = v6;
+    v8[4] = v2;
+    v8[5] = v3;
     v7 = *(v1 + 24);
-    v8 = *(v1 + 32);
-    v9[0] = *result;
-    return v7(v9);
+    v8[0] = *result;
+    return v7(v8);
   }
 
   return result;
@@ -2494,17 +2344,12 @@ uint64_t partial apply for closure #1 in SystemString.withContiguousStorageIfAva
 {
   v3 = __OFSUB__(a2, 1);
   v4 = a2 - 1;
-  if (v3)
+  if (!v3)
   {
-    __break(1u);
-  }
-
-  else
-  {
-    v5 = *(v2 + 32);
     return (*(v2 + 24))(result, v4);
   }
 
+  __break(1u);
   return result;
 }
 
@@ -2615,14 +2460,12 @@ Swift::Int FilePath.hashValue.getter()
   return Hasher._finalize()();
 }
 
-uint64_t FilePath.init(from:)@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
+uint64_t FilePath.init(from:)@<X0>(void *a1@<X0>, void *a2@<X8>)
 {
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedDecodingContainerVy6System8FilePathV10CodingKeys33_4EB63D2F9D23E0F36D260D15D3B661ABLLOGMd, &_ss22KeyedDecodingContainerVy6System8FilePathV10CodingKeys33_4EB63D2F9D23E0F36D260D15D3B661ABLLOGMR);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = v14 - v8;
-  v10 = a1[4];
+  v8 = v12 - v7;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type FilePath.CodingKeys and conformance FilePath.CodingKeys();
   dispatch thunk of Decoder.container<A>(keyedBy:)();
@@ -2633,14 +2476,14 @@ uint64_t FilePath.init(from:)@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
 
   lazy protocol witness table accessor for type SystemString and conformance SystemString();
   KeyedDecodingContainer.decode<A>(_:forKey:)();
-  v11 = v14[1];
+  v9 = v12[1];
 
-  v12 = FilePath._invariantsSatisfied()();
+  v10 = FilePath._invariantsSatisfied()();
 
-  if (v12)
+  if (v10)
   {
-    (*(v6 + 8))(v9, v5);
-    *a2 = v11;
+    (*(v6 + 8))(v8, v5);
+    *a2 = v9;
     return __swift_destroy_boxed_opaque_existential_1(a1);
   }
 
@@ -2649,7 +2492,7 @@ uint64_t FilePath.init(from:)@<X0>(uint64_t *a1@<X0>, void *a2@<X8>)
   lazy protocol witness table accessor for type KeyedDecodingContainer<FilePath.CodingKeys> and conformance KeyedDecodingContainer<A>();
   static DecodingError.dataCorruptedError<A>(forKey:in:debugDescription:)();
   swift_willThrow();
-  (*(v6 + 8))(v9, v5);
+  (*(v6 + 8))(v8, v5);
   __swift_destroy_boxed_opaque_existential_1(a1);
 }
 
@@ -2657,20 +2500,18 @@ uint64_t FilePath.encode(to:)(void *a1)
 {
   v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss22KeyedEncodingContainerVy6System8FilePathV10CodingKeys33_4EB63D2F9D23E0F36D260D15D3B661ABLLOGMd, &_ss22KeyedEncodingContainerVy6System8FilePathV10CodingKeys33_4EB63D2F9D23E0F36D260D15D3B661ABLLOGMR);
   v4 = *(v3 - 8);
-  v5 = *(v4 + 64);
   MEMORY[0x1EEE9AC00](v3);
-  v7 = v11 - v6;
-  v8 = *v1;
-  v9 = a1[4];
+  v6 = v9 - v5;
+  v7 = *v1;
   __swift_project_boxed_opaque_existential_1(a1, a1[3]);
   lazy protocol witness table accessor for type FilePath.CodingKeys and conformance FilePath.CodingKeys();
 
   dispatch thunk of Encoder.container<A>(keyedBy:)();
-  v11[1] = v8;
+  v9[1] = v7;
   lazy protocol witness table accessor for type SystemString and conformance SystemString();
   KeyedEncodingContainer.encode<A>(_:forKey:)();
 
-  return (*(v4 + 8))(v7, v3);
+  return (*(v4 + 8))(v6, v3);
 }
 
 unint64_t lazy protocol witness table accessor for type FilePath.CodingKeys and conformance FilePath.CodingKeys()
@@ -2817,14 +2658,15 @@ ssize_t FileDescriptor._write(_:retryOnInterrupt:)(void *__buf, uint64_t a2, cha
   return result;
 }
 
-void static FileDescriptor._open(_:_:options:permissions:retryOnInterrupt:)(uint64_t a1, uint64_t a2, __int16 a3, int a4, char a5)
+void static FileDescriptor._open(_:_:options:permissions:retryOnInterrupt:)(unint64_t result, unsigned int a2, __int16 a3, uint64_t a4, char a5)
 {
+  v6 = a4;
   while (1)
   {
-    if ((a4 & 0x10000) == 0)
+    if ((v6 & 0x10000) == 0)
     {
       v8 = open(_:_:_:)();
-      goto LABEL_5;
+      goto LABEL_6;
     }
 
     if ((a3 & 0x200) != 0)
@@ -2833,7 +2675,7 @@ void static FileDescriptor._open(_:_:options:permissions:retryOnInterrupt:)(uint
     }
 
     v8 = open(_:_:)();
-LABEL_5:
+LABEL_6:
     if (v8 == -1)
     {
       v9 = MEMORY[0x1E1278E40]();
@@ -2965,20 +2807,17 @@ unint64_t FileDescriptor._duplicate(as:retryOnInterrupt:)(uint64_t a1, char a2, 
 
 uint64_t static FileDescriptor._pipe()()
 {
-  v2[1] = *MEMORY[0x1E69E9840];
-  v2[0] = -1;
-  if (pipe(v2) == -1)
+  v1[1] = *MEMORY[0x1E69E9840];
+  v1[0] = -1;
+  if (pipe(v1) == -1)
   {
-    result = MEMORY[0x1E1278E40]();
+    return MEMORY[0x1E1278E40]();
   }
 
   else
   {
-    result = v2[0];
+    return v1[0];
   }
-
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 unint64_t FileDescriptor._resize(to:retryOnInterrupt:)(off_t a1, char a2, int a3)
@@ -3033,7 +2872,7 @@ BOOL FilePath._relativeStart.getter()
   return result;
 }
 
-uint64_t FilePath._parseComponent(priorTo:)(uint64_t result)
+unint64_t FilePath._parseComponent(priorTo:)(unint64_t result)
 {
   v2 = (result - 1);
   if (result < 1)
@@ -3073,7 +2912,7 @@ LABEL_7:
 LABEL_8:
     if (v5 > result)
     {
-      v12 = result;
+      v14 = result;
       if (v5 - 1 == result)
       {
       }
@@ -3081,14 +2920,14 @@ LABEL_8:
       else
       {
 
-        result = specialized Slice<>.remove(at:)(v2);
-        v3 = v12;
+        result = specialized Slice<>.remove(at:)(v2, v8, v9);
+        v3 = v14;
       }
 
       v7 = v3;
       while (v6 != v7 && v7)
       {
-        v8 = v7 - 1;
+        v10 = v7 - 1;
         if (__OFSUB__(v7, 1))
         {
           __break(1u);
@@ -3106,57 +2945,57 @@ LABEL_38:
           goto LABEL_39;
         }
 
-        if (v8 >= v7)
+        if (v10 >= v7)
         {
           goto LABEL_34;
         }
 
-        if (v8 < 0)
+        if (v10 < 0)
         {
           goto LABEL_34;
         }
 
-        v9 = *(v4 + 2);
-        if (v8 >= (v9 - 1))
+        v11 = *(v4 + 2);
+        if (v10 >= (v11 - 1))
         {
           goto LABEL_34;
         }
 
-        if (v8 >= v9)
+        if (v10 >= v11)
         {
           goto LABEL_35;
         }
 
-        if (v4[v8 + 32] == 47)
+        if (v4[v10 + 32] == 47)
         {
           break;
         }
 
-        if (!v9 || v7 >= v9)
+        if (!v11 || v7 >= v11)
         {
           goto LABEL_36;
         }
 
-        if (v9 == 1)
+        if (v11 == 1)
         {
           goto LABEL_37;
         }
 
         isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-        if (!isUniquelyReferenced_nonNull_native || v9 - 1 > *(v4 + 3) >> 1)
+        if (!isUniquelyReferenced_nonNull_native || v11 - 1 > *(v4 + 3) >> 1)
         {
-          v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v9, 1, v4);
+          v4 = specialized _ArrayBuffer._consumeAndCreateNew(bufferIsUnique:minimumCapacity:growForAppend:)(isUniquelyReferenced_nonNull_native, v11, 1, v4);
         }
 
-        result = memmove(&v4[v8 + 32], &v4[v7 + 32], *(v4 + 2) - v7);
-        v11 = *(v4 + 2) - 1;
-        *(v4 + 2) = v11;
-        if (!v11)
+        result = memmove(&v4[v10 + 32], &v4[v7 + 32], *(v4 + 2) - v7);
+        v13 = *(v4 + 2) - 1;
+        *(v4 + 2) = v13;
+        if (!v13)
         {
           goto LABEL_38;
         }
 
-        if (--v7 >= v11)
+        if (--v7 >= v13)
         {
           __break(1u);
           break;
@@ -3238,51 +3077,51 @@ LABEL_7:
   return v3;
 }
 
-char *specialized Slice<>.remove(at:)(char *a1)
+char *specialized Slice<>.remove(at:)(char *result, uint64_t a2, uint64_t a3)
 {
-  v2 = v1;
-  v4 = v1[2];
-  v3 = v1 + 2;
-  v5 = *v2;
-  v6 = *(v4 + 16);
-  if (*v2 >= v6)
+  v4 = v3;
+  v6 = v3[2];
+  v5 = v3 + 2;
+  v7 = *v4;
+  v8 = *(v6 + 16);
+  if (*v4 >= v8)
   {
     __break(1u);
     goto LABEL_8;
   }
 
-  v7 = v2[1];
-  if (v7 >= v6)
+  v9 = v4[1];
+  if (v9 >= v8)
   {
 LABEL_8:
     __break(1u);
     goto LABEL_9;
   }
 
-  result = specialized RangeReplaceableCollection.remove(at:)(a1);
-  v9 = *(*v3 + 16);
-  if (v9 <= v5)
+  v10 = specialized RangeReplaceableCollection.remove(at:)(result);
+  v11 = *(*v5 + 16);
+  if (v11 <= v7)
   {
 LABEL_9:
     __break(1u);
     goto LABEL_10;
   }
 
-  v10 = v7 + ~v5;
-  *v2 = v5;
-  v11 = __OFADD__(v5, v10);
-  v12 = v5 + v10;
-  if (v11)
+  v12 = v9 + ~v7;
+  *v4 = v7;
+  v13 = __OFADD__(v7, v12);
+  v14 = v7 + v12;
+  if (v13)
   {
 LABEL_10:
     __break(1u);
     goto LABEL_11;
   }
 
-  if (v12 < v9)
+  if (v14 < v11)
   {
-    v2[1] = v12;
-    return result;
+    v4[1] = v14;
+    return v10;
   }
 
 LABEL_11:

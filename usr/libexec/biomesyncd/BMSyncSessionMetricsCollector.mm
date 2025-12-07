@@ -2,6 +2,7 @@
 - (BMSyncSessionMetricsCollector)initWithDatabase:(id)database;
 - (id)sessionContext;
 - (void)recordAtomMergeResult:(unint64_t)result inStream:(id)stream ownerSite:(id)site originatingSite:(id)originatingSite eventCreatedAt:(double)at sessionContext:(id)context;
+- (void)recordMessageToDeviceIdentifier:(id)identifier reachable:(BOOL)reachable bytes:(unint64_t)bytes isReciprocal:(BOOL)reciprocal sessionContext:(id)context;
 - (void)recordSessionEnd:(id)end lastSyncDate:(id)date;
 @end
 
@@ -52,6 +53,32 @@
   }
 
   [(BMSyncDatabase *)self->_database recordSessionEnd:endCopy timeSincePreviousSync:v9];
+}
+
+- (void)recordMessageToDeviceIdentifier:(id)identifier reachable:(BOOL)reachable bytes:(unint64_t)bytes isReciprocal:(BOOL)reciprocal sessionContext:(id)context
+{
+  reciprocalCopy = reciprocal;
+  reachableCopy = reachable;
+  identifierCopy = identifier;
+  contextCopy = context;
+  v14 = contextCopy;
+  if (contextCopy)
+  {
+    [contextCopy setMessageID:{objc_msgSend(contextCopy, "messageID") + 1}];
+    messageID = [v14 messageID];
+    database = self->_database;
+    sessionID = [v14 sessionID];
+    [(BMSyncDatabase *)database recordMessageToDeviceIdentifier:identifierCopy sessionID:sessionID messageID:messageID reachable:reachableCopy bytes:bytes isReciprocal:reciprocalCopy];
+  }
+
+  else
+  {
+    v18 = __biome_log_for_category();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000477C4(v18);
+    }
+  }
 }
 
 - (void)recordAtomMergeResult:(unint64_t)result inStream:(id)stream ownerSite:(id)site originatingSite:(id)originatingSite eventCreatedAt:(double)at sessionContext:(id)context

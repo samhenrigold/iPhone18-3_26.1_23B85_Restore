@@ -1,99 +1,3 @@
-uint64_t OALSource::StartRenderer(OALSource *this)
-{
-  v20 = *MEMORY[0x277D85DE8];
-  v2 = *(this + 1);
-  v3 = pthread_self();
-  v4 = *(v2 + 480);
-  if (v3 != v4)
-  {
-    atomic_fetch_add(this + 16, 1u);
-    while (*(this + 17))
-    {
-      usleep(0x1F4u);
-    }
-  }
-
-  v11 = (*(*(this + 10) + 16))();
-  if (!*(this + 45))
-  {
-    v5 = 0;
-    goto LABEL_10;
-  }
-
-  v5 = 0;
-  v6 = *(this + 76);
-  v7 = v6 - 1;
-  if ((v6 - 56577) > 5)
-  {
-    if (v6 == 4114)
-    {
-      goto LABEL_10;
-    }
-
-    if (v6 == 4115)
-    {
-      v5 = OALSource::Resume(this);
-      if (!v5)
-      {
-        goto LABEL_10;
-      }
-    }
-
-    else
-    {
-      v5 = OALSource::SetupMixerBus(this, (this + 376));
-      if (!v5)
-      {
-        v5 = OALSource::AddRenderProc(this);
-        if (!v5)
-        {
-          *(this + 76) = 4114;
-          *(this + 60) = 0;
-          goto LABEL_10;
-        }
-      }
-    }
-
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
-    {
-      v10 = *this;
-      *buf = 136315906;
-      v13 = "oalSource.cpp";
-      v14 = 1024;
-      v15 = 1391;
-      v16 = 2048;
-      v17 = v10;
-      v18 = 2048;
-      v19 = v5;
-      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALSource::StartRenderer FAILED - OALSource = %ld : result = %ld", buf, 0x26u);
-    }
-  }
-
-  else if (((1 << v7) & 0x32) == 0)
-  {
-    if (((1 << v7) & 9) != 0)
-    {
-      operator new();
-    }
-
-    operator new();
-  }
-
-LABEL_10:
-  if (v11 == 1)
-  {
-    (*(*(this + 10) + 24))(this + 80);
-  }
-
-  if (v3 != v4)
-  {
-    atomic_fetch_add(this + 16, 0xFFFFFFFF);
-  }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return v5;
-}
-
 void sub_23A030634(_Unwind_Exception *exception_object, int a2)
 {
   if (a2)
@@ -106,7 +10,7 @@ void sub_23A030634(_Unwind_Exception *exception_object, int a2)
 
 uint64_t OALSource::Resume(OALSource *this)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v2 = *(this + 1);
   v3 = pthread_self();
   v4 = *(v2 + 480);
@@ -160,13 +64,13 @@ LABEL_14:
 
   v8 = *this;
   *buf = 136315906;
-  v13 = "oalSource.cpp";
-  v14 = 1024;
-  v15 = 1634;
-  v16 = 2048;
-  v17 = v8;
-  v18 = 2048;
-  v19 = v7;
+  v12 = "oalSource.cpp";
+  v13 = 1024;
+  v14 = 1634;
+  v15 = 2048;
+  v16 = v8;
+  v17 = 2048;
+  v18 = v7;
   _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALSource::Resume FAILED - OALSource = %ld : result = %ld", buf, 0x26u);
   if (v5)
   {
@@ -180,7 +84,6 @@ LABEL_16:
     atomic_fetch_add(this + 16, 0xFFFFFFFF);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -196,65 +99,56 @@ void sub_23A0308D0(_Unwind_Exception *exception_object, int a2)
 
 uint64_t OALSource::AddRenderProc(OALSource *this)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  if ((*(this + 236) & 1) == 0)
+  v15 = *MEMORY[0x277D85DE8];
+  if (*(this + 236))
   {
-    v4 = *(this + 58);
-    if (v4 == -1)
-    {
-      v1 = 0xFFFFFFFFLL;
-    }
-
-    else
-    {
-      *(this + 27) = OALSource::SourceInputProc;
-      *(this + 28) = this;
-      v5 = OALContext::SetBusRenderProc(*(this + 1), v4, (this + 216));
-      if (v5 || (v5 = AUGraphUpdate(*(*(*(this + 1) + 16) + 16), 0), v5))
-      {
-        v1 = v5;
-      }
-
-      else
-      {
-        v1 = OALContext::SetBusEnable(*(this + 1), *(this + 58), 1);
-        if (!v1)
-        {
-          *(this + 236) = 1;
-          v10 = *MEMORY[0x277D85DE8];
-          return v1;
-        }
-      }
-
-      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
-      {
-        v6 = *this;
-        v11 = 136315906;
-        v12 = "oalSource.cpp";
-        v13 = 1024;
-        v14 = 2594;
-        v15 = 2048;
-        v16 = v6;
-        v17 = 2048;
-        v18 = v1;
-        _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALSource::AddRenderProc FAILED - OALSource = %ld : result = %ld", &v11, 0x26u);
-        v7 = *MEMORY[0x277D85DE8];
-        return v1;
-      }
-    }
-
-    v8 = *MEMORY[0x277D85DE8];
-    return v1;
+    return 0;
   }
 
-  v1 = 0;
-  v2 = *MEMORY[0x277D85DE8];
+  v3 = *(this + 58);
+  if (v3 == -1)
+  {
+    return 0xFFFFFFFFLL;
+  }
+
+  *(this + 27) = OALSource::SourceInputProc;
+  *(this + 28) = this;
+  v4 = OALContext::SetBusRenderProc(*(this + 1), v3, (this + 216));
+  if (v4 || (v4 = AUGraphUpdate(*(*(*(this + 1) + 16) + 16), 0), v4))
+  {
+    v1 = v4;
+  }
+
+  else
+  {
+    v1 = OALContext::SetBusEnable(*(this + 1), *(this + 58), 1);
+    if (!v1)
+    {
+      *(this + 236) = 1;
+      return v1;
+    }
+  }
+
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+  {
+    v5 = *this;
+    v7 = 136315906;
+    v8 = "oalSource.cpp";
+    v9 = 1024;
+    v10 = 2594;
+    v11 = 2048;
+    v12 = v5;
+    v13 = 2048;
+    v14 = v1;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALSource::AddRenderProc FAILED - OALSource = %ld : result = %ld", &v7, 0x26u);
+  }
+
   return v1;
 }
 
 uint64_t OALSource::Play(OALSource *this)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = *(this + 1);
   v3 = pthread_self();
   v4 = *(v2 + 480);
@@ -267,7 +161,7 @@ uint64_t OALSource::Play(OALSource *this)
     }
   }
 
-  v15 = (*(*(this + 10) + 16))();
+  v14 = (*(*(this + 10) + 16))();
   if (*(this + 71) == 1735095154)
   {
     started = OALSource::StartRenderer(this);
@@ -277,7 +171,7 @@ uint64_t OALSource::Play(OALSource *this)
   if (!*(this + 12))
   {
     v6 = 0;
-    if (v15 != 1)
+    if (v14 != 1)
     {
       goto LABEL_23;
     }
@@ -323,24 +217,24 @@ LABEL_6:
   }
 
   OALSource::PrepBufferQueueForPlayback(this);
-  v12 = *(this + 3);
+  v11 = *(this + 3);
   v6 = 0xFFFFFFFFLL;
-  if (!*v12 || (v13 = *v12 + ((*(this + 14) << 48) >> 43), v13 == v12[1]) || (v6 = OALSource::SetupMixerBus(this, (*(v13 + 8) + 304)), v6) || (v6 = OALSource::AddRenderProc(this), v6))
+  if (!*v11 || (v12 = *v11 + ((*(this + 14) << 48) >> 43), v12 == v11[1]) || (v6 = OALSource::SetupMixerBus(this, (*(v12 + 8) + 304)), v6) || (v6 = OALSource::AddRenderProc(this), v6))
   {
 LABEL_7:
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       v7 = *this;
       *buf = 136315906;
-      v17 = "oalSource.cpp";
-      v18 = 1024;
-      v19 = 1481;
-      v20 = 2048;
-      v21 = v7;
-      v22 = 2048;
-      v23 = v6;
+      v16 = "oalSource.cpp";
+      v17 = 1024;
+      v18 = 1481;
+      v19 = 2048;
+      v20 = v7;
+      v21 = 2048;
+      v22 = v6;
       _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALSource::Play FAILED - OALSource = %ld : result = %ld", buf, 0x26u);
-      if (v15 != 1)
+      if (v14 != 1)
       {
         goto LABEL_23;
       }
@@ -349,7 +243,7 @@ LABEL_7:
     }
 
 LABEL_21:
-    if (v15 != 1)
+    if (v14 != 1)
     {
       goto LABEL_23;
     }
@@ -359,16 +253,16 @@ LABEL_21:
 
   *(this + 19) = 1;
   *(this + 76) = 4114;
-  v14 = *(this + 52);
-  if (v14)
+  v13 = *(this + 52);
+  if (v13)
   {
-    SourceNotifications::CallSourceNotifications(v14, 4112);
+    SourceNotifications::CallSourceNotifications(v13, 4112);
   }
 
   v6 = 0;
   *(this + 86) = 1;
   *(this + 60) = 0;
-  if (v15 == 1)
+  if (v14 == 1)
   {
 LABEL_22:
     (*(*(this + 10) + 24))(this + 80);
@@ -380,7 +274,6 @@ LABEL_23:
     atomic_fetch_add(this + 16, 0xFFFFFFFF);
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return v6;
 }
 
@@ -1493,7 +1386,7 @@ void sub_23A03231C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t OALSource::SetRenderCallback(OALSource *this, uint64_t a2, int a3, unsigned int a4, void *a5)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v10 = *(this + 1);
   v11 = pthread_self();
   v12 = *(v10 + 480);
@@ -1526,14 +1419,14 @@ LABEL_10:
     {
       v15 = *this;
       *buf = 136315906;
-      v19 = "oalSource.cpp";
-      v20 = 1024;
-      v21 = 2084;
-      v22 = 2048;
-      v23 = v15;
-      v24 = 2048;
+      v18 = "oalSource.cpp";
+      v19 = 1024;
+      v20 = 2084;
+      v21 = 2048;
+      v22 = v15;
+      v23 = 2048;
       a2 = 40964;
-      v25 = 40964;
+      v24 = 40964;
       _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALSource::SetRenderCallback FAILED - OALSource = %ld : result = %ld", buf, 0x26u);
       if ((v13 & 1) == 0)
       {
@@ -1591,7 +1484,6 @@ LABEL_15:
     atomic_fetch_add(this + 16, 0xFFFFFFFF);
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return a2;
 }
 
@@ -1677,9 +1569,9 @@ LABEL_11:
   return v13;
 }
 
-void sub_23A032898(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_23A032898(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   CAMutex::Locker::~Locker(va);
   _Unwind_Resume(a1);
 }
@@ -1730,53 +1622,52 @@ LABEL_12:
 
 uint64_t OALSource::SetRenderQuality(OALSource *this, int a2)
 {
-  v20 = *MEMORY[0x277D85DE8];
-  if (!IsValidRenderQuality(a2))
+  v17 = *MEMORY[0x277D85DE8];
+  if (IsValidRenderQuality(a2))
+  {
+    *(this + 111) = a2;
+    v4 = *(this + 58);
+    if (v4 == -1)
+    {
+      return 0;
+    }
+
+    else
+    {
+      v5 = OALContext::SetSourceDesiredRenderQualityOnBus(*(this + 1), a2, v4);
+      if (v5 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+      {
+        v6 = *this;
+        v9 = 136315906;
+        v10 = "oalSource.cpp";
+        v11 = 1024;
+        v12 = 2551;
+        v13 = 2048;
+        v14 = v6;
+        v15 = 2048;
+        v16 = v5;
+        _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALSource::UpdateBusRenderQuality FAILED - OALSource = %ld : result = %ld", &v9, 0x26u);
+      }
+    }
+  }
+
+  else
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v8 = *this;
-      v12 = 136315650;
-      v13 = "oalSource.cpp";
-      v14 = 1024;
-      v15 = 2157;
-      v16 = 2048;
-      v17 = v8;
-      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d OALSource::SetRenderQuality called - OALSource = %ld: Invalid Render Quality", &v12, 0x1Cu);
+      v7 = *this;
+      v9 = 136315650;
+      v10 = "oalSource.cpp";
+      v11 = 1024;
+      v12 = 2157;
+      v13 = 2048;
+      v14 = v7;
+      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d OALSource::SetRenderQuality called - OALSource = %ld: Invalid Render Quality", &v9, 0x1Cu);
     }
 
-    v5 = 4294967246;
-LABEL_9:
-    v9 = *MEMORY[0x277D85DE8];
-    return v5;
+    return 4294967246;
   }
 
-  *(this + 111) = a2;
-  v4 = *(this + 58);
-  if (v4 == -1)
-  {
-    v5 = 0;
-    v11 = *MEMORY[0x277D85DE8];
-    return v5;
-  }
-
-  v5 = OALContext::SetSourceDesiredRenderQualityOnBus(*(this + 1), a2, v4);
-  if (!v5 || !os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
-  {
-    goto LABEL_9;
-  }
-
-  v6 = *this;
-  v12 = 136315906;
-  v13 = "oalSource.cpp";
-  v14 = 1024;
-  v15 = 2551;
-  v16 = 2048;
-  v17 = v6;
-  v18 = 2048;
-  v19 = v5;
-  _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALSource::UpdateBusRenderQuality FAILED - OALSource = %ld : result = %ld", &v12, 0x26u);
-  v7 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -2294,28 +2185,25 @@ LABEL_15:
 
 uint64_t OALSource::SourceInputProc(OALSource *this, void *a2, unsigned int *a3, const AudioTimeStamp *a4, unsigned int a5, AudioBufferList *a6, AudioBufferList *a7)
 {
-  v19 = *MEMORY[0x277D85DE8];
-  v8 = *this;
-  v9 = OALSource::DoRender(this, a6, a5);
-  v10 = *this;
-  if (v9 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+  v15 = *MEMORY[0x277D85DE8];
+  v7 = OALSource::DoRender(this, a6, a5);
+  if (v7 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
   {
-    v13 = 136315650;
-    v14 = "oalSource.cpp";
-    v15 = 1024;
-    v16 = 2649;
-    v17 = 2048;
-    v18 = v9;
-    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: SourceInputProc FAILED - result = %ld", &v13, 0x1Cu);
+    v9 = 136315650;
+    v10 = "oalSource.cpp";
+    v11 = 1024;
+    v12 = 2649;
+    v13 = 2048;
+    v14 = v7;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: SourceInputProc FAILED - result = %ld", &v9, 0x1Cu);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-  return v9;
+  return v7;
 }
 
 uint64_t OALSource::DoRender(OALSource *this, AudioBufferList *a2, unsigned int a3)
 {
-  v142 = *MEMORY[0x277D85DE8];
+  v140 = *MEMORY[0x277D85DE8];
   if (*(this + 71) == 1735095154)
   {
     v6 = *(this + 100) * a3;
@@ -2397,19 +2285,18 @@ LABEL_53:
   if (*(this + 16))
   {
 LABEL_57:
-    v47 = *this;
     if (a2->mNumberBuffers)
     {
-      v48 = 0;
+      v47 = 0;
       p_mData = &a2->mBuffers[0].mData;
       do
       {
         bzero(*p_mData, *(p_mData - 1));
-        ++v48;
+        ++v47;
         p_mData += 2;
       }
 
-      while (v48 < a2->mNumberBuffers);
+      while (v47 < a2->mNumberBuffers);
     }
 
     result = 0;
@@ -2430,12 +2317,12 @@ LABEL_20:
           v24 = *this;
           *buf = 136315906;
           *&buf[4] = "oalSource.cpp";
-          v136 = 1024;
-          v137 = 1290;
+          v134 = 1024;
+          v135 = 1290;
+          v136 = 2048;
+          v137 = v24;
           v138 = 2048;
-          v139 = v24;
-          v140 = 2048;
-          v141 = v23;
+          v139 = v23;
           _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALSource::ResetMixerBus FAILED - OALSource = %ld : result = %ld", buf, 0x26u);
         }
       }
@@ -2464,12 +2351,12 @@ LABEL_20:
 
     if (!v34)
     {
-      v50 = v32 + 1;
+      v49 = v32 + 1;
       while (!*v33 || !*(*(v33 + 8) + 288))
       {
         *(v33 + 20) = 2;
-        *(this + 14) = v50;
-        v33 = v30 + 32 * v50++;
+        *(this + 14) = v49;
+        v33 = v30 + 32 * v49++;
         if (v33 == v31)
         {
           goto LABEL_37;
@@ -2479,42 +2366,42 @@ LABEL_20:
 LABEL_64:
       if (*(this + 71) == 1735095154)
       {
-        v51 = (this + 400);
-        v52 = 1;
+        v50 = (this + 400);
+        v51 = 1;
       }
 
       else
       {
-        v54 = *(this + 3);
-        v55 = *v54;
-        v56 = v54[1];
-        v57 = *v54 + ((*(this + 14) << 48) >> 43);
-        if (v55)
+        v53 = *(this + 3);
+        v54 = *v53;
+        v55 = v53[1];
+        v56 = *v53 + ((*(this + 14) << 48) >> 43);
+        if (v54)
         {
-          v58 = v57 == v56;
+          v57 = v56 == v55;
         }
 
         else
         {
-          v58 = 1;
+          v57 = 1;
         }
 
-        if (v58 && ((v59 = *(this + 4), v57 = *v59, v60 = v59[1], v57) ? (v61 = v57 == v60) : (v61 = 1), v61) || (v62 = *(v57 + 8), (v63 = *(v62 + 324)) == 0))
+        if (v57 && ((v58 = *(this + 4), v56 = *v58, v59 = v58[1], v56) ? (v60 = v56 == v59) : (v60 = 1), v60) || (v61 = *(v56 + 8), (v62 = *(v61 + 324)) == 0))
         {
-          v53 = 0;
+          v52 = 0;
           goto LABEL_88;
         }
 
-        v52 = v63 == 1;
-        v51 = (v62 + 320);
+        v51 = v62 == 1;
+        v50 = (v61 + 320);
       }
 
-      v53 = *v51 * v52;
+      v52 = *v50 * v51;
 LABEL_88:
       OALSource::ChangeChannelSettings(this);
-      v66 = *(v33 + 8);
-      v67 = *(v33 + 16);
-      if (*(v66 + 300) - v67 < v6)
+      v65 = *(v33 + 8);
+      v66 = *(v33 + 16);
+      if (*(v65 + 300) - v66 < v6)
       {
         v28 = 0;
         if (!a3)
@@ -2522,7 +2409,7 @@ LABEL_88:
           goto LABEL_165;
         }
 
-        v133 = (this + 400);
+        v131 = (this + 400);
         while (1)
         {
           if (*(this + 60))
@@ -2530,22 +2417,22 @@ LABEL_88:
             goto LABEL_165;
           }
 
-          v68 = *(this + 3);
-          v69 = *v68;
-          v70 = v68[1];
-          v71 = *(this + 14);
-          v72 = *v68 + 32 * v71;
-          if (*v68)
+          v67 = *(this + 3);
+          v68 = *v67;
+          v69 = v67[1];
+          v70 = *(this + 14);
+          v71 = *v67 + 32 * v70;
+          if (*v67)
           {
-            v73 = v72 == v70;
+            v72 = v71 == v69;
           }
 
           else
           {
-            v73 = 1;
+            v72 = 1;
           }
 
-          if (v73)
+          if (v72)
           {
 LABEL_158:
             *(this + 60) = 1;
@@ -2555,194 +2442,194 @@ LABEL_158:
 
           while (1)
           {
-            if (*v72)
+            if (*v71)
             {
-              v74 = *(v72 + 8);
-              v75 = *(v74 + 288);
-              if (v75)
+              v73 = *(v71 + 8);
+              v74 = *(v73 + 288);
+              if (v74)
               {
                 break;
               }
             }
 
-            *(v72 + 20) = 2;
-            *(this + 14) = ++v71;
-            v72 = v69 + 32 * v71;
-            if (v72 == v70)
+            *(v71 + 20) = 2;
+            *(this + 14) = ++v70;
+            v71 = v68 + 32 * v70;
+            if (v71 == v69)
             {
               goto LABEL_158;
             }
           }
 
-          *(v72 + 20) = 1;
-          v76 = *(this + 71);
-          v77 = (this + 400);
-          v78 = v28;
-          if (v76 != 1735095154)
+          *(v71 + 20) = 1;
+          v75 = *(this + 71);
+          v76 = (this + 400);
+          v77 = v28;
+          if (v75 != 1735095154)
           {
-            v79 = 32 * v71;
-            v80 = v69 + v79;
-            if (v69 + v79 == v70 && ((v81 = *(this + 4), v80 = *v81, v82 = v81[1], v80) ? (v83 = v80 == v82) : (v83 = 1), v83) || (v84 = *(v80 + 8), (v85 = *(v84 + 324)) == 0))
+            v78 = 32 * v70;
+            v79 = v68 + v78;
+            if (v68 + v78 == v69 && ((v80 = *(this + 4), v79 = *v80, v81 = v80[1], v79) ? (v82 = v79 == v81) : (v82 = 1), v82) || (v83 = *(v79 + 8), (v84 = *(v83 + 324)) == 0))
             {
-              v86 = a2->mBuffers[0].mData;
-              v88 = (v72 + 16);
-              v87 = *(v72 + 16);
-              v89 = (*(v74 + 300) - v87);
+              v85 = a2->mBuffers[0].mData;
+              v87 = (v71 + 16);
+              v86 = *(v71 + 16);
+              v88 = (*(v73 + 300) - v86);
               goto LABEL_114;
             }
 
-            v77 = (v84 + 320);
-            v78 = v28 / v85;
+            v76 = (v83 + 320);
+            v77 = v28 / v84;
           }
 
-          v86 = a2->mBuffers[0].mData + (*v77 * v78);
-          v88 = (v72 + 16);
-          v87 = *(v72 + 16);
-          v89 = (*(v74 + 300) - v87);
-          if (v76 == 1735095154)
+          v85 = a2->mBuffers[0].mData + (*v76 * v77);
+          v87 = (v71 + 16);
+          v86 = *(v71 + 16);
+          v88 = (*(v73 + 300) - v86);
+          if (v75 == 1735095154)
           {
-            v90 = v89 / *v133;
-            if (v90 >= a3 - v28)
+            v89 = v88 / *v131;
+            if (v89 >= a3 - v28)
             {
-              v90 = a3 - v28;
+              v89 = a3 - v28;
             }
 
-            v132 = v90;
-            v91 = *v133 * v90;
+            v130 = v89;
+            v90 = *v131 * v89;
             goto LABEL_123;
           }
 
-          v79 = 32 * v71;
+          v78 = 32 * v70;
 LABEL_114:
-          v92 = v69 + v79;
-          if (v92 == v70)
+          v91 = v68 + v78;
+          if (v91 == v69)
           {
-            v132 = 0;
-            v94 = *(this + 4);
-            v92 = *v94;
-            if (!*v94 || v92 == v94[1])
+            v130 = 0;
+            v93 = *(this + 4);
+            v91 = *v93;
+            if (!*v93 || v91 == v93[1])
             {
-              v91 = 0;
+              v90 = 0;
               goto LABEL_123;
             }
           }
 
           else
           {
-            v93 = *(*(v92 + 8) + 324) * (v89 / *(*(v92 + 8) + 320));
-            if (v93 >= a3 - v28)
+            v92 = *(*(v91 + 8) + 324) * (v88 / *(*(v91 + 8) + 320));
+            if (v92 >= a3 - v28)
             {
-              v93 = a3 - v28;
+              v92 = a3 - v28;
             }
 
-            v132 = v93;
+            v130 = v92;
           }
 
-          v95 = *(v92 + 8);
-          v91 = *(v95 + 324);
-          if (v91)
+          v94 = *(v91 + 8);
+          v90 = *(v94 + 324);
+          if (v90)
           {
-            v91 = *(v95 + 320) * (v132 / v91);
+            v90 = *(v94 + 320) * (v130 / v90);
           }
 
 LABEL_123:
           if ((*(this + 237) & 1) == 0)
           {
-            v131 = v88;
-            v130 = v91;
-            memcpy(v86, (v75 + v87), v91);
-            v91 = v130;
-            v88 = v131;
-            v87 = *(v72 + 16);
-            v74 = *(v72 + 8);
-            v76 = *(this + 71);
+            v129 = v87;
+            v128 = v90;
+            memcpy(v85, (v74 + v86), v90);
+            v90 = v128;
+            v87 = v129;
+            v86 = *(v71 + 16);
+            v73 = *(v71 + 8);
+            v75 = *(this + 71);
           }
 
-          v96 = v87 + v91;
-          *v88 = v87 + v91;
-          v97 = *(v74 + 300);
-          if (v76 == 1735095154)
+          v95 = v86 + v90;
+          *v87 = v86 + v90;
+          v96 = *(v73 + 300);
+          if (v75 == 1735095154)
           {
-            v98 = 1;
-            v99 = (this + 400);
+            v97 = 1;
+            v98 = (this + 400);
             goto LABEL_133;
           }
 
-          v100 = *(this + 3);
-          if (*v100 && (v101 = *v100 + ((*(this + 14) << 48) >> 43), v101 != v100[1]) || (v102 = *(this + 4), (v101 = *v102) != 0) && v101 != v102[1])
+          v99 = *(this + 3);
+          if (*v99 && (v100 = *v99 + ((*(this + 14) << 48) >> 43), v100 != v99[1]) || (v101 = *(this + 4), (v100 = *v101) != 0) && v100 != v101[1])
           {
-            v103 = *(v101 + 8);
-            v104 = *(v103 + 324);
-            if (v104)
+            v102 = *(v100 + 8);
+            v103 = *(v102 + 324);
+            if (v103)
             {
-              v98 = v104 == 1;
-              v99 = (v103 + 320);
+              v97 = v103 == 1;
+              v98 = (v102 + 320);
 LABEL_133:
-              if (v97 - v96 < *v99 * v98)
+              if (v96 - v95 < *v98 * v97)
               {
-                v105 = *(this + 14);
-                *(this + 14) = v105 + 1;
-                v106 = *(this + 3);
-                v107 = *v106;
-                if (!*v106 || (v108 = v106[1], v109 = v107 + 32 * (v105 + 1), v109 == v108))
+                v104 = *(this + 14);
+                *(this + 14) = v104 + 1;
+                v105 = *(this + 3);
+                v106 = *v105;
+                if (!*v105 || (v107 = v105[1], v108 = v106 + 32 * (v104 + 1), v108 == v107))
                 {
 LABEL_141:
                   if (*(this + 69) == 1)
                   {
                     OALSource::ClearActiveQueue(this);
-                    v111 = *(this + 3);
-                    v112 = *(this + 4);
-                    *(this + 3) = v112;
-                    *(this + 4) = v111;
-                    v114 = *v112;
-                    v113 = v112[1];
-                    v115 = *(v111 + 8) - *v111;
-                    v116 = v113 - *v112;
-                    v12 = v113 == *v112;
-                    *(v112 + 6) = v116 >> 5;
-                    *(v111 + 24) = v115 >> 5;
-                    *(this + 12) = *(v111 + 24) + *(v112 + 6);
+                    v110 = *(this + 3);
+                    v111 = *(this + 4);
+                    *(this + 3) = v111;
+                    *(this + 4) = v110;
+                    v113 = *v111;
+                    v112 = v111[1];
+                    v114 = *(v110 + 8) - *v110;
+                    v115 = v112 - *v111;
+                    v12 = v112 == *v111;
+                    *(v111 + 6) = v115 >> 5;
+                    *(v110 + 24) = v114 >> 5;
+                    *(this + 12) = *(v110 + 24) + *(v111 + 6);
                     if (!v12)
                     {
-                      v117 = v116 - 32;
-                      v118 = v114;
-                      if (v117 < 0x20)
+                      v116 = v115 - 32;
+                      v117 = v113;
+                      if (v116 < 0x20)
                       {
                         goto LABEL_179;
                       }
 
-                      v119 = (v117 >> 5) + 1;
-                      v118 = v114 + 32 * (v119 & 0xFFFFFFFFFFFFFFELL);
-                      v120 = (v114 + 48);
-                      v121 = v119 & 0xFFFFFFFFFFFFFFELL;
+                      v118 = (v116 >> 5) + 1;
+                      v117 = v113 + 32 * (v118 & 0xFFFFFFFFFFFFFFELL);
+                      v119 = (v113 + 48);
+                      v120 = v118 & 0xFFFFFFFFFFFFFFELL;
                       do
                       {
-                        *(v120 - 4) = 0;
-                        *v120 = 0;
-                        v120 += 8;
-                        v121 -= 2;
+                        *(v119 - 4) = 0;
+                        *v119 = 0;
+                        v119 += 8;
+                        v120 -= 2;
                       }
 
-                      while (v121);
-                      if (v119 != (v119 & 0xFFFFFFFFFFFFFFELL))
+                      while (v120);
+                      if (v118 != (v118 & 0xFFFFFFFFFFFFFFELL))
                       {
 LABEL_179:
                         do
                         {
-                          *(v118 + 16) = 0;
-                          v118 += 32;
+                          *(v117 + 16) = 0;
+                          v117 += 32;
                         }
 
-                        while (v118 != v113);
+                        while (v117 != v112);
                       }
                     }
 
                     *(this + 14) = 0;
                     *(this + 60) = 0;
-                    v122 = *(this + 52);
-                    if (v122 && *(this + 69))
+                    v121 = *(this + 52);
+                    if (v121 && *(this + 69))
                     {
-                      SourceNotifications::CallSourceNotifications(v122, 36864);
+                      SourceNotifications::CallSourceNotifications(v121, 36864);
                     }
                   }
 
@@ -2755,13 +2642,13 @@ LABEL_179:
 
                 else
                 {
-                  v110 = v105 + 2;
-                  while (!*v109 || !*(*(v109 + 8) + 288))
+                  v109 = v104 + 2;
+                  while (!*v108 || !*(*(v108 + 8) + 288))
                   {
-                    *(v109 + 20) = 2;
-                    *(this + 14) = v110;
-                    v109 = v107 + 32 * v110++;
-                    if (v109 == v108)
+                    *(v108 + 20) = 2;
+                    *(this + 14) = v109;
+                    v108 = v106 + 32 * v109++;
+                    if (v108 == v107)
                     {
                       goto LABEL_141;
                     }
@@ -2771,7 +2658,7 @@ LABEL_179:
             }
           }
 
-          v28 += v132;
+          v28 += v130;
           if (v28 >= a3)
           {
             goto LABEL_165;
@@ -2781,36 +2668,36 @@ LABEL_179:
 
       if ((*(this + 237) & 1) == 0)
       {
-        v123 = *(this + 86);
-        if (v123 == -1 || v123 == 1)
+        v122 = *(this + 86);
+        if (v122 == -1 || v122 == 1)
         {
-          memcpy(mData, (*(v66 + 288) + v67), v6);
-          LODWORD(v67) = *(v33 + 16);
+          memcpy(mData, (*(v65 + 288) + v66), v6);
+          LODWORD(v66) = *(v33 + 16);
         }
 
         else
         {
-          a2->mBuffers[0].mData = (*(v66 + 288) + v67);
+          a2->mBuffers[0].mData = (*(v65 + 288) + v66);
         }
       }
 
-      *(v33 + 16) = v67 + v6;
-      v124 = v6;
+      *(v33 + 16) = v66 + v6;
+      v123 = v6;
       if (*(this + 71) == 1735095154)
       {
-        v28 = v124 / *(this + 100);
+        v28 = v123 / *(this + 100);
       }
 
       else
       {
         v28 = 0;
-        v125 = *(this + 3);
-        if (*v125)
+        v124 = *(this + 3);
+        if (*v124)
         {
-          v126 = *v125 + ((*(this + 14) << 48) >> 43);
-          if (v126 != v125[1])
+          v125 = *v124 + ((*(this + 14) << 48) >> 43);
+          if (v125 != v124[1])
           {
-            v28 = *(*(v126 + 8) + 324) * (v124 / *(*(v126 + 8) + 320));
+            v28 = *(*(v125 + 8) + 324) * (v123 / *(*(v125 + 8) + 320));
           }
         }
       }
@@ -2818,26 +2705,26 @@ LABEL_179:
 LABEL_165:
       if ((*(this + 237) & 1) == 0 && v28 < a3)
       {
-        memset(a2->mBuffers[0].mData + v28 * v53, v20, v6 - v28 * v53);
+        memset(a2->mBuffers[0].mData + v28 * v52, v20, v6 - v28 * v52);
       }
 
-      v127 = *(this + 86);
-      if (v127 == -1)
+      v126 = *(this + 86);
+      if (v126 == -1)
       {
-        v128 = 1;
+        v127 = 1;
       }
 
       else
       {
-        if (v127 != 1)
+        if (v126 != 1)
         {
           goto LABEL_173;
         }
 
-        v128 = 0;
+        v127 = 0;
       }
 
-      OALSource::Ramp(this, a2, v128);
+      OALSource::Ramp(this, a2, v127);
       *(this + 86) = -2;
 LABEL_173:
       if (*(this + 237))
@@ -2869,7 +2756,7 @@ LABEL_37:
       *(this + 12) = *(v29 + 6) + *(v35 + 24);
       if (v12)
       {
-        v53 = 0;
+        v52 = 0;
         v28 = 0;
         *(this + 14) = 0;
         *(this + 60) = 0;
@@ -2942,7 +2829,7 @@ LABEL_180:
     }
 
 LABEL_68:
-    v53 = 0;
+    v52 = 0;
     v28 = 0;
     goto LABEL_165;
   }
@@ -2955,11 +2842,11 @@ LABEL_68:
   }
 
   *buf = mData;
-  v134 = v6;
-  result = v25(*this, v6, buf, &v134, *(this + 46));
+  v132 = v6;
+  result = v25(*this, v6, buf, &v132, *(this + 46));
   if (!result)
   {
-    v27 = v134;
+    v27 = v132;
     if (*(this + 71) == 1735095154)
     {
       v28 = v27 / *(this + 100);
@@ -2967,7 +2854,7 @@ LABEL_68:
       {
 LABEL_86:
         OALSource::ChangeChannelSettings(this);
-        v53 = 0;
+        v52 = 0;
         goto LABEL_165;
       }
     }
@@ -2975,19 +2862,19 @@ LABEL_86:
     else
     {
       v28 = 0;
-      v64 = *(this + 3);
-      if (!*v64)
+      v63 = *(this + 3);
+      if (!*v63)
       {
         goto LABEL_86;
       }
 
-      v65 = *v64 + ((*(this + 14) << 48) >> 43);
-      if (v65 == v64[1])
+      v64 = *v63 + ((*(this + 14) << 48) >> 43);
+      if (v64 == v63[1])
       {
         goto LABEL_86;
       }
 
-      v28 = *(*(v65 + 8) + 324) * (v27 / *(*(v65 + 8) + 320));
+      v28 = *(*(v64 + 8) + 324) * (v27 / *(*(v64 + 8) + 320));
       if (v28 <= a3)
       {
         goto LABEL_86;
@@ -2999,7 +2886,6 @@ LABEL_86:
 
 LABEL_176:
   atomic_fetch_add(this + 17, 0xFFFFFFFF);
-  v129 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -3330,210 +3216,57 @@ LABEL_37:
 
 uint64_t OALSource::DoPostRender(OALSource *this)
 {
-  v70 = *MEMORY[0x277D85DE8];
-  v2 = *this;
-  v3 = *(this + 58);
+  v64 = *MEMORY[0x277D85DE8];
   atomic_fetch_add(this + 17, 1u);
   if (*(this + 16))
   {
-    v4 = *this;
-    v5 = *(this + 58);
-    v6 = 0;
-    goto LABEL_112;
+    v2 = 0;
+    goto LABEL_111;
   }
 
-  if (*(this + 86) == -2)
+  if (*(this + 86) != -2)
   {
-    do
-    {
-      v7 = *(this + 53);
-      if (!v7)
-      {
-        goto LABEL_97;
-      }
+    goto LABEL_97;
+  }
 
-      v8 = *(this + 53);
-      atomic_compare_exchange_strong(this + 53, &v8, 0);
+  do
+  {
+    v3 = *(this + 53);
+    if (!v3)
+    {
+      goto LABEL_97;
     }
 
-    while (v8 != v7);
-    v9 = 0;
-    do
+    v4 = *(this + 53);
+    atomic_compare_exchange_strong(this + 53, &v4, 0);
+  }
+
+  while (v4 != v3);
+  v5 = 0;
+  do
+  {
+    v6 = v5;
+    v5 = v3;
+    v3 = *v3;
+    *v5 = v6;
+  }
+
+  while (v3);
+  v7 = 0;
+  while (1)
+  {
+    v9 = *(v5 + 2);
+    if (v9 > 5)
     {
-      v10 = v9;
-      v9 = v7;
-      v7 = *v7;
-      *v9 = v10;
+      break;
     }
 
-    while (v7);
-    v11 = 0;
-    do
+    if (v9 <= 2)
     {
-      v13 = *(v9 + 2);
-      if (v13 <= 5)
+      if (v9 == 1)
       {
-        if (v13 <= 2)
+        if (*(this + 76) != 4116)
         {
-          if (v13 == 1)
-          {
-            if (*(this + 76) != 4116)
-            {
-              v19 = *(this + 58);
-              if (v19 != -1)
-              {
-                *(this + 27) = 0;
-                *(this + 28) = 0;
-                if (!OALContext::SetBusRenderProc(*(this + 1), v19, (this + 216)))
-                {
-                  AUGraphUpdate(*(*(*(this + 1) + 16) + 16), 0);
-                }
-
-                OALContext::SetBusEnable(*(this + 1), *(this + 58), 1);
-                *(this + 236) = 0;
-                v20 = *(this + 58);
-                if (v20 != -1)
-                {
-                  OALContext::SetBusAsAvailable(*(this + 1), v20);
-                  *(this + 58) = -1;
-                }
-              }
-
-              *(this + 76) = 4116;
-              v21 = *(this + 52);
-              if (v21)
-              {
-                SourceNotifications::CallSourceNotifications(v21, 4112);
-              }
-
-              v22 = *(*(this + 3) + 24);
-              OALSource::ClearActiveQueue(this);
-              if (v22)
-              {
-                v23 = *(this + 52);
-                if (v23)
-                {
-                  SourceNotifications::CallSourceNotifications(v23, 4118);
-                }
-              }
-            }
-          }
-
-          else
-          {
-            if (v13 != 2)
-            {
-              goto LABEL_90;
-            }
-
-            if (*(this + 76) != 4113)
-            {
-              v16 = *(this + 58);
-              if (v16 != -1)
-              {
-                *(this + 27) = 0;
-                *(this + 28) = 0;
-                if (!OALContext::SetBusRenderProc(*(this + 1), v16, (this + 216)))
-                {
-                  AUGraphUpdate(*(*(*(this + 1) + 16) + 16), 0);
-                }
-
-                OALContext::SetBusEnable(*(this + 1), *(this + 58), 1);
-                *(this + 236) = 0;
-                v17 = *(this + 58);
-                if (v17 != -1)
-                {
-                  OALContext::SetBusAsAvailable(*(this + 1), v17);
-                  *(this + 58) = -1;
-                }
-              }
-
-              *(this + 76) = 4113;
-              v18 = *(this + 52);
-              if (v18)
-              {
-                SourceNotifications::CallSourceNotifications(v18, 4112);
-              }
-
-              *(this + 60) = 0;
-            }
-          }
-
-          goto LABEL_12;
-        }
-
-        if (v13 == 3)
-        {
-          v50 = v9[2];
-          v51 = *v50;
-          OALSource::FlushBufferQueue(this);
-          if (v51)
-          {
-            v52 = *(this + 3);
-            if (*v52 == *(v52 + 8))
-            {
-              *(this + 14) = 0;
-              *(this + 60) = 0;
-            }
-
-            *buf = v51;
-            *&v67[4] = v50;
-            *&v67[12] = 0;
-            *&v67[20] = 0;
-            std::vector<BufferInfo>::push_back[abi:ne200100](v52, buf);
-            *(v52 + 24) = (*(v52 + 8) - *v52) >> 5;
-            *(this + 12) = *(*(this + 4) + 24) + *(*(this + 3) + 24);
-            OALBuffer::UseThisBuffer(v50, this);
-            *(this + 71) = 4136;
-            *(v9[2] + 352) = 0;
-            *(this + 76) = 4116;
-            v53 = *(this + 52);
-            if (!v53)
-            {
-              goto LABEL_12;
-            }
-
-LABEL_88:
-            SourceNotifications::CallSourceNotifications(v53, 4112);
-          }
-
-          else
-          {
-            *(this + 71) = 4144;
-            *(this + 352) = 0;
-            *(v9[2] + 352) = 0;
-            *(this + 76) = 4116;
-            v53 = *(this + 52);
-            if (v53)
-            {
-              goto LABEL_88;
-            }
-          }
-
-LABEL_12:
-          *(this + 86) = 0;
-          goto LABEL_13;
-        }
-
-        if (v13 == 4)
-        {
-          *(this + 86) = 0;
-          v6 = OALSource::Play(this);
-          if (v6)
-          {
-            goto LABEL_92;
-          }
-        }
-
-        else
-        {
-          *(this + 76) = 4115;
-          v14 = *(this + 52);
-          if (v14)
-          {
-            SourceNotifications::CallSourceNotifications(v14, 4112);
-          }
-
           v15 = *(this + 58);
           if (v15 != -1)
           {
@@ -3546,289 +3279,441 @@ LABEL_12:
 
             OALContext::SetBusEnable(*(this + 1), *(this + 58), 1);
             *(this + 236) = 0;
+            v16 = *(this + 58);
+            if (v16 != -1)
+            {
+              OALContext::SetBusAsAvailable(*(this + 1), v16);
+              *(this + 58) = -1;
+            }
           }
 
-          *(this + 86) = 0;
-          v11 = 1;
+          *(this + 76) = 4116;
+          v17 = *(this + 52);
+          if (v17)
+          {
+            SourceNotifications::CallSourceNotifications(v17, 4112);
+          }
+
+          v18 = *(*(this + 3) + 24);
+          OALSource::ClearActiveQueue(this);
+          if (v18)
+          {
+            v19 = *(this + 52);
+            if (v19)
+            {
+              SourceNotifications::CallSourceNotifications(v19, 4118);
+            }
+          }
         }
       }
 
       else
       {
-        if (v13 > 8)
+        if (v9 != 2)
         {
-          if (v13 == 11)
+          goto LABEL_90;
+        }
+
+        if (*(this + 76) != 4113)
+        {
+          v12 = *(this + 58);
+          if (v12 != -1)
           {
-            OALSource::ClearActiveQueue(this);
-            v37 = *(this + 3);
-            v38 = *(this + 4);
-            *(this + 3) = v38;
-            *(this + 4) = v37;
-            v40 = *v38;
-            v39 = v38[1];
-            v41 = *(v37 + 8) - *v37;
-            v42 = v39 - *v38;
-            v29 = v39 == *v38;
-            *(v38 + 6) = v42 >> 5;
-            *(v37 + 24) = v41 >> 5;
-            *(this + 12) = *(v37 + 24) + *(v38 + 6);
-            if (!v29)
+            *(this + 27) = 0;
+            *(this + 28) = 0;
+            if (!OALContext::SetBusRenderProc(*(this + 1), v12, (this + 216)))
             {
-              v43 = v42 - 32;
-              v44 = v40;
-              if (v43 < 0x20)
-              {
-                goto LABEL_115;
-              }
-
-              v45 = (v43 >> 5) + 1;
-              v44 = v40 + 32 * (v45 & 0xFFFFFFFFFFFFFFELL);
-              v46 = (v40 + 48);
-              v47 = v45 & 0xFFFFFFFFFFFFFFELL;
-              do
-              {
-                *(v46 - 4) = 0;
-                *v46 = 0;
-                v46 += 8;
-                v47 -= 2;
-              }
-
-              while (v47);
-              if (v45 != (v45 & 0xFFFFFFFFFFFFFFELL))
-              {
-LABEL_115:
-                do
-                {
-                  *(v44 + 16) = 0;
-                  v44 += 32;
-                }
-
-                while (v44 != v39);
-              }
-            }
-
-            *(this + 14) = 0;
-            *(this + 60) = 0;
-            v48 = *(this + 52);
-            if (v48 && *(this + 69))
-            {
-              SourceNotifications::CallSourceNotifications(v48, 36864);
+              AUGraphUpdate(*(*(*(this + 1) + 16) + 16), 0);
             }
 
             OALContext::SetBusEnable(*(this + 1), *(this + 58), 1);
-            if ((v11 & 1) != 0 && OALSource::AddRenderProc(this))
+            *(this + 236) = 0;
+            v13 = *(this + 58);
+            if (v13 != -1)
             {
-              v11 = 1;
+              OALContext::SetBusAsAvailable(*(this + 1), v13);
+              *(this + 58) = -1;
             }
-
-            else
-            {
-              *(this + 76) = 4114;
-              v54 = *(this + 52);
-              if (v54)
-              {
-                SourceNotifications::CallSourceNotifications(v54, 4112);
-              }
-
-              v11 = 0;
-              *(this + 86) = 1;
-            }
-
-            goto LABEL_13;
           }
 
-          if (v13 != 12)
+          *(this + 76) = 4113;
+          v14 = *(this + 52);
+          if (v14)
           {
-            if (v13 == 9)
-            {
-              OALSource::StopRenderingToBus(this);
-              *(this + 76) = 4116;
-              v57 = *(this + 52);
-              if (v57)
-              {
-                SourceNotifications::CallSourceNotifications(v57, 4112);
-              }
-
-              OALSource::FlushBufferQueue(this);
-              *(this + 4) = 1;
-              OALSource::ClearMessageQueue(this);
-              *(this + 86) = 0;
-              break;
-            }
-
-LABEL_90:
-            v55 = MEMORY[0x277D86220];
-            if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
-            {
-              *buf = 136315394;
-              *v67 = "oalSource.cpp";
-              *&v67[8] = 1024;
-              *&v67[10] = 3070;
-              _os_log_impl(&dword_23A012000, v55, OS_LOG_TYPE_DEBUG, "%25s:%-5d      MQ:WARNING - UNIMPLEMENTED MESSAGE...", buf, 0x12u);
-            }
-
-            goto LABEL_13;
+            SourceNotifications::CallSourceNotifications(v14, 4112);
           }
 
-          OALSource::PostRenderAddBuffersToQueue(this, *(v9 + 6));
-          goto LABEL_12;
-        }
-
-        if (v13 == 6)
-        {
-          *(this + 86) = 1;
-          v6 = OALSource::AddRenderProc(this);
-          if (v6)
-          {
-            goto LABEL_92;
-          }
-
-          *(this + 76) = 4114;
-          v49 = *(this + 52);
-          if (v49)
-          {
-            SourceNotifications::CallSourceNotifications(v49, 4112);
-          }
-        }
-
-        else
-        {
-          if (v13 != 7)
-          {
-            OALSource::PostRenderRemoveBuffersFromQueue(this, *(v9 + 6));
-            goto LABEL_12;
-          }
-
-          OALSource::ClearActiveQueue(this);
-          v24 = *(this + 3);
-          v25 = *(this + 4);
-          *(this + 3) = v25;
-          *(this + 4) = v24;
-          v27 = *v25;
-          v26 = v25[1];
-          v28 = *(v24 + 8) - *v24;
-          v30 = v26 - *v25;
-          v29 = v26 == *v25;
-          *(v25 + 6) = v30 >> 5;
-          *(v24 + 24) = v28 >> 5;
-          *(this + 12) = *(v24 + 24) + *(v25 + 6);
-          if (!v29)
-          {
-            v31 = v30 - 32;
-            v32 = v27;
-            if (v31 < 0x20)
-            {
-              goto LABEL_116;
-            }
-
-            v33 = (v31 >> 5) + 1;
-            v32 = v27 + 32 * (v33 & 0xFFFFFFFFFFFFFFELL);
-            v34 = (v27 + 48);
-            v35 = v33 & 0xFFFFFFFFFFFFFFELL;
-            do
-            {
-              *(v34 - 4) = 0;
-              *v34 = 0;
-              v34 += 8;
-              v35 -= 2;
-            }
-
-            while (v35);
-            if (v33 != (v33 & 0xFFFFFFFFFFFFFFELL))
-            {
-LABEL_116:
-              do
-              {
-                *(v32 + 16) = 0;
-                v32 += 32;
-              }
-
-              while (v32 != v26);
-            }
-          }
-
-          *(this + 14) = 0;
           *(this + 60) = 0;
-          v36 = *(this + 52);
-          if (v36 && *(this + 69))
-          {
-            SourceNotifications::CallSourceNotifications(v36, 36864);
-          }
-
-          v6 = OALSource::AdvanceQueueToFrameIndex(this, *(this + 89));
-          if (v6)
-          {
-LABEL_92:
-            if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
-            {
-              v56 = *this;
-              *buf = 136315906;
-              *v67 = "oalSource.cpp";
-              *&v67[8] = 1024;
-              *&v67[10] = 3108;
-              *&v67[14] = 2048;
-              *&v67[16] = v56;
-              v68 = 2048;
-              v69 = v6;
-              _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALSource::DoPostRender FAILED - OALSource = %ld : result = %ld", buf, 0x26u);
-            }
-
-            goto LABEL_111;
-          }
-
-          OALContext::SetBusEnable(*(this + 1), *(this + 58), 1);
-          *(this + 89) = 0;
-          *(this + 86) = 1;
         }
       }
 
-LABEL_13:
-      v12 = *v9;
-      MEMORY[0x23EE824D0](v9, 0x1020C40CC5CF236);
-      v9 = v12;
+      goto LABEL_12;
     }
 
-    while (v12);
+    if (v9 == 3)
+    {
+      v46 = v5[2];
+      v47 = *v46;
+      OALSource::FlushBufferQueue(this);
+      if (v47)
+      {
+        v48 = *(this + 3);
+        if (*v48 == *(v48 + 8))
+        {
+          *(this + 14) = 0;
+          *(this + 60) = 0;
+        }
+
+        *buf = v47;
+        *&v61[4] = v46;
+        *&v61[12] = 0;
+        *&v61[20] = 0;
+        std::vector<BufferInfo>::push_back[abi:ne200100](v48, buf);
+        *(v48 + 24) = (*(v48 + 8) - *v48) >> 5;
+        *(this + 12) = *(*(this + 4) + 24) + *(*(this + 3) + 24);
+        OALBuffer::UseThisBuffer(v46, this);
+        *(this + 71) = 4136;
+        *(v5[2] + 352) = 0;
+        *(this + 76) = 4116;
+        v49 = *(this + 52);
+        if (!v49)
+        {
+          goto LABEL_12;
+        }
+
+LABEL_88:
+        SourceNotifications::CallSourceNotifications(v49, 4112);
+      }
+
+      else
+      {
+        *(this + 71) = 4144;
+        *(this + 352) = 0;
+        *(v5[2] + 352) = 0;
+        *(this + 76) = 4116;
+        v49 = *(this + 52);
+        if (v49)
+        {
+          goto LABEL_88;
+        }
+      }
+
+LABEL_12:
+      *(this + 86) = 0;
+      goto LABEL_13;
+    }
+
+    if (v9 == 4)
+    {
+      *(this + 86) = 0;
+      v2 = OALSource::Play(this);
+      if (v2)
+      {
+        goto LABEL_92;
+      }
+    }
+
+    else
+    {
+      *(this + 76) = 4115;
+      v10 = *(this + 52);
+      if (v10)
+      {
+        SourceNotifications::CallSourceNotifications(v10, 4112);
+      }
+
+      v11 = *(this + 58);
+      if (v11 != -1)
+      {
+        *(this + 27) = 0;
+        *(this + 28) = 0;
+        if (!OALContext::SetBusRenderProc(*(this + 1), v11, (this + 216)))
+        {
+          AUGraphUpdate(*(*(*(this + 1) + 16) + 16), 0);
+        }
+
+        OALContext::SetBusEnable(*(this + 1), *(this + 58), 1);
+        *(this + 236) = 0;
+      }
+
+      *(this + 86) = 0;
+      v7 = 1;
+    }
+
+LABEL_13:
+    v8 = *v5;
+    MEMORY[0x23EE824D0](v5, 0x1020C40CC5CF236);
+    v5 = v8;
+    if (!v8)
+    {
+      goto LABEL_97;
+    }
   }
 
+  if (v9 <= 8)
+  {
+    if (v9 == 6)
+    {
+      *(this + 86) = 1;
+      v2 = OALSource::AddRenderProc(this);
+      if (v2)
+      {
+        goto LABEL_92;
+      }
+
+      *(this + 76) = 4114;
+      v45 = *(this + 52);
+      if (v45)
+      {
+        SourceNotifications::CallSourceNotifications(v45, 4112);
+      }
+    }
+
+    else
+    {
+      if (v9 != 7)
+      {
+        OALSource::PostRenderRemoveBuffersFromQueue(this, *(v5 + 6));
+        goto LABEL_12;
+      }
+
+      OALSource::ClearActiveQueue(this);
+      v20 = *(this + 3);
+      v21 = *(this + 4);
+      *(this + 3) = v21;
+      *(this + 4) = v20;
+      v23 = *v21;
+      v22 = v21[1];
+      v24 = *(v20 + 8) - *v20;
+      v26 = v22 - *v21;
+      v25 = v22 == *v21;
+      *(v21 + 6) = v26 >> 5;
+      *(v20 + 24) = v24 >> 5;
+      *(this + 12) = *(v20 + 24) + *(v21 + 6);
+      if (!v25)
+      {
+        v27 = v26 - 32;
+        v28 = v23;
+        if (v27 < 0x20)
+        {
+          goto LABEL_114;
+        }
+
+        v29 = (v27 >> 5) + 1;
+        v28 = v23 + 32 * (v29 & 0xFFFFFFFFFFFFFFELL);
+        v30 = (v23 + 48);
+        v31 = v29 & 0xFFFFFFFFFFFFFFELL;
+        do
+        {
+          *(v30 - 4) = 0;
+          *v30 = 0;
+          v30 += 8;
+          v31 -= 2;
+        }
+
+        while (v31);
+        if (v29 != (v29 & 0xFFFFFFFFFFFFFFELL))
+        {
+LABEL_114:
+          do
+          {
+            *(v28 + 16) = 0;
+            v28 += 32;
+          }
+
+          while (v28 != v22);
+        }
+      }
+
+      *(this + 14) = 0;
+      *(this + 60) = 0;
+      v32 = *(this + 52);
+      if (v32 && *(this + 69))
+      {
+        SourceNotifications::CallSourceNotifications(v32, 36864);
+      }
+
+      v2 = OALSource::AdvanceQueueToFrameIndex(this, *(this + 89));
+      if (v2)
+      {
+LABEL_92:
+        if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+        {
+          v52 = *this;
+          *buf = 136315906;
+          *v61 = "oalSource.cpp";
+          *&v61[8] = 1024;
+          *&v61[10] = 3108;
+          *&v61[14] = 2048;
+          *&v61[16] = v52;
+          v62 = 2048;
+          v63 = v2;
+          _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALSource::DoPostRender FAILED - OALSource = %ld : result = %ld", buf, 0x26u);
+        }
+
+        goto LABEL_111;
+      }
+
+      OALContext::SetBusEnable(*(this + 1), *(this + 58), 1);
+      *(this + 89) = 0;
+      *(this + 86) = 1;
+    }
+
+    goto LABEL_13;
+  }
+
+  if (v9 == 11)
+  {
+    OALSource::ClearActiveQueue(this);
+    v33 = *(this + 3);
+    v34 = *(this + 4);
+    *(this + 3) = v34;
+    *(this + 4) = v33;
+    v36 = *v34;
+    v35 = v34[1];
+    v37 = *(v33 + 8) - *v33;
+    v38 = v35 - *v34;
+    v25 = v35 == *v34;
+    *(v34 + 6) = v38 >> 5;
+    *(v33 + 24) = v37 >> 5;
+    *(this + 12) = *(v33 + 24) + *(v34 + 6);
+    if (!v25)
+    {
+      v39 = v38 - 32;
+      v40 = v36;
+      if (v39 < 0x20)
+      {
+        goto LABEL_115;
+      }
+
+      v41 = (v39 >> 5) + 1;
+      v40 = v36 + 32 * (v41 & 0xFFFFFFFFFFFFFFELL);
+      v42 = (v36 + 48);
+      v43 = v41 & 0xFFFFFFFFFFFFFFELL;
+      do
+      {
+        *(v42 - 4) = 0;
+        *v42 = 0;
+        v42 += 8;
+        v43 -= 2;
+      }
+
+      while (v43);
+      if (v41 != (v41 & 0xFFFFFFFFFFFFFFELL))
+      {
+LABEL_115:
+        do
+        {
+          *(v40 + 16) = 0;
+          v40 += 32;
+        }
+
+        while (v40 != v35);
+      }
+    }
+
+    *(this + 14) = 0;
+    *(this + 60) = 0;
+    v44 = *(this + 52);
+    if (v44 && *(this + 69))
+    {
+      SourceNotifications::CallSourceNotifications(v44, 36864);
+    }
+
+    OALContext::SetBusEnable(*(this + 1), *(this + 58), 1);
+    if ((v7 & 1) != 0 && OALSource::AddRenderProc(this))
+    {
+      v7 = 1;
+    }
+
+    else
+    {
+      *(this + 76) = 4114;
+      v50 = *(this + 52);
+      if (v50)
+      {
+        SourceNotifications::CallSourceNotifications(v50, 4112);
+      }
+
+      v7 = 0;
+      *(this + 86) = 1;
+    }
+
+    goto LABEL_13;
+  }
+
+  if (v9 == 12)
+  {
+    OALSource::PostRenderAddBuffersToQueue(this, *(v5 + 6));
+    goto LABEL_12;
+  }
+
+  if (v9 != 9)
+  {
+LABEL_90:
+    v51 = MEMORY[0x277D86220];
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+    {
+      *buf = 136315394;
+      *v61 = "oalSource.cpp";
+      *&v61[8] = 1024;
+      *&v61[10] = 3070;
+      _os_log_impl(&dword_23A012000, v51, OS_LOG_TYPE_DEBUG, "%25s:%-5d      MQ:WARNING - UNIMPLEMENTED MESSAGE...", buf, 0x12u);
+    }
+
+    goto LABEL_13;
+  }
+
+  OALSource::StopRenderingToBus(this);
+  *(this + 76) = 4116;
+  v53 = *(this + 52);
+  if (v53)
+  {
+    SourceNotifications::CallSourceNotifications(v53, 4112);
+  }
+
+  OALSource::FlushBufferQueue(this);
+  *(this + 4) = 1;
+  OALSource::ClearMessageQueue(this);
+  *(this + 86) = 0;
 LABEL_97:
   if (*(this + 60) == 1)
   {
-    v58 = *(this + 58);
-    if (v58 != -1)
+    v54 = *(this + 58);
+    if (v54 != -1)
     {
       *(this + 27) = 0;
       *(this + 28) = 0;
-      if (!OALContext::SetBusRenderProc(*(this + 1), v58, (this + 216)))
+      if (!OALContext::SetBusRenderProc(*(this + 1), v54, (this + 216)))
       {
         AUGraphUpdate(*(*(*(this + 1) + 16) + 16), 0);
       }
 
       OALContext::SetBusEnable(*(this + 1), *(this + 58), 1);
       *(this + 236) = 0;
-      v59 = *(this + 58);
-      if (v59 != -1)
+      v55 = *(this + 58);
+      if (v55 != -1)
       {
-        OALContext::SetBusAsAvailable(*(this + 1), v59);
+        OALContext::SetBusAsAvailable(*(this + 1), v55);
         *(this + 58) = -1;
       }
     }
 
     *(this + 76) = 4116;
-    v60 = *(this + 52);
-    if (v60)
+    v56 = *(this + 52);
+    if (v56)
     {
-      SourceNotifications::CallSourceNotifications(v60, 4112);
+      SourceNotifications::CallSourceNotifications(v56, 4112);
     }
 
-    v61 = *(*(this + 3) + 24);
+    v57 = *(*(this + 3) + 24);
     OALSource::ClearActiveQueue(this);
-    if (v61)
+    if (v57)
     {
-      v62 = *(this + 52);
-      if (v62)
+      v58 = *(this + 52);
+      if (v58)
       {
-        SourceNotifications::CallSourceNotifications(v62, 4118);
+        SourceNotifications::CallSourceNotifications(v58, 4118);
       }
     }
   }
@@ -3838,13 +3723,10 @@ LABEL_97:
     OALContext::SetBusNeedsPostRender(*(this + 1), *(this + 58), 0);
   }
 
-  v6 = 0;
+  v2 = 0;
 LABEL_111:
-  v63 = *this;
-LABEL_112:
   atomic_fetch_add(this + 17, 0xFFFFFFFF);
-  v64 = *MEMORY[0x277D85DE8];
-  return v6;
+  return v2;
 }
 
 void std::vector<BufferInfo>::push_back[abi:ne200100](uint64_t a1, _OWORD *a2)
@@ -4016,43 +3898,41 @@ void CAMutex::Locker::~Locker(CAMutex::Locker *this)
 
 uint64_t CAStreamBasicDescription::Print(CAStreamBasicDescription *this, __sFILE *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
-  v22 = 0u;
-  v23 = 0u;
+  v22 = *MEMORY[0x277D85DE8];
   v20 = 0u;
   v21 = 0u;
   v18 = 0u;
   v19 = 0u;
   v16 = 0u;
   v17 = 0u;
+  v14 = 0u;
   v15 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v11 = 0u;
   v12 = 0u;
   v9 = 0u;
   v10 = 0u;
+  v7 = 0u;
+  v8 = 0u;
   *__dst = 0u;
-  CA::StreamDescription::AsString(this, __p);
-  if (v7 >= 0)
+  CA::StreamDescription::AsString(&__p, this, a2);
+  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v3 = __p;
+    p_p = &__p;
   }
 
   else
   {
-    v3 = __p[0];
+    p_p = __p.__r_.__value_.__r.__words[0];
   }
 
-  strlcpy(__dst, v3, 0x100uLL);
-  if (v7 < 0)
+  strlcpy(__dst, p_p, 0x100uLL);
+  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(__p[0]);
+    operator delete(__p.__r_.__value_.__l.__data_);
   }
 
-  result = fprintf(a2, "%s%s %s\n", "", "AudioStreamBasicDescription:", __dst);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return fprintf(a2, "%s%s %s\n", "", "AudioStreamBasicDescription:", __dst);
 }
 
 void sub_23A035358(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *__p, uint64_t a13, int a14, __int16 a15, char a16, char a17)
@@ -4065,113 +3945,113 @@ void sub_23A035358(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void CA::StreamDescription::AsString(CA::StreamDescription *this@<X0>, uint64_t a2@<X8>)
+void CA::StreamDescription::AsString(std::string *__return_ptr a1@<X8>, CA::StreamDescription *this@<X0>, const char *a3@<X1>)
 {
-  v65 = *MEMORY[0x277D85DE8];
-  v4 = *(this + 2);
-  if (v4 == 1718773105)
+  v66 = *MEMORY[0x277D85DE8];
+  v5 = *(this + 2);
+  if (v5 == 1718773105)
   {
-    caulk::make_string("%2u ch, %6.0f Hz, 'freq'", a2, *(this + 7), *this);
-    goto LABEL_95;
+    caulk::make_string(a1, "%2u ch, %6.0f Hz, 'freq'", a3, *(this + 7), *this);
+    return;
   }
 
-  if (v4 == 1819304813 && *(this + 5) == 1)
+  if (v5 == 1819304813 && *(this + 5) == 1)
   {
-    v5 = *(this + 6);
-    if (v5 == *(this + 4))
+    v6 = *(this + 6);
+    if (v6 == *(this + 4))
     {
-      v6 = *(this + 8);
-      if (v5 >= v6 >> 3)
+      v7 = *(this + 8);
+      if (v6 >= v7 >> 3)
       {
-        v7 = *(this + 7);
-        if (v7)
+        v8 = *(this + 7);
+        if (v8)
         {
-          v8 = *(this + 3);
-          if ((v8 & 0x20) == 0)
+          v9 = *(this + 3);
+          if ((v9 & 0x20) == 0)
           {
-            if (v5 % v7)
+            if (v6 % v8)
             {
               goto LABEL_36;
             }
 
-            v5 /= v7;
+            v6 /= v8;
           }
 
-          if ((v8 & 2) != 0 || 8 * v5 != v6)
+          if ((v9 & 2) != 0 || 8 * v6 != v7)
           {
             goto LABEL_36;
           }
 
-          if (v8)
+          if (v9)
           {
-            if ((v8 & 0x1F84) != 0)
+            if ((v9 & 0x1F84) != 0)
             {
               goto LABEL_36;
             }
 
-            if (v5 == 4)
+            if (v6 == 4)
             {
-              v10 = 1;
+              v11 = 1;
             }
 
             else
             {
-              v10 = 4 * (v5 == 8);
+              v11 = 4 * (v6 == 8);
             }
           }
 
           else
           {
-            if ((v8 & 4) == 0)
+            if ((v9 & 4) == 0)
             {
               goto LABEL_36;
             }
 
-            v9 = (v8 >> 7) & 0x3F;
-            if (v9 == 24 && v5 == 4)
+            v10 = (v9 >> 7) & 0x3F;
+            if (v10 == 24 && v6 == 4)
             {
-              v10 = 3;
+              v11 = 3;
             }
 
-            else if (v9 || v5 != 4)
+            else if (v10 || v6 != 4)
             {
-              if (v5 == 2 && v9 == 0)
+              if (v6 == 2 && v10 == 0)
               {
-                v10 = 2;
+                v11 = 2;
               }
 
               else
               {
-                v10 = 0;
+                v11 = 0;
               }
             }
 
             else
             {
-              v10 = 5;
+              v11 = 5;
             }
           }
 
-          if (v10)
+          if (v11)
           {
-            v12 = *(this + 7);
-            if (v12 < 2)
+            v13 = *(this + 7);
+            if (v13 < 2)
             {
-              v13 = "";
+              v14 = "";
             }
 
             else if ((*(this + 12) & 0x20) != 0)
             {
-              v13 = ", deinterleaved";
+              v14 = ", deinterleaved";
             }
 
             else
             {
-              v13 = ", interleaved";
+              v14 = ", interleaved";
             }
 
-            caulk::make_string("%2u ch, %6.0f Hz, %s%s", a2, v12, *this, *(&off_278B468E8 + v10), v13);
-            goto LABEL_95;
+            caulk::make_string(a1, "%2u ch, %6.0f Hz, %s%s", a3, v13, *this, *(&off_278B468E8 + v11), v14);
+            return;
           }
         }
       }
@@ -4179,70 +4059,70 @@ void CA::StreamDescription::AsString(CA::StreamDescription *this@<X0>, uint64_t 
   }
 
 LABEL_36:
-  v14 = *(this + 7);
-  v15 = *this;
-  if (v14)
+  v15 = *(this + 7);
+  v16 = *this;
+  if (v15)
   {
-    v16 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v16 = v4 == 0;
+    v17 = v5 == 0;
   }
 
-  if (v16 && v15 == 0.0)
+  if (v17 && v16 == 0.0)
   {
-    caulk::make_string("%2u ch, %6.0f Hz", a2, 0, *this);
-    goto LABEL_95;
+    caulk::make_string(a1, "%2u ch, %6.0f Hz", a3, 0, *this);
+    return;
   }
 
-  v17 = bswap32(v4);
-  v18 = v17 & 0xFF000000;
-  v19 = v17 - 32;
-  v20 = v17;
-  v21 = (v17 >> 8) - 32;
-  *(&v64.__r_.__value_.__s + 23) = 4;
-  if (((v17 >> 24) - 32) >= 0x5F)
+  v18 = bswap32(v5);
+  v19 = v18 & 0xFF000000;
+  v20 = v18 - 32;
+  v21 = v18;
+  v22 = (v18 >> 8) - 32;
+  *(&v65.__r_.__value_.__s + 23) = 4;
+  if (((v18 >> 24) - 32) >= 0x5F)
   {
-    v18 = 771751936;
+    v19 = 771751936;
   }
 
-  if (((v17 << 8 >> 24) - 32) >= 0x5F)
+  if (((v18 << 8 >> 24) - 32) >= 0x5F)
   {
-    v22 = 3014656;
-  }
-
-  else
-  {
-    v22 = v17 & 0xFF0000;
-  }
-
-  v23 = v22 | v18;
-  v24 = v17 & 0xFF00;
-  if (v21 >= 0x5F)
-  {
-    v24 = 11776;
-  }
-
-  if (v19 >= 0x5F)
-  {
-    v25 = 46;
+    v23 = 3014656;
   }
 
   else
   {
-    v25 = v20;
+    v23 = v18 & 0xFF0000;
   }
 
-  LODWORD(v64.__r_.__value_.__l.__data_) = v23 | v24 | v25;
-  v64.__r_.__value_.__s.__data_[4] = 0;
-  caulk::make_string("%2u ch, %6.0f Hz, %s (0x%08X) ", &v62, v14, *&v15, &v64, *(this + 3));
-  if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+  v24 = v23 | v19;
+  v25 = v18 & 0xFF00;
+  if (v22 >= 0x5F)
   {
-    operator delete(v64.__r_.__value_.__l.__data_);
-    v26 = *(this + 2);
-    if (v26 <= 1819304812)
+    v25 = 11776;
+  }
+
+  if (v20 >= 0x5F)
+  {
+    v26 = 46;
+  }
+
+  else
+  {
+    v26 = v21;
+  }
+
+  LODWORD(v65.__r_.__value_.__l.__data_) = v24 | v25 | v26;
+  v65.__r_.__value_.__s.__data_[4] = 0;
+  caulk::make_string(&v63, "%2u ch, %6.0f Hz, %s (0x%08X) ", a3, v15, *&v16, &v65, *(this + 3));
+  if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
+  {
+    operator delete(v65.__r_.__value_.__l.__data_);
+    v28 = *(this + 2);
+    if (v28 <= 1819304812)
     {
       goto LABEL_52;
     }
@@ -4250,354 +4130,353 @@ LABEL_36:
 
   else
   {
-    v26 = *(this + 2);
-    if (v26 <= 1819304812)
+    v28 = *(this + 2);
+    if (v28 <= 1819304812)
     {
 LABEL_52:
-      if (v26 != 1634492771 && v26 != 1634497332 && v26 != 1718378851)
+      if (v28 != 1634492771 && v28 != 1634497332 && v28 != 1718378851)
       {
 LABEL_96:
-        caulk::make_string("%u bits/channel, %u bytes/packet, %u frames/packet, %u bytes/frame", &v64, *(this + 8), *(this + 4), *(this + 5), *(this + 6));
-        if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        caulk::make_string(&v65, "%u bits/channel, %u bytes/packet, %u frames/packet, %u bytes/frame", v27, *(this + 8), *(this + 4), *(this + 5), *(this + 6));
+        if ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v37 = &v62;
+          v40 = &v63;
         }
 
         else
         {
-          v37 = v62.__r_.__value_.__r.__words[0];
+          v40 = v63.__r_.__value_.__r.__words[0];
         }
 
-        if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          size = HIBYTE(v62.__r_.__value_.__r.__words[2]);
+          size = HIBYTE(v63.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          size = v62.__r_.__value_.__l.__size_;
+          size = v63.__r_.__value_.__l.__size_;
         }
 
 LABEL_88:
-        v39 = std::string::insert(&v64, 0, v37, size);
-        v40 = *&v39->__r_.__value_.__l.__data_;
-        *(a2 + 16) = *(&v39->__r_.__value_.__l + 2);
-        *a2 = v40;
-        v39->__r_.__value_.__l.__size_ = 0;
-        v39->__r_.__value_.__r.__words[2] = 0;
-        v39->__r_.__value_.__r.__words[0] = 0;
-        if ((SHIBYTE(v64.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
+        v42 = std::string::insert(&v65, 0, v40, size);
+        v43 = *&v42->__r_.__value_.__l.__data_;
+        a1->__r_.__value_.__r.__words[2] = v42->__r_.__value_.__r.__words[2];
+        *&a1->__r_.__value_.__l.__data_ = v43;
+        v42->__r_.__value_.__l.__size_ = 0;
+        v42->__r_.__value_.__r.__words[2] = 0;
+        v42->__r_.__value_.__r.__words[0] = 0;
+        if ((SHIBYTE(v65.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
         {
           goto LABEL_91;
         }
 
-        v41 = v64.__r_.__value_.__r.__words[0];
+        v44 = v65.__r_.__value_.__r.__words[0];
         goto LABEL_90;
       }
 
 LABEL_71:
-      v34 = *(this + 3);
-      if ((v34 - 1) < 4 || !v34 && (v26 == 1634497332 || v26 == 1936487278 || v26 == 1936487267))
+      v36 = *(this + 3);
+      if ((v36 - 1) < 4 || !v36 && (v28 == 1634497332 || v28 == 1936487278 || v28 == 1936487267))
       {
-        caulk::make_string("from %u-bit source, ", &v64, CA::StreamDescription::AsString(void)const::kSourceBits[v34]);
-        if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        caulk::make_string(&v65, "from %u-bit source, ", v27, CA::StreamDescription::AsString(void)const::kSourceBits[v36]);
+        if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v35 = &v64;
+          v37 = &v65;
         }
 
         else
         {
-          v35 = v64.__r_.__value_.__r.__words[0];
+          v37 = v65.__r_.__value_.__r.__words[0];
         }
 
-        if ((v64.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+        if ((v65.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
         {
-          v36 = HIBYTE(v64.__r_.__value_.__r.__words[2]);
+          v38 = HIBYTE(v65.__r_.__value_.__r.__words[2]);
         }
 
         else
         {
-          v36 = v64.__r_.__value_.__l.__size_;
+          v38 = v65.__r_.__value_.__l.__size_;
         }
 
-        std::string::append(&v62, v35, v36);
-        if (SHIBYTE(v64.__r_.__value_.__r.__words[2]) < 0)
+        std::string::append(&v63, v37, v38);
+        if (SHIBYTE(v65.__r_.__value_.__r.__words[2]) < 0)
         {
-          operator delete(v64.__r_.__value_.__l.__data_);
+          operator delete(v65.__r_.__value_.__l.__data_);
         }
       }
 
       else
       {
-        std::string::append(&v62, "from UNKNOWN source bit depth, ", 0x1FuLL);
+        std::string::append(&v63, "from UNKNOWN source bit depth, ", 0x1FuLL);
       }
 
-      caulk::make_string("%u frames/packet", &v64, *(this + 5));
-      if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      caulk::make_string(&v65, "%u frames/packet", v39, *(this + 5));
+      if ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
       {
-        v37 = &v62;
-      }
-
-      else
-      {
-        v37 = v62.__r_.__value_.__r.__words[0];
-      }
-
-      if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-      {
-        size = HIBYTE(v62.__r_.__value_.__r.__words[2]);
+        v40 = &v63;
       }
 
       else
       {
-        size = v62.__r_.__value_.__l.__size_;
+        v40 = v63.__r_.__value_.__r.__words[0];
+      }
+
+      if ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+      {
+        size = HIBYTE(v63.__r_.__value_.__r.__words[2]);
+      }
+
+      else
+      {
+        size = v63.__r_.__value_.__l.__size_;
       }
 
       goto LABEL_88;
     }
   }
 
-  if (v26 == 1936487278 || v26 == 1936487267)
+  if (v28 == 1936487278 || v28 == 1936487267)
   {
     goto LABEL_71;
   }
 
-  if (v26 != 1819304813)
+  if (v28 != 1819304813)
   {
     goto LABEL_96;
   }
 
-  v27 = *(this + 3);
-  v28 = *(this + 6);
-  v29 = "";
-  if (!v28)
+  v29 = *(this + 3);
+  v30 = *(this + 6);
+  v31 = "";
+  if (!v30)
   {
     goto LABEL_63;
   }
 
-  if ((v27 & 0x20) != 0)
+  if ((v29 & 0x20) != 0)
   {
-    v30 = 1;
+    v32 = 1;
   }
 
   else
   {
-    v30 = *(this + 7);
-    if (!v30)
+    v32 = *(this + 7);
+    if (!v32)
     {
 LABEL_63:
-      v31 = " signed";
-      if ((v27 & 4) == 0)
+      v33 = " signed";
+      if ((v29 & 4) == 0)
       {
-        v31 = " unsigned";
+        v33 = " unsigned";
       }
 
-      if (v27)
+      if (v29)
       {
-        v32 = "float";
-      }
-
-      else
-      {
-        v32 = "integer";
-      }
-
-      if (v27)
-      {
-        v33 = "";
+        v34 = "float";
       }
 
       else
       {
-        v33 = v31;
+        v34 = "integer";
+      }
+
+      if (v29)
+      {
+        v35 = "";
+      }
+
+      else
+      {
+        v35 = v33;
       }
 
 LABEL_128:
-      v64.__r_.__value_.__s.__data_[0] = 0;
-      if ((v27 & 0x20) != 0)
+      v65.__r_.__value_.__s.__data_[0] = 0;
+      if ((v29 & 0x20) != 0)
       {
-        v47 = ", deinterleaved";
+        v49 = ", deinterleaved";
       }
 
       else
       {
-        v47 = "";
+        v49 = "";
       }
 
-      v44 = "";
-      v48 = "";
+      v46 = "";
+      v50 = "";
       goto LABEL_132;
     }
   }
 
-  v43 = v28 / v30;
-  if (v28 / v30 < 2)
+  v45 = v30 / v32;
+  if (v30 / v32 < 2)
   {
-    v46 = " signed";
-    if ((v27 & 4) == 0)
+    v48 = " signed";
+    if ((v29 & 4) == 0)
     {
-      v46 = " unsigned";
+      v48 = " unsigned";
     }
 
-    if (v27)
+    if (v29)
     {
-      v32 = "float";
-    }
-
-    else
-    {
-      v32 = "integer";
-    }
-
-    if (v27)
-    {
-      v33 = "";
+      v34 = "float";
     }
 
     else
     {
-      v33 = v46;
+      v34 = "integer";
     }
 
-    if (v30 > v28)
+    if (v29)
+    {
+      v35 = "";
+    }
+
+    else
+    {
+      v35 = v48;
+    }
+
+    if (v32 > v30)
     {
       goto LABEL_128;
     }
 
-    v43 = 1;
-    v44 = "";
+    v45 = 1;
+    v46 = "";
   }
 
   else
   {
-    if ((v27 & 2) != 0)
+    if ((v29 & 2) != 0)
     {
-      v44 = " big-endian";
+      v46 = " big-endian";
     }
 
     else
     {
-      v44 = " little-endian";
+      v46 = " little-endian";
     }
 
-    v45 = " unsigned";
-    if ((v27 & 4) != 0)
+    v47 = " unsigned";
+    if ((v29 & 4) != 0)
     {
-      v45 = " signed";
+      v47 = " signed";
     }
 
-    if (v27)
+    if (v29)
     {
-      v32 = "float";
-    }
-
-    else
-    {
-      v32 = "integer";
-    }
-
-    if (v27)
-    {
-      v33 = "";
+      v34 = "float";
     }
 
     else
     {
-      v33 = v45;
+      v34 = "integer";
     }
-  }
 
-  v50 = *(this + 7);
-  if ((v27 & 0x20) != 0)
-  {
-    v50 = 1;
-  }
-
-  if (v50)
-  {
-    v50 = 8 * (v28 / v50);
-  }
-
-  if (v50 == *(this + 8))
-  {
-    v64.__r_.__value_.__s.__data_[0] = 0;
-  }
-
-  else
-  {
-    if ((v27 & 8) != 0)
+    if (v29)
     {
-      v51 = "";
+      v35 = "";
     }
 
     else
     {
-      v51 = "un";
-    }
-
-    snprintf(&v64, 0x20uLL, "%spacked in %u bytes", v51, v43);
-    v28 = *(this + 6);
-    v27 = *(this + 3);
-    if (!v28)
-    {
-      goto LABEL_152;
+      v35 = v47;
     }
   }
 
   v52 = *(this + 7);
-  if ((v27 & 0x20) != 0)
+  if ((v29 & 0x20) != 0)
   {
     v52 = 1;
   }
 
   if (v52)
   {
-    v28 = 8 * (v28 / v52);
+    v52 = 8 * (v30 / v52);
+  }
+
+  if (v52 == *(this + 8))
+  {
+    v65.__r_.__value_.__s.__data_[0] = 0;
   }
 
   else
   {
-    v28 = 0;
+    if ((v29 & 8) != 0)
+    {
+      v53 = "";
+    }
+
+    else
+    {
+      v53 = "un";
+    }
+
+    snprintf(&v65, 0x20uLL, "%spacked in %u bytes", v53, v45);
+    v30 = *(this + 6);
+    v29 = *(this + 3);
+    if (!v30)
+    {
+      goto LABEL_152;
+    }
+  }
+
+  v54 = *(this + 7);
+  if ((v29 & 0x20) != 0)
+  {
+    v54 = 1;
+  }
+
+  if (v54)
+  {
+    v30 = 8 * (v30 / v54);
+  }
+
+  else
+  {
+    v30 = 0;
   }
 
 LABEL_152:
-  v53 = *(this + 8);
-  v54 = " high-aligned";
-  if ((v27 & 0x10) == 0)
+  v55 = *(this + 8);
+  v56 = " high-aligned";
+  if ((v29 & 0x10) == 0)
   {
-    v54 = " low-aligned";
+    v56 = " low-aligned";
   }
 
-  if ((v53 & 7) == 0 && v28 == v53)
+  if ((v55 & 7) == 0 && v30 == v55)
   {
-    v48 = "";
-  }
-
-  else
-  {
-    v48 = v54;
-  }
-
-  if ((v27 & 0x20) != 0)
-  {
-    v47 = ", deinterleaved";
+    v50 = "";
   }
 
   else
   {
-    v47 = "";
+    v50 = v56;
   }
 
-  if (!v64.__r_.__value_.__s.__data_[0])
+  if ((v29 & 0x20) != 0)
+  {
+    v49 = ", deinterleaved";
+  }
+
+  else
+  {
+    v49 = "";
+  }
+
+  if (!v65.__r_.__value_.__s.__data_[0])
   {
 LABEL_132:
-    if (*v48)
+    if (*v50)
     {
-      v29 = ", ";
+      v31 = ", ";
     }
 
-    v49 = *(this + 8);
-    if (((v27 >> 7) & 0x3F) != 0)
+    if (((v29 >> 7) & 0x3F) != 0)
     {
       goto LABEL_135;
     }
@@ -4605,9 +4484,8 @@ LABEL_132:
     goto LABEL_165;
   }
 
-  v29 = ", ";
-  v56 = *(this + 8);
-  if (((v27 >> 7) & 0x3F) != 0)
+  v31 = ", ";
+  if (((v29 >> 7) & 0x3F) != 0)
   {
 LABEL_135:
     snprintf(__str, 0x14uLL, "%u.%u");
@@ -4617,49 +4495,46 @@ LABEL_135:
 LABEL_165:
   snprintf(__str, 0x14uLL, "%u");
 LABEL_166:
-  caulk::make_string("%s-bit%s%s %s%s%s%s%s", &v61, __str, v44, v33, v32, v29, &v64, v48, v47);
-  if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  caulk::make_string(&v62, "%s-bit%s%s %s%s%s%s%s", v51, __str, v46, v35, v34, v31, &v65, v50, v49);
+  if ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v57 = &v62;
+    v58 = &v63;
   }
 
   else
   {
-    v57 = v62.__r_.__value_.__r.__words[0];
+    v58 = v63.__r_.__value_.__r.__words[0];
   }
 
-  if ((v62.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  if ((v63.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v58 = HIBYTE(v62.__r_.__value_.__r.__words[2]);
+    v59 = HIBYTE(v63.__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v58 = v62.__r_.__value_.__l.__size_;
+    v59 = v63.__r_.__value_.__l.__size_;
   }
 
-  v59 = std::string::insert(&v61, 0, v57, v58);
-  v60 = *&v59->__r_.__value_.__l.__data_;
-  *(a2 + 16) = *(&v59->__r_.__value_.__l + 2);
-  *a2 = v60;
-  v59->__r_.__value_.__l.__size_ = 0;
-  v59->__r_.__value_.__r.__words[2] = 0;
-  v59->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(v61.__r_.__value_.__r.__words[2]) < 0)
+  v60 = std::string::insert(&v62, 0, v58, v59);
+  v61 = *&v60->__r_.__value_.__l.__data_;
+  a1->__r_.__value_.__r.__words[2] = v60->__r_.__value_.__r.__words[2];
+  *&a1->__r_.__value_.__l.__data_ = v61;
+  v60->__r_.__value_.__l.__size_ = 0;
+  v60->__r_.__value_.__r.__words[2] = 0;
+  v60->__r_.__value_.__r.__words[0] = 0;
+  if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
   {
-    v41 = v61.__r_.__value_.__r.__words[0];
+    v44 = v62.__r_.__value_.__r.__words[0];
 LABEL_90:
-    operator delete(v41);
+    operator delete(v44);
   }
 
 LABEL_91:
-  if (SHIBYTE(v62.__r_.__value_.__r.__words[2]) < 0)
+  if (SHIBYTE(v63.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v62.__r_.__value_.__l.__data_);
+    operator delete(v63.__r_.__value_.__l.__data_);
   }
-
-LABEL_95:
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 void sub_23A035AF4(_Unwind_Exception *a1, int a2)
@@ -4672,66 +4547,65 @@ void sub_23A035AF4(_Unwind_Exception *a1, int a2)
   __clang_call_terminate(a1);
 }
 
-std::string *caulk::make_string@<X0>(caulk *this@<X0>, uint64_t a2@<X8>, ...)
+std::string *caulk::make_string@<X0>(std::string *__return_ptr a1@<X8>, caulk *this@<X0>, const char *a3@<X1>, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   result = vsnprintf(0, 0, this, va);
   if (result <= 0)
   {
-    *a2 = 0;
-    *(a2 + 8) = 0;
-    *(a2 + 16) = 0;
+    a1->__r_.__value_.__r.__words[0] = 0;
+    a1->__r_.__value_.__l.__size_ = 0;
+    a1->__r_.__value_.__r.__words[2] = 0;
     return result;
   }
 
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0;
-  std::string::append(a2, (result + 1), 0);
-  v6 = *(a2 + 8);
-  v7 = *(a2 + 23);
-  if (v7 >= 0)
+  a1->__r_.__value_.__r.__words[0] = 0;
+  a1->__r_.__value_.__l.__size_ = 0;
+  a1->__r_.__value_.__r.__words[2] = 0;
+  std::string::append(a1, (result + 1), 0);
+  v6 = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
+  if (v6 >= 0)
   {
-    v8 = a2;
+    v7 = a1;
   }
 
   else
   {
-    v8 = *a2;
+    v7 = a1->__r_.__value_.__r.__words[0];
   }
 
-  if (v7 >= 0)
+  if (v6 >= 0)
   {
-    v9 = *(a2 + 23);
+    size = HIBYTE(a1->__r_.__value_.__r.__words[2]);
   }
 
   else
   {
-    v9 = *(a2 + 8);
+    size = a1->__r_.__value_.__l.__size_;
   }
 
-  result = vsnprintf(v8, v9, this, va);
-  v10 = *(a2 + 23);
-  if ((v10 & 0x8000000000000000) == 0)
+  result = vsnprintf(v7, size, this, va);
+  v9 = SHIBYTE(a1->__r_.__value_.__r.__words[2]);
+  if ((v9 & 0x8000000000000000) == 0)
   {
-    if (v10 >= result)
+    if (v9 >= result)
     {
-      *(a2 + 23) = result;
-      *(a2 + result) = 0;
+      *(&a1->__r_.__value_.__s + 23) = result;
+      a1->__r_.__value_.__s.__data_[result] = 0;
       return result;
     }
 
-    return std::string::append(a2, result - v10, 0);
+    return std::string::append(a1, result - v9, 0);
   }
 
-  v10 = *(a2 + 8);
-  if (v10 < result)
+  v9 = a1->__r_.__value_.__l.__size_;
+  if (v9 < result)
   {
-    return std::string::append(a2, result - v10, 0);
+    return std::string::append(a1, result - v9, 0);
   }
 
-  *(a2 + 8) = result;
-  *(*a2 + result) = 0;
+  a1->__r_.__value_.__l.__size_ = result;
+  *(a1->__r_.__value_.__r.__words[0] + result) = 0;
   return result;
 }
 
@@ -5285,82 +5159,52 @@ LABEL_21:
 
 uint64_t OALCaptureDevice::InitializeAU(OALCaptureDevice *this, const char *a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   inData = 0;
-  v11.componentFlagsMask = 0;
-  *&v11.componentType = xmmword_23A03A3D0;
-  Next = AudioComponentFindNext(0, &v11);
-  if (Next)
+  v10.componentFlagsMask = 0;
+  *&v10.componentType = xmmword_23A03A3D0;
+  Next = AudioComponentFindNext(0, &v10);
+  if (!Next)
   {
-    v4 = AudioComponentInstanceNew(Next, this + 4);
-    if (v4)
-    {
-      goto LABEL_7;
-    }
+    return 0xFFFFFFFFLL;
+  }
 
-    inData = 0;
-    v4 = AudioUnitSetProperty(*(this + 4), 0x7D3u, 2u, 0, &inData, 4u);
-    if (v4)
-    {
-      goto LABEL_7;
-    }
-
-    inData = 1;
-    v4 = AudioUnitSetProperty(*(this + 4), 0x7D3u, 1u, 1u, &inData, 4u);
-    if (v4)
-    {
-      goto LABEL_7;
-    }
-
-    v5 = *(this + 56);
-    v13[0] = *(this + 40);
-    v13[1] = v5;
-    v14 = *(this + 9);
-    v4 = AudioUnitSetProperty(*(this + 4), 8u, 2u, 1u, v13, 0x28u);
-    if (v4 || (v12[0] = OALCaptureDevice::InputProc, v12[1] = this, v4 = AudioUnitSetProperty(*(this + 4), 0x7D5u, 0, 0, v12, 0x10u), v4))
-    {
-LABEL_7:
-      v6 = v4;
-    }
-
-    else
-    {
-      v6 = AudioUnitInitialize(*(this + 4));
-      if (!v6)
-      {
-        goto LABEL_13;
-      }
-    }
-
-    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
-    {
-      v7 = *this;
-      *buf = 136315906;
-      v17 = "oalCaptureDevice.cpp";
-      v18 = 1024;
-      v19 = 172;
-      v20 = 2048;
-      v21 = v7;
-      v22 = 2048;
-      v23 = v6;
-      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALContext::InitializeAU FAILED - OALContext = %ld : result = %ld", buf, 0x26u);
-    }
-
-    v8 = *(this + 4);
-    if (v8)
-    {
-      AudioComponentInstanceDispose(v8);
-      *(this + 4) = 0;
-    }
+  v4 = AudioComponentInstanceNew(Next, this + 4);
+  if (v4 || (inData = 0, v4 = AudioUnitSetProperty(*(this + 4), 0x7D3u, 2u, 0, &inData, 4u), v4) || (inData = 1, v4 = AudioUnitSetProperty(*(this + 4), 0x7D3u, 1u, 1u, &inData, 4u), v4) || (v5 = *(this + 56), v12[0] = *(this + 40), v12[1] = v5, v13 = *(this + 9), v4 = AudioUnitSetProperty(*(this + 4), 8u, 2u, 1u, v12, 0x28u), v4) || (v11[0] = OALCaptureDevice::InputProc, v11[1] = this, v4 = AudioUnitSetProperty(*(this + 4), 0x7D5u, 0, 0, v11, 0x10u), v4))
+  {
+    v6 = v4;
   }
 
   else
   {
-    v6 = 0xFFFFFFFFLL;
+    v6 = AudioUnitInitialize(*(this + 4));
+    if (!v6)
+    {
+      return v6;
+    }
   }
 
-LABEL_13:
-  v9 = *MEMORY[0x277D85DE8];
+  if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+  {
+    v7 = *this;
+    *buf = 136315906;
+    v16 = "oalCaptureDevice.cpp";
+    v17 = 1024;
+    v18 = 172;
+    v19 = 2048;
+    v20 = v7;
+    v21 = 2048;
+    v22 = v6;
+    _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALContext::InitializeAU FAILED - OALContext = %ld : result = %ld", buf, 0x26u);
+  }
+
+  v8 = *(this + 4);
+  if (v8)
+  {
+    AudioComponentInstanceDispose(v8);
+    *(this + 4) = 0;
+  }
+
   return v6;
 }
 
@@ -5400,7 +5244,7 @@ void OALCaptureDevice::~OALCaptureDevice(OALCaptureDevice *this)
 
 uint64_t OALCaptureDevice::InputProc(OALCaptureDevice *this, void *a2, const AudioTimeStamp *a3, const AudioTimeStamp *a4, UInt32 inNumberFrames, unsigned int a6, AudioBufferList *a7)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   ioActionFlags = 0;
   v9 = *(this + 14);
   v10 = *(v9 + 24);
@@ -5449,13 +5293,13 @@ LABEL_9:
     {
       v17 = *this;
       *buf = 136315906;
-      v22 = "oalCaptureDevice.cpp";
-      v23 = 1024;
-      v24 = 200;
-      v25 = 2048;
-      v26 = v17;
-      v27 = 2048;
-      v28 = v16;
+      v21 = "oalCaptureDevice.cpp";
+      v22 = 1024;
+      v23 = 200;
+      v24 = 2048;
+      v25 = v17;
+      v26 = 2048;
+      v27 = v16;
       _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALContext::InputProc FAILED - OALContext = %ld : result = %ld", buf, 0x26u);
     }
   }
@@ -5465,7 +5309,6 @@ LABEL_9:
     *(this + 2) += inNumberFrames;
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -5489,21 +5332,21 @@ void OALCaptureDevice::StopCapture(AudioUnit *this)
 
 uint64_t OALCaptureDevice::GetFrames(OALCaptureDevice *this, unsigned int a2, unsigned __int8 *__dst, double a4, double a5)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   if ((*(this + 12) & 1) == 0)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v21 = *this;
-      v23 = 136315906;
-      v24 = "oalCaptureDevice.cpp";
-      v25 = 1024;
-      v26 = 241;
-      v27 = 2048;
-      v28 = v21;
-      v29 = 2048;
-      v30 = 40964;
-      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALContext::GetFrames FAILED, device not currently capturing - OALContext = %ld : result = %ld", &v23, 0x26u);
+      v18 = *this;
+      v20 = 136315906;
+      v21 = "oalCaptureDevice.cpp";
+      v22 = 1024;
+      v23 = 241;
+      v24 = 2048;
+      v25 = v18;
+      v26 = 2048;
+      v27 = 40964;
+      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALContext::GetFrames FAILED, device not currently capturing - OALContext = %ld : result = %ld", &v20, 0x26u);
     }
 
     exception = __cxa_allocate_exception(4uLL);
@@ -5535,29 +5378,27 @@ uint64_t OALCaptureDevice::GetFrames(OALCaptureDevice *this, unsigned int a2, un
     result = OALRingBuffer::Fetch(v7, __dst, a2, v10);
     if (result)
     {
-      v17 = result;
+      v16 = result;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
-        v18 = *this;
-        v23 = 136315906;
-        v24 = "oalCaptureDevice.cpp";
-        v25 = 1024;
-        v26 = 255;
-        v27 = 2048;
-        v28 = v18;
-        v29 = 2048;
-        v30 = -1;
-        _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALContext::GetFrames FAILED, err returned from mRingBuffer->Fetch - OALContext = %ld : result = %ld", &v23, 0x26u);
+        v17 = *this;
+        v20 = 136315906;
+        v21 = "oalCaptureDevice.cpp";
+        v22 = 1024;
+        v23 = 255;
+        v24 = 2048;
+        v25 = v17;
+        v26 = 2048;
+        v27 = -1;
+        _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALContext::GetFrames FAILED, err returned from mRingBuffer->Fetch - OALContext = %ld : result = %ld", &v20, 0x26u);
       }
 
-      result = v17;
-      v19 = *MEMORY[0x277D85DE8];
+      return v16;
     }
 
     else
     {
       *(this + 3) += a2;
-      v20 = *MEMORY[0x277D85DE8];
     }
   }
 
@@ -5566,19 +5407,18 @@ uint64_t OALCaptureDevice::GetFrames(OALCaptureDevice *this, unsigned int a2, un
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
       v14 = *this;
-      v23 = 136315906;
-      v24 = "oalCaptureDevice.cpp";
-      v25 = 1024;
-      v26 = 247;
-      v27 = 2048;
-      v28 = v14;
-      v29 = 2048;
-      v30 = -1;
-      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALContext::GetFrames FAILED, not enough captured frames - OALContext = %ld : result = %ld", &v23, 0x26u);
+      v20 = 136315906;
+      v21 = "oalCaptureDevice.cpp";
+      v22 = 1024;
+      v23 = 247;
+      v24 = 2048;
+      v25 = v14;
+      v26 = 2048;
+      v27 = -1;
+      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALContext::GetFrames FAILED, not enough captured frames - OALContext = %ld : result = %ld", &v20, 0x26u);
     }
 
-    result = 0xFFFFFFFFLL;
-    v16 = *MEMORY[0x277D85DE8];
+    return 0xFFFFFFFFLL;
   }
 
   return result;
@@ -5857,6 +5697,64 @@ void OALCaptureMixer::OALCaptureMixer(OALCaptureMixer *this, OpaqueAudioComponen
   __cxa_throw(v8, MEMORY[0x277D827C0], 0);
 }
 
+void sub_23A0378A0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, __int128 buf, __int16 a12, __int16 a13, int a14)
+{
+  if (a2)
+  {
+    __cxa_free_exception(v15);
+    v18 = __cxa_begin_catch(a1);
+    if (a2 == 2)
+    {
+      v19 = *v18;
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+      {
+        LODWORD(buf) = 136315650;
+        *(&buf + 4) = "oalCaptureMixer.cpp";
+        WORD6(buf) = 1024;
+        *(&buf + 14) = 62;
+        a13 = 1024;
+        a14 = v19;
+        _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALCaptureMixer::OALCaptureMixer FAILED - result = %d", &buf, 0x18u);
+      }
+
+      v20 = *(v14 + 48);
+      if (v20)
+      {
+        OALRingBuffer::~OALRingBuffer(v20);
+        MEMORY[0x23EE824D0]();
+        *(v14 + 48) = 0;
+      }
+
+      exception = __cxa_allocate_exception(4uLL);
+      *exception = v19;
+      __cxa_throw(exception, MEMORY[0x277D827C0], 0);
+    }
+
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+    {
+      LODWORD(buf) = 136315394;
+      *(&buf + 4) = "oalCaptureMixer.cpp";
+      WORD6(buf) = 1024;
+      *(&buf + 14) = 70;
+      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALCaptureMixer::OALCaptureMixer FAILED - Unknown error", &buf, 0x12u);
+    }
+
+    v22 = *(v14 + 48);
+    if (v22)
+    {
+      OALRingBuffer::~OALRingBuffer(v22);
+      MEMORY[0x23EE824D0]();
+      *(v14 + 48) = 0;
+    }
+
+    v23 = __cxa_allocate_exception(4uLL);
+    *v23 = -1;
+    __cxa_throw(v23, MEMORY[0x277D827C0], 0);
+  }
+
+  _Unwind_Resume(a1);
+}
+
 void sub_23A037A84(_Unwind_Exception *a1, int a2)
 {
   if (a2)
@@ -5985,25 +5883,23 @@ void OALCaptureMixer::StartCapture(OALCaptureMixer *this)
 
 uint64_t OALCaptureMixer::RenderCallback(OALCaptureMixer *this, _DWORD *a2, unsigned int *a3, const AudioTimeStamp *a4, unsigned int a5, void *inInputDataProcUserData, AudioBufferList *a7)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (!*(this + 20))
   {
-LABEL_7:
-    result = 0;
-    goto LABEL_8;
+    return 0;
   }
 
   result = 0;
   if (!a4 && (*a2 & 0x108) == 8)
   {
-    v15[0] = a5;
+    v14[0] = a5;
     v10 = *(this + 12);
-    v11 = AudioConverterFillComplexBuffer(*(this + 11), OALCaptureMixer::ConverterProc, inInputDataProcUserData, v15, (v10 + 24), 0);
+    v11 = AudioConverterFillComplexBuffer(*(this + 11), OALCaptureMixer::ConverterProc, inInputDataProcUserData, v14, (v10 + 24), 0);
     if (v11)
     {
-      v13 = v11;
+      v12 = v11;
       exception = __cxa_allocate_exception(0x104uLL);
-      CAXException::CAXException(exception, "AudioConverterFillComplexBuffer(THIS->mAudioConverter, ConverterProc, ioData, &packetCount, abl, NULL)", v13);
+      CAXException::CAXException(exception, "AudioConverterFillComplexBuffer(THIS->mAudioConverter, ConverterProc, ioData, &packetCount, abl, NULL)", v12);
     }
 
     if (OALRingBuffer::Store(*(this + 6), *(v10 + 40), a5, *(this + 8)))
@@ -6011,12 +5907,47 @@ LABEL_7:
       *(this + 8) += a5;
     }
 
-    goto LABEL_7;
+    return 0;
   }
 
-LABEL_8:
-  v12 = *MEMORY[0x277D85DE8];
   return result;
+}
+
+void sub_23A037E34(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, __int128 a9, __int16 a10, __int16 a11, int a12)
+{
+  if (a2)
+  {
+    __cxa_free_exception(v12);
+    v15 = __cxa_begin_catch(exception_object);
+    if (a2 == 2)
+    {
+      v16 = *v15;
+      if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+      {
+        LODWORD(a9) = 136315650;
+        *(&a9 + 4) = "oalCaptureMixer.cpp";
+        WORD6(a9) = 1024;
+        *(&a9 + 14) = 157;
+        a11 = 1024;
+        a12 = v16;
+        _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALCaptureMixer::RenderCallback FAILED - result = %d", &a9, 0x18u);
+      }
+    }
+
+    else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
+    {
+      LODWORD(a9) = 136315394;
+      *(&a9 + 4) = "oalCaptureMixer.cpp";
+      WORD6(a9) = 1024;
+      *(&a9 + 14) = 161;
+      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALCaptureMixer::RenderCallback FAILED - Unknown error", &a9, 0x12u);
+    }
+
+    __cxa_end_catch();
+    JUMPOUT(0x23A037DCCLL);
+  }
+
+  _Unwind_Resume(exception_object);
 }
 
 uint64_t OALCaptureMixer::ConverterProc(OALCaptureMixer *this, OpaqueAudioConverter *a2, unsigned int *a3, AudioBufferList *a4, AudioStreamPacketDescription **a5, void *a6)
@@ -6043,18 +5974,18 @@ uint64_t OALCaptureMixer::ConverterProc(OALCaptureMixer *this, OpaqueAudioConver
 
 uint64_t OALCaptureMixer::GetFrames(OALCaptureMixer *this, unsigned int a2, unsigned __int8 *__dst)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (!*(this + 20))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v16 = 136315650;
-      v17 = "oalCaptureMixer.cpp";
-      v18 = 1024;
-      v19 = 196;
-      v20 = 2048;
-      v21 = 40964;
-      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALCaptureMixer::GetFrames FAILED, device not currently capturing - result = %ld", &v16, 0x1Cu);
+      v13 = 136315650;
+      v14 = "oalCaptureMixer.cpp";
+      v15 = 1024;
+      v16 = 196;
+      v17 = 2048;
+      v18 = 40964;
+      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALCaptureMixer::GetFrames FAILED, device not currently capturing - result = %ld", &v13, 0x1Cu);
     }
 
     exception = __cxa_allocate_exception(4uLL);
@@ -6083,26 +6014,24 @@ uint64_t OALCaptureMixer::GetFrames(OALCaptureMixer *this, unsigned int a2, unsi
     result = OALRingBuffer::Fetch(v4, __dst, a2, v7);
     if (result)
     {
-      v12 = result;
+      v11 = result;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
       {
-        v16 = 136315650;
-        v17 = "oalCaptureMixer.cpp";
-        v18 = 1024;
-        v19 = 210;
-        v20 = 2048;
-        v21 = -1;
-        _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALCaptureMixer::GetFrames FAILED, err returned from mRingBuffer->Fetch - result = %ld", &v16, 0x1Cu);
+        v13 = 136315650;
+        v14 = "oalCaptureMixer.cpp";
+        v15 = 1024;
+        v16 = 210;
+        v17 = 2048;
+        v18 = -1;
+        _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALCaptureMixer::GetFrames FAILED, err returned from mRingBuffer->Fetch - result = %ld", &v13, 0x1Cu);
       }
 
-      result = v12;
-      v13 = *MEMORY[0x277D85DE8];
+      return v11;
     }
 
     else
     {
       *(this + 9) += a2;
-      v14 = *MEMORY[0x277D85DE8];
     }
   }
 
@@ -6110,17 +6039,16 @@ uint64_t OALCaptureMixer::GetFrames(OALCaptureMixer *this, unsigned int a2, unsi
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG))
     {
-      v16 = 136315650;
-      v17 = "oalCaptureMixer.cpp";
-      v18 = 1024;
-      v19 = 202;
-      v20 = 2048;
-      v21 = -1;
-      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALCaptureMixer::GetFrames FAILED, not enough captured frames - result = %ld", &v16, 0x1Cu);
+      v13 = 136315650;
+      v14 = "oalCaptureMixer.cpp";
+      v15 = 1024;
+      v16 = 202;
+      v17 = 2048;
+      v18 = -1;
+      _os_log_impl(&dword_23A012000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%25s:%-5d ERROR: OALCaptureMixer::GetFrames FAILED, not enough captured frames - result = %ld", &v13, 0x1Cu);
     }
 
-    result = 0xFFFFFFFFLL;
-    v10 = *MEMORY[0x277D85DE8];
+    return 0xFFFFFFFFLL;
   }
 
   return result;
@@ -6155,7 +6083,6 @@ uint64_t CABufferList::AllocateBuffers(uint64_t this, unsigned int a2)
 {
   if (*(this + 36) < a2)
   {
-    *(this + 24);
     operator new[]();
   }
 
@@ -6164,28 +6091,24 @@ uint64_t CABufferList::AllocateBuffers(uint64_t this, unsigned int a2)
 
 void alSourceAddNotification_cold_1(char a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_23A012000, MEMORY[0x277D86220], v1, "%25s:%-5d ERROR: alSourceAddNotification FAILED", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_1(&dword_23A012000, MEMORY[0x277D86220], v1, "%25s:%-5d ERROR: alSourceAddNotification FAILED", v2, v3, v4, v5);
   }
 
   __cxa_end_catch();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void alSourceRemoveNotification_cold_1(char a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_1(&dword_23A012000, MEMORY[0x277D86220], v1, "%25s:%-5d ERROR: alSourceRemoveNotification FAILED", v2, v3, v4, v5, v7);
+    OUTLINED_FUNCTION_1(&dword_23A012000, MEMORY[0x277D86220], v1, "%25s:%-5d ERROR: alSourceRemoveNotification FAILED", v2, v3, v4, v5);
   }
 
   __cxa_end_catch();
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void operator delete[]()

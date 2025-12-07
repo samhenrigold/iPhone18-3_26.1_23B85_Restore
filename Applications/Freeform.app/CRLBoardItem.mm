@@ -258,7 +258,7 @@
   if (Strong)
   {
     v4 = Strong;
-    type metadata accessor for CRLGroupItem();
+    type metadata accessor for CRLGroupItem(0);
     Strong = swift_dynamicCastClass();
     if (!Strong)
     {
@@ -430,7 +430,7 @@
     return 0;
   }
 
-  type metadata accessor for CRLFreehandDrawingShapeItem();
+  type metadata accessor for CRLFreehandDrawingShapeItem(0);
   return swift_dynamicCastClass() != 0;
 }
 
@@ -457,12 +457,12 @@
 
 - (NSURL)hyperlinkURL
 {
-  v3 = sub_1005B981C(&unk_1019F33C0);
+  v3 = sub_1005B981C(&unk_1019F33C0, &unk_101468A60);
   __chkstk_darwin(v3 - 8);
   v5 = &v14 - v4;
   v6 = OBJC_IVAR____TtC8Freeform12CRLBoardItem_hyperlinkURL;
   swift_beginAccess();
-  sub_10000BE14(self + v6, v5, &unk_1019F33C0);
+  sub_10000BE14(self + v6, v5, &unk_1019F33C0, &unk_101468A60);
   v7 = type metadata accessor for URL();
   v8 = *(v7 - 8);
   v9 = (*(v8 + 48))(v5, 1, v7);
@@ -480,7 +480,7 @@
 
 - (void)setHyperlinkURL:(id)l
 {
-  v5 = sub_1005B981C(&unk_1019F33C0);
+  v5 = sub_1005B981C(&unk_1019F33C0, &unk_101468A60);
   __chkstk_darwin(v5 - 8);
   v7 = &v12 - v6;
   if (l)
@@ -499,7 +499,7 @@
   v10 = OBJC_IVAR____TtC8Freeform12CRLBoardItem_hyperlinkURL;
   swift_beginAccess();
   selfCopy = self;
-  sub_10002C638(v7, self + v10, &unk_1019F33C0);
+  sub_10002C638(v7, self + v10, &unk_1019F33C0, &unk_101468A60);
   swift_endAccess();
 }
 
@@ -632,21 +632,21 @@
 
 - (Class)layoutClass
 {
-  sub_100006370(0, &qword_101A287B0);
+  sub_100006370(0, &qword_101A287B0, off_10182F780);
 
   return swift_getObjCClassFromMetadata();
 }
 
 - (Class)repClass
 {
-  sub_100006370(0, &qword_1019FB7A0);
+  sub_100006370(0, &qword_1019FB7A0, off_10182F798);
 
   return swift_getObjCClassFromMetadata();
 }
 
 - (Class)editorClass
 {
-  sub_100006370(0, &qword_101A0E8B0);
+  sub_100006370(0, &qword_101A0E8B0, off_10182F740);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -864,7 +864,7 @@
 
   v6 = (*((swift_isaMask & *self) + 0x410))(v8);
 
-  sub_10000CAAC(v8, &unk_1019F4D00);
+  sub_10000CAAC(v8, &unk_1019F4D00, &unk_10146E7F0);
   return v6 & 1;
 }
 
@@ -921,7 +921,7 @@
   if (Strong)
   {
     v3 = Strong;
-    type metadata accessor for CRLSurfaceItem();
+    type metadata accessor for CRLSurfaceItem(0);
     Strong = swift_dynamicCastClass();
     if (!Strong)
     {

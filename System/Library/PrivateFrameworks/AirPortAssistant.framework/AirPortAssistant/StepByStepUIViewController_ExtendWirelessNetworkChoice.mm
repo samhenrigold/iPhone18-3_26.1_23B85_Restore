@@ -14,106 +14,106 @@
 - (void)viewWillAppear:(BOOL)appear
 {
   appearCopy = appear;
-  v7 = objc_msgSend_objectForKey_(self->super.super.super._outResultsDict, a2, @"kSBSKey_SelectorChoice");
-  if (!v7)
+  v9 = objc_msgSend_objectForKey_(self->super.super.super._outResultsDict, a2, @"kSBSKey_SelectorChoice", v3);
+  if (!v9)
   {
-    v8 = objc_msgSend_inParamDict(self, v5, v6);
-    v7 = objc_msgSend_objectForKey_(v8, v9, @"kSBSKey_SelectorChoice");
-    if (!v7)
+    v10 = objc_msgSend_inParamDict(self, v6, v7, v8);
+    v9 = objc_msgSend_objectForKey_(v10, v11, @"kSBSKey_SelectorChoice", v12);
+    if (!v9)
     {
-      v7 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v10, 211);
+      v9 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v13, 211, v14);
     }
 
-    objc_msgSend_setObject_forKey_(self->super.super.super._outResultsDict, v10, v7, @"kSBSKey_SelectorChoice");
+    objc_msgSend_setObject_forKey_(self->super.super.super._outResultsDict, v13, v9, @"kSBSKey_SelectorChoice");
   }
 
-  *(&self->super.showFullList + 3) = objc_msgSend_integerValue(v7, v5, v6);
+  *(&self->super.showFullList + 3) = objc_msgSend_integerValue(v9, v6, v7, v8);
   sourceNetwork = self->super._sourceNetwork;
   if (sourceNetwork)
   {
-    objc_msgSend_setObject_forKey_(self->super.super.super._outResultsDict, v11, sourceNetwork, @"kSBSKey_SourceNetwork");
+    objc_msgSend_setObject_forKey_(self->super.super.super._outResultsDict, v15, sourceNetwork, @"kSBSKey_SourceNetwork");
   }
 
   sourceBase = self->super._sourceBase;
   if (sourceBase)
   {
-    objc_msgSend_setObject_forKey_(self->super.super.super._outResultsDict, v11, sourceBase, @"kSBSKey_SourceBase");
+    objc_msgSend_setObject_forKey_(self->super.super.super._outResultsDict, v15, sourceBase, @"kSBSKey_SourceBase");
   }
 
-  v14.receiver = self;
-  v14.super_class = StepByStepUIViewController_ExtendWirelessNetworkChoice;
-  [(StepByStepUIViewController_DevicePicker *)&v14 viewWillAppear:appearCopy];
+  v18.receiver = self;
+  v18.super_class = StepByStepUIViewController_ExtendWirelessNetworkChoice;
+  [(StepByStepUIViewController_DevicePicker *)&v18 viewWillAppear:appearCopy];
 }
 
 - (void)setupHeaderAndFooter
 {
-  v4 = MEMORY[0x277CBEA60];
-  v5 = objc_msgSend_justTextContainerView(self, a2, v2);
-  v8 = objc_msgSend_topoView(self, v6, v7);
-  v10 = objc_msgSend_arrayWithObjects_(v4, v9, v5, v8, 0);
-  v13 = objc_msgSend_parentController(self, v11, v12);
-  v16 = objc_msgSend_tableHeaderContainerView(self, v14, v15);
-  objc_msgSend_replaceSubviewsInView_newSubviews_withAnimation_(v13, v17, v16, v10, 1);
-  v20 = objc_msgSend_tableHeaderContainerView(self, v18, v19);
-  v23 = objc_msgSend_tableView(self, v21, v22);
+  v5 = MEMORY[0x277CBEA60];
+  v6 = objc_msgSend_justTextContainerView(self, a2, v2, v3);
+  v10 = objc_msgSend_topoView(self, v7, v8, v9);
+  v13 = objc_msgSend_arrayWithObjects_(v5, v11, v6, v12, v10, 0);
+  v17 = objc_msgSend_parentController(self, v14, v15, v16);
+  v21 = objc_msgSend_tableHeaderContainerView(self, v18, v19, v20);
+  objc_msgSend_replaceSubviewsInView_newSubviews_withAnimation_(v17, v22, v21, v13, 1);
+  v26 = objc_msgSend_tableHeaderContainerView(self, v23, v24, v25);
+  v30 = objc_msgSend_tableView(self, v27, v28, v29);
 
-  objc_msgSend_setTableHeaderView_(v23, v24, v20);
+  objc_msgSend_setTableHeaderView_(v30, v31, v26, v32);
 }
 
 - (void)selectedDeviceUpdated
 {
-  canBeExtendedWithDWDS = objc_msgSend_canBeExtendedWithDWDS(self, a2, v2);
+  canBeExtendedWithDWDS = objc_msgSend_canBeExtendedWithDWDS(self, a2, v2, v3);
   if (canBeExtendedWithDWDS)
   {
-    v6 = @"StepByStepStatus_ExtendWireless%@";
+    v8 = @"StepByStepStatus_ExtendWireless%@";
   }
 
   else
   {
-    v6 = @"PrimarySetupRecommendation_Join.Specific%@";
+    v8 = @"PrimarySetupRecommendation_Join.Specific%@";
   }
 
   if (canBeExtendedWithDWDS)
   {
-    v7 = 211;
+    v9 = 211;
   }
 
   else
   {
-    v7 = 212;
+    v9 = 212;
   }
 
-  ProductLocalizedStringWithFormat = objc_msgSend_getProductLocalizedStringWithFormat_(self, v5, v6);
+  ProductLocalizedStringWithFormat = objc_msgSend_getProductLocalizedStringWithFormat_(self, v6, v8, v7);
   outResultsDict = self->super.super.super._outResultsDict;
-  v11 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v10, v7);
-  objc_msgSend_setObject_forKey_(outResultsDict, v12, v11, @"kSBSKey_SelectorChoice");
-  v14 = objc_msgSend_nameForNetworkOrDevice_(StepByStepUtilities, v13, self->super._selectedDevice);
+  v14 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v12, v9, v13);
+  objc_msgSend_setObject_forKey_(outResultsDict, v15, v14, @"kSBSKey_SelectorChoice");
+  v18 = objc_msgSend_nameForNetworkOrDevice_(StepByStepUtilities, v16, self->super._selectedDevice, v17);
   justTextLabel = self->super.super.justTextLabel;
   justTextContainerView = self->super.super.justTextContainerView;
-  valid = objc_msgSend_stringWithValidatedFormat_validFormatSpecifiers_error_(MEMORY[0x277CCACA8], v17, ProductLocalizedStringWithFormat, @"%@", 0, v14);
-  sub_23EB5E054(justTextLabel, justTextContainerView, valid);
-  v21 = objc_msgSend_tableHeaderContainerView(self, v19, v20);
-  objc_msgSend_readjustSubviewsInContainer_(AssistantUIViewController, v22, v21);
-  v25 = objc_msgSend_tableHeaderContainerView(self, v23, v24);
-  v28 = objc_msgSend_tableView(self, v26, v27);
+  valid = objc_msgSend_stringWithValidatedFormat_validFormatSpecifiers_error_(MEMORY[0x277CCACA8], v21, ProductLocalizedStringWithFormat, @"%@", 0, v18);
+  sub_23EB5E054(justTextLabel, justTextContainerView, valid, v23);
+  v27 = objc_msgSend_tableHeaderContainerView(self, v24, v25, v26);
+  objc_msgSend_readjustSubviewsInContainer_(AssistantUIViewController, v28, v27, v29);
+  v33 = objc_msgSend_tableHeaderContainerView(self, v30, v31, v32);
+  v37 = objc_msgSend_tableView(self, v34, v35, v36);
 
-  objc_msgSend_setTableHeaderView_(v28, v29, v25);
+  objc_msgSend_setTableHeaderView_(v37, v38, v33, v39);
 }
 
 - (void)setupDevices
 {
-  v4 = MEMORY[0x277CBEB18];
-  v5 = objc_msgSend_inParamDict(self, a2, v2);
-  v7 = objc_msgSend_objectForKey_(v5, v6, @"kSBSKey_NetworkScanRecordList");
-  v9 = objc_msgSend_arrayWithArray_(v4, v8, v7);
-  if (v9)
+  v5 = MEMORY[0x277CBEB18];
+  v6 = objc_msgSend_inParamDict(self, a2, v2, v3);
+  v9 = objc_msgSend_objectForKey_(v6, v7, @"kSBSKey_NetworkScanRecordList", v8);
+  v12 = objc_msgSend_arrayWithArray_(v5, v10, v9, v11);
+  if (v12)
   {
-    v12 = v9;
-    v13 = objc_msgSend_inParamDict(self, v10, v11);
-    v15 = objc_msgSend_objectForKey_(v13, v14, @"kSBSKey_BrowseRecordList");
-    objc_msgSend_addBrowsedRecords_toDestList_(self, v16, v15, v12);
-    v18 = objc_msgSend_sortedArrayUsingSelector_(v12, v17, sel_ssidAndBaseNameLocalizedCaseInsensitiveCompare_);
-    objc_msgSend_setSortedDevices_(self, v19, v18);
+    v16 = v12;
+    v17 = objc_msgSend_inParamDict(self, v13, v14, v15);
+    v20 = objc_msgSend_objectForKey_(v17, v18, @"kSBSKey_BrowseRecordList", v19);
+    objc_msgSend_addBrowsedRecords_toDestList_(self, v21, v20, v16);
+    v24 = objc_msgSend_sortedArrayUsingSelector_(v16, v22, sel_ssidAndBaseNameLocalizedCaseInsensitiveCompare_, v23);
+    objc_msgSend_setSortedDevices_(self, v25, v24, v26);
     sourceBase = self->super._sourceBase;
     self->super._selectedDevice = sourceBase;
     if (!sourceBase)
@@ -121,58 +121,58 @@
       self->super._selectedDevice = self->super._sourceNetwork;
     }
 
-    v21 = off_27E3830E8[0];
+    v29 = off_27E3830E8[0];
 
-    MEMORY[0x2821F9670](self, sel_setConnectionMedium_, v21);
+    MEMORY[0x2821F9670](self, sel_setConnectionMedium_, v29, v27);
   }
 }
 
 - (void)touchInCellAtIndexPath:(id)path
 {
-  v5 = objc_msgSend_section(path, a2, path);
-  v8 = objc_msgSend_tableManager(self, v6, v7);
-  if (v5 == objc_msgSend_indexOfSectionWithIdentifier_(v8, v9, off_27E383208))
+  v6 = objc_msgSend_section(path, a2, path, v3);
+  v10 = objc_msgSend_tableManager(self, v7, v8, v9);
+  if (v6 == objc_msgSend_indexOfSectionWithIdentifier_(v10, v11, off_27E383208, v12))
   {
-    v12 = objc_msgSend_tableManager(self, v10, v11);
-    v14 = objc_msgSend_tagOfSelectedRowInMenuSection_(v12, v13, v5);
-    *(&self->super.showFullList + 3) = v14;
+    v16 = objc_msgSend_tableManager(self, v13, v14, v15);
+    v19 = objc_msgSend_tagOfSelectedRowInMenuSection_(v16, v17, v6, v18);
+    *(&self->super.showFullList + 3) = v19;
     outResultsDict = self->super.super.super._outResultsDict;
-    v17 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v16, v14);
-    objc_msgSend_setObject_forKey_(outResultsDict, v18, v17, @"kSBSKey_SelectorChoice");
+    v23 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v21, v19, v22);
+    objc_msgSend_setObject_forKey_(outResultsDict, v24, v23, @"kSBSKey_SelectorChoice");
 
-    objc_msgSend_selectedDeviceUpdated(self, v19, v20);
+    objc_msgSend_selectedDeviceUpdated(self, v25, v26, v27);
   }
 
   else
   {
-    v21.receiver = self;
-    v21.super_class = StepByStepUIViewController_ExtendWirelessNetworkChoice;
-    [(StepByStepUIViewController_DevicePicker *)&v21 touchInCellAtIndexPath:path];
+    v28.receiver = self;
+    v28.super_class = StepByStepUIViewController_ExtendWirelessNetworkChoice;
+    [(StepByStepUIViewController_DevicePicker *)&v28 touchInCellAtIndexPath:path];
   }
 }
 
 - (void)stepByStepUpdateProgress:(id)progress forState:(int)state
 {
   v4 = *&state;
-  v7 = objc_msgSend_tableManager(self, a2, progress);
-  v9 = objc_msgSend_indexOfSectionWithIdentifier_(v7, v8, off_27E383208);
-  if (v9 != 0x7FFFFFFFFFFFFFFFLL)
+  v7 = objc_msgSend_tableManager(self, a2, progress, *&state);
+  v10 = objc_msgSend_indexOfSectionWithIdentifier_(v7, v8, off_27E383208, v9);
+  if (v10 != 0x7FFFFFFFFFFFFFFFLL)
   {
-    v12 = v9;
-    v13 = objc_msgSend_tableManager(self, v10, v11);
-    objc_msgSend_deleteSection_(v13, v14, v12);
+    v14 = v10;
+    v15 = objc_msgSend_tableManager(self, v11, v12, v13);
+    objc_msgSend_deleteSection_(v15, v16, v14, v17);
   }
 
-  v15.receiver = self;
-  v15.super_class = StepByStepUIViewController_ExtendWirelessNetworkChoice;
-  [(StepByStepUIViewController *)&v15 stepByStepUpdateProgress:progress forState:v4];
+  v18.receiver = self;
+  v18.super_class = StepByStepUIViewController_ExtendWirelessNetworkChoice;
+  [(StepByStepUIViewController *)&v18 stepByStepUpdateProgress:progress forState:v4];
 }
 
 - (BOOL)canBeExtendedWithDWDS
 {
-  v4 = objc_msgSend_inParamDict(self, a2, v2);
-  v6 = objc_msgSend_objectForKey_(v4, v5, @"kSBSKey_Mode");
-  if (objc_msgSend_integerValue(v6, v7, v8) != 1)
+  v5 = objc_msgSend_inParamDict(self, a2, v2, v3);
+  v8 = objc_msgSend_objectForKey_(v5, v6, @"kSBSKey_Mode", v7);
+  if (objc_msgSend_integerValue(v8, v9, v10, v11) != 1)
   {
     return 0;
   }
@@ -183,20 +183,20 @@
     return 0;
   }
 
-  v11 = objc_msgSend_productIDForNetworkOrDevice_(StepByStepUtilities, v9, selectedDevice);
-  v14 = objc_msgSend_integerValue(v11, v12, v13);
+  v15 = objc_msgSend_productIDForNetworkOrDevice_(StepByStepUtilities, v12, selectedDevice, v13);
+  v19 = objc_msgSend_integerValue(v15, v16, v17, v18);
   result = 0;
-  if (v14)
+  if (v19)
   {
-    v16 = v14 == 3;
+    v21 = v19 == 3;
   }
 
   else
   {
-    v16 = 1;
+    v21 = 1;
   }
 
-  if (!v16 && v14 != 102)
+  if (!v21 && v19 != 102)
   {
     return 1;
   }
@@ -206,45 +206,45 @@
 
 - (void)addBrowsedRecords:(id)records toDestList:(id)list
 {
-  v29 = *MEMORY[0x277D85DE8];
-  v6 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, records);
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
+  v33 = *MEMORY[0x277D85DE8];
+  v6 = objc_msgSend_array(MEMORY[0x277CBEB18], a2, records, list);
+  v28 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   recordsCopy = records;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(records, v8, &v24, v28, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(records, v8, &v28, v32, 16);
   if (v9)
   {
-    v12 = v9;
-    v13 = *v25;
+    v13 = v9;
+    v14 = *v29;
 LABEL_3:
-    v14 = 0;
+    v15 = 0;
     while (1)
     {
-      if (*v25 != v13)
+      if (*v29 != v14)
       {
         objc_enumerationMutation(recordsCopy);
       }
 
-      v15 = *(*(&v24 + 1) + 8 * v14);
-      v16 = objc_msgSend_objectForKey_(v15, v10, @"raMA");
-      v18 = objc_msgSend_objectForKey_(v15, v17, @"raM2");
-      if (!objc_msgSend_length(v16, v19, v20))
+      v16 = *(*(&v28 + 1) + 8 * v15);
+      v17 = objc_msgSend_objectForKey_(v16, v10, @"raMA", v12);
+      v20 = objc_msgSend_objectForKey_(v16, v18, @"raM2", v19);
+      if (!objc_msgSend_length(v17, v21, v22, v23))
       {
         break;
       }
 
-      if (sub_23EB6B8F0(v16, 0, list) != -1 || objc_msgSend_length(v18, v10, v21) && sub_23EB6B8F0(v18, 0, list) != -1)
+      if (sub_23EB6B8F0(v17, 0, list) != -1 || objc_msgSend_length(v20, v10, v24, v12) && sub_23EB6B8F0(v20, 0, list) != -1)
       {
-        objc_msgSend_addObject_(v6, v10, v15);
+        objc_msgSend_addObject_(v6, v10, v16, v12);
       }
 
-      if (v12 == ++v14)
+      if (v13 == ++v15)
       {
-        v22 = objc_msgSend_countByEnumeratingWithState_objects_count_(recordsCopy, v10, &v24, v28, 16);
-        v12 = v22;
-        if (v22)
+        v25 = objc_msgSend_countByEnumeratingWithState_objects_count_(recordsCopy, v10, &v28, v32, 16);
+        v13 = v25;
+        if (v25)
         {
           goto LABEL_3;
         }
@@ -257,9 +257,9 @@ LABEL_3:
   else
   {
 LABEL_15:
-    if (objc_msgSend_count(v6, v10, v11))
+    if (objc_msgSend_count(v6, v10, v11, v12))
     {
-      objc_msgSend_addObjectsFromArray_(list, v23, v6);
+      objc_msgSend_addObjectsFromArray_(list, v26, v6, v27);
     }
   }
 }

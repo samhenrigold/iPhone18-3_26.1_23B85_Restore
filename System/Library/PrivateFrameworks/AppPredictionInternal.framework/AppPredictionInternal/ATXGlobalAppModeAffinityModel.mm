@@ -72,15 +72,16 @@
   v2 = [MEMORY[0x277CEB3C0] pathForResource:@"ATXGlobalAppModeAffinity_v0" ofType:@"dat" isDirectory:0];
   if (v2)
   {
-    v8 = 0;
-    v3 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v2 options:1 error:&v8];
-    v4 = v8;
+    v9 = 0;
+    v3 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v2 options:1 error:&v9];
+    v4 = v9;
+    v5 = v4;
     if (v4)
     {
-      v5 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = __atxlog_handle_modes(v4);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        [(ATXGlobalAppModeAffinityModel *)v4 loadGlobalPriorsAsset];
+        [(ATXGlobalAppModeAffinityModel *)v5 loadGlobalPriorsAsset];
       }
     }
 
@@ -88,39 +89,39 @@
     {
       if (v3)
       {
-        v6 = v3;
+        v7 = v3;
         goto LABEL_11;
       }
 
-      v5 = __atxlog_handle_modes();
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+      v6 = __atxlog_handle_modes(0);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        [(ATXGlobalAppModeAffinityModel *)v5 loadGlobalPriorsAsset];
+        [(ATXGlobalAppModeAffinityModel *)v6 loadGlobalPriorsAsset];
       }
     }
 
-    v6 = 0;
+    v7 = 0;
 LABEL_11:
 
     goto LABEL_12;
   }
 
-  v4 = __atxlog_handle_modes();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = __atxlog_handle_modes(0);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
-    [(ATXGlobalAppModeAffinityModel *)v4 loadGlobalPriorsAsset];
+    [(ATXGlobalAppModeAffinityModel *)v5 loadGlobalPriorsAsset];
   }
 
-  v6 = 0;
+  v7 = 0;
 LABEL_12:
 
-  return v6;
+  return v7;
 }
 
 - (id)_computePriors
 {
-  v43 = *MEMORY[0x277D85DE8];
-  v3 = __atxlog_handle_modes();
+  v42 = *MEMORY[0x277D85DE8];
+  v3 = __atxlog_handle_modes(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -130,53 +131,53 @@ LABEL_12:
   loadGlobalPriorsAsset = [(ATXGlobalAppModeAffinityModel *)self loadGlobalPriorsAsset];
   if (loadGlobalPriorsAsset)
   {
-    v30 = objc_opt_new();
+    v29 = objc_opt_new();
     supportedModeTypes = [objc_opt_class() supportedModeTypes];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     obj = self->_bundleIds;
-    v27 = [(NSSet *)obj countByEnumeratingWithState:&v36 objects:v42 count:16];
-    if (v27)
+    v26 = [(NSSet *)obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+    if (v26)
     {
-      v26 = *v37;
+      v25 = *v36;
       v4 = 0.0;
       do
       {
-        for (i = 0; i != v27; ++i)
+        for (i = 0; i != v26; ++i)
         {
-          if (*v37 != v26)
+          if (*v36 != v25)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v36 + 1) + 8 * i);
+          v6 = *(*(&v35 + 1) + 8 * i);
           v7 = [(ATXGlobalAppModeAffinityModel *)self indexForBundleId:v6];
           if (v7)
           {
             v8 = v7;
-            v28 = i;
-            v34 = 0u;
-            v35 = 0u;
-            v32 = 0u;
+            v27 = i;
             v33 = 0u;
-            v29 = supportedModeTypes;
-            v9 = [v29 countByEnumeratingWithState:&v32 objects:v41 count:16];
+            v34 = 0u;
+            v31 = 0u;
+            v32 = 0u;
+            v28 = supportedModeTypes;
+            v9 = [v28 countByEnumeratingWithState:&v31 objects:v40 count:16];
             if (v9)
             {
               v10 = v9;
-              v11 = *v33;
+              v11 = *v32;
               do
               {
                 for (j = 0; j != v10; ++j)
                 {
-                  if (*v33 != v11)
+                  if (*v32 != v11)
                   {
-                    objc_enumerationMutation(v29);
+                    objc_enumerationMutation(v28);
                   }
 
-                  v13 = *(*(&v32 + 1) + 8 * j);
+                  v13 = *(*(&v31 + 1) + 8 * j);
                   integerValue = [v13 integerValue];
                   [(ATXGlobalAppModeAffinityModel *)self _priorForMode:integerValue bundleIdIndex:v8 priors:loadGlobalPriorsAsset];
                   v16 = v15;
@@ -185,27 +186,27 @@ LABEL_12:
                   v19 = [MEMORY[0x277CCABB0] numberWithInt:v8];
                   v20 = [v18 tupleWithFirst:v19 second:v13];
 
-                  [v30 setObject:v17 forKeyedSubscript:v20];
+                  [v29 setObject:v17 forKeyedSubscript:v20];
                   if (v4 < v16)
                   {
                     v4 = v16;
                   }
                 }
 
-                v10 = [v29 countByEnumeratingWithState:&v32 objects:v41 count:16];
+                v10 = [v28 countByEnumeratingWithState:&v31 objects:v40 count:16];
               }
 
               while (v10);
             }
 
-            i = v28;
+            i = v27;
           }
         }
 
-        v27 = [(NSSet *)obj countByEnumeratingWithState:&v36 objects:v42 count:16];
+        v26 = [(NSSet *)obj countByEnumeratingWithState:&v35 objects:v41 count:16];
       }
 
-      while (v27);
+      while (v26);
     }
 
     else
@@ -213,16 +214,14 @@ LABEL_12:
       v4 = 0.0;
     }
 
-    [(ATXGlobalAppModeAffinityModel *)self _normalizePriors:v30 maximumPrior:v4];
-    v21 = [v30 copy];
+    [(ATXGlobalAppModeAffinityModel *)self _normalizePriors:v29 maximumPrior:v4];
+    v21 = [v29 copy];
   }
 
   else
   {
     v21 = 0;
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v21;
 }
@@ -240,58 +239,58 @@ LABEL_12:
 
 - (void)_normalizePriors:(id)priors maximumPrior:(double)prior
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   priorsCopy = priors;
-  v6 = __atxlog_handle_modes();
+  v6 = __atxlog_handle_modes(priorsCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
     _os_log_impl(&dword_2263AA000, v6, OS_LOG_TYPE_INFO, "ATXGlobalAppModeAffinityModel: _normalizePriors:maximumPrior", buf, 2u);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   obj = self->_bundleIds;
-  v29 = [(NSSet *)obj countByEnumeratingWithState:&v35 objects:v41 count:16];
-  if (v29)
+  v28 = [(NSSet *)obj countByEnumeratingWithState:&v34 objects:v40 count:16];
+  if (v28)
   {
     v7 = fmin(prior, 500.0);
-    v27 = *v36;
+    v26 = *v35;
     do
     {
       v8 = 0;
       do
       {
-        if (*v36 != v27)
+        if (*v35 != v26)
         {
           objc_enumerationMutation(obj);
         }
 
-        v30 = v8;
-        v9 = [(ATXGlobalAppModeAffinityModel *)self indexForBundleId:*(*(&v35 + 1) + 8 * v8)];
+        v29 = v8;
+        v9 = [(ATXGlobalAppModeAffinityModel *)self indexForBundleId:*(*(&v34 + 1) + 8 * v8)];
         supportedModeTypes = [objc_opt_class() supportedModeTypes];
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
-        v11 = [supportedModeTypes countByEnumeratingWithState:&v31 objects:v40 count:16];
+        v11 = [supportedModeTypes countByEnumeratingWithState:&v30 objects:v39 count:16];
         if (v11)
         {
           v12 = v11;
-          v13 = *v32;
+          v13 = *v31;
           do
           {
             v14 = 0;
             do
             {
-              if (*v32 != v13)
+              if (*v31 != v13)
               {
                 objc_enumerationMutation(supportedModeTypes);
               }
 
-              v15 = *(*(&v31 + 1) + 8 * v14);
+              v15 = *(*(&v30 + 1) + 8 * v14);
               v16 = MEMORY[0x277D42648];
               v17 = [MEMORY[0x277CCABB0] numberWithInt:v9];
               v18 = [v16 tupleWithFirst:v17 second:v15];
@@ -317,37 +316,35 @@ LABEL_12:
             }
 
             while (v12 != v14);
-            v12 = [supportedModeTypes countByEnumeratingWithState:&v31 objects:v40 count:16];
+            v12 = [supportedModeTypes countByEnumeratingWithState:&v30 objects:v39 count:16];
           }
 
           while (v12);
         }
 
-        v8 = v30 + 1;
+        v8 = v29 + 1;
       }
 
-      while (v30 + 1 != v29);
-      v29 = [(NSSet *)obj countByEnumeratingWithState:&v35 objects:v41 count:16];
+      while (v29 + 1 != v28);
+      v28 = [(NSSet *)obj countByEnumeratingWithState:&v34 objects:v40 count:16];
     }
 
-    while (v29);
+    while (v28);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (double)scoreForMode:(unint64_t)mode bundleId:(id)id scalingFactor:(double)factor
 {
   idCopy = id;
   selfCopy = self;
-  objc_sync_enter(selfCopy);
+  v10 = objc_sync_enter(selfCopy);
   if (!selfCopy->_normalizedPriors && selfCopy->_assetOffloadedDueToMemoryPressure)
   {
-    v10 = __atxlog_handle_modes();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = __atxlog_handle_modes(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      *v22 = 0;
-      _os_log_impl(&dword_2263AA000, v10, OS_LOG_TYPE_INFO, "ATXGlobalAppModeAffinityModel: loading global priors after it was previously offloaded due to memory pressure.", v22, 2u);
+      *v23 = 0;
+      _os_log_impl(&dword_2263AA000, v11, OS_LOG_TYPE_INFO, "ATXGlobalAppModeAffinityModel: loading global priors after it was previously offloaded due to memory pressure.", v23, 2u);
     }
 
     _computePriors = [(ATXGlobalAppModeAffinityModel *)selfCopy _computePriors];
@@ -357,18 +354,18 @@ LABEL_12:
     selfCopy->_assetOffloadedDueToMemoryPressure = 0;
   }
 
-  v13 = [(ATXGlobalAppModeAffinityModel *)selfCopy indexForBundleId:idCopy];
-  v14 = MEMORY[0x277D42648];
-  v15 = [MEMORY[0x277CCABB0] numberWithInt:v13];
-  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:mode];
-  v17 = [v14 tupleWithFirst:v15 second:v16];
+  v14 = [(ATXGlobalAppModeAffinityModel *)selfCopy indexForBundleId:idCopy];
+  v15 = MEMORY[0x277D42648];
+  v16 = [MEMORY[0x277CCABB0] numberWithInt:v14];
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:mode];
+  v18 = [v15 tupleWithFirst:v16 second:v17];
 
-  v18 = [(NSDictionary *)selfCopy->_normalizedPriors objectForKeyedSubscript:v17];
-  [v18 prior];
-  v20 = v19 * factor;
+  v19 = [(NSDictionary *)selfCopy->_normalizedPriors objectForKeyedSubscript:v18];
+  [v19 prior];
+  v21 = v20 * factor;
 
   objc_sync_exit(selfCopy);
-  return v20;
+  return v21;
 }
 
 - (double)_priorForMode:(unint64_t)mode bundleIdIndex:(int)index priors:(id)priors
@@ -409,11 +406,10 @@ LABEL_12:
 
 - (void)loadGlobalPriorsAsset
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 138412290;
-  v3 = @"ATXGlobalAppModeAffinity_v0";
-  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "ATXGlobalAppModeAffinityModel: Unable to find path for %@", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 138412290;
+  v2 = @"ATXGlobalAppModeAffinity_v0";
+  _os_log_error_impl(&dword_2263AA000, log, OS_LOG_TYPE_ERROR, "ATXGlobalAppModeAffinityModel: Unable to find path for %@", &v1, 0xCu);
 }
 
 @end

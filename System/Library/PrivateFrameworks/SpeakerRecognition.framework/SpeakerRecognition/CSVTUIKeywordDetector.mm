@@ -101,11 +101,11 @@
 
 - (CSVTUIKeywordDetector)initWithAsset:(id)asset
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   assetCopy = asset;
-  v29.receiver = self;
-  v29.super_class = CSVTUIKeywordDetector;
-  v5 = [(CSVTUIKeywordDetector *)&v29 init];
+  v28.receiver = self;
+  v28.super_class = CSVTUIKeywordDetector;
+  v5 = [(CSVTUIKeywordDetector *)&v28 init];
   if (!v5)
   {
     goto LABEL_5;
@@ -117,7 +117,7 @@
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v31 = "[CSVTUIKeywordDetector initWithAsset:]";
+      v30 = "[CSVTUIKeywordDetector initWithAsset:]";
       _os_log_error_impl(&dword_225E12000, v25, OS_LOG_TYPE_ERROR, "%s Cannot create CSVTUIKeywordDetector since there is no asset available", buf, 0xCu);
     }
 
@@ -136,7 +136,7 @@
     if (os_log_type_enabled(*MEMORY[0x277D015D8], OS_LOG_TYPE_ERROR))
     {
       *buf = 136315138;
-      v31 = "[CSVTUIKeywordDetector initWithAsset:]";
+      v30 = "[CSVTUIKeywordDetector initWithAsset:]";
       _os_log_error_impl(&dword_225E12000, v26, OS_LOG_TYPE_ERROR, "%s Cannot create CSVTUIKeywordDetector since we cannot initialize NDAPI", buf, 0xCu);
     }
 
@@ -168,7 +168,6 @@ LABEL_5:
   v24 = v5;
 LABEL_12:
 
-  v27 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

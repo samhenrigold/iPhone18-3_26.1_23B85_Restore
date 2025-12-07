@@ -1,8 +1,10 @@
 @interface POKeychainHelper
 - (BOOL)_saveAttestationToKeychain:(id)keychain extensionIdentifier:(id)identifier keyHash:(id)hash attestationDate:(id)date error:(id *)error;
 - (BOOL)_saveAttestationToKeychain:(id)keychain extensionIdentifier:(id)identifier keyHash:(id)hash error:(id *)error;
+- (BOOL)retrieveCertAndKeyForTokenId:(id)id context:(id)context forSigning:(BOOL)signing hash:(id)hash certificate:(__SecCertificate *)certificate privateKey:(__SecKey *)key;
 - (BOOL)retrieveIdentityForTokenId:(id)id context:(id)context forSigning:(BOOL)signing hash:(id)hash identity:(__SecIdentity *)identity;
 - (id)_checkForCachedAttestationForExtensionIdentifier:(id)identifier keyHash:(id)hash;
+- (int)addTokens:(id)tokens metaData:(id)data toKeychainForService:(id)service username:(id)username system:(BOOL)system;
 - (int)removeTokensFromKeychainWithService:(id)service username:(id)username system:(BOOL)system;
 - (int)retrieveTokensFromKeychainForService:(id)service username:(id)username system:(BOOL)system returningTokens:(id *)tokens metaData:(id *)data;
 - (void)_deleteAllCachedAttestations;
@@ -12,10 +14,121 @@
 
 @implementation POKeychainHelper
 
+- (int)addTokens:(id)tokens metaData:(id)data toKeychainForService:(id)service username:(id)username system:(BOOL)system
+{
+  systemCopy = system;
+  v49 = *MEMORY[0x277D85DE8];
+  tokensCopy = tokens;
+  dataCopy = data;
+  serviceCopy = service;
+  usernameCopy = username;
+  v16 = PO_LOG_POKeychainHelper(usernameCopy);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 136315650;
+    v44 = "[POKeychainHelper addTokens:metaData:toKeychainForService:username:system:]";
+    v45 = 2114;
+    v46 = serviceCopy;
+    v47 = 2112;
+    selfCopy = self;
+    _os_log_impl(&dword_25E8B1000, v16, OS_LOG_TYPE_DEFAULT, "%s service %{public}@ on %@", buf, 0x20u);
+  }
+
+  v17 = SecAccessControlCreateWithFlags(0, *MEMORY[0x277CDBEE8], 0, 0);
+  if (serviceCopy && tokensCopy && usernameCopy)
+  {
+    v18 = *MEMORY[0x277CDC5E8];
+    v42[0] = tokensCopy;
+    v19 = *MEMORY[0x277CDBF20];
+    v41[0] = v18;
+    v41[1] = v19;
+    lowercaseString = [usernameCopy lowercaseString];
+    v21 = *MEMORY[0x277CDC120];
+    v42[1] = lowercaseString;
+    v42[2] = serviceCopy;
+    v22 = *MEMORY[0x277CDBEC8];
+    v41[2] = v21;
+    v41[3] = v22;
+    v23 = *MEMORY[0x277CDC228];
+    v24 = *MEMORY[0x277CDC238];
+    v42[3] = kPlatformSSOAccessGroup;
+    v42[4] = v24;
+    v25 = *MEMORY[0x277CDC5C8];
+    v41[4] = v23;
+    v41[5] = v25;
+    v42[5] = *MEMORY[0x277CBED28];
+    v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v42 forKeys:v41 count:6];
+    v27 = [v26 mutableCopy];
+
+    if (systemCopy)
+    {
+      v28 = *MEMORY[0x277CDC5D8];
+      v29 = MEMORY[0x277CBEC38];
+      v30 = v27;
+    }
+
+    else
+    {
+      v28 = *MEMORY[0x277CDBEC0];
+      v30 = v27;
+      v29 = v17;
+    }
+
+    [v30 setObject:v29 forKeyedSubscript:v28];
+    if (dataCopy)
+    {
+      v39 = systemCopy;
+      v40 = 0;
+      v33 = [MEMORY[0x277CCAAB0] archivedDataWithRootObject:dataCopy requiringSecureCoding:1 error:&v40];
+      v34 = v40;
+      v35 = v34;
+      if (v33)
+      {
+        [v27 setObject:v33 forKeyedSubscript:*MEMORY[0x277CDBFB8]];
+      }
+
+      else
+      {
+        v36 = PO_LOG_POKeychainHelper(v34);
+        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        {
+          [POKeychainHelper addTokens:metaData:toKeychainForService:username:system:];
+        }
+      }
+
+      systemCopy = v39;
+    }
+
+    v37 = PO_LOG_POKeychainHelper([(POKeychainHelper *)self removeTokensFromKeychainWithService:serviceCopy username:usernameCopy system:systemCopy]);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
+    {
+      [POKeychainHelper addTokens:metaData:toKeychainForService:username:system:];
+    }
+
+    v31 = SecItemAdd(v27, 0);
+    if (v17)
+    {
+      CFRelease(v17);
+    }
+  }
+
+  else
+  {
+    v31 = -67693;
+    v32 = __76__POKeychainHelper_addTokens_metaData_toKeychainForService_username_system___block_invoke();
+    if (v17)
+    {
+      CFRelease(v17);
+    }
+  }
+
+  return v31;
+}
+
 id __76__POKeychainHelper_addTokens_metaData_toKeychainForService_username_system___block_invoke()
 {
   v0 = [POError errorWithCode:-1006 description:@"Missing required values to add tokens to keychain."];
-  v1 = PO_LOG_POKeychainHelper();
+  v1 = PO_LOG_POKeychainHelper(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __76__POKeychainHelper_addTokens_metaData_toKeychainForService_username_system___block_invoke_cold_1();
@@ -27,11 +140,11 @@ id __76__POKeychainHelper_addTokens_metaData_toKeychainForService_username_syste
 - (int)retrieveTokensFromKeychainForService:(id)service username:(id)username system:(BOOL)system returningTokens:(id *)tokens metaData:(id *)data
 {
   systemCopy = system;
-  v62 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   usernameCopy = username;
   result = 0;
-  v14 = PO_LOG_POKeychainHelper();
+  v14 = PO_LOG_POKeychainHelper(usernameCopy);
   if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     [POKeychainHelper retrieveTokensFromKeychainForService:username:system:returningTokens:metaData:];
@@ -49,98 +162,98 @@ id __76__POKeychainHelper_addTokens_metaData_toKeychainForService_username_syste
       *data = 0;
     }
 
-    v15 = *MEMORY[0x277CBED28];
-    v16 = *MEMORY[0x277CDC558];
-    v56[0] = *MEMORY[0x277CDC550];
-    v56[1] = v16;
-    v57[0] = v15;
-    v57[1] = v15;
-    v17 = *MEMORY[0x277CDC120];
-    v57[2] = serviceCopy;
-    v18 = *MEMORY[0x277CDBF20];
-    v56[2] = v17;
-    v56[3] = v18;
+    v16 = *MEMORY[0x277CBED28];
+    v17 = *MEMORY[0x277CDC558];
+    v58[0] = *MEMORY[0x277CDC550];
+    v58[1] = v17;
+    v59[0] = v16;
+    v59[1] = v16;
+    v18 = *MEMORY[0x277CDC120];
+    v59[2] = serviceCopy;
+    v19 = *MEMORY[0x277CDBF20];
+    v58[2] = v18;
+    v58[3] = v19;
     lowercaseString = [usernameCopy lowercaseString];
-    v20 = *MEMORY[0x277CDBEC8];
-    v57[3] = lowercaseString;
-    v57[4] = kPlatformSSOAccessGroup;
-    v21 = *MEMORY[0x277CDC228];
-    v56[4] = v20;
-    v56[5] = v21;
-    v56[6] = *MEMORY[0x277CDC5C8];
-    v57[5] = *MEMORY[0x277CDC238];
-    v57[6] = v15;
-    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:v56 count:7];
-    v23 = [v22 mutableCopy];
+    v21 = *MEMORY[0x277CDBEC8];
+    v59[3] = lowercaseString;
+    v59[4] = kPlatformSSOAccessGroup;
+    v22 = *MEMORY[0x277CDC228];
+    v58[4] = v21;
+    v58[5] = v22;
+    v58[6] = *MEMORY[0x277CDC5C8];
+    v59[5] = *MEMORY[0x277CDC238];
+    v59[6] = v16;
+    v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:7];
+    v24 = [v23 mutableCopy];
 
     if (systemCopy)
     {
-      [v23 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277CDC5D8]];
+      [v24 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277CDC5D8]];
     }
 
-    v24 = SecItemCopyMatching(v23, &result);
-    v25 = v24;
-    if (v24)
+    v25 = SecItemCopyMatching(v24, &result);
+    v26 = v25;
+    if (v25)
     {
-      v51[1] = MEMORY[0x277D85DD0];
-      v51[2] = 3221225472;
-      v51[3] = __98__POKeychainHelper_retrieveTokensFromKeychainForService_username_system_returningTokens_metaData___block_invoke;
-      v51[4] = &__block_descriptor_36_e14___NSError_8__0l;
-      v52 = v24;
-      v26 = __98__POKeychainHelper_retrieveTokensFromKeychainForService_username_system_returningTokens_metaData___block_invoke();
+      v53[0] = MEMORY[0x277D85DD0];
+      v53[1] = 3221225472;
+      v53[2] = __98__POKeychainHelper_retrieveTokensFromKeychainForService_username_system_returningTokens_metaData___block_invoke;
+      v53[3] = &__block_descriptor_36_e14___NSError_8__0l;
+      v54 = v25;
+      v27 = __98__POKeychainHelper_retrieveTokensFromKeychainForService_username_system_returningTokens_metaData___block_invoke(v53);
     }
 
     else
     {
-      v27 = result;
-      v28 = [v27 objectForKey:*MEMORY[0x277CDC5E8]];
-      v29 = v28;
+      v28 = result;
+      v29 = [v28 objectForKey:*MEMORY[0x277CDC5E8]];
+      v30 = v29;
       if (tokens)
       {
-        v30 = v28;
-        *tokens = v29;
+        v31 = v29;
+        *tokens = v30;
       }
 
       if (data)
       {
-        v31 = [v27 objectForKey:*MEMORY[0x277CDBFB8]];
-        if (v31)
+        v32 = [v28 objectForKey:*MEMORY[0x277CDBFB8]];
+        if (v32)
         {
-          v46 = v27;
-          v48 = MEMORY[0x277CCAAC8];
-          v50 = v29;
-          v32 = MEMORY[0x277CBEB98];
-          v33 = v31;
-          v55 = objc_opt_class();
-          v47 = [MEMORY[0x277CBEA60] arrayWithObjects:&v55 count:1];
-          v34 = [v32 setWithArray:v47];
-          v35 = MEMORY[0x277CBEB98];
-          v54[0] = objc_opt_class();
-          v54[1] = objc_opt_class();
-          v54[2] = objc_opt_class();
-          v36 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:3];
-          v37 = [v35 setWithArray:v36];
-          v51[0] = 0;
-          v38 = v48;
-          v39 = v34;
-          v49 = v33;
-          v40 = [v38 unarchivedDictionaryWithKeysOfClasses:v34 objectsOfClasses:v37 fromData:v33 error:v51];
-          v41 = v51[0];
-          v42 = v40;
-          *data = v40;
+          v47 = v28;
+          v49 = MEMORY[0x277CCAAC8];
+          v51 = v30;
+          v33 = MEMORY[0x277CBEB98];
+          v34 = v32;
+          v57 = objc_opt_class();
+          v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v57 count:1];
+          v35 = [v33 setWithArray:v48];
+          v36 = MEMORY[0x277CBEB98];
+          v56[0] = objc_opt_class();
+          v56[1] = objc_opt_class();
+          v56[2] = objc_opt_class();
+          v37 = [MEMORY[0x277CBEA60] arrayWithObjects:v56 count:3];
+          v38 = [v36 setWithArray:v37];
+          v52 = 0;
+          v39 = v49;
+          v40 = v35;
+          v50 = v34;
+          v41 = [v39 unarchivedDictionaryWithKeysOfClasses:v35 objectsOfClasses:v38 fromData:v34 error:&v52];
+          v42 = v52;
+          v43 = v41;
+          *data = v41;
 
-          if (v41)
+          if (v42)
           {
-            v43 = PO_LOG_POKeychainHelper();
-            if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+            v45 = PO_LOG_POKeychainHelper(v44);
+            if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
             {
               [POKeychainHelper retrieveTokensFromKeychainForService:username:system:returningTokens:metaData:];
             }
           }
 
-          v31 = v49;
-          v29 = v50;
-          v27 = v46;
+          v32 = v50;
+          v30 = v51;
+          v28 = v47;
         }
       }
 
@@ -154,41 +267,40 @@ id __76__POKeychainHelper_addTokens_metaData_toKeychainForService_username_syste
 
   else
   {
-    v25 = -67693;
-    v23 = PO_LOG_POKeychainHelper();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v26 = -67693;
+    v24 = PO_LOG_POKeychainHelper(v15);
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v59 = "[POKeychainHelper retrieveTokensFromKeychainForService:username:system:returningTokens:metaData:]";
-      v60 = 2112;
+      v61 = "[POKeychainHelper retrieveTokensFromKeychainForService:username:system:returningTokens:metaData:]";
+      v62 = 2112;
       selfCopy = self;
-      _os_log_impl(&dword_25E8B1000, v23, OS_LOG_TYPE_DEFAULT, "%s Could not find credentials in keychain. Invalid parameters on %@", buf, 0x16u);
+      _os_log_impl(&dword_25E8B1000, v24, OS_LOG_TYPE_DEFAULT, "%s Could not find credentials in keychain. Invalid parameters on %@", buf, 0x16u);
     }
   }
 
-  v44 = *MEMORY[0x277D85DE8];
-  return v25;
+  return v26;
 }
 
-id __98__POKeychainHelper_retrieveTokensFromKeychainForService_username_system_returningTokens_metaData___block_invoke()
+id __98__POKeychainHelper_retrieveTokensFromKeychainForService_username_system_returningTokens_metaData___block_invoke(uint64_t a1)
 {
-  v0 = [POError errorWithCode:-1004 description:@"Keychain entry not found"];
-  v1 = PO_LOG_POKeychainHelper();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v1 = [POError errorWithCode:-1004 description:@"Keychain entry not found"];
+  v2 = PO_LOG_POKeychainHelper(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __22__POKeyWrap_wrapBlob___block_invoke_2_cold_1();
   }
 
-  return v0;
+  return v1;
 }
 
 - (int)removeTokensFromKeychainWithService:(id)service username:(id)username system:(BOOL)system
 {
   systemCopy = system;
-  v26[7] = *MEMORY[0x277D85DE8];
+  v27[7] = *MEMORY[0x277D85DE8];
   serviceCopy = service;
   usernameCopy = username;
-  v9 = PO_LOG_POKeychainHelper();
+  v9 = PO_LOG_POKeychainHelper(usernameCopy);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     [POKeychainHelper removeTokensFromKeychainWithService:username:system:];
@@ -198,26 +310,26 @@ id __98__POKeychainHelper_retrieveTokensFromKeychainForService_username_system_r
   {
     v10 = *MEMORY[0x277CBED28];
     v11 = *MEMORY[0x277CDC558];
-    v25[0] = *MEMORY[0x277CDC550];
-    v25[1] = v11;
-    v26[0] = v10;
-    v26[1] = v10;
+    v26[0] = *MEMORY[0x277CDC550];
+    v26[1] = v11;
+    v27[0] = v10;
+    v27[1] = v10;
     v12 = *MEMORY[0x277CDC120];
-    v26[2] = serviceCopy;
+    v27[2] = serviceCopy;
     v13 = *MEMORY[0x277CDBF20];
-    v25[2] = v12;
-    v25[3] = v13;
+    v26[2] = v12;
+    v26[3] = v13;
     lowercaseString = [usernameCopy lowercaseString];
     v15 = *MEMORY[0x277CDBEC8];
-    v26[3] = lowercaseString;
-    v26[4] = kPlatformSSOAccessGroup;
+    v27[3] = lowercaseString;
+    v27[4] = kPlatformSSOAccessGroup;
     v16 = *MEMORY[0x277CDC228];
-    v25[4] = v15;
-    v25[5] = v16;
-    v25[6] = *MEMORY[0x277CDC5C8];
-    v26[5] = *MEMORY[0x277CDC238];
-    v26[6] = v10;
-    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:7];
+    v26[4] = v15;
+    v26[5] = v16;
+    v26[6] = *MEMORY[0x277CDC5C8];
+    v27[5] = *MEMORY[0x277CDC238];
+    v27[6] = v10;
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:7];
     v18 = [v17 mutableCopy];
 
     if (systemCopy)
@@ -229,7 +341,12 @@ id __98__POKeychainHelper_retrieveTokensFromKeychainForService_username_system_r
     v20 = v19;
     if (v19 != -25300 && v19)
     {
-      v21 = __72__POKeychainHelper_removeTokensFromKeychainWithService_username_system___block_invoke_27();
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __72__POKeychainHelper_removeTokensFromKeychainWithService_username_system___block_invoke_27;
+      v24[3] = &__block_descriptor_36_e14___NSError_8__0l;
+      v25 = v19;
+      v21 = __72__POKeychainHelper_removeTokensFromKeychainWithService_username_system___block_invoke_27(v24);
     }
   }
 
@@ -239,14 +356,13 @@ id __98__POKeychainHelper_retrieveTokensFromKeychainForService_username_system_r
     v20 = -67693;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
   return v20;
 }
 
 id __72__POKeychainHelper_removeTokensFromKeychainWithService_username_system___block_invoke()
 {
   v0 = [POError errorWithCode:-1006 description:@"Values missing to delete credentials from keychain"];
-  v1 = PO_LOG_POKeychainHelper();
+  v1 = PO_LOG_POKeychainHelper(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __76__POKeychainHelper_addTokens_metaData_toKeychainForService_username_system___block_invoke_cold_1();
@@ -255,121 +371,179 @@ id __72__POKeychainHelper_removeTokensFromKeychainWithService_username_system___
   return v0;
 }
 
-id __72__POKeychainHelper_removeTokensFromKeychainWithService_username_system___block_invoke_27()
+id __72__POKeychainHelper_removeTokensFromKeychainWithService_username_system___block_invoke_27(uint64_t a1)
 {
-  v0 = [POError errorWithCode:-1001 description:@"Deleting keychain entry failed"];
-  v1 = PO_LOG_POKeychainHelper();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v1 = [POError errorWithCode:-1001 description:@"Deleting keychain entry failed"];
+  v2 = PO_LOG_POKeychainHelper(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __22__POKeyWrap_wrapBlob___block_invoke_2_cold_1();
   }
 
-  return v0;
+  return v1;
 }
 
 - (BOOL)retrieveIdentityForTokenId:(id)id context:(id)context forSigning:(BOOL)signing hash:(id)hash identity:(__SecIdentity *)identity
 {
   signingCopy = signing;
-  v39[6] = *MEMORY[0x277D85DE8];
+  v41[6] = *MEMORY[0x277D85DE8];
   idCopy = id;
   contextCopy = context;
   hashCopy = hash;
+  v14 = hashCopy;
   if (idCopy)
   {
     result = 0;
-    v14 = *MEMORY[0x277CDC228];
-    v15 = *MEMORY[0x277CDC240];
-    v16 = *MEMORY[0x277CDBEC8];
-    v38[0] = *MEMORY[0x277CDC228];
-    v38[1] = v16;
-    v17 = *MEMORY[0x277CDBED0];
-    v39[0] = v15;
-    v39[1] = v17;
-    v18 = *MEMORY[0x277CDC550];
-    v38[2] = *MEMORY[0x277CDC560];
-    v38[3] = v18;
-    v39[2] = MEMORY[0x277CBEC38];
-    v39[3] = MEMORY[0x277CBEC38];
-    v19 = *MEMORY[0x277CDC5A0];
-    v20 = *MEMORY[0x277CDC158];
-    v38[4] = *MEMORY[0x277CDC5A0];
-    v38[5] = v20;
-    v39[4] = contextCopy;
-    v39[5] = idCopy;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:6];
-    v22 = [v21 mutableCopy];
+    v15 = *MEMORY[0x277CDC228];
+    v16 = *MEMORY[0x277CDC240];
+    v17 = *MEMORY[0x277CDBEC8];
+    v40[0] = *MEMORY[0x277CDC228];
+    v40[1] = v17;
+    v18 = *MEMORY[0x277CDBED0];
+    v41[0] = v16;
+    v41[1] = v18;
+    v19 = *MEMORY[0x277CDC550];
+    v40[2] = *MEMORY[0x277CDC560];
+    v40[3] = v19;
+    v41[2] = MEMORY[0x277CBEC38];
+    v41[3] = MEMORY[0x277CBEC38];
+    v20 = *MEMORY[0x277CDC5A0];
+    v21 = *MEMORY[0x277CDC158];
+    v40[4] = *MEMORY[0x277CDC5A0];
+    v40[5] = v21;
+    v41[4] = contextCopy;
+    v41[5] = idCopy;
+    v22 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:v40 count:6];
+    v23 = [v22 mutableCopy];
 
     if (signingCopy)
     {
-      [v22 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277CDBF68]];
+      [v23 setObject:MEMORY[0x277CBEC38] forKeyedSubscript:*MEMORY[0x277CDBF68]];
     }
 
-    if (hashCopy)
+    if (v14)
     {
-      [v22 setObject:hashCopy forKeyedSubscript:*MEMORY[0x277CDBF28]];
+      [v23 setObject:v14 forKeyedSubscript:*MEMORY[0x277CDBF28]];
     }
 
-    if (SecItemCopyMatching(v22, &result))
+    v24 = SecItemCopyMatching(v23, &result);
+    if (v24)
     {
-      v23 = PO_LOG_POKeychainHelper();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+      v25 = PO_LOG_POKeychainHelper(v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
       {
         [POKeychainHelper retrieveIdentityForTokenId:context:forSigning:hash:identity:];
       }
 
-      v24 = 0;
+      v26 = 0;
     }
 
     else
     {
-      v23 = result;
+      v25 = result;
       identityCopy = identity;
-      v27 = *MEMORY[0x277CDC5F0];
-      v28 = [result objectForKeyedSubscript:*MEMORY[0x277CDC5F0]];
-      v36[0] = v14;
-      v36[1] = v27;
-      v37[0] = v15;
-      v37[1] = v28;
-      v29 = v28;
-      v30 = *MEMORY[0x277CDC438];
-      v36[2] = *MEMORY[0x277CDC428];
-      v36[3] = v19;
-      v37[2] = v30;
-      v37[3] = contextCopy;
-      v36[4] = *MEMORY[0x277CDC568];
-      v37[4] = *MEMORY[0x277CBED28];
-      v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:5];
-      if (SecItemCopyMatching(v31, identityCopy) || !*identityCopy)
+      v29 = *MEMORY[0x277CDC5F0];
+      v30 = [result objectForKeyedSubscript:*MEMORY[0x277CDC5F0]];
+      v38[0] = v15;
+      v38[1] = v29;
+      v39[0] = v16;
+      v39[1] = v30;
+      v31 = v30;
+      v32 = *MEMORY[0x277CDC438];
+      v38[2] = *MEMORY[0x277CDC428];
+      v38[3] = v20;
+      v39[2] = v32;
+      v39[3] = contextCopy;
+      v38[4] = *MEMORY[0x277CDC568];
+      v39[4] = *MEMORY[0x277CBED28];
+      v33 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:v38 count:5];
+      v34 = SecItemCopyMatching(v33, identityCopy);
+      if (v34 || !*identityCopy)
       {
-        v32 = PO_LOG_POKeychainHelper();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v35 = PO_LOG_POKeychainHelper(v34);
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
         {
           [POKeychainHelper retrieveIdentityForTokenId:context:forSigning:hash:identity:];
         }
 
-        v24 = 0;
+        v26 = 0;
       }
 
       else
       {
-        v24 = 1;
+        v26 = 1;
       }
     }
   }
 
   else
   {
-    v25 = PO_LOG_POKeychainHelper();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v27 = PO_LOG_POKeychainHelper(hashCopy);
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
       [POKeychainHelper retrieveIdentityForTokenId:context:forSigning:hash:identity:];
     }
 
-    v24 = 0;
+    v26 = 0;
   }
 
-  v33 = *MEMORY[0x277D85DE8];
-  return v24;
+  return v26;
+}
+
+- (BOOL)retrieveCertAndKeyForTokenId:(id)id context:(id)context forSigning:(BOOL)signing hash:(id)hash certificate:(__SecCertificate *)certificate privateKey:(__SecKey *)key
+{
+  identityRef = 0;
+  v10 = [(POKeychainHelper *)self retrieveIdentityForTokenId:id context:context forSigning:signing hash:hash identity:&identityRef];
+  if ((v10 & 1) == 0)
+  {
+    v14 = PO_LOG_POKeychainHelper(v10);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    {
+      [POKeychainHelper retrieveCertAndKeyForTokenId:context:forSigning:hash:certificate:privateKey:];
+    }
+
+    return 0;
+  }
+
+  v11 = SecIdentityCopyCertificate(identityRef, certificate);
+  if (v11)
+  {
+    v12 = PO_LOG_POKeychainHelper(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      [POKeychainHelper retrieveCertAndKeyForTokenId:context:forSigning:hash:certificate:privateKey:];
+    }
+
+LABEL_5:
+
+    result = identityRef;
+    if (!identityRef)
+    {
+      return result;
+    }
+
+    CFRelease(identityRef);
+    return 0;
+  }
+
+  v15 = SecIdentityCopyPrivateKey(identityRef, key);
+  if (!*key)
+  {
+    v12 = PO_LOG_POKeychainHelper(v15);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    {
+      [POKeychainHelper retrieveCertAndKeyForTokenId:context:forSigning:hash:certificate:privateKey:];
+    }
+
+    goto LABEL_5;
+  }
+
+  if (identityRef)
+  {
+    CFRelease(identityRef);
+  }
+
+  return 1;
 }
 
 - (BOOL)_saveAttestationToKeychain:(id)keychain extensionIdentifier:(id)identifier keyHash:(id)hash error:(id *)error
@@ -386,34 +560,39 @@ id __72__POKeychainHelper_removeTokensFromKeychainWithService_username_system___
 
 - (BOOL)_saveAttestationToKeychain:(id)keychain extensionIdentifier:(id)identifier keyHash:(id)hash attestationDate:(id)date error:(id *)error
 {
-  v32[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   hashCopy = hash;
   dateCopy = date;
   keychainCopy = keychain;
-  v16 = PO_LOG_POKeychainHelper();
+  v16 = PO_LOG_POKeychainHelper(keychainCopy);
   if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     [POKeychainHelper _saveAttestationToKeychain:extensionIdentifier:keyHash:attestationDate:error:];
   }
 
-  v30 = 0;
-  v17 = [MEMORY[0x277CCAC58] dataWithPropertyList:keychainCopy format:100 options:0 error:&v30];
+  v31 = 0;
+  v17 = [MEMORY[0x277CCAC58] dataWithPropertyList:keychainCopy format:100 options:0 error:&v31];
 
-  v18 = v30;
+  v18 = v31;
   v19 = v18;
   if (v17)
   {
     hashCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@", identifierCopy, hashCopy];
-    v31 = @"kAttestationDate";
-    v32[0] = dateCopy;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:&v31 count:1];
+    v32 = @"kAttestationDate";
+    v33[0] = dateCopy;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
     v22 = [(POKeychainHelper *)self addTokens:v17 metaData:v21 toKeychainForService:hashCopy username:@"com.apple.platformsso.attestation" system:1];
 
     v23 = v22 == 0;
     if (v22)
     {
-      v24 = __97__POKeychainHelper__saveAttestationToKeychain_extensionIdentifier_keyHash_attestationDate_error___block_invoke_38();
+      v27[0] = MEMORY[0x277D85DD0];
+      v27[1] = 3221225472;
+      v27[2] = __97__POKeychainHelper__saveAttestationToKeychain_extensionIdentifier_keyHash_attestationDate_error___block_invoke_38;
+      v27[3] = &__block_descriptor_36_e14___NSError_8__0l;
+      v28 = v22;
+      v24 = __97__POKeychainHelper__saveAttestationToKeychain_extensionIdentifier_keyHash_attestationDate_error___block_invoke_38(v27);
       if (error)
       {
         v24 = v24;
@@ -426,12 +605,12 @@ id __72__POKeychainHelper_removeTokensFromKeychainWithService_username_system___
 
   else
   {
-    v28[0] = MEMORY[0x277D85DD0];
-    v28[1] = 3221225472;
-    v28[2] = __97__POKeychainHelper__saveAttestationToKeychain_extensionIdentifier_keyHash_attestationDate_error___block_invoke;
-    v28[3] = &unk_279A3DC48;
-    v29 = v18;
-    v25 = __97__POKeychainHelper__saveAttestationToKeychain_extensionIdentifier_keyHash_attestationDate_error___block_invoke(v28);
+    v29[0] = MEMORY[0x277D85DD0];
+    v29[1] = 3221225472;
+    v29[2] = __97__POKeychainHelper__saveAttestationToKeychain_extensionIdentifier_keyHash_attestationDate_error___block_invoke;
+    v29[3] = &unk_279A3DC48;
+    v30 = v18;
+    v25 = __97__POKeychainHelper__saveAttestationToKeychain_extensionIdentifier_keyHash_attestationDate_error___block_invoke(v29);
     if (error)
     {
       v25 = v25;
@@ -439,17 +618,16 @@ id __72__POKeychainHelper_removeTokensFromKeychainWithService_username_system___
     }
 
     v23 = 0;
-    hashCopy = v29;
+    hashCopy = v30;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
   return v23;
 }
 
 id __97__POKeychainHelper__saveAttestationToKeychain_extensionIdentifier_keyHash_attestationDate_error___block_invoke(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to serialize attestation data"];
-  v2 = PO_LOG_POKeychainHelper();
+  v2 = PO_LOG_POKeychainHelper(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __76__POKeychainHelper_addTokens_metaData_toKeychainForService_username_system___block_invoke_cold_1();
@@ -458,23 +636,23 @@ id __97__POKeychainHelper__saveAttestationToKeychain_extensionIdentifier_keyHash
   return v1;
 }
 
-id __97__POKeychainHelper__saveAttestationToKeychain_extensionIdentifier_keyHash_attestationDate_error___block_invoke_38()
+id __97__POKeychainHelper__saveAttestationToKeychain_extensionIdentifier_keyHash_attestationDate_error___block_invoke_38(uint64_t a1)
 {
-  v0 = [POError errorWithCode:-1001 description:@"Failed to save attestation data in cache."];
-  v1 = PO_LOG_POKeychainHelper();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v1 = [POError errorWithCode:-1001 description:@"Failed to save attestation data in cache."];
+  v2 = PO_LOG_POKeychainHelper(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __22__POKeyWrap_wrapBlob___block_invoke_2_cold_1();
   }
 
-  return v0;
+  return v1;
 }
 
 - (id)_checkForCachedAttestationForExtensionIdentifier:(id)identifier keyHash:(id)hash
 {
   hashCopy = hash;
   identifierCopy = identifier;
-  v8 = PO_LOG_POKeychainHelper();
+  v8 = PO_LOG_POKeychainHelper(identifierCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [POKeychainHelper _checkForCachedAttestationForExtensionIdentifier:keyHash:];
@@ -482,46 +660,46 @@ id __97__POKeychainHelper__saveAttestationToKeychain_extensionIdentifier_keyHash
 
   hashCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%@:%@", identifierCopy, hashCopy];
 
-  v31 = 0;
-  v32 = 0;
-  v10 = [(POKeychainHelper *)self retrieveTokensFromKeychainForService:hashCopy username:@"com.apple.platformsso.attestation" system:1 returningTokens:&v32 metaData:&v31];
-  v11 = v32;
-  v12 = v31;
+  v29 = 0;
+  v30 = 0;
+  v10 = [(POKeychainHelper *)self retrieveTokensFromKeychainForService:hashCopy username:@"com.apple.platformsso.attestation" system:1 returningTokens:&v30 metaData:&v29];
+  v11 = v30;
+  v12 = v29;
   v13 = v12;
   if (v10)
   {
-    v26 = MEMORY[0x277D85DD0];
-    v27 = 3221225472;
-    v28 = __77__POKeychainHelper__checkForCachedAttestationForExtensionIdentifier_keyHash___block_invoke;
-    v29 = &__block_descriptor_36_e14___NSError_8__0l;
-    v30 = v10;
-    v14 = __77__POKeychainHelper__checkForCachedAttestationForExtensionIdentifier_keyHash___block_invoke();
+    v27[0] = MEMORY[0x277D85DD0];
+    v27[1] = 3221225472;
+    v27[2] = __77__POKeychainHelper__checkForCachedAttestationForExtensionIdentifier_keyHash___block_invoke;
+    v27[3] = &__block_descriptor_36_e14___NSError_8__0l;
+    v28 = v10;
+    v14 = __77__POKeychainHelper__checkForCachedAttestationForExtensionIdentifier_keyHash___block_invoke(v27);
     v15 = 0;
   }
 
   else
   {
     v16 = [v12 objectForKeyedSubscript:@"kAttestationDate"];
-    [v16 timeIntervalSinceNow];
-    if (v17 >= -7776000.0)
+    timeIntervalSinceNow = [v16 timeIntervalSinceNow];
+    if (v18 >= -7776000.0)
     {
-      v24 = 0;
-      v19 = [MEMORY[0x277CCAC58] propertyListWithData:v11 options:0 format:0 error:&v24];
-      v18 = v24;
+      v25 = 0;
+      v20 = [MEMORY[0x277CCAC58] propertyListWithData:v11 options:0 format:0 error:&v25];
+      v19 = v25;
       objc_opt_class();
-      if ((objc_opt_isKindOfClass() & 1) != 0 && [v19 count])
+      if ((objc_opt_isKindOfClass() & 1) != 0 && [v20 count])
       {
-        v15 = v19;
+        v15 = v20;
       }
 
       else
       {
-        v22[0] = MEMORY[0x277D85DD0];
-        v22[1] = 3221225472;
-        v22[2] = __77__POKeychainHelper__checkForCachedAttestationForExtensionIdentifier_keyHash___block_invoke_45;
-        v22[3] = &unk_279A3DC48;
-        v23 = v18;
-        v20 = __77__POKeychainHelper__checkForCachedAttestationForExtensionIdentifier_keyHash___block_invoke_45(v22);
+        v23[0] = MEMORY[0x277D85DD0];
+        v23[1] = 3221225472;
+        v23[2] = __77__POKeychainHelper__checkForCachedAttestationForExtensionIdentifier_keyHash___block_invoke_45;
+        v23[3] = &unk_279A3DC48;
+        v24 = v19;
+        v21 = __77__POKeychainHelper__checkForCachedAttestationForExtensionIdentifier_keyHash___block_invoke_45(v23);
 
         v15 = 0;
       }
@@ -529,11 +707,11 @@ id __97__POKeychainHelper__saveAttestationToKeychain_extensionIdentifier_keyHash
 
     else
     {
-      v18 = PO_LOG_POKeychainHelper();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v19 = PO_LOG_POKeychainHelper(timeIntervalSinceNow);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_25E8B1000, v18, OS_LOG_TYPE_INFO, "Cached attestation too old.", buf, 2u);
+        _os_log_impl(&dword_25E8B1000, v19, OS_LOG_TYPE_INFO, "Cached attestation too old.", buf, 2u);
       }
 
       v15 = 0;
@@ -543,22 +721,22 @@ id __97__POKeychainHelper__saveAttestationToKeychain_extensionIdentifier_keyHash
   return v15;
 }
 
-id __77__POKeychainHelper__checkForCachedAttestationForExtensionIdentifier_keyHash___block_invoke()
+id __77__POKeychainHelper__checkForCachedAttestationForExtensionIdentifier_keyHash___block_invoke(uint64_t a1)
 {
-  v0 = [POError errorWithCode:-1004 description:@"Cached attestation not found."];
-  v1 = PO_LOG_POKeychainHelper();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v1 = [POError errorWithCode:-1004 description:@"Cached attestation not found."];
+  v2 = PO_LOG_POKeychainHelper(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __22__POKeyWrap_wrapBlob___block_invoke_2_cold_1();
   }
 
-  return v0;
+  return v1;
 }
 
 id __77__POKeychainHelper__checkForCachedAttestationForExtensionIdentifier_keyHash___block_invoke_45(uint64_t a1)
 {
   v1 = [POError errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to deserialize attestation data"];
-  v2 = PO_LOG_POKeychainHelper();
+  v2 = PO_LOG_POKeychainHelper(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __76__POKeychainHelper_addTokens_metaData_toKeychainForService_username_system___block_invoke_cold_1();
@@ -591,7 +769,7 @@ id __77__POKeychainHelper__checkForCachedAttestationForExtensionIdentifier_keyHa
 id __71__POKeychainHelper__deleteCachedAttestationForExtensionIdentifier_key___block_invoke()
 {
   v0 = [POError errorWithCode:-1001 description:@"Failed to get hash for key."];
-  v1 = PO_LOG_POKeychainHelper();
+  v1 = PO_LOG_POKeychainHelper(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __76__POKeychainHelper_addTokens_metaData_toKeychainForService_username_system___block_invoke_cold_1();
@@ -606,20 +784,25 @@ id __71__POKeychainHelper__deleteCachedAttestationForExtensionIdentifier_key___b
   v6 = [(POKeychainHelper *)self removeTokensFromKeychainWithService:v5 username:@"com.apple.platformsso.attestation" system:1];
   if (v6 != -25300 && v6 != 0)
   {
-    v8 = __75__POKeychainHelper__deleteCachedAttestationForExtensionIdentifier_keyHash___block_invoke();
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __75__POKeychainHelper__deleteCachedAttestationForExtensionIdentifier_keyHash___block_invoke;
+    v9[3] = &__block_descriptor_36_e14___NSError_8__0l;
+    v10 = v6;
+    v8 = __75__POKeychainHelper__deleteCachedAttestationForExtensionIdentifier_keyHash___block_invoke(v9);
   }
 }
 
-id __75__POKeychainHelper__deleteCachedAttestationForExtensionIdentifier_keyHash___block_invoke()
+id __75__POKeychainHelper__deleteCachedAttestationForExtensionIdentifier_keyHash___block_invoke(uint64_t a1)
 {
-  v0 = [POError errorWithCode:-1004 description:@"Failed to remove cached attestation."];
-  v1 = PO_LOG_POKeychainHelper();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v1 = [POError errorWithCode:-1004 description:@"Failed to remove cached attestation."];
+  v2 = PO_LOG_POKeychainHelper(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __22__POKeyWrap_wrapBlob___block_invoke_2_cold_1();
   }
 
-  return v0;
+  return v1;
 }
 
 - (void)_deleteAllCachedAttestations
@@ -629,69 +812,51 @@ id __75__POKeychainHelper__deleteCachedAttestationForExtensionIdentifier_keyHash
   _os_log_debug_impl(v0, v1, v2, v3, v4, 2u);
 }
 
-id __48__POKeychainHelper__deleteAllCachedAttestations__block_invoke()
+id __48__POKeychainHelper__deleteAllCachedAttestations__block_invoke(uint64_t a1)
 {
-  v0 = [POError errorWithCode:-1004 description:@"Failed to remove cached attestations."];
-  v1 = PO_LOG_POKeychainHelper();
-  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
+  v1 = [POError errorWithCode:-1004 description:@"Failed to remove cached attestations."];
+  v2 = PO_LOG_POKeychainHelper(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __22__POKeyWrap_wrapBlob___block_invoke_2_cold_1();
   }
 
-  return v0;
+  return v1;
 }
 
 - (void)addTokens:metaData:toKeychainForService:username:system:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)addTokens:metaData:toKeychainForService:username:system:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_debug_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __76__POKeychainHelper_addTokens_metaData_toKeychainForService_username_system___block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrieveTokensFromKeychainForService:username:system:returningTokens:metaData:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrieveTokensFromKeychainForService:username:system:returningTokens:metaData:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_2_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeTokensFromKeychainWithService:username:system:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)retrieveIdentityForTokenId:context:forSigning:hash:identity:.cold.1()
@@ -738,20 +903,16 @@ void __76__POKeychainHelper_addTokens_metaData_toKeychainForService_username_sys
 
 - (void)_saveAttestationToKeychain:extensionIdentifier:keyHash:attestationDate:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_checkForCachedAttestationForExtensionIdentifier:keyHash:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_7_0();
   OUTLINED_FUNCTION_5_0();
   _os_log_debug_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -81,10 +81,10 @@ LABEL_14:
         atomic_fetch_add_explicit(v10, 2u, memory_order_relaxed);
       }
 
-      *(v9 + 16) = v10;
+      v9[1].var0 = v10;
       *(v9 + 24) = *(v6 + 8);
-      v11 = *(v9 + 8);
-      if (v11)
+      var1 = v9->var1;
+      if (var1)
       {
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -92,9 +92,9 @@ LABEL_14:
           goto LABEL_14;
         }
 
-        v12 = v11;
-        CFRelease(*(v9 + 8));
-        [(NSArray *)v4 addObject:v11];
+        v12 = var1;
+        CFRelease(v9->var1);
+        [(NSArray *)v4 addObject:var1];
       }
 
       else

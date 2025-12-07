@@ -48,58 +48,56 @@
 
 - (void)_executeRequest
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   deviceManagementUserConnection = [(MDMAppPropertyShim *)self deviceManagementUserConnection];
   request = [(MDMAppPropertyShim *)self request];
-  v12 = 0;
-  v5 = [deviceManagementUserConnection performRequest:request error:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [deviceManagementUserConnection performRequest:request error:&v11];
+  v6 = v11;
 
   if (!v5)
   {
     v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"request for app items failed: %@", v6];
     v8 = [MDMAppPropertyShimException alloc];
-    v13 = @"error";
-    v14[0] = v6;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = @"error";
+    v13[0] = v6;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v10 = [(MDMAppPropertyShimException *)v8 initWithName:@"MCDMDAppPropertyShimExceptionRequestFailed" reason:v7 userInfo:v9];
 
     [(MDMAppPropertyShimException *)v10 raise];
   }
 
   [(MDMAppPropertyShim *)self setResponse:v5];
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createAppItems
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   response = [(MDMAppPropertyShim *)self response];
   appsByBundleIdentifier = [response appsByBundleIdentifier];
 
   v5 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = appsByBundleIdentifier;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
-        v12 = [v6 objectForKeyedSubscript:{v11, v17}];
+        v11 = *(*(&v16 + 1) + 8 * i);
+        v12 = [v6 objectForKeyedSubscript:{v11, v16}];
         v13 = [(MDMAppPropertyShim *)self _appDictionaryFromApp:v12];
         if (!-[MDMAppPropertyShim shouldReturnManagedAppsOnly](self, "shouldReturnManagedAppsOnly") || ([v12 sourceIdentifier], v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 != 0, v14, !v15))
         {
@@ -110,14 +108,13 @@
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
   }
 
   [(MDMAppPropertyShim *)self setAppItems:v5];
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (DMFConnection)deviceManagementUserConnection
@@ -137,78 +134,77 @@
 
 + (id)_itemKeyToDMDKeyMappingTable
 {
-  v6[16] = *MEMORY[0x277D85DE8];
-  v5[0] = @"AdHocCodeSigned";
-  v5[1] = @"AppStoreVendable";
-  v6[0] = @"isAdHocCodeSigned";
-  v6[1] = @"isAppStoreVendable";
-  v5[2] = @"BetaApp";
-  v5[3] = @"BundleSize";
-  v6[2] = @"isBetaApp";
-  v6[3] = @"staticUsage";
-  v5[4] = @"DeviceBasedVPP";
-  v5[5] = @"DynamicSize";
-  v6[4] = @"isDeviceBasedVPP";
-  v6[5] = @"dynamicUsage";
-  v5[6] = @"ExternalVersionIdentifier";
-  v5[7] = @"DistributorIdentifier";
-  v6[6] = @"externalVersionIdentifier";
-  v6[7] = @"distributorIdentifier";
-  v5[8] = @"HasUpdateAvailable";
-  v5[9] = @"Identifier";
-  v6[8] = @"hasUpdateAvailable";
-  v6[9] = @"bundleIdentifier";
-  v5[10] = @"Installing";
-  v5[11] = @"IsValidated";
-  v6[10] = @"installationState";
-  v6[11] = @"isValidated";
-  v5[12] = @"Name";
-  v5[13] = @"ShortVersion";
-  v6[12] = @"displayName";
-  v6[13] = @"shortVersion";
-  v5[14] = @"Version";
-  v5[15] = @"IsAppClip";
-  v6[14] = @"version";
-  v6[15] = @"isAppClip";
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:16];
-  v3 = *MEMORY[0x277D85DE8];
+  v5[16] = *MEMORY[0x277D85DE8];
+  v4[0] = @"AdHocCodeSigned";
+  v4[1] = @"AppStoreVendable";
+  v5[0] = @"isAdHocCodeSigned";
+  v5[1] = @"isAppStoreVendable";
+  v4[2] = @"BetaApp";
+  v4[3] = @"BundleSize";
+  v5[2] = @"isBetaApp";
+  v5[3] = @"staticUsage";
+  v4[4] = @"DeviceBasedVPP";
+  v4[5] = @"DynamicSize";
+  v5[4] = @"isDeviceBasedVPP";
+  v5[5] = @"dynamicUsage";
+  v4[6] = @"ExternalVersionIdentifier";
+  v4[7] = @"DistributorIdentifier";
+  v5[6] = @"externalVersionIdentifier";
+  v5[7] = @"distributorIdentifier";
+  v4[8] = @"HasUpdateAvailable";
+  v4[9] = @"Identifier";
+  v5[8] = @"hasUpdateAvailable";
+  v5[9] = @"bundleIdentifier";
+  v4[10] = @"Installing";
+  v4[11] = @"IsValidated";
+  v5[10] = @"installationState";
+  v5[11] = @"isValidated";
+  v4[12] = @"Name";
+  v4[13] = @"ShortVersion";
+  v5[12] = @"displayName";
+  v5[13] = @"shortVersion";
+  v4[14] = @"Version";
+  v4[15] = @"IsAppClip";
+  v5[14] = @"version";
+  v5[15] = @"isAppClip";
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:16];
 
   return v2;
 }
 
 + (id)_dmdKeysToRequestToGetItems:(id)items
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   _itemKeyToDMDKeyMappingTable = [self _itemKeyToDMDKeyMappingTable];
   v6 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v7 = itemsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v17;
+    v10 = *v16;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v17 != v10)
+        if (*v16 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = [_itemKeyToDMDKeyMappingTable objectForKeyedSubscript:{*(*(&v16 + 1) + 8 * i), v16}];
+        v12 = [_itemKeyToDMDKeyMappingTable objectForKeyedSubscript:{*(*(&v15 + 1) + 8 * i), v15}];
         if (v12)
         {
           [v6 addObject:v12];
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v9);
@@ -219,8 +215,6 @@
   [v6 addObject:@"storeItemIdentifier"];
   [v6 addObject:@"sourceIdentifier"];
   allObjects = [v6 allObjects];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return allObjects;
 }

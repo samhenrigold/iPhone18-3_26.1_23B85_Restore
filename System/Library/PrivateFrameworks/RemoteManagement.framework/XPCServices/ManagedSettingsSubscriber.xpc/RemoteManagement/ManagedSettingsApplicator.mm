@@ -9,13 +9,13 @@
 
 - (_TtC25ManagedSettingsSubscriber25ManagedSettingsApplicator)init
 {
-  v3 = [objc_allocWithZone(type metadata accessor for ManagedSettingsAdapter()) init];
-  v6.receiver = self;
-  v6.super_class = type metadata accessor for ManagedSettingsApplicator();
-  v4 = [(ManagedSettingsApplicator *)&v6 initWithAdapter:v3 inPlaceUpdates:0];
+  v4 = [objc_allocWithZone(type metadata accessor for ManagedSettingsAdapter(0 a2];
+  v10.receiver = self;
+  v10.super_class = type metadata accessor for ManagedSettingsApplicator(v4, v5);
+  v6 = [(ManagedSettingsApplicator *)&v10 initWithAdapter:v4 inPlaceUpdates:0];
 
-  sub_10000BE1C();
-  return v4;
+  sub_10000BE1C(v7, v8);
+  return v6;
 }
 
 + (id)supportedConfigurationTypes

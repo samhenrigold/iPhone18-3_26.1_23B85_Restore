@@ -14,8 +14,8 @@
 - (id)_timingForTransportType:(int64_t)type
 {
   session = [(RoutePlanningSessionDirectionsPlanBuilder *)self session];
-  configuration = [session configuration];
-  routeLoadingTaskFactory = [configuration routeLoadingTaskFactory];
+  v5 = objc_msgSend_configuration(session);
+  routeLoadingTaskFactory = [v5 routeLoadingTaskFactory];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -37,8 +37,8 @@
 - (id)_transitPreferences
 {
   session = [(RoutePlanningSessionDirectionsPlanBuilder *)self session];
-  configuration = [session configuration];
-  routeLoadingTaskFactory = [configuration routeLoadingTaskFactory];
+  v3 = objc_msgSend_configuration(session);
+  routeLoadingTaskFactory = [v3 routeLoadingTaskFactory];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -246,16 +246,16 @@ LABEL_47:
       v72 = uUIDString;
       v73 = v62;
       v59 = v62;
-      configuration = uUIDString;
+      v48 = uUIDString;
       dispatch_async(v63, v71);
 
       goto LABEL_51;
     }
 
     session2 = [(RoutePlanningSessionDirectionsPlanBuilder *)self session];
-    configuration = [session2 configuration];
+    v48 = objc_msgSend_configuration(session2);
 
-    waypointRequests = [configuration waypointRequests];
+    waypointRequests = [v48 waypointRequests];
     v68[0] = _NSConcreteStackBlock;
     v68[1] = 3221225472;
     v68[2] = sub_100A257C4;
@@ -400,7 +400,7 @@ LABEL_44:
   block[3] = &unk_101661A90;
   v79 = uUIDString2;
   v80 = v21;
-  configuration = v21;
+  v48 = v21;
   v31 = uUIDString2;
   dispatch_async(v58, block);
 

@@ -1,6 +1,7 @@
 @interface _INPBTicketedEvent
 - (BOOL)isEqual:(id)equal;
 - (_INPBTicketedEvent)initWithCoder:(id)coder;
+- (id)categoryAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
 - (int)StringAsCategory:(id)category;
@@ -233,7 +234,6 @@ LABEL_22:
   toCopy = to;
   if ([(_INPBTicketedEvent *)self hasCategory])
   {
-    category = self->_category;
     PBDataWriterWriteInt32Field();
   }
 
@@ -255,12 +255,11 @@ LABEL_22:
 
   name = [(_INPBTicketedEvent *)self name];
 
-  v10 = toCopy;
+  v9 = toCopy;
   if (name)
   {
-    name = self->_name;
     PBDataWriterWriteStringField();
-    v10 = toCopy;
+    v9 = toCopy;
   }
 }
 
@@ -288,6 +287,26 @@ LABEL_22:
     {
       v4 = 1;
     }
+  }
+
+  return v4;
+}
+
+- (id)categoryAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"UNKNOWN";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"MOVIE";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
   }
 
   return v4;

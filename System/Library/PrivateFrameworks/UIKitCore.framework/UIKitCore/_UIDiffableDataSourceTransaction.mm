@@ -125,7 +125,7 @@
     {
       v6 = equalCopy;
       source = self->_source;
-      if (source == [(_UIDiffableDataSourceTransaction *)v6 source]&& (difference = self->_difference, [(_UIDiffableDataSourceTransaction *)v6 difference], v9 = objc_claimAutoreleasedReturnValue(), LODWORD(difference) = [(NSOrderedCollectionDifference *)difference isEqual:v9], v9, difference) && (initialSnapshot = self->_initialSnapshot, [(_UIDiffableDataSourceTransaction *)v6 initialSnapshot], v11 = objc_claimAutoreleasedReturnValue(), LODWORD(initialSnapshot) = [(NSDiffableDataSourceSnapshot *)initialSnapshot isEqual:v11], v11, initialSnapshot) && (finalSnapshot = self->_finalSnapshot, [(_UIDiffableDataSourceTransaction *)v6 finalSnapshot], v13 = objc_claimAutoreleasedReturnValue(), LODWORD(finalSnapshot) = [(NSDiffableDataSourceSnapshot *)finalSnapshot isEqual:v13], v13, finalSnapshot))
+      if (source == [(_UIDiffableDataSourceTransaction *)v6 source]&& (difference = self->_difference, [(_UIDiffableDataSourceTransaction *)v6 difference], v9 = objc_claimAutoreleasedReturnValue(), LODWORD(difference) = objc_msgSend_isEqual_(difference), v9, difference) && (initialSnapshot = self->_initialSnapshot, [(_UIDiffableDataSourceTransaction *)v6 initialSnapshot], v11 = objc_claimAutoreleasedReturnValue(), LODWORD(initialSnapshot) = objc_msgSend_isEqual_(initialSnapshot), v11, initialSnapshot) && (finalSnapshot = self->_finalSnapshot, [(_UIDiffableDataSourceTransaction *)v6 finalSnapshot], v13 = objc_claimAutoreleasedReturnValue(), LODWORD(finalSnapshot) = objc_msgSend_isEqual_(finalSnapshot), v13, finalSnapshot))
       {
         sectionTransactions = self->_sectionTransactions;
         sectionTransactions = [(_UIDiffableDataSourceTransaction *)v6 sectionTransactions];

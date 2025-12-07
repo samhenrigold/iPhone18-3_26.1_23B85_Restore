@@ -135,7 +135,7 @@ void __67__CNContactPickerExtensionHostContext_pickerDidSelectAddNewContact__blo
 void __67__CNContactPickerExtensionHostContext_invalidateSelectionAnimated___block_invoke(uint64_t a1, void *a2)
 {
   v6 = [a2 localizedDescription];
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerHostViewController.m", 213, 3, @"error calling service - %@", v2, v3, v4, v5, v6);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerHostViewController.m", 213, 3u, @"error calling service - %@", v2, v3, v4, v5, v6);
 }
 
 - (void)setupWithOptions:(id)options readyBlock:(id)block
@@ -157,7 +157,7 @@ void __67__CNContactPickerExtensionHostContext_invalidateSelectionAnimated___blo
 void __67__CNContactPickerExtensionHostContext_setupWithOptions_readyBlock___block_invoke(uint64_t a1, void *a2)
 {
   v6 = [a2 localizedDescription];
-  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerHostViewController.m", 203, 3, @"error calling service - %@", v2, v3, v4, v5, v6);
+  _CNUILog("/Library/Caches/com.apple.xbs/Sources/ContactsUI/Framework/CNContactPickerHostViewController.m", 203, 3u, @"error calling service - %@", v2, v3, v4, v5, v6);
 }
 
 - (id)_derivedExtensionAuxiliaryHostProtocol

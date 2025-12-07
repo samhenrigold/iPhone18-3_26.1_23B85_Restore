@@ -124,17 +124,16 @@ id __75__HUControllableItemCollectionViewControllerAccessibility__axOpenControls
   v3 = [*(a1 + 40) presentationCoordinator:v2 contextForPresentationAtPoint:{*(a1 + 56), *(a1 + 64)}];
   [v2 setPresentationContext:v3];
 
-  v4 = *(a1 + 48);
   MEMORY[0x29C2DA460](@"HFAbstractControlStatusItem");
-  LOBYTE(v4) = objc_opt_isKindOfClass();
-  [*(a1 + 32) _preparePressedItemContextForItem:*(a1 + 48) startApplier:(v4 & 1) == 0];
+  LOBYTE(v2) = objc_opt_isKindOfClass();
+  [*(a1 + 32) _preparePressedItemContextForItem:*(a1 + 48) startApplier:(v2 & 1) == 0];
   result = [*(a1 + 32) _beginControlPresentationAnimated:1];
-  if ((v4 & 1) == 0)
+  if ((v2 & 1) == 0)
   {
     [*(a1 + 32) _pressGestureDidBeginWithLocation:{*(a1 + 56), *(a1 + 64)}];
-    v6 = *(a1 + 32);
+    v5 = *(a1 + 32);
 
-    return [v6 _pressGestureDidEnd:1];
+    return [v5 _pressGestureDidEnd:1];
   }
 
   return result;

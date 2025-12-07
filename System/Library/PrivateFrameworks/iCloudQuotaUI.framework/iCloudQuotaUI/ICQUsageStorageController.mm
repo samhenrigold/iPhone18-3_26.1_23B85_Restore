@@ -64,7 +64,7 @@ void __70__ICQUsageStorageController_BugReporting__tapToRadarURLForAttributes___
 
 - (void)snapshotAndReportDiskSpace
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   navigationItem = [(ICQUsageStorageController *)self navigationItem];
   rightBarButtonItem = [navigationItem rightBarButtonItem];
   [rightBarButtonItem setEnabled:0];
@@ -75,21 +75,21 @@ void __70__ICQUsageStorageController_BugReporting__tapToRadarURLForAttributes___
   [navigationItem2 setRightBarButtonItem:v6];
 
   [v5 startAnimating];
-  v15[0] = 0;
+  v14[0] = 0;
   if (!DiskSpaceDiagnosticsLibraryCore_frameworkLibrary)
   {
-    v15[1] = MEMORY[0x277D85DD0];
-    v15[2] = 3221225472;
-    v15[3] = __DiskSpaceDiagnosticsLibraryCore_block_invoke;
-    v15[4] = &__block_descriptor_40_e5_v8__0l;
-    v15[5] = v15;
-    v16 = xmmword_27A65A6C8;
-    v17 = 0;
+    v14[1] = MEMORY[0x277D85DD0];
+    v14[2] = 3221225472;
+    v14[3] = __DiskSpaceDiagnosticsLibraryCore_block_invoke;
+    v14[4] = &__block_descriptor_40_e5_v8__0l;
+    v14[5] = v14;
+    v15 = xmmword_27A65A6C8;
+    v16 = 0;
     DiskSpaceDiagnosticsLibraryCore_frameworkLibrary = _sl_dlopen();
-    v8 = v15[0];
+    v8 = v14[0];
     if (DiskSpaceDiagnosticsLibraryCore_frameworkLibrary)
     {
-      if (!v15[0])
+      if (!v14[0])
       {
         goto LABEL_4;
       }
@@ -97,25 +97,24 @@ void __70__ICQUsageStorageController_BugReporting__tapToRadarURLForAttributes___
 
     else
     {
-      v13 = v15[0];
-      v8 = abort_report_np();
+      v8 = abort_report_np("%s", v14[0]);
     }
 
     free(v8);
   }
 
 LABEL_4:
-  v9 = [MEMORY[0x277CCAE90] interfaceWithProtocol:{&unk_2884E07F0, v13}];
+  v9 = [MEMORY[0x277CCAE90] interfaceWithProtocol:&unk_2884E07F0];
   v10 = [objc_alloc(MEMORY[0x277CCAE80]) initWithServiceName:@"com.apple.FilesystemMetadataSnapshotService"];
   [v10 setRemoteObjectInterface:v9];
   [v10 resume];
   remoteObjectProxy = [v10 remoteObjectProxy];
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __69__ICQUsageStorageController_BugReporting__snapshotAndReportDiskSpace__block_invoke;
-  v14[3] = &unk_27A65A6A8;
-  v14[4] = self;
-  v12 = [remoteObjectProxy generateFilesystemMetadataSnapshotWithOptions:0 reply:v14];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __69__ICQUsageStorageController_BugReporting__snapshotAndReportDiskSpace__block_invoke;
+  v13[3] = &unk_27A65A6A8;
+  v13[4] = self;
+  v12 = [remoteObjectProxy generateFilesystemMetadataSnapshotWithOptions:0 reply:v13];
 }
 
 void __69__ICQUsageStorageController_BugReporting__snapshotAndReportDiskSpace__block_invoke(uint64_t a1, void *a2, void *a3)

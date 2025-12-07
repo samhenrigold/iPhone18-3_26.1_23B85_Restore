@@ -39,40 +39,40 @@
 - (APUIAppIconGridView)initWithDelegate:(id)delegate
 {
   delegateCopy = delegate;
-  v12.receiver = self;
-  v12.super_class = APUIAppIconGridView;
-  v5 = [(APUIAppIconGridView *)&v12 init];
-  if (v5)
+  v14.receiver = self;
+  v14.super_class = APUIAppIconGridView;
+  v7 = [(APUIAppIconGridView *)&v14 init];
+  if (v7)
   {
-    v14 = 0;
-    v15 = &v14;
-    v16 = 0x2050000000;
-    v6 = getSBIconListModelClass_softClass;
-    v17 = getSBIconListModelClass_softClass;
+    v16 = 0;
+    v17 = &v16;
+    v18 = 0x2050000000;
+    v8 = getSBIconListModelClass_softClass;
+    v19 = getSBIconListModelClass_softClass;
     if (!getSBIconListModelClass_softClass)
     {
-      v13[0] = MEMORY[0x277D85DD0];
-      v13[1] = 3221225472;
-      v13[2] = __getSBIconListModelClass_block_invoke;
-      v13[3] = &unk_278C90BC0;
-      v13[4] = &v14;
-      __getSBIconListModelClass_block_invoke(v13);
-      v6 = v15[3];
+      v15[0] = MEMORY[0x277D85DD0];
+      v15[1] = 3221225472;
+      v15[2] = __getSBIconListModelClass_block_invoke;
+      v15[3] = &unk_278C90BC0;
+      v15[4] = &v16;
+      __getSBIconListModelClass_block_invoke(v15, v5, v6);
+      v8 = v17[3];
     }
 
-    v7 = v6;
-    _Block_object_dispose(&v14, 8);
-    v8 = [[v6 alloc] initWithFolder:0 maxIconCount:8];
-    model = v5->_model;
-    v5->_model = v8;
+    v9 = v8;
+    _Block_object_dispose(&v16, 8);
+    v10 = [[v8 alloc] initWithFolder:0 maxIconCount:8];
+    model = v7->_model;
+    v7->_model = v10;
 
-    objc_storeWeak(&v5->_delegate, delegateCopy);
+    objc_storeWeak(&v7->_delegate, delegateCopy);
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-    [defaultCenter addObserver:v5 selector:sel__significantTimeChange_ name:*MEMORY[0x277D766F0] object:0];
-    [(APUIAppIconGridView *)v5 _addGridView];
+    [defaultCenter addObserver:v7 selector:sel__significantTimeChange_ name:*MEMORY[0x277D766F0] object:0];
+    [(APUIAppIconGridView *)v7 _addGridView];
   }
 
-  return v5;
+  return v7;
 }
 
 - (void)_significantTimeChange:(id)change
@@ -179,43 +179,43 @@ void __53__APUIAppIconGridView_setLargeIconsEnabled_animated___block_invoke(uint
     self->_layoutProvider = v4;
 
     [(APUIAppIconGridLayoutProvider *)self->_layoutProvider setMode:self->_mode];
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2050000000;
-    v6 = getSBIconListViewClass_softClass;
-    v21 = getSBIconListViewClass_softClass;
+    v20 = 0;
+    v21 = &v20;
+    v22 = 0x2050000000;
+    v8 = getSBIconListViewClass_softClass;
+    v23 = getSBIconListViewClass_softClass;
     if (!getSBIconListViewClass_softClass)
     {
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __getSBIconListViewClass_block_invoke;
-      v17[3] = &unk_278C90BC0;
-      v17[4] = &v18;
-      __getSBIconListViewClass_block_invoke(v17);
-      v6 = v19[3];
+      v19[0] = MEMORY[0x277D85DD0];
+      v19[1] = 3221225472;
+      v19[2] = __getSBIconListViewClass_block_invoke;
+      v19[3] = &unk_278C90BC0;
+      v19[4] = &v20;
+      __getSBIconListViewClass_block_invoke(v19, v6, v7);
+      v8 = v21[3];
     }
 
-    v7 = v6;
-    _Block_object_dispose(&v18, 8);
-    v8 = [[v6 alloc] initWithModel:self->_model layoutProvider:self->_layoutProvider iconLocation:@"SBIconLocationAppPredictions" orientation:1 iconViewProvider:self];
-    [v8 setIconViewConfigurationOptions:16];
-    [v8 setContentVisibility:self->_occluded];
-    [v8 setLegibilitySettings:self->_legibilitySettings];
+    v9 = v8;
+    _Block_object_dispose(&v20, 8);
+    v10 = [[v8 alloc] initWithModel:self->_model layoutProvider:self->_layoutProvider iconLocation:@"SBIconLocationAppPredictions" orientation:1 iconViewProvider:self];
+    [v10 setIconViewConfigurationOptions:16];
+    [v10 setContentVisibility:self->_occluded];
+    [v10 setLegibilitySettings:self->_legibilitySettings];
     [(APUIAppIconGridView *)self _iconLabelAlphaForMode:self->_mode];
-    [v8 setIconsLabelAlpha:?];
-    [v8 setUsesGlassGroup:0];
-    [v8 addLayoutObserver:self];
-    v9 = objc_loadWeakRetained(&self->_delegate);
-    v10 = [v9 additionalIconListLayoutObserversForAppIconGridView:self];
-    v12 = MEMORY[0x277D85DD0];
-    v13 = 3221225472;
-    v14 = __35__APUIAppIconGridView__addGridView__block_invoke;
-    v15 = &unk_278C90B28;
-    v16 = v8;
-    v11 = v8;
-    [v10 enumerateObjectsUsingBlock:&v12];
-    [(APUIAppIconGridView *)self addSubview:v11, v12, v13, v14, v15];
-    objc_storeWeak(&self->_gridView, v11);
+    [v10 setIconsLabelAlpha:?];
+    [v10 setUsesGlassGroup:0];
+    [v10 addLayoutObserver:self];
+    v11 = objc_loadWeakRetained(&self->_delegate);
+    v12 = [v11 additionalIconListLayoutObserversForAppIconGridView:self];
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __35__APUIAppIconGridView__addGridView__block_invoke;
+    v17 = &unk_278C90B28;
+    v18 = v10;
+    v13 = v10;
+    [v12 enumerateObjectsUsingBlock:&v14];
+    [(APUIAppIconGridView *)self addSubview:v13, v14, v15, v16, v17];
+    objc_storeWeak(&self->_gridView, v13);
   }
 }
 
@@ -223,40 +223,40 @@ void __53__APUIAppIconGridView_setLargeIconsEnabled_animated___block_invoke(uint
 {
   y = location.y;
   x = location.x;
-  v19 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = [(APUIAppIconGridView *)self hitTest:0 withEvent:?];
-  v6 = [v5 apuiFindInnermostSuperviewOfClass:getSBIconViewClass()];
-  icon = [v6 icon];
-  applicationBundleID = 0;
-  if (objc_opt_respondsToSelector())
+  v8 = [v5 apuiFindInnermostSuperviewOfClass:{getSBIconViewClass(v5, v6, v7)}];
+  icon = [v8 icon];
+  applicationBundleID = objc_opt_respondsToSelector();
+  v11 = 0;
+  if (applicationBundleID)
   {
     applicationBundleID = [icon applicationBundleID];
+    v11 = applicationBundleID;
   }
 
-  v9 = __atxlog_handle_ui();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  v12 = __atxlog_handle_ui(applicationBundleID);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v21.x = x;
-    v21.y = y;
-    v10 = NSStringFromCGPoint(v21);
-    v13 = 136446722;
-    v14 = "[APUIAppIconGridView bundleIdAtLocation:]";
-    v15 = 2112;
-    v16 = v10;
+    v23.x = x;
+    v23.y = y;
+    v13 = NSStringFromCGPoint(v23);
+    v15 = 136446722;
+    v16 = "[APUIAppIconGridView bundleIdAtLocation:]";
     v17 = 2112;
-    v18 = applicationBundleID;
-    _os_log_impl(&dword_240036000, v9, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s:%@ bundleID=%@", &v13, 0x20u);
+    v18 = v13;
+    v19 = 2112;
+    v20 = v11;
+    _os_log_impl(&dword_240036000, v12, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s:%@ bundleID=%@", &v15, 0x20u);
   }
 
-  v11 = *MEMORY[0x277D85DE8];
-
-  return applicationBundleID;
+  return v11;
 }
 
 - (void)iconTapped:(id)tapped
 {
   tappedCopy = tapped;
-  v5 = __atxlog_handle_ui();
+  v5 = __atxlog_handle_ui(tappedCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -270,11 +270,11 @@ void __53__APUIAppIconGridView_setLargeIconsEnabled_animated___block_invoke(uint
 
   if (v8)
   {
-    applicationBundleID = __atxlog_handle_ui();
+    applicationBundleID = __atxlog_handle_ui(v9);
     if (os_log_type_enabled(applicationBundleID, OS_LOG_TYPE_DEFAULT))
     {
-      *v10 = 0;
-      _os_log_impl(&dword_240036000, applicationBundleID, OS_LOG_TYPE_DEFAULT, "AppIconGridView: iconTapped but delegate handled launch", v10, 2u);
+      *v11 = 0;
+      _os_log_impl(&dword_240036000, applicationBundleID, OS_LOG_TYPE_DEFAULT, "AppIconGridView: iconTapped but delegate handled launch", v11, 2u);
     }
 
     goto LABEL_8;
@@ -300,7 +300,7 @@ LABEL_8:
     v14 = getSBHReusableViewMapClass_softClass;
     if (!getSBHReusableViewMapClass_softClass)
     {
-      SpringBoardHomeLibraryCore();
+      SpringBoardHomeLibraryCore(0);
       v12[3] = objc_getClass("SBHReusableViewMap");
       getSBHReusableViewMapClass_softClass = v12[3];
       v5 = v12[3];
@@ -315,32 +315,30 @@ LABEL_8:
     reusableIconViewMap = self->_reusableIconViewMap;
   }
 
-  v9 = [(SBHReusableViewMap *)reusableIconViewMap dequeueReusableViewOfClass:getSBIconViewClass()];
+  v9 = [(SBHReusableViewMap *)reusableIconViewMap dequeueReusableViewOfClass:getSBIconViewClass(self, a2, class)];
 
   return v9;
 }
 
 - (void)configureIconView:(id)view forIcon:(id)icon
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   iconCopy = icon;
   viewCopy = view;
-  v8 = __atxlog_handle_ui();
+  v8 = __atxlog_handle_ui(viewCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136446466;
-    v11 = "[APUIAppIconGridView configureIconView:forIcon:]";
-    v12 = 2112;
-    v13 = iconCopy;
-    _os_log_impl(&dword_240036000, v8, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s icon=%@", &v10, 0x16u);
+    v9 = 136446466;
+    v10 = "[APUIAppIconGridView configureIconView:forIcon:]";
+    v11 = 2112;
+    v12 = iconCopy;
+    _os_log_impl(&dword_240036000, v8, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s icon=%@", &v9, 0x16u);
   }
 
   [viewCopy setDelegate:self];
   [viewCopy setIcon:iconCopy];
   [viewCopy setLabelAccessoryHidden:self->_mode == 1];
   [(APUIAppIconGridView *)self _configureAliasingForIconView:viewCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureAliasingForIconView:(id)view
@@ -424,7 +422,7 @@ LABEL_6:
 
 - (void)setBundleIds:(id)ids
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   idsCopy = ids;
   bundleIds = self->_bundleIds;
   if (bundleIds != idsCopy && ![(NSArray *)bundleIds isEqualToArray:idsCopy])
@@ -438,13 +436,12 @@ LABEL_6:
       [(APUIAppIconDataSource *)self->_dataSource setDelegate:self];
     }
 
-    v30 = idsCopy;
+    v32 = idsCopy;
     v8 = [(NSArray *)idsCopy copy];
     v9 = self->_bundleIds;
     self->_bundleIds = v8;
 
-    [(SBIconListModel *)self->_model removeAllIcons];
-    v10 = __atxlog_handle_ui();
+    v10 = __atxlog_handle_ui([(SBIconListModel *)self->_model removeAllIcons]);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -455,117 +452,116 @@ LABEL_6:
       _os_log_impl(&dword_240036000, v10, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s _delegate=%@", buf, 0x16u);
     }
 
+    v35 = 0u;
+    v36 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v31 = 0u;
-    v32 = 0u;
-    v12 = v30;
-    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v31 objects:v39 count:16];
+    v12 = v32;
+    v13 = [(NSArray *)v12 countByEnumeratingWithState:&v33 objects:v41 count:16];
     if (v13)
     {
-      v14 = *v32;
+      v14 = *v34;
       do
       {
         v15 = 0;
         do
         {
-          if (*v32 != v14)
+          if (*v34 != v14)
           {
             objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v31 + 1) + 8 * v15);
+          v16 = *(*(&v33 + 1) + 8 * v15);
           v17 = objc_loadWeakRetained(&self->_delegate);
           v18 = [v17 appIconGridView:self iconForApplicationWithBundleIdentifier:v16];
 
           if (v18)
           {
-            v19 = __atxlog_handle_ui();
-            if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+            v20 = __atxlog_handle_ui(v19);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
               *&buf[4] = v16;
               *&buf[12] = 2112;
               *&buf[14] = v18;
-              _os_log_impl(&dword_240036000, v19, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: iconForApplicationWithBundleIdentifier:%@ = %@", buf, 0x16u);
+              _os_log_impl(&dword_240036000, v20, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: iconForApplicationWithBundleIdentifier:%@ = %@", buf, 0x16u);
             }
 
-            v20 = [(SBIconListModel *)self->_model addIcon:v18];
+            v21 = [(SBIconListModel *)self->_model addIcon:v18];
           }
 
           else
           {
             if ([v16 isEqualToString:@"com.apple.mobiletimer"])
             {
-              v35 = 0;
-              v36 = &v35;
-              v37 = 0x2050000000;
-              v21 = getSBHClockApplicationIconClass_softClass;
-              v38 = getSBHClockApplicationIconClass_softClass;
+              v37 = 0;
+              v38 = &v37;
+              v39 = 0x2050000000;
+              v24 = getSBHClockApplicationIconClass_softClass;
+              v40 = getSBHClockApplicationIconClass_softClass;
               if (!getSBHClockApplicationIconClass_softClass)
               {
                 *buf = MEMORY[0x277D85DD0];
                 *&buf[8] = 3221225472;
                 *&buf[16] = __getSBHClockApplicationIconClass_block_invoke;
-                v41 = &unk_278C90BC0;
-                v42 = &v35;
-                __getSBHClockApplicationIconClass_block_invoke(buf);
-                v21 = v36[3];
+                v43 = &unk_278C90BC0;
+                v44 = &v37;
+                __getSBHClockApplicationIconClass_block_invoke(buf, v22, v23);
+                v24 = v38[3];
               }
 
-              v22 = v21;
-              _Block_object_dispose(&v35, 8);
-              v23 = [[v21 alloc] initWithLeafIdentifier:@"com.apple.mobiletimer" applicationBundleID:@"com.apple.mobiletimer"];
-              if (v23)
+              v25 = v24;
+              _Block_object_dispose(&v37, 8);
+              v26 = [[v24 alloc] initWithLeafIdentifier:@"com.apple.mobiletimer" applicationBundleID:@"com.apple.mobiletimer"];
+              if (v26)
               {
                 goto LABEL_23;
               }
             }
 
-            v35 = 0;
-            v36 = &v35;
-            v37 = 0x2050000000;
-            v24 = getSBLeafIconClass_softClass;
-            v38 = getSBLeafIconClass_softClass;
+            v37 = 0;
+            v38 = &v37;
+            v39 = 0x2050000000;
+            v27 = getSBLeafIconClass_softClass;
+            v40 = getSBLeafIconClass_softClass;
             if (!getSBLeafIconClass_softClass)
             {
               *buf = MEMORY[0x277D85DD0];
               *&buf[8] = 3221225472;
               *&buf[16] = __getSBLeafIconClass_block_invoke;
-              v41 = &unk_278C90BC0;
-              v42 = &v35;
-              __getSBLeafIconClass_block_invoke(buf);
-              v24 = v36[3];
+              v43 = &unk_278C90BC0;
+              v44 = &v37;
+              __getSBLeafIconClass_block_invoke(buf, v22, v23);
+              v27 = v38[3];
             }
 
-            v25 = v24;
-            _Block_object_dispose(&v35, 8);
-            v23 = [[v24 alloc] initWithLeafIdentifier:v16 applicationBundleID:v16];
-            if (v23)
+            v28 = v27;
+            _Block_object_dispose(&v37, 8);
+            v26 = [[v27 alloc] initWithLeafIdentifier:v16 applicationBundleID:v16];
+            if (v26)
             {
 LABEL_23:
-              [v23 addIconDataSource:self->_dataSource];
-              v26 = __atxlog_handle_ui();
-              if (os_log_type_enabled(v26, OS_LOG_TYPE_DEFAULT))
+              v29 = __atxlog_handle_ui([v26 addIconDataSource:self->_dataSource]);
+              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
                 *&buf[4] = v16;
                 *&buf[12] = 2112;
-                *&buf[14] = v23;
-                _os_log_impl(&dword_240036000, v26, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: leafIcon initWithLeafIdentifier:%@ = %@", buf, 0x16u);
+                *&buf[14] = v26;
+                _os_log_impl(&dword_240036000, v29, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: leafIcon initWithLeafIdentifier:%@ = %@", buf, 0x16u);
               }
 
-              v27 = [(SBIconListModel *)self->_model addIcon:v23];
+              v30 = [(SBIconListModel *)self->_model addIcon:v26];
             }
 
             else
             {
-              v23 = __atxlog_handle_ui();
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_FAULT))
+              v26 = __atxlog_handle_ui(0);
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_FAULT))
               {
                 *buf = 138412290;
                 *&buf[4] = v16;
-                _os_log_fault_impl(&dword_240036000, v23, OS_LOG_TYPE_FAULT, "Could not create leaf icon for: %@", buf, 0xCu);
+                _os_log_fault_impl(&dword_240036000, v26, OS_LOG_TYPE_FAULT, "Could not create leaf icon for: %@", buf, 0xCu);
               }
             }
           }
@@ -574,30 +570,28 @@ LABEL_23:
         }
 
         while (v13 != v15);
-        v13 = [(NSArray *)v12 countByEnumeratingWithState:&v31 objects:v39 count:16];
+        v13 = [(NSArray *)v12 countByEnumeratingWithState:&v33 objects:v41 count:16];
       }
 
       while (v13);
     }
 
-    v28 = objc_loadWeakRetained(&self->_gridView);
-    [v28 setIconsNeedLayout];
+    v31 = objc_loadWeakRetained(&self->_gridView);
+    [v31 setIconsNeedLayout];
 
-    idsCopy = v30;
+    idsCopy = v32;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setMode:(unint64_t)mode
 {
-  v16 = *MEMORY[0x277D85DE8];
-  v5 = __atxlog_handle_ui();
+  v15 = *MEMORY[0x277D85DE8];
+  v5 = __atxlog_handle_ui(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v13 = "[APUIAppIconGridView setMode:]";
-    v14 = 2048;
+    v12 = "[APUIAppIconGridView setMode:]";
+    v13 = 2048;
     modeCopy = mode;
     _os_log_impl(&dword_240036000, v5, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s %lu", buf, 0x16u);
   }
@@ -611,12 +605,12 @@ LABEL_23:
     [WeakRetained setIconsLabelAlpha:?];
 
     v7 = objc_loadWeakRetained(&self->_gridView);
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __31__APUIAppIconGridView_setMode___block_invoke;
-    v11[3] = &unk_278C90B50;
-    v11[4] = self;
-    [v7 enumerateIconViewsUsingBlock:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __31__APUIAppIconGridView_setMode___block_invoke;
+    v10[3] = &unk_278C90B50;
+    v10[4] = self;
+    [v7 enumerateIconViewsUsingBlock:v10];
 
     v8 = objc_loadWeakRetained(&self->_gridView);
     [v8 setIconsNeedLayout];
@@ -624,8 +618,6 @@ LABEL_23:
     v9 = objc_loadWeakRetained(&self->_gridView);
     [v9 layoutIconsIfNeeded];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (double)_iconLabelAlphaForMode:(unint64_t)mode
@@ -641,10 +633,10 @@ LABEL_23:
 
 - (void)layoutSubviews
 {
-  v27 = *MEMORY[0x277D85DE8];
-  v22.receiver = self;
-  v22.super_class = APUIAppIconGridView;
-  [(APUIAppIconGridView *)&v22 layoutSubviews];
+  v26 = *MEMORY[0x277D85DE8];
+  v21.receiver = self;
+  v21.super_class = APUIAppIconGridView;
+  [(APUIAppIconGridView *)&v21 layoutSubviews];
   [(APUIAppIconGridView *)self bounds];
   v4 = v3;
   v6 = v5;
@@ -661,26 +653,23 @@ LABEL_23:
   [(APUIAppIconGridView *)self bounds];
   v17 = v16;
   [(UILabel *)self->_emptyStateLabel bounds];
-  [(UILabel *)self->_emptyStateLabel setFrame:0.0, v15, v17];
-  v18 = __atxlog_handle_ui();
+  v18 = __atxlog_handle_ui([(UILabel *)self->_emptyStateLabel setFrame:0.0, v15, v17]);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     v19 = objc_loadWeakRetained(&self->_gridView);
     [v19 frame];
-    v20 = NSStringFromCGRect(v28);
+    v20 = NSStringFromCGRect(v27);
     *buf = 136446466;
-    v24 = "[APUIAppIconGridView layoutSubviews]";
-    v25 = 2112;
-    v26 = v20;
+    v23 = "[APUIAppIconGridView layoutSubviews]";
+    v24 = 2112;
+    v25 = v20;
     _os_log_impl(&dword_240036000, v18, OS_LOG_TYPE_INFO, "SuggestionsWidget: %{public}s _gridView.frame=%@", buf, 0x16u);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (id)createDismissSuggestionApplicationShortcutItemWithType:(id)type localizedName:(id)name
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   nameCopy = name;
   v7 = objc_opt_new();
@@ -725,35 +714,32 @@ LABEL_7:
   nameCopy = &stru_285201410;
 LABEL_9:
   [v7 setLocalizedTitle:nameCopy];
-  [v7 setType:typeCopy];
-  v17 = __atxlog_handle_ui();
+  v17 = __atxlog_handle_ui([v7 setType:typeCopy]);
   if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446722;
-    v21 = "+[APUIAppIconGridView createDismissSuggestionApplicationShortcutItemWithType:localizedName:]";
-    v22 = 2112;
-    v23 = nameCopy;
-    v24 = 2112;
-    v25 = typeCopy;
+    v20 = "+[APUIAppIconGridView createDismissSuggestionApplicationShortcutItemWithType:localizedName:]";
+    v21 = 2112;
+    v22 = nameCopy;
+    v23 = 2112;
+    v24 = typeCopy;
     _os_log_impl(&dword_240036000, v17, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s localizedItemTitle=%@ itemType=%@", buf, 0x20u);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
 
 - (void)highlightIconForBundleId:(id)id
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   idCopy = id;
-  v5 = __atxlog_handle_ui();
+  v5 = __atxlog_handle_ui(idCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
-    v12 = "[APUIAppIconGridView highlightIconForBundleId:]";
-    v13 = 2112;
-    v14 = idCopy;
+    v11 = "[APUIAppIconGridView highlightIconForBundleId:]";
+    v12 = 2112;
+    v13 = idCopy;
     _os_log_impl(&dword_240036000, v5, OS_LOG_TYPE_DEFAULT, "SuggestionsWidget: %{public}s bundleId=%@", buf, 0x16u);
   }
 
@@ -761,22 +747,20 @@ LABEL_9:
   v7 = WeakRetained;
   if (idCopy)
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __48__APUIAppIconGridView_highlightIconForBundleId___block_invoke;
-    v9[3] = &unk_278C90B50;
-    v10 = idCopy;
-    [v7 enumerateIconViewsUsingBlock:v9];
+    v8[0] = MEMORY[0x277D85DD0];
+    v8[1] = 3221225472;
+    v8[2] = __48__APUIAppIconGridView_highlightIconForBundleId___block_invoke;
+    v8[3] = &unk_278C90B50;
+    v9 = idCopy;
+    [v7 enumerateIconViewsUsingBlock:v8];
 
-    v7 = v10;
+    v7 = v9;
   }
 
   else
   {
     [WeakRetained enumerateIconViewsUsingBlock:&__block_literal_global_0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void __48__APUIAppIconGridView_highlightIconForBundleId___block_invoke(uint64_t a1, void *a2)

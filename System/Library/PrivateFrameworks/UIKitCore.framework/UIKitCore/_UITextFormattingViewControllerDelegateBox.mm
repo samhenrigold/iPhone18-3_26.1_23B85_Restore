@@ -136,9 +136,10 @@
 {
   *&self->delegate[OBJC_IVAR____TtC5UIKitP33_B50EEBA0FD25BA8C617D8B9D7A7CF9F242_UITextFormattingViewControllerDelegateBox_delegate] = 0;
   swift_unknownObjectWeakInit();
-  v4.receiver = self;
-  v4.super_class = type metadata accessor for _UITextFormattingViewControllerDelegateBox();
-  return [(_UITextFormattingViewControllerDelegateBox *)&v4 init];
+  v3 = type metadata accessor for _UITextFormattingViewControllerDelegateBox();
+  v6.receiver = self;
+  v6.super_class = v4;
+  return [(_UITextFormattingViewControllerDelegateBox *)&v6 init];
 }
 
 @end

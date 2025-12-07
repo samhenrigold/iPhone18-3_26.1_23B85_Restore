@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)methodAsString:(int)string;
 - (int)StringAsMethod:(id)method;
 - (int)method;
 - (unint64_t)hash;
@@ -40,6 +41,19 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)methodAsString:(int)string
+{
+  if (string >= 7)
+  {
+    return [MEMORY[0x29EDBA0F8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    return off_29EE32D10[string];
+  }
 }
 
 - (int)StringAsMethod:(id)method
@@ -123,14 +137,12 @@
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
   }
 
   if ((has & 2) != 0)
   {
-    method = self->_method;
 
     PBDataWriterWriteInt32Field();
   }

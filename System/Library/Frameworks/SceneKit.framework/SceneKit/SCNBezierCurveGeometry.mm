@@ -11,7 +11,7 @@
 
 - (SCNBezierCurveGeometry)initWithCGPath:(__n128)path transform:(__n128)transform
 {
-  v9 = C3DBezierCurveGeometryCreate();
+  v9 = C3DBezierCurveGeometryCreate(self, a6);
   v16.receiver = self;
   v16.super_class = SCNBezierCurveGeometry;
   v10 = [(SCNGeometry *)&v16 initWithGeometryRef:v9];

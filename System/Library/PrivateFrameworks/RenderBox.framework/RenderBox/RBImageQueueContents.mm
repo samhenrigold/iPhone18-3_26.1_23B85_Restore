@@ -78,23 +78,23 @@ LABEL_7:
     return 0;
   }
 
-  v5.receiver = slots;
-  v5.super_class = RBImageQueueContents;
-  v1 = objc_msgSendSuper2(&v5, sel_init);
-  if (v1)
+  v6.receiver = slots;
+  v6.super_class = RBImageQueueContents;
+  v2 = objc_msgSendSuper2(&v6, sel_init);
+  if (v2)
   {
-    v2 = CAImageQueueCreate();
-    v3 = v1[1];
-    if (v3)
+    v3 = CAImageQueueCreate();
+    v4 = v2[1];
+    if (v4)
     {
-      CFRelease(v3);
+      CFRelease(v4);
     }
 
-    v1[1] = v2;
+    v2[1] = v3;
     CAImageQueueSetFlags();
   }
 
-  return v1;
+  return v2;
 }
 
 @end

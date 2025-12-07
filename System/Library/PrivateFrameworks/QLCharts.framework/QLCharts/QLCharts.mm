@@ -1257,7 +1257,7 @@ void _OIAxisRenderHorizontalLabels(uint64_t a1, void *a2, uint64_t a3, uint64_t 
       *&v60[5] = v22;
       v60[6] = a2;
       v60[7] = v36;
-      v40 = _OIAxisRenderBuildStringArrayAndComputeWidth(v60, 0, v38, Type, v61);
+      v40 = _OIAxisRenderBuildStringArrayAndComputeWidth(v60, 0, Type, v61, v38);
       Scale = OIAxisGetScale(a2);
       v42 = [MEMORY[0x277CBEB38] dictionary];
       if (v61[0] <= Scale)
@@ -1445,7 +1445,7 @@ void _OIAxisRenderHorizontalDates(uint64_t a1, void *a2, uint64_t a3, uint64_t a
     v54[3] = &__block_descriptor_56_e25_____CFString__24__0q8_B16l;
     *&v54[4] = v23;
     v54[5] = a2;
-    v38 = _OIAxisRenderBuildStringArrayAndComputeWidth(v54, 0, v37, Type, v55);
+    v38 = _OIAxisRenderBuildStringArrayAndComputeWidth(v54, 0, Type, v55, v37);
     Scale = OIAxisGetScale(a2);
     if (v55[0] <= Scale || (v37 = v37 * Scale / v55[0], v37 >= 8.0))
     {
@@ -1636,7 +1636,7 @@ void _OIAxisRenderHorizontalUnits(uint64_t a1, uint64_t a2, double a3, uint64_t 
     *&v62[5] = Unit;
     v62[6] = a2;
     v62[7] = a1;
-    v43 = _OIAxisRenderBuildStringArrayAndComputeWidth(v62, v22, v41, Type, v63);
+    v43 = _OIAxisRenderBuildStringArrayAndComputeWidth(v62, v22, Type, v63, v41);
     v44 = v38 - v55 + -10.0;
     if (v63[0] > v44)
     {
@@ -1836,7 +1836,7 @@ void _OIAxisRenderVerticalLabels(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t
       v60[6] = a2;
       v60[7] = v37;
       v40 = 10.0;
-      v41 = _OIAxisRenderBuildStringArrayAndComputeWidth(v60, 0, 10.0, Type, v61);
+      v41 = _OIAxisRenderBuildStringArrayAndComputeWidth(v60, 0, Type, v61, 10.0);
       if (v61[0] > PlotArea + -5.0)
       {
         v40 = (PlotArea + -5.0) * 10.0 / v61[0];
@@ -2022,7 +2022,7 @@ void _OIAxisRenderVerticalDates(uint64_t a1, void *a2, uint64_t a3, uint64_t a4,
     v58[5] = a2;
     v58[6] = a1;
     v39 = 10.0;
-    v40 = _OIAxisRenderBuildStringArrayAndComputeWidth(v58, 0, 10.0, Type, &v59);
+    v40 = _OIAxisRenderBuildStringArrayAndComputeWidth(v58, 0, Type, &v59, 10.0);
     if (v59 > PlotArea + -5.0)
     {
       v39 = (PlotArea + -5.0) * 10.0 / v59;
@@ -2213,7 +2213,7 @@ LABEL_21:
     *&v59[5] = Unit;
     v59[6] = a2;
     v59[7] = a1;
-    v42 = _OIAxisRenderBuildStringArrayAndComputeWidth(v59, v23, v39, Type, v60);
+    v42 = _OIAxisRenderBuildStringArrayAndComputeWidth(v59, v23, Type, v60, v39);
     v43 = PlotArea - v41 + -10.0;
     if (v60[0] > v43)
     {
@@ -2844,7 +2844,7 @@ void OIRenderRadarAxisForegroundInChart(uint64_t a1)
   CGContextRestoreGState(Type);
 }
 
-__CFArray *_OIAxisRenderBuildStringArrayAndComputeWidth(void *a1, uint64_t a2, CGFloat a3, uint64_t a4, double *a5)
+__CFArray *_OIAxisRenderBuildStringArrayAndComputeWidth(void *a1, uint64_t a2, uint64_t a3, double *a4, CGFloat a5)
 {
   v8 = a1;
   v16 = 0;
@@ -2871,7 +2871,7 @@ __CFArray *_OIAxisRenderBuildStringArrayAndComputeWidth(void *a1, uint64_t a2, C
       CFArrayAppendValue(Mutable, v10);
     }
 
-    v14 = OISizeForStringInContext(v13, a3) + 2.0;
+    v14 = OISizeForStringInContext(v13, a5) + 2.0;
     if (v14 > v11)
     {
       v11 = v14;
@@ -2881,9 +2881,9 @@ __CFArray *_OIAxisRenderBuildStringArrayAndComputeWidth(void *a1, uint64_t a2, C
   }
 
   while (v16 != 1);
-  if (a5)
+  if (a4)
   {
-    *a5 = v11;
+    *a4 = v11;
   }
 
   return Mutable;
@@ -2948,12 +2948,12 @@ CFStringRef OIFormatterCreatePercentStringFromDouble(const __CFString *a1, doubl
   return v8;
 }
 
-uint64_t OIFormatterCreateStringUsingCustomFormatter(uint64_t a1, uint64_t (*a2)(void))
+uint64_t OIFormatterCreateStringUsingCustomFormatter(uint64_t a1, uint64_t (*a2)(uint64_t))
 {
   if (a2)
   {
 
-    return a2();
+    return a2(a1);
   }
 
   else
@@ -3229,7 +3229,7 @@ const __CFNumber *OIAxisUpdateWithDictionaryDescription(const __CFNumber *result
   }
 
   v3 = result;
-  v61 = 0.0;
+  v62 = 0.0;
   Value = CFDictionaryGetValue(theDict, @"kOIChartAxisValueTypeKey");
   if (Value)
   {
@@ -3248,7 +3248,7 @@ const __CFNumber *OIAxisUpdateWithDictionaryDescription(const __CFNumber *result
         v6 = v5;
       }
 
-      *(v3 + 16) = v6;
+      *(v3 + 2) = v6;
     }
   }
 
@@ -3285,296 +3285,296 @@ const __CFNumber *OIAxisUpdateWithDictionaryDescription(const __CFNumber *result
     Mutable = 0;
   }
 
-  *(v3 + 112) = Mutable;
+  *(v3 + 14) = Mutable;
   v15 = CFDictionaryGetValue(theDict, @"kOIChartAxisLabelsKey");
-  *(v3 + 96) = v15;
+  *(v3 + 12) = v15;
   if (v15)
   {
     CFRetain(v15);
   }
 
-  if (*(v3 + 24) != 3)
+  if (*(v3 + 3) != 3)
   {
-    v16 = *(v3 + 16);
-    switch(v16)
+    v17 = *(v3 + 2);
+    switch(v17)
     {
       case 3:
         goto LABEL_25;
       case 2:
-        v24 = *(v3 + 96);
-        if (v24)
+        v25 = *(v3 + 12);
+        if (v25)
         {
-          v25 = CFArrayGetCount(v24);
+          v26 = CFArrayGetCount(v25);
           *(v3 + 40) = xmmword_26143D350;
-          if (v25 < 1)
+          if (v26 < 1)
           {
-            *(v3 + 56) = 0x7FEFFFFFFFFFFFFFLL;
-            v31 = 2.22507386e-308;
-            v32 = 1.79769313e308;
-            v30 = 1.79769313e308;
+            *(v3 + 7) = 0x7FEFFFFFFFFFFFFFLL;
+            v32 = 2.22507386e-308;
+            v33 = 1.79769313e308;
+            v31 = 1.79769313e308;
           }
 
           else
           {
-            v26 = v25;
-            for (j = 0; j != v26; ++j)
+            v27 = v26;
+            for (j = 0; j != v27; ++j)
             {
               valuePtr = 0.0;
-              v28 = CFArrayGetValueAtIndex(*(v3 + 96), j);
-              CFNumberGetValue(v28, kCFNumberCGFloatType, &valuePtr);
-              v29 = valuePtr;
-              v30 = *(v3 + 40);
-              if (valuePtr < v30)
+              v29 = CFArrayGetValueAtIndex(*(v3 + 12), j);
+              CFNumberGetValue(v29, kCFNumberCGFloatType, &valuePtr);
+              v30 = valuePtr;
+              v31 = *(v3 + 5);
+              if (valuePtr < v31)
               {
-                *(v3 + 40) = valuePtr;
-                v30 = v29;
+                *(v3 + 5) = valuePtr;
+                v31 = v30;
               }
 
-              v31 = *(v3 + 48);
-              if (v29 > v31)
+              v32 = *(v3 + 6);
+              if (v30 > v32)
               {
-                *(v3 + 48) = v29;
-                v31 = v29;
+                *(v3 + 6) = v30;
+                v32 = v30;
               }
             }
 
-            *(v3 + 56) = 0x7FEFFFFFFFFFFFFFLL;
-            if (v26 == 1)
+            *(v3 + 7) = 0x7FEFFFFFFFFFFFFFLL;
+            if (v27 == 1)
             {
-              v32 = 1.79769313e308;
+              v33 = 1.79769313e308;
             }
 
             else
             {
-              v38 = 0;
-              v39 = v26 - 2;
+              v39 = 0;
+              v40 = v27 - 2;
               do
               {
-                v59 = 0.0;
+                v60 = 0.0;
                 valuePtr = 0.0;
-                v40 = CFArrayGetValueAtIndex(*(v3 + 96), v38);
-                CFNumberGetValue(v40, kCFNumberCGFloatType, &valuePtr);
-                v41 = CFArrayGetValueAtIndex(*(v3 + 96), ++v38);
-                CFNumberGetValue(v41, kCFNumberCGFloatType, &v59);
-                if (v59 - valuePtr != 0.0)
+                v41 = CFArrayGetValueAtIndex(*(v3 + 12), v39);
+                CFNumberGetValue(v41, kCFNumberCGFloatType, &valuePtr);
+                v42 = CFArrayGetValueAtIndex(*(v3 + 12), ++v39);
+                CFNumberGetValue(v42, kCFNumberCGFloatType, &v60);
+                if (v60 - valuePtr != 0.0)
                 {
-                  v42 = vabdd_f64(v59, valuePtr);
-                  if (v42 < *(v3 + 56))
+                  v43 = vabdd_f64(v60, valuePtr);
+                  if (v43 < *(v3 + 7))
                   {
-                    *(v3 + 56) = v42;
+                    *(v3 + 7) = v43;
                   }
                 }
               }
 
-              while (v38 - 1 != v39);
-              v30 = *(v3 + 40);
-              v31 = *(v3 + 48);
-              v32 = *(v3 + 56);
+              while (v39 - 1 != v40);
+              v31 = *(v3 + 5);
+              v32 = *(v3 + 6);
+              v33 = *(v3 + 7);
             }
           }
 
-          *(v3 + 88) = (ceil((v31 - v30) / v32) + 1.0);
+          *(v3 + 11) = (ceil((v32 - v31) / v33) + 1.0);
           *(v3 + 104) = 1;
         }
 
         else
         {
-          v34 = *(v3 + 40);
-          v33 = *(v3 + 48);
-          v35 = (v33 - v34) / 6.0;
-          v36 = v34 - v35;
-          v37 = v33 + v35;
-          *(v3 + 40) = v36;
-          *(v3 + 48) = v37;
-          *(v3 + 56) = v35;
-          *(v3 + 88) = (ceil((v37 - v36) / v35) + 1.0);
+          v35 = *(v3 + 5);
+          v34 = *(v3 + 6);
+          v36 = (v34 - v35) / 6.0;
+          v37 = v35 - v36;
+          v38 = v34 + v36;
+          *(v3 + 5) = v37;
+          *(v3 + 6) = v38;
+          *(v3 + 7) = v36;
+          *(v3 + 11) = (ceil((v38 - v37) / v36) + 1.0);
         }
 
         break;
       case 1:
 LABEL_25:
-        OIAxisImproveAxisRange(v3);
-        v59 = 0.0;
+        OIAxisImproveAxisRange(v3, v16);
+        v60 = 0.0;
         valuePtr = 0.0;
-        _OIAxisGetMinMaxFromArray(*(v3 + 112), &valuePtr, &v59);
-        if (valuePtr != 0.0 || v59 != 0.0)
+        _OIAxisGetMinMaxFromArray(*(v3 + 14), &valuePtr, &v60);
+        if (valuePtr != 0.0 || v60 != 0.0)
         {
-          _OIAxisImproveAxisRange(&valuePtr, &v59, 0);
+          _OIAxisImproveAxisRange(&valuePtr, &v60, 0);
         }
 
-        v17 = CFDictionaryGetValue(theDict, @"kOIChartAxisMinKey");
-        v61 = 0.0;
-        if (!v17 || (CFNumberGetValue(v17, kCFNumberCGFloatType, &v61), v18 = v61, v61 == 0.0))
+        v18 = CFDictionaryGetValue(theDict, @"kOIChartAxisMinKey");
+        v62 = 0.0;
+        if (!v18 || (CFNumberGetValue(v18, kCFNumberCGFloatType, &v62), v19 = v62, v62 == 0.0))
         {
-          if (!*(v3 + 112))
+          if (!*(v3 + 14))
           {
 LABEL_33:
-            v19 = CFDictionaryGetValue(theDict, @"kOIChartAxisMaxKey");
-            v61 = 0.0;
-            if (!v19 || (CFNumberGetValue(v19, kCFNumberCGFloatType, &v61), v20 = v61, v61 == 0.0))
+            v20 = CFDictionaryGetValue(theDict, @"kOIChartAxisMaxKey");
+            v62 = 0.0;
+            if (!v20 || (CFNumberGetValue(v20, kCFNumberCGFloatType, &v62), v21 = v62, v62 == 0.0))
             {
-              if (!*(v3 + 112))
+              if (!*(v3 + 14))
               {
                 goto LABEL_38;
               }
 
-              v20 = v59;
+              v21 = v60;
             }
 
-            *(v3 + 48) = v20;
+            *(v3 + 6) = v21;
 LABEL_38:
-            v21 = CFDictionaryGetValue(theDict, @"kOIChartAxisUnitKey");
-            if (v21)
+            v22 = CFDictionaryGetValue(theDict, @"kOIChartAxisUnitKey");
+            if (v22)
             {
-              v61 = 0.0;
-              CFNumberGetValue(v21, kCFNumberCGFloatType, &v61);
-              if (v61 > 0.0)
+              v62 = 0.0;
+              CFNumberGetValue(v22, kCFNumberCGFloatType, &v62);
+              if (v62 > 0.0)
               {
-                *(v3 + 56) = v61;
+                *(v3 + 7) = v62;
               }
             }
 
-            v22 = CFDictionaryGetValue(theDict, @"kOIChartAxisHasLogarithmicScaleKey");
-            if (v22)
-            {
-              CFNumberGetValue(v22, kCFNumberSInt8Type, (v3 + 72));
-            }
-
-            v23 = CFDictionaryGetValue(theDict, @"kOIChartAxisCenterLabelsKey");
+            v23 = CFDictionaryGetValue(theDict, @"kOIChartAxisHasLogarithmicScaleKey");
             if (v23)
             {
-              CFNumberGetValue(v23, kCFNumberSInt8Type, (v3 + 104));
+              CFNumberGetValue(v23, kCFNumberSInt8Type, v3 + 72);
+            }
+
+            v24 = CFDictionaryGetValue(theDict, @"kOIChartAxisCenterLabelsKey");
+            if (v24)
+            {
+              CFNumberGetValue(v24, kCFNumberSInt8Type, v3 + 104);
             }
 
             break;
           }
 
-          v18 = valuePtr;
+          v19 = valuePtr;
         }
 
-        *(v3 + 40) = v18;
+        *(v3 + 5) = v19;
         goto LABEL_33;
     }
   }
 
-  v43 = CFDictionaryGetValue(theDict, @"kOIChartAxisHideTextKey");
-  if (v43)
-  {
-    CFNumberGetValue(v43, kCFNumberSInt8Type, (v3 + 136));
-  }
-
-  v44 = CFDictionaryGetValue(theDict, @"kOIChartStrokeColorKey");
+  v44 = CFDictionaryGetValue(theDict, @"kOIChartAxisHideTextKey");
   if (v44)
   {
-    v45 = v44;
-    v46 = *(v3 + 144);
-    if (v46)
+    CFNumberGetValue(v44, kCFNumberSInt8Type, v3 + 136);
+  }
+
+  v45 = CFDictionaryGetValue(theDict, @"kOIChartStrokeColorKey");
+  if (v45)
+  {
+    v46 = v45;
+    v47 = *(v3 + 18);
+    if (v47)
     {
-      CGColorRelease(v46);
+      CGColorRelease(v47);
     }
 
-    *(v3 + 144) = CGColorRetain(v45);
+    *(v3 + 18) = CGColorRetain(v46);
   }
 
-  v47 = CFDictionaryGetValue(theDict, @"kOIChartStrokeWidthKey");
-  if (v47)
-  {
-    CFNumberGetValue(v47, kCFNumberCGFloatType, (v3 + 160));
-  }
-
-  v48 = CFDictionaryGetValue(theDict, @"kOIChartLabelKey");
-  *(v3 + 32) = v48;
+  v48 = CFDictionaryGetValue(theDict, @"kOIChartStrokeWidthKey");
   if (v48)
   {
-    CFRetain(v48);
+    CFNumberGetValue(v48, kCFNumberCGFloatType, v3 + 160);
   }
 
-  v49 = CFDictionaryGetValue(theDict, @"kOIChartAxisValueFormatKey");
-  *(v3 + 120) = v49;
+  v49 = CFDictionaryGetValue(theDict, @"kOIChartLabelKey");
+  *(v3 + 4) = v49;
   if (v49)
   {
     CFRetain(v49);
   }
 
-  v50 = CFDictionaryGetValue(theDict, @"kOIChartAxisCustomFormatterKey");
-  *(v3 + 128) = v50;
+  v50 = CFDictionaryGetValue(theDict, @"kOIChartAxisValueFormatKey");
+  *(v3 + 15) = v50;
   if (v50)
   {
     CFRetain(v50);
   }
 
-  v51 = CFDictionaryGetValue(theDict, @"kOIChartTextColorKey");
+  v51 = CFDictionaryGetValue(theDict, @"kOIChartAxisCustomFormatterKey");
+  *(v3 + 16) = v51;
   if (v51)
   {
-    v52 = v51;
-    v53 = *(v3 + 152);
-    if (v53)
+    CFRetain(v51);
+  }
+
+  v52 = CFDictionaryGetValue(theDict, @"kOIChartTextColorKey");
+  if (v52)
+  {
+    v53 = v52;
+    v54 = *(v3 + 19);
+    if (v54)
     {
-      CGColorRelease(v53);
+      CGColorRelease(v54);
     }
 
-    *(v3 + 152) = CGColorRetain(v52);
+    *(v3 + 19) = CGColorRetain(v53);
   }
 
   result = CFDictionaryGetValue(theDict, @"kOIChartAxisDrawMajorGridlines");
   if (result)
   {
-    result = CFNumberGetValue(result, kCFNumberSInt8Type, (v3 + 168));
+    result = CFNumberGetValue(result, kCFNumberSInt8Type, v3 + 168);
   }
 
-  v54 = *(v3 + 40);
-  v55 = *(v3 + 48);
-  if (v54 <= v55)
+  v55 = *(v3 + 5);
+  v56 = *(v3 + 6);
+  if (v55 <= v56)
   {
-    v56 = *(v3 + 48);
-    if (v54 == v55)
+    v57 = *(v3 + 6);
+    if (v55 == v56)
     {
       *(v3 + 40) = xmmword_26143D360;
-      v54 = 0.0;
-      v56 = 100.0;
+      v55 = 0.0;
+      v57 = 100.0;
     }
   }
 
   else
   {
-    *(v3 + 40) = v55;
-    *(v3 + 48) = v54;
-    v56 = v54;
-    v54 = v55;
+    *(v3 + 5) = v56;
+    *(v3 + 6) = v55;
+    v57 = v55;
+    v55 = v56;
   }
 
-  v57 = *(v3 + 56);
-  v58 = vabdd_f64(v56, v54) / 100.0;
-  if (v57 < v58)
+  v58 = *(v3 + 7);
+  v59 = vabdd_f64(v57, v55) / 100.0;
+  if (v58 < v59)
   {
-    *(v3 + 56) = v58;
-    v57 = v58;
+    *(v3 + 7) = v59;
+    v58 = v59;
   }
 
-  if (v57 == 0.0)
+  if (v58 == 0.0)
   {
-    v57 = (fabs(v56) - fabs(v54)) / 5.0;
-    *(v3 + 56) = v57;
+    v58 = (fabs(v57) - fabs(v55)) / 5.0;
+    *(v3 + 7) = v58;
   }
 
-  if (v57 < 0.0)
+  if (v58 < 0.0)
   {
-    *(v3 + 56) = fabs(v57);
+    *(v3 + 7) = fabs(v58);
   }
 
-  if (v54 <= 0.0 && (*(v3 + 72) & 1) != 0 && v56 > 1.0)
+  if (v55 <= 0.0 && (*(v3 + 72) & 1) != 0 && v57 > 1.0)
   {
-    *(v3 + 40) = 0x3FF0000000000000;
+    *(v3 + 5) = 0x3FF0000000000000;
   }
 
   return result;
 }
 
-void OIAxisImproveAxisRange(uint64_t a1)
+void OIAxisImproveAxisRange(uint64_t result, __n128 a2)
 {
-  if (a1 && (*(a1 + 16) | 2) == 3 && *(a1 + 24) != 3)
+  if (result && (*(result + 16) | 2) == 3 && *(result + 24) != 3)
   {
-    _OIAxisImproveAxisRange((a1 + 40), (a1 + 48), (a1 + 56));
+    _OIAxisImproveAxisRange((result + 40), (result + 48), (result + 56));
   }
 }
 
@@ -4967,7 +4967,7 @@ void OILabelCollectionAddNumber(uint64_t a1, const __CFString *a2, double a3, do
   }
 }
 
-void OILabelCollectionAddNumberWithFormatter(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), double a4, double a5, double a6, double a7, double a8)
+void OILabelCollectionAddNumberWithFormatter(uint64_t a1, uint64_t a2, uint64_t (*a3)(uint64_t), double a4, double a5, double a6, double a7, double a8)
 {
   StringUsingCustomFormatter = OIFormatterCreateStringUsingCustomFormatter(a2, a3);
   if (StringUsingCustomFormatter)
@@ -7047,7 +7047,7 @@ void OILabelCollectionRenderInContext(uint64_t a1, CGContext *a2)
     do
     {
       ValueAtIndex = CFArrayGetValueAtIndex(String, v6);
-      MinFontSize = _OILabelGetMinFontSize(ValueAtIndex);
+      MinFontSize = _OILabelGetMinFontSize(ValueAtIndex, a2);
       if (MinFontSize < v7)
       {
         v7 = MinFontSize;
@@ -7090,16 +7090,16 @@ void OILabelCollectionRenderInContext(uint64_t a1, CGContext *a2)
   CGContextRestoreGState(a2);
 }
 
-double _OILabelGetMinFontSize(uint64_t a1)
+double _OILabelGetMinFontSize(uint64_t a1, uint64_t a2)
 {
   String = OILabelGetString(a1);
   OILabelGetFrame(a1);
-  v4 = v3;
+  v5 = v4;
   FontSize = OILabelGetFontSize(a1);
-  v6 = OISizeForStringInContext(String, FontSize);
-  if (v6 > v4 + -4.0)
+  v7 = OISizeForStringInContext(String, FontSize);
+  if (v7 > v5 + -4.0)
   {
-    return FontSize * ((v4 + -4.0) / v6);
+    return FontSize * ((v5 + -4.0) / v7);
   }
 
   return FontSize;
@@ -8562,7 +8562,7 @@ void _OIChartingUpdateAxisRangeWithValuesFromSeries(uint64_t a1, uint64_t a2)
 
       OIAxisSetMinValue(a2, v27);
       OILabelSetFontSize(a2, v28);
-      OIAxisImproveAxisRange(a2);
+      OIAxisImproveAxisRange(a2, v31);
     }
   }
 }
@@ -8639,7 +8639,7 @@ void _OIChartingUpdateAxisRangeWithBaseValuesFromSeries(uint64_t a1, uint64_t a2
 
       OIAxisSetMinValue(a2, v17);
       OILabelSetFontSize(a2, v8);
-      OIAxisImproveAxisRange(a2);
+      OIAxisImproveAxisRange(a2, v18);
     }
   }
 }

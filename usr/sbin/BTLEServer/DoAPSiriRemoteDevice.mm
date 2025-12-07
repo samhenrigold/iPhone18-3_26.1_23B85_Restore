@@ -1,6 +1,9 @@
 @interface DoAPSiriRemoteDevice
 - (DoAPSiriRemoteDevice)initWithCodecs:(id)codecs streamID:(unsigned __int16)d;
+- (int)eventIndicator:(unsigned __int8)indicator eventValue:(unsigned __int8)value;
+- (int)selectCodec:(unsigned __int8)codec;
 - (int)startStreaming;
+- (int)stopStreaming:(unsigned __int8)streaming;
 - (void)activateSiri:(int64_t)siri;
 - (void)cancelSiri;
 - (void)clearState;
@@ -139,9 +142,9 @@ LABEL_12:
 
 - (void)start
 {
-  v35.receiver = self;
-  v35.super_class = DoAPSiriRemoteDevice;
-  [(DoAPDevice *)&v35 start];
+  v34.receiver = self;
+  v34.super_class = DoAPSiriRemoteDevice;
+  [(DoAPDevice *)&v34 start];
   v3 = qword_1000DDBC8;
   if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
   {
@@ -149,30 +152,30 @@ LABEL_12:
     _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Start DoAPSiriRemoteDevice - Create DoAPAudioRelay", buf, 2u);
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   codecs = [(DoAPSiriRemoteDevice *)self codecs];
-  v5 = [codecs countByEnumeratingWithState:&v31 objects:v38 count:16];
+  v5 = [codecs countByEnumeratingWithState:&v30 objects:v37 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v32;
+    v7 = *v31;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v32 != v7)
+        if (*v31 != v7)
         {
           objc_enumerationMutation(codecs);
         }
 
-        v9 = *(*(&v31 + 1) + 8 * i);
+        v9 = *(*(&v30 + 1) + 8 * i);
         if (v9)
         {
-          [*(*(&v31 + 1) + 8 * i) codec];
-          if (v28 == 7)
+          objc_msgSend_codec(*(*(&v30 + 1) + 8 * i));
+          if (v27 == 7)
           {
             if (_os_feature_enabled_impl())
             {
@@ -190,8 +193,8 @@ LABEL_12:
             }
 
             v15 = +[DoAPAudioRelayHub instance];
-            [v9 codec];
-            v16 = [v15 relayWithIdentifier:uUIDString2 deviceType:3 properties:0 codecType:v27];
+            objc_msgSend_codec(v9);
+            v16 = [v15 relayWithIdentifier:uUIDString2 deviceType:3 properties:0 codecType:v26[20]];
             [(DoAPSiriRemoteDevice *)self setDoapAudioRelay:v16];
 
             doapAudioRelay = [(DoAPSiriRemoteDevice *)self doapAudioRelay];
@@ -201,9 +204,9 @@ LABEL_12:
             if (os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_DEFAULT))
             {
               v19 = v18;
-              [v9 codec];
+              objc_msgSend_codec(v9);
               *buf = 67109120;
-              v37 = v26;
+              v36 = v26[0];
               _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Start DoAPSiriRemoteDevice - Send SelectCodec(%u) msg", buf, 8u);
             }
 
@@ -231,13 +234,13 @@ LABEL_12:
 
         else
         {
+          v27 = 0;
           v28 = 0;
           v29 = 0;
-          v30 = 0;
         }
       }
 
-      v6 = [codecs countByEnumeratingWithState:&v31 objects:v38 count:16];
+      v6 = [codecs countByEnumeratingWithState:&v30 objects:v37 count:16];
       if (v6)
       {
         continue;
@@ -251,6 +254,13 @@ LABEL_12:
   {
     sub_10007A17C();
   }
+}
+
+- (int)selectCodec:(unsigned __int8)codec
+{
+  v4.receiver = self;
+  v4.super_class = DoAPSiriRemoteDevice;
+  return [(DoAPDevice *)&v4 selectCodec:codec];
 }
 
 - (int)startStreaming
@@ -273,6 +283,26 @@ LABEL_12:
   }
 
   return startStreaming;
+}
+
+- (int)stopStreaming:(unsigned __int8)streaming
+{
+  v4.receiver = self;
+  v4.super_class = DoAPSiriRemoteDevice;
+  return [(DoAPDevice *)&v4 stopStreaming:streaming];
+}
+
+- (int)eventIndicator:(unsigned __int8)indicator eventValue:(unsigned __int8)value
+{
+  v6.receiver = self;
+  v6.super_class = DoAPSiriRemoteDevice;
+  v4 = [(DoAPDevice *)&v6 eventIndicator:indicator eventValue:value];
+  if (v4 && os_log_type_enabled(qword_1000DDBC8, OS_LOG_TYPE_ERROR))
+  {
+    sub_10007A228();
+  }
+
+  return v4;
 }
 
 - (void)clearState

@@ -4,6 +4,7 @@
 - (SUBDocumentationFetcher)init;
 - (id)_documentationQuery;
 - (id)queryForDocAsset:(id)asset localOnly:(BOOL)only error:(id *)error;
+- (void)_fetchDocumentationForDocumentationID:(id)d localOnly:(BOOL)only shouldOverrideURL:(BOOL)l overrideURL:(id)rL completion:(id)completion;
 - (void)_invokeFetchCompletionsForDocumentationID:(id)d localOnly:(BOOL)only documentation:(id)documentation error:(id)error;
 - (void)_purgeAssetsNotMatchingDescriptor:(id)descriptor completion:(id)completion;
 - (void)fetchDocumentationForDescriptor:(id)descriptor localOnly:(BOOL)only shouldOverrideURL:(BOOL)l overrideURL:(id)rL completion:(id)completion;
@@ -306,6 +307,253 @@ LABEL_18:
 LABEL_20:
 
   return results;
+}
+
+- (void)_fetchDocumentationForDocumentationID:(id)d localOnly:(BOOL)only shouldOverrideURL:(BOOL)l overrideURL:(id)rL completion:(id)completion
+{
+  lCopy = l;
+  onlyCopy = only;
+  dCopy = d;
+  rLCopy = rL;
+  completionCopy = completion;
+  dispatch_assert_queue_V2(self->_queue);
+  if (!dCopy)
+  {
+    sub_100019B7C();
+  }
+
+  if (!completionCopy)
+  {
+    sub_100019B50();
+  }
+
+  if (!onlyCopy)
+  {
+    if (!MGGetBoolAnswer() || lCopy || (keyExistsAndHasValidFormat[0] = 0, AppBooleanValue = CFPreferencesGetAppBooleanValue(@"DisableCustomerDocAssetURLOverride", @"com.apple.subridge", keyExistsAndHasValidFormat), keyExistsAndHasValidFormat[0]) && AppBooleanValue)
+    {
+      if (!lCopy)
+      {
+        goto LABEL_14;
+      }
+    }
+
+    else
+    {
+      v16 = [NSURL URLWithString:@"https://mesu.apple.com/assets/"];
+
+      rLCopy = v16;
+    }
+
+    v17 = softwareupdatebridge_log;
+    if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+    {
+      *keyExistsAndHasValidFormat = 138543618;
+      v71 = @"com.apple.MobileAsset.WatchSoftwareUpdateDocumentation";
+      v72 = 2114;
+      v73 = rLCopy;
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "[SUBDocumentationFetcher] :Overriding MobileAsset URL for (%{public}@) to: %{public}@", keyExistsAndHasValidFormat, 0x16u);
+    }
+
+    ASSetDefaultAssetServerURLForAssetType();
+  }
+
+LABEL_14:
+  cachedDocumentationID = self->_cachedDocumentationID;
+  if (!cachedDocumentationID || !self->_cachedDocumentation || ![(NSString *)cachedDocumentationID isEqual:dCopy])
+  {
+    v20 = 40;
+    if (onlyCopy)
+    {
+      v20 = 32;
+    }
+
+    v21 = *(&self->super.isa + v20);
+    v22 = [v21 objectForKeyedSubscript:dCopy];
+    if ([v22 count])
+    {
+      v23 = [completionCopy copy];
+      v24 = objc_retainBlock(v23);
+      [v22 addObject:v24];
+LABEL_58:
+
+      goto LABEL_59;
+    }
+
+    if (!v22)
+    {
+      v22 = objc_opt_new();
+      [v21 setObject:v22 forKeyedSubscript:dCopy];
+    }
+
+    v25 = [completionCopy copy];
+    v26 = objc_retainBlock(v25);
+    [v22 addObject:v26];
+
+    v27 = SUBActiveNRDevice();
+    v23 = v27;
+    if (!v27)
+    {
+      v44 = softwareupdatebridge_log;
+      if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+      {
+        *keyExistsAndHasValidFormat = 0;
+        _os_log_impl(&_mh_execute_header, v44, OS_LOG_TYPE_DEFAULT, "[SUBDocumentationFetcher] : Failed to query device property Device Class", keyExistsAndHasValidFormat, 2u);
+      }
+
+      v24 = SUBError(@"SUBError", 5, 0, @"Failed to query device property Device Name", v45, v46, v47, v48, v57);
+      (*(completionCopy + 2))(completionCopy, 0, v24);
+      goto LABEL_58;
+    }
+
+    v24 = [v27 valueForProperty:NRDevicePropertyDeviceNameString];
+    v28 = softwareupdatebridge_log;
+    if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+    {
+      *keyExistsAndHasValidFormat = 138544130;
+      v71 = @"SUDocumentationID";
+      v72 = 2114;
+      v73 = dCopy;
+      v74 = 2114;
+      v75 = @"Device";
+      v76 = 2114;
+      v77 = v24;
+      _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "[SUBDocumentationFetcher] : looking for documentation matching \n%{public}@: %{public}@ \n%{public}@: %{public}@ \n", keyExistsAndHasValidFormat, 0x2Au);
+    }
+
+    if (!onlyCopy)
+    {
+LABEL_36:
+      v69 = 0;
+      v36 = [(SUBDocumentationFetcher *)self queryForDocAsset:dCopy localOnly:onlyCopy error:&v69];
+      v63 = v69;
+      v60 = v36;
+      v61 = rLCopy;
+      if ([v36 count])
+      {
+        v59 = [v36 objectAtIndexedSubscript:0];
+        if (([v59 refreshState] & 1) == 0)
+        {
+          v37 = softwareupdatebridge_log;
+          if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+          {
+            *keyExistsAndHasValidFormat = 0;
+            _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "[SUBDocumentationFetcher] : Failed to refresh documentation asset state..assuming previous state", keyExistsAndHasValidFormat, 2u);
+          }
+        }
+
+        v38 = v59;
+        if ([v59 state] == 2)
+        {
+          v39 = softwareupdatebridge_log;
+          if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+          {
+            *keyExistsAndHasValidFormat = 0;
+            _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "[SUBDocumentationFetcher] : found installed documentation asset", keyExistsAndHasValidFormat, 2u);
+          }
+
+          v38 = v59;
+          v40 = [[SUBDocumentation alloc] initWithMAAsset:v59];
+          selfCopy = self;
+          v42 = v40;
+          [(SUBDocumentationFetcher *)selfCopy _invokeFetchCompletionsForDocumentationID:dCopy localOnly:onlyCopy documentation:v40 error:0];
+          v43 = v63;
+        }
+
+        else
+        {
+          [v59 attachProgressCallBack:&stru_10002D3C0];
+          v54 = objc_alloc_init(MADownloadOptions);
+          [(SUBDocumentation *)v54 setAllowsCellularAccess:1];
+          [(SUBDocumentation *)v54 setDiscretionary:0];
+          v58 = v54;
+          [(SUBDocumentation *)v54 setTimeoutIntervalForResource:120];
+          v55 = softwareupdatebridge_log;
+          if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+          {
+            *keyExistsAndHasValidFormat = 138543362;
+            v71 = @"com.apple.MobileAsset.WatchSoftwareUpdateDocumentation";
+            _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_DEFAULT, "[SUBDocumentationFetcher] : Downloading %{public}@ asset", keyExistsAndHasValidFormat, 0xCu);
+          }
+
+          v64[0] = _NSConcreteStackBlock;
+          v64[1] = 3221225472;
+          v64[2] = sub_10000D874;
+          v64[3] = &unk_10002D410;
+          v64[4] = self;
+          v65 = v59;
+          v66 = dCopy;
+          v68 = onlyCopy;
+          v43 = v63;
+          v67 = v63;
+          v42 = v58;
+          [v65 startDownload:v58 then:v64];
+        }
+      }
+
+      else
+      {
+        v49 = softwareupdatebridge_log;
+        if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+        {
+          *keyExistsAndHasValidFormat = 0;
+          _os_log_impl(&_mh_execute_header, v49, OS_LOG_TYPE_DEFAULT, "[SUBDocumentationFetcher] : Failed to find documentation asset", keyExistsAndHasValidFormat, 2u);
+        }
+
+        v43 = v63;
+        v38 = SUBError(@"SUBError", 6, v63, @"Failed to find documentation asset", v50, v51, v52, v53, v57);
+        [(SUBDocumentationFetcher *)self _invokeFetchCompletionsForDocumentationID:dCopy localOnly:onlyCopy documentation:0 error:v38];
+      }
+
+      rLCopy = v61;
+      goto LABEL_58;
+    }
+
+    v57 = @"DeviceName";
+    v29 = [NSMutableDictionary dictionaryWithObjectsAndKeys:v24];
+    v30 = [SUBDocumentationFetcher _requestDocCatalogDownload:v29];
+    if (v30)
+    {
+      if (v30 == 18)
+      {
+        SUBError(@"SUBError", 6, 0, @"No documentation asset found for documentationID %@", v31, v32, v33, v34, dCopy);
+      }
+
+      else
+      {
+        if (v30 == 10)
+        {
+          goto LABEL_33;
+        }
+
+        SUBError(@"SUBError", 5, 0, @"Documentation asset query failed", v31, v32, v33, v34, @"DeviceName");
+      }
+      v56 = ;
+      [(SUBDocumentationFetcher *)self _invokeFetchCompletionsForDocumentationID:dCopy localOnly:1 documentation:0 error:v56];
+
+      goto LABEL_58;
+    }
+
+LABEL_33:
+    v62 = v29;
+    v35 = softwareupdatebridge_log;
+    if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+    {
+      *keyExistsAndHasValidFormat = 0;
+      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "[SUBDocumentationFetcher] : Doc download successful or already installed", keyExistsAndHasValidFormat, 2u);
+    }
+
+    goto LABEL_36;
+  }
+
+  v19 = softwareupdatebridge_log;
+  if (os_log_type_enabled(softwareupdatebridge_log, OS_LOG_TYPE_DEFAULT))
+  {
+    *keyExistsAndHasValidFormat = 0;
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "[SUBDocumentationFetcher] : Cached documentation is same as passed documentation id", keyExistsAndHasValidFormat, 2u);
+  }
+
+  (*(completionCopy + 2))(completionCopy, self->_cachedDocumentation, 0);
+LABEL_59:
 }
 
 - (void)purgeAssetsNotMatchingDescriptor:(id)descriptor completion:(id)completion

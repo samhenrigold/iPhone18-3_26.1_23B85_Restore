@@ -1,3 +1,2127 @@
+void sub_1DE34E1DC(_Unwind_Exception *exception_object)
+{
+  if (v1)
+  {
+    operator delete(v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void __destroy_helper_block_e8_32c123_ZTSZN13HALS_IOEngine26SendIsRunningNotificationsEbRKNSt3__16vectorI26RunningIOContextClientInfoNS0_9allocatorIS2_EEEEE3__0(uint64_t a1)
+{
+  v2 = *(a1 + 32);
+  if (v2)
+  {
+    *(a1 + 40) = v2;
+    operator delete(v2);
+  }
+}
+
+void __copy_helper_block_e8_32c123_ZTSZN13HALS_IOEngine26SendIsRunningNotificationsEbRKNSt3__16vectorI26RunningIOContextClientInfoNS0_9allocatorIS2_EEEEE3__0(void *a1, uint64_t a2)
+{
+  a1[4] = 0;
+  a1[5] = 0;
+  v3 = a1 + 4;
+  a1[6] = 0;
+  std::vector<RunningIOContextClientInfo>::__init_with_size[abi:ne200100]<RunningIOContextClientInfo*,RunningIOContextClientInfo*>(a1 + 4, *(a2 + 32), *(a2 + 40), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 40) - *(a2 + 32)) >> 2));
+  v4 = *(a2 + 56);
+  *(v3 + 28) = *(a2 + 60);
+  *(v3 + 6) = v4;
+}
+
+void std::allocator<RunningIOContextClientInfo>::allocate_at_least[abi:ne200100](unint64_t a1)
+{
+  if (a1 < 0x1555555555555556)
+  {
+    operator new();
+  }
+
+  std::__throw_bad_array_new_length[abi:ne200100]();
+}
+
+void *HALS_IOEngine::_UpdateIssueReporters(std::vector<unsigned int> const&)::$_0::~$_0(void *a1)
+{
+  v2 = a1[2];
+  if (v2)
+  {
+    a1[3] = v2;
+    operator delete(v2);
+  }
+
+  v3 = a1[1];
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  }
+
+  return a1;
+}
+
+void *std::unique_ptr<HALS_IOEngine::_UpdateIssueReporters(std::vector<unsigned int> const&)::$_0,std::default_delete<HALS_IOEngine::_UpdateIssueReporters(std::vector<unsigned int> const&)::$_0>>::~unique_ptr[abi:ne200100](void *a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    v3 = v2[2];
+    if (v3)
+    {
+      v2[3] = v3;
+      operator delete(v3);
+    }
+
+    v4 = v2[1];
+    if (v4)
+    {
+      std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    }
+
+    MEMORY[0x1E12C1730](v2, 0x30C407FCDC8D2);
+  }
+
+  return a1;
+}
+
+void *applesauce::dispatch::v1::async<HALS_IOEngine::_UpdateIssueReporters(std::vector<unsigned int> const&)::$_0 &>(dispatch_queue_s *,HALS_IOEngine::_UpdateIssueReporters(std::vector<unsigned int> const&)::$_0 &)::{lambda(void *)#1}::__invoke(uint64_t *a1, unsigned int a2)
+{
+  v3 = a1;
+  HALS_IOEngine::_UpdateIssueReporters(std::vector<unsigned int> const&)::$_0::operator()(a1, a2);
+  return std::unique_ptr<HALS_IOEngine::_UpdateIssueReporters(std::vector<unsigned int> const&)::$_0,std::default_delete<HALS_IOEngine::_UpdateIssueReporters(std::vector<unsigned int> const&)::$_0>>::~unique_ptr[abi:ne200100](&v3);
+}
+
+void sub_1DE34E3A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  std::unique_ptr<HALS_IOEngine::_UpdateIssueReporters(std::vector<unsigned int> const&)::$_0,std::default_delete<HALS_IOEngine::_UpdateIssueReporters(std::vector<unsigned int> const&)::$_0>>::~unique_ptr[abi:ne200100](va);
+  _Unwind_Resume(a1);
+}
+
+void HALS_IOEngine::_UpdateIssueReporters(std::vector<unsigned int> const&)::$_0::operator()(uint64_t *a1, unsigned int a2)
+{
+  v34 = *MEMORY[0x1E69E9840];
+  v2 = *a1;
+  if (*a1)
+  {
+    __p = 0;
+    v25 = 0;
+    v26 = 0;
+    v3 = a1[2];
+    v20 = a1[3];
+    if (v3 != v20)
+    {
+      do
+      {
+        v5 = HALS_ObjectMap::CopyObjectByObjectID(*v3);
+        if (v5)
+        {
+          HALS_IOContext::GetIssueReporters(buf, v5);
+          v21 = 0;
+          v22 = 0;
+          v23 = 0;
+          std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(&v21, __p, v25, (v25 - __p) >> 3);
+          v6 = v21;
+          v7 = v22;
+          v8 = *buf;
+          v9 = *&buf[8];
+          p_p = &__p;
+          v27 = &__p;
+          if (v21 == v22)
+          {
+            v12 = *buf;
+LABEL_13:
+            v28 = p_p;
+            while (v12 != v9)
+            {
+              std::back_insert_iterator<std::vector<long long>>::operator=[abi:ne200100](&v28, v12++);
+            }
+          }
+
+          else
+          {
+            v11 = v21;
+            v12 = *buf;
+            while (v12 != v9)
+            {
+              v13 = *v12;
+              v14 = *v11;
+              if (*v12 >= *v11)
+              {
+                std::back_insert_iterator<std::vector<long long>>::operator=[abi:ne200100](&v27, v11);
+                v12 += v14 >= v13;
+                ++v11;
+              }
+
+              else
+              {
+                std::back_insert_iterator<std::vector<long long>>::operator=[abi:ne200100](&v27, v12++);
+              }
+
+              if (v11 == v7)
+              {
+                p_p = v27;
+                goto LABEL_13;
+              }
+            }
+
+            v28 = v27;
+            while (v11 != v7)
+            {
+              std::back_insert_iterator<std::vector<long long>>::operator=[abi:ne200100](&v28, v11++);
+            }
+          }
+
+          std::__sort<std::__less<long long,long long> &,long long *>();
+          v15 = std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<long long *>,std::__wrap_iter<long long *>,std::__equal_to &>(__p, v25);
+          if (v15 != v25)
+          {
+            v4 = v25;
+            v25 = v15;
+          }
+
+          if (v6)
+          {
+            operator delete(v6);
+          }
+
+          if (v8)
+          {
+            operator delete(v8);
+          }
+        }
+
+        HALS_ObjectMap::ReleaseObject(v5, v4);
+        ++v3;
+      }
+
+      while (v3 != v20);
+      v2 = *a1;
+    }
+
+    if ((v2 + 40) != &__p)
+    {
+      std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>((v2 + 40), __p, v25, (v25 - __p) >> 3);
+    }
+
+    v16 = *(v2 + 32);
+    if (AudioIssueDetectorLibraryLoader(void)::once != -1)
+    {
+      dispatch_once(&AudioIssueDetectorLibraryLoader(void)::once, &__block_literal_global);
+    }
+
+    if (AudioIssueDetectorLibraryLoader(void)::libSym)
+    {
+      v17 = AudioIssueDetectorLibraryLoader(void)::libSym(v16, &__p);
+      if (!v17)
+      {
+LABEL_37:
+        if (__p)
+        {
+          v25 = __p;
+          operator delete(__p);
+        }
+
+        return;
+      }
+    }
+
+    else
+    {
+      v17 = -1;
+    }
+
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+    {
+      v18 = *(v2 + 32);
+      *buf = 136315906;
+      *&buf[4] = "HALS_IssueDetector.h";
+      *&buf[12] = 1024;
+      *&buf[14] = 211;
+      v30 = 1024;
+      v31 = v17;
+      v32 = 2048;
+      v33 = v18;
+      _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  err = %d calling AudioIssueDetectorClientUpdateReportingSessions, mDetectorID = %lld", buf, 0x22u);
+    }
+
+    goto LABEL_37;
+  }
+}
+
+void sub_1DE34E6C4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, void *a19)
+{
+  if (__p)
+  {
+    operator delete(__p);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t *std::__unique[abi:ne200100]<std::_ClassicAlgPolicy,std::__wrap_iter<long long *>,std::__wrap_iter<long long *>,std::__equal_to &>(uint64_t *a1, uint64_t *a2)
+{
+  if (a1 != a2)
+  {
+    v2 = a1 + 1;
+    while (v2 != a2)
+    {
+      v3 = *(v2 - 1);
+      v4 = *v2++;
+      if (v3 == v4)
+      {
+        v5 = v2 - 2;
+        goto LABEL_7;
+      }
+    }
+
+    v5 = a2;
+LABEL_7:
+    if (v5 != a2)
+    {
+      v6 = v5 + 2;
+      if (v5 + 2 != a2)
+      {
+        v7 = *v5;
+        do
+        {
+          v8 = v7;
+          v7 = *v6;
+          if (v8 != *v6)
+          {
+            v5[1] = v7;
+            ++v5;
+          }
+
+          ++v6;
+        }
+
+        while (v6 != a2);
+      }
+
+      return v5 + 1;
+    }
+  }
+
+  return a2;
+}
+
+uint64_t *std::back_insert_iterator<std::vector<long long>>::operator=[abi:ne200100](uint64_t *a1, uint64_t *a2)
+{
+  v4 = *a1;
+  v6 = *(*a1 + 8);
+  v5 = *(*a1 + 16);
+  if (v6 >= v5)
+  {
+    v8 = *v4;
+    v9 = v6 - *v4;
+    v10 = (v9 >> 3) + 1;
+    if (v10 >> 61)
+    {
+      std::vector<void *>::__throw_length_error[abi:ne200100]();
+    }
+
+    v11 = v5 - v8;
+    if (v11 >> 2 > v10)
+    {
+      v10 = v11 >> 2;
+    }
+
+    if (v11 >= 0x7FFFFFFFFFFFFFF8)
+    {
+      v12 = 0x1FFFFFFFFFFFFFFFLL;
+    }
+
+    else
+    {
+      v12 = v10;
+    }
+
+    if (v12)
+    {
+      std::allocator<unsigned long>::allocate_at_least[abi:ne200100](v12);
+    }
+
+    v13 = (8 * (v9 >> 3));
+    *v13 = *a2;
+    v7 = v13 + 1;
+    memcpy(0, v8, v9);
+    v14 = *v4;
+    *v4 = 0;
+    *(v4 + 8) = v7;
+    *(v4 + 16) = 0;
+    if (v14)
+    {
+      operator delete(v14);
+    }
+  }
+
+  else
+  {
+    *v6 = *a2;
+    v7 = v6 + 1;
+  }
+
+  *(v4 + 8) = v7;
+  return a1;
+}
+
+uint64_t *std::vector<long long>::__assign_with_size[abi:ne200100]<long long *,long long *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
+{
+  v7 = result;
+  v8 = result[2];
+  v9 = *result;
+  if (a4 > (v8 - *result) >> 3)
+  {
+    if (v9)
+    {
+      result[1] = v9;
+      operator delete(v9);
+      v8 = 0;
+      *v7 = 0;
+      v7[1] = 0;
+      v7[2] = 0;
+    }
+
+    if (!(a4 >> 61))
+    {
+      v10 = v8 >> 2;
+      if (v8 >> 2 <= a4)
+      {
+        v10 = a4;
+      }
+
+      if (v8 >= 0x7FFFFFFFFFFFFFF8)
+      {
+        v11 = 0x1FFFFFFFFFFFFFFFLL;
+      }
+
+      else
+      {
+        v11 = v10;
+      }
+
+      std::vector<long>::__vallocate[abi:ne200100](v7, v11);
+    }
+
+    std::vector<void *>::__throw_length_error[abi:ne200100]();
+  }
+
+  v12 = result[1];
+  v13 = v12 - v9;
+  if (a4 <= (v12 - v9) >> 3)
+  {
+    v17 = a3 - __src;
+    if (a3 != __src)
+    {
+      result = memmove(*result, __src, v17);
+    }
+
+    v16 = &v9[v17];
+  }
+
+  else
+  {
+    if (v12 != v9)
+    {
+      result = memmove(*result, __src, v12 - v9);
+      v12 = v7[1];
+    }
+
+    v14 = &__src[v13];
+    v15 = a3 - &__src[v13];
+    if (v15)
+    {
+      result = memmove(v12, v14, v15);
+    }
+
+    v16 = &v12[v15];
+  }
+
+  v7[1] = v16;
+  return result;
+}
+
+void __destroy_helper_block_e8_32c88_ZTSZN13HALS_IOEngine21_UpdateIssueReportersERKNSt3__16vectorIjNS0_9allocatorIjEEEEE3__0(void *a1)
+{
+  v2 = a1[6];
+  if (v2)
+  {
+    a1[7] = v2;
+    operator delete(v2);
+  }
+
+  v3 = a1[5];
+  if (v3)
+  {
+
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  }
+}
+
+uint64_t *__copy_helper_block_e8_32c88_ZTSZN13HALS_IOEngine21_UpdateIssueReportersERKNSt3__16vectorIjNS0_9allocatorIjEEEEE3__0(void *a1, uint64_t a2)
+{
+  v2 = *(a2 + 40);
+  a1[4] = *(a2 + 32);
+  a1[5] = v2;
+  if (v2)
+  {
+    atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
+  }
+
+  a1[6] = 0;
+  a1[7] = 0;
+  a1[8] = 0;
+  return std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a1 + 6, *(a2 + 48), *(a2 + 56), (*(a2 + 56) - *(a2 + 48)) >> 2);
+}
+
+void sub_1DE34EA80(_Unwind_Exception *exception_object)
+{
+  v3 = *(v1 + 40);
+  if (v3)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+void HALS_IOEngine::HALS_IOEngine(HALS_IOEngine *this, HALS_IODevice *a2, uint64_t a3, uint64_t a4, HALS_Object *a5)
+{
+  object[42] = *MEMORY[0x1E69E9840];
+  HALS_Object::HALS_Object(this, 1701734254, 0, a2, a5);
+  *v6 = &unk_1F5967B40;
+  *(v6 + 104) = 0;
+  *(v6 + 112) = 0;
+  *(v6 + 48) = 0u;
+  *(v6 + 80) = 0u;
+  *(v6 + 96) = 0;
+  *(v6 + 64) = 0u;
+  v7 = (v6 + 64);
+  *(v6 + 120) = 0;
+  *(v6 + 128) = 850045863;
+  *(v6 + 136) = 0u;
+  *(v6 + 152) = 0u;
+  *(v6 + 168) = 0u;
+  *(v6 + 184) = 0u;
+  *(v6 + 200) = 0u;
+  *(v6 + 216) = 850045863;
+  *(v6 + 224) = 0u;
+  *(v6 + 240) = 0u;
+  *(v6 + 256) = 0u;
+  *(v6 + 272) = 0u;
+  *(v6 + 288) = 0u;
+  *(v6 + 304) = 850045863;
+  *(v6 + 312) = 0u;
+  *(v6 + 328) = 0u;
+  *(v6 + 344) = 0u;
+  *(v6 + 360) = 0u;
+  *(this + 47) = dispatch_semaphore_create(0);
+  *(this + 384) = 0;
+  *(this + 392) = 0;
+  *(this + 55) = 0;
+  *(this + 56) = 0;
+  *(this + 25) = 0u;
+  *(this + 26) = 0u;
+  *(this + 216) = 0;
+  *(this + 57) = 0;
+  *(this + 58) = 850045863;
+  *(this + 472) = 0u;
+  *(this + 488) = 0u;
+  *(this + 504) = 0u;
+  *(this + 520) = 0u;
+  *(this + 536) = 0u;
+  *(this + 69) = 850045863;
+  *(this + 35) = 0u;
+  *(this + 36) = 0u;
+  *(this + 37) = 0u;
+  *(this + 38) = 0u;
+  *(this + 39) = 0u;
+  *(this + 80) = 850045863;
+  *(this + 648) = 0u;
+  *(this + 664) = 0u;
+  *(this + 680) = 0u;
+  *(this + 696) = 0u;
+  *(this + 89) = dispatch_semaphore_create(0);
+  *(this + 720) = 0;
+  *(this + 728) = 0;
+  AMCP::Utility::Dispatch_Queue::create_serial_with_workloop(object, "com.apple.audio.HALS_Engine-updater", 61);
+  AMCP::Utility::Dispatch_Queue::operator=(v7, object[0]);
+  AMCP::Utility::Dispatch_Queue::~Dispatch_Queue(object);
+}
+
+void HALS_IOEngine::~HALS_IOEngine(HALS_IOEngine *this)
+{
+  *this = &unk_1F5967B40;
+  AMCP::Utility::Dispatch_Queue::~Dispatch_Queue((this + 400));
+  AMCP::Utility::Dispatch_Queue::~Dispatch_Queue((this + 64));
+  v2 = *(this + 7);
+  if (v2)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+  }
+
+  HALS_Object::~HALS_Object(this);
+}
+
+void sub_1DE34ECD4(void *a1)
+{
+  __cxa_begin_catch(a1);
+
+  __cxa_end_catch();
+}
+
+void ___ZNK4AMCP7Utility14Dispatch_Queue5asyncIZN13HALS_IOEngine47SendIsRunningNotificationForContextRegistrationEjRKNSt3__16vectorI26RunningIOContextClientInfoNS4_9allocatorIS6_EEEEE3__0EEvOT__block_invoke(uint64_t a1, unsigned int a2)
+{
+  v3 = HALS_ObjectMap::CopyObjectByObjectID(*(a1 + 32));
+  v5 = v3;
+  if (v3)
+  {
+    HALS_Client::SendIsRunningSomewhereElse(v3, *(a1 + 36), a1 + 40);
+  }
+
+  HALS_ObjectMap::ReleaseObject(v5, v4);
+}
+
+uint64_t *std::unique_ptr<HALS_IOEngine::SendIsRunningNotificationForContextRegistration(unsigned int,std::vector<RunningIOContextClientInfo> const&)::$_0,std::default_delete<HALS_IOEngine::SendIsRunningNotificationForContextRegistration(unsigned int,std::vector<RunningIOContextClientInfo> const&)::$_0>>::~unique_ptr[abi:ne200100](uint64_t *a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    v3 = *(v2 + 8);
+    if (v3)
+    {
+      *(v2 + 16) = v3;
+      operator delete(v3);
+    }
+
+    MEMORY[0x1E12C1730](v2, 0x1020C405E66F15BLL);
+  }
+
+  return a1;
+}
+
+uint64_t *applesauce::dispatch::v1::async<HALS_IOEngine::SendIsRunningNotificationForContextRegistration(unsigned int,std::vector<RunningIOContextClientInfo> const&)::$_0 &>(dispatch_queue_s *,HALS_IOEngine::SendIsRunningNotificationForContextRegistration(unsigned int,std::vector<RunningIOContextClientInfo> const&)::$_0 &)::{lambda(void *)#1}::__invoke(unsigned int *a1, unsigned int a2)
+{
+  v7 = a1;
+  v3 = HALS_ObjectMap::CopyObjectByObjectID(*a1);
+  v5 = v3;
+  if (v3)
+  {
+    HALS_Client::SendIsRunningSomewhereElse(v3, a1[1], (a1 + 2));
+  }
+
+  HALS_ObjectMap::ReleaseObject(v5, v4);
+  return std::unique_ptr<HALS_IOEngine::SendIsRunningNotificationForContextRegistration(unsigned int,std::vector<RunningIOContextClientInfo> const&)::$_0,std::default_delete<HALS_IOEngine::SendIsRunningNotificationForContextRegistration(unsigned int,std::vector<RunningIOContextClientInfo> const&)::$_0>>::~unique_ptr[abi:ne200100](&v7);
+}
+
+void sub_1DE34EE08(_Unwind_Exception *a1, HALS_Object *a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+{
+  HALS_ObjectMap::ReleaseObject(v10, a2);
+  std::unique_ptr<HALS_IOEngine::SendIsRunningNotificationForContextRegistration(unsigned int,std::vector<RunningIOContextClientInfo> const&)::$_0,std::default_delete<HALS_IOEngine::SendIsRunningNotificationForContextRegistration(unsigned int,std::vector<RunningIOContextClientInfo> const&)::$_0>>::~unique_ptr[abi:ne200100](&a10);
+  _Unwind_Resume(a1);
+}
+
+void __destroy_helper_block_e8_32c144_ZTSZN13HALS_IOEngine47SendIsRunningNotificationForContextRegistrationEjRKNSt3__16vectorI26RunningIOContextClientInfoNS0_9allocatorIS2_EEEEE3__0(uint64_t a1)
+{
+  v2 = *(a1 + 40);
+  if (v2)
+  {
+    *(a1 + 48) = v2;
+    operator delete(v2);
+  }
+}
+
+void __copy_helper_block_e8_32c144_ZTSZN13HALS_IOEngine47SendIsRunningNotificationForContextRegistrationEjRKNSt3__16vectorI26RunningIOContextClientInfoNS0_9allocatorIS2_EEEEE3__0(uint64_t a1, uint64_t a2)
+{
+  v2 = *(a2 + 32);
+  *(a1 + 40) = 0;
+  v3 = (a1 + 40);
+  *(v3 - 1) = v2;
+  v3[1] = 0;
+  v3[2] = 0;
+  std::vector<RunningIOContextClientInfo>::__init_with_size[abi:ne200100]<RunningIOContextClientInfo*,RunningIOContextClientInfo*>(v3, *(a2 + 40), *(a2 + 48), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 48) - *(a2 + 40)) >> 2));
+}
+
+AMCP::Utility::Dispatch_Queue *std::unique_ptr<AMCP::Utility::Dispatch_Queue>::reset[abi:ne200100](AMCP::Utility::Dispatch_Queue **a1, AMCP::Utility::Dispatch_Queue *a2)
+{
+  result = *a1;
+  *a1 = a2;
+  if (result)
+  {
+    AMCP::Utility::Dispatch_Queue::~Dispatch_Queue(result);
+
+    JUMPOUT(0x1E12C1730);
+  }
+
+  return result;
+}
+
+void HALS_IssueDetector::~HALS_IssueDetector(HALS_IssueDetector *this)
+{
+  HALS_IssueDetector::~HALS_IssueDetector(this);
+
+  JUMPOUT(0x1E12C1730);
+}
+
+{
+  v9 = *MEMORY[0x1E69E9840];
+  *this = &unk_1F5981A88;
+  v2 = *(this + 4);
+  if (v2)
+  {
+    if (AudioIssueDetectorLibraryLoader(void)::once != -1)
+    {
+      dispatch_once(&AudioIssueDetectorLibraryLoader(void)::once, &__block_literal_global);
+    }
+
+    if (AudioIssueDetectorLibraryLoader(void)::libSym)
+    {
+      AudioIssueDetectorLibraryLoader(void)::libSym(v2);
+    }
+
+    *(this + 4) = 0;
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT))
+  {
+    v5 = 136315394;
+    v6 = "HALS_IssueDetector.h";
+    v7 = 1024;
+    v8 = 109;
+    _os_log_impl(&dword_1DE1F9000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_DEFAULT, "%25s:%-5d  calling AudioIssueDetectorClientDispose already disposed", &v5, 0x12u);
+  }
+
+  v3 = *(this + 5);
+  if (v3)
+  {
+    *(this + 6) = v3;
+    operator delete(v3);
+  }
+
+  v4 = *(this + 1);
+  if (v4)
+  {
+    *(this + 2) = v4;
+    operator delete(v4);
+  }
+}
+
+void sub_1DE34F048(_Unwind_Exception *a1, int a2)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(a1);
+  }
+
+  __clang_call_terminate(a1);
+}
+
+void std::__shared_ptr_emplace<HALS_IssueDetector>::~__shared_ptr_emplace(std::__shared_weak_count *a1)
+{
+  a1->__vftable = &unk_1F5981A38;
+  std::__shared_weak_count::~__shared_weak_count(a1);
+
+  JUMPOUT(0x1E12C1730);
+}
+
+uint64_t HALS_IOContext_Manager_Graph_Builder_Connection::is_tap_mono(uint64_t a1, const void **a2)
+{
+  v10[0] = 0;
+  v10[1] = 0;
+  HALS_System::GetInstance(&v11, 0, v10);
+  v4 = v11;
+  v5 = *a2;
+  if (v5)
+  {
+    CFRetain(v5);
+  }
+
+  v7 = HALS_System::CopyTapByUID(v4, v5, *(a1 + 16));
+  if (v5)
+  {
+    CFRelease(v5);
+  }
+
+  if (v12)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+  }
+
+  if (v7)
+  {
+    v8 = *(v7 + 88);
+  }
+
+  else
+  {
+    v8 = 0;
+  }
+
+  HALS_ObjectMap::ReleaseObject(v7, v6);
+  return v8 & 1;
+}
+
+void sub_1DE34F1A8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, const void *a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__shared_weak_count *a14)
+{
+  applesauce::CF::StringRef::~StringRef(&a10);
+  if (a14)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](a14);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void HALS_IOContext_Manager_Graph_Builder_Connection::get_tapped_object_list(uint64_t a1@<X0>, CFTypeRef *a2@<X1>, void *a3@<X8>)
+{
+  *a3 = 0;
+  a3[1] = 0;
+  a3[2] = 0;
+  v31[0] = 0;
+  v31[1] = 0;
+  HALS_System::GetInstance(&v27, 0, v31);
+  v5 = v27;
+  v6 = *a2;
+  if (*a2)
+  {
+    CFRetain(*a2);
+  }
+
+  v30 = v6;
+  v19 = HALS_System::CopyTapByUID(v5, v6, *(a1 + 16));
+  if (v6)
+  {
+    CFRelease(v6);
+  }
+
+  if (v28)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v28);
+  }
+
+  v8 = v19;
+  if (v19)
+  {
+    v27 = 0;
+    v28 = 0;
+    v29 = 0;
+    std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&v27, *(v19 + 28), *(v19 + 29), (*(v19 + 29) - *(v19 + 28)) >> 2);
+    v9 = v27;
+    v21 = v28;
+    if (v27 != v28)
+    {
+      v10 = 0;
+      do
+      {
+        v26[0] = 0;
+        v26[1] = 0;
+        HALS_System::GetInstance(&v24, 0, v26);
+        v12 = HALS_System::CopyClientByObjectID(v24, *v9);
+        if (v25)
+        {
+          v13 = v12;
+          std::__shared_weak_count::__release_shared[abi:ne200100](v25);
+          v12 = v13;
+        }
+
+        if (v12)
+        {
+          v22 = v9;
+          v23 = v12;
+          (*(*v12 + 208))(&v24, v12);
+          v15 = v24;
+          v14 = v25;
+          if (v24 != v25)
+          {
+            do
+            {
+              mcp_object = HALS_IOContext_Manager_Impl::Object_Map::find_mcp_object((*(a1 + 8) + 16), *v15);
+              if (mcp_object >> 32)
+              {
+                v17 = v10;
+                v18 = v10 >> 2;
+                if (((v10 >> 2) + 1) >> 62)
+                {
+                  a3[1] = v10;
+                  a3[2] = 0;
+                  *a3 = 0;
+                  std::vector<void *>::__throw_length_error[abi:ne200100]();
+                }
+
+                if (v10 >> 2 != -1)
+                {
+                  std::allocator<unsigned int>::allocate_at_least[abi:ne200100]((v10 >> 2) + 1);
+                }
+
+                *(4 * v18) = mcp_object;
+                v10 = 4 * v18 + 4;
+                memcpy(0, 0, v17);
+              }
+
+              ++v15;
+            }
+
+            while (v15 != v14);
+            a3[1] = v10;
+            a3[2] = 0;
+            *a3 = 0;
+            v15 = v24;
+          }
+
+          if (v15)
+          {
+            v25 = v15;
+            operator delete(v15);
+          }
+
+          v9 = v22;
+          v12 = v23;
+        }
+
+        HALS_ObjectMap::ReleaseObject(v12, v11);
+        ++v9;
+      }
+
+      while (v9 != v21);
+      v9 = v27;
+    }
+
+    if (v9)
+    {
+      operator delete(v9);
+    }
+
+    v8 = v19;
+  }
+
+  HALS_ObjectMap::ReleaseObject(v8, v7);
+}
+
+uint64_t HALS_IOContext_Manager_Graph_Builder_Connection::should_create_mono_mix_map(HALS_IOContext_Manager_Graph_Builder_Connection *this)
+{
+  v3[0] = 0;
+  v3[1] = 0;
+  HALS_System::GetInstance(&v4, 0, v3);
+  v1 = *(v4 + 1560);
+  if (v5)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+  }
+
+  return v1;
+}
+
+void HALS_IOContext_Manager_Graph_Builder_Connection::maybe_get_master_device_and_sample_rate(HALS_IOContext_Manager_Graph_Builder_Connection *this@<X0>, CFDictionaryRef *a2@<X1>, uint64_t a3@<X8>)
+{
+  v78 = *MEMORY[0x1E69E9840];
+  if (!*a2)
+  {
+    goto LABEL_131;
+  }
+
+  v6 = CFStringCreateWithBytes(0, "uid", 3, 0x8000100u, 0);
+  *v73 = v6;
+  if (!v6)
+  {
+    exception = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(exception, "Could not construct");
+    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+  }
+
+  v7 = applesauce::CF::details::has_key<applesauce::CF::StringRef>(*a2, v6);
+  CFRelease(v6);
+  if (!v7)
+  {
+    v46 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v46 & 1) == 0)
+    {
+      AMCP::Log::AMCP_Scope_Registry::initialize(v8);
+    }
+
+    v48 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v47 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v47)
+    {
+      atomic_fetch_add_explicit(&v47->__shared_owners_, 1uLL, memory_order_relaxed);
+      v49 = *v48;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v47);
+    }
+
+    else
+    {
+      v49 = *v48;
+    }
+
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+    {
+      v50 = 0;
+      v51 = 0;
+      v52 = 47;
+      do
+      {
+        v53 = &aLibraryCachesC_55[v50];
+        if (v52 == 47)
+        {
+          v51 = &aLibraryCachesC_55[v50];
+        }
+
+        v52 = v53[1];
+        if (!v53[1])
+        {
+          break;
+        }
+
+        v39 = v50++ >= 0xFFF;
+      }
+
+      while (!v39);
+      if (v51)
+      {
+        v54 = v51 + 1;
+      }
+
+      else
+      {
+        v54 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/Source/HAL/Core/IO/HALS_IOContext_Manager_Graph_Builder_Connection.cpp";
+      }
+
+      *v73 = 136315650;
+      *&v73[4] = v54;
+      v74 = 1024;
+      v75 = 191;
+      v76 = 2080;
+      v77 = "in_aggregate_description->has_key(AMCP::CF::String{kAudioAggregateDeviceUIDKey})";
+      _os_log_error_impl(&dword_1DE1F9000, v49, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s We should have already exited if the aggregate UID were missing.", v73, 0x1Cu);
+    }
+
+    abort();
+  }
+
+  if (!*a2)
+  {
+LABEL_131:
+    v55 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v55, "Could not construct");
+    goto LABEL_146;
+  }
+
+  v9 = CFStringCreateWithBytes(0, "clock", 5, 0x8000100u, 0);
+  *v73 = v9;
+  if (!v9)
+  {
+    v57 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v57, "Could not construct");
+    __cxa_throw(v57, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+  }
+
+  cf = 0;
+  applesauce::CF::at_or<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v72, *a2, v9, &cf);
+  if (cf)
+  {
+    CFRelease(cf);
+  }
+
+  CFRelease(v9);
+  v10 = v72;
+  if (v72)
+  {
+    goto LABEL_14;
+  }
+
+  if (!*a2)
+  {
+    v55 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v55, "Could not construct");
+    goto LABEL_146;
+  }
+
+  v11 = CFStringCreateWithBytes(0, "master", 6, 0x8000100u, 0);
+  cf = v11;
+  if (!v11)
+  {
+    v58 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v58, "Could not construct");
+    __cxa_throw(v58, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+  }
+
+  v68 = 0;
+  applesauce::CF::at_or<applesauce::CF::StringRef,applesauce::CF::StringRef>(v73, *a2, v11, &v68);
+  v10 = *v73;
+  v72 = *v73;
+  if (v68)
+  {
+    CFRelease(v68);
+  }
+
+  CFRelease(v11);
+  if (v10)
+  {
+    goto LABEL_14;
+  }
+
+  if (!*a2)
+  {
+    goto LABEL_145;
+  }
+
+  v14 = CFStringCreateWithBytes(0, "subdevices", 10, 0x8000100u, 0);
+  *v73 = v14;
+  if (!v14)
+  {
+    v59 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v59, "Could not construct");
+    __cxa_throw(v59, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+  }
+
+  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::ArrayRef,applesauce::CF::StringRef>(&cf, *a2, v14);
+  CFRelease(v14);
+  if (v71 == 1)
+  {
+    v16 = cf;
+    if (!cf)
+    {
+      goto LABEL_145;
+    }
+
+    Count = CFArrayGetCount(cf);
+    if (Count)
+    {
+      applesauce::CF::details::at_as<applesauce::CF::DictionaryRef>(v73, v16, 0);
+      applesauce::CF::details::at_as<applesauce::CF::ArrayRef>(&v68, v16);
+      v17 = v69;
+      if (v69 != 1)
+      {
+        v18 = CFArrayGetCount(v16);
+        goto LABEL_41;
+      }
+
+      if (v68)
+      {
+        v18 = CFArrayGetCount(v68);
+LABEL_41:
+        v10 = 0;
+        v23 = v18;
+        if (!v18)
+        {
+          if (v17)
+          {
+            goto LABEL_77;
+          }
+
+          goto LABEL_79;
+        }
+
+        v24 = 0;
+        while (1)
+        {
+          if (!cf)
+          {
+LABEL_144:
+            v72 = v10;
+            v55 = __cxa_allocate_exception(0x10uLL);
+            std::runtime_error::runtime_error(v55, "Could not construct");
+            goto LABEL_146;
+          }
+
+          applesauce::CF::details::at_as<applesauce::CF::DictionaryRef>(&v66, cf, v24);
+          std::__optional_storage_base<applesauce::CF::DictionaryRef,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<applesauce::CF::DictionaryRef,false>>(v73, &v66);
+          if (v67 == 1)
+          {
+            v18 = v66;
+            if (v66)
+            {
+              CFRelease(v66);
+            }
+          }
+
+          if (v17)
+          {
+            break;
+          }
+
+          if (v73[8] != 1)
+          {
+            goto LABEL_71;
+          }
+
+          v28 = *v73;
+          if (!*v73)
+          {
+            goto LABEL_144;
+          }
+
+          v29 = CFStringCreateWithBytes(0, "uid", 3, 0x8000100u, 0);
+          v65 = v29;
+          if (!v29)
+          {
+            v72 = v10;
+            v61 = __cxa_allocate_exception(0x10uLL);
+            std::runtime_error::runtime_error(v61, "Could not construct");
+            __cxa_throw(v61, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+          }
+
+          v64 = 0;
+          applesauce::CF::at_or<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v66, v28, v29, &v64);
+          v27 = v66;
+          v66 = v10;
+          if (v10)
+          {
+            CFRelease(v10);
+          }
+
+          if (v64)
+          {
+            CFRelease(v64);
+          }
+
+          v18 = v65;
+          if (v65)
+          {
+            goto LABEL_69;
+          }
+
+LABEL_70:
+          v10 = v27;
+LABEL_71:
+          if (v10)
+          {
+            CFRetain(v10);
+            v63 = v10;
+            clock_sample_rate = HALS_IOContext_Manager_Graph_Builder_Connection::get_clock_sample_rate(this, &v63);
+            CFRelease(v10);
+            if (clock_sample_rate != 0.0)
+            {
+              v72 = v10;
+              CFRetain(v10);
+              *a3 = clock_sample_rate;
+              *(a3 + 8) = v10;
+              *(a3 + 16) = 1;
+              std::optional<applesauce::CF::ArrayRef>::~optional(&v68);
+              std::optional<applesauce::CF::DictionaryRef>::~optional(v73);
+              std::optional<applesauce::CF::ArrayRef>::~optional(&cf);
+              goto LABEL_20;
+            }
+          }
+
+          if (v23 == ++v24)
+          {
+            v72 = v10;
+            if ((v69 & 1) == 0)
+            {
+              goto LABEL_79;
+            }
+
+LABEL_77:
+            v18 = v68;
+            if (v68)
+            {
+              CFRelease(v68);
+            }
+
+LABEL_79:
+            if (v73[8] == 1)
+            {
+              v18 = *v73;
+              if (*v73)
+              {
+                CFRelease(*v73);
+              }
+            }
+
+            if (v71 == 1)
+            {
+              v18 = cf;
+              if (cf)
+              {
+                CFRelease(cf);
+              }
+            }
+
+            if (!v10)
+            {
+              v31 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+              if ((v31 & 1) == 0)
+              {
+                AMCP::Log::AMCP_Scope_Registry::initialize(v18);
+              }
+
+              v33 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+              v32 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+              if (v32)
+              {
+                atomic_fetch_add_explicit(&v32->__shared_owners_, 1uLL, memory_order_relaxed);
+                v34 = *v33;
+                std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+              }
+
+              else
+              {
+                v34 = *v33;
+              }
+
+              if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+              {
+                v41 = 0;
+                v42 = 0;
+                v43 = 47;
+                do
+                {
+                  v44 = &aLibraryCachesC_55[v41];
+                  if (v43 == 47)
+                  {
+                    v42 = &aLibraryCachesC_55[v41];
+                  }
+
+                  v43 = v44[1];
+                  if (!v44[1])
+                  {
+                    break;
+                  }
+
+                  v39 = v41++ >= 0xFFF;
+                }
+
+                while (!v39);
+                if (v42)
+                {
+                  v45 = v42 + 1;
+                }
+
+                else
+                {
+                  v45 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/Source/HAL/Core/IO/HALS_IOContext_Manager_Graph_Builder_Connection.cpp";
+                }
+
+                *v73 = 136315394;
+                *&v73[4] = v45;
+                v74 = 1024;
+                v75 = 244;
+                _os_log_error_impl(&dword_1DE1F9000, v34, OS_LOG_TYPE_ERROR, "%32s:%-5d Unable to calculate clock and sample rate", v73, 0x12u);
+              }
+
+              *a3 = 0;
+              *(a3 + 8) = 0;
+              goto LABEL_19;
+            }
+
+LABEL_14:
+            CFRetain(v10);
+            v62 = v10;
+            v12 = HALS_IOContext_Manager_Graph_Builder_Connection::get_clock_sample_rate(this, &v62);
+            CFRelease(v10);
+            if (v12 == 0.0)
+            {
+              v12 = 44100.0;
+            }
+
+            v13 = v72;
+            if (v72)
+            {
+              CFRetain(v72);
+            }
+
+            *a3 = v12;
+            *(a3 + 8) = v13;
+LABEL_19:
+            *(a3 + 16) = 1;
+            goto LABEL_20;
+          }
+        }
+
+        if (!v68)
+        {
+          goto LABEL_144;
+        }
+
+        applesauce::CF::details::at_as<applesauce::CF::DictionaryRef>(&v66, v68, v24);
+        std::__optional_storage_base<applesauce::CF::DictionaryRef,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<applesauce::CF::DictionaryRef,false>>(v73, &v66);
+        if (v67 == 1)
+        {
+          v18 = v66;
+          if (v66)
+          {
+            CFRelease(v66);
+          }
+        }
+
+        if (v73[8] != 1)
+        {
+          goto LABEL_71;
+        }
+
+        v25 = *v73;
+        if (!*v73)
+        {
+          goto LABEL_144;
+        }
+
+        v26 = CFStringCreateWithBytes(0, "uid", 3, 0x8000100u, 0);
+        v65 = v26;
+        if (!v26)
+        {
+          v72 = v10;
+          v60 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v60, "Could not construct");
+          __cxa_throw(v60, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        v64 = 0;
+        applesauce::CF::at_or<applesauce::CF::StringRef,applesauce::CF::StringRef>(&v66, v25, v26, &v64);
+        v27 = v66;
+        v66 = v10;
+        if (v10)
+        {
+          CFRelease(v10);
+        }
+
+        if (v64)
+        {
+          CFRelease(v64);
+        }
+
+        v18 = v65;
+        if (!v65)
+        {
+          goto LABEL_70;
+        }
+
+LABEL_69:
+        CFRelease(v18);
+        goto LABEL_70;
+      }
+
+LABEL_145:
+      v55 = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(v55, "Could not construct");
+LABEL_146:
+      __cxa_throw(v55, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+  }
+
+  v19 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+  if ((v19 & 1) == 0)
+  {
+    AMCP::Log::AMCP_Scope_Registry::initialize(Count);
+  }
+
+  v21 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+  v20 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+  if (v20)
+  {
+    atomic_fetch_add_explicit(&v20->__shared_owners_, 1uLL, memory_order_relaxed);
+    v22 = *v21;
+    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+  }
+
+  else
+  {
+    v22 = *v21;
+  }
+
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+  {
+    v35 = 0;
+    v36 = 0;
+    v37 = 47;
+    do
+    {
+      v38 = &aLibraryCachesC_55[v35];
+      if (v37 == 47)
+      {
+        v36 = &aLibraryCachesC_55[v35];
+      }
+
+      v37 = v38[1];
+      if (!v38[1])
+      {
+        break;
+      }
+
+      v39 = v35++ >= 0xFFF;
+    }
+
+    while (!v39);
+    if (v36)
+    {
+      v40 = v36 + 1;
+    }
+
+    else
+    {
+      v40 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/Source/HAL/Core/IO/HALS_IOContext_Manager_Graph_Builder_Connection.cpp";
+    }
+
+    *v73 = 136315394;
+    *&v73[4] = v40;
+    v74 = 1024;
+    v75 = 203;
+    _os_log_error_impl(&dword_1DE1F9000, v22, OS_LOG_TYPE_ERROR, "%32s:%-5d Unable to calculate clock and sample rate", v73, 0x12u);
+  }
+
+  *a3 = 0;
+  *(a3 + 8) = 0;
+  *(a3 + 16) = 1;
+  if (v71 == 1 && cf)
+  {
+    CFRelease(cf);
+  }
+
+LABEL_20:
+  if (v72)
+  {
+    CFRelease(v72);
+  }
+}
+
+void sub_1DE34FFF4(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, char a18, uint64_t a19, uint64_t a20, char a21)
+{
+  if (!a2)
+  {
+    _Unwind_Resume(exception_object);
+  }
+
+  __clang_call_terminate(exception_object);
+}
+
+BOOL applesauce::CF::details::has_key<applesauce::CF::StringRef>(CFDictionaryRef theDict, const void *a2)
+{
+  result = 0;
+  if (theDict)
+  {
+    if (a2)
+    {
+      return CFDictionaryContainsKey(theDict, a2) != 0;
+    }
+  }
+
+  return result;
+}
+
+void applesauce::CF::at_or<applesauce::CF::StringRef,applesauce::CF::StringRef>(void *a1, const __CFDictionary *a2, const void *a3, void *a4)
+{
+  applesauce::CF::details::find_at_key_or_optional<applesauce::CF::StringRef,applesauce::CF::StringRef>(&cf, a2, a3);
+  if (v8 == 1)
+  {
+    v6 = cf;
+    if (cf)
+    {
+      CFRetain(cf);
+      *a1 = v6;
+      CFRelease(v6);
+      return;
+    }
+
+    a4 = a1;
+  }
+
+  else
+  {
+    *a1 = *a4;
+  }
+
+  *a4 = 0;
+}
+
+void applesauce::CF::details::at_as<applesauce::CF::ArrayRef>(_BYTE *a1, CFArrayRef theArray)
+{
+  if (!CFArrayGetCount(theArray))
+  {
+    goto LABEL_6;
+  }
+
+  ValueAtIndex = CFArrayGetValueAtIndex(theArray, 0);
+  v5 = ValueAtIndex;
+  if (!ValueAtIndex)
+  {
+    goto LABEL_6;
+  }
+
+  CFRetain(ValueAtIndex);
+  v6 = CFGetTypeID(v5);
+  if (v6 != CFArrayGetTypeID())
+  {
+    CFRelease(v5);
+LABEL_6:
+    v7 = 0;
+    *a1 = 0;
+    goto LABEL_7;
+  }
+
+  *a1 = v5;
+  v7 = 1;
+LABEL_7:
+  a1[8] = v7;
+}
+
+void std::__optional_storage_base<applesauce::CF::DictionaryRef,false>::__assign_from[abi:ne200100]<std::__optional_move_assign_base<applesauce::CF::DictionaryRef,false>>(uint64_t a1, uint64_t a2)
+{
+  if (*(a1 + 8) == *(a2 + 8))
+  {
+    if (*(a1 + 8))
+    {
+      v3 = *a1;
+      *a1 = *a2;
+      *a2 = v3;
+    }
+  }
+
+  else if (*(a1 + 8))
+  {
+    v4 = *a1;
+    if (*a1)
+    {
+      CFRelease(v4);
+    }
+
+    *(a1 + 8) = 0;
+  }
+
+  else
+  {
+    *a1 = *a2;
+    *a2 = 0;
+    *(a1 + 8) = 1;
+  }
+}
+
+double HALS_IOContext_Manager_Graph_Builder_Connection::get_clock_sample_rate(uint64_t a1, const __CFString **a2)
+{
+  v3 = *(a1 + 8) + 144;
+  while (1)
+  {
+    v3 = *v3;
+    if (!v3)
+    {
+      break;
+    }
+
+    (*(**(v3 + 24) + 16))(cf);
+    v4 = applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(cf[0], a2);
+    if (cf[0])
+    {
+      CFRelease(cf[0]);
+    }
+
+    if (v4 == kCFCompareEqualTo)
+    {
+      return (*(**(v3 + 24) + 24))(*(v3 + 24));
+    }
+  }
+
+  v13[0] = 0;
+  v13[1] = 0;
+  HALS_System::GetInstance(&v14, 0, v13);
+  v6 = *a2;
+  *cf = 0u;
+  v11 = 0u;
+  v12 = 1065353216;
+  v7 = HALS_System::CopyDeviceByUID(v14, v6, 0, cf);
+  std::__hash_table<std::__hash_value_type<unsigned int,HALS_RemotePlugInEngine *>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,HALS_RemotePlugInEngine *>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,HALS_RemotePlugInEngine *>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,HALS_RemotePlugInEngine *>>>::~__hash_table(cf);
+  if (v15)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+  }
+
+  if (v7)
+  {
+    v5 = (*(*v7 + 272))(v7);
+  }
+
+  else
+  {
+    v5 = 0.0;
+  }
+
+  HALS_ObjectMap::ReleaseObject(v7, v8);
+  return v5;
+}
+
+void HALS_IOContext_Manager_Graph_Builder_Connection::get_aggregate_composition(HALS_IOContext_Manager_Graph_Builder_Connection *this@<X0>, unsigned int a2@<W1>, void *a3@<X8>)
+{
+  v5 = std::__hash_table<std::__hash_value_type<unsigned int,HALS_Device_HostedDSP_ClientInfo::PerClientInfo>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,HALS_Device_HostedDSP_ClientInfo::PerClientInfo>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,HALS_Device_HostedDSP_ClientInfo::PerClientInfo>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,HALS_Device_HostedDSP_ClientInfo::PerClientInfo>>>::find<unsigned int>((*(this + 1) + 16), a2);
+  if (!v5)
+  {
+    goto LABEL_9;
+  }
+
+  v6 = *(v5 + 5);
+  v12[0] = 0;
+  v12[1] = 0;
+  HALS_System::GetInstance(&v13, 0, v12);
+  v7 = HALS_System::CopyDeviceByObjectID(v13, v6, *(this + 2));
+  if (v14)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+  }
+
+  if (!v7)
+  {
+    pthread_once(&HALS_ObjectMap::sObjectInfoListInitialized, HALS_ObjectMap::Initialize);
+LABEL_9:
+    *a3 = 0;
+    return;
+  }
+
+  v13 = 0x676C6F6261636F6DLL;
+  LODWORD(v14) = 0;
+  v16 = 0;
+  v15 = 0;
+  (*(*v7 + 120))(v7, v6, &v13, 8, &v15, &v16, 0, 0, 0);
+  v9 = v16;
+  *a3 = v16;
+  if (v9)
+  {
+    v10 = CFGetTypeID(v9);
+    if (v10 != CFDictionaryGetTypeID())
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Could not construct");
+      __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+  }
+
+  HALS_ObjectMap::ReleaseObject(v7, v8);
+}
+
+void sub_1DE350668(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14)
+{
+  __cxa_free_exception(v16);
+  applesauce::CF::ObjectRef<__CFDictionary const*>::~ObjectRef(v14);
+  HALS_ObjectMap::ReleaseObject(v15, v18);
+  _Unwind_Resume(a1);
+}
+
+void HALS_IOContext_Manager_Graph_Builder_Connection::get_uid_for_meta_device_clock(HALS_IOContext_Manager_Graph_Builder_Connection *this@<X0>, unsigned int a2@<W1>, const __CFString **a3@<X8>)
+{
+  v5 = std::__hash_table<std::__hash_value_type<unsigned int,HALS_Device_HostedDSP_ClientInfo::PerClientInfo>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,HALS_Device_HostedDSP_ClientInfo::PerClientInfo>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,HALS_Device_HostedDSP_ClientInfo::PerClientInfo>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,HALS_Device_HostedDSP_ClientInfo::PerClientInfo>>>::find<unsigned int>((*(this + 1) + 16), a2);
+  if (!v5)
+  {
+    goto LABEL_17;
+  }
+
+  v6 = *(v5 + 5);
+  v20[0] = 0;
+  v20[1] = 0;
+  HALS_System::GetInstance(&v21, 0, v20);
+  v7 = HALS_System::CopyDeviceByObjectID(v21, v6, *(this + 2));
+  if (v22)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+  }
+
+  if (!v7)
+  {
+    pthread_once(&HALS_ObjectMap::sObjectInfoListInitialized, HALS_ObjectMap::Initialize);
+LABEL_17:
+    *a3 = 0;
+    return;
+  }
+
+  v21 = 0x676C6F6261706364;
+  LODWORD(v22) = 0;
+  cf = 0;
+  LODWORD(v19) = 0;
+  (*(*v7 + 120))(v7, v6, &v21, 8, &v19, &cf, 0, 0, 0);
+  v8 = cf;
+  *a3 = cf;
+  if (v8)
+  {
+    v9 = CFGetTypeID(v8);
+    if (v9 != CFStringGetTypeID())
+    {
+      exception = __cxa_allocate_exception(0x10uLL);
+      std::runtime_error::runtime_error(exception, "Could not construct");
+      __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+    }
+
+    v8 = *a3;
+  }
+
+  v21 = 0;
+  if (applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(v8, &v21) == kCFCompareEqualTo)
+  {
+    goto LABEL_11;
+  }
+
+  v10 = CFStringCreateWithBytes(0, "", 0, 0x8000100u, 0);
+  cf = v10;
+  if (!v10)
+  {
+    v17 = __cxa_allocate_exception(0x10uLL);
+    std::runtime_error::runtime_error(v17, "Could not construct");
+    __cxa_throw(v17, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+  }
+
+  v11 = applesauce::CF::compare<applesauce::CF::StringRef,0,applesauce::CF::StringRef,0>(*a3, &cf);
+  CFRelease(v10);
+  if (v11 == kCFCompareEqualTo)
+  {
+LABEL_11:
+    v21 = 0x676C6F62616D7374;
+    LODWORD(v22) = 0;
+    cf = 0;
+    v23 = 0;
+    (*(*v7 + 120))(v7, v6, &v21, 8, &v23, &cf, 0, 0, 0);
+    v13 = cf;
+    v19 = cf;
+    if (cf)
+    {
+      v14 = CFGetTypeID(cf);
+      if (v14 != CFStringGetTypeID())
+      {
+        v18 = __cxa_allocate_exception(0x10uLL);
+        std::runtime_error::runtime_error(v18, "Could not construct");
+        __cxa_throw(v18, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+      }
+    }
+
+    v15 = *a3;
+    *a3 = v13;
+    v19 = v15;
+    if (v15)
+    {
+      CFRelease(v15);
+    }
+  }
+
+  HALS_ObjectMap::ReleaseObject(v7, v12);
+}
+
+void sub_1DE3509A4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, const void *a10, uint64_t a11, uint64_t a12, char a13, uint64_t a14, uint64_t a15, char a16)
+{
+  __cxa_free_exception(v18);
+  applesauce::CF::ObjectRef<__CFString const*>::~ObjectRef(&a10);
+  applesauce::CF::StringRef::~StringRef(v16);
+  HALS_ObjectMap::ReleaseObject(v17, v20);
+  _Unwind_Resume(a1);
+}
+
+BOOL HALS_IOContext_Manager_Graph_Builder_Connection::is_reference_stream(HALS_IOContext_Manager_Graph_Builder_Connection *this, unsigned int a2)
+{
+  AMCP::Core::Broker::fetch_core(&v5, *(*(this + 1) + 96), a2);
+  if (v5)
+  {
+    v7 = 0x676C6F6274617073;
+    v8 = 0;
+    v2 = AMCP::Core::Core::get_typed_property_value<unsigned int,std::enable_if<true,void>>(v5, &v7);
+    if (HIDWORD(v2))
+    {
+      v3 = v2 != 0;
+    }
+
+    else
+    {
+      v3 = 0;
+    }
+  }
+
+  else
+  {
+    v3 = 0;
+  }
+
+  if (v6)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+  }
+
+  return v3;
+}
+
+unint64_t HALS_IOContext_Manager_Graph_Builder_Connection::get_stream(uint64_t a1, unsigned int a2, int a3, unint64_t mcp_object)
+{
+  v7 = std::__hash_table<std::__hash_value_type<unsigned int,HALS_Device_HostedDSP_ClientInfo::PerClientInfo>,std::__unordered_map_hasher<unsigned int,std::__hash_value_type<unsigned int,HALS_Device_HostedDSP_ClientInfo::PerClientInfo>,std::hash<unsigned int>,std::equal_to<unsigned int>,true>,std::__unordered_map_equal<unsigned int,std::__hash_value_type<unsigned int,HALS_Device_HostedDSP_ClientInfo::PerClientInfo>,std::equal_to<unsigned int>,std::hash<unsigned int>,true>,std::allocator<std::__hash_value_type<unsigned int,HALS_Device_HostedDSP_ClientInfo::PerClientInfo>>>::find<unsigned int>((*(a1 + 8) + 16), a2);
+  if (!v7)
+  {
+    return 0;
+  }
+
+  v8 = *(v7 + 5);
+  v17[0] = 0;
+  v17[1] = 0;
+  HALS_System::GetInstance(&v14, 0, v17);
+  v10 = HALS_System::CopyDeviceByObjectID(v14, v8, *(a1 + 16));
+  if (v15)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+  }
+
+  if (!v10)
+  {
+    goto LABEL_8;
+  }
+
+  v14 = 0;
+  v15 = 0;
+  v16 = 0;
+  HALS_Device::CopyStreamList(v10, a3 == 1, &v14);
+  if (mcp_object >= (v15 - v14) >> 3 || (mcp_object = HALS_IOContext_Manager_Impl::Object_Map::find_mcp_object((*(a1 + 8) + 16), *(*(v14 + mcp_object) + 16)), !HIDWORD(mcp_object)))
+  {
+    HALS_ArrayReleaser<HALS_Stream>::~HALS_ArrayReleaser(&v14, v11);
+LABEL_8:
+    v12 = 1;
+    goto LABEL_9;
+  }
+
+  HALS_ArrayReleaser<HALS_Stream>::~HALS_ArrayReleaser(&v14, v11);
+  v12 = 0;
+LABEL_9:
+  HALS_ObjectMap::ReleaseObject(v10, v9);
+  if (v12)
+  {
+    return 0;
+  }
+
+  return mcp_object;
+}
+
+void sub_1DE350BF4(_Unwind_Exception *a1, HALS_Object *a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  HALS_ArrayReleaser<HALS_Stream>::~HALS_ArrayReleaser(va, a2);
+  HALS_ObjectMap::ReleaseObject(v3, v5);
+  _Unwind_Resume(a1);
+}
+
+HALS_ObjectMap ***HALS_ArrayReleaser<HALS_Stream>::~HALS_ArrayReleaser(HALS_ObjectMap ***a1, HALS_Object *a2)
+{
+  v3 = *a1;
+  v4 = a1[1];
+  if (*a1 != v4)
+  {
+    do
+    {
+      HALS_ObjectMap::ReleaseObject(*v3++, a2);
+    }
+
+    while (v3 != v4);
+    v3 = *a1;
+  }
+
+  if (v3)
+  {
+    a1[1] = v3;
+    operator delete(v3);
+  }
+
+  return a1;
+}
+
+BOOL HALS_IOContext_Manager_Graph_Builder_Connection::is_device_an_aggregate(HALS_IOContext_Manager_Graph_Builder_Connection *this, unsigned int a2)
+{
+  AMCP::Core::Broker::fetch_core(&v4, *(*(this + 1) + 96), a2);
+  if (v4)
+  {
+    v2 = AMCP::Core::Core::get_simple_required_property<1668047219u>(v4) == 1633773415;
+  }
+
+  else
+  {
+    v2 = 0;
+  }
+
+  if (v5)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v5);
+  }
+
+  return v2;
+}
+
+void HALS_IOContext_Manager_Graph_Builder_Connection::get_node_description(HALS_IOContext_Manager_Graph_Builder_Connection *this@<X0>, uint64_t a2@<X8>, unsigned int a3@<W1>)
+{
+  AMCP::Core::Broker::fetch_core(&v5, *(*(this + 1) + 96), a3);
+  if (v5)
+  {
+    AMCP::Core::Core::get_simple_required_property<1852073061u>(a2, v5);
+  }
+
+  else
+  {
+    *a2 = 1;
+    *(a2 + 8) = 0;
+    *(a2 + 16) = 0;
+    *(a2 + 24) = 0;
+    *(a2 + 32) = 0x100000000;
+    *(a2 + 40) = 0u;
+    *(a2 + 56) = 0u;
+    *(a2 + 72) = 0u;
+    *(a2 + 88) = 0u;
+    *(a2 + 104) = 0u;
+  }
+
+  v4 = v6;
+  if (v6)
+  {
+
+    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+  }
+}
+
+void AMCP::Core::Core::get_simple_required_property<1852073061u>(AMCP::Node_Description *a1, AMCP::Core::Core *this)
+{
+  v40 = *MEMORY[0x1E69E9840];
+  v17 = 0x676C6F626E646465;
+  v18 = 0;
+  has_property = AMCP::Core::Core::has_property(this, &v17);
+  if (!has_property)
+  {
+LABEL_33:
+    v19[0] = 0;
+    v25 = 0;
+LABEL_34:
+    v13 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v13 & 1) == 0)
+    {
+      AMCP::Log::AMCP_Scope_Registry::initialize(has_property);
+    }
+
+    v15 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v14 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v14)
+    {
+      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
+      v16 = *v15;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+    }
+
+    else
+    {
+      v16 = *v15;
+    }
+
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    {
+      v27 = 4;
+      strcpy(v26, "ndde");
+      *buf = 136316418;
+      *&buf[4] = "Core.h";
+      *&buf[12] = 1024;
+      *&buf[14] = 391;
+      v33 = 2080;
+      v34 = "optional_value.operator BOOL() == true";
+      v35 = 2080;
+      v36 = v26;
+      v37 = 1024;
+      strcpy(v38, "bolg");
+      BYTE5(v38[0]) = 4;
+      *(v38 + 6) = 0;
+      _os_log_error_impl(&dword_1DE1F9000, v16, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s a required property is missing '%s':%u:%u", buf, 0x32u);
+      if (v27 < 0)
+      {
+        operator delete(v26[0]);
+      }
+    }
+
+    abort();
+  }
+
+  AMCP::Core::Core::find_operation(&v29, this, &v17);
+  v5 = v29;
+  if (v29)
+  {
+    v6 = AMCP::Implementation::get_type_marker<std::function<AMCP::Node_Description ()(void)>>();
+    if (std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(v5, v6))
+    {
+      AMCP::Core::Operation::call_function<AMCP::Node_Description>(buf, v5);
+      std::optional<AMCP::Node_Description>::optional[abi:ne200100]<AMCP::Node_Description,0>(v19, buf);
+      for (i = 96; i != 48; i -= 24)
+      {
+        v26[0] = &buf[i];
+        std::vector<AMCP::Terminal_Description>::__destroy_vector::operator()[abi:ne200100](v26);
+      }
+
+      if (v39 < 0)
+      {
+        operator delete(v38[0]);
+      }
+
+      if (SBYTE1(v36) < 0)
+      {
+        operator delete(*&buf[8]);
+      }
+
+LABEL_19:
+      v10 = 0;
+      goto LABEL_21;
+    }
+
+    v8 = AMCP::Implementation::get_type_marker<std::function<AMCP::Thing ()(void)>>();
+    if (std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(v5, v8))
+    {
+      AMCP::Core::Operation::call_function<AMCP::Thing>(v26, v5);
+      AMCP::Thing::convert_to<AMCP::Node_Description>(buf, v26);
+      std::optional<AMCP::Node_Description>::optional[abi:ne200100]<AMCP::Node_Description,0>(v19, buf);
+      for (j = 96; j != 48; j -= 24)
+      {
+        v31 = &buf[j];
+        std::vector<AMCP::Terminal_Description>::__destroy_vector::operator()[abi:ne200100](&v31);
+      }
+
+      if (v39 < 0)
+      {
+        operator delete(v38[0]);
+      }
+
+      if (SBYTE1(v36) < 0)
+      {
+        operator delete(*&buf[8]);
+      }
+
+      if (v28)
+      {
+        v28(0, v26, 0, 0);
+      }
+
+      goto LABEL_19;
+    }
+  }
+
+  v10 = 1;
+LABEL_21:
+  has_property = v30;
+  if (v30)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v30);
+  }
+
+  if (v10)
+  {
+    goto LABEL_33;
+  }
+
+  if ((v25 & 1) == 0)
+  {
+    goto LABEL_34;
+  }
+
+  AMCP::Node_Description::Node_Description(a1, v19);
+  if (v25 == 1)
+  {
+    v11 = &v24;
+    v12 = -48;
+    do
+    {
+      *buf = v11;
+      std::vector<AMCP::Terminal_Description>::__destroy_vector::operator()[abi:ne200100](buf);
+      v11 -= 3;
+      v12 += 24;
+    }
+
+    while (v12);
+    if (v23 < 0)
+    {
+      operator delete(__p);
+    }
+
+    if (v21 < 0)
+    {
+      operator delete(v20);
+    }
+  }
+}
+
 void sub_1DE3510E0(_Unwind_Exception *a1, int a2)
 {
   if (a2)
@@ -94,7 +2218,7 @@ void std::vector<AMCP::Terminal_Description>::__base_destruct_at_end[abi:ne20010
   *(a1 + 8) = a2;
 }
 
-uint64_t std::vector<AMCP::Terminal_Description>::__init_with_size[abi:ne200100]<AMCP::Terminal_Description*,AMCP::Terminal_Description*>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<AMCP::Terminal_Description>::__init_with_size[abi:ne200100]<AMCP::Terminal_Description*,AMCP::Terminal_Description*>(uint64_t *result, uint64_t a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -111,7 +2235,7 @@ void sub_1DE3513A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::vector<AMCP::Terminal_Description>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<AMCP::Terminal_Description>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x276276276276277)
   {
@@ -172,7 +2296,7 @@ uint64_t std::__uninitialized_allocator_copy_impl[abi:ne200100]<std::allocator<A
   return v4;
 }
 
-void sub_1DE351520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void **a16)
+void sub_1DE351520(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void **a16)
 {
   if ((v18 & 1) == 0)
   {
@@ -226,106 +2350,106 @@ void std::allocator<AMCP::Terminal_Description>::allocate_at_least[abi:ne200100]
 
 uint64_t AMCP::Core::Operation::call_function<AMCP::Node_Description>(uint64_t a1, void *a2)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v3 = AMCP::Implementation::get_type_marker<std::function<AMCP::Node_Description ()(void)>>();
   v4 = std::__hash_table<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::__unordered_map_hasher<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,AMCP::Type_ID::Hash,std::equal_to<AMCP::Type_ID>,true>,std::__unordered_map_equal<AMCP::Type_ID,std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>,std::equal_to<AMCP::Type_ID>,AMCP::Type_ID::Hash,true>,std::allocator<std::__hash_value_type<AMCP::Type_ID,AMCP::Thing>>>::find<AMCP::Type_ID>(a2, v3);
   if (!v4)
   {
-    v13 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v13 & 1) == 0)
+    v12 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v12 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(0);
     }
 
-    v15 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v14 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v14)
+    v14 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v13 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v13)
     {
-      atomic_fetch_add_explicit(&v14->__shared_owners_, 1uLL, memory_order_relaxed);
-      v16 = *v15;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+      atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
+      v15 = *v14;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v13);
     }
 
     else
     {
-      v16 = *v15;
+      v15 = *v14;
     }
 
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Operation.h";
-      v28 = 1024;
-      v29 = 154;
-      _os_log_error_impl(&dword_1DE1F9000, v16, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
+      v29 = 1024;
+      v30 = 154;
+      _os_log_error_impl(&dword_1DE1F9000, v15, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Operation does not have requested function", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v26);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v27);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Operation does not have requested function", &v18);
-    std::runtime_error::runtime_error(&v19, &v18);
+    caulk::make_string(&v19, "Operation does not have requested function", v17);
     std::runtime_error::runtime_error(&v20, &v19);
-    v22 = 0;
+    std::runtime_error::runtime_error(&v21, &v20);
     v23 = 0;
     v24 = 0;
-    v25 = -1;
-    v20.__vftable = &unk_1F5992170;
-    v21 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v20);
-    v30 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = AMCP::Node_Description, Argument_Types = <>]";
-    v31 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    v32 = 154;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v17);
+    v25 = 0;
+    v26 = -1;
+    v21.__vftable = &unk_1F5992170;
+    v22 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v21);
+    v31 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = AMCP::Node_Description, Argument_Types = <>]";
+    v32 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
+    v33 = 154;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v18);
   }
 
   v5 = v4;
   if (!*(v4 + 7) || (*buf = AMCP::Implementation::get_type_marker<std::function<AMCP::Node_Description ()(void)>>(), (v4 = (*(v5 + 7))(4, v5 + 24, 0, buf)) == 0))
   {
-    v9 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v9 & 1) == 0)
+    v8 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v8 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(v4);
     }
 
-    v11 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v10 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v10)
+    v10 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v9 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v9)
     {
-      atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
-      v12 = *v11;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v10);
+      atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+      v11 = *v10;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v9);
     }
 
     else
     {
-      v12 = *v11;
+      v11 = *v10;
     }
 
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
       *&buf[4] = "Operation.h";
-      v28 = 1024;
-      v29 = 161;
-      _os_log_error_impl(&dword_1DE1F9000, v12, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Invalid cast", buf, 0x12u);
+      v29 = 1024;
+      v30 = 161;
+      _os_log_error_impl(&dword_1DE1F9000, v11, OS_LOG_TYPE_ERROR, "%32s:%-5d Throwing Exception: Invalid cast", buf, 0x12u);
     }
 
-    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v26);
+    AMCP::Utility::With_Realtime_Disabled::With_Realtime_Disabled(&v27);
     __cxa_allocate_exception(0x40uLL);
-    caulk::make_string("Invalid cast", &v18);
-    std::runtime_error::runtime_error(&v19, &v18);
+    caulk::make_string(&v19, "Invalid cast", v16);
     std::runtime_error::runtime_error(&v20, &v19);
-    v22 = 0;
+    std::runtime_error::runtime_error(&v21, &v20);
     v23 = 0;
     v24 = 0;
-    v25 = -1;
-    v20.__vftable = &unk_1F5992170;
-    v21 = &unk_1F5992198;
-    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v20);
-    v30 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = AMCP::Node_Description, Argument_Types = <>]";
-    v31 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
-    v32 = 161;
-    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v17);
+    v25 = 0;
+    v26 = -1;
+    v21.__vftable = &unk_1F5992170;
+    v22 = &unk_1F5992198;
+    boost::exception_detail::clone_impl<boost::exception_detail::error_info_injector<std::runtime_error>>::clone_impl(buf, &v21);
+    v31 = "Return_Type AMCP::Core::Operation::call_function(Argument_Types...) const [Return_Type = AMCP::Node_Description, Argument_Types = <>]";
+    v32 = "/Library/Caches/com.apple.xbs/Sources/AudioHAL/MCP/AMCP/Core/Operation.h";
+    v33 = 161;
+    applesauce::backtrace::snapshot_N<64>::snapshot_N(&v18);
   }
 
   v6 = *(v4 + 3);
@@ -334,9 +2458,7 @@ uint64_t AMCP::Core::Operation::call_function<AMCP::Node_Description>(uint64_t a
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  result = (*(*v6 + 48))(v6);
-  v8 = *MEMORY[0x1E69E9840];
-  return result;
+  return (*(*v6 + 48))(v6);
 }
 
 void sub_1DE351ADC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, void *a16, uint64_t a17, int a18, __int16 a19, char a20, char a21, std::runtime_error a22, char a23)
@@ -466,9 +2588,9 @@ LABEL_12:
   return result;
 }
 
-void sub_1DE351DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE351DAC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -503,16 +2625,16 @@ uint64_t AMCP::Implementation::get_type_marker<std::function<AMCP::Node_Descript
 
 uint64_t HALS_IOContext_Manager_Graph_Builder_Connection::get_node_from_node_uid(uint64_t a1, uint64_t a2)
 {
-  v8[4] = *MEMORY[0x1E69E9840];
+  v7[4] = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 8) + 96);
-  v8[0] = &unk_1F5968028;
-  v8[1] = a2;
-  v8[3] = v8;
-  AMCP::Core::Broker::fetch_first_core_if (&v6, v2, v8);
-  std::__function::__value_func<BOOL ()(std::shared_ptr<AMCP::Core::Core> const&)>::~__value_func[abi:ne200100](v8);
-  if (v6)
+  v7[0] = &unk_1F5968028;
+  v7[1] = a2;
+  v7[3] = v7;
+  AMCP::Core::Broker::fetch_first_core_if (&v5, v2, v7);
+  std::__function::__value_func<BOOL ()(std::shared_ptr<AMCP::Core::Core> const&)>::~__value_func[abi:ne200100](v7);
+  if (v5)
   {
-    v3 = *v6;
+    v3 = *v5;
   }
 
   else
@@ -520,12 +2642,11 @@ uint64_t HALS_IOContext_Manager_Graph_Builder_Connection::get_node_from_node_uid
     v3 = 0;
   }
 
-  if (v7)
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -562,51 +2683,51 @@ BOOL std::__function::__func<HALS_IOContext_Manager_Graph_Builder_Connection::ge
 
 void AMCP::Core::Core::get_simple_required_property<1853188452u>(void *a1, AMCP::Core::Core *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   strcpy(buf, "diunbolg");
   buf[9] = 0;
   *&buf[10] = 0;
   AMCP::Core::Core::get_typed_property_value<applesauce::CF::StringRef,std::enable_if<true,void>>(&cf, a2, buf);
-  if ((v13 & 1) == 0)
+  if ((v12 & 1) == 0)
   {
-    v6 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
-    if ((v6 & 1) == 0)
+    v5 = atomic_load(StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics_initialized);
+    if ((v5 & 1) == 0)
     {
       AMCP::Log::AMCP_Scope_Registry::initialize(v3);
     }
 
-    v8 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
-    v7 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
-    if (v7)
+    v7 = **StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics;
+    v6 = *(*StaticContainer<AMCP::Log::AMCP_Scope_Registry_Statics>::s_statics + 8);
+    if (v6)
     {
-      atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
-      v9 = *v8;
-      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+      atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+      v8 = *v7;
+      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
     }
 
     else
     {
-      v9 = *v8;
+      v8 = *v7;
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v11 = 4;
+      v10 = 4;
       strcpy(__p, "nuid");
       *buf = 136316418;
       *&buf[4] = "Core.h";
-      v15 = 1024;
-      v16 = 391;
-      v17 = 2080;
-      v18 = "optional_value.operator BOOL() == true";
-      v19 = 2080;
-      v20 = __p;
-      v21 = 1024;
-      v22 = 1735159650;
-      v23 = 1024;
-      v24 = 0;
-      _os_log_error_impl(&dword_1DE1F9000, v9, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s a required property is missing '%s':%u:%u", buf, 0x32u);
-      if (v11 < 0)
+      v14 = 1024;
+      v15 = 391;
+      v16 = 2080;
+      v17 = "optional_value.operator BOOL() == true";
+      v18 = 2080;
+      v19 = __p;
+      v20 = 1024;
+      v21 = 1735159650;
+      v22 = 1024;
+      v23 = 0;
+      _os_log_error_impl(&dword_1DE1F9000, v8, OS_LOG_TYPE_ERROR, "%32s:%-5d Assertion Failed: %s a required property is missing '%s':%u:%u", buf, 0x32u);
+      if (v10 < 0)
       {
         operator delete(__p[0]);
       }
@@ -627,8 +2748,6 @@ void AMCP::Core::Core::get_simple_required_property<1853188452u>(void *a1, AMCP:
   {
     *a1 = 0;
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1DE3521CC(_Unwind_Exception *a1, int a2)
@@ -651,16 +2770,16 @@ uint64_t std::__function::__func<HALS_IOContext_Manager_Graph_Builder_Connection
 
 uint64_t HALS_IOContext_Manager_Graph_Builder_Connection::get_device_from_device_uid(uint64_t a1, uint64_t a2)
 {
-  v8[4] = *MEMORY[0x1E69E9840];
+  v7[4] = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 8) + 96);
-  v8[0] = &unk_1F5967FA8;
-  v8[1] = a2;
-  v8[3] = v8;
-  AMCP::Core::Broker::fetch_first_core_if (&v6, v2, v8);
-  std::__function::__value_func<BOOL ()(std::shared_ptr<AMCP::Core::Core> const&)>::~__value_func[abi:ne200100](v8);
-  if (v6)
+  v7[0] = &unk_1F5967FA8;
+  v7[1] = a2;
+  v7[3] = v7;
+  AMCP::Core::Broker::fetch_first_core_if (&v5, v2, v7);
+  std::__function::__value_func<BOOL ()(std::shared_ptr<AMCP::Core::Core> const&)>::~__value_func[abi:ne200100](v7);
+  if (v5)
   {
-    v3 = *v6;
+    v3 = *v5;
   }
 
   else
@@ -668,12 +2787,11 @@ uint64_t HALS_IOContext_Manager_Graph_Builder_Connection::get_device_from_device
     v3 = 0;
   }
 
-  if (v7)
+  if (v6)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -3538,7 +5656,7 @@ LABEL_220:
   return v6 | v7 | (a2 << 32);
 }
 
-void AMCP::HAL::translate_mcp_value_to_hal_by_type(uint64_t a1@<X0>, unsigned int a2@<W1>, int a3@<W2>, AMCP::HAL *a4@<X8>)
+void AMCP::HAL::translate_mcp_value_to_hal_by_type(uint64_t a1@<X0>, unsigned int a2@<W1>, int a3@<W2>, CFDataRef *a4@<X8>)
 {
   v4 = a4;
   switch(a3)
@@ -3555,8 +5673,8 @@ void AMCP::HAL::translate_mcp_value_to_hal_by_type(uint64_t a1@<X0>, unsigned in
         v33 = 0;
         v34 = 0;
         __p = 0;
-        v125 = 0;
-        v126 = 0;
+        v127 = 0;
+        v128 = 0;
 LABEL_250:
         std::vector<std::byte>::__init_with_size[abi:ne200100]<std::byte*,std::byte*>(&__p, v32, v33, v34);
         goto LABEL_256;
@@ -3575,13 +5693,13 @@ LABEL_250:
       {
         cf[0] = v29;
         v31 = (*(a1 + 32))(4, a1, 0, cf);
-        v125 = 0;
-        v126 = 0;
+        v127 = 0;
+        v128 = 0;
         __p = 0;
         if (v31)
         {
           v32 = *v31;
-          v33 = v31[1];
+          v33 = *(v31 + 8);
           v34 = v33 - *v31;
         }
 
@@ -3595,54 +5713,54 @@ LABEL_250:
         goto LABEL_250;
       }
 
-      *&v123 = AMCP::Implementation::get_type_marker<AMCP::Bag_O_Bytes>();
+      *&v125 = AMCP::Implementation::get_type_marker<AMCP::Bag_O_Bytes>();
       *cf = 0u;
-      v128 = 0u;
-      v129 = 0;
-      (*(a1 + 32))(6, a1, cf, &v123);
-      if (v129)
+      v130 = 0u;
+      v131 = 0;
+      (*(a1 + 32))(6, a1, cf, &v125);
+      if (v131)
       {
-        *&v123 = v29;
-        v106 = v129(4, cf, 0, &v123);
-        v125 = 0;
-        v126 = 0;
+        *&v125 = v29;
+        v107 = v131(4, cf, 0, &v125);
+        v127 = 0;
+        v128 = 0;
         __p = 0;
-        if (v106)
+        if (v107)
         {
-          v107 = *v106;
-          v108 = v106[1];
+          v108 = *v107;
+          v109 = *(v107 + 8);
         }
 
         else
         {
-          v107 = 0;
           v108 = 0;
+          v109 = 0;
         }
 
-        std::vector<std::byte>::__init_with_size[abi:ne200100]<std::byte*,std::byte*>(&__p, v107, v108, v108 - v107);
+        std::vector<std::byte>::__init_with_size[abi:ne200100]<std::byte*,std::byte*>(&__p, v108, v109, v109 - v108);
       }
 
       else
       {
         __p = 0;
-        v125 = 0;
-        v126 = 0;
+        v127 = 0;
+        v128 = 0;
         std::vector<std::byte>::__init_with_size[abi:ne200100]<std::byte*,std::byte*>(&__p, 0, 0, 0);
       }
 
-      if (v129)
+      if (v131)
       {
-        v129(0, cf, 0, 0);
+        v131(0, cf, 0, 0);
       }
 
 LABEL_256:
       v64 = __p;
-      v112 = CFDataCreate(0, __p, v125 - __p);
-      *v4 = v112;
-      if (v112)
+      v113 = CFDataCreate(0, __p, v127 - __p);
+      *v4 = v113;
+      if (v113)
       {
-        v113 = CFGetTypeID(v112);
-        if (v113 != CFDataGetTypeID())
+        v114 = CFGetTypeID(v113);
+        if (v114 != CFDataGetTypeID())
         {
           exception = __cxa_allocate_exception(0x10uLL);
           std::runtime_error::runtime_error(exception, "Could not construct");
@@ -3677,34 +5795,34 @@ LABEL_256:
         goto LABEL_183;
       }
 
-      *&v123 = AMCP::Implementation::get_type_marker<int>();
+      *&v125 = AMCP::Implementation::get_type_marker<int>();
       *cf = 0u;
-      v128 = 0u;
-      v129 = 0;
-      (*(a1 + 32))(6, a1, cf, &v123);
-      if (v129)
+      v130 = 0u;
+      v131 = 0;
+      (*(a1 + 32))(6, a1, cf, &v125);
+      if (v131)
       {
-        *&v123 = type;
-        v85 = v129(4, cf, 0, &v123);
-        if (v129)
+        *&v125 = type;
+        v86 = v131(4, cf, 0, &v125);
+        if (v131)
         {
-          v129(0, cf, 0, 0);
+          v131(0, cf, 0, 0);
         }
 
-        if (v85)
+        if (v86)
         {
 LABEL_183:
           LODWORD(cf[0]) = AMCP::Thing::convert_to<int>(a1);
-          v86 = CFDataCreate(0, cf, 4);
-          *v4 = v86;
-          if (v86)
+          v87 = CFDataCreate(0, cf, 4);
+          *v4 = v87;
+          if (v87)
           {
-            v87 = CFGetTypeID(v86);
-            if (v87 != CFDataGetTypeID())
+            v88 = CFGetTypeID(v87);
+            if (v88 != CFDataGetTypeID())
             {
-              v88 = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(v88, "Could not construct");
-              __cxa_throw(v88, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+              v89 = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(v89, "Could not construct");
+              __cxa_throw(v89, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
             }
           }
 
@@ -3734,92 +5852,97 @@ LABEL_183:
 LABEL_66:
 
         AMCP::HAL::translate_vector_mcp_value_to_hal<unsigned int>(a4, a1);
-        return;
       }
 
-      if (a2 == 21)
+      else
       {
+        if (a2 == 21)
+        {
 LABEL_63:
 
-        AMCP::HAL::translate_simple_mcp_value_to_hal<std::tuple<unsigned int,unsigned int>>(a4, a1);
-        return;
-      }
+          AMCP::HAL::translate_simple_mcp_value_to_hal<std::tuple<unsigned int,unsigned int>>(a4, a1);
+          return;
+        }
 
 LABEL_61:
-      if (a2 < 0xD)
-      {
-        goto LABEL_247;
-      }
+        if (a2 < 0xD)
+        {
+          goto LABEL_247;
+        }
 
-      if (a2 == 13)
-      {
-        goto LABEL_63;
-      }
+        if (a2 == 13)
+        {
+          goto LABEL_63;
+        }
 
 LABEL_69:
-      if (!AMCP::Thing::can_convert_to<applesauce::CF::StringRef>(a1))
-      {
-        goto LABEL_247;
-      }
-
-      AMCP::Thing::convert_to<applesauce::CF::StringRef>(&v123, a1);
-      v35 = v123;
-      if (!v123)
-      {
-        v114 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v114, "Could not construct");
-        __cxa_throw(v114, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-      }
-
-      applesauce::CF::convert_to<std::string,0>(cf, v123);
-      if ((SBYTE7(v128) & 0x80u) == 0)
-      {
-        v36 = cf;
-      }
-
-      else
-      {
-        v36 = cf[0];
-      }
-
-      v37 = strlen(v36);
-      std::vector<char>::vector[abi:ne200100](&__p, v37 + 1);
-      if ((SBYTE7(v128) & 0x80u) == 0)
-      {
-        v38 = cf;
-      }
-
-      else
-      {
-        v38 = cf[0];
-      }
-
-      memcpy(__p, v38, v125 - __p);
-      v39 = CFDataCreate(0, __p, v125 - __p);
-      *v4 = v39;
-      if (v39)
-      {
-        v40 = CFGetTypeID(v39);
-        if (v40 != CFDataGetTypeID())
+        if (!AMCP::Thing::can_convert_to<applesauce::CF::StringRef>(a1))
         {
-          v116 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v116, "Could not construct");
-          __cxa_throw(v116, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+          goto LABEL_247;
         }
+
+        AMCP::Thing::convert_to<applesauce::CF::StringRef>(&v125, a1);
+        v35 = v125;
+        if (!v125)
+        {
+          v115 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v115, "Could not construct");
+          __cxa_throw(v115, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+        }
+
+        applesauce::CF::convert_to<std::string,0>(cf, v125);
+        if ((SBYTE7(v130) & 0x80u) == 0)
+        {
+          v36 = cf;
+        }
+
+        else
+        {
+          v36 = cf[0];
+        }
+
+        v37 = strlen(v36);
+        LOBYTE(v124) = 0;
+        std::vector<char>::vector[abi:ne200100](&__p, v37 + 1, &v124);
+        if ((SBYTE7(v130) & 0x80u) == 0)
+        {
+          v38 = cf;
+        }
+
+        else
+        {
+          v38 = cf[0];
+        }
+
+        memcpy(__p, v38, v127 - __p);
+        v39 = CFDataCreate(0, __p, v127 - __p);
+        *v4 = v39;
+        if (v39)
+        {
+          v40 = CFGetTypeID(v39);
+          if (v40 != CFDataGetTypeID())
+          {
+            v117 = __cxa_allocate_exception(0x10uLL);
+            std::runtime_error::runtime_error(v117, "Could not construct");
+            __cxa_throw(v117, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+          }
+        }
+
+        if (__p)
+        {
+          v127 = __p;
+          operator delete(__p);
+        }
+
+        if (SBYTE7(v130) < 0)
+        {
+          operator delete(cf[0]);
+        }
+
+        CFRelease(v35);
       }
 
-      if (__p)
-      {
-        v125 = __p;
-        operator delete(__p);
-      }
-
-      if (SBYTE7(v128) < 0)
-      {
-        operator delete(cf[0]);
-      }
-
-      goto LABEL_178;
+      return;
     case 5:
       goto LABEL_69;
     case 6:
@@ -3862,34 +5985,34 @@ LABEL_69:
         goto LABEL_196;
       }
 
-      *&v123 = AMCP::Implementation::get_type_marker<float>();
+      *&v125 = AMCP::Implementation::get_type_marker<float>();
       *cf = 0u;
-      v128 = 0u;
-      v129 = 0;
-      (*(a1 + 32))(6, a1, cf, &v123);
-      if (v129)
+      v130 = 0u;
+      v131 = 0;
+      (*(a1 + 32))(6, a1, cf, &v125);
+      if (v131)
       {
-        *&v123 = v27;
-        v90 = v129(4, cf, 0, &v123);
-        if (v129)
+        *&v125 = v27;
+        v91 = v131(4, cf, 0, &v125);
+        if (v131)
         {
-          v129(0, cf, 0, 0);
+          v131(0, cf, 0, 0);
         }
 
-        if (v90)
+        if (v91)
         {
 LABEL_196:
           LODWORD(cf[0]) = AMCP::Thing::convert_to<float>(a1);
-          v91 = CFDataCreate(0, cf, 4);
-          *v4 = v91;
-          if (v91)
+          v92 = CFDataCreate(0, cf, 4);
+          *v4 = v92;
+          if (v92)
           {
-            v92 = CFGetTypeID(v91);
-            if (v92 != CFDataGetTypeID())
+            v93 = CFGetTypeID(v92);
+            if (v93 != CFDataGetTypeID())
             {
-              v93 = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(v93, "Could not construct");
-              __cxa_throw(v93, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+              v94 = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(v94, "Could not construct");
+              __cxa_throw(v94, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
             }
           }
 
@@ -3924,34 +6047,34 @@ LABEL_196:
         goto LABEL_203;
       }
 
-      *&v123 = AMCP::Implementation::get_type_marker<double>();
+      *&v125 = AMCP::Implementation::get_type_marker<double>();
       *cf = 0u;
-      v128 = 0u;
-      v129 = 0;
-      (*(a1 + 32))(6, a1, cf, &v123);
-      if (v129)
+      v130 = 0u;
+      v131 = 0;
+      (*(a1 + 32))(6, a1, cf, &v125);
+      if (v131)
       {
-        *&v123 = v71;
-        v94 = v129(4, cf, 0, &v123);
-        if (v129)
+        *&v125 = v71;
+        v95 = v131(4, cf, 0, &v125);
+        if (v131)
         {
-          v129(0, cf, 0, 0);
+          v131(0, cf, 0, 0);
         }
 
-        if (v94)
+        if (v95)
         {
 LABEL_203:
           cf[0] = COERCE_CFTYPEREF(AMCP::Thing::convert_to<double>(a1));
-          v95 = CFDataCreate(0, cf, 8);
-          *v4 = v95;
-          if (v95)
+          v96 = CFDataCreate(0, cf, 8);
+          *v4 = v96;
+          if (v96)
           {
-            v96 = CFGetTypeID(v95);
-            if (v96 != CFDataGetTypeID())
+            v97 = CFGetTypeID(v96);
+            if (v97 != CFDataGetTypeID())
             {
-              v97 = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(v97, "Could not construct");
-              __cxa_throw(v97, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+              v98 = __cxa_allocate_exception(0x10uLL);
+              std::runtime_error::runtime_error(v98, "Could not construct");
+              __cxa_throw(v98, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
             }
           }
 
@@ -3973,115 +6096,117 @@ LABEL_203:
         return;
       }
 
-      if (a2 == 25)
+      if (a2 != 25)
       {
-        if (!AMCP::Thing::can_convert_to<CA::ValueRangeList>(a1))
+LABEL_138:
+        if (!*(a1 + 32))
         {
           goto LABEL_247;
         }
 
-        AMCP::Thing::convert_to<CA::ValueRangeList>(cf, a1);
-        v64 = cf[0];
-        v63 = cf[1];
-        std::vector<double>::vector[abi:ne200100](&__p, ((cf[1] - cf[0]) >> 3) & 0xFFFFFFFE);
-        v65 = __p;
-        if (v64 != v63)
+        v69 = AMCP::Implementation::get_type_marker<AudioStreamBasicDescription>();
+        v70 = *(a1 + 32);
+        __p = 0;
+        if (v70)
         {
-          v66 = __p;
-          v67 = v64;
-          do
+          v70(3, a1, 0, &__p);
+          v70 = __p;
+        }
+
+        if (v70 == v69)
+        {
+          cf[0] = v69;
+          if (!(*(a1 + 32))(4, a1, 0, cf))
           {
-            *v66 = *v67;
-            v66[1] = v67[1];
-            v66 += 2;
-            v67 += 2;
+            goto LABEL_247;
           }
 
-          while (v67 != v63);
+          goto LABEL_168;
         }
 
-        v68 = CFDataCreate(0, v65, v125 - v65);
-        applesauce::CF::DataRef::from_create(v4, v68);
-        if (__p)
+        *&v125 = AMCP::Implementation::get_type_marker<AudioStreamBasicDescription>();
+        *cf = 0u;
+        v130 = 0u;
+        v131 = 0;
+        (*(a1 + 32))(6, a1, cf, &v125);
+        if (v131)
         {
-          v125 = __p;
-          operator delete(__p);
+          *&v125 = v69;
+          v79 = v131(4, cf, 0, &v125);
+          if (v131)
+          {
+            v131(0, cf, 0, 0);
+          }
+
+          if (v79)
+          {
+LABEL_168:
+            v131 = 0;
+            *cf = 0u;
+            v130 = 0u;
+            AMCP::Thing::convert_to<AudioStreamBasicDescription>(cf, a1);
+            v80 = CFDataCreate(0, cf, 40);
+            *v4 = v80;
+            if (v80)
+            {
+              v81 = CFGetTypeID(v80);
+              if (v81 != CFDataGetTypeID())
+              {
+                v82 = __cxa_allocate_exception(0x10uLL);
+                std::runtime_error::runtime_error(v82, "Could not construct");
+                __cxa_throw(v82, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+              }
+            }
+
+            return;
+          }
         }
 
-LABEL_258:
-        if (v64)
-        {
-          operator delete(v64);
-        }
-
+LABEL_247:
+        *v4 = 0;
         return;
       }
 
-LABEL_138:
-      if (!*(a1 + 32))
+      if (!AMCP::Thing::can_convert_to<CA::ValueRangeList>(a1))
       {
         goto LABEL_247;
       }
 
-      v69 = AMCP::Implementation::get_type_marker<AudioStreamBasicDescription>();
-      v70 = *(a1 + 32);
-      __p = 0;
-      if (v70)
+      AMCP::Thing::convert_to<CA::ValueRangeList>(cf, a1);
+      v64 = cf[0];
+      v63 = cf[1];
+      std::vector<double>::vector[abi:ne200100](&__p, ((cf[1] - cf[0]) >> 3) & 0xFFFFFFFE);
+      v65 = __p;
+      if (v64 != v63)
       {
-        v70(3, a1, 0, &__p);
-        v70 = __p;
-      }
-
-      if (v70 == v69)
-      {
-        cf[0] = v69;
-        if (!(*(a1 + 32))(4, a1, 0, cf))
+        v66 = __p;
+        v67 = v64;
+        do
         {
-          goto LABEL_247;
+          *v66 = *v67;
+          v66[1] = v67[1];
+          v66 += 2;
+          v67 += 2;
         }
 
-        goto LABEL_168;
+        while (v67 != v63);
       }
 
-      *&v123 = AMCP::Implementation::get_type_marker<AudioStreamBasicDescription>();
-      *cf = 0u;
-      v128 = 0u;
-      v129 = 0;
-      (*(a1 + 32))(6, a1, cf, &v123);
-      if (v129)
+      v68 = CFDataCreate(0, v65, v127 - v65);
+      applesauce::CF::DataRef::from_create(v4, v68);
+      if (__p)
       {
-        *&v123 = v69;
-        v79 = v129(4, cf, 0, &v123);
-        if (v129)
-        {
-          v129(0, cf, 0, 0);
-        }
-
-        if (v79)
-        {
-LABEL_168:
-          v129 = 0;
-          *cf = 0u;
-          v128 = 0u;
-          AMCP::Thing::convert_to<AudioStreamBasicDescription>(cf, a1);
-          v80 = CFDataCreate(0, cf, 40);
-          *v4 = v80;
-          if (v80)
-          {
-            v81 = CFGetTypeID(v80);
-            if (v81 != CFDataGetTypeID())
-            {
-              v82 = __cxa_allocate_exception(0x10uLL);
-              std::runtime_error::runtime_error(v82, "Could not construct");
-              __cxa_throw(v82, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-            }
-          }
-
-          return;
-        }
+        v127 = __p;
+        operator delete(__p);
       }
 
-      goto LABEL_247;
+LABEL_258:
+      if (v64)
+      {
+        operator delete(v64);
+      }
+
+      return;
     case 11:
       goto LABEL_66;
     case 12:
@@ -4094,26 +6219,26 @@ LABEL_168:
 
       AMCP::Thing::convert_to<std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>>(&__p, a1);
       v41 = __p;
-      v119 = v125;
-      if (__p != v125)
+      v120 = v127;
+      if (__p != v127)
       {
-        v118 = v4;
+        v119 = v4;
         v9 = 0;
         v42 = 0;
         while (1)
         {
           v43 = *v41;
-          v120 = v41[1];
-          if (*v41 != v120)
+          v121 = v41[1];
+          if (*v41 != v121)
           {
             break;
           }
 
 LABEL_126:
           v41 += 8;
-          if (v41 == v119)
+          if (v41 == v120)
           {
-            v4 = v118;
+            v4 = v119;
             goto LABEL_222;
           }
         }
@@ -4167,7 +6292,7 @@ LABEL_212:
                       std::terminate();
                     }
 
-                    v122 = v43;
+                    v123 = v43;
                     if (v53 != v46)
                     {
                       v55 = 0;
@@ -4175,7 +6300,7 @@ LABEL_212:
                       {
                         v56 = *(v41 + 3);
                         *cf = *(v41 + 2);
-                        v128 = v56;
+                        v130 = v56;
                         v57 = v42 - v9;
                         v58 = 0xCCCCCCCCCCCCCCCDLL * ((v42 - v9) >> 3);
                         v59 = v58 + 1;
@@ -4207,7 +6332,7 @@ LABEL_212:
                         v61 = 8 * ((v42 - v9) >> 3);
                         *v61 = v46[v55];
                         *(v61 + 8) = *cf;
-                        *(v61 + 24) = v128;
+                        *(v61 + 24) = v130;
                         v42 = v61 + 40;
                         v62 = 40 * v58 + 40 * (v57 / -40);
                         memcpy((v61 + 40 * (v57 / -40)), v9, v57);
@@ -4227,8 +6352,8 @@ LABEL_212:
                     }
 
 LABEL_125:
-                    v43 = v122 + 2;
-                    if (v122 + 2 == v120)
+                    v43 = v123 + 2;
+                    if (v123 + 2 == v121)
                     {
                       goto LABEL_126;
                     }
@@ -4267,8 +6392,8 @@ LABEL_125:
       v9 = 0;
       v42 = 0;
 LABEL_222:
-      v105 = CFDataCreate(0, v9, v42 - v9);
-      applesauce::CF::DataRef::from_create(v4, v105);
+      v106 = CFDataCreate(0, v9, v42 - v9);
+      applesauce::CF::DataRef::from_create(v4, v106);
 LABEL_223:
       if (v9)
       {
@@ -4286,8 +6411,8 @@ LABEL_223:
 
       AMCP::Thing::convert_to<std::vector<std::tuple<CA::ValueRangeList,CA::StreamDescription>>>(&__p, a1);
       v8 = __p;
-      v121 = v125;
-      if (__p == v125)
+      v122 = v127;
+      if (__p == v127)
       {
         v9 = 0;
         v22 = 0;
@@ -4309,7 +6434,7 @@ LABEL_223:
             {
               v14 = *(v8 + 3);
               *cf = *(v8 + 2);
-              v128 = v14;
+              v130 = v14;
               if (*v11 == v11[1])
               {
                 v15 = *v11;
@@ -4320,7 +6445,7 @@ LABEL_223:
                 v15 = 0.0;
               }
 
-              v123 = *v11;
+              v125 = *v11;
               v16 = 0x6DB6DB6DB6DB6DB7 * ((v10 - v9) >> 3);
               v17 = v16 + 1;
               if ((v16 + 1) > 0x492492492492492)
@@ -4351,8 +6476,8 @@ LABEL_223:
               v19 = 56 * v16;
               *v19 = v15;
               *(v19 + 8) = *cf;
-              *(v19 + 24) = v128;
-              *(v19 + 40) = v123;
+              *(v19 + 24) = v130;
+              *(v19 + 40) = v125;
               v10 = (56 * v16 + 56);
               v20 = v13 - v9;
               v21 = (v19 + 56 * ((v13 - v9) / -56));
@@ -4373,37 +6498,38 @@ LABEL_223:
           v8 += 8;
         }
 
-        while (v8 != v121);
+        while (v8 != v122);
         v22 = v10;
       }
 
-      v100 = 126 - 2 * __clz(0x6DB6DB6DB6DB6DB7 * ((v10 - v9) >> 3));
+      v101 = 126 - 2 * __clz(0x6DB6DB6DB6DB6DB7 * ((v10 - v9) >> 3));
       if (v10 == v9)
       {
-        v101 = 0;
+        v102 = 0;
       }
 
       else
       {
-        v101 = v100;
+        v102 = v101;
       }
 
-      std::__introsort<std::_ClassicAlgPolicy,AMCP::HAL::translate_mcp_value_to_hal_by_type(AMCP::Thing const&,AMCP::Property_Type_Code,AMCP::HAL::HAL_Property_Type_Code)::$_0 &,AudioStreamRangedDescription *,false>(v9, v10, v101, 1);
-      v102 = CFDataCreate(0, v9, v22 - v9);
-      *v4 = v102;
-      if (v102)
+      std::__introsort<std::_ClassicAlgPolicy,AMCP::HAL::translate_mcp_value_to_hal_by_type(AMCP::Thing const&,AMCP::Property_Type_Code,AMCP::HAL::HAL_Property_Type_Code)::$_0 &,AudioStreamRangedDescription *,false>(v9, v10, v102, 1);
+      v103 = CFDataCreate(0, v9, v22 - v9);
+      *v4 = v103;
+      if (v103)
       {
-        v103 = CFGetTypeID(v102);
-        if (v103 != CFDataGetTypeID())
+        v104 = CFGetTypeID(v103);
+        if (v104 != CFDataGetTypeID())
         {
-          v104 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v104, "Could not construct");
-          __cxa_throw(v104, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+          v105 = __cxa_allocate_exception(0x10uLL);
+          std::runtime_error::runtime_error(v105, "Could not construct");
+          __cxa_throw(v105, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
         }
       }
 
       goto LABEL_223;
     case 15:
+      v124 = 0;
       if (!*(a1 + 32))
       {
         goto LABEL_235;
@@ -4425,162 +6551,175 @@ LABEL_223:
         {
           goto LABEL_206;
         }
-
-LABEL_190:
-        AMCP::Thing::convert_to<applesauce::CF::BooleanRef>(cf, a1);
-        v35 = cf[0];
-        if (cf[0])
-        {
-          CFRetain(cf[0]);
-          CFRelease(v35);
-        }
-
-        goto LABEL_243;
-      }
-
-      *&v123 = AMCP::Implementation::get_type_marker<applesauce::CF::BooleanRef>();
-      *cf = 0u;
-      v128 = 0u;
-      v129 = 0;
-      (*(a1 + 32))(6, a1, cf, &v123);
-      if (v129)
-      {
-        *&v123 = v25;
-        v89 = v129(4, cf, 0, &v123);
-        if (v129)
-        {
-          v129(0, cf, 0, 0);
-        }
-
-        if (v89)
-        {
-          goto LABEL_190;
-        }
-      }
-
-LABEL_206:
-      if (!*(a1 + 32))
-      {
-        goto LABEL_235;
-      }
-
-      v98 = AMCP::Implementation::get_type_marker<applesauce::CF::NumberRef>();
-      v99 = *(a1 + 32);
-      __p = 0;
-      if (v99)
-      {
-        v99(3, a1, 0, &__p);
-        v99 = __p;
-      }
-
-      if (v99 == v98)
-      {
-        cf[0] = v98;
-        if (!(*(a1 + 32))(4, a1, 0, cf))
-        {
-          goto LABEL_235;
-        }
-
-LABEL_234:
-        AMCP::Thing::convert_to<applesauce::CF::NumberRef>(cf, a1);
-        applesauce::CF::TypeRef::from_get(&__p, cf[0]);
-        v35 = __p;
-        __p = 0;
-        applesauce::CF::TypeRef::~TypeRef(&__p);
-        applesauce::CF::NumberRef::~NumberRef(cf);
-        goto LABEL_243;
-      }
-
-      *&v123 = AMCP::Implementation::get_type_marker<applesauce::CF::NumberRef>();
-      *cf = 0u;
-      v128 = 0u;
-      v129 = 0;
-      (*(a1 + 32))(6, a1, cf, &v123);
-      if (v129)
-      {
-        *&v123 = v98;
-        v109 = v129(4, cf, 0, &v123);
-        if (v129)
-        {
-          v129(0, cf, 0, 0);
-        }
-
-        if (v109)
-        {
-          goto LABEL_234;
-        }
-      }
-
-LABEL_235:
-      if (AMCP::Thing::can_convert_to<applesauce::CF::StringRef>(a1))
-      {
-        AMCP::Thing::convert_to<applesauce::CF::StringRef>(cf, a1);
-        applesauce::CF::TypeRef::from_get(&__p, cf[0]);
-        v35 = __p;
-        __p = 0;
-        applesauce::CF::TypeRef::~TypeRef(&__p);
-        applesauce::CF::StringRef::~StringRef(cf);
-      }
-
-      else if (AMCP::Thing::can_convert_to<applesauce::CF::DataRef>(a1))
-      {
-        AMCP::Thing::convert_to<applesauce::CF::DataRef>(cf, a1);
-        applesauce::CF::TypeRef::from_get(&__p, cf[0]);
-        v35 = __p;
-        __p = 0;
-        applesauce::CF::TypeRef::~TypeRef(&__p);
-        applesauce::CF::DataRef::~DataRef(cf);
-      }
-
-      else if (AMCP::Thing::can_convert_to<applesauce::CF::ArrayRef>(a1))
-      {
-        AMCP::Thing::convert_to<applesauce::CF::ArrayRef>(cf, a1);
-        applesauce::CF::TypeRef::from_get(&__p, cf[0]);
-        v35 = __p;
-        __p = 0;
-        applesauce::CF::TypeRef::~TypeRef(&__p);
-        applesauce::CF::ArrayRef::~ArrayRef(cf);
       }
 
       else
       {
-        if (!AMCP::Thing::can_convert_to<applesauce::CF::DictionaryRef>(a1))
+        *&v125 = AMCP::Implementation::get_type_marker<applesauce::CF::BooleanRef>();
+        *cf = 0u;
+        v130 = 0u;
+        v131 = 0;
+        (*(a1 + 32))(6, a1, cf, &v125);
+        if (!v131)
         {
-          goto LABEL_247;
+          goto LABEL_206;
         }
 
-        AMCP::Thing::convert_to<applesauce::CF::DictionaryRef>(cf, a1);
-        applesauce::CF::TypeRef::from_get(&__p, cf[0]);
-        v35 = __p;
-        __p = 0;
-        applesauce::CF::TypeRef::~TypeRef(&__p);
-        applesauce::CF::DictionaryRef::~DictionaryRef(cf);
-      }
+        *&v125 = v25;
+        v90 = v131(4, cf, 0, &v125);
+        if (v131)
+        {
+          v131(0, cf, 0, 0);
+        }
+
+        if (!v90)
+        {
+LABEL_206:
+          if (!*(a1 + 32))
+          {
+            goto LABEL_235;
+          }
+
+          v99 = AMCP::Implementation::get_type_marker<applesauce::CF::NumberRef>();
+          v100 = *(a1 + 32);
+          __p = 0;
+          if (v100)
+          {
+            v100(3, a1, 0, &__p);
+            v100 = __p;
+          }
+
+          if (v100 == v99)
+          {
+            cf[0] = v99;
+            if (!(*(a1 + 32))(4, a1, 0, cf))
+            {
+              goto LABEL_235;
+            }
+          }
+
+          else
+          {
+            *&v125 = AMCP::Implementation::get_type_marker<applesauce::CF::NumberRef>();
+            *cf = 0u;
+            v130 = 0u;
+            v131 = 0;
+            (*(a1 + 32))(6, a1, cf, &v125);
+            if (!v131)
+            {
+              goto LABEL_235;
+            }
+
+            *&v125 = v99;
+            v110 = v131(4, cf, 0, &v125);
+            if (v131)
+            {
+              v131(0, cf, 0, 0);
+            }
+
+            if (!v110)
+            {
+LABEL_235:
+              if (AMCP::Thing::can_convert_to<applesauce::CF::StringRef>(a1))
+              {
+                AMCP::Thing::convert_to<applesauce::CF::StringRef>(cf, a1);
+                applesauce::CF::TypeRef::from_get(&__p, cf[0]);
+                v84 = __p;
+                v124 = __p;
+                __p = 0;
+                applesauce::CF::TypeRef::~TypeRef(&__p);
+                applesauce::CF::StringRef::~StringRef(cf);
+              }
+
+              else if (AMCP::Thing::can_convert_to<applesauce::CF::DataRef>(a1))
+              {
+                AMCP::Thing::convert_to<applesauce::CF::DataRef>(cf, a1);
+                applesauce::CF::TypeRef::from_get(&__p, cf[0]);
+                v84 = __p;
+                v124 = __p;
+                __p = 0;
+                applesauce::CF::TypeRef::~TypeRef(&__p);
+                applesauce::CF::DataRef::~DataRef(cf);
+              }
+
+              else if (AMCP::Thing::can_convert_to<applesauce::CF::ArrayRef>(a1))
+              {
+                AMCP::Thing::convert_to<applesauce::CF::ArrayRef>(cf, a1);
+                applesauce::CF::TypeRef::from_get(&__p, cf[0]);
+                v84 = __p;
+                v124 = __p;
+                __p = 0;
+                applesauce::CF::TypeRef::~TypeRef(&__p);
+                applesauce::CF::ArrayRef::~ArrayRef(cf);
+              }
+
+              else
+              {
+                if (!AMCP::Thing::can_convert_to<applesauce::CF::DictionaryRef>(a1))
+                {
+                  goto LABEL_247;
+                }
+
+                AMCP::Thing::convert_to<applesauce::CF::DictionaryRef>(cf, a1);
+                applesauce::CF::TypeRef::from_get(&__p, cf[0]);
+                v84 = __p;
+                v124 = __p;
+                __p = 0;
+                applesauce::CF::TypeRef::~TypeRef(&__p);
+                applesauce::CF::DictionaryRef::~DictionaryRef(cf);
+              }
 
 LABEL_243:
-      if (!v35)
-      {
-LABEL_247:
-        *v4 = 0;
-        return;
-      }
+              if (v84)
+              {
+                Data = CFPropertyListCreateData(0, v84, kCFPropertyListBinaryFormat_v1_0, 0, 0);
+                *v4 = Data;
+                if (Data)
+                {
+                  v112 = CFGetTypeID(Data);
+                  if (v112 != CFDataGetTypeID())
+                  {
+                    v116 = __cxa_allocate_exception(0x10uLL);
+                    std::runtime_error::runtime_error(v116, "Could not construct");
+                    __cxa_throw(v116, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+                  }
+                }
 
-      Data = CFPropertyListCreateData(0, v35, kCFPropertyListBinaryFormat_v1_0, 0, 0);
-      *v4 = Data;
-      if (Data)
-      {
-        v111 = CFGetTypeID(Data);
-        if (v111 != CFDataGetTypeID())
-        {
-          v115 = __cxa_allocate_exception(0x10uLL);
-          std::runtime_error::runtime_error(v115, "Could not construct");
-          __cxa_throw(v115, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
+LABEL_178:
+                CFRelease(v84);
+                return;
+              }
+
+              goto LABEL_247;
+            }
+          }
+
+          AMCP::Thing::convert_to<applesauce::CF::NumberRef>(cf, a1);
+          applesauce::CF::TypeRef::from_get(&__p, cf[0]);
+          v84 = __p;
+          v124 = __p;
+          __p = 0;
+          applesauce::CF::TypeRef::~TypeRef(&__p);
+          applesauce::CF::NumberRef::~NumberRef(cf);
+          goto LABEL_243;
         }
       }
 
-LABEL_178:
-      CFRelease(v35);
-      return;
+      AMCP::Thing::convert_to<applesauce::CF::BooleanRef>(cf, a1);
+      v84 = cf[0];
+      if (cf[0])
+      {
+        CFRetain(cf[0]);
+        v124 = v84;
+        CFRelease(v84);
+      }
+
+      else
+      {
+        v124 = 0;
+      }
+
+      goto LABEL_243;
     case 16:
       if (!*(a1 + 32))
       {
@@ -4607,21 +6746,21 @@ LABEL_178:
 
       else
       {
-        *&v123 = AMCP::Implementation::get_type_marker<applesauce::CF::URLRef>();
+        *&v125 = AMCP::Implementation::get_type_marker<applesauce::CF::URLRef>();
         *cf = 0u;
-        v128 = 0u;
-        v129 = 0;
-        (*(a1 + 32))(6, a1, cf, &v123);
-        if (!v129)
+        v130 = 0u;
+        v131 = 0;
+        (*(a1 + 32))(6, a1, cf, &v125);
+        if (!v131)
         {
           goto LABEL_247;
         }
 
-        *&v123 = v6;
-        v83 = v129(4, cf, 0, &v123);
-        if (v129)
+        *&v125 = v6;
+        v83 = v131(4, cf, 0, &v125);
+        if (v131)
         {
-          v129(0, cf, 0, 0);
+          v131(0, cf, 0, 0);
         }
 
         if (!v83)
@@ -4631,16 +6770,16 @@ LABEL_178:
       }
 
       AMCP::Thing::convert_to<applesauce::CF::URLRef>(cf, a1);
-      v35 = cf[0];
-      v84 = CFURLGetString(cf[0]);
-      applesauce::CF::StringRef::from_get(&__p, v84);
+      v84 = cf[0];
+      v85 = CFURLGetString(cf[0]);
+      applesauce::CF::StringRef::from_get(&__p, v85);
       AMCP::HAL::translate_cf_string_mcp_value_to_hal(v4, &__p);
       if (__p)
       {
         CFRelease(__p);
       }
 
-      if (!v35)
+      if (!v84)
       {
         return;
       }
@@ -4680,21 +6819,21 @@ LABEL_151:
 
       else
       {
-        *&v123 = AMCP::Implementation::get_type_marker<CA::ChannelLayout>();
+        *&v125 = AMCP::Implementation::get_type_marker<CA::ChannelLayout>();
         *cf = 0u;
-        v128 = 0u;
-        v129 = 0;
-        (*(a1 + 32))(6, a1, cf, &v123);
-        if (!v129)
+        v130 = 0u;
+        v131 = 0;
+        (*(a1 + 32))(6, a1, cf, &v125);
+        if (!v131)
         {
           goto LABEL_247;
         }
 
-        *&v123 = v73;
-        v75 = v129(4, cf, 0, &v123);
-        if (v129)
+        *&v125 = v73;
+        v75 = v131(4, cf, 0, &v125);
+        if (v131)
         {
-          v129(0, cf, 0, 0);
+          v131(0, cf, 0, 0);
         }
 
         if (!v75)
@@ -5044,9 +7183,9 @@ BOOL AMCP::Thing::can_convert_to<applesauce::CF::StringRef>(uint64_t a1)
   return v4;
 }
 
-void sub_1DE356FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE356FB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -5056,11 +7195,12 @@ void AMCP::HAL::translate_cf_string_mcp_value_to_hal(AMCP::HAL *this, CFStringRe
   if (*a2)
   {
     Length = CFStringGetLength(*a2);
-    std::vector<unsigned short>::vector[abi:ne200100](&__p, Length);
-    v10.length = (v9 - __p) >> 1;
-    v10.location = 0;
-    CFStringGetCharacters(*a2, v10, __p);
-    v5 = CFDataCreate(0, __p, v9 - __p);
+    v8 = 0;
+    std::vector<unsigned short>::vector[abi:ne200100](&__p, Length, &v8);
+    v11.length = (v10 - __p) >> 1;
+    v11.location = 0;
+    CFStringGetCharacters(*a2, v11, __p);
+    v5 = CFDataCreate(0, __p, v10 - __p);
     *this = v5;
     if (v5)
     {
@@ -5075,7 +7215,7 @@ void AMCP::HAL::translate_cf_string_mcp_value_to_hal(AMCP::HAL *this, CFStringRe
 
     if (__p)
     {
-      v9 = __p;
+      v10 = __p;
       operator delete(__p);
     }
   }
@@ -5139,24 +7279,24 @@ BOOL AMCP::Thing::can_convert_to<CA::ValueRangeList>(uint64_t a1)
   return v4;
 }
 
-void sub_1DE357208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE357208(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
 
-void *std::vector<double>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<double>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<long>::__vallocate[abi:ne200100](result, a2);
+    std::vector<long>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
 void sub_1DE357280(_Unwind_Exception *exception_object)
@@ -5293,29 +7433,29 @@ BOOL AMCP::Thing::can_convert_to<std::vector<std::tuple<CA::ValueRangeList,CA::S
   return v4;
 }
 
-void sub_1DE357568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE357568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,AMCP::HAL::translate_mcp_value_to_hal_by_type(AMCP::Thing const&,AMCP::Property_Type_Code,AMCP::HAL::HAL_Property_Type_Code)::$_0 &,AudioStreamRangedDescription *,false>(CAStreamRangedDescription *a1, AudioStreamRangedDescription *a2, const AudioStreamRangedDescription *a3, char a4)
+void std::__introsort<std::_ClassicAlgPolicy,AMCP::HAL::translate_mcp_value_to_hal_by_type(AMCP::Thing const&,AMCP::Property_Type_Code,AMCP::HAL::HAL_Property_Type_Code)::$_0 &,AudioStreamRangedDescription *,false>(unint64_t result, CAStreamRangedDescription *a2, const AudioStreamRangedDescription *a3, char a4)
 {
   v4 = a3;
   while (2)
   {
-    p_mSampleRate = &a2[-1].mFormat.mSampleRate;
-    v428 = &a2[-2];
-    v8 = &a2[-3].mFormat.mSampleRate;
-    v9 = a1;
+    v7 = (a2 - 56);
+    v428 = (a2 - 112);
+    v8 = (a2 - 168);
+    v9 = result;
     while (1)
     {
       while (1)
       {
         while (1)
         {
-          a1 = v9;
+          result = v9;
           v10 = a2 - v9;
           v11 = 0x6DB6DB6DB6DB6DB7 * (v10 >> 3);
           v12 = v11 - 2;
@@ -5324,8 +7464,8 @@ void std::__introsort<std::_ClassicAlgPolicy,AMCP::HAL::translate_mcp_value_to_h
             switch(v11)
             {
               case 3:
-                v305 = CAStreamRangedDescription::Sorter((a1 + 56), a1, a3);
-                v307 = CAStreamRangedDescription::Sorter(&a2[-1], a1 + 1, v306);
+                v305 = CAStreamRangedDescription::Sorter((result + 56), result, a3);
+                v307 = CAStreamRangedDescription::Sorter((a2 - 56), (result + 56), v306);
                 if (v305)
                 {
                   if (v307)
@@ -5333,50 +7473,50 @@ void std::__introsort<std::_ClassicAlgPolicy,AMCP::HAL::translate_mcp_value_to_h
                     goto LABEL_108;
                   }
 
-                  v416 = *a1;
-                  v417 = *(a1 + 1);
-                  v418 = *(a1 + 2);
-                  v432.mSampleRateRange.mMaximum = *(a1 + 6);
+                  v416 = *result;
+                  v417 = *(result + 16);
+                  v418 = *(result + 32);
+                  v432.mSampleRateRange.mMaximum = *(result + 48);
                   *&v432.mFormat.mBytesPerPacket = v417;
                   *&v432.mFormat.mBitsPerChannel = v418;
                   *&v432.mFormat.mSampleRate = v416;
-                  v419 = *(a1 + 72);
-                  *a1 = *(a1 + 56);
-                  *(a1 + 1) = v419;
-                  *(a1 + 2) = *(a1 + 88);
-                  *(a1 + 6) = *(a1 + 13);
+                  v419 = *(result + 72);
+                  *result = *(result + 56);
+                  *(result + 16) = v419;
+                  *(result + 32) = *(result + 88);
+                  *(result + 48) = *(result + 104);
                   v420 = *&v432.mFormat.mSampleRate;
                   v421 = *&v432.mFormat.mBytesPerPacket;
                   v422 = *&v432.mFormat.mBitsPerChannel;
-                  *(a1 + 13) = *&v432.mSampleRateRange.mMaximum;
-                  *(a1 + 88) = v422;
-                  *(a1 + 72) = v421;
-                  *(a1 + 56) = v420;
-                  if (!CAStreamRangedDescription::Sorter(&a2[-1], a1 + 1, v298))
+                  *(result + 104) = v432.mSampleRateRange.mMaximum;
+                  *(result + 88) = v422;
+                  *(result + 72) = v421;
+                  *(result + 56) = v420;
+                  if (!CAStreamRangedDescription::Sorter((a2 - 56), (result + 56), v298))
                   {
                     return;
                   }
 
-                  v314 = *(a1 + 56);
-                  v315 = *(a1 + 72);
+                  v314 = *(result + 56);
+                  v315 = *(result + 72);
                   *&v432.mFormat.mSampleRate = v314;
                   *&v432.mFormat.mBytesPerPacket = v315;
-                  *&v432.mFormat.mBitsPerChannel = *(a1 + 88);
+                  *&v432.mFormat.mBitsPerChannel = *(result + 88);
                   v423 = *&v432.mFormat.mBitsPerChannel;
-                  v432.mSampleRateRange.mMaximum = *(a1 + 13);
+                  v432.mSampleRateRange.mMaximum = *(result + 104);
                   mMaximum = v432.mSampleRateRange.mMaximum;
-                  v425 = a2[-1].mSampleRateRange.mMaximum;
-                  v427 = *&a2[-1].mFormat.mBytesPerPacket;
-                  v426 = *&a2[-1].mFormat.mBitsPerChannel;
-                  *(a1 + 56) = *p_mSampleRate;
-                  *(a1 + 72) = v427;
-                  *(a1 + 88) = v426;
-                  *(a1 + 13) = v425;
-                  *&a2[-1].mFormat.mBitsPerChannel = v423;
-                  a2[-1].mSampleRateRange.mMaximum = mMaximum;
+                  v425 = *(a2 - 1);
+                  v427 = *(a2 - 40);
+                  v426 = *(a2 - 24);
+                  *(result + 56) = *v7;
+                  *(result + 72) = v427;
+                  *(result + 88) = v426;
+                  *(result + 104) = v425;
+                  *(a2 - 24) = v423;
+                  *(a2 - 1) = mMaximum;
 LABEL_109:
-                  *p_mSampleRate = v314;
-                  *&a2[-1].mFormat.mBytesPerPacket = v315;
+                  *v7 = v314;
+                  *(a2 - 40) = v315;
                   return;
                 }
 
@@ -5385,116 +7525,116 @@ LABEL_109:
                   return;
                 }
 
-                v392 = *(a1 + 72);
-                *&v432.mFormat.mSampleRate = *(a1 + 56);
+                v392 = *(result + 72);
+                *&v432.mFormat.mSampleRate = *(result + 56);
                 v391 = *&v432.mFormat.mSampleRate;
                 *&v432.mFormat.mBytesPerPacket = v392;
-                *&v432.mFormat.mBitsPerChannel = *(a1 + 88);
+                *&v432.mFormat.mBitsPerChannel = *(result + 88);
                 v393 = *&v432.mFormat.mBitsPerChannel;
-                v432.mSampleRateRange.mMaximum = *(a1 + 13);
+                v432.mSampleRateRange.mMaximum = *(result + 104);
                 v394 = v432.mSampleRateRange.mMaximum;
-                v395 = a2[-1].mSampleRateRange.mMaximum;
-                v397 = *&a2[-1].mFormat.mBytesPerPacket;
-                v396 = *&a2[-1].mFormat.mBitsPerChannel;
-                *(a1 + 56) = *p_mSampleRate;
-                *(a1 + 72) = v397;
-                *(a1 + 88) = v396;
-                *(a1 + 13) = v395;
-                *&a2[-1].mFormat.mBytesPerPacket = v392;
-                *&a2[-1].mFormat.mBitsPerChannel = v393;
-                a2[-1].mSampleRateRange.mMaximum = v394;
-                *p_mSampleRate = v391;
+                v395 = *(a2 - 1);
+                v397 = *(a2 - 40);
+                v396 = *(a2 - 24);
+                *(result + 56) = *v7;
+                *(result + 72) = v397;
+                *(result + 88) = v396;
+                *(result + 104) = v395;
+                *(a2 - 40) = v392;
+                *(a2 - 24) = v393;
+                *(a2 - 1) = v394;
+                *v7 = v391;
 LABEL_165:
-                if (CAStreamRangedDescription::Sorter((a1 + 56), a1, v298))
+                if (CAStreamRangedDescription::Sorter((result + 56), result, v298))
                 {
-                  v398 = *a1;
-                  v399 = *(a1 + 1);
-                  v400 = *(a1 + 2);
-                  v432.mSampleRateRange.mMaximum = *(a1 + 6);
+                  v398 = *result;
+                  v399 = *(result + 16);
+                  v400 = *(result + 32);
+                  v432.mSampleRateRange.mMaximum = *(result + 48);
                   *&v432.mFormat.mBytesPerPacket = v399;
                   *&v432.mFormat.mBitsPerChannel = v400;
                   *&v432.mFormat.mSampleRate = v398;
-                  v401 = *(a1 + 72);
-                  *a1 = *(a1 + 56);
-                  *(a1 + 1) = v401;
-                  *(a1 + 2) = *(a1 + 88);
-                  *(a1 + 6) = *(a1 + 13);
+                  v401 = *(result + 72);
+                  *result = *(result + 56);
+                  *(result + 16) = v401;
+                  *(result + 32) = *(result + 88);
+                  *(result + 48) = *(result + 104);
                   v402 = *&v432.mFormat.mSampleRate;
                   v403 = *&v432.mFormat.mBytesPerPacket;
                   v404 = *&v432.mFormat.mBitsPerChannel;
-                  *(a1 + 13) = *&v432.mSampleRateRange.mMaximum;
-                  *(a1 + 88) = v404;
-                  *(a1 + 72) = v403;
-                  *(a1 + 56) = v402;
+                  *(result + 104) = v432.mSampleRateRange.mMaximum;
+                  *(result + 88) = v404;
+                  *(result + 72) = v403;
+                  *(result + 56) = v402;
                 }
 
                 return;
               case 4:
 
-                std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,AMCP::HAL::translate_mcp_value_to_hal_by_type(AMCP::Thing const&,AMCP::Property_Type_Code,AMCP::HAL::HAL_Property_Type_Code)::$_0 &,AudioStreamRangedDescription *,0>(a1, a1 + 7, a1 + 2, &a2[-1].mFormat.mSampleRate);
+                std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,AMCP::HAL::translate_mcp_value_to_hal_by_type(AMCP::Thing const&,AMCP::Property_Type_Code,AMCP::HAL::HAL_Property_Type_Code)::$_0 &,AudioStreamRangedDescription *,0>(result, (result + 56), (result + 112), a2 - 7);
                 return;
               case 5:
-                std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,AMCP::HAL::translate_mcp_value_to_hal_by_type(AMCP::Thing const&,AMCP::Property_Type_Code,AMCP::HAL::HAL_Property_Type_Code)::$_0 &,AudioStreamRangedDescription *,0>(a1, a1 + 7, a1 + 2, a1 + 21);
-                if (!CAStreamRangedDescription::Sorter(&a2[-1], a1 + 3, v283))
+                std::__sort4[abi:ne200100]<std::_ClassicAlgPolicy,AMCP::HAL::translate_mcp_value_to_hal_by_type(AMCP::Thing const&,AMCP::Property_Type_Code,AMCP::HAL::HAL_Property_Type_Code)::$_0 &,AudioStreamRangedDescription *,0>(result, (result + 56), (result + 112), (result + 168));
+                if (!CAStreamRangedDescription::Sorter((a2 - 56), (result + 168), v283))
                 {
                   return;
                 }
 
-                v286 = *(a1 + 184);
-                *&v432.mFormat.mSampleRate = *(a1 + 168);
+                v286 = *(result + 184);
+                *&v432.mFormat.mSampleRate = *(result + 168);
                 v285 = *&v432.mFormat.mSampleRate;
                 *&v432.mFormat.mBytesPerPacket = v286;
-                *&v432.mFormat.mBitsPerChannel = *(a1 + 200);
+                *&v432.mFormat.mBitsPerChannel = *(result + 200);
                 v287 = *&v432.mFormat.mBitsPerChannel;
-                v432.mSampleRateRange.mMaximum = *(a1 + 27);
+                v432.mSampleRateRange.mMaximum = *(result + 216);
                 v288 = v432.mSampleRateRange.mMaximum;
-                v289 = a2[-1].mSampleRateRange.mMaximum;
-                v291 = *&a2[-1].mFormat.mBytesPerPacket;
-                v290 = *&a2[-1].mFormat.mBitsPerChannel;
-                *(a1 + 168) = *p_mSampleRate;
-                *(a1 + 184) = v291;
-                *(a1 + 200) = v290;
-                *(a1 + 27) = v289;
-                *&a2[-1].mFormat.mBytesPerPacket = v286;
-                *&a2[-1].mFormat.mBitsPerChannel = v287;
-                a2[-1].mSampleRateRange.mMaximum = v288;
-                *p_mSampleRate = v285;
-                if (!CAStreamRangedDescription::Sorter((a1 + 168), a1 + 2, v284))
+                v289 = *(a2 - 1);
+                v291 = *(a2 - 40);
+                v290 = *(a2 - 24);
+                *(result + 168) = *v7;
+                *(result + 184) = v291;
+                *(result + 200) = v290;
+                *(result + 216) = v289;
+                *(a2 - 40) = v286;
+                *(a2 - 24) = v287;
+                *(a2 - 1) = v288;
+                *v7 = v285;
+                if (!CAStreamRangedDescription::Sorter((result + 168), (result + 112), v284))
                 {
                   return;
                 }
 
-                v293 = *(a1 + 20);
-                v295 = *(a1 + 8);
-                v294 = *(a1 + 9);
-                v296 = *(a1 + 7);
-                v297 = *(a1 + 184);
-                *(a1 + 7) = *(a1 + 168);
-                *(a1 + 8) = v297;
-                *(a1 + 9) = *(a1 + 200);
-                *(a1 + 20) = *(a1 + 27);
-                *(a1 + 168) = v296;
-                *(a1 + 184) = v295;
-                *(a1 + 200) = v294;
-                *(a1 + 27) = v293;
-                if (!CAStreamRangedDescription::Sorter((a1 + 112), a1 + 1, v292))
+                v293 = *(result + 160);
+                v295 = *(result + 128);
+                v294 = *(result + 144);
+                v296 = *(result + 112);
+                v297 = *(result + 184);
+                *(result + 112) = *(result + 168);
+                *(result + 128) = v297;
+                *(result + 144) = *(result + 200);
+                *(result + 160) = *(result + 216);
+                *(result + 168) = v296;
+                *(result + 184) = v295;
+                *(result + 200) = v294;
+                *(result + 216) = v293;
+                if (!CAStreamRangedDescription::Sorter((result + 112), (result + 56), v292))
                 {
                   return;
                 }
 
-                v299 = *(a1 + 13);
-                v300 = *(a1 + 88);
-                v301 = *(a1 + 56);
-                v302 = *(a1 + 8);
-                *(a1 + 56) = *(a1 + 7);
-                v303 = *(a1 + 72);
-                *(a1 + 72) = v302;
-                *(a1 + 88) = *(a1 + 9);
-                *(a1 + 13) = *(a1 + 20);
-                *(a1 + 7) = v301;
-                *(a1 + 8) = v303;
-                *(a1 + 9) = v300;
-                *(a1 + 20) = v299;
+                v299 = *(result + 104);
+                v300 = *(result + 88);
+                v301 = *(result + 56);
+                v302 = *(result + 128);
+                *(result + 56) = *(result + 112);
+                v303 = *(result + 72);
+                *(result + 72) = v302;
+                *(result + 88) = *(result + 144);
+                *(result + 104) = *(result + 160);
+                *(result + 112) = v301;
+                *(result + 128) = v303;
+                *(result + 144) = v300;
+                *(result + 160) = v299;
                 goto LABEL_165;
             }
           }
@@ -5508,45 +7648,45 @@ LABEL_165:
 
             if (v11 == 2)
             {
-              if (!CAStreamRangedDescription::Sorter(&a2[-1], a1, a3))
+              if (!CAStreamRangedDescription::Sorter((a2 - 56), result, a3))
               {
                 return;
               }
 
 LABEL_108:
-              v308 = *a1;
-              v309 = *(a1 + 1);
-              v310 = *(a1 + 2);
-              v432.mSampleRateRange.mMaximum = *(a1 + 6);
+              v308 = *result;
+              v309 = *(result + 16);
+              v310 = *(result + 32);
+              v432.mSampleRateRange.mMaximum = *(result + 48);
               *&v432.mFormat.mBytesPerPacket = v309;
               *&v432.mFormat.mBitsPerChannel = v310;
               *&v432.mFormat.mSampleRate = v308;
-              v311 = *p_mSampleRate;
-              v312 = *&a2[-1].mFormat.mBytesPerPacket;
-              v313 = *&a2[-1].mFormat.mBitsPerChannel;
-              *(a1 + 6) = *&a2[-1].mSampleRateRange.mMaximum;
-              *(a1 + 1) = v312;
-              *(a1 + 2) = v313;
-              *a1 = v311;
+              v311 = *v7;
+              v312 = *(a2 - 40);
+              v313 = *(a2 - 24);
+              *(result + 48) = *(a2 - 1);
+              *(result + 16) = v312;
+              *(result + 32) = v313;
+              *result = v311;
               v314 = *&v432.mFormat.mSampleRate;
               v315 = *&v432.mFormat.mBytesPerPacket;
               v316 = *&v432.mFormat.mBitsPerChannel;
-              a2[-1].mSampleRateRange.mMaximum = v432.mSampleRateRange.mMaximum;
-              *&a2[-1].mFormat.mBitsPerChannel = v316;
+              *(a2 - 1) = *&v432.mSampleRateRange.mMaximum;
+              *(a2 - 24) = v316;
               goto LABEL_109;
             }
           }
 
           if (v10 <= 1343)
           {
-            v317 = (a1 + 56);
-            v319 = a1 == a2 || v317 == a2;
+            v317 = (result + 56);
+            v319 = result == a2 || v317 == a2;
             if (a4)
             {
               if (!v319)
               {
                 v320 = 0;
-                v321 = a1;
+                v321 = result;
                 do
                 {
                   v322 = v321;
@@ -5554,35 +7694,35 @@ LABEL_108:
                   if (CAStreamRangedDescription::Sorter(v317, v322, a3))
                   {
                     v323 = *v321;
-                    v324 = *(v321 + 1);
-                    v325 = *(v321 + 2);
-                    v432.mSampleRateRange.mMaximum = *(v321 + 6);
+                    v324 = *(v321 + 16);
+                    v325 = *(v321 + 32);
+                    v432.mSampleRateRange.mMaximum = *(v321 + 48);
                     *&v432.mFormat.mBytesPerPacket = v324;
                     *&v432.mFormat.mBitsPerChannel = v325;
                     *&v432.mFormat.mSampleRate = v323;
                     v326 = v320;
                     while (1)
                     {
-                      v327 = a1 + v326;
-                      v328 = *(a1 + v326 + 16);
-                      *(v327 + 56) = *(a1 + v326);
+                      v327 = result + v326;
+                      v328 = *(result + v326 + 16);
+                      *(v327 + 56) = *(result + v326);
                       *(v327 + 72) = v328;
-                      *(v327 + 88) = *(a1 + v326 + 32);
-                      *(v327 + 13) = *(a1 + v326 + 48);
+                      *(v327 + 88) = *(result + v326 + 32);
+                      *(v327 + 104) = *(result + v326 + 48);
                       if (!v326)
                       {
                         break;
                       }
 
                       v326 -= 56;
-                      if ((CAStreamRangedDescription::Sorter(&v432, (a1 + v326), a3) & 1) == 0)
+                      if ((CAStreamRangedDescription::Sorter(&v432, (v326 + result), a3) & 1) == 0)
                       {
-                        v329 = a1 + v326 + 56;
+                        v329 = result + v326 + 56;
                         goto LABEL_128;
                       }
                     }
 
-                    v329 = a1;
+                    v329 = result;
 LABEL_128:
                     v330 = *&v432.mFormat.mSampleRate;
                     v331 = *&v432.mFormat.mBytesPerPacket;
@@ -5605,27 +7745,27 @@ LABEL_128:
             {
               do
               {
-                v405 = a1;
-                a1 = v317;
+                v405 = result;
+                result = v317;
                 if (CAStreamRangedDescription::Sorter(v317, v405, a3))
                 {
-                  v406 = *a1;
-                  v407 = *(a1 + 1);
-                  v408 = *(a1 + 2);
-                  v432.mSampleRateRange.mMaximum = *(a1 + 6);
+                  v406 = *result;
+                  v407 = *(result + 16);
+                  v408 = *(result + 32);
+                  v432.mSampleRateRange.mMaximum = *(result + 48);
                   *&v432.mFormat.mBytesPerPacket = v407;
                   *&v432.mFormat.mBitsPerChannel = v408;
                   *&v432.mFormat.mSampleRate = v406;
-                  v409 = a1;
+                  v409 = result;
                   do
                   {
                     v410 = v409 - 56;
                     v411 = *(v409 - 40);
                     *v409 = *(v409 - 56);
-                    *(v409 + 1) = v411;
-                    *(v409 + 2) = *(v409 - 24);
-                    *(v409 + 6) = *(v409 - 1);
-                    v412 = CAStreamRangedDescription::Sorter(&v432, v409 - 2, a3);
+                    *(v409 + 16) = v411;
+                    *(v409 + 32) = *(v409 - 24);
+                    *(v409 + 48) = *(v409 - 8);
+                    v412 = CAStreamRangedDescription::Sorter(&v432, (v409 - 112), a3);
                     v409 = v410;
                   }
 
@@ -5639,10 +7779,10 @@ LABEL_128:
                   *v410 = v413;
                 }
 
-                v317 = (a1 + 56);
+                v317 = (result + 56);
               }
 
-              while ((a1 + 56) != a2);
+              while ((result + 56) != a2);
             }
 
             return;
@@ -5650,7 +7790,7 @@ LABEL_128:
 
           if (!v4)
           {
-            if (a1 != a2)
+            if (result != a2)
             {
               v429 = a2;
               v333 = v12 >> 1;
@@ -5661,32 +7801,32 @@ LABEL_128:
                 if (v333 >= v334)
                 {
                   v336 = (2 * v334) | 1;
-                  v337 = (a1 + 56 * v336);
-                  if (2 * v334 + 2 < v11 && CAStreamRangedDescription::Sorter((a1 + 56 * v336), v337 + 1, a3))
+                  v337 = result + 56 * v336;
+                  if (2 * v334 + 2 < v11 && CAStreamRangedDescription::Sorter((result + 56 * v336), (v337 + 56), a3))
                   {
-                    ++v337;
+                    v337 += 56;
                     v336 = 2 * v335 + 2;
                   }
 
-                  v338 = a1 + 56 * v335;
+                  v338 = result + 56 * v335;
                   if ((CAStreamRangedDescription::Sorter(v337, v338, a3) & 1) == 0)
                   {
                     v339 = *v338;
-                    v340 = *(v338 + 1);
-                    v341 = *(v338 + 2);
-                    v432.mSampleRateRange.mMaximum = *(v338 + 6);
+                    v340 = *(v338 + 16);
+                    v341 = *(v338 + 32);
+                    v432.mSampleRateRange.mMaximum = *(v338 + 48);
                     *&v432.mFormat.mBytesPerPacket = v340;
                     *&v432.mFormat.mBitsPerChannel = v341;
                     *&v432.mFormat.mSampleRate = v339;
                     do
                     {
                       v342 = v337;
-                      v343 = *&v337->mFormat.mSampleRate;
-                      v344 = *&v337->mFormat.mBytesPerPacket;
-                      v345 = *&v337->mFormat.mBitsPerChannel;
-                      *(v338 + 6) = *&v337->mSampleRateRange.mMaximum;
-                      *(v338 + 1) = v344;
-                      *(v338 + 2) = v345;
+                      v343 = *v337;
+                      v344 = *(v337 + 16);
+                      v345 = *(v337 + 32);
+                      *(v338 + 48) = *(v337 + 48);
+                      *(v338 + 16) = v344;
+                      *(v338 + 32) = v345;
                       *v338 = v343;
                       if (v333 < v336)
                       {
@@ -5694,11 +7834,11 @@ LABEL_128:
                       }
 
                       v346 = (2 * v336) | 1;
-                      v337 = (a1 + 56 * v346);
+                      v337 = result + 56 * v346;
                       v347 = 2 * v336 + 2;
-                      if (v347 < v11 && CAStreamRangedDescription::Sorter((a1 + 56 * v346), v337 + 1, a3))
+                      if (v347 < v11 && CAStreamRangedDescription::Sorter((result + 56 * v346), (v337 + 56), a3))
                       {
-                        ++v337;
+                        v337 += 56;
                         v346 = v347;
                       }
 
@@ -5710,9 +7850,9 @@ LABEL_128:
                     v348 = *&v432.mFormat.mSampleRate;
                     v349 = *&v432.mFormat.mBytesPerPacket;
                     v350 = *&v432.mFormat.mBitsPerChannel;
-                    *(v342 + 6) = *&v432.mSampleRateRange.mMaximum;
-                    *(v342 + 1) = v349;
-                    *(v342 + 2) = v350;
+                    *(v342 + 48) = v432.mSampleRateRange.mMaximum;
+                    *(v342 + 16) = v349;
+                    *(v342 + 32) = v350;
                     *v342 = v348;
                   }
                 }
@@ -5726,14 +7866,14 @@ LABEL_128:
               do
               {
                 v353 = 0;
-                v354 = *a1;
-                v355 = *(a1 + 1);
-                v356 = *(a1 + 2);
-                v431.mSampleRateRange.mMaximum = *(a1 + 6);
+                v354 = *result;
+                v355 = *(result + 16);
+                v356 = *(result + 32);
+                v431.mSampleRateRange.mMaximum = *(result + 48);
                 *&v431.mFormat.mBytesPerPacket = v355;
                 *&v431.mFormat.mBitsPerChannel = v356;
                 *&v431.mFormat.mSampleRate = v354;
-                v357 = a1;
+                v357 = result;
                 do
                 {
                   v358 = (v357 + 56 * v353);
@@ -5753,9 +7893,9 @@ LABEL_128:
                   v363 = *&v359->mFormat.mSampleRate;
                   v364 = *&v359->mFormat.mBytesPerPacket;
                   v365 = *&v359->mFormat.mBitsPerChannel;
-                  *(v357 + 6) = *&v359->mSampleRateRange.mMaximum;
-                  *(v357 + 1) = v364;
-                  *(v357 + 2) = v365;
+                  *(v357 + 48) = v359->mSampleRateRange.mMaximum;
+                  *(v357 + 16) = v364;
+                  *(v357 + 32) = v365;
                   *v357 = v363;
                   v357 = v359;
                   v353 = v360;
@@ -5792,11 +7932,11 @@ LABEL_128:
                   *&v366->mFormat.mBitsPerChannel = v372;
                   v373 = v366;
                   *&v366->mFormat.mSampleRate = v370;
-                  v374 = v359 - a1 + 56;
+                  v374 = &v359[1] - result;
                   if (v374 >= 57)
                   {
                     v375 = (0x6DB6DB6DB6DB6DB7 * (v374 >> 3) - 2) >> 1;
-                    v376 = (a1 + 56 * v375);
+                    v376 = result + 56 * v375;
                     if (CAStreamRangedDescription::Sorter(v376, v359, a3))
                     {
                       v377 = *&v359->mFormat.mSampleRate;
@@ -5809,10 +7949,10 @@ LABEL_128:
                       do
                       {
                         v380 = v376;
-                        v381 = *&v376->mFormat.mSampleRate;
-                        v382 = *&v376->mFormat.mBytesPerPacket;
-                        v383 = *&v376->mFormat.mBitsPerChannel;
-                        v359->mSampleRateRange.mMaximum = v376->mSampleRateRange.mMaximum;
+                        v381 = *v376;
+                        v382 = *(v376 + 16);
+                        v383 = *(v376 + 32);
+                        v359->mSampleRateRange.mMaximum = *(v376 + 48);
                         *&v359->mFormat.mBytesPerPacket = v382;
                         *&v359->mFormat.mBitsPerChannel = v383;
                         *&v359->mFormat.mSampleRate = v381;
@@ -5822,7 +7962,7 @@ LABEL_128:
                         }
 
                         v375 = (v375 - 1) >> 1;
-                        v376 = (a1 + 56 * v375);
+                        v376 = result + 56 * v375;
                         v359 = v380;
                       }
 
@@ -5830,10 +7970,10 @@ LABEL_128:
                       v384 = *&v432.mFormat.mSampleRate;
                       v385 = *&v432.mFormat.mBytesPerPacket;
                       v386 = *&v432.mFormat.mBitsPerChannel;
-                      v380->mSampleRateRange.mMaximum = v432.mSampleRateRange.mMaximum;
-                      *&v380->mFormat.mBytesPerPacket = v385;
-                      *&v380->mFormat.mBitsPerChannel = v386;
-                      *&v380->mFormat.mSampleRate = v384;
+                      *(v380 + 48) = v432.mSampleRateRange.mMaximum;
+                      *(v380 + 16) = v385;
+                      *(v380 + 32) = v386;
+                      *v380 = v384;
                     }
                   }
                 }
@@ -5849,205 +7989,205 @@ LABEL_128:
           }
 
           v13 = v11 >> 1;
-          v14 = a1 + 56 * v13;
+          v14 = result + 56 * v13;
           if (v10 >= 0x1C01)
           {
-            v15 = CAStreamRangedDescription::Sorter((a1 + 56 * v13), a1, a3);
-            v17 = CAStreamRangedDescription::Sorter(&a2[-1], a1 + v13, v16);
+            v15 = CAStreamRangedDescription::Sorter((result + 56 * v13), result, a3);
+            v17 = CAStreamRangedDescription::Sorter((a2 - 56), (result + 56 * v13), v16);
             if (v15)
             {
               if (v17)
               {
-                v19 = *a1;
-                v20 = *(a1 + 1);
-                v21 = *(a1 + 2);
-                v432.mSampleRateRange.mMaximum = *(a1 + 6);
+                v19 = *result;
+                v20 = *(result + 16);
+                v21 = *(result + 32);
+                v432.mSampleRateRange.mMaximum = *(result + 48);
                 *&v432.mFormat.mBytesPerPacket = v20;
                 *&v432.mFormat.mBitsPerChannel = v21;
                 *&v432.mFormat.mSampleRate = v19;
-                v22 = *p_mSampleRate;
-                v23 = *&a2[-1].mFormat.mBytesPerPacket;
-                v24 = *&a2[-1].mFormat.mBitsPerChannel;
-                *(a1 + 6) = *&a2[-1].mSampleRateRange.mMaximum;
-                *(a1 + 1) = v23;
-                *(a1 + 2) = v24;
-                *a1 = v22;
+                v22 = *v7;
+                v23 = *(a2 - 40);
+                v24 = *(a2 - 24);
+                *(result + 48) = *(a2 - 1);
+                *(result + 16) = v23;
+                *(result + 32) = v24;
+                *result = v22;
               }
 
               else
               {
-                v71 = *a1;
-                v72 = *(a1 + 1);
-                v73 = *(a1 + 2);
-                v432.mSampleRateRange.mMaximum = *(a1 + 6);
+                v71 = *result;
+                v72 = *(result + 16);
+                v73 = *(result + 32);
+                v432.mSampleRateRange.mMaximum = *(result + 48);
                 *&v432.mFormat.mBytesPerPacket = v72;
                 *&v432.mFormat.mBitsPerChannel = v73;
                 *&v432.mFormat.mSampleRate = v71;
                 v74 = *v14;
-                v75 = *(v14 + 1);
-                v76 = *(v14 + 2);
-                *(a1 + 6) = *(v14 + 6);
-                *(a1 + 1) = v75;
-                *(a1 + 2) = v76;
-                *a1 = v74;
+                v75 = *(v14 + 16);
+                v76 = *(v14 + 32);
+                *(result + 48) = *(v14 + 48);
+                *(result + 16) = v75;
+                *(result + 32) = v76;
+                *result = v74;
                 v77 = *&v432.mFormat.mSampleRate;
                 v78 = *&v432.mFormat.mBytesPerPacket;
                 v79 = *&v432.mFormat.mBitsPerChannel;
-                *(v14 + 6) = *&v432.mSampleRateRange.mMaximum;
-                *(v14 + 1) = v78;
-                *(v14 + 2) = v79;
+                *(v14 + 48) = v432.mSampleRateRange.mMaximum;
+                *(v14 + 16) = v78;
+                *(v14 + 32) = v79;
                 *v14 = v77;
-                if (!CAStreamRangedDescription::Sorter(&a2[-1], a1 + v13, v18))
+                if (!CAStreamRangedDescription::Sorter((a2 - 56), (result + 56 * v13), v18))
                 {
                   goto LABEL_28;
                 }
 
                 v80 = *v14;
-                v81 = *(v14 + 1);
-                v82 = *(v14 + 2);
-                v432.mSampleRateRange.mMaximum = *(v14 + 6);
+                v81 = *(v14 + 16);
+                v82 = *(v14 + 32);
+                v432.mSampleRateRange.mMaximum = *(v14 + 48);
                 *&v432.mFormat.mBytesPerPacket = v81;
                 *&v432.mFormat.mBitsPerChannel = v82;
                 *&v432.mFormat.mSampleRate = v80;
-                v83 = *p_mSampleRate;
-                v84 = *&a2[-1].mFormat.mBytesPerPacket;
-                v85 = *&a2[-1].mFormat.mBitsPerChannel;
-                *(v14 + 6) = *&a2[-1].mSampleRateRange.mMaximum;
-                *(v14 + 1) = v84;
-                *(v14 + 2) = v85;
+                v83 = *v7;
+                v84 = *(a2 - 40);
+                v85 = *(a2 - 24);
+                *(v14 + 48) = *(a2 - 1);
+                *(v14 + 16) = v84;
+                *(v14 + 32) = v85;
                 *v14 = v83;
               }
 
               v86 = *&v432.mFormat.mSampleRate;
               v87 = *&v432.mFormat.mBytesPerPacket;
               v88 = *&v432.mFormat.mBitsPerChannel;
-              a2[-1].mSampleRateRange.mMaximum = v432.mSampleRateRange.mMaximum;
-              *&a2[-1].mFormat.mBytesPerPacket = v87;
-              *&a2[-1].mFormat.mBitsPerChannel = v88;
-              *p_mSampleRate = v86;
+              *(a2 - 1) = *&v432.mSampleRateRange.mMaximum;
+              *(a2 - 40) = v87;
+              *(a2 - 24) = v88;
+              *v7 = v86;
             }
 
             else if (v17)
             {
               v35 = *v14;
-              v36 = *(v14 + 1);
-              v37 = *(v14 + 2);
-              v432.mSampleRateRange.mMaximum = *(v14 + 6);
+              v36 = *(v14 + 16);
+              v37 = *(v14 + 32);
+              v432.mSampleRateRange.mMaximum = *(v14 + 48);
               *&v432.mFormat.mBytesPerPacket = v36;
               *&v432.mFormat.mBitsPerChannel = v37;
               *&v432.mFormat.mSampleRate = v35;
-              v38 = *p_mSampleRate;
-              v39 = *&a2[-1].mFormat.mBytesPerPacket;
-              v40 = *&a2[-1].mFormat.mBitsPerChannel;
-              *(v14 + 6) = *&a2[-1].mSampleRateRange.mMaximum;
-              *(v14 + 1) = v39;
-              *(v14 + 2) = v40;
+              v38 = *v7;
+              v39 = *(a2 - 40);
+              v40 = *(a2 - 24);
+              *(v14 + 48) = *(a2 - 1);
+              *(v14 + 16) = v39;
+              *(v14 + 32) = v40;
               *v14 = v38;
               v41 = *&v432.mFormat.mSampleRate;
               v42 = *&v432.mFormat.mBytesPerPacket;
               v43 = *&v432.mFormat.mBitsPerChannel;
-              a2[-1].mSampleRateRange.mMaximum = v432.mSampleRateRange.mMaximum;
-              *&a2[-1].mFormat.mBytesPerPacket = v42;
-              *&a2[-1].mFormat.mBitsPerChannel = v43;
-              *p_mSampleRate = v41;
-              if (CAStreamRangedDescription::Sorter((a1 + 56 * v13), a1, v18))
+              *(a2 - 1) = *&v432.mSampleRateRange.mMaximum;
+              *(a2 - 40) = v42;
+              *(a2 - 24) = v43;
+              *v7 = v41;
+              if (CAStreamRangedDescription::Sorter((result + 56 * v13), result, v18))
               {
-                v44 = *a1;
-                v45 = *(a1 + 1);
-                v46 = *(a1 + 2);
-                v432.mSampleRateRange.mMaximum = *(a1 + 6);
+                v44 = *result;
+                v45 = *(result + 16);
+                v46 = *(result + 32);
+                v432.mSampleRateRange.mMaximum = *(result + 48);
                 *&v432.mFormat.mBytesPerPacket = v45;
                 *&v432.mFormat.mBitsPerChannel = v46;
                 *&v432.mFormat.mSampleRate = v44;
                 v47 = *v14;
-                v48 = *(v14 + 1);
-                v49 = *(v14 + 2);
-                *(a1 + 6) = *(v14 + 6);
-                *(a1 + 1) = v48;
-                *(a1 + 2) = v49;
-                *a1 = v47;
+                v48 = *(v14 + 16);
+                v49 = *(v14 + 32);
+                *(result + 48) = *(v14 + 48);
+                *(result + 16) = v48;
+                *(result + 32) = v49;
+                *result = v47;
                 v50 = *&v432.mFormat.mSampleRate;
                 v51 = *&v432.mFormat.mBytesPerPacket;
                 v52 = *&v432.mFormat.mBitsPerChannel;
-                *(v14 + 6) = *&v432.mSampleRateRange.mMaximum;
-                *(v14 + 1) = v51;
-                *(v14 + 2) = v52;
+                *(v14 + 48) = v432.mSampleRateRange.mMaximum;
+                *(v14 + 16) = v51;
+                *(v14 + 32) = v52;
                 *v14 = v50;
               }
             }
 
 LABEL_28:
-            v89 = a1 + 56 * v13 - 56;
-            v90 = CAStreamRangedDescription::Sorter(v89, a1 + 1, v18);
+            v89 = result + 56 * v13 - 56;
+            v90 = CAStreamRangedDescription::Sorter(v89, (result + 56), v18);
             v92 = CAStreamRangedDescription::Sorter(v428, v89, v91);
             if (v90)
             {
               if (v92)
               {
-                v95 = *(a1 + 72);
-                *&v432.mFormat.mSampleRate = *(a1 + 56);
+                v95 = *(result + 72);
+                *&v432.mFormat.mSampleRate = *(result + 56);
                 v94 = *&v432.mFormat.mSampleRate;
                 *&v432.mFormat.mBytesPerPacket = v95;
-                *&v432.mFormat.mBitsPerChannel = *(a1 + 88);
+                *&v432.mFormat.mBitsPerChannel = *(result + 88);
                 v96 = *&v432.mFormat.mBitsPerChannel;
-                v432.mSampleRateRange.mMaximum = *(a1 + 13);
+                v432.mSampleRateRange.mMaximum = *(result + 104);
                 v97 = v432.mSampleRateRange.mMaximum;
-                v98 = a2[-2].mSampleRateRange.mMaximum;
-                v100 = *&a2[-2].mFormat.mBytesPerPacket;
-                v99 = *&a2[-2].mFormat.mBitsPerChannel;
-                *(a1 + 56) = *v428;
-                *(a1 + 72) = v100;
-                *(a1 + 88) = v99;
-                *(a1 + 13) = v98;
-                *&a2[-2].mFormat.mBytesPerPacket = v95;
-                *&a2[-2].mFormat.mBitsPerChannel = v96;
-                a2[-2].mSampleRateRange.mMaximum = v97;
+                v98 = *(a2 - 8);
+                v100 = *(a2 - 6);
+                v99 = *(a2 - 5);
+                *(result + 56) = *v428;
+                *(result + 72) = v100;
+                *(result + 88) = v99;
+                *(result + 104) = v98;
+                *(a2 - 6) = v95;
+                *(a2 - 5) = v96;
+                *(a2 - 8) = v97;
                 *v428 = v94;
               }
 
               else
               {
-                v136 = *(a1 + 72);
-                *&v432.mFormat.mSampleRate = *(a1 + 56);
+                v136 = *(result + 72);
+                *&v432.mFormat.mSampleRate = *(result + 56);
                 v135 = *&v432.mFormat.mSampleRate;
                 *&v432.mFormat.mBytesPerPacket = v136;
-                *&v432.mFormat.mBitsPerChannel = *(a1 + 88);
+                *&v432.mFormat.mBitsPerChannel = *(result + 88);
                 v137 = *&v432.mFormat.mBitsPerChannel;
-                v432.mSampleRateRange.mMaximum = *(a1 + 13);
+                v432.mSampleRateRange.mMaximum = *(result + 104);
                 v138 = v432.mSampleRateRange.mMaximum;
-                v139 = *(a1 + 7 * v13 - 1);
-                v141 = *(a1 + 56 * v13 - 40);
-                v140 = *(a1 + 56 * v13 - 24);
-                *(a1 + 56) = *v89;
-                *(a1 + 72) = v141;
-                *(a1 + 88) = v140;
-                *(a1 + 13) = v139;
-                *(a1 + 56 * v13 - 40) = v136;
-                *(a1 + 56 * v13 - 24) = v137;
-                *(a1 + 7 * v13 - 1) = v138;
+                v139 = *(result + 56 * v13 - 8);
+                v141 = *(result + 56 * v13 - 40);
+                v140 = *(result + 56 * v13 - 24);
+                *(result + 56) = *v89;
+                *(result + 72) = v141;
+                *(result + 88) = v140;
+                *(result + 104) = v139;
+                *(result + 56 * v13 - 40) = v136;
+                *(result + 56 * v13 - 24) = v137;
+                *(result + 56 * v13 - 8) = v138;
                 *v89 = v135;
                 if (CAStreamRangedDescription::Sorter(v428, v89, v93))
                 {
                   v142 = *v89;
-                  v143 = *(a1 + 56 * v13 - 40);
-                  v144 = *(a1 + 56 * v13 - 24);
-                  v432.mSampleRateRange.mMaximum = *(a1 + 7 * v13 - 1);
+                  v143 = *(result + 56 * v13 - 40);
+                  v144 = *(result + 56 * v13 - 24);
+                  v432.mSampleRateRange.mMaximum = *(result + 56 * v13 - 8);
                   *&v432.mFormat.mBytesPerPacket = v143;
                   *&v432.mFormat.mBitsPerChannel = v144;
                   *&v432.mFormat.mSampleRate = v142;
                   v145 = *v428;
-                  v146 = *&a2[-2].mFormat.mBytesPerPacket;
-                  v147 = *&a2[-2].mFormat.mBitsPerChannel;
-                  *(a1 + 7 * v13 - 1) = *&a2[-2].mSampleRateRange.mMaximum;
-                  *(a1 + 56 * v13 - 40) = v146;
-                  *(a1 + 56 * v13 - 24) = v147;
+                  v146 = *(a2 - 6);
+                  v147 = *(a2 - 5);
+                  *(result + 56 * v13 - 8) = *(a2 - 8);
+                  *(result + 56 * v13 - 40) = v146;
+                  *(result + 56 * v13 - 24) = v147;
                   *v89 = v145;
                   v148 = *&v432.mFormat.mSampleRate;
                   v149 = *&v432.mFormat.mBytesPerPacket;
                   v150 = *&v432.mFormat.mBitsPerChannel;
-                  a2[-2].mSampleRateRange.mMaximum = v432.mSampleRateRange.mMaximum;
-                  *&a2[-2].mFormat.mBytesPerPacket = v149;
-                  *&a2[-2].mFormat.mBitsPerChannel = v150;
+                  *(a2 - 8) = *&v432.mSampleRateRange.mMaximum;
+                  *(a2 - 6) = v149;
+                  *(a2 - 5) = v150;
                   *v428 = v148;
                 }
               }
@@ -6056,98 +8196,98 @@ LABEL_28:
             else if (v92)
             {
               v101 = *v89;
-              v102 = *(a1 + 56 * v13 - 40);
-              v103 = *(a1 + 56 * v13 - 24);
-              v432.mSampleRateRange.mMaximum = *(a1 + 7 * v13 - 1);
+              v102 = *(result + 56 * v13 - 40);
+              v103 = *(result + 56 * v13 - 24);
+              v432.mSampleRateRange.mMaximum = *(result + 56 * v13 - 8);
               *&v432.mFormat.mBytesPerPacket = v102;
               *&v432.mFormat.mBitsPerChannel = v103;
               *&v432.mFormat.mSampleRate = v101;
               v104 = *v428;
-              v105 = *&a2[-2].mFormat.mBytesPerPacket;
-              v106 = *&a2[-2].mFormat.mBitsPerChannel;
-              *(a1 + 7 * v13 - 1) = *&a2[-2].mSampleRateRange.mMaximum;
-              *(a1 + 56 * v13 - 40) = v105;
-              *(a1 + 56 * v13 - 24) = v106;
+              v105 = *(a2 - 6);
+              v106 = *(a2 - 5);
+              *(result + 56 * v13 - 8) = *(a2 - 8);
+              *(result + 56 * v13 - 40) = v105;
+              *(result + 56 * v13 - 24) = v106;
               *v89 = v104;
               v107 = *&v432.mFormat.mSampleRate;
               v108 = *&v432.mFormat.mBytesPerPacket;
               v109 = *&v432.mFormat.mBitsPerChannel;
-              a2[-2].mSampleRateRange.mMaximum = v432.mSampleRateRange.mMaximum;
-              *&a2[-2].mFormat.mBytesPerPacket = v108;
-              *&a2[-2].mFormat.mBitsPerChannel = v109;
+              *(a2 - 8) = *&v432.mSampleRateRange.mMaximum;
+              *(a2 - 6) = v108;
+              *(a2 - 5) = v109;
               *v428 = v107;
-              if (CAStreamRangedDescription::Sorter(v89, a1 + 1, v93))
+              if (CAStreamRangedDescription::Sorter(v89, (result + 56), v93))
               {
-                v111 = *(a1 + 72);
-                *&v432.mFormat.mSampleRate = *(a1 + 56);
+                v111 = *(result + 72);
+                *&v432.mFormat.mSampleRate = *(result + 56);
                 v110 = *&v432.mFormat.mSampleRate;
                 *&v432.mFormat.mBytesPerPacket = v111;
-                *&v432.mFormat.mBitsPerChannel = *(a1 + 88);
+                *&v432.mFormat.mBitsPerChannel = *(result + 88);
                 v112 = *&v432.mFormat.mBitsPerChannel;
-                v432.mSampleRateRange.mMaximum = *(a1 + 13);
+                v432.mSampleRateRange.mMaximum = *(result + 104);
                 v113 = v432.mSampleRateRange.mMaximum;
-                v114 = *(a1 + 7 * v13 - 1);
-                v116 = *(a1 + 56 * v13 - 40);
-                v115 = *(a1 + 56 * v13 - 24);
-                *(a1 + 56) = *v89;
-                *(a1 + 72) = v116;
-                *(a1 + 88) = v115;
-                *(a1 + 13) = v114;
-                *(a1 + 56 * v13 - 40) = v111;
-                *(a1 + 56 * v13 - 24) = v112;
-                *(a1 + 7 * v13 - 1) = v113;
+                v114 = *(result + 56 * v13 - 8);
+                v116 = *(result + 56 * v13 - 40);
+                v115 = *(result + 56 * v13 - 24);
+                *(result + 56) = *v89;
+                *(result + 72) = v116;
+                *(result + 88) = v115;
+                *(result + 104) = v114;
+                *(result + 56 * v13 - 40) = v111;
+                *(result + 56 * v13 - 24) = v112;
+                *(result + 56 * v13 - 8) = v113;
                 *v89 = v110;
               }
             }
 
-            v151 = a1 + 56 * v13;
-            v152 = CAStreamRangedDescription::Sorter((v151 + 56), a1 + 2, v93);
-            v154 = CAStreamRangedDescription::Sorter(&a2[-3], v151 + 1, v153);
+            v151 = result + 56 * v13;
+            v152 = CAStreamRangedDescription::Sorter((v151 + 56), (result + 112), v93);
+            v154 = CAStreamRangedDescription::Sorter((a2 - 168), (v151 + 56), v153);
             if (v152)
             {
               if (v154)
               {
-                v156 = *(a1 + 7);
-                v157 = *(a1 + 8);
+                v156 = *(result + 112);
+                v157 = *(result + 128);
                 *&v432.mFormat.mSampleRate = v156;
                 *&v432.mFormat.mBytesPerPacket = v157;
-                *&v432.mFormat.mBitsPerChannel = *(a1 + 9);
+                *&v432.mFormat.mBitsPerChannel = *(result + 144);
                 v158 = *&v432.mFormat.mBitsPerChannel;
-                v432.mSampleRateRange.mMaximum = *(a1 + 20);
+                v432.mSampleRateRange.mMaximum = *(result + 160);
                 v159 = v432.mSampleRateRange.mMaximum;
-                v160 = a2[-3].mSampleRateRange.mMaximum;
-                v162 = *&a2[-3].mFormat.mBytesPerPacket;
-                v161 = *&a2[-3].mFormat.mBitsPerChannel;
-                *(a1 + 7) = *v8;
-                *(a1 + 8) = v162;
-                *(a1 + 9) = v161;
-                *(a1 + 20) = v160;
-                *&a2[-3].mFormat.mBitsPerChannel = v158;
-                a2[-3].mSampleRateRange.mMaximum = v159;
+                v160 = *(a2 - 15);
+                v162 = *(a2 - 152);
+                v161 = *(a2 - 136);
+                *(result + 112) = *v8;
+                *(result + 128) = v162;
+                *(result + 144) = v161;
+                *(result + 160) = v160;
+                *(a2 - 136) = v158;
+                *(a2 - 15) = v159;
               }
 
               else
               {
-                v180 = *(a1 + 8);
-                *&v432.mFormat.mSampleRate = *(a1 + 7);
+                v180 = *(result + 128);
+                *&v432.mFormat.mSampleRate = *(result + 112);
                 v179 = *&v432.mFormat.mSampleRate;
                 *&v432.mFormat.mBytesPerPacket = v180;
-                *&v432.mFormat.mBitsPerChannel = *(a1 + 9);
+                *&v432.mFormat.mBitsPerChannel = *(result + 144);
                 v181 = *&v432.mFormat.mBitsPerChannel;
-                v432.mSampleRateRange.mMaximum = *(a1 + 20);
+                v432.mSampleRateRange.mMaximum = *(result + 160);
                 v182 = v432.mSampleRateRange.mMaximum;
-                v183 = *(v151 + 13);
+                v183 = *(v151 + 104);
                 v184 = *(v151 + 88);
                 v185 = *(v151 + 72);
-                *(a1 + 7) = *(v151 + 56);
-                *(a1 + 8) = v185;
-                *(a1 + 9) = v184;
-                *(a1 + 20) = v183;
+                *(result + 112) = *(v151 + 56);
+                *(result + 128) = v185;
+                *(result + 144) = v184;
+                *(result + 160) = v183;
                 *(v151 + 72) = v180;
                 *(v151 + 88) = v181;
-                *(v151 + 13) = v182;
+                *(v151 + 104) = v182;
                 *(v151 + 56) = v179;
-                if (!CAStreamRangedDescription::Sorter(&a2[-3], v151 + 1, v155))
+                if (!CAStreamRangedDescription::Sorter((a2 - 168), (v151 + 56), v155))
                 {
                   goto LABEL_48;
                 }
@@ -6155,26 +8295,26 @@ LABEL_28:
                 v186 = *(v151 + 56);
                 v187 = *(v151 + 72);
                 v188 = *(v151 + 88);
-                v432.mSampleRateRange.mMaximum = *(v151 + 13);
+                v432.mSampleRateRange.mMaximum = *(v151 + 104);
                 *&v432.mFormat.mBytesPerPacket = v187;
                 *&v432.mFormat.mBitsPerChannel = v188;
                 *&v432.mFormat.mSampleRate = v186;
                 v189 = *v8;
-                v190 = *&a2[-3].mFormat.mBytesPerPacket;
-                v191 = *&a2[-3].mFormat.mBitsPerChannel;
-                *(v151 + 13) = *&a2[-3].mSampleRateRange.mMaximum;
+                v190 = *(a2 - 152);
+                v191 = *(a2 - 136);
+                *(v151 + 104) = *(a2 - 15);
                 *(v151 + 88) = v191;
                 *(v151 + 72) = v190;
                 *(v151 + 56) = v189;
                 v156 = *&v432.mFormat.mSampleRate;
                 v157 = *&v432.mFormat.mBytesPerPacket;
                 v192 = *&v432.mFormat.mBitsPerChannel;
-                a2[-3].mSampleRateRange.mMaximum = v432.mSampleRateRange.mMaximum;
-                *&a2[-3].mFormat.mBitsPerChannel = v192;
+                *(a2 - 15) = *&v432.mSampleRateRange.mMaximum;
+                *(a2 - 136) = v192;
               }
 
               *v8 = v156;
-              *&a2[-3].mFormat.mBytesPerPacket = v157;
+              *(a2 - 152) = v157;
             }
 
             else if (v154)
@@ -6182,44 +8322,44 @@ LABEL_28:
               v163 = *(v151 + 56);
               v164 = *(v151 + 72);
               v165 = *(v151 + 88);
-              v432.mSampleRateRange.mMaximum = *(v151 + 13);
+              v432.mSampleRateRange.mMaximum = *(v151 + 104);
               *&v432.mFormat.mBytesPerPacket = v164;
               *&v432.mFormat.mBitsPerChannel = v165;
               *&v432.mFormat.mSampleRate = v163;
               v166 = *v8;
-              v167 = *&a2[-3].mFormat.mBytesPerPacket;
-              v168 = *&a2[-3].mFormat.mBitsPerChannel;
-              *(v151 + 13) = *&a2[-3].mSampleRateRange.mMaximum;
+              v167 = *(a2 - 152);
+              v168 = *(a2 - 136);
+              *(v151 + 104) = *(a2 - 15);
               *(v151 + 88) = v168;
               *(v151 + 72) = v167;
               *(v151 + 56) = v166;
               v169 = *&v432.mFormat.mSampleRate;
               v170 = *&v432.mFormat.mBytesPerPacket;
               v171 = *&v432.mFormat.mBitsPerChannel;
-              a2[-3].mSampleRateRange.mMaximum = v432.mSampleRateRange.mMaximum;
-              *&a2[-3].mFormat.mBytesPerPacket = v170;
-              *&a2[-3].mFormat.mBitsPerChannel = v171;
+              *(a2 - 15) = *&v432.mSampleRateRange.mMaximum;
+              *(a2 - 152) = v170;
+              *(a2 - 136) = v171;
               *v8 = v169;
-              if (CAStreamRangedDescription::Sorter((v151 + 56), a1 + 2, v155))
+              if (CAStreamRangedDescription::Sorter((v151 + 56), (result + 112), v155))
               {
-                v173 = *(a1 + 8);
-                *&v432.mFormat.mSampleRate = *(a1 + 7);
+                v173 = *(result + 128);
+                *&v432.mFormat.mSampleRate = *(result + 112);
                 v172 = *&v432.mFormat.mSampleRate;
                 *&v432.mFormat.mBytesPerPacket = v173;
-                *&v432.mFormat.mBitsPerChannel = *(a1 + 9);
+                *&v432.mFormat.mBitsPerChannel = *(result + 144);
                 v174 = *&v432.mFormat.mBitsPerChannel;
-                v432.mSampleRateRange.mMaximum = *(a1 + 20);
+                v432.mSampleRateRange.mMaximum = *(result + 160);
                 v175 = v432.mSampleRateRange.mMaximum;
-                v176 = *(v151 + 13);
+                v176 = *(v151 + 104);
                 v177 = *(v151 + 88);
                 v178 = *(v151 + 72);
-                *(a1 + 7) = *(v151 + 56);
-                *(a1 + 8) = v178;
-                *(a1 + 9) = v177;
-                *(a1 + 20) = v176;
+                *(result + 112) = *(v151 + 56);
+                *(result + 128) = v178;
+                *(result + 144) = v177;
+                *(result + 160) = v176;
                 *(v151 + 72) = v173;
                 *(v151 + 88) = v174;
-                *(v151 + 13) = v175;
+                *(v151 + 104) = v175;
                 *(v151 + 56) = v172;
               }
             }
@@ -6232,23 +8372,23 @@ LABEL_48:
               if (v195)
               {
                 v200 = *v14;
-                v201 = *(v14 + 1);
-                v202 = *(v14 + 2);
-                v432.mSampleRateRange.mMaximum = *(v14 + 6);
+                v201 = *(v14 + 16);
+                v202 = *(v14 + 32);
+                v432.mSampleRateRange.mMaximum = *(v14 + 48);
                 *&v432.mFormat.mBytesPerPacket = v201;
                 *&v432.mFormat.mBitsPerChannel = v202;
                 *&v432.mFormat.mSampleRate = v200;
                 v203 = *(v151 + 72);
                 *v14 = *(v151 + 56);
-                *(v14 + 1) = v203;
-                *(v14 + 2) = *(v151 + 88);
-                *(v14 + 6) = *(v151 + 13);
+                *(v14 + 16) = v203;
+                *(v14 + 32) = *(v151 + 88);
+                *(v14 + 48) = *(v151 + 104);
                 v204 = v432.mSampleRateRange.mMaximum;
                 v205 = *&v432.mFormat.mBitsPerChannel;
                 v206 = *&v432.mFormat.mSampleRate;
                 *(v151 + 72) = *&v432.mFormat.mBytesPerPacket;
                 *(v151 + 88) = v205;
-                *(v151 + 13) = v204;
+                *(v151 + 104) = v204;
                 *(v151 + 56) = v206;
                 if (CAStreamRangedDescription::Sorter(v14, v89, v28))
                 {
@@ -6259,17 +8399,17 @@ LABEL_48:
                   *&v432.mFormat.mBytesPerPacket = v208;
                   *&v432.mFormat.mBitsPerChannel = v209;
                   *&v432.mFormat.mSampleRate = v207;
-                  v210 = *(v14 + 1);
+                  v210 = *(v14 + 16);
                   *v89 = *v14;
                   *(v89 + 16) = v210;
-                  *(v89 + 32) = *(v14 + 2);
-                  *(v89 + 48) = *(v14 + 6);
+                  *(v89 + 32) = *(v14 + 32);
+                  *(v89 + 48) = *(v14 + 48);
                   v211 = v432.mSampleRateRange.mMaximum;
                   v212 = *&v432.mFormat.mBitsPerChannel;
                   v213 = *&v432.mFormat.mSampleRate;
-                  *(v14 + 1) = *&v432.mFormat.mBytesPerPacket;
-                  *(v14 + 2) = v212;
-                  *(v14 + 6) = v211;
+                  *(v14 + 16) = *&v432.mFormat.mBytesPerPacket;
+                  *(v14 + 32) = v212;
+                  *(v14 + 48) = v211;
                   *v14 = v213;
                 }
               }
@@ -6290,7 +8430,7 @@ LABEL_48:
               *v89 = *(v151 + 56);
               *(v89 + 16) = v199;
               *(v89 + 32) = *(v151 + 88);
-              *(v89 + 48) = *(v151 + 13);
+              *(v89 + 48) = *(v151 + 104);
             }
 
             else
@@ -6302,57 +8442,57 @@ LABEL_48:
               *&v432.mFormat.mBytesPerPacket = v215;
               *&v432.mFormat.mBitsPerChannel = v216;
               *&v432.mFormat.mSampleRate = v214;
-              v217 = *(v14 + 1);
+              v217 = *(v14 + 16);
               *v89 = *v14;
               *(v89 + 16) = v217;
-              *(v89 + 32) = *(v14 + 2);
-              *(v89 + 48) = *(v14 + 6);
+              *(v89 + 32) = *(v14 + 32);
+              *(v89 + 48) = *(v14 + 48);
               v218 = v432.mSampleRateRange.mMaximum;
               v219 = *&v432.mFormat.mBitsPerChannel;
               v220 = *&v432.mFormat.mSampleRate;
-              *(v14 + 1) = *&v432.mFormat.mBytesPerPacket;
-              *(v14 + 2) = v219;
-              *(v14 + 6) = v218;
+              *(v14 + 16) = *&v432.mFormat.mBytesPerPacket;
+              *(v14 + 32) = v219;
+              *(v14 + 48) = v218;
               *v14 = v220;
               if (!CAStreamRangedDescription::Sorter((v151 + 56), v14, v28))
               {
 LABEL_57:
-                v228 = *a1;
-                v229 = *(a1 + 1);
-                v230 = *(a1 + 2);
-                v432.mSampleRateRange.mMaximum = *(a1 + 6);
+                v228 = *result;
+                v229 = *(result + 16);
+                v230 = *(result + 32);
+                v432.mSampleRateRange.mMaximum = *(result + 48);
                 *&v432.mFormat.mBytesPerPacket = v229;
                 *&v432.mFormat.mBitsPerChannel = v230;
                 *&v432.mFormat.mSampleRate = v228;
                 v231 = *v14;
-                v232 = *(v14 + 1);
-                v233 = *(v14 + 2);
-                *(a1 + 6) = *(v14 + 6);
-                *(a1 + 1) = v232;
-                *(a1 + 2) = v233;
-                *a1 = v231;
+                v232 = *(v14 + 16);
+                v233 = *(v14 + 32);
+                *(result + 48) = *(v14 + 48);
+                *(result + 16) = v232;
+                *(result + 32) = v233;
+                *result = v231;
                 v234 = *&v432.mFormat.mSampleRate;
                 v235 = *&v432.mFormat.mBytesPerPacket;
                 v236 = *&v432.mFormat.mBitsPerChannel;
-                *(v14 + 6) = *&v432.mSampleRateRange.mMaximum;
-                *(v14 + 1) = v235;
-                *(v14 + 2) = v236;
+                *(v14 + 48) = v432.mSampleRateRange.mMaximum;
+                *(v14 + 16) = v235;
+                *(v14 + 32) = v236;
                 *v14 = v234;
                 goto LABEL_58;
               }
 
               v221 = *v14;
-              v222 = *(v14 + 1);
-              v223 = *(v14 + 2);
-              v432.mSampleRateRange.mMaximum = *(v14 + 6);
+              v222 = *(v14 + 16);
+              v223 = *(v14 + 32);
+              v432.mSampleRateRange.mMaximum = *(v14 + 48);
               *&v432.mFormat.mBytesPerPacket = v222;
               *&v432.mFormat.mBitsPerChannel = v223;
               *&v432.mFormat.mSampleRate = v221;
               v224 = *(v151 + 72);
               *v14 = *(v151 + 56);
-              *(v14 + 1) = v224;
-              *(v14 + 2) = *(v151 + 88);
-              *(v14 + 6) = *(v151 + 13);
+              *(v14 + 16) = v224;
+              *(v14 + 32) = *(v151 + 88);
+              *(v14 + 48) = *(v151 + 104);
             }
 
             v225 = v432.mSampleRateRange.mMaximum;
@@ -6360,152 +8500,152 @@ LABEL_57:
             v227 = *&v432.mFormat.mSampleRate;
             *(v151 + 72) = *&v432.mFormat.mBytesPerPacket;
             *(v151 + 88) = v226;
-            *(v151 + 13) = v225;
+            *(v151 + 104) = v225;
             *(v151 + 56) = v227;
             goto LABEL_57;
           }
 
-          v25 = CAStreamRangedDescription::Sorter(a1, a1 + v13, a3);
-          v27 = CAStreamRangedDescription::Sorter(&a2[-1], a1, v26);
+          v25 = CAStreamRangedDescription::Sorter(result, (result + 56 * v13), a3);
+          v27 = CAStreamRangedDescription::Sorter((a2 - 56), result, v26);
           if (v25)
           {
             if (v27)
             {
               v29 = *v14;
-              v30 = *(v14 + 1);
-              v31 = *(v14 + 2);
-              v432.mSampleRateRange.mMaximum = *(v14 + 6);
+              v30 = *(v14 + 16);
+              v31 = *(v14 + 32);
+              v432.mSampleRateRange.mMaximum = *(v14 + 48);
               *&v432.mFormat.mBytesPerPacket = v30;
               *&v432.mFormat.mBitsPerChannel = v31;
               *&v432.mFormat.mSampleRate = v29;
-              v32 = *p_mSampleRate;
-              v33 = *&a2[-1].mFormat.mBytesPerPacket;
-              v34 = *&a2[-1].mFormat.mBitsPerChannel;
-              *(v14 + 6) = *&a2[-1].mSampleRateRange.mMaximum;
-              *(v14 + 1) = v33;
-              *(v14 + 2) = v34;
+              v32 = *v7;
+              v33 = *(a2 - 40);
+              v34 = *(a2 - 24);
+              *(v14 + 48) = *(a2 - 1);
+              *(v14 + 16) = v33;
+              *(v14 + 32) = v34;
               *v14 = v32;
 LABEL_36:
               v132 = *&v432.mFormat.mSampleRate;
               v133 = *&v432.mFormat.mBytesPerPacket;
               v134 = *&v432.mFormat.mBitsPerChannel;
-              a2[-1].mSampleRateRange.mMaximum = v432.mSampleRateRange.mMaximum;
-              *&a2[-1].mFormat.mBytesPerPacket = v133;
-              *&a2[-1].mFormat.mBitsPerChannel = v134;
-              *p_mSampleRate = v132;
+              *(a2 - 1) = *&v432.mSampleRateRange.mMaximum;
+              *(a2 - 40) = v133;
+              *(a2 - 24) = v134;
+              *v7 = v132;
               goto LABEL_58;
             }
 
             v117 = *v14;
-            v118 = *(v14 + 1);
-            v119 = *(v14 + 2);
-            v432.mSampleRateRange.mMaximum = *(v14 + 6);
+            v118 = *(v14 + 16);
+            v119 = *(v14 + 32);
+            v432.mSampleRateRange.mMaximum = *(v14 + 48);
             *&v432.mFormat.mBytesPerPacket = v118;
             *&v432.mFormat.mBitsPerChannel = v119;
             *&v432.mFormat.mSampleRate = v117;
-            v120 = *a1;
-            v121 = *(a1 + 1);
-            v122 = *(a1 + 2);
-            *(v14 + 6) = *(a1 + 6);
-            *(v14 + 1) = v121;
-            *(v14 + 2) = v122;
+            v120 = *result;
+            v121 = *(result + 16);
+            v122 = *(result + 32);
+            *(v14 + 48) = *(result + 48);
+            *(v14 + 16) = v121;
+            *(v14 + 32) = v122;
             *v14 = v120;
             v123 = *&v432.mFormat.mSampleRate;
             v124 = *&v432.mFormat.mBytesPerPacket;
             v125 = *&v432.mFormat.mBitsPerChannel;
-            *(a1 + 6) = *&v432.mSampleRateRange.mMaximum;
-            *(a1 + 1) = v124;
-            *(a1 + 2) = v125;
-            *a1 = v123;
-            if (CAStreamRangedDescription::Sorter(&a2[-1], a1, v28))
+            *(result + 48) = v432.mSampleRateRange.mMaximum;
+            *(result + 16) = v124;
+            *(result + 32) = v125;
+            *result = v123;
+            if (CAStreamRangedDescription::Sorter((a2 - 56), result, v28))
             {
-              v126 = *a1;
-              v127 = *(a1 + 1);
-              v128 = *(a1 + 2);
-              v432.mSampleRateRange.mMaximum = *(a1 + 6);
+              v126 = *result;
+              v127 = *(result + 16);
+              v128 = *(result + 32);
+              v432.mSampleRateRange.mMaximum = *(result + 48);
               *&v432.mFormat.mBytesPerPacket = v127;
               *&v432.mFormat.mBitsPerChannel = v128;
               *&v432.mFormat.mSampleRate = v126;
-              v129 = *p_mSampleRate;
-              v130 = *&a2[-1].mFormat.mBytesPerPacket;
-              v131 = *&a2[-1].mFormat.mBitsPerChannel;
-              *(a1 + 6) = *&a2[-1].mSampleRateRange.mMaximum;
-              *(a1 + 1) = v130;
-              *(a1 + 2) = v131;
-              *a1 = v129;
+              v129 = *v7;
+              v130 = *(a2 - 40);
+              v131 = *(a2 - 24);
+              *(result + 48) = *(a2 - 1);
+              *(result + 16) = v130;
+              *(result + 32) = v131;
+              *result = v129;
               goto LABEL_36;
             }
           }
 
           else if (v27)
           {
-            v53 = *a1;
-            v54 = *(a1 + 1);
-            v55 = *(a1 + 2);
-            v432.mSampleRateRange.mMaximum = *(a1 + 6);
+            v53 = *result;
+            v54 = *(result + 16);
+            v55 = *(result + 32);
+            v432.mSampleRateRange.mMaximum = *(result + 48);
             *&v432.mFormat.mBytesPerPacket = v54;
             *&v432.mFormat.mBitsPerChannel = v55;
             *&v432.mFormat.mSampleRate = v53;
-            v56 = *p_mSampleRate;
-            v57 = *&a2[-1].mFormat.mBytesPerPacket;
-            v58 = *&a2[-1].mFormat.mBitsPerChannel;
-            *(a1 + 6) = *&a2[-1].mSampleRateRange.mMaximum;
-            *(a1 + 1) = v57;
-            *(a1 + 2) = v58;
-            *a1 = v56;
+            v56 = *v7;
+            v57 = *(a2 - 40);
+            v58 = *(a2 - 24);
+            *(result + 48) = *(a2 - 1);
+            *(result + 16) = v57;
+            *(result + 32) = v58;
+            *result = v56;
             v59 = *&v432.mFormat.mSampleRate;
             v60 = *&v432.mFormat.mBytesPerPacket;
             v61 = *&v432.mFormat.mBitsPerChannel;
-            a2[-1].mSampleRateRange.mMaximum = v432.mSampleRateRange.mMaximum;
-            *&a2[-1].mFormat.mBytesPerPacket = v60;
-            *&a2[-1].mFormat.mBitsPerChannel = v61;
-            *p_mSampleRate = v59;
-            if (CAStreamRangedDescription::Sorter(a1, a1 + v13, v28))
+            *(a2 - 1) = *&v432.mSampleRateRange.mMaximum;
+            *(a2 - 40) = v60;
+            *(a2 - 24) = v61;
+            *v7 = v59;
+            if (CAStreamRangedDescription::Sorter(result, (result + 56 * v13), v28))
             {
               v62 = *v14;
-              v63 = *(v14 + 1);
-              v64 = *(v14 + 2);
-              v432.mSampleRateRange.mMaximum = *(v14 + 6);
+              v63 = *(v14 + 16);
+              v64 = *(v14 + 32);
+              v432.mSampleRateRange.mMaximum = *(v14 + 48);
               *&v432.mFormat.mBytesPerPacket = v63;
               *&v432.mFormat.mBitsPerChannel = v64;
               *&v432.mFormat.mSampleRate = v62;
-              v65 = *a1;
-              v66 = *(a1 + 1);
-              v67 = *(a1 + 2);
-              *(v14 + 6) = *(a1 + 6);
-              *(v14 + 1) = v66;
-              *(v14 + 2) = v67;
+              v65 = *result;
+              v66 = *(result + 16);
+              v67 = *(result + 32);
+              *(v14 + 48) = *(result + 48);
+              *(v14 + 16) = v66;
+              *(v14 + 32) = v67;
               *v14 = v65;
               v68 = *&v432.mFormat.mSampleRate;
               v69 = *&v432.mFormat.mBytesPerPacket;
               v70 = *&v432.mFormat.mBitsPerChannel;
-              *(a1 + 6) = *&v432.mSampleRateRange.mMaximum;
-              *(a1 + 1) = v69;
-              *(a1 + 2) = v70;
-              *a1 = v68;
+              *(result + 48) = v432.mSampleRateRange.mMaximum;
+              *(result + 16) = v69;
+              *(result + 32) = v70;
+              *result = v68;
             }
           }
 
 LABEL_58:
           v4 = (v4 - 1);
-          if (a4 & 1) != 0 || (CAStreamRangedDescription::Sorter((a1 - 56), a1, v28))
+          if (a4 & 1) != 0 || (CAStreamRangedDescription::Sorter((result - 56), result, v28))
           {
             break;
           }
 
-          v261 = *a1;
-          v262 = *(a1 + 1);
-          v263 = *(a1 + 2);
-          v431.mSampleRateRange.mMaximum = *(a1 + 6);
+          v261 = *result;
+          v262 = *(result + 16);
+          v263 = *(result + 32);
+          v431.mSampleRateRange.mMaximum = *(result + 48);
           *&v431.mFormat.mBytesPerPacket = v262;
           *&v431.mFormat.mBitsPerChannel = v263;
           *&v431.mFormat.mSampleRate = v261;
           if (CAStreamRangedDescription::Sorter(&v431, a2 - 1, v28))
           {
-            v9 = a1;
+            v9 = result;
             do
             {
-              ++v9;
+              v9 += 56;
             }
 
             while ((CAStreamRangedDescription::Sorter(&v431, v9, a3) & 1) == 0);
@@ -6513,7 +8653,7 @@ LABEL_58:
 
           else
           {
-            v264 = (a1 + 56);
+            v264 = (result + 56);
             do
             {
               v9 = v264;
@@ -6523,7 +8663,7 @@ LABEL_58:
               }
 
               v265 = CAStreamRangedDescription::Sorter(&v431, v264, a3);
-              v264 = v9 + 1;
+              v264 = (v9 + 56);
             }
 
             while (!v265);
@@ -6535,7 +8675,7 @@ LABEL_58:
             v266 = a2;
             do
             {
-              --v266;
+              v266 = (v266 - 56);
             }
 
             while ((CAStreamRangedDescription::Sorter(&v431, v266, a3) & 1) != 0);
@@ -6543,71 +8683,71 @@ LABEL_58:
 
           while (v9 < v266)
           {
-            v267 = *&v9->mFormat.mSampleRate;
-            v268 = *&v9->mFormat.mBytesPerPacket;
-            v269 = *&v9->mFormat.mBitsPerChannel;
-            v432.mSampleRateRange.mMaximum = v9->mSampleRateRange.mMaximum;
+            v267 = *v9;
+            v268 = *(v9 + 16);
+            v269 = *(v9 + 32);
+            v432.mSampleRateRange.mMaximum = *(v9 + 48);
             *&v432.mFormat.mBytesPerPacket = v268;
             *&v432.mFormat.mBitsPerChannel = v269;
             *&v432.mFormat.mSampleRate = v267;
-            v270 = *&v266->mFormat.mSampleRate;
-            v271 = *&v266->mFormat.mBytesPerPacket;
-            v272 = *&v266->mFormat.mBitsPerChannel;
-            v9->mSampleRateRange.mMaximum = v266->mSampleRateRange.mMaximum;
-            *&v9->mFormat.mBytesPerPacket = v271;
-            *&v9->mFormat.mBitsPerChannel = v272;
-            *&v9->mFormat.mSampleRate = v270;
+            v270 = *v266;
+            v271 = *(v266 + 1);
+            v272 = *(v266 + 2);
+            *(v9 + 48) = *(v266 + 6);
+            *(v9 + 16) = v271;
+            *(v9 + 32) = v272;
+            *v9 = v270;
             v273 = *&v432.mFormat.mSampleRate;
             v274 = *&v432.mFormat.mBytesPerPacket;
             v275 = *&v432.mFormat.mBitsPerChannel;
-            v266->mSampleRateRange.mMaximum = v432.mSampleRateRange.mMaximum;
-            *&v266->mFormat.mBytesPerPacket = v274;
-            *&v266->mFormat.mBitsPerChannel = v275;
-            *&v266->mFormat.mSampleRate = v273;
+            *(v266 + 6) = *&v432.mSampleRateRange.mMaximum;
+            *(v266 + 1) = v274;
+            *(v266 + 2) = v275;
+            *v266 = v273;
             do
             {
-              ++v9;
+              v9 += 56;
             }
 
             while (!CAStreamRangedDescription::Sorter(&v431, v9, a3));
             do
             {
-              --v266;
+              v266 = (v266 - 56);
             }
 
             while ((CAStreamRangedDescription::Sorter(&v431, v266, a3) & 1) != 0);
           }
 
-          v276 = &v9[-1];
-          if (&v9[-1] != a1)
+          v276 = (v9 - 56);
+          if (v9 - 56 != result)
           {
             v277 = *v276;
-            v278 = *&v9[-1].mFormat.mBytesPerPacket;
-            v279 = *&v9[-1].mFormat.mBitsPerChannel;
-            *(a1 + 6) = *&v9[-1].mSampleRateRange.mMaximum;
-            *(a1 + 1) = v278;
-            *(a1 + 2) = v279;
-            *a1 = v277;
+            v278 = *(v9 - 40);
+            v279 = *(v9 - 24);
+            *(result + 48) = *(v9 - 8);
+            *(result + 16) = v278;
+            *(result + 32) = v279;
+            *result = v277;
           }
 
           a4 = 0;
           v280 = *&v431.mFormat.mSampleRate;
           v281 = *&v431.mFormat.mBytesPerPacket;
           v282 = *&v431.mFormat.mBitsPerChannel;
-          v9[-1].mSampleRateRange.mMaximum = v431.mSampleRateRange.mMaximum;
-          *&v9[-1].mFormat.mBytesPerPacket = v281;
-          *&v9[-1].mFormat.mBitsPerChannel = v282;
+          *(v9 - 8) = v431.mSampleRateRange.mMaximum;
+          *(v9 - 40) = v281;
+          *(v9 - 24) = v282;
           *v276 = v280;
         }
 
-        v237 = *a1;
-        v238 = *(a1 + 1);
-        v239 = *(a1 + 2);
-        v431.mSampleRateRange.mMaximum = *(a1 + 6);
+        v237 = *result;
+        v238 = *(result + 16);
+        v239 = *(result + 32);
+        v431.mSampleRateRange.mMaximum = *(result + 48);
         *&v431.mFormat.mBytesPerPacket = v238;
         *&v431.mFormat.mBitsPerChannel = v239;
         *&v431.mFormat.mSampleRate = v237;
-        v240 = a1;
+        v240 = result;
         do
         {
           v241 = v240;
@@ -6616,7 +8756,7 @@ LABEL_58:
 
         while ((CAStreamRangedDescription::Sorter(v240, &v431, v28) & 1) != 0);
         v242 = a2;
-        if (v241 == a1)
+        if (v241 == result)
         {
           v242 = a2;
           do
@@ -6686,15 +8826,15 @@ LABEL_58:
           while (v244 < v245);
         }
 
-        if (v241 != a1)
+        if (v241 != result)
         {
           v253 = *v241;
           v254 = *(v241 + 1);
           v255 = *(v241 + 2);
-          *(a1 + 6) = *(v241 + 6);
-          *(a1 + 1) = v254;
-          *(a1 + 2) = v255;
-          *a1 = v253;
+          *(result + 48) = *(v241 + 6);
+          *(result + 16) = v254;
+          *(result + 32) = v255;
+          *result = v253;
         }
 
         v256 = *&v431.mFormat.mSampleRate;
@@ -6711,13 +8851,13 @@ LABEL_58:
         }
 
 LABEL_79:
-        std::__introsort<std::_ClassicAlgPolicy,AMCP::HAL::translate_mcp_value_to_hal_by_type(AMCP::Thing const&,AMCP::Property_Type_Code,AMCP::HAL::HAL_Property_Type_Code)::$_0 &,AudioStreamRangedDescription *,false>(a1, v241, v243, a4 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,AMCP::HAL::translate_mcp_value_to_hal_by_type(AMCP::Thing const&,AMCP::Property_Type_Code,AMCP::HAL::HAL_Property_Type_Code)::$_0 &,AudioStreamRangedDescription *,false>(result, v241, v243, a4 & 1);
         a4 = 0;
-        v9 = (v241 + 56);
+        v9 = v241 + 56;
       }
 
-      v259 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AMCP::HAL::translate_mcp_value_to_hal_by_type(AMCP::Thing const&,AMCP::Property_Type_Code,AMCP::HAL::HAL_Property_Type_Code)::$_0 &,AudioStreamRangedDescription *>(a1, v241, v28);
-      v9 = (v241 + 56);
+      v259 = std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AMCP::HAL::translate_mcp_value_to_hal_by_type(AMCP::Thing const&,AMCP::Property_Type_Code,AMCP::HAL::HAL_Property_Type_Code)::$_0 &,AudioStreamRangedDescription *>(result, v241, v28);
+      v9 = v241 + 56;
       if (std::__insertion_sort_incomplete[abi:ne200100]<std::_ClassicAlgPolicy,AMCP::HAL::translate_mcp_value_to_hal_by_type(AMCP::Thing const&,AMCP::Property_Type_Code,AMCP::HAL::HAL_Property_Type_Code)::$_0 &,AudioStreamRangedDescription *>(v241 + 1, a2, v260))
       {
         break;
@@ -6780,9 +8920,9 @@ BOOL AMCP::Thing::can_convert_to<applesauce::CF::DataRef>(uint64_t a1)
   return v4;
 }
 
-void sub_1DE358A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE358A94(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -6828,9 +8968,9 @@ BOOL AMCP::Thing::can_convert_to<applesauce::CF::ArrayRef>(uint64_t a1)
   return v4;
 }
 
-void sub_1DE358BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE358BBC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -6876,9 +9016,9 @@ BOOL AMCP::Thing::can_convert_to<applesauce::CF::DictionaryRef>(uint64_t a1)
   return v4;
 }
 
-void sub_1DE358CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_1DE358CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   AMCP::Thing::~Thing(va);
   _Unwind_Resume(a1);
 }
@@ -7385,7 +9525,7 @@ LABEL_41:
   }
 }
 
-void AMCP::HAL::translate_hal_value_to_mcp_by_type(const __CFData **a1@<X0>, unsigned int a2@<W1>, int a3@<W2>, CFStringRef *a4@<X8>)
+void AMCP::HAL::translate_hal_value_to_mcp_by_type(CFDataRef *a1@<X0>, unsigned int a2@<W1>, int a3@<W2>, uint64_t *a4@<X8>)
 {
   switch(a3)
   {
@@ -7883,7 +10023,7 @@ LABEL_73:
       a4[4] = 0;
       *a4 = 0u;
       *(a4 + 1) = 0u;
-      std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(a4, v20, v19, (v19 - v20) >> 4);
+      std::vector<CA::ValueRange>::__init_with_size[abi:ne200100]<CA::ValueRange*,CA::ValueRange*>(a4, v20, v19, &v19[-v20] >> 4);
       a4[4] = AMCP::Implementation::In_Place_Storage<CA::ValueRangeList>::dispatch;
       if (v20)
       {
@@ -7978,2008 +10118,4 @@ LABEL_87:
     default:
       goto LABEL_85;
   }
-}
-
-void *applesauce::CF::DataRef::operator->(void *result)
-{
-  if (!*result)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::construct_error(exception);
-    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  return result;
-}
-
-const UInt8 *applesauce::CF::DataRef_proxy::get_raw_data(const UInt8 *this)
-{
-  if (this)
-  {
-    return CFDataGetBytePtr(this);
-  }
-
-  return this;
-}
-
-const __CFData *applesauce::CF::DataRef_proxy::get_byte_length(const __CFData *this)
-{
-  if (this)
-  {
-    return CFDataGetLength(this);
-  }
-
-  return this;
-}
-
-void std::vector<CA::RangedStreamDescription>::push_back[abi:ne200100](uint64_t *a1, __int128 *a2)
-{
-  v3 = a1[1];
-  v4 = a1[2];
-  if (v3 >= v4)
-  {
-    v9 = 0x6DB6DB6DB6DB6DB7 * ((v3 - *a1) >> 3);
-    v10 = v9 + 1;
-    if ((v9 + 1) > 0x492492492492492)
-    {
-      std::vector<void *>::__throw_length_error[abi:ne200100]();
-    }
-
-    v11 = 0x6DB6DB6DB6DB6DB7 * ((v4 - *a1) >> 3);
-    if (2 * v11 > v10)
-    {
-      v10 = 2 * v11;
-    }
-
-    if (v11 >= 0x249249249249249)
-    {
-      v12 = 0x492492492492492;
-    }
-
-    else
-    {
-      v12 = v10;
-    }
-
-    if (v12)
-    {
-      std::allocator<AudioStreamRangedDescription>::allocate_at_least[abi:ne200100](v12);
-    }
-
-    v13 = 56 * v9;
-    v14 = *a2;
-    v15 = a2[1];
-    v16 = a2[2];
-    *(v13 + 48) = *(a2 + 6);
-    *(v13 + 16) = v15;
-    *(v13 + 32) = v16;
-    *v13 = v14;
-    v8 = 56 * v9 + 56;
-    v17 = *a1;
-    v18 = a1[1];
-    v19 = 56 * v9 + *a1 - v18;
-    if (*a1 != v18)
-    {
-      v20 = 56 * v9 + *a1 - v18;
-      do
-      {
-        v21 = *v17;
-        v22 = v17[1];
-        v23 = v17[2];
-        *(v20 + 48) = *(v17 + 6);
-        *(v20 + 16) = v22;
-        *(v20 + 32) = v23;
-        *v20 = v21;
-        v20 += 56;
-        v17 = (v17 + 56);
-      }
-
-      while (v17 != v18);
-      v17 = *a1;
-    }
-
-    *a1 = v19;
-    a1[1] = v8;
-    a1[2] = 0;
-    if (v17)
-    {
-      operator delete(v17);
-    }
-  }
-
-  else
-  {
-    v5 = *a2;
-    v6 = a2[1];
-    v7 = a2[2];
-    *(v3 + 48) = *(a2 + 6);
-    *(v3 + 16) = v6;
-    *(v3 + 32) = v7;
-    *v3 = v5;
-    v8 = v3 + 56;
-  }
-
-  a1[1] = v8;
-}
-
-void AMCP::make_thing_from_description(AMCP *this, CFTypeRef *a2)
-{
-  if (*a2)
-  {
-    v4 = CFGetTypeID(*a2);
-  }
-
-  else
-  {
-    v4 = 0;
-  }
-
-  if (v4 == CFBooleanGetTypeID())
-  {
-    v5 = *a2;
-    if (v5)
-    {
-      CFRetain(v5);
-      v29 = v5;
-      v6 = CFGetTypeID(v5);
-      if (v6 != CFBooleanGetTypeID())
-      {
-        exception = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(exception, "Could not construct");
-        __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-      }
-    }
-
-    *(this + 2) = 0;
-    *(this + 3) = 0;
-    *this = v5;
-    *(this + 1) = 0;
-    v7 = AMCP::Implementation::In_Place_Storage<applesauce::CF::BooleanRef>::dispatch;
-    goto LABEL_32;
-  }
-
-  if (*a2)
-  {
-    v8 = CFGetTypeID(*a2);
-  }
-
-  else
-  {
-    v8 = 0;
-  }
-
-  if (v8 == CFDataGetTypeID())
-  {
-    v9 = *a2;
-    if (v9)
-    {
-      CFRetain(v9);
-      v29 = v9;
-      v10 = CFGetTypeID(v9);
-      if (v10 != CFDataGetTypeID())
-      {
-        v27 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v27, "Could not construct");
-        __cxa_throw(v27, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-      }
-    }
-
-    *(this + 2) = 0;
-    *(this + 3) = 0;
-    *this = v9;
-    *(this + 1) = 0;
-    v7 = AMCP::Implementation::In_Place_Storage<applesauce::CF::DataRef>::dispatch;
-    goto LABEL_32;
-  }
-
-  if (*a2)
-  {
-    v11 = CFGetTypeID(*a2);
-  }
-
-  else
-  {
-    v11 = 0;
-  }
-
-  if (v11 == CFNumberGetTypeID())
-  {
-    applesauce::CF::NumberRef::from_get(&v29, *a2);
-    *(this + 2) = 0;
-    *(this + 3) = 0;
-    *this = v29;
-    *(this + 1) = 0;
-    v7 = AMCP::Implementation::In_Place_Storage<applesauce::CF::NumberRef>::dispatch;
-LABEL_32:
-    *(this + 4) = v7;
-    return;
-  }
-
-  if (*a2)
-  {
-    v12 = CFGetTypeID(*a2);
-  }
-
-  else
-  {
-    v12 = 0;
-  }
-
-  if (v12 == CFStringGetTypeID())
-  {
-    applesauce::CF::StringRef::from_get(&v29, *a2);
-    *(this + 2) = 0;
-    *(this + 3) = 0;
-    *this = v29;
-    *(this + 1) = 0;
-    v7 = AMCP::Implementation::In_Place_Storage<applesauce::CF::StringRef>::dispatch;
-    goto LABEL_32;
-  }
-
-  if (*a2)
-  {
-    v13 = CFGetTypeID(*a2);
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  if (v13 == CFURLGetTypeID())
-  {
-    v14 = *a2;
-    if (v14)
-    {
-      CFRetain(v14);
-      v29 = v14;
-      v15 = CFGetTypeID(v14);
-      if (v15 != CFURLGetTypeID())
-      {
-        v28 = __cxa_allocate_exception(0x10uLL);
-        std::runtime_error::runtime_error(v28, "Could not construct");
-        __cxa_throw(v28, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-      }
-    }
-
-    *(this + 2) = 0;
-    *(this + 3) = 0;
-    *this = v14;
-    *(this + 1) = 0;
-    v7 = AMCP::Implementation::In_Place_Storage<applesauce::CF::URLRef>::dispatch;
-    goto LABEL_32;
-  }
-
-  if (*a2)
-  {
-    v16 = CFGetTypeID(*a2);
-  }
-
-  else
-  {
-    v16 = 0;
-  }
-
-  if (v16 == CFArrayGetTypeID())
-  {
-    v17 = *a2;
-    applesauce::CF::details::Retain<__CFArray const*>(v17);
-    applesauce::CF::ArrayRef::ArrayRef(&v29, v17);
-    *(this + 2) = 0;
-    *(this + 3) = 0;
-    *this = v29;
-    *(this + 1) = 0;
-    v29 = 0;
-    *(this + 4) = AMCP::Implementation::In_Place_Storage<applesauce::CF::ArrayRef>::dispatch;
-    applesauce::CF::ArrayRef::~ArrayRef(&v29);
-  }
-
-  else
-  {
-    typeid = applesauce::CF::ObjectRef<void const*>::get_typeid(*a2);
-    if (typeid == CFDictionaryGetTypeID())
-    {
-      v19 = *a2;
-      applesauce::CF::details::Retain<__CFDictionary const*>(v19);
-      applesauce::CF::DictionaryRef::DictionaryRef(&v31, v19);
-      applesauce::CF::DictionaryRef_proxy::DictionaryRef_proxy(&v32, &v31);
-      v20 = v32;
-      applesauce::CF::StringRef::StringRef(&v32, "Really A CFURL", 14);
-      applesauce::CF::details::find_at_key_or_optional<applesauce::CF::DataRef,applesauce::CF::StringRef>(&v29, *v20, v32);
-      applesauce::CF::StringRef::~StringRef(&v32);
-      if (v30 == 1)
-      {
-        v21 = applesauce::CF::DataRef::operator->(&v29);
-        raw_data = applesauce::CF::DataRef_proxy::get_raw_data(*v21);
-        v23 = applesauce::CF::DataRef::operator->(&v29);
-        byte_length = applesauce::CF::DataRef_proxy::get_byte_length(*v23);
-        v25 = CFURLCreateWithBytes(0, raw_data, byte_length, 0x8000100u, 0);
-        applesauce::CF::URLRef::URLRef(&v32, v25);
-        *(this + 2) = 0;
-        *(this + 3) = 0;
-        *this = v32;
-        *(this + 1) = 0;
-        v32 = 0;
-        *(this + 4) = AMCP::Implementation::In_Place_Storage<applesauce::CF::URLRef>::dispatch;
-        applesauce::CF::URLRef::~URLRef(&v32);
-      }
-
-      else
-      {
-        *(this + 4) = 0;
-        *this = 0u;
-        *(this + 1) = 0u;
-        AMCP::Implementation::In_Place_Storage<applesauce::CF::DictionaryRef>::construct<applesauce::CF::DictionaryRef&>(this, &v31);
-      }
-
-      std::optional<applesauce::CF::DataRef>::~optional(&v29);
-      applesauce::CF::DictionaryRef::~DictionaryRef(&v31);
-    }
-
-    else
-    {
-      *(this + 4) = 0;
-      *this = 0u;
-      *(this + 1) = 0u;
-    }
-  }
-}
-
-void sub_1DE35A82C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, const void *a11)
-{
-  std::optional<applesauce::CF::DataRef>::~optional(&a9);
-  applesauce::CF::DictionaryRef::~DictionaryRef(&a11);
-  _Unwind_Resume(a1);
-}
-
-uint64_t AMCP::Implementation::In_Place_Storage<applesauce::CF::URLRef>::construct<applesauce::CF::URLRef&>(uint64_t a1, CFTypeRef *a2)
-{
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  v3 = *a2;
-  if (*a2)
-  {
-    CFRetain(*a2);
-  }
-
-  *a1 = v3;
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<applesauce::CF::URLRef>::dispatch;
-  return a1;
-}
-
-double AMCP::HAL::translate_simple_hal_value_to_mcp<unsigned int>(uint64_t a1, CFDataRef *a2)
-{
-  if (!*a2)
-  {
-    goto LABEL_6;
-  }
-
-  if (CFDataGetLength(*a2) <= 3)
-  {
-    *(a1 + 32) = 0;
-    result = 0.0;
-    *a1 = 0u;
-    *(a1 + 16) = 0u;
-    return result;
-  }
-
-  if (!*a2)
-  {
-LABEL_6:
-    exception = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::construct_error(exception);
-    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  BytePtr = CFDataGetBytePtr(*a2);
-  result = 0.0;
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *a1 = *BytePtr;
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<unsigned int>::dispatch;
-  return result;
-}
-
-void AMCP::HAL::translate_vector_hal_value_to_mcp<unsigned int>(uint64_t a1, CFDataRef *a2)
-{
-  if (!*a2 || (BytePtr = CFDataGetBytePtr(*a2), !*a2))
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::construct_error(exception);
-    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  Length = CFDataGetLength(*a2);
-  v8 = 0;
-  v9 = 0;
-  v10 = 0;
-  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int const*,unsigned int const*>(&v8, BytePtr, &BytePtr[Length & 0xFFFFFFFFFFFFFFFCLL], Length >> 2);
-  *(a1 + 32) = 0;
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  v6 = v8;
-  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(a1, v8, v9, (v9 - v8) >> 2);
-  *(a1 + 32) = AMCP::Implementation::In_Place_Storage<std::vector<unsigned int>>::dispatch;
-  if (v6)
-  {
-
-    operator delete(v6);
-  }
-}
-
-void sub_1DE35ABD0(_Unwind_Exception *exception_object)
-{
-  v3 = *v1;
-  if (*v1)
-  {
-    *(v1 + 8) = v3;
-    operator delete(v3);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-CA::ChannelLayout *CA::ChannelLayout::ChannelLayout(CA::ChannelLayout *this, const AudioChannelLayout *a2)
-{
-  mNumberChannelDescriptions = a2->mNumberChannelDescriptions;
-  if (mNumberChannelDescriptions <= 1)
-  {
-    mNumberChannelDescriptions = 1;
-  }
-
-  v5 = std::vector<char>::vector[abi:ne200100](this, 20 * mNumberChannelDescriptions + 12);
-  memcpy(*v5, a2, 20 * a2->mNumberChannelDescriptions + 12);
-  return this;
-}
-
-uint64_t AMCP::Implementation::In_Place_Storage<AMCP::Power_State>::dispatch(uint64_t result, uint64_t a2, AMCP::Thing *a3, __objc2_meth_list **a4)
-{
-  if (result <= 2)
-  {
-    if (result)
-    {
-      if (result == 1)
-      {
-        result = 0;
-        *a3 = 0u;
-        *(a3 + 1) = 0u;
-        *a3 = *a2;
-        *(a3 + 4) = AMCP::Implementation::In_Place_Storage<AMCP::Power_State>::dispatch;
-        return result;
-      }
-
-      if (result != 2)
-      {
-        return result;
-      }
-
-      result = 0;
-      v7 = 0uLL;
-      *a3 = 0u;
-      *(a3 + 1) = 0u;
-      *a3 = *a2;
-      *(a3 + 4) = AMCP::Implementation::In_Place_Storage<AMCP::Power_State>::dispatch;
-      *(a2 + 32) = 0;
-    }
-
-    else
-    {
-      result = 0;
-      *(a2 + 32) = 0;
-      v7 = 0uLL;
-    }
-
-    *a2 = v7;
-    *(a2 + 16) = v7;
-    return result;
-  }
-
-  if (result > 4)
-  {
-    if (result != 5)
-    {
-      if (result != 6)
-      {
-        return result;
-      }
-
-      v15 = 0;
-      memset(v14, 0, sizeof(v14));
-      AMCP::swap(v14, a3, a3);
-      if (v15)
-      {
-        v15(0, v14, 0, 0);
-      }
-
-      return 0;
-    }
-
-    v9 = AMCP::Implementation::get_type_marker<AMCP::Power_State>();
-    v10 = *(a2 + 32);
-    *&v14[0] = 0;
-    if (v10)
-    {
-      (v10)(3, a2, 0, v14);
-      v10 = *&v14[0];
-    }
-
-    if (v10 != v9)
-    {
-      goto LABEL_27;
-    }
-
-    v11 = *(a3 + 4);
-    v16 = 0;
-    if (v11)
-    {
-      (v11)(3, a3, 0, &v16);
-      v11 = v16;
-    }
-
-    if (v11 == v9)
-    {
-      if (*(a2 + 32))
-      {
-        *&v14[0] = AMCP::Implementation::get_type_marker<AMCP::Power_State>();
-        v12 = (*(a2 + 32))(4, a2, 0, v14);
-      }
-
-      else
-      {
-        v12 = 0;
-      }
-
-      *&v14[0] = AMCP::Implementation::get_type_marker<AMCP::Power_State>();
-      if (*v12 == *(*(a3 + 4))(4, a3, 0, v14))
-      {
-        return 1;
-      }
-    }
-
-    else
-    {
-LABEL_27:
-      v13 = AMCP::Thing::convert_to<AMCP::Power_State>(a2);
-      if (v13 == AMCP::Thing::convert_to<AMCP::Power_State>(a3))
-      {
-        return 1;
-      }
-    }
-
-    return 0;
-  }
-
-  if (result == 3)
-  {
-    v8 = AMCP::Implementation::get_type_marker<AMCP::Power_State>();
-    result = 0;
-    *a4 = v8;
-  }
-
-  else if (*a4 == AMCP::Implementation::get_type_marker<AMCP::Power_State>())
-  {
-    return a2;
-  }
-
-  else
-  {
-    return 0;
-  }
-
-  return result;
-}
-
-__objc2_meth_list *AMCP::Implementation::get_type_marker<AMCP::Power_State>()
-{
-  v0 = &OBJC_PROTOCOL___HAL_DSP_HostCallbacks;
-  {
-    v0 = &OBJC_PROTOCOL___HAL_DSP_HostCallbacks;
-    if (v2)
-    {
-      v0 = &OBJC_PROTOCOL___HAL_DSP_HostCallbacks;
-    }
-  }
-
-  return v0[5].opt_inst_meths;
-}
-
-uint64_t AMCP::Thing::convert_to<AMCP::Power_State>(uint64_t a1)
-{
-  if (!*(a1 + 32))
-  {
-    goto LABEL_12;
-  }
-
-  v2 = AMCP::Implementation::get_type_marker<AMCP::Power_State>();
-  v3 = *(a1 + 32);
-  v17 = 0;
-  if (v3)
-  {
-    (v3)(3, a1, 0, &v17);
-    v3 = v17;
-  }
-
-  if (v3 == v2)
-  {
-    *&v15[0] = v2;
-    v4 = (*(a1 + 32))(4, a1, 0, v15);
-    if (v4)
-    {
-      return *v4;
-    }
-
-LABEL_12:
-    exception = __cxa_allocate_exception(8uLL);
-    v9 = std::bad_cast::bad_cast(exception);
-    __cxa_throw(v9, MEMORY[0x1E69E5428], MEMORY[0x1E69E5380]);
-  }
-
-  v14 = AMCP::Implementation::get_type_marker<AMCP::Power_State>();
-  memset(v15, 0, sizeof(v15));
-  v16 = 0;
-  (*(a1 + 32))(6, a1, v15, &v14);
-  if (!v16)
-  {
-    v10 = __cxa_allocate_exception(8uLL);
-    v11 = std::bad_cast::bad_cast(v10);
-    __cxa_throw(v11, MEMORY[0x1E69E5428], MEMORY[0x1E69E5380]);
-  }
-
-  v14 = v2;
-  v6 = v16(4, v15, 0, &v14);
-  if (!v6)
-  {
-    v12 = __cxa_allocate_exception(8uLL);
-    v13 = std::bad_cast::bad_cast(v12);
-    __cxa_throw(v13, MEMORY[0x1E69E5428], MEMORY[0x1E69E5380]);
-  }
-
-  v5 = *v6;
-  if (v16)
-  {
-    v16(0, v15, 0, 0);
-  }
-
-  return v5;
-}
-
-void sub_1DE35B098(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
-{
-  va_start(va, a3);
-  AMCP::Thing::~Thing(va);
-  _Unwind_Resume(a1);
-}
-
-void *AMCP::Implementation::In_Place_Storage<applesauce::CF::URLRef>::dispatch(void *result, void *a2, AMCP::Thing *a3, uint64_t *a4)
-{
-  if (result > 2)
-  {
-    if (result <= 4)
-    {
-      if (result == 3)
-      {
-        v7 = AMCP::Implementation::get_type_marker<applesauce::CF::URLRef>();
-        result = 0;
-        *a4 = v7;
-      }
-
-      else if (*a4 == AMCP::Implementation::get_type_marker<applesauce::CF::URLRef>())
-      {
-        return a2;
-      }
-
-      else
-      {
-        return 0;
-      }
-
-      return result;
-    }
-
-    if (result != 5)
-    {
-      if (result != 6)
-      {
-        return result;
-      }
-
-      v21 = 0;
-      *cf1 = 0u;
-      v20 = 0u;
-      AMCP::swap(cf1, a3, a3);
-      if (v21)
-      {
-        v21(0, cf1, 0, 0);
-      }
-
-      return 0;
-    }
-
-    v8 = AMCP::Implementation::get_type_marker<applesauce::CF::URLRef>();
-    v9 = a2[4];
-    cf1[0] = 0;
-    if (v9)
-    {
-      (v9)(3, a2, 0, cf1);
-      v9 = cf1[0];
-    }
-
-    if (v9 == v8)
-    {
-      v10 = *(a3 + 4);
-      cf2 = 0;
-      if (v10)
-      {
-        v10(3, a3, 0, &cf2);
-        v10 = cf2;
-      }
-
-      if (v10 == v8)
-      {
-        if (a2[4])
-        {
-          cf1[0] = AMCP::Implementation::get_type_marker<applesauce::CF::URLRef>();
-          v11 = (a2[4])(4, a2, 0, cf1);
-        }
-
-        else
-        {
-          v11 = 0;
-        }
-
-        cf1[0] = AMCP::Implementation::get_type_marker<applesauce::CF::URLRef>();
-        v16 = (*(a3 + 4))(4, a3, 0, cf1);
-        v17 = *v11;
-        v18 = *v16;
-        if (*v11 && v18)
-        {
-          return (CFEqual(v17, v18) != 0);
-        }
-
-        return !(v17 | v18);
-      }
-    }
-
-    AMCP::Thing::convert_to<applesauce::CF::URLRef>(cf1, a2);
-    AMCP::Thing::convert_to<applesauce::CF::URLRef>(&cf2, a3);
-    v13 = cf1[0];
-    v14 = cf2;
-    v15 = (cf1[0] | cf2) == 0;
-    if (cf1[0] && cf2)
-    {
-      v15 = CFEqual(cf1[0], cf2) != 0;
-    }
-
-    else if (!cf2)
-    {
-      goto LABEL_33;
-    }
-
-    CFRelease(v14);
-LABEL_33:
-    if (v13)
-    {
-      CFRelease(v13);
-    }
-
-    return v15;
-  }
-
-  if (!result)
-  {
-LABEL_11:
-    AMCP::Implementation::In_Place_Storage<applesauce::CF::URLRef>::destruct(a2);
-    return 0;
-  }
-
-  if (result != 1)
-  {
-    if (result != 2)
-    {
-      return result;
-    }
-
-    *a3 = 0u;
-    *(a3 + 1) = 0u;
-    *a3 = *a2;
-    *a2 = 0;
-    *(a3 + 4) = AMCP::Implementation::In_Place_Storage<applesauce::CF::URLRef>::dispatch;
-    goto LABEL_11;
-  }
-
-  *a3 = 0u;
-  *(a3 + 1) = 0u;
-  v12 = *a2;
-  if (*a2)
-  {
-    CFRetain(v12);
-  }
-
-  result = 0;
-  *a3 = v12;
-  *(a3 + 4) = AMCP::Implementation::In_Place_Storage<applesauce::CF::URLRef>::dispatch;
-  return result;
-}
-
-void sub_1DE35B374(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, const void *a9)
-{
-  applesauce::CF::URLRef::~URLRef(&a9);
-  __cxa_begin_catch(a1);
-  __cxa_end_catch();
-  JUMPOUT(0x1DE35B334);
-}
-
-double AMCP::Implementation::In_Place_Storage<applesauce::CF::URLRef>::destruct(uint64_t a1)
-{
-  v2 = *a1;
-  if (v2)
-  {
-    CFRelease(v2);
-  }
-
-  *(a1 + 32) = 0;
-  result = 0.0;
-  *a1 = 0u;
-  *(a1 + 16) = 0u;
-  return result;
-}
-
-void *applesauce::CF::NumberRef::from_get(void *this, CFTypeRef cf)
-{
-  v2 = this;
-  if (cf)
-  {
-    CFRetain(cf);
-    *v2 = cf;
-    v4 = CFGetTypeID(cf);
-    this = CFNumberGetTypeID();
-    if (v4 != this)
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Could not construct");
-      __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-  }
-
-  else
-  {
-    *this = 0;
-  }
-
-  return this;
-}
-
-void sub_1DE35B468(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  applesauce::CF::ObjectRef<__CFNumber const*>::~ObjectRef(v1);
-  _Unwind_Resume(a1);
-}
-
-CFTypeRef applesauce::CF::details::Retain<__CFArray const*>(CFTypeRef cf)
-{
-  if (cf)
-  {
-    CFRetain(cf);
-  }
-
-  return cf;
-}
-
-applesauce::CF::ArrayRef *applesauce::CF::ArrayRef::ArrayRef(applesauce::CF::ArrayRef *this, CFTypeRef cf)
-{
-  *this = cf;
-  if (cf)
-  {
-    v3 = CFGetTypeID(cf);
-    if (v3 != CFArrayGetTypeID())
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Could not construct");
-      __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-  }
-
-  return this;
-}
-
-void sub_1DE35B550(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  applesauce::CF::ObjectRef<__CFArray const*>::~ObjectRef(v1);
-  _Unwind_Resume(a1);
-}
-
-const void *applesauce::CF::ObjectRef<void const*>::get_typeid(const void *result)
-{
-  if (result)
-  {
-    return CFGetTypeID(result);
-  }
-
-  return result;
-}
-
-CFTypeRef applesauce::CF::details::Retain<__CFDictionary const*>(CFTypeRef cf)
-{
-  if (cf)
-  {
-    CFRetain(cf);
-  }
-
-  return cf;
-}
-
-applesauce::CF::DictionaryRef *applesauce::CF::DictionaryRef::DictionaryRef(applesauce::CF::DictionaryRef *this, CFTypeRef cf)
-{
-  *this = cf;
-  if (cf)
-  {
-    v3 = CFGetTypeID(cf);
-    if (v3 != CFDictionaryGetTypeID())
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Could not construct");
-      __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-  }
-
-  return this;
-}
-
-void sub_1DE35B654(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  applesauce::CF::ObjectRef<__CFDictionary const*>::~ObjectRef(v1);
-  _Unwind_Resume(a1);
-}
-
-void *applesauce::CF::DictionaryRef_proxy::DictionaryRef_proxy(void *this, const applesauce::CF::DictionaryRef *a2)
-{
-  *this = a2;
-  if (!*a2)
-  {
-    exception = __cxa_allocate_exception(0x10uLL);
-    applesauce::CF::construct_error(exception);
-    __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-  }
-
-  return this;
-}
-
-applesauce::CF::StringRef *applesauce::CF::StringRef::StringRef(applesauce::CF::StringRef *this, const UInt8 *a2, CFIndex a3)
-{
-  if (a2)
-  {
-    v4 = CFStringCreateWithBytes(0, a2, a3, 0x8000100u, 0);
-    *this = v4;
-    if (!v4)
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Could not construct");
-      __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-  }
-
-  else
-  {
-    *this = 0;
-  }
-
-  return this;
-}
-
-void applesauce::CF::details::find_at_key_or_optional<applesauce::CF::DataRef,applesauce::CF::StringRef>(_BYTE *a1, CFDictionaryRef theDict, const void *a3)
-{
-  v4 = applesauce::CF::details::at_key<applesauce::CF::StringRef>(theDict, a3);
-  if (!v4)
-  {
-    goto LABEL_5;
-  }
-
-  v5 = v4;
-  CFRetain(v4);
-  v6 = CFGetTypeID(v5);
-  if (v6 != CFDataGetTypeID())
-  {
-    CFRelease(v5);
-LABEL_5:
-    v7 = 0;
-    *a1 = 0;
-    goto LABEL_6;
-  }
-
-  *a1 = v5;
-  v7 = 1;
-LABEL_6:
-  a1[8] = v7;
-}
-
-applesauce::CF::URLRef *applesauce::CF::URLRef::URLRef(applesauce::CF::URLRef *this, CFTypeRef cf)
-{
-  *this = cf;
-  if (cf)
-  {
-    v3 = CFGetTypeID(cf);
-    if (v3 != CFURLGetTypeID())
-    {
-      exception = __cxa_allocate_exception(0x10uLL);
-      std::runtime_error::runtime_error(exception, "Could not construct");
-      __cxa_throw(exception, MEMORY[0x1E69E5408], MEMORY[0x1E69E5288]);
-    }
-  }
-
-  return this;
-}
-
-void sub_1DE35B8A8(_Unwind_Exception *a1)
-{
-  __cxa_free_exception(v2);
-  applesauce::CF::ObjectRef<__CFURL const*>::~ObjectRef(v1);
-  _Unwind_Resume(a1);
-}
-
-uint64_t AMCP::HAL::type_code_from_custom_property_type(AMCP::HAL *this)
-{
-  if (this == 1667658612)
-  {
-    v1 = 6;
-  }
-
-  else
-  {
-    v1 = 0;
-  }
-
-  if (this == 1886155636)
-  {
-    v2 = 15;
-  }
-
-  else
-  {
-    v2 = v1;
-  }
-
-  if (this == 1918990199)
-  {
-    return 1;
-  }
-
-  else
-  {
-    return v2;
-  }
-}
-
-uint64_t AMCP::Graph::Graph_Wire::Connection::operator=(uint64_t a1, uint64_t a2)
-{
-  std::string::operator=(a1, a2);
-  v4 = *(a2 + 32);
-  *(a1 + 24) = *(a2 + 24);
-  *(a1 + 32) = v4;
-  std::string::operator=((a1 + 40), (a2 + 40));
-  v5 = *(a2 + 72);
-  *(a1 + 64) = *(a2 + 64);
-  *(a1 + 72) = v5;
-  std::string::operator=((a1 + 80), (a2 + 80));
-  if (a1 != a2)
-  {
-    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((a1 + 104), *(a2 + 104), *(a2 + 112), (*(a2 + 112) - *(a2 + 104)) >> 2);
-  }
-
-  v6 = *(a2 + 128);
-  *(a1 + 140) = *(a2 + 140);
-  *(a1 + 128) = v6;
-  v8 = *(a2 + 160);
-  v7 = *(a2 + 168);
-  if (v7)
-  {
-    atomic_fetch_add_explicit((v7 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v9 = *(a1 + 168);
-  *(a1 + 160) = v8;
-  *(a1 + 168) = v7;
-  if (v9)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
-  }
-
-  *(a1 + 176) = *(a2 + 176);
-  if (a1 != a2)
-  {
-    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>((a1 + 192), *(a2 + 192), *(a2 + 200), (*(a2 + 200) - *(a2 + 192)) >> 2);
-  }
-
-  return a1;
-}
-
-std::string *AMCP::Graph::Graph_Wire::Connection::Connection(std::string *this, const AMCP::Graph::Graph_Wire::Connection *a2)
-{
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(this, *a2, *(a2 + 1));
-  }
-
-  else
-  {
-    v4 = *a2;
-    this->__r_.__value_.__r.__words[2] = *(a2 + 2);
-    *&this->__r_.__value_.__l.__data_ = v4;
-  }
-
-  v5 = *(a2 + 3);
-  LODWORD(this[1].__r_.__value_.__r.__words[1]) = *(a2 + 8);
-  this[1].__r_.__value_.__r.__words[0] = v5;
-  if (*(a2 + 63) < 0)
-  {
-    std::string::__init_copy_ctor_external((this + 40), *(a2 + 5), *(a2 + 6));
-  }
-
-  else
-  {
-    v6 = *(a2 + 40);
-    this[2].__r_.__value_.__l.__size_ = *(a2 + 7);
-    *&this[1].__r_.__value_.__r.__words[2] = v6;
-  }
-
-  v7 = *(a2 + 8);
-  LODWORD(this[3].__r_.__value_.__l.__data_) = *(a2 + 18);
-  this[2].__r_.__value_.__r.__words[2] = v7;
-  if (*(a2 + 103) < 0)
-  {
-    std::string::__init_copy_ctor_external((this + 80), *(a2 + 10), *(a2 + 11));
-  }
-
-  else
-  {
-    v8 = *(a2 + 5);
-    this[4].__r_.__value_.__r.__words[0] = *(a2 + 12);
-    *&this[3].__r_.__value_.__r.__words[1] = v8;
-  }
-
-  this[4].__r_.__value_.__l.__size_ = 0;
-  this[4].__r_.__value_.__r.__words[2] = 0;
-  this[5].__r_.__value_.__r.__words[0] = 0;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(&this[4].__r_.__value_.__l.__size_, *(a2 + 13), *(a2 + 14), (*(a2 + 14) - *(a2 + 13)) >> 2);
-  v9 = *(a2 + 8);
-  *(&this[5].__r_.__value_.__r.__words[2] + 4) = *(a2 + 140);
-  *&this[5].__r_.__value_.__r.__words[1] = v9;
-  v10 = *(a2 + 21);
-  this[6].__r_.__value_.__r.__words[2] = *(a2 + 20);
-  this[7].__r_.__value_.__r.__words[0] = v10;
-  if (v10)
-  {
-    atomic_fetch_add_explicit((v10 + 8), 1uLL, memory_order_relaxed);
-  }
-
-  v11 = *(a2 + 11);
-  this[8].__r_.__value_.__r.__words[0] = 0;
-  *&this[7].__r_.__value_.__r.__words[1] = v11;
-  this[8].__r_.__value_.__l.__size_ = 0;
-  this[8].__r_.__value_.__r.__words[2] = 0;
-  std::vector<unsigned int>::__init_with_size[abi:ne200100]<unsigned int *,unsigned int *>(&this[8], *(a2 + 24), *(a2 + 25), (*(a2 + 25) - *(a2 + 24)) >> 2);
-  return this;
-}
-
-void sub_1DE35BB1C(_Unwind_Exception *exception_object)
-{
-  if (*(v1 + 63) < 0)
-  {
-    operator delete(*(v1 + 40));
-  }
-
-  if (*(v1 + 23) < 0)
-  {
-    operator delete(*v1);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void *std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(void *result, char *__src, char *a3, unint64_t a4)
-{
-  v7 = result;
-  v8 = result[2];
-  v9 = *result;
-  if (a4 > (v8 - *result) >> 2)
-  {
-    if (v9)
-    {
-      result[1] = v9;
-      operator delete(v9);
-      v8 = 0;
-      *v7 = 0;
-      v7[1] = 0;
-      v7[2] = 0;
-    }
-
-    if (!(a4 >> 62))
-    {
-      v10 = v8 >> 1;
-      if (v8 >> 1 <= a4)
-      {
-        v10 = a4;
-      }
-
-      if (v8 >= 0x7FFFFFFFFFFFFFFCLL)
-      {
-        v11 = 0x3FFFFFFFFFFFFFFFLL;
-      }
-
-      else
-      {
-        v11 = v10;
-      }
-
-      std::vector<unsigned int>::__vallocate[abi:ne200100](v7, v11);
-    }
-
-    std::vector<void *>::__throw_length_error[abi:ne200100]();
-  }
-
-  v12 = result[1];
-  v13 = v12 - v9;
-  if (a4 <= (v12 - v9) >> 2)
-  {
-    v17 = a3 - __src;
-    if (a3 != __src)
-    {
-      result = memmove(*result, __src, v17);
-    }
-
-    v16 = &v9[v17];
-  }
-
-  else
-  {
-    if (v12 != v9)
-    {
-      result = memmove(*result, __src, v12 - v9);
-      v12 = v7[1];
-    }
-
-    v14 = &__src[v13];
-    v15 = a3 - &__src[v13];
-    if (v15)
-    {
-      result = memmove(v12, v14, v15);
-    }
-
-    v16 = &v12[v15];
-  }
-
-  v7[1] = v16;
-  return result;
-}
-
-void AMCP::Graph::Graph_Wire::Connection::~Connection(AMCP::Graph::Graph_Wire::Connection *this)
-{
-  v2 = *(this + 24);
-  if (v2)
-  {
-    *(this + 25) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(this + 21);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  v4 = *(this + 13);
-  if (v4)
-  {
-    *(this + 14) = v4;
-    operator delete(v4);
-  }
-
-  if (*(this + 103) < 0)
-  {
-    operator delete(*(this + 10));
-  }
-
-  if (*(this + 63) < 0)
-  {
-    operator delete(*(this + 5));
-  }
-
-  if (*(this + 23) < 0)
-  {
-    operator delete(*this);
-  }
-}
-
-void AMCP::Terminal_Identifier_to_string(std::string *a1, const void **a2)
-{
-  v4 = *(a2 + 8);
-  if (v4)
-  {
-    v5 = "in";
-  }
-
-  else
-  {
-    v5 = "out";
-  }
-
-  if (*(a2 + 23) >= 0)
-  {
-    v6 = *(a2 + 23);
-  }
-
-  else
-  {
-    v6 = a2[1];
-  }
-
-  v7 = &v18;
-  std::string::basic_string[abi:ne200100](&v18, v6 + 1);
-  if ((v18.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
-  {
-    v7 = v18.__r_.__value_.__r.__words[0];
-  }
-
-  if (v6)
-  {
-    if (*(a2 + 23) >= 0)
-    {
-      v8 = a2;
-    }
-
-    else
-    {
-      v8 = *a2;
-    }
-
-    memmove(v7, v8, v6);
-  }
-
-  *(&v7->__r_.__value_.__l.__data_ + v6) = 91;
-  if (v4)
-  {
-    v9 = 2;
-  }
-
-  else
-  {
-    v9 = 3;
-  }
-
-  v10 = std::string::append(&v18, v5, v9);
-  v11 = *&v10->__r_.__value_.__l.__data_;
-  v19.__r_.__value_.__r.__words[2] = v10->__r_.__value_.__r.__words[2];
-  *&v19.__r_.__value_.__l.__data_ = v11;
-  v10->__r_.__value_.__l.__size_ = 0;
-  v10->__r_.__value_.__r.__words[2] = 0;
-  v10->__r_.__value_.__r.__words[0] = 0;
-  v12 = std::string::append(&v19, "]:", 2uLL);
-  v13 = *&v12->__r_.__value_.__l.__data_;
-  v20.__r_.__value_.__r.__words[2] = v12->__r_.__value_.__r.__words[2];
-  *&v20.__r_.__value_.__l.__data_ = v13;
-  v12->__r_.__value_.__l.__size_ = 0;
-  v12->__r_.__value_.__r.__words[2] = 0;
-  v12->__r_.__value_.__r.__words[0] = 0;
-  std::to_string(&__p, a2[3]);
-  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    p_p = &__p;
-  }
-
-  else
-  {
-    p_p = __p.__r_.__value_.__r.__words[0];
-  }
-
-  if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
-  {
-    size = HIBYTE(__p.__r_.__value_.__r.__words[2]);
-  }
-
-  else
-  {
-    size = __p.__r_.__value_.__l.__size_;
-  }
-
-  v16 = std::string::append(&v20, p_p, size);
-  *a1 = *v16;
-  v16->__r_.__value_.__l.__size_ = 0;
-  v16->__r_.__value_.__r.__words[2] = 0;
-  v16->__r_.__value_.__r.__words[0] = 0;
-  if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(__p.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v20.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v20.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v19.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v19.__r_.__value_.__l.__data_);
-  }
-
-  if (SHIBYTE(v18.__r_.__value_.__r.__words[2]) < 0)
-  {
-    operator delete(v18.__r_.__value_.__l.__data_);
-  }
-}
-
-void sub_1DE35BED8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, void *__p, uint64_t a10, int a11, __int16 a12, char a13, char a14, void *a15, uint64_t a16, int a17, __int16 a18, char a19, char a20, void *a21, uint64_t a22, int a23, __int16 a24, char a25, char a26, uint64_t a27, void *a28, uint64_t a29, int a30, __int16 a31, char a32, char a33)
-{
-  if (a14 < 0)
-  {
-    operator delete(__p);
-  }
-
-  if (a33 < 0)
-  {
-    operator delete(a28);
-  }
-
-  if (a26 < 0)
-  {
-    operator delete(a21);
-  }
-
-  if (a20 < 0)
-  {
-    operator delete(a15);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AMCP::Graph::Graph_Wire::Wire_Info::~Wire_Info(AMCP::Graph::Graph_Wire::Wire_Info *this)
-{
-  v2 = *(this + 13);
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  v3 = *(this + 11);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  if (*(this + 63) < 0)
-  {
-    operator delete(*(this + 5));
-  }
-
-  if (*(this + 23) < 0)
-  {
-    operator delete(*this);
-  }
-}
-
-void AMCP::Graph::Graph_Wire::Conversion_Info::~Conversion_Info(AMCP::Graph::Graph_Wire::Conversion_Info *this)
-{
-  v2 = *(this + 24);
-  if (v2)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
-  }
-
-  v3 = *(this + 22);
-  if (v3)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  v4 = *(this + 20);
-  if (v4)
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
-  }
-
-  v5 = *(this + 15);
-  if (v5)
-  {
-    *(this + 16) = v5;
-    operator delete(v5);
-  }
-
-  v6 = *(this + 12);
-  if (v6)
-  {
-    *(this + 13) = v6;
-    operator delete(v6);
-  }
-}
-
-double AMCP::Graph::Graph_Wire::get_description(AMCP::Graph::Graph_Wire *this, uint64_t a2)
-{
-  if (*(a2 + 23) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v11, *a2, *(a2 + 8));
-  }
-
-  else
-  {
-    v11 = *a2;
-  }
-
-  v4 = *(a2 + 24);
-  if (*(a2 + 63) < 0)
-  {
-    std::string::__init_copy_ctor_external(&v10, *(a2 + 40), *(a2 + 48));
-  }
-
-  else
-  {
-    v10 = *(a2 + 40);
-  }
-
-  v5 = *(a2 + 64);
-  size = v11.__r_.__value_.__l.__size_;
-  v7 = *(&v11.__r_.__value_.__r.__words[1] + 7);
-  *this = v11.__r_.__value_.__r.__words[0];
-  *(this + 1) = size;
-  *(this + 15) = v7;
-  *(this + 23) = *(&v11.__r_.__value_.__s + 23);
-  *(this + 3) = v4;
-  *(this + 8) = 0;
-  v8 = v10.__r_.__value_.__r.__words[0];
-  *(this + 6) = v10.__r_.__value_.__l.__size_;
-  *(this + 55) = *(&v10.__r_.__value_.__r.__words[1] + 7);
-  LOBYTE(size) = *(&v10.__r_.__value_.__s + 23);
-  *(this + 5) = v8;
-  *(this + 63) = size;
-  *(this + 8) = v5;
-  *(this + 18) = 1;
-  *(this + 5) = 0u;
-  *(this + 6) = 0u;
-  *(this + 7) = 0u;
-  *(this + 124) = 0u;
-  *(this + 140) = xmmword_1DE757EF0;
-  *(this + 39) = 64;
-  *(this + 160) = 0;
-  *(this + 22) = 0;
-  *(this + 23) = 0;
-  *(this + 21) = 0;
-  std::string::operator=((this + 40), (a2 + 40));
-  *(this + 8) = *(a2 + 64);
-  *(this + 18) = *(a2 + 72);
-  if (this != a2)
-  {
-    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(this + 10, *(a2 + 80), *(a2 + 88), (*(a2 + 88) - *(a2 + 80)) >> 2);
-    std::vector<int>::__assign_with_size[abi:ne200100]<int *,int *>(this + 13, *(a2 + 104), *(a2 + 112), (*(a2 + 112) - *(a2 + 104)) >> 2);
-  }
-
-  *(this + 132) = *(a2 + 128);
-  result = *(a2 + 148);
-  *(this + 19) = result;
-  *(this + 32) = *(a2 + 156);
-  *(this + 160) = *(a2 + 160);
-  return result;
-}
-
-void sub_1DE35C188(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, int a15, __int16 a16, char a17, char a18)
-{
-  if (a18 < 0)
-  {
-    operator delete(__p);
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-void AMCP::Wire_Description::~Wire_Description(AMCP::Wire_Description *this)
-{
-  v4 = (this + 168);
-  std::vector<std::string>::__destroy_vector::operator()[abi:ne200100](&v4);
-  v2 = *(this + 13);
-  if (v2)
-  {
-    *(this + 14) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(this + 10);
-  if (v3)
-  {
-    *(this + 11) = v3;
-    operator delete(v3);
-  }
-
-  if (*(this + 63) < 0)
-  {
-    operator delete(*(this + 5));
-  }
-
-  if (*(this + 23) < 0)
-  {
-    operator delete(*this);
-  }
-}
-
-void AMCP::add_available_format(uint64_t *a1, uint64_t a2)
-{
-  v75 = *MEMORY[0x1E69E9840];
-  v3 = *(a2 + 8);
-  v4 = *(a2 + 12);
-  v6 = *(a2 + 16);
-  v5 = *(a2 + 20);
-  v7 = *(a2 + 28);
-  v65 = *(a2 + 24);
-  v8 = *(a2 + 32);
-  v9 = *(a2 + 36);
-  v11 = *a1;
-  v10 = a1[1];
-  if (v10 != *a1)
-  {
-    v12 = (v10 - *a1) >> 6;
-    while (1)
-    {
-      v13 = v12 >> 1;
-      v14 = (v11 + (v12 >> 1 << 6));
-      v15 = v14[8];
-      if (!v3)
-      {
-        break;
-      }
-
-      if (v15)
-      {
-        v16 = v3 == v15;
-      }
-
-      else
-      {
-        v16 = 1;
-      }
-
-      if (!v16)
-      {
-        LOBYTE(v17) = v15 != 1819304813 && v3 < v15;
-        if (v3 == 1819304813)
-        {
-          LOBYTE(v17) = 1;
-        }
-
-        goto LABEL_23;
-      }
-
-      LOBYTE(v17) = 0;
-      v18 = v15 == 1819304813;
-      v19 = v3 == 1819304813;
-      v20 = 0;
-      if (v3 != 1819304813 || v15 != 1819304813)
-      {
-        goto LABEL_24;
-      }
-
-      v21 = v14[9];
-      LOBYTE(v17) = (v21 & 0x40) == 0;
-      if ((v4 & 0x40) != 0)
-      {
-        v18 = 1;
-        v20 = (v14[9] & 0x40) == 0;
-      }
-
-      else
-      {
-        if ((v21 & 0x40) != 0)
-        {
-          goto LABEL_50;
-        }
-
-        LOBYTE(v17) = 0;
-        v20 = 0;
-        v18 = 1;
-      }
-
-LABEL_25:
-      if (!v20 && v18)
-      {
-        if ((*(a2 + 12) & 1) != (v14[9] & 1))
-        {
-          v17 = v14[9];
-          goto LABEL_48;
-        }
-
-        goto LABEL_31;
-      }
-
-LABEL_30:
-      if (v20)
-      {
-        goto LABEL_48;
-      }
-
-LABEL_31:
-      v23 = v17;
-      if (!v8)
-      {
-        if (!v7)
-        {
-          if ((v17 & 1) == 0)
-          {
-            goto LABEL_50;
-          }
-
-LABEL_49:
-          v11 = (v14 + 16);
-          v13 = v12 + ~v13;
-          goto LABEL_50;
-        }
-
-LABEL_42:
-        v17 = v14[13];
-        if (v7 == v17 || v17 == 0)
-        {
-          LOBYTE(v17) = v23;
-        }
-
-        else
-        {
-          LOBYTE(v17) = v7 < v17;
-        }
-
-        goto LABEL_48;
-      }
-
-      v24 = v14[14];
-      v25 = v24 != 0;
-      v26 = v8 > v24;
-      v27 = v8 != v24;
-      v28 = v26;
-      v29 = v25 && v27;
-      if (v29)
-      {
-        LOBYTE(v17) = v28;
-      }
-
-      else
-      {
-        LOBYTE(v17) = v23;
-      }
-
-      if ((v29 & 1) == 0 && v7)
-      {
-        goto LABEL_42;
-      }
-
-LABEL_48:
-      if (v17)
-      {
-        goto LABEL_49;
-      }
-
-LABEL_50:
-      v12 = v13;
-      if (!v13)
-      {
-        goto LABEL_55;
-      }
-    }
-
-    LOBYTE(v17) = 0;
-LABEL_23:
-    v18 = v15 == 1819304813;
-    v19 = v3 == 1819304813;
-    v20 = v3 != 0;
-LABEL_24:
-    if (!v19)
-    {
-      goto LABEL_30;
-    }
-
-    goto LABEL_25;
-  }
-
-  v11 = a1[1];
-LABEL_55:
-  if (v10 != v11 && *(v11 + 24) == 0.0 && *(v11 + 32) == v3 && *(v11 + 36) == v4 && *(v11 + 40) == v6 && *(v11 + 44) == v5 && *(v11 + 48) == v65 && *(v11 + 52) == v7 && *(v11 + 56) == v8)
-  {
-    v72 = *(a2 + 40);
-    CA::ValueRangeList::AddRange(v11, &v72);
-  }
-
-  else
-  {
-    v74 = *(a2 + 40);
-    v67 = 0;
-    v66 = 0uLL;
-    CA::ValueRangeList::AddRange(&v66, &v74);
-    v32 = a1[1];
-    v31 = a1[2];
-    if (v32 >= v31)
-    {
-      v64 = v9;
-      v45 = v5;
-      v46 = *a1;
-      v47 = ((v32 - *a1) >> 6) + 1;
-      if (v47 >> 58)
-      {
-        std::vector<void *>::__throw_length_error[abi:ne200100]();
-      }
-
-      v48 = v31 - v46;
-      if (v48 >> 5 > v47)
-      {
-        v47 = v48 >> 5;
-      }
-
-      if (v48 >= 0x7FFFFFFFFFFFFFC0)
-      {
-        v49 = 0x3FFFFFFFFFFFFFFLL;
-      }
-
-      else
-      {
-        v49 = v47;
-      }
-
-      v71 = a1;
-      if (v49)
-      {
-        std::allocator<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::allocate_at_least[abi:ne200100](v49);
-      }
-
-      v50 = v11 - v46;
-      v51 = (v11 - v46) >> 6;
-      v52 = v51 << 6;
-      v68 = 0;
-      v69 = v51 << 6;
-      v70 = (v51 << 6);
-      if (!v51)
-      {
-        if (v50 < 1)
-        {
-          if (v11 == v46)
-          {
-            v53 = 1;
-          }
-
-          else
-          {
-            v53 = v50 >> 5;
-          }
-
-          v73 = a1;
-          std::allocator<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::allocate_at_least[abi:ne200100](v53);
-        }
-
-        v52 -= ((v50 >> 1) + 32) & 0xFFFFFFFFFFFFFFC0;
-        v69 = v52;
-        *&v70 = v52;
-      }
-
-      *v52 = v66;
-      *(v52 + 16) = v67;
-      *(v52 + 24) = 0;
-      *(v52 + 32) = v3;
-      *(v52 + 36) = v4;
-      *(v52 + 40) = v6;
-      *(v52 + 44) = v45;
-      *(v52 + 48) = v65;
-      *(v52 + 52) = v7;
-      *(v52 + 56) = v8;
-      *(v52 + 60) = v64;
-      *&v70 = v70 + 64;
-      std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::tuple<CA::ValueRangeList,CA::StreamDescription>>,std::tuple<CA::ValueRangeList,CA::StreamDescription>*>(a1, v11, a1[1], v70);
-      v54 = *a1;
-      v55 = v69;
-      *&v70 = v70 + a1[1] - v11;
-      a1[1] = v11;
-      v56 = v55 + v54 - v11;
-      std::__uninitialized_allocator_relocate[abi:ne200100]<std::allocator<std::tuple<CA::ValueRangeList,CA::StreamDescription>>,std::tuple<CA::ValueRangeList,CA::StreamDescription>*>(a1, v54, v11, v56);
-      v57 = *a1;
-      *a1 = v56;
-      v58 = a1[2];
-      *(a1 + 1) = v70;
-      *&v70 = v57;
-      *(&v70 + 1) = v58;
-      v68 = v57;
-      v69 = v57;
-      std::__split_buffer<std::tuple<CA::ValueRangeList,CA::StreamDescription>>::~__split_buffer(&v68);
-    }
-
-    else if (v11 == v32)
-    {
-      *v32 = v66;
-      *(v32 + 16) = v67;
-      *(v32 + 24) = 0;
-      *(v32 + 32) = v3;
-      *(v32 + 36) = v4;
-      *(v32 + 40) = v6;
-      *(v32 + 44) = v5;
-      *(v32 + 48) = v65;
-      *(v32 + 52) = v7;
-      *(v32 + 56) = v8;
-      *(v32 + 60) = v9;
-      a1[1] = v32 + 64;
-    }
-
-    else
-    {
-      v62 = v5;
-      v63 = v9;
-      v33 = (v32 - 64);
-      v34 = a1[1];
-      if (v32 >= 0x40)
-      {
-        *v32 = 0;
-        *(v32 + 8) = 0;
-        *(v32 + 16) = 0;
-        *v32 = *v33;
-        *(v32 + 16) = *(v32 - 48);
-        *v33 = 0;
-        *(v32 - 56) = 0;
-        *(v32 - 48) = 0;
-        v35 = *(v32 - 40);
-        v36 = *(v32 - 24);
-        *(v32 + 56) = *(v32 - 8);
-        *(v32 + 40) = v36;
-        *(v32 + 24) = v35;
-        v34 = v32 + 64;
-      }
-
-      v61 = v66;
-      v60 = v67;
-      a1[1] = v34;
-      if (v32 != v11 + 64)
-      {
-        v37 = 0;
-        do
-        {
-          v38 = v32 + v37;
-          v40 = (v32 + v37 - 64);
-          v39 = *v40;
-          if (*v40)
-          {
-            *(v38 - 56) = v39;
-            operator delete(v39);
-            *v40 = 0;
-            *(v32 + v37 - 56) = 0;
-            *(v32 + v37 - 48) = 0;
-          }
-
-          v41 = (v38 - 128);
-          *v40 = *(v38 - 128);
-          *(v38 - 48) = *(v38 - 112);
-          *v41 = 0;
-          v41[1] = 0;
-          v41[2] = 0;
-          v42 = *(v38 - 104);
-          v43 = *(v38 - 88);
-          *(v38 - 8) = *(v38 - 72);
-          *(v38 - 24) = v43;
-          *(v38 - 40) = v42;
-          v37 -= 64;
-        }
-
-        while (v11 - v32 + 64 != v37);
-      }
-
-      v44 = *v11;
-      if (*v11)
-      {
-        *(v11 + 8) = v44;
-        operator delete(v44);
-      }
-
-      *v11 = v61;
-      *(v11 + 16) = v60;
-      *(v11 + 24) = 0;
-      *(v11 + 32) = v3;
-      *(v11 + 36) = v4;
-      *(v11 + 40) = v6;
-      *(v11 + 44) = v62;
-      *(v11 + 48) = v65;
-      *(v11 + 52) = v7;
-      *(v11 + 56) = v8;
-      *(v11 + 60) = v63;
-    }
-  }
-
-  v59 = *MEMORY[0x1E69E9840];
 }

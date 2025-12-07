@@ -6,7 +6,7 @@
 
 - (void)mousePointerDevicesDidChange:(id)change
 {
-  sub_100002FC4(0, &qword_100101EF0);
+  sub_100002FC4(0, &qword_100101EF0, BKSMousePointerDevice_ptr);
   sub_10009032C();
   v4 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   selfCopy = self;

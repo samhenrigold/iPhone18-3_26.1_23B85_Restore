@@ -27,7 +27,6 @@
 
 uint64_t __29__AXAuditAssetManager_shared__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
   shared_instance = objc_opt_new();
 
   return MEMORY[0x2821F96F8]();
@@ -54,16 +53,15 @@ uint64_t __29__AXAuditAssetManager_shared__block_invoke(uint64_t a1)
 
 - (void)downloadAssetsIfNecessary
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v1 = 136315138;
-  v2 = "[AXAuditAssetManager downloadAssetsIfNecessary]";
-  _os_log_debug_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s", &v1, 0xCu);
-  v0 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
+  v0 = 136315138;
+  v1 = "[AXAuditAssetManager downloadAssetsIfNecessary]";
+  _os_log_debug_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_DEBUG, "%s", &v0, 0xCu);
 }
 
 - (void)assetController:(id)controller didFinishRefreshingAssets:(id)assets wasSuccessful:(BOOL)successful error:(id)error
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   assetsCopy = assets;
   errorCopy = error;
@@ -71,9 +69,9 @@ uint64_t __29__AXAuditAssetManager_shared__block_invoke(uint64_t a1)
   {
     assetPolicy = [controllerCopy assetPolicy];
     *buf = 136315394;
-    v31 = "[AXAuditAssetManager assetController:didFinishRefreshingAssets:wasSuccessful:error:]";
-    v32 = 2112;
-    v33 = assetPolicy;
+    v30 = "[AXAuditAssetManager assetController:didFinishRefreshingAssets:wasSuccessful:error:]";
+    v31 = 2112;
+    v32 = assetPolicy;
     _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: for policy: %@", buf, 0x16u);
   }
 
@@ -81,47 +79,47 @@ uint64_t __29__AXAuditAssetManager_shared__block_invoke(uint64_t a1)
   {
     if ([assetsCopy count])
     {
-      v23 = controllerCopy;
+      v22 = controllerCopy;
       if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
       {
         *buf = 136315394;
-        v31 = "[AXAuditAssetManager assetController:didFinishRefreshingAssets:wasSuccessful:error:]";
-        v32 = 2112;
-        v33 = assetsCopy;
+        v30 = "[AXAuditAssetManager assetController:didFinishRefreshingAssets:wasSuccessful:error:]";
+        v31 = 2112;
+        v32 = assetsCopy;
         _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: Found assets: %@", buf, 0x16u);
       }
 
       array = [MEMORY[0x277CBEB18] array];
+      v24 = 0u;
       v25 = 0u;
       v26 = 0u;
       v27 = 0u;
-      v28 = 0u;
-      v22 = assetsCopy;
+      v21 = assetsCopy;
       v13 = assetsCopy;
-      v14 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v14 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
       if (v14)
       {
         v15 = v14;
-        v16 = *v26;
+        v16 = *v25;
         v17 = MEMORY[0x277D86220];
         do
         {
           for (i = 0; i != v15; ++i)
           {
-            if (*v26 != v16)
+            if (*v25 != v16)
             {
               objc_enumerationMutation(v13);
             }
 
-            v19 = *(*(&v25 + 1) + 8 * i);
+            v19 = *(*(&v24 + 1) + 8 * i);
             if ([v19 isInstalled])
             {
               if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
               {
                 *buf = 136315394;
-                v31 = "[AXAuditAssetManager assetController:didFinishRefreshingAssets:wasSuccessful:error:]";
-                v32 = 2112;
-                v33 = v19;
+                v30 = "[AXAuditAssetManager assetController:didFinishRefreshingAssets:wasSuccessful:error:]";
+                v31 = 2112;
+                v32 = v19;
                 _os_log_impl(&dword_23D6FE000, v17, OS_LOG_TYPE_INFO, "%s: Asset already downloaded! Asset: %@", buf, 0x16u);
               }
             }
@@ -132,29 +130,29 @@ uint64_t __29__AXAuditAssetManager_shared__block_invoke(uint64_t a1)
             }
           }
 
-          v15 = [v13 countByEnumeratingWithState:&v25 objects:v29 count:16];
+          v15 = [v13 countByEnumeratingWithState:&v24 objects:v28 count:16];
         }
 
         while (v15);
       }
 
-      controllerCopy = v23;
-      errorCopy = v21;
+      controllerCopy = v22;
+      errorCopy = v20;
       if ([array count])
       {
         if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
         {
           *buf = 136315394;
-          v31 = "[AXAuditAssetManager assetController:didFinishRefreshingAssets:wasSuccessful:error:]";
-          v32 = 2112;
-          v33 = array;
+          v30 = "[AXAuditAssetManager assetController:didFinishRefreshingAssets:wasSuccessful:error:]";
+          v31 = 2112;
+          v32 = array;
           _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: Need to download assets: %@", buf, 0x16u);
         }
 
-        [v23 downloadAssets:array successStartBlock:&__block_literal_global_21];
+        [v22 downloadAssets:array successStartBlock:&__block_literal_global_21];
       }
 
-      assetsCopy = v22;
+      assetsCopy = v21;
     }
 
     else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
@@ -167,20 +165,18 @@ uint64_t __29__AXAuditAssetManager_shared__block_invoke(uint64_t a1)
   {
     [AXAuditAssetManager assetController:didFinishRefreshingAssets:wasSuccessful:error:];
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __85__AXAuditAssetManager_assetController_didFinishRefreshingAssets_wasSuccessful_error___block_invoke(uint64_t a1, int a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   if (a2)
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v3 = 136315138;
-      v4 = "[AXAuditAssetManager assetController:didFinishRefreshingAssets:wasSuccessful:error:]_block_invoke";
-      _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: Successfully downloaded assets!", &v3, 0xCu);
+      v2 = 136315138;
+      v3 = "[AXAuditAssetManager assetController:didFinishRefreshingAssets:wasSuccessful:error:]_block_invoke";
+      _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: Successfully downloaded assets!", &v2, 0xCu);
     }
   }
 
@@ -188,13 +184,11 @@ void __85__AXAuditAssetManager_assetController_didFinishRefreshingAssets_wasSucc
   {
     __85__AXAuditAssetManager_assetController_didFinishRefreshingAssets_wasSuccessful_error___block_invoke_cold_1();
   }
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assetController:(id)controller didFinishDownloadingAsset:(id)asset wasSuccessful:(BOOL)successful error:(id)error hasRemainingDownloads:(BOOL)downloads
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   controllerCopy = controller;
   assetCopy = asset;
   errorCopy = error;
@@ -202,11 +196,11 @@ void __85__AXAuditAssetManager_assetController_didFinishRefreshingAssets_wasSucc
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v14 = 136315394;
-      v15 = "[AXAuditAssetManager assetController:didFinishDownloadingAsset:wasSuccessful:error:hasRemainingDownloads:]";
-      v16 = 2112;
-      v17 = assetCopy;
-      _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: asset successfully installed! %@", &v14, 0x16u);
+      v13 = 136315394;
+      v14 = "[AXAuditAssetManager assetController:didFinishDownloadingAsset:wasSuccessful:error:hasRemainingDownloads:]";
+      v15 = 2112;
+      v16 = assetCopy;
+      _os_log_impl(&dword_23D6FE000, MEMORY[0x277D86220], OS_LOG_TYPE_INFO, "%s: asset successfully installed! %@", &v13, 0x16u);
     }
   }
 
@@ -214,42 +208,20 @@ void __85__AXAuditAssetManager_assetController_didFinishRefreshingAssets_wasSucc
   {
     [AXAuditAssetManager assetController:didFinishDownloadingAsset:wasSuccessful:error:hasRemainingDownloads:];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assetController:didFinishRefreshingAssets:wasSuccessful:error:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-- (void)assetController:didFinishRefreshingAssets:wasSuccessful:error:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __85__AXAuditAssetManager_assetController_didFinishRefreshingAssets_wasSuccessful_error___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assetController:didFinishDownloadingAsset:wasSuccessful:error:hasRemainingDownloads:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

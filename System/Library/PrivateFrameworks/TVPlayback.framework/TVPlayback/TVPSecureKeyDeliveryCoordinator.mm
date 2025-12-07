@@ -98,7 +98,7 @@ uint64_t __45__TVPSecureKeyDeliveryCoordinator_initialize__block_invoke()
 
 - (void)secureKeyLoader:(id)loader didLoadCertificateData:(id)data forRequest:(id)request
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   loaderCopy = loader;
   dataCopy = data;
   requestCopy = request;
@@ -109,12 +109,12 @@ uint64_t __45__TVPSecureKeyDeliveryCoordinator_initialize__block_invoke()
     v11 = v10;
     *buf = 134218240;
     requestID = [requestCopy requestID];
-    v41 = 2048;
-    v42 = [dataCopy length];
+    v40 = 2048;
+    v41 = [dataCopy length];
     _os_log_impl(&dword_26CEDD000, v11, OS_LOG_TYPE_DEFAULT, "Cert fetch complete for request %lu.  Cert length is %lu", buf, 0x16u);
   }
 
-  v31 = requestCopy;
+  v30 = requestCopy;
   if ([dataCopy length])
   {
     [(TVPSecureKeyDeliveryCoordinator *)self setCertificateData:dataCopy];
@@ -126,26 +126,26 @@ uint64_t __45__TVPSecureKeyDeliveryCoordinator_initialize__block_invoke()
   requestsAwaitingCertFetch2 = [(TVPSecureKeyDeliveryCoordinator *)self requestsAwaitingCertFetch];
   [requestsAwaitingCertFetch2 removeAllObjects];
 
-  v36 = 0u;
-  v37 = 0u;
-  v34 = 0u;
   v35 = 0u;
+  v36 = 0u;
+  v33 = 0u;
+  v34 = 0u;
   obj = v13;
-  v15 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+  v15 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v35;
+    v17 = *v34;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v35 != v17)
+        if (*v34 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v19 = *(*(&v34 + 1) + 8 * i);
+        v19 = *(*(&v33 + 1) + 8 * i);
         eventCollection = [(TVPSecureKeyDeliveryCoordinator *)self eventCollection];
         v21 = TVPPlaybackReportingEventFPSCertFetch;
         v22 = MEMORY[0x277CCACA8];
@@ -176,7 +176,7 @@ uint64_t __45__TVPSecureKeyDeliveryCoordinator_initialize__block_invoke()
         [secureKeyLoader startLoadingContentIdentifierDataForRequest:v19];
       }
 
-      v16 = [obj countByEnumeratingWithState:&v34 objects:v38 count:16];
+      v16 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
       if (v16)
       {
         continue;
@@ -187,13 +187,11 @@ uint64_t __45__TVPSecureKeyDeliveryCoordinator_initialize__block_invoke()
   }
 
 LABEL_17:
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (void)secureKeyLoader:(id)loader didLoadContentIdentifierData:(id)data forRequest:(id)request
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   loaderCopy = loader;
   dataCopy = data;
   requestCopy = request;
@@ -206,7 +204,7 @@ LABEL_17:
     {
       requestID = [requestCopy requestID];
       *buf = 134217984;
-      v26 = requestID;
+      v25 = requestID;
       _os_log_impl(&dword_26CEDD000, v11, OS_LOG_TYPE_DEFAULT, "Loading key request data for id %lu", buf, 0xCu);
     }
 
@@ -217,16 +215,16 @@ LABEL_17:
     v17 = [v15 stringWithFormat:@"%@%@", v14, reportingID];
     [eventCollection addStartEventWithName:v14 identifier:v17];
 
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __91__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didLoadContentIdentifierData_forRequest___block_invoke;
-    v20[3] = &unk_279D7D0C0;
-    objc_copyWeak(&v23, &location);
-    v21 = requestCopy;
-    v22 = loaderCopy;
-    [v21 loadKeyRequestDataAsynchronouslyWithCompletion:v20];
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __91__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didLoadContentIdentifierData_forRequest___block_invoke;
+    v19[3] = &unk_279D7D0C0;
+    objc_copyWeak(&v22, &location);
+    v20 = requestCopy;
+    v21 = loaderCopy;
+    [v20 loadKeyRequestDataAsynchronouslyWithCompletion:v19];
 
-    objc_destroyWeak(&v23);
+    objc_destroyWeak(&v22);
     objc_destroyWeak(&location);
   }
 
@@ -235,13 +233,11 @@ LABEL_17:
     v18 = TVPSKDErrorWithCode(-345006);
     [(TVPSecureKeyDeliveryCoordinator *)self secureKeyLoader:loaderCopy didFailWithError:v18 forRequest:requestCopy];
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __91__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didLoadContentIdentifierData_forRequest___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   v5 = [WeakRetained eventCollection];
@@ -257,7 +253,7 @@ void __91__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didLoadContentIdentif
     v11 = *(a1 + 32);
     v12 = v10;
     *buf = 134217984;
-    v28 = [v11 requestID];
+    v27 = [v11 requestID];
     _os_log_impl(&dword_26CEDD000, v12, OS_LOG_TYPE_DEFAULT, "Done loading key request data for id %lu", buf, 0xCu);
   }
 
@@ -280,7 +276,7 @@ void __91__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didLoadContentIdentif
       v22 = v20;
       v23 = [v21 requestID];
       *buf = 134217984;
-      v28 = v23;
+      v27 = v23;
       _os_log_impl(&dword_26CEDD000, v22, OS_LOG_TYPE_DEFAULT, "Fetching FPS key for id %lu", buf, 0xCu);
     }
 
@@ -299,13 +295,11 @@ void __91__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didLoadContentIdentif
     v24 = objc_loadWeakRetained((a1 + 48));
     [v24 secureKeyLoader:*(a1 + 40) didFailWithError:v3 forRequest:*(a1 + 32)];
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)secureKeyLoader:(id)loader didLoadKeyResponseData:(id)data renewalDate:(id)date forRequest:(id)request
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   loaderCopy = loader;
   dataCopy = data;
   dateCopy = date;
@@ -324,7 +318,7 @@ void __91__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didLoadContentIdentif
 
   if ([dataCopy length])
   {
-    v43 = dateCopy;
+    v42 = dateCopy;
     eventCollection = [(TVPSecureKeyDeliveryCoordinator *)self eventCollection];
     v18 = TVPPlaybackReportingEventFPSServerKeyFetch;
     v19 = MEMORY[0x277CCACA8];
@@ -365,9 +359,9 @@ void __91__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didLoadContentIdentif
         _os_log_impl(&dword_26CEDD000, v33, OS_LOG_TYPE_DEFAULT, "Converting key response data to offline key data for id %lu", buf, 0xCu);
       }
 
-      v44 = 0;
-      v35 = [requestCopy offlineKeyDataForResponseData:dataCopy error:&v44];
-      v36 = v44;
+      v43 = 0;
+      v35 = [requestCopy offlineKeyDataForResponseData:dataCopy error:&v43];
+      v36 = v43;
 
       if ([v35 length])
       {
@@ -380,8 +374,8 @@ void __91__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didLoadContentIdentif
           [delegate5 secureKeyDeliveryCoordinator:self didReceiveOfflineKeyData:v35 forKeyRequest:requestCopy];
         }
 
-        dateCopy = v43;
-        [requestCopy finishLoadingWithResponseData:v35 renewalDate:v43 keyType:2];
+        dateCopy = v42;
+        [requestCopy finishLoadingWithResponseData:v35 renewalDate:v42 keyType:2];
       }
 
       else
@@ -393,14 +387,14 @@ void __91__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didLoadContentIdentif
         }
 
         [(TVPSecureKeyDeliveryCoordinator *)self _finishLoadingWithError:v36 forRequest:requestCopy];
-        dateCopy = v43;
+        dateCopy = v42;
       }
     }
 
     else
     {
-      dateCopy = v43;
-      [requestCopy finishLoadingWithResponseData:dataCopy renewalDate:v43 keyType:1];
+      dateCopy = v42;
+      [requestCopy finishLoadingWithResponseData:dataCopy renewalDate:v42 keyType:1];
       v35 = dataCopy;
     }
   }
@@ -412,8 +406,6 @@ void __91__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didLoadContentIdentif
 
     v35 = dataCopy;
   }
-
-  v42 = *MEMORY[0x277D85DE8];
 }
 
 - (void)secureKeyLoader:(id)loader didReceiveUpdatedRentalExpirationDate:(id)date
@@ -452,7 +444,7 @@ void __91__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didLoadContentIdentif
 
 - (void)secureKeyLoader:(id)loader didFailWithError:(id)error forRequest:(id)request
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   loaderCopy = loader;
   errorCopy = error;
   requestCopy = request;
@@ -467,8 +459,8 @@ void __91__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didLoadContentIdentif
 
   if ([(TVPSecureKeyDeliveryCoordinator *)self certFetchInProgress])
   {
-    v34 = requestCopy;
-    v35 = loaderCopy;
+    v33 = requestCopy;
+    v34 = loaderCopy;
     requestsAwaitingCertFetch = [(TVPSecureKeyDeliveryCoordinator *)self requestsAwaitingCertFetch];
     v14 = [requestsAwaitingCertFetch copy];
 
@@ -476,33 +468,33 @@ void __91__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didLoadContentIdentif
     requestsAwaitingCertFetch2 = [(TVPSecureKeyDeliveryCoordinator *)self requestsAwaitingCertFetch];
     [requestsAwaitingCertFetch2 removeAllObjects];
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
     obj = v14;
-    v16 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
+    v16 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
     if (v16)
     {
       v17 = v16;
-      v38 = *v44;
-      v37 = *MEMORY[0x277CCA7E8];
-      v39 = errorCopy;
+      v37 = *v43;
+      v36 = *MEMORY[0x277CCA7E8];
+      v38 = errorCopy;
       do
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v44 != v38)
+          if (*v43 != v37)
           {
             objc_enumerationMutation(obj);
           }
 
-          v19 = *(*(&v43 + 1) + 8 * i);
+          v19 = *(*(&v42 + 1) + 8 * i);
           if (errorCopy)
           {
-            v49 = v37;
-            v50 = errorCopy;
-            v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
+            v48 = v36;
+            v49 = errorCopy;
+            v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
           }
 
           else
@@ -524,23 +516,23 @@ void __91__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didLoadContentIdentif
             v28 = v27;
             requestID = [v19 requestID];
             *buf = 134217984;
-            v48 = requestID;
+            v47 = requestID;
             _os_log_impl(&dword_26CEDD000, v28, OS_LOG_TYPE_DEFAULT, "After cert fetch failure, failing request %lu", buf, 0xCu);
           }
 
           [(TVPSecureKeyDeliveryCoordinator *)self _finishLoadingWithError:v21 forRequest:v19];
 
-          errorCopy = v39;
+          errorCopy = v38;
         }
 
-        v17 = [obj countByEnumeratingWithState:&v43 objects:v51 count:16];
+        v17 = [obj countByEnumeratingWithState:&v42 objects:v50 count:16];
       }
 
       while (v17);
     }
 
-    requestCopy = v34;
-    loaderCopy = v35;
+    requestCopy = v33;
+    loaderCopy = v34;
   }
 
   else
@@ -566,16 +558,14 @@ void __91__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didLoadContentIdentif
       block[1] = 3221225472;
       block[2] = __79__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didFailWithError_forRequest___block_invoke;
       block[3] = &unk_279D7BA58;
-      objc_copyWeak(&v42, buf);
-      v41 = requestCopy;
+      objc_copyWeak(&v41, buf);
+      v40 = requestCopy;
       dispatch_after(v32, MEMORY[0x277D85CD0], block);
 
-      objc_destroyWeak(&v42);
+      objc_destroyWeak(&v41);
       objc_destroyWeak(buf);
     }
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __79__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didFailWithError_forRequest___block_invoke(uint64_t a1)
@@ -603,7 +593,7 @@ uint64_t __79__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didFailWithError_
 - (void)_loadSecureKeyRequest:(id)request sendStartReportingEvent:(BOOL)event
 {
   eventCopy = event;
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   if (eventCopy)
   {
@@ -680,8 +670,6 @@ uint64_t __79__TVPSecureKeyDeliveryCoordinator_secureKeyLoader_didFailWithError_
     _os_log_impl(&dword_26CEDD000, secureKeyLoader, OS_LOG_TYPE_DEFAULT, "No cached cert data exists in coordinator for request %lu.  Waiting for cert fetch already in progress to complete", buf, 0xCu);
 LABEL_13:
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_finishLoadingWithError:(id)error forRequest:(id)request
@@ -725,20 +713,18 @@ LABEL_13:
 
 - (void)secureKeyLoader:(uint64_t)a1 didLoadKeyResponseData:(NSObject *)a2 renewalDate:forRequest:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26CEDD000, a2, OS_LOG_TYPE_ERROR, "Error converting to offline key data: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26CEDD000, a2, OS_LOG_TYPE_ERROR, "Error converting to offline key data: %@", &v2, 0xCu);
 }
 
 - (void)secureKeyLoader:(uint64_t)a1 didFailWithError:(NSObject *)a2 forRequest:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_26CEDD000, a2, OS_LOG_TYPE_ERROR, "Secure Key Delivery failed with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_26CEDD000, a2, OS_LOG_TYPE_ERROR, "Secure Key Delivery failed with error: %@", &v2, 0xCu);
 }
 
 @end

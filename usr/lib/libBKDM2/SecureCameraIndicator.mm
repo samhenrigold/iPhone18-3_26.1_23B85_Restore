@@ -12,35 +12,35 @@
 
 - (SecureCameraIndicator)init
 {
-  v27 = *MEMORY[0x29EDCA608];
-  v16.receiver = self;
-  v16.super_class = SecureCameraIndicator;
-  v2 = [(SecureCameraIndicator *)&v16 init];
+  v26 = *MEMORY[0x29EDCA608];
+  v15.receiver = self;
+  v15.super_class = SecureCameraIndicator;
+  v2 = [(SecureCameraIndicator *)&v15 init];
   if (!v2)
   {
     if (__osLog)
     {
-      v15 = __osLog;
+      v14 = __osLog;
     }
 
     else
     {
-      v15 = MEMORY[0x29EDCA988];
+      v14 = MEMORY[0x29EDCA988];
     }
 
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136316162;
-      v18 = "self != ((void *)0)";
-      v19 = 2048;
-      v20 = 0;
-      v21 = 2080;
-      v22 = &unk_296D32C0B;
-      v23 = 2080;
-      v24 = "/Library/Caches/com.apple.xbs/Sources/Pearl/SecureCameraIndicator/SecureCameraIndicator.m";
-      v25 = 1024;
-      v26 = 34;
-      _os_log_impl(&dword_296CA4000, v15, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
+      v17 = "self != ((void *)0)";
+      v18 = 2048;
+      v19 = 0;
+      v20 = 2080;
+      v21 = &unk_296D32C0B;
+      v22 = 2080;
+      v23 = "/Library/Caches/com.apple.xbs/Sources/Pearl/SecureCameraIndicator/SecureCameraIndicator.m";
+      v24 = 1024;
+      v25 = 34;
+      _os_log_impl(&dword_296CA4000, v14, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", buf, 0x30u);
     }
 
     goto LABEL_14;
@@ -102,7 +102,6 @@ LABEL_19:
 LABEL_7:
   v12 = v3;
 
-  v13 = *MEMORY[0x29EDCA608];
   return v12;
 }
 
@@ -193,7 +192,7 @@ uint64_t __39__SecureCameraIndicator_sharedInstance__block_invoke(uint64_t a1)
   return v4;
 }
 
-uint64_t __35__SecureCameraIndicator_deactivate__block_invoke(uint64_t a1, void *a2)
+void *__35__SecureCameraIndicator_deactivate__block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 removeCameraAttribution:*(*(a1 + 32) + 16)];
   *(*(*(a1 + 40) + 8) + 24) = 0;
@@ -202,7 +201,7 @@ uint64_t __35__SecureCameraIndicator_deactivate__block_invoke(uint64_t a1, void 
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x29EDCA608];
+  v4 = *MEMORY[0x29EDCA608];
   if (__osLog)
   {
     v0 = __osLog;
@@ -216,40 +215,33 @@ uint64_t __35__SecureCameraIndicator_deactivate__block_invoke(uint64_t a1, void 
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
     OUTLINED_FUNCTION_0();
-    v3 = &unk_296D32C0B;
+    v2 = &unk_296D32C0B;
     OUTLINED_FUNCTION_4();
-    v4 = 102;
-    _os_log_impl(&dword_296CA4000, v0, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v2, 0x30u);
+    v3 = 102;
+    _os_log_impl(&dword_296CA4000, v0, OS_LOG_TYPE_ERROR, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v1, 0x30u);
   }
-
-  v1 = *MEMORY[0x29EDCA608];
 }
 
 - (void)init
 {
-  v10 = *MEMORY[0x29EDCA608];
   if (OUTLINED_FUNCTION_12(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_7_0(&dword_296CA4000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_7_0(&dword_296CA4000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 - (void)deactivate
 {
-  v10 = *MEMORY[0x29EDCA608];
   if (OUTLINED_FUNCTION_12(__osLog))
   {
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_4();
-    OUTLINED_FUNCTION_7_0(&dword_296CA4000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7, v9);
+    OUTLINED_FUNCTION_7_0(&dword_296CA4000, v2, v3, "AssertMacros: %s (value = 0x%lx), %s file: %s, line: %d\n\n", v4, v5, v6, v7);
   }
 
   *(*self + 24) = 267;
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 @end

@@ -170,7 +170,7 @@
   }
 
   memset(buf, 0, 32);
-  [(_NUContiguousImageLayout *)self contentRectForTileAtIndex:index];
+  objc_msgSend_contentRectForTileAtIndex_(self);
   v22[0] = *buf;
   v22[1] = *&buf[16];
   v21[0] = *buf;

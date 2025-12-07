@@ -20,53 +20,41 @@
 - (USOGraph)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = USOGraph;
-  v5 = [(USOGraph *)&v17 init];
+  v13.receiver = self;
+  v13.super_class = USOGraph;
+  v5 = [(USOGraph *)&v13 init];
   v6 = v5;
   if (v5)
   {
     siri::ontology::getSharedUsoVocabManager(v5);
-    v8 = siri::ontology::getSharedUsoVocabManager(void)::inst;
     v7 = unk_1EBE27900;
     if (unk_1EBE27900)
     {
       atomic_fetch_add_explicit((unk_1EBE27900 + 8), 1uLL, memory_order_relaxed);
     }
 
-    v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"usoGraph"];
-    v10 = v9;
-    v14 = v8;
-    v15 = v7;
+    v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"usoGraph"];
+    v9 = v8;
     if (v7)
     {
       atomic_fetch_add_explicit(&v7->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    if (v9)
+    if (v8)
     {
-      [v9 toCppUsoGraph:&v14 withError:0];
-      v11 = v16;
+      objc_msgSend_toCppUsoGraph_withError_(v8);
+      v10 = v12;
     }
 
     else
     {
-      v11 = 0;
+      v10 = 0;
     }
 
-    v16 = 0;
-    std::unique_ptr<siri::ontology::UsoGraph>::reset[abi:ne200100](&v6->_usoGraph, v11);
-    v12 = v16;
-    v16 = 0;
-    if (v12)
+    std::unique_ptr<siri::ontology::UsoGraph>::reset[abi:ne200100](&v6->_usoGraph, v10);
+    if (v7)
     {
-      siri::ontology::UsoGraph::~UsoGraph(v12);
-      MEMORY[0x1C68DE200]();
-    }
-
-    if (v15)
-    {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v15);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v7);
     }
 
     if (v7)
@@ -90,13 +78,10 @@
   nodeCopy = node;
   if (nodeCopy)
   {
-    [nodeCopy longLongValue];
-    ptr = self->_usoGraph.__ptr_;
-    siri::ontology::UsoGraph::createIntNode();
+    siri::ontology::UsoGraph::createIntNode(self->_usoGraph.__ptr_, [nodeCopy longLongValue], 1);
   }
 
-  v6 = self->_usoGraph.__ptr_;
-  siri::ontology::UsoGraph::createIntNode();
+  siri::ontology::UsoGraph::createIntNode(self->_usoGraph.__ptr_, 0, 0);
 }
 
 - (id)createStringNode:(id)node
@@ -117,13 +102,13 @@
     }
 
     v9 = 1;
-    siri::ontology::UsoGraph::createStringNode();
+    siri::ontology::UsoGraph::createStringNode(ptr, &__p);
   }
 
   v6 = self->_usoGraph.__ptr_;
   __p.__r_.__value_.__s.__data_[0] = 0;
   v9 = 0;
-  siri::ontology::UsoGraph::createStringNode();
+  siri::ontology::UsoGraph::createStringNode(v6, &__p);
 }
 
 - (USOGraph)initWithCppUsoGraph:()unique_ptr<siri:(std::default_delete<siri::ontology::UsoGraph>>)siri :ontology::UsoGraph

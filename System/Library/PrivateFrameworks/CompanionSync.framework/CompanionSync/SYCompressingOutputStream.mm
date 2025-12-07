@@ -1,7 +1,9 @@
 @interface SYCompressingOutputStream
 - (BOOL)setProperty:(id)property forKey:(id)key;
 - (SYCompressingOutputStream)initWithDestinationStream:(id)stream;
+- (SYCompressingOutputStream)initWithURL:(id)l append:(BOOL)append;
 - (id)initToBuffer:(char *)buffer capacity:(unint64_t)capacity;
+- (id)initToFileAtPath:(id)path append:(BOOL)append;
 - (id)initToMemory;
 - (id)propertyForKey:(id)key;
 - (int)_handlePendingInput;
@@ -49,6 +51,26 @@
   v6 = [(SYCompressingOutputStream *)self initWithDestinationStream:v5];
 
   return v6;
+}
+
+- (id)initToFileAtPath:(id)path append:(BOOL)append
+{
+  appendCopy = append;
+  pathCopy = path;
+  v7 = [SYCompressedFileOutputStream alloc];
+  v8 = [MEMORY[0x1E695DFF8] fileURLWithPath:pathCopy];
+
+  v9 = [(SYCompressedFileOutputStream *)v7 initToCompressedFileAtURL:v8 shouldAppend:appendCopy];
+  return v9;
+}
+
+- (SYCompressingOutputStream)initWithURL:(id)l append:(BOOL)append
+{
+  appendCopy = append;
+  lCopy = l;
+  v7 = [[SYCompressedFileOutputStream alloc] initToCompressedFileAtURL:lCopy shouldAppend:appendCopy];
+
+  return v7;
 }
 
 - (id)initToMemory
@@ -383,19 +405,17 @@ LABEL_14:
 
   getCFRunLoop = [loopCopy getCFRunLoop];
   runloopSource = self->_internal->super._runloopSource;
-  v10 = [(__CFString *)modeCopy isEqualToString:*MEMORY[0x1E695D918]];
-  v11 = *MEMORY[0x1E695E8E0];
-  if (v10)
+  if ([(__CFString *)modeCopy isEqualToString:*MEMORY[0x1E695D918]])
   {
-    v12 = *MEMORY[0x1E695E8E0];
+    v10 = *MEMORY[0x1E695E8E0];
   }
 
   else
   {
-    v12 = modeCopy;
+    v10 = modeCopy;
   }
 
-  CFRunLoopAddSource(getCFRunLoop, runloopSource, v12);
+  CFRunLoopAddSource(getCFRunLoop, runloopSource, v10);
 }
 
 - (void)removeFromRunLoop:(id)loop forMode:(id)mode
@@ -407,19 +427,17 @@ LABEL_14:
   {
     getCFRunLoop = [loopCopy getCFRunLoop];
     runloopSource = self->_internal->super._runloopSource;
-    v9 = [(__CFString *)modeCopy isEqualToString:*MEMORY[0x1E695D918]];
-    v10 = *MEMORY[0x1E695E8E0];
-    if (v9)
+    if ([(__CFString *)modeCopy isEqualToString:*MEMORY[0x1E695D918]])
     {
-      v11 = *MEMORY[0x1E695E8E0];
+      v9 = *MEMORY[0x1E695E8E0];
     }
 
     else
     {
-      v11 = modeCopy;
+      v9 = modeCopy;
     }
 
-    CFRunLoopRemoveSource(getCFRunLoop, runloopSource, v11);
+    CFRunLoopRemoveSource(getCFRunLoop, runloopSource, v9);
   }
 }
 

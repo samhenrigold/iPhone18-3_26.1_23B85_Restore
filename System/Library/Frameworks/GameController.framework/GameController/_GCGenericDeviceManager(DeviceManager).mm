@@ -6,7 +6,7 @@
 
 - (_GCFusedLogicalDevice)makeDeviceWithConfiguration:()DeviceManager dependencies:
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   v7 = a3;
   v8 = a4;
   if ([v8 count] == 1)
@@ -24,35 +24,35 @@
 
   if ([v8 count] == 2)
   {
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v14 = v8;
-    v15 = [v14 countByEnumeratingWithState:&v39 objects:v43 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v38 objects:v42 count:16];
     if (v15)
     {
       v16 = v15;
-      v36 = v8;
+      v35 = v8;
       obj = v14;
-      v34 = a2;
+      v33 = a2;
       selfCopy = self;
-      v38 = v7;
+      v37 = v7;
       v17 = 0;
       v18 = 0;
-      v19 = *v40;
+      v19 = *v39;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v40 != v19)
+          if (*v39 != v19)
           {
             objc_enumerationMutation(obj);
           }
 
-          v21 = *(*(&v39 + 1) + 8 * i);
+          v21 = *(*(&v38 + 1) + 8 * i);
           identifier = [v21 identifier];
-          deviceDependencies = [v38 deviceDependencies];
+          deviceDependencies = [v37 deviceDependencies];
           firstObject = [deviceDependencies firstObject];
           v25 = [identifier isEqual:firstObject];
 
@@ -78,16 +78,16 @@
           }
         }
 
-        v16 = [obj countByEnumeratingWithState:&v39 objects:v43 count:16];
+        v16 = [obj countByEnumeratingWithState:&v38 objects:v42 count:16];
       }
 
       while (v16);
       v28 = obj;
 
-      v7 = v38;
+      v7 = v37;
       self = selfCopy;
-      v8 = v36;
-      a2 = v34;
+      v8 = v35;
+      a2 = v33;
       if (v17)
       {
         if (v18)
@@ -130,8 +130,6 @@ LABEL_26:
 
   v11 = 0;
 LABEL_21:
-
-  v31 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

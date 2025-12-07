@@ -36,7 +36,7 @@
   *(v11 + 1) = v13;
   *(v11 + 2) = v14;
   v18.receiver = self;
-  v18.super_class = type metadata accessor for ClimateOnButton();
+  v18.super_class = type metadata accessor for ClimateOnButton(0);
   v15 = v12;
   v16 = v13;
 

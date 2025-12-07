@@ -32,9 +32,9 @@
 
 - (FMDMagSafeAccessoryManager)init
 {
-  v21.receiver = self;
-  v21.super_class = FMDMagSafeAccessoryManager;
-  v2 = [(FMDMagSafeAccessoryManager *)&v21 init];
+  v23.receiver = self;
+  v23.super_class = FMDMagSafeAccessoryManager;
+  v2 = [(FMDMagSafeAccessoryManager *)&v23 init];
   if (v2)
   {
     v3 = +[FMDMagSafeDataStore sharedInstance];
@@ -52,34 +52,34 @@
     groupLock = v2->_groupLock;
     v2->_groupLock = v7;
 
-    v9 = sub_100004FC8();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = sub_100004FC8(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      *v20 = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "initialising core accessory manager", v20, 2u);
+      *v22 = 0;
+      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "initialising core accessory manager", v22, 2u);
     }
 
-    v10 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-    v11 = dispatch_queue_create("FMDMagSafeAccessoryManager.serialQueue", v10);
-    [(FMDMagSafeAccessoryManager *)v2 setSerialQueue:v11];
+    v11 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+    v12 = dispatch_queue_create("FMDMagSafeAccessoryManager.serialQueue", v11);
+    [(FMDMagSafeAccessoryManager *)v2 setSerialQueue:v12];
 
-    v12 = dispatch_group_create();
-    [(FMDMagSafeAccessoryManager *)v2 setCaGroup:v12];
+    v13 = dispatch_group_create();
+    [(FMDMagSafeAccessoryManager *)v2 setCaGroup:v13];
 
     caGroup = [(FMDMagSafeAccessoryManager *)v2 caGroup];
     dispatch_group_enter(caGroup);
 
-    v14 = [[FMDCoreAccessoryManager alloc] initWithDelegate:v2];
-    [(FMDMagSafeAccessoryManager *)v2 setCaAccessoryManager:v14];
+    v15 = [[FMDCoreAccessoryManager alloc] initWithDelegate:v2];
+    [(FMDMagSafeAccessoryManager *)v2 setCaAccessoryManager:v15];
 
     caGroup2 = [(FMDMagSafeAccessoryManager *)v2 caGroup];
-    v16 = dispatch_time(0, 1000000000);
-    v17 = dispatch_group_wait(caGroup2, v16);
+    v17 = dispatch_time(0, 1000000000);
+    v18 = dispatch_group_wait(caGroup2, v17);
 
-    if (v17)
+    if (v18)
     {
-      v18 = sub_100001508();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v20 = sub_100001508(v19);
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
         sub_1000157C8();
       }
@@ -162,8 +162,7 @@
 
   else
   {
-    [(NSLock *)self->_accessoriesLock unlock];
-    v14 = sub_100001508();
+    v14 = sub_100001508([(NSLock *)self->_accessoriesLock unlock]);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_100015838();
@@ -189,14 +188,14 @@
   if (v6)
   {
     allAccessories2 = [(FMDMagSafeAccessoryManager *)self allAccessories];
-    v8 = [allAccessories2 objectForKeyedSubscript:forCopy];
-    style = [v8 style];
+    v9 = [allAccessories2 objectForKeyedSubscript:forCopy];
+    style = [v9 style];
   }
 
   else
   {
-    v10 = sub_100001508();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_100001508(v7);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_100015838();
     }
@@ -213,7 +212,7 @@
 {
   numberCopy = number;
   completionCopy = completion;
-  v8 = sub_100004FC8();
+  v8 = sub_100004FC8(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -223,7 +222,7 @@
 
   [FMPreferencesUtil removeKey:numberCopy inDomain:kFMDNotBackedUpMagSafePrefDomain];
   v9 = [(FMDMagSafeAccessoryManager *)self connectdAccessoryWithSerialNumber:numberCopy];
-  v10 = sub_100004FC8();
+  v10 = sub_100004FC8(v9);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
   if (v9)
   {
@@ -253,7 +252,7 @@
     }
 
     numberCopy = [NSString stringWithFormat:@"com.apple.accessoryd.mfi4.userPublicKey.%@", numberCopy];
-    v13 = sub_100004FC8();
+    v13 = sub_100004FC8(numberCopy);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
@@ -338,7 +337,7 @@ LABEL_14:
 - (void)setPhoneNumberForAccessoryId:(id)id phoneNumber:(id)number completion:(id)completion
 {
   completionCopy = completion;
-  v6 = sub_100004FC8();
+  v6 = sub_100004FC8(completionCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     *v8 = 0;
@@ -370,7 +369,7 @@ LABEL_14:
 {
   info2Copy = info2;
   completionCopy = completion;
-  v8 = sub_100001508();
+  v8 = sub_100001508(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
@@ -396,33 +395,33 @@ LABEL_14:
   forCopy = for;
   completionCopy = completion;
   v8 = [(FMDMagSafeAccessoryManager *)self connectdAccessoryWithSerialNumber:forCopy];
-  v9 = sub_1000011D8();
+  v9 = sub_1000011D8(v8);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v16 = forCopy;
+    v17 = forCopy;
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "### setting keysUpdated for %@", buf, 0xCu);
   }
 
   if (v8)
   {
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10000E8AC;
-    v11[3] = &unk_100025720;
-    v12 = v8;
-    v13 = forCopy;
-    v14 = completionCopy;
-    [v12 getPairingDataWithCompletion:v11];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10000E8AC;
+    v12[3] = &unk_100025720;
+    v13 = v8;
+    v14 = forCopy;
+    v15 = completionCopy;
+    [v13 getPairingDataWithCompletion:v12];
   }
 
   else
   {
-    v10 = sub_1000011D8();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = sub_1000011D8(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "### accessory not connected storing the operation", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "### accessory not connected storing the operation", buf, 2u);
     }
 
     [FMPreferencesUtil setBool:1 forKey:forCopy inDomain:kFMDNotBackedUpMagSafePrefDomain];
@@ -432,7 +431,7 @@ LABEL_14:
 - (void)accessoryDidConnect:(id)connect
 {
   connectCopy = connect;
-  v5 = sub_100004FC8();
+  v5 = sub_100004FC8(connectCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
@@ -469,7 +468,7 @@ LABEL_14:
 - (void)accessoryDidDisconnect:(id)disconnect
 {
   disconnectCopy = disconnect;
-  v5 = sub_100004FC8();
+  v5 = sub_100004FC8(disconnectCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 136315394;
@@ -485,7 +484,7 @@ LABEL_14:
 - (void)accessoryDidUpdate:(id)update
 {
   updateCopy = update;
-  v4 = sub_100004FC8();
+  v4 = sub_100004FC8(updateCopy);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v5 = 136315394;

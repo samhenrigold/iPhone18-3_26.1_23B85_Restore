@@ -332,8 +332,8 @@ LABEL_5:
         v14 = +[NSNotificationCenter defaultCenter];
         [v14 postNotificationName:CLSInitialServerSyncCompleteNotificationName object:0 userInfo:0];
 
-        v15 = sub_1000B51E4();
-        v16 = sub_1000B51E4();
+        v15 = sub_1000B51E4(PDAnalytics);
+        v16 = sub_1000B51E4(PDAnalytics);
         v17 = +[NSDate now];
         v18 = sub_1000B5C7C(v16, v17, v7);
         sub_1000B5E40(v15, v18, v7);
@@ -358,87 +358,83 @@ LABEL_5:
   selfCopy = self;
   if ([*(&self->_zoneIDs + 3) count])
   {
-    v4 = &CLSLogAsset_ptr;
-    v28 = objc_opt_new();
+    v26 = objc_opt_new();
+    v34 = 0u;
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
-    v38 = 0u;
-    v39 = 0u;
     obj = *(&self->_zoneIDs + 3);
-    v32 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
-    if (v32)
+    v30 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
+    if (v30)
     {
-      v31 = *v37;
+      v29 = *v35;
       do
       {
-        for (i = 0; i != v32; i = i + 1)
+        for (i = 0; i != v30; i = i + 1)
         {
-          if (*v37 != v31)
+          if (*v35 != v29)
           {
             objc_enumerationMutation(obj);
           }
 
-          v6 = *(*(&v36 + 1) + 8 * i);
+          v5 = *(*(&v34 + 1) + 8 * i);
           context = objc_autoreleasePoolPush();
-          v7 = v6;
-          v8 = v4[213];
-          v9 = objc_opt_new();
-          v10 = v7;
-          v11 = [database select:objc_opt_class() identity:v7];
-          v12 = objc_opt_class();
-          parentObjectID = [v11 parentObjectID];
-          v14 = [database select:v12 identity:parentObjectID];
+          v6 = v5;
+          v7 = objc_opt_new();
+          v8 = v6;
+          v9 = [database select:objc_opt_class() identity:v6];
+          v10 = objc_opt_class();
+          parentObjectID = [v9 parentObjectID];
+          v12 = [database select:v10 identity:parentObjectID];
 
-          if (v14)
+          if (v12)
           {
-            v15 = v11 == 0;
+            v13 = v9 == 0;
           }
 
           else
           {
-            v15 = 1;
+            v13 = 1;
           }
 
-          if (!v15)
+          if (!v13)
           {
-            v16 = objc_opt_class();
-            v40 = v10;
-            v17 = [NSArray arrayWithObjects:&v40 count:1];
-            v34[0] = _NSConcreteStackBlock;
-            v34[1] = 3221225472;
-            v34[2] = sub_100101898;
-            v34[3] = &unk_100204398;
-            v18 = v9;
-            v35 = v18;
-            [database selectAll:v16 where:@"parentObjectID = ?" bindings:v17 block:v34];
+            v14 = objc_opt_class();
+            v38 = v8;
+            v15 = [NSArray arrayWithObjects:&v38 count:1];
+            v32[0] = _NSConcreteStackBlock;
+            v32[1] = 3221225472;
+            v32[2] = sub_100101898;
+            v32[3] = &unk_100204398;
+            v16 = v7;
+            v33 = v16;
+            [database selectAll:v14 where:@"parentObjectID = ?" bindings:v15 block:v32];
 
-            v19 = sub_1000711FC(database);
-            objectID = [v19 objectID];
+            v17 = sub_1000711FC(database);
+            objectID = [v17 objectID];
 
-            v21 = [*(&selfCopy->_zoneIDs + 3) objectForKey:v10];
-            v22 = database;
-            integerValue = [v21 integerValue];
+            v19 = [*(&selfCopy->_zoneIDs + 3) objectForKey:v8];
+            v20 = database;
+            integerValue = [v19 integerValue];
 
-            v24 = integerValue;
-            database = v22;
-            v25 = [PDSchoolworkCollaborationStateAdaptor setActivityState:v24 forAttachment:v11 forHandout:v14 senderPersonID:objectID withStates:v18];
-            [v28 addObject:v25];
-
-            v4 = &CLSLogAsset_ptr;
+            v22 = integerValue;
+            database = v20;
+            v23 = [PDSchoolworkCollaborationStateAdaptor setActivityState:v22 forAttachment:v9 forHandout:v12 senderPersonID:objectID withStates:v16];
+            [v26 addObject:v23];
           }
 
           objc_autoreleasePoolPop(context);
         }
 
-        v32 = [obj countByEnumeratingWithState:&v36 objects:v41 count:16];
+        v30 = [obj countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
-      while (v32);
+      while (v30);
     }
 
-    v26 = sub_1001596A4([PDCollaborationStateChangePublish alloc], database, v28);
+    v24 = sub_1001596A4([PDCollaborationStateChangePublish alloc], database, v26);
     manager = [(PDOperation *)selfCopy manager];
-    sub_100123A84(manager, v26);
+    sub_100123A84(manager, v24);
   }
 }
 

@@ -28,16 +28,17 @@
   [coderCopy encodeObject:self->_entityPrintOriginatingRequestSpecifier forKey:@"entityPrintOriginatingRequestSpecifier"];
   v5 = objc_autoreleasePoolPush();
   VNNSMutableDataStreambuf::VNNSMutableDataStreambuf(&__sb);
-  v8.__loc_ = 0;
-  v8.__vftable = (MEMORY[0x1E69E5520] + 64);
-  std::ios_base::init(&v8, &__sb);
-  v9 = 0;
-  v10 = -1;
-  v6 = vision::mod::FaceID3Model::serialize(self->_faceIDModel.__ptr_);
+  v9.__loc_ = 0;
+  v8 = MEMORY[0x1E69E5520] + 24;
+  v9.__vftable = (MEMORY[0x1E69E5520] + 64);
+  std::ios_base::init(&v9, &__sb);
+  v10 = 0;
+  v11 = -1;
+  v6 = vision::mod::FaceID3Model::serialize(self->_faceIDModel.__ptr_, &v8);
   if (v6 == 128)
   {
     std::ostream::flush();
-    v7 = v13;
+    v7 = v14;
     [coderCopy encodeObject:v7 forKey:@"faceIDModel"];
   }
 
@@ -49,7 +50,7 @@
 
   std::ostream::~ostream();
   __sb = MEMORY[0x1E69E5538] + 16;
-  std::locale::~locale(&v12);
+  std::locale::~locale(&v13);
   objc_autoreleasePoolPop(v5);
 }
 
@@ -240,6 +241,7 @@ void __92__VNEntityIdentificationModelTrainedModelVIPv3_printCountsForEntitiesWi
 
 - (id)predictionsForObservation:(id)observation limit:(unint64_t)limit canceller:(id)canceller error:(id *)error
 {
+  v17[5] = *MEMORY[0x1E69E9840];
   observationCopy = observation;
   cancellerCopy = canceller;
   entityPrintOriginatingRequestSpecifier = [(VNEntityIdentificationModelTrainedModelVIPv3 *)self entityPrintOriginatingRequestSpecifier];
@@ -252,7 +254,9 @@ void __92__VNEntityIdentificationModelTrainedModelVIPv3_printCountsForEntitiesWi
       {
         [v12 VNEntityIdentificationModelPrintData];
         objc_claimAutoreleasedReturnValue();
-        std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>();
+        v16 = 1;
+        memset(__p, 0, sizeof(__p));
+        std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>(__p, &v16, v17);
       }
 
       v13 = 0;
@@ -604,7 +608,7 @@ LABEL_22:
 
 + (id)trainedModelBuiltFromConfiguration:(id)configuration dataProvider:(id)provider canceller:(id)canceller error:(id *)error
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v60 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   providerCopy = provider;
   cancellerCopy = canceller;
@@ -659,11 +663,11 @@ LABEL_12:
       {
         [v43 firstObject];
         vNEntityIdentificationModelPrintByteLength = [objc_claimAutoreleasedReturnValue() VNEntityIdentificationModelPrintByteLength];
-        aBlock[0] = 1;
+        aBlock = 1;
         p_p = 0;
         v49 = 0;
         __p = 0;
-        std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>();
+        std::vector<long long>::__init_with_size[abi:ne200100]<long long const*,long long const*>(&__p, &aBlock, aBlock_8);
       }
 
       objc_autoreleasePoolPop(context);
@@ -737,15 +741,15 @@ LABEL_18:
     v52 = "";
     v53 = 0;
     v54 = 0;
-    aBlock[0] = MEMORY[0x1E69E9820];
-    aBlock[1] = 3221225472;
-    aBlock[2] = ___ZL15_newFaceIDModelP40VNEntityIdentificationModelConfigurationPU15__autoreleasingP7NSError_block_invoke;
-    aBlock[3] = &unk_1E77B63E0;
-    aBlock[4] = &__p;
-    aBlock[5] = __PAIR64__(faceID3ModelMaximumIDs, faceID3ModelMaximumElementsPerID);
-    v57 = faceID3ModelSeed;
-    v58 = faceID3IndexMode;
-    v21 = _Block_copy(aBlock);
+    aBlock = MEMORY[0x1E69E9820];
+    aBlock_8[0] = 3221225472;
+    aBlock_8[1] = ___ZL15_newFaceIDModelP40VNEntityIdentificationModelConfigurationPU15__autoreleasingP7NSError_block_invoke;
+    aBlock_8[2] = &unk_1E77B63E0;
+    aBlock_8[3] = &__p;
+    aBlock_8[4] = __PAIR64__(faceID3ModelMaximumIDs, faceID3ModelMaximumElementsPerID);
+    v58 = faceID3ModelSeed;
+    v59 = faceID3IndexMode;
+    v21 = _Block_copy(&aBlock);
     if (VNExecuteBlock(v21, error))
     {
       v23 = p_p[6];
@@ -801,12 +805,12 @@ LABEL_39:
   return v27;
 }
 
-void *__112__VNEntityIdentificationModelTrainedModelVIPv3_trainedModelBuiltFromConfiguration_dataProvider_canceller_error___block_invoke(uint64_t a1)
+void *__112__VNEntityIdentificationModelTrainedModelVIPv3_trainedModelBuiltFromConfiguration_dataProvider_canceller_error___block_invoke(void *a1)
 {
-  result = vision::mod::FaceID3Model::buildModel(*(a1 + 48), *(a1 + 64), (a1 + 80), *(*(a1 + 32) + 8) + 48);
+  result = vision::mod::FaceID3Model::buildModel(a1[6], a1[8], a1 + 10, *(a1[4] + 8) + 48);
   if (result != 128)
   {
-    *(*(*(a1 + 40) + 8) + 40) = VNErrorForCVMLStatus(result);
+    *(*(a1[5] + 8) + 40) = VNErrorForCVMLStatus(result);
 
     return MEMORY[0x1EEE66BB8]();
   }

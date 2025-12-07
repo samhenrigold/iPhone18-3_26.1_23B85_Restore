@@ -35,7 +35,7 @@
   v14.super_class = SBPulseDisplayItemSwitcherModifier;
   v4 = [(SBSwitcherModifier *)&v14 handleTapAppLayoutHeaderEvent:event];
   v5 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:4 updateMode:3];
-  v6 = SBAppendSwitcherModifierResponse(v5, v4);
+  v6 = SBAppendSwitcherModifierResponse();
 
   switcherSettings = [(SBPulseDisplayItemSwitcherModifier *)self switcherSettings];
   animationSettings = [switcherSettings animationSettings];
@@ -43,7 +43,7 @@
   v10 = v9;
 
   v11 = [[SBTimerEventSwitcherEventResponse alloc] initWithDelay:0 validator:@"SBPulseDisplayItemSwitcherModifierTimerReasonFirstStage" reason:v10];
-  v12 = SBAppendSwitcherModifierResponse(v11, v6);
+  v12 = SBAppendSwitcherModifierResponse();
 
   return v12;
 }
@@ -54,7 +54,7 @@
   v14.super_class = SBPulseDisplayItemSwitcherModifier;
   v4 = [(SBSwitcherModifier *)&v14 handleSwitcherShortcutActionEvent:event];
   v5 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:12 updateMode:3];
-  v6 = SBAppendSwitcherModifierResponse(v5, v4);
+  v6 = SBAppendSwitcherModifierResponse();
 
   switcherSettings = [(SBPulseDisplayItemSwitcherModifier *)self switcherSettings];
   animationSettings = [switcherSettings animationSettings];
@@ -62,7 +62,7 @@
   v10 = v9;
 
   v11 = [[SBTimerEventSwitcherEventResponse alloc] initWithDelay:0 validator:@"SBPulseDisplayItemSwitcherModifierTimerReasonFirstStage" reason:v10];
-  v12 = SBAppendSwitcherModifierResponse(v11, v6);
+  v12 = SBAppendSwitcherModifierResponse();
 
   return v12;
 }
@@ -82,7 +82,7 @@
     self->_displayItemToPulse = 0;
 
     v9 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:12 updateMode:3];
-    v10 = SBAppendSwitcherModifierResponse(v9, v5);
+    v10 = SBAppendSwitcherModifierResponse();
 
     switcherSettings = [(SBPulseDisplayItemSwitcherModifier *)self switcherSettings];
     animationSettings = [switcherSettings animationSettings];
@@ -91,7 +91,7 @@
     v15 = v14;
 
     v16 = [[SBTimerEventSwitcherEventResponse alloc] initWithDelay:0 validator:@"SBPulseDisplayItemSwitcherModifierTimerReasonSecondStage" reason:v15];
-    v5 = SBAppendSwitcherModifierResponse(v16, v10);
+    v5 = SBAppendSwitcherModifierResponse();
   }
 
   else
@@ -105,7 +105,7 @@
     }
 
     v9 = [[SBUpdateLayoutSwitcherEventResponse alloc] initWithOptions:12 updateMode:3];
-    v19 = SBAppendSwitcherModifierResponse(v9, v5);
+    v19 = SBAppendSwitcherModifierResponse();
 
     [(SBChainableModifier *)self setState:1];
     v5 = v19;

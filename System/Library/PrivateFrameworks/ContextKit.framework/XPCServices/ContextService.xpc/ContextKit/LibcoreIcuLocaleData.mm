@@ -59,15 +59,15 @@
       sub_1000458CC();
     }
 
-    LibcoreIcuLocaleData_getWithJavaUtilLocale_(JavaUtilLocale_ROOT_);
+    LibcoreIcuLocaleData_getWithJavaUtilLocale_(JavaUtilLocale_ROOT_, v3);
     if ((atomic_load_explicit(JavaUtilLocale__initialized, memory_order_acquire) & 1) == 0)
     {
       sub_1000458CC();
     }
 
-    LibcoreIcuLocaleData_getWithJavaUtilLocale_(JavaUtilLocale_US_);
+    LibcoreIcuLocaleData_getWithJavaUtilLocale_(JavaUtilLocale_US_, v4);
     Default = JavaUtilLocale_getDefault();
-    LibcoreIcuLocaleData_getWithJavaUtilLocale_(Default);
+    LibcoreIcuLocaleData_getWithJavaUtilLocale_(Default, v6);
     atomic_store(1u, LibcoreIcuLocaleData__initialized);
   }
 }

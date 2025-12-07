@@ -96,7 +96,7 @@
 {
   attributesCopy = attributes;
   completionCopy = completion;
-  v8 = _AAUILogSystem();
+  v8 = _AAUILogSystem(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [AAUICustodianVerificationHook _verifyCustodianWithServerAttributes:attributesCopy completion:v8];
@@ -127,71 +127,72 @@ void __81__AAUICustodianVerificationHook__verifyCustodianWithServerAttributes_co
 {
   v5 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
+  v7 = WeakRetained;
   if (a3)
   {
-    v7 = _AAUILogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _AAUILogSystem(WeakRetained);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       __81__AAUICustodianVerificationHook__verifyCustodianWithServerAttributes_completion___block_invoke_cold_1();
     }
 
-    if (WeakRetained)
+    if (v7)
     {
       block[0] = MEMORY[0x1E69E9820];
       block[1] = 3221225472;
       block[2] = __81__AAUICustodianVerificationHook__verifyCustodianWithServerAttributes_completion___block_invoke_38;
       block[3] = &unk_1E820B8F0;
-      block[4] = WeakRetained;
+      block[4] = v7;
       dispatch_async(MEMORY[0x1E69E96A0], block);
     }
 
-    v8 = *(a1 + 40);
-    v9 = MEMORY[0x1E696ABC0];
-    v10 = *MEMORY[0x1E698B768];
-    v11 = -7000;
+    v9 = *(a1 + 40);
+    v10 = MEMORY[0x1E696ABC0];
+    v11 = *MEMORY[0x1E698B768];
+    v12 = -7000;
 LABEL_7:
-    v12 = [v9 errorWithDomain:v10 code:v11 userInfo:0];
-    (*(v8 + 16))(v8, 0, v12);
+    v13 = [v10 errorWithDomain:v11 code:v12 userInfo:0];
+    (*(v9 + 16))(v9, 0, v13);
 
     goto LABEL_8;
   }
 
   if (![v5 count])
   {
-    v17 = _AAUILogSystem();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = _AAUILogSystem(0);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       __81__AAUICustodianVerificationHook__verifyCustodianWithServerAttributes_completion___block_invoke_cold_2();
     }
 
-    v8 = *(a1 + 40);
-    v9 = MEMORY[0x1E696ABC0];
-    v10 = *MEMORY[0x1E698B768];
-    v11 = -7003;
+    v9 = *(a1 + 40);
+    v10 = MEMORY[0x1E696ABC0];
+    v11 = *MEMORY[0x1E698B768];
+    v12 = -7003;
     goto LABEL_7;
   }
 
-  v13 = *(a1 + 40);
-  if (WeakRetained)
+  v14 = *(a1 + 40);
+  if (v7)
   {
-    v14 = [*(a1 + 40) copy];
-    v15 = *(a1 + 32);
-    v16 = *(v15 + 8);
-    *(v15 + 8) = v14;
+    v15 = [*(a1 + 40) copy];
+    v16 = *(a1 + 32);
+    v17 = *(v16 + 8);
+    *(v16 + 8) = v15;
 
-    v19[0] = MEMORY[0x1E69E9820];
-    v19[1] = 3221225472;
-    v19[2] = __81__AAUICustodianVerificationHook__verifyCustodianWithServerAttributes_completion___block_invoke_41;
-    v19[3] = &unk_1E820BEB8;
-    v19[4] = WeakRetained;
-    v20 = v5;
-    dispatch_async(MEMORY[0x1E69E96A0], v19);
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = __81__AAUICustodianVerificationHook__verifyCustodianWithServerAttributes_completion___block_invoke_41;
+    v20[3] = &unk_1E820BEB8;
+    v20[4] = v7;
+    v21 = v5;
+    dispatch_async(MEMORY[0x1E69E96A0], v20);
   }
 
   else
   {
-    v18 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698B768] code:-7000 userInfo:0];
-    (*(v13 + 16))(v13, 0, v18);
+    v19 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E698B768] code:-7000 userInfo:0];
+    (*(v14 + 16))(v14, 0, v19);
   }
 
 LABEL_8:
@@ -215,13 +216,13 @@ LABEL_8:
   [(UIViewController *)self->_presentingViewController presentViewController:v11 animated:1 completion:0];
 }
 
-void __65__AAUICustodianVerificationHook__displayCustodianFetchErrorAlert__block_invoke()
+void __65__AAUICustodianVerificationHook__displayCustodianFetchErrorAlert__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = _AAUILogSystem();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v2 = _AAUILogSystem(a1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_1C5355000, v0, OS_LOG_TYPE_DEFAULT, "User tapped on OK button of custodian error alert.", v1, 2u);
+    *v3 = 0;
+    _os_log_impl(&dword_1C5355000, v2, OS_LOG_TYPE_DEFAULT, "User tapped on OK button of custodian error alert.", v3, 2u);
   }
 }
 
@@ -263,7 +264,7 @@ void __65__AAUICustodianVerificationHook__displayCustodianFetchErrorAlert__block
 
 - (void)_cancelFlow
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [AAUICustodianVerificationHook _cancelFlow];
@@ -277,10 +278,11 @@ void __65__AAUICustodianVerificationHook__displayCustodianFetchErrorAlert__block
     hookCompletion[2](hookCompletion, 0, v5);
   }
 
-  if (![(AAUICustodianVerificationHook *)self _shouldPresentInline])
+  _shouldPresentInline = [(AAUICustodianVerificationHook *)self _shouldPresentInline];
+  if ((_shouldPresentInline & 1) == 0)
   {
-    v6 = _AAUILogSystem();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+    v7 = _AAUILogSystem(_shouldPresentInline);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
       [AAUICustodianVerificationHook _cancelFlow];
     }
@@ -299,7 +301,7 @@ void __65__AAUICustodianVerificationHook__displayCustodianFetchErrorAlert__block
 
 - (void)tableWelcomeViewControllerDidTapPrimaryButton
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [AAUICustodianVerificationHook tableWelcomeViewControllerDidTapPrimaryButton];
@@ -312,10 +314,11 @@ void __65__AAUICustodianVerificationHook__displayCustodianFetchErrorAlert__block
     hookCompletion[2](hookCompletion, 1, 0);
   }
 
-  if (![(AAUICustodianVerificationHook *)self _shouldPresentInline])
+  _shouldPresentInline = [(AAUICustodianVerificationHook *)self _shouldPresentInline];
+  if ((_shouldPresentInline & 1) == 0)
   {
-    v5 = _AAUILogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
+    v6 = _AAUILogSystem(_shouldPresentInline);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       [AAUICustodianVerificationHook _cancelFlow];
     }
@@ -326,7 +329,7 @@ void __65__AAUICustodianVerificationHook__displayCustodianFetchErrorAlert__block
 
 - (void)tableWelcomeViewControllerDidTapSecondaryButton
 {
-  v3 = _AAUILogSystem();
+  v3 = _AAUILogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [AAUICustodianVerificationHook tableWelcomeViewControllerDidTapSecondaryButton];

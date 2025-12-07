@@ -24,8 +24,12 @@
 - (void)showSpinner;
 - (void)startRequiringWifi;
 - (void)stopRequiringWifi;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 - (void)viewDidUnload;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation CNFRegServerWebViewController
@@ -109,6 +113,58 @@
   return (webControllerFlags >> 6) & 1;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = CNFRegServerWebViewController;
+  [(CNFRegServerWebViewController *)&v4 viewWillAppear:appear];
+  [(CNFRegServerWebViewController *)self startRequiringWifi];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v6.receiver = self;
+  v6.super_class = CNFRegServerWebViewController;
+  [(CNFRegServerWebViewController *)&v6 viewDidAppear:appear];
+  IsAutomaticAppearanceEnabled = UIKeyboardIsAutomaticAppearanceEnabled();
+  if (IsAutomaticAppearanceEnabled)
+  {
+    v5 = 0;
+  }
+
+  else
+  {
+    v5 = 16;
+  }
+
+  *&self->_webControllerFlags = *&self->_webControllerFlags & 0xEF | v5;
+  if ((IsAutomaticAppearanceEnabled & 1) == 0)
+  {
+    UIKeyboardEnableAutomaticAppearance();
+  }
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = CNFRegServerWebViewController;
+  [(CNFRegServerWebViewController *)&v4 viewWillDisappear:disappear];
+  if ((*&self->_webControllerFlags & 0x10) != 0)
+  {
+    UIKeyboardDisableAutomaticAppearance();
+  }
+
+  [(CNFRegServerWebViewController *)self _stopTimeout];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v4.receiver = self;
+  v4.super_class = CNFRegServerWebViewController;
+  [(CNFRegServerWebViewController *)&v4 viewDidDisappear:disappear];
+  [(CNFRegServerWebViewController *)self stopRequiringWifi];
+}
+
 - (void)startRequiringWifi
 {
   if ((*&self->_webControllerFlags & 0xC) == 4)
@@ -170,7 +226,7 @@
 
 - (void)loadURL:(id)l
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   lCopy = l;
   if ([(CNFRegServerWebViewController *)self _shouldLog])
   {
@@ -178,13 +234,13 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v21 = lCopy;
+      v20 = lCopy;
       _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "LoadURL: %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v16 = lCopy;
+      v15 = lCopy;
       IMLogString();
     }
   }
@@ -202,16 +258,16 @@
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v21 = lCopy;
-      v22 = 2112;
-      v23 = v6;
+      v20 = lCopy;
+      v21 = 2112;
+      v22 = v6;
       _os_log_impl(&dword_243BE5000, v7, OS_LOG_TYPE_DEFAULT, "Overriding URL: {%@} => {%@}", buf, 0x16u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v17 = lCopy;
-      v19 = v6;
+      v16 = lCopy;
+      v18 = v6;
       IMLogString();
     }
   }
@@ -222,14 +278,14 @@
     [(CNFRegServerWebViewController *)self setHeadersForRequest:v8];
   }
 
-  if ([(CNFRegServerWebViewController *)self _shouldLog:v17])
+  if ([(CNFRegServerWebViewController *)self _shouldLog:v16])
   {
     v9 = OSLogHandleForIDSCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       allHTTPHeaderFields = [v8 allHTTPHeaderFields];
       *buf = 138412290;
-      v21 = allHTTPHeaderFields;
+      v20 = allHTTPHeaderFields;
       _os_log_impl(&dword_243BE5000, v9, OS_LOG_TYPE_DEFAULT, "Request headers : %@", buf, 0xCu);
     }
 
@@ -288,8 +344,6 @@
     self->_webControllerFlags.timedOut = 1;
     [(CNFRegServerWebViewController *)self _handleTimeout];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_cleanupLoader
@@ -349,7 +403,7 @@
 
 - (id)parentViewControllerForObjectModel:(id)model
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   if ([(CNFRegServerWebViewController *)self _shouldLog])
   {
@@ -358,30 +412,28 @@
     {
       navigationController = [(CNFRegServerWebViewController *)self navigationController];
       *buf = 138412546;
-      v13 = modelCopy;
-      v14 = 2112;
-      v15 = navigationController;
+      v12 = modelCopy;
+      v13 = 2112;
+      v14 = navigationController;
       _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "Asked for parentViewControllerForObjectModel %@  returned %@", buf, 0x16u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
       [(CNFRegServerWebViewController *)self navigationController];
-      v11 = v10 = modelCopy;
+      v10 = v9 = modelCopy;
       IMLogString();
     }
   }
 
-  v7 = [(CNFRegServerWebViewController *)self navigationController:v10];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = [(CNFRegServerWebViewController *)self navigationController:v9];
 
   return v7;
 }
 
 - (void)objectModelPressedBack:(id)back
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   backCopy = back;
   if ([(CNFRegServerWebViewController *)self _shouldLog])
   {
@@ -389,13 +441,13 @@
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = backCopy;
+      v11 = backCopy;
       _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "objectModelPressedback: %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v10 = backCopy;
+      v9 = backCopy;
       IMLogString();
     }
   }
@@ -409,8 +461,6 @@
 
     [(NSMutableArray *)self->_objectModels removeLastObject];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)objectModelDidChange:(id)change
@@ -455,7 +505,7 @@
 
 - (void)loader:(id)loader receivedObjectModel:(id)model actionSignal:(unint64_t)signal
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   loaderCopy = loader;
   modelCopy = model;
   if ([(CNFRegServerWebViewController *)self _shouldLog])
@@ -655,13 +705,11 @@ LABEL_16:
   [(CNFRegServerWebViewController *)self _cleanupLoader];
   [(CNFRegServerWebViewController *)self dismissViewControllerAnimated:1 completion:0];
 LABEL_47:
-
-  v53 = *MEMORY[0x277D85DE8];
 }
 
 - (void)objectModel:(id)model pressedLink:(id)link httpMethod:(id)method
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   linkCopy = link;
   methodCopy = method;
@@ -671,30 +719,19 @@ LABEL_47:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v30 = linkCopy;
+      v29 = linkCopy;
       _os_log_impl(&dword_243BE5000, v11, OS_LOG_TYPE_DEFAULT, "objectModel:pressedLink: %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v27 = linkCopy;
+      v26 = linkCopy;
       IMLogString();
     }
   }
 
-  if (!linkCopy)
+  if (!linkCopy || (-[RUILoader URL](self->_loader, "URL"), v12 = objc_claimAutoreleasedReturnValue(), [v12 absoluteURL], v13 = objc_claimAutoreleasedReturnValue(), objc_msgSend(linkCopy, "absoluteURL"), v14 = objc_claimAutoreleasedReturnValue(), v15 = objc_msgSend(v13, "isEqual:", v14), v14, v13, v12, (v15 & 1) == 0))
   {
-    goto LABEL_9;
-  }
-
-  v12 = [(RUILoader *)self->_loader URL];
-  absoluteURL = [v12 absoluteURL];
-  absoluteURL2 = [linkCopy absoluteURL];
-  v15 = [absoluteURL isEqual:absoluteURL2];
-
-  if ((v15 & 1) == 0)
-  {
-LABEL_9:
     [(CNFRegServerWebViewController *)self _cleanupLoader];
     lowercaseString = [methodCopy lowercaseString];
     v17 = [lowercaseString isEqualToString:@"post"];
@@ -730,7 +767,7 @@ LABEL_9:
       {
         allHTTPHeaderFields = [v20 allHTTPHeaderFields];
         *buf = 138412290;
-        v30 = allHTTPHeaderFields;
+        v29 = allHTTPHeaderFields;
         _os_log_impl(&dword_243BE5000, v21, OS_LOG_TYPE_DEFAULT, "Request headers : %@", buf, 0xCu);
       }
 
@@ -766,13 +803,11 @@ LABEL_9:
       }
     }
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)objectModel:(id)model pressedButton:(id)button attributes:(id)attributes
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   modelCopy = model;
   buttonCopy = button;
   attributesCopy = attributes;
@@ -782,21 +817,21 @@ LABEL_9:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v19 = buttonCopy;
-      v20 = 2112;
-      v21 = attributesCopy;
+      v18 = buttonCopy;
+      v19 = 2112;
+      v20 = attributesCopy;
       _os_log_impl(&dword_243BE5000, v11, OS_LOG_TYPE_DEFAULT, "objectModel:pressedButton: %@ attributes: %@", buf, 0x16u);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v16 = buttonCopy;
-      v17 = attributesCopy;
+      v15 = buttonCopy;
+      v16 = attributesCopy;
       IMLogString();
     }
   }
 
-  if ([buttonCopy isEqual:{@"cancel", v16, v17}])
+  if ([buttonCopy isEqual:{@"cancel", v15, v16}])
   {
     [(CNFRegServerWebViewController *)self cancelButtonPressed:0];
   }
@@ -811,13 +846,11 @@ LABEL_9:
       [mEMORY[0x277D75128] openURL:v13 withCompletionHandler:0];
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loader:(id)loader didFailWithError:(id)error
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   loaderCopy = loader;
   errorCopy = error;
   if ([(CNFRegServerWebViewController *)self _shouldLog])
@@ -826,25 +859,23 @@ LABEL_9:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v12 = errorCopy;
+      v11 = errorCopy;
       _os_log_impl(&dword_243BE5000, v8, OS_LOG_TYPE_DEFAULT, "Loader reported Error %@", buf, 0xCu);
     }
 
     if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
     {
-      v10 = errorCopy;
+      v9 = errorCopy;
       IMLogString();
     }
   }
 
   [(CNFRegServerWebViewController *)self _cleanupLoader];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)receivedStatus:(int)status appleID:(id)d authID:(id)iD authToken:(id)token
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   tokenCopy = token;
@@ -863,13 +894,11 @@ LABEL_9:
       IMLogString();
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startTimeoutWithDuration:(double)duration
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (!self->_timeoutTimer)
   {
     if ([(CNFRegServerWebViewController *)self _shouldLog])
@@ -882,10 +911,13 @@ LABEL_9:
         _os_log_impl(&dword_243BE5000, v5, OS_LOG_TYPE_DEFAULT, "Starting timeout timer with duration %0.2f", buf, 0xCu);
       }
 
-      if (os_log_shim_legacy_logging_enabled() && IMShouldLog())
+      if (os_log_shim_legacy_logging_enabled())
       {
-        durationCopy2 = duration;
-        IMLogString();
+        if (IMShouldLog())
+        {
+          durationCopy2 = duration;
+          IMLogString();
+        }
       }
     }
 
@@ -894,8 +926,6 @@ LABEL_9:
     timeoutTimer = self->_timeoutTimer;
     self->_timeoutTimer = v6;
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_stopTimeout

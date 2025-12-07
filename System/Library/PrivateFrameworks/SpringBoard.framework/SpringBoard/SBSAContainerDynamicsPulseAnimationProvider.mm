@@ -47,15 +47,15 @@
 
 - (id)preferencesFromContext:(id)context
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   phase = self->_phase;
-  v35 = 0;
-  v36 = &v35;
-  v37 = 0x3032000000;
-  v38 = __Block_byref_object_copy__36;
-  v39 = __Block_byref_object_dispose__36;
-  v40 = 0;
+  v36 = 0;
+  v37 = &v36;
+  v38 = 0x3032000000;
+  v39 = __Block_byref_object_copy__36;
+  v40 = __Block_byref_object_dispose__36;
+  v41 = 0;
   v7 = contextCopy;
   if (!v7)
   {
@@ -91,10 +91,10 @@ LABEL_9:
     v11 = 0;
   }
 
-  v12 = v36[5];
-  v36[5] = v11;
+  v12 = v37[5];
+  v37[5] = v11;
 
-  preferences = [v36[5] preferences];
+  preferences = [v37[5] preferences];
   v14 = objc_opt_class();
   v15 = preferences;
   if (v14)
@@ -117,10 +117,10 @@ LABEL_9:
 
   v17 = v16;
 
-  v18 = v36[5];
-  v34.receiver = self;
-  v34.super_class = SBSAContainerDynamicsPulseAnimationProvider;
-  v19 = [(SBSABasePreferencesProvider *)&v34 preferencesFromContext:v18];
+  v18 = v37[5];
+  v35.receiver = self;
+  v35.super_class = SBSAContainerDynamicsPulseAnimationProvider;
+  v19 = [(SBSABasePreferencesProvider *)&v35 preferencesFromContext:v18];
   v20 = objc_opt_class();
   v21 = v19;
   if (v20)
@@ -143,63 +143,63 @@ LABEL_9:
 
   v23 = v22;
 
-  [(SBSAContainerDynamicsPulseAnimationProvider *)self _checkContextForCompletedContractionAnimationMilestone:v36[5]];
-  v33[0] = MEMORY[0x277D85DD0];
-  v33[1] = 3221225472;
-  v33[2] = __70__SBSAContainerDynamicsPulseAnimationProvider_preferencesFromContext___block_invoke;
-  v33[3] = &unk_2783B01E8;
-  v33[4] = self;
-  v33[5] = &v35;
-  v33[6] = a2;
-  v24 = [v23 copyWithBlock:v33];
+  [(SBSAContainerDynamicsPulseAnimationProvider *)self _checkContextForCompletedContractionAnimationMilestone:v37[5]];
+  v34[0] = MEMORY[0x277D85DD0];
+  v34[1] = 3221225472;
+  v34[2] = __70__SBSAContainerDynamicsPulseAnimationProvider_preferencesFromContext___block_invoke;
+  v34[3] = &unk_2783B01E8;
+  v34[4] = self;
+  v34[5] = &v36;
+  v34[6] = a2;
+  v24 = [v23 copyWithBlock:v34];
 
   if (phase != self->_phase)
   {
-    v25 = SBLogSystemAperturePreferencesStackDynamicsAnimations();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
+    v26 = SBLogSystemAperturePreferencesStackDynamicsAnimations(v25);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
     {
-      queryIteration = [v36[5] queryIteration];
+      queryIteration = [v37[5] queryIteration];
       if ((phase - 1) > 3)
       {
-        v30 = @"Idle";
+        v31 = @"Idle";
       }
 
       else
       {
-        v30 = off_2783B2970[phase - 1];
+        v31 = off_2783B2970[phase - 1];
       }
 
-      v31 = self->_phase - 1;
-      if (v31 > 3)
+      v32 = self->_phase - 1;
+      if (v32 > 3)
       {
-        v32 = @"Idle";
+        v33 = @"Idle";
       }
 
       else
       {
-        v32 = off_2783B2970[v31];
+        v33 = off_2783B2970[v32];
       }
 
       *buf = 134349570;
-      v42 = queryIteration;
-      v43 = 2112;
-      v44 = v30;
-      v45 = 2112;
-      v46 = v32;
-      _os_log_debug_impl(&dword_21ED4E000, v25, OS_LOG_TYPE_DEBUG, "[%{public}lu] Pulse phase changed from: %@ to: %@", buf, 0x20u);
+      v43 = queryIteration;
+      v44 = 2112;
+      v45 = v31;
+      v46 = 2112;
+      v47 = v33;
+      _os_log_debug_impl(&dword_21ED4E000, v26, OS_LOG_TYPE_DEBUG, "[%{public}lu] Pulse phase changed from: %@ to: %@", buf, 0x20u);
     }
   }
 
-  v26 = [v36[5] copyByUpdatingPreferences:v24];
-  v27 = v36[5];
-  v36[5] = v26;
+  v27 = [v37[5] copyByUpdatingPreferences:v24];
+  v28 = v37[5];
+  v37[5] = v27;
 
   if (self->_phase == 4)
   {
     [(SBSABasePreferencesProvider *)self removeFromParentProvider];
   }
 
-  _Block_object_dispose(&v35, 8);
+  _Block_object_dispose(&v36, 8);
 
   return v24;
 }
@@ -235,7 +235,7 @@ void __70__SBSAContainerDynamicsPulseAnimationProvider_preferencesFromContext___
     v3 = v10;
     if (!v7)
     {
-      __70__SBSAContainerDynamicsPulseAnimationProvider_preferencesFromContext___block_invoke_cold_1(a1);
+      __70__SBSAContainerDynamicsPulseAnimationProvider_preferencesFromContext___block_invoke_cold_1(a1, v5);
       v3 = v10;
     }
   }
@@ -413,7 +413,7 @@ LABEL_6:
     else
     {
       self->_phase = 4;
-      v19 = SBLogSystemAperturePreferencesStackDynamicsAnimations();
+      v19 = SBLogSystemAperturePreferencesStackDynamicsAnimations(0);
       if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         queryIteration = [contextCopy queryIteration];
@@ -447,10 +447,10 @@ uint64_t __90__SBSAContainerDynamicsPulseAnimationProvider__pulseExpandWithPrefe
     contractionCompletionMilestonePropertyIdentity = self->_contractionCompletionMilestonePropertyIdentity;
     self->_contractionCompletionMilestonePropertyIdentity = 0;
 
-    v13 = SBLogSystemAperturePreferencesStackDynamicsAnimations();
+    v13 = SBLogSystemAperturePreferencesStackDynamicsAnimations(v15);
     if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
-      [SBSAContainerDynamicsPulseAnimationProvider _pulseContractWithPreferencesMutator:contextCopy context:?];
+      [SBSAContainerDynamicsPulseAnimationProvider _pulseContractWithPreferencesMutator:contextCopy context:self];
     }
 
     goto LABEL_6;
@@ -648,10 +648,10 @@ uint64_t __85__SBSAContainerDynamicsPulseAnimationProvider__isTimerExpiredWithId
   else
   {
     self->_phase = 4;
-    v37 = SBLogSystemAperturePreferencesStackDynamicsAnimations();
+    v37 = SBLogSystemAperturePreferencesStackDynamicsAnimations(0);
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
-      [SBSAContainerDynamicsPulseAnimationProvider _updatePreferencesContainerWithInterfaceElementIdentifier:contextCopy toScale:? settings:? preferencesMutator:? context:?];
+      [SBSAContainerDynamicsPulseAnimationProvider _updatePreferencesContainerWithInterfaceElementIdentifier:contextCopy toScale:v19 settings:? preferencesMutator:? context:?];
     }
   }
 }
@@ -693,7 +693,7 @@ void __149__SBSAContainerDynamicsPulseAnimationProvider__updatePreferencesContai
 
     if (!v7)
     {
-      __149__SBSAContainerDynamicsPulseAnimationProvider__updatePreferencesContainerWithInterfaceElementIdentifier_toScale_settings_preferencesMutator_context___block_invoke_2_cold_1(a1);
+      __149__SBSAContainerDynamicsPulseAnimationProvider__updatePreferencesContainerWithInterfaceElementIdentifier_toScale_settings_preferencesMutator_context___block_invoke_2_cold_1(a1, v5);
     }
   }
 
@@ -729,15 +729,24 @@ void __149__SBSAContainerDynamicsPulseAnimationProvider__updatePreferencesContai
   [v5 handleFailureInMethod:a2 object:a3 file:@"SBSAContainerDynamicsPulseAnimationProvider.m" lineNumber:73 description:{@"Unexpected class – expected '%@', got '%@'", v6, v8}];
 }
 
-void __70__SBSAContainerDynamicsPulseAnimationProvider_preferencesFromContext___block_invoke_cold_1(uint64_t a1)
+void __70__SBSAContainerDynamicsPulseAnimationProvider_preferencesFromContext___block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v7 = [MEMORY[0x277CCA890] currentHandler];
-  v2 = *(a1 + 48);
-  v3 = *(a1 + 32);
-  v4 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  [v7 handleFailureInMethod:v2 object:v3 file:@"SBSAContainerDynamicsPulseAnimationProvider.m" lineNumber:78 description:{@"Unexpected class – expected '%@', got '%@'", v4, v6}];
+  v8 = [MEMORY[0x277CCA890] currentHandler];
+  v3 = *(a1 + 48);
+  v4 = *(a1 + 32);
+  v5 = NSClassFromString(&cfstr_Sbsapreference_0.isa);
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  [v8 handleFailureInMethod:v3 object:v4 file:@"SBSAContainerDynamicsPulseAnimationProvider.m" lineNumber:78 description:{@"Unexpected class – expected '%@', got '%@'", v5, v7}];
+}
+
+- (void)_pulseContractWithPreferencesMutator:(void *)a1 context:(uint64_t)a2 .cold.1(void *a1, uint64_t a2)
+{
+  *v9 = 134349314;
+  *&v9[4] = [a1 queryIteration];
+  *&v9[12] = 2112;
+  *&v9[14] = *(a2 + 80);
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v3, v4, "[%{public}lu] [Pulse] Expanded interface element not found, skipping pulse contract animation for: '%@'", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
 }
 
 - (void)_checkContextForCompletedContractionAnimationMilestone:(uint64_t)a1 .cold.1(uint64_t a1, uint64_t a2)
@@ -746,15 +755,24 @@ void __70__SBSAContainerDynamicsPulseAnimationProvider_preferencesFromContext___
   [v4 handleFailureInMethod:a1 object:a2 file:@"SBSAContainerDynamicsPulseAnimationProvider.m" lineNumber:205 description:{@"If we are in the contract phase, we should be tracking the contraction milestone"}];
 }
 
-void __149__SBSAContainerDynamicsPulseAnimationProvider__updatePreferencesContainerWithInterfaceElementIdentifier_toScale_settings_preferencesMutator_context___block_invoke_2_cold_1(uint64_t a1)
+- (void)_updatePreferencesContainerWithInterfaceElementIdentifier:(void *)a1 toScale:(uint64_t)a2 settings:preferencesMutator:context:.cold.1(void *a1, uint64_t a2)
 {
-  v7 = [MEMORY[0x277CCA890] currentHandler];
-  v2 = *(a1 + 56);
-  v3 = *(a1 + 32);
-  v4 = NSClassFromString(&cfstr_Sbsacontainerv.isa);
-  v5 = objc_opt_class();
-  v6 = NSStringFromClass(v5);
-  [v7 handleFailureInMethod:v2 object:v3 file:@"SBSAContainerDynamicsPulseAnimationProvider.m" lineNumber:253 description:{@"Unexpected class – expected '%@', got '%@'", v4, v6}];
+  *v9 = 134349314;
+  *&v9[4] = [a1 queryIteration];
+  *&v9[12] = 2112;
+  *&v9[14] = a2;
+  OUTLINED_FUNCTION_12(&dword_21ED4E000, v3, v4, "[%{public}lu] [Pulse] Container requested for pulse scaling not found. Ignoring scaling for: '%@'", v5, v6, v7, v8, *v9, *&v9[8], *&v9[16]);
+}
+
+void __149__SBSAContainerDynamicsPulseAnimationProvider__updatePreferencesContainerWithInterfaceElementIdentifier_toScale_settings_preferencesMutator_context___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
+{
+  v8 = [MEMORY[0x277CCA890] currentHandler];
+  v3 = *(a1 + 56);
+  v4 = *(a1 + 32);
+  v5 = NSClassFromString(&cfstr_Sbsacontainerv.isa);
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  [v8 handleFailureInMethod:v3 object:v4 file:@"SBSAContainerDynamicsPulseAnimationProvider.m" lineNumber:253 description:{@"Unexpected class – expected '%@', got '%@'", v5, v7}];
 }
 
 @end

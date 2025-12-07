@@ -30,9 +30,10 @@
 
 uint64_t __34__PLSinopeBBMetric_sharedInstance__block_invoke(uint64_t a1)
 {
-  qword_2811F7028 = objc_alloc_init(*(a1 + 32));
+  v1 = objc_alloc_init(*(a1 + 32));
+  qword_2811F7028 = v1;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v1);
 }
 
 - (BOOL)registerForNotifClient:(id)client andProfile:(id)profile
@@ -59,7 +60,7 @@ uint64_t __34__PLSinopeBBMetric_sharedInstance__block_invoke(uint64_t a1)
 
 - (void)queuePeriodicMetricId:(id)id payload:(id)payload forTrigger:(id)trigger
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   idCopy = id;
   payloadCopy = payload;
   triggerCopy = trigger;
@@ -67,11 +68,11 @@ uint64_t __34__PLSinopeBBMetric_sharedInstance__block_invoke(uint64_t a1)
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315650;
-    v24 = "[PLSinopeBBMetric queuePeriodicMetricId:payload:forTrigger:]";
-    v25 = 2112;
-    v26 = idCopy;
-    v27 = 2112;
-    v28 = triggerCopy;
+    v23 = "[PLSinopeBBMetric queuePeriodicMetricId:payload:forTrigger:]";
+    v24 = 2112;
+    v25 = idCopy;
+    v26 = 2112;
+    v27 = triggerCopy;
     _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "[BBAgent] in @%s, metricId: %@, tid: %@", buf, 0x20u);
   }
 
@@ -107,33 +108,31 @@ LABEL_11:
   }
 
   workQueue2 = [(PLAgent *)self->_logAgent workQueue];
-  v18[0] = MEMORY[0x277D85DD0];
-  v18[1] = 3221225472;
-  v18[2] = __61__PLSinopeBBMetric_queuePeriodicMetricId_payload_forTrigger___block_invoke;
-  v18[3] = &unk_2782591A8;
-  v19 = payloadCopy;
-  v20 = idCopy;
+  v17[0] = MEMORY[0x277D85DD0];
+  v17[1] = 3221225472;
+  v17[2] = __61__PLSinopeBBMetric_queuePeriodicMetricId_payload_forTrigger___block_invoke;
+  v17[3] = &unk_2782591A8;
+  v18 = payloadCopy;
+  v19 = idCopy;
   selfCopy = self;
-  v22 = triggerCopy;
-  dispatch_async(workQueue2, v18);
+  v21 = triggerCopy;
+  dispatch_async(workQueue2, v17);
 
-  v15 = v19;
+  v15 = v18;
 LABEL_9:
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __61__PLSinopeBBMetric_queuePeriodicMetricId_payload_forTrigger___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = PLLogCommon();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    v20 = *(a1 + 32);
+    v19 = *(a1 + 32);
     *buf = 136315394;
-    v25 = "[PLSinopeBBMetric queuePeriodicMetricId:payload:forTrigger:]_block_invoke";
-    v26 = 2112;
-    v27 = v20;
+    v24 = "[PLSinopeBBMetric queuePeriodicMetricId:payload:forTrigger:]_block_invoke";
+    v25 = 2112;
+    v26 = v19;
     _os_log_debug_impl(&dword_21A4C6000, v2, OS_LOG_TYPE_DEBUG, "[BBAgent] in @%s in dispatch queue : %@", buf, 0x16u);
   }
 
@@ -209,14 +208,14 @@ void __61__PLSinopeBBMetric_queuePeriodicMetricId_payload_forTrigger___block_inv
   v13 = PLLogCommon();
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
-    v21 = *(a1 + 40);
-    v22 = *(a1 + 56);
+    v20 = *(a1 + 40);
+    v21 = *(a1 + 56);
     *buf = 136315650;
-    v25 = "[PLSinopeBBMetric queuePeriodicMetricId:payload:forTrigger:]_block_invoke";
-    v26 = 2112;
-    v27 = v21;
-    v28 = 2112;
-    v29 = v22;
+    v24 = "[PLSinopeBBMetric queuePeriodicMetricId:payload:forTrigger:]_block_invoke";
+    v25 = 2112;
+    v26 = v20;
+    v27 = 2112;
+    v28 = v21;
     _os_log_debug_impl(&dword_21A4C6000, v13, OS_LOG_TYPE_DEBUG, "[BBAgent] in @%s in default: %@, tid: %@", buf, 0x20u);
   }
 
@@ -257,11 +256,9 @@ void __61__PLSinopeBBMetric_queuePeriodicMetricId_payload_forTrigger___block_inv
   {
     __assert_rtn("[PLSinopeBBMetric queuePeriodicMetricId:payload:forTrigger:]_block_invoke", "PLSinopeBBMetric-SINOPE.m", 140, "0");
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __61__PLSinopeBBMetric_queuePeriodicMetricId_payload_forTrigger___block_invoke_2(uint64_t a1)
+void *__61__PLSinopeBBMetric_queuePeriodicMetricId_payload_forTrigger___block_invoke_2(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_77 = result;
@@ -312,9 +309,9 @@ LABEL_10:
 LABEL_7:
 }
 
-uint64_t __40__PLSinopeBBMetric_flushPeriodicMetrics__block_invoke(uint64_t result)
+void *__40__PLSinopeBBMetric_flushPeriodicMetrics__block_invoke(void *result)
 {
-  v1 = *(result + 32);
+  v1 = result[4];
   if (*(v1 + 56) && *(v1 + 64))
   {
     v2 = result;
@@ -325,7 +322,7 @@ uint64_t __40__PLSinopeBBMetric_flushPeriodicMetrics__block_invoke(uint64_t resu
       _os_log_debug_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEBUG, "BB Agent: flushPeriodicMetrics", v4, 2u);
     }
 
-    return [*(*(v2 + 32) + 64) logBBSinopePeriodicMetrics];
+    return [*(v2[4] + 64) logBBSinopePeriodicMetrics];
   }
 
   return result;
@@ -384,34 +381,34 @@ LABEL_7:
 
 void __62__PLSinopeBBMetric_queueAperiodicMetricId_payload_forTrigger___block_invoke(uint64_t a1)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v2 = [[AWDMETRICSMetricLogPower alloc] initWithData:*(a1 + 32)];
   v3 = v2;
   if (v2)
   {
     v4 = [(AWDMETRICSMetricLogPower *)v2 dictionaryRepresentation];
+    v21 = 0u;
     v22 = 0u;
     v23 = 0u;
     v24 = 0u;
-    v25 = 0u;
-    v5 = [v4 countByEnumeratingWithState:&v22 objects:v28 count:16];
+    v5 = [v4 countByEnumeratingWithState:&v21 objects:v27 count:16];
     if (v5)
     {
       v6 = v5;
       v7 = 0;
-      v8 = *v23;
+      v8 = *v22;
       do
       {
         v9 = 0;
         v10 = v7;
         do
         {
-          if (*v23 != v8)
+          if (*v22 != v8)
           {
             objc_enumerationMutation(v4);
           }
 
-          v11 = [v4 objectForKey:*(*(&v22 + 1) + 8 * v9)];
+          v11 = [v4 objectForKey:*(*(&v21 + 1) + 8 * v9)];
           v7 = [v11 objectAtIndex:0];
 
           ++v9;
@@ -419,7 +416,7 @@ void __62__PLSinopeBBMetric_queueAperiodicMetricId_payload_forTrigger___block_in
         }
 
         while (v6 != v9);
-        v6 = [v4 countByEnumeratingWithState:&v22 objects:v28 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v21 objects:v27 count:16];
       }
 
       while (v6);
@@ -434,7 +431,7 @@ void __62__PLSinopeBBMetric_queueAperiodicMetricId_payload_forTrigger___block_in
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v27 = v7;
+      v26 = v7;
       _os_log_debug_impl(&dword_21A4C6000, v12, OS_LOG_TYPE_DEBUG, "aperiodic BB metric: %@", buf, 0xCu);
     }
 
@@ -474,26 +471,24 @@ void __62__PLSinopeBBMetric_queueAperiodicMetricId_payload_forTrigger___block_in
       _os_log_error_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_ERROR, "Unable to init powerlogmetric class", buf, 2u);
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initializeMetricsDictWithTS:(id)s triggerCnt:(id)cnt triggerId:(id)id
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   cntCopy = cnt;
   idCopy = id;
   sCopy = s;
   v11 = PLLogCommon();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v18 = 136315650;
-    v19 = "[PLSinopeBBMetric initializeMetricsDictWithTS:triggerCnt:triggerId:]";
-    v20 = 2112;
-    v21 = cntCopy;
-    v22 = 2112;
-    v23 = idCopy;
-    _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "[BBAgent] : in @%s, %@, %@", &v18, 0x20u);
+    v17 = 136315650;
+    v18 = "[PLSinopeBBMetric initializeMetricsDictWithTS:triggerCnt:triggerId:]";
+    v19 = 2112;
+    v20 = cntCopy;
+    v21 = 2112;
+    v22 = idCopy;
+    _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "[BBAgent] : in @%s, %@, %@", &v17, 0x20u);
   }
 
   v12 = objc_opt_new();
@@ -511,56 +506,52 @@ void __62__PLSinopeBBMetric_queueAperiodicMetricId_payload_forTrigger___block_in
   [(NSMutableDictionary *)self->_metricDict setObject:idCopy forKeyedSubscript:@"triggerId"];
   v16 = objc_opt_new();
   [(NSMutableDictionary *)self->_metricDict setObject:v16 forKeyedSubscript:@"arr"];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)initializeDataStoreBBTS:(id)s triggerCnt:(id)cnt triggerId:(id)id
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   idCopy = id;
   cntCopy = cnt;
   sCopy = s;
   v11 = PLLogCommon();
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
-    v15 = 136315138;
-    v16 = "[PLSinopeBBMetric initializeDataStoreBBTS:triggerCnt:triggerId:]";
-    _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "[BBAgent] : in @%s", &v15, 0xCu);
+    v14 = 136315138;
+    v15 = "[PLSinopeBBMetric initializeDataStoreBBTS:triggerCnt:triggerId:]";
+    _os_log_debug_impl(&dword_21A4C6000, v11, OS_LOG_TYPE_DEBUG, "[BBAgent] : in @%s", &v14, 0xCu);
   }
 
   v12 = [[PLSinopeBBHardwareMessage alloc] initEntryWithBBTS:sCopy triggerId:idCopy seqnum:cntCopy payload:0 logAgent:self->_logAgent];
   hardwareMessage = self->_hardwareMessage;
   self->_hardwareMessage = v12;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)modelProdMetricsNotify
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v2 = [(NSMutableDictionary *)self->_metricDict objectForKey:@"arr"];
-  v3 = [v2 countByEnumeratingWithState:&v24 objects:v30 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v23 objects:v29 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v25;
+    v5 = *v24;
     v6 = -1;
     v7 = -1;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v25 != v5)
+        if (*v24 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v9 = *(*(&v24 + 1) + 8 * i);
+        v9 = *(*(&v23 + 1) + 8 * i);
         v10 = [v9 objectForKeyedSubscript:@"duration"];
 
         if (v10)
@@ -610,7 +601,7 @@ void __62__PLSinopeBBMetric_queueAperiodicMetricId_payload_forTrigger___block_in
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v24 objects:v30 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v23 objects:v29 count:16];
     }
 
     while (v4);
@@ -643,7 +634,7 @@ void __62__PLSinopeBBMetric_queueAperiodicMetricId_payload_forTrigger___block_in
     if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138412290;
-      v29 = v16;
+      v28 = v16;
       _os_log_debug_impl(&dword_21A4C6000, v21, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
@@ -652,8 +643,6 @@ void __62__PLSinopeBBMetric_queueAperiodicMetricId_payload_forTrigger___block_in
       __assert_rtn("[PLSinopeBBMetric modelProdMetricsNotify]", "PLSinopeBBMetric-SINOPE.m", 301, "0");
     }
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -28,7 +28,7 @@
 {
   collectionCopy = collection;
   selfCopy = self;
-  v6 = sub_1000133CC(sub_10000ED14, "SyncedMemory selected %s assets.");
+  v6 = sub_1000133CC(sub_10000ED14, "SyncedMemory selected %s assets.", v8);
 
   return v6;
 }
@@ -37,7 +37,7 @@
 {
   collectionCopy = collection;
   selfCopy = self;
-  v6 = sub_1000133CC(sub_10000EE78, "SyncedMemory selected %s key assets.");
+  v6 = sub_1000133CC(sub_10000EE78, "SyncedMemory selected %s key assets.", v8);
 
   return v6;
 }

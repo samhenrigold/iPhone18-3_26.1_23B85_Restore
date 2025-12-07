@@ -251,7 +251,6 @@ LABEL_22:
   toCopy = to;
   if ([(_INPBAnnouncement *)self hasEndTime])
   {
-    endTime = self->_endTime;
     PBDataWriterWriteUint64Field();
   }
 
@@ -259,7 +258,6 @@ LABEL_22:
 
   if (identifier)
   {
-    identifier = self->_identifier;
     PBDataWriterWriteStringField();
   }
 
@@ -267,7 +265,6 @@ LABEL_22:
 
   if (speechDataTranscription)
   {
-    speechDataTranscription = self->_speechDataTranscription;
     PBDataWriterWriteStringField();
   }
 
@@ -281,7 +278,6 @@ LABEL_22:
 
   if ([(_INPBAnnouncement *)self hasStartTime])
   {
-    startTime = self->_startTime;
     PBDataWriterWriteUint64Field();
   }
 }

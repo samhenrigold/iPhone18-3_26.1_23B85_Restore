@@ -41,7 +41,7 @@
   Published.init(initialValue:)();
   (*(v4 + 8))(v9, v3);
   swift_endAccess();
-  v10 = type metadata accessor for DistanceAccessoryLabelViewModel();
+  v10 = type metadata accessor for DistanceAccessoryLabelViewModel(0);
   v13.receiver = self;
   v13.super_class = v10;
   return [(DistanceAccessoryLabelViewModel *)&v13 init];

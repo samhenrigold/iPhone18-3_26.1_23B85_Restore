@@ -39,9 +39,11 @@
 
 uint64_t __67__VSStorefrontFilter_keyPathsForValuesAffectingFilteredStorefronts__block_invoke()
 {
-  keyPathsForValuesAffectingFilteredStorefronts___vs_lazy_init_variable = __67__VSStorefrontFilter_keyPathsForValuesAffectingFilteredStorefronts__block_invoke_2();
+  v0 = __67__VSStorefrontFilter_keyPathsForValuesAffectingFilteredStorefronts__block_invoke_2();
+  v1 = keyPathsForValuesAffectingFilteredStorefronts___vs_lazy_init_variable;
+  keyPathsForValuesAffectingFilteredStorefronts___vs_lazy_init_variable = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 id __67__VSStorefrontFilter_keyPathsForValuesAffectingFilteredStorefronts__block_invoke_2()
@@ -56,12 +58,12 @@ id __67__VSStorefrontFilter_keyPathsForValuesAffectingFilteredStorefronts__block
 
 - (void)setStorefronts:(id)storefronts
 {
-  v16[1] = *MEMORY[0x277D85DE8];
+  v15[1] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CCAC98];
   storefrontsCopy = storefronts;
   v6 = [v4 sortDescriptorWithKey:@"displayName" ascending:1];
-  v16[0] = v6;
-  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:1];
+  v15[0] = v6;
+  v7 = [MEMORY[0x277CBEA60] arrayWithObjects:v15 count:1];
   v8 = [storefrontsCopy sortedArrayUsingDescriptors:v7];
 
   v9 = [v8 mutableCopy];
@@ -77,8 +79,6 @@ id __67__VSStorefrontFilter_keyPathsForValuesAffectingFilteredStorefronts__block
   v13 = [v9 copy];
   storefronts = self->_storefronts;
   self->_storefronts = v13;
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __37__VSStorefrontFilter_setStorefronts___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)

@@ -9,7 +9,7 @@
 
 + (id)workflowWithName:(id)name identifier:(id)identifier error:(id *)error
 {
-  v23[1] = *MEMORY[0x1E69E9840];
+  v22[1] = *MEMORY[0x1E69E9840];
   nameCopy = name;
   identifierCopy = identifier;
   v9 = +[WFDatabase defaultDatabase];
@@ -46,15 +46,13 @@ LABEL_5:
 
   v17 = MEMORY[0x1E696ABC0];
   v18 = *MEMORY[0x1E696A250];
-  v22 = *MEMORY[0x1E696A578];
-  v23[0] = nameCopy;
-  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v23 forKeys:&v22 count:1];
+  v21 = *MEMORY[0x1E696A578];
+  v22[0] = nameCopy;
+  v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v22 forKeys:&v21 count:1];
   *error = [v17 errorWithDomain:v18 code:4 userInfo:v19];
 
   v12 = 0;
 LABEL_9:
-
-  v20 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
@@ -72,46 +70,44 @@ LABEL_9:
 
 + (void)registerOpenWorkflowHandler:(id)handler
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   v5 = getWFGeneralLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v13 = "+[WFRunWorkflowURLHandler registerOpenWorkflowHandler:]";
+    v12 = "+[WFRunWorkflowURLHandler registerOpenWorkflowHandler:]";
     _os_log_impl(&dword_1CA256000, v5, OS_LOG_TYPE_INFO, "%s Registering the open-shortcut handler", buf, 0xCu);
   }
 
   v6 = +[WFInterchangeManager sharedManager];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __55__WFRunWorkflowURLHandler_registerOpenWorkflowHandler___block_invoke;
-  v9[3] = &unk_1E837D228;
-  v10 = handlerCopy;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __55__WFRunWorkflowURLHandler_registerOpenWorkflowHandler___block_invoke;
+  v8[3] = &unk_1E837D228;
+  v9 = handlerCopy;
   selfCopy = self;
   v7 = handlerCopy;
-  [v6 registerHandler:v9 forIncomingRequestsWithAction:@"open-shortcut" legacyAction:@"open-workflow" scheme:0];
-
-  v8 = *MEMORY[0x1E69E9840];
+  [v6 registerHandler:v8 forIncomingRequestsWithAction:@"open-shortcut" legacyAction:@"open-workflow" scheme:0];
 }
 
 void __55__WFRunWorkflowURLHandler_registerOpenWorkflowHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = getWFGeneralLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v18 = "+[WFRunWorkflowURLHandler registerOpenWorkflowHandler:]_block_invoke";
+    v17 = "+[WFRunWorkflowURLHandler registerOpenWorkflowHandler:]_block_invoke";
     _os_log_impl(&dword_1CA256000, v4, OS_LOG_TYPE_INFO, "%s Received the open-shortcut request", buf, 0xCu);
   }
 
   v5 = *(a1 + 40);
   v6 = [v3 parameters];
-  v16 = 0;
-  v7 = [v5 workflowWithInputParameters:v6 error:&v16];
-  v8 = v16;
+  v15 = 0;
+  v7 = [v5 workflowWithInputParameters:v6 error:&v15];
+  v8 = v15;
 
   if (v7)
   {
@@ -131,7 +127,7 @@ LABEL_9:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
     *buf = 136315138;
-    v18 = "+[WFRunWorkflowURLHandler registerOpenWorkflowHandler:]_block_invoke";
+    v17 = "+[WFRunWorkflowURLHandler registerOpenWorkflowHandler:]_block_invoke";
     _os_log_impl(&dword_1CA256000, v13, OS_LOG_TYPE_INFO, "%s Received the open-shortcut request but failed to find the workflow to open", buf, 0xCu);
   }
 
@@ -145,8 +141,6 @@ LABEL_9:
   }
 
 LABEL_10:
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 + (void)registerRunWorkflowHandler:(id)handler
@@ -165,7 +159,7 @@ LABEL_10:
 
 void __54__WFRunWorkflowURLHandler_registerRunWorkflowHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v31[1] = *MEMORY[0x1E69E9840];
+  v30[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 parameters];
   aBlock[0] = MEMORY[0x1E69E9820];
@@ -173,12 +167,12 @@ void __54__WFRunWorkflowURLHandler_registerRunWorkflowHandler___block_invoke(uin
   aBlock[2] = __54__WFRunWorkflowURLHandler_registerRunWorkflowHandler___block_invoke_2;
   aBlock[3] = &unk_1E837D200;
   v5 = v4;
-  v27 = v5;
+  v26 = v5;
   v6 = v3;
-  v28 = v6;
-  v25 = *(a1 + 32);
-  v7 = v25;
-  v29 = v25;
+  v27 = v6;
+  v24 = *(a1 + 32);
+  v7 = v24;
+  v28 = v24;
   v8 = _Block_copy(aBlock);
   v9 = [v5 objectForKey:@"input"];
   objc_opt_class();
@@ -192,21 +186,21 @@ void __54__WFRunWorkflowURLHandler_registerRunWorkflowHandler___block_invoke(uin
     }
 
     v10 = v9;
-    if ([v10 isEqualToString:@"text"] && (objc_msgSend(v5, "objectForKey:", @"text"), v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
+    if (objc_msgSend_isEqualToString_(v10) && ([v5 objectForKey:@"text"], v11 = objc_claimAutoreleasedReturnValue(), v11, v11))
     {
       v12 = MEMORY[0x1E6996D40];
       v13 = MEMORY[0x1E6996D58];
       v14 = [v5 objectForKey:@"text"];
       v15 = [v13 itemWithObject:v14];
-      v31[0] = v15;
-      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:1];
+      v30[0] = v15;
+      v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
       v17 = [v12 collectionWithItems:v16];
       (*(v8 + 2))(v8, v17, 0);
     }
 
     else
     {
-      if ([v10 isEqualToString:{@"clipboard", v25}])
+      if (objc_msgSend_isEqualToString_(v10, v24))
       {
         v18 = MEMORY[0x1E6996D40];
         v14 = [(objc_class *)getUIPasteboardClass_61291() generalPasteboard];
@@ -216,7 +210,7 @@ LABEL_16:
         goto LABEL_17;
       }
 
-      if ([v10 isEqualToString:@"pasteboard"] && (objc_msgSend(v5, "objectForKey:", @"pasteboard"), v19 = objc_claimAutoreleasedReturnValue(), v19, v19))
+      if (objc_msgSend_isEqualToString_(v10) && ([v5 objectForKey:@"pasteboard"], v19 = objc_claimAutoreleasedReturnValue(), v19, v19))
       {
         v20 = MEMORY[0x1E6996D40];
         UIPasteboardClass_61291 = getUIPasteboardClass_61291();
@@ -229,8 +223,8 @@ LABEL_16:
       {
         v22 = MEMORY[0x1E6996D40];
         v14 = [MEMORY[0x1E6996D58] itemWithObject:v10];
-        v30 = v14;
-        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v30 count:1];
+        v29 = v14;
+        v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v29 count:1];
         v23 = [v22 collectionWithItems:v15];
         (*(v8 + 2))(v8, v23, 0);
       }
@@ -241,8 +235,6 @@ LABEL_16:
 
   (*(v8 + 2))(v8, v9, 0);
 LABEL_17:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __54__WFRunWorkflowURLHandler_registerRunWorkflowHandler___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -335,13 +327,13 @@ void __54__WFRunWorkflowURLHandler_registerRunWorkflowHandler___block_invoke_3(u
 
 void __54__WFRunWorkflowURLHandler_registerRunWorkflowHandler___block_invoke_4(uint64_t a1, void *a2)
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if ([v3 length])
   {
-    v8 = @"result";
-    v9[0] = v3;
-    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = @"result";
+    v8[0] = v3;
+    v4 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   }
 
   else
@@ -356,8 +348,6 @@ void __54__WFRunWorkflowURLHandler_registerRunWorkflowHandler___block_invoke_4(u
     v6 = [*(a1 + 32) successHandler];
     (v6)[2](v6, v4, *(a1 + 40));
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

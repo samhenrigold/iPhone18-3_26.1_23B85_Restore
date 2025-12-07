@@ -94,56 +94,56 @@ void __50__SLMicroBlogComposeViewController_viewDidAppear___block_invoke(uint64_
 
 - (void)_beginLoadingAccountProfileImages
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v4 = self->_serviceAccountTypeIdentifier;
-  _SLLog(v2, 7, @"MicroBlog for %@ – _beginLoadingAccountProfileImages");
+  _SLLog(v2, 7, @"MicroBlog for %@ – _beginLoadingAccountProfileImages", v5, v6, v7, v8, v9, v4);
   WeakRetained = objc_loadWeakRetained(&self->_microBlogSheetDelegate);
   objc_initWeak(&location, self->_accountViewController);
-  v21 = 0u;
-  v22 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v5 = self->_accountUserRecords;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16, v4];
-  if (v6)
+  v31 = 0u;
+  v32 = 0u;
+  v29 = 0u;
+  v30 = 0u;
+  v10 = self->_accountUserRecords;
+  v11 = [(NSArray *)v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
+  if (v11)
   {
-    v7 = *v20;
+    v12 = *v30;
     do
     {
-      for (i = 0; i != v6; ++i)
+      for (i = 0; i != v11; ++i)
       {
-        if (*v20 != v7)
+        if (*v30 != v12)
         {
-          objc_enumerationMutation(v5);
+          objc_enumerationMutation(v10);
         }
 
-        v9 = *(*(&v19 + 1) + 8 * i);
-        profileImageCache = [v9 profileImageCache];
-        v11 = profileImageCache == 0;
+        v14 = *(*(&v29 + 1) + 8 * i);
+        profileImageCache = [v14 profileImageCache];
+        v16 = profileImageCache == 0;
 
-        if (v11)
+        if (v16)
         {
-          screen_name = [v9 screen_name];
-          _SLLog(v2, 7, @"MicroBlog for %@ – fetching profile image for %@");
+          screen_name = [v14 screen_name];
+          _SLLog(v2, 7, @"MicroBlog for %@ – fetching profile image for %@", v17, v18, v19, v20, v21, v4);
 
-          screen_name2 = [v9 screen_name];
-          v15[0] = MEMORY[0x1E69E9820];
-          v15[1] = 3221225472;
-          v15[2] = __69__SLMicroBlogComposeViewController__beginLoadingAccountProfileImages__block_invoke;
-          v15[3] = &unk_1E8176000;
-          v16 = v4;
-          v17 = v9;
-          objc_copyWeak(&v18, &location);
-          [WeakRetained fetchProfileImageDataForScreenName:screen_name2 completion:v15];
+          screen_name2 = [v14 screen_name];
+          v25[0] = MEMORY[0x1E69E9820];
+          v25[1] = 3221225472;
+          v25[2] = __69__SLMicroBlogComposeViewController__beginLoadingAccountProfileImages__block_invoke;
+          v25[3] = &unk_1E8176000;
+          v26 = v4;
+          v27 = v14;
+          objc_copyWeak(&v28, &location);
+          [WeakRetained fetchProfileImageDataForScreenName:screen_name2 completion:v25];
 
-          objc_destroyWeak(&v18);
+          objc_destroyWeak(&v28);
         }
       }
 
-      v6 = [(NSArray *)v5 countByEnumeratingWithState:&v19 objects:v24 count:16];
+      v11 = [(NSArray *)v10 countByEnumeratingWithState:&v29 objects:v34 count:16];
     }
 
-    while (v6);
+    while (v11);
   }
 
   objc_destroyWeak(&location);
@@ -154,33 +154,32 @@ void __69__SLMicroBlogComposeViewController__beginLoadingAccountProfileImages__b
   v6 = a2;
   v7 = a3;
   v8 = *(a1 + 32);
-  v9 = [*(a1 + 40) screen_name];
-  v10 = v9;
+  v14 = [*(a1 + 40) screen_name];
   if (!v6 || v7)
   {
-    _SLLog(v3, 7, @"MicroBlog for %@ – failed to get profile image data for %@ with error %{public}@");
+    _SLLog(v3, 7, @"MicroBlog for %@ – failed to get profile image data for %@ with error %{public}@", v9, v10, v11, v12, v13, v8);
   }
 
   else
   {
-    v13 = v9;
-    _SLLog(v3, 7, @"MicroBlog for %@ – got profile image data for %@");
+    _SLLog(v3, 7, @"MicroBlog for %@ – got profile image data for %@", v9, v10, v11, v12, v13, v8);
 
-    v11 = [MEMORY[0x1E69DCAB8] imageWithData:{v6, v8, v13}];
-    [*(a1 + 40) setProfileImageCache:v11];
+    v15 = [MEMORY[0x1E69DCAB8] imageWithData:v6];
+    [*(a1 + 40) setProfileImageCache:v15];
 
-    v12 = [*(a1 + 40) profileImageCache];
-    v14 = [*(a1 + 40) screen_name];
-    _SLLog(v3, 7, @"MicroBlog for %@ – built profile image %@ for %@");
+    v16 = *(a1 + 32);
+    v17 = [*(a1 + 40) profileImageCache];
+    v23 = [*(a1 + 40) screen_name];
+    _SLLog(v3, 7, @"MicroBlog for %@ – built profile image %@ for %@", v18, v19, v20, v21, v22, v16);
 
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 3221225472;
     block[2] = __69__SLMicroBlogComposeViewController__beginLoadingAccountProfileImages__block_invoke_2;
     block[3] = &unk_1E8175FD8;
-    objc_copyWeak(&v16, (a1 + 48));
+    objc_copyWeak(&v25, (a1 + 48));
     block[4] = *(a1 + 40);
     dispatch_async(MEMORY[0x1E69E96A0], block);
-    objc_destroyWeak(&v16);
+    objc_destroyWeak(&v25);
   }
 }
 
@@ -192,37 +191,35 @@ void __69__SLMicroBlogComposeViewController__beginLoadingAccountProfileImages__b
 
 - (void)_presentAccountPickerController
 {
-  serviceAccountTypeIdentifier = self->_serviceAccountTypeIdentifier;
-  _SLLog(v2, 7, @"MicroBlog for %@ – _presentAccountPickerController");
-  v4 = objc_alloc_init(SLMicroBlogAccountsTableViewController);
+  _SLLog(v7, 7, @"MicroBlog for %@ – _presentAccountPickerController", v2, v3, v4, v5, v6, self->_serviceAccountTypeIdentifier);
+  v9 = objc_alloc_init(SLMicroBlogAccountsTableViewController);
   accountViewController = self->_accountViewController;
-  self->_accountViewController = v4;
+  self->_accountViewController = v9;
 
-  [(SLMicroBlogAccountsTableViewController *)self->_accountViewController setSelectionDelegate:self, serviceAccountTypeIdentifier];
+  [(SLMicroBlogAccountsTableViewController *)self->_accountViewController setSelectionDelegate:self];
   [(SLMicroBlogComposeViewController *)self _beginLoadingAccountProfileImages];
   [(SLMicroBlogAccountsTableViewController *)self->_accountViewController setAccountUserRecords:self->_accountUserRecords];
   [(SLMicroBlogAccountsTableViewController *)self->_accountViewController setCurrentAccountUserRecord:self->_selectedAccountUserRecord];
-  v6 = self->_accountViewController;
+  v11 = self->_accountViewController;
 
-  [(SLComposeServiceViewController *)self pushConfigurationViewController:v6];
+  [(SLComposeServiceViewController *)self pushConfigurationViewController:v11];
 }
 
 - (void)accountsViewController:(id)controller didSelectAccountUserRecord:(id)record
 {
   recordCopy = record;
-  serviceAccountTypeIdentifier = self->_serviceAccountTypeIdentifier;
-  _SLLog(v4, 7, @"MicroBlog for %@ – didSelectAccountUserRecord %@");
+  _SLLog(v4, 7, @"MicroBlog for %@ – didSelectAccountUserRecord %@", v6, v7, v8, v9, v10, self->_serviceAccountTypeIdentifier);
   selectedAccountUserRecord = self->_selectedAccountUserRecord;
   self->_selectedAccountUserRecord = recordCopy;
-  v8 = recordCopy;
+  v12 = recordCopy;
 
-  v9 = [(SLMicroBlogUserRecord *)self->_selectedAccountUserRecord screen_name:serviceAccountTypeIdentifier];
-  [(SLComposeSheetConfigurationItem *)self->_accountConfigurationItem setValue:v9];
+  screen_name = [(SLMicroBlogUserRecord *)self->_selectedAccountUserRecord screen_name];
+  [(SLComposeSheetConfigurationItem *)self->_accountConfigurationItem setValue:screen_name];
 
-  v12 = [(NSArray *)self->_accountIdentifiers objectAtIndex:[(NSArray *)self->_accountUserRecords indexOfObject:v8]];
+  v16 = [(NSArray *)self->_accountIdentifiers objectAtIndex:[(NSArray *)self->_accountUserRecords indexOfObject:v12]];
 
   WeakRetained = objc_loadWeakRetained(&self->_microBlogSheetDelegate);
-  [WeakRetained setActiveAccountIdentifier:v12];
+  [WeakRetained setActiveAccountIdentifier:v16];
   [(SLComposeServiceViewController *)self popConfigurationViewController];
 }
 
@@ -232,23 +229,22 @@ void __69__SLMicroBlogComposeViewController__beginLoadingAccountProfileImages__b
   if (accountUserRecords)
   {
     v5 = [(NSArray *)accountUserRecords count];
-    _SLLog(v2, 7, @"MicroBlog for %@ – got countOfAccounts %d from _accountUserRecords");
+    _SLLog(v2, 7, @"MicroBlog for %@ – got countOfAccounts %d from _accountUserRecords", v6, v7, v8, v9, v10, self->_serviceAccountTypeIdentifier);
   }
 
   else
   {
     v5 = [MEMORY[0x1E6959A48] countOfAccountsWithAccountTypeIdentifier:self->_serviceAccountTypeIdentifier];
-    serviceAccountTypeIdentifier = self->_serviceAccountTypeIdentifier;
-    _SLLog(v2, 7, @"MicroBlog for %@ – got countOfAccounts %d from account store cache");
+    _SLLog(v2, 7, @"MicroBlog for %@ – got countOfAccounts %d from account store cache", v11, v12, v13, v14, v15, self->_serviceAccountTypeIdentifier);
     if (v5 == -1)
     {
-      v6 = objc_alloc_init(MEMORY[0x1E6959A48]);
-      [v6 updateExistenceCacheOfAccountWithTypeIdentifier:{self->_serviceAccountTypeIdentifier, serviceAccountTypeIdentifier, -1}];
-      v7 = [v6 accountTypeWithAccountTypeIdentifier:self->_serviceAccountTypeIdentifier];
-      v8 = [v6 accountsWithAccountType:v7];
-      v5 = [v8 count];
+      v16 = objc_alloc_init(MEMORY[0x1E6959A48]);
+      [v16 updateExistenceCacheOfAccountWithTypeIdentifier:self->_serviceAccountTypeIdentifier];
+      v17 = [v16 accountTypeWithAccountTypeIdentifier:self->_serviceAccountTypeIdentifier];
+      v18 = [v16 accountsWithAccountType:v17];
+      v5 = [v18 count];
 
-      _SLLog(v2, 7, @"MicroBlog for %@ – got countOfAccounts %d from account store");
+      _SLLog(v2, 7, @"MicroBlog for %@ – got countOfAccounts %d from account store", v19, v20, v21, v22, v23, self->_serviceAccountTypeIdentifier);
     }
   }
 
@@ -261,22 +257,22 @@ void __69__SLMicroBlogComposeViewController__beginLoadingAccountProfileImages__b
   else if (!accountConfigurationItem)
   {
     objc_initWeak(&location, self);
-    v10 = objc_alloc_init(SLComposeSheetConfigurationItem);
-    v11 = self->_accountConfigurationItem;
-    self->_accountConfigurationItem = v10;
+    v25 = objc_alloc_init(SLComposeSheetConfigurationItem);
+    v26 = self->_accountConfigurationItem;
+    self->_accountConfigurationItem = v25;
 
-    v12 = SLSocialFrameworkBundle();
-    v13 = [v12 localizedStringForKey:@"ACCOUNT_LABEL_TITLE" value:&stru_1F41EC300 table:@"Localizable"];
-    [(SLComposeSheetConfigurationItem *)self->_accountConfigurationItem setTitle:v13];
+    v28 = SLSocialFrameworkBundle(v27);
+    v29 = [v28 localizedStringForKey:@"ACCOUNT_LABEL_TITLE" value:&stru_1F41EC300 table:@"Localizable"];
+    [(SLComposeSheetConfigurationItem *)self->_accountConfigurationItem setTitle:v29];
 
     [(SLComposeSheetConfigurationItem *)self->_accountConfigurationItem setValue:&stru_1F41EC300];
-    v18[0] = MEMORY[0x1E69E9820];
-    v18[1] = 3221225472;
-    v18[2] = __61__SLMicroBlogComposeViewController__accountConfigurationItem__block_invoke;
-    v18[3] = &unk_1E8175C10;
-    objc_copyWeak(&v19, &location);
-    [(SLComposeSheetConfigurationItem *)self->_accountConfigurationItem setTapHandler:v18];
-    objc_destroyWeak(&v19);
+    v33[0] = MEMORY[0x1E69E9820];
+    v33[1] = 3221225472;
+    v33[2] = __61__SLMicroBlogComposeViewController__accountConfigurationItem__block_invoke;
+    v33[3] = &unk_1E8175C10;
+    objc_copyWeak(&v34, &location);
+    [(SLComposeSheetConfigurationItem *)self->_accountConfigurationItem setTapHandler:v33];
+    objc_destroyWeak(&v34);
     objc_destroyWeak(&location);
   }
 
@@ -285,15 +281,15 @@ void __69__SLMicroBlogComposeViewController__beginLoadingAccountProfileImages__b
     screen_name = [(SLMicroBlogUserRecord *)self->_selectedAccountUserRecord screen_name];
     [(SLComposeSheetConfigurationItem *)self->_accountConfigurationItem setValue:screen_name];
 
-    v15 = self->_accountConfigurationItem;
+    v31 = self->_accountConfigurationItem;
   }
 
   else
   {
-    v15 = 0;
+    v31 = 0;
   }
 
-  return v15;
+  return v31;
 }
 
 void __61__SLMicroBlogComposeViewController__accountConfigurationItem__block_invoke(uint64_t a1)
@@ -329,21 +325,21 @@ void __61__SLMicroBlogComposeViewController__accountConfigurationItem__block_inv
     v5 = self->_locationConfigurationItem;
     self->_locationConfigurationItem = v4;
 
-    v6 = SLSocialFrameworkBundle();
-    v7 = [v6 localizedStringForKey:@"SHEET_LOCATION_ACTION_TITLE" value:&stru_1F41EC300 table:@"Localizable"];
-    [(SLComposeSheetConfigurationItem *)self->_locationConfigurationItem setTitle:v7];
+    v7 = SLSocialFrameworkBundle(v6);
+    v8 = [v7 localizedStringForKey:@"SHEET_LOCATION_ACTION_TITLE" value:&stru_1F41EC300 table:@"Localizable"];
+    [(SLComposeSheetConfigurationItem *)self->_locationConfigurationItem setTitle:v8];
 
-    v8 = SLSocialFrameworkBundle();
-    v9 = [v8 localizedStringForKey:@"SHEET_LOCATION_NO_VALUE" value:&stru_1F41EC300 table:@"Localizable"];
-    [(SLComposeSheetConfigurationItem *)self->_locationConfigurationItem setValue:v9];
+    v10 = SLSocialFrameworkBundle(v9);
+    v11 = [v10 localizedStringForKey:@"SHEET_LOCATION_NO_VALUE" value:&stru_1F41EC300 table:@"Localizable"];
+    [(SLComposeSheetConfigurationItem *)self->_locationConfigurationItem setValue:v11];
 
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = __62__SLMicroBlogComposeViewController__locationConfigurationItem__block_invoke;
-    v11[3] = &unk_1E8175C10;
-    objc_copyWeak(&v12, &location);
-    [(SLComposeSheetConfigurationItem *)self->_locationConfigurationItem setTapHandler:v11];
-    objc_destroyWeak(&v12);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __62__SLMicroBlogComposeViewController__locationConfigurationItem__block_invoke;
+    v13[3] = &unk_1E8175C10;
+    objc_copyWeak(&v14, &location);
+    [(SLComposeSheetConfigurationItem *)self->_locationConfigurationItem setTapHandler:v13];
+    objc_destroyWeak(&v14);
     objc_destroyWeak(&location);
     locationConfigurationItem = self->_locationConfigurationItem;
   }
@@ -422,77 +418,75 @@ void __62__SLMicroBlogComposeViewController_setMicroBlogSheetDelegate___block_in
   dispatch_async(MEMORY[0x1E69E96A0], v10);
 }
 
-void __62__SLMicroBlogComposeViewController_setMicroBlogSheetDelegate___block_invoke_2(uint64_t a1)
+void __62__SLMicroBlogComposeViewController_setMicroBlogSheetDelegate___block_invoke_2(id *a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
-  v3 = [*(a1 + 32) serviceAccountTypeIdentifier];
-  v26 = *(a1 + 40);
-  v27 = *(a1 + 48);
-  _SLLog(v1, 7, @"MicroBlog for %@ – fetched session info %@\nand got error %{public}@");
+  v37 = *MEMORY[0x1E69E9840];
+  v3 = [a1[4] serviceAccountTypeIdentifier];
+  _SLLog(v1, 7, @"MicroBlog for %@ – fetched session info %@\nand got error %{public}@", v4, v5, v6, v7, v8, v3);
 
-  v4 = [*(a1 + 40) objectForKey:{@"accountEntries", v3, v26, v27}];
-  v5 = *(a1 + 56);
-  v6 = *(v5 + 1224);
-  v7 = MEMORY[0x1E695E0F0];
-  *(v5 + 1224) = MEMORY[0x1E695E0F0];
+  v9 = [a1[5] objectForKey:@"accountEntries"];
+  v10 = a1[7];
+  v11 = v10[153];
+  v12 = MEMORY[0x1E695E0F0];
+  v10[153] = MEMORY[0x1E695E0F0];
 
-  v8 = *(a1 + 56);
-  v9 = *(v8 + 1232);
-  *(v8 + 1232) = v7;
+  v13 = a1[7];
+  v14 = v13[154];
+  v13[154] = v12;
 
-  v31 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
-  v30 = 0u;
-  obj = v4;
-  v10 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
-  if (v10)
+  v33 = 0u;
+  obj = v9;
+  v15 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
+  if (v15)
   {
-    v11 = v10;
-    v12 = *v30;
+    v16 = v15;
+    v17 = *v33;
     do
     {
-      for (i = 0; i != v11; ++i)
+      for (i = 0; i != v16; ++i)
       {
-        if (*v30 != v12)
+        if (*v33 != v17)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v29 + 1) + 8 * i);
-        v15 = *(*(a1 + 56) + 1232);
-        v16 = [v14 objectForKeyedSubscript:@"identifier"];
-        v17 = [v15 arrayByAddingObject:v16];
-        v18 = *(a1 + 56);
-        v19 = *(v18 + 1232);
-        *(v18 + 1232) = v17;
+        v19 = *(*(&v32 + 1) + 8 * i);
+        v20 = *(a1[7] + 154);
+        v21 = [v19 objectForKeyedSubscript:@"identifier"];
+        v22 = [v20 arrayByAddingObject:v21];
+        v23 = a1[7];
+        v24 = v23[154];
+        v23[154] = v22;
 
-        v20 = objc_alloc_init(SLMicroBlogUserRecord);
-        v21 = [v14 objectForKeyedSubscript:@"accountDescription"];
-        [(SLMicroBlogUserRecord *)v20 setScreen_name:v21];
+        v25 = objc_alloc_init(SLMicroBlogUserRecord);
+        v26 = [v19 objectForKeyedSubscript:@"accountDescription"];
+        [(SLMicroBlogUserRecord *)v25 setScreen_name:v26];
 
-        v22 = [*(*(a1 + 56) + 1224) arrayByAddingObject:v20];
-        v23 = *(a1 + 56);
-        v24 = *(v23 + 1224);
-        *(v23 + 1224) = v22;
+        v27 = [*(a1[7] + 153) arrayByAddingObject:v25];
+        v28 = a1[7];
+        v29 = v28[153];
+        v28[153] = v27;
 
-        v25 = [v14 objectForKeyedSubscript:@"active"];
-        LODWORD(v21) = [v25 BOOLValue];
+        v30 = [v19 objectForKeyedSubscript:@"active"];
+        LODWORD(v26) = [v30 BOOLValue];
 
-        if (v21)
+        if (v26)
         {
-          objc_storeStrong((*(a1 + 56) + 1240), v20);
+          objc_storeStrong(a1[7] + 155, v25);
         }
       }
 
-      v11 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v16 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
-    while (v11);
+    while (v16);
   }
 
-  [*(a1 + 56) reloadConfigurationItems];
-  [*(a1 + 56) _presentNoAccountsAlertIfNecessaryAndReady];
+  [a1[7] reloadConfigurationItems];
+  [a1[7] _presentNoAccountsAlertIfNecessaryAndReady];
 }
 
 - (void)presentationAnimationDidFinish
@@ -515,7 +509,7 @@ void __62__SLMicroBlogComposeViewController_setMicroBlogSheetDelegate___block_in
     {
       if (![(NSArray *)accountUserRecords count])
       {
-        _SLLog(v2, 7, @"MicroBlog for %@ – presenting no accounts alert");
+        _SLLog(v2, 7, @"MicroBlog for %@ – presenting no accounts alert", v5, v6, v7, v8, v9, self->_serviceAccountTypeIdentifier);
 
         [(SLMicroBlogComposeViewController *)self presentNoAccountsAlert];
       }
@@ -541,20 +535,20 @@ void __62__SLMicroBlogComposeViewController_setMicroBlogSheetDelegate___block_in
 
 - (void)_hostApplicationWillEnterForeground
 {
-  _SLLog(v2, 7, @"SLMicroBlogComposeViewController _hostApplicationWillEnterForeground");
-  v5.receiver = self;
-  v5.super_class = SLMicroBlogComposeViewController;
-  [(SLMicroBlogComposeViewController *)&v5 _hostApplicationWillEnterForeground];
+  _SLLog(v7, 7, @"SLMicroBlogComposeViewController _hostApplicationWillEnterForeground", v2, v3, v4, v5, v6, v10.receiver);
+  v10.receiver = self;
+  v10.super_class = SLMicroBlogComposeViewController;
+  [(SLMicroBlogComposeViewController *)&v10 _hostApplicationWillEnterForeground];
   microBlogSheetDelegate = [(SLMicroBlogComposeViewController *)self microBlogSheetDelegate];
   [microBlogSheetDelegate beginPotentialLocationUse];
 }
 
 - (void)_hostApplicationDidEnterBackground
 {
-  _SLLog(v2, 7, @"SLMicroBlogComposeViewController _hostApplicationDidEnterBackground");
-  v5.receiver = self;
-  v5.super_class = SLMicroBlogComposeViewController;
-  [(SLMicroBlogComposeViewController *)&v5 _hostApplicationDidEnterBackground];
+  _SLLog(v7, 7, @"SLMicroBlogComposeViewController _hostApplicationDidEnterBackground", v2, v3, v4, v5, v6, v10.receiver);
+  v10.receiver = self;
+  v10.super_class = SLMicroBlogComposeViewController;
+  [(SLMicroBlogComposeViewController *)&v10 _hostApplicationDidEnterBackground];
   microBlogSheetDelegate = [(SLMicroBlogComposeViewController *)self microBlogSheetDelegate];
   [microBlogSheetDelegate endPotentialLocationUse];
 }
@@ -570,56 +564,56 @@ void __62__SLMicroBlogComposeViewController_setMicroBlogSheetDelegate___block_in
 
 - (BOOL)isContentValid
 {
-  v29 = *MEMORY[0x1E69E9840];
-  if (self->_maxURLLength == -1)
+  v34 = *MEMORY[0x1E69E9840];
+  maxURLLength = self->_maxURLLength;
+  if (maxURLLength == -1)
   {
-    v8 = 1;
+    v14 = 1;
   }
 
   else
   {
-    maxURLLength = self->_maxURLLength;
-    _SLLog(v2, 7, @"_maxURLLength is %i");
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
-    v25 = 0u;
+    _SLLog(v7, 7, @"_maxURLLength is %i", v2, v3, v4, v5, v6, maxURLLength);
+    v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     attachments = [(SLComposeServiceViewController *)self attachments];
-    v5 = [attachments countByEnumeratingWithState:&v24 objects:v28 count:16];
-    if (v5)
+    v11 = [attachments countByEnumeratingWithState:&v29 objects:v33 count:16];
+    if (v11)
     {
-      v6 = v5;
-      v7 = *v25;
-      v8 = 1;
+      v12 = v11;
+      v13 = *v30;
+      v14 = 1;
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v12; ++i)
         {
-          if (*v25 != v7)
+          if (*v30 != v13)
           {
             objc_enumerationMutation(attachments);
           }
 
-          v10 = *(*(&v24 + 1) + 8 * i);
-          if ([v10 type] == 4 || objc_msgSend(v10, "type") == 5 || objc_msgSend(v10, "type") == 6 || objc_msgSend(v10, "type") == 7)
+          v16 = *(*(&v29 + 1) + 8 * i);
+          if ([v16 type] == 4 || objc_msgSend(v16, "type") == 5 || objc_msgSend(v16, "type") == 6 || objc_msgSend(v16, "type") == 7)
           {
-            payload = [v10 payload];
+            payload = [v16 payload];
             absoluteString = [payload absoluteString];
-            v13 = [absoluteString length] <= self->_maxURLLength;
+            v19 = [absoluteString length] <= self->_maxURLLength;
 
-            v8 &= v13;
+            v14 &= v19;
           }
         }
 
-        v6 = [attachments countByEnumeratingWithState:&v24 objects:v28 count:16];
+        v12 = [attachments countByEnumeratingWithState:&v29 objects:v33 count:16];
       }
 
-      while (v6);
+      while (v12);
     }
 
     else
     {
-      v8 = 1;
+      v14 = 1;
     }
   }
 
@@ -632,19 +626,19 @@ void __62__SLMicroBlogComposeViewController_setMicroBlogSheetDelegate___block_in
   else
   {
     attachments2 = [(SLComposeServiceViewController *)self attachments];
-    v17 = [attachments2 count] != 0;
+    v23 = [attachments2 count] != 0;
 
-    v8 &= v17;
+    v14 &= v23;
   }
 
   textView2 = [(SLComposeServiceViewController *)self textView];
   text2 = [textView2 text];
-  v20 = [(SLMicroBlogComposeViewController *)self _charactersRemainingWithText:text2];
+  v26 = [(SLMicroBlogComposeViewController *)self _charactersRemainingWithText:text2];
 
-  v21 = [MEMORY[0x1E696AD98] numberWithInt:v20];
-  [(SLComposeServiceViewController *)self setCharactersRemaining:v21];
+  v27 = [MEMORY[0x1E696AD98] numberWithInt:v26];
+  [(SLComposeServiceViewController *)self setCharactersRemaining:v27];
 
-  return (v20 >= 0) & v8;
+  return (v26 >= 0) & v14;
 }
 
 - (id)completeText:(id)text withAttachments:(id)attachments
@@ -806,18 +800,18 @@ void __58__SLMicroBlogComposeViewController_updateShortenedURLCost__block_invoke
   dispatch_async(MEMORY[0x1E69E96A0], v10);
 }
 
-uint64_t __58__SLMicroBlogComposeViewController_updateShortenedURLCost__block_invoke_2(void *a1)
+uint64_t __58__SLMicroBlogComposeViewController_updateShortenedURLCost__block_invoke_2(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  _SLLog(v1, 7, @"updateShortenedURLCost got tcoLength %d maxURLLength %d error %{public}@");
+  _SLLog(v8, 7, @"updateShortenedURLCost got tcoLength %d maxURLLength %d error %{public}@", a4, a5, a6, a7, a8, a1[6]);
   if (!a1[4])
   {
     *(a1[5] + 1288) = a1[6];
     *(a1[5] + 1296) = a1[7];
   }
 
-  v3 = a1[5];
+  v10 = a1[5];
 
-  return [v3 validateContent];
+  return [v10 validateContent];
 }
 
 - (void)_presentPlaceViewController
@@ -854,13 +848,13 @@ void __54__SLMicroBlogComposeViewController_updateGeotagStatus__block_invoke(uin
   dispatch_async(MEMORY[0x1E69E96A0], v2);
 }
 
-uint64_t __54__SLMicroBlogComposeViewController_updateGeotagStatus__block_invoke_2(uint64_t a1)
+uint64_t __54__SLMicroBlogComposeViewController_updateGeotagStatus__block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  _SLLog(v1, 6, @"Geotag status updated to %i");
-  v3 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  _SLLog(v8, 6, @"Geotag status updated to %i", a4, a5, a6, a7, a8, *(a1 + 40));
+  v10 = *(a1 + 32);
+  v11 = *(a1 + 40);
 
-  return [v3 setGeotagStatus:v4];
+  return [v10 setGeotagStatus:v11];
 }
 
 - (id)_placeViewController
@@ -907,7 +901,7 @@ uint64_t __54__SLMicroBlogComposeViewController_updateGeotagStatus__block_invoke
 
 - (void)setGeotagStatus:(int)status
 {
-  v18[1] = *MEMORY[0x1E69E9840];
+  v23[1] = *MEMORY[0x1E69E9840];
   if (status <= 1)
   {
     if (status)
@@ -918,29 +912,29 @@ uint64_t __54__SLMicroBlogComposeViewController_updateGeotagStatus__block_invoke
       }
 
       _locationConfigurationItem = [(SLMicroBlogComposeViewController *)self _locationConfigurationItem];
-      v6 = SLSocialFrameworkBundle();
-      v7 = [v6 localizedStringForKey:@"LOCATING" value:&stru_1F41EC300 table:@"Localizable"];
-      [_locationConfigurationItem setValue:v7];
+      v11 = SLSocialFrameworkBundle(_locationConfigurationItem);
+      v12 = [v11 localizedStringForKey:@"LOCATING" value:&stru_1F41EC300 table:@"Localizable"];
+      [_locationConfigurationItem setValue:v12];
 
       _locationConfigurationItem2 = [(SLMicroBlogComposeViewController *)self _locationConfigurationItem];
-      v17 = _locationConfigurationItem2;
-      v9 = 1;
+      v22 = _locationConfigurationItem2;
+      v14 = 1;
       goto LABEL_10;
     }
 
     _locationConfigurationItem3 = [(SLMicroBlogComposeViewController *)self _locationConfigurationItem];
-    v11 = SLSocialFrameworkBundle();
-    v12 = v11;
-    v13 = @"SHEET_LOCATION_NO_VALUE";
+    v16 = SLSocialFrameworkBundle(_locationConfigurationItem3);
+    v17 = v16;
+    v18 = @"SHEET_LOCATION_NO_VALUE";
 LABEL_9:
-    v14 = [v11 localizedStringForKey:v13 value:&stru_1F41EC300 table:@"Localizable"];
-    [_locationConfigurationItem3 setValue:v14];
+    v19 = [v16 localizedStringForKey:v18 value:&stru_1F41EC300 table:@"Localizable"];
+    [_locationConfigurationItem3 setValue:v19];
 
     _locationConfigurationItem2 = [(SLMicroBlogComposeViewController *)self _locationConfigurationItem];
-    v17 = _locationConfigurationItem2;
-    v9 = 0;
+    v22 = _locationConfigurationItem2;
+    v14 = 0;
 LABEL_10:
-    [_locationConfigurationItem2 setValuePending:v9];
+    [_locationConfigurationItem2 setValuePending:v14];
 
     return;
   }
@@ -953,18 +947,18 @@ LABEL_10:
     }
 
     _locationConfigurationItem3 = [(SLMicroBlogComposeViewController *)self _locationConfigurationItem];
-    v11 = SLSocialFrameworkBundle();
-    v12 = v11;
-    v13 = @"SHEET_LOCATION_ACTION_DISALLOWED_VALUE";
+    v16 = SLSocialFrameworkBundle(_locationConfigurationItem3);
+    v17 = v16;
+    v18 = @"SHEET_LOCATION_ACTION_DISALLOWED_VALUE";
     goto LABEL_9;
   }
 
   if (self->_currentPlace)
   {
     _placeViewController = [(SLMicroBlogComposeViewController *)self _placeViewController];
-    v18[0] = self->_currentPlace;
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:1];
-    [_placeViewController setPlaces:v16];
+    v23[0] = self->_currentPlace;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:1];
+    [_placeViewController setPlaces:v21];
 
     [_placeViewController setSelectedPlace:self->_currentPlace];
     [(SLMicroBlogComposeViewController *)self _presentPlaceViewController];
@@ -973,35 +967,35 @@ LABEL_10:
   else
   {
 
-    _SLLog(v3, 3, @"We have SLGeotagStatusYes but no place to display. That's wrong.");
+    _SLLog(v8, 3, @"We have SLGeotagStatusYes but no place to display. That's wrong.", v3, v4, v5, v6, v7, v25);
   }
 }
 
 - (void)noteLocationInfoChanged:(id)changed
 {
   changedCopy = changed;
-  _SLLog(v3, 6, @"noteLocationInfoChanged:%@");
-  v5 = [changedCopy objectForKeyedSubscript:{@"locationGeoString", changedCopy}];
+  _SLLog(v3, 6, @"noteLocationInfoChanged:%@", v5, v6, v7, v8, v9, changedCopy);
+  v10 = [changedCopy objectForKeyedSubscript:@"locationGeoString"];
 
-  if (v5)
+  if (v10)
   {
-    v6 = objc_alloc_init(SLPlace);
+    v11 = objc_alloc_init(SLPlace);
     currentPlace = self->_currentPlace;
-    self->_currentPlace = v6;
+    self->_currentPlace = v11;
 
-    v8 = [changedCopy objectForKeyedSubscript:@"locationGeoString"];
-    [(SLPlace *)self->_currentPlace setName:v8];
+    v13 = [changedCopy objectForKeyedSubscript:@"locationGeoString"];
+    [(SLPlace *)self->_currentPlace setName:v13];
 
     [(SLPlace *)self->_currentPlace setIdentifier:@"currentPlaceIdentifier"];
-    v9 = [changedCopy objectForKeyedSubscript:@"latitude"];
-    if (v9 && (v10 = v9, [changedCopy objectForKeyedSubscript:@"longitude"], v11 = objc_claimAutoreleasedReturnValue(), v11, v10, v11))
+    v14 = [changedCopy objectForKeyedSubscript:@"latitude"];
+    if (v14 && (v15 = v14, [changedCopy objectForKeyedSubscript:@"longitude"], v16 = objc_claimAutoreleasedReturnValue(), v16, v15, v16))
     {
-      v12 = [changedCopy objectForKeyedSubscript:@"latitude"];
-      [v12 doubleValue];
+      v17 = [changedCopy objectForKeyedSubscript:@"latitude"];
+      [v17 doubleValue];
       [(SLPlace *)self->_currentPlace setLatitude:?];
 
-      v13 = [changedCopy objectForKeyedSubscript:@"longitude"];
-      [v13 doubleValue];
+      v18 = [changedCopy objectForKeyedSubscript:@"longitude"];
+      [v18 doubleValue];
       [(SLPlace *)self->_currentPlace setLongitude:?];
     }
 
@@ -1012,26 +1006,26 @@ LABEL_10:
     }
   }
 
-  v14 = [changedCopy objectForKey:@"geotagStatus"];
-  -[SLMicroBlogComposeViewController setGeotagStatus:](self, "setGeotagStatus:", [v14 intValue]);
+  v19 = [changedCopy objectForKey:@"geotagStatus"];
+  -[SLMicroBlogComposeViewController setGeotagStatus:](self, "setGeotagStatus:", [v19 intValue]);
 }
 
 - (void)_presentMentionsViewControllerWithSearchString:(id)string
 {
   stringCopy = string;
-  _SLLog(v3, 7, @"_presentMentionsViewController");
-  v6 = [SLMicroBlogMentionsViewController alloc];
+  _SLLog(v3, 7, @"_presentMentionsViewController", v6, v7, v8, v9, v10, v16);
+  v11 = [SLMicroBlogMentionsViewController alloc];
   microBlogSheetDelegate = [(SLMicroBlogComposeViewController *)self microBlogSheetDelegate];
-  v8 = [(SLMicroBlogMentionsViewController *)v6 initWithSheetDelegate:microBlogSheetDelegate];
+  v13 = [(SLMicroBlogMentionsViewController *)v11 initWithSheetDelegate:microBlogSheetDelegate];
   mentionsViewController = self->_mentionsViewController;
-  self->_mentionsViewController = v8;
+  self->_mentionsViewController = v13;
 
   [(SLMicroBlogMentionsViewController *)self->_mentionsViewController setDelegate:self];
   [(SLMicroBlogMentionsViewController *)self->_mentionsViewController setSearchString:stringCopy];
 
-  v10 = self->_mentionsViewController;
+  v15 = self->_mentionsViewController;
 
-  [(SLComposeServiceViewController *)self setAutoCompletionViewController:v10];
+  [(SLComposeServiceViewController *)self setAutoCompletionViewController:v15];
 }
 
 - (void)_presentMentionsViewControllerIfApplicableForSearchString:(id)string
@@ -1067,20 +1061,16 @@ uint64_t __94__SLMicroBlogComposeViewController__presentMentionsViewControllerIf
 
 void __94__SLMicroBlogComposeViewController__presentMentionsViewControllerIfApplicableForSearchString___block_invoke_2(uint64_t a1)
 {
-  v3 = [*(a1 + 32) _mentionsSearchString];
-  v6 = *(*(a1 + 32) + 1200);
-  v7 = v3;
-  v4 = *(a1 + 40);
-  v5 = v3;
-  _SLLog(v1, 7, @"Mentions got initial recordsMatchingPrefixString: '%@' response. latestMentionsString '%@' _mentionsViewController %@");
+  v8 = [*(a1 + 32) _mentionsSearchString];
+  _SLLog(v1, 7, @"Mentions got initial recordsMatchingPrefixString: '%@' response. latestMentionsString '%@' _mentionsViewController %@", v3, v4, v5, v6, v7, *(a1 + 40));
   if (!*(*(a1 + 32) + 1200))
   {
-    if ([v7 length])
+    if ([v8 length])
     {
       [*(a1 + 32) _presentMentionsViewControllerWithSearchString:*(a1 + 40)];
-      if (([v7 isEqualToString:*(a1 + 40)] & 1) == 0)
+      if (([v8 isEqualToString:*(a1 + 40)] & 1) == 0)
       {
-        [*(*(a1 + 32) + 1200) setSearchString:v7];
+        [*(*(a1 + 32) + 1200) setSearchString:v8];
       }
     }
   }
@@ -1152,10 +1142,10 @@ void __94__SLMicroBlogComposeViewController__presentMentionsViewControllerIfAppl
 
 - (void)didSelectPost
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v24.receiver = self;
-  v24.super_class = SLMicroBlogComposeViewController;
-  [(SLComposeServiceViewController *)&v24 didSelectPost];
+  v31 = *MEMORY[0x1E69E9840];
+  v29.receiver = self;
+  v29.super_class = SLMicroBlogComposeViewController;
+  [(SLComposeServiceViewController *)&v29 didSelectPost];
   v4 = objc_alloc_init(SLMicroBlogStatus);
   textView = [(SLComposeServiceViewController *)self textView];
   text = [textView text];
@@ -1165,26 +1155,26 @@ void __94__SLMicroBlogComposeViewController__presentMentionsViewControllerIfAppl
 
   v9 = objc_alloc_init(MEMORY[0x1E695DF70]);
   v10 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0u;
+  v25 = 0u;
+  v26 = 0u;
+  v27 = 0u;
+  v28 = 0u;
   attachments2 = [(SLComposeServiceViewController *)self attachments];
-  v12 = [attachments2 countByEnumeratingWithState:&v20 objects:v25 count:16];
+  v12 = [attachments2 countByEnumeratingWithState:&v25 objects:v30 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v21;
+    v14 = *v26;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v21 != v14)
+        if (*v26 != v14)
         {
           objc_enumerationMutation(attachments2);
         }
 
-        v16 = *(*(&v20 + 1) + 8 * i);
+        v16 = *(*(&v25 + 1) + 8 * i);
         if ([v16 type])
         {
           if ([v16 type] != 2)
@@ -1212,7 +1202,7 @@ LABEL_12:
         }
       }
 
-      v13 = [attachments2 countByEnumeratingWithState:&v20 objects:v25 count:16];
+      v13 = [attachments2 countByEnumeratingWithState:&v25 objects:v30 count:16];
     }
 
     while (v13);
@@ -1225,30 +1215,28 @@ LABEL_12:
 
   if (![(SLMicroBlogComposeViewController *)self _hostProcessIdentifier])
   {
-    _SLLog(v2, 6, @"hostPid is 0 - obtaining pid of current process instead");
+    _SLLog(v2, 6, @"hostPid is 0 - obtaining pid of current process instead", v20, v21, v22, v23, v24, v25);
     getpid();
   }
 }
 
 - (BOOL)textView:(id)view shouldChangeTextInRange:(_NSRange)range replacementText:(id)text
 {
-  length = range.length;
   location = range.location;
   viewCopy = view;
   textCopy = text;
   markedTextRange = [viewCopy markedTextRange];
-  v18 = length;
-  _SLLog(v5, 7, @"SLMicroBlogComposeViewController textView:shouldChangeInRange: %d %d replacementText: %@ (markedTextRange %@)");
+  _SLLog(v5, 7, @"SLMicroBlogComposeViewController textView:shouldChangeInRange: %d %d replacementText: %@ (markedTextRange %@)", v11, v12, v13, v14, v15, location);
 
   if (!self->_mentionsViewController)
   {
-    v13 = 0;
+    v17 = 0;
     if (location)
     {
       if (location != 0x7FFFFFFFFFFFFFFFLL)
       {
         markedTextRange2 = [viewCopy markedTextRange];
-        v13 = markedTextRange2 == 0;
+        v17 = markedTextRange2 == 0;
       }
 
       if (location != 0x7FFFFFFFFFFFFFFFLL)
@@ -1256,20 +1244,20 @@ LABEL_12:
       }
     }
 
-    if (v13)
+    if (v17)
     {
       text = [viewCopy text];
       if (location - 1 < [text length])
       {
-        v15 = [text substringWithRange:{location - 1, 1}];
-        if ([v15 isEqualToString:@"@"] && objc_msgSend(textCopy, "length"))
+        v19 = [text substringWithRange:{location - 1, 1}];
+        if ([v19 isEqualToString:@"@"] && objc_msgSend(textCopy, "length"))
         {
           alphanumericCharacterSet = [MEMORY[0x1E696AB08] alphanumericCharacterSet];
           if ([alphanumericCharacterSet characterIsMember:{objc_msgSend(textCopy, "characterAtIndex:", 0)}])
           {
             self->_mentionStartLocation = location;
             self->_mentionPendingStart = 1;
-            _SLLog(v5, 7, @"SLMicroBlogComposeViewController setting _mentionPendingStart to YES");
+            _SLLog(v5, 7, @"SLMicroBlogComposeViewController setting _mentionPendingStart to YES", v21, v22, v23, v24, v25, v27);
           }
         }
       }
@@ -1282,14 +1270,13 @@ LABEL_12:
 - (void)textViewDidChange:(id)change
 {
   mentionsViewController = self->_mentionsViewController;
-  mentionPendingStart = self->_mentionPendingStart;
   changeCopy = change;
   markedTextRange = [changeCopy markedTextRange];
-  _SLLog(v3, 7, @"SLMicroBlogComposeViewController textViewDidChange: _mentionsViewController %lx _mentionPendingStart %d (markedTextRange %@)");
+  _SLLog(v3, 7, @"SLMicroBlogComposeViewController textViewDidChange: _mentionsViewController %lx _mentionPendingStart %d (markedTextRange %@)", v7, v8, v9, v10, v11, mentionsViewController);
 
-  v11.receiver = self;
-  v11.super_class = SLMicroBlogComposeViewController;
-  [(SLComposeServiceViewController *)&v11 textViewDidChange:changeCopy, mentionsViewController, mentionPendingStart, markedTextRange];
+  v15.receiver = self;
+  v15.super_class = SLMicroBlogComposeViewController;
+  [(SLComposeServiceViewController *)&v15 textViewDidChange:changeCopy];
   markedTextRange2 = [changeCopy markedTextRange];
 
   if (!markedTextRange2)
@@ -1309,9 +1296,8 @@ LABEL_12:
   selectionCopy = selection;
   selectedRange = [selectionCopy selectedRange];
   [selectionCopy selectedRange];
-  v8 = v7;
   markedTextRange = [selectionCopy markedTextRange];
-  _SLLog(v3, 7, @"SLMicroBlogComposeViewController textViewDidChangeSelection to %d %d (markedTextRange %@)");
+  _SLLog(v3, 7, @"SLMicroBlogComposeViewController textViewDidChangeSelection to %d %d (markedTextRange %@)", v7, v8, v9, v10, v11, selectedRange);
 
   if (self->_mentionsViewController)
   {

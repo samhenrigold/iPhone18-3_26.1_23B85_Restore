@@ -15,26 +15,26 @@
 
 + (void)reportGeneralStatistics
 {
-  v38[10] = *MEMORY[0x277D85DE8];
+  v36[10] = *MEMORY[0x277D85DE8];
   _globalPreferredLanguages = [MEMORY[0x277CBEAF8] _globalPreferredLanguages];
   if ([_globalPreferredLanguages count])
   {
-    v36 = [_globalPreferredLanguages objectAtIndexedSubscript:0];
+    v34 = [_globalPreferredLanguages objectAtIndexedSubscript:0];
   }
 
   else
   {
-    v36 = 0;
+    v34 = 0;
   }
 
   if ([_globalPreferredLanguages count] < 2)
   {
-    v33 = 0;
+    v31 = 0;
   }
 
   else
   {
-    v33 = [_globalPreferredLanguages objectAtIndexedSubscript:1];
+    v31 = [_globalPreferredLanguages objectAtIndexedSubscript:1];
   }
 
   if ([_globalPreferredLanguages count] < 3)
@@ -50,8 +50,8 @@
   v4 = +[IntlUtility perAppLanguageSelectionBundleIdentifiers];
   standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
   _currentGlobalUserInflection = [MEMORY[0x277CCAEA8] _currentGlobalUserInflection];
-  v35 = _globalPreferredLanguages;
-  v32 = _currentGlobalUserInflection;
+  v33 = _globalPreferredLanguages;
+  v30 = _currentGlobalUserInflection;
   if (_currentGlobalUserInflection)
   {
     v6 = [_currentGlobalUserInflection isIdentity] ^ 1;
@@ -62,10 +62,10 @@
     v6 = 0;
   }
 
-  v37[0] = @"deviceLanguage";
+  v35[0] = @"deviceLanguage";
   _deviceLanguage = [MEMORY[0x277CBEAF8] _deviceLanguage];
-  v38[0] = _deviceLanguage;
-  v37[1] = @"deviceRegion";
+  v36[0] = _deviceLanguage;
+  v35[1] = @"deviceRegion";
   preferredLocale = [MEMORY[0x277CBEAF8] preferredLocale];
   countryCode = [preferredLocale countryCode];
   v8 = countryCode;
@@ -79,23 +79,23 @@
     v9 = @"Not Specified";
   }
 
-  v38[1] = v9;
-  v37[2] = @"perAppLanguageUsageCount";
+  v36[1] = v9;
+  v35[2] = @"perAppLanguageUsageCount";
   v10 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v4, "count")}];
-  v29 = v10;
-  v11 = v36;
-  if (!v36)
+  v27 = v10;
+  v11 = v34;
+  if (!v34)
   {
     v11 = @"Not Specified";
   }
 
-  v38[2] = v10;
-  v38[3] = v11;
-  v37[3] = @"preferredLanguage1";
-  v37[4] = @"preferredLanguage2";
-  if (v33)
+  v36[2] = v10;
+  v36[3] = v11;
+  v35[3] = @"preferredLanguage1";
+  v35[4] = @"preferredLanguage2";
+  if (v31)
   {
-    v12 = v33;
+    v12 = v31;
   }
 
   else
@@ -114,13 +114,13 @@
     v14 = @"Not Specified";
   }
 
-  v38[4] = v12;
-  v38[5] = v14;
-  v37[5] = @"preferredLanguage3";
-  v37[6] = @"hasInflectionSet";
+  v36[4] = v12;
+  v36[5] = v14;
+  v35[5] = @"preferredLanguage3";
+  v35[6] = @"hasInflectionSet";
   v15 = [MEMORY[0x277CCABB0] numberWithBool:v6];
-  v38[6] = v15;
-  v37[7] = 0x2841A0BD8;
+  v36[6] = v15;
+  v35[7] = 0x2841A0BD8;
   _preferredTemperatureUnit = [MEMORY[0x277CBEAF8] _preferredTemperatureUnit];
   v17 = _preferredTemperatureUnit;
   if (_preferredTemperatureUnit)
@@ -133,78 +133,76 @@
     v18 = @"Not Specified";
   }
 
-  v38[7] = v18;
-  v37[8] = 0x28419F478;
-  v19 = *MEMORY[0x277CCA208];
-  v20 = [standardUserDefaults objectForKey:? inDomain:?];
-  v21 = v20;
-  if (v20)
+  v36[7] = v18;
+  v35[8] = 0x28419F478;
+  v19 = [standardUserDefaults objectForKey:? inDomain:?];
+  v20 = v19;
+  if (v19)
   {
-    v22 = v20;
+    v21 = v19;
   }
 
   else
   {
-    v22 = @"Not Specified";
+    v21 = @"Not Specified";
   }
 
-  v38[8] = v22;
-  v37[9] = 0x28419F498;
-  v23 = [standardUserDefaults objectForKey:? inDomain:?];
-  v24 = v23;
-  if (v23)
+  v36[8] = v21;
+  v35[9] = 0x28419F498;
+  v22 = [standardUserDefaults objectForKey:? inDomain:?];
+  v23 = v22;
+  if (v22)
   {
-    v25 = v23;
+    v24 = v22;
   }
 
   else
   {
-    v25 = @"Not Specified";
+    v24 = @"Not Specified";
   }
 
-  v38[9] = v25;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:10];
-  v27 = [v26 mutableCopy];
+  v36[9] = v24;
+  v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:v35 count:10];
+  v26 = [v25 mutableCopy];
 
   AnalyticsSendEvent();
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 + (void)reportPerAppLanguageStatistics
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v2 = +[IntlUtility perAppLanguageSelectionBundleIdentifiers];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v3 = [v2 countByEnumeratingWithState:&v17 objects:v23 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v22 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v18;
+    v5 = *v17;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v18 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         v8 = [IntlUtility preferredLanguageForBundleID:v7];
         v9 = v8;
         if (v8)
         {
-          v21[0] = @"bundleIdentifier";
-          v21[1] = @"languageIdentifier";
-          v22[0] = v7;
-          v22[1] = v8;
-          v21[2] = @"deviceLanguage";
+          v20[0] = @"bundleIdentifier";
+          v20[1] = @"languageIdentifier";
+          v21[0] = v7;
+          v21[1] = v8;
+          v20[2] = @"deviceLanguage";
           _deviceLanguage = [MEMORY[0x277CBEAF8] _deviceLanguage];
-          v22[2] = _deviceLanguage;
-          v21[3] = @"deviceRegion";
+          v21[2] = _deviceLanguage;
+          v20[3] = @"deviceRegion";
           preferredLocale = [MEMORY[0x277CBEAF8] preferredLocale];
           countryCode = [preferredLocale countryCode];
           v13 = countryCode;
@@ -214,19 +212,17 @@
             v14 = countryCode;
           }
 
-          v22[3] = v14;
-          v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:4];
+          v21[3] = v14;
+          v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:4];
           AnalyticsSendEvent();
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v17 objects:v23 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v16 objects:v22 count:16];
     }
 
     while (v4);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 @end

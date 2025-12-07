@@ -20,7 +20,7 @@
 
   *(&self->super.isa + v3) = delegate;
   v7.receiver = self;
-  v7.super_class = type metadata accessor for SceneDelegate();
+  v7.super_class = type metadata accessor for SceneDelegate(0);
   return [(SceneDelegate *)&v7 init];
 }
 

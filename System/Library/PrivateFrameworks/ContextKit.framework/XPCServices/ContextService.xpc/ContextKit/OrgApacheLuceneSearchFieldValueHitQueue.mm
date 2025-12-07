@@ -14,7 +14,7 @@
     goto LABEL_10;
   }
 
-  v6 = [IOSObjectArray arrayWithLength:comparators->super.size_ type:OrgApacheLuceneSearchLeafFieldComparator_class_()];
+  v6 = [IOSObjectArray arrayWithLength:comparators->super.size_ type:OrgApacheLuceneSearchLeafFieldComparator_class_(self, a2)];
   if (v6->super.size_ >= 1)
   {
     v7 = 0;
@@ -56,7 +56,7 @@ LABEL_10:
   }
 
   size = comparators->super.size_;
-  v7 = [IOSObjectArray arrayWithLength:size type:NSObject_class_()];
+  v7 = [IOSObjectArray arrayWithLength:size type:NSObject_class_(self, a2)];
   if (size >= 1)
   {
     v8 = 0;

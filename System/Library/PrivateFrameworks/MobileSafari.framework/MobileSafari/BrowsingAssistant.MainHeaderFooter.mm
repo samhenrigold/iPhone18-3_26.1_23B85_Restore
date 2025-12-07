@@ -47,10 +47,11 @@
 
   v7 = (self + OBJC_IVAR____TtCC12MobileSafari17BrowsingAssistant16MainHeaderFooter_leadingButtonActionHandler);
   v8 = *(self + OBJC_IVAR____TtCC12MobileSafari17BrowsingAssistant16MainHeaderFooter_leadingButtonActionHandler);
+  v9 = *(self + OBJC_IVAR____TtCC12MobileSafari17BrowsingAssistant16MainHeaderFooter_leadingButtonActionHandler + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_18B7E0A10(v8);
+  sub_18B7E0A10(v8, v9);
 }
 
 - (void)setStepper:(id)stepper

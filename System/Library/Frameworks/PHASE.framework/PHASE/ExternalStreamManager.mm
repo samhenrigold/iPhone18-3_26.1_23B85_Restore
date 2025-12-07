@@ -786,7 +786,7 @@ LABEL_17:
                 if (v22)
                 {
                   isMuted = [v20 isMuted];
-                  [v20 fader];
+                  objc_msgSend_fader(v20);
                   v24 = *lock;
                   os_unfair_lock_lock(*lock);
                   v25 = *&lock[8];
@@ -919,7 +919,7 @@ LABEL_17:
   v10 = **(self + 7);
   v19 = 0;
   v18 = 1;
-  v11 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v10, 32, &v19, &v18);
+  v11 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v10, 0x20uLL, &v19, &v18);
   if (!v11)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -1249,7 +1249,7 @@ LABEL_28:
   v13 = **(self + 7);
   v21 = 0;
   v20 = 1;
-  v14 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v13, 40, &v21, &v20);
+  v14 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v13, 0x28uLL, &v21, &v20);
   if (!v14)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -1358,7 +1358,7 @@ LABEL_28:
               if (v11 && [v11 isFading])
               {
                 LODWORD(v12) = [v11 isMuted];
-                [v11 fader];
+                objc_msgSend_fader(v11);
                 os_unfair_lock_lock(lock);
                 if (v20)
                 {
@@ -2602,8 +2602,9 @@ LABEL_21:
 
 - (shared_ptr<Phase::Controller::StreamRenderer>)createRendererForStream:(id)stream outputChannelLayout:(unsigned int)layout normalize:(BOOL)normalize targetLKFS:(double)s error:(id *)error
 {
-  v33 = v7;
-  v48 = *MEMORY[0x277D85DE8];
+  normalizeCopy = normalize;
+  v36 = v7;
+  v58 = *MEMORY[0x277D85DE8];
   streamCopy = stream;
   if ((atomic_load_explicit(&_MergedGlobals_14, memory_order_acquire) & 1) == 0 && __cxa_guard_acquire(&_MergedGlobals_14))
   {
@@ -2622,25 +2623,25 @@ LABEL_21:
     *error = 0;
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
-  v36 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   allKeys = [*(self + 1) allKeys];
-  v11 = [allKeys countByEnumeratingWithState:&v35 objects:v47 count:16];
+  v11 = [allKeys countByEnumeratingWithState:&v45 objects:v57 count:16];
   if (v11)
   {
-    v12 = *v36;
+    v12 = *v46;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v36 != v12)
+        if (*v46 != v12)
         {
           objc_enumerationMutation(allKeys);
         }
 
-        v14 = *(*(&v35 + 1) + 8 * i);
+        v14 = *(*(&v45 + 1) + 8 * i);
         v15 = [*(self + 1) objectForKey:v14];
         outputStreams = [v15 outputStreams];
         v17 = [outputStreams objectForKey:streamCopy];
@@ -2649,63 +2650,86 @@ LABEL_21:
         {
           v14;
 
-          v32 = [objc_alloc(MEMORY[0x277CB8368]) initWithLayoutTag:layout];
+          v34 = [objc_alloc(MEMORY[0x277CB8368]) initWithLayoutTag:layout];
           v24 = objc_alloc(MEMORY[0x277CB83A8]);
           [*(self + 4) sampleRate];
-          Phase::Logger::GetInstance([v24 initStandardFormatWithSampleRate:v32 channelLayout:?]);
-          definition = [v17 definition];
-          v26 = [definition streamType] == 1;
-
-          if (v26)
+          v25 = [v24 initStandardFormatWithSampleRate:v34 channelLayout:?];
+          if (normalizeCopy)
           {
-            Phase::GetPreferredTuningDirectory(v27);
-            if (!objc_claimAutoreleasedReturnValue())
+            v26 = 0;
+          }
+
+          else
+          {
+            v26 = 2;
+          }
+
+          v43 = v26;
+          v44 = v25;
+          if (*(Phase::Logger::GetInstance(v25) + 1620))
+          {
+            v26 |= 0x80uLL;
+            v43 = v26;
+          }
+
+          definition = [v17 definition];
+          v28 = [definition streamType] == 1;
+
+          if (v28)
+          {
+            Phase::GetPreferredTuningDirectory(v29);
+            if (objc_claimAutoreleasedReturnValue())
             {
-              v28 = **(Phase::Logger::GetInstance(0) + 928);
-              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+              v43 = v26 | 4;
+            }
+
+            else
+            {
+              v30 = **(Phase::Logger::GetInstance(0) + 928);
+              if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
               {
                 *buf = 136315394;
-                v40 = "ExternalStreamManager.mm";
-                v41 = 1024;
-                v42 = 1339;
-                _os_log_impl(&dword_23A302000, v28, OS_LOG_TYPE_ERROR, "%25s:%-5d cannot find directory for voice tunings", buf, 0x12u);
+                v50 = "ExternalStreamManager.mm";
+                v51 = 1024;
+                v52 = 1339;
+                _os_log_impl(&dword_23A302000, v30, OS_LOG_TYPE_ERROR, "%25s:%-5d cannot find directory for voice tunings", buf, 0x12u);
               }
             }
           }
 
+          LOBYTE(v41) = 0;
+          v42 = 0;
           [v17 definition];
-          [objc_claimAutoreleasedReturnValue() format];
-          objc_claimAutoreleasedReturnValue();
+          format = [objc_claimAutoreleasedReturnValue() format];
           [v17 definition];
           *buf = [objc_claimAutoreleasedReturnValue() maximumFramesToRender];
-          [v17 renderBlock];
-          objc_claimAutoreleasedReturnValue();
-          std::allocate_shared[abi:ne200100]<Phase::Controller::StreamRenderer,std::allocator<Phase::Controller::StreamRenderer>,AVAudioFormat * {__strong},AVAudioFormat * {__strong}&,unsigned int,unsigned int &,std::bitset<8ul> &,int({block_pointer} {__strong})(BOOL *,AudioTimeStamp const*,unsigned int,AudioBufferList *),std::optional<Phase::Controller::StreamRenderer::AudioIssueDetectorInformation> &,0>();
+          renderBlock = [v17 renderBlock];
+          std::allocate_shared[abi:ne200100]<Phase::Controller::StreamRenderer,std::allocator<Phase::Controller::StreamRenderer>,AVAudioFormat * {__strong},AVAudioFormat * {__strong}&,unsigned int,unsigned int &,std::bitset<8ul> &,int({block_pointer} {__strong})(BOOL *,AudioTimeStamp const*,unsigned int,AudioBufferList *),std::optional<Phase::Controller::StreamRenderer::AudioIssueDetectorInformation> &,0>(&v40, &format, &v44, buf, self + 10, &v43, &renderBlock, &v41);
         }
       }
 
-      v11 = [allKeys countByEnumeratingWithState:&v35 objects:v47 count:16];
+      v11 = [allKeys countByEnumeratingWithState:&v45 objects:v57 count:16];
     }
 
     while (v11);
   }
 
   v18 = *MEMORY[0x277CCA450];
-  v45 = *MEMORY[0x277CCA450];
+  v55 = *MEMORY[0x277CCA450];
   streamCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"stream not found for UUID %@", streamCopy];
-  v46 = streamCopy;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
+  v56 = streamCopy;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
 
   v22 = **(Phase::Logger::GetInstance(v21) + 928);
   if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
     v23 = [v20 objectForKeyedSubscript:v18];
     *buf = 136315650;
-    v40 = "ExternalStreamManager.mm";
-    v41 = 1024;
-    v42 = 1297;
-    v43 = 2112;
-    v44 = v23;
+    v50 = "ExternalStreamManager.mm";
+    v51 = 1024;
+    v52 = 1297;
+    v53 = 2112;
+    v54 = v23;
     _os_log_impl(&dword_23A302000, v22, OS_LOG_TYPE_ERROR, "%25s:%-5d %@", buf, 0x1Cu);
   }
 
@@ -2714,11 +2738,11 @@ LABEL_21:
     *error = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.coreaudio.phase" code:1346924147 userInfo:v20];
   }
 
-  *v33 = 0;
-  v33[1] = 0;
+  *v36 = 0;
+  v36[1] = 0;
 
-  result.var1 = v30;
-  result.var0 = v29;
+  result.var1 = v32;
+  result.var0 = v31;
   return result;
 }
 
@@ -3189,7 +3213,7 @@ LABEL_37:
   v7 = **(selfCopy + 7);
   v14 = 0;
   v13 = 1;
-  v8 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v7, 24, &v14, &v13);
+  v8 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v7, 0x18uLL, &v14, &v13);
   if (!v8)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -3242,7 +3266,7 @@ LABEL_37:
   v7 = **(selfCopy + 7);
   v14 = 0;
   v13 = 1;
-  v8 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v7, 24, &v14, &v13);
+  v8 = Phase::LockFreeQueueMPSC::GetWriteBuffer(v7, 0x18uLL, &v14, &v13);
   if (!v8)
   {
     Instance = Phase::Logger::GetInstance(0);
@@ -3340,7 +3364,7 @@ LABEL_37:
               {
                 if (v11)
                 {
-                  [v11 renderer];
+                  objc_msgSend_renderer(v11);
                   if (v32)
                   {
                     v14 = std::__shared_weak_count::lock(v32);
@@ -3428,11 +3452,11 @@ LABEL_37:
 {
   var0 = a3.var0;
   v29 = *MEMORY[0x277D85DE8];
-  v5 = *(self + 18);
-  if (v5)
+  Preset = *(self + 18);
+  if (Preset)
   {
     var1 = a3.var1;
-    v5 = [v5 getPreset:a3.var1];
+    Preset = objc_msgSend_getPreset_(Preset, a2, a3.var1);
     if (inData)
     {
       v7 = _os_feature_enabled_impl();
@@ -3482,7 +3506,7 @@ LABEL_37:
         _os_log_impl(&dword_23A302000, v12, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Volume EQ: load vEQ preset with bandwidth type %ld result: %d", buf, 0x22u);
       }
 
-      v5 = inData;
+      Preset = inData;
       if (inData)
       {
         if (!v11)
@@ -3499,7 +3523,7 @@ LABEL_37:
   }
 
   v13 = MEMORY[0x277CBEBC0];
-  v14 = Phase::GetPreferredTuningDirectory(v5);
+  v14 = Phase::GetPreferredTuningDirectory(Preset);
   v20[0] = v14;
   v20[1] = @"gen-far-end-voice.austrip";
   v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v20 count:2];
@@ -3519,19 +3543,19 @@ LABEL_37:
     }
   }
 
-  v5 = inData;
+  Preset = inData;
   if (inData)
   {
 LABEL_21:
-    CFRelease(v5);
+    CFRelease(Preset);
   }
 }
 
 - (id).cxx_construct
 {
   v2 = (self + 48);
-  Phase::Logger::GetInstance(self);
-  Phase::Commandable<128,Phase::LockFreeQueueMPSC>::Commandable(v2);
+  Instance = Phase::Logger::GetInstance(self);
+  Phase::Commandable<128,Phase::LockFreeQueueMPSC>::Commandable(v2, *(Instance + 928), 1, 0x20000);
 }
 
 - (void)setExternalInputStreamSessionMute:(uint64_t)mute isMuted:fadeTimeInSeconds:
@@ -3627,7 +3651,7 @@ LABEL_21:
               {
                 if (v13)
                 {
-                  [v13 renderer];
+                  objc_msgSend_renderer(v13);
                   if (v23)
                   {
                     v16 = std::__shared_weak_count::lock(v23);
@@ -3754,7 +3778,7 @@ LABEL_28:
 
                 if (v13)
                 {
-                  [v13 renderer];
+                  objc_msgSend_renderer(v13);
                   if (v25)
                   {
                     v18 = std::__shared_weak_count::lock(v25);

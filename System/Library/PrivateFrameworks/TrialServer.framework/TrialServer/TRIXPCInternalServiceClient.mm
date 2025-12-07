@@ -3,6 +3,7 @@
 - (BOOL)deregisterNamespaceWithNamespaceName:(id)name withTeamId:(id)id error:(id *)error;
 - (BOOL)immediatelySchedulePostUpgradeActivityWithError:(id *)error;
 - (BOOL)performSyncXPCWithError:(id *)error block:(id)block;
+- (BOOL)registerNamespaceWithNamespaceName:(id)name compatibilityVersion:(unsigned int)version defaultsFileURL:(id)l withTeamId:(id)id appContainerId:(id)containerId appContainerType:(int64_t)type cloudKitContainerId:(int)kitContainerId error:(id *)self0;
 - (BOOL)resumeTaskQueueWithError:(id *)error;
 - (BOOL)setFailureInjectionDelegate:(id)delegate error:(id *)error;
 - (BOOL)setLastFetchDate:(id)date forContainer:(int)container teamId:(id)id error:(id *)error;
@@ -265,7 +266,7 @@ uint64_t __102__TRIXPCInternalServiceClient_experimentNotificationsWithExperimen
 
 void __102__TRIXPCInternalServiceClient_experimentNotificationsWithExperimentId_cloudKitContainer_teamId_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   v6 = a2;
   v7 = a3;
   objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
@@ -278,57 +279,54 @@ void __102__TRIXPCInternalServiceClient_experimentNotificationsWithExperimentId_
     v10 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v12 = [v6 lastObject];
-      v13 = [v12 experiment];
-      v14 = [v6 lastObject];
-      v15 = [v14 encodedExperimentDefinition];
-      v16 = 138412546;
-      v17 = v13;
-      v18 = 2112;
-      v19 = v15;
-      _os_log_debug_impl(&dword_26F567000, v10, OS_LOG_TYPE_DEBUG, "got artifact from server with experiment %@ -- encoded: %@", &v16, 0x16u);
+      v11 = [v6 lastObject];
+      v12 = [v11 experiment];
+      v13 = [v6 lastObject];
+      v14 = [v13 encodedExperimentDefinition];
+      v15 = 138412546;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v14;
+      _os_log_debug_impl(&dword_26F567000, v10, OS_LOG_TYPE_DEBUG, "got artifact from server with experiment %@ -- encoded: %@", &v15, 0x16u);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)treatmentValidForExperimentWithID:(id)d treatmentID:(id)iD
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x2020000000;
-  v23 = 0;
   v19 = 0;
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = __77__TRIXPCInternalServiceClient_treatmentValidForExperimentWithID_treatmentID___block_invoke;
-  v15[3] = &unk_279DE0A98;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
+  v18 = 0;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __77__TRIXPCInternalServiceClient_treatmentValidForExperimentWithID_treatmentID___block_invoke;
+  v14[3] = &unk_279DE0A98;
   v8 = dCopy;
-  v16 = v8;
+  v15 = v8;
   v9 = iDCopy;
-  v17 = v9;
-  v18 = &v20;
-  [(TRIXPCInternalServiceClient *)self performSyncXPCWithError:&v19 block:v15];
-  v10 = v19;
+  v16 = v9;
+  v17 = &v19;
+  [(TRIXPCInternalServiceClient *)self performSyncXPCWithError:&v18 block:v14];
+  v10 = v18;
   if (v10)
   {
     v11 = TRILogCategory_ClientFramework();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v25 = v10;
+      v24 = v10;
       _os_log_impl(&dword_26F567000, v11, OS_LOG_TYPE_INFO, "Synchronous XPC message failed with error %@", buf, 0xCu);
     }
   }
 
-  v12 = *(v21 + 24);
+  v12 = *(v20 + 24);
 
-  _Block_object_dispose(&v20, 8);
-  v13 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v19, 8);
   return v12 & 1;
 }
 
@@ -346,41 +344,41 @@ uint64_t __77__TRIXPCInternalServiceClient_treatmentValidForExperimentWithID_tre
 
 - (id)rolloutNotificationWithLatestDeploymentForRolloutId:(id)id cloudKitContainer:(int)container teamId:(id)teamId error:(id *)error
 {
-  v39[1] = *MEMORY[0x277D85DE8];
+  v38[1] = *MEMORY[0x277D85DE8];
   idCopy = id;
   teamIdCopy = teamId;
-  v32 = 0;
-  v33 = &v32;
-  v34 = 0x3032000000;
-  v35 = __Block_byref_object_copy__10;
-  v36 = __Block_byref_object_dispose__10;
-  v37 = 0;
-  v26 = 0;
-  v27 = &v26;
-  v28 = 0x3032000000;
-  v29 = __Block_byref_object_copy__10;
-  v30 = __Block_byref_object_dispose__10;
   v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__10;
+  v35 = __Block_byref_object_dispose__10;
+  v36 = 0;
+  v25 = 0;
+  v26 = &v25;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__10;
+  v29 = __Block_byref_object_dispose__10;
+  v30 = 0;
   if (!self->_trialdSystemOnly)
   {
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __114__TRIXPCInternalServiceClient_rolloutNotificationWithLatestDeploymentForRolloutId_cloudKitContainer_teamId_error___block_invoke;
-    v19[3] = &unk_279DE0A48;
-    v20 = idCopy;
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __114__TRIXPCInternalServiceClient_rolloutNotificationWithLatestDeploymentForRolloutId_cloudKitContainer_teamId_error___block_invoke;
+    v18[3] = &unk_279DE0A48;
+    v19 = idCopy;
     containerCopy = container;
-    v21 = teamIdCopy;
-    v22 = &v32;
-    v23 = &v26;
-    if (![(TRIXPCInternalServiceClient *)self performSyncXPCWithError:error block:v19])
+    v20 = teamIdCopy;
+    v21 = &v31;
+    v22 = &v25;
+    if (![(TRIXPCInternalServiceClient *)self performSyncXPCWithError:error block:v18])
     {
       goto LABEL_11;
     }
 
-    v16 = v27[5];
+    v16 = v26[5];
     if (!v16)
     {
-      v15 = v33[5];
+      v15 = v32[5];
       goto LABEL_13;
     }
 
@@ -398,16 +396,16 @@ LABEL_11:
 
 LABEL_13:
 
-    v14 = v20;
+    v14 = v19;
     goto LABEL_14;
   }
 
   if (error)
   {
     v12 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v38 = *MEMORY[0x277CCA450];
-    v39[0] = @"Received call for rollout notifications from triald_system on macOS, which is unsupported.";
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v39 forKeys:&v38 count:1];
+    v37 = *MEMORY[0x277CCA450];
+    v38[0] = @"Received call for rollout notifications from triald_system on macOS, which is unsupported.";
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:&v37 count:1];
     *error = [v12 initWithDomain:@"TRIGeneralErrorDomain" code:17 userInfo:v13];
   }
 
@@ -421,10 +419,8 @@ LABEL_13:
   v15 = 0;
 LABEL_14:
 
-  _Block_object_dispose(&v26, 8);
-  _Block_object_dispose(&v32, 8);
-
-  v17 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v25, 8);
+  _Block_object_dispose(&v31, 8);
 
   return v15;
 }
@@ -444,17 +440,17 @@ uint64_t __114__TRIXPCInternalServiceClient_rolloutNotificationWithLatestDeploym
 
 void __114__TRIXPCInternalServiceClient_rolloutNotificationWithLatestDeploymentForRolloutId_cloudKitContainer_teamId_error___block_invoke_2(uint64_t a1, void *a2, void *a3)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = TRILogCategory_ClientFramework();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v14 = [v5 deployment];
-    v15 = [v14 shortDesc];
-    v16 = 138543362;
-    v17 = v15;
-    _os_log_debug_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEBUG, "Received rollout artifact from server: %{public}@", &v16, 0xCu);
+    v13 = [v5 deployment];
+    v14 = [v13 shortDesc];
+    v15 = 138543362;
+    v16 = v14;
+    _os_log_debug_impl(&dword_26F567000, v7, OS_LOG_TYPE_DEBUG, "Received rollout artifact from server: %{public}@", &v15, 0xCu);
   }
 
   v8 = *(*(a1 + 32) + 8);
@@ -465,13 +461,11 @@ void __114__TRIXPCInternalServiceClient_rolloutNotificationWithLatestDeploymentF
   v11 = *(*(a1 + 40) + 8);
   v12 = *(v11 + 40);
   *(v11 + 40) = v6;
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)submitTask:(id)task options:(id)options error:(id *)error
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   taskCopy = task;
   optionsCopy = options;
   if (!taskCopy)
@@ -486,33 +480,33 @@ void __114__TRIXPCInternalServiceClient_rolloutNotificationWithLatestDeploymentF
 
   if (v13)
   {
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x2020000000;
-    v39 = 0;
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x3032000000;
-    v33 = __Block_byref_object_copy__10;
-    v34 = __Block_byref_object_dispose__10;
     v35 = 0;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __56__TRIXPCInternalServiceClient_submitTask_options_error___block_invoke;
-    v25[3] = &unk_279DE0B10;
-    v26 = taskCopy;
-    v27 = optionsCopy;
-    v28 = &v36;
-    v29 = &v30;
-    if (![(TRIXPCInternalServiceClient *)self performSyncXPCWithError:error block:v25])
+    v36 = &v35;
+    v37 = 0x2020000000;
+    v38 = 0;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x3032000000;
+    v32 = __Block_byref_object_copy__10;
+    v33 = __Block_byref_object_dispose__10;
+    v34 = 0;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __56__TRIXPCInternalServiceClient_submitTask_options_error___block_invoke;
+    v24[3] = &unk_279DE0B10;
+    v25 = taskCopy;
+    v26 = optionsCopy;
+    v27 = &v35;
+    v28 = &v29;
+    if (![(TRIXPCInternalServiceClient *)self performSyncXPCWithError:error block:v24])
     {
       goto LABEL_11;
     }
 
-    v14 = v31[5];
+    v14 = v30[5];
     if (!v14)
     {
-      v15 = *(v37 + 24);
+      v15 = *(v36 + 24);
       goto LABEL_13;
     }
 
@@ -530,28 +524,27 @@ LABEL_11:
 
 LABEL_13:
 
-    _Block_object_dispose(&v30, 8);
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v35, 8);
     goto LABEL_14;
   }
 
   if (error)
   {
     v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v40 = *MEMORY[0x277CCA450];
+    v39 = *MEMORY[0x277CCA450];
     v17 = objc_alloc(MEMORY[0x277CCACA8]);
     v18 = objc_opt_class();
     v19 = NSStringFromClass(v18);
     v20 = [v17 initWithFormat:@"Task class %@ is not allowlisted for remote submission.", v19];
-    v41[0] = v20;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+    v40[0] = v20;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
     *error = [v16 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v21];
   }
 
   v15 = 0;
 LABEL_14:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
@@ -569,7 +562,7 @@ uint64_t __56__TRIXPCInternalServiceClient_submitTask_options_error___block_invo
 
 - (BOOL)addWithoutRunningTask:(id)task options:(id)options error:(id *)error
 {
-  v41[1] = *MEMORY[0x277D85DE8];
+  v40[1] = *MEMORY[0x277D85DE8];
   taskCopy = task;
   optionsCopy = options;
   if (!taskCopy)
@@ -584,33 +577,33 @@ uint64_t __56__TRIXPCInternalServiceClient_submitTask_options_error___block_invo
 
   if (v13)
   {
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x2020000000;
-    v39 = 0;
-    v30 = 0;
-    v31 = &v30;
-    v32 = 0x3032000000;
-    v33 = __Block_byref_object_copy__10;
-    v34 = __Block_byref_object_dispose__10;
     v35 = 0;
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __67__TRIXPCInternalServiceClient_addWithoutRunningTask_options_error___block_invoke;
-    v25[3] = &unk_279DE0B10;
-    v26 = taskCopy;
-    v27 = optionsCopy;
-    v28 = &v36;
-    v29 = &v30;
-    if (![(TRIXPCInternalServiceClient *)self performSyncXPCWithError:error block:v25])
+    v36 = &v35;
+    v37 = 0x2020000000;
+    v38 = 0;
+    v29 = 0;
+    v30 = &v29;
+    v31 = 0x3032000000;
+    v32 = __Block_byref_object_copy__10;
+    v33 = __Block_byref_object_dispose__10;
+    v34 = 0;
+    v24[0] = MEMORY[0x277D85DD0];
+    v24[1] = 3221225472;
+    v24[2] = __67__TRIXPCInternalServiceClient_addWithoutRunningTask_options_error___block_invoke;
+    v24[3] = &unk_279DE0B10;
+    v25 = taskCopy;
+    v26 = optionsCopy;
+    v27 = &v35;
+    v28 = &v29;
+    if (![(TRIXPCInternalServiceClient *)self performSyncXPCWithError:error block:v24])
     {
       goto LABEL_11;
     }
 
-    v14 = v31[5];
+    v14 = v30[5];
     if (!v14)
     {
-      v15 = *(v37 + 24);
+      v15 = *(v36 + 24);
       goto LABEL_13;
     }
 
@@ -628,28 +621,27 @@ LABEL_11:
 
 LABEL_13:
 
-    _Block_object_dispose(&v30, 8);
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v29, 8);
+    _Block_object_dispose(&v35, 8);
     goto LABEL_14;
   }
 
   if (error)
   {
     v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v40 = *MEMORY[0x277CCA450];
+    v39 = *MEMORY[0x277CCA450];
     v17 = objc_alloc(MEMORY[0x277CCACA8]);
     v18 = objc_opt_class();
     v19 = NSStringFromClass(v18);
     v20 = [v17 initWithFormat:@"Task class %@ is not allowlisted for remote submission.", v19];
-    v41[0] = v20;
-    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v41 forKeys:&v40 count:1];
+    v40[0] = v20;
+    v21 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v40 forKeys:&v39 count:1];
     *error = [v16 initWithDomain:@"TRIGeneralErrorDomain" code:2 userInfo:v21];
   }
 
   v15 = 0;
 LABEL_14:
 
-  v22 = *MEMORY[0x277D85DE8];
   return v15 & 1;
 }
 
@@ -879,6 +871,119 @@ uint64_t __74__TRIXPCInternalServiceClient_setLastFetchDate_forContainer_teamId_
   v9 = [(TRIXPCInternalServiceClient *)self performSyncXPCWithError:error block:v12];
 
   return v9;
+}
+
+- (BOOL)registerNamespaceWithNamespaceName:(id)name compatibilityVersion:(unsigned int)version defaultsFileURL:(id)l withTeamId:(id)id appContainerId:(id)containerId appContainerType:(int64_t)type cloudKitContainerId:(int)kitContainerId error:(id *)self0
+{
+  v14 = *&version;
+  nameCopy = name;
+  lCopy = l;
+  idCopy = id;
+  containerIdCopy = containerId;
+  if (nameCopy)
+  {
+    if (idCopy)
+    {
+      goto LABEL_3;
+    }
+
+LABEL_13:
+    currentHandler = [MEMORY[0x277CCA890] currentHandler];
+    [currentHandler handleFailureInMethod:a2 object:self file:@"TRIXPCInternalServiceClient.m" lineNumber:400 description:{@"Invalid parameter not satisfying: %@", @"teamId"}];
+
+    if (containerIdCopy)
+    {
+      goto LABEL_4;
+    }
+
+    goto LABEL_14;
+  }
+
+  currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler2 handleFailureInMethod:a2 object:self file:@"TRIXPCInternalServiceClient.m" lineNumber:399 description:{@"Invalid parameter not satisfying: %@", @"namespaceName"}];
+
+  if (!idCopy)
+  {
+    goto LABEL_13;
+  }
+
+LABEL_3:
+  if (containerIdCopy)
+  {
+    goto LABEL_4;
+  }
+
+LABEL_14:
+  currentHandler3 = [MEMORY[0x277CCA890] currentHandler];
+  [currentHandler3 handleFailureInMethod:a2 object:self file:@"TRIXPCInternalServiceClient.m" lineNumber:401 description:{@"Invalid parameter not satisfying: %@", @"appContainerId"}];
+
+LABEL_4:
+  v42 = 0;
+  v43 = &v42;
+  v44 = 0x3032000000;
+  v45 = __Block_byref_object_copy__10;
+  v46 = __Block_byref_object_dispose__10;
+  v47 = 0;
+  v41[0] = MEMORY[0x277D85DD0];
+  v41[1] = 3221225472;
+  v41[2] = __172__TRIXPCInternalServiceClient_registerNamespaceWithNamespaceName_compatibilityVersion_defaultsFileURL_withTeamId_appContainerId_appContainerType_cloudKitContainerId_error___block_invoke;
+  v41[3] = &unk_279DE09F8;
+  v41[4] = &v42;
+  v21 = MEMORY[0x2743948D0](v41);
+  v37 = 0;
+  v38 = &v37;
+  v39 = 0x2020000000;
+  v40 = 0;
+  v31 = 0;
+  v32 = &v31;
+  v33 = 0x3032000000;
+  v34 = __Block_byref_object_copy__10;
+  v35 = __Block_byref_object_dispose__10;
+  v36 = 0;
+  v22 = [(_PASXPCClientHelper *)self->_helper synchronousRemoteObjectProxyWithErrorHandler:v21];
+  v30[0] = MEMORY[0x277D85DD0];
+  v30[1] = 3221225472;
+  v30[2] = __172__TRIXPCInternalServiceClient_registerNamespaceWithNamespaceName_compatibilityVersion_defaultsFileURL_withTeamId_appContainerId_appContainerType_cloudKitContainerId_error___block_invoke_2;
+  v30[3] = &unk_279DE0AE8;
+  v30[4] = &v37;
+  v30[5] = &v31;
+  LODWORD(v29) = kitContainerId;
+  [v22 registerNamespaceWithNamespaceName:nameCopy compatibilityVersion:v14 defaultsFileURL:lCopy teamId:idCopy appContainerId:containerIdCopy appContainerType:type cloudKitContainerId:v29 completion:v30];
+  v23 = v43[5];
+  if (!v23)
+  {
+    v23 = v32[5];
+    if (!v23)
+    {
+      v24 = *(v38 + 24);
+      goto LABEL_11;
+    }
+
+    if (error)
+    {
+      goto LABEL_6;
+    }
+
+LABEL_9:
+    v24 = 0;
+    goto LABEL_11;
+  }
+
+  if (!error)
+  {
+    goto LABEL_9;
+  }
+
+LABEL_6:
+  v24 = 0;
+  *error = v23;
+LABEL_11:
+
+  _Block_object_dispose(&v31, 8);
+  _Block_object_dispose(&v37, 8);
+
+  _Block_object_dispose(&v42, 8);
+  return v24 & 1;
 }
 
 - (BOOL)deregisterNamespaceWithNamespaceName:(id)name withTeamId:(id)id error:(id *)error

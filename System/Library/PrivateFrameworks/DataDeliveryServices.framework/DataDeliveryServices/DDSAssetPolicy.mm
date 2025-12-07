@@ -41,9 +41,9 @@
 - (DDSAssetPolicy)initWithCoder:(id)coder
 {
   coderCopy = coder;
-  v35.receiver = self;
-  v35.super_class = DDSAssetPolicy;
-  v5 = [(DDSAssetPolicy *)&v35 init];
+  v36.receiver = self;
+  v36.super_class = DDSAssetPolicy;
+  v5 = [(DDSAssetPolicy *)&v36 init];
   v6 = v5;
   if (v5)
   {
@@ -78,28 +78,28 @@
     v25 = objc_opt_class();
     v26 = [v24 setWithObjects:{v25, objc_opt_class(), 0}];
     v27 = NSStringFromSelector(sel_notificationDownloadTriggers);
-    v34 = 0;
-    v28 = [coderCopy decodeTopLevelObjectOfClasses:v26 forKey:v27 error:&v34];
-    v29 = v34;
+    v35 = 0;
+    v28 = [coderCopy decodeTopLevelObjectOfClasses:v26 forKey:v27 error:&v35];
+    v29 = v35;
     notificationDownloadTriggers = v5->_notificationDownloadTriggers;
     v5->_notificationDownloadTriggers = v28;
 
     v6 = v5;
     if (v29)
     {
-      v31 = DefaultLog();
-      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+      v32 = DefaultLog(v31);
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
-        [(DDSAssetPolicy *)v5 initWithCoder:v29, v31];
+        [(DDSAssetPolicy *)v5 initWithCoder:v29, v32];
       }
 
       v6 = 0;
     }
   }
 
-  v32 = v6;
+  v33 = v6;
 
-  return v32;
+  return v33;
 }
 
 - (void)encodeWithCoder:(id)coder
@@ -134,39 +134,39 @@
 - (id)dumpDescription
 {
   v3 = objc_opt_new();
-  if (DDS_IS_INTERNAL_INSTALL())
+  if (DDS_IS_INTERNAL_INSTALL(v3, v4))
   {
-    v4 = MEMORY[0x1E696AEC0];
-    v5 = [(DDSAssetPolicy *)self stringForAssetDownloadFrequency:[(DDSAssetPolicy *)self preferredDownloadFrequency]];
-    v6 = [v4 stringWithFormat:@"Frequency: %@", v5];
+    v5 = MEMORY[0x1E696AEC0];
+    v6 = [(DDSAssetPolicy *)self stringForAssetDownloadFrequency:[(DDSAssetPolicy *)self preferredDownloadFrequency]];
+    v7 = [v5 stringWithFormat:@"Frequency: %@", v6];
 
-    v7 = MEMORY[0x1E696AEC0];
+    v8 = MEMORY[0x1E696AEC0];
     downloadOverCellular = [(DDSAssetPolicy *)self downloadOverCellular];
-    v9 = @"5G+Inexpensive";
+    v10 = @"5G+Inexpensive";
     if (downloadOverCellular)
     {
-      v9 = @"all";
+      v10 = @"all";
     }
 
-    v10 = [v7 stringWithFormat:@"Cellular: %@", v9];
-    v11 = MEMORY[0x1E696AEC0];
+    v11 = [v8 stringWithFormat:@"Cellular: %@", v10];
+    v12 = MEMORY[0x1E696AEC0];
     downloadWithoutPower = [(DDSAssetPolicy *)self downloadWithoutPower];
-    v13 = @"required";
+    v14 = @"required";
     if (downloadWithoutPower)
     {
-      v13 = @"not required";
+      v14 = @"not required";
     }
 
-    v14 = [v11 stringWithFormat:@"Power: %@", v13];
-    v15 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@, %@, %@", v6, v10, v14];
+    v15 = [v12 stringWithFormat:@"Power: %@", v14];
+    v16 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@, %@, %@", v7, v11, v15];
   }
 
   else
   {
-    v15 = v3;
+    v16 = v3;
   }
 
-  return v15;
+  return v16;
 }
 
 - (id)stringForAssetDownloadFrequency:(int64_t)frequency
@@ -272,13 +272,12 @@
 
 - (void)initWithCoder:(NSObject *)a3 .cold.1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v6 = 138543618;
-  v7 = objc_opt_class();
-  v8 = 2114;
-  v9 = a2;
-  _os_log_error_impl(&dword_1DF7C6000, a3, OS_LOG_TYPE_ERROR, "Error decoding %{public}@ (%{public}@)", &v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = 138543618;
+  v6 = objc_opt_class();
+  v7 = 2114;
+  v8 = a2;
+  _os_log_error_impl(&dword_1DF7C6000, a3, OS_LOG_TYPE_ERROR, "Error decoding %{public}@ (%{public}@)", &v5, 0x16u);
 }
 
 @end

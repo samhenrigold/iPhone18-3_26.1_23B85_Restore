@@ -32,7 +32,7 @@
 
 - (IMChipList)initWithChipArray:(id)array replied:(BOOL)replied
 {
-  sub_1A870CCE0(&unk_1EB3091D0);
+  sub_1A870CCE0(&unk_1EB3091D0, &qword_1A88EAC10);
   v5 = sub_1A88C85F8();
   return sub_1A87F6E8C(v5, replied);
 }

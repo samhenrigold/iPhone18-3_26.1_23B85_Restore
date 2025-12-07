@@ -7,19 +7,19 @@
 
 + (id)actionWithOptions:(unint64_t)options
 {
-  v4 = objc_alloc_init(MEMORY[0x1E698E700]);
-  v5 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:options];
-  [v4 setObject:v5 forSetting:1];
+  v3 = objc_alloc_init(MEMORY[0x1E698E700]);
+  v4 = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:?];
+  [v3 setObject:? forSetting:?];
 
-  v6 = [objc_alloc(objc_opt_class()) initWithInfo:v4 responder:0];
+  v5 = [objc_alloc(objc_opt_class()) initWithInfo:? responder:?];
 
-  return v6;
+  return v5;
 }
 
 - (unint64_t)options
 {
   info = [(BKSRestartAction *)self info];
-  v3 = [info objectForSetting:1];
+  v3 = [info objectForSetting:?];
   unsignedIntegerValue = [v3 unsignedIntegerValue];
 
   return unsignedIntegerValue;

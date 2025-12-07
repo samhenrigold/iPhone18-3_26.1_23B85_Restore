@@ -19,63 +19,57 @@
 
 + (id)entryEventPointDefinitions
 {
-  v8[2] = *MEMORY[0x277D85DE8];
-  v7[0] = @"Mode";
+  v7[2] = *MEMORY[0x277D85DE8];
+  v6[0] = @"Mode";
   v2 = +[PLEduAgent entryEventPointDefinitionMode];
-  v7[1] = @"SyncBubble";
-  v8[0] = v2;
+  v6[1] = @"SyncBubble";
+  v7[0] = v2;
   v3 = +[PLEduAgent entryEventPointDefinitionSyncBubble];
-  v8[1] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[1] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
 
   return v4;
 }
 
 + (id)entryEventPointDefinitionMode
 {
-  v15[2] = *MEMORY[0x277D85DE8];
-  v14[0] = *MEMORY[0x277D3F4E8];
+  v14[2] = *MEMORY[0x277D85DE8];
+  v13[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F550];
-  v12[0] = *MEMORY[0x277D3F568];
-  v12[1] = v2;
-  v13[0] = &unk_282C1C108;
-  v13[1] = MEMORY[0x277CBEC28];
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
-  v15[0] = v3;
-  v14[1] = *MEMORY[0x277D3F540];
-  v10 = @"EduMode";
+  v11[0] = *MEMORY[0x277D3F568];
+  v11[1] = v2;
+  v12[0] = &unk_282C1C108;
+  v12[1] = MEMORY[0x277CBEC28];
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v14[0] = v3;
+  v13[1] = *MEMORY[0x277D3F540];
+  v9 = @"EduMode";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v11 = commonTypeDict_BoolFormat;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
-  v15[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = commonTypeDict_BoolFormat;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
+  v14[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
 
   return v7;
 }
 
 + (id)entryEventPointDefinitionSyncBubble
 {
-  v14[2] = *MEMORY[0x277D85DE8];
-  v13[0] = *MEMORY[0x277D3F4E8];
-  v11 = *MEMORY[0x277D3F568];
-  v12 = &unk_282C1C118;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v12 forKeys:&v11 count:1];
-  v14[0] = v2;
-  v13[1] = *MEMORY[0x277D3F540];
-  v9 = @"status";
+  v13[2] = *MEMORY[0x277D85DE8];
+  v12[0] = *MEMORY[0x277D3F4E8];
+  v10 = *MEMORY[0x277D3F568];
+  v11 = &unk_282C1C118;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v11 forKeys:&v10 count:1];
+  v13[0] = v2;
+  v12[1] = *MEMORY[0x277D3F540];
+  v8 = @"status";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_BoolFormat = [mEMORY[0x277D3F198] commonTypeDict_BoolFormat];
-  v10 = commonTypeDict_BoolFormat;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v10 forKeys:&v9 count:1];
-  v14[1] = v5;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v9 = commonTypeDict_BoolFormat;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v9 forKeys:&v8 count:1];
+  v13[1] = v5;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
 
   return v6;
 }
@@ -113,21 +107,19 @@
 
 void __38__PLEduAgent_initOperatorDependancies__block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v6 = a5;
   v7 = PLLogEdu();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    v11 = 138412290;
-    v12 = v6;
-    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "SYNCBUBBLE STATUS payload=%@", &v11, 0xCu);
+    v10 = 138412290;
+    v11 = v6;
+    _os_log_debug_impl(&dword_21A4C6000, v7, OS_LOG_TYPE_DEBUG, "SYNCBUBBLE STATUS payload=%@", &v10, 0xCu);
   }
 
   v8 = [(PLOperator *)PLEduAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:@"SyncBubble"];
   v9 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v8 withRawData:v6];
   [*(a1 + 32) logEntry:v9];
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)logEventPointMode

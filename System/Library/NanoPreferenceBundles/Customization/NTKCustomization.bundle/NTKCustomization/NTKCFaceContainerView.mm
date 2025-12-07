@@ -105,7 +105,7 @@
   objc_storeStrong(&self->_faceView, view);
   if (self->_faceView)
   {
-    [(NTKCFaceContainerView *)self _transformForFaceView];
+    objc_msgSend__transformForFaceView(self);
     v10 = self->_faceView;
     v14 = v11;
     v15 = v12;
@@ -124,7 +124,7 @@
     v10 = v4;
     self->_faceSize = size;
     [(UIView *)self->_faceContainer setBounds:0.0, 0.0];
-    [(NTKCFaceContainerView *)self _transformForFaceView];
+    objc_msgSend__transformForFaceView(self);
     faceView = self->_faceView;
     v8[0] = v8[3];
     v8[1] = v8[4];

@@ -24,6 +24,7 @@
 - (void)keyboardActivityDidTransition:(id)transition;
 - (void)loggingProactiveEngagementMetric:(unint64_t)metric withLocale:(id)locale fieldType:(id)type;
 - (void)propogateMetrics:(id)metrics data:(id)data;
+- (void)provideFeedbackForString:(id)string type:(unsigned __int8)type style:(unsigned __int8)style;
 - (void)reset;
 - (void)suggestionAccepted:(id)accepted fieldType:(id)type;
 - (void)suggestionNotAccepted:(id)accepted;
@@ -111,11 +112,30 @@
   [inputContextPredictionManager propogateMetrics:metricsCopy data:dataCopy];
 }
 
+- (void)provideFeedbackForString:(id)string type:(unsigned __int8)type style:(unsigned __int8)style
+{
+  styleCopy = style;
+  typeCopy = type;
+  v14 = *MEMORY[0x277D85DE8];
+  stringCopy = string;
+  v9 = TIProactiveQuickTypeOSLogFacility();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  {
+    typeCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Sending feedback to Input Context, Type: %ud, ", "-[TIProactiveQuickTypeManager provideFeedbackForString:type:style:]", typeCopy];
+    *buf = 138412290;
+    v13 = typeCopy;
+    _os_log_debug_impl(&dword_22CA55000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+  }
+
+  inputContextPredictionManager = [(TIProactiveQuickTypeManager *)self inputContextPredictionManager];
+  [inputContextPredictionManager provideFeedbackForString:stringCopy type:typeCopy style:styleCopy];
+}
+
 - (unint64_t)matchProactiveCandidateToUserInput:(id)input userInput:(id)userInput
 {
   inputCopy = input;
   userInputCopy = userInput;
-  if ([inputCopy isEqualToString:userInputCopy])
+  if (objc_msgSend_isEqualToString_(inputCopy))
   {
     v7 = 1;
   }
@@ -146,7 +166,7 @@
 
 - (void)loggingProactiveEngagementMetric:(unint64_t)metric withLocale:(id)locale fieldType:(id)type
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   localeCopy = locale;
   typeCopy = type;
   if (TICanLogMessageAtLevel_onceToken != -1)
@@ -161,9 +181,9 @@
     case 3uLL:
       if (v11)
       {
-        v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Proactive suggestion %@ not selected by user and mildly matching user input!", "-[TIProactiveQuickTypeManager loggingProactiveEngagementMetric:withLocale:fieldType:]", self->_maxLengthProactiveCandidate];
+        v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Proactive suggestion %@ not selected by user and mildly matching user input!", "-[TIProactiveQuickTypeManager loggingProactiveEngagementMetric:withLocale:fieldType:]", self->_maxLengthProactiveCandidate];
         *buf = 138412290;
-        v20 = v16;
+        v19 = v15;
         _os_log_debug_impl(&dword_22CA55000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -172,9 +192,9 @@
     case 2uLL:
       if (v11)
       {
-        v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Proactive suggestion %@ not selected by user and moderately matching user input!", "-[TIProactiveQuickTypeManager loggingProactiveEngagementMetric:withLocale:fieldType:]", self->_maxLengthProactiveCandidate];
+        v14 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Proactive suggestion %@ not selected by user and moderately matching user input!", "-[TIProactiveQuickTypeManager loggingProactiveEngagementMetric:withLocale:fieldType:]", self->_maxLengthProactiveCandidate];
         *buf = 138412290;
-        v20 = v15;
+        v19 = v14;
         _os_log_debug_impl(&dword_22CA55000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -183,9 +203,9 @@
     case 1uLL:
       if (v11)
       {
-        v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Proactive suggestion %@ not selected by user and exactly matching user input!", "-[TIProactiveQuickTypeManager loggingProactiveEngagementMetric:withLocale:fieldType:]", self->_maxLengthProactiveCandidate];
+        v16 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Proactive suggestion %@ not selected by user and exactly matching user input!", "-[TIProactiveQuickTypeManager loggingProactiveEngagementMetric:withLocale:fieldType:]", self->_maxLengthProactiveCandidate];
         *buf = 138412290;
-        v20 = v17;
+        v19 = v16;
         _os_log_debug_impl(&dword_22CA55000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -194,9 +214,9 @@
     default:
       if (v11)
       {
-        v18 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Proactive suggestion %@ not selected by user and zero matching user input!", "-[TIProactiveQuickTypeManager loggingProactiveEngagementMetric:withLocale:fieldType:]", self->_maxLengthProactiveCandidate];
+        v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Proactive suggestion %@ not selected by user and zero matching user input!", "-[TIProactiveQuickTypeManager loggingProactiveEngagementMetric:withLocale:fieldType:]", self->_maxLengthProactiveCandidate];
         *buf = 138412290;
-        v20 = v18;
+        v19 = v17;
         _os_log_debug_impl(&dword_22CA55000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -206,22 +226,19 @@
 
   v13 = [(__CFString *)*v12 copy];
   TIStatisticLogProactiveDescription(localeCopy, self->_lastTriggerForSuggestion, v13, @"engagement", typeCopy);
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)keyboardActivityDidTransition:(id)transition
 {
   transitionCopy = transition;
-  queue = self->_queue;
-  v8[0] = MEMORY[0x277D85DD0];
-  v8[1] = 3221225472;
-  v8[2] = __61__TIProactiveQuickTypeManager_keyboardActivityDidTransition___block_invoke;
-  v8[3] = &unk_278733738;
-  v9 = transitionCopy;
+  v7[0] = MEMORY[0x277D85DD0];
+  v7[1] = 3221225472;
+  v7[2] = __61__TIProactiveQuickTypeManager_keyboardActivityDidTransition___block_invoke;
+  v7[3] = &unk_278733738;
+  v8 = transitionCopy;
   selfCopy = self;
-  v6 = transitionCopy;
-  v7 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, v8);
+  v5 = transitionCopy;
+  v6 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_UTILITY, 0, v7);
   TIDispatchAsync();
 }
 
@@ -265,56 +282,54 @@ void __61__TIProactiveQuickTypeManager_keyboardActivityDidTransition___block_inv
     aBlock[2] = __156__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsWithInput_withSecureCandidateRenderer_withRenderTraits_textContentType_async_completion___block_invoke;
     aBlock[3] = &unk_2787304F8;
     aBlock[4] = self;
-    v29 = rendererCopy;
-    v43 = rendererCopy;
-    v44 = traitsCopy;
+    v27 = rendererCopy;
+    v41 = rendererCopy;
+    v42 = traitsCopy;
     v22 = lastObject;
-    v45 = v22;
-    v46 = inputCopy;
-    v47 = typeCopy;
-    v48 = completionCopy;
+    v43 = v22;
+    v44 = inputCopy;
+    v45 = typeCopy;
+    v46 = completionCopy;
     v23 = _Block_copy(aBlock);
     if (asyncCopy)
     {
-      queue = self->_queue;
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __156__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsWithInput_withSecureCandidateRenderer_withRenderTraits_textContentType_async_completion___block_invoke_2;
       block[3] = &unk_278733820;
       block[4] = self;
-      v40 = v22;
-      v41 = v23;
-      v25 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, block);
+      v38 = v22;
+      v39 = v23;
+      v24 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, block);
       TIDispatchAsync();
 
-      v26 = v40;
+      v25 = v38;
     }
 
     else
     {
-      v33 = 0;
-      v34 = &v33;
-      v35 = 0x3032000000;
-      v36 = __Block_byref_object_copy__6482;
-      v37 = __Block_byref_object_dispose__6483;
-      v38 = 0;
-      v27 = self->_queue;
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __156__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsWithInput_withSecureCandidateRenderer_withRenderTraits_textContentType_async_completion___block_invoke_4;
-      v30[3] = &unk_2787337C0;
-      v32 = &v33;
-      v30[4] = self;
-      v31 = v22;
-      v28 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, v30);
+      v31 = 0;
+      v32 = &v31;
+      v33 = 0x3032000000;
+      v34 = __Block_byref_object_copy__6482;
+      v35 = __Block_byref_object_dispose__6483;
+      v36 = 0;
+      v28[0] = MEMORY[0x277D85DD0];
+      v28[1] = 3221225472;
+      v28[2] = __156__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsWithInput_withSecureCandidateRenderer_withRenderTraits_textContentType_async_completion___block_invoke_4;
+      v28[3] = &unk_2787337C0;
+      v30 = &v31;
+      v28[4] = self;
+      v29 = v22;
+      v26 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, v28);
       TIDispatchSync();
 
-      (*(v23 + 2))(v23, v34[5]);
-      _Block_object_dispose(&v33, 8);
-      v26 = v38;
+      (*(v23 + 2))(v23, v32[5]);
+      _Block_object_dispose(&v31, 8);
+      v25 = v36;
     }
 
-    rendererCopy = v29;
+    rendererCopy = v27;
   }
 
   else
@@ -422,31 +437,31 @@ void __156__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsWit
 
 - (void)suggestionNotAccepted:(id)accepted
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   acceptedCopy = accepted;
   v5 = acceptedCopy;
   if (!self->_maxLengthProactiveCandidate)
   {
-    v21 = 0u;
-    v22 = 0u;
-    v19 = 0u;
     v20 = 0u;
-    v6 = [acceptedCopy countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v21 = 0u;
+    v18 = 0u;
+    v19 = 0u;
+    v6 = [acceptedCopy countByEnumeratingWithState:&v18 objects:v22 count:16];
     if (v6)
     {
       v7 = v6;
-      v8 = *v20;
+      v8 = *v19;
       do
       {
         v9 = 0;
         do
         {
-          if (*v20 != v8)
+          if (*v19 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v19 + 1) + 8 * v9);
+          v10 = *(*(&v18 + 1) + 8 * v9);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
@@ -466,7 +481,7 @@ void __156__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsWit
         }
 
         while (v7 != v9);
-        v7 = [v5 countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
       }
 
       while (v7);
@@ -479,8 +494,6 @@ void __156__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsWit
       self->_maxLengthProactiveCandidate = v16;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)suggestionAccepted:(id)accepted fieldType:(id)type
@@ -492,8 +505,8 @@ void __156__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsWit
   if (lastSuggestionTime)
   {
     [(NSDate *)lastSuggestionTime timeIntervalSinceNow];
-    TIStatisticsLogProactiveTimeOnScreen(acceptedCopy, self->_lastTriggerForSuggestion, 1, typeCopy);
-    v9 = self->_lastSuggestionTime;
+    TIStatisticsLogProactiveTimeOnScreen(acceptedCopy, self->_lastTriggerForSuggestion, 1, typeCopy, -v9);
+    v10 = self->_lastSuggestionTime;
     self->_lastSuggestionTime = 0;
   }
 
@@ -504,17 +517,15 @@ void __156__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsWit
       dispatch_once(&TICanLogMessageAtLevel_onceToken, &__block_literal_global_24093);
     }
 
-    v10 = TIOSLogFacility();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+    v11 = TIOSLogFacility();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
       v12 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s ProactiveQuickType:TI: ERROR on proactive Time SHOULD HAVE HAD A LAST SUGGESTION TIME", "-[TIProactiveQuickTypeManager suggestionAccepted:fieldType:]"];
       *buf = 138412290;
       v14 = v12;
-      _os_log_debug_impl(&dword_22CA55000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+      _os_log_debug_impl(&dword_22CA55000, v11, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)userActionWithNoNewTriggers:(id)triggers fieldType:(id)type
@@ -525,16 +536,16 @@ void __156__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsWit
     typeCopy = type;
     triggersCopy = triggers;
     [(NSDate *)lastSuggestionTime timeIntervalSinceNow];
-    TIStatisticsLogProactiveTimeOnScreen(triggersCopy, self->_lastTriggerForSuggestion, 0, typeCopy);
+    TIStatisticsLogProactiveTimeOnScreen(triggersCopy, self->_lastTriggerForSuggestion, 0, typeCopy, -v9);
 
-    v9 = self->_lastSuggestionTime;
+    v10 = self->_lastSuggestionTime;
     self->_lastSuggestionTime = 0;
   }
 }
 
 - (void)generateAndRenderProactiveSuggestionsForInput:(id)input withKeyboardState:(id)state withAdditionalPredictions:(id)predictions withSecureCandidateRenderer:(id)renderer withRenderTraits:(id)traits withInput:(id)withInput withRecipient:(id)recipient withApplication:(id)self0 withLocale:(id)self1 nextInputWillInsertAutospace:(BOOL)self2 withIsResponseDenyListed:(BOOL)self3 withShouldDisableAutoCaps:(BOOL)self4 withAvailableApps:(id)self5 logBlock:(id)self6 async:(BOOL)self7 completion:(id)self8
 {
-  v160 = *MEMORY[0x277D85DE8];
+  v157 = *MEMORY[0x277D85DE8];
   inputCopy = input;
   stateCopy = state;
   predictionsCopy = predictions;
@@ -562,20 +573,20 @@ void __156__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsWit
   }
 
   v31 = stateCopy;
-  v97 = recipientCopy;
+  v94 = recipientCopy;
   if (TICanLogMessageAtLevel_logLevel >= 2)
   {
     v32 = v30;
     v33 = TIOSLogFacility();
     if (os_log_type_enabled(v33, OS_LOG_TYPE_DEBUG))
     {
-      v89 = blockCopy;
-      v90 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s ProactiveQuickType:TI: Found triggers, count = %lu", "-[TIProactiveQuickTypeManager generateAndRenderProactiveSuggestionsForInput:withKeyboardState:withAdditionalPredictions:withSecureCandidateRenderer:withRenderTraits:withInput:withRecipient:withApplication:withLocale:nextInputWillInsertAutospace:withIsResponseDenyListed:withShouldDisableAutoCaps:withAvailableApps:logBlock:async:completion:]", objc_msgSend(inputCopy, "count")];
+      v86 = blockCopy;
+      v87 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s ProactiveQuickType:TI: Found triggers, count = %lu", "-[TIProactiveQuickTypeManager generateAndRenderProactiveSuggestionsForInput:withKeyboardState:withAdditionalPredictions:withSecureCandidateRenderer:withRenderTraits:withInput:withRecipient:withApplication:withLocale:nextInputWillInsertAutospace:withIsResponseDenyListed:withShouldDisableAutoCaps:withAvailableApps:logBlock:async:completion:]", objc_msgSend(inputCopy, "count")];
       LODWORD(buf) = 138412290;
-      *(&buf + 4) = v90;
+      *(&buf + 4) = v87;
       _os_log_debug_impl(&dword_22CA55000, v33, OS_LOG_TYPE_DEBUG, "%@", &buf, 0xCu);
 
-      blockCopy = v89;
+      blockCopy = v86;
     }
 
     v30 = v32;
@@ -584,12 +595,12 @@ void __156__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsWit
 
   date = [MEMORY[0x277CBEAA8] date];
   array = [MEMORY[0x277CBEB18] array];
-  v98 = traitsCopy;
-  v99 = predictionsCopy;
-  v93 = rendererCopy;
-  v94 = applicationCopy;
-  v95 = blockCopy;
-  v96 = v30;
+  v95 = traitsCopy;
+  v96 = predictionsCopy;
+  v90 = rendererCopy;
+  v91 = applicationCopy;
+  v92 = blockCopy;
+  v93 = v30;
   if ([(TIProactiveQuickTypeManager *)self usePQT2Flow])
   {
     v34 = applicationCopy;
@@ -677,35 +688,35 @@ void __156__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsWit
     v56 = 0;
     v57 = v70;
     v58 = 0;
-    blockCopy = v95;
+    blockCopy = v92;
 LABEL_38:
     v72 = date;
     goto LABEL_39;
   }
 
-  v152 = 0u;
-  v153 = 0u;
+  v149 = 0u;
   v150 = 0u;
-  v151 = 0u;
+  v147 = 0u;
+  v148 = 0u;
   v41 = inputCopy;
-  v42 = [v41 countByEnumeratingWithState:&v150 objects:v159 count:16];
+  v42 = [v41 countByEnumeratingWithState:&v147 objects:v156 count:16];
   if (v42)
   {
     v43 = v42;
     v44 = v41;
-    v103 = 0;
+    v100 = 0;
     v45 = 0;
-    v46 = *v151;
+    v46 = *v148;
     do
     {
       for (i = 0; i != v43; ++i)
       {
-        if (*v151 != v46)
+        if (*v148 != v46)
         {
           objc_enumerationMutation(v44);
         }
 
-        v48 = *(*(&v150 + 1) + 8 * i);
+        v48 = *(*(&v147 + 1) + 8 * i);
         triggerSourceType = [v48 triggerSourceType];
         if (triggerSourceType > 2)
         {
@@ -715,7 +726,7 @@ LABEL_38:
         else
         {
           v50 = triggerSourceType;
-          v103 = off_278730550[triggerSourceType];
+          v100 = off_278730550[triggerSourceType];
           v45 = dword_22CC8A408[triggerSourceType];
         }
 
@@ -731,17 +742,17 @@ LABEL_38:
         [array addObject:v55];
       }
 
-      v43 = [v44 countByEnumeratingWithState:&v150 objects:v159 count:16];
+      v43 = [v44 countByEnumeratingWithState:&v147 objects:v156 count:16];
     }
 
     while (v43);
     v41 = v44;
     v56 = v44;
     v31 = stateCopy;
-    applicationCopy = v94;
-    blockCopy = v95;
+    applicationCopy = v91;
+    blockCopy = v92;
     v57 = withInputCopy;
-    v58 = v103;
+    v58 = v100;
     goto LABEL_38;
   }
 
@@ -758,25 +769,25 @@ LABEL_39:
   aBlock[3] = &unk_278730480;
   aBlock[4] = self;
   inputCopy = v56;
-  v136 = inputCopy;
-  v147 = blockCopy;
-  v137 = v58;
-  v92 = v72;
-  v138 = v92;
+  v133 = inputCopy;
+  v144 = blockCopy;
+  v134 = v58;
+  v89 = v72;
+  v135 = v89;
   v79 = applicationCopy;
-  v139 = v79;
-  v140 = v31;
+  v136 = v79;
+  v137 = v31;
   v80 = localeCopy;
-  v141 = v80;
-  v148 = v96;
-  v142 = v98;
-  v143 = v99;
-  v144 = v93;
+  v138 = v80;
+  v145 = v93;
+  v139 = v95;
+  v140 = v96;
+  v141 = v90;
   v40 = v57;
-  v145 = v40;
+  v142 = v40;
   v81 = array;
-  v146 = v81;
-  v149 = v45;
+  v143 = v81;
+  v146 = v45;
   v82 = _Block_copy(aBlock);
   if ([(TIProactiveQuickTypeManager *)self usePQT2Flow])
   {
@@ -790,83 +801,79 @@ LABEL_39:
 
   if (async)
   {
-    queue = self->_queue;
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsForInput_withKeyboardState_withAdditionalPredictions_withSecureCandidateRenderer_withRenderTraits_withInput_withRecipient_withApplication_withLocale_nextInputWillInsertAutospace_withIsResponseDenyListed_withShouldDisableAutoCaps_withAvailableApps_logBlock_async_completion___block_invoke_167;
     block[3] = &unk_2787304A8;
     block[4] = self;
-    v126 = v81;
-    v127 = v79;
-    v128 = v97;
-    v129 = v80;
+    v123 = v81;
+    v124 = v79;
+    v125 = v94;
+    v126 = v80;
     listedCopy = listed;
     capsCopy = caps;
-    v131 = v45;
-    v132 = v83;
-    v130 = v82;
-    v85 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, block);
+    v128 = v45;
+    v129 = v83;
+    v127 = v82;
+    v84 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, block);
     TIDispatchAsync();
 
-    rendererCopy = v93;
-    applicationCopy = v94;
+    rendererCopy = v90;
+    applicationCopy = v91;
   }
 
   else
   {
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v155 = 0x3032000000;
-    v156 = __Block_byref_object_copy__6482;
-    v157 = __Block_byref_object_dispose__6483;
-    v158 = 0;
-    v119 = 0;
-    v120 = &v119;
-    v121 = 0x3032000000;
-    v122 = __Block_byref_object_copy__6482;
-    v123 = __Block_byref_object_dispose__6483;
-    v124 = 0;
-    v86 = self->_queue;
-    v108[0] = MEMORY[0x277D85DD0];
-    v108[1] = 3221225472;
-    v108[2] = __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsForInput_withKeyboardState_withAdditionalPredictions_withSecureCandidateRenderer_withRenderTraits_withInput_withRecipient_withApplication_withLocale_nextInputWillInsertAutospace_withIsResponseDenyListed_withShouldDisableAutoCaps_withAvailableApps_logBlock_async_completion___block_invoke_3_169;
-    v108[3] = &unk_2787304D0;
-    v113 = &v119;
-    v108[4] = self;
-    v109 = v81;
-    v110 = v79;
-    v111 = v97;
+    v152 = 0x3032000000;
+    v153 = __Block_byref_object_copy__6482;
+    v154 = __Block_byref_object_dispose__6483;
+    v155 = 0;
+    v116 = 0;
+    v117 = &v116;
+    v118 = 0x3032000000;
+    v119 = __Block_byref_object_copy__6482;
+    v120 = __Block_byref_object_dispose__6483;
+    v121 = 0;
+    v105[0] = MEMORY[0x277D85DD0];
+    v105[1] = 3221225472;
+    v105[2] = __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsForInput_withKeyboardState_withAdditionalPredictions_withSecureCandidateRenderer_withRenderTraits_withInput_withRecipient_withApplication_withLocale_nextInputWillInsertAutospace_withIsResponseDenyListed_withShouldDisableAutoCaps_withAvailableApps_logBlock_async_completion___block_invoke_3_169;
+    v105[3] = &unk_2787304D0;
+    v110 = &v116;
+    v105[4] = self;
+    v106 = v81;
+    v107 = v79;
+    v108 = v94;
     listedCopy2 = listed;
     capsCopy2 = caps;
-    v115 = v45;
-    v116 = v83;
-    v112 = v80;
+    v112 = v45;
+    v113 = v83;
+    v109 = v80;
     p_buf = &buf;
-    rendererCopy = v93;
-    applicationCopy = v94;
-    v87 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, v108);
+    rendererCopy = v90;
+    applicationCopy = v91;
+    v85 = dispatch_block_create_with_qos_class(DISPATCH_BLOCK_ENFORCE_QOS_CLASS, QOS_CLASS_USER_INITIATED, 0, v105);
     TIDispatchSync();
 
-    (*(v82 + 2))(v82, v120[5], *(*(&buf + 1) + 40));
-    _Block_object_dispose(&v119, 8);
+    (*(v82 + 2))(v82, v117[5], *(*(&buf + 1) + 40));
+    _Block_object_dispose(&v116, 8);
 
     _Block_object_dispose(&buf, 8);
   }
 
-  traitsCopy = v98;
-  predictionsCopy = v99;
-  v30 = v96;
-  recipientCopy = v97;
-  blockCopy = v95;
+  traitsCopy = v95;
+  predictionsCopy = v96;
+  v30 = v93;
+  recipientCopy = v94;
+  blockCopy = v92;
   v39 = stateCopy;
 LABEL_46:
-
-  v88 = *MEMORY[0x277D85DE8];
 }
 
 void __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsForInput_withKeyboardState_withAdditionalPredictions_withSecureCandidateRenderer_withRenderTraits_withInput_withRecipient_withApplication_withLocale_nextInputWillInsertAutospace_withIsResponseDenyListed_withShouldDisableAutoCaps_withAvailableApps_logBlock_async_completion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v194 = *MEMORY[0x277D85DE8];
+  v193 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (([*(a1 + 32) usePQT2Flow] & 1) == 0)
@@ -883,8 +890,8 @@ void __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsFor
 
   [*(a1 + 56) timeIntervalSinceNow];
   v12 = v11;
-  v135 = v5;
-  v151 = a1;
+  v134 = v5;
+  v150 = a1;
   if ([v5 count])
   {
     v13 = [v5 objectAtIndexedSubscript:0];
@@ -897,7 +904,7 @@ void __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsFor
 
     a3 = [v5 objectAtIndexedSubscript:0];
     v15 = [a3 trigger];
-    v138 = v6;
+    v137 = v6;
     if ([v15 triggerSourceType] == 2)
     {
     }
@@ -905,19 +912,19 @@ void __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsFor
     else
     {
       v16 = *MEMORY[0x277D23008];
-      v191[0] = *MEMORY[0x277D23000];
-      v191[1] = v16;
-      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v191 count:2];
+      v190[0] = *MEMORY[0x277D23000];
+      v190[1] = v16;
+      v17 = [MEMORY[0x277CBEA60] arrayWithObjects:v190 count:2];
       v18 = [v5 objectAtIndexedSubscript:0];
       v19 = [v18 trigger];
       v20 = [v19 attributedString];
       v21 = [v20 objectForKeyedSubscript:@"subtype"];
-      v146 = [v17 containsObject:v21];
+      v145 = [v17 containsObject:v21];
 
-      a1 = v151;
-      v6 = v138;
+      a1 = v150;
+      v6 = v137;
 
-      if ((v146 & 1) == 0)
+      if ((v145 & 1) == 0)
       {
         goto LABEL_16;
       }
@@ -936,13 +943,13 @@ void __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsFor
 
     if (v29 == -1)
     {
-      v147 = 0;
+      v146 = 0;
     }
 
     else
     {
       v30 = [v5 objectAtIndexedSubscript:0];
-      v147 = [v30 predictionAge];
+      v146 = [v30 predictionAge];
     }
 
     v31 = [v5 objectAtIndexedSubscript:0];
@@ -975,15 +982,15 @@ void __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsFor
     v43 = v24 == 2;
 
     a3 = +[TIConnectionsMetricsTracker sharedInstance];
-    a1 = v151;
-    v44 = [*(v151 + 72) textInputTraits];
+    a1 = v150;
+    v44 = [*(v150 + 72) textInputTraits];
     v45 = [v44 textContentType];
-    BYTE1(v132) = v43;
-    LOBYTE(v132) = v42;
-    [a3 trackPredictionEngagmentWithConversion:0 age:v147 fieldType:v45 resultType:v36 fromBundleId:v26 targetApp:v27 linguistic:v132 semantic:?];
+    BYTE1(v131) = v43;
+    LOBYTE(v131) = v42;
+    [a3 trackPredictionEngagmentWithConversion:0 age:v146 fieldType:v45 resultType:v36 fromBundleId:v26 targetApp:v27 linguistic:v131 semantic:?];
 
-    v5 = v135;
-    v6 = v138;
+    v5 = v134;
+    v6 = v137;
   }
 
 LABEL_16:
@@ -997,44 +1004,44 @@ LABEL_16:
     v46 = TIOSLogFacility();
     if (os_log_type_enabled(v46, OS_LOG_TYPE_DEBUG))
     {
-      v126 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s ProactiveQuickType:TI: Error returned from InputContext: %@, response time = %lf seconds", "-[TIProactiveQuickTypeManager generateAndRenderProactiveSuggestionsForInput:withKeyboardState:withAdditionalPredictions:withSecureCandidateRenderer:withRenderTraits:withInput:withRecipient:withApplication:withLocale:nextInputWillInsertAutospace:withIsResponseDenyListed:withShouldDisableAutoCaps:withAvailableApps:logBlock:async:completion:]_block_invoke", v6, -v12];
+      v125 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s ProactiveQuickType:TI: Error returned from InputContext: %@, response time = %lf seconds", "-[TIProactiveQuickTypeManager generateAndRenderProactiveSuggestionsForInput:withKeyboardState:withAdditionalPredictions:withSecureCandidateRenderer:withRenderTraits:withInput:withRecipient:withApplication:withLocale:nextInputWillInsertAutospace:withIsResponseDenyListed:withShouldDisableAutoCaps:withAvailableApps:logBlock:async:completion:]_block_invoke", v6, -v12];
       *buf = 138412290;
-      v193 = v126;
+      v192 = v125;
       _os_log_debug_impl(&dword_22CA55000, v46, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
     if (([*(a1 + 32) usePQT2Flow] & 1) == 0)
     {
-      v181 = 0u;
-      v182 = 0u;
-      v179 = 0u;
       v180 = 0u;
+      v181 = 0u;
+      v178 = 0u;
+      v179 = 0u;
       obj = *(a1 + 40);
-      v47 = [obj countByEnumeratingWithState:&v179 objects:v190 count:16];
+      v47 = [obj countByEnumeratingWithState:&v178 objects:v189 count:16];
       if (v47)
       {
         v48 = v47;
-        v49 = *v180;
-        v136 = *v180;
-        v139 = v6;
+        v49 = *v179;
+        v135 = *v179;
+        v138 = v6;
         do
         {
           v50 = 0;
-          v140 = v48;
+          v139 = v48;
           do
           {
-            if (*v180 != v49)
+            if (*v179 != v49)
             {
               objc_enumerationMutation(obj);
             }
 
-            v51 = *(*(&v179 + 1) + 8 * v50);
+            v51 = *(*(&v178 + 1) + 8 * v50);
             if ([v6 code] == 5)
             {
               v52 = [v6 localizedDescription];
               v53 = *(a1 + 80);
-              v148 = [*(a1 + 72) textInputTraits];
-              v54 = [v148 textContentType];
+              v147 = [*(a1 + 72) textInputTraits];
+              v54 = [v147 textContentType];
               v55 = v53;
               v56 = v51;
               v57 = v52;
@@ -1042,43 +1049,43 @@ LABEL_16:
               v59 = [MEMORY[0x277CCA900] whitespaceCharacterSet];
               v60 = [v57 componentsSeparatedByCharactersInSet:v59];
 
-              v185 = 0u;
-              v186 = 0u;
-              v183 = 0u;
               v184 = 0u;
+              v185 = 0u;
+              v182 = 0u;
+              v183 = 0u;
               v61 = v60;
-              v62 = [v61 countByEnumeratingWithState:&v183 objects:buf count:16];
+              v62 = [v61 countByEnumeratingWithState:&v182 objects:buf count:16];
               if (v62)
               {
                 v63 = v62;
-                v64 = *v184;
+                v64 = *v183;
                 do
                 {
                   for (i = 0; i != v63; ++i)
                   {
-                    if (*v184 != v64)
+                    if (*v183 != v64)
                     {
                       objc_enumerationMutation(v61);
                     }
 
-                    TIStatisticLogProactiveDescription(v55, v56, *(*(&v183 + 1) + 8 * i), @"suggestion", v58);
+                    TIStatisticLogProactiveDescription(v55, v56, *(*(&v182 + 1) + 8 * i), @"suggestion", v58);
                   }
 
-                  v63 = [v61 countByEnumeratingWithState:&v183 objects:buf count:16];
+                  v63 = [v61 countByEnumeratingWithState:&v182 objects:buf count:16];
                 }
 
                 while (v63);
               }
 
-              a1 = v151;
-              v66 = *(v151 + 80);
-              v67 = [*(v151 + 72) textInputTraits];
+              a1 = v150;
+              v66 = *(v150 + 80);
+              v67 = [*(v150 + 72) textInputTraits];
               v68 = [v67 textContentType];
               TIStatisticLogProactive(v66, v56, 1, v68, 0);
 
-              v49 = v136;
-              v6 = v139;
-              v48 = v140;
+              v49 = v135;
+              v6 = v138;
+              v48 = v139;
             }
 
             else
@@ -1093,13 +1100,13 @@ LABEL_16:
           }
 
           while (v50 != v48);
-          v48 = [obj countByEnumeratingWithState:&v179 objects:v190 count:16];
+          v48 = [obj countByEnumeratingWithState:&v178 objects:v189 count:16];
         }
 
         while (v48);
       }
 
-      v5 = v135;
+      v5 = v134;
     }
 
     (*(*(a1 + 136) + 16))();
@@ -1111,12 +1118,12 @@ LABEL_16:
   {
     if ([*(a1 + 40) count])
     {
-      v141 = [*(a1 + 40) objectAtIndex:0];
+      v140 = [*(a1 + 40) objectAtIndex:0];
     }
 
     else
     {
-      v141 = 0;
+      v140 = 0;
     }
 
     v83 = "TextInputCore";
@@ -1140,10 +1147,10 @@ LABEL_16:
           goto LABEL_73;
         }
 
-        v84 = v151;
+        v84 = v150;
       }
 
-      v149 = a3;
+      v148 = a3;
       v88 = [*(v84 + 72) documentState];
       v89 = [v88 contextAfterInput];
       if (!v89)
@@ -1152,8 +1159,8 @@ LABEL_16:
         if (!v86)
         {
 
-          a3 = v149;
-          a1 = v151;
+          a3 = v148;
+          a1 = v150;
 LABEL_74:
           if (([*(a1 + 88) disableHideMyEmail] & 1) == 0)
           {
@@ -1164,7 +1171,7 @@ LABEL_74:
         }
 
         v87 = 1;
-        a3 = v149;
+        a3 = v148;
         goto LABEL_73;
       }
 
@@ -1180,10 +1187,10 @@ LABEL_74:
       {
         v83 = v91;
         v6 = obja;
-        a3 = v149;
+        a3 = v148;
 LABEL_73:
 
-        a1 = v151;
+        a1 = v150;
         if (v87)
         {
           goto LABEL_74;
@@ -1192,8 +1199,8 @@ LABEL_73:
         goto LABEL_77;
       }
 
-      a3 = v149;
-      a1 = v151;
+      a3 = v148;
+      a1 = v150;
       v83 = v91;
       v6 = obja;
       if (!v94)
@@ -1214,43 +1221,43 @@ LABEL_77:
           v95 = TIOSLogFacility();
           if (os_log_type_enabled(v95, OS_LOG_TYPE_DEBUG))
           {
-            v127 = MEMORY[0x277CCACA8];
-            v128 = [v135 count];
+            v126 = MEMORY[0x277CCACA8];
+            v127 = [v134 count];
             [*(a1 + 56) timeIntervalSinceNow];
-            v130 = [v127 stringWithFormat:@"%s ProactiveQuickType:TI: %lu results returned from InputContext, response time = %lf seconds", "-[TIProactiveQuickTypeManager generateAndRenderProactiveSuggestionsForInput:withKeyboardState:withAdditionalPredictions:withSecureCandidateRenderer:withRenderTraits:withInput:withRecipient:withApplication:withLocale:nextInputWillInsertAutospace:withIsResponseDenyListed:withShouldDisableAutoCaps:withAvailableApps:logBlock:async:completion:]_block_invoke", v128, -v129];
+            v129 = [v126 stringWithFormat:@"%s ProactiveQuickType:TI: %lu results returned from InputContext, response time = %lf seconds", "-[TIProactiveQuickTypeManager generateAndRenderProactiveSuggestionsForInput:withKeyboardState:withAdditionalPredictions:withSecureCandidateRenderer:withRenderTraits:withInput:withRecipient:withApplication:withLocale:nextInputWillInsertAutospace:withIsResponseDenyListed:withShouldDisableAutoCaps:withAvailableApps:logBlock:async:completion:]_block_invoke", v127, -v128];
             *buf = 138412290;
-            v193 = v130;
+            v192 = v129;
             _os_log_debug_impl(&dword_22CA55000, v95, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
 
-        v96 = [*(a1 + 32) renderItems:v135 withAdditionalPredictions:*(a1 + 96) withSecureCandidateRenderer:*(a1 + 104) withRenderTraits:*(a1 + 88) withInput:*(a1 + 112)];
-        v137 = [v96 mutableCopy];
+        v96 = [*(a1 + 32) renderItems:v134 withAdditionalPredictions:*(a1 + 96) withSecureCandidateRenderer:*(a1 + 104) withRenderTraits:*(a1 + 88) withInput:*(a1 + 112)];
+        v136 = [v96 mutableCopy];
 
         context = objc_autoreleasePoolPush();
         if ([*(a1 + 32) usePQT2Flow])
         {
-          v177 = 0u;
-          v178 = 0u;
-          v175 = 0u;
           v176 = 0u;
-          v97 = v135;
-          v98 = [v97 countByEnumeratingWithState:&v175 objects:v189 count:16];
+          v177 = 0u;
+          v174 = 0u;
+          v175 = 0u;
+          v97 = v134;
+          v98 = [v97 countByEnumeratingWithState:&v174 objects:v188 count:16];
           v6 = 0;
           if (v98)
           {
             v99 = v98;
-            v100 = *v176;
+            v100 = *v175;
             do
             {
               for (j = 0; j != v99; ++j)
               {
-                if (*v176 != v100)
+                if (*v175 != v100)
                 {
                   objc_enumerationMutation(v97);
                 }
 
-                v102 = *(*(&v175 + 1) + 8 * j);
+                v102 = *(*(&v174 + 1) + 8 * j);
                 v103 = [v102 value];
                 v104 = [v103 length];
 
@@ -1262,7 +1269,7 @@ LABEL_77:
                 }
               }
 
-              v99 = [v97 countByEnumeratingWithState:&v175 objects:v189 count:16];
+              v99 = [v97 countByEnumeratingWithState:&v174 objects:v188 count:16];
             }
 
             while (v99);
@@ -1274,39 +1281,39 @@ LABEL_77:
 
         else
         {
-          v133 = [MEMORY[0x277CCAB58] indexSetWithIndexesInRange:{0, objc_msgSend(*(a1 + 120), "count")}];
+          v132 = [MEMORY[0x277CCAB58] indexSetWithIndexesInRange:{0, objc_msgSend(*(a1 + 120), "count")}];
           v108 = [MEMORY[0x277CCAB58] indexSet];
           v109 = [MEMORY[0x277CCAB58] indexSet];
-          v150 = objc_opt_new();
+          v149 = objc_opt_new();
+          v170 = 0u;
           v171 = 0u;
           v172 = 0u;
           v173 = 0u;
-          v174 = 0u;
-          objb = v135;
-          v110 = [objb countByEnumeratingWithState:&v171 objects:v188 count:16];
+          objb = v134;
+          v110 = [objb countByEnumeratingWithState:&v170 objects:v187 count:16];
           if (v110)
           {
             v111 = v110;
-            v112 = *v172;
+            v112 = *v171;
             do
             {
               for (k = 0; k != v111; ++k)
               {
-                if (*v172 != v112)
+                if (*v171 != v112)
                 {
                   objc_enumerationMutation(objb);
                 }
 
-                v114 = *(*(&v171 + 1) + 8 * k);
-                v115 = *(v151 + 120);
-                v170[0] = MEMORY[0x277D85DD0];
-                v170[1] = 3221225472;
-                v170[2] = __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsForInput_withKeyboardState_withAdditionalPredictions_withSecureCandidateRenderer_withRenderTraits_withInput_withRecipient_withApplication_withLocale_nextInputWillInsertAutospace_withIsResponseDenyListed_withShouldDisableAutoCaps_withAvailableApps_logBlock_async_completion___block_invoke_159;
-                v170[3] = &unk_278730408;
-                v170[4] = v114;
-                v116 = [v115 indexOfObjectPassingTest:v170];
+                v114 = *(*(&v170 + 1) + 8 * k);
+                v115 = *(v150 + 120);
+                v169[0] = MEMORY[0x277D85DD0];
+                v169[1] = 3221225472;
+                v169[2] = __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsForInput_withKeyboardState_withAdditionalPredictions_withSecureCandidateRenderer_withRenderTraits_withInput_withRecipient_withApplication_withLocale_nextInputWillInsertAutospace_withIsResponseDenyListed_withShouldDisableAutoCaps_withAvailableApps_logBlock_async_completion___block_invoke_159;
+                v169[3] = &unk_278730408;
+                v169[4] = v114;
+                v116 = [v115 indexOfObjectPassingTest:v169];
                 v117 = [v114 value];
-                [v150 addObject:v117];
+                [v149 addObject:v117];
 
                 if ([v108 containsIndex:v116])
                 {
@@ -1321,62 +1328,62 @@ LABEL_77:
                 [v118 addIndex:v116];
               }
 
-              v111 = [objb countByEnumeratingWithState:&v171 objects:v188 count:16];
+              v111 = [objb countByEnumeratingWithState:&v170 objects:v187 count:16];
             }
 
             while (v111);
           }
 
-          v107 = v133;
-          [v133 removeIndexes:v108];
+          v107 = v132;
+          [v132 removeIndexes:v108];
           v119 = v109;
           [v108 removeIndexes:v109];
-          v166[0] = MEMORY[0x277D85DD0];
-          v166[1] = 3221225472;
-          v166[2] = __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsForInput_withKeyboardState_withAdditionalPredictions_withSecureCandidateRenderer_withRenderTraits_withInput_withRecipient_withApplication_withLocale_nextInputWillInsertAutospace_withIsResponseDenyListed_withShouldDisableAutoCaps_withAvailableApps_logBlock_async_completion___block_invoke_2;
-          v166[3] = &unk_278730430;
-          a1 = v151;
-          v167 = *(v151 + 80);
-          v168 = *(v151 + 40);
-          v169 = *(v151 + 72);
-          [v133 enumerateIndexesUsingBlock:v166];
-          v161[0] = MEMORY[0x277D85DD0];
-          v161[1] = 3221225472;
-          v161[2] = __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsForInput_withKeyboardState_withAdditionalPredictions_withSecureCandidateRenderer_withRenderTraits_withInput_withRecipient_withApplication_withLocale_nextInputWillInsertAutospace_withIsResponseDenyListed_withShouldDisableAutoCaps_withAvailableApps_logBlock_async_completion___block_invoke_3;
-          v161[3] = &unk_278730458;
-          v162 = *(v151 + 80);
-          v163 = *(v151 + 40);
-          v164 = *(v151 + 72);
-          v120 = v150;
-          v165 = v120;
-          [v108 enumerateIndexesUsingBlock:v161];
-          v156[0] = MEMORY[0x277D85DD0];
-          v156[1] = 3221225472;
-          v156[2] = __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsForInput_withKeyboardState_withAdditionalPredictions_withSecureCandidateRenderer_withRenderTraits_withInput_withRecipient_withApplication_withLocale_nextInputWillInsertAutospace_withIsResponseDenyListed_withShouldDisableAutoCaps_withAvailableApps_logBlock_async_completion___block_invoke_4;
-          v156[3] = &unk_278730458;
-          v157 = *(v151 + 80);
-          v158 = *(v151 + 40);
-          v159 = *(v151 + 72);
-          v160 = v120;
+          v165[0] = MEMORY[0x277D85DD0];
+          v165[1] = 3221225472;
+          v165[2] = __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsForInput_withKeyboardState_withAdditionalPredictions_withSecureCandidateRenderer_withRenderTraits_withInput_withRecipient_withApplication_withLocale_nextInputWillInsertAutospace_withIsResponseDenyListed_withShouldDisableAutoCaps_withAvailableApps_logBlock_async_completion___block_invoke_2;
+          v165[3] = &unk_278730430;
+          a1 = v150;
+          v166 = *(v150 + 80);
+          v167 = *(v150 + 40);
+          v168 = *(v150 + 72);
+          [v132 enumerateIndexesUsingBlock:v165];
+          v160[0] = MEMORY[0x277D85DD0];
+          v160[1] = 3221225472;
+          v160[2] = __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsForInput_withKeyboardState_withAdditionalPredictions_withSecureCandidateRenderer_withRenderTraits_withInput_withRecipient_withApplication_withLocale_nextInputWillInsertAutospace_withIsResponseDenyListed_withShouldDisableAutoCaps_withAvailableApps_logBlock_async_completion___block_invoke_3;
+          v160[3] = &unk_278730458;
+          v161 = *(v150 + 80);
+          v162 = *(v150 + 40);
+          v163 = *(v150 + 72);
+          v120 = v149;
+          v164 = v120;
+          [v108 enumerateIndexesUsingBlock:v160];
+          v155[0] = MEMORY[0x277D85DD0];
+          v155[1] = 3221225472;
+          v155[2] = __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsForInput_withKeyboardState_withAdditionalPredictions_withSecureCandidateRenderer_withRenderTraits_withInput_withRecipient_withApplication_withLocale_nextInputWillInsertAutospace_withIsResponseDenyListed_withShouldDisableAutoCaps_withAvailableApps_logBlock_async_completion___block_invoke_4;
+          v155[3] = &unk_278730458;
+          v156 = *(v150 + 80);
+          v157 = *(v150 + 40);
+          v158 = *(v150 + 72);
+          v159 = v120;
           v121 = v120;
-          [v119 enumerateIndexesUsingBlock:v156];
+          [v119 enumerateIndexesUsingBlock:v155];
 
           v6 = 0;
         }
 
         objc_autoreleasePoolPop(context);
         (*(*(a1 + 136) + 16))();
-        if ([v137 count] && v141)
+        if ([v136 count] && v140)
         {
           v122 = [MEMORY[0x277CBEAA8] date];
           v123 = *(a1 + 32);
           v124 = *(v123 + 32);
           *(v123 + 32) = v122;
 
-          objc_storeStrong((*(a1 + 32) + 24), v141);
+          objc_storeStrong((*(a1 + 32) + 24), v140);
         }
 
-        v5 = v135;
+        v5 = v134;
         goto LABEL_112;
       }
     }
@@ -1392,24 +1399,24 @@ LABEL_77:
     v71 = TIOSLogFacility();
     if (os_log_type_enabled(v71, OS_LOG_TYPE_DEBUG))
     {
-      v131 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s ProactiveQuickType:TI: No suggestions returned from InputContext, response time = %lf seconds", "-[TIProactiveQuickTypeManager generateAndRenderProactiveSuggestionsForInput:withKeyboardState:withAdditionalPredictions:withSecureCandidateRenderer:withRenderTraits:withInput:withRecipient:withApplication:withLocale:nextInputWillInsertAutospace:withIsResponseDenyListed:withShouldDisableAutoCaps:withAvailableApps:logBlock:async:completion:]_block_invoke_5", -v12];
+      v130 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s ProactiveQuickType:TI: No suggestions returned from InputContext, response time = %lf seconds", "-[TIProactiveQuickTypeManager generateAndRenderProactiveSuggestionsForInput:withKeyboardState:withAdditionalPredictions:withSecureCandidateRenderer:withRenderTraits:withInput:withRecipient:withApplication:withLocale:nextInputWillInsertAutospace:withIsResponseDenyListed:withShouldDisableAutoCaps:withAvailableApps:logBlock:async:completion:]_block_invoke_5", -v12];
       *buf = 138412290;
-      v193 = v131;
+      v192 = v130;
       _os_log_debug_impl(&dword_22CA55000, v71, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
   }
 
-  v72 = *(v151 + 144);
+  v72 = *(v150 + 144);
+  v151 = 0u;
   v152 = 0u;
   v153 = 0u;
   v154 = 0u;
-  v155 = 0u;
-  v73 = *(v151 + 40);
-  v74 = [v73 countByEnumeratingWithState:&v152 objects:v187 count:16];
+  v73 = *(v150 + 40);
+  v74 = [v73 countByEnumeratingWithState:&v151 objects:v186 count:16];
   if (v74)
   {
     v75 = v74;
-    v76 = *v153;
+    v76 = *v152;
     if (v12 * -1000.0 <= v72)
     {
       v77 = 1;
@@ -1424,30 +1431,28 @@ LABEL_77:
     {
       for (m = 0; m != v75; ++m)
       {
-        if (*v153 != v76)
+        if (*v152 != v76)
         {
           objc_enumerationMutation(v73);
         }
 
-        v79 = *(*(&v152 + 1) + 8 * m);
-        v80 = *(v151 + 80);
-        v81 = [*(v151 + 72) textInputTraits];
+        v79 = *(*(&v151 + 1) + 8 * m);
+        v80 = *(v150 + 80);
+        v81 = [*(v150 + 72) textInputTraits];
         v82 = [v81 textContentType];
         TIStatisticLogProactive(v80, v79, v77, v82, 0);
       }
 
-      v75 = [v73 countByEnumeratingWithState:&v152 objects:v187 count:16];
+      v75 = [v73 countByEnumeratingWithState:&v151 objects:v186 count:16];
     }
 
     while (v75);
   }
 
-  (*(*(v151 + 136) + 16))();
-  v5 = v135;
+  (*(*(v150 + 136) + 16))();
+  v5 = v134;
   v6 = 0;
 LABEL_112:
-
-  v125 = *MEMORY[0x277D85DE8];
 }
 
 void __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsForInput_withKeyboardState_withAdditionalPredictions_withSecureCandidateRenderer_withRenderTraits_withInput_withRecipient_withApplication_withLocale_nextInputWillInsertAutospace_withIsResponseDenyListed_withShouldDisableAutoCaps_withAvailableApps_logBlock_async_completion___block_invoke_167(uint64_t a1)
@@ -1512,21 +1517,20 @@ void __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsFor
 
 void __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsForInput_withKeyboardState_withAdditionalPredictions_withSecureCandidateRenderer_withRenderTraits_withInput_withRecipient_withApplication_withLocale_nextInputWillInsertAutospace_withIsResponseDenyListed_withShouldDisableAutoCaps_withAvailableApps_logBlock_async_completion___block_invoke_3(uint64_t a1, uint64_t a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = *(a1 + 32);
   v4 = [*(a1 + 40) objectAtIndexedSubscript:a2];
   v5 = [*(a1 + 48) textInputTraits];
   v6 = [v5 textContentType];
-  v14[0] = [*(a1 + 56) firstObject];
+  v13[0] = [*(a1 + 56) firstObject];
   v7 = MEMORY[0x277CBEA60];
-  v8 = v14[0];
+  v8 = v13[0];
   v9 = v6;
-  v13 = v4;
+  v12 = v4;
   v10 = v3;
-  v11 = [v7 arrayWithObjects:v14 count:1];
+  v11 = [v7 arrayWithObjects:v13 count:1];
 
-  TIStatisticLogProactive(v10, v13, 4, v9, v11);
-  v12 = *MEMORY[0x277D85DE8];
+  TIStatisticLogProactive(v10, v12, 4, v9, v11);
 }
 
 void __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsForInput_withKeyboardState_withAdditionalPredictions_withSecureCandidateRenderer_withRenderTraits_withInput_withRecipient_withApplication_withLocale_nextInputWillInsertAutospace_withIsResponseDenyListed_withShouldDisableAutoCaps_withAvailableApps_logBlock_async_completion___block_invoke_4(uint64_t a1, uint64_t a2)
@@ -1563,7 +1567,7 @@ void __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsFor
 
 - (void)addToTypologyTrace:(id)trace withTriggerSource:(id)source withTriggerType:(id)type withTriggerSubType:(id)subType withPredictionResults:(id)results withFirstTrigger:(id)trigger
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   traceCopy = trace;
   sourceCopy = source;
   typeCopy = type;
@@ -1584,8 +1588,8 @@ void __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsFor
       traceCopy[2](traceCopy, v20);
     }
 
-    v36 = triggerCopy;
-    v37 = sourceCopy;
+    v35 = triggerCopy;
+    v36 = sourceCopy;
     if (subTypeCopy && [subTypeCopy length])
     {
       v21 = [@"Proactive Trigger SubType:\n" stringByAppendingString:subTypeCopy];
@@ -1593,41 +1597,41 @@ void __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsFor
     }
 
     traceCopy[2](traceCopy, @"Proactive Suggestions:");
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v22 = resultsCopy;
-    v23 = [v22 countByEnumeratingWithState:&v38 objects:v42 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v37 objects:v41 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v39;
+      v25 = *v38;
       do
       {
         v26 = 0;
         do
         {
-          if (*v39 != v25)
+          if (*v38 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          value = [*(*(&v38 + 1) + 8 * v26) value];
+          value = [*(*(&v37 + 1) + 8 * v26) value];
           traceCopy[2](traceCopy, value);
 
           ++v26;
         }
 
         while (v24 != v26);
-        v24 = [v22 countByEnumeratingWithState:&v38 objects:v42 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v37 objects:v41 count:16];
       }
 
       while (v24);
     }
 
-    triggerCopy = v36;
-    sourceCopy = v37;
+    triggerCopy = v35;
+    sourceCopy = v36;
   }
 
   else
@@ -1660,23 +1664,21 @@ void __341__TIProactiveQuickTypeManager_generateAndRenderProactiveSuggestionsFor
       traceCopy[2](traceCopy, @"Proactive Suggestions:\nNone");
     }
   }
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (id)renderItems:(id)items withAdditionalPredictions:(id)predictions withSecureCandidateRenderer:(id)renderer withRenderTraits:(id)traits withInput:(id)input
 {
-  v115 = *MEMORY[0x277D85DE8];
+  v114 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   predictionsCopy = predictions;
   rendererCopy = renderer;
   traitsCopy = traits;
   inputCopy = input;
   array = [MEMORY[0x277CBEB18] array];
-  v103 = rendererCopy;
-  v104 = inputCopy;
-  v107 = array;
-  v101 = predictionsCopy;
+  v102 = rendererCopy;
+  v103 = inputCopy;
+  v106 = array;
+  v100 = predictionsCopy;
   if (![(TIProactiveQuickTypeManager *)self usePQT2Flow])
   {
 LABEL_12:
@@ -1699,9 +1701,9 @@ LABEL_12:
           {
             v35 = [itemsCopy objectAtIndexedSubscript:v34];
             identifier = [v35 identifier];
-            v37 = [identifier isEqualToString:@"SmartReply"];
+            isEqualToString = objc_msgSend_isEqualToString_(identifier);
 
-            if (v37)
+            if (isEqualToString)
             {
               v38 = objc_alloc(MEMORY[0x277D6F568]);
               value = [v35 value];
@@ -1717,7 +1719,7 @@ LABEL_12:
               }
 
               v33 = 1;
-              array = v107;
+              array = v106;
             }
 
             if (++v34 >= [itemsCopy count])
@@ -1758,7 +1760,7 @@ LABEL_12:
 
           while (v45 != v46);
 LABEL_30:
-          rendererCopy = v103;
+          rendererCopy = v102;
         }
       }
 
@@ -1799,7 +1801,7 @@ LABEL_46:
         v62 = [rendererCopy slotIDsFromSecureCandidates:v43 withRenderTraits:traitsCopy];
         v63 = _os_feature_enabled_impl();
         obj = v43;
-        v100 = v56;
+        v99 = v56;
         if (v56)
         {
           if (v63)
@@ -1811,7 +1813,7 @@ LABEL_46:
               {
                 lastObject = [v43 lastObject];
                 secureContent = [lastObject secureContent];
-                v67 = [secureContent isEqualToString:v56];
+                v67 = objc_msgSend_isEqualToString_(secureContent);
 
                 if (v67)
                 {
@@ -1878,20 +1880,20 @@ LABEL_46:
             [v83 setSecureCandidateHash:{objc_msgSend(v85, "candidateHash")}];
 
             [v83 setIndexForMetrics:v69];
-            [v107 addObject:v83];
+            [v106 addObject:v83];
             v86 = objc_alloc(MEMORY[0x277D6F568]);
             v87 = [obj objectAtIndexedSubscript:v69];
             secureFormattedContent = [v87 secureFormattedContent];
             v89 = [itemsCopy objectAtIndexedSubscript:v69];
-            LOBYTE(v99) = 1;
-            v90 = [v86 initWithCandidate:secureFormattedContent forInput:v104 rawInput:0 wordOriginFeedbackID:0 usageTrackingMask:0 sourceMask:0 secureContentCandidate:v99 proactiveTrigger:v80 proactivePredictedItem:{v89, v100}];
+            LOBYTE(v98) = 1;
+            v90 = [v86 initWithCandidate:secureFormattedContent forInput:v103 rawInput:0 wordOriginFeedbackID:0 usageTrackingMask:0 sourceMask:0 secureContentCandidate:v98 proactiveTrigger:v80 proactivePredictedItem:{v89, v99}];
 
             [v90 setIndexForMetrics:v69];
             v91 = [itemsCopy objectAtIndexedSubscript:v69];
             [v90 setAgeForConnectionsMetrics:{objc_msgSend(v91, "predictionAge")}];
 
-            rendererCopy = v103;
-            secureCandidateCache = [v103 secureCandidateCache];
+            rendererCopy = v102;
+            secureCandidateCache = [v102 secureCandidateCache];
             v93 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:slotID];
             [secureCandidateCache setObject:v90 forKey:v93];
 
@@ -1904,7 +1906,7 @@ LABEL_46:
           while (v69 < [v62 count]);
         }
 
-        predictionsCopy = v101;
+        predictionsCopy = v100;
         goto LABEL_65;
       }
     }
@@ -1914,9 +1916,9 @@ LABEL_46:
       v57 = TIProactiveQuickTypeOSLogFacility();
       if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
       {
-        v98 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s self.secureCandidateRenderer is nil", "-[TIProactiveQuickTypeManager renderItems:withAdditionalPredictions:withSecureCandidateRenderer:withRenderTraits:withInput:]"];
+        v97 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s self.secureCandidateRenderer is nil", "-[TIProactiveQuickTypeManager renderItems:withAdditionalPredictions:withSecureCandidateRenderer:withRenderTraits:withInput:]"];
         *buf = 138412290;
-        v113 = v98;
+        v112 = v97;
         _os_log_debug_impl(&dword_22CA55000, v57, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
 
@@ -1926,9 +1928,9 @@ LABEL_46:
     v58 = TIProactiveQuickTypeOSLogFacility();
     if (os_log_type_enabled(v58, OS_LOG_TYPE_DEBUG))
     {
-      v97 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Localized Hide My Email text is nil", "-[TIProactiveQuickTypeManager renderItems:withAdditionalPredictions:withSecureCandidateRenderer:withRenderTraits:withInput:]"];
+      v96 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s Localized Hide My Email text is nil", "-[TIProactiveQuickTypeManager renderItems:withAdditionalPredictions:withSecureCandidateRenderer:withRenderTraits:withInput:]"];
       *buf = 138412290;
-      v113 = v97;
+      v112 = v96;
       _os_log_debug_impl(&dword_22CA55000, v58, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
     }
 
@@ -1937,38 +1939,38 @@ LABEL_46:
     goto LABEL_45;
   }
 
-  v110 = 0u;
-  v111 = 0u;
-  v108 = 0u;
   v109 = 0u;
+  v110 = 0u;
+  v107 = 0u;
+  v108 = 0u;
   obj = itemsCopy;
-  v17 = [obj countByEnumeratingWithState:&v108 objects:v114 count:16];
+  v17 = [obj countByEnumeratingWithState:&v107 objects:v113 count:16];
   if (!v17)
   {
     goto LABEL_66;
   }
 
   v18 = v17;
-  v19 = *v109;
+  v19 = *v108;
   while (2)
   {
     for (i = 0; i != v18; ++i)
     {
-      if (*v109 != v19)
+      if (*v108 != v19)
       {
         objc_enumerationMutation(obj);
       }
 
-      v21 = *(*(&v108 + 1) + 8 * i);
+      v21 = *(*(&v107 + 1) + 8 * i);
       identifier2 = [v21 identifier];
-      v23 = [identifier2 isEqualToString:@"SmartReply"];
+      v23 = objc_msgSend_isEqualToString_(identifier2);
 
       if (!v23)
       {
-        array = v107;
-        [v107 removeAllObjects];
+        array = v106;
+        [v106 removeAllObjects];
 
-        predictionsCopy = v101;
+        predictionsCopy = v100;
         goto LABEL_12;
       }
 
@@ -1976,10 +1978,10 @@ LABEL_46:
       value2 = [v21 value];
       label = [v21 label];
       v27 = [v24 initWithCandidate:value2 responseKitCategory:label];
-      [v107 addObject:v27];
+      [v106 addObject:v27];
     }
 
-    v18 = [obj countByEnumeratingWithState:&v108 objects:v114 count:16];
+    v18 = [obj countByEnumeratingWithState:&v107 objects:v113 count:16];
     if (v18)
     {
       continue;
@@ -1988,13 +1990,11 @@ LABEL_46:
     break;
   }
 
-  predictionsCopy = v101;
+  predictionsCopy = v100;
 LABEL_65:
-  array = v107;
-  inputCopy = v104;
+  array = v106;
+  inputCopy = v103;
 LABEL_66:
-
-  v95 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -2053,11 +2053,11 @@ void __35__TIProactiveQuickTypeManager_init__block_invoke(uint64_t a1)
 
 + (id)buildSecureCandidateFrom:(id)from withSecureCandidateRenderer:(id)renderer input:(id)input
 {
-  v103 = *MEMORY[0x277D85DE8];
+  v102 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   rendererCopy = renderer;
   inputCopy = input;
-  v86 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(fromCopy, "count")}];
+  v85 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(fromCopy, "count")}];
   if ([fromCopy count] >= 2)
   {
     v9 = 1;
@@ -2070,7 +2070,7 @@ void __35__TIProactiveQuickTypeManager_init__block_invoke(uint64_t a1)
       identifier2 = [v13 identifier];
       LODWORD(v10) = [v10 _string:identifier matchesString:identifier2];
 
-      v84 = v10;
+      v83 = v10;
       if ((v10 & 1) == 0)
       {
         break;
@@ -2084,31 +2084,31 @@ void __35__TIProactiveQuickTypeManager_init__block_invoke(uint64_t a1)
 
   else
   {
-    v84 = 1;
+    v83 = 1;
   }
 
   _truncationSentinel = [rendererCopy _truncationSentinel];
+  v95 = 0u;
   v96 = 0u;
   v97 = 0u;
   v98 = 0u;
-  v99 = 0u;
   obj = fromCopy;
-  v85 = [obj countByEnumeratingWithState:&v96 objects:v102 count:16];
-  if (v85)
+  v84 = [obj countByEnumeratingWithState:&v95 objects:v101 count:16];
+  if (v84)
   {
-    v82 = *v97;
-    v81 = rendererCopy;
+    v81 = *v96;
+    v80 = rendererCopy;
     do
     {
       v15 = 0;
       do
       {
-        if (*v97 != v82)
+        if (*v96 != v81)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v96 + 1) + 8 * v15);
+        v16 = *(*(&v95 + 1) + 8 * v15);
         operationData = [v16 operationData];
         value = &stru_283FDFAF8;
         if (!operationData)
@@ -2126,11 +2126,11 @@ void __35__TIProactiveQuickTypeManager_init__block_invoke(uint64_t a1)
           {
             v22 = [rendererCopy localizedStringForKey:@"LOCATION_AGGREGATED_NAME_AND_ADDRESS"];
             v23 = MEMORY[0x277CCACA8];
-            v95 = 0;
+            v94 = 0;
             label2 = [v16 label];
             value2 = [v16 value];
-            v26 = [v23 stringWithValidatedFormat:v22 validFormatSpecifiers:@"%@%@" error:&v95, label2, value2];
-            v27 = v95;
+            v26 = [v23 stringWithValidatedFormat:v22 validFormatSpecifiers:@"%@%@" error:&v94, label2, value2];
+            v27 = v94;
             v28 = &stru_283FDFAF8;
             if (v26)
             {
@@ -2151,7 +2151,7 @@ void __35__TIProactiveQuickTypeManager_init__block_invoke(uint64_t a1)
               {
                 v75 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s ProactiveQuickType:TI: ERROR: invalid localized format for key LOCATION_AGGREGATED_NAME_AND_ADDRESS: %@", "+[TIProactiveQuickTypeManager buildSecureCandidateFrom:withSecureCandidateRenderer:input:]", v27];
                 *buf = 138412290;
-                v101 = v75;
+                v100 = v75;
                 _os_log_debug_impl(&dword_22CA55000, v30, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
             }
@@ -2174,16 +2174,16 @@ void __35__TIProactiveQuickTypeManager_init__block_invoke(uint64_t a1)
             value3 = [v16 value];
             v74 = [v72 stringWithFormat:@"%s ProactiveQuickType:TI: Rendering results with value= %@", "+[TIProactiveQuickTypeManager buildSecureCandidateFrom:withSecureCandidateRenderer:input:]", value3];
             *buf = 138412290;
-            v101 = v74;
+            v100 = v74;
             _os_log_debug_impl(&dword_22CA55000, v31, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
 
-        v91 = [rendererCopy localizedStringForKey:@"PARENTHESIZED_LABEL"];
-        v90 = [rendererCopy localizedStringForKey:@"APP_CONNECTION_ATTRIBUTION"];
+        v90 = [rendererCopy localizedStringForKey:@"PARENTHESIZED_LABEL"];
+        v89 = [rendererCopy localizedStringForKey:@"APP_CONNECTION_ATTRIBUTION"];
         if ([obj count] > 1)
         {
-          v32 = v84;
+          v32 = v83;
         }
 
         else
@@ -2196,12 +2196,12 @@ void __35__TIProactiveQuickTypeManager_init__block_invoke(uint64_t a1)
         if ([label3 length])
         {
           label4 = [v16 label];
-          v36 = [label4 isEqualToString:@"unlabeled"];
+          isEqualToString = objc_msgSend_isEqualToString_(label4);
         }
 
         else
         {
-          v36 = 1;
+          isEqualToString = 1;
         }
 
         originatingBundleID = [v16 originatingBundleID];
@@ -2213,16 +2213,16 @@ void __35__TIProactiveQuickTypeManager_init__block_invoke(uint64_t a1)
 
           if (v39)
           {
-            v94 = 0;
-            v40 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v90 validFormatSpecifiers:@"%@" error:&v94, v39];
-            v41 = v94;
+            v93 = 0;
+            v40 = [MEMORY[0x277CCACA8] stringWithValidatedFormat:v89 validFormatSpecifiers:@"%@" error:&v93, v39];
+            v41 = v93;
             v42 = &stru_283FDFAF8;
             if (v40)
             {
               v42 = v40;
             }
 
-            v89 = v42;
+            v88 = v42;
 
             if (v41)
             {
@@ -2234,9 +2234,9 @@ void __35__TIProactiveQuickTypeManager_init__block_invoke(uint64_t a1)
               v43 = TIOSLogFacility();
               if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
               {
-                v80 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s ProactiveQuickType:TI: ERROR: invalid localized format for key APP_CONNECTION_ATTRIBUTION: %@", "+[TIProactiveQuickTypeManager buildSecureCandidateFrom:withSecureCandidateRenderer:input:]", v41];
+                v79 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s ProactiveQuickType:TI: ERROR: invalid localized format for key APP_CONNECTION_ATTRIBUTION: %@", "+[TIProactiveQuickTypeManager buildSecureCandidateFrom:withSecureCandidateRenderer:input:]", v41];
                 *buf = 138412290;
-                v101 = v80;
+                v100 = v79;
                 _os_log_debug_impl(&dword_22CA55000, v43, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
             }
@@ -2244,17 +2244,17 @@ void __35__TIProactiveQuickTypeManager_init__block_invoke(uint64_t a1)
 
           else
           {
-            v89 = 0;
+            v88 = 0;
           }
         }
 
         else
         {
-          v89 = 0;
+          v88 = 0;
           v39 = 0;
         }
 
-        if (((flags & 1) == 0) & ~v32 | v36 & 1)
+        if (((flags & 1) == 0) & ~v32 | isEqualToString & 1)
         {
           v44 = 0;
           v45 = 0;
@@ -2278,11 +2278,11 @@ void __35__TIProactiveQuickTypeManager_init__block_invoke(uint64_t a1)
         if (name && v44)
         {
           v47 = MEMORY[0x277CCACA8];
-          v93 = 0;
+          v92 = 0;
           name2 = [v16 name];
           v49 = [name2 stringByAppendingString:_truncationSentinel];
-          v50 = [v47 stringWithValidatedFormat:v91 validFormatSpecifiers:@"%@%@" error:&v93, v49, v45];
-          v51 = v93;
+          v50 = [v47 stringWithValidatedFormat:v90 validFormatSpecifiers:@"%@%@" error:&v92, v49, v45];
+          v51 = v92;
           v52 = &stru_283FDFAF8;
           if (v50)
           {
@@ -2315,11 +2315,11 @@ void __35__TIProactiveQuickTypeManager_init__block_invoke(uint64_t a1)
         if (label6 && v39)
         {
           v57 = MEMORY[0x277CCACA8];
-          v92 = 0;
+          v91 = 0;
           label7 = [v16 label];
           v59 = [label7 stringByAppendingString:_truncationSentinel];
-          v60 = [v57 stringWithValidatedFormat:v91 validFormatSpecifiers:@"%@%@" error:&v92, v59, v89];
-          v51 = v92;
+          v60 = [v57 stringWithValidatedFormat:v90 validFormatSpecifiers:@"%@%@" error:&v91, v59, v88];
+          v51 = v91;
           v61 = &stru_283FDFAF8;
           if (v60)
           {
@@ -2341,7 +2341,7 @@ void __35__TIProactiveQuickTypeManager_init__block_invoke(uint64_t a1)
 LABEL_93:
               v76 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s ProactiveQuickType:TI: ERROR: invalid localized format for key PARENTHESIZED_LABEL: %@", "+[TIProactiveQuickTypeManager buildSecureCandidateFrom:withSecureCandidateRenderer:input:]", v51];
               *buf = 138412290;
-              v101 = v76;
+              v100 = v76;
               _os_log_debug_impl(&dword_22CA55000, v54, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
@@ -2350,10 +2350,10 @@ LABEL_71:
 
 LABEL_72:
 
-          rendererCopy = v81;
+          rendererCopy = v80;
 LABEL_73:
           value4 = [v16 value];
-          v63 = [(__CFString *)v53 isEqualToString:value4];
+          v63 = objc_msgSend_isEqualToString_(v53);
 
           if (!v63)
           {
@@ -2370,7 +2370,7 @@ LABEL_73:
 
         else if (![v16 itemType])
         {
-          name4 = v89;
+          name4 = v88;
           goto LABEL_90;
         }
 
@@ -2417,25 +2417,23 @@ LABEL_75:
         }
 
         v67 = [objc_alloc(MEMORY[0x277D6F570]) initWithSecureHeader:v53 secureContent:value5 secureFormattedContent:value input:inputCopy truncationSentinel:_truncationSentinel];
-        if (([v86 containsObject:v67] & 1) == 0)
+        if (([v85 containsObject:v67] & 1) == 0)
         {
-          [v86 addObject:v67];
+          [v85 addObject:v67];
         }
 
         ++v15;
       }
 
-      while (v85 != v15);
-      v77 = [obj countByEnumeratingWithState:&v96 objects:v102 count:16];
-      v85 = v77;
+      while (v84 != v15);
+      v77 = [obj countByEnumeratingWithState:&v95 objects:v101 count:16];
+      v84 = v77;
     }
 
     while (v77);
   }
 
-  v78 = *MEMORY[0x277D85DE8];
-
-  return v86;
+  return v85;
 }
 
 + (id)proactiveTriggerForTextContentType:(id)type withContextBeforeInput:(id)input autofillMode:(unint64_t)mode
@@ -2488,7 +2486,7 @@ LABEL_75:
 
 + (id)proactiveTriggerForTextContentType:(id)type
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   if ([typeCopy length])
   {
@@ -2504,7 +2502,7 @@ LABEL_75:
       {
         typeCopy = [MEMORY[0x277CCACA8] stringWithFormat:@"%s ProactiveQuickType:TI: Creating a connections trigger for tagged text field: %@", "+[TIProactiveQuickTypeManager proactiveTriggerForTextContentType:]", typeCopy];
         *buf = 138412290;
-        v11 = typeCopy;
+        v10 = typeCopy;
         _os_log_debug_impl(&dword_22CA55000, v4, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -2520,16 +2518,16 @@ LABEL_75:
     v6 = 0;
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return v6;
 }
 
 uint64_t __48__TIProactiveQuickTypeManager_singletonInstance__block_invoke()
 {
-  singletonInstance_singleton = objc_alloc_init(TIProactiveQuickTypeManager);
+  v0 = objc_alloc_init(TIProactiveQuickTypeManager);
+  v1 = singletonInstance_singleton;
+  singletonInstance_singleton = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (TIProactiveQuickTypeManager)initWithICManager:(id)manager

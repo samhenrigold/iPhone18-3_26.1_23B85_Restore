@@ -45,7 +45,7 @@
 
 - (uint64_t)_sf_shouldPerformDownload
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if ([self _shouldPerformDownload])
   {
     safari_browserDefaults = [MEMORY[0x1E695E000] safari_browserDefaults];
@@ -55,52 +55,53 @@
 
     if (targetFrame && ([targetFrame isMainFrame] & 1) == 0 && (objc_msgSend(self, "sourceFrame"), v6 = objc_claimAutoreleasedReturnValue(), v6, targetFrame == v6))
     {
-      v8 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      v11 = 1;
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
+      v12 = WBS_LOG_CHANNEL_PREFIXDownloads(v7, v8);
+      v15 = 1;
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v13 = 138739971;
-        v14 = v5;
-        v10 = "Downloading download-attributed same-frame subframe link to %{sensitive}@";
+        v17 = 138739971;
+        v18 = v5;
+        v14 = "Downloading download-attributed same-frame subframe link to %{sensitive}@";
         goto LABEL_15;
       }
     }
 
     else
     {
-      v7 = [safari_browserDefaults BOOLForKey:*MEMORY[0x1E69B1EA8]];
-      v8 = WBS_LOG_CHANNEL_PREFIXDownloads();
-      v9 = os_log_type_enabled(v8, OS_LOG_TYPE_INFO);
-      if (!v7)
+      v9 = [safari_browserDefaults BOOLForKey:*MEMORY[0x1E69B1EA8]];
+      v10 = v9;
+      v12 = WBS_LOG_CHANNEL_PREFIXDownloads(v9, v11);
+      v13 = os_log_type_enabled(v12, OS_LOG_TYPE_INFO);
+      if (!v10)
       {
-        if (v9)
+        if (v13)
         {
-          v13 = 138739971;
-          v14 = v5;
-          _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_INFO, "Allowing provisional navigation with download attribute to %{sensitive}@", &v13, 0xCu);
+          v17 = 138739971;
+          v18 = v5;
+          _os_log_impl(&dword_1D4644000, v12, OS_LOG_TYPE_INFO, "Allowing provisional navigation with download attribute to %{sensitive}@", &v17, 0xCu);
         }
 
-        v11 = 0;
+        v15 = 0;
         goto LABEL_16;
       }
 
-      if (v9)
+      if (v13)
       {
-        v13 = 138739971;
-        v14 = v5;
-        v10 = "Using download attribute for main frame navigation to %{sensitive}@";
-        v11 = 1;
+        v17 = 138739971;
+        v18 = v5;
+        v14 = "Using download attribute for main frame navigation to %{sensitive}@";
+        v15 = 1;
 LABEL_15:
-        _os_log_impl(&dword_1D4644000, v8, OS_LOG_TYPE_INFO, v10, &v13, 0xCu);
+        _os_log_impl(&dword_1D4644000, v12, OS_LOG_TYPE_INFO, v14, &v17, 0xCu);
         goto LABEL_16;
       }
 
-      v11 = 1;
+      v15 = 1;
     }
 
 LABEL_16:
 
-    return v11;
+    return v15;
   }
 
   return 0;

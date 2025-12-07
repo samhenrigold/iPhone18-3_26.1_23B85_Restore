@@ -35,7 +35,7 @@
     objc_storeWeak(&self->_previousProvider, getCurrentAudioPowerProvider);
   }
 
-  if ([getCurrentAudioPowerProvider getAveragePower:power andPeakPower:peakPower])
+  if ([getCurrentAudioPowerProvider getAveragePower:? andPeakPower:?])
   {
     v8 = 1;
   }
@@ -63,7 +63,7 @@ LABEL_6:
   v2 = +[VSSpeechTaskQueue mainDeviceQueue];
   currentTask = [v2 currentTask];
 
-  if ([currentTask conformsToProtocol:&unk_2881D6B48])
+  if ([currentTask conformsToProtocol:?])
   {
     v4 = currentTask;
     if ([v4 isSpeaking] && (objc_opt_respondsToSelector() & 1) != 0)

@@ -20,6 +20,7 @@
 - (void)_updateReadyForDisplayIfNeeded;
 - (void)_updateStatusIfNeeded;
 - (void)observable:(id)observable didChange:(unint64_t)change context:(void *)context;
+- (void)prepareWithPhoto:(CGImage *)photo videoAsset:(id)asset photoTime:(double)time photoEXIFOrientation:(int)orientation;
 - (void)setAudioMuted:(BOOL)muted;
 - (void)setContentMode:(int64_t)mode;
 - (void)setDelegate:(id)delegate;
@@ -242,18 +243,11 @@ LABEL_10:
   if (!self->_isValid.playerView)
   {
     self->_isValid.playerView = 1;
-    playbackStyle = [(ISPlayerView *)self playbackStyle];
-    v5 = off_279A294F8;
-    if (playbackStyle != 1)
-    {
-      v5 = off_279A294E8;
-    }
-
-    v6 = *v5;
-    v7 = objc_alloc_init(objc_opt_class());
-    [v7 setAutoresizingMask:18];
-    [v7 setContentMode:{-[ISPlayerView contentMode](self, "contentMode")}];
-    [(ISPlayerView *)self _setPlayerView:v7];
+    [(ISPlayerView *)self playbackStyle];
+    v4 = objc_alloc_init(objc_opt_class());
+    [v4 setAutoresizingMask:18];
+    [v4 setContentMode:{-[ISPlayerView contentMode](self, "contentMode")}];
+    [(ISPlayerView *)self _setPlayerView:v4];
   }
 }
 
@@ -292,7 +286,7 @@ LABEL_10:
 
 - (void)_setPlayerView:(id)view
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   viewCopy = view;
   playerView = self->__playerView;
   if (playerView != viewCopy)
@@ -304,58 +298,58 @@ LABEL_10:
     [player2 setDelegate:0];
 
     [(ISBasePlayerUIView *)self->__playerView removeFromSuperview];
-    v30 = 0u;
-    v31 = 0u;
-    v28 = 0u;
     v29 = 0u;
+    v30 = 0u;
+    v27 = 0u;
+    v28 = 0u;
     gestureRecognizers = [(ISBasePlayerUIView *)self->__playerView gestureRecognizers];
-    v10 = [gestureRecognizers countByEnumeratingWithState:&v28 objects:v33 count:16];
+    v10 = [gestureRecognizers countByEnumeratingWithState:&v27 objects:v32 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v29;
+      v12 = *v28;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v29 != v12)
+          if (*v28 != v12)
           {
             objc_enumerationMutation(gestureRecognizers);
           }
 
-          [*(*(&v28 + 1) + 8 * i) removeTarget:self action:0];
+          [*(*(&v27 + 1) + 8 * i) removeTarget:self action:0];
         }
 
-        v11 = [gestureRecognizers countByEnumeratingWithState:&v28 objects:v33 count:16];
+        v11 = [gestureRecognizers countByEnumeratingWithState:&v27 objects:v32 count:16];
       }
 
       while (v11);
     }
 
     objc_storeStrong(&self->__playerView, view);
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     gestureRecognizers2 = [(ISBasePlayerUIView *)self->__playerView gestureRecognizers];
-    v15 = [gestureRecognizers2 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v15 = [gestureRecognizers2 countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v25;
+      v17 = *v24;
       do
       {
         for (j = 0; j != v16; ++j)
         {
-          if (*v25 != v17)
+          if (*v24 != v17)
           {
             objc_enumerationMutation(gestureRecognizers2);
           }
 
-          [*(*(&v24 + 1) + 8 * j) addTarget:self action:sel__handleGesture_];
+          [*(*(&v23 + 1) + 8 * j) addTarget:self action:sel__handleGesture_];
         }
 
-        v16 = [gestureRecognizers2 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v16 = [gestureRecognizers2 countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v16);
@@ -375,8 +369,6 @@ LABEL_10:
     playbackGestureRecognizer = [(ISBasePlayerUIView *)self->__playerView playbackGestureRecognizer];
     [(ISPlayerView *)self _setGestureRecognizer:playbackGestureRecognizer];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setPlaybackState:(int64_t)state
@@ -504,6 +496,25 @@ LABEL_10:
 
     [(ISPlayerView *)self _updateIfNeeded];
   }
+}
+
+- (void)prepareWithPhoto:(CGImage *)photo videoAsset:(id)asset photoTime:(double)time photoEXIFOrientation:(int)orientation
+{
+  v6 = *&orientation;
+  assetCopy = asset;
+  v20 = [[ISAsset alloc] initWithVideoAsset:assetCopy photo:photo photoTime:v6 photoEXIFOrientation:time];
+
+  mainScreen = [MEMORY[0x277D759A0] mainScreen];
+  [mainScreen bounds];
+  v13 = v12;
+  v15 = v14;
+
+  mainScreen2 = [MEMORY[0x277D759A0] mainScreen];
+  [mainScreen2 scale];
+  v18 = v17;
+
+  v19 = [ISPlayerItem playerItemWithAsset:v20 targetSize:v13 * v18, v15 * v18];
+  [(ISPlayerView *)self prepareWithPlayerItem:v19];
 }
 
 - (ISPlayerView)initWithVideoPlayer:(id)player

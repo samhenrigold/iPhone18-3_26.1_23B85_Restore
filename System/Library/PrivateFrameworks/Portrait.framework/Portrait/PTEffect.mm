@@ -40,77 +40,78 @@
 {
   descriptorCopy = descriptor;
   resourcesCopy = resources;
-  v36.receiver = self;
-  v36.super_class = PTEffect;
-  v8 = [(PTEffect *)&v36 init];
-  v9 = v8;
+  v42.receiver = self;
+  v42.super_class = PTEffect;
+  v8 = [(PTEffect *)&v42 init];
+  v10 = v8;
+  v11 = v8;
   if (!v8)
   {
     goto LABEL_25;
   }
 
-  PTKTraceInit();
-  [(PTEffect *)v8 reset];
+  PTKTraceInit(v8, v9);
+  [(PTEffect *)v11 reset];
   if ([descriptorCopy prewarmOnly] && (objc_msgSend(descriptorCopy, "availableEffectTypes") & 4) != 0)
   {
     [descriptorCopy setSyncInitialization:1];
   }
 
   [PTEffect _createQueuesIfNotProvidedOnDescriptor:descriptorCopy orCopyFromPreviousDescriptor:0];
-  v10 = [descriptorCopy copy];
-  effectDescriptor = v8->_effectDescriptor;
-  v8->_effectDescriptor = v10;
+  v12 = [descriptorCopy copy];
+  effectDescriptor = v11->_effectDescriptor;
+  v11->_effectDescriptor = v12;
 
-  v8->_frameId = 0;
-  v8->_debugType = 0;
-  v8->_delegateLock._os_unfair_lock_opaque = 0;
-  objc_storeStrong(&v8->_resources, resources);
-  [(PTEffectDescriptor *)v8->_effectDescriptor setAvailableEffectTypes:[(PTEffectDescriptor *)v8->_effectDescriptor availableEffectTypes]| [(PTEffectDescriptor *)v8->_effectDescriptor activeEffectType]];
-  metalCommandQueue = [(PTEffectDescriptor *)v8->_effectDescriptor metalCommandQueue];
+  v11->_frameId = 0;
+  v11->_debugType = 0;
+  v11->_delegateLock._os_unfair_lock_opaque = 0;
+  objc_storeStrong(&v10->_resources, resources);
+  [(PTEffectDescriptor *)v11->_effectDescriptor setAvailableEffectTypes:[(PTEffectDescriptor *)v11->_effectDescriptor availableEffectTypes]| [(PTEffectDescriptor *)v11->_effectDescriptor activeEffectType]];
+  metalCommandQueue = [(PTEffectDescriptor *)v11->_effectDescriptor metalCommandQueue];
 
   if (metalCommandQueue)
   {
-    v13 = [PTMetalContext alloc];
-    metalCommandQueue2 = [(PTEffectDescriptor *)v9->_effectDescriptor metalCommandQueue];
-    v15 = [(PTMetalContext *)v13 initWithCommandQueue:metalCommandQueue2 bundleClass:objc_opt_class()];
-    metalContext = v9->_metalContext;
-    v9->_metalContext = v15;
+    v15 = [PTMetalContext alloc];
+    metalCommandQueue2 = [(PTEffectDescriptor *)v11->_effectDescriptor metalCommandQueue];
+    v17 = [(PTMetalContext *)v15 initWithCommandQueue:metalCommandQueue2 bundleClass:objc_opt_class()];
+    metalContext = v11->_metalContext;
+    v11->_metalContext = v17;
 
-    v9->_hasExternalCommandQueue = 1;
+    v11->_hasExternalCommandQueue = 1;
   }
 
   else
   {
-    v17 = MTLCreateSystemDefaultDevice();
-    v18 = [PTMetalContext alloc];
-    newCommandQueue = [v17 newCommandQueue];
-    v20 = [(PTMetalContext *)v18 initWithCommandQueue:newCommandQueue bundleClass:objc_opt_class()];
-    v21 = v9->_metalContext;
-    v9->_metalContext = v20;
+    v19 = MTLCreateSystemDefaultDevice();
+    v20 = [PTMetalContext alloc];
+    newCommandQueue = [v19 newCommandQueue];
+    v22 = [(PTMetalContext *)v20 initWithCommandQueue:newCommandQueue bundleClass:objc_opt_class()];
+    v23 = v11->_metalContext;
+    v11->_metalContext = v22;
 
-    commandQueue = [(PTMetalContext *)v9->_metalContext commandQueue];
+    commandQueue = [(PTMetalContext *)v11->_metalContext commandQueue];
     [commandQueue setGPUPriority:4];
 
-    commandQueue2 = [(PTMetalContext *)v9->_metalContext commandQueue];
-    [(PTEffectDescriptor *)v9->_effectDescriptor setMetalCommandQueue:commandQueue2];
+    commandQueue2 = [(PTMetalContext *)v11->_metalContext commandQueue];
+    [(PTEffectDescriptor *)v11->_effectDescriptor setMetalCommandQueue:commandQueue2];
 
-    v9->_hasExternalCommandQueue = 0;
+    v11->_hasExternalCommandQueue = 0;
   }
 
-  [(PTMetalContext *)v9->_metalContext setAllowCommandbufferAllocation:0];
+  [(PTMetalContext *)v11->_metalContext setAllowCommandbufferAllocation:0];
   util = [resourcesCopy util];
 
   if (!util)
   {
-    v25 = [[PTUtil alloc] initWithMetalContext:v9->_metalContext];
-    [resourcesCopy setUtil:v25];
+    v27 = [[PTUtil alloc] initWithMetalContext:v11->_metalContext];
+    [resourcesCopy setUtil:v27];
 
     util2 = [resourcesCopy util];
 
     if (!util2)
     {
-      v33 = _PTLogSystem();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v39 = _PTLogSystem(v29);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         [PTEffect initWithDescriptor:sharedResources:];
       }
@@ -123,15 +124,15 @@
 
   if (!effectUtil)
   {
-    v28 = [[PTEffectUtil alloc] initWithMetalContext:v9->_metalContext];
-    [resourcesCopy setEffectUtil:v28];
+    v31 = [[PTEffectUtil alloc] initWithMetalContext:v11->_metalContext];
+    [resourcesCopy setEffectUtil:v31];
 
     effectUtil2 = [resourcesCopy effectUtil];
 
     if (!effectUtil2)
     {
-      v33 = _PTLogSystem();
-      if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+      v39 = _PTLogSystem(v33);
+      if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
       {
         [PTEffect initWithDescriptor:sharedResources:];
       }
@@ -140,14 +141,14 @@
     }
   }
 
-  v30 = [[PTHumanDetections alloc] initWithMetalContext:v9->_metalContext];
-  humanDetections = v9->_humanDetections;
-  v9->_humanDetections = v30;
+  v34 = [[PTHumanDetections alloc] initWithMetalContext:v11->_metalContext];
+  humanDetections = v11->_humanDetections;
+  v11->_humanDetections = v34;
 
-  if (!v9->_humanDetections)
+  if (!v11->_humanDetections)
   {
-    v33 = _PTLogSystem();
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v39 = _PTLogSystem(v36);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
     {
       [PTEffect initWithDescriptor:sharedResources:];
     }
@@ -155,14 +156,15 @@
 LABEL_24:
 
 LABEL_25:
-    v34 = 0;
+    v40 = 0;
     goto LABEL_26;
   }
 
-  if ([(PTEffect *)v9 reconfigure:v9->_effectDescriptor isInitialized:0])
+  v37 = [(PTEffect *)v11 reconfigure:v11->_effectDescriptor isInitialized:0];
+  if (v37)
   {
-    v32 = _PTLogSystem();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v38 = _PTLogSystem(v37);
+    if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       [PTEffect initWithDescriptor:sharedResources:];
     }
@@ -170,20 +172,21 @@ LABEL_25:
     goto LABEL_25;
   }
 
-  v34 = v9;
+  v40 = v11;
 LABEL_26:
 
-  return v34;
+  return v40;
 }
 
 + (void)_createQueuesIfNotProvidedOnDescriptor:(id)descriptor orCopyFromPreviousDescriptor:(id)previousDescriptor
 {
   descriptorCopy = descriptor;
   previousDescriptorCopy = previousDescriptor;
+  v7 = previousDescriptorCopy;
   if (!descriptorCopy)
   {
-    v7 = _PTLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _PTLogSystem(previousDescriptorCopy);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       +[PTEffect _createQueuesIfNotProvidedOnDescriptor:orCopyFromPreviousDescriptor:];
     }
@@ -193,22 +196,22 @@ LABEL_26:
 
   if (!asyncInitQueue)
   {
-    asyncInitQueue2 = [previousDescriptorCopy asyncInitQueue];
+    asyncInitQueue2 = [v7 asyncInitQueue];
     [descriptorCopy setAsyncInitQueue:asyncInitQueue2];
 
     asyncInitQueue3 = [descriptorCopy asyncInitQueue];
 
     if (!asyncInitQueue3)
     {
-      v11 = _PTLogSystem();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v13 = _PTLogSystem(v12);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_2243FB000, v11, OS_LOG_TYPE_INFO, "Async init queue not provided, creating one", buf, 2u);
+        _os_log_impl(&dword_2243FB000, v13, OS_LOG_TYPE_INFO, "Async init queue not provided, creating one", buf, 2u);
       }
 
-      v12 = dispatch_queue_create("com.apple.portrait.effect_init", 0);
-      [descriptorCopy setAsyncInitQueue:v12];
+      v14 = dispatch_queue_create("com.apple.portrait.effect_init", 0);
+      [descriptorCopy setAsyncInitQueue:v14];
     }
   }
 
@@ -216,22 +219,22 @@ LABEL_26:
 
   if (!asyncProcessingQueue)
   {
-    asyncProcessingQueue2 = [previousDescriptorCopy asyncProcessingQueue];
+    asyncProcessingQueue2 = [v7 asyncProcessingQueue];
     [descriptorCopy setAsyncProcessingQueue:asyncProcessingQueue2];
 
     asyncProcessingQueue3 = [descriptorCopy asyncProcessingQueue];
 
     if (!asyncProcessingQueue3)
     {
-      v16 = _PTLogSystem();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+      v19 = _PTLogSystem(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
-        *v18 = 0;
-        _os_log_impl(&dword_2243FB000, v16, OS_LOG_TYPE_INFO, "Async processing queue not provided, creating one", v18, 2u);
+        *v21 = 0;
+        _os_log_impl(&dword_2243FB000, v19, OS_LOG_TYPE_INFO, "Async processing queue not provided, creating one", v21, 2u);
       }
 
-      v17 = dispatch_queue_create("com.apple.portrait.effect_processing", 0);
-      [descriptorCopy setAsyncProcessingQueue:v17];
+      v20 = dispatch_queue_create("com.apple.portrait.effect_processing", 0);
+      [descriptorCopy setAsyncProcessingQueue:v20];
     }
   }
 }
@@ -239,59 +242,60 @@ LABEL_26:
 - (int)reconfigure:(id)reconfigure isInitialized:(BOOL)initialized
 {
   initializedCopy = initialized;
-  v36 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   reconfigureCopy = reconfigure;
-  if ([(PTEffectDescriptor *)self->_effectDescriptor isEqual:reconfigureCopy includeSyncInit:0]&& initializedCopy)
+  v7 = [(PTEffectDescriptor *)self->_effectDescriptor isEqual:reconfigureCopy includeSyncInit:0];
+  if ((v7 & initializedCopy) == 1)
   {
-    v7 = _PTLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+    v8 = _PTLogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
     {
       [PTEffect reconfigure:isInitialized:];
     }
 
     [(PTEffect *)self reset];
-    v8 = 0;
+    v9 = 0;
   }
 
   else
   {
-    v9 = _PTLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _PTLogSystem(v7);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       activeEffectType = [reconfigureCopy activeEffectType];
       availableEffectTypes = [reconfigureCopy availableEffectTypes];
       effectQuality = [reconfigureCopy effectQuality];
-      [reconfigureCopy colorSize];
-      v14 = v13;
-      [reconfigureCopy colorSize];
-      v22 = 134219520;
+      objc_msgSend_colorSize(reconfigureCopy);
+      v15 = v14;
+      objc_msgSend_colorSize(reconfigureCopy);
+      v23 = 134219520;
       selfCopy = self;
-      v24 = 2048;
-      v25 = activeEffectType;
-      v26 = 2048;
-      v27 = availableEffectTypes;
-      v28 = 2048;
-      v29 = effectQuality;
-      v30 = 2048;
-      v31 = v14;
-      v32 = 2048;
-      v33 = v15;
-      v34 = 1024;
-      v35 = initializedCopy;
-      _os_log_impl(&dword_2243FB000, v9, OS_LOG_TYPE_DEFAULT, "Configure PTEffect (ptr %p). Type: %lu AvailableTypes: %lu quality: %lu size: %f x %f init: %i", &v22, 0x44u);
+      v25 = 2048;
+      v26 = activeEffectType;
+      v27 = 2048;
+      v28 = availableEffectTypes;
+      v29 = 2048;
+      v30 = effectQuality;
+      v31 = 2048;
+      v32 = v15;
+      v33 = 2048;
+      v34 = v16;
+      v35 = 1024;
+      v36 = initializedCopy;
+      _os_log_impl(&dword_2243FB000, v10, OS_LOG_TYPE_DEFAULT, "Configure PTEffect (ptr %p). Type: %lu AvailableTypes: %lu quality: %lu size: %f x %f init: %i", &v23, 0x44u);
     }
 
     os_unfair_lock_lock(&self->_delegateLock);
     [PTEffect _createQueuesIfNotProvidedOnDescriptor:reconfigureCopy orCopyFromPreviousDescriptor:self->_effectDescriptor];
-    v16 = [reconfigureCopy copy];
+    v17 = [reconfigureCopy copy];
     effectDescriptor = self->_effectDescriptor;
-    self->_effectDescriptor = v16;
+    self->_effectDescriptor = v17;
 
     delegate = self->_delegate;
     self->_delegate = 0;
 
     os_unfair_lock_unlock(&self->_delegateLock);
-    v8 = [(PTEffect *)self updateEffectDelegate:0];
+    v9 = [(PTEffect *)self updateEffectDelegate:0];
     if ([(PTEffectDescriptor *)self->_effectDescriptor syncInitialization]|| sForceSynchronousInitialization == 1)
     {
       asyncInitQueue = [(PTEffectDescriptor *)self->_effectDescriptor asyncInitQueue];
@@ -305,20 +309,21 @@ LABEL_26:
     }
   }
 
-  return v8;
+  return v9;
 }
 
 - (id)reconfigureWithNewSize:(id)size
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   sizeCopy = size;
-  if ([(PTEffectDescriptor *)self->_effectDescriptor isEqual:sizeCopy includeSyncInit:0])
+  v5 = [(PTEffectDescriptor *)self->_effectDescriptor isEqual:sizeCopy includeSyncInit:0];
+  if (v5)
   {
-    v5 = _PTLogSystem();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = _PTLogSystem(v5);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_2243FB000, v5, OS_LOG_TYPE_DEFAULT, "Ignore reconfigureWithNewSize: due to equal descriptor", &v17, 2u);
+      LOWORD(v18) = 0;
+      _os_log_impl(&dword_2243FB000, v6, OS_LOG_TYPE_DEFAULT, "Ignore reconfigureWithNewSize: due to equal descriptor", &v18, 2u);
     }
 
     selfCopy = self;
@@ -326,37 +331,36 @@ LABEL_26:
 
   else
   {
-    [PTEffect _createQueuesIfNotProvidedOnDescriptor:sizeCopy orCopyFromPreviousDescriptor:self->_effectDescriptor];
-    v7 = _PTLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = _PTLogSystem([PTEffect _createQueuesIfNotProvidedOnDescriptor:sizeCopy orCopyFromPreviousDescriptor:self->_effectDescriptor]);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       activeEffectType = [sizeCopy activeEffectType];
       availableEffectTypes = [sizeCopy availableEffectTypes];
       effectQuality = [sizeCopy effectQuality];
-      [sizeCopy colorSize];
-      v12 = v11;
-      [sizeCopy colorSize];
-      v17 = 134219264;
+      objc_msgSend_colorSize(sizeCopy);
+      v13 = v12;
+      objc_msgSend_colorSize(sizeCopy);
+      v18 = 134219264;
       selfCopy2 = self;
-      v19 = 2048;
-      v20 = activeEffectType;
-      v21 = 2048;
-      v22 = availableEffectTypes;
-      v23 = 2048;
-      v24 = effectQuality;
-      v25 = 2048;
-      v26 = v12;
-      v27 = 2048;
-      v28 = v13;
-      _os_log_impl(&dword_2243FB000, v7, OS_LOG_TYPE_DEFAULT, "Reconfigure PTEffect (ptr %p). Type: %lu AvailableTypes: %lu quality: %lu size: %f x %f", &v17, 0x3Eu);
+      v20 = 2048;
+      v21 = activeEffectType;
+      v22 = 2048;
+      v23 = availableEffectTypes;
+      v24 = 2048;
+      v25 = effectQuality;
+      v26 = 2048;
+      v27 = v13;
+      v28 = 2048;
+      v29 = v14;
+      _os_log_impl(&dword_2243FB000, v8, OS_LOG_TYPE_DEFAULT, "Reconfigure PTEffect (ptr %p). Type: %lu AvailableTypes: %lu quality: %lu size: %f x %f", &v18, 0x3Eu);
     }
 
-    v14 = [sizeCopy copy];
-    [v14 setSyncInitialization:1];
+    v15 = [sizeCopy copy];
+    [v15 setSyncInitialization:1];
     metalCommandQueue = [(PTEffectDescriptor *)self->_effectDescriptor metalCommandQueue];
-    [v14 setMetalCommandQueue:metalCommandQueue];
+    [v15 setMetalCommandQueue:metalCommandQueue];
 
-    selfCopy = [[PTEffect alloc] initWithDescriptor:v14 sharedResources:self->_resources];
+    selfCopy = [[PTEffect alloc] initWithDescriptor:v15 sharedResources:self->_resources];
   }
 
   return selfCopy;
@@ -392,32 +396,33 @@ LABEL_26:
 - (int)updateEffectDelegate:(BOOL)delegate
 {
   delegateCopy = delegate;
-  v54 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v5 = [(PTEffectDescriptor *)self->_effectDescriptor copy];
-  v27 = v5;
+  v29 = v5;
   activeEffectType = [v5 activeEffectType];
   os_unfair_lock_lock(&self->_delegateLock);
-  v28 = self->_delegate;
+  v30 = self->_delegate;
   os_unfair_lock_unlock(&self->_delegateLock);
   syncInitialization = [(PTEffectDescriptor *)self->_effectDescriptor syncInitialization];
-  v8 = sForceSynchronousInitialization;
-  v9 = _PTLogSystem();
-  v10 = (syncInitialization | v8) & 1;
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+  v8 = syncInitialization;
+  v9 = sForceSynchronousInitialization;
+  v10 = _PTLogSystem(syncInitialization);
+  v11 = (v8 | v9) & 1;
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109632;
     activeEffectType2 = [v5 activeEffectType];
-    v50 = 1024;
-    v51 = v10;
     v52 = 1024;
-    v53 = delegateCopy;
-    _os_log_debug_impl(&dword_2243FB000, v9, OS_LOG_TYPE_DEBUG, "Schedule set effect type: %i sync: %i forceImmediatePassthrough: %i", buf, 0x14u);
+    v53 = v11;
+    v54 = 1024;
+    v55 = delegateCopy;
+    _os_log_debug_impl(&dword_2243FB000, v10, OS_LOG_TYPE_DEBUG, "Schedule set effect type: %i sync: %i forceImmediatePassthrough: %i", buf, 0x14u);
   }
 
-  v11 = 0;
-  if (v28)
+  v12 = 0;
+  if (v30)
   {
-    v12 = v5;
+    v13 = v5;
     if (delegateCopy)
     {
       goto LABEL_11;
@@ -428,64 +433,64 @@ LABEL_26:
 
     if (!commandBuffer)
     {
-      v15 = _PTLogSystem();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v17 = _PTLogSystem(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         [PTEffectPersonSegmentation runPersonSegmentationToOutPersonSegmentationMatteBuffer:inColor:transform:inSegmentationRGBA:inSegmentationRGBATexture:outUpscaledSegmentation:];
       }
     }
 
     [commandBuffer setLabel:@"PTEffect copyTemporalState"];
-    v11 = [(PTEffectRenderer *)v28 copyTemporalState:commandBuffer];
+    v12 = [(PTEffectRenderer *)v30 copyTemporalState:commandBuffer];
     [commandBuffer commit];
     [commandBuffer waitUntilScheduled];
   }
 
-  v12 = v27;
+  v13 = v29;
 LABEL_11:
-  v16 = +[PTCVMNetwork depthPrioritizationFromEffectQuality:](PTCVMNetwork, "depthPrioritizationFromEffectQuality:", [v12 effectQuality]);
-  prewarmOnly = [v12 prewarmOnly];
-  v18 = [(PTMetalContext *)self->_metalContext copy];
-  [v18 setAllowCommandbufferAllocation:1];
-  v40[0] = MEMORY[0x277D85DD0];
-  v40[1] = 3221225472;
-  v40[2] = __33__PTEffect_updateEffectDelegate___block_invoke;
-  v40[3] = &unk_278523168;
-  v42 = activeEffectType;
-  v43 = v16;
-  v45 = v10;
-  v46 = delegateCopy;
-  v40[4] = self;
-  v19 = v12;
-  v41 = v19;
+  v18 = +[PTCVMNetwork depthPrioritizationFromEffectQuality:](PTCVMNetwork, "depthPrioritizationFromEffectQuality:", [v13 effectQuality]);
+  prewarmOnly = [v13 prewarmOnly];
+  v20 = [(PTMetalContext *)self->_metalContext copy];
+  [v20 setAllowCommandbufferAllocation:1];
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __33__PTEffect_updateEffectDelegate___block_invoke;
+  v42[3] = &unk_278523168;
+  v44 = activeEffectType;
+  v45 = v18;
+  v47 = v11;
+  v48 = delegateCopy;
+  v42[4] = self;
+  v21 = v13;
+  v43 = v21;
   selfCopy = self;
-  v47 = prewarmOnly;
-  v20 = MEMORY[0x22AA50020](v40);
-  v29[0] = MEMORY[0x277D85DD0];
-  v29[1] = 3221225472;
-  v29[2] = __33__PTEffect_updateEffectDelegate___block_invoke_2;
-  v29[3] = &unk_278523190;
-  v34 = activeEffectType;
-  v35 = v16;
-  v37 = v10;
-  v38 = delegateCopy;
-  v21 = v19;
-  v30 = v21;
-  v22 = v18;
-  v31 = v22;
+  v49 = prewarmOnly;
+  v22 = MEMORY[0x22AA50020](v42);
+  v31[0] = MEMORY[0x277D85DD0];
+  v31[1] = 3221225472;
+  v31[2] = __33__PTEffect_updateEffectDelegate___block_invoke_2;
+  v31[3] = &unk_278523190;
+  v36 = activeEffectType;
+  v37 = v18;
+  v39 = v11;
+  v40 = delegateCopy;
+  v23 = v21;
+  v32 = v23;
+  v24 = v20;
+  v33 = v24;
   selfCopy2 = self;
-  v23 = v11;
-  v33 = v23;
+  v25 = v12;
+  v35 = v25;
   selfCopy3 = self;
-  v39 = prewarmOnly;
-  v24 = MEMORY[0x22AA50020](v29);
+  v41 = prewarmOnly;
+  v26 = MEMORY[0x22AA50020](v31);
   if (delegateCopy)
   {
-    v20[2](v20);
+    v22[2](v22);
   }
 
   asyncInitQueue = [(PTEffectDescriptor *)self->_effectDescriptor asyncInitQueue];
-  dispatch_async(asyncInitQueue, v24);
+  dispatch_async(asyncInitQueue, v26);
 
   self->_rebuildEffect = 0;
   return 0;
@@ -513,7 +518,7 @@ void __33__PTEffect_updateEffectDelegate___block_invoke_2(uint64_t a1)
   v2 = [[PTEffectRenderer alloc] initWithDescriptor:*(a1 + 32) metalContext:*(a1 + 40) depthPrioritization:*(a1 + 72) humanDetections:*(*(a1 + 48) + 80) prevTemporalState:*(a1 + 56) sharedResources:*(*(a1 + 48) + 48)];
   if (!v2)
   {
-    v3 = _PTLogSystem();
+    v3 = _PTLogSystem(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __33__PTEffect_updateEffectDelegate___block_invoke_2_cold_1();
@@ -541,20 +546,20 @@ void __33__PTEffect_updateEffectDelegate___block_invoke_2(uint64_t a1)
 
     if (!commandBuffer)
     {
-      v7 = _PTLogSystem();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _PTLogSystem(v7);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         [PTEffectPersonSegmentation runPersonSegmentationToOutPersonSegmentationMatteBuffer:inColor:transform:inSegmentationRGBA:inSegmentationRGBATexture:outUpscaledSegmentation:];
       }
     }
 
     [commandBuffer setLabel:@"PTEffect keepOldDelegateAlive"];
-    v8[0] = MEMORY[0x277D85DD0];
-    v8[1] = 3221225472;
-    v8[2] = __33__PTEffect_keepOldDelegateAlive___block_invoke;
-    v8[3] = &unk_2785231B8;
-    v9 = aliveCopy;
-    [commandBuffer addCompletedHandler:v8];
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __33__PTEffect_keepOldDelegateAlive___block_invoke;
+    v9[3] = &unk_2785231B8;
+    v10 = aliveCopy;
+    [commandBuffer addCompletedHandler:v9];
     [commandBuffer commit];
   }
 }
@@ -563,7 +568,7 @@ void __33__PTEffect_keepOldDelegateAlive___block_invoke(uint64_t a1)
 {
   v1 = (a1 + 32);
   v2 = *(a1 + 32);
-  v3 = _PTLogSystem();
+  v3 = _PTLogSystem(a1);
   v4 = v3;
   if (v2)
   {
@@ -633,10 +638,10 @@ void __33__PTEffect_keepOldDelegateAlive___block_invoke(uint64_t a1)
 
 + (int)prewarmForCameraCaptured
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v2 = CACurrentMediaTime();
-  v15 = MTLCreateSystemDefaultDevice();
-  newCommandQueue = [v15 newCommandQueue];
+  v17 = MTLCreateSystemDefaultDevice();
+  newCommandQueue = [v17 newCommandQueue];
   v3 = objc_opt_new();
   v4 = 0;
   v5 = *MEMORY[0x277CBECE8];
@@ -685,14 +690,15 @@ void __33__PTEffect_keepOldDelegateAlive___block_invoke(uint64_t a1)
     formatDescriptionOut = 0;
     CMVideoFormatDescriptionCreate(v5, 0x34323076u, v9, v8, 0, &formatDescriptionOut);
     v10 = [PTEffect prewarmWithFormat:formatDescriptionOut metalCommandQueue:newCommandQueue effectType:83 sharedResources:v3];
+    v11 = v10;
     if (v10)
     {
-      v11 = _PTLogSystem();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = _PTLogSystem(v10);
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        v19 = v10;
-        _os_log_error_impl(&dword_2243FB000, v11, OS_LOG_TYPE_ERROR, "Failed to prewarm PTEffect SL+SDOF (%d)", buf, 8u);
+        v21 = v11;
+        _os_log_error_impl(&dword_2243FB000, v12, OS_LOG_TYPE_ERROR, "Failed to prewarm PTEffect SL+SDOF (%d)", buf, 8u);
       }
     }
 
@@ -705,26 +711,26 @@ void __33__PTEffect_keepOldDelegateAlive___block_invoke(uint64_t a1)
   }
 
   while (v4 != 3);
-  v12 = CACurrentMediaTime() - v2;
-  if (v12 <= 1.0)
+  v14 = CACurrentMediaTime() - v2;
+  if (v14 <= 1.0)
   {
-    v13 = _PTLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v15 = _PTLogSystem(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      +[(PTEffect *)v13];
+      +[(PTEffect *)v15];
     }
   }
 
   else
   {
-    v13 = _PTLogSystem();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v15 = _PTLogSystem(v13);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       +[PTEffect prewarmForCameraCaptured];
     }
   }
 
-  return v10;
+  return v11;
 }
 
 - (BOOL)validPixelBuffer:(__CVBuffer *)buffer
@@ -732,7 +738,7 @@ void __33__PTEffect_keepOldDelegateAlive___block_invoke(uint64_t a1)
   v10 = *MEMORY[0x277D85DE8];
   if (!CVPixelBufferGetIOSurface(buffer))
   {
-    v7 = _PTLogSystem();
+    v7 = _PTLogSystem(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       [PTEffect validPixelBuffer:];
@@ -785,7 +791,7 @@ LABEL_18:
         return result;
       }
 
-      v7 = _PTLogSystem();
+      v7 = _PTLogSystem(1);
       if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         v8 = NSStringFromFourCharCode(PixelFormatType);
@@ -841,11 +847,11 @@ LABEL_10:
 {
   if (atomic_exchange(&self->_reset, 0))
   {
-    v3 = _PTLogSystem();
+    v3 = _PTLogSystem(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_2243FB000, v3, OS_LOG_TYPE_INFO, "PTEffect reset", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_2243FB000, v3, OS_LOG_TYPE_INFO, "PTEffect reset", v8, 2u);
     }
 
     commandQueue = [(PTMetalContext *)self->_metalContext commandQueue];
@@ -853,8 +859,8 @@ LABEL_10:
 
     if (!commandBuffer)
     {
-      v6 = _PTLogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = _PTLogSystem(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         [PTEffectPersonSegmentation runPersonSegmentationToOutPersonSegmentationMatteBuffer:inColor:transform:inSegmentationRGBA:inSegmentationRGBATexture:outUpscaledSegmentation:];
       }
@@ -873,7 +879,8 @@ LABEL_10:
   renderCopy = render;
   [(PTEffect *)self resetIfNeeded];
   [renderCopy setGestureCount:0];
-  if ([(PTMetalContext *)self->_metalContext isCommandBufferCommitted])
+  isCommandBufferCommitted = [(PTMetalContext *)self->_metalContext isCommandBufferCommitted];
+  if (isCommandBufferCommitted)
   {
     CMRemoveAttachment([renderCopy outColorBuffer], @"ReactionEffectComplexity");
     if ([renderCopy effectQuality] == -1)
@@ -899,17 +906,17 @@ LABEL_10:
     inColorBuffer = [renderCopy inColorBuffer];
     outColorBuffer = [renderCopy outColorBuffer];
     [renderCopy frameTimeSeconds];
-    v10 = v9;
+    v11 = v10;
     if (!self->_frameId)
     {
-      self->_lastFrameTime = v9 + -0.0333333333;
-      self->_lastDetectionUpdate = v9 + -0.0333333333;
+      self->_lastFrameTime = v10 + -0.0333333333;
+      self->_lastDetectionUpdate = v10 + -0.0333333333;
     }
 
-    if (self->_rebuildEffect && (v6 = [(PTEffect *)self updateEffectDelegate:v9 - self->_lastFrameTime > 0.5]) != 0)
+    if (self->_rebuildEffect && (v12 = [(PTEffect *)self updateEffectDelegate:v10 - self->_lastFrameTime > 0.5], (v7 = v12) != 0))
     {
-      v5 = _PTLogSystem();
-      if (os_log_type_enabled(&v5->super, OS_LOG_TYPE_ERROR))
+      v6 = _PTLogSystem(v12);
+      if (os_log_type_enabled(&v6->super, OS_LOG_TYPE_ERROR))
       {
         [PTEffect render:];
       }
@@ -918,10 +925,10 @@ LABEL_10:
     else
     {
       os_unfair_lock_lock(&self->_delegateLock);
-      v5 = self->_delegate;
+      v6 = self->_delegate;
       os_unfair_lock_unlock(&self->_delegateLock);
-      -[PTEffectRenderer setEffectQuality:](v5, "setEffectQuality:", [renderCopy effectQuality]);
-      if (!v5 || (v6 = [(PTEffect *)self validateRenderRequest:renderCopy reactionOnly:0]) == 0)
+      -[PTEffectRenderer setEffectQuality:](v6, "setEffectQuality:", [renderCopy effectQuality]);
+      if (!v6 || (v7 = [(PTEffect *)self validateRenderRequest:renderCopy reactionOnly:0]) == 0)
       {
         frameId = self->_frameId;
         CVPixelBufferGetWidth(inColorBuffer);
@@ -929,22 +936,23 @@ LABEL_10:
         [renderCopy effectType];
         kdebug_trace();
         CVBufferPropagateAttachments(inColorBuffer, outColorBuffer);
-        v12 = [(PTEffect *)self updateHumanDetections:renderCopy];
-        if (v5)
+        [(PTEffect *)self updateHumanDetections:renderCopy];
+        if (v6)
         {
           hasExternalCommandQueue = self->_hasExternalCommandQueue;
-          v19[0] = MEMORY[0x277D85DD0];
-          v19[1] = 3221225472;
-          v19[2] = __19__PTEffect_render___block_invoke;
-          v19[3] = &unk_2785231E0;
-          v20 = renderCopy;
-          v22 = frameId;
-          v21 = v5;
-          v6 = [(PTEffectRenderer *)v21 render:v20 waitUntilCompleted:!hasExternalCommandQueue gpuCompleted:v19];
-          if (v6)
+          v24[0] = MEMORY[0x277D85DD0];
+          v24[1] = 3221225472;
+          v24[2] = __19__PTEffect_render___block_invoke;
+          v24[3] = &unk_2785231E0;
+          v25 = renderCopy;
+          v27 = frameId;
+          v26 = v6;
+          v15 = [(PTEffectRenderer *)v26 render:v25 waitUntilCompleted:!hasExternalCommandQueue gpuCompleted:v24];
+          v7 = v15;
+          if (v15)
           {
-            v14 = _PTLogSystem();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            v16 = _PTLogSystem(v15);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
             {
               [PTEffect render:];
             }
@@ -953,29 +961,34 @@ LABEL_10:
 
         else
         {
-          PTDefaultsFlush(v12);
+          PTDefaultsFlush();
           [renderCopy setOutColorBufferWriteSkipped:{-[PTEffectDescriptor allowSkipOutColorBufferWrite](self->_effectDescriptor, "allowSkipOutColorBufferWrite")}];
           if ([(PTEffectDescriptor *)self->_effectDescriptor allowSkipOutColorBufferWrite])
           {
-            v6 = 0;
+            v7 = 0;
           }
 
           else
           {
-            if (!self->_pixelTransferSession && VTPixelTransferSessionCreate(0, &self->_pixelTransferSession))
+            if (!self->_pixelTransferSession)
             {
-              v15 = _PTLogSystem();
-              if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+              v17 = VTPixelTransferSessionCreate(0, &self->_pixelTransferSession);
+              if (v17)
               {
-                [PTEffect render:];
+                v18 = _PTLogSystem(v17);
+                if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+                {
+                  [PTEffect render:];
+                }
               }
             }
 
-            v6 = VTPixelTransferSessionTransferImage(self->_pixelTransferSession, inColorBuffer, outColorBuffer);
-            if (v6)
+            v19 = VTPixelTransferSessionTransferImage(self->_pixelTransferSession, inColorBuffer, outColorBuffer);
+            v7 = v19;
+            if (v19)
             {
-              v16 = _PTLogSystem();
-              if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+              v20 = _PTLogSystem(v19);
+              if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
               {
                 [PTEffect render:];
               }
@@ -988,18 +1001,19 @@ LABEL_10:
           kdebug_trace();
         }
 
-        if (![(PTMetalContext *)self->_metalContext isCommandBufferCommitted])
+        isCommandBufferCommitted2 = [(PTMetalContext *)self->_metalContext isCommandBufferCommitted];
+        if ((isCommandBufferCommitted2 & 1) == 0)
         {
-          v17 = _PTLogSystem();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v22 = _PTLogSystem(isCommandBufferCommitted2);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             [PTEffect render:];
           }
 
-          v6 = -9;
+          v7 = -9;
         }
 
-        self->_lastFrameTime = v10;
+        self->_lastFrameTime = v11;
         ++self->_frameId;
       }
     }
@@ -1007,16 +1021,16 @@ LABEL_10:
 
   else
   {
-    v5 = _PTLogSystem();
-    if (os_log_type_enabled(&v5->super, OS_LOG_TYPE_ERROR))
+    v6 = _PTLogSystem(isCommandBufferCommitted);
+    if (os_log_type_enabled(&v6->super, OS_LOG_TYPE_ERROR))
     {
       [PTEffect render:];
     }
 
-    v6 = -9;
+    v7 = -9;
   }
 
-  return v6;
+  return v7;
 }
 
 void __19__PTEffect_render___block_invoke(uint64_t a1, void *a2)
@@ -1025,7 +1039,7 @@ void __19__PTEffect_render___block_invoke(uint64_t a1, void *a2)
   v4 = *(a1 + 32);
   if (v4)
   {
-    [v4 transform];
+    objc_msgSend_transform(v4);
   }
 
   else
@@ -1052,10 +1066,11 @@ void __19__PTEffect_render___block_invoke(uint64_t a1, void *a2)
     v9 = self->_delegate;
     os_unfair_lock_unlock(&self->_delegateLock);
     v8 = [(PTEffectRenderer *)v9 renderReaction:reactionCopy effectRenderRequest:requestCopy];
-    if ([(PTMetalContext *)self->_metalContext isCommandBufferCommitted])
+    isCommandBufferCommitted = [(PTMetalContext *)self->_metalContext isCommandBufferCommitted];
+    if (isCommandBufferCommitted)
     {
-      v10 = _PTLogSystem();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = _PTLogSystem(isCommandBufferCommitted);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         [PTEffect renderReaction:effectRenderRequest:];
       }

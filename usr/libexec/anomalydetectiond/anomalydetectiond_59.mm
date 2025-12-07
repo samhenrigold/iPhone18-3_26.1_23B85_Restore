@@ -1724,34 +1724,33 @@ void CMMsl::Skeleton2D::~Skeleton2D(CMMsl::Skeleton2D *this)
   operator delete();
 }
 
-uint64_t CMMsl::Skeleton2D::Skeleton2D(uint64_t this, const CMMsl::Skeleton2D *a2)
+CMMsl::Skeleton2D *CMMsl::Skeleton2D::Skeleton2D(CMMsl::Skeleton2D *this, const CMMsl::Skeleton2D *a2)
 {
   *this = off_100421E58;
-  *(this + 16) = 0;
-  *(this + 24) = 0;
-  *(this + 32) = 0;
-  *(this + 48) = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
+  *(this + 4) = 0;
+  *(this + 12) = 0;
   v2 = *(a2 + 2);
   if (v2 != *(a2 + 3))
   {
-    v3 = *v2;
-    sub_1002531D0();
+    sub_1002531D0(this + 2, *v2);
   }
 
-  v4 = *(a2 + 48);
-  if ((v4 & 2) != 0)
+  v3 = *(a2 + 48);
+  if ((v3 & 2) != 0)
   {
-    v5 = *(a2 + 5);
+    v4 = *(a2 + 5);
     *(this + 48) |= 2u;
-    *(this + 40) = v5;
-    v4 = *(a2 + 48);
+    *(this + 5) = v4;
+    v3 = *(a2 + 48);
   }
 
-  if (v4)
+  if (v3)
   {
-    v6 = *(a2 + 1);
+    v5 = *(a2 + 1);
     *(this + 48) |= 1u;
-    *(this + 8) = v6;
+    *(this + 1) = v5;
   }
 
   return this;
@@ -1999,7 +1998,7 @@ LABEL_35:
 
       if (v22 == 1)
       {
-        sub_1002538EC();
+        sub_1002538EC(this + 2);
       }
 
       if ((PB::Reader::skip(a2, v22, v10 & 7, 0) & 1) == 0)
@@ -2893,16 +2892,14 @@ uint64_t CMMsl::Skeleton2DJoint::hash_value(CMMsl::Skeleton2DJoint *this)
     v2 = 0;
   }
 
-  v3 = *(this + 1);
-  v4 = *(this + 2);
-  v5 = PBHashBytes();
+  v3 = PBHashBytes();
   if (*(this + 44))
   {
-    v8 = *(this + 8);
-    v6 = LODWORD(v8);
-    if (v8 == 0.0)
+    v6 = *(this + 8);
+    v4 = LODWORD(v6);
+    if (v6 == 0.0)
     {
-      v6 = 0;
+      v4 = 0;
     }
 
     if ((*(this + 44) & 4) != 0)
@@ -2911,19 +2908,19 @@ uint64_t CMMsl::Skeleton2DJoint::hash_value(CMMsl::Skeleton2DJoint *this)
     }
 
 LABEL_10:
-    v7 = 0;
-    return v5 ^ v2 ^ v6 ^ v7;
+    v5 = 0;
+    return v3 ^ v2 ^ v4 ^ v5;
   }
 
-  v6 = 0;
+  v4 = 0;
   if ((*(this + 44) & 4) == 0)
   {
     goto LABEL_10;
   }
 
 LABEL_6:
-  v7 = *(this + 40);
-  return v5 ^ v2 ^ v6 ^ v7;
+  v5 = *(this + 40);
+  return v3 ^ v2 ^ v4 ^ v5;
 }
 
 void CMMsl::Skeleton3D::~Skeleton3D(CMMsl::Skeleton3D *this)
@@ -2949,17 +2946,16 @@ void CMMsl::Skeleton3D::~Skeleton3D(CMMsl::Skeleton3D *this)
   operator delete();
 }
 
-void *CMMsl::Skeleton3D::Skeleton3D(void *this, const CMMsl::Skeleton3D *a2)
+CMMsl::Skeleton3D *CMMsl::Skeleton3D::Skeleton3D(CMMsl::Skeleton3D *this, const CMMsl::Skeleton3D *a2)
 {
-  this[1] = 0;
+  *(this + 1) = 0;
   *this = off_100421EC8;
-  this[2] = 0;
-  this[3] = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
   v2 = *(a2 + 1);
   if (v2 != *(a2 + 2))
   {
-    v3 = *v2;
-    sub_100254A24();
+    sub_100254A24(this + 1, *v2);
   }
 
   return this;
@@ -2999,16 +2995,16 @@ void *CMMsl::swap(void *this, CMMsl::Skeleton3D *a2, CMMsl::Skeleton3D *a3)
   return this;
 }
 
-uint64_t CMMsl::Skeleton3D::Skeleton3D(uint64_t a1, uint64_t a2)
+void **CMMsl::Skeleton3D::Skeleton3D(void **a1, uint64_t a2)
 {
   *a1 = off_100421EC8;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  sub_1002A2EE4((a1 + 8));
+  a1[2] = 0;
+  a1[3] = 0;
+  a1[1] = 0;
+  v4 = a1 + 1;
+  sub_1002A2EE4(a1 + 1);
   *v4 = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
+  a1[3] = *(a2 + 24);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0;
@@ -3017,13 +3013,13 @@ uint64_t CMMsl::Skeleton3D::Skeleton3D(uint64_t a1, uint64_t a2)
 
 {
   *a1 = off_100421EC8;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 0;
-  *(a1 + 8) = 0;
-  v4 = (a1 + 8);
-  sub_1002A2EE4((a1 + 8));
+  a1[2] = 0;
+  a1[3] = 0;
+  a1[1] = 0;
+  v4 = a1 + 1;
+  sub_1002A2EE4(a1 + 1);
   *v4 = *(a2 + 8);
-  *(a1 + 24) = *(a2 + 24);
+  a1[3] = *(a2 + 24);
   *(a2 + 8) = 0;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0;
@@ -3072,7 +3068,7 @@ uint64_t CMMsl::Skeleton3D::formatText(CMMsl::Skeleton3D *this, PB::TextFormatte
   return PB::TextFormatter::endObject(a2);
 }
 
-uint64_t CMMsl::Skeleton3D::readFrom(CMMsl::Skeleton3D *this, PB::Reader *a2)
+uint64_t CMMsl::Skeleton3D::readFrom(const void **this, PB::Reader *a2)
 {
   v2 = *(a2 + 1);
   v3 = *(a2 + 2);
@@ -3082,78 +3078,78 @@ uint64_t CMMsl::Skeleton3D::readFrom(CMMsl::Skeleton3D *this, PB::Reader *a2)
     v4 = 0;
     do
     {
-      v6 = *a2;
+      v7 = *a2;
       if (v2 > 0xFFFFFFFFFFFFFFF5 || v2 + 10 > v3)
       {
-        v14 = 0;
         v15 = 0;
-        v9 = 0;
-        v16 = v3 >= v2;
-        v17 = v3 - v2;
-        if (!v16)
+        v16 = 0;
+        v10 = 0;
+        v17 = v3 >= v2;
+        v18 = v3 - v2;
+        if (!v17)
         {
-          v17 = 0;
+          v18 = 0;
         }
 
-        v18 = (v6 + v2);
-        v19 = v2 + 1;
+        v19 = (v7 + v2);
+        v20 = v2 + 1;
         while (1)
         {
-          if (!v17)
+          if (!v18)
           {
             v4 = 1;
             *(a2 + 24) = 1;
             goto LABEL_29;
           }
 
-          v20 = *v18;
-          *(a2 + 1) = v19;
-          v9 |= (v20 & 0x7F) << v14;
-          if ((v20 & 0x80) == 0)
+          v21 = *v19;
+          *(a2 + 1) = v20;
+          v10 |= (v21 & 0x7F) << v15;
+          if ((v21 & 0x80) == 0)
           {
             break;
           }
 
-          v14 += 7;
-          --v17;
-          ++v18;
+          v15 += 7;
+          --v18;
           ++v19;
-          v13 = v15++ > 8;
-          if (v13)
+          ++v20;
+          v14 = v16++ > 8;
+          if (v14)
           {
 LABEL_18:
-            v9 = 0;
+            v10 = 0;
             goto LABEL_21;
           }
         }
 
         if (v4)
         {
-          v9 = 0;
+          v10 = 0;
         }
       }
 
       else
       {
-        v7 = 0;
         v8 = 0;
         v9 = 0;
-        v10 = (v6 + v2);
-        v11 = v2 + 1;
+        v10 = 0;
+        v11 = (v7 + v2);
+        v12 = v2 + 1;
         while (1)
         {
-          *(a2 + 1) = v11;
-          v12 = *v10++;
-          v9 |= (v12 & 0x7F) << v7;
-          if ((v12 & 0x80) == 0)
+          *(a2 + 1) = v12;
+          v13 = *v11++;
+          v10 |= (v13 & 0x7F) << v8;
+          if ((v13 & 0x80) == 0)
           {
             break;
           }
 
-          v7 += 7;
-          ++v11;
-          v13 = v8++ > 8;
-          if (v13)
+          v8 += 7;
+          ++v12;
+          v14 = v9++ > 8;
+          if (v14)
           {
             goto LABEL_18;
           }
@@ -3161,20 +3157,20 @@ LABEL_18:
       }
 
 LABEL_21:
-      if (v4 & 1 | ((v9 & 7) == 4))
+      if (v4 & 1 | ((v10 & 7) == 4))
       {
         break;
       }
 
-      if ((v9 >> 3) == 1)
+      if ((v10 >> 3) == 1)
       {
-        sub_10025504C();
+        sub_10025504C(this + 1);
       }
 
-      if ((PB::Reader::skip(a2, v9 >> 3, v9 & 7, 0) & 1) == 0)
+      if ((PB::Reader::skip(a2, v10 >> 3, v10 & 7, 0) & 1) == 0)
       {
-        v21 = 0;
-        return v21 & 1;
+        v22 = 0;
+        return v22 & 1;
       }
 
       v2 = *(a2 + 1);
@@ -3186,8 +3182,8 @@ LABEL_21:
   }
 
 LABEL_29:
-  v21 = v4 ^ 1;
-  return v21 & 1;
+  v22 = v4 ^ 1;
+  return v22 & 1;
 }
 
 uint64_t CMMsl::Skeleton3D::writeTo(uint64_t this, PB::Writer *a2)
@@ -3272,34 +3268,33 @@ void CMMsl::Skeleton3DLifted::~Skeleton3DLifted(CMMsl::Skeleton3DLifted *this)
   operator delete();
 }
 
-uint64_t CMMsl::Skeleton3DLifted::Skeleton3DLifted(uint64_t this, const CMMsl::Skeleton3DLifted *a2)
+CMMsl::Skeleton3DLifted *CMMsl::Skeleton3DLifted::Skeleton3DLifted(CMMsl::Skeleton3DLifted *this, const CMMsl::Skeleton3DLifted *a2)
 {
   *this = off_100421F00;
-  *(this + 16) = 0;
-  *(this + 24) = 0;
-  *(this + 32) = 0;
-  *(this + 48) = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
+  *(this + 4) = 0;
+  *(this + 12) = 0;
   v2 = *(a2 + 2);
   if (v2 != *(a2 + 3))
   {
-    v3 = *v2;
-    sub_1002554EC();
+    sub_1002554EC(this + 2, *v2);
   }
 
-  v4 = *(a2 + 48);
-  if ((v4 & 2) != 0)
+  v3 = *(a2 + 48);
+  if ((v3 & 2) != 0)
   {
-    v5 = *(a2 + 5);
+    v4 = *(a2 + 5);
     *(this + 48) |= 2u;
-    *(this + 40) = v5;
-    v4 = *(a2 + 48);
+    *(this + 5) = v4;
+    v3 = *(a2 + 48);
   }
 
-  if (v4)
+  if (v3)
   {
-    v6 = *(a2 + 1);
+    v5 = *(a2 + 1);
     *(this + 48) |= 1u;
-    *(this + 8) = v6;
+    *(this + 1) = v5;
   }
 
   return this;
@@ -3547,7 +3542,7 @@ LABEL_35:
 
       if (v22 == 1)
       {
-        sub_100255C08();
+        sub_100255C08(this + 2);
       }
 
       if ((PB::Reader::skip(a2, v22, v10 & 7, 0) & 1) == 0)
@@ -4249,7 +4244,6 @@ uint64_t CMMsl::Skeleton3DLiftedJoint::writeTo(uint64_t this, PB::Writer *a2)
 
 BOOL CMMsl::Skeleton3DLiftedJoint::operator==(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 36);
   if (*(a1 + 36))
   {
     if ((*(a2 + 36) & 1) == 0 || *(a1 + 32) != *(a2 + 32))
@@ -4263,29 +4257,29 @@ BOOL CMMsl::Skeleton3DLiftedJoint::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v4 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  v5 = *(a2 + 8);
-  if (v3 - v4 != *(a2 + 16) - v5)
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  v4 = *(a2 + 8);
+  if (v2 - v3 != *(a2 + 16) - v4)
   {
     return 0;
   }
 
-  if (v4 == v3)
+  if (v3 == v2)
   {
     return 1;
   }
 
-  v6 = v4 + 4;
+  v5 = v3 + 4;
   do
   {
-    v7 = *v5++;
-    result = *(v6 - 4) == v7;
-    v9 = *(v6 - 4) != v7 || v6 == v3;
-    v6 += 4;
+    v6 = *v4++;
+    result = *(v5 - 4) == v6;
+    v8 = *(v5 - 4) != v6 || v5 == v2;
+    v5 += 4;
   }
 
-  while (!v9);
+  while (!v8);
   return result;
 }
 
@@ -4301,8 +4295,6 @@ uint64_t CMMsl::Skeleton3DLiftedJoint::hash_value(CMMsl::Skeleton3DLiftedJoint *
     v1 = 0;
   }
 
-  v2 = *(this + 1);
-  v3 = *(this + 2);
   return PBHashBytes() ^ v1;
 }
 
@@ -4329,34 +4321,33 @@ void CMMsl::Skeleton3DRetargeted::~Skeleton3DRetargeted(CMMsl::Skeleton3DRetarge
   operator delete();
 }
 
-uint64_t CMMsl::Skeleton3DRetargeted::Skeleton3DRetargeted(uint64_t this, const CMMsl::Skeleton3DRetargeted *a2)
+CMMsl::Skeleton3DRetargeted *CMMsl::Skeleton3DRetargeted::Skeleton3DRetargeted(CMMsl::Skeleton3DRetargeted *this, const CMMsl::Skeleton3DRetargeted *a2)
 {
   *this = off_100421F70;
-  *(this + 16) = 0;
-  *(this + 24) = 0;
-  *(this + 32) = 0;
-  *(this + 48) = 0;
+  *(this + 2) = 0;
+  *(this + 3) = 0;
+  *(this + 4) = 0;
+  *(this + 12) = 0;
   v2 = *(a2 + 2);
   if (v2 != *(a2 + 3))
   {
-    v3 = *v2;
-    sub_100254A24();
+    sub_100254A24(this + 2, *v2);
   }
 
-  v4 = *(a2 + 48);
-  if ((v4 & 2) != 0)
+  v3 = *(a2 + 48);
+  if ((v3 & 2) != 0)
   {
-    v5 = *(a2 + 5);
+    v4 = *(a2 + 5);
     *(this + 48) |= 2u;
-    *(this + 40) = v5;
-    v4 = *(a2 + 48);
+    *(this + 5) = v4;
+    v3 = *(a2 + 48);
   }
 
-  if (v4)
+  if (v3)
   {
-    v6 = *(a2 + 1);
+    v5 = *(a2 + 1);
     *(this + 48) |= 1u;
-    *(this + 8) = v6;
+    *(this + 1) = v5;
   }
 
   return this;
@@ -4604,7 +4595,7 @@ LABEL_35:
 
       if (v22 == 1)
       {
-        sub_10025504C();
+        sub_10025504C(this + 2);
       }
 
       if ((PB::Reader::skip(a2, v22, v10 & 7, 0) & 1) == 0)
@@ -5451,7 +5442,6 @@ uint64_t CMMsl::SkeletonJoint::writeTo(uint64_t this, PB::Writer *a2)
 
 BOOL CMMsl::SkeletonJoint::operator==(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a2 + 60);
   if (*(a1 + 60))
   {
     if ((*(a2 + 60) & 1) == 0 || *(a1 + 56) != *(a2 + 56))
@@ -5465,48 +5455,48 @@ BOOL CMMsl::SkeletonJoint::operator==(uint64_t a1, uint64_t a2)
     return 0;
   }
 
-  v4 = *(a1 + 8);
-  v3 = *(a1 + 16);
-  v5 = *(a2 + 8);
-  if (v3 - v4 != *(a2 + 16) - v5)
+  v3 = *(a1 + 8);
+  v2 = *(a1 + 16);
+  v4 = *(a2 + 8);
+  if (v2 - v3 != *(a2 + 16) - v4)
   {
     return 0;
   }
 
-  while (v4 != v3)
+  while (v3 != v2)
   {
-    if (*v4 != *v5)
+    if (*v3 != *v4)
     {
       return 0;
     }
 
+    ++v3;
     ++v4;
-    ++v5;
   }
 
-  v7 = *(a1 + 32);
-  v6 = *(a1 + 40);
-  v8 = *(a2 + 32);
-  if (v6 - v7 != *(a2 + 40) - v8)
+  v6 = *(a1 + 32);
+  v5 = *(a1 + 40);
+  v7 = *(a2 + 32);
+  if (v5 - v6 != *(a2 + 40) - v7)
   {
     return 0;
   }
 
-  if (v7 == v6)
+  if (v6 == v5)
   {
     return 1;
   }
 
-  v9 = v7 + 4;
+  v8 = v6 + 4;
   do
   {
-    v10 = *v8++;
-    result = *(v9 - 4) == v10;
-    v12 = *(v9 - 4) != v10 || v9 == v6;
-    v9 += 4;
+    v9 = *v7++;
+    result = *(v8 - 4) == v9;
+    v11 = *(v8 - 4) != v9 || v8 == v5;
+    v8 += 4;
   }
 
-  while (!v12);
+  while (!v11);
   return result;
 }
 
@@ -5514,20 +5504,16 @@ uint64_t CMMsl::SkeletonJoint::hash_value(CMMsl::SkeletonJoint *this)
 {
   if (*(this + 60))
   {
-    v2 = *(this + 14);
+    v1 = *(this + 14);
   }
 
   else
   {
-    v2 = 0;
+    v1 = 0;
   }
 
-  v3 = *(this + 1);
-  v4 = *(this + 2);
-  v5 = PBHashBytes() ^ v2;
-  v6 = *(this + 4);
-  v7 = *(this + 5);
-  return v5 ^ PBHashBytes();
+  v2 = PBHashBytes() ^ v1;
+  return v2 ^ PBHashBytes();
 }
 
 void CMMsl::SoundPressureLevel::~SoundPressureLevel(CMMsl::SoundPressureLevel *this)
@@ -6603,7 +6589,7 @@ double CMMsl::SteadinessEvent::SteadinessEvent(uint64_t a1, uint64_t a2)
   return result;
 }
 
-CMMsl *CMMsl::SteadinessEvent::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::SteadinessEvent::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {
@@ -8443,7 +8429,7 @@ double CMMsl::SteadinessModelContinuousWalkingFeatures::SteadinessModelContinuou
   return result;
 }
 
-CMMsl *CMMsl::SteadinessModelContinuousWalkingFeatures::operator=(CMMsl *a1, uint64_t a2)
+CMMsl *CMMsl::SteadinessModelContinuousWalkingFeatures::operator=(CMMsl *a1, CMMsl *a2)
 {
   if (a1 != a2)
   {

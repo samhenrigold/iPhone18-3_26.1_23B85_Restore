@@ -43,7 +43,7 @@ id NoteContextManagedObjectModelPath()
   return v1;
 }
 
-void sub_25C69E528(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, char a35, uint64_t a36)
+void sub_25C69E528(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36)
 {
   objc_sync_exit(v36);
   _Block_object_dispose(&a35, 8);
@@ -58,7 +58,7 @@ id NoteContextPersistentStorePath()
   return v1;
 }
 
-id NoteContextRootDirectoryPath()
+__CFString *NoteContextRootDirectoryPath()
 {
   if (s_testsNotesRootPath)
   {
@@ -84,45 +84,48 @@ void sub_25C69EC28(_Unwind_Exception *exception_object, int a2)
   _Unwind_Resume(exception_object);
 }
 
-void sub_25C69F218(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, id a14)
+void sub_25C69F218(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, ...)
 {
+  va_start(va1, a12);
+  va_start(va, a12);
+  v23 = va_arg(va1, id);
   if (a2)
   {
     objc_end_catch();
     if (a2 == 2)
     {
-      v17 = objc_begin_catch(a1);
+      v15 = objc_begin_catch(a1);
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v18 = [v17 name];
-        v19 = [v18 isEqualToString:@"NoteStoreHasMismatchedNoteBodies"];
+        v16 = [v15 name];
+        v17 = [v16 isEqualToString:@"NoteStoreHasMismatchedNoteBodies"];
 
-        if (v19)
+        if (v17)
         {
-          v20 = os_log_create("com.apple.notes", "HTML");
-          if (os_log_type_enabled(v20, OS_LOG_TYPE_FAULT))
+          v18 = os_log_create("com.apple.notes", "HTML");
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_FAULT))
           {
             [NoteContext handleMigration];
           }
 
-          v21 = [MEMORY[0x277CCAA00] defaultManager];
-          a14 = 0;
-          v22 = [v21 removeItemAtPath:a11 error:&a14];
-          v23 = a14;
+          v19 = [MEMORY[0x277CCAA00] defaultManager];
+          v23 = 0;
+          v20 = [v19 removeItemAtPath:a10 error:va];
+          v21 = v23;
 
-          if ((v22 & 1) == 0)
+          if ((v20 & 1) == 0)
           {
-            v24 = os_log_create("com.apple.notes", "HTML");
-            if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+            v22 = os_log_create("com.apple.notes", "HTML");
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_FAULT))
             {
-              [v23 userInfo];
+              [v21 userInfo];
               objc_claimAutoreleasedReturnValue();
               [NoteContext handleMigration];
             }
           }
 
-          [v14 invalidate];
+          [v12 invalidate];
 
           objc_end_catch();
           JUMPOUT(0x25C69F1A4);
@@ -184,10 +187,11 @@ uint64_t OUTLINED_FUNCTION_1(uint64_t result, uint64_t a2, uint64_t a3, float a4
   return result;
 }
 
-void OUTLINED_FUNCTION_9(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_9(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
 void OUTLINED_FUNCTION_10(void *a1@<X0>, const char *a2@<X3>, uint8_t *a3@<X4>, NSObject *a4@<X8>)
@@ -222,31 +226,31 @@ uint64_t __Block_byref_object_copy_(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_25C6ABCB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25C6ABCB4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 Class __getACUILocalizationClass_block_invoke(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v5[0] = 0;
+  v7 = *MEMORY[0x277D85DE8];
+  v4[0] = 0;
   if (!AccountsUILibraryCore_frameworkLibrary)
   {
-    v5[1] = MEMORY[0x277D85DD0];
-    v5[2] = 3221225472;
-    v5[3] = __AccountsUILibraryCore_block_invoke;
-    v5[4] = &__block_descriptor_40_e5_v8__0l;
-    v5[5] = v5;
-    v6 = xmmword_2799AC998;
-    v7 = 0;
+    v4[1] = MEMORY[0x277D85DD0];
+    v4[2] = 3221225472;
+    v4[3] = __AccountsUILibraryCore_block_invoke;
+    v4[4] = &__block_descriptor_40_e5_v8__0l;
+    v4[5] = v4;
+    v5 = xmmword_2799AC998;
+    v6 = 0;
     AccountsUILibraryCore_frameworkLibrary = _sl_dlopen();
-    v2 = v5[0];
+    v2 = v4[0];
     if (AccountsUILibraryCore_frameworkLibrary)
     {
-      if (!v5[0])
+      if (!v4[0])
       {
         goto LABEL_4;
       }
@@ -254,7 +258,7 @@ Class __getACUILocalizationClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -269,30 +273,26 @@ LABEL_4:
   }
 
   getACUILocalizationClass_softClass = *(*(*(a1 + 32) + 8) + 24);
-  v4 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __AccountsUILibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   AccountsUILibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-id ICNotesFrameworkBundle()
+id ICNotesFrameworkBundle(uint64_t a1)
 {
   if (ICNotesFrameworkBundle_onceToken != -1)
   {
     ICNotesFrameworkBundle_cold_1();
   }
 
-  v1 = ICNotesFrameworkBundle_bundle;
+  v2 = ICNotesFrameworkBundle_bundle;
 
-  return v1;
+  return v2;
 }
 
 uint64_t __ICNotesFrameworkBundle_block_invoke()
@@ -307,7 +307,7 @@ id __ICLocalizedFrameworkString_impl(void *a1, void *a2, void *a3)
   v5 = a3;
   v6 = a2;
   v7 = a1;
-  v8 = ICNotesFrameworkBundle();
+  v8 = ICNotesFrameworkBundle(v7);
   v9 = [v8 localizedStringForKey:v7 value:v6 table:v5];
 
   return v9;
@@ -318,15 +318,15 @@ id __ICLocalizedFrameworkStringWithDefaultValue_impl(void *a1, void *a2, void *a
   v5 = a3;
   v6 = a2;
   v7 = a1;
-  v8 = ICNotesFrameworkBundle();
+  v8 = ICNotesFrameworkBundle(v7);
   v9 = [v8 localizedStringForKey:v7 value:v6 table:v5];
 
   return v9;
 }
 
-void sub_25C6ACEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25C6ACEC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -340,11 +340,11 @@ uint64_t __Block_byref_object_copy__0(uint64_t result, uint64_t a2)
 
 id NoteAttachmentObjectDataBasePath(void *a1, uint64_t a2)
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [v3 managedObjectContext];
-  v11[0] = v3;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+  v10[0] = v3;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   v6 = [v4 obtainPermanentIDsForObjects:v5 error:a2];
 
   if (v6)
@@ -357,8 +357,6 @@ id NoteAttachmentObjectDataBasePath(void *a1, uint64_t a2)
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -411,22 +409,20 @@ uint64_t DataWritingOptionForFileProtectionOption(void *a1)
 
 void __DataWritingOptionForFileProtectionOption_block_invoke()
 {
-  v6[4] = *MEMORY[0x277D85DE8];
+  v5[4] = *MEMORY[0x277D85DE8];
   v0 = *MEMORY[0x277CCA190];
-  v5[0] = *MEMORY[0x277CCA1B8];
-  v5[1] = v0;
-  v6[0] = &unk_286E32AF8;
-  v6[1] = &unk_286E32B10;
+  v4[0] = *MEMORY[0x277CCA1B8];
+  v4[1] = v0;
+  v5[0] = &unk_286E32AF8;
+  v5[1] = &unk_286E32B10;
   v1 = *MEMORY[0x277CCA1A0];
-  v5[2] = *MEMORY[0x277CCA198];
-  v5[3] = v1;
-  v6[2] = &unk_286E32B28;
-  v6[3] = &unk_286E32B40;
-  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:4];
+  v4[2] = *MEMORY[0x277CCA198];
+  v4[3] = v1;
+  v5[2] = &unk_286E32B28;
+  v5[3] = &unk_286E32B40;
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:4];
   v3 = DataWritingOptionForFileProtectionOption_s_mappings;
   DataWritingOptionForFileProtectionOption_s_mappings = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 id NoteAttachmentObjectDataBasePathBetween12A173And12A189()
@@ -439,11 +435,11 @@ id NoteAttachmentObjectDataBasePathBetween12A173And12A189()
 
 id NoteAttachmentObjectDataPathBetween12A173And12A189(void *a1, uint64_t a2)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [v3 managedObjectContext];
-  v14[0] = v3;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:1];
+  v13[0] = v3;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:1];
   LODWORD(a2) = [v4 obtainPermanentIDsForObjects:v5 error:a2];
 
   if (a2)
@@ -462,14 +458,12 @@ id NoteAttachmentObjectDataPathBetween12A173And12A189(void *a1, uint64_t a2)
     v11 = 0;
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
-void sub_25C6AF340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_25C6AF340(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -578,52 +572,52 @@ void __LoadContent(uint64_t a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void __SaveContent()
+void __SaveContent(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v0 = CPSqliteConnectionStatementForSQL();
-  if (!v0)
-  {
-    return;
-  }
-
-  v1 = *(v0 + 8);
-  ID = CPRecordGetID();
-  sqlite3_bind_int(v1, 1, ID);
-  LODWORD(v1) = CPSqliteStatementPerform();
-  CPSqliteStatementReset();
-  if (v1 != 100)
-  {
-    return;
-  }
-
   v3 = CPSqliteConnectionStatementForSQL();
   if (!v3)
   {
     return;
   }
 
-  v4 = v3;
+  v4 = *(v3 + 8);
+  ID = CPRecordGetID();
+  sqlite3_bind_int(v4, 1, ID);
+  LODWORD(v4) = CPSqliteStatementPerform();
+  CPSqliteStatementReset();
+  if (v4 != 100)
+  {
+    return;
+  }
+
+  v6 = CPSqliteConnectionStatementForSQL();
+  if (!v6)
+  {
+    return;
+  }
+
+  v7 = v6;
   Property = CPRecordGetProperty();
   CStringPtr = CFStringGetCStringPtr(Property, 0x8000100u);
   if (CStringPtr)
   {
-    v7 = CStringPtr;
-    v8 = 0;
+    v10 = CStringPtr;
+    v11 = 0;
 LABEL_6:
-    v9 = *(v4 + 8);
-    v10 = CPRecordGetID();
-    sqlite3_bind_int(v9, 1, v10);
-    sqlite3_bind_text(*(v4 + 8), 2, v7, -1, 0);
+    v12 = *(v7 + 8);
+    v13 = CPRecordGetID();
+    sqlite3_bind_int(v12, 1, v13);
+    sqlite3_bind_text(*(v7 + 8), 2, v10, -1, 0);
     goto LABEL_7;
   }
 
   Length = CFStringGetLength(Property);
   MaximumSizeForEncoding = CFStringGetMaximumSizeForEncoding(Length + 1, 0x8000100u);
-  v8 = malloc_type_malloc(MaximumSizeForEncoding, 0x39E757CDuLL);
-  if (v8)
+  v11 = malloc_type_malloc(MaximumSizeForEncoding, 0x39E757CDuLL);
+  if (v11)
   {
-    CString = CFStringGetCString(Property, v8, MaximumSizeForEncoding, 0x8000100u);
-    v7 = v8;
+    CString = CFStringGetCString(Property, v11, MaximumSizeForEncoding, 0x8000100u);
+    v10 = v11;
     if (CString == 1)
     {
       goto LABEL_6;
@@ -633,19 +627,19 @@ LABEL_6:
 LABEL_7:
   CPSqliteStatementPerform();
   CPSqliteStatementReset();
-  if (v8)
+  if (v11)
   {
 
-    free(v8);
+    free(v11);
   }
 }
 
-uint64_t configureNotesDatabase()
+uint64_t configureNotesDatabase(uint64_t a1, uint64_t a2)
 {
   CPRecordStoreCreateTablesForClass();
   CPSqliteConnectionPerformSQL();
 
-  return _CreateBodiesTrigger();
+  return _CreateBodiesTrigger(a2);
 }
 
 uint64_t _migrationHandler(uint64_t a1, uint64_t a2, int a3)
@@ -659,7 +653,7 @@ uint64_t _migrationHandler(uint64_t a1, uint64_t a2, int a3)
   {
     CPSqliteConnectionPerformSQL();
 LABEL_6:
-    _UpdateNoteTableWithCJK();
+    _UpdateNoteTableWithCJK(a2);
     goto LABEL_8;
   }
 
@@ -673,11 +667,11 @@ LABEL_6:
   CPSqliteConnectionPerformSQL();
   CPSqliteConnectionPerformSQL();
 LABEL_8:
-  _CreateBodiesTrigger();
+  _CreateBodiesTrigger(a2);
   return 0;
 }
 
-uint64_t _UpdateNoteTableWithCJK()
+uint64_t _UpdateNoteTableWithCJK(uint64_t a1)
 {
   CPSqliteConnectionPerformSQL();
   CPRecordStoreCreateTablesForClass();
@@ -686,7 +680,7 @@ uint64_t _UpdateNoteTableWithCJK()
   return CPSqliteConnectionPerformSQL();
 }
 
-uint64_t _CreateBodiesTrigger()
+uint64_t _CreateBodiesTrigger(uint64_t a1)
 {
   result = CPSqliteConnectionStatementForSQL();
   if (result)
@@ -709,7 +703,7 @@ double gotLoadHelper_x8__OBJC_CLASS___MCProfileConnection(double result)
   return result;
 }
 
-double __spoils<X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> dlopenHelper_ManagedConfiguration(double a1)
+double dlopenHelper_ManagedConfiguration(double a1)
 {
   dlopen("/System/Library/PrivateFrameworks/ManagedConfiguration.framework/ManagedConfiguration", 0);
   atomic_store(1u, &dlopenHelperFlag_ManagedConfiguration);

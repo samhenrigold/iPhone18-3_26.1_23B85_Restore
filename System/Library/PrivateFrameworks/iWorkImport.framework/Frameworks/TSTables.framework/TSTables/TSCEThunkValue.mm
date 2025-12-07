@@ -20,9 +20,9 @@
 + (id)thunkValue:(const TSCEASTNodeArray *)value
 {
   v4 = [TSCEThunkValue alloc];
-  v7 = objc_msgSend_initWithAST_asDeepCopy_(v4, v5, value, 0, v6);
+  v6 = objc_msgSend_initWithAST_asDeepCopy_(v4, v5, value, 0);
 
-  return v7;
+  return v6;
 }
 
 - (TSCEThunkValue)initWithAST:(const TSCEASTNodeArray *)t asDeepCopy:(BOOL)copy
@@ -120,11 +120,11 @@ LABEL_8:
 
   else
   {
-    objc_msgSend_nilValue(TSCENilValue, a2, thunk, v3, v4);
+    objc_msgSend_nilValue(TSCENilValue, a2, thunk, v3);
   }
-  v6 = ;
+  v5 = ;
 
-  return v6;
+  return v5;
 }
 
 - (const)arguments
@@ -140,7 +140,7 @@ LABEL_8:
 - (id)asNumber:(id)number functionSpec:(id)spec argumentIndex:(int)index outError:(id *)error
 {
   v7 = *&index;
-  v10 = objc_msgSend_unwrapThunk_(number, a2, self, spec, *&index);
+  v10 = objc_msgSend_unwrapThunk_(number, a2, self, spec);
   v12 = objc_msgSend_asNumber_functionSpec_argumentIndex_outError_(v10, v11, number, spec, v7, error);
 
   return v12;
@@ -149,7 +149,7 @@ LABEL_8:
 - (id)asDate:(id)date functionSpec:(id)spec argumentIndex:(int)index outError:(id *)error
 {
   v7 = *&index;
-  v10 = objc_msgSend_unwrapThunk_(date, a2, self, spec, *&index);
+  v10 = objc_msgSend_unwrapThunk_(date, a2, self, spec);
   v12 = objc_msgSend_asDate_functionSpec_argumentIndex_outError_(v10, v11, date, spec, v7, error);
 
   return v12;
@@ -158,7 +158,7 @@ LABEL_8:
 - (id)asString:(id)string functionSpec:(id)spec argumentIndex:(int)index outError:(id *)error
 {
   v7 = *&index;
-  v10 = objc_msgSend_unwrapThunk_(string, a2, self, spec, *&index);
+  v10 = objc_msgSend_unwrapThunk_(string, a2, self, spec);
   v12 = objc_msgSend_asString_functionSpec_argumentIndex_outError_(v10, v11, string, spec, v7, error);
 
   return v12;
@@ -167,7 +167,7 @@ LABEL_8:
 - (id)asRawString:(id)string functionSpec:(id)spec argumentIndex:(int)index outError:(id *)error
 {
   v7 = *&index;
-  v10 = objc_msgSend_unwrapThunk_(string, a2, self, spec, *&index);
+  v10 = objc_msgSend_unwrapThunk_(string, a2, self, spec);
   v12 = objc_msgSend_asRawString_functionSpec_argumentIndex_outError_(v10, v11, string, spec, v7, error);
 
   return v12;
@@ -176,7 +176,7 @@ LABEL_8:
 - (TSCERichTextStorage)asRichTextStorage:(SEL)storage functionSpec:(id)spec argumentIndex:(id)index outError:(int)error
 {
   v8 = *&error;
-  v12 = objc_msgSend_unwrapThunk_(spec, storage, self, index, *&error);
+  v12 = objc_msgSend_unwrapThunk_(spec, storage, self, index);
   v15 = v12;
   if (v12)
   {
@@ -196,7 +196,7 @@ LABEL_8:
 - (TSCERichTextStorage)asRawRichTextStorage:(SEL)storage functionSpec:(id)spec argumentIndex:(id)index outError:(int)error
 {
   v8 = *&error;
-  v12 = objc_msgSend_unwrapThunk_(spec, storage, self, index, *&error);
+  v12 = objc_msgSend_unwrapThunk_(spec, storage, self, index);
   v15 = v12;
   if (v12)
   {
@@ -216,7 +216,7 @@ LABEL_8:
 - (BOOL)asBoolean:(id)boolean functionSpec:(id)spec argumentIndex:(int)index outError:(id *)error
 {
   v7 = *&index;
-  v10 = objc_msgSend_unwrapThunk_(boolean, a2, self, spec, *&index);
+  v10 = objc_msgSend_unwrapThunk_(boolean, a2, self, spec);
   LOBYTE(error) = objc_msgSend_asBoolean_functionSpec_argumentIndex_outError_(v10, v11, boolean, spec, v7, error);
 
   return error;
@@ -226,7 +226,7 @@ LABEL_8:
 {
   formatCopy = format;
   v9 = *&index;
-  v12 = objc_msgSend_unwrapThunk_(grid, a2, self, spec, *&index);
+  v12 = objc_msgSend_unwrapThunk_(grid, a2, self, spec);
   v14 = objc_msgSend_asGrid_functionSpec_argumentIndex_applyPreferredFormat_outError_(v12, v13, grid, spec, v9, formatCopy, error);
 
   return v14;

@@ -75,21 +75,19 @@
 
 - (void)rebuildTypicalDayProviderForCurrentDate
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   selfCopy = self;
-  v7 = 138543618;
-  v8 = objc_opt_class();
-  v9 = 2114;
-  v10 = a3;
-  v5 = v8;
-  _os_log_error_impl(&dword_258977000, selfCopy, OS_LOG_TYPE_ERROR, "[%{public}@] Error requesting protected data operation work: %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = objc_opt_class();
+  v8 = 2114;
+  v9 = a3;
+  v5 = v7;
+  _os_log_error_impl(&dword_258977000, selfCopy, OS_LOG_TYPE_ERROR, "[%{public}@] Error requesting protected data operation work: %{public}@", &v6, 0x16u);
 }
 
 - (void)setupCachedTypicalDayMarkers
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   v3 = [(NSUserDefaults *)self->_userDefaults objectForKey:@"TypicalDayProviderCacheLastUpdatedDate"];
   if (v3)
   {
@@ -126,19 +124,17 @@
     if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
     {
       v12 = v11;
-      v15 = 138543362;
-      v16 = objc_opt_class();
-      v13 = v16;
-      _os_log_impl(&dword_258977000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got nil date from user defaults for _TypicalDayProviderCacheLastUpdatedDate. Not updating day markers.", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = objc_opt_class();
+      v13 = v15;
+      _os_log_impl(&dword_258977000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Got nil date from user defaults for _TypicalDayProviderCacheLastUpdatedDate. Not updating day markers.", &v14, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateTypicalDayMarkers
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   os_unfair_lock_lock(&self->_lock);
   v3 = self->_lock_typicalDayModel;
   os_unfair_lock_unlock(&self->_lock);
@@ -150,13 +146,13 @@
     if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
     {
       v6 = v5;
-      *v31 = 138543362;
-      *&v31[4] = objc_opt_class();
-      v7 = *&v31[4];
-      _os_log_impl(&dword_258977000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating cached start and end of day.", v31, 0xCu);
+      *v30 = 138543362;
+      *&v30[4] = objc_opt_class();
+      v7 = *&v30[4];
+      _os_log_impl(&dword_258977000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Updating cached start and end of day.", v30, 0xCu);
     }
 
-    userStartOfDay = [(HDMHActivityModelProviding *)v3 userStartOfDay];
+    v8 = [(HDMHActivityModelProviding *)v3 userStartOfDay:*v30];
     _HKInitializeLogging();
     v9 = *v4;
     if (os_log_type_enabled(*v4, OS_LOG_TYPE_DEFAULT))
@@ -166,12 +162,12 @@
       v12 = MEMORY[0x277CBEAF8];
       v13 = v11;
       currentLocale = [v12 currentLocale];
-      v15 = [(NSDate *)userStartOfDay descriptionWithLocale:currentLocale];
-      *v31 = 138543618;
-      *&v31[4] = v11;
-      *&v31[12] = 2112;
-      *&v31[14] = v15;
-      _os_log_impl(&dword_258977000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Start of day :%@", v31, 0x16u);
+      v15 = [(NSDate *)v8 descriptionWithLocale:currentLocale];
+      *v30 = 138543618;
+      *&v30[4] = v11;
+      *&v30[12] = 2112;
+      *&v30[14] = v15;
+      _os_log_impl(&dword_258977000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Start of day :%@", v30, 0x16u);
     }
 
     userEndOfDay = [(HDMHActivityModelProviding *)v3 userEndOfDay];
@@ -185,11 +181,11 @@
       v21 = v19;
       currentLocale2 = [v20 currentLocale];
       v23 = [(NSDate *)userEndOfDay descriptionWithLocale:currentLocale2];
-      *v31 = 138543618;
-      *&v31[4] = v19;
-      *&v31[12] = 2112;
-      *&v31[14] = v23;
-      _os_log_impl(&dword_258977000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] End of day :%@", v31, 0x16u);
+      *v30 = 138543618;
+      *&v30[4] = v19;
+      *&v30[12] = 2112;
+      *&v30[14] = v23;
+      _os_log_impl(&dword_258977000, v18, OS_LOG_TYPE_DEFAULT, "[%{public}@] End of day :%@", v30, 0x16u);
     }
 
     os_unfair_lock_lock(&self->_lock);
@@ -198,8 +194,8 @@
     [(NSUserDefaults *)userDefaults setObject:v25 forKey:@"TypicalDayProviderCacheLastUpdatedDate"];
 
     lock_cachedTypicalStartOfDay = self->_lock_cachedTypicalStartOfDay;
-    self->_lock_cachedTypicalStartOfDay = userStartOfDay;
-    v27 = userStartOfDay;
+    self->_lock_cachedTypicalStartOfDay = v8;
+    v27 = v8;
 
     [(NSUserDefaults *)self->_userDefaults setObject:v27 forKey:@"TypicalDayProviderUserStartOfDayCache"];
     lock_cachedTypicalEndOfDay = self->_lock_cachedTypicalEndOfDay;
@@ -210,8 +206,6 @@
     os_unfair_lock_unlock(&self->_lock);
     [(HDMHTypicalDayProvider *)self _updateObservers];
   }
-
-  v30 = *MEMORY[0x277D85DE8];
 }
 
 - (id)userStartOfDay
@@ -359,21 +353,20 @@ uint64_t __56__HDMHTypicalDayProvider__defaultEndOfDayDateComponents__block_invo
 
 - (void)typicalDayActivityModelDidUpdate
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v3 = *MEMORY[0x277CCC2F0];
   if (os_log_type_enabled(*MEMORY[0x277CCC2F0], OS_LOG_TYPE_DEFAULT))
   {
     v4 = v3;
-    *v7 = 138543362;
-    *&v7[4] = objc_opt_class();
-    v5 = *&v7[4];
-    _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Typical Day Model did update; notifying observers.", v7, 0xCu);
+    *v6 = 138543362;
+    *&v6[4] = objc_opt_class();
+    v5 = *&v6[4];
+    _os_log_impl(&dword_258977000, v4, OS_LOG_TYPE_DEFAULT, "[%{public}@] Typical Day Model did update; notifying observers.", v6, 0xCu);
   }
 
-  [(HDMHTypicalDayProvider *)self _updateTypicalDayMarkers];
+  [(HDMHTypicalDayProvider *)self _updateTypicalDayMarkers:*v6];
   [(HDMHTypicalDayProvider *)self _updateObservers];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)clientProvidedDefaultEndOfDay

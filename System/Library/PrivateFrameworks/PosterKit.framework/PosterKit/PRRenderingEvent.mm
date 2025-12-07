@@ -196,12 +196,12 @@ void __45__PRRenderingEvent__supportedMetadataClasses__block_invoke()
 
   v14 = [v13 length];
   v15 = MEMORY[0x1E695E0F8];
-  if (v14 && ((v22 = 0, [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:_supportedMetadataClasses fromData:v13 error:&v22], v16 = objc_claimAutoreleasedReturnValue(), v17 = v22, v16) ? (v18 = v16) : (v18 = v15), v15 = v18, v16, v17))
+  if (v14 && ((v23 = 0, [MEMORY[0x1E696ACD0] unarchivedObjectOfClasses:_supportedMetadataClasses fromData:v13 error:&v23], v16 = objc_claimAutoreleasedReturnValue(), v17 = v23, v16) ? (v18 = v16) : (v18 = v15), v15 = v18, v16, v17))
   {
-    v19 = PRLogModel();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v20 = PRLogModel(v19);
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
     {
-      [(PRRenderingEvent *)v17 initWithBSXPCCoder:v19];
+      [(PRRenderingEvent *)v17 initWithBSXPCCoder:v20];
     }
 
     selfCopy = 0;
@@ -222,15 +222,16 @@ void __45__PRRenderingEvent__supportedMetadataClasses__block_invoke()
   [coderCopy encodeObject:self->_type forKey:@"_type"];
   [coderCopy encodeCGPoint:@"_location" forKey:{self->_location.x, self->_location.y}];
   metadata = self->_metadata;
-  v9 = 0;
-  v6 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:metadata requiringSecureCoding:1 error:&v9];
-  v7 = v9;
+  v10 = 0;
+  v6 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:metadata requiringSecureCoding:1 error:&v10];
+  v7 = v10;
+  v8 = v7;
   if (v7)
   {
-    v8 = PRLogModel();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
+    v9 = PRLogModel(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
     {
-      [(PRRenderingEvent *)v7 encodeWithBSXPCCoder:v8];
+      [(PRRenderingEvent *)v8 encodeWithBSXPCCoder:v9];
     }
   }
 

@@ -13,9 +13,11 @@
 - (id)valueForEntitlementForKey:(id)key error:(id *)error;
 - (id)valuesForAuditToken:(id *)token forEntitlements:(id)entitlements error:(id *)error;
 - (id)valuesForCurrentProcessForEntitlements:(id)entitlements error:(id *)error;
+- (void)setAuditToken:(id *)token allowsHighPriority:(BOOL)priority;
 - (void)setAuditToken:(id *)token allowsHighPriorityError:(id)error;
 - (void)setAuditToken:(id *)token hasError:(id)error forEntitlement:(id)entitlement;
 - (void)setAuditToken:(id *)token hasValue:(id)value forEntitlement:(id)entitlement;
+- (void)setAuditToken:(id *)token isFirstOrSecondParty:(BOOL)party;
 - (void)setAuditToken:(id *)token isFirstOrSecondPartyError:(id)error;
 - (void)setCurrentProcessHasError:(id)error forEntitlement:(id)entitlement;
 - (void)setCurrentProcessHasValue:(id)value forEntitlement:(id)entitlement;
@@ -92,6 +94,19 @@
   [(NSMutableDictionary *)self->_entitlements setObject:v13 forKeyedSubscript:v12];
 }
 
+- (void)setAuditToken:(id *)token isFirstOrSecondParty:(BOOL)party
+{
+  partyCopy = party;
+  v7 = objc_opt_class();
+  v8 = *&token->var0[4];
+  v12[0] = *token->var0;
+  v12[1] = v8;
+  v9 = [v7 keyForEntitlement:@"__isFirstParty__" auditToken:v12];
+  v10 = [MEMORY[0x1E696AD98] numberWithBool:partyCopy];
+  v11 = [CNResult successWithValue:v10];
+  [(NSMutableDictionary *)self->_entitlements setObject:v11 forKeyedSubscript:v9];
+}
+
 - (void)setAuditToken:(id *)token isFirstOrSecondPartyError:(id)error
 {
   errorCopy = error;
@@ -103,6 +118,19 @@
   v10 = [CNResult failureWithError:errorCopy];
 
   [(NSMutableDictionary *)self->_entitlements setObject:v10 forKeyedSubscript:v9];
+}
+
+- (void)setAuditToken:(id *)token allowsHighPriority:(BOOL)priority
+{
+  priorityCopy = priority;
+  v7 = objc_opt_class();
+  v8 = *&token->var0[4];
+  v12[0] = *token->var0;
+  v12[1] = v8;
+  v9 = [v7 keyForEntitlement:@"__isHighPriorityAllowed__" auditToken:v12];
+  v10 = [MEMORY[0x1E696AD98] numberWithBool:priorityCopy];
+  v11 = [CNResult successWithValue:v10];
+  [(NSMutableDictionary *)self->_entitlements setObject:v11 forKeyedSubscript:v9];
 }
 
 - (void)setAuditToken:(id *)token allowsHighPriorityError:(id)error
@@ -225,18 +253,17 @@
 
 uint64_t __97__CNEntitlementVerifierTestDouble_currentProcessHasArrayWithStringValue_forAnyEntitlement_error___block_invoke(void *a1, void *a2)
 {
-  v3 = a1[4];
-  v4 = a2;
-  v5 = [objc_opt_class() keyForEntitlement:v4];
+  v3 = a2;
+  v4 = [objc_opt_class() keyForEntitlement:v3];
 
-  v6 = a1[4];
-  v7 = *(a1[6] + 8);
-  obj = *(v7 + 40);
-  v8 = [v6 stringArrayResultForKey:v5 error:&obj];
-  objc_storeStrong((v7 + 40), obj);
-  v9 = [v8 containsObject:a1[5]];
+  v5 = a1[4];
+  v6 = *(a1[6] + 8);
+  obj = *(v6 + 40);
+  v7 = [v5 stringArrayResultForKey:v4 error:&obj];
+  objc_storeStrong((v6 + 40), obj);
+  v8 = [v7 containsObject:a1[5]];
 
-  return v9;
+  return v8;
 }
 
 - (BOOL)auditToken:(id *)token hasArrayWithStringValue:(id)value forAnyEntitlement:(id)entitlement error:(id *)error
@@ -277,22 +304,21 @@ uint64_t __97__CNEntitlementVerifierTestDouble_currentProcessHasArrayWithStringV
 
 uint64_t __94__CNEntitlementVerifierTestDouble_auditToken_hasArrayWithStringValue_forAnyEntitlement_error___block_invoke(uint64_t a1, void *a2)
 {
-  v3 = *(a1 + 32);
-  v4 = a2;
-  v5 = objc_opt_class();
-  v6 = *(a1 + 72);
-  v14[0] = *(a1 + 56);
-  v14[1] = v6;
-  v7 = [v5 keyForEntitlement:v4 auditToken:v14];
+  v3 = a2;
+  v4 = objc_opt_class();
+  v5 = *(a1 + 72);
+  v13[0] = *(a1 + 56);
+  v13[1] = v5;
+  v6 = [v4 keyForEntitlement:v3 auditToken:v13];
 
-  v8 = *(a1 + 32);
-  v9 = *(*(a1 + 48) + 8);
-  obj = *(v9 + 40);
-  v10 = [v8 stringArrayResultForKey:v7 error:&obj];
-  objc_storeStrong((v9 + 40), obj);
-  v11 = [v10 containsObject:*(a1 + 40)];
+  v7 = *(a1 + 32);
+  v8 = *(*(a1 + 48) + 8);
+  obj = *(v8 + 40);
+  v9 = [v7 stringArrayResultForKey:v6 error:&obj];
+  objc_storeStrong((v8 + 40), obj);
+  v10 = [v9 containsObject:*(a1 + 40)];
 
-  return v11;
+  return v10;
 }
 
 - (id)stringArrayResultForKey:(id)key error:(id *)error
@@ -369,16 +395,15 @@ LABEL_8:
 void __80__CNEntitlementVerifierTestDouble_valuesForCurrentProcessForEntitlements_error___block_invoke(void *a1, void *a2)
 {
   v3 = a2;
-  v4 = a1[4];
-  v5 = [objc_opt_class() keyForEntitlement:v3];
-  v6 = a1[4];
-  v7 = *(a1[5] + 8);
-  obj = *(v7 + 40);
-  v8 = [v6 valueForEntitlementForKey:v5 error:&obj];
-  objc_storeStrong((v7 + 40), obj);
-  if (v8)
+  v4 = [objc_opt_class() keyForEntitlement:v3];
+  v5 = a1[4];
+  v6 = *(a1[5] + 8);
+  obj = *(v6 + 40);
+  v7 = [v5 valueForEntitlementForKey:v4 error:&obj];
+  objc_storeStrong((v6 + 40), obj);
+  if (v7)
   {
-    [*(*(a1[6] + 8) + 40) setObject:v8 forKey:v3];
+    [*(*(a1[6] + 8) + 40) setObject:v7 forKey:v3];
   }
 }
 
@@ -433,20 +458,19 @@ void __80__CNEntitlementVerifierTestDouble_valuesForCurrentProcessForEntitlement
 void __77__CNEntitlementVerifierTestDouble_valuesForAuditToken_forEntitlements_error___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = *(a1 + 32);
-  v5 = objc_opt_class();
-  v6 = *(a1 + 72);
-  v12[0] = *(a1 + 56);
-  v12[1] = v6;
-  v7 = [v5 keyForEntitlement:v3 auditToken:v12];
-  v8 = *(a1 + 32);
-  v9 = *(*(a1 + 40) + 8);
-  obj = *(v9 + 40);
-  v10 = [v8 valueForEntitlementForKey:v7 error:&obj];
-  objc_storeStrong((v9 + 40), obj);
-  if (v10)
+  v4 = objc_opt_class();
+  v5 = *(a1 + 72);
+  v11[0] = *(a1 + 56);
+  v11[1] = v5;
+  v6 = [v4 keyForEntitlement:v3 auditToken:v11];
+  v7 = *(a1 + 32);
+  v8 = *(*(a1 + 40) + 8);
+  obj = *(v8 + 40);
+  v9 = [v7 valueForEntitlementForKey:v6 error:&obj];
+  objc_storeStrong((v8 + 40), obj);
+  if (v9)
   {
-    [*(*(*(a1 + 48) + 8) + 40) setObject:v10 forKey:v3];
+    [*(*(*(a1 + 48) + 8) + 40) setObject:v9 forKey:v3];
   }
 }
 

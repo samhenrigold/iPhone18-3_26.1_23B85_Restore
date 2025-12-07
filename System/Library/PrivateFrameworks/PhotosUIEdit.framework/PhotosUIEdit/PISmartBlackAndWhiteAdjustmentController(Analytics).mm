@@ -49,7 +49,7 @@
           {
             v14 = v11;
             autoKey = [*(v11 + 2432) autoKey];
-            if ([v13 isEqualToString:autoKey])
+            if (objc_msgSend_isEqualToString_(v13))
             {
               isAuto = [self isAuto];
 
@@ -67,9 +67,9 @@
 
             v17 = v10;
             hueKey = [*(v14 + 2432) hueKey];
-            v19 = [v13 isEqualToString:hueKey];
+            isEqualToString = objc_msgSend_isEqualToString_(v13);
 
-            if (v19)
+            if (isEqualToString)
             {
               v20 = MEMORY[0x277CCABB0];
               [self hue];
@@ -85,7 +85,7 @@ LABEL_36:
 
             grainKey = [*(v14 + 2432) grainKey];
             v11 = v14;
-            if ([v13 isEqualToString:grainKey])
+            if (objc_msgSend_isEqualToString_(v13))
             {
               [self grain];
               v25 = v24;
@@ -108,7 +108,7 @@ LABEL_36:
             }
 
             neutralKey = [*(v14 + 2432) neutralKey];
-            if ([v13 isEqualToString:neutralKey])
+            if (objc_msgSend_isEqualToString_(v13))
             {
               [self neutral];
               v31 = v30;
@@ -131,7 +131,7 @@ LABEL_36:
             }
 
             toneKey = [*(v14 + 2432) toneKey];
-            if ([v13 isEqualToString:toneKey])
+            if (objc_msgSend_isEqualToString_(v13))
             {
               [self tone];
               v37 = v36;
@@ -154,7 +154,7 @@ LABEL_36:
             }
 
             strengthKey = [*(v14 + 2432) strengthKey];
-            if ([v13 isEqualToString:strengthKey])
+            if (objc_msgSend_isEqualToString_(v13))
             {
               [self strength];
               v46 = v45;

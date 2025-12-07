@@ -27,38 +27,36 @@
 
 - (id)attributeDescriptions
 {
-  v28[6] = *MEMORY[0x277D85DE8];
+  v27[6] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   accessory = [(HMDMatterCommand *)self accessory];
   uuid = [accessory uuid];
-  v25 = [v3 initWithName:@"accessory UUID" value:uuid];
-  v28[0] = v25;
+  v24 = [v3 initWithName:@"accessory UUID" value:uuid];
+  v27[0] = v24;
   v4 = objc_alloc(MEMORY[0x277D0F778]);
   matterPath = [(HMDMatterCommand *)self matterPath];
   endpointID = [matterPath endpointID];
-  v22 = [v4 initWithName:@"endpoint" value:endpointID];
-  v28[1] = v22;
+  v21 = [v4 initWithName:@"endpoint" value:endpointID];
+  v27[1] = v21;
   v5 = objc_alloc(MEMORY[0x277D0F778]);
   matterPath2 = [(HMDMatterCommand *)self matterPath];
   clusterID = [matterPath2 clusterID];
   v7 = [v5 initWithName:@"cluster" value:clusterID];
-  v28[2] = v7;
+  v27[2] = v7;
   v8 = objc_alloc(MEMORY[0x277D0F778]);
   matterPath3 = [(HMDMatterCommand *)self matterPath];
   commandID = [matterPath3 commandID];
   v11 = [v8 initWithName:@"command" value:commandID];
-  v28[3] = v11;
+  v27[3] = v11;
   v12 = objc_alloc(MEMORY[0x277D0F778]);
   commandFields = [(HMDMatterCommand *)self commandFields];
   v14 = [v12 initWithName:@"commandFields" value:commandFields];
-  v28[4] = v14;
+  v27[4] = v14;
   v15 = objc_alloc(MEMORY[0x277D0F778]);
   expectedValues = [(HMDMatterCommand *)self expectedValues];
   v17 = [v15 initWithName:@"expectedValues" value:expectedValues];
-  v28[5] = v17;
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:6];
-
-  v19 = *MEMORY[0x277D85DE8];
+  v27[5] = v17;
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:6];
 
   return v18;
 }
@@ -82,25 +80,7 @@
   {
     matterPath = [(HMDMatterCommand *)self matterPath];
     matterPath2 = [v6 matterPath];
-    if (![matterPath isEqual:matterPath2])
-    {
-      goto LABEL_9;
-    }
-
-    commandFields = [(HMDMatterCommand *)self commandFields];
-    commandFields2 = [v6 commandFields];
-    v11 = HMFEqualObjects();
-
-    if (!v11)
-    {
-      goto LABEL_9;
-    }
-
-    expectedValues = [(HMDMatterCommand *)self expectedValues];
-    expectedValues2 = [v6 expectedValues];
-    v14 = HMFEqualObjects();
-
-    if (v14)
+    if ([matterPath isEqual:matterPath2] && (-[HMDMatterCommand commandFields](self, "commandFields"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "commandFields"), v10 = objc_claimAutoreleasedReturnValue(), v11 = HMFEqualObjects(), v10, v9, v11) && (-[HMDMatterCommand expectedValues](self, "expectedValues"), v12 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v6, "expectedValues"), v13 = objc_claimAutoreleasedReturnValue(), v14 = HMFEqualObjects(), v13, v12, v14))
     {
       accessory = [(HMDMatterCommand *)self accessory];
       accessory2 = [v6 accessory];
@@ -109,7 +89,6 @@
 
     else
     {
-LABEL_9:
       v17 = 0;
     }
   }
@@ -124,21 +103,19 @@ LABEL_9:
 
 - (id)associatedAccessories
 {
-  v7[1] = *MEMORY[0x277D85DE8];
+  v6[1] = *MEMORY[0x277D85DE8];
   accessory = [(HMDMatterCommand *)self accessory];
   v3 = accessory;
   if (accessory)
   {
-    v7[0] = accessory;
-    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+    v6[0] = accessory;
+    v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
   }
 
   else
   {
     v4 = MEMORY[0x277CBEBF8];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }
@@ -155,7 +132,7 @@ LABEL_9:
 
 - (HMDAccessory)accessory
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   matterPath = [(HMDMatterCommand *)self matterPath];
   accessory = [matterPath accessory];
 
@@ -168,17 +145,15 @@ LABEL_9:
     {
       v8 = HMFGetLogIdentifier();
       matterPath2 = [(HMDMatterCommand *)selfCopy matterPath];
-      v12 = 138543618;
-      v13 = v8;
-      v14 = 2112;
-      v15 = matterPath2;
-      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Accessory was set to nil on matter path %@", &v12, 0x16u);
+      v11 = 138543618;
+      v12 = v8;
+      v13 = 2112;
+      v14 = matterPath2;
+      _os_log_impl(&dword_229538000, v7, OS_LOG_TYPE_ERROR, "%{public}@Accessory was set to nil on matter path %@", &v11, 0x16u);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return accessory;
 }
@@ -313,14 +288,14 @@ LABEL_9:
     }
   }
 
-  v24 = [dictionary copy];
+  v24 = objc_msgSend_copy(dictionary);
 
   return v24;
 }
 
 - (BOOL)isValid
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   accessory = [(HMDMatterCommand *)self accessory];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -349,20 +324,20 @@ LABEL_7:
       v12 = HMFGetLogIdentifier();
       matterPath = [(HMDMatterCommand *)selfCopy matterPath];
       *buf = 138543618;
-      v29 = v12;
-      v30 = 2112;
-      v31 = matterPath;
+      v28 = v12;
+      v29 = 2112;
+      v30 = matterPath;
       _os_log_impl(&dword_229538000, v11, OS_LOG_TYPE_INFO, "%{public}@Validating matter command for path: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     commandPaths2 = [matterAdapter commandPaths];
-    v27[0] = MEMORY[0x277D85DD0];
-    v27[1] = 3221225472;
-    v27[2] = __27__HMDMatterCommand_isValid__block_invoke;
-    v27[3] = &unk_278675618;
-    v27[4] = selfCopy;
-    v15 = [commandPaths2 na_firstObjectPassingTest:v27];
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __27__HMDMatterCommand_isValid__block_invoke;
+    v26[3] = &unk_278675618;
+    v26[4] = selfCopy;
+    v15 = [commandPaths2 na_firstObjectPassingTest:v26];
 
     if (v15)
     {
@@ -372,12 +347,12 @@ LABEL_7:
     else
     {
       mtrCommandPaths = [matterAdapter mtrCommandPaths];
-      v26[0] = MEMORY[0x277D85DD0];
-      v26[1] = 3221225472;
-      v26[2] = __27__HMDMatterCommand_isValid__block_invoke_2;
-      v26[3] = &unk_278675640;
-      v26[4] = selfCopy;
-      v18 = [mtrCommandPaths na_firstObjectPassingTest:v26];
+      v25[0] = MEMORY[0x277D85DD0];
+      v25[1] = 3221225472;
+      v25[2] = __27__HMDMatterCommand_isValid__block_invoke_2;
+      v25[3] = &unk_278675640;
+      v25[4] = selfCopy;
+      v18 = [mtrCommandPaths na_firstObjectPassingTest:v25];
       v16 = v18 != 0;
     }
 
@@ -391,25 +366,24 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  v21 = objc_autoreleasePoolPush();
+  v20 = objc_autoreleasePoolPush();
   selfCopy2 = self;
-  v23 = HMFGetOSLogHandle();
-  if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+  v22 = HMFGetOSLogHandle();
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
   {
-    v24 = HMFGetLogIdentifier();
+    v23 = HMFGetLogIdentifier();
     accessory2 = [(HMDMatterCommand *)selfCopy2 accessory];
     *buf = 138543618;
-    v29 = v24;
-    v30 = 2112;
-    v31 = accessory2;
-    _os_log_impl(&dword_229538000, v23, OS_LOG_TYPE_ERROR, "%{public}@Unable to find commands paths from %@", buf, 0x16u);
+    v28 = v23;
+    v29 = 2112;
+    v30 = accessory2;
+    _os_log_impl(&dword_229538000, v22, OS_LOG_TYPE_ERROR, "%{public}@Unable to find commands paths from %@", buf, 0x16u);
   }
 
-  objc_autoreleasePoolPop(v21);
+  objc_autoreleasePoolPop(v20);
   v16 = 0;
 LABEL_13:
 
-  v19 = *MEMORY[0x277D85DE8];
   return v16;
 }
 
@@ -526,7 +500,7 @@ LABEL_7:
 
 - (HMDMatterCommand)initWithDictionary:(id)dictionary home:(id)home
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   homeCopy = home;
   v7 = objc_autoreleasePoolPush();
@@ -549,12 +523,12 @@ LABEL_7:
   if (v12)
   {
     v13 = HMAllowedClassesForMatterCommand();
-    v45 = [dictionaryCopy hmf_unarchivedObjectForKey:v11 ofClasses:v13];
+    v44 = [dictionaryCopy hmf_unarchivedObjectForKey:v11 ofClasses:v13];
   }
 
   else
   {
-    v45 = [dictionaryCopy hmf_dictionaryForKey:v11];
+    v44 = [dictionaryCopy hmf_dictionaryForKey:v11];
   }
 
   v14 = *MEMORY[0x277CCFC20];
@@ -563,12 +537,12 @@ LABEL_7:
   if (v15)
   {
     v16 = HMAllowedClassesForMatterCommand();
-    v44 = [dictionaryCopy hmf_unarchivedObjectForKey:v14 ofClasses:v16];
+    v43 = [dictionaryCopy hmf_unarchivedObjectForKey:v14 ofClasses:v16];
   }
 
   else
   {
-    v44 = [dictionaryCopy hmf_arrayForKey:v14];
+    v43 = [dictionaryCopy hmf_arrayForKey:v14];
   }
 
   v17 = [dictionaryCopy hmf_UUIDForKey:*MEMORY[0x277CCF0B0]];
@@ -597,23 +571,23 @@ LABEL_7:
       *buf = 0;
       *&buf[8] = buf;
       *&buf[16] = 0x3032000000;
-      v57 = __Block_byref_object_copy__70236;
-      *v58 = __Block_byref_object_dispose__70237;
-      *&v58[8] = [HMDMatterPath PathWithCommandID:v18 endpointID:v21 clusterID:v19 accessory:v24];
+      v56 = __Block_byref_object_copy__70236;
+      *v57 = __Block_byref_object_dispose__70237;
+      *&v57[8] = [HMDMatterPath PathWithCommandID:v18 endpointID:v21 clusterID:v19 accessory:v24];
       if (*(*&buf[8] + 40))
       {
         matterAdapter = [v24 matterAdapter];
         commandPaths = [matterAdapter commandPaths];
-        v47[0] = MEMORY[0x277D85DD0];
-        v47[1] = 3221225472;
-        v47[2] = __44__HMDMatterCommand_initWithDictionary_home___block_invoke;
-        v47[3] = &unk_278689C88;
-        v47[4] = buf;
-        [commandPaths hmf_enumerateWithAutoreleasePoolUsingBlock:v47];
+        v46[0] = MEMORY[0x277D85DD0];
+        v46[1] = 3221225472;
+        v46[2] = __44__HMDMatterCommand_initWithDictionary_home___block_invoke;
+        v46[3] = &unk_278689C88;
+        v46[4] = buf;
+        [commandPaths hmf_enumerateWithAutoreleasePoolUsingBlock:v46];
 
         v27 = [HMDMatterCommand alloc];
         uUID = [MEMORY[0x277CCAD78] UUID];
-        v29 = [(HMDMatterCommand *)v27 initWithUUID:uUID matterPath:*(*&buf[8] + 40) commandFields:v45 expectedValues:v44 home:homeCopy];
+        v29 = [(HMDMatterCommand *)v27 initWithUUID:uUID matterPath:*(*&buf[8] + 40) commandFields:v44 expectedValues:v43 home:homeCopy];
       }
 
       else
@@ -624,15 +598,15 @@ LABEL_7:
         if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
         {
           v39 = HMFGetLogIdentifier();
-          *v48 = 138544130;
-          v49 = v39;
-          v50 = 2112;
-          v51 = v18;
-          v52 = 2112;
-          v53 = v21;
-          v54 = 2112;
-          v55 = v19;
-          _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_ERROR, "%{public}@Unable to create matter path from commandID/endpointID/clusterID %@/%@/%@", v48, 0x2Au);
+          *v47 = 138544130;
+          v48 = v39;
+          v49 = 2112;
+          v50 = v18;
+          v51 = 2112;
+          v52 = v21;
+          v53 = 2112;
+          v54 = v19;
+          _os_log_impl(&dword_229538000, v38, OS_LOG_TYPE_ERROR, "%{public}@Unable to create matter path from commandID/endpointID/clusterID %@/%@/%@", v47, 0x2Au);
         }
 
         objc_autoreleasePoolPop(contexta);
@@ -675,11 +649,11 @@ LABEL_7:
       *&buf[12] = 2112;
       *&buf[14] = v17;
       *&buf[22] = 2112;
-      v57 = v18;
-      *v58 = 2112;
-      *&v58[2] = v19;
-      *&v58[10] = 2112;
-      *&v58[12] = v21;
+      v56 = v18;
+      *v57 = 2112;
+      *&v57[2] = v19;
+      *&v57[10] = 2112;
+      *&v57[12] = v21;
       _os_log_impl(&dword_229538000, v32, OS_LOG_TYPE_ERROR, "%{public}@Failed to get values accessoryUUID:%@, commandID:%@, clusterID:%@ or endpointID:%@ from dictionary", buf, 0x34u);
     }
 
@@ -687,7 +661,6 @@ LABEL_7:
     v29 = 0;
   }
 
-  v40 = *MEMORY[0x277D85DE8];
   return v29;
 }
 
@@ -715,10 +688,9 @@ void __44__HMDMatterCommand_initWithDictionary_home___block_invoke(uint64_t a1, 
 
 void __31__HMDMatterCommand_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v13_70247;
-  logCategory__hmf_once_v13_70247 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v13_70247;
+  logCategory__hmf_once_v13_70247 = v0;
 }
 
 @end

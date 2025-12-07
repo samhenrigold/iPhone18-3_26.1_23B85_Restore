@@ -1,5 +1,6 @@
 @interface _NMRSendCommandMessageProtobuf
 - (BOOL)isEqual:(id)equal;
+- (id)commandAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -41,6 +42,216 @@
   }
 
   *&self->_has = *&self->_has & 0xFD | v3;
+}
+
+- (id)commandAsString:(int)string
+{
+  v4 = @"Unknown";
+  switch(string)
+  {
+    case 0:
+      goto LABEL_10;
+    case 1:
+      v4 = @"Play";
+
+      return v4;
+    case 2:
+      v4 = @"Pause";
+
+      return v4;
+    case 3:
+      v4 = @"TogglePlayPause";
+
+      return v4;
+    case 4:
+      v4 = @"Stop";
+
+      return v4;
+    case 5:
+      v4 = @"NextTrack";
+
+      return v4;
+    case 6:
+      v4 = @"PreviousTrack";
+
+      return v4;
+    case 7:
+      v4 = @"AdvanceShuffleMode";
+
+      return v4;
+    case 8:
+      v4 = @"AdvanceRepeatMode";
+
+      return v4;
+    case 9:
+      v4 = @"BeginFastForward";
+
+      return v4;
+    case 10:
+      v4 = @"EndFastForward";
+
+      return v4;
+    case 11:
+      v4 = @"BeginRewind";
+
+      return v4;
+    case 12:
+      v4 = @"EndRewind";
+
+      return v4;
+    case 13:
+      v4 = @"Rewind15Seconds";
+
+      return v4;
+    case 14:
+      v4 = @"FastForward15Seconds";
+
+      return v4;
+    case 15:
+      v4 = @"Rewind30Seconds";
+
+      return v4;
+    case 16:
+      v4 = @"FastForward30Seconds";
+
+      return v4;
+    case 17:
+    case 36:
+    case 37:
+    case 38:
+    case 39:
+    case 40:
+    case 42:
+    case 43:
+    case 44:
+      goto LABEL_9;
+    case 18:
+      v4 = @"SkipForward";
+
+      return v4;
+    case 19:
+      v4 = @"SkipBackward";
+
+      return v4;
+    case 20:
+      v4 = @"ChangePlaybackRate";
+
+      return v4;
+    case 21:
+      v4 = @"RateTrack";
+
+      return v4;
+    case 22:
+      v4 = @"LikeTrack";
+
+      return v4;
+    case 23:
+      v4 = @"DislikeTrack";
+
+      return v4;
+    case 24:
+      v4 = @"BookmarkTrack";
+
+      return v4;
+    case 25:
+      v4 = @"NextChapter";
+
+      return v4;
+    case 26:
+      v4 = @"PreviousChapter";
+
+      return v4;
+    case 27:
+      v4 = @"NextAlbum";
+
+      return v4;
+    case 28:
+      v4 = @"PreviousAlbum";
+
+      return v4;
+    case 29:
+      v4 = @"NextPlaylist";
+
+      return v4;
+    case 30:
+      v4 = @"PreviousPlaylist";
+
+      return v4;
+    case 31:
+      v4 = @"BanTrack";
+
+      return v4;
+    case 32:
+      v4 = @"AddTrackToWishList";
+
+      return v4;
+    case 33:
+      v4 = @"RemoveTrackFromWishList";
+
+      return v4;
+    case 34:
+      v4 = @"NextInContext";
+
+      return v4;
+    case 35:
+      v4 = @"PreviousInContext";
+
+      return v4;
+    case 41:
+      v4 = @"ResetPlaybackTimeout";
+
+      return v4;
+    case 45:
+      v4 = @"SeekToPlaybackPosition";
+
+      return v4;
+    case 46:
+      v4 = @"ChangeRepeatMode";
+
+      return v4;
+    case 47:
+      v4 = @"ChangeShuffleMode";
+
+      return v4;
+    case 48:
+      v4 = @"SetPlaybackQueue";
+
+      return v4;
+    case 49:
+      v4 = @"AddNowPlayingItemToLibrary";
+
+      return v4;
+    case 50:
+      v4 = @"CreateRadioStation";
+
+      return v4;
+    case 51:
+      v4 = @"AddItemToLibrary";
+
+      return v4;
+    case 52:
+      v4 = @"InsertIntoPlaybackQueue";
+
+      return v4;
+    case 53:
+      v4 = @"PlayItemInPlaybackQueue";
+
+      return v4;
+    default:
+      if (string == 135)
+      {
+        v4 = @"ChangeQueueEndAction";
+      }
+
+      else
+      {
+LABEL_9:
+        v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+LABEL_10:
+      }
+
+      return v4;
+  }
 }
 
 - (int)StringAsCommand:(id)command
@@ -515,40 +726,37 @@ LABEL_6:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v9 = toCopy;
+  v6 = toCopy;
   if ((*&self->_has & 2) != 0)
   {
-    command = self->_command;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_options)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    originIdentifier = self->_originIdentifier;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
   }
 
   if (self->_bundleID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v9;
+    toCopy = v6;
   }
 }
 
@@ -633,7 +841,6 @@ LABEL_6:
   }
 
   has = self->_has;
-  v6 = *(equalCopy + 44);
   if ((has & 2) != 0)
   {
     if ((*(equalCopy + 44) & 2) == 0 || self->_command != *(equalCopy + 6))
@@ -653,14 +860,13 @@ LABEL_6:
     if (![(_NMRCommandOptionsProtobuf *)options isEqual:?])
     {
 LABEL_22:
-      v10 = 0;
+      v8 = 0;
       goto LABEL_23;
     }
 
     has = self->_has;
   }
 
-  v8 = *(equalCopy + 44);
   if (has)
   {
     if ((*(equalCopy + 44) & 1) == 0 || self->_timestamp != *(equalCopy + 1))
@@ -690,17 +896,17 @@ LABEL_22:
   bundleID = self->_bundleID;
   if (bundleID | *(equalCopy + 2))
   {
-    v10 = [(NSString *)bundleID isEqual:?];
+    v8 = [(NSString *)bundleID isEqual:?];
   }
 
   else
   {
-    v10 = 1;
+    v8 = 1;
   }
 
 LABEL_23:
 
-  return v10;
+  return v8;
 }
 
 - (unint64_t)hash

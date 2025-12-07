@@ -12,36 +12,28 @@
 
 - (BOOL)_allowSwitchToTransportType:(int)type forLocation:(id)location
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   locationCopy = location;
   v7 = locationCopy;
-  if (type)
+  if (type || ([locationCopy speed], v8 < 5.36) || (objc_msgSend(v7, "rawLocation"), v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "coordinate"), v11 = v10, v13 = v12, v9, v22.var2 = self->_detectedTransportTypeOrigin.latitude, v23.var0 = self->_detectedTransportTypeOrigin.longitude, v22.var0 = v11, v22.var1 = v13, GEOCalculateDistance(v14, v15, v22, v23) < 100.0))
   {
-    goto LABEL_7;
-  }
-
-  [locationCopy speed];
-  if (v8 < 5.36 || ([v7 rawLocation], v9 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v9, "coordinate"), v9, latitude = self->_detectedTransportTypeOrigin.latitude, longitude = self->_detectedTransportTypeOrigin.longitude, GEOCalculateDistance(), v12 < 100.0))
-  {
-LABEL_7:
-    v14 = 0;
+    v17 = 0;
   }
 
   else
   {
-    v13 = GEOFindOrCreateLog();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v16 = GEOFindOrCreateLog();
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
-      v17 = 138477827;
-      v18 = @"AUTOMOBILE";
-      _os_log_impl(&dword_1D311E000, v13, OS_LOG_TYPE_DEBUG, "Allow switching to transport type: %{private}@", &v17, 0xCu);
+      v19 = 138477827;
+      v20 = @"AUTOMOBILE";
+      _os_log_impl(&dword_1D311E000, v16, OS_LOG_TYPE_DEBUG, "Allow switching to transport type: %{private}@", &v19, 0xCu);
     }
 
-    v14 = 1;
+    v17 = 1;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
-  return v14;
+  return v17;
 }
 
 - (int)_detectedMotionForLocation:(id)location
@@ -102,28 +94,31 @@ LABEL_9:
       lastKnownGoodLocationOnRoute = [(MNTurnByTurnLocationTracker *)self lastKnownGoodLocationOnRoute];
       routeMatch = [lastKnownGoodLocationOnRoute routeMatch];
       [routeMatch locationCoordinate3D];
-
-      [locationCopy _navigation_geoCoordinate3D];
-      GEOCalculateDistance();
       v14 = v13;
+      v16 = v15;
+
+      _navigation_geoCoordinate3D = [locationCopy _navigation_geoCoordinate3D];
+      v24.var2 = v14;
+      v25.var0 = v16;
+      v19 = GEOCalculateDistance(_navigation_geoCoordinate3D, v18, v24, v25);
     }
 
     else
     {
       routeMatch2 = [locationCopy routeMatch];
       [routeMatch2 distanceFromRoute];
-      v14 = v17;
+      v19 = v22;
     }
 
-    v15 = v14 > v10;
+    v20 = v19 > v10;
   }
 
   else
   {
-    v15 = 1;
+    v20 = 1;
   }
 
-  return v15;
+  return v20;
 }
 
 - (void)_updateForReroute:(id)reroute rerouteReason:(unint64_t)reason request:(id)request response:(id)response

@@ -228,13 +228,12 @@ void __39__HCSettings__handlePreferenceChanged___block_invoke_2(uint64_t a1, voi
 
 void __39__HCSettings__registerForNotification___block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_opt_class();
-  v6 = NSStringFromClass(v2);
-  v3 = v6;
-  v4 = dispatch_queue_create([v6 UTF8String], 0);
-  v5 = _registerForNotification__RegistrationQueue;
-  _registerForNotification__RegistrationQueue = v4;
+  v1 = objc_opt_class();
+  v5 = NSStringFromClass(v1);
+  v2 = v5;
+  v3 = dispatch_queue_create([v5 UTF8String], 0);
+  v4 = _registerForNotification__RegistrationQueue;
+  _registerForNotification__RegistrationQueue = v3;
 }
 
 void __39__HCSettings__registerForNotification___block_invoke_2(uint64_t a1)
@@ -268,7 +267,7 @@ void __39__HCSettings__registerForNotification___block_invoke_2(uint64_t a1)
 
 void __67__HCSettings_registerUpdateBlock_forRetrieveSelector_withListener___block_invoke(uint64_t a1)
 {
-  v16[2] = *MEMORY[0x1E69E9840];
+  v15[2] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) updateBlocks];
   v3 = [*(a1 + 32) preferenceKeyForSelector:*(a1 + 64)];
   v4 = [v2 objectForKey:v3];
@@ -276,10 +275,10 @@ void __67__HCSettings_registerUpdateBlock_forRetrieveSelector_withListener___blo
   if (v5)
   {
     v6 = [v5 copy];
-    v16[0] = *(a1 + 40);
+    v15[0] = *(a1 + 40);
     v7 = MEMORY[0x1DA731E20]();
-    v16[1] = v7;
-    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
+    v15[1] = v7;
+    v8 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
 
     if (!v4)
     {
@@ -305,21 +304,19 @@ void __67__HCSettings_registerUpdateBlock_forRetrieveSelector_withListener___blo
 
   else
   {
-    v14[0] = MEMORY[0x1E69E9820];
-    v14[1] = 3221225472;
-    v14[2] = __67__HCSettings_registerUpdateBlock_forRetrieveSelector_withListener___block_invoke_2;
-    v14[3] = &unk_1E857EE38;
-    v15 = *(a1 + 40);
-    v12 = [v4 indexesOfObjectsPassingTest:v14];
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 3221225472;
+    v13[2] = __67__HCSettings_registerUpdateBlock_forRetrieveSelector_withListener___block_invoke_2;
+    v13[3] = &unk_1E857EE38;
+    v14 = *(a1 + 40);
+    v12 = [v4 indexesOfObjectsPassingTest:v13];
     if ([v12 count])
     {
       [v4 removeObjectsAtIndexes:v12];
     }
 
-    v6 = v15;
+    v6 = v14;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __67__HCSettings_registerUpdateBlock_forRetrieveSelector_withListener___block_invoke_2(uint64_t a1, void *a2)
@@ -411,7 +408,7 @@ LABEL_3:
 
 void __40__HCSettings_setValue_forPreferenceKey___block_invoke_2(uint64_t a1)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) nanoDomainAccessor];
   [v2 setObject:*(a1 + 40) forKey:*(a1 + 48)];
   v3 = [v2 synchronize];
@@ -425,12 +422,10 @@ void __40__HCSettings_setValue_forPreferenceKey___block_invoke_2(uint64_t a1)
   v6 = objc_opt_new();
   v7 = [*(a1 + 32) nanoPreferenceDomain];
   v8 = MEMORY[0x1E695DFD8];
-  v12[0] = *(a1 + 48);
-  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
+  v11[0] = *(a1 + 48);
+  v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:1];
   v10 = [v8 setWithArray:v9];
   [v6 synchronizeNanoDomain:v7 keys:v10];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_synchronizeIfNecessary:(id)necessary
@@ -567,10 +562,7 @@ void __38__HCSettings__synchronizeIfNecessary___block_invoke(uint64_t a1)
 
 uint64_t __37__HCSettings__valueForPreferenceKey___block_invoke(uint64_t a1)
 {
-  v2 = [*(a1 + 32) _valueForPreferenceKey:*(a1 + 40)];
-  v3 = *(*(a1 + 48) + 8);
-  v4 = *(v3 + 40);
-  *(v3 + 40) = v2;
+  *(*(*(a1 + 48) + 8) + 40) = [*(a1 + 32) _valueForPreferenceKey:*(a1 + 40)];
 
   return MEMORY[0x1EEE66BB8]();
 }

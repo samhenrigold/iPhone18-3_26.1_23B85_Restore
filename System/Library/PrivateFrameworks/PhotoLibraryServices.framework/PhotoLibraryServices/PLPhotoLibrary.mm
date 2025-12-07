@@ -877,7 +877,7 @@ void __49__PLPhotoLibrary_deleteUnusedCameraMetadataPaths__block_invoke(uint64_t
   v5 = PLBackendGetLog();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = [*(a1 + 56) count];
+    v6 = objc_msgSend_count(*(a1 + 56));
     v7 = *(a1 + 56);
     *buf = 134218242;
     v32 = v6;
@@ -1052,7 +1052,7 @@ void __74__PLPhotoLibrary_deleteUnknownDeferredIntermediatesWithCompletionHandle
     v17 = PLDeferredProcessingGetLog();
     if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = [v9 count];
+      v18 = objc_msgSend_count(v9);
       *buf = 134218242;
       v31 = v18;
       v32 = 2112;
@@ -1198,16 +1198,16 @@ void __53__PLPhotoLibrary_deleteExpiredTrashedAssetsAndAlbums__block_invoke(uint
   }
 }
 
-void __53__PLPhotoLibrary_deleteExpiredTrashedAssetsAndAlbums__block_invoke_944()
+void __53__PLPhotoLibrary_deleteExpiredTrashedAssetsAndAlbums__block_invoke_944(uint64_t a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v0 = PLBackendGetLog();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v5 = *MEMORY[0x1E69E9840];
+  v1 = PLBackendGetLog();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    v1 = NSLocalizedFileSizeDescription();
-    v2 = 138412290;
-    v3 = v1;
-    _os_log_impl(&dword_19BF1F000, v0, OS_LOG_TYPE_DEFAULT, "Deleted %@ of assets from the trash.", &v2, 0xCu);
+    v2 = NSLocalizedFileSizeDescription();
+    v3 = 138412290;
+    v4 = v2;
+    _os_log_impl(&dword_19BF1F000, v1, OS_LOG_TYPE_DEFAULT, "Deleted %@ of assets from the trash.", &v3, 0xCu);
   }
 }
 
@@ -1566,7 +1566,7 @@ void __77__PLPhotoLibrary__updateAssetCountKeyPath_withPendingCountKeyPath_inCon
   }
 }
 
-void *__71__PLPhotoLibrary_old_refreshCachedCountsOnAllAssetContainersInContext___block_invoke_2(uint64_t a1, void *a2)
+CFMutableArrayRef __71__PLPhotoLibrary_old_refreshCachedCountsOnAllAssetContainersInContext___block_invoke_2(uint64_t a1, void *a2)
 {
   v3 = a2;
   Mutable = [*(a1 + 32) objectForKeyedSubscript:v3];
@@ -1684,7 +1684,7 @@ LABEL_6:
 
     if (v6)
     {
-      if ([v6 isEqualToString:@"iPhoto"])
+      if (objc_msgSend_isEqualToString_(v6))
       {
 
 LABEL_11:
@@ -1692,9 +1692,9 @@ LABEL_11:
         goto LABEL_13;
       }
 
-      v10 = [v7 isEqualToString:@"Aperture"];
+      isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-      if (v10)
+      if (isEqualToString)
       {
         goto LABEL_11;
       }
@@ -1757,7 +1757,7 @@ void __44__PLPhotoLibrary_hasCompletedMomentAnalysis__block_invoke(uint64_t a1)
 
   if (v3)
   {
-    v5 = [v3 count] == 0;
+    v5 = objc_msgSend_count(v3) == 0;
   }
 
   else
@@ -1804,7 +1804,7 @@ void __44__PLPhotoLibrary_hasCompletedMomentAnalysis__block_invoke(uint64_t a1)
   return v5;
 }
 
-uint64_t __44__PLPhotoLibrary_incompleteRestoreProcesses__block_invoke(uint64_t a1)
+void *__44__PLPhotoLibrary_incompleteRestoreProcesses__block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) globalValues];
   v3 = [v2 didImportFileSystemAssets];
@@ -2309,7 +2309,7 @@ uint64_t __30__PLPhotoLibrary_librarySizes__block_invoke(uint64_t a1, void *a2)
 void __30__PLPhotoLibrary_librarySizes__block_invoke_2(uint64_t a1)
 {
   v4 = [*(a1 + 32) executeFetchRequest:*(a1 + 40) error:0];
-  if ([v4 count])
+  if (objc_msgSend_count(v4))
   {
     v2 = [v4 objectAtIndexedSubscript:0];
     v3 = [v2 objectForKeyedSubscript:@"sum"];
@@ -2614,7 +2614,7 @@ LABEL_10:
   v21 = v38;
   if (v20)
   {
-    if ([v20 count] != 1)
+    if (objc_msgSend_count(v20) != 1)
     {
       longLongValue = 0;
       goto LABEL_11;
@@ -3679,9 +3679,9 @@ LABEL_67:
         [v51 addObject:v56];
         uuid2 = [(PLPersistedFolderMetadata *)v56 uuid];
         uuid3 = [v222 uuid];
-        v63 = [uuid2 isEqualToString:uuid3];
+        isEqualToString = objc_msgSend_isEqualToString_(uuid2);
 
-        if (v63)
+        if (isEqualToString)
         {
           path6 = v217;
           v217 = v56;
@@ -3720,7 +3720,7 @@ LABEL_83:
         [v51 addObject:v56];
         uuid6 = [(PLPersistedFolderMetadata *)v56 uuid];
         uuid7 = [v218 uuid];
-        v72 = [uuid6 isEqualToString:uuid7];
+        v72 = objc_msgSend_isEqualToString_(uuid6);
 
         if (v72)
         {
@@ -3752,7 +3752,7 @@ LABEL_82:
       }
 
       cloudGUID3 = [(PLPersistedFolderMetadata *)v56 cloudGUID];
-      if ([cloudGUID3 isEqualToString:@"----Project-Root-Folder----"])
+      if (objc_msgSend_isEqualToString_(cloudGUID3))
       {
         isProjectAlbumRootFolder = [(PLPersistedFolderMetadata *)v56 isProjectAlbumRootFolder];
 
@@ -3949,12 +3949,12 @@ LABEL_99:
     while (v99);
   }
 
-  if ([orderedSet count])
+  if (objc_msgSend_count(orderedSet))
   {
     [PLPersistedFolderMetadata updateChildrenOrderingInFolder:v222 usingChildUUIDs:orderedSet sourceDescription:0 includePendingChanges:1];
   }
 
-  if ([v209 count])
+  if (objc_msgSend_count(v209))
   {
     [PLPersistedFolderMetadata updateChildrenOrderingInFolder:v218 usingChildUUIDs:v209 sourceDescription:0 includePendingChanges:1];
   }
@@ -4259,7 +4259,7 @@ LABEL_202:
 
   [indicatorFileCoordinator setIsRebuildingPersons:1];
   v220 = [PLPersistedPersonMetadata personUUIDsToDedupeWithMetadataURLs:v208 cplEnabled:[(PLPhotoLibrary *)selfCopy isCloudPhotoLibraryEnabled]];
-  v210 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(v208, "count")}];
+  v210 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:objc_msgSend_count(v208)];
   v241 = 0u;
   v242 = 0u;
   v243 = 0u;
@@ -4519,12 +4519,12 @@ LABEL_262:
   }
 
   [indicatorFileCoordinator setIsRebuildingPersons:0];
-  if ([array count])
+  if (objc_msgSend_count(array))
   {
     v193 = PLMigrationGetLog();
     if (os_log_type_enabled(v193, OS_LOG_TYPE_DEFAULT))
     {
-      v194 = [array count];
+      v194 = objc_msgSend_count(array);
       *buf = 67109120;
       LODWORD(v297) = v194;
       _os_log_impl(&dword_19BF1F000, v193, OS_LOG_TYPE_DEFAULT, "Removing %d stale 1-way sync album metadata files", buf, 8u);
@@ -4680,7 +4680,7 @@ uint64_t __74__PLPhotoLibrary__recreateItemsFromMetadataAtDirectoryURLs_includeA
           kind = [v15 kind];
           v18 = [&unk_1F0FBF2E0 containsObject:kind];
 
-          if (!v18 || [albumsCopy containsObject:v15] && (objc_msgSend(v15, "assets"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "count"), v19, !v20))
+          if (!v18 || [albumsCopy containsObject:v15] && (objc_msgSend(v15, "assets"), v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend_count(v19), v19, !v20))
           {
             v21 = PLMigrationGetLog();
             if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
@@ -5123,12 +5123,12 @@ LABEL_22:
   }
 
   objc_autoreleasePoolPop(v8);
-  if ([v14 count])
+  if (objc_msgSend_count(v14))
   {
     v18 = PLMigrationGetLog();
     if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v19 = [v14 count];
+      v19 = objc_msgSend_count(v14);
       *buf = 67109120;
       LODWORD(v32) = v19;
       _os_log_impl(&dword_19BF1F000, v18, OS_LOG_TYPE_DEFAULT, "Found %d incomplete assets", buf, 8u);
@@ -5163,7 +5163,7 @@ void __56__PLPhotoLibrary_cleanupIncompleteAssetsAfterOTARestore__block_invoke(u
   v24 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = v3;
-  if (*(a1 + 48) == 1 && ([v3 objectIDsForRelationshipNamed:@"master"], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend(v5, "count"), v5, v6))
+  if (*(a1 + 48) == 1 && ([v3 objectIDsForRelationshipNamed:@"master"], v5 = objc_claimAutoreleasedReturnValue(), v6 = objc_msgSend_count(v5), v5, v6))
   {
     v7 = PLMigrationGetLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
@@ -5253,11 +5253,11 @@ void __56__PLPhotoLibrary_cleanupIncompleteAssetsAfterOTARestore__block_invoke_5
     *buf = 136446466;
     v16 = "[PLPhotoLibrary dataMigratorSupportCleanupModelForDataMigrationPurgeMissingSynced]";
     v17 = 2048;
-    v18 = [v6 count];
+    v18 = objc_msgSend_count(v6);
     _os_log_impl(&dword_19BF1F000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s: %lu synced", buf, 0x16u);
   }
 
-  if (![v6 count])
+  if (!objc_msgSend_count(v6))
   {
     managedObjectContext = [(PLPhotoLibrary *)self managedObjectContext];
     v11[0] = MEMORY[0x1E69E9820];
@@ -5283,7 +5283,7 @@ void __56__PLPhotoLibrary_cleanupIncompleteAssetsAfterOTARestore__block_invoke_5
 void __83__PLPhotoLibrary_dataMigratorSupportCleanupModelForDataMigrationPurgeMissingSynced__block_invoke(uint64_t a1)
 {
   v16 = *MEMORY[0x1E69E9840];
-  if (![*(a1 + 32) count])
+  if (!objc_msgSend_count(*(a1 + 32)))
   {
     v2 = objc_autoreleasePoolPush();
     v3 = [*(a1 + 40) _fetchCompleteAssetIDsWithValidatedSavedAssetTypeMask:objc_msgSend(MEMORY[0x1E69BF328] context:{"maskForFinderSyncedAsset"), *(a1 + 48)}];
@@ -5382,7 +5382,7 @@ void __83__PLPhotoLibrary_dataMigratorSupportCleanupModelForDataMigrationPurgeMi
   v12 = v38;
   if (v11)
   {
-    v13 = [v11 count];
+    v13 = objc_msgSend_count(v11);
     if ((PLIsSuppressingLogsForUnitTesting() & 1) == 0)
     {
       v14 = PLBackendGetLog();
@@ -5515,7 +5515,7 @@ void __83__PLPhotoLibrary_dataMigratorSupportCleanupModelForDataMigrationPurgeMi
   v13 = v39;
   if (v12)
   {
-    v14 = [v12 count];
+    v14 = objc_msgSend_count(v12);
     v15 = PLBackendGetLog();
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
@@ -5650,7 +5650,7 @@ void __83__PLPhotoLibrary_dataMigratorSupportCleanupModelForDataMigrationPurgeMi
 {
   assetsCopy = assets;
   reasonCopy = reason;
-  if ([assetsCopy count])
+  if (objc_msgSend_count(assetsCopy))
   {
     assetsCopy = [MEMORY[0x1E696AE18] predicateWithFormat:@"self IN %@", assetsCopy];
     [(PLPhotoLibrary *)self batchDeleteAssetsWithPredicate:assetsCopy reason:reasonCopy error:0];
@@ -6481,7 +6481,7 @@ LABEL_6:
   libraryBundle = [(PLPhotoLibrary *)self libraryBundle];
   isSystemPhotoLibrary = [libraryBundle isSystemPhotoLibrary];
 
-  if (isSystemPhotoLibrary && [array count])
+  if (isSystemPhotoLibrary && objc_msgSend_count(array))
   {
     v19 = [PLCollectionShare syncBackendForKind:2 photoLibrary:self];
     [v19 deleteSharedStreamAssetsFromServer:array];
@@ -6653,7 +6653,7 @@ LABEL_22:
 
         albums = [*(*(&v17 + 1) + 8 * i) albums];
         v14 = [albums objectsPassingTest:&__block_literal_global_519];
-        if ([v14 count])
+        if (objc_msgSend_count(v14))
         {
           [v6 unionSet:v14];
           ++v10;
@@ -6671,7 +6671,7 @@ LABEL_22:
     v10 = 0;
   }
 
-  v15 = [v6 count];
+  v15 = objc_msgSend_count(v6);
   if (count)
   {
     *count = v10;
@@ -6697,7 +6697,7 @@ LABEL_22:
 {
   v16 = *MEMORY[0x1E69E9840];
   photoStreamAlbums = [(PLPhotoLibrary *)self photoStreamAlbums];
-  v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:{objc_msgSend(photoStreamAlbums, "count")}];
+  v3 = [MEMORY[0x1E695DF70] arrayWithCapacity:objc_msgSend_count(photoStreamAlbums)];
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
@@ -7307,7 +7307,7 @@ void __40__PLPhotoLibrary_hasITunesSyncedContent__block_invoke(uint64_t a1)
     }
   }
 
-  *(*(*(a1 + 40) + 8) + 24) = [v7 count] != 0;
+  *(*(*(a1 + 40) + 8) + 24) = objc_msgSend_count(v7) != 0;
 }
 
 - (BOOL)_hasIncompleteAsset
@@ -7583,7 +7583,7 @@ LABEL_10:
 
       realSystemPhotoLibraryPath = [MEMORY[0x1E69BF238] realSystemPhotoLibraryPath];
       path = [uRLByStandardizingPath path];
-      LODWORD(libraryURL) = [realSystemPhotoLibraryPath isEqualToString:path];
+      LODWORD(libraryURL) = objc_msgSend_isEqualToString_(realSystemPhotoLibraryPath);
 
       if (libraryURL)
       {
@@ -8728,9 +8728,9 @@ void __67__PLPhotoLibrary_configureEnumeratorForLibrarySizeInfo_completion___blo
 {
   lowercaseString = [extension lowercaseString];
   lowercaseString2 = [*MEMORY[0x1E69C0E18] lowercaseString];
-  v5 = [lowercaseString isEqualToString:lowercaseString2];
+  isEqualToString = objc_msgSend_isEqualToString_(lowercaseString);
 
-  return v5;
+  return isEqualToString;
 }
 
 + (BOOL)isAudioFileExtension:(id)extension
@@ -8850,7 +8850,7 @@ void __47__PLPhotoLibrary__loadFileExtensionInformation__block_invoke()
 {
   v4 = MEMORY[0x1E695DF70];
   lsCopy = ls;
-  v6 = [v4 arrayWithCapacity:{objc_msgSend(lsCopy, "count")}];
+  v6 = [v4 arrayWithCapacity:objc_msgSend_count(lsCopy)];
   allObjects = [lsCopy allObjects];
 
   [v6 addObjectsFromArray:allObjects];
@@ -9471,12 +9471,12 @@ void __49__PLPhotoLibrary_opportunisticTaskIsolationQueue__block_invoke()
   }
 
   domain = [errorCopy domain];
-  v11 = [domain isEqualToString:*MEMORY[0x1E69BFF48]];
+  isEqualToString = objc_msgSend_isEqualToString_(domain);
 
-  if (!v11)
+  if (!isEqualToString)
   {
     domain2 = [errorCopy domain];
-    v14 = [domain2 isEqualToString:*MEMORY[0x1E695D488]];
+    v14 = objc_msgSend_isEqualToString_(domain2);
 
     if (v14)
     {
@@ -9485,7 +9485,7 @@ void __49__PLPhotoLibrary_opportunisticTaskIsolationQueue__block_invoke()
     }
 
     domain3 = [errorCopy domain];
-    v16 = [domain3 isEqualToString:*MEMORY[0x1E696A250]];
+    v16 = objc_msgSend_isEqualToString_(domain3);
 
     if (v16)
     {
@@ -10723,14 +10723,14 @@ LABEL_12:
   }
 }
 
-uint64_t __144__PLPhotoLibrary_MegaMocAdditions___withDispatchGroup_onContext_synchronously_shouldSave_refreshAfterSave_performTransaction_completionHandler___block_invoke()
+void *__144__PLPhotoLibrary_MegaMocAdditions___withDispatchGroup_onContext_synchronously_shouldSave_refreshAfterSave_performTransaction_completionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = PLIsAssetsd();
   if (result)
   {
-    v1 = objc_opt_class();
+    v3 = objc_opt_class();
 
-    return [v1 _registerStateHandler];
+    return [v3 _registerStateHandler];
   }
 
   return result;
@@ -10952,27 +10952,27 @@ void __144__PLPhotoLibrary_MegaMocAdditions___withDispatchGroup_onContext_synchr
   }
 }
 
-uint64_t __57__PLPhotoLibrary_MegaMocAdditions___registerStateHandler__block_invoke()
+uint64_t __57__PLPhotoLibrary_MegaMocAdditions___registerStateHandler__block_invoke(uint64_t a1)
 {
-  v0 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v1 = dispatch_queue_create("com.apple.photos.megamoc.stateHandleQueue", v0);
-  v2 = _registerStateHandler_s_stateHandlerQueue;
-  _registerStateHandler_s_stateHandlerQueue = v1;
+  v1 = dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
+  v2 = dispatch_queue_create("com.apple.photos.megamoc.stateHandleQueue", v1);
+  v3 = _registerStateHandler_s_stateHandlerQueue;
+  _registerStateHandler_s_stateHandlerQueue = v2;
 
   return os_state_add_handler();
 }
 
-void __56__PLPhotoLibrary_MegaMocAdditions___activateStatusTimer__block_invoke()
+void __56__PLPhotoLibrary_MegaMocAdditions___activateStatusTimer__block_invoke(uint64_t a1)
 {
-  v0 = +[PLConcurrencyLimiter sharedLimiter];
-  v1 = [v0 sharedBackgroundQueue];
-  v2 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, v1);
-  v3 = _activateStatusTimer_timer;
-  _activateStatusTimer_timer = v2;
-
+  v1 = +[PLConcurrencyLimiter sharedLimiter];
+  v2 = [v1 sharedBackgroundQueue];
+  v3 = dispatch_source_create(MEMORY[0x1E69E9710], 0, 0, v2);
   v4 = _activateStatusTimer_timer;
-  v5 = dispatch_time(0, 30000000000);
-  dispatch_source_set_timer(v4, v5, 0x6FC23AC00uLL, 0x5F5E100uLL);
+  _activateStatusTimer_timer = v3;
+
+  v5 = _activateStatusTimer_timer;
+  v6 = dispatch_time(0, 30000000000);
+  dispatch_source_set_timer(v5, v6, 0x6FC23AC00uLL, 0x5F5E100uLL);
   pl_dispatch_source_set_event_handler();
   dispatch_resume(_activateStatusTimer_timer);
 }

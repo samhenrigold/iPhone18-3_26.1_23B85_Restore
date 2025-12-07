@@ -37,7 +37,7 @@
   if (!type)
   {
     v9 = [(ATXPredictedTransitionsCache *)self->_cache getNextHomeToWorkTransitionsOnActivity:activityCopy];
-    v10 = __atxlog_handle_dailyroutines();
+    v10 = __atxlog_handle_dailyroutines(v9);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
@@ -57,7 +57,7 @@ LABEL_7:
   }
 
   v9 = [(ATXPredictedTransitionsCache *)self->_cache getNextWorkToHomeTransitionsOnActivity:activityCopy];
-  v10 = __atxlog_handle_dailyroutines();
+  v10 = __atxlog_handle_dailyroutines(v9);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     *v19 = 0;

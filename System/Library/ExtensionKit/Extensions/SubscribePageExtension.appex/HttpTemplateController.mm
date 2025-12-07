@@ -23,11 +23,12 @@
 {
   length = range.length;
   location = range.location;
-  sub_100753094();
+  v9 = sub_100753094();
+  v11 = v10;
   fieldCopy = field;
   selfCopy = self;
-  sub_1005D34E8(fieldCopy, location, length);
-  LOBYTE(length) = v11;
+  sub_1005D34E8(fieldCopy, location, length, v9, v11, v14);
+  LOBYTE(length) = v15;
 
   return length & 1;
 }
@@ -37,12 +38,12 @@
   v4 = sub_100740EA4();
   v5 = *(v4 - 8);
   __chkstk_darwin(v4);
-  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_100740E84();
   if (*(&self->super.isa + OBJC_IVAR____TtC22SubscribePageExtension22HttpTemplateController_hasRequiredParameters) == 1)
   {
     selfCopy = self;
-    sub_1005D31C4();
+    sub_1005D31C4(v9);
   }
 
   (*(v5 + 8))(v7, v4);

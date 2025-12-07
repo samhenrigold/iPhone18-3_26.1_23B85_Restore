@@ -34,10 +34,9 @@
 
 - (void)cacheGlobalAppSessionInterruptionsCalculatorIfNecessary
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(*self + 40));
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXAppSessionInterruptionsProvider: could not fetch app launch and notification publishers with error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*self + 40);
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXAppSessionInterruptionsProvider: could not fetch app launch and notification publishers with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 uint64_t __93__ATXAppSessionInterruptionsProvider_cacheGlobalAppSessionInterruptionsCalculatorIfNecessary__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -104,10 +103,9 @@ void __93__ATXAppSessionInterruptionsProvider_cacheGlobalAppSessionInterruptions
 
 - (void)cacheModeAppSessionInterruptionsCalculatorIfNecessary
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v9 = HIDWORD(*(*self + 40));
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXAppSessionInterruptionsProvider: could not fetch inferred mode stream, app launch and notification publishers with error: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *(*self + 40);
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "ATXAppSessionInterruptionsProvider: could not fetch inferred mode stream, app launch and notification publishers with error: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 uint64_t __91__ATXAppSessionInterruptionsProvider_cacheModeAppSessionInterruptionsCalculatorIfNecessary__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -243,47 +241,47 @@ LABEL_22:
 - (void)cacheRecommendedAndCandidateAppsInAllowListForAllModesIfNecessary
 {
   selfCopy = self;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = objc_opt_new();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = allModesForTraining();
-  v4 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v4 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v27;
+    v6 = *v26;
     do
     {
       v7 = 0;
       do
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        unsignedIntegerValue = [*(*(&v26 + 1) + 8 * v7) unsignedIntegerValue];
+        unsignedIntegerValue = [*(*(&v25 + 1) + 8 * v7) unsignedIntegerValue];
         v9 = objc_opt_new();
         v10 = ATXModeToString();
         [(NSDictionary *)v2 setObject:v9 forKeyedSubscript:v10];
 
         v11 = objc_opt_new();
         v12 = dispatch_semaphore_create(0);
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __103__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsInAllowListForAllModesIfNecessary__block_invoke;
-        v21[3] = &unk_2785975E0;
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __103__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsInAllowListForAllModesIfNecessary__block_invoke;
+        v20[3] = &unk_2785975E0;
         v13 = v12;
-        v22 = v13;
-        v23 = v11;
-        v24 = v2;
-        v25 = unsignedIntegerValue;
+        v21 = v13;
+        v22 = v11;
+        v23 = v2;
+        v24 = unsignedIntegerValue;
         v14 = v11;
-        [v3 recommendedAndCandidateAllowedAppsForMode:unsignedIntegerValue reply:v21];
+        [v3 recommendedAndCandidateAllowedAppsForMode:unsignedIntegerValue reply:v20];
         v15 = v13;
         v16 = dispatch_time(0, 5000000000);
         dispatch_semaphore_wait(v15, v16);
@@ -292,7 +290,7 @@ LABEL_22:
       }
 
       while (v5 != v7);
-      v5 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v5 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v5);
@@ -300,56 +298,54 @@ LABEL_22:
 
   cachedRecommendedAndCandidateAllowedApps = selfCopy->_cachedRecommendedAndCandidateAllowedApps;
   selfCopy->_cachedRecommendedAndCandidateAllowedApps = v2;
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __103__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsInAllowListForAllModesIfNecessary__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __103__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsInAllowListForAllModesIfNecessary__block_invoke_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+      __103__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsInAllowListForAllModesIfNecessary__block_invoke_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
     }
   }
 
   else
   {
-    v14 = [v5 recommendedApps];
+    v15 = [v5 recommendedApps];
 
-    if (v14)
+    if (v15)
     {
-      v15 = [v5 recommendedApps];
+      v16 = [v5 recommendedApps];
       v23[0] = MEMORY[0x277D85DD0];
       v23[1] = 3221225472;
       v23[2] = __103__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsInAllowListForAllModesIfNecessary__block_invoke_33;
       v23[3] = &unk_2785975B8;
       v24 = *(a1 + 40);
-      [v15 enumerateObjectsUsingBlock:v23];
+      [v16 enumerateObjectsUsingBlock:v23];
     }
 
-    v16 = [v5 candidateApps];
+    v17 = [v5 candidateApps];
 
-    if (v16)
+    if (v17)
     {
-      v17 = [v5 candidateApps];
+      v18 = [v5 candidateApps];
       v21[0] = MEMORY[0x277D85DD0];
       v21[1] = 3221225472;
       v21[2] = __103__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsInAllowListForAllModesIfNecessary__block_invoke_2;
       v21[3] = &unk_2785975B8;
       v22 = *(a1 + 40);
-      [v17 enumerateObjectsUsingBlock:v21];
+      [v18 enumerateObjectsUsingBlock:v21];
     }
 
-    v19 = *(a1 + 40);
-    v18 = *(a1 + 48);
-    v20 = *(a1 + 56);
-    v7 = ATXModeToString();
-    [v18 setObject:v19 forKey:v7];
+    v20 = *(a1 + 40);
+    v19 = *(a1 + 48);
+    v8 = ATXModeToString();
+    [v19 setObject:v20 forKey:v8];
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
@@ -384,47 +380,47 @@ void __103__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsI
 - (void)cacheRecommendedAndCandidateAppsInDenyListForAllModesIfNecessary
 {
   selfCopy = self;
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   v3 = objc_opt_new();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   obj = allModesForTraining();
-  v4 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+  v4 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v27;
+    v6 = *v26;
     do
     {
       v7 = 0;
       do
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        unsignedIntegerValue = [*(*(&v26 + 1) + 8 * v7) unsignedIntegerValue];
+        unsignedIntegerValue = [*(*(&v25 + 1) + 8 * v7) unsignedIntegerValue];
         v9 = objc_opt_new();
         v10 = ATXModeToString();
         [(NSDictionary *)v2 setObject:v9 forKeyedSubscript:v10];
 
         v11 = objc_opt_new();
         v12 = dispatch_semaphore_create(0);
-        v21[0] = MEMORY[0x277D85DD0];
-        v21[1] = 3221225472;
-        v21[2] = __102__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsInDenyListForAllModesIfNecessary__block_invoke;
-        v21[3] = &unk_2785975E0;
+        v20[0] = MEMORY[0x277D85DD0];
+        v20[1] = 3221225472;
+        v20[2] = __102__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsInDenyListForAllModesIfNecessary__block_invoke;
+        v20[3] = &unk_2785975E0;
         v13 = v12;
-        v22 = v13;
-        v23 = v11;
-        v24 = v2;
-        v25 = unsignedIntegerValue;
+        v21 = v13;
+        v22 = v11;
+        v23 = v2;
+        v24 = unsignedIntegerValue;
         v14 = v11;
-        [v3 recommendedAndCandidateDeniedAppsForMode:unsignedIntegerValue reply:v21];
+        [v3 recommendedAndCandidateDeniedAppsForMode:unsignedIntegerValue reply:v20];
         v15 = v13;
         v16 = dispatch_time(0, 5000000000);
         dispatch_semaphore_wait(v15, v16);
@@ -433,7 +429,7 @@ void __103__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsI
       }
 
       while (v5 != v7);
-      v5 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
+      v5 = [obj countByEnumeratingWithState:&v25 objects:v29 count:16];
     }
 
     while (v5);
@@ -441,56 +437,54 @@ void __103__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsI
 
   cachedRecommendedAndCandidateDeniedApps = selfCopy->_cachedRecommendedAndCandidateDeniedApps;
   selfCopy->_cachedRecommendedAndCandidateDeniedApps = v2;
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __102__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsInDenyListForAllModesIfNecessary__block_invoke(uint64_t a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_default();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = __atxlog_handle_default(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      __103__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsInAllowListForAllModesIfNecessary__block_invoke_cold_1(v6, v7, v8, v9, v10, v11, v12, v13);
+      __103__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsInAllowListForAllModesIfNecessary__block_invoke_cold_1(v7, v8, v9, v10, v11, v12, v13, v14);
     }
   }
 
   else
   {
-    v14 = [v5 recommendedApps];
+    v15 = [v5 recommendedApps];
 
-    if (v14)
+    if (v15)
     {
-      v15 = [v5 recommendedApps];
+      v16 = [v5 recommendedApps];
       v23[0] = MEMORY[0x277D85DD0];
       v23[1] = 3221225472;
       v23[2] = __102__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsInDenyListForAllModesIfNecessary__block_invoke_36;
       v23[3] = &unk_2785975B8;
       v24 = *(a1 + 40);
-      [v15 enumerateObjectsUsingBlock:v23];
+      [v16 enumerateObjectsUsingBlock:v23];
     }
 
-    v16 = [v5 candidateApps];
+    v17 = [v5 candidateApps];
 
-    if (v16)
+    if (v17)
     {
-      v17 = [v5 candidateApps];
+      v18 = [v5 candidateApps];
       v21[0] = MEMORY[0x277D85DD0];
       v21[1] = 3221225472;
       v21[2] = __102__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsInDenyListForAllModesIfNecessary__block_invoke_2;
       v21[3] = &unk_2785975B8;
       v22 = *(a1 + 40);
-      [v17 enumerateObjectsUsingBlock:v21];
+      [v18 enumerateObjectsUsingBlock:v21];
     }
 
-    v19 = *(a1 + 40);
-    v18 = *(a1 + 48);
-    v20 = *(a1 + 56);
-    v7 = ATXModeToString();
-    [v18 setObject:v19 forKey:v7];
+    v20 = *(a1 + 40);
+    v19 = *(a1 + 48);
+    v8 = ATXModeToString();
+    [v19 setObject:v20 forKey:v8];
   }
 
   dispatch_semaphore_signal(*(a1 + 32));
@@ -608,30 +602,30 @@ void __102__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsI
 
 - (unint64_t)appInterruptionsCountWithAccumulator:(id)accumulator suggestedBundleIds:(id)ids
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   accumulatorCopy = accumulator;
   idsCopy = ids;
   countedSetContainingInterruptingAppBundleIds = [accumulatorCopy countedSetContainingInterruptingAppBundleIds];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
-  v8 = [countedSetContainingInterruptingAppBundleIds countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v8 = [countedSetContainingInterruptingAppBundleIds countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v8)
   {
     v9 = v8;
     v10 = 0;
-    v11 = *v18;
+    v11 = *v17;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v18 != v11)
+        if (*v17 != v11)
         {
           objc_enumerationMutation(countedSetContainingInterruptingAppBundleIds);
         }
 
-        v13 = *(*(&v17 + 1) + 8 * i);
+        v13 = *(*(&v16 + 1) + 8 * i);
         if ([idsCopy containsObject:v13])
         {
           countedSetContainingInterruptingAppBundleIds2 = [accumulatorCopy countedSetContainingInterruptingAppBundleIds];
@@ -639,7 +633,7 @@ void __102__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsI
         }
       }
 
-      v9 = [countedSetContainingInterruptingAppBundleIds countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v9 = [countedSetContainingInterruptingAppBundleIds countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v9);
@@ -650,15 +644,14 @@ void __102__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsI
     v10 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
 void __103__ATXAppSessionInterruptionsProvider_cacheRecommendedAndCandidateAppsInAllowListForAllModesIfNecessary__block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "Could not get recommended and candidate allowed apps: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_2263AA000, a2, a3, "Could not get recommended and candidate allowed apps: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

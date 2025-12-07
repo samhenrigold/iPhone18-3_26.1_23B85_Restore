@@ -17,7 +17,7 @@
 - (void)layoutSubviews
 {
   selfCopy = self;
-  sub_21B62C328();
+  sub_21B62C328(selfCopy);
 }
 
 - (_TtC11PosterBoard47HomeScreenConfigurationPosterControlContentView)initWithFrame:(CGRect)frame

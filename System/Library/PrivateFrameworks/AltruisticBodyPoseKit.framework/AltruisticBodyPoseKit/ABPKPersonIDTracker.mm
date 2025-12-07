@@ -8,56 +8,58 @@
 
 - (ABPKPersonIDTracker)init
 {
-  v15.receiver = self;
-  v15.super_class = ABPKPersonIDTracker;
-  v2 = [(ABPKPersonIDTracker *)&v15 init];
+  v18.receiver = self;
+  v18.super_class = ABPKPersonIDTracker;
+  v2 = [(ABPKPersonIDTracker *)&v18 init];
+  v4 = v2;
   if (!v2)
   {
     goto LABEL_5;
   }
 
-  if ((isANSTPersonTrackerSupportedOnThisDevice() & 1) == 0)
+  v5 = isANSTPersonTrackerSupportedOnThisDevice(v2, v3);
+  if ((v5 & 1) == 0)
   {
-    v9 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v12 = __ABPKLogSharedInstance(v5);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_23EDDC000, v9, OS_LOG_TYPE_ERROR, " ABPKPersonIDTracker not supported on this device ", buf, 2u);
+      _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_ERROR, " ABPKPersonIDTracker not supported on this device ", buf, 2u);
     }
 
     goto LABEL_11;
   }
 
-  v3 = objc_alloc(MEMORY[0x277CE4A00]);
-  v4 = objc_opt_new();
-  v5 = [v3 initWithConfiguration:v4];
-  anstAlgorithm = v2->_anstAlgorithm;
-  v2->_anstAlgorithm = v5;
+  v6 = objc_alloc(MEMORY[0x277CE4A00]);
+  v7 = objc_opt_new();
+  v8 = [v6 initWithConfiguration:v7];
+  anstAlgorithm = v4->_anstAlgorithm;
+  v4->_anstAlgorithm = v8;
 
-  v7 = v2->_anstAlgorithm;
-  v13 = 0;
-  LOBYTE(v3) = [(ANSTISPAlgorithm *)v7 prepareWithError:&v13];
-  v8 = v13;
-  v9 = v8;
-  if ((v3 & 1) == 0)
+  v10 = v4->_anstAlgorithm;
+  v16 = 0;
+  LOBYTE(v6) = [(ANSTISPAlgorithm *)v10 prepareWithError:&v16];
+  v11 = v16;
+  v12 = v11;
+  if ((v6 & 1) == 0)
   {
-    v11 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v14 = __ABPKLogSharedInstance(v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_ERROR, " Failed to initialize ANST algorithm for multi-person tracking ", buf, 2u);
+      _os_log_impl(&dword_23EDDC000, v14, OS_LOG_TYPE_ERROR, " Failed to initialize ANST algorithm for multi-person tracking ", buf, 2u);
     }
 
 LABEL_11:
-    v10 = 0;
+    v13 = 0;
     goto LABEL_12;
   }
 
 LABEL_5:
-  v10 = v2;
+  v13 = v4;
 LABEL_12:
 
-  return v10;
+  return v13;
 }
 
 - (CGRect)_rotateBoundingBoxToPortrait:(CGRect)portrait withImageRes:(CGSize)res
@@ -77,15 +79,16 @@ LABEL_12:
 
 - (int)runWithInput:(__CVBuffer *)input atTimeStamp:(double)stamp andOutput:(id)output
 {
-  v53[1] = *MEMORY[0x277D85DE8];
+  v56[1] = *MEMORY[0x277D85DE8];
   outputCopy = output;
+  v50 = outputCopy;
   if (!input)
   {
-    v10 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __ABPKLogSharedInstance(outputCopy);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_23EDDC000, v10, OS_LOG_TYPE_ERROR, " Input image is nil ", buf, 2u);
+      _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_ERROR, " Input image is nil ", buf, 2u);
     }
 
     goto LABEL_30;
@@ -96,106 +99,110 @@ LABEL_12:
   PixelFormatType = CVPixelBufferGetPixelFormatType(input);
   if (Height > Width)
   {
-    v10 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __ABPKLogSharedInstance(PixelFormatType);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_23EDDC000, v10, OS_LOG_TYPE_ERROR, " ABPKPersonIDTracker: Portrait image is not supported ", buf, 2u);
+      _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_ERROR, " ABPKPersonIDTracker: Portrait image is not supported ", buf, 2u);
     }
 
 LABEL_30:
 
 LABEL_43:
-    v41 = -6668;
+    v44 = -6668;
     goto LABEL_44;
   }
 
-  v11 = PixelFormatType;
+  v12 = PixelFormatType;
   if (PixelFormatType != 32 && PixelFormatType != 875704438 && PixelFormatType != 1111970369)
   {
-    v10 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = __ABPKLogSharedInstance(PixelFormatType);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_23EDDC000, v10, OS_LOG_TYPE_ERROR, " ABPKPersonIDTracker: Input image is of invalid format ", buf, 2u);
+      _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_ERROR, " ABPKPersonIDTracker: Input image is of invalid format ", buf, 2u);
     }
 
     goto LABEL_30;
   }
 
   pixelBufferOut = 0;
-  v52 = *MEMORY[0x277CC4DE8];
-  v53[0] = MEMORY[0x277CBEC10];
-  pixelBufferAttributes = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v53 forKeys:&v52 count:1];
-  if (v11 != 1111970369)
+  v55 = *MEMORY[0x277CC4DE8];
+  v56[0] = MEMORY[0x277CBEC10];
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v56 forKeys:&v55 count:1];
+  pixelBufferAttributes = v13;
+  if (v12 != 1111970369)
   {
-    if (v11 == 875704438)
+    if (v12 == 875704438)
     {
-      v38 = __ABPKLogSharedInstance();
-      if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+      v41 = __ABPKLogSharedInstance(v13);
+      if (!os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_38;
       }
 
       *buf = 0;
-      v39 = " \t\t ABPKPersonIDTracker: Converting image format: YCbCr --> BGRA ";
+      v42 = " \t\t ABPKPersonIDTracker: Converting image format: YCbCr --> BGRA ";
     }
 
     else
     {
-      v38 = __ABPKLogSharedInstance();
-      if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEBUG))
+      v41 = __ABPKLogSharedInstance(v13);
+      if (!os_log_type_enabled(v41, OS_LOG_TYPE_DEBUG))
       {
         goto LABEL_38;
       }
 
       *buf = 0;
-      v39 = " \t\t ABPKPersonIDTracker: Converting image format: ARGB --> BGRA ";
+      v42 = " \t\t ABPKPersonIDTracker: Converting image format: ARGB --> BGRA ";
     }
 
-    _os_log_impl(&dword_23EDDC000, v38, OS_LOG_TYPE_DEBUG, v39, buf, 2u);
+    _os_log_impl(&dword_23EDDC000, v41, OS_LOG_TYPE_DEBUG, v42, buf, 2u);
 LABEL_38:
 
-    if (CVPixelBufferCreate(0, Width, Height, 0x42475241u, pixelBufferAttributes, &pixelBufferOut))
+    v45 = CVPixelBufferCreate(0, Width, Height, 0x42475241u, pixelBufferAttributes, &pixelBufferOut);
+    if (v45)
     {
-      v42 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v46 = __ABPKLogSharedInstance(v45);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v43 = " ABPKPersonIDTracker: Could not create imageBGRA buffer ";
+        v47 = " ABPKPersonIDTracker: Could not create imageBGRA buffer ";
 LABEL_41:
-        _os_log_impl(&dword_23EDDC000, v42, OS_LOG_TYPE_ERROR, v43, buf, 2u);
+        _os_log_impl(&dword_23EDDC000, v46, OS_LOG_TYPE_ERROR, v47, buf, 2u);
       }
     }
 
-    else if (v11 == 875704438)
+    else if (v12 == 875704438)
     {
-      if (!convertFormatYCbCrToBGRA(input, &pixelBufferOut))
+      v15 = convertFormatYCbCrToBGRA(input, &pixelBufferOut);
+      if (!v15)
       {
         goto LABEL_16;
       }
 
-      v42 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v46 = __ABPKLogSharedInstance(v15);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v43 = " ABPKPersonIDTracker: Could not convert Format YCbCr to BGRA. ";
+        v47 = " ABPKPersonIDTracker: Could not convert Format YCbCr to BGRA. ";
         goto LABEL_41;
       }
     }
 
     else
     {
-      if (!changeChannelsARGB(input, &pixelBufferOut))
+      v15 = changeChannelsARGB(input, &pixelBufferOut);
+      if (!v15)
       {
         goto LABEL_16;
       }
 
-      v42 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+      v46 = __ABPKLogSharedInstance(v15);
+      if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
-        v43 = " ABPKPersonIDTracker: changeChannelsARGB failed. ";
+        v47 = " ABPKPersonIDTracker: changeChannelsARGB failed. ";
         goto LABEL_41;
       }
     }
@@ -203,73 +210,72 @@ LABEL_41:
     goto LABEL_43;
   }
 
-  v12 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+  v14 = __ABPKLogSharedInstance(v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_DEBUG, " \t\t ABPKPersonIDTracker: Image is already BGRA type ", buf, 2u);
+    _os_log_impl(&dword_23EDDC000, v14, OS_LOG_TYPE_DEBUG, " \t\t ABPKPersonIDTracker: Image is already BGRA type ", buf, 2u);
   }
 
   pixelBufferOut = input;
 LABEL_16:
-  v13 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+  v16 = __ABPKLogSharedInstance(v15);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&dword_23EDDC000, v13, OS_LOG_TYPE_DEBUG, " Input image is landscape ", buf, 2u);
+    _os_log_impl(&dword_23EDDC000, v16, OS_LOG_TYPE_DEBUG, " Input image is landscape ", buf, 2u);
   }
 
   anstAlgorithm = self->_anstAlgorithm;
-  v48 = 0;
-  v15 = [(ANSTISPAlgorithm *)anstAlgorithm resultForPixelBuffer:pixelBufferOut error:&v48];
-  v16 = v48;
-  v17 = v16;
-  if (!v15 || v16)
+  v51 = 0;
+  v18 = [(ANSTISPAlgorithm *)anstAlgorithm resultForPixelBuffer:pixelBufferOut error:&v51];
+  v19 = v51;
+  v20 = v19;
+  if (!v18 || v19)
   {
-    v40 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+    v43 = __ABPKLogSharedInstance(v19);
+    if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;
-      _os_log_impl(&dword_23EDDC000, v40, OS_LOG_TYPE_ERROR, " No objects found in this image ", buf, 2u);
+      _os_log_impl(&dword_23EDDC000, v43, OS_LOG_TYPE_ERROR, " No objects found in this image ", buf, 2u);
     }
 
     goto LABEL_43;
   }
 
-  v18 = [v15 detectedObjectsForCategory:*MEMORY[0x277CE49C8]];
-  v19 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+  v21 = [v18 detectedObjectsForCategory:*MEMORY[0x277CE49C8]];
+  v22 = __ABPKLogSharedInstance(v21);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
   {
-    v20 = [v18 count];
+    v23 = [v21 count];
     *buf = 134217984;
-    v51 = v20;
-    _os_log_impl(&dword_23EDDC000, v19, OS_LOG_TYPE_DEBUG, " ABPKPersonIDTracker: Full bodies found in the image: %lu ", buf, 0xCu);
+    v54 = v23;
+    _os_log_impl(&dword_23EDDC000, v22, OS_LOG_TYPE_DEBUG, " ABPKPersonIDTracker: Full bodies found in the image: %lu ", buf, 0xCu);
   }
 
-  for (i = 0; [v18 count] > i; ++i)
+  for (i = 0; [v21 count] > i; ++i)
   {
-    v22 = [ABPKTrackedObject alloc];
-    v23 = [v18 objectAtIndexedSubscript:i];
-    objectID = [v23 objectID];
-    v25 = [v18 objectAtIndexedSubscript:i];
-    category = [v25 category];
-    v27 = [v18 objectAtIndexedSubscript:i];
-    [v27 boundingBox];
-    v29 = v28;
-    v31 = v30;
-    v33 = v32;
-    v35 = v34;
-    v36 = [v18 objectAtIndexedSubscript:i];
-    v37 = -[ABPKTrackedObject initWithObjectID:category:boundingBox:confidence:](v22, "initWithObjectID:category:boundingBox:confidence:", objectID, category, [v36 confidence], v29, v31, v33, v35);
+    v25 = [ABPKTrackedObject alloc];
+    v26 = [v21 objectAtIndexedSubscript:i];
+    objectID = [v26 objectID];
+    v28 = [v21 objectAtIndexedSubscript:i];
+    category = [v28 category];
+    v30 = [v21 objectAtIndexedSubscript:i];
+    [v30 boundingBox];
+    v32 = v31;
+    v34 = v33;
+    v36 = v35;
+    v38 = v37;
+    v39 = [v21 objectAtIndexedSubscript:i];
+    v40 = -[ABPKTrackedObject initWithObjectID:category:boundingBox:confidence:](v25, "initWithObjectID:category:boundingBox:confidence:", objectID, category, [v39 confidence], v32, v34, v36, v38);
 
-    [outputCopy addObject:v37];
+    [v50 addObject:v40];
   }
 
-  v41 = 0;
+  v44 = 0;
 LABEL_44:
 
-  v44 = *MEMORY[0x277D85DE8];
-  return v41;
+  return v44;
 }
 
 @end

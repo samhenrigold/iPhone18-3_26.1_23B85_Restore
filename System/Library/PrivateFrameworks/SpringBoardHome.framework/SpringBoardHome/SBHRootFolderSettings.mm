@@ -380,22 +380,22 @@ LABEL_7:
 {
   prefixCopy = prefix;
   succinctDescriptionBuilder = [(SBHRootFolderSettings *)self succinctDescriptionBuilder];
-  v6 = SBHScreenTypeForCurrentDevice();
-  v7 = SBHStringForScreenType(v6);
-  [succinctDescriptionBuilder appendString:v7 withName:@"layout"];
+  v7 = SBHScreenTypeForCurrentDevice(succinctDescriptionBuilder, v6);
+  v8 = SBHStringForScreenType(v7);
+  [succinctDescriptionBuilder appendString:v8 withName:@"layout"];
 
-  v8 = [succinctDescriptionBuilder appendBool:-[SBHRootFolderSettings isAdjustableLayoutEnabled](self withName:{"isAdjustableLayoutEnabled"), @"adjustableLayoutEnabled"}];
-  v12[0] = MEMORY[0x1E69E9820];
-  v12[1] = 3221225472;
-  v12[2] = __63__SBHRootFolderSettings_descriptionBuilderWithMultilinePrefix___block_invoke;
-  v12[3] = &unk_1E8088F18;
-  v9 = succinctDescriptionBuilder;
-  v13 = v9;
+  v9 = [succinctDescriptionBuilder appendBool:-[SBHRootFolderSettings isAdjustableLayoutEnabled](self withName:{"isAdjustableLayoutEnabled"), @"adjustableLayoutEnabled"}];
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3221225472;
+  v13[2] = __63__SBHRootFolderSettings_descriptionBuilderWithMultilinePrefix___block_invoke;
+  v13[3] = &unk_1E8088F18;
+  v10 = succinctDescriptionBuilder;
+  v14 = v10;
   selfCopy = self;
-  [v9 appendBodySectionWithName:0 multilinePrefix:prefixCopy block:v12];
+  [v10 appendBodySectionWithName:0 multilinePrefix:prefixCopy block:v13];
 
-  v10 = v9;
-  return v9;
+  v11 = v10;
+  return v10;
 }
 
 id __63__SBHRootFolderSettings_descriptionBuilderWithMultilinePrefix___block_invoke(uint64_t a1)

@@ -43,36 +43,34 @@
 
 - (id)toPlistWithChunks:(id)chunks
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   inputDim = self->_inputDim;
-  v14[0] = self->_inputName;
-  v13[0] = @"PML_ESPRESSO_INPUT_NAME";
-  v13[1] = @"PML_ESPRESSO_INPUT_DIM";
+  v13[0] = self->_inputName;
+  v12[0] = @"PML_ESPRESSO_INPUT_NAME";
+  v12[1] = @"PML_ESPRESSO_INPUT_DIM";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:inputDim];
   outputName = self->_outputName;
   trueLabelName = self->_trueLabelName;
-  v14[1] = v5;
-  v14[2] = outputName;
-  v13[2] = @"PML_ESPRESSO_OUTPUT_NAME";
-  v13[3] = @"PML_ESPRESSO_TRUE_LABEL_NAME";
-  v14[3] = trueLabelName;
-  v15 = *&self->_lossValueName;
-  v13[4] = @"PML_ESPRESSO_LOSS_VALUE_NAME";
-  v13[5] = @"PML_ESPRESSO_TRAINING_OUTPUT_NAME";
-  v13[6] = @"PML_ESPRESSO_TRAINING_CONTROL_VARIABLE_NAME";
-  v13[7] = @"PML_ESPRESSO_INITIALIZER_NAME";
+  v13[1] = v5;
+  v13[2] = outputName;
+  v12[2] = @"PML_ESPRESSO_OUTPUT_NAME";
+  v12[3] = @"PML_ESPRESSO_TRUE_LABEL_NAME";
+  v13[3] = trueLabelName;
+  v14 = *&self->_lossValueName;
+  v12[4] = @"PML_ESPRESSO_LOSS_VALUE_NAME";
+  v12[5] = @"PML_ESPRESSO_TRAINING_OUTPUT_NAME";
+  v12[6] = @"PML_ESPRESSO_TRAINING_CONTROL_VARIABLE_NAME";
+  v12[7] = @"PML_ESPRESSO_INITIALIZER_NAME";
   initializerName = self->_initializerName;
   trainingControlVariableName = self->_trainingControlVariableName;
-  v17 = initializerName;
+  v16 = initializerName;
   v9 = *&self->_globalsToGetGradientsFor;
-  v13[8] = @"PML_ESPRESSO_GLOBALS_TO_GET_GRADIENTS_FOR";
-  v13[9] = @"PML_ESPRESSO_LAYER_WEIGHTS_TO_GET_GRADIENTS_FOR";
-  v18 = v9;
-  v13[10] = @"PML_ESPRESSO_LAYER_BIASES_TO_GET_GRADIENTS_FOR";
+  v12[8] = @"PML_ESPRESSO_GLOBALS_TO_GET_GRADIENTS_FOR";
+  v12[9] = @"PML_ESPRESSO_LAYER_WEIGHTS_TO_GET_GRADIENTS_FOR";
+  v17 = v9;
+  v12[10] = @"PML_ESPRESSO_LAYER_BIASES_TO_GET_GRADIENTS_FOR";
   layerBiasesToGetGradientsFor = self->_layerBiasesToGetGradientsFor;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:11];
-
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:11];
 
   return v10;
 }
@@ -275,7 +273,7 @@ LABEL_37:
 
 - (PMLEspressoTrainingVariables)initWithTrainingNetworkPath:(id)path inputName:(id)name inputDim:(unint64_t)dim outputName:(id)outputName trueLabelName:(id)labelName lossValueName:(id)valueName trainingOutputName:(id)trainingOutputName trainingControlVariableName:(id)self0 initializerName:(id)self1 globalsToGetGradientsFor:(id)self2 layerWeightsToGetGradientsFor:(id)self3 layerBiasesToGetGradientsFor:(id)self4
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   nameCopy = name;
   nameCopy2 = name;
@@ -290,16 +288,16 @@ LABEL_37:
   forCopy = for;
   gradientsForCopy = gradientsFor;
   getGradientsForCopy = getGradientsFor;
-  v46.receiver = self;
-  v46.super_class = PMLEspressoTrainingVariables;
-  v20 = [(PMLEspressoTrainingVariables *)&v46 init];
+  v45.receiver = self;
+  v45.super_class = PMLEspressoTrainingVariables;
+  v20 = [(PMLEspressoTrainingVariables *)&v45 init];
   if (!v20)
   {
     goto LABEL_4;
   }
 
-  v29 = outputNameCopy2;
-  v36 = nameCopy2;
+  v28 = outputNameCopy2;
+  v35 = nameCopy2;
   defaultManager = [MEMORY[0x277CCAA00] defaultManager];
   path = [pathCopy path];
   v23 = [defaultManager isReadableFileAtPath:path];
@@ -319,8 +317,8 @@ LABEL_37:
     objc_storeStrong(&v20->_globalsToGetGradientsFor, for);
     objc_storeStrong(&v20->_layerWeightsToGetGradientsFor, gradientsFor);
     objc_storeStrong(&v20->_layerBiasesToGetGradientsFor, getGradientsFor);
-    nameCopy2 = v36;
-    outputNameCopy2 = v29;
+    nameCopy2 = v35;
+    outputNameCopy2 = v28;
 LABEL_4:
     v24 = v20;
     goto LABEL_8;
@@ -331,16 +329,15 @@ LABEL_4:
   {
     path2 = [pathCopy path];
     *buf = 138412290;
-    v48 = path2;
+    v47 = path2;
     _os_log_error_impl(&dword_260D68000, v25, OS_LOG_TYPE_ERROR, "Unable to read Espresso network file at: %@", buf, 0xCu);
   }
 
   v24 = 0;
-  nameCopy2 = v36;
-  outputNameCopy2 = v29;
+  nameCopy2 = v35;
+  outputNameCopy2 = v28;
 LABEL_8:
 
-  v26 = *MEMORY[0x277D85DE8];
   return v24;
 }
 

@@ -3,6 +3,9 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)engagementTypeAsString:(int)string;
+- (id)selectionTypeAsString:(int)string;
+- (id)stackLocationAsString:(int)string;
 - (int)StringAsEngagementType:(id)type;
 - (int)StringAsSelectionType:(id)type;
 - (int)StringAsStackLocation:(id)location;
@@ -30,6 +33,21 @@
   {
     return 1;
   }
+}
+
+- (id)engagementTypeAsString:(int)string
+{
+  if ((string - 1) >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27859AE08[string - 1];
+  }
+
+  return v4;
 }
 
 - (int)StringAsEngagementType:(id)type
@@ -111,6 +129,26 @@
   *&self->_has = *&self->_has & 0xFD | v3;
 }
 
+- (id)selectionTypeAsString:(int)string
+{
+  if (string == 1)
+  {
+    v4 = @"NPlusOne";
+  }
+
+  else if (string == 2)
+  {
+    v4 = @"StackRotation";
+  }
+
+  else
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
+}
+
 - (int)StringAsSelectionType:(id)type
 {
   typeCopy = type;
@@ -157,6 +195,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)stackLocationAsString:(int)string
+{
+  if (string >= 6)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_27859AE48[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsStackLocation:(id)location
@@ -317,68 +370,65 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v5 = toCopy;
   if (self->_layoutType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (*&self->_has)
   {
-    engagementType = self->_engagementType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_clientModelId)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_widgetIdentifier)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 2) != 0)
   {
-    selectionType = self->_selectionType;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_highestConfidenceCategory)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_executableType)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_abGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    stackLocation = self->_stackLocation;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v5;
   }
 
   if (self->_clientModelABGroup)
   {
     PBDataWriterWriteStringField();
-    toCopy = v8;
+    toCopy = v5;
   }
 }
 
@@ -516,7 +566,6 @@
     }
   }
 
-  v6 = *(equalCopy + 80);
   if (*&self->_has)
   {
     if ((*(equalCopy + 80) & 1) == 0 || self->_engagementType != *(equalCopy + 8))
@@ -528,7 +577,7 @@
   else if (*(equalCopy + 80))
   {
 LABEL_31:
-    v15 = 0;
+    v12 = 0;
     goto LABEL_32;
   }
 
@@ -547,7 +596,6 @@ LABEL_31:
     }
   }
 
-  v9 = *(equalCopy + 80);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 80) & 2) == 0 || self->_selectionType != *(equalCopy + 16))
@@ -585,7 +633,6 @@ LABEL_31:
     }
   }
 
-  v13 = *(equalCopy + 80);
   if ((*&self->_has & 4) != 0)
   {
     if ((*(equalCopy + 80) & 4) == 0 || self->_stackLocation != *(equalCopy + 17))
@@ -602,17 +649,17 @@ LABEL_31:
   clientModelABGroup = self->_clientModelABGroup;
   if (clientModelABGroup | *(equalCopy + 2))
   {
-    v15 = [(NSString *)clientModelABGroup isEqual:?];
+    v12 = [(NSString *)clientModelABGroup isEqual:?];
   }
 
   else
   {
-    v15 = 1;
+    v12 = 1;
   }
 
 LABEL_32:
 
-  return v15;
+  return v12;
 }
 
 - (unint64_t)hash

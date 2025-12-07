@@ -8,9 +8,7 @@
 
 - (void)setAceVersion:(id)version
 {
-  v4 = [version copy];
-  mutableAceVersion = self->_mutableAceVersion;
-  self->_mutableAceVersion = v4;
+  self->_mutableAceVersion = [version copy];
 
   MEMORY[0x2821F96F8]();
 }

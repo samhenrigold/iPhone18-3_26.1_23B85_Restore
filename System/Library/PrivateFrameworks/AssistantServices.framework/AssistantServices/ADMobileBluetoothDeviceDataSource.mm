@@ -411,7 +411,7 @@ LABEL_17:
 {
   absentCopy = absent;
   dCopy = d;
-  v7 = [(NSMutableDictionary *)self->_deviceProxiesByDeviceUID objectForKey:dCopy];
+  v7 = objc_msgSend_objectForKey_(self->_deviceProxiesByDeviceUID);
   if (!v7 && dCopy && absentCopy)
   {
     v7 = [[ADMobileBluetoothDeviceProxy alloc] initWithDeviceUID:dCopy dataSource:self queue:self->_queue];
@@ -425,7 +425,7 @@ LABEL_17:
 {
   absentCopy = absent;
   addressCopy = address;
-  v7 = [(NSMutableDictionary *)self->_deviceProxiesByAddress objectForKey:addressCopy];
+  v7 = objc_msgSend_objectForKey_(self->_deviceProxiesByAddress);
   if (v7)
   {
     v8 = 1;

@@ -5,6 +5,7 @@
 - (void)_deleteButtonClicked:(id)clicked withEvent:(id)event;
 - (void)_updateDeleteButton;
 - (void)buttonUp:(id)up;
+- (void)setNumberButtonsEnabled:(BOOL)enabled;
 - (void)setShowsDeleteButton:(BOOL)button;
 @end
 
@@ -24,36 +25,34 @@
 
 void __41__TPSimpleNumberPad__numberPadCharacters__block_invoke()
 {
-  v15[12] = *MEMORY[0x1E69E9840];
-  v14 = [MEMORY[0x1E696AD98] numberWithInt:0];
-  v15[0] = v14;
-  v13 = [MEMORY[0x1E696AD98] numberWithInt:1];
-  v15[1] = v13;
+  v14[12] = *MEMORY[0x1E69E9840];
+  v13 = [MEMORY[0x1E696AD98] numberWithInt:0];
+  v14[0] = v13;
+  v12 = [MEMORY[0x1E696AD98] numberWithInt:1];
+  v14[1] = v12;
   v0 = [MEMORY[0x1E696AD98] numberWithInt:2];
-  v15[2] = v0;
+  v14[2] = v0;
   v1 = [MEMORY[0x1E696AD98] numberWithInt:3];
-  v15[3] = v1;
+  v14[3] = v1;
   v2 = [MEMORY[0x1E696AD98] numberWithInt:4];
-  v15[4] = v2;
+  v14[4] = v2;
   v3 = [MEMORY[0x1E696AD98] numberWithInt:5];
-  v15[5] = v3;
+  v14[5] = v3;
   v4 = [MEMORY[0x1E696AD98] numberWithInt:6];
-  v15[6] = v4;
+  v14[6] = v4;
   v5 = [MEMORY[0x1E696AD98] numberWithInt:7];
-  v15[7] = v5;
+  v14[7] = v5;
   v6 = [MEMORY[0x1E696AD98] numberWithInt:8];
-  v15[8] = v6;
+  v14[8] = v6;
   v7 = [MEMORY[0x1E696AD98] numberWithInt:13];
-  v15[9] = v7;
+  v14[9] = v7;
   v8 = [MEMORY[0x1E696AD98] numberWithInt:10];
-  v15[10] = v8;
+  v14[10] = v8;
   v9 = [MEMORY[0x1E696AD98] numberWithInt:13];
-  v15[11] = v9;
-  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:12];
+  v14[11] = v9;
+  v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:12];
   v11 = _numberPadCharacters_numberPadCharacters;
   _numberPadCharacters_numberPadCharacters = v10;
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (TPSimpleNumberPad)initWithButtons:(id)buttons
@@ -76,25 +75,25 @@ void __41__TPSimpleNumberPad__numberPadCharacters__block_invoke()
   width = frame.size.width;
   y = frame.origin.y;
   x = frame.origin.x;
-  v52 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v10 = +[TPSimpleNumberPad _numberPadCharacters];
   v11 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{objc_msgSend(v10, "count")}];
-  v47 = 0u;
   v48 = 0u;
   v49 = 0u;
   v50 = 0u;
+  v51 = 0u;
   v12 = v10;
-  v13 = [v12 countByEnumeratingWithState:&v47 objects:v51 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v48 objects:v52 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v48;
+    v15 = *v49;
     do
     {
       v16 = 0;
       do
       {
-        if (*v48 != v15)
+        if (*v49 != v15)
         {
           objc_enumerationMutation(v12);
         }
@@ -106,15 +105,15 @@ void __41__TPSimpleNumberPad__numberPadCharacters__block_invoke()
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v47 objects:v51 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v48 objects:v52 count:16];
     }
 
     while (v14);
   }
 
-  v46.receiver = self;
-  v46.super_class = TPSimpleNumberPad;
-  v18 = [(TPNumberPad *)&v46 initWithButtons:v11];
+  v47.receiver = self;
+  v47.super_class = TPSimpleNumberPad;
+  v18 = [(TPNumberPad *)&v47 initWithButtons:v11];
   v19 = v18;
   if (v18)
   {
@@ -140,36 +139,35 @@ void __41__TPSimpleNumberPad__numberPadCharacters__block_invoke()
     [titleLabel setFont:v27];
 
     v29 = v19->_deleteButton;
-    v30 = TelephonyUIBundle();
-    v31 = [v30 localizedStringForKey:@"DELETE" value:&stru_1F2CA8008 table:@"General"];
-    [(UIButton *)v29 setTitle:v31 forState:0];
-
-    v32 = v19->_deleteButton;
-    dynamicLabelColor = [MEMORY[0x1E69DC888] dynamicLabelColor];
-    [(UIButton *)v32 setTintColor:dynamicLabelColor];
+    v32 = TelephonyUIBundle(v30, v31);
+    v33 = [v32 localizedStringForKey:@"DELETE" value:&stru_1F2CA8008 table:@"General"];
+    [(UIButton *)v29 setTitle:v33 forState:0];
 
     v34 = v19->_deleteButton;
+    dynamicLabelColor = [MEMORY[0x1E69DC888] dynamicLabelColor];
+    [(UIButton *)v34 setTintColor:dynamicLabelColor];
+
+    v36 = v19->_deleteButton;
     dynamicLabelColor2 = [MEMORY[0x1E69DC888] dynamicLabelColor];
-    [(UIButton *)v34 setTitleColor:dynamicLabelColor2 forState:0];
+    [(UIButton *)v36 setTitleColor:dynamicLabelColor2 forState:0];
 
     [(UIButton *)v19->_deleteButton addTarget:v19 action:sel__deleteButtonClicked_withEvent_ forControlEvents:64];
     [(TPSimpleNumberPad *)v19 addSubview:v19->_deleteButton];
-    v36 = MEMORY[0x1E696ACD8];
-    v37 = v19->_deleteButton;
-    v38 = [v11 objectAtIndexedSubscript:8];
-    v39 = [v36 constraintWithItem:v37 attribute:9 relatedBy:0 toItem:v38 attribute:9 multiplier:1.0 constant:0.0];
-    [(TPSimpleNumberPad *)v19 addConstraint:v39];
+    v38 = MEMORY[0x1E696ACD8];
+    v39 = v19->_deleteButton;
+    v40 = [v11 objectAtIndexedSubscript:8];
+    v41 = [v38 constraintWithItem:v39 attribute:9 relatedBy:0 toItem:v40 attribute:9 multiplier:1.0 constant:0.0];
+    [(TPSimpleNumberPad *)v19 addConstraint:v41];
 
-    v40 = MEMORY[0x1E696ACD8];
-    v41 = v19->_deleteButton;
-    v42 = [v11 objectAtIndexedSubscript:10];
-    v43 = [v40 constraintWithItem:v41 attribute:10 relatedBy:0 toItem:v42 attribute:10 multiplier:1.0 constant:0.0];
-    [(TPSimpleNumberPad *)v19 addConstraint:v43];
+    v42 = MEMORY[0x1E696ACD8];
+    v43 = v19->_deleteButton;
+    v44 = [v11 objectAtIndexedSubscript:10];
+    v45 = [v42 constraintWithItem:v43 attribute:10 relatedBy:0 toItem:v44 attribute:10 multiplier:1.0 constant:0.0];
+    [(TPSimpleNumberPad *)v19 addConstraint:v45];
 
     [(TPSimpleNumberPad *)v19 _updateDeleteButton];
   }
 
-  v44 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
@@ -220,6 +218,47 @@ void __41__TPSimpleNumberPad__numberPadCharacters__block_invoke()
   {
     self->_showsDeleteButton = button;
     [(TPSimpleNumberPad *)self _updateDeleteButton];
+  }
+}
+
+- (void)setNumberButtonsEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v16 = *MEMORY[0x1E69E9840];
+  if ([(TPNumberPad *)self numberButtonsEnabled]!= enabled)
+  {
+    v14.receiver = self;
+    v14.super_class = TPSimpleNumberPad;
+    [(TPNumberPad *)&v14 setNumberButtonsEnabled:enabledCopy];
+    v12 = 0u;
+    v13 = 0u;
+    v10 = 0u;
+    v11 = 0u;
+    buttons = [(TPNumberPad *)self buttons];
+    v6 = [buttons countByEnumeratingWithState:&v10 objects:v15 count:16];
+    if (v6)
+    {
+      v7 = v6;
+      v8 = *v11;
+      do
+      {
+        v9 = 0;
+        do
+        {
+          if (*v11 != v8)
+          {
+            objc_enumerationMutation(buttons);
+          }
+
+          [*(*(&v10 + 1) + 8 * v9++) setGreyedOut:enabledCopy ^ 1];
+        }
+
+        while (v7 != v9);
+        v7 = [buttons countByEnumeratingWithState:&v10 objects:v15 count:16];
+      }
+
+      while (v7);
+    }
   }
 }
 

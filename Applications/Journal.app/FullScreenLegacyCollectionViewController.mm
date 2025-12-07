@@ -34,7 +34,7 @@
   [defaultCenter removeObserver:selfCopy];
 
   v6.receiver = selfCopy;
-  v6.super_class = type metadata accessor for FullScreenLegacyCollectionViewController();
+  v6.super_class = type metadata accessor for FullScreenLegacyCollectionViewController(0);
   [(FullScreenLegacyCollectionViewController *)&v6 dealloc];
 }
 

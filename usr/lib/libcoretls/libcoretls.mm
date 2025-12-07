@@ -1,4 +1,4 @@
-uint64_t tls_handshake_create(char a1, char a2)
+_BYTE *tls_handshake_create(char a1, char a2)
 {
   v4 = malloc_type_malloc(0x468uLL, 0x10F00405A3378A2uLL);
   v5 = v4;
@@ -53,11 +53,12 @@ uint64_t InitCipherSpecParams(uint64_t a1)
   return result;
 }
 
-uint64_t sslCipherSuiteGetMacSize(int a1)
+uint64_t sslCipherSuiteGetMacSize(uint64_t a1)
 {
+  v1 = a1;
   if (sslCipherSuiteGetSymmetricCipherAlgorithm(a1) - 7 >= 2)
   {
-    return (0x3020141000uLL >> (8 * sslCipherSuiteGetMacAlgorithm(a1)));
+    return (0x3020141000uLL >> (8 * sslCipherSuiteGetMacAlgorithm(v1)));
   }
 
   else
@@ -397,7 +398,7 @@ LABEL_9:
   return result;
 }
 
-uint64_t tls_handshake_set_ciphersuites_internal(uint64_t a1, int a2, unsigned __int16 *a3, unsigned int a4)
+uint64_t tls_handshake_set_ciphersuites_internal(uint64_t a1, uint64_t a2, unsigned __int16 *a3, unsigned int a4)
 {
   if (!a4)
   {
@@ -405,6 +406,7 @@ uint64_t tls_handshake_set_ciphersuites_internal(uint64_t a1, int a2, unsigned _
   }
 
   v4 = a3;
+  v5 = a2;
   v7 = 0;
   v8 = a4;
   v9 = a4;
@@ -415,7 +417,7 @@ uint64_t tls_handshake_set_ciphersuites_internal(uint64_t a1, int a2, unsigned _
     v11 = v12;
     if (tls_handshake_ciphersuite_is_supported(*(a1 + 17), *(a1 + 16), v12))
     {
-      v7 += tls_handshake_ciphersuite_is_allowed(a2, v11);
+      v7 += tls_handshake_ciphersuite_is_allowed(v5, v11);
     }
 
     --v9;
@@ -442,7 +444,7 @@ uint64_t tls_handshake_set_ciphersuites_internal(uint64_t a1, int a2, unsigned _
   {
     v16 = *v4++;
     v15 = v16;
-    if (tls_handshake_ciphersuite_is_supported(*(a1 + 17), *(a1 + 16), v16) && tls_handshake_ciphersuite_is_allowed(a2, v15))
+    if (tls_handshake_ciphersuite_is_supported(*(a1 + 17), *(a1 + 16), v16) && tls_handshake_ciphersuite_is_allowed(v5, v15))
     {
       *v14++ = v15;
     }
@@ -683,11 +685,12 @@ LABEL_10:
   }
 }
 
-BOOL tls_handshake_ciphersuite_is_supported(uint64_t a1, char a2, int a3)
+BOOL tls_handshake_ciphersuite_is_supported(uint64_t a1, char a2, uint64_t a3)
 {
+  v3 = a3;
   KeyExchangeMethod = sslCipherSuiteGetKeyExchangeMethod(a3);
-  SymmetricCipherAlgorithm = sslCipherSuiteGetSymmetricCipherAlgorithm(a3);
-  MacAlgorithm = sslCipherSuiteGetMacAlgorithm(a3);
+  SymmetricCipherAlgorithm = sslCipherSuiteGetSymmetricCipherAlgorithm(v3);
+  MacAlgorithm = sslCipherSuiteGetMacAlgorithm(v3);
   v8 = 0;
   if (KeyExchangeMethod <= 0x13 && ((1 << KeyExchangeMethod) & 0xE8A02) != 0)
   {
@@ -1001,7 +1004,7 @@ LABEL_2:
   return result;
 }
 
-uint64_t tls_handshake_set_config(uint64_t a1, int a2)
+uint64_t tls_handshake_set_config(uint64_t a1, uint64_t a2)
 {
   *(a1 + 1092) = a2;
   if (*(a1 + 16))
@@ -1303,9 +1306,6 @@ uint64_t CCSymmAEADSetIV(void *a1, void *a2)
   if (a2 && *a2)
   {
     *(a2 + 20) = *a1;
-    v4 = a2[1];
-    v6 = a2[4];
-    v5 = a2[5];
 
     return MEMORY[0x2A1C74508]();
   }
@@ -1351,327 +1351,245 @@ uint64_t SSLDecodeInt(unsigned __int8 *a1, uint64_t a2)
   return i;
 }
 
-uint64_t tls_record_decrypt(uint64_t a1, unint64_t a2, unsigned __int8 *a3, uint64_t a4, _BYTE *a5)
+void tls_record_decrypt(uint64_t a1, unint64_t a2, unsigned __int8 *a3, uint64_t a4, _BYTE *a5)
 {
-  v25[2] = *MEMORY[0x29EDCA608];
+  v23[2] = *MEMORY[0x29EDCA608];
   v5 = 5;
   if (*(a1 + 488))
   {
     v5 = 13;
   }
 
-  if (a2 < v5)
+  if (a2 >= v5)
   {
-    goto LABEL_10;
-  }
-
-  v12 = a3 + 3;
-  v11 = *a3;
-  if (*(a1 + 488))
-  {
-    v13 = SSLDecodeUInt64(a3 + 3, 8);
-    v12 = a3 + 11;
-  }
-
-  else
-  {
-    v13 = 0;
-  }
-
-  v14 = SSLDecodeInt(v12, 2);
-  v15 = v14;
-  __n = v14;
-  __src = v12 + 2;
-  v16 = 5;
-  if (*(a1 + 488))
-  {
-    v16 = 13;
-  }
-
-  if (a2 < v16 + v14)
-  {
-    goto LABEL_10;
-  }
-
-  if (*(a1 + 488))
-  {
-    if ((*(a1 + 40) ^ v13) >> 48)
+    v12 = a3 + 3;
+    v11 = *a3;
+    if (*(a1 + 488))
     {
-      result = 4294957287;
-      goto LABEL_11;
-    }
-
-    *(a1 + 40) = v13;
-  }
-
-  v19 = *(a1 + 16);
-  if (*(*v19 + 1) == 2)
-  {
-    if (v15 < 0x18)
-    {
-      result = 4294957288;
-      goto LABEL_11;
-    }
-
-    v20 = *(a1 + 24);
-    if (v19[3]())
-    {
-      goto LABEL_10;
-    }
-
-    memset(v25, 170, 13);
-    SSLEncodeUInt64(v25, *(a1 + 40));
-    v21 = *(v12 - 1);
-    LOWORD(v25[1]) = *(v12 - 3);
-    BYTE2(v25[1]) = v21;
-    *(&v25[1] + 3) = bswap32(v15 - 24) >> 16;
-    if ((*(*(a1 + 16) + 40))(v25, 13, *(a1 + 24)))
-    {
-      goto LABEL_10;
-    }
-  }
-
-  result = SSLDecryptRecord(v11, &__n, a1);
-  if (result)
-  {
-    goto LABEL_11;
-  }
-
-  v22 = __n;
-  if (*a4 < __n)
-  {
-LABEL_10:
-    result = 4294967246;
-  }
-
-  else
-  {
-    *a4 = __n;
-    memcpy(*(a4 + 8), __src, v22);
-    IncrementUInt64((a1 + 40));
-    result = 0;
-    if (a5)
-    {
-      *a5 = v11;
-    }
-  }
-
-LABEL_11:
-  v18 = *MEMORY[0x29EDCA608];
-  return result;
-}
-
-uint64_t SSLDecryptRecord(uint64_t a1, unint64_t *a2, uint64_t a3)
-{
-  v43 = *MEMORY[0x29EDCA608];
-  *&v42 = 0xAAAAAAAAAAAAAAAALL;
-  *(&v42 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v6 = *(a3 + 16);
-  v7 = (*v6)[1];
-  if (!v7)
-  {
-    if ((v6[4])(a2[1], a2[1], *a2, *(a3 + 24)))
-    {
-LABEL_16:
-      result = 4294957290;
-      goto LABEL_54;
-    }
-
-    v10 = a2[1];
-    v11 = **(a3 + 8);
-    v33 = *a2 >= v11;
-    v12 = *a2 - v11;
-    *&v42 = v12;
-    *(&v42 + 1) = v10;
-    if (!v33)
-    {
-      goto LABEL_22;
-    }
-
-    if (!v11)
-    {
-      goto LABEL_17;
-    }
-
-    v13 = !SSLVerifyMac(a1, &v42, 0, v10 + v12, a3);
-LABEL_50:
-    if (v13)
-    {
-      result = 4294957289;
+      v13 = SSLDecodeUInt64(a3 + 3, 8);
+      v12 = a3 + 11;
     }
 
     else
     {
-      result = 0;
+      v13 = 0;
     }
 
-    goto LABEL_53;
-  }
-
-  if (v7 != 1)
-  {
-    if (v7 != 2)
+    v14 = SSLDecodeInt(v12, 2);
+    v15 = v14;
+    __n = v14;
+    __src = v12 + 2;
+    v16 = 5;
+    if (*(a1 + 488))
     {
-      result = 2863311530;
-LABEL_53:
-      *a2 = v42;
-      goto LABEL_54;
+      v16 = 13;
     }
 
-    if (!(v6[7])(a2[1] + 8, a2[1] + 8, *a2 - 8, *(a3 + 24)))
+    if (a2 >= v16 + v14)
     {
-      v8 = a2[1] + 8;
-      v33 = *a2 >= 0x18;
-      *&v42 = *a2 - 24;
-      *(&v42 + 1) = v8;
-      if (!v33)
+      if (*(a1 + 488))
       {
-LABEL_22:
-        result = 4294957292;
-        goto LABEL_54;
-      }
-
-LABEL_17:
-      result = 0;
-      goto LABEL_53;
-    }
-
-    goto LABEL_16;
-  }
-
-  if (!(*a2 % *(*v6 + 10)))
-  {
-    v14 = *(a3 + 24);
-    v15 = (v6[4])(a2[1], a2[1]);
-    if (v15)
-    {
-      goto LABEL_16;
-    }
-
-    v16 = *(a3 + 492);
-    v17 = a2[1];
-    if (v16 < 0x302)
-    {
-      v21 = **(a3 + 8);
-      v20 = v21;
-      v19 = a2[1];
-    }
-
-    else
-    {
-      v18 = *(**(a3 + 16) + 10);
-      v19 = v17 + v18;
-      v20 = **(a3 + 8);
-      v21 = v20 + v18;
-    }
-
-    v22 = *a2;
-    v23 = *a2 + ~v21;
-    *&v42 = v23;
-    *(&v42 + 1) = v19;
-    if (v23 > v22)
-    {
-      goto LABEL_22;
-    }
-
-    v24 = *(v17 + v22 - 1);
-    if (v16 == 768)
-    {
-      v25 = *(**(a3 + 16) + 10) - 1;
-    }
-
-    else
-    {
-      v25 = 255;
-    }
-
-    if (v25 >= v23)
-    {
-      v26 = v23;
-    }
-
-    else
-    {
-      v26 = v25;
-    }
-
-    v27 = v26 >= v24;
-    if (v26 < v24)
-    {
-      v28 = 0;
-    }
-
-    else
-    {
-      v28 = -1;
-    }
-
-    v29 = v26 & ~v28 | v28 & v24;
-    if (v16 != 768 && v26)
-    {
-      v30 = 0;
-      v31 = (v22 + v17 - 1);
-      do
-      {
-        v32 = *v31--;
-        v33 = v32 == v29 || v30 >= v29;
-        v34 = v30 + 1;
-        if (!v33)
+        if ((*(a1 + 40) ^ v13) >> 48)
         {
-          v27 = 0;
+          return;
         }
 
-        ++v30;
+        *(a1 + 40) = v13;
       }
 
-      while (v26 != v34);
+      v17 = *(a1 + 16);
+      if (*(*v17 + 1) != 2 || v15 >= 0x18 && !v17[3]() && (memset(v23, 170, 13), SSLEncodeUInt64(v23, *(a1 + 40)), v18 = *(v12 - 1), LOWORD(v23[1]) = *(v12 - 3), BYTE2(v23[1]) = v18, *(&v23[1] + 3) = bswap32(v15 - 24) >> 16, !(*(*(a1 + 16) + 40))(v23, 13, *(a1 + 24))))
+      {
+        SSLDecryptRecord(v11, &__n, a1);
+        if (!v19)
+        {
+          v20 = __n;
+          if (*a4 >= __n)
+          {
+            *a4 = __n;
+            memcpy(*(a4 + 8), __src, v20);
+            IncrementUInt64((a1 + 40));
+            if (a5)
+            {
+              *a5 = v11;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+double SSLDecryptRecord(uint64_t a1, unint64_t *a2, uint64_t a3)
+{
+  v37 = *MEMORY[0x29EDCA608];
+  *&v36 = 0xAAAAAAAAAAAAAAAALL;
+  *(&v36 + 1) = 0xAAAAAAAAAAAAAAAALL;
+  v6 = *(a3 + 16);
+  v7 = *(*v6 + 4);
+  if (v7)
+  {
+    if (v7 != 1)
+    {
+      if (v7 == 2)
+      {
+        if ((*(v6 + 56))(a2[1] + 8, a2[1] + 8, *a2 - 8, *(a3 + 24)))
+        {
+          return result;
+        }
+
+        v9 = a2[1] + 8;
+        v10 = *a2 >= 0x18;
+        *&v36 = *a2 - 24;
+        *(&v36 + 1) = v9;
+        if (!v10)
+        {
+          return result;
+        }
+      }
+
+LABEL_43:
+      result = *&v36;
+      *a2 = v36;
+      return result;
     }
 
-    if (v20)
+    if (!(*a2 % *(*v6 + 10)))
     {
-      v41 = &v41;
-      MEMORY[0x2A1C7C4A8](v15);
-      memset(&v41 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0), 170, v20);
-      v35 = **(a3 + 8);
-      bzero(&v41 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0), v35);
-      v36 = 0;
-      v37 = a2[1] + ~v35 + *a2 - v26;
-      do
+      v14 = (*(v6 + 32))(a2[1], a2[1]);
+      if (!v14)
       {
-        v38 = 0;
-        if (v36 == v26 - v29)
+        v15 = *(a3 + 492);
+        v16 = a2[1];
+        if (v15 < 0x302)
         {
-          v39 = -1;
+          v20 = **(a3 + 8);
+          v19 = v20;
+          v18 = a2[1];
         }
 
         else
         {
-          v39 = 0;
+          v17 = *(**(a3 + 16) + 10);
+          v18 = v16 + v17;
+          v19 = **(a3 + 8);
+          v20 = v19 + v17;
         }
 
-        do
+        v21 = *a2;
+        v22 = *a2 + ~v20;
+        *&v36 = v22;
+        *(&v36 + 1) = v18;
+        if (v22 <= v21)
         {
-          *(&v41 + v38 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0)) = *(&v41 + v38 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0)) & ~v39 | v39 & *(v37 + v38);
-          ++v38;
+          v23 = *(v16 + v21 - 1);
+          if (v15 == 768)
+          {
+            v24 = *(**(a3 + 16) + 10) - 1;
+          }
+
+          else
+          {
+            v24 = 255;
+          }
+
+          if (v24 >= v22)
+          {
+            v25 = v22;
+          }
+
+          else
+          {
+            v25 = v24;
+          }
+
+          if (v25 < v23)
+          {
+            v26 = 0;
+          }
+
+          else
+          {
+            v26 = -1;
+          }
+
+          v27 = v25 & ~v26 | v26 & v23;
+          if (v15 != 768 && v25)
+          {
+            v28 = 0;
+            v29 = v21 + v16 - 1;
+            do
+            {
+              --v29;
+              ++v28;
+            }
+
+            while (v25 != v28);
+          }
+
+          if (v19)
+          {
+            v35 = &v35;
+            MEMORY[0x2A1C7C4A8](v14);
+            memset(&v35 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0), 170, v19);
+            v30 = **(a3 + 8);
+            bzero(&v35 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0), v30);
+            v31 = 0;
+            v32 = a2[1] + ~v30 + *a2 - v25;
+            do
+            {
+              v33 = 0;
+              if (v31 == v25 - v27)
+              {
+                v34 = -1;
+              }
+
+              else
+              {
+                v34 = 0;
+              }
+
+              do
+              {
+                *(&v35 + v33 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0)) = *(&v35 + v33 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0)) & ~v34 | v34 & *(v32 + v33);
+                ++v33;
+              }
+
+              while (v19 != v33);
+              ++v31;
+              ++v32;
+            }
+
+            while (v31 <= v30 + v25 - v19);
+            SSLVerifyMac(a1, &v36, v27, &v35 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0), a3);
+            *&v36 = v22 - v27;
+          }
+
+          goto LABEL_43;
         }
-
-        while (v20 != v38);
-        ++v36;
-        ++v37;
       }
-
-      while (v36 <= v35 + v26 - v20);
-      v27 &= SSLVerifyMac(a1, &v42, v29, &v41 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0), a3);
-      *&v42 = v23 - v29;
     }
-
-    v13 = v27 == 0;
-    goto LABEL_50;
   }
 
-  result = 4294957288;
-LABEL_54:
-  v40 = *MEMORY[0x29EDCA608];
+  else if (!(*(v6 + 32))(a2[1], a2[1], *a2, *(a3 + 24)))
+  {
+    v11 = a2[1];
+    v12 = **(a3 + 8);
+    v10 = *a2 >= v12;
+    v13 = *a2 - v12;
+    *&v36 = v13;
+    *(&v36 + 1) = v11;
+    if (v10)
+    {
+      if (v12)
+      {
+        SSLVerifyMac(a1, &v36, 0, v11 + v13, a3);
+      }
+
+      goto LABEL_43;
+    }
+  }
+
   return result;
 }
 
@@ -1698,7 +1616,6 @@ uint64_t CCSymmAddADD(uint64_t a1, uint64_t a2, void *a3)
 {
   if (a3 && *a3)
   {
-    v5 = a3[1];
 
     return MEMORY[0x2A1C744F8]();
   }
@@ -1710,24 +1627,15 @@ uint64_t CCSymmAddADD(uint64_t a1, uint64_t a2, void *a3)
   }
 }
 
-uint64_t CCSymmAEADDecrypt(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t CCSymmAEADDecrypt(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v19 = *MEMORY[0x29EDCA608];
   if (a4 && *a4)
   {
-    v18 = *(a1 + a3 - 16);
-    v5 = a4[1];
-    v6 = ccgcm_update();
-    v7 = *a4;
-    v8 = a4[1];
-    v9 = ccgcm_finalize() | v6;
-    v10 = *a4;
-    v11 = a4[1];
-    v12 = ccgcm_reset();
-    v13 = *a4;
-    v14 = a4[1];
-    v15 = v9 | v12 | ccgcm_inc_iv();
-    if (v15)
+    v4 = ccgcm_update();
+    v5 = ccgcm_finalize() | v4;
+    v6 = ccgcm_reset();
+    v7 = v5 | v6 | ccgcm_inc_iv();
+    if (v7)
     {
       cc_clear();
     }
@@ -1736,11 +1644,10 @@ uint64_t CCSymmAEADDecrypt(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
   else
   {
     puts("CCSymmAEADDecrypt: NULL cipherCtx");
-    v15 = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-  v16 = *MEMORY[0x29EDCA608];
-  return v15;
+  return v7;
 }
 
 uint64_t tls_record_encrypted_size(uint64_t a1, int a2, uint64_t a3)
@@ -1815,31 +1722,23 @@ uint64_t tls_record_encrypted_size_1(uint64_t a1, uint64_t a2)
   return v8 + a2;
 }
 
-uint64_t tls_record_encrypt(uint64_t a1, unint64_t a2, char *a3, int a4, unint64_t *a5)
+uint64_t tls_record_encrypt(uint64_t a1, unint64_t a2, char *a3, unsigned int a4, unint64_t *a5)
 {
-  v34[2] = *MEMORY[0x29EDCA608];
-  if (a2)
+  v33[2] = *MEMORY[0x29EDCA608];
+  if (!a2)
   {
-    v5 = a4;
-    v6 = a2;
-    v8 = *a5;
-    v9 = a5[1];
-    if (*(a1 + 490) == 1)
+    return 0;
+  }
+
+  v5 = a4;
+  v6 = a2;
+  v8 = *a5;
+  v9 = a5[1];
+  if (*(a1 + 490) == 1)
+  {
+    if (*(**(a1 + 112) + 4) == 1)
     {
-      if (*(**(a1 + 112) + 4) == 1)
-      {
-        v10 = (a4 == 23) & *(a1 + 489);
-      }
-
-      else
-      {
-        v10 = 0;
-      }
-
-      if (*(a1 + 492) >= 0x302u)
-      {
-        v10 = 0;
-      }
+      v10 = (a4 == 23) & *(a1 + 489);
     }
 
     else
@@ -1847,191 +1746,192 @@ uint64_t tls_record_encrypt(uint64_t a1, unint64_t a2, char *a3, int a4, unint64
       v10 = 0;
     }
 
-    *(a1 + 490) = a4 == 23;
-    v29 = a4;
-    while (1)
+    if (*(a1 + 492) >= 0x302u)
     {
-      v12 = 0x4000;
-      if (v6 < 0x4000)
-      {
-        v12 = v6;
-      }
-
-      if (v10)
-      {
-        v13 = 1;
-      }
-
-      else
-      {
-        v13 = v12;
-      }
-
-      v32 = 0xAAAAAAAAAAAAAAAALL;
-      v33 = 0xAAAAAAAAAAAAAAAALL;
-      v14 = tls_record_encrypted_size_1(a1, v13);
-      if (v8 < v14)
-      {
-        result = 4294967246;
-        goto LABEL_49;
-      }
-
-      v30 = *(a1 + 112);
-      v15 = (*v30)[1];
-      v16 = *(*v30 + 10);
-      if (*(a1 + 488))
-      {
-        v17 = -13;
-      }
-
-      else
-      {
-        v17 = -5;
-      }
-
-      *v9 = v5;
-      v18 = SSLEncodeInt((v9 + 1), *(a1 + 492), 2);
-      if (*(a1 + 488) == 1)
-      {
-        v18 = SSLEncodeUInt64(v18, *(a1 + 136));
-      }
-
-      v19 = (v17 + v14);
-      v20 = SSLEncodeInt(v18, v19, 2);
-      v21 = v20;
-      if (*(a1 + 492) >= 0x302u && v15 == 1)
-      {
-        result = (**(a1 + 496))();
-        if (result)
-        {
-          goto LABEL_49;
-        }
-
-        v21 += v16;
-        v33 = v21;
-      }
-
-      else
-      {
-        v33 = v20;
-        if (v15 == 2)
-        {
-          result = (*(*(a1 + 112) + 32))(v20, *(a1 + 120));
-          if (result)
-          {
-            goto LABEL_49;
-          }
-
-          result = (*(*(a1 + 112) + 24))(v21, *(a1 + 120));
-          if (result)
-          {
-            goto LABEL_49;
-          }
-
-          memset(v34, 170, 13);
-          SSLEncodeUInt64(v34, *(a1 + 136));
-          v22 = *(v21 - 3);
-          LOWORD(v34[1]) = *(v21 - 5);
-          BYTE2(v34[1]) = v22;
-          *(&v34[1] + 3) = bswap32(v13) >> 16;
-          result = (*(*(a1 + 112) + 40))(v34, 13, *(a1 + 120));
-          if (result)
-          {
-            goto LABEL_49;
-          }
-
-          memcpy((v21 + 8), a3, v13);
-          v32 = v19;
-          result = (v30[6])(v21, v21, v19, *(a1 + 120));
-          v5 = v29;
-          if (result)
-          {
-            goto LABEL_49;
-          }
-
-          goto LABEL_46;
-        }
-      }
-
-      memcpy(v21, a3, v13);
-      v32 = v13;
-      if (**(a1 + 104))
-      {
-        result = SSLComputeMac(v29, &v32, 0, v21 + v13, (a1 + 104), *(a1 + 492));
-        if (result)
-        {
-          goto LABEL_49;
-        }
-      }
-
-      if (*(a1 + 492) >= 0x302u && v15 == 1)
-      {
-        v32 = v19;
-        v33 -= v16;
-        v5 = v29;
-      }
-
-      else
-      {
-        v32 = v19;
-        v5 = v29;
-        if (!v15)
-        {
-          v23 = v30;
-          goto LABEL_45;
-        }
-
-        if (v15 != 1)
-        {
-          result = 4294957296;
-          goto LABEL_49;
-        }
-      }
-
-      v23 = v30;
-      v24 = v16 + ~((**(a1 + 104) + v13) % v16);
-      if (v24 >= 0)
-      {
-        v25 = 0;
-        v26 = -1;
-        do
-        {
-          *(v33 + v32 + v26) = v24;
-          ++v25;
-          --v26;
-        }
-
-        while (v25 <= v24);
-        v19 = v32;
-      }
-
-LABEL_45:
-      result = (v23[3])(v33, v33, v19, *(a1 + 120));
-      if (result)
-      {
-        goto LABEL_49;
-      }
-
-LABEL_46:
-      IncrementUInt64((a1 + 136));
       v10 = 0;
-      a3 += v13;
-      v9 += v14;
-      v8 -= v14;
-      v6 -= v13;
-      if (!v6)
-      {
-        result = 0;
-        *a5 -= v8;
-        goto LABEL_49;
-      }
     }
   }
 
-  result = 0;
-LABEL_49:
-  v27 = *MEMORY[0x29EDCA608];
-  return result;
+  else
+  {
+    v10 = 0;
+  }
+
+  *(a1 + 490) = a4 == 23;
+  while (1)
+  {
+    v12 = 0x4000;
+    if (v6 < 0x4000)
+    {
+      v12 = v6;
+    }
+
+    if (v10)
+    {
+      v13 = 1;
+    }
+
+    else
+    {
+      v13 = v12;
+    }
+
+    v31 = 0xAAAAAAAAAAAAAAAALL;
+    v32 = 0xAAAAAAAAAAAAAAAALL;
+    v14 = tls_record_encrypted_size_1(a1, v13);
+    if (v8 < v14)
+    {
+      return 4294967246;
+    }
+
+    v29 = *(a1 + 112);
+    v15 = (*v29)[1];
+    v16 = *(*v29 + 10);
+    if (*(a1 + 488))
+    {
+      v17 = -13;
+    }
+
+    else
+    {
+      v17 = -5;
+    }
+
+    *v9 = v5;
+    v18 = SSLEncodeInt((v9 + 1), *(a1 + 492), 2);
+    if (*(a1 + 488) == 1)
+    {
+      v18 = SSLEncodeUInt64(v18, *(a1 + 136));
+    }
+
+    v19 = (v17 + v14);
+    v20 = SSLEncodeInt(v18, v19, 2);
+    v21 = v20;
+    if (*(a1 + 492) >= 0x302u && v15 == 1)
+    {
+      result = (**(a1 + 496))();
+      if (result)
+      {
+        return result;
+      }
+
+      v21 += v16;
+      v32 = v21;
+    }
+
+    else
+    {
+      v32 = v20;
+      if (v15 == 2)
+      {
+        result = (*(*(a1 + 112) + 32))(v20, *(a1 + 120));
+        if (result)
+        {
+          return result;
+        }
+
+        result = (*(*(a1 + 112) + 24))(v21, *(a1 + 120));
+        if (result)
+        {
+          return result;
+        }
+
+        memset(v33, 170, 13);
+        SSLEncodeUInt64(v33, *(a1 + 136));
+        v22 = *(v21 - 3);
+        LOWORD(v33[1]) = *(v21 - 5);
+        BYTE2(v33[1]) = v22;
+        *(&v33[1] + 3) = bswap32(v13) >> 16;
+        result = (*(*(a1 + 112) + 40))(v33, 13, *(a1 + 120));
+        if (result)
+        {
+          return result;
+        }
+
+        memcpy((v21 + 8), a3, v13);
+        v31 = v19;
+        result = (v29[6])(v21, v21, v19, *(a1 + 120));
+        v5 = a4;
+        if (result)
+        {
+          return result;
+        }
+
+        goto LABEL_46;
+      }
+    }
+
+    memcpy(v21, a3, v13);
+    v31 = v13;
+    if (**(a1 + 104))
+    {
+      result = SSLComputeMac(a4, &v31, 0, v21 + v13, (a1 + 104), *(a1 + 492));
+      if (result)
+      {
+        return result;
+      }
+    }
+
+    if (*(a1 + 492) >= 0x302u && v15 == 1)
+    {
+      v31 = v19;
+      v32 -= v16;
+      v5 = a4;
+      goto LABEL_40;
+    }
+
+    v31 = v19;
+    v5 = a4;
+    if (!v15)
+    {
+      v23 = v29;
+      goto LABEL_45;
+    }
+
+    if (v15 != 1)
+    {
+      return 4294957296;
+    }
+
+LABEL_40:
+    v23 = v29;
+    v24 = v16 + ~((**(a1 + 104) + v13) % v16);
+    if (v24 >= 0)
+    {
+      v25 = 0;
+      v26 = -1;
+      do
+      {
+        *(v32 + v31 + v26) = v24;
+        ++v25;
+        --v26;
+      }
+
+      while (v25 <= v24);
+      v19 = v31;
+    }
+
+LABEL_45:
+    result = (v23[3])(v32, v32, v19, *(a1 + 120));
+    if (result)
+    {
+      return result;
+    }
+
+LABEL_46:
+    IncrementUInt64((a1 + 136));
+    v10 = 0;
+    a3 += v13;
+    v9 += v14;
+    v8 -= v14;
+    v6 -= v13;
+    if (!v6)
+    {
+      result = 0;
+      *a5 -= v8;
+      return result;
+    }
+  }
 }
 
 uint64_t SSLEncodeInt(uint64_t a1, unint64_t a2, uint64_t a3)
@@ -2069,21 +1969,14 @@ uint64_t CCSymmAEADGetIV(void *a1, void *a2)
   return result;
 }
 
-uint64_t CCSymmAEADEncrypt(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t *a4)
+uint64_t CCSymmAEADEncrypt(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   if (a4 && *a4)
   {
-    v5 = a4[1];
-    v6 = ccgcm_update();
-    v7 = *a4;
-    v8 = a4[1];
-    v9 = ccgcm_finalize() | v6;
-    v10 = *a4;
-    v11 = a4[1];
-    v12 = ccgcm_reset();
-    v13 = *a4;
-    v14 = a4[1];
-    return v9 | v12 | ccgcm_inc_iv();
+    v4 = ccgcm_update();
+    v5 = ccgcm_finalize() | v4;
+    v6 = ccgcm_reset();
+    return v5 | v6 | ccgcm_inc_iv();
   }
 
   else
@@ -2301,7 +2194,7 @@ char *tls_private_key_create(uint64_t a1, uint64_t a2, uint64_t a3)
   return result;
 }
 
-uint64_t tls_handshake_set_identity(uint64_t a1, uint64_t **a2, uint64_t *a3)
+uint64_t tls_handshake_set_identity(uint64_t a1, void *a2, uint64_t *a3)
 {
   SSLFreeCertificates(*(a1 + 56));
   v6 = *(a1 + 32);
@@ -2367,7 +2260,7 @@ uint64_t tls_free_buffer_list(void *a1)
   return 0;
 }
 
-uint64_t tls_copy_buffer_list(uint64_t **a1, void *a2)
+uint64_t tls_copy_buffer_list(void *a1, void *a2)
 {
   if (a1)
   {
@@ -2437,16 +2330,12 @@ void *sslAllocCopy(const void *a1, size_t size)
   return result;
 }
 
-void tls_private_key_destroy(uint64_t *a1)
+void tls_private_key_destroy(void *a1)
 {
   v2 = a1[1];
-  if (v2)
+  if (v2 && *a1)
   {
-    v3 = *a1;
-    if (*a1)
-    {
-      v2();
-    }
+    v2();
   }
 
   sslFree(a1);
@@ -2591,7 +2480,7 @@ void tls_record_destroy(void *a1)
   sslFree(a1);
 }
 
-uint64_t SessionCacheCleanup(void **a1)
+uint64_t SessionCacheCleanup(uint64_t *a1)
 {
   v2 = time(0);
   v3 = *a1;
@@ -2781,7 +2670,6 @@ uint64_t CCSymmFinish(void *a1)
 {
   if (a1)
   {
-    v2 = (*(*a1 + 8) + ((**a1 + 15) & 0xFFFFFFFFFFFFFFF0) + 15) & 0xFFFFFFFFFFFFFFF0;
     cc_clear();
     sslFree(a1);
   }
@@ -2789,16 +2677,12 @@ uint64_t CCSymmFinish(void *a1)
   return 0;
 }
 
-uint64_t CCSymmFinish_0(uint64_t **a1)
+uint64_t CCSymmFinish_0(void **a1)
 {
   if (a1)
   {
-    v2 = a1[1];
-    v3 = **a1;
     cc_clear();
     sslFree(a1[1]);
-    v5 = a1[4];
-    v4 = a1[5];
     cc_clear();
     sslFree(a1[4]);
     sslFree(a1);
@@ -2883,9 +2767,9 @@ uint64_t SSLProcessHandshakeRecordInner(size_t size, char *__src, uint64_t a3)
   {
     v25 = __src;
     v6 = *__src;
-    v7 = SSLDecodeSize((__src + 1), 3);
+    v7 = SSLDecodeSize(__src + 1, 3);
     v8 = size - (v7 + 4);
-    if (size < v7 + 4)
+    if (size < (v7 + 4))
     {
       v14 = 0;
       goto LABEL_14;
@@ -2894,7 +2778,7 @@ uint64_t SSLProcessHandshakeRecordInner(size_t size, char *__src, uint64_t a3)
     v9 = v7;
     v10 = __src + 4;
     v23 = v10;
-    v24 = v7 + 4;
+    v24 = (v7 + 4);
     v21[0] = v6;
     v21[1] = 0;
     v22 = v7;
@@ -2915,7 +2799,7 @@ uint64_t SSLProcessHandshakeRecordInner(size_t size, char *__src, uint64_t a3)
       }
     }
 
-    __src = &v10[v9];
+    __src = &v9[v10];
     *(a3 + 416) = 1;
     *(a3 + 420) = v6;
     v13 = (*(*(a3 + 1112) + 8))(*(a3 + 1104), v6);
@@ -2981,7 +2865,7 @@ LABEL_14:
   return v14;
 }
 
-unint64_t SSLDecodeSize(unint64_t result, uint64_t a2)
+unsigned __int8 *SSLDecodeSize(unsigned __int8 *result, uint64_t a2)
 {
   if (!a2)
   {
@@ -2993,7 +2877,7 @@ unint64_t SSLDecodeSize(unint64_t result, uint64_t a2)
   do
   {
     v3 = *v2++;
-    result = v3 | (result << 8);
+    result = (v3 | (result << 8));
     --a2;
   }
 
@@ -3108,7 +2992,6 @@ LABEL_21:
         goto LABEL_45;
       }
 
-      v10 = *(a1 + 16);
       v4 = SSLProcessServerHelloDone(*(a1 + 8));
       goto LABEL_49;
     case 0xF:
@@ -3154,7 +3037,7 @@ LABEL_21:
       if (*a1 != 67 || *(a2 + 380) != 15)
       {
 LABEL_45:
-        v11 = 10;
+        v10 = 10;
         goto LABEL_46;
       }
 
@@ -3190,9 +3073,9 @@ LABEL_50:
           goto LABEL_59;
         }
 
-        v11 = 47;
+        v10 = 47;
 LABEL_46:
-        SSLFatalSessionAlert(v11, a2);
+        SSLFatalSessionAlert(v10, a2);
         return 4294957496;
       }
 
@@ -3212,7 +3095,7 @@ LABEL_59:
   }
 }
 
-uint64_t SSLProcessClientHello(unint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t SSLProcessClientHello(size_t a1, uint64_t a2, uint64_t a3)
 {
   if (a1 <= 0x28)
   {
@@ -3647,7 +3530,7 @@ void SSLProcessClientHelloExtensions(uint64_t a1, unsigned int a2, unsigned __in
               goto LABEL_5;
             }
 
-            v18 = SSLDecodeSize((v11 + 5), 2);
+            v18 = SSLDecodeSize(v11 + 5, 2);
             v19 = v16 - 3;
             if (v18 > v19)
             {
@@ -3673,7 +3556,7 @@ void SSLProcessClientHelloExtensions(uint64_t a1, unsigned int a2, unsigned __in
               goto LABEL_5;
             }
 
-            v23 = &v21[v20];
+            v23 = &v20[v21];
             v24 = SSLDecodeSize(v23, 2);
             if (v24 != (v22 - 2))
             {
@@ -3683,7 +3566,7 @@ void SSLProcessClientHelloExtensions(uint64_t a1, unsigned int a2, unsigned __in
               goto LABEL_5;
             }
 
-            SSLCopyBufferFromData((v23 + 2), v24, (a1 + 1016));
+            SSLCopyBufferFromData(v23 + 2, v24, (a1 + 1016));
             *(a1 + 1009) = 1;
           }
         }
@@ -3700,7 +3583,7 @@ void SSLProcessClientHelloExtensions(uint64_t a1, unsigned int a2, unsigned __in
         }
 
         v33 = v13 - 2;
-        if (SSLDecodeSize((v11 + 4), 2) != (v13 - 2))
+        if (SSLDecodeSize(v11 + 4, 2) != (v13 - 2))
         {
           v3 = "SSLProcessClientHelloExtension_ServerName";
           v4 = "SSLProcessClientHelloExtension_ServerName: length decode error 2\n";
@@ -3723,7 +3606,7 @@ void SSLProcessClientHelloExtensions(uint64_t a1, unsigned int a2, unsigned __in
 
             v35 = v34 + 3;
             v36 = *v34;
-            v37 = SSLDecodeSize((v34 + 1), 2);
+            v37 = SSLDecodeSize(v34 + 1, 2);
             v38 = v33 - 3;
             if (v37 > v38)
             {
@@ -3826,7 +3709,6 @@ uint64_t ReadyHash(uint64_t a1, size_t *a2)
 uint64_t HashSHA1Init(uint64_t a1)
 {
   ccsha1_di();
-  v2 = *(a1 + 8);
   ccdigest_init();
   return 0;
 }
@@ -3834,7 +3716,6 @@ uint64_t HashSHA1Init(uint64_t a1)
 uint64_t HashMD5Init(uint64_t a1)
 {
   ccmd5_di();
-  v2 = *(a1 + 8);
   ccdigest_init();
   return 0;
 }
@@ -3842,7 +3723,6 @@ uint64_t HashMD5Init(uint64_t a1)
 uint64_t HashSHA256Init(uint64_t a1)
 {
   ccsha256_di();
-  v2 = *(a1 + 8);
   ccdigest_init();
   return 0;
 }
@@ -3850,7 +3730,6 @@ uint64_t HashSHA256Init(uint64_t a1)
 uint64_t HashSHA384Init(uint64_t a1)
 {
   ccsha384_di();
-  v2 = *(a1 + 8);
   ccdigest_init();
   return 0;
 }
@@ -3858,35 +3737,33 @@ uint64_t HashSHA384Init(uint64_t a1)
 uint64_t HashSHA512Init(uint64_t a1)
 {
   ccsha512_di();
-  v2 = *(a1 + 8);
   ccdigest_init();
   return 0;
 }
 
-uint64_t SSLUpdateHandshakeMacs(uint64_t *a1, uint64_t a2)
+uint64_t SSLUpdateHandshakeMacs(void *a1, uint64_t a2)
 {
-  v4 = *(a2 + 16);
   if (!*a2)
   {
-    v7 = *(a2 + 12);
+    v6 = *(a2 + 12);
     if (*(a2 + 16))
     {
-      if (v7 >= 0xFEFF)
+      if (v6 >= 0xFEFF)
       {
 LABEL_9:
-        v6 = 0;
+        v5 = 0;
         goto LABEL_12;
       }
     }
 
-    else if (v7 < 0x303)
+    else if (v6 < 0x303)
     {
       goto LABEL_9;
     }
 
-    v6 = 1;
+    v5 = 1;
 LABEL_12:
-    result = (off_2A1EFF3E8[0])(a2 + 584, a1);
+    result = off_2A1EFF3E8(a2 + 584, a1);
     if (result)
     {
       return result;
@@ -3897,23 +3774,23 @@ LABEL_12:
 
   if (*(a2 + 16))
   {
-    v5 = 65279;
+    v4 = 65279;
   }
 
   else
   {
-    v5 = 770;
+    v4 = 770;
   }
 
-  if (*a2 <= v5)
+  if (*a2 <= v4)
   {
     goto LABEL_9;
   }
 
-  v6 = 1;
+  v5 = 1;
 LABEL_13:
-  result = (off_2A1EFF3B0[0])(a2 + 568, a1);
-  if (v6)
+  result = off_2A1EFF3B0(a2 + 568, a1);
+  if (v5)
   {
     if (!result)
     {
@@ -3923,9 +3800,9 @@ LABEL_13:
         result = off_2A1EFF340(a2 + 616, a1);
         if (!result)
         {
-          v9 = off_2A1EFF308[0];
+          v8 = off_2A1EFF308[0];
 
-          return v9(a2 + 632, a1);
+          return (v8)(a2 + 632, a1);
         }
       }
     }
@@ -3934,42 +3811,30 @@ LABEL_13:
   return result;
 }
 
-uint64_t HashSHA1Update(uint64_t a1, uint64_t *a2)
+uint64_t HashSHA1Update(uint64_t a1, void *a2)
 {
   ccsha1_di();
-  v4 = *(a1 + 8);
-  v5 = *a2;
-  v6 = a2[1];
   ccdigest_update();
   return 0;
 }
 
-uint64_t HashSHA256Update(uint64_t a1, uint64_t *a2)
+uint64_t HashSHA256Update(uint64_t a1, void *a2)
 {
   ccsha256_di();
-  v4 = *(a1 + 8);
-  v5 = *a2;
-  v6 = a2[1];
   ccdigest_update();
   return 0;
 }
 
-uint64_t HashSHA384Update(uint64_t a1, uint64_t *a2)
+uint64_t HashSHA384Update(uint64_t a1, void *a2)
 {
   ccsha384_di();
-  v4 = *(a1 + 8);
-  v5 = *a2;
-  v6 = a2[1];
   ccdigest_update();
   return 0;
 }
 
-uint64_t HashSHA512Update(uint64_t a1, uint64_t *a2)
+uint64_t HashSHA512Update(uint64_t a1, void *a2)
 {
   ccsha512_di();
-  v4 = *(a1 + 8);
-  v5 = *a2;
-  v6 = a2[1];
   ccdigest_update();
   return 0;
 }
@@ -4012,14 +3877,14 @@ LABEL_137:
             return v17;
           }
 
-          v22 = (*(*(a2 + 24) + 8))(a2);
-          if (v22)
+          v21 = (*(*(a2 + 24) + 8))(a2);
+          if (v21)
           {
             goto LABEL_162;
           }
 
-          v22 = SSLInitPendingCiphers(a2);
-          if (v22)
+          v21 = SSLInitPendingCiphers(a2);
+          if (v21)
           {
             goto LABEL_162;
           }
@@ -4168,14 +4033,14 @@ LABEL_126:
 
     if (a1 == 16)
     {
-      v22 = (*(*(a2 + 24) + 8))(a2);
-      if (v22)
+      v21 = (*(*(a2 + 24) + 8))(a2);
+      if (v21)
       {
         goto LABEL_162;
       }
 
-      v22 = SSLInitPendingCiphers(a2);
-      if (v22)
+      v21 = SSLInitPendingCiphers(a2);
+      if (v21)
       {
         goto LABEL_162;
       }
@@ -4407,17 +4272,17 @@ LABEL_92:
     if (SSLClientValidateSessionDataAfter(*(a2 + 264), *(a2 + 272), a2))
     {
       v15 = 4294957496;
-      v25 = 47;
+      v24 = 47;
 LABEL_163:
-      SSLFatalSessionAlert(v25, a2);
+      SSLFatalSessionAlert(v24, a2);
       return v15;
     }
 
-    v22 = SSLInstallSessionFromData(*(a2 + 264), *(a2 + 272), a2);
-    if (!v22)
+    v21 = SSLInstallSessionFromData(*(a2 + 264), *(a2 + 272), a2);
+    if (!v21)
     {
-      v22 = SSLInitPendingCiphers(a2);
-      if (!v22)
+      v21 = SSLInitPendingCiphers(a2);
+      if (!v21)
       {
         *(a2 + 320) = 1;
         if (*(a2 + 707))
@@ -4435,8 +4300,8 @@ LABEL_163:
     }
 
 LABEL_162:
-    v15 = v22;
-    v25 = 80;
+    v15 = v21;
+    v24 = 80;
     goto LABEL_163;
   }
 
@@ -4454,17 +4319,16 @@ LABEL_162:
     (*(*(a2 + 1112) + 16))(*(a2 + 1104), 1, 0);
   }
 
-  v18 = *(a2 + 16);
   if ((*(a2 + 1065) & 1) == 0)
   {
     goto LABEL_63;
   }
 
-  v19 = *(a2 + 12);
-  v20 = *(a2 + 4);
+  v18 = *(a2 + 12);
+  v19 = *(a2 + 4);
   if (*(a2 + 16))
   {
-    if (v19 >= v20)
+    if (v18 >= v19)
     {
       goto LABEL_63;
     }
@@ -4474,7 +4338,7 @@ LABEL_106:
     return 4294957460;
   }
 
-  if (v19 > v20)
+  if (v18 > v19)
   {
     goto LABEL_106;
   }
@@ -4491,8 +4355,8 @@ LABEL_63:
     return v17;
   }
 
-  v21 = *(a2 + 296);
-  if (!v21)
+  v20 = *(a2 + 296);
+  if (!v20)
   {
 LABEL_72:
     if (*(a2 + 320) == 1)
@@ -4514,8 +4378,8 @@ LABEL_72:
       SSLFreeBuffer((a2 + 304));
       if (*(a2 + 280) == 1 && !SSLAllocBuffer((a2 + 304), 0x10uLL))
       {
-        v22 = sslRand((a2 + 304));
-        if (v22)
+        v21 = sslRand((a2 + 304));
+        if (v21)
         {
           goto LABEL_162;
         }
@@ -4524,11 +4388,11 @@ LABEL_72:
       v17 = SSLPrepareAndQueueMessage(SSLEncodeServerHello, 22, a2);
       if (!v17)
       {
-        v23 = *(a2 + 336);
-        if (v23 <= 0x13)
+        v22 = *(a2 + 336);
+        if (v22 <= 0x13)
         {
-          v24 = 1 << v23;
-          if ((v24 & 0x28202) != 0)
+          v23 = 1 << v22;
+          if ((v23 & 0x28202) != 0)
           {
             if (!*(a2 + 56))
             {
@@ -4555,8 +4419,8 @@ LABEL_72:
             }
 
 LABEL_171:
-            v27 = *(a2 + 336);
-            if (v27 <= 0x12 && (((1 << v27) & 0x68A00) != 0 || v27 == 1 && *(a2 + 176)))
+            v26 = *(a2 + 336);
+            if (v26 <= 0x12 && (((1 << v26) & 0x68A00) != 0 || v26 == 1 && *(a2 + 176)))
             {
               v17 = SSLPrepareAndQueueMessage(SSLEncodeServerKeyExchange, 22, a2);
               if (v17)
@@ -4596,7 +4460,7 @@ LABEL_171:
             goto LABEL_152;
           }
 
-          if ((v24 & 0xC0801) != 0)
+          if ((v23 & 0xC0801) != 0)
           {
             if (*(a2 + 424) == 1)
             {
@@ -4622,7 +4486,7 @@ LABEL_181:
 
   __n = 0xAAAAAAAAAAAAAAAALL;
   __s1 = 0xAAAAAAAAAAAAAAAALL;
-  v15 = (*(*(a2 + 1112) + 40))(*(a2 + 1104), *(a2 + 288), v21, &__n);
+  v15 = (*(*(a2 + 1112) + 40))(*(a2 + 1104), *(a2 + 288), v20, &__n);
   if (!v15)
   {
     v15 = SSLServerValidateSessionData(__n, __s1, a2);
@@ -4998,7 +4862,7 @@ uint64_t SSLEncodeHandshakeHeader(uint64_t a1, uint64_t a2, char a3, unint64_t a
 uint64_t SSLProcessHandshakeRecord(size_t size, unsigned __int8 *__src, uint64_t a3)
 {
   v5 = size;
-  v43 = *MEMORY[0x29EDCA608];
+  v39 = *MEMORY[0x29EDCA608];
   v6 = (a3 + 648);
   if (*(a3 + 656))
   {
@@ -5009,7 +4873,7 @@ uint64_t SSLProcessHandshakeRecord(size_t size, unsigned __int8 *__src, uint64_t
 LABEL_3:
       v9 = v8;
       SSLFatalSessionAlert(80, a3);
-      goto LABEL_43;
+      return v9;
     }
 
     memcpy((*(a3 + 656) + v7), __src, v5);
@@ -5025,7 +4889,6 @@ LABEL_3:
 
   if (*(a3 + 16) != 1)
   {
-    v27 = *MEMORY[0x29EDCA608];
 
     return SSLProcessHandshakeRecordInner(v5, __src, a3);
   }
@@ -5036,21 +4899,21 @@ LABEL_3:
 LABEL_37:
     if (v10)
     {
-      v29 = SSLFreeBuffer(v6);
-      if (v29)
+      v28 = SSLFreeBuffer(v6);
+      if (v28)
       {
-        v30 = v29;
+        v29 = v28;
         SSLFatalSessionAlert(80, a3);
-        v9 = v30;
+        return v29;
       }
     }
 
-    goto LABEL_43;
+    return v9;
   }
 
-  v36 = v6;
-  v37 = off_2A1EFF3E8[0];
-  v38 = off_2A1EFF3B0[0];
+  v32 = v6;
+  v33 = off_2A1EFF3E8;
+  v34 = off_2A1EFF3B0;
   v11 = v5;
   while (1)
   {
@@ -5062,7 +4925,7 @@ LABEL_41:
       goto LABEL_42;
     }
 
-    v13 = (__src + 12);
+    v13 = __src + 12;
     v12 = *__src;
     v14 = SSLDecodeInt(__src + 1, 3);
     v15 = SSLDecodeInt(__src + 4, 2);
@@ -5073,8 +4936,6 @@ LABEL_41:
     if (v17 + v16 > v14 || v19 < v17 || v15 != *(a3 + 208) || (v20 = *(a3 + 240), v16 != v20))
     {
 LABEL_40:
-      v31 = *(a3 + 224);
-      v35 = *(a3 + 216);
       __ssl_debug("sslError", "DTLSProcessHandshakeRecordInner", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslHandshake.c", 337, "DTLSProcessHandshakeRecord: wrong fragment (fl=%d, fo=%d, ml=%d, rm=%d | ms=%d/%d | mt=%d/%d, ml=%d/%d\n", v17, v16, v14, v11 - 12);
       goto LABEL_41;
     }
@@ -5110,9 +4971,9 @@ LABEL_40:
       goto LABEL_30;
     }
 
-    v39 = *(a3 + 216);
-    v40 = *(a3 + 232);
-    v23 = SSLProcessHandshakeMessage(&v39, a3);
+    v35 = *(a3 + 216);
+    v36 = *(a3 + 232);
+    v23 = SSLProcessHandshakeMessage(&v35, a3);
     if (v23)
     {
       v9 = v23;
@@ -5120,23 +4981,23 @@ LABEL_42:
       __ssl_debug("sslError", "DTLSProcessHandshakeRecordInner", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslHandshake.c", 456, "DTLSProcessHandshakeRecord: flushing record (err=%d)\n", v9);
       SSLFreeBuffer((a3 + 224));
       *(a3 + 240) = 0;
-      goto LABEL_43;
+      return v9;
     }
 
     if (v12)
     {
       if (v12 != 3)
       {
-        memset(v42, 170, sizeof(v42));
-        *&v39 = 12;
-        *(&v39 + 1) = &v41;
-        v41 = v12;
-        SSLEncodeInt(v42, v14, 3);
-        SSLEncodeInt(&v42[3], v15, 2);
-        SSLEncodeInt(&v42[5], 0, 3);
-        SSLEncodeInt(&v42[8], v14, 3);
-        v24 = (v38)(a3 + 568, &v39);
-        if (v24 || (v24 = (v37)(a3 + 584, &v39), v24) || (v24 = (v38)(a3 + 568, a3 + 224), v24) || (v24 = (v37)(a3 + 584, a3 + 224), v24))
+        memset(v38, 170, sizeof(v38));
+        *&v35 = 12;
+        *(&v35 + 1) = &v37;
+        v37 = v12;
+        SSLEncodeInt(v38, v14, 3);
+        SSLEncodeInt(&v38[3], v15, 2);
+        SSLEncodeInt(&v38[5], 0, 3);
+        SSLEncodeInt(&v38[8], v14, 3);
+        v24 = v34(a3 + 568, &v35);
+        if (v24 || (v24 = v33(a3 + 584, &v35), v24) || (v24 = v34(a3 + 568, (a3 + 224)), v24) || (v24 = v33(a3 + 584, (a3 + 224)), v24))
         {
           v9 = v24;
           SSLFatalSessionAlert(80, a3);
@@ -5170,7 +5031,7 @@ LABEL_30:
       v9 = 0;
       v10 = *(a3 + 656);
 LABEL_32:
-      v6 = v36;
+      v6 = v32;
       goto LABEL_37;
     }
   }
@@ -5188,26 +5049,24 @@ LABEL_49:
     if (__src != v10)
     {
       memmove(v10, __src, v11);
-      *v36 = v11;
+      *v32 = v11;
     }
   }
 
   else
   {
-    v33 = SSLAllocBuffer(v36, v11);
-    if (!v33)
+    v30 = SSLAllocBuffer(v32, v11);
+    if (!v30)
     {
       v10 = *(a3 + 656);
       goto LABEL_49;
     }
 
-    v34 = v33;
+    v31 = v30;
     SSLFatalSessionAlert(80, a3);
-    v9 = v34;
+    return v31;
   }
 
-LABEL_43:
-  v32 = *MEMORY[0x29EDCA608];
   return v9;
 }
 
@@ -5221,21 +5080,19 @@ uint64_t SSLEncodeRandom(uint64_t a1)
   return sslRand(v3);
 }
 
-uint64_t sslRand(uint64_t *a1)
+uint64_t sslRand(void *a1)
 {
   if (*a1)
   {
-    v2 = ccDRBGGetRngState();
-    if (!v2)
+    v1 = ccDRBGGetRngState();
+    if (!v1)
     {
       abort();
     }
 
-    v3 = *a1;
-    v4 = a1[1];
-    v5 = *v2;
+    v2 = *v1;
 
-    return v5();
+    return v2();
   }
 
   else
@@ -5312,44 +5169,43 @@ uint64_t SSLEncodeCertificate(size_t *a1, uint64_t a2)
 
 uint64_t SSLEncodeServerKeyExchange(size_t *a1, uint64_t a2)
 {
-  v76 = *MEMORY[0x29EDCA608];
+  v69 = *MEMORY[0x29EDCA608];
   v2 = *(a2 + 336);
   v3 = 4294967292;
   if (v2 > 0x12)
   {
-    goto LABEL_31;
+    return v3;
   }
 
   if (((1 << v2) & 0x28202) == 0)
   {
     if (((1 << v2) & 0x40800) == 0)
     {
-      goto LABEL_31;
+      return v3;
     }
 
     if (*(a2 + 16))
     {
-      v20 = 12;
+      v16 = 12;
     }
 
     else
     {
-      v20 = 4;
+      v16 = 4;
     }
 
     if (v2 == 18)
     {
-      v21 = SSLGenServerECDHParamsAndKey(a2);
-      if (!v21)
+      v17 = SSLGenServerECDHParamsAndKey(a2);
+      if (!v17)
       {
-        v27 = **(a2 + 152);
-        v28 = cczp_bitlen();
-        v21 = SSLAllocBuffer(a1, (((v28 + 7) >> 2) | 1) + 4 + v20);
-        if (!v21)
+        v22 = cczp_bitlen();
+        v17 = SSLAllocBuffer(a1, (((v22 + 7) >> 2) | 1) + 4 + v16);
+        if (!v17)
         {
-          v29 = OUTLINED_FUNCTION_0();
-          SSLEncodeECDHKeyParams(a2, v29);
-          goto LABEL_30;
+          v23 = OUTLINED_FUNCTION_0();
+          SSLEncodeECDHKeyParams(a2, v23);
+          return 0;
         }
       }
     }
@@ -5359,36 +5215,32 @@ uint64_t SSLEncodeServerKeyExchange(size_t *a1, uint64_t a2)
       if (v2 != 11)
       {
         SSLFreeBuffer(a1);
-        v3 = 4294957486;
-        goto LABEL_31;
+        return 4294957486;
       }
 
-      v21 = SSLGenServerDHParamsAndKey(a2);
-      if (!v21)
+      v17 = SSLGenServerDHParamsAndKey(a2);
+      if (!v17)
       {
-        v22 = SSLEncodedDHKeyParamsLen(a2);
-        v21 = SSLAllocBuffer(a1, v22 + v20);
-        if (!v21)
+        v18 = SSLEncodedDHKeyParamsLen(a2);
+        v17 = SSLAllocBuffer(a1, v18 + v16);
+        if (!v17)
         {
-          v23 = OUTLINED_FUNCTION_0();
-          SSLEncodeDHKeyParams(a2, v23);
-LABEL_30:
-          v3 = 0;
-          goto LABEL_31;
+          v19 = OUTLINED_FUNCTION_0();
+          SSLEncodeDHKeyParams(a2, v19);
+          return 0;
         }
       }
     }
 
-    v3 = v21;
-    goto LABEL_31;
+    return v17;
   }
 
-  v67 = 0xAAAAAAAAAAAAAAAALL;
+  v60 = 0xAAAAAAAAAAAAAAAALL;
   size = 0xAAAAAAAAAAAAAAAALL;
-  v63 = 0xAAAAAAAAAAAAAAAALL;
-  v64 = 0;
-  v65 = 0xAAAAAAAAAAAAAAAALL;
-  v66 = 0;
+  v56 = 0xAAAAAAAAAAAAAAAALL;
+  v57 = 0;
+  v58 = 0xAAAAAAAAAAAAAAAALL;
+  v59 = 0;
   HIDWORD(v6) = v2 - 1;
   LODWORD(v6) = v2 - 1;
   v3 = 4294957486;
@@ -5397,24 +5249,20 @@ LABEL_30:
   switch((v6 >> 1))
   {
     case 0u:
-      v9 = **(a2 + 176);
+      v9 = ccn_write_uint_size();
       v10 = ccn_write_uint_size();
-      v11 = ccn_write_uint_size();
-      MaxSigSize = SSLAllocBuffer(&v63, v10 + v11 + 4);
+      MaxSigSize = SSLAllocBuffer(&v56, v9 + v10 + 4);
       if (MaxSigSize)
       {
         goto LABEL_24;
       }
 
-      v13 = v64;
-      v14 = **(a2 + 176);
-      v15 = ccn_write_uint_size();
-      v16 = ccn_write_uint_size();
-      v17 = SSLEncodeInt(v13, v15, 2);
-      v18 = *(a2 + 176);
+      v12 = v57;
+      v13 = ccn_write_uint_size();
+      v14 = ccn_write_uint_size();
+      v15 = SSLEncodeInt(v12, v13, 2);
       ccn_write_uint();
-      SSLEncodeInt(v17 + v15, v16, 2);
-      v19 = **(a2 + 176);
+      SSLEncodeInt(v15 + v13, v14, 2);
       ccn_write_uint();
       v8 = 1;
       goto LABEL_22;
@@ -5425,14 +5273,14 @@ LABEL_30:
         goto LABEL_24;
       }
 
-      v24 = SSLEncodedDHKeyParamsLen(a2);
-      MaxSigSize = SSLAllocBuffer(&v63, v24);
+      v20 = SSLEncodedDHKeyParamsLen(a2);
+      MaxSigSize = SSLAllocBuffer(&v56, v20);
       if (MaxSigSize)
       {
         goto LABEL_24;
       }
 
-      SSLEncodeDHKeyParams(a2, v64);
+      SSLEncodeDHKeyParams(a2, v57);
       goto LABEL_22;
     case 7u:
       v8 = 0;
@@ -5445,15 +5293,14 @@ LABEL_19:
         goto LABEL_24;
       }
 
-      v25 = **(a2 + 152);
-      v26 = cczp_bitlen();
-      MaxSigSize = SSLAllocBuffer(&v63, (((v26 + 7) >> 2) | 1) + 4);
+      v21 = cczp_bitlen();
+      MaxSigSize = SSLAllocBuffer(&v56, (((v21 + 7) >> 2) | 1) + 4);
       if (MaxSigSize)
       {
         goto LABEL_24;
       }
 
-      SSLEncodeECDHKeyParams(a2, v64);
+      SSLEncodeECDHKeyParams(a2, v57);
 LABEL_22:
       MaxSigSize = sslGetMaxSigSize(*(a2 + 32), &size);
       if (MaxSigSize)
@@ -5461,110 +5308,110 @@ LABEL_22:
         goto LABEL_24;
       }
 
-      MaxSigSize = SSLAllocBuffer(&v65, size);
+      MaxSigSize = SSLAllocBuffer(&v58, size);
       if (MaxSigSize)
       {
         goto LABEL_24;
       }
 
       OUTLINED_FUNCTION_1();
-      if (!v35)
+      if (!v28)
       {
-        v33 = 65279;
+        v26 = 65279;
       }
 
-      if (v34 <= v33)
+      if (v27 <= v26)
       {
-        v40 = v32 + 2;
-        v41 = v65;
-        v42 = v66;
-        v72[0] = v32;
-        v72[1] = v64;
-        v75 = -1431655766;
-        *&v43 = 0xAAAAAAAAAAAAAAAALL;
-        *(&v43 + 1) = 0xAAAAAAAAAAAAAAAALL;
-        v73 = v43;
-        v74 = v43;
-        memset(v69, 170, 24);
-        v69[3] = 0;
-        v71[0] = 32;
-        v71[1] = a2 + 436;
-        v70[0] = 32;
-        v70[1] = a2 + 468;
+        v33 = v25 + 2;
+        v34 = v58;
+        v35 = v59;
+        v65[0] = v25;
+        v65[1] = v57;
+        v68 = -1431655766;
+        *&v36 = 0xAAAAAAAAAAAAAAAALL;
+        *(&v36 + 1) = 0xAAAAAAAAAAAAAAAALL;
+        v66 = v36;
+        v67 = v36;
+        memset(v62, 170, 24);
+        v62[3] = 0;
+        v64[0] = 32;
+        v64[1] = a2 + 436;
+        v63[0] = 32;
+        v63[1] = a2 + 468;
         if (v8)
         {
-          v69[0] = 16;
-          v69[1] = &v73;
-          ready = ReadyHash(&SSLHashMD5, &v69[2]);
+          v62[0] = 16;
+          v62[1] = &v66;
+          ready = ReadyHash(&SSLHashMD5, &v62[2]);
           if (ready)
           {
             goto LABEL_59;
           }
 
-          v45 = off_2A1EFF3E8[0];
-          ready = (off_2A1EFF3E8[0])(&v69[2], v71);
+          v38 = off_2A1EFF3E8;
+          ready = off_2A1EFF3E8(&v62[2], v64);
           if (ready)
           {
             goto LABEL_59;
           }
 
-          ready = v45(&v69[2], v70);
+          ready = v38(&v62[2], v63);
           if (ready)
           {
             goto LABEL_59;
           }
 
-          ready = v45(&v69[2], v72);
+          ready = v38(&v62[2], v65);
           if (ready)
           {
             goto LABEL_59;
           }
 
-          ready = (off_2A1EFF3F0[0])(&v69[2], v69);
+          ready = off_2A1EFF3F0(&v62[2], v62);
           if (ready)
           {
             goto LABEL_59;
           }
 
-          ready = SSLFreeBuffer(&v69[2]);
+          ready = SSLFreeBuffer(&v62[2]);
           if (ready)
           {
             goto LABEL_59;
           }
 
-          v46 = &v73;
-          v47 = 36;
+          v39 = &v66;
+          v40 = 36;
         }
 
         else
         {
-          v46 = &v74;
-          v47 = 20;
+          v39 = &v67;
+          v40 = 20;
         }
 
-        v69[0] = 20;
-        v69[1] = &v74;
-        ready = ReadyHash(&SSLHashSHA1, &v69[2]);
+        v62[0] = 20;
+        v62[1] = &v67;
+        ready = ReadyHash(&SSLHashSHA1, &v62[2]);
         if (!ready)
         {
-          v62 = v46;
-          v48 = off_2A1EFF3B0[0];
-          ready = (off_2A1EFF3B0[0])(&v69[2], v71);
+          v55 = v39;
+          v41 = off_2A1EFF3B0;
+          ready = off_2A1EFF3B0(&v62[2], v64);
           if (!ready)
           {
-            ready = v48(&v69[2], v70);
+            ready = v41(&v62[2], v63);
             if (!ready)
             {
-              ready = v48(&v69[2], v72);
+              ready = v41(&v62[2], v65);
               if (!ready)
               {
-                ready = (off_2A1EFF3B8[0])(&v69[2], v69);
+                ready = off_2A1EFF3B8(&v62[2], v62);
                 if (!ready)
                 {
-                  ready = SSLFreeBuffer(&v69[2]);
+                  ready = SSLFreeBuffer(&v62[2]);
                   if (!ready)
                   {
-                    ready = sslRawSign(*(a2 + 32), v62, v47, v42, v41, &v67);
+                    ready = sslRawSign(*(a2 + 32), v55, v40, v35, v34, &v60);
                   }
                 }
               }
@@ -5574,22 +5421,22 @@ LABEL_22:
 
 LABEL_59:
         v3 = ready;
-        SSLFreeBuffer(&v69[2]);
-        LOBYTE(v39) = 0;
-        LOBYTE(v49) = 0;
+        SSLFreeBuffer(&v62[2]);
+        LOBYTE(v32) = 0;
+        LOBYTE(v42) = 0;
         if (v3)
         {
           goto LABEL_25;
         }
 
 LABEL_60:
-        v50 = 4;
+        v43 = 4;
         if (v7)
         {
-          v50 = 12;
+          v43 = 12;
         }
 
-        MaxSigSize = SSLAllocBuffer(a1, v67 + v40 + v50);
+        MaxSigSize = SSLAllocBuffer(a1, v60 + v33 + v43);
         if (MaxSigSize)
         {
 LABEL_24:
@@ -5598,23 +5445,23 @@ LABEL_24:
 
         else
         {
-          v51 = OUTLINED_FUNCTION_0();
-          memcpy(v51, v64, v63);
+          v44 = OUTLINED_FUNCTION_0();
+          memcpy(v44, v57, v56);
           OUTLINED_FUNCTION_1();
-          if (!v35)
+          if (!v28)
           {
-            v53 = 65279;
+            v46 = 65279;
           }
 
-          if (v54 > v53)
+          if (v47 > v46)
           {
-            *v52 = v49;
-            v52[1] = v39;
-            v52 += 2;
+            *v45 = v42;
+            v45[1] = v32;
+            v45 += 2;
           }
 
-          v55 = SSLEncodeInt(v52, v67, 2);
-          memcpy(v55, v66, v67);
+          v48 = SSLEncodeInt(v45, v60, 2);
+          memcpy(v48, v59, v60);
           v3 = 0;
         }
 
@@ -5626,24 +5473,24 @@ LABEL_24:
         goto LABEL_50;
       }
 
-      v36 = *(a2 + 792);
-      if (!v36)
+      v29 = *(a2 + 792);
+      if (!v29)
       {
         goto LABEL_50;
       }
 
-      v37 = *(a2 + 32);
-      if (!v37)
+      v30 = *(a2 + 32);
+      if (!v30)
       {
         goto LABEL_50;
       }
 
-      v38 = *(v37 + 16);
-      if (v38)
+      v31 = *(v30 + 16);
+      if (v31)
       {
-        if (v38 == 1)
+        if (v31 == 1)
         {
-          v39 = 3;
+          v32 = 3;
           goto LABEL_69;
         }
 
@@ -5652,62 +5499,60 @@ LABEL_50:
         goto LABEL_25;
       }
 
-      v39 = 1;
+      v32 = 1;
 LABEL_69:
-      v56 = *(a2 + 800);
-      if (!v56)
+      v49 = *(a2 + 800);
+      if (!v49)
       {
         v3 = 4294957496;
         goto LABEL_25;
       }
 
-      v57 = 0;
-      v58 = (v36 + 4);
+      v50 = 0;
+      v51 = (v29 + 4);
       v3 = 4294957496;
       while (1)
       {
-        v59 = (*(a2 + 808) + 8 * v57);
-        if (v39 == v59[1])
+        v52 = (*(a2 + 808) + 8 * v50);
+        if (v32 == v52[1])
         {
           break;
         }
 
 LABEL_76:
-        if (++v57 == v56)
+        if (++v50 == v49)
         {
           goto LABEL_25;
         }
       }
 
-      v49 = *v59;
-      v60 = v58;
-      v61 = *(a2 + 788);
-      while (v39 != *v60 || v49 != *(v60 - 1))
+      v42 = *v52;
+      v53 = v51;
+      v54 = *(a2 + 788);
+      while (v32 != *v53 || v42 != *(v53 - 1))
       {
-        v60 += 2;
-        if (!--v61)
+        v53 += 2;
+        if (!--v54)
         {
           goto LABEL_76;
         }
       }
 
-      v40 = v32 + 4;
-      v3 = SSLSignServerKeyExchangeTls12(a2, v49 | (v39 << 32), v32, v64, v65, v66, &v67);
+      v33 = v25 + 4;
+      v3 = SSLSignServerKeyExchangeTls12(a2, v42 | (v32 << 32), v25, v57, v58, v59, &v60);
       if (!v3)
       {
         goto LABEL_60;
       }
 
 LABEL_25:
-      SSLFreeBuffer(&v63);
-      SSLFreeBuffer(&v65);
+      SSLFreeBuffer(&v56);
+      SSLFreeBuffer(&v58);
       if (!v3)
       {
-        goto LABEL_30;
+        return 0;
       }
 
-LABEL_31:
-      v30 = *MEMORY[0x29EDCA608];
       return v3;
     default:
       goto LABEL_25;
@@ -5775,12 +5620,10 @@ uint64_t sslEcdhCreateKey(void *a1, void *a2)
 
 uint64_t SSLEncodeECDHKeyParams(uint64_t a1, uint64_t a2)
 {
-  v4 = **(a1 + 152);
-  v5 = (cczp_bitlen() + 7) >> 2;
-  v6 = SSLEncodeInt(a2, 3uLL, 1);
-  v7 = SSLEncodeInt(v6, *(a1 + 144), 2);
-  SSLEncodeInt(v7, v5 | 1, 1);
-  v8 = *(a1 + 152);
+  v4 = (cczp_bitlen() + 7) >> 2;
+  v5 = SSLEncodeInt(a2, 3uLL, 1);
+  v6 = SSLEncodeInt(v5, *(a1 + 144), 2);
+  SSLEncodeInt(v6, v4 | 1, 1);
 
   return ccec_export_pub();
 }
@@ -5804,67 +5647,66 @@ uint64_t sslGetMaxSigSize(uint64_t a1, void *a2)
 
 uint64_t SSLSignServerKeyExchangeTls12(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, size_t a5, char *a6, size_t *a7)
 {
-  v30 = *MEMORY[0x29EDCA608];
-  v28[0] = a3;
-  v28[1] = a4;
-  v26[0] = 0xAAAAAAAAAAAAAAAALL;
-  v26[1] = 0;
-  v25[0] = 32;
-  v25[1] = a1 + 436;
-  v24[1] = a1 + 468;
-  v23[1] = 0;
+  v29 = *MEMORY[0x29EDCA608];
+  v27[0] = a3;
+  v27[1] = a4;
+  v25[0] = 0xAAAAAAAAAAAAAAAALL;
+  v25[1] = 0;
   v24[0] = 32;
+  v24[1] = a1 + 436;
+  v23[1] = a1 + 468;
+  v22[1] = 0;
+  v23[0] = 32;
   v8 = a2 - 2;
   if (a2 - 2) < 5 && ((0x1Du >> v8))
   {
     v13 = *(&off_29EEA7248 + v8);
     *&v14 = 0xAAAAAAAAAAAAAAAALL;
     *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v29[2] = v14;
-    v29[3] = v14;
-    v29[0] = v14;
-    v29[1] = v14;
-    v23[0] = 0xAAAAAAAAAAAAAAAALL;
+    v28[2] = v14;
+    v28[3] = v14;
+    v28[0] = v14;
+    v28[1] = v14;
+    v22[0] = 0xAAAAAAAAAAAAAAAALL;
     v15 = *v13;
-    v27[0] = v15;
-    v27[1] = v29;
-    ready = ReadyHash(v13, v26);
-    if (ready || (v17 = *(v13 + 3), ready = v17(v26, v25), ready) || (ready = v17(v26, v24), ready) || (ready = v17(v26, v28), ready) || (ready = (*(v13 + 4))(v26, v27), ready))
+    v26[0] = v15;
+    v26[1] = v28;
+    ready = ReadyHash(v13, v25);
+    if (ready || (v17 = *(v13 + 3), ready = v17(v25, v24), ready) || (ready = v17(v25, v23), ready) || (ready = v17(v25, v27), ready) || (ready = (*(v13 + 4))(v25, v26), ready))
     {
       v18 = ready;
     }
 
     else
     {
-      v21 = *(a1 + 32);
+      v20 = *(a1 + 32);
       if (HIDWORD(a2) == 1)
       {
-        v22 = sslRsaSign(v21, a2, v29, v15, a6, a5, a7);
+        v21 = sslRsaSign(v20, a2, v28, v15, a6, a5, a7);
       }
 
       else
       {
-        v22 = sslRawSign(v21, v29, v15, a6, a5, a7);
+        v21 = sslRawSign(v20, v28, v15, a6, a5, a7);
       }
 
-      v18 = v22;
-      if (v22)
+      v18 = v21;
+      if (v21)
       {
-        __ssl_debug("sslError", "SSLSignServerKeyExchangeTls12", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslKeyExchange.c", 287, "SSLDecodeSignedServerKeyExchangeTls12: sslRawVerify returned %d\n", v22);
+        __ssl_debug("sslError", "SSLSignServerKeyExchangeTls12", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslKeyExchange.c", 287, "SSLDecodeSignedServerKeyExchangeTls12: sslRawVerify returned %d\n", v21);
       }
     }
 
-    SSLFreeBuffer(v23);
-    SSLFreeBuffer(v26);
+    SSLFreeBuffer(v22);
+    SSLFreeBuffer(v25);
   }
 
   else
   {
     __ssl_debug("sslError", "SSLSignServerKeyExchangeTls12", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslKeyExchange.c", 247, "SSLVerifySignedServerKeyExchangeTls12: unsupported hash %d\n", a2);
-    v18 = 4294957496;
+    return 4294957496;
   }
 
-  v19 = *MEMORY[0x29EDCA608];
   return v18;
 }
 
@@ -6035,7 +5877,7 @@ uint64_t SSLSendFlight(uint64_t a1)
     (*(*(a1 + 1112) + 24))(*(a1 + 1104));
   }
 
-  v4 = a1 + 664;
+  v4 = (a1 + 664);
   while (1)
   {
     v4 = *v4;
@@ -6045,8 +5887,8 @@ uint64_t SSLSendFlight(uint64_t a1)
     }
 
     v5 = *(v4 + 24);
-    v6 = *(v4 + 8);
-    if (*(a1 + 16) == 1 && (v7 = *(v4 + 16), v5 == 22))
+    v6 = v4[1];
+    if (*(a1 + 16) == 1 && (v7 = v4[2], v5 == 22))
     {
       v25 = 0xAAAAAAAAAAAAAAAALL;
       v26 = 0xAAAAAAAAAAAAAAAALL;
@@ -6111,7 +5953,7 @@ LABEL_23:
 
     else
     {
-      v11 = (**(a1 + 1112))(*(a1 + 1104), *(v4 + 8), *(v4 + 16), *(v4 + 24));
+      v11 = (**(a1 + 1112))(*(a1 + 1104), v4[1], v4[2], *(v4 + 24));
       if (v11)
       {
         return v11;
@@ -6335,59 +6177,53 @@ uint64_t __ssl_debug_enabled(const char *a1)
   return result;
 }
 
-uint64_t tls_handshake_set_peer_rsa_public_key(uint64_t a1, uint64_t *a2, uint64_t *a3)
+uint64_t tls_handshake_set_peer_rsa_public_key(uint64_t a1, void *a2, void *a3)
 {
   sslFreePubKey(a1 + 40);
 
   return sslGetPubKeyFromBits(a2, a3, a1 + 40);
 }
 
-uint64_t sslGetPubKeyFromBits(uint64_t *a1, uint64_t *a2, uint64_t a3)
+uint64_t sslGetPubKeyFromBits(void *a1, void *a2, uint64_t a3)
 {
-  v20[1] = *MEMORY[0x29EDCA608];
-  if (a3)
+  v13[1] = *MEMORY[0x29EDCA608];
+  if (!a3)
   {
-    v6 = *a1 + 7;
-    v7 = MEMORY[0x2A1C7C4A8](a1);
-    v9 = (8 * (v6 >> 3) + 15) & 0xFFFFFFFFFFFFFFF0;
-    if (v6 > 7)
-    {
-      v11 = (v8 - 1) & 0xFFFFFFFFFFFFFFF8;
-      v12 = memset(v20 - v9, 170, v11 + 8);
-      MEMORY[0x2A1C7C4A8](v12);
-      memset(v20 - v9, 170, v11 + 8);
-    }
+    return 4294967246;
+  }
 
-    else
-    {
-      MEMORY[0x2A1C7C4A8](v7);
-    }
-
-    v13 = *a1;
-    v14 = a1[1];
-    if (ccn_read_uint() || (v15 = *a2, v16 = a2[1], ccn_read_uint()) || ccn_bitlen() < 2 || (v17 = sslMalloc(3 * (v6 & 0xFFFFFFFFFFFFFFF8) + 40)) == 0)
-    {
-      sslGetPubKeyFromBits_cold_1();
-      result = 4294957487;
-    }
-
-    else
-    {
-      v18 = v17;
-      *v17 = v6 >> 3;
-      ccrsa_init_pub();
-      result = 0;
-      *a3 = 1;
-      *(a3 + 8) = v18;
-    }
+  v4 = *a1 + 7;
+  v5 = MEMORY[0x2A1C7C4A8](a1);
+  v7 = (8 * (v4 >> 3) + 15) & 0xFFFFFFFFFFFFFFF0;
+  if (v4 > 7)
+  {
+    v9 = (v6 - 1) & 0xFFFFFFFFFFFFFFF8;
+    v10 = memset(v13 - v7, 170, v9 + 8);
+    MEMORY[0x2A1C7C4A8](v10);
+    memset(v13 - v7, 170, v9 + 8);
   }
 
   else
   {
-    result = 4294967246;
+    MEMORY[0x2A1C7C4A8](v5);
   }
 
-  v19 = *MEMORY[0x29EDCA608];
+  if (ccn_read_uint() || ccn_read_uint() || ccn_bitlen() < 2 || (v11 = sslMalloc(3 * (v4 & 0xFFFFFFFFFFFFFFF8) + 40)) == 0)
+  {
+    sslGetPubKeyFromBits_cold_1();
+    return 4294957487;
+  }
+
+  else
+  {
+    v12 = v11;
+    *v11 = v4 >> 3;
+    ccrsa_init_pub();
+    result = 0;
+    *a3 = 1;
+    *(a3 + 8) = v12;
+  }
+
   return result;
 }
 
@@ -6440,14 +6276,14 @@ uint64_t tls_handshake_continue(uint64_t a1)
 uint64_t SSLProcessKeyExchange(unint64_t a1, unsigned __int8 *a2, uint64_t a3)
 {
   v4 = a2;
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   v6 = *(a3 + 336);
   if (v6 > 0x13)
   {
 LABEL_18:
     if (v6 == 1)
     {
-      v32 = 0;
+      v31 = 0;
       v11 = *(a3 + 32);
       v12 = sslPrivKeyLengthInBytes(v11);
       if (v12)
@@ -6458,7 +6294,7 @@ LABEL_18:
           if (a1 != v12 + 2 || *a3 < 0x301u)
           {
             __ssl_debug("sslError", "SSLDecodeRSAKeyExchange", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslKeyExchange.c", 886, "SSLDecodeRSAKeyExchange: length error (exp %u got %u)\n");
-            goto LABEL_42;
+            return 4294957496;
           }
 
           v4 += 2;
@@ -6469,20 +6305,20 @@ LABEL_18:
         {
           *&v14 = 0xAAAAAAAAAAAAAAAALL;
           *(&v14 + 1) = 0xAAAAAAAAAAAAAAAALL;
-          v33[1] = v14;
-          v33[2] = v14;
-          v33[0] = v14;
-          v31[0] = 48;
-          v31[1] = v33;
-          sslRand(v31);
+          v32[1] = v14;
+          v32[2] = v14;
+          v32[0] = v14;
+          v30[0] = 48;
+          v30[1] = v32;
+          sslRand(v30);
           v15 = *(a3 + 512);
-          v16 = sslRsaDecrypt(v11, v4, v13, v15, 48, &v32);
+          v16 = sslRsaDecrypt(v11, v4, v13, v15, 48, &v31);
           v17 = 0;
           v18 = vorr_s8(vneg_s32(veor_s8(vshr_n_u32(*a3, 8uLL), vdup_n_s32(*v15))), vneg_s32(veor_s8(vand_s8(*a3, 0xFF000000FFLL), vdup_n_s32(v15[1]))));
-          v19 = ((v32 ^ 0xFFFFFFFFFFFFFFCFLL) + 1) | -v16 | v16 | v32 | v18.i32[1] & v18.i32[0];
+          v19 = ((v31 ^ 0xFFFFFFFFFFFFFFCFLL) + 1) | -v16 | v16 | v31 | v18.i32[1] & v18.i32[0];
           do
           {
-            v20 = v33 + v17;
+            v20 = v32 + v17;
             if (v19 >= 0)
             {
               v20 = &v15[v17];
@@ -6492,24 +6328,24 @@ LABEL_18:
           }
 
           while (v17 != 48);
-          goto LABEL_47;
+          return 0;
         }
       }
 
       else
       {
         __ssl_debug("sslError", "SSLDecodeRSAKeyExchange", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslKeyExchange.c", 867, "SSLDecodeRSAKeyExchange: private key modulus is 0\n");
-        v10 = 4294957487;
+        return 4294957487;
       }
     }
 
     else
     {
       __ssl_debug("sslError", "SSLProcessKeyExchange", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslKeyExchange.c", 1862, "SSLProcessKeyExchange: unknown keyExchangeMethod (%d)\n", v6);
-      v10 = 4294967292;
+      return 4294967292;
     }
 
-    goto LABEL_43;
+    return v10;
   }
 
   if (((1 << v6) & 0x68000) == 0)
@@ -6521,16 +6357,14 @@ LABEL_18:
         if (a1 <= 1)
         {
           __ssl_debug("sslError", "SSLDecodeDHClientKeyExchange", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslKeyExchange.c", 1301, "SSLDecodeDHClientKeyExchange: msg len error 1\n");
-LABEL_42:
-          v10 = 4294957496;
-          goto LABEL_43;
+          return 4294957496;
         }
 
         v21 = SSLDecodeInt(a2, 2);
         if (a1 < v21 + 2)
         {
           __ssl_debug("sslError", "SSLDecodeDHClientKeyExchange", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslKeyExchange.c", 1309, "SSLDecodeDHClientKeyExchange: msg len error 2\n");
-          goto LABEL_42;
+          return 4294957496;
         }
 
         v23 = v21;
@@ -6538,21 +6372,19 @@ LABEL_42:
         v24 = SSLAllocBuffer((a3 + 80), v23);
         if (!v24)
         {
-          memmove(*(a3 + 88), (v4 + 2), v23);
+          memmove(*(a3 + 88), v4 + 2, v23);
           SSLFreeBuffer((a3 + 504));
           v24 = sslDhKeyExchange(*(a3 + 104), (a3 + 80), (a3 + 504));
           if (!v24)
           {
-LABEL_47:
-            v10 = 0;
-            goto LABEL_43;
+            return 0;
           }
         }
 
-        goto LABEL_40;
+        return v24;
       }
 
-      goto LABEL_14;
+      return 4294957486;
     }
 
     if (v6 == 19)
@@ -6560,14 +6392,14 @@ LABEL_47:
       if (a1 <= 1)
       {
         __ssl_debug("sslError", "SSLDecodePSKClientKeyExchange", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslKeyExchange.c", 1662, "SSLDecodePSKClientKeyExchange: msg len error 1\n");
-        goto LABEL_42;
+        return 4294957496;
       }
 
       v22 = SSLDecodeInt(a2, 2);
       if (a1 < v22 + 2)
       {
         __ssl_debug("sslError", "SSLDecodePSKClientKeyExchange", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslKeyExchange.c", 1670, "SSLDecodePSKClientKeyExchange: msg len error 2\n");
-        goto LABEL_42;
+        return 4294957496;
       }
 
       v25 = v22;
@@ -6575,73 +6407,66 @@ LABEL_47:
       v24 = SSLAllocBuffer((a3 + 912), v25);
       if (!v24)
       {
-        memmove(*(a3 + 920), (v4 + 2), v25);
-        v28 = *(a3 + 896);
-        if (!v28)
+        memmove(*(a3 + 920), v4 + 2, v25);
+        v27 = *(a3 + 896);
+        if (!v27)
         {
-          v10 = 4294957448;
-          goto LABEL_43;
+          return 4294957448;
         }
 
-        v24 = SSLAllocBuffer((a3 + 504), 2 * v28 + 4);
+        v24 = SSLAllocBuffer((a3 + 504), 2 * v27 + 4);
         if (!v24)
         {
-          v29 = SSLEncodeInt(*(a3 + 512), v28, 2);
-          bzero(v29, v28);
-          v30 = SSLEncodeInt(v29 + v28, v28, 2);
-          memcpy(v30, *(a3 + 904), v28);
-          goto LABEL_47;
+          v28 = SSLEncodeInt(*(a3 + 512), v27, 2);
+          bzero(v28, v27);
+          v29 = SSLEncodeInt(v28 + v27, v27, 2);
+          memcpy(v29, *(a3 + 904), v27);
+          return 0;
         }
       }
 
-LABEL_40:
-      v10 = v24;
-      goto LABEL_43;
+      return v24;
     }
 
     goto LABEL_18;
   }
 
-  *&v33[0] = 0xAAAAAAAAAAAAAAAALL;
-  *(&v33[0] + 1) = 0xAAAAAAAAAAAAAAAALL;
+  *&v32[0] = 0xAAAAAAAAAAAAAAAALL;
+  *(&v32[0] + 1) = 0xAAAAAAAAAAAAAAAALL;
   if (!*(a3 + 152))
   {
-LABEL_14:
-    v10 = 4294957486;
-    goto LABEL_43;
+    return 4294957486;
   }
 
   if (!a1)
   {
-    goto LABEL_42;
+    return 4294957496;
   }
 
   v7 = SSLDecodeInt(a2, 1);
   if (a1 != v7 + 1)
   {
-    goto LABEL_42;
+    return 4294957496;
   }
 
   v8 = v7;
   SSLFreeBuffer((a3 + 128));
   EcPubKeyFromBits = SSLAllocBuffer((a3 + 128), v8);
-  if (EcPubKeyFromBits || (memmove(*(a3 + 136), (v4 + 1), v8), EcPubKeyFromBits = sslGetEcPubKeyFromBits(*(a3 + 144), (a3 + 128), v33), EcPubKeyFromBits))
+  if (EcPubKeyFromBits || (memmove(*(a3 + 136), v4 + 1, v8), EcPubKeyFromBits = sslGetEcPubKeyFromBits(*(a3 + 144), (a3 + 128), v32), EcPubKeyFromBits))
   {
     v10 = EcPubKeyFromBits;
-    sslFreePubKey(v33);
-    goto LABEL_43;
+    sslFreePubKey(v32);
+    return v10;
   }
 
   SSLFreeBuffer((a3 + 504));
-  v10 = sslEcdhKeyExchange(*(a3 + 152), *(&v33[0] + 1), (a3 + 504));
-  sslFreePubKey(v33);
+  v10 = sslEcdhKeyExchange(*(a3 + 152), *(&v32[0] + 1), (a3 + 504));
+  sslFreePubKey(v32);
   if (!v10)
   {
-    goto LABEL_47;
+    return 0;
   }
 
-LABEL_43:
-  v26 = *MEMORY[0x29EDCA608];
   return v10;
 }
 
@@ -6820,14 +6645,14 @@ LABEL_23:
 
 uint64_t tls12GenerateMasterSecret(uint64_t a1)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v14[2] = v2;
-  v14[3] = v2;
-  v14[0] = v2;
-  v14[1] = v2;
-  v13[0] = 0xAAAAAAAAAAAAAAAALL;
+  v13[2] = v2;
+  v13[3] = v2;
+  v13[0] = v2;
+  v13[1] = v2;
+  v12[0] = 0xAAAAAAAAAAAAAAAALL;
   if (*(a1 + 768) == 1 && *(a1 + 769) == 1)
   {
     v3 = *(a1 + 344);
@@ -6847,63 +6672,62 @@ uint64_t tls12GenerateMasterSecret(uint64_t a1)
       v5 = 616;
     }
 
-    v13[1] = 0;
-    v6 = CloneHashState(v4, a1 + v5, v13);
+    v12[1] = 0;
+    v6 = CloneHashState(v4, a1 + v5, v12);
     if (!v6)
     {
-      *&v15[0] = *v4;
-      *(&v15[0] + 1) = v14;
+      *&v14[0] = *v4;
+      *(&v14[0] + 1) = v13;
       v7 = off_2A1EFF348;
       if (v3 != 4)
       {
         v7 = off_2A1EFF380;
       }
 
-      v8 = (*v7)(v13, v15);
+      v8 = (*v7)(v12, v14);
       if (!v8)
       {
-        v8 = tls_handshake_internal_prf(a1, *(a1 + 512), *(a1 + 504), "extended master secret", 0x16uLL, *(&v15[0] + 1), *&v15[0], (a1 + 520), 0x30uLL);
+        v8 = tls_handshake_internal_prf(a1, *(a1 + 512), *(a1 + 504), "extended master secret", 0x16uLL, *(&v14[0] + 1), *&v14[0], (a1 + 520), 0x30uLL);
       }
 
       v6 = v8;
-      SSLFreeBuffer(v13);
+      SSLFreeBuffer(v12);
     }
   }
 
   else
   {
     v9 = *(a1 + 452);
-    v15[0] = *(a1 + 436);
-    v15[1] = v9;
+    v14[0] = *(a1 + 436);
+    v14[1] = v9;
     v10 = *(a1 + 484);
-    v15[2] = *(a1 + 468);
-    v15[3] = v10;
-    v6 = tls_handshake_internal_prf(a1, *(a1 + 512), *(a1 + 504), "master secret", 0xDuLL, v15, 0x40uLL, (a1 + 520), 0x30uLL);
+    v14[2] = *(a1 + 468);
+    v14[3] = v10;
+    return tls_handshake_internal_prf(a1, *(a1 + 512), *(a1 + 504), "master secret", 0xDuLL, v14, 0x40uLL, (a1 + 520), 0x30uLL);
   }
 
-  v11 = *MEMORY[0x29EDCA608];
   return v6;
 }
 
 uint64_t tlsPHash(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char *a6, size_t a7)
 {
-  v21 = *MEMORY[0x29EDCA608];
+  v20 = *MEMORY[0x29EDCA608];
   *&v12 = 0xAAAAAAAAAAAAAAAALL;
   *(&v12 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v20[1] = v12;
-  v20[2] = v12;
+  v19[1] = v12;
+  v19[2] = v12;
   __src[2] = v12;
-  v20[0] = v12;
+  v19[0] = v12;
   __src[0] = v12;
   __src[1] = v12;
   __len = *a1;
-  v18 = 0xAAAAAAAAAAAAAAAALL;
-  v13 = (*(a1 + 16))(a1, a2, a3, &v18);
+  v17 = 0xAAAAAAAAAAAAAAAALL;
+  v13 = (*(a1 + 16))(a1, a2, a3, &v17);
   if (!v13)
   {
-    for (i = (*(a1 + 56))(v18, a4, a5, v20, &__len); ; i = (*(a1 + 56))(v18, v20, __len, v20, &__len))
+    for (i = (*(a1 + 56))(v17, a4, a5, v19, &__len); ; i = (*(a1 + 56))(v17, v19, __len, v19, &__len))
     {
-      if (i || (i = (*(a1 + 32))(v18), i) || (i = (*(a1 + 40))(v18, v20, __len), i) || (i = (*(a1 + 40))(v18, a4, a5), i) || (i = (*(a1 + 48))(v18, __src, &__len), i))
+      if (i || (i = (*(a1 + 32))(v17), i) || (i = (*(a1 + 40))(v17, v19, __len), i) || (i = (*(a1 + 40))(v17, a4, a5), i) || (i = (*(a1 + 48))(v17, __src, &__len), i))
       {
         v13 = i;
         goto LABEL_11;
@@ -6922,110 +6746,112 @@ uint64_t tlsPHash(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a
     memmove(a6, __src, a7);
     v13 = 0;
 LABEL_11:
-    (*(a1 + 24))(v18);
+    (*(a1 + 24))(v17);
   }
 
-  v15 = *MEMORY[0x29EDCA608];
   return v13;
 }
 
 uint64_t HMAC_Alloc(uint64_t a1, char *a2, size_t a3, void *a4)
 {
-  v40[2] = *MEMORY[0x29EDCA608];
+  v39[2] = *MEMORY[0x29EDCA608];
   v4 = *(a1 + 8) - 1;
-  if (v4 <= 3 && (v8 = *&SSLMACPad2[8 * v4 + 48], v9 = *(&off_29EEA7298 + v4), v10 = v9[2], (v11 = sslMalloc((3 * v10) + 56)) != 0))
+  if (v4 > 3)
   {
-    v12 = v11;
-    v36 = a4;
-    *v11 = v9;
-    v11[1] = v10;
-    v11[2] = v11 + 7;
-    v13 = v11 + v10 + 56;
-    v11[3] = v10;
-    v11[4] = v13;
-    v11[5] = v10;
-    v35 = v11 + 5;
-    v11[6] = &v13[v10];
-    v14 = *(v9 + 2);
-    v33 = v11 + 1;
-    v14();
-    v15 = (v14)(v12 + 3);
-    v34 = &v32;
-    v16 = *v9;
-    v17 = MEMORY[0x2A1C7C4A8](v15);
-    if (v16)
-    {
-      v17 = memset(&v32 - ((v16 + 15) & 0x1FFFFFFF0), 170, v16);
-    }
-
-    MEMORY[0x2A1C7C4A8](v17);
-    v18 = &v32 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-    memset(v18, 170, v8);
-    v40[0] = v8;
-    v40[1] = v18;
-    if (v8 < a3)
-    {
-      v39[0] = a3;
-      v39[1] = a2;
-      v37 = v16;
-      v38 = &v32 - ((v16 + 15) & 0x1FFFFFFF0);
-      (*(v9 + 3))(v12 + 3, v39);
-      (*(v9 + 4))(v12 + 3, &v37);
-      a3 = v37;
-      a2 = v38;
-      (v14)(v12 + 3);
-    }
-
-    v20 = v35;
-    v19 = v36;
-    if (a3)
-    {
-      v21 = a2;
-      v22 = &v32 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-      v23 = a3;
-      do
-      {
-        v24 = *v21++;
-        *v22++ = v24 ^ 0x5C;
-        --v23;
-      }
-
-      while (v23);
-    }
-
-    v25 = v8 - a3;
-    memset(&v18[a3], 92, v25);
-    v26 = *(v9 + 3);
-    v26(v33, v40);
-    if (a3)
-    {
-      v27 = v18;
-      v28 = a3;
-      do
-      {
-        v29 = *a2++;
-        *v27++ = v29 ^ 0x36;
-        --v28;
-      }
-
-      while (v28);
-    }
-
-    memset(&v18[a3], 54, v25);
-    v26(v12 + 3, v40);
-    bzero(v18, a3);
-    (*(v9 + 6))(v12 + 3, v20);
-    *v19 = v12;
-    result = 0;
+    return 0xFFFFFFFFLL;
   }
 
-  else
+  v8 = *&SSLMACPad2[8 * v4 + 48];
+  v9 = *(&off_29EEA7298 + v4);
+  v10 = v9[2];
+  v11 = sslMalloc((3 * v10) + 56);
+  if (!v11)
   {
-    result = 0xFFFFFFFFLL;
+    return 0xFFFFFFFFLL;
   }
 
-  v31 = *MEMORY[0x29EDCA608];
-  return result;
+  v12 = v11;
+  v35 = a4;
+  *v11 = v9;
+  v11[1] = v10;
+  v11[2] = v11 + 7;
+  v13 = v11 + v10 + 56;
+  v11[3] = v10;
+  v11[4] = v13;
+  v11[5] = v10;
+  v34 = v11 + 5;
+  v11[6] = &v13[v10];
+  v14 = *(v9 + 2);
+  v32 = v11 + 1;
+  v14();
+  v15 = (v14)(v12 + 3);
+  v33 = &v31;
+  v16 = *v9;
+  v17 = MEMORY[0x2A1C7C4A8](v15);
+  if (v16)
+  {
+    v17 = memset(&v31 - ((v16 + 15) & 0x1FFFFFFF0), 170, v16);
+  }
+
+  MEMORY[0x2A1C7C4A8](v17);
+  v18 = &v31 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  memset(v18, 170, v8);
+  v39[0] = v8;
+  v39[1] = v18;
+  if (v8 < a3)
+  {
+    v38[0] = a3;
+    v38[1] = a2;
+    v36 = v16;
+    v37 = &v31 - ((v16 + 15) & 0x1FFFFFFF0);
+    (*(v9 + 3))(v12 + 3, v38);
+    (*(v9 + 4))(v12 + 3, &v36);
+    a3 = v36;
+    a2 = v37;
+    (v14)(v12 + 3);
+  }
+
+  v20 = v34;
+  v19 = v35;
+  if (a3)
+  {
+    v21 = a2;
+    v22 = &v31 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+    v23 = a3;
+    do
+    {
+      v24 = *v21++;
+      *v22++ = v24 ^ 0x5C;
+      --v23;
+    }
+
+    while (v23);
+  }
+
+  v25 = v8 - a3;
+  memset(&v18[a3], 92, v25);
+  v26 = *(v9 + 3);
+  v26(v32, v39);
+  if (a3)
+  {
+    v27 = v18;
+    v28 = a3;
+    do
+    {
+      v29 = *a2++;
+      *v27++ = v29 ^ 0x36;
+      --v28;
+    }
+
+    while (v28);
+  }
+
+  memset(&v18[a3], 54, v25);
+  v26(v12 + 3, v39);
+  bzero(v18, a3);
+  (*(v9 + 6))(v12 + 3, v20);
+  *v19 = v12;
+  return 0;
 }
 
 uint64_t HashSHA384Clone(uint64_t a1, uint64_t a2)
@@ -7050,29 +6876,29 @@ void HMAC_Hmac(HMAC_CTX *a1, uint64_t a2, uint64_t a3, unsigned __int8 *a4, unsi
 
 void HMAC_Final(HMAC_CTX *ctx, unsigned __int8 *md, unsigned int *len)
 {
-  v12 = *MEMORY[0x29EDCA608];
-  v10[0] = 48;
-  v10[1] = v11;
-  if (ctx && md && len)
+  v10 = *MEMORY[0x29EDCA608];
+  v8[0] = 48;
+  v8[1] = v9;
+  if (ctx && md)
   {
-    *&v5 = 0xAAAAAAAAAAAAAAAALL;
-    *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-    v11[1] = v5;
-    v11[2] = v5;
-    v11[0] = v5;
-    v9[0] = *len;
-    v9[1] = md;
-    (ctx->md->update)(&ctx->i_ctx, v10);
-    (ctx->md->copy)(&ctx->md_ctx, &ctx->i_ctx);
-    (ctx->md->init)(&ctx->i_ctx, v10);
-    v6 = ctx->md;
-    type = ctx->md->type;
-    __memset_chk();
-    (v6->update)(&ctx->i_ctx, v9);
-    *len = ctx->md->type;
+    if (len)
+    {
+      *&v5 = 0xAAAAAAAAAAAAAAAALL;
+      *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
+      v9[1] = v5;
+      v9[2] = v5;
+      v9[0] = v5;
+      v7[0] = *len;
+      v7[1] = md;
+      (ctx->md->update)(&ctx->i_ctx, v8);
+      (ctx->md->copy)(&ctx->md_ctx, &ctx->i_ctx);
+      (ctx->md->init)(&ctx->i_ctx, v8);
+      v6 = ctx->md;
+      __memset_chk();
+      (v6->update)(&ctx->i_ctx, v7);
+      *len = ctx->md->type;
+    }
   }
-
-  v8 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t HashSHA384Final(uint64_t a1, void *a2)
@@ -7081,6 +6907,16 @@ uint64_t HashSHA384Final(uint64_t a1, void *a2)
   (*(v4 + 56))(v4, *(a1 + 8), a2[1]);
   *a2 = *v4;
   return 0;
+}
+
+void HMAC_Init(HMAC_CTX *ctx, const void *key, int len, const EVP_MD *md)
+{
+  if (ctx)
+  {
+    p_i_ctx = &ctx->i_ctx;
+    (ctx->md->final)(&ctx->i_ctx, key, *&len, md);
+    (ctx->md->copy)(&ctx->md_ctx.flags, p_i_ctx);
+  }
 }
 
 void HMAC_Update(HMAC_CTX *ctx, const unsigned __int8 *data, size_t len)
@@ -7093,13 +6929,13 @@ void HMAC_Update(HMAC_CTX *ctx, const unsigned __int8 *data, size_t len)
   }
 }
 
-uint64_t HMAC_Free(void **a1)
+uint64_t HMAC_Free(void (***a1)(void **))
 {
   if (a1)
   {
-    (*(*a1 + 5))(a1 + 1);
-    (*(*a1 + 5))(a1 + 3);
-    (*(*a1 + 5))(a1 + 5);
+    (*a1)[5](a1 + 1);
+    (*a1)[5](a1 + 3);
+    (*a1)[5](a1 + 5);
     bzero(a1[2], a1[1]);
     bzero(a1[4], a1[3]);
     bzero(a1[6], a1[5]);
@@ -7139,17 +6975,15 @@ uint64_t SSLInitPendingCiphers(uint64_t a1)
 
 uint64_t tls1GenerateKeyMaterial(size_t a1, char *a2, uint64_t a3)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v3 = *(a3 + 484);
-  v8 = *(a3 + 468);
-  v9 = v3;
+  v7 = *(a3 + 468);
+  v8 = v3;
   v4 = *(a3 + 452);
-  v10 = *(a3 + 436);
-  qmemcpy(v7, "key expansion", sizeof(v7));
-  v11 = v4;
-  result = tls_handshake_internal_prf(a3, a3 + 520, 0x30uLL, 0, 0, v7, 0x4DuLL, a2, a1);
-  v6 = *MEMORY[0x29EDCA608];
-  return result;
+  v9 = *(a3 + 436);
+  qmemcpy(v6, "key expansion", sizeof(v6));
+  v10 = v4;
+  return tls_handshake_internal_prf(a3, a3 + 520, 0x30uLL, 0, 0, v6, 0x4DuLL, a2, a1);
 }
 
 uint64_t tls_record_init_pending_ciphers(uint64_t a1, int a2, int a3, uint64_t a4, char *a5)
@@ -7313,13 +7147,13 @@ uint64_t tls12ComputeCertVfyMac(uint64_t a1, void *a2, int a3)
 
 uint64_t SSLProcessCertificateVerify(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v19 = *MEMORY[0x29EDCA608];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v15[2] = v4;
-  v15[3] = v4;
-  v15[0] = v4;
-  v15[1] = v4;
+  v18[2] = v4;
+  v18[3] = v4;
+  v18[0] = v4;
+  v18[1] = v4;
   if (*(a3 + 16))
   {
     v5 = 65279;
@@ -7342,63 +7176,63 @@ uint64_t SSLProcessCertificateVerify(uint64_t a1, unsigned __int8 *a2, uint64_t 
     if (a1 <= 1)
     {
       __ssl_debug("sslError", "SSLProcessCertificateVerify", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCert.c", 677, "SSLProcessCertificateVerify: msg len error 1\n");
-LABEL_13:
-      v9 = 4294957496;
-      goto LABEL_14;
+      return 4294957496;
     }
 
     v6 = *a2;
-    v8 = (a2 + 2);
+    v8 = a2 + 2;
     v7 = a2[1] == 1;
   }
 
+  v9 = &a2[a1];
+  v10 = (v8 + 2);
   if (v8 + 2 > &a2[a1])
   {
     __ssl_debug("sslError", "SSLProcessCertificateVerify", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCert.c", 685, "SSLProcessCertificateVerify: msg len error\n");
-    goto LABEL_13;
+    return 4294957496;
   }
 
-  if (v8 + 2 + SSLDecodeSize(v8, 2) > &a2[a1])
+  v11 = SSLDecodeSize(v8, 2);
+  if (&v11[v10] > v9)
   {
     __ssl_debug("sslError", "SSLProcessCertificateVerify", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCert.c", 692, "SSLProcessCertificateVerify: sig len error 1\n");
-    goto LABEL_13;
+    return 4294957496;
   }
 
-  v14[0] = 64;
-  v14[1] = v15;
-  v9 = (*(*(a3 + 24) + 24))(a3, v14, v6);
-  if (!v9)
+  v14 = v11;
+  v17[0] = 64;
+  v17[1] = v18;
+  v12 = (*(*(a3 + 24) + 24))(a3, v17, v6);
+  if (!v12)
   {
     if (*(a3 + 16))
     {
-      v12 = 65279;
+      v15 = 65279;
     }
 
     else
     {
-      v12 = 770;
+      v15 = 770;
     }
 
-    if (*a3 > v12 && v7)
+    if (*a3 > v15 && v7)
     {
-      v13 = sslRsaVerify(a3 + 40, v6);
+      v16 = sslRsaVerify(a3 + 40, v6, v18, v17[0], v10, v14);
     }
 
     else
     {
-      v13 = sslRawVerify(a3 + 40);
+      v16 = sslRawVerify(a3 + 40, v18, v17[0], v10, v14);
     }
 
-    v9 = v13;
-    if (v13)
+    v12 = v16;
+    if (v16)
     {
       SSLFatalSessionAlert(51, a3);
     }
   }
 
-LABEL_14:
-  v10 = *MEMORY[0x29EDCA608];
-  return v9;
+  return v12;
 }
 
 uint64_t CloneHashState(uint64_t a1, uint64_t a2, size_t *a3)
@@ -7421,20 +7255,15 @@ uint64_t HashSHA256Clone(uint64_t a1, uint64_t a2)
   return 0;
 }
 
-uint64_t sslRsaVerify(uint64_t a1, int a2)
+uint64_t sslRsaVerify(uint64_t a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  if ((a2 - 2) <= 4)
-  {
-    v2 = (&off_29EEA6970)[a2 - 2];
-  }
-
   if (*a1 == 1 && *(a1 + 8))
   {
-    v3 = ccrsa_verify_pkcs1v15();
-    if (v3)
+    v6 = ccrsa_verify_pkcs1v15();
+    if (v6)
     {
-      v4 = v3;
-      __ssl_debug("sslError", "sslRsaVerify", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCrypto.c", 535, "sslRsaVerify: ccrsa_verify_pkcs1v15 failed (error %d)\n", v3);
+      v7 = v6;
+      __ssl_debug("sslError", "sslRsaVerify", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCrypto.c", 535, "sslRsaVerify: ccrsa_verify_pkcs1v15 failed (error %d)\n", v6);
     }
 
     else
@@ -7446,11 +7275,11 @@ uint64_t sslRsaVerify(uint64_t a1, int a2)
 
   else
   {
-    __ssl_debug("sslError", "sslRsaVerify", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCrypto.c", 528, "Internal Error: Invalid RSA public key\n");
+    __ssl_debug("sslError", "sslRsaVerify", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCrypto.c", 528, "Internal Error: Invalid RSA public key\n", a6);
     return 4294957486;
   }
 
-  return v4;
+  return v7;
 }
 
 uint64_t SSLProcessChangeCipherSpec(uint64_t a1, _BYTE *a2, uint64_t a3)
@@ -7460,7 +7289,6 @@ uint64_t SSLProcessChangeCipherSpec(uint64_t a1, _BYTE *a2, uint64_t a3)
     if ((*(a3 + 16) & 1) == 0)
     {
       SSLFatalSessionAlert(10, a3);
-      v8 = *a2;
       __ssl_debug("sslError", "SSLProcessChangeCipherSpec", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslChangeCipher.c", 69, "***bad changeCipherSpec msg: length %d data 0x%x\n");
       return 4294957496;
     }
@@ -7468,17 +7296,17 @@ uint64_t SSLProcessChangeCipherSpec(uint64_t a1, _BYTE *a2, uint64_t a3)
     return 4294957447;
   }
 
-  if ((*(a3 + 17) & 1) != 0 || !*(a3 + 736) || (*(a3 + 380) - 7) > 1 || (v5 = *(a3 + 752)) == 0)
+  if ((*(a3 + 17) & 1) != 0 || !*(a3 + 736) || (*(a3 + 380) - 7) > 1 || (v4 = *(a3 + 752)) == 0)
   {
 LABEL_16:
     if (*(a3 + 324) == 1 && *(a3 + 380) == 14)
     {
-      v6 = (*(*(a3 + 1112) + 88))(*(a3 + 1104));
-      if (!v6)
+      v5 = (*(*(a3 + 1112) + 88))(*(a3 + 1104));
+      if (!v5)
       {
         *(a3 + 324) = 0;
         *(a3 + 380) = 15;
-        return v6;
+        return v5;
       }
 
       goto LABEL_19;
@@ -7487,8 +7315,6 @@ LABEL_16:
     if ((*(a3 + 16) & 1) == 0)
     {
       SSLFatalSessionAlert(10, a3);
-      v10 = *(a3 + 324);
-      v11 = *(a3 + 380);
       __ssl_debug("sslError", "SSLProcessChangeCipherSpec", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslChangeCipher.c", 110, "***bad changeCipherSpec msg: readPending.ready %d state %d\n");
       return 4294957496;
     }
@@ -7496,26 +7322,26 @@ LABEL_16:
     return 4294957447;
   }
 
-  v12 = 48;
-  v5(*(a3 + 760), a3 + 520, &v12);
+  v8 = 48;
+  v4(*(a3 + 760), a3 + 520, &v8);
   *(a3 + 320) = 1;
-  v6 = ValidateSelectedCiphersuite(a3);
-  if (!v6)
+  v5 = ValidateSelectedCiphersuite(a3);
+  if (!v5)
   {
-    v7 = SSLInitPendingCiphers(a3);
-    if (v7)
+    v6 = SSLInitPendingCiphers(a3);
+    if (v6)
     {
-      v6 = v7;
+      v5 = v6;
 LABEL_19:
       SSLFatalSessionAlert(80, a3);
-      return v6;
+      return v5;
     }
 
     *(a3 + 380) = 14;
     goto LABEL_16;
   }
 
-  return v6;
+  return v5;
 }
 
 double tls_record_advance_read_cipher(uint64_t a1)
@@ -7602,15 +7428,15 @@ LABEL_5:
 
 uint64_t tls12ComputeFinishedMac(uint64_t a1, size_t a2, char *a3, int a4)
 {
-  v22 = *MEMORY[0x29EDCA608];
+  v21 = *MEMORY[0x29EDCA608];
   *&v8 = 0xAAAAAAAAAAAAAAAALL;
   *(&v8 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v21[2] = v8;
-  v21[3] = v8;
-  v21[0] = v8;
-  v21[1] = v8;
+  v20[2] = v8;
+  v20[3] = v8;
+  v20[0] = v8;
+  v20[1] = v8;
+  v18 = 0xAAAAAAAAAAAAAAAALL;
   v19 = 0xAAAAAAAAAAAAAAAALL;
-  v20 = 0xAAAAAAAAAAAAAAAALL;
   v9 = *(a1 + 344);
   v10 = 600;
   if (v9 == 4)
@@ -7624,20 +7450,20 @@ uint64_t tls12ComputeFinishedMac(uint64_t a1, size_t a2, char *a3, int a4)
     v11 = &SSLHashSHA256;
   }
 
-  v18[0] = 0xAAAAAAAAAAAAAAAALL;
-  v18[1] = 0;
-  v12 = CloneHashState(v11, a1 + v10, v18);
+  v17[0] = 0xAAAAAAAAAAAAAAAALL;
+  v17[1] = 0;
+  v12 = CloneHashState(v11, a1 + v10, v17);
   if (!v12)
   {
-    v19 = *v11;
-    v20 = v21;
+    v18 = *v11;
+    v19 = v20;
     v13 = off_2A1EFF348;
     if (v9 != 4)
     {
       v13 = off_2A1EFF380;
     }
 
-    v12 = (*v13)(v18, &v19);
+    v12 = (*v13)(v17, &v18);
     if (!v12)
     {
       if (a4)
@@ -7650,13 +7476,12 @@ uint64_t tls12ComputeFinishedMac(uint64_t a1, size_t a2, char *a3, int a4)
         v14 = "client finished";
       }
 
-      v12 = tls_handshake_internal_prf(a1, a1 + 520, 0x30uLL, v14, 0xFuLL, v20, v19, a3, a2);
+      v12 = tls_handshake_internal_prf(a1, a1 + 520, 0x30uLL, v14, 0xFuLL, v19, v18, a3, a2);
     }
   }
 
   v15 = v12;
-  SSLFreeBuffer(v18);
-  v16 = *MEMORY[0x29EDCA608];
+  SSLFreeBuffer(v17);
   return v15;
 }
 
@@ -7688,7 +7513,7 @@ uint64_t SSLEncodeChangeCipherSpec(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t SSLEncodeFinishedMessage(size_t *a1, uint64_t a2)
+uint64_t SSLEncodeFinishedMessage(size_t *a1, int *a2)
 {
   v4 = *a2;
   if ((*a2 - 769) >= 3)
@@ -7722,11 +7547,11 @@ LABEL_5:
   {
     v8 = v5;
     v9 = SSLEncodeHandshakeHeader(a2, a1, 20, v5);
-    result = (*(*(a2 + 24) + 16))(a2, v5, v9, *(a2 + 17));
+    result = (*(*(a2 + 3) + 16))(a2, v5, v9, *(a2 + 17));
     if (!result)
     {
-      SSLFreeBuffer((a2 + 856));
-      return SSLCopyBuffer(&v8, (a2 + 856));
+      SSLFreeBuffer(a2 + 107);
+      return SSLCopyBuffer(&v8, a2 + 107);
     }
   }
 
@@ -7782,15 +7607,15 @@ LABEL_16:
   }
 
   while (!SessionCacheEntryMatchKey(v8, a2));
-  v9 = *(v8 + 24);
-  if (v9 == *a3 && !memcmp(*(v8 + 32), *(a3 + 8), v9))
+  v9 = v8[3];
+  if (v9 == *a3 && !memcmp(v8[4], *(a3 + 8), v9))
   {
     return 0;
   }
 
-  SSLFreeBuffer((v8 + 24));
+  SSLFreeBuffer(v8 + 3);
 
-  return SSLCopyBuffer(a3, (v8 + 24));
+  return SSLCopyBuffer(a3, v8 + 3);
 }
 
 const void *SessionCacheEntryMatchKey(uint64_t a1, size_t *a2)
@@ -7876,7 +7701,7 @@ void SessionCacheEmpty(void **a1)
   }
 }
 
-unint64_t tls_record_decrypted_size(uint64_t a1, unint64_t a2)
+uint64_t tls_record_decrypted_size(uint64_t a1, unint64_t a2)
 {
   v2 = 5;
   if (*(a1 + 488))
@@ -8309,21 +8134,19 @@ uint64_t tls_handshake_set_min_dh_group_size(uint64_t a1, unsigned int a2)
   return 0;
 }
 
-uint64_t tls_handshake_set_dh_parameters(uint64_t a1, uint64_t *a2)
+uint64_t tls_handshake_set_dh_parameters(uint64_t a1, void *a2)
 {
-  v4 = *a2;
-  v3 = a2[1];
-  v5 = ccder_decode_dhparam_n();
+  v3 = ccder_decode_dhparam_n();
   sslFree(*(a1 + 96));
-  v6 = ccdh_gp_size();
-  v7 = sslMalloc(v6);
-  *(a1 + 96) = v7;
-  if (!v7)
+  v4 = ccdh_gp_size();
+  v5 = sslMalloc(v4);
+  *(a1 + 96) = v5;
+  if (!v5)
   {
     return 4294967188;
   }
 
-  *v7 = v5;
+  *v5 = v3;
   if (ccder_decode_dhparams())
   {
     return 0;
@@ -8335,7 +8158,7 @@ uint64_t tls_handshake_set_dh_parameters(uint64_t a1, uint64_t *a2)
   }
 }
 
-uint64_t tls_handshake_set_encrypt_rsa_public_key(uint64_t a1, uint64_t *a2, uint64_t *a3)
+uint64_t tls_handshake_set_encrypt_rsa_public_key(uint64_t a1, void *a2, void *a3)
 {
   sslFreePubKey(a1 + 168);
 
@@ -8380,7 +8203,7 @@ uint64_t tls_handshake_set_alpn_data(uint64_t a1, uint64_t a2, uint64_t a3)
   return SSLCopyBuffer(v5, (a1 + 976));
 }
 
-uint64_t tls_handshake_set_ocsp_responder_id_list(uint64_t a1, uint64_t **a2)
+uint64_t tls_handshake_set_ocsp_responder_id_list(uint64_t a1, void *a2)
 {
   tls_free_buffer_list(*(a1 + 1032));
 
@@ -8402,7 +8225,7 @@ uint64_t tls_handshake_set_ocsp_response(uint64_t a1, uint64_t a2)
   return SSLCopyBuffer(a2, (a1 + 1048));
 }
 
-uint64_t tls_handshake_set_sct_list(uint64_t a1, uint64_t **a2)
+uint64_t tls_handshake_set_sct_list(uint64_t a1, void *a2)
 {
   tls_free_buffer_list(*(a1 + 1072));
 
@@ -8605,11 +8428,11 @@ uint64_t tls_handshake_internal_set_session_ticket(uint64_t a1, const void *a2, 
   return SSLCopyBufferFromData(a2, a3, (a1 + 736));
 }
 
-uint64_t sslCipherSuiteGetMinSupportedTLSVersion(int a1)
+uint64_t sslCipherSuiteGetMinSupportedTLSVersion(unsigned int a1)
 {
   if (a1 > 155)
   {
-    if ((a1 - 49153) >= 0x19)
+    if (a1 - 49153 >= 0x19)
     {
       return 771;
     }
@@ -8633,11 +8456,12 @@ uint64_t sslCipherSuiteGetMinSupportedTLSVersion(int a1)
   return result;
 }
 
-uint64_t sslCipherSuiteGetKeydataSize(int a1)
+uint64_t sslCipherSuiteGetKeydataSize(uint64_t a1)
 {
+  v1 = a1;
   MacSize = sslCipherSuiteGetMacSize(a1);
-  SymmetricCipherKeySize = sslCipherSuiteGetSymmetricCipherKeySize(a1);
-  return 2 * ((SymmetricCipherKeySize + MacSize) & 0x7F) + 2 * (sslCipherSuiteGetSymmetricCipherBlockIvSize(a1) & 0x7F);
+  SymmetricCipherKeySize = sslCipherSuiteGetSymmetricCipherKeySize(v1);
+  return 2 * ((SymmetricCipherKeySize + MacSize) & 0x7F) + 2 * (sslCipherSuiteGetSymmetricCipherBlockIvSize(v1) & 0x7F);
 }
 
 uint64_t SSLEncodedBufferListSize(void *a1, int a2)
@@ -9016,55 +8840,50 @@ LABEL_5:
   return result;
 }
 
-uint64_t sslEncodeDhParams(uint64_t a1, void *a2, unint64_t *a3, uint64_t a4)
+uint64_t sslEncodeDhParams(uint64_t a1, void *a2, unint64_t *a3, unint64_t *a4)
 {
-  v8 = *a3 + 7;
-  v9 = ccdh_gp_size();
-  v10 = sslMalloc(v9);
-  if (!v10)
+  v8 = ccdh_gp_size();
+  v9 = sslMalloc(v8);
+  if (!v9)
   {
     return 4294967188;
   }
 
-  v11 = v10;
-  v12 = ccdh_gp_size();
-  bzero(v11, v12);
-  v13 = *a3;
-  v14 = a3[1];
-  v15 = *a4;
-  v16 = *(a4 + 8);
+  v10 = v9;
+  v11 = ccdh_gp_size();
+  bzero(v10, v11);
   inited = ccdh_init_gp_from_bytes();
-  v18 = inited;
+  v13 = inited;
   if (inited)
   {
     if (inited == -168)
     {
-      v19 = copyHexString(a3[1], *a3);
-      v20 = copyHexString(*(a4 + 8), *a4);
+      v14 = copyHexString(a3[1], *a3);
+      v15 = copyHexString(a4[1], *a4);
       tls_metric_insecure_dh_param();
       tls_handshake_set_session_warning(a1, -168);
-      if (v19)
+      if (v14)
       {
-        CFRelease(v19);
+        CFRelease(v14);
       }
 
-      if (v20)
+      if (v15)
       {
-        CFRelease(v20);
+        CFRelease(v15);
       }
 
-      v18 = 4294957446;
+      v13 = 4294957446;
     }
 
-    sslFree(v11);
+    sslFree(v10);
   }
 
   else
   {
-    *a2 = v11;
+    *a2 = v10;
   }
 
-  return v18;
+  return v13;
 }
 
 uint64_t sslDhCreateKey(uint64_t a1, void *a2)
@@ -9096,60 +8915,54 @@ uint64_t sslDhCreateKey(uint64_t a1, void *a2)
   return key;
 }
 
-uint64_t sslDhKeyExchange(uint64_t *a1, uint64_t *a2, size_t *a3)
+uint64_t sslDhKeyExchange(uint64_t *a1, void *a2, size_t *a3)
 {
-  v19[1] = *MEMORY[0x29EDCA608];
+  v14[1] = *MEMORY[0x29EDCA608];
   if (!ccDRBGGetRngState())
   {
     abort();
   }
 
-  v6 = *a1;
-  v7 = ccdh_ccn_size();
-  MEMORY[0x2A1C7C4A8](v7);
-  if (v9 >= 0x10)
+  v5 = *a1;
+  v6 = ccdh_ccn_size();
+  MEMORY[0x2A1C7C4A8](v6);
+  if (v8 >= 0x10)
   {
-    v10 = (v19 - v8);
+    v9 = (v14 - v7);
     do
     {
-      *v10 = 0xAAAAAAAAAAAAAAAALL;
-      v10[1] = 0xAAAAAAAAAAAAAAAALL;
-      v10 += 2;
-      v8 -= 16;
+      *v9 = 0xAAAAAAAAAAAAAAAALL;
+      v9[1] = 0xAAAAAAAAAAAAAAAALL;
+      v9 += 2;
+      v7 -= 16;
     }
 
-    while (v8);
+    while (v7);
   }
 
-  v11 = *a2;
-  v12 = a2[1];
   if (ccdh_import_pub())
   {
     goto LABEL_10;
   }
 
-  v13 = MEMORY[0x29C28DA10](v6);
-  v14 = SSLAllocBuffer(a3, 8 * v13);
-  if (v14)
+  v10 = MEMORY[0x29C28DA10](v5);
+  v11 = SSLAllocBuffer(a3, 8 * v10);
+  if (v11)
   {
-    v16 = v14;
+    v12 = v11;
     goto LABEL_12;
   }
 
-  v15 = a3[1];
   if (ccdh_compute_shared_secret())
   {
 LABEL_10:
-    v16 = 4294957496;
+    v12 = 4294957496;
 LABEL_12:
-    __ssl_debug("sslError", "sslDhKeyExchange", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCrypto.c", 192, "sslDhKeyExchange: failed to compute key (error %d)\n", v16);
-    goto LABEL_9;
+    __ssl_debug("sslError", "sslDhKeyExchange", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCrypto.c", 192, "sslDhKeyExchange: failed to compute key (error %d)\n", v12);
+    return v12;
   }
 
-  v16 = 0;
-LABEL_9:
-  v17 = *MEMORY[0x29EDCA608];
-  return v16;
+  return 0;
 }
 
 uint64_t sslRawSign(void *a1, uint64_t a2, uint64_t a3, char *a4, size_t a5, size_t *a6)
@@ -9211,7 +9024,7 @@ LABEL_13:
   return v12;
 }
 
-uint64_t sslEcdsaSign(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
+uint64_t sslEcdsaSign(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
 {
   v9 = a5;
   v7 = (*(a1 + 40))(*a1, a2, a3, a4, &v9);
@@ -9224,18 +9037,18 @@ uint64_t sslEcdsaSign(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64
   return v7;
 }
 
-uint64_t sslRawVerify(uint64_t a1)
+uint64_t sslRawVerify(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   if (*a1 != 1)
   {
     if (*(a1 + 8))
     {
-      v3 = ccec_verify();
-      if (v3)
+      v7 = ccec_verify();
+      if (v7)
       {
-        v2 = v3;
-        __ssl_debug("sslError", "sslRawEccVerify", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCrypto.c", 466, "sslRawEccVerify: ccec_verify failed (error %d)\n", v3);
-        return v2;
+        v6 = v7;
+        __ssl_debug("sslError", "sslRawEccVerify", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCrypto.c", 466, "sslRawEccVerify: ccec_verify failed (error %d)\n", v7);
+        return v6;
       }
 
       __ssl_debug("sslError", "sslRawEccVerify", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCrypto.c", 469, "sslRawEccVerify: ccec_verify signature verify error\n", 0);
@@ -9252,124 +9065,120 @@ uint64_t sslRawVerify(uint64_t a1)
     return 4294957486;
   }
 
-  v1 = ccrsa_verify_pkcs1v15();
-  if (!v1)
+  v5 = ccrsa_verify_pkcs1v15();
+  if (!v5)
   {
     __ssl_debug("sslError", "sslRawRsaVerify", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCrypto.c", 441, "sslRawRsaVerify: ccrsa_verify_pkcs1v15 signature verify error\n", 0);
     return 4294957487;
   }
 
-  v2 = v1;
-  __ssl_debug("sslError", "sslRawRsaVerify", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCrypto.c", 438, "sslRawRsaVerify: ccrsa_verify_pkcs1v15 failed (error %d)\n", v1);
-  return v2;
+  v6 = v5;
+  __ssl_debug("sslError", "sslRawRsaVerify", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCrypto.c", 438, "sslRawRsaVerify: ccrsa_verify_pkcs1v15 failed (error %d)\n", v5);
+  return v6;
 }
 
 uint64_t sslRsaEncrypt(uint64_t a1, const void *a2, size_t a3, char *a4, size_t a5, size_t *a6)
 {
-  v29 = *MEMORY[0x29EDCA608];
+  v25 = *MEMORY[0x29EDCA608];
   if (*a1 == 1 && (v6 = *(a1 + 8)) != 0)
   {
-    v26 = a5;
-    v27 = a6;
-    v28 = &v26;
-    v10 = *v6;
+    v22 = a5;
+    v23 = a6;
+    v24 = &v22;
     MEMORY[0x2A1C7C4A8](a1);
-    v12 = &v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-    if (v13)
+    v11 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+    if (v12)
     {
-      memset(&v26 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0), 170, v11);
+      memset(&v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0), 170, v10);
     }
 
-    v14 = *v6;
-    v15 = ccn_write_uint_size();
-    if (v15 - 11 < a3)
+    v13 = *v6;
+    v14 = ccn_write_uint_size();
+    if (v14 - 11 < a3)
     {
       goto LABEL_22;
     }
 
-    v16 = v15;
-    v17 = v12;
-    v18 = 8 * v14 - v15;
-    if (v18)
+    v15 = v14;
+    v16 = v11;
+    v17 = 8 * v13 - v14;
+    if (v17)
     {
-      bzero(v12, v18);
-      v17 = &v12[v18];
+      bzero(v11, v17);
+      v16 = &v11[v17];
     }
 
-    *v17 = 512;
-    v19 = v17 + 2;
-    v20 = ccDRBGGetRngState();
-    if (!v20)
+    *v16 = 512;
+    v18 = v16 + 2;
+    v19 = ccDRBGGetRngState();
+    if (!v19)
     {
       abort();
     }
 
-    if ((*v20)(v20, v16 - a3 - 3, v17 + 2))
+    if ((*v19)(v19, v15 - a3 - 3, v16 + 2))
     {
       goto LABEL_22;
     }
 
-    if ((v16 - a3 - 3) >= 1)
+    if ((v15 - a3 - 3) >= 1)
     {
       do
       {
-        if (!*v19)
+        if (!*v18)
         {
-          *v19 = -1;
+          *v18 = -1;
         }
 
-        ++v19;
+        ++v18;
       }
 
-      while (v19 < &v17[v16 - a3 - 1]);
+      while (v18 < &v16[v15 - a3 - 1]);
     }
 
-    *v19 = 0;
-    memcpy(v19 + 1, a2, a3);
-    v21 = *v6;
+    *v18 = 0;
+    memcpy(v18 + 1, a2, a3);
     ccn_swap();
     if (ccrsa_pub_crypt())
     {
 LABEL_22:
       sslRsaEncrypt_cold_1();
-      result = 4294957487;
+      return 4294957487;
     }
 
     else
     {
-      v22 = *v6;
       ccn_write_uint_padded();
-      v23 = v26;
-      if (v26 <= v16)
+      v20 = v22;
+      if (v22 <= v15)
       {
-        v23 = v16;
+        v20 = v15;
       }
 
       else
       {
-        memmove(&a4[v26 - v16], a4, v16);
-        bzero(a4, v23 - v16);
+        memmove(&a4[v22 - v15], a4, v15);
+        bzero(a4, v20 - v15);
       }
 
       result = 0;
-      if (v27)
+      if (v23)
       {
-        *v27 = v23;
+        *v23 = v20;
       }
     }
   }
 
   else
   {
-    __ssl_debug("sslError", "sslRsaEncrypt", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCrypto.c", 565, "Internal Error: Invalid RSA public key\n");
-    result = 4294957486;
+    __ssl_debug("sslError", "sslRsaEncrypt", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCrypto.c", 565, "Internal Error: Invalid RSA public key\n", a6);
+    return 4294957486;
   }
 
-  v25 = *MEMORY[0x29EDCA608];
   return result;
 }
 
-uint64_t sslRsaDecrypt(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6)
+uint64_t sslRsaDecrypt(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t *a6)
 {
   v9 = a5;
   v7 = (*(a1 + 40))(*a1, a2, a3, a4, &v9);
@@ -9384,20 +9193,20 @@ uint64_t sslRsaDecrypt(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
 void debug_log_chain(void *a1)
 {
-  v16 = *MEMORY[0x29EDCA608];
+  v15 = *MEMORY[0x29EDCA608];
   if (a1)
   {
     v1 = a1;
     v2 = 0;
     do
     {
-      v15 = -86;
+      v14 = -86;
       *&v3 = 0xAAAAAAAAAAAAAAAALL;
       *(&v3 + 1) = 0xAAAAAAAAAAAAAAAALL;
-      v14[2] = v3;
-      v14[3] = v3;
-      v14[0] = v3;
-      v14[1] = v3;
+      v13[2] = v3;
+      v13[3] = v3;
+      v13[0] = v3;
+      v13[1] = v3;
       __ssl_debug("sslLogNegotiateDebug", "debug_log_chain", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCert.c", 147, "cert: %lu", v2);
       __ssl_debug("sslLogNegotiateDebug", "debug_log_chain", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCert.c", 148, "-----BEGIN CERTIFICATE-----");
       v4 = v1[1];
@@ -9421,7 +9230,7 @@ void debug_log_chain(void *a1)
           }
 
           v6 += 3;
-          v10 = v14 + v5;
+          v10 = v13 + v5;
           *v10 = base64_chars[v9 >> 18];
           v10[1] = base64_chars[(v9 >> 12) & 0x3F];
           if (v6 <= v1[1] + 1)
@@ -9434,7 +9243,7 @@ void debug_log_chain(void *a1)
             v11 = 61;
           }
 
-          *(v14 + v5 + 2) = v11;
+          *(v13 + v5 + 2) = v11;
           if (v6 <= v1[1])
           {
             v12 = base64_chars[v9 & 0x3F];
@@ -9445,12 +9254,12 @@ void debug_log_chain(void *a1)
             v12 = 61;
           }
 
-          *(v14 + v5 + 3) = v12;
+          *(v13 + v5 + 3) = v12;
           v5 += 4;
           if (v5 == 64)
           {
-            v15 = 0;
-            __ssl_debug("sslLogNegotiateDebug", "debug_log_chain", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCert.c", 176, "%s", v14);
+            v14 = 0;
+            __ssl_debug("sslLogNegotiateDebug", "debug_log_chain", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCert.c", 176, "%s", v13);
             v5 = 0;
           }
 
@@ -9460,8 +9269,8 @@ void debug_log_chain(void *a1)
         while (v6 < v4);
         if (v5)
         {
-          *(v14 + v5) = 0;
-          __ssl_debug("sslLogNegotiateDebug", "debug_log_chain", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCert.c", 183, "%s", v14);
+          *(v13 + v5) = 0;
+          __ssl_debug("sslLogNegotiateDebug", "debug_log_chain", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCert.c", 183, "%s", v13);
         }
       }
 
@@ -9472,8 +9281,6 @@ void debug_log_chain(void *a1)
 
     while (v1);
   }
-
-  v13 = *MEMORY[0x29EDCA608];
 }
 
 uint64_t SSLEncodeCertificateStatus(size_t *a1, uint64_t a2)
@@ -9504,7 +9311,7 @@ uint64_t SSLEncodeCertificateStatus(size_t *a1, uint64_t a2)
   return result;
 }
 
-uint64_t SSLProcessCertificateStatus(unint64_t a1, _BYTE *a2, uint64_t a3)
+uint64_t SSLProcessCertificateStatus(unsigned __int8 *a1, _BYTE *a2, uint64_t a3)
 {
   if (!a1)
   {
@@ -9523,7 +9330,7 @@ uint64_t SSLProcessCertificateStatus(unint64_t a1, _BYTE *a2, uint64_t a3)
     return 4294957496;
   }
 
-  v7 = SSLDecodeSize((a2 + 1), 3);
+  v7 = SSLDecodeSize(a2 + 1, 3);
   if (!v7)
   {
     __ssl_debug("sslError", "SSLProcessCertificateStatus", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCert.c", 312, "SSLProcessCertificateStatus: message length decode error (3)\n");
@@ -9724,21 +9531,21 @@ LABEL_33:
 
 uint64_t SSLEncodeCertificateVerify(size_t *a1, uint64_t a2)
 {
-  v34 = *MEMORY[0x29EDCA608];
+  v33 = *MEMORY[0x29EDCA608];
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
   *(&v4 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v33[2] = v4;
-  v33[3] = v4;
-  v33[0] = v4;
-  v33[1] = v4;
-  v30 = 0xAAAAAAAAAAAAAAAALL;
+  v32[2] = v4;
+  v32[3] = v4;
+  v32[0] = v4;
+  v32[1] = v4;
+  v29 = 0xAAAAAAAAAAAAAAAALL;
   a1[1] = 0;
-  v32[0] = 64;
-  v32[1] = v33;
-  MaxSigSize = sslGetMaxSigSize(*(a2 + 32), &v30);
+  v31[0] = 64;
+  v31[1] = v32;
+  MaxSigSize = sslGetMaxSigSize(*(a2 + 32), &v29);
   if (MaxSigSize)
   {
-    goto LABEL_2;
+    return MaxSigSize;
   }
 
   v7 = *(*(a2 + 32) + 16);
@@ -9747,7 +9554,7 @@ uint64_t SSLEncodeCertificateVerify(size_t *a1, uint64_t a2)
     v8 = *a2;
     if (*a2 < 0x301u)
     {
-      goto LABEL_44;
+      return 4294957486;
     }
 
     v9 = 0;
@@ -9758,7 +9565,7 @@ uint64_t SSLEncodeCertificateVerify(size_t *a1, uint64_t a2)
   {
     if (v7)
     {
-      goto LABEL_44;
+      return 4294957486;
     }
 
     v8 = *a2;
@@ -9777,9 +9584,9 @@ uint64_t SSLEncodeCertificateVerify(size_t *a1, uint64_t a2)
     v12 = 4;
   }
 
-  v13 = v12 + v30;
-  v14 = v12 + v30 + 2;
-  v31 = v14;
+  v13 = v12 + v29;
+  v14 = v12 + v29 + 2;
+  v30 = v14;
   if (v11)
   {
     v15 = 770;
@@ -9799,13 +9606,13 @@ uint64_t SSLEncodeCertificateVerify(size_t *a1, uint64_t a2)
   {
     if (!*(a2 + 788))
     {
-      goto LABEL_44;
+      return 4294957486;
     }
 
     v16 = *(a2 + 800);
     if (!v16)
     {
-      goto LABEL_44;
+      return 4294957486;
     }
 
     v17 = 0;
@@ -9822,7 +9629,7 @@ LABEL_23:
       v6 = 4294957496;
       if (v17 == v16)
       {
-        goto LABEL_45;
+        return v6;
       }
     }
 
@@ -9839,16 +9646,20 @@ LABEL_23:
     }
 
     v14 = v13 + 4;
-    v31 = v13 + 4;
+    v30 = v13 + 4;
     *(a2 + 816) = v19 | (v10 << 32);
   }
 
-  MaxSigSize = (*(*(a2 + 24) + 24))(a2, v32, v19);
-  if (MaxSigSize || (MaxSigSize = SSLAllocBuffer(a1, v14), MaxSigSize))
+  MaxSigSize = (*(*(a2 + 24) + 24))(a2, v31, v19);
+  if (MaxSigSize)
   {
-LABEL_2:
-    v6 = MaxSigSize;
-    goto LABEL_45;
+    return MaxSigSize;
+  }
+
+  MaxSigSize = SSLAllocBuffer(a1, v14);
+  if (MaxSigSize)
+  {
+    return MaxSigSize;
   }
 
   v22 = (a1[1] + v12);
@@ -9871,30 +9682,28 @@ LABEL_2:
       v24 = *(a2 + 32);
       if (v9)
       {
-        v25 = sslRsaSign(v24, v19, v33, v32[0], v22 + 4, v30, &v31);
+        v25 = sslRsaSign(v24, v19, v32, v31[0], v22 + 4, v29, &v30);
       }
 
       else
       {
-        v25 = sslEcdsaSign(v24, v33, v32[0], (v22 + 4), v30, &v31);
+        v25 = sslEcdsaSign(v24, v32, v31[0], (v22 + 4), v29, &v30);
       }
 
       v6 = v25;
-      v26 = v31;
-      v27 = v31 + 4;
+      v26 = v30;
+      v27 = v30 + 4;
       v22 += 2;
       goto LABEL_40;
     }
 
     __ssl_debug("sslError", "SSLEncodeCertificateVerify", "/Library/Caches/com.apple.xbs/Sources/coreTLS/lib/sslCert.c", 610, "SSLEncodeCertificateVerify: unsupported signature hash algorithm (%d)\n", v19);
-LABEL_44:
-    v6 = 4294957486;
-    goto LABEL_45;
+    return 4294957486;
   }
 
-  v6 = sslRawSign(*(a2 + 32), v33, v32[0], v22 + 2, v30, &v31);
-  v26 = v31;
-  v27 = v31 + 2;
+  v6 = sslRawSign(*(a2 + 32), v32, v31[0], v22 + 2, v29, &v30);
+  v26 = v30;
+  v27 = v30 + 2;
 LABEL_40:
   if (v6)
   {
@@ -9908,7 +9717,353 @@ LABEL_40:
     SSLEncodeHandshakeHeader(a2, a1, 15, v27);
   }
 
-LABEL_45:
-  v28 = *MEMORY[0x29EDCA608];
   return v6;
+}
+
+void tls_metric_client_finished(uint64_t a1)
+{
+  if (arc4random_uniform(0x64u) > 9)
+  {
+    return;
+  }
+
+  KeyExchangeMethod = sslCipherSuiteGetKeyExchangeMethod(*(a1 + 328));
+  if (KeyExchangeMethod == 17 || KeyExchangeMethod == 15)
+  {
+    v4 = *(a1 + 144);
+    if (v4 > 23)
+    {
+      if (v4 == 24)
+      {
+        v28 = 0;
+        v5 = 0;
+        v6 = "p384";
+        goto LABEL_32;
+      }
+
+      if (v4 == 25)
+      {
+        v28 = 0;
+        v5 = 0;
+        v6 = "p521";
+        goto LABEL_32;
+      }
+    }
+
+    else
+    {
+      if (v4 == -1)
+      {
+LABEL_14:
+        v28 = 0;
+        v6 = 0;
+        v5 = 1;
+        goto LABEL_32;
+      }
+
+      if (v4 == 23)
+      {
+        v28 = 0;
+        v5 = 0;
+        v6 = "p256";
+        goto LABEL_32;
+      }
+    }
+
+    v28 = 0;
+    v5 = 0;
+    v6 = "other";
+    goto LABEL_32;
+  }
+
+  if (KeyExchangeMethod != 9 || !*(a1 + 96))
+  {
+    goto LABEL_14;
+  }
+
+  v7 = cczp_bitlen();
+  if (v7 < 0x800)
+  {
+    v8 = 4;
+  }
+
+  else
+  {
+    v8 = 5;
+  }
+
+  if (v7 >= 0x400)
+  {
+    v9 = v8;
+  }
+
+  else
+  {
+    v9 = 3;
+  }
+
+  if (v7 >= 0x300)
+  {
+    v10 = v9;
+  }
+
+  else
+  {
+    v10 = 2;
+  }
+
+  if (v7 < 0x200)
+  {
+    v10 = 1;
+  }
+
+  v28 = v10;
+  v5 = 1;
+  v6 = 0;
+LABEL_32:
+  v11 = *(a1 + 772);
+  if (v11)
+  {
+    v14 = 0;
+    v13 = 0;
+    v12 = 0;
+    v15 = *(a1 + 776);
+    do
+    {
+      v17 = *v15++;
+      v16 = v17;
+      v18 = v17 == 64;
+      if (v17 == 64)
+      {
+        v19 = 1;
+      }
+
+      else
+      {
+        v19 = v13;
+      }
+
+      if (v18)
+      {
+        v20 = v14;
+      }
+
+      else
+      {
+        v20 = 1;
+      }
+
+      if (v16 == 1)
+      {
+        v12 = 1;
+      }
+
+      else
+      {
+        v13 = v19;
+        v14 = v20;
+      }
+
+      --v11;
+    }
+
+    while (v11);
+  }
+
+  else
+  {
+    v12 = 0;
+    LOBYTE(v13) = 0;
+    LOBYTE(v14) = 0;
+  }
+
+  v21 = *(a1 + 784);
+  if (v21 == -1)
+  {
+    v23 = 0;
+    v22 = 1;
+  }
+
+  else if (v21 == 1)
+  {
+    v22 = 0;
+    v23 = "rsa";
+  }
+
+  else
+  {
+    v22 = 0;
+    if (v21 == 64)
+    {
+      v23 = "ecc";
+    }
+
+    else
+    {
+      v23 = "other";
+    }
+  }
+
+  if (*(a1 + 48))
+  {
+    if (*(a1 + 40))
+    {
+      v24 = "rsa";
+    }
+
+    else
+    {
+      v24 = "ecc";
+    }
+  }
+
+  else
+  {
+    v24 = "none";
+  }
+
+  if (process_identifier___csops_once != -1)
+  {
+    tls_metric_client_finished_cold_1();
+  }
+
+  if (*(a1 + 16))
+  {
+    v25 = "dtls";
+  }
+
+  else
+  {
+    v25 = "tls";
+  }
+
+  v26 = tls_metric_event_new("client_finished", process_identifier_data, v25);
+  if (v26)
+  {
+    v27 = v26;
+    tls_metric_event_add_string(v26, "config", "%d", *(a1 + 1092));
+    tls_metric_event_add_string(v27, "pv", "%04x", *a1);
+    tls_metric_event_add_string(v27, "cs", "%04x", *(a1 + 328));
+    tls_metric_event_add_string(v27, "key_type", "%s", v24);
+    if (*(a1 + 824))
+    {
+      tls_metric_event_add_string(v27, "kxSigAlg", "%02x_%02x", *(a1 + 824), *(a1 + 828));
+    }
+
+    if (*(a1 + 816))
+    {
+      tls_metric_event_add_string(v27, "certSigAlg", "%02x_%02x", *(a1 + 816), *(a1 + 820));
+    }
+
+    if (v28)
+    {
+      tls_metric_event_add_string(v27, "dhe_bucket", "%d", v28);
+    }
+
+    if (v5)
+    {
+      if (v22)
+      {
+        goto LABEL_71;
+      }
+    }
+
+    else
+    {
+      tls_metric_event_add_string(v27, "curve", "%s", v6);
+      if (v22)
+      {
+LABEL_71:
+        if ((v12 & 1) == 0)
+        {
+          goto LABEL_72;
+        }
+
+        goto LABEL_98;
+      }
+    }
+
+    tls_metric_event_add_string(v27, "neg_client_cert", "%s", v23);
+    if ((v12 & 1) == 0)
+    {
+LABEL_72:
+      if ((v13 & 1) == 0)
+      {
+        goto LABEL_73;
+      }
+
+      goto LABEL_99;
+    }
+
+LABEL_98:
+    ADClientIncValueForScalarKeyWithFormat("com.apple.coretls.%s.%s.%s.%s", *v27, v27[1], "req_client_cert_rsa", v27[2]);
+    if ((v13 & 1) == 0)
+    {
+LABEL_73:
+      if ((v14 & 1) == 0)
+      {
+LABEL_75:
+        if (*(a1 + 931) == 1)
+        {
+          ADClientIncValueForScalarKeyWithFormat("com.apple.coretls.%s.%s.%s.%s", *v27, v27[1], "npn_confirmed", v27[2]);
+        }
+
+        if (*(a1 + 971) == 1)
+        {
+          ADClientIncValueForScalarKeyWithFormat("com.apple.coretls.%s.%s.%s.%s", *v27, v27[1], "alpn_received", v27[2]);
+        }
+
+        if (*(a1 + 1009) == 1)
+        {
+          ADClientIncValueForScalarKeyWithFormat("com.apple.coretls.%s.%s.%s.%s", *v27, v27[1], "ocsp_peer_enabled", v27[2]);
+        }
+
+        if (*(a1 + 1040) == 1)
+        {
+          ADClientIncValueForScalarKeyWithFormat("com.apple.coretls.%s.%s.%s.%s", *v27, v27[1], "ocsp_response_received", v27[2]);
+        }
+
+        if (*(a1 + 1067) == 1)
+        {
+          ADClientIncValueForScalarKeyWithFormat("com.apple.coretls.%s.%s.%s.%s", *v27, v27[1], "sct_peer_enabled", v27[2]);
+        }
+
+        if (*(a1 + 1072))
+        {
+          ADClientIncValueForScalarKeyWithFormat("com.apple.coretls.%s.%s.%s.%s", *v27, v27[1], "sct_list", v27[2]);
+        }
+
+        if (*(a1 + 707) == 1)
+        {
+          ADClientIncValueForScalarKeyWithFormat("com.apple.coretls.%s.%s.%s.%s", *v27, v27[1], "sessionticket_confirmed", v27[2]);
+        }
+
+        if (*(a1 + 952))
+        {
+          ADClientIncValueForScalarKeyWithFormat("com.apple.coretls.%s.%s.%s.%s", *v27, v27[1], "npnpeerdata", v27[2]);
+        }
+
+        if (*(a1 + 712))
+        {
+          ADClientIncValueForScalarKeyWithFormat("com.apple.coretls.%s.%s.%s.%s", *v27, v27[1], "sessionticket", v27[2]);
+        }
+
+        free(v27);
+        return;
+      }
+
+LABEL_74:
+      ADClientIncValueForScalarKeyWithFormat("com.apple.coretls.%s.%s.%s.%s", *v27, v27[1], "req_client_cert_other", v27[2]);
+      goto LABEL_75;
+    }
+
+LABEL_99:
+    ADClientIncValueForScalarKeyWithFormat("com.apple.coretls.%s.%s.%s.%s", *v27, v27[1], "req_client_cert_ecc", v27[2]);
+    if ((v14 & 1) == 0)
+    {
+      goto LABEL_75;
+    }
+
+    goto LABEL_74;
+  }
 }

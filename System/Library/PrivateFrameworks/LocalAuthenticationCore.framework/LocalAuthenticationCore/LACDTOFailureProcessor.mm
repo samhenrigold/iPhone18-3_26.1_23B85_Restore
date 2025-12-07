@@ -63,21 +63,21 @@
   completionCopy = completion;
   if (-[LACDTOFailureProcessor canProcessRequest:](self, "canProcessRequest:", requestCopy) && ([resultCopy error], v11 = objc_claimAutoreleasedReturnValue(), v11, v11) && (objc_msgSend(resultCopy, "error"), v12 = objc_claimAutoreleasedReturnValue(), v13 = -[LACDTOFailureProcessor _checkErrorRequiresUI:](self, "_checkErrorRequiresUI:", v12), v12, v13))
   {
-    v14 = LACLogDTO();
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+    v15 = LACLogDTO(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&dword_1B0233000, v14, OS_LOG_TYPE_DEFAULT, "Failure alert will appear.", buf, 2u);
+      _os_log_impl(&dword_1B0233000, v15, OS_LOG_TYPE_DEFAULT, "Failure alert will appear.", buf, 2u);
     }
 
     ui = self->_ui;
-    v16[0] = MEMORY[0x1E69E9820];
-    v16[1] = 3221225472;
-    v16[2] = __63__LACDTOFailureProcessor_postProcessRequest_result_completion___block_invoke;
-    v16[3] = &unk_1E7A95998;
-    v18 = completionCopy;
-    v17 = resultCopy;
-    [(LACUserInterfacePresenting *)ui presentUIForIdentifier:5 request:requestCopy completion:v16];
+    v17[0] = MEMORY[0x1E69E9820];
+    v17[1] = 3221225472;
+    v17[2] = __63__LACDTOFailureProcessor_postProcessRequest_result_completion___block_invoke;
+    v17[3] = &unk_1E7A95998;
+    v19 = completionCopy;
+    v18 = resultCopy;
+    [(LACUserInterfacePresenting *)ui presentUIForIdentifier:5 request:requestCopy completion:v17];
   }
 
   else
@@ -88,20 +88,17 @@
 
 void __63__LACDTOFailureProcessor_postProcessRequest_result_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v4 = LACLogDTO();
+  v4 = LACLogDTO(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 138412290;
-    v8 = v3;
-    _os_log_impl(&dword_1B0233000, v4, OS_LOG_TYPE_DEFAULT, "Failure alert did disappear (err: %@)", &v7, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_1B0233000, v4, OS_LOG_TYPE_DEFAULT, "Failure alert did disappear (err: %@)", &v5, 0xCu);
   }
 
-  v5 = *(a1 + 32);
   (*(*(a1 + 40) + 16))();
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_checkErrorRequiresUI:(id)i

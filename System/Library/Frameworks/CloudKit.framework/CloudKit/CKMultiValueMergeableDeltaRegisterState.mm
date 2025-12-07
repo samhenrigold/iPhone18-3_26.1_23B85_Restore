@@ -13,11 +13,10 @@
 
 + (id)newSalt
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   arc4random_buf(__buf, 0x20uLL);
-  result = objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v2, __buf, 32);
-  v4 = *MEMORY[0x1E69E9840];
-  return result;
+  objc_msgSend_dataWithBytes_length_(MEMORY[0x1E695DEF0], v2, __buf, 32);
+  return objc_claimAutoreleasedReturnValue();
 }
 
 - (CKMultiValueMergeableDeltaRegisterState)init

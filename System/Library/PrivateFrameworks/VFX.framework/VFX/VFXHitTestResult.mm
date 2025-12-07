@@ -51,11 +51,11 @@
 
 - (VFXNode)node
 {
-  result = sub_1AF28133C(self->_result);
+  result = sub_1AF28133C(self->_result, a2);
   if (result)
   {
 
-    return objc_msgSend_nodeWithNodeRef_(VFXNode, v3, result, v4);
+    return objc_msgSend_nodeWithNodeRef_(VFXNode, v3, result);
   }
 
   return result;
@@ -63,18 +63,18 @@
 
 - (id)presentationNode
 {
-  v4 = objc_msgSend_node(self, a2, v2, v3);
+  v3 = objc_msgSend_node(self, a2, v2);
 
-  return objc_msgSend_presentationNode(v4, v5, v6, v7);
+  return objc_msgSend_presentationNode(v3, v4, v5);
 }
 
 - (VFXNode)boneNode
 {
-  result = sub_1AF281384(self->_result);
+  result = sub_1AF281384(self->_result, a2);
   if (result)
   {
 
-    return objc_msgSend_nodeWithNodeRef_(VFXNode, v3, result, v4);
+    return objc_msgSend_nodeWithNodeRef_(VFXNode, v3, result);
   }
 
   return result;
@@ -82,9 +82,9 @@
 
 - (id)presentationBoneNode
 {
-  v4 = objc_msgSend_boneNode(self, a2, v2, v3);
+  v3 = objc_msgSend_boneNode(self, a2, v2);
 
-  return objc_msgSend_presentationNode(v4, v5, v6, v7);
+  return objc_msgSend_presentationNode(v3, v4, v5);
 }
 
 - (CGPoint)textureCoordinatesWithMappingChannel:(int64_t)channel
@@ -98,110 +98,110 @@
 
 - (float32x2_t)uv0
 {
-  objc_msgSend_textureCoordinatesWithMappingChannel_(self, a2, 0, a4);
-  v5.f64[1] = v4;
-  return vcvt_f32_f64(v5);
+  objc_msgSend_textureCoordinatesWithMappingChannel_(self, a2, 0);
+  v3.f64[1] = v2;
+  return vcvt_f32_f64(v3);
 }
 
 - (CGPoint)textureCoordinate
 {
   NSLog(&cfstr_Texturecoordin.isa, a2);
 
-  objc_msgSend_textureCoordinatesWithMappingChannel_(self, v3, 0, v4);
-  result.y = v6;
-  result.x = v5;
+  objc_msgSend_textureCoordinatesWithMappingChannel_(self, v3, 0);
+  result.y = v5;
+  result.x = v4;
   return result;
 }
 
 + (id)hitTestResultsFromHitTestResultRef:(__CFArray *)ref
 {
-  v5 = objc_msgSend_count(ref, a2, ref, v3);
-  v10 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v6, v5, v7);
-  if (v5)
+  v4 = objc_msgSend_count(ref, a2, ref);
+  v7 = objc_msgSend_arrayWithCapacity_(MEMORY[0x1E695DF70], v5, v4);
+  if (v4)
   {
-    for (i = 0; i != v5; ++i)
+    for (i = 0; i != v4; ++i)
     {
-      v12 = objc_msgSend_objectAtIndex_(ref, v8, i, v9);
-      v13 = [VFXHitTestResult alloc];
-      v16 = objc_msgSend_initWithResult_(v13, v14, v12, v15);
-      objc_msgSend_addObject_(v10, v17, v16, v18);
+      v9 = objc_msgSend_objectAtIndex_(ref, v6, i);
+      v10 = [VFXHitTestResult alloc];
+      v12 = objc_msgSend_initWithResult_(v10, v11, v9);
+      objc_msgSend_addObject_(v7, v13, v12);
     }
   }
 
-  return v10;
+  return v7;
 }
 
 - (id)description
 {
-  objc_msgSend_worldCoordinates(self, a2, v2, v3);
-  v24 = v5;
-  v6 = MEMORY[0x1E696AEC0];
-  v7 = objc_opt_class();
-  v8 = NSStringFromClass(v7);
-  v12 = objc_msgSend_meshElementIndex(self, v9, v10, v11);
-  v16 = objc_msgSend_node(self, v13, v14, v15);
-  v20 = objc_msgSend_boneNode(self, v17, v18, v19);
-  return objc_msgSend_stringWithFormat_(v6, v21, @"<%@: %p <%f,%f,%f> | meshElementIndex=%d node=%@ bone=%@>", v22, v8, self, *&v24, *(&v24 + 1), *(&v24 + 2), v12, v16, v20);
+  objc_msgSend_worldCoordinates(self, a2, v2);
+  v19 = v4;
+  v5 = MEMORY[0x1E696AEC0];
+  v6 = objc_opt_class();
+  v7 = NSStringFromClass(v6);
+  v10 = objc_msgSend_meshElementIndex(self, v8, v9);
+  v13 = objc_msgSend_node(self, v11, v12);
+  v16 = objc_msgSend_boneNode(self, v14, v15);
+  return objc_msgSend_stringWithFormat_(v5, v17, @"<%@: %p <%f,%f,%f> | meshElementIndex=%d node=%@ bone=%@>", v7, self, *&v19, *(&v19 + 1), *(&v19 + 2), v10, v13, v16);
 }
 
 - (double)localCoordinates
 {
-  v1 = sub_1AF2814DC(*(self + 8));
-  if (v1)
+  v2 = sub_1AF2814DC(*(self + 8), a2);
+  if (v2)
   {
-    v2 = *v1;
+    v3 = *v2;
   }
 
   else
   {
-    *&v2 = 0;
+    *&v3 = 0;
   }
 
-  return *&v2;
+  return *&v3;
 }
 
 - (double)worldCoordinates
 {
-  v1 = sub_1AF281524(*(self + 8));
-  if (v1)
+  v2 = sub_1AF281524(*(self + 8), a2);
+  if (v2)
   {
-    v2 = *v1;
+    v3 = *v2;
   }
 
   else
   {
-    *&v2 = 0;
+    *&v3 = 0;
   }
 
-  return *&v2;
+  return *&v3;
 }
 
 - (double)localNormal
 {
-  v1 = sub_1AF28156C(*(self + 8));
-  if (v1)
+  v2 = sub_1AF28156C(*(self + 8), a2);
+  if (v2)
   {
-    v2 = *v1;
+    v3 = *v2;
   }
 
   else
   {
-    *&v2 = 0;
+    *&v3 = 0;
   }
 
-  return *&v2;
+  return *&v3;
 }
 
 - (__n128)modelTransform
 {
-  v1 = sub_1AF281664(*(self + 8));
-  v2 = MEMORY[0x1E69E9B18];
-  if (v1)
+  v2 = sub_1AF281664(*(self + 8), a2);
+  v3 = MEMORY[0x1E69E9B18];
+  if (v2)
   {
-    v2 = v1;
+    v3 = v2;
   }
 
-  return *v2;
+  return *v3;
 }
 
 @end

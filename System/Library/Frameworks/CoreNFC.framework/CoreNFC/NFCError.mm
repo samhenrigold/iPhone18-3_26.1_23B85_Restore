@@ -225,7 +225,7 @@
 
 + (id)errorWithNFCDError:(id)error defaultNFCErrorCode:(int64_t)code
 {
-  v37[2] = *MEMORY[0x277D85DE8];
+  v34[2] = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v6 = errorCopy;
   if (!errorCopy)
@@ -251,14 +251,14 @@ LABEL_10:
 
   if ((v13 & 1) == 0)
   {
-    v36[0] = *MEMORY[0x277CCA450];
+    v33[0] = *MEMORY[0x277CCA450];
     v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"XPC Error"];
-    v36[1] = *MEMORY[0x277CCA7E8];
-    v37[0] = v15;
-    v37[1] = v6;
+    v33[1] = *MEMORY[0x277CCA7E8];
+    v34[0] = v15;
+    v34[1] = v6;
     v16 = MEMORY[0x277CBEAC0];
-    v17 = v37;
-    v18 = v36;
+    v17 = v34;
+    v18 = v33;
     goto LABEL_12;
   }
 
@@ -280,11 +280,11 @@ LABEL_9:
   {
     if ([v6 code] == 37)
     {
-      v32 = *MEMORY[0x277CCA450];
-      v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Tag Not NDEF formatted"];
-      v33 = v24;
-      v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
-      v10 = [NFCError errorWithCode:102 userInfo:v25];
+      v29 = *MEMORY[0x277CCA450];
+      v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Tag Not NDEF formatted"];
+      v30 = v23;
+      v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+      v10 = [NFCError errorWithCode:102 userInfo:v24];
 
       goto LABEL_24;
     }
@@ -307,26 +307,24 @@ LABEL_9:
       goto LABEL_9;
     }
 
-    code = [v6 code];
-    v27 = *MEMORY[0x277CCA450];
-    if (code == 64)
+    if ([v6 code] == 64)
     {
-      v30 = *MEMORY[0x277CCA450];
+      v27 = *MEMORY[0x277CCA450];
       v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Reader mode prohibit timer"];
-      v31 = v15;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+      v28 = v15;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
       codeCopy = 203;
       goto LABEL_13;
     }
 
-    v28[0] = *MEMORY[0x277CCA450];
+    v25[0] = *MEMORY[0x277CCA450];
     v15 = [MEMORY[0x277CCACA8] stringWithUTF8String:"Stack Error"];
-    v28[1] = *MEMORY[0x277CCA7E8];
-    v29[0] = v15;
-    v29[1] = v6;
+    v25[1] = *MEMORY[0x277CCA7E8];
+    v26[0] = v15;
+    v26[1] = v6;
     v16 = MEMORY[0x277CBEAC0];
-    v17 = v29;
-    v18 = v28;
+    v17 = v26;
+    v18 = v25;
 LABEL_12:
     v19 = [v16 dictionaryWithObjects:v17 forKeys:v18 count:2];
     codeCopy = code;
@@ -336,17 +334,16 @@ LABEL_13:
     goto LABEL_14;
   }
 
-  v23 = *MEMORY[0x277CCA7E8];
-  v34[0] = *MEMORY[0x277CCA450];
-  v34[1] = v23;
-  v35[0] = @"Tag response error / no response";
-  v35[1] = v6;
-  v24 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:2];
-  v10 = [NFCError errorWithCode:102 userInfo:v24];
+  v22 = *MEMORY[0x277CCA7E8];
+  v31[0] = *MEMORY[0x277CCA450];
+  v31[1] = v22;
+  v32[0] = @"Tag response error / no response";
+  v32[1] = v6;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:2];
+  v10 = [NFCError errorWithCode:102 userInfo:v23];
 LABEL_24:
 
 LABEL_14:
-  v21 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

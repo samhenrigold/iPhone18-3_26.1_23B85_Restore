@@ -27,35 +27,35 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFOverlayViewObservable.overlayViewService(_:didUpdateOn:)();
+  CAFOverlayViewObservable.overlayViewService(_:didUpdateOn:)(selfCopy, on);
 }
 
 - (void)overlayViewService:(id)service didUpdateOriginX:(float)x
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFOverlayViewObservable.overlayViewService(_:didUpdateOriginX:)(selfCopy);
+  CAFOverlayViewObservable.overlayViewService(_:didUpdateOriginX:)(selfCopy, x);
 }
 
 - (void)overlayViewService:(id)service didUpdateOriginY:(float)y
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFOverlayViewObservable.overlayViewService(_:didUpdateOriginY:)(selfCopy);
+  CAFOverlayViewObservable.overlayViewService(_:didUpdateOriginY:)(selfCopy, y);
 }
 
 - (void)overlayViewService:(id)service didUpdateWidth:(float)width
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFOverlayViewObservable.overlayViewService(_:didUpdateWidth:)(selfCopy);
+  CAFOverlayViewObservable.overlayViewService(_:didUpdateWidth:)(selfCopy, width);
 }
 
 - (void)overlayViewService:(id)service didUpdateHeight:(float)height
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFOverlayViewObservable.overlayViewService(_:didUpdateHeight:)(selfCopy);
+  CAFOverlayViewObservable.overlayViewService(_:didUpdateHeight:)(selfCopy, height);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

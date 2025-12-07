@@ -456,13 +456,13 @@ LABEL_27:
 - (id)description
 {
   userInfoPayload = [(UserActivityToBTLEPayload *)self userInfoPayload];
-  v5 = sub_1000021AC(userInfoPayload, 0x20uLL);
+  v5 = sub_1000021AC(userInfoPayload, 32);
   streamsData = [(UserActivityToBTLEPayload *)self streamsData];
   v23 = v5;
   if (streamsData)
   {
     streamsData2 = [(UserActivityToBTLEPayload *)self streamsData];
-    v19 = sub_1000021AC(streamsData2, 0x20uLL);
+    v19 = sub_1000021AC(streamsData2, 32);
     v25 = [NSString stringWithFormat:@"stream=%@", v19];
   }
 

@@ -41,28 +41,26 @@
 
 - (void)main
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CBC3E0]);
   recordID = [(BRCSharingCopyAccessTokenOperation *)self recordID];
-  v12[0] = recordID;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:1];
+  v11[0] = recordID;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
   v6 = [v3 initWithRecordIDs:v5];
 
   v7 = *MEMORY[0x277CBC138];
-  v11[0] = *MEMORY[0x277CBBFD0];
-  v11[1] = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:2];
+  v10[0] = *MEMORY[0x277CBBFD0];
+  v10[1] = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
   [v6 setDesiredKeys:v8];
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __42__BRCSharingCopyAccessTokenOperation_main__block_invoke;
-  v10[3] = &unk_278500DC8;
-  v10[4] = self;
-  [v6 setFetchRecordsCompletionBlock:v10];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __42__BRCSharingCopyAccessTokenOperation_main__block_invoke;
+  v9[3] = &unk_278500DC8;
+  v9[4] = self;
+  [v6 setFetchRecordsCompletionBlock:v9];
   [(_BRCOperation *)self addSubOperation:v6];
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 void __42__BRCSharingCopyAccessTokenOperation_main__block_invoke(uint64_t a1, void *a2, void *a3)
@@ -156,22 +154,6 @@ LABEL_24:
   [*(a1 + 32) completedWithResult:v21 error:0];
 
 LABEL_29:
-}
-
-void __42__BRCSharingCopyAccessTokenOperation_main__block_invoke_cold_1()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_1(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: encrypted access token %@ is of unexpected type%@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void __42__BRCSharingCopyAccessTokenOperation_main__block_invoke_cold_2()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_6_1(&dword_223E7A000, v0, v1, "[CRIT] UNREACHABLE: reference identifier %@ is of unexpected type%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -361,21 +361,21 @@ void __78__SFDialogController__presentDialog_forWebProcessID_withAdditionalAnima
 
       if (!presentingViewController)
       {
-        v13 = WBS_LOG_CHANNEL_PREFIXTabDialogs();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v15 = WBS_LOG_CHANNEL_PREFIXTabDialogs(v13, v14);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
-          [SFDialogController _dismissDialogWithAdditionalAnimations:v13];
+          [(SFDialogController *)v15 _dismissDialogWithAdditionalAnimations:v5, v9];
         }
       }
 
-      v14 = objc_loadWeakRetained(&self->_viewControllerPresenter);
-      [v14 dialogController:self dismissViewController:v9 withAdditionalAnimations:animationsCopy];
+      v16 = objc_loadWeakRetained(&self->_viewControllerPresenter);
+      [v16 dialogController:self dismissViewController:v9 withAdditionalAnimations:animationsCopy];
     }
 
-    v15 = objc_loadWeakRetained(&self->_delegate);
+    v17 = objc_loadWeakRetained(&self->_delegate);
     if (objc_opt_respondsToSelector())
     {
-      [v15 dialogController:self didDismissDialog:v5];
+      [v17 dialogController:self didDismissDialog:v5];
     }
   }
 }
@@ -429,15 +429,15 @@ void __78__SFDialogController__presentDialog_forWebProcessID_withAdditionalAnima
   return WeakRetained;
 }
 
-- (void)_dismissDialogWithAdditionalAnimations:(void *)a1 .cold.1(void *a1)
+- (void)_dismissDialogWithAdditionalAnimations:(uint64_t)a3 .cold.1(void *a1, uint64_t a2, uint64_t a3)
 {
-  v6 = *MEMORY[0x1E69E9840];
-  v1 = a1;
-  v2 = 138543618;
-  v3 = objc_opt_class();
-  v4 = 2114;
+  v8 = *MEMORY[0x1E69E9840];
+  v3 = a1;
+  v4 = 138543618;
   v5 = objc_opt_class();
-  _os_log_error_impl(&dword_18B7AC000, v1, OS_LOG_TYPE_ERROR, "Dialog %{public}@'s view controller %{public}@ was dismissed out of band of the SFDialogController", &v2, 0x16u);
+  v6 = 2114;
+  v7 = objc_opt_class();
+  _os_log_error_impl(&dword_18B7AC000, v3, OS_LOG_TYPE_ERROR, "Dialog %{public}@'s view controller %{public}@ was dismissed out of band of the SFDialogController", &v4, 0x16u);
 }
 
 @end

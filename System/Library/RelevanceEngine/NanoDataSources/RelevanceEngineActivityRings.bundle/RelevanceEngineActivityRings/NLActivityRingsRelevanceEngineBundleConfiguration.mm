@@ -7,25 +7,17 @@
 - (Class)dataSourceClassForKey:(id)key
 {
   keyCopy = key;
-  if ([keyCopy isEqualToString:RESampleDataSourceKey])
+  if (([keyCopy isEqualToString:RESampleDataSourceKey] & 1) != 0 || objc_msgSend(keyCopy, "isEqualToString:", REPrimaryDataSourceKey))
   {
-    v4 = &off_81C0;
-LABEL_5:
-    v5 = *v4;
-    v6 = objc_opt_class();
-    goto LABEL_7;
+    v4 = objc_opt_class();
   }
 
-  if ([keyCopy isEqualToString:REPrimaryDataSourceKey])
+  else
   {
-    v4 = off_81B8;
-    goto LABEL_5;
+    v4 = 0;
   }
 
-  v6 = 0;
-LABEL_7:
-
-  return v6;
+  return v4;
 }
 
 @end

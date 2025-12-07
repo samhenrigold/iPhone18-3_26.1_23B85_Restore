@@ -157,13 +157,13 @@ uint64_t _citrus_MSKanji_stdenc_mbtocs(uint64_t a1, _DWORD *a2, unsigned int *a3
   return result;
 }
 
-uint64_t _citrus_MSKanji_stdenc_cstomb(uint64_t a1, _BYTE *a2, unint64_t a3, int a4, unsigned int a5, uint64_t a6, uint64_t *a7)
+uint64_t _citrus_MSKanji_stdenc_cstomb(uint64_t a1, _BYTE *a2, unint64_t a3, int a4, uint64_t a5, uint64_t a6, uint64_t *a7)
 {
   if (a4 <= 0)
   {
     if (a4 == -1)
     {
-      a5 = 0;
+      LODWORD(a5) = 0;
     }
 
     else if (a4 || a5 > 0x7F)
@@ -178,7 +178,7 @@ uint64_t _citrus_MSKanji_stdenc_cstomb(uint64_t a1, _BYTE *a2, unint64_t a3, int
   {
     if (a5 <= 0x7F)
     {
-      a5 |= 0x80u;
+      LODWORD(a5) = a5 | 0x80;
       return _citrus_MSKanji_wcrtomb_priv(a2, a3, a5, a7);
     }
 
@@ -226,7 +226,7 @@ uint64_t _citrus_MSKanji_stdenc_cstomb(uint64_t a1, _BYTE *a2, unint64_t a3, int
     goto LABEL_24;
   }
 
-  if (a5 - 38912 < 0xFFFF8900)
+  if ((a5 - 38912) < 0xFFFF8900)
   {
     return 92;
   }
@@ -264,11 +264,11 @@ LABEL_24:
     v12 = 126;
   }
 
-  a5 = (v12 + a5) | ((v9 + (v11 >> 1)) << 8);
+  LODWORD(a5) = (v12 + a5) | ((v9 + (v11 >> 1)) << 8);
   return _citrus_MSKanji_wcrtomb_priv(a2, a3, a5, a7);
 }
 
-uint64_t _citrus_MSKanji_stdenc_mbtowc(uint64_t a1, int *a2, unsigned __int8 **a3, uint64_t a4, int *a5, void *a6, uint64_t a7)
+uint64_t _citrus_MSKanji_stdenc_mbtowc(uint64_t a1, unsigned int *a2, unsigned __int8 **a3, uint64_t a4, int *a5, void *a6, uint64_t a7)
 {
   v9 = _citrus_MSKanji_mbrtowc_priv(a2, a3, a4, a5, a6);
   v10 = v9;
@@ -367,7 +367,7 @@ LABEL_32:
     --a3;
   }
 
-  v10 = (a4 + 1);
+  v10 = a4 + 1;
   v11 = v7 - 129;
   v12 = v7 - 224;
   v14 = v11 < 0x1F || v12 < 0x1D;
@@ -387,7 +387,7 @@ LABEL_32:
     while (a3)
     {
       v17 = *v5++;
-      v10[v16] = v17;
+      *(v10 + v16) = v17;
       v16 = *a4 + 1;
       *a4 = v16;
       --a3;

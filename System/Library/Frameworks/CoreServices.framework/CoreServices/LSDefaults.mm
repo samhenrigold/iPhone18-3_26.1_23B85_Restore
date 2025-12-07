@@ -3,7 +3,7 @@
 
 @implementation LSDefaults
 
-uint64_t __45___LSDefaults_proxyUIDForCurrentEffectiveUID__block_invoke(uint64_t a1)
+void *__45___LSDefaults_proxyUIDForCurrentEffectiveUID__block_invoke(uint64_t a1)
 {
   if (getuid() || (result = [*(a1 + 32) isInXCTestRigInsecure], result))
   {
@@ -45,17 +45,15 @@ void __37___LSDefaults_preferredLocalizations__block_invoke()
 
 void __35___LSDefaults_currentSchemaVersion__block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   currentSchemaVersion_sResult = 1;
   v0 = _LSDatabaseGetLog();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
   {
-    v2 = 134349056;
-    v3 = 18874393;
-    _os_log_impl(&dword_18162D000, v0, OS_LOG_TYPE_INFO, "LaunchServices database schema version: %{public}ld", &v2, 0xCu);
+    v1 = 134349056;
+    v2 = 18874393;
+    _os_log_impl(&dword_18162D000, v0, OS_LOG_TYPE_INFO, "LaunchServices database schema version: %{public}ld", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 }
 
 void __37___LSDefaults_preferredLocalizations__block_invoke_2()
@@ -82,7 +80,7 @@ id __33___LSDefaults_systemContainerURL__block_invoke(uint64_t a1)
 
   else
   {
-    emitSandboxExceptionAndMaybeAbortForSneakyURLUsage();
+    emitSandboxExceptionAndMaybeAbortForSneakyURLUsage(a1);
     v2 = [MEMORY[0x1E695DFF8] fileURLWithPath:@"/"];
   }
 
@@ -93,8 +91,8 @@ id __31___LSDefaults_userContainerURL__block_invoke(uint64_t a1)
 {
   if ((*(*(a1 + 32) + 75) & 1) == 0)
   {
-    emitSandboxExceptionAndMaybeAbortForSneakyURLUsage();
-    v6 = [MEMORY[0x1E695DFF8] fileURLWithPath:@"/"];
+    emitSandboxExceptionAndMaybeAbortForSneakyURLUsage(a1);
+    v5 = [MEMORY[0x1E695DFF8] fileURLWithPath:@"/"];
     goto LABEL_24;
   }
 
@@ -104,56 +102,55 @@ id __31___LSDefaults_userContainerURL__block_invoke(uint64_t a1)
   }
 
   container_query_set_class();
-  v1 = *MEMORY[0x1E69E9980];
   container_query_set_persona_unique_string();
   container_query_operation_set_flags();
   if (!container_query_get_single_result())
   {
     container_query_get_last_error();
-    v19 = container_error_copy_unlocalized_description();
-    v20 = _LSDefaultLog();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+    v20 = container_error_copy_unlocalized_description();
+    v21 = _LSDefaultLog(v20);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       __31___LSDefaults_userContainerURL__block_invoke_cold_7();
     }
 
-    free(v19);
+    ::free(v20);
     goto LABEL_33;
   }
 
   path = container_get_path();
-  v3 = _LSDefaultLog();
-  v4 = v3;
+  v2 = _LSDefaultLog(path);
+  v3 = v2;
   if (!path)
   {
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       __31___LSDefaults_userContainerURL__block_invoke_cold_6();
     }
 
 LABEL_33:
-    container_query_free();
+    free = container_query_free();
     goto LABEL_34;
   }
 
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
   {
-    __31___LSDefaults_userContainerURL__block_invoke_cold_1(path, v4);
+    __31___LSDefaults_userContainerURL__block_invoke_cold_1(path, v3);
   }
 
-  v5 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithFileSystemRepresentation:path isDirectory:1 relativeToURL:0];
-  v6 = [v5 URLByAppendingPathComponent:@"Library/Caches" isDirectory:1];
+  v4 = [objc_alloc(MEMORY[0x1E695DFF8]) initFileURLWithFileSystemRepresentation:path isDirectory:1 relativeToURL:0];
+  v5 = [v4 URLByAppendingPathComponent:@"Library/Caches" isDirectory:1];
 
-  v7 = container_copy_sandbox_token();
-  if (v7)
+  v6 = container_copy_sandbox_token();
+  if (v6)
   {
-    v8 = v7;
-    v9 = sandbox_extension_consume();
-    if (v9 < 0)
+    v7 = v6;
+    v8 = sandbox_extension_consume();
+    if (v8 < 0)
     {
-      v13 = *__error();
-      v11 = _LSDefaultLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      v12 = __error();
+      v10 = _LSDefaultLog(v12);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         __31___LSDefaults_userContainerURL__block_invoke_cold_2();
       }
@@ -161,32 +158,32 @@ LABEL_33:
 
     else
     {
-      v10 = v9;
-      v11 = _LSDefaultLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+      v9 = v8;
+      v10 = _LSDefaultLog(v8);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
-        __31___LSDefaults_userContainerURL__block_invoke_cold_3(v10, v11);
+        __31___LSDefaults_userContainerURL__block_invoke_cold_3(v9, v10);
       }
     }
 
-    free(v8);
+    ::free(v7);
   }
 
   else
   {
-    v12 = _LSDefaultLog();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = _LSDefaultLog(0);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       __31___LSDefaults_userContainerURL__block_invoke_cold_4();
     }
   }
 
-  container_query_free();
-  if (!v6)
+  free = container_query_free();
+  if (!v5)
   {
 LABEL_34:
-    v21 = _LSDefaultLog();
-    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    v22 = _LSDefaultLog(free);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       __31___LSDefaults_userContainerURL__block_invoke_cold_8();
     }
@@ -195,14 +192,14 @@ LABEL_34:
   }
 
   v14 = [MEMORY[0x1E696AC08] defaultManager];
-  v22 = 0;
-  v15 = [v14 createDirectoryAtURL:v6 withIntermediateDirectories:1 attributes:0 error:&v22];
-  v16 = v22;
+  v23 = 0;
+  v15 = [v14 createDirectoryAtURL:v5 withIntermediateDirectories:1 attributes:0 error:&v23];
+  v16 = v23;
 
   if ((v15 & 1) == 0)
   {
-    v17 = _LSDefaultLog();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v18 = _LSDefaultLog(v17);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       __31___LSDefaults_userContainerURL__block_invoke_cold_5();
     }
@@ -210,7 +207,7 @@ LABEL_34:
 
 LABEL_24:
 
-  return v6;
+  return v5;
 }
 
 id __38___LSDefaults_systemGroupContainerURL__block_invoke(uint64_t a1)
@@ -230,7 +227,7 @@ id __38___LSDefaults_systemGroupContainerURL__block_invoke(uint64_t a1)
 
     else
     {
-      v5 = _LSDefaultLog();
+      v5 = _LSDefaultLog(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         __38___LSDefaults_systemGroupContainerURL__block_invoke_cold_1(&v7, v5);
@@ -242,7 +239,7 @@ id __38___LSDefaults_systemGroupContainerURL__block_invoke(uint64_t a1)
 
   else
   {
-    emitSandboxExceptionAndMaybeAbortForSneakyURLUsage();
+    emitSandboxExceptionAndMaybeAbortForSneakyURLUsage(a1);
     v4 = [MEMORY[0x1E695DFF8] fileURLWithPath:@"/"];
   }
 
@@ -356,88 +353,44 @@ LABEL_9:
 
 id __25___LSDefaults_HMACSecret__block_invoke()
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   SecRandomCopyBytes(*MEMORY[0x1E697B308], 0x20uLL, bytes);
   v0 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithBytes:bytes length:32];
-  v1 = *MEMORY[0x1E69E9840];
 
   return v0;
 }
 
 void __31___LSDefaults_userContainerURL__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136446467;
-  v4 = "NSURL *_LSDefaultsUserContainerURL(void)";
-  v5 = 2081;
-  v6 = a1;
-  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "%{public}s: got user container URL %{private}s from containermanagerd", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __31___LSDefaults_userContainerURL__block_invoke_cold_2()
-{
   v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x1E69E9840];
+  v2 = 136446467;
+  v3 = "NSURL *_LSDefaultsUserContainerURL(void)";
+  v4 = 2081;
+  v5 = a1;
+  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "%{public}s: got user container URL %{private}s from containermanagerd", &v2, 0x16u);
 }
 
 void __31___LSDefaults_userContainerURL__block_invoke_cold_3(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136446466;
-  v4 = "NSURL *_LSDefaultsUserContainerURL(void)";
-  v5 = 2048;
-  v6 = a1;
-  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "%{public}s: consumed sandbox token for container, handle = %llu", &v3, 0x16u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-void __31___LSDefaults_userContainerURL__block_invoke_cold_4()
-{
   v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __31___LSDefaults_userContainerURL__block_invoke_cold_5()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __31___LSDefaults_userContainerURL__block_invoke_cold_6()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-void __31___LSDefaults_userContainerURL__block_invoke_cold_7()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
+  v2 = 136446466;
+  v3 = "NSURL *_LSDefaultsUserContainerURL(void)";
+  v4 = 2048;
+  v5 = a1;
+  _os_log_debug_impl(&dword_18162D000, a2, OS_LOG_TYPE_DEBUG, "%{public}s: consumed sandbox token for container, handle = %llu", &v2, 0x16u);
 }
 
 void __38___LSDefaults_systemGroupContainerURL__block_invoke_cold_1(uint64_t *a1, NSObject *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = *a1;
-  v5 = 136446722;
-  v6 = "NSURL *_LSDefaultsSystemGroupContainerURL(void)";
-  v7 = 2048;
-  v8 = v3;
-  v9 = 2082;
+  v4 = 136446722;
+  v5 = "NSURL *_LSDefaultsSystemGroupContainerURL(void)";
+  v6 = 2048;
+  v7 = v3;
+  v8 = 2082;
   error_description = container_get_error_description();
-  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "%{public}s: error %llu getting container path: %{public}s", &v5, 0x20u);
-  v4 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_18162D000, a2, OS_LOG_TYPE_ERROR, "%{public}s: error %llu getting container path: %{public}s", &v4, 0x20u);
 }
 
 @end

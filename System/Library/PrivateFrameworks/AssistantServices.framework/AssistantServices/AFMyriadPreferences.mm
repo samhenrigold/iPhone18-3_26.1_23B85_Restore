@@ -1,6 +1,7 @@
 @interface AFMyriadPreferences
 - (AFMyriadPreferences)initWithDeviceInstanceContext:(id)context preferences:(id)preferences;
 - (unsigned)deviceGroup;
+- (void)setDeviceGroup:(unsigned __int8)group completion:(id)completion;
 @end
 
 @implementation AFMyriadPreferences
@@ -11,6 +12,22 @@
   intValue = [myriadDeviceGroup intValue];
 
   return intValue;
+}
+
+- (void)setDeviceGroup:(unsigned __int8)group completion:(id)completion
+{
+  groupCopy = group;
+  completionCopy = completion;
+  pref = self->_pref;
+  v7 = [MEMORY[0x1E696AD98] numberWithUnsignedChar:groupCopy];
+  [(AFPreferences *)pref setMyriadDeviceGroup:v7];
+
+  v8 = completionCopy;
+  if (completionCopy)
+  {
+    (*(completionCopy + 2))(completionCopy, groupCopy);
+    v8 = completionCopy;
+  }
 }
 
 - (AFMyriadPreferences)initWithDeviceInstanceContext:(id)context preferences:(id)preferences

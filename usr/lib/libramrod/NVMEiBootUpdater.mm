@@ -215,32 +215,35 @@ LABEL_31:
 
 - (BOOL)_copyIBICFromPath:(char *)path withOptions:(__CFDictionary *)options intoArray:(const __CFArray *)array withError:(__CFError *)error
 {
+  v77 = -1;
+  theData = 0;
+  v76 = -1;
   if (!error)
   {
     sub_D9E50(self, a2, path, options, array, 0, v6, v7, v73);
-LABEL_36:
+LABEL_38:
     LOBYTE(pathCopy) = 0;
-    goto LABEL_26;
+    goto LABEL_28;
   }
 
   if (!array)
   {
     sub_D9E14(error, a2, path, options, 0, error, v6, v7);
-    goto LABEL_36;
+    goto LABEL_38;
   }
 
   pathCopy = path;
   if (!path)
   {
     sub_D9DD8(error, a2, 0, options, array, error, v6, v7);
-    goto LABEL_26;
+    goto LABEL_28;
   }
 
   Mutable = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
   if (!Mutable)
   {
     sub_D9D9C(error, v12, v13, v14, v15, v16, v17, v18);
-    goto LABEL_36;
+    goto LABEL_38;
   }
 
   v20 = CFArrayCreateMutable(kCFAllocatorDefault, 0, &kCFTypeArrayCallBacks);
@@ -248,7 +251,7 @@ LABEL_36:
   if (!v20)
   {
     sub_D9D60(error, v21, v22, v23, v24, v25, v26, v27);
-    goto LABEL_36;
+    goto LABEL_38;
   }
 
   CFArrayAppendValue(v20, @"ibic");
@@ -263,7 +266,7 @@ LABEL_36:
       if (v32 != CFStringGetTypeID())
       {
         sub_D9C60(error, v33, v34, v35, v36, v37, v38, v39);
-        goto LABEL_36;
+        goto LABEL_38;
       }
 
       CFArrayAppendValue(v28, v31);
@@ -278,21 +281,21 @@ LABEL_36:
   if (!CFStringCreateWithCString(kCFAllocatorDefault, pathCopy, 0x8000100u))
   {
     sub_D9D24(error, v40, v41, v42, v43, v44, v45, v46);
-    goto LABEL_36;
+    goto LABEL_38;
   }
 
   URLFromString = AMSupportCreateURLFromString();
   if (!URLFromString)
   {
     sub_D9CE8(error, v47, v48, v49, v50, v51, v52, v53);
-    goto LABEL_36;
+    goto LABEL_38;
   }
 
   arrayCopy = array;
   errorCopy = error;
   if (CFArrayGetCount(v28) < 1)
   {
-LABEL_25:
+LABEL_27:
     *arrayCopy = CFRetain(Mutable);
     LOBYTE(pathCopy) = 1;
   }
@@ -304,7 +307,7 @@ LABEL_25:
     {
       ValueAtIndex = CFArrayGetValueAtIndex(v28, v55);
       CStringPtr = CFStringGetCStringPtr(ValueAtIndex, 0x8000100u);
-      v64 = AMRestorePartitionFWCopyTagData(URLFromString);
+      v64 = AMRestorePartitionFWCopyTagData(URLFromString, ValueAtIndex, 0, &v77, &theData, &v76);
       if (Value)
       {
         v65 = CFGetTypeID(Value);
@@ -326,14 +329,20 @@ LABEL_25:
 
       else
       {
-        CFDataGetLength(0);
+        CFDataGetLength(theData);
         iBU_LOG_real(@"Found FW tag %s of %lu length.\n", "[NVMEiBootUpdater _copyIBICFromPath:withOptions:intoArray:withError:]", v66, v67, v68, v69, v70, v71, CStringPtr);
-        CFArrayAppendValue(Mutable, 0);
+        CFArrayAppendValue(Mutable, theData);
+      }
+
+      if (theData)
+      {
+        CFRelease(theData);
+        theData = 0;
       }
 
       if (CFArrayGetCount(v28) <= ++v55)
       {
-        goto LABEL_25;
+        goto LABEL_27;
       }
     }
 
@@ -341,7 +350,7 @@ LABEL_25:
     LOBYTE(pathCopy) = 0;
   }
 
-LABEL_26:
+LABEL_28:
   AMSupportSafeRelease();
   AMSupportSafeRelease();
   AMSupportSafeRelease();

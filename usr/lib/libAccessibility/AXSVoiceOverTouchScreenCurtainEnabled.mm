@@ -3,7 +3,7 @@
 
 @implementation AXSVoiceOverTouchScreenCurtainEnabled
 
-uint64_t ___AXSVoiceOverTouchScreenCurtainEnabled_block_invoke()
+void *___AXSVoiceOverTouchScreenCurtainEnabled_block_invoke()
 {
   if (!_processIsResponsibleForPreferenceObserving())
   {

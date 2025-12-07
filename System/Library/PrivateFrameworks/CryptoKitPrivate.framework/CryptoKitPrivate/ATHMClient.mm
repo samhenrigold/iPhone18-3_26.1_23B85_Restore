@@ -23,12 +23,10 @@
 
 - (id)deploymentID
 {
-  v2 = *&self->client[OBJC_IVAR____TtC16CryptoKitPrivate10ATHMClient_client + 88];
-  v3 = *&self->client[OBJC_IVAR____TtC16CryptoKitPrivate10ATHMClient_client + 96];
   sub_1C0D78BFC();
-  v4 = sub_1C0D78A8C();
+  v2 = sub_1C0D78A8C();
 
-  return v4;
+  return v2;
 }
 
 - (id)request

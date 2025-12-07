@@ -7,54 +7,50 @@
 
 - (id)createControlItemsWithOptions:(id)options
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   controlItemValueSourceForPrimaryService = [(HFServiceItem *)self controlItemValueSourceForPrimaryService];
-  v16[0] = @"title";
+  v15[0] = @"title";
   v6 = HFItemOptionalLocalizedString(@"HFControlShortTitleDoorState", optionsCopy);
 
-  v17[0] = v6;
-  v17[1] = MEMORY[0x277CBEC38];
-  v16[1] = @"preferReversedInteractionDirection";
-  v16[2] = @"actionRequiresDeviceUnlock";
-  v17[2] = MEMORY[0x277CBEC38];
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+  v16[0] = v6;
+  v16[1] = MEMORY[0x277CBEC38];
+  v15[1] = @"preferReversedInteractionDirection";
+  v15[2] = @"actionRequiresDeviceUnlock";
+  v16[2] = MEMORY[0x277CBEC38];
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
 
   v8 = [HFIncrementalStateControlItem alloc];
   v9 = [(HFIncrementalStateControlItem *)v8 initWithValueSource:controlItemValueSourceForPrimaryService incrementalAndPrimaryCharacteristicType:*MEMORY[0x277CCFB50] displayResults:v7];
   v10 = MEMORY[0x277CBEB98];
-  v15 = v9;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v15 count:1];
+  v14 = v9;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:&v14 count:1];
   v12 = [v10 setWithArray:v11];
-
-  v13 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 - (id)_subclass_updateWithOptions:(id)options
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   v4 = MEMORY[0x277CBEB98];
   v5 = *MEMORY[0x277CCFB50];
-  v15[0] = *MEMORY[0x277CCF848];
-  v15[1] = v5;
-  v15[2] = *MEMORY[0x277CCF9A0];
+  v14[0] = *MEMORY[0x277CCF848];
+  v14[1] = v5;
+  v14[2] = *MEMORY[0x277CCF9A0];
   v6 = MEMORY[0x277CBEA60];
   optionsCopy = options;
-  v8 = [v6 arrayWithObjects:v15 count:3];
+  v8 = [v6 arrayWithObjects:v14 count:3];
   v9 = [v4 setWithArray:v8];
 
   v10 = [(HFServiceItem *)self performStandardUpdateWithCharacteristicTypes:v9 options:optionsCopy];
 
-  v14[0] = MEMORY[0x277D85DD0];
-  v14[1] = 3221225472;
-  v14[2] = __49__HFDoorServiceItem__subclass_updateWithOptions___block_invoke;
-  v14[3] = &unk_277DF2828;
-  v14[4] = self;
-  v11 = [v10 flatMap:v14];
-
-  v12 = *MEMORY[0x277D85DE8];
+  v13[0] = MEMORY[0x277D85DD0];
+  v13[1] = 3221225472;
+  v13[2] = __49__HFDoorServiceItem__subclass_updateWithOptions___block_invoke;
+  v13[3] = &unk_277DF2828;
+  v13[4] = self;
+  v11 = [v10 flatMap:v13];
 
   return v11;
 }

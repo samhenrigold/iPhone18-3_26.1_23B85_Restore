@@ -18,7 +18,7 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computedContentWidth
 {
-  [(TUILayout *)self computedTransformedSize];
+  objc_msgSend_computedTransformedSize(self, a3);
   if (v3 <= -3.40282347e38)
   {
     v6 = 4286578687;

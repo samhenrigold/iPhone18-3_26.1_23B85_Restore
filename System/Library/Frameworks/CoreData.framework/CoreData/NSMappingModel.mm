@@ -48,476 +48,469 @@
 
 + (id)_newMappingModelFromBundles:(id)bundles forSourceHashes:(id)hashes destinationHashes:(id)destinationHashes
 {
-  v114 = *MEMORY[0x1E69E9840];
+  v113 = *MEMORY[0x1E69E9840];
   v6 = +[NSMappingModel migrationDebugLevel];
+  v99 = 0u;
   v100 = 0u;
   v101 = 0u;
   v102 = 0u;
-  v103 = 0u;
-  v78 = [bundles countByEnumeratingWithState:&v100 objects:v113 count:16];
-  if (v78)
+  v77 = [bundles countByEnumeratingWithState:&v99 objects:v112 count:16];
+  if (!v77)
   {
-    v7 = *v101;
-    v8 = &unk_1EA8C8000;
-    v76 = *v101;
-    bundlesCopy = bundles;
-    v84 = v6;
+    return 0;
+  }
+
+  v7 = *v100;
+  v8 = &unk_1EA8C8000;
+  v75 = *v100;
+  bundlesCopy = bundles;
+  v83 = v6;
+  do
+  {
+    v9 = 0;
     do
     {
-      v9 = 0;
-      do
+      if (*v100 != v7)
       {
-        if (*v101 != v7)
-        {
-          objc_enumerationMutation(bundles);
-        }
+        objc_enumerationMutation(bundles);
+      }
 
-        v79 = v9;
-        v10 = *(*(&v100 + 1) + 8 * v9);
-        v82 = objc_autoreleasePoolPush();
-        v11 = [v10 pathsForResourcesOfType:@"cdm" inDirectory:0];
-        v96 = 0u;
-        v97 = 0u;
-        v98 = 0u;
-        v99 = 0u;
-        obj = v11;
-        v89 = [v11 countByEnumeratingWithState:&v96 objects:v112 count:16];
-        if (v89)
+      v78 = v9;
+      v10 = *(*(&v99 + 1) + 8 * v9);
+      v81 = objc_autoreleasePoolPush();
+      v11 = [v10 pathsForResourcesOfType:@"cdm" inDirectory:0];
+      v95 = 0u;
+      v96 = 0u;
+      v97 = 0u;
+      v98 = 0u;
+      obj = v11;
+      v88 = [v11 countByEnumeratingWithState:&v95 objects:v111 count:16];
+      if (v88)
+      {
+        v85 = *v96;
+        while (2)
         {
-          v86 = *v97;
-          while (2)
+          for (i = 0; i != v88; ++i)
           {
-            for (i = 0; i != v89; ++i)
+            if (*v96 != v85)
             {
-              if (*v97 != v86)
-              {
-                objc_enumerationMutation(obj);
-              }
+              objc_enumerationMutation(obj);
+            }
 
-              v13 = *(*(&v96 + 1) + 8 * i);
-              v14 = [NSMappingModel alloc];
-              v91 = v13;
-              v15 = -[NSMappingModel initWithContentsOfURL:](v14, "initWithContentsOfURL:", [MEMORY[0x1E695DFF8] fileURLWithPath:v13]);
-              v16 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-              v17 = objc_alloc_init(MEMORY[0x1E695DFA8]);
-              v92 = 0u;
-              v93 = 0u;
-              v94 = 0u;
-              v95 = 0u;
-              v90 = v15;
-              entityMappings = [(NSMappingModel *)v15 entityMappings];
-              v19 = [(NSArray *)entityMappings countByEnumeratingWithState:&v92 objects:v111 count:16];
-              if (v19)
+            v13 = *(*(&v95 + 1) + 8 * i);
+            v14 = [NSMappingModel alloc];
+            v90 = v13;
+            v15 = -[NSMappingModel initWithContentsOfURL:](v14, "initWithContentsOfURL:", [MEMORY[0x1E695DFF8] fileURLWithPath:v13]);
+            v16 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+            v17 = objc_alloc_init(MEMORY[0x1E695DFA8]);
+            v91 = 0u;
+            v92 = 0u;
+            v93 = 0u;
+            v94 = 0u;
+            v89 = v15;
+            entityMappings = [(NSMappingModel *)v15 entityMappings];
+            v19 = [(NSArray *)entityMappings countByEnumeratingWithState:&v91 objects:v110 count:16];
+            if (v19)
+            {
+              v20 = v19;
+              v21 = *v92;
+              do
               {
-                v20 = v19;
-                v21 = *v93;
-                do
+                for (j = 0; j != v20; ++j)
                 {
-                  for (j = 0; j != v20; ++j)
+                  if (*v92 != v21)
                   {
-                    if (*v93 != v21)
-                    {
-                      objc_enumerationMutation(entityMappings);
-                    }
-
-                    v23 = *(*(&v92 + 1) + 8 * j);
-                    sourceEntityVersionHash = [v23 sourceEntityVersionHash];
-                    if (sourceEntityVersionHash)
-                    {
-                      [(__CFString *)v16 addObject:sourceEntityVersionHash];
-                    }
-
-                    destinationEntityVersionHash = [v23 destinationEntityVersionHash];
-                    if (destinationEntityVersionHash)
-                    {
-                      [(__CFString *)v17 addObject:destinationEntityVersionHash];
-                    }
+                    objc_enumerationMutation(entityMappings);
                   }
 
-                  v20 = [(NSArray *)entityMappings countByEnumeratingWithState:&v92 objects:v111 count:16];
+                  v23 = *(*(&v91 + 1) + 8 * j);
+                  sourceEntityVersionHash = [v23 sourceEntityVersionHash];
+                  if (sourceEntityVersionHash)
+                  {
+                    [(__CFString *)v16 addObject:sourceEntityVersionHash];
+                  }
+
+                  destinationEntityVersionHash = [v23 destinationEntityVersionHash];
+                  if (destinationEntityVersionHash)
+                  {
+                    [(__CFString *)v17 addObject:destinationEntityVersionHash];
+                  }
                 }
 
-                while (v20);
+                v20 = [(NSArray *)entityMappings countByEnumeratingWithState:&v91 objects:v110 count:16];
               }
 
-              if (v6 >= 2)
+              while (v20);
+            }
+
+            if (v6 >= 2)
+            {
+              v26 = objc_autoreleasePoolPush();
+              _pflogInitialize(4);
+              if (_NSCoreDataIsLogEnabled(4) && _pflogging_enable_oslog >= 1)
               {
-                v26 = objc_autoreleasePoolPush();
+                if (v8[530])
+                {
+                  LogStream = _PFLogGetLogStream(1);
+                  if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+                  {
+                    *buf = 138412802;
+                    *v104 = v90;
+                    *&v104[8] = 2112;
+                    v105 = v16;
+                    v106 = 2112;
+                    v107 = v17;
+                    _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: (migration) checking mapping model %@\n source hashes: \n%@\n destination hashes: %@\n\n", buf, 0x20u);
+                  }
+                }
+
+                else
+                {
+                  v28 = _PFLogGetLogStream(4);
+                  if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+                  {
+                    *buf = 138412802;
+                    *v104 = v90;
+                    *&v104[8] = 2112;
+                    v105 = v16;
+                    v106 = 2112;
+                    v107 = v17;
+                    _os_log_impl(&dword_18565F000, v28, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: (migration) checking mapping model %@\n source hashes: \n%@\n destination hashes: %@\n\n", buf, 0x20u);
+                  }
+                }
+              }
+
+              if (v8[530])
+              {
+                v29 = 1;
+              }
+
+              else
+              {
+                v29 = 4;
+              }
+
+              _NSCoreDataLog_console(v29, "(migration) checking mapping model %@\n source hashes: \n%@\n destination hashes: %@\n", v90, v16, v17);
+              objc_autoreleasePoolPop(v26);
+            }
+
+            if ([(__CFString *)v16 count])
+            {
+              v30 = [(__CFString *)v16 isSubsetOfSet:hashes];
+            }
+
+            else
+            {
+              v30 = 0;
+            }
+
+            if ([(__CFString *)v17 count])
+            {
+              v31 = [(__CFString *)v17 isSubsetOfSet:destinationHashes];
+            }
+
+            else
+            {
+              v31 = 0;
+            }
+
+            v32 = v30 & v31;
+            if (v6 >= 2 && (v32 & 1) == 0)
+            {
+              context = objc_autoreleasePoolPush();
+              _pflogInitialize(4);
+              if (_NSCoreDataIsLogEnabled(4) && _pflogging_enable_oslog >= 1)
+              {
+                if (v8[530])
+                {
+                  v33 = _PFLogGetLogStream(1);
+                  if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+                  {
+                    v34 = @"source";
+                    if (v30)
+                    {
+                      v34 = &stru_1EF3F1768;
+                    }
+
+                    v79 = v34;
+                    if (v31)
+                    {
+                      v35 = &stru_1EF3F1768;
+                    }
+
+                    else
+                    {
+                      v35 = @"destination";
+                    }
+
+                    lastPathComponent = [v90 lastPathComponent];
+                    *buf = 138413058;
+                    *v104 = v79;
+                    *&v104[8] = 2112;
+                    v105 = @" and ";
+                    v106 = 2112;
+                    v107 = v35;
+                    v108 = 2112;
+                    v109 = lastPathComponent;
+                    _os_log_error_impl(&dword_18565F000, v33, OS_LOG_TYPE_ERROR, "CoreData: error: (migration) mismatched %@%@%@ hashes for mapping model %@\n\n", buf, 0x2Au);
+                  }
+                }
+
+                else
+                {
+                  v37 = _PFLogGetLogStream(4);
+                  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+                  {
+                    v38 = @"source";
+                    if (v30)
+                    {
+                      v38 = &stru_1EF3F1768;
+                    }
+
+                    v80 = v38;
+                    if (v31)
+                    {
+                      v39 = &stru_1EF3F1768;
+                    }
+
+                    else
+                    {
+                      v39 = @"destination";
+                    }
+
+                    lastPathComponent2 = [v90 lastPathComponent];
+                    *buf = 138413058;
+                    *v104 = v80;
+                    *&v104[8] = 2112;
+                    v105 = @" and ";
+                    v106 = 2112;
+                    v107 = v39;
+                    v108 = 2112;
+                    v109 = lastPathComponent2;
+                    _os_log_impl(&dword_18565F000, v37, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: (migration) mismatched %@%@%@ hashes for mapping model %@\n\n", buf, 0x2Au);
+                  }
+                }
+              }
+
+              v41 = v8[530];
+              if (v30)
+              {
+                v42 = &stru_1EF3F1768;
+              }
+
+              else
+              {
+                v42 = @"source";
+              }
+
+              v43 = v8;
+              if (v31)
+              {
+                v44 = &stru_1EF3F1768;
+              }
+
+              else
+              {
+                v44 = @"destination";
+              }
+
+              lastPathComponent3 = [v90 lastPathComponent];
+              v46 = 4;
+              if (v41)
+              {
+                v46 = 1;
+              }
+
+              v74 = v44;
+              v8 = v43;
+              v32 = v30 & v31;
+              _NSCoreDataLog_console(v46, "(migration) mismatched %@%@%@ hashes for mapping model %@\n", v42, @" and ", v74, lastPathComponent3);
+              objc_autoreleasePoolPop(context);
+              if ((v30 & 1) == 0 && [(__CFString *)v16 intersectsSet:hashes])
+              {
+                v47 = [(__CFString *)v16 mutableCopy];
+                [v47 intersectSet:hashes];
+                v48 = [hashes count];
+                v49 = objc_autoreleasePoolPush();
                 _pflogInitialize(4);
                 if (_NSCoreDataIsLogEnabled(4) && _pflogging_enable_oslog >= 1)
                 {
                   if (v8[530])
                   {
-                    LogStream = _PFLogGetLogStream(1);
-                    if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
+                    v50 = _PFLogGetLogStream(1);
+                    if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
                     {
-                      *buf = 138412802;
-                      *v105 = v91;
-                      *&v105[8] = 2112;
-                      v106 = v16;
-                      v107 = 2112;
-                      v108 = v17;
-                      _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: (migration) checking mapping model %@\n source hashes: \n%@\n destination hashes: %@\n\n", buf, 0x20u);
+                      v51 = [v47 count];
+                      *buf = 67109376;
+                      *v104 = v48 - v51;
+                      *&v104[4] = 1024;
+                      *&v104[6] = v48;
+                      _os_log_error_impl(&dword_18565F000, v50, OS_LOG_TYPE_ERROR, "CoreData: error: (migration) no match found for %d of %d mapping model source hashes\n", buf, 0xEu);
                     }
                   }
 
                   else
                   {
-                    v28 = _PFLogGetLogStream(4);
-                    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+                    v52 = _PFLogGetLogStream(4);
+                    if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
                     {
-                      *buf = 138412802;
-                      *v105 = v91;
-                      *&v105[8] = 2112;
-                      v106 = v16;
-                      v107 = 2112;
-                      v108 = v17;
-                      _os_log_impl(&dword_18565F000, v28, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: (migration) checking mapping model %@\n source hashes: \n%@\n destination hashes: %@\n\n", buf, 0x20u);
+                      v53 = [v47 count];
+                      *buf = 67109376;
+                      *v104 = v48 - v53;
+                      *&v104[4] = 1024;
+                      *&v104[6] = v48;
+                      _os_log_impl(&dword_18565F000, v52, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: (migration) no match found for %d of %d mapping model source hashes\n", buf, 0xEu);
+                    }
+                  }
+                }
+
+                v54 = v8[530];
+                v55 = v48 - [v47 count];
+                if (v54)
+                {
+                  v56 = 1;
+                }
+
+                else
+                {
+                  v56 = 4;
+                }
+
+                _NSCoreDataLog_console(v56, "(migration) no match found for %d of %d mapping model source hashes", v55, v48);
+                objc_autoreleasePoolPop(v49);
+              }
+
+              v6 = v83;
+              if ((v31 & 1) == 0 && [(__CFString *)v17 intersectsSet:destinationHashes])
+              {
+                v57 = [(__CFString *)v17 mutableCopy];
+                [v57 intersectSet:destinationHashes];
+                v58 = [destinationHashes count];
+                v59 = objc_autoreleasePoolPush();
+                _pflogInitialize(4);
+                if (_NSCoreDataIsLogEnabled(4) && _pflogging_enable_oslog >= 1)
+                {
+                  if (v8[530])
+                  {
+                    v60 = _PFLogGetLogStream(1);
+                    if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+                    {
+                      v61 = [v57 count];
+                      *buf = 67109376;
+                      *v104 = v58 - v61;
+                      *&v104[4] = 1024;
+                      *&v104[6] = v58;
+                      _os_log_error_impl(&dword_18565F000, v60, OS_LOG_TYPE_ERROR, "CoreData: error: (migration) no match found for %d of %d mapping model destination hashes\n", buf, 0xEu);
+                    }
+                  }
+
+                  else
+                  {
+                    v62 = _PFLogGetLogStream(4);
+                    if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
+                    {
+                      v63 = [v57 count];
+                      *buf = 67109376;
+                      *v104 = v58 - v63;
+                      *&v104[4] = 1024;
+                      *&v104[6] = v58;
+                      _os_log_impl(&dword_18565F000, v62, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: (migration) no match found for %d of %d mapping model destination hashes\n", buf, 0xEu);
+                    }
+                  }
+                }
+
+                v64 = v8[530];
+                v65 = v58 - [v57 count];
+                if (v64)
+                {
+                  v66 = 1;
+                }
+
+                else
+                {
+                  v66 = 4;
+                }
+
+                _NSCoreDataLog_console(v66, "(migration) no match found for %d of %d mapping model destination hashes", v65, v58);
+                objc_autoreleasePoolPop(v59);
+
+                v6 = v83;
+              }
+            }
+
+            if (v32)
+            {
+              if (v6 >= 1)
+              {
+                v69 = objc_autoreleasePoolPush();
+                _pflogInitialize(4);
+                if (_NSCoreDataIsLogEnabled(4) && _pflogging_enable_oslog >= 1)
+                {
+                  if (v8[530])
+                  {
+                    v70 = _PFLogGetLogStream(1);
+                    if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
+                    {
+                      *buf = 138412290;
+                      *v104 = v90;
+                      _os_log_error_impl(&dword_18565F000, v70, OS_LOG_TYPE_ERROR, "CoreData: error: (migration) found compatible mapping model %@\n", buf, 0xCu);
+                    }
+                  }
+
+                  else
+                  {
+                    v71 = _PFLogGetLogStream(4);
+                    if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
+                    {
+                      *buf = 138412290;
+                      *v104 = v90;
+                      _os_log_impl(&dword_18565F000, v71, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: (migration) found compatible mapping model %@\n", buf, 0xCu);
                     }
                   }
                 }
 
                 if (v8[530])
                 {
-                  v29 = 1;
+                  v72 = 1;
                 }
 
                 else
                 {
-                  v29 = 4;
+                  v72 = 4;
                 }
 
-                _NSCoreDataLog_console(v29, "(migration) checking mapping model %@\n source hashes: \n%@\n destination hashes: %@\n", v91, v16, v17);
-                objc_autoreleasePoolPop(v26);
+                _NSCoreDataLog_console(v72, "(migration) found compatible mapping model %@", v90);
+                objc_autoreleasePoolPop(v69);
               }
 
-              if ([(__CFString *)v16 count])
-              {
-                v30 = [(__CFString *)v16 isSubsetOfSet:hashes];
-              }
-
-              else
-              {
-                v30 = 0;
-              }
-
-              if ([(__CFString *)v17 count])
-              {
-                v31 = [(__CFString *)v17 isSubsetOfSet:destinationHashes];
-              }
-
-              else
-              {
-                v31 = 0;
-              }
-
-              v32 = v30 & v31;
-              if (v6 >= 2 && (v32 & 1) == 0)
-              {
-                context = objc_autoreleasePoolPush();
-                _pflogInitialize(4);
-                if (_NSCoreDataIsLogEnabled(4) && _pflogging_enable_oslog >= 1)
-                {
-                  if (v8[530])
-                  {
-                    v33 = _PFLogGetLogStream(1);
-                    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
-                    {
-                      v34 = @"source";
-                      if (v30)
-                      {
-                        v34 = &stru_1EF3F1768;
-                      }
-
-                      v80 = v34;
-                      if (v31)
-                      {
-                        v35 = &stru_1EF3F1768;
-                      }
-
-                      else
-                      {
-                        v35 = @"destination";
-                      }
-
-                      lastPathComponent = [v91 lastPathComponent];
-                      *buf = 138413058;
-                      *v105 = v80;
-                      *&v105[8] = 2112;
-                      v106 = @" and ";
-                      v107 = 2112;
-                      v108 = v35;
-                      v109 = 2112;
-                      v110 = lastPathComponent;
-                      _os_log_error_impl(&dword_18565F000, v33, OS_LOG_TYPE_ERROR, "CoreData: error: (migration) mismatched %@%@%@ hashes for mapping model %@\n\n", buf, 0x2Au);
-                    }
-                  }
-
-                  else
-                  {
-                    v37 = _PFLogGetLogStream(4);
-                    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
-                    {
-                      v38 = @"source";
-                      if (v30)
-                      {
-                        v38 = &stru_1EF3F1768;
-                      }
-
-                      v81 = v38;
-                      if (v31)
-                      {
-                        v39 = &stru_1EF3F1768;
-                      }
-
-                      else
-                      {
-                        v39 = @"destination";
-                      }
-
-                      lastPathComponent2 = [v91 lastPathComponent];
-                      *buf = 138413058;
-                      *v105 = v81;
-                      *&v105[8] = 2112;
-                      v106 = @" and ";
-                      v107 = 2112;
-                      v108 = v39;
-                      v109 = 2112;
-                      v110 = lastPathComponent2;
-                      _os_log_impl(&dword_18565F000, v37, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: (migration) mismatched %@%@%@ hashes for mapping model %@\n\n", buf, 0x2Au);
-                    }
-                  }
-                }
-
-                v41 = v8[530];
-                if (v30)
-                {
-                  v42 = &stru_1EF3F1768;
-                }
-
-                else
-                {
-                  v42 = @"source";
-                }
-
-                v43 = v8;
-                if (v31)
-                {
-                  v44 = &stru_1EF3F1768;
-                }
-
-                else
-                {
-                  v44 = @"destination";
-                }
-
-                lastPathComponent3 = [v91 lastPathComponent];
-                v46 = 4;
-                if (v41)
-                {
-                  v46 = 1;
-                }
-
-                v75 = v44;
-                v8 = v43;
-                v32 = v30 & v31;
-                _NSCoreDataLog_console(v46, "(migration) mismatched %@%@%@ hashes for mapping model %@\n", v42, @" and ", v75, lastPathComponent3);
-                objc_autoreleasePoolPop(context);
-                if ((v30 & 1) == 0 && [(__CFString *)v16 intersectsSet:hashes])
-                {
-                  v47 = [(__CFString *)v16 mutableCopy];
-                  [v47 intersectSet:hashes];
-                  v48 = [hashes count];
-                  v49 = objc_autoreleasePoolPush();
-                  _pflogInitialize(4);
-                  if (_NSCoreDataIsLogEnabled(4) && _pflogging_enable_oslog >= 1)
-                  {
-                    if (v8[530])
-                    {
-                      v50 = _PFLogGetLogStream(1);
-                      if (os_log_type_enabled(v50, OS_LOG_TYPE_ERROR))
-                      {
-                        v51 = [v47 count];
-                        *buf = 67109376;
-                        *v105 = v48 - v51;
-                        *&v105[4] = 1024;
-                        *&v105[6] = v48;
-                        _os_log_error_impl(&dword_18565F000, v50, OS_LOG_TYPE_ERROR, "CoreData: error: (migration) no match found for %d of %d mapping model source hashes\n", buf, 0xEu);
-                      }
-                    }
-
-                    else
-                    {
-                      v52 = _PFLogGetLogStream(4);
-                      if (os_log_type_enabled(v52, OS_LOG_TYPE_DEFAULT))
-                      {
-                        v53 = [v47 count];
-                        *buf = 67109376;
-                        *v105 = v48 - v53;
-                        *&v105[4] = 1024;
-                        *&v105[6] = v48;
-                        _os_log_impl(&dword_18565F000, v52, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: (migration) no match found for %d of %d mapping model source hashes\n", buf, 0xEu);
-                      }
-                    }
-                  }
-
-                  v54 = v8[530];
-                  v55 = v48 - [v47 count];
-                  if (v54)
-                  {
-                    v56 = 1;
-                  }
-
-                  else
-                  {
-                    v56 = 4;
-                  }
-
-                  _NSCoreDataLog_console(v56, "(migration) no match found for %d of %d mapping model source hashes", v55, v48);
-                  objc_autoreleasePoolPop(v49);
-                }
-
-                v6 = v84;
-                if ((v31 & 1) == 0 && [(__CFString *)v17 intersectsSet:destinationHashes])
-                {
-                  v57 = [(__CFString *)v17 mutableCopy];
-                  [v57 intersectSet:destinationHashes];
-                  v58 = [destinationHashes count];
-                  v59 = objc_autoreleasePoolPush();
-                  _pflogInitialize(4);
-                  if (_NSCoreDataIsLogEnabled(4) && _pflogging_enable_oslog >= 1)
-                  {
-                    if (v8[530])
-                    {
-                      v60 = _PFLogGetLogStream(1);
-                      if (os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
-                      {
-                        v61 = [v57 count];
-                        *buf = 67109376;
-                        *v105 = v58 - v61;
-                        *&v105[4] = 1024;
-                        *&v105[6] = v58;
-                        _os_log_error_impl(&dword_18565F000, v60, OS_LOG_TYPE_ERROR, "CoreData: error: (migration) no match found for %d of %d mapping model destination hashes\n", buf, 0xEu);
-                      }
-                    }
-
-                    else
-                    {
-                      v62 = _PFLogGetLogStream(4);
-                      if (os_log_type_enabled(v62, OS_LOG_TYPE_DEFAULT))
-                      {
-                        v63 = [v57 count];
-                        *buf = 67109376;
-                        *v105 = v58 - v63;
-                        *&v105[4] = 1024;
-                        *&v105[6] = v58;
-                        _os_log_impl(&dword_18565F000, v62, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: (migration) no match found for %d of %d mapping model destination hashes\n", buf, 0xEu);
-                      }
-                    }
-                  }
-
-                  v64 = v8[530];
-                  v65 = v58 - [v57 count];
-                  if (v64)
-                  {
-                    v66 = 1;
-                  }
-
-                  else
-                  {
-                    v66 = 4;
-                  }
-
-                  _NSCoreDataLog_console(v66, "(migration) no match found for %d of %d mapping model destination hashes", v65, v58);
-                  objc_autoreleasePoolPop(v59);
-
-                  v6 = v84;
-                }
-              }
-
-              if (v32)
-              {
-                if (v6 >= 1)
-                {
-                  v69 = objc_autoreleasePoolPush();
-                  _pflogInitialize(4);
-                  if (_NSCoreDataIsLogEnabled(4) && _pflogging_enable_oslog >= 1)
-                  {
-                    if (v8[530])
-                    {
-                      v70 = _PFLogGetLogStream(1);
-                      if (os_log_type_enabled(v70, OS_LOG_TYPE_ERROR))
-                      {
-                        *buf = 138412290;
-                        *v105 = v91;
-                        _os_log_error_impl(&dword_18565F000, v70, OS_LOG_TYPE_ERROR, "CoreData: error: (migration) found compatible mapping model %@\n", buf, 0xCu);
-                      }
-                    }
-
-                    else
-                    {
-                      v71 = _PFLogGetLogStream(4);
-                      if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
-                      {
-                        *buf = 138412290;
-                        *v105 = v91;
-                        _os_log_impl(&dword_18565F000, v71, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: (migration) found compatible mapping model %@\n", buf, 0xCu);
-                      }
-                    }
-                  }
-
-                  if (v8[530])
-                  {
-                    v72 = 1;
-                  }
-
-                  else
-                  {
-                    v72 = 4;
-                  }
-
-                  _NSCoreDataLog_console(v72, "(migration) found compatible mapping model %@", v91);
-                  objc_autoreleasePoolPop(v69);
-                }
-
-                objc_autoreleasePoolPop(v82);
-                v68 = v90;
-                goto LABEL_113;
-              }
+              objc_autoreleasePoolPop(v81);
+              return v89;
             }
-
-            v89 = [obj countByEnumeratingWithState:&v96 objects:v112 count:16];
-            if (v89)
-            {
-              continue;
-            }
-
-            break;
           }
-        }
 
-        objc_autoreleasePoolPop(v82);
-        v9 = v79 + 1;
-        v7 = v76;
-        bundles = bundlesCopy;
+          v88 = [obj countByEnumeratingWithState:&v95 objects:v111 count:16];
+          if (v88)
+          {
+            continue;
+          }
+
+          break;
+        }
       }
 
-      while (v79 + 1 != v78);
-      v67 = [bundlesCopy countByEnumeratingWithState:&v100 objects:v113 count:16];
-      v68 = 0;
-      v78 = v67;
+      objc_autoreleasePoolPop(v81);
+      v9 = v78 + 1;
+      v7 = v75;
+      bundles = bundlesCopy;
     }
 
-    while (v67);
-  }
-
-  else
-  {
+    while (v78 + 1 != v77);
+    v67 = [bundlesCopy countByEnumeratingWithState:&v99 objects:v112 count:16];
     v68 = 0;
+    v77 = v67;
   }
 
-LABEL_113:
-  v73 = *MEMORY[0x1E69E9840];
+  while (v67);
   return v68;
 }
 
@@ -535,7 +528,7 @@ LABEL_113:
 
 + (id)_mappingModelFromBundles:(void *)bundles forSourceModel:(void *)model destinationModel:
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v7 = objc_opt_self();
   v8 = +[NSMappingModel migrationDebugLevel];
   v9 = objc_alloc_init(MEMORY[0x1E696AAC8]);
@@ -552,7 +545,7 @@ LABEL_113:
         {
           *buf = 138412546;
           entityVersionHashesByName = [bundles entityVersionHashesByName];
-          v41 = 2112;
+          v40 = 2112;
           entityVersionHashesByName2 = [model entityVersionHashesByName];
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: (migration) looking for mapping model with \n source hashes: \n%@\n destination hashes: %@\n\n", buf, 0x16u);
         }
@@ -565,7 +558,7 @@ LABEL_113:
         {
           *buf = 138412546;
           entityVersionHashesByName = [bundles entityVersionHashesByName];
-          v41 = 2112;
+          v40 = 2112;
           entityVersionHashesByName2 = [model entityVersionHashesByName];
           _os_log_impl(&dword_18565F000, v12, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: (migration) looking for mapping model with \n source hashes: \n%@\n destination hashes: %@\n\n", buf, 0x16u);
         }
@@ -595,7 +588,7 @@ LABEL_113:
     {
 LABEL_24:
       [v9 drain];
-      goto LABEL_25;
+      return v20;
     }
   }
 
@@ -617,7 +610,7 @@ LABEL_24:
     allBundles = [MEMORY[0x1E696AAE8] allBundles];
     v27 = v7;
     v28 = allBundles;
-    v38 = v27;
+    v37 = v27;
     v20 = [v27 _newMappingModelFromBundles:allBundles forSourceHashes:v17 destinationHashes:v18];
     [array addObjectsFromArray:v28];
     if (v20)
@@ -626,21 +619,21 @@ LABEL_24:
     }
 
     allFrameworks = [MEMORY[0x1E696AAE8] allFrameworks];
-    v20 = [v38 _newMappingModelFromBundles:allFrameworks forSourceHashes:v17 destinationHashes:v18];
+    v20 = [v37 _newMappingModelFromBundles:allFrameworks forSourceHashes:v17 destinationHashes:v18];
     [array addObjectsFromArray:allFrameworks];
-    v7 = v38;
+    v7 = v37;
     if (v20)
     {
       goto LABEL_24;
     }
   }
 
-  v37 = v7;
+  v36 = v7;
   v21 = [MEMORY[0x1E695DFD8] setWithArray:{objc_msgSend(-[NSManagedObjectModel _entityVersionHashesByNameInStyle:](bundles, 1), "allValues")}];
   v22 = [v17 isEqual:v21];
   if ((v22 & 1) == 0)
   {
-    v23 = [v37 _newMappingModelFromBundles:array forSourceHashes:v21 destinationHashes:v18];
+    v23 = [v36 _newMappingModelFromBundles:array forSourceHashes:v21 destinationHashes:v18];
     if (v23)
     {
 LABEL_21:
@@ -657,90 +650,87 @@ LABEL_21:
 
   else
   {
-    v20 = [v37 _newMappingModelFromBundles:array forSourceHashes:v21 destinationHashes:v24];
+    v20 = [v36 _newMappingModelFromBundles:array forSourceHashes:v21 destinationHashes:v24];
     if (v20)
     {
-      v32 = 1;
+      v31 = 1;
     }
 
     else
     {
-      v32 = v22;
+      v31 = v22;
     }
 
-    if ((v32 & 1) == 0)
+    if ((v31 & 1) == 0)
     {
-      v20 = [v37 _newMappingModelFromBundles:array forSourceHashes:v17 destinationHashes:v24];
+      v20 = [v36 _newMappingModelFromBundles:array forSourceHashes:v17 destinationHashes:v24];
     }
   }
 
   [v9 drain];
   if (v8 >= 2 && !v20)
   {
-    v33 = objc_autoreleasePoolPush();
+    v32 = objc_autoreleasePoolPush();
     _pflogInitialize(4);
     if (_NSCoreDataIsLogEnabled(4) && _pflogging_enable_oslog >= 1)
     {
       if (_pflogging_catastrophic_mode)
       {
-        v34 = _PFLogGetLogStream(1);
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v33 = _PFLogGetLogStream(1);
+        if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
         {
           *buf = 0;
-          _os_log_error_impl(&dword_18565F000, v34, OS_LOG_TYPE_ERROR, "CoreData: error: (migration) no suitable mapping model found\n", buf, 2u);
+          _os_log_error_impl(&dword_18565F000, v33, OS_LOG_TYPE_ERROR, "CoreData: error: (migration) no suitable mapping model found\n", buf, 2u);
         }
       }
 
       else
       {
-        v35 = _PFLogGetLogStream(4);
-        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+        v34 = _PFLogGetLogStream(4);
+        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 0;
-          _os_log_impl(&dword_18565F000, v35, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: (migration) no suitable mapping model found\n", buf, 2u);
+          _os_log_impl(&dword_18565F000, v34, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: (migration) no suitable mapping model found\n", buf, 2u);
         }
       }
     }
 
     if (_pflogging_catastrophic_mode)
     {
-      v36 = 1;
+      v35 = 1;
     }
 
     else
     {
-      v36 = 4;
+      v35 = 4;
     }
 
-    _NSCoreDataLog_console(v36, "(migration) no suitable mapping model found");
-    objc_autoreleasePoolPop(v33);
+    _NSCoreDataLog_console(v35, "(migration) no suitable mapping model found");
+    objc_autoreleasePoolPop(v32);
     v20 = 0;
   }
 
-LABEL_25:
-  result = v20;
-  v31 = *MEMORY[0x1E69E9840];
-  return result;
+  return v20;
 }
 
 + (NSMappingModel)inferredMappingModelForSourceModel:(NSManagedObjectModel *)sourceModel destinationModel:(NSManagedObjectModel *)destinationModel error:(NSError *)error
 {
-  v44 = *MEMORY[0x1E69E9840];
+  v43 = *MEMORY[0x1E69E9840];
   if (!sourceModel)
   {
-    v36 = MEMORY[0x1E695DF30];
-    v37 = *MEMORY[0x1E695D940];
-    v38 = @"Cannot create an inferred NSMappingModel with a nil source model";
+    v35 = MEMORY[0x1E695DF30];
+    v36 = *MEMORY[0x1E695D940];
+    v37 = @"Cannot create an inferred NSMappingModel with a nil source model";
     goto LABEL_32;
   }
 
   if (!destinationModel)
   {
-    v36 = MEMORY[0x1E695DF30];
-    v37 = *MEMORY[0x1E695D940];
-    v38 = @"Cannot create an inferred NSMappingModel with a nil destination model";
+    v35 = MEMORY[0x1E695DF30];
+    v36 = *MEMORY[0x1E695D940];
+    v37 = @"Cannot create an inferred NSMappingModel with a nil destination model";
 LABEL_32:
-    objc_exception_throw([v36 exceptionWithName:v37 reason:v38 userInfo:0]);
+    objc_exception_throw([v35 exceptionWithName:v36 reason:v37 userInfo:0]);
   }
 
   v8 = +[NSMappingModel migrationDebugLevel];
@@ -758,7 +748,7 @@ LABEL_32:
         {
           *buf = 138412546;
           entityVersionHashesByName = [(NSManagedObjectModel *)sourceModel entityVersionHashesByName];
-          v42 = 2112;
+          v41 = 2112;
           entityVersionHashesByName2 = [(NSManagedObjectModel *)destinationModel entityVersionHashesByName];
           _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: error: (migration) inferring a mapping model between data models with \n source hashes: \n%@\n destination hashes: %@\n\n", buf, 0x16u);
         }
@@ -771,7 +761,7 @@ LABEL_32:
         {
           *buf = 138412546;
           entityVersionHashesByName = [(NSManagedObjectModel *)sourceModel entityVersionHashesByName];
-          v42 = 2112;
+          v41 = 2112;
           entityVersionHashesByName2 = [(NSManagedObjectModel *)destinationModel entityVersionHashesByName];
           _os_log_impl(&dword_18565F000, v12, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: (migration) inferring a mapping model between data models with \n source hashes: \n%@\n destination hashes: %@\n\n", buf, 0x16u);
         }
@@ -791,18 +781,18 @@ LABEL_32:
     objc_autoreleasePoolPop(v10);
   }
 
-  v39 = 0;
+  v38 = 0;
   v17 = [[_NSMappingModelBuilder alloc] initWithSourceModel:sourceModel destinationModel:destinationModel];
   v18 = [(_NSMappingModelBuilder *)v17 newInferredMappingModel:?];
-  v19 = v39;
+  v19 = v38;
 
   [v9 drain];
   v20 = v18;
-  v21 = v39;
+  v21 = v38;
   v22 = 0;
-  if (error && v39)
+  if (error && v38)
   {
-    *error = v39;
+    *error = v38;
   }
 
   if (v8 >= 1 && !v18)
@@ -816,11 +806,11 @@ LABEL_32:
         v24 = _PFLogGetLogStream(1);
         if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
-          v25 = v39;
-          userInfo = [v39 userInfo];
+          v25 = v38;
+          userInfo = [v38 userInfo];
           *buf = 138412546;
           entityVersionHashesByName = v25;
-          v42 = 2112;
+          v41 = 2112;
           entityVersionHashesByName2 = userInfo;
           _os_log_error_impl(&dword_18565F000, v24, OS_LOG_TYPE_ERROR, "CoreData: error: (migration) inferring mapping model failed with error: %@ userInfo: %@\n\n", buf, 0x16u);
         }
@@ -831,11 +821,11 @@ LABEL_32:
         v27 = _PFLogGetLogStream(4);
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          v28 = v39;
-          userInfo2 = [v39 userInfo];
+          v28 = v38;
+          userInfo2 = [v38 userInfo];
           *buf = 138412546;
           entityVersionHashesByName = v28;
-          v42 = 2112;
+          v41 = 2112;
           entityVersionHashesByName2 = userInfo2;
           _os_log_impl(&dword_18565F000, v27, OS_LOG_TYPE_DEFAULT, "CoreData: annotation: (migration) inferring mapping model failed with error: %@ userInfo: %@\n\n", buf, 0x16u);
         }
@@ -843,8 +833,8 @@ LABEL_32:
     }
 
     v30 = _pflogging_catastrophic_mode == 0;
-    v31 = v39;
-    userInfo3 = [v39 userInfo];
+    v31 = v38;
+    userInfo3 = [v38 userInfo];
     v33 = 4;
     if (!v30)
     {
@@ -855,7 +845,6 @@ LABEL_32:
     objc_autoreleasePoolPop(v23);
   }
 
-  v34 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
@@ -943,10 +932,12 @@ LABEL_32:
 - (id)description
 {
   v3 = objc_autoreleasePoolPush();
-  v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%@), entityMappings %@", objc_opt_class(), -[NSMappingModel entityMappings](self, "entityMappings")];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = objc_opt_class();
+  v6 = objc_msgSend_stringWithFormat_(v4, v5, [(NSMappingModel *)self entityMappings]);
   objc_autoreleasePoolPop(v3);
 
-  return v4;
+  return v6;
 }
 
 - (NSArray)entityMappings
@@ -995,7 +986,7 @@ LABEL_32:
           {
             v15 = MEMORY[0x1E695DF30];
             v16 = *MEMORY[0x1E695D930];
-            v14 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Model already contains an entity mapping named %@.", v11];
+            v14 = objc_msgSend_stringWithFormat_(MEMORY[0x1E696AEC0], v11);
             v12 = v15;
             v13 = v16;
 LABEL_12:
@@ -1039,61 +1030,6 @@ LABEL_12:
 
 - (uint64_t)_isInferredMappingModel
 {
-  v13 = *MEMORY[0x1E69E9840];
-  if (result)
-  {
-    v10 = 0u;
-    v11 = 0u;
-    v8 = 0u;
-    v9 = 0u;
-    entityMappings = [result entityMappings];
-    v2 = [entityMappings countByEnumeratingWithState:&v8 objects:v12 count:16];
-    if (v2)
-    {
-      v3 = v2;
-      v4 = *v9;
-LABEL_4:
-      v5 = 0;
-      while (1)
-      {
-        if (*v9 != v4)
-        {
-          objc_enumerationMutation(entityMappings);
-        }
-
-        name = [*(*(&v8 + 1) + 8 * v5) name];
-        result = [name hasPrefix:_NSInferredMappingPrefix];
-        if (!result)
-        {
-          break;
-        }
-
-        if (v3 == ++v5)
-        {
-          v3 = [entityMappings countByEnumeratingWithState:&v8 objects:v12 count:16];
-          if (v3)
-          {
-            goto LABEL_4;
-          }
-
-          goto LABEL_10;
-        }
-      }
-    }
-
-    else
-    {
-LABEL_10:
-      result = 1;
-    }
-  }
-
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
-- (uint64_t)_hasInferredMappingNeedingValidation
-{
   v12 = *MEMORY[0x1E69E9840];
   if (result)
   {
@@ -1102,33 +1038,85 @@ LABEL_10:
     v7 = 0u;
     v8 = 0u;
     entityMappings = [result entityMappings];
-    result = [entityMappings countByEnumeratingWithState:&v7 objects:v11 count:16];
+    v2 = [entityMappings countByEnumeratingWithState:&v7 objects:v11 count:16];
+    if (v2)
+    {
+      v3 = v2;
+      v4 = *v8;
+LABEL_4:
+      v5 = 0;
+      while (1)
+      {
+        if (*v8 != v4)
+        {
+          objc_enumerationMutation(entityMappings);
+        }
+
+        name = [*(*(&v7 + 1) + 8 * v5) name];
+        result = [name hasPrefix:_NSInferredMappingPrefix];
+        if (!result)
+        {
+          break;
+        }
+
+        if (v3 == ++v5)
+        {
+          v3 = [entityMappings countByEnumeratingWithState:&v7 objects:v11 count:16];
+          if (v3)
+          {
+            goto LABEL_4;
+          }
+
+          return 1;
+        }
+      }
+    }
+
+    else
+    {
+      return 1;
+    }
+  }
+
+  return result;
+}
+
+- (uint64_t)_hasInferredMappingNeedingValidation
+{
+  v11 = *MEMORY[0x1E69E9840];
+  if (result)
+  {
+    v8 = 0u;
+    v9 = 0u;
+    v6 = 0u;
+    v7 = 0u;
+    entityMappings = [result entityMappings];
+    result = [entityMappings countByEnumeratingWithState:&v6 objects:v10 count:16];
     if (result)
     {
       v2 = result;
-      v3 = *v8;
+      v3 = *v7;
       while (2)
       {
         v4 = 0;
         do
         {
-          if (*v8 != v3)
+          if (*v7 != v3)
           {
             objc_enumerationMutation(entityMappings);
           }
 
-          userInfo = [*(*(&v7 + 1) + 8 * v4) userInfo];
+          userInfo = [*(*(&v6 + 1) + 8 * v4) userInfo];
           if ([objc_msgSend(userInfo objectForKey:{_NSInferredMappingCouldFailValidation), "BOOLValue"}])
           {
-            result = 1;
-            goto LABEL_12;
+            return 1;
           }
 
           ++v4;
         }
 
         while (v2 != v4);
-        result = [entityMappings countByEnumeratingWithState:&v7 objects:v11 count:16];
+        result = [entityMappings countByEnumeratingWithState:&v6 objects:v10 count:16];
         v2 = result;
         if (result)
         {
@@ -1140,8 +1128,6 @@ LABEL_10:
     }
   }
 
-LABEL_12:
-  v6 = *MEMORY[0x1E69E9840];
   return result;
 }
 

@@ -32,7 +32,7 @@
   v2 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin49PregnancyOnboardingAddPastPregnancyViewController_onboardingStep);
   selfCopy = self;
 
-  sub_29E27EC80(v2, 1);
+  sub_29E27EC80(v2, 1, v3);
 }
 
 - (_TtC24MenstrualCyclesAppPlugin49PregnancyOnboardingAddPastPregnancyViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

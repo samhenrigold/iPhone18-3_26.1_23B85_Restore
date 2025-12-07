@@ -15,7 +15,7 @@
   traitCollection = [v5 traitCollection];
   preferredContentSizeCategory = [traitCollection preferredContentSizeCategory];
 
-  sub_1BA197D34();
+  sub_1BA197D34(preferredContentSizeCategory);
 }
 
 - (_TtC18HealthExperienceUI31ProfileSharingWithYouHeaderView)initWithFrame:(CGRect)frame

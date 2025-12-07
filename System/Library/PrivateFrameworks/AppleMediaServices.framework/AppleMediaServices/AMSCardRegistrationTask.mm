@@ -153,9 +153,9 @@ void __51__AMSCardRegistrationTask__performCardRegistration__block_invoke(uint64
 {
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
-  if (getPKInAppPaymentServiceClass())
+  if (getPKInAppPaymentServiceClass(WeakRetained))
   {
-    v5 = objc_alloc_init(getPKInAppPaymentServiceClass());
+    v5 = objc_alloc_init((getPKInAppPaymentServiceClass)());
     if (v5)
     {
       v6 = [AMSDeallocGuard alloc];
@@ -225,8 +225,8 @@ void __51__AMSCardRegistrationTask__performCardRegistration__block_invoke_2(uint
       [v5 stringWithFormat:@"%@: ", v6];
     }
     v8 = ;
-    PKInAppPaymentServiceClass = getPKInAppPaymentServiceClass();
-    v10 = NSStringFromClass(PKInAppPaymentServiceClass);
+    v9 = (getPKInAppPaymentServiceClass)();
+    v10 = NSStringFromClass(v9);
     v11 = AMSHashIfNeeded(v10);
     v12 = NSStringFromSelector(sel_cardDataForMerchantIdentifier_countryCode_completion_);
     v13 = AMSHashIfNeeded(v12);
@@ -247,7 +247,7 @@ void __51__AMSCardRegistrationTask__performCardRegistration__block_invoke_2(uint
 
   [*(a1 + 32) _sendAutoBugCaptureReportWithSubtypeContext:@"Dealloc Guard"];
   v14 = MEMORY[0x1E696AEC0];
-  v15 = getPKInAppPaymentServiceClass();
+  v15 = (getPKInAppPaymentServiceClass)();
   v16 = NSStringFromClass(v15);
   v17 = NSStringFromSelector(sel_cardDataForMerchantIdentifier_countryCode_completion_);
   v18 = [v14 stringWithFormat:@"Completion handler passed to -[%@ %@] deallocated without being called.", v16, v17];
@@ -513,7 +513,7 @@ LABEL_49:
   [(AMSAutoBugCaptureReport *)v17 captureWithDelay:0 events:0 payload:0 actions:v18 completionHandler:0.0];
 }
 
-void __71__AMSCardRegistrationTask__sendAutoBugCaptureReportWithSubtypeContext___block_invoke(uint64_t a1, uint64_t a2, void *a3)
+void __71__AMSCardRegistrationTask__sendAutoBugCaptureReportWithSubtypeContext___block_invoke(void *a1, uint64_t a2, void *a3)
 {
   v23 = *MEMORY[0x1E69E9840];
   v4 = a3;

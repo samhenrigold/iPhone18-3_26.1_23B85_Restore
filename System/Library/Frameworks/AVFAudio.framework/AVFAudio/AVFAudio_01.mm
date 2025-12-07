@@ -34,7 +34,7 @@ void sub_1BA5BF91C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 void ___ZN14ControllerImpl29activateAudioSessionForStreamEP17AVVoiceControllermbbU13block_pointerFvmbP7NSErrorE_block_invoke_451(uint64_t a1)
 {
-  v128 = *MEMORY[0x1E69E9840];
+  v127 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 56);
   v3 = *(a1 + 32) == 0;
   v4 = objc_alloc(MEMORY[0x1E695DF20]);
@@ -83,10 +83,10 @@ void ___ZN14ControllerImpl29activateAudioSessionForStreamEP17AVVoiceControllermb
   }
 
 LABEL_11:
-  v99 = 0;
-  v100 = &v99;
-  v101 = 0x2020000000;
-  v102 = 0;
+  v98 = 0;
+  v99 = &v98;
+  v100 = 0x2020000000;
+  v101 = 0;
   v12 = *(a1 + 72);
   v13 = *(a1 + 80);
   if (v13)
@@ -94,51 +94,51 @@ LABEL_11:
     atomic_fetch_add_explicit(&v13->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  SessionLock::SessionLock(v98, v12, v13);
+  SessionLock::SessionLock(v97, v12, v13);
   if (v13)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v13);
   }
 
-  v94 = 0;
-  v95 = &v94;
-  v96 = 0x2020000000;
-  v97 = 0;
-  v81[0] = MEMORY[0x1E69E9820];
-  v81[1] = 3321888768;
-  v81[2] = ___ZN14ControllerImpl29activateAudioSessionForStreamEP17AVVoiceControllermbbU13block_pointerFvmbP7NSErrorE_block_invoke_452;
-  v81[3] = &unk_1F3849000;
+  v93 = 0;
+  v94 = &v93;
+  v95 = 0x2020000000;
+  v96 = 0;
+  v80[0] = MEMORY[0x1E69E9820];
+  v80[1] = 3321888768;
+  v80[2] = ___ZN14ControllerImpl29activateAudioSessionForStreamEP17AVVoiceControllermbbU13block_pointerFvmbP7NSErrorE_block_invoke_452;
+  v80[3] = &unk_1F3849000;
   v14 = *(a1 + 88);
   v15 = *(a1 + 96);
-  v93 = *(a1 + 120);
-  v86 = v14;
-  v87 = v15;
+  v92 = *(a1 + 120);
+  v85 = v14;
+  v86 = v15;
   v16 = *(a1 + 104);
-  v88 = v16;
+  v87 = v16;
   if (v16)
   {
     atomic_fetch_add_explicit(&v16->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v84 = &v99;
+  v83 = &v98;
   v17 = v7;
   v19 = *(a1 + 72);
   v18 = *(a1 + 80);
-  v82 = v17;
-  v89 = v19;
-  v90 = v18;
+  v81 = v17;
+  v88 = v19;
+  v89 = v18;
   if (v18)
   {
     atomic_fetch_add_explicit(&v18->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v83 = *(a1 + 48);
-  v85 = &v94;
+  v82 = *(a1 + 48);
+  v84 = &v93;
   v20 = *(a1 + 112);
-  v91 = *(a1 + 64);
-  v92 = v20;
-  (*(*v15 + 344))(v15, v81);
-  if ((v95[3] & 1) == 0)
+  v90 = *(a1 + 64);
+  v91 = v20;
+  (*(*v15 + 344))(v15, v80);
+  if ((v94[3] & 1) == 0)
   {
     v21 = *(a1 + 72);
     *(v21 + 528) = *(a1 + 64);
@@ -148,7 +148,7 @@ LABEL_11:
       atomic_fetch_add_explicit(&v22->__shared_owners_, 1uLL, memory_order_relaxed);
     }
 
-    SessionUnlocker::SessionUnlocker(v80, v21, v22);
+    SessionUnlocker::SessionUnlocker(v79, v21, v22);
     if (v22)
     {
       std::__shared_weak_count::__release_shared[abi:ne200100](v22);
@@ -158,59 +158,59 @@ LABEL_11:
     v24 = *(a1 + 88);
     v25 = *(a1 + 120);
     v26 = *(a1 + 40);
-    TraceMethod::TraceMethod(v121, "checkSession");
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v119, *(v23 + 8), *(v23 + 16));
-    v115 = 0;
-    v116 = &v115;
-    v117 = 0x2020000000;
-    v118 = 0;
-    v111 = 0;
-    v112 = &v111;
-    v113 = 0x2020000000;
+    TraceMethod::TraceMethod(v120, "checkSession");
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v118, *(v23 + 8), *(v23 + 16));
     v114 = 0;
-    v107 = 0;
-    v108 = &v107;
-    v109 = 0x2020000000;
+    v115 = &v114;
+    v116 = 0x2020000000;
+    v117 = 0;
     v110 = 0;
-    ControllerImpl::_lookupEngineForStreamID(&v105, *(v119 + 72), *(v119 + 73), v24);
-    v27 = v105;
-    if (v105)
+    v111 = &v110;
+    v112 = 0x2020000000;
+    v113 = 0;
+    v106 = 0;
+    v107 = &v106;
+    v108 = 0x2020000000;
+    v109 = 0;
+    ControllerImpl::_lookupEngineForStreamID(&v104, *(v118 + 72), *(v118 + 73), v24);
+    v27 = v104;
+    if (v104)
     {
-      v28 = v119;
-      v29 = v120;
-      if (v120)
+      v28 = v118;
+      v29 = v119;
+      if (v119)
       {
-        atomic_fetch_add_explicit(&v120->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v119->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      SessionLock::SessionLock(v104, v28, v29);
+      SessionLock::SessionLock(v103, v28, v29);
       if (v29)
       {
         std::__shared_weak_count::__release_shared[abi:ne200100](v29);
       }
 
-      v30 = *(v119 + 59);
-      *(v119 + 59) = v24;
+      v30 = *(v118 + 59);
+      *(v118 + 59) = v24;
       *buf = MEMORY[0x1E69E9820];
       *&buf[8] = 3321888768;
       *&buf[16] = ___ZN14ControllerImpl12checkSessionEP17AVVoiceControllermb_block_invoke;
       *&buf[24] = &unk_1F384DE30;
-      *&buf[32] = &v107;
-      v31 = v106;
-      v125 = v27;
-      v126 = v106;
-      if (v106)
+      *&buf[32] = &v106;
+      v31 = v105;
+      v124 = v27;
+      v125 = v105;
+      if (v105)
       {
-        atomic_fetch_add_explicit(&v106->__shared_owners_, 1uLL, memory_order_relaxed);
+        atomic_fetch_add_explicit(&v105->__shared_owners_, 1uLL, memory_order_relaxed);
       }
 
-      v127 = v25;
-      v123 = &v115;
-      v124 = &v111;
+      v126 = v25;
+      v122 = &v114;
+      v123 = &v110;
       (*(*v27 + 344))(v27, buf);
-      if ((v112[3] & 1) != 0 || *(v116 + 6) || *(v108 + 24) != 1)
+      if ((v111[3] & 1) != 0 || *(v115 + 6) || *(v107 + 24) != 1)
       {
-        *(v119 + 59) = v30;
+        *(v118 + 59) = v30;
       }
 
       else
@@ -218,11 +218,11 @@ LABEL_11:
         v32 = (*(*v27 + 64))(v27, 0);
         v33 = [v32 isPrimary];
 
-        v34 = v119;
+        v34 = v118;
         if (v33)
         {
-          v35 = *(v119 + 488);
-          v65 = v35;
+          v35 = *(v118 + 488);
+          v64 = v35;
           if (v35)
           {
             v36 = vcnt_s8(v35);
@@ -241,13 +241,13 @@ LABEL_11:
               v37 = (*&v35 - 1) & v24;
             }
 
-            v62 = *(*(v119 + 60) + 8 * v37);
-            if (v62)
+            v61 = *(*(v118 + 60) + 8 * v37);
+            if (v61)
             {
-              for (i = *v62; i; i = *i)
+              for (i = *v61; i; i = *i)
               {
-                v64 = i[1];
-                if (v64 == v24)
+                v63 = i[1];
+                if (v63 == v24)
                 {
                   if (i[2] == v24)
                   {
@@ -259,18 +259,18 @@ LABEL_11:
                 {
                   if (v36.u32[0] > 1uLL)
                   {
-                    if (v64 >= *&v65)
+                    if (v63 >= *&v64)
                     {
-                      v64 %= *&v65;
+                      v63 %= *&v64;
                     }
                   }
 
                   else
                   {
-                    v64 &= *&v65 - 1;
+                    v63 &= *&v64 - 1;
                   }
 
-                  if (v64 != v37)
+                  if (v63 != v37)
                   {
                     break;
                   }
@@ -283,34 +283,34 @@ LABEL_11:
         }
 
 LABEL_102:
-        v103[0] = v27;
-        v103[1] = v31;
+        v102[0] = v27;
+        v102[1] = v31;
         if (v31)
         {
           atomic_fetch_add_explicit(&v31->__shared_owners_, 1uLL, memory_order_relaxed);
         }
 
-        ControllerImpl::startKeepAliveQueue(*(v34 + 1), *(v34 + 2), v103);
+        ControllerImpl::startKeepAliveQueue(*(v34 + 1), *(v34 + 2), v102);
         if (v31)
         {
           std::__shared_weak_count::__release_shared[abi:ne200100](v31);
         }
       }
 
-      if (*(v116 + 6) == -11795)
+      if (*(v115 + 6) == -11795)
       {
-        *(v119 + 59) = 0;
+        *(v118 + 59) = 0;
       }
 
-      if (v126)
+      if (v125)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v126);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v125);
       }
 
-      VCLocker::~VCLocker(v104);
-      if (*(v116 + 6) || (+[AVVCKeepAliveManager sharedManager], v40 = objc_claimAutoreleasedReturnValue(), v41 = v40 == 0, v40, v41) || *(v119 + 90) || (v38 = ControllerImpl::configureAlerts(v119, v26), (*(v116 + 6) = v38) == 0))
+      VCLocker::~VCLocker(v103);
+      if (*(v115 + 6) || (+[AVVCKeepAliveManager sharedManager], v40 = objc_claimAutoreleasedReturnValue(), v41 = v40 == 0, v40, v41) || *(v118 + 90) || (v38 = ControllerImpl::configureAlerts(v118, v26), (*(v115 + 6) = v38) == 0))
       {
-        v38 = *(v116 + 6);
+        v38 = *(v115 + 6);
       }
 
 LABEL_57:
@@ -319,18 +319,18 @@ LABEL_57:
         std::__shared_weak_count::__release_shared[abi:ne200100](v31);
       }
 
-      _Block_object_dispose(&v107, 8);
-      _Block_object_dispose(&v111, 8);
-      _Block_object_dispose(&v115, 8);
-      if (v120)
+      _Block_object_dispose(&v106, 8);
+      _Block_object_dispose(&v110, 8);
+      _Block_object_dispose(&v114, 8);
+      if (v119)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v120);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v119);
       }
 
-      TraceMethod::~TraceMethod(v121);
+      TraceMethod::~TraceMethod(v120);
 
-      v43 = v100;
-      *(v100 + 6) = v38;
+      v43 = v99;
+      *(v99 + 6) = v38;
       if (!v38)
       {
         v45 = *(a1 + 121);
@@ -345,27 +345,27 @@ LABEL_57:
         }
 
         v54 = v46 & 1;
-        v66[0] = MEMORY[0x1E69E9820];
-        v66[1] = 3321888768;
-        v66[2] = ___ZN14ControllerImpl29activateAudioSessionForStreamEP17AVVoiceControllermbbU13block_pointerFvmbP7NSErrorE_block_invoke_2_459;
-        v66[3] = &unk_1F3847F68;
+        v65[0] = MEMORY[0x1E69E9820];
+        v65[1] = 3321888768;
+        v65[2] = ___ZN14ControllerImpl29activateAudioSessionForStreamEP17AVVoiceControllermbbU13block_pointerFvmbP7NSErrorE_block_invoke_2_459;
+        v65[3] = &unk_1F3847F68;
         v56 = *(a1 + 96);
         v55 = *(a1 + 104);
-        v69 = v56;
-        v70 = v55;
+        v68 = v56;
+        v69 = v55;
         if (v55)
         {
           atomic_fetch_add_explicit(&v55->__shared_owners_, 1uLL, memory_order_relaxed);
           LOBYTE(v45) = *(a1 + 121);
         }
 
-        v74 = v45;
-        v75 = v54;
+        v73 = v45;
+        v74 = v54;
         v58 = *(a1 + 72);
         v57 = *(a1 + 80);
-        v68 = &v99;
-        v71 = v58;
-        v72 = v57;
+        v67 = &v98;
+        v70 = v58;
+        v71 = v57;
         if (v57)
         {
           atomic_fetch_add_explicit(&v57->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -373,18 +373,18 @@ LABEL_57:
 
         v59 = *(a1 + 48);
         v60 = *(a1 + 88);
-        v67 = v59;
-        v73 = v60;
-        (*(*v56 + 328))(v56, v66, "activateAudioSessionForStream_block_invoke");
+        v66 = v59;
+        v72 = v60;
+        (*(*v56 + 328))(v56, v65, "activateAudioSessionForStream_block_invoke");
 
-        if (v72)
+        if (v71)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v72);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v71);
         }
 
-        if (v70)
+        if (v69)
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](v70);
+          std::__shared_weak_count::__release_shared[abi:ne200100](v69);
         }
 
         goto LABEL_81;
@@ -399,19 +399,19 @@ LABEL_71:
           v49 = *(a1 + 72);
           v50 = *(a1 + 48);
           v51 = v50 != 0;
-          v76[0] = MEMORY[0x1E69E9820];
-          v76[1] = 3221225472;
-          v76[2] = ___ZN14ControllerImpl29activateAudioSessionForStreamEP17AVVoiceControllermbbU13block_pointerFvmbP7NSErrorE_block_invoke_458;
-          v76[3] = &unk_1E7EF5F40;
+          v75[0] = MEMORY[0x1E69E9820];
+          v75[1] = 3221225472;
+          v75[2] = ___ZN14ControllerImpl29activateAudioSessionForStreamEP17AVVoiceControllermbbU13block_pointerFvmbP7NSErrorE_block_invoke_458;
+          v75[3] = &unk_1E7EF5F40;
           v52 = v50;
           v53 = *(a1 + 88);
-          v77 = v52;
-          v78 = &v99;
-          v79 = v53;
-          ControllerImpl::safeNotifyAlwaysAsync(v49, v51, v76);
+          v76 = v52;
+          v77 = &v98;
+          v78 = v53;
+          ControllerImpl::safeNotifyAlwaysAsync(v49, v51, v75);
 
 LABEL_81:
-          VCUnlocker::~VCUnlocker(v80);
+          VCUnlocker::~VCUnlocker(v79);
           goto LABEL_82;
         }
       }
@@ -444,7 +444,7 @@ LABEL_81:
       {
 LABEL_56:
         v38 = -11793;
-        v31 = v106;
+        v31 = v105;
         goto LABEL_57;
       }
     }
@@ -471,48 +471,46 @@ LABEL_56:
 
 LABEL_82:
 
-  if (v90)
+  if (v89)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v90);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v89);
   }
 
-  if (v88)
+  if (v87)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v88);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v87);
   }
 
-  _Block_object_dispose(&v94, 8);
-  VCLocker::~VCLocker(v98);
-  _Block_object_dispose(&v99, 8);
-
-  v61 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v93, 8);
+  VCLocker::~VCLocker(v97);
+  _Block_object_dispose(&v98, 8);
 }
 
-void sub_1BA5C0698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, char a52, uint64_t a53, uint64_t a54, uint64_t a55, char a56, uint64_t a57, char a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
+void sub_1BA5C0698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *__p, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, void *a40, void *a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, std::__shared_weak_count *a46, uint64_t a47, std::__shared_weak_count *a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   operator delete(__p);
-  v76 = *(v74 - 144);
-  if (v76)
+  v71 = *(v69 - 144);
+  if (v71)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v76);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v71);
   }
 
   VCLocker::~VCLocker(&a64);
-  if (a67)
+  if (a65)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a67);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a65);
   }
 
-  _Block_object_dispose(&a68, 8);
-  _Block_object_dispose(&a72, 8);
+  _Block_object_dispose(&a66, 8);
+  _Block_object_dispose(&a67, 8);
   _Block_object_dispose(&STACK[0x218], 8);
-  v77 = *(v74 - 224);
-  if (v77)
+  v72 = *(v69 - 224);
+  if (v72)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v77);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v72);
   }
 
-  TraceMethod::~TraceMethod((v74 - 216));
+  TraceMethod::~TraceMethod((v69 - 216));
 
   VCUnlocker::~VCUnlocker(&a34);
   if (a48)
@@ -534,15 +532,15 @@ void sub_1BA5C0698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN14ControllerImpl28getRecordDeviceInfoForStreamEP17AVVoiceControllermU13block_pointerFvmP20AVVCRecordDeviceInfoP7NSErrorE_block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
-  ControllerImpl::_lookupEngineForStreamID(&v25, *(*(a1 + 40) + 576), *(*(a1 + 40) + 584), *(a1 + 56));
-  v2 = v25;
-  if (!v25)
+  v32 = *MEMORY[0x1E69E9840];
+  ControllerImpl::_lookupEngineForStreamID(&v24, *(*(a1 + 40) + 576), *(*(a1 + 40) + 584), *(a1 + 56));
+  v2 = v24;
+  if (!v24)
   {
     if (kAVVCScope)
     {
-      v7 = *kAVVCScope;
-      if (!v7)
+      v6 = *kAVVCScope;
+      if (!v6)
       {
         goto LABEL_20;
       }
@@ -550,78 +548,78 @@ void ___ZN14ControllerImpl28getRecordDeviceInfoForStreamEP17AVVoiceControllermU1
 
     else
     {
+      v6 = MEMORY[0x1E69E9C10];
       v7 = MEMORY[0x1E69E9C10];
-      v8 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
-      v9 = *(a1 + 56);
+      v8 = *(a1 + 56);
       *buf = 136315650;
-      v28 = "ControllerImpl.mm";
-      v29 = 1024;
-      v30 = 6076;
-      v31 = 2048;
-      v32 = v9;
-      _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d getRecordDeviceInfoForStream: Nil recording engine for streamID(%llu)", buf, 0x1Cu);
+      v27 = "ControllerImpl.mm";
+      v28 = 1024;
+      v29 = 6076;
+      v30 = 2048;
+      v31 = v8;
+      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d getRecordDeviceInfoForStream: Nil recording engine for streamID(%llu)", buf, 0x1Cu);
     }
 
 LABEL_20:
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40);
-    v12 = v10 != 0;
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = ___ZN14ControllerImpl28getRecordDeviceInfoForStreamEP17AVVoiceControllermU13block_pointerFvmP20AVVCRecordDeviceInfoP7NSErrorE_block_invoke_503;
-    v22[3] = &unk_1E7EF6590;
-    v13 = v10;
-    v14 = *(a1 + 56);
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 40);
+    v11 = v9 != 0;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = ___ZN14ControllerImpl28getRecordDeviceInfoForStreamEP17AVVoiceControllermU13block_pointerFvmP20AVVCRecordDeviceInfoP7NSErrorE_block_invoke_503;
+    v21[3] = &unk_1E7EF6590;
+    v12 = v9;
+    v13 = *(a1 + 56);
+    v22 = v12;
     v23 = v13;
-    v24 = v14;
-    ControllerImpl::safeNotifyAlwaysAsync(v11, v12, v22);
+    ControllerImpl::safeNotifyAlwaysAsync(v10, v11, v21);
 
-    v3 = v26;
-    if (!v26)
+    v3 = v25;
+    if (!v25)
     {
-      goto LABEL_12;
+      return;
     }
 
     goto LABEL_11;
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3321888768;
-  v15[2] = ___ZN14ControllerImpl28getRecordDeviceInfoForStreamEP17AVVoiceControllermU13block_pointerFvmP20AVVCRecordDeviceInfoP7NSErrorE_block_invoke_2;
-  v15[3] = &unk_1F3848470;
-  v3 = v26;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3321888768;
+  v14[2] = ___ZN14ControllerImpl28getRecordDeviceInfoForStreamEP17AVVoiceControllermU13block_pointerFvmP20AVVCRecordDeviceInfoP7NSErrorE_block_invoke_2;
+  v14[3] = &unk_1F3848470;
+  v3 = v25;
+  v16 = v24;
   v17 = v25;
-  v18 = v26;
-  if (v26)
+  if (v25)
   {
-    atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v4 = *(a1 + 48);
   v5 = *(a1 + 40);
-  v19 = *(a1 + 56);
-  v20 = v5;
-  v21 = v4;
+  v18 = *(a1 + 56);
+  v19 = v5;
+  v20 = v4;
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v16 = *(a1 + 32);
-  (*(*v2 + 328))(v2, v15, "getRecordDeviceInfoForStream_block_invoke");
+  v15 = *(a1 + 32);
+  (*(*v2 + 328))(v2, v14, "getRecordDeviceInfoForStream_block_invoke");
 
-  if (v21)
+  if (v20)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
   }
 
-  if (v18)
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
   if (v3)
@@ -629,9 +627,6 @@ LABEL_20:
 LABEL_11:
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
-
-LABEL_12:
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA5C0AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23)
@@ -646,20 +641,20 @@ void sub_1BA5C0AE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN14ControllerImpl28getRecordDeviceInfoForStreamEP17AVVoiceControllermU13block_pointerFvmP20AVVCRecordDeviceInfoP7NSErrorE_block_invoke_2(void *a1)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v2 = [AVVCRecordDeviceInfo alloc];
   v3 = a1[6];
-  v25 = a1[5];
-  v26 = v3;
+  v24 = a1[5];
+  v25 = v3;
   if (v3)
   {
     atomic_fetch_add_explicit(&v3->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v4 = [(AVVCRecordDeviceInfo *)v2 initWithRecordingEngine:&v25];
-  if (v26)
+  v4 = [(AVVCRecordDeviceInfo *)v2 initWithRecordingEngine:&v24];
+  if (v25)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v26);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v25);
   }
 
   if (kAVVCScope)
@@ -687,21 +682,21 @@ void ___ZN14ControllerImpl28getRecordDeviceInfoForStreamEP17AVVoiceControllermU1
     v12 = [(AVVCRecordDeviceInfo *)v4 remoteDeviceUID];
     v13 = [(AVVCRecordDeviceInfo *)v4 remoteDeviceCategory];
     *buf = 136316930;
-    v28 = "ControllerImpl.mm";
-    v29 = 1024;
-    v30 = 6084;
-    v31 = 2048;
-    v32 = v8;
-    v33 = 2112;
-    v34 = v9;
-    v35 = 1024;
-    v36 = v10;
-    v37 = 2112;
-    v38 = v11;
-    v39 = 2112;
-    v40 = v12;
-    v41 = 1024;
-    v42 = v13;
+    v27 = "ControllerImpl.mm";
+    v28 = 1024;
+    v29 = 6084;
+    v30 = 2048;
+    v31 = v8;
+    v32 = 2112;
+    v33 = v9;
+    v34 = 1024;
+    v35 = v10;
+    v36 = 2112;
+    v37 = v11;
+    v38 = 2112;
+    v39 = v12;
+    v40 = 1024;
+    v41 = v13;
     _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d StreamID(%llu). RecordRoute: %@, isRemoteDevice: %d, productID: %@, uuid: %@, category: %d", buf, 0x46u);
   }
 
@@ -709,19 +704,17 @@ LABEL_12:
   v14 = a1[8];
   v15 = a1[4];
   v16 = v15 != 0;
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = ___ZN14ControllerImpl28getRecordDeviceInfoForStreamEP17AVVoiceControllermU13block_pointerFvmP20AVVCRecordDeviceInfoP7NSErrorE_block_invoke_505;
-  v21[3] = &unk_1E7EF5DB0;
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = ___ZN14ControllerImpl28getRecordDeviceInfoForStreamEP17AVVoiceControllermU13block_pointerFvmP20AVVCRecordDeviceInfoP7NSErrorE_block_invoke_505;
+  v20[3] = &unk_1E7EF5DB0;
   v17 = v15;
   v18 = a1[7];
-  v23 = v17;
-  v24 = v18;
+  v22 = v17;
+  v23 = v18;
   v19 = v4;
-  v22 = v19;
-  ControllerImpl::safeNotifyAlwaysAsync(v14, v16, v21);
-
-  v20 = *MEMORY[0x1E69E9840];
+  v21 = v19;
+  ControllerImpl::safeNotifyAlwaysAsync(v14, v16, v20);
 }
 
 void ___ZN14ControllerImpl28getRecordDeviceInfoForStreamEP17AVVoiceControllerm_block_invoke_2(uint64_t a1, uint64_t a2, void *a3)
@@ -799,20 +792,20 @@ void sub_1BA5C1238(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN14ControllerImpl22setDuckOthersForStreamEmP16AVVCDuckSettingsU13block_pointerFvmbP7NSErrorE_block_invoke(uint64_t a1)
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   if (!*(a1 + 32))
   {
-    goto LABEL_13;
+    return;
   }
 
-  ControllerImpl::_lookupEngineForStreamID(&v29, *(*(a1 + 48) + 576), *(*(a1 + 48) + 584), *(a1 + 64));
-  v2 = v29;
-  if (!v29)
+  ControllerImpl::_lookupEngineForStreamID(&v28, *(*(a1 + 48) + 576), *(*(a1 + 48) + 584), *(a1 + 64));
+  v2 = v28;
+  if (!v28)
   {
     if (kAVVCScope)
     {
-      v10 = *kAVVCScope;
-      if (!v10)
+      v9 = *kAVVCScope;
+      if (!v9)
       {
         goto LABEL_21;
       }
@@ -820,63 +813,63 @@ void ___ZN14ControllerImpl22setDuckOthersForStreamEmP16AVVCDuckSettingsU13block_
 
     else
     {
+      v9 = MEMORY[0x1E69E9C10];
       v10 = MEMORY[0x1E69E9C10];
-      v11 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v12 = *(a1 + 64);
+      v11 = *(a1 + 64);
       *buf = 136315650;
-      v32 = "ControllerImpl.mm";
-      v33 = 1024;
-      v34 = 6617;
-      v35 = 2048;
-      v36 = v12;
-      _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d setDuckOthersForStream: Cannot find recording engine for streamID(%lu). Returning.", buf, 0x1Cu);
+      v31 = "ControllerImpl.mm";
+      v32 = 1024;
+      v33 = 6617;
+      v34 = 2048;
+      v35 = v11;
+      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d setDuckOthersForStream: Cannot find recording engine for streamID(%lu). Returning.", buf, 0x1Cu);
     }
 
 LABEL_21:
-    v13 = *(a1 + 40);
-    v14 = *(a1 + 48);
-    v15 = v13 != 0;
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = ___ZN14ControllerImpl22setDuckOthersForStreamEmP16AVVCDuckSettingsU13block_pointerFvmbP7NSErrorE_block_invoke_557;
-    v26[3] = &unk_1E7EF6590;
-    v16 = v13;
-    v17 = *(a1 + 64);
+    v12 = *(a1 + 40);
+    v13 = *(a1 + 48);
+    v14 = v12 != 0;
+    v25[0] = MEMORY[0x1E69E9820];
+    v25[1] = 3221225472;
+    v25[2] = ___ZN14ControllerImpl22setDuckOthersForStreamEmP16AVVCDuckSettingsU13block_pointerFvmbP7NSErrorE_block_invoke_557;
+    v25[3] = &unk_1E7EF6590;
+    v15 = v12;
+    v16 = *(a1 + 64);
+    v26 = v15;
     v27 = v16;
-    v28 = v17;
-    ControllerImpl::safeNotifyAlwaysAsync(v14, v15, v26);
+    ControllerImpl::safeNotifyAlwaysAsync(v13, v14, v25);
 
-    v3 = v30;
-    if (!v30)
+    v3 = v29;
+    if (!v29)
     {
-      goto LABEL_13;
+      return;
     }
 
     goto LABEL_12;
   }
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3321888768;
-  v18[2] = ___ZN14ControllerImpl22setDuckOthersForStreamEmP16AVVCDuckSettingsU13block_pointerFvmbP7NSErrorE_block_invoke_2;
-  v18[3] = &unk_1F38480B8;
-  v3 = v30;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3321888768;
+  v17[2] = ___ZN14ControllerImpl22setDuckOthersForStreamEmP16AVVCDuckSettingsU13block_pointerFvmbP7NSErrorE_block_invoke_2;
+  v17[3] = &unk_1F38480B8;
+  v3 = v29;
+  v20 = v28;
   v21 = v29;
-  v22 = v30;
-  if (v30)
+  if (v29)
   {
-    atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v29->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v4 = *(a1 + 32);
   v6 = *(a1 + 48);
   v5 = *(a1 + 56);
-  v19 = v4;
-  v23 = v6;
-  v24 = v5;
+  v18 = v4;
+  v22 = v6;
+  v23 = v5;
   if (v5)
   {
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -884,18 +877,18 @@ LABEL_21:
 
   v7 = *(a1 + 40);
   v8 = *(a1 + 64);
-  v20 = v7;
-  v25 = v8;
-  (*(*v2 + 328))(v2, v18, "setDuckOthersForStream_block_invoke");
+  v19 = v7;
+  v24 = v8;
+  (*(*v2 + 328))(v2, v17, "setDuckOthersForStream_block_invoke");
 
-  if (v24)
+  if (v23)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
   }
 
-  if (v22)
+  if (v21)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
   }
 
   if (v3)
@@ -903,9 +896,6 @@ LABEL_21:
 LABEL_12:
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
-
-LABEL_13:
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA5C1530(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25)
@@ -1165,15 +1155,15 @@ void sub_1BA5C20A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN14ControllerImpl30getCurrentStreamStateForStreamEP17AVVoiceControllermU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
-  ControllerImpl::_lookupEngineForStreamID(&v26, *(*(a1 + 40) + 576), *(*(a1 + 40) + 584), *(a1 + 56));
-  v2 = v26;
-  if (!v26)
+  v33 = *MEMORY[0x1E69E9840];
+  ControllerImpl::_lookupEngineForStreamID(&v25, *(*(a1 + 40) + 576), *(*(a1 + 40) + 584), *(a1 + 56));
+  v2 = v25;
+  if (!v25)
   {
     if (kAVVCScope)
     {
-      v8 = *kAVVCScope;
-      if (!v8)
+      v7 = *kAVVCScope;
+      if (!v7)
       {
         goto LABEL_20;
       }
@@ -1181,60 +1171,60 @@ void ___ZN14ControllerImpl30getCurrentStreamStateForStreamEP17AVVoiceControllerm
 
     else
     {
+      v7 = MEMORY[0x1E69E9C10];
       v8 = MEMORY[0x1E69E9C10];
-      v9 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = *(a1 + 56);
+      v9 = *(a1 + 56);
       *buf = 136315650;
-      v29 = "ControllerImpl.mm";
-      v30 = 1024;
-      v31 = 5197;
-      v32 = 2048;
-      v33 = v10;
-      _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d getCurrentStreamState: Cannot find recording engine for streamID(%lu).", buf, 0x1Cu);
+      v28 = "ControllerImpl.mm";
+      v29 = 1024;
+      v30 = 5197;
+      v31 = 2048;
+      v32 = v9;
+      _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d getCurrentStreamState: Cannot find recording engine for streamID(%lu).", buf, 0x1Cu);
     }
 
 LABEL_20:
-    v11 = *(a1 + 32);
-    v12 = *(a1 + 40);
-    v13 = v11 != 0;
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = ___ZN14ControllerImpl30getCurrentStreamStateForStreamEP17AVVoiceControllermU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke_426;
-    v23[3] = &unk_1E7EF6590;
-    v14 = v11;
-    v15 = *(a1 + 56);
+    v10 = *(a1 + 32);
+    v11 = *(a1 + 40);
+    v12 = v10 != 0;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = ___ZN14ControllerImpl30getCurrentStreamStateForStreamEP17AVVoiceControllermU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke_426;
+    v22[3] = &unk_1E7EF6590;
+    v13 = v10;
+    v14 = *(a1 + 56);
+    v23 = v13;
     v24 = v14;
-    v25 = v15;
-    ControllerImpl::safeNotifyAlwaysAsync(v12, v13, v23);
+    ControllerImpl::safeNotifyAlwaysAsync(v11, v12, v22);
 
-    v3 = v27;
-    if (!v27)
+    v3 = v26;
+    if (!v26)
     {
-      goto LABEL_12;
+      return;
     }
 
     goto LABEL_11;
   }
 
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3321888768;
-  v16[2] = ___ZN14ControllerImpl30getCurrentStreamStateForStreamEP17AVVoiceControllermU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke_2;
-  v16[3] = &unk_1F38484A8;
-  v3 = v27;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3321888768;
+  v15[2] = ___ZN14ControllerImpl30getCurrentStreamStateForStreamEP17AVVoiceControllermU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke_2;
+  v15[3] = &unk_1F38484A8;
+  v3 = v26;
+  v17 = v25;
   v18 = v26;
-  v19 = v27;
-  if (v27)
+  if (v26)
   {
-    atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v4 = *(a1 + 48);
-  v20 = *(a1 + 40);
-  v21 = v4;
+  v19 = *(a1 + 40);
+  v20 = v4;
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -1242,18 +1232,18 @@ LABEL_20:
 
   v5 = *(a1 + 32);
   v6 = *(a1 + 56);
-  v17 = v5;
-  v22 = v6;
-  (*(*v2 + 328))(v2, v16, "getCurrentStreamStateForStream_block_invoke");
+  v16 = v5;
+  v21 = v6;
+  (*(*v2 + 328))(v2, v15, "getCurrentStreamStateForStream_block_invoke");
 
-  if (v21)
+  if (v20)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
   }
 
-  if (v19)
+  if (v18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
   }
 
   if (v3)
@@ -1261,9 +1251,6 @@ LABEL_20:
 LABEL_11:
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
-
-LABEL_12:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA5C2374(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23)
@@ -1331,9 +1318,9 @@ uint64_t ControllerImpl::activateAudioSessionForStream(ControllerImpl *this, AVV
   return v11;
 }
 
-void sub_1BA5C25B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BA5C25B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -1365,9 +1352,9 @@ uint64_t ControllerImpl::setContextForStream(ControllerImpl *this, AVVoiceContro
   return v11;
 }
 
-void sub_1BA5C26DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1BA5C26DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, void *a7, void *a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -1447,11 +1434,11 @@ void sub_1BA5C28AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke(uint64_t a1)
 {
-  v53 = *MEMORY[0x1E69E9840];
-  ControllerImpl::_lookupEngineForStreamID(&v43, *(*(a1 + 56) + 576), *(*(a1 + 56) + 584), *(a1 + 72));
+  v52 = *MEMORY[0x1E69E9840];
+  ControllerImpl::_lookupEngineForStreamID(&v42, *(*(a1 + 56) + 576), *(*(a1 + 56) + 584), *(a1 + 72));
   v2 = [*(a1 + 32) activationMode];
-  v3 = v43;
-  if (!v43)
+  v3 = v42;
+  if (!v42)
   {
     if (kAVVCScope)
     {
@@ -1462,15 +1449,15 @@ LABEL_27:
         v21 = *(a1 + 56);
         v22 = *(a1 + 40);
         v23 = v22 != 0;
-        v40[0] = MEMORY[0x1E69E9820];
-        v40[1] = 3221225472;
-        v40[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_469;
-        v40[3] = &unk_1E7EF6590;
+        v39[0] = MEMORY[0x1E69E9820];
+        v39[1] = 3221225472;
+        v39[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_469;
+        v39[3] = &unk_1E7EF6590;
         v24 = v22;
         v25 = *(a1 + 72);
-        v41 = v24;
-        v42 = v25;
-        ControllerImpl::safeNotifyAlwaysAsync(v21, v23, v40);
+        v40 = v24;
+        v41 = v25;
+        ControllerImpl::safeNotifyAlwaysAsync(v21, v23, v39);
 
         goto LABEL_28;
       }
@@ -1486,11 +1473,11 @@ LABEL_27:
     {
       v20 = *(a1 + 72);
       *buf = 136315650;
-      v46 = "ControllerImpl.mm";
-      v47 = 1024;
-      v48 = 5768;
-      v49 = 2048;
-      v50 = v20;
+      v45 = "ControllerImpl.mm";
+      v46 = 1024;
+      v47 = 5768;
+      v48 = 2048;
+      v49 = v20;
       _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: Cannot find recording engine for streamID(%lu). Returning.", buf, 0x1Cu);
     }
 
@@ -1509,15 +1496,15 @@ LABEL_22:
         v14 = *(a1 + 56);
         v15 = *(a1 + 40);
         v16 = v15 != 0;
-        v37[0] = MEMORY[0x1E69E9820];
-        v37[1] = 3221225472;
-        v37[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_470;
-        v37[3] = &unk_1E7EF6590;
+        v36[0] = MEMORY[0x1E69E9820];
+        v36[1] = 3221225472;
+        v36[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_470;
+        v36[3] = &unk_1E7EF6590;
         v17 = v15;
         v18 = *(a1 + 72);
-        v38 = v17;
-        v39 = v18;
-        ControllerImpl::safeNotifyAlwaysAsync(v14, v16, v37);
+        v37 = v17;
+        v38 = v18;
+        ControllerImpl::safeNotifyAlwaysAsync(v14, v16, v36);
 
         goto LABEL_28;
       }
@@ -1534,13 +1521,13 @@ LABEL_22:
       v12 = *(a1 + 72);
       v13 = *(*(a1 + 56) + 472);
       *buf = 136315906;
-      v46 = "ControllerImpl.mm";
-      v47 = 1024;
-      v48 = 5777;
-      v49 = 2048;
-      v50 = v12;
-      v51 = 2048;
-      v52 = v13;
+      v45 = "ControllerImpl.mm";
+      v46 = 1024;
+      v47 = 5777;
+      v48 = 2048;
+      v49 = v12;
+      v50 = 2048;
+      v51 = v13;
       _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d setContextForStream: Error! Incoming engine with streamID(%llu) is different from engine that was used to activate the session, streamID(%llu)", buf, 0x26u);
     }
 
@@ -1548,51 +1535,49 @@ LABEL_22:
   }
 
   v5 = v2;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3321888768;
-  v28[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_2;
-  v28[3] = &unk_1F3849188;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3321888768;
+  v27[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_2;
+  v27[3] = &unk_1F3849188;
+  v30 = v42;
   v31 = v43;
-  v32 = v44;
-  if (v44)
+  if (v43)
   {
-    atomic_fetch_add_explicit(&v44->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v43->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v29 = *(a1 + 32);
+  v28 = *(a1 + 32);
   v7 = *(a1 + 56);
   v6 = *(a1 + 64);
-  v33 = v5;
-  v34 = v7;
-  v35 = v6;
+  v32 = v5;
+  v33 = v7;
+  v34 = v6;
   if (v6)
   {
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v27 = *(a1 + 40);
-  v8 = v27;
-  v30 = v27;
-  v36 = *(a1 + 72);
-  (*(*v3 + 328))(v3, v28, "setContextForStream_block_invoke");
+  v26 = *(a1 + 40);
+  v8 = v26;
+  v29 = v26;
+  v35 = *(a1 + 72);
+  (*(*v3 + 328))(v3, v27, "setContextForStream_block_invoke");
 
-  if (v35)
+  if (v34)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v35);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v34);
   }
 
-  if (v32)
+  if (v31)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v32);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v31);
   }
 
 LABEL_28:
-  if (v44)
+  if (v43)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v44);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v43);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA5C2D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, void *a16, void *a17, uint64_t a18, uint64_t a19, std::__shared_weak_count *a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23)
@@ -1618,7 +1603,7 @@ void sub_1BA5C2D08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 void ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_2(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   AVVCRecordingEngine::setActivationContextSettings(*(a1 + 56), *(a1 + 32));
   *(*(a1 + 56) + 272) = *(a1 + 72);
   if (![*(a1 + 32) announceCallsEnabled])
@@ -1641,13 +1626,13 @@ LABEL_7:
     v5 = v2;
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      CAX4CCString::CAX4CCString(v25, *(a1 + 72));
+      CAX4CCString::CAX4CCString(v24, *(a1 + 72));
       *buf = 136315650;
-      v27 = "ControllerImpl.mm";
-      v28 = 1024;
-      v29 = 5803;
-      v30 = 2080;
-      v31 = v25;
+      v26 = "ControllerImpl.mm";
+      v27 = 1024;
+      v28 = 5803;
+      v29 = 2080;
+      v30 = v24;
       _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setContextForStream: Announce option set for %s activation mode", buf, 0x1Cu);
     }
   }
@@ -1655,49 +1640,47 @@ LABEL_7:
   v3 = 1;
 LABEL_11:
   v6 = *(a1 + 80);
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3321888768;
-  v15[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_471;
-  v15[3] = &unk_1F3849070;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3321888768;
+  v14[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_471;
+  v14[3] = &unk_1F3849070;
   v7 = *(a1 + 32);
   v8 = *(a1 + 72);
   v9 = *(a1 + 80);
-  v16 = v7;
-  v18 = v8;
-  v19 = v9;
+  v15 = v7;
+  v17 = v8;
+  v18 = v9;
   v10 = *(a1 + 88);
-  v20 = v10;
+  v19 = v10;
   if (v10)
   {
     atomic_fetch_add_explicit(&v10->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v11 = *(a1 + 64);
-  v21 = *(a1 + 56);
-  v22 = v11;
+  v20 = *(a1 + 56);
+  v21 = v11;
   if (v11)
   {
     atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v14 = *(a1 + 40);
-  v12 = v14;
-  v17 = v14;
-  v23 = *(a1 + 96);
-  v24 = v3;
-  ControllerImpl::safeWork(v6, v15, "setContextForStream_block_invoke");
+  v13 = *(a1 + 40);
+  v12 = v13;
+  v16 = v13;
+  v22 = *(a1 + 96);
+  v23 = v3;
+  ControllerImpl::safeWork(v6, v14, "setContextForStream_block_invoke");
 
-  if (v22)
+  if (v21)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
   }
 
-  if (v20)
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_471(uint64_t a1)
@@ -1805,7 +1788,7 @@ void ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCConte
 
 void ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_2_472(uint64_t a1)
 {
-  v94 = *MEMORY[0x1E69E9840];
+  v92 = *MEMORY[0x1E69E9840];
   v2 = (*(**(a1 + 64) + 64))(*(a1 + 64), 0);
   *(*(*(a1 + 48) + 8) + 24) = [v2 setSessionActivationContext:*(a1 + 32)];
 
@@ -1820,21 +1803,19 @@ LABEL_13:
         v8 = *(a1 + 80);
         v9 = *(a1 + 40);
         v10 = v9 != 0;
-        v84[0] = MEMORY[0x1E69E9820];
-        v84[1] = 3221225472;
-        v84[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_473;
-        v84[3] = &unk_1E7EF5F40;
+        v82[0] = MEMORY[0x1E69E9820];
+        v82[1] = 3221225472;
+        v82[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_473;
+        v82[3] = &unk_1E7EF5F40;
         v11 = v9;
         v12 = *(a1 + 96);
         v13 = *(a1 + 48);
-        v85 = v11;
-        v86 = v13;
-        v87 = v12;
-        ControllerImpl::safeNotifyAlwaysAsync(v8, v10, v84);
+        v83 = v11;
+        v84 = v13;
+        v85 = v12;
+        ControllerImpl::safeNotifyAlwaysAsync(v8, v10, v82);
         *(*(*(a1 + 56) + 8) + 24) = 1;
 
-LABEL_40:
-        v44 = *MEMORY[0x1E69E9840];
         return;
       }
     }
@@ -1849,11 +1830,11 @@ LABEL_40:
     {
       v7 = *(*(*(a1 + 48) + 8) + 24);
       *buf = 136315650;
-      v89 = "ControllerImpl.mm";
+      v87 = "ControllerImpl.mm";
+      v88 = 1024;
+      v89 = 5835;
       v90 = 1024;
-      v91 = 5835;
-      v92 = 1024;
-      v93 = v7;
+      v91 = v7;
       _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_ERROR, "%25s:%-5d setContextForStream ERROR: Failed at setSessionActivationContext: %d", buf, 0x18u);
     }
 
@@ -1874,20 +1855,20 @@ LABEL_22:
         v18 = *(a1 + 80);
         v19 = *(a1 + 40);
         v20 = v19 != 0;
-        v80[0] = MEMORY[0x1E69E9820];
-        v80[1] = 3221225472;
-        v80[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_474;
-        v80[3] = &unk_1E7EF5F40;
+        v78[0] = MEMORY[0x1E69E9820];
+        v78[1] = 3221225472;
+        v78[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_474;
+        v78[3] = &unk_1E7EF5F40;
         v21 = v19;
         v22 = *(a1 + 96);
         v23 = *(a1 + 48);
-        v81 = v21;
-        v82 = v23;
-        v83 = v22;
-        ControllerImpl::safeNotifyAlwaysAsync(v18, v20, v80);
+        v79 = v21;
+        v80 = v23;
+        v81 = v22;
+        ControllerImpl::safeNotifyAlwaysAsync(v18, v20, v78);
         *(*(*(a1 + 56) + 8) + 24) = 1;
 
-        goto LABEL_40;
+        return;
       }
     }
 
@@ -1901,11 +1882,11 @@ LABEL_22:
     {
       v17 = *(*(*(a1 + 48) + 8) + 24);
       *buf = 136315650;
-      v89 = "ControllerImpl.mm";
+      v87 = "ControllerImpl.mm";
+      v88 = 1024;
+      v89 = 5846;
       v90 = 1024;
-      v91 = 5846;
-      v92 = 1024;
-      v93 = v17;
+      v91 = v17;
       _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d setContextForStream ERROR: Failed at setSessionCategoryModeOptionsForActivationMode: %d", buf, 0x18u);
     }
 
@@ -1926,20 +1907,20 @@ LABEL_31:
         v28 = *(a1 + 80);
         v29 = *(a1 + 40);
         v30 = v29 != 0;
-        v76[0] = MEMORY[0x1E69E9820];
-        v76[1] = 3221225472;
-        v76[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_475;
-        v76[3] = &unk_1E7EF5F40;
+        v74[0] = MEMORY[0x1E69E9820];
+        v74[1] = 3221225472;
+        v74[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_475;
+        v74[3] = &unk_1E7EF5F40;
         v31 = v29;
         v32 = *(a1 + 96);
         v33 = *(a1 + 48);
-        v77 = v31;
-        v78 = v33;
-        v79 = v32;
-        ControllerImpl::safeNotifyAlwaysAsync(v28, v30, v76);
+        v75 = v31;
+        v76 = v33;
+        v77 = v32;
+        ControllerImpl::safeNotifyAlwaysAsync(v28, v30, v74);
         *(*(*(a1 + 56) + 8) + 24) = 1;
 
-        goto LABEL_40;
+        return;
       }
     }
 
@@ -1953,11 +1934,11 @@ LABEL_31:
     {
       v27 = *(*(*(a1 + 48) + 8) + 24);
       *buf = 136315650;
-      v89 = "ControllerImpl.mm";
+      v87 = "ControllerImpl.mm";
+      v88 = 1024;
+      v89 = 5857;
       v90 = 1024;
-      v91 = 5857;
-      v92 = 1024;
-      v93 = v27;
+      v91 = v27;
       _os_log_impl(&dword_1BA5AC000, v15, OS_LOG_TYPE_ERROR, "%25s:%-5d setContextForStream ERROR: Failed at setSessionSampleRateForActivationMode: %d", buf, 0x18u);
     }
 
@@ -1978,20 +1959,20 @@ LABEL_39:
         v38 = *(a1 + 80);
         v39 = *(a1 + 40);
         v40 = v39 != 0;
-        v72[0] = MEMORY[0x1E69E9820];
-        v72[1] = 3221225472;
-        v72[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_476;
-        v72[3] = &unk_1E7EF5F40;
+        v70[0] = MEMORY[0x1E69E9820];
+        v70[1] = 3221225472;
+        v70[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_476;
+        v70[3] = &unk_1E7EF5F40;
         v41 = v39;
         v42 = *(a1 + 96);
         v43 = *(a1 + 48);
-        v73 = v41;
-        v74 = v43;
-        v75 = v42;
-        ControllerImpl::safeNotifyAlwaysAsync(v38, v40, v72);
+        v71 = v41;
+        v72 = v43;
+        v73 = v42;
+        ControllerImpl::safeNotifyAlwaysAsync(v38, v40, v70);
         *(*(*(a1 + 56) + 8) + 24) = 1;
 
-        goto LABEL_40;
+        return;
       }
     }
 
@@ -2005,11 +1986,11 @@ LABEL_39:
     {
       v37 = *(*(*(a1 + 48) + 8) + 24);
       *buf = 136315650;
-      v89 = "ControllerImpl.mm";
+      v87 = "ControllerImpl.mm";
+      v88 = 1024;
+      v89 = 5868;
       v90 = 1024;
-      v91 = 5868;
-      v92 = 1024;
-      v93 = v37;
+      v91 = v37;
       _os_log_impl(&dword_1BA5AC000, v25, OS_LOG_TYPE_ERROR, "%25s:%-5d setContextForStream ERROR: Failed at setSessionAudioHWControlFlagsForActivationMode: %d", buf, 0x18u);
     }
 
@@ -2019,72 +2000,65 @@ LABEL_39:
   v34 = *(a1 + 120);
   if (v34 > 1918986610)
   {
-    if (v34 == 1987012963)
+    if (v34 != 1987012963)
     {
-      goto LABEL_44;
+      v35 = 1918986611;
+LABEL_43:
+      if (v34 != v35)
+      {
+        return;
+      }
     }
-
-    v35 = 1918986611;
   }
 
-  else
+  else if (v34 != 1668314723)
   {
-    if (v34 == 1668314723)
-    {
-      goto LABEL_44;
-    }
-
     v35 = 1751414371;
+    goto LABEL_43;
   }
 
-  if (v34 != v35)
+  v64 = (*(**(a1 + 64) + 64))(*(a1 + 64), 0);
+  if ([v64 isSessionActive])
   {
-    goto LABEL_40;
-  }
+    v44 = *(a1 + 104);
 
-LABEL_44:
-  v66 = (*(**(a1 + 64) + 64))(*(a1 + 64), 0);
-  if ([v66 isSessionActive])
-  {
-    v45 = *(a1 + 104);
-
-    if (v45 == 1886352244)
+    if (v44 == 1886352244)
     {
-      v46 = (*(**(a1 + 64) + 64))(*(a1 + 64), 0);
-      v47 = [v46 getSessionActivationOptions];
+      v45 = (*(**(a1 + 64) + 64))(*(a1 + 64), 0);
+      v46 = [v45 getSessionActivationOptions];
 
-      v48 = CALog::LogObjIfEnabled(3, kAVVCScope);
-      v49 = v48;
-      if (v48 && os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+      v47 = CALog::LogObjIfEnabled(3, kAVVCScope);
+      v48 = v47;
+      if (v47 && os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v89 = "ControllerImpl.mm";
+        v87 = "ControllerImpl.mm";
+        v88 = 1024;
+        v89 = 5887;
         v90 = 1024;
-        v91 = 5887;
-        v92 = 1024;
-        v93 = v47;
-        _os_log_impl(&dword_1BA5AC000, v49, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setContextForStream: finish 'live' switch by re-activating active session setActive:TRUE, session options : %d", buf, 0x18u);
+        v91 = v46;
+        _os_log_impl(&dword_1BA5AC000, v48, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setContextForStream: finish 'live' switch by re-activating active session setActive:TRUE, session options : %d", buf, 0x18u);
       }
 
-      v50 = (*(**(a1 + 64) + 56))(*(a1 + 64), 0);
-      v71 = 0;
-      v51 = [v50 setActive:1 withOptions:v47 error:&v71];
-      v52 = v71;
+      v49 = (*(**(a1 + 64) + 56))(*(a1 + 64), 0);
+      v69 = 0;
+      v50 = [v49 setActive:1 withOptions:v46 error:&v69];
+      v51 = v69;
 
-      if (v51)
+      if (v50)
       {
-        v53 = (*(**(a1 + 64) + 64))(*(a1 + 64), 0);
-        [v53 setSessionState:7];
+        v52 = (*(**(a1 + 64) + 64))(*(a1 + 64), 0);
+        [v52 setSessionState:7];
 
-        v54 = CALog::LogObjIfEnabled(3, kAVVCScope);
-        v55 = v54;
-        if (v54 && os_log_type_enabled(v54, OS_LOG_TYPE_DEFAULT))
+        v53 = CALog::LogObjIfEnabled(3, kAVVCScope);
+        v54 = v53;
+        if (v53 && os_log_type_enabled(v53, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v89 = "ControllerImpl.mm";
-          v90 = 1024;
-          v91 = 5897;
-          _os_log_impl(&dword_1BA5AC000, v55, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setContextForStream: session re-activated -- calling getSessionProperties", buf, 0x12u);
+          v87 = "ControllerImpl.mm";
+          v88 = 1024;
+          v89 = 5897;
+          _os_log_impl(&dword_1BA5AC000, v54, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setContextForStream: session re-activated -- calling getSessionProperties", buf, 0x12u);
         }
 
         *(*(*(a1 + 48) + 8) + 24) = AVVCRecordingEngine::getSessionProperties(*(a1 + 64));
@@ -2092,45 +2066,45 @@ LABEL_44:
 
       else
       {
-        v57 = CALog::LogObjIfEnabled(1, kAVVCScope);
-        v58 = v57;
-        if (v57)
+        v55 = CALog::LogObjIfEnabled(1, kAVVCScope);
+        v56 = v55;
+        if (v55)
         {
-          v59 = v57;
-          if (os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
+          v57 = v55;
+          if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
           {
-            v60 = [v52 code];
+            v58 = [v51 code];
             *buf = 136315650;
-            v89 = "ControllerImpl.mm";
+            v87 = "ControllerImpl.mm";
+            v88 = 1024;
+            v89 = 5889;
             v90 = 1024;
-            v91 = 5889;
-            v92 = 1024;
-            v93 = v60;
-            _os_log_impl(&dword_1BA5AC000, v59, OS_LOG_TYPE_ERROR, "%25s:%-5d setContextForStream : Session re-activation failed with error : %d", buf, 0x18u);
+            v91 = v58;
+            _os_log_impl(&dword_1BA5AC000, v57, OS_LOG_TYPE_ERROR, "%25s:%-5d setContextForStream : Session re-activation failed with error : %d", buf, 0x18u);
           }
         }
 
-        v61 = *(a1 + 80);
-        v62 = *(a1 + 40);
-        v63 = v62 != 0;
-        v67[0] = MEMORY[0x1E69E9820];
-        v67[1] = 3221225472;
-        v67[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_477;
-        v67[3] = &unk_1E7EF5DB0;
-        v64 = v62;
-        v65 = *(a1 + 96);
-        v69 = v64;
-        v70 = v65;
-        v68 = v52;
-        ControllerImpl::safeNotifyAlwaysAsync(v61, v63, v67);
+        v59 = *(a1 + 80);
+        v60 = *(a1 + 40);
+        v61 = v60 != 0;
+        v65[0] = MEMORY[0x1E69E9820];
+        v65[1] = 3221225472;
+        v65[2] = ___ZN14ControllerImpl19setContextForStreamEP17AVVoiceControllerP19AVVCContextSettingsmU13block_pointerFvmbP7NSErrorE_block_invoke_477;
+        v65[3] = &unk_1E7EF5DB0;
+        v62 = v60;
+        v63 = *(a1 + 96);
+        v67 = v62;
+        v68 = v63;
+        v66 = v51;
+        ControllerImpl::safeNotifyAlwaysAsync(v59, v61, v65);
         *(*(*(a1 + 56) + 8) + 24) = 1;
       }
     }
-
-    goto LABEL_40;
   }
 
-  v56 = *MEMORY[0x1E69E9840];
+  else
+  {
+  }
 }
 
 BOOL areDeviceUIDsSame(NSString *a1, NSString *a2)
@@ -2155,14 +2129,14 @@ BOOL areDeviceUIDsSame(NSString *a1, NSString *a2)
   return v6;
 }
 
-void sub_1BA5C443C(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, int a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+void sub_1BA5C443C(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, int a5, int a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a16);
+  va_start(va, a22);
 
   ElapsedTime::~ElapsedTime(va);
-  if (a6)
+  if (HIDWORD(a12))
   {
-    std::recursive_mutex::unlock((a4 + 24));
+    std::recursive_mutex::unlock((a11 + 24));
   }
 
   _Unwind_Resume(a1);
@@ -2192,24 +2166,24 @@ id getAVOutputContextClass(void)
   return v1;
 }
 
-void sub_1BA5C456C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1BA5C456C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 void ___ZN14ControllerImpl22setRecordModeForStreamEm27AVVoiceControllerRecordModeU13block_pointerFvmbP7NSErrorE_block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
-  ControllerImpl::_lookupEngineForStreamID(&v24, *(*(a1 + 40) + 576), *(*(a1 + 40) + 584), *(a1 + 56));
-  v2 = v24;
-  if (!v24)
+  v31 = *MEMORY[0x1E69E9840];
+  ControllerImpl::_lookupEngineForStreamID(&v23, *(*(a1 + 40) + 576), *(*(a1 + 40) + 584), *(a1 + 56));
+  v2 = v23;
+  if (!v23)
   {
     if (kAVVCScope)
     {
-      v6 = *kAVVCScope;
-      if (!v6)
+      v5 = *kAVVCScope;
+      if (!v5)
       {
         goto LABEL_20;
       }
@@ -2217,77 +2191,77 @@ void ___ZN14ControllerImpl22setRecordModeForStreamEm27AVVoiceControllerRecordMod
 
     else
     {
+      v5 = MEMORY[0x1E69E9C10];
       v6 = MEMORY[0x1E69E9C10];
-      v7 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8 = *(a1 + 56);
+      v7 = *(a1 + 56);
       *buf = 136315650;
-      v27 = "ControllerImpl.mm";
-      v28 = 1024;
-      v29 = 6349;
-      v30 = 2048;
-      v31 = v8;
-      _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_ERROR, "%25s:%-5d setRecordModeForStream: Cannot find recording engine for streamID(%lu). Returning.", buf, 0x1Cu);
+      v26 = "ControllerImpl.mm";
+      v27 = 1024;
+      v28 = 6349;
+      v29 = 2048;
+      v30 = v7;
+      _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d setRecordModeForStream: Cannot find recording engine for streamID(%lu). Returning.", buf, 0x1Cu);
     }
 
 LABEL_20:
-    v9 = *(a1 + 32);
-    v10 = *(a1 + 40);
-    v11 = v9 != 0;
-    v21[0] = MEMORY[0x1E69E9820];
-    v21[1] = 3221225472;
-    v21[2] = ___ZN14ControllerImpl22setRecordModeForStreamEm27AVVoiceControllerRecordModeU13block_pointerFvmbP7NSErrorE_block_invoke_538;
-    v21[3] = &unk_1E7EF6590;
-    v12 = v9;
-    v13 = *(a1 + 56);
+    v8 = *(a1 + 32);
+    v9 = *(a1 + 40);
+    v10 = v8 != 0;
+    v20[0] = MEMORY[0x1E69E9820];
+    v20[1] = 3221225472;
+    v20[2] = ___ZN14ControllerImpl22setRecordModeForStreamEm27AVVoiceControllerRecordModeU13block_pointerFvmbP7NSErrorE_block_invoke_538;
+    v20[3] = &unk_1E7EF6590;
+    v11 = v8;
+    v12 = *(a1 + 56);
+    v21 = v11;
     v22 = v12;
-    v23 = v13;
-    ControllerImpl::safeNotifyAlwaysAsync(v10, v11, v21);
+    ControllerImpl::safeNotifyAlwaysAsync(v9, v10, v20);
 
-    v3 = v25;
-    if (!v25)
+    v3 = v24;
+    if (!v24)
     {
-      goto LABEL_12;
+      return;
     }
 
     goto LABEL_11;
   }
 
-  v14[0] = MEMORY[0x1E69E9820];
-  v14[1] = 3321888768;
-  v14[2] = ___ZN14ControllerImpl22setRecordModeForStreamEm27AVVoiceControllerRecordModeU13block_pointerFvmbP7NSErrorE_block_invoke_2;
-  v14[3] = &unk_1F384DE68;
-  v16 = *(a1 + 56);
-  v3 = v25;
+  v13[0] = MEMORY[0x1E69E9820];
+  v13[1] = 3321888768;
+  v13[2] = ___ZN14ControllerImpl22setRecordModeForStreamEm27AVVoiceControllerRecordModeU13block_pointerFvmbP7NSErrorE_block_invoke_2;
+  v13[3] = &unk_1F384DE68;
+  v15 = *(a1 + 56);
+  v3 = v24;
+  v16 = v23;
   v17 = v24;
-  v18 = v25;
-  if (v25)
+  if (v24)
   {
-    atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v24->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v4 = *(a1 + 48);
-  v19 = *(a1 + 40);
-  v20 = v4;
+  v18 = *(a1 + 40);
+  v19 = v4;
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v15 = *(a1 + 32);
-  (*(*v2 + 328))(v2, v14, "setRecordModeForStream_block_invoke");
+  v14 = *(a1 + 32);
+  (*(*v2 + 328))(v2, v13, "setRecordModeForStream_block_invoke");
 
-  if (v20)
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
 
-  if (v18)
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
   if (v3)
@@ -2295,9 +2269,6 @@ LABEL_20:
 LABEL_11:
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
-
-LABEL_12:
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA5C4810(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, void *a25)
@@ -2393,7 +2364,7 @@ uint64_t ControllerImpl::setRecordModeForStream(uint64_t a1, uint64_t a2, uint64
 
 void ___ZN14ControllerImpl22setRecordModeForStreamEm27AVVoiceControllerRecordModeU13block_pointerFvmbP7NSErrorE_block_invoke_2(void *a1)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   if (!isHACProduct() || a1[5] != 32769)
   {
     v8 = a1[6];
@@ -2457,11 +2428,11 @@ LABEL_27:
     {
       v20 = a1[5];
       *buf = 136315650;
-      *v35 = "ControllerImpl.mm";
-      *&v35[8] = 1024;
-      *&v35[10] = 6387;
-      v36 = 1024;
-      v37 = v20;
+      *v34 = "ControllerImpl.mm";
+      *&v34[8] = 1024;
+      *&v34[10] = 6387;
+      v35 = 1024;
+      v36 = v20;
       _os_log_impl(&dword_1BA5AC000, v18, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setRecordModeForStream: Switching to Recording mode when session is not active !! streamID(%d)", buf, 0x18u);
     }
 
@@ -2470,9 +2441,9 @@ LABEL_27:
 
   v2 = a1[6];
   v3 = (*(*a1[7] + 64))(a1[7], 0);
-  v33 = 0;
-  v4 = [v3 setIsUsingBuiltInMicForRecording:v2 == 1 error:&v33];
-  v5 = v33;
+  v32 = 0;
+  v4 = [v3 setIsUsingBuiltInMicForRecording:v2 == 1 error:&v32];
+  v5 = v32;
 
   if (v5)
   {
@@ -2491,9 +2462,9 @@ LABEL_27:
     if (os_log_type_enabled(v17, OS_LOG_TYPE_FAULT))
     {
       *buf = 67109378;
-      *v35 = 0;
-      *&v35[4] = 2112;
-      *&v35[6] = v5;
+      *v34 = 0;
+      *&v34[4] = 2112;
+      *&v34[6] = v5;
       _os_log_fault_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_FAULT, "setIsUsingBuiltInMicForRecording failed: return (%d), error (%@)", buf, 0x12u);
     }
 
@@ -2507,26 +2478,24 @@ LABEL_30:
   v21 = a1[9];
   v22 = a1[4];
   v23 = v22 != 0;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = ___ZN14ControllerImpl22setRecordModeForStreamEm27AVVoiceControllerRecordModeU13block_pointerFvmbP7NSErrorE_block_invoke_539;
-  v28[3] = &unk_1E7EF6148;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = ___ZN14ControllerImpl22setRecordModeForStreamEm27AVVoiceControllerRecordModeU13block_pointerFvmbP7NSErrorE_block_invoke_539;
+  v27[3] = &unk_1E7EF6148;
   v24 = v22;
   v25 = a1[5];
-  v30 = v24;
-  v31 = v25;
-  v32 = v15;
-  v29 = v5;
+  v29 = v24;
+  v30 = v25;
+  v31 = v15;
+  v28 = v5;
   v26 = v5;
-  ControllerImpl::safeNotifyAlwaysAsync(v21, v23, v28);
-
-  v27 = *MEMORY[0x1E69E9840];
+  ControllerImpl::safeNotifyAlwaysAsync(v21, v23, v27);
 }
 
 uint64_t AVVCKeepAliveImpl_AudioQueue::start(AVVCKeepAliveImpl_AudioQueue *this)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  TraceMethod::TraceMethod(v6, "startKeepAliveQueue");
+  v10 = *MEMORY[0x1E69E9840];
+  TraceMethod::TraceMethod(v5, "startKeepAliveQueue");
   if (kAVVCScope)
   {
     v2 = *kAVVCScope;
@@ -2545,22 +2514,21 @@ uint64_t AVVCKeepAliveImpl_AudioQueue::start(AVVCKeepAliveImpl_AudioQueue *this)
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v8 = "AVVCKeepAliveImpl_AudioQueue.mm";
-    v9 = 1024;
-    v10 = 103;
+    v7 = "AVVCKeepAliveImpl_AudioQueue.mm";
+    v8 = 1024;
+    v9 = 103;
     _os_log_impl(&dword_1BA5AC000, v2, OS_LOG_TYPE_DEFAULT, "%25s:%-5d About to start keepAliveQueue", buf, 0x12u);
   }
 
 LABEL_8:
   AVVCKeepAliveImpl_AudioQueue::keepHardwareActive(this, 1);
-  TraceMethod::~TraceMethod(v6);
-  v4 = *MEMORY[0x1E69E9840];
+  TraceMethod::~TraceMethod(v5);
   return 0;
 }
 
 void AVVCAudioQueueRecordingEngine::handleAudioInput(AVVCAudioQueueRecordingEngine *this, OpaqueAudioQueue *a2, AudioQueueBuffer *a3, const AudioTimeStamp *a4, unsigned int a5, const AudioStreamPacketDescription *a6)
 {
-  v106 = *MEMORY[0x1E69E9840];
+  v97 = *MEMORY[0x1E69E9840];
   atomic_fetch_add_explicit(this + 165, 0xFFFFFFFF, memory_order_relaxed);
   v7 = *(this + 159);
   mAudioDataByteSize = a3->mAudioDataByteSize;
@@ -2572,8 +2540,8 @@ void AVVCAudioQueueRecordingEngine::handleAudioInput(AVVCAudioQueueRecordingEngi
 
   inInputDataProcUserData = 4108;
   inInputDataProcUserData_4 = 0;
-  v88 = 0u;
-  v89 = 0u;
+  v79 = 0u;
+  v80 = 0u;
   kdebug_trace();
   v10 = objc_autoreleasePoolPush();
   v11 = +[AVVCMetricsManager sharedManager];
@@ -2626,22 +2594,22 @@ LABEL_12:
       v28 = *(this + 85);
       buf[0] = 136317186;
       *&buf[1] = "AVVCAudioQueueRecordingEngine.mm";
-      v91 = 1024;
-      v92 = 1538;
+      v82 = 1024;
+      v83 = 1538;
+      v84 = 2048;
+      v85 = *&outOutputData.mNumberBuffers;
+      v86 = 2048;
+      v87 = v15;
+      v88 = 2048;
+      v89 = v26;
+      v90 = 2048;
+      *v91 = mSampleTime;
+      *&v91[8] = 2048;
+      v92 = v28;
       v93 = 2048;
-      v94 = *&outOutputData.mNumberBuffers;
+      v94 = v21 / 1000000.0;
       v95 = 2048;
-      v96 = v15;
-      v97 = 2048;
-      v98 = v26;
-      v99 = 2048;
-      *v100 = mSampleTime;
-      *&v100[8] = 2048;
-      v101 = v28;
-      v102 = 2048;
-      v103 = v21 / 1000000.0;
-      v104 = 2048;
-      v105 = v19 / 1000000.0;
+      *&v96 = v19 / 1000000.0;
       _os_log_impl(&dword_1BA5AC000, v25, OS_LOG_TYPE_DEFAULT, "%25s:%-5d First callback - AQ engine (%p) - Now:(ht: %llu), BuffStartTime:(ht: %llu st: %f), SiriRequestedStartTime:(ht: %llu). Now-SiriRequestedStartTime: %0.6f ms, BuffStartTime-SiriRequestedStartTime: %0.6f ms.", buf, 0x58u);
       if (*&outOutputData.mBuffers[0].mNumberChannels)
       {
@@ -2717,61 +2685,62 @@ LABEL_22:
     v47 = *(this + 165);
     buf[0] = 136316674;
     *&buf[1] = "AVVCAudioQueueRecordingEngine.mm";
-    v91 = 1024;
-    v92 = 1559;
-    v93 = 2048;
-    v94 = v44;
-    v95 = 2048;
-    v96 = v45;
-    v97 = 2048;
-    v98 = mAudioDataByteSize / v40;
-    v99 = 1024;
-    *v100 = v46;
-    *&v100[4] = 1024;
-    *&v100[6] = v47;
+    v82 = 1024;
+    v83 = 1559;
+    v84 = 2048;
+    v85 = v44;
+    v86 = 2048;
+    v87 = v45;
+    v88 = 2048;
+    v89 = mAudioDataByteSize / v40;
+    v90 = 1024;
+    *v91 = v46;
+    *&v91[4] = 1024;
+    *&v91[6] = v47;
     _os_log_impl(&dword_1BA5AC000, v43, OS_LOG_TYPE_DEBUG, "%25s:%-5d handleRecordAQInput: sample time: %f, host time %llu, %llu frames (%d bytes), %d buffers enqueued", buf, 0x3Cu);
   }
 
 LABEL_29:
   v48 = *(this + 27);
-  if ((v48 == 6 || v48 <= 3) && (*(this + 245) & 1) == 0)
+  if (v48 != 6 && v48 > 3 || (*(this + 245) & 1) != 0)
   {
-    if (kAVVCScope)
+    if (v40 > mAudioDataByteSize)
     {
-      v49 = *kAVVCScope;
-      if (!v49)
+      if (v48 != 5)
       {
-        goto LABEL_85;
+        return;
       }
+
+      if (kAVVCScope)
+      {
+        v49 = *kAVVCScope;
+        if (!v49)
+        {
+          return;
+        }
+      }
+
+      else
+      {
+        v49 = MEMORY[0x1E69E9C10];
+        v59 = MEMORY[0x1E69E9C10];
+      }
+
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
+      {
+        buf[0] = 136315394;
+        *&buf[1] = "AVVCAudioQueueRecordingEngine.mm";
+        v82 = 1024;
+        v83 = 1569;
+        v56 = "%25s:%-5d handleRecordAQInput: throwing away zero-length buffer";
+        v57 = v49;
+        v58 = OS_LOG_TYPE_ERROR;
+        goto LABEL_52;
+      }
+
+      goto LABEL_81;
     }
 
-    else
-    {
-      v49 = MEMORY[0x1E69E9C10];
-      v55 = MEMORY[0x1E69E9C10];
-    }
-
-    if (!os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
-    {
-      goto LABEL_84;
-    }
-
-    buf[0] = 136315394;
-    *&buf[1] = "AVVCAudioQueueRecordingEngine.mm";
-    v91 = 1024;
-    v92 = 1563;
-    v56 = "%25s:%-5d handleRecordAQInput: record internally stopped, so throwing away buffer";
-    v57 = v49;
-    v58 = OS_LOG_TYPE_DEBUG;
-LABEL_52:
-    _os_log_impl(&dword_1BA5AC000, v57, v58, v56, buf, 0x12u);
-LABEL_84:
-
-    goto LABEL_85;
-  }
-
-  if (v40 <= mAudioDataByteSize)
-  {
     *(this + 83) += *inNumberPCMFrames;
     [*(this + 98) setFrameLength:?];
     memcpy(*([*(this + 98) mutableAudioBufferList] + 16), a3->mAudioData, a3->mAudioDataByteSize);
@@ -2786,61 +2755,49 @@ LABEL_68:
         if (*(this + 96))
         {
           TraceMethod::TraceMethod(&inInputDataProcUserData, "DeinterleaveAudio");
-          v65 = *(this + 159);
-          if (*(this + 102))
-          {
-            v80 = 2 * (*(this + 103) != 0);
-          }
-
-          v67 = a3->mAudioDataByteSize;
           operator new[]();
         }
 
-        v68 = *(this + 99);
-        v69 = *(this + 159);
-        if (v68)
+        v65 = *(this + 99);
+        if (v65)
         {
-          *v68 = 1;
+          *v65 = 1;
         }
 
         if (*(this + 102) && *(this + 103))
         {
-          v70 = [*(this + 104) audioBufferList];
-          v71 = v70;
-          *v68 = *(this + 13);
-          v68[2] = 1;
-          v73 = *(v70 + 12);
-          v68[3] = v73;
-          v74 = *(this + 100);
-          *(v68 + 2) = v74;
-          memcpy(v74, *(v71 + 16), v73);
+          v66 = [*(this + 104) audioBufferList];
+          v67 = v66;
+          *v65 = *(this + 13);
+          v65[2] = 1;
+          v68 = *(v66 + 12);
+          v65[3] = v68;
+          v69 = *(this + 100);
+          *(v65 + 2) = v69;
+          memcpy(v69, *(v67 + 16), v68);
           if (*(this + 13) >= 2u)
           {
-            v68[6] = 1;
-            v75 = *(v71 + 28);
-            v68[7] = v75;
-            v76 = (*(this + 100) + *(v71 + 12));
-            *(v68 + 4) = v76;
-            memcpy(v76, *(v71 + 32), v75);
+            v65[6] = 1;
+            v70 = *(v67 + 28);
+            v65[7] = v70;
+            v71 = (*(this + 100) + *(v67 + 12));
+            *(v65 + 4) = v71;
+            memcpy(v71, *(v67 + 32), v70);
           }
 
-          v77 = *v68;
-          v78 = a4->mHostTime;
-          AVVCRecordingEngine::audioBufferListReceived(this, v68);
+          AVVCRecordingEngine::audioBufferListReceived(this, v65, *v65, a4->mHostTime);
         }
 
-        v72 = a4->mHostTime;
-        AVVCRecordingEngine::audioQueueBufferReceived(this, a3);
+        AVVCRecordingEngine::audioQueueBufferReceived(this, a3, a4->mHostTime);
       }
 
-      v66 = *(this + 13);
       AVVCRecordingEngine::lpcmAudioQueueBufferReceivedForNonLPCMClientFormat(this, a3, a4->mHostTime, (this + 608));
     }
 
     v51 = *(this + 104);
-    v85 = 0;
-    v52 = [v50 renderOffline:*inNumberPCMFrames toBuffer:v51 error:&v85];
-    v53 = v85;
+    v76 = 0;
+    v52 = [v50 renderOffline:*inNumberPCMFrames toBuffer:v51 error:&v76];
+    v53 = v76;
     if (v52)
     {
       if (kAVVCScope)
@@ -2873,10 +2830,10 @@ LABEL_68:
 
         buf[0] = 136315650;
         *&buf[1] = "AVVCAudioQueueRecordingEngine.mm";
-        v91 = 1024;
-        v92 = 1595;
-        v93 = 2112;
-        v94 = *&v63;
+        v82 = 1024;
+        v83 = 1595;
+        v84 = 2112;
+        v85 = *&v63;
         _os_log_impl(&dword_1BA5AC000, v62, OS_LOG_TYPE_ERROR, "%25s:%-5d handleRecordAQInput: Error in AVAudioEngine renderOffline : %@", buf, 0x1Cu);
         if (v53)
         {
@@ -2906,8 +2863,8 @@ LABEL_68:
       {
         buf[0] = 136315394;
         *&buf[1] = "AVVCAudioQueueRecordingEngine.mm";
-        v91 = 1024;
-        v92 = 1593;
+        v82 = 1024;
+        v83 = 1593;
         _os_log_impl(&dword_1BA5AC000, v62, OS_LOG_TYPE_DEBUG, "%25s:%-5d handleRecordAQInput: AVAudioEngine renderOffline returned SUCCESS", buf, 0x12u);
       }
     }
@@ -2916,40 +2873,34 @@ LABEL_67:
     goto LABEL_68;
   }
 
-  if (v48 == 5)
+  if (!kAVVCScope)
   {
-    if (kAVVCScope)
+    v49 = MEMORY[0x1E69E9C10];
+    v55 = MEMORY[0x1E69E9C10];
+LABEL_47:
+    if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
     {
-      v49 = *kAVVCScope;
-      if (!v49)
-      {
-        goto LABEL_85;
-      }
+      buf[0] = 136315394;
+      *&buf[1] = "AVVCAudioQueueRecordingEngine.mm";
+      v82 = 1024;
+      v83 = 1563;
+      v56 = "%25s:%-5d handleRecordAQInput: record internally stopped, so throwing away buffer";
+      v57 = v49;
+      v58 = OS_LOG_TYPE_DEBUG;
+LABEL_52:
+      _os_log_impl(&dword_1BA5AC000, v57, v58, v56, buf, 0x12u);
     }
 
-    else
-    {
-      v49 = MEMORY[0x1E69E9C10];
-      v59 = MEMORY[0x1E69E9C10];
-    }
+LABEL_81:
 
-    if (!os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
-    {
-      goto LABEL_84;
-    }
-
-    buf[0] = 136315394;
-    *&buf[1] = "AVVCAudioQueueRecordingEngine.mm";
-    v91 = 1024;
-    v92 = 1569;
-    v56 = "%25s:%-5d handleRecordAQInput: throwing away zero-length buffer";
-    v57 = v49;
-    v58 = OS_LOG_TYPE_ERROR;
-    goto LABEL_52;
+    return;
   }
 
-LABEL_85:
-  v79 = *MEMORY[0x1E69E9840];
+  v49 = *kAVVCScope;
+  if (v49)
+  {
+    goto LABEL_47;
+  }
 }
 
 void sub_1BA5C6DA4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, std::__shared_weak_count *a31, uint64_t a32, uint64_t a33, uint64_t a34, std::__shared_weak_count *a35, uint64_t a36, std::__shared_weak_count *a37, uint64_t a38, std::__shared_weak_count *a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, std::__shared_weak_count *a47, uint64_t a48, uint64_t a49, char a50, std::__shared_weak_count *a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, std::__shared_weak_count *a56)
@@ -3059,14 +3010,14 @@ void sub_1BA5C7388(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
 
 uint64_t AVVCAudioQueueRecordingEngine::enableSiriListeningMode(AudioQueueRef *this, int a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   inData = a2;
-  TraceMethod::TraceMethod(v6, "enableSiriListeningMode");
+  TraceMethod::TraceMethod(v5, "enableSiriListeningMode");
   if (this[75] && this[63] == 1)
   {
-    ElapsedTime::ElapsedTime(v8, "enableSiriListeningMode", "AudioQueueSetProperty : kAudioQueueProperty_EnableSiriListening", 0);
+    ElapsedTime::ElapsedTime(v7, "enableSiriListeningMode", "AudioQueueSetProperty : kAudioQueueProperty_EnableSiriListening", 0);
     v3 = AudioQueueSetProperty(this[75], 0x6C73746Eu, &inData, 4u);
-    ElapsedTime::~ElapsedTime(v8);
+    ElapsedTime::~ElapsedTime(v7);
   }
 
   else
@@ -3074,17 +3025,16 @@ uint64_t AVVCAudioQueueRecordingEngine::enableSiriListeningMode(AudioQueueRef *t
     v3 = 0;
   }
 
-  TraceMethod::~TraceMethod(v6);
-  v4 = *MEMORY[0x1E69E9840];
+  TraceMethod::~TraceMethod(v5);
   return v3;
 }
 
-void sub_1BA5C75B8(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BA5C75B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void);
   ElapsedTime::~ElapsedTime(va1);
   TraceMethod::~TraceMethod(va);
   _Unwind_Resume(a1);
@@ -3092,23 +3042,23 @@ void sub_1BA5C75B8(_Unwind_Exception *a1, uint64_t a2, ...)
 
 void AVVCRecordingEngine::startedRecording(AVVCRecordingEngine *this)
 {
-  v20 = *MEMORY[0x1E69E9840];
-  TraceMethod::TraceMethod(v13, "startedRecording");
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v11, *(this + 1), *(this + 2));
-  v2 = *(v11 + 224);
+  v19 = *MEMORY[0x1E69E9840];
+  TraceMethod::TraceMethod(v12, "startedRecording");
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v10, *(this + 1), *(this + 2));
+  v2 = *(v10 + 224);
   if (v2)
   {
-    v3 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:*(v11 + 224) userInfo:0];
+    v3 = [MEMORY[0x1E696ABC0] errorWithDomain:*MEMORY[0x1E696A768] code:*(v10 + 224) userInfo:0];
   }
 
   else
   {
-    AVVCRecordingEngine::setStreamState(v11, 5);
+    AVVCRecordingEngine::setStreamState(v10, 5);
     v3 = 0;
   }
 
-  v4 = v11;
-  *(v11 + 80) = 0;
+  v4 = v10;
+  *(v10 + 80) = 0;
   if (kAVVCScope)
   {
     v5 = *kAVVCScope;
@@ -3129,40 +3079,39 @@ void AVVCRecordingEngine::startedRecording(AVVCRecordingEngine *this)
   {
     v8 = _Block_copy(*(this + 11));
     *buf = 136315650;
-    v15 = "AVVCRecordingEngine.mm";
-    v16 = 1024;
-    v17 = 950;
-    v18 = 2048;
-    v19 = v8;
+    v14 = "AVVCRecordingEngine.mm";
+    v15 = 1024;
+    v16 = 950;
+    v17 = 2048;
+    v18 = v8;
     _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d calling completion block(%p)", buf, 0x1Cu);
   }
 
-  v4 = v11;
+  v4 = v10;
 LABEL_11:
   v9 = v4[11];
   if (v9)
   {
     (*(v9 + 16))(v9, v4[33], v2 == 0, v4[27], v3);
-    v4 = v11;
+    v4 = v10;
   }
 
   (*(*v4 + 288))(v4);
 
-  if (v12)
+  if (v11)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v11);
   }
 
-  TraceMethod::~TraceMethod(v13);
-  v10 = *MEMORY[0x1E69E9840];
+  TraceMethod::~TraceMethod(v12);
 }
 
-void sub_1BA5C77D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, ...)
+void sub_1BA5C77D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__shared_weak_count *a4, uint64_t a5, uint64_t a6, std::__shared_weak_count *a7, ...)
 {
-  va_start(va, a4);
-  if (a4)
+  va_start(va, a7);
+  if (a7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a7);
   }
 
   TraceMethod::~TraceMethod(va);
@@ -3171,9 +3120,9 @@ void sub_1BA5C77D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, std::__share
 
 void AVVCAudioQueueRecordingEngine::handleRecordQueuePropertyListener(AVVCAudioQueueRecordingEngine *this, OpaqueAudioQueue *a2, int a3)
 {
-  v117 = *MEMORY[0x1E69E9840];
-  TraceMethod::TraceMethod(v102, "handleRecordQueuePropertyListener");
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v100, *(this + 1), *(this + 2));
+  v116 = *MEMORY[0x1E69E9840];
+  TraceMethod::TraceMethod(v101, "handleRecordQueuePropertyListener");
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v99, *(this + 1), *(this + 2));
   if (*(this + 27) <= 1)
   {
     p_superclass = AVAudioPCMBuffer.superclass;
@@ -3195,9 +3144,9 @@ void AVVCAudioQueueRecordingEngine::handleRecordQueuePropertyListener(AVVCAudioQ
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v106 = "AVVCAudioQueueRecordingEngine.mm";
-      v107 = 1024;
-      v108 = 1405;
+      v105 = "AVVCAudioQueueRecordingEngine.mm";
+      v106 = 1024;
+      v107 = 1405;
       _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d handleRecordAQPropertyChange: queue already destroyed -- noop", buf, 0x12u);
     }
 
@@ -3225,12 +3174,12 @@ LABEL_83:
       goto LABEL_257;
     }
 
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v103, *(this + 1), *(this + 2));
-    v13 = v103;
-    if (v103)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v102, *(this + 1), *(this + 2));
+    v13 = v102;
+    if (v102)
     {
-      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v98, *(this + 1), *(this + 2));
-      p_superclass = (*(*v98 + 64))(v98, 0);
+      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v97, *(this + 1), *(this + 2));
+      p_superclass = (*(*v97 + 64))(v97, 0);
       v14 = [p_superclass sessionState];
       v15 = "ILLEGAL";
       if (v14 > 3)
@@ -3289,16 +3238,16 @@ LABEL_83:
 
     v15 = "NotConfigured";
 LABEL_29:
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v96, *(this + 1), *(this + 2));
-    if (v96)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v95, *(this + 1), *(this + 2));
+    if (v95)
     {
-      v18 = v97;
-      if (v97)
+      v18 = v96;
+      if (v96)
       {
-        v18 = (v97->__shared_owners_ + 1);
+        v18 = (v96->__shared_owners_ + 1);
       }
 
-      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%p) streamID: %d, use_count:%ld", v96, *(v96 + 264), v18];
+      v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%p) streamID: %d, use_count:%ld", v95, *(v95 + 264), v18];
     }
 
     else
@@ -3307,12 +3256,12 @@ LABEL_29:
     }
 
     v20 = v19;
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v94, *(this + 1), *(this + 2));
-    v21 = v94;
-    if (v94)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v93, *(this + 1), *(this + 2));
+    v21 = v93;
+    if (v93)
     {
-      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v92, *(this + 1), *(this + 2));
-      v22 = (*(*v92 + 296))(v92);
+      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v91, *(this + 1), *(this + 2));
+      v22 = (*(*v91 + 296))(v91);
       if (v22 > 4)
       {
         v23 = "ILLEGAL";
@@ -3329,11 +3278,11 @@ LABEL_29:
       v23 = "unconfigured";
     }
 
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v90, *(this + 1), *(this + 2));
-    if (v90)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v89, *(this + 1), *(this + 2));
+    if (v89)
     {
-      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v88, *(this + 1), *(this + 2));
-      v35 = *(v88 + 216);
+      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v87, *(this + 1), *(this + 2));
+      v35 = *(v87 + 216);
       if (v35 > 6)
       {
         v36 = "ILLEGAL";
@@ -3345,73 +3294,73 @@ LABEL_29:
       }
 
       *buf = 136316418;
-      v106 = "AVVCAudioQueueRecordingEngine.mm";
-      v107 = 1024;
-      v108 = 1406;
-      v109 = 2080;
-      v110 = v15;
-      v111 = 2112;
-      v112 = v20;
-      v113 = 2080;
-      v114 = v23;
-      v115 = 2080;
-      v116 = v36;
+      v105 = "AVVCAudioQueueRecordingEngine.mm";
+      v106 = 1024;
+      v107 = 1406;
+      v108 = 2080;
+      v109 = v15;
+      v110 = 2112;
+      v111 = v20;
+      v112 = 2080;
+      v113 = v23;
+      v114 = 2080;
+      v115 = v36;
       _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d session state (%s), rec-engine [%@], rec-engine type (%s), stream state (%s)", buf, 0x3Au);
-      if (v89)
+      if (v88)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v89);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v88);
       }
     }
 
     else
     {
       *buf = 136316418;
-      v106 = "AVVCAudioQueueRecordingEngine.mm";
-      v107 = 1024;
-      v108 = 1406;
-      v109 = 2080;
-      v110 = v15;
-      v111 = 2112;
-      v112 = v20;
-      v113 = 2080;
-      v114 = v23;
-      v115 = 2080;
-      v116 = "unconfigured";
+      v105 = "AVVCAudioQueueRecordingEngine.mm";
+      v106 = 1024;
+      v107 = 1406;
+      v108 = 2080;
+      v109 = v15;
+      v110 = 2112;
+      v111 = v20;
+      v112 = 2080;
+      v113 = v23;
+      v114 = 2080;
+      v115 = "unconfigured";
       _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d session state (%s), rec-engine [%@], rec-engine type (%s), stream state (%s)", buf, 0x3Au);
     }
 
-    if (v91)
+    if (v90)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v90);
     }
 
-    if (v21 && v93)
+    if (v21 && v92)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v93);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v92);
     }
 
-    if (v95)
+    if (v94)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v95);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v94);
     }
 
-    if (v97)
+    if (v96)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v97);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v96);
     }
 
     if (v13)
     {
 
-      if (v99)
+      if (v98)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v99);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v98);
       }
     }
 
-    if (v104)
+    if (v103)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v104);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v103);
     }
 
     goto LABEL_83;
@@ -3424,7 +3373,7 @@ LABEL_29:
       goto LABEL_257;
     }
 
-    IsRunning = QueueIsRunning(*(this + 75));
+    v7 = QueueIsRunning(*(this + 75));
     if (kAVVCScope)
     {
       v8 = *kAVVCScope;
@@ -3443,28 +3392,28 @@ LABEL_29:
     v8 = v8;
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v103, *(this + 1), *(this + 2));
+      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v102, *(this + 1), *(this + 2));
       v25 = *(this + 27);
       v26 = v25 > 6 ? "ILLEGAL" : off_1E7EF6338[v25];
       *buf = 136316162;
-      v106 = "AVVCAudioQueueRecordingEngine.mm";
-      v107 = 1024;
-      v108 = 1414;
-      v109 = 2048;
-      v110 = v103;
-      v111 = 2080;
-      v112 = v26;
-      v113 = 1024;
-      LODWORD(v114) = IsRunning;
+      v105 = "AVVCAudioQueueRecordingEngine.mm";
+      v106 = 1024;
+      v107 = 1414;
+      v108 = 2048;
+      v109 = v102;
+      v110 = 2080;
+      v111 = v26;
+      v112 = 1024;
+      LODWORD(v113) = v7;
       _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d handleRecordQueuePropertyListener (%p): Stream State: %s. AQ Running: %d", buf, 0x2Cu);
-      if (v104)
+      if (v103)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v104);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v103);
       }
     }
 
 LABEL_88:
-    if (IsRunning)
+    if (v7)
     {
       if (*(this + 27) == 4)
       {
@@ -3480,16 +3429,16 @@ LABEL_88:
               if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 136315394;
-                v106 = "AVVCAudioQueueRecordingEngine.mm";
-                v107 = 1024;
-                v108 = 1418;
+                v105 = "AVVCAudioQueueRecordingEngine.mm";
+                v106 = 1024;
+                v107 = 1418;
                 _os_log_impl(&dword_1BA5AC000, v38, OS_LOG_TYPE_DEBUG, "%25s:%-5d Record Listener: RUNNING", buf, 0x12u);
               }
             }
           }
         }
 
-        AVVCRecordingEngine::startedRecording(v100);
+        AVVCRecordingEngine::startedRecording(v99);
         goto LABEL_257;
       }
 
@@ -3504,9 +3453,9 @@ LABEL_88:
             if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
             {
               *buf = 136315394;
-              v106 = "AVVCAudioQueueRecordingEngine.mm";
-              v107 = 1024;
-              v108 = 1422;
+              v105 = "AVVCAudioQueueRecordingEngine.mm";
+              v106 = 1024;
+              v107 = 1422;
               _os_log_impl(&dword_1BA5AC000, v43, OS_LOG_TYPE_DEBUG, "%25s:%-5d Record Listener: RUNNING-PAUSED", buf, 0x12u);
             }
           }
@@ -3536,25 +3485,25 @@ LABEL_256:
         goto LABEL_257;
       }
 
-      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v103, *(this + 1), *(this + 2));
-      v61 = v103;
-      if (v103)
+      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v102, *(this + 1), *(this + 2));
+      v61 = v102;
+      if (v102)
       {
-        std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v98, *(this + 1), *(this + 2));
-        v8 = (*(*v98 + 64))(v98, 0);
+        std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v97, *(this + 1), *(this + 2));
+        v8 = (*(*v97 + 64))(v97, 0);
         v62 = [v8 sessionState];
         if (v62 > 7)
         {
           v63 = "ILLEGAL";
 LABEL_224:
-          std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v86, *(this + 1), *(this + 2));
-          v72 = engineToString(v86, v87);
-          std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v94, *(this + 1), *(this + 2));
-          v73 = v94;
-          if (v94)
+          std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v85, *(this + 1), *(this + 2));
+          v72 = engineToString(v85, v86);
+          std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v93, *(this + 1), *(this + 2));
+          v73 = v93;
+          if (v93)
           {
-            std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v92, *(this + 1), *(this + 2));
-            v74 = (*(*v92 + 296))(v92);
+            std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v91, *(this + 1), *(this + 2));
+            v74 = (*(*v91 + 296))(v91);
             if (v74 > 4)
             {
               v75 = "ILLEGAL";
@@ -3571,11 +3520,11 @@ LABEL_224:
             v75 = "unconfigured";
           }
 
-          std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v90, *(this + 1), *(this + 2));
-          if (v90)
+          std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v89, *(this + 1), *(this + 2));
+          if (v89)
           {
-            std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v88, *(this + 1), *(this + 2));
-            v76 = *(v88 + 216);
+            std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v87, *(this + 1), *(this + 2));
+            v76 = *(v87 + 216);
             if (v76 > 6)
             {
               v77 = "ILLEGAL";
@@ -3587,73 +3536,73 @@ LABEL_224:
             }
 
             *buf = 136316418;
-            v106 = "AVVCAudioQueueRecordingEngine.mm";
-            v107 = 1024;
-            v108 = 1423;
-            v109 = 2080;
-            v110 = v63;
-            v111 = 2112;
-            v112 = v72;
-            v113 = 2080;
-            v114 = v75;
-            v115 = 2080;
-            v116 = v77;
+            v105 = "AVVCAudioQueueRecordingEngine.mm";
+            v106 = 1024;
+            v107 = 1423;
+            v108 = 2080;
+            v109 = v63;
+            v110 = 2112;
+            v111 = v72;
+            v112 = 2080;
+            v113 = v75;
+            v114 = 2080;
+            v115 = v77;
             _os_log_impl(&dword_1BA5AC000, v60, OS_LOG_TYPE_DEBUG, "%25s:%-5d session state (%s), rec-engine [%@], rec-engine type (%s), stream state (%s)", buf, 0x3Au);
-            if (v89)
+            if (v88)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v89);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v88);
             }
           }
 
           else
           {
             *buf = 136316418;
-            v106 = "AVVCAudioQueueRecordingEngine.mm";
-            v107 = 1024;
-            v108 = 1423;
-            v109 = 2080;
-            v110 = v63;
-            v111 = 2112;
-            v112 = v72;
-            v113 = 2080;
-            v114 = v75;
-            v115 = 2080;
-            v116 = "unconfigured";
+            v105 = "AVVCAudioQueueRecordingEngine.mm";
+            v106 = 1024;
+            v107 = 1423;
+            v108 = 2080;
+            v109 = v63;
+            v110 = 2112;
+            v111 = v72;
+            v112 = 2080;
+            v113 = v75;
+            v114 = 2080;
+            v115 = "unconfigured";
             _os_log_impl(&dword_1BA5AC000, v60, OS_LOG_TYPE_DEBUG, "%25s:%-5d session state (%s), rec-engine [%@], rec-engine type (%s), stream state (%s)", buf, 0x3Au);
           }
 
-          if (v91)
+          if (v90)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v90);
           }
 
-          if (v73 && v93)
+          if (v73 && v92)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v93);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v92);
           }
 
-          if (v95)
+          if (v94)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v95);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v94);
           }
 
-          if (v87)
+          if (v86)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v87);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v86);
           }
 
           if (v61)
           {
 
-            if (v99)
+            if (v98)
             {
-              std::__shared_weak_count::__release_shared[abi:ne200100](v99);
+              std::__shared_weak_count::__release_shared[abi:ne200100](v98);
             }
           }
 
-          if (v104)
+          if (v103)
           {
-            std::__shared_weak_count::__release_shared[abi:ne200100](v104);
+            std::__shared_weak_count::__release_shared[abi:ne200100](v103);
           }
 
           goto LABEL_256;
@@ -3681,9 +3630,9 @@ LABEL_224:
           if (os_log_type_enabled(v39, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
-            v106 = "AVVCAudioQueueRecordingEngine.mm";
-            v107 = 1024;
-            v108 = 1428;
+            v105 = "AVVCAudioQueueRecordingEngine.mm";
+            v106 = 1024;
+            v107 = 1428;
             _os_log_impl(&dword_1BA5AC000, v40, OS_LOG_TYPE_DEBUG, "%25s:%-5d Record Listener: STOPPED", buf, 0x12u);
           }
         }
@@ -3700,7 +3649,7 @@ LABEL_220:
         {
           *(this + 165) = 0;
           *(this + 676) = 0;
-          AVVCRecordingEngine::doneRecording(v100);
+          AVVCRecordingEngine::doneRecording(v99);
         }
 
         goto LABEL_257;
@@ -3721,12 +3670,12 @@ LABEL_219:
       goto LABEL_220;
     }
 
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v103, *(this + 1), *(this + 2));
-    v47 = v103;
-    if (v103)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v102, *(this + 1), *(this + 2));
+    v47 = v102;
+    if (v102)
     {
-      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v98, *(this + 1), *(this + 2));
-      v8 = (*(*v98 + 64))(v98, 0);
+      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v97, *(this + 1), *(this + 2));
+      v8 = (*(*v97 + 64))(v97, 0);
       v48 = [v8 sessionState];
       v49 = "ILLEGAL";
       if (v48 > 3)
@@ -3785,16 +3734,16 @@ LABEL_219:
 
     v49 = "NotConfigured";
 LABEL_179:
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v84, *(this + 1), *(this + 2));
-    if (v84)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v83, *(this + 1), *(this + 2));
+    if (v83)
     {
-      v64 = v85;
-      if (v85)
+      v64 = v84;
+      if (v84)
       {
-        v64 = (v85->__shared_owners_ + 1);
+        v64 = (v84->__shared_owners_ + 1);
       }
 
-      v65 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%p) streamID: %d, use_count:%ld", v84, *(v84 + 264), v64];
+      v65 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%p) streamID: %d, use_count:%ld", v83, *(v83 + 264), v64];
     }
 
     else
@@ -3803,12 +3752,12 @@ LABEL_179:
     }
 
     v66 = v65;
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v94, *(this + 1), *(this + 2));
-    v67 = v94;
-    if (v94)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v93, *(this + 1), *(this + 2));
+    v67 = v93;
+    if (v93)
     {
-      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v92, *(this + 1), *(this + 2));
-      v68 = (*(*v92 + 296))(v92);
+      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v91, *(this + 1), *(this + 2));
+      v68 = (*(*v91 + 296))(v91);
       if (v68 > 4)
       {
         v69 = "ILLEGAL";
@@ -3825,11 +3774,11 @@ LABEL_179:
       v69 = "unconfigured";
     }
 
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v90, *(this + 1), *(this + 2));
-    if (v90)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v89, *(this + 1), *(this + 2));
+    if (v89)
     {
-      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v88, *(this + 1), *(this + 2));
-      v70 = *(v88 + 216);
+      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v87, *(this + 1), *(this + 2));
+      v70 = *(v87 + 216);
       if (v70 > 6)
       {
         v71 = "ILLEGAL";
@@ -3841,73 +3790,73 @@ LABEL_179:
       }
 
       *buf = 136316418;
-      v106 = "AVVCAudioQueueRecordingEngine.mm";
-      v107 = 1024;
-      v108 = 1429;
-      v109 = 2080;
-      v110 = v49;
-      v111 = 2112;
-      v112 = v66;
-      v113 = 2080;
-      v114 = v69;
-      v115 = 2080;
-      v116 = v71;
+      v105 = "AVVCAudioQueueRecordingEngine.mm";
+      v106 = 1024;
+      v107 = 1429;
+      v108 = 2080;
+      v109 = v49;
+      v110 = 2112;
+      v111 = v66;
+      v112 = 2080;
+      v113 = v69;
+      v114 = 2080;
+      v115 = v71;
       _os_log_impl(&dword_1BA5AC000, v46, OS_LOG_TYPE_DEBUG, "%25s:%-5d session state (%s), rec-engine [%@], rec-engine type (%s), stream state (%s)", buf, 0x3Au);
-      if (v89)
+      if (v88)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v89);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v88);
       }
     }
 
     else
     {
       *buf = 136316418;
-      v106 = "AVVCAudioQueueRecordingEngine.mm";
-      v107 = 1024;
-      v108 = 1429;
-      v109 = 2080;
-      v110 = v49;
-      v111 = 2112;
-      v112 = v66;
-      v113 = 2080;
-      v114 = v69;
-      v115 = 2080;
-      v116 = "unconfigured";
+      v105 = "AVVCAudioQueueRecordingEngine.mm";
+      v106 = 1024;
+      v107 = 1429;
+      v108 = 2080;
+      v109 = v49;
+      v110 = 2112;
+      v111 = v66;
+      v112 = 2080;
+      v113 = v69;
+      v114 = 2080;
+      v115 = "unconfigured";
       _os_log_impl(&dword_1BA5AC000, v46, OS_LOG_TYPE_DEBUG, "%25s:%-5d session state (%s), rec-engine [%@], rec-engine type (%s), stream state (%s)", buf, 0x3Au);
     }
 
-    if (v91)
+    if (v90)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v90);
     }
 
-    if (v67 && v93)
+    if (v67 && v92)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v93);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v92);
     }
 
-    if (v95)
+    if (v94)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v95);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v94);
     }
 
-    if (v85)
+    if (v84)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v85);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v84);
     }
 
     if (v47)
     {
 
-      if (v99)
+      if (v98)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v99);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v98);
       }
     }
 
-    if (v104)
+    if (v103)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v104);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v103);
     }
 
     goto LABEL_219;
@@ -3934,13 +3883,13 @@ LABEL_179:
   v28 = v17;
   if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
   {
-    CAX4CCString::CAX4CCString(&v103, outData);
+    CAX4CCString::CAX4CCString(&v102, outData);
     *buf = 136315650;
-    v106 = "AVVCAudioQueueRecordingEngine.mm";
-    v107 = 1024;
-    v108 = 1443;
-    v109 = 2080;
-    v110 = &v103;
+    v105 = "AVVCAudioQueueRecordingEngine.mm";
+    v106 = 1024;
+    v107 = 1443;
+    v108 = 2080;
+    v109 = &v102;
     _os_log_impl(&dword_1BA5AC000, v28, OS_LOG_TYPE_ERROR, "%25s:%-5d Record Listener: Converter error: %s", buf, 0x1Cu);
   }
 
@@ -3963,13 +3912,13 @@ LABEL_46:
   v31 = v29;
   if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
   {
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v103, *(this + 1), *(this + 2));
-    v32 = v103;
-    if (v103)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v102, *(this + 1), *(this + 2));
+    v32 = v102;
+    if (v102)
     {
-      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v98, *(this + 1), *(this + 2));
-      v79 = (*(*v98 + 64))(v98, 0);
-      v33 = [v79 sessionState];
+      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v97, *(this + 1), *(this + 2));
+      v78 = (*(*v97 + 64))(v97, 0);
+      v33 = [v78 sessionState];
       v34 = "ILLEGAL";
       if (v33 > 3)
       {
@@ -4027,16 +3976,16 @@ LABEL_46:
 
     v34 = "NotConfigured";
 LABEL_129:
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v80, *(this + 1), *(this + 2));
-    if (v80)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v79, *(this + 1), *(this + 2));
+    if (v79)
     {
-      v50 = v81;
-      if (v81)
+      v50 = v80;
+      if (v80)
       {
-        v50 = (v81->__shared_owners_ + 1);
+        v50 = (v80->__shared_owners_ + 1);
       }
 
-      v51 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%p) streamID: %d, use_count:%ld", v80, *(v80 + 264), v50];
+      v51 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(%p) streamID: %d, use_count:%ld", v79, *(v79 + 264), v50];
     }
 
     else
@@ -4045,12 +3994,12 @@ LABEL_129:
     }
 
     v52 = v51;
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v94, *(this + 1), *(this + 2));
-    v53 = v94;
-    if (v94)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v93, *(this + 1), *(this + 2));
+    v53 = v93;
+    if (v93)
     {
-      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v92, *(this + 1), *(this + 2));
-      v54 = (*(*v92 + 296))(v92);
+      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v91, *(this + 1), *(this + 2));
+      v54 = (*(*v91 + 296))(v91);
       if (v54 > 4)
       {
         v55 = "ILLEGAL";
@@ -4067,11 +4016,11 @@ LABEL_129:
       v55 = "unconfigured";
     }
 
-    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v90, *(this + 1), *(this + 2));
-    if (v90)
+    std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v89, *(this + 1), *(this + 2));
+    if (v89)
     {
-      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v88, *(this + 1), *(this + 2));
-      v56 = *(v88 + 216);
+      std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v87, *(this + 1), *(this + 2));
+      v56 = *(v87 + 216);
       if (v56 > 6)
       {
         v57 = "ILLEGAL";
@@ -4083,73 +4032,73 @@ LABEL_129:
       }
 
       *buf = 136316418;
-      v106 = "AVVCAudioQueueRecordingEngine.mm";
-      v107 = 1024;
-      v108 = 1444;
-      v109 = 2080;
-      v110 = v34;
-      v111 = 2112;
-      v112 = v52;
-      v113 = 2080;
-      v114 = v55;
-      v115 = 2080;
-      v116 = v57;
+      v105 = "AVVCAudioQueueRecordingEngine.mm";
+      v106 = 1024;
+      v107 = 1444;
+      v108 = 2080;
+      v109 = v34;
+      v110 = 2112;
+      v111 = v52;
+      v112 = 2080;
+      v113 = v55;
+      v114 = 2080;
+      v115 = v57;
       _os_log_impl(&dword_1BA5AC000, v31, OS_LOG_TYPE_DEBUG, "%25s:%-5d session state (%s), rec-engine [%@], rec-engine type (%s), stream state (%s)", buf, 0x3Au);
-      if (v89)
+      if (v88)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v89);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v88);
       }
     }
 
     else
     {
       *buf = 136316418;
-      v106 = "AVVCAudioQueueRecordingEngine.mm";
-      v107 = 1024;
-      v108 = 1444;
-      v109 = 2080;
-      v110 = v34;
-      v111 = 2112;
-      v112 = v52;
-      v113 = 2080;
-      v114 = v55;
-      v115 = 2080;
-      v116 = "unconfigured";
+      v105 = "AVVCAudioQueueRecordingEngine.mm";
+      v106 = 1024;
+      v107 = 1444;
+      v108 = 2080;
+      v109 = v34;
+      v110 = 2112;
+      v111 = v52;
+      v112 = 2080;
+      v113 = v55;
+      v114 = 2080;
+      v115 = "unconfigured";
       _os_log_impl(&dword_1BA5AC000, v31, OS_LOG_TYPE_DEBUG, "%25s:%-5d session state (%s), rec-engine [%@], rec-engine type (%s), stream state (%s)", buf, 0x3Au);
     }
 
-    if (v91)
+    if (v90)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v91);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v90);
     }
 
-    if (v53 && v93)
+    if (v53 && v92)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v93);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v92);
     }
 
-    if (v95)
+    if (v94)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v95);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v94);
     }
 
-    if (v81)
+    if (v80)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v81);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v80);
     }
 
     if (v32)
     {
 
-      if (v99)
+      if (v98)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v99);
+        std::__shared_weak_count::__release_shared[abi:ne200100](v98);
       }
     }
 
-    if (v104)
+    if (v103)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v104);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v103);
     }
   }
 
@@ -4166,23 +4115,23 @@ LABEL_165:
   }
 
 LABEL_257:
-  if (v101)
+  if (v100)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v101);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v100);
   }
 
-  TraceMethod::~TraceMethod(v102);
-  v78 = *MEMORY[0x1E69E9840];
+  TraceMethod::~TraceMethod(v101);
 }
 
-void sub_1BA5C8BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, std::__shared_weak_count *a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23, uint64_t a24, std::__shared_weak_count *a25, uint64_t a26, std::__shared_weak_count *a27, uint64_t a28, uint64_t a29, uint64_t a30, std::__shared_weak_count *a31, uint64_t a32, std::__shared_weak_count *a33, char a34)
+void sub_1BA5C8BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, std::__shared_weak_count *a19, uint64_t a20, uint64_t a21, uint64_t a22, std::__shared_weak_count *a23, uint64_t a24, std::__shared_weak_count *a25, uint64_t a26, std::__shared_weak_count *a27, uint64_t a28, uint64_t a29, uint64_t a30, std::__shared_weak_count *a31, uint64_t a32, std::__shared_weak_count *a33, ...)
 {
+  va_start(va, a33);
   if (a23)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](a23);
   }
 
-  if (v38 && a25)
+  if (v37 && a25)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](a25);
   }
@@ -4197,7 +4146,7 @@ void sub_1BA5C8BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a19);
   }
 
-  if (v37)
+  if (v36)
   {
 
     if (a31)
@@ -4206,10 +4155,10 @@ void sub_1BA5C8BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     }
   }
 
-  v41 = *(v39 - 184);
-  if (v41)
+  v40 = *(v38 - 184);
+  if (v40)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v41);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v40);
   }
 
   if (a33)
@@ -4217,15 +4166,15 @@ void sub_1BA5C8BC4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:ne200100](a33);
   }
 
-  TraceMethod::~TraceMethod(&a34);
+  TraceMethod::~TraceMethod(va);
   _Unwind_Resume(a1);
 }
 
 void AVVCKeepAliveImpl_AudioQueue::keepHardwareActive(AVVCKeepAliveImpl_AudioQueue *this, int a2)
 {
-  v49 = *MEMORY[0x1E69E9840];
-  ElapsedTime::ElapsedTime(v48, "keepHardwareActive", 0, 0);
-  TraceMethod::TraceMethod(v33, "keepHardwareActive");
+  v48 = *MEMORY[0x1E69E9840];
+  ElapsedTime::ElapsedTime(v47, "keepHardwareActive", 0, 0);
+  TraceMethod::TraceMethod(v32, "keepHardwareActive");
   if (kAVVCScope)
   {
     v4 = *kAVVCScope;
@@ -4244,17 +4193,17 @@ void AVVCKeepAliveImpl_AudioQueue::keepHardwareActive(AVVCKeepAliveImpl_AudioQue
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     v6 = "false";
-    v41 = "AVVCKeepAliveImpl_AudioQueue.mm";
+    v40 = "AVVCKeepAliveImpl_AudioQueue.mm";
     *buf = 136315650;
     if (a2)
     {
       v6 = "true";
     }
 
-    v42 = 1024;
-    v43 = 61;
-    v44 = 2080;
-    v45 = v6;
+    v41 = 1024;
+    v42 = 61;
+    v43 = 2080;
+    v44 = v6;
     _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d keep-alive _keepHardwareActive: %s", buf, 0x1Cu);
   }
 
@@ -4282,9 +4231,9 @@ LABEL_10:
     }
 
     *buf = 136315394;
-    v41 = "AVVCKeepAliveImpl_AudioQueue.mm";
-    v42 = 1024;
-    v43 = 94;
+    v40 = "AVVCKeepAliveImpl_AudioQueue.mm";
+    v41 = 1024;
+    v42 = 94;
     v16 = "%25s:%-5d keep-alive keepHardwareActive: queue is null -- noop";
     v17 = v9;
     v18 = OS_LOG_TYPE_DEFAULT;
@@ -4293,7 +4242,7 @@ LABEL_10:
   }
 
   ElapsedTime::ElapsedTime(buf, "keepHardwareActive", "keepHardwareActive: queue running check", 0);
-  IsRunning = QueueIsRunning(*(this + 1));
+  v7 = QueueIsRunning(*(this + 1));
   ElapsedTime::~ElapsedTime(buf);
   if (kAVVCScope)
   {
@@ -4318,25 +4267,25 @@ LABEL_10:
       v11 = "TRUE";
     }
 
-    v41 = "AVVCKeepAliveImpl_AudioQueue.mm";
-    v42 = 1024;
-    v43 = 71;
+    v40 = "AVVCKeepAliveImpl_AudioQueue.mm";
+    v41 = 1024;
+    v42 = 71;
     v12 = "Running";
     *buf = 136315906;
-    v45 = v11;
-    v44 = 2080;
-    if (!IsRunning)
+    v44 = v11;
+    v43 = 2080;
+    if (!v7)
     {
       v12 = "Not Running";
     }
 
-    v46 = 2080;
-    v47 = v12;
+    v45 = 2080;
+    v46 = v12;
     _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVC keep-alive state : makeActive - %s : QueueRuning - %s", buf, 0x26u);
   }
 
 LABEL_25:
-  if (!IsRunning && (a2 & 1) != 0)
+  if (!(v7 & 1 | ((a2 & 1) == 0)))
   {
     ElapsedTime::ElapsedTime(buf, "keepHardwareActive", "mKeepAliveQueue: AudioQueueStart", 0);
     v13 = AudioQueueStart(*(this + 1), 0);
@@ -4362,12 +4311,12 @@ LABEL_25:
         goto LABEL_60;
       }
 
-      *v34 = 136315650;
-      v35 = "AVVCKeepAliveImpl_AudioQueue.mm";
-      v36 = 1024;
-      v37 = 79;
-      v38 = 1024;
-      v39 = v13;
+      *v33 = 136315650;
+      v34 = "AVVCKeepAliveImpl_AudioQueue.mm";
+      v35 = 1024;
+      v36 = 79;
+      v37 = 1024;
+      v38 = v13;
       v21 = "%25s:%-5d AVVC started keep-alive queue but failed (%d)";
       v22 = v14;
       v23 = OS_LOG_TYPE_ERROR;
@@ -4395,22 +4344,22 @@ LABEL_25:
         goto LABEL_60;
       }
 
-      *v34 = 136315650;
-      v35 = "AVVCKeepAliveImpl_AudioQueue.mm";
-      v36 = 1024;
-      v37 = 81;
-      v38 = 1024;
-      v39 = 0;
+      *v33 = 136315650;
+      v34 = "AVVCKeepAliveImpl_AudioQueue.mm";
+      v35 = 1024;
+      v36 = 81;
+      v37 = 1024;
+      v38 = 0;
       v21 = "%25s:%-5d AVVC started keep-alive queue (%d)";
       v22 = v14;
       v23 = OS_LOG_TYPE_DEBUG;
     }
 
-    _os_log_impl(&dword_1BA5AC000, v22, v23, v21, v34, 0x18u);
+    _os_log_impl(&dword_1BA5AC000, v22, v23, v21, v33, 0x18u);
     goto LABEL_60;
   }
 
-  if ((a2 & 1) != 0 || !IsRunning)
+  if (a2 & 1) != 0 || ((v7 ^ 1))
   {
     goto LABEL_78;
   }
@@ -4436,17 +4385,17 @@ LABEL_25:
 
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      *v34 = 136315650;
-      v35 = "AVVCKeepAliveImpl_AudioQueue.mm";
-      v36 = 1024;
-      v37 = 87;
-      v38 = 1024;
-      v39 = v13;
+      *v33 = 136315650;
+      v34 = "AVVCKeepAliveImpl_AudioQueue.mm";
+      v35 = 1024;
+      v36 = 87;
+      v37 = 1024;
+      v38 = v13;
       v26 = "%25s:%-5d AVVC stopped keep-alive queue but failed (%d)";
       v27 = v14;
       v28 = OS_LOG_TYPE_ERROR;
 LABEL_59:
-      _os_log_impl(&dword_1BA5AC000, v27, v28, v26, v34, 0x18u);
+      _os_log_impl(&dword_1BA5AC000, v27, v28, v26, v33, 0x18u);
       goto LABEL_60;
     }
 
@@ -4460,12 +4409,12 @@ LABEL_59:
 LABEL_57:
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEBUG))
     {
-      *v34 = 136315650;
-      v35 = "AVVCKeepAliveImpl_AudioQueue.mm";
-      v36 = 1024;
-      v37 = 89;
-      v38 = 1024;
-      v39 = 0;
+      *v33 = 136315650;
+      v34 = "AVVCKeepAliveImpl_AudioQueue.mm";
+      v35 = 1024;
+      v36 = 89;
+      v37 = 1024;
+      v38 = 0;
       v26 = "%25s:%-5d AVVC stopped keep-alive queue (%d)";
       v27 = v14;
       v28 = OS_LOG_TYPE_DEBUG;
@@ -4510,11 +4459,11 @@ LABEL_61:
       }
 
       *buf = 136315650;
-      v41 = "AVVCKeepAliveImpl_AudioQueue.mm";
-      v42 = 1024;
-      v43 = 91;
-      v44 = 1024;
-      LODWORD(v45) = v13;
+      v40 = "AVVCKeepAliveImpl_AudioQueue.mm";
+      v41 = 1024;
+      v42 = 91;
+      v43 = 1024;
+      LODWORD(v44) = v13;
       v16 = "%25s:%-5d ERROR: _keepHardwareActive: AudioQueueStart/Stop err %{audio:4CC}d";
     }
 
@@ -4541,11 +4490,11 @@ LABEL_61:
       }
 
       *buf = 136315650;
-      v41 = "AVVCKeepAliveImpl_AudioQueue.mm";
-      v42 = 1024;
-      v43 = 91;
-      v44 = 1024;
-      LODWORD(v45) = v13;
+      v40 = "AVVCKeepAliveImpl_AudioQueue.mm";
+      v41 = 1024;
+      v42 = 91;
+      v43 = 1024;
+      LODWORD(v44) = v13;
       v16 = "%25s:%-5d ERROR: _keepHardwareActive: AudioQueueStart/Stop err %d";
     }
 
@@ -4558,91 +4507,86 @@ LABEL_77:
   }
 
 LABEL_78:
-  TraceMethod::~TraceMethod(v33);
-  ElapsedTime::~ElapsedTime(v48);
-  v32 = *MEMORY[0x1E69E9840];
+  TraceMethod::~TraceMethod(v32);
+  ElapsedTime::~ElapsedTime(v47);
 }
 
-void sub_1BA5C95B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_1BA5C95B0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
 {
+  va_start(va, a35);
   ElapsedTime::~ElapsedTime(&a15);
   TraceMethod::~TraceMethod(&a10);
-  ElapsedTime::~ElapsedTime(&a36);
+  ElapsedTime::~ElapsedTime(va);
   _Unwind_Resume(a1);
 }
 
 void ___ZN19AVVCRecordingEngine19dispatchAndSafeWorkEU13block_pointerFvvEPKc_block_invoke(void *a1)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v2 = a1[6];
-  if (v2)
-  {
-    v3 = std::__shared_weak_count::lock(v2);
-    if (v3)
-    {
-      v4 = a1[5];
-      if (v4)
-      {
-        std::recursive_mutex::lock((v4 + 528));
-        if (*(v4 + 512) == 1)
-        {
-          v5 = *kAVVCScope;
-          v6 = CALog::Scope::oslog(*kAVVCScope);
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
-          {
-            v10 = a1[7];
-            v11 = 136315138;
-            v12 = v10;
-            _os_log_fault_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_FAULT, "Warning: Trying to do safeWork on engine work queue while in tearDown. Caller: %s", &v11, 0xCu);
-          }
-        }
-
-        (*(a1[4] + 16))();
-        std::recursive_mutex::unlock((v4 + 528));
-        goto LABEL_18;
-      }
-    }
-  }
-
-  else
+  if (!v2)
   {
     v3 = 0;
+    goto LABEL_10;
   }
 
-  if (kAVVCScope)
+  v3 = std::__shared_weak_count::lock(v2);
+  if (!v3 || (v4 = a1[5]) == 0)
   {
-    v7 = *kAVVCScope;
-    if (!v7)
+LABEL_10:
+    if (kAVVCScope)
     {
-      goto LABEL_17;
+      v7 = *kAVVCScope;
+      if (!v7)
+      {
+        goto LABEL_17;
+      }
+    }
+
+    else
+    {
+      v7 = MEMORY[0x1E69E9C10];
+      v8 = MEMORY[0x1E69E9C10];
+    }
+
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      v10 = 136315650;
+      v11 = "AVVCRecordingEngine.mm";
+      v12 = 1024;
+      v13 = 1111;
+      v14 = 2048;
+      v15 = 0;
+      _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (engine: %p). Bailing", &v10, 0x1Cu);
+    }
+
+LABEL_17:
+    if (!v3)
+    {
+      return;
+    }
+
+    goto LABEL_18;
+  }
+
+  std::recursive_mutex::lock((v4 + 528));
+  if (*(v4 + 512) == 1)
+  {
+    v5 = *kAVVCScope;
+    v6 = CALog::Scope::oslog(*kAVVCScope);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_FAULT))
+    {
+      v9 = a1[7];
+      v10 = 136315138;
+      v11 = v9;
+      _os_log_fault_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_FAULT, "Warning: Trying to do safeWork on engine work queue while in tearDown. Caller: %s", &v10, 0xCu);
     }
   }
 
-  else
-  {
-    v7 = MEMORY[0x1E69E9C10];
-    v8 = MEMORY[0x1E69E9C10];
-  }
-
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-  {
-    v11 = 136315650;
-    v12 = "AVVCRecordingEngine.mm";
-    v13 = 1024;
-    v14 = 1111;
-    v15 = 2048;
-    v16 = 0;
-    _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (engine: %p). Bailing", &v11, 0x1Cu);
-  }
-
-LABEL_17:
-  if (v3)
-  {
+  (*(a1[4] + 16))();
+  std::recursive_mutex::unlock((v4 + 528));
 LABEL_18:
-    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
-  }
-
-  v9 = *MEMORY[0x1E69E9840];
+  std::__shared_weak_count::__release_shared[abi:ne200100](v3);
 }
 
 void sub_1BA5C97A8(_Unwind_Exception *a1)
@@ -4672,8 +4616,8 @@ void __destroy_helper_block_ea8_32c47_ZTSNSt3__110shared_ptrI19AVVCRecordingEngi
 
 uint64_t AVVCRecordingEngine::setRecordBufferDuration(AVVCRecordingEngine *this, double a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
-  TraceMethod::TraceMethod(v15, "setRecordBufferDuration");
+  v21 = *MEMORY[0x1E69E9840];
+  TraceMethod::TraceMethod(v14, "setRecordBufferDuration");
   if (*(this + 27) < 4)
   {
     if (*(this + 32) == a2)
@@ -4706,11 +4650,11 @@ LABEL_22:
       {
         v12 = *(this + 32);
         *buf = 136315650;
-        v17 = "AVVCRecordingEngine.mm";
-        v18 = 1024;
-        v19 = 436;
-        v20 = 2048;
-        v21 = v12;
+        v16 = "AVVCRecordingEngine.mm";
+        v17 = 1024;
+        v18 = 436;
+        v19 = 2048;
+        v20 = v12;
         _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d setRecordBufferDuration: duration now %.3f", buf, 0x1Cu);
       }
 
@@ -4738,9 +4682,9 @@ LABEL_21:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v17 = "AVVCRecordingEngine.mm";
-      v18 = 1024;
-      v19 = 418;
+      v16 = "AVVCRecordingEngine.mm";
+      v17 = 1024;
+      v18 = 418;
       _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEBUG, "%25s:%-5d setRecordBufferDuration: specified buffer duration too small -- setting to minimum allowed", buf, 0x12u);
     }
 
@@ -4772,11 +4716,11 @@ LABEL_11:
       }
 
       *buf = 136315650;
-      v17 = "AVVCRecordingEngine.mm";
-      v18 = 1024;
-      v19 = 410;
-      v20 = 2080;
-      v21 = v9;
+      v16 = "AVVCRecordingEngine.mm";
+      v17 = 1024;
+      v18 = 410;
+      v19 = 2080;
+      v20 = v9;
       _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d setRecordBufferDuration: Attempting to setRecordBufferDuration while record is active. Stream State(%s)", buf, 0x1Cu);
     }
 
@@ -4788,8 +4732,7 @@ LABEL_29:
 
   v5 = 4294955516;
 LABEL_30:
-  TraceMethod::~TraceMethod(v15);
-  v13 = *MEMORY[0x1E69E9840];
+  TraceMethod::~TraceMethod(v14);
   return v5;
 }
 
@@ -4821,9 +4764,9 @@ void sub_1BA5C9AFC(_Unwind_Exception *exception_object)
 
 uint64_t AVVCAudioQueueRecordingEngine::prepareRecording(AVVCAudioQueueRecordingEngine *this, NSDictionary *a2)
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  TraceMethod::TraceMethod(v22, "prepareRecording");
+  TraceMethod::TraceMethod(v21, "prepareRecording");
   Recorder = AVVCRecordingEngine::setupASBDAndCreateRecorder(this, v3);
   v5 = Recorder;
   if (Recorder == -66680)
@@ -4854,11 +4797,11 @@ uint64_t AVVCAudioQueueRecordingEngine::prepareRecording(AVVCAudioQueueRecording
     {
       v9 = AVVCRouteManager::getRecordDeviceUID(*(this + 46));
       *buf = 136315650;
-      v24 = "AVVCAudioQueueRecordingEngine.mm";
-      v25 = 1024;
-      v26 = 936;
-      v27 = 2112;
-      v28 = v9;
+      v23 = "AVVCAudioQueueRecordingEngine.mm";
+      v24 = 1024;
+      v25 = 936;
+      v26 = 2112;
+      v27 = v9;
       _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Device is built in device (%@)- update channel count", buf, 0x1Cu);
     }
 
@@ -4955,15 +4898,14 @@ LABEL_25:
   }
 
 LABEL_38:
-  TraceMethod::~TraceMethod(v22);
+  TraceMethod::~TraceMethod(v21);
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
-void sub_1BA5C9E2C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_1BA5C9E2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
 
   TraceMethod::~TraceMethod(va);
   _Unwind_Resume(a1);
@@ -4971,7 +4913,7 @@ void sub_1BA5C9E2C(_Unwind_Exception *a1, uint64_t a2, ...)
 
 uint64_t AVVCRecordingEngine::setupASBDAndCreateRecorder(AVVCRecordingEngine *this, NSDictionary *a2)
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   v3 = a2;
   ProfileMetrics(&cfstr_AvvcProfilePro_2.isa);
   if (!v3)
@@ -5000,9 +4942,9 @@ uint64_t AVVCRecordingEngine::setupASBDAndCreateRecorder(AVVCRecordingEngine *th
     if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v49 = "AVVCRecordingEngine.mm";
-      v50 = 1024;
-      v51 = 155;
+      v48 = "AVVCRecordingEngine.mm";
+      v49 = 1024;
+      v50 = 155;
       _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Settings are nil, rebuilding queue", buf, 0x12u);
     }
 
@@ -5026,22 +4968,22 @@ LABEL_49:
     if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
       CAStreamBasicDescription::AsString((this + 24), buf, 0x100uLL, v26, v27);
-      LODWORD(v47.var0) = 136315650;
-      *(&v47.var0 + 4) = "AVVCRecordingEngine.mm";
-      LOWORD(v47.var2) = 1024;
-      *(&v47.var2 + 2) = 157;
-      HIWORD(v47.var3) = 2080;
-      *&v47.var4 = buf;
-      _os_log_impl(&dword_1BA5AC000, v25, OS_LOG_TYPE_DEFAULT, "%25s:%-5d prepareRecord: NEW FORMAT: %s", &v47, 0x1Cu);
+      LODWORD(v46.var0) = 136315650;
+      *(&v46.var0 + 4) = "AVVCRecordingEngine.mm";
+      LOWORD(v46.var2) = 1024;
+      *(&v46.var2 + 2) = 157;
+      HIWORD(v46.var3) = 2080;
+      *&v46.var4 = buf;
+      _os_log_impl(&dword_1BA5AC000, v25, OS_LOG_TYPE_DEFAULT, "%25s:%-5d prepareRecord: NEW FORMAT: %s", &v46, 0x1Cu);
     }
 
 LABEL_56:
-    LODWORD(v47.var0) = 4102;
-    BYTE4(v47.var0) = 1;
-    memset(&v47.var1, 0, 32);
+    LODWORD(v46.var0) = 4102;
+    BYTE4(v46.var0) = 1;
+    memset(&v46.var1, 0, 32);
     kdebug_trace();
     v4 = (*(*this + 24))(this, 0);
-    TraceWrapper::~TraceWrapper(&v47);
+    TraceWrapper::~TraceWrapper(&v46);
     if (!v4)
     {
       goto LABEL_80;
@@ -5069,12 +5011,12 @@ LABEL_56:
         goto LABEL_79;
       }
 
-      LODWORD(v47.var0) = 136315650;
-      *(&v47.var0 + 4) = "AVVCRecordingEngine.mm";
-      LOWORD(v47.var2) = 1024;
-      *(&v47.var2 + 2) = 163;
-      HIWORD(v47.var3) = 1024;
-      v47.var4 = v4;
+      LODWORD(v46.var0) = 136315650;
+      *(&v46.var0 + 4) = "AVVCRecordingEngine.mm";
+      LOWORD(v46.var2) = 1024;
+      *(&v46.var2 + 2) = 163;
+      HIWORD(v46.var3) = 1024;
+      v46.var4 = v4;
       v33 = "%25s:%-5d ERROR: prepareRecord: createRecordQueue err %{audio:4CC}d";
     }
 
@@ -5100,26 +5042,26 @@ LABEL_56:
         goto LABEL_79;
       }
 
-      LODWORD(v47.var0) = 136315650;
-      *(&v47.var0 + 4) = "AVVCRecordingEngine.mm";
-      LOWORD(v47.var2) = 1024;
-      *(&v47.var2 + 2) = 163;
-      HIWORD(v47.var3) = 1024;
-      v47.var4 = v4;
+      LODWORD(v46.var0) = 136315650;
+      *(&v46.var0 + 4) = "AVVCRecordingEngine.mm";
+      LOWORD(v46.var2) = 1024;
+      *(&v46.var2 + 2) = 163;
+      HIWORD(v46.var3) = 1024;
+      v46.var4 = v4;
       v33 = "%25s:%-5d ERROR: prepareRecord: createRecordQueue err %d";
     }
 
-    _os_log_impl(&dword_1BA5AC000, v28, OS_LOG_TYPE_ERROR, v33, &v47, 0x18u);
+    _os_log_impl(&dword_1BA5AC000, v28, OS_LOG_TYPE_ERROR, v33, &v46, 0x18u);
 LABEL_79:
 
     goto LABEL_80;
   }
 
-  memset(&v47, 0, sizeof(v47));
-  v4 = (*(*this + 16))(this, v3, &v47);
+  memset(&v46, 0, sizeof(v46));
+  v4 = (*(*this + 16))(this, v3, &v46);
   if (!v4)
   {
-    if (*(this + 3) == v47.var0 && *(this + 8) == v47.var1 && *(this + 9) == v47.var2 && *(this + 13) == v47.var6)
+    if (*(this + 3) == v46.var0 && *(this + 8) == v46.var1 && *(this + 9) == v46.var2 && *(this + 13) == v46.var6)
     {
       if (!*(this + 56))
       {
@@ -5132,9 +5074,9 @@ LABEL_79:
         if (!v5)
         {
 LABEL_86:
-          v39 = +[AVVCMetricsManager sharedManager];
-          v40 = [MEMORY[0x1E696AD98] numberWithInt:*(this + 56)];
-          [v39 logSessionMetric:@"avvcDestroyRecordQueueOnError" value:v40 category:2 type:5 reporterID:AVVCRecordingEngine::getReporterID(this)];
+          v38 = +[AVVCMetricsManager sharedManager];
+          v39 = [MEMORY[0x1E696AD98] numberWithInt:*(this + 56)];
+          [v38 logSessionMetric:@"avvcDestroyRecordQueueOnError" value:v39 category:2 type:5 reporterID:AVVCRecordingEngine::getReporterID(this)];
 
           AVVCRecordingEngine::destroyRecordEngineWithRecordLock(*(this + 18));
 LABEL_37:
@@ -5165,11 +5107,11 @@ LABEL_37:
               }
 
               *buf = 136315650;
-              v49 = "AVVCRecordingEngine.mm";
-              v50 = 1024;
-              v51 = 193;
-              v52 = 1024;
-              v53 = v4;
+              v48 = "AVVCRecordingEngine.mm";
+              v49 = 1024;
+              v50 = 193;
+              v51 = 1024;
+              v52 = v4;
               v30 = "%25s:%-5d ERROR: prepareRecord: createRecordQueue err %{audio:4CC}d";
             }
 
@@ -5196,11 +5138,11 @@ LABEL_37:
               }
 
               *buf = 136315650;
-              v49 = "AVVCRecordingEngine.mm";
-              v50 = 1024;
-              v51 = 193;
-              v52 = 1024;
-              v53 = v4;
+              v48 = "AVVCRecordingEngine.mm";
+              v49 = 1024;
+              v50 = 193;
+              v51 = 1024;
+              v52 = v4;
               v30 = "%25s:%-5d ERROR: prepareRecord: createRecordQueue err %d";
             }
 
@@ -5217,18 +5159,18 @@ LABEL_80:
       else
       {
         v5 = MEMORY[0x1E69E9C10];
-        v37 = MEMORY[0x1E69E9C10];
+        v36 = MEMORY[0x1E69E9C10];
       }
 
       if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
       {
-        v38 = *(this + 56);
+        v37 = *(this + 56);
         *buf = 136315650;
-        v49 = "AVVCRecordingEngine.mm";
-        v50 = 1024;
-        v51 = 185;
-        v52 = 1024;
-        v53 = v38;
+        v48 = "AVVCRecordingEngine.mm";
+        v49 = 1024;
+        v50 = 185;
+        v51 = 1024;
+        v52 = v37;
         _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d destroying engine because of record error: %d", buf, 0x18u);
       }
 
@@ -5253,9 +5195,9 @@ LABEL_80:
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v49 = "AVVCRecordingEngine.mm";
-      v50 = 1024;
-      v51 = 173;
+      v48 = "AVVCRecordingEngine.mm";
+      v49 = 1024;
+      v50 = 173;
       _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Formats differ, rebuilding queue", buf, 0x12u);
     }
 
@@ -5279,13 +5221,13 @@ LABEL_22:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       CAStreamBasicDescription::AsString((this + 24), buf, 0x100uLL, v12, v13);
-      v41 = 136315650;
-      v42 = "AVVCRecordingEngine.mm";
-      v43 = 1024;
-      v44 = 175;
-      v45 = 2080;
-      v46 = buf;
-      _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d prepareRecord: CURRENT FORMAT: %s", &v41, 0x1Cu);
+      v40 = 136315650;
+      v41 = "AVVCRecordingEngine.mm";
+      v42 = 1024;
+      v43 = 175;
+      v44 = 2080;
+      v45 = buf;
+      _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_DEFAULT, "%25s:%-5d prepareRecord: CURRENT FORMAT: %s", &v40, 0x1Cu);
     }
 
 LABEL_29:
@@ -5296,10 +5238,10 @@ LABEL_29:
       {
 LABEL_36:
         AVVCRecordingEngine::destroyRecordEngineWithRecordLock(*(this + 18));
-        v19 = *&v47.var3;
-        *(this + 24) = *&v47.var0;
+        v19 = *&v46.var3;
+        *(this + 24) = *&v46.var0;
         *(this + 40) = v19;
-        *(this + 7) = *&v47.var7;
+        *(this + 7) = *&v46.var7;
         goto LABEL_37;
       }
     }
@@ -5313,14 +5255,14 @@ LABEL_36:
     v16 = v14;
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
-      CAStreamBasicDescription::AsString(&v47, buf, 0x100uLL, v17, v18);
-      v41 = 136315650;
-      v42 = "AVVCRecordingEngine.mm";
-      v43 = 1024;
-      v44 = 176;
-      v45 = 2080;
-      v46 = buf;
-      _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_DEFAULT, "%25s:%-5d prepareRecord: NEW FORMAT: %s", &v41, 0x1Cu);
+      CAStreamBasicDescription::AsString(&v46, buf, 0x100uLL, v17, v18);
+      v40 = 136315650;
+      v41 = "AVVCRecordingEngine.mm";
+      v42 = 1024;
+      v43 = 176;
+      v44 = 2080;
+      v45 = buf;
+      _os_log_impl(&dword_1BA5AC000, v16, OS_LOG_TYPE_DEFAULT, "%25s:%-5d prepareRecord: NEW FORMAT: %s", &v40, 0x1Cu);
     }
 
     goto LABEL_36;
@@ -5328,13 +5270,12 @@ LABEL_36:
 
 LABEL_81:
 
-  v35 = *MEMORY[0x1E69E9840];
   return v4;
 }
 
 uint64_t AVVCAudioQueueRecordingEngine::asbdForClientSettings(AVVCAudioQueueRecordingEngine *this, NSDictionary *a2, AudioStreamBasicDescription *a3)
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v42 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = (*(*this + 64))(this, 0);
   [v6 speechDetectionDeviceSampleRate];
@@ -5345,10 +5286,10 @@ uint64_t AVVCAudioQueueRecordingEngine::asbdForClientSettings(AVVCAudioQueueReco
     (*(*this + 40))(this, v8);
     if (!v5)
     {
-      v37[1] = 1;
-      UpdateWithHardwareDeviceNumInputChannels(&v37[1]);
+      v36[1] = 1;
+      UpdateWithHardwareDeviceNumInputChannels(&v36[1]);
       v15 = 0;
-      v16 = v37[1];
+      v16 = v36[1];
       a3->mSampleRate = 16000.0;
       *&a3->mFormatID = xmmword_1BA6CF430;
       a3->mBytesPerFrame = 0;
@@ -5358,11 +5299,11 @@ uint64_t AVVCAudioQueueRecordingEngine::asbdForClientSettings(AVVCAudioQueueReco
     }
 
     v10 = [(NSDictionary *)v5 mutableCopy];
-    v36 = 16000.0;
-    if (getFloat64ForKey(v10, &v36, v37, v11))
+    v35 = 16000.0;
+    if (getFloat64ForKey(v10, &v35, v36, v11))
     {
-      v12 = v36;
-      if (v36 < 16000.0)
+      v12 = v35;
+      if (v35 < 16000.0)
       {
         if (kAVVCScope)
         {
@@ -5370,7 +5311,7 @@ uint64_t AVVCAudioQueueRecordingEngine::asbdForClientSettings(AVVCAudioQueueReco
           if (!v13)
           {
 LABEL_31:
-            v36 = 16000.0;
+            v35 = 16000.0;
             goto LABEL_36;
           }
         }
@@ -5383,13 +5324,13 @@ LABEL_31:
 
         if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
         {
-          v37[1] = 136315650;
-          v38 = "AVVCAudioQueueRecordingEngine.mm";
-          v39 = 1024;
-          v40 = 251;
-          v41 = 2048;
-          v42 = v12;
-          _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_DEFAULT, "%25s:%-5d clientRequestedSR was:%.2f, setting to 16000.00", &v37[1], 0x1Cu);
+          v36[1] = 136315650;
+          v37 = "AVVCAudioQueueRecordingEngine.mm";
+          v38 = 1024;
+          v39 = 251;
+          v40 = 2048;
+          v41 = v12;
+          _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_DEFAULT, "%25s:%-5d clientRequestedSR was:%.2f, setting to 16000.00", &v36[1], 0x1Cu);
         }
 
         goto LABEL_31;
@@ -5401,12 +5342,12 @@ LABEL_31:
         if (!v17)
         {
 LABEL_36:
-          v21 = [MEMORY[0x1E696AD98] numberWithDouble:{v36, *&v36}];
+          v21 = [MEMORY[0x1E696AD98] numberWithDouble:{v35, *&v35}];
           [(NSDictionary *)v10 setObject:v21 forKeyedSubscript:@"AVSampleRateKey"];
 
           v22 = (*(*this + 64))(this, 0);
           v15 = asbdFromSettings(v10, a3, v22, v24, v23);
-          v37[0] = v15;
+          v36[0] = v15;
           v25 = IsDSPGraphSupported();
           if (*(this + 33) == 1)
           {
@@ -5450,12 +5391,12 @@ LABEL_62:
                 goto LABEL_61;
               }
 
-              v37[1] = 136315650;
-              v38 = "AVVCAudioQueueRecordingEngine.mm";
-              v39 = 1024;
-              v40 = 279;
-              v41 = 1024;
-              LODWORD(v42) = v15;
+              v36[1] = 136315650;
+              v37 = "AVVCAudioQueueRecordingEngine.mm";
+              v38 = 1024;
+              v39 = 279;
+              v40 = 1024;
+              LODWORD(v41) = v15;
               v32 = "%25s:%-5d ERROR: setupRecordQueue: asbdFromSettings err %{audio:4CC}d";
             }
 
@@ -5481,19 +5422,19 @@ LABEL_62:
                 goto LABEL_61;
               }
 
-              v37[1] = 136315650;
-              v38 = "AVVCAudioQueueRecordingEngine.mm";
-              v39 = 1024;
-              v40 = 279;
-              v41 = 1024;
-              LODWORD(v42) = v15;
+              v36[1] = 136315650;
+              v37 = "AVVCAudioQueueRecordingEngine.mm";
+              v38 = 1024;
+              v39 = 279;
+              v40 = 1024;
+              LODWORD(v41) = v15;
               v32 = "%25s:%-5d ERROR: setupRecordQueue: asbdFromSettings err %d";
             }
 
-            _os_log_impl(&dword_1BA5AC000, v30, OS_LOG_TYPE_ERROR, v32, &v37[1], 0x18u);
+            _os_log_impl(&dword_1BA5AC000, v30, OS_LOG_TYPE_ERROR, v32, &v36[1], 0x18u);
 LABEL_61:
 
-            v15 = v37[0];
+            v15 = v36[0];
             goto LABEL_62;
           }
 
@@ -5532,13 +5473,13 @@ LABEL_45:
 
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v37[1] = 136315650;
-        v38 = "AVVCAudioQueueRecordingEngine.mm";
-        v39 = 1024;
-        v40 = 255;
-        v41 = 2048;
-        v42 = v12;
-        _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d clientRequestedSR was:%.2f", &v37[1], 0x1Cu);
+        v36[1] = 136315650;
+        v37 = "AVVCAudioQueueRecordingEngine.mm";
+        v38 = 1024;
+        v39 = 255;
+        v40 = 2048;
+        v41 = v12;
+        _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d clientRequestedSR was:%.2f", &v36[1], 0x1Cu);
       }
     }
 
@@ -5561,11 +5502,11 @@ LABEL_45:
 
       if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
       {
-        v37[1] = 136315394;
-        v38 = "AVVCAudioQueueRecordingEngine.mm";
-        v39 = 1024;
-        v40 = 259;
-        _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d clientRequestedSR was not specified, setting to 16000.00", &v37[1], 0x12u);
+        v36[1] = 136315394;
+        v37 = "AVVCAudioQueueRecordingEngine.mm";
+        v38 = 1024;
+        v39 = 259;
+        _os_log_impl(&dword_1BA5AC000, v17, OS_LOG_TYPE_DEFAULT, "%25s:%-5d clientRequestedSR was not specified, setting to 16000.00", &v36[1], 0x12u);
       }
     }
 
@@ -5585,33 +5526,32 @@ LABEL_45:
 LABEL_12:
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v37[1] = 136315394;
-      v38 = "AVVCAudioQueueRecordingEngine.mm";
-      v39 = 1024;
-      v40 = 219;
-      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d Error getting input hardware sample rate", &v37[1], 0x12u);
+      v36[1] = 136315394;
+      v37 = "AVVCAudioQueueRecordingEngine.mm";
+      v38 = 1024;
+      v39 = 219;
+      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d Error getting input hardware sample rate", &v36[1], 0x12u);
     }
   }
 
   v15 = 4294955511;
 LABEL_63:
 
-  v34 = *MEMORY[0x1E69E9840];
   return v15;
 }
 
 uint64_t ControllerImpl::setupAlert(uint64_t a1, void *a2, int a3, void *a4)
 {
-  v101 = *MEMORY[0x1E69E9840];
+  v100 = *MEMORY[0x1E69E9840];
   v7 = a2;
-  v94 = a3;
+  v93 = a3;
   outExtAudioFile = 0;
   ioPropertyDataSize = 0;
   inBuffer = 0;
-  v91 = 0;
-  v89 = 0;
+  v90 = 0;
+  v88 = 0;
   memset(outPropertyData, 0, sizeof(outPropertyData));
-  TraceMethod::TraceMethod(v87, "setupAlert");
+  TraceMethod::TraceMethod(v86, "setupAlert");
   if (isDarwinOSProduct(void)::onceToken != -1)
   {
     dispatch_once(&isDarwinOSProduct(void)::onceToken, &__block_literal_global_164);
@@ -5646,15 +5586,15 @@ LABEL_18:
     {
       *buf = 136315394;
       *&buf[4] = "ControllerImpl.mm";
-      LOWORD(v100) = 1024;
-      *(&v100 + 2) = 2180;
+      LOWORD(v99) = 1024;
+      *(&v99 + 2) = 2180;
       _os_log_impl(&dword_1BA5AC000, v14, OS_LOG_TYPE_ERROR, "%25s:%-5d setupAlert: NULL alert URL", buf, 0x12u);
     }
 
     goto LABEL_18;
   }
 
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(v96, *(a1 + 8), *(a1 + 16));
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(v95, *(a1 + 8), *(a1 + 16));
   v9 = a4;
   v10 = [v9 absoluteString];
   v11 = [v10 isEqualToString:@"/System/Library/PrivateFrameworks/AssistantServices.framework/jbl_begin_sae.caf"];
@@ -5695,10 +5635,10 @@ LABEL_18:
         v27 = *v12;
         *buf = 136315650;
         *&buf[4] = "ControllerImpl.mm";
-        LOWORD(v100) = 1024;
-        *(&v100 + 2) = 1626;
-        WORD3(v100) = 1024;
-        DWORD2(v100) = v27;
+        LOWORD(v99) = 1024;
+        *(&v99 + 2) = 1626;
+        WORD3(v99) = 1024;
+        DWORD2(v99) = v27;
         _os_log_impl(&dword_1BA5AC000, v24, OS_LOG_TYPE_DEFAULT, "%25s:%-5d createSAESystemSound: mSAESystemSoundID(%u)", buf, 0x18u);
       }
 
@@ -5728,10 +5668,10 @@ LABEL_39:
     {
       *buf = 136315650;
       *&buf[4] = "ControllerImpl.mm";
-      LOWORD(v100) = 1024;
-      *(&v100 + 2) = 1623;
-      WORD3(v100) = 1024;
-      DWORD2(v100) = SystemSoundIDWithOptions;
+      LOWORD(v99) = 1024;
+      *(&v99 + 2) = 1623;
+      WORD3(v99) = 1024;
+      DWORD2(v99) = SystemSoundIDWithOptions;
       _os_log_impl(&dword_1BA5AC000, v21, OS_LOG_TYPE_ERROR, "%25s:%-5d createSAESystemSound: AudioServicesCreateSystemSoundIDWithOptions: Failed to create SAE sonics+haptics system sound. err(%d)", buf, 0x18u);
     }
 
@@ -5758,21 +5698,21 @@ LABEL_39:
     v23 = *v12;
     *buf = 136315650;
     *&buf[4] = "ControllerImpl.mm";
-    LOWORD(v100) = 1024;
-    *(&v100 + 2) = 1612;
-    WORD3(v100) = 1024;
-    DWORD2(v100) = v23;
+    LOWORD(v99) = 1024;
+    *(&v99 + 2) = 1612;
+    WORD3(v99) = 1024;
+    DWORD2(v99) = v23;
     _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_DEFAULT, "%25s:%-5d createSAESystemSound: SystemSoundID was already created. mSAESystemSoundID(%u)", buf, 0x18u);
   }
 
 LABEL_40:
-  if (*&v96[8])
+  if (*&v95[8])
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](*&v96[8]);
+    std::__shared_weak_count::__release_shared[abi:ne200100](*&v95[8]);
   }
 
   v28 = v7;
-  TraceMethod::TraceMethod(v96, "createAlertQueue");
+  TraceMethod::TraceMethod(v95, "createAlertQueue");
   if (ControllerImpl::getAlertQueueFromImplQueue(a1))
   {
     v8 = 0;
@@ -5813,10 +5753,10 @@ LABEL_40:
 
       *buf = 136315650;
       *&buf[4] = "ControllerImpl.mm";
-      LOWORD(v100) = 1024;
-      *(&v100 + 2) = 2063;
-      WORD3(v100) = 1024;
-      DWORD2(v100) = v8;
+      LOWORD(v99) = 1024;
+      *(&v99 + 2) = 2063;
+      WORD3(v99) = 1024;
+      DWORD2(v99) = v8;
       v34 = "%25s:%-5d ERROR: createAlertQueue: AudioQueueNewOutput err %{audio:4CC}d";
     }
 
@@ -5848,10 +5788,10 @@ LABEL_67:
 
       *buf = 136315650;
       *&buf[4] = "ControllerImpl.mm";
-      LOWORD(v100) = 1024;
-      *(&v100 + 2) = 2063;
-      WORD3(v100) = 1024;
-      DWORD2(v100) = v8;
+      LOWORD(v99) = 1024;
+      *(&v99 + 2) = 2063;
+      WORD3(v99) = 1024;
+      DWORD2(v99) = v8;
       v34 = "%25s:%-5d ERROR: createAlertQueue: AudioQueueNewOutput err %d";
     }
 
@@ -5875,22 +5815,22 @@ LABEL_67:
     else
     {
       v32 = MEMORY[0x1E69E9C10];
-      v51 = MEMORY[0x1E69E9C10];
+      v50 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
       *&buf[4] = "ControllerImpl.mm";
-      LOWORD(v100) = 1024;
-      *(&v100 + 2) = 2076;
-      WORD3(v100) = 2112;
-      *(&v100 + 1) = @"AVVoiceController_AlertQueue";
-      v52 = "%25s:%-5d FAILED createAlertQueue : AudioQueueSetProperty(kAudioQueueProperty_ClientUID) - %@";
-      v53 = v32;
-      v54 = OS_LOG_TYPE_ERROR;
+      LOWORD(v99) = 1024;
+      *(&v99 + 2) = 2076;
+      WORD3(v99) = 2112;
+      *(&v99 + 1) = @"AVVoiceController_AlertQueue";
+      v51 = "%25s:%-5d FAILED createAlertQueue : AudioQueueSetProperty(kAudioQueueProperty_ClientUID) - %@";
+      v52 = v32;
+      v53 = OS_LOG_TYPE_ERROR;
 LABEL_118:
-      _os_log_impl(&dword_1BA5AC000, v53, v54, v52, buf, 0x1Cu);
+      _os_log_impl(&dword_1BA5AC000, v52, v53, v51, buf, 0x1Cu);
       goto LABEL_119;
     }
 
@@ -5900,19 +5840,19 @@ LABEL_118:
   if (!kAVVCScope)
   {
     v32 = MEMORY[0x1E69E9C10];
-    v55 = MEMORY[0x1E69E9C10];
+    v54 = MEMORY[0x1E69E9C10];
 LABEL_116:
     if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315650;
       *&buf[4] = "ControllerImpl.mm";
-      LOWORD(v100) = 1024;
-      *(&v100 + 2) = 2078;
-      WORD3(v100) = 2112;
-      *(&v100 + 1) = @"AVVoiceController_AlertQueue";
-      v52 = "%25s:%-5d createAlertQueue : AudioQueueSetProperty(kAudioQueueProperty_ClientUID) - %@";
-      v53 = v32;
-      v54 = OS_LOG_TYPE_DEBUG;
+      LOWORD(v99) = 1024;
+      *(&v99 + 2) = 2078;
+      WORD3(v99) = 2112;
+      *(&v99 + 1) = @"AVVoiceController_AlertQueue";
+      v51 = "%25s:%-5d createAlertQueue : AudioQueueSetProperty(kAudioQueueProperty_ClientUID) - %@";
+      v52 = v32;
+      v53 = OS_LOG_TYPE_DEBUG;
       goto LABEL_118;
     }
 
@@ -5928,20 +5868,20 @@ LABEL_119:
   }
 
 LABEL_120:
-  v56 = AudioQueueAddPropertyListener(outAQ, 0x6171726Eu, ControllerImpl::AlertAQPropertyListenerProc, v28);
-  v8 = v56;
-  if (!v56)
+  v55 = AudioQueueAddPropertyListener(outAQ, 0x6171726Eu, ControllerImpl::AlertAQPropertyListenerProc, v28);
+  v8 = v55;
+  if (!v55)
   {
     *(a1 + 204) = 0;
     goto LABEL_68;
   }
 
-  if ((v56 + 199999) < 0x61A7F)
+  if ((v55 + 199999) < 0x61A7F)
   {
     if (kAVVCScope)
     {
-      v57 = *kAVVCScope;
-      if (!v57)
+      v56 = *kAVVCScope;
+      if (!v56)
       {
         goto LABEL_68;
       }
@@ -5949,19 +5889,19 @@ LABEL_120:
 
     else
     {
-      v57 = MEMORY[0x1E69E9C10];
-      v64 = MEMORY[0x1E69E9C10];
+      v56 = MEMORY[0x1E69E9C10];
+      v63 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
       *&buf[4] = "ControllerImpl.mm";
-      LOWORD(v100) = 1024;
-      *(&v100 + 2) = 2082;
-      WORD3(v100) = 1024;
-      DWORD2(v100) = v8;
-      _os_log_impl(&dword_1BA5AC000, v57, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: createAlertQueue: AudioQueueAddPropertyListener err %d", buf, 0x18u);
+      LOWORD(v99) = 1024;
+      *(&v99 + 2) = 2082;
+      WORD3(v99) = 1024;
+      DWORD2(v99) = v8;
+      _os_log_impl(&dword_1BA5AC000, v56, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: createAlertQueue: AudioQueueAddPropertyListener err %d", buf, 0x18u);
     }
 
 LABEL_146:
@@ -5971,31 +5911,31 @@ LABEL_146:
 
   if (!kAVVCScope)
   {
-    v57 = MEMORY[0x1E69E9C10];
-    v65 = MEMORY[0x1E69E9C10];
+    v56 = MEMORY[0x1E69E9C10];
+    v64 = MEMORY[0x1E69E9C10];
 LABEL_148:
-    if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
       *&buf[4] = "ControllerImpl.mm";
-      LOWORD(v100) = 1024;
-      *(&v100 + 2) = 2082;
-      WORD3(v100) = 1024;
-      DWORD2(v100) = v8;
-      _os_log_impl(&dword_1BA5AC000, v57, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: createAlertQueue: AudioQueueAddPropertyListener err %{audio:4CC}d", buf, 0x18u);
+      LOWORD(v99) = 1024;
+      *(&v99 + 2) = 2082;
+      WORD3(v99) = 1024;
+      DWORD2(v99) = v8;
+      _os_log_impl(&dword_1BA5AC000, v56, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: createAlertQueue: AudioQueueAddPropertyListener err %{audio:4CC}d", buf, 0x18u);
     }
 
     goto LABEL_146;
   }
 
-  v57 = *kAVVCScope;
-  if (v57)
+  v56 = *kAVVCScope;
+  if (v56)
   {
     goto LABEL_148;
   }
 
 LABEL_68:
-  TraceMethod::~TraceMethod(v96);
+  TraceMethod::~TraceMethod(v95);
 
   if (v8)
   {
@@ -6006,8 +5946,8 @@ LABEL_69:
       AudioQueueFreeBuffer(AlertQueueFromImplQueue, inBuffer);
     }
 
-    *buf = &v94;
-    std::__tree<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::__map_value_compare<AVVoiceAlertType,std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::less<AVVoiceAlertType>,true>,std::allocator<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>>>::__emplace_unique_key_args<AVVoiceAlertType,std::piecewise_construct_t const&,std::tuple<AVVoiceAlertType&&>,std::tuple<>>(a1 + 296, v94)[5] = 0;
+    *buf = &v93;
+    std::__tree<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::__map_value_compare<AVVoiceAlertType,std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::less<AVVoiceAlertType>,true>,std::allocator<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>>>::__emplace_unique_key_args<AVVoiceAlertType,std::piecewise_construct_t const&,std::tuple<AVVoiceAlertType&&>,std::tuple<>>(a1 + 296, v93, buf)[5] = 0;
     goto LABEL_106;
   }
 
@@ -6039,10 +5979,10 @@ LABEL_69:
 
       *buf = 136315650;
       *&buf[4] = "ControllerImpl.mm";
-      LOWORD(v100) = 1024;
-      *(&v100 + 2) = 2196;
-      WORD3(v100) = 1024;
-      DWORD2(v100) = v8;
+      LOWORD(v99) = 1024;
+      *(&v99 + 2) = 2196;
+      WORD3(v99) = 1024;
+      DWORD2(v99) = v8;
       v45 = "%25s:%-5d ERROR: setupAlert: ExtAudioFileOpenURL err %{audio:4CC}d";
     }
 
@@ -6087,13 +6027,13 @@ LABEL_99:
 
         if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
         {
-          *v96 = 136315650;
-          *&v96[4] = "ControllerImpl.mm";
-          *&v96[12] = 1024;
-          *&v96[14] = 2200;
-          v97 = 2080;
-          v98 = buf;
-          _os_log_impl(&dword_1BA5AC000, v40, OS_LOG_TYPE_ERROR, "%25s:%-5d setupAlert: Failed to load alert '%s'", v96, 0x1Cu);
+          *v95 = 136315650;
+          *&v95[4] = "ControllerImpl.mm";
+          *&v95[12] = 1024;
+          *&v95[14] = 2200;
+          v96 = 2080;
+          v97 = buf;
+          _os_log_impl(&dword_1BA5AC000, v40, OS_LOG_TYPE_ERROR, "%25s:%-5d setupAlert: Failed to load alert '%s'", v95, 0x1Cu);
         }
 
 LABEL_105:
@@ -6103,10 +6043,10 @@ LABEL_105:
 
       *buf = 136315650;
       *&buf[4] = "ControllerImpl.mm";
-      LOWORD(v100) = 1024;
-      *(&v100 + 2) = 2196;
-      WORD3(v100) = 1024;
-      DWORD2(v100) = v8;
+      LOWORD(v99) = 1024;
+      *(&v99 + 2) = 2196;
+      WORD3(v99) = 1024;
+      DWORD2(v99) = v8;
       v45 = "%25s:%-5d ERROR: setupAlert: ExtAudioFileOpenURL err %d";
     }
 
@@ -6133,17 +6073,17 @@ LABEL_105:
       else
       {
         v40 = MEMORY[0x1E69E9C10];
-        v62 = MEMORY[0x1E69E9C10];
+        v61 = MEMORY[0x1E69E9C10];
       }
 
       if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
         *&buf[4] = "ControllerImpl.mm";
-        LOWORD(v100) = 1024;
-        *(&v100 + 2) = 2206;
-        WORD3(v100) = 1024;
-        DWORD2(v100) = v8;
+        LOWORD(v99) = 1024;
+        *(&v99 + 2) = 2206;
+        WORD3(v99) = 1024;
+        DWORD2(v99) = v8;
         _os_log_impl(&dword_1BA5AC000, v40, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: setupAlert: ExtAudioFileGetProperty(kExtAudioFileProperty_FileDataFormat) err %d", buf, 0x18u);
       }
 
@@ -6162,17 +6102,17 @@ LABEL_105:
     else
     {
       v40 = MEMORY[0x1E69E9C10];
-      v63 = MEMORY[0x1E69E9C10];
+      v62 = MEMORY[0x1E69E9C10];
     }
 
     if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
       *&buf[4] = "ControllerImpl.mm";
-      LOWORD(v100) = 1024;
-      *(&v100 + 2) = 2206;
-      WORD3(v100) = 1024;
-      DWORD2(v100) = v8;
+      LOWORD(v99) = 1024;
+      *(&v99 + 2) = 2206;
+      WORD3(v99) = 1024;
+      DWORD2(v99) = v8;
       _os_log_impl(&dword_1BA5AC000, v40, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: setupAlert: ExtAudioFileGetProperty(kExtAudioFileProperty_FileDataFormat) err %{audio:4CC}d", buf, 0x18u);
     }
 
@@ -6192,10 +6132,10 @@ LABEL_105:
       {
         *buf = 136315650;
         *&buf[4] = "ControllerImpl.mm";
-        LOWORD(v100) = 1024;
-        *(&v100 + 2) = 2213;
-        WORD3(v100) = 1024;
-        DWORD2(v100) = v8;
+        LOWORD(v99) = 1024;
+        *(&v99 + 2) = 2213;
+        WORD3(v99) = 1024;
+        DWORD2(v99) = v8;
         _os_log_impl(&dword_1BA5AC000, v40, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: setupAlert: ExtAudioFileSetProperty(kExtAudioFileProperty_ClientDataFormat) err %{audio:4CC}d", buf, 0x18u);
       }
     }
@@ -6204,10 +6144,10 @@ LABEL_105:
     {
       *buf = 136315650;
       *&buf[4] = "ControllerImpl.mm";
-      LOWORD(v100) = 1024;
-      *(&v100 + 2) = 2213;
-      WORD3(v100) = 1024;
-      DWORD2(v100) = v8;
+      LOWORD(v99) = 1024;
+      *(&v99 + 2) = 2213;
+      WORD3(v99) = 1024;
+      DWORD2(v99) = v8;
       _os_log_impl(&dword_1BA5AC000, v40, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: setupAlert: ExtAudioFileSetProperty(kExtAudioFileProperty_ClientDataFormat) err %d", buf, 0x18u);
     }
 
@@ -6215,24 +6155,24 @@ LABEL_105:
   }
 
   ioPropertyDataSize = 8;
-  v58 = ExtAudioFileGetProperty(outExtAudioFile, 0x2366726Du, &ioPropertyDataSize, &v91);
-  v8 = v58;
-  if (v58)
+  v57 = ExtAudioFileGetProperty(outExtAudioFile, 0x2366726Du, &ioPropertyDataSize, &v90);
+  v8 = v57;
+  if (v57)
   {
-    v59 = v58 + 199999;
-    v60 = CALog::LogObjIfEnabled(1, kAVVCScope);
-    v61 = v60;
-    if (v59 < 0x61A7F)
+    v58 = v57 + 199999;
+    v59 = CALog::LogObjIfEnabled(1, kAVVCScope);
+    v60 = v59;
+    if (v58 < 0x61A7F)
     {
-      if (v60 && os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+      if (v59 && os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
         *&buf[4] = "ControllerImpl.mm";
-        LOWORD(v100) = 1024;
-        *(&v100 + 2) = 2219;
-        WORD3(v100) = 1024;
-        DWORD2(v100) = v8;
-        _os_log_impl(&dword_1BA5AC000, v61, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: setupAlert: ExtAudioFileGetProperty err %d", buf, 0x18u);
+        LOWORD(v99) = 1024;
+        *(&v99 + 2) = 2219;
+        WORD3(v99) = 1024;
+        DWORD2(v99) = v8;
+        _os_log_impl(&dword_1BA5AC000, v60, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: setupAlert: ExtAudioFileGetProperty err %d", buf, 0x18u);
       }
 
 LABEL_188:
@@ -6240,91 +6180,91 @@ LABEL_188:
       goto LABEL_189;
     }
 
-    if (v60 && os_log_type_enabled(v60, OS_LOG_TYPE_ERROR))
+    if (v59 && os_log_type_enabled(v59, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
       *&buf[4] = "ControllerImpl.mm";
-      LOWORD(v100) = 1024;
-      *(&v100 + 2) = 2219;
-      WORD3(v100) = 1024;
-      DWORD2(v100) = v8;
-      v78 = "%25s:%-5d ERROR: setupAlert: ExtAudioFileGetProperty err %{audio:4CC}d";
+      LOWORD(v99) = 1024;
+      *(&v99 + 2) = 2219;
+      WORD3(v99) = 1024;
+      DWORD2(v99) = v8;
+      v77 = "%25s:%-5d ERROR: setupAlert: ExtAudioFileGetProperty err %{audio:4CC}d";
 LABEL_180:
-      _os_log_impl(&dword_1BA5AC000, v61, OS_LOG_TYPE_ERROR, v78, buf, 0x18u);
+      _os_log_impl(&dword_1BA5AC000, v60, OS_LOG_TYPE_ERROR, v77, buf, 0x18u);
       goto LABEL_181;
     }
 
     goto LABEL_181;
   }
 
-  *buf = &v94;
-  if (std::__tree<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::__map_value_compare<AVVoiceAlertType,std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::less<AVVoiceAlertType>,true>,std::allocator<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>>>::__emplace_unique_key_args<AVVoiceAlertType,std::piecewise_construct_t const&,std::tuple<AVVoiceAlertType&&>,std::tuple<>>(a1 + 296, v94)[5])
+  *buf = &v93;
+  if (std::__tree<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::__map_value_compare<AVVoiceAlertType,std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::less<AVVoiceAlertType>,true>,std::allocator<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>>>::__emplace_unique_key_args<AVVoiceAlertType,std::piecewise_construct_t const&,std::tuple<AVVoiceAlertType&&>,std::tuple<>>(a1 + 296, v93, buf)[5])
   {
-    if (*(a1 + 204) == v94)
+    if (*(a1 + 204) == v93)
     {
-      v66 = CALog::LogObjIfEnabled(6, kAVVCScope);
-      v67 = v66;
-      if (v66 && os_log_type_enabled(v66, OS_LOG_TYPE_DEBUG))
+      v65 = CALog::LogObjIfEnabled(6, kAVVCScope);
+      v66 = v65;
+      if (v65 && os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315394;
         *&buf[4] = "ControllerImpl.mm";
-        LOWORD(v100) = 1024;
-        *(&v100 + 2) = 2225;
-        _os_log_impl(&dword_1BA5AC000, v67, OS_LOG_TYPE_DEBUG, "%25s:%-5d setupAlert: resetting alert queue", buf, 0x12u);
+        LOWORD(v99) = 1024;
+        *(&v99 + 2) = 2225;
+        _os_log_impl(&dword_1BA5AC000, v66, OS_LOG_TYPE_DEBUG, "%25s:%-5d setupAlert: resetting alert queue", buf, 0x12u);
       }
 
       ElapsedTime::ElapsedTime(buf, "setupAlert", "AudioQueueReset : mAlertQueue", 0);
-      v68 = ControllerImpl::getAlertQueueFromImplQueue(a1);
-      AudioQueueReset(v68);
+      v67 = ControllerImpl::getAlertQueueFromImplQueue(a1);
+      AudioQueueReset(v67);
       ControllerImpl::setAlertQueueState(a1, 200);
       ElapsedTime::~ElapsedTime(buf);
     }
 
-    v69 = ControllerImpl::getAlertQueueFromImplQueue(a1);
-    *buf = &v94;
-    v70 = std::__tree<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::__map_value_compare<AVVoiceAlertType,std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::less<AVVoiceAlertType>,true>,std::allocator<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>>>::__emplace_unique_key_args<AVVoiceAlertType,std::piecewise_construct_t const&,std::tuple<AVVoiceAlertType&&>,std::tuple<>>(a1 + 296, v94);
-    AudioQueueFreeBuffer(v69, v70[5]);
-    *buf = &v94;
-    std::__tree<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::__map_value_compare<AVVoiceAlertType,std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::less<AVVoiceAlertType>,true>,std::allocator<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>>>::__emplace_unique_key_args<AVVoiceAlertType,std::piecewise_construct_t const&,std::tuple<AVVoiceAlertType&&>,std::tuple<>>(a1 + 296, v94)[5] = 0;
+    v68 = ControllerImpl::getAlertQueueFromImplQueue(a1);
+    *buf = &v93;
+    v69 = std::__tree<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::__map_value_compare<AVVoiceAlertType,std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::less<AVVoiceAlertType>,true>,std::allocator<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>>>::__emplace_unique_key_args<AVVoiceAlertType,std::piecewise_construct_t const&,std::tuple<AVVoiceAlertType&&>,std::tuple<>>(a1 + 296, v93, buf);
+    AudioQueueFreeBuffer(v68, v69[5]);
+    *buf = &v93;
+    std::__tree<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::__map_value_compare<AVVoiceAlertType,std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::less<AVVoiceAlertType>,true>,std::allocator<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>>>::__emplace_unique_key_args<AVVoiceAlertType,std::piecewise_construct_t const&,std::tuple<AVVoiceAlertType&&>,std::tuple<>>(a1 + 296, v93, buf)[5] = 0;
   }
 
-  v71 = (*(a1 + 216) * v91 / *outPropertyData);
-  v91 = v71;
-  v72 = *(a1 + 240);
-  v73 = ControllerImpl::getAlertQueueFromImplQueue(a1);
-  v74 = v72 * v71;
-  v75 = AudioQueueAllocateBuffer(v73, v74, &inBuffer);
-  v8 = v75;
-  if (v75)
+  v70 = (*(a1 + 216) * v90 / *outPropertyData);
+  v90 = v70;
+  v71 = *(a1 + 240);
+  v72 = ControllerImpl::getAlertQueueFromImplQueue(a1);
+  v73 = v71 * v70;
+  v74 = AudioQueueAllocateBuffer(v72, v73, &inBuffer);
+  v8 = v74;
+  if (v74)
   {
-    v76 = v75 + 199999;
-    v77 = CALog::LogObjIfEnabled(1, kAVVCScope);
-    v61 = v77;
-    if (v76 < 0x61A7F)
+    v75 = v74 + 199999;
+    v76 = CALog::LogObjIfEnabled(1, kAVVCScope);
+    v60 = v76;
+    if (v75 < 0x61A7F)
     {
-      if (v77 && os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+      if (v76 && os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
         *&buf[4] = "ControllerImpl.mm";
-        LOWORD(v100) = 1024;
-        *(&v100 + 2) = 2242;
-        WORD3(v100) = 1024;
-        DWORD2(v100) = v8;
-        _os_log_impl(&dword_1BA5AC000, v61, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: setupAlert: AudioQueueAllocateBuffer err %d", buf, 0x18u);
+        LOWORD(v99) = 1024;
+        *(&v99 + 2) = 2242;
+        WORD3(v99) = 1024;
+        DWORD2(v99) = v8;
+        _os_log_impl(&dword_1BA5AC000, v60, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: setupAlert: AudioQueueAllocateBuffer err %d", buf, 0x18u);
       }
 
       goto LABEL_188;
     }
 
-    if (v77 && os_log_type_enabled(v77, OS_LOG_TYPE_ERROR))
+    if (v76 && os_log_type_enabled(v76, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
       *&buf[4] = "ControllerImpl.mm";
-      LOWORD(v100) = 1024;
-      *(&v100 + 2) = 2242;
-      WORD3(v100) = 1024;
-      DWORD2(v100) = v8;
-      v78 = "%25s:%-5d ERROR: setupAlert: AudioQueueAllocateBuffer err %{audio:4CC}d";
+      LOWORD(v99) = 1024;
+      *(&v99 + 2) = 2242;
+      WORD3(v99) = 1024;
+      DWORD2(v99) = v8;
+      v77 = "%25s:%-5d ERROR: setupAlert: AudioQueueAllocateBuffer err %{audio:4CC}d";
       goto LABEL_180;
     }
 
@@ -6333,61 +6273,61 @@ LABEL_181:
     goto LABEL_69;
   }
 
-  v79 = *(a1 + 244);
+  v78 = *(a1 + 244);
   *buf = 1;
-  *&buf[8] = v79;
-  LODWORD(v100) = v74;
-  *(&v100 + 4) = inBuffer->mAudioData;
-  LODWORD(outAQ) = v91;
-  v80 = ExtAudioFileRead(outExtAudioFile, &outAQ, buf);
-  v8 = v80;
-  if (v80)
+  *&buf[8] = v78;
+  LODWORD(v99) = v73;
+  *(&v99 + 4) = inBuffer->mAudioData;
+  LODWORD(outAQ) = v90;
+  v79 = ExtAudioFileRead(outExtAudioFile, &outAQ, buf);
+  v8 = v79;
+  if (v79)
   {
-    v82 = v80 + 199999;
-    v83 = CALog::LogObjIfEnabled(1, kAVVCScope);
-    v61 = v83;
-    if (v82 >= 0x61A7F)
+    v81 = v79 + 199999;
+    v82 = CALog::LogObjIfEnabled(1, kAVVCScope);
+    v60 = v82;
+    if (v81 >= 0x61A7F)
     {
-      if (v83 && os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
+      if (v82 && os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
       {
-        *v96 = 136315650;
-        *&v96[4] = "ControllerImpl.mm";
-        *&v96[12] = 1024;
-        *&v96[14] = 2256;
-        v97 = 1024;
-        LODWORD(v98) = v8;
-        _os_log_impl(&dword_1BA5AC000, v61, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: setupAlert: ExtAudioFileRead err %{audio:4CC}d", v96, 0x18u);
+        *v95 = 136315650;
+        *&v95[4] = "ControllerImpl.mm";
+        *&v95[12] = 1024;
+        *&v95[14] = 2256;
+        v96 = 1024;
+        LODWORD(v97) = v8;
+        _os_log_impl(&dword_1BA5AC000, v60, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: setupAlert: ExtAudioFileRead err %{audio:4CC}d", v95, 0x18u);
       }
     }
 
-    else if (v83 && os_log_type_enabled(v83, OS_LOG_TYPE_ERROR))
+    else if (v82 && os_log_type_enabled(v82, OS_LOG_TYPE_ERROR))
     {
-      *v96 = 136315650;
-      *&v96[4] = "ControllerImpl.mm";
-      *&v96[12] = 1024;
-      *&v96[14] = 2256;
-      v97 = 1024;
-      LODWORD(v98) = v8;
-      _os_log_impl(&dword_1BA5AC000, v61, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: setupAlert: ExtAudioFileRead err %d", v96, 0x18u);
+      *v95 = 136315650;
+      *&v95[4] = "ControllerImpl.mm";
+      *&v95[12] = 1024;
+      *&v95[14] = 2256;
+      v96 = 1024;
+      LODWORD(v97) = v8;
+      _os_log_impl(&dword_1BA5AC000, v60, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: setupAlert: ExtAudioFileRead err %d", v95, 0x18u);
     }
 
     goto LABEL_188;
   }
 
-  v84 = v94;
-  v85 = outAQ;
-  v86 = inBuffer;
+  v83 = v93;
+  v84 = outAQ;
+  v85 = inBuffer;
   inBuffer->mAudioDataByteSize = *(a1 + 240) * outAQ;
-  if (v84 == 1)
+  if (v83 == 1)
   {
-    *(a1 + 256) = v85;
-    *(a1 + 264) = GetTrailingSilenceFromBuffer(v86->mAudioData, v85, v81);
-    v86 = inBuffer;
-    v84 = v94;
+    *(a1 + 256) = v84;
+    *(a1 + 264) = GetTrailingSilenceFromBuffer(v85->mAudioData, v84, v80);
+    v85 = inBuffer;
+    v83 = v93;
   }
 
-  *v96 = &v94;
-  std::__tree<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::__map_value_compare<AVVoiceAlertType,std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::less<AVVoiceAlertType>,true>,std::allocator<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>>>::__emplace_unique_key_args<AVVoiceAlertType,std::piecewise_construct_t const&,std::tuple<AVVoiceAlertType&&>,std::tuple<>>(a1 + 296, v84)[5] = v86;
+  *v95 = &v93;
+  std::__tree<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::__map_value_compare<AVVoiceAlertType,std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::less<AVVoiceAlertType>,true>,std::allocator<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>>>::__emplace_unique_key_args<AVVoiceAlertType,std::piecewise_construct_t const&,std::tuple<AVVoiceAlertType&&>,std::tuple<>>(a1 + 296, v83, v95)[5] = v85;
 LABEL_189:
   if (v8)
   {
@@ -6401,13 +6341,12 @@ LABEL_106:
   }
 
 LABEL_108:
-  TraceMethod::~TraceMethod(v87);
+  TraceMethod::~TraceMethod(v86);
 
-  v49 = *MEMORY[0x1E69E9840];
   return v8;
 }
 
-void sub_1BA5CC280(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint8_t buf, int a32, int a33, __int16 a34)
+void sub_1BA5CC280(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, char a27, uint64_t a28, uint64_t a29, uint64_t a30, uint8_t buf, int a32, int a33, __int16 a34)
 {
   TraceMethod::~TraceMethod(&a14);
 
@@ -6426,10 +6365,10 @@ uint64_t ControllerImpl::getAlertQueueFromImplQueue(ControllerImpl *this)
   return v2;
 }
 
-uint64_t *std::__tree<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::__map_value_compare<AVVoiceAlertType,std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::less<AVVoiceAlertType>,true>,std::allocator<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>>>::__emplace_unique_key_args<AVVoiceAlertType,std::piecewise_construct_t const&,std::tuple<AVVoiceAlertType&&>,std::tuple<>>(uint64_t a1, int a2)
+uint64_t *std::__tree<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::__map_value_compare<AVVoiceAlertType,std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>,std::less<AVVoiceAlertType>,true>,std::allocator<std::__value_type<AVVoiceAlertType,AudioQueueBuffer *>>>::__emplace_unique_key_args<AVVoiceAlertType,std::piecewise_construct_t const&,std::tuple<AVVoiceAlertType&&>,std::tuple<>>(uint64_t a1, int a2, _DWORD **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = *(a1 + 8);
+  if (!v3)
   {
 LABEL_8:
     operator new();
@@ -6439,27 +6378,27 @@ LABEL_8:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = *(v2 + 32);
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = *(v3 + 32);
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_8;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -6468,7 +6407,7 @@ LABEL_8:
 
 void ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_348(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v3 = WeakRetained;
   if (WeakRetained)
@@ -6495,24 +6434,22 @@ void ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControlle
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 136315650;
-      v8 = "ControllerImpl.mm";
-      v9 = 1024;
-      v10 = 4094;
-      v11 = 2048;
-      v12 = 0;
-      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v7, 0x1Cu);
+      v6 = 136315650;
+      v7 = "ControllerImpl.mm";
+      v8 = 1024;
+      v9 = 4094;
+      v10 = 2048;
+      v11 = 0;
+      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p). Bailing", &v6, 0x1Cu);
     }
   }
 
 LABEL_10:
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_347(uint64_t a1, char a2)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = *(a1 + 48);
   if (!v5)
@@ -6532,14 +6469,14 @@ LABEL_7:
   v7 = *(a1 + 40);
   if (WeakRetained && v7)
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
-    v11[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_348;
-    v11[3] = &unk_1E7EF5D10;
-    objc_copyWeak(&v12, (a1 + 32));
-    v13 = a2;
-    ControllerImpl::safeNotify(v7, "endAudioSessionActivate", v11);
-    objc_destroyWeak(&v12);
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v10[2] = ___ZN14ControllerImpl32_configureEngineCompletionBlocksEP17AVVoiceControllerNSt3__110shared_ptrI19AVVCRecordingEngineEE_block_invoke_348;
+    v10[3] = &unk_1E7EF5D10;
+    objc_copyWeak(&v11, (a1 + 32));
+    v12 = a2;
+    ControllerImpl::safeNotify(v7, "endAudioSessionActivate", v10);
+    objc_destroyWeak(&v11);
 LABEL_16:
     std::__shared_weak_count::__release_shared[abi:ne200100](v6);
     goto LABEL_17;
@@ -6564,13 +6501,13 @@ LABEL_8:
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     *buf = 136315906;
-    v15 = "ControllerImpl.mm";
-    v16 = 1024;
-    v17 = 4092;
-    v18 = 2048;
-    v19 = WeakRetained;
-    v20 = 2048;
-    v21 = v7;
+    v14 = "ControllerImpl.mm";
+    v15 = 1024;
+    v16 = 4092;
+    v17 = 2048;
+    v18 = WeakRetained;
+    v19 = 2048;
+    v20 = v7;
     _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d nil object encountered (avvc: %p, impl: %p). Bailing", buf, 0x26u);
   }
 
@@ -6581,8 +6518,6 @@ LABEL_15:
   }
 
 LABEL_17:
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA5CC7D4(_Unwind_Exception *a1)
@@ -6595,8 +6530,8 @@ void sub_1BA5CC7D4(_Unwind_Exception *a1)
 
 void ControllerImpl::startKeepAliveQueue(uint64_t a1, std::__shared_weak_count *this, AVVCRecordingEngine **a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v8, a1, this);
+  v13 = *MEMORY[0x1E69E9840];
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v7, a1, this);
   if (AVVCRecordingEngine::canStartKeepAliveQueue(*a3))
   {
     v4 = +[AVVCKeepAliveManager sharedManager];
@@ -6617,9 +6552,9 @@ LABEL_7:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v11 = "ControllerImpl.mm";
-      v12 = 1024;
-      v13 = 2949;
+      v10 = "ControllerImpl.mm";
+      v11 = 1024;
+      v12 = 2949;
       _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d KeepAliveQueue will NOT be started since output is NOT hands free OR stream is NOT Running OR session is inactive", buf, 0x12u);
     }
 
@@ -6633,12 +6568,10 @@ LABEL_7:
   }
 
 LABEL_10:
-  if (v9)
+  if (v8)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v9);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v8);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA5CC940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -6653,7 +6586,7 @@ void sub_1BA5CC940(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 NSObject *AVVCRecordingEngine::canStartKeepAliveQueue(AVVCRecordingEngine *this)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   if (isDarwinOSProduct(void)::onceToken != -1)
   {
     dispatch_once(&isDarwinOSProduct(void)::onceToken, &__block_literal_global_164);
@@ -6667,7 +6600,7 @@ NSObject *AVVCRecordingEngine::canStartKeepAliveQueue(AVVCRecordingEngine *this)
       v3 = result;
       if (!result)
       {
-        goto LABEL_18;
+        return result;
       }
     }
 
@@ -6679,14 +6612,14 @@ NSObject *AVVCRecordingEngine::canStartKeepAliveQueue(AVVCRecordingEngine *this)
 
     if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = 136315394;
-      v13 = "AVVCRecordingEngine.mm";
-      v14 = 1024;
-      v15 = 1547;
-      _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d canStartKeepAliveQueue: KeepAliveQueue not available on darwinos", &v12, 0x12u);
+      v11 = 136315394;
+      v12 = "AVVCRecordingEngine.mm";
+      v13 = 1024;
+      v14 = 1547;
+      _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d canStartKeepAliveQueue: KeepAliveQueue not available on darwinos", &v11, 0x12u);
     }
 
-    result = 0;
+    return 0;
   }
 
   else
@@ -6697,12 +6630,8 @@ NSObject *AVVCRecordingEngine::canStartKeepAliveQueue(AVVCRecordingEngine *this)
     v6 = *(this + 27);
     isOutputHandsFree = AVVCRouteManager::isOutputHandsFree(*(this + 46));
     v9 = v5 == 7 && v6 == 5;
-    result = (v9 & isOutputHandsFree);
+    return (v9 & isOutputHandsFree);
   }
-
-LABEL_18:
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
 }
 
 uint64_t AVVCRouteManager::isOutputHandsFree(AVVCRouteManager *this)
@@ -6798,7 +6727,7 @@ void ___ZN14ControllerImpl29activateAudioSessionForStreamEP17AVVoiceControllermb
 
 void VCUnlocker::~VCUnlocker(VCUnlocker *this)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   if (*(this + 8) == 1)
   {
     if (kAVVCScope)
@@ -6808,7 +6737,7 @@ void VCUnlocker::~VCUnlocker(VCUnlocker *this)
       {
 LABEL_9:
         (*(**this + 16))();
-        goto LABEL_10;
+        return;
       }
     }
 
@@ -6821,20 +6750,17 @@ LABEL_9:
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEBUG))
     {
       v4 = *(*this + 8);
-      v6 = 136315650;
-      v7 = "ControllerImpl.h";
-      v8 = 1024;
-      v9 = 802;
-      v10 = 2080;
-      v11 = v4;
-      _os_log_impl(&dword_1BA5AC000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d unlocker about to relock %s", &v6, 0x1Cu);
+      v5 = 136315650;
+      v6 = "ControllerImpl.h";
+      v7 = 1024;
+      v8 = 802;
+      v9 = 2080;
+      v10 = v4;
+      _os_log_impl(&dword_1BA5AC000, v2, OS_LOG_TYPE_DEBUG, "%25s:%-5d unlocker about to relock %s", &v5, 0x1Cu);
     }
 
     goto LABEL_9;
   }
-
-LABEL_10:
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA5CD060(_Unwind_Exception *a1, int a2)
@@ -6872,9 +6798,9 @@ uint64_t ControllerImpl::prepareRecordForStream(ControllerImpl *this, AVVoiceCon
   return v9;
 }
 
-void sub_1BA5CD1D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BA5CD1D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -6899,7 +6825,7 @@ void ___ZN14ControllerImpl22prepareRecordForStreamEP17AVVoiceControllerP25AVVCPr
 
 BOOL ControllerImpl::shouldUseHACEngine(ControllerImpl *this, int a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (kAVVCScope)
   {
     v4 = *kAVVCScope;
@@ -6918,26 +6844,28 @@ BOOL ControllerImpl::shouldUseHACEngine(ControllerImpl *this, int a2)
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     v6 = *(this + 23);
-    v10 = 136315906;
-    v11 = "ControllerImpl.mm";
-    v12 = 1024;
-    v13 = 3435;
-    v14 = 1024;
-    v15 = a2;
-    v16 = 2048;
-    v17 = v6;
-    _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d isMicrophoneBuiltin: %d mVoiceControllerClientType: %ld ", &v10, 0x22u);
+    v9 = 136315906;
+    v10 = "ControllerImpl.mm";
+    v11 = 1024;
+    v12 = 3435;
+    v13 = 1024;
+    v14 = a2;
+    v15 = 2048;
+    v16 = v6;
+    _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEBUG, "%25s:%-5d isMicrophoneBuiltin: %d mVoiceControllerClientType: %ld ", &v9, 0x22u);
   }
 
 LABEL_8:
   v7 = isHACProduct();
   result = 0;
-  if (v7 && a2)
+  if (v7)
   {
-    result = *(this + 23) == 1;
+    if (a2)
+    {
+      return *(this + 23) == 1;
+    }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6965,7 +6893,7 @@ uint64_t areNSStringsEqualOrBothNil(NSString *a1, NSString *a2)
 
 void AVVCAudioQueueRecordingEngine::setHWSampleRate(AVVCAudioQueueRecordingEngine *this, double a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   *(this + 39) = a2;
   *(this + 320) = a2 < 16000.0;
   if (kAVVCScope)
@@ -6973,7 +6901,7 @@ void AVVCAudioQueueRecordingEngine::setHWSampleRate(AVVCAudioQueueRecordingEngin
     v3 = *kAVVCScope;
     if (!v3)
     {
-      goto LABEL_8;
+      return;
     }
   }
 
@@ -6988,21 +6916,18 @@ void AVVCAudioQueueRecordingEngine::setHWSampleRate(AVVCAudioQueueRecordingEngin
     v5 = *(this + 33);
     v6 = *(this + 39);
     v7 = *(this + 320);
-    v9 = 136316162;
-    v10 = "AVVCAudioQueueRecordingEngine.mm";
-    v11 = 1024;
-    v12 = 202;
-    v13 = 2048;
-    v14 = v5;
-    v15 = 2048;
-    v16 = v6;
-    v17 = 1024;
-    v18 = v7;
-    _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setHWSampleRate() streamID(%lu) sr(%.2f) upSamp(%d)", &v9, 0x2Cu);
+    v8 = 136316162;
+    v9 = "AVVCAudioQueueRecordingEngine.mm";
+    v10 = 1024;
+    v11 = 202;
+    v12 = 2048;
+    v13 = v5;
+    v14 = 2048;
+    v15 = v6;
+    v16 = 1024;
+    v17 = v7;
+    _os_log_impl(&dword_1BA5AC000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setHWSampleRate() streamID(%lu) sr(%.2f) upSamp(%d)", &v8, 0x2Cu);
   }
-
-LABEL_8:
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t asbdFromSettings(NSDictionary *a1, AudioStreamBasicDescription *a2, void *a3, double a4, objc_object *a5)
@@ -7257,20 +7182,20 @@ uint64_t IsDSPGraphSupported(void)
 
 uint64_t AVVCAudioQueueRecordingEngine::createRecordQueue(AVVCAudioQueueRecordingEngine *this, NSDictionary *a2)
 {
-  v112 = *MEMORY[0x1E69E9840];
+  v110 = *MEMORY[0x1E69E9840];
   v3 = a2;
-  v97 = 4102;
-  v98 = 1;
-  v99 = 0u;
-  v100 = 0u;
+  v95 = 4102;
+  v96 = 1;
+  v97 = 0u;
+  v98 = 0u;
   kdebug_trace();
-  TraceMethod::TraceMethod(v96, "createRecordQueue");
-  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v94, *(this + 1), *(this + 2));
+  TraceMethod::TraceMethod(v94, "createRecordQueue");
+  std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(&v92, *(this + 1), *(this + 2));
   if (*(this + 75))
   {
     if (*(this + 27) > 1)
     {
-      (*(*v94 + 136))(v94);
+      (*(*v92 + 136))(v92);
       AudioConverter = 0;
       goto LABEL_188;
     }
@@ -7295,9 +7220,9 @@ LABEL_21:
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v109 = "AVVCAudioQueueRecordingEngine.mm";
-      v110 = 1024;
-      v111 = 294;
+      v107 = "AVVCAudioQueueRecordingEngine.mm";
+      v108 = 1024;
+      v109 = 294;
       _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d Record engine state does not match queue (previously assertion failure)", buf, 0x12u);
     }
 
@@ -7310,7 +7235,7 @@ LABEL_21:
   *&inFormat.mBytesPerPacket = v6;
   *&inFormat.mBitsPerChannel = *(this + 7);
   inFormat.mFormatID = 1819304813;
-  v92 = *(this + 13);
+  v90 = *(this + 13);
   v7 = IsDSPGraphSupported();
   if (*(this + 33) == 1)
   {
@@ -7324,17 +7249,17 @@ LABEL_21:
 
   if (v8 == 1)
   {
-    UpdateWithHardwareDeviceNumInputChannels(&v92);
+    UpdateWithHardwareDeviceNumInputChannels(&v90);
   }
 
   if (v5 != 1819304813)
   {
     inFormat.mSampleRate = *(this + 3);
     *&inFormat.mFormatID = 0x96C70636DLL;
-    inFormat.mBytesPerPacket = 4 * v92;
+    inFormat.mBytesPerPacket = 4 * v90;
     inFormat.mFramesPerPacket = 1;
-    inFormat.mBytesPerFrame = 4 * v92;
-    inFormat.mChannelsPerFrame = v92;
+    inFormat.mBytesPerFrame = 4 * v90;
+    inFormat.mChannelsPerFrame = v90;
     inFormat.mBitsPerChannel = 32;
     goto LABEL_25;
   }
@@ -7355,11 +7280,11 @@ LABEL_23:
 
   v10 = (inFormat.mBitsPerChannel + 7) >> 3;
 LABEL_24:
-  inFormat.mChannelsPerFrame = v92;
+  inFormat.mChannelsPerFrame = v90;
   inFormat.mFramesPerPacket = 1;
-  inFormat.mBytesPerFrame = v10 * v92;
+  inFormat.mBytesPerFrame = v10 * v90;
   inFormat.mFormatFlags &= ~0x20u;
-  inFormat.mBytesPerPacket = v10 * v92;
+  inFormat.mBytesPerPacket = v10 * v90;
 LABEL_25:
   if (kAVVCScope)
   {
@@ -7380,13 +7305,13 @@ LABEL_25:
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     CAStreamBasicDescription::AsString(&inFormat, buf, 0x100uLL, v16, v17);
-    LODWORD(v107.mSampleRate) = 136315650;
-    *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-    LOWORD(v107.mFormatFlags) = 1024;
-    *(&v107.mFormatFlags + 2) = 332;
-    HIWORD(v107.mBytesPerPacket) = 2080;
-    *&v107.mFramesPerPacket = buf;
-    _os_log_impl(&dword_1BA5AC000, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Record Queue Format: %s", &v107, 0x1Cu);
+    LODWORD(v105.mSampleRate) = 136315650;
+    *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+    LOWORD(v105.mFormatFlags) = 1024;
+    *(&v105.mFormatFlags + 2) = 332;
+    HIWORD(v105.mBytesPerPacket) = 2080;
+    *&v105.mFramesPerPacket = buf;
+    _os_log_impl(&dword_1BA5AC000, v15, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Record Queue Format: %s", &v105, 0x1Cu);
   }
 
 LABEL_32:
@@ -7411,26 +7336,26 @@ LABEL_32:
         v22 = v21;
         if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
         {
-          LODWORD(v107.mSampleRate) = 136315906;
-          *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-          LOWORD(v107.mFormatFlags) = 1024;
-          *(&v107.mFormatFlags + 2) = 345;
-          HIWORD(v107.mBytesPerPacket) = 1024;
-          v107.mFramesPerPacket = v20;
-          LOWORD(v107.mBytesPerFrame) = 2080;
-          *(&v107.mBytesPerFrame + 2) = "With";
-          _os_log_impl(&dword_1BA5AC000, v22, OS_LOG_TYPE_DEBUG, "%25s:%-5d Creating queue with flags 0x%x. %s runloops", &v107, 0x22u);
+          LODWORD(v105.mSampleRate) = 136315906;
+          *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+          LOWORD(v105.mFormatFlags) = 1024;
+          *(&v105.mFormatFlags + 2) = 345;
+          HIWORD(v105.mBytesPerPacket) = 1024;
+          v105.mFramesPerPacket = v20;
+          LOWORD(v105.mBytesPerFrame) = 2080;
+          *(&v105.mBytesPerFrame + 2) = "With";
+          _os_log_impl(&dword_1BA5AC000, v22, OS_LOG_TYPE_DEBUG, "%25s:%-5d Creating queue with flags 0x%x. %s runloops", &v105, 0x22u);
         }
       }
     }
   }
 
   v23 = *(*(this + 95) + 128);
-  v25 = v94;
-  v24 = v95;
-  if (v95)
+  v25 = v92;
+  v24 = v93;
+  if (v93)
   {
-    atomic_fetch_add_explicit(&v95->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v93->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v26 = (this + 600);
@@ -7465,13 +7390,13 @@ LABEL_32:
 
       if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v107.mSampleRate) = 136315650;
-        *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-        LOWORD(v107.mFormatFlags) = 1024;
-        *(&v107.mFormatFlags + 2) = 355;
-        HIWORD(v107.mBytesPerPacket) = 1024;
-        v107.mFramesPerPacket = AudioConverter;
-        _os_log_impl(&dword_1BA5AC000, v29, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: createRecordQueue: AudioQueueNewInput err %d", &v107, 0x18u);
+        LODWORD(v105.mSampleRate) = 136315650;
+        *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+        LOWORD(v105.mFormatFlags) = 1024;
+        *(&v105.mFormatFlags + 2) = 355;
+        HIWORD(v105.mBytesPerPacket) = 1024;
+        v105.mFramesPerPacket = AudioConverter;
+        _os_log_impl(&dword_1BA5AC000, v29, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: createRecordQueue: AudioQueueNewInput err %d", &v105, 0x18u);
       }
 
 LABEL_66:
@@ -7496,13 +7421,13 @@ LABEL_66:
 
     if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v107.mSampleRate) = 136315650;
-      *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-      LOWORD(v107.mFormatFlags) = 1024;
-      *(&v107.mFormatFlags + 2) = 355;
-      HIWORD(v107.mBytesPerPacket) = 1024;
-      v107.mFramesPerPacket = AudioConverter;
-      _os_log_impl(&dword_1BA5AC000, v29, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: createRecordQueue: AudioQueueNewInput err %{audio:4CC}d", &v107, 0x18u);
+      LODWORD(v105.mSampleRate) = 136315650;
+      *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+      LOWORD(v105.mFormatFlags) = 1024;
+      *(&v105.mFormatFlags + 2) = 355;
+      HIWORD(v105.mBytesPerPacket) = 1024;
+      v105.mFramesPerPacket = AudioConverter;
+      _os_log_impl(&dword_1BA5AC000, v29, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: createRecordQueue: AudioQueueNewInput err %{audio:4CC}d", &v105, 0x18u);
     }
 
     goto LABEL_66;
@@ -7528,17 +7453,17 @@ LABEL_66:
     v35 = v30;
     if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v107.mSampleRate) = 136315650;
-      *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-      LOWORD(v107.mFormatFlags) = 1024;
-      *(&v107.mFormatFlags + 2) = 363;
-      HIWORD(v107.mBytesPerPacket) = 2112;
-      *&v107.mFramesPerPacket = @"AVVoiceController_RecordQueue";
+      LODWORD(v105.mSampleRate) = 136315650;
+      *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+      LOWORD(v105.mFormatFlags) = 1024;
+      *(&v105.mFormatFlags + 2) = 363;
+      HIWORD(v105.mBytesPerPacket) = 2112;
+      *&v105.mFramesPerPacket = @"AVVoiceController_RecordQueue";
       v36 = "%25s:%-5d FAILED createRecordQueue : AudioQueueSetProperty(kAudioQueueProperty_ClientUID) - %@";
       v37 = v35;
       v38 = OS_LOG_TYPE_ERROR;
 LABEL_77:
-      _os_log_impl(&dword_1BA5AC000, v37, v38, v36, &v107, 0x1Cu);
+      _os_log_impl(&dword_1BA5AC000, v37, v38, v36, &v105, 0x1Cu);
       goto LABEL_78;
     }
 
@@ -7553,12 +7478,12 @@ LABEL_75:
     v35 = v31;
     if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
     {
-      LODWORD(v107.mSampleRate) = 136315650;
-      *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-      LOWORD(v107.mFormatFlags) = 1024;
-      *(&v107.mFormatFlags + 2) = 365;
-      HIWORD(v107.mBytesPerPacket) = 2112;
-      *&v107.mFramesPerPacket = @"AVVoiceController_RecordQueue";
+      LODWORD(v105.mSampleRate) = 136315650;
+      *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+      LOWORD(v105.mFormatFlags) = 1024;
+      *(&v105.mFormatFlags + 2) = 365;
+      HIWORD(v105.mBytesPerPacket) = 2112;
+      *&v105.mFramesPerPacket = @"AVVoiceController_RecordQueue";
       v36 = "%25s:%-5d createRecordQueue : AudioQueueSetProperty(kAudioQueueProperty_ClientUID) - %@";
       v37 = v35;
       v38 = OS_LOG_TYPE_DEBUG;
@@ -7601,13 +7526,13 @@ LABEL_79:
 
       if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v107.mSampleRate) = 136315650;
-        *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-        LOWORD(v107.mFormatFlags) = 1024;
-        *(&v107.mFormatFlags + 2) = 399;
-        HIWORD(v107.mBytesPerPacket) = 1024;
-        v107.mFramesPerPacket = AudioConverter;
-        _os_log_impl(&dword_1BA5AC000, v41, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: createRecordQueue: AudioQueueSetProperty(kAudioConverterSampleRateConverterQuality, Max) err %d", &v107, 0x18u);
+        LODWORD(v105.mSampleRate) = 136315650;
+        *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+        LOWORD(v105.mFormatFlags) = 1024;
+        *(&v105.mFormatFlags + 2) = 399;
+        HIWORD(v105.mBytesPerPacket) = 1024;
+        v105.mFramesPerPacket = AudioConverter;
+        _os_log_impl(&dword_1BA5AC000, v41, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: createRecordQueue: AudioQueueSetProperty(kAudioConverterSampleRateConverterQuality, Max) err %d", &v105, 0x18u);
       }
 
 LABEL_98:
@@ -7632,13 +7557,13 @@ LABEL_98:
 
     if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v107.mSampleRate) = 136315650;
-      *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-      LOWORD(v107.mFormatFlags) = 1024;
-      *(&v107.mFormatFlags + 2) = 399;
-      HIWORD(v107.mBytesPerPacket) = 1024;
-      v107.mFramesPerPacket = AudioConverter;
-      _os_log_impl(&dword_1BA5AC000, v41, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: createRecordQueue: AudioQueueSetProperty(kAudioConverterSampleRateConverterQuality, Max) err %{audio:4CC}d", &v107, 0x18u);
+      LODWORD(v105.mSampleRate) = 136315650;
+      *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+      LOWORD(v105.mFormatFlags) = 1024;
+      *(&v105.mFormatFlags + 2) = 399;
+      HIWORD(v105.mBytesPerPacket) = 1024;
+      v105.mFramesPerPacket = AudioConverter;
+      _os_log_impl(&dword_1BA5AC000, v41, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: createRecordQueue: AudioQueueSetProperty(kAudioConverterSampleRateConverterQuality, Max) err %{audio:4CC}d", &v105, 0x18u);
     }
 
     goto LABEL_98;
@@ -7653,9 +7578,9 @@ LABEL_98:
     *(this + 38) = *&inFormat.mSampleRate;
     *(this + 39) = v44;
     *(this + 80) = *&inFormat.mBitsPerChannel;
-    v89 = 0;
+    v87 = 0;
     ioDataSize = 4;
-    AudioQueueGetProperty(*(this + 75), 0x61716463u, &v89, &ioDataSize);
+    AudioQueueGetProperty(*(this + 75), 0x61716463u, &v87, &ioDataSize);
     if (kAVVCScope)
     {
       v45 = *kAVVCScope;
@@ -7674,17 +7599,17 @@ LABEL_98:
     v49 = v45;
     if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
     {
-      LODWORD(v107.mSampleRate) = 136315650;
-      *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-      LOWORD(v107.mFormatFlags) = 1024;
-      *(&v107.mFormatFlags + 2) = 413;
-      HIWORD(v107.mBytesPerPacket) = 1024;
-      v107.mFramesPerPacket = v89;
-      _os_log_impl(&dword_1BA5AC000, v49, OS_LOG_TYPE_DEBUG, "%25s:%-5d AQGetProperty - kAudioQueueDeviceProperty_NumberChannels returned : %u", &v107, 0x18u);
+      LODWORD(v105.mSampleRate) = 136315650;
+      *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+      LOWORD(v105.mFormatFlags) = 1024;
+      *(&v105.mFormatFlags + 2) = 413;
+      HIWORD(v105.mBytesPerPacket) = 1024;
+      v105.mFramesPerPacket = v87;
+      _os_log_impl(&dword_1BA5AC000, v49, OS_LOG_TYPE_DEBUG, "%25s:%-5d AQGetProperty - kAudioQueueDeviceProperty_NumberChannels returned : %u", &v105, 0x18u);
     }
 
 LABEL_110:
-    *(this + 168) = v89;
+    *(this + 168) = v87;
     v50 = AudioQueueAddPropertyListener(*(this + 75), 0x6171726Eu, AVVCAudioQueueRecordingEngine::AudioQueueRecordPropertyListenerProc, this + 856);
     v51 = v50;
     if (!v50)
@@ -7719,8 +7644,8 @@ LABEL_150:
                 *(this + 202) = 0;
                 if (AVVCAudioQueueRecordingEngine::ShouldUseAudioConverter(this, (this + 24)))
                 {
-                  v107 = inFormat;
-                  AudioConverter = AVVCAudioQueueRecordingEngine::createAudioConverter(this, &v107, v3, this + 202);
+                  v105 = inFormat;
+                  AudioConverter = AVVCAudioQueueRecordingEngine::createAudioConverter(this, &v105, v3, this + 202);
                   if (AudioConverter)
                   {
                     if (kAVVCScope)
@@ -7737,18 +7662,18 @@ LABEL_187:
                     else
                     {
                       v68 = MEMORY[0x1E69E9C10];
-                      v86 = MEMORY[0x1E69E9C10];
+                      v85 = MEMORY[0x1E69E9C10];
                     }
 
                     if (os_log_type_enabled(v68, OS_LOG_TYPE_ERROR))
                     {
-                      *v101 = 136315650;
-                      v102 = "AVVCAudioQueueRecordingEngine.mm";
+                      *v99 = 136315650;
+                      v100 = "AVVCAudioQueueRecordingEngine.mm";
+                      v101 = 1024;
+                      v102 = 431;
                       v103 = 1024;
-                      v104 = 431;
-                      v105 = 1024;
-                      v106 = AudioConverter;
-                      _os_log_impl(&dword_1BA5AC000, v68, OS_LOG_TYPE_ERROR, "%25s:%-5d createRecordQueue: createAudioConverter error: %d. Destroying record queue.", v101, 0x18u);
+                      v104 = AudioConverter;
+                      _os_log_impl(&dword_1BA5AC000, v68, OS_LOG_TYPE_ERROR, "%25s:%-5d createRecordQueue: createAudioConverter error: %d. Destroying record queue.", v99, 0x18u);
                     }
 
                     goto LABEL_187;
@@ -7776,11 +7701,11 @@ LABEL_187:
                   v71 = v69;
                   if (os_log_type_enabled(v71, OS_LOG_TYPE_DEFAULT))
                   {
-                    LODWORD(v107.mSampleRate) = 136315394;
-                    *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-                    LOWORD(v107.mFormatFlags) = 1024;
-                    *(&v107.mFormatFlags + 2) = 438;
-                    _os_log_impl(&dword_1BA5AC000, v71, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AudioConverter is not created.. reason: requested channels is 1 or requested interleaved audio or non-lpcm is requested", &v107, 0x12u);
+                    LODWORD(v105.mSampleRate) = 136315394;
+                    *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+                    LOWORD(v105.mFormatFlags) = 1024;
+                    *(&v105.mFormatFlags + 2) = 438;
+                    _os_log_impl(&dword_1BA5AC000, v71, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AudioConverter is not created.. reason: requested channels is 1 or requested interleaved audio or non-lpcm is requested", &v105, 0x12u);
                   }
                 }
 
@@ -7811,15 +7736,15 @@ LABEL_162:
                 {
                   v76 = *(this + 202);
                   v77 = *(this + 32);
-                  LODWORD(v107.mSampleRate) = 136315906;
-                  *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-                  LOWORD(v107.mFormatFlags) = 1024;
-                  *(&v107.mFormatFlags + 2) = 444;
-                  HIWORD(v107.mBytesPerPacket) = 1024;
-                  v107.mFramesPerPacket = v76;
-                  LOWORD(v107.mBytesPerFrame) = 2048;
-                  *(&v107.mBytesPerFrame + 2) = v77;
-                  _os_log_impl(&dword_1BA5AC000, v75, OS_LOG_TYPE_DEBUG, "%25s:%-5d FrameCapacity: %d. Buffer duration: %f s", &v107, 0x22u);
+                  LODWORD(v105.mSampleRate) = 136315906;
+                  *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+                  LOWORD(v105.mFormatFlags) = 1024;
+                  *(&v105.mFormatFlags + 2) = 444;
+                  HIWORD(v105.mBytesPerPacket) = 1024;
+                  v105.mFramesPerPacket = v76;
+                  LOWORD(v105.mBytesPerFrame) = 2048;
+                  *(&v105.mBytesPerFrame + 2) = v77;
+                  _os_log_impl(&dword_1BA5AC000, v75, OS_LOG_TYPE_DEBUG, "%25s:%-5d FrameCapacity: %d. Buffer duration: %f s", &v105, 0x22u);
                 }
 
 LABEL_171:
@@ -7851,15 +7776,15 @@ LABEL_171:
                 if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
                 {
                   v83 = *(this + 164);
-                  LODWORD(v107.mSampleRate) = 136315906;
-                  *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-                  LOWORD(v107.mFormatFlags) = 1024;
-                  *(&v107.mFormatFlags + 2) = 462;
-                  HIWORD(v107.mBytesPerPacket) = 1024;
-                  v107.mFramesPerPacket = v83;
-                  LOWORD(v107.mBytesPerFrame) = 1024;
-                  *(&v107.mBytesPerFrame + 2) = v79;
-                  _os_log_impl(&dword_1BA5AC000, v82, OS_LOG_TYPE_DEBUG, "%25s:%-5d createRecordQueue: creating %u queue buffers %u bytes each", &v107, 0x1Eu);
+                  LODWORD(v105.mSampleRate) = 136315906;
+                  *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+                  LOWORD(v105.mFormatFlags) = 1024;
+                  *(&v105.mFormatFlags + 2) = 462;
+                  HIWORD(v105.mBytesPerPacket) = 1024;
+                  v105.mFramesPerPacket = v83;
+                  LOWORD(v105.mBytesPerFrame) = 1024;
+                  *(&v105.mBytesPerFrame + 2) = v79;
+                  _os_log_impl(&dword_1BA5AC000, v82, OS_LOG_TYPE_DEBUG, "%25s:%-5d createRecordQueue: creating %u queue buffers %u bytes each", &v105, 0x1Eu);
                 }
 
 LABEL_180:
@@ -7869,7 +7794,6 @@ LABEL_180:
                   MEMORY[0x1BFAF57D0](v84, 0x20C8093837F09);
                 }
 
-                v85 = *(this + 164);
                 operator new[]();
               }
             }
@@ -7883,12 +7807,12 @@ LABEL_180:
             v65 = v63;
             if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
             {
-              LODWORD(v107.mSampleRate) = 136315650;
-              *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-              LOWORD(v107.mFormatFlags) = 1024;
-              *(&v107.mFormatFlags + 2) = 420;
-              HIWORD(v107.mBytesPerPacket) = 1024;
-              v107.mFramesPerPacket = v61;
+              LODWORD(v105.mSampleRate) = 136315650;
+              *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+              LOWORD(v105.mFormatFlags) = 1024;
+              *(&v105.mFormatFlags + 2) = 420;
+              HIWORD(v105.mBytesPerPacket) = 1024;
+              v105.mFramesPerPacket = v61;
               v66 = "%25s:%-5d ERROR: createRecordQueue: AudioQueueAddPropertyListener(kAudioQueueProperty_ConverterError) err %{audio:4CC}d";
               goto LABEL_148;
             }
@@ -7914,15 +7838,15 @@ LABEL_180:
             v65 = v62;
             if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
             {
-              LODWORD(v107.mSampleRate) = 136315650;
-              *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-              LOWORD(v107.mFormatFlags) = 1024;
-              *(&v107.mFormatFlags + 2) = 420;
-              HIWORD(v107.mBytesPerPacket) = 1024;
-              v107.mFramesPerPacket = v61;
+              LODWORD(v105.mSampleRate) = 136315650;
+              *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+              LOWORD(v105.mFormatFlags) = 1024;
+              *(&v105.mFormatFlags + 2) = 420;
+              HIWORD(v105.mBytesPerPacket) = 1024;
+              v105.mFramesPerPacket = v61;
               v66 = "%25s:%-5d ERROR: createRecordQueue: AudioQueueAddPropertyListener(kAudioQueueProperty_ConverterError) err %d";
 LABEL_148:
-              _os_log_impl(&dword_1BA5AC000, v65, OS_LOG_TYPE_ERROR, v66, &v107, 0x18u);
+              _os_log_impl(&dword_1BA5AC000, v65, OS_LOG_TYPE_ERROR, v66, &v105, 0x18u);
             }
           }
 
@@ -7939,12 +7863,12 @@ LABEL_148:
       v57 = v55;
       if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v107.mSampleRate) = 136315650;
-        *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-        LOWORD(v107.mFormatFlags) = 1024;
-        *(&v107.mFormatFlags + 2) = 418;
-        HIWORD(v107.mBytesPerPacket) = 1024;
-        v107.mFramesPerPacket = v51;
+        LODWORD(v105.mSampleRate) = 136315650;
+        *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+        LOWORD(v105.mFormatFlags) = 1024;
+        *(&v105.mFormatFlags + 2) = 418;
+        HIWORD(v105.mBytesPerPacket) = 1024;
+        v105.mFramesPerPacket = v51;
         v58 = "%25s:%-5d ERROR: createRecordQueue: AudioQueueAddPropertyListener(kAudioQueueProperty_IsRunning) err %{audio:4CC}d";
         goto LABEL_132;
       }
@@ -7970,15 +7894,15 @@ LABEL_148:
       v57 = v52;
       if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
       {
-        LODWORD(v107.mSampleRate) = 136315650;
-        *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-        LOWORD(v107.mFormatFlags) = 1024;
-        *(&v107.mFormatFlags + 2) = 418;
-        HIWORD(v107.mBytesPerPacket) = 1024;
-        v107.mFramesPerPacket = v51;
+        LODWORD(v105.mSampleRate) = 136315650;
+        *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+        LOWORD(v105.mFormatFlags) = 1024;
+        *(&v105.mFormatFlags + 2) = 418;
+        HIWORD(v105.mBytesPerPacket) = 1024;
+        v105.mFramesPerPacket = v51;
         v58 = "%25s:%-5d ERROR: createRecordQueue: AudioQueueAddPropertyListener(kAudioQueueProperty_IsRunning) err %d";
 LABEL_132:
-        _os_log_impl(&dword_1BA5AC000, v57, OS_LOG_TYPE_ERROR, v58, &v107, 0x18u);
+        _os_log_impl(&dword_1BA5AC000, v57, OS_LOG_TYPE_ERROR, v58, &v105, 0x18u);
       }
     }
 
@@ -8004,13 +7928,13 @@ LABEL_132:
 
     if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v107.mSampleRate) = 136315650;
-      *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-      LOWORD(v107.mFormatFlags) = 1024;
-      *(&v107.mFormatFlags + 2) = 404;
-      HIWORD(v107.mBytesPerPacket) = 1024;
-      v107.mFramesPerPacket = AudioConverter;
-      _os_log_impl(&dword_1BA5AC000, v43, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: createRecordQueue: AudioQueueGetProperty(StreamDescription) err %d", &v107, 0x18u);
+      LODWORD(v105.mSampleRate) = 136315650;
+      *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+      LOWORD(v105.mFormatFlags) = 1024;
+      *(&v105.mFormatFlags + 2) = 404;
+      HIWORD(v105.mBytesPerPacket) = 1024;
+      v105.mFramesPerPacket = AudioConverter;
+      _os_log_impl(&dword_1BA5AC000, v43, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: createRecordQueue: AudioQueueGetProperty(StreamDescription) err %d", &v105, 0x18u);
     }
 
 LABEL_118:
@@ -8025,13 +7949,13 @@ LABEL_118:
 LABEL_120:
     if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
     {
-      LODWORD(v107.mSampleRate) = 136315650;
-      *(&v107.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
-      LOWORD(v107.mFormatFlags) = 1024;
-      *(&v107.mFormatFlags + 2) = 404;
-      HIWORD(v107.mBytesPerPacket) = 1024;
-      v107.mFramesPerPacket = AudioConverter;
-      _os_log_impl(&dword_1BA5AC000, v43, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: createRecordQueue: AudioQueueGetProperty(StreamDescription) err %{audio:4CC}d", &v107, 0x18u);
+      LODWORD(v105.mSampleRate) = 136315650;
+      *(&v105.mSampleRate + 4) = "AVVCAudioQueueRecordingEngine.mm";
+      LOWORD(v105.mFormatFlags) = 1024;
+      *(&v105.mFormatFlags + 2) = 404;
+      HIWORD(v105.mBytesPerPacket) = 1024;
+      v105.mFramesPerPacket = AudioConverter;
+      _os_log_impl(&dword_1BA5AC000, v43, OS_LOG_TYPE_ERROR, "%25s:%-5d ERROR: createRecordQueue: AudioQueueGetProperty(StreamDescription) err %{audio:4CC}d", &v105, 0x18u);
     }
 
     goto LABEL_118;
@@ -8044,28 +7968,27 @@ LABEL_120:
   }
 
 LABEL_188:
-  if (v95)
+  if (v93)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v95);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v93);
   }
 
-  TraceMethod::~TraceMethod(v96);
-  TraceWrapper::~TraceWrapper(&v97);
+  TraceMethod::~TraceMethod(v94);
+  TraceWrapper::~TraceWrapper(&v95);
 
-  v87 = *MEMORY[0x1E69E9840];
   return AudioConverter;
 }
 
-void sub_1BA5CEFD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, ...)
+void sub_1BA5CEFD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, std::__shared_weak_count *a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v17 = va_arg(va1, void);
-  v15 = v12;
+  va_start(va1, a18);
+  va_start(va, a18);
+  v24 = va_arg(va1, void);
+  v22 = v19;
 
-  if (a11)
+  if (a18)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](a11);
+    std::__shared_weak_count::__release_shared[abi:ne200100](a18);
   }
 
   TraceMethod::~TraceMethod(va);
@@ -8076,7 +7999,7 @@ void sub_1BA5CEFD8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 uint64_t AVVCAudioQueueRecordingEngine::setupDSPGraph(AVVCAudioQueueRecordingEngine *this)
 {
-  v173 = *MEMORY[0x1E69E9840];
+  v172 = *MEMORY[0x1E69E9840];
   v2 = IsDSPGraphSupported();
   if (*(this + 33) == 1)
   {
@@ -8114,17 +8037,17 @@ uint64_t AVVCAudioQueueRecordingEngine::setupDSPGraph(AVVCAudioQueueRecordingEng
         if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315394;
-          v168 = "AVVCAudioQueueRecordingEngine.mm";
-          v169 = 1024;
-          v170 = 737;
+          v167 = "AVVCAudioQueueRecordingEngine.mm";
+          v168 = 1024;
+          v169 = 737;
           _os_log_impl(&dword_1BA5AC000, v5, OS_LOG_TYPE_DEFAULT, "%25s:%-5d AVVC - Graph is already setup. Starting and stopping the engine/dsp", buf, 0x12u);
         }
 
 LABEL_37:
         v21 = *(this + 102);
-        v160 = 0;
-        v22 = [v21 startAndReturnError:&v160];
-        v9 = v160;
+        v159 = 0;
+        v22 = [v21 startAndReturnError:&v159];
+        v9 = v159;
         if ((v22 & 1) == 0)
         {
           if (kAVVCScope)
@@ -8149,11 +8072,11 @@ LABEL_65:
           {
             v35 = [v9 description];
             *buf = 136315650;
-            v168 = "AVVCAudioQueueRecordingEngine.mm";
-            v169 = 1024;
-            v170 = 739;
-            v171 = 2112;
-            v172 = v35;
+            v167 = "AVVCAudioQueueRecordingEngine.mm";
+            v168 = 1024;
+            v169 = 739;
+            v170 = 2112;
+            v171 = v35;
             _os_log_impl(&dword_1BA5AC000, v34, OS_LOG_TYPE_ERROR, "%25s:%-5d AVVC - failed to restart AVAudioEngine: %@", buf, 0x1Cu);
           }
 
@@ -8183,16 +8106,16 @@ LABEL_65:
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v168 = "AVVCAudioQueueRecordingEngine.mm";
-      v169 = 1024;
-      v170 = 747;
+      v167 = "AVVCAudioQueueRecordingEngine.mm";
+      v168 = 1024;
+      v169 = 747;
       _os_log_impl(&dword_1BA5AC000, v12, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVVC - Setting up DSPGraph", buf, 0x12u);
     }
 
 LABEL_26:
-    v158 = xmmword_1BA6CF420;
-    v159 = 0;
-    v13 = [[AVAudioUnitEffect alloc] initWithAudioComponentDescription:&v158];
+    v157 = xmmword_1BA6CF420;
+    v158 = 0;
+    v13 = [[AVAudioUnitEffect alloc] initWithAudioComponentDescription:&v157];
     v14 = *(this + 103);
     *(this + 103) = v13;
 
@@ -8202,9 +8125,9 @@ LABEL_26:
       v16 = [@"/System/Library/Audio/Tunings/<UPPERCASE_MODEL>/AVVC/<LOWERCASE_MODEL>_mic_voice_recognition.dspg" stringByReplacingOccurrencesOfString:@"<UPPERCASE_MODEL>" withString:v15];
 
       v17 = GetLowercaseModelName();
-      v150 = [v16 stringByReplacingOccurrencesOfString:@"<LOWERCASE_MODEL>" withString:v17];
+      v149 = [v16 stringByReplacingOccurrencesOfString:@"<LOWERCASE_MODEL>" withString:v17];
 
-      inData = v150;
+      inData = v149;
       if (kAVVCScope)
       {
         v18 = *kAVVCScope;
@@ -8224,11 +8147,11 @@ LABEL_26:
       if (os_log_type_enabled(v25, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315650;
-        v168 = "AVVCAudioQueueRecordingEngine.mm";
-        v169 = 1024;
-        v170 = 770;
-        v171 = 2112;
-        v172 = v150;
+        v167 = "AVVCAudioQueueRecordingEngine.mm";
+        v168 = 1024;
+        v169 = 770;
+        v170 = 2112;
+        v171 = v149;
         _os_log_impl(&dword_1BA5AC000, v25, OS_LOG_TYPE_DEBUG, "%25s:%-5d dspGraphFilepath: %@", buf, 0x1Cu);
       }
 
@@ -8257,11 +8180,11 @@ LABEL_176:
         if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v168 = "AVVCAudioQueueRecordingEngine.mm";
-          v169 = 1024;
-          v170 = 773;
-          v171 = 1024;
-          LODWORD(v172) = v10;
+          v167 = "AVVCAudioQueueRecordingEngine.mm";
+          v168 = 1024;
+          v169 = 773;
+          v170 = 1024;
+          LODWORD(v171) = v10;
           _os_log_impl(&dword_1BA5AC000, v26, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to setup DSPGraph text file: %d", buf, 0x18u);
         }
 
@@ -8296,22 +8219,22 @@ LABEL_175:
       if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315650;
-        v168 = "AVVCAudioQueueRecordingEngine.mm";
-        v169 = 1024;
-        v170 = 779;
-        v171 = 2112;
-        v172 = v26;
+        v167 = "AVVCAudioQueueRecordingEngine.mm";
+        v168 = 1024;
+        v169 = 779;
+        v170 = 2112;
+        v171 = v26;
         _os_log_impl(&dword_1BA5AC000, v37, OS_LOG_TYPE_DEBUG, "%25s:%-5d dspGraphFilepath: %@", buf, 0x1Cu);
       }
 
 LABEL_70:
       v38 = MEMORY[0x1E695DF20];
       v39 = [MEMORY[0x1E695DFF8] fileURLWithPath:v26];
-      v155 = 0;
-      v40 = [v38 dictionaryWithContentsOfURL:v39 error:&v155];
-      v9 = v155;
+      v154 = 0;
+      v40 = [v38 dictionaryWithContentsOfURL:v39 error:&v154];
+      v9 = v154;
 
-      v156 = v40;
+      v155 = v40;
       if (!v9)
       {
         goto LABEL_78;
@@ -8337,16 +8260,16 @@ LABEL_70:
       {
         v44 = [v9 description];
         *buf = 136315650;
-        v168 = "AVVCAudioQueueRecordingEngine.mm";
-        v169 = 1024;
-        v170 = 782;
-        v171 = 2112;
-        v172 = v44;
+        v167 = "AVVCAudioQueueRecordingEngine.mm";
+        v168 = 1024;
+        v169 = 782;
+        v170 = 2112;
+        v171 = v44;
         _os_log_impl(&dword_1BA5AC000, v43, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to read contents of DSPGraph AUStrip file: %@", buf, 0x1Cu);
       }
 
 LABEL_78:
-      v10 = AudioUnitSetProperty([*(this + 103) audioUnit], 0x70727370u, 0, 0, &v156, 8u);
+      v10 = AudioUnitSetProperty([*(this + 103) audioUnit], 0x70727370u, 0, 0, &v155, 8u);
       if (v10)
       {
         if (kAVVCScope)
@@ -8367,11 +8290,11 @@ LABEL_78:
         if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v168 = "AVVCAudioQueueRecordingEngine.mm";
-          v169 = 1024;
-          v170 = 786;
-          v171 = 1024;
-          LODWORD(v172) = v10;
+          v167 = "AVVCAudioQueueRecordingEngine.mm";
+          v168 = 1024;
+          v169 = 786;
+          v170 = 1024;
+          LODWORD(v171) = v10;
           _os_log_impl(&dword_1BA5AC000, v45, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to setup DSPGraph AUStrip file: %d", buf, 0x18u);
         }
 
@@ -8403,23 +8326,23 @@ LABEL_78:
       if (os_log_type_enabled(v52, OS_LOG_TYPE_DEBUG))
       {
         *buf = 136315650;
-        v168 = "AVVCAudioQueueRecordingEngine.mm";
-        v169 = 1024;
-        v170 = 792;
-        v171 = 2112;
-        v172 = v45;
+        v167 = "AVVCAudioQueueRecordingEngine.mm";
+        v168 = 1024;
+        v169 = 792;
+        v170 = 2112;
+        v171 = v45;
         _os_log_impl(&dword_1BA5AC000, v52, OS_LOG_TYPE_DEBUG, "%25s:%-5d dspGraphFilepath: %@", buf, 0x1Cu);
       }
 
 LABEL_92:
       v53 = MEMORY[0x1E695DF20];
       v54 = [MEMORY[0x1E695DFF8] fileURLWithPath:v45];
-      v153 = v9;
-      v55 = [v53 dictionaryWithContentsOfURL:v54 error:&v153];
-      v56 = v153;
+      v152 = v9;
+      v55 = [v53 dictionaryWithContentsOfURL:v54 error:&v152];
+      v56 = v152;
 
       v9 = v56;
-      v154 = v55;
+      v153 = v55;
       if (v56)
       {
         v57 = CALog::LogObjIfEnabled(1, kAVVCScope);
@@ -8431,17 +8354,17 @@ LABEL_92:
           {
             v60 = [v56 description];
             *buf = 136315650;
-            v168 = "AVVCAudioQueueRecordingEngine.mm";
-            v169 = 1024;
-            v170 = 795;
-            v171 = 2112;
-            v172 = v60;
+            v167 = "AVVCAudioQueueRecordingEngine.mm";
+            v168 = 1024;
+            v169 = 795;
+            v170 = 2112;
+            v171 = v60;
             _os_log_impl(&dword_1BA5AC000, v59, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to read contents of DSPGraph AUStrip file: %@", buf, 0x1Cu);
           }
         }
       }
 
-      v10 = AudioUnitSetProperty([*(this + 103) audioUnit], 0x61757370u, 0, 0, &v154, 8u);
+      v10 = AudioUnitSetProperty([*(this + 103) audioUnit], 0x61757370u, 0, 0, &v153, 8u);
       if (v10)
       {
         v61 = CALog::LogObjIfEnabled(1, kAVVCScope);
@@ -8449,11 +8372,11 @@ LABEL_92:
         if (v61 && os_log_type_enabled(v61, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315650;
-          v168 = "AVVCAudioQueueRecordingEngine.mm";
-          v169 = 1024;
-          v170 = 799;
-          v171 = 1024;
-          LODWORD(v172) = v10;
+          v167 = "AVVCAudioQueueRecordingEngine.mm";
+          v168 = 1024;
+          v169 = 799;
+          v170 = 1024;
+          LODWORD(v171) = v10;
           _os_log_impl(&dword_1BA5AC000, &v62->super, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to setup DSPGraph AUStrip file: %d", buf, 0x18u);
         }
 
@@ -8483,11 +8406,11 @@ LABEL_92:
         }
       }
 
-      v145 = v63;
-      v148 = [[AVAudioFormat alloc] initWithCommonFormat:v64 sampleRate:1 interleaved:v62 channelLayout:*(this + 3)];
-      v149 = [[AVAudioFormat alloc] initWithCommonFormat:v64 sampleRate:0 interleaved:v63 channelLayout:*(this + 3)];
-      v147 = [[AVAudioFormat alloc] initWithCommonFormat:1 sampleRate:0 interleaved:v62 channelLayout:*(this + 3)];
-      v146 = [[AVAudioFormat alloc] initWithCommonFormat:1 sampleRate:0 interleaved:v63 channelLayout:*(this + 3)];
+      v144 = v63;
+      v147 = [[AVAudioFormat alloc] initWithCommonFormat:v64 sampleRate:1 interleaved:v62 channelLayout:*(this + 3)];
+      v148 = [[AVAudioFormat alloc] initWithCommonFormat:v64 sampleRate:0 interleaved:v63 channelLayout:*(this + 3)];
+      v146 = [[AVAudioFormat alloc] initWithCommonFormat:1 sampleRate:0 interleaved:v62 channelLayout:*(this + 3)];
+      v145 = [[AVAudioFormat alloc] initWithCommonFormat:1 sampleRate:0 interleaved:v63 channelLayout:*(this + 3)];
       v66 = *(this + 32);
       v67 = *(this + 3);
       v68 = objc_alloc_init(AVAudioEngine);
@@ -8502,16 +8425,16 @@ LABEL_92:
         if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
         {
           *buf = 136315394;
-          v168 = "AVVCAudioQueueRecordingEngine.mm";
-          v169 = 1024;
-          v170 = 826;
+          v167 = "AVVCAudioQueueRecordingEngine.mm";
+          v168 = 1024;
+          v169 = 826;
           _os_log_impl(&dword_1BA5AC000, v72, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVVC: AVAudioEngine EnableManualRenderingMode Offline", buf, 0x12u);
         }
       }
 
       v73 = *(this + 102);
-      v152[5] = v9;
-      [v73 enableManualRenderingMode:0 format:v149 maximumFrameCount:? error:?];
+      v151[5] = v9;
+      [v73 enableManualRenderingMode:0 format:v148 maximumFrameCount:? error:?];
       v74 = v9;
 
       if (v74)
@@ -8525,11 +8448,11 @@ LABEL_92:
           {
             v78 = [v74 description];
             *buf = 136315650;
-            v168 = "AVVCAudioQueueRecordingEngine.mm";
-            v169 = 1024;
-            v170 = 829;
-            v171 = 2112;
-            v172 = v78;
+            v167 = "AVVCAudioQueueRecordingEngine.mm";
+            v168 = 1024;
+            v169 = 829;
+            v170 = 2112;
+            v171 = v78;
             _os_log_impl(&dword_1BA5AC000, v77, OS_LOG_TYPE_ERROR, "%25s:%-5d AVVC: Failed to EnableManualRenderingMode on AVAudioEngine: %@", buf, 0x1Cu);
           }
         }
@@ -8547,20 +8470,20 @@ LABEL_92:
           if (os_log_type_enabled(v82, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
-            v168 = "AVVCAudioQueueRecordingEngine.mm";
-            v169 = 1024;
-            v170 = 833;
+            v167 = "AVVCAudioQueueRecordingEngine.mm";
+            v168 = 1024;
+            v169 = 833;
             _os_log_impl(&dword_1BA5AC000, v82, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVVC: AVAudioEngine SetManualRenderingInputPCMFormat", buf, 0x12u);
           }
         }
 
         v83 = [*(this + 102) inputNode];
-        v152[0] = MEMORY[0x1E69E9820];
-        v152[1] = 3221225472;
-        v152[2] = ___ZN29AVVCAudioQueueRecordingEngine13setupDSPGraphEv_block_invoke;
-        v152[3] = &__block_descriptor_40_e49_r__AudioBufferList_I_1_AudioBuffer_II_v___12__0I8l;
-        v152[4] = this;
-        v84 = [v83 setManualRenderingInputPCMFormat:v148 inputBlock:v152];
+        v151[0] = MEMORY[0x1E69E9820];
+        v151[1] = 3221225472;
+        v151[2] = ___ZN29AVVCAudioQueueRecordingEngine13setupDSPGraphEv_block_invoke;
+        v151[3] = &__block_descriptor_40_e49_r__AudioBufferList_I_1_AudioBuffer_II_v___12__0I8l;
+        v151[4] = this;
+        v84 = [v83 setManualRenderingInputPCMFormat:v147 inputBlock:v151];
 
         if ((v84 & 1) == 0)
         {
@@ -8572,9 +8495,9 @@ LABEL_92:
             if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
             {
               *buf = 136315394;
-              v168 = "AVVCAudioQueueRecordingEngine.mm";
-              v169 = 1024;
-              v170 = 849;
+              v167 = "AVVCAudioQueueRecordingEngine.mm";
+              v168 = 1024;
+              v169 = 849;
               _os_log_impl(&dword_1BA5AC000, v87, OS_LOG_TYPE_ERROR, "%25s:%-5d AVVC: failed to set AVAudioEngine input rendering block", buf, 0x12u);
             }
           }
@@ -8588,9 +8511,9 @@ LABEL_92:
           if (os_log_type_enabled(v90, OS_LOG_TYPE_DEBUG))
           {
             *buf = 136315394;
-            v168 = "AVVCAudioQueueRecordingEngine.mm";
-            v169 = 1024;
-            v170 = 853;
+            v167 = "AVVCAudioQueueRecordingEngine.mm";
+            v168 = 1024;
+            v169 = 853;
             _os_log_impl(&dword_1BA5AC000, v90, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVVC: Making AVAudioEngine node connections", buf, 0x12u);
           }
         }
@@ -8598,12 +8521,12 @@ LABEL_92:
         [*(this + 102) attachNode:*(this + 103)];
         v91 = *(this + 102);
         v92 = [v91 inputNode];
-        [v91 connect:v92 to:*(this + 103) format:v147];
+        [v91 connect:v92 to:*(this + 103) format:v146];
 
         v93 = *(this + 102);
         v94 = *(this + 103);
         v95 = [v93 outputNode];
-        [v93 connect:v94 to:v95 format:v146];
+        [v93 connect:v94 to:v95 format:v145];
 
         v96 = CALog::LogObjIfEnabled(5, kAVVCScope);
         v97 = v96;
@@ -8613,13 +8536,13 @@ LABEL_92:
           if (os_log_type_enabled(v98, OS_LOG_TYPE_DEBUG))
           {
             CAStreamBasicDescription::AsString((this + 24), buf, 0x100uLL, v99, v100);
-            *v161 = 136315650;
-            v162 = "AVVCAudioQueueRecordingEngine.mm";
-            v163 = 1024;
-            v164 = 859;
-            v165 = 2080;
-            v166 = buf;
-            _os_log_impl(&dword_1BA5AC000, v98, OS_LOG_TYPE_DEBUG, "%25s:%-5d mRecordASBD = %s", v161, 0x1Cu);
+            *v160 = 136315650;
+            v161 = "AVVCAudioQueueRecordingEngine.mm";
+            v162 = 1024;
+            v163 = 859;
+            v164 = 2080;
+            v165 = buf;
+            _os_log_impl(&dword_1BA5AC000, v98, OS_LOG_TYPE_DEBUG, "%25s:%-5d mRecordASBD = %s", v160, 0x1Cu);
           }
         }
 
@@ -8630,13 +8553,13 @@ LABEL_92:
           v103 = v101;
           if (os_log_type_enabled(v103, OS_LOG_TYPE_DEBUG))
           {
-            *v161 = 136315650;
-            v162 = "AVVCAudioQueueRecordingEngine.mm";
-            v163 = 1024;
-            v164 = 860;
-            v165 = 1024;
-            LODWORD(v166) = (v66 * v67);
-            _os_log_impl(&dword_1BA5AC000, v103, OS_LOG_TYPE_DEBUG, "%25s:%-5d numFrames = %d", v161, 0x18u);
+            *v160 = 136315650;
+            v161 = "AVVCAudioQueueRecordingEngine.mm";
+            v162 = 1024;
+            v163 = 860;
+            v164 = 1024;
+            LODWORD(v165) = (v66 * v67);
+            _os_log_impl(&dword_1BA5AC000, v103, OS_LOG_TYPE_DEBUG, "%25s:%-5d numFrames = %d", v160, 0x18u);
           }
         }
 
@@ -8647,16 +8570,16 @@ LABEL_92:
           v106 = v104;
           if (os_log_type_enabled(v106, OS_LOG_TYPE_DEBUG))
           {
-            v107 = [(AVAudioFormat *)v148 description];
+            v107 = [(AVAudioFormat *)v147 description];
             v108 = v107;
             v109 = [v107 UTF8String];
-            *v161 = 136315650;
-            v162 = "AVVCAudioQueueRecordingEngine.mm";
-            v163 = 1024;
-            v164 = 861;
-            v165 = 2080;
-            v166 = v109;
-            _os_log_impl(&dword_1BA5AC000, v106, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVAE input format = %s", v161, 0x1Cu);
+            *v160 = 136315650;
+            v161 = "AVVCAudioQueueRecordingEngine.mm";
+            v162 = 1024;
+            v163 = 861;
+            v164 = 2080;
+            v165 = v109;
+            _os_log_impl(&dword_1BA5AC000, v106, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVAE input format = %s", v160, 0x1Cu);
           }
         }
 
@@ -8667,16 +8590,16 @@ LABEL_92:
           v112 = v110;
           if (os_log_type_enabled(v112, OS_LOG_TYPE_DEBUG))
           {
-            v113 = [(AVAudioFormat *)v149 description];
+            v113 = [(AVAudioFormat *)v148 description];
             v114 = v113;
             v115 = [v113 UTF8String];
-            *v161 = 136315650;
-            v162 = "AVVCAudioQueueRecordingEngine.mm";
-            v163 = 1024;
-            v164 = 862;
-            v165 = 2080;
-            v166 = v115;
-            _os_log_impl(&dword_1BA5AC000, v112, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVAE output format = %s", v161, 0x1Cu);
+            *v160 = 136315650;
+            v161 = "AVVCAudioQueueRecordingEngine.mm";
+            v162 = 1024;
+            v163 = 862;
+            v164 = 2080;
+            v165 = v115;
+            _os_log_impl(&dword_1BA5AC000, v112, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVAE output format = %s", v160, 0x1Cu);
           }
         }
 
@@ -8687,16 +8610,16 @@ LABEL_92:
           v118 = v116;
           if (os_log_type_enabled(v118, OS_LOG_TYPE_DEBUG))
           {
-            v119 = [(AVAudioFormat *)v147 description];
+            v119 = [(AVAudioFormat *)v146 description];
             v120 = v119;
             v121 = [v119 UTF8String];
-            *v161 = 136315650;
-            v162 = "AVVCAudioQueueRecordingEngine.mm";
-            v163 = 1024;
-            v164 = 863;
-            v165 = 2080;
-            v166 = v121;
-            _os_log_impl(&dword_1BA5AC000, v118, OS_LOG_TYPE_DEBUG, "%25s:%-5d DSPGraph input format = %s", v161, 0x1Cu);
+            *v160 = 136315650;
+            v161 = "AVVCAudioQueueRecordingEngine.mm";
+            v162 = 1024;
+            v163 = 863;
+            v164 = 2080;
+            v165 = v121;
+            _os_log_impl(&dword_1BA5AC000, v118, OS_LOG_TYPE_DEBUG, "%25s:%-5d DSPGraph input format = %s", v160, 0x1Cu);
           }
         }
 
@@ -8707,16 +8630,16 @@ LABEL_92:
           v124 = v122;
           if (os_log_type_enabled(v124, OS_LOG_TYPE_DEBUG))
           {
-            v125 = [(AVAudioFormat *)v146 description];
+            v125 = [(AVAudioFormat *)v145 description];
             v126 = v125;
             v127 = [v125 UTF8String];
-            *v161 = 136315650;
-            v162 = "AVVCAudioQueueRecordingEngine.mm";
-            v163 = 1024;
-            v164 = 864;
-            v165 = 2080;
-            v166 = v127;
-            _os_log_impl(&dword_1BA5AC000, v124, OS_LOG_TYPE_DEBUG, "%25s:%-5d DSPGraph output format = %s", v161, 0x1Cu);
+            *v160 = 136315650;
+            v161 = "AVVCAudioQueueRecordingEngine.mm";
+            v162 = 1024;
+            v163 = 864;
+            v164 = 2080;
+            v165 = v127;
+            _os_log_impl(&dword_1BA5AC000, v124, OS_LOG_TYPE_DEBUG, "%25s:%-5d DSPGraph output format = %s", v160, 0x1Cu);
           }
         }
 
@@ -8730,20 +8653,20 @@ LABEL_92:
             v131 = [*(this + 102) description];
             v132 = v131;
             v133 = [v131 UTF8String];
-            *v161 = 136315650;
-            v162 = "AVVCAudioQueueRecordingEngine.mm";
-            v163 = 1024;
-            v164 = 867;
-            v165 = 2080;
-            v166 = v133;
-            _os_log_impl(&dword_1BA5AC000, v130, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVVC: Starting AVAudioEngine with desc = %s", v161, 0x1Cu);
+            *v160 = 136315650;
+            v161 = "AVVCAudioQueueRecordingEngine.mm";
+            v162 = 1024;
+            v163 = 867;
+            v164 = 2080;
+            v165 = v133;
+            _os_log_impl(&dword_1BA5AC000, v130, OS_LOG_TYPE_DEBUG, "%25s:%-5d AVVC: Starting AVAudioEngine with desc = %s", v160, 0x1Cu);
           }
         }
 
         v134 = *(this + 102);
-        v151 = 0;
-        v135 = [v134 startAndReturnError:&v151];
-        v74 = v151;
+        v150 = 0;
+        v135 = [v134 startAndReturnError:&v150];
+        v74 = v150;
         if (v135)
         {
           v136 = CALog::LogObjIfEnabled(5, kAVVCScope);
@@ -8753,11 +8676,11 @@ LABEL_92:
             v138 = v136;
             if (os_log_type_enabled(v138, OS_LOG_TYPE_DEBUG))
             {
-              *v161 = 136315394;
-              v162 = "AVVCAudioQueueRecordingEngine.mm";
-              v163 = 1024;
-              v164 = 874;
-              _os_log_impl(&dword_1BA5AC000, v138, OS_LOG_TYPE_DEBUG, "%25s:%-5d Done setting up DSPGraph", v161, 0x12u);
+              *v160 = 136315394;
+              v161 = "AVVCAudioQueueRecordingEngine.mm";
+              v162 = 1024;
+              v163 = 874;
+              _os_log_impl(&dword_1BA5AC000, v138, OS_LOG_TYPE_DEBUG, "%25s:%-5d Done setting up DSPGraph", v160, 0x12u);
             }
           }
 
@@ -8773,13 +8696,13 @@ LABEL_92:
           if (os_log_type_enabled(v141, OS_LOG_TYPE_ERROR))
           {
             v142 = [v74 description];
-            *v161 = 136315650;
-            v162 = "AVVCAudioQueueRecordingEngine.mm";
-            v163 = 1024;
-            v164 = 870;
-            v165 = 2112;
-            v166 = v142;
-            _os_log_impl(&dword_1BA5AC000, v141, OS_LOG_TYPE_ERROR, "%25s:%-5d AVVC: Failed to start AVAudioEngine: %@", v161, 0x1Cu);
+            *v160 = 136315650;
+            v161 = "AVVCAudioQueueRecordingEngine.mm";
+            v162 = 1024;
+            v163 = 870;
+            v164 = 2112;
+            v165 = v142;
+            _os_log_impl(&dword_1BA5AC000, v141, OS_LOG_TYPE_ERROR, "%25s:%-5d AVVC: Failed to start AVAudioEngine: %@", v160, 0x1Cu);
           }
         }
 
@@ -8817,9 +8740,9 @@ LABEL_60:
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v168 = "AVVCAudioQueueRecordingEngine.mm";
-      v169 = 1024;
-      v170 = 764;
+      v167 = "AVVCAudioQueueRecordingEngine.mm";
+      v168 = 1024;
+      v169 = 764;
       _os_log_impl(&dword_1BA5AC000, v19, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to instantiate AUDSPGraph", buf, 0x12u);
     }
 
@@ -8840,9 +8763,9 @@ LABEL_17:
     if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
-      v168 = "AVVCAudioQueueRecordingEngine.mm";
-      v169 = 1024;
-      v170 = 726;
+      v167 = "AVVCAudioQueueRecordingEngine.mm";
+      v168 = 1024;
+      v169 = 726;
       _os_log_impl(&dword_1BA5AC000, v6, OS_LOG_TYPE_INFO, "%25s:%-5d AVVC - Cannot use DSP Graph. ", buf, 0x12u);
     }
   }
@@ -8852,13 +8775,12 @@ LABEL_21:
   v10 = 0;
 LABEL_177:
 
-  v143 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 void AVVCRecordingEngine::setStreamState(uint64_t a1, uint64_t a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if (kAVVCScope)
   {
     v4 = *kAVVCScope;
@@ -8888,20 +8810,19 @@ void AVVCRecordingEngine::setStreamState(uint64_t a1, uint64_t a2)
     }
 
     v8 = off_1E7EF6338[a2];
-    v10 = 136315906;
-    v11 = "AVVCRecordingEngine.mm";
-    v12 = 1024;
-    v13 = 361;
-    v14 = 2080;
-    v15 = v7;
-    v16 = 2080;
-    v17 = v8;
-    _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setStreamState (%s => %s)", &v10, 0x26u);
+    v9 = 136315906;
+    v10 = "AVVCRecordingEngine.mm";
+    v11 = 1024;
+    v12 = 361;
+    v13 = 2080;
+    v14 = v7;
+    v15 = 2080;
+    v16 = v8;
+    _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setStreamState (%s => %s)", &v9, 0x26u);
   }
 
 LABEL_11:
   *(a1 + 216) = a2;
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 id AVVCRecordingEngine::audioSession(uint64_t a1, void *a2)
@@ -8944,7 +8865,7 @@ LABEL_4:
 
 uint64_t AVVCAudioQueueRecordingEngine::setSessionIsRecordingFlag(AVVCRecordingEngine *this)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   isSessionRecording = AVVCRecordingEngine::isSessionRecording(this);
   v3 = (*(*this + 144))(this, isSessionRecording ^ 1u);
   if (v3)
@@ -8954,7 +8875,7 @@ uint64_t AVVCAudioQueueRecordingEngine::setSessionIsRecordingFlag(AVVCRecordingE
       v4 = *kAVVCScope;
       if (!v4)
       {
-        goto LABEL_12;
+        return v3;
       }
     }
 
@@ -8966,15 +8887,15 @@ uint64_t AVVCAudioQueueRecordingEngine::setSessionIsRecordingFlag(AVVCRecordingE
 
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315906;
-      v10 = "AVVCAudioQueueRecordingEngine.mm";
-      v11 = 1024;
-      v12 = 1893;
-      v13 = 1024;
-      v14 = isSessionRecording ^ 1;
-      v15 = 1024;
-      v16 = v3;
-      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d setSessionIsRecordingFlag: Failed at enableSiriListeningMode(%u) with error: %d", &v9, 0x1Eu);
+      v8 = 136315906;
+      v9 = "AVVCAudioQueueRecordingEngine.mm";
+      v10 = 1024;
+      v11 = 1893;
+      v12 = 1024;
+      v13 = isSessionRecording ^ 1;
+      v14 = 1024;
+      v15 = v3;
+      _os_log_impl(&dword_1BA5AC000, v4, OS_LOG_TYPE_ERROR, "%25s:%-5d setSessionIsRecordingFlag: Failed at enableSiriListeningMode(%u) with error: %d", &v8, 0x1Eu);
     }
   }
 
@@ -8989,8 +8910,6 @@ uint64_t AVVCAudioQueueRecordingEngine::setSessionIsRecordingFlag(AVVCRecordingE
     *(this + 41) = v5;
   }
 
-LABEL_12:
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
@@ -9060,7 +8979,7 @@ uint64_t ControllerImpl::setDuckOthersForStream(uint64_t a1, uint64_t a2, void *
   return v9;
 }
 
-void sub_1BA5D111C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
+void sub_1BA5D111C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, id a24)
 {
   _Block_object_dispose(&a19, 8);
 
@@ -9084,8 +9003,8 @@ void ___ZN14ControllerImpl48setEnableInterruptionByRecordingClientsForStreamEmb_
 
 id AVVCAudioQueueRecordingEngine::setDeviceIOBufferSizeFrames(AudioQueueRef *this, int a2)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  ElapsedTime::ElapsedTime(v25, "setDeviceIOBufferSizeFrames", "setDeviceIOBufferSizeFrames", 0);
+  v25 = *MEMORY[0x1E69E9840];
+  ElapsedTime::ElapsedTime(v24, "setDeviceIOBufferSizeFrames", "setDeviceIOBufferSizeFrames", 0);
   inData = a2;
   v4 = (*(*this + 8))(this, 0);
   v5 = [v4 siriInputSource];
@@ -9118,13 +9037,13 @@ LABEL_16:
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315906;
-      v19 = "AVVCAudioQueueRecordingEngine.mm";
-      v20 = 1024;
-      v21 = 971;
-      v22 = 1024;
-      *v23 = inData;
-      *&v23[4] = 1024;
-      *&v23[6] = v7;
+      v18 = "AVVCAudioQueueRecordingEngine.mm";
+      v19 = 1024;
+      v20 = 971;
+      v21 = 1024;
+      *v22 = inData;
+      *&v22[4] = 1024;
+      *&v22[6] = v7;
       _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setDeviceIOBufferSizeFrames: AudioQueueSetProperty(kAudioQueueProperty_DeviceBufferSizeFrames) : %u err : %d", buf, 0x1Eu);
     }
 
@@ -9151,13 +9070,13 @@ LABEL_16:
   {
     v11 = Get4CCFromInt(v5);
     *buf = 136315906;
-    v19 = "AVVCAudioQueueRecordingEngine.mm";
-    v20 = 1024;
-    v21 = 977;
-    v22 = 2112;
-    *v23 = v11;
-    *&v23[8] = 1024;
-    v24 = v6;
+    v18 = "AVVCAudioQueueRecordingEngine.mm";
+    v19 = 1024;
+    v20 = 977;
+    v21 = 2112;
+    *v22 = v11;
+    *&v22[8] = 1024;
+    v23 = v6;
     _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_DEFAULT, "%25s:%-5d setDeviceIOBufferSizeFrames: Not setting DeviceBufferSizeFrames. siri input source: %@, isAnyAppRecording: %d", buf, 0x22u);
   }
 
@@ -9181,25 +9100,24 @@ LABEL_18:
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315906;
-    v19 = "AVVCAudioQueueRecordingEngine.mm";
-    v20 = 1024;
-    v21 = 980;
-    v22 = 1024;
-    *v23 = inData;
-    *&v23[4] = 1024;
-    *&v23[6] = v7;
+    v18 = "AVVCAudioQueueRecordingEngine.mm";
+    v19 = 1024;
+    v20 = 980;
+    v21 = 1024;
+    *v22 = inData;
+    *&v22[4] = 1024;
+    *&v22[6] = v7;
     _os_log_impl(&dword_1BA5AC000, v13, OS_LOG_TYPE_DEBUG, "%25s:%-5d setDeviceIOBufferSizeFrames: %u err : %d", buf, 0x1Eu);
   }
 
 LABEL_25:
-  ElapsedTime::~ElapsedTime(v25);
-  v15 = *MEMORY[0x1E69E9840];
+  ElapsedTime::~ElapsedTime(v24);
   return v7;
 }
 
-void sub_1BA5D1540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1BA5D1540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
 
   ElapsedTime::~ElapsedTime(va);
   _Unwind_Resume(a1);
@@ -9207,7 +9125,7 @@ void sub_1BA5D1540(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 BOOL IsAnyAppRecording(void)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v0 = GetRecordingAppsList();
   if (kAVVCScope)
   {
@@ -9226,31 +9144,30 @@ BOOL IsAnyAppRecording(void)
 
   if (os_log_type_enabled(v1, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315650;
-    v6 = "AVVCUtils.mm";
-    v7 = 1024;
-    v8 = 1501;
-    v9 = 2112;
-    v10 = v0;
-    _os_log_impl(&dword_1BA5AC000, v1, OS_LOG_TYPE_DEBUG, "%25s:%-5d Apps currently recording: %@", &v5, 0x1Cu);
+    v4 = 136315650;
+    v5 = "AVVCUtils.mm";
+    v6 = 1024;
+    v7 = 1501;
+    v8 = 2112;
+    v9 = v0;
+    _os_log_impl(&dword_1BA5AC000, v1, OS_LOG_TYPE_DEBUG, "%25s:%-5d Apps currently recording: %@", &v4, 0x1Cu);
   }
 
 LABEL_8:
-  v3 = *MEMORY[0x1E69E9840];
   return v0 != 0;
 }
 
 void ___ZN14ControllerImpl26getRecordSettingsForStreamEP17AVVoiceControllermU13block_pointerFvmP12NSDictionaryP7NSErrorE_block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
-  ControllerImpl::_lookupEngineForStreamID(&v25, *(*(a1 + 40) + 576), *(*(a1 + 40) + 584), *(a1 + 56));
-  v2 = v25;
-  if (!v25)
+  v30 = *MEMORY[0x1E69E9840];
+  ControllerImpl::_lookupEngineForStreamID(&v24, *(*(a1 + 40) + 576), *(*(a1 + 40) + 584), *(a1 + 56));
+  v2 = v24;
+  if (!v24)
   {
     if (kAVVCScope)
     {
-      v8 = *kAVVCScope;
-      if (!v8)
+      v7 = *kAVVCScope;
+      if (!v7)
       {
         goto LABEL_20;
       }
@@ -9258,57 +9175,57 @@ void ___ZN14ControllerImpl26getRecordSettingsForStreamEP17AVVoiceControllermU13b
 
     else
     {
+      v7 = MEMORY[0x1E69E9C10];
       v8 = MEMORY[0x1E69E9C10];
-      v9 = MEMORY[0x1E69E9C10];
     }
 
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v28 = "ControllerImpl.mm";
-      v29 = 1024;
-      v30 = 6113;
-      _os_log_impl(&dword_1BA5AC000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d getRecordSettingsForStream: Nil recording engine", buf, 0x12u);
+      v27 = "ControllerImpl.mm";
+      v28 = 1024;
+      v29 = 6113;
+      _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d getRecordSettingsForStream: Nil recording engine", buf, 0x12u);
     }
 
 LABEL_20:
-    v10 = *(a1 + 32);
-    v11 = *(a1 + 40);
-    v12 = v10 != 0;
-    v22[0] = MEMORY[0x1E69E9820];
-    v22[1] = 3221225472;
-    v22[2] = ___ZN14ControllerImpl26getRecordSettingsForStreamEP17AVVoiceControllermU13block_pointerFvmP12NSDictionaryP7NSErrorE_block_invoke_509;
-    v22[3] = &unk_1E7EF6590;
-    v13 = v10;
-    v14 = *(a1 + 56);
+    v9 = *(a1 + 32);
+    v10 = *(a1 + 40);
+    v11 = v9 != 0;
+    v21[0] = MEMORY[0x1E69E9820];
+    v21[1] = 3221225472;
+    v21[2] = ___ZN14ControllerImpl26getRecordSettingsForStreamEP17AVVoiceControllermU13block_pointerFvmP12NSDictionaryP7NSErrorE_block_invoke_509;
+    v21[3] = &unk_1E7EF6590;
+    v12 = v9;
+    v13 = *(a1 + 56);
+    v22 = v12;
     v23 = v13;
-    v24 = v14;
-    ControllerImpl::safeNotifyAlwaysAsync(v11, v12, v22);
+    ControllerImpl::safeNotifyAlwaysAsync(v10, v11, v21);
 
-    v3 = v26;
-    if (!v26)
+    v3 = v25;
+    if (!v25)
     {
-      goto LABEL_12;
+      return;
     }
 
     goto LABEL_11;
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3321888768;
-  v15[2] = ___ZN14ControllerImpl26getRecordSettingsForStreamEP17AVVoiceControllermU13block_pointerFvmP12NSDictionaryP7NSErrorE_block_invoke_2;
-  v15[3] = &unk_1F38484A8;
-  v3 = v26;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3321888768;
+  v14[2] = ___ZN14ControllerImpl26getRecordSettingsForStreamEP17AVVoiceControllermU13block_pointerFvmP12NSDictionaryP7NSErrorE_block_invoke_2;
+  v14[3] = &unk_1F38484A8;
+  v3 = v25;
+  v16 = v24;
   v17 = v25;
-  v18 = v26;
-  if (v26)
+  if (v25)
   {
-    atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v25->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v4 = *(a1 + 48);
-  v19 = *(a1 + 40);
-  v20 = v4;
+  v18 = *(a1 + 40);
+  v19 = v4;
   if (v4)
   {
     atomic_fetch_add_explicit(&v4->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -9316,18 +9233,18 @@ LABEL_20:
 
   v5 = *(a1 + 32);
   v6 = *(a1 + 56);
-  v16 = v5;
-  v21 = v6;
-  (*(*v2 + 328))(v2, v15, "getRecordSettingsForStream_block_invoke");
+  v15 = v5;
+  v20 = v6;
+  (*(*v2 + 328))(v2, v14, "getRecordSettingsForStream_block_invoke");
 
-  if (v20)
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
 
-  if (v18)
+  if (v17)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v18);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v17);
   }
 
   if (v3)
@@ -9335,9 +9252,6 @@ LABEL_20:
 LABEL_11:
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
-
-LABEL_12:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA5D1900(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, void *a23)
@@ -9394,9 +9308,9 @@ uint64_t ControllerImpl::startRecordForStream(ControllerImpl *this, AVVoiceContr
   return v9;
 }
 
-void sub_1BA5D1B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, ...)
+void sub_1BA5D1B70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, void *a6, void *a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void *a13, void *a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -9421,7 +9335,7 @@ void ___ZN14ControllerImpl20startRecordForStreamEP17AVVoiceControllerP23AVVCStar
 
 void ControllerImpl::startRecordForStream(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -9439,8 +9353,8 @@ void ControllerImpl::startRecordForStream(uint64_t a1, void *a2, void *a3, void 
           *&buf[4] = "ControllerImpl.mm";
           *&buf[12] = 1024;
           *&buf[14] = 4890;
-          v26 = 2048;
-          v27 = [v8 streamID];
+          v25 = 2048;
+          v26 = [v8 streamID];
           _os_log_impl(&dword_1BA5AC000, v11, OS_LOG_TYPE_DEBUG, "%25s:%-5d startRecordForStream streamID(%lu)", buf, 0x1Cu);
         }
       }
@@ -9452,50 +9366,48 @@ void ControllerImpl::startRecordForStream(uint64_t a1, void *a2, void *a3, void 
 
   std::shared_ptr<AVVCRecordingEngine>::shared_ptr[abi:ne200100]<AVVCRecordingEngine,0>(buf, *(a1 + 8), *(a1 + 16));
   v13 = *buf;
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3321888768;
-  v18[2] = ___ZN14ControllerImpl20startRecordForStreamEP17AVVoiceControllerP23AVVCStartRecordSettingsU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke;
-  v18[3] = &unk_1F3848358;
-  v22 = a1;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3321888768;
+  v17[2] = ___ZN14ControllerImpl20startRecordForStreamEP17AVVoiceControllerP23AVVCStartRecordSettingsU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke;
+  v17[3] = &unk_1F3848358;
+  v21 = a1;
   v14 = v8;
-  v19 = v14;
-  v23 = v13;
-  v24 = *&buf[8];
+  v18 = v14;
+  v22 = v13;
+  v23 = *&buf[8];
   if (*&buf[8])
   {
     atomic_fetch_add_explicit((*&buf[8] + 8), 1uLL, memory_order_relaxed);
   }
 
   v15 = v9;
-  v21 = v15;
+  v20 = v15;
   v16 = v7;
-  v20 = v16;
-  ControllerImpl::safeWork(v13, v18, "startRecordForStream");
+  v19 = v16;
+  ControllerImpl::safeWork(v13, v17, "startRecordForStream");
 
-  if (v24)
+  if (v23)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v24);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v23);
   }
 
   if (*&buf[8])
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](*&buf[8]);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void ___ZN14ControllerImpl20startRecordForStreamEP17AVVoiceControllerP23AVVCStartRecordSettingsU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke(uint64_t a1)
 {
-  v34 = *MEMORY[0x1E69E9840];
-  ControllerImpl::_lookupEngineForStreamID(&v26, *(*(a1 + 56) + 576), *(*(a1 + 56) + 584), [*(a1 + 32) streamID]);
-  v2 = v26;
-  if (!v26)
+  v33 = *MEMORY[0x1E69E9840];
+  ControllerImpl::_lookupEngineForStreamID(&v25, *(*(a1 + 56) + 576), *(*(a1 + 56) + 584), [*(a1 + 32) streamID]);
+  v2 = v25;
+  if (!v25)
   {
     if (kAVVCScope)
     {
-      v8 = *kAVVCScope;
-      if (!v8)
+      v7 = *kAVVCScope;
+      if (!v7)
       {
         goto LABEL_20;
       }
@@ -9503,79 +9415,79 @@ void ___ZN14ControllerImpl20startRecordForStreamEP17AVVoiceControllerP23AVVCStar
 
     else
     {
+      v7 = MEMORY[0x1E69E9C10];
       v8 = MEMORY[0x1E69E9C10];
-      v9 = MEMORY[0x1E69E9C10];
     }
 
-    v10 = v8;
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v9 = v7;
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v11 = [*(a1 + 32) streamID];
+      v10 = [*(a1 + 32) streamID];
       *buf = 136315650;
-      v29 = "ControllerImpl.mm";
-      v30 = 1024;
-      v31 = 4901;
-      v32 = 2048;
-      v33 = v11;
-      _os_log_impl(&dword_1BA5AC000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d startRecordForStream: Cannot find recording engine for streamID(%lu). Returning.", buf, 0x1Cu);
+      v28 = "ControllerImpl.mm";
+      v29 = 1024;
+      v30 = 4901;
+      v31 = 2048;
+      v32 = v10;
+      _os_log_impl(&dword_1BA5AC000, v9, OS_LOG_TYPE_ERROR, "%25s:%-5d startRecordForStream: Cannot find recording engine for streamID(%lu). Returning.", buf, 0x1Cu);
     }
 
 LABEL_20:
-    v12 = *(a1 + 64);
-    v13 = *(a1 + 48);
-    v14 = v13 != 0;
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = ___ZN14ControllerImpl20startRecordForStreamEP17AVVoiceControllerP23AVVCStartRecordSettingsU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke_390;
-    v23[3] = &unk_1E7EF6710;
-    v25 = v13;
-    v24 = *(a1 + 32);
-    ControllerImpl::safeNotifyAlwaysAsync(v12, v14, v23);
+    v11 = *(a1 + 64);
+    v12 = *(a1 + 48);
+    v13 = v12 != 0;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = ___ZN14ControllerImpl20startRecordForStreamEP17AVVoiceControllerP23AVVCStartRecordSettingsU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke_390;
+    v22[3] = &unk_1E7EF6710;
+    v24 = v12;
+    v23 = *(a1 + 32);
+    ControllerImpl::safeNotifyAlwaysAsync(v11, v13, v22);
 
-    v3 = v27;
-    if (!v27)
+    v3 = v26;
+    if (!v26)
     {
-      goto LABEL_12;
+      return;
     }
 
     goto LABEL_11;
   }
 
-  v15[0] = MEMORY[0x1E69E9820];
-  v15[1] = 3321888768;
-  v15[2] = ___ZN14ControllerImpl20startRecordForStreamEP17AVVoiceControllerP23AVVCStartRecordSettingsU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke_2;
-  v15[3] = &unk_1F3848010;
-  v3 = v27;
+  v14[0] = MEMORY[0x1E69E9820];
+  v14[1] = 3321888768;
+  v14[2] = ___ZN14ControllerImpl20startRecordForStreamEP17AVVoiceControllerP23AVVCStartRecordSettingsU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke_2;
+  v14[3] = &unk_1F3848010;
+  v3 = v26;
+  v18 = v25;
   v19 = v26;
-  v20 = v27;
-  if (v27)
+  if (v26)
   {
-    atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(&v26->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
   v4 = *(a1 + 32);
   v6 = *(a1 + 64);
   v5 = *(a1 + 72);
-  v16 = v4;
-  v21 = v6;
-  v22 = v5;
+  v15 = v4;
+  v20 = v6;
+  v21 = v5;
   if (v5)
   {
     atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v18 = *(a1 + 48);
-  v17 = *(a1 + 40);
-  (*(*v2 + 328))(v2, v15, "startRecordForStream_block_invoke");
+  v17 = *(a1 + 48);
+  v16 = *(a1 + 40);
+  (*(*v2 + 328))(v2, v14, "startRecordForStream_block_invoke");
 
-  if (v22)
+  if (v21)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v22);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v21);
   }
 
-  if (v20)
+  if (v19)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19);
   }
 
   if (v3)
@@ -9583,9 +9495,6 @@ LABEL_20:
 LABEL_11:
     std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
-
-LABEL_12:
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void sub_1BA5D2200(_Unwind_Exception *a1)
@@ -9601,7 +9510,7 @@ void sub_1BA5D2200(_Unwind_Exception *a1)
 
 void ___ZN14ControllerImpl20startRecordForStreamEP17AVVoiceControllerP23AVVCStartRecordSettingsU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke_2(uint64_t a1)
 {
-  v68 = *MEMORY[0x1E69E9840];
+  v67 = *MEMORY[0x1E69E9840];
   v2 = *(*(a1 + 56) + 216);
   if (v2 <= 1)
   {
@@ -9615,16 +9524,16 @@ LABEL_16:
         v10 = *(*(a1 + 56) + 216);
         v11 = *(a1 + 72);
         v12 = v9 != 0;
-        v49[0] = MEMORY[0x1E69E9820];
-        v49[1] = 3221225472;
-        v49[2] = ___ZN14ControllerImpl20startRecordForStreamEP17AVVoiceControllerP23AVVCStartRecordSettingsU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke_391;
-        v49[3] = &unk_1E7EF5DB0;
-        v51 = v9;
-        v50 = *(a1 + 32);
-        v52 = v10;
-        ControllerImpl::safeNotifyAlwaysAsync(v11, v12, v49);
+        v48[0] = MEMORY[0x1E69E9820];
+        v48[1] = 3221225472;
+        v48[2] = ___ZN14ControllerImpl20startRecordForStreamEP17AVVoiceControllerP23AVVCStartRecordSettingsU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke_391;
+        v48[3] = &unk_1E7EF5DB0;
+        v50 = v9;
+        v49 = *(a1 + 32);
+        v51 = v10;
+        ControllerImpl::safeNotifyAlwaysAsync(v11, v12, v48);
 
-        goto LABEL_37;
+        return;
       }
     }
 
@@ -9639,11 +9548,11 @@ LABEL_16:
     {
       v8 = [*(a1 + 32) streamID];
       *buf = 136315650;
-      v55 = "ControllerImpl.mm";
-      v56 = 1024;
-      v57 = 4910;
-      v58 = 2048;
-      v59 = v8;
+      v54 = "ControllerImpl.mm";
+      v55 = 1024;
+      v56 = 4910;
+      v57 = 2048;
+      v58 = v8;
       _os_log_impl(&dword_1BA5AC000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d startRecordForStream: Attempt to start stream(%ld) without calling prepare.", buf, 0x1Cu);
     }
 
@@ -9662,16 +9571,16 @@ LABEL_36:
         v33 = *(*(a1 + 56) + 216);
         v34 = *(a1 + 72);
         v35 = v32 != 0;
-        v45[0] = MEMORY[0x1E69E9820];
-        v45[1] = 3221225472;
-        v45[2] = ___ZN14ControllerImpl20startRecordForStreamEP17AVVoiceControllerP23AVVCStartRecordSettingsU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke_392;
-        v45[3] = &unk_1E7EF5DB0;
-        v47 = v32;
-        v46 = *(a1 + 32);
-        v48 = v33;
-        ControllerImpl::safeNotifyAlwaysAsync(v34, v35, v45);
+        v44[0] = MEMORY[0x1E69E9820];
+        v44[1] = 3221225472;
+        v44[2] = ___ZN14ControllerImpl20startRecordForStreamEP17AVVoiceControllerP23AVVCStartRecordSettingsU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke_392;
+        v44[3] = &unk_1E7EF5DB0;
+        v46 = v32;
+        v45 = *(a1 + 32);
+        v47 = v33;
+        ControllerImpl::safeNotifyAlwaysAsync(v34, v35, v44);
 
-        goto LABEL_37;
+        return;
       }
     }
 
@@ -9697,13 +9606,13 @@ LABEL_36:
       }
 
       *buf = 136315906;
-      v55 = "ControllerImpl.mm";
-      v56 = 1024;
-      v57 = 4919;
-      v58 = 2048;
-      v59 = v15;
-      v60 = 2080;
-      v61 = v17;
+      v54 = "ControllerImpl.mm";
+      v55 = 1024;
+      v56 = 4919;
+      v57 = 2048;
+      v58 = v15;
+      v59 = 2080;
+      v60 = v17;
       _os_log_impl(&dword_1BA5AC000, v14, OS_LOG_TYPE_DEFAULT, "%25s:%-5d startRecordForStream: Attempt to start stream(%ld) while stream is already %s. No-op.", buf, 0x26u);
     }
 
@@ -9727,22 +9636,22 @@ LABEL_22:
       v20 = (*(**(a1 + 56) + 56))(*(a1 + 56), 0);
       v21 = (*(**(a1 + 56) + 64))(*(a1 + 56), 0);
       v22 = *(a1 + 56);
-      CAX4CCString::CAX4CCString(v53, *(v22 + 272));
+      CAX4CCString::CAX4CCString(v52, *(v22 + 272));
       v23 = AVVCRouteManager::getRecordDeviceUID(*(*(a1 + 56) + 368));
       *buf = 136316674;
-      v55 = "ControllerImpl.mm";
-      v56 = 1024;
-      v57 = 4933;
-      v58 = 2048;
-      v59 = v20;
-      v60 = 2048;
-      v61 = v21;
-      v62 = 2048;
-      v63 = v22;
-      v64 = 2080;
-      v65 = v53;
-      v66 = 2112;
-      v67 = v23;
+      v54 = "ControllerImpl.mm";
+      v55 = 1024;
+      v56 = 4933;
+      v57 = 2048;
+      v58 = v20;
+      v59 = 2048;
+      v60 = v21;
+      v61 = 2048;
+      v62 = v22;
+      v63 = 2080;
+      v64 = v52;
+      v65 = 2112;
+      v66 = v23;
       _os_log_impl(&dword_1BA5AC000, v19, OS_LOG_TYPE_DEFAULT, "%25s:%-5d session (%p) and session mananger (%p) used for engine (%p) with context(%s, %@)", buf, 0x44u);
     }
   }
@@ -9754,14 +9663,14 @@ LABEL_22:
   v26 = *(a1 + 56);
   *(v26 + 245) = 0;
   AVVCRecordingEngine::setStreamState(v26, 4);
-  v37[0] = MEMORY[0x1E69E9820];
-  v37[1] = 3321888768;
-  v37[2] = ___ZN14ControllerImpl20startRecordForStreamEP17AVVoiceControllerP23AVVCStartRecordSettingsU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke_393;
-  v37[3] = &unk_1F3848048;
+  v36[0] = MEMORY[0x1E69E9820];
+  v36[1] = 3321888768;
+  v36[2] = ___ZN14ControllerImpl20startRecordForStreamEP17AVVoiceControllerP23AVVCStartRecordSettingsU13block_pointerFvmb15AVVCStreamStateP7NSErrorE_block_invoke_393;
+  v36[3] = &unk_1F3848048;
   v28 = *(a1 + 72);
   v27 = *(a1 + 80);
-  v41 = v28;
-  v42 = v27;
+  v40 = v28;
+  v41 = v27;
   if (v27)
   {
     atomic_fetch_add_explicit(&v27->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -9770,28 +9679,25 @@ LABEL_22:
   v29 = *(a1 + 32);
   v31 = *(a1 + 56);
   v30 = *(a1 + 64);
-  v38 = v29;
-  v43 = v31;
-  v44 = v30;
+  v37 = v29;
+  v42 = v31;
+  v43 = v30;
   if (v30)
   {
     atomic_fetch_add_explicit(&v30->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  v40 = *(a1 + 48);
-  v39 = *(a1 + 40);
-  ControllerImpl::safeWork(v28, v37, "startRecordForStream_block_invoke");
+  v39 = *(a1 + 48);
+  v38 = *(a1 + 40);
+  ControllerImpl::safeWork(v28, v36, "startRecordForStream_block_invoke");
 
-  if (v44)
+  if (v43)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v44);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v43);
   }
 
-  if (v42)
+  if (v41)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v42);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v41);
   }
-
-LABEL_37:
-  v36 = *MEMORY[0x1E69E9840];
 }

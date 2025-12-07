@@ -46,18 +46,18 @@
 
 - (FMSong)initWithUID:(id)d assets:(id)assets metadata:(id)metadata
 {
-  v306 = *MEMORY[0x277D85DE8];
+  v305 = *MEMORY[0x277D85DE8];
   dCopy = d;
   assetsCopy = assets;
   metadataCopy = metadata;
-  v289 = objc_msgSend_array(MEMORY[0x277CBEB18], v8, v9, v10, v11);
-  v288 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEB18], v12, assetsCopy, v13, v14);
+  v288 = objc_msgSend_array(MEMORY[0x277CBEB18], v8, v9, v10, v11);
+  v287 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEB18], v12, assetsCopy, v13, v14);
+  v298 = 0u;
   v299 = 0u;
   v300 = 0u;
   v301 = 0u;
-  v302 = 0u;
   obj = assetsCopy;
-  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v15, &v299, v305, 16);
+  v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v15, &v298, v304, 16);
   if (!v16)
   {
     v22 = 0;
@@ -68,18 +68,18 @@
   v21 = v16;
   v22 = 0;
   v23 = 0;
-  v24 = *v300;
+  v24 = *v299;
   do
   {
     for (i = 0; i != v21; ++i)
     {
-      if (*v300 != v24)
+      if (*v299 != v24)
       {
         objc_enumerationMutation(obj);
       }
 
-      v26 = *(*(&v299 + 1) + 8 * i);
-      if (v22 || (objc_msgSend_assetID(*(*(&v299 + 1) + 8 * i), v17, v18, v19, v20), v27 = v23, v28 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend_isEqualToString_(v28, v29, @"FMSongArtworkAssetID", v30, v31), v28, v23 = v27, !v32))
+      v26 = *(*(&v298 + 1) + 8 * i);
+      if (v22 || (objc_msgSend_assetID(*(*(&v298 + 1) + 8 * i), v17, v18, v19, v20), v27 = v23, v28 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend_isEqualToString_(v28, v29, @"FMSongArtworkAssetID", v30, v31), v28, v23 = v27, !v32))
       {
         if (v23)
         {
@@ -105,8 +105,8 @@
           v22 = v26;
 LABEL_16:
           v38 = v26;
-          objc_msgSend_removeObject_(v288, v39, v38, v40, v41);
-          objc_msgSend_addObject_(v289, v42, v38, v43, v44);
+          objc_msgSend_removeObject_(v287, v39, v38, v40, v41);
+          objc_msgSend_addObject_(v288, v42, v38, v43, v44);
           v23 = v27;
           continue;
         }
@@ -115,7 +115,7 @@ LABEL_16:
       }
     }
 
-    v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v299, v305, 16);
+    v21 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v17, &v298, v304, 16);
   }
 
   while (v21);
@@ -123,8 +123,8 @@ LABEL_23:
 
   v53 = dCopy;
   v54 = metadataCopy;
-  v285 = v23;
-  if (objc_msgSend_count(v288, v45, v46, v47, v48))
+  v284 = v23;
+  if (objc_msgSend_count(v287, v45, v46, v47, v48))
   {
     v55 = FlexLogForCategory(0);
     if (os_log_type_enabled(v55, OS_LOG_TYPE_ERROR))
@@ -132,7 +132,7 @@ LABEL_23:
       sub_24B7F4598();
     }
 
-    v23 = v285;
+    v23 = v284;
   }
 
   if (!v23)
@@ -141,7 +141,7 @@ LABEL_23:
     v74 = objc_msgSend_set(MEMORY[0x277CBEB98], v70, v71, v72, v73);
     v79 = objc_msgSend_set(MEMORY[0x277CBEB98], v75, v76, v77, v78);
     v84 = objc_msgSend_dictionary(MEMORY[0x277CBEAC0], v80, v81, v82, v83);
-    v60 = objc_msgSend_initWithUID_songName_artistName_tagIDs_keywords_weightedKeywords_hidden_recalled_assets_audioEncoderPresetName_metadataVersion_songFormat_(v69, v85, dCopy, &stru_285EA09B0, &stru_285EA09B0, v74, v79, v84, 0, v289, &stru_285EA09B0, 1, &stru_285EA09B0);
+    v60 = objc_msgSend_initWithUID_songName_artistName_tagIDs_keywords_weightedKeywords_hidden_recalled_assets_audioEncoderPresetName_metadataVersion_songFormat_(v69, v85, dCopy, &stru_285EA09B0, &stru_285EA09B0, v74, v79, v84, 0, v288, &stru_285EA09B0, 1, &stru_285EA09B0);
 
     if (!metadataCopy)
     {
@@ -163,36 +163,36 @@ LABEL_23:
     }
   }
 
-  objc_msgSend_updateAssets_(v60, v61, v289, v62, v63);
+  objc_msgSend_updateAssets_(v60, v61, v288, v62, v63);
   if (metadataCopy)
   {
 LABEL_35:
-    v283 = v60;
+    v282 = v60;
     v86 = objc_msgSend_set(MEMORY[0x277CBEB58], v65, v66, v67, v68);
+    v294 = 0u;
     v295 = 0u;
     v296 = 0u;
     v297 = 0u;
-    v298 = 0u;
     v91 = objc_msgSend_genres(metadataCopy, v87, v88, v89, v90);
-    v93 = objc_msgSend_countByEnumeratingWithState_objects_count_(v91, v92, &v295, v304, 16);
+    v93 = objc_msgSend_countByEnumeratingWithState_objects_count_(v91, v92, &v294, v303, 16);
     if (v93)
     {
       v97 = v93;
-      v98 = *v296;
+      v98 = *v295;
       do
       {
         for (j = 0; j != v97; ++j)
         {
-          if (*v296 != v98)
+          if (*v295 != v98)
           {
             objc_enumerationMutation(v91);
           }
 
-          v100 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v94, @"%@%@", v95, v96, @"Genre_", *(*(&v295 + 1) + 8 * j));
+          v100 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v94, @"%@%@", v95, v96, @"Genre_", *(*(&v294 + 1) + 8 * j));
           objc_msgSend_addObject_(v86, v101, v100, v102, v103);
         }
 
-        v97 = objc_msgSend_countByEnumeratingWithState_objects_count_(v91, v94, &v295, v304, 16);
+        v97 = objc_msgSend_countByEnumeratingWithState_objects_count_(v91, v94, &v294, v303, 16);
       }
 
       while (v97);
@@ -239,30 +239,30 @@ LABEL_35:
       objc_msgSend_addObject_(v86, v175, v174, v176, v177);
     }
 
-    v293 = 0u;
-    v294 = 0u;
-    v291 = 0u;
     v292 = 0u;
+    v293 = 0u;
+    v290 = 0u;
+    v291 = 0u;
     v178 = objc_msgSend_regions(metadataCopy, v165, v166, v167, v168);
-    v180 = objc_msgSend_countByEnumeratingWithState_objects_count_(v178, v179, &v291, v303, 16);
+    v180 = objc_msgSend_countByEnumeratingWithState_objects_count_(v178, v179, &v290, v302, 16);
     if (v180)
     {
       v184 = v180;
-      v185 = *v292;
+      v185 = *v291;
       do
       {
         for (k = 0; k != v184; ++k)
         {
-          if (*v292 != v185)
+          if (*v291 != v185)
           {
             objc_enumerationMutation(v178);
           }
 
-          v187 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v181, @"%@%@", v182, v183, @"Region_", *(*(&v291 + 1) + 8 * k));
+          v187 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v181, @"%@%@", v182, v183, @"Region_", *(*(&v290 + 1) + 8 * k));
           objc_msgSend_addObject_(v86, v188, v187, v189, v190);
         }
 
-        v184 = objc_msgSend_countByEnumeratingWithState_objects_count_(v178, v181, &v291, v303, 16);
+        v184 = objc_msgSend_countByEnumeratingWithState_objects_count_(v178, v181, &v290, v302, 16);
       }
 
       while (v184);
@@ -280,7 +280,7 @@ LABEL_35:
 
     objc_msgSend_valence(metadataCopy, v195, v196, v197, v198);
     v53 = dCopy;
-    v60 = v283;
+    v60 = v282;
     if (v213 > 0.0)
     {
       v214 = MEMORY[0x277CCACA8];
@@ -303,8 +303,8 @@ LABEL_35:
     v247 = objc_msgSend_keywords(metadataCopy, v243, v244, v245, v246);
     v252 = objc_msgSend_weightedKeywords(metadataCopy, v248, v249, v250, v251);
     v257 = objc_msgSend_hidden(metadataCopy, v253, v254, v255, v256);
-    LOBYTE(v282) = objc_msgSend_recalled(metadataCopy, v258, v259, v260, v261);
-    objc_msgSend_updateSongArtist_title_tags_keywords_weightedKeywords_hidden_recalled_metadataVersion_(v283, v262, v237, v242, v86, v247, v252, v257, v282, 1);
+    LOBYTE(v281) = objc_msgSend_recalled(metadataCopy, v258, v259, v260, v261);
+    objc_msgSend_updateSongArtist_title_tags_keywords_weightedKeywords_hidden_recalled_metadataVersion_(v282, v262, v237, v242, v86, v247, v252, v257, v281, 1);
   }
 
 LABEL_64:
@@ -329,7 +329,6 @@ LABEL_64:
 
   v279 = v278;
 
-  v280 = *MEMORY[0x277D85DE8];
   return v279;
 }
 
@@ -382,39 +381,39 @@ LABEL_6:
 
 - (void)updateAsset:(id)asset downloadProgress:(double)progress error:(id)error
 {
-  v47[4] = *MEMORY[0x277D85DE8];
+  v46[4] = *MEMORY[0x277D85DE8];
   assetCopy = asset;
   errorCopy = error;
   if (objc_msgSend_updateDownloadProgress_(assetCopy, v10, v11, v12, v13, progress))
   {
     if (errorCopy)
     {
-      v46[0] = @"songUID";
+      v45[0] = @"songUID";
       v18 = objc_msgSend_uid(self, v14, v15, v16, v17);
-      v47[0] = v18;
-      v46[1] = @"assetID";
+      v46[0] = v18;
+      v45[1] = @"assetID";
       v23 = objc_msgSend_assetID(assetCopy, v19, v20, v21, v22);
-      v47[1] = v23;
-      v46[2] = @"progress";
+      v46[1] = v23;
+      v45[2] = @"progress";
       v28 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v24, v25, v26, v27, progress);
-      v46[3] = @"error";
-      v47[2] = v28;
-      v47[3] = errorCopy;
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v29, v47, v46, 4);
+      v45[3] = @"error";
+      v46[2] = v28;
+      v46[3] = errorCopy;
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v29, v46, v45, 4);
     }
 
     else
     {
-      v44[0] = @"songUID";
+      v43[0] = @"songUID";
       v18 = objc_msgSend_uid(self, v14, v15, v16, v17);
-      v45[0] = v18;
-      v44[1] = @"assetID";
+      v44[0] = v18;
+      v43[1] = @"assetID";
       v23 = objc_msgSend_assetID(assetCopy, v30, v31, v32, v33);
-      v45[1] = v23;
-      v44[2] = @"progress";
+      v44[1] = v23;
+      v43[2] = @"progress";
       v28 = objc_msgSend_numberWithDouble_(MEMORY[0x277CCABB0], v34, v35, v36, v37, progress);
-      v45[2] = v28;
-      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v38, v45, v44, 3);
+      v44[2] = v28;
+      objc_msgSend_dictionaryWithObjects_forKeys_count_(MEMORY[0x277CBEAC0], v38, v44, v43, 3);
     }
     v39 = ;
 
@@ -423,12 +422,10 @@ LABEL_6:
     block[2] = sub_24B7F24C0;
     block[3] = &unk_27900EDC0;
     block[4] = self;
-    v43 = v39;
+    v42 = v39;
     v40 = v39;
     dispatch_async(MEMORY[0x277D85CD0], block);
   }
-
-  v41 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_impl
@@ -443,32 +440,30 @@ LABEL_6:
 
 - (void)_loadIfNeeded
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   if ((objc_msgSend_isLoaded(self, a2, v2, v3, v4) & 1) == 0 && objc_msgSend_canPlay(self, v6, v7, v8, v9) && (objc_msgSend__loadFlexSong(self, v10, v11, v12, v13) & 1) == 0)
   {
     v14 = FlexLogForCategory(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 138412290;
+      v15 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_24B7E5000, v14, OS_LOG_TYPE_DEFAULT, "Failed to load FlexSong _impl for song: %@", &v16, 0xCu);
+      _os_log_impl(&dword_24B7E5000, v14, OS_LOG_TYPE_DEFAULT, "Failed to load FlexSong _impl for song: %@", &v15, 0xCu);
     }
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_loadFlexSong
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   if (objc_msgSend_isLoaded(self, a2, v2, v3, v4))
   {
     v9 = FlexLogForCategory(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v29 = 138412290;
+      v28 = 138412290;
       selfCopy = self;
-      _os_log_impl(&dword_24B7E5000, v9, OS_LOG_TYPE_DEFAULT, "ERROR: _loadFlexSong: Attempting to load already loaded FlexSong for song: %@", &v29, 0xCu);
+      _os_log_impl(&dword_24B7E5000, v9, OS_LOG_TYPE_DEFAULT, "ERROR: _loadFlexSong: Attempting to load already loaded FlexSong for song: %@", &v28, 0xCu);
     }
 
     LOBYTE(v9) = 1;
@@ -486,7 +481,6 @@ LABEL_6:
     }
   }
 
-  v27 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -667,16 +661,16 @@ LABEL_6:
 
 - (void)updateAssets:(id)assets
 {
-  v139 = *MEMORY[0x277D85DE8];
+  v138 = *MEMORY[0x277D85DE8];
   assetsCopy = assets;
-  v126 = objc_msgSend_array(MEMORY[0x277CBEB18], v4, v5, v6, v7);
-  v127 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEB18], v8, assetsCopy, v9, v10);
+  v125 = objc_msgSend_array(MEMORY[0x277CBEB18], v4, v5, v6, v7);
+  v126 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEB18], v8, assetsCopy, v9, v10);
+  v132 = 0u;
   v133 = 0u;
   v134 = 0u;
   v135 = 0u;
-  v136 = 0u;
   obj = assetsCopy;
-  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v11, &v133, v138, 16);
+  v12 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v11, &v132, v137, 16);
   if (!v12)
   {
     v18 = 0;
@@ -687,18 +681,18 @@ LABEL_6:
   v17 = v12;
   v18 = 0;
   v19 = 0;
-  v20 = *v134;
+  v20 = *v133;
   do
   {
     for (i = 0; i != v17; ++i)
     {
-      if (*v134 != v20)
+      if (*v133 != v20)
       {
         objc_enumerationMutation(obj);
       }
 
-      v22 = *(*(&v133 + 1) + 8 * i);
-      if (v18 || (objc_msgSend_assetID(*(*(&v133 + 1) + 8 * i), v13, v14, v15, v16), v23 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend_isEqualToString_(v23, v24, @"FMSongArtworkAssetID", v25, v26), v23, !v27))
+      v22 = *(*(&v132 + 1) + 8 * i);
+      if (v18 || (objc_msgSend_assetID(*(*(&v132 + 1) + 8 * i), v13, v14, v15, v16), v23 = objc_claimAutoreleasedReturnValue(), v27 = objc_msgSend_isEqualToString_(v23, v24, @"FMSongArtworkAssetID", v25, v26), v23, !v27))
       {
         if (v19)
         {
@@ -724,8 +718,8 @@ LABEL_6:
           v18 = v22;
 LABEL_16:
           v33 = v22;
-          objc_msgSend_removeObject_(v127, v34, v33, v35, v36);
-          objc_msgSend_addObject_(v126, v37, v33, v38, v39);
+          objc_msgSend_removeObject_(v126, v34, v33, v35, v36);
+          objc_msgSend_addObject_(v125, v37, v33, v38, v39);
           continue;
         }
 
@@ -733,14 +727,14 @@ LABEL_16:
       }
     }
 
-    v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v13, &v133, v138, 16);
+    v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(obj, v13, &v132, v137, 16);
   }
 
   while (v17);
 LABEL_23:
 
   selfCopy3 = self;
-  if (objc_msgSend_count(v127, v40, v41, v42, v43))
+  if (objc_msgSend_count(v126, v40, v41, v42, v43))
   {
     v49 = FlexLogForCategory(0);
     if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
@@ -751,26 +745,26 @@ LABEL_23:
 
   if (objc_msgSend_isClientManaged(self, v44, v45, v46, v47))
   {
-    v131 = 0u;
-    v132 = 0u;
-    v129 = 0u;
     v130 = 0u;
-    v54 = v126;
-    v56 = objc_msgSend_countByEnumeratingWithState_objects_count_(v54, v55, &v129, v137, 16);
+    v131 = 0u;
+    v128 = 0u;
+    v129 = 0u;
+    v54 = v125;
+    v56 = objc_msgSend_countByEnumeratingWithState_objects_count_(v54, v55, &v128, v136, 16);
     if (v56)
     {
       v61 = v56;
-      v62 = *v130;
+      v62 = *v129;
 LABEL_30:
       v63 = 0;
       while (1)
       {
-        if (*v130 != v62)
+        if (*v129 != v62)
         {
           objc_enumerationMutation(v54);
         }
 
-        v64 = *(*(&v129 + 1) + 8 * v63);
+        v64 = *(*(&v128 + 1) + 8 * v63);
         v65 = objc_msgSend_assetID(v64, v57, v58, v59, v60);
         v69 = objc_msgSend_isEqualToString_(v65, v66, @"FMSongBundleAssetID", v67, v68);
 
@@ -781,7 +775,7 @@ LABEL_30:
 
         if (v61 == ++v63)
         {
-          v61 = objc_msgSend_countByEnumeratingWithState_objects_count_(v54, v57, &v129, v137, 16);
+          v61 = objc_msgSend_countByEnumeratingWithState_objects_count_(v54, v57, &v128, v136, 16);
           if (v61)
           {
             goto LABEL_30;
@@ -811,9 +805,9 @@ LABEL_30:
         v90 = objc_msgSend_tagIDs(self, v86, v87, v88, v89);
         v95 = objc_msgSend_keywords(self, v91, v92, v93, v94);
         v100 = objc_msgSend_weightedKeywords(self, v96, v97, v98, v99);
-        v124 = objc_msgSend_hidden(self, v101, v102, v103, v104);
-        v123 = objc_msgSend_recalled(self, v105, v106, v107, v108);
-        objc_msgSend_updateSongArtist_title_tags_keywords_weightedKeywords_hidden_recalled_metadataVersion_(v75, v109, v80, v85, v90, v95, v100, v124, v123, 1);
+        v123 = objc_msgSend_hidden(self, v101, v102, v103, v104);
+        v122 = objc_msgSend_recalled(self, v105, v106, v107, v108);
+        objc_msgSend_updateSongArtist_title_tags_keywords_weightedKeywords_hidden_recalled_metadataVersion_(v75, v109, v80, v85, v90, v95, v100, v123, v122, 1);
 
         objc_msgSend_updateBackend_(self, v110, v75, v111, v112);
       }
@@ -838,10 +832,9 @@ LABEL_45:
 
 LABEL_46:
   v114 = objc_msgSend__impl(selfCopy3, v50, v51, v52, v53);
-  objc_msgSend_updateAssets_(v114, v115, v126, v116, v117);
+  objc_msgSend_updateAssets_(v114, v115, v125, v116, v117);
 
   objc_msgSend__notifySongAssetsChanged(selfCopy3, v118, v119, v120, v121);
-  v122 = *MEMORY[0x277D85DE8];
 }
 
 - (id)assetWithID:(id)d
@@ -887,81 +880,77 @@ LABEL_46:
 
 - (void)requestDownloadOfAllAssetsWithIDs:(id)ds withOptions:(id)options
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   optionsCopy = options;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
-  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(dsCopy, v8, &v21, v25, 16);
+  v9 = objc_msgSend_countByEnumeratingWithState_objects_count_(dsCopy, v8, &v20, v24, 16);
   if (v9)
   {
     v13 = v9;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       v15 = 0;
       do
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(dsCopy);
         }
 
-        v16 = objc_msgSend_assetWithID_(self, v10, *(*(&v21 + 1) + 8 * v15), v11, v12);
+        v16 = objc_msgSend_assetWithID_(self, v10, *(*(&v20 + 1) + 8 * v15), v11, v12);
         objc_msgSend_requestDownloadWithOptions_(v16, v17, optionsCopy, v18, v19);
 
         ++v15;
       }
 
       while (v13 != v15);
-      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(dsCopy, v10, &v21, v25, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(dsCopy, v10, &v20, v24, 16);
     }
 
     while (v13);
   }
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelDownloadOfAllAssetsWithIDs:(id)ds
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
-  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(dsCopy, v5, &v19, v23, 16);
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(dsCopy, v5, &v18, v22, 16);
   if (v6)
   {
     v10 = v6;
-    v11 = *v20;
+    v11 = *v19;
     do
     {
       v12 = 0;
       do
       {
-        if (*v20 != v11)
+        if (*v19 != v11)
         {
           objc_enumerationMutation(dsCopy);
         }
 
-        v13 = objc_msgSend_existingAssetWithID_(self, v7, *(*(&v19 + 1) + 8 * v12), v8, v9);
+        v13 = objc_msgSend_existingAssetWithID_(self, v7, *(*(&v18 + 1) + 8 * v12), v8, v9);
         objc_msgSend_cancelDownload(v13, v14, v15, v16, v17);
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(dsCopy, v7, &v19, v23, 16);
+      v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(dsCopy, v7, &v18, v22, 16);
     }
 
     while (v10);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 + (NSArray)availableTagIDs
@@ -1056,14 +1045,14 @@ LABEL_46:
 
 - (id)renditionForDuration:(id *)duration withOptions:(id)options
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
   if (duration->var2)
   {
     objc_msgSend__loadIfNeeded(self, v6, v7, v8, v9);
-    v16 = *&duration->var0;
+    v15 = *&duration->var0;
     var3 = duration->var3;
-    v12 = objc_msgSend_renditionForDuration_withOptions_testingContext_(self, v13, &v16, optionsCopy, 0);
+    v12 = objc_msgSend_renditionForDuration_withOptions_testingContext_(self, v13, &v15, optionsCopy, 0);
   }
 
   else
@@ -1071,15 +1060,13 @@ LABEL_46:
     v11 = FlexLogForCategory(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      LODWORD(v16) = 138412290;
-      *(&v16 + 4) = self;
-      _os_log_impl(&dword_24B7E5000, v11, OS_LOG_TYPE_DEFAULT, "invalid duration requested in renditionForDuration for song: %@", &v16, 0xCu);
+      LODWORD(v15) = 138412290;
+      *(&v15 + 4) = self;
+      _os_log_impl(&dword_24B7E5000, v11, OS_LOG_TYPE_DEFAULT, "invalid duration requested in renditionForDuration for song: %@", &v15, 0xCu);
     }
 
     v12 = 0;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
@@ -1121,7 +1108,7 @@ LABEL_46:
 
 + (id)loadSongBundleAtPath:(id)path
 {
-  v118[2] = *MEMORY[0x277D85DE8];
+  v117[2] = *MEMORY[0x277D85DE8];
   pathCopy = path;
   v7 = objc_msgSend_stringByAppendingPathComponent_(pathCopy, v4, @"metadata.smm", v5, v6);
   v12 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v8, v9, v10, v11);
@@ -1153,23 +1140,23 @@ LABEL_46:
       v52 = objc_msgSend_predicateWithFormat_(v43, v49, @"self CONTAINS %@", v50, v51, v48);
 
       v53 = MEMORY[0x277CCA920];
-      v118[0] = v42;
-      v118[1] = v52;
-      v116 = v52;
-      v56 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v54, v118, 2, v55);
+      v117[0] = v42;
+      v117[1] = v52;
+      v115 = v52;
+      v56 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v54, v117, 2, v55);
       v60 = objc_msgSend_andPredicateWithSubpredicates_(v53, v57, v56, v58, v59);
 
       v64 = objc_msgSend_filteredArrayUsingPredicate_(v38, v61, v60, v62, v63);
       if (objc_msgSend_count(v64, v65, v66, v67, v68))
       {
-        v113 = v60;
-        v114 = v42;
+        v112 = v60;
+        v113 = v42;
         v73 = objc_msgSend_stringByDeletingLastPathComponent(pathCopy, v69, v70, v71, v72);
         v78 = objc_msgSend_firstObject(v64, v74, v75, v76, v77);
         v82 = objc_msgSend_stringByAppendingPathComponent_(v73, v79, v78, v80, v81);
 
         v90 = objc_msgSend_lastPathComponent(v82, v83, v84, v85, v86);
-        v115 = v38;
+        v114 = v38;
         if (v82)
         {
           v91 = objc_msgSend_fileURLWithPath_(MEMORY[0x277CBEBC0], v87, v82, v88, v89);
@@ -1180,19 +1167,19 @@ LABEL_46:
           v91 = 0;
         }
 
-        v112 = v90;
+        v111 = v90;
         v92 = objc_msgSend_versionFromArtworkFilename_(FMSong, v87, v90, v88, v89);
         v96 = objc_msgSend_existingAssetWithID_(v29, v93, @"FMSongBundleAssetID", v94, v95);
         v100 = objc_msgSend_compatibilityVersionForAssetLocation_(v96, v97, 0, v98, v99);
         v101 = [FMSongAsset alloc];
         v103 = objc_msgSend_initWithAssetID_assetStatus_localURL_contentVersion_compatibilityVersion_(v101, v102, @"FMSongArtworkAssetID", 0, v91, v92, v100);
-        v117 = v103;
-        v106 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v104, &v117, 1, v105);
+        v116 = v103;
+        v106 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], v104, &v116, 1, v105);
         objc_msgSend_updateAssets_(v29, v107, v106, v108, v109);
 
-        v42 = v114;
-        v38 = v115;
-        v60 = v113;
+        v42 = v113;
+        v38 = v114;
+        v60 = v112;
       }
     }
   }
@@ -1202,41 +1189,39 @@ LABEL_46:
     v29 = 0;
   }
 
-  v110 = *MEMORY[0x277D85DE8];
-
   return v29;
 }
 
 + (id)loadSongsAndArtworkInFolderAtPath:(id)path
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v41 = objc_opt_new();
+  v40 = objc_opt_new();
   if (pathCopy)
   {
     v8 = objc_msgSend_defaultManager(MEMORY[0x277CCAA00], v4, v5, v6, v7);
     v11 = objc_msgSend_contentsOfDirectoryAtPath_error_(v8, v9, pathCopy, 0, v10);
 
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v12 = v11;
-    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v42, v46, 16);
+    v14 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v13, &v41, v45, 16);
     if (v14)
     {
       v19 = v14;
-      v20 = *v43;
+      v20 = *v42;
       do
       {
         for (i = 0; i != v19; ++i)
         {
-          if (*v43 != v20)
+          if (*v42 != v20)
           {
             objc_enumerationMutation(v12);
           }
 
-          v22 = *(*(&v42 + 1) + 8 * i);
+          v22 = *(*(&v41 + 1) + 8 * i);
           v23 = objc_msgSend_pathExtension(v22, v15, v16, v17, v18);
           if (objc_msgSend_isEqualToString_(v23, v24, @"smsbundle", v25, v26))
           {
@@ -1244,21 +1229,19 @@ LABEL_46:
             v37 = objc_msgSend_loadSongBundleAtPath_(FMSong, v31, v30, v32, v33);
             if (v37)
             {
-              objc_msgSend_addObject_(v41, v34, v37, v35, v36);
+              objc_msgSend_addObject_(v40, v34, v37, v35, v36);
             }
           }
         }
 
-        v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v42, v46, 16);
+        v19 = objc_msgSend_countByEnumeratingWithState_objects_count_(v12, v15, &v41, v45, 16);
       }
 
       while (v19);
     }
   }
 
-  v38 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEA60], v4, v41, v6, v7);
-
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = objc_msgSend_arrayWithArray_(MEMORY[0x277CBEA60], v4, v40, v6, v7);
 
   return v38;
 }

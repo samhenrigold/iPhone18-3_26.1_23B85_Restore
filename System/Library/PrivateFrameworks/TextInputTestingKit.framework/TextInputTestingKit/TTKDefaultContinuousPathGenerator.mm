@@ -88,7 +88,7 @@
     v14 = [timingCopy objectAtIndexedSubscript:v11];
     [v14 getValue:&v56];
 
-    [(TTKDefaultContinuousPathGenerator *)self distanceBetween:*v57 andPoint:v56];
+    [(TTKDefaultContinuousPathGenerator *)self distanceBetween:v57[0] andPoint:v56];
     v16 = v15;
     v18 = v10;
     if (v11 < [timingCopy count] - 1)
@@ -96,11 +96,11 @@
       v19 = [timingCopy objectAtIndexedSubscript:v11 + 1];
       [v19 getValue:&v54];
 
-      v20 = *&v56 - v57[0];
-      v21 = *(&v56 + 1) - v57[1];
+      v20 = *&v56 - *v57;
+      v21 = *(&v56 + 1) - *(v57 + 1);
       v22 = v54 - *&v56;
       v23 = v55 - *(&v56 + 1);
-      [(TTKDefaultContinuousPathGenerator *)self dotProduct:*&v56 - v57[0] andPoint:*(&v56 + 1) - v57[1], v54 - *&v56, v55 - *(&v56 + 1)];
+      [(TTKDefaultContinuousPathGenerator *)self dotProduct:*&v56 - *v57 andPoint:*(&v56 + 1) - *(v57 + 1), v54 - *&v56, v55 - *(&v56 + 1)];
       v25 = v24;
       [(TTKDefaultContinuousPathGenerator *)self dotProduct:v20 andPoint:v21, v20, v21];
       v27 = v26;
@@ -225,7 +225,7 @@
     [array addObject:v48];
 
     [array2 removeAllObjects];
-    *v57 = v56;
+    v57[0] = v56;
     ++v11;
   }
 

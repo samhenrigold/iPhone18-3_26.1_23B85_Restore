@@ -585,7 +585,7 @@ LABEL_11:
   if (startWaypoint)
   {
     v49 = [[GEORPUserSearchInput alloc] initWithRAPUserSearchInput:startWaypoint];
-    [directionsContext setStartWaypoint:v49];
+    objc_msgSend_setStartWaypoint_(directionsContext);
   }
 
   endWaypoint = [recordingCopy endWaypoint];

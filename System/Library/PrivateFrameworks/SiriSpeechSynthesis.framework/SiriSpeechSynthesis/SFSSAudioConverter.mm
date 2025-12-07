@@ -10,43 +10,43 @@
 
 - (id)convertChunks:(id)chunks srcAsbd:(AudioStreamBasicDescription *)asbd dstAsbd:(AudioStreamBasicDescription *)dstAsbd outError:(id *)error
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   chunksCopy = chunks;
   v11 = objc_alloc_init(MEMORY[0x277CBEB28]);
   v12 = *&asbd->mBytesPerPacket;
   *outOutputData = *&asbd->mSampleRate;
   *&outOutputData[16] = v12;
-  v54 = *&asbd->mBitsPerChannel;
+  v53 = *&asbd->mBitsPerChannel;
   v13 = *&dstAsbd->mBytesPerPacket;
   *buf = *&dstAsbd->mSampleRate;
-  v60 = v13;
-  v61 = *&dstAsbd->mBitsPerChannel;
+  v59 = v13;
+  v60 = *&dstAsbd->mBitsPerChannel;
   if ([SFSSAudioConverter isAsbdSameAs:outOutputData dstAsbd:buf])
   {
-    v51 = 0u;
-    v52 = 0u;
-    v49 = 0u;
     v50 = 0u;
+    v51 = 0u;
+    v48 = 0u;
+    v49 = 0u;
     v14 = chunksCopy;
-    v15 = [v14 countByEnumeratingWithState:&v49 objects:v58 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v48 objects:v57 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v50;
+      v17 = *v49;
       do
       {
         for (i = 0; i != v16; ++i)
         {
-          if (*v50 != v17)
+          if (*v49 != v17)
           {
             objc_enumerationMutation(v14);
           }
 
-          audioData = [*(*(&v49 + 1) + 8 * i) audioData];
+          audioData = [*(*(&v48 + 1) + 8 * i) audioData];
           [v11 appendData:audioData];
         }
 
-        v16 = [v14 countByEnumeratingWithState:&v49 objects:v58 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v48 objects:v57 count:16];
       }
 
       while (v16);
@@ -59,11 +59,11 @@
     v20 = *&asbd->mBytesPerPacket;
     *outOutputData = *&asbd->mSampleRate;
     *&outOutputData[16] = v20;
-    v54 = *&asbd->mBitsPerChannel;
+    v53 = *&asbd->mBitsPerChannel;
     v21 = *&dstAsbd->mBytesPerPacket;
     *buf = *&dstAsbd->mSampleRate;
-    v60 = v21;
-    v61 = *&dstAsbd->mBitsPerChannel;
+    v59 = v21;
+    v60 = *&dstAsbd->mBitsPerChannel;
     v22 = [(SFSSAudioConverter *)self createAudioConverter:outOutputData dstAsbd:buf];
     if (v22)
     {
@@ -75,33 +75,33 @@
     }
 
     ioOutputDataPacketSize = 0;
+    v43 = 0u;
     v44 = 0u;
     v45 = 0u;
     v46 = 0u;
-    v47 = 0u;
     v25 = chunksCopy;
-    v26 = [v25 countByEnumeratingWithState:&v44 objects:v57 count:16];
+    v26 = [v25 countByEnumeratingWithState:&v43 objects:v56 count:16];
     errorCopy = error;
     if (v26)
     {
       v27 = v26;
       v28 = 0;
-      v29 = *v45;
+      v29 = *v44;
       do
       {
         for (j = 0; j != v27; ++j)
         {
-          if (*v45 != v29)
+          if (*v44 != v29)
           {
             objc_enumerationMutation(v25);
           }
 
           mFramesPerPacket = self->_srcAsbd.mFramesPerPacket;
-          v28 += mFramesPerPacket * [*(*(&v44 + 1) + 8 * j) packetCount];
+          v28 += mFramesPerPacket * [*(*(&v43 + 1) + 8 * j) packetCount];
           ioOutputDataPacketSize = v28;
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v44 objects:v57 count:16];
+        v27 = [v25 countByEnumeratingWithState:&v43 objects:v56 count:16];
       }
 
       while (v27);
@@ -132,9 +132,9 @@
       }
 
       v38 = MEMORY[0x277CCA9B8];
-      v55 = *MEMORY[0x277CCA470];
-      v56 = @"Audio converting error.";
-      v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
+      v54 = *MEMORY[0x277CCA470];
+      v55 = @"Audio converting error.";
+      v39 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
       *errorCopy = [v38 errorWithDomain:@"SFSpeechSynthesisAudioErrorDomain" code:v36 userInfo:v39];
     }
 
@@ -146,8 +146,6 @@
 
   v24 = v11;
 LABEL_27:
-
-  v41 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -184,7 +182,7 @@ LABEL_27:
 
 - (id)createAudioConverter:(AudioStreamBasicDescription *)converter dstAsbd:(AudioStreamBasicDescription *)asbd
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v7 = AudioConverterNew(converter, asbd, &self->_decoder);
   v8 = *&converter->mBitsPerChannel;
   v9 = *&converter->mBytesPerPacket;
@@ -203,14 +201,14 @@ LABEL_27:
     if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v22 = v12;
+      v21 = v12;
       _os_log_error_impl(&dword_269079000, v13, OS_LOG_TYPE_ERROR, "Could not create Opus decoder: %d", buf, 8u);
     }
 
     v14 = MEMORY[0x277CCA9B8];
-    v19 = *MEMORY[0x277CCA470];
-    v20 = @"Failed to create opus decoder";
-    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
+    v18 = *MEMORY[0x277CCA470];
+    v19 = @"Failed to create opus decoder";
+    v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v19 forKeys:&v18 count:1];
     v16 = [v14 errorWithDomain:@"SFSpeechSynthesisAudioErrorDomain" code:v12 userInfo:v15];
   }
 
@@ -218,8 +216,6 @@ LABEL_27:
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

@@ -262,7 +262,7 @@ BOOL __62__ARPersonDetectionData_transformToCVPixelBuffer_depthBuffer___block_in
   v3 = MEMORY[0x1E696AEC0];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  [(ARPersonDetectionData *)self timestamp];
+  objc_msgSend_timestamp(self);
   v7 = [v3 stringWithFormat:@"%@(%p): %f", v5, self, v6];
 
   return v7;
@@ -492,7 +492,7 @@ BOOL __62__ARPersonDetectionData_transformToCVPixelBuffer_depthBuffer___block_in
   }
 
   v89 = objc_opt_new();
-  [(ARPersonDetectionData *)self timestamp];
+  objc_msgSend_timestamp(self);
   [v89 setTimestamp:?];
   [v89 setDetectedObjects:v92];
 

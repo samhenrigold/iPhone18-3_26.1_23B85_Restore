@@ -177,7 +177,7 @@
 {
   v4 = [(CKBalloonView *)self orientation:size.width];
   v5 = +[CKUIBehavior sharedBehaviors];
-  [(CKAttachmentBalloonView *)self balloonDescriptor];
+  objc_msgSend_balloonDescriptor(self);
   [v5 attachmentBalloonAlignmentRectInsetsWithTailShape:v18];
   v9 = v8;
   v11 = v10;
@@ -343,20 +343,20 @@ void __61__CKAttachmentBalloonView_traitMutationsForSnapshotRendering__block_inv
 
 - (UIView)uncroppedSourceView
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   if (!self->_attachmentView)
   {
     selfCopy4 = self;
     goto LABEL_29;
   }
 
-  NSClassFromString(&cfstr_Lpflippedview.isa);
-  v3 = _CKFirstSubviewOfType(self->_attachmentView);
-  v4 = v3;
-  if (v3)
+  v3 = NSClassFromString(&cfstr_Lpflippedview.isa);
+  v4 = _CKFirstSubviewOfType(self->_attachmentView, v3);
+  v5 = v4;
+  if (v4)
   {
-    v5 = _CKFirstSubviewOfType(v3);
-    if (!v5)
+    v6 = _CKFirstSubviewOfType(v4, v3);
+    if (!v6)
     {
       selfCopy4 = self;
 LABEL_27:
@@ -364,73 +364,73 @@ LABEL_27:
       goto LABEL_28;
     }
 
-    NSClassFromString(&cfstr_Lpcaptionbarvi.isa);
-    v6 = _CKFirstSubviewOfType(v5);
-    if (v6)
+    v7 = NSClassFromString(&cfstr_Lpcaptionbarvi.isa);
+    v8 = _CKFirstSubviewOfType(v6, v7);
+    if (v8)
     {
       NSClassFromString(&cfstr_Lpimageview.isa);
-      v27 = 0u;
-      v28 = 0u;
-      v29 = 0u;
       v30 = 0u;
-      subviews = [v6 subviews];
-      v8 = [subviews countByEnumeratingWithState:&v27 objects:v31 count:16];
-      if (v8)
+      v31 = 0u;
+      v32 = 0u;
+      v33 = 0u;
+      subviews = [v8 subviews];
+      v10 = [subviews countByEnumeratingWithState:&v30 objects:v34 count:16];
+      if (v10)
       {
-        v9 = v8;
-        v25 = v6;
-        v26 = v4;
+        v11 = v10;
+        v28 = v8;
+        v29 = v5;
         selfCopy4 = 0;
-        v11 = *v28;
+        v13 = *v31;
         do
         {
-          for (i = 0; i != v9; ++i)
+          for (i = 0; i != v11; ++i)
           {
-            if (*v28 != v11)
+            if (*v31 != v13)
             {
               objc_enumerationMutation(subviews);
             }
 
-            v13 = *(*(&v27 + 1) + 8 * i);
+            v15 = *(*(&v30 + 1) + 8 * i);
             if (objc_opt_isKindOfClass())
             {
-              objc_opt_class();
-              v14 = _CKFirstSubviewOfType(v13);
-              v15 = v14;
-              if (v14)
+              v16 = objc_opt_class();
+              v17 = _CKFirstSubviewOfType(v15, v16);
+              v18 = v17;
+              if (v17)
               {
                 if (selfCopy4)
                 {
                   [(CKAttachmentBalloonView *)selfCopy4 frame];
-                  v17 = v16;
+                  v20 = v19;
                   [(CKAttachmentBalloonView *)selfCopy4 frame];
-                  v19 = v17 * v18;
-                  [v15 frame];
-                  v21 = v20;
-                  [v15 frame];
-                  if (v21 * v22 > v19)
+                  v22 = v20 * v21;
+                  [v18 frame];
+                  v24 = v23;
+                  [v18 frame];
+                  if (v24 * v25 > v22)
                   {
-                    v23 = v15;
+                    v26 = v18;
 
-                    selfCopy4 = v23;
+                    selfCopy4 = v26;
                   }
                 }
 
                 else
                 {
-                  selfCopy4 = v14;
+                  selfCopy4 = v17;
                 }
               }
             }
           }
 
-          v9 = [subviews countByEnumeratingWithState:&v27 objects:v31 count:16];
+          v11 = [subviews countByEnumeratingWithState:&v30 objects:v34 count:16];
         }
 
-        while (v9);
+        while (v11);
 
-        v4 = v26;
-        v6 = v25;
+        v5 = v29;
+        v8 = v28;
         if (selfCopy4)
         {
           goto LABEL_26;

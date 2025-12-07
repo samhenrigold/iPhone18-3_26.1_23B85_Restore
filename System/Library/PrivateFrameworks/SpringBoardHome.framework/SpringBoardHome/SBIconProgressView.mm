@@ -296,7 +296,7 @@
 {
   if (fabs(self->_backgroundAlpha) >= 2.22044605e-16)
   {
-    [(SBIconProgressView *)self bounds];
+    objc_msgSend_bounds(self, a2);
     v5 = v4;
     v7 = v6;
     v9 = v8;
@@ -494,7 +494,7 @@ void __48__SBIconProgressView__pieImageAtFraction_scale___block_invoke_2(double 
 
 - (CGRect)circleBoundingRect
 {
-  [(SBIconProgressView *)self bounds];
+  objc_msgSend_bounds(self, a2);
   UIRectGetCenter();
   v4 = v3;
   v6 = v5;

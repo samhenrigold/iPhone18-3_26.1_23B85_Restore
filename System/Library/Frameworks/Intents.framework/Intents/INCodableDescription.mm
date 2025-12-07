@@ -28,39 +28,39 @@
 
 - (NSOrderedSet)displayOrderedAttributes
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock(&self->_displayOrderedAttributesLock);
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __48__INCodableDescription_displayOrderedAttributes__block_invoke;
-  v22[3] = &unk_1E72882F8;
-  v22[4] = self;
-  v3 = MEMORY[0x193AD7780](v22);
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __48__INCodableDescription_displayOrderedAttributes__block_invoke;
+  v21[3] = &unk_1E72882F8;
+  v21[4] = self;
+  v3 = MEMORY[0x193AD7780](v21);
   displayOrderedAttributes = self->_displayOrderedAttributes;
   if (!displayOrderedAttributes)
   {
     v5 = objc_alloc_init(MEMORY[0x1E695DFA0]);
-    v20 = 0u;
-    v21 = 0u;
-    v18 = 0u;
     v19 = 0u;
+    v20 = 0u;
+    v17 = 0u;
+    v18 = 0u;
     attributes = [(INCodableDescription *)self attributes];
     allValues = [attributes allValues];
 
-    v8 = [allValues countByEnumeratingWithState:&v18 objects:v23 count:16];
+    v8 = [allValues countByEnumeratingWithState:&v17 objects:v22 count:16];
     if (v8)
     {
-      v9 = *v19;
+      v9 = *v18;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v19 != v9)
+          if (*v18 != v9)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v11 = *(*(&v18 + 1) + 8 * i);
+          v11 = *(*(&v17 + 1) + 8 * i);
           displayPriorityRank = [v11 displayPriorityRank];
 
           if (displayPriorityRank)
@@ -69,7 +69,7 @@
           }
         }
 
-        v8 = [allValues countByEnumeratingWithState:&v18 objects:v23 count:16];
+        v8 = [allValues countByEnumeratingWithState:&v17 objects:v22 count:16];
       }
 
       while (v8);
@@ -85,8 +85,6 @@
 
   v15 = displayOrderedAttributes;
   v3[2](v3);
-
-  v16 = *MEMORY[0x1E69E9840];
 
   return v15;
 }
@@ -120,27 +118,27 @@ uint64_t __48__INCodableDescription_displayOrderedAttributes__block_invoke_2(uin
 
 - (void)_updateAttributesByName
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   allValues = [(NSDictionary *)self->_attributes allValues];
-  v4 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v4 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v14;
+    v6 = *v13;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v14 != v6)
+        if (*v13 != v6)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v8 = *(*(&v13 + 1) + 8 * i);
+        v8 = *(*(&v12 + 1) + 8 * i);
         propertyName = [v8 propertyName];
 
         if (propertyName)
@@ -151,13 +149,11 @@ uint64_t __48__INCodableDescription_displayOrderedAttributes__block_invoke_2(uin
         }
       }
 
-      v5 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v5 = [allValues countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v5);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_nullable_schema
@@ -231,30 +227,30 @@ LABEL_11:
 
 - (NSArray)referencedCodableEnums
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   attributes = [(INCodableDescription *)self attributes];
   allValues = [attributes allValues];
 
-  v6 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(allValues);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         if (v10)
         {
           objc_opt_class();
@@ -281,14 +277,13 @@ LABEL_11:
         [v3 if_addObjectIfNonNil:codableEnum];
       }
 
-      v7 = [allValues countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [allValues countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v7);
   }
 
   v14 = [v3 copy];
-  v15 = *MEMORY[0x1E69E9840];
 
   return v14;
 }
@@ -467,12 +462,12 @@ LABEL_23:
 
 - (INCodableDescription)initWithCoder:(id)coder
 {
-  v58 = *MEMORY[0x1E69E9840];
+  v57 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [(INCodableDescription *)self init];
   if (v5)
   {
-    v52 = MEMORY[0x1E695DFD8];
+    v51 = MEMORY[0x1E695DFD8];
     v6 = objc_opt_class();
     v7 = objc_opt_class();
     v8 = objc_opt_class();
@@ -480,7 +475,7 @@ LABEL_23:
     v10 = objc_opt_class();
     v11 = objc_opt_class();
     v12 = objc_opt_class();
-    v13 = [v52 setWithObjects:{v6, v7, v8, v9, v10, v11, v12, objc_opt_class(), 0}];
+    v13 = [v51 setWithObjects:{v6, v7, v8, v9, v10, v11, v12, objc_opt_class(), 0}];
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"attributes"];
     attributes = v5->_attributes;
     v5->_attributes = v14;
@@ -523,32 +518,36 @@ LABEL_23:
     mainBundleIdentifier = v5->_mainBundleIdentifier;
     v5->_mainBundleIdentifier = v36;
 
-    v55 = 0u;
-    v56 = 0u;
-    v53 = 0u;
     v54 = 0u;
+    v55 = 0u;
+    v52 = 0u;
+    v53 = 0u;
     attributes = [(INCodableDescription *)v5 attributes];
     allValues = [attributes allValues];
 
-    v40 = [allValues countByEnumeratingWithState:&v53 objects:v57 count:16];
+    v40 = [allValues countByEnumeratingWithState:&v52 objects:v56 count:16];
     if (v40)
     {
       v41 = v40;
-      v42 = *v54;
+      v42 = *v53;
       do
       {
-        for (i = 0; i != v41; ++i)
+        v43 = 0;
+        do
         {
-          if (*v54 != v42)
+          if (*v53 != v42)
           {
             objc_enumerationMutation(allValues);
           }
 
-          relationship = [*(*(&v53 + 1) + 8 * i) relationship];
+          relationship = [*(*(&v52 + 1) + 8 * v43) relationship];
           [relationship _establishRelationship];
+
+          ++v43;
         }
 
-        v41 = [allValues countByEnumeratingWithState:&v53 objects:v57 count:16];
+        while (v41 != v43);
+        v41 = [allValues countByEnumeratingWithState:&v52 objects:v56 count:16];
       }
 
       while (v41);
@@ -571,7 +570,6 @@ LABEL_23:
     }
   }
 
-  v50 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -623,22 +621,8 @@ LABEL_23:
   v22 = &v29;
   [attributes enumerateKeysAndObjectsUsingBlock:v19];
   v10 = v24[5];
-  if (v10)
+  if (v10 || ([dictionary intents_setPlistSafeObject:v30[5] forKey:@"attributes"], localizationTable = self->_localizationTable, v12 = (v24 + 5), obj = v24[5], objc_msgSend(dictionary, "intents_setWidgetPlistRepresentable:forKey:error:", localizationTable, @"_localizationTable", &obj), objc_storeStrong(v12, obj), v13 = (v24 + 5), (v10 = v24[5]) != 0) || (customLocalizationTable = self->_customLocalizationTable, v17 = 0, objc_msgSend(dictionary, "intents_setWidgetPlistRepresentable:forKey:error:", customLocalizationTable, @"_customLocalizationTable", &v17), objc_storeStrong(v13, v17), (v10 = v24[5]) != 0))
   {
-    goto LABEL_4;
-  }
-
-  [dictionary intents_setPlistSafeObject:v30[5] forKey:@"attributes"];
-  localizationTable = self->_localizationTable;
-  v12 = (v24 + 5);
-  obj = v24[5];
-  [dictionary intents_setWidgetPlistRepresentable:localizationTable forKey:@"_localizationTable" error:&obj];
-  objc_storeStrong(v12, obj);
-  v13 = (v24 + 5);
-  v10 = v24[5];
-  if (v10 || (customLocalizationTable = self->_customLocalizationTable, v17 = 0, [dictionary intents_setWidgetPlistRepresentable:customLocalizationTable forKey:@"_customLocalizationTable" error:&v17], objc_storeStrong(v13, v17), (v10 = v24[5]) != 0))
-  {
-LABEL_4:
     v15 = 0;
     if (error)
     {
@@ -692,39 +676,39 @@ void __74__INCodableDescription_widgetPlistableRepresentationWithParameters_erro
 
 - (id)dictionaryRepresentationWithLocalizer:(id)localizer
 {
-  v27[2] = *MEMORY[0x1E69E9840];
+  v26[2] = *MEMORY[0x1E69E9840];
   localizerCopy = localizer;
   v5 = MEMORY[0x1E695DF70];
   attributes = [(INCodableDescription *)self attributes];
   v7 = [v5 arrayWithCapacity:{objc_msgSend(attributes, "count")}];
 
-  v24[0] = 0;
-  v24[1] = v24;
-  v24[2] = 0x3032000000;
-  v24[3] = __Block_byref_object_copy__13079;
-  v24[4] = __Block_byref_object_dispose__13080;
-  v25 = 0;
+  v23[0] = 0;
+  v23[1] = v23;
+  v23[2] = 0x3032000000;
+  v23[3] = __Block_byref_object_copy__13079;
+  v23[4] = __Block_byref_object_dispose__13080;
+  v24 = 0;
   attributes2 = [(INCodableDescription *)self attributes];
-  v20[0] = MEMORY[0x1E69E9820];
-  v20[1] = 3221225472;
-  v20[2] = __62__INCodableDescription_dictionaryRepresentationWithLocalizer___block_invoke;
-  v20[3] = &unk_1E727EDE0;
-  v23 = v24;
-  v20[4] = self;
-  v9 = localizerCopy;
-  v21 = v9;
-  v10 = v7;
-  v22 = v10;
-  [attributes2 enumerateKeysAndObjectsUsingBlock:v20];
-
   v19[0] = MEMORY[0x1E69E9820];
   v19[1] = 3221225472;
-  v19[2] = __62__INCodableDescription_dictionaryRepresentationWithLocalizer___block_invoke_2;
-  v19[3] = &unk_1E727EE08;
-  v19[4] = v24;
-  [v10 sortUsingComparator:v19];
+  v19[2] = __62__INCodableDescription_dictionaryRepresentationWithLocalizer___block_invoke;
+  v19[3] = &unk_1E727EDE0;
+  v22 = v23;
+  v19[4] = self;
+  v9 = localizerCopy;
+  v20 = v9;
+  v10 = v7;
+  v21 = v10;
+  [attributes2 enumerateKeysAndObjectsUsingBlock:v19];
+
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __62__INCodableDescription_dictionaryRepresentationWithLocalizer___block_invoke_2;
+  v18[3] = &unk_1E727EE08;
+  v18[4] = v23;
+  [v10 sortUsingComparator:v18];
   __NameKey = [objc_opt_class() __NameKey];
-  v26[0] = __NameKey;
+  v25[0] = __NameKey;
   typeName = [(INCodableDescription *)self typeName];
   null = typeName;
   if (!typeName)
@@ -732,11 +716,11 @@ void __74__INCodableDescription_widgetPlistableRepresentationWithParameters_erro
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27[0] = null;
+  v26[0] = null;
   _attributesKey = [(INCodableDescription *)self _attributesKey];
-  v26[1] = _attributesKey;
-  v27[1] = v10;
-  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v27 forKeys:v26 count:2];
+  v25[1] = _attributesKey;
+  v26[1] = v10;
+  v15 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v26 forKeys:v25 count:2];
 
   if (!typeName)
   {
@@ -744,8 +728,7 @@ void __74__INCodableDescription_widgetPlistableRepresentationWithParameters_erro
 
   if_dictionaryWithNonEmptyValues = [v15 if_dictionaryWithNonEmptyValues];
 
-  _Block_object_dispose(v24, 8);
-  v17 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(v23, 8);
 
   return if_dictionaryWithNonEmptyValues;
 }
@@ -799,7 +782,7 @@ uint64_t __62__INCodableDescription_dictionaryRepresentationWithLocalizer___bloc
 
 - (void)updateWithDictionary:(id)dictionary
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   __NameKey = [objc_opt_class() __NameKey];
   v6 = [dictionaryCopy objectForKey:__NameKey];
@@ -807,129 +790,118 @@ uint64_t __62__INCodableDescription_dictionaryRepresentationWithLocalizer___bloc
   self->_typeName = v6;
 
   _attributesKey = [(INCodableDescription *)self _attributesKey];
-  v47 = dictionaryCopy;
+  v43 = dictionaryCopy;
   v9 = [dictionaryCopy objectForKey:_attributesKey];
 
   v10 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v9, "count")}];
-  v53 = 0u;
-  v54 = 0u;
-  v55 = 0u;
-  v56 = 0u;
+  v49 = 0u;
+  v50 = 0u;
+  v51 = 0u;
+  v52 = 0u;
   obj = v9;
-  v11 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
+  v11 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v54;
+    v13 = *v50;
     do
     {
       v14 = 0;
       do
       {
-        if (*v54 != v13)
+        if (*v50 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v15 = *(*(&v53 + 1) + 8 * v14);
+        v15 = *(*(&v49 + 1) + 8 * v14);
         _attributeKey = [(INCodableDescription *)self _attributeKey];
         v17 = v15;
         v18 = _attributeKey;
-        v19 = [v18 stringByAppendingString:@"EnumType"];
+        v19 = objc_msgSend_stringByAppendingString_(v18);
         v20 = [v17 objectForKeyedSubscript:v19];
 
-        v21 = off_1E727ABF8;
         if (!v20)
         {
-          v22 = [v18 stringByAppendingString:@"SupportsMultipleValues"];
-          v23 = [v17 objectForKeyedSubscript:v22];
-          bOOLValue = [v23 BOOLValue];
+          v21 = objc_msgSend_stringByAppendingString_(v18);
+          v22 = [v17 objectForKeyedSubscript:v21];
+          bOOLValue = [v22 BOOLValue];
 
-          v25 = bOOLValue ^ 1u;
-          v26 = [v18 stringByAppendingString:@"Type"];
-          v27 = [v17 objectForKeyedSubscript:v26];
-          v28 = INCodableScalarAttributeTypeFromString(v27, v25);
+          v24 = bOOLValue ^ 1u;
+          v25 = objc_msgSend_stringByAppendingString_(v18);
+          v26 = [v17 objectForKeyedSubscript:v25];
+          v27 = INCodableScalarAttributeTypeFromString(v26, v24);
 
-          v21 = off_1E727AC30;
-          if (v28 == -1)
+          if (v27 == -1)
           {
-            v29 = [v18 stringByAppendingString:@"ObjectType"];
-            v30 = [v17 objectForKeyedSubscript:v29];
-
-            v21 = off_1E727ABD8;
-            if (!v30)
-            {
-              v21 = off_1E727AC20;
-            }
+            v28 = objc_msgSend_stringByAppendingString_(v18);
+            [v17 objectForKeyedSubscript:v28];
           }
         }
 
-        v31 = *v21;
-        v32 = objc_opt_class();
+        v29 = objc_opt_class();
 
-        v33 = v32;
-        v34 = objc_alloc_init(v32);
-        [v34 _setCodableDescription:self];
-        [v34 updateWithDictionary:v17];
-        _attributeTagKey = [v34 _attributeTagKey];
-        v36 = [v17 objectForKeyedSubscript:_attributeTagKey];
+        v30 = v29;
+        v31 = objc_alloc_init(v29);
+        [v31 _setCodableDescription:self];
+        [v31 updateWithDictionary:v17];
+        _attributeTagKey = [v31 _attributeTagKey];
+        v33 = [v17 objectForKeyedSubscript:_attributeTagKey];
 
-        v37 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v36, "integerValue")}];
-        [v10 setObject:v34 forKey:v37];
+        v34 = [MEMORY[0x1E696AD98] numberWithInteger:{objc_msgSend(v33, "integerValue")}];
+        [v10 setObject:v31 forKey:v34];
 
-        propertyName = [v34 propertyName];
+        propertyName = [v31 propertyName];
         if (propertyName)
         {
-          [(NSMutableDictionary *)self->_attributesByName setObject:v34 forKeyedSubscript:propertyName];
+          [(NSMutableDictionary *)self->_attributesByName setObject:v31 forKeyedSubscript:propertyName];
         }
 
         ++v14;
       }
 
       while (v12 != v14);
-      v12 = [obj countByEnumeratingWithState:&v53 objects:v58 count:16];
+      v12 = [obj countByEnumeratingWithState:&v49 objects:v54 count:16];
     }
 
     while (v12);
   }
 
   objc_storeStrong(&self->_attributes, v10);
-  v51 = 0u;
-  v52 = 0u;
-  v49 = 0u;
-  v50 = 0u;
+  v47 = 0u;
+  v48 = 0u;
+  v45 = 0u;
+  v46 = 0u;
   attributes = [(INCodableDescription *)self attributes];
   allValues = [attributes allValues];
 
-  v41 = [allValues countByEnumeratingWithState:&v49 objects:v57 count:16];
-  if (v41)
+  v38 = [allValues countByEnumeratingWithState:&v45 objects:v53 count:16];
+  if (v38)
   {
-    v42 = v41;
-    v43 = *v50;
+    v39 = v38;
+    v40 = *v46;
     do
     {
-      v44 = 0;
+      v41 = 0;
       do
       {
-        if (*v50 != v43)
+        if (*v46 != v40)
         {
           objc_enumerationMutation(allValues);
         }
 
-        relationship = [*(*(&v49 + 1) + 8 * v44) relationship];
+        relationship = [*(*(&v45 + 1) + 8 * v41) relationship];
         [relationship _establishRelationship];
 
-        ++v44;
+        ++v41;
       }
 
-      while (v42 != v44);
-      v42 = [allValues countByEnumeratingWithState:&v49 objects:v57 count:16];
+      while (v39 != v41);
+      v39 = [allValues countByEnumeratingWithState:&v45 objects:v53 count:16];
     }
 
-    while (v42);
+    while (v39);
   }
-
-  v46 = *MEMORY[0x1E69E9840];
 }
 
 - (id)descriptionAtIndent:(unint64_t)indent
@@ -947,15 +919,15 @@ uint64_t __62__INCodableDescription_dictionaryRepresentationWithLocalizer___bloc
 
 + (id)makeFromWidgetPlistableRepresentation:(id)representation error:(id *)error
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v55 = *MEMORY[0x1E69E9840];
   representationCopy = representation;
   v7 = objc_alloc_init(self);
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = __Block_byref_object_copy__13079;
-  v53 = __Block_byref_object_dispose__13080;
-  v54 = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = __Block_byref_object_copy__13079;
+  v52 = __Block_byref_object_dispose__13080;
+  v53 = 0;
   v8 = [representationCopy intents_safeObjectForKey:@"attributes" ofType:objc_opt_class()];
   if (![v8 count])
   {
@@ -963,17 +935,17 @@ uint64_t __62__INCodableDescription_dictionaryRepresentationWithLocalizer___bloc
   }
 
   v9 = [MEMORY[0x1E695DF90] dictionaryWithCapacity:{objc_msgSend(v8, "count")}];
-  v45[0] = MEMORY[0x1E69E9820];
-  v45[1] = 3221225472;
-  v45[2] = __68__INCodableDescription_makeFromWidgetPlistableRepresentation_error___block_invoke;
-  v45[3] = &unk_1E727EE80;
-  v48 = &v49;
+  v44[0] = MEMORY[0x1E69E9820];
+  v44[1] = 3221225472;
+  v44[2] = __68__INCodableDescription_makeFromWidgetPlistableRepresentation_error___block_invoke;
+  v44[3] = &unk_1E727EE80;
+  v47 = &v48;
   v10 = v7;
-  v46 = v10;
+  v45 = v10;
   v11 = v9;
-  v47 = v11;
-  [v8 enumerateKeysAndObjectsUsingBlock:v45];
-  v12 = v50[5];
+  v46 = v11;
+  [v8 enumerateKeysAndObjectsUsingBlock:v44];
+  v12 = v49[5];
   if (v12)
   {
     if (error)
@@ -996,17 +968,17 @@ uint64_t __62__INCodableDescription_dictionaryRepresentationWithLocalizer___bloc
   else
   {
 LABEL_8:
-    v15 = (v50 + 5);
-    obj = v50[5];
+    v15 = (v49 + 5);
+    obj = v49[5];
     v16 = [INCodableLocalizationTable intents_widgetPlistRepresentableInDict:representationCopy key:@"_localizationTable" error:&obj];
     objc_storeStrong(v15, obj);
     v17 = v7[3];
     v7[3] = v16;
 
-    v18 = (v50 + 5);
-    v43 = v50[5];
-    v19 = [INCodableLocalizationTable intents_widgetPlistRepresentableInDict:representationCopy key:@"_customLocalizationTable" error:&v43];
-    objc_storeStrong(v18, v43);
+    v18 = (v49 + 5);
+    v42 = v49[5];
+    v19 = [INCodableLocalizationTable intents_widgetPlistRepresentableInDict:representationCopy key:@"_customLocalizationTable" error:&v42];
+    objc_storeStrong(v18, v42);
     v20 = v7[4];
     v7[4] = v19;
 
@@ -1030,31 +1002,31 @@ LABEL_8:
     v30 = v7[5];
     v7[5] = v29;
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     attributes = [v7 attributes];
     allValues = [attributes allValues];
 
-    v33 = [allValues countByEnumeratingWithState:&v39 objects:v55 count:16];
+    v33 = [allValues countByEnumeratingWithState:&v38 objects:v54 count:16];
     if (v33)
     {
-      v34 = *v40;
+      v34 = *v39;
       do
       {
         for (i = 0; i != v33; ++i)
         {
-          if (*v40 != v34)
+          if (*v39 != v34)
           {
             objc_enumerationMutation(allValues);
           }
 
-          relationship = [*(*(&v39 + 1) + 8 * i) relationship];
+          relationship = [*(*(&v38 + 1) + 8 * i) relationship];
           [relationship _establishRelationship];
         }
 
-        v33 = [allValues countByEnumeratingWithState:&v39 objects:v55 count:16];
+        v33 = [allValues countByEnumeratingWithState:&v38 objects:v54 count:16];
       }
 
       while (v33);
@@ -1064,8 +1036,7 @@ LABEL_8:
     v14 = v7;
   }
 
-  _Block_object_dispose(&v49, 8);
-  v37 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v48, 8);
 
   return v14;
 }
@@ -1122,7 +1093,7 @@ void __68__INCodableDescription_makeFromWidgetPlistableRepresentation_error___bl
 
 + (id)_codableDescriptionForTypedObject:(id)object inDictionary:(id)dictionary
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   objectCopy = object;
   dictionaryCopy = dictionary;
   v7 = objc_opt_class();
@@ -1132,86 +1103,81 @@ void __68__INCodableDescription_makeFromWidgetPlistableRepresentation_error___bl
   v10 = dictionaryCopy;
   if (v9)
   {
-    v36 = 0u;
-    v37 = 0u;
+    v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
-    v31 = v9;
+    v31 = 0u;
+    v32 = 0u;
+    v28 = v9;
     attributes = [v9 attributes];
     allValues = [attributes allValues];
 
-    v13 = [allValues countByEnumeratingWithState:&v34 objects:v38 count:16];
+    v13 = [allValues countByEnumeratingWithState:&v31 objects:v35 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v35;
-      v16 = 0x1E727A000uLL;
-      v32 = dictionaryCopy;
-      v33 = allValues;
+      v15 = *v32;
+      v29 = dictionaryCopy;
+      v30 = allValues;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v35 != v15)
+          if (*v32 != v15)
           {
             objc_enumerationMutation(allValues);
           }
 
-          v18 = *(*(&v34 + 1) + 8 * i);
-          if (v18)
+          v17 = *(*(&v31 + 1) + 8 * i);
+          if (v17)
           {
-            v19 = *(v16 + 3032);
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              propertyName = [v18 propertyName];
-              v21 = [objectCopy valueForKey:propertyName];
+              propertyName = [v17 propertyName];
+              v19 = [objectCopy valueForKey:propertyName];
 
-              if (v21)
+              if (v19)
               {
                 objc_opt_class();
                 if (objc_opt_isKindOfClass())
                 {
-                  firstObject = [v21 firstObject];
-                  v23 = [INCodableDescription _codableDescriptionForTypedObject:firstObject inDictionary:v10];
+                  firstObject = [v19 firstObject];
+                  v21 = [INCodableDescription _codableDescriptionForTypedObject:firstObject inDictionary:v10];
                 }
 
                 else
                 {
-                  v23 = [INCodableDescription _codableDescriptionForTypedObject:v21 inDictionary:v10];
+                  v21 = [INCodableDescription _codableDescriptionForTypedObject:v19 inDictionary:v10];
                 }
 
-                typeName = [v23 typeName];
-                objectTypeName = [v18 objectTypeName];
-                if (v23 && ([typeName isEqualToString:objectTypeName] & 1) == 0)
+                typeName = [v21 typeName];
+                objectTypeName = [v17 objectTypeName];
+                if (v21 && ([typeName isEqualToString:objectTypeName] & 1) == 0)
                 {
-                  [v18 setCodableDescription:v23];
-                  [v23 typeName];
-                  v27 = v26 = objectCopy;
-                  [v18 setObjectTypeName:v27];
+                  [v17 setCodableDescription:v21];
+                  [v21 typeName];
+                  v25 = v24 = objectCopy;
+                  [v17 setObjectTypeName:v25];
 
-                  objectCopy = v26;
-                  v10 = v32;
+                  objectCopy = v24;
+                  v10 = v29;
                 }
 
-                allValues = v33;
-                v16 = 0x1E727A000;
+                allValues = v30;
               }
             }
           }
         }
 
-        v14 = [allValues countByEnumeratingWithState:&v34 objects:v38 count:16];
+        v14 = [allValues countByEnumeratingWithState:&v31 objects:v35 count:16];
       }
 
       while (v14);
     }
 
-    v9 = v31;
-    v28 = v31;
+    v9 = v28;
+    v26 = v28;
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -1247,7 +1213,7 @@ void __68__INCodableDescription_makeFromWidgetPlistableRepresentation_error___bl
 
 id __105__INCodableDescription__calculateReferencedCodableDescriptionsFromAttributes_usingTypes_foundAttributes___block_invoke(uint64_t a1, void *a2)
 {
-  v17[1] = *MEMORY[0x1E69E9840];
+  v16[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
   {
@@ -1261,8 +1227,8 @@ id __105__INCodableDescription__calculateReferencedCodableDescriptionsFromAttrib
     if ((v8 & 1) == 0 && v7)
     {
       [*(a1 + 40) addObject:v6];
-      v17[0] = v7;
-      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:1];
+      v16[0] = v7;
+      v10 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:1];
       v11 = *(a1 + 48);
       v12 = [v7 attributes];
       v13 = [v12 allValues];
@@ -1276,8 +1242,6 @@ id __105__INCodableDescription__calculateReferencedCodableDescriptionsFromAttrib
 
     v9 = MEMORY[0x1E695E0F0];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v9;
 }

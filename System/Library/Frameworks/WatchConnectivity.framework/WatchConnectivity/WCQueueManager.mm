@@ -166,7 +166,7 @@ void __39__WCQueueManager_onqueue_attemptToSend__block_invoke_3(uint64_t a1, voi
 
 uint64_t __39__WCQueueManager_onqueue_attemptToSend__block_invoke_4(uint64_t a1)
 {
-  v2 = wc_log();
+  v2 = wc_log(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __39__WCQueueManager_onqueue_attemptToSend__block_invoke_4_cold_1(a1, v2);
@@ -177,7 +177,7 @@ uint64_t __39__WCQueueManager_onqueue_attemptToSend__block_invoke_4(uint64_t a1)
 
 - (void)onqueue_handleFailedDaemonConnectionForQueuedMessage:(id)message
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   messageCopy = message;
   [(WCQueueManager *)self setMessageOutstanding:0];
   if ([messageCopy retryCount] > 1)
@@ -192,31 +192,28 @@ uint64_t __39__WCQueueManager_onqueue_attemptToSend__block_invoke_4(uint64_t a1)
   else
   {
     [(WCQueueManager *)self onqueue_attemptToSend];
-    [messageCopy setRetryCount:{objc_msgSend(messageCopy, "retryCount") + 1}];
-    v5 = wc_log();
+    v5 = wc_log([messageCopy setRetryCount:{objc_msgSend(messageCopy, "retryCount") + 1}]);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136446466;
-      v11 = "[WCQueueManager onqueue_handleFailedDaemonConnectionForQueuedMessage:]";
-      v12 = 2048;
+      v9 = 136446466;
+      v10 = "[WCQueueManager onqueue_handleFailedDaemonConnectionForQueuedMessage:]";
+      v11 = 2048;
       retryCount = [messageCopy retryCount];
-      _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s retrying %ld", &v10, 0x16u);
+      _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s retrying %ld", &v9, 0x16u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onqueue_handleAcceptanceWithCurrentAccepted:(BOOL)accepted nextAvailable:(BOOL)available
 {
   availableCopy = available;
   acceptedCopy = accepted;
-  v13 = *MEMORY[0x277D85DE8];
-  v7 = wc_log();
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = wc_log(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = "NO";
-    *&v11[4] = "[WCQueueManager onqueue_handleAcceptanceWithCurrentAccepted:nextAvailable:]";
+    *&v10[4] = "[WCQueueManager onqueue_handleAcceptanceWithCurrentAccepted:nextAvailable:]";
     if (acceptedCopy)
     {
       v9 = "YES";
@@ -227,17 +224,17 @@ uint64_t __39__WCQueueManager_onqueue_attemptToSend__block_invoke_4(uint64_t a1)
       v9 = "NO";
     }
 
-    *v11 = 136446722;
-    *&v11[14] = v9;
-    *&v11[12] = 2080;
+    *v10 = 136446722;
+    *&v10[14] = v9;
+    *&v10[12] = 2080;
     if (availableCopy)
     {
       v8 = "YES";
     }
 
-    *&v11[22] = 2080;
-    v12 = v8;
-    _os_log_impl(&dword_23B2FA000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s current %s, next %s", v11, 0x20u);
+    *&v10[22] = 2080;
+    v11 = v8;
+    _os_log_impl(&dword_23B2FA000, v7, OS_LOG_TYPE_DEFAULT, "%{public}s current %s, next %s", v10, 0x20u);
   }
 
   if (acceptedCopy && ([(WCQueueManager *)self onqueue_dequeueMessage], availableCopy))
@@ -247,10 +244,8 @@ uint64_t __39__WCQueueManager_onqueue_attemptToSend__block_invoke_4(uint64_t a1)
 
   else
   {
-    [(WCQueueManager *)self setCanSend:0, *v11, *&v11[16]];
+    [(WCQueueManager *)self setCanSend:0, *v10, *&v10[8]];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleSentMessageWithIdentifier:(id)identifier error:(id)error
@@ -272,19 +267,19 @@ uint64_t __39__WCQueueManager_onqueue_attemptToSend__block_invoke_4(uint64_t a1)
 
 - (void)onqueue_handleSentMessageWithIdentifier:(id)identifier error:(id)error
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   errorCopy = error;
-  v8 = wc_log();
+  v8 = wc_log(errorCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = NSPrintF();
+    v9 = NSPrintF("%{error}", errorCopy);
     *buf = 136446722;
-    v17 = "[WCQueueManager onqueue_handleSentMessageWithIdentifier:error:]";
-    v18 = 2114;
-    v19 = identifierCopy;
-    v20 = 2114;
-    v21 = v9;
+    v16 = "[WCQueueManager onqueue_handleSentMessageWithIdentifier:error:]";
+    v17 = 2114;
+    v18 = identifierCopy;
+    v19 = 2114;
+    v20 = v9;
     _os_log_impl(&dword_23B2FA000, v8, OS_LOG_TYPE_DEFAULT, "%{public}s id: %{public}@ with %{public}@", buf, 0x20u);
   }
 
@@ -301,8 +296,6 @@ uint64_t __39__WCQueueManager_onqueue_attemptToSend__block_invoke_4(uint64_t a1)
     inFlightMessages2 = [(WCQueueManager *)self inFlightMessages];
     [inFlightMessages2 removeObjectForKey:identifierCopy];
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancelQueuedMessages
@@ -323,57 +316,62 @@ uint64_t __39__WCQueueManager_onqueue_attemptToSend__block_invoke_4(uint64_t a1)
   allValues = [inFlightMessages allValues];
   v4 = [allValues sortedArrayUsingSelector:sel_compare_];
 
-  v5 = wc_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = wc_log(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v6 = WCCompactStringFromCollection(v4);
+    v7 = WCCompactStringFromCollection(v4);
     messageQueue = [(WCQueueManager *)self messageQueue];
-    v8 = WCCompactStringFromCollection(messageQueue);
+    v9 = WCCompactStringFromCollection(messageQueue);
     *buf = 136446722;
     v40 = "[WCQueueManager onqueue_cancelQueuedMessages]";
     v41 = 2114;
-    v42 = v6;
+    v42 = v7;
     v43 = 2114;
-    v44 = v8;
-    _os_log_impl(&dword_23B2FA000, v5, OS_LOG_TYPE_DEFAULT, "%{public}s inflight messages %{public}@ queued messages %{public}@", buf, 0x20u);
+    v44 = v9;
+    _os_log_impl(&dword_23B2FA000, v6, OS_LOG_TYPE_DEFAULT, "%{public}s inflight messages %{public}@ queued messages %{public}@", buf, 0x20u);
   }
 
-  v9 = [MEMORY[0x277CCA9B8] wcErrorWithCode:7007];
+  v10 = [MEMORY[0x277CCA9B8] wcErrorWithCode:7007];
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   obj = v4;
-  v10 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
-  if (v10)
+  v11 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+  if (v11)
   {
-    v11 = v10;
-    v12 = *v34;
+    v12 = v11;
+    v13 = *v34;
     do
     {
-      for (i = 0; i != v11; ++i)
+      v14 = 0;
+      do
       {
-        if (*v34 != v12)
+        if (*v34 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v14 = *(*(&v33 + 1) + 8 * i);
-        v15 = wc_log();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+        v15 = *(*(&v33 + 1) + 8 * v14);
+        v16 = wc_log(v11);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446466;
           v40 = "[WCQueueManager onqueue_cancelQueuedMessages]";
           v41 = 2114;
-          v42 = v14;
-          _os_log_impl(&dword_23B2FA000, v15, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
+          v42 = v15;
+          _os_log_impl(&dword_23B2FA000, v16, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
         }
 
-        completionHandler = [v14 completionHandler];
-        (completionHandler)[2](completionHandler, v9);
+        completionHandler = [v15 completionHandler];
+        (completionHandler)[2](completionHandler, v10);
+
+        ++v14;
       }
 
+      while (v12 != v14);
       v11 = [obj countByEnumeratingWithState:&v33 objects:v38 count:16];
+      v12 = v11;
     }
 
     while (v11);
@@ -384,36 +382,41 @@ uint64_t __39__WCQueueManager_onqueue_attemptToSend__block_invoke_4(uint64_t a1)
   v29 = 0u;
   v30 = 0u;
   messageQueue2 = [(WCQueueManager *)self messageQueue];
-  v18 = [messageQueue2 countByEnumeratingWithState:&v29 objects:v37 count:16];
-  if (v18)
+  v19 = [messageQueue2 countByEnumeratingWithState:&v29 objects:v37 count:16];
+  if (v19)
   {
-    v19 = v18;
-    v20 = *v30;
+    v20 = v19;
+    v21 = *v30;
     do
     {
-      for (j = 0; j != v19; ++j)
+      v22 = 0;
+      do
       {
-        if (*v30 != v20)
+        if (*v30 != v21)
         {
           objc_enumerationMutation(messageQueue2);
         }
 
-        v22 = *(*(&v29 + 1) + 8 * j);
-        v23 = wc_log();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+        v23 = *(*(&v29 + 1) + 8 * v22);
+        v24 = wc_log(v19);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136446466;
           v40 = "[WCQueueManager onqueue_cancelQueuedMessages]";
           v41 = 2114;
-          v42 = v22;
-          _os_log_impl(&dword_23B2FA000, v23, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
+          v42 = v23;
+          _os_log_impl(&dword_23B2FA000, v24, OS_LOG_TYPE_DEFAULT, "%{public}s %{public}@", buf, 0x16u);
         }
 
-        completionHandler2 = [v22 completionHandler];
-        (completionHandler2)[2](completionHandler2, v9);
+        completionHandler2 = [v23 completionHandler];
+        (completionHandler2)[2](completionHandler2, v10);
+
+        ++v22;
       }
 
+      while (v20 != v22);
       v19 = [messageQueue2 countByEnumeratingWithState:&v29 objects:v37 count:16];
+      v20 = v19;
     }
 
     while (v19);
@@ -424,25 +427,21 @@ uint64_t __39__WCQueueManager_onqueue_attemptToSend__block_invoke_4(uint64_t a1)
 
   [(WCQueueManager *)self onqueue_clearQueuedMessages];
   [(WCQueueManager *)self onqueue_cancelDaemonMessages];
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onqueue_cancelDaemonMessages
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v2 = wc_log();
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = wc_log(self);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136446210;
-    v6 = "[WCQueueManager onqueue_cancelDaemonMessages]";
-    _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s ", &v5, 0xCu);
+    v4 = 136446210;
+    v5 = "[WCQueueManager onqueue_cancelDaemonMessages]";
+    _os_log_impl(&dword_23B2FA000, v2, OS_LOG_TYPE_DEFAULT, "%{public}s ", &v4, 0xCu);
   }
 
   v3 = +[WCXPCManager sharedManager];
   [v3 cancelAllOutstandingMessages];
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)onqueue_enqueueMessage:(id)message
@@ -493,16 +492,13 @@ uint64_t __39__WCQueueManager_onqueue_attemptToSend__block_invoke_4(uint64_t a1)
 
 void __39__WCQueueManager_onqueue_attemptToSend__block_invoke_4_cold_1(uint64_t a1, NSObject *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v5 = *(a1 + 32);
-  v3 = NSPrintF();
+  v8 = *MEMORY[0x277D85DE8];
+  v3 = NSPrintF("%{error}", *(a1 + 32));
   *buf = 136446466;
-  v7 = "[WCQueueManager onqueue_attemptToSend]_block_invoke_4";
-  v8 = 2114;
-  v9 = v3;
+  v5 = "[WCQueueManager onqueue_attemptToSend]_block_invoke_4";
+  v6 = 2114;
+  v7 = v3;
   _os_log_error_impl(&dword_23B2FA000, a2, OS_LOG_TYPE_ERROR, "%{public}s xpc failure due to %{public}@", buf, 0x16u);
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 @end

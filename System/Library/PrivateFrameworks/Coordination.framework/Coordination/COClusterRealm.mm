@@ -209,16 +209,16 @@ LABEL_7:
 
 void __27__COClusterRealm_activate___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   v2 = COLogForCategory(7);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v10 = 134218242;
-    v11 = v3;
-    v12 = 2112;
-    v13 = v3;
-    _os_log_impl(&dword_244328000, v2, OS_LOG_TYPE_DEFAULT, "%p realm activating %@", &v10, 0x16u);
+    v9 = 134218242;
+    v10 = v3;
+    v11 = 2112;
+    v12 = v3;
+    _os_log_impl(&dword_244328000, v2, OS_LOG_TYPE_DEFAULT, "%p realm activating %@", &v9, 0x16u);
   }
 
   v4 = [*(a1 + 40) copy];
@@ -230,8 +230,6 @@ void __27__COClusterRealm_activate___block_invoke(uint64_t a1)
   v7 = *(a1 + 32);
   v8 = *(v7 + 16);
   *(v7 + 16) = 0;
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_startQuery
@@ -291,9 +289,9 @@ void __29__COClusterRealm__startQuery__block_invoke(uint64_t a1, void *a2, void 
   _Block_object_dispose(&v18, 8);
 }
 
-void __43__COClusterRealm__handleQueryResult_error___block_invoke(uint64_t *a1)
+void __43__COClusterRealm__handleQueryResult_error___block_invoke(void *a1)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = a1 + 4;
   v3 = [a1[4] identifier];
   if (a1[5])
@@ -336,13 +334,13 @@ LABEL_10:
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v7 = *v2;
-    v12 = 134218498;
-    v13 = v7;
-    v14 = 2112;
-    v15 = v5;
-    v16 = 2112;
-    v17 = v3;
-    _os_log_impl(&dword_244328000, v6, OS_LOG_TYPE_DEFAULT, "%p realm identifier changing to %@ from %@", &v12, 0x20u);
+    v11 = 134218498;
+    v12 = v7;
+    v13 = 2112;
+    v14 = v5;
+    v15 = 2112;
+    v16 = v3;
+    _os_log_impl(&dword_244328000, v6, OS_LOG_TYPE_DEFAULT, "%p realm identifier changing to %@ from %@", &v11, 0x20u);
   }
 
   v8 = [v5 copy];
@@ -352,19 +350,14 @@ LABEL_10:
 
   *(*(a1[7] + 8) + 24) = 1;
 LABEL_13:
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_identifierForGroupResult:(id)result
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   resultCopy = result;
-  v5 = *MEMORY[0x277D02998];
   DigestSize = CryptoHashDescriptorGetDigestSize();
-  v43 = 0;
-  v41 = 0u;
-  v42 = 0u;
+  v41 = 0;
   v39 = 0u;
   v40 = 0u;
   v37 = 0u;
@@ -375,64 +368,66 @@ LABEL_13:
   v34 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v30 = 0u;
-  CryptoHashInit();
-  v28 = 0u;
   v29 = 0u;
+  v30 = 0u;
+  v28 = 0u;
+  CryptoHashInit();
   v26 = 0u;
   v27 = 0u;
-  v7 = [resultCopy sortedArrayUsingComparator:&__block_literal_global];
-  v8 = [v7 countByEnumeratingWithState:&v26 objects:v46 count:16];
-  if (v8)
+  v24 = 0u;
+  v25 = 0u;
+  v6 = [resultCopy sortedArrayUsingComparator:&__block_literal_global];
+  v7 = [v6 countByEnumeratingWithState:&v24 objects:v44 count:16];
+  if (v7)
   {
-    v9 = v8;
-    v25 = resultCopy;
+    v8 = v7;
+    v23 = resultCopy;
     selfCopy = self;
-    v11 = 0;
-    v12 = *v27;
+    v10 = 0;
+    v11 = *v25;
     do
     {
-      for (i = 0; i != v9; ++i)
+      for (i = 0; i != v8; ++i)
       {
-        if (*v27 != v12)
+        if (*v25 != v11)
         {
-          objc_enumerationMutation(v7);
+          objc_enumerationMutation(v6);
         }
 
-        identifier = [*(*(&v26 + 1) + 8 * i) identifier];
+        identifier = [*(*(&v24 + 1) + 8 * i) identifier];
         data = [identifier data];
         if ([data length])
         {
-          ++v11;
+          ++v10;
           [data bytes];
           [data length];
           CryptoHashUpdate();
         }
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v26 objects:v46 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v24 objects:v44 count:16];
     }
 
-    while (v9);
+    while (v8);
 
     self = selfCopy;
-    resultCopy = v25;
-    if (v11)
+    resultCopy = v23;
+    if (v10)
     {
-      v16 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:DigestSize];
-      [v16 mutableBytes];
+      v15 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:DigestSize];
+      [v15 mutableBytes];
       CryptoHashFinal();
-      v17 = objc_alloc_init(MEMORY[0x277CCACA8]);
-      bytes = [v16 bytes];
+      v16 = objc_alloc_init(MEMORY[0x277CCACA8]);
+      bytes = [v15 bytes];
       if (DigestSize)
       {
-        v19 = bytes;
+        v18 = bytes;
         do
         {
-          v20 = *v19++;
-          v21 = [v17 stringByAppendingFormat:@"%hhX", v20];
+          v19 = *v18++;
+          v20 = [v16 stringByAppendingFormat:@"%hhX", v19];
 
-          v17 = v21;
+          v16 = v20;
           --DigestSize;
         }
 
@@ -441,10 +436,10 @@ LABEL_13:
 
       else
       {
-        v21 = v17;
+        v20 = v16;
       }
 
-      v22 = [MEMORY[0x277CCACA8] stringWithFormat:@"r-mg-%lX-%@", v11, v21];
+      v21 = [MEMORY[0x277CCACA8] stringWithFormat:@"r-mg-%lX-%@", v10, v20];
 
       goto LABEL_21;
     }
@@ -454,20 +449,18 @@ LABEL_13:
   {
   }
 
-  v16 = COLogForCategory(7);
-  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+  v15 = COLogForCategory(7);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
     selfCopy2 = self;
-    _os_log_impl(&dword_244328000, v16, OS_LOG_TYPE_DEFAULT, "%p received empty result, so no identifier", buf, 0xCu);
+    _os_log_impl(&dword_244328000, v15, OS_LOG_TYPE_DEFAULT, "%p received empty result, so no identifier", buf, 0xCu);
   }
 
-  v22 = 0;
+  v21 = 0;
 LABEL_21:
 
-  v23 = *MEMORY[0x277D85DE8];
-
-  return v22;
+  return v21;
 }
 
 uint64_t __44__COClusterRealm__identifierForGroupResult___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -543,15 +536,14 @@ void __38__COClusterRealm__invokeUpdateHandler__block_invoke(uint64_t a1)
 
 void __43__COClusterRealm__handleQueryResult_error___block_invoke_cold_1(uint64_t *a1, uint64_t *a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = *a1;
   v4 = *a2;
-  v6 = 134218242;
-  v7 = v3;
-  v8 = 2112;
-  v9 = v4;
-  _os_log_error_impl(&dword_244328000, log, OS_LOG_TYPE_ERROR, "%p realm error querying groups %@", &v6, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 134218242;
+  v6 = v3;
+  v7 = 2112;
+  v8 = v4;
+  _os_log_error_impl(&dword_244328000, log, OS_LOG_TYPE_ERROR, "%p realm error querying groups %@", &v5, 0x16u);
 }
 
 @end

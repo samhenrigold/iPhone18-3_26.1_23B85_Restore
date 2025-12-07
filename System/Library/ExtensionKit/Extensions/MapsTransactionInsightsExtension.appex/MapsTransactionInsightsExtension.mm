@@ -4,27 +4,19 @@ uint64_t sub_1000013D8(uint64_t a1)
   v2[4] = v1;
   v3 = sub_1000038A0();
   v2[5] = v3;
-  v4 = *(v3 - 8);
-  v2[6] = v4;
-  v5 = *(v4 + 64) + 15;
+  v2[6] = *(v3 - 8);
   v2[7] = swift_task_alloc();
-  v6 = sub_1000037B0();
-  v2[8] = v6;
-  v7 = *(v6 - 8);
-  v2[9] = v7;
-  v8 = *(v7 + 64) + 15;
+  v4 = sub_1000037B0();
+  v2[8] = v4;
+  v2[9] = *(v4 - 8);
   v2[10] = swift_task_alloc();
-  v9 = sub_100003820();
-  v2[11] = v9;
-  v10 = *(v9 - 8);
-  v2[12] = v10;
-  v11 = *(v10 + 64) + 15;
+  v5 = sub_100003820();
+  v2[11] = v5;
+  v2[12] = *(v5 - 8);
   v2[13] = swift_task_alloc();
-  v12 = sub_100003950();
-  v2[14] = v12;
-  v13 = *(v12 - 8);
-  v2[15] = v13;
-  v14 = *(v13 + 64) + 15;
+  v6 = sub_100003950();
+  v2[14] = v6;
+  v2[15] = *(v6 - 8);
   v2[16] = swift_task_alloc();
 
   return _swift_task_switch(sub_1000015AC, 0, 0);
@@ -32,138 +24,130 @@ uint64_t sub_1000013D8(uint64_t a1)
 
 uint64_t sub_1000015AC()
 {
-  v57 = v0;
+  v54 = v0;
   v1 = v0;
-  v2 = v0[16];
-  v3 = v0[3];
   sub_100003930();
 
-  v4 = sub_100003940();
-  v5 = sub_1000039A0();
+  v2 = sub_100003940();
+  v3 = sub_1000039A0();
 
-  if (os_log_type_enabled(v4, v5))
+  if (os_log_type_enabled(v2, v3))
   {
-    v6 = v0[3];
-    v7 = swift_slowAlloc();
-    v47 = swift_slowAlloc();
-    v55 = v47;
-    *v7 = 136315138;
-    v8 = *(v6 + 16);
-    v9 = &_swiftEmptyArrayStorage;
-    if (v8)
+    v4 = v0[3];
+    v5 = swift_slowAlloc();
+    v44 = swift_slowAlloc();
+    v52 = v44;
+    *v5 = 136315138;
+    v6 = *(v4 + 16);
+    v7 = &_swiftEmptyArrayStorage;
+    if (v6)
     {
-      v44 = v7;
-      v45 = v5;
-      v46 = v4;
-      v10 = v0[12];
-      v11 = v0[9];
-      v12 = v1[6];
-      v13 = v1[3];
-      v56 = &_swiftEmptyArrayStorage;
-      sub_1000029D4(0, v8, 0);
-      v9 = &_swiftEmptyArrayStorage;
-      v14 = *(v10 + 16);
-      v10 += 16;
-      v15 = v13 + ((*(v10 + 64) + 32) & ~*(v10 + 64));
-      v51 = *(v10 + 56);
-      v52 = v14;
-      v49 = (v11 + 8);
-      v50 = (v12 + 8);
-      v53 = v1;
-      v48 = (v10 - 8);
+      v41 = v5;
+      v42 = v3;
+      v43 = v2;
+      v8 = v0[12];
+      v9 = v0[9];
+      v10 = v1[6];
+      v11 = v1[3];
+      v53 = &_swiftEmptyArrayStorage;
+      sub_1000029D4(0, v6, 0);
+      v7 = &_swiftEmptyArrayStorage;
+      v12 = *(v8 + 16);
+      v8 += 16;
+      v13 = v11 + ((*(v8 + 64) + 32) & ~*(v8 + 64));
+      v48 = *(v8 + 56);
+      v49 = v12;
+      v46 = (v9 + 8);
+      v47 = (v10 + 8);
+      v50 = v1;
+      v45 = (v8 - 8);
       do
       {
-        v16 = v1[13];
-        v17 = v1[10];
-        v18 = v1[11];
-        v20 = v1[7];
-        v19 = v1[8];
-        v21 = v1[5];
-        v52(v16, v15, v18);
+        v14 = v1[13];
+        v15 = v1[10];
+        v16 = v1[11];
+        v18 = v1[7];
+        v17 = v1[8];
+        v19 = v1[5];
+        v49(v14, v13, v16);
         sub_100003810();
         sub_1000037A0();
-        v22 = sub_100003890();
-        v54 = v23;
-        (*v50)(v20, v21);
-        (*v49)(v17, v19);
-        (*v48)(v16, v18);
-        v56 = v9;
-        v25 = v9[2];
-        v24 = v9[3];
-        if (v25 >= v24 >> 1)
+        v20 = sub_100003890();
+        v51 = v21;
+        (*v47)(v18, v19);
+        (*v46)(v15, v17);
+        (*v45)(v14, v16);
+        v53 = v7;
+        v23 = v7[2];
+        v22 = v7[3];
+        if (v23 >= v22 >> 1)
         {
-          sub_1000029D4((v24 > 1), v25 + 1, 1);
-          v9 = v56;
+          sub_1000029D4((v22 > 1), v23 + 1, 1);
+          v7 = v53;
         }
 
-        v9[2] = v25 + 1;
-        v26 = &v9[2 * v25];
-        v1 = v53;
-        v26[4] = v22;
-        v26[5] = v54;
-        v15 += v51;
-        --v8;
+        v7[2] = v23 + 1;
+        v24 = &v7[2 * v23];
+        v1 = v50;
+        v24[4] = v20;
+        v24[5] = v51;
+        v13 += v48;
+        --v6;
       }
 
-      while (v8);
-      v4 = v46;
-      v5 = v45;
-      v7 = v44;
+      while (v6);
+      v2 = v43;
+      v3 = v42;
+      v5 = v41;
     }
 
-    v30 = v1[15];
-    v31 = v1[16];
-    v32 = v1[14];
-    v1[2] = v9;
+    v28 = v1[15];
+    v29 = v1[16];
+    v30 = v1[14];
+    v1[2] = v7;
     sub_10000340C(&qword_10000C190, &qword_100003E28);
     sub_100003598();
-    v33 = sub_100003960();
-    v35 = v34;
+    v31 = sub_100003960();
+    v33 = v32;
 
-    v36 = sub_1000022FC(v33, v35, &v55);
+    v34 = sub_1000022FC(v31, v33, &v52);
 
-    *(v7 + 4) = v36;
-    _os_log_impl(&_mh_execute_header, v4, v5, "Classifying transactions: %s", v7, 0xCu);
-    sub_1000036A4(v47);
+    *(v5 + 4) = v34;
+    _os_log_impl(&_mh_execute_header, v2, v3, "Classifying transactions: %s", v5, 0xCu);
+    sub_1000036A4(v44);
 
-    (*(v30 + 8))(v31, v32);
+    (*(v28 + 8))(v29, v30);
   }
 
   else
   {
-    v27 = v0[15];
-    v28 = v0[16];
-    v29 = v0[14];
+    v25 = v0[15];
+    v26 = v0[16];
+    v27 = v0[14];
 
-    (*(v27 + 8))(v28, v29);
+    (*(v25 + 8))(v26, v27);
   }
 
-  v37 = v1[4];
-  v38 = v37[5];
-  v39 = v37[6];
-  sub_100003554(v37 + 2, v38);
-  v40 = async function pointer to dispatch thunk of MapsTransactionClassifying.classifyTransactions(_:)[1];
-  v41 = swift_task_alloc();
-  v1[17] = v41;
-  *v41 = v1;
-  v41[1] = sub_100001990;
-  v42 = v1[3];
+  v35 = v1[4];
+  v36 = v35[5];
+  v37 = v35[6];
+  sub_100003554(v35 + 2, v36);
+  v38 = swift_task_alloc();
+  v1[17] = v38;
+  *v38 = v1;
+  v38[1] = sub_100001990;
+  v39 = v1[3];
 
-  return dispatch thunk of MapsTransactionClassifying.classifyTransactions(_:)(v42, v38, v39);
+  return dispatch thunk of MapsTransactionClassifying.classifyTransactions(_:)(v39, v36, v37);
 }
 
 uint64_t sub_100001990(uint64_t a1)
 {
-  v3 = *(*v1 + 136);
-  v4 = *(*v1 + 128);
-  v5 = *(*v1 + 104);
-  v6 = *(*v1 + 80);
-  v7 = *(*v1 + 56);
-  v10 = *v1;
+  v5 = *v1;
 
-  v8 = *(v10 + 8);
+  v3 = *(v5 + 8);
 
-  return v8(a1);
+  return v3(a1);
 }
 
 uint64_t sub_100001B0C()
@@ -175,7 +159,7 @@ uint64_t sub_100001B0C()
 
 uint64_t sub_100001B44(uint64_t a1)
 {
-  v2 = sub_1000022BC(&qword_10000C168);
+  v2 = sub_1000022BC(&qword_10000C168, &unk_100003D90);
 
   return MapsInsightsExtension.configuration.getter(a1, v2);
 }
@@ -189,23 +173,21 @@ uint64_t sub_100001BAC@<X0>(uint64_t *a1@<X8>)
 
 uint64_t sub_100001BD4(uint64_t a1)
 {
-  v4 = *v1;
-  v5 = swift_task_alloc();
-  *(v2 + 16) = v5;
-  *v5 = v2;
-  v5[1] = sub_100001C6C;
+  v3 = swift_task_alloc();
+  *(v1 + 16) = v3;
+  *v3 = v1;
+  v3[1] = sub_100001C6C;
 
   return sub_1000013D8(a1);
 }
 
 uint64_t sub_100001C6C(uint64_t a1)
 {
-  v3 = *(*v1 + 16);
-  v6 = *v1;
+  v5 = *v1;
 
-  v4 = *(v6 + 8);
+  v3 = *(v5 + 8);
 
-  return v4(a1);
+  return v3(a1);
 }
 
 uint64_t sub_100001D68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -225,26 +207,24 @@ uint64_t sub_100001D94()
   v3 = v1[5];
   v4 = v1[6];
   sub_100003554(v1 + 2, v3);
-  v5 = async function pointer to dispatch thunk of MapsTransactionClassifying.fetchHeroImageDetails(muid:resultProviderID:entity:)[1];
-  v6 = swift_task_alloc();
-  v0[7] = v6;
-  *v6 = v0;
-  v6[1] = sub_100001E70;
-  v7 = v0[5];
-  v8 = v0[2];
-  v9 = v0[3];
+  v5 = swift_task_alloc();
+  v0[7] = v5;
+  *v5 = v0;
+  v5[1] = sub_100001E70;
+  v6 = v0[5];
+  v7 = v0[2];
+  v8 = v0[3];
 
-  return dispatch thunk of MapsTransactionClassifying.fetchHeroImageDetails(muid:resultProviderID:entity:)(v8, v9, v2 | ((HIDWORD(v2) & 1) << 32), v7, v3, v4);
+  return dispatch thunk of MapsTransactionClassifying.fetchHeroImageDetails(muid:resultProviderID:entity:)(v7, v8, v2 | ((HIDWORD(v2) & 1) << 32), v6, v3, v4);
 }
 
 uint64_t sub_100001E70()
 {
-  v1 = *(*v0 + 56);
-  v4 = *v0;
+  v3 = *v0;
 
-  v2 = *(v4 + 8);
+  v1 = *(v3 + 8);
 
-  return v2();
+  return v1();
 }
 
 uint64_t sub_100001F64(uint64_t a1)
@@ -261,35 +241,33 @@ uint64_t sub_100001F88()
   v2 = v1[5];
   v3 = v1[6];
   sub_100003554(v1 + 2, v2);
-  v4 = async function pointer to dispatch thunk of MapsTransactionClassifying.encodedStylingInfo(for:)[1];
-  v5 = swift_task_alloc();
-  v0[4] = v5;
-  *v5 = v0;
-  v5[1] = sub_100002048;
-  v6 = v0[2];
+  v4 = swift_task_alloc();
+  v0[4] = v4;
+  *v4 = v0;
+  v4[1] = sub_100002048;
+  v5 = v0[2];
 
-  return dispatch thunk of MapsTransactionClassifying.encodedStylingInfo(for:)(v6, v2, v3);
+  return dispatch thunk of MapsTransactionClassifying.encodedStylingInfo(for:)(v5, v2, v3);
 }
 
 uint64_t sub_100002048(uint64_t a1, uint64_t a2)
 {
-  v5 = *(*v2 + 32);
-  v8 = *v2;
+  v7 = *v2;
 
-  v6 = *(v8 + 8);
+  v5 = *(v7 + 8);
 
-  return v6(a1, a2);
+  return v5(a1, a2);
 }
 
 int main(int argc, const char **argv, const char **envp)
 {
   type metadata accessor for MapsTransactionInsightsExtensionImplementation();
-  sub_1000022BC(&qword_10000C0B8);
+  sub_1000022BC(&qword_10000C0B8, &unk_100003DC0);
   sub_100003920();
   return 0;
 }
 
-uint64_t sub_1000022BC(unint64_t *a1)
+uint64_t sub_1000022BC(unint64_t *a1, uint64_t a2)
 {
   result = *a1;
   if (!result)
@@ -302,7 +280,7 @@ uint64_t sub_1000022BC(unint64_t *a1)
   return result;
 }
 
-uint64_t sub_1000022FC(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_1000022FC(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_1000023C8(v11, 0, 0, 1, a1, a2);
@@ -402,11 +380,9 @@ LABEL_8:
 
 char *sub_1000024D4(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_100002520(a1, a2);
+  v3 = sub_100002520(a1, a2);
   sub_100002650(&off_100008498);
-  result = v4;
-  v3 = *(v4 + 2) - 1;
-  return result;
+  return v3;
 }
 
 char *sub_100002520(uint64_t a1, unint64_t a2)
@@ -506,7 +482,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -520,15 +495,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_1000027B0(result, v12, 1, v3);
+  result = sub_1000027B0(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -543,15 +518,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -560,12 +535,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -675,12 +650,11 @@ char *sub_1000027B0(char *result, int64_t a2, char a3, char *a4)
 
 unint64_t sub_1000028A4(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   sub_100003A00();
   sub_100003980();
-  v6 = sub_100003A10();
+  v4 = sub_100003A10();
 
-  return sub_10000291C(a1, a2, v6);
+  return sub_10000291C(a1, a2, v4);
 }
 
 unint64_t sub_10000291C(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -712,7 +686,7 @@ unint64_t sub_10000291C(uint64_t a1, uint64_t a2, uint64_t a3)
   return v5;
 }
 
-char *sub_1000029D4(char *a1, int64_t a2, char a3)
+char *sub_1000029D4(char *a1, uint64_t a2, uint64_t a3)
 {
   result = sub_1000029F4(a1, a2, a3, *v3);
   *v3 = result;
@@ -855,104 +829,91 @@ LABEL_10:
 
 uint64_t sub_100002C10()
 {
-  v0 = *(*(sub_100003880() - 8) + 64);
-  (__chkstk_darwin)();
-  v61 = &v53 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v0 = sub_100003880();
+  __chkstk_darwin(v0 - 8);
+  v42 = v36 - ((v1 + 15) & 0xFFFFFFFFFFFFFFF0);
   v2 = sub_100003950();
-  v54 = *(v2 - 8);
-  v55 = v2;
-  v3 = *(v54 + 64);
-  (__chkstk_darwin)();
-  v53 = &v53 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v5 = *(*(sub_100003860() - 8) + 64);
-  (__chkstk_darwin)();
-  v59 = &v53 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v7 = sub_100003800();
-  v56 = *(v7 - 8);
-  v57 = v7;
-  v8 = *(v56 + 64);
-  v9 = (__chkstk_darwin)();
-  v58 = &v53 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  __chkstk_darwin(v9);
-  v12 = &v53 - v11;
-  v13 = sub_100003740();
-  v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  __chkstk_darwin(v13);
-  v17 = &v53 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v18 = sub_100003700();
-  v19 = *(v18 - 8);
-  v20 = *(v19 + 64);
-  __chkstk_darwin(v18);
-  v22 = &v53 - ((v21 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v36[1] = *(v2 - 8);
+  v36[2] = v2;
+  __chkstk_darwin(v2);
+  v36[0] = v36 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v4 = sub_100003860();
+  __chkstk_darwin(v4 - 8);
+  v40 = v36 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v6 = sub_100003800();
+  v37 = *(v6 - 8);
+  v38 = v6;
+  v7 = __chkstk_darwin(v6);
+  v39 = v36 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  __chkstk_darwin(v7);
+  v10 = v36 - v9;
+  v11 = sub_100003740();
+  v12 = *(v11 - 8);
+  __chkstk_darwin(v11);
+  v14 = v36 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = sub_100003700();
+  v16 = *(v15 - 8);
+  __chkstk_darwin(v15);
+  v18 = v36 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1000036F0();
-  v67 = v18;
-  v68 = &protocol witness table for FinanceTrialProvider;
-  v23 = sub_1000033A8(&v66);
-  (*(v19 + 16))(v23, v22, v18);
-  v24 = sub_100003850();
-  v25 = *(v24 + 48);
-  v26 = *(v24 + 52);
+  v48 = v15;
+  v49 = &protocol witness table for FinanceTrialProvider;
+  v19 = sub_1000033A8(&v47);
+  (*(v16 + 16))(v19, v18, v15);
+  v20 = sub_100003850();
   swift_allocObject();
-  v27 = sub_100003840();
-  (*(v19 + 8))(v22, v18);
-  v67 = v24;
-  v68 = &protocol witness table for PIIRedactionRegexCollectionProvider;
-  *&v66 = v27;
-  v28 = sub_100003790();
-  v29 = *(v28 + 48);
-  v30 = *(v28 + 52);
-  v60 = v28;
+  v21 = sub_100003840();
+  (*(v16 + 8))(v18, v15);
+  v48 = v20;
+  v49 = &protocol witness table for PIIRedactionRegexCollectionProvider;
+  *&v47 = v21;
+  v41 = sub_100003790();
   swift_allocObject();
-  v31 = sub_100003780();
+  v22 = sub_100003780();
   sub_10000340C(&qword_10000C170, &qword_100003E00);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_100003CC0;
   *(inited + 32) = sub_100003970();
-  *(inited + 40) = v33;
+  *(inited + 40) = v24;
   *(inited + 72) = &type metadata for Bool;
   *(inited + 48) = 1;
   *(inited + 80) = sub_100003970();
-  *(inited + 88) = v34;
-  (*(v14 + 104))(v17, enum case for XPCMachService.coreDataStore(_:), v13);
-  v35 = sub_100003730();
-  v37 = v36;
-  v38 = v13;
-  v39 = v57;
-  (*(v14 + 8))(v17, v38);
-  v40 = v56;
+  *(inited + 88) = v25;
+  (*(v12 + 104))(v14, enum case for XPCMachService.coreDataStore(_:), v11);
+  v26 = sub_100003730();
+  v28 = v27;
+  v29 = v11;
+  v30 = v38;
+  (*(v12 + 8))(v14, v29);
+  v31 = v37;
   *(inited + 120) = &type metadata for String;
-  *(inited + 96) = v35;
-  *(inited + 104) = v37;
+  *(inited + 96) = v26;
+  *(inited + 104) = v28;
   sub_100002B00(inited);
   swift_setDeallocating();
   sub_10000340C(&qword_10000C178, &qword_100003E08);
   swift_arrayDestroy();
   sub_1000037F0();
   sub_100003830();
-  (*(v40 + 104))(v12, enum case for CoreDataStoreConfiguration.client(_:), v39);
-  (*(v40 + 16))(v58, v12, v39);
-  v41 = sub_100003720();
-  v42 = *(v41 + 48);
-  v43 = *(v41 + 52);
+  (*(v31 + 104))(v10, enum case for CoreDataStoreConfiguration.client(_:), v30);
+  (*(v31 + 16))(v39, v10, v30);
+  sub_100003720();
   swift_allocObject();
   sub_100003710();
-  v44 = sub_1000037D0();
-  v45 = *(v44 + 48);
-  v46 = *(v44 + 52);
+  sub_1000037D0();
   swift_allocObject();
   sub_1000037C0();
-  (*(v40 + 8))(v12, v39);
+  (*(v31 + 8))(v10, v30);
 
-  v67 = v60;
-  v68 = &protocol witness table for PIIStringProcessor;
-  *&v66 = v31;
-  v65 = 0;
-  v63 = 0u;
-  v64 = 0u;
-  v62[3] = sub_100003910();
-  v62[4] = &protocol witness table for MerchantLookupRequestExecutor;
-  sub_1000033A8(v62);
+  v48 = v41;
+  v49 = &protocol witness table for PIIStringProcessor;
+  *&v47 = v22;
+  v46 = 0;
+  v44 = 0u;
+  v45 = 0u;
+  v43[3] = sub_100003910();
+  v43[4] = &protocol witness table for MerchantLookupRequestExecutor;
+  sub_1000033A8(v43);
 
   sub_100003900();
   sub_100003870();
@@ -960,19 +921,17 @@ uint64_t sub_100002C10()
   sub_100003760();
   sub_100003750();
 
-  v47 = sub_1000038C0();
-  v48 = *(v47 + 48);
-  v49 = *(v47 + 52);
+  v32 = sub_1000038C0();
   swift_allocObject();
-  v50 = sub_1000038B0();
+  v33 = sub_1000038B0();
 
-  v67 = v47;
-  v68 = &protocol witness table for MapsTransactionClassifier;
-  *&v66 = v50;
+  v48 = v32;
+  v49 = &protocol witness table for MapsTransactionClassifier;
+  *&v47 = v33;
   type metadata accessor for MapsTransactionInsightsExtensionImplementation();
-  v51 = swift_allocObject();
-  sub_100003454(&v66, v51 + 16);
-  return v51;
+  v34 = swift_allocObject();
+  sub_100003454(&v47, v34 + 16);
+  return v34;
 }
 
 uint64_t *sub_1000033A8(uint64_t *result)
@@ -991,7 +950,6 @@ uint64_t sub_10000340C(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -1059,7 +1017,6 @@ uint64_t sub_1000035FC(uint64_t *a1, uint64_t *a2)
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -1075,13 +1032,15 @@ uint64_t sub_100003644(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_1000036A4(uint64_t *a1)
+uint64_t sub_1000036A4(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }

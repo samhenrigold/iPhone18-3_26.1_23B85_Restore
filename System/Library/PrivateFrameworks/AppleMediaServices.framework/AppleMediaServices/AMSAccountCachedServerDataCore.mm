@@ -45,8 +45,8 @@
   AccountCachedServerData.accountFlags(forAccountID:)(dCopy);
 
   type metadata accessor for AMSAccountFlag(0);
-  sub_192874CD0(0, &qword_1ED6DDBB0);
-  sub_192931B80(&unk_1EAE12E40, type metadata accessor for AMSAccountFlag);
+  sub_192874CD0(0, &qword_1ED6DDBB0, 0x1E696AD98);
+  sub_192931B80(&unk_1EAE12E40, type metadata accessor for AMSAccountFlag, &unk_192FBC9D4);
   v6 = sub_192F9667C();
 
   return v6;

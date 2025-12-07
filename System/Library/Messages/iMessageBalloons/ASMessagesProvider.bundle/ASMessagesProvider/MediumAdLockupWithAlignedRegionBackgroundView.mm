@@ -23,7 +23,7 @@
 
 - (NSArray)accessibilityElements
 {
-  sub_BD88(&qword_941C10);
+  sub_BD88(&qword_941C10, &qword_781230);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_77B6D0;
   v4 = *(&self->super.super.super.isa + OBJC_IVAR____TtC18ASMessagesProvider45MediumAdLockupWithAlignedRegionBackgroundView_lockupView);

@@ -42,14 +42,14 @@
 {
   changesCopy = changes;
   selfCopy = self;
-  sub_218C813B0("Sports manager will start syncing with remote, will ignore local changes to watchlist");
+  sub_218C813B0("Sports manager will start syncing with remote, will ignore local changes to watchlist", 1);
 }
 
 - (void)subscriptionControllerDidStopSyncingRemoteChanges:(id)changes
 {
   changesCopy = changes;
   selfCopy = self;
-  sub_218C813B0("Sports manager did stop syncing with remote, will resume processing local changes to watchlist");
+  sub_218C813B0("Sports manager did stop syncing with remote, will resume processing local changes to watchlist", 0);
 }
 
 - (void)subscriptionController:(id)controller didAddTags:(id)tags changeTags:(id)changeTags moveTags:(id)moveTags removeTags:(id)removeTags subscriptionType:(unint64_t)type
@@ -137,7 +137,7 @@ LABEL_6:
   if (change)
   {
     type metadata accessor for NSKeyValueChangeKey(0);
-    sub_21874E0F0(&qword_27CC0A748, type metadata accessor for NSKeyValueChangeKey);
+    sub_21874E0F0(&qword_27CC0A748, type metadata accessor for NSKeyValueChangeKey, &unk_219C0967C);
     v17 = sub_219BF5214();
   }
 

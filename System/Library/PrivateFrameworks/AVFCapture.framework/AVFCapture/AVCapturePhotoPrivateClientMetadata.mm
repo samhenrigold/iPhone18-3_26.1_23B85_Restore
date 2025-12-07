@@ -14,11 +14,11 @@
   v8.receiver = self;
   v8.super_class = AVCapturePhotoPrivateClientMetadata;
   v4 = [(AVCapturePhotoPrivateClientMetadata *)&v8 init];
-  v5 = [dictionary objectForKeyedSubscript:*MEMORY[0x1E6990CB0]];
+  v5 = objc_msgSend_objectForKeyedSubscript_(dictionary);
   if (v4 && (v6 = v5, [v5 count]))
   {
-    v4->_inferenceAttachments = [objc_msgSend(v6 objectForKeyedSubscript:{*MEMORY[0x1E6990CC0]), "copy"}];
-    v4->_detectedObjectInfo = [objc_msgSend(v6 objectForKeyedSubscript:{*MEMORY[0x1E6990CB8]), "copy"}];
+    v4->_inferenceAttachments = [objc_msgSend_objectForKeyedSubscript_(v6) copy];
+    v4->_detectedObjectInfo = [objc_msgSend_objectForKeyedSubscript_(v6) copy];
   }
 
   else

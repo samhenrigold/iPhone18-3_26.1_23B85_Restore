@@ -67,7 +67,7 @@ LABEL_11:
   v8 = [NSURL fileURLWithPath:v7];
   v9 = +[NSDictionary dictionary];
   v10 = [(objc_class *)off_10045C230() URLAssetWithURL:v8 options:v9];
-  v11 = off_10045C240();
+  v11 = off_10045C240(v10);
   v12 = [v10 tracksWithMediaType:v11];
 
   if ([v12 count] == 1)
@@ -211,7 +211,6 @@ LABEL_23:
     v7 = readNextSampleBuffer;
     [(VideoPlaybackStream *)self getTimeStampFromSampleBuffer:readNextSampleBuffer];
     sub_10032C9C0(v7);
-    source = self->_source;
     operator new();
   }
 

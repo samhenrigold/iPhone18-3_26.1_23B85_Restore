@@ -82,71 +82,69 @@
 
 - (void)_readRecordsWithType:(int64_t)type attemptCount:(unint64_t)count activity:(id)activity completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   completionCopy = completion;
   v11 = [(IMDCKRecoverableMessageSyncController *)self _fetchRecordsOperationWithActivity:activityCopy];
   v12 = v11;
   if (v11)
   {
-    v26[0] = MEMORY[0x277D85DD0];
-    v26[1] = 3221225472;
-    v26[2] = sub_22B65171C;
-    v26[3] = &unk_2787046E0;
-    v26[4] = self;
-    [v11 setRecordChangedBlock:v26];
     v25[0] = MEMORY[0x277D85DD0];
     v25[1] = 3221225472;
-    v25[2] = sub_22B651728;
-    v25[3] = &unk_278704728;
+    v25[2] = sub_22B65171C;
+    v25[3] = &unk_2787046E0;
     v25[4] = self;
-    [v12 setRecordWithIDWasDeletedBlock:v25];
+    [v11 setRecordChangedBlock:v25];
     v24[0] = MEMORY[0x277D85DD0];
     v24[1] = 3221225472;
-    v24[2] = sub_22B651738;
-    v24[3] = &unk_278706FE8;
+    v24[2] = sub_22B651728;
+    v24[3] = &unk_278704728;
     v24[4] = self;
-    [v12 setRecordZoneChangeTokensUpdatedBlock:v24];
+    [v12 setRecordWithIDWasDeletedBlock:v24];
     v23[0] = MEMORY[0x277D85DD0];
     v23[1] = 3221225472;
-    v23[2] = sub_22B65174C;
-    v23[3] = &unk_278707010;
+    v23[2] = sub_22B651738;
+    v23[3] = &unk_278706FE8;
     v23[4] = self;
-    [v12 setRecordZoneFetchCompletionBlock:v23];
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = sub_22B651768;
-    v18 = &unk_278707038;
+    [v12 setRecordZoneChangeTokensUpdatedBlock:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = sub_22B65174C;
+    v22[3] = &unk_278707010;
+    v22[4] = self;
+    [v12 setRecordZoneFetchCompletionBlock:v22];
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = sub_22B651768;
+    v17 = &unk_278707038;
     selfCopy = self;
     typeCopy = type;
-    v20 = activityCopy;
-    v21 = completionCopy;
-    [v12 setFetchRecordZoneChangesCompletionBlock:&v15];
+    v19 = activityCopy;
+    v20 = completionCopy;
+    [v12 setFetchRecordZoneChangesCompletionBlock:&v14];
     if (IMOSLoggingEnabled())
     {
       v13 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v28 = v12;
+        v27 = v12;
         _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Scheduling a fetch recoverable message zone changes operation %@", buf, 0xCu);
       }
     }
 
-    [(IMDCKRecoverableMessageSyncController *)self _scheduleOperation:v12, v15, v16, v17, v18, selfCopy];
+    [(IMDCKRecoverableMessageSyncController *)self _scheduleOperation:v12, v14, v15, v16, v17, selfCopy];
   }
 
   else if (completionCopy)
   {
     (*(completionCopy + 2))(completionCopy, 0, 0);
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onRecordRead:(id)read
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   readCopy = read;
   if (IMOSLoggingEnabled())
   {
@@ -156,26 +154,24 @@
       recordID = [readCopy recordID];
       recordName = [recordID recordName];
       *buf = 138412290;
-      v13 = recordName;
+      v12 = recordName;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Recently Deleted | Reading recoverable message record: %@", buf, 0xCu);
     }
   }
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = sub_22B6518F4;
-  v10[3] = &unk_278702FA0;
-  v10[4] = self;
-  v11 = readCopy;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = sub_22B6518F4;
+  v9[3] = &unk_278702FA0;
+  v9[4] = self;
+  v10 = readCopy;
   v8 = readCopy;
-  dispatch_sync(MEMORY[0x277D85CD0], v10);
-
-  v9 = *MEMORY[0x277D85DE8];
+  dispatch_sync(MEMORY[0x277D85CD0], v9);
 }
 
 - (void)_onRecoverableMessagePartRecordReadWithDeleteDate:(id)date messageGUID:(id)d partBody:(id)body
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   dCopy = d;
   bodyCopy = body;
@@ -227,7 +223,7 @@
         *&buf[12] = 2112;
         *&buf[14] = dateRecovered4;
         *&buf[22] = 2112;
-        v51 = dateCopy;
+        v50 = dateCopy;
         _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "Recently Deleted | Recoverably deleting part of message %@ that was recovered on %@, re-deleting on %@", buf, 0x20u);
       }
     }
@@ -249,35 +245,35 @@
       }
     }
 
-    v42 = 0;
-    v43 = &v42;
-    v44 = 0x2020000000;
-    v45 = 0;
+    v41 = 0;
+    v42 = &v41;
+    v43 = 0x2020000000;
+    v44 = 0;
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v51 = sub_22B4D77A0;
-    v52 = sub_22B4D7934;
-    v53 = 0;
-    v36 = 0;
-    v37 = &v36;
-    v38 = 0x3032000000;
-    v39 = sub_22B4D77A0;
-    v40 = sub_22B4D7934;
-    v41 = 0;
+    v50 = sub_22B4D77A0;
+    v51 = sub_22B4D7934;
+    v52 = 0;
+    v35 = 0;
+    v36 = &v35;
+    v37 = 0x3032000000;
+    v38 = sub_22B4D77A0;
+    v39 = sub_22B4D7934;
+    v40 = 0;
     v26 = [body length];
-    v35[0] = MEMORY[0x277D85DD0];
-    v35[1] = 3221225472;
-    v35[2] = sub_22B652168;
-    v35[3] = &unk_278707060;
-    v35[4] = &v42;
-    v35[5] = buf;
-    v35[6] = &v36;
-    v35[7] = integerValue;
-    [body enumerateAttribute:v21 inRange:0 options:v26 usingBlock:{0, v35}];
-    if (*(v43 + 24) == 1)
+    v34[0] = MEMORY[0x277D85DD0];
+    v34[1] = 3221225472;
+    v34[2] = sub_22B652168;
+    v34[3] = &unk_278707060;
+    v34[4] = &v41;
+    v34[5] = buf;
+    v34[6] = &v35;
+    v34[7] = integerValue;
+    [body enumerateAttribute:v21 inRange:0 options:v26 usingBlock:{0, v34}];
+    if (*(v42 + 24) == 1)
     {
-      v27 = [MEMORY[0x277D1AA70] _messageItemWithIndexesDeleted:*(*&buf[8] + 40) subRangesToDeleteMapping:v37[5] deleteSubject:0 deleteTransferCallback:0 createItemCallback:0 fromMessageItem:v12];
+      v27 = [MEMORY[0x277D1AA70] _messageItemWithIndexesDeleted:*(*&buf[8] + 40) subRangesToDeleteMapping:v36[5] deleteSubject:0 deleteTransferCallback:0 createItemCallback:0 fromMessageItem:v12];
       if (v27)
       {
         v28 = +[IMDBroadcastController sharedProvider];
@@ -293,24 +289,22 @@
       if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
       {
         v32 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
-        *v46 = 138412546;
-        v47 = v32;
-        v48 = 2112;
-        v49 = dCopy;
-        _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, "Did not find partIndex: %@ in message GUID: %@", v46, 0x16u);
+        *v45 = 138412546;
+        v46 = v32;
+        v47 = 2112;
+        v48 = dCopy;
+        _os_log_impl(&dword_22B4CC000, v31, OS_LOG_TYPE_INFO, "Did not find partIndex: %@ in message GUID: %@", v45, 0x16u);
       }
     }
 
     database = [MEMORY[0x277D18EB0] database];
     [database storeRecoverableMessagePartWithBody:bodyCopy forMessageWithGUID:dCopy deleteDate:dateCopy];
 
-    _Block_object_dispose(&v36, 8);
+    _Block_object_dispose(&v35, 8);
     _Block_object_dispose(buf, 8);
 
-    _Block_object_dispose(&v42, 8);
+    _Block_object_dispose(&v41, 8);
   }
-
-  v34 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onRecordDeleted:(id)deleted type:(id)type
@@ -330,7 +324,7 @@
 
 - (void)_onChangeTokenUpdated:(id)updated token:(id)token data:(id)data
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   updatedCopy = updated;
   tokenCopy = token;
   dataCopy = data;
@@ -340,32 +334,30 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412802;
-      v18 = updatedCopy;
-      v19 = 2112;
-      v20 = tokenCopy;
-      v21 = 2112;
-      v22 = dataCopy;
+      v17 = updatedCopy;
+      v18 = 2112;
+      v19 = tokenCopy;
+      v20 = 2112;
+      v21 = dataCopy;
       _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "recordZoneChangeTokensUpdatedBlock recordZoneID %@ serverChangeToken %@ clientChangeToken %@", buf, 0x20u);
     }
   }
 
   ckQueue = [(IMDCKRecoverableMessageSyncController *)self ckQueue];
-  v15[0] = MEMORY[0x277D85DD0];
-  v15[1] = 3221225472;
-  v15[2] = sub_22B652494;
-  v15[3] = &unk_278702FA0;
-  v15[4] = self;
-  v16 = tokenCopy;
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = sub_22B652494;
+  v14[3] = &unk_278702FA0;
+  v14[4] = self;
+  v15 = tokenCopy;
   v13 = tokenCopy;
-  dispatch_sync(ckQueue, v15);
-
-  v14 = *MEMORY[0x277D85DE8];
+  dispatch_sync(ckQueue, v14);
 }
 
 - (void)_onRecordZoneFetchComplete:(id)complete token:(id)token tokenData:(id)data moreComing:(BOOL)coming error:(id)error
 {
   comingCopy = coming;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   tokenCopy = token;
   dataCopy = data;
@@ -375,43 +367,41 @@
     v16 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
     {
-      v18 = 138413314;
-      v19 = completeCopy;
-      v20 = 2112;
-      v21 = tokenCopy;
-      v22 = 2112;
-      v23 = dataCopy;
-      v24 = 1024;
-      v25 = comingCopy;
-      v26 = 2112;
-      v27 = errorCopy;
-      _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Record Zone fetch complete zoneID %@ changeToken %@ tokenData %@ moreComing %d error %@", &v18, 0x30u);
+      v17 = 138413314;
+      v18 = completeCopy;
+      v19 = 2112;
+      v20 = tokenCopy;
+      v21 = 2112;
+      v22 = dataCopy;
+      v23 = 1024;
+      v24 = comingCopy;
+      v25 = 2112;
+      v26 = errorCopy;
+      _os_log_impl(&dword_22B4CC000, v16, OS_LOG_TYPE_INFO, "Record Zone fetch complete zoneID %@ changeToken %@ tokenData %@ moreComing %d error %@", &v17, 0x30u);
     }
   }
 
   [(IMDCKRecoverableMessageSyncController *)self _onChangeTokenUpdated:completeCopy token:tokenCopy data:dataCopy];
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onReadComplete:(int64_t)complete error:(id)error activity:(id)activity completion:(id)completion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   activityCopy = activity;
   completionCopy = completion;
-  v30 = 0;
-  v31 = &v30;
-  v32 = 0x3032000000;
-  v33 = sub_22B4D77A0;
-  v34 = sub_22B4D7934;
+  v29 = 0;
+  v30 = &v29;
+  v31 = 0x3032000000;
+  v32 = sub_22B4D77A0;
+  v33 = sub_22B4D7934;
   v13 = errorCopy;
-  v35 = v13;
+  v34 = v13;
   errorAnalyzer = [(IMDCKAbstractSyncController *)self errorAnalyzer];
-  v15 = [errorAnalyzer errorIndicatesZoneNotCreated:v31[5]];
+  v15 = [errorAnalyzer errorIndicatesZoneNotCreated:v30[5]];
 
   errorAnalyzer2 = [(IMDCKAbstractSyncController *)self errorAnalyzer];
-  v17 = [errorAnalyzer2 errorIndicatesUserDeletedZone:v31[5]];
+  v17 = [errorAnalyzer2 errorIndicatesUserDeletedZone:v30[5]];
 
   if ((v15 | v17))
   {
@@ -427,27 +417,27 @@
         }
 
         *buf = 138412546;
-        v37 = v19;
-        v38 = 2112;
-        v39 = v13;
+        v36 = v19;
+        v37 = 2112;
+        v38 = v13;
         _os_log_impl(&dword_22B4CC000, v18, OS_LOG_TYPE_INFO, "We got a %@ error while fetching recoverable messages. %@", buf, 0x16u);
       }
     }
 
     ckQueue = [(IMDCKRecoverableMessageSyncController *)self ckQueue];
-    v29[0] = MEMORY[0x277D85DD0];
-    v29[1] = 3221225472;
-    v29[2] = sub_22B652A74;
-    v29[3] = &unk_278707088;
-    v29[4] = self;
-    v29[5] = &v30;
-    dispatch_sync(ckQueue, v29);
+    v28[0] = MEMORY[0x277D85DD0];
+    v28[1] = 3221225472;
+    v28[2] = sub_22B652A74;
+    v28[3] = &unk_278707088;
+    v28[4] = self;
+    v28[5] = &v29;
+    dispatch_sync(ckQueue, v28);
   }
 
-  if (v31[5])
+  if (v30[5])
   {
     errorAnalyzer3 = [(IMDCKAbstractSyncController *)self errorAnalyzer];
-    v22 = [errorAnalyzer3 CKPartialError:v31[5] hasErrorCode:&unk_283F4EC30];
+    v22 = [errorAnalyzer3 CKPartialError:v30[5] hasErrorCode:&unk_283F4EC30];
 
     if (v22)
     {
@@ -456,9 +446,9 @@
         v23 = OSLogHandleForIMFoundationCategory();
         if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
         {
-          v24 = v31[5];
+          v24 = v30[5];
           *buf = 138412290;
-          v37 = v24;
+          v36 = v24;
           _os_log_impl(&dword_22B4CC000, v23, OS_LOG_TYPE_INFO, "We got an expired server change token back so resetting local sync state, and fetching the recoverable messages again %@", buf, 0xCu);
         }
       }
@@ -471,16 +461,16 @@
       v26 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
-        v27 = v31[5];
+        v27 = v30[5];
         *buf = 138412290;
-        v37 = v27;
+        v36 = v27;
         _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "********* We got an error fetching changes from recoverable messages zone %@", buf, 0xCu);
       }
     }
 
     if (completionCopy)
     {
-      completionCopy[2](completionCopy, 0, v31[5]);
+      completionCopy[2](completionCopy, 0, v30[5]);
     }
   }
 
@@ -499,22 +489,20 @@
     [(IMDCKRecoverableMessageSyncController *)self _writeRecordsWithType:complete activity:activityCopy completion:completionCopy];
   }
 
-  _Block_object_dispose(&v30, 8);
-
-  v28 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v29, 8);
 }
 
 - (void)clearLocalSyncState:(unint64_t)state
 {
   stateCopy = state;
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (IMOSLoggingEnabled())
   {
     v5 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      v10 = stateCopy;
+      v9 = stateCopy;
       _os_log_impl(&dword_22B4CC000, v5, OS_LOG_TYPE_INFO, "Recently Deleted | Clearing local recoverable sync state, flags 0x%x", buf, 8u);
     }
   }
@@ -529,8 +517,6 @@
     block[4] = self;
     dispatch_async(ckQueue, block);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_zoneCreated
@@ -573,44 +559,44 @@
 
 - (void)_writeRecordsWithType:(int64_t)type activity:(id)activity completion:(id)completion
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   activityCopy = activity;
   completionCopy = completion;
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = sub_22B4D77A0;
-  v25 = sub_22B4D7934;
-  v26 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v10 = [(IMDCKRecoverableMessageSyncController *)self _saveRecordsOperationWithMap:v22[5] activity:activityCopy];
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = sub_22B4D77A0;
+  v24 = sub_22B4D7934;
+  v25 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v10 = [(IMDCKRecoverableMessageSyncController *)self _saveRecordsOperationWithMap:v21[5] activity:activityCopy];
   v11 = v10;
   if (v10)
   {
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = sub_22B653334;
-    v20[3] = &unk_2787070B0;
-    v20[4] = self;
-    v20[5] = &v21;
-    [v10 setPerRecordCompletionBlock:v20];
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = sub_22B653350;
-    v15[3] = &unk_2787070D8;
-    v18 = &v21;
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = sub_22B653334;
+    v19[3] = &unk_2787070B0;
+    v19[4] = self;
+    v19[5] = &v20;
+    [v10 setPerRecordCompletionBlock:v19];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = sub_22B653350;
+    v14[3] = &unk_2787070D8;
+    v17 = &v20;
     typeCopy = type;
-    v15[4] = self;
-    v16 = activityCopy;
+    v14[4] = self;
+    v15 = activityCopy;
     v12 = completionCopy;
-    v17 = v12;
-    [v11 setModifyRecordsCompletionBlock:v15];
+    v16 = v12;
+    [v11 setModifyRecordsCompletionBlock:v14];
     if (IMOSLoggingEnabled())
     {
       v13 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v28 = v11;
+        v27 = v11;
         _os_log_impl(&dword_22B4CC000, v13, OS_LOG_TYPE_INFO, "Scheduling write recoverable message operation %@", buf, 0xCu);
       }
     }
@@ -627,13 +613,12 @@
     (*(completionCopy + 2))(completionCopy, 1, 0);
   }
 
-  _Block_object_dispose(&v21, 8);
-  v14 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v20, 8);
 }
 
 - (void)_onRecordWrite:(id)write error:(id)error recordNameToPartIndexAndRowID:(id)d
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   writeCopy = write;
   errorCopy = error;
   dCopy = d;
@@ -642,11 +627,11 @@
     v11 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
-      v25 = 138412546;
-      v26 = writeCopy;
-      v27 = 2112;
-      v28 = errorCopy;
-      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Wrote recoverable message record %@ with error %@", &v25, 0x16u);
+      v24 = 138412546;
+      v25 = writeCopy;
+      v26 = 2112;
+      v27 = errorCopy;
+      _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Wrote recoverable message record %@ with error %@", &v24, 0x16u);
     }
   }
 
@@ -658,11 +643,11 @@
       v12 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
-        v25 = 138412546;
-        v26 = writeCopy;
-        v27 = 2112;
-        v28 = errorCopy;
-        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "IMDCKRecoverableMessageSyncController | Recently Deleted: could not write record: %@ encountered error: %@", &v25, 0x16u);
+        v24 = 138412546;
+        v25 = writeCopy;
+        v26 = 2112;
+        v27 = errorCopy;
+        _os_log_impl(&dword_22B4CC000, v12, OS_LOG_TYPE_INFO, "IMDCKRecoverableMessageSyncController | Recently Deleted: could not write record: %@ encountered error: %@", &v24, 0x16u);
       }
     }
   }
@@ -687,27 +672,25 @@
       {
         v21 = [MEMORY[0x277CCABB0] numberWithLongLong:longLongValue];
         v22 = [MEMORY[0x277CCABB0] numberWithLongLong:longLongValue2];
-        v25 = 138412802;
-        v26 = v21;
-        v27 = 2112;
-        v28 = v22;
-        v29 = 2112;
-        v30 = recordName;
-        _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Recently Deleted | Marking row %@ with partIndex: %@ for %@ as clean", &v25, 0x20u);
+        v24 = 138412802;
+        v25 = v21;
+        v26 = 2112;
+        v27 = v22;
+        v28 = 2112;
+        v29 = recordName;
+        _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Recently Deleted | Marking row %@ with partIndex: %@ for %@ as clean", &v24, 0x20u);
       }
     }
 
     v23 = +[IMDChatRegistry sharedInstance];
     [v23 updateRecoverableMessageSyncState:1 forMessageRowID:longLongValue onPartIndex:longLongValue2];
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_onWriteComplete:(int64_t)complete error:(id)error shouldWriteMore:(BOOL)more activity:(id)activity completion:(id)completion
 {
   moreCopy = more;
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   activityCopy = activity;
   completionCopy = completion;
@@ -722,11 +705,11 @@
         v16 = @"YES";
       }
 
-      v18 = 138412546;
-      v19 = v16;
-      v20 = 2112;
-      v21 = errorCopy;
-      _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Recoverable messages writes completed sucess: %@ error %@", &v18, 0x16u);
+      v17 = 138412546;
+      v18 = v16;
+      v19 = 2112;
+      v20 = errorCopy;
+      _os_log_impl(&dword_22B4CC000, v15, OS_LOG_TYPE_INFO, "Recoverable messages writes completed sucess: %@ error %@", &v17, 0x16u);
     }
   }
 
@@ -747,13 +730,11 @@
   {
     completionCopy[2](completionCopy, 1, 0);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncRemovedRecoverableMessagesToCloudKitWithCompletion:(id)completion
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v5 = +[IMDCKUtilities sharedInstance];
   cloudKitSyncingEnabled = [v5 cloudKitSyncingEnabled];
@@ -770,9 +751,9 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 134218240;
-        v20 = [v7 count];
-        v21 = 2048;
-        v22 = [v9 count];
+        v19 = [v7 count];
+        v20 = 2048;
+        v21 = [v9 count];
         _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Recently Deleted | Got %lu recordIDs to sync, filtered to %lu unique recordID", buf, 0x16u);
       }
     }
@@ -786,8 +767,8 @@
       block[2] = sub_22B653BCC;
       block[3] = &unk_2787037B8;
       block[4] = self;
-      v17 = v9;
-      v18 = completionCopy;
+      v16 = v9;
+      v17 = completionCopy;
       dispatch_async(ckQueue, block);
     }
 
@@ -827,13 +808,11 @@
 
     (*(completionCopy + 2))(completionCopy, 1, 0);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deleteRecoverableMessagesWithRecordIDs:(id)ds completion:(id)completion
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   completionCopy = completion;
   if ([dsCopy count])
@@ -841,21 +820,21 @@
     cKOperationFactory = [(IMDCKRecoverableMessageSyncController *)self CKOperationFactory];
     v9 = [cKOperationFactory deleteRecoverableMessageCKOperationUsingRecordIDstoDelete:dsCopy];
 
-    v13 = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = sub_22B6540F8;
-    v16 = &unk_278703858;
+    v12 = MEMORY[0x277D85DD0];
+    v13 = 3221225472;
+    v14 = sub_22B6540F8;
+    v15 = &unk_278703858;
     selfCopy = self;
-    v18 = completionCopy;
-    [v9 setModifyRecordsCompletionBlock:&v13];
-    [v9 setPerRecordCompletionBlock:{&unk_283F1AA08, v13, v14, v15, v16, selfCopy}];
+    v17 = completionCopy;
+    [v9 setModifyRecordsCompletionBlock:&v12];
+    [v9 setPerRecordCompletionBlock:{&unk_283F1AA08, v12, v13, v14, v15, selfCopy}];
     if (IMOSLoggingEnabled())
     {
       v10 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v20 = dsCopy;
+        v19 = dsCopy;
         _os_log_impl(&dword_22B4CC000, v10, OS_LOG_TYPE_INFO, "Recently Deleted | Kicking off recoverable delete of recordIDs %@", buf, 0xCu);
       }
     }
@@ -877,38 +856,36 @@
 
     (*(completionCopy + 2))(completionCopy, 0);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_copyRecordIDsToDeleteWithLimit:(unint64_t)limit
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = +[IMDChatRegistry sharedInstance];
   v6 = [v5 recoverableMessagesMetadataPendingCloudKitDeleteWithLimit:limit];
 
   v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v8 = objc_autoreleasePoolPush();
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v9 = v6;
-  v10 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v10 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v19;
+    v12 = *v18;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v19 != v12)
+        if (*v18 != v12)
         {
           objc_enumerationMutation(v9);
         }
 
-        v14 = [(IMDCKRecoverableMessageSyncController *)self _constructRecoverableMessageRecordIDUsingTombStoneDictionary:*(*(&v18 + 1) + 8 * i), v18];
+        v14 = [(IMDCKRecoverableMessageSyncController *)self _constructRecoverableMessageRecordIDUsingTombStoneDictionary:*(*(&v17 + 1) + 8 * i), v17];
         v15 = v14;
         if (v7 && v14)
         {
@@ -916,14 +893,13 @@
         }
       }
 
-      v11 = [v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v11 = [v9 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v11);
   }
 
   objc_autoreleasePoolPop(v8);
-  v16 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -1065,7 +1041,7 @@
 - (id)_saveRecoverableMessagesOperationFactory:(id)factory token:(id)token batchSize:(unint64_t)size recordNameToPartIndexAndRowID:(id)d activity:(id)activity
 {
   sizeCopy = size;
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   factoryCopy = factory;
   tokenCopy = token;
   dCopy = d;
@@ -1073,17 +1049,17 @@
   if (factoryCopy)
   {
     v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
-    v27 = MEMORY[0x277D85DD0];
-    v28 = 3221225472;
-    v29 = sub_22B654B64;
-    v30 = &unk_278705748;
+    v26 = MEMORY[0x277D85DD0];
+    v27 = 3221225472;
+    v28 = sub_22B654B64;
+    v29 = &unk_278705748;
     selfCopy = self;
-    v32 = factoryCopy;
-    v33 = dCopy;
+    v31 = factoryCopy;
+    v32 = dCopy;
     v17 = v16;
-    v34 = v17;
-    dispatch_sync(MEMORY[0x277D85CD0], &v27);
-    v18 = [IMDCKUtilities sharedInstance:v27];
+    v33 = v17;
+    dispatch_sync(MEMORY[0x277D85CD0], &v26);
+    v18 = [IMDCKUtilities sharedInstance:v26];
     v19 = [v18 newfilteredArrayRemovingCKRecordDupes:v17];
 
     if (IMOSLoggingEnabled())
@@ -1093,9 +1069,9 @@
       {
         v21 = [v19 count];
         *buf = 134218240;
-        v36 = v21;
-        v37 = 1024;
-        v38 = sizeCopy;
+        v35 = v21;
+        v36 = 1024;
+        v37 = sizeCopy;
         _os_log_impl(&dword_22B4CC000, v20, OS_LOG_TYPE_INFO, "Found %lu of %u max recoverable messages to write up", buf, 0x12u);
       }
     }
@@ -1129,14 +1105,12 @@
     v22 = 0;
   }
 
-  v25 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 - (void)_processRecordDeletionCompletion:(id)completion error:(id)error completionBlock:(id)block
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   errorCopy = error;
   blockCopy = block;
@@ -1146,7 +1120,7 @@
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 138412290;
-      v24 = errorCopy;
+      v23 = errorCopy;
       _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Delete recoverable message callback with error %@", buf, 0xCu);
     }
   }
@@ -1156,50 +1130,48 @@
   block[2] = sub_22B655078;
   block[3] = &unk_2787038F8;
   v12 = completionCopy;
-  v20 = v12;
+  v19 = v12;
   v13 = errorCopy;
-  v21 = v13;
+  v20 = v13;
   selfCopy = self;
   dispatch_sync(MEMORY[0x277D85CD0], block);
   if (blockCopy)
   {
     ckQueue = [(IMDCKRecoverableMessageSyncController *)self ckQueue];
-    v16[0] = MEMORY[0x277D85DD0];
-    v16[1] = 3221225472;
-    v16[2] = sub_22B6553A8;
-    v16[3] = &unk_2787028B0;
-    v18 = blockCopy;
-    v17 = v13;
-    dispatch_async(ckQueue, v16);
+    v15[0] = MEMORY[0x277D85DD0];
+    v15[1] = 3221225472;
+    v15[2] = sub_22B6553A8;
+    v15[3] = &unk_2787028B0;
+    v17 = blockCopy;
+    v16 = v13;
+    dispatch_async(ckQueue, v15);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)createCKRecordforRecoverableMessageMetadata:(id)metadata zoneID:(id)d recordNameToPartIndexAndRowID:(id)iD
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v42 = *MEMORY[0x277D85DE8];
   metadataCopy = metadata;
   dCopy = d;
   iDCopy = iD;
-  v36 = [metadataCopy objectForKeyedSubscript:@"messageGUID"];
-  v34 = [metadataCopy objectForKeyedSubscript:@"chatGUID"];
-  v35 = [metadataCopy objectForKeyedSubscript:@"deleteDateInterval"];
-  if ((![v36 length] || !objc_msgSend(v34, "length") || !v35) && IMOSLoggingEnabled())
+  v35 = [metadataCopy objectForKeyedSubscript:@"messageGUID"];
+  v33 = [metadataCopy objectForKeyedSubscript:@"chatGUID"];
+  v34 = [metadataCopy objectForKeyedSubscript:@"deleteDateInterval"];
+  if ((![v35 length] || !objc_msgSend(v33, "length") || !v34) && IMOSLoggingEnabled())
   {
     v9 = OSLogHandleForIMFoundationCategory();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
     {
       *buf = 138412546;
-      v40 = v36;
-      v41 = 2112;
-      v42 = v35;
+      v39 = v35;
+      v40 = 2112;
+      v41 = v34;
       _os_log_impl(&dword_22B4CC000, v9, OS_LOG_TYPE_INFO, "IMDCKRecoverableMessageSyncController | Recently Deleted: returning nil record. messageGUID: %@, deleteDateNanosecondIntervalNumber: %@", buf, 0x16u);
     }
   }
 
-  unsignedLongLongValue = [v35 unsignedLongLongValue];
-  v31 = [MEMORY[0x277CBEAA8] __im_dateWithNanosecondTimeIntervalSinceReferenceDate:unsignedLongLongValue];
+  unsignedLongLongValue = [v34 unsignedLongLongValue];
+  v30 = [MEMORY[0x277CBEAA8] __im_dateWithNanosecondTimeIntervalSinceReferenceDate:unsignedLongLongValue];
   v11 = [metadataCopy objectForKeyedSubscript:@"partBody"];
   v12 = v11;
   if (v11)
@@ -1217,13 +1189,13 @@
   v16 = +[IMDCKRecordSaltManager sharedInstance];
   cachedSalt = [v16 cachedSalt];
 
-  v17 = [(IMDCKRecoverableMessageSyncController *)self recoverableGUIDFromMessageGUID:v36 chatGUID:v34 partIndex:integerValue];
+  v17 = [(IMDCKRecoverableMessageSyncController *)self recoverableGUIDFromMessageGUID:v35 chatGUID:v33 partIndex:integerValue];
   v18 = [CKRecordUtilities recordIDUsingSalt:cachedSalt zoneID:dCopy guid:v17];
   if (v18)
   {
     v19 = [objc_alloc(MEMORY[0x277CBC5A0]) initWithRecordType:@"recoverableMessage" recordID:v18];
-    [v19 _setCKRecordString:v36 forKey:@"guid"];
-    [v19 _setCKRecordDate:v31 forKey:@"deleteDate"];
+    [v19 _setCKRecordString:v35 forKey:@"guid"];
+    [v19 _setCKRecordDate:v30 forKey:@"deleteDate"];
     if (v12)
     {
       v20 = JWEncodeCodableObject();
@@ -1232,13 +1204,13 @@
 
     if (v19)
     {
-      v37[0] = @"messageRowID";
+      v36[0] = @"messageRowID";
       v21 = [metadataCopy objectForKeyedSubscript:?];
-      v37[1] = @"partIndex";
-      v38[0] = v21;
+      v36[1] = @"partIndex";
+      v37[0] = v21;
       v22 = [MEMORY[0x277CCABB0] numberWithInteger:integerValue];
-      v38[1] = v22;
-      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
+      v37[1] = v22;
+      v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
       recordID = [v19 recordID];
       recordName = [recordID recordName];
       [iDCopy setObject:v23 forKeyedSubscript:recordName];
@@ -1263,15 +1235,13 @@
       if (os_log_type_enabled(v26, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v40 = metadataCopy;
+        v39 = metadataCopy;
         _os_log_impl(&dword_22B4CC000, v26, OS_LOG_TYPE_INFO, "IMDCKRecoverableMessageSyncController | Recently Deleted: returning nil record. recordID nil for metadata: %@", buf, 0xCu);
       }
     }
 
     v19 = 0;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v19;
 }

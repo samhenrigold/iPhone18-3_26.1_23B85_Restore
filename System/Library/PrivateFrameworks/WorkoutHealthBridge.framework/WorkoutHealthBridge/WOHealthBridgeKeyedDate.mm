@@ -69,9 +69,7 @@
     __assert_rtn("[WOHealthBridgeKeyedDate writeTo:]", "WOHealthBridgeKeyedDate.m", 79, "nil != self->_key");
   }
 
-  key = selfCopy->_key;
   PBDataWriterWriteStringField();
-  timeSinceReferenceDate = selfCopy->_timeSinceReferenceDate;
   PBDataWriterWriteDoubleField();
   objc_storeStrong(location, 0);
 }

@@ -13,21 +13,21 @@
   nameCopy = name;
   categoryNameCopy = categoryName;
   blockCopy = block;
-  ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks();
+  ShouldPerformValidationChecks = CRLAccessibilityShouldPerformValidationChecks(blockCopy, v12);
   if (!arrayCopy)
   {
     if (ShouldPerformValidationChecks)
     {
-      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Array cannot be nil!", v14, v15, v16, v17, v18, v20))
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(ShouldPerformValidationChecks);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"Array cannot be nil!", v15, v16, v17, v18, v19, v21))
       {
         abort();
       }
     }
   }
 
-  v19 = [[CRLAccessibilityBlockBasedCustomAction alloc] initWithName:nameCopy categoryName:categoryNameCopy actionBlock:blockCopy];
-  [arrayCopy addObject:v19];
+  v20 = [[CRLAccessibilityBlockBasedCustomAction alloc] initWithName:nameCopy categoryName:categoryNameCopy actionBlock:blockCopy];
+  [arrayCopy addObject:v20];
 }
 
 - (CRLAccessibilityBlockBasedCustomAction)initWithName:(id)name actionBlock:(id)block identifier:(id)identifier
@@ -35,33 +35,33 @@
   nameCopy = name;
   blockCopy = block;
   identifierCopy = identifier;
-  if (CRLAccessibilityShouldPerformValidationChecks())
+  if (CRLAccessibilityShouldPerformValidationChecks(identifierCopy, v11))
   {
     if (![identifierCopy length])
     {
-      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch();
-      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"An identifier is required to prevent issues with UIAccessibility!", v12, v13, v14, v15, v16, v23.receiver))
+      ShouldCrashOnValidationErrorAfterLaunch = CRLAccessibilityShouldCrashOnValidationErrorAfterLaunch(0);
+      if (__CRLAccessibilityHandleValidationErrorWithDescription(ShouldCrashOnValidationErrorAfterLaunch, 0, @"An identifier is required to prevent issues with UIAccessibility!", v13, v14, v15, v16, v17, v24.receiver))
       {
         abort();
       }
     }
   }
 
-  v23.receiver = self;
-  v23.super_class = CRLAccessibilityBlockBasedCustomAction;
-  v17 = [(CRLAccessibilityBlockBasedCustomAction *)&v23 initWithName:nameCopy target:self selector:"_performActionBlock"];
-  if (v17)
+  v24.receiver = self;
+  v24.super_class = CRLAccessibilityBlockBasedCustomAction;
+  v18 = [(CRLAccessibilityBlockBasedCustomAction *)&v24 initWithName:nameCopy target:self selector:"_performActionBlock"];
+  if (v18)
   {
-    v18 = [blockCopy copy];
-    actionBlock = v17->_actionBlock;
-    v17->_actionBlock = v18;
+    v19 = [blockCopy copy];
+    actionBlock = v18->_actionBlock;
+    v18->_actionBlock = v19;
 
-    v20 = [identifierCopy copy];
-    identifier = v17->_identifier;
-    v17->_identifier = v20;
+    v21 = [identifierCopy copy];
+    identifier = v18->_identifier;
+    v18->_identifier = v21;
   }
 
-  return v17;
+  return v18;
 }
 
 - (CRLAccessibilityBlockBasedCustomAction)initWithName:(id)name categoryName:(id)categoryName actionBlock:(id)block

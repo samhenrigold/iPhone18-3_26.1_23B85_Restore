@@ -306,7 +306,7 @@ LABEL_16:
 
 - (KTAccountPublicID)initWithStorageString:(id)string error:(id *)error
 {
-  v25[2] = *MEMORY[0x1E69E9840];
+  v24[2] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   v7 = [stringCopy stringByReplacingOccurrencesOfString:@"_" withString:@"/"];
   v8 = [v7 stringByReplacingOccurrencesOfString:@"-" withString:@"+"];
@@ -360,11 +360,11 @@ LABEL_16:
         goto LABEL_21;
       }
 
-      v24[0] = *MEMORY[0x1E696A578];
-      v24[1] = @"storageString";
-      v25[0] = @"initWithStorageString signature wrong ";
-      v25[1] = stringCopy;
-      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:v24 count:2];
+      v23[0] = *MEMORY[0x1E696A578];
+      v23[1] = @"storageString";
+      v24[0] = @"initWithStorageString signature wrong ";
+      v24[1] = stringCopy;
+      v18 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:v23 count:2];
       v19 = [TransparencyError errorWithDomain:@"TransparencyErrorDecode" code:-293 userInfo:v18];
 
       if (error && v19)
@@ -384,13 +384,12 @@ LABEL_22:
   selfCopy = 0;
 LABEL_23:
 
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
 + (KTAccountPublicID)ktAccountPublicIDWithPKIString:(id)string error:(id *)error
 {
-  v25[1] = *MEMORY[0x1E69E9840];
+  v24[1] = *MEMORY[0x1E69E9840];
   stringCopy = string;
   if ([stringCopy hasPrefix:@"apple-ktpki:"])
   {
@@ -418,9 +417,9 @@ LABEL_23:
       [kt_sha256 bytes];
       if (cc_cmp_safe())
       {
-        v24 = *MEMORY[0x1E696A578];
-        v25[0] = @"ktAccountPublicIDWithPKIString signature wrong ";
-        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+        v23 = *MEMORY[0x1E696A578];
+        v24[0] = @"ktAccountPublicIDWithPKIString signature wrong ";
+        v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
         v15 = [TransparencyError errorWithDomain:@"TransparencyErrorDecode" code:-293 userInfo:v14];
 
         if (error && v15)
@@ -472,8 +471,6 @@ LABEL_27:
   v9 = 0;
 LABEL_28:
 
-  v21 = *MEMORY[0x1E69E9840];
-
   return v9;
 }
 
@@ -524,7 +521,7 @@ LABEL_6:
 
 - (KTAccountPublicID)initWithCoder:(id)coder
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"pki"];
   if (v5)
@@ -549,7 +546,7 @@ LABEL_6:
       if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_13, OS_LOG_TYPE_ERROR))
       {
         *buf = 138412290;
-        v20 = 0;
+        v19 = 0;
         _os_log_impl(&dword_1E10DB000, v13, OS_LOG_TYPE_ERROR, "[KTAccountPublicID initWithCoder:]: pki %@", buf, 0xCu);
       }
 
@@ -563,9 +560,9 @@ LABEL_6:
     v7 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"publicID"];
     if (v7)
     {
-      v18 = 0;
-      v9 = [(KTAccountPublicID *)self initWithPublicKeyIdentity:v7 error:&v18];
-      v10 = v18;
+      v17 = 0;
+      v9 = [(KTAccountPublicID *)self initWithPublicKeyIdentity:v7 error:&v17];
+      v10 = v17;
       v11 = v9;
       self = v11;
       if (v11)
@@ -584,9 +581,9 @@ LABEL_6:
         if (os_log_type_enabled(TRANSPARENCY_DEFAULT_LOG_INTERNAL_13, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v20 = v7;
-          v21 = 2112;
-          v22 = v10;
+          v19 = v7;
+          v20 = 2112;
+          v21 = v10;
           _os_log_impl(&dword_1E10DB000, v15, OS_LOG_TYPE_ERROR, "[KTAccountPublicID initWithCoder:]: publicID %@ %@", buf, 0x16u);
         }
       }
@@ -612,7 +609,6 @@ LABEL_6:
     }
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

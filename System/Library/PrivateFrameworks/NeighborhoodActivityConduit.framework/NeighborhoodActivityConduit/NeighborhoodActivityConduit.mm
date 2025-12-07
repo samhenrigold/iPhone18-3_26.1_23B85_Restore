@@ -1,4 +1,4 @@
-uint64_t type metadata accessor for NCProtoContactInfo(uint64_t a1, uint64_t *a2)
+uint64_t type metadata accessor for NCProtoContactInfo(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   result = *a2;
   if (!*a2)
@@ -27,18 +27,10 @@ void *_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymV0G4TypeOSYAASY
   return result;
 }
 
-uint64_t _s27NeighborhoodActivityConduit27NCProtoCancelAddMemberEventV21InternalSwiftProtobuf7MessageAadEPxycfCTW_0@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
+uint64_t _s27NeighborhoodActivityConduit27NCProtoCancelAddMemberEventV21InternalSwiftProtobuf7MessageAadEPxycfCTW_0@<X0>(void *a1@<X8>)
 {
-  *a2 = 0;
-  a2[1] = 0xE000000000000000;
-  v2 = a2 + *(a1 + 20);
-  return UnknownStorage.init()();
-}
-
-uint64_t _s27NeighborhoodActivityConduit40NCProtoActiveConversationsDidChangeEventV21InternalSwiftProtobuf7MessageAadEPxycfCTW_0@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  *a2 = MEMORY[0x277D84F90];
-  v2 = a2 + *(a1 + 20);
+  *a1 = 0;
+  a1[1] = 0xE000000000000000;
   return UnknownStorage.init()();
 }
 
@@ -286,7 +278,7 @@ LABEL_7:
   return v15(v16, a2, a2, v14);
 }
 
-uint64_t sub_225566B60(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_225566B60(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -513,7 +505,7 @@ uint64_t sub_22556726C(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_225567310(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_225567310(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -556,7 +548,7 @@ void *sub_2255673BC(void *result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_225567490(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_225567490(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -627,7 +619,7 @@ void *sub_2255675C0(void *result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_2255676FC(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_2255676FC(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -670,7 +662,7 @@ void *sub_2255677A8(void *result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_22556784C(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_22556784C(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -855,7 +847,7 @@ uint64_t sub_225567E00(uint64_t result, uint64_t a2, int a3, uint64_t a4)
   return result;
 }
 
-uint64_t sub_225567EA4(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t sub_225567EA4(unint64_t *a1, uint64_t a2, uint64_t a3)
 {
   if (a2 == 0x7FFFFFFF)
   {
@@ -1553,18 +1545,15 @@ uint64_t sub_2255696DC(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
 
 uint64_t sub_2255697AC()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 48);
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
 
-uint64_t sub_2255697EC@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>)
+uint64_t sub_2255697EC@<X0>(uint64_t *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t *a4@<X8>, uint64_t a5@<X3>)
 {
-  v5 = *(a2 + a3 - 8);
   v6 = *a1;
-  v7 = type metadata accessor for AssertionManager.Assertion();
+  v7 = type metadata accessor for AssertionManager.Assertion(0, *(a2 + a3 - 8), a3, a5);
   result = MEMORY[0x22AA667E0](v6, v7);
   *a4 = result;
   return result;
@@ -1579,48 +1568,40 @@ uint64_t sub_225569848()
 
 uint64_t sub_2255698B4()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 32);
 
   return MEMORY[0x2821FE8E8](v0, 40, 7);
 }
 
 uint64_t sub_2255698F4()
 {
-  v1 = *(v0 + 24);
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);
 }
 
 uint64_t sub_22556992C()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 40);
 
   return MEMORY[0x2821FE8E8](v0, 48, 7);
 }
 
-uint64_t _s27NeighborhoodActivityConduit8CallTypeO15VideoCodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOs0G3KeyAAsAGP11stringValuexSgSS_tcfCTW_0@<X0>(_BYTE *a1@<X8>)
+uint64_t _s27NeighborhoodActivityConduit8CallTypeO15VideoCodingKeys33_4979A1ACB5FFFE105B2FCB5E7166177DLLOs0G3KeyAAsAGP11stringValuexSgSS_tcfCTW_0@<X0>(_BYTE *a2@<X8>)
 {
 
-  *a1 = 1;
+  *a2 = 1;
   return result;
 }
 
 uint64_t sub_2255699B8()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
-  v2 = *(v0 + 48);
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
 }
 
 uint64_t sub_2255699F8()
 {
-  v1 = *(v0 + 16);
   swift_unknownObjectRelease();
 
   return MEMORY[0x2821FE8E8](v0, 56, 7);
@@ -1665,14 +1646,12 @@ uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoContact
 uint64_t NCProtoContactInfo.namePrefix.getter()
 {
   v1 = *v0;
-  v2 = v0[1];
 
   return v1;
 }
 
 uint64_t NCProtoContactInfo.namePrefix.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = v2[1];
 
   *v2 = a1;
   v2[1] = a2;
@@ -1682,14 +1661,12 @@ uint64_t NCProtoContactInfo.namePrefix.setter(uint64_t a1, uint64_t a2)
 uint64_t NCProtoContactInfo.givenName.getter()
 {
   v1 = *(v0 + 16);
-  v2 = *(v0 + 24);
 
   return v1;
 }
 
 uint64_t NCProtoContactInfo.givenName.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 24);
 
   *(v2 + 16) = a1;
   *(v2 + 24) = a2;
@@ -1699,14 +1676,12 @@ uint64_t NCProtoContactInfo.givenName.setter(uint64_t a1, uint64_t a2)
 uint64_t NCProtoContactInfo.middleName.getter()
 {
   v1 = *(v0 + 32);
-  v2 = *(v0 + 40);
 
   return v1;
 }
 
 uint64_t NCProtoContactInfo.middleName.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
 
   *(v2 + 32) = a1;
   *(v2 + 40) = a2;
@@ -1716,14 +1691,12 @@ uint64_t NCProtoContactInfo.middleName.setter(uint64_t a1, uint64_t a2)
 uint64_t NCProtoContactInfo.familyName.getter()
 {
   v1 = *(v0 + 48);
-  v2 = *(v0 + 56);
 
   return v1;
 }
 
 uint64_t NCProtoContactInfo.familyName.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 56);
 
   *(v2 + 48) = a1;
   *(v2 + 56) = a2;
@@ -1733,14 +1706,12 @@ uint64_t NCProtoContactInfo.familyName.setter(uint64_t a1, uint64_t a2)
 uint64_t NCProtoContactInfo.nameSuffix.getter()
 {
   v1 = *(v0 + 64);
-  v2 = *(v0 + 72);
 
   return v1;
 }
 
 uint64_t NCProtoContactInfo.nameSuffix.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 72);
 
   *(v2 + 64) = a1;
   *(v2 + 72) = a2;
@@ -1750,14 +1721,12 @@ uint64_t NCProtoContactInfo.nameSuffix.setter(uint64_t a1, uint64_t a2)
 uint64_t NCProtoContactInfo.nickname.getter()
 {
   v1 = *(v0 + 80);
-  v2 = *(v0 + 88);
 
   return v1;
 }
 
 uint64_t NCProtoContactInfo.nickname.setter(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 88);
 
   *(v2 + 80) = a1;
   *(v2 + 88) = a2;
@@ -1771,13 +1740,13 @@ uint64_t NCProtoContactInfo.imageData.getter()
   return v1;
 }
 
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
+void outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return;
     }
   }
 }
@@ -1790,13 +1759,13 @@ uint64_t NCProtoContactInfo.imageData.setter(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
@@ -1807,7 +1776,6 @@ uint64_t NCProtoContactInfo.organizationName.getter()
   if (v1[1])
   {
     v2 = *v1;
-    v3 = v1[1];
   }
 
   else
@@ -1843,7 +1811,6 @@ uint64_t key path setter for NCProtoContactInfo.organizationName : NCProtoContac
   v3 = *a1;
   v2 = a1[1];
   v4 = (a2 + *(type metadata accessor for NCProtoContactInfo(0) + 48));
-  v5 = v4[1];
 
   *v4 = v3;
   v4[1] = v2;
@@ -1853,7 +1820,6 @@ uint64_t key path setter for NCProtoContactInfo.organizationName : NCProtoContac
 uint64_t NCProtoContactInfo.organizationName.setter(uint64_t a1, uint64_t a2)
 {
   v5 = (v2 + *(type metadata accessor for NCProtoContactInfo(0) + 48));
-  v6 = v5[1];
 
   *v5 = a1;
   v5[1] = a2;
@@ -1901,7 +1867,6 @@ uint64_t (*NCProtoContactInfo.organizationName.modify(uint64_t *a1))()
 Swift::Void __swiftcall NCProtoContactInfo.clearOrganizationName()()
 {
   v1 = (v0 + *(type metadata accessor for NCProtoContactInfo(0) + 48));
-  v2 = v1[1];
 
   *v1 = 0;
   v1[1] = 0;
@@ -1913,7 +1878,6 @@ uint64_t NCProtoContactInfo.identifier.getter()
   if (v1[1])
   {
     v2 = *v1;
-    v3 = v1[1];
   }
 
   else
@@ -1949,7 +1913,6 @@ uint64_t key path setter for NCProtoContactInfo.identifier : NCProtoContactInfo(
   v3 = *a1;
   v2 = a1[1];
   v4 = (a2 + *(type metadata accessor for NCProtoContactInfo(0) + 52));
-  v5 = v4[1];
 
   *v4 = v3;
   v4[1] = v2;
@@ -1959,7 +1922,6 @@ uint64_t key path setter for NCProtoContactInfo.identifier : NCProtoContactInfo(
 uint64_t NCProtoContactInfo.identifier.setter(uint64_t a1, uint64_t a2)
 {
   v5 = (v2 + *(type metadata accessor for NCProtoContactInfo(0) + 52));
-  v6 = v5[1];
 
   *v5 = a1;
   v5[1] = a2;
@@ -2007,7 +1969,6 @@ uint64_t (*NCProtoContactInfo.identifier.modify(uint64_t *a1))()
 Swift::Void __swiftcall NCProtoContactInfo.clearIdentifier()()
 {
   v1 = (v0 + *(type metadata accessor for NCProtoContactInfo(0) + 52));
-  v2 = v1[1];
 
   *v1 = 0;
   v1[1] = 0;
@@ -2047,14 +2008,13 @@ uint64_t NCProtoContactInfo.init()@<X0>(uint64_t a1@<X8>)
   *(a1 + 88) = 0xE000000000000000;
   *(a1 + 96) = xmmword_2255D3AB0;
   v2 = type metadata accessor for NCProtoContactInfo(0);
-  v3 = a1 + v2[11];
   result = UnknownStorage.init()();
-  v5 = (a1 + v2[12]);
+  v4 = (a1 + *(v2 + 48));
+  *v4 = 0;
+  v4[1] = 0;
+  v5 = (a1 + *(v2 + 52));
   *v5 = 0;
   v5[1] = 0;
-  v6 = (a1 + v2[13]);
-  *v6 = 0;
-  v6[1] = 0;
   return result;
 }
 
@@ -2090,19 +2050,19 @@ uint64_t NCProtoContactHandleAnonym.init()@<X0>(uint64_t a1@<X8>)
   *(a1 + 40) = 0xE000000000000000;
   *(a1 + 48) = 0;
   *(a1 + 56) = 0xE000000000000000;
-  v1 = a1 + *(type metadata accessor for NCProtoContactHandleAnonym(0) + 32);
+  type metadata accessor for NCProtoContactHandleAnonym(0);
   return UnknownStorage.init()();
 }
 
 uint64_t NCProtoContinuityFavorite.contactInfo.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v5 = &v13 - v4;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v12 - v4;
   v6 = type metadata accessor for NCProtoContinuityFavorite(0);
   outlined init with copy of NCProtoContactInfo?(v1 + *(v6 + 32), v5, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
   v7 = type metadata accessor for NCProtoContactInfo(0);
-  v8 = *(*(v7 - 1) + 48);
+  v8 = *(*(v7 - 8) + 48);
   if (v8(v5, 1, v7) != 1)
   {
     return outlined init with take of NCProtoContactInfo(v5, a1, type metadata accessor for NCProtoContactInfo);
@@ -2121,14 +2081,13 @@ uint64_t NCProtoContinuityFavorite.contactInfo.getter@<X0>(uint64_t a1@<X8>)
   *(a1 + 80) = 0;
   *(a1 + 88) = 0xE000000000000000;
   *(a1 + 96) = xmmword_2255D3AB0;
-  v9 = a1 + v7[11];
   UnknownStorage.init()();
-  v10 = (a1 + v7[12]);
+  v9 = (a1 + *(v7 + 48));
+  *v9 = 0;
+  v9[1] = 0;
+  v10 = (a1 + *(v7 + 52));
   *v10 = 0;
   v10[1] = 0;
-  v11 = (a1 + v7[13]);
-  *v11 = 0;
-  v11[1] = 0;
   result = (v8)(v5, 1, v7);
   if (result != 1)
   {
@@ -2143,7 +2102,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -2155,14 +2113,13 @@ uint64_t key path setter for NCProtoContinuityFavorite.contactInfo : NCProtoCont
 {
   v4 = type metadata accessor for NCProtoContactInfo(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of NCProtoContactInfo(a1, v8, type metadata accessor for NCProtoContactInfo);
-  v9 = *(type metadata accessor for NCProtoContinuityFavorite(0) + 32);
-  outlined destroy of NCProtoContactInfo?(a2 + v9, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
-  outlined init with take of NCProtoContactInfo(v8, a2 + v9, type metadata accessor for NCProtoContactInfo);
-  return (*(v5 + 56))(a2 + v9, 0, 1, v4);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NCProtoContactInfo(a1, v7, type metadata accessor for NCProtoContactInfo);
+  v8 = *(type metadata accessor for NCProtoContinuityFavorite(0) + 32);
+  outlined destroy of NCProtoContactInfo?(a2 + v8, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+  outlined init with take of NCProtoContactInfo(v7, a2 + v8, type metadata accessor for NCProtoContactInfo);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
 }
 
 uint64_t NCProtoContinuityFavorite.contactInfo.setter(uint64_t a1)
@@ -2176,7 +2133,7 @@ uint64_t NCProtoContinuityFavorite.contactInfo.setter(uint64_t a1)
   return v5(v1 + v3, 0, 1, v4);
 }
 
-uint64_t (*NCProtoContinuityFavorite.contactInfo.modify(void *a1))()
+void (*NCProtoContinuityFavorite.contactInfo.modify(void *a1))(uint64_t **a1, char a2)
 {
   v3 = MEMORY[0x277D84FD8];
   if (MEMORY[0x277D84FD8])
@@ -2207,7 +2164,7 @@ uint64_t (*NCProtoContinuityFavorite.contactInfo.modify(void *a1))()
   v5[1] = v7;
   v9 = type metadata accessor for NCProtoContactInfo(0);
   v5[2] = v9;
-  v10 = *(v9 - 1);
+  v10 = *(v9 - 8);
   v11 = v10;
   v5[3] = v10;
   v12 = *(v10 + 64);
@@ -2244,14 +2201,13 @@ uint64_t (*NCProtoContinuityFavorite.contactInfo.modify(void *a1))()
     *(v14 + 80) = 0;
     *(v14 + 88) = 0xE000000000000000;
     *(v14 + 96) = xmmword_2255D3AB0;
-    v17 = v14 + v9[11];
     UnknownStorage.init()();
-    v18 = (v14 + v9[12]);
+    v17 = (v14 + *(v9 + 48));
+    *v17 = 0;
+    v17[1] = 0;
+    v18 = (v14 + *(v9 + 52));
     *v18 = 0;
     v18[1] = 0;
-    v19 = (v14 + v9[13]);
-    *v19 = 0;
-    v19[1] = 0;
     if (v16(v8, 1, v9) != 1)
     {
       outlined destroy of NCProtoContactInfo?(v8, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
@@ -2268,8 +2224,8 @@ uint64_t (*NCProtoContinuityFavorite.contactInfo.modify(void *a1))()
 
 BOOL NCProtoContinuityFavorite.hasContactInfo.getter()
 {
-  v1 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+  MEMORY[0x28223BE20](v1 - 8);
   v3 = &v8 - v2;
   v4 = type metadata accessor for NCProtoContinuityFavorite(0);
   outlined init with copy of NCProtoContactInfo?(v0 + *(v4 + 32), v3, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
@@ -2291,9 +2247,9 @@ Swift::Void __swiftcall NCProtoContinuityFavorite.clearContactInfo()()
 
 uint64_t NCProtoContinuityFavorite.anonym.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v5 = &v11 - v4;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v10 - v4;
   v6 = type metadata accessor for NCProtoContinuityFavorite(0);
   outlined init with copy of NCProtoContactInfo?(v1 + *(v6 + 36), v5, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
   v7 = type metadata accessor for NCProtoContactHandleAnonym(0);
@@ -2311,7 +2267,6 @@ uint64_t NCProtoContinuityFavorite.anonym.getter@<X0>(uint64_t a1@<X8>)
   *(a1 + 40) = 0xE000000000000000;
   *(a1 + 48) = 0;
   *(a1 + 56) = 0xE000000000000000;
-  v9 = a1 + *(v7 + 32);
   UnknownStorage.init()();
   result = (v8)(v5, 1, v7);
   if (result != 1)
@@ -2331,9 +2286,9 @@ uint64_t outlined init with take of NCProtoContactInfo(uint64_t a1, uint64_t a2,
 
 uint64_t key path getter for NCProtoContinuityFavorite.anonym : NCProtoContinuityFavorite@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v6 = &v12 - v5;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v11 - v5;
   v7 = type metadata accessor for NCProtoContinuityFavorite(0);
   outlined init with copy of NCProtoContactInfo?(a1 + *(v7 + 36), v6, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
   v8 = type metadata accessor for NCProtoContactHandleAnonym(0);
@@ -2351,7 +2306,6 @@ uint64_t key path getter for NCProtoContinuityFavorite.anonym : NCProtoContinuit
   *(a2 + 40) = 0xE000000000000000;
   *(a2 + 48) = 0;
   *(a2 + 56) = 0xE000000000000000;
-  v10 = a2 + *(v8 + 32);
   UnknownStorage.init()();
   result = (v9)(v6, 1, v8);
   if (result != 1)
@@ -2366,14 +2320,13 @@ uint64_t key path setter for NCProtoContinuityFavorite.anonym : NCProtoContinuit
 {
   v4 = type metadata accessor for NCProtoContactHandleAnonym(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of NCProtoContactInfo(a1, v8, type metadata accessor for NCProtoContactHandleAnonym);
-  v9 = *(type metadata accessor for NCProtoContinuityFavorite(0) + 36);
-  outlined destroy of NCProtoContactInfo?(a2 + v9, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
-  outlined init with take of NCProtoContactInfo(v8, a2 + v9, type metadata accessor for NCProtoContactHandleAnonym);
-  return (*(v5 + 56))(a2 + v9, 0, 1, v4);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NCProtoContactInfo(a1, v7, type metadata accessor for NCProtoContactHandleAnonym);
+  v8 = *(type metadata accessor for NCProtoContinuityFavorite(0) + 36);
+  outlined destroy of NCProtoContactInfo?(a2 + v8, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
+  outlined init with take of NCProtoContactInfo(v7, a2 + v8, type metadata accessor for NCProtoContactHandleAnonym);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
 }
 
 uint64_t NCProtoContinuityFavorite.anonym.setter(uint64_t a1)
@@ -2450,7 +2403,6 @@ void (*NCProtoContinuityFavorite.anonym.modify(void *a1))(uint64_t **a1, char a2
     *(v14 + 40) = 0xE000000000000000;
     *(v14 + 48) = 0;
     *(v14 + 56) = 0xE000000000000000;
-    v17 = v14 + *(v9 + 32);
     UnknownStorage.init()();
     if (v16(v8, 1, v9) != 1)
     {
@@ -2515,8 +2467,8 @@ uint64_t outlined destroy of NCProtoContactInfo(uint64_t a1, uint64_t (*a2)(void
 
 BOOL NCProtoContinuityFavorite.hasAnonym.getter()
 {
-  v1 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
+  MEMORY[0x28223BE20](v1 - 8);
   v3 = &v8 - v2;
   v4 = type metadata accessor for NCProtoContinuityFavorite(0);
   outlined init with copy of NCProtoContactInfo?(v0 + *(v4 + 36), v3, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
@@ -2545,27 +2497,26 @@ uint64_t NCProtoContinuityFavorite.init()@<X0>(char *a1@<X8>)
   *(a1 + 4) = 0;
   *(a1 + 5) = 0xE000000000000000;
   v2 = type metadata accessor for NCProtoContinuityFavorite(0);
-  v3 = &a1[v2[7]];
   UnknownStorage.init()();
-  v4 = v2[8];
-  v5 = type metadata accessor for NCProtoContactInfo(0);
-  (*(*(v5 - 8) + 56))(&a1[v4], 1, 1, v5);
-  v6 = v2[9];
-  v7 = type metadata accessor for NCProtoContactHandleAnonym(0);
-  v8 = *(*(v7 - 8) + 56);
+  v3 = *(v2 + 32);
+  v4 = type metadata accessor for NCProtoContactInfo(0);
+  (*(*(v4 - 8) + 56))(&a1[v3], 1, 1, v4);
+  v5 = *(v2 + 36);
+  v6 = type metadata accessor for NCProtoContactHandleAnonym(0);
+  v7 = *(*(v6 - 8) + 56);
 
-  return v8(&a1[v6], 1, 1, v7);
+  return v7(&a1[v5], 1, 1, v6);
 }
 
 uint64_t NCProtoAddressableContact.contactInfo.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v5 = &v13 - v4;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v12 - v4;
   v6 = type metadata accessor for NCProtoAddressableContact(0);
   outlined init with copy of NCProtoContactInfo?(v1 + *(v6 + 28), v5, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
   v7 = type metadata accessor for NCProtoContactInfo(0);
-  v8 = *(*(v7 - 1) + 48);
+  v8 = *(*(v7 - 8) + 48);
   if (v8(v5, 1, v7) != 1)
   {
     return outlined init with take of NCProtoContactInfo(v5, a1, type metadata accessor for NCProtoContactInfo);
@@ -2584,14 +2535,13 @@ uint64_t NCProtoAddressableContact.contactInfo.getter@<X0>(uint64_t a1@<X8>)
   *(a1 + 80) = 0;
   *(a1 + 88) = 0xE000000000000000;
   *(a1 + 96) = xmmword_2255D3AB0;
-  v9 = a1 + v7[11];
   UnknownStorage.init()();
-  v10 = (a1 + v7[12]);
+  v9 = (a1 + *(v7 + 48));
+  *v9 = 0;
+  v9[1] = 0;
+  v10 = (a1 + *(v7 + 52));
   *v10 = 0;
   v10[1] = 0;
-  v11 = (a1 + v7[13]);
-  *v11 = 0;
-  v11[1] = 0;
   result = (v8)(v5, 1, v7);
   if (result != 1)
   {
@@ -2605,14 +2555,13 @@ uint64_t key path setter for NCProtoAddressableContact.contactInfo : NCProtoAddr
 {
   v4 = type metadata accessor for NCProtoContactInfo(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of NCProtoContactInfo(a1, v8, type metadata accessor for NCProtoContactInfo);
-  v9 = *(type metadata accessor for NCProtoAddressableContact(0) + 28);
-  outlined destroy of NCProtoContactInfo?(a2 + v9, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
-  outlined init with take of NCProtoContactInfo(v8, a2 + v9, type metadata accessor for NCProtoContactInfo);
-  return (*(v5 + 56))(a2 + v9, 0, 1, v4);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NCProtoContactInfo(a1, v7, type metadata accessor for NCProtoContactInfo);
+  v8 = *(type metadata accessor for NCProtoAddressableContact(0) + 28);
+  outlined destroy of NCProtoContactInfo?(a2 + v8, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+  outlined init with take of NCProtoContactInfo(v7, a2 + v8, type metadata accessor for NCProtoContactInfo);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
 }
 
 uint64_t NCProtoAddressableContact.contactInfo.setter(uint64_t a1)
@@ -2657,7 +2606,7 @@ void (*NCProtoAddressableContact.contactInfo.modify(void *a1))(uint64_t **a1, ch
   v5[1] = v7;
   v9 = type metadata accessor for NCProtoContactInfo(0);
   v5[2] = v9;
-  v10 = *(v9 - 1);
+  v10 = *(v9 - 8);
   v11 = v10;
   v5[3] = v10;
   v12 = *(v10 + 64);
@@ -2694,14 +2643,13 @@ void (*NCProtoAddressableContact.contactInfo.modify(void *a1))(uint64_t **a1, ch
     *(v14 + 80) = 0;
     *(v14 + 88) = 0xE000000000000000;
     *(v14 + 96) = xmmword_2255D3AB0;
-    v17 = v14 + v9[11];
     UnknownStorage.init()();
-    v18 = (v14 + v9[12]);
+    v17 = (v14 + *(v9 + 48));
+    *v17 = 0;
+    v17[1] = 0;
+    v18 = (v14 + *(v9 + 52));
     *v18 = 0;
     v18[1] = 0;
-    v19 = (v14 + v9[13]);
-    *v19 = 0;
-    v19[1] = 0;
     if (v16(v8, 1, v9) != 1)
     {
       outlined destroy of NCProtoContactInfo?(v8, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
@@ -2755,13 +2703,12 @@ uint64_t NCProtoAddressableContact.init()@<X0>(char *a1@<X8>)
   *(a1 + 1) = 0;
   *(a1 + 2) = 0xE000000000000000;
   v2 = type metadata accessor for NCProtoAddressableContact(0);
-  v3 = &a1[*(v2 + 24)];
   UnknownStorage.init()();
-  v4 = *(v2 + 28);
-  v5 = type metadata accessor for NCProtoContactInfo(0);
-  v6 = *(*(v5 - 8) + 56);
+  v3 = *(v2 + 28);
+  v4 = type metadata accessor for NCProtoContactInfo(0);
+  v5 = *(*(v4 - 8) + 56);
 
-  return v6(&a1[v4], 1, 1, v5);
+  return v5(&a1[v3], 1, 1, v4);
 }
 
 uint64_t (*NCProtoActiveConversation.uuidString.modify(uint64_t *a1))()
@@ -3147,26 +3094,19 @@ uint64_t NCProtoActiveConversation.handlesHash.getter()
     v3 = *v1;
   }
 
-  if (v2 >> 60 != 15)
-  {
-    v4 = v1[1];
-  }
-
   outlined copy of Data?(*v1, v2);
   return v3;
 }
 
-uint64_t outlined copy of Data?(uint64_t a1, unint64_t a2)
+void outlined copy of Data?(uint64_t a1, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return outlined copy of Data._Representation(a1, a2);
+    outlined copy of Data._Representation(a1, a2);
   }
-
-  return a1;
 }
 
-uint64_t key path getter for NCProtoActiveConversation.handlesHash : NCProtoActiveConversation@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+void key path getter for NCProtoActiveConversation.handlesHash : NCProtoActiveConversation(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = (a1 + *(type metadata accessor for NCProtoActiveConversation(0) + 48));
   v4 = *v3;
@@ -3190,7 +3130,7 @@ uint64_t key path getter for NCProtoActiveConversation.handlesHash : NCProtoActi
   *a2 = v6;
   a2[1] = v7;
 
-  return outlined copy of Data?(v4, v5);
+  outlined copy of Data?(v4, v5);
 }
 
 uint64_t key path setter for NCProtoActiveConversation.handlesHash : NCProtoActiveConversation(uint64_t *a1, uint64_t a2)
@@ -3216,14 +3156,14 @@ uint64_t NCProtoActiveConversation.handlesHash.setter(uint64_t a1, uint64_t a2)
   return result;
 }
 
-uint64_t outlined consume of Data?(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data?(uint64_t result, unint64_t a2)
 {
   if (a2 >> 60 != 15)
   {
-    return outlined consume of Data._Representation(a1, a2);
+    return outlined consume of Data._Representation(result, a2);
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t (*NCProtoActiveConversation.handlesHash.modify(uint64_t a1))()
@@ -3267,26 +3207,25 @@ double NCProtoActiveConversation.init()@<D0>(void *a1@<X8>)
 {
   *a1 = MEMORY[0x277D84F90];
   active = type metadata accessor for NCProtoActiveConversation(0);
-  v3 = a1 + active[5];
   UnknownStorage.init()();
-  v4 = (a1 + active[6]);
+  v3 = (a1 + active[6]);
+  *v3 = 0;
+  v3[1] = 0;
+  v4 = (a1 + active[7]);
   *v4 = 0;
   v4[1] = 0;
-  v5 = (a1 + active[7]);
+  v5 = a1 + active[8];
   *v5 = 0;
-  v5[1] = 0;
-  v6 = a1 + active[8];
+  *(v5 + 4) = 256;
+  v6 = a1 + active[9];
   *v6 = 0;
-  *(v6 + 4) = 256;
-  v7 = a1 + active[9];
+  v6[8] = 1;
+  v7 = a1 + active[10];
   *v7 = 0;
-  v7[8] = 1;
-  v8 = a1 + active[10];
+  *(v7 + 4) = 256;
+  v8 = a1 + active[11];
   *v8 = 0;
   *(v8 + 4) = 256;
-  v9 = a1 + active[11];
-  *v9 = 0;
-  *(v9 + 4) = 256;
   result = 0.0;
   *(a1 + active[12]) = xmmword_2255D3AC0;
   return result;
@@ -3335,50 +3274,42 @@ uint64_t key path setter for NCProtoContinuityCall.uuidString : NCProtoContinuit
   v3 = a1[1];
   v5 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
 
-  v6 = *(a2 + v5);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *(a2 + v5);
+  v7 = *(a2 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v9 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v10 = *(v9 + 48);
-    v11 = *(v9 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v12 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
+    v8 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
 
-    *(a2 + v5) = v12;
-    v8 = v12;
+    *(a2 + v5) = v8;
+    v7 = v8;
   }
 
   swift_beginAccess();
-  v13 = *(v8 + 24);
-  *(v8 + 16) = v4;
-  *(v8 + 24) = v3;
+  *(v7 + 16) = v4;
+  *(v7 + 24) = v3;
 }
 
 uint64_t NCProtoContinuityCall.uuidString.setter(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
   v6 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v7 = *(v2 + v6);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v2 + v6);
+  v8 = *(v2 + v6);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v13 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v9);
+    v9 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
 
-    *(v3 + v6) = v13;
-    v9 = v13;
+    *(v3 + v6) = v9;
+    v8 = v9;
   }
 
   swift_beginAccess();
-  v14 = *(v9 + 24);
-  *(v9 + 16) = a1;
-  *(v9 + 24) = a2;
+  *(v8 + 16) = a1;
+  *(v8 + 24) = a2;
 }
 
 void (*NCProtoContinuityCall.uuidString.modify(uint64_t *a1))(uint64_t *a1, char a2)
@@ -3427,56 +3358,45 @@ void NCProtoContinuityCall.uuidString.modify(uint64_t *a1, char a2)
   v6 = *(*a1 + 88);
   if (a2)
   {
-    v7 = *(*a1 + 80);
 
-    v8 = *(v6 + v4);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v10 = *(v6 + v4);
+    v8 = *(v6 + v4);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v11 = *(v2 + 96);
-      v12 = *(v2 + 88);
-      v13 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-      v14 = *(v13 + 48);
-      v15 = *(v13 + 52);
+      v9 = *(v2 + 96);
+      v10 = *(v2 + 88);
+      type metadata accessor for NCProtoContinuityCall._StorageClass(0);
       swift_allocObject();
-      v16 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v10);
+      v11 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
 
-      *(v12 + v11) = v16;
-      v10 = v16;
+      *(v10 + v9) = v11;
+      v8 = v11;
     }
 
     swift_beginAccess();
-    v17 = *(v10 + 24);
-    *(v10 + 16) = v3;
-    *(v10 + 24) = v5;
-
-    v18 = *(v2 + 80);
+    *(v8 + 16) = v3;
+    *(v8 + 24) = v5;
   }
 
   else
   {
-    v19 = *(v6 + v4);
-    v20 = swift_isUniquelyReferenced_nonNull_native();
-    v21 = *(v6 + v4);
-    if ((v20 & 1) == 0)
+    v12 = swift_isUniquelyReferenced_nonNull_native();
+    v13 = *(v6 + v4);
+    if ((v12 & 1) == 0)
     {
-      v22 = *(v2 + 96);
-      v23 = *(v2 + 88);
-      v24 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-      v25 = *(v24 + 48);
-      v26 = *(v24 + 52);
+      v14 = *(v2 + 96);
+      v15 = *(v2 + 88);
+      type metadata accessor for NCProtoContinuityCall._StorageClass(0);
       swift_allocObject();
-      v27 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v21);
+      v16 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v13);
 
-      *(v23 + v22) = v27;
-      v21 = v27;
+      *(v15 + v14) = v16;
+      v13 = v16;
     }
 
     swift_beginAccess();
-    v28 = *(v21 + 24);
-    *(v21 + 16) = v3;
-    *(v21 + 24) = v5;
+    *(v13 + 16) = v3;
+    *(v13 + 24) = v5;
   }
 
   free(v2);
@@ -3493,25 +3413,21 @@ Swift::Void __swiftcall NCProtoContinuityCall.clearUuidString()()
 {
   v1 = v0;
   v2 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v9 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v5);
+    v5 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
   swift_beginAccess();
-  v10 = *(v5 + 24);
-  *(v5 + 16) = 0;
-  *(v5 + 24) = 0;
+  *(v4 + 16) = 0;
+  *(v4 + 24) = 0;
 }
 
 uint64_t NCProtoContinuityCall.displayName.getter()
@@ -3557,50 +3473,42 @@ uint64_t key path setter for NCProtoContinuityCall.displayName : NCProtoContinui
   v3 = a1[1];
   v5 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
 
-  v6 = *(a2 + v5);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *(a2 + v5);
+  v7 = *(a2 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v9 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v10 = *(v9 + 48);
-    v11 = *(v9 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v12 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
+    v8 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
 
-    *(a2 + v5) = v12;
-    v8 = v12;
+    *(a2 + v5) = v8;
+    v7 = v8;
   }
 
   swift_beginAccess();
-  v13 = *(v8 + 40);
-  *(v8 + 32) = v4;
-  *(v8 + 40) = v3;
+  *(v7 + 32) = v4;
+  *(v7 + 40) = v3;
 }
 
 uint64_t NCProtoContinuityCall.displayName.setter(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
   v6 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v7 = *(v2 + v6);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v2 + v6);
+  v8 = *(v2 + v6);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v13 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v9);
+    v9 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
 
-    *(v3 + v6) = v13;
-    v9 = v13;
+    *(v3 + v6) = v9;
+    v8 = v9;
   }
 
   swift_beginAccess();
-  v14 = *(v9 + 40);
-  *(v9 + 32) = a1;
-  *(v9 + 40) = a2;
+  *(v8 + 32) = a1;
+  *(v8 + 40) = a2;
 }
 
 void (*NCProtoContinuityCall.displayName.modify(uint64_t *a1))(uint64_t *a1, char a2)
@@ -3649,56 +3557,45 @@ void NCProtoContinuityCall.displayName.modify(uint64_t *a1, char a2)
   v6 = *(*a1 + 88);
   if (a2)
   {
-    v7 = *(*a1 + 80);
 
-    v8 = *(v6 + v4);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v10 = *(v6 + v4);
+    v8 = *(v6 + v4);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v11 = *(v2 + 96);
-      v12 = *(v2 + 88);
-      v13 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-      v14 = *(v13 + 48);
-      v15 = *(v13 + 52);
+      v9 = *(v2 + 96);
+      v10 = *(v2 + 88);
+      type metadata accessor for NCProtoContinuityCall._StorageClass(0);
       swift_allocObject();
-      v16 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v10);
+      v11 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
 
-      *(v12 + v11) = v16;
-      v10 = v16;
+      *(v10 + v9) = v11;
+      v8 = v11;
     }
 
     swift_beginAccess();
-    v17 = *(v10 + 40);
-    *(v10 + 32) = v3;
-    *(v10 + 40) = v5;
-
-    v18 = *(v2 + 80);
+    *(v8 + 32) = v3;
+    *(v8 + 40) = v5;
   }
 
   else
   {
-    v19 = *(v6 + v4);
-    v20 = swift_isUniquelyReferenced_nonNull_native();
-    v21 = *(v6 + v4);
-    if ((v20 & 1) == 0)
+    v12 = swift_isUniquelyReferenced_nonNull_native();
+    v13 = *(v6 + v4);
+    if ((v12 & 1) == 0)
     {
-      v22 = *(v2 + 96);
-      v23 = *(v2 + 88);
-      v24 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-      v25 = *(v24 + 48);
-      v26 = *(v24 + 52);
+      v14 = *(v2 + 96);
+      v15 = *(v2 + 88);
+      type metadata accessor for NCProtoContinuityCall._StorageClass(0);
       swift_allocObject();
-      v27 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v21);
+      v16 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v13);
 
-      *(v23 + v22) = v27;
-      v21 = v27;
+      *(v15 + v14) = v16;
+      v13 = v16;
     }
 
     swift_beginAccess();
-    v28 = *(v21 + 40);
-    *(v21 + 32) = v3;
-    *(v21 + 40) = v5;
+    *(v13 + 32) = v3;
+    *(v13 + 40) = v5;
   }
 
   free(v2);
@@ -3715,25 +3612,21 @@ Swift::Void __swiftcall NCProtoContinuityCall.clearDisplayName()()
 {
   v1 = v0;
   v2 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v9 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v5);
+    v5 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
   swift_beginAccess();
-  v10 = *(v5 + 40);
-  *(v5 + 32) = 0;
-  *(v5 + 40) = 0;
+  *(v4 + 32) = 0;
+  *(v4 + 40) = 0;
 }
 
 uint64_t NCProtoContinuityCall.status.getter@<X0>(uint64_t a1@<X8>)
@@ -3779,25 +3672,22 @@ uint64_t key path setter for NCProtoContinuityCall.status : NCProtoContinuityCal
   v3 = *a1;
   v4 = *(a1 + 8);
   v5 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v6 = *(a2 + v5);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *(a2 + v5);
+  v7 = *(a2 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v9 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v10 = *(v9 + 48);
-    v11 = *(v9 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v12 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
+    v8 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
 
-    *(a2 + v5) = v12;
-    v8 = v12;
+    *(a2 + v5) = v8;
+    v7 = v8;
   }
 
   result = swift_beginAccess();
-  *(v8 + 48) = v3;
-  *(v8 + 56) = v4;
-  *(v8 + 57) = 0;
+  *(v7 + 48) = v3;
+  *(v7 + 56) = v4;
+  *(v7 + 57) = 0;
   return result;
 }
 
@@ -3807,29 +3697,26 @@ uint64_t NCProtoContinuityCall.status.setter(uint64_t *a1)
   v3 = *a1;
   v4 = *(a1 + 8);
   v5 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v6 = *(v1 + v5);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *(v1 + v5);
+  v7 = *(v1 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v9 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v10 = *(v9 + 48);
-    v11 = *(v9 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v12 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
+    v8 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
 
-    *(v2 + v5) = v12;
-    v8 = v12;
+    *(v2 + v5) = v8;
+    v7 = v8;
   }
 
   result = swift_beginAccess();
-  *(v8 + 48) = v3;
-  *(v8 + 56) = v4;
-  *(v8 + 57) = 0;
+  *(v7 + 48) = v3;
+  *(v7 + 56) = v4;
+  *(v7 + 57) = 0;
   return result;
 }
 
-void (*NCProtoContinuityCall.status.modify(uint64_t *a1))(uint64_t *a1)
+void (*NCProtoContinuityCall.status.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -3865,36 +3752,33 @@ void (*NCProtoContinuityCall.status.modify(uint64_t *a1))(uint64_t *a1)
   return NCProtoContinuityCall.status.modify;
 }
 
-void NCProtoContinuityCall.status.modify(uint64_t *a1)
+void NCProtoContinuityCall.status.modify(uint64_t *a1, char a2)
 {
-  v1 = *a1;
-  v2 = *(*a1 + 72);
-  v3 = *(*a1 + 84);
-  v4 = *(*a1 + 88);
-  v5 = *(*a1 + 80);
-  v6 = *(v4 + v3);
+  v2 = *a1;
+  v3 = *(*a1 + 72);
+  v4 = *(*a1 + 84);
+  v5 = *(*a1 + 88);
+  v6 = *(*a1 + 80);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *(v4 + v3);
+  v8 = *(v5 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v9 = *(v1 + 84);
-    v10 = *(v1 + 88);
-    v11 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v12 = *(v11 + 48);
-    v13 = *(v11 + 52);
+    v9 = *(v2 + 84);
+    v10 = *(v2 + 88);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v14 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
+    v11 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
 
-    *(v10 + v9) = v14;
-    v8 = v14;
+    *(v10 + v9) = v11;
+    v8 = v11;
   }
 
   swift_beginAccess();
-  *(v8 + 48) = v2;
-  *(v8 + 56) = v5;
+  *(v8 + 48) = v3;
+  *(v8 + 56) = v6;
   *(v8 + 57) = 0;
 
-  free(v1);
+  free(v2);
 }
 
 BOOL NCProtoContinuityCall.hasStatus.getter()
@@ -3908,24 +3792,21 @@ Swift::Void __swiftcall NCProtoContinuityCall.clearStatus()()
 {
   v1 = v0;
   v2 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v9 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v5);
+    v5 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
   swift_beginAccess();
-  *(v5 + 48) = 0;
-  *(v5 + 56) = 256;
+  *(v4 + 48) = 0;
+  *(v4 + 56) = 256;
 }
 
 uint64_t NCProtoContinuityCall.conversationUuidString.getter()
@@ -3971,50 +3852,42 @@ uint64_t key path setter for NCProtoContinuityCall.conversationUuidString : NCPr
   v3 = a1[1];
   v5 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
 
-  v6 = *(a2 + v5);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *(a2 + v5);
+  v7 = *(a2 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v9 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v10 = *(v9 + 48);
-    v11 = *(v9 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v12 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
+    v8 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
 
-    *(a2 + v5) = v12;
-    v8 = v12;
+    *(a2 + v5) = v8;
+    v7 = v8;
   }
 
   swift_beginAccess();
-  v13 = *(v8 + 72);
-  *(v8 + 64) = v4;
-  *(v8 + 72) = v3;
+  *(v7 + 64) = v4;
+  *(v7 + 72) = v3;
 }
 
 uint64_t NCProtoContinuityCall.conversationUuidString.setter(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
   v6 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v7 = *(v2 + v6);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v2 + v6);
+  v8 = *(v2 + v6);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v13 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v9);
+    v9 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
 
-    *(v3 + v6) = v13;
-    v9 = v13;
+    *(v3 + v6) = v9;
+    v8 = v9;
   }
 
   swift_beginAccess();
-  v14 = *(v9 + 72);
-  *(v9 + 64) = a1;
-  *(v9 + 72) = a2;
+  *(v8 + 64) = a1;
+  *(v8 + 72) = a2;
 }
 
 void (*NCProtoContinuityCall.conversationUuidString.modify(uint64_t *a1))(uint64_t *a1, char a2)
@@ -4063,56 +3936,45 @@ void NCProtoContinuityCall.conversationUuidString.modify(uint64_t *a1, char a2)
   v6 = *(*a1 + 88);
   if (a2)
   {
-    v7 = *(*a1 + 80);
 
-    v8 = *(v6 + v4);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v10 = *(v6 + v4);
+    v8 = *(v6 + v4);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v11 = *(v2 + 96);
-      v12 = *(v2 + 88);
-      v13 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-      v14 = *(v13 + 48);
-      v15 = *(v13 + 52);
+      v9 = *(v2 + 96);
+      v10 = *(v2 + 88);
+      type metadata accessor for NCProtoContinuityCall._StorageClass(0);
       swift_allocObject();
-      v16 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v10);
+      v11 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
 
-      *(v12 + v11) = v16;
-      v10 = v16;
+      *(v10 + v9) = v11;
+      v8 = v11;
     }
 
     swift_beginAccess();
-    v17 = *(v10 + 72);
-    *(v10 + 64) = v3;
-    *(v10 + 72) = v5;
-
-    v18 = *(v2 + 80);
+    *(v8 + 64) = v3;
+    *(v8 + 72) = v5;
   }
 
   else
   {
-    v19 = *(v6 + v4);
-    v20 = swift_isUniquelyReferenced_nonNull_native();
-    v21 = *(v6 + v4);
-    if ((v20 & 1) == 0)
+    v12 = swift_isUniquelyReferenced_nonNull_native();
+    v13 = *(v6 + v4);
+    if ((v12 & 1) == 0)
     {
-      v22 = *(v2 + 96);
-      v23 = *(v2 + 88);
-      v24 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-      v25 = *(v24 + 48);
-      v26 = *(v24 + 52);
+      v14 = *(v2 + 96);
+      v15 = *(v2 + 88);
+      type metadata accessor for NCProtoContinuityCall._StorageClass(0);
       swift_allocObject();
-      v27 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v21);
+      v16 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v13);
 
-      *(v23 + v22) = v27;
-      v21 = v27;
+      *(v15 + v14) = v16;
+      v13 = v16;
     }
 
     swift_beginAccess();
-    v28 = *(v21 + 72);
-    *(v21 + 64) = v3;
-    *(v21 + 72) = v5;
+    *(v13 + 64) = v3;
+    *(v13 + 72) = v5;
   }
 
   free(v2);
@@ -4129,25 +3991,21 @@ Swift::Void __swiftcall NCProtoContinuityCall.clearConversationUuidString()()
 {
   v1 = v0;
   v2 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v9 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v5);
+    v5 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
   swift_beginAccess();
-  v10 = *(v5 + 72);
-  *(v5 + 64) = 0;
-  *(v5 + 72) = 0;
+  *(v4 + 64) = 0;
+  *(v4 + 72) = 0;
 }
 
 uint64_t NCProtoContinuityCall.isMuted.getter()
@@ -4169,23 +4027,20 @@ uint64_t key path setter for NCProtoContinuityCall.isMuted : NCProtoContinuityCa
 {
   v3 = *a1;
   v4 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v5 = *(a2 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(a2 + v4);
+  v6 = *(a2 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v11 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
+    v7 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v6);
 
-    *(a2 + v4) = v11;
-    v7 = v11;
+    *(a2 + v4) = v7;
+    v6 = v7;
   }
 
   result = swift_beginAccess();
-  *(v7 + 80) = v3;
+  *(v6 + 80) = v3;
   return result;
 }
 
@@ -4193,27 +4048,24 @@ uint64_t NCProtoContinuityCall.isMuted.setter(char a1)
 {
   v2 = v1;
   v4 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v5 = *(v1 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v1 + v4);
+  v6 = *(v1 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v11 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
+    v7 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v6);
 
-    *(v2 + v4) = v11;
-    v7 = v11;
+    *(v2 + v4) = v7;
+    v6 = v7;
   }
 
   result = swift_beginAccess();
-  *(v7 + 80) = a1 & 1;
+  *(v6 + 80) = a1 & 1;
   return result;
 }
 
-void (*NCProtoContinuityCall.isMuted.modify(uint64_t *a1))(uint64_t *a1)
+void (*NCProtoContinuityCall.isMuted.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -4236,33 +4088,30 @@ void (*NCProtoContinuityCall.isMuted.modify(uint64_t *a1))(uint64_t *a1)
   return NCProtoContinuityCall.isMuted.modify;
 }
 
-void NCProtoContinuityCall.isMuted.modify(uint64_t *a1)
+void NCProtoContinuityCall.isMuted.modify(uint64_t *a1, char a2)
 {
-  v1 = *a1;
-  v2 = *(*a1 + 80);
-  v3 = *(*a1 + 72);
-  v4 = *(*a1 + 84);
-  v5 = *(v3 + v2);
+  v2 = *a1;
+  v3 = *(*a1 + 80);
+  v4 = *(*a1 + 72);
+  v5 = *(*a1 + 84);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v3 + v2);
+  v7 = *(v4 + v3);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = *(v1 + 80);
-    v9 = *(v1 + 72);
-    v10 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
+    v8 = *(v2 + 80);
+    v9 = *(v2 + 72);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v13 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
+    v10 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
 
-    *(v9 + v8) = v13;
-    v7 = v13;
+    *(v9 + v8) = v10;
+    v7 = v10;
   }
 
   swift_beginAccess();
-  *(v7 + 80) = v4;
+  *(v7 + 80) = v5;
 
-  free(v1);
+  free(v2);
 }
 
 BOOL NCProtoContinuityCall.hasIsMuted.getter()
@@ -4276,23 +4125,20 @@ Swift::Void __swiftcall NCProtoContinuityCall.clearIsMuted()()
 {
   v1 = v0;
   v2 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v9 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v5);
+    v5 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
   swift_beginAccess();
-  *(v5 + 80) = 2;
+  *(v4 + 80) = 2;
 }
 
 uint64_t NCProtoContinuityCall.isCameraEnabled.getter()
@@ -4314,23 +4160,20 @@ uint64_t key path setter for NCProtoContinuityCall.isCameraEnabled : NCProtoCont
 {
   v3 = *a1;
   v4 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v5 = *(a2 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(a2 + v4);
+  v6 = *(a2 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v11 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
+    v7 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v6);
 
-    *(a2 + v4) = v11;
-    v7 = v11;
+    *(a2 + v4) = v7;
+    v6 = v7;
   }
 
   result = swift_beginAccess();
-  *(v7 + 81) = v3;
+  *(v6 + 81) = v3;
   return result;
 }
 
@@ -4338,27 +4181,24 @@ uint64_t NCProtoContinuityCall.isCameraEnabled.setter(char a1)
 {
   v2 = v1;
   v4 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v5 = *(v1 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v1 + v4);
+  v6 = *(v1 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v11 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
+    v7 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v6);
 
-    *(v2 + v4) = v11;
-    v7 = v11;
+    *(v2 + v4) = v7;
+    v6 = v7;
   }
 
   result = swift_beginAccess();
-  *(v7 + 81) = a1 & 1;
+  *(v6 + 81) = a1 & 1;
   return result;
 }
 
-void (*NCProtoContinuityCall.isCameraEnabled.modify(uint64_t *a1))(uint64_t *a1)
+void (*NCProtoContinuityCall.isCameraEnabled.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -4381,33 +4221,30 @@ void (*NCProtoContinuityCall.isCameraEnabled.modify(uint64_t *a1))(uint64_t *a1)
   return NCProtoContinuityCall.isCameraEnabled.modify;
 }
 
-void NCProtoContinuityCall.isCameraEnabled.modify(uint64_t *a1)
+void NCProtoContinuityCall.isCameraEnabled.modify(uint64_t *a1, char a2)
 {
-  v1 = *a1;
-  v2 = *(*a1 + 80);
-  v3 = *(*a1 + 72);
-  v4 = *(*a1 + 84);
-  v5 = *(v3 + v2);
+  v2 = *a1;
+  v3 = *(*a1 + 80);
+  v4 = *(*a1 + 72);
+  v5 = *(*a1 + 84);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v3 + v2);
+  v7 = *(v4 + v3);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = *(v1 + 80);
-    v9 = *(v1 + 72);
-    v10 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
+    v8 = *(v2 + 80);
+    v9 = *(v2 + 72);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v13 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
+    v10 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
 
-    *(v9 + v8) = v13;
-    v7 = v13;
+    *(v9 + v8) = v10;
+    v7 = v10;
   }
 
   swift_beginAccess();
-  *(v7 + 81) = v4;
+  *(v7 + 81) = v5;
 
-  free(v1);
+  free(v2);
 }
 
 BOOL NCProtoContinuityCall.hasIsCameraEnabled.getter()
@@ -4421,30 +4258,27 @@ Swift::Void __swiftcall NCProtoContinuityCall.clearIsCameraEnabled()()
 {
   v1 = v0;
   v2 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v9 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v5);
+    v5 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
   swift_beginAccess();
-  *(v5 + 81) = 2;
+  *(v4 + 81) = 2;
 }
 
 uint64_t NCProtoContinuityCall.info.getter@<X0>(unint64_t *a1@<X8>)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v5 = &v17 - v4;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v16 - v4;
   v6 = *(v1 + *(type metadata accessor for NCProtoContinuityCall(0) + 20));
   v7 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__info;
   swift_beginAccess();
@@ -4457,21 +4291,20 @@ uint64_t NCProtoContinuityCall.info.getter@<X0>(unint64_t *a1@<X8>)
   }
 
   *a1 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SSTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-  v10 = a1 + v8[5];
   UnknownStorage.init()();
-  v11 = (a1 + v8[6]);
+  v10 = (a1 + v8[6]);
+  *v10 = 0;
+  v10[1] = 0;
+  v11 = (a1 + v8[7]);
   *v11 = 0;
   v11[1] = 0;
-  v12 = (a1 + v8[7]);
+  v12 = (a1 + v8[8]);
   *v12 = 0;
   v12[1] = 0;
-  v13 = (a1 + v8[8]);
-  *v13 = 0;
-  v13[1] = 0;
   *(a1 + v8[9]) = 2;
-  v14 = v8[10];
-  v15 = type metadata accessor for NCProtoSenderIdentity(0);
-  (*(*(v15 - 8) + 56))(a1 + v14, 1, 1, v15);
+  v13 = v8[10];
+  v14 = type metadata accessor for NCProtoSenderIdentity(0);
+  (*(*(v14 - 8) + 56))(a1 + v13, 1, 1, v14);
   *(a1 + v8[11]) = xmmword_2255D3AC0;
   *(a1 + v8[12]) = 2;
   *(a1 + v8[13]) = 2;
@@ -4486,67 +4319,60 @@ uint64_t NCProtoContinuityCall.info.getter@<X0>(unint64_t *a1@<X8>)
 
 uint64_t key path setter for NCProtoContinuityCall.info : NCProtoContinuityCall(uint64_t a1, uint64_t a2)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v6 = &v22 - v5;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v17 - v5;
   v7 = type metadata accessor for NCProtoCallInfo(0);
   v8 = *(v7 - 8);
-  v9 = *(v8 + 64);
-  MEMORY[0x28223BE20]();
-  v11 = &v22 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of NCProtoContactInfo(a1, v11, type metadata accessor for NCProtoCallInfo);
-  v12 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v13 = *(a2 + v12);
+  MEMORY[0x28223BE20](v7);
+  v10 = &v17 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NCProtoContactInfo(a1, v10, type metadata accessor for NCProtoCallInfo);
+  v11 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v15 = *(a2 + v12);
+  v13 = *(a2 + v11);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v16 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v17 = *(v16 + 48);
-    v18 = *(v16 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v19 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v15);
+    v14 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v13);
 
-    *(a2 + v12) = v19;
-    v15 = v19;
+    *(a2 + v11) = v14;
+    v13 = v14;
   }
 
-  outlined init with take of NCProtoContactInfo(v11, v6, type metadata accessor for NCProtoCallInfo);
+  outlined init with take of NCProtoContactInfo(v10, v6, type metadata accessor for NCProtoCallInfo);
   (*(v8 + 56))(v6, 0, 1, v7);
-  v20 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__info;
+  v15 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__info;
   swift_beginAccess();
-  outlined assign with take of NCProtoCallInfo?(v6, v15 + v20, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+  outlined assign with take of NCProtoCallInfo?(v6, v13 + v15, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
   return swift_endAccess();
 }
 
 uint64_t NCProtoContinuityCall.info.setter(uint64_t a1)
 {
   v2 = v1;
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v6 = &v18 - v5;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v14 - v5;
   v7 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v8 = *(v1 + v7);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v10 = *(v1 + v7);
+  v9 = *(v1 + v7);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v11 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v12 = *(v11 + 48);
-    v13 = *(v11 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v14 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v10);
+    v10 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v9);
 
-    *(v2 + v7) = v14;
-    v10 = v14;
+    *(v2 + v7) = v10;
+    v9 = v10;
   }
 
   outlined init with take of NCProtoContactInfo(a1, v6, type metadata accessor for NCProtoCallInfo);
-  v15 = type metadata accessor for NCProtoCallInfo(0);
-  (*(*(v15 - 8) + 56))(v6, 0, 1, v15);
-  v16 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__info;
+  v11 = type metadata accessor for NCProtoCallInfo(0);
+  (*(*(v11 - 8) + 56))(v6, 0, 1, v11);
+  v12 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__info;
   swift_beginAccess();
-  outlined assign with take of NCProtoCallInfo?(v6, v10 + v16, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+  outlined assign with take of NCProtoCallInfo?(v6, v9 + v12, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
   return swift_endAccess();
 }
 
@@ -4554,21 +4380,20 @@ double NCProtoCallInfo.init()@<D0>(unint64_t *a1@<X8>)
 {
   *a1 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SSTt0g5Tf4g_n(MEMORY[0x277D84F90]);
   v2 = type metadata accessor for NCProtoCallInfo(0);
-  v3 = a1 + v2[5];
   UnknownStorage.init()();
-  v4 = (a1 + v2[6]);
+  v3 = (a1 + v2[6]);
+  *v3 = 0;
+  v3[1] = 0;
+  v4 = (a1 + v2[7]);
   *v4 = 0;
   v4[1] = 0;
-  v5 = (a1 + v2[7]);
+  v5 = (a1 + v2[8]);
   *v5 = 0;
   v5[1] = 0;
-  v6 = (a1 + v2[8]);
-  *v6 = 0;
-  v6[1] = 0;
   *(a1 + v2[9]) = 2;
-  v7 = v2[10];
-  v8 = type metadata accessor for NCProtoSenderIdentity(0);
-  (*(*(v8 - 8) + 56))(a1 + v7, 1, 1, v8);
+  v6 = v2[10];
+  v7 = type metadata accessor for NCProtoSenderIdentity(0);
+  (*(*(v7 - 8) + 56))(a1 + v6, 1, 1, v7);
   result = 0.0;
   *(a1 + v2[11]) = xmmword_2255D3AC0;
   *(a1 + v2[12]) = 2;
@@ -4637,21 +4462,20 @@ void (*NCProtoContinuityCall.info.modify(uint64_t *a1))(uint64_t *a1, char a2)
   if (v18(v8, 1, v9) == 1)
   {
     *v14 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SSTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-    v19 = v14 + v9[5];
     UnknownStorage.init()();
-    v20 = (v14 + v9[6]);
+    v19 = (v14 + v9[6]);
+    *v19 = 0;
+    v19[1] = 0;
+    v20 = (v14 + v9[7]);
     *v20 = 0;
     v20[1] = 0;
-    v21 = (v14 + v9[7]);
+    v21 = (v14 + v9[8]);
     *v21 = 0;
     v21[1] = 0;
-    v22 = (v14 + v9[8]);
-    *v22 = 0;
-    v22[1] = 0;
     *(v14 + v9[9]) = 2;
-    v23 = v9[10];
-    v24 = type metadata accessor for NCProtoSenderIdentity(0);
-    (*(*(v24 - 8) + 56))(v14 + v23, 1, 1, v24);
+    v22 = v9[10];
+    v23 = type metadata accessor for NCProtoSenderIdentity(0);
+    (*(*(v23 - 8) + 56))(v14 + v22, 1, 1, v23);
     *(v14 + v9[11]) = xmmword_2255D3AC0;
     *(v14 + v9[12]) = 2;
     *(v14 + v9[13]) = 2;
@@ -4677,84 +4501,78 @@ void NCProtoContinuityCall.info.modify(uint64_t *a1, char a2)
   {
     v4 = *(v2 + 72);
     outlined init with copy of NCProtoContactInfo(*(v2 + 120), *(v2 + 112), type metadata accessor for NCProtoCallInfo);
-    v5 = *(v4 + v3);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v7 = *(v4 + v3);
+    v6 = *(v4 + v3);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v8 = *(v2 + 128);
-      v9 = *(v2 + 72);
-      v10 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-      v11 = *(v10 + 48);
-      v12 = *(v10 + 52);
+      v7 = *(v2 + 128);
+      v8 = *(v2 + 72);
+      type metadata accessor for NCProtoContinuityCall._StorageClass(0);
       swift_allocObject();
-      v13 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
+      v9 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v6);
 
-      *(v9 + v8) = v13;
-      v7 = v13;
+      *(v8 + v7) = v9;
+      v6 = v9;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v16 = *(v2 + 96);
-    v17 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of NCProtoContactInfo(v15, v19, type metadata accessor for NCProtoCallInfo);
-    (*(v17 + 56))(v19, 0, 1, v16);
-    v20 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__info;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v12 = *(v2 + 96);
+    v13 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of NCProtoContactInfo(v11, v15, type metadata accessor for NCProtoCallInfo);
+    (*(v13 + 56))(v15, 0, 1, v12);
+    v16 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__info;
     swift_beginAccess();
-    outlined assign with take of NCProtoCallInfo?(v19, v7 + v20, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+    outlined assign with take of NCProtoCallInfo?(v15, v6 + v16, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
     swift_endAccess();
-    outlined destroy of NCProtoContactInfo(v14, type metadata accessor for NCProtoCallInfo);
+    outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoCallInfo);
   }
 
   else
   {
-    v21 = *(v2 + 72);
-    v22 = *(v21 + v3);
-    v23 = swift_isUniquelyReferenced_nonNull_native();
-    v24 = *(v21 + v3);
-    if ((v23 & 1) == 0)
+    v17 = *(v2 + 72);
+    v18 = swift_isUniquelyReferenced_nonNull_native();
+    v19 = *(v17 + v3);
+    if ((v18 & 1) == 0)
     {
-      v25 = *(v2 + 128);
-      v26 = *(v2 + 72);
-      v27 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-      v28 = *(v27 + 48);
-      v29 = *(v27 + 52);
+      v20 = *(v2 + 128);
+      v21 = *(v2 + 72);
+      type metadata accessor for NCProtoContinuityCall._StorageClass(0);
       swift_allocObject();
-      v30 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v24);
+      v22 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v19);
 
-      *(v26 + v25) = v30;
-      v24 = v30;
+      *(v21 + v20) = v22;
+      v19 = v22;
     }
 
-    v15 = *(v2 + 112);
-    v14 = *(v2 + 120);
-    v31 = *(v2 + 96);
-    v32 = *(v2 + 104);
-    v19 = *(v2 + 80);
-    v18 = *(v2 + 88);
-    outlined init with take of NCProtoContactInfo(v14, v19, type metadata accessor for NCProtoCallInfo);
-    (*(v32 + 56))(v19, 0, 1, v31);
-    v33 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__info;
+    v11 = *(v2 + 112);
+    v10 = *(v2 + 120);
+    v23 = *(v2 + 96);
+    v24 = *(v2 + 104);
+    v15 = *(v2 + 80);
+    v14 = *(v2 + 88);
+    outlined init with take of NCProtoContactInfo(v10, v15, type metadata accessor for NCProtoCallInfo);
+    (*(v24 + 56))(v15, 0, 1, v23);
+    v25 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__info;
     swift_beginAccess();
-    outlined assign with take of NCProtoCallInfo?(v19, v24 + v33, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+    outlined assign with take of NCProtoCallInfo?(v15, v19 + v25, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
     swift_endAccess();
   }
 
+  free(v10);
+  free(v11);
   free(v14);
   free(v15);
-  free(v18);
-  free(v19);
 
   free(v2);
 }
 
 BOOL NCProtoContinuityCall.hasInfo.getter()
 {
-  v1 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+  MEMORY[0x28223BE20](v1 - 8);
   v3 = &v9 - v2;
   v4 = *(v0 + *(type metadata accessor for NCProtoContinuityCall(0) + 20));
   v5 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__info;
@@ -4769,30 +4587,27 @@ BOOL NCProtoContinuityCall.hasInfo.getter()
 Swift::Void __swiftcall NCProtoContinuityCall.clearInfo()()
 {
   v1 = v0;
-  v2 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v4 = &v15 - v3;
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+  MEMORY[0x28223BE20](v2 - 8);
+  v4 = &v11 - v3;
   v5 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v6 = *(v0 + v5);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *(v0 + v5);
+  v7 = *(v0 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v9 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v10 = *(v9 + 48);
-    v11 = *(v9 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v12 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
+    v8 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
 
-    *(v1 + v5) = v12;
-    v8 = v12;
+    *(v1 + v5) = v8;
+    v7 = v8;
   }
 
-  v13 = type metadata accessor for NCProtoCallInfo(0);
-  (*(*(v13 - 8) + 56))(v4, 1, 1, v13);
-  v14 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__info;
+  v9 = type metadata accessor for NCProtoCallInfo(0);
+  (*(*(v9 - 8) + 56))(v4, 1, 1, v9);
+  v10 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__info;
   swift_beginAccess();
-  outlined assign with take of NCProtoCallInfo?(v4, v8 + v14, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+  outlined assign with take of NCProtoCallInfo?(v4, v7 + v10, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
   swift_endAccess();
 }
 
@@ -4839,52 +4654,44 @@ uint64_t key path setter for NCProtoContinuityCall.callGroupUuidString : NCProto
   v3 = a1[1];
   v5 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
 
-  v6 = *(a2 + v5);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *(a2 + v5);
+  v7 = *(a2 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v9 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v10 = *(v9 + 48);
-    v11 = *(v9 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v12 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
+    v8 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
 
-    *(a2 + v5) = v12;
-    v8 = v12;
+    *(a2 + v5) = v8;
+    v7 = v8;
   }
 
-  v13 = (v8 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__callGroupUuidString);
+  v9 = (v7 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__callGroupUuidString);
   swift_beginAccess();
-  v14 = v13[1];
-  *v13 = v4;
-  v13[1] = v3;
+  *v9 = v4;
+  v9[1] = v3;
 }
 
 uint64_t NCProtoContinuityCall.callGroupUuidString.setter(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
   v6 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v7 = *(v2 + v6);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v2 + v6);
+  v8 = *(v2 + v6);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v13 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v9);
+    v9 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
 
-    *(v3 + v6) = v13;
-    v9 = v13;
+    *(v3 + v6) = v9;
+    v8 = v9;
   }
 
-  v14 = (v9 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__callGroupUuidString);
+  v10 = (v8 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__callGroupUuidString);
   swift_beginAccess();
-  v15 = v14[1];
-  *v14 = a1;
-  v14[1] = a2;
+  *v10 = a1;
+  v10[1] = a2;
 }
 
 void (*NCProtoContinuityCall.callGroupUuidString.modify(uint64_t *a1))(uint64_t *a1, char a2)
@@ -4933,58 +4740,47 @@ void NCProtoContinuityCall.callGroupUuidString.modify(uint64_t *a1, char a2)
   v6 = *(*a1 + 88);
   if (a2)
   {
-    v7 = *(*a1 + 80);
 
-    v8 = *(v6 + v4);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v10 = *(v6 + v4);
+    v8 = *(v6 + v4);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v11 = *(v2 + 96);
-      v12 = *(v2 + 88);
-      v13 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-      v14 = *(v13 + 48);
-      v15 = *(v13 + 52);
+      v9 = *(v2 + 96);
+      v10 = *(v2 + 88);
+      type metadata accessor for NCProtoContinuityCall._StorageClass(0);
       swift_allocObject();
-      v16 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v10);
+      v11 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
 
-      *(v12 + v11) = v16;
-      v10 = v16;
+      *(v10 + v9) = v11;
+      v8 = v11;
     }
 
-    v17 = (v10 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__callGroupUuidString);
+    v12 = (v8 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__callGroupUuidString);
     swift_beginAccess();
-    v18 = v17[1];
-    *v17 = v3;
-    v17[1] = v5;
-
-    v19 = *(v2 + 80);
+    *v12 = v3;
+    v12[1] = v5;
   }
 
   else
   {
-    v20 = *(v6 + v4);
-    v21 = swift_isUniquelyReferenced_nonNull_native();
-    v22 = *(v6 + v4);
-    if ((v21 & 1) == 0)
+    v13 = swift_isUniquelyReferenced_nonNull_native();
+    v14 = *(v6 + v4);
+    if ((v13 & 1) == 0)
     {
-      v23 = *(v2 + 96);
-      v24 = *(v2 + 88);
-      v25 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-      v26 = *(v25 + 48);
-      v27 = *(v25 + 52);
+      v15 = *(v2 + 96);
+      v16 = *(v2 + 88);
+      type metadata accessor for NCProtoContinuityCall._StorageClass(0);
       swift_allocObject();
-      v28 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v22);
+      v17 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v14);
 
-      *(v24 + v23) = v28;
-      v22 = v28;
+      *(v16 + v15) = v17;
+      v14 = v17;
     }
 
-    v29 = (v22 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__callGroupUuidString);
+    v18 = (v14 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__callGroupUuidString);
     swift_beginAccess();
-    v30 = v29[1];
-    *v29 = v3;
-    v29[1] = v5;
+    *v18 = v3;
+    v18[1] = v5;
   }
 
   free(v2);
@@ -5001,26 +4797,22 @@ Swift::Void __swiftcall NCProtoContinuityCall.clearCallGroupUuidString()()
 {
   v1 = v0;
   v2 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v9 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v5);
+    v5 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = (v5 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__callGroupUuidString);
+  v6 = (v4 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__callGroupUuidString);
   swift_beginAccess();
-  v11 = v10[1];
-  *v10 = 0;
-  v10[1] = 0;
+  *v6 = 0;
+  v6[1] = 0;
 }
 
 uint64_t NCProtoContinuityCall.imageData.getter()
@@ -5043,7 +4835,7 @@ uint64_t NCProtoContinuityCall.imageData.getter()
   return v4;
 }
 
-uint64_t key path getter for NCProtoContinuityCall.imageData : NCProtoContinuityCall@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+void key path getter for NCProtoContinuityCall.imageData : NCProtoContinuityCall(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = (*(a1 + *(type metadata accessor for NCProtoContinuityCall(0) + 20)) + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__imageData);
   swift_beginAccess();
@@ -5067,7 +4859,7 @@ uint64_t key path getter for NCProtoContinuityCall.imageData : NCProtoContinuity
 
   *a2 = v6;
   a2[1] = v7;
-  return outlined copy of Data?(v4, v5);
+  outlined copy of Data?(v4, v5);
 }
 
 uint64_t key path setter for NCProtoContinuityCall.imageData : NCProtoContinuityCall(uint64_t *a1, uint64_t a2)
@@ -5076,56 +4868,50 @@ uint64_t key path setter for NCProtoContinuityCall.imageData : NCProtoContinuity
   v4 = a1[1];
   v5 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
   outlined copy of Data._Representation(v3, v4);
-  v6 = *(a2 + v5);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *(a2 + v5);
+  v7 = *(a2 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v9 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v10 = *(v9 + 48);
-    v11 = *(v9 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v12 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
+    v8 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
 
-    *(a2 + v5) = v12;
-    v8 = v12;
+    *(a2 + v5) = v8;
+    v7 = v8;
   }
 
-  v13 = (v8 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__imageData);
+  v9 = (v7 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__imageData);
   swift_beginAccess();
-  v14 = *v13;
-  v15 = v13[1];
-  *v13 = v3;
-  v13[1] = v4;
-  return outlined consume of Data?(v14, v15);
+  v10 = *v9;
+  v11 = v9[1];
+  *v9 = v3;
+  v9[1] = v4;
+  return outlined consume of Data?(v10, v11);
 }
 
 uint64_t NCProtoContinuityCall.imageData.setter(uint64_t a1, uint64_t a2)
 {
   v3 = v2;
   v6 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v7 = *(v2 + v6);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v2 + v6);
+  v8 = *(v2 + v6);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v13 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v9);
+    v9 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
 
-    *(v3 + v6) = v13;
-    v9 = v13;
+    *(v3 + v6) = v9;
+    v8 = v9;
   }
 
-  v14 = (v9 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__imageData);
+  v10 = (v8 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__imageData);
   swift_beginAccess();
-  v15 = *v14;
-  v16 = v14[1];
-  *v14 = a1;
-  v14[1] = a2;
-  return outlined consume of Data?(v15, v16);
+  v11 = *v10;
+  v12 = v10[1];
+  *v10 = a1;
+  v10[1] = a2;
+  return outlined consume of Data?(v11, v12);
 }
 
 void (*NCProtoContinuityCall.imageData.modify(uint64_t *a1))(uint64_t *a1, char a2)
@@ -5181,59 +4967,53 @@ void NCProtoContinuityCall.imageData.modify(uint64_t *a1, char a2)
   if (a2)
   {
     outlined copy of Data._Representation(*(*a1 + 72), v5);
-    v7 = *(v6 + v4);
     isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-    v9 = *(v6 + v4);
+    v8 = *(v6 + v4);
     if ((isUniquelyReferenced_nonNull_native & 1) == 0)
     {
-      v10 = *(v2 + 96);
-      v11 = *(v2 + 88);
-      v12 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-      v13 = *(v12 + 48);
-      v14 = *(v12 + 52);
+      v9 = *(v2 + 96);
+      v10 = *(v2 + 88);
+      type metadata accessor for NCProtoContinuityCall._StorageClass(0);
       swift_allocObject();
-      v15 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v9);
+      v11 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
 
-      *(v11 + v10) = v15;
-      v9 = v15;
+      *(v10 + v9) = v11;
+      v8 = v11;
     }
 
-    v16 = (v9 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__imageData);
+    v12 = (v8 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__imageData);
     swift_beginAccess();
-    v17 = *v16;
-    v18 = v16[1];
-    *v16 = v3;
-    v16[1] = v5;
-    outlined consume of Data?(v17, v18);
+    v13 = *v12;
+    v14 = v12[1];
+    *v12 = v3;
+    v12[1] = v5;
+    outlined consume of Data?(v13, v14);
     outlined consume of Data._Representation(*(v2 + 72), *(v2 + 80));
   }
 
   else
   {
-    v19 = *(v6 + v4);
-    v20 = swift_isUniquelyReferenced_nonNull_native();
-    v21 = *(v6 + v4);
-    if ((v20 & 1) == 0)
+    v15 = swift_isUniquelyReferenced_nonNull_native();
+    v16 = *(v6 + v4);
+    if ((v15 & 1) == 0)
     {
-      v22 = *(v2 + 96);
-      v23 = *(v2 + 88);
-      v24 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-      v25 = *(v24 + 48);
-      v26 = *(v24 + 52);
+      v17 = *(v2 + 96);
+      v18 = *(v2 + 88);
+      type metadata accessor for NCProtoContinuityCall._StorageClass(0);
       swift_allocObject();
-      v27 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v21);
+      v19 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v16);
 
-      *(v23 + v22) = v27;
-      v21 = v27;
+      *(v18 + v17) = v19;
+      v16 = v19;
     }
 
-    v28 = (v21 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__imageData);
+    v20 = (v16 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__imageData);
     swift_beginAccess();
-    v29 = *v28;
-    v30 = v28[1];
-    *v28 = v3;
-    v28[1] = v5;
-    outlined consume of Data?(v29, v30);
+    v21 = *v20;
+    v22 = v20[1];
+    *v20 = v3;
+    v20[1] = v5;
+    outlined consume of Data?(v21, v22);
   }
 
   free(v2);
@@ -5250,27 +5030,24 @@ Swift::Void __swiftcall NCProtoContinuityCall.clearImageData()()
 {
   v1 = v0;
   v2 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v9 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v5);
+    v5 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = (v5 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__imageData);
+  v6 = (v4 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__imageData);
   swift_beginAccess();
-  v11 = *v10;
-  v12 = v10[1];
-  *v10 = xmmword_2255D3AC0;
-  outlined consume of Data?(v11, v12);
+  v7 = *v6;
+  v8 = v6[1];
+  *v6 = xmmword_2255D3AC0;
+  outlined consume of Data?(v7, v8);
 }
 
 uint64_t NCProtoContinuityCall.service.getter@<X0>(uint64_t a1@<X8>)
@@ -5316,26 +5093,23 @@ uint64_t key path setter for NCProtoContinuityCall.service : NCProtoContinuityCa
   v3 = *a1;
   v4 = *(a1 + 8);
   v5 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v6 = *(a2 + v5);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *(a2 + v5);
+  v7 = *(a2 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v9 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v10 = *(v9 + 48);
-    v11 = *(v9 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v12 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
+    v8 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
 
-    *(a2 + v5) = v12;
-    v8 = v12;
+    *(a2 + v5) = v8;
+    v7 = v8;
   }
 
-  v13 = v8 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__service;
+  v9 = v7 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__service;
   result = swift_beginAccess();
-  *v13 = v3;
-  *(v13 + 8) = v4;
-  *(v13 + 9) = 0;
+  *v9 = v3;
+  *(v9 + 8) = v4;
+  *(v9 + 9) = 0;
   return result;
 }
 
@@ -5345,30 +5119,27 @@ uint64_t NCProtoContinuityCall.service.setter(uint64_t *a1)
   v3 = *a1;
   v4 = *(a1 + 8);
   v5 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v6 = *(v1 + v5);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *(v1 + v5);
+  v7 = *(v1 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v9 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v10 = *(v9 + 48);
-    v11 = *(v9 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v12 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
+    v8 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
 
-    *(v2 + v5) = v12;
-    v8 = v12;
+    *(v2 + v5) = v8;
+    v7 = v8;
   }
 
-  v13 = v8 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__service;
+  v9 = v7 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__service;
   result = swift_beginAccess();
-  *v13 = v3;
-  *(v13 + 8) = v4;
-  *(v13 + 9) = 0;
+  *v9 = v3;
+  *(v9 + 8) = v4;
+  *(v9 + 9) = 0;
   return result;
 }
 
-void (*NCProtoContinuityCall.service.modify(uint64_t *a1))(uint64_t *a1)
+void (*NCProtoContinuityCall.service.modify(uint64_t *a1))(uint64_t *a1, char a2)
 {
   if (MEMORY[0x277D84FD8])
   {
@@ -5404,37 +5175,34 @@ void (*NCProtoContinuityCall.service.modify(uint64_t *a1))(uint64_t *a1)
   return NCProtoContinuityCall.service.modify;
 }
 
-void NCProtoContinuityCall.service.modify(uint64_t *a1)
+void NCProtoContinuityCall.service.modify(uint64_t *a1, char a2)
 {
-  v1 = *a1;
-  v2 = *(*a1 + 72);
-  v3 = *(*a1 + 84);
-  v4 = *(*a1 + 88);
-  v5 = *(*a1 + 80);
-  v6 = *(v4 + v3);
+  v2 = *a1;
+  v3 = *(*a1 + 72);
+  v4 = *(*a1 + 84);
+  v5 = *(*a1 + 88);
+  v6 = *(*a1 + 80);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v8 = *(v4 + v3);
+  v8 = *(v5 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v9 = *(v1 + 84);
-    v10 = *(v1 + 88);
-    v11 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v12 = *(v11 + 48);
-    v13 = *(v11 + 52);
+    v9 = *(v2 + 84);
+    v10 = *(v2 + 88);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v14 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
+    v11 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
 
-    *(v10 + v9) = v14;
-    v8 = v14;
+    *(v10 + v9) = v11;
+    v8 = v11;
   }
 
-  v15 = v8 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__service;
+  v12 = v8 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__service;
   swift_beginAccess();
-  *v15 = v2;
-  *(v15 + 8) = v5;
-  *(v15 + 9) = 0;
+  *v12 = v3;
+  *(v12 + 8) = v6;
+  *(v12 + 9) = 0;
 
-  free(v1);
+  free(v2);
 }
 
 BOOL NCProtoContinuityCall.hasService.getter()
@@ -5448,25 +5216,22 @@ Swift::Void __swiftcall NCProtoContinuityCall.clearService()()
 {
   v1 = v0;
   v2 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v3 = *(v0 + v2);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v5 = *(v0 + v2);
+  v4 = *(v0 + v2);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v6 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v7 = *(v6 + 48);
-    v8 = *(v6 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v9 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v5);
+    v5 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v4);
 
-    *(v1 + v2) = v9;
-    v5 = v9;
+    *(v1 + v2) = v5;
+    v4 = v5;
   }
 
-  v10 = v5 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__service;
+  v6 = v4 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__service;
   swift_beginAccess();
-  *v10 = 0;
-  *(v10 + 8) = 256;
+  *v6 = 0;
+  *(v6 + 8) = 256;
 }
 
 void (*NCProtoContinuityCall.wantsHoldMusic.modify(uint64_t *a1))(uint64_t *a1, uint64_t a2)
@@ -5514,24 +5279,21 @@ uint64_t key path setter for NCProtoContinuityCall.wantsHoldMusic : NCProtoConti
 {
   v7 = *a1;
   v8 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v9 = *(a2 + v8);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v11 = *(a2 + v8);
+  v10 = *(a2 + v8);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v12 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v13 = *(v12 + 48);
-    v14 = *(v12 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v15 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v11);
+    v11 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v10);
 
-    *(a2 + v8) = v15;
-    v11 = v15;
+    *(a2 + v8) = v11;
+    v10 = v11;
   }
 
-  v16 = *a5;
+  v12 = *a5;
   result = swift_beginAccess();
-  *(v11 + v16) = v7;
+  *(v10 + v12) = v7;
   return result;
 }
 
@@ -5539,24 +5301,21 @@ uint64_t NCProtoContinuityCall.wantsHoldMusic.setter(char a1, uint64_t *a2)
 {
   v4 = v2;
   v6 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v7 = *(v2 + v6);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v9 = *(v2 + v6);
+  v8 = *(v2 + v6);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v10 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v11 = *(v10 + 48);
-    v12 = *(v10 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v13 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v9);
+    v9 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v8);
 
-    *(v4 + v6) = v13;
-    v9 = v13;
+    *(v4 + v6) = v9;
+    v8 = v9;
   }
 
-  v14 = *a2;
+  v10 = *a2;
   result = swift_beginAccess();
-  *(v9 + v14) = a1 & 1;
+  *(v8 + v10) = a1 & 1;
   return result;
 }
 
@@ -5584,32 +5343,29 @@ void (*NCProtoContinuityCall.isScreening.modify(uint64_t *a1))(uint64_t *a1, uin
   return NCProtoContinuityCall.isScreening.modify;
 }
 
-void NCProtoContinuityCall.wantsHoldMusic.modify(uint64_t *a1, uint64_t a2, uint64_t *a3)
+void NCProtoContinuityCall.wantsHoldMusic.modify(uint64_t *a1, char a2, uint64_t *a3)
 {
   v4 = *a1;
   v5 = *(*a1 + 80);
   v6 = *(*a1 + 72);
   v7 = *(*a1 + 84);
-  v8 = *(v6 + v5);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v10 = *(v6 + v5);
+  v9 = *(v6 + v5);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v11 = *(v4 + 80);
-    v12 = *(v4 + 72);
-    v13 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v14 = *(v13 + 48);
-    v15 = *(v13 + 52);
+    v10 = *(v4 + 80);
+    v11 = *(v4 + 72);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v16 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v10);
+    v12 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v9);
 
-    *(v12 + v11) = v16;
-    v10 = v16;
+    *(v11 + v10) = v12;
+    v9 = v12;
   }
 
-  v17 = *a3;
+  v13 = *a3;
   swift_beginAccess();
-  *(v10 + v17) = v7;
+  *(v9 + v13) = v7;
 
   free(v4);
 }
@@ -5626,24 +5382,21 @@ uint64_t NCProtoContinuityCall.clearWantsHoldMusic()(uint64_t *a1)
 {
   v3 = v1;
   v4 = *(type metadata accessor for NCProtoContinuityCall(0) + 20);
-  v5 = *(v1 + v4);
   isUniquelyReferenced_nonNull_native = swift_isUniquelyReferenced_nonNull_native();
-  v7 = *(v1 + v4);
+  v6 = *(v1 + v4);
   if ((isUniquelyReferenced_nonNull_native & 1) == 0)
   {
-    v8 = type metadata accessor for NCProtoContinuityCall._StorageClass(0);
-    v9 = *(v8 + 48);
-    v10 = *(v8 + 52);
+    type metadata accessor for NCProtoContinuityCall._StorageClass(0);
     swift_allocObject();
-    v11 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v7);
+    v7 = specialized NCProtoContinuityCall._StorageClass.init(copying:)(v6);
 
-    *(v3 + v4) = v11;
-    v7 = v11;
+    *(v3 + v4) = v7;
+    v6 = v7;
   }
 
-  v12 = *a1;
+  v8 = *a1;
   result = swift_beginAccess();
-  *(v7 + v12) = 2;
+  *(v6 + v8) = 2;
   return result;
 }
 
@@ -5691,9 +5444,9 @@ uint64_t NCProtoContinuityCall.init()@<X0>(uint64_t a1@<X8>)
 
 uint64_t NCProtoStartedSessionEvent.memberAssociationPrimaryInfo.getter@<X0>(void *a1@<X8>)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v5 = &v14 - v4;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v13 - v4;
   v6 = type metadata accessor for NCProtoStartedSessionEvent(0);
   outlined init with copy of NCProtoContactInfo?(v1 + *(v6 + 28), v5, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
   v7 = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
@@ -5704,18 +5457,17 @@ uint64_t NCProtoStartedSessionEvent.memberAssociationPrimaryInfo.getter@<X0>(voi
   }
 
   *a1 = MEMORY[0x277D84F90];
-  v9 = a1 + v7[5];
   UnknownStorage.init()();
-  v10 = (a1 + v7[6]);
-  *v10 = 0;
-  v10[1] = 0;
+  v9 = (a1 + v7[6]);
+  *v9 = 0;
+  v9[1] = 0;
   *(a1 + v7[7]) = xmmword_2255D3AC0;
-  v11 = a1 + v7[8];
+  v10 = a1 + v7[8];
+  *v10 = 0;
+  v10[8] = 1;
+  v11 = (a1 + v7[9]);
   *v11 = 0;
-  v11[8] = 1;
-  v12 = (a1 + v7[9]);
-  *v12 = 0;
-  v12[1] = 0;
+  v11[1] = 0;
   result = (v8)(v5, 1, v7);
   if (result != 1)
   {
@@ -5729,14 +5481,13 @@ uint64_t key path setter for NCProtoStartedSessionEvent.memberAssociationPrimary
 {
   v4 = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of NCProtoContactInfo(a1, v8, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
-  v9 = *(type metadata accessor for NCProtoStartedSessionEvent(0) + 28);
-  outlined destroy of NCProtoContactInfo?(a2 + v9, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
-  outlined init with take of NCProtoContactInfo(v8, a2 + v9, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
-  return (*(v5 + 56))(a2 + v9, 0, 1, v4);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NCProtoContactInfo(a1, v7, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  v8 = *(type metadata accessor for NCProtoStartedSessionEvent(0) + 28);
+  outlined destroy of NCProtoContactInfo?(a2 + v8, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  outlined init with take of NCProtoContactInfo(v7, a2 + v8, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
 }
 
 uint64_t NCProtoStartedSessionEvent.memberAssociationPrimaryInfo.setter(uint64_t a1)
@@ -5754,23 +5505,22 @@ double NCProtoMemberAssociationPrimaryInfo.init()@<D0>(void *a1@<X8>)
 {
   *a1 = MEMORY[0x277D84F90];
   v2 = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
-  v3 = a1 + v2[5];
   UnknownStorage.init()();
-  v4 = (a1 + v2[6]);
-  *v4 = 0;
-  v4[1] = 0;
+  v3 = (a1 + v2[6]);
+  *v3 = 0;
+  v3[1] = 0;
   result = 0.0;
   *(a1 + v2[7]) = xmmword_2255D3AC0;
-  v6 = a1 + v2[8];
+  v5 = a1 + v2[8];
+  *v5 = 0;
+  v5[8] = 1;
+  v6 = (a1 + v2[9]);
   *v6 = 0;
-  v6[8] = 1;
-  v7 = (a1 + v2[9]);
-  *v7 = 0;
-  v7[1] = 0;
+  v6[1] = 0;
   return result;
 }
 
-uint64_t (*NCProtoStartedSessionEvent.memberAssociationPrimaryInfo.modify(void *a1))()
+void (*NCProtoStartedSessionEvent.memberAssociationPrimaryInfo.modify(void *a1))(uint64_t **a1, char a2)
 {
   v3 = MEMORY[0x277D84FD8];
   if (MEMORY[0x277D84FD8])
@@ -5826,18 +5576,17 @@ uint64_t (*NCProtoStartedSessionEvent.memberAssociationPrimaryInfo.modify(void *
   if (v16(v8, 1, v9) == 1)
   {
     *v14 = MEMORY[0x277D84F90];
-    v17 = v14 + v9[5];
     UnknownStorage.init()();
-    v18 = (v14 + v9[6]);
-    *v18 = 0;
-    v18[1] = 0;
+    v17 = (v14 + v9[6]);
+    *v17 = 0;
+    v17[1] = 0;
     *(v14 + v9[7]) = xmmword_2255D3AC0;
-    v19 = v14 + v9[8];
+    v18 = v14 + v9[8];
+    *v18 = 0;
+    v18[8] = 1;
+    v19 = (v14 + v9[9]);
     *v19 = 0;
-    v19[8] = 1;
-    v20 = (v14 + v9[9]);
-    *v20 = 0;
-    v20[1] = 0;
+    v19[1] = 0;
     if (v16(v8, 1, v9) != 1)
     {
       outlined destroy of NCProtoContactInfo?(v8, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
@@ -5854,8 +5603,8 @@ uint64_t (*NCProtoStartedSessionEvent.memberAssociationPrimaryInfo.modify(void *
 
 BOOL NCProtoAddressableContact.hasContactInfo.getter(uint64_t *a1, uint64_t *a2, uint64_t (*a3)(void), uint64_t (*a4)(void))
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(a1, a2) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
+  MEMORY[0x28223BE20](v9 - 8);
   v11 = &v16 - v10;
   v12 = a3(0);
   outlined init with copy of NCProtoContactInfo?(v4 + *(v12 + 28), v11, a1, a2);
@@ -5917,7 +5666,7 @@ uint64_t key path setter for NCProtoActiveConversation.avMode : NCProtoActiveCon
 {
   v6 = *a1;
   v7 = *(a1 + 8);
-  result = a5(0);
+  result = (a5)(0, a2, a3, a4);
   v9 = a2 + *(result + 32);
   *v9 = v6;
   *(v9 + 8) = v7;
@@ -5991,7 +5740,7 @@ uint64_t NCProtoStartedSessionEvent.isExpanseHandoffSupported.setter(char a1)
   return result;
 }
 
-uint64_t (*NCProtoStartedSessionEvent.isExpanseHandoffSupported.modify(uint64_t a1))()
+uint64_t (*NCProtoStartedSessionEvent.isExpanseHandoffSupported.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for NCProtoStartedSessionEvent(0) + 36);
@@ -6022,7 +5771,7 @@ uint64_t NCProtoStartedSessionEvent.isLagunaHandoffSupported.setter(char a1)
   return result;
 }
 
-uint64_t (*NCProtoStartedSessionEvent.isLagunaHandoffSupported.modify(uint64_t a1))()
+uint64_t (*NCProtoStartedSessionEvent.isLagunaHandoffSupported.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for NCProtoStartedSessionEvent(0) + 40);
@@ -6055,14 +5804,13 @@ uint64_t NCProtoStartedSessionEvent.init()@<X0>(uint64_t a1@<X8>)
   *(a1 + 8) = 0xE000000000000000;
   *(a1 + 16) = xmmword_2255D3AB0;
   v2 = type metadata accessor for NCProtoStartedSessionEvent(0);
-  v3 = a1 + v2[6];
   UnknownStorage.init()();
-  v4 = v2[7];
-  v5 = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
-  result = (*(*(v5 - 8) + 56))(a1 + v4, 1, 1, v5);
-  v7 = a1 + v2[8];
-  *v7 = 0;
-  *(v7 + 8) = 256;
+  v3 = v2[7];
+  v4 = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
+  result = (*(*(v4 - 8) + 56))(a1 + v3, 1, 1, v4);
+  v6 = a1 + v2[8];
+  *v6 = 0;
+  *(v6 + 8) = 256;
   *(a1 + v2[9]) = 2;
   *(a1 + v2[10]) = 2;
   return result;
@@ -6091,7 +5839,7 @@ uint64_t NCProtoPendingConversationDisconnectedEvent.init()@<X0>(uint64_t a1@<X8
   *a1 = 0;
   *(a1 + 8) = 0xE000000000000000;
   *(a1 + 16) = 0;
-  v1 = a1 + *(type metadata accessor for NCProtoPendingConversationDisconnectedEvent(0) + 24);
+  type metadata accessor for NCProtoPendingConversationDisconnectedEvent(0);
   return UnknownStorage.init()();
 }
 
@@ -6127,7 +5875,6 @@ uint64_t NCProtoJoinEvent.userAccountInfoData.setter(uint64_t a1, uint64_t a2)
 
 uint64_t NCProtoJoinEvent.policyInfos.setter(uint64_t a1)
 {
-  v3 = *(v1 + 32);
 
   *(v1 + 32) = a1;
   return result;
@@ -6156,7 +5903,7 @@ uint64_t NCProtoJoinEvent.init()@<X0>(uint64_t a1@<X8>)
   *a1 = xmmword_2255D3AB0;
   *(a1 + 16) = xmmword_2255D3AB0;
   *(a1 + 32) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SbTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-  v2 = a1 + *(type metadata accessor for NCProtoJoinEvent(0) + 28);
+  type metadata accessor for NCProtoJoinEvent(0);
   return UnknownStorage.init()();
 }
 
@@ -6166,14 +5913,14 @@ uint64_t NCProtoRecentCallsDidChangeEvent.init()@<X0>(void *a1@<X8>)
   *a1 = MEMORY[0x277D84F90];
   a1[1] = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_27NeighborhoodActivityConduit18NCProtoContactInfoVTt0g5Tf4g_n(v2);
   a1[2] = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_27NeighborhoodActivityConduit15NCProtoCallInfoVTt0g5Tf4g_n(v2);
-  v3 = a1 + *(type metadata accessor for NCProtoRecentCallsDidChangeEvent(0) + 28);
+  type metadata accessor for NCProtoRecentCallsDidChangeEvent(0);
   return UnknownStorage.init()();
 }
 
-uint64_t NCProtoFavoritesDidChangeEvent.init()@<X0>(uint64_t (*a1)(void)@<X0>, void *a2@<X8>)
+uint64_t NCProtoFavoritesDidChangeEvent.init()@<X0>(void (*a1)(void)@<X0>, void *a2@<X8>)
 {
   *a2 = MEMORY[0x277D84F90];
-  v2 = a2 + *(a1(0) + 20);
+  a1(0);
   return UnknownStorage.init()();
 }
 
@@ -6187,7 +5934,6 @@ unint64_t NCProtoSuggestionAdvertisement.SuggestionType.init(rawValue:)@<X0>(uni
 
 uint64_t NCProtoSuggestionAdvertisement.SuggestionType.rawValue.getter()
 {
-  v1 = *v0 == 0;
   if (v0[8])
   {
     return *v0 != 0;
@@ -6209,7 +5955,6 @@ unint64_t protocol witness for Enum.init(rawValue:) in conformance NCProtoSugges
 
 uint64_t protocol witness for Enum.rawValue.getter in conformance NCProtoSuggestionAdvertisement.SuggestionType()
 {
-  v1 = *v0 == 0;
   if (v0[8])
   {
     return *v0 != 0;
@@ -6274,15 +6019,15 @@ uint64_t NCProtoSuggestionAdvertisement.init()@<X0>(uint64_t a1@<X8>)
   *(a1 + 24) = 0xE000000000000000;
   *(a1 + 32) = 0;
   *(a1 + 40) = 1;
-  v1 = a1 + *(type metadata accessor for NCProtoSuggestionAdvertisement(0) + 28);
+  type metadata accessor for NCProtoSuggestionAdvertisement(0);
   return UnknownStorage.init()();
 }
 
 uint64_t NCProtoSuggestionAdvertisementDidChangeEvent.advertisement.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v5 = &v11 - v4;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v10 - v4;
   v6 = type metadata accessor for NCProtoSuggestionAdvertisementDidChangeEvent(0);
   outlined init with copy of NCProtoContactInfo?(v1 + *(v6 + 20), v5, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
   v7 = type metadata accessor for NCProtoSuggestionAdvertisement(0);
@@ -6298,7 +6043,6 @@ uint64_t NCProtoSuggestionAdvertisementDidChangeEvent.advertisement.getter@<X0>(
   *(a1 + 24) = 0xE000000000000000;
   *(a1 + 32) = 0;
   *(a1 + 40) = 1;
-  v9 = a1 + *(v7 + 28);
   UnknownStorage.init()();
   result = (v8)(v5, 1, v7);
   if (result != 1)
@@ -6311,9 +6055,9 @@ uint64_t NCProtoSuggestionAdvertisementDidChangeEvent.advertisement.getter@<X0>(
 
 uint64_t key path getter for NCProtoSuggestionAdvertisementDidChangeEvent.advertisement : NCProtoSuggestionAdvertisementDidChangeEvent@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v6 = &v12 - v5;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v11 - v5;
   v7 = type metadata accessor for NCProtoSuggestionAdvertisementDidChangeEvent(0);
   outlined init with copy of NCProtoContactInfo?(a1 + *(v7 + 20), v6, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
   v8 = type metadata accessor for NCProtoSuggestionAdvertisement(0);
@@ -6329,7 +6073,6 @@ uint64_t key path getter for NCProtoSuggestionAdvertisementDidChangeEvent.advert
   *(a2 + 24) = 0xE000000000000000;
   *(a2 + 32) = 0;
   *(a2 + 40) = 1;
-  v10 = a2 + *(v8 + 28);
   UnknownStorage.init()();
   result = (v9)(v6, 1, v8);
   if (result != 1)
@@ -6344,14 +6087,13 @@ uint64_t key path setter for NCProtoSuggestionAdvertisementDidChangeEvent.advert
 {
   v4 = type metadata accessor for NCProtoSuggestionAdvertisement(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of NCProtoContactInfo(a1, v8, type metadata accessor for NCProtoSuggestionAdvertisement);
-  v9 = *(type metadata accessor for NCProtoSuggestionAdvertisementDidChangeEvent(0) + 20);
-  outlined destroy of NCProtoContactInfo?(a2 + v9, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
-  outlined init with take of NCProtoContactInfo(v8, a2 + v9, type metadata accessor for NCProtoSuggestionAdvertisement);
-  return (*(v5 + 56))(a2 + v9, 0, 1, v4);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NCProtoContactInfo(a1, v7, type metadata accessor for NCProtoSuggestionAdvertisement);
+  v8 = *(type metadata accessor for NCProtoSuggestionAdvertisementDidChangeEvent(0) + 20);
+  outlined destroy of NCProtoContactInfo?(a2 + v8, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
+  outlined init with take of NCProtoContactInfo(v7, a2 + v8, type metadata accessor for NCProtoSuggestionAdvertisement);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
 }
 
 uint64_t NCProtoSuggestionAdvertisementDidChangeEvent.advertisement.setter(uint64_t a1)
@@ -6426,7 +6168,6 @@ void (*NCProtoSuggestionAdvertisementDidChangeEvent.advertisement.modify(void *a
     *(v14 + 24) = 0xE000000000000000;
     *(v14 + 32) = 0;
     *(v14 + 40) = 1;
-    v17 = v14 + *(v9 + 28);
     UnknownStorage.init()();
     if (v16(v8, 1, v9) != 1)
     {
@@ -6477,7 +6218,6 @@ void NCProtoSuggestionAdvertisementDidChangeEvent.advertisement.modify(uint64_t 
 
 uint64_t NCProtoLagunaConnectionRequest.contactInfos.setter(uint64_t a1)
 {
-  v3 = *(v1 + 8);
 
   *(v1 + 8) = a1;
   return result;
@@ -6485,8 +6225,8 @@ uint64_t NCProtoLagunaConnectionRequest.contactInfos.setter(uint64_t a1)
 
 uint64_t NCProtoLagunaConnectionRequest.callState.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
   v5 = &v11 - v4;
   v6 = type metadata accessor for NCProtoLagunaConnectionRequest(0);
   outlined init with copy of NCProtoContactInfo?(v1 + *(v6 + 44), v5, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
@@ -6515,8 +6255,8 @@ uint64_t NCProtoLagunaConnectionRequest.callState.getter@<X0>(uint64_t a1@<X8>)
 
 uint64_t key path getter for NCProtoLagunaConnectionRequest.callState : NCProtoLagunaConnectionRequest@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
   v6 = &v12 - v5;
   v7 = type metadata accessor for NCProtoLagunaConnectionRequest(0);
   outlined init with copy of NCProtoContactInfo?(a1 + *(v7 + 44), v6, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
@@ -6547,14 +6287,13 @@ uint64_t key path setter for NCProtoLagunaConnectionRequest.callState : NCProtoL
 {
   v4 = type metadata accessor for NCProtoCallState(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of NCProtoContactInfo(a1, v8, type metadata accessor for NCProtoCallState);
-  v9 = *(type metadata accessor for NCProtoLagunaConnectionRequest(0) + 44);
-  outlined destroy of NCProtoContactInfo?(a2 + v9, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-  outlined init with take of NCProtoContactInfo(v8, a2 + v9, type metadata accessor for NCProtoCallState);
-  return (*(v5 + 56))(a2 + v9, 0, 1, v4);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NCProtoContactInfo(a1, v7, type metadata accessor for NCProtoCallState);
+  v8 = *(type metadata accessor for NCProtoLagunaConnectionRequest(0) + 44);
+  outlined destroy of NCProtoContactInfo?(a2 + v8, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  outlined init with take of NCProtoContactInfo(v7, a2 + v8, type metadata accessor for NCProtoCallState);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
 }
 
 uint64_t NCProtoLagunaConnectionRequest.callState.setter(uint64_t a1)
@@ -6581,7 +6320,7 @@ int *NCProtoCallState.init()@<X0>(uint64_t a1@<X8>)
   return result;
 }
 
-uint64_t (*NCProtoLagunaConnectionRequest.callState.modify(void *a1))()
+void (*NCProtoLagunaConnectionRequest.callState.modify(void *a1))(uint64_t **a1, char a2)
 {
   v3 = MEMORY[0x277D84FD8];
   if (MEMORY[0x277D84FD8])
@@ -6659,8 +6398,8 @@ uint64_t (*NCProtoLagunaConnectionRequest.callState.modify(void *a1))()
 
 BOOL NCProtoLagunaConnectionRequest.hasCallState.getter()
 {
-  v1 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  MEMORY[0x28223BE20](v1 - 8);
   v3 = &v8 - v2;
   v4 = type metadata accessor for NCProtoLagunaConnectionRequest(0);
   outlined init with copy of NCProtoContactInfo?(v0 + *(v4 + 44), v3, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
@@ -6682,7 +6421,6 @@ Swift::Void __swiftcall NCProtoLagunaConnectionRequest.clearCallState()()
 
 uint64_t NCProtoLagunaConnectionRequest.favorites.setter(uint64_t a1)
 {
-  v3 = *(v1 + 24);
 
   *(v1 + 24) = a1;
   return result;
@@ -6690,7 +6428,6 @@ uint64_t NCProtoLagunaConnectionRequest.favorites.setter(uint64_t a1)
 
 uint64_t NCProtoLagunaConnectionRequest.recentCallsInfo.setter(uint64_t a1)
 {
-  v3 = *(v1 + 40);
 
   *(v1 + 40) = a1;
   return result;
@@ -6706,13 +6443,12 @@ uint64_t NCProtoLagunaConnectionRequest.init()@<X0>(char *a1@<X8>)
   *(a1 + 4) = v2;
   *(a1 + 5) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_27NeighborhoodActivityConduit15NCProtoCallInfoVTt0g5Tf4g_n(v2);
   v3 = type metadata accessor for NCProtoLagunaConnectionRequest(0);
-  v4 = &a1[*(v3 + 40)];
   UnknownStorage.init()();
-  v5 = *(v3 + 44);
-  v6 = type metadata accessor for NCProtoCallState(0);
-  v7 = *(*(v6 - 8) + 56);
+  v4 = *(v3 + 44);
+  v5 = type metadata accessor for NCProtoCallState(0);
+  v6 = *(*(v5 - 8) + 56);
 
-  return v7(&a1[v5], 1, 1, v6);
+  return v6(&a1[v4], 1, 1, v5);
 }
 
 uint64_t (*NCProtoNearbyCallStatusChangedEvent.userAccountInfoData.modify(uint64_t a1))()
@@ -6751,18 +6487,17 @@ double NCProtoNearbyCallStatusChangedEvent.init()@<D0>(void *a1@<X8>)
   *a1 = MEMORY[0x277D84F90];
   a1[1] = v2;
   v3 = type metadata accessor for NCProtoNearbyCallStatusChangedEvent(0);
-  v4 = a1 + *(v3 + 24);
   UnknownStorage.init()();
   result = 0.0;
   *(a1 + *(v3 + 28)) = xmmword_2255D3AC0;
   return result;
 }
 
-uint64_t NCProtoEndedSessionEvent.init()@<X0>(uint64_t (*a1)(void)@<X0>, void *a2@<X8>)
+uint64_t NCProtoEndedSessionEvent.init()@<X0>(void (*a1)(void)@<X0>, void *a2@<X8>)
 {
   *a2 = 0;
   a2[1] = 0xE000000000000000;
-  v2 = a2 + *(a1(0) + 20);
+  a1(0);
   return UnknownStorage.init()();
 }
 
@@ -6795,16 +6530,11 @@ uint64_t NCProtoAddMemberRequest.associationVoucherData.getter()
     v3 = *v1;
   }
 
-  if (v2 >> 60 != 15)
-  {
-    v4 = v1[1];
-  }
-
   outlined copy of Data?(*v1, v2);
   return v3;
 }
 
-uint64_t key path getter for NCProtoAddMemberRequest.associationVoucherData : NCProtoAddMemberRequest@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+void key path getter for NCProtoAddMemberRequest.associationVoucherData : NCProtoAddMemberRequest(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = (a1 + *(type metadata accessor for NCProtoAddMemberRequest(0) + 32));
   v4 = *v3;
@@ -6828,7 +6558,7 @@ uint64_t key path getter for NCProtoAddMemberRequest.associationVoucherData : NC
   *a2 = v6;
   a2[1] = v7;
 
-  return outlined copy of Data?(v4, v5);
+  outlined copy of Data?(v4, v5);
 }
 
 uint64_t key path setter for NCProtoAddMemberRequest.associationVoucherData : NCProtoAddMemberRequest(uint64_t *a1, uint64_t a2)
@@ -6915,7 +6645,6 @@ double NCProtoAddMemberRequest.init()@<D0>(uint64_t a1@<X8>)
   *(a1 + 32) = 0;
   *(a1 + 40) = 1;
   v2 = type metadata accessor for NCProtoAddMemberRequest(0);
-  v3 = a1 + *(v2 + 28);
   UnknownStorage.init()();
   result = 0.0;
   *(a1 + *(v2 + 32)) = xmmword_2255D3AC0;
@@ -6924,17 +6653,16 @@ double NCProtoAddMemberRequest.init()@<D0>(uint64_t a1@<X8>)
 
 uint64_t NCProtoAddMemberResponse.policyInfos.setter(uint64_t a1)
 {
-  v3 = *(v1 + 16);
 
   *(v1 + 16) = a1;
   return result;
 }
 
-uint64_t NCProtoContactUpdateEvent.init()@<X0>(uint64_t (*a1)(void)@<X0>, uint64_t (*a2)(void)@<X1>, uint64_t a3@<X8>)
+uint64_t NCProtoContactUpdateEvent.init()@<X0>(uint64_t (*a1)(void)@<X0>, void (*a2)(void)@<X1>, uint64_t a3@<X8>)
 {
   *a3 = xmmword_2255D3AB0;
   *(a3 + 16) = a1(MEMORY[0x277D84F90]);
-  v5 = a3 + *(a2(0) + 24);
+  a2(0);
   return UnknownStorage.init()();
 }
 
@@ -6990,7 +6718,7 @@ uint64_t NCProtoTransferActiveConversationRequest.isAudioEnabled.setter(char a1)
   return result;
 }
 
-uint64_t (*NCProtoTransferActiveConversationRequest.isAudioEnabled.modify(uint64_t a1))()
+uint64_t (*NCProtoTransferActiveConversationRequest.isAudioEnabled.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for NCProtoTransferActiveConversationRequest(0) + 24);
@@ -7021,7 +6749,7 @@ uint64_t NCProtoTransferActiveConversationRequest.isVideoEnabled.setter(char a1)
   return result;
 }
 
-uint64_t (*NCProtoTransferActiveConversationRequest.isVideoEnabled.modify(uint64_t a1))()
+uint64_t (*NCProtoTransferActiveConversationRequest.isVideoEnabled.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for NCProtoTransferActiveConversationRequest(0) + 28);
@@ -7035,10 +6763,9 @@ uint64_t NCProtoTransferActiveConversationRequest.init()@<X0>(void *a1@<X8>)
   *a1 = 0;
   a1[1] = 0xE000000000000000;
   active = type metadata accessor for NCProtoTransferActiveConversationRequest(0);
-  v3 = a1 + active[5];
   result = UnknownStorage.init()();
-  *(a1 + active[6]) = 2;
-  *(a1 + active[7]) = 2;
+  *(a1 + *(active + 24)) = 2;
+  *(a1 + *(active + 28)) = 2;
   return result;
 }
 
@@ -7064,7 +6791,7 @@ uint64_t NCProtoTransferContinuityCallRequest.isAudioEnabled.setter(char a1)
   return result;
 }
 
-uint64_t (*NCProtoTransferContinuityCallRequest.isAudioEnabled.modify(uint64_t a1))()
+uint64_t (*NCProtoTransferContinuityCallRequest.isAudioEnabled.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for NCProtoTransferContinuityCallRequest(0) + 24);
@@ -7078,7 +6805,6 @@ uint64_t NCProtoTransferContinuityCallRequest.init()@<X0>(void *a1@<X8>)
   *a1 = 0;
   a1[1] = 0xE000000000000000;
   v2 = type metadata accessor for NCProtoTransferContinuityCallRequest(0);
-  v3 = a1 + *(v2 + 20);
   result = UnknownStorage.init()();
   *(a1 + *(v2 + 24)) = 2;
   return result;
@@ -7097,7 +6823,7 @@ uint64_t NCProtoSenderIdentity.init()@<X0>(void *a1@<X8>)
   a1[1] = 0xE000000000000000;
   a1[2] = 0;
   a1[3] = 0xE000000000000000;
-  v1 = a1 + *(type metadata accessor for NCProtoSenderIdentity(0) + 24);
+  type metadata accessor for NCProtoSenderIdentity(0);
   return UnknownStorage.init()();
 }
 
@@ -7107,7 +6833,6 @@ uint64_t NCProtoActiveConversation.uuidString.getter(uint64_t (*a1)(void))
   if (v2[1])
   {
     v3 = *v2;
-    v4 = v2[1];
   }
 
   else
@@ -7142,8 +6867,7 @@ uint64_t key path setter for NCProtoActiveConversation.uuidString : NCProtoActiv
 {
   v6 = *a1;
   v5 = a1[1];
-  v7 = (a2 + *(a5(0) + 24));
-  v8 = v7[1];
+  v7 = (a2 + *((a5)(0, a2, a3, a4) + 24));
 
   *v7 = v6;
   v7[1] = v5;
@@ -7153,7 +6877,6 @@ uint64_t key path setter for NCProtoActiveConversation.uuidString : NCProtoActiv
 uint64_t NCProtoActiveConversation.uuidString.setter(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
   v6 = (v3 + *(a3(0) + 24));
-  v7 = v6[1];
 
   *v6 = a1;
   v6[1] = a2;
@@ -7201,7 +6924,6 @@ uint64_t (*NCProtoCallInfo.callerIDSubstring.modify(uint64_t *a1))()
 uint64_t NCProtoActiveConversation.clearUuidString()(uint64_t (*a1)(void))
 {
   v2 = (v1 + *(a1(0) + 24));
-  v3 = v2[1];
 
   *v2 = 0;
   v2[1] = 0;
@@ -7214,7 +6936,6 @@ uint64_t NCProtoActiveConversation.displayName.getter(uint64_t (*a1)(void))
   if (v2[1])
   {
     v3 = *v2;
-    v4 = v2[1];
   }
 
   else
@@ -7249,8 +6970,7 @@ uint64_t key path setter for NCProtoActiveConversation.displayName : NCProtoActi
 {
   v6 = *a1;
   v5 = a1[1];
-  v7 = (a2 + *(a5(0) + 28));
-  v8 = v7[1];
+  v7 = (a2 + *((a5)(0, a2, a3, a4) + 28));
 
   *v7 = v6;
   v7[1] = v5;
@@ -7260,7 +6980,6 @@ uint64_t key path setter for NCProtoActiveConversation.displayName : NCProtoActi
 uint64_t NCProtoActiveConversation.displayName.setter(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
   v6 = (v3 + *(a3(0) + 28));
-  v7 = v6[1];
 
   *v6 = a1;
   v6[1] = a2;
@@ -7308,7 +7027,6 @@ uint64_t (*NCProtoCallInfo.callIdentifier.modify(uint64_t *a1))()
 uint64_t NCProtoActiveConversation.clearDisplayName()(uint64_t (*a1)(void))
 {
   v2 = (v1 + *(a1(0) + 28));
-  v3 = v2[1];
 
   *v2 = 0;
   v2[1] = 0;
@@ -7321,7 +7039,6 @@ uint64_t NCProtoCallInfo.displayName.getter()
   if (v1[1])
   {
     v2 = *v1;
-    v3 = v1[1];
   }
 
   else
@@ -7357,7 +7074,6 @@ uint64_t key path setter for NCProtoCallInfo.displayName : NCProtoCallInfo(uint6
   v3 = *a1;
   v2 = a1[1];
   v4 = (a2 + *(type metadata accessor for NCProtoCallInfo(0) + 32));
-  v5 = v4[1];
 
   *v4 = v3;
   v4[1] = v2;
@@ -7367,7 +7083,6 @@ uint64_t key path setter for NCProtoCallInfo.displayName : NCProtoCallInfo(uint6
 uint64_t NCProtoCallInfo.displayName.setter(uint64_t a1, uint64_t a2)
 {
   v5 = (v2 + *(type metadata accessor for NCProtoCallInfo(0) + 32));
-  v6 = v5[1];
 
   *v5 = a1;
   v5[1] = a2;
@@ -7415,7 +7130,6 @@ uint64_t (*NCProtoCallInfo.displayName.modify(uint64_t *a1))()
 Swift::Void __swiftcall NCProtoCallInfo.clearDisplayName()()
 {
   v1 = (v0 + *(type metadata accessor for NCProtoCallInfo(0) + 32));
-  v2 = v1[1];
 
   *v1 = 0;
   v1[1] = 0;
@@ -7443,7 +7157,7 @@ uint64_t NCProtoCallInfo.isBranded.setter(char a1)
   return result;
 }
 
-uint64_t (*NCProtoCallInfo.isBranded.modify(uint64_t a1))()
+uint64_t (*NCProtoCallInfo.isBranded.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for NCProtoCallInfo(0) + 36);
@@ -7454,7 +7168,6 @@ uint64_t (*NCProtoCallInfo.isBranded.modify(uint64_t a1))()
 
 uint64_t NCProtoCallInfo.contactIdentifiersByHandle.setter(uint64_t a1)
 {
-  v3 = *v1;
 
   *v1 = a1;
   return result;
@@ -7462,9 +7175,9 @@ uint64_t NCProtoCallInfo.contactIdentifiersByHandle.setter(uint64_t a1)
 
 uint64_t NCProtoCallInfo.senderIdentity.getter@<X0>(void *a1@<X8>)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v5 = &v11 - v4;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v10 - v4;
   v6 = type metadata accessor for NCProtoCallInfo(0);
   outlined init with copy of NCProtoContactInfo?(v1 + *(v6 + 40), v5, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
   v7 = type metadata accessor for NCProtoSenderIdentity(0);
@@ -7478,7 +7191,6 @@ uint64_t NCProtoCallInfo.senderIdentity.getter@<X0>(void *a1@<X8>)
   a1[1] = 0xE000000000000000;
   a1[2] = 0;
   a1[3] = 0xE000000000000000;
-  v9 = a1 + *(v7 + 24);
   UnknownStorage.init()();
   result = (v8)(v5, 1, v7);
   if (result != 1)
@@ -7491,9 +7203,9 @@ uint64_t NCProtoCallInfo.senderIdentity.getter@<X0>(void *a1@<X8>)
 
 uint64_t key path getter for NCProtoCallInfo.senderIdentity : NCProtoCallInfo@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v6 = &v12 - v5;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v11 - v5;
   v7 = type metadata accessor for NCProtoCallInfo(0);
   outlined init with copy of NCProtoContactInfo?(a1 + *(v7 + 40), v6, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
   v8 = type metadata accessor for NCProtoSenderIdentity(0);
@@ -7507,7 +7219,6 @@ uint64_t key path getter for NCProtoCallInfo.senderIdentity : NCProtoCallInfo@<X
   a2[1] = 0xE000000000000000;
   a2[2] = 0;
   a2[3] = 0xE000000000000000;
-  v10 = a2 + *(v8 + 24);
   UnknownStorage.init()();
   result = (v9)(v6, 1, v8);
   if (result != 1)
@@ -7522,14 +7233,13 @@ uint64_t key path setter for NCProtoCallInfo.senderIdentity : NCProtoCallInfo(ui
 {
   v4 = type metadata accessor for NCProtoSenderIdentity(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of NCProtoContactInfo(a1, v8, type metadata accessor for NCProtoSenderIdentity);
-  v9 = *(type metadata accessor for NCProtoCallInfo(0) + 40);
-  outlined destroy of NCProtoContactInfo?(a2 + v9, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
-  outlined init with take of NCProtoContactInfo(v8, a2 + v9, type metadata accessor for NCProtoSenderIdentity);
-  return (*(v5 + 56))(a2 + v9, 0, 1, v4);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NCProtoContactInfo(a1, v7, type metadata accessor for NCProtoSenderIdentity);
+  v8 = *(type metadata accessor for NCProtoCallInfo(0) + 40);
+  outlined destroy of NCProtoContactInfo?(a2 + v8, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
+  outlined init with take of NCProtoContactInfo(v7, a2 + v8, type metadata accessor for NCProtoSenderIdentity);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
 }
 
 uint64_t NCProtoCallInfo.senderIdentity.setter(uint64_t a1)
@@ -7602,7 +7312,6 @@ void (*NCProtoCallInfo.senderIdentity.modify(void *a1))(uint64_t **a1, char a2)
     v14[1] = 0xE000000000000000;
     v14[2] = 0;
     v14[3] = 0xE000000000000000;
-    v17 = v14 + *(v9 + 24);
     UnknownStorage.init()();
     if (v16(v8, 1, v9) != 1)
     {
@@ -7653,8 +7362,8 @@ void NCProtoCallInfo.senderIdentity.modify(uint64_t **a1, char a2)
 
 BOOL NCProtoCallInfo.hasSenderIdentity.getter()
 {
-  v1 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
+  MEMORY[0x28223BE20](v1 - 8);
   v3 = &v8 - v2;
   v4 = type metadata accessor for NCProtoCallInfo(0);
   outlined init with copy of NCProtoContactInfo?(v0 + *(v4 + 40), v3, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
@@ -7688,16 +7397,11 @@ uint64_t NCProtoCallInfo.handlesHash.getter()
     v3 = *v1;
   }
 
-  if (v2 >> 60 != 15)
-  {
-    v4 = v1[1];
-  }
-
   outlined copy of Data?(*v1, v2);
   return v3;
 }
 
-uint64_t key path getter for NCProtoCallInfo.handlesHash : NCProtoCallInfo@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+void key path getter for NCProtoCallInfo.handlesHash : NCProtoCallInfo(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = (a1 + *(type metadata accessor for NCProtoCallInfo(0) + 44));
   v4 = *v3;
@@ -7721,7 +7425,7 @@ uint64_t key path getter for NCProtoCallInfo.handlesHash : NCProtoCallInfo@<X0>(
   *a2 = v6;
   a2[1] = v7;
 
-  return outlined copy of Data?(v4, v5);
+  outlined copy of Data?(v4, v5);
 }
 
 uint64_t key path setter for NCProtoCallInfo.handlesHash : NCProtoCallInfo(uint64_t *a1, uint64_t a2)
@@ -7837,7 +7541,7 @@ uint64_t NCProtoCallInfo.handlesBlocked.setter(char a1)
   return result;
 }
 
-uint64_t (*NCProtoCallInfo.handlesBlocked.modify(uint64_t a1))()
+uint64_t (*NCProtoCallInfo.handlesBlocked.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for NCProtoCallInfo(0) + 52);
@@ -7863,9 +7567,9 @@ uint64_t NCProtoUpdateBlockedStateRequest.request.setter(uint64_t result)
 
 uint64_t NCProtoUpdateBlockedStateRequest.spamCallModelInfo.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v5 = &v11 - v4;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v10 - v4;
   updated = type metadata accessor for NCProtoUpdateBlockedStateRequest(0);
   outlined init with copy of NCProtoContactInfo?(v1 + *(updated + 28), v5, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMR);
   v7 = type metadata accessor for NCProtoSpamCallModelInfo(0);
@@ -7881,7 +7585,6 @@ uint64_t NCProtoUpdateBlockedStateRequest.spamCallModelInfo.getter@<X0>(uint64_t
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
-  v9 = a1 + *(v7 + 36);
   UnknownStorage.init()();
   *(a1 + *(v7 + 40)) = xmmword_2255D3AC0;
   result = (v8)(v5, 1, v7);
@@ -7897,14 +7600,13 @@ uint64_t key path setter for NCProtoUpdateBlockedStateRequest.spamCallModelInfo 
 {
   v4 = type metadata accessor for NCProtoSpamCallModelInfo(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of NCProtoContactInfo(a1, v8, type metadata accessor for NCProtoSpamCallModelInfo);
-  v9 = *(type metadata accessor for NCProtoUpdateBlockedStateRequest(0) + 28);
-  outlined destroy of NCProtoContactInfo?(a2 + v9, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMR);
-  outlined init with take of NCProtoContactInfo(v8, a2 + v9, type metadata accessor for NCProtoSpamCallModelInfo);
-  return (*(v5 + 56))(a2 + v9, 0, 1, v4);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NCProtoContactInfo(a1, v7, type metadata accessor for NCProtoSpamCallModelInfo);
+  v8 = *(type metadata accessor for NCProtoUpdateBlockedStateRequest(0) + 28);
+  outlined destroy of NCProtoContactInfo?(a2 + v8, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMR);
+  outlined init with take of NCProtoContactInfo(v7, a2 + v8, type metadata accessor for NCProtoSpamCallModelInfo);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
 }
 
 uint64_t NCProtoUpdateBlockedStateRequest.spamCallModelInfo.setter(uint64_t a1)
@@ -7927,7 +7629,6 @@ double NCProtoSpamCallModelInfo.init()@<D0>(uint64_t a1@<X8>)
   *(a1 + 24) = 0;
   *(a1 + 32) = 0;
   *(a1 + 40) = 0;
-  v3 = a1 + *(v2 + 36);
   UnknownStorage.init()();
   result = 0.0;
   *(a1 + *(v2 + 40)) = xmmword_2255D3AC0;
@@ -7995,7 +7696,6 @@ void (*NCProtoUpdateBlockedStateRequest.spamCallModelInfo.modify(void *a1))(uint
     *(v14 + 24) = 0;
     *(v14 + 32) = 0;
     *(v14 + 40) = 0;
-    v17 = v14 + *(v9 + 36);
     UnknownStorage.init()();
     *(v14 + *(v9 + 40)) = xmmword_2255D3AC0;
     if (v16(v8, 1, v9) != 1)
@@ -8058,19 +7758,18 @@ uint64_t NCProtoUpdateBlockedStateRequest.init()@<X0>(uint64_t a1@<X8>)
   *(a1 + 8) = 1;
   *(a1 + 16) = MEMORY[0x277D84F90];
   updated = type metadata accessor for NCProtoUpdateBlockedStateRequest(0);
-  v3 = a1 + *(updated + 24);
   UnknownStorage.init()();
-  v4 = *(updated + 28);
-  v5 = type metadata accessor for NCProtoSpamCallModelInfo(0);
-  v6 = *(*(v5 - 8) + 56);
+  v3 = *(updated + 28);
+  v4 = type metadata accessor for NCProtoSpamCallModelInfo(0);
+  v5 = *(*(v4 - 8) + 56);
 
-  return v6(a1 + v4, 1, 1, v5);
+  return v5(a1 + v3, 1, 1, v4);
 }
 
-uint64_t NCProtoPolicyInfoUpdatedEvent.init()@<X0>(uint64_t (*a1)(void)@<X0>, unint64_t *a2@<X8>)
+uint64_t NCProtoPolicyInfoUpdatedEvent.init()@<X0>(void (*a1)(void)@<X0>, unint64_t *a2@<X8>)
 {
   *a2 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SbTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-  v4 = a2 + *(a1(0) + 20);
+  a1(0);
   return UnknownStorage.init()();
 }
 
@@ -8114,8 +7813,8 @@ uint64_t (*NCProtoRingtoneConfiguration.identifier.modify(uint64_t *a1))()
 
 uint64_t NCProtoGetRingtoneConfigurationResponse.configuration.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
   v5 = &v11 - v4;
   RingtoneConfigurationResponse = type metadata accessor for NCProtoGetRingtoneConfigurationResponse(0);
   outlined init with copy of NCProtoContactInfo?(v1 + *(RingtoneConfigurationResponse + 20), v5, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
@@ -8141,8 +7840,8 @@ uint64_t NCProtoGetRingtoneConfigurationResponse.configuration.getter@<X0>(uint6
 
 uint64_t key path getter for NCProtoGetRingtoneConfigurationResponse.configuration : NCProtoGetRingtoneConfigurationResponse@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
   v6 = &v12 - v5;
   RingtoneConfigurationResponse = type metadata accessor for NCProtoGetRingtoneConfigurationResponse(0);
   outlined init with copy of NCProtoContactInfo?(a1 + *(RingtoneConfigurationResponse + 20), v6, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
@@ -8170,14 +7869,13 @@ uint64_t key path setter for NCProtoGetRingtoneConfigurationResponse.configurati
 {
   v4 = type metadata accessor for NCProtoRingtoneConfiguration(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of NCProtoContactInfo(a1, v8, type metadata accessor for NCProtoRingtoneConfiguration);
-  v9 = *(type metadata accessor for NCProtoGetRingtoneConfigurationResponse(0) + 20);
-  outlined destroy of NCProtoContactInfo?(a2 + v9, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
-  outlined init with take of NCProtoContactInfo(v8, a2 + v9, type metadata accessor for NCProtoRingtoneConfiguration);
-  return (*(v5 + 56))(a2 + v9, 0, 1, v4);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NCProtoContactInfo(a1, v7, type metadata accessor for NCProtoRingtoneConfiguration);
+  v8 = *(type metadata accessor for NCProtoGetRingtoneConfigurationResponse(0) + 20);
+  outlined destroy of NCProtoContactInfo?(a2 + v8, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
+  outlined init with take of NCProtoContactInfo(v7, a2 + v8, type metadata accessor for NCProtoRingtoneConfiguration);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
 }
 
 uint64_t NCProtoGetRingtoneConfigurationResponse.configuration.setter(uint64_t a1)
@@ -8299,8 +7997,8 @@ void NCProtoGetRingtoneConfigurationResponse.configuration.modify(uint64_t **a1,
 
 BOOL NCProtoSuggestionAdvertisementDidChangeEvent.hasAdvertisement.getter(uint64_t *a1, uint64_t *a2, uint64_t (*a3)(void), uint64_t (*a4)(void))
 {
-  v9 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(a1, a2) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(a1, a2);
+  MEMORY[0x28223BE20](v9 - 8);
   v11 = &v16 - v10;
   v12 = a3(0);
   outlined init with copy of NCProtoContactInfo?(v4 + *(v12 + 20), v11, a1, a2);
@@ -8344,16 +8042,11 @@ uint64_t NCProtoSpamCallModelInfo.initiatorHandle.getter()
     v3 = *v1;
   }
 
-  if (v2 >> 60 != 15)
-  {
-    v4 = v1[1];
-  }
-
   outlined copy of Data?(*v1, v2);
   return v3;
 }
 
-uint64_t key path getter for NCProtoSpamCallModelInfo.initiatorHandle : NCProtoSpamCallModelInfo@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+void key path getter for NCProtoSpamCallModelInfo.initiatorHandle : NCProtoSpamCallModelInfo(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = (a1 + *(type metadata accessor for NCProtoSpamCallModelInfo(0) + 40));
   v4 = *v3;
@@ -8377,7 +8070,7 @@ uint64_t key path getter for NCProtoSpamCallModelInfo.initiatorHandle : NCProtoS
   *a2 = v6;
   a2[1] = v7;
 
-  return outlined copy of Data?(v4, v5);
+  outlined copy of Data?(v4, v5);
 }
 
 uint64_t key path setter for NCProtoSpamCallModelInfo.initiatorHandle : NCProtoSpamCallModelInfo(uint64_t *a1, uint64_t a2)
@@ -8485,7 +8178,7 @@ uint64_t NCProtoStartLagunaSessionResponse.init()@<X0>(void *a1@<X8>)
   a1[3] = v2;
   a1[4] = v2;
   a1[5] = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_27NeighborhoodActivityConduit15NCProtoCallInfoVTt0g5Tf4g_n(v2);
-  v3 = a1 + *(type metadata accessor for NCProtoStartLagunaSessionResponse(0) + 40);
+  type metadata accessor for NCProtoStartLagunaSessionResponse(0);
   return UnknownStorage.init()();
 }
 
@@ -8597,7 +8290,6 @@ uint64_t NCProtoRingtoneConfiguration.identifier.getter(uint64_t (*a1)(void))
   if (v2[1])
   {
     v3 = *v2;
-    v4 = v2[1];
   }
 
   else
@@ -8632,8 +8324,7 @@ uint64_t key path setter for NCProtoRingtoneConfiguration.identifier : NCProtoRi
 {
   v6 = *a1;
   v5 = a1[1];
-  v7 = (a2 + *(a5(0) + 20));
-  v8 = v7[1];
+  v7 = (a2 + *((a5)(0, a2, a3, a4) + 20));
 
   *v7 = v6;
   v7[1] = v5;
@@ -8643,7 +8334,6 @@ uint64_t key path setter for NCProtoRingtoneConfiguration.identifier : NCProtoRi
 uint64_t NCProtoRingtoneConfiguration.identifier.setter(uint64_t a1, uint64_t a2, uint64_t (*a3)(void))
 {
   v6 = (v3 + *(a3(0) + 20));
-  v7 = v6[1];
 
   *v6 = a1;
   v6[1] = a2;
@@ -8691,7 +8381,6 @@ uint64_t (*NCProtoJoinActiveConversationRequest.activeConversationUuidString.mod
 uint64_t NCProtoRingtoneConfiguration.clearIdentifier()(uint64_t (*a1)(void))
 {
   v2 = (v1 + *(a1(0) + 20));
-  v3 = v2[1];
 
   *v2 = 0;
   v2[1] = 0;
@@ -8720,7 +8409,7 @@ uint64_t NCProtoJoinActiveConversationRequest.isAudioEnabled.setter(char a1)
   return result;
 }
 
-uint64_t (*NCProtoJoinActiveConversationRequest.isAudioEnabled.modify(uint64_t a1))()
+uint64_t (*NCProtoJoinActiveConversationRequest.isAudioEnabled.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for NCProtoJoinActiveConversationRequest(0) + 24);
@@ -8751,7 +8440,7 @@ uint64_t NCProtoJoinActiveConversationRequest.isVideoEnabled.setter(char a1)
   return result;
 }
 
-uint64_t (*NCProtoJoinActiveConversationRequest.isVideoEnabled.modify(uint64_t a1))()
+uint64_t (*NCProtoJoinActiveConversationRequest.isVideoEnabled.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for NCProtoJoinActiveConversationRequest(0) + 28);
@@ -8985,7 +8674,7 @@ uint64_t NCProtoGetAddressableContactsResponse.contactSortOrder.setter(uint64_t 
   return result;
 }
 
-uint64_t (*NCProtoGetAddressableContactsResponse.contactSortOrder.modify(uint64_t a1))()
+uint64_t (*NCProtoGetAddressableContactsResponse.contactSortOrder.modify(uint64_t a1))(uint64_t result)
 {
   *(a1 + 8) = v1;
   v3 = *(type metadata accessor for NCProtoGetAddressableContactsResponse(0) + 24);
@@ -9016,11 +8705,10 @@ uint64_t NCProtoGetAddressableContactsResponse.init()@<X0>(void *a1@<X8>)
 {
   *a1 = MEMORY[0x277D84F90];
   AddressableContactsResponse = type metadata accessor for NCProtoGetAddressableContactsResponse(0);
-  v3 = a1 + *(AddressableContactsResponse + 20);
   result = UnknownStorage.init()();
-  v5 = a1 + *(AddressableContactsResponse + 24);
-  *v5 = 0;
-  v5[8] = 1;
+  v4 = a1 + *(AddressableContactsResponse + 24);
+  *v4 = 0;
+  v4[8] = 1;
   return result;
 }
 
@@ -9029,7 +8717,7 @@ uint64_t NCProtoGetImageForContactRequest.init()@<X0>(void *a1@<X8>)
   *a1 = 0;
   a1[1] = 0xE000000000000000;
   a1[2] = MEMORY[0x277D84F90];
-  v1 = a1 + *(type metadata accessor for NCProtoGetImageForContactRequest(0) + 24);
+  type metadata accessor for NCProtoGetImageForContactRequest(0);
   return UnknownStorage.init()();
 }
 
@@ -9047,16 +8735,11 @@ uint64_t NCProtoGetImageForContactResponse.imageData.getter()
     v3 = *v1;
   }
 
-  if (v2 >> 60 != 15)
-  {
-    v4 = v1[1];
-  }
-
   outlined copy of Data?(*v1, v2);
   return v3;
 }
 
-uint64_t key path getter for NCProtoGetImageForContactResponse.imageData : NCProtoGetImageForContactResponse@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X8>)
+void key path getter for NCProtoGetImageForContactResponse.imageData : NCProtoGetImageForContactResponse(uint64_t a1@<X0>, uint64_t *a2@<X8>)
 {
   v3 = (a1 + *(type metadata accessor for NCProtoGetImageForContactResponse(0) + 20));
   v4 = *v3;
@@ -9080,7 +8763,7 @@ uint64_t key path getter for NCProtoGetImageForContactResponse.imageData : NCPro
   *a2 = v6;
   a2[1] = v7;
 
-  return outlined copy of Data?(v4, v5);
+  outlined copy of Data?(v4, v5);
 }
 
 uint64_t key path setter for NCProtoGetImageForContactResponse.imageData : NCProtoGetImageForContactResponse(uint64_t *a1, uint64_t a2)
@@ -9185,7 +8868,7 @@ uint64_t key path setter for NCProtoPullLagunaSessionToTVRequest.reason : NCProt
 {
   v6 = *a1;
   v7 = *(a1 + 8);
-  result = a5(0);
+  result = (a5)(0, a2, a3, a4);
   v9 = a2 + *(result + 24);
   *v9 = v6;
   *(v9 + 8) = v7;
@@ -9251,9 +8934,9 @@ double NCProtoGetImageForContactResponse.init()@<D0>(uint64_t a1@<X8>)
 
 uint64_t NCProtoGetCallDisplayDetailsResponse.callInfo.getter@<X0>(unint64_t *a1@<X8>)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v5 = &v16 - v4;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v15 - v4;
   v6 = type metadata accessor for NCProtoGetCallDisplayDetailsResponse(0);
   outlined init with copy of NCProtoContactInfo?(v1 + *(v6 + 20), v5, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
   v7 = type metadata accessor for NCProtoCallInfo(0);
@@ -9264,21 +8947,20 @@ uint64_t NCProtoGetCallDisplayDetailsResponse.callInfo.getter@<X0>(unint64_t *a1
   }
 
   *a1 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SSTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-  v9 = a1 + v7[5];
   UnknownStorage.init()();
-  v10 = (a1 + v7[6]);
+  v9 = (a1 + v7[6]);
+  *v9 = 0;
+  v9[1] = 0;
+  v10 = (a1 + v7[7]);
   *v10 = 0;
   v10[1] = 0;
-  v11 = (a1 + v7[7]);
+  v11 = (a1 + v7[8]);
   *v11 = 0;
   v11[1] = 0;
-  v12 = (a1 + v7[8]);
-  *v12 = 0;
-  v12[1] = 0;
   *(a1 + v7[9]) = 2;
-  v13 = v7[10];
-  v14 = type metadata accessor for NCProtoSenderIdentity(0);
-  (*(*(v14 - 8) + 56))(a1 + v13, 1, 1, v14);
+  v12 = v7[10];
+  v13 = type metadata accessor for NCProtoSenderIdentity(0);
+  (*(*(v13 - 8) + 56))(a1 + v12, 1, 1, v13);
   *(a1 + v7[11]) = xmmword_2255D3AC0;
   *(a1 + v7[12]) = 2;
   *(a1 + v7[13]) = 2;
@@ -9295,14 +8977,13 @@ uint64_t key path setter for NCProtoGetCallDisplayDetailsResponse.callInfo : NCP
 {
   v4 = type metadata accessor for NCProtoCallInfo(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of NCProtoContactInfo(a1, v8, type metadata accessor for NCProtoCallInfo);
-  v9 = *(type metadata accessor for NCProtoGetCallDisplayDetailsResponse(0) + 20);
-  outlined destroy of NCProtoContactInfo?(a2 + v9, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
-  outlined init with take of NCProtoContactInfo(v8, a2 + v9, type metadata accessor for NCProtoCallInfo);
-  return (*(v5 + 56))(a2 + v9, 0, 1, v4);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NCProtoContactInfo(a1, v7, type metadata accessor for NCProtoCallInfo);
+  v8 = *(type metadata accessor for NCProtoGetCallDisplayDetailsResponse(0) + 20);
+  outlined destroy of NCProtoContactInfo?(a2 + v8, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+  outlined init with take of NCProtoContactInfo(v7, a2 + v8, type metadata accessor for NCProtoCallInfo);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
 }
 
 uint64_t NCProtoGetCallDisplayDetailsResponse.callInfo.setter(uint64_t a1)
@@ -9372,21 +9053,20 @@ void (*NCProtoGetCallDisplayDetailsResponse.callInfo.modify(void *a1))(uint64_t 
   if (v16(v8, 1, v9) == 1)
   {
     *v14 = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_SSTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-    v17 = v14 + v9[5];
     UnknownStorage.init()();
-    v18 = (v14 + v9[6]);
+    v17 = (v14 + v9[6]);
+    *v17 = 0;
+    v17[1] = 0;
+    v18 = (v14 + v9[7]);
     *v18 = 0;
     v18[1] = 0;
-    v19 = (v14 + v9[7]);
+    v19 = (v14 + v9[8]);
     *v19 = 0;
     v19[1] = 0;
-    v20 = (v14 + v9[8]);
-    *v20 = 0;
-    v20[1] = 0;
     *(v14 + v9[9]) = 2;
-    v21 = v9[10];
-    v22 = type metadata accessor for NCProtoSenderIdentity(0);
-    (*(*(v22 - 8) + 56))(v14 + v21, 1, 1, v22);
+    v20 = v9[10];
+    v21 = type metadata accessor for NCProtoSenderIdentity(0);
+    (*(*(v21 - 8) + 56))(v14 + v20, 1, 1, v21);
     *(v14 + v9[11]) = xmmword_2255D3AC0;
     *(v14 + v9[12]) = 2;
     *(v14 + v9[13]) = 2;
@@ -9441,7 +9121,7 @@ uint64_t NCProtoDestinationCapabilities.init()@<X0>(uint64_t a1@<X8>)
 {
   *a1 = 0;
   *(a1 + 2) = 0;
-  v1 = a1 + *(type metadata accessor for NCProtoDestinationCapabilities(0) + 28);
+  type metadata accessor for NCProtoDestinationCapabilities(0);
   return UnknownStorage.init()();
 }
 
@@ -9480,19 +9160,18 @@ uint64_t NCProtoPullLagunaSessionToTVRequest.init()@<X0>(uint64_t (*a1)(void)@<X
   *a2 = 0;
   a2[1] = 0xE000000000000000;
   v3 = a1(0);
-  v4 = a2 + *(v3 + 20);
   result = UnknownStorage.init()();
-  v6 = a2 + *(v3 + 24);
-  *v6 = 0;
-  *(v6 + 4) = 256;
+  v5 = a2 + *(v3 + 24);
+  *v5 = 0;
+  *(v5 + 4) = 256;
   return result;
 }
 
 uint64_t NCProtoGetDestinationCapabilitiesResponse.capabilities.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v5 = &v11 - v4;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v10 - v4;
   DestinationCapabilitiesResponse = type metadata accessor for NCProtoGetDestinationCapabilitiesResponse(0);
   outlined init with copy of NCProtoContactInfo?(v1 + *(DestinationCapabilitiesResponse + 20), v5, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
   v7 = type metadata accessor for NCProtoDestinationCapabilities(0);
@@ -9504,7 +9183,6 @@ uint64_t NCProtoGetDestinationCapabilitiesResponse.capabilities.getter@<X0>(uint
 
   *a1 = 0;
   *(a1 + 2) = 0;
-  v9 = a1 + *(v7 + 28);
   UnknownStorage.init()();
   result = (v8)(v5, 1, v7);
   if (result != 1)
@@ -9517,9 +9195,9 @@ uint64_t NCProtoGetDestinationCapabilitiesResponse.capabilities.getter@<X0>(uint
 
 uint64_t key path getter for NCProtoGetDestinationCapabilitiesResponse.capabilities : NCProtoGetDestinationCapabilitiesResponse@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v6 = &v12 - v5;
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
+  v6 = &v11 - v5;
   DestinationCapabilitiesResponse = type metadata accessor for NCProtoGetDestinationCapabilitiesResponse(0);
   outlined init with copy of NCProtoContactInfo?(a1 + *(DestinationCapabilitiesResponse + 20), v6, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
   v8 = type metadata accessor for NCProtoDestinationCapabilities(0);
@@ -9531,7 +9209,6 @@ uint64_t key path getter for NCProtoGetDestinationCapabilitiesResponse.capabilit
 
   *a2 = 0;
   *(a2 + 2) = 0;
-  v10 = a2 + *(v8 + 28);
   UnknownStorage.init()();
   result = (v9)(v6, 1, v8);
   if (result != 1)
@@ -9546,14 +9223,13 @@ uint64_t key path setter for NCProtoGetDestinationCapabilitiesResponse.capabilit
 {
   v4 = type metadata accessor for NCProtoDestinationCapabilities(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  MEMORY[0x28223BE20]();
-  v8 = &v11 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of NCProtoContactInfo(a1, v8, type metadata accessor for NCProtoDestinationCapabilities);
-  v9 = *(type metadata accessor for NCProtoGetDestinationCapabilitiesResponse(0) + 20);
-  outlined destroy of NCProtoContactInfo?(a2 + v9, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
-  outlined init with take of NCProtoContactInfo(v8, a2 + v9, type metadata accessor for NCProtoDestinationCapabilities);
-  return (*(v5 + 56))(a2 + v9, 0, 1, v4);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NCProtoContactInfo(a1, v7, type metadata accessor for NCProtoDestinationCapabilities);
+  v8 = *(type metadata accessor for NCProtoGetDestinationCapabilitiesResponse(0) + 20);
+  outlined destroy of NCProtoContactInfo?(a2 + v8, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
+  outlined init with take of NCProtoContactInfo(v7, a2 + v8, type metadata accessor for NCProtoDestinationCapabilities);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
 }
 
 uint64_t NCProtoGetDestinationCapabilitiesResponse.capabilities.setter(uint64_t a1)
@@ -9624,7 +9300,6 @@ void (*NCProtoGetDestinationCapabilitiesResponse.capabilities.modify(void *a1))(
   {
     *v14 = 0;
     *(v14 + 2) = 0;
-    v17 = v14 + *(v9 + 28);
     UnknownStorage.init()();
     if (v16(v8, 1, v9) != 1)
     {
@@ -9725,11 +9400,10 @@ uint64_t NCProtoIncomingCallBannerActionRequest.init()@<X0>(uint64_t a1@<X8>)
   *(a1 + 16) = 0;
   *(a1 + 24) = 0xE000000000000000;
   v2 = type metadata accessor for NCProtoIncomingCallBannerActionRequest(0);
-  v3 = a1 + *(v2 + 24);
   result = UnknownStorage.init()();
-  v5 = (a1 + *(v2 + 28));
-  *v5 = 0;
-  v5[1] = 0;
+  v4 = (a1 + *(v2 + 28));
+  *v4 = 0;
+  v4[1] = 0;
   return result;
 }
 
@@ -9755,7 +9429,7 @@ uint64_t NCProtoCallState.isVideoEnabled.setter(char a1)
   return result;
 }
 
-uint64_t (*NCProtoCallState.isVideoEnabled.modify(uint64_t a1))()
+uint64_t (*NCProtoCallState.isVideoEnabled.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for NCProtoCallState(0) + 20);
@@ -9786,7 +9460,7 @@ uint64_t NCProtoCallState.isAudioEnabled.setter(char a1)
   return result;
 }
 
-uint64_t (*NCProtoCallState.isAudioEnabled.modify(uint64_t a1))()
+uint64_t (*NCProtoCallState.isAudioEnabled.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for NCProtoCallState(0) + 24);
@@ -9840,7 +9514,7 @@ uint64_t NCProtoCallState.isCaptioningEnabled.setter(char a1)
   return result;
 }
 
-uint64_t (*NCProtoCallState.isCaptioningEnabled.modify(uint64_t a1))()
+uint64_t (*NCProtoCallState.isCaptioningEnabled.modify(uint64_t a1))(uint64_t result)
 {
   *a1 = v1;
   v3 = *(type metadata accessor for NCProtoCallState(0) + 32);
@@ -9852,14 +9526,14 @@ uint64_t (*NCProtoCallState.isCaptioningEnabled.modify(uint64_t a1))()
 uint64_t NCProtoCallStateRequest.init()@<X0>(_OWORD *a1@<X8>)
 {
   *a1 = xmmword_2255D3AB0;
-  v1 = a1 + *(type metadata accessor for NCProtoCallStateRequest(0) + 20);
+  type metadata accessor for NCProtoCallStateRequest(0);
   return UnknownStorage.init()();
 }
 
 uint64_t NCProtoCallStateResponse.callState.getter@<X0>(uint64_t a1@<X8>)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
   v5 = &v11 - v4;
   v6 = type metadata accessor for NCProtoCallStateResponse(0);
   outlined init with copy of NCProtoContactInfo?(v1 + *(v6 + 20), v5, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
@@ -9888,8 +9562,8 @@ uint64_t NCProtoCallStateResponse.callState.getter@<X0>(uint64_t a1@<X8>)
 
 uint64_t key path getter for NCProtoCallStateResponse.callState : NCProtoCallStateResponse@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
 {
-  v4 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  MEMORY[0x28223BE20](v4 - 8);
   v6 = &v12 - v5;
   v7 = type metadata accessor for NCProtoCallStateResponse(0);
   outlined init with copy of NCProtoContactInfo?(a1 + *(v7 + 20), v6, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
@@ -9914,4 +9588,323 @@ uint64_t key path getter for NCProtoCallStateResponse.callState : NCProtoCallSta
   }
 
   return result;
+}
+
+uint64_t key path setter for NCProtoCallStateResponse.callState : NCProtoCallStateResponse(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for NCProtoCallState(0);
+  v5 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NCProtoContactInfo(a1, v7, type metadata accessor for NCProtoCallState);
+  v8 = *(type metadata accessor for NCProtoCallStateResponse(0) + 20);
+  outlined destroy of NCProtoContactInfo?(a2 + v8, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  outlined init with take of NCProtoContactInfo(v7, a2 + v8, type metadata accessor for NCProtoCallState);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
+}
+
+uint64_t NCProtoCallStateResponse.callState.setter(uint64_t a1)
+{
+  v3 = *(type metadata accessor for NCProtoCallStateResponse(0) + 20);
+  outlined destroy of NCProtoContactInfo?(v1 + v3, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  outlined init with take of NCProtoContactInfo(a1, v1 + v3, type metadata accessor for NCProtoCallState);
+  v4 = type metadata accessor for NCProtoCallState(0);
+  v5 = *(*(v4 - 8) + 56);
+
+  return v5(v1 + v3, 0, 1, v4);
+}
+
+void (*NCProtoCallStateResponse.callState.modify(void *a1))(uint64_t **a1, char a2)
+{
+  v3 = MEMORY[0x277D84FD8];
+  if (MEMORY[0x277D84FD8])
+  {
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4 = malloc(0x38uLL);
+  }
+
+  v5 = v4;
+  *a1 = v4;
+  *v4 = v1;
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR) - 8) + 64);
+  if (v3)
+  {
+    v7 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v7 = malloc(v6);
+  }
+
+  v8 = v7;
+  v5[1] = v7;
+  v9 = type metadata accessor for NCProtoCallState(0);
+  v5[2] = v9;
+  v10 = *(v9 - 1);
+  v11 = v10;
+  v5[3] = v10;
+  v12 = *(v10 + 64);
+  if (v3)
+  {
+    v5[4] = swift_coroFrameAlloc();
+    v13 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v5[4] = malloc(*(v10 + 64));
+    v13 = malloc(v12);
+  }
+
+  v14 = v13;
+  v5[5] = v13;
+  v15 = *(type metadata accessor for NCProtoCallStateResponse(0) + 20);
+  *(v5 + 12) = v15;
+  outlined init with copy of NCProtoContactInfo?(v1 + v15, v8, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  v16 = *(v11 + 48);
+  if (v16(v8, 1, v9) == 1)
+  {
+    UnknownStorage.init()();
+    *(v14 + v9[5]) = 2;
+    *(v14 + v9[6]) = 2;
+    v17 = v14 + v9[7];
+    *v17 = 0;
+    *(v17 + 8) = 256;
+    *(v14 + v9[8]) = 2;
+    if (v16(v8, 1, v9) != 1)
+    {
+      outlined destroy of NCProtoContactInfo?(v8, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+    }
+  }
+
+  else
+  {
+    outlined init with take of NCProtoContactInfo(v8, v14, type metadata accessor for NCProtoCallState);
+  }
+
+  return NCProtoCallStateResponse.callState.modify;
+}
+
+void NCProtoCallStateResponse.callState.modify(uint64_t **a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 12);
+  v4 = (*a1)[4];
+  v5 = (*a1)[5];
+  v6 = (*a1)[2];
+  v7 = (*a1)[3];
+  v9 = **a1;
+  v8 = (*a1)[1];
+  if (a2)
+  {
+    outlined init with copy of NCProtoContactInfo((*a1)[5], v4, type metadata accessor for NCProtoCallState);
+    outlined destroy of NCProtoContactInfo?(v9 + v3, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+    outlined init with take of NCProtoContactInfo(v4, v9 + v3, type metadata accessor for NCProtoCallState);
+    (*(v7 + 56))(v9 + v3, 0, 1, v6);
+    outlined destroy of NCProtoContactInfo(v5, type metadata accessor for NCProtoCallState);
+  }
+
+  else
+  {
+    outlined destroy of NCProtoContactInfo?(v9 + v3, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+    outlined init with take of NCProtoContactInfo(v5, v9 + v3, type metadata accessor for NCProtoCallState);
+    (*(v7 + 56))(v9 + v3, 0, 1, v6);
+  }
+
+  free(v5);
+  free(v4);
+  free(v8);
+
+  free(v2);
+}
+
+uint64_t NCProtoDeviceTokenRequest.memberAssociationPrimaryInfo.getter@<X0>(void *a1@<X8>)
+{
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v5 = &v13 - v4;
+  v6 = type metadata accessor for NCProtoDeviceTokenRequest(0);
+  outlined init with copy of NCProtoContactInfo?(v1 + *(v6 + 24), v5, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  v7 = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
+  v8 = *(*(v7 - 1) + 48);
+  if (v8(v5, 1, v7) != 1)
+  {
+    return outlined init with take of NCProtoContactInfo(v5, a1, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  }
+
+  *a1 = MEMORY[0x277D84F90];
+  UnknownStorage.init()();
+  v9 = (a1 + v7[6]);
+  *v9 = 0;
+  v9[1] = 0;
+  *(a1 + v7[7]) = xmmword_2255D3AC0;
+  v10 = a1 + v7[8];
+  *v10 = 0;
+  v10[8] = 1;
+  v11 = (a1 + v7[9]);
+  *v11 = 0;
+  v11[1] = 0;
+  result = (v8)(v5, 1, v7);
+  if (result != 1)
+  {
+    return outlined destroy of NCProtoContactInfo?(v5, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  }
+
+  return result;
+}
+
+uint64_t key path setter for NCProtoDeviceTokenRequest.memberAssociationPrimaryInfo : NCProtoDeviceTokenRequest(uint64_t a1, uint64_t a2)
+{
+  v4 = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
+  v5 = *(v4 - 8);
+  MEMORY[0x28223BE20](v4);
+  v7 = &v10 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NCProtoContactInfo(a1, v7, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  v8 = *(type metadata accessor for NCProtoDeviceTokenRequest(0) + 24);
+  outlined destroy of NCProtoContactInfo?(a2 + v8, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  outlined init with take of NCProtoContactInfo(v7, a2 + v8, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  return (*(v5 + 56))(a2 + v8, 0, 1, v4);
+}
+
+uint64_t NCProtoDeviceTokenRequest.memberAssociationPrimaryInfo.setter(uint64_t a1)
+{
+  v3 = *(type metadata accessor for NCProtoDeviceTokenRequest(0) + 24);
+  outlined destroy of NCProtoContactInfo?(v1 + v3, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  outlined init with take of NCProtoContactInfo(a1, v1 + v3, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  v4 = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
+  v5 = *(*(v4 - 8) + 56);
+
+  return v5(v1 + v3, 0, 1, v4);
+}
+
+void (*NCProtoDeviceTokenRequest.memberAssociationPrimaryInfo.modify(void *a1))(uint64_t **a1, char a2)
+{
+  v3 = MEMORY[0x277D84FD8];
+  if (MEMORY[0x277D84FD8])
+  {
+    v4 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v4 = malloc(0x38uLL);
+  }
+
+  v5 = v4;
+  *a1 = v4;
+  *v4 = v1;
+  v6 = *(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR) - 8) + 64);
+  if (v3)
+  {
+    v7 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v7 = malloc(v6);
+  }
+
+  v8 = v7;
+  v5[1] = v7;
+  v9 = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
+  v5[2] = v9;
+  v10 = *(v9 - 1);
+  v11 = v10;
+  v5[3] = v10;
+  v12 = *(v10 + 64);
+  if (v3)
+  {
+    v5[4] = swift_coroFrameAlloc();
+    v13 = swift_coroFrameAlloc();
+  }
+
+  else
+  {
+    v5[4] = malloc(*(v10 + 64));
+    v13 = malloc(v12);
+  }
+
+  v14 = v13;
+  v5[5] = v13;
+  v15 = *(type metadata accessor for NCProtoDeviceTokenRequest(0) + 24);
+  *(v5 + 12) = v15;
+  outlined init with copy of NCProtoContactInfo?(v1 + v15, v8, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  v16 = *(v11 + 48);
+  if (v16(v8, 1, v9) == 1)
+  {
+    *v14 = MEMORY[0x277D84F90];
+    UnknownStorage.init()();
+    v17 = (v14 + v9[6]);
+    *v17 = 0;
+    v17[1] = 0;
+    *(v14 + v9[7]) = xmmword_2255D3AC0;
+    v18 = v14 + v9[8];
+    *v18 = 0;
+    v18[8] = 1;
+    v19 = (v14 + v9[9]);
+    *v19 = 0;
+    v19[1] = 0;
+    if (v16(v8, 1, v9) != 1)
+    {
+      outlined destroy of NCProtoContactInfo?(v8, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+    }
+  }
+
+  else
+  {
+    outlined init with take of NCProtoContactInfo(v8, v14, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  }
+
+  return NCProtoDeviceTokenRequest.memberAssociationPrimaryInfo.modify;
+}
+
+void NCProtoDeviceTokenRequest.memberAssociationPrimaryInfo.modify(uint64_t **a1, char a2)
+{
+  v2 = *a1;
+  v3 = *(*a1 + 12);
+  v4 = (*a1)[4];
+  v5 = (*a1)[5];
+  v6 = (*a1)[2];
+  v7 = (*a1)[3];
+  v9 = **a1;
+  v8 = (*a1)[1];
+  if (a2)
+  {
+    outlined init with copy of NCProtoContactInfo((*a1)[5], v4, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+    outlined destroy of NCProtoContactInfo?(v9 + v3, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+    outlined init with take of NCProtoContactInfo(v4, v9 + v3, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+    (*(v7 + 56))(v9 + v3, 0, 1, v6);
+    outlined destroy of NCProtoContactInfo(v5, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  }
+
+  else
+  {
+    outlined destroy of NCProtoContactInfo?(v9 + v3, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+    outlined init with take of NCProtoContactInfo(v5, v9 + v3, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+    (*(v7 + 56))(v9 + v3, 0, 1, v6);
+  }
+
+  free(v5);
+  free(v4);
+  free(v8);
+
+  free(v2);
+}
+
+BOOL NCProtoDeviceTokenRequest.hasMemberAssociationPrimaryInfo.getter()
+{
+  v1 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  MEMORY[0x28223BE20](v1 - 8);
+  v3 = &v8 - v2;
+  v4 = type metadata accessor for NCProtoDeviceTokenRequest(0);
+  outlined init with copy of NCProtoContactInfo?(v0 + *(v4 + 24), v3, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  v5 = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
+  v6 = (*(*(v5 - 8) + 48))(v3, 1, v5) != 1;
+  outlined destroy of NCProtoContactInfo?(v3, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  return v6;
 }

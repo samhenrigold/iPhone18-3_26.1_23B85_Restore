@@ -110,15 +110,15 @@ void __71__POExtensionAgentProcess_initWithXPCConnection_authenticationProcess__
 
 - (void)connectionInvalidated
 {
-  v14 = *MEMORY[0x277D85DE8];
-  v3 = PO_LOG_POExtensionAgentProcess();
+  v13 = *MEMORY[0x277D85DE8];
+  v3 = PO_LOG_POExtensionAgentProcess(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = 136315394;
-    v11 = "[POExtensionAgentProcess connectionInvalidated]";
-    v12 = 2112;
+    v9 = 136315394;
+    v10 = "[POExtensionAgentProcess connectionInvalidated]";
+    v11 = 2112;
     selfCopy = self;
-    _os_log_impl(&dword_25E831000, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v10, 0x16u);
+    _os_log_impl(&dword_25E831000, v3, OS_LOG_TYPE_DEFAULT, "%s  on %@", &v9, 0x16u);
   }
 
   v4 = MEMORY[0x277D3D1B8];
@@ -134,13 +134,11 @@ void __71__POExtensionAgentProcess_initWithXPCConnection_authenticationProcess__
     authenticationObserver2 = [(POExtensionAgentProcess *)self authenticationObserver];
     [defaultCenter removeObserver:authenticationObserver2];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (__SecKey)_keyForKeyType:(int64_t)type error:(id *)error
 {
-  v7 = PO_LOG_POExtensionAgentProcess();
+  v7 = PO_LOG_POExtensionAgentProcess(self);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess _keyForKeyType:error:];
@@ -278,7 +276,7 @@ LABEL_41:
           v22 = v21;
           if (v21)
           {
-            [v21 auditToken];
+            objc_msgSend_auditToken(v21);
           }
 
           else
@@ -345,7 +343,7 @@ LABEL_45:
 id __48__POExtensionAgentProcess__keyForKeyType_error___block_invoke()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"Failed to retrieve extension identifier."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -356,20 +354,20 @@ id __48__POExtensionAgentProcess__keyForKeyType_error___block_invoke()
 
 id __48__POExtensionAgentProcess__keyForKeyType_error___block_invoke_10(uint64_t a1)
 {
-  v2 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
-  v3 = PO_LOG_POExtensionAgentProcess();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
+  v2 = PO_LOG_POExtensionAgentProcess(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1(v2, a1);
+    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1();
   }
 
-  return v2;
+  return v1;
 }
 
 id __48__POExtensionAgentProcess__keyForKeyType_error___block_invoke_16()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"Failed to find SmartCard."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -380,19 +378,19 @@ id __48__POExtensionAgentProcess__keyForKeyType_error___block_invoke_16()
 
 id __48__POExtensionAgentProcess__keyForKeyType_error___block_invoke_27(uint64_t a1)
 {
-  v2 = [MEMORY[0x277D3D1F0] errorWithCode:-1004 description:@"Key not found for extension identifier."];
-  v3 = PO_LOG_POExtensionAgentProcess();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1004 description:@"Key not found for extension identifier."];
+  v2 = PO_LOG_POExtensionAgentProcess(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1(v2, a1);
+    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1();
   }
 
-  return v2;
+  return v1;
 }
 
 - (id)keyProxyEndpointForKeyType:(int64_t)type
 {
-  v5 = PO_LOG_POExtensionAgentProcess();
+  v5 = PO_LOG_POExtensionAgentProcess(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess keyProxyEndpointForKeyType:];
@@ -421,7 +419,7 @@ id __48__POExtensionAgentProcess__keyForKeyType_error___block_invoke_27(uint64_t
 
 - (id)identityForKeyType:(int64_t)type
 {
-  v5 = PO_LOG_POExtensionAgentProcess();
+  v5 = PO_LOG_POExtensionAgentProcess(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess identityForKeyType:];
@@ -536,7 +534,7 @@ LABEL_24:
   v10 = WeakRetained;
   if (WeakRetained)
   {
-    [WeakRetained auditToken];
+    objc_msgSend_auditToken(WeakRetained);
   }
 
   else
@@ -586,7 +584,7 @@ LABEL_29:
 id __46__POExtensionAgentProcess_identityForKeyType___block_invoke()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"No device configuration for identity."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -598,7 +596,7 @@ id __46__POExtensionAgentProcess_identityForKeyType___block_invoke()
 id __46__POExtensionAgentProcess_identityForKeyType___block_invoke_37()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1004 description:@"Failed to find SmartCard identity."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -610,7 +608,7 @@ id __46__POExtensionAgentProcess_identityForKeyType___block_invoke_37()
 id __46__POExtensionAgentProcess_identityForKeyType___block_invoke_43(uint64_t a1)
 {
   v2 = [MEMORY[0x277D3D1F0] errorWithCode:-1004 description:@"Key not found."];
-  v3 = PO_LOG_POExtensionAgentProcess();
+  v3 = PO_LOG_POExtensionAgentProcess(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __46__POExtensionAgentProcess_identityForKeyType___block_invoke_43_cold_1(v2, a1, v3);
@@ -621,21 +619,20 @@ id __46__POExtensionAgentProcess_identityForKeyType___block_invoke_43(uint64_t a
 
 - (void)invalidateAllKeyProxies
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (id)bundleIdentifierForXPCConnection:(id)connection
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   connectionCopy = connection;
   v4 = connectionCopy;
   memset(&error[1], 0, 32);
   if (connectionCopy)
   {
-    [connectionCopy auditToken];
+    objc_msgSend_auditToken(connectionCopy);
   }
 
   token = *&error[1];
@@ -643,15 +640,17 @@ id __46__POExtensionAgentProcess_identityForKeyType___block_invoke_43(uint64_t a
   if (v5)
   {
     v6 = v5;
-    if ((SecTaskGetCodeSignStatus(v5) & 0x4000) != 0)
+    CodeSignStatus = SecTaskGetCodeSignStatus(v5);
+    if ((CodeSignStatus & 0x4000) != 0)
     {
       error[0] = 0;
       token = *&error[1];
-      if (CPCopyBundleIdentifierAndTeamFromAuditToken())
+      v16 = CPCopyBundleIdentifierAndTeamFromAuditToken();
+      if (v16)
       {
-        v11 = error[0];
-        v9 = PO_LOG_POExtensionAgentProcess();
-        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v14 = error[0];
+        v11 = PO_LOG_POExtensionAgentProcess(v16);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
         {
           [POExtensionAgentProcess bundleIdentifierForXPCConnection:];
         }
@@ -659,68 +658,68 @@ id __46__POExtensionAgentProcess_identityForKeyType___block_invoke_43(uint64_t a
         goto LABEL_32;
       }
 
-      v14 = PO_LOG_POExtensionAgentProcess();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v18 = PO_LOG_POExtensionAgentProcess(v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(token.val[0]) = 0;
-        _os_log_impl(&dword_25E831000, v14, OS_LOG_TYPE_DEFAULT, "bundleIdentifier: CPCopyBundleIdentifierAndTeamFromAuditToken() failed, trying SecTaskCopySigningIdentifier().", &token, 2u);
+        _os_log_impl(&dword_25E831000, v18, OS_LOG_TYPE_DEFAULT, "bundleIdentifier: CPCopyBundleIdentifierAndTeamFromAuditToken() failed, trying SecTaskCopySigningIdentifier().", &token, 2u);
       }
 
-      v19 = 0;
-      v9 = SecTaskCopySigningIdentifier(v6, &v19);
+      v23 = 0;
+      v11 = SecTaskCopySigningIdentifier(v6, &v23);
       CFRelease(v6);
-      if (v19)
+      if (v23)
       {
-        v18[0] = MEMORY[0x277D85DD0];
-        v18[1] = 3221225472;
-        v18[2] = __60__POExtensionAgentProcess_bundleIdentifierForXPCConnection___block_invoke;
-        v18[3] = &__block_descriptor_40_e14___NSError_8__0l;
-        v18[4] = v19;
-        v15 = __60__POExtensionAgentProcess_bundleIdentifierForXPCConnection___block_invoke(v18);
+        v22[0] = MEMORY[0x277D85DD0];
+        v22[1] = 3221225472;
+        v22[2] = __60__POExtensionAgentProcess_bundleIdentifierForXPCConnection___block_invoke;
+        v22[3] = &__block_descriptor_40_e14___NSError_8__0l;
+        v22[4] = v23;
+        v20 = __60__POExtensionAgentProcess_bundleIdentifierForXPCConnection___block_invoke(v22);
         goto LABEL_27;
       }
 
-      v13 = PO_LOG_POExtensionAgentProcess();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v17 = PO_LOG_POExtensionAgentProcess(v19);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         token.val[0] = 138543362;
-        *&token.val[1] = v9;
+        *&token.val[1] = v11;
         goto LABEL_30;
       }
     }
 
     else
     {
-      v7 = PO_LOG_POExtensionAgentProcess();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = PO_LOG_POExtensionAgentProcess(CodeSignStatus);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [POExtensionAgentProcess bundleIdentifierForXPCConnection:v7];
+        [POExtensionAgentProcess bundleIdentifierForXPCConnection:v8];
       }
 
-      v8 = PO_LOG_POExtensionAgentProcess();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+      v10 = PO_LOG_POExtensionAgentProcess(v9);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(token.val[0]) = 0;
-        _os_log_impl(&dword_25E831000, v8, OS_LOG_TYPE_DEFAULT, "bundleIdentifier: using SecTaskCopySigningIdentifier()", &token, 2u);
+        _os_log_impl(&dword_25E831000, v10, OS_LOG_TYPE_DEFAULT, "bundleIdentifier: using SecTaskCopySigningIdentifier()", &token, 2u);
       }
 
       error[0] = 0;
-      v9 = SecTaskCopySigningIdentifier(v6, error);
+      v11 = SecTaskCopySigningIdentifier(v6, error);
       CFRelease(v6);
       if (error[0])
       {
-        v10 = PO_LOG_POExtensionAgentProcess();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+        v13 = PO_LOG_POExtensionAgentProcess(v12);
+        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
           token.val[0] = 138543362;
           *&token.val[1] = error[0];
-          _os_log_impl(&dword_25E831000, v10, OS_LOG_TYPE_INFO, "bundleIdentifier: SecTaskCopySigningIdentifier() failed %{public}@", &token, 0xCu);
+          _os_log_impl(&dword_25E831000, v13, OS_LOG_TYPE_INFO, "bundleIdentifier: SecTaskCopySigningIdentifier() failed %{public}@", &token, 0xCu);
         }
 
         if (error[0])
         {
           CFRelease(error[0]);
-          v11 = 0;
+          v14 = 0;
           error[0] = 0;
 LABEL_32:
 
@@ -728,42 +727,40 @@ LABEL_32:
         }
 
 LABEL_27:
-        v11 = 0;
+        v14 = 0;
         goto LABEL_32;
       }
 
-      if (!v9)
+      if (!v11)
       {
         goto LABEL_27;
       }
 
-      v13 = PO_LOG_POExtensionAgentProcess();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+      v17 = PO_LOG_POExtensionAgentProcess(v12);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         token.val[0] = 138543362;
-        *&token.val[1] = v9;
+        *&token.val[1] = v11;
 LABEL_30:
-        _os_log_impl(&dword_25E831000, v13, OS_LOG_TYPE_INFO, "bundleIdentifier: %{public}@", &token, 0xCu);
+        _os_log_impl(&dword_25E831000, v17, OS_LOG_TYPE_INFO, "bundleIdentifier: %{public}@", &token, 0xCu);
       }
     }
 
-    v11 = v9;
+    v14 = v11;
     goto LABEL_32;
   }
 
-  v12 = PO_LOG_POExtensionAgentProcess();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+  v15 = PO_LOG_POExtensionAgentProcess(0);
+  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     LOWORD(token.val[0]) = 0;
-    _os_log_impl(&dword_25E831000, v12, OS_LOG_TYPE_DEFAULT, "bundleIdentifier: SecTaskCreateWithAuditToken() failed", &token, 2u);
+    _os_log_impl(&dword_25E831000, v15, OS_LOG_TYPE_DEFAULT, "bundleIdentifier: SecTaskCreateWithAuditToken() failed", &token, 2u);
   }
 
-  v11 = 0;
+  v14 = 0;
 LABEL_33:
 
-  v16 = *MEMORY[0x277D85DE8];
-
-  return v11;
+  return v14;
 }
 
 id __60__POExtensionAgentProcess_bundleIdentifierForXPCConnection___block_invoke(uint64_t a1)
@@ -771,8 +768,8 @@ id __60__POExtensionAgentProcess_bundleIdentifierForXPCConnection___block_invoke
   v1 = *(a1 + 32);
   v2 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:v1 description:@"bundleIdentifier: SecTaskCopySigningIdentifier() failed"];
 
-  v3 = PO_LOG_POExtensionAgentProcess();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POExtensionAgentProcess(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
   }
@@ -782,7 +779,7 @@ id __60__POExtensionAgentProcess_bundleIdentifierForXPCConnection___block_invoke
 
 - (BOOL)isCallerCurrentSSOExtension
 {
-  v3 = PO_LOG_POExtensionAgentProcess();
+  v3 = PO_LOG_POExtensionAgentProcess(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess isCallerCurrentSSOExtension];
@@ -844,32 +841,32 @@ LABEL_11:
 
 id __54__POExtensionAgentProcess_isCallerCurrentSSOExtension__block_invoke(uint64_t a1)
 {
-  v2 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
-  v3 = PO_LOG_POExtensionAgentProcess();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
+  v2 = PO_LOG_POExtensionAgentProcess(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1(v2, a1);
+    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1();
   }
 
-  return v2;
+  return v1;
 }
 
 id __54__POExtensionAgentProcess_isCallerCurrentSSOExtension__block_invoke_53(uint64_t a1)
 {
-  v2 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Caller is not current extension"];
-  v3 = PO_LOG_POExtensionAgentProcess();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Caller is not current extension"];
+  v2 = PO_LOG_POExtensionAgentProcess(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1(v2, a1);
+    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1();
   }
 
-  return v2;
+  return v1;
 }
 
 - (void)isDeviceRegisteredWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POExtensionAgentProcess();
+  v5 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess isDeviceRegisteredWithCompletion:];
@@ -936,7 +933,7 @@ LABEL_16:
 - (void)isUserRegisteredWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POExtensionAgentProcess();
+  v5 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess isUserRegisteredWithCompletion:];
@@ -983,7 +980,7 @@ LABEL_12:
 - (void)registrationTokenWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POExtensionAgentProcess();
+  v5 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess registrationTokenWithCompletion:];
@@ -1034,7 +1031,7 @@ LABEL_12:
 id __59__POExtensionAgentProcess_registrationTokenWithCompletion___block_invoke_73()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"No platform SSO Profiles."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1046,7 +1043,7 @@ id __59__POExtensionAgentProcess_registrationTokenWithCompletion___block_invoke_
 - (void)setRegistrationToken:(id)token completion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POExtensionAgentProcess();
+  v5 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess setRegistrationToken:completion:];
@@ -1062,7 +1059,7 @@ id __59__POExtensionAgentProcess_registrationTokenWithCompletion___block_invoke_
 - (void)authenticationMethodWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POExtensionAgentProcess();
+  v5 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess authenticationMethodWithCompletion:];
@@ -1093,7 +1090,7 @@ id __59__POExtensionAgentProcess_registrationTokenWithCompletion___block_invoke_
 - (void)ssoTokensWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POExtensionAgentProcess();
+  v5 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess ssoTokensWithCompletion:];
@@ -1119,10 +1116,10 @@ id __59__POExtensionAgentProcess_registrationTokenWithCompletion___block_invoke_
         v14 = [configurationManager2 tokensForExtensionIdentifier:extensionIdentifier user:v13];
 
 LABEL_21:
-        v20 = PO_LOG_POExtensionAgentProcess();
-        if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+        v21 = PO_LOG_POExtensionAgentProcess(v15);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
-          [POExtensionAgentProcess ssoTokensWithCompletion:v20];
+          [POExtensionAgentProcess ssoTokensWithCompletion:v21];
         }
 
         if (completionCopy)
@@ -1133,41 +1130,41 @@ LABEL_21:
         goto LABEL_25;
       }
 
-      v16 = [configurationManager2 tokensForExtensionIdentifier:extensionIdentifier];
+      v17 = [configurationManager2 tokensForExtensionIdentifier:extensionIdentifier];
 
-      if (!v16)
+      if (!v17)
       {
         goto LABEL_21;
       }
 
       if ([currentDeviceConfiguration deviceEncryptionKey])
       {
-        v17 = SecKeyCopyPublicKey([currentDeviceConfiguration deviceEncryptionKey]);
-        if (v17)
+        v18 = SecKeyCopyPublicKey([currentDeviceConfiguration deviceEncryptionKey]);
+        if (v18)
         {
-          v18 = v17;
-          if (SecKeyIsAlgorithmSupported(v17, kSecKeyOperationTypeEncrypt, *MEMORY[0x277CDC328]))
+          v19 = v18;
+          if (SecKeyIsAlgorithmSupported(v18, kSecKeyOperationTypeEncrypt, *MEMORY[0x277CDC328]))
           {
             error = 0;
-            v19 = SecKeyCreateEncryptedData(v18, *MEMORY[0x277CDC338], v16, &error);
-            CFRelease(v18);
-            if (error || !v19)
+            v20 = SecKeyCreateEncryptedData(v19, *MEMORY[0x277CDC338], v17, &error);
+            CFRelease(v19);
+            if (error || !v20)
             {
-              v23[0] = MEMORY[0x277D85DD0];
-              v23[1] = 3221225472;
-              v23[2] = __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_108;
-              v23[3] = &__block_descriptor_40_e14___NSError_8__0l;
-              v23[4] = error;
-              v22 = __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_108(v23);
+              v24[0] = MEMORY[0x277D85DD0];
+              v24[1] = 3221225472;
+              v24[2] = __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_108;
+              v24[3] = &__block_descriptor_40_e14___NSError_8__0l;
+              v24[4] = error;
+              v23 = __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_108(v24);
               if (completionCopy)
               {
-                (*(completionCopy + 2))(completionCopy, 0, v22);
+                (*(completionCopy + 2))(completionCopy, 0, v23);
               }
             }
 
             else if (completionCopy)
             {
-              (*(completionCopy + 2))(completionCopy, v19, 0);
+              (*(completionCopy + 2))(completionCopy, v20, 0);
             }
 
 LABEL_31:
@@ -1175,39 +1172,39 @@ LABEL_31:
             goto LABEL_25;
           }
 
-          CFRelease(v18);
-          v21 = __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_102();
+          CFRelease(v19);
+          v22 = __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_102();
         }
 
         else
         {
-          v21 = __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_96();
+          v22 = __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_96();
         }
       }
 
       else
       {
-        v21 = __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_90();
+        v22 = __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_90();
       }
 
-      v19 = v21;
+      v20 = v22;
       if (completionCopy)
       {
-        (*(completionCopy + 2))(completionCopy, 0, v21);
+        (*(completionCopy + 2))(completionCopy, 0, v22);
       }
 
       goto LABEL_31;
     }
 
-    v25[0] = MEMORY[0x277D85DD0];
-    v25[1] = 3221225472;
-    v25[2] = __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_89;
-    v25[3] = &unk_279A3A088;
-    v26 = v7;
-    v15 = __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_89(v25);
+    v26[0] = MEMORY[0x277D85DD0];
+    v26[1] = 3221225472;
+    v26[2] = __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_89;
+    v26[3] = &unk_279A3A088;
+    v27 = v7;
+    v16 = __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_89(v26);
     if (completionCopy)
     {
-      (*(completionCopy + 2))(completionCopy, 0, v15);
+      (*(completionCopy + 2))(completionCopy, 0, v16);
     }
   }
 
@@ -1225,20 +1222,20 @@ LABEL_25:
 
 id __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_89(uint64_t a1)
 {
-  v2 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
-  v3 = PO_LOG_POExtensionAgentProcess();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
+  v2 = PO_LOG_POExtensionAgentProcess(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1(v2, a1);
+    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1();
   }
 
-  return v2;
+  return v1;
 }
 
 id __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_90()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1005 description:@"Missing device encryption key."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1250,7 +1247,7 @@ id __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_90()
 id __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_96()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1005 description:@"Missing device encryption public key."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1262,7 +1259,7 @@ id __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_96()
 id __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_102()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"Encryption algorithm not supported."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1276,8 +1273,8 @@ id __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_108(uint
   v1 = *(a1 + 32);
   v2 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:v1 description:@"Failed to encrypt tokens."];
 
-  v3 = PO_LOG_POExtensionAgentProcess();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POExtensionAgentProcess(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
   }
@@ -1289,7 +1286,7 @@ id __51__POExtensionAgentProcess_ssoTokensWithCompletion___block_invoke_108(uint
 {
   tokensCopy = tokens;
   completionCopy = completion;
-  v8 = PO_LOG_POExtensionAgentProcess();
+  v8 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess setSsoTokens:completion:];
@@ -1479,20 +1476,20 @@ LABEL_38:
 
 id __51__POExtensionAgentProcess_setSsoTokens_completion___block_invoke_117(uint64_t a1)
 {
-  v2 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
-  v3 = PO_LOG_POExtensionAgentProcess();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
+  v2 = PO_LOG_POExtensionAgentProcess(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1(v2, a1);
+    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1();
   }
 
-  return v2;
+  return v1;
 }
 
 id __51__POExtensionAgentProcess_setSsoTokens_completion___block_invoke_118(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to remove tokens."];
-  v2 = PO_LOG_POExtensionAgentProcess();
+  v2 = PO_LOG_POExtensionAgentProcess(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1506,8 +1503,8 @@ id __51__POExtensionAgentProcess_setSsoTokens_completion___block_invoke_125(uint
   v1 = *(a1 + 32);
   v2 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:v1 description:@"Failed to decrypt tokens."];
 
-  v3 = PO_LOG_POExtensionAgentProcess();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v4 = PO_LOG_POExtensionAgentProcess(v3);
+  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
   }
@@ -1518,7 +1515,7 @@ id __51__POExtensionAgentProcess_setSsoTokens_completion___block_invoke_125(uint
 id __51__POExtensionAgentProcess_setSsoTokens_completion___block_invoke_129(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to save tokens."];
-  v2 = PO_LOG_POExtensionAgentProcess();
+  v2 = PO_LOG_POExtensionAgentProcess(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1530,7 +1527,7 @@ id __51__POExtensionAgentProcess_setSsoTokens_completion___block_invoke_129(uint
 id __51__POExtensionAgentProcess_setSsoTokens_completion___block_invoke_133(uint64_t a1)
 {
   v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 underlyingError:*(a1 + 32) description:@"Failed to stash tokens."];
-  v2 = PO_LOG_POExtensionAgentProcess();
+  v2 = PO_LOG_POExtensionAgentProcess(v1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1560,7 +1557,7 @@ void __51__POExtensionAgentProcess_setSsoTokens_completion___block_invoke_137(ui
 id __51__POExtensionAgentProcess_setSsoTokens_completion___block_invoke_2()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"Failed to save user configuration after handling kerberos mapping."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1572,7 +1569,7 @@ id __51__POExtensionAgentProcess_setSsoTokens_completion___block_invoke_2()
 - (void)loginConfigurationWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POExtensionAgentProcess();
+  v5 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess loginConfigurationWithCompletion:];
@@ -1607,7 +1604,7 @@ id __51__POExtensionAgentProcess_setSsoTokens_completion___block_invoke_2()
 {
   configurationCopy = configuration;
   completionCopy = completion;
-  v8 = PO_LOG_POExtensionAgentProcess();
+  v8 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess setLoginConfiguration:completion:];
@@ -1872,7 +1869,7 @@ LABEL_66:
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_154()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"No validated Platform SSO Profiles."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1884,7 +1881,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_160()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Token endpoint URL is not approved profile URL."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1896,7 +1893,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_166()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Nonce endpoint URL is not approved profile URL."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1908,7 +1905,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_172()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Refresh endpoint URL is not approved profile URL."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1920,7 +1917,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_179()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"The invalidCredentialPredicate is not formatted correctly."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1932,7 +1929,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_185()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"The federationRequestURN is missing."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1944,7 +1941,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_191()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"The federationUserPreauthenticationURL is missing."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1956,7 +1953,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_197()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"The federationMexURLKeypath is missing."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1968,7 +1965,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_203()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"The federationPredicate is not formatted correctly."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1980,7 +1977,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_209()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"The federationMexURL is missing."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -1992,7 +1989,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_215()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"The HPKE PSK must be at least 32 bytes."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2004,7 +2001,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_221()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"The HPKE PSK_id is required when the PSK is set."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2016,7 +2013,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_227()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"The HPKE PSK is required when the PSK_id is set."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2028,7 +2025,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_234()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"The HPKE Auth Key is not valid for current encryption algorithm."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2040,7 +2037,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_240()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"The login request HPKE PSK must be at least 32 bytes."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2052,7 +2049,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_246()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"The login request HPKE PSK_id is required when the PSK is set."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2064,7 +2061,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_252()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"The login request HPKE PSK is required when the login request PSK_id is set."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2076,7 +2073,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_258()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Invalid user secure enclave key biometric policy."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2088,7 +2085,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke_264()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"Failed to save the login configuration."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2099,31 +2096,31 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 
 - (BOOL)isURL:(id)l validForProfile:(id)profile
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   profileCopy = profile;
   absoluteString = [l absoluteString];
+  v18 = 0u;
   v19 = 0u;
   v20 = 0u;
   v21 = 0u;
-  v22 = 0u;
   uRLPrefix = [profileCopy URLPrefix];
-  v8 = [uRLPrefix countByEnumeratingWithState:&v19 objects:v23 count:16];
+  v8 = [uRLPrefix countByEnumeratingWithState:&v18 objects:v22 count:16];
   if (v8)
   {
     v9 = v8;
-    v18 = profileCopy;
-    v10 = *v20;
+    v17 = profileCopy;
+    v10 = *v19;
     while (2)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v20 != v10)
+        if (*v19 != v10)
         {
           objc_enumerationMutation(uRLPrefix);
         }
 
         v12 = MEMORY[0x277CCAC30];
-        v13 = [*(*(&v19 + 1) + 8 * i) stringByAppendingString:@"*"];
+        v13 = [*(*(&v18 + 1) + 8 * i) stringByAppendingString:@"*"];
         v14 = [v12 predicateWithFormat:@"SELF LIKE[c] %@", v13];
 
         LOBYTE(v13) = [v14 evaluateWithObject:absoluteString];
@@ -2134,7 +2131,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
         }
       }
 
-      v9 = [uRLPrefix countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v9 = [uRLPrefix countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v9)
       {
         continue;
@@ -2145,7 +2142,7 @@ id __60__POExtensionAgentProcess_setLoginConfiguration_completion___block_invoke
 
     v15 = 0;
 LABEL_11:
-    profileCopy = v18;
+    profileCopy = v17;
   }
 
   else
@@ -2153,7 +2150,6 @@ LABEL_11:
     v15 = 0;
   }
 
-  v16 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -2161,7 +2157,7 @@ LABEL_11:
 {
   dataCopy = data;
   completionCopy = completion;
-  v10 = PO_LOG_POExtensionAgentProcess();
+  v10 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess setCertificateData:keyType:completion:];
@@ -2252,20 +2248,20 @@ LABEL_25:
 
 id __65__POExtensionAgentProcess_setCertificateData_keyType_completion___block_invoke_281(uint64_t a1)
 {
-  v2 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
-  v3 = PO_LOG_POExtensionAgentProcess();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
+  v2 = PO_LOG_POExtensionAgentProcess(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1(v2, a1);
+    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1();
   }
 
-  return v2;
+  return v1;
 }
 
 id __65__POExtensionAgentProcess_setCertificateData_keyType_completion___block_invoke_282()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Invalid key type for certificate."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2277,7 +2273,7 @@ id __65__POExtensionAgentProcess_setCertificateData_keyType_completion___block_i
 id __65__POExtensionAgentProcess_setCertificateData_keyType_completion___block_invoke_288()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"Failed to save the device configuration."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2289,7 +2285,7 @@ id __65__POExtensionAgentProcess_setCertificateData_keyType_completion___block_i
 - (void)secKeyProxyEndpointForKeyType:(int64_t)type completion:(id)completion
 {
   completionCopy = completion;
-  v7 = PO_LOG_POExtensionAgentProcess();
+  v7 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess secKeyProxyEndpointForKeyType:completion:];
@@ -2317,7 +2313,7 @@ id __65__POExtensionAgentProcess_setCertificateData_keyType_completion___block_i
 id __68__POExtensionAgentProcess_secKeyProxyEndpointForKeyType_completion___block_invoke()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"Failed to receive key proxy endpoint."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2329,7 +2325,7 @@ id __68__POExtensionAgentProcess_secKeyProxyEndpointForKeyType_completion___bloc
 - (void)secIdentityProxyEndpointForKeyType:(int64_t)type completion:(id)completion
 {
   completionCopy = completion;
-  v7 = PO_LOG_POExtensionAgentProcess();
+  v7 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess secIdentityProxyEndpointForKeyType:completion:];
@@ -2357,7 +2353,7 @@ id __68__POExtensionAgentProcess_secKeyProxyEndpointForKeyType_completion___bloc
 id __73__POExtensionAgentProcess_secIdentityProxyEndpointForKeyType_completion___block_invoke()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"Failed to receive identity key proxy endpoint."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2369,7 +2365,7 @@ id __73__POExtensionAgentProcess_secIdentityProxyEndpointForKeyType_completion__
 - (void)attestKey:(int64_t)key pending:(BOOL)pending clientDataHash:(id)hash completion:(id)completion
 {
   completionCopy = completion;
-  v7 = PO_LOG_POExtensionAgentProcess();
+  v7 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess attestKey:pending:clientDataHash:completion:];
@@ -2382,7 +2378,7 @@ id __73__POExtensionAgentProcess_secIdentityProxyEndpointForKeyType_completion__
 - (void)userNeedsReauthenticationWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POExtensionAgentProcess();
+  v5 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess userNeedsReauthenticationWithCompletion:];
@@ -2433,7 +2429,7 @@ id __73__POExtensionAgentProcess_secIdentityProxyEndpointForKeyType_completion__
 id __67__POExtensionAgentProcess_userNeedsReauthenticationWithCompletion___block_invoke()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Caller is not current SSO extension."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2558,7 +2554,7 @@ void __67__POExtensionAgentProcess_userNeedsReauthenticationWithCompletion___blo
 - (void)deviceRegistrationsNeedsRepairWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POExtensionAgentProcess();
+  v5 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess deviceRegistrationsNeedsRepairWithCompletion:];
@@ -2598,7 +2594,7 @@ void __72__POExtensionAgentProcess_deviceRegistrationsNeedsRepairWithCompletion_
 - (void)userRegistrationsNeedsRepairWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POExtensionAgentProcess();
+  v5 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess userRegistrationsNeedsRepairWithCompletion:];
@@ -2647,7 +2643,7 @@ void __70__POExtensionAgentProcess_userRegistrationsNeedsRepairWithCompletion___
 - (void)resetDeviceKeysWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POExtensionAgentProcess();
+  v5 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess resetDeviceKeysWithCompletion:];
@@ -2738,20 +2734,20 @@ void __70__POExtensionAgentProcess_userRegistrationsNeedsRepairWithCompletion___
 
 id __57__POExtensionAgentProcess_resetDeviceKeysWithCompletion___block_invoke_335(uint64_t a1)
 {
-  v2 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
-  v3 = PO_LOG_POExtensionAgentProcess();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
+  v2 = PO_LOG_POExtensionAgentProcess(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1(v2, a1);
+    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1();
   }
 
-  return v2;
+  return v1;
 }
 
 id __57__POExtensionAgentProcess_resetDeviceKeysWithCompletion___block_invoke_336()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"Failed to save device configuration."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2763,7 +2759,7 @@ id __57__POExtensionAgentProcess_resetDeviceKeysWithCompletion___block_invoke_33
 - (void)resetUserSecureEnclaveKeyWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POExtensionAgentProcess();
+  v5 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess resetUserSecureEnclaveKeyWithCompletion:];
@@ -2791,18 +2787,18 @@ id __57__POExtensionAgentProcess_resetDeviceKeysWithCompletion___block_invoke_33
 
     if (!currentDeviceConfiguration || ![(POExtensionAgentProcess *)self isCallerCurrentSSOExtension])
     {
-      v35[0] = MEMORY[0x277D85DD0];
-      v35[1] = 3221225472;
-      v35[2] = __67__POExtensionAgentProcess_resetUserSecureEnclaveKeyWithCompletion___block_invoke_350;
-      v35[3] = &unk_279A3A088;
-      v36 = v7;
-      v24 = __67__POExtensionAgentProcess_resetUserSecureEnclaveKeyWithCompletion___block_invoke_350(v35);
+      v36[0] = MEMORY[0x277D85DD0];
+      v36[1] = 3221225472;
+      v36[2] = __67__POExtensionAgentProcess_resetUserSecureEnclaveKeyWithCompletion___block_invoke_350;
+      v36[3] = &unk_279A3A088;
+      v37 = v7;
+      v25 = __67__POExtensionAgentProcess_resetUserSecureEnclaveKeyWithCompletion___block_invoke_350(v36);
       if (completionCopy)
       {
-        completionCopy[2](completionCopy, 0, v24);
+        completionCopy[2](completionCopy, 0, v25);
       }
 
-      v12 = v36;
+      v12 = v37;
       goto LABEL_37;
     }
 
@@ -2812,7 +2808,7 @@ id __57__POExtensionAgentProcess_resetDeviceKeysWithCompletion___block_invoke_33
 
     if (!v12)
     {
-      v25 = __67__POExtensionAgentProcess_resetUserSecureEnclaveKeyWithCompletion___block_invoke_351();
+      v26 = __67__POExtensionAgentProcess_resetUserSecureEnclaveKeyWithCompletion___block_invoke_351();
       goto LABEL_34;
     }
 
@@ -2826,10 +2822,10 @@ id __57__POExtensionAgentProcess_resetDeviceKeysWithCompletion___block_invoke_33
       [v12 setSepKey:0];
 LABEL_30:
       configurationManager3 = [(POExtensionAgentProcess *)self configurationManager];
-      v32 = NSUserName();
-      v33 = [configurationManager3 saveUserConfiguration:v12 forUserName:v32 syncToPreboot:1];
+      v33 = NSUserName();
+      v34 = [configurationManager3 saveUserConfiguration:v12 forUserName:v33 syncToPreboot:1];
 
-      if (v33)
+      if (v34)
       {
         if (completionCopy)
         {
@@ -2842,12 +2838,12 @@ LABEL_38:
         goto LABEL_39;
       }
 
-      v25 = __67__POExtensionAgentProcess_resetUserSecureEnclaveKeyWithCompletion___block_invoke_363();
+      v26 = __67__POExtensionAgentProcess_resetUserSecureEnclaveKeyWithCompletion___block_invoke_363();
 LABEL_34:
-      v34 = v25;
+      v35 = v26;
       if (completionCopy)
       {
-        completionCopy[2](completionCopy, 0, v25);
+        completionCopy[2](completionCopy, 0, v26);
       }
 
       goto LABEL_37;
@@ -2857,8 +2853,8 @@ LABEL_34:
     currentLoginConfiguration = [configurationManager4 currentLoginConfiguration];
     userSEPKeyBiometricPolicy = [currentLoginConfiguration userSEPKeyBiometricPolicy];
 
-    v18 = PO_LOG_POExtensionAgentProcess();
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG))
+    v19 = PO_LOG_POExtensionAgentProcess(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
     {
       [POExtensionAgentProcess resetUserSecureEnclaveKeyWithCompletion:userSEPKeyBiometricPolicy];
     }
@@ -2868,22 +2864,22 @@ LABEL_34:
       goto LABEL_16;
     }
 
-    v19 = objc_alloc_init(MEMORY[0x277CD4790]);
-    v20 = [v19 canEvaluatePolicy:1 error:0];
+    v20 = objc_alloc_init(MEMORY[0x277CD4790]);
+    v21 = [v20 canEvaluatePolicy:1 error:0];
 
-    if ((v20 & 1) == 0)
+    if ((v21 & 1) == 0)
     {
-      v25 = __67__POExtensionAgentProcess_resetUserSecureEnclaveKeyWithCompletion___block_invoke_357();
+      v26 = __67__POExtensionAgentProcess_resetUserSecureEnclaveKeyWithCompletion___block_invoke_357();
       goto LABEL_34;
     }
 
     if (userSEPKeyBiometricPolicy)
     {
-      v26 = MEMORY[0x277D3D230];
+      v27 = MEMORY[0x277D3D230];
       signingAlgorithm = [v12 signingAlgorithm];
-      v27 = v26;
-      v28 = signingAlgorithm;
-      v29 = 1;
+      v28 = v27;
+      v29 = signingAlgorithm;
+      v30 = 1;
     }
 
     else
@@ -2891,23 +2887,23 @@ LABEL_34:
       if ((userSEPKeyBiometricPolicy & 2) == 0)
       {
 LABEL_16:
-        v21 = MEMORY[0x277D3D230];
+        v22 = MEMORY[0x277D3D230];
         signingAlgorithm = [v12 signingAlgorithm];
-        v23 = [v21 createUserSEPSigningKeyForAlgorithm:signingAlgorithm];
+        v24 = [v22 createUserSEPSigningKeyForAlgorithm:signingAlgorithm];
 LABEL_29:
-        [v12 setSepKey:v23];
+        [v12 setSepKey:v24];
 
         goto LABEL_30;
       }
 
-      v30 = MEMORY[0x277D3D230];
+      v31 = MEMORY[0x277D3D230];
       signingAlgorithm = [v12 signingAlgorithm];
-      v27 = v30;
-      v28 = signingAlgorithm;
-      v29 = 0;
+      v28 = v31;
+      v29 = signingAlgorithm;
+      v30 = 0;
     }
 
-    v23 = [v27 createUserSEPSigningKeyForAlgorithm:v28 userPresence:1 currentSet:v29];
+    v24 = [v28 createUserSEPSigningKeyForAlgorithm:v29 userPresence:1 currentSet:v30];
     goto LABEL_29;
   }
 
@@ -2918,20 +2914,20 @@ LABEL_39:
 
 id __67__POExtensionAgentProcess_resetUserSecureEnclaveKeyWithCompletion___block_invoke_350(uint64_t a1)
 {
-  v2 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
-  v3 = PO_LOG_POExtensionAgentProcess();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
+  v2 = PO_LOG_POExtensionAgentProcess(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1(v2, a1);
+    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1();
   }
 
-  return v2;
+  return v1;
 }
 
 id __67__POExtensionAgentProcess_resetUserSecureEnclaveKeyWithCompletion___block_invoke_351()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1005 description:@"Failed to retrieve user configuration."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2943,7 +2939,7 @@ id __67__POExtensionAgentProcess_resetUserSecureEnclaveKeyWithCompletion___block
 id __67__POExtensionAgentProcess_resetUserSecureEnclaveKeyWithCompletion___block_invoke_357()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"Failed to create key during reset key because companion is not available."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2955,7 +2951,7 @@ id __67__POExtensionAgentProcess_resetUserSecureEnclaveKeyWithCompletion___block
 id __67__POExtensionAgentProcess_resetUserSecureEnclaveKeyWithCompletion___block_invoke_363()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"Failed to save user configuration."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -2967,7 +2963,7 @@ id __67__POExtensionAgentProcess_resetUserSecureEnclaveKeyWithCompletion___block
 - (void)loginUserNameWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POExtensionAgentProcess();
+  v5 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess loginUserNameWithCompletion:];
@@ -3011,7 +3007,7 @@ LABEL_10:
 id __55__POExtensionAgentProcess_loginUserNameWithCompletion___block_invoke_374()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"Failed to retrieve user configuration."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -3024,7 +3020,7 @@ id __55__POExtensionAgentProcess_loginUserNameWithCompletion___block_invoke_374(
 {
   nameCopy = name;
   completionCopy = completion;
-  v8 = PO_LOG_POExtensionAgentProcess();
+  v8 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess setLoginUserName:completion:];
@@ -3092,7 +3088,7 @@ LABEL_17:
 - (void)userLoginConfigurationWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PO_LOG_POExtensionAgentProcess();
+  v5 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess userLoginConfigurationWithCompletion:];
@@ -3129,7 +3125,7 @@ LABEL_8:
 id __64__POExtensionAgentProcess_userLoginConfigurationWithCompletion___block_invoke()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"Failed to retrieve user login configuration."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -3142,7 +3138,7 @@ id __64__POExtensionAgentProcess_userLoginConfigurationWithCompletion___block_in
 {
   configurationCopy = configuration;
   completionCopy = completion;
-  v8 = PO_LOG_POExtensionAgentProcess();
+  v8 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess setUserLoginConfiguration:completion:];
@@ -3192,7 +3188,7 @@ LABEL_10:
 {
   v50 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
-  v7 = PO_LOG_POExtensionAgentProcess();
+  v7 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess rotateKeyForKeyType:type completion:?];
@@ -3225,10 +3221,10 @@ LABEL_10:
       v47[2] = __58__POExtensionAgentProcess_rotateKeyForKeyType_completion___block_invoke_413;
       v47[3] = &unk_279A3A088;
       v48 = v9;
-      v27 = __58__POExtensionAgentProcess_rotateKeyForKeyType_completion___block_invoke_413(v47);
+      v28 = __58__POExtensionAgentProcess_rotateKeyForKeyType_completion___block_invoke_413(v47);
       if (completionCopy)
       {
-        completionCopy[2](completionCopy, 0, v27);
+        completionCopy[2](completionCopy, 0, v28);
       }
 
       selfCopy = v48;
@@ -3321,11 +3317,11 @@ LABEL_55:
             currentLoginConfiguration = [configurationManager3 currentLoginConfiguration];
             userSEPKeyBiometricPolicy = [currentLoginConfiguration userSEPKeyBiometricPolicy];
 
-            v21 = PO_LOG_POExtensionAgentProcess();
-            if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
+            v22 = PO_LOG_POExtensionAgentProcess(v21);
+            if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
             {
-              v22 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:userSEPKeyBiometricPolicy];
-              [(POExtensionAgentProcess *)v22 rotateKeyForKeyType:buf completion:v21];
+              v23 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:userSEPKeyBiometricPolicy];
+              [(POExtensionAgentProcess *)v23 rotateKeyForKeyType:buf completion:v22];
             }
 
             if (!userSEPKeyBiometricPolicy)
@@ -3333,10 +3329,10 @@ LABEL_55:
               goto LABEL_22;
             }
 
-            v23 = objc_alloc_init(MEMORY[0x277CD4790]);
-            v24 = [v23 canEvaluatePolicy:1 error:0];
+            v24 = objc_alloc_init(MEMORY[0x277CD4790]);
+            v25 = [v24 canEvaluatePolicy:1 error:0];
 
-            if (v24)
+            if (v25)
             {
               if (userSEPKeyBiometricPolicy)
               {
@@ -3355,9 +3351,9 @@ LABEL_55:
               }
 
 LABEL_22:
-              v25 = MEMORY[0x277D3D230];
+              v26 = MEMORY[0x277D3D230];
               pendingUserSEPSigningAlgorithm = [(POExtensionAgentProcess *)selfCopy pendingUserSEPSigningAlgorithm];
-              -[POExtensionAgentProcess setPendingUserSEPKey:](selfCopy, "setPendingUserSEPKey:", [v25 createUserSEPSigningKeyForAlgorithm:pendingUserSEPSigningAlgorithm]);
+              -[POExtensionAgentProcess setPendingUserSEPKey:](selfCopy, "setPendingUserSEPKey:", [v26 createUserSEPSigningKeyForAlgorithm:pendingUserSEPSigningAlgorithm]);
 LABEL_53:
 
               pendingUserSEPKey = [(POExtensionAgentProcess *)selfCopy pendingUserSEPKey];
@@ -3420,26 +3416,24 @@ LABEL_30:
   v9 = __67__POExtensionAgentProcess_userNeedsReauthenticationWithCompletion___block_invoke();
   completionCopy[2](completionCopy, 0, v9);
 LABEL_31:
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 id __58__POExtensionAgentProcess_rotateKeyForKeyType_completion___block_invoke_413(uint64_t a1)
 {
-  v2 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
-  v3 = PO_LOG_POExtensionAgentProcess();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
+  v2 = PO_LOG_POExtensionAgentProcess(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1(v2, a1);
+    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1();
   }
 
-  return v2;
+  return v1;
 }
 
 id __58__POExtensionAgentProcess_rotateKeyForKeyType_completion___block_invoke_420()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Invalid key type for rotation."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -3451,7 +3445,7 @@ id __58__POExtensionAgentProcess_rotateKeyForKeyType_completion___block_invoke_4
 id __58__POExtensionAgentProcess_rotateKeyForKeyType_completion___block_invoke_426()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1001 description:@"Missing key for rotation."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -3463,7 +3457,7 @@ id __58__POExtensionAgentProcess_rotateKeyForKeyType_completion___block_invoke_4
 - (void)completeRotationKeyForKeyType:(int64_t)type completion:(id)completion
 {
   completionCopy = completion;
-  v7 = PO_LOG_POExtensionAgentProcess();
+  v7 = PO_LOG_POExtensionAgentProcess(completionCopy);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
     [POExtensionAgentProcess completeRotationKeyForKeyType:type completion:?];
@@ -3669,20 +3663,20 @@ LABEL_35:
 
 id __68__POExtensionAgentProcess_completeRotationKeyForKeyType_completion___block_invoke_440(uint64_t a1)
 {
-  v2 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
-  v3 = PO_LOG_POExtensionAgentProcess();
-  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
+  v1 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Failed to retrieve device configuration for extension."];
+  v2 = PO_LOG_POExtensionAgentProcess(v1);
+  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
-    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1(v2, a1);
+    __49__POAgentProcess_getLoginTypeForUser_completion___block_invoke_24_cold_1();
   }
 
-  return v2;
+  return v1;
 }
 
 id __68__POExtensionAgentProcess_completeRotationKeyForKeyType_completion___block_invoke_454()
 {
   v0 = [MEMORY[0x277D3D1F0] errorWithCode:-1008 description:@"Invalid key type for rotation completion."];
-  v1 = PO_LOG_POExtensionAgentProcess();
+  v1 = PO_LOG_POExtensionAgentProcess(v0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
     __68__PORegistrationManager_createOrRepairDeviceConfigurationWithError___block_invoke_cold_1();
@@ -3737,127 +3731,111 @@ id __68__POExtensionAgentProcess_completeRotationKeyForKeyType_completion___bloc
 
 - (void)_keyForKeyType:error:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)keyProxyEndpointForKeyType:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)identityForKeyType:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 void __46__POExtensionAgentProcess_identityForKeyType___block_invoke_43_cold_1(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v5 = [MEMORY[0x277CCABB0] numberWithInteger:*(a2 + 32)];
-  v7 = 138543618;
-  v8 = a1;
-  v9 = 2114;
-  v10 = v5;
-  _os_log_error_impl(&dword_25E831000, a3, OS_LOG_TYPE_ERROR, "%{public}@, %{public}@", &v7, 0x16u);
-
-  v6 = *MEMORY[0x277D85DE8];
+  v6 = 138543618;
+  v7 = a1;
+  v8 = 2114;
+  v9 = v5;
+  _os_log_error_impl(&dword_25E831000, a3, OS_LOG_TYPE_ERROR, "%{public}@, %{public}@", &v6, 0x16u);
 }
 
 - (void)bundleIdentifierForXPCConnection:.cold.1()
 {
-  v3 = *MEMORY[0x277D85DE8];
+  v2 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_25E831000, v0, OS_LOG_TYPE_DEBUG, "bundleIdentifier: CPCopyBundleIdentifierAndTeamFromAuditToken(): %{public}@", v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_25E831000, v0, OS_LOG_TYPE_DEBUG, "bundleIdentifier: CPCopyBundleIdentifierAndTeamFromAuditToken(): %{public}@", v1, 0xCu);
 }
 
 - (void)isCallerCurrentSSOExtension
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)isDeviceRegisteredWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)isUserRegisteredWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)registrationTokenWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)setRegistrationToken:completion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)authenticationMethodWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)ssoTokensWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)setSsoTokens:completion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)loginConfigurationWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)setLoginConfiguration:completion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)setLoginConfiguration:(uint64_t)a3 completion:.cold.2(void *a1, uint64_t a2, uint64_t a3)
@@ -3887,139 +3865,114 @@ void __46__POExtensionAgentProcess_identityForKeyType___block_invoke_43_cold_1(u
 - (void)setCertificateData:keyType:completion:.cold.1()
 {
   OUTLINED_FUNCTION_9_0();
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCABB0] numberWithInteger:?];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_7_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)secKeyProxyEndpointForKeyType:completion:.cold.1()
 {
   OUTLINED_FUNCTION_9_0();
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCABB0] numberWithInteger:?];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_7_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)secIdentityProxyEndpointForKeyType:completion:.cold.1()
 {
   OUTLINED_FUNCTION_9_0();
-  v7 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CCABB0] numberWithInteger:?];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_7_1();
   _os_log_debug_impl(v1, v2, v3, v4, v5, 0x20u);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)attestKey:pending:clientDataHash:completion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)userNeedsReauthenticationWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)deviceRegistrationsNeedsRepairWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)userRegistrationsNeedsRepairWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)resetDeviceKeysWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)resetUserSecureEnclaveKeyWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)resetUserSecureEnclaveKeyWithCompletion:(uint64_t)a1 .cold.2(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:a1];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_7_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)loginUserNameWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)setLoginUserName:completion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)userLoginConfigurationWithCompletion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)setUserLoginConfiguration:completion:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_25E831000, v0, v1, "%s  on %@", v2, v3, v4, v5, v6);
 }
 
 - (void)rotateKeyForKeyType:(uint64_t)a1 completion:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_7_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)rotateKeyForKeyType:(os_log_t)log completion:.cold.2(void *a1, uint8_t *buf, os_log_t log)
@@ -4031,13 +3984,10 @@ void __46__POExtensionAgentProcess_identityForKeyType___block_invoke_43_cold_1(u
 
 - (void)completeRotationKeyForKeyType:(uint64_t)a1 completion:.cold.1(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [MEMORY[0x277CCABB0] numberWithInteger:a1];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_7_1();
   _os_log_debug_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

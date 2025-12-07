@@ -23,38 +23,38 @@
 
 - (void)migrateWorkflow
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   actions = [(WFWorkflowMigration *)self actions];
   v4 = [actions copy];
 
   obj = v4;
-  v5 = [v4 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v34;
-    v30 = *v34;
+    v7 = *v33;
+    v29 = *v33;
     do
     {
       v8 = 0;
-      v31 = v6;
+      v30 = v6;
       do
       {
-        if (*v34 != v7)
+        if (*v33 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v33 + 1) + 8 * v8);
+        v9 = *(*(&v32 + 1) + 8 * v8);
         actionIdentifierKey = [(WFWorkflowMigration *)self actionIdentifierKey];
         v11 = [v9 objectForKeyedSubscript:actionIdentifierKey];
-        v12 = [v11 isEqualToString:@"is.workflow.actions.dropbox.delete"];
+        isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-        if (v12)
+        if (isEqualToString)
         {
           actionIdentifierKey2 = [(WFWorkflowMigration *)self actionIdentifierKey];
           [v9 setObject:@"is.workflow.actions.dropbox.delete2" forKeyedSubscript:actionIdentifierKey2];
@@ -89,8 +89,8 @@
           actions3 = [(WFWorkflowMigration *)self actions];
           [actions2 insertObject:v23 atIndex:{objc_msgSend(actions3, "indexOfObject:", v9)}];
 
-          v7 = v30;
-          v6 = v31;
+          v7 = v29;
+          v6 = v30;
           [v9 removeObjectForKey:@"WFActionUUID"];
         }
 
@@ -98,14 +98,13 @@
       }
 
       while (v6 != v8);
-      v6 = [obj countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v6 = [obj countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v6);
   }
 
   [(WFWorkflowMigration *)self finish];
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 @end

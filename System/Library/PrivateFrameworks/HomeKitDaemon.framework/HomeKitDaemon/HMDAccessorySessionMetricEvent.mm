@@ -16,7 +16,7 @@
 
 - (NSDictionary)coreAnalyticsEventDictionary
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   accessory = [(HMDAccessorySessionMetricEvent *)self accessory];
   metricLoggingTransportDetails = [accessory metricLoggingTransportDetails];
@@ -107,19 +107,18 @@
     v37 = HMFGetLogIdentifier();
     name = [accessory name];
     identifier = [accessory identifier];
-    v42 = 138544130;
-    v43 = v37;
-    v44 = 2112;
-    v45 = name;
-    v46 = 2112;
-    v47 = identifier;
-    v48 = 2112;
-    v49 = dictionary;
-    _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_DEBUG, "%{public}@Serialized HMDAccessorySessionMetricEvent for accessory: %@/%@ - %@", &v42, 0x2Au);
+    v41 = 138544130;
+    v42 = v37;
+    v43 = 2112;
+    v44 = name;
+    v45 = 2112;
+    v46 = identifier;
+    v47 = 2112;
+    v48 = dictionary;
+    _os_log_impl(&dword_229538000, v36, OS_LOG_TYPE_DEBUG, "%{public}@Serialized HMDAccessorySessionMetricEvent for accessory: %@/%@ - %@", &v41, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v34);
-  v40 = *MEMORY[0x277D85DE8];
 
   return dictionary;
 }

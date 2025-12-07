@@ -5,11 +5,13 @@
 - (id)logErrorWithMessage:(id)message;
 - (void)activateExtensionWithCompletion:(id)completion;
 - (void)blockNumber:(id)number withCountryCode:(id)code;
+- (void)context:(id)context didBecomeReadyForClassificationResponse:(BOOL)response;
 - (void)didCompleteClassificationRequestWithResponse:(id)response;
 - (void)finish;
 - (void)launchSettings;
 - (void)presentBlockAlertWithCompletion:(id)completion;
 - (void)userDidFinishForExtensionShellViewController:(id)controller;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
 @end
 
@@ -75,6 +77,16 @@
   [navigationController3 didMoveToParentViewController:self];
 }
 
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = ILClassificationUIExtensionHostViewController;
+  [(ILClassificationUIExtensionHostViewController *)&v6 viewDidDisappear:disappear];
+  extension = [(ILClassificationUIExtensionHostViewController *)self extension];
+  extensionRequestIdentifier = [(ILClassificationUIExtensionHostViewController *)self extensionRequestIdentifier];
+  [extension cancelExtensionRequestWithIdentifier:extensionRequestIdentifier];
+}
+
 - (void)activateExtensionWithCompletion:(id)completion
 {
   completionCopy = completion;
@@ -91,7 +103,7 @@
 
 void __81__ILClassificationUIExtensionHostViewController_activateExtensionWithCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   if (v5)
@@ -101,29 +113,29 @@ void __81__ILClassificationUIExtensionHostViewController_activateExtensionWithCo
     {
       v8 = [v5 identifier];
       *buf = 138412290;
-      v21 = v8;
+      v20 = v8;
       _os_log_impl(&dword_238A6C000, v7, OS_LOG_TYPE_DEFAULT, "Instantiating remote view controller for extension identifier %@", buf, 0xCu);
     }
 
-    v17[0] = MEMORY[0x277D85DD0];
-    v17[1] = 3221225472;
-    v17[2] = __81__ILClassificationUIExtensionHostViewController_activateExtensionWithCompletion___block_invoke_12;
-    v17[3] = &unk_278A5F3E0;
+    v16[0] = MEMORY[0x277D85DD0];
+    v16[1] = 3221225472;
+    v16[2] = __81__ILClassificationUIExtensionHostViewController_activateExtensionWithCompletion___block_invoke_12;
+    v16[3] = &unk_278A5F3E0;
     v10 = *(a1 + 32);
     v9 = (a1 + 32);
-    v17[4] = v10;
+    v16[4] = v10;
     v11 = v5;
-    v18 = v11;
-    v19 = v9[1];
-    [v11 instantiateViewControllerWithInputItems:MEMORY[0x277CBEBF8] connectionHandler:v17];
+    v17 = v11;
+    v18 = v9[1];
+    [v11 instantiateViewControllerWithInputItems:MEMORY[0x277CBEBF8] connectionHandler:v16];
     objc_initWeak(buf, *v9);
-    v15[0] = MEMORY[0x277D85DD0];
-    v15[1] = 3221225472;
-    v15[2] = __81__ILClassificationUIExtensionHostViewController_activateExtensionWithCompletion___block_invoke_22;
-    v15[3] = &unk_278A5F408;
-    objc_copyWeak(&v16, buf);
-    [v11 setRequestInterruptionBlock:v15];
-    objc_destroyWeak(&v16);
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __81__ILClassificationUIExtensionHostViewController_activateExtensionWithCompletion___block_invoke_22;
+    v14[3] = &unk_278A5F408;
+    objc_copyWeak(&v15, buf);
+    [v11 setRequestInterruptionBlock:v14];
+    objc_destroyWeak(&v15);
     objc_destroyWeak(buf);
   }
 
@@ -136,13 +148,11 @@ void __81__ILClassificationUIExtensionHostViewController_activateExtensionWithCo
       (*(v13 + 16))(v13, v12);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __81__ILClassificationUIExtensionHostViewController_activateExtensionWithCompletion___block_invoke_12(uint64_t a1, void *a2, void *a3, void *a4)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v7 = a2;
   v8 = a3;
   v9 = a4;
@@ -162,7 +172,7 @@ void __81__ILClassificationUIExtensionHostViewController_activateExtensionWithCo
       if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v30 = v8;
+        v29 = v8;
         _os_log_impl(&dword_238A6C000, v13, OS_LOG_TYPE_DEFAULT, "Successfully instantiated remote view controller %@", buf, 0xCu);
       }
 
@@ -176,9 +186,9 @@ void __81__ILClassificationUIExtensionHostViewController_activateExtensionWithCo
       {
         v17 = [*(a1 + 32) classificationRequest];
         *buf = 138412546;
-        v30 = v8;
-        v31 = 2112;
-        v32 = v17;
+        v29 = v8;
+        v30 = 2112;
+        v31 = v17;
         _os_log_impl(&dword_238A6C000, v16, OS_LOG_TYPE_DEFAULT, "Preparing view controller %@ for classification request %@", buf, 0x16u);
       }
 
@@ -213,8 +223,6 @@ void __81__ILClassificationUIExtensionHostViewController_activateExtensionWithCo
   {
     (*(v27 + 16))(v27, v20);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 void __81__ILClassificationUIExtensionHostViewController_activateExtensionWithCompletion___block_invoke_22(uint64_t a1, void *a2)
@@ -242,19 +250,26 @@ void __81__ILClassificationUIExtensionHostViewController_activateExtensionWithCo
   [extensionHostContext classificationResponseForRequest:classificationRequest completion:v6];
 }
 
-uint64_t __94__ILClassificationUIExtensionHostViewController_userDidFinishForExtensionShellViewController___block_invoke(uint64_t result, uint64_t a2)
+id *__94__ILClassificationUIExtensionHostViewController_userDidFinishForExtensionShellViewController___block_invoke(id *result, uint64_t a2)
 {
   if (a2)
   {
-    return [*(result + 32) didCompleteClassificationRequestWithResponse:a2];
+    return [result[4] didCompleteClassificationRequestWithResponse:a2];
   }
 
   return result;
 }
 
+- (void)context:(id)context didBecomeReadyForClassificationResponse:(BOOL)response
+{
+  responseCopy = response;
+  shellViewController = [(ILClassificationUIExtensionHostViewController *)self shellViewController];
+  [shellViewController setEnableFinishOption:responseCopy];
+}
+
 - (void)didCompleteClassificationRequestWithResponse:(id)response
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   responseCopy = response;
   queue = [(ILClassificationUIExtensionHostViewController *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -265,9 +280,9 @@ uint64_t __94__ILClassificationUIExtensionHostViewController_userDidFinishForExt
   {
     classificationRequest = [(ILClassificationUIExtensionHostViewController *)self classificationRequest];
     *buf = 138412546;
-    v26 = classificationRequest;
-    v27 = 2112;
-    v28 = responseCopy;
+    v25 = classificationRequest;
+    v26 = 2112;
+    v27 = responseCopy;
     _os_log_impl(&dword_238A6C000, v6, OS_LOG_TYPE_DEFAULT, "Host VC didCompleteClassificationRequest: %@ with response: %@", buf, 0x16u);
   }
 
@@ -276,12 +291,12 @@ uint64_t __94__ILClassificationUIExtensionHostViewController_userDidFinishForExt
   {
     reportingController = [(ILClassificationUIExtensionHostViewController *)self reportingController];
     extension = [(ILClassificationUIExtensionHostViewController *)self extension];
-    v20 = MEMORY[0x277D85DD0];
-    v21 = 3221225472;
-    v22 = __94__ILClassificationUIExtensionHostViewController_didCompleteClassificationRequestWithResponse___block_invoke;
-    v23 = &unk_278A5F4A8;
+    v19 = MEMORY[0x277D85DD0];
+    v20 = 3221225472;
+    v21 = __94__ILClassificationUIExtensionHostViewController_didCompleteClassificationRequestWithResponse___block_invoke;
+    v22 = &unk_278A5F4A8;
     selfCopy = self;
-    v13 = &v20;
+    v13 = &v19;
     goto LABEL_8;
   }
 
@@ -299,19 +314,17 @@ uint64_t __94__ILClassificationUIExtensionHostViewController_userDidFinishForExt
 
     reportingController = [(ILClassificationUIExtensionHostViewController *)self reportingController];
     extension = [(ILClassificationUIExtensionHostViewController *)self extension];
-    v15 = MEMORY[0x277D85DD0];
-    v16 = 3221225472;
-    v17 = __94__ILClassificationUIExtensionHostViewController_didCompleteClassificationRequestWithResponse___block_invoke_3;
-    v18 = &unk_278A5F4A8;
+    v14 = MEMORY[0x277D85DD0];
+    v15 = 3221225472;
+    v16 = __94__ILClassificationUIExtensionHostViewController_didCompleteClassificationRequestWithResponse___block_invoke_3;
+    v17 = &unk_278A5F4A8;
     selfCopy2 = self;
-    v13 = &v15;
+    v13 = &v14;
 LABEL_8:
-    [reportingController reportResponse:responseCopy forExtension:extension withCompletion:{v13, v15, v16, v17, v18, selfCopy2, v20, v21, v22, v23, selfCopy}];
+    [reportingController reportResponse:responseCopy forExtension:extension withCompletion:{v13, v14, v15, v16, v17, selfCopy2, v19, v20, v21, v22, selfCopy}];
   }
 
 LABEL_10:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __94__ILClassificationUIExtensionHostViewController_didCompleteClassificationRequestWithResponse___block_invoke(uint64_t a1)
@@ -390,14 +403,14 @@ uint64_t __94__ILClassificationUIExtensionHostViewController_didCompleteClassifi
 
 - (void)presentBlockAlertWithCompletion:(id)completion
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v4 = ILDefaultLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     sender = [(ILClassificationUIExtensionHostViewController *)self sender];
     *buf = 138412290;
-    v39 = sender;
+    v38 = sender;
     _os_log_impl(&dword_238A6C000, v4, OS_LOG_TYPE_DEFAULT, "Present block alert for: %@", buf, 0xCu);
   }
 
@@ -418,38 +431,36 @@ uint64_t __94__ILClassificationUIExtensionHostViewController_didCompleteClassifi
   v18 = MEMORY[0x277D750F8];
   v19 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v20 = [v19 localizedStringForKey:@"OKAY" value:&stru_284B5F1D8 table:@"IdentityLookupUI"];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __81__ILClassificationUIExtensionHostViewController_presentBlockAlertWithCompletion___block_invoke;
-  v36[3] = &unk_278A5F4D0;
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __81__ILClassificationUIExtensionHostViewController_presentBlockAlertWithCompletion___block_invoke;
+  v35[3] = &unk_278A5F4D0;
   v21 = completionCopy;
-  v37 = v21;
-  v22 = [v18 actionWithTitle:v20 style:0 handler:v36];
+  v36 = v21;
+  v22 = [v18 actionWithTitle:v20 style:0 handler:v35];
   [v17 addAction:v22];
 
   v23 = MEMORY[0x277D750F8];
   v24 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v25 = [v24 localizedStringForKey:@"SETTINGS" value:&stru_284B5F1D8 table:@"IdentityLookupUI"];
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = __81__ILClassificationUIExtensionHostViewController_presentBlockAlertWithCompletion___block_invoke_53;
-  v34[3] = &unk_278A5F4F8;
-  v34[4] = self;
-  v35 = v21;
+  v33[0] = MEMORY[0x277D85DD0];
+  v33[1] = 3221225472;
+  v33[2] = __81__ILClassificationUIExtensionHostViewController_presentBlockAlertWithCompletion___block_invoke_53;
+  v33[3] = &unk_278A5F4F8;
+  v33[4] = self;
+  v34 = v21;
   v26 = v21;
-  v27 = [v23 actionWithTitle:v25 style:0 handler:v34];
+  v27 = [v23 actionWithTitle:v25 style:0 handler:v33];
   [v17 addAction:v27];
 
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __81__ILClassificationUIExtensionHostViewController_presentBlockAlertWithCompletion___block_invoke_54;
   block[3] = &unk_278A5F520;
-  v32 = v17;
+  v31 = v17;
   selfCopy = self;
   v28 = v17;
   dispatch_async(MEMORY[0x277D85CD0], block);
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __81__ILClassificationUIExtensionHostViewController_presentBlockAlertWithCompletion___block_invoke(uint64_t a1)
@@ -491,45 +502,42 @@ uint64_t __81__ILClassificationUIExtensionHostViewController_presentBlockAlertWi
 
 uint64_t __81__ILClassificationUIExtensionHostViewController_presentBlockAlertWithCompletion___block_invoke_54(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = ILDefaultLog();
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_impl(&dword_238A6C000, v2, OS_LOG_TYPE_DEFAULT, "Present reportAndBlockAlert: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_impl(&dword_238A6C000, v2, OS_LOG_TYPE_DEFAULT, "Present reportAndBlockAlert: %@", &v5, 0xCu);
   }
 
-  result = [*(a1 + 40) presentViewController:*(a1 + 32) animated:1 completion:0];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 40) presentViewController:*(a1 + 32) animated:1 completion:0];
 }
 
 - (void)launchSettings
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_238A6C000, log, OS_LOG_TYPE_ERROR, "Error opening url: %@ (%@)", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_238A6C000, log, OS_LOG_TYPE_ERROR, "Error opening url: %@ (%@)", &v3, 0x16u);
 }
 
 - (void)blockNumber:(id)number withCountryCode:(id)code
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   numberCopy = number;
   codeCopy = code;
   v7 = ILDefaultLog();
   if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 138412546;
-    v14 = numberCopy;
-    v15 = 2112;
-    v16 = codeCopy;
-    _os_log_impl(&dword_238A6C000, v7, OS_LOG_TYPE_DEFAULT, "blocking number: %@ with country code: %@", &v13, 0x16u);
+    v12 = 138412546;
+    v13 = numberCopy;
+    v14 = 2112;
+    v15 = codeCopy;
+    _os_log_impl(&dword_238A6C000, v7, OS_LOG_TYPE_DEFAULT, "blocking number: %@ with country code: %@", &v12, 0x16u);
   }
 
   v8 = CUTWeakLinkClass();
@@ -537,13 +545,11 @@ uint64_t __81__ILClassificationUIExtensionHostViewController_presentBlockAlertWi
   sharedPrivacyManager = [v8 sharedPrivacyManager];
   v11 = [v9 phoneNumberWithDigits:numberCopy countryCode:codeCopy];
   [sharedPrivacyManager setBlockIncomingCommunication:1 forPhoneNumber:v11];
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)logErrorWithMessage:(id)message
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   messageCopy = message;
   v4 = ILDefaultLog();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
@@ -552,12 +558,10 @@ uint64_t __81__ILClassificationUIExtensionHostViewController_presentBlockAlertWi
   }
 
   v5 = MEMORY[0x277CCA9B8];
-  v10 = @"ErrorMessage";
-  v11[0] = messageCopy;
-  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
+  v9 = @"ErrorMessage";
+  v10[0] = messageCopy;
+  v6 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
   v7 = [v5 errorWithDomain:@"ILClassificationUIExtensionHostViewController" code:0 userInfo:v6];
-
-  v8 = *MEMORY[0x277D85DE8];
 
   return v7;
 }
@@ -571,20 +575,18 @@ uint64_t __81__ILClassificationUIExtensionHostViewController_presentBlockAlertWi
 
 void __81__ILClassificationUIExtensionHostViewController_activateExtensionWithCompletion___block_invoke_22_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_238A6C000, a2, OS_LOG_TYPE_ERROR, "handling interruption for extension with identifier: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_238A6C000, a2, OS_LOG_TYPE_ERROR, "handling interruption for extension with identifier: %@", &v2, 0xCu);
 }
 
 - (void)logErrorWithMessage:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_238A6C000, a2, OS_LOG_TYPE_ERROR, "%@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_238A6C000, a2, OS_LOG_TYPE_ERROR, "%@", &v2, 0xCu);
 }
 
 @end

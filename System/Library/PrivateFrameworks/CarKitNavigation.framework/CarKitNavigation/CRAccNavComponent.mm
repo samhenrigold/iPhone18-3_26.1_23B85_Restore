@@ -59,27 +59,27 @@
 
 - (NSString)configDescription
 {
-  v54[13] = *MEMORY[0x277D85DE8];
+  v53[13] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCACA8];
   component = [(CRAccNavComponent *)self component];
-  v52 = [v3 stringWithFormat:@"\tmaxLength_CurrentRoadName: %lu", objc_msgSend(component, "maxLength_CurrentRoadName")];
-  v54[0] = v52;
+  v51 = [v3 stringWithFormat:@"\tmaxLength_CurrentRoadName: %lu", objc_msgSend(component, "maxLength_CurrentRoadName")];
+  v53[0] = v51;
   v4 = MEMORY[0x277CCACA8];
   component2 = [(CRAccNavComponent *)self component];
-  v50 = [v4 stringWithFormat:@"\tmaxLength_DestinationRoadName: %lu", objc_msgSend(component2, "maxLength_DestinationRoadName")];
-  v54[1] = v50;
+  v49 = [v4 stringWithFormat:@"\tmaxLength_DestinationRoadName: %lu", objc_msgSend(component2, "maxLength_DestinationRoadName")];
+  v53[1] = v49;
   v5 = MEMORY[0x277CCACA8];
   component3 = [(CRAccNavComponent *)self component];
-  v48 = [v5 stringWithFormat:@"\tmaxLength_PostManeuverRoadName: %lu", objc_msgSend(component3, "maxLength_PostManeuverRoadName")];
-  v54[2] = v48;
+  v47 = [v5 stringWithFormat:@"\tmaxLength_PostManeuverRoadName: %lu", objc_msgSend(component3, "maxLength_PostManeuverRoadName")];
+  v53[2] = v47;
   v6 = MEMORY[0x277CCACA8];
   component4 = [(CRAccNavComponent *)self component];
-  v46 = [v6 stringWithFormat:@"\tmaxLength_ManeuverDescription: %lu", objc_msgSend(component4, "maxLength_ManeuverDescription")];
-  v54[3] = v46;
+  v45 = [v6 stringWithFormat:@"\tmaxLength_ManeuverDescription: %lu", objc_msgSend(component4, "maxLength_ManeuverDescription")];
+  v53[3] = v45;
   v7 = MEMORY[0x277CCACA8];
   component5 = [(CRAccNavComponent *)self component];
-  v44 = [v7 stringWithFormat:@"\tmaxLength_LaneGuidanceDescription: %lu", objc_msgSend(component5, "maxLength_LaneGuidanceDescription")];
-  v54[4] = v44;
+  v43 = [v7 stringWithFormat:@"\tmaxLength_LaneGuidanceDescription: %lu", objc_msgSend(component5, "maxLength_LaneGuidanceDescription")];
+  v53[4] = v43;
   v8 = MEMORY[0x277CCACA8];
   component6 = [(CRAccNavComponent *)self component];
   if ([component6 requestSourceName])
@@ -92,8 +92,8 @@
     v9 = @"NO";
   }
 
-  v42 = [v8 stringWithFormat:@"\trequestSourceName: %@", v9];
-  v54[5] = v42;
+  v41 = [v8 stringWithFormat:@"\trequestSourceName: %@", v9];
+  v53[5] = v41;
   v10 = MEMORY[0x277CCACA8];
   component7 = [(CRAccNavComponent *)self component];
   if ([component7 requestSourceSupportsRouteGuidance])
@@ -106,8 +106,8 @@
     v11 = @"NO";
   }
 
-  v40 = [v10 stringWithFormat:@"\trequestSourceSupportsRouteGuidance: %@", v11];
-  v54[6] = v40;
+  v39 = [v10 stringWithFormat:@"\trequestSourceSupportsRouteGuidance: %@", v11];
+  v53[6] = v39;
   v12 = MEMORY[0x277CCACA8];
   component8 = [(CRAccNavComponent *)self component];
   if ([component8 supportsExitInfo])
@@ -120,8 +120,8 @@
     v13 = @"NO";
   }
 
-  v38 = [v12 stringWithFormat:@"\tsupportsExitInfo: %@", v13];
-  v54[7] = v38;
+  v37 = [v12 stringWithFormat:@"\tsupportsExitInfo: %@", v13];
+  v53[7] = v37;
   v14 = MEMORY[0x277CCACA8];
   component9 = [(CRAccNavComponent *)self component];
   if ([component9 supportsLaneGuidance])
@@ -135,7 +135,7 @@
   }
 
   v16 = [v14 stringWithFormat:@"\tsupportsLaneGuidance: %@", v15];
-  v54[8] = v16;
+  v53[8] = v16;
   v17 = MEMORY[0x277CCACA8];
   component10 = [(CRAccNavComponent *)self component];
   if ([component10 supportsTimeZoneOffset])
@@ -149,7 +149,7 @@
   }
 
   v20 = [v17 stringWithFormat:@"\tsupportsTimeZoneOffset: %@", v19];
-  v54[9] = v20;
+  v53[9] = v20;
   v21 = MEMORY[0x277CCACA8];
   component11 = [(CRAccNavComponent *)self component];
   if ([component11 supportsPreconditioning])
@@ -163,22 +163,20 @@
   }
 
   v24 = [v21 stringWithFormat:@"\tsupportsPreconditioning: %@", v23];
-  v54[10] = v24;
+  v53[10] = v24;
   v25 = MEMORY[0x277CCACA8];
   component12 = [(CRAccNavComponent *)self component];
   v27 = [v25 stringWithFormat:@"\tmaxCapacity_GuidanceManeuver: %lu", objc_msgSend(component12, "maxCapacity_GuidanceManeuver")];
-  v54[11] = v27;
+  v53[11] = v27;
   v28 = MEMORY[0x277CCACA8];
   component13 = [(CRAccNavComponent *)self component];
   v30 = [v28 stringWithFormat:@"\tmaxCapacity_LaneGuidance: %lu", objc_msgSend(component13, "maxCapacity_LaneGuidance")];
-  v54[12] = v30;
-  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v54 count:13];
+  v53[12] = v30;
+  v31 = [MEMORY[0x277CBEA60] arrayWithObjects:v53 count:13];
 
   v32 = MEMORY[0x277CCACA8];
   v33 = [v31 componentsJoinedByString:{@", \n"}];
   v34 = [v32 stringWithFormat:@"{\n%@\n}", v33];
-
-  v35 = *MEMORY[0x277D85DE8];
 
   return v34;
 }

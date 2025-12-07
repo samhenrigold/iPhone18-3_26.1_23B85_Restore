@@ -1,6 +1,4 @@
 @interface MCMContainerClassTransientPath
-+ (id)_globalTemporaryComponent;
-+ (id)_temporaryComponent;
 + (id)containerPathForUserIdentity:(id)identity containerClass:(unint64_t)class;
 + (id)transientGlobalBundleURL;
 + (id)transientGlobalURL;
@@ -9,37 +7,19 @@
 
 @implementation MCMContainerClassTransientPath
 
-+ (id)_temporaryComponent
-{
-  v2 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return @"Temp";
-}
-
-+ (id)_globalTemporaryComponent
-{
-  v2 = *MEMORY[0x1E69E9840];
-  *MEMORY[0x1E69E9840];
-  return @"Temp";
-}
-
 + (id)transientURLWithUserIdentity:(id)identity withContainerClass:(unint64_t)class
 {
-  v11 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   _temporaryComponent = [self _temporaryComponent];
   v7 = [self _baseURLForUserIdentity:identityCopy];
 
   v8 = [v7 URLByAppendingPathComponent:_temporaryComponent isDirectory:1];
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 + (id)transientGlobalURL
 {
-  v11 = *MEMORY[0x1E69E9840];
   v3 = containermanager_copy_global_configuration();
   managedPathRegistry = [v3 managedPathRegistry];
   containermanagerCaches = [managedPathRegistry containermanagerCaches];
@@ -48,27 +28,22 @@
   _globalTemporaryComponent = [self _globalTemporaryComponent];
   v8 = [v6 URLByAppendingPathComponent:_globalTemporaryComponent isDirectory:1];
 
-  v9 = *MEMORY[0x1E69E9840];
-
   return v8;
 }
 
 + (id)transientGlobalBundleURL
 {
-  v9 = *MEMORY[0x1E69E9840];
   v3 = containermanager_copy_global_configuration();
   sharedContainersDirectory = [v3 sharedContainersDirectory];
   _globalTemporaryComponent = [self _globalTemporaryComponent];
   v6 = [sharedContainersDirectory URLByAppendingPathComponent:_globalTemporaryComponent isDirectory:1];
-
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
 
 + (id)containerPathForUserIdentity:(id)identity containerClass:(unint64_t)class
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   v7 = [self _categoryComponentForContainerClass:class];
   v8 = [self _classComponentForContainerClass:class];
@@ -126,7 +101,6 @@
 LABEL_14:
 
 LABEL_15:
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }

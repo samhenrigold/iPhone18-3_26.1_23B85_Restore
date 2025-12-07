@@ -403,9 +403,9 @@ LABEL_19:
       if (client == clientCopy)
       {
         indexPath = [(_UIKeyShortcutHUDIndexPath *)self->_selectedIndexPath indexPath];
-        v28 = [indexPath isEqual:pathCopy];
+        isEqual = objc_msgSend_isEqual_(indexPath);
 
-        if (v28)
+        if (isEqual)
         {
 LABEL_8:
           [v12 setFlashing:1];
@@ -588,15 +588,15 @@ LABEL_9:
   if (client == clientCopy)
   {
     indexPath = [(_UIKeyShortcutHUDIndexPath *)self->_categoryVisibleIndexPath indexPath];
-    v10 = [indexPath isEqual:pathCopy];
+    isEqual = objc_msgSend_isEqual_(indexPath);
   }
 
   else
   {
-    v10 = 0;
+    isEqual = 0;
   }
 
-  return v10;
+  return isEqual;
 }
 
 - (void)client:(id)client setCategoryVisibleForCellAtIndexPath:(id)path

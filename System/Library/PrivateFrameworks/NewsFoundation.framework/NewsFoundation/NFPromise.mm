@@ -348,7 +348,7 @@ id __18__NFPromise_error__block_invoke(uint64_t a1, void *a2)
 {
   v2 = *(a1 + 32);
   v3 = a2;
-  v4 = zalgoIfMain();
+  v4 = zalgoIfMain(v3);
   v5 = [v2 errorOn:v4 error:v3];
 
   return v5;
@@ -585,7 +585,7 @@ void __46__NFPromise_Delay__asDelay_onQueue_withError___block_invoke(uint64_t a1
 
 - (id)timeoutAfter:(double)after
 {
-  v5 = zalgo();
+  v5 = zalgo(self);
   v6 = [(NFPromise *)self timeoutAfter:v5 on:after];
 
   return v6;
@@ -649,7 +649,7 @@ void __38__NFPromise_Timeout__timeoutAfter_on___block_invoke(uint64_t a1, void *
   v19 = [v15 errorOn:v16 error:v34];
   v20 = *(a1 + 40);
   v21 = *(a1 + 40);
-  v22 = zalgo();
+  v22 = zalgo(v20);
   v23 = v22;
   if (v21 == v22)
   {
@@ -663,7 +663,7 @@ LABEL_5:
   }
 
   v24 = *(a1 + 40);
-  v25 = zalgoIfMain();
+  v25 = zalgoIfMain(v22);
 
   if (v24 == v25)
   {

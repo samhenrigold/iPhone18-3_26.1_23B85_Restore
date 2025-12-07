@@ -25,7 +25,7 @@
 
 void __45__FCPurchaseMetadataFetcher_clientIdentifier__block_invoke()
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v0 = [MEMORY[0x1E696AAE8] mainBundle];
   v1 = [v0 bundleIdentifier];
 
@@ -39,15 +39,15 @@ void __45__FCPurchaseMetadataFetcher_clientIdentifier__block_invoke()
   {
     if (![v1 isEqualToString:@"com.apple.news"] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FCPurchaseMetadataFetcher: Unknown clientID for bundle %@.", v1];
+      v4 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"FCPurchaseMetadataFetcher: Unknown clientID for bundle %@.", v1];
       *buf = 136315906;
-      v7 = "[FCPurchaseMetadataFetcher clientIdentifier]_block_invoke";
-      v8 = 2080;
-      v9 = "FCPurchaseMetadataFetcher.m";
-      v10 = 1024;
-      v11 = 85;
-      v12 = 2114;
-      v13 = v5;
+      v6 = "[FCPurchaseMetadataFetcher clientIdentifier]_block_invoke";
+      v7 = 2080;
+      v8 = "FCPurchaseMetadataFetcher.m";
+      v9 = 1024;
+      v10 = 85;
+      v11 = 2114;
+      v12 = v4;
       _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
     }
 
@@ -56,8 +56,6 @@ void __45__FCPurchaseMetadataFetcher_clientIdentifier__block_invoke()
   }
 
   _MergedGlobals_147 = v3;
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (id)clientIdentifier
@@ -504,7 +502,7 @@ FCPurchase *__80__FCPurchaseMetadataFetcher_fetchPurchaseMetadataForPurchaseID_r
 
 void __64__FCPurchaseMetadataFetcher_promisePurchaseLookupWithAppAdamID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc(MEMORY[0x1E698C9E0]);
@@ -512,27 +510,25 @@ void __64__FCPurchaseMetadataFetcher_promisePurchaseLookupWithAppAdamID___block_
   v9 = +[FCAMSBag bag];
   v10 = [v7 initWithType:2 clientIdentifier:v8 clientVersion:@"1" bag:v9];
 
-  v22[0] = *(a1 + 40);
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+  v21[0] = *(a1 + 40);
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
   [v10 setItemIdentifiers:v11];
 
-  v21 = *MEMORY[0x1E698C6C0];
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+  v20 = *MEMORY[0x1E698C6C0];
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
   [v10 setAdditionalPlatforms:v12];
 
   v13 = [v10 perform];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __64__FCPurchaseMetadataFetcher_promisePurchaseLookupWithAppAdamID___block_invoke_2;
-  v17[3] = &unk_1E7C3C420;
-  v19 = v6;
-  v18 = *(a1 + 40);
-  v20 = v5;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __64__FCPurchaseMetadataFetcher_promisePurchaseLookupWithAppAdamID___block_invoke_2;
+  v16[3] = &unk_1E7C3C420;
+  v18 = v6;
+  v17 = *(a1 + 40);
+  v19 = v5;
   v14 = v5;
   v15 = v6;
-  [v13 addFinishBlock:v17];
-
-  v16 = *MEMORY[0x1E69E9840];
+  [v13 addFinishBlock:v16];
 }
 
 void __64__FCPurchaseMetadataFetcher_promisePurchaseLookupWithAppAdamID___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -829,7 +825,7 @@ void __66__FCPurchaseMetadataFetcher_checkIfOfferUsedAlreadyWithAppAdamID___bloc
 
 void __66__FCPurchaseMetadataFetcher_checkIfOfferUsedAlreadyWithAppAdamID___block_invoke_4(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = a2;
   v7 = [v6 appAdamId];
   v8 = [v7 isEqualToNumber:*(a1 + 32)];
@@ -851,7 +847,7 @@ void __66__FCPurchaseMetadataFetcher_checkIfOfferUsedAlreadyWithAppAdamID___bloc
         v12 = @"NO";
       }
 
-      *v15 = 138412802;
+      *v14 = 138412802;
       if ([v6 hasUsedIntroPricingOffer])
       {
         v13 = @"YES";
@@ -862,12 +858,12 @@ void __66__FCPurchaseMetadataFetcher_checkIfOfferUsedAlreadyWithAppAdamID___bloc
         v13 = @"NO";
       }
 
-      *&v15[4] = v10;
-      v16 = 2112;
-      v17 = v12;
-      v18 = 2112;
-      v19 = v13;
-      _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "FCPurchaseMetaDataFetcher checkIfOfferUsedAlready appAdamId=%@ hasUsedFreeOffer = %@ hasUsedIntroPricingOffer = %@", v15, 0x20u);
+      *&v14[4] = v10;
+      v15 = 2112;
+      v16 = v12;
+      v17 = 2112;
+      v18 = v13;
+      _os_log_impl(&dword_1B63EF000, v11, OS_LOG_TYPE_DEFAULT, "FCPurchaseMetaDataFetcher checkIfOfferUsedAlready appAdamId=%@ hasUsedFreeOffer = %@ hasUsedIntroPricingOffer = %@", v14, 0x20u);
     }
 
     if (([v6 hasUsedFreeOffer] & 1) != 0 || objc_msgSend(v6, "hasUsedIntroPricingOffer"))
@@ -876,13 +872,11 @@ void __66__FCPurchaseMetadataFetcher_checkIfOfferUsedAlreadyWithAppAdamID___bloc
       *a4 = 1;
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __70__FCPurchaseMetadataFetcher_promiseStoreExternalVersionWithAppAdamID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc(MEMORY[0x1E698C9E0]);
@@ -891,26 +885,24 @@ void __70__FCPurchaseMetadataFetcher_promiseStoreExternalVersionWithAppAdamID___
   v10 = [v7 initWithType:0 clientIdentifier:v8 clientVersion:@"1" bag:v9];
 
   v11 = [*(a1 + 40) stringValue];
-  v22[0] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+  v21[0] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
   [v10 setItemIdentifiers:v12];
 
-  v21 = *MEMORY[0x1E698C6C0];
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+  v20 = *MEMORY[0x1E698C6C0];
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
   [v10 setAdditionalPlatforms:v13];
 
   v14 = [v10 perform];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __70__FCPurchaseMetadataFetcher_promiseStoreExternalVersionWithAppAdamID___block_invoke_2;
-  v18[3] = &unk_1E7C3C4C0;
-  v19 = v5;
-  v20 = v6;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __70__FCPurchaseMetadataFetcher_promiseStoreExternalVersionWithAppAdamID___block_invoke_2;
+  v17[3] = &unk_1E7C3C4C0;
+  v18 = v5;
+  v19 = v6;
   v15 = v6;
   v16 = v5;
-  [v14 addFinishBlock:v18];
-
-  v17 = *MEMORY[0x1E69E9840];
+  [v14 addFinishBlock:v17];
 }
 
 void __70__FCPurchaseMetadataFetcher_promiseStoreExternalVersionWithAppAdamID___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
@@ -973,7 +965,7 @@ id __100__FCPurchaseMetadataFetcher_promiseProductLookupWithLookupResult_externa
 
 void __58__FCPurchaseMetadataFetcher_promiseBundleIDWithAppAdamID___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = objc_alloc(MEMORY[0x1E698C9E0]);
@@ -982,26 +974,24 @@ void __58__FCPurchaseMetadataFetcher_promiseBundleIDWithAppAdamID___block_invoke
   v10 = [v7 initWithType:0 clientIdentifier:v8 clientVersion:@"1" bag:v9];
 
   v11 = [*(a1 + 40) stringValue];
-  v22[0] = v11;
-  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+  v21[0] = v11;
+  v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
   [v10 setItemIdentifiers:v12];
 
-  v21 = *MEMORY[0x1E698C6C0];
-  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v21 count:1];
+  v20 = *MEMORY[0x1E698C6C0];
+  v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v20 count:1];
   [v10 setAdditionalPlatforms:v13];
 
   v14 = [v10 perform];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __58__FCPurchaseMetadataFetcher_promiseBundleIDWithAppAdamID___block_invoke_2;
-  v18[3] = &unk_1E7C3C4C0;
-  v19 = v5;
-  v20 = v6;
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __58__FCPurchaseMetadataFetcher_promiseBundleIDWithAppAdamID___block_invoke_2;
+  v17[3] = &unk_1E7C3C4C0;
+  v18 = v5;
+  v19 = v6;
   v15 = v6;
   v16 = v5;
-  [v14 addFinishBlock:v18];
-
-  v17 = *MEMORY[0x1E69E9840];
+  [v14 addFinishBlock:v17];
 }
 
 void __58__FCPurchaseMetadataFetcher_promiseBundleIDWithAppAdamID___block_invoke_2(uint64_t a1, void *a2, uint64_t a3)

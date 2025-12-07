@@ -1,5 +1,6 @@
 @interface MTSetTimerAttributeIntentHandler
 - (id)_responseToSetTimerAttributeIntent:(id)intent withUpdatedTimer:(id)timer error:(id)error dryRun:(BOOL)run;
+- (void)_updateTimer:(id)timer toDuration:(double)duration toLabel:(id)label dryRun:(BOOL)run completion:(id)completion;
 - (void)confirmSetTimerAttribute:(id)attribute completion:(id)completion;
 - (void)handleSetTimerAttribute:(id)attribute completion:(id)completion;
 - (void)resolveTargetTimerForSetTimerAttribute:(id)attribute withCompletion:(id)completion;
@@ -10,16 +11,16 @@
 
 - (void)handleSetTimerAttribute:(id)attribute completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   attributeCopy = attribute;
   completionCopy = completion;
   v8 = *MEMORY[0x1E696E6D8];
   if (os_log_type_enabled(*MEMORY[0x1E696E6D8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v20 = "[MTSetTimerAttributeIntentHandler handleSetTimerAttribute:completion:]";
-    v21 = 2112;
-    v22 = attributeCopy;
+    v19 = "[MTSetTimerAttributeIntentHandler handleSetTimerAttribute:completion:]";
+    v20 = 2112;
+    v21 = attributeCopy;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
   }
 
@@ -27,18 +28,16 @@
   [attributeCopy toDuration];
   v11 = v10;
   toLabel = [attributeCopy toLabel];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __71__MTSetTimerAttributeIntentHandler_handleSetTimerAttribute_completion___block_invoke;
-  v16[3] = &unk_1E7B0E340;
-  v17 = attributeCopy;
-  v18 = completionCopy;
-  v16[4] = self;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __71__MTSetTimerAttributeIntentHandler_handleSetTimerAttribute_completion___block_invoke;
+  v15[3] = &unk_1E7B0E340;
+  v16 = attributeCopy;
+  v17 = completionCopy;
+  v15[4] = self;
   v13 = attributeCopy;
   v14 = completionCopy;
-  [(MTSetTimerAttributeIntentHandler *)self _updateTimer:targetTimer toDuration:toLabel toLabel:0 dryRun:v16 completion:v11];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [(MTSetTimerAttributeIntentHandler *)self _updateTimer:targetTimer toDuration:toLabel toLabel:0 dryRun:v15 completion:v11];
 }
 
 void __71__MTSetTimerAttributeIntentHandler_handleSetTimerAttribute_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -53,16 +52,16 @@ void __71__MTSetTimerAttributeIntentHandler_handleSetTimerAttribute_completion__
 
 - (void)confirmSetTimerAttribute:(id)attribute completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   attributeCopy = attribute;
   completionCopy = completion;
   v8 = *MEMORY[0x1E696E6D8];
   if (os_log_type_enabled(*MEMORY[0x1E696E6D8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v20 = "[MTSetTimerAttributeIntentHandler confirmSetTimerAttribute:completion:]";
-    v21 = 2112;
-    v22 = attributeCopy;
+    v19 = "[MTSetTimerAttributeIntentHandler confirmSetTimerAttribute:completion:]";
+    v20 = 2112;
+    v21 = attributeCopy;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
   }
 
@@ -70,18 +69,16 @@ void __71__MTSetTimerAttributeIntentHandler_handleSetTimerAttribute_completion__
   [attributeCopy toDuration];
   v11 = v10;
   toLabel = [attributeCopy toLabel];
-  v16[0] = MEMORY[0x1E69E9820];
-  v16[1] = 3221225472;
-  v16[2] = __72__MTSetTimerAttributeIntentHandler_confirmSetTimerAttribute_completion___block_invoke;
-  v16[3] = &unk_1E7B0E340;
-  v17 = attributeCopy;
-  v18 = completionCopy;
-  v16[4] = self;
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __72__MTSetTimerAttributeIntentHandler_confirmSetTimerAttribute_completion___block_invoke;
+  v15[3] = &unk_1E7B0E340;
+  v16 = attributeCopy;
+  v17 = completionCopy;
+  v15[4] = self;
   v13 = attributeCopy;
   v14 = completionCopy;
-  [(MTSetTimerAttributeIntentHandler *)self _updateTimer:targetTimer toDuration:toLabel toLabel:1 dryRun:v16 completion:v11];
-
-  v15 = *MEMORY[0x1E69E9840];
+  [(MTSetTimerAttributeIntentHandler *)self _updateTimer:targetTimer toDuration:toLabel toLabel:1 dryRun:v15 completion:v11];
 }
 
 void __72__MTSetTimerAttributeIntentHandler_confirmSetTimerAttribute_completion___block_invoke(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -96,17 +93,17 @@ void __72__MTSetTimerAttributeIntentHandler_confirmSetTimerAttribute_completion_
 
 - (void)resolveToDurationForSetTimerAttribute:(id)attribute withCompletion:(id)completion
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   attributeCopy = attribute;
   completionCopy = completion;
   v7 = *MEMORY[0x1E696E6D8];
   if (os_log_type_enabled(*MEMORY[0x1E696E6D8], OS_LOG_TYPE_INFO))
   {
-    v15 = 136315394;
-    v16 = "[MTSetTimerAttributeIntentHandler resolveToDurationForSetTimerAttribute:withCompletion:]";
-    v17 = 2112;
-    v18 = attributeCopy;
-    _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_INFO, "%s %@", &v15, 0x16u);
+    v14 = 136315394;
+    v15 = "[MTSetTimerAttributeIntentHandler resolveToDurationForSetTimerAttribute:withCompletion:]";
+    v16 = 2112;
+    v17 = attributeCopy;
+    _os_log_impl(&dword_1B1F9F000, v7, OS_LOG_TYPE_INFO, "%s %@", &v14, 0x16u);
   }
 
   if (completionCopy)
@@ -139,22 +136,20 @@ void __72__MTSetTimerAttributeIntentHandler_confirmSetTimerAttribute_completion_
 
     completionCopy[2](completionCopy, v11);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resolveTargetTimerForSetTimerAttribute:(id)attribute withCompletion:(id)completion
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   attributeCopy = attribute;
   completionCopy = completion;
   v8 = *MEMORY[0x1E696E6D8];
   if (os_log_type_enabled(*MEMORY[0x1E696E6D8], OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v17 = "[MTSetTimerAttributeIntentHandler resolveTargetTimerForSetTimerAttribute:withCompletion:]";
-    v18 = 2112;
-    v19 = attributeCopy;
+    v16 = "[MTSetTimerAttributeIntentHandler resolveTargetTimerForSetTimerAttribute:withCompletion:]";
+    v17 = 2112;
+    v18 = attributeCopy;
     _os_log_impl(&dword_1B1F9F000, v8, OS_LOG_TYPE_INFO, "%s %@", buf, 0x16u);
   }
 
@@ -162,17 +157,15 @@ void __72__MTSetTimerAttributeIntentHandler_confirmSetTimerAttribute_completion_
   {
     targetTimer = [attributeCopy targetTimer];
     v10 = [MEMORY[0x1E695DFD8] setWithObjects:{&unk_1F2965EB8, &unk_1F2965ED0, 0}];
-    v13[0] = MEMORY[0x1E69E9820];
-    v13[1] = 3221225472;
-    v13[2] = __90__MTSetTimerAttributeIntentHandler_resolveTargetTimerForSetTimerAttribute_withCompletion___block_invoke;
-    v13[3] = &unk_1E7B0E368;
-    v14 = targetTimer;
-    v15 = completionCopy;
+    v12[0] = MEMORY[0x1E69E9820];
+    v12[1] = 3221225472;
+    v12[2] = __90__MTSetTimerAttributeIntentHandler_resolveTargetTimerForSetTimerAttribute_withCompletion___block_invoke;
+    v12[3] = &unk_1E7B0E368;
+    v13 = targetTimer;
+    v14 = completionCopy;
     v11 = targetTimer;
-    [(MTTimerIntentHandler *)self _genericallyResolveTargetTimer:v11 multiple:0 allowedTimerStatesForFollowup:v10 completion:v13];
+    [(MTTimerIntentHandler *)self _genericallyResolveTargetTimer:v11 multiple:0 allowedTimerStatesForFollowup:v10 completion:v12];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __90__MTSetTimerAttributeIntentHandler_resolveTargetTimerForSetTimerAttribute_withCompletion___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -235,7 +228,7 @@ LABEL_14:
 - (id)_responseToSetTimerAttributeIntent:(id)intent withUpdatedTimer:(id)timer error:(id)error dryRun:(BOOL)run
 {
   runCopy = run;
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   intentCopy = intent;
   timerCopy = timer;
   errorCopy = error;
@@ -253,25 +246,25 @@ LABEL_14:
     v19 = *MEMORY[0x1E696E6D8];
     if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
-      v22 = runCopy ? @"confirm" : @"handle";
+      v21 = runCopy ? @"confirm" : @"handle";
       if (v12)
       {
-        v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"due to error %@", v12];
+        v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"due to error %@", v12];
       }
 
       else
       {
-        v23 = &stru_1F29360E0;
+        v22 = &stru_1F29360E0;
       }
 
       *buf = 136315906;
-      v25 = "[MTSetTimerAttributeIntentHandler _responseToSetTimerAttributeIntent:withUpdatedTimer:error:dryRun:]";
-      v26 = 2112;
-      v27 = v22;
-      v28 = 2112;
-      v29 = intentCopy;
-      v30 = 2112;
-      v31 = v23;
+      v24 = "[MTSetTimerAttributeIntentHandler _responseToSetTimerAttributeIntent:withUpdatedTimer:error:dryRun:]";
+      v25 = 2112;
+      v26 = v21;
+      v27 = 2112;
+      v28 = intentCopy;
+      v29 = 2112;
+      v30 = v22;
       _os_log_error_impl(&dword_1B1F9F000, v19, OS_LOG_TYPE_ERROR, "%s Failed to %@ set timer attribute intent %@%@", buf, 0x2Au);
       if (v12)
       {
@@ -288,30 +281,47 @@ LABEL_14:
     {
       v15 = @"handled";
       *buf = 136315906;
-      v25 = "[MTSetTimerAttributeIntentHandler _responseToSetTimerAttributeIntent:withUpdatedTimer:error:dryRun:]";
-      v26 = 2112;
+      v24 = "[MTSetTimerAttributeIntentHandler _responseToSetTimerAttributeIntent:withUpdatedTimer:error:dryRun:]";
+      v25 = 2112;
       if (runCopy)
       {
         v15 = @"confirmed";
       }
 
-      v27 = v15;
-      v28 = 2112;
-      v29 = intentCopy;
-      v30 = 2112;
-      v31 = v13;
+      v26 = v15;
+      v27 = 2112;
+      v28 = intentCopy;
+      v29 = 2112;
+      v30 = v13;
       _os_log_impl(&dword_1B1F9F000, v14, OS_LOG_TYPE_INFO, "%s Successfully %@ set timer attribute intent %@ with response %@", buf, 0x2Au);
     }
   }
 
-  v20 = *MEMORY[0x1E69E9840];
-
   return v13;
+}
+
+- (void)_updateTimer:(id)timer toDuration:(double)duration toLabel:(id)label dryRun:(BOOL)run completion:(id)completion
+{
+  runCopy = run;
+  timerCopy = timer;
+  labelCopy = label;
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __86__MTSetTimerAttributeIntentHandler__updateTimer_toDuration_toLabel_dryRun_completion___block_invoke;
+  v16[3] = &unk_1E7B0E390;
+  v21 = runCopy;
+  v17 = labelCopy;
+  v18 = timerCopy;
+  selfCopy = self;
+  durationCopy = duration;
+  v14 = timerCopy;
+  v15 = labelCopy;
+  [(MTUpdateTimerIntentHandler *)self _updateTimer:v14 dryRun:runCopy updateBlock:v16 completion:completion];
 }
 
 id __86__MTSetTimerAttributeIntentHandler__updateTimer_toDuration_toLabel_dryRun_completion___block_invoke(uint64_t a1, void *a2)
 {
-  v37[1] = *MEMORY[0x1E69E9840];
+  v36[1] = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [v3 state];
   [v3 setState:1];
@@ -343,7 +353,7 @@ id __86__MTSetTimerAttributeIntentHandler__updateTimer_toDuration_toLabel_dryRun
   if ((v10 & 1) == 0)
   {
     v11 = MEMORY[0x1E696ABC0];
-    v36 = *MEMORY[0x1E696A578];
+    v35 = *MEMORY[0x1E696A578];
     v12 = MEMORY[0x1E696AEC0];
     if (*(a1 + 64))
     {
@@ -358,8 +368,8 @@ id __86__MTSetTimerAttributeIntentHandler__updateTimer_toDuration_toLabel_dryRun
     v14 = *(a1 + 40);
     v15 = [*(a1 + 48) _timerManager];
     v16 = [v12 stringWithFormat:@"Failed to update%@ timer %@ from timer manager %@ - renaming from %@ to %@ is not supported.", v13, v14, v15, v6, v8];
-    v37[0] = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
+    v36[0] = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:&v35 count:1];
     v18 = v11;
     v19 = 8;
     goto LABEL_21;
@@ -370,7 +380,7 @@ LABEL_10:
   if (v20 <= 0.0)
   {
     v22 = MEMORY[0x1E696ABC0];
-    v34 = *MEMORY[0x1E696A578];
+    v33 = *MEMORY[0x1E696A578];
     v23 = MEMORY[0x1E696AEC0];
     if (*(a1 + 64))
     {
@@ -385,8 +395,8 @@ LABEL_10:
     v25 = *(a1 + 40);
     v15 = [*(a1 + 48) _timerManager];
     v16 = [v23 stringWithFormat:@"Failed to update%@ timer %@ from timer manager %@ due to invalid duration %f", v24, v25, v15, *(a1 + 56)];
-    v35 = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+    v34 = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
     v18 = v22;
     v19 = 2;
   }
@@ -402,7 +412,7 @@ LABEL_10:
     }
 
     v26 = MEMORY[0x1E696ABC0];
-    v32 = *MEMORY[0x1E696A578];
+    v31 = *MEMORY[0x1E696A578];
     v27 = MEMORY[0x1E696AEC0];
     if (*(a1 + 64))
     {
@@ -417,8 +427,8 @@ LABEL_10:
     v29 = *(a1 + 40);
     v15 = [*(a1 + 48) _timerManager];
     v16 = [v27 stringWithFormat:@"Failed to update%@ timer %@ from timer manager %@ due to invalid duration %f", v28, v29, v15, *(a1 + 56)];
-    v33 = v16;
-    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v32 = v16;
+    v17 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v32 forKeys:&v31 count:1];
     v18 = v26;
     v19 = 3;
   }
@@ -427,7 +437,6 @@ LABEL_21:
   v21 = [v18 errorWithDomain:@"MTTimerIntentHandlerErrorDomain" code:v19 userInfo:v17];
 
 LABEL_22:
-  v30 = *MEMORY[0x1E69E9840];
 
   return v21;
 }

@@ -30,7 +30,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_25DC0();
+  sub_25DC0(selfCopy);
 }
 
 @end

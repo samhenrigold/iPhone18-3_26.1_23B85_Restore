@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)supportedCaptureModesAsString:(int)string;
 - (int)StringAsSupportedCaptureModes:(id)modes;
 - (int)supportedCaptureModeAtIndex:(unint64_t)index;
 - (void)copyTo:(id)to;
@@ -33,6 +34,21 @@
   }
 
   return p_supportedCaptureModes->list[index];
+}
+
+- (id)supportedCaptureModesAsString:(int)string
+{
+  if (string < 0xD && ((0x1FABu >> string) & 1) != 0)
+  {
+    v4 = *(&off_100034D68 + string);
+  }
+
+  else
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSupportedCaptureModes:(id)modes
@@ -152,7 +168,6 @@
     v4 = 0;
     do
     {
-      v5 = p_supportedCaptureModes->list[v4];
       PBDataWriterWriteInt32Field();
       ++v4;
     }

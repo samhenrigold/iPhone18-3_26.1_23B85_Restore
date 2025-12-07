@@ -12,6 +12,7 @@
 - (void)_didSelectColorButton:(id)button;
 - (void)_didSelectIconButton:(id)button;
 - (void)_generateProfileSpecificBackgroundImageForProfile:(id)profile isCreatingInitialDefaultProfile:(BOOL)defaultProfile completionHandler:(id)handler;
+- (void)_presentModalViewController:(id)controller fromPopoverSource:(id)source useAdaptivePresentationInCompact:(BOOL)compact animated:(BOOL)animated completion:(id)completion;
 - (void)_saveColorSelectionToProfile;
 - (void)_saveIconToProfile;
 - (void)_setValue:(id)value forSpecifier:(id)specifier;
@@ -32,7 +33,9 @@
 - (void)tabGroupManager:(id)manager didUpdateProfileWithIdentifier:(id)identifier difference:(id)difference;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path;
+- (void)viewDidDisappear:(BOOL)disappear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation CreateEditProfileViewController
@@ -628,6 +631,48 @@ void __73__CreateEditProfileViewController_profileNameCellDidResignFirstResponde
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v10.receiver = self;
+  v10.super_class = CreateEditProfileViewController;
+  [(CreateEditProfileViewController *)&v10 viewWillAppear:appear];
+  v4 = +[SafariSettingsController tabGroupManager];
+  [v4 addTabGroupObserver:self];
+
+  profile = [(SafariProfileSettingsUserInfo *)self->_userInfo profile];
+  identifierForExtensions = [profile identifierForExtensions];
+
+  v7 = [(CreateEditProfileViewController *)self _webExtensionsControllerForProfileIdentifier:identifierForExtensions];
+  [v7 addObserver:self];
+
+  v8 = [(CreateEditProfileViewController *)self _contentBlockerManagerForProfileIdentifier:identifierForExtensions];
+  [v8 addObserver:self];
+
+  v9 = +[NSNotificationCenter defaultCenter];
+  [v9 addObserver:self selector:"_reload" name:WBSExtensionEnabledStateDidChangeNotification object:0];
+  [v9 addObserver:self selector:"_reload" name:WBSCloudExtensionStateDidChangeNotification object:0];
+  [v9 addObserver:self selector:"_reload" name:WBSManagedExtensionsStateDidChangeNotification object:0];
+  [v9 addObserver:self selector:"_reload" name:WBSManagedNewTabPageDidChangeNotification object:0];
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  v9.receiver = self;
+  v9.super_class = CreateEditProfileViewController;
+  [(CreateEditProfileViewController *)&v9 viewDidDisappear:disappear];
+  v4 = +[SafariSettingsController tabGroupManager];
+  [v4 removeTabGroupObserver:self];
+
+  profile = [(SafariProfileSettingsUserInfo *)self->_userInfo profile];
+  identifierForExtensions = [profile identifierForExtensions];
+
+  v7 = [(CreateEditProfileViewController *)self _webExtensionsControllerForProfileIdentifier:identifierForExtensions];
+  [v7 removeObserver:self];
+
+  v8 = [(CreateEditProfileViewController *)self _contentBlockerManagerForProfileIdentifier:identifierForExtensions];
+  [v8 removeObserver:self];
+}
+
 - (void)tableView:(id)view willDisplayCell:(id)cell forRowAtIndexPath:(id)path
 {
   cellCopy = cell;
@@ -1174,30 +1219,30 @@ id __54__CreateEditProfileViewController_deleteButtonTapped___block_invoke_3(uin
       v9 = [v5 bookmarkIDForServerID:dCopy excludeDeletedBookmarks:1];
       if (v9 != 0x7FFFFFFF)
       {
-        v19 = [v5 listWithID:v9];
-        if (v19 && ![v19 bookmarkCount])
+        v21 = [v5 listWithID:v9];
+        if (v21 && ![v21 bookmarkCount])
         {
+          v24 = 0u;
+          v25 = 0u;
           v22 = 0u;
           v23 = 0u;
-          v20 = 0u;
-          v21 = 0u;
           tabGroupManager = [(CreateEditProfileViewController *)self tabGroupManager];
           profiles = [tabGroupManager profiles];
 
-          v12 = [profiles countByEnumeratingWithState:&v20 objects:v24 count:16];
+          v12 = [profiles countByEnumeratingWithState:&v22 objects:v26 count:16];
           if (v12)
           {
-            v13 = *v21;
+            v13 = *v23;
             while (2)
             {
               for (i = 0; i != v12; i = i + 1)
               {
-                if (*v21 != v13)
+                if (*v23 != v13)
                 {
                   objc_enumerationMutation(profiles);
                 }
 
-                customFavoritesFolderServerID = [*(*(&v20 + 1) + 8 * i) customFavoritesFolderServerID];
+                customFavoritesFolderServerID = [*(*(&v22 + 1) + 8 * i) customFavoritesFolderServerID];
                 v16 = [customFavoritesFolderServerID isEqualToString:dCopy];
 
                 if (v16)
@@ -1207,7 +1252,7 @@ id __54__CreateEditProfileViewController_deleteButtonTapped___block_invoke_3(uin
                 }
               }
 
-              v12 = [profiles countByEnumeratingWithState:&v20 objects:v24 count:16];
+              v12 = [profiles countByEnumeratingWithState:&v22 objects:v26 count:16];
               if (v12)
               {
                 continue;
@@ -1217,20 +1262,21 @@ id __54__CreateEditProfileViewController_deleteButtonTapped___block_invoke_3(uin
             }
           }
 
-          if (+[WebBookmarkCollection lockSync])
+          v17 = +[WebBookmarkCollection lockSync];
+          if (v17)
           {
-            v17 = [v5 bookmarkWithID:v9];
-            [v5 deleteBookmark:v17];
+            v19 = [v5 bookmarkWithID:v9];
+            [v5 deleteBookmark:v19];
 
             +[WebBookmarkCollection unlockSync];
           }
 
           else
           {
-            v18 = WBS_LOG_CHANNEL_PREFIXSafariProfiles();
-            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+            v20 = WBS_LOG_CHANNEL_PREFIXSafariProfiles(v17, v18);
+            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
             {
-              [CreateEditProfileViewController _deleteDefunctCustomFavoritesFolderWithServerID:v18];
+              [CreateEditProfileViewController _deleteDefunctCustomFavoritesFolderWithServerID:v20];
             }
           }
         }
@@ -1527,27 +1573,47 @@ id __53__CreateEditProfileViewController__saveIconToProfile__block_invoke_3(uint
   [(CreateEditProfileViewController *)self _presentModalViewController:v28 fromPopoverSource:v29 useAdaptivePresentationInCompact:0 animated:1 completion:0];
 }
 
+- (void)_presentModalViewController:(id)controller fromPopoverSource:(id)source useAdaptivePresentationInCompact:(BOOL)compact animated:(BOOL)animated completion:(id)completion
+{
+  animatedCopy = animated;
+  compactCopy = compact;
+  controllerCopy = controller;
+  sourceCopy = source;
+  completionCopy = completion;
+  presentedViewController = [(CreateEditProfileViewController *)self presentedViewController];
+
+  if (!presentedViewController)
+  {
+    [controllerCopy setModalPresentationStyle:7];
+    v15 = [[_SFPopoverPresentationDelegate alloc] initWithSourceInfo:sourceCopy];
+    [v15 setPopoverUsesAdaptivePresentationInCompact:compactCopy];
+    popoverPresentationController = [controllerCopy popoverPresentationController];
+    [v15 attachToPopoverPresentationController:popoverPresentationController];
+
+    [(CreateEditProfileViewController *)self presentViewController:controllerCopy animated:animatedCopy completion:completionCopy];
+  }
+}
+
 - (void)profileFavoritesFolderPickerController:(id)controller didSelectFolderWithServerID:(id)d
 {
   dCopy = d;
-  customFavoritesFolderServerID = self->_customFavoritesFolderServerID;
   if ((WBSIsEqual() & 1) == 0)
   {
     objc_storeStrong(&self->_customFavoritesFolderServerID, d);
     tabGroupManager = [(CreateEditProfileViewController *)self tabGroupManager];
     profile = [(CreateEditProfileViewController *)self profile];
     identifier = [profile identifier];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = __102__CreateEditProfileViewController_profileFavoritesFolderPickerController_didSelectFolderWithServerID___block_invoke;
-    v13[3] = &unk_8AA40;
-    v14 = dCopy;
     v12[0] = _NSConcreteStackBlock;
     v12[1] = 3221225472;
-    v12[2] = __102__CreateEditProfileViewController_profileFavoritesFolderPickerController_didSelectFolderWithServerID___block_invoke_2;
-    v12[3] = &unk_8AB78;
-    v12[4] = self;
-    v11 = [tabGroupManager updateProfileWithIdentifier:identifier persist:1 usingBlock:v13 completionHandler:v12];
+    v12[2] = __102__CreateEditProfileViewController_profileFavoritesFolderPickerController_didSelectFolderWithServerID___block_invoke;
+    v12[3] = &unk_8AA40;
+    v13 = dCopy;
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = __102__CreateEditProfileViewController_profileFavoritesFolderPickerController_didSelectFolderWithServerID___block_invoke_2;
+    v11[3] = &unk_8AB78;
+    v11[4] = self;
+    v10 = [tabGroupManager updateProfileWithIdentifier:identifier persist:1 usingBlock:v12 completionHandler:v11];
 
     [(CreateEditProfileViewController *)self reloadSpecifier:self->_favoritesSpecifier];
   }
@@ -2071,30 +2137,30 @@ void *__63__CreateEditProfileViewController__saveColorSelectionToProfile__block_
   [controllerCopy dismissViewControllerAnimated:1 completion:v7];
 }
 
-id __92__CreateEditProfileViewController_profileIconCollectionViewController_didSelectIconAtIndex___block_invoke(uint64_t a1)
+id __92__CreateEditProfileViewController_profileIconCollectionViewController_didSelectIconAtIndex___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = *(a1 + 40);
+  v3 = *(a1 + 40);
   IsPad = _SFDeviceIsPad();
-  v4 = 4;
+  v5 = 4;
   if (IsPad)
   {
-    v4 = 5;
+    v5 = 5;
   }
 
-  *(*(a1 + 32) + 168) = v4 + v2;
-  v5 = *(*(a1 + 32) + 152);
-  v6 = +[WBProfile availableSymbolImageNames];
-  v7 = [v6 objectAtIndexedSubscript:*(*(a1 + 32) + 168)];
-  v8 = [UIImageSymbolConfiguration configurationWithTextStyle:UIFontTextStyleTitle2 scale:1];
-  v9 = [UIImage _systemImageNamed:v7 withConfiguration:v8];
-  [v5 setImage:v9 forState:0];
+  *(*(a1 + 32) + 168) = v5 + v3;
+  v6 = *(*(a1 + 32) + 152);
+  v7 = +[WBProfile availableSymbolImageNames];
+  v8 = [v7 objectAtIndexedSubscript:*(*(a1 + 32) + 168)];
+  v9 = [UIImageSymbolConfiguration configurationWithTextStyle:UIFontTextStyleTitle2 scale:1];
+  v10 = [UIImage _systemImageNamed:v8 withConfiguration:v9];
+  [v6 setImage:v10 forState:0];
 
   [*(*(a1 + 32) + 176) setSelected:0];
   objc_storeStrong((*(a1 + 32) + 176), *(*(a1 + 32) + 152));
   [*(*(a1 + 32) + 176) setSelected:1];
-  v10 = *(a1 + 32);
+  v11 = *(a1 + 32);
 
-  return [v10 _saveIconToProfile];
+  return [v11 _saveIconToProfile];
 }
 
 @end

@@ -236,7 +236,7 @@ LABEL_16:
 
   if (securityAnalysis)
   {
-    [securityAnalysis cumulativeLayerTransform];
+    objc_msgSend_cumulativeLayerTransform(securityAnalysis);
   }
 
   else
@@ -284,7 +284,7 @@ LABEL_16:
   if (analysis)
   {
     memset(&v32, 0, sizeof(v32));
-    [v9 cumulativeLayerTransform];
+    objc_msgSend_cumulativeLayerTransform(v9);
     CATransform3DGetAffineTransform(&transform, &v30);
     CGAffineTransformDecompose(&v32, &transform);
     v18 = objc_opt_new();

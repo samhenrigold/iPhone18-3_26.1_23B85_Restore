@@ -32,20 +32,18 @@ void __39__CNBootSession_currentBootSessionUUID__block_invoke(uint64_t a1)
 
 + (id)readCurrentBootSessionUUID
 {
-  v7 = *MEMORY[0x1E69E9840];
-  memset(v6, 0, sizeof(v6));
-  v5 = 37;
-  if (sysctlbyname("kern.bootsessionuuid", v6, &v5, 0, 0))
+  v6 = *MEMORY[0x1E69E9840];
+  memset(v5, 0, sizeof(v5));
+  v4 = 37;
+  if (sysctlbyname("kern.bootsessionuuid", v5, &v4, 0, 0))
   {
     v2 = &stru_1EF441028;
   }
 
   else
   {
-    v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v6];
+    v2 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithUTF8String:v5];
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 
   return v2;
 }

@@ -63,12 +63,12 @@ LABEL_9:
     return v15;
   }
 
-  [(PAESharedDefaultBase *)self getPixelTransformForImage:input];
+  objc_msgSend_getPixelTransformForImage_(self);
   __asm { FMOV            V0.2D, #0.5 }
 
   v20 = _Q0;
   [v8 getXValue:&v20 YValue:&v20 + 8 fromParm:1 atFxTime:info->var0.var1];
-  [(PAESharedDefaultBase *)self convertRelativeToPixelCoordinates:&v20 withImage:input];
+  objc_msgSend_convertRelativeToPixelCoordinates_withImage_(self);
   v20 = v18;
   v19 = 0x4049000000000000;
   [v8 getFloatValue:&v19 fromParm:2 atFxTime:info->var0.var1];
@@ -79,7 +79,7 @@ LABEL_9:
     {
       if (input)
       {
-        [input heliumRef];
+        objc_msgSend_heliumRef(input);
       }
 
       v16 = HGObject::operator new(0x1B0uLL);

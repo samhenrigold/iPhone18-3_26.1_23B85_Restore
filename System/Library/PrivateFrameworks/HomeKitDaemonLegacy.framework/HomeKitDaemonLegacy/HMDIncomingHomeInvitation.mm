@@ -14,14 +14,12 @@
 
 - (NSDictionary)bulletinContext
 {
-  v8[1] = *MEMORY[0x277D85DE8];
-  v7 = @"homeIncomingInvitation";
+  v7[1] = *MEMORY[0x277D85DE8];
+  v6 = @"homeIncomingInvitation";
   identifier = [(HMDHomeInvitation *)self identifier];
   uUIDString = [identifier UUIDString];
-  v8[0] = uUIDString;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
-
-  v5 = *MEMORY[0x277D85DE8];
+  v7[0] = uUIDString;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
 
   return v4;
 }
@@ -57,7 +55,7 @@
   uUIDString = [homeUUID UUIDString];
   [string appendFormat:@"type = Incoming, inviter email = %@ inviter name = %@ home = %@ (%@)", inviterUserID, inviterName, homeName, uUIDString];
 
-  v14 = [string copy];
+  v14 = objc_msgSend_copy(string);
   objc_autoreleasePoolPop(v3);
 
   return v14;
@@ -223,11 +221,11 @@
   if (v25)
   {
     objc_storeStrong(&v25->_inviterAccount, account);
-    v27 = [identityCopy copy];
+    v27 = objc_msgSend_copy(identityCopy);
     inviterIdentity = v26->_inviterIdentity;
     v26->_inviterIdentity = v27;
 
-    v29 = [iDCopy copy];
+    v29 = objc_msgSend_copy(iDCopy);
     inviterMergeID = v26->_inviterMergeID;
     v26->_inviterMergeID = v29;
   }

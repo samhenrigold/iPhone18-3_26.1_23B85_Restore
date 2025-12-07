@@ -124,25 +124,8 @@
   resultLabelFilters = [inputs resultLabelFilters];
   v10 = [resultLabelFilters objectForKey:typeCopy];
 
-  if (!v10 || ([v10 objectForKey:indexCopy], v11 = objc_claimAutoreleasedReturnValue(), v11, !v11))
+  if ((!v10 || ([v10 objectForKey:indexCopy], v11 = objc_claimAutoreleasedReturnValue(), v11, !v11)) && ((v12 = objc_msgSend(indexCopy, "intValue"), -[PanicAndCrashHistoryController defaultLogLineLabelMap](self, "defaultLogLineLabelMap"), v13 = objc_claimAutoreleasedReturnValue(), v14 = v13, v12 > 1) ? (v15 = typeCopy) : (v15 = @"AnyLogLine"), objc_msgSend(v13, "objectForKey:", v15), v16 = objc_claimAutoreleasedReturnValue(), v10, v14, (v10 = v16) == 0) || (objc_msgSend(v10, "objectForKey:", indexCopy), (indexCopy = objc_claimAutoreleasedReturnValue()) == 0))
   {
-    intValue = [indexCopy intValue];
-    defaultLogLineLabelMap = [(PanicAndCrashHistoryController *)self defaultLogLineLabelMap];
-    v14 = defaultLogLineLabelMap;
-    v15 = intValue > 1 ? typeCopy : @"AnyLogLine";
-    v16 = [defaultLogLineLabelMap objectForKey:v15];
-
-    v10 = v16;
-    if (!v16)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  indexCopy = [v10 objectForKey:indexCopy];
-  if (!indexCopy)
-  {
-LABEL_8:
     indexCopy = [NSString stringWithFormat:@"untitledLabelAt-%@", indexCopy];
   }
 

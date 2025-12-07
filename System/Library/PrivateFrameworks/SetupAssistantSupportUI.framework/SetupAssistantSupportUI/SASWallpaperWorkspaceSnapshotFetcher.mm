@@ -2,7 +2,6 @@
 - (SASFetchesWallpaperDelegate)delegate;
 - (float)_timeoutForSnapshotRequest;
 - (int)_maximumNumberOfLoadingAttempts;
-- (uint64_t)fetch;
 - (void)_invalidateWorkspaceObservation;
 - (void)activeConfigurationDidUpdate:(id)update;
 - (void)dealloc;
@@ -31,172 +30,9 @@
 
 - (void)fetch
 {
-  stateObserver = [(SASWallpaperWorkspaceSnapshotFetcher *)self stateObserver];
-
-  if (stateObserver)
-  {
-    [(SASWallpaperWorkspaceSnapshotFetcher *)self _invalidateWorkspaceObservation];
-  }
-
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2050000000;
-  v4 = getPRSWallpaperLocationStateObserverClass_softClass;
-  v44 = getPRSWallpaperLocationStateObserverClass_softClass;
-  if (!getPRSWallpaperLocationStateObserverClass_softClass)
-  {
-    *buf = MEMORY[0x277D85DD0];
-    v37 = 3221225472;
-    v38 = __getPRSWallpaperLocationStateObserverClass_block_invoke;
-    v39 = &unk_279BB2AB8;
-    v40 = &v41;
-    __getPRSWallpaperLocationStateObserverClass_block_invoke(buf);
-    v4 = v42[3];
-  }
-
-  v5 = v4;
-  _Block_object_dispose(&v41, 8);
-  v6 = objc_alloc_init(v4);
-  [(SASWallpaperWorkspaceSnapshotFetcher *)self setStateObserver:v6];
-
-  variant = [(SASWallpaperWorkspaceSnapshotFetcher *)self variant];
-  switch(variant)
-  {
-    case 0:
-      v9 = 4;
-      goto LABEL_11;
-    case 1:
-      v9 = 12;
-LABEL_11:
-      stateObserver2 = [(SASWallpaperWorkspaceSnapshotFetcher *)self stateObserver];
-      [stateObserver2 setLocations:v9];
-
-      break;
-    case -1:
-      v8 = [MEMORY[0x277CBEAD8] exceptionWithName:@"Unexpected wallpaper variant" reason:0 userInfo:0];
-      objc_exception_throw(v8);
-  }
-
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2050000000;
-  v11 = getPRUISPosterWorkspaceClass_softClass;
-  v44 = getPRUISPosterWorkspaceClass_softClass;
-  if (!getPRUISPosterWorkspaceClass_softClass)
-  {
-    *buf = MEMORY[0x277D85DD0];
-    v37 = 3221225472;
-    v38 = __getPRUISPosterWorkspaceClass_block_invoke;
-    v39 = &unk_279BB2AB8;
-    v40 = &v41;
-    __getPRUISPosterWorkspaceClass_block_invoke(buf);
-    v11 = v42[3];
-  }
-
-  v12 = v11;
-  _Block_object_dispose(&v41, 8);
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2020000000;
-  v13 = getPRSPosterRoleLockScreenSymbolLoc_ptr;
-  v44 = getPRSPosterRoleLockScreenSymbolLoc_ptr;
-  if (!getPRSPosterRoleLockScreenSymbolLoc_ptr)
-  {
-    *buf = MEMORY[0x277D85DD0];
-    v37 = 3221225472;
-    v38 = __getPRSPosterRoleLockScreenSymbolLoc_block_invoke;
-    v39 = &unk_279BB2AB8;
-    v40 = &v41;
-    v14 = PosterBoardServicesLibrary();
-    v15 = dlsym(v14, "PRSPosterRoleLockScreen");
-    *(v40[1] + 24) = v15;
-    getPRSPosterRoleLockScreenSymbolLoc_ptr = *(v40[1] + 24);
-    v13 = v42[3];
-  }
-
-  _Block_object_dispose(&v41, 8);
-  if (!v13)
-  {
-    fetch = [SASWallpaperWorkspaceSnapshotFetcher fetch];
-    _Block_object_dispose(&v41, 8);
-    objc_destroyWeak(&v45);
-    objc_destroyWeak(&location);
-    _Unwind_Resume(fetch);
-  }
-
-  v16 = [v11 workspaceForRole:*v13];
-  [(SASWallpaperWorkspaceSnapshotFetcher *)self setWorkspace:v16];
-
-  workspace = [(SASWallpaperWorkspaceSnapshotFetcher *)self workspace];
-  [workspace addWorkspaceObserver:self];
-
-  objc_initWeak(&location, self);
-  v18 = +[SASUILogging bookendFacility];
-  if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&dword_265A4C000, v18, OS_LOG_TYPE_DEFAULT, "WorkspaceSnapshotFetcher: Fetching wallpaper", buf, 2u);
-  }
-
-  stateObserver3 = [(SASWallpaperWorkspaceSnapshotFetcher *)self stateObserver];
-  v30 = MEMORY[0x277D85DD0];
-  v31 = 3221225472;
-  v32 = __45__SASWallpaperWorkspaceSnapshotFetcher_fetch__block_invoke;
-  v33 = &unk_279BB29F0;
-  objc_copyWeak(&v34, &location);
-  [stateObserver3 setHandler:&v30];
-
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2050000000;
-  v20 = getPRSWallpaperObserverConfigurationClass_softClass;
-  v44 = getPRSWallpaperObserverConfigurationClass_softClass;
-  if (!getPRSWallpaperObserverConfigurationClass_softClass)
-  {
-    *buf = MEMORY[0x277D85DD0];
-    v37 = 3221225472;
-    v38 = __getPRSWallpaperObserverConfigurationClass_block_invoke;
-    v39 = &unk_279BB2AB8;
-    v40 = &v41;
-    __getPRSWallpaperObserverConfigurationClass_block_invoke(buf);
-    v20 = v42[3];
-  }
-
-  v21 = v20;
-  _Block_object_dispose(&v41, 8);
-  v22 = objc_alloc_init(v20);
-  v23 = [(SASWallpaperWorkspaceSnapshotFetcher *)self stateObserver:v30];
-  [v22 setLocationStateObserver:v23];
-
-  queue = [(SASWallpaperWorkspaceSnapshotFetcher *)self queue];
-  [v22 setQueue:queue];
-
-  v41 = 0;
-  v42 = &v41;
-  v43 = 0x2050000000;
-  v25 = getPRSWallpaperObserverClass_softClass;
-  v44 = getPRSWallpaperObserverClass_softClass;
-  if (!getPRSWallpaperObserverClass_softClass)
-  {
-    *buf = MEMORY[0x277D85DD0];
-    v37 = 3221225472;
-    v38 = __getPRSWallpaperObserverClass_block_invoke;
-    v39 = &unk_279BB2AB8;
-    v40 = &v41;
-    __getPRSWallpaperObserverClass_block_invoke(buf);
-    v25 = v42[3];
-  }
-
-  v26 = v25;
-  _Block_object_dispose(&v41, 8);
-  v27 = [[v25 alloc] initWithExplanation:@"Loading bookends"];
-  [(SASWallpaperWorkspaceSnapshotFetcher *)self setObserver:v27];
-
-  observer = [(SASWallpaperWorkspaceSnapshotFetcher *)self observer];
-  [observer activateWithConfiguration:v22];
-
-  objc_destroyWeak(&v34);
-  objc_destroyWeak(&location);
+  v0 = dlerror();
+  v1 = abort_report_np("%s", v0);
+  __62__SASWallpaperWorkspaceSnapshotFetcher_snapshotFromWorkSpace___block_invoke_3_cold_1(v1, v2, v3);
 }
 
 void __45__SASWallpaperWorkspaceSnapshotFetcher_fetch__block_invoke(uint64_t a1, void *a2)
@@ -503,7 +339,7 @@ LABEL_7:
 
   v8 = objc_autoreleasePoolPush();
   iOSurface = [snapshotCopy IOSurface];
-  v10 = [objc_alloc(MEMORY[0x277D755B8]) _initWithIOSurface:iOSurface scale:__UIImageOrientationForImageCapturedInInterfaceOrientationToBeDisplayedInInterfaceOrientation() orientation:1.0];
+  v10 = [objc_alloc(MEMORY[0x277D755B8]) _initWithIOSurface:iOSurface scale:__UIImageOrientationForImageCapturedInInterfaceOrientationToBeDisplayedInInterfaceOrientation(1 orientation:{orientation), 1.0}];
   objc_initWeak(buf, self);
   queue = [(SASWallpaperWorkspaceSnapshotFetcher *)self queue];
   v13[0] = MEMORY[0x277D85DD0];
@@ -591,13 +427,6 @@ void __77__SASWallpaperWorkspaceSnapshotFetcher_textureFromSceneSnapshot_orienta
   WeakRetained = objc_loadWeakRetained(&self->delegate);
 
   return WeakRetained;
-}
-
-- (uint64_t)fetch
-{
-  dlerror();
-  v0 = abort_report_np();
-  return __62__SASWallpaperWorkspaceSnapshotFetcher_snapshotFromWorkSpace___block_invoke_3_cold_1(v0);
 }
 
 void __62__SASWallpaperWorkspaceSnapshotFetcher_snapshotFromWorkSpace___block_invoke_3_cold_1(uint64_t *a1, void *a2, NSObject *a3)

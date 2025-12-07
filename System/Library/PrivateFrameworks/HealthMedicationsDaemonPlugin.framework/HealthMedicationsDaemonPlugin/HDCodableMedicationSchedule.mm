@@ -188,7 +188,7 @@
 
 - (id)dictionaryRepresentation
 {
-  v41 = *MEMORY[0x277D85DE8];
+  v40 = *MEMORY[0x277D85DE8];
   dictionary = [MEMORY[0x277CBEB38] dictionary];
   v4 = dictionary;
   uuid = self->_uuid;
@@ -296,30 +296,30 @@
   if ([(NSMutableArray *)self->_intervalDatas count])
   {
     v26 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{-[NSMutableArray count](self->_intervalDatas, "count")}];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     v27 = self->_intervalDatas;
-    v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v36 objects:v40 count:16];
+    v28 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v35 objects:v39 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v37;
+      v30 = *v36;
       do
       {
         for (i = 0; i != v29; ++i)
         {
-          if (*v37 != v30)
+          if (*v36 != v30)
           {
             objc_enumerationMutation(v27);
           }
 
-          dictionaryRepresentation4 = [*(*(&v36 + 1) + 8 * i) dictionaryRepresentation];
+          dictionaryRepresentation4 = [*(*(&v35 + 1) + 8 * i) dictionaryRepresentation];
           [v26 addObject:dictionaryRepresentation4];
         }
 
-        v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v36 objects:v40 count:16];
+        v29 = [(NSMutableArray *)v27 countByEnumeratingWithState:&v35 objects:v39 count:16];
       }
 
       while (v29);
@@ -334,14 +334,12 @@
     [v4 setObject:v33 forKey:@"duplicate"];
   }
 
-  v34 = *MEMORY[0x277D85DE8];
-
   return v4;
 }
 
 - (void)writeTo:(id)to
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   toCopy = to;
   if (self->_uuid)
   {
@@ -356,14 +354,12 @@
   has = self->_has;
   if ((has & 0x20) != 0)
   {
-    startDateTime = self->_startDateTime;
     PBDataWriterWriteDoubleField();
     has = self->_has;
   }
 
   if ((has & 4) != 0)
   {
-    endDateTime = self->_endDateTime;
     PBDataWriterWriteDoubleField();
   }
 
@@ -374,7 +370,6 @@
 
   if ((*&self->_has & 8) != 0)
   {
-    frequencyType = self->_frequencyType;
     PBDataWriterWriteDoubleField();
   }
 
@@ -393,17 +388,15 @@
     PBDataWriterWriteDataField();
   }
 
-  v9 = self->_has;
-  if (v9)
+  v6 = self->_has;
+  if (v6)
   {
-    creationDate = self->_creationDate;
     PBDataWriterWriteDoubleField();
-    v9 = self->_has;
+    v6 = self->_has;
   }
 
-  if ((v9 & 0x40) != 0)
+  if ((v6 & 0x40) != 0)
   {
-    deleted = self->_deleted;
     PBDataWriterWriteBOOLField();
   }
 
@@ -417,56 +410,50 @@
     PBDataWriterWriteSubmessage();
   }
 
-  v12 = self->_has;
-  if ((v12 & 0x10) != 0)
+  v7 = self->_has;
+  if ((v7 & 0x10) != 0)
   {
-    scheduleType = self->_scheduleType;
     PBDataWriterWriteInt64Field();
-    v12 = self->_has;
+    v7 = self->_has;
   }
 
-  if ((v12 & 2) != 0)
+  if ((v7 & 2) != 0)
   {
-    displayOptions = self->_displayOptions;
     PBDataWriterWriteInt64Field();
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v15 = self->_intervalDatas;
-  v16 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
-  if (v16)
+  v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
+  v8 = self->_intervalDatas;
+  v9 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  if (v9)
   {
-    v17 = v16;
-    v18 = *v24;
+    v10 = v9;
+    v11 = *v14;
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v10; ++i)
       {
-        if (*v24 != v18)
+        if (*v14 != v11)
         {
-          objc_enumerationMutation(v15);
+          objc_enumerationMutation(v8);
         }
 
-        v20 = *(*(&v23 + 1) + 8 * i);
         PBDataWriterWriteSubmessage();
       }
 
-      v17 = [(NSMutableArray *)v15 countByEnumeratingWithState:&v23 objects:v27 count:16];
+      v10 = [(NSMutableArray *)v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
-    while (v17);
+    while (v10);
   }
 
   if ((*&self->_has & 0x80000000) != 0)
   {
-    duplicate = self->_duplicate;
     PBDataWriterWriteBOOLField();
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 - (void)copyTo:(id)to
@@ -593,7 +580,7 @@
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v5 = [objc_msgSend(objc_opt_class() allocWithZone:{zone), "init"}];
   v6 = [(NSData *)self->_uuid copyWithZone:zone];
   v7 = *(v5 + 120);
@@ -675,30 +662,30 @@
     *(v5 + 132) |= 2u;
   }
 
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
   v34 = 0u;
+  v35 = 0u;
+  v32 = 0u;
+  v33 = 0u;
   v25 = self->_intervalDatas;
-  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v26 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v26)
   {
     v27 = v26;
-    v28 = *v34;
+    v28 = *v33;
     do
     {
       for (i = 0; i != v27; ++i)
       {
-        if (*v34 != v28)
+        if (*v33 != v28)
         {
           objc_enumerationMutation(v25);
         }
 
-        v30 = [*(*(&v33 + 1) + 8 * i) copyWithZone:{zone, v33}];
+        v30 = [*(*(&v32 + 1) + 8 * i) copyWithZone:{zone, v32}];
         [v5 addIntervalData:v30];
       }
 
-      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v27 = [(NSMutableArray *)v25 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v27);
@@ -710,7 +697,6 @@
     *(v5 + 132) |= 0x80u;
   }
 
-  v31 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
@@ -741,7 +727,6 @@
   }
 
   has = self->_has;
-  v8 = equalCopy[132];
   if ((has & 0x20) != 0)
   {
     if ((equalCopy[132] & 0x20) == 0 || self->_startDateTime != *(equalCopy + 6))
@@ -779,7 +764,6 @@
     has = self->_has;
   }
 
-  v10 = equalCopy[132];
   if ((has & 8) != 0)
   {
     if ((equalCopy[132] & 8) == 0 || self->_frequencyType != *(equalCopy + 4))
@@ -817,7 +801,6 @@
     }
   }
 
-  v14 = equalCopy[132];
   if (*&self->_has)
   {
     if ((equalCopy[132] & 1) == 0 || self->_creationDate != *(equalCopy + 1))
@@ -838,7 +821,6 @@
       goto LABEL_45;
     }
 
-    v21 = equalCopy[128];
     if (self->_deleted)
     {
       if ((equalCopy[128] & 1) == 0)
@@ -873,9 +855,8 @@
     }
   }
 
-  v17 = self->_has;
-  v18 = equalCopy[132];
-  if ((v17 & 0x10) != 0)
+  v14 = self->_has;
+  if ((v14 & 0x10) != 0)
   {
     if ((equalCopy[132] & 0x10) == 0 || self->_scheduleType != *(equalCopy + 5))
     {
@@ -909,17 +890,17 @@
       goto LABEL_45;
     }
 
-    v17 = self->_has;
+    v14 = self->_has;
   }
 
-  v23 = equalCopy[132];
-  if ((v17 & 0x80) == 0)
+  v18 = equalCopy[132];
+  if ((v14 & 0x80) == 0)
   {
-    v19 = v23 >= 0;
+    v15 = v18 >= 0;
     goto LABEL_46;
   }
 
-  if (v23 < 0)
+  if (v18 < 0)
   {
     if (self->_duplicate)
     {
@@ -932,16 +913,16 @@
     else if (!equalCopy[129])
     {
 LABEL_69:
-      v19 = 1;
+      v15 = 1;
       goto LABEL_46;
     }
   }
 
 LABEL_45:
-  v19 = 0;
+  v15 = 0;
 LABEL_46:
 
-  return v19;
+  return v15;
 }
 
 - (unint64_t)hash
@@ -1137,7 +1118,7 @@ LABEL_41:
 
 - (void)mergeFrom:(id)from
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   fromCopy = from;
   if (*(fromCopy + 15))
   {
@@ -1257,29 +1238,29 @@ LABEL_41:
     *&self->_has |= 2u;
   }
 
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v14 = *(fromCopy + 10);
-  v15 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v15 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v21;
+    v17 = *v20;
     do
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v21 != v17)
+        if (*v20 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        [(HDCodableMedicationSchedule *)self addIntervalData:*(*(&v20 + 1) + 8 * i), v20];
+        [(HDCodableMedicationSchedule *)self addIntervalData:*(*(&v19 + 1) + 8 * i), v19];
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v16);
@@ -1290,8 +1271,6 @@ LABEL_41:
     self->_duplicate = fromCopy[129];
     *&self->_has |= 0x80u;
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 @end

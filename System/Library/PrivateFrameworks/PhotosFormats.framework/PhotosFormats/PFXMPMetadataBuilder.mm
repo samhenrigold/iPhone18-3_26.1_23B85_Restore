@@ -77,7 +77,7 @@ uint64_t __46__PFXMPMetadataBuilder_xmpCreateDateFormatter__block_invoke()
     v15 = accessibilityDescription;
     v16 = caption;
     v18 = v17 = title;
-    v19 = [v18 mutableCopy];
+    v19 = objc_msgSend_mutableCopy(v18);
 
     xmpCreateDateFormatter2 = [objc_opt_class() xmpCreateDateFormatter];
     v21 = [MEMORY[0x1E695DFE8] timeZoneForSecondsFromGMT:0];

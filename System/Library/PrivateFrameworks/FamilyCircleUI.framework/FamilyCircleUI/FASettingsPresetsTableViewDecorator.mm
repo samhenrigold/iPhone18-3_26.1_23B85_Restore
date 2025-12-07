@@ -51,35 +51,33 @@
 {
   v6 = sub_21BE25EFC();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21BE25EDC();
   viewCopy = view;
   selfCopy = self;
   sub_21BCDC1D8(viewCopy);
-  v14 = v13;
+  v13 = v12;
 
-  (*(v7 + 8))(v10, v6);
+  (*(v7 + 8))(v9, v6);
 
-  return v14;
+  return v13;
 }
 
 - (double)tableView:(id)view heightForRowAtIndexPath:(id)path
 {
   v6 = sub_21BE25EFC();
   v7 = *(v6 - 8);
-  v8 = *(v7 + 64);
   MEMORY[0x28223BE20](v6);
-  v10 = &v16 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_21BE25EDC();
   viewCopy = view;
   selfCopy = self;
   sub_21BCDC7F4(viewCopy);
-  v14 = v13;
+  v13 = v12;
 
-  (*(v7 + 8))(v10, v6);
-  return v14;
+  (*(v7 + 8))(v9, v6);
+  return v13;
 }
 
 - (_TtC14FamilyCircleUI35FASettingsPresetsTableViewDecorator)initWithTableView:(id)view

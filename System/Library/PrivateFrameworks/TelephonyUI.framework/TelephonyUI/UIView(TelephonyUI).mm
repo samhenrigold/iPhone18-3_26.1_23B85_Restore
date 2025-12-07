@@ -7,10 +7,10 @@
 
 - (uint64_t)tp_userInterfaceLayoutDirection
 {
-  v2 = objc_opt_class();
+  v3 = objc_opt_class();
   semanticContentAttribute = [self semanticContentAttribute];
 
-  return [v2 userInterfaceLayoutDirectionForSemanticContentAttribute:semanticContentAttribute];
+  return [v3 userInterfaceLayoutDirectionForSemanticContentAttribute:semanticContentAttribute];
 }
 
 - (uint64_t)tp_setCHCRPriority:()TelephonyUI

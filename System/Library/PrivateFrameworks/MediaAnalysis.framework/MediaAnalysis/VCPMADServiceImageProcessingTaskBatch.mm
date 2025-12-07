@@ -129,175 +129,175 @@
 
 - (BOOL)run:(id *)run
 {
-  v63 = *MEMORY[0x1E69E9840];
-  v4 = VCPSignPostLog();
+  v65 = *MEMORY[0x1E69E9840];
+  v4 = VCPSignPostLog(self);
   spid = os_signpost_id_generate(v4);
 
-  v5 = VCPSignPostLog();
-  v6 = v5;
-  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v5))
+  v6 = VCPSignPostLog(v5);
+  v7 = v6;
+  if (spid - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
   {
     signpostPayload = self->_signpostPayload;
     *buf = 138412290;
-    *v59 = signpostPayload;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v6, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPMADServiceImageProcessingTaskBatch_Run", "%@", buf, 0xCu);
+    *v61 = signpostPayload;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v7, OS_SIGNPOST_INTERVAL_BEGIN, spid, "VCPMADServiceImageProcessingTaskBatch_Run", "%@", buf, 0xCu);
   }
 
+  v55 = 0u;
+  v56 = 0u;
   v53 = 0u;
   v54 = 0u;
-  v51 = 0u;
-  v52 = 0u;
   obj = [(NSDictionary *)self->_requests allKeys];
-  v8 = [obj countByEnumeratingWithState:&v51 objects:v62 count:16];
-  if (v8)
+  v9 = [obj countByEnumeratingWithState:&v53 objects:v64 count:16];
+  if (v9)
   {
-    v43 = 0;
-    v9 = MEMORY[0x1E69E9C10];
-    v41 = *v52;
-    v37 = *MEMORY[0x1E696A768];
-    v38 = *MEMORY[0x1E696A578];
+    v45 = 0;
+    v10 = MEMORY[0x1E69E9C10];
+    v43 = *v54;
+    v39 = *MEMORY[0x1E696A768];
+    v40 = *MEMORY[0x1E696A578];
     while (2)
     {
-      v10 = 0;
-      v42 = v8;
+      v11 = 0;
+      v44 = v9;
       do
       {
-        if (*v52 != v41)
+        if (*v54 != v43)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v51 + 1) + 8 * v10);
-        v12 = objc_autoreleasePoolPush();
-        v50 = 0;
-        if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+        v12 = *(*(&v53 + 1) + 8 * v11);
+        v13 = objc_autoreleasePoolPush();
+        v52 = 0;
+        if (MediaAnalysisLogLevel() >= 7 && os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
         {
           *buf = 67109378;
-          v43 = (v43 + 1);
-          *v59 = v43;
-          *&v59[4] = 2112;
-          *&v59[6] = v11;
-          _os_log_impl(&dword_1C9B70000, v9, OS_LOG_TYPE_DEBUG, "[ImageProcessingTask%d] Build task for asset (%@)", buf, 0x12u);
+          v45 = (v45 + 1);
+          *v61 = v45;
+          *&v61[4] = 2112;
+          *&v61[6] = v12;
+          _os_log_impl(&dword_1C9B70000, v10, OS_LOG_TYPE_DEBUG, "[ImageProcessingTask%d] Build task for asset (%@)", buf, 0x12u);
         }
 
-        v13 = [(VCPMADServiceImageProcessingTaskBatch *)self assetWithIdentifier:v11 isCloudIdentifier:1 error:&v50];
-        if (v13)
+        v14 = [(VCPMADServiceImageProcessingTaskBatch *)self assetWithIdentifier:v12 isCloudIdentifier:1 error:&v52];
+        if (v14)
         {
-          v14 = [VCPMADServiceImageAsset assetWithPhotosAsset:v13 clientBundleID:self->_clientBundleID clientTeamID:self->_clientTeamID];
-          v15 = [(NSDictionary *)self->_requests objectForKeyedSubscript:v11];
+          v15 = [VCPMADServiceImageAsset assetWithPhotosAsset:v14 clientBundleID:self->_clientBundleID clientTeamID:self->_clientTeamID];
+          v16 = [(NSDictionary *)self->_requests objectForKeyedSubscript:v12];
           cancelBlock = [(VCPMABaseTask *)self cancelBlock];
-          v44[0] = MEMORY[0x1E69E9820];
-          v44[1] = 3221225472;
-          v44[2] = __45__VCPMADServiceImageProcessingTaskBatch_run___block_invoke;
-          v44[3] = &unk_1E834E458;
-          v45 = v43;
-          v44[4] = v11;
-          v17 = [VCPMADServiceImageProcessingTask taskWithRequests:v15 forAsset:v14 cancelBlock:cancelBlock andCompletionHandler:v44];
+          v46[0] = MEMORY[0x1E69E9820];
+          v46[1] = 3221225472;
+          v46[2] = __45__VCPMADServiceImageProcessingTaskBatch_run___block_invoke;
+          v46[3] = &unk_1E834E458;
+          v47 = v45;
+          v46[4] = v12;
+          v18 = [VCPMADServiceImageProcessingTask taskWithRequests:v16 forAsset:v15 cancelBlock:cancelBlock andCompletionHandler:v46];
 
-          v18 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ImageProcessingTask%d] Identifier %@", v43, v11];
-          [v17 setSignpostPayload:v18];
+          v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"[ImageProcessingTask%d] Identifier %@", v45, v12];
+          [v18 setSignpostPayload:v19];
 
-          v19 = [v17 run];
-          v20 = v19;
-          if (v19)
+          v20 = [v18 run];
+          v21 = v20;
+          if (v20)
           {
-            if (v19 == -128)
+            if (v20 == -128)
             {
-              if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+              if (MediaAnalysisLogLevel() >= 6 && os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
               {
                 *buf = 0;
-                _os_log_impl(&dword_1C9B70000, v9, OS_LOG_TYPE_INFO, "Request canceled", buf, 2u);
+                _os_log_impl(&dword_1C9B70000, v10, OS_LOG_TYPE_INFO, "Request canceled", buf, 2u);
               }
 
               if (run)
               {
-                v21 = MEMORY[0x1E696ABC0];
-                v55 = v38;
-                v22 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request was canceled"];
-                v56 = v22;
-                v23 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
-                v24 = [v21 errorWithDomain:v37 code:-128 userInfo:v23];
-                v25 = *run;
-                *run = v24;
+                v22 = MEMORY[0x1E696ABC0];
+                v57 = v40;
+                v23 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Request was canceled"];
+                v58 = v23;
+                v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+                v25 = [v22 errorWithDomain:v39 code:-128 userInfo:v24];
+                v26 = *run;
+                *run = v25;
               }
 
-              v20 = 1;
+              v21 = 1;
             }
 
             else
             {
-              if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+              if (MediaAnalysisLogLevel() >= 4 && os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
               {
-                v29 = objc_opt_class();
-                v30 = NSStringFromClass(v29);
+                v30 = objc_opt_class();
+                v31 = NSStringFromClass(v30);
                 *buf = 138412546;
-                *v59 = v30;
-                *&v59[8] = 1024;
-                *&v59[10] = v20;
-                _os_log_impl(&dword_1C9B70000, v9, OS_LOG_TYPE_DEFAULT, "%@ returned unexpected status (%d)", buf, 0x12u);
+                *v61 = v31;
+                *&v61[8] = 1024;
+                *&v61[10] = v21;
+                _os_log_impl(&dword_1C9B70000, v10, OS_LOG_TYPE_DEFAULT, "%@ returned unexpected status (%d)", buf, 0x12u);
               }
 
-              v20 = 0;
+              v21 = 0;
             }
           }
         }
 
         else
         {
-          if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+          if (MediaAnalysisLogLevel() >= 3 && os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
           {
             *buf = 67109634;
-            *v59 = v43;
-            *&v59[4] = 2112;
-            *&v59[6] = v11;
-            v60 = 2112;
-            v61 = v50;
-            _os_log_impl(&dword_1C9B70000, v9, OS_LOG_TYPE_ERROR, "[ImageProcessingTask%d] Failed to fetch asset (%@) - %@", buf, 0x1Cu);
+            *v61 = v45;
+            *&v61[4] = 2112;
+            *&v61[6] = v12;
+            v62 = 2112;
+            v63 = v52;
+            _os_log_impl(&dword_1C9B70000, v10, OS_LOG_TYPE_ERROR, "[ImageProcessingTask%d] Failed to fetch asset (%@) - %@", buf, 0x1Cu);
           }
 
+          v50 = 0u;
+          v51 = 0u;
           v48 = 0u;
           v49 = 0u;
-          v46 = 0u;
-          v47 = 0u;
-          v14 = [(NSDictionary *)self->_requests objectForKeyedSubscript:v11];
-          v26 = [v14 countByEnumeratingWithState:&v46 objects:v57 count:16];
-          if (v26)
+          v15 = [(NSDictionary *)self->_requests objectForKeyedSubscript:v12];
+          v27 = [v15 countByEnumeratingWithState:&v48 objects:v59 count:16];
+          if (v27)
           {
-            v27 = *v47;
+            v28 = *v49;
             do
             {
-              for (i = 0; i != v26; ++i)
+              for (i = 0; i != v27; ++i)
               {
-                if (*v47 != v27)
+                if (*v49 != v28)
                 {
-                  objc_enumerationMutation(v14);
+                  objc_enumerationMutation(v15);
                 }
 
-                [*(*(&v46 + 1) + 8 * i) setError:v50];
+                [*(*(&v48 + 1) + 8 * i) setError:v52];
               }
 
-              v26 = [v14 countByEnumeratingWithState:&v46 objects:v57 count:16];
+              v27 = [v15 countByEnumeratingWithState:&v48 objects:v59 count:16];
             }
 
-            while (v26);
+            while (v27);
           }
 
-          v20 = 3;
+          v21 = 3;
         }
 
-        objc_autoreleasePoolPop(v12);
-        if (v20 != 3 && v20)
+        objc_autoreleasePoolPop(v13);
+        if (v21 != 3 && v21)
         {
-          v34 = 0;
+          v36 = 0;
           goto LABEL_46;
         }
 
-        ++v10;
+        ++v11;
       }
 
-      while (v10 != v42);
-      v8 = [obj countByEnumeratingWithState:&v51 objects:v62 count:16];
-      if (v8)
+      while (v11 != v44);
+      v9 = [obj countByEnumeratingWithState:&v53 objects:v64 count:16];
+      if (v9)
       {
         continue;
       }
@@ -306,22 +306,22 @@
     }
   }
 
-  v31 = VCPSignPostLog();
-  v32 = v31;
-  if (spid - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v31))
+  v33 = VCPSignPostLog(v32);
+  v34 = v33;
+  if (spid - 1 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v33))
   {
-    v33 = self->_signpostPayload;
+    v35 = self->_signpostPayload;
     *buf = 138412290;
-    *v59 = v33;
-    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v32, OS_SIGNPOST_INTERVAL_END, spid, "VCPMADServiceImageProcessingTaskBatch_Run", "%@", buf, 0xCu);
+    *v61 = v35;
+    _os_signpost_emit_with_name_impl(&dword_1C9B70000, v34, OS_SIGNPOST_INTERVAL_END, spid, "VCPMADServiceImageProcessingTaskBatch_Run", "%@", buf, 0xCu);
   }
 
   obj = [(VCPMABaseTask *)self completionHandler];
   (*(obj + 2))(obj, 0, 0);
-  v34 = 1;
+  v36 = 1;
 LABEL_46:
 
-  return v34;
+  return v36;
 }
 
 void __45__VCPMADServiceImageProcessingTaskBatch_run___block_invoke(uint64_t a1, void *a2)

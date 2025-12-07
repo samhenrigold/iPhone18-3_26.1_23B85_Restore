@@ -299,9 +299,11 @@ void __54__ML3Album_collectionWithPersistentID_addedToLibrary___block_invoke(uin
 
 uint64_t __36__ML3Album_propertiesForGroupingKey__block_invoke()
 {
-  propertiesForGroupingKey_propertiesForGroupingKey_6015 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{@"album", 0}];
+  v0 = [objc_alloc(MEMORY[0x277CBEA60]) initWithObjects:{@"album", 0}];
+  v1 = propertiesForGroupingKey_propertiesForGroupingKey_6015;
+  propertiesForGroupingKey_propertiesForGroupingKey_6015 = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 + (id)countingQueryForBaseQuery:(id)query countProperty:(id)property forIdentifier:(int64_t)identifier

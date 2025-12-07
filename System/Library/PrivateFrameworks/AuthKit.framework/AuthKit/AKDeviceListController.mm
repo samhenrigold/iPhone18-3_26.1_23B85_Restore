@@ -294,53 +294,51 @@
 
 - (void)_refreshDeviceListForAltDSID:(id)d
 {
-  selfCopy = self;
+  location[2] = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, d);
-  v4 = [AKDeviceListRequester alloc];
-  v6 = +[AKDeviceListStoreManager sharedManager];
-  v5 = objc_opt_new();
-  accountManager = selfCopy->_accountManager;
-  v8 = [AKDeviceListRequester initWithStoreManager:v4 cdpFactory:"initWithStoreManager:cdpFactory:accountManager:client:" accountManager:v6 client:?];
+  v3 = [AKDeviceListRequester alloc];
+  v5 = +[AKDeviceListStoreManager sharedManager];
+  v4 = objc_opt_new();
+  v7 = [AKDeviceListRequester initWithStoreManager:v3 cdpFactory:"initWithStoreManager:cdpFactory:accountManager:client:" accountManager:v5 client:?];
+  _objc_release(v4);
   _objc_release(v5);
-  _objc_release(v6);
-  v7 = objc_alloc_init(AKDeviceListRequestContext);
-  [v7 setAltDSID:location[0]];
-  [v7 setForceFetch:1];
-  [v7 setIncludeUntrustedDevices:1];
-  [(AKDeviceListRequester *)v8 fetchDeviceListWithContext:v7 completionHandler:&stru_100322FE0];
+  v6 = objc_alloc_init(AKDeviceListRequestContext);
+  [v6 setAltDSID:location[0]];
+  [v6 setForceFetch:1];
+  [v6 setIncludeUntrustedDevices:1];
+  [(AKDeviceListRequester *)v7 fetchDeviceListWithContext:v6 completionHandler:&stru_100322FE0];
+  objc_storeStrong(&v6, 0);
   objc_storeStrong(&v7, 0);
-  objc_storeStrong(&v8, 0);
   objc_storeStrong(location, 0);
 }
 
 - (void)_clearDeviceListForAltDSID:(id)d
 {
-  selfCopy = self;
+  location[2] = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, d);
-  v4 = [AKDeviceListRequester alloc];
-  v6 = +[AKDeviceListStoreManager sharedManager];
-  v5 = objc_opt_new();
-  accountManager = selfCopy->_accountManager;
-  v15 = [AKDeviceListRequester initWithStoreManager:v4 cdpFactory:"initWithStoreManager:cdpFactory:accountManager:client:" accountManager:v6 client:?];
+  v3 = [AKDeviceListRequester alloc];
+  v5 = +[AKDeviceListStoreManager sharedManager];
+  v4 = objc_opt_new();
+  v14 = [AKDeviceListRequester initWithStoreManager:v3 cdpFactory:"initWithStoreManager:cdpFactory:accountManager:client:" accountManager:v5 client:?];
+  _objc_release(v4);
   _objc_release(v5);
-  _objc_release(v6);
-  v14 = objc_alloc_init(AKDeviceListRequestContext);
-  [v14 setAltDSID:location[0]];
-  v8 = v15;
+  v13 = objc_alloc_init(AKDeviceListRequestContext);
+  [v13 setAltDSID:location[0]];
   v7 = v14;
-  v9 = _NSConcreteStackBlock;
-  v10 = 3221225472;
-  v11 = sub_1000E3F38;
-  v12 = &unk_100320EA0;
-  v13 = _objc_retain(v14);
-  [(AKDeviceListRequester *)v8 clearDeviceListCacheWithContext:v7 completionHandler:?];
+  v6 = v13;
+  v8 = _NSConcreteStackBlock;
+  v9 = 3221225472;
+  v10 = sub_1000E3F38;
+  v11 = &unk_100320EA0;
+  v12 = _objc_retain(v13);
+  [(AKDeviceListRequester *)v7 clearDeviceListCacheWithContext:v6 completionHandler:?];
+  objc_storeStrong(&v12, 0);
   objc_storeStrong(&v13, 0);
   objc_storeStrong(&v14, 0);
-  objc_storeStrong(&v15, 0);
   objc_storeStrong(location, 0);
 }
 

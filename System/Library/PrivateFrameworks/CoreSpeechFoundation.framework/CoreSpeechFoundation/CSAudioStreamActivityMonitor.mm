@@ -42,30 +42,30 @@
 
 - (void)notifyActiveStreamsChanged:(id)changed streamHolders:(id)holders streamId:(unint64_t)id
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   holdersCopy = holders;
+  v41 = 0u;
   v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
   v8 = changedCopy;
-  v9 = [v8 countByEnumeratingWithState:&v42 objects:v51 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v41 objects:v50 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v43;
-    v33 = holdersCopy;
+    v11 = *v42;
+    v32 = holdersCopy;
     while (2)
     {
       for (i = 0; i != v10; ++i)
       {
-        if (*v43 != v11)
+        if (*v42 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        v13 = *(*(&v42 + 1) + 8 * i);
+        v13 = *(*(&v41 + 1) + 8 * i);
         streamRequest = [v13 streamRequest];
         if ([streamRequest clientIdentity] == 3)
         {
@@ -80,15 +80,15 @@ LABEL_14:
 LABEL_15:
           v19 = CSLogContextFacilityCoreSpeech;
           v18 = 1;
-          holdersCopy = v33;
+          holdersCopy = v32;
           if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_INFO))
           {
             v20 = v19;
             name = [v13 name];
             *buf = 136315394;
-            v48 = "[CSAudioStreamActivityMonitor notifyActiveStreamsChanged:streamHolders:streamId:]";
-            v49 = 2112;
-            v50 = name;
+            v47 = "[CSAudioStreamActivityMonitor notifyActiveStreamsChanged:streamHolders:streamId:]";
+            v48 = 2112;
+            v49 = name;
             _os_log_impl(&dword_1DDA4B000, v20, OS_LOG_TYPE_INFO, "%s stream %@ is active", buf, 0x16u);
           }
 
@@ -104,9 +104,9 @@ LABEL_15:
         }
       }
 
-      v10 = [v8 countByEnumeratingWithState:&v42 objects:v51 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v41 objects:v50 count:16];
       v18 = 0;
-      holdersCopy = v33;
+      holdersCopy = v32;
       if (v10)
       {
         continue;
@@ -123,26 +123,26 @@ LABEL_15:
 
 LABEL_17:
 
-  v41 = 0u;
-  v39 = 0u;
   v40 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v37 = 0u;
   v22 = holdersCopy;
-  v23 = [v22 countByEnumeratingWithState:&v38 objects:v46 count:16];
+  v23 = [v22 countByEnumeratingWithState:&v37 objects:v45 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v39;
+    v25 = *v38;
     while (2)
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v39 != v25)
+        if (*v38 != v25)
         {
           objc_enumerationMutation(v22);
         }
 
-        v27 = *(*(&v38 + 1) + 8 * j);
+        v27 = *(*(&v37 + 1) + 8 * j);
         if ([v27 clientIdentity] == 6)
         {
           v28 = CSLogContextFacilityCoreSpeech;
@@ -152,9 +152,9 @@ LABEL_17:
             v29 = v28;
             name2 = [v27 name];
             *buf = 136315394;
-            v48 = "[CSAudioStreamActivityMonitor notifyActiveStreamsChanged:streamHolders:streamId:]";
-            v49 = 2112;
-            v50 = name2;
+            v47 = "[CSAudioStreamActivityMonitor notifyActiveStreamsChanged:streamHolders:streamId:]";
+            v48 = 2112;
+            v49 = name2;
             _os_log_impl(&dword_1DDA4B000, v29, OS_LOG_TYPE_INFO, "%s streamHolder %@ is active", buf, 0x16u);
           }
 
@@ -162,7 +162,7 @@ LABEL_17:
         }
       }
 
-      v24 = [v22 countByEnumeratingWithState:&v38 objects:v46 count:16];
+      v24 = [v22 countByEnumeratingWithState:&v37 objects:v45 count:16];
       if (v24)
       {
         continue;
@@ -180,44 +180,38 @@ LABEL_28:
   block[2] = __82__CSAudioStreamActivityMonitor_notifyActiveStreamsChanged_streamHolders_streamId___block_invoke;
   block[3] = &unk_1E865B178;
   block[4] = self;
-  v37 = v18;
+  v36 = v18;
   dispatch_async(queue, block);
-  v35[0] = MEMORY[0x1E69E9820];
-  v35[1] = 3221225472;
-  v35[2] = __82__CSAudioStreamActivityMonitor_notifyActiveStreamsChanged_streamHolders_streamId___block_invoke_2;
-  v35[3] = &unk_1E865CB20;
-  v35[4] = self;
-  [(CSEventMonitor *)self enumerateObserversInQueue:v35];
-
-  v32 = *MEMORY[0x1E69E9840];
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __82__CSAudioStreamActivityMonitor_notifyActiveStreamsChanged_streamHolders_streamId___block_invoke_2;
+  v34[3] = &unk_1E865CB20;
+  v34[4] = self;
+  [(CSEventMonitor *)self enumerateObserversInQueue:v34];
 }
 
 - (void)_stopMonitoring
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   v2 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = 136315138;
-    v5 = "[CSAudioStreamActivityMonitor _stopMonitoring]";
-    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : audio stream activity", &v4, 0xCu);
+    v3 = 136315138;
+    v4 = "[CSAudioStreamActivityMonitor _stopMonitoring]";
+    _os_log_impl(&dword_1DDA4B000, v2, OS_LOG_TYPE_DEFAULT, "%s Stop monitoring : audio stream activity", &v3, 0xCu);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_startMonitoringWithQueue:(id)queue
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = CSLogContextFacilityCoreSpeech;
   if (os_log_type_enabled(CSLogContextFacilityCoreSpeech, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[CSAudioStreamActivityMonitor _startMonitoringWithQueue:]";
-    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : audio stream activity", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[CSAudioStreamActivityMonitor _startMonitoringWithQueue:]";
+    _os_log_impl(&dword_1DDA4B000, v3, OS_LOG_TYPE_DEFAULT, "%s Start monitoring : audio stream activity", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (CSAudioStreamActivityMonitor)init
@@ -237,9 +231,11 @@ LABEL_28:
 
 uint64_t __46__CSAudioStreamActivityMonitor_sharedInstance__block_invoke()
 {
-  sharedInstance_monitor = objc_alloc_init(CSAudioStreamActivityMonitor);
+  v0 = objc_alloc_init(CSAudioStreamActivityMonitor);
+  v1 = sharedInstance_monitor;
+  sharedInstance_monitor = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 @end

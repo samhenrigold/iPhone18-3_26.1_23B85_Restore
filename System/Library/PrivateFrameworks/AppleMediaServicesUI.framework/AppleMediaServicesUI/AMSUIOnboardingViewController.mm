@@ -22,7 +22,10 @@
 - (void)didTapPrimaryButton:(id)button;
 - (void)didTapSecondaryButton:(id)button;
 - (void)updateOverrideTraits;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation AMSUIOnboardingViewController
@@ -149,46 +152,46 @@
 
 - (AMSUIOnboardingViewController)initWithTitleText:(id)text features:(id)features primaryButtonText:(id)buttonText privacyLinkController:(id)controller
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   textCopy = text;
   featuresCopy = features;
   buttonTextCopy = buttonText;
   controllerCopy = controller;
-  v39.receiver = self;
-  v39.super_class = AMSUIOnboardingViewController;
-  v15 = [(AMSUIOnboardingViewController *)&v39 initWithNibName:0 bundle:0];
+  v38.receiver = self;
+  v38.super_class = AMSUIOnboardingViewController;
+  v15 = [(AMSUIOnboardingViewController *)&v38 initWithNibName:0 bundle:0];
   v16 = v15;
   if (v15)
   {
-    v32 = controllerCopy;
+    v31 = controllerCopy;
     objc_storeStrong(&v15->_titleText, text);
     objc_storeStrong(&v16->_primaryButtonText, buttonText);
-    v34 = textCopy;
+    v33 = textCopy;
     v17 = [objc_alloc(getOBWelcomeControllerClass()) initWithTitle:textCopy detailText:0 icon:0];
     welcomeController = v16->_welcomeController;
     v16->_welcomeController = v17;
 
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
-    v33 = featuresCopy;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
+    v32 = featuresCopy;
     v19 = featuresCopy;
-    v20 = [v19 countByEnumeratingWithState:&v35 objects:v40 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v34 objects:v39 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v36;
+      v22 = *v35;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v36 != v22)
+          if (*v35 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v35 + 1) + 8 * i);
+          v24 = *(*(&v34 + 1) + 8 * i);
           v25 = v16->_welcomeController;
           titleText = [v24 titleText];
           descriptionText = [v24 descriptionText];
@@ -196,68 +199,67 @@
           [(OBWelcomeController *)v25 addBulletedListItemWithTitle:titleText description:descriptionText image:image];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v35 objects:v40 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v34 objects:v39 count:16];
       }
 
       while (v21);
     }
 
-    controllerCopy = v32;
-    v29 = [objc_opt_class() privacyLinkIdentifiersFromController:v32];
+    controllerCopy = v31;
+    v29 = [objc_opt_class() privacyLinkIdentifiersFromController:v31];
     [(AMSUIOnboardingViewController *)v16 commonSetupWithPrimaryButtonText:buttonTextCopy privacyLinkBundleIdentifiers:v29];
 
-    featuresCopy = v33;
-    textCopy = v34;
+    featuresCopy = v32;
+    textCopy = v33;
   }
 
-  v30 = *MEMORY[0x1E69E9840];
   return v16;
 }
 
 - (AMSUIOnboardingViewController)initWithTitleText:(id)text appName:(id)name features:(id)features primaryButtonText:(id)buttonText privacyLinkController:(id)controller
 {
-  v45 = *MEMORY[0x1E69E9840];
+  v44 = *MEMORY[0x1E69E9840];
   textCopy = text;
   nameCopy = name;
   featuresCopy = features;
   buttonTextCopy = buttonText;
   controllerCopy = controller;
-  v43.receiver = self;
-  v43.super_class = AMSUIOnboardingViewController;
-  v18 = [(AMSUIOnboardingViewController *)&v43 initWithNibName:0 bundle:0];
+  v42.receiver = self;
+  v42.super_class = AMSUIOnboardingViewController;
+  v18 = [(AMSUIOnboardingViewController *)&v42 initWithNibName:0 bundle:0];
   v19 = v18;
   if (v18)
   {
-    v35 = controllerCopy;
+    v34 = controllerCopy;
     objc_storeStrong(&v18->_titleText, text);
     objc_storeStrong(&v19->_primaryButtonText, buttonText);
-    v37 = nameCopy;
-    v38 = textCopy;
+    v36 = nameCopy;
+    v37 = textCopy;
     v20 = [objc_alloc(getOBWelcomeControllerClass()) initWithTitle:textCopy detailText:0 appName:nameCopy icon:0];
     welcomeController = v19->_welcomeController;
     v19->_welcomeController = v20;
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
-    v36 = featuresCopy;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v35 = featuresCopy;
     v22 = featuresCopy;
-    v23 = [v22 countByEnumeratingWithState:&v39 objects:v44 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v38 objects:v43 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v40;
+      v25 = *v39;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v40 != v25)
+          if (*v39 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          v27 = *(*(&v39 + 1) + 8 * i);
+          v27 = *(*(&v38 + 1) + 8 * i);
           v28 = v19->_welcomeController;
           titleText = [v27 titleText];
           descriptionText = [v27 descriptionText];
@@ -265,36 +267,35 @@
           [(OBWelcomeController *)v28 addBulletedListItemWithTitle:titleText description:descriptionText image:image];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v39 objects:v44 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v38 objects:v43 count:16];
       }
 
       while (v24);
     }
 
-    controllerCopy = v35;
-    v32 = [objc_opt_class() privacyLinkIdentifiersFromController:v35];
+    controllerCopy = v34;
+    v32 = [objc_opt_class() privacyLinkIdentifiersFromController:v34];
     [(AMSUIOnboardingViewController *)v19 commonSetupWithPrimaryButtonText:buttonTextCopy privacyLinkBundleIdentifiers:v32];
 
-    nameCopy = v37;
-    textCopy = v38;
-    featuresCopy = v36;
+    nameCopy = v36;
+    textCopy = v37;
+    featuresCopy = v35;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (AMSUIOnboardingViewController)initWithHeaderImage:(id)image titleText:(id)text descriptionText:(id)descriptionText primaryButtonText:(id)buttonText privacyLinkBundleIdentifier:(id)identifier
 {
-  v26[1] = *MEMORY[0x1E69E9840];
+  v25[1] = *MEMORY[0x1E69E9840];
   imageCopy = image;
   textCopy = text;
   descriptionTextCopy = descriptionText;
   buttonTextCopy = buttonText;
   identifierCopy = identifier;
-  v25.receiver = self;
-  v25.super_class = AMSUIOnboardingViewController;
-  v17 = [(AMSUIOnboardingViewController *)&v25 initWithNibName:0 bundle:0];
+  v24.receiver = self;
+  v24.super_class = AMSUIOnboardingViewController;
+  v17 = [(AMSUIOnboardingViewController *)&v24 initWithNibName:0 bundle:0];
   v18 = v17;
   if (v17)
   {
@@ -306,28 +307,27 @@
     welcomeController = v18->_welcomeController;
     v18->_welcomeController = v19;
 
-    v26[0] = identifierCopy;
-    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v26 count:1];
+    v25[0] = identifierCopy;
+    v21 = [MEMORY[0x1E695DEC8] arrayWithObjects:v25 count:1];
     [(AMSUIOnboardingViewController *)v18 commonSetupWithPrimaryButtonText:buttonTextCopy privacyLinkBundleIdentifiers:v21];
   }
 
-  v22 = *MEMORY[0x1E69E9840];
   return v18;
 }
 
 - (AMSUIOnboardingViewController)initWithHeaderImage:(id)image titleText:(id)text descriptionText:(id)descriptionText appName:(id)name primaryButtonText:(id)buttonText privacyLinkBundleIdentifier:(id)identifier
 {
-  v30[1] = *MEMORY[0x1E69E9840];
+  v29[1] = *MEMORY[0x1E69E9840];
   imageCopy = image;
   textCopy = text;
   descriptionTextCopy = descriptionText;
   nameCopy = name;
   buttonTextCopy = buttonText;
   buttonTextCopy2 = buttonText;
-  v29.receiver = self;
-  v29.super_class = AMSUIOnboardingViewController;
+  v28.receiver = self;
+  v28.super_class = AMSUIOnboardingViewController;
   identifierCopy = identifier;
-  v21 = [(AMSUIOnboardingViewController *)&v29 initWithNibName:0 bundle:0];
+  v21 = [(AMSUIOnboardingViewController *)&v28 initWithNibName:0 bundle:0];
   v22 = v21;
   if (v21)
   {
@@ -339,60 +339,59 @@
     welcomeController = v22->_welcomeController;
     v22->_welcomeController = v23;
 
-    v30[0] = identifierCopy;
-    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:1];
+    v29[0] = identifierCopy;
+    v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v29 count:1];
     [(AMSUIOnboardingViewController *)v22 commonSetupWithPrimaryButtonText:buttonTextCopy2 privacyLinkBundleIdentifiers:v25];
   }
 
-  v26 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (AMSUIOnboardingViewController)initWithHeaderImage:(id)image titleText:(id)text features:(id)features primaryButtonText:(id)buttonText privacyLinkBundleIdentifier:(id)identifier
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v45 = *MEMORY[0x1E69E9840];
   imageCopy = image;
   textCopy = text;
   featuresCopy = features;
   buttonTextCopy = buttonText;
   identifierCopy = identifier;
-  v43.receiver = self;
-  v43.super_class = AMSUIOnboardingViewController;
-  v18 = [(AMSUIOnboardingViewController *)&v43 initWithNibName:0 bundle:0];
+  v42.receiver = self;
+  v42.super_class = AMSUIOnboardingViewController;
+  v18 = [(AMSUIOnboardingViewController *)&v42 initWithNibName:0 bundle:0];
   v19 = v18;
   if (v18)
   {
-    v35 = identifierCopy;
+    v34 = identifierCopy;
     objc_storeStrong(&v18->_titleText, text);
     objc_storeStrong(&v19->_primaryButtonText, buttonText);
     objc_storeStrong(&v19->_image, image);
-    v37 = textCopy;
-    v38 = imageCopy;
+    v36 = textCopy;
+    v37 = imageCopy;
     v20 = [objc_alloc(getOBWelcomeControllerClass()) initWithTitle:textCopy detailText:0 icon:imageCopy];
     welcomeController = v19->_welcomeController;
     v19->_welcomeController = v20;
 
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
-    v36 = featuresCopy;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
+    v35 = featuresCopy;
     v22 = featuresCopy;
-    v23 = [v22 countByEnumeratingWithState:&v39 objects:v45 count:16];
+    v23 = [v22 countByEnumeratingWithState:&v38 objects:v44 count:16];
     if (v23)
     {
       v24 = v23;
-      v25 = *v40;
+      v25 = *v39;
       do
       {
         for (i = 0; i != v24; ++i)
         {
-          if (*v40 != v25)
+          if (*v39 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          v27 = *(*(&v39 + 1) + 8 * i);
+          v27 = *(*(&v38 + 1) + 8 * i);
           v28 = v19->_welcomeController;
           titleText = [v27 titleText];
           descriptionText = [v27 descriptionText];
@@ -400,73 +399,72 @@
           [(OBWelcomeController *)v28 addBulletedListItemWithTitle:titleText description:descriptionText image:image];
         }
 
-        v24 = [v22 countByEnumeratingWithState:&v39 objects:v45 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v38 objects:v44 count:16];
       }
 
       while (v24);
     }
 
-    identifierCopy = v35;
-    v44 = v35;
-    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v44 count:1];
+    identifierCopy = v34;
+    v43 = v34;
+    v32 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v43 count:1];
     [(AMSUIOnboardingViewController *)v19 commonSetupWithPrimaryButtonText:buttonTextCopy privacyLinkBundleIdentifiers:v32];
 
-    textCopy = v37;
-    imageCopy = v38;
-    featuresCopy = v36;
+    textCopy = v36;
+    imageCopy = v37;
+    featuresCopy = v35;
   }
 
-  v33 = *MEMORY[0x1E69E9840];
   return v19;
 }
 
 - (AMSUIOnboardingViewController)initWithHeaderImage:(id)image titleText:(id)text appName:(id)name features:(id)features primaryButtonText:(id)buttonText privacyLinkBundleIdentifier:(id)identifier
 {
-  v50 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   imageCopy = image;
   textCopy = text;
   nameCopy = name;
   featuresCopy = features;
   buttonTextCopy = buttonText;
   identifierCopy = identifier;
-  v47.receiver = self;
-  v47.super_class = AMSUIOnboardingViewController;
-  v20 = [(AMSUIOnboardingViewController *)&v47 initWithNibName:0 bundle:0];
+  v46.receiver = self;
+  v46.super_class = AMSUIOnboardingViewController;
+  v20 = [(AMSUIOnboardingViewController *)&v46 initWithNibName:0 bundle:0];
   v21 = v20;
   if (v20)
   {
-    v37 = identifierCopy;
+    v36 = identifierCopy;
     objc_storeStrong(&v20->_titleText, text);
     objc_storeStrong(&v21->_primaryButtonText, buttonText);
     objc_storeStrong(&v21->_image, image);
-    v39 = nameCopy;
-    v40 = textCopy;
+    v38 = nameCopy;
+    v39 = textCopy;
     obja = imageCopy;
     v22 = [objc_alloc(getOBWelcomeControllerClass()) initWithTitle:textCopy detailText:0 appName:nameCopy icon:imageCopy];
     welcomeController = v21->_welcomeController;
     v21->_welcomeController = v22;
 
-    v45 = 0u;
-    v46 = 0u;
-    v43 = 0u;
     v44 = 0u;
-    v38 = featuresCopy;
+    v45 = 0u;
+    v42 = 0u;
+    v43 = 0u;
+    v37 = featuresCopy;
     v24 = featuresCopy;
-    v25 = [v24 countByEnumeratingWithState:&v43 objects:v49 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v42 objects:v48 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v44;
+      v27 = *v43;
       do
       {
         for (i = 0; i != v26; ++i)
         {
-          if (*v44 != v27)
+          if (*v43 != v27)
           {
             objc_enumerationMutation(v24);
           }
 
-          v29 = *(*(&v43 + 1) + 8 * i);
+          v29 = *(*(&v42 + 1) + 8 * i);
           v30 = v21->_welcomeController;
           titleText = [v29 titleText];
           descriptionText = [v29 descriptionText];
@@ -474,24 +472,23 @@
           [(OBWelcomeController *)v30 addBulletedListItemWithTitle:titleText description:descriptionText image:image];
         }
 
-        v26 = [v24 countByEnumeratingWithState:&v43 objects:v49 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v42 objects:v48 count:16];
       }
 
       while (v26);
     }
 
-    identifierCopy = v37;
-    v48 = v37;
-    v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v48 count:1];
+    identifierCopy = v36;
+    v47 = v36;
+    v34 = [MEMORY[0x1E695DEC8] arrayWithObjects:&v47 count:1];
     [(AMSUIOnboardingViewController *)v21 commonSetupWithPrimaryButtonText:buttonTextCopy privacyLinkBundleIdentifiers:v34];
 
-    textCopy = v40;
+    textCopy = v39;
     imageCopy = obja;
-    featuresCopy = v38;
-    nameCopy = v39;
+    featuresCopy = v37;
+    nameCopy = v38;
   }
 
-  v35 = *MEMORY[0x1E69E9840];
   return v21;
 }
 
@@ -582,7 +579,7 @@
   metricsQueue = self->_metricsQueue;
   self->_metricsQueue = v5;
 
-  MEMORY[0x1EEE66BB8]();
+  MEMORY[0x1EEE66BB8](v5, metricsQueue);
 }
 
 - (void)viewDidLoad
@@ -632,6 +629,40 @@
   }
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v8.receiver = self;
+  v8.super_class = AMSUIOnboardingViewController;
+  [(AMSUIOnboardingViewController *)&v8 viewWillAppear:?];
+  navigationController = [(AMSUIOnboardingViewController *)self navigationController];
+  -[AMSUIOnboardingViewController setWasNavigationBarHidden:](self, "setWasNavigationBarHidden:", [navigationController isNavigationBarHidden]);
+
+  navigationController2 = [(AMSUIOnboardingViewController *)self navigationController];
+  [navigationController2 setNavigationBarHidden:1 animated:appearCopy];
+
+  navigationController3 = [(AMSUIOnboardingViewController *)self navigationController];
+  [navigationController3 setModalInPresentation:1];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v6.receiver = self;
+  v6.super_class = AMSUIOnboardingViewController;
+  [(AMSUIOnboardingViewController *)&v6 viewWillDisappear:?];
+  navigationController = [(AMSUIOnboardingViewController *)self navigationController];
+  [navigationController setNavigationBarHidden:-[AMSUIOnboardingViewController wasNavigationBarHidden](self animated:{"wasNavigationBarHidden"), disappearCopy}];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = AMSUIOnboardingViewController;
+  [(AMSUIOnboardingViewController *)&v4 viewDidAppear:appear];
+  [(AMSUIOnboardingViewController *)self setViewHasAppeared:1];
+}
+
 - (CGSize)preferredContentSize
 {
   welcomeController = [(AMSUIOnboardingViewController *)self welcomeController];
@@ -664,7 +695,7 @@
 
 - (UITraitCollection)cappedTraitCollection
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   if (cappedTraitCollection_onceToken != -1)
   {
     [AMSUIOnboardingViewController cappedTraitCollection];
@@ -683,10 +714,10 @@
     {
       v8 = MEMORY[0x1E69DD1B8];
       traitCollection3 = [(AMSUIOnboardingViewController *)self traitCollection];
-      v15[0] = traitCollection3;
+      v14[0] = traitCollection3;
       v10 = [MEMORY[0x1E69DD1B8] traitCollectionWithPreferredContentSizeCategory:*MEMORY[0x1E69DDC38]];
-      v15[1] = v10;
-      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v15 count:2];
+      v14[1] = v10;
+      v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v14 count:2];
       v12 = [v8 traitCollectionWithTraitsFromCollections:v11];
 
       goto LABEL_8;
@@ -699,23 +730,20 @@
 
   v12 = 0;
 LABEL_8:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 void __54__AMSUIOnboardingViewController_cappedTraitCollection__block_invoke()
 {
-  v4[3] = *MEMORY[0x1E69E9840];
+  v3[3] = *MEMORY[0x1E69E9840];
   v0 = *MEMORY[0x1E69DDC28];
-  v4[0] = *MEMORY[0x1E69DDC30];
-  v4[1] = v0;
-  v4[2] = *MEMORY[0x1E69DDC20];
-  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v4 count:3];
+  v3[0] = *MEMORY[0x1E69DDC30];
+  v3[1] = v0;
+  v3[2] = *MEMORY[0x1E69DDC20];
+  v1 = [MEMORY[0x1E695DEC8] arrayWithObjects:v3 count:3];
   v2 = cappedTraitCollection_cappedSizes;
   cappedTraitCollection_cappedSizes = v1;
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (id)childTraitCollectionForViewController:(id)controller
@@ -739,38 +767,36 @@ void __54__AMSUIOnboardingViewController_cappedTraitCollection__block_invoke()
 
 - (void)updateOverrideTraits
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   childViewControllers = [(AMSUIOnboardingViewController *)self childViewControllers];
-  v4 = [childViewControllers countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [childViewControllers countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(childViewControllers);
         }
 
-        v8 = *(*(&v11 + 1) + 8 * i);
+        v8 = *(*(&v10 + 1) + 8 * i);
         v9 = [(AMSUIOnboardingViewController *)self childTraitCollectionForViewController:v8];
         [(AMSUIOnboardingViewController *)self setOverrideTraitCollection:v9 forChildViewController:v8];
       }
 
-      v5 = [childViewControllers countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [childViewControllers countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)keyCommands
@@ -844,39 +870,37 @@ void __54__AMSUIOnboardingViewController_cappedTraitCollection__block_invoke()
 
 + (id)privacyLinkIdentifiersFromController:(id)controller
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   controllerCopy = controller;
   v4 = [MEMORY[0x1E695E0F0] mutableCopy];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   bundles = [controllerCopy bundles];
-  v6 = [bundles countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [bundles countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(bundles);
         }
 
-        identifier = [*(*(&v13 + 1) + 8 * i) identifier];
+        identifier = [*(*(&v12 + 1) + 8 * i) identifier];
         [v4 addObject:identifier];
       }
 
-      v7 = [bundles countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [bundles countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v4;
 }

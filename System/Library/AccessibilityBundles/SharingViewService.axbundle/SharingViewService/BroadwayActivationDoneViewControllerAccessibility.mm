@@ -1,6 +1,7 @@
 @interface BroadwayActivationDoneViewControllerAccessibility
 + (void)_accessibilityPerformValidations:(id)validations;
 - (void)_accessibilityLoadAccessibilityInformation;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation BroadwayActivationDoneViewControllerAccessibility
@@ -10,6 +11,15 @@
   validationsCopy = validations;
   [validationsCopy validateClass:@"BroadwayActivationDoneViewController" hasInstanceVariable:@"_titleLabel" withType:"UILabel"];
   [validationsCopy validateClass:@"BroadwayActivationDoneViewController" hasInstanceMethod:@"viewWillAppear:" withFullSignature:{"v", "B", 0}];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = BroadwayActivationDoneViewControllerAccessibility;
+  [(BroadwayActivationDoneViewControllerAccessibility *)&v4 viewWillAppear:appear];
+  [(BroadwayActivationDoneViewControllerAccessibility *)self _accessibilityLoadAccessibilityInformation];
+  AXPerformBlockOnMainThreadAfterDelay();
 }
 
 void __68__BroadwayActivationDoneViewControllerAccessibility_viewWillAppear___block_invoke(uint64_t a1)

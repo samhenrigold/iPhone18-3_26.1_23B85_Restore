@@ -52,13 +52,13 @@
 
 - (void)setSelectedItemIndex:(int64_t)index
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v5 = VSDefaultLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 134217984;
+    v6 = 134217984;
     indexCopy = index;
-    _os_log_impl(&dword_270DD4000, v5, OS_LOG_TYPE_DEFAULT, "ItemGroup updated from UI to index %lu.", &v7, 0xCu);
+    _os_log_impl(&dword_270DD4000, v5, OS_LOG_TYPE_DEFAULT, "ItemGroup updated from UI to index %lu.", &v6, 0xCu);
   }
 
   [(VSIKItemGroup *)self willChangeValueForKey:@"selectedItemIndex"];
@@ -67,18 +67,17 @@
   [(VSIKItemGroup *)self willChangeValueForKey:@"jsSelectedItem"];
   self->_jsSelectedItem = index;
   [(VSIKItemGroup *)self didChangeValueForKey:@"jsSelectedItem"];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setJSSelectedItem:(int64_t)item
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v5 = VSDefaultLogObject();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = 134217984;
+    v7 = 134217984;
     itemCopy = item;
-    _os_log_impl(&dword_270DD4000, v5, OS_LOG_TYPE_DEFAULT, "ItemGroup updated from JS to index %lu.", &v8, 0xCu);
+    _os_log_impl(&dword_270DD4000, v5, OS_LOG_TYPE_DEFAULT, "ItemGroup updated from JS to index %lu.", &v7, 0xCu);
   }
 
   [(VSIKItemGroup *)self willChangeValueForKey:@"selectedItemIndex"];
@@ -92,8 +91,6 @@
   {
     [delegate itemGroup:self selectedItemIndexDidChange:item];
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (IKAppContext)appContext

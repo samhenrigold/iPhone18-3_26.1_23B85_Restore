@@ -10,32 +10,32 @@
 
 - (id)findMatchingRoute:(id)route
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   routeCopy = route;
   routeUID = [(WFMediaRouteDescriptor *)self routeUID];
 
   if (routeUID)
   {
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     routeName2 = routeCopy;
-    v7 = [routeName2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v7 = [routeName2 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v21;
+      v9 = *v20;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v21 != v9)
+          if (*v20 != v9)
           {
             objc_enumerationMutation(routeName2);
           }
 
-          v11 = *(*(&v20 + 1) + 8 * i);
+          v11 = *(*(&v19 + 1) + 8 * i);
           v12 = objc_opt_class();
           routeUID2 = [v11 routeUID];
           routeUID3 = [(WFMediaRouteDescriptor *)self routeUID];
@@ -48,7 +48,7 @@
           }
         }
 
-        v8 = [routeName2 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v8 = [routeName2 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v8)
         {
           continue;
@@ -59,7 +59,7 @@
     }
   }
 
-  if (!-[WFMediaRouteDescriptor isLocalDevice](self, "isLocalDevice", v20) || ([routeCopy objectMatchingKey:@"isDeviceSpeakerRoute" BOOLValue:1], (v15 = objc_claimAutoreleasedReturnValue()) == 0))
+  if (!-[WFMediaRouteDescriptor isLocalDevice](self, "isLocalDevice", v19) || ([routeCopy objectMatchingKey:@"isDeviceSpeakerRoute" BOOLValue:1], (v15 = objc_claimAutoreleasedReturnValue()) == 0))
   {
     routeName = [(WFMediaRouteDescriptor *)self routeName];
 
@@ -76,8 +76,6 @@ LABEL_16:
       v15 = 0;
     }
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v15;
 }

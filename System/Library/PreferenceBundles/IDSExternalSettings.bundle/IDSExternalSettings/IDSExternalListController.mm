@@ -151,8 +151,8 @@ LABEL_5:
   v11 = bOOLValue;
   dispatch_async(global_queue, block);
   sub_2280(bOOLValue - 1);
-  sub_2FB8();
-  sub_2FD0();
+  sub_2FB8(bOOLValue);
+  sub_2FD0(bOOLValue);
   sub_310C(bOOLValue);
 }
 

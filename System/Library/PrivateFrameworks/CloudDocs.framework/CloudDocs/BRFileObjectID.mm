@@ -1,5 +1,6 @@
 @interface BRFileObjectID
 + (BRFileObjectID)fileObjectIDWithString:(id)string;
++ (id)newFromSqliteStatement:(sqlite3_stmt *)statement atIndex:(int)index;
 + (id)newFromSqliteValue:(sqlite3_value *)value;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualToFileObjectID:(id)d;
@@ -10,11 +11,8 @@
 - (NSNumber)itemDBRowID;
 - (NSString)asString;
 - (unint64_t)rawID;
-- (void)asString;
-- (void)documentID;
 - (void)encodeWithCoder:(id)coder;
-- (void)folderID;
-- (void)itemDBRowID;
+- (void)sqliteBind:(sqlite3_stmt *)bind index:(int)index;
 @end
 
 @implementation BRFileObjectID
@@ -104,12 +102,27 @@ LABEL_10:
   return v12;
 }
 
+- (void)sqliteBind:(sqlite3_stmt *)bind index:(int)index
+{
+  v4 = *&index;
+  asString = [(BRFileObjectID *)self asString];
+  [asString sqliteBind:bind index:v4];
+}
+
 + (id)newFromSqliteValue:(sqlite3_value *)value
 {
   v3 = [MEMORY[0x1E696AEC0] newFromSqliteValue:value];
   v4 = [objc_opt_class() fileObjectIDWithString:v3];
 
   return v4;
+}
+
++ (id)newFromSqliteStatement:(sqlite3_stmt *)statement atIndex:(int)index
+{
+  v4 = [MEMORY[0x1E696AEC0] newFromSqliteStatement:statement atIndex:*&index];
+  v5 = [objc_opt_class() fileObjectIDWithString:v4];
+
+  return v5;
 }
 
 - (NSNumber)folderID
@@ -186,32 +199,29 @@ LABEL_10:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = brc_bread_crumbs("[BRFileObjectID encodeWithCoder:]", 279);
   v4 = brc_default_log(0, 0);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_FAULT))
   {
-    v6 = 138412290;
-    v7 = v3;
-    _os_log_fault_impl(&dword_1AE2A9000, v4, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: implemented in subclass%@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v3;
+    _os_log_fault_impl(&dword_1AE2A9000, v4, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: implemented in subclass%@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (BRFileObjectID)initWithCoder:(id)coder
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   v4 = brc_bread_crumbs("[BRFileObjectID initWithCoder:]", 284);
   v5 = brc_default_log(0, 0);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_FAULT))
   {
-    v8 = 138412290;
-    v9 = v4;
-    _os_log_fault_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: implemented in subclass%@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = v4;
+    _os_log_fault_impl(&dword_1AE2A9000, v5, OS_LOG_TYPE_FAULT, "[CRIT] UNREACHABLE: implemented in subclass%@", &v7, 0xCu);
   }
 
-  v6 = *MEMORY[0x1E69E9840];
   return 0;
 }
 
@@ -249,53 +259,11 @@ LABEL_10:
   return v5;
 }
 
-+ (void)fileObjectIDWithString:.cold.1()
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, v0, v1, "[CRIT] UNREACHABLE: NSFileProviderRootContainerItemIdentifier should have special behavior while building fileObjectIDWithString%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
 + (void)fileObjectIDWithString:.cold.2()
 {
-  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_4_0();
   _os_log_error_impl(v0, v1, 0x90u, v2, v3, 0x16u);
-  v4 = *MEMORY[0x1E69E9840];
-}
-
-- (void)folderID
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, v0, v1, "[CRIT] UNREACHABLE: asked the folderID of a document%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)documentID
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, v0, v1, "[CRIT] UNREACHABLE: asked the documentID of a folder%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)itemDBRowID
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, v0, v1, "[CRIT] UNREACHABLE: asked the item db rowid of an item which isn't in the client_items%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-- (void)asString
-{
-  v8 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_5(&dword_1AE2A9000, v0, v1, "[CRIT] UNREACHABLE: you should subclass%@", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 @end

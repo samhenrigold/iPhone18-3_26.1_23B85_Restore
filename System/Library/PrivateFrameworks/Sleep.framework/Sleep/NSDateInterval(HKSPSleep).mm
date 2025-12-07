@@ -1,12 +1,12 @@
 @interface NSDateInterval(HKSPSleep)
 - (id)hkspDescription;
-- (uint64_t)hksp_containsDate:()HKSPSleep searchOptions:;
-- (uint64_t)hksp_overlapsInterval:()HKSPSleep searchOptions:;
+- (unint64_t)hksp_containsDate:()HKSPSleep searchOptions:;
+- (unint64_t)hksp_overlapsInterval:()HKSPSleep searchOptions:;
 @end
 
 @implementation NSDateInterval(HKSPSleep)
 
-- (uint64_t)hksp_containsDate:()HKSPSleep searchOptions:
+- (unint64_t)hksp_containsDate:()HKSPSleep searchOptions:
 {
   v6 = a3;
   startDate = [self startDate];
@@ -36,7 +36,7 @@
   return v9;
 }
 
-- (uint64_t)hksp_overlapsInterval:()HKSPSleep searchOptions:
+- (unint64_t)hksp_overlapsInterval:()HKSPSleep searchOptions:
 {
   v6 = a3;
   endDate = [self endDate];
@@ -70,15 +70,15 @@
 
 - (id)hkspDescription
 {
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
   startDate = [self startDate];
   hkspDescription = [startDate hkspDescription];
   endDate = [self endDate];
   hkspDescription2 = [endDate hkspDescription];
-  v8 = [v2 stringWithFormat:@"<%@:%p [%@ - %@] >", v3, self, hkspDescription, hkspDescription2];
+  v9 = [v3 stringWithFormat:@"<%@:%p [%@ - %@] >", v4, self, hkspDescription, hkspDescription2];
 
-  return v8;
+  return v9;
 }
 
 @end

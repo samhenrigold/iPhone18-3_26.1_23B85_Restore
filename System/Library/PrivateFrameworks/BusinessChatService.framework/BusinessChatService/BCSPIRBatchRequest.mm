@@ -6,11 +6,11 @@
 
 - (BCSPIRBatchRequest)initWithQuery:(id)query
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   queryCopy = query;
-  v28.receiver = self;
-  v28.super_class = BCSPIRBatchRequest;
-  v5 = [(BCSPIRBatchRequest *)&v28 init];
+  v27.receiver = self;
+  v27.super_class = BCSPIRBatchRequest;
+  v5 = [(BCSPIRBatchRequest *)&v27 init];
   if (v5)
   {
     v6 = objc_alloc(MEMORY[0x277CBEB38]);
@@ -23,26 +23,26 @@
     invalidIdentifiers = v5->_invalidIdentifiers;
     v5->_invalidIdentifiers = v10;
 
-    v26 = 0u;
-    v27 = 0u;
-    v24 = 0u;
     v25 = 0u;
+    v26 = 0u;
+    v23 = 0u;
+    v24 = 0u;
     itemIdentifiers2 = [queryCopy itemIdentifiers];
-    v13 = [itemIdentifiers2 countByEnumeratingWithState:&v24 objects:v29 count:16];
+    v13 = [itemIdentifiers2 countByEnumeratingWithState:&v23 objects:v28 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v25;
+      v15 = *v24;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(itemIdentifiers2);
           }
 
-          v17 = *(*(&v24 + 1) + 8 * i);
+          v17 = *(*(&v23 + 1) + 8 * i);
           if ([v17 conformsToProtocol:&unk_2854664E0])
           {
             v18 = v17;
@@ -65,14 +65,13 @@
           }
         }
 
-        v14 = [itemIdentifiers2 countByEnumeratingWithState:&v24 objects:v29 count:16];
+        v14 = [itemIdentifiers2 countByEnumeratingWithState:&v23 objects:v28 count:16];
       }
 
       while (v14);
     }
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

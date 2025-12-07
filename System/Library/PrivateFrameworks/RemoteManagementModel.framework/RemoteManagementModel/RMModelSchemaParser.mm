@@ -13,34 +13,34 @@
 
 + (id)loadSupportedOSFromDictionary:(id)dictionary
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v31 = objc_opt_new();
+    v30 = objc_opt_new();
+    v31 = 0u;
     v32 = 0u;
     v33 = 0u;
     v34 = 0u;
-    v35 = 0u;
     v5 = dictionaryCopy;
-    v30 = [v5 countByEnumeratingWithState:&v32 objects:v37 count:16];
-    if (v30)
+    v29 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+    if (v29)
     {
-      v29 = *v33;
-      v25 = dictionaryCopy;
+      v28 = *v32;
+      v24 = dictionaryCopy;
       selfCopy = self;
-      v27 = v5;
+      v26 = v5;
 LABEL_4:
       v6 = 0;
       while (1)
       {
-        if (*v33 != v29)
+        if (*v32 != v28)
         {
           objc_enumerationMutation(v5);
         }
 
-        v7 = *(*(&v32 + 1) + 8 * v6);
+        v7 = *(*(&v31 + 1) + 8 * v6);
         v8 = [self _platformFromString:v7];
         if (v8 != -1)
         {
@@ -49,7 +49,7 @@ LABEL_4:
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
-            dictionaryCopy = v25;
+            dictionaryCopy = v24;
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               +[RMModelSchemaParser loadSupportedOSFromDictionary:];
@@ -63,7 +63,7 @@ LABEL_4:
 
           if (!v12)
           {
-            dictionaryCopy = v25;
+            dictionaryCopy = v24;
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               +[RMModelSchemaParser loadSupportedOSFromDictionary:];
@@ -77,7 +77,7 @@ LABEL_4:
 
           if (!v14)
           {
-            dictionaryCopy = v25;
+            dictionaryCopy = v24;
             if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
             {
               +[RMModelSchemaParser loadSupportedOSFromDictionary:];
@@ -88,33 +88,33 @@ LABEL_27:
             goto LABEL_28;
           }
 
-          v36[0] = v14;
-          v36[1] = v12;
-          v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v36 count:2];
+          v35[0] = v14;
+          v35[1] = v12;
+          v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v35 count:2];
           v16 = [MEMORY[0x277CCABB0] numberWithInteger:v9];
-          [v31 setObject:v15 forKeyedSubscript:v16];
+          [v30 setObject:v15 forKeyedSubscript:v16];
 
           v17 = [v10 objectForKeyedSubscript:@"variant"];
           v18 = [self _parseVariants:v17];
 
           if (v18)
           {
-            v28 = [MEMORY[0x277CCABB0] numberWithInteger:v9];
-            v19 = [v31 objectForKeyedSubscript:v28];
+            v27 = [MEMORY[0x277CCABB0] numberWithInteger:v9];
+            v19 = [v30 objectForKeyedSubscript:v27];
             v20 = [v19 arrayByAddingObject:v18];
             v21 = [MEMORY[0x277CCABB0] numberWithInteger:v9];
-            [v31 setObject:v20 forKeyedSubscript:v21];
+            [v30 setObject:v20 forKeyedSubscript:v21];
 
-            v5 = v27;
+            v5 = v26;
             self = selfCopy;
           }
         }
 
-        if (v30 == ++v6)
+        if (v29 == ++v6)
         {
-          dictionaryCopy = v25;
-          v30 = [v5 countByEnumeratingWithState:&v32 objects:v37 count:16];
-          if (v30)
+          dictionaryCopy = v24;
+          v29 = [v5 countByEnumeratingWithState:&v31 objects:v36 count:16];
+          if (v29)
           {
             goto LABEL_4;
           }
@@ -124,7 +124,7 @@ LABEL_27:
       }
     }
 
-    v22 = [v31 copy];
+    v22 = [v30 copy];
 LABEL_28:
   }
 
@@ -138,39 +138,37 @@ LABEL_28:
     v22 = 0;
   }
 
-  v23 = *MEMORY[0x277D85DE8];
-
   return v22;
 }
 
 + (id)_parseEnrollmentTypes:(id)types
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   typesCopy = types;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v5 = objc_opt_new();
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v6 = typesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
+          v11 = *(*(&v16 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -183,7 +181,7 @@ LABEL_28:
             goto LABEL_19;
           }
 
-          v12 = [self _enrollmentTypeFromString:{v11, v17}];
+          v12 = [self _enrollmentTypeFromString:{v11, v16}];
           if (v12 != -1)
           {
             v13 = [MEMORY[0x277CCABB0] numberWithInteger:v12];
@@ -191,7 +189,7 @@ LABEL_28:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v8)
         {
           continue;
@@ -215,39 +213,37 @@ LABEL_19:
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 + (id)_parseScopes:(id)scopes
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   scopesCopy = scopes;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
     v5 = objc_opt_new();
+    v16 = 0u;
     v17 = 0u;
     v18 = 0u;
     v19 = 0u;
-    v20 = 0u;
     v6 = scopesCopy;
-    v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+    v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v18;
+      v9 = *v17;
       while (2)
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v18 != v9)
+          if (*v17 != v9)
           {
             objc_enumerationMutation(v6);
           }
 
-          v11 = *(*(&v17 + 1) + 8 * i);
+          v11 = *(*(&v16 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -260,7 +256,7 @@ LABEL_19:
             goto LABEL_19;
           }
 
-          v12 = [self _scopeFromString:{v11, v17}];
+          v12 = [self _scopeFromString:{v11, v16}];
           if (v12 != -1)
           {
             v13 = [MEMORY[0x277CCABB0] numberWithInteger:v12];
@@ -268,7 +264,7 @@ LABEL_19:
           }
         }
 
-        v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+        v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
         if (v8)
         {
           continue;
@@ -292,14 +288,12 @@ LABEL_19:
     v14 = 0;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 + (id)_parseVariants:(id)variants
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   variantsCopy = variants;
   if (!variantsCopy)
   {
@@ -320,26 +314,26 @@ LABEL_16:
   }
 
   v5 = objc_opt_new();
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v6 = variantsCopy;
-  v7 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     while (2)
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         objc_opt_class();
         if ((objc_opt_isKindOfClass() & 1) == 0)
         {
@@ -352,7 +346,7 @@ LABEL_16:
           goto LABEL_20;
         }
 
-        v12 = [self _variantFromString:{v11, v17}];
+        v12 = [self _variantFromString:{v11, v16}];
         if (v12 != -1)
         {
           v13 = [MEMORY[0x277CCABB0] numberWithInteger:v12];
@@ -360,7 +354,7 @@ LABEL_16:
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v8)
       {
         continue;
@@ -374,7 +368,6 @@ LABEL_16:
 LABEL_20:
 
 LABEL_21:
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -515,65 +508,51 @@ LABEL_21:
 
 + (void)loadSupportedOSFromDictionary:.cold.2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)loadSupportedOSFromDictionary:.cold.3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)loadSupportedOSFromDictionary:.cold.4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_platformFromString:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_enrollmentTypeFromString:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_scopeFromString:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 + (void)_variantFromString:.cold.1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_0();
   OUTLINED_FUNCTION_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

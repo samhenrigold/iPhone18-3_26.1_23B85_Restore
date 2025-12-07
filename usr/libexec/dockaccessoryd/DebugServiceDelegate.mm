@@ -10,15 +10,15 @@
   listenerCopy = listener;
   connectionCopy = connection;
   selfCopy = self;
-  v9 = sub_1001E258C(connectionCopy);
+  v10 = sub_1001E258C(connectionCopy, v9);
 
-  return v9 & 1;
+  return v10 & 1;
 }
 
 - (_TtC14dockaccessoryd20DebugServiceDelegate)init
 {
   v3.receiver = self;
-  v3.super_class = type metadata accessor for DebugServiceDelegate();
+  v3.super_class = type metadata accessor for DebugServiceDelegate(self, a2);
   return [(DebugServiceDelegate *)&v3 init];
 }
 

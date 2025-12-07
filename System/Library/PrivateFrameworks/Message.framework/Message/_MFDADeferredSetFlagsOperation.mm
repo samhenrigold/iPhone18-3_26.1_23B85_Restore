@@ -63,16 +63,16 @@
 
 - (BOOL)translateToLocalActionWithConnection:(id)connection
 {
-  v47[1] = *MEMORY[0x1E69E9840];
+  v46[1] = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   onFlags = self->_onFlags;
   offFlags = self->_offFlags;
+  v41 = 0;
   v42 = 0;
-  v43 = 0;
-  v7 = [(_MFOfflineCacheOperation *)self databaseID:&v43 andMailbox:&v42 forMessageWithRemoteID:self->_messageID connection:connectionCopy];
-  v36 = v43;
-  v37 = v42;
-  if (!v37)
+  v7 = [(_MFOfflineCacheOperation *)self databaseID:&v42 andMailbox:&v41 forMessageWithRemoteID:self->_messageID connection:connectionCopy];
+  v35 = v42;
+  v36 = v41;
+  if (!v36)
   {
     v11 = +[_MFDADeferredSetFlagsOperation log];
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
@@ -86,11 +86,11 @@
   if (v7)
   {
     v8 = [connectionCopy preparedStatementForQueryString:{@"INSERT INTO local_message_actions (action_type, mailbox, source_mailbox, destination_mailbox, user_initiated) VALUES (3, ?, NULL, NULL, 0)"}];
-    v47[0] = v37;
-    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v47 count:1];
-    v41 = 0;
-    v10 = [v8 executeWithIndexedBindings:v9 usingBlock:0 error:&v41];
-    v11 = v41;
+    v46[0] = v36;
+    v9 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:1];
+    v40 = 0;
+    v10 = [v8 executeWithIndexedBindings:v9 usingBlock:0 error:&v40];
+    v11 = v40;
 
     if (v10)
     {
@@ -98,19 +98,19 @@
 
       if (onFlags & 1 | offFlags & 1)
       {
-        v34 = [connectionCopy preparedStatementForQueryString:{@"INSERT INTO action_flags (action, flag_type, flag_value) VALUES (?, 1, ?)"}];
-        v33 = [MEMORY[0x1E696AD98] numberWithLongLong:lastInsertedDatabaseID];
-        v46[0] = v33;
+        v33 = [connectionCopy preparedStatementForQueryString:{@"INSERT INTO action_flags (action, flag_type, flag_value) VALUES (?, 1, ?)"}];
+        v32 = [MEMORY[0x1E696AD98] numberWithLongLong:lastInsertedDatabaseID];
+        v45[0] = v32;
         v12 = [MEMORY[0x1E696AD98] numberWithBool:onFlags & 1];
-        v46[1] = v12;
-        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v46 count:2];
-        v40 = v11;
-        v14 = [v34 executeWithIndexedBindings:v13 usingBlock:0 error:&v40];
-        v15 = v40;
+        v45[1] = v12;
+        v13 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
+        v39 = v11;
+        v14 = [v33 executeWithIndexedBindings:v13 usingBlock:0 error:&v39];
+        v15 = v39;
 
         if ((v14 & 1) == 0)
         {
-          v8 = v34;
+          v8 = v33;
           [connectionCopy handleError:v15 message:@"Inserting read flag change"];
           LOBYTE(v7) = 0;
           v11 = v15;
@@ -131,13 +131,13 @@
 LABEL_15:
           v28 = [connectionCopy preparedStatementForQueryString:{@"INSERT INTO action_messages (action, message, remote_id, destination_message, action_phase) VALUES (?, ?, ?, NULL, 0)"}];
           v29 = [MEMORY[0x1E696AD98] numberWithLongLong:lastInsertedDatabaseID];
-          v44[0] = v29;
-          v44[1] = v36;
-          v44[2] = self->_messageID;
-          v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:3];
-          v38 = v15;
-          LOBYTE(v7) = [v28 executeWithIndexedBindings:v30 usingBlock:0 error:&v38];
-          v11 = v38;
+          v43[0] = v29;
+          v43[1] = v35;
+          v43[2] = self->_messageID;
+          v30 = [MEMORY[0x1E695DEC8] arrayWithObjects:v43 count:3];
+          v37 = v15;
+          LOBYTE(v7) = [v28 executeWithIndexedBindings:v30 usingBlock:0 error:&v37];
+          v11 = v37;
 
           if ((v7 & 1) == 0)
           {
@@ -151,15 +151,15 @@ LABEL_15:
 
       v22 = [connectionCopy preparedStatementForQueryString:{@"INSERT INTO action_flags (action, flag_type, flag_value) VALUES (?, 4, ?)"}];
       v23 = [MEMORY[0x1E696AD98] numberWithLongLong:lastInsertedDatabaseID];
-      v45[0] = v23;
+      v44[0] = v23;
       v24 = [MEMORY[0x1E696AD98] numberWithBool:(onFlags >> 1) & 1];
-      v45[1] = v24;
-      v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v45 count:2];
+      v44[1] = v24;
+      v25 = [MEMORY[0x1E695DEC8] arrayWithObjects:v44 count:2];
       v26 = v23;
-      v39 = v15;
+      v38 = v15;
       v27 = v22;
-      LODWORD(v22) = [v22 executeWithIndexedBindings:v25 usingBlock:0 error:&v39];
-      v11 = v39;
+      LODWORD(v22) = [v22 executeWithIndexedBindings:v25 usingBlock:0 error:&v38];
+      v11 = v38;
 
       if (v22)
       {
@@ -183,28 +183,25 @@ LABEL_19:
 LABEL_20:
   }
 
-  v31 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
 - (id)description
 {
   v3 = MEMORY[0x1E696AEC0];
-  v8.receiver = self;
-  v8.super_class = _MFDADeferredSetFlagsOperation;
-  v4 = [(_MFDADeferredSetFlagsOperation *)&v8 description];
-  onFlags = self->_onFlags;
-  v6 = [v3 stringWithFormat:@"%@ message-id %@, on-flags %llu, off-flags %llu", v4, self->_messageID, onFlags, self->_offFlags];
+  v7.receiver = self;
+  v7.super_class = _MFDADeferredSetFlagsOperation;
+  v4 = [(_MFDADeferredSetFlagsOperation *)&v7 description];
+  v5 = [v3 stringWithFormat:@"%@ message-id %@, on-flags %llu, off-flags %llu", v4, self->_messageID, self->_onFlags, self->_offFlags];
 
-  return v6;
+  return v5;
 }
 
 - (void)translateToLocalActionWithConnection:(uint64_t)a3 .cold.1(void *a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v9 = HIDWORD(*a1);
-  OUTLINED_FUNCTION_1_2(&dword_1B0389000, a2, a3, "DAMessageID: %@ and corresponding mailboxNumber not found.", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x1E69E9840];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = *a1;
+  OUTLINED_FUNCTION_1_2(&dword_1B0389000, a2, a3, "DAMessageID: %@ and corresponding mailboxNumber not found.", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

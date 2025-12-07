@@ -54,7 +54,7 @@
 
 - (void)discardSignatureWithID:(id)d
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   dCopy = d;
   currentSignature = [(SHSignatureBuffer *)self currentSignature];
   v6 = [currentSignature _ID];
@@ -72,19 +72,19 @@
     v15 = v10 - (v13 + v14);
 
     signatureGenerator2 = [(SHSignatureBuffer *)self signatureGenerator];
-    v27 = 0;
-    v17 = [signatureGenerator2 updateRingBufferDuration:&v27 error:v15];
-    v18 = v27;
+    v28 = 0;
+    v17 = [signatureGenerator2 updateRingBufferDuration:&v28 error:v15];
+    v18 = v28;
 
     if (v17)
     {
       signatureGenerator3 = [(SHSignatureBuffer *)self signatureGenerator];
       [(SHSignatureBuffer *)self bufferMaxSize];
-      v26 = v18;
-      v20 = [signatureGenerator3 updateRingBufferDuration:&v26 error:?];
-      v21 = v26;
+      v27 = v18;
+      v21 = [signatureGenerator3 updateRingBufferDuration:&v27 error:?];
+      v22 = v27;
 
-      if (v20)
+      if (v21)
       {
         [(SHSignatureBuffer *)self setCurrentSignature:0];
         [(SHSignatureBuffer *)self setSignatureOffset:0.0];
@@ -92,40 +92,38 @@
 
       else
       {
-        v23 = sh_log_object();
-        if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+        v25 = sh_log_object(v23);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           [(SHSignatureBuffer *)self bufferMaxSize];
           *buf = 134218242;
-          v29 = v24;
-          v30 = 2112;
-          v31 = v21;
-          _os_log_impl(&dword_230F52000, v23, OS_LOG_TYPE_ERROR, "Failed to update ring buffer duration to %f, resetting %@", buf, 0x16u);
+          v30 = v26;
+          v31 = 2112;
+          v32 = v22;
+          _os_log_impl(&dword_230F52000, v25, OS_LOG_TYPE_ERROR, "Failed to update ring buffer duration to %f, resetting %@", buf, 0x16u);
         }
 
         [(SHSignatureBuffer *)self reset];
       }
 
-      v18 = v21;
+      v18 = v22;
     }
 
     else
     {
-      v22 = sh_log_object();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v24 = sh_log_object(v19);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
         *buf = 134218242;
-        v29 = v15;
-        v30 = 2112;
-        v31 = v18;
-        _os_log_impl(&dword_230F52000, v22, OS_LOG_TYPE_ERROR, "Failed to update ring buffer duration to %f, resetting %@", buf, 0x16u);
+        v30 = v15;
+        v31 = 2112;
+        v32 = v18;
+        _os_log_impl(&dword_230F52000, v24, OS_LOG_TYPE_ERROR, "Failed to update ring buffer duration to %f, resetting %@", buf, 0x16u);
       }
 
       [(SHSignatureBuffer *)self reset];
     }
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (void)reset
@@ -179,24 +177,22 @@
 
   if ((v10 & 1) == 0)
   {
-    v12 = sh_log_object();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sh_log_object(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
       *buf = 138412290;
       v19 = v11;
-      _os_log_impl(&dword_230F52000, v12, OS_LOG_TYPE_ERROR, "Failed to append to signature buffer, resetting %@", buf, 0xCu);
+      _os_log_impl(&dword_230F52000, v13, OS_LOG_TYPE_ERROR, "Failed to append to signature buffer, resetting %@", buf, 0xCu);
     }
 
     [(SHSignatureBuffer *)self reset];
     signatureGenerator2 = [(SHSignatureBuffer *)self signatureGenerator];
     v16 = v11;
     [signatureGenerator2 appendBuffer:flowCopy atTime:timeCopy error:&v16];
-    v14 = v16;
+    v15 = v16;
 
-    v11 = v14;
+    v11 = v15;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (id)generateCurrentSignature
@@ -218,19 +214,19 @@
   }
 
   [(SHSignatureBuffer *)self minimumMusicalFeaturesDuration];
-  if (v8 > 0.0 && ([signature musicalFeaturesDuration], v10 = v9, -[SHSignatureBuffer minimumMusicalFeaturesDuration](self, "minimumMusicalFeaturesDuration"), v10 >= v11))
+  if (v8 > 0.0 && ([signature musicalFeaturesDuration], v10 = v9, v11 = -[SHSignatureBuffer minimumMusicalFeaturesDuration](self, "minimumMusicalFeaturesDuration"), v10 >= v12))
   {
-    v13 = sh_log_object();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = sh_log_object(v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       [signature musicalFeaturesDuration];
-      v15 = v14;
+      v16 = v15;
       [(SHSignatureBuffer *)self minimumMusicalFeaturesDuration];
       *buf = 134218240;
-      v63 = v15;
+      v63 = v16;
       v64 = 2048;
-      v65 = v16;
-      _os_log_impl(&dword_230F52000, v13, OS_LOG_TYPE_DEFAULT, "Musical features component (%.2fs) does meet duration threshold (%.2fs)", buf, 0x16u);
+      v65 = v17;
+      _os_log_impl(&dword_230F52000, v14, OS_LOG_TYPE_DEFAULT, "Musical features component (%.2fs) does meet duration threshold (%.2fs)", buf, 0x16u);
     }
 
     musicalFeaturesData = [signature musicalFeaturesData];
@@ -241,13 +237,13 @@
     musicalFeaturesData = 0;
   }
 
-  v17 = [SHSignature alloc];
+  v18 = [SHSignature alloc];
   spectralPeaksData = [signature spectralPeaksData];
   time = [signature time];
   v61 = 0;
-  v20 = [(SHSignature *)v17 initWithID:uUID spectralPeaksData:spectralPeaksData musicalFeaturesData:musicalFeaturesData startTime:time error:&v61];
-  v21 = v61;
-  [(SHSignatureBuffer *)self setCurrentSignature:v20];
+  v21 = [(SHSignature *)v18 initWithID:uUID spectralPeaksData:spectralPeaksData musicalFeaturesData:musicalFeaturesData startTime:time error:&v61];
+  v22 = v61;
+  [(SHSignatureBuffer *)self setCurrentSignature:v21];
 
   currentSignature3 = [(SHSignatureBuffer *)self currentSignature];
 
@@ -256,20 +252,20 @@
     [(SHSignatureBuffer *)self reset];
     currentSignature5 = objc_opt_new();
 LABEL_19:
-    v54 = currentSignature5;
+    v55 = currentSignature5;
     goto LABEL_20;
   }
 
   currentSignature4 = [(SHSignatureBuffer *)self currentSignature];
   [currentSignature4 spectralPeaksDuration];
-  v25 = v24;
+  v26 = v25;
   [(SHSignatureBuffer *)self maximumSignatureDuration];
-  if (v25 <= v26)
+  if (v26 <= v27)
   {
     [(SHSignatureBuffer *)self signatureOffset];
-    v29 = v28;
+    v30 = v29;
 
-    if (v29 <= 0.0)
+    if (v30 <= 0.0)
     {
 LABEL_18:
       currentSignature5 = [(SHSignatureBuffer *)self currentSignature];
@@ -284,39 +280,39 @@ LABEL_18:
   currentSignature6 = [(SHSignatureBuffer *)self currentSignature];
   spectralPeaksData2 = [currentSignature6 spectralPeaksData];
   [(SHSignatureBuffer *)self signatureOffset];
-  v33 = v32;
+  v34 = v33;
   [(SHSignatureBuffer *)self maximumSignatureDuration];
-  v60 = v21;
-  v35 = [SigCrop cropSignature:spectralPeaksData2 atPosition:&v60 withDuration:v33 error:v34];
-  v36 = v60;
+  v60 = v22;
+  v36 = [SigCrop cropSignature:spectralPeaksData2 atPosition:&v60 withDuration:v34 error:v35];
+  v37 = v60;
 
-  if (v35)
+  if (v36)
   {
     v57 = musicalFeaturesData;
     [(SHSignatureBuffer *)self signatureOffset];
-    v38 = v37;
+    v39 = v38;
     format = [(SHSignatureBuffer *)self format];
     [format sampleRate];
-    v41 = uUID;
-    v42 = (v38 * v40);
+    v42 = uUID;
+    v43 = (v39 * v41);
 
-    v43 = objc_alloc(MEMORY[0x277CB8428]);
+    v44 = objc_alloc(MEMORY[0x277CB8428]);
     time2 = [signature time];
     [time2 sampleRate];
-    v46 = (v45 + v42);
+    v47 = (v46 + v43);
     format2 = [(SHSignatureBuffer *)self format];
     [format2 sampleRate];
-    v48 = [v43 initWithSampleTime:v46 atRate:?];
+    v49 = [v44 initWithSampleTime:v47 atRate:?];
 
-    v49 = [SHSignature alloc];
+    v50 = [SHSignature alloc];
     currentSignature7 = [(SHSignatureBuffer *)self currentSignature];
     musicalFeaturesData2 = [currentSignature7 musicalFeaturesData];
-    v58 = v41;
-    v59 = v36;
-    v52 = [(SHSignature *)v49 initWithID:v41 spectralPeaksData:v35 musicalFeaturesData:musicalFeaturesData2 startTime:v48 error:&v59];
-    v21 = v59;
+    v58 = v42;
+    v59 = v37;
+    v53 = [(SHSignature *)v50 initWithID:v42 spectralPeaksData:v36 musicalFeaturesData:musicalFeaturesData2 startTime:v49 error:&v59];
+    v22 = v59;
 
-    [(SHSignatureBuffer *)self setCurrentSignature:v52];
+    [(SHSignatureBuffer *)self setCurrentSignature:v53];
     currentSignature8 = [(SHSignatureBuffer *)self currentSignature];
 
     if (currentSignature8)
@@ -328,7 +324,7 @@ LABEL_18:
     }
 
     [(SHSignatureBuffer *)self reset];
-    v54 = objc_opt_new();
+    v55 = objc_opt_new();
 
     musicalFeaturesData = v57;
     uUID = v58;
@@ -337,15 +333,13 @@ LABEL_18:
   else
   {
     [(SHSignatureBuffer *)self reset];
-    v54 = objc_opt_new();
-    v21 = v36;
+    v55 = objc_opt_new();
+    v22 = v37;
   }
 
 LABEL_20:
 
-  v55 = *MEMORY[0x277D85DE8];
-
-  return v54;
+  return v55;
 }
 
 - (void)setShouldGenerateSpectralOutput:(BOOL)output

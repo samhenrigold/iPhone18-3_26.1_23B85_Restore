@@ -20,7 +20,7 @@
 
 - (id)getFullorHalfSheetPromptedAt
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF28E20);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF28E20, &unk_1E42986D0);
   OUTLINED_FUNCTION_17_2(v3);
   OUTLINED_FUNCTION_5_7();
   MEMORY[0x1EEE9AC00](v4);
@@ -43,7 +43,7 @@
 
 - (void)markFullorHalfSheetPromptAt:(id)at
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF28E20);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_1ECF28E20, &unk_1E42986D0);
   OUTLINED_FUNCTION_17_2(v6);
   OUTLINED_FUNCTION_5_7();
   MEMORY[0x1EEE9AC00](v7);
@@ -65,7 +65,7 @@
   selfCopy = self;
   sub_1E329D524();
 
-  sub_1E325F6F0(v3, &unk_1ECF28E20);
+  sub_1E325F6F0(v3, &unk_1ECF28E20, &unk_1E42986D0);
 }
 
 - (void)handleTabBarChange:(id)change
@@ -75,12 +75,13 @@
   OUTLINED_FUNCTION_0_10();
   MEMORY[0x1EEE9AC00](v4);
   OUTLINED_FUNCTION_5();
+  v7 = v6 - v5;
   sub_1E41FDEE4();
-  v5 = v3;
-  sub_1E3B5BA74();
+  v8 = v3;
+  sub_1E3B5BA74(v7, v9);
 
-  v6 = OUTLINED_FUNCTION_74();
-  v7(v6);
+  v10 = OUTLINED_FUNCTION_74();
+  v11(v10);
 }
 
 - (void)engagementViewController:(id)controller contentViewControllerWithDictionary:(id)dictionary completionHandler:(id)handler

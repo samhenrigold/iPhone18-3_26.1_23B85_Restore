@@ -32,8 +32,9 @@
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_1000571A8(disappear);
+  sub_1000571A8(disappearCopy);
 }
 
 - (void)dismissPressed

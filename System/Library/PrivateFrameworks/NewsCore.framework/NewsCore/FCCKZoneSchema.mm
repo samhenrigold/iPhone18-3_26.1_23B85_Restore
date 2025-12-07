@@ -12,53 +12,51 @@
 
 + (id)zoneWithName:(uint64_t)name
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v2 = a2;
   objc_opt_self();
   if ([v2 isEqualToString:*MEMORY[0x1E695B800]] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v6 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"use defaultZoneWithRecords: for the default zone"];
-    v7 = 136315906;
-    v8 = "+[FCCKZoneSchema zoneWithName:]";
-    v9 = 2080;
-    v10 = "FCCKZoneSchema.m";
-    v11 = 1024;
-    v12 = 16;
-    v13 = 2114;
-    v14 = v6;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v7, 0x26u);
+    v5 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"use defaultZoneWithRecords: for the default zone"];
+    v6 = 136315906;
+    v7 = "+[FCCKZoneSchema zoneWithName:]";
+    v8 = 2080;
+    v9 = "FCCKZoneSchema.m";
+    v10 = 1024;
+    v11 = 16;
+    v12 = 2114;
+    v13 = v5;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v6, 0x26u);
   }
 
   v3 = [[FCCKZoneSchema alloc] initWithZoneName:v2 options:0 staticRecordNames:0];
-
-  v4 = *MEMORY[0x1E69E9840];
 
   return v3;
 }
 
 - (id)initWithZoneName:(char)name options:(void *)options staticRecordNames:
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   v8 = a2;
   optionsCopy = options;
   if (self)
   {
-    v18.receiver = self;
-    v18.super_class = FCCKZoneSchema;
-    self = objc_msgSendSuper2(&v18, sel_init);
+    v17.receiver = self;
+    v17.super_class = FCCKZoneSchema;
+    self = objc_msgSendSuper2(&v17, sel_init);
     if (self)
     {
       if ((name & 6) == 4 && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
       {
-        v17 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"zone-wide PCS is required for the secure container"];
+        v16 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"zone-wide PCS is required for the secure container"];
         *buf = 136315906;
-        v20 = "[FCCKZoneSchema initWithZoneName:options:staticRecordNames:]";
-        v21 = 2080;
-        v22 = "FCCKZoneSchema.m";
-        v23 = 1024;
-        v24 = 53;
-        v25 = 2114;
-        v26 = v17;
+        v19 = "[FCCKZoneSchema initWithZoneName:options:staticRecordNames:]";
+        v20 = 2080;
+        v21 = "FCCKZoneSchema.m";
+        v22 = 1024;
+        v23 = 53;
+        v24 = 2114;
+        v25 = v16;
         _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
       }
 
@@ -78,33 +76,30 @@
     }
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return self;
 }
 
 + (id)zoneWithName:(char)name options:(void *)options staticRecordNames:
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v6 = a2;
   optionsCopy = options;
   objc_opt_self();
   if ([v6 isEqualToString:*MEMORY[0x1E695B800]] && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"use defaultZoneWithRecords: for the default zone"];
-    v12 = 136315906;
-    v13 = "+[FCCKZoneSchema zoneWithName:options:staticRecordNames:]";
-    v14 = 2080;
-    v15 = "FCCKZoneSchema.m";
-    v16 = 1024;
-    v17 = 27;
-    v18 = 2114;
-    v19 = v11;
-    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v12, 0x26u);
+    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"use defaultZoneWithRecords: for the default zone"];
+    v11 = 136315906;
+    v12 = "+[FCCKZoneSchema zoneWithName:options:staticRecordNames:]";
+    v13 = 2080;
+    v14 = "FCCKZoneSchema.m";
+    v15 = 1024;
+    v16 = 27;
+    v17 = 2114;
+    v18 = v10;
+    _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", &v11, 0x26u);
   }
 
   v8 = [[FCCKZoneSchema alloc] initWithZoneName:v6 options:name staticRecordNames:optionsCopy];
-
-  v9 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

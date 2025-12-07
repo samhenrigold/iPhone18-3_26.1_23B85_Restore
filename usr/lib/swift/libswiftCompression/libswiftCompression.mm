@@ -56,11 +56,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance Algorit
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Algorithm()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance Algorithm(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(dword_299A4CE48[v1]);
+  Hasher._combine(_:)(dword_299A4CE48[v2]);
   return Hasher._finalize()();
 }
 
@@ -93,11 +93,11 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance FilterO
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FilterOperation()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FilterOperation(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 
@@ -143,15 +143,15 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance FilterE
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FilterError()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance FilterError(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  MEMORY[0x29C2A99C0](v1);
+  MEMORY[0x29C2A99C0](v2);
   return Hasher._finalize()();
 }
 
-uint64_t OutputFilter.__allocating_init(_:using:bufferCapacity:writingTo:)(unsigned __int8 *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t OutputFilter.__allocating_init(_:using:bufferCapacity:writingTo:)(char *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v11 = swift_allocObject();
   v12 = *a1;
@@ -181,7 +181,7 @@ uint64_t OutputFilter.__allocating_init(_:using:bufferCapacity:writingTo:)(unsig
   return v11;
 }
 
-uint64_t OutputFilter.init(_:using:bufferCapacity:writingTo:)(unsigned __int8 *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t OutputFilter.init(_:using:bufferCapacity:writingTo:)(char *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v10 = *a1;
   v11 = *a2;
@@ -213,45 +213,42 @@ uint64_t OutputFilter.init(_:using:bufferCapacity:writingTo:)(unsigned __int8 *a
 
 void OutputFilter.write<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v52 = a1;
+  v48 = a1;
   swift_getAssociatedTypeWitness();
-  v53 = a3;
+  v49 = a3;
   v5 = *(*(swift_getAssociatedConformanceWitness() + 8) + 8);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v47 = *(AssociatedTypeWitness - 8);
-  v7 = (*(v47 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (MEMORY[0x2A1C7C4A8])();
-  v48 = &v39 - v8;
-  v9 = (*(*(type metadata accessor for Optional() - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (MEMORY[0x2A1C7C4A8])();
-  v46 = &v39 - v10;
-  v11 = (*(*(swift_checkMetadataState() - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (MEMORY[0x2A1C7C4A8])();
-  v42 = &v39 - v12;
-  v43 = v13;
-  v44 = v5;
-  v51 = swift_getAssociatedTypeWitness();
-  v45 = *(v51 - 8);
-  v14 = (*(v45 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  (MEMORY[0x2A1C7C4A8])();
-  v50 = &v39 - v15;
-  v16 = type metadata accessor for Optional();
-  v17 = *(v16 - 8);
-  v18 = *(v17 + 64);
-  v19 = (MEMORY[0x2A1C7C4A8])();
-  v49 = &v39 - ((v20 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x2A1C7C4A8](v19);
-  v22 = &v39 - v21;
-  v23 = *(a2 - 8);
-  v24 = *(v23 + 48);
-  if (v24(v52, 1, a2) == 1)
+  v43 = *(AssociatedTypeWitness - 8);
+  MEMORY[0x2A1C7C4A8](AssociatedTypeWitness);
+  v44 = &v35 - v7;
+  v8 = type metadata accessor for Optional();
+  MEMORY[0x2A1C7C4A8](v8 - 8);
+  v42 = &v35 - v9;
+  v10 = swift_checkMetadataState();
+  MEMORY[0x2A1C7C4A8](v10);
+  v38 = &v35 - v11;
+  v39 = v12;
+  v40 = v5;
+  v47 = swift_getAssociatedTypeWitness();
+  v41 = *(v47 - 8);
+  MEMORY[0x2A1C7C4A8](v47);
+  v46 = &v35 - v13;
+  v14 = type metadata accessor for Optional();
+  v15 = *(v14 - 8);
+  v16 = MEMORY[0x2A1C7C4A8](v14);
+  v45 = &v35 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x2A1C7C4A8](v16);
+  v19 = &v35 - v18;
+  v20 = *(a2 - 8);
+  v21 = *(v20 + 48);
+  if (v21(v48, 1, a2) == 1)
   {
     goto LABEL_4;
   }
 
-  v41 = *(v17 + 16);
-  v41(v22, v52, v16);
-  if (v24(v22, 1, a2) == 1)
+  v37 = *(v15 + 16);
+  v37(v19, v48, v14);
+  if (v21(v19, 1, a2) == 1)
   {
     __break(1u);
 LABEL_15:
@@ -259,101 +256,99 @@ LABEL_15:
     return;
   }
 
-  v25 = *(*(*(v53 + 8) + 8) + 8);
-  v26 = dispatch thunk of Collection.isEmpty.getter();
-  v40 = *(v23 + 8);
-  v40(v22, a2);
-  if (v26)
+  v22 = dispatch thunk of Collection.isEmpty.getter();
+  v36 = *(v20 + 8);
+  v36(v19, a2);
+  if (v22)
   {
 LABEL_4:
     OutputFilter.finalize()();
     return;
   }
 
-  if (*(v54 + 88) == 1)
+  if (*(v50 + 88) == 1)
   {
     lazy protocol witness table accessor for type FilterError and conformance FilterError();
     swift_allocError();
-    *v27 = 1;
+    *v23 = 1;
     swift_willThrow();
     return;
   }
 
-  v28 = v49;
-  v41(v49, v52, v16);
-  if (v24(v28, 1, a2) == 1)
+  v24 = v45;
+  v37(v45, v48, v14);
+  if (v21(v24, 1, a2) == 1)
   {
     goto LABEL_15;
   }
 
   dispatch thunk of DataProtocol.regions.getter();
-  v40(v28, a2);
+  v36(v24, a2);
   dispatch thunk of Sequence.makeIterator()();
   AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v30 = v46;
-  v52 = AssociatedConformanceWitness;
+  v26 = v42;
+  v48 = AssociatedConformanceWitness;
   dispatch thunk of IteratorProtocol.next()();
-  v31 = v47;
-  v49 = *(v47 + 48);
-  v32 = (v49)(v30, 1, AssociatedTypeWitness);
-  v33 = v48;
-  if (v32 == 1)
+  v27 = v43;
+  v45 = *(v43 + 48);
+  v28 = (v45)(v26, 1, AssociatedTypeWitness);
+  v29 = v44;
+  if (v28 == 1)
   {
 LABEL_12:
-    (*(v45 + 8))(v50, v51);
+    (*(v41 + 8))(v46, v47);
   }
 
   else
   {
-    v47 = *(v31 + 32);
-    v34 = (v31 + 8);
+    v43 = *(v27 + 32);
+    v30 = (v27 + 8);
     while (1)
     {
-      v35 = (v47)(v33, v30, AssociatedTypeWitness);
-      MEMORY[0x2A1C7C4A8](v35);
-      v36 = v53;
-      v37 = v54;
-      *(&v39 - 4) = a2;
-      *(&v39 - 3) = v36;
-      *(&v39 - 2) = v37;
-      *(&v39 - 1) = v33;
+      v31 = (v43)(v29, v26, AssociatedTypeWitness);
+      MEMORY[0x2A1C7C4A8](v31);
+      v32 = v49;
+      v33 = v50;
+      *(&v35 - 4) = a2;
+      *(&v35 - 3) = v32;
+      *(&v35 - 2) = v33;
+      *(&v35 - 1) = v29;
       swift_getAssociatedConformanceWitness();
-      v38 = v55;
+      v34 = v51;
       dispatch thunk of ContiguousBytes.withUnsafeBytes<A>(_:)();
-      if (v38)
+      if (v34)
       {
         break;
       }
 
-      v55 = 0;
-      (*v34)(v33, AssociatedTypeWitness);
+      v51 = 0;
+      (*v30)(v29, AssociatedTypeWitness);
       dispatch thunk of IteratorProtocol.next()();
-      if ((v49)(v30, 1, AssociatedTypeWitness) == 1)
+      if ((v45)(v26, 1, AssociatedTypeWitness) == 1)
       {
         goto LABEL_12;
       }
     }
 
-    (*(v45 + 8))(v50, v51);
-    (*v34)(v33, AssociatedTypeWitness);
+    (*(v41 + 8))(v46, v47);
+    (*v30)(v29, AssociatedTypeWitness);
   }
 }
 
-uint64_t closure #1 in OutputFilter.write<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t closure #1 in OutputFilter.write<A>(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v35 = a3;
-  v37 = type metadata accessor for Data.Deallocator();
-  v33 = *(v37 - 8);
-  v6 = *(v33 + 64);
-  MEMORY[0x2A1C7C4A8]();
-  v8 = &v33 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v29 = a3;
+  v31 = type metadata accessor for Data.Deallocator();
+  v27 = *(v31 - 8);
+  MEMORY[0x2A1C7C4A8](v31);
+  v9 = &v27 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   swift_getAssociatedTypeWitness();
-  v9 = *(*(swift_getAssociatedConformanceWitness() + 8) + 8);
+  swift_getAssociatedConformanceWitness();
   swift_getAssociatedTypeWitness();
-  v10 = *(*(*(swift_getAssociatedConformanceWitness() + 8) + 8) + 8);
-  v11 = dispatch thunk of Collection.count.getter();
+  swift_getAssociatedConformanceWitness();
+  v10 = dispatch thunk of Collection.count.getter();
   result = swift_beginAccess();
-  *(a2 + 40) = v11;
+  *(a2 + 40) = v10;
   if (!a1)
   {
 LABEL_13:
@@ -362,62 +357,58 @@ LABEL_13:
   }
 
   *(a2 + 32) = a1;
-  if (v11 >= 1)
+  if (v10 >= 1)
   {
-    LODWORD(v35) = *MEMORY[0x29EDB9B50];
-    v34 = (v33 + 104);
-    v13 = (v33 + 8);
+    LODWORD(v29) = *MEMORY[0x29EDB9B50];
+    v28 = (v27 + 104);
+    v12 = (v27 + 8);
     while (1)
     {
-      v14 = *(a2 + 56);
+      v13 = *(a2 + 56);
       swift_beginAccess();
-      v15 = *(a2 + 64);
-      *(a2 + 16) = v14;
-      *(a2 + 24) = v15;
-      LODWORD(v14) = compression_stream_process((a2 + 16), 0);
+      v14 = *(a2 + 64);
+      *(a2 + 16) = v13;
+      *(a2 + 24) = v14;
+      LODWORD(v13) = compression_stream_process((a2 + 16), 0);
       result = swift_endAccess();
-      if (v14 == -1)
+      if (v13 == -1)
       {
         lazy protocol witness table accessor for type FilterError and conformance FilterError();
         swift_allocError();
-        *v32 = 1;
+        *v26 = 1;
         return swift_willThrow();
       }
 
-      v16 = *(a2 + 24);
-      v17 = __OFSUB__(v15, v16);
-      v18 = v15 - v16;
-      if (v17)
+      v15 = *(a2 + 24);
+      v16 = __OFSUB__(v14, v15);
+      v17 = v14 - v15;
+      if (v16)
       {
         break;
       }
 
-      if (v18 > 0)
+      if (v17 > 0)
       {
-        v19 = *(a2 + 56);
-        v20 = v37;
-        (*v34)(v8, v35, v37);
+        v18 = v31;
+        (*v28)(v9, v29, v31);
         Data.Deallocator._deallocator.getter();
-        v21 = type metadata accessor for __DataStorage();
-        v22 = *(v21 + 48);
-        v23 = *(v21 + 52);
+        type metadata accessor for __DataStorage();
         swift_allocObject();
 
-        v24 = __DataStorage.init(bytes:length:copy:deallocator:offset:)();
-        v25 = __DataStorage._capacity.modify();
-        *v26 |= 0x8000000000000000;
-        v25(v36, 0);
-        v27 = specialized Data._Representation.init(_:count:)(v24, v18);
-        v29 = v28;
+        v19 = __DataStorage.init(bytes:length:copy:deallocator:offset:)();
+        v20 = __DataStorage._capacity.modify();
+        *v21 |= 0x8000000000000000;
+        v20(v30, 0);
+        v22 = specialized Data._Representation.init(_:count:)(v19, v17);
+        v24 = v23;
 
-        (*v13)(v8, v20);
-        v31 = *(a2 + 72);
-        v30 = *(a2 + 80);
-        outlined copy of Data._Representation(v27, v29);
-        v31(v27, v29);
-        outlined consume of Data._Representation(v27, v29);
-        result = outlined consume of Data._Representation(v27, v29);
-        if (v3)
+        (*v12)(v9, v18);
+        v25 = *(a2 + 72);
+        outlined copy of Data._Representation(v22, v24);
+        v25(v22, v24);
+        outlined consume of Data._Representation(v22, v24);
+        result = outlined consume of Data._Representation(v22, v24);
+        if (v5)
         {
           return result;
         }
@@ -439,78 +430,72 @@ LABEL_13:
 Swift::Void __swiftcall __spoils<CF,ZF,NF,VF,X0,X1,X2,X3,X4,X5,X6,X7,X8,X9,X10,X11,X12,X13,X14,X15,X16,X17,X21,Q0,Q1,Q2,Q3,Q4,Q5,Q6,Q7,Q16,Q17,Q18,Q19,Q20,Q21,Q22,Q23,Q24,Q25,Q26,Q27,Q28,Q29,Q30,Q31> OutputFilter.finalize()()
 {
   v2 = v0;
-  v31 = type metadata accessor for Data.Deallocator();
-  v3 = *(v31 - 8);
-  v4 = *(v3 + 64);
-  MEMORY[0x2A1C7C4A8]();
-  v6 = &v27 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v24 = type metadata accessor for Data.Deallocator();
+  v3 = *(v24 - 8);
+  MEMORY[0x2A1C7C4A8](v24);
+  v5 = &v20 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   if ((*(v2 + 88) & 1) == 0)
   {
     swift_beginAccess();
     *(v2 + 40) = 0;
-    v29 = *MEMORY[0x29EDB9B50];
-    v27 = (v3 + 8);
-    v28 = (v3 + 104);
+    v22 = *MEMORY[0x29EDB9B50];
+    v20 = (v3 + 8);
+    v21 = (v3 + 104);
     while (1)
     {
-      v7 = *(v2 + 56);
+      v6 = *(v2 + 56);
       swift_beginAccess();
-      v8 = *(v2 + 64);
-      *(v2 + 16) = v7;
-      *(v2 + 24) = v8;
-      v9 = compression_stream_process((v2 + 16), 1);
+      v7 = *(v2 + 64);
+      *(v2 + 16) = v6;
+      *(v2 + 24) = v7;
+      v8 = compression_stream_process((v2 + 16), 1);
       swift_endAccess();
-      if (v9 == COMPRESSION_STATUS_ERROR)
+      if (v8 == COMPRESSION_STATUS_ERROR)
       {
         lazy protocol witness table accessor for type FilterError and conformance FilterError();
         swift_allocError();
-        *v25 = 1;
+        *v19 = 1;
         swift_willThrow();
         return;
       }
 
-      v10 = *(v2 + 24);
-      v11 = v8 - v10;
-      if (__OFSUB__(v8, v10))
+      v9 = *(v2 + 24);
+      v10 = v7 - v9;
+      if (__OFSUB__(v7, v9))
       {
         break;
       }
 
-      if (v11 >= 1)
+      if (v10 >= 1)
       {
-        v12 = *(v2 + 56);
-        v13 = v31;
-        (*v28)(v6, v29, v31);
+        v11 = v24;
+        (*v21)(v5, v22, v24);
         Data.Deallocator._deallocator.getter();
-        v14 = type metadata accessor for __DataStorage();
-        v15 = *(v14 + 48);
-        v16 = *(v14 + 52);
+        type metadata accessor for __DataStorage();
         swift_allocObject();
 
-        v17 = __DataStorage.init(bytes:length:copy:deallocator:offset:)();
-        v18 = __DataStorage._capacity.modify();
-        *v19 |= 0x8000000000000000;
-        v18(v30, 0);
-        v20 = specialized Data._Representation.init(_:count:)(v17, v11);
-        v22 = v21;
+        v12 = __DataStorage.init(bytes:length:copy:deallocator:offset:)();
+        v13 = __DataStorage._capacity.modify();
+        *v14 |= 0x8000000000000000;
+        v13(v23, 0);
+        v15 = specialized Data._Representation.init(_:count:)(v12, v10);
+        v17 = v16;
 
-        (*v27)(v6, v13);
-        v24 = *(v2 + 72);
-        v23 = *(v2 + 80);
-        outlined copy of Data._Representation(v20, v22);
-        v24(v20, v22);
-        outlined consume of Data._Representation(v20, v22);
-        outlined consume of Data._Representation(v20, v22);
+        (*v20)(v5, v11);
+        v18 = *(v2 + 72);
+        outlined copy of Data._Representation(v15, v17);
+        v18(v15, v17);
+        outlined consume of Data._Representation(v15, v17);
+        outlined consume of Data._Representation(v15, v17);
         if (v1)
         {
           return;
         }
       }
 
-      if (v9 == COMPRESSION_STATUS_END)
+      if (v8 == COMPRESSION_STATUS_END)
       {
         *(v2 + 88) = 1;
-        v26 = *(v2 + 80);
         (*(v2 + 72))(0, 0xF000000000000000);
         return;
       }
@@ -532,7 +517,6 @@ uint64_t OutputFilter.deinit()
   swift_beginAccess();
   compression_stream_destroy((v0 + 16));
   swift_endAccess();
-  v2 = *(v0 + 80);
 
   return v0;
 }
@@ -549,89 +533,83 @@ uint64_t OutputFilter.__deallocating_deinit()
   swift_beginAccess();
   compression_stream_destroy((v0 + 16));
   swift_endAccess();
-  v2 = *(v0 + 80);
 
   return swift_deallocClassInstance();
 }
 
 uint64_t InputFilter.InputFilterBuffer.withUnsafeBytes<A>(_:)@<X0>(uint64_t (*a1)(void, void)@<X0>, uint64_t a2@<X1>, uint64_t a3@<X2>, uint64_t a4@<X8>)
 {
-  v50 = a3;
-  v48 = a2;
-  v49 = a1;
-  v52 = a4;
-  v42 = *v4;
-  v5 = v42;
-  v6 = v42[13];
-  v7 = v42[11];
+  v45 = a3;
+  v43 = a2;
+  v44 = a1;
+  v47 = a4;
+  v37 = *v4;
+  v5 = v37;
+  v6 = v37[13];
+  v7 = v37[11];
   swift_getAssociatedTypeWitness();
-  v56 = v6;
+  v51 = v6;
   v8 = *(swift_getAssociatedConformanceWitness() + 8);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v46 = *(AssociatedTypeWitness - 8);
-  v47 = AssociatedTypeWitness;
-  v10 = *(v46 + 64);
+  v41 = *(AssociatedTypeWitness - 8);
+  v42 = AssociatedTypeWitness;
   MEMORY[0x2A1C7C4A8](AssociatedTypeWitness);
-  v44 = &v41 - v11;
-  v12 = swift_checkMetadataState();
-  v43 = *(v12 - 8);
-  v13 = *(v43 + 64);
-  v14 = MEMORY[0x2A1C7C4A8](v12);
-  v53 = &v41 - v15;
-  v16 = *(v7 - 1);
-  v17 = *(v16 + 64);
-  MEMORY[0x2A1C7C4A8](v14);
-  v19 = &v41 - v18;
-  v45 = v8;
-  v20 = *(v8 + 8);
-  v21 = swift_getAssociatedTypeWitness();
-  v54 = *(v21 - 8);
-  v22 = *(v54 + 64);
-  MEMORY[0x2A1C7C4A8](v21);
-  v24 = &v41 - v23;
+  v39 = &v36 - v10;
+  v11 = swift_checkMetadataState();
+  v38 = *(v11 - 8);
+  v12 = MEMORY[0x2A1C7C4A8](v11);
+  v48 = &v36 - v13;
+  v14 = *(v7 - 1);
+  MEMORY[0x2A1C7C4A8](v12);
+  v16 = &v36 - v15;
+  v40 = v8;
+  v17 = swift_getAssociatedTypeWitness();
+  v49 = *(v17 - 8);
+  MEMORY[0x2A1C7C4A8](v17);
+  v19 = &v36 - v18;
   if (*(v4 + v5[15]))
   {
-    (*(v16 + 16))(v19, v4 + v42[14], v7);
-    v25 = v4;
+    (*(v14 + 16))(v16, v4 + v37[14], v7);
+    v20 = v4;
     dispatch thunk of DataProtocol.regions.getter();
-    (*(v16 + 8))(v19, v7);
-    v26 = *(*v4 + 128);
+    (*(v14 + 8))(v16, v7);
+    v21 = *(*v4 + 128);
     swift_beginAccess();
-    v42 = v7;
-    v27 = v12;
-    v28 = v21;
-    v29 = v46;
-    v30 = v47;
-    v31 = v44;
-    (*(v46 + 16))(v44, v4 + v26, v47);
-    v32 = v53;
-    v33 = dispatch thunk of Collection.subscript.read();
-    (*(v54 + 16))(v24);
-    v33(v55, 0);
-    (*(v29 + 8))(v31, v30);
-    v34 = (*(v43 + 8))(v32, v27);
-    MEMORY[0x2A1C7C4A8](v34);
-    v35 = v49;
-    *(&v41 - 4) = v50;
-    *(&v41 - 3) = v25;
-    v36 = v48;
-    *(&v41 - 2) = v35;
-    *(&v41 - 1) = v36;
+    v37 = v7;
+    v22 = v11;
+    v23 = v17;
+    v24 = v41;
+    v25 = v42;
+    v26 = v39;
+    (*(v41 + 16))(v39, v4 + v21, v42);
+    v27 = v48;
+    v28 = dispatch thunk of Collection.subscript.read();
+    (*(v49 + 16))(v19);
+    v28(v50, 0);
+    (*(v24 + 8))(v26, v25);
+    v29 = (*(v38 + 8))(v27, v22);
+    MEMORY[0x2A1C7C4A8](v29);
+    v30 = v44;
+    *(&v36 - 4) = v45;
+    *(&v36 - 3) = v20;
+    v31 = v43;
+    *(&v36 - 2) = v30;
+    *(&v36 - 1) = v31;
     swift_getAssociatedConformanceWitness();
     type metadata accessor for Optional();
     dispatch thunk of ContiguousBytes.withUnsafeBytes<A>(_:)();
-    return (*(v54 + 8))(v24, v28);
+    return (*(v49 + 8))(v19, v23);
   }
 
   else
   {
-    v39 = v50;
-    v38 = v51;
-    v40 = v52;
-    result = v49(0, 0);
-    if (!v38)
+    v34 = v45;
+    v33 = v46;
+    v35 = v47;
+    result = v44(0, 0);
+    if (!v33)
     {
-      return (*(*(v39 - 8) + 56))(v40, 0, 1, v39);
+      return (*(*(v34 - 8) + 56))(v35, 0, 1, v34);
     }
   }
 
@@ -641,151 +619,141 @@ uint64_t InputFilter.InputFilterBuffer.withUnsafeBytes<A>(_:)@<X0>(uint64_t (*a1
 uint64_t InputFilter.InputFilterBuffer.advance(by:)(uint64_t a1)
 {
   v2 = v1;
-  v68 = *v1;
-  v4 = v68[13];
-  v5 = v68[11];
+  v61 = *v1;
+  v4 = v61[13];
+  v5 = v61[11];
   swift_getAssociatedTypeWitness();
-  v65 = v4;
+  v58 = v4;
   v6 = *(swift_getAssociatedConformanceWitness() + 8);
-  v7 = v6[1];
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v55 = *(AssociatedTypeWitness - 8);
-  v8 = *(v55 + 64);
+  v48 = *(AssociatedTypeWitness - 8);
   MEMORY[0x2A1C7C4A8](AssociatedTypeWitness);
-  v60 = &v53 - v9;
-  v10 = swift_getAssociatedTypeWitness();
-  v66 = *(v10 - 8);
-  v11 = *(v66 + 64);
-  v12 = MEMORY[0x2A1C7C4A8](v10);
-  v62 = &v53 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = MEMORY[0x2A1C7C4A8](v12);
-  v16 = &v53 - v15;
-  v64 = v5;
-  v17 = *(v5 - 8);
-  v18 = *(v17 + 64);
-  MEMORY[0x2A1C7C4A8](v14);
-  v20 = &v53 - v19;
-  v63 = swift_checkMetadataState();
-  v21 = *(*(v63 - 8) + 64);
-  result = MEMORY[0x2A1C7C4A8](v63);
-  v70 = &v53 - v24;
-  v25 = v68[17];
-  v26 = *&v2[v25];
-  v27 = __OFSUB__(v26, a1);
-  v28 = v26 < a1;
-  v29 = v26 - a1;
-  if (v28)
+  v53 = &v46 - v7;
+  v8 = swift_getAssociatedTypeWitness();
+  v59 = *(v8 - 8);
+  v9 = MEMORY[0x2A1C7C4A8](v8);
+  v55 = &v46 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v11 = MEMORY[0x2A1C7C4A8](v9);
+  v13 = &v46 - v12;
+  v57 = v5;
+  v14 = *(v5 - 8);
+  MEMORY[0x2A1C7C4A8](v11);
+  v16 = &v46 - v15;
+  v56 = swift_checkMetadataState();
+  result = MEMORY[0x2A1C7C4A8](v56);
+  v63 = &v46 - v19;
+  v20 = v61[17];
+  v21 = *&v2[v20];
+  v22 = __OFSUB__(v21, a1);
+  v23 = v21 < a1;
+  v24 = v21 - a1;
+  if (v23)
   {
     lazy protocol witness table accessor for type FilterError and conformance FilterError();
     swift_allocError();
-    *v30 = 0;
+    *v25 = 0;
     return swift_willThrow();
   }
 
-  if (v27)
+  if (v22)
   {
     __break(1u);
     goto LABEL_16;
   }
 
-  *&v2[v25] = v29;
-  v31 = *(*v2 + 120);
-  v32 = *&v2[v31];
-  v27 = __OFSUB__(v32, a1);
-  v33 = v32 - a1;
-  if (v27)
+  *&v2[v20] = v24;
+  v26 = *(*v2 + 120);
+  v27 = *&v2[v26];
+  v22 = __OFSUB__(v27, a1);
+  v28 = v27 - a1;
+  if (v22)
   {
 LABEL_16:
     __break(1u);
     return result;
   }
 
-  v53 = *(*v2 + 120);
-  v54 = v23;
-  *&v2[v31] = v33;
-  v34 = v25;
-  v35 = v64;
-  (*(v17 + 16))(v20, &v2[*(*v2 + 112)], v64);
+  v46 = *(*v2 + 120);
+  v47 = v18;
+  *&v2[v26] = v28;
+  v29 = v20;
+  v30 = v57;
+  (*(v14 + 16))(v16, &v2[*(*v2 + 112)], v57);
   dispatch thunk of DataProtocol.regions.getter();
-  (*(v17 + 8))(v20, v35);
-  v36 = *(*v2 + 128);
-  v59 = v34;
-  v37 = *&v2[v34];
-  v68 = v6;
-  v38 = v63;
-  if (!v37)
+  (*(v14 + 8))(v16, v30);
+  v31 = *(*v2 + 128);
+  v52 = v29;
+  v32 = *&v2[v29];
+  v61 = v6;
+  v33 = v56;
+  if (!v32)
   {
-    v39 = v66;
-    v66 += 8;
-    v67 = (v39 + 16);
-    v40 = (v55 + 16);
-    v55 += 8;
-    v56 = v40;
-    v57 = v2;
-    v58 = v36;
+    v34 = v59++;
+    v60 = (v34 + 2);
+    v35 = (v48 + 2);
+    ++v48;
+    v49 = v35;
+    v50 = v2;
+    v51 = v31;
     do
     {
       swift_beginAccess();
       dispatch thunk of Collection.formIndex(after:)();
       swift_endAccess();
-      v41 = *v67;
-      (*v67)(v16, &v2[v36], v10);
-      v42 = v62;
+      v36 = *v60;
+      (*v60)(v13, &v2[v31], v8);
+      v37 = v55;
       dispatch thunk of Collection.endIndex.getter();
-      v43 = *(swift_getAssociatedConformanceWitness() + 8);
-      v44 = dispatch thunk of static Equatable.== infix(_:_:)();
-      v45 = *v66;
-      v46 = v42;
-      v2 = v57;
-      v36 = v58;
-      (*v66)(v46, v10);
-      v45(v16, v10);
-      if (v44)
+      swift_getAssociatedConformanceWitness();
+      v38 = dispatch thunk of static Equatable.== infix(_:_:)();
+      v39 = *v59;
+      v40 = v37;
+      v2 = v50;
+      v31 = v51;
+      (*v59)(v40, v8);
+      v39(v13, v8);
+      if (v38)
       {
         break;
       }
 
-      v41(v16, &v2[v36], v10);
-      v47 = dispatch thunk of Collection.subscript.read();
-      v48 = v60;
-      v49 = AssociatedTypeWitness;
-      (*v56)(v60);
-      v47(v69, 0);
-      v45(v16, v10);
-      v50 = *(*(*(swift_getAssociatedConformanceWitness() + 8) + 8) + 8);
-      v51 = dispatch thunk of Collection.count.getter();
-      v38 = v63;
-      (*v55)(v48, v49);
-      *&v2[v59] = v51;
+      v36(v13, &v2[v31], v8);
+      v41 = dispatch thunk of Collection.subscript.read();
+      v42 = v53;
+      v43 = AssociatedTypeWitness;
+      (*v49)(v53);
+      v41(v62, 0);
+      v39(v13, v8);
+      swift_getAssociatedConformanceWitness();
+      v44 = dispatch thunk of Collection.count.getter();
+      v33 = v56;
+      (*v48)(v42, v43);
+      *&v2[v52] = v44;
     }
 
-    while (!v51);
+    while (!v44);
   }
 
-  if (!*&v2[v53] || *&v2[v59])
+  if (!*&v2[v46] || *&v2[v52])
   {
-    return (*(v54 + 8))(v70, v38);
+    return (*(v47 + 8))(v63, v33);
   }
 
   lazy protocol witness table accessor for type FilterError and conformance FilterError();
   swift_allocError();
-  *v52 = 0;
+  *v45 = 0;
   swift_willThrow();
-  return (*(v54 + 8))(v70, v38);
+  return (*(v47 + 8))(v63, v33);
 }
 
 uint64_t InputFilter.InputFilterBuffer.__deallocating_deinit()
 {
-  v1 = *v0;
   (*(*(*(*v0 + 88) - 8) + 8))(v0 + *(*v0 + 112), *(*v0 + 88));
-  v2 = *(*v0 + 128);
-  v3 = *(v1 + 104);
+  v1 = *(*v0 + 128);
   swift_getAssociatedTypeWitness();
-  v4 = *(swift_getAssociatedConformanceWitness() + 8);
+  swift_getAssociatedConformanceWitness();
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  (*(*(AssociatedTypeWitness - 8) + 8))(v0 + v2, AssociatedTypeWitness);
-  v6 = *(*v0 + 48);
-  v7 = *(*v0 + 52);
+  (*(*(AssociatedTypeWitness - 8) + 8))(v0 + v1, AssociatedTypeWitness);
 
   return swift_deallocClassInstance();
 }
@@ -801,47 +769,37 @@ __n128 InputFilter._stream.getter@<Q0>(uint64_t a1@<X8>)
   return result;
 }
 
-uint64_t InputFilter._buf.setter(uint64_t a1)
-{
-  v2 = *(v1 + 80);
-  *(v1 + 80) = a1;
-}
-
-uint64_t InputFilter.__allocating_init(_:using:bufferCapacity:readingFrom:)(unsigned __int8 *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t InputFilter.__allocating_init(_:using:bufferCapacity:readingFrom:)(char *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v10 = swift_allocObject();
   InputFilter.init(_:using:bufferCapacity:readingFrom:)(a1, a2, a3, a4, a5);
   return v10;
 }
 
-uint64_t *InputFilter.init(_:using:bufferCapacity:readingFrom:)(unsigned __int8 *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
+uint64_t *InputFilter.init(_:using:bufferCapacity:readingFrom:)(char *a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v10 = *v5;
   v11 = *a1;
   v12 = *a2;
   v5[10] = 0;
   *(v5 + 44) = 0;
-  v20 = v11;
-  v19 = v12;
+  v18 = v11;
+  v17 = v12;
   v13 = v10;
-  specialized compression_stream.init(operation:algorithm:)(&v20, &v19, v21);
+  specialized compression_stream.init(operation:algorithm:)(&v18, &v17, v19);
   if (v6)
   {
 
-    v14 = v5[10];
-
-    v15 = *(v13 + 80);
-    v16 = *(v13 + 88);
-    type metadata accessor for InputFilter();
+    type metadata accessor for InputFilter(0, *(v13 + 80), *(v13 + 88), v14);
     swift_deallocPartialClassInstance();
   }
 
   else
   {
-    v17 = v21[1];
-    *(v5 + 5) = v21[0];
-    *(v5 + 7) = v17;
-    v5[9] = v22;
+    v15 = v19[1];
+    *(v5 + 5) = v19[0];
+    *(v5 + 7) = v15;
+    v5[9] = v20;
     v5[2] = a3;
     v5[3] = a4;
     v5[4] = a5;
@@ -866,13 +824,15 @@ LABEL_11:
   }
 
   v3 = result;
-  v6 = specialized Data.init(count:)(result);
-  v7 = v4;
-  MEMORY[0x2A1C7C4A8](v6);
-  specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(partial apply for closure #1 in InputFilter.readData(ofLength:));
+  v7 = specialized Data.init(count:)(result);
+  v8 = v4;
+  MEMORY[0x2A1C7C4A8](v7);
+  v6[2] = v1;
+  v6[3] = v3;
+  specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(partial apply for closure #1 in InputFilter.readData(ofLength:), v6);
   if (v2)
   {
-    return outlined consume of Data._Representation(v6, v7);
+    return outlined consume of Data._Representation(v7, v8);
   }
 
   swift_beginAccess();
@@ -891,22 +851,21 @@ LABEL_12:
   }
 
   Data._Representation.count.setter();
-  return v6;
+  return v7;
 }
 
 uint64_t closure #1 in InputFilter.readData(ofLength:)(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
-  v44 = *a2;
-  v7 = *(v44 + 80);
+  v37 = *a2;
+  v7 = *(v37 + 80);
   v8 = type metadata accessor for Optional();
   v9 = *(v8 - 8);
-  v10 = *(v9 + 64);
-  v11 = MEMORY[0x2A1C7C4A8](v8);
-  v42 = &v39 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v13 = MEMORY[0x2A1C7C4A8](v11);
-  v51 = &v39 - v14;
-  MEMORY[0x2A1C7C4A8](v13);
-  v16 = &v39 - v15;
+  v10 = MEMORY[0x2A1C7C4A8](v8);
+  v35 = &v32 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = MEMORY[0x2A1C7C4A8](v10);
+  v44 = &v32 - v13;
+  MEMORY[0x2A1C7C4A8](v12);
+  v15 = &v32 - v14;
   if (a1)
   {
     swift_beginAccess();
@@ -915,12 +874,12 @@ uint64_t closure #1 in InputFilter.readData(ofLength:)(uint64_t a1, uint64_t *a2
     result = swift_beginAccess();
     if (a2[6] >= 1)
     {
-      v43 = v7 - 8;
-      v47 = (v9 + 16);
-      v48 = (v9 + 8);
-      v18 = MEMORY[0x29EDCA180];
-      v45 = v16;
-      v46 = v8;
+      v36 = v7 - 8;
+      v40 = (v9 + 16);
+      v41 = (v9 + 8);
+      v17 = MEMORY[0x29EDCA180];
+      v38 = v15;
+      v39 = v8;
       while (1)
       {
         if (*(a2 + 89))
@@ -928,15 +887,15 @@ uint64_t closure #1 in InputFilter.readData(ofLength:)(uint64_t a1, uint64_t *a2
           return result;
         }
 
-        v21 = a2[10];
-        if (v21 && *(v21 + *(*v21 + 120)))
+        v19 = a2[10];
+        if (v19 && *(v19 + *(*v19 + 120)))
         {
 LABEL_8:
           MEMORY[0x2A1C7C4A8](result);
-          *(&v39 - 2) = a2;
-          *(&v39 - 1) = v21;
+          *(&v32 - 2) = a2;
+          *(&v32 - 1) = v19;
 
-          InputFilter.InputFilterBuffer.withUnsafeBytes<A>(_:)(partial apply for closure #1 in closure #1 in InputFilter.readData(ofLength:), (&v39 - 4), v18 + 8, &v49);
+          InputFilter.InputFilterBuffer.withUnsafeBytes<A>(_:)(partial apply for closure #1 in closure #1 in InputFilter.readData(ofLength:), (&v32 - 4), v17 + 8, &v42);
 
           if (v3)
           {
@@ -952,21 +911,21 @@ LABEL_8:
         }
 
 LABEL_7:
-        if (v21)
+        if (v19)
         {
           goto LABEL_8;
         }
 
-        v36 = *(a2 + 88);
+        v29 = *(a2 + 88);
         swift_beginAccess();
-        v37 = compression_stream_process(a2 + 1, v36);
+        v30 = compression_stream_process(a2 + 1, v29);
         swift_endAccess();
-        if (v37 == COMPRESSION_STATUS_END)
+        if (v30 == COMPRESSION_STATUS_END)
         {
           *(a2 + 89) = 1;
         }
 
-        else if (v37 == COMPRESSION_STATUS_ERROR)
+        else if (v30 == COMPRESSION_STATUS_ERROR)
         {
           goto LABEL_23;
         }
@@ -979,71 +938,66 @@ LABEL_9:
         }
       }
 
-      v22 = a2[4];
       result = (a2[3])(a2[2]);
       if (v3)
       {
         return result;
       }
 
-      v23 = *v47;
-      v24 = v51;
-      (*v47)(v51, v16, v8);
-      v25 = *(v7 - 8);
-      v26 = *(v25 + 48);
-      if (v26(v24, 1, v7) == 1)
+      v20 = *v40;
+      v21 = v44;
+      (*v40)(v44, v15, v8);
+      v22 = *(v7 - 8);
+      v23 = *(v22 + 48);
+      if (v23(v21, 1, v7) == 1)
       {
-        (*v48)(v24, v8);
+        (*v41)(v21, v8);
       }
 
       else
       {
-        v40 = *(v44 + 88);
-        v27 = *(*(*(v40 + 8) + 8) + 8);
-        v28 = v24;
-        v29 = dispatch thunk of Collection.count.getter();
-        v41 = *(v25 + 8);
-        v41(v28, v7);
-        if (v29)
+        v33 = *(v37 + 88);
+        v24 = v21;
+        v25 = dispatch thunk of Collection.count.getter();
+        v34 = *(v22 + 8);
+        v34(v24, v7);
+        if (v25)
         {
-          v30 = v42;
-          v23(v42, v45, v46);
-          result = v26(v30, 1, v7);
+          v26 = v35;
+          v20(v35, v38, v39);
+          result = v23(v26, 1, v7);
           if (result == 1)
           {
             __break(1u);
             return result;
           }
 
-          *&v49 = v7;
-          *(&v49 + 1) = v7;
-          *&v50 = v40;
-          *(&v50 + 1) = v40;
-          v31 = type metadata accessor for InputFilter.InputFilterBuffer();
-          v32 = *(v31 + 96);
-          v49 = *(v31 + 80);
-          v50 = v32;
-          v33 = type metadata accessor for InputFilter.InputFilterBuffer();
-          v34 = *(v33 + 48);
-          v35 = *(v33 + 52);
-          v19 = swift_allocObject();
-          specialized InputFilter.InputFilterBuffer.init(_:)(v30);
-          v41(v30, v7);
+          *&v42 = v7;
+          *(&v42 + 1) = v7;
+          *&v43 = v33;
+          *(&v43 + 1) = v33;
+          v27 = type metadata accessor for InputFilter.InputFilterBuffer(0, &v42);
+          v28 = *(v27 + 96);
+          v42 = *(v27 + 80);
+          v43 = v28;
+          type metadata accessor for InputFilter.InputFilterBuffer(0, &v42);
+          v18 = swift_allocObject();
+          specialized InputFilter.InputFilterBuffer.init(_:)(v26);
+          v34(v26, v7);
           goto LABEL_6;
         }
       }
 
-      v19 = 0;
+      v18 = 0;
       *(a2 + 88) = 1;
 LABEL_6:
-      v16 = v45;
-      v8 = v46;
-      v20 = a2[10];
-      a2[10] = v19;
+      v15 = v38;
+      v8 = v39;
+      a2[10] = v18;
 
-      result = (*v48)(v16, v8);
-      v21 = a2[10];
-      v18 = MEMORY[0x29EDCA180];
+      result = (*v41)(v15, v8);
+      v19 = a2[10];
+      v17 = MEMORY[0x29EDCA180];
       goto LABEL_7;
     }
   }
@@ -1053,7 +1007,7 @@ LABEL_6:
 LABEL_23:
     lazy protocol witness table accessor for type FilterError and conformance FilterError();
     swift_allocError();
-    *v38 = 1;
+    *v31 = 1;
     return swift_willThrow();
   }
 
@@ -1065,9 +1019,6 @@ compression_stream *InputFilter.deinit()
   swift_beginAccess();
   compression_stream_destroy(v0 + 1);
   swift_endAccess();
-  state = v0->state;
-
-  dst_ptr = v0[2].dst_ptr;
 
   return v0;
 }
@@ -1087,114 +1038,111 @@ Swift::Int protocol witness for Hashable.hashValue.getter in conformance compres
   return Hasher._finalize()();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance compression_algorithm()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance compression_algorithm(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   Hasher.init(_seed:)();
-  Hasher._combine(_:)(v1);
+  Hasher._combine(_:)(v2);
   return Hasher._finalize()();
 }
 
-void specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(void (*a1)(uint64_t, uint64_t))
+void specialized Data._Representation.withUnsafeMutableBytes<A>(_:)(void (*a1)(uint64_t, uint64_t), uint64_t a2)
 {
-  v2 = v1;
+  v3 = v2;
   v23 = *MEMORY[0x29EDCA608];
-  v5 = *v1;
-  v4 = v1[1];
-  v6 = v4 >> 62;
-  if ((v4 >> 62) <= 1)
+  v6 = *v2;
+  v5 = v2[1];
+  v7 = v5 >> 62;
+  if ((v5 >> 62) <= 1)
   {
-    if (v6)
+    if (v7)
     {
 
-      outlined consume of Data._Representation(v5, v4);
-      *&v22 = v5;
-      *(&v22 + 1) = v4 & 0x3FFFFFFFFFFFFFFFLL;
-      *v2 = xmmword_299A4C890;
+      outlined consume of Data._Representation(v6, v5);
+      *&v22 = v6;
+      *(&v22 + 1) = v5 & 0x3FFFFFFFFFFFFFFFLL;
+      *v3 = xmmword_299A4C890;
       outlined consume of Data._Representation(0, 0xC000000000000000);
       specialized Data.InlineSlice.withUnsafeMutableBytes<A>(_:)(a1);
-      v7 = v22;
-      v8 = *(&v22 + 1) | 0x4000000000000000;
+      v8 = v22;
+      v9 = *(&v22 + 1) | 0x4000000000000000;
     }
 
     else
     {
-      outlined consume of Data._Representation(v5, v4);
-      *&v22 = v5;
-      WORD4(v22) = v4;
-      BYTE10(v22) = BYTE2(v4);
-      BYTE11(v22) = BYTE3(v4);
-      BYTE12(v22) = BYTE4(v4);
-      BYTE13(v22) = BYTE5(v4);
-      BYTE14(v22) = BYTE6(v4);
-      a1(&v22, &v22 + BYTE6(v4));
-      v7 = v22;
-      v8 = DWORD2(v22) | ((WORD6(v22) | (BYTE14(v22) << 16)) << 32);
+      outlined consume of Data._Representation(v6, v5);
+      *&v22 = v6;
+      WORD4(v22) = v5;
+      BYTE10(v22) = BYTE2(v5);
+      BYTE11(v22) = BYTE3(v5);
+      BYTE12(v22) = BYTE4(v5);
+      BYTE13(v22) = BYTE5(v5);
+      BYTE14(v22) = BYTE6(v5);
+      a1(&v22, &v22 + BYTE6(v5));
+      v8 = v22;
+      v9 = DWORD2(v22) | ((WORD6(v22) | (BYTE14(v22) << 16)) << 32);
     }
 
-    *v2 = v7;
-    v2[1] = v8;
-    goto LABEL_15;
+    *v3 = v8;
+    v3[1] = v9;
+    return;
   }
 
-  if (v6 != 2)
+  if (v7 != 2)
   {
     *(&v22 + 7) = 0;
     *&v22 = 0;
     a1(&v22, &v22);
-LABEL_15:
-    v20 = *MEMORY[0x29EDCA608];
     return;
   }
 
-  outlined consume of Data._Representation(v5, v4);
-  *&v22 = v5;
-  *(&v22 + 1) = v4 & 0x3FFFFFFFFFFFFFFFLL;
-  *v2 = xmmword_299A4C890;
+  outlined consume of Data._Representation(v6, v5);
+  *&v22 = v6;
+  *(&v22 + 1) = v5 & 0x3FFFFFFFFFFFFFFFLL;
+  *v3 = xmmword_299A4C890;
   outlined consume of Data._Representation(0, 0xC000000000000000);
   Data.LargeSlice.ensureUniqueReference()();
-  v9 = *(&v22 + 1);
-  v10 = *(v22 + 16);
-  v11 = *(v22 + 24);
-  v12 = __DataStorage._bytes.getter();
-  if (v12)
+  v10 = *(&v22 + 1);
+  v11 = *(v22 + 16);
+  v12 = *(v22 + 24);
+  v13 = __DataStorage._bytes.getter();
+  if (!v13)
   {
-    v13 = v12;
-    v14 = __DataStorage._offset.getter();
-    v15 = v10 - v14;
-    if (__OFSUB__(v10, v14))
-    {
-      __break(1u);
-    }
+    __break(1u);
+    return;
+  }
 
-    else
-    {
-      v16 = __OFSUB__(v11, v10);
-      v17 = v11 - v10;
-      if (!v16)
-      {
-        v18 = MEMORY[0x29C2A9820]();
-        if (v18 >= v17)
-        {
-          v19 = v17;
-        }
-
-        else
-        {
-          v19 = v18;
-        }
-
-        a1(v13 + v15, v13 + v15 + v19);
-        *v2 = v22;
-        v2[1] = v9 | 0x8000000000000000;
-        goto LABEL_15;
-      }
-    }
-
+  v14 = v13;
+  v15 = __DataStorage._offset.getter();
+  v16 = v11 - v15;
+  if (__OFSUB__(v11, v15))
+  {
+    __break(1u);
+LABEL_17:
     __break(1u);
   }
 
-  __break(1u);
+  v17 = __OFSUB__(v12, v11);
+  v18 = v12 - v11;
+  if (v17)
+  {
+    goto LABEL_17;
+  }
+
+  v19 = MEMORY[0x29C2A9820]();
+  if (v19 >= v18)
+  {
+    v20 = v18;
+  }
+
+  else
+  {
+    v20 = v19;
+  }
+
+  a1(v14 + v16, v14 + v16 + v20);
+  *v3 = v22;
+  v3[1] = v10 | 0x8000000000000000;
 }
 
 void specialized Data.InlineSlice.withUnsafeMutableBytes<A>(_:)(void (*a1)(uint64_t, uint64_t))
@@ -1208,77 +1156,68 @@ void specialized Data.InlineSlice.withUnsafeMutableBytes<A>(_:)(void (*a1)(uint6
     goto LABEL_9;
   }
 
-  v13 = a1;
-  v5 = *(v1 + 1);
+  v12 = a1;
 
-  v6 = __DataStorage._bytes.getter();
-  if (!v6)
+  v5 = __DataStorage._bytes.getter();
+  if (!v5)
   {
 LABEL_10:
     __break(1u);
     return;
   }
 
-  v7 = v6;
-  v8 = __DataStorage._offset.getter();
-  v9 = v3 - v8;
-  if (__OFSUB__(v3, v8))
+  v6 = v5;
+  v7 = __DataStorage._offset.getter();
+  v8 = v3 - v7;
+  if (__OFSUB__(v3, v7))
   {
 LABEL_9:
     __break(1u);
     goto LABEL_10;
   }
 
-  v10 = v4 - v3;
-  v11 = MEMORY[0x29C2A9820]();
-  if (v11 >= v10)
+  v9 = v4 - v3;
+  v10 = MEMORY[0x29C2A9820]();
+  if (v10 >= v9)
   {
-    v12 = v10;
+    v11 = v9;
   }
 
   else
   {
-    v12 = v11;
+    v11 = v10;
   }
 
-  v13(v7 + v9, v7 + v9 + v12);
+  v12(v6 + v8, v6 + v8 + v11);
 }
 
 uint64_t specialized compression_stream.init(operation:algorithm:)@<X0>(unsigned __int8 *a1@<X0>, char *a2@<X1>, uint64_t a3@<X8>)
 {
-  v12 = *MEMORY[0x29EDCA608];
+  v11 = *MEMORY[0x29EDCA608];
   v4 = *a1;
   v5 = *a2;
-  *&v11.dst_ptr = 0xFFFFFFFFFFFFFFFFLL;
-  *&v11.src_size = 0uLL;
-  v11.src_ptr = -1;
-  result = compression_stream_init(&v11, v4, dword_299A4CE48[v5]);
+  *&v10.dst_ptr = 0xFFFFFFFFFFFFFFFFLL;
+  *&v10.src_size = 0uLL;
+  v10.src_ptr = -1;
+  result = compression_stream_init(&v10, v4, dword_299A4CE48[v5]);
   if (result)
   {
     lazy protocol witness table accessor for type FilterError and conformance FilterError();
     swift_allocError();
     *v7 = 0;
-    result = swift_willThrow();
+    return swift_willThrow();
   }
 
   else
   {
-    src_ptr = v11.src_ptr;
-    v9 = *&v11.src_size;
-    *a3 = *&v11.dst_ptr;
+    src_ptr = v10.src_ptr;
+    v9 = *&v10.src_size;
+    *a3 = *&v10.dst_ptr;
     *(a3 + 16) = src_ptr;
     *(a3 + 24) = v9;
   }
 
-  v10 = *MEMORY[0x29EDCA608];
   return result;
-}
-
-uint64_t partial apply for closure #1 in OutputFilter.write<A>(_:)(uint64_t a1)
-{
-  v2 = v1[2];
-  v3 = v1[3];
-  return closure #1 in OutputFilter.write<A>(_:)(a1, v1[4], v1[5]);
 }
 
 unint64_t lazy protocol witness table accessor for type FilterError and conformance FilterError()
@@ -1306,7 +1245,7 @@ unint64_t lazy protocol witness table accessor for type FilterError and conforma
 
 uint64_t specialized Data.InlineData.init(_:)(_BYTE *__src, _BYTE *a2)
 {
-  v11 = *MEMORY[0x29EDCA608];
+  v10 = *MEMORY[0x29EDCA608];
   v2 = a2 - __src;
   if (__src)
   {
@@ -1332,16 +1271,18 @@ LABEL_11:
 
   result = 0;
   __dst = 0;
-  v10 = v3;
-  v9 = 0;
+  v9 = v3;
   v8 = 0;
-  if (__src && a2 != __src)
+  v7 = 0;
+  if (__src)
   {
-    memcpy(&__dst, __src, v2);
-    result = __dst;
+    if (a2 != __src)
+    {
+      memcpy(&__dst, __src, v2);
+      return __dst;
+    }
   }
 
-  v6 = *MEMORY[0x29EDCA608];
   return result;
 }
 
@@ -1416,147 +1357,140 @@ LABEL_10:
   return v8;
 }
 
-uint64_t outlined copy of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined copy of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-uint64_t outlined consume of Data._Representation(uint64_t a1, unint64_t a2)
+uint64_t outlined consume of Data._Representation(uint64_t result, unint64_t a2)
 {
   if (a2 >> 62 != 1)
   {
     if (a2 >> 62 != 2)
     {
-      return result;
+      return v3;
     }
   }
 }
 
-char *specialized InputFilter.InputFilterBuffer.init(_:)(char *a1)
+char *specialized InputFilter.InputFilterBuffer.init(_:)(uint64_t a1)
 {
   v2 = v1;
-  v73 = a1;
+  v64 = a1;
   v3 = *v1;
   v4 = v3[13];
   v5 = v3[11];
   swift_getAssociatedTypeWitness();
-  AssociatedConformanceWitness = swift_getAssociatedConformanceWitness();
-  v7 = *(*(AssociatedConformanceWitness + 8) + 8);
-  v79 = *(AssociatedConformanceWitness + 8);
+  v70 = *(swift_getAssociatedConformanceWitness() + 8);
   AssociatedTypeWitness = swift_getAssociatedTypeWitness();
-  v65 = *(AssociatedTypeWitness - 8);
-  v8 = *(v65 + 64);
+  v56 = *(AssociatedTypeWitness - 8);
   MEMORY[0x2A1C7C4A8](AssociatedTypeWitness);
-  v64 = &v57 - v9;
-  v80 = swift_getAssociatedTypeWitness();
-  v78 = *(v80 - 8);
-  v10 = *(v78 + 64);
-  v11 = MEMORY[0x2A1C7C4A8](v80);
-  v67 = &v57 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x2A1C7C4A8](v11);
-  v77 = &v57 - v13;
-  v76 = swift_checkMetadataState();
-  v82 = *(v76 - 8);
-  v14 = *(v82 + 64);
-  v15 = MEMORY[0x2A1C7C4A8](v76);
-  v72 = &v57 - v16;
-  v17 = *(v5 - 8);
-  v18 = v17[8];
-  MEMORY[0x2A1C7C4A8](v15);
-  v20 = &v57 - v19;
-  v21 = v3[14];
-  v23 = v17 + 2;
-  v22 = v17[2];
-  v75 = v21;
-  v22(&v21[v2], v73, v5);
-  v22(v20, &v21[v2], v5);
-  v24 = v22;
-  v71 = v22;
-  v74 = v4;
-  v25 = *(*(*(v4 + 8) + 8) + 8);
-  v26 = dispatch thunk of Collection.count.getter();
-  v27 = v17[1];
-  v27(v20, v5);
-  v69 = v27;
-  v73 = (v17 + 1);
-  *&v2[*(*v2 + 120)] = v26;
-  v63 = *(*v2 + 136);
-  *&v2[v63] = 0;
-  v24(v20, &v75[v2], v5);
-  v28 = v72;
+  v55 = &v48 - v6;
+  v71 = swift_getAssociatedTypeWitness();
+  v69 = *(v71 - 8);
+  v7 = MEMORY[0x2A1C7C4A8](v71);
+  v58 = &v48 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x2A1C7C4A8](v7);
+  v68 = &v48 - v9;
+  v67 = swift_checkMetadataState();
+  v73 = *(v67 - 8);
+  v10 = MEMORY[0x2A1C7C4A8](v67);
+  v63 = &v48 - v11;
+  v12 = *(v5 - 8);
+  MEMORY[0x2A1C7C4A8](v10);
+  v14 = &v48 - v13;
+  v15 = v3[14];
+  v17 = v12 + 16;
+  v16 = *(v12 + 16);
+  v66 = v15;
+  v16(&v15[v2], v64, v5);
+  v16(v14, &v15[v2], v5);
+  v18 = v16;
+  v62 = v16;
+  v65 = v4;
+  v19 = dispatch thunk of Collection.count.getter();
+  v20 = *(v12 + 8);
+  v20(v14, v5);
+  v60 = v20;
+  v64 = v12 + 8;
+  *&v2[*(*v2 + 120)] = v19;
+  v54 = *(*v2 + 136);
+  *&v2[v54] = 0;
+  v18(v14, &v66[v2], v5);
+  v21 = v63;
   dispatch thunk of DataProtocol.regions.getter();
-  v27(v20, v5);
-  v29 = v76;
+  v20(v14, v5);
+  v22 = v67;
   dispatch thunk of Collection.startIndex.getter();
-  v30 = *(v82 + 8);
-  v82 += 8;
-  v70 = v30;
-  v30(v28, v29);
-  v31 = *(*v2 + 128);
-  v32 = v77;
-  v33 = v78;
-  v34 = v80;
-  (*(v78 + 32))(&v2[v31], v77, v80);
-  swift_beginAccess();
-  v35 = *(v33 + 16);
-  v60 = v31;
-  v36 = &v2[v31];
-  v37 = v32;
-  v59 = v33 + 16;
-  v58 = v35;
-  v35(v32, v36, v34);
+  v23 = *(v73 + 8);
+  v73 += 8;
   v61 = v23;
-  v71(v20, &v75[v2], v5);
+  v23(v21, v22);
+  v24 = *(*v2 + 128);
+  v25 = v68;
+  v26 = v69;
+  v27 = v71;
+  (*(v69 + 32))(&v2[v24], v68, v71);
+  swift_beginAccess();
+  v28 = *(v26 + 16);
+  v51 = v24;
+  v29 = &v2[v24];
+  v30 = v25;
+  v50 = v26 + 16;
+  v49 = v28;
+  v28(v25, v29, v27);
+  v52 = v17;
+  v62(v14, &v66[v2], v5);
   dispatch thunk of DataProtocol.regions.getter();
-  v62 = v5;
-  v69(v20, v5);
-  v38 = v67;
-  v39 = v76;
+  v53 = v5;
+  v60(v14, v5);
+  v31 = v58;
+  v32 = v67;
   dispatch thunk of Collection.endIndex.getter();
-  v70(v28, v39);
-  v40 = v80;
-  v41 = *(swift_getAssociatedConformanceWitness() + 8);
-  v42 = v37;
-  v43 = v40;
-  LOBYTE(v40) = dispatch thunk of static Equatable.== infix(_:_:)();
-  v44 = *(v33 + 8);
-  v44(v38, v43);
-  v78 = v33 + 8;
-  v44(v42, v43);
-  if ((v40 & 1) == 0)
+  v61(v21, v32);
+  v33 = v71;
+  swift_getAssociatedConformanceWitness();
+  v34 = v30;
+  v35 = v33;
+  LOBYTE(v33) = dispatch thunk of static Equatable.== infix(_:_:)();
+  v36 = *(v26 + 8);
+  v36(v31, v35);
+  v69 = v26 + 8;
+  v36(v34, v35);
+  if ((v33 & 1) == 0)
   {
-    v45 = v62;
-    v71(v20, &v75[v2], v62);
-    v75 = v44;
-    v46 = v72;
+    v37 = v53;
+    v62(v14, &v66[v2], v53);
+    v66 = v36;
+    v38 = v63;
     dispatch thunk of DataProtocol.regions.getter();
-    v69(v20, v45);
-    v47 = v77;
-    v58(v77, &v2[v60], v80);
-    v48 = v76;
-    v49 = dispatch thunk of Collection.subscript.read();
-    v50 = v65;
-    v51 = v64;
-    v52 = AssociatedTypeWitness;
-    (*(v65 + 16))(v64);
-    v49(v81, 0);
-    (v75)(v47, v80);
-    v70(v46, v48);
-    v53 = *(*(*(swift_getAssociatedConformanceWitness() + 8) + 8) + 8);
-    v54 = dispatch thunk of Collection.count.getter();
-    (*(v50 + 8))(v51, v52);
-    *&v2[v63] = v54;
+    v60(v14, v37);
+    v39 = v68;
+    v49(v68, &v2[v51], v71);
+    v40 = v67;
+    v41 = dispatch thunk of Collection.subscript.read();
+    v42 = v56;
+    v43 = v55;
+    v44 = AssociatedTypeWitness;
+    (*(v56 + 16))(v55);
+    v41(v72, 0);
+    (v66)(v39, v71);
+    v61(v38, v40);
+    swift_getAssociatedConformanceWitness();
+    v45 = dispatch thunk of Collection.count.getter();
+    (*(v42 + 8))(v43, v44);
+    *&v2[v54] = v45;
   }
 
-  v55 = v68;
+  v46 = v59;
   InputFilter.InputFilterBuffer.advance(by:)(0);
-  if (v55)
+  if (v46)
   {
   }
 
@@ -1583,9 +1517,7 @@ uint64_t specialized Data.init(count:)(uint64_t result)
 
     else
     {
-      v2 = type metadata accessor for __DataStorage();
-      v3 = *(v2 + 48);
-      v4 = *(v2 + 52);
+      type metadata accessor for __DataStorage();
       swift_allocObject();
       __DataStorage.init(length:)();
       if (v1 >= 0x7FFFFFFF)
@@ -1636,7 +1568,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, 
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContextInMetadataState2();
     *a1 = result;
   }
@@ -1982,18 +1913,14 @@ LABEL_20:
 
 uint64_t type metadata completion function for InputFilter.InputFilterBuffer(uint64_t a1)
 {
-  v2 = *(a1 + 88);
   result = swift_checkMetadataState();
-  if (v4 <= 0x3F)
+  if (v2 <= 0x3F)
   {
-    v8 = *(result - 8) + 64;
-    v5 = *(a1 + 104);
     swift_getAssociatedTypeWitness();
-    v6 = *(swift_getAssociatedConformanceWitness() + 8);
+    swift_getAssociatedConformanceWitness();
     result = swift_getAssociatedTypeWitness();
-    if (v7 <= 0x3F)
+    if (v3 <= 0x3F)
     {
-      v9 = *(result - 8) + 64;
       return swift_initClassMetadata2();
     }
   }
@@ -2065,19 +1992,19 @@ uint64_t storeEnumTagSinglePayload for compression_stream(uint64_t result, unsig
   return result;
 }
 
-void type metadata accessor for compression_stream(uint64_t a1, unint64_t *a2)
+void type metadata accessor for compression_stream(uint64_t a1, unint64_t *a2, uint64_t a3)
 {
   if (!*a2)
   {
     ForeignTypeMetadata = swift_getForeignTypeMetadata();
-    if (!v4)
+    if (!v5)
     {
       atomic_store(ForeignTypeMetadata, a2);
     }
   }
 }
 
-uint64_t lazy protocol witness table accessor for type compression_algorithm and conformance compression_algorithm(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type compression_algorithm and conformance compression_algorithm(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -2097,12 +2024,9 @@ uint64_t partial apply for closure #1 in InputFilter.InputFilterBuffer.withUnsaf
     goto LABEL_7;
   }
 
-  v7 = v3[2];
-  v6 = v3[3];
-  v8 = v3[4];
-  v9 = v3[5];
-  v10 = *(v6 + *(*v6 + 136));
-  if (__OFSUB__(0, v10))
+  v6 = *(v3 + 16);
+  v7 = *(*(v3 + 24) + *(**(v3 + 24) + 136));
+  if (__OFSUB__(0, v7))
   {
     __break(1u);
 LABEL_7:
@@ -2110,10 +2034,10 @@ LABEL_7:
     return result;
   }
 
-  result = v8(a2 - v10, a2);
+  result = (*(v3 + 32))(a2 - v7, a2);
   if (!v4)
   {
-    return (*(*(v7 - 8) + 56))(a3, 0, 1, v7);
+    return (*(*(v6 - 8) + 56))(a3, 0, 1, v6);
   }
 
   return result;
@@ -2129,25 +2053,24 @@ LABEL_10:
   }
 
   v4 = result;
-  v6 = *(v2 + 16);
-  v5 = *(v2 + 24);
+  v5 = *(v2 + 16);
   swift_beginAccess();
-  v7 = a2 - v4;
-  *(v6 + 56) = v4;
-  *(v6 + 64) = v7;
-  v8 = compression_stream_process((v6 + 40), *(v6 + 88));
+  v6 = a2 - v4;
+  *(v5 + 56) = v4;
+  *(v5 + 64) = v6;
+  v7 = compression_stream_process((v5 + 40), *(v5 + 88));
   swift_endAccess();
-  if (v8 != COMPRESSION_STATUS_ERROR)
+  if (v7 != COMPRESSION_STATUS_ERROR)
   {
-    if (v8 == COMPRESSION_STATUS_END)
+    if (v7 == COMPRESSION_STATUS_END)
     {
-      *(v6 + 89) = 1;
+      *(v5 + 89) = 1;
     }
 
     swift_beginAccess();
-    v9 = *(v6 + 64);
-    result = v7 - v9;
-    if (!__OFSUB__(v7, v9))
+    v8 = *(v5 + 64);
+    result = v6 - v8;
+    if (!__OFSUB__(v6, v8))
     {
       return InputFilter.InputFilterBuffer.advance(by:)(result);
     }
@@ -2158,6 +2081,6 @@ LABEL_10:
 
   lazy protocol witness table accessor for type FilterError and conformance FilterError();
   swift_allocError();
-  *v10 = 1;
+  *v9 = 1;
   return swift_willThrow();
 }

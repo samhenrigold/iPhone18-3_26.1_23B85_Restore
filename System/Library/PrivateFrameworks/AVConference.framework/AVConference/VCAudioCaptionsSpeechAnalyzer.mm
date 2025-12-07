@@ -28,7 +28,7 @@
 - (VCAudioCaptionsSpeechAnalyzer)initWithDelegate:(id)delegate isLocal:(BOOL)local taskIdentifier:(id)identifier reportingAgent:(opaqueRTCReporting *)agent
 {
   localCopy = local;
-  v114 = *MEMORY[0x1E69E9840];
+  v119 = *MEMORY[0x1E69E9840];
   MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ VCAudioCaptionsSpeechAnalyzer-init");
   if (VRTraceGetErrorLogLevelForModule() >= 6)
   {
@@ -48,9 +48,9 @@
     }
   }
 
-  v100.receiver = self;
-  v100.super_class = VCAudioCaptionsSpeechAnalyzer;
-  v13 = [(VCAudioCaptions *)&v100 initWithDelegate:delegate isLocal:localCopy taskIdentifier:identifier reportingAgent:agent];
+  v105.receiver = self;
+  v105.super_class = VCAudioCaptionsSpeechAnalyzer;
+  v13 = [(VCAudioCaptions *)&v105 initWithDelegate:delegate isLocal:localCopy taskIdentifier:identifier reportingAgent:agent];
   v14 = v13;
   if (v13)
   {
@@ -61,7 +61,7 @@
     v17 = &selRef_isLatencySensitiveModeEnabled;
     if (!v15)
     {
-      [VCAudioCaptionsSpeechAnalyzer initWithDelegate:? isLocal:? taskIdentifier:? reportingAgent:?];
+      [VCAudioCaptionsSpeechAnalyzer initWithDelegate:v14 isLocal:? taskIdentifier:? reportingAgent:?];
 LABEL_69:
       if (objc_opt_class() == v14)
       {
@@ -77,34 +77,34 @@ LABEL_69:
 
       else
       {
-        v79 = v17[456];
+        v84 = v17[456];
         if (objc_opt_respondsToSelector())
         {
-          v80 = [(VCAudioCaptionsSpeechAnalyzer *)v14 performSelector:v79];
+          v85 = [(VCAudioCaptionsSpeechAnalyzer *)v14 performSelector:v84];
         }
 
         else
         {
-          v80 = &stru_1F570E008;
+          v85 = &stru_1F570E008;
         }
 
         if (VRTraceGetErrorLogLevelForModule() >= 3)
         {
-          v81 = VRTraceErrorLogLevelToCSTR();
-          v82 = *MEMORY[0x1E6986650];
+          v86 = VRTraceErrorLogLevelToCSTR();
+          v87 = *MEMORY[0x1E6986650];
           if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_ERROR))
           {
             *buf = 136316162;
-            *&buf[4] = v81;
+            *&buf[4] = v86;
             *&buf[12] = 2080;
             *&buf[14] = "[VCAudioCaptionsSpeechAnalyzer initWithDelegate:isLocal:taskIdentifier:reportingAgent:]";
             *&buf[22] = 1024;
             *&buf[24] = 73;
             *&buf[28] = 2112;
-            *&buf[30] = v80;
+            *&buf[30] = v85;
             *&buf[38] = 2048;
-            v102 = v14;
-            _os_log_error_impl(&dword_1DB56E000, v82, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) VCAudioCaptionsSpeechAnalyzer-init FAILED", buf, 0x30u);
+            v107 = v14;
+            _os_log_error_impl(&dword_1DB56E000, v87, OS_LOG_TYPE_ERROR, " [%s] %s:%d %@(%p) VCAudioCaptionsSpeechAnalyzer-init FAILED", buf, 0x30u);
           }
         }
       }
@@ -121,8 +121,8 @@ LABEL_69:
         v20 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v86 = *[(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription];
-          v84 = FourccToCStr([(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][8]);
+          v91 = *[(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription];
+          v89 = FourccToCStr([(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][8]);
           v21 = [(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][16];
           v22 = [(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][20];
           v23 = [(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][24];
@@ -135,20 +135,20 @@ LABEL_69:
           *&buf[22] = 1024;
           *&buf[24] = 56;
           *&buf[28] = 2048;
-          *&buf[30] = v86;
+          *&buf[30] = v91;
           *&buf[38] = 2080;
-          v102 = v84;
-          v103 = 1024;
-          *v104 = v21;
-          *&v104[4] = 1024;
-          *&v104[6] = v22;
+          v107 = v89;
+          v108 = 1024;
+          *v109 = v21;
+          *&v109[4] = 1024;
+          *&v109[6] = v22;
           v17 = &selRef_isLatencySensitiveModeEnabled;
-          LOWORD(v105) = 1024;
-          *(&v105 + 2) = v23;
-          HIWORD(v105) = 1024;
-          *v106 = v24;
-          *&v106[4] = 1024;
-          *v107 = v25;
+          LOWORD(v110) = 1024;
+          *(&v110 + 2) = v23;
+          HIWORD(v110) = 1024;
+          *v111 = v24;
+          *&v111[4] = 1024;
+          *v112 = v25;
           v26 = " [%s] %s:%d Analyzer preferred format: samplerate=%f formatid=%s bytePerPacket=%d framesPerPacket=%d bytesPerFrame=%d channelsPerFrame=%d bitsPerChannel=%d";
           v27 = v20;
           v28 = 78;
@@ -176,8 +176,8 @@ LABEL_16:
         v30 = *MEMORY[0x1E6986650];
         if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
         {
-          v85 = *[(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription];
-          v83 = FourccToCStr([(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][8]);
+          v90 = *[(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription];
+          v88 = FourccToCStr([(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][8]);
           v31 = [(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][16];
           v32 = [(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][20];
           v33 = [(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription][24];
@@ -192,22 +192,22 @@ LABEL_16:
           *&buf[28] = 2112;
           *&buf[30] = v18;
           *&buf[38] = 2048;
-          v102 = v14;
-          v103 = 2048;
-          *v104 = v85;
-          *&v104[8] = 2080;
-          v105 = v83;
-          *v106 = 1024;
-          *&v106[2] = v31;
-          *v107 = 1024;
-          *&v107[2] = v32;
+          v107 = v14;
+          v108 = 2048;
+          *v109 = v90;
+          *&v109[8] = 2080;
+          v110 = v88;
+          *v111 = 1024;
+          *&v111[2] = v31;
+          *v112 = 1024;
+          *&v112[2] = v32;
           v17 = &selRef_isLatencySensitiveModeEnabled;
-          v108 = 1024;
-          v109 = v33;
-          v110 = 1024;
-          v111 = v34;
-          v112 = 1024;
-          v113 = v35;
+          v113 = 1024;
+          v114 = v33;
+          v115 = 1024;
+          v116 = v34;
+          v117 = 1024;
+          v118 = v35;
           v26 = " [%s] %s:%d %@(%p) Analyzer preferred format: samplerate=%f formatid=%s bytePerPacket=%d framesPerPacket=%d bytesPerFrame=%d channelsPerFrame=%d bitsPerChannel=%d";
           v27 = v30;
           v28 = 98;
@@ -217,13 +217,13 @@ LABEL_16:
     }
 
     streamDescription = [(AVAudioFormat *)v14->super._frameworkAudioFormat streamDescription];
-    v99 = *(streamDescription + 32);
-    v97 = *streamDescription;
-    v98 = *(streamDescription + 16);
+    v104 = *(streamDescription + 32);
+    v102 = *streamDescription;
+    v103 = *(streamDescription + 16);
     captionsFormat = v14->super._captionsFormat;
-    *buf = v97;
-    *&buf[16] = v98;
-    *&buf[32] = v99;
+    *buf = v102;
+    *&buf[16] = v103;
+    *&buf[32] = v104;
     [(ASBDWrapper *)captionsFormat setAsbd:buf];
     if (objc_opt_class() == v14)
     {
@@ -232,77 +232,77 @@ LABEL_16:
         goto LABEL_52;
       }
 
-      v40 = VRTraceErrorLogLevelToCSTR();
-      v41 = *MEMORY[0x1E6986650];
+      v45 = VRTraceErrorLogLevelToCSTR();
+      v46 = *MEMORY[0x1E6986650];
       if (!os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
       {
         goto LABEL_52;
       }
 
-      v42 = v14->super._captionsFormat;
-      if (v42)
+      v47 = v14->super._captionsFormat;
+      if (v47)
       {
-        [(ASBDWrapper *)v42 asbd];
-        v43 = v96;
+        objc_msgSend_asbd(v47);
+        v48 = v101;
       }
 
       else
       {
-        v43 = 0;
+        v48 = 0;
       }
 
-      v58 = v14->super._captionsFormat;
-      if (v58)
+      v63 = v14->super._captionsFormat;
+      if (v63)
       {
-        [(ASBDWrapper *)v58 asbd];
-        v59 = v95;
-      }
-
-      else
-      {
-        v59 = 0;
-      }
-
-      v60 = v14->super._captionsFormat;
-      if (v60)
-      {
-        [(ASBDWrapper *)v60 asbd];
-        v61 = v94;
+        objc_msgSend_asbd(v63);
+        v64 = v100;
       }
 
       else
       {
-        v61 = 0.0;
+        v64 = 0;
       }
 
-      v62 = v14->super._captionsFormat;
-      if (v62)
+      v65 = v14->super._captionsFormat;
+      if (v65)
       {
-        [(ASBDWrapper *)v62 asbd];
-        LODWORD(v63) = v93;
-        v64 = v63;
+        objc_msgSend_asbd(v65);
+        v66 = v99;
       }
 
       else
       {
-        v64 = 0.0;
+        v66 = 0.0;
+      }
+
+      v67 = v14->super._captionsFormat;
+      if (v67)
+      {
+        objc_msgSend_asbd(v67);
+        LODWORD(v68) = v98;
+        v69 = v68;
+      }
+
+      else
+      {
+        v69 = 0.0;
       }
 
       *buf = 136316418;
-      *&buf[4] = v40;
+      *&buf[4] = v45;
       *&buf[12] = 2080;
       *&buf[14] = "[VCAudioCaptionsSpeechAnalyzer initWithDelegate:isLocal:taskIdentifier:reportingAgent:]";
       *&buf[22] = 1024;
       *&buf[24] = 60;
       *&buf[28] = 1024;
-      *&buf[30] = v43;
+      *&buf[30] = v48;
       *&buf[34] = 1024;
-      *&buf[36] = v59;
-      LOWORD(v102) = 1024;
-      *(&v102 + 2) = (v61 * v64 * 20.0) / 1000;
-      v55 = " [%s] %s:%d Create PCM copy buffer allocator: sampleRate=%d, bytesPerPacket=%d, capacity=%d";
-      v56 = v41;
-      v57 = 46;
+      *&buf[36] = v64;
+      LOWORD(v107) = 1024;
+      *(&v107 + 2) = (v66 * v69 * 20.0) / 1000;
+      v60 = " [%s] %s:%d Create PCM copy buffer allocator: sampleRate=%d, bytesPerPacket=%d, capacity=%d";
+      v61 = v46;
+      v62 = 46;
     }
 
     else
@@ -318,61 +318,61 @@ LABEL_16:
         v39 = &stru_1F570E008;
       }
 
-      if (VRTraceGetErrorLogLevelForModule() < 7 || (v44 = VRTraceErrorLogLevelToCSTR(), v45 = *MEMORY[0x1E6986650], !os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT)))
+      if (VRTraceGetErrorLogLevelForModule() < 7 || (v49 = VRTraceErrorLogLevelToCSTR(), v50 = *MEMORY[0x1E6986650], !os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT)))
       {
 LABEL_52:
-        v65 = *MEMORY[0x1E695E480];
-        v66 = v14->super._captionsFormat;
-        if (v66)
-        {
-          [(ASBDWrapper *)v66 asbd];
-          v67 = v88;
-        }
-
-        else
-        {
-          v67 = 0.0;
-        }
-
-        v68 = v14->super._captionsFormat;
-        if (v68)
-        {
-          [(ASBDWrapper *)v68 asbd];
-          LODWORD(v69) = v87;
-          v70 = v69;
-        }
-
-        else
-        {
-          v70 = 0.0;
-        }
-
-        v71 = VCAudioBufferAllocatorCreate(v65, (v67 * v70 * 20.0 / 1000.0), 2u);
-        v14->super._avAudioPCMAudioBufferAllocator = v71;
+        v70 = *MEMORY[0x1E695E480];
+        v71 = v14->super._captionsFormat;
         if (v71)
         {
+          objc_msgSend_asbd(v71);
+          v72 = v93;
+        }
+
+        else
+        {
+          v72 = 0.0;
+        }
+
+        v73 = v14->super._captionsFormat;
+        if (v73)
+        {
+          objc_msgSend_asbd(v73);
+          LODWORD(v74) = v92;
+          v75 = v74;
+        }
+
+        else
+        {
+          v75 = 0.0;
+        }
+
+        v76 = VCAudioBufferAllocatorCreate(v70, (v72 * v75 * 20.0 / 1000.0), 2, v40, v41, v42, v43, v44);
+        v14->super._avAudioPCMAudioBufferAllocator = v76;
+        if (v76)
+        {
           CustomRootQueue = VCDispatchQueue_GetCustomRootQueue(37);
-          v73 = dispatch_queue_create_with_target_V2("com.apple.AVConference.VCAudioCaptions.serialQueue", 0, CustomRootQueue);
-          v74 = objc_alloc_init(MEMORY[0x1E696ADC8]);
-          v14->_operationQueue = v74;
-          if (v74)
+          v78 = dispatch_queue_create_with_target_V2("com.apple.AVConference.VCAudioCaptions.serialQueue", 0, CustomRootQueue);
+          v79 = objc_alloc_init(MEMORY[0x1E696ADC8]);
+          v14->_operationQueue = v79;
+          if (v79)
           {
-            [(NSOperationQueue *)v74 setUnderlyingQueue:v73];
-            if (v73)
+            [(NSOperationQueue *)v79 setUnderlyingQueue:v78];
+            if (v78)
             {
-              dispatch_release(v73);
+              dispatch_release(v78);
             }
 
             MEMORY[0x1E128B580](&dword_1DB56E000, "@:@ VCAudioCaptionsSpeechAnalyzer-init Finished");
             if (VRTraceGetErrorLogLevelForModule() >= 6)
             {
-              v75 = VRTraceErrorLogLevelToCSTR();
-              v76 = *MEMORY[0x1E6986650];
+              v80 = VRTraceErrorLogLevelToCSTR();
+              v81 = *MEMORY[0x1E6986650];
               if (os_log_type_enabled(*MEMORY[0x1E6986650], OS_LOG_TYPE_DEFAULT))
               {
                 frameworkType = v14->super._frameworkType;
                 *buf = 136316162;
-                *&buf[4] = v75;
+                *&buf[4] = v80;
                 *&buf[12] = 2080;
                 *&buf[14] = "[VCAudioCaptionsSpeechAnalyzer initWithDelegate:isLocal:taskIdentifier:reportingAgent:]";
                 *&buf[22] = 1024;
@@ -380,15 +380,15 @@ LABEL_52:
                 *&buf[28] = 2048;
                 *&buf[30] = v14;
                 *&buf[38] = 1024;
-                LODWORD(v102) = frameworkType;
-                _os_log_impl(&dword_1DB56E000, v76, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ VCAudioCaptionsSpeechAnalyzer-init Finished instance=%p Succeeded with frameworkType=%d", buf, 0x2Cu);
+                LODWORD(v107) = frameworkType;
+                _os_log_impl(&dword_1DB56E000, v81, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d @:@ VCAudioCaptionsSpeechAnalyzer-init Finished instance=%p Succeeded with frameworkType=%d", buf, 0x2Cu);
               }
             }
 
             return v14;
           }
 
-          [VCAudioCaptionsSpeechAnalyzer initWithDelegate:v73 isLocal:v14 taskIdentifier:? reportingAgent:?];
+          [VCAudioCaptionsSpeechAnalyzer initWithDelegate:v78 isLocal:v14 taskIdentifier:? reportingAgent:?];
         }
 
         else
@@ -399,57 +399,57 @@ LABEL_52:
         goto LABEL_69;
       }
 
-      v46 = v14->super._captionsFormat;
-      if (v46)
+      v51 = v14->super._captionsFormat;
+      if (v51)
       {
-        [(ASBDWrapper *)v46 asbd];
-        v47 = v92;
+        objc_msgSend_asbd(v51);
+        v52 = v97;
       }
 
       else
       {
-        v47 = 0;
+        v52 = 0;
       }
 
-      v48 = v14->super._captionsFormat;
-      if (v48)
+      v53 = v14->super._captionsFormat;
+      if (v53)
       {
-        [(ASBDWrapper *)v48 asbd];
-        v49 = v91;
-      }
-
-      else
-      {
-        v49 = 0;
-      }
-
-      v50 = v14->super._captionsFormat;
-      if (v50)
-      {
-        [(ASBDWrapper *)v50 asbd];
-        v51 = v90;
+        objc_msgSend_asbd(v53);
+        v54 = v96;
       }
 
       else
       {
-        v51 = 0.0;
+        v54 = 0;
       }
 
-      v52 = v14->super._captionsFormat;
-      if (v52)
+      v55 = v14->super._captionsFormat;
+      if (v55)
       {
-        [(ASBDWrapper *)v52 asbd];
-        LODWORD(v53) = v89;
-        v54 = v53;
+        objc_msgSend_asbd(v55);
+        v56 = v95;
       }
 
       else
       {
-        v54 = 0.0;
+        v56 = 0.0;
+      }
+
+      v57 = v14->super._captionsFormat;
+      if (v57)
+      {
+        objc_msgSend_asbd(v57);
+        LODWORD(v58) = v94;
+        v59 = v58;
+      }
+
+      else
+      {
+        v59 = 0.0;
       }
 
       *buf = 136316930;
-      *&buf[4] = v44;
+      *&buf[4] = v49;
       *&buf[12] = 2080;
       *&buf[14] = "[VCAudioCaptionsSpeechAnalyzer initWithDelegate:isLocal:taskIdentifier:reportingAgent:]";
       *&buf[22] = 1024;
@@ -457,19 +457,19 @@ LABEL_52:
       *&buf[28] = 2112;
       *&buf[30] = v39;
       *&buf[38] = 2048;
-      v102 = v14;
-      v103 = 1024;
-      *v104 = v47;
-      *&v104[4] = 1024;
-      *&v104[6] = v49;
-      LOWORD(v105) = 1024;
-      *(&v105 + 2) = (v51 * v54 * 20.0) / 1000;
-      v55 = " [%s] %s:%d %@(%p) Create PCM copy buffer allocator: sampleRate=%d, bytesPerPacket=%d, capacity=%d";
-      v56 = v45;
-      v57 = 66;
+      v107 = v14;
+      v108 = 1024;
+      *v109 = v52;
+      *&v109[4] = 1024;
+      *&v109[6] = v54;
+      LOWORD(v110) = 1024;
+      *(&v110 + 2) = (v56 * v59 * 20.0) / 1000;
+      v60 = " [%s] %s:%d %@(%p) Create PCM copy buffer allocator: sampleRate=%d, bytesPerPacket=%d, capacity=%d";
+      v61 = v50;
+      v62 = 66;
     }
 
-    _os_log_impl(&dword_1DB56E000, v56, OS_LOG_TYPE_DEFAULT, v55, buf, v57);
+    _os_log_impl(&dword_1DB56E000, v61, OS_LOG_TYPE_DEFAULT, v60, buf, v62);
     goto LABEL_52;
   }
 
@@ -1411,7 +1411,7 @@ LABEL_11:
     }
   }
 
-  return [(VCAudioCaptionsSpeechAnalyzer *)self analyzerSetupWithError:error, *v14, *&v14[16], v15, selfCopy];
+  return [(VCAudioCaptionsSpeechAnalyzer *)self analyzerSetupWithError:error, *v14, *&v14[8], v15, selfCopy];
 }
 
 - (void)destroyCaptions
@@ -1930,7 +1930,7 @@ LABEL_11:
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
           v13 = [objc_msgSend(v7 "segments")];
-          [v7 recognitionAudioRange];
+          objc_msgSend_recognitionAudioRange(v7);
           time = v50;
           Seconds = CMTimeGetSeconds(&time);
           earResultType = [v7 earResultType];
@@ -1977,7 +1977,7 @@ LABEL_22:
       }
 
       v32 = [objc_msgSend(v7 "segments")];
-      [v7 recognitionAudioRange];
+      objc_msgSend_recognitionAudioRange(v7);
       time = v49;
       v33 = CMTimeGetSeconds(&time);
       earResultType2 = [v7 earResultType];
@@ -2027,7 +2027,7 @@ LABEL_22:
         if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
         {
           v22 = [objc_msgSend(v7 "segments")];
-          [v7 recognitionAudioRange];
+          objc_msgSend_recognitionAudioRange(v7);
           time = v48;
           v23 = CMTimeGetSeconds(&time);
           earResultType3 = [v7 earResultType];
@@ -2066,7 +2066,7 @@ LABEL_22:
       }
 
       v25 = [objc_msgSend(v7 "segments")];
-      [v7 recognitionAudioRange];
+      objc_msgSend_recognitionAudioRange(v7);
       time = v47;
       v26 = CMTimeGetSeconds(&time);
       earResultType4 = [v7 earResultType];
@@ -2437,10 +2437,10 @@ uint64_t __79__VCAudioCaptionsSpeechAnalyzer_speechAnalyzerDidProduceAllTranscri
 
       if (result)
       {
-        [result range];
+        objc_msgSend_range(result);
         time = v35;
         Seconds = CMTimeGetSeconds(&time);
-        [result range];
+        objc_msgSend_range(result);
       }
 
       else
@@ -2479,10 +2479,10 @@ LABEL_25:
 
     if (result)
     {
-      [result range];
+      objc_msgSend_range(result);
       time = v33;
       v17 = CMTimeGetSeconds(&time);
-      [result range];
+      objc_msgSend_range(result);
     }
 
     else
@@ -2538,10 +2538,10 @@ LABEL_31:
 
       if (result)
       {
-        [result range];
+        objc_msgSend_range(result);
         time = v31;
         v15 = CMTimeGetSeconds(&time);
-        [result range];
+        objc_msgSend_range(result);
       }
 
       else
@@ -2582,10 +2582,10 @@ LABEL_31:
 
     if (result)
     {
-      [result range];
+      objc_msgSend_range(result);
       time = v29;
       v16 = CMTimeGetSeconds(&time);
-      [result range];
+      objc_msgSend_range(result);
     }
 
     else
@@ -2782,7 +2782,7 @@ LABEL_11:
   }
 }
 
-- (void)initWithDelegate:(char)a1 isLocal:taskIdentifier:reportingAgent:.cold.3(char a1)
+- (void)initWithDelegate:(char)a1 isLocal:(uint64_t)a2 taskIdentifier:reportingAgent:.cold.3(char a1, uint64_t a2)
 {
   if (a1)
   {
@@ -2796,7 +2796,7 @@ LABEL_11:
         OUTLINED_FUNCTION_4_0();
         OUTLINED_FUNCTION_16_0();
 LABEL_11:
-        _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+        _os_log_error_impl(v2, v3, v4, v5, v6, v7);
       }
     }
   }

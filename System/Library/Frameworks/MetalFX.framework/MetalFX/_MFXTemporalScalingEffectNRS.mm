@@ -3,10 +3,6 @@
 - (CGPoint)motionVectorScale;
 - (CGPoint)previousJitterOffset;
 - (_MFXTemporalScalingEffectNRS)initWithDevice:(id)device descriptor:(id)descriptor;
-- (__n128)currentViewToClipMatrix;
-- (__n128)currentWorldToViewMatrix;
-- (__n128)previousViewToClipMatrix;
-- (__n128)previousWorldToViewMatrix;
 - (__n128)setCurrentViewToClipMatrix:(__n128)matrix;
 - (__n128)setCurrentWorldToViewMatrix:(__n128)matrix;
 - (__n128)setPreviousViewToClipMatrix:(__n128)matrix;
@@ -243,7 +239,7 @@
   if (self)
   {
     v7 = [v5 supportsFamily:1004];
-    v35 = v7;
+    v32 = v7;
     if (v7)
     {
       v8 = 0;
@@ -254,69 +250,66 @@
       v8 = [v5 supportsFamily:1004];
     }
 
-    v34 = v8;
-    v9 = [v5 supportsFamily:1001];
-    v10 = *(self + 384);
-    v33 = v9;
-    v39 = 0;
-    v37 = 0u;
-    v38 = 0u;
-    v36 = 0u;
+    v31 = v8;
+    v30 = [v5 supportsFamily:1001];
+    v36 = 0;
+    v34 = 0u;
+    v35 = 0u;
+    v33 = 0u;
     MTLPixelFormatGetInfoForDevice();
-    v32 = 0;
-    v11 = 2;
+    v29 = 0;
+    v9 = 2;
     if ((v8 | v7))
     {
-      v11 = 4;
+      v9 = 4;
     }
 
-    *(self + 304) = v11;
-    v12 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:115 width:*(self + 408) height:*(self + 416) mipmapped:0];
-    [v12 setUsage:*(self + 304) | 1];
-    [v12 setStorageMode:2];
-    [v12 setCompressionMode:1];
-    v13 = [v5 newTextureWithDescriptor:v12];
-    v14 = *(self + 200);
-    *(self + 200) = v13;
+    *(self + 304) = v9;
+    v10 = [MEMORY[0x277CD7058] texture2DDescriptorWithPixelFormat:115 width:*(self + 408) height:*(self + 416) mipmapped:0];
+    [v10 setUsage:*(self + 304) | 1];
+    [v10 setStorageMode:2];
+    [v10 setCompressionMode:1];
+    v11 = [v5 newTextureWithDescriptor:v10];
+    v12 = *(self + 200);
+    *(self + 200) = v11;
 
-    v15 = [v5 newTextureWithDescriptor:v12];
-    v16 = *(self + 208);
-    *(self + 208) = v15;
+    v13 = [v5 newTextureWithDescriptor:v10];
+    v14 = *(self + 208);
+    *(self + 208) = v13;
 
-    v17 = [v5 newTextureWithDescriptor:v12];
-    v18 = *(self + 216);
-    *(self + 216) = v17;
+    v15 = [v5 newTextureWithDescriptor:v10];
+    v16 = *(self + 216);
+    *(self + 216) = v15;
 
-    v19 = [v5 newTextureWithDescriptor:v12];
-    v20 = *(self + 224);
-    *(self + 224) = v19;
+    v17 = [v5 newTextureWithDescriptor:v10];
+    v18 = *(self + 224);
+    *(self + 224) = v17;
 
     *(self + 249) = 0;
-    v21 = objc_opt_new();
-    [v21 setConstantValue:&v34 type:53 atIndex:0];
-    [v21 setConstantValue:&v35 type:53 atIndex:1];
-    [v21 setConstantValue:&v33 type:53 atIndex:2];
-    [v21 setConstantValue:&v32 type:53 atIndex:3];
-    [v21 setConstantValue:self + 72 type:3 atIndex:4];
-    if (v35 == 1)
+    v19 = objc_opt_new();
+    [v19 setConstantValue:&v31 type:53 atIndex:0];
+    [v19 setConstantValue:&v32 type:53 atIndex:1];
+    [v19 setConstantValue:&v30 type:53 atIndex:2];
+    [v19 setConstantValue:&v29 type:53 atIndex:3];
+    [v19 setConstantValue:self + 72 type:3 atIndex:4];
+    if (v32 == 1)
     {
-      v31 = 0;
-      v29 = *(self + 384);
-      v24 = tileKernel(deviceCopy, v5, @"unified_pass_tile", &v31, v21, 512, v22, v23, 115, 115);
-      v25 = v31;
-      v26 = *(self + 240);
-      *(self + 240) = v24;
+      v28 = 0;
+      v22 = tileKernel(deviceCopy, v5, @"unified_pass_tile", &v28, v19, 512, v20, v21, 115, 115);
+      v23 = v28;
+      v24 = *(self + 240);
+      *(self + 240) = v22;
     }
 
     else
     {
-      v30 = 0;
-      v27 = computeKernel(deviceCopy, v5, @"unified_pass_tile", &v30, v21, 0x200uLL, 1);
-      v25 = v30;
-      v28 = *(self + 232);
-      *(self + 232) = v27;
+      v27 = 0;
+      v25 = computeKernel(deviceCopy, v5, @"unified_pass_tile", &v27, v19, 0x200uLL, 1);
+      v23 = v27;
+      v26 = *(self + 232);
+      *(self + 232) = v25;
 
-      *(self + 248) = v34;
+      *(self + 248) = v31;
     }
   }
 }
@@ -355,7 +348,7 @@
 
 - (void)encodeToCommandBuffer:(id)buffer
 {
-  v92 = *MEMORY[0x277D85DE8];
+  v91 = *MEMORY[0x277D85DE8];
   bufferCopy = buffer;
   [(_MTLFXEffectBase *)self _beginEncode];
   if (MTLReportFailureTypeEnabled())
@@ -370,26 +363,26 @@
     v10 = fminf(outputWidth / inputContentWidth, outputHeight / inputContentHeight);
     if (v10 < inputContentMinScale)
     {
-      v76 = v10;
-      v77 = inputContentMinScale;
+      v75 = v10;
+      v76 = inputContentMinScale;
       MTLReportFailure();
     }
 
     v11 = fmaxf(outputWidth / (inputContentWidth + 1), outputHeight / (inputContentHeight + 1));
     if (v11 > inputContentMaxScale)
     {
-      v76 = v11;
-      v77 = inputContentMaxScale;
+      v75 = v11;
+      v76 = inputContentMaxScale;
       MTLReportFailure();
     }
 
-    if ([(MTLTexture *)self->_outputTexture storageMode:*&v76]!= 2)
+    if ([(MTLTexture *)self->_outputTexture storageMode:*&v75]!= 2)
     {
       MTLReportFailure();
     }
   }
 
-  MetalFxScopedSignpost::MetalFxScopedSignpost(v87, 0, self, 0, self->super.super.super._encodeID, 0);
+  MetalFxScopedSignpost::MetalFxScopedSignpost(v86, 0, self, 0, self->super.super.super._encodeID, 0);
   if (MTLTraceEnabled())
   {
     [bufferCopy globalTraceObjectID];
@@ -407,31 +400,31 @@
   {
     v13 = self->_inputContentWidth;
     v14 = self->_inputContentHeight;
-    WORD1(v84[0]) = v14;
-    LOWORD(v84[0]) = v13;
-    v86 = v14 * v13;
+    WORD1(v83[0]) = v14;
+    LOWORD(v83[0]) = v13;
+    v85 = v14 * v13;
     [computeCommandEncoder setComputePipelineState:self->_internalExposure.lumaLogSumKernel];
     [computeCommandEncoder setTexture:self->_colorTexture atIndex:0];
-    [computeCommandEncoder setBytes:v84 length:4 atIndex:1];
+    [computeCommandEncoder setBytes:v83 length:4 atIndex:1];
     [computeCommandEncoder setBytes:&self->_preExposure length:4 atIndex:2];
     [computeCommandEncoder setBuffer:self->_internalExposure.lumaLogSums offset:0 atIndex:0];
-    v88 = xmmword_2398F2880;
-    *&v89 = 1;
-    *v85 = [(MTLComputePipelineState *)self->_internalExposure.lumaLogSumKernel threadExecutionWidth];
-    *&v85[8] = vdupq_n_s64(1uLL);
-    [computeCommandEncoder dispatchThreadgroups:&v88 threadsPerThreadgroup:v85];
+    v87 = xmmword_2398F2880;
+    *&v88 = 1;
+    *v84 = [(MTLComputePipelineState *)self->_internalExposure.lumaLogSumKernel threadExecutionWidth];
+    *&v84[8] = vdupq_n_s64(1uLL);
+    [computeCommandEncoder dispatchThreadgroups:&v87 threadsPerThreadgroup:v84];
     [computeCommandEncoder setComputePipelineState:self->_internalExposure.lumaLogSumToExposureKernel];
     [computeCommandEncoder setBuffer:self->_internalExposure.lumaLogSums offset:0 atIndex:0];
-    [computeCommandEncoder setBytes:&v86 length:4 atIndex:1];
+    [computeCommandEncoder setBytes:&v85 length:4 atIndex:1];
     [computeCommandEncoder setBuffer:self->_internalExposure.currExposure offset:0 atIndex:2];
     [computeCommandEncoder setBuffer:self->_internalExposure.prevExposure offset:0 atIndex:3];
     [computeCommandEncoder setBuffer:self->_internal_is_history_invalid offset:0 atIndex:4];
     [computeCommandEncoder setBytes:&self->_reset length:1 atIndex:5];
-    v88 = vdupq_n_s64(1uLL);
-    *&v89 = 1;
-    *v85 = xmmword_2398F2890;
-    *&v85[16] = 1;
-    [computeCommandEncoder dispatchThreadgroups:&v88 threadsPerThreadgroup:v85];
+    v87 = vdupq_n_s64(1uLL);
+    *&v88 = 1;
+    *v84 = xmmword_2398F2890;
+    *&v84[16] = 1;
+    [computeCommandEncoder dispatchThreadgroups:&v87 threadsPerThreadgroup:v84];
   }
 
   else
@@ -442,33 +435,33 @@
     [computeCommandEncoder setBuffer:self->_internalExposure.prevExposure offset:0 atIndex:1];
     [computeCommandEncoder setBuffer:self->_internal_is_history_invalid offset:0 atIndex:2];
     [computeCommandEncoder setBytes:&self->_reset length:1 atIndex:3];
-    v88 = vdupq_n_s64(1uLL);
-    *&v89 = 1;
-    *v85 = v88;
-    *&v85[16] = 1;
-    [computeCommandEncoder dispatchThreads:&v88 threadsPerThreadgroup:v85];
+    v87 = vdupq_n_s64(1uLL);
+    *&v88 = 1;
+    *v84 = v87;
+    *&v84[16] = 1;
+    [computeCommandEncoder dispatchThreads:&v87 threadsPerThreadgroup:v84];
   }
 
   v15 = self->_inputContentWidth;
   v16 = self->_inputContentHeight;
-  HIWORD(v86) = v16;
-  LOWORD(v86) = v15;
+  HIWORD(v85) = v16;
+  LOWORD(v85) = v15;
   v17.f32[0] = v15;
   v17.f32[1] = v16;
   v18 = vrecpe_f32(v17);
   v19 = vmul_f32(v18, vrecps_f32(v17, v18));
   v20 = vmul_f32(v19, vrecps_f32(v17, v19));
   v21 = *self->_jitterOffset;
-  v84[0] = vmul_f32(*self->_motionVectorScale, v20);
-  v84[1] = v21;
+  v83[0] = vmul_f32(*self->_motionVectorScale, v20);
+  v83[1] = v21;
   v22 = -1.0;
   if (self->_reversedDepth)
   {
     v22 = 1.0;
   }
 
-  v83 = v22;
-  v79 = self->_outputTexture;
+  v82 = v22;
+  v78 = self->_outputTexture;
   p_internalOutputResolution = &self->_internalOutputResolution;
   if (self->_internalOutputResolution.emulateSRGB)
   {
@@ -500,15 +493,15 @@
       {
         v25 = 30;
 LABEL_28:
-        v26 = [(MTLTexture *)v79 newTextureViewWithPixelFormat:v25];
+        v26 = [(MTLTexture *)v78 newTextureViewWithPixelFormat:v25];
 
-        v81[0] = MEMORY[0x277D85DD0];
-        v81[1] = 3221225472;
-        v81[2] = __54___MFXTemporalScalingEffectNRS_encodeToCommandBuffer___block_invoke;
-        v81[3] = &unk_278AA4B50;
-        v79 = v26;
-        v82 = v79;
-        [bufferCopy addCompletedHandler:v81];
+        v80[0] = MEMORY[0x277D85DD0];
+        v80[1] = 3221225472;
+        v80[2] = __54___MFXTemporalScalingEffectNRS_encodeToCommandBuffer___block_invoke;
+        v80[3] = &unk_278AA4B50;
+        v78 = v26;
+        v81 = v78;
+        [bufferCopy addCompletedHandler:v80];
 
         goto LABEL_29;
       }
@@ -535,10 +528,10 @@ LABEL_29:
     *(&v32 + 1) = v31;
     v33.i64[0] = v28;
     v33.i64[1] = v29;
-    v88 = v33;
-    v89 = v32;
-    v90 = self->_internalRenderResolution.variance1;
-    v91 = self->_internalRenderResolution.variance2;
+    v87 = v33;
+    v88 = v32;
+    v89 = self->_internalRenderResolution.variance1;
+    v90 = self->_internalRenderResolution.variance2;
     renderPassDescriptor = [MEMORY[0x277CD6F50] renderPassDescriptor];
     [renderPassDescriptor setTileWidth:32];
     [renderPassDescriptor setTileHeight:16];
@@ -547,7 +540,7 @@ LABEL_29:
     v36 = 48;
     do
     {
-      v37 = v88.i64[v35];
+      v37 = v87.i64[v35];
       colorAttachments = [renderPassDescriptor colorAttachments];
       v39 = [colorAttachments objectAtIndexedSubscript:v35];
       [v39 setLoadAction:0];
@@ -574,9 +567,9 @@ LABEL_29:
     [v46 setTileTexture:self->_colorTexture atIndex:0];
     [v46 setTileTexture:self->_depthTexture atIndex:1];
     [v46 setTileTexture:self->_motionTexture atIndex:2];
-    [v46 setTileBytes:&v83 length:4 atIndex:0];
-    [v46 setTileBytes:v84 length:16 atIndex:1];
-    [v46 setTileBytes:&v86 length:4 atIndex:2];
+    [v46 setTileBytes:&v82 length:4 atIndex:0];
+    [v46 setTileBytes:v83 length:16 atIndex:1];
+    [v46 setTileBytes:&v85 length:4 atIndex:2];
     [v46 setTileBytes:&self->_preExposure length:4 atIndex:3];
     [v46 setTileBuffer:self->_internalExposure.currExposure offset:0 atIndex:4];
     [v46 setTileBuffer:self->_internal_is_history_invalid offset:0 atIndex:6];
@@ -584,9 +577,9 @@ LABEL_29:
     [v46 setThreadgroupMemoryLength:1440 offset:5760 atIndex:1];
     [v46 setThreadgroupMemoryLength:2880 offset:7200 atIndex:2];
     [v46 setRenderPipelineState:self->_internalRenderResolution.tileKernel];
-    *v85 = xmmword_2398F28A0;
-    *&v85[16] = 1;
-    [v46 dispatchThreadsPerTile:v85];
+    *v84 = xmmword_2398F28A0;
+    *&v84[16] = 1;
+    [v46 dispatchThreadsPerTile:v84];
     [v46 endEncoding];
 
     for (i = 5; i != -1; --i)
@@ -609,12 +602,12 @@ LABEL_51:
       [computeCommandEncoder setTexture:self->_internalOutputResolution.prevHistory1 atIndex:5];
       [computeCommandEncoder setTexture:self->_internalOutputResolution.currHistory0 atIndex:6];
       [computeCommandEncoder setTexture:self->_internalOutputResolution.currHistory1 atIndex:7];
-      [computeCommandEncoder setTexture:v79 atIndex:8];
+      [computeCommandEncoder setTexture:v78 atIndex:8];
       [computeCommandEncoder setTexture:self->_internalRenderResolution.variance0 atIndex:12];
       [computeCommandEncoder setTexture:self->_internalRenderResolution.variance1 atIndex:13];
       [computeCommandEncoder setTexture:self->_internalRenderResolution.variance2 atIndex:14];
-      [computeCommandEncoder setBytes:v84 length:16 atIndex:1];
-      [computeCommandEncoder setBytes:&v86 length:4 atIndex:2];
+      [computeCommandEncoder setBytes:v83 length:16 atIndex:1];
+      [computeCommandEncoder setBytes:&v85 length:4 atIndex:2];
       [computeCommandEncoder setBytes:&self->_preExposure length:4 atIndex:3];
       [computeCommandEncoder setBuffer:self->_internalExposure.currExposure offset:0 atIndex:4];
       [computeCommandEncoder setBuffer:self->_internalExposure.prevExposure offset:0 atIndex:5];
@@ -628,12 +621,12 @@ LABEL_51:
       }
 
       [computeCommandEncoder setComputePipelineState:self->_internalOutputResolution.kernel];
-      v88.i64[0] = (v65 + 31) >> 5;
-      v88.i64[1] = (v66 + 15) >> 4;
-      *&v89 = 1;
-      *v85 = xmmword_2398F28A0;
-      *&v85[16] = 1;
-      [computeCommandEncoder dispatchThreadgroups:&v88 threadsPerThreadgroup:v85];
+      v87.i64[0] = (v65 + 31) >> 5;
+      v87.i64[1] = (v66 + 15) >> 4;
+      *&v88 = 1;
+      *v84 = xmmword_2398F28A0;
+      *&v84[16] = 1;
+      [computeCommandEncoder dispatchThreadgroups:&v87 threadsPerThreadgroup:v84];
       if (self->_fence)
       {
         [computeCommandEncoder updateFence:?];
@@ -661,9 +654,9 @@ LABEL_51:
     [computeCommandEncoder setTexture:self->_internalRenderResolution.variance0 atIndex:6];
     [computeCommandEncoder setTexture:self->_internalRenderResolution.variance1 atIndex:7];
     [computeCommandEncoder setTexture:self->_internalRenderResolution.variance2 atIndex:8];
-    [computeCommandEncoder setBytes:&v83 length:4 atIndex:0];
-    [computeCommandEncoder setBytes:v84 length:16 atIndex:1];
-    [computeCommandEncoder setBytes:&v86 length:4 atIndex:2];
+    [computeCommandEncoder setBytes:&v82 length:4 atIndex:0];
+    [computeCommandEncoder setBytes:v83 length:16 atIndex:1];
+    [computeCommandEncoder setBytes:&v85 length:4 atIndex:2];
     [computeCommandEncoder setBytes:&self->_preExposure length:4 atIndex:3];
     [computeCommandEncoder setBuffer:self->_internalExposure.currExposure offset:0 atIndex:4];
     [computeCommandEncoder setBuffer:self->_internal_is_history_invalid offset:0 atIndex:6];
@@ -676,12 +669,12 @@ LABEL_51:
     }
 
     [computeCommandEncoder setComputePipelineState:self->_internalRenderResolution.kernel];
-    v88.i64[0] = (inputWidth + 31) >> 5;
-    v88.i64[1] = (inputHeight + 15) >> 4;
-    *&v89 = 1;
-    *v85 = xmmword_2398F28A0;
-    *&v85[16] = 1;
-    [computeCommandEncoder dispatchThreadgroups:&v88 threadsPerThreadgroup:v85];
+    v87.i64[0] = (inputWidth + 31) >> 5;
+    v87.i64[1] = (inputHeight + 15) >> 4;
+    *&v88 = 1;
+    *v84 = xmmword_2398F28A0;
+    *&v84[16] = 1;
+    [computeCommandEncoder dispatchThreadgroups:&v87 threadsPerThreadgroup:v84];
     p_tileKernel = &self->_internalOutputResolution.tileKernel;
     if (!self->_internalOutputResolution.tileKernel)
     {
@@ -699,9 +692,9 @@ LABEL_51:
     }
   }
 
-  v88.i64[0] = self->_internalOutputResolution.currHistory0;
-  v88.i64[1] = self->_internalOutputResolution.currHistory1;
-  *&v89 = v79;
+  v87.i64[0] = self->_internalOutputResolution.currHistory0;
+  v87.i64[1] = self->_internalOutputResolution.currHistory1;
+  *&v88 = v78;
   renderPassDescriptor2 = [MEMORY[0x277CD6F50] renderPassDescriptor];
   [renderPassDescriptor2 setTileWidth:32];
   [renderPassDescriptor2 setTileHeight:16];
@@ -710,7 +703,7 @@ LABEL_51:
   v52 = 24;
   do
   {
-    v53 = v88.i64[v51];
+    v53 = v87.i64[v51];
     colorAttachments5 = [renderPassDescriptor2 colorAttachments];
     v55 = [colorAttachments5 objectAtIndexedSubscript:v51];
     [v55 setLoadAction:0];
@@ -742,8 +735,8 @@ LABEL_51:
   [v62 setTileTexture:self->_internalRenderResolution.variance0 atIndex:12];
   [v62 setTileTexture:self->_internalRenderResolution.variance1 atIndex:13];
   [v62 setTileTexture:self->_internalRenderResolution.variance2 atIndex:14];
-  [v62 setTileBytes:v84 length:16 atIndex:1];
-  [v62 setTileBytes:&v86 length:4 atIndex:2];
+  [v62 setTileBytes:v83 length:16 atIndex:1];
+  [v62 setTileBytes:&v85 length:4 atIndex:2];
   [v62 setTileBytes:&self->_preExposure length:4 atIndex:3];
   [v62 setTileBuffer:self->_internalExposure.currExposure offset:0 atIndex:4];
   [v62 setTileBuffer:self->_internalExposure.prevExposure offset:0 atIndex:5];
@@ -752,9 +745,9 @@ LABEL_51:
   [v62 setThreadgroupMemoryLength:7680 offset:3840 atIndex:1];
   [v62 setThreadgroupMemoryLength:7680 offset:11520 atIndex:2];
   [v62 setRenderPipelineState:*p_tileKernel];
-  *v85 = xmmword_2398F28A0;
-  *&v85[16] = 1;
-  [v62 dispatchThreadsPerTile:v85];
+  *v84 = xmmword_2398F28A0;
+  *&v84[16] = 1;
+  [v62 dispatchThreadsPerTile:v84];
   fence = self->_fence;
   if (fence)
   {
@@ -786,9 +779,7 @@ LABEL_57:
   self->_internalExposure.currExposure = v73;
 
   self->_reset = 0;
-  MetalFxScopedSignpost::~MetalFxScopedSignpost(v87);
-
-  v75 = *MEMORY[0x277D85DE8];
+  MetalFxScopedSignpost::~MetalFxScopedSignpost(v86);
 }
 
 - (void)encodeToCommandQueue:(id)queue
@@ -807,30 +798,12 @@ LABEL_57:
   return result;
 }
 
-- (__n128)currentWorldToViewMatrix
-{
-  result = *(self + 480);
-  v2 = *(self + 496);
-  v3 = *(self + 512);
-  v4 = *(self + 528);
-  return result;
-}
-
 - (__n128)setCurrentWorldToViewMatrix:(__n128)matrix
 {
   result[30] = a2;
   result[31] = matrix;
   result[32] = a4;
   result[33] = a5;
-  return result;
-}
-
-- (__n128)currentViewToClipMatrix
-{
-  result = *(self + 544);
-  v2 = *(self + 560);
-  v3 = *(self + 576);
-  v4 = *(self + 592);
   return result;
 }
 
@@ -843,30 +816,12 @@ LABEL_57:
   return result;
 }
 
-- (__n128)previousWorldToViewMatrix
-{
-  result = *(self + 608);
-  v2 = *(self + 624);
-  v3 = *(self + 640);
-  v4 = *(self + 656);
-  return result;
-}
-
 - (__n128)setPreviousWorldToViewMatrix:(__n128)matrix
 {
   result[38] = a2;
   result[39] = matrix;
   result[40] = a4;
   result[41] = a5;
-  return result;
-}
-
-- (__n128)previousViewToClipMatrix
-{
-  result = *(self + 672);
-  v2 = *(self + 688);
-  v3 = *(self + 704);
-  v4 = *(self + 720);
   return result;
 }
 

@@ -23,29 +23,29 @@
 
 - (id)computePassingMessageEntries
 {
-  v33 = *MEMORY[0x277D85DE8];
-  v25 = objc_opt_new();
+  v32 = *MEMORY[0x277D85DE8];
+  v24 = objc_opt_new();
+  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v29 = 0u;
   v3 = self->_messageEntries;
-  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v26 objects:v32 count:16];
+  v4 = [(NSArray *)v3 countByEnumeratingWithState:&v25 objects:v31 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v27;
+    v6 = *v26;
     do
     {
       v7 = 0;
       do
       {
-        if (*v27 != v6)
+        if (*v26 != v6)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v26 + 1) + 8 * v7);
+        v8 = *(*(&v25 + 1) + 8 * v7);
         applicationMessage = [v8 applicationMessage];
         identifier = [applicationMessage identifier];
 
@@ -77,7 +77,7 @@
             }
 
             *buf = 138543362;
-            v31 = identifier;
+            v30 = identifier;
             v18 = v17;
             v19 = "Message with identifier = %{public}@ cannot be displayed because its resources aren't cached.";
             goto LABEL_15;
@@ -85,7 +85,7 @@
 
           if ([(IAMEvaluator *)self _doesPresentationPolicyAllowPresentationOfMessage:v8])
           {
-            [v25 addObject:v8];
+            [v24 addObject:v8];
             goto LABEL_17;
           }
 
@@ -93,7 +93,7 @@
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v31 = identifier;
+            v30 = identifier;
             v18 = v17;
             v19 = "Message with identifier = %{public}@ cannot be displayed because of its presentation policy.";
             goto LABEL_15;
@@ -106,7 +106,7 @@
           if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138543362;
-            v31 = identifier;
+            v30 = identifier;
             v18 = v17;
             v19 = "Message with identifier = %{public}@ cannot be displayed because it's not within expected start and end date range.";
 LABEL_15:
@@ -121,19 +121,17 @@ LABEL_17:
       }
 
       while (v5 != v7);
-      v20 = [(NSArray *)v3 countByEnumeratingWithState:&v26 objects:v32 count:16];
+      v20 = [(NSArray *)v3 countByEnumeratingWithState:&v25 objects:v31 count:16];
       v5 = v20;
     }
 
     while (v20);
   }
 
-  v21 = [v25 copy];
+  v21 = [v24 copy];
   [(IAMEvaluator *)self setPassingMessageEntries:v21];
 
   passingMessageEntries = [(IAMEvaluator *)self passingMessageEntries];
-
-  v23 = *MEMORY[0x277D85DE8];
 
   return passingMessageEntries;
 }
@@ -238,35 +236,35 @@ LABEL_17:
 
 - (id)computeMessagesCloseToPassingWithProximityThreshold:(unint64_t)threshold
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = objc_opt_new();
+  v15 = 0u;
   v16 = 0u;
   v17 = 0u;
   v18 = 0u;
-  v19 = 0u;
   v6 = self->_messageEntries;
-  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v7 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v17;
+    v9 = *v16;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v17 != v9)
+        if (*v16 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v16 + 1) + 8 * i);
-        if ([(IAMEvaluator *)self _messageEntryProximity:v11, v16]>= threshold)
+        v11 = *(*(&v15 + 1) + 8 * i);
+        if ([(IAMEvaluator *)self _messageEntryProximity:v11, v15]>= threshold)
         {
           [v5 addObject:v11];
         }
       }
 
-      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [(NSArray *)v6 countByEnumeratingWithState:&v15 objects:v19 count:16];
     }
 
     while (v8);
@@ -276,8 +274,6 @@ LABEL_17:
   [(IAMEvaluator *)self setMessagesCloseToPassing:v12];
 
   messagesCloseToPassing = [(IAMEvaluator *)self messagesCloseToPassing];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return messagesCloseToPassing;
 }
@@ -408,34 +404,34 @@ LABEL_13:
 
 - (BOOL)_evaluateCompoundRule:(id)rule forMessageEntry:(id)entry
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   ruleCopy = rule;
   entryCopy = entry;
   v8 = objc_opt_new();
+  v27 = 0u;
   v28 = 0u;
   v29 = 0u;
   v30 = 0u;
-  v31 = 0u;
   subrules = [ruleCopy subrules];
-  v10 = [subrules countByEnumeratingWithState:&v28 objects:v33 count:16];
+  v10 = [subrules countByEnumeratingWithState:&v27 objects:v32 count:16];
   if (v10)
   {
     v11 = v10;
-    v12 = *v29;
+    v12 = *v28;
     do
     {
       for (i = 0; i != v11; ++i)
       {
-        if (*v29 != v12)
+        if (*v28 != v12)
         {
           objc_enumerationMutation(subrules);
         }
 
-        v14 = [MEMORY[0x277CCABB0] numberWithBool:{-[IAMEvaluator _evaluateRule:forMessageEntry:](self, "_evaluateRule:forMessageEntry:", *(*(&v28 + 1) + 8 * i), entryCopy)}];
+        v14 = [MEMORY[0x277CCABB0] numberWithBool:{-[IAMEvaluator _evaluateRule:forMessageEntry:](self, "_evaluateRule:forMessageEntry:", *(*(&v27 + 1) + 8 * i), entryCopy)}];
         [v8 addObject:v14];
       }
 
-      v11 = [subrules countByEnumeratingWithState:&v28 objects:v33 count:16];
+      v11 = [subrules countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
     while (v11);
@@ -443,21 +439,21 @@ LABEL_13:
 
   ruleOperator = [ruleCopy ruleOperator];
   bOOLValue = ruleOperator == 0;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v17 = v8;
-  v18 = [v17 countByEnumeratingWithState:&v24 objects:v32 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v25;
+    v20 = *v24;
     do
     {
       for (j = 0; j != v19; ++j)
       {
-        if (*v25 != v20)
+        if (*v24 != v20)
         {
           objc_enumerationMutation(v17);
         }
@@ -485,16 +481,15 @@ LABEL_13:
           }
         }
 
-        bOOLValue = [*(*(&v24 + 1) + 8 * j) BOOLValue];
+        bOOLValue = [*(*(&v23 + 1) + 8 * j) BOOLValue];
       }
 
-      v19 = [v17 countByEnumeratingWithState:&v24 objects:v32 count:16];
+      v19 = [v17 countByEnumeratingWithState:&v23 objects:v31 count:16];
     }
 
     while (v19);
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return bOOLValue & 1;
 }
 
@@ -812,50 +807,50 @@ LABEL_13:
 
 - (unint64_t)_calculateCompoundRuleProximity:(id)proximity forMessageEntry:(id)entry
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v54 = *MEMORY[0x277D85DE8];
   proximityCopy = proximity;
   entryCopy = entry;
   v7 = objc_opt_new();
-  v48 = 0;
-  v49 = &v48;
-  v50 = 0x2020000000;
-  v51 = 0;
-  v44 = 0;
-  v45 = &v44;
-  v46 = 0x2020000000;
   v47 = 0;
-  v29 = proximityCopy;
+  v48 = &v47;
+  v49 = 0x2020000000;
+  v50 = 0;
+  v43 = 0;
+  v44 = &v43;
+  v45 = 0x2020000000;
+  v46 = 0;
+  v28 = proximityCopy;
   subrules = [proximityCopy subrules];
-  v43[0] = MEMORY[0x277D85DD0];
-  v43[1] = 3221225472;
-  v43[2] = __64__IAMEvaluator__calculateCompoundRuleProximity_forMessageEntry___block_invoke;
-  v43[3] = &unk_2797A7610;
-  v43[4] = &v48;
-  v43[5] = &v44;
-  [subrules enumerateObjectsUsingBlock:v43];
+  v42[0] = MEMORY[0x277D85DD0];
+  v42[1] = 3221225472;
+  v42[2] = __64__IAMEvaluator__calculateCompoundRuleProximity_forMessageEntry___block_invoke;
+  v42[3] = &unk_2797A7610;
+  v42[4] = &v47;
+  v42[5] = &v43;
+  [subrules enumerateObjectsUsingBlock:v42];
 
-  v9 = ![v29 ruleOperator] && v49[3] && v45[3] != 0;
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
+  v9 = ![v28 ruleOperator] && v48[3] && v44[3] != 0;
   v40 = 0u;
-  subrules2 = [v29 subrules];
-  v11 = [subrules2 countByEnumeratingWithState:&v39 objects:v54 count:16];
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
+  subrules2 = [v28 subrules];
+  v11 = [subrules2 countByEnumeratingWithState:&v38 objects:v53 count:16];
   if (v11)
   {
-    v12 = *v40;
+    v12 = *v39;
     do
     {
       v13 = 0;
       do
       {
-        if (*v40 != v12)
+        if (*v39 != v12)
         {
           objc_enumerationMutation(subrules2);
         }
 
-        v14 = *(*(&v39 + 1) + 8 * v13);
-        if (!v9 || ([*(*(&v39 + 1) + 8 * v13) isExactMatchRule] & 1) == 0)
+        v14 = *(*(&v38 + 1) + 8 * v13);
+        if (!v9 || ([*(*(&v38 + 1) + 8 * v13) isExactMatchRule] & 1) == 0)
         {
           v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{-[IAMEvaluator _calculateRuleProximity:forMessageEntry:](self, "_calculateRuleProximity:forMessageEntry:", v14, entryCopy)}];
           [v7 addObject:v15];
@@ -865,37 +860,37 @@ LABEL_13:
       }
 
       while (v11 != v13);
-      v11 = [subrules2 countByEnumeratingWithState:&v39 objects:v54 count:16];
+      v11 = [subrules2 countByEnumeratingWithState:&v38 objects:v53 count:16];
     }
 
     while (v11);
   }
 
-  if ([v29 ruleOperator])
+  if ([v28 ruleOperator])
   {
-    if ([v29 ruleOperator] == 1)
+    if ([v28 ruleOperator] == 1)
     {
-      v33 = 0u;
-      v34 = 0u;
-      v31 = 0u;
       v32 = 0u;
+      v33 = 0u;
+      v30 = 0u;
+      v31 = 0u;
       v16 = v7;
       v17 = 0;
-      v18 = [v16 countByEnumeratingWithState:&v31 objects:v52 count:16];
+      v18 = [v16 countByEnumeratingWithState:&v30 objects:v51 count:16];
       if (v18)
       {
-        v19 = *v32;
+        v19 = *v31;
         do
         {
           v20 = 0;
           do
           {
-            if (*v32 != v19)
+            if (*v31 != v19)
             {
               objc_enumerationMutation(v16);
             }
 
-            unsignedIntegerValue = [*(*(&v31 + 1) + 8 * v20) unsignedIntegerValue];
+            unsignedIntegerValue = [*(*(&v30 + 1) + 8 * v20) unsignedIntegerValue];
             if (v17 <= unsignedIntegerValue)
             {
               v17 = unsignedIntegerValue;
@@ -905,7 +900,7 @@ LABEL_13:
           }
 
           while (v18 != v20);
-          v18 = [v16 countByEnumeratingWithState:&v31 objects:v52 count:16];
+          v18 = [v16 countByEnumeratingWithState:&v30 objects:v51 count:16];
         }
 
         while (v18);
@@ -920,31 +915,31 @@ LABEL_13:
 
   else
   {
-    v37 = 0u;
-    v38 = 0u;
-    v35 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v22 = v7;
     v23 = 0;
-    v24 = [v22 countByEnumeratingWithState:&v35 objects:v53 count:16];
+    v24 = [v22 countByEnumeratingWithState:&v34 objects:v52 count:16];
     if (v24)
     {
-      v25 = *v36;
+      v25 = *v35;
       do
       {
         v26 = 0;
         do
         {
-          if (*v36 != v25)
+          if (*v35 != v25)
           {
             objc_enumerationMutation(v22);
           }
 
-          v23 += [*(*(&v35 + 1) + 8 * v26++) unsignedIntegerValue];
+          v23 += [*(*(&v34 + 1) + 8 * v26++) unsignedIntegerValue];
         }
 
         while (v24 != v26);
-        v24 = [v22 countByEnumeratingWithState:&v35 objects:v53 count:16];
+        v24 = [v22 countByEnumeratingWithState:&v34 objects:v52 count:16];
       }
 
       while (v24);
@@ -953,14 +948,13 @@ LABEL_13:
     v17 = v23 / [v22 count];
   }
 
-  _Block_object_dispose(&v44, 8);
-  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v43, 8);
+  _Block_object_dispose(&v47, 8);
 
-  v27 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
-uint64_t __64__IAMEvaluator__calculateCompoundRuleProximity_forMessageEntry___block_invoke(uint64_t a1, void *a2)
+void *__64__IAMEvaluator__calculateCompoundRuleProximity_forMessageEntry___block_invoke(uint64_t a1, void *a2)
 {
   result = [a2 isExactMatchRule];
   v4 = 40;

@@ -392,37 +392,35 @@ LABEL_31:
 
 - (id)populateOrderedInputFeature
 {
-  v3 = [NSMutableString alloc];
-  rssiDbm = self->_rssiDbm;
-  v5 = [v3 initWithFormat:@"%d, %f, %f, %d, %.3f, %.3f", self->_antennaMask, *&self->_timestamp, *&self->_uwbTime, self->_tofPicSecond, *&rssiDbm, *&self->_soiRssiDbm];
-  [v5 appendFormat:@", %d, %d, %d", self->_toaNoiseRms, self->_toaPpwinRms, self->_toaPpwinPeak];
-  [v5 appendFormat:@", %llu, %llu, %llu, %llu", self->_rttInitiator, self->_tatInitiator, self->_rttResponder, self->_tatResponder];
+  v3 = [[NSMutableString alloc] initWithFormat:@"%d, %f, %f, %d, %.3f, %.3f", self->_antennaMask, *&self->_timestamp, *&self->_uwbTime, self->_tofPicSecond, *&self->_rssiDbm, *&self->_soiRssiDbm];
+  [v3 appendFormat:@", %d, %d, %d", self->_toaNoiseRms, self->_toaPpwinRms, self->_toaPpwinPeak];
+  [v3 appendFormat:@", %llu, %llu, %llu, %llu", self->_rttInitiator, self->_tatInitiator, self->_rttResponder, self->_tatResponder];
   for (i = 0; [(NSArray *)self->_cirPacket1 count]> i; ++i)
   {
+    v5 = [(NSArray *)self->_cirPacket1 objectAtIndex:i];
+    real = [v5 real];
+
     v7 = [(NSArray *)self->_cirPacket1 objectAtIndex:i];
-    real = [v7 real];
+    imag = [v7 imag];
 
-    v9 = [(NSArray *)self->_cirPacket1 objectAtIndex:i];
-    imag = [v9 imag];
-
-    [v5 appendFormat:@", %d, %d", objc_msgSend(real, "intValue"), objc_msgSend(imag, "intValue")];
+    [v3 appendFormat:@", %d, %d", objc_msgSend(real, "intValue"), objc_msgSend(imag, "intValue")];
   }
 
-  [v5 appendFormat:@", %d, %d, %d", self->_leadingEdgePacket1, self->_firstPathIndexPacket1, self->_rxAntennaPacket1];
+  [v3 appendFormat:@", %d, %d, %d", self->_leadingEdgePacket1, self->_firstPathIndexPacket1, self->_rxAntennaPacket1];
   for (j = 0; [(NSArray *)self->_cirPacket2 count]> j; ++j)
   {
+    v10 = [(NSArray *)self->_cirPacket2 objectAtIndex:j];
+    real2 = [v10 real];
+
     v12 = [(NSArray *)self->_cirPacket2 objectAtIndex:j];
-    real2 = [v12 real];
+    imag2 = [v12 imag];
 
-    v14 = [(NSArray *)self->_cirPacket2 objectAtIndex:j];
-    imag2 = [v14 imag];
-
-    [v5 appendFormat:@", %d, %d", objc_msgSend(real2, "intValue"), objc_msgSend(imag2, "intValue")];
+    [v3 appendFormat:@", %d, %d", objc_msgSend(real2, "intValue"), objc_msgSend(imag2, "intValue")];
   }
 
-  [v5 appendFormat:@", %d, %d, %d", self->_leadingEdgePacket2, self->_firstPathIndexPacket2, self->_rxAntennaPacket2];
+  [v3 appendFormat:@", %d, %d, %d", self->_leadingEdgePacket2, self->_firstPathIndexPacket2, self->_rxAntennaPacket2];
 
-  return v5;
+  return v3;
 }
 
 - (unint64_t)hash

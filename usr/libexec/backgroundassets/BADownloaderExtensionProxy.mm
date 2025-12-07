@@ -25,9 +25,9 @@
   connectionCopy = connection;
   recordCopy = record;
   infoCopy = info;
-  v88.receiver = self;
-  v88.super_class = BADownloaderExtensionProxy;
-  v10 = [(BADownloaderExtensionProxy *)&v88 init];
+  v90.receiver = self;
+  v90.super_class = BADownloaderExtensionProxy;
+  v10 = [(BADownloaderExtensionProxy *)&v90 init];
   v11 = v10;
   if (!v10)
   {
@@ -43,7 +43,7 @@
   {
 
 LABEL_20:
-    v63 = 0;
+    v65 = 0;
     goto LABEL_21;
   }
 
@@ -82,24 +82,24 @@ LABEL_20:
   v28 = [NSSet setWithObjects:objc_opt_class(), 0];
   [v16 setClasses:v28 forSelector:"receivedAuthenticationChallenge:download:completionHandler:" argumentIndex:1 ofReply:1];
 
-  v91[0] = objc_opt_class();
-  v91[1] = objc_opt_class();
-  v91[2] = objc_opt_class();
-  v91[3] = objc_opt_class();
-  v29 = [NSArray arrayWithObjects:v91 count:4];
+  v93[0] = objc_opt_class();
+  v93[1] = objc_opt_class();
+  v93[2] = objc_opt_class();
+  v93[3] = objc_opt_class();
+  v29 = [NSArray arrayWithObjects:v93 count:4];
   v30 = [NSSet setWithArray:v29];
   [v16 setClasses:v30 forSelector:"backgroundDownload:failedWithError:completionHandler:" argumentIndex:0 ofReply:0];
 
-  v90[0] = objc_opt_class();
-  v90[1] = objc_opt_class();
-  v90[2] = objc_opt_class();
-  v90[3] = objc_opt_class();
-  v31 = [NSArray arrayWithObjects:v90 count:4];
+  v92[0] = objc_opt_class();
+  v92[1] = objc_opt_class();
+  v92[2] = objc_opt_class();
+  v92[3] = objc_opt_class();
+  v31 = [NSArray arrayWithObjects:v92 count:4];
   v32 = [NSSet setWithArray:v31];
   [v16 setClasses:v32 forSelector:"backgroundDownload:finishedWithSandboxToken:completionHandler:" argumentIndex:0 ofReply:0];
 
-  v89 = objc_opt_class();
-  v33 = [NSArray arrayWithObjects:&v89 count:1];
+  v91 = objc_opt_class();
+  v33 = [NSArray arrayWithObjects:&v91 count:1];
   v34 = [NSSet setWithArray:v33];
   [v16 setClasses:v34 forSelector:"backgroundDownload:finishedWithSandboxToken:completionHandler:" argumentIndex:1 ofReply:0];
 
@@ -115,64 +115,65 @@ LABEL_20:
 
   v39 = v11;
   extensionConnection4 = [(BADownloaderExtensionProxy *)v39 extensionConnection];
-  v85[0] = _NSConcreteStackBlock;
-  v85[1] = 3221225472;
-  v85[2] = sub_100006980;
-  v85[3] = &unk_100079300;
+  v87[0] = _NSConcreteStackBlock;
+  v87[1] = 3221225472;
+  v87[2] = sub_100006980;
+  v87[3] = &unk_100079300;
   v41 = _baassets_validUTI;
-  v86 = v41;
+  v88 = v41;
   v42 = v39;
-  v87 = v42;
-  [extensionConnection4 setInterruptionHandler:v85];
+  v89 = v42;
+  [extensionConnection4 setInterruptionHandler:v87];
 
   extensionConnection5 = [(BADownloaderExtensionProxy *)v42 extensionConnection];
-  v82[0] = _NSConcreteStackBlock;
-  v82[1] = 3221225472;
-  v82[2] = sub_1000069D4;
-  v82[3] = &unk_100079300;
+  v84[0] = _NSConcreteStackBlock;
+  v84[1] = 3221225472;
+  v84[2] = sub_1000069D4;
+  v84[3] = &unk_100079300;
   v44 = v41;
-  v83 = v44;
+  v85 = v44;
   v45 = v42;
-  v84 = v45;
-  [extensionConnection5 setInvalidationHandler:v82];
+  v86 = v45;
+  [extensionConnection5 setInvalidationHandler:v84];
 
   extensionConnection6 = [(BADownloaderExtensionProxy *)v45 extensionConnection];
   [extensionConnection6 resume];
 
-  v47 = sub_100010584();
-  if (os_log_type_enabled(v47, OS_LOG_TYPE_INFO))
+  v48 = sub_100010584(v47);
+  if (os_log_type_enabled(v48, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v47, OS_LOG_TYPE_INFO, "Attempting to wakeup extension connection.\n", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v48, OS_LOG_TYPE_INFO, "Attempting to wakeup extension connection.\n", buf, 2u);
   }
 
   *buf = 0;
-  v79 = buf;
-  v80 = 0x2020000000;
-  v81 = 0;
-  v48 = dispatch_semaphore_create(0);
+  v81 = buf;
+  v82 = 0x2020000000;
+  v83 = 0;
+  v49 = dispatch_semaphore_create(0);
   extensionConnection7 = [(BADownloaderExtensionProxy *)v45 extensionConnection];
-  v76[0] = _NSConcreteStackBlock;
-  v76[1] = 3221225472;
-  v76[2] = sub_100006AA4;
-  v76[3] = &unk_100079328;
-  v50 = v48;
-  v77 = v50;
-  v51 = [extensionConnection7 remoteObjectProxyWithErrorHandler:v76];
-  v73[0] = _NSConcreteStackBlock;
-  v73[1] = 3221225472;
-  v73[2] = sub_100006B0C;
-  v73[3] = &unk_100079350;
-  v75 = buf;
-  v52 = v50;
-  v74 = v52;
-  [v51 wakeupForTokenWithReply:v73];
+  v78[0] = _NSConcreteStackBlock;
+  v78[1] = 3221225472;
+  v78[2] = sub_100006AA4;
+  v78[3] = &unk_100079328;
+  v51 = v49;
+  v79 = v51;
+  v52 = [extensionConnection7 remoteObjectProxyWithErrorHandler:v78];
+  v75[0] = _NSConcreteStackBlock;
+  v75[1] = 3221225472;
+  v75[2] = sub_100006B0C;
+  v75[3] = &unk_100079350;
+  v77 = buf;
+  v53 = v51;
+  v76 = v53;
+  [v52 wakeupForTokenWithReply:v75];
 
-  v53 = dispatch_time(0, 2000000000);
-  if (dispatch_semaphore_wait(v52, v53))
+  v54 = dispatch_time(0, 2000000000);
+  v55 = dispatch_semaphore_wait(v53, v54);
+  if (v55)
   {
-    v54 = sub_100010584();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+    v56 = sub_100010584(v55);
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
       sub_100047BDC();
     }
@@ -185,14 +186,14 @@ LABEL_17:
     exitTimer = [(BADownloaderExtensionProxy *)v45 exitTimer];
     [exitTimer invalidate];
 
-    v62 = 0;
+    v64 = 0;
     goto LABEL_18;
   }
 
-  if (v79[24] != 1)
+  if (v81[24] != 1)
   {
-    v54 = sub_100010584();
-    if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
+    v56 = sub_100010584(0);
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
       sub_100047C1C();
     }
@@ -200,11 +201,11 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v55 = sub_100010584();
-  if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
+  v57 = sub_100010584(0);
+  if (os_log_type_enabled(v57, OS_LOG_TYPE_INFO))
   {
-    *v71 = 0;
-    _os_log_impl(&_mh_execute_header, v55, OS_LOG_TYPE_INFO, "Wakeup extension succeeded.\n", v71, 2u);
+    *v73 = 0;
+    _os_log_impl(&_mh_execute_header, v57, OS_LOG_TYPE_INFO, "Wakeup extension succeeded.\n", v73, 2u);
   }
 
   applicationInfo = [(BADownloaderExtensionProxy *)v45 applicationInfo];
@@ -212,35 +213,35 @@ LABEL_17:
 
   applicationInfo2 = [(BADownloaderExtensionProxy *)v45 applicationInfo];
   extensionConnection9 = [(BADownloaderExtensionProxy *)v45 extensionConnection];
-  v59 = extensionConnection9;
+  v61 = extensionConnection9;
   if (extensionConnection9)
   {
-    [extensionConnection9 auditToken];
+    objc_msgSend_auditToken(extensionConnection9);
   }
 
   else
   {
-    *v71 = 0u;
-    v72 = 0u;
+    *v73 = 0u;
+    v74 = 0u;
   }
 
-  [applicationInfo2 determineInstallSourceIfUnsetFromAuditToken:v71];
+  [applicationInfo2 determineInstallSourceIfUnsetFromAuditToken:v73];
 
   [(BADownloaderExtensionProxy *)v45 _startExitTimer];
-  v62 = 1;
+  v64 = 1;
 LABEL_18:
 
   _Block_object_dispose(buf, 8);
-  if ((v62 & 1) == 0)
+  if ((v64 & 1) == 0)
   {
     goto LABEL_20;
   }
 
 LABEL_19:
-  v63 = v11;
+  v65 = v11;
 LABEL_21:
 
-  return v63;
+  return v65;
 }
 
 - (void)requestDownloadsWithContentRequest:(int64_t)request manifestURL:(id)l extensionInfo:(id)info completion:(id)completion
@@ -272,7 +273,7 @@ LABEL_21:
 
   else
   {
-    v17 = sub_100010584();
+    v17 = sub_100010584(0);
     if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_100047D48();
@@ -386,41 +387,34 @@ LABEL_21:
 
 - (id)extendClientSandboxForStagedURL:(id)l allowWrites:(BOOL)writes
 {
-  v6 = &APP_SANDBOX_READ_WRITE;
-  if (!writes)
-  {
-    v6 = &APP_SANDBOX_READ;
-  }
-
-  v7 = *v6;
   lCopy = l;
   [l fileSystemRepresentation];
   extensionConnection = [(BADownloaderExtensionProxy *)self extensionConnection];
-  v10 = extensionConnection;
+  v8 = extensionConnection;
   if (extensionConnection)
   {
-    [extensionConnection auditToken];
+    objc_msgSend_auditToken(extensionConnection);
   }
 
-  v11 = sandbox_extension_issue_file_to_process();
+  v9 = sandbox_extension_issue_file_to_process();
 
-  if (v11)
+  if (v9)
   {
-    v12 = [NSString stringWithCString:v11 encoding:4];
-    free(v11);
+    v10 = [NSString stringWithCString:v9 encoding:4];
+    free(v9);
   }
 
   else
   {
-    v12 = 0;
+    v10 = 0;
   }
 
-  return v12;
+  return v10;
 }
 
 - (void)invalidate
 {
-  v3 = sub_10001060C();
+  v3 = sub_10001060C(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     identifier = [(BADownloaderExtensionProxy *)self identifier];

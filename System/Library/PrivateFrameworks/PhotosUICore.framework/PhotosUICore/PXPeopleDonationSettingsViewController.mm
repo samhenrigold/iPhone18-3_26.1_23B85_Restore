@@ -200,7 +200,7 @@ void __80__PXPeopleDonationSettingsViewController_collectionView_cellForItemAtIn
   dispatch_async(MEMORY[0x1E69E96A0], block);
 }
 
-uint64_t __80__PXPeopleDonationSettingsViewController_collectionView_cellForItemAtIndexPath___block_invoke_2(uint64_t a1)
+void *__80__PXPeopleDonationSettingsViewController_collectionView_cellForItemAtIndexPath___block_invoke_2(uint64_t a1)
 {
   result = [*(a1 + 32) tag];
   if (result == *(a1 + 48))

@@ -7,31 +7,31 @@
 
 - (EFSQLValueExpressable)sqlExpressable
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v14 = 0u;
   v15 = 0u;
   v16 = 0u;
   v17 = 0u;
-  v18 = 0u;
   childPredicates = [(EFSQLGeneratorCompoundPredicateNode *)self childPredicates];
-  v5 = [childPredicates countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [childPredicates countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
-    v6 = *v16;
+    v6 = *v15;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v16 != v6)
+        if (*v15 != v6)
         {
           objc_enumerationMutation(childPredicates);
         }
 
-        sqlExpressable = [*(*(&v15 + 1) + 8 * i) sqlExpressable];
+        sqlExpressable = [*(*(&v14 + 1) + 8 * i) sqlExpressable];
         [v3 addObject:sqlExpressable];
       }
 
-      v5 = [childPredicates countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v5 = [childPredicates countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v5);
@@ -58,14 +58,12 @@ LABEL_12:
 
   else
   {
-    v13 = [EFSQLNotExpression alloc];
-    v14 = [EFSQLAndExpression combined:v3];
-    v10 = [(EFSQLNotExpression *)v13 initWithExpression:v14];
+    v12 = [EFSQLNotExpression alloc];
+    v13 = [EFSQLAndExpression combined:v3];
+    v10 = [(EFSQLNotExpression *)v12 initWithExpression:v13];
   }
 
 LABEL_13:
-
-  v11 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

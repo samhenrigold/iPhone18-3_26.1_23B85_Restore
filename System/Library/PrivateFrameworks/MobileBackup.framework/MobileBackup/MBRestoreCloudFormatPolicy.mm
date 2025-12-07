@@ -45,18 +45,15 @@
     {
       v13 = v12;
       v14 = MBGetDefaultLog();
-      if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-LABEL_8:
-
-        goto LABEL_9;
+        *buf = 138412546;
+        v21 = @"Failed to run diagnose for foreground restore failure";
+        v22 = 1024;
+        v23 = v13;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=snapshot-policy= %@: unable to spawn the process backupctl diagnose, errno=%d", buf, 0x12u);
+        _MBLog(@"E ", "=snapshot-policy= %@: unable to spawn the process backupctl diagnose, errno=%d", @"Failed to run diagnose for foreground restore failure", v13);
       }
-
-      *buf = 138412546;
-      v21 = @"Failed to run diagnose for foreground restore failure";
-      v22 = 1024;
-      v23 = v13;
-      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=snapshot-policy= %@: unable to spawn the process backupctl diagnose, errno=%d", buf, 0x12u);
     }
 
     else
@@ -68,36 +65,34 @@ LABEL_8:
         if (v15 == -1)
         {
           v14 = MBGetDefaultLog();
-          if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
           {
-            goto LABEL_8;
+            *buf = 138412290;
+            v21 = @"Failed to run diagnose for foreground restore failure";
+            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=snapshot-policy= %@: waitpid error", buf, 0xCu);
+            _MBLog(@"E ", "=snapshot-policy= %@: waitpid error", @"Failed to run diagnose for foreground restore failure");
           }
-
-          *buf = 138412290;
-          v21 = @"Failed to run diagnose for foreground restore failure";
-          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=snapshot-policy= %@: waitpid error", buf, 0xCu);
         }
 
         else
         {
           if ((v18 & 0x7F) == 0x7F)
           {
-            goto LABEL_9;
+            goto LABEL_8;
           }
 
           if ((v18 & 0x7F) != 0)
           {
             v14 = MBGetDefaultLog();
-            if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
-              goto LABEL_8;
+              *buf = 138412546;
+              v21 = @"Failed to run diagnose for foreground restore failure";
+              v22 = 1024;
+              v23 = v18 & 0x7F;
+              _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=snapshot-policy= %@: 'backupctl diagnose' was terminated by signal %d", buf, 0x12u);
+              _MBLog(@"E ", "=snapshot-policy= %@: 'backupctl diagnose' was terminated by signal %d", @"Failed to run diagnose for foreground restore failure", v18 & 0x7F);
             }
-
-            *buf = 138412546;
-            v21 = @"Failed to run diagnose for foreground restore failure";
-            v22 = 1024;
-            v23 = v18 & 0x7F;
-            _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=snapshot-policy= %@: 'backupctl diagnose' was terminated by signal %d", buf, 0x12u);
           }
 
           else
@@ -107,27 +102,22 @@ LABEL_8:
             v14 = v17;
             if (v16)
             {
-              if (!os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+              if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
               {
-                goto LABEL_8;
+                *buf = 138412546;
+                v21 = @"Failed to run diagnose for foreground restore failure";
+                v22 = 1024;
+                v23 = v16;
+                _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=snapshot-policy= %@: 'backupctl diagnose' exited with status %d", buf, 0x12u);
+                _MBLog(@"E ", "=snapshot-policy= %@: 'backupctl diagnose' exited with status %d", @"Failed to run diagnose for foreground restore failure", v16);
               }
-
-              *buf = 138412546;
-              v21 = @"Failed to run diagnose for foreground restore failure";
-              v22 = 1024;
-              v23 = v16;
-              _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=snapshot-policy= %@: 'backupctl diagnose' exited with status %d", buf, 0x12u);
             }
 
-            else
+            else if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
             {
-              if (!os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
-              {
-                goto LABEL_8;
-              }
-
               *buf = 0;
               _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "=snapshot-policy= Successfully collected diagnose for foreground restore failure", buf, 2u);
+              _MBLog(@"Df", "=snapshot-policy= Successfully collected diagnose for foreground restore failure");
             }
           }
         }
@@ -136,22 +126,18 @@ LABEL_8:
       else
       {
         v14 = MBGetDefaultLog();
-        if (!os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
-          goto LABEL_8;
+          *buf = 138412290;
+          v21 = @"Failed to run diagnose for foreground restore failure";
+          _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=snapshot-policy= %@: no child processes to wait for", buf, 0xCu);
+          _MBLog(@"E ", "=snapshot-policy= %@: no child processes to wait for", @"Failed to run diagnose for foreground restore failure");
         }
-
-        *buf = 138412290;
-        v21 = @"Failed to run diagnose for foreground restore failure";
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=snapshot-policy= %@: no child processes to wait for", buf, 0xCu);
       }
     }
-
-    _MBLog();
-    goto LABEL_8;
   }
 
-LABEL_9:
+LABEL_8:
 }
 
 + (void)promptTTRIfFileListForegroundRestoreFailed:(id)failed
@@ -219,7 +205,7 @@ LABEL_9:
         v11 = 2112;
         v12 = @"SnapshotFormat";
         _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_ERROR, "=snapshot-policy= Failed to determine if restoring from file lists - invalid value %@ for key %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "=snapshot-policy= Failed to determine if restoring from file lists - invalid value %@ for key %@", v5, @"SnapshotFormat");
       }
 
       intValue = -1;
@@ -264,7 +250,7 @@ LABEL_9:
         v18 = 2112;
         v19 = @"RestoredFromFileList";
         _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_ERROR, "=snapshot-policy= Failed to determine if restoring from file lists - invalid value %@ for key %@", buf, 0x16u);
-        _MBLog();
+        _MBLog(@"E ", "=snapshot-policy= Failed to determine if restoring from file lists - invalid value %@ for key %@", v11, @"RestoredFromFileList");
       }
 
       if (error)
@@ -287,7 +273,7 @@ LABEL_9:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "=snapshot-policy= Could not find cloudFormatInfo", buf, 2u);
-      _MBLog();
+      _MBLog(@"E ", "=snapshot-policy= Could not find cloudFormatInfo");
     }
 
     if (error)
@@ -394,10 +380,14 @@ LABEL_9:
       v71 = 2112;
       v72 = v30;
       _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=snapshot-policy= Existing snapshot format: '%@' does not match the BehaviorOption RequiredRestoreSnapshotFormat: '%@'", buf, 0x16u);
-      _MBLog();
+      _MBLog(@"Df", "=snapshot-policy= Existing snapshot format: '%@' does not match the BehaviorOption RequiredRestoreSnapshotFormat: '%@'", v26, v30);
     }
 
     v36 = v27;
+LABEL_27:
+    v40 = v28;
+    v43 = v55;
+    v44 = v29;
     goto LABEL_28;
   }
 
@@ -411,12 +401,10 @@ LABEL_9:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=snapshot-policy= Target snapshot format only contains file lists", buf, 2u);
-LABEL_27:
-      _MBLog();
-      goto LABEL_28;
+      _MBLog(@"Df", "=snapshot-policy= Target snapshot format only contains file lists");
     }
 
-    goto LABEL_28;
+    goto LABEL_27;
   }
 
   v37 = v26;
@@ -432,74 +420,94 @@ LABEL_27:
       v71 = 2112;
       v72 = v26;
       _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=snapshot-policy= Target snapshot %@ format (%@) does not contain assets, falling back to Legacy", buf, 0x16u);
-      goto LABEL_27;
+      _MBLog(@"Df", "=snapshot-policy= Target snapshot %@ format (%@) does not contain assets, falling back to Legacy", v27, v26);
     }
 
-LABEL_28:
-    v40 = v28;
-    v43 = v55;
-    v44 = v29;
-    goto LABEL_29;
+    goto LABEL_27;
   }
 
   v36 = v27;
   v40 = v28;
-  if (!v28)
+  if (v28)
   {
+    bOOLValue = [v28 BOOLValue];
+    v42 = v33[2];
+    v43 = v55;
     v44 = v29;
-    if (v31)
+    if (bOOLValue)
     {
-      [v31 timeIntervalSinceNow];
-      if (v46 > -1209600.0)
+      v42(v33, 0);
+      v38 = MBGetDefaultLog();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
-        v33[2](v33, 0);
-        v49 = MBGetLogDateFormatter();
-        v38 = [v49 stringFromDate:v31];
-
-        v50 = MBGetDefaultLog();
-        if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 138412290;
-          v70 = v38;
-          _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "=snapshot-policy= Falling back to legacy restore, since last failure (%@) was within two weeks", buf, 0xCu);
-          _MBLog();
-        }
-
-        v37 = v26;
-        v43 = v55;
-        goto LABEL_29;
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=snapshot-policy= Local preference disabled Lightrail restore", buf, 2u);
+        _MBLog(@"Df", "=snapshot-policy= Local preference disabled Lightrail restore");
       }
     }
 
-    if (v29)
+    else
     {
-      bOOLValue = [v29 BOOLValue];
+      v42(v33, 1);
+      v38 = MBGetDefaultLog();
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=snapshot-policy= Local preference enabled Lightrail restore", buf, 2u);
+        _MBLog(@"Df", "=snapshot-policy= Local preference enabled Lightrail restore");
+      }
+    }
+  }
+
+  else
+  {
+    v44 = v29;
+    if (v31 && ([v31 timeIntervalSinceNow], v46 > -1209600.0))
+    {
+      v33[2](v33, 0);
+      v49 = MBGetLogDateFormatter();
+      v38 = [v49 stringFromDate:v31];
+
+      v50 = MBGetDefaultLog();
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138412290;
+        v70 = v38;
+        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "=snapshot-policy= Falling back to legacy restore, since last failure (%@) was within two weeks", buf, 0xCu);
+        _MBLog(@"Df", "=snapshot-policy= Falling back to legacy restore, since last failure (%@) was within two weeks", v38);
+      }
+
+      v37 = v26;
+      v43 = v55;
+    }
+
+    else if (v29)
+    {
+      bOOLValue2 = [v29 BOOLValue];
       v48 = v33[2];
       v43 = v55;
-      if (bOOLValue)
+      if (bOOLValue2)
       {
         v48(v33, 1);
         v38 = MBGetDefaultLog();
-        if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_29;
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=snapshot-policy= Server enabled Lightrail restore", buf, 2u);
+          _MBLog(@"Df", "=snapshot-policy= Server enabled Lightrail restore");
         }
-
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=snapshot-policy= Server enabled Lightrail restore", buf, 2u);
       }
 
       else
       {
         v48(v33, 0);
         v38 = MBGetDefaultLog();
-        if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+        if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_29;
+          *buf = 0;
+          _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=snapshot-policy= Server disabled Lightrail restore", buf, 2u);
+          _MBLog(@"Df", "=snapshot-policy= Server disabled Lightrail restore");
         }
-
-        *buf = 0;
-        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=snapshot-policy= Server disabled Lightrail restore", buf, 2u);
       }
     }
 
@@ -508,48 +516,16 @@ LABEL_28:
       v33[2](v33, 0);
       v38 = MBGetDefaultLog();
       v43 = v55;
-      if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_29;
+        *buf = 0;
+        _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=snapshot-policy= Default ignoring Lightrail data in snapshot", buf, 2u);
+        _MBLog(@"Df", "=snapshot-policy= Default ignoring Lightrail data in snapshot");
       }
-
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=snapshot-policy= Default ignoring Lightrail data in snapshot", buf, 2u);
     }
-
-LABEL_45:
-    _MBLog();
-    goto LABEL_29;
   }
 
-  bOOLValue2 = [v28 BOOLValue];
-  v42 = v33[2];
-  v43 = v55;
-  v44 = v29;
-  if (!bOOLValue2)
-  {
-    v42(v33, 1);
-    v38 = MBGetDefaultLog();
-    if (!os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_29;
-    }
-
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=snapshot-policy= Local preference enabled Lightrail restore", buf, 2u);
-    goto LABEL_45;
-  }
-
-  v42(v33, 0);
-  v38 = MBGetDefaultLog();
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
-  {
-    *buf = 0;
-    _os_log_impl(&_mh_execute_header, v38, OS_LOG_TYPE_DEFAULT, "=snapshot-policy= Local preference disabled Lightrail restore", buf, 2u);
-    goto LABEL_45;
-  }
-
-LABEL_29:
+LABEL_28:
 
   return v53;
 }

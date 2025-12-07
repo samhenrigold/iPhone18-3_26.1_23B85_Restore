@@ -47,13 +47,13 @@
 
 - (void)dictionaryDidBecomeAvailable:(id)available forProvider:(id)provider
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   availableCopy = available;
   if (availableCopy)
   {
-    v15 = 0;
-    v6 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:availableCopy requiringSecureCoding:1 error:&v15];
-    v7 = v15;
+    v14 = 0;
+    v6 = [MEMORY[0x1E696ACC8] archivedDataWithRootObject:availableCopy requiringSecureCoding:1 error:&v14];
+    v7 = v14;
     faceTimeConversation2 = SWFrameworkLogHandle();
     v9 = os_log_type_enabled(faceTimeConversation2, OS_LOG_TYPE_DEFAULT);
     if (v6)
@@ -61,7 +61,7 @@
       if (v9)
       {
         *buf = 138412290;
-        v17 = availableCopy;
+        v16 = availableCopy;
         _os_log_impl(&dword_1BBC06000, faceTimeConversation2, OS_LOG_TYPE_DEFAULT, "Asking to initiate collaboration for dictionary %@", buf, 0xCu);
       }
 
@@ -70,7 +70,7 @@
       {
         faceTimeConversation = [(SWBackgroundSendUtility *)self faceTimeConversation];
         *buf = 138412290;
-        v17 = faceTimeConversation;
+        v16 = faceTimeConversation;
         _os_log_impl(&dword_1BBC06000, v10, OS_LOG_TYPE_DEFAULT, "Asking to initiate collaboration for tuconversation: %@", buf, 0xCu);
       }
 
@@ -96,8 +96,6 @@
       _os_log_impl(&dword_1BBC06000, v7, OS_LOG_TYPE_DEFAULT, "Received a nil collaboration composition dictionary so cannot send collaboration", buf, 2u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_addCollaborationRequest:(id)request
@@ -233,16 +231,14 @@ void __88__SWBackgroundSendUtility_sendCollaboration_faceTimeConversationUUID_co
 
 - (void)serviceProxyDidDisconnect:(id)disconnect
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v4 = SWFrameworkLogHandle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v6 = 138412290;
+    v5 = 138412290;
     selfCopy = self;
-    _os_log_impl(&dword_1BBC06000, v4, OS_LOG_TYPE_INFO, "Service proxy disconnected for background send utility: %@", &v6, 0xCu);
+    _os_log_impl(&dword_1BBC06000, v4, OS_LOG_TYPE_INFO, "Service proxy disconnected for background send utility: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

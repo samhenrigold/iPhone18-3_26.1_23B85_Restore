@@ -8,10 +8,10 @@
 
 - (BOOL)isBootingDark
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v13 = 0;
-  v12 = 4;
-  v2 = sysctlbyname("kern.darkboot", &v13, &v12, 0, 0);
+  v17 = *MEMORY[0x1E69E9840];
+  v12 = 0;
+  v11 = 4;
+  v2 = sysctlbyname("kern.darkboot", &v12, &v11, 0, 0);
   if (v2)
   {
     v3 = v2;
@@ -26,18 +26,18 @@ LABEL_4:
     goto LABEL_5;
   }
 
-  v8 = v13;
-  v9 = FBLogCommon();
-  v4 = v9;
-  if (!v8)
+  v7 = v12;
+  v8 = FBLogCommon();
+  v4 = v8;
+  if (!v7)
   {
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v11 = [MEMORY[0x1E696AD98] numberWithBool:0];
+      v10 = [MEMORY[0x1E696AD98] numberWithBool:0];
       *buf = 138543618;
-      v15 = v11;
-      v16 = 1024;
-      v17 = v13;
+      v14 = v10;
+      v15 = 1024;
+      v16 = v12;
       _os_log_impl(&dword_1A89DD000, v4, OS_LOG_TYPE_INFO, "read darkboot flag = %{public}@ (%i)", buf, 0x12u);
     }
 
@@ -45,26 +45,25 @@ LABEL_4:
   }
 
   v5 = 1;
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v10 = [MEMORY[0x1E696AD98] numberWithBool:1];
+    v9 = [MEMORY[0x1E696AD98] numberWithBool:1];
     *buf = 138543618;
-    v15 = v10;
-    v16 = 1024;
-    v17 = v13;
+    v14 = v9;
+    v15 = 1024;
+    v16 = v12;
     _os_log_impl(&dword_1A89DD000, v4, OS_LOG_TYPE_DEFAULT, "read darkboot flag = %{public}@ (%i)", buf, 0x12u);
   }
 
 LABEL_5:
 
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 - (void)_setDarkBootEnabled:(BOOL)enabled
 {
   enabledCopy = enabled;
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (enabled)
   {
     v4 = 2;
@@ -75,8 +74,8 @@ LABEL_5:
     v4 = 0;
   }
 
-  v10 = v4;
-  v5 = sysctlbyname("kern.darkboot", 0, 0, &v10, 4uLL);
+  v9 = v4;
+  v5 = sysctlbyname("kern.darkboot", 0, 0, &v9, 4uLL);
   v6 = FBLogCommon();
   v7 = v6;
   if (v5)
@@ -96,29 +95,25 @@ LABEL_5:
     }
 
     *buf = 136446210;
-    v12 = v8;
+    v11 = v8;
     _os_log_impl(&dword_1A89DD000, v7, OS_LOG_TYPE_DEFAULT, "Set darkBoot = %{public}s", buf, 0xCu);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)isBootingDark
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = self;
-  _os_log_error_impl(&dword_1A89DD000, a2, OS_LOG_TYPE_ERROR, "failed to read darkboot state ->  %{darwin.errno}i", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = self;
+  _os_log_error_impl(&dword_1A89DD000, a2, OS_LOG_TYPE_ERROR, "failed to read darkboot state ->  %{darwin.errno}i", v2, 8u);
 }
 
 - (void)_setDarkBootEnabled:(int)a1 .cold.1(int a1, NSObject *a2)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v3[0] = 67109120;
-  v3[1] = a1;
-  _os_log_error_impl(&dword_1A89DD000, a2, OS_LOG_TYPE_ERROR, "Failed to set darkboot state ->  %{darwin.errno}i : do you have the entitlement (com.apple.private.kernel.darkboot)?", v3, 8u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v2[0] = 67109120;
+  v2[1] = a1;
+  _os_log_error_impl(&dword_1A89DD000, a2, OS_LOG_TYPE_ERROR, "Failed to set darkboot state ->  %{darwin.errno}i : do you have the entitlement (com.apple.private.kernel.darkboot)?", v2, 8u);
 }
 
 @end

@@ -226,8 +226,7 @@
       v34 = [v15 attributesAtIndex:0 effectiveRange:0];
 
       v35 = [v34 mutableCopy];
-      [v35 setValue:0 forKey:@"kAEAnnotationStyleAttributeName"];
-      v36 = IMCommonCoreBundle();
+      v36 = IMCommonCoreBundle([v35 setValue:0 forKey:@"kAEAnnotationStyleAttributeName"]);
       v37 = [v36 localizedStringForKey:@"\\U2026" value:&stru_2D2930 table:@"BCCommonCoreLocalizable"];
       v38 = CFAttributedStringCreate(0, v37, v35);
 
@@ -726,8 +725,7 @@
     v44 = &v43;
     v45 = 0x2020000000;
     v46 = v25;
-    [v30 count];
-    v31 = &v42[-2 * __chkstk_darwin() - 1];
+    v31 = &v42[-2 * __chkstk_darwin([v30 count]) - 1];
     bzero(v31, v32);
     v52.location = 0;
     v52.length = 0;

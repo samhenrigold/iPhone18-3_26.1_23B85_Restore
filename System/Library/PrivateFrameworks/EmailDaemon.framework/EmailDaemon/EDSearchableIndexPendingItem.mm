@@ -103,37 +103,35 @@ uint64_t __40__EDSearchableIndexPendingItem_addItem___block_invoke(uint64_t a1, 
 
 - (void)addPendingItem:(id)item
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   items = [item items];
-  v5 = [items countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [items countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(items);
         }
 
-        [(EDSearchableIndexPendingItem *)self addItem:*(*(&v9 + 1) + 8 * v7++)];
+        [(EDSearchableIndexPendingItem *)self addItem:*(*(&v8 + 1) + 8 * v7++)];
       }
 
       while (v5 != v7);
-      v5 = [items countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [items countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (int64_t)compare:(id)compare
@@ -148,38 +146,37 @@ uint64_t __40__EDSearchableIndexPendingItem_addItem___block_invoke(uint64_t a1, 
 
 - (unint64_t)estimatedSizeInBytes
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   items = [(EDSearchableIndexPendingItem *)self items];
   v3 = 0;
-  v4 = [items countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v4 = [items countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v4)
   {
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(items);
         }
 
-        v3 += [*(*(&v9 + 1) + 8 * v6++) estimatedSizeInBytes];
+        v3 += [*(*(&v8 + 1) + 8 * v6++) estimatedSizeInBytes];
       }
 
       while (v4 != v6);
-      v4 = [items countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [items countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

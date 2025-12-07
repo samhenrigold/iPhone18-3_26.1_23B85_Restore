@@ -372,7 +372,6 @@
   [(DRVirtualHIDService *)self _normalizedLocationFromReferenceLocation:?];
   v9 = v8;
   v11 = v10;
-  HIDEventBase = self->_HIDEventBase;
   Children = IOHIDEventGetChildren();
   CFArrayGetValueAtIndex(Children, 0);
   IOHIDEventSetIntegerValue();
@@ -387,9 +386,9 @@
   IOHIDEventSetFloatValue();
   IOHIDEventSetFloatValue();
   IOHIDEventSetFloatValue();
-  v14 = [(DRVirtualHIDService *)self _isNormalizedPointOutOfBounds:v9, v11, 0.0];
+  v13 = [(DRVirtualHIDService *)self _isNormalizedPointOutOfBounds:v9, v11, 0.0];
   exitedEvent = self->_exitedEvent;
-  if (v14)
+  if (v13)
   {
     if (!exitedEvent)
     {
@@ -397,10 +396,10 @@
       VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
       if (VendorDefinedEvent)
       {
-        v17 = VendorDefinedEvent;
+        v16 = VendorDefinedEvent;
         IOHIDEventAppendEvent();
 LABEL_7:
-        self->_exitedEvent = v17;
+        self->_exitedEvent = v16;
       }
     }
   }
@@ -409,7 +408,7 @@ LABEL_7:
   {
     IOHIDEventRemoveEvent();
     CFRelease(self->_exitedEvent);
-    v17 = 0;
+    v16 = 0;
     goto LABEL_7;
   }
 

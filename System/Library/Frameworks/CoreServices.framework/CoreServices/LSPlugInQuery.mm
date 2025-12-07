@@ -73,7 +73,7 @@
 
 - (void)sort:(BOOL)sort pluginIDs:(id)ds andYield:(id)yield context:(LSContext *)context
 {
-  v41 = *MEMORY[0x1E69E9840];
+  v39 = *MEMORY[0x1E69E9840];
   dsCopy = ds;
   yieldCopy = yield;
   v10 = yieldCopy;
@@ -109,16 +109,16 @@ LABEL_3:
 LABEL_23:
   [LSPlugInQuery sort:pluginIDs:andYield:context:];
 LABEL_4:
+  v30 = 0u;
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v35 = 0u;
   obj = dsCopy;
-  v11 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+  v11 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v33;
+    v13 = *v31;
     v14 = 0x1E6A18000uLL;
     contextCopy = context;
     do
@@ -126,12 +126,12 @@ LABEL_4:
       v15 = 0;
       do
       {
-        if (*v33 != v13)
+        if (*v31 != v13)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v32 + 1) + 8 * v15);
+        v16 = *(*(&v30 + 1) + 8 * v15);
         v17 = objc_autoreleasePoolPush();
         unsignedLongLongValue = [v16 unsignedLongLongValue];
         v19 = [*(v14 + 616) plugInKitProxyForPlugin:unsignedLongLongValue withContext:context];
@@ -155,24 +155,24 @@ LABEL_4:
           v25 = _LSGetPlugin(contextCopy2->db, unsignedLongLongValue);
           if (v25)
           {
-            v26 = *(v25 + 172);
             [(_LSDatabase *)contextCopy2->db store];
-            v27 = _CSStringCopyCFString();
+            v25 = _CSStringCopyCFString();
+            v26 = v25;
           }
 
           else
           {
-            v27 = @"<unknown>";
+            v26 = @"<unknown>";
           }
 
-          v28 = _LSDefaultLog();
-          if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+          v27 = _LSDefaultLog(v25);
+          if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
           {
             *buf = 138412546;
-            v37 = v27;
-            v38 = 2048;
-            v39 = unsignedLongLongValue;
-            _os_log_error_impl(&dword_18162D000, v28, OS_LOG_TYPE_ERROR, "Failed to create LSPlugInKitProxy object (after sorting) for %@ (%llu)", buf, 0x16u);
+            v35 = v26;
+            v36 = 2048;
+            v37 = unsignedLongLongValue;
+            _os_log_error_impl(&dword_18162D000, v27, OS_LOG_TYPE_ERROR, "Failed to create LSPlugInKitProxy object (after sorting) for %@ (%llu)", buf, 0x16u);
           }
 
           v14 = v24;
@@ -187,22 +187,21 @@ LABEL_4:
       }
 
       while (v12 != v15);
-      v12 = [obj countByEnumeratingWithState:&v32 objects:v40 count:16];
+      v12 = [obj countByEnumeratingWithState:&v30 objects:v38 count:16];
     }
 
     while (v12);
   }
 
 LABEL_20:
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_enumerateWithXPCConnection:(id)connection block:(id)block
 {
   connectionCopy = connection;
   blockCopy = block;
-  v8 = &v14;
+  v8 = blockCopy;
+  v9 = &v14;
   v14 = 0;
   v15 = &v14;
   v16 = 0x3812000000;
@@ -212,30 +211,30 @@ LABEL_20:
   v20 = 0;
   if (connectionCopy)
   {
-    v9 = _LSDefaultLog();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = _LSDefaultLog(blockCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
-      [LSPlugInQuery _enumerateWithXPCConnection:v9 block:?];
+      [LSPlugInQuery _enumerateWithXPCConnection:v10 block:?];
     }
 
-    v8 = v15;
+    v9 = v15;
   }
 
-  v10 = _LSContextInit(v8 + 6);
-  if (v10)
+  v11 = _LSContextInit(v9 + 6);
+  if (v11)
   {
-    v11 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v10, 0, "[LSPlugInQuery _enumerateWithXPCConnection:block:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSPlugInQuery.m", 173);
-    blockCopy[2](blockCopy, 0, v11);
+    v12 = _LSMakeNSErrorImpl(*MEMORY[0x1E696A768], v11, 0, "[LSPlugInQuery _enumerateWithXPCConnection:block:]", "/Library/Caches/com.apple.xbs/Sources/CoreServices/LaunchServices.subprj/Source/LaunchServices/Workspace/LSPlugInQuery.m", 173);
+    (v8)[2](v8, 0, v12);
   }
 
   else
   {
-    v12 = [MEMORY[0x1E695DFA8] set];
+    v13 = [MEMORY[0x1E695DFA8] set];
     [(_LSDatabase *)v15[6] store];
-    v13 = *([(_LSDatabase *)v15[6] schema]+ 1588);
-    v11 = v12;
+    [(_LSDatabase *)v15[6] schema];
+    v12 = v13;
     _CSStoreEnumerateUnits();
-    [(LSPlugInQuery *)self sort:0 pluginIDs:v11 andYield:blockCopy context:v15 + 6];
+    [(LSPlugInQuery *)self sort:0 pluginIDs:v12 andYield:v8 context:v15 + 6];
     _LSContextDestroy(v15 + 6);
   }
 
@@ -280,7 +279,7 @@ void __51__LSPlugInQuery__enumerateWithXPCConnection_block___block_invoke(uint64
 
 - (void)encodeWithCoder:(id)coder
 {
-  if (([__LSDefaultsGetSharedInstance() isServer] & 1) == 0)
+  if (([__LSDefaultsGetSharedInstance(self a2)] & 1) == 0)
   {
     __LAUNCH_SERVICES_IS_GENERATING_A_SANDBOX_EXCEPTION_BECAUSE_THIS_PROCESS_MAY_NOT_MAP_THE_DATABASE__();
 

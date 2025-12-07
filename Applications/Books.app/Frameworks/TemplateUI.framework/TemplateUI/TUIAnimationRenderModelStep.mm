@@ -84,7 +84,7 @@
 
         [v3 addObject:v15];
         [v3 addObject:@" = "];
-        if ([v15 isEqualToString:@"alpha"])
+        if (objc_msgSend_isEqualToString_(v15))
         {
           [(TUIRenderModelAnimatable *)self->_renderModel alpha];
           v17 = [NSString stringWithFormat:@"%g", v16];
@@ -92,7 +92,7 @@
 
         else
         {
-          if (![v15 isEqualToString:@"transform"])
+          if (!objc_msgSend_isEqualToString_(v15))
           {
             goto LABEL_16;
           }
@@ -100,7 +100,7 @@
           renderModel = self->_renderModel;
           if (renderModel)
           {
-            [(TUIRenderModelAnimatable *)renderModel transform];
+            objc_msgSend_transform(renderModel);
           }
 
           else

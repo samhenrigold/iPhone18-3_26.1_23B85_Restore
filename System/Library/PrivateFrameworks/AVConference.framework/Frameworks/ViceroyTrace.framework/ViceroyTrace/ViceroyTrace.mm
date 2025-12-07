@@ -1,6 +1,6 @@
 void VRTraceInit()
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v0 = dispatch_queue_create("com.apple.viceroytrace", 0);
   v1 = 0;
   atomic_compare_exchange_strong_explicit(&gVRTraceDispatchQueue, &v1, v0, memory_order_relaxed, memory_order_relaxed);
@@ -54,20 +54,20 @@ void VRTraceInit()
 
   *&v7 = 0xAAAAAAAAAAAAAAAALL;
   *(&v7 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v35 = v7;
-  v36 = v7;
-  v33 = v7;
   v34 = v7;
-  v31 = v7;
+  v35 = v7;
   v32 = v7;
-  v29 = v7;
+  v33 = v7;
   v30 = v7;
-  v27 = v7;
+  v31 = v7;
   v28 = v7;
-  v25 = v7;
+  v29 = v7;
   v26 = v7;
-  *&buf[32] = v7;
+  v27 = v7;
   v24 = v7;
+  v25 = v7;
+  *&buf[32] = v7;
+  v23 = v7;
   *buf = v7;
   *&buf[16] = v7;
   GetBundleVersion(buf);
@@ -78,23 +78,21 @@ void VRTraceInit()
     v9 = gVRTraceOSLog;
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136316418;
-      v12 = v8;
-      v13 = 2080;
-      v14 = "VRTraceInit";
-      v15 = 1024;
-      v16 = 324;
-      v17 = 2080;
-      v18 = buf;
-      v19 = 1024;
-      v20 = getpid();
-      v21 = 2080;
-      v22 = VRTraceErrorLogLevelToCSTR(gVRTraceErrorLogLevel);
-      _os_log_impl(&dword_23D4DF000, v9, OS_LOG_TYPE_DEFAULT, "ViceroyTrace [%s] %s:%d @:@ ViceroyTrace-init AVConference=%s, PID=%d, VRTraceErrorLogLevel=%s", &v11, 0x36u);
+      v10 = 136316418;
+      v11 = v8;
+      v12 = 2080;
+      v13 = "VRTraceInit";
+      v14 = 1024;
+      v15 = 324;
+      v16 = 2080;
+      v17 = buf;
+      v18 = 1024;
+      v19 = getpid();
+      v20 = 2080;
+      v21 = VRTraceErrorLogLevelToCSTR(gVRTraceErrorLogLevel);
+      _os_log_impl(&dword_23D4DF000, v9, OS_LOG_TYPE_DEFAULT, "ViceroyTrace [%s] %s:%d @:@ ViceroyTrace-init AVConference=%s, PID=%d, VRTraceErrorLogLevel=%s", &v10, 0x36u);
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void VRTraceReset()
@@ -115,7 +113,7 @@ void VRTraceReset()
 
 uint64_t VRTraceReset_()
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (gVRTraceOSLog == MEMORY[0x277D86220])
   {
     gVRTraceOSLog = os_log_create("com.apple.AVConference", "ViceroyTrace");
@@ -170,13 +168,13 @@ uint64_t VRTraceReset_()
     }
 
     *buf = 136315906;
-    v14 = v4;
-    v15 = 2080;
-    v16 = "VRTraceReset_";
-    v17 = 1024;
-    v18 = 269;
-    v19 = 1024;
-    v20 = gVRTraceLogDebugAsInfo;
+    v13 = v4;
+    v14 = 2080;
+    v15 = "VRTraceReset_";
+    v16 = 1024;
+    v17 = 269;
+    v18 = 1024;
+    v19 = gVRTraceLogDebugAsInfo;
     v6 = "ViceroyTrace [%s] %s:%d VRTraceLogDebugAsInfo is set.  gVRTraceLogDebugAsInfo=%d";
   }
 
@@ -196,13 +194,13 @@ uint64_t VRTraceReset_()
     }
 
     *buf = 136315906;
-    v14 = v7;
-    v15 = 2080;
-    v16 = "VRTraceReset_";
-    v17 = 1024;
-    v18 = 272;
-    v19 = 1024;
-    v20 = gVRTraceLogDebugAsInfo;
+    v13 = v7;
+    v14 = 2080;
+    v15 = "VRTraceReset_";
+    v16 = 1024;
+    v17 = 272;
+    v18 = 1024;
+    v19 = gVRTraceLogDebugAsInfo;
     v6 = "ViceroyTrace [%s] %s:%d gVRTraceLogDebugAsInfo=%d";
   }
 
@@ -227,7 +225,6 @@ LABEL_19:
   }
 
   gVRTraceOSSignpostEnabled = v10;
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -313,9 +310,9 @@ LABEL_18:
   return v2;
 }
 
-void iterate_env_plus(const char *a1, uint64_t a2)
+void iterate_env_plus(char *a1, uint64_t a2)
 {
-  v34[3] = *MEMORY[0x277D85DE8];
+  v32[3] = *MEMORY[0x277D85DE8];
   v4 = *_NSGetEnviron();
   v5 = strlen(a1);
   v6 = *v4;
@@ -352,23 +349,23 @@ void iterate_env_plus(const char *a1, uint64_t a2)
   Mutable = CFArrayCreateMutable(0, 0, MEMORY[0x277CBF128]);
   v12 = 0;
   v13 = *MEMORY[0x277CBF028];
-  v34[0] = @"com.apple.VideoConference";
-  v34[1] = v13;
-  v34[2] = *MEMORY[0x277CBF008];
+  v32[0] = @"com.apple.VideoConference";
+  v32[1] = v13;
+  v32[2] = *MEMORY[0x277CBF008];
   v14 = *MEMORY[0x277CBF040];
   v15 = *MEMORY[0x277CBF030];
   v16 = *MEMORY[0x277CBF010];
   v17 = *MEMORY[0x277CBF020];
   do
   {
-    v18 = v34[v12];
+    v18 = v32[v12];
     v19 = CFPreferencesCopyKeyList(v18, v14, v15);
     if (v19)
     {
       v20 = v19;
-      v36.length = CFArrayGetCount(v19);
-      v36.location = 0;
-      CFArrayAppendArray(Mutable, v20, v36);
+      v34.length = CFArrayGetCount(v19);
+      v34.location = 0;
+      CFArrayAppendArray(Mutable, v20, v34);
       CFRelease(v20);
     }
 
@@ -376,9 +373,9 @@ void iterate_env_plus(const char *a1, uint64_t a2)
     if (v21)
     {
       v22 = v21;
-      v37.length = CFArrayGetCount(v21);
-      v37.location = 0;
-      CFArrayAppendArray(Mutable, v22, v37);
+      v35.length = CFArrayGetCount(v21);
+      v35.location = 0;
+      CFArrayAppendArray(Mutable, v22, v35);
       CFRelease(v22);
     }
 
@@ -386,9 +383,9 @@ void iterate_env_plus(const char *a1, uint64_t a2)
     if (v23)
     {
       v24 = v23;
-      v38.length = CFArrayGetCount(v23);
-      v38.location = 0;
-      CFArrayAppendArray(Mutable, v24, v38);
+      v36.length = CFArrayGetCount(v23);
+      v36.location = 0;
+      CFArrayAppendArray(Mutable, v24, v36);
       CFRelease(v24);
     }
 
@@ -425,14 +422,8 @@ void iterate_env_plus(const char *a1, uint64_t a2)
 
   if (Mutable)
   {
-    v31 = *MEMORY[0x277D85DE8];
 
     CFRelease(Mutable);
-  }
-
-  else
-  {
-    v32 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -540,41 +531,41 @@ __CFBundle *GetBundleVersion(char *a1)
 
 void VRTracePrintLoggingInfo()
 {
-  v56 = *MEMORY[0x277D85DE8];
+  v55 = *MEMORY[0x277D85DE8];
   *&v0 = 0xAAAAAAAAAAAAAAAALL;
   *(&v0 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v54 = v0;
-  v55 = v0;
-  v52 = v0;
   v53 = v0;
-  v50 = v0;
+  v54 = v0;
   v51 = v0;
-  v48 = v0;
+  v52 = v0;
   v49 = v0;
-  v46 = v0;
+  v50 = v0;
   v47 = v0;
-  v44 = v0;
+  v48 = v0;
   v45 = v0;
-  v42 = v0;
+  v46 = v0;
   v43 = v0;
-  *buffer = v0;
+  v44 = v0;
   v41 = v0;
-  v38 = v0;
-  v39 = v0;
-  v36 = v0;
+  v42 = v0;
+  *buffer = v0;
+  v40 = v0;
   v37 = v0;
-  v34 = v0;
+  v38 = v0;
   v35 = v0;
-  v32 = v0;
+  v36 = v0;
   v33 = v0;
-  v30 = v0;
+  v34 = v0;
   v31 = v0;
-  v28 = v0;
+  v32 = v0;
   v29 = v0;
-  v26 = v0;
+  v30 = v0;
   v27 = v0;
-  *v24 = v0;
+  v28 = v0;
   v25 = v0;
+  v26 = v0;
+  *v23 = v0;
+  v24 = v0;
   __strlcpy_chk();
   __strlcpy_chk();
   v1 = MGCopyAnswer();
@@ -589,78 +580,80 @@ void VRTracePrintLoggingInfo()
   if (v3)
   {
     v4 = v3;
-    CFStringGetCString(v3, v24, 256, 0x8000100u);
+    CFStringGetCString(v3, v23, 256, 0x8000100u);
     CFRelease(v4);
   }
 
   *&v5 = 0xAAAAAAAAAAAAAAAALL;
   *(&v5 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  v23[14] = v5;
-  v23[15] = v5;
-  v23[12] = v5;
-  v23[13] = v5;
-  v23[10] = v5;
-  v23[11] = v5;
-  v23[8] = v5;
-  v23[9] = v5;
-  v23[6] = v5;
-  v23[7] = v5;
-  v23[4] = v5;
-  v23[5] = v5;
-  v23[2] = v5;
-  v23[3] = v5;
-  v23[0] = v5;
-  v23[1] = v5;
-  GetBundleVersion(v23);
+  v22[14] = v5;
+  v22[15] = v5;
+  v22[12] = v5;
+  v22[13] = v5;
+  v22[10] = v5;
+  v22[11] = v5;
+  v22[8] = v5;
+  v22[9] = v5;
+  v22[6] = v5;
+  v22[7] = v5;
+  v22[4] = v5;
+  v22[5] = v5;
+  v22[2] = v5;
+  v22[3] = v5;
+  v22[0] = v5;
+  v22[1] = v5;
+  GetBundleVersion(v22);
   if (VRTraceGetErrorLogLevelForModule("ViceroyTrace") >= 6)
   {
     v6 = VRTraceErrorLogLevelToCSTR(6u);
     v7 = gVRTraceOSLog;
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 136316674;
-      v10 = v6;
-      v11 = 2080;
-      v12 = "VRTracePrintLoggingInfo";
-      v13 = 1024;
-      v14 = 642;
-      v15 = 2080;
-      v16 = VRTraceErrorLogLevelToCSTR(gVRTraceErrorLogLevel);
-      v17 = 2080;
-      v18 = buffer;
-      v19 = 2080;
-      v20 = v24;
-      v21 = 2080;
-      v22 = v23;
-      _os_log_impl(&dword_23D4DF000, v7, OS_LOG_TYPE_DEFAULT, "ViceroyTrace [%s] %s:%d ErrorLogLevel=%s ProductType=%s BuildVersion=%s AVConference=%s", &v9, 0x44u);
+      v8 = 136316674;
+      v9 = v6;
+      v10 = 2080;
+      v11 = "VRTracePrintLoggingInfo";
+      v12 = 1024;
+      v13 = 642;
+      v14 = 2080;
+      v15 = VRTraceErrorLogLevelToCSTR(gVRTraceErrorLogLevel);
+      v16 = 2080;
+      v17 = buffer;
+      v18 = 2080;
+      v19 = v23;
+      v20 = 2080;
+      v21 = v22;
+      _os_log_impl(&dword_23D4DF000, v7, OS_LOG_TYPE_DEFAULT, "ViceroyTrace [%s] %s:%d ErrorLogLevel=%s ProductType=%s BuildVersion=%s AVConference=%s", &v8, 0x44u);
     }
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
-void OUTLINED_FUNCTION_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_7(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x32u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x32u);
 }
 
-void OUTLINED_FUNCTION_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_8(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x2Cu);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0x2Cu);
 }
 
-void OUTLINED_FUNCTION_9(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_9(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x2Cu);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x2Cu);
 }
 
-void OUTLINED_FUNCTION_10(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_10(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x32u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x32u);
 }
 
 BOOL OUTLINED_FUNCTION_18()
@@ -675,16 +668,16 @@ BOOL OUTLINED_FUNCTION_19()
   return os_log_type_enabled(v0, OS_LOG_TYPE_ERROR);
 }
 
-void sub_23D4E4B6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23D4E4B6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t VCDiskUtils_CreateDirectory(const char *a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v2 = mkpath_np(a1, 0x1EDu);
@@ -694,43 +687,30 @@ uint64_t VCDiskUtils_CreateDirectory(const char *a1)
       v4 = gVRTraceOSLog;
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
-        v8 = 136316418;
-        v9 = v3;
-        v10 = 2080;
-        v11 = "VCDiskUtils_CreateDirectory";
-        v12 = 1024;
-        v13 = 116;
-        v14 = 2080;
-        v15 = a1;
-        v16 = 1024;
-        v17 = v2;
-        v18 = 2080;
-        v19 = strerror(v2);
-        _os_log_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s ret: %d (%s)", &v8, 0x36u);
+        v7 = 136316418;
+        v8 = v3;
+        v9 = 2080;
+        v10 = "VCDiskUtils_CreateDirectory";
+        v11 = 1024;
+        v12 = 116;
+        v13 = 2080;
+        v14 = a1;
+        v15 = 1024;
+        v16 = v2;
+        v17 = 2080;
+        v18 = strerror(v2);
+        _os_log_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d %s ret: %d (%s)", &v7, 0x36u);
       }
     }
 
-    if (v2)
-    {
-      v5 = v2 == 17;
-    }
-
-    else
-    {
-      v5 = 1;
-    }
-
-    result = v5;
+    return !v2 || v2 == 17;
   }
 
   else
   {
     VCDiskUtils_CreateDirectory_cold_1();
-    result = v8;
+    return v7;
   }
-
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 uint64_t VCDiskUtils_FileZipToFile()
@@ -738,26 +718,26 @@ uint64_t VCDiskUtils_FileZipToFile()
   v0 = MEMORY[0x28223BE20]();
   v2 = v1;
   v3 = v0;
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   __nitems = -1431655766;
-  bzero(v13, 0x4000uLL);
+  bzero(v12, 0x4000uLL);
   bzero(__ptr, 0x4000uLL);
   while (1)
   {
-    v4 = fread(v13, 1uLL, 0x4000uLL, v3);
+    v4 = fread(v12, 1uLL, 0x4000uLL, v3);
     v5 = ferror(v3);
     if (v5)
     {
       VCDiskUtils_FileZipToFile_cold_1(v5, &__nitems_4);
-      goto LABEL_12;
+      return __nitems_4;
     }
 
     __nitems = 0x4000;
-    v6 = CompressionUtils_CompressWithGZip(__ptr, 0x4000, &__nitems, v13, v4);
+    v6 = CompressionUtils_CompressWithGZip(__ptr, 0x4000, &__nitems, v12, v4);
     if (v6)
     {
       VCDiskUtils_FileZipToFile_cold_2(v6, &__nitems_4);
-      goto LABEL_12;
+      return __nitems_4;
     }
 
     v7 = fwrite(__ptr, 1uLL, __nitems, v2);
@@ -771,47 +751,44 @@ uint64_t VCDiskUtils_FileZipToFile()
 
     if (feof(v3))
     {
-      result = 0;
-      goto LABEL_8;
+      return 0;
     }
   }
 
   VCDiskUtils_FileZipToFile_cold_3(&__nitems_4);
-LABEL_12:
-  result = __nitems_4;
-LABEL_8:
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  return __nitems_4;
 }
 
-void OUTLINED_FUNCTION_9_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_9_0(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_impl(a1, v9, OS_LOG_TYPE_DEFAULT, a4, &a9, 0x22u);
+  _os_log_impl(a1, v8, OS_LOG_TYPE_DEFAULT, a4, va, 0x22u);
 }
 
-void sub_23D4E8E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23D4E8E88(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
 uint64_t ZLibAndGZipCompress(int a1, uint64_t a2, _DWORD *a3, Bytef *a4, uInt a5)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = 2148401153;
   if (a2 && a3 && a4 && (a5 & 0x80000000) == 0 && (*a3 & 0x80000000) == 0)
   {
-    memset(&v19, 0, sizeof(v19));
+    memset(&v18, 0, sizeof(v18));
     bzero(__src, 0x9C4uLL);
-    if (deflateInit2_(&v19, 9, 8, a1 | 0xF, 8, 0, "1.2.12", 112))
+    if (deflateInit2_(&v18, 9, 8, a1 | 0xF, 8, 0, "1.2.12", 112))
     {
       if (VRTraceGetErrorLogLevelForModule("") >= 3)
       {
@@ -827,26 +804,26 @@ uint64_t ZLibAndGZipCompress(int a1, uint64_t a2, _DWORD *a3, Bytef *a4, uInt a5
     {
       v11 = 0;
       v12 = 0;
-      v19.next_in = a4;
-      v19.avail_in = a5;
+      v18.next_in = a4;
+      v18.avail_in = a5;
       while (1)
       {
-        v19.next_out = __src;
-        v19.avail_out = 2500;
-        v13 = deflate(&v19, v12);
+        v18.next_out = __src;
+        v18.avail_out = 2500;
+        v13 = deflate(&v18, v12);
         if (v13)
         {
           break;
         }
 
-        avail_out = v19.avail_out;
-        v15 = 2500 - v19.avail_out + v11;
+        avail_out = v18.avail_out;
+        v15 = 2500 - v18.avail_out + v11;
         if (*a3 < v15)
         {
           goto LABEL_18;
         }
 
-        memcpy((a2 + v11), __src, 2500 - v19.avail_out);
+        memcpy((a2 + v11), __src, 2500 - v18.avail_out);
         if (avail_out)
         {
           v12 = 4;
@@ -855,16 +832,15 @@ uint64_t ZLibAndGZipCompress(int a1, uint64_t a2, _DWORD *a3, Bytef *a4, uInt a5
         v11 = v15;
       }
 
-      if (v13 != 1 || (v16 = 2500 - v19.avail_out + v11, *a3 < v16))
+      if (v13 != 1 || (v16 = 2500 - v18.avail_out + v11, *a3 < v16))
       {
 LABEL_18:
-        deflateEnd(&v19);
-        v5 = 2148401155;
-        goto LABEL_19;
+        deflateEnd(&v18);
+        return 2148401155;
       }
 
-      memcpy((a2 + v11), __src, 2500 - v19.avail_out);
-      if (deflateEnd(&v19))
+      memcpy((a2 + v11), __src, 2500 - v18.avail_out);
+      if (deflateEnd(&v18))
       {
         if (VRTraceGetErrorLogLevelForModule("") >= 3)
         {
@@ -884,20 +860,18 @@ LABEL_18:
     }
   }
 
-LABEL_19:
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
 uint64_t ZLibAndGZipDecompress(int a1, uint64_t a2, _DWORD *a3, Bytef *a4, uInt a5)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v5 = 2148401153;
   if (a2 && a3 && a4 && (a5 & 0x80000000) == 0 && (*a3 & 0x80000000) == 0)
   {
-    memset(&v19, 0, sizeof(v19));
+    memset(&v18, 0, sizeof(v18));
     bzero(__src, 0x9C4uLL);
-    if (inflateInit2_(&v19, a1 | 0xF, "1.2.12", 112))
+    if (inflateInit2_(&v18, a1 | 0xF, "1.2.12", 112))
     {
       if (VRTraceGetErrorLogLevelForModule("") >= 3)
       {
@@ -913,26 +887,26 @@ uint64_t ZLibAndGZipDecompress(int a1, uint64_t a2, _DWORD *a3, Bytef *a4, uInt 
     {
       v11 = 0;
       v12 = 0;
-      v19.next_in = a4;
-      v19.avail_in = a5;
+      v18.next_in = a4;
+      v18.avail_in = a5;
       while (1)
       {
-        v19.next_out = __src;
-        v19.avail_out = 2500;
-        v13 = inflate(&v19, v12);
+        v18.next_out = __src;
+        v18.avail_out = 2500;
+        v13 = inflate(&v18, v12);
         if (v13)
         {
           break;
         }
 
-        avail_out = v19.avail_out;
-        v15 = 2500 - v19.avail_out + v11;
+        avail_out = v18.avail_out;
+        v15 = 2500 - v18.avail_out + v11;
         if (*a3 < v15)
         {
           goto LABEL_18;
         }
 
-        memcpy((a2 + v11), __src, 2500 - v19.avail_out);
+        memcpy((a2 + v11), __src, 2500 - v18.avail_out);
         if (avail_out)
         {
           v12 = 4;
@@ -941,16 +915,15 @@ uint64_t ZLibAndGZipDecompress(int a1, uint64_t a2, _DWORD *a3, Bytef *a4, uInt 
         v11 = v15;
       }
 
-      if (v13 != 1 || (v16 = 2500 - v19.avail_out + v11, *a3 < v16))
+      if (v13 != 1 || (v16 = 2500 - v18.avail_out + v11, *a3 < v16))
       {
 LABEL_18:
-        inflateEnd(&v19);
-        v5 = 2148401155;
-        goto LABEL_19;
+        inflateEnd(&v18);
+        return 2148401155;
       }
 
-      memcpy((a2 + v11), __src, 2500 - v19.avail_out);
-      if (inflateEnd(&v19))
+      memcpy((a2 + v11), __src, 2500 - v18.avail_out);
+      if (inflateEnd(&v18))
       {
         if (VRTraceGetErrorLogLevelForModule("") >= 3)
         {
@@ -970,27 +943,28 @@ LABEL_18:
     }
   }
 
-LABEL_19:
-  v17 = *MEMORY[0x277D85DE8];
   return v5;
 }
 
-void OUTLINED_FUNCTION_3_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_1(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x22u);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x22u);
 }
 
-void OUTLINED_FUNCTION_2_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
+  _os_log_error_impl(a1, a2, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
-void OUTLINED_FUNCTION_3_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_3_2(void *a1, NSObject *a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, &a9, 0x1Cu);
+  _os_log_debug_impl(a1, a2, OS_LOG_TYPE_DEBUG, a4, va, 0x1Cu);
 }
 
 void OUTLINED_FUNCTION_6_2(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -1000,7 +974,7 @@ void OUTLINED_FUNCTION_6_2(void *a1, uint64_t a2, os_log_t log, const char *a4, 
   _os_log_debug_impl(a1, log, OS_LOG_TYPE_DEBUG, a4, va, 0x26u);
 }
 
-double machTimeScale()
+double machTimeScale(uint64_t a1, uint64_t a2)
 {
   if ((_MergedGlobals_0 & 1) == 0)
   {
@@ -1010,17 +984,18 @@ double machTimeScale()
   return *&qword_280C07E48;
 }
 
-void sub_23D4F5FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23D4F5FEC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_7_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_7_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_debug_impl(a1, v9, OS_LOG_TYPE_DEBUG, a4, &a9, 0x26u);
+  _os_log_debug_impl(a1, v8, OS_LOG_TYPE_DEBUG, a4, va, 0x26u);
 }
 
 void OUTLINED_FUNCTION_13_0(void *a1, uint64_t a2, os_log_t log, const char *a4, ...)
@@ -1036,19 +1011,19 @@ BOOL OUTLINED_FUNCTION_14_0()
   return os_log_type_enabled(v0, OS_LOG_TYPE_ERROR);
 }
 
-uint64_t reportingGKLog(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
+void *reportingGKLog(void *result, uint64_t a2, uint64_t a3, uint64_t a4, _BYTE *a5)
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   if (result)
   {
     v7 = result;
-    v12 = 0;
+    v11 = 0;
     if (a5 && *a5)
     {
-      v9 = [objc_alloc(MEMORY[0x277CCACA0]) initWithUTF8String:{a5, v12}];
-      v13 = a4;
-      v14[0] = v9;
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v9 = [objc_alloc(MEMORY[0x277CCACA0]) initWithUTF8String:{a5, v11}];
+      v12 = a4;
+      v13[0] = v9;
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     }
 
     else
@@ -1056,10 +1031,9 @@ uint64_t reportingGKLog(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, 
       v10 = MEMORY[0x277CBEC10];
     }
 
-    result = [v7 sendMessageWithCategory:a2 type:a3 payload:v10 error:&v12];
+    return [v7 sendMessageWithCategory:a2 type:a3 payload:v10 error:&v11];
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1095,203 +1069,191 @@ void connectingGKLog(void *a1, uint64_t a2, uint64_t a3)
   }
 }
 
-void *perfTimerStart(void *a1, const char *a2)
+void *perfTimerStart(void *result, const char *a2)
 {
-  if (a1)
+  if (result)
   {
-    return [a1 startTimingForKey:a2];
+    return [result startTimingForKey:a2];
   }
 
-  return a1;
+  return result;
 }
 
-void *perfTimerStop(void *a1, const char *a2)
+void *perfTimerStop(void *result, const char *a2)
 {
-  if (a1)
+  if (result)
   {
-    return [a1 stopTimingForKey:a2];
+    return [result stopTimingForKey:a2];
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t VCReportingDistributionKeys_CameraCaptureFrameRate()
 {
-  v3[6] = *MEMORY[0x277D85DE8];
-  v2[0] = @"VCReportingDistributionKey_ReportingSum";
-  v2[1] = @"VCReportingDistributionKey_ReportingCount";
-  v3[0] = @"CAMFC";
-  v3[1] = @"CAMDUR";
-  v2[2] = @"VCReportingDistributionKey_AggregatedAverage";
-  v2[3] = @"VCReportingDistributionKey_AggregatedMax";
-  v3[2] = @"CAMFR";
-  v3[3] = @"CAMCFRMAX";
-  v2[4] = @"VCReportingDistributionKey_AggregatedMin";
-  v2[5] = @"VCReportingDistributionKey_AggregatedHistogram";
-  v3[4] = @"CAMCFRMIN";
-  v3[5] = @"CAMFRH";
-  result = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:6];
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[6] = *MEMORY[0x277D85DE8];
+  v1[0] = @"VCReportingDistributionKey_ReportingSum";
+  v1[1] = @"VCReportingDistributionKey_ReportingCount";
+  v2[0] = @"CAMFC";
+  v2[1] = @"CAMDUR";
+  v1[2] = @"VCReportingDistributionKey_AggregatedAverage";
+  v1[3] = @"VCReportingDistributionKey_AggregatedMax";
+  v2[2] = @"CAMFR";
+  v2[3] = @"CAMCFRMAX";
+  v1[4] = @"VCReportingDistributionKey_AggregatedMin";
+  v1[5] = @"VCReportingDistributionKey_AggregatedHistogram";
+  v2[4] = @"CAMCFRMIN";
+  v2[5] = @"CAMFRH";
+  return [MEMORY[0x277CBEAC0] dictionaryWithObjects:v2 forKeys:v1 count:6];
 }
 
 uint64_t VCReportingDistributionKeys_FIRResponseTime()
 {
-  v3[6] = *MEMORY[0x277D85DE8];
-  v2[0] = @"VCReportingDistributionKey_ReportingSum";
-  v2[1] = @"VCReportingDistributionKey_ReportingCount";
-  v3[0] = @"FIRResponseTimeSum";
-  v3[1] = @"FIRResponseTimeCount";
-  v2[2] = @"VCReportingDistributionKey_AggregatedAverage";
-  v2[3] = @"VCReportingDistributionKey_AggregatedMax";
-  v3[2] = @"FIRRESPT";
-  v3[3] = @"FIRRESPTMAX";
-  v2[4] = @"VCReportingDistributionKey_AggregatedMin";
-  v2[5] = @"VCReportingDistributionKey_AggregatedHistogram";
-  v3[4] = @"FIRRESPTMIN";
-  v3[5] = @"FIRRESPTH";
-  result = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:6];
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[6] = *MEMORY[0x277D85DE8];
+  v1[0] = @"VCReportingDistributionKey_ReportingSum";
+  v1[1] = @"VCReportingDistributionKey_ReportingCount";
+  v2[0] = @"FIRResponseTimeSum";
+  v2[1] = @"FIRResponseTimeCount";
+  v1[2] = @"VCReportingDistributionKey_AggregatedAverage";
+  v1[3] = @"VCReportingDistributionKey_AggregatedMax";
+  v2[2] = @"FIRRESPT";
+  v2[3] = @"FIRRESPTMAX";
+  v1[4] = @"VCReportingDistributionKey_AggregatedMin";
+  v1[5] = @"VCReportingDistributionKey_AggregatedHistogram";
+  v2[4] = @"FIRRESPTMIN";
+  v2[5] = @"FIRRESPTH";
+  return [MEMORY[0x277CBEAC0] dictionaryWithObjects:v2 forKeys:v1 count:6];
 }
 
 uint64_t VCReportingDeltaDistributionKeys_TransmitterHostTimeDelta()
 {
-  v3[10] = *MEMORY[0x277D85DE8];
-  v2[0] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteSum";
-  v2[1] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteMin";
-  v3[0] = @"AVHTDAbsSum";
-  v3[1] = @"AVHTDMin";
-  v2[2] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteMax";
-  v2[3] = @"VCReportingDistributionKey_ReportingSum";
-  v3[2] = @"AVHTDMax";
-  v3[3] = @"AVHTDSum";
-  v2[4] = @"VCReportingDistributionKey_ReportingCount";
-  v2[5] = @"VCReportingDistributionKey_AggregatedAverage";
-  v3[4] = @"AVHTDCount";
-  v3[5] = @"VTAVHTD";
-  v2[6] = @"VCReportingDistributionKey_AggregatedMax";
-  v2[7] = @"VCReportingDistributionKey_AggregatedMin";
-  v3[6] = @"VTAVHTDMAX";
-  v3[7] = @"VTAVHTDMIN";
-  v2[8] = @"VCReportingDistributionKey_AggregatedHistogram";
-  v2[9] = @"VCReportingDeltaDistributionKey_AggregatedAbsoluteAverage";
-  v3[8] = @"VTAVHTDH";
-  v3[9] = @"VTABSAVHTD";
-  result = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:10];
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[10] = *MEMORY[0x277D85DE8];
+  v1[0] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteSum";
+  v1[1] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteMin";
+  v2[0] = @"AVHTDAbsSum";
+  v2[1] = @"AVHTDMin";
+  v1[2] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteMax";
+  v1[3] = @"VCReportingDistributionKey_ReportingSum";
+  v2[2] = @"AVHTDMax";
+  v2[3] = @"AVHTDSum";
+  v1[4] = @"VCReportingDistributionKey_ReportingCount";
+  v1[5] = @"VCReportingDistributionKey_AggregatedAverage";
+  v2[4] = @"AVHTDCount";
+  v2[5] = @"VTAVHTD";
+  v1[6] = @"VCReportingDistributionKey_AggregatedMax";
+  v1[7] = @"VCReportingDistributionKey_AggregatedMin";
+  v2[6] = @"VTAVHTDMAX";
+  v2[7] = @"VTAVHTDMIN";
+  v1[8] = @"VCReportingDistributionKey_AggregatedHistogram";
+  v1[9] = @"VCReportingDeltaDistributionKey_AggregatedAbsoluteAverage";
+  v2[8] = @"VTAVHTDH";
+  v2[9] = @"VTABSAVHTD";
+  return [MEMORY[0x277CBEAC0] dictionaryWithObjects:v2 forKeys:v1 count:10];
 }
 
 uint64_t VCReportingDistributionKeys_VideoPlayerDisplayFrameRate()
 {
-  v3[6] = *MEMORY[0x277D85DE8];
-  v2[0] = @"VCReportingDistributionKey_ReportingSum";
-  v2[1] = @"VCReportingDistributionKey_ReportingCount";
-  v3[0] = @"VPFDC";
-  v3[1] = @"VPFDCD";
-  v2[2] = @"VCReportingDistributionKey_AggregatedAverage";
-  v2[3] = @"VCReportingDistributionKey_AggregatedMax";
-  v3[2] = @"VPDFR";
-  v3[3] = @"VPDFRMAX";
-  v2[4] = @"VCReportingDistributionKey_AggregatedMin";
-  v2[5] = @"VCReportingDistributionKey_AggregatedHistogram";
-  v3[4] = @"VPDFRMIN";
-  v3[5] = @"VPDFRH";
-  result = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:6];
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[6] = *MEMORY[0x277D85DE8];
+  v1[0] = @"VCReportingDistributionKey_ReportingSum";
+  v1[1] = @"VCReportingDistributionKey_ReportingCount";
+  v2[0] = @"VPFDC";
+  v2[1] = @"VPFDCD";
+  v1[2] = @"VCReportingDistributionKey_AggregatedAverage";
+  v1[3] = @"VCReportingDistributionKey_AggregatedMax";
+  v2[2] = @"VPDFR";
+  v2[3] = @"VPDFRMAX";
+  v1[4] = @"VCReportingDistributionKey_AggregatedMin";
+  v1[5] = @"VCReportingDistributionKey_AggregatedHistogram";
+  v2[4] = @"VPDFRMIN";
+  v2[5] = @"VPDFRH";
+  return [MEMORY[0x277CBEAC0] dictionaryWithObjects:v2 forKeys:v1 count:6];
 }
 
 uint64_t VCReportingDeltaDistributionKeys_VideoPlayerHostTimeDelta()
 {
-  v3[10] = *MEMORY[0x277D85DE8];
-  v2[0] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteSum";
-  v2[1] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteMin";
-  v3[0] = @"VPAVTDAbsSum";
-  v3[1] = @"VPAVTDMin";
-  v2[2] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteMax";
-  v2[3] = @"VCReportingDistributionKey_ReportingSum";
-  v3[2] = @"VPAVTDMax";
-  v3[3] = @"VPAVTDSum";
-  v2[4] = @"VCReportingDistributionKey_ReportingCount";
-  v2[5] = @"VCReportingDistributionKey_AggregatedAverage";
-  v3[4] = @"VPAVTDCount";
-  v3[5] = @"VPAVTD";
-  v2[6] = @"VCReportingDistributionKey_AggregatedHistogram";
-  v2[7] = @"VCReportingDeltaDistributionKey_AggregatedAbsoluteMax";
-  v3[6] = @"VPAVTDH";
-  v3[7] = @"VPAVTDMAX";
-  v2[8] = @"VCReportingDeltaDistributionKey_AggregatedAbsoluteMin";
-  v2[9] = @"VCReportingDeltaDistributionKey_AggregatedAbsoluteAverage";
-  v3[8] = @"VPAVTDMIN";
-  v3[9] = @"VPABSAVTD";
-  result = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:10];
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[10] = *MEMORY[0x277D85DE8];
+  v1[0] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteSum";
+  v1[1] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteMin";
+  v2[0] = @"VPAVTDAbsSum";
+  v2[1] = @"VPAVTDMin";
+  v1[2] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteMax";
+  v1[3] = @"VCReportingDistributionKey_ReportingSum";
+  v2[2] = @"VPAVTDMax";
+  v2[3] = @"VPAVTDSum";
+  v1[4] = @"VCReportingDistributionKey_ReportingCount";
+  v1[5] = @"VCReportingDistributionKey_AggregatedAverage";
+  v2[4] = @"VPAVTDCount";
+  v2[5] = @"VPAVTD";
+  v1[6] = @"VCReportingDistributionKey_AggregatedHistogram";
+  v1[7] = @"VCReportingDeltaDistributionKey_AggregatedAbsoluteMax";
+  v2[6] = @"VPAVTDH";
+  v2[7] = @"VPAVTDMAX";
+  v1[8] = @"VCReportingDeltaDistributionKey_AggregatedAbsoluteMin";
+  v1[9] = @"VCReportingDeltaDistributionKey_AggregatedAbsoluteAverage";
+  v2[8] = @"VPAVTDMIN";
+  v2[9] = @"VPABSAVTD";
+  return [MEMORY[0x277CBEAC0] dictionaryWithObjects:v2 forKeys:v1 count:10];
 }
 
 uint64_t VCReportingDeltaDistributionKeys_VideoPlayerAVSyncOffset()
 {
-  v3[10] = *MEMORY[0x277D85DE8];
-  v2[0] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteSum";
-  v2[1] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteMin";
-  v3[0] = @"VPAVSOAbsSum";
-  v3[1] = @"VPAVSOMin";
-  v2[2] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteMax";
-  v2[3] = @"VCReportingDistributionKey_ReportingSum";
-  v3[2] = @"VPAVSOMax";
-  v3[3] = @"VPAVSOSum";
-  v2[4] = @"VCReportingDistributionKey_ReportingCount";
-  v2[5] = @"VCReportingDistributionKey_AggregatedAverage";
-  v3[4] = @"VPAVSOCount";
-  v3[5] = @"VPAVSO";
-  v2[6] = @"VCReportingDistributionKey_AggregatedHistogram";
-  v2[7] = @"VCReportingDeltaDistributionKey_AggregatedAbsoluteMax";
-  v3[6] = @"VPAVSOH";
-  v3[7] = @"VPAVSOMAX";
-  v2[8] = @"VCReportingDeltaDistributionKey_AggregatedAbsoluteMin";
-  v2[9] = @"VCReportingDeltaDistributionKey_AggregatedAbsoluteAverage";
-  v3[8] = @"VPAVSOMIN";
-  v3[9] = @"VPABSAVSO";
-  result = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:10];
-  v1 = *MEMORY[0x277D85DE8];
-  return result;
+  v2[10] = *MEMORY[0x277D85DE8];
+  v1[0] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteSum";
+  v1[1] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteMin";
+  v2[0] = @"VPAVSOAbsSum";
+  v2[1] = @"VPAVSOMin";
+  v1[2] = @"VCReportingDeltaDistributionKey_ReportingAbsoluteMax";
+  v1[3] = @"VCReportingDistributionKey_ReportingSum";
+  v2[2] = @"VPAVSOMax";
+  v2[3] = @"VPAVSOSum";
+  v1[4] = @"VCReportingDistributionKey_ReportingCount";
+  v1[5] = @"VCReportingDistributionKey_AggregatedAverage";
+  v2[4] = @"VPAVSOCount";
+  v2[5] = @"VPAVSO";
+  v1[6] = @"VCReportingDistributionKey_AggregatedHistogram";
+  v1[7] = @"VCReportingDeltaDistributionKey_AggregatedAbsoluteMax";
+  v2[6] = @"VPAVSOH";
+  v2[7] = @"VPAVSOMAX";
+  v1[8] = @"VCReportingDeltaDistributionKey_AggregatedAbsoluteMin";
+  v1[9] = @"VCReportingDeltaDistributionKey_AggregatedAbsoluteAverage";
+  v2[8] = @"VPAVSOMIN";
+  v2[9] = @"VPABSAVSO";
+  return [MEMORY[0x277CBEAC0] dictionaryWithObjects:v2 forKeys:v1 count:10];
 }
 
 void _VCAggregatorMultiway_CollectMediaQueueTelemetry(void *a1, void *a2)
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   v4 = [a2 objectForKeyedSubscript:@"VCMQFlushPerStream"];
   v5 = [a2 objectForKeyedSubscript:@"VCMQQSizePerStream"];
   v6 = [a2 objectForKeyedSubscript:@"VCMQMaxQSizePerStream"];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
     v41 = 0u;
-    v7 = [v4 countByEnumeratingWithState:&v40 objects:v46 count:16];
+    v42 = 0u;
+    v39 = 0u;
+    v40 = 0u;
+    v7 = [v4 countByEnumeratingWithState:&v39 objects:v45 count:16];
     if (v7)
     {
       v8 = v7;
-      v9 = *v41;
+      v9 = *v40;
       do
       {
         for (i = 0; i != v8; ++i)
         {
-          if (*v41 != v9)
+          if (*v40 != v9)
           {
             objc_enumerationMutation(v4);
           }
 
-          v11 = *(*(&v40 + 1) + 8 * i);
+          v11 = *(*(&v39 + 1) + 8 * i);
           v12 = [a1 objectForKeyedSubscript:{objc_msgSend(MEMORY[0x277CCABA8], "numberWithInt:", objc_msgSend(v11, "intValue"))}];
           [v12 setAccumulatedMediaQueueFlushCount:{objc_msgSend(v12, "accumulatedMediaQueueFlushCount") + objc_msgSend(objc_msgSend(v4, "objectForKeyedSubscript:", v11), "intValue")}];
         }
 
-        v8 = [v4 countByEnumeratingWithState:&v40 objects:v46 count:16];
+        v8 = [v4 countByEnumeratingWithState:&v39 objects:v45 count:16];
       }
 
       while (v8);
@@ -1306,25 +1268,25 @@ void _VCAggregatorMultiway_CollectMediaQueueTelemetry(void *a1, void *a2)
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
-    v13 = [v6 countByEnumeratingWithState:&v36 objects:v45 count:16];
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
+    v13 = [v6 countByEnumeratingWithState:&v35 objects:v44 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v37;
+      v15 = *v36;
       do
       {
         for (j = 0; j != v14; ++j)
         {
-          if (*v37 != v15)
+          if (*v36 != v15)
           {
             objc_enumerationMutation(v6);
           }
 
-          v17 = *(*(&v36 + 1) + 8 * j);
+          v17 = *(*(&v35 + 1) + 8 * j);
           v18 = [MEMORY[0x277CCABA8] numberWithInt:{objc_msgSend(v17, "intValue")}];
           v19 = [objc_msgSend(v6 objectForKeyedSubscript:{v17), "intValue"}];
           [objc_msgSend(a1 objectForKeyedSubscript:{v18), "maxMediaQueueSize"}];
@@ -1341,7 +1303,7 @@ void _VCAggregatorMultiway_CollectMediaQueueTelemetry(void *a1, void *a2)
           [objc_msgSend(a1 objectForKeyedSubscript:{v18), "setMaxMediaQueueSize:", v21}];
         }
 
-        v14 = [v6 countByEnumeratingWithState:&v36 objects:v45 count:16];
+        v14 = [v6 countByEnumeratingWithState:&v35 objects:v44 count:16];
       }
 
       while (v14);
@@ -1356,25 +1318,25 @@ void _VCAggregatorMultiway_CollectMediaQueueTelemetry(void *a1, void *a2)
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
-    v22 = [v5 countByEnumeratingWithState:&v32 objects:v44 count:16];
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
+    v22 = [v5 countByEnumeratingWithState:&v31 objects:v43 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v33;
+      v24 = *v32;
       do
       {
         for (k = 0; k != v23; ++k)
         {
-          if (*v33 != v24)
+          if (*v32 != v24)
           {
             objc_enumerationMutation(v5);
           }
 
-          v26 = *(*(&v32 + 1) + 8 * k);
+          v26 = *(*(&v31 + 1) + 8 * k);
           v27 = [MEMORY[0x277CCABA8] numberWithInt:{objc_msgSend(v26, "intValue")}];
           v28 = [a1 objectForKeyedSubscript:v27];
           LODWORD(v26) = [objc_msgSend(v5 objectForKeyedSubscript:{v26), "intValue"}];
@@ -1384,7 +1346,7 @@ void _VCAggregatorMultiway_CollectMediaQueueTelemetry(void *a1, void *a2)
           [v30 setTotalMediaQueueSizeReportsCount:{objc_msgSend(v30, "totalMediaQueueSizeReportsCount") + 1}];
         }
 
-        v23 = [v5 countByEnumeratingWithState:&v32 objects:v44 count:16];
+        v23 = [v5 countByEnumeratingWithState:&v31 objects:v43 count:16];
       }
 
       while (v23);
@@ -1395,8 +1357,6 @@ void _VCAggregatorMultiway_CollectMediaQueueTelemetry(void *a1, void *a2)
   {
     _VCAggregatorMultiway_CollectMediaQueueTelemetry_cold_3();
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void _VCAggregatorMultiway_ReportMediaQueueTelemetry(void *a1, void *a2)
@@ -1449,20 +1409,20 @@ uint64_t _VCAggregatorMultiway_AddMediaQueueStreamGroupTelemetry(void *a1, uint6
   return [a1 setObject:v12 forKeyedSubscript:v10];
 }
 
-uint64_t OUTLINED_FUNCTION_32(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
+uint64_t OUTLINED_FUNCTION_32(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
-  va_start(va1, a4);
-  va_start(va, a4);
-  v7 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
-  v10 = va_arg(va1, void);
+  va_start(va1, a8);
+  va_start(va, a8);
   v11 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
   v14 = va_arg(va1, void);
   v15 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
+  v18 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
 
-  return [v4 countByEnumeratingWithState:va objects:va1 count:16];
+  return [v8 countByEnumeratingWithState:va objects:va1 count:16];
 }
 
 uint64_t OUTLINED_FUNCTION_38()
@@ -1545,26 +1505,27 @@ uint64_t OUTLINED_FUNCTION_68()
   return [v1 objectForKeyedSubscript:v0];
 }
 
-uint64_t OUTLINED_FUNCTION_69(uint64_t a1, uint64_t a2, ...)
+uint64_t OUTLINED_FUNCTION_69(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, void);
+  va_start(va1, a4);
+  va_start(va, a4);
   v7 = va_arg(va1, void);
-  v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
   v10 = va_arg(va1, void);
   v11 = va_arg(va1, void);
   v12 = va_arg(va1, void);
   v13 = va_arg(va1, void);
+  v14 = va_arg(va1, void);
+  v15 = va_arg(va1, void);
 
-  return [v2 countByEnumeratingWithState:va objects:va1 count:16];
+  return [v4 countByEnumeratingWithState:va objects:va1 count:16];
 }
 
-uint64_t OUTLINED_FUNCTION_70(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, char a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, char a55)
+uint64_t OUTLINED_FUNCTION_70(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, ...)
 {
+  va_start(va, a54);
 
-  return [v55 countByEnumeratingWithState:&a47 objects:&a55 count:16];
+  return [v54 countByEnumeratingWithState:&a47 objects:va count:{16, a6, a7, a8}];
 }
 
 uint64_t OUTLINED_FUNCTION_71()
@@ -1597,7 +1558,7 @@ uint64_t OUTLINED_FUNCTION_75()
   return [v0 objectForKeyedSubscript:v1];
 }
 
-uint64_t reportingUserInfoSetValueCorrection(void *a1)
+void *reportingUserInfoSetValueCorrection(void *a1)
 {
   result = VRTraceIsInternalOSInstalled();
   if (result)
@@ -1630,9 +1591,9 @@ void reportingSymptom(void *a1, uint64_t a2, uint64_t a3)
   }
 }
 
-uint64_t reportingClassSendMsgToServer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+void *reportingClassSendMsgToServer(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v17[5] = *MEMORY[0x277D85DE8];
+  v16[5] = *MEMORY[0x277D85DE8];
   pthread_once(&reportingVCOnce, _reportingVCRunOnce);
   result = _validClassAndSymbols();
   if (result)
@@ -1652,26 +1613,25 @@ uint64_t reportingClassSendMsgToServer(uint64_t a1, uint64_t a2, uint64_t a3, ui
       v10 = @"Unknown";
     }
 
-    v16[0] = sRTCReportingSessionInfoClientType;
-    v16[1] = sRTCReportingSessionInfoClientVersion;
-    v17[0] = &unk_284FA5540;
-    v17[1] = v10;
-    v16[2] = sRTCReportingSessionInfoSessionID;
-    v17[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a1];
-    v17[3] = MEMORY[0x277CBEC28];
-    v16[3] = sRTCReportingSessionInfoBatchEvent;
-    v16[4] = sRTCReportingSessionInfoRequireUserInfo;
-    v17[4] = MEMORY[0x277CBEC38];
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:5];
-    v14[0] = sRTCReportingUserInfoClientName;
-    v14[1] = sRTCReportingUserInfoServiceName;
-    v15[0] = sRTCReportingFaceTimeClientName;
-    v15[1] = sRTCReportingFaceTimeServiceName;
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
-    result = [gRTCReporting_class sendOneMessageWithSessionInfo:v11 userInfo:v12 category:a3 type:a4 payload:a5 error:0];
+    v15[0] = sRTCReportingSessionInfoClientType;
+    v15[1] = sRTCReportingSessionInfoClientVersion;
+    v16[0] = &unk_284FA5540;
+    v16[1] = v10;
+    v15[2] = sRTCReportingSessionInfoSessionID;
+    v16[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a1];
+    v16[3] = MEMORY[0x277CBEC28];
+    v15[3] = sRTCReportingSessionInfoBatchEvent;
+    v15[4] = sRTCReportingSessionInfoRequireUserInfo;
+    v16[4] = MEMORY[0x277CBEC38];
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:5];
+    v13[0] = sRTCReportingUserInfoClientName;
+    v13[1] = sRTCReportingUserInfoServiceName;
+    v14[0] = sRTCReportingFaceTimeClientName;
+    v14[1] = sRTCReportingFaceTimeServiceName;
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    return [gRTCReporting_class sendOneMessageWithSessionInfo:v11 userInfo:v12 category:a3 type:a4 payload:a5 error:0];
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -1994,69 +1954,65 @@ uint64_t _validClassAndSymbols()
 
 RTCReportingAgent *reportingCreateAgent(uint64_t a1)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   pthread_once(&reportingVCOnce, _reportingVCRunOnce);
-  if (_validClassAndSymbols())
+  if (!_validClassAndSymbols())
   {
-    v2 = [RTCReportingAgent alloc];
-    v3 = *(a1 + 112);
-    v21 = *(a1 + 96);
-    v22 = v3;
-    v23 = *(a1 + 128);
-    v4 = *(a1 + 48);
-    v17 = *(a1 + 32);
-    v18 = v4;
-    v5 = *(a1 + 80);
-    v19 = *(a1 + 64);
-    v20 = v5;
-    v6 = *(a1 + 16);
-    *buf = *a1;
-    *&buf[16] = v6;
-    v7 = [(RTCReportingAgent *)v2 initWithConfig:buf];
-    if (v7)
+    return 0;
+  }
+
+  v2 = [RTCReportingAgent alloc];
+  v3 = *(a1 + 112);
+  v20 = *(a1 + 96);
+  v21 = v3;
+  v22 = *(a1 + 128);
+  v4 = *(a1 + 48);
+  v16 = *(a1 + 32);
+  v17 = v4;
+  v5 = *(a1 + 80);
+  v18 = *(a1 + 64);
+  v19 = v5;
+  v6 = *(a1 + 16);
+  *buf = *a1;
+  *&buf[16] = v6;
+  v7 = [(RTCReportingAgent *)v2 initWithConfig:buf];
+  if (v7)
+  {
+    v8 = v7;
+    [(RTCReportingAgent *)v7 blockReportingQueueUntilReportingObjectInitialized];
+    v9 = *(a1 + 88);
+    if (VRTraceGetErrorLogLevelForModule("ReportingVC") >= 7)
     {
-      v8 = v7;
-      [(RTCReportingAgent *)v7 blockReportingQueueUntilReportingObjectInitialized];
-      v9 = *(a1 + 88);
-      if (VRTraceGetErrorLogLevelForModule("ReportingVC") >= 7)
+      v10 = VRTraceErrorLogLevelToCSTR(7u);
+      v11 = gVRTraceOSLog;
+      if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
-        v10 = VRTraceErrorLogLevelToCSTR(7u);
-        v11 = gVRTraceOSLog;
-        if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 136315650;
-          *&buf[4] = v10;
-          *&buf[12] = 2080;
-          *&buf[14] = "reportingCreateAgent";
-          *&buf[22] = 1024;
-          *&buf[24] = 1780;
-          _os_log_impl(&dword_23D4DF000, v11, OS_LOG_TYPE_DEFAULT, "ReportingVC [%s] %s:%d RTCReporting configuration started", buf, 0x1Cu);
-        }
+        *buf = 136315650;
+        *&buf[4] = v10;
+        *&buf[12] = 2080;
+        *&buf[14] = "reportingCreateAgent";
+        *&buf[22] = 1024;
+        *&buf[24] = 1780;
+        _os_log_impl(&dword_23D4DF000, v11, OS_LOG_TYPE_DEFAULT, "ReportingVC [%s] %s:%d RTCReporting configuration started", buf, 0x1Cu);
       }
-
-      v12 = [(RTCReportingAgent *)v8 reportingObject];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __reportingCreateAgent_block_invoke;
-      v15[3] = &unk_278BD50A8;
-      v15[4] = v8;
-      v15[5] = v9;
-      [(RTCReporting *)v12 startConfigurationWithCompletionHandler:v15];
     }
 
-    else
-    {
-      reportingCreateAgent_cold_1();
-      v8 = *buf;
-    }
+    v12 = [(RTCReportingAgent *)v8 reportingObject];
+    v14[0] = MEMORY[0x277D85DD0];
+    v14[1] = 3221225472;
+    v14[2] = __reportingCreateAgent_block_invoke;
+    v14[3] = &unk_278BD50A8;
+    v14[4] = v8;
+    v14[5] = v9;
+    [(RTCReporting *)v12 startConfigurationWithCompletionHandler:v14];
   }
 
   else
   {
-    v8 = 0;
+    reportingCreateAgent_cold_1();
+    return *buf;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -2090,38 +2046,41 @@ void reportingReleaseObject(void *a1)
 
 BOOL _validReportingObject(void *a1, uint64_t a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
-  if (!a1 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || ![a1 reportingObject])
+  v15 = *MEMORY[0x277D85DE8];
+  if (a1)
   {
-    if (VRTraceGetErrorLogLevelForModule("ReportingVC") >= 7)
+    objc_opt_class();
+    if (objc_opt_isKindOfClass())
     {
-      v5 = VRTraceErrorLogLevelToCSTR(7u);
-      v6 = gVRTraceOSLog;
-      result = os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT);
-      if (!result)
+      if ([a1 reportingObject])
       {
-        goto LABEL_9;
+        return 1;
       }
-
-      v8 = 136315906;
-      v9 = v5;
-      v10 = 2080;
-      v11 = "_validReportingObject";
-      v12 = 1024;
-      v13 = 1721;
-      v14 = 2080;
-      v15 = a2;
-      _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, "ReportingVC [%s] %s:%d ReportingVC(%s): invalid object.", &v8, 0x26u);
     }
-
-    result = 0;
-    goto LABEL_9;
   }
 
-  result = 1;
-LABEL_9:
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  if (VRTraceGetErrorLogLevelForModule("ReportingVC") >= 7)
+  {
+    v5 = VRTraceErrorLogLevelToCSTR(7u);
+    v6 = gVRTraceOSLog;
+    result = os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT);
+    if (!result)
+    {
+      return result;
+    }
+
+    v7 = 136315906;
+    v8 = v5;
+    v9 = 2080;
+    v10 = "_validReportingObject";
+    v11 = 1024;
+    v12 = 1721;
+    v13 = 2080;
+    v14 = a2;
+    _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, "ReportingVC [%s] %s:%d ReportingVC(%s): invalid object.", &v7, 0x26u);
+  }
+
+  return 0;
 }
 
 void reportingSetPeriodicAggregationOccurredHandler(void *a1, uint64_t a2)
@@ -2309,7 +2268,7 @@ void reportingInheritModuleSpecificInfoFromParent(void *a1, int a2, int a3)
   }
 }
 
-uint64_t __reportingInheritModuleSpecificInfoFromParent_block_invoke(uint64_t a1)
+void *__reportingInheritModuleSpecificInfoFromParent_block_invoke(uint64_t a1)
 {
   v2 = [*(a1 + 32) userInfoMap];
   result = [v2 objectForKeyedSubscript:{objc_msgSend(MEMORY[0x277CCABA8], "numberWithInt:", *(a1 + 40))}];
@@ -2353,7 +2312,7 @@ void reportingSetUserInfo(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
 uint64_t __reportingSetUserInfo_block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   result = _validReportingObject(*(a1 + 32), *(a1 + 72));
   if (result)
   {
@@ -2387,12 +2346,12 @@ uint64_t __reportingSetUserInfo_block_invoke(uint64_t a1)
     reportingUserInfoSetValueCorrection(v3);
     [objc_msgSend(*(a1 + 32) "reportingObject")];
     v7 = [*(a1 + 32) reportingObject];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __reportingSetUserInfo_block_invoke_529;
-    v11[3] = &unk_278BD5140;
-    v11[4] = *(a1 + 64);
-    [v7 fetchReportingStatesWithUserInfo:v3 fetchComplete:v11];
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __reportingSetUserInfo_block_invoke_529;
+    v10[3] = &unk_278BD5140;
+    v10[4] = *(a1 + 64);
+    [v7 fetchReportingStatesWithUserInfo:v3 fetchComplete:v10];
     if (VRTraceGetErrorLogLevelForModule("ReportingVC") >= 8)
     {
       v8 = VRTraceErrorLogLevelToCSTR(8u);
@@ -2402,13 +2361,13 @@ uint64_t __reportingSetUserInfo_block_invoke(uint64_t a1)
         if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315906;
-          v13 = v8;
-          v14 = 2080;
-          v15 = "reportingSetUserInfo_block_invoke_2";
-          v16 = 1024;
-          v17 = 1977;
-          v18 = 2112;
-          v19 = v3;
+          v12 = v8;
+          v13 = 2080;
+          v14 = "reportingSetUserInfo_block_invoke_2";
+          v15 = 1024;
+          v16 = 1977;
+          v17 = 2112;
+          v18 = v3;
           _os_log_impl(&dword_23D4DF000, v9, OS_LOG_TYPE_DEFAULT, "ReportingVC [%s] %s:%d UserInfo=%@", buf, 0x26u);
         }
       }
@@ -2419,16 +2378,15 @@ uint64_t __reportingSetUserInfo_block_invoke(uint64_t a1)
       }
     }
 
-    result = [objc_msgSend(*(a1 + 32) "reportingObject")];
+    return [objc_msgSend(*(a1 + 32) "reportingObject")];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 void __reportingSetUserInfo_block_invoke_2(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
@@ -2440,41 +2398,41 @@ void __reportingSetUserInfo_block_invoke_2(uint64_t a1, void *a2)
       if (v3)
       {
         v6 = gVRTraceOSLog;
-        if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
+        if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_11;
+          return;
         }
+
+LABEL_11:
+        v7 = 136315906;
+        v8 = v5;
+        v9 = 2080;
+        v10 = "reportingSetUserInfo_block_invoke";
+        v11 = 1024;
+        v12 = 1969;
+        v13 = 2112;
+        v14 = a2;
+        _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, "ReportingVC [%s] %s:%d ReportingVC: %@", &v7, 0x26u);
+        return;
       }
 
-      else
+      v6 = gVRTraceOSLog;
+      if (gVRTraceLogDebugAsInfo == 1)
       {
-        v6 = gVRTraceOSLog;
-        if (gVRTraceLogDebugAsInfo == 1)
+        if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
         {
-          if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
-          {
-LABEL_11:
-            v8 = 136315906;
-            v9 = v5;
-            v10 = 2080;
-            v11 = "reportingSetUserInfo_block_invoke";
-            v12 = 1024;
-            v13 = 1969;
-            v14 = 2112;
-            v15 = a2;
-            _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, "ReportingVC [%s] %s:%d ReportingVC: %@", &v8, 0x26u);
-          }
+          return;
         }
 
-        else if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
-        {
-          __reportingSetUserInfo_block_invoke_2_cold_1();
-        }
+        goto LABEL_11;
+      }
+
+      if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
+      {
+        __reportingSetUserInfo_block_invoke_2_cold_1();
       }
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __reportingSetUserInfo_block_invoke_529(uint64_t a1)
@@ -2490,7 +2448,7 @@ uint64_t __reportingSetUserInfo_block_invoke_529(uint64_t a1)
 
 void __reportingSetUserInfo_block_invoke_530(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   if (a2 && VRTraceGetErrorLogLevelForModule("ReportingVC") >= 8)
   {
     v3 = VRTraceErrorLogLevelToCSTR(8u);
@@ -2499,17 +2457,17 @@ void __reportingSetUserInfo_block_invoke_530(uint64_t a1, void *a2)
     {
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = 136316162;
-        v7 = v3;
-        v8 = 2080;
-        v9 = "reportingSetUserInfo_block_invoke";
-        v10 = 1024;
-        v11 = 1984;
-        v12 = 1024;
-        v13 = 1984;
-        v14 = 1024;
-        v15 = [a2 code];
-        _os_log_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEFAULT, "ReportingVC [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/ReportingVC.m:%d: flushMessages: error code %d.", &v6, 0x28u);
+        v5 = 136316162;
+        v6 = v3;
+        v7 = 2080;
+        v8 = "reportingSetUserInfo_block_invoke";
+        v9 = 1024;
+        v10 = 1984;
+        v11 = 1024;
+        v12 = 1984;
+        v13 = 1024;
+        v14 = [a2 code];
+        _os_log_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEFAULT, "ReportingVC [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/ReportingVC.m:%d: flushMessages: error code %d.", &v5, 0x28u);
       }
     }
 
@@ -2518,20 +2476,18 @@ void __reportingSetUserInfo_block_invoke_530(uint64_t a1, void *a2)
       __reportingSetUserInfo_block_invoke_530_cold_1();
     }
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void reportingLog(void *a1, int a2, __int16 a3, __int16 a4, uint64_t a5, _BYTE *a6)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   if (a1)
   {
     if (a6 && *a6)
     {
-      v17 = a5;
-      v18[0] = [MEMORY[0x277CCACA0] stringWithUTF8String:a6];
-      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
+      v16 = a5;
+      v17[0] = [MEMORY[0x277CCACA0] stringWithUTF8String:a6];
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
     }
 
     else
@@ -2540,19 +2496,17 @@ void reportingLog(void *a1, int a2, __int16 a3, __int16 a4, uint64_t a5, _BYTE *
     }
 
     v11 = [a1 reportingQueue];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __reportingLog_block_invoke;
-    v13[3] = &unk_278BD5058;
-    v14 = a2;
-    v13[4] = a1;
-    v13[5] = v10;
-    v15 = a3;
-    v16 = a4;
-    dispatch_async(v11, v13);
+    v12[0] = MEMORY[0x277D85DD0];
+    v12[1] = 3221225472;
+    v12[2] = __reportingLog_block_invoke;
+    v12[3] = &unk_278BD5058;
+    v13 = a2;
+    v12[4] = a1;
+    v12[5] = v10;
+    v14 = a3;
+    v15 = a4;
+    dispatch_async(v11, v12);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingLog_block_invoke(uint64_t a1)
@@ -2604,11 +2558,10 @@ id combineModuleSpecificInfoAndPayload(void *a1, uint64_t a2, uint64_t a3)
 
 void reportingPIPEnabled(void *a1, uint64_t a2)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"PIPDUR";
-  v5[0] = [MEMORY[0x277CCABA8] numberWithBool:a2];
-  reportingGenericEvent(a1, 48, 0, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1]);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"PIPDUR";
+  v4[0] = [MEMORY[0x277CCABA8] numberWithBool:a2];
+  reportingGenericEvent(a1, 48, 0, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1]);
 }
 
 void reportingGenericEvent(void *a1, __int16 a2, __int16 a3, uint64_t a4)
@@ -2630,71 +2583,66 @@ void reportingGenericEvent(void *a1, __int16 a2, __int16 a3, uint64_t a4)
 
 void reportingRecordingAndTranscriptionServiceUsage(void *a1, uint64_t a2)
 {
-  v5[1] = *MEMORY[0x277D85DE8];
-  v4 = @"RATSU";
-  v5[0] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:a2];
-  reportingGenericEvent(a1, 349, 0, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:&v4 count:1]);
-  v3 = *MEMORY[0x277D85DE8];
+  v4[1] = *MEMORY[0x277D85DE8];
+  v3 = @"RATSU";
+  v4[0] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:a2];
+  reportingGenericEvent(a1, 349, 0, [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:&v3 count:1]);
 }
 
 void __reportingGenericEvent_block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (_validReportingObject(*(a1 + 32), "reportingGenericEvent"))
   {
-    v7 = 0;
-    if (([*(a1 + 32) sendMessageWithCategory:*(a1 + 48) type:*(a1 + 50) payload:*(a1 + 40) error:&v7] & 1) == 0 && VRTraceGetErrorLogLevelForModule("ReportingVC") >= 3)
+    v6 = 0;
+    if (([*(a1 + 32) sendMessageWithCategory:*(a1 + 48) type:*(a1 + 50) payload:*(a1 + 40) error:&v6] & 1) == 0 && VRTraceGetErrorLogLevelForModule("ReportingVC") >= 3)
     {
       v2 = VRTraceErrorLogLevelToCSTR(3u);
       v3 = gVRTraceOSLog;
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
       {
-        v5 = *(a1 + 48);
-        v6 = [v7 code];
+        v4 = *(a1 + 48);
+        v5 = [v6 code];
         *buf = 136316418;
-        v9 = v2;
-        v10 = 2080;
-        v11 = "reportingGenericEvent_block_invoke";
-        v12 = 1024;
-        v13 = 2043;
-        v14 = 1024;
-        v15 = 2043;
-        v16 = 1024;
-        v17 = v5;
-        v18 = 1024;
-        v19 = v6;
+        v8 = v2;
+        v9 = 2080;
+        v10 = "reportingGenericEvent_block_invoke";
+        v11 = 1024;
+        v12 = 2043;
+        v13 = 1024;
+        v14 = 2043;
+        v15 = 1024;
+        v16 = v4;
+        v17 = 1024;
+        v18 = v5;
         _os_log_error_impl(&dword_23D4DF000, v3, OS_LOG_TYPE_ERROR, "ReportingVC [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/ReportingVC.m:%d: eventType:%d error code %d.", buf, 0x2Eu);
       }
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void reportingAdaptiveLearningStats(void *a1, int a2, uint64_t a3, uint64_t a4)
 {
-  v14[3] = *MEMORY[0x277D85DE8];
+  v13[3] = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v13[0] = @"TtSD";
-    v14[0] = [MEMORY[0x277CCABA8] numberWithDouble:?];
-    v13[1] = @"BtRD";
-    v14[1] = [MEMORY[0x277CCABA8] numberWithInt:a4];
-    v13[2] = @"IBTR";
-    v14[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a3];
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
+    v12[0] = @"TtSD";
+    v13[0] = [MEMORY[0x277CCABA8] numberWithDouble:?];
+    v12[1] = @"BtRD";
+    v13[1] = [MEMORY[0x277CCABA8] numberWithInt:a4];
+    v12[2] = @"IBTR";
+    v13[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a3];
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:3];
     v9 = [a1 reportingQueue];
-    v11[0] = MEMORY[0x277D85DD0];
-    v11[1] = 3221225472;
-    v11[2] = __reportingAdaptiveLearningStats_block_invoke;
-    v11[3] = &unk_278BD48B8;
-    v12 = a2;
-    v11[4] = a1;
-    v11[5] = v8;
-    dispatch_async(v9, v11);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __reportingAdaptiveLearningStats_block_invoke;
+    v10[3] = &unk_278BD48B8;
+    v11 = a2;
+    v10[4] = a1;
+    v10[5] = v8;
+    dispatch_async(v9, v10);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingAdaptiveLearningStats_block_invoke(uint64_t a1)
@@ -2746,18 +2694,18 @@ void __reportingNoRemoteChanged_block_invoke(uint64_t a1)
 
 void reportingCallEndError(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7)
 {
-  v20[5] = *MEMORY[0x277D85DE8];
+  v19[5] = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v19[0] = @"CallEndError";
-    v20[0] = [MEMORY[0x277CCABA8] numberWithUnsignedShort:a2];
-    v19[1] = @"Term";
-    v20[1] = [MEMORY[0x277CCABA8] numberWithUnsignedShort:a3];
-    v19[2] = @"NoRemote";
-    v20[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4];
-    v19[3] = @"RemoteNoRemote";
-    v20[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a5];
-    v19[4] = @"CallEndErrorDomain";
+    v18[0] = @"CallEndError";
+    v19[0] = [MEMORY[0x277CCABA8] numberWithUnsignedShort:a2];
+    v18[1] = @"Term";
+    v19[1] = [MEMORY[0x277CCABA8] numberWithUnsignedShort:a3];
+    v18[2] = @"NoRemote";
+    v19[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4];
+    v18[3] = @"RemoteNoRemote";
+    v19[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a5];
+    v18[4] = @"CallEndErrorDomain";
     if (a7 && *a7)
     {
       v13 = [MEMORY[0x277CCACA0] stringWithFormat:@"%s", a7];
@@ -2768,8 +2716,8 @@ void reportingCallEndError(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
       v13 = &stru_284F80940;
     }
 
-    v20[4] = v13;
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:5];
+    v19[4] = v13;
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:5];
     v15 = [objc_alloc(MEMORY[0x277CCAD70]) initWithUUIDBytes:a6];
     v16 = [a1 reportingQueue];
     block[0] = MEMORY[0x277D85DD0];
@@ -2783,8 +2731,6 @@ void reportingCallEndError(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
     block[8] = a1;
     dispatch_async(v16, block);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingCallEndError_block_invoke(uint64_t a1)
@@ -2832,28 +2778,26 @@ void __reportingCallEndError_block_invoke(uint64_t a1)
 
 void reportingModeRoleTransportLog(void *a1, __int16 a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v15[3] = *MEMORY[0x277D85DE8];
+  v14[3] = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v14[0] = @"DeviceRole";
-    v15[0] = [MEMORY[0x277CCABA8] numberWithUnsignedShort:?];
-    v14[1] = @"TransportType";
-    v15[1] = [MEMORY[0x277CCABA8] numberWithUnsignedShort:a4];
-    v14[2] = @"INTTR";
-    v15[2] = [MEMORY[0x277CCABA8] numberWithBool:a5];
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:3];
+    v13[0] = @"DeviceRole";
+    v14[0] = [MEMORY[0x277CCABA8] numberWithUnsignedShort:a3];
+    v13[1] = @"TransportType";
+    v14[1] = [MEMORY[0x277CCABA8] numberWithUnsignedShort:a4];
+    v13[2] = @"INTTR";
+    v14[2] = [MEMORY[0x277CCABA8] numberWithBool:a5];
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:3];
     v10 = [a1 reportingQueue];
-    v12[0] = MEMORY[0x277D85DD0];
-    v12[1] = 3221225472;
-    v12[2] = __reportingModeRoleTransportLog_block_invoke;
-    v12[3] = &unk_278BD4E10;
-    v13 = a2;
-    v12[4] = a1;
-    v12[5] = v9;
-    dispatch_async(v10, v12);
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __reportingModeRoleTransportLog_block_invoke;
+    v11[3] = &unk_278BD4E10;
+    v12 = a2;
+    v11[4] = a1;
+    v11[5] = v9;
+    dispatch_async(v10, v11);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingModeRoleTransportLog_block_invoke(uint64_t a1)
@@ -2874,41 +2818,42 @@ void __reportingModeRoleTransportLog_block_invoke(uint64_t a1)
 
 void reportingTierLog(void *a1, int a2, __int16 a3, unsigned int *a4, uint64_t a5)
 {
-  v17[9] = *MEMORY[0x277D85DE8];
-  if (a1 && a4)
+  v16[9] = *MEMORY[0x277D85DE8];
+  if (a1)
   {
-    v16[0] = @"Tier";
-    v17[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*a4];
-    v16[1] = @"Dup";
-    v17[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4[1]];
-    v16[2] = @"Bundle";
-    v17[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4[4]];
-    v16[3] = @"Payload";
-    v17[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4[5]];
-    v16[4] = @"BitRate";
-    v17[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4[6]];
-    v16[5] = @"RedPayloads";
-    v17[5] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4[2]];
-    v16[6] = @"RedMaxDelay";
-    v17[6] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4[3]];
-    v16[7] = @"REDPayloadBitrate";
-    v17[7] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4[7]];
-    v16[8] = @"Mode";
-    v17[8] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a5];
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:9];
-    v11 = [a1 reportingQueue];
-    v13[0] = MEMORY[0x277D85DD0];
-    v13[1] = 3221225472;
-    v13[2] = __reportingTierLog_block_invoke;
-    v13[3] = &unk_278BD5080;
-    v14 = a2;
-    v13[4] = a1;
-    v13[5] = v10;
-    v15 = a3;
-    dispatch_async(v11, v13);
+    if (a4)
+    {
+      v15[0] = @"Tier";
+      v16[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:*a4];
+      v15[1] = @"Dup";
+      v16[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4[1]];
+      v15[2] = @"Bundle";
+      v16[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4[4]];
+      v15[3] = @"Payload";
+      v16[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4[5]];
+      v15[4] = @"BitRate";
+      v16[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4[6]];
+      v15[5] = @"RedPayloads";
+      v16[5] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4[2]];
+      v15[6] = @"RedMaxDelay";
+      v16[6] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4[3]];
+      v15[7] = @"REDPayloadBitrate";
+      v16[7] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4[7]];
+      v15[8] = @"Mode";
+      v16[8] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a5];
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:9];
+      v11 = [a1 reportingQueue];
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __reportingTierLog_block_invoke;
+      v12[3] = &unk_278BD5080;
+      v13 = a2;
+      v12[4] = a1;
+      v12[5] = v10;
+      v14 = a3;
+      dispatch_async(v11, v12);
+    }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingTierLog_block_invoke(uint64_t a1)
@@ -3156,36 +3101,30 @@ uint64_t __reportingRegisterPeriodicTaskWeak_block_invoke(uint64_t a1)
 
 void __reportingRegisterPeriodicTaskWeak_block_invoke_2(uint64_t a1)
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v2 = MEMORY[0x23EEE3290]([*(a1 + 32) weak]);
   if (v2)
   {
     v3 = v2;
     (*(*(a1 + 40) + 16))();
-    v4 = *MEMORY[0x277D85DE8];
 
     CFRelease(v3);
   }
 
-  else
+  else if (VRTraceGetErrorLogLevelForModule("ReportingVC") >= 5)
   {
-    if (VRTraceGetErrorLogLevelForModule("ReportingVC") >= 5)
+    v4 = VRTraceErrorLogLevelToCSTR(5u);
+    v5 = gVRTraceOSLog;
+    if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = VRTraceErrorLogLevelToCSTR(5u);
-      v6 = gVRTraceOSLog;
-      if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
-      {
-        v8 = 136315650;
-        v9 = v5;
-        v10 = 2080;
-        v11 = "reportingRegisterPeriodicTaskWeak_block_invoke_2";
-        v12 = 1024;
-        v13 = 2281;
-        _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, "ReportingVC [%s] %s:%d reportingRegisterPeriodicTaskWeak: reportingObject has already been dealloced", &v8, 0x1Cu);
-      }
+      v6 = 136315650;
+      v7 = v4;
+      v8 = 2080;
+      v9 = "reportingRegisterPeriodicTaskWeak_block_invoke_2";
+      v10 = 1024;
+      v11 = 2281;
+      _os_log_impl(&dword_23D4DF000, v5, OS_LOG_TYPE_DEFAULT, "ReportingVC [%s] %s:%d reportingRegisterPeriodicTaskWeak: reportingObject has already been dealloced", &v6, 0x1Cu);
     }
-
-    v7 = *MEMORY[0x277D85DE8];
   }
 }
 
@@ -3480,7 +3419,7 @@ BOOL reportingSetNWActivityReportingEnabled(void *a1, uint64_t a2)
   return a1 != 0;
 }
 
-uint64_t reportingStreamGroupFromStreamGroupID(int a1)
+uint64_t reportingStreamGroupFromStreamGroupID(uint64_t a1)
 {
   if (a1 <= 1718909043)
   {
@@ -3528,11 +3467,11 @@ uint64_t reportingStreamGroupFromStreamGroupID(int a1)
   {
     switch(a1)
     {
-      case 1835623287:
+      case 0x6D696377:
         return 6;
-      case 1935897189:
+      case 0x73637265:
         return 3;
-      case 1937339233:
+      case 0x73797361:
         return 4;
     }
   }
@@ -3552,7 +3491,7 @@ uint64_t reportingStreamGroupFromStreamGroupID(int a1)
   return 0;
 }
 
-uint64_t reportingSessionModeFromOperatingMode(int a1)
+uint64_t reportingSessionModeFromOperatingMode(uint64_t a1)
 {
   switch(a1)
   {
@@ -3654,7 +3593,7 @@ uint64_t __reportingUploadFileWithName_block_invoke(uint64_t a1)
 
 void __reportingUploadFileWithName_block_invoke_2(uint64_t a1, int a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("ReportingVC") >= 7)
   {
     v3 = VRTraceErrorLogLevelToCSTR(7u);
@@ -3662,24 +3601,22 @@ void __reportingUploadFileWithName_block_invoke_2(uint64_t a1, int a2)
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
     {
       v5 = "failed";
-      v7 = 136315906;
-      v8 = v3;
-      v9 = 2080;
-      v10 = "reportingUploadFileWithName_block_invoke_2";
+      v6 = 136315906;
+      v7 = v3;
+      v8 = 2080;
+      v9 = "reportingUploadFileWithName_block_invoke_2";
       if (a2)
       {
         v5 = "successful";
       }
 
-      v11 = 1024;
-      v12 = 2522;
-      v13 = 2080;
-      v14 = v5;
-      _os_log_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEFAULT, "ReportingVC [%s] %s:%d reportingUploadFileWithName: %s.", &v7, 0x26u);
+      v10 = 1024;
+      v11 = 2522;
+      v12 = 2080;
+      v13 = v5;
+      _os_log_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEFAULT, "ReportingVC [%s] %s:%d reportingUploadFileWithName: %s.", &v6, 0x26u);
     }
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void reportingMLEnhance(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5)
@@ -3701,17 +3638,17 @@ void reportingMLEnhance(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, char a5
 
 void reportingVideoProp(void *a1, int a2, __int16 a3, __int16 a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v25[3] = *MEMORY[0x277D85DE8];
+  v24[3] = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v15 = MEMORY[0x277CBEB38];
-    v24[0] = @"Width";
-    v25[0] = [MEMORY[0x277CCABA8] numberWithInt:a5];
-    v24[1] = @"Height";
-    v25[1] = [MEMORY[0x277CCABA8] numberWithInt:a6];
-    v24[2] = @"Framerate";
-    v25[2] = [MEMORY[0x277CCABA8] numberWithInt:a7];
-    v16 = [v15 dictionaryWithDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v25, v24, 3)}];
+    v23[0] = @"Width";
+    v24[0] = [MEMORY[0x277CCABA8] numberWithInt:a5];
+    v23[1] = @"Height";
+    v24[1] = [MEMORY[0x277CCABA8] numberWithInt:a6];
+    v23[2] = @"Framerate";
+    v24[2] = [MEMORY[0x277CCABA8] numberWithInt:a7];
+    v16 = [v15 dictionaryWithDictionary:{objc_msgSend(MEMORY[0x277CBEAC0], "dictionaryWithObjects:forKeys:count:", v24, v23, 3)}];
     v17 = v16;
     if (a8)
     {
@@ -3719,19 +3656,17 @@ void reportingVideoProp(void *a1, int a2, __int16 a3, __int16 a4, uint64_t a5, u
     }
 
     v18 = [a1 reportingQueue];
-    v20[0] = MEMORY[0x277D85DD0];
-    v20[1] = 3221225472;
-    v20[2] = __reportingVideoProp_block_invoke;
-    v20[3] = &unk_278BD5058;
-    v21 = a2;
-    v20[4] = a1;
-    v20[5] = v17;
-    v22 = a3;
-    v23 = a4;
-    dispatch_async(v18, v20);
+    v19[0] = MEMORY[0x277D85DD0];
+    v19[1] = 3221225472;
+    v19[2] = __reportingVideoProp_block_invoke;
+    v19[3] = &unk_278BD5058;
+    v20 = a2;
+    v19[4] = a1;
+    v19[5] = v17;
+    v21 = a3;
+    v22 = a4;
+    dispatch_async(v18, v19);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingVideoProp_block_invoke(uint64_t a1)
@@ -3752,24 +3687,22 @@ void __reportingVideoProp_block_invoke(uint64_t a1)
 
 void reportingVideoFeatureToggle(void *a1, uint64_t a2)
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v8 = a2;
-    v9[0] = [MEMORY[0x277CCABA8] numberWithBool:?];
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+    v7 = a2;
+    v8[0] = [MEMORY[0x277CCABA8] numberWithBool:?];
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
     v4 = [a1 reportingQueue];
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __reportingGenericEvent_block_invoke;
-    v6[3] = &unk_278BD48B8;
-    v7 = 48;
-    v6[4] = a1;
-    v6[5] = v3;
-    dispatch_async(v4, v6);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __reportingGenericEvent_block_invoke;
+    v5[3] = &unk_278BD48B8;
+    v6 = 48;
+    v5[4] = a1;
+    v5[5] = v3;
+    dispatch_async(v4, v5);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t reportingDefaultRealtimePeriod()
@@ -3791,10 +3724,10 @@ uint64_t algoScorerPeriodicTask(void *a1, void *a2)
 
 void reportingRegisterSystemStats(void *a1, int a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v27 = -38605833;
+    v26 = -38605833;
     keys = xmmword_23D59AB80;
     if (MGIsDeviceOneOfType())
     {
@@ -3803,7 +3736,7 @@ void reportingRegisterSystemStats(void *a1, int a2)
 
     else
     {
-      v25 = -894965712;
+      v24 = -894965712;
       values = xmmword_23D59AB94;
       if (MGIsDeviceOneOfType())
       {
@@ -3812,7 +3745,7 @@ void reportingRegisterSystemStats(void *a1, int a2)
 
       else
       {
-        v23 = -2101636455;
+        v22 = -2101636455;
         valuePtr = xmmword_23D59ABA8;
         if (MGIsDeviceOneOfType())
         {
@@ -3821,8 +3754,8 @@ void reportingRegisterSystemStats(void *a1, int a2)
 
         else
         {
-          v21 = -1955568593;
-          v20 = xmmword_23D59ABBC;
+          v20 = -1955568593;
+          v19 = xmmword_23D59ABBC;
           if (MGIsDeviceOneOfType())
           {
             v4 = 5;
@@ -3830,8 +3763,8 @@ void reportingRegisterSystemStats(void *a1, int a2)
 
           else
           {
-            v19 = 28030256;
-            v18 = xmmword_23D59ABD0;
+            v18 = 28030256;
+            v17 = xmmword_23D59ABD0;
             if (MGIsDeviceOneOfType())
             {
               v4 = 6;
@@ -3839,8 +3772,8 @@ void reportingRegisterSystemStats(void *a1, int a2)
 
             else
             {
-              v17 = 1214363620;
-              v16 = xmmword_23D59ABE4;
+              v16 = 1214363620;
+              v15 = xmmword_23D59ABE4;
               if (MGIsDeviceOneOfType())
               {
                 v4 = 7;
@@ -3868,41 +3801,38 @@ void reportingRegisterSystemStats(void *a1, int a2)
     if (!dword_27E2DEF84)
     {
       *&values = @"backlight-control";
-      v11 = *MEMORY[0x277CBECE8];
+      v10 = *MEMORY[0x277CBECE8];
       *&keys = CFDictionaryCreate(*MEMORY[0x277CBECE8], &values, MEMORY[0x277CBED28], 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
       if (keys)
       {
         *&values = @"IOPropertyMatch";
-        v12 = CFDictionaryCreate(v11, &values, &keys, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        v11 = CFDictionaryCreate(v10, &values, &keys, 1, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
         CFRelease(keys);
-        if (v12)
+        if (v11)
         {
-          dword_27E2DEF84 = IOServiceGetMatchingService(*MEMORY[0x277CD28A0], v12);
+          dword_27E2DEF84 = IOServiceGetMatchingService(*MEMORY[0x277CD28A0], v11);
         }
       }
     }
 
-    if (v4)
+    if (v4 && !hidEventSystem)
     {
-      if (!hidEventSystem)
+      v6 = *MEMORY[0x277CBECE8];
+      hidEventSystem = IOHIDEventSystemClientCreate();
+      if (hidEventSystem)
       {
-        v6 = *MEMORY[0x277CBECE8];
-        hidEventSystem = IOHIDEventSystemClientCreate();
-        if (hidEventSystem)
-        {
-          *&keys = @"PrimaryUsagePage";
-          *(&keys + 1) = @"PrimaryUsage";
-          LODWORD(valuePtr) = 65280;
-          LODWORD(v20) = 5;
-          *&values = CFNumberCreate(v6, kCFNumberSInt32Type, &valuePtr);
-          *(&values + 1) = CFNumberCreate(v6, kCFNumberSInt32Type, &v20);
-          v7 = CFDictionaryCreate(v6, &keys, &values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
-          CFRelease(values);
-          CFRelease(*(&values + 1));
-          IOHIDEventSystemClientSetMatching();
-          CFRelease(v7);
-          qword_27E2DEF88 = IOHIDEventSystemClientCopyServices(hidEventSystem);
-        }
+        *&keys = @"PrimaryUsagePage";
+        *(&keys + 1) = @"PrimaryUsage";
+        LODWORD(valuePtr) = 65280;
+        LODWORD(v19) = 5;
+        *&values = CFNumberCreate(v6, kCFNumberSInt32Type, &valuePtr);
+        *(&values + 1) = CFNumberCreate(v6, kCFNumberSInt32Type, &v19);
+        v7 = CFDictionaryCreate(v6, &keys, &values, 2, MEMORY[0x277CBF138], MEMORY[0x277CBF150]);
+        CFRelease(values);
+        CFRelease(*(&values + 1));
+        IOHIDEventSystemClientSetMatching();
+        CFRelease(v7);
+        qword_27E2DEF88 = IOHIDEventSystemClientCopyServices(hidEventSystem);
       }
     }
 
@@ -3912,14 +3842,12 @@ void reportingRegisterSystemStats(void *a1, int a2)
     block[1] = 3221225472;
     block[2] = __reportingRegisterSystemStats_block_invoke;
     block[3] = &unk_278BD5058;
-    v14 = a2;
-    v15 = v4;
+    v13 = a2;
+    v14 = v4;
     block[4] = a1;
     block[5] = v8;
     dispatch_async(v9, block);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __reportingRegisterSystemStats_block_invoke(uint64_t a1)
@@ -3943,14 +3871,14 @@ uint64_t __reportingRegisterSystemStats_block_invoke(uint64_t a1)
 
 void reportingThermal(void *a1, int a2, __int16 a3, uint64_t a4, uint64_t a5)
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v21[0] = @"Thermal";
-    v22[0] = [MEMORY[0x277CCABA8] numberWithInt:a4];
-    v21[1] = @"TimeToThermal";
-    v22[1] = [MEMORY[0x277CCABA8] numberWithInt:a5];
-    v21[2] = @"Charging";
+    v20[0] = @"Thermal";
+    v21[0] = [MEMORY[0x277CCABA8] numberWithInt:a4];
+    v20[1] = @"TimeToThermal";
+    v21[1] = [MEMORY[0x277CCABA8] numberWithInt:a5];
+    v20[2] = @"Charging";
     valuePtr = 0;
     MatchingService = _MergedGlobals_1007;
     if (!_MergedGlobals_1007)
@@ -3986,19 +3914,19 @@ void reportingThermal(void *a1, int a2, __int16 a3, uint64_t a4, uint64_t a5)
       {
         v13 = @"Yes";
 LABEL_11:
-        v22[2] = v13;
-        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+        v21[2] = v13;
+        v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
         v15 = [a1 reportingQueue];
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __reportingThermal_block_invoke;
         block[3] = &unk_278BD5080;
-        v18 = a2;
+        v17 = a2;
         block[4] = a1;
         block[5] = v14;
-        v19 = a3;
+        v18 = a3;
         dispatch_async(v15, block);
-        goto LABEL_12;
+        return;
       }
     }
 
@@ -4006,9 +3934,6 @@ LABEL_10:
     v13 = @"No";
     goto LABEL_11;
   }
-
-LABEL_12:
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingThermal_block_invoke(uint64_t a1)
@@ -4029,12 +3954,12 @@ void __reportingThermal_block_invoke(uint64_t a1)
 
 void reportingConnecting(void *a1, __int16 a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, double a7)
 {
-  v23[6] = *MEMORY[0x277D85DE8];
+  v22[6] = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v21 = 1023;
+    v20 = 1023;
     v14 = malloc_type_calloc(1uLL, 0x400uLL, 0xB6D3A456uLL);
-    if (sysctlbyname("kern.bootargs", v14, &v21, 0, 0))
+    if (sysctlbyname("kern.bootargs", v14, &v20, 0, 0))
     {
       v15 = @"Unavailable";
     }
@@ -4046,31 +3971,29 @@ void reportingConnecting(void *a1, __int16 a2, uint64_t a3, uint64_t a4, uint64_
     }
 
     free(v14);
-    v23[0] = v15;
-    v22[0] = @"BootArgs";
-    v22[1] = @"NegSw";
-    v23[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a3];
-    v22[2] = @"RemSw";
-    v23[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4];
-    v22[3] = @"RemSwAvlbl";
-    v23[3] = [MEMORY[0x277CCABA8] numberWithBool:a5];
-    v22[4] = @"vcrcProfNum";
-    v23[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a6];
-    v22[5] = @"PCHADel";
-    v23[5] = [MEMORY[0x277CCABA8] numberWithDouble:a7];
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:6];
+    v22[0] = v15;
+    v21[0] = @"BootArgs";
+    v21[1] = @"NegSw";
+    v22[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a3];
+    v21[2] = @"RemSw";
+    v22[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4];
+    v21[3] = @"RemSwAvlbl";
+    v22[3] = [MEMORY[0x277CCABA8] numberWithBool:a5];
+    v21[4] = @"vcrcProfNum";
+    v22[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a6];
+    v21[5] = @"PCHADel";
+    v22[5] = [MEMORY[0x277CCABA8] numberWithDouble:a7];
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:6];
     v17 = [a1 reportingQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
     block[2] = __reportingConnecting_block_invoke;
     block[3] = &unk_278BD4E10;
-    v20 = a2;
+    v19 = a2;
     block[4] = a1;
     block[5] = v16;
     dispatch_async(v17, block);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingConnecting_block_invoke(uint64_t a1)
@@ -4091,22 +4014,22 @@ void __reportingConnecting_block_invoke(uint64_t a1)
 
 void reportingDisconnected(void *a1, __int16 a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
 {
-  v22[6] = *MEMORY[0x277D85DE8];
+  v21[6] = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v21[0] = @"FileUpload";
-    v22[0] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:?];
-    v21[1] = @"Roaming";
-    v22[1] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:a4];
-    v21[2] = @"RxExcessICE";
-    v22[2] = [MEMORY[0x277CCABA8] numberWithInt:a5];
-    v21[3] = @"TxExcessICE";
-    v22[3] = [MEMORY[0x277CCABA8] numberWithInt:a6];
-    v21[4] = @"RxExcessRTP";
-    v22[4] = [MEMORY[0x277CCABA8] numberWithInt:a7];
-    v21[5] = @"TxExcessRTP";
-    v22[5] = [MEMORY[0x277CCABA8] numberWithInt:a8];
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:6];
+    v20[0] = @"FileUpload";
+    v21[0] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:a3];
+    v20[1] = @"Roaming";
+    v21[1] = [MEMORY[0x277CCABA8] numberWithUnsignedChar:a4];
+    v20[2] = @"RxExcessICE";
+    v21[2] = [MEMORY[0x277CCABA8] numberWithInt:a5];
+    v20[3] = @"TxExcessICE";
+    v21[3] = [MEMORY[0x277CCABA8] numberWithInt:a6];
+    v20[4] = @"RxExcessRTP";
+    v21[4] = [MEMORY[0x277CCABA8] numberWithInt:a7];
+    v20[5] = @"TxExcessRTP";
+    v21[5] = [MEMORY[0x277CCABA8] numberWithInt:a8];
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:6];
     v17 = [a1 reportingQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -4114,12 +4037,10 @@ void reportingDisconnected(void *a1, __int16 a2, uint64_t a3, uint64_t a4, uint6
     block[3] = &unk_278BD52E8;
     block[4] = a1;
     block[5] = a9;
-    v20 = a2;
+    v19 = a2;
     block[6] = v16;
     dispatch_async(v17, block);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingDisconnected_block_invoke(uint64_t a1)
@@ -4153,24 +4074,22 @@ void __reportingDisconnected_block_invoke(uint64_t a1)
 
 void reportingVideoPaused(void *a1, __int16 a2)
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v9 = @"VCSPVideoDegraded";
-    v10[0] = [MEMORY[0x277CCABA8] numberWithBool:?];
-    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v8 = @"VCSPVideoDegraded";
+    v9[0] = [MEMORY[0x277CCABA8] numberWithBool:?];
+    v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     v5 = [a1 reportingQueue];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __reportingVideoPaused_block_invoke;
-    v7[3] = &unk_278BD4E10;
-    v8 = a2;
-    v7[4] = a1;
-    v7[5] = v4;
-    dispatch_async(v5, v7);
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __reportingVideoPaused_block_invoke;
+    v6[3] = &unk_278BD4E10;
+    v7 = a2;
+    v6[4] = a1;
+    v6[5] = v4;
+    dispatch_async(v5, v6);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingVideoPaused_block_invoke(uint64_t a1)
@@ -4191,18 +4110,18 @@ void __reportingVideoPaused_block_invoke(uint64_t a1)
 
 void reportingAWDCallStart(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v14[4] = *MEMORY[0x277D85DE8];
+  v13[4] = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v13[0] = @"Send";
-    v14[0] = [MEMORY[0x277CCABA8] numberWithBool:a2];
-    v13[1] = @"Time";
-    v14[1] = [MEMORY[0x277CCABA8] numberWithLong:a3];
-    v13[2] = @"Mode";
-    v14[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4];
-    v13[3] = @"Nonce";
-    v14[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a5];
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
+    v12[0] = @"Send";
+    v13[0] = [MEMORY[0x277CCABA8] numberWithBool:a2];
+    v12[1] = @"Time";
+    v13[1] = [MEMORY[0x277CCABA8] numberWithLong:a3];
+    v12[2] = @"Mode";
+    v13[2] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a4];
+    v12[3] = @"Nonce";
+    v13[3] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a5];
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
     v10 = [a1 reportingQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -4212,8 +4131,6 @@ void reportingAWDCallStart(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint
     block[5] = v9;
     dispatch_async(v10, block);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingAWDCallStart_block_invoke(uint64_t a1)
@@ -4234,14 +4151,14 @@ void __reportingAWDCallStart_block_invoke(uint64_t a1)
 
 void reportingRemoteFrameSize(void *a1, uint64_t a2, uint64_t a3)
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v9[0] = @"Width";
-    v10[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a2];
-    v9[1] = @"Height";
-    v10[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a3];
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:v9 count:2];
+    v8[0] = @"Width";
+    v9[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a2];
+    v8[1] = @"Height";
+    v9[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a3];
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
     v6 = [a1 reportingQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -4251,8 +4168,6 @@ void reportingRemoteFrameSize(void *a1, uint64_t a2, uint64_t a3)
     block[5] = v5;
     dispatch_async(v6, block);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingRemoteFrameSize_block_invoke(uint64_t a1)
@@ -4273,12 +4188,12 @@ void __reportingRemoteFrameSize_block_invoke(uint64_t a1)
 
 void reportingConnectionType(void *a1, uint64_t a2)
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v7 = @"ConnType";
-    v8[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a2];
-    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v6 = @"ConnType";
+    v7[0] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a2];
+    v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     v4 = [a1 reportingQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -4288,8 +4203,6 @@ void reportingConnectionType(void *a1, uint64_t a2)
     block[5] = v3;
     dispatch_async(v4, block);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingConnectionType_block_invoke(uint64_t a1)
@@ -4310,7 +4223,7 @@ void __reportingConnectionType_block_invoke(uint64_t a1)
 
 void reportingLocalAndRemoteInterface(void *a1, const char *a2, const char *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v3 = a3;
@@ -4320,20 +4233,20 @@ void reportingLocalAndRemoteInterface(void *a1, const char *a2, const char *a3)
       if (a3)
       {
 LABEL_13:
-        v14[0] = @"LocalInterface";
-        v14[1] = @"RemoteInterface";
-        v15[0] = [MEMORY[0x277CCACA0] stringWithUTF8String:v4];
-        v15[1] = [MEMORY[0x277CCACA0] stringWithUTF8String:v3];
-        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:2];
+        v13[0] = @"LocalInterface";
+        v13[1] = @"RemoteInterface";
+        v14[0] = [MEMORY[0x277CCACA0] stringWithUTF8String:v4];
+        v14[1] = [MEMORY[0x277CCACA0] stringWithUTF8String:v3];
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
         v11 = [a1 reportingQueue];
-        v13[0] = MEMORY[0x277D85DD0];
-        v13[1] = 3221225472;
-        v13[2] = __reportingLocalAndRemoteInterface_block_invoke;
-        v13[3] = &unk_278BD4D48;
-        v13[4] = a1;
-        v13[5] = v10;
-        dispatch_async(v11, v13);
-        goto LABEL_14;
+        v12[0] = MEMORY[0x277D85DD0];
+        v12[1] = 3221225472;
+        v12[2] = __reportingLocalAndRemoteInterface_block_invoke;
+        v12[3] = &unk_278BD4D48;
+        v12[4] = a1;
+        v12[5] = v10;
+        dispatch_async(v11, v12);
+        return;
       }
     }
 
@@ -4346,11 +4259,11 @@ LABEL_13:
         if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 136315650;
-          v17 = v6;
-          v18 = 2080;
-          v19 = "reportingLocalAndRemoteInterface";
-          v20 = 1024;
-          v21 = 3199;
+          v16 = v6;
+          v17 = 2080;
+          v18 = "reportingLocalAndRemoteInterface";
+          v19 = 1024;
+          v20 = 3199;
           _os_log_impl(&dword_23D4DF000, v7, OS_LOG_TYPE_DEFAULT, "ReportingVC [%s] %s:%d Tried to report NULL localInterface to backends", buf, 0x1Cu);
         }
       }
@@ -4369,11 +4282,11 @@ LABEL_13:
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v17 = v8;
-        v18 = 2080;
-        v19 = "reportingLocalAndRemoteInterface";
-        v20 = 1024;
-        v21 = 3203;
+        v16 = v8;
+        v17 = 2080;
+        v18 = "reportingLocalAndRemoteInterface";
+        v19 = 1024;
+        v20 = 3203;
         _os_log_impl(&dword_23D4DF000, v9, OS_LOG_TYPE_DEFAULT, "ReportingVC [%s] %s:%d Tried to report NULL remoteInterface to backends", buf, 0x1Cu);
       }
     }
@@ -4381,9 +4294,6 @@ LABEL_13:
     v3 = "Unknown";
     goto LABEL_13;
   }
-
-LABEL_14:
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingLocalAndRemoteInterface_block_invoke(uint64_t a1)
@@ -4404,20 +4314,20 @@ void __reportingLocalAndRemoteInterface_block_invoke(uint64_t a1)
 
 void reportingHandoverResult(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v16[5] = *MEMORY[0x277D85DE8];
+  v15[5] = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v15[0] = @"codec";
-    v16[0] = [MEMORY[0x277CCABA8] numberWithInt:a2];
-    v15[1] = @"captureRule";
-    v16[1] = [MEMORY[0x277CCACA0] stringWithUTF8String:a3];
-    v15[2] = @"encodeRule";
-    v16[2] = [MEMORY[0x277CCACA0] stringWithUTF8String:a4];
-    v15[3] = @"localBitrateCap";
-    v16[3] = [MEMORY[0x277CCABA8] numberWithInt:a5];
-    v15[4] = @"remoteBitrateCap";
-    v16[4] = [MEMORY[0x277CCABA8] numberWithInt:a6];
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:5];
+    v14[0] = @"codec";
+    v15[0] = [MEMORY[0x277CCABA8] numberWithInt:a2];
+    v14[1] = @"captureRule";
+    v15[1] = [MEMORY[0x277CCACA0] stringWithUTF8String:a3];
+    v14[2] = @"encodeRule";
+    v15[2] = [MEMORY[0x277CCACA0] stringWithUTF8String:a4];
+    v14[3] = @"localBitrateCap";
+    v15[3] = [MEMORY[0x277CCABA8] numberWithInt:a5];
+    v14[4] = @"remoteBitrateCap";
+    v15[4] = [MEMORY[0x277CCABA8] numberWithInt:a6];
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:5];
     v12 = [a1 reportingQueue];
     block[0] = MEMORY[0x277D85DD0];
     block[1] = 3221225472;
@@ -4427,8 +4337,6 @@ void reportingHandoverResult(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, ui
     block[5] = v11;
     dispatch_async(v12, block);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingHandoverResult_block_invoke(uint64_t a1)
@@ -4449,30 +4357,28 @@ void __reportingHandoverResult_block_invoke(uint64_t a1)
 
 void reportingVisualRectangle(void *a1, __int16 a2, double a3, double a4, double a5, double a6)
 {
-  v17[4] = *MEMORY[0x277D85DE8];
+  v16[4] = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v16[0] = @"OriginX";
-    v17[0] = [MEMORY[0x277CCABA8] numberWithDouble:?];
-    v16[1] = @"OriginY";
-    v17[1] = [MEMORY[0x277CCABA8] numberWithDouble:a4];
-    v16[2] = @"SizeWidth";
-    v17[2] = [MEMORY[0x277CCABA8] numberWithDouble:a5];
-    v16[3] = @"SizeHeight";
-    v17[3] = [MEMORY[0x277CCABA8] numberWithDouble:a6];
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
+    v15[0] = @"OriginX";
+    v16[0] = [MEMORY[0x277CCABA8] numberWithDouble:a3];
+    v15[1] = @"OriginY";
+    v16[1] = [MEMORY[0x277CCABA8] numberWithDouble:a4];
+    v15[2] = @"SizeWidth";
+    v16[2] = [MEMORY[0x277CCABA8] numberWithDouble:a5];
+    v15[3] = @"SizeHeight";
+    v16[3] = [MEMORY[0x277CCABA8] numberWithDouble:a6];
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
     v12 = [a1 reportingQueue];
-    v14[0] = MEMORY[0x277D85DD0];
-    v14[1] = 3221225472;
-    v14[2] = __reportingVisualRectangle_block_invoke;
-    v14[3] = &unk_278BD4E10;
-    v15 = a2;
-    v14[4] = a1;
-    v14[5] = v11;
-    dispatch_async(v12, v14);
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __reportingVisualRectangle_block_invoke;
+    v13[3] = &unk_278BD4E10;
+    v14 = a2;
+    v13[4] = a1;
+    v13[5] = v11;
+    dispatch_async(v12, v13);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingVisualRectangle_block_invoke(uint64_t a1)
@@ -4557,36 +4463,34 @@ void reportingVideoStreamEvent(void *a1, int a2, __int16 a3, uint64_t a4)
 
 void __reportingVideoStreamEvent_block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (_validReportingObject(*(a1 + 32), "reportingVideoStreamEvent"))
   {
-    v7 = 0;
-    if (([*(a1 + 32) sendMessageWithCategory:*(a1 + 52) type:0 payload:combineModuleSpecificInfoAndPayload(*(a1 + 32) error:{*(a1 + 48), *(a1 + 40)), &v7}] & 1) == 0 && VRTraceGetErrorLogLevelForModule("ReportingVC") >= 3)
+    v6 = 0;
+    if (([*(a1 + 32) sendMessageWithCategory:*(a1 + 52) type:0 payload:combineModuleSpecificInfoAndPayload(*(a1 + 32) error:{*(a1 + 48), *(a1 + 40)), &v6}] & 1) == 0 && VRTraceGetErrorLogLevelForModule("ReportingVC") >= 3)
     {
       v2 = VRTraceErrorLogLevelToCSTR(3u);
       v3 = gVRTraceOSLog;
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
       {
-        v5 = *(a1 + 52);
-        v6 = [v7 code];
+        v4 = *(a1 + 52);
+        v5 = [v6 code];
         *buf = 136316418;
-        v9 = v2;
-        v10 = 2080;
-        v11 = "reportingVideoStreamEvent_block_invoke";
-        v12 = 1024;
-        v13 = 3382;
-        v14 = 1024;
-        v15 = 3382;
-        v16 = 1024;
-        v17 = v5;
-        v18 = 1024;
-        v19 = v6;
+        v8 = v2;
+        v9 = 2080;
+        v10 = "reportingVideoStreamEvent_block_invoke";
+        v11 = 1024;
+        v12 = 3382;
+        v13 = 1024;
+        v14 = 3382;
+        v15 = 1024;
+        v16 = v4;
+        v17 = 1024;
+        v18 = v5;
         _os_log_error_impl(&dword_23D4DF000, v3, OS_LOG_TYPE_ERROR, "ReportingVC [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/ReportingVC.m:%d: eventType:%d error code %d.", buf, 0x2Eu);
       }
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void reportingFeatureConfigEvent(void *a1, int a2, __int16 a3, uint64_t a4)
@@ -4612,36 +4516,34 @@ void reportingFeatureConfigEvent(void *a1, int a2, __int16 a3, uint64_t a4)
 
 void __reportingFeatureConfigEvent_block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (_validReportingObject(*(a1 + 32), "reportingFeatureConfigEvent"))
   {
-    v7 = 0;
-    if (([*(a1 + 32) sendMessageWithCategory:*(a1 + 52) type:0 payload:combineModuleSpecificInfoAndPayload(*(a1 + 32) error:{*(a1 + 48), *(a1 + 40)), &v7}] & 1) == 0 && VRTraceGetErrorLogLevelForModule("ReportingVC") >= 3)
+    v6 = 0;
+    if (([*(a1 + 32) sendMessageWithCategory:*(a1 + 52) type:0 payload:combineModuleSpecificInfoAndPayload(*(a1 + 32) error:{*(a1 + 48), *(a1 + 40)), &v6}] & 1) == 0 && VRTraceGetErrorLogLevelForModule("ReportingVC") >= 3)
     {
       v2 = VRTraceErrorLogLevelToCSTR(3u);
       v3 = gVRTraceOSLog;
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
       {
-        v5 = *(a1 + 52);
-        v6 = [v7 code];
+        v4 = *(a1 + 52);
+        v5 = [v6 code];
         *buf = 136316418;
-        v9 = v2;
-        v10 = 2080;
-        v11 = "reportingFeatureConfigEvent_block_invoke";
-        v12 = 1024;
-        v13 = 3405;
-        v14 = 1024;
-        v15 = 3405;
-        v16 = 1024;
-        v17 = v5;
-        v18 = 1024;
-        v19 = v6;
+        v8 = v2;
+        v9 = 2080;
+        v10 = "reportingFeatureConfigEvent_block_invoke";
+        v11 = 1024;
+        v12 = 3405;
+        v13 = 1024;
+        v14 = 3405;
+        v15 = 1024;
+        v16 = v4;
+        v17 = 1024;
+        v18 = v5;
         _os_log_error_impl(&dword_23D4DF000, v3, OS_LOG_TYPE_ERROR, "ReportingVC [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/ReportingVC.m:%d: eventType:%d error code %d.", buf, 0x2Eu);
       }
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void reportingEventWithAllowedClientType(void *a1, int a2, int a3, __int16 a4, uint64_t a5)
@@ -4666,36 +4568,34 @@ void reportingEventWithAllowedClientType(void *a1, int a2, int a3, __int16 a4, u
 
 void __reportingEventWithAllowedClientType_block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (_validReportingObject(*(a1 + 32), "reportingEventWithAllowedClientType"))
   {
-    v7 = 0;
-    if (([*(a1 + 32) sendMessageWithCategory:*(a1 + 52) type:0 payload:combineModuleSpecificInfoAndPayload(*(a1 + 32) error:{*(a1 + 48), *(a1 + 40)), &v7}] & 1) == 0 && VRTraceGetErrorLogLevelForModule("ReportingVC") >= 3)
+    v6 = 0;
+    if (([*(a1 + 32) sendMessageWithCategory:*(a1 + 52) type:0 payload:combineModuleSpecificInfoAndPayload(*(a1 + 32) error:{*(a1 + 48), *(a1 + 40)), &v6}] & 1) == 0 && VRTraceGetErrorLogLevelForModule("ReportingVC") >= 3)
     {
       v2 = VRTraceErrorLogLevelToCSTR(3u);
       v3 = gVRTraceOSLog;
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
       {
-        v5 = *(a1 + 52);
-        v6 = [v7 code];
+        v4 = *(a1 + 52);
+        v5 = [v6 code];
         *buf = 136316418;
-        v9 = v2;
-        v10 = 2080;
-        v11 = "reportingEventWithAllowedClientType_block_invoke";
-        v12 = 1024;
-        v13 = 3428;
-        v14 = 1024;
-        v15 = 3428;
-        v16 = 1024;
-        v17 = v5;
-        v18 = 1024;
-        v19 = v6;
+        v8 = v2;
+        v9 = 2080;
+        v10 = "reportingEventWithAllowedClientType_block_invoke";
+        v11 = 1024;
+        v12 = 3428;
+        v13 = 1024;
+        v14 = 3428;
+        v15 = 1024;
+        v16 = v4;
+        v17 = 1024;
+        v18 = v5;
         _os_log_error_impl(&dword_23D4DF000, v3, OS_LOG_TYPE_ERROR, "ReportingVC [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/ReportingVC.m:%d: eventType:%d error code %d.", buf, 0x2Eu);
       }
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void reportingAudioStreamEvent(void *a1, int a2, __int16 a3, uint64_t a4)
@@ -4721,36 +4621,34 @@ void reportingAudioStreamEvent(void *a1, int a2, __int16 a3, uint64_t a4)
 
 void __reportingAudioStreamEvent_block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (_validReportingObject(*(a1 + 32), "reportingAudioStreamEvent"))
   {
-    v7 = 0;
-    if (([*(a1 + 32) sendMessageWithCategory:*(a1 + 52) type:0 payload:combineModuleSpecificInfoAndPayload(*(a1 + 32) error:{*(a1 + 48), *(a1 + 40)), &v7}] & 1) == 0 && VRTraceGetErrorLogLevelForModule("ReportingVC") >= 3)
+    v6 = 0;
+    if (([*(a1 + 32) sendMessageWithCategory:*(a1 + 52) type:0 payload:combineModuleSpecificInfoAndPayload(*(a1 + 32) error:{*(a1 + 48), *(a1 + 40)), &v6}] & 1) == 0 && VRTraceGetErrorLogLevelForModule("ReportingVC") >= 3)
     {
       v2 = VRTraceErrorLogLevelToCSTR(3u);
       v3 = gVRTraceOSLog;
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
       {
-        v5 = *(a1 + 52);
-        v6 = [v7 code];
+        v4 = *(a1 + 52);
+        v5 = [v6 code];
         *buf = 136316418;
-        v9 = v2;
-        v10 = 2080;
-        v11 = "reportingAudioStreamEvent_block_invoke";
-        v12 = 1024;
-        v13 = 3451;
-        v14 = 1024;
-        v15 = 3451;
-        v16 = 1024;
-        v17 = v5;
-        v18 = 1024;
-        v19 = v6;
+        v8 = v2;
+        v9 = 2080;
+        v10 = "reportingAudioStreamEvent_block_invoke";
+        v11 = 1024;
+        v12 = 3451;
+        v13 = 1024;
+        v14 = 3451;
+        v15 = 1024;
+        v16 = v4;
+        v17 = 1024;
+        v18 = v5;
         _os_log_error_impl(&dword_23D4DF000, v3, OS_LOG_TYPE_ERROR, "ReportingVC [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/ReportingVC.m:%d: eventType:%d error code %d.", buf, 0x2Eu);
       }
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 void reportingAudioStreamLogMetricSample(void *a1, const void *a2)
@@ -4793,7 +4691,7 @@ void __reportingAudioStreamLogMetricSample_block_invoke(uint64_t a1)
 
 void reportingAudioStreamLogCallStart(void *a1, __CFString *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6)
 {
-  v19[5] = *MEMORY[0x277D85DE8];
+  v18[5] = *MEMORY[0x277D85DE8];
   if (a1)
   {
     v12 = [a1 clientType];
@@ -4813,29 +4711,27 @@ void reportingAudioStreamLogCallStart(void *a1, __CFString *a2, uint64_t a3, uin
         a2 = @"0";
       }
 
-      v19[0] = a2;
-      v18[0] = @"CallID";
-      v18[1] = @"CodecID";
-      v19[1] = [MEMORY[0x277CCABA8] numberWithInt:a3];
-      v18[2] = @"ATxR";
-      v19[2] = [MEMORY[0x277CCABA8] numberWithInt:a4];
-      v18[3] = @"ASR";
-      v19[3] = [MEMORY[0x277CCABA8] numberWithInt:a5];
-      v18[4] = @"PTM";
-      v19[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a6];
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:5];
-      v16 = [a1 reportingQueue];
+      v18[0] = a2;
+      v17[0] = @"CallID";
+      v17[1] = @"CodecID";
+      v18[1] = [MEMORY[0x277CCABA8] numberWithInt:a3];
+      v17[2] = @"ATxR";
+      v18[2] = [MEMORY[0x277CCABA8] numberWithInt:a4];
+      v17[3] = @"ASR";
+      v18[3] = [MEMORY[0x277CCABA8] numberWithInt:a5];
+      v17[4] = @"PTM";
+      v18[4] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:a6];
+      v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:5];
+      v15 = [a1 reportingQueue];
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __reportingAudioStreamLogCallStart_block_invoke;
       block[3] = &unk_278BD4D48;
       block[4] = a1;
-      block[5] = v15;
-      dispatch_async(v16, block);
+      block[5] = v14;
+      dispatch_async(v15, block);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingAudioStreamLogCallStart_block_invoke(uint64_t a1)
@@ -4935,36 +4831,34 @@ void reportingScreenCaptureEvent(void *a1, int a2, __int16 a3, __int16 a4, uint6
 
 void __reportingScreenCaptureEvent_block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (_validReportingObject(*(a1 + 32), "reportingScreenCaptureEvent"))
   {
-    v7 = 0;
-    if (([*(a1 + 32) sendMessageWithCategory:*(a1 + 52) type:*(a1 + 54) payload:combineModuleSpecificInfoAndPayload(*(a1 + 32) error:{*(a1 + 48), *(a1 + 40)), &v7}] & 1) == 0 && VRTraceGetErrorLogLevelForModule("ReportingVC") >= 3)
+    v6 = 0;
+    if (([*(a1 + 32) sendMessageWithCategory:*(a1 + 52) type:*(a1 + 54) payload:combineModuleSpecificInfoAndPayload(*(a1 + 32) error:{*(a1 + 48), *(a1 + 40)), &v6}] & 1) == 0 && VRTraceGetErrorLogLevelForModule("ReportingVC") >= 3)
     {
       v2 = VRTraceErrorLogLevelToCSTR(3u);
       v3 = gVRTraceOSLog;
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
       {
-        v5 = *(a1 + 52);
-        v6 = [v7 code];
+        v4 = *(a1 + 52);
+        v5 = [v6 code];
         *buf = 136316418;
-        v9 = v2;
-        v10 = 2080;
-        v11 = "reportingScreenCaptureEvent_block_invoke";
-        v12 = 1024;
-        v13 = 3576;
-        v14 = 1024;
-        v15 = 3576;
-        v16 = 1024;
-        v17 = v5;
-        v18 = 1024;
-        v19 = v6;
+        v8 = v2;
+        v9 = 2080;
+        v10 = "reportingScreenCaptureEvent_block_invoke";
+        v11 = 1024;
+        v12 = 3576;
+        v13 = 1024;
+        v14 = 3576;
+        v15 = 1024;
+        v16 = v4;
+        v17 = 1024;
+        v18 = v5;
         _os_log_error_impl(&dword_23D4DF000, v3, OS_LOG_TYPE_ERROR, "ReportingVC [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/ReportingVC.m:%d: eventType=%d error code=%d.", buf, 0x2Eu);
       }
     }
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t processGroupSymptoms(uint64_t a1)
@@ -5035,21 +4929,21 @@ void VCReporting_FlushReportingSession(void *a1)
   }
 }
 
-void sub_23D54E1C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23D54E1C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void *reportingSymptomSetCallback(void *a1, const char *a2, uint64_t a3)
+void *reportingSymptomSetCallback(void *result, const char *a2, uint64_t a3)
 {
-  if (a1)
+  if (result)
   {
-    return [a1 reportingSetReportCallback:a2 withContext:a3];
+    return [result reportingSetReportCallback:a2 withContext:a3];
   }
 
-  return a1;
+  return result;
 }
 
 uint64_t VCReporting_GetDynamicReportingModuleID(void *a1)
@@ -5245,7 +5139,7 @@ void *VCReporting_DumpIntoDataStore(void *result, uint64_t a2)
 
 void VCReporting_DisableDataCollection(void *a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   if (a1)
   {
     [objc_msgSend(a1 "remoteDataProducer")];
@@ -5257,17 +5151,17 @@ void VCReporting_DisableDataCollection(void *a1)
         v4 = gVRTraceOSLog;
         if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = 136315650;
-          v12 = v3;
-          v13 = 2080;
-          v14 = "VCReporting_DisableDataCollection";
-          v15 = 1024;
-          v16 = 3840;
+          v10 = 136315650;
+          v11 = v3;
+          v12 = 2080;
+          v13 = "VCReporting_DisableDataCollection";
+          v14 = 1024;
+          v15 = 3840;
           v5 = "ReportingVC [%s] %s:%d Disabled Remote Data collection";
           v6 = v4;
           v7 = 28;
 LABEL_12:
-          _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, v5, &v11, v7);
+          _os_log_impl(&dword_23D4DF000, v6, OS_LOG_TYPE_DEFAULT, v5, &v10, v7);
         }
       }
     }
@@ -5290,16 +5184,16 @@ LABEL_12:
         v9 = gVRTraceOSLog;
         if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
         {
-          v11 = 136316162;
-          v12 = v8;
-          v13 = 2080;
-          v14 = "VCReporting_DisableDataCollection";
-          v15 = 1024;
-          v16 = 3840;
-          v17 = 2112;
-          v18 = v2;
-          v19 = 2048;
-          v20 = a1;
+          v10 = 136316162;
+          v11 = v8;
+          v12 = 2080;
+          v13 = "VCReporting_DisableDataCollection";
+          v14 = 1024;
+          v15 = 3840;
+          v16 = 2112;
+          v17 = v2;
+          v18 = 2048;
+          v19 = a1;
           v5 = "ReportingVC [%s] %s:%d %@(%p) Disabled Remote Data collection";
           v6 = v9;
           v7 = 48;
@@ -5308,13 +5202,11 @@ LABEL_12:
       }
     }
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t filtered_update(unsigned int a1, uint64_t a2)
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v3 = (qword_27E2DEF90 + 8 * a1);
   v4 = time(0);
   v5 = v4;
@@ -5330,17 +5222,17 @@ uint64_t filtered_update(unsigned int a1, uint64_t a2)
       v9 = gVRTraceOSLog;
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
-        v14 = 136316162;
-        v15 = v8;
-        v16 = 2080;
-        v17 = "filtered_update";
-        v18 = 1024;
-        v19 = 2731;
-        v20 = 2048;
-        v21 = v5;
-        v22 = 2048;
-        v23 = filtered_update_when;
-        _os_log_impl(&dword_23D4DF000, v9, OS_LOG_TYPE_DEFAULT, "ReportingVC [%s] %s:%d getSkinTemperature: resetting temps, now = %ld, last update = %ld", &v14, 0x30u);
+        v13 = 136316162;
+        v14 = v8;
+        v15 = 2080;
+        v16 = "filtered_update";
+        v17 = 1024;
+        v18 = 2731;
+        v19 = 2048;
+        v20 = v5;
+        v21 = 2048;
+        v22 = filtered_update_when;
+        _os_log_impl(&dword_23D4DF000, v9, OS_LOG_TYPE_DEFAULT, "ReportingVC [%s] %s:%d getSkinTemperature: resetting temps, now = %ld, last update = %ld", &v13, 0x30u);
       }
     }
   }
@@ -5359,7 +5251,6 @@ uint64_t filtered_update(unsigned int a1, uint64_t a2)
   }
 
   v3[1] = v11;
-  v12 = *MEMORY[0x277D85DE8];
   return a2;
 }
 
@@ -5401,7 +5292,7 @@ CFComparisonResult OUTLINED_FUNCTION_33_0(const __CFString *a1)
   return CFStringCompare(a1, v1, 0);
 }
 
-uint64_t OUTLINED_FUNCTION_34_0()
+uint64_t OUTLINED_FUNCTION_34_0(uint64_t a1)
 {
 
   return IOHIDEventGetFloatValue();
@@ -5480,17 +5371,18 @@ uint64_t VRTraceDefaultErrorLogLevel()
   }
 }
 
-void VRTraceSetErrorLogLevel(signed int a1)
+void VRTraceSetErrorLogLevel(uint64_t a1)
 {
+  v1 = a1;
   if (gVRTraceErrorLogLevel == -1)
   {
     VRTraceInit();
   }
 
-  gVRTraceErrorLogLevel = a1;
-  if (a1 > 6 || (gVRTraceModuleFilterEnabled & 1) != 0)
+  gVRTraceErrorLogLevel = v1;
+  if (v1 > 6 || (gVRTraceModuleFilterEnabled & 1) != 0)
   {
-    VRTraceSetErrorLogLevel_cold_1(a1);
+    VRTraceSetErrorLogLevel_cold_1(v1);
   }
 }
 
@@ -5591,23 +5483,23 @@ uint64_t VRTraceDebugInit()
   return result;
 }
 
-void VRTraceSetErrorLogLevelForModule(const void *a1, signed int a2)
+void VRTraceSetErrorLogLevelForModule(const void *result, unsigned int a2)
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   if (VRTraceSetErrorLogLevelForModule_once == -1)
   {
-    if (!a1)
+    if (!result)
     {
-      goto LABEL_7;
+      return;
     }
   }
 
   else
   {
     VRTraceSetErrorLogLevelForModule_cold_1();
-    if (!a1)
+    if (!result)
     {
-      goto LABEL_7;
+      return;
     }
   }
 
@@ -5618,25 +5510,23 @@ void VRTraceSetErrorLogLevelForModule(const void *a1, signed int a2)
     v5 = gVRTraceOSLog;
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v7 = 136316162;
-      v8 = v4;
-      v9 = 2080;
-      v10 = "VRTraceSetErrorLogLevelForModule";
-      v11 = 1024;
-      v12 = 466;
-      v13 = 2080;
-      v14 = a1;
-      v15 = 2080;
-      v16 = VRTraceErrorLogLevelToCSTR(a2);
-      _os_log_impl(&dword_23D4DF000, v5, OS_LOG_TYPE_DEFAULT, "ViceroyTrace [%s] %s:%d ErrorLogLevel for module %s set to %s.", &v7, 0x30u);
+      v6 = 136316162;
+      v7 = v4;
+      v8 = 2080;
+      v9 = "VRTraceSetErrorLogLevelForModule";
+      v10 = 1024;
+      v11 = 466;
+      v12 = 2080;
+      v13 = result;
+      v14 = 2080;
+      v15 = VRTraceErrorLogLevelToCSTR(a2);
+      _os_log_impl(&dword_23D4DF000, v5, OS_LOG_TYPE_DEFAULT, "ViceroyTrace [%s] %s:%d ErrorLogLevel for module %s set to %s.", &v6, 0x30u);
     }
   }
 
   pthread_rwlock_wrlock(&gVRTraceLevelLock);
-  CFDictionarySetValue(gVRTraceModuleFilter, a1, a2);
+  CFDictionarySetValue(gVRTraceModuleFilter, result, a2);
   pthread_rwlock_unlock(&gVRTraceLevelLock);
-LABEL_7:
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 CFMutableDictionaryRef __VRTraceSetErrorLogLevelForModule_block_invoke()
@@ -5677,7 +5567,7 @@ CFStringRef CFSetCStringCopyDescription(const char *a1)
   return CFStringCreateWithCString(0, v1, 0x8000100u);
 }
 
-uint64_t CFSetCStringHash(_BYTE *a1)
+uint64_t CFSetCStringHash(char *a1)
 {
   v1 = *a1;
   if (!*a1)
@@ -5698,7 +5588,7 @@ uint64_t CFSetCStringHash(_BYTE *a1)
   return result;
 }
 
-uint64_t _VCRemoteDataCollectionDumpProducer_WriteToCSVCallbackColumns(FILE *__stream, int a2, const char **a3)
+uint64_t _VCRemoteDataCollectionDumpProducer_WriteToCSVCallbackColumns(FILE *__stream, unsigned int a2, const char **a3)
 {
   if (a2 >= 1)
   {
@@ -5728,9 +5618,9 @@ uint64_t _VCRemoteDataCollectionDumpProducer_WriteToCSVCallbackColumns(FILE *__s
   return 0;
 }
 
-uint64_t _VCRemoteDataCollectionDumpProducer_WriteToCSVCallback(FILE *__stream, int a2, uint64_t a3)
+uint64_t _VCRemoteDataCollectionDumpProducer_WriteToCSVCallback(FILE *__stream, unsigned int a2, uint64_t a3)
 {
-  v4 = (a2 - 1);
+  v4 = a2 - 1;
   if (a2 >= 1)
   {
     v6 = 0;
@@ -5775,37 +5665,37 @@ uint64_t OUTLINED_FUNCTION_19_1()
   return objc_opt_respondsToSelector();
 }
 
-void sub_23D551EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_23D554CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_23D555798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_23D5562A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_23D556848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_23D551EE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_23D554CE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_23D555798(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_23D5562A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_23D556848(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5879,9 +5769,9 @@ uint64_t VRTraceErrorLogLevelFromCSTR(char *__str)
   return result;
 }
 
-void sub_23D5595F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23D5595F8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6172,22 +6062,23 @@ LABEL_37:
   return result;
 }
 
-void OUTLINED_FUNCTION_1_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_1_5(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x1Cu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x1Cu);
 }
 
-void sub_23D55AAF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23D55AAF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
 uint64_t _VCPersistentDataStore_WriteBuffer(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   kdebug_trace();
   dispatch_assert_queue_V2(*(a1 + 8));
   sqlite3_exec(*(a1 + 8424), "BEGIN TRANSACTION;", 0, 0, 0);
@@ -6198,22 +6089,22 @@ uint64_t _VCPersistentDataStore_WriteBuffer(uint64_t a1)
     while (1)
     {
       v4 = *(a1 + v3 + 144);
-      v29 = *(a1 + v3 + 128);
-      v30 = v4;
-      v31 = *(a1 + v3 + 160);
+      v28 = *(a1 + v3 + 128);
+      v29 = v4;
+      v30 = *(a1 + v3 + 160);
       v5 = *(a1 + v3 + 80);
-      v25 = *(a1 + v3 + 64);
-      v26 = v5;
+      v24 = *(a1 + v3 + 64);
+      v25 = v5;
       v6 = *(a1 + v3 + 112);
-      v27 = *(a1 + v3 + 96);
-      v28 = v6;
+      v26 = *(a1 + v3 + 96);
+      v27 = v6;
       v7 = *(a1 + v3 + 16);
-      *v23 = *(a1 + v3);
-      *&v23[16] = v7;
+      *v22 = *(a1 + v3);
+      *&v22[16] = v7;
       v8 = *(a1 + v3 + 48);
-      *&v23[32] = *(a1 + v3 + 32);
-      v24 = v8;
-      v9 = _VCPersistentDataStore_BindAndExecute(a1, v23);
+      *&v22[32] = *(a1 + v3 + 32);
+      v23 = v8;
+      v9 = _VCPersistentDataStore_BindAndExecute(a1, v22);
       if (v9)
       {
         break;
@@ -6227,31 +6118,31 @@ uint64_t _VCPersistentDataStore_WriteBuffer(uint64_t a1)
       }
     }
 
-    v12 = v9;
+    v11 = v9;
     if (objc_opt_class() == a1)
     {
       if (VRTraceGetErrorLogLevelForModule("") >= 3)
       {
-        v14 = VRTraceErrorLogLevelToCSTR(3u);
-        v15 = gVRTraceOSLog;
+        v13 = VRTraceErrorLogLevelToCSTR(3u);
+        v14 = gVRTraceOSLog;
         if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
         {
-          v16 = sqlite3_errmsg(*(a1 + 8424));
-          *v23 = 136316162;
-          *&v23[4] = v14;
-          *&v23[12] = 2080;
-          *&v23[14] = "_VCPersistentDataStore_WriteBuffer";
-          *&v23[22] = 1024;
-          *&v23[24] = 273;
-          *&v23[28] = 1024;
-          *&v23[30] = v12;
-          *&v23[34] = 2080;
-          *&v23[36] = v16;
-          v17 = " [%s] %s:%d SQLite Error: could not empty buffer with return code=%d and error=%s";
-          v18 = v15;
-          v19 = 44;
+          v15 = sqlite3_errmsg(*(a1 + 8424));
+          *v22 = 136316162;
+          *&v22[4] = v13;
+          *&v22[12] = 2080;
+          *&v22[14] = "_VCPersistentDataStore_WriteBuffer";
+          *&v22[22] = 1024;
+          *&v22[24] = 273;
+          *&v22[28] = 1024;
+          *&v22[30] = v11;
+          *&v22[34] = 2080;
+          *&v22[36] = v15;
+          v16 = " [%s] %s:%d SQLite Error: could not empty buffer with return code=%d and error=%s";
+          v17 = v14;
+          v18 = 44;
 LABEL_16:
-          _os_log_error_impl(&dword_23D4DF000, v18, OS_LOG_TYPE_ERROR, v17, v23, v19);
+          _os_log_error_impl(&dword_23D4DF000, v17, OS_LOG_TYPE_ERROR, v16, v22, v18);
         }
       }
     }
@@ -6260,38 +6151,38 @@ LABEL_16:
     {
       if (objc_opt_respondsToSelector())
       {
-        v13 = [a1 performSelector:sel_logPrefix];
+        v12 = [a1 performSelector:sel_logPrefix];
       }
 
       else
       {
-        v13 = &stru_284F80940;
+        v12 = &stru_284F80940;
       }
 
       if (VRTraceGetErrorLogLevelForModule("") >= 3)
       {
-        v20 = VRTraceErrorLogLevelToCSTR(3u);
-        v21 = gVRTraceOSLog;
+        v19 = VRTraceErrorLogLevelToCSTR(3u);
+        v20 = gVRTraceOSLog;
         if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
         {
-          v22 = sqlite3_errmsg(*(a1 + 8424));
-          *v23 = 136316674;
-          *&v23[4] = v20;
-          *&v23[12] = 2080;
-          *&v23[14] = "_VCPersistentDataStore_WriteBuffer";
-          *&v23[22] = 1024;
-          *&v23[24] = 273;
-          *&v23[28] = 2112;
-          *&v23[30] = v13;
-          *&v23[38] = 2048;
-          *&v23[40] = a1;
-          LOWORD(v24) = 1024;
-          *(&v24 + 2) = v12;
-          WORD3(v24) = 2080;
-          *(&v24 + 1) = v22;
-          v17 = " [%s] %s:%d %@(%p) SQLite Error: could not empty buffer with return code=%d and error=%s";
-          v18 = v21;
-          v19 = 64;
+          v21 = sqlite3_errmsg(*(a1 + 8424));
+          *v22 = 136316674;
+          *&v22[4] = v19;
+          *&v22[12] = 2080;
+          *&v22[14] = "_VCPersistentDataStore_WriteBuffer";
+          *&v22[22] = 1024;
+          *&v22[24] = 273;
+          *&v22[28] = 2112;
+          *&v22[30] = v12;
+          *&v22[38] = 2048;
+          *&v22[40] = a1;
+          LOWORD(v23) = 1024;
+          *(&v23 + 2) = v11;
+          WORD3(v23) = 2080;
+          *(&v23 + 1) = v21;
+          v16 = " [%s] %s:%d %@(%p) SQLite Error: could not empty buffer with return code=%d and error=%s";
+          v17 = v20;
+          v18 = 64;
           goto LABEL_16;
         }
       }
@@ -6301,918 +6192,884 @@ LABEL_16:
 LABEL_5:
   sqlite3_exec(*(a1 + 8424), "END TRANSACTION;", 0, 0, 0);
   *(a1 + 8416) = 0;
-  result = kdebug_trace();
-  v11 = *MEMORY[0x277D85DE8];
-  return result;
+  return kdebug_trace();
 }
 
 uint64_t _VCPersistentDataStore_BindAndExecute(void *a1, uint64_t a2)
 {
-  v171 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   v2 = *a2;
   if (*a2 > 2)
   {
     switch(v2)
     {
       case 3:
-        v63 = a1[1057];
-        v64 = *(a2 + 8);
-        v66 = *(a2 + 16);
-        v65 = *(a2 + 24);
-        v68 = *(a2 + 32);
-        v67 = *(a2 + 36);
-        v69 = *(a2 + 40);
-        v71 = *(a2 + 48);
-        v70 = *(a2 + 52);
-        v72 = sqlite3_bind_int(v63, 1, v64);
-        if (v72)
+        v33 = a1[1057];
+        v35 = *(a2 + 16);
+        v34 = *(a2 + 24);
+        v37 = *(a2 + 32);
+        v36 = *(a2 + 36);
+        v38 = *(a2 + 40);
+        v40 = *(a2 + 48);
+        v39 = *(a2 + 52);
+        if (sqlite3_bind_int(v33, 1, *(a2 + 8)))
         {
-          _VCPersistentDataStore_BindAndExecute_cold_14(v64, v72, buf);
-          goto LABEL_217;
+          _VCPersistentDataStore_BindAndExecute_cold_14();
+          return *buf;
         }
 
-        if (sqlite3_bind_double(v63, 2, v66))
+        if (sqlite3_bind_double(v33, 2, v35))
         {
           _VCPersistentDataStore_BindAndExecute_cold_15();
-          goto LABEL_217;
+          return *buf;
         }
 
-        if (sqlite3_bind_double(v63, 3, v65))
+        if (sqlite3_bind_double(v33, 3, v34))
         {
           _VCPersistentDataStore_BindAndExecute_cold_16();
-          goto LABEL_217;
+          return *buf;
         }
 
-        v73 = sqlite3_bind_int(v63, 4, v68);
-        if (v73)
+        if (sqlite3_bind_int(v33, 4, v37))
         {
-          _VCPersistentDataStore_BindAndExecute_cold_17(v68, v73, buf);
-          goto LABEL_217;
+          _VCPersistentDataStore_BindAndExecute_cold_17();
+          return *buf;
         }
 
-        v74 = sqlite3_bind_int(v63, 5, v67);
-        if (v74)
+        if (sqlite3_bind_int(v33, 5, v36))
         {
-          _VCPersistentDataStore_BindAndExecute_cold_18(v67, v74, buf);
-          goto LABEL_217;
+          _VCPersistentDataStore_BindAndExecute_cold_18();
+          return *buf;
         }
 
-        v75 = sqlite3_bind_int(v63, 6, v69);
-        if (v75)
+        if (sqlite3_bind_int(v33, 6, v38))
         {
-          _VCPersistentDataStore_BindAndExecute_cold_19(v69, v75, buf);
-          goto LABEL_217;
+          _VCPersistentDataStore_BindAndExecute_cold_19();
+          return *buf;
         }
 
-        v76 = sqlite3_bind_int(v63, 7, v71);
-        if (v76)
+        if (sqlite3_bind_int(v33, 7, v40))
         {
-          _VCPersistentDataStore_BindAndExecute_cold_20(v71, v76, buf);
-          goto LABEL_217;
+          _VCPersistentDataStore_BindAndExecute_cold_20();
+          return *buf;
         }
 
-        v77 = sqlite3_bind_int(v63, 8, v70);
-        if (v77)
+        if (sqlite3_bind_int(v33, 8, v39))
         {
-          _VCPersistentDataStore_BindAndExecute_cold_21(v70, v77, buf);
-          goto LABEL_217;
+          _VCPersistentDataStore_BindAndExecute_cold_21();
+          return *buf;
         }
 
-        v78 = sqlite3_step(v63);
-        if (!v78 || (v40 = v78, v78 == 101))
+        v41 = sqlite3_step(v33);
+        if (!v41 || (v17 = v41, v41 == 101))
         {
-          v40 = sqlite3_reset(v63);
-          sqlite3_clear_bindings(v63);
-          if (v40)
+          v17 = sqlite3_reset(v33);
+          sqlite3_clear_bindings(v33);
+          if (v17)
           {
             _VCPersistentDataStore_BindAndExecute_cold_22();
-            goto LABEL_217;
+            return *buf;
           }
 
-          goto LABEL_131;
+          return v17;
         }
 
         if (VRTraceGetErrorLogLevelForModule("") < 7)
         {
-          goto LABEL_131;
+          return v17;
         }
 
-        v131 = VRTraceErrorLogLevelToCSTR(7u);
-        v132 = gVRTraceOSLog;
+        v71 = VRTraceErrorLogLevelToCSTR(7u);
+        v72 = gVRTraceOSLog;
         if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_131;
+          return v17;
         }
 
         *buf = 136315906;
-        v164 = v131;
-        v165 = 2080;
-        v166 = "_VCPersistentDataStore_BindAndExecuteLocalRateControlEvent";
-        v167 = 1024;
-        v168 = 449;
-        v169 = 1024;
-        v170 = v40;
+        v103 = v71;
+        v104 = 2080;
+        v105 = "_VCPersistentDataStore_BindAndExecuteLocalRateControlEvent";
+        v106 = 1024;
+        v107 = 449;
+        v108 = 1024;
+        v109 = v17;
         goto LABEL_130;
       case 4:
-        v108 = a1[1058];
-        v109 = *(a2 + 8);
-        v111 = *(a2 + 16);
-        v110 = *(a2 + 24);
-        v113 = *(a2 + 32);
-        v112 = *(a2 + 36);
-        v114 = *(a2 + 40);
-        v115 = *(a2 + 52);
-        v162 = *(a2 + 48);
-        v117 = *(a2 + 56);
-        v116 = *(a2 + 60);
-        v119 = *(a2 + 64);
-        v118 = *(a2 + 68);
-        v120 = sqlite3_bind_int(v108, 1, v109);
-        if (v120)
+        v59 = a1[1058];
+        v61 = *(a2 + 16);
+        v60 = *(a2 + 24);
+        v63 = *(a2 + 32);
+        v62 = *(a2 + 36);
+        v64 = *(a2 + 40);
+        v65 = *(a2 + 52);
+        v101 = *(a2 + 48);
+        v67 = *(a2 + 56);
+        v66 = *(a2 + 60);
+        v69 = *(a2 + 64);
+        v68 = *(a2 + 68);
+        if (sqlite3_bind_int(v59, 1, *(a2 + 8)))
         {
-          _VCPersistentDataStore_BindAndExecute_cold_1(v109, v120, buf);
-          goto LABEL_217;
+          _VCPersistentDataStore_BindAndExecute_cold_1();
+          return *buf;
         }
 
-        if (sqlite3_bind_double(v108, 2, v111))
+        if (sqlite3_bind_double(v59, 2, v61))
         {
           _VCPersistentDataStore_BindAndExecute_cold_2();
-          goto LABEL_217;
+          return *buf;
         }
 
-        if (sqlite3_bind_double(v108, 3, v110))
+        if (sqlite3_bind_double(v59, 3, v60))
         {
           _VCPersistentDataStore_BindAndExecute_cold_3();
-          goto LABEL_217;
+          return *buf;
         }
 
-        v121 = sqlite3_bind_int(v108, 4, v113);
-        if (v121)
+        if (sqlite3_bind_int(v59, 4, v63))
         {
-          _VCPersistentDataStore_BindAndExecute_cold_4(v113, v121, buf);
-          goto LABEL_217;
+          _VCPersistentDataStore_BindAndExecute_cold_4();
+          return *buf;
         }
 
-        v122 = sqlite3_bind_int(v108, 5, v112);
-        if (v122)
+        if (sqlite3_bind_int(v59, 5, v62))
         {
-          _VCPersistentDataStore_BindAndExecute_cold_5(v112, v122, buf);
-          goto LABEL_217;
+          _VCPersistentDataStore_BindAndExecute_cold_5();
+          return *buf;
         }
 
-        v123 = sqlite3_bind_int(v108, 6, v114);
-        if (v123)
+        if (sqlite3_bind_int(v59, 6, v64))
         {
-          _VCPersistentDataStore_BindAndExecute_cold_6(v114, v123, buf);
-          goto LABEL_217;
+          _VCPersistentDataStore_BindAndExecute_cold_6();
+          return *buf;
         }
 
-        v124 = sqlite3_bind_int(v108, 7, v115);
-        if (v124)
+        if (sqlite3_bind_int(v59, 7, v65))
         {
-          _VCPersistentDataStore_BindAndExecute_cold_7(v115, v124, buf);
-          goto LABEL_217;
+          _VCPersistentDataStore_BindAndExecute_cold_7();
+          return *buf;
         }
 
-        v125 = sqlite3_bind_int(v108, 8, v117);
-        if (v125)
+        if (sqlite3_bind_int(v59, 8, v67))
         {
-          _VCPersistentDataStore_BindAndExecute_cold_8(v117, v125, buf);
-          goto LABEL_217;
+          _VCPersistentDataStore_BindAndExecute_cold_8();
+          return *buf;
         }
 
-        v126 = sqlite3_bind_int(v108, 9, v116);
-        if (v126)
+        if (sqlite3_bind_int(v59, 9, v66))
         {
-          _VCPersistentDataStore_BindAndExecute_cold_9(v116, v126, buf);
-          goto LABEL_217;
+          _VCPersistentDataStore_BindAndExecute_cold_9();
+          return *buf;
         }
 
-        v127 = sqlite3_bind_int(v108, 10, v119);
-        if (v127)
+        if (sqlite3_bind_int(v59, 10, v69))
         {
-          _VCPersistentDataStore_BindAndExecute_cold_10(v119, v127, buf);
-          goto LABEL_217;
+          _VCPersistentDataStore_BindAndExecute_cold_10();
+          return *buf;
         }
 
-        v128 = sqlite3_bind_int(v108, 11, v118);
-        if (v128)
+        if (sqlite3_bind_int(v59, 11, v68))
         {
-          _VCPersistentDataStore_BindAndExecute_cold_11(v118, v128, buf);
-          goto LABEL_217;
+          _VCPersistentDataStore_BindAndExecute_cold_11();
+          return *buf;
         }
 
-        v129 = sqlite3_bind_int(v108, 12, v162);
-        if (v129)
+        if (sqlite3_bind_int(v59, 12, v101))
         {
-          _VCPersistentDataStore_BindAndExecute_cold_12(v162, v129, buf);
-          goto LABEL_217;
+          _VCPersistentDataStore_BindAndExecute_cold_12();
+          return *buf;
         }
 
-        v130 = sqlite3_step(v108);
-        if (!v130 || (v40 = v130, v130 == 101))
+        v70 = sqlite3_step(v59);
+        if (!v70 || (v17 = v70, v70 == 101))
         {
-          v40 = sqlite3_reset(v108);
-          sqlite3_clear_bindings(v108);
-          if (v40)
+          v17 = sqlite3_reset(v59);
+          sqlite3_clear_bindings(v59);
+          if (v17)
           {
             _VCPersistentDataStore_BindAndExecute_cold_13();
-            goto LABEL_217;
+            return *buf;
           }
 
-          goto LABEL_131;
+          return v17;
         }
 
         if (VRTraceGetErrorLogLevelForModule("") < 7)
         {
-          goto LABEL_131;
+          return v17;
         }
 
-        v133 = VRTraceErrorLogLevelToCSTR(7u);
-        v132 = gVRTraceOSLog;
+        v73 = VRTraceErrorLogLevelToCSTR(7u);
+        v72 = gVRTraceOSLog;
         if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
         {
-          goto LABEL_131;
+          return v17;
         }
 
         *buf = 136315906;
-        v164 = v133;
-        v165 = 2080;
-        v166 = "_VCPersistentDataStore_BindAndExecuteRCConfigurationEvent";
-        v167 = 1024;
-        v168 = 469;
-        v169 = 1024;
-        v170 = v40;
+        v103 = v73;
+        v104 = 2080;
+        v105 = "_VCPersistentDataStore_BindAndExecuteRCConfigurationEvent";
+        v106 = 1024;
+        v107 = 469;
+        v108 = 1024;
+        v109 = v17;
         goto LABEL_130;
       case 5:
-        v40 = 0;
-        goto LABEL_131;
+        return 0;
     }
 
-LABEL_76:
-    v40 = 1;
-    goto LABEL_131;
+    return 1;
   }
 
   if (v2)
   {
     if (v2 == 1)
     {
-      v79 = a1[1055];
-      v80 = *(a2 + 8);
-      v82 = *(a2 + 16);
-      v81 = *(a2 + 24);
-      v83 = *(a2 + 32);
-      v84 = *(a2 + 36);
-      v85 = *(a2 + 40);
-      v87 = *(a2 + 48);
-      v86 = *(a2 + 52);
-      v89 = *(a2 + 56);
-      v88 = *(a2 + 60);
-      v90 = *(a2 + 64);
-      v161 = *(a2 + 68);
-      v158 = *(a2 + 72);
-      v92 = *(a2 + 80);
-      v91 = *(a2 + 88);
-      v94 = *(a2 + 96);
-      v93 = *(a2 + 104);
-      v95 = *(a2 + 112);
-      v96 = sqlite3_bind_int(v79, 1, v80);
-      if (v96)
+      v42 = a1[1055];
+      v44 = *(a2 + 16);
+      v43 = *(a2 + 24);
+      v45 = *(a2 + 32);
+      v46 = *(a2 + 36);
+      v47 = *(a2 + 40);
+      v49 = *(a2 + 48);
+      v48 = *(a2 + 52);
+      v51 = *(a2 + 56);
+      v50 = *(a2 + 60);
+      v52 = *(a2 + 64);
+      v100 = *(a2 + 68);
+      v97 = *(a2 + 72);
+      v54 = *(a2 + 80);
+      v53 = *(a2 + 88);
+      v56 = *(a2 + 96);
+      v55 = *(a2 + 104);
+      v57 = *(a2 + 112);
+      if (sqlite3_bind_int(v42, 1, *(a2 + 8)))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_50(v80, v96, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_50();
+        return *buf;
       }
 
-      if (sqlite3_bind_double(v79, 2, v82))
+      if (sqlite3_bind_double(v42, 2, v44))
       {
         _VCPersistentDataStore_BindAndExecute_cold_51();
-        goto LABEL_217;
+        return *buf;
       }
 
-      if (sqlite3_bind_double(v79, 3, v81))
+      if (sqlite3_bind_double(v42, 3, v43))
       {
         _VCPersistentDataStore_BindAndExecute_cold_52();
-        goto LABEL_217;
+        return *buf;
       }
 
-      v97 = sqlite3_bind_int(v79, 4, v83);
-      if (v97)
+      if (sqlite3_bind_int(v42, 4, v45))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_53(v83, v97, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_53();
+        return *buf;
       }
 
-      v98 = sqlite3_bind_int(v79, 5, v84);
-      if (v98)
+      if (sqlite3_bind_int(v42, 5, v46))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_54(v84, v98, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_54();
+        return *buf;
       }
 
-      v99 = sqlite3_bind_int(v79, 6, v85);
-      if (v99)
+      if (sqlite3_bind_int(v42, 6, v47))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_55(v85, v99, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_55();
+        return *buf;
       }
 
-      v100 = sqlite3_bind_int(v79, 7, v87);
-      if (v100)
+      if (sqlite3_bind_int(v42, 7, v49))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_56(v87, v100, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_56();
+        return *buf;
       }
 
-      v101 = sqlite3_bind_int(v79, 8, v86);
-      if (v101)
+      if (sqlite3_bind_int(v42, 8, v48))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_57(v86, v101, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_57();
+        return *buf;
       }
 
-      v102 = sqlite3_bind_int(v79, 9, v89);
-      if (v102)
+      if (sqlite3_bind_int(v42, 9, v51))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_58(v89, v102, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_58();
+        return *buf;
       }
 
-      v103 = sqlite3_bind_int(v79, 10, v88);
-      if (v103)
+      if (sqlite3_bind_int(v42, 10, v50))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_59(v88, v103, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_59();
+        return *buf;
       }
 
-      v104 = sqlite3_bind_int(v79, 11, v90);
-      if (v104)
+      if (sqlite3_bind_int(v42, 11, v52))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_60(v90, v104, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_60();
+        return *buf;
       }
 
-      v105 = sqlite3_bind_int(v79, 12, v161);
-      if (v105)
+      if (sqlite3_bind_int(v42, 12, v100))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_61(v161, v105, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_61();
+        return *buf;
       }
 
-      v106 = sqlite3_bind_int(v79, 13, v158);
-      if (v106)
+      if (sqlite3_bind_int(v42, 13, v97))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_62(v158, v106, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_62();
+        return *buf;
       }
 
-      if (sqlite3_bind_double(v79, 14, v92))
+      if (sqlite3_bind_double(v42, 14, v54))
       {
         _VCPersistentDataStore_BindAndExecute_cold_63();
-        goto LABEL_217;
+        return *buf;
       }
 
-      if (sqlite3_bind_double(v79, 15, v91))
+      if (sqlite3_bind_double(v42, 15, v53))
       {
         _VCPersistentDataStore_BindAndExecute_cold_64();
-        goto LABEL_217;
+        return *buf;
       }
 
-      if (sqlite3_bind_double(v79, 16, v94))
+      if (sqlite3_bind_double(v42, 16, v56))
       {
         _VCPersistentDataStore_BindAndExecute_cold_65();
-        goto LABEL_217;
+        return *buf;
       }
 
-      if (sqlite3_bind_double(v79, 17, v93))
+      if (sqlite3_bind_double(v42, 17, v55))
       {
         _VCPersistentDataStore_BindAndExecute_cold_66();
-        goto LABEL_217;
+        return *buf;
       }
 
-      if (sqlite3_bind_double(v79, 18, v95))
+      if (sqlite3_bind_double(v42, 18, v57))
       {
         _VCPersistentDataStore_BindAndExecute_cold_67();
-        goto LABEL_217;
+        return *buf;
       }
 
-      v107 = sqlite3_step(v79);
-      if (!v107 || (v40 = v107, v107 == 101))
+      v58 = sqlite3_step(v42);
+      if (!v58 || (v17 = v58, v58 == 101))
       {
-        v40 = sqlite3_reset(v79);
-        sqlite3_clear_bindings(v79);
-        if (v40)
+        v17 = sqlite3_reset(v42);
+        sqlite3_clear_bindings(v42);
+        if (v17)
         {
           _VCPersistentDataStore_BindAndExecute_cold_68();
-          goto LABEL_217;
+          return *buf;
         }
 
-        goto LABEL_131;
+        return v17;
       }
 
       if (VRTraceGetErrorLogLevelForModule("") < 7)
       {
-        goto LABEL_131;
+        return v17;
       }
 
-      v134 = VRTraceErrorLogLevelToCSTR(7u);
-      v132 = gVRTraceOSLog;
+      v74 = VRTraceErrorLogLevelToCSTR(7u);
+      v72 = gVRTraceOSLog;
       if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_131;
+        return v17;
       }
 
       *buf = 136315906;
-      v164 = v134;
-      v165 = 2080;
-      v166 = "_VCPersistentDataStore_BindAndExecuteBaseBandEvent";
-      v167 = 1024;
-      v168 = 433;
-      v169 = 1024;
-      v170 = v40;
+      v103 = v74;
+      v104 = 2080;
+      v105 = "_VCPersistentDataStore_BindAndExecuteBaseBandEvent";
+      v106 = 1024;
+      v107 = 433;
+      v108 = 1024;
+      v109 = v17;
       goto LABEL_130;
     }
 
     if (v2 == 2)
     {
       v3 = a1[1056];
-      v4 = *(a2 + 8);
-      v6 = *(a2 + 16);
-      v5 = *(a2 + 24);
-      v8 = *(a2 + 32);
-      v7 = *(a2 + 36);
-      v9 = *(a2 + 40);
-      v10 = *(a2 + 48);
-      v11 = *(a2 + 56);
-      v156 = *(a2 + 57);
-      v159 = *(a2 + 58);
-      v12 = *(a2 + 60);
-      v13 = *(a2 + 62);
-      v14 = *(a2 + 63);
-      v152 = *(a2 + 64);
-      v154 = *(a2 + 65);
-      v150 = *(a2 + 67);
-      v148 = *(a2 + 68);
-      v15 = *(a2 + 72);
-      v140 = *(a2 + 66);
-      v141 = *(a2 + 80);
-      v142 = *(a2 + 84);
-      v143 = *(a2 + 88);
-      v144 = *(a2 + 92);
-      v145 = *(a2 + 96);
-      v146 = *(a2 + 76);
-      v139 = *(a2 + 100);
-      v16 = sqlite3_bind_int(v3, 1, v4);
-      if (v16)
+      v5 = *(a2 + 16);
+      v4 = *(a2 + 24);
+      v7 = *(a2 + 32);
+      v6 = *(a2 + 36);
+      v8 = *(a2 + 40);
+      v9 = *(a2 + 48);
+      v10 = *(a2 + 56);
+      v95 = *(a2 + 57);
+      v98 = *(a2 + 58);
+      v11 = *(a2 + 60);
+      v12 = *(a2 + 62);
+      v13 = *(a2 + 63);
+      v91 = *(a2 + 64);
+      v93 = *(a2 + 65);
+      v89 = *(a2 + 67);
+      v87 = *(a2 + 68);
+      v14 = *(a2 + 72);
+      v79 = *(a2 + 66);
+      v80 = *(a2 + 80);
+      v81 = *(a2 + 84);
+      v82 = *(a2 + 88);
+      v83 = *(a2 + 92);
+      v84 = *(a2 + 96);
+      v85 = *(a2 + 76);
+      v78 = *(a2 + 100);
+      if (sqlite3_bind_int(v3, 1, *(a2 + 8)))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_23(v4, v16, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_23();
+        return *buf;
       }
 
-      if (sqlite3_bind_double(v3, 2, v6))
+      if (sqlite3_bind_double(v3, 2, v5))
       {
         _VCPersistentDataStore_BindAndExecute_cold_24();
-        goto LABEL_217;
+        return *buf;
       }
 
-      if (sqlite3_bind_double(v3, 3, v5))
+      if (sqlite3_bind_double(v3, 3, v4))
       {
         _VCPersistentDataStore_BindAndExecute_cold_25();
-        goto LABEL_217;
+        return *buf;
       }
 
-      v17 = sqlite3_bind_int(v3, 4, v8);
-      if (v17)
+      if (sqlite3_bind_int(v3, 4, v7))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_26(v8, v17, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_26();
+        return *buf;
       }
 
-      v18 = sqlite3_bind_int(v3, 5, v7);
-      if (v18)
+      if (sqlite3_bind_int(v3, 5, v6))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_27(v7, v18, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_27();
+        return *buf;
       }
 
-      v19 = sqlite3_bind_int(v3, 6, v9);
-      if (v19)
+      if (sqlite3_bind_int(v3, 6, v8))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_28(v9, v19, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_28();
+        return *buf;
       }
 
-      v20 = sqlite3_bind_int64(v3, 7, v10);
-      if (v20)
+      v15 = sqlite3_bind_int64(v3, 7, v9);
+      if (v15)
       {
-        _VCPersistentDataStore_BindAndExecute_cold_29(v10, v20);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_29(v9, v15);
+        return *buf;
       }
 
-      v21 = sqlite3_bind_int(v3, 8, v11);
-      if (v21)
+      if (sqlite3_bind_int(v3, 8, v10))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_30(v11, v21, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_30();
+        return *buf;
       }
 
-      v22 = sqlite3_bind_int(v3, 9, v156);
-      if (v22)
+      if (sqlite3_bind_int(v3, 9, v95))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_31(v156, v22, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_31();
+        return *buf;
       }
 
-      v23 = sqlite3_bind_int(v3, 10, v159);
-      if (v23)
+      if (sqlite3_bind_int(v3, 10, v98))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_32(v159, v23, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_32();
+        return *buf;
       }
 
-      v24 = sqlite3_bind_int(v3, 11, v12);
-      if (v24)
+      if (sqlite3_bind_int(v3, 11, v11))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_33(v12, v24, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_33();
+        return *buf;
       }
 
-      v25 = sqlite3_bind_int(v3, 12, v13);
-      if (v25)
+      if (sqlite3_bind_int(v3, 12, v12))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_34(v13, v25, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_34();
+        return *buf;
       }
 
-      v26 = sqlite3_bind_int(v3, 13, v14);
-      if (v26)
+      if (sqlite3_bind_int(v3, 13, v13))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_35(v14, v26, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_35();
+        return *buf;
       }
 
-      v27 = sqlite3_bind_int(v3, 14, v152);
-      if (v27)
+      if (sqlite3_bind_int(v3, 14, v91))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_36(v152, v27, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_36();
+        return *buf;
       }
 
-      v28 = sqlite3_bind_int(v3, 15, v154);
-      if (v28)
+      if (sqlite3_bind_int(v3, 15, v93))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_37(v154, v28, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_37();
+        return *buf;
       }
 
-      v29 = sqlite3_bind_int(v3, 16, v140);
-      if (v29)
+      if (sqlite3_bind_int(v3, 16, v79))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_38(v140, v29, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_38();
+        return *buf;
       }
 
-      v30 = sqlite3_bind_int(v3, 17, v150);
-      if (v30)
+      if (sqlite3_bind_int(v3, 17, v89))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_39(v150, v30, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_39();
+        return *buf;
       }
 
-      v31 = sqlite3_bind_int(v3, 18, v148);
-      if (v31)
+      if (sqlite3_bind_int(v3, 18, v87))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_40(v148, v31, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_40();
+        return *buf;
       }
 
-      if (sqlite3_bind_double(v3, 19, v15))
+      if (sqlite3_bind_double(v3, 19, v14))
       {
         _VCPersistentDataStore_BindAndExecute_cold_41();
-        goto LABEL_217;
+        return *buf;
       }
 
-      v32 = sqlite3_bind_int(v3, 20, v146);
-      if (v32)
+      if (sqlite3_bind_int(v3, 20, v85))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_42(v146, v32, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_42();
+        return *buf;
       }
 
-      v33 = sqlite3_bind_int(v3, 21, v141);
-      if (v33)
+      if (sqlite3_bind_int(v3, 21, v80))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_43(v141, v33, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_43();
+        return *buf;
       }
 
-      v34 = sqlite3_bind_int(v3, 22, v142);
-      if (v34)
+      if (sqlite3_bind_int(v3, 22, v81))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_44(v142, v34, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_44();
+        return *buf;
       }
 
-      v35 = sqlite3_bind_int(v3, 23, v143);
-      if (v35)
+      if (sqlite3_bind_int(v3, 23, v82))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_45(v143, v35, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_45();
+        return *buf;
       }
 
-      v36 = sqlite3_bind_int(v3, 24, v144);
-      if (v36)
+      if (sqlite3_bind_int(v3, 24, v83))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_46(v144, v36, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_46();
+        return *buf;
       }
 
-      v37 = sqlite3_bind_int(v3, 25, v145);
-      if (v37)
+      if (sqlite3_bind_int(v3, 25, v84))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_47(v145, v37, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_47();
+        return *buf;
       }
 
-      v38 = sqlite3_bind_int(v3, 26, v139);
-      if (v38)
+      if (sqlite3_bind_int(v3, 26, v78))
       {
-        _VCPersistentDataStore_BindAndExecute_cold_48(v139, v38, buf);
-        goto LABEL_217;
+        _VCPersistentDataStore_BindAndExecute_cold_48();
+        return *buf;
       }
 
-      v39 = sqlite3_step(v3);
-      if (!v39 || (v40 = v39, v39 == 101))
+      v16 = sqlite3_step(v3);
+      if (!v16 || (v17 = v16, v16 == 101))
       {
-        v40 = sqlite3_reset(v3);
+        v17 = sqlite3_reset(v3);
         sqlite3_clear_bindings(v3);
-        if (v40)
+        if (v17)
         {
           _VCPersistentDataStore_BindAndExecute_cold_49();
-LABEL_217:
-          v40 = *buf;
-          goto LABEL_131;
+          return *buf;
         }
 
-        goto LABEL_131;
+        return v17;
       }
 
       if (VRTraceGetErrorLogLevelForModule("") < 7)
       {
-        goto LABEL_131;
+        return v17;
       }
 
-      v136 = VRTraceErrorLogLevelToCSTR(7u);
-      v132 = gVRTraceOSLog;
+      v76 = VRTraceErrorLogLevelToCSTR(7u);
+      v72 = gVRTraceOSLog;
       if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_131;
+        return v17;
       }
 
       *buf = 136315906;
-      v164 = v136;
-      v165 = 2080;
-      v166 = "_VCPersistentDataStore_BindAndExecuteNetworkEvent";
-      v167 = 1024;
-      v168 = 407;
-      v169 = 1024;
-      v170 = v40;
+      v103 = v76;
+      v104 = 2080;
+      v105 = "_VCPersistentDataStore_BindAndExecuteNetworkEvent";
+      v106 = 1024;
+      v107 = 407;
+      v108 = 1024;
+      v109 = v17;
 LABEL_130:
-      _os_log_impl(&dword_23D4DF000, v132, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d SQLite Error: could not execute statement with return code=%d", buf, 0x22u);
-      goto LABEL_131;
+      _os_log_impl(&dword_23D4DF000, v72, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d SQLite Error: could not execute statement with return code=%d", buf, 0x22u);
+      return v17;
     }
 
-    goto LABEL_76;
+    return 1;
   }
 
-  v41 = a1[1054];
-  v42 = *(a2 + 8);
-  v44 = *(a2 + 16);
-  v43 = *(a2 + 24);
-  v46 = *(a2 + 32);
-  v45 = *(a2 + 36);
-  v47 = *(a2 + 40);
-  v49 = *(a2 + 48);
-  v48 = *(a2 + 56);
-  v51 = *(a2 + 64);
-  v50 = *(a2 + 72);
-  v53 = *(a2 + 80);
-  v52 = *(a2 + 88);
-  v147 = *(a2 + 104);
-  v149 = *(a2 + 112);
-  v151 = *(a2 + 120);
-  v153 = *(a2 + 128);
-  v54 = *(a2 + 136);
-  v155 = *(a2 + 144);
-  v55 = *(a2 + 152);
-  v157 = *(a2 + 160);
-  v160 = *(a2 + 96);
-  v56 = sqlite3_bind_int(v41, 1, v42);
-  if (v56)
+  v18 = a1[1054];
+  v20 = *(a2 + 16);
+  v19 = *(a2 + 24);
+  v22 = *(a2 + 32);
+  v21 = *(a2 + 36);
+  v23 = *(a2 + 40);
+  v25 = *(a2 + 48);
+  v24 = *(a2 + 56);
+  v27 = *(a2 + 64);
+  v26 = *(a2 + 72);
+  v29 = *(a2 + 80);
+  v28 = *(a2 + 88);
+  v86 = *(a2 + 104);
+  v88 = *(a2 + 112);
+  v90 = *(a2 + 120);
+  v92 = *(a2 + 128);
+  v30 = *(a2 + 136);
+  v94 = *(a2 + 144);
+  v31 = *(a2 + 152);
+  v96 = *(a2 + 160);
+  v99 = *(a2 + 96);
+  if (sqlite3_bind_int(v18, 1, *(a2 + 8)))
   {
-    _VCPersistentDataStore_BindAndExecute_cold_69(v42, v56, buf);
-    goto LABEL_217;
+    _VCPersistentDataStore_BindAndExecute_cold_69();
+    return *buf;
   }
 
-  if (sqlite3_bind_double(v41, 2, v44))
+  if (sqlite3_bind_double(v18, 2, v20))
   {
     _VCPersistentDataStore_BindAndExecute_cold_70();
-    goto LABEL_217;
+    return *buf;
   }
 
-  if (sqlite3_bind_double(v41, 3, v43))
+  if (sqlite3_bind_double(v18, 3, v19))
   {
     _VCPersistentDataStore_BindAndExecute_cold_71();
-    goto LABEL_217;
+    return *buf;
   }
 
-  v57 = sqlite3_bind_int(v41, 4, v46);
-  if (v57)
+  if (sqlite3_bind_int(v18, 4, v22))
   {
-    _VCPersistentDataStore_BindAndExecute_cold_72(v46, v57, buf);
-    goto LABEL_217;
+    _VCPersistentDataStore_BindAndExecute_cold_72();
+    return *buf;
   }
 
-  v58 = sqlite3_bind_int(v41, 5, v45);
-  if (v58)
+  if (sqlite3_bind_int(v18, 5, v21))
   {
-    _VCPersistentDataStore_BindAndExecute_cold_73(v45, v58, buf);
-    goto LABEL_217;
+    _VCPersistentDataStore_BindAndExecute_cold_73();
+    return *buf;
   }
 
-  v59 = sqlite3_bind_int(v41, 6, v47);
-  if (v59)
+  if (sqlite3_bind_int(v18, 6, v23))
   {
-    _VCPersistentDataStore_BindAndExecute_cold_74(v47, v59, buf);
-    goto LABEL_217;
+    _VCPersistentDataStore_BindAndExecute_cold_74();
+    return *buf;
   }
 
-  if (sqlite3_bind_double(v41, 7, v49))
+  if (sqlite3_bind_double(v18, 7, v25))
   {
     _VCPersistentDataStore_BindAndExecute_cold_75();
-    goto LABEL_217;
+    return *buf;
   }
 
-  if (sqlite3_bind_double(v41, 8, v48))
+  if (sqlite3_bind_double(v18, 8, v24))
   {
     _VCPersistentDataStore_BindAndExecute_cold_76();
-    goto LABEL_217;
+    return *buf;
   }
 
-  if (sqlite3_bind_double(v41, 9, v51))
+  if (sqlite3_bind_double(v18, 9, v27))
   {
     _VCPersistentDataStore_BindAndExecute_cold_77();
-    goto LABEL_217;
+    return *buf;
   }
 
-  if (sqlite3_bind_double(v41, 10, v50))
+  if (sqlite3_bind_double(v18, 10, v26))
   {
     _VCPersistentDataStore_BindAndExecute_cold_78();
-    goto LABEL_217;
+    return *buf;
   }
 
-  if (sqlite3_bind_double(v41, 11, v53))
+  if (sqlite3_bind_double(v18, 11, v29))
   {
     _VCPersistentDataStore_BindAndExecute_cold_79();
-    goto LABEL_217;
+    return *buf;
   }
 
-  if (sqlite3_bind_double(v41, 12, v52))
+  if (sqlite3_bind_double(v18, 12, v28))
   {
     _VCPersistentDataStore_BindAndExecute_cold_80();
-    goto LABEL_217;
+    return *buf;
   }
 
-  if (sqlite3_bind_double(v41, 13, v160))
+  if (sqlite3_bind_double(v18, 13, v99))
   {
     _VCPersistentDataStore_BindAndExecute_cold_81();
-    goto LABEL_217;
+    return *buf;
   }
 
-  if (sqlite3_bind_double(v41, 14, v147))
+  if (sqlite3_bind_double(v18, 14, v86))
   {
     _VCPersistentDataStore_BindAndExecute_cold_82();
-    goto LABEL_217;
+    return *buf;
   }
 
-  if (sqlite3_bind_double(v41, 15, v149))
+  if (sqlite3_bind_double(v18, 15, v88))
   {
     _VCPersistentDataStore_BindAndExecute_cold_83();
-    goto LABEL_217;
+    return *buf;
   }
 
-  if (sqlite3_bind_double(v41, 16, v151))
+  if (sqlite3_bind_double(v18, 16, v90))
   {
     _VCPersistentDataStore_BindAndExecute_cold_84();
-    goto LABEL_217;
+    return *buf;
   }
 
-  if (sqlite3_bind_double(v41, 17, v153))
+  if (sqlite3_bind_double(v18, 17, v92))
   {
     _VCPersistentDataStore_BindAndExecute_cold_85();
-    goto LABEL_217;
+    return *buf;
   }
 
-  v60 = sqlite3_bind_int(v41, 18, v54);
-  if (v60)
+  if (sqlite3_bind_int(v18, 18, v30))
   {
-    _VCPersistentDataStore_BindAndExecute_cold_86(v54, v60, buf);
-    goto LABEL_217;
+    _VCPersistentDataStore_BindAndExecute_cold_86();
+    return *buf;
   }
 
-  if (sqlite3_bind_double(v41, 19, v155))
+  if (sqlite3_bind_double(v18, 19, v94))
   {
     _VCPersistentDataStore_BindAndExecute_cold_87();
-    goto LABEL_217;
+    return *buf;
   }
 
-  v61 = sqlite3_bind_int(v41, 20, v55);
-  if (v61)
+  if (sqlite3_bind_int(v18, 20, v31))
   {
-    _VCPersistentDataStore_BindAndExecute_cold_88(v55, v61, buf);
-    goto LABEL_217;
+    _VCPersistentDataStore_BindAndExecute_cold_88();
+    return *buf;
   }
 
-  if (sqlite3_bind_double(v41, 21, v157))
+  if (sqlite3_bind_double(v18, 21, v96))
   {
     _VCPersistentDataStore_BindAndExecute_cold_89();
-    goto LABEL_217;
+    return *buf;
   }
 
-  v62 = sqlite3_step(v41);
-  if (v62)
+  v32 = sqlite3_step(v18);
+  if (v32)
   {
-    v40 = v62;
-    if (v62 != 101)
+    v17 = v32;
+    if (v32 != 101)
     {
       if (VRTraceGetErrorLogLevelForModule("") < 7)
       {
-        goto LABEL_131;
+        return v17;
       }
 
-      v135 = VRTraceErrorLogLevelToCSTR(7u);
-      v132 = gVRTraceOSLog;
+      v75 = VRTraceErrorLogLevelToCSTR(7u);
+      v72 = gVRTraceOSLog;
       if (!os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
-        goto LABEL_131;
+        return v17;
       }
 
       *buf = 136315906;
-      v164 = v135;
-      v165 = 2080;
-      v166 = "_VCPersistentDataStore_BindAndExecuteFeedbackEvent";
-      v167 = 1024;
-      v168 = 373;
-      v169 = 1024;
-      v170 = v40;
+      v103 = v75;
+      v104 = 2080;
+      v105 = "_VCPersistentDataStore_BindAndExecuteFeedbackEvent";
+      v106 = 1024;
+      v107 = 373;
+      v108 = 1024;
+      v109 = v17;
       goto LABEL_130;
     }
   }
 
-  v40 = sqlite3_reset(v41);
-  sqlite3_clear_bindings(v41);
-  if (v40)
+  v17 = sqlite3_reset(v18);
+  sqlite3_clear_bindings(v18);
+  if (v17)
   {
     _VCPersistentDataStore_BindAndExecute_cold_90();
-    goto LABEL_217;
+    return *buf;
   }
 
-LABEL_131:
-  v137 = *MEMORY[0x277D85DE8];
-  return v40;
+  return v17;
 }
 
-void OUTLINED_FUNCTION_11_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_11_1(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0x28u);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0x28u);
 }
 
-void sub_23D5624F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23D55F0D4(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, __int128 buf, int a22, __int16 a23, __int16 a24, __int128 a25, uint64_t a26)
 {
-  va_start(va, a7);
+  if (a2 == 1)
+  {
+    v26 = objc_begin_catch(a1);
+    if (VRTraceGetErrorLogLevelForModule("") >= 3)
+    {
+      v27 = VRTraceErrorLogLevelToCSTR(3u);
+      v28 = gVRTraceOSLog;
+      if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_ERROR))
+      {
+        v29 = [v26 name];
+        v30 = [v26 reason];
+        LODWORD(buf) = 136316162;
+        *(&buf + 4) = v27;
+        WORD6(buf) = 2080;
+        *(&buf + 14) = "[VCAlgosStreamingScoreAggregator aggregateScoresWithDictionaryLogging:time:]";
+        a24 = 1024;
+        LODWORD(a25) = 139;
+        WORD2(a25) = 2112;
+        *(&a25 + 6) = v29;
+        HIWORD(a25) = 2112;
+        a26 = v30;
+        _os_log_error_impl(&dword_23D4DF000, v28, OS_LOG_TYPE_ERROR, " [%s] %s:%d AlgosScoreCombiner exception caught %@: %@", &buf, 0x30u);
+      }
+    }
+
+    objc_end_catch();
+    JUMPOUT(0x23D55F080);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+void sub_23D5624F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23D5658CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23D5658CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23D565D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23D565D70(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void *__getWiFiManagerClientCreateSymbolLoc_block_invoke(uint64_t a1)
+void *__getWiFiManagerClientCreateSymbolLoc_block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = MobileWiFiLibrary();
-  result = dlsym(v2, "WiFiManagerClientCreate");
+  v3 = MobileWiFiLibrary();
+  result = dlsym(v3, "WiFiManagerClientCreate");
   *(*(*(a1 + 32) + 8) + 24) = result;
   getWiFiManagerClientCreateSymbolLoc_ptr = *(*(*(a1 + 32) + 8) + 24);
   return result;
@@ -7220,43 +7077,39 @@ void *__getWiFiManagerClientCreateSymbolLoc_block_invoke(uint64_t a1)
 
 uint64_t MobileWiFiLibrary()
 {
-  v3[9] = *MEMORY[0x277D85DE8];
-  v3[0] = 0;
+  v2[9] = *MEMORY[0x277D85DE8];
+  v2[0] = 0;
   if (!MobileWiFiLibraryCore_frameworkLibrary)
   {
-    v3[1] = MEMORY[0x277D85DD0];
-    v3[2] = 3221225472;
-    v3[3] = __MobileWiFiLibraryCore_block_invoke;
-    v3[4] = &__block_descriptor_40_e5_v8__0l;
-    v3[5] = v3;
-    v3[7] = 0;
-    v3[8] = 0;
-    v3[6] = "/System/Library/PrivateFrameworks/MobileWiFi.framework/MobileWiFi";
+    v2[1] = MEMORY[0x277D85DD0];
+    v2[2] = 3221225472;
+    v2[3] = __MobileWiFiLibraryCore_block_invoke;
+    v2[4] = &__block_descriptor_40_e5_v8__0l;
+    v2[5] = v2;
+    v2[7] = 0;
+    v2[8] = 0;
+    v2[6] = "/System/Library/PrivateFrameworks/MobileWiFi.framework/MobileWiFi";
     MobileWiFiLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   v0 = MobileWiFiLibraryCore_frameworkLibrary;
   if (!MobileWiFiLibraryCore_frameworkLibrary)
   {
-    MobileWiFiLibrary_cold_1(v3);
+    MobileWiFiLibrary_cold_1(v2);
   }
 
-  if (v3[0])
+  if (v2[0])
   {
-    free(v3[0]);
+    free(v2[0]);
   }
 
-  v1 = *MEMORY[0x277D85DE8];
   return v0;
 }
 
 uint64_t __MobileWiFiLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   MobileWiFiLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7271,29 +7124,29 @@ void *__getWiFiManagerClientCopyDevicesSymbolLoc_block_invoke(uint64_t a1)
 
 Class __getCWFInterfaceClass_block_invoke(uint64_t a1)
 {
-  v4[9] = *MEMORY[0x277D85DE8];
-  v4[0] = 0;
+  v3[9] = *MEMORY[0x277D85DE8];
+  v3[0] = 0;
   if (!CoreWiFiLibraryCore_frameworkLibrary)
   {
-    v4[1] = MEMORY[0x277D85DD0];
-    v4[2] = 3221225472;
-    v4[3] = __CoreWiFiLibraryCore_block_invoke;
-    v4[4] = &__block_descriptor_40_e5_v8__0l;
-    v4[5] = v4;
-    v4[7] = 0;
-    v4[8] = 0;
-    v4[6] = "/System/Library/PrivateFrameworks/CoreWiFi.framework/CoreWiFi";
+    v3[1] = MEMORY[0x277D85DD0];
+    v3[2] = 3221225472;
+    v3[3] = __CoreWiFiLibraryCore_block_invoke;
+    v3[4] = &__block_descriptor_40_e5_v8__0l;
+    v3[5] = v3;
+    v3[7] = 0;
+    v3[8] = 0;
+    v3[6] = "/System/Library/PrivateFrameworks/CoreWiFi.framework/CoreWiFi";
     CoreWiFiLibraryCore_frameworkLibrary = _sl_dlopen();
   }
 
   if (!CoreWiFiLibraryCore_frameworkLibrary)
   {
-    __getCWFInterfaceClass_block_invoke_cold_2(v4);
+    __getCWFInterfaceClass_block_invoke_cold_2(v3);
   }
 
-  if (v4[0])
+  if (v3[0])
   {
-    free(v4[0]);
+    free(v3[0]);
   }
 
   result = objc_getClass("CWFInterface");
@@ -7304,17 +7157,13 @@ Class __getCWFInterfaceClass_block_invoke(uint64_t a1)
   }
 
   getCWFInterfaceClass_softClass = *(*(*(a1 + 32) + 8) + 40);
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 uint64_t __CoreWiFiLibraryCore_block_invoke(uint64_t a1)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v1 = *(a1 + 32);
   result = _sl_dlopen();
   CoreWiFiLibraryCore_frameworkLibrary = result;
-  v3 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -7336,35 +7185,35 @@ char *OUTLINED_FUNCTION_25_1(char *a1, int a2, int a3, int a4, int a5, int a6, i
   return strtok_r(a1, v15, &__lasts);
 }
 
-void sub_23D56781C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_23D56781C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23D5679C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23D5679C4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23D567AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23D567AFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_23D56D184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_23D56D184(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-uint64_t SymptomReporterCreate(uint64_t a1)
+VCSymptomReporter *SymptomReporterCreate(uint64_t a1)
 {
   v2 = [VCSymptomReporter alloc];
 
@@ -7373,74 +7222,61 @@ uint64_t SymptomReporterCreate(uint64_t a1)
 
 void SymptomReporterReportSymptom(void *a1, uint64_t a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v3 = *MEMORY[0x277D85DE8];
 
     [a1 reportSymptom:a2 optionalDictionary:a3];
   }
 
-  else
+  else if (VRTraceGetErrorLogLevelForModule("") >= 5)
   {
-    if (VRTraceGetErrorLogLevelForModule("") >= 5)
+    v3 = VRTraceErrorLogLevelToCSTR(5u);
+    v4 = gVRTraceOSLog;
+    if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = VRTraceErrorLogLevelToCSTR(5u);
-      v5 = gVRTraceOSLog;
-      if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
-      {
-        v7 = 136315650;
-        v8 = v4;
-        v9 = 2080;
-        v10 = "SymptomReporterReportSymptom";
-        v11 = 1024;
-        v12 = 1279;
-        _os_log_impl(&dword_23D4DF000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d SymptomReporter: invalid symptomReporter passed in", &v7, 0x1Cu);
-      }
+      v5 = 136315650;
+      v6 = v3;
+      v7 = 2080;
+      v8 = "SymptomReporterReportSymptom";
+      v9 = 1024;
+      v10 = 1279;
+      _os_log_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d SymptomReporter: invalid symptomReporter passed in", &v5, 0x1Cu);
     }
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 }
 
 void SymptomReporterSetCallback(void *a1, uint64_t a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v3 = *MEMORY[0x277D85DE8];
 
     [a1 VCSymptomReporterSetCallback:a2 context:a3];
   }
 
-  else
+  else if (VRTraceGetErrorLogLevelForModule("") >= 5)
   {
-    if (VRTraceGetErrorLogLevelForModule("") >= 5)
+    v3 = VRTraceErrorLogLevelToCSTR(5u);
+    v4 = gVRTraceOSLog;
+    if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = VRTraceErrorLogLevelToCSTR(5u);
-      v5 = gVRTraceOSLog;
-      if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
-      {
-        v7 = 136315650;
-        v8 = v4;
-        v9 = 2080;
-        v10 = "SymptomReporterSetCallback";
-        v11 = 1024;
-        v12 = 1289;
-        _os_log_impl(&dword_23D4DF000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d SymptomReporter: invalid symptomReporter passed in", &v7, 0x1Cu);
-      }
+      v5 = 136315650;
+      v6 = v3;
+      v7 = 2080;
+      v8 = "SymptomReporterSetCallback";
+      v9 = 1024;
+      v10 = 1289;
+      _os_log_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d SymptomReporter: invalid symptomReporter passed in", &v5, 0x1Cu);
     }
-
-    v6 = *MEMORY[0x277D85DE8];
   }
 }
 
 uint64_t VCSymptomReporter_IsABCEnabled(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a1)
   {
-    v1 = *MEMORY[0x277D85DE8];
 
     return [a1 isSymptomReportingEnabled];
   }
@@ -7449,28 +7285,26 @@ uint64_t VCSymptomReporter_IsABCEnabled(void *a1)
   {
     if (VRTraceGetErrorLogLevelForModule("") >= 5)
     {
-      v3 = VRTraceErrorLogLevelToCSTR(5u);
-      v4 = gVRTraceOSLog;
+      v2 = VRTraceErrorLogLevelToCSTR(5u);
+      v3 = gVRTraceOSLog;
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
-        v6 = 136315650;
-        v7 = v3;
-        v8 = 2080;
-        v9 = "VCSymptomReporter_IsABCEnabled";
-        v10 = 1024;
-        v11 = 1298;
-        _os_log_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d SymptomReporter: invalid symptomReporter passed in", &v6, 0x1Cu);
+        v4 = 136315650;
+        v5 = v2;
+        v6 = 2080;
+        v7 = "VCSymptomReporter_IsABCEnabled";
+        v8 = 1024;
+        v9 = 1298;
+        _os_log_impl(&dword_23D4DF000, v3, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d SymptomReporter: invalid symptomReporter passed in", &v4, 0x1Cu);
       }
     }
 
-    v5 = *MEMORY[0x277D85DE8];
     return 0;
   }
 }
 
 void VCDiskUtils_CreateDirectory_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -7479,111 +7313,97 @@ void VCDiskUtils_CreateDirectory_cold_1()
       OUTLINED_FUNCTION_3_0();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_6_0();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
     }
   }
 
   OUTLINED_FUNCTION_4_1();
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void VCDiskUtils_FileZipToFile_cold_1(int a1, _DWORD *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 5)
   {
     VRTraceErrorLogLevelToCSTR(5u);
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v4 = *__error();
+      __error();
       OUTLINED_FUNCTION_6_1();
       OUTLINED_FUNCTION_12();
-      OUTLINED_FUNCTION_9_0(&dword_23D4DF000, v5, v6, " [%s] %s:%d failed to read from source: %d", v7, v8, v9, v10, v12);
+      OUTLINED_FUNCTION_9_0(&dword_23D4DF000, v4, v5, " [%s] %s:%d failed to read from source: %d", v6, v7, v8, v9);
     }
   }
 
   *a2 = a1;
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 void VCDiskUtils_FileZipToFile_cold_2(int a1, _DWORD *a2)
 {
-  v12 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 5)
   {
     VRTraceErrorLogLevelToCSTR(5u);
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
     {
       OUTLINED_FUNCTION_6_1();
-      OUTLINED_FUNCTION_9_0(&dword_23D4DF000, v4, v5, " [%s] %s:%d failed to compress buffer: %d", v6, v7, v8, v9, v11);
+      OUTLINED_FUNCTION_9_0(&dword_23D4DF000, v4, v5, " [%s] %s:%d failed to compress buffer: %d", v6, v7, v8, v9);
     }
   }
 
   *a2 = a1;
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void VCDiskUtils_FileZipToFile_cold_3(_DWORD *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 5)
   {
     VRTraceErrorLogLevelToCSTR(5u);
     v2 = gVRTraceOSLog;
     if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *__error();
+      __error();
       OUTLINED_FUNCTION_7_1();
       OUTLINED_FUNCTION_12();
-      v8 = 139;
-      v9 = v4;
-      v10 = v5;
-      _os_log_impl(&dword_23D4DF000, v2, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d failed to write to destination: %d", v7, 0x22u);
+      v6 = 139;
+      v7 = v3;
+      v8 = v4;
+      _os_log_impl(&dword_23D4DF000, v2, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d failed to write to destination: %d", v5, 0x22u);
     }
   }
 
   *a1 = 1;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void ZLibAndGZipCompress_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_3_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/Utilities/CompressionUtils.c:%d: Error initializing deflate.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/Utilities/CompressionUtils.c:%d: Error initializing deflate.", v2, v3, v4, v5);
 }
 
 void ZLibAndGZipCompress_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_3_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/Utilities/CompressionUtils.c:%d: Error ending deflate.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/Utilities/CompressionUtils.c:%d: Error ending deflate.", v2, v3, v4, v5);
 }
 
 void ZLibAndGZipDecompress_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_3_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/Utilities/CompressionUtils.c:%d: Error initializing inflate.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/Utilities/CompressionUtils.c:%d: Error initializing inflate.", v2, v3, v4, v5);
 }
 
 void ZLibAndGZipDecompress_cold_2()
 {
-  v8 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_1();
-  OUTLINED_FUNCTION_3_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/Utilities/CompressionUtils.c:%d: Error ending inflate.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_3_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/Utilities/CompressionUtils.c:%d: Error ending inflate.", v2, v3, v4, v5);
 }
 
 double machTimeScale_cold_1()
@@ -7601,7 +7421,6 @@ double machTimeScale_cold_1()
 
 void _VCAggregatorMultiway_CollectMediaQueueTelemetry_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -7611,16 +7430,13 @@ void _VCAggregatorMultiway_CollectMediaQueueTelemetry_cold_1()
       OUTLINED_FUNCTION_4();
       OUTLINED_FUNCTION_3_4();
       OUTLINED_FUNCTION_6_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void _VCAggregatorMultiway_CollectMediaQueueTelemetry_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -7630,16 +7446,13 @@ void _VCAggregatorMultiway_CollectMediaQueueTelemetry_cold_2()
       OUTLINED_FUNCTION_4();
       OUTLINED_FUNCTION_3_4();
       OUTLINED_FUNCTION_6_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void _VCAggregatorMultiway_CollectMediaQueueTelemetry_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -7649,16 +7462,13 @@ void _VCAggregatorMultiway_CollectMediaQueueTelemetry_cold_3()
       OUTLINED_FUNCTION_4();
       OUTLINED_FUNCTION_3_4();
       OUTLINED_FUNCTION_6_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void _VCAggregatorMultiway_ReportMediaQueueTelemetry_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -7667,16 +7477,13 @@ void _VCAggregatorMultiway_ReportMediaQueueTelemetry_cold_1()
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_1();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void _VCAggregatorMultiway_ReportMediaQueueTelemetry_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -7685,11 +7492,9 @@ void _VCAggregatorMultiway_ReportMediaQueueTelemetry_cold_2()
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_1();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingCacheModuleSpecificInfo_block_invoke(uint64_t a1)
@@ -7751,27 +7556,27 @@ void *__reportingRegisterSystemStats_block_invoke_2(uint64_t a1, void *a2)
     switch(*(a1 + 40))
     {
       case 0:
-        LOWORD(v29) = 0;
+        LOWORD(v35) = 0;
         goto LABEL_73;
       case 1:
         qword_27E2DEF90 = &unk_280C07D60;
         if (CFArrayGetCount(qword_27E2DEF88) < 1)
         {
-          v44 = 0;
-          v43 = 0;
-          v45 = 0;
+          v50 = 0;
+          v49 = 0;
+          v51 = 0;
           goto LABEL_71;
         }
 
-        v70 = v12;
-        v30 = 0;
-        v31 = 0.0;
-        v32 = 0.0;
+        v76 = v12;
+        v36 = 0;
+        v37 = 0.0;
+        v38 = 0.0;
         while (1)
         {
-          v33 = OUTLINED_FUNCTION_41();
-          v34 = IOHIDServiceClientCopyProperty(v33, @"Product");
-          if (v34)
+          v39 = OUTLINED_FUNCTION_41();
+          v40 = IOHIDServiceClientCopyProperty(v39, @"Product");
+          if (v40)
           {
             break;
           }
@@ -7780,32 +7585,32 @@ LABEL_60:
           if (OUTLINED_FUNCTION_44_0() <= 0)
           {
 LABEL_61:
-            v43 = (v31 * 100.0);
-            v44 = (v32 * 100.0);
-            v45 = (v6 * 100.0);
-            v12 = v70;
+            v49 = (v37 * 100.0);
+            v50 = (v38 * 100.0);
+            v51 = (v6 * 100.0);
+            v12 = v76;
             v7 = MEMORY[0x277CBECE8];
             v5 = &OBJC_IVAR___RTCReportingAgent__osBuild;
 LABEL_71:
-            v52 = filtered_update(1u, v43);
-            v53 = filtered_update(2u, v44);
-            v49 = filtered_update(0, v45);
-            v50 = v52 * 0.299228 + 59.3247 + v53 * 0.267621;
-            v51 = 0.404257;
+            v58 = filtered_update(1u, v49);
+            v59 = filtered_update(2u, v50);
+            v55 = filtered_update(0, v51);
+            v56 = v58 * 0.299228 + 59.3247 + v59 * 0.267621;
+            v57 = 0.404257;
             goto LABEL_72;
           }
         }
 
-        v35 = v34;
-        if (CFStringCompare(v34, @"gas gauge battery", 0))
+        v41 = v40;
+        if (CFStringCompare(v40, @"gas gauge battery", 0))
         {
-          if (CFStringCompare(v35, @"Rear Camera Proximity", 0))
+          if (CFStringCompare(v41, @"Rear Camera Proximity", 0))
           {
-            if (CFStringCompare(v35, @"H4P Proximity", 0) || (++v30, (v36 = OUTLINED_FUNCTION_21(v33)) == 0))
+            if (CFStringCompare(v41, @"H4P Proximity", 0) || (++v36, (v42 = OUTLINED_FUNCTION_21(v39)) == 0))
             {
 LABEL_59:
-              CFRelease(v35);
-              if (v30 == 3)
+              CFRelease(v41);
+              if (v36 == 3)
               {
                 goto LABEL_61;
               }
@@ -7813,41 +7618,41 @@ LABEL_59:
               goto LABEL_60;
             }
 
-            v37 = v36;
+            v43 = v42;
             IOHIDEventGetFloatValue();
-            v32 = v38;
+            v38 = v44;
           }
 
           else
           {
-            ++v30;
-            v41 = OUTLINED_FUNCTION_21(v33);
-            if (!v41)
+            ++v36;
+            v47 = OUTLINED_FUNCTION_21(v39);
+            if (!v47)
             {
               goto LABEL_59;
             }
 
-            v37 = v41;
+            v43 = v47;
             IOHIDEventGetFloatValue();
-            v31 = v42;
+            v37 = v48;
           }
         }
 
         else
         {
-          ++v30;
-          v39 = OUTLINED_FUNCTION_21(v33);
-          if (!v39)
+          ++v36;
+          v45 = OUTLINED_FUNCTION_21(v39);
+          if (!v45)
           {
             goto LABEL_59;
           }
 
-          v37 = v39;
+          v43 = v45;
           IOHIDEventGetFloatValue();
-          v6 = v40;
+          v6 = v46;
         }
 
-        CFRelease(v37);
+        CFRelease(v43);
         goto LABEL_59;
       case 2:
       case 3:
@@ -7867,8 +7672,8 @@ LABEL_59:
 LABEL_17:
             if (OUTLINED_FUNCTION_44_0() <= 0)
             {
-              v18 = (v13 * 100.0);
-              v19 = (v6 * 100.0);
+              v20 = (v13 * 100.0);
+              v21 = (v6 * 100.0);
               v7 = MEMORY[0x277CBECE8];
               v5 = &OBJC_IVAR___RTCReportingAgent__osBuild;
               goto LABEL_69;
@@ -7877,54 +7682,61 @@ LABEL_17:
 
           if (OUTLINED_FUNCTION_33_0(v15))
           {
-            if (OUTLINED_FUNCTION_32_0() || !OUTLINED_FUNCTION_11_0())
+            if (OUTLINED_FUNCTION_32_0())
             {
               goto LABEL_16;
             }
 
-            OUTLINED_FUNCTION_34_0();
-            v13 = v16;
+            v16 = OUTLINED_FUNCTION_11_0();
+            if (!v16)
+            {
+              goto LABEL_16;
+            }
+
+            OUTLINED_FUNCTION_34_0(v16);
+            v13 = v17;
           }
 
           else
           {
-            if (!OUTLINED_FUNCTION_11_0())
+            v18 = OUTLINED_FUNCTION_11_0();
+            if (!v18)
             {
 LABEL_16:
               CFRelease(v7);
               goto LABEL_17;
             }
 
-            OUTLINED_FUNCTION_34_0();
-            v6 = v17;
+            OUTLINED_FUNCTION_34_0(v18);
+            v6 = v19;
           }
 
           CFRelease(v14);
           goto LABEL_16;
         }
 
-        v18 = 0;
-        v19 = 0;
+        v20 = 0;
+        v21 = 0;
 LABEL_69:
-        v48 = filtered_update(1u, v18);
-        v49 = filtered_update(0, v19);
-        v50 = v48 * 0.271 + 264.0;
-        v51 = 0.6824;
+        v54 = filtered_update(1u, v20);
+        v55 = filtered_update(0, v21);
+        v56 = v54 * 0.271 + 264.0;
+        v57 = 0.6824;
 LABEL_72:
-        v29 = (v50 + v49 * v51);
+        v35 = (v56 + v55 * v57);
         goto LABEL_73;
       case 4:
       case 5:
-        v69 = MEMORY[0x277CCABA8];
-        v71 = a1;
+        v75 = MEMORY[0x277CCABA8];
+        v77 = a1;
         if (CFArrayGetCount(qword_27E2DEF88) >= 1)
         {
-          v20 = 0.0;
+          v22 = 0.0;
           while (1)
           {
-            v21 = OUTLINED_FUNCTION_41();
-            v22 = IOHIDServiceClientCopyProperty(v21, @"Product");
-            if (v22)
+            v23 = OUTLINED_FUNCTION_41();
+            v24 = IOHIDServiceClientCopyProperty(v23, @"Product");
+            if (v24)
             {
               break;
             }
@@ -7936,51 +7748,58 @@ LABEL_30:
             }
           }
 
-          if (OUTLINED_FUNCTION_33_0(v22))
+          if (OUTLINED_FUNCTION_33_0(v24))
           {
-            if (OUTLINED_FUNCTION_32_0() || !OUTLINED_FUNCTION_11_0())
+            if (OUTLINED_FUNCTION_32_0())
             {
               goto LABEL_29;
             }
 
-            OUTLINED_FUNCTION_34_0();
-            v6 = v23;
+            v25 = OUTLINED_FUNCTION_11_0();
+            if (!v25)
+            {
+              goto LABEL_29;
+            }
+
+            OUTLINED_FUNCTION_34_0(v25);
+            v6 = v26;
           }
 
           else
           {
-            if (!OUTLINED_FUNCTION_11_0())
+            v27 = OUTLINED_FUNCTION_11_0();
+            if (!v27)
             {
 LABEL_29:
               CFRelease(v7);
               goto LABEL_30;
             }
 
-            OUTLINED_FUNCTION_34_0();
-            v20 = v24;
+            OUTLINED_FUNCTION_34_0(v27);
+            v22 = v28;
           }
 
-          CFRelease(v21);
+          CFRelease(v23);
           goto LABEL_29;
         }
 
-        v20 = 0.0;
+        v22 = 0.0;
 LABEL_64:
-        v46 = v6 * 25.92 + 592.99;
-        v47 = 57.99;
+        v52 = v6 * 25.92 + 592.99;
+        v53 = 57.99;
         goto LABEL_67;
       case 6:
       case 7:
-        v69 = MEMORY[0x277CCABA8];
-        v71 = a1;
+        v75 = MEMORY[0x277CCABA8];
+        v77 = a1;
         if (CFArrayGetCount(qword_27E2DEF88) >= 1)
         {
-          v20 = 0.0;
+          v22 = 0.0;
           while (1)
           {
-            v25 = OUTLINED_FUNCTION_41();
-            v26 = IOHIDServiceClientCopyProperty(v25, @"Product");
-            if (v26)
+            v29 = OUTLINED_FUNCTION_41();
+            v30 = IOHIDServiceClientCopyProperty(v29, @"Product");
+            if (v30)
             {
               break;
             }
@@ -7992,129 +7811,136 @@ LABEL_43:
             }
           }
 
-          if (OUTLINED_FUNCTION_33_0(v26))
+          if (OUTLINED_FUNCTION_33_0(v30))
           {
-            if (OUTLINED_FUNCTION_32_0() || !OUTLINED_FUNCTION_11_0())
+            if (OUTLINED_FUNCTION_32_0())
             {
               goto LABEL_42;
             }
 
-            OUTLINED_FUNCTION_34_0();
-            v6 = v27;
+            v31 = OUTLINED_FUNCTION_11_0();
+            if (!v31)
+            {
+              goto LABEL_42;
+            }
+
+            OUTLINED_FUNCTION_34_0(v31);
+            v6 = v32;
           }
 
           else
           {
-            if (!OUTLINED_FUNCTION_11_0())
+            v33 = OUTLINED_FUNCTION_11_0();
+            if (!v33)
             {
 LABEL_42:
               CFRelease(v7);
               goto LABEL_43;
             }
 
-            OUTLINED_FUNCTION_34_0();
-            v20 = v28;
+            OUTLINED_FUNCTION_34_0(v33);
+            v22 = v34;
           }
 
-          CFRelease(v25);
+          CFRelease(v29);
           goto LABEL_42;
         }
 
-        v20 = 0.0;
+        v22 = 0.0;
 LABEL_66:
-        v46 = v6 * 27.1 + 164.0;
-        v47 = 68.24;
+        v52 = v6 * 27.1 + 164.0;
+        v53 = 68.24;
 LABEL_67:
-        v29 = (v46 + v20 * v47);
-        v12 = v69;
-        a1 = v71;
+        v35 = (v52 + v22 * v53);
+        v12 = v75;
+        a1 = v77;
         v7 = MEMORY[0x277CBECE8];
         v5 = &OBJC_IVAR___RTCReportingAgent__osBuild;
 LABEL_73:
-        v6 = v29;
+        v6 = v35;
         break;
       default:
-        LOWORD(v29) = -21846;
+        LOWORD(v35) = -21846;
         goto LABEL_73;
     }
   }
 
   [a2 setObject:objc_msgSend(v12 forKeyedSubscript:{"numberWithDouble:", v6 / 100.0), @"ST"}];
-  v54 = MEMORY[0x277CCABA8];
+  v60 = MEMORY[0x277CCABA8];
   valuePtr = 0;
-  v55 = v5[992];
-  if (!v55)
+  v61 = v5[992];
+  if (!v61)
   {
     goto LABEL_79;
   }
 
-  v56 = *v7;
-  v57 = IORegistryEntryCreateCFProperty(v55, @"InstantAmperage", *v7, 0);
-  if (v57)
+  v62 = *v7;
+  v63 = IORegistryEntryCreateCFProperty(v61, @"InstantAmperage", *v7, 0);
+  if (v63)
   {
-    v58 = v57;
-    CFNumberGetValue(v57, kCFNumberSInt32Type, &valuePtr);
-    CFRelease(v58);
+    v64 = v63;
+    CFNumberGetValue(v63, kCFNumberSInt32Type, &valuePtr);
+    CFRelease(v64);
   }
 
-  v59 = IORegistryEntryCreateCFProperty(v5[992], @"Voltage", v56, 0);
-  if (v59)
+  v65 = IORegistryEntryCreateCFProperty(v5[992], @"Voltage", v62, 0);
+  if (v65)
   {
-    v60 = v59;
-    CFNumberGetValue(v59, kCFNumberSInt32Type, &valuePtr + 4);
-    CFRelease(v60);
-    v61 = HIDWORD(valuePtr);
+    v66 = v65;
+    CFNumberGetValue(v65, kCFNumberSInt32Type, &valuePtr + 4);
+    CFRelease(v66);
+    v67 = HIDWORD(valuePtr);
   }
 
   else
   {
 LABEL_79:
-    v61 = 0;
+    v67 = 0;
   }
 
-  [a2 setObject:objc_msgSend(v54 forKeyedSubscript:{"numberWithShort:", (valuePtr * v61 / 1000)), @"BP"}];
-  v62 = MEMORY[0x277CCABA8];
+  [a2 setObject:objc_msgSend(v60 forKeyedSubscript:{"numberWithShort:", (valuePtr * v67 / 1000)), @"BP"}];
+  v68 = MEMORY[0x277CCABA8];
   HIDWORD(valuePtr) = 0;
   if (!dword_27E2DEF84)
   {
     goto LABEL_89;
   }
 
-  v63 = IORegistryEntryCreateCFProperty(dword_27E2DEF84, @"IODisplayParameters", *v7, 0);
-  if (!v63)
+  v69 = IORegistryEntryCreateCFProperty(dword_27E2DEF84, @"IODisplayParameters", *v7, 0);
+  if (!v69)
   {
     goto LABEL_89;
   }
 
-  v64 = v63;
-  Value = CFDictionaryGetValue(v63, @"brightness");
+  v70 = v69;
+  Value = CFDictionaryGetValue(v69, @"brightness");
   if (!Value)
   {
-    CFRelease(v64);
+    CFRelease(v70);
 LABEL_89:
-    v67 = 0;
+    v73 = 0;
     goto LABEL_90;
   }
 
-  v66 = CFDictionaryGetValue(Value, @"value");
-  if (v66)
+  v72 = CFDictionaryGetValue(Value, @"value");
+  if (v72)
   {
-    CFNumberGetValue(v66, kCFNumberSInt32Type, &valuePtr + 4);
+    CFNumberGetValue(v72, kCFNumberSInt32Type, &valuePtr + 4);
   }
 
-  CFRelease(v64);
+  CFRelease(v70);
   if (SHIDWORD(valuePtr) >= 0xFFFF)
   {
-    v67 = -1;
+    v73 = -1;
   }
 
   else
   {
-    v67 = WORD2(valuePtr);
+    v73 = WORD2(valuePtr);
   }
 
 LABEL_90:
-  [a2 setObject:objc_msgSend(v62 forKeyedSubscript:{"numberWithUnsignedShort:", v67), @"BLL"}];
+  [a2 setObject:objc_msgSend(v68 forKeyedSubscript:{"numberWithUnsignedShort:", v73), @"BLL"}];
   result = [*(a1 + 32) strong];
   if (result)
   {
@@ -8126,28 +7952,23 @@ LABEL_90:
 
 void reportingSymptom_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void reportingClassSendMsgToServer_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_39();
   OUTLINED_FUNCTION_15_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void _reportingVCRunOnce_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("ReportingVC") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -8156,38 +7977,31 @@ void _reportingVCRunOnce_cold_1()
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_5_0();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void _reportingVCRunOnce_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_15_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void _validClassAndSymbols_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_15_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void reportingCreateAgent_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("ReportingVC") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -8197,34 +8011,29 @@ void reportingCreateAgent_cold_1()
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_26();
       OUTLINED_FUNCTION_24();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
 
   OUTLINED_FUNCTION_31_0();
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 void reportingSetPeriodicAggregationOccurredHandler_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_39();
   OUTLINED_FUNCTION_15_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ReportingVC_SetEventDrivenAggregationOccurredHandler_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_15_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingCancelLog_block_invoke_cold_1()
@@ -8236,49 +8045,41 @@ void __reportingCancelLog_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void reportingCacheModuleSpecificInfo_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingSetUserInfo_block_invoke_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_6_2(&dword_23D4DF000, v0, v1, "ReportingVC [%s] %s:%d UserInfo=%@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingSetUserInfo_block_invoke_2_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_6_2(&dword_23D4DF000, v0, v1, "ReportingVC [%s] %s:%d ReportingVC: %@");
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingSetUserInfo_block_invoke_530_cold_1()
 {
   OUTLINED_FUNCTION_18_0();
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   [v1 code];
   OUTLINED_FUNCTION_2_4();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_0_3();
-  _os_log_debug_impl(&dword_23D4DF000, v0, OS_LOG_TYPE_DEBUG, "ReportingVC [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/ReportingVC.m:%d: flushMessages: error code %d.", v3, 0x28u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_23D4DF000, v0, OS_LOG_TYPE_DEBUG, "ReportingVC [%s] %s:%d /Library/Caches/com.apple.xbs/Sources/AVConference/ViceroyTrace.subproj/Sources/ReportingVC.m:%d: flushMessages: error code %d.", v2, 0x28u);
 }
 
 void __reportingLog_block_invoke_cold_1()
@@ -8290,7 +8091,6 @@ void __reportingLog_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingAdaptiveLearningStats_block_invoke_cold_1()
@@ -8302,7 +8102,6 @@ void __reportingAdaptiveLearningStats_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingNoRemoteChanged_block_invoke_cold_1()
@@ -8314,7 +8113,6 @@ void __reportingNoRemoteChanged_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingCallEndError_block_invoke_cold_1()
@@ -8326,18 +8124,15 @@ void __reportingCallEndError_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingCallEndError_block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_15_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingModeRoleTransportLog_block_invoke_cold_1()
@@ -8349,7 +8144,6 @@ void __reportingModeRoleTransportLog_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingTierLog_block_invoke_cold_1()
@@ -8361,7 +8155,6 @@ void __reportingTierLog_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingPerfTimes_block_invoke_cold_1()
@@ -8373,120 +8166,97 @@ void __reportingPerfTimes_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void reportingRegisterPeriodicTask_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void reportingRegisterPeriodicTaskWeak_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void reportingRegisterPeriodicTaskWeak_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void reportingRegisterPeriodicTaskWeak_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void reportingRegisterPeriodicTaskOnQueue_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void reportingUnregisterPeriodicTask_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void reportingGetDefaults_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_15_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void reportingSetNWActivityReportingEnabled_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void reportingStreamGroupFromStreamGroupID_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_14_1();
   OUTLINED_FUNCTION_13_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void reportingSessionModeFromOperatingMode_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_14_1();
   OUTLINED_FUNCTION_13_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void reportingAgentGetAlgoScores_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingVideoProp_block_invoke_cold_1()
@@ -8498,7 +8268,6 @@ void __reportingVideoProp_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingThermal_block_invoke_cold_1()
@@ -8510,7 +8279,6 @@ void __reportingThermal_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingConnecting_block_invoke_cold_1()
@@ -8522,7 +8290,6 @@ void __reportingConnecting_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingDisconnected_block_invoke_cold_1()
@@ -8534,7 +8301,6 @@ void __reportingDisconnected_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingDisconnected_block_invoke_cold_2()
@@ -8546,7 +8312,6 @@ void __reportingDisconnected_block_invoke_cold_2()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingVideoPaused_block_invoke_cold_1()
@@ -8558,7 +8323,6 @@ void __reportingVideoPaused_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingAWDCallStart_block_invoke_cold_1()
@@ -8570,7 +8334,6 @@ void __reportingAWDCallStart_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingRemoteFrameSize_block_invoke_cold_1()
@@ -8582,7 +8345,6 @@ void __reportingRemoteFrameSize_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingConnectionType_block_invoke_cold_1()
@@ -8594,7 +8356,6 @@ void __reportingConnectionType_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingLocalAndRemoteInterface_block_invoke_cold_1()
@@ -8606,7 +8367,6 @@ void __reportingLocalAndRemoteInterface_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingHandoverResult_block_invoke_cold_1()
@@ -8618,7 +8378,6 @@ void __reportingHandoverResult_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingVisualRectangle_block_invoke_cold_1()
@@ -8630,18 +8389,15 @@ void __reportingVisualRectangle_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void reportingMediaRecorderEvents_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_15_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingMediaRecorderEvents_block_invoke_cold_1()
@@ -8653,7 +8409,6 @@ void __reportingMediaRecorderEvents_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingAudioStreamLogMetricSample_block_invoke_cold_1()
@@ -8665,17 +8420,14 @@ void __reportingAudioStreamLogMetricSample_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void reportingAudioStreamLogCallStart_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingAudioStreamLogCallStart_block_invoke_cold_1()
@@ -8687,17 +8439,14 @@ void __reportingAudioStreamLogCallStart_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void reportingAudioStreamLogCallEnd_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __reportingAudioStreamLogCallEnd_block_invoke_cold_1()
@@ -8709,28 +8458,23 @@ void __reportingAudioStreamLogCallEnd_block_invoke_cold_1()
   OUTLINED_FUNCTION_0_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x28u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void processGroupSymptoms_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_2();
   OUTLINED_FUNCTION_4();
   OUTLINED_FUNCTION_2_1();
   OUTLINED_FUNCTION_13_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void VCReporting_FlushReportingSession_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1_3();
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_24();
   _os_log_error_impl(v0, v1, v2, v3, v4, v5);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void VRTraceSetErrorLogLevel_cold_1(unsigned int a1)
@@ -8744,17 +8488,16 @@ void VRTraceSetErrorLogLevel_cold_1(unsigned int a1)
 
 void VCAggregatorUtils_GetSizeForVideoResolution_cold_1(uint64_t a1, int a2, os_log_t log)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v4 = 136315906;
-  v5 = a1;
-  v6 = 2080;
-  v7 = "VCAggregatorUtils_GetSizeForVideoResolution";
-  v8 = 1024;
-  v9 = 97;
-  v10 = 1024;
-  v11 = a2;
-  _os_log_error_impl(&dword_23D4DF000, log, OS_LOG_TYPE_ERROR, " [%s] %s:%d Invalid resolution: %d", &v4, 0x22u);
-  v3 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v3 = 136315906;
+  v4 = a1;
+  v5 = 2080;
+  v6 = "VCAggregatorUtils_GetSizeForVideoResolution";
+  v7 = 1024;
+  v8 = 97;
+  v9 = 1024;
+  v10 = a2;
+  _os_log_error_impl(&dword_23D4DF000, log, OS_LOG_TYPE_ERROR, " [%s] %s:%d Invalid resolution: %d", &v3, 0x22u);
 }
 
 uint64_t VCPersistentDataStore_Finalize(uint64_t a1)
@@ -8826,11 +8569,30 @@ uint64_t VCPersistentDataStore_DumpMessage(uint64_t a1, void *__src)
   return 0;
 }
 
+void _VCPersistentDataStore_BindAndExecute_cold_1()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
 void _VCPersistentDataStore_BindAndExecute_cold_2()
 {
   OUTLINED_FUNCTION_29_0();
   OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -8840,12 +8602,11 @@ void _VCPersistentDataStore_BindAndExecute_cold_2()
       OUTLINED_FUNCTION_4();
       OUTLINED_FUNCTION_0_4();
       OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
     }
   }
 
   OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_28_0();
 }
 
@@ -8853,7 +8614,6 @@ void _VCPersistentDataStore_BindAndExecute_cold_3()
 {
   OUTLINED_FUNCTION_29_0();
   OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -8863,19 +8623,197 @@ void _VCPersistentDataStore_BindAndExecute_cold_3()
       OUTLINED_FUNCTION_4();
       OUTLINED_FUNCTION_0_4();
       OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
     }
   }
 
   OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_28_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_4()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_5()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_6()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_7()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_8()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_9()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_10()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_11()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_12()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
 }
 
 void _VCPersistentDataStore_BindAndExecute_cold_13()
 {
   OUTLINED_FUNCTION_16_1();
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -8885,19 +8823,37 @@ void _VCPersistentDataStore_BindAndExecute_cold_13()
       OUTLINED_FUNCTION_4();
       OUTLINED_FUNCTION_14_1();
       OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
     }
   }
 
   OUTLINED_FUNCTION_18_2();
-  v0 = *MEMORY[0x277D85DE8];
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_14()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
 }
 
 void _VCPersistentDataStore_BindAndExecute_cold_15()
 {
   OUTLINED_FUNCTION_29_0();
   OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -8907,12 +8863,11 @@ void _VCPersistentDataStore_BindAndExecute_cold_15()
       OUTLINED_FUNCTION_4();
       OUTLINED_FUNCTION_0_4();
       OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
     }
   }
 
   OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_28_0();
 }
 
@@ -8920,7 +8875,6 @@ void _VCPersistentDataStore_BindAndExecute_cold_16()
 {
   OUTLINED_FUNCTION_29_0();
   OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -8930,19 +8884,117 @@ void _VCPersistentDataStore_BindAndExecute_cold_16()
       OUTLINED_FUNCTION_4();
       OUTLINED_FUNCTION_0_4();
       OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
     }
   }
 
   OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_28_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_17()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_18()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_19()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_20()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_21()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
 }
 
 void _VCPersistentDataStore_BindAndExecute_cold_22()
 {
   OUTLINED_FUNCTION_16_1();
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -8952,19 +9004,37 @@ void _VCPersistentDataStore_BindAndExecute_cold_22()
       OUTLINED_FUNCTION_4();
       OUTLINED_FUNCTION_14_1();
       OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
     }
   }
 
   OUTLINED_FUNCTION_18_2();
-  v0 = *MEMORY[0x277D85DE8];
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_23()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
 }
 
 void _VCPersistentDataStore_BindAndExecute_cold_24()
 {
   OUTLINED_FUNCTION_29_0();
   OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -8974,12 +9044,11 @@ void _VCPersistentDataStore_BindAndExecute_cold_24()
       OUTLINED_FUNCTION_4();
       OUTLINED_FUNCTION_0_4();
       OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
     }
   }
 
   OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_28_0();
 }
 
@@ -8987,7 +9056,6 @@ void _VCPersistentDataStore_BindAndExecute_cold_25()
 {
   OUTLINED_FUNCTION_29_0();
   OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -8997,18 +9065,77 @@ void _VCPersistentDataStore_BindAndExecute_cold_25()
       OUTLINED_FUNCTION_4();
       OUTLINED_FUNCTION_0_4();
       OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
     }
   }
 
   OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_28_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_26()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_27()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_28()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
 }
 
 void _VCPersistentDataStore_BindAndExecute_cold_29(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 7)
   {
     VRTraceErrorLogLevelToCSTR(7u);
@@ -9017,24 +9144,242 @@ void _VCPersistentDataStore_BindAndExecute_cold_29(uint64_t a1, int a2)
     {
       OUTLINED_FUNCTION_2_5();
       OUTLINED_FUNCTION_4();
-      v8 = 387;
-      v9 = 2048;
-      v10 = a1;
-      v11 = v5;
-      v12 = a2;
-      _os_log_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d SQLite Error: could not bind data=%llu with return code=%d", v7, 0x2Cu);
+      v7 = 387;
+      v8 = 2048;
+      v9 = a1;
+      v10 = v5;
+      v11 = a2;
+      _os_log_impl(&dword_23D4DF000, v4, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d SQLite Error: could not bind data=%llu with return code=%d", v6, 0x2Cu);
     }
   }
 
   OUTLINED_FUNCTION_20_1();
-  v6 = *MEMORY[0x277D85DE8];
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_30()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_31()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_32()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_33()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_34()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_35()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_36()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_37()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_38()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_39()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_40()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
 }
 
 void _VCPersistentDataStore_BindAndExecute_cold_41()
 {
   OUTLINED_FUNCTION_29_0();
   OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -9044,19 +9389,157 @@ void _VCPersistentDataStore_BindAndExecute_cold_41()
       OUTLINED_FUNCTION_4();
       OUTLINED_FUNCTION_0_4();
       OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
     }
   }
 
   OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_28_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_42()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_43()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_44()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_45()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_46()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_47()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_48()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
 }
 
 void _VCPersistentDataStore_BindAndExecute_cold_49()
 {
   OUTLINED_FUNCTION_16_1();
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -9066,19 +9549,37 @@ void _VCPersistentDataStore_BindAndExecute_cold_49()
       OUTLINED_FUNCTION_4();
       OUTLINED_FUNCTION_14_1();
       OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x22u);
     }
   }
 
   OUTLINED_FUNCTION_18_2();
-  v0 = *MEMORY[0x277D85DE8];
+}
+
+void _VCPersistentDataStore_BindAndExecute_cold_50()
+{
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
+  if (VRTraceGetErrorLogLevelForModule("") >= 3)
+  {
+    VRTraceErrorLogLevelToCSTR(3u);
+    if (OUTLINED_FUNCTION_60())
+    {
+      OUTLINED_FUNCTION_2_5();
+      OUTLINED_FUNCTION_4();
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
+    }
+  }
+
+  OUTLINED_FUNCTION_18_2();
+  OUTLINED_FUNCTION_26_0();
 }
 
 void _VCPersistentDataStore_BindAndExecute_cold_51()
 {
   OUTLINED_FUNCTION_29_0();
   OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -9088,12 +9589,11 @@ void _VCPersistentDataStore_BindAndExecute_cold_51()
       OUTLINED_FUNCTION_4();
       OUTLINED_FUNCTION_0_4();
       OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
     }
   }
 
   OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_28_0();
 }
 
@@ -9101,7 +9601,6 @@ void _VCPersistentDataStore_BindAndExecute_cold_52()
 {
   OUTLINED_FUNCTION_29_0();
   OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -9111,534 +9610,30 @@ void _VCPersistentDataStore_BindAndExecute_cold_52()
       OUTLINED_FUNCTION_4();
       OUTLINED_FUNCTION_0_4();
       OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
+      _os_log_error_impl(v0, v1, v2, v3, v4, 0x2Cu);
     }
   }
 
   OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_28_0();
 }
 
-void _VCPersistentDataStore_BindAndExecute_cold_63()
+void _VCPersistentDataStore_BindAndExecute_cold_53()
 {
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_27_0();
+  OUTLINED_FUNCTION_6_7();
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
+    if (OUTLINED_FUNCTION_60())
     {
-      OUTLINED_FUNCTION_2();
+      OUTLINED_FUNCTION_2_5();
       OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_64()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_65()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_66()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_67()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_68()
-{
-  OUTLINED_FUNCTION_16_1();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_14_1();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
+      OUTLINED_FUNCTION_1_6();
+      OUTLINED_FUNCTION_11_1(&dword_23D4DF000, v0, v1, " [%s] %s:%d SQLite Error: could not bind data=%d with return code=%d", v2, v3, v4, v5);
     }
   }
 
   OUTLINED_FUNCTION_18_2();
-  v0 = *MEMORY[0x277D85DE8];
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_70()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_71()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_75()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_76()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_77()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_78()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_79()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_80()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_81()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_82()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_83()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_84()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_85()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_87()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_89()
-{
-  OUTLINED_FUNCTION_29_0();
-  OUTLINED_FUNCTION_10_2();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_0_4();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x2Cu);
-    }
-  }
-
-  OUTLINED_FUNCTION_20_1();
-  v0 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_28_0();
-}
-
-void _VCPersistentDataStore_BindAndExecute_cold_90()
-{
-  OUTLINED_FUNCTION_16_1();
-  v6 = *MEMORY[0x277D85DE8];
-  if (VRTraceGetErrorLogLevelForModule("") >= 3)
-  {
-    VRTraceErrorLogLevelToCSTR(3u);
-    if (OUTLINED_FUNCTION_18())
-    {
-      OUTLINED_FUNCTION_2();
-      OUTLINED_FUNCTION_4();
-      OUTLINED_FUNCTION_14_1();
-      OUTLINED_FUNCTION_8_4();
-      _os_log_error_impl(v1, v2, v3, v4, v5, 0x22u);
-    }
-  }
-
-  OUTLINED_FUNCTION_18_2();
-  v0 = *MEMORY[0x277D85DE8];
-}
-
-void MobileWiFiLibrary_cold_1(void *a1)
-{
-  v2 = [MEMORY[0x277CCA888] currentHandler];
-  [v2 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA0] file:"stringWithUTF8String:" lineNumber:"void *MobileWiFiLibrary(void)") description:{@"VCAggregator.m", 42, @"%s", *a1}];
-  __break(1u);
-}
-
-void __getCWFInterfaceClass_block_invoke_cold_1()
-{
-  v0 = [MEMORY[0x277CCA888] currentHandler];
-  [v0 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA0] file:"stringWithUTF8String:" lineNumber:"Class getCWFInterfaceClass(void)_block_invoke") description:{@"VCAggregator.m", 55, @"Unable to find class %s", "CWFInterface"}];
-  __break(1u);
-}
-
-void __getCWFInterfaceClass_block_invoke_cold_2(void *a1)
-{
-  v2 = [MEMORY[0x277CCA888] currentHandler];
-  [v2 handleFailureInFunction:objc_msgSend(MEMORY[0x277CCACA0] file:"stringWithUTF8String:" lineNumber:"void *CoreWiFiLibrary(void)") description:{@"VCAggregator.m", 54, @"%s", *a1}];
-  __break(1u);
+  OUTLINED_FUNCTION_26_0();
 }

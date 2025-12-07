@@ -1,6 +1,6 @@
 @interface HDMedicationNotificationEngine
 + (BOOL)_greaterThanOrEqualNextScheduledDate:(void *)date endDate:(void *)endDate calendar:;
-+ (BOOL)_isLastScheduledDoseforScheduledDate:(void *)date schedule:(void *)schedule startGenerationDate:(void *)generationDate calendar:(int)calendar cycleIntervalIndex:(void *)index interval:;
++ (BOOL)_isLastScheduledDoseforScheduledDate:(void *)date schedule:(void *)schedule startGenerationDate:(void *)generationDate calendar:(uint64_t)calendar cycleIntervalIndex:(void *)index interval:;
 + (id)_calculateNextGenerationDateFromGenerationDate:(void *)date calendar:;
 + (id)_generateForSchedule:(uint64_t)schedule configuration:(void *)configuration error:(void *)error;
 + (id)_generateScheduleItemsAtDate:(uint64_t)date withMultiphasicSchedule:(void *)schedule calendar:(void *)calendar startGenerationDate:(void *)generationDate;
@@ -8,7 +8,7 @@
 + (id)_getNextDateFromDate:(int)date daysInFuture:(void *)future calendar:;
 + (id)_getStartGenerationDateForSchedule:(uint64_t)schedule configuration:(void *)configuration calendar:(void *)calendar;
 + (id)_makeScheduleItemAtDate:(void *)date withMonophasicInterval:(void *)interval calendar:(void *)calendar schedule:;
-+ (id)_makeScheduleItemAtDate:(void *)date withMonophasicInterval:(void *)interval calendar:(void *)calendar schedule:(int)schedule cyclicIntervalIndex:;
++ (id)_makeScheduleItemAtDate:(void *)date withMonophasicInterval:(void *)interval calendar:(void *)calendar schedule:(uint64_t)schedule cyclicIntervalIndex:;
 + (id)_timeBatchItems:(uint64_t)items;
 + (id)generateForSchedules:(id)schedules configuration:(id)configuration error:(id *)error;
 + (uint64_t)_calculateTotalDaysForSchedule:(void *)schedule configuration:(void *)configuration calendar:(void *)calendar startGenerationDate:;
@@ -35,34 +35,34 @@
 
 + (id)generateForSchedules:(id)schedules configuration:(id)configuration error:(id *)error
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   schedulesCopy = schedules;
   configurationCopy = configuration;
   array = [MEMORY[0x277CBEB18] array];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v10 = schedulesCopy;
-  v11 = [v10 countByEnumeratingWithState:&v24 objects:v38 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v23 objects:v37 count:16];
   if (v11)
   {
     v12 = v11;
-    v13 = *v25;
+    v13 = *v24;
     do
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v25 != v13)
+        if (*v24 != v13)
         {
           objc_enumerationMutation(v10);
         }
 
-        v15 = [HDMedicationNotificationEngine _generateForSchedule:self configuration:*(*(&v24 + 1) + 8 * i) error:configurationCopy];
-        [array addObjectsFromArray:{v15, v24}];
+        v15 = [HDMedicationNotificationEngine _generateForSchedule:self configuration:*(*(&v23 + 1) + 8 * i) error:configurationCopy];
+        [array addObjectsFromArray:{v15, v23}];
       }
 
-      v12 = [v10 countByEnumeratingWithState:&v24 objects:v38 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v23 objects:v37 count:16];
     }
 
     while (v12);
@@ -79,18 +79,16 @@
     v21 = HKSensitiveLogItem();
     *buf = 138544386;
     selfCopy = self;
-    v30 = 2114;
-    v31 = v18;
-    v32 = 2114;
-    v33 = v19;
-    v34 = 2114;
-    v35 = v20;
-    v36 = 2114;
-    v37 = v21;
+    v29 = 2114;
+    v30 = v18;
+    v31 = 2114;
+    v32 = v19;
+    v33 = 2114;
+    v34 = v20;
+    v35 = 2114;
+    v36 = v21;
     _os_log_impl(&dword_25181C000, v17, OS_LOG_TYPE_DEFAULT, "[%{public}@] Generated %{public}@ time batched schedule items: %{public}@, for %{public}@ schedules: %{public}@", buf, 0x34u);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v16;
 }
@@ -134,30 +132,30 @@
 
 + (id)_timeBatchItems:(uint64_t)items
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v2 = a2;
   objc_opt_self();
   v3 = [MEMORY[0x277CBEB40] orderedSetWithCapacity:{objc_msgSend(v2, "count")}];
+  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
-  v25 = 0u;
   obj = v2;
-  v4 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+  v4 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v23;
+    v6 = *v22;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v23 != v6)
+        if (*v22 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v22 + 1) + 8 * i);
+        v8 = *(*(&v21 + 1) + 8 * i);
         v9 = [v3 indexOfObject:v8];
         if (v9 == 0x7FFFFFFFFFFFFFFFLL)
         {
@@ -181,15 +179,13 @@
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v22 objects:v26 count:16];
+      v5 = [obj countByEnumeratingWithState:&v21 objects:v25 count:16];
     }
 
     while (v5);
   }
 
   array = [v3 array];
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -250,7 +246,7 @@
 
 + (id)_generateScheduleItemsAtDate:(void *)date withSchedule:(void *)schedule startGenerationDate:(void *)generationDate calendar:
 {
-  v74 = *MEMORY[0x277D85DE8];
+  v73 = *MEMORY[0x277D85DE8];
   v8 = a2;
   dateCopy = date;
   scheduleCopy = schedule;
@@ -260,52 +256,52 @@
   v14 = objc_opt_self();
   v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
   objc_opt_self();
-  v53 = v13;
+  v52 = v13;
   v16 = [v13 components:636 fromDate:v8];
   weekday = [v16 weekday];
 
   timeIntervals = [v12 timeIntervals];
   frequencyType = [v12 frequencyType];
   v20 = frequencyType;
-  v52 = v15;
+  v51 = v15;
   if (frequencyType > 1)
   {
     if (frequencyType == 2)
     {
-      v50 = v14;
-      v51 = timeIntervals;
-      v56 = 0u;
-      v57 = 0u;
-      v54 = 0u;
+      v49 = v14;
+      v50 = timeIntervals;
       v55 = 0u;
+      v56 = 0u;
+      v53 = 0u;
+      v54 = 0u;
       v35 = timeIntervals;
-      v36 = [v35 countByEnumeratingWithState:&v54 objects:v72 count:16];
+      v36 = [v35 countByEnumeratingWithState:&v53 objects:v71 count:16];
       if (v36)
       {
         v37 = v36;
-        v38 = *v55;
+        v38 = *v54;
         do
         {
           for (i = 0; i != v37; ++i)
           {
-            if (*v55 != v38)
+            if (*v54 != v38)
             {
               objc_enumerationMutation(v35);
             }
 
-            v40 = [HDMedicationNotificationEngine _makeScheduleItemAtDate:v8 withMonophasicInterval:*(*(&v54 + 1) + 8 * i) calendar:v53 schedule:v12];
+            v40 = [HDMedicationNotificationEngine _makeScheduleItemAtDate:v8 withMonophasicInterval:*(*(&v53 + 1) + 8 * i) calendar:v52 schedule:v12];
             [v15 addObject:v40];
           }
 
-          v37 = [v35 countByEnumeratingWithState:&v54 objects:v72 count:16];
+          v37 = [v35 countByEnumeratingWithState:&v53 objects:v71 count:16];
         }
 
         while (v37);
       }
 
 LABEL_28:
-      v14 = v50;
-      timeIntervals = v51;
+      v14 = v49;
+      timeIntervals = v50;
       goto LABEL_29;
     }
 
@@ -316,40 +312,40 @@ LABEL_28:
         goto LABEL_29;
       }
 
-      v49 = scheduleCopy;
-      v50 = v14;
+      v48 = scheduleCopy;
+      v49 = v14;
       v21 = v12;
       v22 = v8;
-      v60 = 0u;
-      v61 = 0u;
-      v58 = 0u;
       v59 = 0u;
-      v51 = timeIntervals;
+      v60 = 0u;
+      v57 = 0u;
+      v58 = 0u;
+      v50 = timeIntervals;
       v23 = timeIntervals;
-      v24 = [v23 countByEnumeratingWithState:&v58 objects:v73 count:16];
+      v24 = [v23 countByEnumeratingWithState:&v57 objects:v72 count:16];
       if (v24)
       {
         v25 = v24;
-        v26 = *v59;
+        v26 = *v58;
         do
         {
           for (j = 0; j != v25; ++j)
           {
-            if (*v59 != v26)
+            if (*v58 != v26)
             {
               objc_enumerationMutation(v23);
             }
 
-            v28 = *(*(&v58 + 1) + 8 * j);
+            v28 = *(*(&v57 + 1) + 8 * j);
             daysOfWeek = [v28 daysOfWeek];
             if (([HDMedicationNotificationEngine _optionForWeekday:weekday]& daysOfWeek) != 0)
             {
-              v30 = [HDMedicationNotificationEngine _makeScheduleItemAtDate:v22 withMonophasicInterval:v28 calendar:v53 schedule:v21];
-              [v52 addObject:v30];
+              v30 = [HDMedicationNotificationEngine _makeScheduleItemAtDate:v22 withMonophasicInterval:v28 calendar:v52 schedule:v21];
+              [v51 addObject:v30];
             }
           }
 
-          v25 = [v23 countByEnumeratingWithState:&v58 objects:v73 count:16];
+          v25 = [v23 countByEnumeratingWithState:&v57 objects:v72 count:16];
         }
 
         while (v25);
@@ -357,7 +353,7 @@ LABEL_28:
 
       v8 = v22;
       v12 = v21;
-      scheduleCopy = v49;
+      scheduleCopy = v48;
       goto LABEL_28;
     }
 
@@ -380,8 +376,8 @@ LABEL_19:
 
     if (v32)
     {
-      v33 = [HDMedicationNotificationEngine _generateScheduleItemsAtDate:v8 withMultiphasicSchedule:v12 calendar:v53 startGenerationDate:?];
-      [v52 addObjectsFromArray:v33];
+      v33 = [HDMedicationNotificationEngine _generateScheduleItemsAtDate:v8 withMultiphasicSchedule:v12 calendar:v52 startGenerationDate:?];
+      [v51 addObjectsFromArray:v33];
     }
   }
 
@@ -395,26 +391,24 @@ LABEL_29:
     v43 = HKLogMedication();
     if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
     {
-      v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v52, "count")}];
+      v45 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v51, "count")}];
+      v46 = HKSensitiveLogItem();
       v47 = HKSensitiveLogItem();
-      v48 = HKSensitiveLogItem();
       *buf = 138544386;
-      v63 = v14;
-      v64 = 2114;
-      v65 = v46;
-      v66 = 2114;
-      v67 = v47;
-      v68 = 2114;
-      v69 = v48;
-      v70 = 2114;
-      v71 = v8;
+      v62 = v14;
+      v63 = 2114;
+      v64 = v45;
+      v65 = 2114;
+      v66 = v46;
+      v67 = 2114;
+      v68 = v47;
+      v69 = 2114;
+      v70 = v8;
       _os_log_debug_impl(&dword_25181C000, v43, OS_LOG_TYPE_DEBUG, "[%{public}@] Generated %{public}@ schedule items: %{public}@, for schedule: %{public}@, at date: %{public}@", buf, 0x34u);
     }
   }
 
-  v44 = *MEMORY[0x277D85DE8];
-
-  return v52;
+  return v51;
 }
 
 + (id)_calculateNextGenerationDateFromGenerationDate:(void *)date calendar:
@@ -450,51 +444,51 @@ LABEL_29:
   dateCopy = date;
   v11 = a2;
   v12 = objc_opt_self();
-  v13 = [(HDMedicationNotificationEngine *)v12 _makeScheduleItemAtDate:v11 withMonophasicInterval:dateCopy calendar:intervalCopy schedule:calendarCopy cyclicIntervalIndex:-1];
+  v13 = [(HDMedicationNotificationEngine *)v12 _makeScheduleItemAtDate:v11 withMonophasicInterval:dateCopy calendar:intervalCopy schedule:calendarCopy cyclicIntervalIndex:0xFFFFFFFFLL];
 
   return v13;
 }
 
 + (id)_generateScheduleItemsAtDate:(uint64_t)date withMultiphasicSchedule:(void *)schedule calendar:(void *)calendar startGenerationDate:(void *)generationDate
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   scheduleCopy = schedule;
   calendarCopy = calendar;
   generationDateCopy = generationDate;
   v9 = objc_opt_self();
-  v30 = generationDateCopy;
-  v31 = scheduleCopy;
+  v29 = generationDateCopy;
+  v30 = scheduleCopy;
   v10 = [(HDMedicationNotificationEngine *)v9 _indexForGenerationDate:scheduleCopy schedule:calendarCopy calendar:generationDateCopy];
   v11 = calendarCopy;
   timeIntervals = [calendarCopy timeIntervals];
-  v36[0] = MEMORY[0x277D85DD0];
-  v36[1] = 3221225472;
-  v36[2] = __116__HDMedicationNotificationEngine__generateScheduleItemsAtDate_withMultiphasicSchedule_calendar_startGenerationDate___block_invoke;
-  v36[3] = &__block_descriptor_40_e76___HKMedicationScheduleIntervalData_16__0__HKMedicationScheduleIntervalData_8l;
-  v36[4] = v10;
-  v13 = [timeIntervals hk_map:v36];
+  v35[0] = MEMORY[0x277D85DD0];
+  v35[1] = 3221225472;
+  v35[2] = __116__HDMedicationNotificationEngine__generateScheduleItemsAtDate_withMultiphasicSchedule_calendar_startGenerationDate___block_invoke;
+  v35[3] = &__block_descriptor_40_e76___HKMedicationScheduleIntervalData_16__0__HKMedicationScheduleIntervalData_8l;
+  v35[4] = v10;
+  v13 = [timeIntervals hk_map:v35];
 
   v14 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v13, "count")}];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v15 = v13;
-  v16 = [v15 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v31 objects:v36 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v33;
+    v18 = *v32;
     do
     {
       for (i = 0; i != v17; ++i)
       {
-        if (*v33 != v18)
+        if (*v32 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v32 + 1) + 8 * i);
+        v20 = *(*(&v31 + 1) + 8 * i);
         dose = [v20 dose];
         if (dose)
         {
@@ -509,11 +503,11 @@ LABEL_29:
           }
         }
 
-        v26 = [HDMedicationNotificationEngine _makeScheduleItemAtDate:v31 withMonophasicInterval:v20 calendar:v30 schedule:v11 cyclicIntervalIndex:v10];
+        v26 = [HDMedicationNotificationEngine _makeScheduleItemAtDate:v30 withMonophasicInterval:v20 calendar:v29 schedule:v11 cyclicIntervalIndex:v10];
         [v14 addObject:v26];
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v32 objects:v37 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v31 objects:v36 count:16];
     }
 
     while (v17);
@@ -521,14 +515,13 @@ LABEL_29:
 
   v27 = [MEMORY[0x277CBEA60] arrayWithArray:v14];
 
-  v28 = *MEMORY[0x277D85DE8];
-
   return v27;
 }
 
-+ (BOOL)_isLastScheduledDoseforScheduledDate:(void *)date schedule:(void *)schedule startGenerationDate:(void *)generationDate calendar:(int)calendar cycleIntervalIndex:(void *)index interval:
++ (BOOL)_isLastScheduledDoseforScheduledDate:(void *)date schedule:(void *)schedule startGenerationDate:(void *)generationDate calendar:(uint64_t)calendar cycleIntervalIndex:(void *)index interval:
 {
-  v61 = *MEMORY[0x277D85DE8];
+  calendarCopy = calendar;
+  v60 = *MEMORY[0x277D85DE8];
   v12 = a2;
   dateCopy = date;
   scheduleCopy = schedule;
@@ -559,32 +552,32 @@ LABEL_29:
 
       if (v37)
       {
-        v54 = scheduleCopy;
-        v55 = v17;
-        v58 = 0u;
-        v59 = 0u;
-        v56 = 0u;
+        v53 = scheduleCopy;
+        v54 = v17;
         v57 = 0u;
+        v58 = 0u;
+        v55 = 0u;
+        v56 = 0u;
         timeIntervals2 = [dateCopy timeIntervals];
-        v39 = [timeIntervals2 countByEnumeratingWithState:&v56 objects:v60 count:16];
+        v39 = [timeIntervals2 countByEnumeratingWithState:&v55 objects:v59 count:16];
         if (v39)
         {
           v40 = v39;
           v41 = 0;
-          v42 = *v57;
+          v42 = *v56;
           do
           {
             for (i = 0; i != v40; ++i)
             {
-              if (*v57 != v42)
+              if (*v56 != v42)
               {
                 objc_enumerationMutation(timeIntervals2);
               }
 
-              v41 |= [*(*(&v56 + 1) + 8 * i) daysOfWeek];
+              v41 |= [*(*(&v55 + 1) + 8 * i) daysOfWeek];
             }
 
-            v40 = [timeIntervals2 countByEnumeratingWithState:&v56 objects:v60 count:16];
+            v40 = [timeIntervals2 countByEnumeratingWithState:&v55 objects:v59 count:16];
           }
 
           while (v40);
@@ -595,32 +588,32 @@ LABEL_29:
           v41 = 0;
         }
 
-        v48 = 1;
-        v17 = v55;
+        v47 = 1;
+        v17 = v54;
         while (1)
         {
-          v22 = [(HDMedicationNotificationEngine *)v17 _getNextDateFromDate:v19 daysInFuture:v48 calendar:generationDateCopy];
+          v22 = [(HDMedicationNotificationEngine *)v17 _getNextDateFromDate:v19 daysInFuture:v47 calendar:generationDateCopy];
           objc_opt_self();
-          v49 = [generationDateCopy components:636 fromDate:v22];
-          weekday = [v49 weekday];
+          v48 = [generationDateCopy components:636 fromDate:v22];
+          weekday = [v48 weekday];
 
           if (([HDMedicationNotificationEngine _optionForWeekday:weekday]& v41) != 0)
           {
             break;
           }
 
-          ++v48;
-          v17 = v55;
-          if (v48 == 8)
+          ++v47;
+          v17 = v54;
+          if (v47 == 8)
           {
             v22 = v19;
-            scheduleCopy = v54;
+            scheduleCopy = v53;
             goto LABEL_47;
           }
         }
 
-        scheduleCopy = v54;
-        v17 = v55;
+        scheduleCopy = v53;
+        v17 = v54;
         goto LABEL_47;
       }
 
@@ -675,15 +668,15 @@ LABEL_47:
       goto LABEL_36;
     }
 
-    if ([(HDMedicationNotificationEngine *)v17 _validateConfigurationForCyclicSchedule:dateCopy cycleIntervalIndex:calendar])
+    if ([(HDMedicationNotificationEngine *)v17 _validateConfigurationForCyclicSchedule:dateCopy cycleIntervalIndex:calendarCopy])
     {
       v25 = 1;
       v26 = [(HDMedicationNotificationEngine *)v17 _getNextDateFromDate:v19 daysInFuture:1 calendar:generationDateCopy];
-      if ([(HDMedicationNotificationEngine *)v17 _indexForGenerationDate:v26 schedule:dateCopy calendar:generationDateCopy]!= calendar)
+      if ([(HDMedicationNotificationEngine *)v17 _indexForGenerationDate:v26 schedule:dateCopy calendar:generationDateCopy]!= calendarCopy)
       {
-        v51 = indexCopy;
-        v52 = v26;
-        v53 = scheduleCopy;
+        v50 = indexCopy;
+        v51 = v26;
+        v52 = scheduleCopy;
         v27 = 1;
         while (1)
         {
@@ -692,7 +685,7 @@ LABEL_47:
 
           timeIntervals5 = [dateCopy timeIntervals];
           v31 = timeIntervals5;
-          v32 = v29 == calendar ? 0 : calendar + 1;
+          v32 = v29 == calendarCopy ? 0 : calendarCopy + 1;
           v33 = [timeIntervals5 objectAtIndexedSubscript:v32];
 
           dose2 = [v33 dose];
@@ -702,24 +695,24 @@ LABEL_47:
             break;
           }
 
-          if (v29 == calendar)
+          if (v29 == calendarCopy)
           {
-            calendar = 0;
+            calendarCopy = 0;
           }
 
           else
           {
-            ++calendar;
+            ++calendarCopy;
           }
 
           cycleIntervalDays = [v33 cycleIntervalDays];
           v27 += [cycleIntervalDays intValue];
         }
 
-        scheduleCopy = v53;
+        scheduleCopy = v52;
         v25 = v27;
-        indexCopy = v51;
-        v26 = v52;
+        indexCopy = v50;
+        v26 = v51;
       }
 
       v22 = [(HDMedicationNotificationEngine *)v17 _getNextDateFromDate:v19 daysInFuture:v25 calendar:generationDateCopy];
@@ -733,49 +726,48 @@ LABEL_37:
   v22 = v19;
 LABEL_38:
 
-  v46 = *MEMORY[0x277D85DE8];
   return v45;
 }
 
 + (uint64_t)_isLastScheduledTimeForDay:(void *)day schedule:(void *)schedule interval:(void *)interval calendar:
 {
-  v52 = *MEMORY[0x277D85DE8];
+  v51 = *MEMORY[0x277D85DE8];
   v8 = a2;
   dayCopy = day;
   scheduleCopy = schedule;
   intervalCopy = interval;
   objc_opt_self();
-  v44 = [intervalCopy components:224 fromDate:v8];
-  [v44 setCalendar:intervalCopy];
-  v49 = 0u;
-  v50 = 0u;
-  v47 = 0u;
+  v43 = [intervalCopy components:224 fromDate:v8];
+  [v43 setCalendar:intervalCopy];
   v48 = 0u;
+  v49 = 0u;
+  v46 = 0u;
+  v47 = 0u;
   timeIntervals = [dayCopy timeIntervals];
-  v13 = [timeIntervals countByEnumeratingWithState:&v47 objects:v51 count:16];
+  v13 = [timeIntervals countByEnumeratingWithState:&v46 objects:v50 count:16];
   if (!v13)
   {
     v38 = 1;
     goto LABEL_21;
   }
 
-  v41 = intervalCopy;
-  v42 = dayCopy;
-  v43 = v8;
-  v14 = *v48;
+  v40 = intervalCopy;
+  v41 = dayCopy;
+  v42 = v8;
+  v14 = *v47;
   v15 = v13;
   do
   {
     v16 = 0;
-    v45 = v15;
+    v44 = v15;
     do
     {
-      if (*v48 != v14)
+      if (*v47 != v14)
       {
         objc_enumerationMutation(timeIntervals);
       }
 
-      v17 = *(*(&v47 + 1) + 8 * v16);
+      v17 = *(*(&v46 + 1) + 8 * v16);
       cycleIntervalDays = [scheduleCopy cycleIntervalDays];
       cycleIntervalDays2 = [v17 cycleIntervalDays];
       if (cycleIntervalDays != cycleIntervalDays2)
@@ -803,7 +795,7 @@ LABEL_9:
       timeIntervals = v25;
       v14 = v24;
       scheduleCopy = v23;
-      v15 = v45;
+      v15 = v44;
       if (v27)
       {
         v28 = objc_alloc_init(MEMORY[0x277CBEAB8]);
@@ -820,12 +812,12 @@ LABEL_9:
         startTimeComponent4 = [v17 startTimeComponent];
         [v28 setSecond:{objc_msgSend(startTimeComponent4, "second")}];
 
-        date = [v44 date];
+        date = [v43 date];
         date2 = [v28 date];
         v36 = [date compare:date2];
 
         v27 = v36 == -1;
-        v15 = v45;
+        v15 = v44;
         if (v27)
         {
           v38 = 0;
@@ -838,19 +830,18 @@ LABEL_10:
     }
 
     while (v15 != v16);
-    v37 = [timeIntervals countByEnumeratingWithState:&v47 objects:v51 count:16];
+    v37 = [timeIntervals countByEnumeratingWithState:&v46 objects:v50 count:16];
     v15 = v37;
   }
 
   while (v37);
   v38 = 1;
 LABEL_19:
-  dayCopy = v42;
-  v8 = v43;
-  intervalCopy = v41;
+  dayCopy = v41;
+  v8 = v42;
+  intervalCopy = v40;
 LABEL_21:
 
-  v39 = *MEMORY[0x277D85DE8];
   return v38;
 }
 
@@ -868,7 +859,7 @@ LABEL_21:
 
 + (uint64_t)_validateConfigurationForCyclicSchedule:(int)schedule cycleIntervalIndex:
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v4 = a2;
   objc_opt_self();
   timeIntervals = [v4 timeIntervals];
@@ -886,27 +877,27 @@ LABEL_21:
 
   else
   {
-    v18 = 0u;
-    v19 = 0u;
-    v16 = 0u;
     v17 = 0u;
+    v18 = 0u;
+    v15 = 0u;
+    v16 = 0u;
     timeIntervals2 = [v4 timeIntervals];
-    v8 = [timeIntervals2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+    v8 = [timeIntervals2 countByEnumeratingWithState:&v15 objects:v19 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v17;
+      v10 = *v16;
       while (2)
       {
         v11 = 0;
         do
         {
-          if (*v17 != v10)
+          if (*v16 != v10)
           {
             objc_enumerationMutation(timeIntervals2);
           }
 
-          dose = [*(*(&v16 + 1) + 8 * v11) dose];
+          dose = [*(*(&v15 + 1) + 8 * v11) dose];
 
           if (dose)
           {
@@ -918,7 +909,7 @@ LABEL_21:
         }
 
         while (v9 != v11);
-        v9 = [timeIntervals2 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v9 = [timeIntervals2 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v9)
         {
           continue;
@@ -939,7 +930,6 @@ LABEL_21:
   v13 = 0;
 LABEL_17:
 
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -1010,9 +1000,9 @@ LABEL_17:
   return v9 == 1;
 }
 
-+ (id)_makeScheduleItemAtDate:(void *)date withMonophasicInterval:(void *)interval calendar:(void *)calendar schedule:(int)schedule cyclicIntervalIndex:
++ (id)_makeScheduleItemAtDate:(void *)date withMonophasicInterval:(void *)interval calendar:(void *)calendar schedule:(uint64_t)schedule cyclicIntervalIndex:
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   calendarCopy = calendar;
   intervalCopy = interval;
   dateCopy = date;
@@ -1035,11 +1025,9 @@ LABEL_17:
 
   v23 = [v19 initWithScheduleUUID:uUID dose:dose medicationIdentifier:medicationIdentifier isLastScheduledDose:v18];
   v24 = objc_alloc(MEMORY[0x277D11588]);
-  v29[0] = v23;
-  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
+  v28[0] = v23;
+  v25 = [MEMORY[0x277CBEA60] arrayWithObjects:v28 count:1];
   v26 = [v24 initWithScheduledDateTime:date notificationSent:0 doses:v25];
-
-  v27 = *MEMORY[0x277D85DE8];
 
   return v26;
 }
@@ -1131,38 +1119,6 @@ id __76__HDMedicationNotificationEngine__indexForGenerationDate_schedule_calenda
   }
 
   return v6;
-}
-
-+ (void)_isLastScheduledDoseforScheduledDate:schedule:startGenerationDate:calendar:cycleIntervalIndex:interval:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_7();
-  OUTLINED_FUNCTION_2(&dword_25181C000, v0, v1, "[%{public}@] Error in _isLastScheduledDoseforScheduledDate: Day of Week schedule has no timeInterval objects.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_isLastScheduledDoseforScheduledDate:schedule:startGenerationDate:calendar:cycleIntervalIndex:interval:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_7();
-  OUTLINED_FUNCTION_2(&dword_25181C000, v0, v1, "[%{public}@] Error in _isLastScheduledDoseforScheduledDate: Daily schedule has no timeInterval objects.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_validateConfigurationForCyclicSchedule:cycleIntervalIndex:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_7();
-  OUTLINED_FUNCTION_2(&dword_25181C000, v0, v1, "[%{public}@] Error in _isLastScheduledDoseforScheduledDate: Cyclic schedule has no active intervals.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-+ (void)_validateConfigurationForCyclicSchedule:cycleIntervalIndex:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_7();
-  OUTLINED_FUNCTION_2(&dword_25181C000, v0, v1, "[%{public}@] Error in _isLastScheduledDoseforScheduledDate: Cyclic schedule has less than 2 intervals, expected at least 2.", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

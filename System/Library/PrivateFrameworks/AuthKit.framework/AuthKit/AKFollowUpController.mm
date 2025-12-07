@@ -41,28 +41,27 @@
 - (BOOL)removeAllFollowUpItems:(id *)items telemetryFlowID:(id)d
 {
   selfCopy = self;
-  v17 = a2;
+  v16 = a2;
   itemsCopy = items;
   location = 0;
   objc_storeStrong(&location, d);
-  v14 = 0;
+  v13 = 0;
   followupController = selfCopy->_followupController;
-  v12 = 0;
-  v7 = [(FLFollowUpController *)followupController pendingFollowUpItems:&v12];
-  objc_storeStrong(&v14, v12);
-  v13 = v7;
-  v11 = [v7 aaf_map:&__block_literal_global_37];
-  v10 = [(FLFollowUpController *)selfCopy->_followupController clearPendingFollowUpItems:itemsCopy];
-  v8 = selfCopy;
-  aaf_arrayAsCommaSeperatedString = [v11 aaf_arrayAsCommaSeperatedString];
-  v5 = *MEMORY[0x1E6985E28];
-  [AKFollowUpController sendEventForFollowUpWithError:v8 eventName:"sendEventForFollowUpWithError:eventName:success:telemetryFlowID:error:" success:? telemetryFlowID:? error:?];
+  v11 = 0;
+  v6 = [(FLFollowUpController *)followupController pendingFollowUpItems:&v11];
+  objc_storeStrong(&v13, v11);
+  v12 = v6;
+  v10 = [v6 aaf_map:&__block_literal_global_37];
+  v9 = [(FLFollowUpController *)selfCopy->_followupController clearPendingFollowUpItems:itemsCopy];
+  v7 = selfCopy;
+  aaf_arrayAsCommaSeperatedString = [v10 aaf_arrayAsCommaSeperatedString];
+  [AKFollowUpController sendEventForFollowUpWithError:v7 eventName:"sendEventForFollowUpWithError:eventName:success:telemetryFlowID:error:" success:? telemetryFlowID:? error:?];
   MEMORY[0x1E69E5920](aaf_arrayAsCommaSeperatedString);
-  objc_storeStrong(&v11, 0);
+  objc_storeStrong(&v10, 0);
+  objc_storeStrong(&v12, 0);
   objc_storeStrong(&v13, 0);
-  objc_storeStrong(&v14, 0);
   objc_storeStrong(&location, 0);
-  return v10 & 1;
+  return v9 & 1;
 }
 
 id __63__AKFollowUpController_removeAllFollowUpItems_telemetryFlowID___block_invoke(void *a1, void *a2)
@@ -124,27 +123,25 @@ void __63__AKFollowUpController_addFollowUpItems_telemetryFlowID_error___block_i
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v20 = a3;
-  v19 = a4;
-  v18 = a1;
+  v18 = a3;
+  v17 = a4;
+  v16 = a1;
   v4 = *(a1[4] + 8);
-  v9 = (*(a1[6] + 8) + 40);
-  v16 = *v9;
-  v10 = [v4 postFollowUpItem:location[0] error:&v16];
-  objc_storeStrong(v9, v16);
-  v17 = v10;
-  v12 = a1[4];
-  v14 = [location[0] uniqueIdentifier];
-  v5 = *MEMORY[0x1E6985E58];
-  v6 = a1[5];
-  v13 = (*(a1[6] + 8) + 40);
-  v15 = *v13;
-  [v12 sendEventForFollowUpWithError:? eventName:? success:? telemetryFlowID:? error:?];
-  objc_storeStrong(v13, v15);
-  MEMORY[0x1E69E5920](v14);
-  if ((v17 & 1) == 0)
+  v7 = (*(a1[6] + 8) + 40);
+  v14 = *v7;
+  v8 = [v4 postFollowUpItem:location[0] error:&v14];
+  objc_storeStrong(v7, v14);
+  v15 = v8;
+  v10 = a1[4];
+  v12 = [location[0] uniqueIdentifier];
+  v11 = (*(a1[6] + 8) + 40);
+  v13 = *v11;
+  [v10 sendEventForFollowUpWithError:? eventName:? success:? telemetryFlowID:? error:?];
+  objc_storeStrong(v11, v13);
+  MEMORY[0x1E69E5920](v12);
+  if ((v15 & 1) == 0)
   {
-    *v19 = 1;
+    *v17 = 1;
   }
 
   objc_storeStrong(location, 0);
@@ -228,17 +225,16 @@ id __66__AKFollowUpController_removeFollowUpItems_telemetryFlowID_error___block_
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, identifiers);
-  v12 = 0;
-  objc_storeStrong(&v12, d);
-  v11 = [(FLFollowUpController *)selfCopy->_followupController clearPendingFollowUpItemsWithUniqueIdentifiers:location[0] error:error];
-  v9 = selfCopy;
+  v11 = 0;
+  objc_storeStrong(&v11, d);
+  v10 = [(FLFollowUpController *)selfCopy->_followupController clearPendingFollowUpItemsWithUniqueIdentifiers:location[0] error:error];
+  v8 = selfCopy;
   aaf_arrayAsCommaSeperatedString = [location[0] aaf_arrayAsCommaSeperatedString];
-  v5 = *MEMORY[0x1E6985E28];
-  [AKFollowUpController sendEventForFollowUpWithError:v9 eventName:"sendEventForFollowUpWithError:eventName:success:telemetryFlowID:error:" success:? telemetryFlowID:? error:?];
+  [AKFollowUpController sendEventForFollowUpWithError:v8 eventName:"sendEventForFollowUpWithError:eventName:success:telemetryFlowID:error:" success:? telemetryFlowID:? error:?];
   MEMORY[0x1E69E5920](aaf_arrayAsCommaSeperatedString);
-  objc_storeStrong(&v12, 0);
+  objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  return v11 & 1;
+  return v10 & 1;
 }
 
 - (BOOL)removeFollowUpItemsWithIdentifiers:(id)identifiers error:(id *)error
@@ -258,17 +254,16 @@ id __66__AKFollowUpController_removeFollowUpItems_telemetryFlowID_error___block_
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, item);
-  v12 = 0;
-  objc_storeStrong(&v12, d);
-  v11 = [(FLFollowUpController *)selfCopy->_followupController clearNotificationForItem:location[0] error:error];
-  v9 = selfCopy;
+  v11 = 0;
+  objc_storeStrong(&v11, d);
+  v10 = [(FLFollowUpController *)selfCopy->_followupController clearNotificationForItem:location[0] error:error];
+  v8 = selfCopy;
   uniqueIdentifier = [location[0] uniqueIdentifier];
-  v5 = *MEMORY[0x1E6985E28];
-  [AKFollowUpController sendEventForFollowUpWithError:v9 eventName:"sendEventForFollowUpWithError:eventName:success:telemetryFlowID:error:" success:? telemetryFlowID:? error:?];
+  [AKFollowUpController sendEventForFollowUpWithError:v8 eventName:"sendEventForFollowUpWithError:eventName:success:telemetryFlowID:error:" success:? telemetryFlowID:? error:?];
   MEMORY[0x1E69E5920](uniqueIdentifier);
-  objc_storeStrong(&v12, 0);
+  objc_storeStrong(&v11, 0);
   objc_storeStrong(location, 0);
-  return v11 & 1;
+  return v10 & 1;
 }
 
 - (BOOL)clearNotificationsForItem:(id)item error:(id *)error
@@ -339,38 +334,37 @@ id __66__AKFollowUpController_removeFollowUpItems_telemetryFlowID_error___block_
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, error);
-  v24 = 0;
-  objc_storeStrong(&v24, name);
+  v23 = 0;
+  objc_storeStrong(&v23, name);
   successCopy = success;
-  v22 = 0;
-  objc_storeStrong(&v22, d);
-  v21 = a7;
-  v20 = +[AKAccountManager sharedInstance];
-  primaryAuthKitAccount = [v20 primaryAuthKitAccount];
-  v18 = [AKFollowUpController followUpPostAnalyticsInfoWithIdentifier:location[0] telemetryFlowID:v22 error:0];
-  v13 = MEMORY[0x1E6985DB0];
-  v12 = v24;
-  v14 = [v20 altDSIDForAccount:primaryAuthKitAccount];
-  v17 = [v13 analyticsEventWithName:v12 eventCategory:0x1F07B4E98 followupAnalyticsData:v18 altDSID:?];
+  v21 = 0;
+  objc_storeStrong(&v21, d);
+  v20 = a7;
+  v19 = +[AKAccountManager sharedInstance];
+  primaryAuthKitAccount = [v19 primaryAuthKitAccount];
+  v17 = [AKFollowUpController followUpPostAnalyticsInfoWithIdentifier:location[0] telemetryFlowID:v21 error:0];
+  v12 = MEMORY[0x1E6985DB0];
+  v11 = v23;
+  v13 = [v19 altDSIDForAccount:primaryAuthKitAccount];
+  v16 = [v12 analyticsEventWithName:v11 eventCategory:0x1F07B4E98 followupAnalyticsData:v17 altDSID:?];
+  MEMORY[0x1E69E5920](v13);
+  v14 = [MEMORY[0x1E696AD98] numberWithBool:successCopy];
+  [v16 setObject:? forKeyedSubscript:?];
   MEMORY[0x1E69E5920](v14);
-  v15 = [MEMORY[0x1E696AD98] numberWithBool:successCopy];
-  v7 = *MEMORY[0x1E6985E40];
-  [v17 setObject:? forKeyedSubscript:?];
-  MEMORY[0x1E69E5920](v15);
   if (a7)
   {
-    [v17 populateUnderlyingErrorsStartingWithRootError:*v21];
+    [v16 populateUnderlyingErrorsStartingWithRootError:*v20];
   }
 
-  v16 = +[AKAnalyticsReporterRTC rtcAnalyticsReporter];
-  [v16 sendEvent:v17];
+  v15 = +[AKAnalyticsReporterRTC rtcAnalyticsReporter];
+  [v15 sendEvent:v16];
+  objc_storeStrong(&v15, 0);
   objc_storeStrong(&v16, 0);
   objc_storeStrong(&v17, 0);
-  objc_storeStrong(&v18, 0);
   objc_storeStrong(&primaryAuthKitAccount, 0);
-  objc_storeStrong(&v20, 0);
-  objc_storeStrong(&v22, 0);
-  objc_storeStrong(&v24, 0);
+  objc_storeStrong(&v19, 0);
+  objc_storeStrong(&v21, 0);
+  objc_storeStrong(&v23, 0);
   objc_storeStrong(location, 0);
 }
 

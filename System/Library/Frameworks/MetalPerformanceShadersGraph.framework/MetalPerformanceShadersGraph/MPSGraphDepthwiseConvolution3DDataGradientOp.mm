@@ -9,10 +9,10 @@
 {
   v36 = *MEMORY[0x1E69E9840];
   nameCopy = name;
-  mpsFileLoc("[MPSGraphDepthwiseConvolution3DDataGradientOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphDepthwiseConvolutionOps.mm", v29);
+  mpsFileLoc(v30, "[MPSGraphDepthwiseConvolution3DDataGradientOp makeMLIROpWithBuilder:symbolTable:inputValues:opInitialization:name:]", "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShadersGraph/mpsgraph/MetalPerformanceShadersGraph/Core/Files/Operations/MPSGraphDepthwiseConvolutionOps.mm");
   v11 = nameCopy;
   v35 = 260;
-  v34[0] = v29;
+  v34[0] = v30;
   StringAttr = mlir::Builder::getStringAttr(builder, v34);
   v13 = mlir::FileLineColLoc::get(StringAttr, 0x1FFu, 0);
   if (!v11)
@@ -29,61 +29,61 @@
     std::string::__throw_length_error[abi:ne200100]();
   }
 
-  v19 = v17;
+  v20 = v17;
   if (v17 >= 0x17)
   {
     operator new();
   }
 
-  HIBYTE(v33) = v17;
+  *(&__dst.__r_.__value_.__s + 23) = v17;
   if (v17)
   {
     memmove(&__dst, uTF8String, v17);
   }
 
-  *(&__dst + v19) = 0;
-  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, v18, &__p);
+  __dst.__r_.__value_.__s.__data_[v20] = 0;
+  MPSSymbolTable::insertOpInSymbolTable(table, &__dst, &__p, v18, v19);
   p_p = __p.__r_.__value_.__r.__words[0];
   if ((__p.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
     p_p = &__p;
   }
 
-  v21 = 1;
+  v22 = 1;
   HIBYTE(v35) = 1;
   if (p_p->__r_.__value_.__s.__data_[0])
   {
     v34[0] = p_p;
-    v21 = 3;
+    v22 = 3;
   }
 
-  LOBYTE(v35) = v21;
-  v22 = mlir::Builder::getStringAttr(builder, v34);
-  mlir::NameLoc::get(v22, v13);
+  LOBYTE(v35) = v22;
+  v23 = mlir::Builder::getStringAttr(builder, v34);
+  mlir::NameLoc::get(v23, v13);
   if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
   {
     operator delete(__p.__r_.__value_.__l.__data_);
-    if ((SHIBYTE(v33) & 0x80000000) == 0)
+    if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
     {
       goto LABEL_15;
     }
   }
 
-  else if ((SHIBYTE(v33) & 0x80000000) == 0)
+  else if ((SHIBYTE(__dst.__r_.__value_.__r.__words[2]) & 0x80000000) == 0)
   {
     goto LABEL_15;
   }
 
-  operator delete(__dst);
+  operator delete(__dst.__r_.__value_.__l.__data_);
 LABEL_15:
 
-  if (v30 < 0)
+  if (v31 < 0)
   {
-    operator delete(v29[0]);
-    v24 = *values;
-    v23 = *(values + 1);
-    v25 = v23 - *values;
-    if (v25 == 24)
+    operator delete(v30[0]);
+    v25 = *values;
+    v24 = *(values + 1);
+    v26 = v24 - *values;
+    if (v26 == 24)
     {
       goto LABEL_23;
     }
@@ -91,16 +91,16 @@ LABEL_15:
 
   else
   {
-    v24 = *values;
-    v23 = *(values + 1);
-    v25 = v23 - *values;
-    if (v25 == 24)
+    v25 = *values;
+    v24 = *(values + 1);
+    v26 = v24 - *values;
+    if (v26 == 24)
     {
       goto LABEL_23;
     }
   }
 
-  if (v23 == v24 || v25 <= 8)
+  if (v24 == v25 || v26 <= 8)
   {
     std::vector<mlir::Value>::__throw_out_of_range[abi:ne200100]();
   }

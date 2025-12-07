@@ -72,39 +72,39 @@
 
 void __48__DKExtensionDiscovery__beginExtensionDiscovery__block_invoke(uint64_t a1)
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   v1 = (a1 + 32);
   objc_initWeak(&location, *(a1 + 32));
   v2 = dispatch_group_create();
-  v24[0] = MEMORY[0x277D85DD0];
-  v24[1] = 3221225472;
-  v24[2] = __48__DKExtensionDiscovery__beginExtensionDiscovery__block_invoke_2;
-  v24[3] = &unk_278F6C0B8;
-  objc_copyWeak(&v26, &location);
+  v23[0] = MEMORY[0x277D85DD0];
+  v23[1] = 3221225472;
+  v23[2] = __48__DKExtensionDiscovery__beginExtensionDiscovery__block_invoke_2;
+  v23[3] = &unk_278F6C0B8;
+  objc_copyWeak(&v25, &location);
   group = v2;
-  v25 = group;
-  v3 = MEMORY[0x24C1E6340](v24);
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
+  v24 = group;
+  v3 = MEMORY[0x24C1E6340](v23);
   v21 = 0u;
+  v22 = 0u;
+  v19 = 0u;
+  v20 = 0u;
   v4 = [*v1 services];
-  v5 = [v4 countByEnumeratingWithState:&v20 objects:v30 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v19 objects:v29 count:16];
   if (v5)
   {
-    v6 = *v21;
+    v6 = *v20;
     v7 = *MEMORY[0x277CCA0F8];
     do
     {
       v8 = 0;
       do
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * v8);
+        v9 = *(*(&v19 + 1) + 8 * v8);
         dispatch_group_enter(group);
         v10 = DiagnosticsKitLogHandleForCategory(1);
         if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
@@ -114,16 +114,16 @@ void __48__DKExtensionDiscovery__beginExtensionDiscovery__block_invoke(uint64_t 
         }
 
         v11 = MEMORY[0x277CCA9C8];
-        v28 = v7;
-        v29 = v9;
-        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
+        v27 = v7;
+        v28 = v9;
+        v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v28 forKeys:&v27 count:1];
         [v11 extensionsWithMatchingAttributes:v12 completion:v3];
 
         ++v8;
       }
 
       while (v5 != v8);
-      v5 = [v4 countByEnumeratingWithState:&v20 objects:v30 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v19 objects:v29 count:16];
     }
 
     while (v5);
@@ -140,9 +140,8 @@ void __48__DKExtensionDiscovery__beginExtensionDiscovery__block_invoke(uint64_t 
   v15 = [*(a1 + 32) discoveryLock];
   [v15 unlock];
 
-  objc_destroyWeak(&v26);
+  objc_destroyWeak(&v25);
   objc_destroyWeak(&location);
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 void __48__DKExtensionDiscovery__beginExtensionDiscovery__block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -183,31 +182,31 @@ void __48__DKExtensionDiscovery__beginExtensionDiscovery__block_invoke_2(uint64_
 
 - (void)_registerExtensions:(id)extensions error:(id)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   extensionsCopy = extensions;
-  v22 = extensionsCopy;
+  v21 = extensionsCopy;
   errorCopy = error;
   if (extensionsCopy)
   {
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v7 = extensionsCopy;
-    errorCopy = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16, extensionsCopy, errorCopy];
+    errorCopy = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16, extensionsCopy, errorCopy];
     if (errorCopy)
     {
-      v9 = *v27;
+      v9 = *v26;
       do
       {
         for (i = 0; i != errorCopy; ++i)
         {
-          if (*v27 != v9)
+          if (*v26 != v9)
           {
             objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v26 + 1) + 8 * i);
+          v11 = *(*(&v25 + 1) + 8 * i);
           registry = [(DKExtensionDiscovery *)self registry];
           v13 = [objc_alloc(objc_msgSend(registry "extensionClass"))];
 
@@ -216,25 +215,15 @@ void __48__DKExtensionDiscovery__beginExtensionDiscovery__block_invoke_2(uint64_
             v18 = DiagnosticsKitLogHandleForCategory(1);
             if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
-              [(DKExtensionDiscovery *)&buf _registerExtensions:v25 error:v18];
+              [(DKExtensionDiscovery *)&buf _registerExtensions:v24 error:v18];
             }
 
             goto LABEL_13;
           }
 
           bundleIdentifier = [v13 bundleIdentifier];
-          if (!bundleIdentifier)
+          if (!bundleIdentifier || ([v13 bundleIdentifier], v15 = objc_claimAutoreleasedReturnValue(), -[DKExtensionDiscovery bundleIdentifier](self, "bundleIdentifier"), v16 = objc_claimAutoreleasedReturnValue(), v17 = objc_msgSend(v15, "isEqual:", v16), v16, v15, bundleIdentifier, (v17 & 1) != 0))
           {
-            goto LABEL_10;
-          }
-
-          bundleIdentifier2 = [v13 bundleIdentifier];
-          bundleIdentifier3 = [(DKExtensionDiscovery *)self bundleIdentifier];
-          v17 = [bundleIdentifier2 isEqual:bundleIdentifier3];
-
-          if (v17)
-          {
-LABEL_10:
             v18 = [DKExtensionAdapter extensionAdapterWithExtensionAttributes:v13];
             registry2 = [(DKExtensionDiscovery *)self registry];
             objc_sync_enter(registry2);
@@ -246,7 +235,7 @@ LABEL_13:
           }
         }
 
-        errorCopy = [v7 countByEnumeratingWithState:&v26 objects:v30 count:16];
+        errorCopy = [v7 countByEnumeratingWithState:&v25 objects:v29 count:16];
       }
 
       while (errorCopy);
@@ -261,8 +250,6 @@ LABEL_13:
       [DKExtensionDiscovery _registerExtensions:v7 error:?];
     }
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_registerExtensions:(os_log_t)log error:.cold.1(uint8_t *buf, _BYTE *a2, os_log_t log)

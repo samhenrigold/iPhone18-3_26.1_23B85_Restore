@@ -118,7 +118,7 @@ LABEL_8:
 
 void __76__SMCloudKitFunction_requestSafetyCacheRecordFromZone_withToken_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v7 = a3;
   v8 = a4;
   WeakRetained = objc_loadWeakRetained((a1 + 56));
@@ -130,18 +130,18 @@ void __76__SMCloudKitFunction_requestSafetyCacheRecordFromZone_withToken_complet
     block[1] = 3221225472;
     block[2] = __76__SMCloudKitFunction_requestSafetyCacheRecordFromZone_withToken_completion___block_invoke_17;
     block[3] = &unk_279B64D98;
-    v20 = v8;
-    v21 = *(a1 + 32);
+    v19 = v8;
+    v20 = *(a1 + 32);
     v12 = *(a1 + 40);
     v13 = *(a1 + 64);
-    v22 = v12;
-    v25 = v13;
-    v24 = *(a1 + 48);
-    v23 = v7;
-    v26 = a2;
+    v21 = v12;
+    v24 = v13;
+    v23 = *(a1 + 48);
+    v22 = v7;
+    v25 = a2;
     dispatch_async(v11, block);
 
-    v14 = v20;
+    v14 = v19;
   }
 
   else
@@ -154,218 +154,212 @@ void __76__SMCloudKitFunction_requestSafetyCacheRecordFromZone_withToken_complet
     v14 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
     {
-      v16 = *(a1 + 32);
-      v17 = *(a1 + 40);
-      v18 = NSStringFromSelector(*(a1 + 64));
+      v15 = *(a1 + 32);
+      v16 = *(a1 + 40);
+      v17 = NSStringFromSelector(*(a1 + 64));
       *buf = 138413570;
-      v28 = v16;
-      v29 = 2112;
-      v30 = v17;
-      v31 = 2112;
-      v32 = v18;
-      v33 = 1024;
-      v34 = a2;
-      v35 = 2112;
-      v36 = v8;
-      v37 = 2112;
-      v38 = v7;
+      v27 = v15;
+      v28 = 2112;
+      v29 = v16;
+      v30 = 2112;
+      v31 = v17;
+      v32 = 1024;
+      v33 = a2;
+      v34 = 2112;
+      v35 = v8;
+      v36 = 2112;
+      v37 = v7;
       _os_log_impl(&dword_26455D000, v14, OS_LOG_TYPE_INFO, "#SafetyCache,Receiver,sessionID:%@,%@,%@,cloud kit function released before safety cache request completed,responseCode,%d,error,%@,record,%@", buf, 0x3Au);
     }
   }
 
 LABEL_4:
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 void __76__SMCloudKitFunction_requestSafetyCacheRecordFromZone_withToken_completion___block_invoke_17(uint64_t a1)
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   if (*(a1 + 32))
   {
     v2 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
     if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(a1 + 40);
-      v18 = *(a1 + 48);
-      v19 = NSStringFromSelector(*(a1 + 72));
-      v20 = *(a1 + 32);
+      v14 = *(a1 + 40);
+      v15 = *(a1 + 48);
+      v16 = NSStringFromSelector(*(a1 + 72));
+      v17 = *(a1 + 32);
       *buf = 138413058;
-      v54 = v17;
-      v55 = 2112;
-      v56 = v18;
-      v57 = 2112;
-      v58 = v19;
-      v59 = 2112;
-      v60 = v20;
+      v51 = v14;
+      v52 = 2112;
+      v53 = v15;
+      v54 = 2112;
+      v55 = v16;
+      v56 = 2112;
+      v57 = v17;
       _os_log_error_impl(&dword_26455D000, v2, OS_LOG_TYPE_ERROR, "#SafetyCache,Receiver,sessionID:%@,%@,%@,returning error thrown from server: %@", buf, 0x2Au);
     }
 
-    v3 = *(a1 + 32);
-    v4 = *(*(a1 + 64) + 16);
+    v3 = *(*(a1 + 64) + 16);
 LABEL_11:
-    v4();
-    goto LABEL_12;
+    v3();
+    return;
   }
 
   if (*(a1 + 56))
   {
     if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_INFO))
     {
-      v5 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-      if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
+      v4 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
       {
-        v6 = *(a1 + 40);
-        v7 = *(a1 + 48);
-        v8 = NSStringFromSelector(*(a1 + 72));
+        v5 = *(a1 + 40);
+        v6 = *(a1 + 48);
+        v7 = NSStringFromSelector(*(a1 + 72));
         *buf = 138412802;
-        v54 = v6;
-        v55 = 2112;
-        v56 = v7;
-        v57 = 2112;
-        v58 = v8;
-        _os_log_impl(&dword_26455D000, v5, OS_LOG_TYPE_INFO, "#SafetyCache,Receiver,sessionID:%@,%@,%@,returning Safety Cache record", buf, 0x20u);
+        v51 = v5;
+        v52 = 2112;
+        v53 = v6;
+        v54 = 2112;
+        v55 = v7;
+        _os_log_impl(&dword_26455D000, v4, OS_LOG_TYPE_INFO, "#SafetyCache,Receiver,sessionID:%@,%@,%@,returning Safety Cache record", buf, 0x20u);
       }
-
-      v9 = *(a1 + 56);
     }
 
-    v4 = *(*(a1 + 64) + 16);
+    v3 = *(*(a1 + 64) + 16);
     goto LABEL_11;
   }
 
-  v11 = *(a1 + 80);
-  if (v11 > 4)
+  v8 = *(a1 + 80);
+  if (v8 > 4)
   {
-    if (v11 <= 6)
+    if (v8 <= 6)
     {
-      if (v11 == 5)
+      if (v8 == 5)
       {
-        v24 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v43 = *MEMORY[0x277CCA450];
-        v44 = @"Token missing from Access Data record";
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v44 forKeys:&v43 count:1];
-        v14 = v24;
-        v15 = 5;
+        v21 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v40 = *MEMORY[0x277CCA450];
+        v41 = @"Token missing from Access Data record";
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v41 forKeys:&v40 count:1];
+        v11 = v21;
+        v12 = 5;
       }
 
       else
       {
-        v16 = objc_alloc(MEMORY[0x277CCA9B8]);
-        v41 = *MEMORY[0x277CCA450];
-        v42 = @"Release time missing from Access Data record";
-        v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v42 forKeys:&v41 count:1];
-        v14 = v16;
-        v15 = 6;
+        v13 = objc_alloc(MEMORY[0x277CCA9B8]);
+        v38 = *MEMORY[0x277CCA450];
+        v39 = @"Release time missing from Access Data record";
+        v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+        v11 = v13;
+        v12 = 6;
       }
 
-      goto LABEL_30;
+      goto LABEL_29;
     }
 
-    if (v11 == 7)
+    if (v8 == 7)
     {
-      v26 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v39 = *MEMORY[0x277CCA450];
-      v40 = @"Zone not found";
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v40 forKeys:&v39 count:1];
-      v14 = v26;
-      v15 = 7;
-      goto LABEL_30;
+      v23 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v36 = *MEMORY[0x277CCA450];
+      v37 = @"Zone not found";
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v37 forKeys:&v36 count:1];
+      v11 = v23;
+      v12 = 7;
+      goto LABEL_29;
     }
 
-    if (v11 == 8)
+    if (v8 == 8)
     {
-      v22 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v37 = *MEMORY[0x277CCA450];
-      v38 = @"Failed to initialize Record Transport with Safety Cache record";
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
-      v14 = v22;
-      v15 = 8;
-      goto LABEL_30;
+      v19 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v34 = *MEMORY[0x277CCA450];
+      v35 = @"Failed to initialize Record Transport with Safety Cache record";
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+      v11 = v19;
+      v12 = 8;
+      goto LABEL_29;
     }
 
-LABEL_34:
-    v13 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unrecognized response code %d", *(a1 + 80)];
-    v29 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v35 = *MEMORY[0x277CCA450];
-    v36 = v13;
-    v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-    v27 = [v29 initWithDomain:@"SafetyMonitorServerErrorDomain" code:1 userInfo:v30];
+LABEL_33:
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Unrecognized response code %d", *(a1 + 80)];
+    v26 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v32 = *MEMORY[0x277CCA450];
+    v33 = v10;
+    v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+    v24 = [v26 initWithDomain:@"SafetyMonitorServerErrorDomain" code:1 userInfo:v27];
 
-    goto LABEL_31;
+    goto LABEL_30;
   }
 
-  if (v11 > 2)
+  if (v8 > 2)
   {
-    if (v11 == 3)
+    if (v8 == 3)
     {
-      v25 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v47 = *MEMORY[0x277CCA450];
-      v48 = @"Access Data record query failed";
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v48 forKeys:&v47 count:1];
-      v14 = v25;
-      v15 = 3;
+      v22 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v44 = *MEMORY[0x277CCA450];
+      v45 = @"Access Data record query failed";
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v45 forKeys:&v44 count:1];
+      v11 = v22;
+      v12 = 3;
     }
 
     else
     {
-      v21 = objc_alloc(MEMORY[0x277CCA9B8]);
-      v45 = *MEMORY[0x277CCA450];
-      v46 = @"Safety Cache record query failed";
-      v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v46 forKeys:&v45 count:1];
-      v14 = v21;
-      v15 = 4;
+      v18 = objc_alloc(MEMORY[0x277CCA9B8]);
+      v42 = *MEMORY[0x277CCA450];
+      v43 = @"Safety Cache record query failed";
+      v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v43 forKeys:&v42 count:1];
+      v11 = v18;
+      v12 = 4;
     }
 
-    goto LABEL_30;
+    goto LABEL_29;
   }
 
-  if (v11 == 1)
+  if (v8 == 1)
   {
-    v23 = objc_alloc(MEMORY[0x277CCA9B8]);
-    v51 = *MEMORY[0x277CCA450];
-    v52 = @"Unknown error";
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
-    v14 = v23;
-    v15 = 1;
-    goto LABEL_30;
+    v20 = objc_alloc(MEMORY[0x277CCA9B8]);
+    v48 = *MEMORY[0x277CCA450];
+    v49 = @"Unknown error";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v49 forKeys:&v48 count:1];
+    v11 = v20;
+    v12 = 1;
+    goto LABEL_29;
   }
 
-  if (v11 != 2)
+  if (v8 != 2)
   {
-    goto LABEL_34;
+    goto LABEL_33;
   }
 
-  v12 = objc_alloc(MEMORY[0x277CCA9B8]);
-  v49 = *MEMORY[0x277CCA450];
-  v50 = @"Access denied";
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v50 forKeys:&v49 count:1];
-  v14 = v12;
-  v15 = 2;
+  v9 = objc_alloc(MEMORY[0x277CCA9B8]);
+  v46 = *MEMORY[0x277CCA450];
+  v47 = @"Access denied";
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v47 forKeys:&v46 count:1];
+  v11 = v9;
+  v12 = 2;
+LABEL_29:
+  v24 = [v11 initWithDomain:@"SafetyMonitorServerErrorDomain" code:v12 userInfo:v10];
 LABEL_30:
-  v27 = [v14 initWithDomain:@"SafetyMonitorServerErrorDomain" code:v15 userInfo:v13];
-LABEL_31:
 
-  v28 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
-  if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+  v25 = _rt_log_facility_get_os_log(RTLogFacilitySafetyMonitor);
+  if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
   {
-    v31 = *(a1 + 40);
-    v32 = *(a1 + 48);
-    v33 = NSStringFromSelector(*(a1 + 72));
-    v34 = *(a1 + 32);
+    v28 = *(a1 + 40);
+    v29 = *(a1 + 48);
+    v30 = NSStringFromSelector(*(a1 + 72));
+    v31 = *(a1 + 32);
     *buf = 138413058;
-    v54 = v31;
-    v55 = 2112;
-    v56 = v32;
-    v57 = 2112;
-    v58 = v33;
-    v59 = 2112;
-    v60 = v34;
-    _os_log_error_impl(&dword_26455D000, v28, OS_LOG_TYPE_ERROR, "#SafetyCache,Receiver,sessionID:%@,%@,%@,returning error from server: %@", buf, 0x2Au);
+    v51 = v28;
+    v52 = 2112;
+    v53 = v29;
+    v54 = 2112;
+    v55 = v30;
+    v56 = 2112;
+    v57 = v31;
+    _os_log_error_impl(&dword_26455D000, v25, OS_LOG_TYPE_ERROR, "#SafetyCache,Receiver,sessionID:%@,%@,%@,returning error from server: %@", buf, 0x2Au);
   }
 
   (*(*(a1 + 64) + 16))();
-LABEL_12:
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -47,7 +47,7 @@
 
 - (void)main
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   _HKInitializeLogging();
   v4 = *MEMORY[0x277CCC328];
   if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_DEFAULT))
@@ -55,8 +55,8 @@
     userIdentity = self->_userIdentity;
     *buf = 138543618;
     selfCopy = self;
-    v26 = 2114;
-    v27 = userIdentity;
+    v25 = 2114;
+    v26 = userIdentity;
     _os_log_impl(&dword_228986000, v4, OS_LOG_TYPE_DEFAULT, "%{public}@: [summary-sharing] Beginning operation with user identity %{public}@", buf, 0x16u);
   }
 
@@ -72,9 +72,9 @@
     v12 = HDSummarySharingEntryPredicateForCloudKitIdentifierTypeStatusAndDirection(recordName2, 0, 1, 0);
 
     v13 = MEMORY[0x277D10B20];
-    v23[0] = v9;
-    v23[1] = v12;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v23 count:2];
+    v22[0] = v9;
+    v22[1] = v12;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:2];
     v15 = [v13 predicateMatchingAnyPredicates:v14];
 
     configuration = [(HDCloudSyncOperation *)self configuration];
@@ -83,12 +83,12 @@
     summarySharingEntryShim = [cloudSyncShimProvider summarySharingEntryShim];
 
     configuration2 = [(HDCloudSyncOperation *)self configuration];
-    v22[0] = MEMORY[0x277D85DD0];
-    v22[1] = 3221225472;
-    v22[2] = __67__HDCloudSyncSharedSummaryValidateOutgoingInvitationOperation_main__block_invoke;
-    v22[3] = &unk_278614A68;
-    v22[4] = self;
-    [summarySharingEntryShim sharingEntryExistsWithPredicate:v15 configuration:configuration2 completion:v22];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __67__HDCloudSyncSharedSummaryValidateOutgoingInvitationOperation_main__block_invoke;
+    v21[3] = &unk_278614A68;
+    v21[4] = self;
+    [summarySharingEntryShim sharingEntryExistsWithPredicate:v15 configuration:configuration2 completion:v21];
   }
 
   else
@@ -96,8 +96,6 @@
     v9 = [MEMORY[0x277CCA9B8] hk_errorForNilArgument:@"_userIdentity" class:objc_opt_class() selector:a2];
     [(HDCloudSyncOperation *)self finishWithSuccess:0 error:v9];
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __67__HDCloudSyncSharedSummaryValidateOutgoingInvitationOperation_main__block_invoke(uint64_t a1, int a2, char a3, void *a4)

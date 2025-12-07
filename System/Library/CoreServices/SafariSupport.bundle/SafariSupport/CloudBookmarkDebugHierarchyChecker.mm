@@ -67,112 +67,113 @@
 {
   selfCopy = self;
   v5 = [(WBSBookmarkDBAccess *)self->_databaseAccessor localCloudKitMigrationState:?];
-  v37 = v5 - 1;
-  v6 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v45 = v5 - 1;
+  v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 134218752;
-    v52 = v5;
-    v53 = 1024;
-    *v54 = v5 == 0;
-    *&v54[4] = 1024;
-    *&v54[6] = v37 < 2;
-    LOWORD(v55) = 1024;
-    *(&v55 + 2) = v5 == 3;
-    _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "Migration state: %ld, expect DAV IDs: %d, expect CloudKit IDs for all records: %d, expect parsable sync data: %d", buf, 0x1Eu);
+    v60 = v5;
+    v61 = 1024;
+    *v62 = v5 == 0;
+    *&v62[4] = 1024;
+    *&v62[6] = v45 < 2;
+    LOWORD(v63) = 1024;
+    *(&v63 + 2) = v5 == 3;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Migration state: %ld, expect DAV IDs: %d, expect CloudKit IDs for all records: %d, expect parsable sync data: %d", buf, 0x1Eu);
   }
 
-  v7 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor copyLocalIDsInFolderWithLocalID:0 database:database];
-  allObjects = [v7 allObjects];
-  v9 = [allObjects mutableCopy];
+  v8 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor copyLocalIDsInFolderWithLocalID:0 database:database];
+  allObjects = [v8 allObjects];
+  v10 = [allObjects mutableCopy];
 
-  firstObject = [v9 firstObject];
+  firstObject = [v10 firstObject];
   if (firstObject)
   {
-    v12 = firstObject;
-    v13 = 1;
-    *&v11 = 138543362;
-    v36 = v11;
+    v13 = firstObject;
+    v14 = 1;
+    *&v12 = 138543362;
+    v44 = v12;
     p_isa = &selfCopy->super.isa;
     while (1)
     {
-      [v9 removeObjectAtIndex:{0, v36}];
-      v14 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor copyItemWithLocalID:v12 database:database];
-      v15 = objc_alloc_init(WBSScopeExitHandler);
-      v50[0] = _NSConcreteStackBlock;
-      v50[1] = 3221225472;
-      v50[2] = sub_10002D0A4;
-      v50[3] = &unk_1001321B8;
-      v50[4] = v14;
-      v40 = v15;
-      [v15 setHandler:v50];
-      v41 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor copyServerIdWithItem:v14];
-      v16 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor itemTypeWithItem:v14];
+      [v10 removeObjectAtIndex:{0, v44}];
+      v15 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor copyItemWithLocalID:v13 database:database];
+      v16 = objc_alloc_init(WBSScopeExitHandler);
+      v58[0] = _NSConcreteStackBlock;
+      v58[1] = 3221225472;
+      v58[2] = sub_10002D0A4;
+      v58[3] = &unk_1001321B8;
+      v58[4] = v15;
+      v48 = v16;
+      [v16 setHandler:v58];
+      v49 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor copyServerIdWithItem:v15];
+      v17 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor itemTypeWithItem:v15];
       databaseAccessor = selfCopy->_databaseAccessor;
-      if (v16 == 1)
+      if (v17 == 1)
       {
-        v39 = [(WBSBookmarkDBAccess *)databaseAccessor folderTypeWithFolder:v14];
-        v18 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor copyLocalIDsInFolderWithLocalID:v12 database:database];
-        [v18 allObjects];
-        v19 = v5;
-        v21 = v20 = database;
-        [v9 addObjectsFromArray:v21];
+        v47 = [(WBSBookmarkDBAccess *)databaseAccessor folderTypeWithFolder:v15];
+        v19 = [(WBSBookmarkDBAccess *)selfCopy->_databaseAccessor copyLocalIDsInFolderWithLocalID:v13 database:database];
+        [v19 allObjects];
+        v20 = v5;
+        v22 = v21 = database;
+        [v10 addObjectsFromArray:v22];
 
-        database = v20;
-        v5 = v19;
+        database = v21;
+        v5 = v20;
       }
 
       else
       {
-        v39 = [(WBSBookmarkDBAccess *)databaseAccessor bookmarkTypeWithBookmark:v14];
+        v23 = [(WBSBookmarkDBAccess *)databaseAccessor bookmarkTypeWithBookmark:v15];
+        v47 = v23;
       }
 
-      v22 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+      v25 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v23, v24);
+      if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
       {
         *buf = 138544130;
-        v52 = v12;
-        v53 = 2114;
-        *v54 = v41;
-        *&v54[8] = 2048;
-        v55 = v16;
-        v56 = 2048;
-        v57 = v39;
-        _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_INFO, "Checking record with local ID: %{public}@, server ID: %{public}@, item type: %ld, subtype: %ld", buf, 0x2Au);
+        v60 = v13;
+        v61 = 2114;
+        *v62 = v49;
+        *&v62[8] = 2048;
+        v63 = v17;
+        v64 = 2048;
+        v65 = v47;
+        _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_INFO, "Checking record with local ID: %{public}@, server ID: %{public}@, item type: %ld, subtype: %ld", buf, 0x2Au);
       }
 
       selfCopy = p_isa;
-      v23 = v41;
-      v24 = [p_isa _serverSyncIDTypeForServerSyncID:v41];
-      if (v24 == 2)
+      v26 = v49;
+      v27 = [p_isa _serverSyncIDTypeForServerSyncID:v49];
+      if (v27 == 2)
       {
         break;
       }
 
-      if (v24 != 1)
+      if (v27 != 1)
       {
-        if (!v24 && v37 <= 1)
+        if (!v27 && v45 <= 1)
         {
-          v25 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-          if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+          v29 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(0, v28);
+          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
           {
-            sub_10002D4C8(&v48, v49);
+            sub_10002D4C8(&v56, v57);
           }
 
 LABEL_19:
-          v13 = 0;
+          v14 = 0;
 LABEL_33:
-          v32 = [p_isa[1] copySyncKeyWithItem:v14];
+          v38 = [p_isa[1] copySyncKeyWithItem:v15];
 
-          if (v32)
+          if (v38)
           {
-            v33 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-            if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+            v41 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v39, v40);
+            if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
             {
-              sub_10002D4F4(&v42, v43);
+              sub_10002D4F4(&v50, v51);
             }
 
-            v13 = 0;
+            v14 = 0;
           }
 
           goto LABEL_37;
@@ -183,21 +184,21 @@ LABEL_33:
 
       if (v5)
       {
-        v26 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        v30 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(1, v28);
+        if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
         {
-          sub_10002D49C(&v46, v47);
+          sub_10002D49C(&v54, v55);
         }
 
         goto LABEL_19;
       }
 
 LABEL_37:
-      v13 &= [p_isa _verifySyncDataForItem:v14 recordName:v23 expectingSyncData:v37 > 1 expectingCloudKitData:v5 == 3];
+      v14 &= [p_isa _verifySyncDataForItem:v15 recordName:v26 expectingSyncData:v45 > 1 expectingCloudKitData:v5 == 3];
 
-      firstObject2 = [v9 firstObject];
+      firstObject2 = [v10 firstObject];
 
-      v12 = firstObject2;
+      v13 = firstObject2;
       if (!firstObject2)
       {
         goto LABEL_40;
@@ -206,46 +207,50 @@ LABEL_37:
 
     if (!v5)
     {
-      v27 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+      v31 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(2, v28);
+      if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
       {
-        sub_10002D470(&v44, v45);
+        sub_10002D470(&v52, v53);
       }
 
-      v13 = 0;
-      v23 = v41;
+      v14 = 0;
+      v26 = v49;
     }
 
-    if (v16 == 1 && [CKRecord safari_folderTypeForRecordName:v23]!= v39)
+    if (v17 == 1)
     {
-      v28 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      v29 = os_log_type_enabled(v28, OS_LOG_TYPE_ERROR);
-      if (v39)
+      v32 = [CKRecord safari_folderTypeForRecordName:v26];
+      if (v32 != v47)
       {
-        if (v29)
+        v34 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v32, v33);
+        v35 = os_log_type_enabled(v34, OS_LOG_TYPE_ERROR);
+        if (v47)
         {
-          v30 = v28;
-          v31 = [CKRecord safari_recordNameForFolderType:v39];
-          *buf = 134218498;
-          v52 = v39;
-          v53 = 2114;
-          *v54 = v41;
-          *&v54[8] = 2114;
-          v55 = v31;
-          _os_log_error_impl(&_mh_execute_header, v30, OS_LOG_TYPE_ERROR, "Built-in folder with type %ld, has invalid record name: %{public}@, expecting: %{public}@", buf, 0x20u);
+          if (v35)
+          {
+            v36 = v34;
+            v37 = [CKRecord safari_recordNameForFolderType:v47];
+            *buf = 134218498;
+            v60 = v47;
+            v61 = 2114;
+            *v62 = v49;
+            *&v62[8] = 2114;
+            v63 = v37;
+            _os_log_error_impl(&_mh_execute_header, v36, OS_LOG_TYPE_ERROR, "Built-in folder with type %ld, has invalid record name: %{public}@, expecting: %{public}@", buf, 0x20u);
 
-          v23 = v41;
+            v26 = v49;
+          }
         }
-      }
 
-      else if (v29)
-      {
-        *buf = v36;
-        v52 = v23;
-        _os_log_error_impl(&_mh_execute_header, v28, OS_LOG_TYPE_ERROR, "Regular folder has built-in record name: %{public}@, shouldn't!", buf, 0xCu);
-      }
+        else if (v35)
+        {
+          *buf = v44;
+          v60 = v26;
+          _os_log_error_impl(&_mh_execute_header, v34, OS_LOG_TYPE_ERROR, "Regular folder has built-in record name: %{public}@, shouldn't!", buf, 0xCu);
+        }
 
-      v13 = 0;
+        v14 = 0;
+      }
     }
 
 LABEL_32:
@@ -257,10 +262,10 @@ LABEL_32:
     goto LABEL_37;
   }
 
-  LOBYTE(v13) = 1;
+  LOBYTE(v14) = 1;
 LABEL_40:
 
-  return v13;
+  return v14;
 }
 
 - (BOOL)_verifySyncDataForItem:(void *)item recordName:(id)name expectingSyncData:(BOOL)data expectingCloudKitData:(BOOL)kitData
@@ -268,17 +273,17 @@ LABEL_40:
   kitDataCopy = kitData;
   nameCopy = name;
   v11 = [(WBSBookmarkDBAccess *)self->_databaseAccessor copySyncDataWithItem:item];
-  v12 = v11;
+  v13 = v11;
   if (v11 && !data)
   {
-    v13 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    v14 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v11, v12);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       sub_10002D520();
     }
 
 LABEL_5:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_51;
   }
 
@@ -286,111 +291,118 @@ LABEL_5:
   {
     if (!kitDataCopy)
     {
-      v14 = 1;
+      v15 = 1;
       goto LABEL_51;
     }
 
-    v15 = [WBBookmarkSyncData syncDataWithContentsOfData:v12];
-    if (!v15)
+    v17 = [WBBookmarkSyncData syncDataWithContentsOfData:v13];
+    if (!v17)
     {
-      v26 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      v34 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(0, v16);
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
       {
         sub_10002D83C();
       }
 
-      v14 = 0;
+      v15 = 0;
       goto LABEL_50;
     }
 
-    v16 = [(WBSBookmarkDBAccess *)self->_databaseAccessor itemTypeWithItem:item];
-    record = [v15 record];
-    v18 = record;
+    v18 = [(WBSBookmarkDBAccess *)self->_databaseAccessor itemTypeWithItem:item];
+    record = [v17 record];
+    v20 = record;
     if (record)
     {
       safari_recordName = [record safari_recordName];
-      v20 = [safari_recordName isEqualToString:nameCopy];
+      v22 = [safari_recordName isEqualToString:nameCopy];
 
-      if ((v20 & 1) == 0)
+      if ((v22 & 1) == 0)
       {
-        v21 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+        v25 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v23, v24);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
-          sub_10002D554(v21, v18, nameCopy);
+          sub_10002D554(v25, v20, nameCopy);
         }
       }
 
-      if (v16 == 1)
+      if (v18 == 1)
       {
-        recordType = [v18 recordType];
-        v28 = [recordType isEqualToString:@"BookmarkList"];
+        recordType = [v20 recordType];
+        v36 = [recordType isEqualToString:@"BookmarkList"];
 
-        if ((v28 & 1) == 0)
+        if ((v36 & 1) == 0)
         {
-          v29 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-          if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+          v39 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v37, v38);
+          if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
           {
-            sub_10002D610(v29, v18);
+            sub_10002D610(v39, v20);
           }
         }
       }
 
-      else if (!v16)
+      else if (!v18)
       {
-        recordType2 = [v18 recordType];
-        v23 = [recordType2 isEqualToString:@"BookmarkLeaf"];
+        recordType2 = [v20 recordType];
+        v27 = [recordType2 isEqualToString:@"BookmarkLeaf"];
 
-        if ((v23 & 1) == 0)
+        if ((v27 & 1) == 0)
         {
-          v24 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-          if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+          v30 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v28, v29);
+          if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
           {
-            sub_10002D6A4(v24, v18);
+            sub_10002D6A4(v30, v20);
           }
         }
       }
 
-      recordChangeTag = [v18 recordChangeTag];
-      v31 = [recordChangeTag length];
+      recordChangeTag = [v20 recordChangeTag];
+      v41 = [recordChangeTag length];
 
-      if (!v31)
+      if (!v41)
       {
-        v32 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-        if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+        v44 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v42, v43);
+        if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
         {
           sub_10002D738();
         }
       }
 
-      position = [v15 position];
+      position = [v17 position];
       if (position)
       {
       }
 
       else if (![CKRecord safari_folderTypeForRecordName:nameCopy])
       {
-        v34 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+        v47 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(0, v46);
+        if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
         {
           sub_10002D76C();
         }
       }
     }
 
-    v14 = [v15 hasGenerationForKey:@"ParentAndPosition"];
-    if ((v14 & 1) == 0 && (v35 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(), os_log_type_enabled(v35, OS_LOG_TYPE_ERROR)))
+    v48 = [v17 hasGenerationForKey:@"ParentAndPosition"];
+    v15 = v48;
+    if ((v48 & 1) == 0 && (v50 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v48, v49), os_log_type_enabled(v50, OS_LOG_TYPE_ERROR)))
     {
       sub_10002D7A0();
-      if (v16)
+      if (v18)
       {
 LABEL_40:
-        if (v16 != 1 || ([v15 hasGenerationForKey:@"TitleAndIdentityHash"] & 1) != 0)
+        if (v18 != 1)
         {
           goto LABEL_49;
         }
 
-        v36 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+        v51 = [v17 hasGenerationForKey:@"TitleAndIdentityHash"];
+        if (v51)
+        {
+          goto LABEL_49;
+        }
+
+        v53 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v51, v52);
+        if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
         {
           sub_10002D808();
         }
@@ -399,12 +411,13 @@ LABEL_40:
       }
     }
 
-    else if (v16)
+    else if (v18)
     {
       goto LABEL_40;
     }
 
-    if ([v15 hasGenerationForKey:@"TitleURLAndIdentityHash"])
+    v54 = [v17 hasGenerationForKey:@"TitleURLAndIdentityHash"];
+    if (v54)
     {
 LABEL_49:
 
@@ -412,22 +425,23 @@ LABEL_50:
       goto LABEL_51;
     }
 
-    v37 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+    v56 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v54, v55);
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
       sub_10002D7D4();
     }
 
 LABEL_48:
-    v14 = 0;
+    v15 = 0;
     goto LABEL_49;
   }
 
-  v14 = 1;
-  if ([nameCopy length] && kitDataCopy)
+  v31 = [nameCopy length];
+  v15 = 1;
+  if (v31 && kitDataCopy)
   {
-    v25 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v33 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v31, v32);
+    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
     {
       sub_10002D870();
     }
@@ -437,7 +451,7 @@ LABEL_48:
 
 LABEL_51:
 
-  return v14;
+  return v15;
 }
 
 @end

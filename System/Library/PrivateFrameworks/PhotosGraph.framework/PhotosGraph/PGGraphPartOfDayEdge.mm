@@ -4,6 +4,7 @@
 + (id)significantFilterWithLegacyWeights:(BOOL)weights;
 - (BOOL)hasProperties:(id)properties;
 - (PGGraphPartOfDayEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties;
+- (PGGraphPartOfDayEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties;
 - (id)edgeDescription;
 - (id)initFromMomentNode:(id)node toPartOfDayNode:(id)dayNode ratio:(double)ratio;
 - (id)propertyDictionary;
@@ -24,13 +25,11 @@
 
 - (id)propertyDictionary
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"ratio";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"ratio";
   v2 = [MEMORY[0x277CCABB0] numberWithDouble:self->_ratio];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
@@ -62,6 +61,30 @@
   return v9;
 }
 
+- (PGGraphPartOfDayEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain weight:(float)weight properties:(id)properties
+{
+  domainCopy = domain;
+  labelCopy = label;
+  nodeCopy = node;
+  targetNodeCopy = targetNode;
+  propertiesCopy = properties;
+  v18 = [propertiesCopy objectForKeyedSubscript:@"ratio"];
+
+  if (!v18)
+  {
+    v19 = [objc_alloc(MEMORY[0x277CBEB38]) initWithDictionary:propertiesCopy];
+    *&v20 = weight;
+    v21 = [MEMORY[0x277CCABB0] numberWithFloat:v20];
+    [v19 setObject:v21 forKeyedSubscript:@"ratio"];
+
+    propertiesCopy = v19;
+  }
+
+  v22 = [(PGGraphPartOfDayEdge *)self initWithLabel:labelCopy sourceNode:nodeCopy targetNode:targetNodeCopy domain:domainCopy properties:propertiesCopy];
+
+  return v22;
+}
+
 - (PGGraphPartOfDayEdge)initWithLabel:(id)label sourceNode:(id)node targetNode:(id)targetNode domain:(unsigned __int16)domain properties:(id)properties
 {
   targetNodeCopy = targetNode;
@@ -89,14 +112,14 @@
 
 + (id)significantFilterWithLegacyWeights:(BOOL)weights
 {
-  v10[1] = *MEMORY[0x277D85DE8];
+  v9[1] = *MEMORY[0x277D85DE8];
   if (weights)
   {
     v3 = objc_alloc(MEMORY[0x277D22C20]);
-    v9 = @"__weight";
+    v8 = @"__weight";
     v4 = [objc_alloc(MEMORY[0x277D22B98]) initWithComparator:6 value:&unk_284487098];
-    v10[0] = v4;
-    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v9[0] = v4;
+    v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     significantFilter = [v3 initWithLabel:@"PARTOFDAY" domain:400 properties:v5];
   }
 
@@ -105,22 +128,18 @@
     significantFilter = [self significantFilter];
   }
 
-  v7 = *MEMORY[0x277D85DE8];
-
   return significantFilter;
 }
 
 + (MAEdgeFilter)significantFilter
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc(MEMORY[0x277D22C20]);
-  v8 = @"ratio";
+  v7 = @"ratio";
   v3 = [objc_alloc(MEMORY[0x277D22B98]) initWithComparator:6 value:&unk_284487098];
-  v9[0] = v3;
-  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v8[0] = v3;
+  v4 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v5 = [v2 initWithLabel:@"PARTOFDAY" domain:400 properties:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

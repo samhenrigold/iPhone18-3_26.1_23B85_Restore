@@ -179,21 +179,21 @@
 {
   panelCopy = panel;
   alertThrottler = [(BEUIHandler *)self alertThrottler];
-  v9[0] = _NSConcreteStackBlock;
-  v9[1] = 3221225472;
-  v9[2] = sub_2C344;
-  v9[3] = &unk_328F90;
+  v10[0] = _NSConcreteStackBlock;
+  v10[1] = 3221225472;
+  v10[2] = sub_2C344;
+  v10[3] = &unk_328F90;
   v6 = panelCopy;
-  v10 = v6;
-  LOBYTE(panelCopy) = [alertThrottler runBlockThrottled:v9];
+  v11 = v6;
+  LOBYTE(panelCopy) = [alertThrottler runBlockThrottled:v10];
 
   if ((panelCopy & 1) == 0)
   {
-    v7 = _BookEPUBLog();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _BookEPUBLog(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      *v8 = 0;
-      _os_log_impl(&dword_0, v7, OS_LOG_TYPE_ERROR, "Suppressed JS alert panels", v8, 2u);
+      *v9 = 0;
+      _os_log_impl(&dword_0, v8, OS_LOG_TYPE_ERROR, "Suppressed JS alert panels", v9, 2u);
     }
 
     (*(v6 + 2))(v6, 0);

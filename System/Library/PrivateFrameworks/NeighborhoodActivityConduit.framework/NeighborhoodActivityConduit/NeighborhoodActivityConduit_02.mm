@@ -1,585 +1,5 @@
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoLinkConversationCancelResponse()
+uint64_t NCProtoPullLagunaSessionToTVRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(uint64_t, uint64_t), uint64_t a6, void (*a7)(void))
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoLinkConversationCancelResponse and conformance NCProtoLinkConversationCancelResponse, type metadata accessor for NCProtoLinkConversationCancelResponse);
-
-  return Message.hash(into:)();
-}
-
-uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoDeclineContinuityCallRequest(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeclineContinuityCallRequest and conformance NCProtoDeclineContinuityCallRequest, type metadata accessor for NCProtoDeclineContinuityCallRequest);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoDeclineContinuityCallRequest(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeclineContinuityCallRequest and conformance NCProtoDeclineContinuityCallRequest, type metadata accessor for NCProtoDeclineContinuityCallRequest);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoDeclineContinuityCallRequest()
-{
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeclineContinuityCallRequest and conformance NCProtoDeclineContinuityCallRequest, type metadata accessor for NCProtoDeclineContinuityCallRequest);
-
-  return Message.hash(into:)();
-}
-
-uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoDeclineContinuityCallResponse(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeclineContinuityCallResponse and conformance NCProtoDeclineContinuityCallResponse, type metadata accessor for NCProtoDeclineContinuityCallResponse);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoDeclineContinuityCallResponse(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeclineContinuityCallResponse and conformance NCProtoDeclineContinuityCallResponse, type metadata accessor for NCProtoDeclineContinuityCallResponse);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoDeclineContinuityCallResponse()
-{
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeclineContinuityCallResponse and conformance NCProtoDeclineContinuityCallResponse, type metadata accessor for NCProtoDeclineContinuityCallResponse);
-
-  return Message.hash(into:)();
-}
-
-uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoGetAddressableContactsRequest(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetAddressableContactsRequest and conformance NCProtoGetAddressableContactsRequest, type metadata accessor for NCProtoGetAddressableContactsRequest);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoGetAddressableContactsRequest(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetAddressableContactsRequest and conformance NCProtoGetAddressableContactsRequest, type metadata accessor for NCProtoGetAddressableContactsRequest);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoGetAddressableContactsRequest()
-{
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetAddressableContactsRequest and conformance NCProtoGetAddressableContactsRequest, type metadata accessor for NCProtoGetAddressableContactsRequest);
-
-  return Message.hash(into:)();
-}
-
-uint64_t NCProtoGetAddressableContactsResponse.decodeMessage<A>(decoder:)()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while ((v2 & 1) == 0)
-    {
-      if (result == 1)
-      {
-        type metadata accessor for NCProtoAddressableContact(0);
-        lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAddressableContact and conformance NCProtoAddressableContact, type metadata accessor for NCProtoAddressableContact);
-        dispatch thunk of Decoder.decodeRepeatedMessageField<A>(value:)();
-      }
-
-      else if (result == 2)
-      {
-        v3 = *(type metadata accessor for NCProtoGetAddressableContactsResponse(0) + 24);
-        dispatch thunk of Decoder.decodeSingularInt64Field(value:)();
-      }
-
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t NCProtoGetAddressableContactsResponse.traverse<A>(visitor:)()
-{
-  if (!*(*v0 + 16) || (type metadata accessor for NCProtoAddressableContact(0), lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAddressableContact and conformance NCProtoAddressableContact, type metadata accessor for NCProtoAddressableContact), result = dispatch thunk of Visitor.visitRepeatedMessageField<A>(value:fieldNumber:)(), !v1))
-  {
-    result = closure #1 in NCProtoGetAddressableContactsResponse.traverse<A>(visitor:)(v0);
-    if (!v1)
-    {
-      v3 = v0 + *(type metadata accessor for NCProtoGetAddressableContactsResponse(0) + 20);
-      return UnknownStorage.traverse<A>(visitor:)();
-    }
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in NCProtoGetAddressableContactsResponse.traverse<A>(visitor:)(uint64_t a1)
-{
-  result = type metadata accessor for NCProtoGetAddressableContactsResponse(0);
-  v3 = (a1 + *(result + 24));
-  if ((v3[1] & 1) == 0)
-  {
-    v4 = *v3;
-    return dispatch thunk of Visitor.visitSingularInt64Field(value:fieldNumber:)();
-  }
-
-  return result;
-}
-
-uint64_t protocol witness for Message.init() in conformance NCProtoGetAddressableContactsResponse@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  *a2 = MEMORY[0x277D84F90];
-  v4 = a2 + *(a1 + 20);
-  result = UnknownStorage.init()();
-  v6 = a2 + *(a1 + 24);
-  *v6 = 0;
-  v6[8] = 1;
-  return result;
-}
-
-uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoGetAddressableContactsResponse(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetAddressableContactsResponse and conformance NCProtoGetAddressableContactsResponse, type metadata accessor for NCProtoGetAddressableContactsResponse);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoGetAddressableContactsResponse(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetAddressableContactsResponse and conformance NCProtoGetAddressableContactsResponse, type metadata accessor for NCProtoGetAddressableContactsResponse);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoGetAddressableContactsResponse()
-{
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetAddressableContactsResponse and conformance NCProtoGetAddressableContactsResponse, type metadata accessor for NCProtoGetAddressableContactsResponse);
-
-  return Message.hash(into:)();
-}
-
-uint64_t NCProtoGetImageForContactRequest.decodeMessage<A>(decoder:)()
-{
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
-  {
-    while ((v2 & 1) == 0)
-    {
-      if (result == 1)
-      {
-        dispatch thunk of Decoder.decodeSingularStringField(value:)();
-      }
-
-      else if (result == 2)
-      {
-        lazy protocol witness table accessor for type NCProtoContactImageType and conformance NCProtoContactImageType();
-        dispatch thunk of Decoder.decodeRepeatedEnumField<A>(value:)();
-      }
-
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t NCProtoGetImageForContactRequest.traverse<A>(visitor:)()
-{
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = HIBYTE(v3) & 0xF;
-  if ((v3 & 0x2000000000000000) == 0)
-  {
-    v4 = *v0 & 0xFFFFFFFFFFFFLL;
-  }
-
-  if (!v4 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v1))
-  {
-    if (!*(v0[2] + 16) || (lazy protocol witness table accessor for type NCProtoContactImageType and conformance NCProtoContactImageType(), result = dispatch thunk of Visitor.visitPackedEnumField<A>(value:fieldNumber:)(), !v1))
-    {
-      v6 = v0 + *(type metadata accessor for NCProtoGetImageForContactRequest(0) + 24);
-      return UnknownStorage.traverse<A>(visitor:)();
-    }
-  }
-
-  return result;
-}
-
-uint64_t static NCProtoGetImageForContactRequest.== infix(_:_:)(void *a1, void *a2)
-{
-  v4 = *a1 == *a2 && a1[1] == a2[1];
-  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit32NCProtoStartLagunaSessionRequestV19RecentCallFetchTypeO_Tt1g5Tm(a1[2], a2[2]) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v5 = *(type metadata accessor for NCProtoGetImageForContactRequest(0) + 24);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t protocol witness for Message.init() in conformance NCProtoGetImageForContactRequest@<X0>(uint64_t a1@<X0>, void *a2@<X8>)
-{
-  *a2 = 0;
-  a2[1] = 0xE000000000000000;
-  a2[2] = MEMORY[0x277D84F90];
-  v2 = a2 + *(a1 + 24);
-  return UnknownStorage.init()();
-}
-
-uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoGetImageForContactRequest(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetImageForContactRequest and conformance NCProtoGetImageForContactRequest, type metadata accessor for NCProtoGetImageForContactRequest);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoGetImageForContactRequest(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetImageForContactRequest and conformance NCProtoGetImageForContactRequest, type metadata accessor for NCProtoGetImageForContactRequest);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoGetImageForContactRequest()
-{
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetImageForContactRequest and conformance NCProtoGetImageForContactRequest, type metadata accessor for NCProtoGetImageForContactRequest);
-
-  return Message.hash(into:)();
-}
-
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NCProtoGetImageForContactRequest(void *a1, void *a2, uint64_t a3)
-{
-  v6 = *a1 == *a2 && a1[1] == a2[1];
-  if (!v6 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit32NCProtoStartLagunaSessionRequestV19RecentCallFetchTypeO_Tt1g5Tm(a1[2], a2[2]) & 1) == 0)
-  {
-    return 0;
-  }
-
-  v7 = *(a3 + 24);
-  type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t NCProtoGetImageForContactResponse.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v5 = v3;
-  result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v4)
-  {
-    while ((v10 & 1) == 0)
-    {
-      if (result == 1)
-      {
-        v11 = *(type metadata accessor for NCProtoGetImageForContactResponse(0) + 20);
-        dispatch thunk of Decoder.decodeSingularBytesField(value:)();
-      }
-
-      else if (result == 2)
-      {
-        closure #2 in NCProtoPullLagunaSessionToTVRequest.decodeMessage<A>(decoder:)(a1, v5, a2, a3, type metadata accessor for NCProtoGetImageForContactResponse, lazy protocol witness table accessor for type NCProtoContactImageType and conformance NCProtoContactImageType);
-      }
-
-      result = dispatch thunk of Decoder.nextFieldNumber()();
-    }
-  }
-
-  return result;
-}
-
-uint64_t closure #2 in NCProtoPullLagunaSessionToTVRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), void (*a6)(void))
-{
-  v7 = *(a5(0) + 24);
-  a6();
-  return dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
-}
-
-uint64_t NCProtoGetImageForContactResponse.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  result = closure #1 in NCProtoGetImageForContactResponse.traverse<A>(visitor:)(v3);
-  if (!v4)
-  {
-    closure #1 in NCProtoPullLagunaSessionToTVRequest.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for NCProtoGetImageForContactResponse, lazy protocol witness table accessor for type NCProtoContactImageType and conformance NCProtoContactImageType);
-    return UnknownStorage.traverse<A>(visitor:)();
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in NCProtoGetImageForContactResponse.traverse<A>(visitor:)(uint64_t a1)
-{
-  result = type metadata accessor for NCProtoGetImageForContactResponse(0);
-  v3 = a1 + *(result + 20);
-  v4 = *(v3 + 8);
-  if (v4 >> 60 != 15)
-  {
-    v5 = *v3;
-    outlined copy of Data._Representation(*v3, *(v3 + 8));
-    dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-    return outlined consume of Data?(v5, v4);
-  }
-
-  return result;
-}
-
-uint64_t closure #1 in NCProtoPullLagunaSessionToTVRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), void (*a6)(uint64_t, uint64_t))
-{
-  result = a5(0);
-  v10 = (a1 + *(result + 24));
-  if ((*(v10 + 9) & 1) == 0)
-  {
-    v11 = *v10;
-    v12 = v10[1] & 1;
-    a6(result, v9);
-    return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
-  }
-
-  return result;
-}
-
-double protocol witness for Message.init() in conformance NCProtoGetImageForContactResponse@<D0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  UnknownStorage.init()();
-  result = 0.0;
-  v5 = *(a1 + 24);
-  *(a2 + *(a1 + 20)) = xmmword_2255D3AC0;
-  v6 = a2 + v5;
-  *v6 = 0;
-  *(v6 + 8) = 256;
-  return result;
-}
-
-uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoGetImageForContactResponse(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetImageForContactResponse and conformance NCProtoGetImageForContactResponse, type metadata accessor for NCProtoGetImageForContactResponse);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoGetImageForContactResponse(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetImageForContactResponse and conformance NCProtoGetImageForContactResponse, type metadata accessor for NCProtoGetImageForContactResponse);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoGetImageForContactResponse()
-{
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetImageForContactResponse and conformance NCProtoGetImageForContactResponse, type metadata accessor for NCProtoGetImageForContactResponse);
-
-  return Message.hash(into:)();
-}
-
-uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoAddConversationParticipantsRequest(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAddConversationParticipantsRequest and conformance NCProtoAddConversationParticipantsRequest, type metadata accessor for NCProtoAddConversationParticipantsRequest);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoAddConversationParticipantsRequest(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAddConversationParticipantsRequest and conformance NCProtoAddConversationParticipantsRequest, type metadata accessor for NCProtoAddConversationParticipantsRequest);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoAddConversationParticipantsRequest()
-{
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAddConversationParticipantsRequest and conformance NCProtoAddConversationParticipantsRequest, type metadata accessor for NCProtoAddConversationParticipantsRequest);
-
-  return Message.hash(into:)();
-}
-
-uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoAddConversationParticipantsResponse(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAddConversationParticipantsResponse and conformance NCProtoAddConversationParticipantsResponse, type metadata accessor for NCProtoAddConversationParticipantsResponse);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoAddConversationParticipantsResponse(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAddConversationParticipantsResponse and conformance NCProtoAddConversationParticipantsResponse, type metadata accessor for NCProtoAddConversationParticipantsResponse);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoAddConversationParticipantsResponse()
-{
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAddConversationParticipantsResponse and conformance NCProtoAddConversationParticipantsResponse, type metadata accessor for NCProtoAddConversationParticipantsResponse);
-
-  return Message.hash(into:)();
-}
-
-uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoGetCallDisplayDetailsRequest(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetCallDisplayDetailsRequest and conformance NCProtoGetCallDisplayDetailsRequest, type metadata accessor for NCProtoGetCallDisplayDetailsRequest);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoGetCallDisplayDetailsRequest(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetCallDisplayDetailsRequest and conformance NCProtoGetCallDisplayDetailsRequest, type metadata accessor for NCProtoGetCallDisplayDetailsRequest);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoGetCallDisplayDetailsRequest()
-{
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetCallDisplayDetailsRequest and conformance NCProtoGetCallDisplayDetailsRequest, type metadata accessor for NCProtoGetCallDisplayDetailsRequest);
-
-  return Message.hash(into:)();
-}
-
-uint64_t closure #1 in NCProtoGetCallDisplayDetailsResponse.decodeMessage<A>(decoder:)()
-{
-  v0 = *(type metadata accessor for NCProtoGetCallDisplayDetailsResponse(0) + 20);
-  type metadata accessor for NCProtoCallInfo(0);
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallInfo and conformance NCProtoCallInfo, type metadata accessor for NCProtoCallInfo);
-  return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-}
-
-uint64_t closure #1 in NCProtoGetCallDisplayDetailsResponse.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
-{
-  v16[3] = a4;
-  v16[1] = a3;
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
-  v6 = *(*(v5 - 8) + 64);
-  MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for NCProtoCallInfo(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for NCProtoGetCallDisplayDetailsResponse(0);
-  outlined init with copy of NCProtoContactInfo?(a1 + *(v14 + 20), v8, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
-  {
-    return outlined destroy of NCProtoContactInfo?(v8, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
-  }
-
-  outlined init with take of NCProtoContactInfo(v8, v13, type metadata accessor for NCProtoCallInfo);
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallInfo and conformance NCProtoCallInfo, type metadata accessor for NCProtoCallInfo);
-  dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of NCProtoContactInfo(v13, type metadata accessor for NCProtoCallInfo);
-}
-
-uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoGetCallDisplayDetailsResponse(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetCallDisplayDetailsResponse and conformance NCProtoGetCallDisplayDetailsResponse, type metadata accessor for NCProtoGetCallDisplayDetailsResponse);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoGetCallDisplayDetailsResponse(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetCallDisplayDetailsResponse and conformance NCProtoGetCallDisplayDetailsResponse, type metadata accessor for NCProtoGetCallDisplayDetailsResponse);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoGetCallDisplayDetailsResponse()
-{
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetCallDisplayDetailsResponse and conformance NCProtoGetCallDisplayDetailsResponse, type metadata accessor for NCProtoGetCallDisplayDetailsResponse);
-
-  return Message.hash(into:)();
-}
-
-uint64_t NCProtoDestinationCapabilities.decodeMessage<A>(decoder:)()
-{
-  while (1)
-  {
-    result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
-    {
-      break;
-    }
-
-    if (result == 3 || result == 2 || result == 1)
-    {
-      dispatch thunk of Decoder.decodeSingularBoolField(value:)();
-    }
-  }
-
-  return result;
-}
-
-uint64_t NCProtoDestinationCapabilities.traverse<A>(visitor:)()
-{
-  if (*v0 != 1 || (result = dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)(), !v1))
-  {
-    if (v0[1] != 1 || (result = dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)(), !v1))
-    {
-      if (v0[2] != 1 || (result = dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)(), !v1))
-      {
-        v3 = &v0[*(type metadata accessor for NCProtoDestinationCapabilities(0) + 28)];
-        return UnknownStorage.traverse<A>(visitor:)();
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t protocol witness for Message.init() in conformance NCProtoDestinationCapabilities@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
-{
-  *a2 = 0;
-  *(a2 + 2) = 0;
-  v2 = a2 + *(a1 + 28);
-  return UnknownStorage.init()();
-}
-
-uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoDestinationCapabilities(uint64_t a1, uint64_t a2)
-{
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDestinationCapabilities and conformance NCProtoDestinationCapabilities, type metadata accessor for NCProtoDestinationCapabilities);
-
-  return MEMORY[0x28217E230](a1, a2, v4);
-}
-
-uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoDestinationCapabilities(uint64_t a1)
-{
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDestinationCapabilities and conformance NCProtoDestinationCapabilities, type metadata accessor for NCProtoDestinationCapabilities);
-
-  return MEMORY[0x28217E428](a1, v2);
-}
-
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoDestinationCapabilities()
-{
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDestinationCapabilities and conformance NCProtoDestinationCapabilities, type metadata accessor for NCProtoDestinationCapabilities);
-
-  return Message.hash(into:)();
-}
-
-uint64_t NCProtoPullLagunaSessionToTVRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), void (*a5)(void))
-{
-  v9 = v5;
-  while (1)
-  {
-    result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v6 || (v14 & 1) != 0)
-    {
-      break;
-    }
-
-    if (result == 1)
-    {
-      dispatch thunk of Decoder.decodeSingularStringField(value:)();
-    }
-
-    else if (result == 2)
-    {
-      closure #2 in NCProtoPullLagunaSessionToTVRequest.decodeMessage<A>(decoder:)(a1, v9, a2, a3, a4, a5);
-    }
-  }
-
-  return result;
-}
-
-uint64_t NCProtoPullLagunaSessionToTVRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), void (*a5)(uint64_t, uint64_t), uint64_t a6, uint64_t (*a7)(void))
-{
-  v15 = *v7;
   v16 = v7[1];
   v17 = HIBYTE(v16) & 0xF;
   if ((v16 & 0x2000000000000000) == 0)
@@ -589,10 +9,10 @@ uint64_t NCProtoPullLagunaSessionToTVRequest.traverse<A>(visitor:)(uint64_t a1, 
 
   if (!v17 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v8))
   {
-    result = closure #1 in NCProtoPullLagunaSessionToTVRequest.traverse<A>(visitor:)(v7, a1, a2, a3, a4, a5);
+    result = closure #1 in NCProtoPullLagunaSessionToTVRequest.traverse<A>(visitor:)(v7, a1, a2, a3, a4, a5, a6);
     if (!v8)
     {
-      v19 = v7 + *(a7(0) + 20);
+      a7(0);
       return UnknownStorage.traverse<A>(visitor:)();
     }
   }
@@ -604,101 +24,98 @@ uint64_t protocol witness for Message.init() in conformance NCProtoPullLagunaSes
 {
   *a2 = 0;
   a2[1] = 0xE000000000000000;
-  v4 = a2 + *(a1 + 20);
   result = UnknownStorage.init()();
-  v6 = a2 + *(a1 + 24);
-  *v6 = 0;
-  *(v6 + 4) = 256;
+  v5 = a2 + *(a1 + 24);
+  *v5 = 0;
+  *(v5 + 4) = 256;
   return result;
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoGetDestinationCapabilitiesRequest(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest and conformance NCProtoGetDestinationCapabilitiesRequest, type metadata accessor for NCProtoGetDestinationCapabilitiesRequest);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest and conformance NCProtoGetDestinationCapabilitiesRequest, type metadata accessor for NCProtoGetDestinationCapabilitiesRequest, &protocol conformance descriptor for NCProtoGetDestinationCapabilitiesRequest);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoGetDestinationCapabilitiesRequest(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest and conformance NCProtoGetDestinationCapabilitiesRequest, type metadata accessor for NCProtoGetDestinationCapabilitiesRequest);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest and conformance NCProtoGetDestinationCapabilitiesRequest, type metadata accessor for NCProtoGetDestinationCapabilitiesRequest, &protocol conformance descriptor for NCProtoGetDestinationCapabilitiesRequest);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoGetDestinationCapabilitiesRequest()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoGetDestinationCapabilitiesRequest(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest and conformance NCProtoGetDestinationCapabilitiesRequest, type metadata accessor for NCProtoGetDestinationCapabilitiesRequest);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest and conformance NCProtoGetDestinationCapabilitiesRequest, type metadata accessor for NCProtoGetDestinationCapabilitiesRequest, &protocol conformance descriptor for NCProtoGetDestinationCapabilitiesRequest);
 
   return Message.hash(into:)();
 }
 
-uint64_t closure #1 in NCProtoGetDestinationCapabilitiesResponse.decodeMessage<A>(decoder:)()
+uint64_t closure #1 in NCProtoGetDestinationCapabilitiesResponse.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for NCProtoGetDestinationCapabilitiesResponse(0) + 20);
+  type metadata accessor for NCProtoGetDestinationCapabilitiesResponse(0);
   type metadata accessor for NCProtoDestinationCapabilities(0);
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDestinationCapabilities and conformance NCProtoDestinationCapabilities, type metadata accessor for NCProtoDestinationCapabilities);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDestinationCapabilities and conformance NCProtoDestinationCapabilities, type metadata accessor for NCProtoDestinationCapabilities, &protocol conformance descriptor for NCProtoDestinationCapabilities);
   return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
 }
 
 uint64_t closure #1 in NCProtoGetDestinationCapabilitiesResponse.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for NCProtoDestinationCapabilities(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = v14 - v6;
+  v8 = type metadata accessor for NCProtoDestinationCapabilities(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
   DestinationCapabilitiesResponse = type metadata accessor for NCProtoGetDestinationCapabilitiesResponse(0);
-  outlined init with copy of NCProtoContactInfo?(a1 + *(DestinationCapabilitiesResponse + 20), v8, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  outlined init with copy of NCProtoContactInfo?(a1 + *(DestinationCapabilitiesResponse + 20), v7, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of NCProtoContactInfo?(v8, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
+    return outlined destroy of NCProtoContactInfo?(v7, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
   }
 
-  outlined init with take of NCProtoContactInfo(v8, v13, type metadata accessor for NCProtoDestinationCapabilities);
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDestinationCapabilities and conformance NCProtoDestinationCapabilities, type metadata accessor for NCProtoDestinationCapabilities);
+  outlined init with take of NCProtoContactInfo(v7, v11, type metadata accessor for NCProtoDestinationCapabilities);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDestinationCapabilities and conformance NCProtoDestinationCapabilities, type metadata accessor for NCProtoDestinationCapabilities, &protocol conformance descriptor for NCProtoDestinationCapabilities);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of NCProtoContactInfo(v13, type metadata accessor for NCProtoDestinationCapabilities);
+  return outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoDestinationCapabilities);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoGetDestinationCapabilitiesResponse(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesResponse and conformance NCProtoGetDestinationCapabilitiesResponse, type metadata accessor for NCProtoGetDestinationCapabilitiesResponse);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesResponse and conformance NCProtoGetDestinationCapabilitiesResponse, type metadata accessor for NCProtoGetDestinationCapabilitiesResponse, &protocol conformance descriptor for NCProtoGetDestinationCapabilitiesResponse);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoGetDestinationCapabilitiesResponse(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesResponse and conformance NCProtoGetDestinationCapabilitiesResponse, type metadata accessor for NCProtoGetDestinationCapabilitiesResponse);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesResponse and conformance NCProtoGetDestinationCapabilitiesResponse, type metadata accessor for NCProtoGetDestinationCapabilitiesResponse, &protocol conformance descriptor for NCProtoGetDestinationCapabilitiesResponse);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoGetDestinationCapabilitiesResponse()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoGetDestinationCapabilitiesResponse(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesResponse and conformance NCProtoGetDestinationCapabilitiesResponse, type metadata accessor for NCProtoGetDestinationCapabilitiesResponse);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesResponse and conformance NCProtoGetDestinationCapabilitiesResponse, type metadata accessor for NCProtoGetDestinationCapabilitiesResponse, &protocol conformance descriptor for NCProtoGetDestinationCapabilitiesResponse);
 
   return Message.hash(into:)();
 }
 
-uint64_t NCProtoIncomingCallBannerActionRequest.decodeMessage<A>(decoder:)()
+uint64_t NCProtoIncomingCallBannerActionRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
-    while ((v2 & 1) == 0)
+    while ((v5 & 1) == 0)
     {
       switch(result)
       {
         case 3:
-          v3 = *(type metadata accessor for NCProtoIncomingCallBannerActionRequest(0) + 28);
+          type metadata accessor for NCProtoIncomingCallBannerActionRequest(0);
           dispatch thunk of Decoder.decodeSingularStringField(value:)();
           break;
         case 2:
@@ -719,21 +136,21 @@ uint64_t NCProtoIncomingCallBannerActionRequest.decodeMessage<A>(decoder:)()
 
 uint64_t NCProtoIncomingCallBannerActionRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (!*v3 || (v12 = *v3, v13 = *(v3 + 8), lazy protocol witness table accessor for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action(), result = dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)(), !v4))
+  if (!*v3 || (lazy protocol witness table accessor for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action(), result = dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)(), !v4))
   {
-    v9 = *(v3 + 24);
+    v9 = v3[3];
     v10 = HIBYTE(v9) & 0xF;
     if ((v9 & 0x2000000000000000) == 0)
     {
-      v10 = *(v3 + 16) & 0xFFFFFFFFFFFFLL;
+      v10 = v3[2] & 0xFFFFFFFFFFFFLL;
     }
 
     if (!v10 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v4))
     {
-      result = closure #2 in NCProtoActiveConversation.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for NCProtoIncomingCallBannerActionRequest);
+      result = closure #2 in NCProtoActiveConversation.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for NCProtoIncomingCallBannerActionRequest, 3);
       if (!v4)
       {
-        v11 = v3 + *(type metadata accessor for NCProtoIncomingCallBannerActionRequest(0) + 24);
+        type metadata accessor for NCProtoIncomingCallBannerActionRequest(0);
         return UnknownStorage.traverse<A>(visitor:)();
       }
     }
@@ -748,11 +165,10 @@ uint64_t protocol witness for Message.init() in conformance NCProtoIncomingCallB
   *(a2 + 8) = 1;
   *(a2 + 16) = 0;
   *(a2 + 24) = 0xE000000000000000;
-  v4 = a2 + *(a1 + 24);
   result = UnknownStorage.init()();
-  v6 = (a2 + *(a1 + 28));
-  *v6 = 0;
-  v6[1] = 0;
+  v5 = (a2 + *(a1 + 28));
+  *v5 = 0;
+  v5[1] = 0;
   return result;
 }
 
@@ -776,42 +192,42 @@ uint64_t protocol witness for Message.unknownFields.setter in conformance NCProt
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoIncomingCallBannerActionRequest(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest and conformance NCProtoIncomingCallBannerActionRequest, type metadata accessor for NCProtoIncomingCallBannerActionRequest);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest and conformance NCProtoIncomingCallBannerActionRequest, type metadata accessor for NCProtoIncomingCallBannerActionRequest, &protocol conformance descriptor for NCProtoIncomingCallBannerActionRequest);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoIncomingCallBannerActionRequest(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest and conformance NCProtoIncomingCallBannerActionRequest, type metadata accessor for NCProtoIncomingCallBannerActionRequest);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest and conformance NCProtoIncomingCallBannerActionRequest, type metadata accessor for NCProtoIncomingCallBannerActionRequest, &protocol conformance descriptor for NCProtoIncomingCallBannerActionRequest);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoIncomingCallBannerActionRequest()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoIncomingCallBannerActionRequest(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest and conformance NCProtoIncomingCallBannerActionRequest, type metadata accessor for NCProtoIncomingCallBannerActionRequest);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest and conformance NCProtoIncomingCallBannerActionRequest, type metadata accessor for NCProtoIncomingCallBannerActionRequest, &protocol conformance descriptor for NCProtoIncomingCallBannerActionRequest);
 
   return Message.hash(into:)();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoIncomingCallBannerActionResponse(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionResponse and conformance NCProtoIncomingCallBannerActionResponse, type metadata accessor for NCProtoIncomingCallBannerActionResponse);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionResponse and conformance NCProtoIncomingCallBannerActionResponse, type metadata accessor for NCProtoIncomingCallBannerActionResponse, &protocol conformance descriptor for NCProtoIncomingCallBannerActionResponse);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoIncomingCallBannerActionResponse(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionResponse and conformance NCProtoIncomingCallBannerActionResponse, type metadata accessor for NCProtoIncomingCallBannerActionResponse);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionResponse and conformance NCProtoIncomingCallBannerActionResponse, type metadata accessor for NCProtoIncomingCallBannerActionResponse, &protocol conformance descriptor for NCProtoIncomingCallBannerActionResponse);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoIncomingCallBannerActionResponse()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoIncomingCallBannerActionResponse(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionResponse and conformance NCProtoIncomingCallBannerActionResponse, type metadata accessor for NCProtoIncomingCallBannerActionResponse);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionResponse and conformance NCProtoIncomingCallBannerActionResponse, type metadata accessor for NCProtoIncomingCallBannerActionResponse, &protocol conformance descriptor for NCProtoIncomingCallBannerActionResponse);
 
   return Message.hash(into:)();
 }
@@ -833,38 +249,22 @@ uint64_t NCProtoCallState.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, u
       {
         if (result == 3)
         {
-          closure #3 in NCProtoCallState.decodeMessage<A>(decoder:)(a1, v5, a2, a3, type metadata accessor for NCProtoCallState, lazy protocol witness table accessor for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode);
+          closure #3 in NCProtoCallState.decodeMessage<A>(decoder:)(a1, v5, a2, a3, type metadata accessor for NCProtoCallState, lazy protocol witness table accessor for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode, &type metadata for NCProtoConversationAVMode);
         }
 
         else if (result == 4)
         {
-          v11 = v4;
-          v14 = *(type metadata accessor for NCProtoCallState(0) + 32);
-          goto LABEL_5;
+          goto LABEL_4;
         }
       }
 
-      else
+      else if (result == 1 || result == 2)
       {
-        if (result == 1)
-        {
-          v11 = v4;
-          v12 = *(type metadata accessor for NCProtoCallState(0) + 20);
-LABEL_5:
-          v4 = v11;
-          dispatch thunk of Decoder.decodeSingularBoolField(value:)();
-          goto LABEL_6;
-        }
-
-        if (result == 2)
-        {
-          v11 = v4;
-          v13 = *(type metadata accessor for NCProtoCallState(0) + 24);
-          goto LABEL_5;
-        }
+LABEL_4:
+        type metadata accessor for NCProtoCallState(0);
+        dispatch thunk of Decoder.decodeSingularBoolField(value:)();
       }
 
-LABEL_6:
       result = dispatch thunk of Decoder.nextFieldNumber()();
     }
   }
@@ -874,11 +274,11 @@ LABEL_6:
 
 uint64_t NCProtoCallState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  result = closure #1 in NCProtoCallState.traverse<A>(visitor:)(v3);
+  result = closure #1 in NCProtoCallState.traverse<A>(visitor:)(v3, a1, a2, a3);
   if (!v4)
   {
     closure #1 in NCProtoTransferActiveConversationRequest.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for NCProtoCallState);
-    closure #3 in NCProtoCallState.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for NCProtoCallState, lazy protocol witness table accessor for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode);
+    closure #3 in NCProtoCallState.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for NCProtoCallState, lazy protocol witness table accessor for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode, &type metadata for NCProtoConversationAVMode);
     closure #4 in NCProtoCallState.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for NCProtoCallState);
     return UnknownStorage.traverse<A>(visitor:)();
   }
@@ -886,7 +286,7 @@ uint64_t NCProtoCallState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64
   return result;
 }
 
-uint64_t closure #1 in NCProtoCallState.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #1 in NCProtoCallState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for NCProtoCallState(0);
   if (*(a1 + *(result + 20)) != 2)
@@ -913,33 +313,33 @@ uint64_t protocol witness for Message.init() in conformance NCProtoCallState@<X0
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoCallState(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallState and conformance NCProtoCallState, type metadata accessor for NCProtoCallState);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallState and conformance NCProtoCallState, type metadata accessor for NCProtoCallState, &protocol conformance descriptor for NCProtoCallState);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoCallState(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallState and conformance NCProtoCallState, type metadata accessor for NCProtoCallState);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallState and conformance NCProtoCallState, type metadata accessor for NCProtoCallState, &protocol conformance descriptor for NCProtoCallState);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoCallState()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoCallState(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallState and conformance NCProtoCallState, type metadata accessor for NCProtoCallState);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallState and conformance NCProtoCallState, type metadata accessor for NCProtoCallState, &protocol conformance descriptor for NCProtoCallState);
 
   return Message.hash(into:)();
 }
 
-uint64_t NCProtoCallStateRequest.traverse<A>(visitor:)()
+uint64_t NCProtoCallStateRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = v3 >> 62;
-  if ((v3 >> 62) > 1)
+  v5 = *v3;
+  v6 = v3[1];
+  v7 = v6 >> 62;
+  if ((v6 >> 62) > 1)
   {
-    if (v4 != 2 || *(v2 + 16) == *(v2 + 24))
+    if (v7 != 2 || *(v5 + 16) == *(v5 + 24))
     {
       goto LABEL_10;
     }
@@ -947,16 +347,16 @@ uint64_t NCProtoCallStateRequest.traverse<A>(visitor:)()
     goto LABEL_9;
   }
 
-  if (v4)
+  if (v7)
   {
-    if (v2 == v2 >> 32)
+    if (v5 == v5 >> 32)
     {
       goto LABEL_10;
     }
 
 LABEL_9:
     result = dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-    if (v1)
+    if (v4)
     {
       return result;
     }
@@ -964,67 +364,59 @@ LABEL_9:
     goto LABEL_10;
   }
 
-  if ((v3 & 0xFF000000000000) != 0)
+  if ((v6 & 0xFF000000000000) != 0)
   {
     goto LABEL_9;
   }
 
 LABEL_10:
-  v6 = v0 + *(type metadata accessor for NCProtoCallStateRequest(0) + 20);
+  type metadata accessor for NCProtoCallStateRequest(0);
   return UnknownStorage.traverse<A>(visitor:)();
 }
 
-uint64_t static NCProtoCallStateRequest.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t static NCProtoCallStateRequest.== infix(_:_:)(_BOOL8 *a1, uint64_t *a2)
 {
-  if ((specialized static Data.== infix(_:_:)(*a1, *(a1 + 8), *a2, *(a2 + 8)) & 1) == 0)
+  if (!specialized static Data.== infix(_:_:)(*a1, a1[1], *a2, a2[1]))
   {
     return 0;
   }
 
-  v2 = *(type metadata accessor for NCProtoCallStateRequest(0) + 20);
+  type metadata accessor for NCProtoCallStateRequest(0);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t protocol witness for Message.init() in conformance NCProtoCallStateRequest@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
-{
-  *a2 = xmmword_2255D3AB0;
-  v2 = a2 + *(a1 + 20);
-  return UnknownStorage.init()();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoCallStateRequest(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallStateRequest and conformance NCProtoCallStateRequest, type metadata accessor for NCProtoCallStateRequest);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallStateRequest and conformance NCProtoCallStateRequest, type metadata accessor for NCProtoCallStateRequest, &protocol conformance descriptor for NCProtoCallStateRequest);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoCallStateRequest(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallStateRequest and conformance NCProtoCallStateRequest, type metadata accessor for NCProtoCallStateRequest);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallStateRequest and conformance NCProtoCallStateRequest, type metadata accessor for NCProtoCallStateRequest, &protocol conformance descriptor for NCProtoCallStateRequest);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoCallStateRequest()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoCallStateRequest(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallStateRequest and conformance NCProtoCallStateRequest, type metadata accessor for NCProtoCallStateRequest);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallStateRequest and conformance NCProtoCallStateRequest, type metadata accessor for NCProtoCallStateRequest, &protocol conformance descriptor for NCProtoCallStateRequest);
 
   return Message.hash(into:)();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NCProtoCallStateRequest(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NCProtoCallStateRequest(_BOOL8 *a1, uint64_t *a2, uint64_t a3)
 {
-  if ((specialized static Data.== infix(_:_:)(*a1, *(a1 + 8), *a2, *(a2 + 8)) & 1) == 0)
+  if (!specialized static Data.== infix(_:_:)(*a1, a1[1], *a2, a2[1]))
   {
     return 0;
   }
 
-  v4 = *(a3 + 20);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -1048,11 +440,11 @@ uint64_t NCProtoSuggestionAdvertisementDidChangeEvent.decodeMessage<A>(decoder:)
   return result;
 }
 
-uint64_t closure #1 in NCProtoCallStateResponse.decodeMessage<A>(decoder:)()
+uint64_t closure #1 in NCProtoCallStateResponse.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for NCProtoCallStateResponse(0) + 20);
+  type metadata accessor for NCProtoCallStateResponse(0);
   type metadata accessor for NCProtoCallState(0);
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallState and conformance NCProtoCallState, type metadata accessor for NCProtoCallState);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallState and conformance NCProtoCallState, type metadata accessor for NCProtoCallState, &protocol conformance descriptor for NCProtoCallState);
   return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
 }
 
@@ -1069,57 +461,56 @@ uint64_t NCProtoSuggestionAdvertisementDidChangeEvent.traverse<A>(visitor:)(uint
 
 uint64_t closure #1 in NCProtoCallStateResponse.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for NCProtoCallState(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for NCProtoCallStateResponse(0);
-  outlined init with copy of NCProtoContactInfo?(a1 + *(v14 + 20), v8, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for NCProtoCallState(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for NCProtoCallStateResponse(0);
+  outlined init with copy of NCProtoContactInfo?(a1 + *(v12 + 20), v7, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of NCProtoContactInfo?(v8, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+    return outlined destroy of NCProtoContactInfo?(v7, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
   }
 
-  outlined init with take of NCProtoContactInfo(v8, v13, type metadata accessor for NCProtoCallState);
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallState and conformance NCProtoCallState, type metadata accessor for NCProtoCallState);
+  outlined init with take of NCProtoContactInfo(v7, v11, type metadata accessor for NCProtoCallState);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallState and conformance NCProtoCallState, type metadata accessor for NCProtoCallState, &protocol conformance descriptor for NCProtoCallState);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of NCProtoContactInfo(v13, type metadata accessor for NCProtoCallState);
+  return outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoCallState);
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoCallStateResponse(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallStateResponse and conformance NCProtoCallStateResponse, type metadata accessor for NCProtoCallStateResponse);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallStateResponse and conformance NCProtoCallStateResponse, type metadata accessor for NCProtoCallStateResponse, &protocol conformance descriptor for NCProtoCallStateResponse);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoCallStateResponse(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallStateResponse and conformance NCProtoCallStateResponse, type metadata accessor for NCProtoCallStateResponse);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallStateResponse and conformance NCProtoCallStateResponse, type metadata accessor for NCProtoCallStateResponse, &protocol conformance descriptor for NCProtoCallStateResponse);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoCallStateResponse()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoCallStateResponse(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallStateResponse and conformance NCProtoCallStateResponse, type metadata accessor for NCProtoCallStateResponse);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallStateResponse and conformance NCProtoCallStateResponse, type metadata accessor for NCProtoCallStateResponse, &protocol conformance descriptor for NCProtoCallStateResponse);
 
   return Message.hash(into:)();
 }
 
-uint64_t NCProtoDeviceTokenRequest.decodeMessage<A>(decoder:)()
+uint64_t NCProtoDeviceTokenRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
+    if (v4 || (v10 & 1) != 0)
     {
       break;
     }
@@ -1133,7 +524,7 @@ uint64_t NCProtoDeviceTokenRequest.decodeMessage<A>(decoder:)()
 
       else if (result == 2)
       {
-        closure #2 in NCProtoDeviceTokenRequest.decodeMessage<A>(decoder:)();
+        closure #2 in NCProtoDeviceTokenRequest.decodeMessage<A>(decoder:)(a1, v5, a2, a3);
       }
     }
 
@@ -1142,14 +533,14 @@ uint64_t NCProtoDeviceTokenRequest.decodeMessage<A>(decoder:)()
       switch(result)
       {
         case 3:
-          closure #3 in NCProtoDeviceTokenRequest.decodeMessage<A>(decoder:)();
+          closure #3 in NCProtoDeviceTokenRequest.decodeMessage<A>(decoder:)(a1, v5, a2, a3);
           break;
         case 4:
-          v3 = *(type metadata accessor for NCProtoDeviceTokenRequest(0) + 32);
+          type metadata accessor for NCProtoDeviceTokenRequest(0);
           dispatch thunk of Decoder.decodeSingularBoolField(value:)();
           break;
         case 5:
-          closure #5 in NCProtoDeviceTokenRequest.decodeMessage<A>(decoder:)();
+          closure #5 in NCProtoDeviceTokenRequest.decodeMessage<A>(decoder:)(a1, v5, a2, a3);
           break;
       }
     }
@@ -1158,48 +549,47 @@ uint64_t NCProtoDeviceTokenRequest.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t closure #2 in NCProtoDeviceTokenRequest.decodeMessage<A>(decoder:)()
+uint64_t closure #2 in NCProtoDeviceTokenRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for NCProtoDeviceTokenRequest(0) + 24);
+  type metadata accessor for NCProtoDeviceTokenRequest(0);
   type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo and conformance NCProtoMemberAssociationPrimaryInfo, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo and conformance NCProtoMemberAssociationPrimaryInfo, type metadata accessor for NCProtoMemberAssociationPrimaryInfo, &protocol conformance descriptor for NCProtoMemberAssociationPrimaryInfo);
   return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
 }
 
-uint64_t closure #3 in NCProtoDeviceTokenRequest.decodeMessage<A>(decoder:)()
+uint64_t closure #3 in NCProtoDeviceTokenRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for NCProtoDeviceTokenRequest(0) + 28);
+  type metadata accessor for NCProtoDeviceTokenRequest(0);
   type metadata accessor for NCProtoCallState(0);
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallState and conformance NCProtoCallState, type metadata accessor for NCProtoCallState);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallState and conformance NCProtoCallState, type metadata accessor for NCProtoCallState, &protocol conformance descriptor for NCProtoCallState);
   return dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
 }
 
-uint64_t closure #5 in NCProtoDeviceTokenRequest.decodeMessage<A>(decoder:)()
+uint64_t closure #5 in NCProtoDeviceTokenRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v0 = *(type metadata accessor for NCProtoDeviceTokenRequest(0) + 36);
+  type metadata accessor for NCProtoDeviceTokenRequest(0);
   lazy protocol witness table accessor for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType();
   return dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
 }
 
 uint64_t NCProtoDeviceTokenRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v8 = *v3;
-  v9 = v3[1];
-  v10 = HIBYTE(v9) & 0xF;
-  if ((v9 & 0x2000000000000000) == 0)
+  v8 = v3[1];
+  v9 = HIBYTE(v8) & 0xF;
+  if ((v8 & 0x2000000000000000) == 0)
   {
-    v10 = *v3 & 0xFFFFFFFFFFFFLL;
+    v9 = *v3 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v10 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v4))
+  if (!v9 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v4))
   {
     result = closure #1 in NCProtoDeviceTokenRequest.traverse<A>(visitor:)(v3, a1, a2, a3);
     if (!v4)
     {
       closure #2 in NCProtoDeviceTokenRequest.traverse<A>(visitor:)(v3, a1, a2, a3);
       closure #4 in NCProtoCallState.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for NCProtoDeviceTokenRequest);
-      closure #4 in NCProtoDeviceTokenRequest.traverse<A>(visitor:)(v3);
-      v12 = v3 + *(type metadata accessor for NCProtoDeviceTokenRequest(0) + 20);
+      closure #4 in NCProtoDeviceTokenRequest.traverse<A>(visitor:)(v3, a1, a2, a3);
+      type metadata accessor for NCProtoDeviceTokenRequest(0);
       return UnknownStorage.traverse<A>(visitor:)();
     }
   }
@@ -1209,54 +599,50 @@ uint64_t NCProtoDeviceTokenRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a
 
 uint64_t closure #1 in NCProtoDeviceTokenRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for NCProtoDeviceTokenRequest(0);
-  outlined init with copy of NCProtoContactInfo?(a1 + *(v14 + 24), v8, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for NCProtoDeviceTokenRequest(0);
+  outlined init with copy of NCProtoContactInfo?(a1 + *(v12 + 24), v7, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of NCProtoContactInfo?(v8, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+    return outlined destroy of NCProtoContactInfo?(v7, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
   }
 
-  outlined init with take of NCProtoContactInfo(v8, v13, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo and conformance NCProtoMemberAssociationPrimaryInfo, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  outlined init with take of NCProtoContactInfo(v7, v11, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo and conformance NCProtoMemberAssociationPrimaryInfo, type metadata accessor for NCProtoMemberAssociationPrimaryInfo, &protocol conformance descriptor for NCProtoMemberAssociationPrimaryInfo);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of NCProtoContactInfo(v13, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  return outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
 }
 
 uint64_t closure #2 in NCProtoDeviceTokenRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v16[3] = a4;
-  v16[1] = a3;
+  v14[3] = a4;
+  v14[1] = a3;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v16 - v7;
-  v9 = type metadata accessor for NCProtoCallState(0);
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x28223BE20](v9);
-  v13 = v16 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v14 = type metadata accessor for NCProtoDeviceTokenRequest(0);
-  outlined init with copy of NCProtoContactInfo?(a1 + *(v14 + 28), v8, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-  if ((*(v10 + 48))(v8, 1, v9) == 1)
+  v7 = v14 - v6;
+  v8 = type metadata accessor for NCProtoCallState(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = v14 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = type metadata accessor for NCProtoDeviceTokenRequest(0);
+  outlined init with copy of NCProtoContactInfo?(a1 + *(v12 + 28), v7, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  if ((*(v9 + 48))(v7, 1, v8) == 1)
   {
-    return outlined destroy of NCProtoContactInfo?(v8, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+    return outlined destroy of NCProtoContactInfo?(v7, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
   }
 
-  outlined init with take of NCProtoContactInfo(v8, v13, type metadata accessor for NCProtoCallState);
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallState and conformance NCProtoCallState, type metadata accessor for NCProtoCallState);
+  outlined init with take of NCProtoContactInfo(v7, v11, type metadata accessor for NCProtoCallState);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoCallState and conformance NCProtoCallState, type metadata accessor for NCProtoCallState, &protocol conformance descriptor for NCProtoCallState);
   dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-  return outlined destroy of NCProtoContactInfo(v13, type metadata accessor for NCProtoCallState);
+  return outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoCallState);
 }
 
 uint64_t closure #4 in NCProtoCallState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void))
@@ -1270,14 +656,11 @@ uint64_t closure #4 in NCProtoCallState.traverse<A>(visitor:)(uint64_t a1, uint6
   return result;
 }
 
-uint64_t closure #4 in NCProtoDeviceTokenRequest.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #4 in NCProtoDeviceTokenRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for NCProtoDeviceTokenRequest(0);
-  v3 = (a1 + *(result + 36));
-  if ((*(v3 + 9) & 1) == 0)
+  if ((*(a1 + *(result + 36) + 9) & 1) == 0)
   {
-    v4 = *v3;
-    v5 = v3[1] & 1;
     lazy protocol witness table accessor for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType();
     return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
   }
@@ -1289,49 +672,48 @@ uint64_t protocol witness for Message.init() in conformance NCProtoDeviceTokenRe
 {
   *a2 = 0;
   *(a2 + 1) = 0xE000000000000000;
-  v4 = &a2[a1[5]];
   UnknownStorage.init()();
-  v5 = a1[6];
-  v6 = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
-  (*(*(v6 - 8) + 56))(&a2[v5], 1, 1, v6);
-  v7 = a1[7];
-  v8 = type metadata accessor for NCProtoCallState(0);
-  result = (*(*(v8 - 8) + 56))(&a2[v7], 1, 1, v8);
-  v10 = a1[9];
+  v4 = a1[6];
+  v5 = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
+  (*(*(v5 - 8) + 56))(&a2[v4], 1, 1, v5);
+  v6 = a1[7];
+  v7 = type metadata accessor for NCProtoCallState(0);
+  result = (*(*(v7 - 8) + 56))(&a2[v6], 1, 1, v7);
+  v9 = a1[9];
   a2[a1[8]] = 2;
-  v11 = &a2[v10];
-  *v11 = 0;
-  *(v11 + 4) = 256;
+  v10 = &a2[v9];
+  *v10 = 0;
+  *(v10 + 4) = 256;
   return result;
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoDeviceTokenRequest(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest and conformance NCProtoDeviceTokenRequest, type metadata accessor for NCProtoDeviceTokenRequest);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest and conformance NCProtoDeviceTokenRequest, type metadata accessor for NCProtoDeviceTokenRequest, &protocol conformance descriptor for NCProtoDeviceTokenRequest);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoDeviceTokenRequest(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest and conformance NCProtoDeviceTokenRequest, type metadata accessor for NCProtoDeviceTokenRequest);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest and conformance NCProtoDeviceTokenRequest, type metadata accessor for NCProtoDeviceTokenRequest, &protocol conformance descriptor for NCProtoDeviceTokenRequest);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoDeviceTokenRequest()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoDeviceTokenRequest(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest and conformance NCProtoDeviceTokenRequest, type metadata accessor for NCProtoDeviceTokenRequest);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest and conformance NCProtoDeviceTokenRequest, type metadata accessor for NCProtoDeviceTokenRequest, &protocol conformance descriptor for NCProtoDeviceTokenRequest);
 
   return Message.hash(into:)();
 }
 
-uint64_t NCProtoDeviceTokenResponse.decodeMessage<A>(decoder:)()
+uint64_t NCProtoDeviceTokenResponse.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       break;
     }
@@ -1343,7 +725,7 @@ uint64_t NCProtoDeviceTokenResponse.decodeMessage<A>(decoder:)()
 
     else if (result == 2)
     {
-      v3 = *(type metadata accessor for NCProtoDeviceTokenResponse(0) + 24);
+      type metadata accessor for NCProtoDeviceTokenResponse(0);
       dispatch thunk of Decoder.decodeSingularBytesField(value:)();
     }
   }
@@ -1351,22 +733,21 @@ uint64_t NCProtoDeviceTokenResponse.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t NCProtoDeviceTokenResponse.traverse<A>(visitor:)()
+uint64_t NCProtoDeviceTokenResponse.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = HIBYTE(v3) & 0xF;
-  if ((v3 & 0x2000000000000000) == 0)
+  v5 = v3[1];
+  v6 = HIBYTE(v5) & 0xF;
+  if ((v5 & 0x2000000000000000) == 0)
   {
-    v4 = *v0 & 0xFFFFFFFFFFFFLL;
+    v6 = *v3 & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v4 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v1))
+  if (!v6 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v4))
   {
-    result = closure #1 in NCProtoDeviceTokenResponse.traverse<A>(visitor:)(v0);
-    if (!v1)
+    result = closure #1 in NCProtoDeviceTokenResponse.traverse<A>(visitor:)(v3);
+    if (!v4)
     {
-      v6 = v0 + *(type metadata accessor for NCProtoDeviceTokenResponse(0) + 20);
+      type metadata accessor for NCProtoDeviceTokenResponse(0);
       return UnknownStorage.traverse<A>(visitor:)();
     }
   }
@@ -1394,7 +775,6 @@ double protocol witness for Message.init() in conformance NCProtoDeviceTokenResp
 {
   *a2 = 0;
   a2[1] = 0xE000000000000000;
-  v4 = a2 + *(a1 + 20);
   UnknownStorage.init()();
   result = 0.0;
   *(a2 + *(a1 + 24)) = xmmword_2255D3AC0;
@@ -1403,21 +783,21 @@ double protocol witness for Message.init() in conformance NCProtoDeviceTokenResp
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoDeviceTokenResponse(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeviceTokenResponse and conformance NCProtoDeviceTokenResponse, type metadata accessor for NCProtoDeviceTokenResponse);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeviceTokenResponse and conformance NCProtoDeviceTokenResponse, type metadata accessor for NCProtoDeviceTokenResponse, &protocol conformance descriptor for NCProtoDeviceTokenResponse);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoDeviceTokenResponse(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeviceTokenResponse and conformance NCProtoDeviceTokenResponse, type metadata accessor for NCProtoDeviceTokenResponse);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeviceTokenResponse and conformance NCProtoDeviceTokenResponse, type metadata accessor for NCProtoDeviceTokenResponse, &protocol conformance descriptor for NCProtoDeviceTokenResponse);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoDeviceTokenResponse()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoDeviceTokenResponse(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeviceTokenResponse and conformance NCProtoDeviceTokenResponse, type metadata accessor for NCProtoDeviceTokenResponse);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDeviceTokenResponse and conformance NCProtoDeviceTokenResponse, type metadata accessor for NCProtoDeviceTokenResponse, &protocol conformance descriptor for NCProtoDeviceTokenResponse);
 
   return Message.hash(into:)();
 }
@@ -1433,10 +813,10 @@ uint64_t NCProtoDisconnectRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64
       switch(result)
       {
         case 3:
-          closure #3 in NCProtoCallState.decodeMessage<A>(decoder:)(a1, v5, a2, a3, type metadata accessor for NCProtoDisconnectRequest, lazy protocol witness table accessor for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason);
+          closure #3 in NCProtoCallState.decodeMessage<A>(decoder:)(a1, v5, a2, a3, type metadata accessor for NCProtoDisconnectRequest, lazy protocol witness table accessor for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason, &type metadata for NCProtoDisconnectRequest.DisconnectReason);
           break;
         case 2:
-          v11 = *(type metadata accessor for NCProtoDisconnectRequest(0) + 24);
+          type metadata accessor for NCProtoDisconnectRequest(0);
           dispatch thunk of Decoder.decodeSingularBoolField(value:)();
           break;
         case 1:
@@ -1451,9 +831,9 @@ uint64_t NCProtoDisconnectRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64
   return result;
 }
 
-uint64_t closure #3 in NCProtoCallState.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), void (*a6)(void))
+uint64_t closure #3 in NCProtoCallState.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(void), uint64_t a7)
 {
-  v7 = *(a5(0) + 28);
+  a5(0);
   a6();
   return dispatch thunk of Decoder.decodeSingularEnumField<A>(value:)();
 }
@@ -1504,69 +884,65 @@ LABEL_10:
   result = closure #1 in NCProtoTransferActiveConversationRequest.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for NCProtoDisconnectRequest);
   if (!v4)
   {
-    closure #3 in NCProtoCallState.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for NCProtoDisconnectRequest, lazy protocol witness table accessor for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason);
-    v14 = v3 + *(type metadata accessor for NCProtoDisconnectRequest(0) + 20);
+    closure #3 in NCProtoCallState.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for NCProtoDisconnectRequest, lazy protocol witness table accessor for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason, &type metadata for NCProtoDisconnectRequest.DisconnectReason);
+    type metadata accessor for NCProtoDisconnectRequest(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
   return result;
 }
 
-uint64_t closure #3 in NCProtoCallState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), void (*a6)(uint64_t, uint64_t))
+uint64_t closure #3 in NCProtoCallState.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(void), uint64_t (*a6)(uint64_t, uint64_t), uint64_t a7)
 {
   result = a5(0);
-  v10 = (a1 + *(result + 28));
-  if ((*(v10 + 9) & 1) == 0)
+  if ((*(a1 + *(result + 28) + 9) & 1) == 0)
   {
-    v11 = *v10;
-    v12 = v10[1] & 1;
-    a6(result, v9);
+    a6(result, v10);
     return dispatch thunk of Visitor.visitSingularEnumField<A>(value:fieldNumber:)();
   }
 
   return result;
 }
 
-uint64_t protocol witness for Message.init() in conformance NCProtoDisconnectRequest@<X0>(int *a1@<X0>, _OWORD *a2@<X8>)
+uint64_t protocol witness for Message.init() in conformance NCProtoDisconnectRequest@<X0>(uint64_t a1@<X0>, _OWORD *a2@<X8>)
 {
   *a2 = xmmword_2255D3AB0;
-  v4 = a2 + a1[5];
   result = UnknownStorage.init()();
-  v6 = a1[7];
-  *(a2 + a1[6]) = 2;
-  v7 = a2 + v6;
-  *v7 = 0;
-  *(v7 + 4) = 256;
+  v5 = *(a1 + 28);
+  *(a2 + *(a1 + 24)) = 2;
+  v6 = a2 + v5;
+  *v6 = 0;
+  *(v6 + 4) = 256;
   return result;
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoDisconnectRequest(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDisconnectRequest and conformance NCProtoDisconnectRequest, type metadata accessor for NCProtoDisconnectRequest);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDisconnectRequest and conformance NCProtoDisconnectRequest, type metadata accessor for NCProtoDisconnectRequest, &protocol conformance descriptor for NCProtoDisconnectRequest);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoDisconnectRequest(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDisconnectRequest and conformance NCProtoDisconnectRequest, type metadata accessor for NCProtoDisconnectRequest);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDisconnectRequest and conformance NCProtoDisconnectRequest, type metadata accessor for NCProtoDisconnectRequest, &protocol conformance descriptor for NCProtoDisconnectRequest);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoDisconnectRequest()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoDisconnectRequest(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDisconnectRequest and conformance NCProtoDisconnectRequest, type metadata accessor for NCProtoDisconnectRequest);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDisconnectRequest and conformance NCProtoDisconnectRequest, type metadata accessor for NCProtoDisconnectRequest, &protocol conformance descriptor for NCProtoDisconnectRequest);
 
   return Message.hash(into:)();
 }
 
-uint64_t NCProtoDisconnectResponse.decodeMessage<A>(decoder:)()
+uint64_t NCProtoDisconnectResponse.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
+    if (v3 || (v5 & 1) != 0)
     {
       break;
     }
@@ -1580,11 +956,11 @@ uint64_t NCProtoDisconnectResponse.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t NCProtoDisconnectResponse.traverse<A>(visitor:)()
+uint64_t NCProtoDisconnectResponse.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (*v0 != 1 || (result = dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)(), !v1))
+  if (*v3 != 1 || (result = dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)(), !v4))
   {
-    v3 = &v0[*(type metadata accessor for NCProtoDisconnectResponse(0) + 20)];
+    type metadata accessor for NCProtoDisconnectResponse(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
@@ -1598,36 +974,29 @@ uint64_t static NCProtoDisconnectResponse.== infix(_:_:)(unsigned __int8 *a1, un
     return 0;
   }
 
-  v3 = *(type metadata accessor for NCProtoDisconnectResponse(0) + 20);
+  type metadata accessor for NCProtoDisconnectResponse(0);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
-}
-
-uint64_t protocol witness for Message.init() in conformance NCProtoDisconnectResponse@<X0>(uint64_t a1@<X0>, _BYTE *a2@<X8>)
-{
-  *a2 = 0;
-  v2 = &a2[*(a1 + 20)];
-  return UnknownStorage.init()();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoDisconnectResponse(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDisconnectResponse and conformance NCProtoDisconnectResponse, type metadata accessor for NCProtoDisconnectResponse);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDisconnectResponse and conformance NCProtoDisconnectResponse, type metadata accessor for NCProtoDisconnectResponse, &protocol conformance descriptor for NCProtoDisconnectResponse);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoDisconnectResponse(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDisconnectResponse and conformance NCProtoDisconnectResponse, type metadata accessor for NCProtoDisconnectResponse);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDisconnectResponse and conformance NCProtoDisconnectResponse, type metadata accessor for NCProtoDisconnectResponse, &protocol conformance descriptor for NCProtoDisconnectResponse);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoDisconnectResponse()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoDisconnectResponse(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDisconnectResponse and conformance NCProtoDisconnectResponse, type metadata accessor for NCProtoDisconnectResponse);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoDisconnectResponse and conformance NCProtoDisconnectResponse, type metadata accessor for NCProtoDisconnectResponse, &protocol conformance descriptor for NCProtoDisconnectResponse);
 
   return Message.hash(into:)();
 }
@@ -1639,9 +1008,8 @@ uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NCP
     return 0;
   }
 
-  v4 = *(a3 + 20);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -1658,42 +1026,42 @@ uint64_t NCProtoRingtoneConfiguration.traverse<A>(visitor:)(uint64_t a1, uint64_
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoPrepareTransferRequest(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoPrepareTransferRequest and conformance NCProtoPrepareTransferRequest, type metadata accessor for NCProtoPrepareTransferRequest);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoPrepareTransferRequest and conformance NCProtoPrepareTransferRequest, type metadata accessor for NCProtoPrepareTransferRequest, &protocol conformance descriptor for NCProtoPrepareTransferRequest);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoPrepareTransferRequest(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoPrepareTransferRequest and conformance NCProtoPrepareTransferRequest, type metadata accessor for NCProtoPrepareTransferRequest);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoPrepareTransferRequest and conformance NCProtoPrepareTransferRequest, type metadata accessor for NCProtoPrepareTransferRequest, &protocol conformance descriptor for NCProtoPrepareTransferRequest);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoPrepareTransferRequest()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoPrepareTransferRequest(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoPrepareTransferRequest and conformance NCProtoPrepareTransferRequest, type metadata accessor for NCProtoPrepareTransferRequest);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoPrepareTransferRequest and conformance NCProtoPrepareTransferRequest, type metadata accessor for NCProtoPrepareTransferRequest, &protocol conformance descriptor for NCProtoPrepareTransferRequest);
 
   return Message.hash(into:)();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoPrepareTransferResponse(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoPrepareTransferResponse and conformance NCProtoPrepareTransferResponse, type metadata accessor for NCProtoPrepareTransferResponse);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoPrepareTransferResponse and conformance NCProtoPrepareTransferResponse, type metadata accessor for NCProtoPrepareTransferResponse, &protocol conformance descriptor for NCProtoPrepareTransferResponse);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoPrepareTransferResponse(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoPrepareTransferResponse and conformance NCProtoPrepareTransferResponse, type metadata accessor for NCProtoPrepareTransferResponse);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoPrepareTransferResponse and conformance NCProtoPrepareTransferResponse, type metadata accessor for NCProtoPrepareTransferResponse, &protocol conformance descriptor for NCProtoPrepareTransferResponse);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoPrepareTransferResponse()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoPrepareTransferResponse(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoPrepareTransferResponse and conformance NCProtoPrepareTransferResponse, type metadata accessor for NCProtoPrepareTransferResponse);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoPrepareTransferResponse and conformance NCProtoPrepareTransferResponse, type metadata accessor for NCProtoPrepareTransferResponse, &protocol conformance descriptor for NCProtoPrepareTransferResponse);
 
   return Message.hash(into:)();
 }
@@ -1717,7 +1085,7 @@ uint64_t NCProtoEndedSessionEvent.decodeMessage<A>(decoder:)(uint64_t a1, uint64
   return result;
 }
 
-uint64_t static NCProtoEndedSessionEvent.== infix(_:_:)(void *a1, void *a2, uint64_t (*a3)(void))
+uint64_t static NCProtoEndedSessionEvent.== infix(_:_:)(uint64_t *a1, void *a2, uint64_t (*a3)(void))
 {
   v4 = *a1 == *a2 && a1[1] == a2[1];
   if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
@@ -1725,44 +1093,43 @@ uint64_t static NCProtoEndedSessionEvent.== infix(_:_:)(void *a1, void *a2, uint
     return 0;
   }
 
-  v5 = *(a3(0) + 20);
+  a3(0);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoAudioRouteTransferRequest(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAudioRouteTransferRequest and conformance NCProtoAudioRouteTransferRequest, type metadata accessor for NCProtoAudioRouteTransferRequest);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAudioRouteTransferRequest and conformance NCProtoAudioRouteTransferRequest, type metadata accessor for NCProtoAudioRouteTransferRequest, &protocol conformance descriptor for NCProtoAudioRouteTransferRequest);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoAudioRouteTransferRequest(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAudioRouteTransferRequest and conformance NCProtoAudioRouteTransferRequest, type metadata accessor for NCProtoAudioRouteTransferRequest);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAudioRouteTransferRequest and conformance NCProtoAudioRouteTransferRequest, type metadata accessor for NCProtoAudioRouteTransferRequest, &protocol conformance descriptor for NCProtoAudioRouteTransferRequest);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoAudioRouteTransferRequest()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoAudioRouteTransferRequest(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAudioRouteTransferRequest and conformance NCProtoAudioRouteTransferRequest, type metadata accessor for NCProtoAudioRouteTransferRequest);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAudioRouteTransferRequest and conformance NCProtoAudioRouteTransferRequest, type metadata accessor for NCProtoAudioRouteTransferRequest, &protocol conformance descriptor for NCProtoAudioRouteTransferRequest);
 
   return Message.hash(into:)();
 }
 
-uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NCProtoEndedSessionEvent(void *a1, void *a2, uint64_t a3)
+uint64_t protocol witness for static Equatable.== infix(_:_:) in conformance NCProtoEndedSessionEvent(uint64_t *a1, void *a2, uint64_t a3)
 {
-  v4 = *a1 == *a2 && a1[1] == a2[1];
-  if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  v3 = *a1 == *a2 && a1[1] == a2[1];
+  if (!v3 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
     return 0;
   }
 
-  v5 = *(a3 + 20);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -1774,42 +1141,42 @@ uint64_t one-time initialization function for _protobuf_nameMap(uint64_t a1, uin
   return _NameMap.init()();
 }
 
-uint64_t static NCProtoLagunaConnectionResponse.== infix(_:_:)()
+uint64_t static NCProtoLagunaConnectionResponse.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoAudioRouteTransferResponse(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAudioRouteTransferResponse and conformance NCProtoAudioRouteTransferResponse, type metadata accessor for NCProtoAudioRouteTransferResponse);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAudioRouteTransferResponse and conformance NCProtoAudioRouteTransferResponse, type metadata accessor for NCProtoAudioRouteTransferResponse, &protocol conformance descriptor for NCProtoAudioRouteTransferResponse);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoAudioRouteTransferResponse(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAudioRouteTransferResponse and conformance NCProtoAudioRouteTransferResponse, type metadata accessor for NCProtoAudioRouteTransferResponse);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAudioRouteTransferResponse and conformance NCProtoAudioRouteTransferResponse, type metadata accessor for NCProtoAudioRouteTransferResponse, &protocol conformance descriptor for NCProtoAudioRouteTransferResponse);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoAudioRouteTransferResponse()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoAudioRouteTransferResponse(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAudioRouteTransferResponse and conformance NCProtoAudioRouteTransferResponse, type metadata accessor for NCProtoAudioRouteTransferResponse);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoAudioRouteTransferResponse and conformance NCProtoAudioRouteTransferResponse, type metadata accessor for NCProtoAudioRouteTransferResponse, &protocol conformance descriptor for NCProtoAudioRouteTransferResponse);
 
   return Message.hash(into:)();
 }
 
-uint64_t NCProtoMemberAssociationPrimaryInfo.decodeMessage<A>(decoder:)()
+uint64_t NCProtoMemberAssociationPrimaryInfo.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   result = dispatch thunk of Decoder.nextFieldNumber()();
-  if (!v0)
+  if (!v3)
   {
     while (1)
     {
-      if (v2)
+      if (v5)
       {
         return result;
       }
@@ -1818,14 +1185,12 @@ uint64_t NCProtoMemberAssociationPrimaryInfo.decodeMessage<A>(decoder:)()
       {
         if (result == 1)
         {
-          v5 = v0;
-          v7 = *(type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0) + 24);
-          goto LABEL_17;
+          goto LABEL_15;
         }
 
         if (result == 2)
         {
-          v4 = *(type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0) + 28);
+          type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
           dispatch thunk of Decoder.decodeSingularBytesField(value:)();
         }
       }
@@ -1835,14 +1200,12 @@ uint64_t NCProtoMemberAssociationPrimaryInfo.decodeMessage<A>(decoder:)()
         switch(result)
         {
           case 3:
-            v3 = *(type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0) + 32);
+            type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
             dispatch thunk of Decoder.decodeSingularUInt64Field(value:)();
             break;
           case 4:
-            v5 = v0;
-            v6 = *(type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0) + 36);
-LABEL_17:
-            v0 = v5;
+LABEL_15:
+            type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
             dispatch thunk of Decoder.decodeSingularStringField(value:)();
             break;
           case 5:
@@ -1861,21 +1224,19 @@ LABEL_17:
 
 uint64_t NCProtoMemberAssociationPrimaryInfo.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = v3;
   result = closure #1 in NCProtoActiveConversation.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
   if (!v4)
   {
     closure #1 in NCProtoNearbyCallStatusChangedEvent.traverse<A>(visitor:)(v3, a1, a2, a3, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
-    closure #3 in NCProtoMemberAssociationPrimaryInfo.traverse<A>(visitor:)(v3);
-    closure #4 in NCProtoMemberAssociationPrimaryInfo.traverse<A>(visitor:)(v3);
-    v10 = *v3;
-    if (*(*v5 + 16))
+    closure #3 in NCProtoMemberAssociationPrimaryInfo.traverse<A>(visitor:)(v3, a1, a2, a3);
+    closure #4 in NCProtoMemberAssociationPrimaryInfo.traverse<A>(visitor:)(v3, a1, a2, a3);
+    if (*(*v3 + 16))
     {
       lazy protocol witness table accessor for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType();
       dispatch thunk of Visitor.visitPackedEnumField<A>(value:fieldNumber:)();
     }
 
-    v11 = v5 + *(type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0) + 20);
+    type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
@@ -1898,26 +1259,22 @@ uint64_t closure #1 in NCProtoNearbyCallStatusChangedEvent.traverse<A>(visitor:)
   return result;
 }
 
-uint64_t closure #3 in NCProtoMemberAssociationPrimaryInfo.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #3 in NCProtoMemberAssociationPrimaryInfo.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
-  v3 = (a1 + *(result + 32));
-  if ((v3[1] & 1) == 0)
+  if ((*(a1 + *(result + 32) + 8) & 1) == 0)
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularUInt64Field(value:fieldNumber:)();
   }
 
   return result;
 }
 
-uint64_t closure #4 in NCProtoMemberAssociationPrimaryInfo.traverse<A>(visitor:)(uint64_t a1)
+uint64_t closure #4 in NCProtoMemberAssociationPrimaryInfo.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   result = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
-  v3 = (a1 + *(result + 36));
-  if (v3[1])
+  if (*(a1 + *(result + 36) + 8))
   {
-    v4 = *v3;
     return dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)();
   }
 
@@ -1927,41 +1284,40 @@ uint64_t closure #4 in NCProtoMemberAssociationPrimaryInfo.traverse<A>(visitor:)
 double protocol witness for Message.init() in conformance NCProtoMemberAssociationPrimaryInfo@<D0>(int *a1@<X0>, void *a2@<X8>)
 {
   *a2 = MEMORY[0x277D84F90];
-  v4 = a2 + a1[5];
   UnknownStorage.init()();
-  v5 = a1[7];
-  v6 = (a2 + a1[6]);
-  *v6 = 0;
-  v6[1] = 0;
+  v4 = a1[7];
+  v5 = (a2 + a1[6]);
+  *v5 = 0;
+  v5[1] = 0;
   result = 0.0;
-  *(a2 + v5) = xmmword_2255D3AC0;
-  v8 = a1[9];
-  v9 = a2 + a1[8];
+  *(a2 + v4) = xmmword_2255D3AC0;
+  v7 = a1[9];
+  v8 = a2 + a1[8];
+  *v8 = 0;
+  v8[8] = 1;
+  v9 = (a2 + v7);
   *v9 = 0;
-  v9[8] = 1;
-  v10 = (a2 + v8);
-  *v10 = 0;
-  v10[1] = 0;
+  v9[1] = 0;
   return result;
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoMemberAssociationPrimaryInfo(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo and conformance NCProtoMemberAssociationPrimaryInfo, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo and conformance NCProtoMemberAssociationPrimaryInfo, type metadata accessor for NCProtoMemberAssociationPrimaryInfo, &protocol conformance descriptor for NCProtoMemberAssociationPrimaryInfo);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoMemberAssociationPrimaryInfo(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo and conformance NCProtoMemberAssociationPrimaryInfo, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo and conformance NCProtoMemberAssociationPrimaryInfo, type metadata accessor for NCProtoMemberAssociationPrimaryInfo, &protocol conformance descriptor for NCProtoMemberAssociationPrimaryInfo);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoMemberAssociationPrimaryInfo()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoMemberAssociationPrimaryInfo(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo and conformance NCProtoMemberAssociationPrimaryInfo, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo and conformance NCProtoMemberAssociationPrimaryInfo, type metadata accessor for NCProtoMemberAssociationPrimaryInfo, &protocol conformance descriptor for NCProtoMemberAssociationPrimaryInfo);
 
   return Message.hash(into:)();
 }
@@ -1996,319 +1352,306 @@ uint64_t NCProtoIDSProxyMessage.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t
 
 uint64_t closure #1 in NCProtoIDSProxyMessage.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
   v5 = type metadata accessor for NCProtoIDSProxyMessage.RawData(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v44 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v43 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x28223BE20](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x28223BE20](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of NCProtoContactInfo?(a1, v14, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v7 = MEMORY[0x28223BE20](v5);
+  v40 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v39 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMR);
+  v21 = MEMORY[0x28223BE20](v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  outlined init with copy of NCProtoContactInfo?(a1, v12, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
   {
-    outlined destroy of NCProtoContactInfo?(v14, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of NCProtoContactInfo?(v12, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+    v29 = v44;
+    v30 = v13;
   }
 
   else
   {
-    outlined init with take of NCProtoContactInfo(v14, v22, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
-    outlined init with take of NCProtoContactInfo(v22, v20, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
-    v34 = v15;
+    outlined init with take of NCProtoContactInfo(v12, v19, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+    outlined init with take of NCProtoContactInfo(v19, v17, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+    v30 = v13;
     if (swift_getEnumCaseMultiPayload())
     {
-      outlined destroy of NCProtoContactInfo(v20, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
-      v33 = v48;
+      outlined destroy of NCProtoContactInfo(v17, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+      v29 = v44;
     }
 
     else
     {
-      outlined destroy of NCProtoContactInfo?(v28, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMR);
-      v35 = v43;
-      outlined init with take of NCProtoContactInfo(v20, v43, type metadata accessor for NCProtoIDSProxyMessage.RawData);
-      outlined init with take of NCProtoContactInfo(v35, v28, type metadata accessor for NCProtoIDSProxyMessage.RawData);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of NCProtoContactInfo?(v24, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMR);
+      v31 = v39;
+      outlined init with take of NCProtoContactInfo(v17, v39, type metadata accessor for NCProtoIDSProxyMessage.RawData);
+      outlined init with take of NCProtoContactInfo(v31, v24, type metadata accessor for NCProtoIDSProxyMessage.RawData);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.RawData and conformance NCProtoIDSProxyMessage.RawData, type metadata accessor for NCProtoIDSProxyMessage.RawData);
-  v37 = v47;
+  v32 = v42;
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.RawData and conformance NCProtoIDSProxyMessage.RawData, type metadata accessor for NCProtoIDSProxyMessage.RawData, &protocol conformance descriptor for NCProtoIDSProxyMessage.RawData);
+  v33 = v43;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v33)
   {
-    return outlined destroy of NCProtoContactInfo?(v28, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMR);
+    return outlined destroy of NCProtoContactInfo?(v24, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMR);
   }
 
-  outlined init with copy of NCProtoContactInfo?(v28, v36, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of NCProtoContactInfo?(v24, v32, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMR);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
   {
-    outlined destroy of NCProtoContactInfo?(v28, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMR);
-    return outlined destroy of NCProtoContactInfo?(v36, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMR);
+    outlined destroy of NCProtoContactInfo?(v24, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMR);
+    return outlined destroy of NCProtoContactInfo?(v32, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMR);
   }
 
   else
   {
-    v39 = v44;
-    outlined init with take of NCProtoContactInfo(v36, v44, type metadata accessor for NCProtoIDSProxyMessage.RawData);
-    if (v32 != 1)
+    v35 = v40;
+    outlined init with take of NCProtoContactInfo(v32, v40, type metadata accessor for NCProtoIDSProxyMessage.RawData);
+    if (v28 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of NCProtoContactInfo?(v28, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMR);
-    v40 = v42;
-    outlined destroy of NCProtoContactInfo?(v42, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-    outlined init with take of NCProtoContactInfo(v39, v40, type metadata accessor for NCProtoIDSProxyMessage.RawData);
+    outlined destroy of NCProtoContactInfo?(v24, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV7RawDataVSgMR);
+    v36 = v38;
+    outlined destroy of NCProtoContactInfo?(v38, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+    outlined init with take of NCProtoContactInfo(v35, v36, type metadata accessor for NCProtoIDSProxyMessage.RawData);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v37 + 56))(v36, 0, 1, v30);
   }
 }
 
 uint64_t closure #2 in NCProtoIDSProxyMessage.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
   v5 = type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x28223BE20](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x28223BE20](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of NCProtoContactInfo?(a1, v14, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v7 = MEMORY[0x28223BE20](v5);
+  v39 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v40 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMR);
+  v21 = MEMORY[0x28223BE20](v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  outlined init with copy of NCProtoContactInfo?(a1, v12, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
   {
-    outlined destroy of NCProtoContactInfo?(v14, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of NCProtoContactInfo?(v12, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+    v29 = v44;
+    v30 = v13;
   }
 
   else
   {
-    outlined init with take of NCProtoContactInfo(v14, v22, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
-    outlined init with take of NCProtoContactInfo(v22, v20, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
-    v34 = v15;
+    outlined init with take of NCProtoContactInfo(v12, v19, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+    outlined init with take of NCProtoContactInfo(v19, v17, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+    v30 = v13;
     if (swift_getEnumCaseMultiPayload() == 1)
     {
-      outlined destroy of NCProtoContactInfo?(v28, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMR);
-      v35 = v44;
-      outlined init with take of NCProtoContactInfo(v20, v44, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
-      outlined init with take of NCProtoContactInfo(v35, v28, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of NCProtoContactInfo?(v24, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMR);
+      v31 = v40;
+      outlined init with take of NCProtoContactInfo(v17, v40, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
+      outlined init with take of NCProtoContactInfo(v31, v24, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
     }
 
     else
     {
-      outlined destroy of NCProtoContactInfo(v20, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
-      v33 = v48;
+      outlined destroy of NCProtoContactInfo(v17, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+      v29 = v44;
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.GroupUpdate and conformance NCProtoIDSProxyMessage.GroupUpdate, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
-  v37 = v47;
+  v32 = v42;
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.GroupUpdate and conformance NCProtoIDSProxyMessage.GroupUpdate, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate, &protocol conformance descriptor for NCProtoIDSProxyMessage.GroupUpdate);
+  v33 = v43;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v33)
   {
-    return outlined destroy of NCProtoContactInfo?(v28, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMR);
+    return outlined destroy of NCProtoContactInfo?(v24, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMR);
   }
 
-  outlined init with copy of NCProtoContactInfo?(v28, v36, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of NCProtoContactInfo?(v24, v32, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMR);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
   {
-    outlined destroy of NCProtoContactInfo?(v28, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMR);
-    return outlined destroy of NCProtoContactInfo?(v36, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMR);
+    outlined destroy of NCProtoContactInfo?(v24, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMR);
+    return outlined destroy of NCProtoContactInfo?(v32, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of NCProtoContactInfo(v36, v43, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
-    if (v32 != 1)
+    v35 = v39;
+    outlined init with take of NCProtoContactInfo(v32, v39, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
+    if (v28 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of NCProtoContactInfo?(v28, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMR);
-    v40 = v42;
-    outlined destroy of NCProtoContactInfo?(v42, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-    outlined init with take of NCProtoContactInfo(v39, v40, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
+    outlined destroy of NCProtoContactInfo?(v24, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV11GroupUpdateVSgMR);
+    v36 = v38;
+    outlined destroy of NCProtoContactInfo?(v38, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+    outlined init with take of NCProtoContactInfo(v35, v36, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v37 + 56))(v36, 0, 1, v30);
   }
 }
 
 uint64_t closure #3 in NCProtoIDSProxyMessage.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v51 = a4;
-  v49 = a2;
-  v50 = a3;
+  v47 = a4;
+  v45 = a2;
+  v46 = a3;
   v5 = type metadata accessor for NCProtoIDSProxyMessage.Resource(0);
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
-  v8 = MEMORY[0x28223BE20](v5);
-  v43 = &v41 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v8);
-  v44 = &v41 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  MEMORY[0x28223BE20](v11 - 8);
-  v14 = &v41 - v13;
-  v15 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  v18 = MEMORY[0x28223BE20](v15);
-  v20 = &v41 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v18);
-  v22 = &v41 - v21;
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMR);
-  v24 = *(*(v23 - 8) + 64);
-  v25 = MEMORY[0x28223BE20](v23 - 8);
-  v46 = &v41 - ((v26 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v25);
-  v28 = &v41 - v27;
-  v45 = v6;
-  v29 = *(v6 + 56);
-  v48 = v5;
-  v30 = v5;
-  v31 = v29;
-  v29(&v41 - v27, 1, 1, v30);
-  v42 = a1;
-  outlined init with copy of NCProtoContactInfo?(a1, v14, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  v41 = v16;
-  v32 = (*(v16 + 48))(v14, 1, v15);
-  if (v32 == 1)
+  v7 = MEMORY[0x28223BE20](v5);
+  v39 = &v37 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v7);
+  v40 = &v37 - v9;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+  MEMORY[0x28223BE20](v10 - 8);
+  v12 = &v37 - v11;
+  v13 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
+  v14 = *(v13 - 8);
+  v15 = MEMORY[0x28223BE20](v13);
+  v17 = &v37 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v19 = &v37 - v18;
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMR);
+  v21 = MEMORY[0x28223BE20](v20 - 8);
+  v42 = &v37 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v21);
+  v24 = &v37 - v23;
+  v41 = v6;
+  v25 = *(v6 + 56);
+  v44 = v5;
+  v26 = v5;
+  v27 = v25;
+  v25(&v37 - v23, 1, 1, v26);
+  v38 = a1;
+  outlined init with copy of NCProtoContactInfo?(a1, v12, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+  v37 = v14;
+  v28 = (*(v14 + 48))(v12, 1, v13);
+  if (v28 == 1)
   {
-    outlined destroy of NCProtoContactInfo?(v14, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-    v33 = v48;
-    v34 = v15;
+    outlined destroy of NCProtoContactInfo?(v12, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+    v29 = v44;
+    v30 = v13;
   }
 
   else
   {
-    outlined init with take of NCProtoContactInfo(v14, v22, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
-    outlined init with take of NCProtoContactInfo(v22, v20, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
-    v34 = v15;
+    outlined init with take of NCProtoContactInfo(v12, v19, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+    outlined init with take of NCProtoContactInfo(v19, v17, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+    v30 = v13;
     if (swift_getEnumCaseMultiPayload() == 2)
     {
-      outlined destroy of NCProtoContactInfo?(v28, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMR);
-      v35 = v44;
-      outlined init with take of NCProtoContactInfo(v20, v44, type metadata accessor for NCProtoIDSProxyMessage.Resource);
-      outlined init with take of NCProtoContactInfo(v35, v28, type metadata accessor for NCProtoIDSProxyMessage.Resource);
-      v33 = v48;
-      v31(v28, 0, 1, v48);
+      outlined destroy of NCProtoContactInfo?(v24, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMR);
+      v31 = v40;
+      outlined init with take of NCProtoContactInfo(v17, v40, type metadata accessor for NCProtoIDSProxyMessage.Resource);
+      outlined init with take of NCProtoContactInfo(v31, v24, type metadata accessor for NCProtoIDSProxyMessage.Resource);
+      v29 = v44;
+      v27(v24, 0, 1, v44);
     }
 
     else
     {
-      outlined destroy of NCProtoContactInfo(v20, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
-      v33 = v48;
+      outlined destroy of NCProtoContactInfo(v17, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+      v29 = v44;
     }
   }
 
-  v36 = v46;
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.Resource and conformance NCProtoIDSProxyMessage.Resource, type metadata accessor for NCProtoIDSProxyMessage.Resource);
-  v37 = v47;
+  v32 = v42;
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.Resource and conformance NCProtoIDSProxyMessage.Resource, type metadata accessor for NCProtoIDSProxyMessage.Resource, &protocol conformance descriptor for NCProtoIDSProxyMessage.Resource);
+  v33 = v43;
   dispatch thunk of Decoder.decodeSingularMessageField<A>(value:)();
-  if (v37)
+  if (v33)
   {
-    return outlined destroy of NCProtoContactInfo?(v28, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMR);
+    return outlined destroy of NCProtoContactInfo?(v24, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMR);
   }
 
-  outlined init with copy of NCProtoContactInfo?(v28, v36, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMR);
-  if ((*(v45 + 48))(v36, 1, v33) == 1)
+  outlined init with copy of NCProtoContactInfo?(v24, v32, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMR);
+  if ((*(v41 + 48))(v32, 1, v29) == 1)
   {
-    outlined destroy of NCProtoContactInfo?(v28, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMR);
-    return outlined destroy of NCProtoContactInfo?(v36, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMR);
+    outlined destroy of NCProtoContactInfo?(v24, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMR);
+    return outlined destroy of NCProtoContactInfo?(v32, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMR);
   }
 
   else
   {
-    v39 = v43;
-    outlined init with take of NCProtoContactInfo(v36, v43, type metadata accessor for NCProtoIDSProxyMessage.Resource);
-    if (v32 != 1)
+    v35 = v39;
+    outlined init with take of NCProtoContactInfo(v32, v39, type metadata accessor for NCProtoIDSProxyMessage.Resource);
+    if (v28 != 1)
     {
       dispatch thunk of Decoder.handleConflictingOneOf()();
     }
 
-    outlined destroy of NCProtoContactInfo?(v28, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMR);
-    v40 = v42;
-    outlined destroy of NCProtoContactInfo?(v42, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-    outlined init with take of NCProtoContactInfo(v39, v40, type metadata accessor for NCProtoIDSProxyMessage.Resource);
+    outlined destroy of NCProtoContactInfo?(v24, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV8ResourceVSgMR);
+    v36 = v38;
+    outlined destroy of NCProtoContactInfo?(v38, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+    outlined init with take of NCProtoContactInfo(v35, v36, type metadata accessor for NCProtoIDSProxyMessage.Resource);
     swift_storeEnumTagMultiPayload();
-    return (*(v41 + 56))(v40, 0, 1, v34);
+    return (*(v37 + 56))(v36, 0, 1, v30);
   }
 }
 
 uint64_t NCProtoIDSProxyMessage.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  v9 = *(*(v8 - 8) + 64);
   MEMORY[0x28223BE20](v8 - 8);
-  v11 = &v16 - v10;
-  outlined init with copy of NCProtoContactInfo?(v3, &v16 - v10, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  v12 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
-  if ((*(*(v12 - 8) + 48))(v11, 1, v12) == 1)
+  v10 = &v14 - v9;
+  outlined init with copy of NCProtoContactInfo?(v3, &v14 - v9, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+  v11 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
+  if ((*(*(v11 - 8) + 48))(v10, 1, v11) == 1)
   {
     goto LABEL_8;
   }
@@ -2332,11 +1675,11 @@ uint64_t NCProtoIDSProxyMessage.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, 
     closure #1 in NCProtoIDSProxyMessage.traverse<A>(visitor:)(v3, a1, a2, a3);
   }
 
-  result = outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+  result = outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
   if (!v4)
   {
 LABEL_8:
-    v15 = v3 + *(type metadata accessor for NCProtoIDSProxyMessage(0) + 20);
+    type metadata accessor for NCProtoIDSProxyMessage(0);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
@@ -2345,140 +1688,133 @@ LABEL_8:
 
 uint64_t closure #1 in NCProtoIDSProxyMessage.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for NCProtoIDSProxyMessage.RawData(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of NCProtoContactInfo?(a1, v8, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  v13 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for NCProtoIDSProxyMessage.RawData(0);
+  MEMORY[0x28223BE20](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NCProtoContactInfo?(a1, v7, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+  v11 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of NCProtoContactInfo?(v8, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+    outlined destroy of NCProtoContactInfo?(v7, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
     __break(1u);
   }
 
   else if (!swift_getEnumCaseMultiPayload())
   {
-    outlined init with take of NCProtoContactInfo(v8, v12, type metadata accessor for NCProtoIDSProxyMessage.RawData);
-    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.RawData and conformance NCProtoIDSProxyMessage.RawData, type metadata accessor for NCProtoIDSProxyMessage.RawData);
+    outlined init with take of NCProtoContactInfo(v7, v10, type metadata accessor for NCProtoIDSProxyMessage.RawData);
+    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.RawData and conformance NCProtoIDSProxyMessage.RawData, type metadata accessor for NCProtoIDSProxyMessage.RawData, &protocol conformance descriptor for NCProtoIDSProxyMessage.RawData);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of NCProtoContactInfo(v12, type metadata accessor for NCProtoIDSProxyMessage.RawData);
+    return outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoIDSProxyMessage.RawData);
   }
 
-  result = outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+  result = outlined destroy of NCProtoContactInfo(v7, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
   __break(1u);
   return result;
 }
 
 uint64_t closure #2 in NCProtoIDSProxyMessage.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of NCProtoContactInfo?(a1, v8, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  v13 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate(0);
+  MEMORY[0x28223BE20](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NCProtoContactInfo?(a1, v7, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+  v11 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of NCProtoContactInfo?(v8, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+    outlined destroy of NCProtoContactInfo?(v7, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 1)
   {
-    outlined init with take of NCProtoContactInfo(v8, v12, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
-    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.GroupUpdate and conformance NCProtoIDSProxyMessage.GroupUpdate, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
+    outlined init with take of NCProtoContactInfo(v7, v10, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
+    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.GroupUpdate and conformance NCProtoIDSProxyMessage.GroupUpdate, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate, &protocol conformance descriptor for NCProtoIDSProxyMessage.GroupUpdate);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of NCProtoContactInfo(v12, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
+    return outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
   }
 
-  result = outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+  result = outlined destroy of NCProtoContactInfo(v7, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
   __break(1u);
   return result;
 }
 
 uint64_t closure #3 in NCProtoIDSProxyMessage.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v15[1] = a4;
+  v13[1] = a4;
   v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  v6 = *(*(v5 - 8) + 64);
   MEMORY[0x28223BE20](v5 - 8);
-  v8 = v15 - v7;
-  v9 = type metadata accessor for NCProtoIDSProxyMessage.Resource(0);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9);
-  v12 = v15 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-  outlined init with copy of NCProtoContactInfo?(a1, v8, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  v13 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
-  if ((*(*(v13 - 8) + 48))(v8, 1, v13) == 1)
+  v7 = v13 - v6;
+  v8 = type metadata accessor for NCProtoIDSProxyMessage.Resource(0);
+  MEMORY[0x28223BE20](v8);
+  v10 = v13 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  outlined init with copy of NCProtoContactInfo?(a1, v7, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+  v11 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
+  if ((*(*(v11 - 8) + 48))(v7, 1, v11) == 1)
   {
-    outlined destroy of NCProtoContactInfo?(v8, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+    outlined destroy of NCProtoContactInfo?(v7, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
     __break(1u);
   }
 
   else if (swift_getEnumCaseMultiPayload() == 2)
   {
-    outlined init with take of NCProtoContactInfo(v8, v12, type metadata accessor for NCProtoIDSProxyMessage.Resource);
-    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.Resource and conformance NCProtoIDSProxyMessage.Resource, type metadata accessor for NCProtoIDSProxyMessage.Resource);
+    outlined init with take of NCProtoContactInfo(v7, v10, type metadata accessor for NCProtoIDSProxyMessage.Resource);
+    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.Resource and conformance NCProtoIDSProxyMessage.Resource, type metadata accessor for NCProtoIDSProxyMessage.Resource, &protocol conformance descriptor for NCProtoIDSProxyMessage.Resource);
     dispatch thunk of Visitor.visitSingularMessageField<A>(value:fieldNumber:)();
-    return outlined destroy of NCProtoContactInfo(v12, type metadata accessor for NCProtoIDSProxyMessage.Resource);
+    return outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoIDSProxyMessage.Resource);
   }
 
-  result = outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+  result = outlined destroy of NCProtoContactInfo(v7, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
   __break(1u);
   return result;
 }
 
-uint64_t protocol witness for Message.init() in conformance NCProtoIDSProxyMessage@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for Message.init() in conformance NCProtoIDSProxyMessage@<X0>(uint64_t a1@<X8>)
 {
-  v4 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
-  (*(*(v4 - 8) + 56))(a2, 1, 1, v4);
-  v5 = a2 + *(a1 + 20);
+  v2 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
+  (*(*(v2 - 8) + 56))(a1, 1, 1, v2);
   return UnknownStorage.init()();
 }
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoIDSProxyMessage(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage and conformance NCProtoIDSProxyMessage, type metadata accessor for NCProtoIDSProxyMessage);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage and conformance NCProtoIDSProxyMessage, type metadata accessor for NCProtoIDSProxyMessage, &protocol conformance descriptor for NCProtoIDSProxyMessage);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoIDSProxyMessage(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage and conformance NCProtoIDSProxyMessage, type metadata accessor for NCProtoIDSProxyMessage);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage and conformance NCProtoIDSProxyMessage, type metadata accessor for NCProtoIDSProxyMessage, &protocol conformance descriptor for NCProtoIDSProxyMessage);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoIDSProxyMessage()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoIDSProxyMessage(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage and conformance NCProtoIDSProxyMessage, type metadata accessor for NCProtoIDSProxyMessage);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage and conformance NCProtoIDSProxyMessage, type metadata accessor for NCProtoIDSProxyMessage, &protocol conformance descriptor for NCProtoIDSProxyMessage);
 
   return Message.hash(into:)();
 }
 
 uint64_t one-time initialization function for protoMessageName(uint64_t a1)
 {
-  return one-time initialization function for protoMessageName(a1, 0x617461447761522ELL, 0xE800000000000000, static NCProtoIDSProxyMessage.RawData.protoMessageName, &static NCProtoIDSProxyMessage.RawData.protoMessageName[1]);
+  return one-time initialization function for protoMessageName(a1, 0x617461447761522ELL, 0xE800000000000000, &static NCProtoIDSProxyMessage.RawData.protoMessageName, &qword_27D720580);
 }
 
 {
-  return one-time initialization function for protoMessageName(a1, 0x6372756F7365522ELL, 0xE900000000000065, static NCProtoIDSProxyMessage.Resource.protoMessageName, &static NCProtoIDSProxyMessage.Resource.protoMessageName[1]);
+  return one-time initialization function for protoMessageName(a1, 0x6372756F7365522ELL, 0xE900000000000065, &static NCProtoIDSProxyMessage.Resource.protoMessageName, &qword_27D7205B8);
 }
 
 {
-  return one-time initialization function for protoMessageName(a1, 0x705570756F72472ELL, 0xEC00000065746164, static NCProtoIDSProxyMessage.GroupUpdate.protoMessageName, &static NCProtoIDSProxyMessage.GroupUpdate.protoMessageName[1]);
+  return one-time initialization function for protoMessageName(a1, 0x705570756F72472ELL, 0xEC00000065746164, &static NCProtoIDSProxyMessage.GroupUpdate.protoMessageName, &qword_27D7205F0);
 }
 
 uint64_t NCProtoJoinEvent.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t, uint64_t), void (*a5)(uint64_t, uint64_t, uint64_t, uint64_t))
@@ -2509,44 +1845,44 @@ uint64_t NCProtoJoinEvent.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, u
   return result;
 }
 
-uint64_t closure #3 in NCProtoIDSProxyMessage.RawData.decodeMessage<A>(decoder:)()
+uint64_t closure #3 in NCProtoIDSProxyMessage.RawData.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   type metadata accessor for ProtobufString();
   type metadata accessor for Google_Protobuf_Value();
-  v0 = MEMORY[0x277D215F0];
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, MEMORY[0x277D215F0]);
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, v0);
+  v4 = MEMORY[0x277D215F0];
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, MEMORY[0x277D215F0], MEMORY[0x277D215E8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, v4, MEMORY[0x277D215F8]);
   return dispatch thunk of Decoder.decodeMapField<A, B>(fieldType:value:)();
 }
 
-uint64_t NCProtoIDSProxyMessage.RawData.traverse<A>(visitor:)()
+uint64_t NCProtoIDSProxyMessage.RawData.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = v3 >> 62;
-  if ((v3 >> 62) > 1)
+  v5 = *v3;
+  v6 = v3[1];
+  v7 = v6 >> 62;
+  if ((v6 >> 62) > 1)
   {
-    if (v4 != 2)
+    if (v7 != 2)
     {
       goto LABEL_10;
     }
 
-    v5 = *(v2 + 16);
-    v6 = *(v2 + 24);
+    v8 = *(v5 + 16);
+    v9 = *(v5 + 24);
   }
 
   else
   {
-    if (!v4)
+    if (!v7)
     {
-      if ((v3 & 0xFF000000000000) == 0)
+      if ((v6 & 0xFF000000000000) == 0)
       {
         goto LABEL_10;
       }
 
 LABEL_9:
       result = dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-      if (v1)
+      if (v4)
       {
         return result;
       }
@@ -2554,28 +1890,28 @@ LABEL_9:
       goto LABEL_10;
     }
 
-    v5 = v2;
-    v6 = v2 >> 32;
+    v8 = v5;
+    v9 = v5 >> 32;
   }
 
-  if (v5 != v6)
+  if (v8 != v9)
   {
     goto LABEL_9;
   }
 
 LABEL_10:
-  v8 = v0[3];
-  v9 = HIBYTE(v8) & 0xF;
-  if ((v8 & 0x2000000000000000) == 0)
+  v11 = v3[3];
+  v12 = HIBYTE(v11) & 0xF;
+  if ((v11 & 0x2000000000000000) == 0)
   {
-    v9 = v0[2] & 0xFFFFFFFFFFFFLL;
+    v12 = v3[2] & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v9 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v1))
+  if (!v12 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v4))
   {
-    if (!*(v0[4] + 16) || (type metadata accessor for ProtobufString(), type metadata accessor for Google_Protobuf_Value(), v10 = MEMORY[0x277D215F0], lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, MEMORY[0x277D215F0]), lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, v10), result = dispatch thunk of Visitor.visitMapField<A, B>(fieldType:value:fieldNumber:)(), !v1))
+    if (!*(v3[4] + 16) || (type metadata accessor for ProtobufString(), type metadata accessor for Google_Protobuf_Value(), v13 = MEMORY[0x277D215F0], lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, MEMORY[0x277D215F0], MEMORY[0x277D215E8]), lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, v13, MEMORY[0x277D215F8]), result = dispatch thunk of Visitor.visitMapField<A, B>(fieldType:value:fieldNumber:)(), !v4))
     {
-      v11 = v0 + *(type metadata accessor for NCProtoIDSProxyMessage.RawData(0) + 28);
+      type metadata accessor for NCProtoIDSProxyMessage.RawData(0);
       return UnknownStorage.traverse<A>(visitor:)();
     }
   }
@@ -2583,13 +1919,12 @@ LABEL_10:
   return result;
 }
 
-uint64_t protocol witness for Message.init() in conformance NCProtoIDSProxyMessage.RawData@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for Message.init() in conformance NCProtoIDSProxyMessage.RawData@<X0>(uint64_t a1@<X8>)
 {
-  *a2 = xmmword_2255D3AB0;
-  *(a2 + 16) = 0;
-  *(a2 + 24) = 0xE000000000000000;
-  *(a2 + 32) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_21InternalSwiftProtobuf07Google_E6_ValueVTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-  v4 = a2 + *(a1 + 28);
+  *a1 = xmmword_2255D3AB0;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 0xE000000000000000;
+  *(a1 + 32) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_21InternalSwiftProtobuf07Google_E6_ValueVTt0g5Tf4g_n(MEMORY[0x277D84F90]);
   return UnknownStorage.init()();
 }
 
@@ -2613,31 +1948,32 @@ uint64_t protocol witness for Message.unknownFields.setter in conformance NCProt
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoIDSProxyMessage.RawData(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.RawData and conformance NCProtoIDSProxyMessage.RawData, type metadata accessor for NCProtoIDSProxyMessage.RawData);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.RawData and conformance NCProtoIDSProxyMessage.RawData, type metadata accessor for NCProtoIDSProxyMessage.RawData, &protocol conformance descriptor for NCProtoIDSProxyMessage.RawData);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoIDSProxyMessage.RawData(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.RawData and conformance NCProtoIDSProxyMessage.RawData, type metadata accessor for NCProtoIDSProxyMessage.RawData);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.RawData and conformance NCProtoIDSProxyMessage.RawData, type metadata accessor for NCProtoIDSProxyMessage.RawData, &protocol conformance descriptor for NCProtoIDSProxyMessage.RawData);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoIDSProxyMessage.RawData()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoIDSProxyMessage.RawData(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.RawData and conformance NCProtoIDSProxyMessage.RawData, type metadata accessor for NCProtoIDSProxyMessage.RawData);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.RawData and conformance NCProtoIDSProxyMessage.RawData, type metadata accessor for NCProtoIDSProxyMessage.RawData, &protocol conformance descriptor for NCProtoIDSProxyMessage.RawData);
 
   return Message.hash(into:)();
 }
 
-uint64_t NCProtoIDSProxyMessage.Resource.decodeMessage<A>(decoder:)()
+uint64_t NCProtoIDSProxyMessage.Resource.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
+    if (v4 || (v10 & 1) != 0)
     {
       break;
     }
@@ -2651,7 +1987,7 @@ uint64_t NCProtoIDSProxyMessage.Resource.decodeMessage<A>(decoder:)()
 
       else if (result == 4)
       {
-        closure #4 in NCProtoIDSProxyMessage.Resource.decodeMessage<A>(decoder:)();
+        closure #4 in NCProtoIDSProxyMessage.Resource.decodeMessage<A>(decoder:)(a1, v5, a2, a3);
       }
     }
 
@@ -2664,37 +2000,37 @@ uint64_t NCProtoIDSProxyMessage.Resource.decodeMessage<A>(decoder:)()
   return result;
 }
 
-uint64_t closure #4 in NCProtoIDSProxyMessage.Resource.decodeMessage<A>(decoder:)()
+uint64_t closure #4 in NCProtoIDSProxyMessage.Resource.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   type metadata accessor for ProtobufString();
   type metadata accessor for Google_Protobuf_Value();
-  v0 = MEMORY[0x277D215F0];
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, MEMORY[0x277D215F0]);
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, v0);
+  v4 = MEMORY[0x277D215F0];
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, MEMORY[0x277D215F0], MEMORY[0x277D215E8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, v4, MEMORY[0x277D215F8]);
   return dispatch thunk of Decoder.decodeMapField<A, B>(fieldType:value:)();
 }
 
-uint64_t NCProtoIDSProxyMessage.Resource.traverse<A>(visitor:)()
+uint64_t NCProtoIDSProxyMessage.Resource.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v2 = *v0;
-  v3 = v0[1];
-  v4 = v3 >> 62;
-  if ((v3 >> 62) > 1)
+  v5 = *v3;
+  v6 = v3[1];
+  v7 = v6 >> 62;
+  if ((v6 >> 62) > 1)
   {
-    if (v4 != 2)
+    if (v7 != 2)
     {
       goto LABEL_10;
     }
 
-    v5 = *(v2 + 16);
-    v6 = *(v2 + 24);
+    v8 = *(v5 + 16);
+    v9 = *(v5 + 24);
   }
 
   else
   {
-    if (!v4)
+    if (!v7)
     {
-      if ((v3 & 0xFF000000000000) == 0)
+      if ((v6 & 0xFF000000000000) == 0)
       {
         goto LABEL_10;
       }
@@ -2702,49 +2038,49 @@ uint64_t NCProtoIDSProxyMessage.Resource.traverse<A>(visitor:)()
       goto LABEL_9;
     }
 
-    v5 = v2;
-    v6 = v2 >> 32;
+    v8 = v5;
+    v9 = v5 >> 32;
   }
 
-  if (v5 == v6)
+  if (v8 == v9)
   {
     goto LABEL_10;
   }
 
 LABEL_9:
   result = dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-  if (v1)
+  if (v4)
   {
     return result;
   }
 
 LABEL_10:
-  v8 = v0[2];
-  v9 = v0[3];
-  v10 = v9 >> 62;
-  if ((v9 >> 62) > 1)
+  v11 = v3[2];
+  v12 = v3[3];
+  v13 = v12 >> 62;
+  if ((v12 >> 62) > 1)
   {
-    if (v10 != 2)
+    if (v13 != 2)
     {
       goto LABEL_19;
     }
 
-    v11 = *(v8 + 16);
-    v12 = *(v8 + 24);
+    v14 = *(v11 + 16);
+    v15 = *(v11 + 24);
   }
 
   else
   {
-    if (!v10)
+    if (!v13)
     {
-      if ((v9 & 0xFF000000000000) == 0)
+      if ((v12 & 0xFF000000000000) == 0)
       {
         goto LABEL_19;
       }
 
 LABEL_18:
       result = dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-      if (v1)
+      if (v4)
       {
         return result;
       }
@@ -2752,28 +2088,28 @@ LABEL_18:
       goto LABEL_19;
     }
 
-    v11 = v8;
-    v12 = v8 >> 32;
+    v14 = v11;
+    v15 = v11 >> 32;
   }
 
-  if (v11 != v12)
+  if (v14 != v15)
   {
     goto LABEL_18;
   }
 
 LABEL_19:
-  v13 = v0[5];
-  v14 = HIBYTE(v13) & 0xF;
-  if ((v13 & 0x2000000000000000) == 0)
+  v16 = v3[5];
+  v17 = HIBYTE(v16) & 0xF;
+  if ((v16 & 0x2000000000000000) == 0)
   {
-    v14 = v0[4] & 0xFFFFFFFFFFFFLL;
+    v17 = v3[4] & 0xFFFFFFFFFFFFLL;
   }
 
-  if (!v14 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v1))
+  if (!v17 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v4))
   {
-    if (!*(v0[6] + 16) || (type metadata accessor for ProtobufString(), type metadata accessor for Google_Protobuf_Value(), v15 = MEMORY[0x277D215F0], lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, MEMORY[0x277D215F0]), lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, v15), result = dispatch thunk of Visitor.visitMapField<A, B>(fieldType:value:fieldNumber:)(), !v1))
+    if (!*(v3[6] + 16) || (type metadata accessor for ProtobufString(), type metadata accessor for Google_Protobuf_Value(), v18 = MEMORY[0x277D215F0], lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, MEMORY[0x277D215F0], MEMORY[0x277D215E8]), lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, v18, MEMORY[0x277D215F8]), result = dispatch thunk of Visitor.visitMapField<A, B>(fieldType:value:fieldNumber:)(), !v4))
     {
-      v16 = v0 + *(type metadata accessor for NCProtoIDSProxyMessage.Resource(0) + 32);
+      type metadata accessor for NCProtoIDSProxyMessage.Resource(0);
       return UnknownStorage.traverse<A>(visitor:)();
     }
   }
@@ -2781,14 +2117,13 @@ LABEL_19:
   return result;
 }
 
-uint64_t protocol witness for Message.init() in conformance NCProtoIDSProxyMessage.Resource@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for Message.init() in conformance NCProtoIDSProxyMessage.Resource@<X0>(uint64_t a1@<X8>)
 {
-  *a2 = xmmword_2255D3AB0;
-  *(a2 + 16) = xmmword_2255D3AB0;
-  *(a2 + 32) = 0;
-  *(a2 + 40) = 0xE000000000000000;
-  *(a2 + 48) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_21InternalSwiftProtobuf07Google_E6_ValueVTt0g5Tf4g_n(MEMORY[0x277D84F90]);
-  v4 = a2 + *(a1 + 32);
+  *a1 = xmmword_2255D3AB0;
+  *(a1 + 16) = xmmword_2255D3AB0;
+  *(a1 + 32) = 0;
+  *(a1 + 40) = 0xE000000000000000;
+  *(a1 + 48) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_21InternalSwiftProtobuf07Google_E6_ValueVTt0g5Tf4g_n(MEMORY[0x277D84F90]);
   return UnknownStorage.init()();
 }
 
@@ -2812,21 +2147,21 @@ uint64_t protocol witness for Message.unknownFields.setter in conformance NCProt
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoIDSProxyMessage.Resource(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.Resource and conformance NCProtoIDSProxyMessage.Resource, type metadata accessor for NCProtoIDSProxyMessage.Resource);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.Resource and conformance NCProtoIDSProxyMessage.Resource, type metadata accessor for NCProtoIDSProxyMessage.Resource, &protocol conformance descriptor for NCProtoIDSProxyMessage.Resource);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoIDSProxyMessage.Resource(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.Resource and conformance NCProtoIDSProxyMessage.Resource, type metadata accessor for NCProtoIDSProxyMessage.Resource);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.Resource and conformance NCProtoIDSProxyMessage.Resource, type metadata accessor for NCProtoIDSProxyMessage.Resource, &protocol conformance descriptor for NCProtoIDSProxyMessage.Resource);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoIDSProxyMessage.Resource()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoIDSProxyMessage.Resource(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.Resource and conformance NCProtoIDSProxyMessage.Resource, type metadata accessor for NCProtoIDSProxyMessage.Resource);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.Resource and conformance NCProtoIDSProxyMessage.Resource, type metadata accessor for NCProtoIDSProxyMessage.Resource, &protocol conformance descriptor for NCProtoIDSProxyMessage.Resource);
 
   return Message.hash(into:)();
 }
@@ -2839,12 +2174,13 @@ uint64_t one-time initialization function for protoMessageName(uint64_t a1, uint
   return result;
 }
 
-uint64_t NCProtoIDSProxyMessage.GroupUpdate.decodeMessage<A>(decoder:)()
+uint64_t NCProtoIDSProxyMessage.GroupUpdate.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
+  v5 = v3;
   while (1)
   {
     result = dispatch thunk of Decoder.nextFieldNumber()();
-    if (v0 || (v2 & 1) != 0)
+    if (v4 || (v10 & 1) != 0)
     {
       return result;
     }
@@ -2876,7 +2212,7 @@ uint64_t NCProtoIDSProxyMessage.GroupUpdate.decodeMessage<A>(decoder:)()
         dispatch thunk of Decoder.decodeRepeatedStringField(value:)();
         break;
       case 12:
-        closure #12 in NCProtoIDSProxyMessage.GroupUpdate.decodeMessage<A>(decoder:)();
+        closure #12 in NCProtoIDSProxyMessage.GroupUpdate.decodeMessage<A>(decoder:)(a1, v5, a2, a3);
         break;
       default:
         continue;
@@ -2884,66 +2220,66 @@ uint64_t NCProtoIDSProxyMessage.GroupUpdate.decodeMessage<A>(decoder:)()
   }
 }
 
-uint64_t closure #12 in NCProtoIDSProxyMessage.GroupUpdate.decodeMessage<A>(decoder:)()
+uint64_t closure #12 in NCProtoIDSProxyMessage.GroupUpdate.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   type metadata accessor for ProtobufString();
   type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList(0);
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.ParticipantIDList and conformance NCProtoIDSProxyMessage.ParticipantIDList, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.ParticipantIDList and conformance NCProtoIDSProxyMessage.ParticipantIDList, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.ParticipantIDList and conformance NCProtoIDSProxyMessage.ParticipantIDList, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList, &protocol conformance descriptor for NCProtoIDSProxyMessage.ParticipantIDList);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.ParticipantIDList and conformance NCProtoIDSProxyMessage.ParticipantIDList, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList, &protocol conformance descriptor for NCProtoIDSProxyMessage.ParticipantIDList);
   return dispatch thunk of Decoder.decodeMapField<A, B>(fieldType:value:)();
 }
 
-uint64_t NCProtoIDSProxyMessage.GroupUpdate.traverse<A>(visitor:)()
+uint64_t NCProtoIDSProxyMessage.GroupUpdate.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  if (*v0 != 1 || (result = dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)(), !v1))
+  if (*v3 != 1 || (result = dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)(), !v4))
   {
-    v3 = *(v0 + 16);
-    v4 = HIBYTE(v3) & 0xF;
-    if ((v3 & 0x2000000000000000) == 0)
+    v6 = *(v3 + 16);
+    v7 = HIBYTE(v6) & 0xF;
+    if ((v6 & 0x2000000000000000) == 0)
     {
-      v4 = *(v0 + 8) & 0xFFFFFFFFFFFFLL;
+      v7 = *(v3 + 8) & 0xFFFFFFFFFFFFLL;
     }
 
-    if (!v4 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v1))
+    if (!v7 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v4))
     {
-      if (!*(v0 + 24) || (result = dispatch thunk of Visitor.visitSingularUInt64Field(value:fieldNumber:)(), !v1))
+      if (!*(v3 + 24) || (result = dispatch thunk of Visitor.visitSingularUInt64Field(value:fieldNumber:)(), !v4))
       {
-        v5 = *(v0 + 40);
-        v6 = HIBYTE(v5) & 0xF;
-        if ((v5 & 0x2000000000000000) == 0)
+        v8 = *(v3 + 40);
+        v9 = HIBYTE(v8) & 0xF;
+        if ((v8 & 0x2000000000000000) == 0)
         {
-          v6 = *(v0 + 32) & 0xFFFFFFFFFFFFLL;
+          v9 = *(v3 + 32) & 0xFFFFFFFFFFFFLL;
         }
 
-        if (!v6 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v1))
+        if (!v9 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v4))
         {
-          if (!*(v0 + 48) || (result = dispatch thunk of Visitor.visitSingularUInt64Field(value:fieldNumber:)(), !v1))
+          if (!*(v3 + 48) || (result = dispatch thunk of Visitor.visitSingularUInt64Field(value:fieldNumber:)(), !v4))
           {
-            if (!*(v0 + 56) || (result = dispatch thunk of Visitor.visitSingularUInt64Field(value:fieldNumber:)(), !v1))
+            if (!*(v3 + 56) || (result = dispatch thunk of Visitor.visitSingularUInt64Field(value:fieldNumber:)(), !v4))
             {
-              if (*(v0 + 64) != 1 || (result = dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)(), !v1))
+              if (*(v3 + 64) != 1 || (result = dispatch thunk of Visitor.visitSingularBoolField(value:fieldNumber:)(), !v4))
               {
-                if (!*(v0 + 72) || (result = dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)(), !v1))
+                if (!*(v3 + 72) || (result = dispatch thunk of Visitor.visitSingularDoubleField(value:fieldNumber:)(), !v4))
                 {
-                  v7 = *(v0 + 80);
-                  v8 = *(v0 + 88);
-                  v9 = v8 >> 62;
-                  if ((v8 >> 62) > 1)
+                  v10 = *(v3 + 80);
+                  v11 = *(v3 + 88);
+                  v12 = v11 >> 62;
+                  if ((v11 >> 62) > 1)
                   {
-                    if (v9 != 2)
+                    if (v12 != 2)
                     {
                       goto LABEL_30;
                     }
 
-                    v10 = *(v7 + 16);
-                    v11 = *(v7 + 24);
+                    v13 = *(v10 + 16);
+                    v14 = *(v10 + 24);
                   }
 
                   else
                   {
-                    if (!v9)
+                    if (!v12)
                     {
-                      if ((v8 & 0xFF000000000000) == 0)
+                      if ((v11 & 0xFF000000000000) == 0)
                       {
                         goto LABEL_30;
                       }
@@ -2951,58 +2287,58 @@ uint64_t NCProtoIDSProxyMessage.GroupUpdate.traverse<A>(visitor:)()
                       goto LABEL_29;
                     }
 
-                    v10 = v7;
-                    v11 = v7 >> 32;
+                    v13 = v10;
+                    v14 = v10 >> 32;
                   }
 
-                  if (v10 == v11)
+                  if (v13 == v14)
                   {
                     goto LABEL_30;
                   }
 
 LABEL_29:
                   result = dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-                  if (v1)
+                  if (v4)
                   {
                     return result;
                   }
 
 LABEL_30:
-                  v12 = *(v0 + 96);
-                  v13 = *(v0 + 104);
-                  v14 = v13 >> 62;
-                  if ((v13 >> 62) > 1)
+                  v15 = *(v3 + 96);
+                  v16 = *(v3 + 104);
+                  v17 = v16 >> 62;
+                  if ((v16 >> 62) > 1)
                   {
-                    if (v14 != 2)
+                    if (v17 != 2)
                     {
                       goto LABEL_39;
                     }
 
-                    v15 = *(v12 + 16);
-                    v16 = *(v12 + 24);
+                    v18 = *(v15 + 16);
+                    v19 = *(v15 + 24);
                   }
 
                   else
                   {
-                    if (!v14)
+                    if (!v17)
                     {
-                      if ((v13 & 0xFF000000000000) == 0)
+                      if ((v16 & 0xFF000000000000) == 0)
                       {
 LABEL_39:
-                        if (!*(*(v0 + 112) + 16) || (result = dispatch thunk of Visitor.visitRepeatedStringField(value:fieldNumber:)(), !v1))
+                        if (!*(*(v3 + 112) + 16) || (result = dispatch thunk of Visitor.visitRepeatedStringField(value:fieldNumber:)(), !v4))
                         {
-                          if (!*(*(v0 + 120) + 16) || (type metadata accessor for ProtobufString(), type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList(0), lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.ParticipantIDList and conformance NCProtoIDSProxyMessage.ParticipantIDList, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList), lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.ParticipantIDList and conformance NCProtoIDSProxyMessage.ParticipantIDList, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList), result = dispatch thunk of Visitor.visitMapField<A, B>(fieldType:value:fieldNumber:)(), !v1))
+                          if (!*(*(v3 + 120) + 16) || (type metadata accessor for ProtobufString(), type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList(0), lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.ParticipantIDList and conformance NCProtoIDSProxyMessage.ParticipantIDList, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList, &protocol conformance descriptor for NCProtoIDSProxyMessage.ParticipantIDList), lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.ParticipantIDList and conformance NCProtoIDSProxyMessage.ParticipantIDList, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList, &protocol conformance descriptor for NCProtoIDSProxyMessage.ParticipantIDList), result = dispatch thunk of Visitor.visitMapField<A, B>(fieldType:value:fieldNumber:)(), !v4))
                           {
-                            v17 = *(v0 + 136);
-                            v18 = HIBYTE(v17) & 0xF;
-                            if ((v17 & 0x2000000000000000) == 0)
+                            v20 = *(v3 + 136);
+                            v21 = HIBYTE(v20) & 0xF;
+                            if ((v20 & 0x2000000000000000) == 0)
                             {
-                              v18 = *(v0 + 128) & 0xFFFFFFFFFFFFLL;
+                              v21 = *(v3 + 128) & 0xFFFFFFFFFFFFLL;
                             }
 
-                            if (!v18 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v1))
+                            if (!v21 || (result = dispatch thunk of Visitor.visitSingularStringField(value:fieldNumber:)(), !v4))
                             {
-                              v19 = v0 + *(type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate(0) + 68);
+                              type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate(0);
                               return UnknownStorage.traverse<A>(visitor:)();
                             }
                           }
@@ -3013,7 +2349,7 @@ LABEL_39:
 
 LABEL_38:
                       result = dispatch thunk of Visitor.visitSingularBytesField(value:fieldNumber:)();
-                      if (v1)
+                      if (v4)
                       {
                         return result;
                       }
@@ -3021,11 +2357,11 @@ LABEL_38:
                       goto LABEL_39;
                     }
 
-                    v15 = v12;
-                    v16 = v12 >> 32;
+                    v18 = v15;
+                    v19 = v15 >> 32;
                   }
 
-                  if (v15 == v16)
+                  if (v18 == v19)
                   {
                     goto LABEL_39;
                   }
@@ -3043,27 +2379,26 @@ LABEL_38:
   return result;
 }
 
-uint64_t protocol witness for Message.init() in conformance NCProtoIDSProxyMessage.GroupUpdate@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
+uint64_t protocol witness for Message.init() in conformance NCProtoIDSProxyMessage.GroupUpdate@<X0>(uint64_t a1@<X8>)
 {
-  *a2 = 0;
-  *(a2 + 8) = 0;
-  *(a2 + 16) = 0xE000000000000000;
-  *(a2 + 24) = 0;
-  *(a2 + 32) = 0;
-  *(a2 + 48) = 0;
-  *(a2 + 56) = 0;
-  *(a2 + 40) = 0xE000000000000000;
-  *(a2 + 64) = 0;
-  *(a2 + 72) = 0;
-  *(a2 + 80) = 0;
-  *(a2 + 88) = xmmword_2255D3AD0;
-  v4 = MEMORY[0x277D84F90];
-  *(a2 + 104) = 0xC000000000000000;
-  *(a2 + 112) = v4;
-  *(a2 + 120) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListVTt0g5Tf4g_n(v4);
-  *(a2 + 128) = 0;
-  *(a2 + 136) = 0xE000000000000000;
-  v5 = a2 + *(a1 + 68);
+  *a1 = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0xE000000000000000;
+  *(a1 + 24) = 0;
+  *(a1 + 32) = 0;
+  *(a1 + 48) = 0;
+  *(a1 + 56) = 0;
+  *(a1 + 40) = 0xE000000000000000;
+  *(a1 + 64) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 88) = xmmword_2255D3AD0;
+  v2 = MEMORY[0x277D84F90];
+  *(a1 + 104) = 0xC000000000000000;
+  *(a1 + 112) = v2;
+  *(a1 + 120) = _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListVTt0g5Tf4g_n(v2);
+  *(a1 + 128) = 0;
+  *(a1 + 136) = 0xE000000000000000;
   return UnknownStorage.init()();
 }
 
@@ -3085,30 +2420,23 @@ uint64_t protocol witness for Message.unknownFields.setter in conformance NCProt
   return v6(v2 + v4, a1, v5);
 }
 
-uint64_t (*protocol witness for Message.unknownFields.modify in conformance NCProtoIDSProxyMessage.GroupUpdate(uint64_t a1, uint64_t a2))()
-{
-  result = NCProtoContactInfo.namePrefix.modify;
-  v4 = v2 + *(a2 + 68);
-  return result;
-}
-
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoIDSProxyMessage.GroupUpdate(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.GroupUpdate and conformance NCProtoIDSProxyMessage.GroupUpdate, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.GroupUpdate and conformance NCProtoIDSProxyMessage.GroupUpdate, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate, &protocol conformance descriptor for NCProtoIDSProxyMessage.GroupUpdate);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoIDSProxyMessage.GroupUpdate(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.GroupUpdate and conformance NCProtoIDSProxyMessage.GroupUpdate, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.GroupUpdate and conformance NCProtoIDSProxyMessage.GroupUpdate, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate, &protocol conformance descriptor for NCProtoIDSProxyMessage.GroupUpdate);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoIDSProxyMessage.GroupUpdate()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoIDSProxyMessage.GroupUpdate(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.GroupUpdate and conformance NCProtoIDSProxyMessage.GroupUpdate, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.GroupUpdate and conformance NCProtoIDSProxyMessage.GroupUpdate, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate, &protocol conformance descriptor for NCProtoIDSProxyMessage.GroupUpdate);
 
   return Message.hash(into:)();
 }
@@ -3121,21 +2449,18 @@ uint64_t one-time initialization function for protoMessageName()
   return result;
 }
 
-uint64_t static NCProtoIDSProxyMessage.RawData.protoMessageName.getter(void *a1, void *a2, void *a3)
+uint64_t static NCProtoIDSProxyMessage.RawData.protoMessageName.getter(void *a1, void *a2, void *a3, uint64_t a4)
 {
   if (*a1 != -1)
   {
     v6 = a2;
-    v7 = a3;
     swift_once();
     a2 = v6;
-    a3 = v7;
   }
 
-  v3 = *a2;
-  v4 = *a3;
+  v4 = *a2;
 
-  return v3;
+  return v4;
 }
 
 uint64_t one-time initialization function for _protobuf_nameMap(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
@@ -3145,33 +2470,32 @@ uint64_t one-time initialization function for _protobuf_nameMap(uint64_t a1, uin
   __swift_project_value_buffer(v7, a2);
   __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMd, &_ss23_ContiguousArrayStorageCySi_21InternalSwiftProtobuf8_NameMapV0G11DescriptionOtGMR);
   v8 = (__swift_instantiateConcreteTypeFromMangledNameV2(&_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMd, &_sSi_21InternalSwiftProtobuf8_NameMapV0D11DescriptionOtMR) - 8);
-  v9 = *(*v8 + 72);
-  v10 = (*(*v8 + 80) + 32) & ~*(*v8 + 80);
-  v11 = swift_allocObject();
-  *(v11 + 16) = xmmword_2255D3B80;
-  v12 = v11 + v10 + v8[14];
-  *(v11 + v10) = 1;
-  *v12 = a3;
-  *(v12 + 8) = a4;
-  *(v12 + 16) = 2;
-  v13 = *MEMORY[0x277D21870];
-  v14 = type metadata accessor for _NameMap.NameDescription();
-  (*(*(v14 - 8) + 104))(v12, v13, v14);
+  v9 = (*(*v8 + 80) + 32) & ~*(*v8 + 80);
+  v10 = swift_allocObject();
+  *(v10 + 16) = xmmword_2255D3B80;
+  v11 = v10 + v9 + v8[14];
+  *(v10 + v9) = 1;
+  *v11 = a3;
+  *(v11 + 8) = a4;
+  *(v11 + 16) = 2;
+  v12 = *MEMORY[0x277D21870];
+  v13 = type metadata accessor for _NameMap.NameDescription();
+  (*(*(v13 - 8) + 104))(v11, v12, v13);
   return _NameMap.init(dictionaryLiteral:)();
 }
 
-uint64_t static NCProtoConversationAVMode._protobuf_nameMap.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>)
+uint64_t static NCProtoConversationAVMode._protobuf_nameMap.getter@<X0>(void *a1@<X0>, uint64_t a2@<X1>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = type metadata accessor for _NameMap();
-  v6 = __swift_project_value_buffer(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = type metadata accessor for _NameMap();
+  v7 = __swift_project_value_buffer(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
 uint64_t NCProtoAddConversationParticipantsRequest.decodeMessage<A>(decoder:)(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(uint64_t, uint64_t, uint64_t))
@@ -3193,18 +2517,18 @@ uint64_t NCProtoAddConversationParticipantsRequest.decodeMessage<A>(decoder:)(ui
   return result;
 }
 
-uint64_t NCProtoAddConversationParticipantsRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t (*a5)(void))
+uint64_t NCProtoAddConversationParticipantsRequest.traverse<A>(visitor:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), void (*a5)(void))
 {
   if (!*(*v5 + 16) || (result = a4(), !v6))
   {
-    v9 = v5 + *(a5(0) + 20);
+    (a5)(0, a2, a3, a4);
     return UnknownStorage.traverse<A>(visitor:)();
   }
 
   return result;
 }
 
-uint64_t static NCProtoIDSProxyMessage.ParticipantIDList.== infix(_:_:)(uint64_t result, uint64_t *a2)
+uint64_t *static NCProtoIDSProxyMessage.ParticipantIDList.== infix(_:_:)(uint64_t *result, uint64_t *a2)
 {
   v2 = *result;
   v3 = *a2;
@@ -3227,10 +2551,10 @@ uint64_t static NCProtoIDSProxyMessage.ParticipantIDList.== infix(_:_:)(uint64_t
   if (v5)
   {
 LABEL_10:
-    v8 = *(type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList(0) + 20);
+    type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList(0);
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
+    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+    return (dispatch thunk of static Equatable.== infix(_:_:)() & 1);
   }
 
   else
@@ -3258,30 +2582,27 @@ LABEL_10:
   return result;
 }
 
-Swift::Int NCProtoContactInfo.hashValue.getter(void (*a1)(void), unint64_t *a2, void (*a3)(uint64_t))
+Swift::Int NCProtoContactInfo.hashValue.getter(uint64_t (*a1)(void), unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t a4)
 {
   Hasher.init(_seed:)();
   a1(0);
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(a2, a3);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(a2, a3, a4);
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for static Message.protoMessageName.getter in conformance NCProtoIDSProxyMessage.RawData(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5)
+uint64_t protocol witness for static Message.protoMessageName.getter in conformance NCProtoIDSProxyMessage.RawData(uint64_t a1, uint64_t a2, void *a3, void *a4, void *a5, uint64_t a6)
 {
   if (*a3 != -1)
   {
-    v8 = a5;
-    v9 = a4;
+    v8 = a4;
     swift_once();
-    a4 = v9;
-    a5 = v8;
+    a4 = v8;
   }
 
-  v5 = *a4;
-  v6 = *a5;
+  v6 = *a4;
 
-  return v5;
+  return v6;
 }
 
 uint64_t protocol witness for Message.unknownFields.getter in conformance NCProtoActiveConversation@<X0>(uint64_t a1@<X0>, uint64_t a2@<X8>)
@@ -3304,47 +2625,47 @@ uint64_t protocol witness for Message.unknownFields.setter in conformance NCProt
 
 uint64_t protocol witness for Message.isEqualTo(message:) in conformance NCProtoIDSProxyMessage.ParticipantIDList(uint64_t a1, uint64_t a2)
 {
-  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.ParticipantIDList and conformance NCProtoIDSProxyMessage.ParticipantIDList, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
+  v4 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.ParticipantIDList and conformance NCProtoIDSProxyMessage.ParticipantIDList, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList, &protocol conformance descriptor for NCProtoIDSProxyMessage.ParticipantIDList);
 
   return MEMORY[0x28217E230](a1, a2, v4);
 }
 
-uint64_t protocol witness for static _ProtoNameProviding._protobuf_nameMap.getter in conformance NCProtoConversationAVMode@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a3@<X8>)
+uint64_t protocol witness for static _ProtoNameProviding._protobuf_nameMap.getter in conformance NCProtoConversationAVMode@<X0>(void *a1@<X2>, uint64_t a2@<X3>, uint64_t a4@<X8>)
 {
   if (*a1 != -1)
   {
     swift_once();
   }
 
-  v5 = type metadata accessor for _NameMap();
-  v6 = __swift_project_value_buffer(v5, a2);
-  v7 = *(*(v5 - 8) + 16);
+  v6 = type metadata accessor for _NameMap();
+  v7 = __swift_project_value_buffer(v6, a2);
+  v8 = *(*(v6 - 8) + 16);
 
-  return v7(a3, v6, v5);
+  return v8(a4, v7, v6);
 }
 
 uint64_t protocol witness for CustomDebugStringConvertible.debugDescription.getter in conformance NCProtoIDSProxyMessage.ParticipantIDList(uint64_t a1)
 {
-  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.ParticipantIDList and conformance NCProtoIDSProxyMessage.ParticipantIDList, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
+  v2 = lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.ParticipantIDList and conformance NCProtoIDSProxyMessage.ParticipantIDList, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList, &protocol conformance descriptor for NCProtoIDSProxyMessage.ParticipantIDList);
 
   return MEMORY[0x28217E428](a1, v2);
 }
 
-Swift::Int protocol witness for Hashable.hashValue.getter in conformance NCProtoContactInfo()
+Swift::Int protocol witness for Hashable.hashValue.getter in conformance NCProtoContactInfo(uint64_t a1, uint64_t a2)
 {
   Hasher.init(_seed:)();
   dispatch thunk of Hashable.hash(into:)();
   return Hasher._finalize()();
 }
 
-uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoIDSProxyMessage.ParticipantIDList()
+uint64_t protocol witness for Hashable.hash(into:) in conformance NCProtoIDSProxyMessage.ParticipantIDList(uint64_t a1, uint64_t a2)
 {
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.ParticipantIDList and conformance NCProtoIDSProxyMessage.ParticipantIDList, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type NCProtoIDSProxyMessage.ParticipantIDList and conformance NCProtoIDSProxyMessage.ParticipantIDList, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList, &protocol conformance descriptor for NCProtoIDSProxyMessage.ParticipantIDList);
 
   return Message.hash(into:)();
 }
 
-Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NCProtoContactInfo()
+Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NCProtoContactInfo(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   Hasher.init(_seed:)();
   dispatch thunk of Hashable.hash(into:)();
@@ -3353,17 +2674,16 @@ Swift::Int protocol witness for Hashable._rawHashValue(seed:) in conformance NCP
 
 uint64_t _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_27NeighborhoodActivityConduit18NCProtoContactInfoVTt1g5(uint64_t a1, uint64_t a2)
 {
-  v4 = *(type metadata accessor for NCProtoContactInfo(0) - 8);
-  v5 = *(v4 + 64);
-  v6 = (MEMORY[0x28223BE20])();
-  v8 = (&v50 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v4 = type metadata accessor for NCProtoContactInfo(0);
+  v5 = *(v4 - 8);
+  v6 = MEMORY[0x28223BE20](v4 - 8);
+  v8 = (&v49 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
   MEMORY[0x28223BE20](v6);
-  v10 = &v50 - v9;
+  v10 = (&v49 - v9);
   v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetSgMd, &_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetSgMR);
-  v12 = *(*(v11 - 8) + 64);
-  v13 = MEMORY[0x28223BE20](v11 - 8);
-  v54 = &v50 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = MEMORY[0x28223BE20](v13);
+  v12 = MEMORY[0x28223BE20](v11 - 8);
+  v53 = &v49 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  result = MEMORY[0x28223BE20](v12);
   if (a1 == a2)
   {
     return 1;
@@ -3374,115 +2694,115 @@ uint64_t _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_27NeighborhoodActivityConduit18NCPr
     return 0;
   }
 
-  v52 = a2;
-  v53 = (&v50 - v16);
-  v17 = 0;
-  v51 = a1;
-  v18 = *(a1 + 64);
-  v50 = a1 + 64;
-  v19 = 1 << *(a1 + 32);
-  v20 = -1;
-  if (v19 < 64)
+  v51 = a2;
+  v52 = (&v49 - v15);
+  v16 = 0;
+  v50 = a1;
+  v17 = *(a1 + 64);
+  v49 = a1 + 64;
+  v18 = 1 << *(a1 + 32);
+  v19 = -1;
+  if (v18 < 64)
   {
-    v20 = ~(-1 << v19);
+    v19 = ~(-1 << v18);
   }
 
-  v21 = v20 & v18;
-  v22 = (v19 + 63) >> 6;
-  while (v21)
+  v20 = v19 & v17;
+  v21 = (v18 + 63) >> 6;
+  while (v20)
   {
-    v55 = (v21 - 1) & v21;
-    v23 = __clz(__rbit64(v21)) | (v17 << 6);
-    v24 = v54;
+    v54 = (v20 - 1) & v20;
+    v22 = __clz(__rbit64(v20)) | (v16 << 6);
+    v23 = v53;
 LABEL_16:
-    v29 = (*(v51 + 48) + 16 * v23);
-    v30 = *v29;
-    v31 = v29[1];
-    outlined init with copy of NCProtoContactInfo(*(v51 + 56) + *(v4 + 72) * v23, v10, type metadata accessor for NCProtoContactInfo);
-    v32 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetMR);
-    v33 = *(v32 + 48);
-    *v24 = v30;
-    v24[1] = v31;
-    outlined init with take of NCProtoContactInfo(v10, v24 + v33, type metadata accessor for NCProtoContactInfo);
-    (*(*(v32 - 8) + 56))(v24, 0, 1, v32);
+    v28 = (*(v50 + 48) + 16 * v22);
+    v29 = *v28;
+    v30 = v28[1];
+    outlined init with copy of NCProtoContactInfo(*(v50 + 56) + *(v5 + 72) * v22, v10, type metadata accessor for NCProtoContactInfo);
+    v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetMR);
+    v32 = *(v31 + 48);
+    *v23 = v29;
+    v23[1] = v30;
+    outlined init with take of NCProtoContactInfo(v10, v23 + v32, type metadata accessor for NCProtoContactInfo);
+    (*(*(v31 - 8) + 56))(v23, 0, 1, v31);
 
 LABEL_17:
-    v34 = v53;
-    outlined init with take of (key: String, value: NCProtoCallInfo)?(v24, v53, &_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetSgMd, &_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetSgMR);
-    v35 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetMR);
-    v36 = (*(*(v35 - 8) + 48))(v34, 1, v35);
-    v37 = v36 == 1;
-    if (v36 == 1)
+    v33 = v52;
+    outlined init with take of (key: String, value: NCProtoCallInfo)?(v23, v52, &_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetSgMd, &_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetSgMR);
+    v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetMR);
+    v35 = (*(*(v34 - 8) + 48))(v33, 1, v34);
+    v36 = v35 == 1;
+    if (v35 == 1)
     {
-      return v37;
+      return v36;
     }
 
-    v38 = v10;
-    v39 = v4;
-    v40 = *(v35 + 48);
-    v42 = *v34;
-    v41 = v34[1];
-    outlined init with take of NCProtoContactInfo(v34 + v40, v8, type metadata accessor for NCProtoContactInfo);
-    v43 = v52;
-    v44 = specialized __RawDictionaryStorage.find<A>(_:)(v42, v41);
-    v46 = v45;
+    v37 = v10;
+    v38 = v5;
+    v39 = *(v34 + 48);
+    v41 = *v33;
+    v40 = v33[1];
+    outlined init with take of NCProtoContactInfo(v33 + v39, v8, type metadata accessor for NCProtoContactInfo);
+    v42 = v51;
+    v43 = specialized __RawDictionaryStorage.find<A>(_:)(v41, v40);
+    v45 = v44;
 
-    if ((v46 & 1) == 0)
+    if ((v45 & 1) == 0)
     {
       outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoContactInfo);
       return 0;
     }
 
-    v47 = *(v43 + 56);
-    v4 = v39;
-    v10 = v38;
-    outlined init with copy of NCProtoContactInfo(v47 + *(v39 + 72) * v44, v38, type metadata accessor for NCProtoContactInfo);
-    v48 = specialized static NCProtoContactInfo.== infix(_:_:)(v38, v8);
-    outlined destroy of NCProtoContactInfo(v38, type metadata accessor for NCProtoContactInfo);
+    v46 = *(v42 + 56);
+    v5 = v38;
+    v10 = v37;
+    outlined init with copy of NCProtoContactInfo(v46 + *(v38 + 72) * v43, v37, type metadata accessor for NCProtoContactInfo);
+    v47 = specialized static NCProtoContactInfo.== infix(_:_:)(v37, v8);
+    outlined destroy of NCProtoContactInfo(v37, type metadata accessor for NCProtoContactInfo);
     result = outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoContactInfo);
-    v21 = v55;
-    if ((v48 & 1) == 0)
+    v20 = v54;
+    if ((v47 & 1) == 0)
     {
-      return v37;
+      return v36;
     }
   }
 
-  if (v22 <= v17 + 1)
+  if (v21 <= v16 + 1)
   {
-    v25 = v17 + 1;
+    v24 = v16 + 1;
   }
 
   else
   {
-    v25 = v22;
+    v24 = v21;
   }
 
-  v26 = v25 - 1;
-  v24 = v54;
+  v25 = v24 - 1;
+  v23 = v53;
   while (1)
   {
-    v27 = v17 + 1;
-    if (__OFADD__(v17, 1))
+    v26 = v16 + 1;
+    if (__OFADD__(v16, 1))
     {
       break;
     }
 
-    if (v27 >= v22)
+    if (v26 >= v21)
     {
-      v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetMR);
-      (*(*(v49 - 8) + 56))(v24, 1, 1, v49);
-      v55 = 0;
-      v17 = v26;
+      v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit18NCProtoContactInfoV5valuetMR);
+      (*(*(v48 - 8) + 56))(v23, 1, 1, v48);
+      v54 = 0;
+      v16 = v25;
       goto LABEL_17;
     }
 
-    v28 = *(v50 + 8 * v27);
-    ++v17;
-    if (v28)
+    v27 = *(v49 + 8 * v26);
+    ++v16;
+    if (v27)
     {
-      v55 = (v28 - 1) & v28;
-      v23 = __clz(__rbit64(v28)) | (v27 << 6);
-      v17 = v27;
+      v54 = (v27 - 1) & v27;
+      v22 = __clz(__rbit64(v27)) | (v26 << 6);
+      v16 = v26;
       goto LABEL_16;
     }
   }
@@ -3495,16 +2815,14 @@ uint64_t _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_27NeighborhoodActivityConduit15NCPr
 {
   v4 = type metadata accessor for NCProtoCallInfo(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x28223BE20](v4 - 8);
-  v9 = (&v51 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0));
-  MEMORY[0x28223BE20](v7);
-  v11 = (&v51 - v10);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetSgMd, &_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x28223BE20](v12 - 8);
-  v55 = &v51 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  result = MEMORY[0x28223BE20](v14);
+  v6 = MEMORY[0x28223BE20](v4 - 8);
+  v8 = (&v49 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
+  MEMORY[0x28223BE20](v6);
+  v10 = (&v49 - v9);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetSgMd, &_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetSgMR);
+  v12 = MEMORY[0x28223BE20](v11 - 8);
+  v53 = &v49 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  result = MEMORY[0x28223BE20](v12);
   if (a1 == a2)
   {
     return 1;
@@ -3515,115 +2833,115 @@ uint64_t _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_27NeighborhoodActivityConduit15NCPr
     return 0;
   }
 
-  v53 = a2;
-  v54 = (&v51 - v17);
-  v18 = 0;
-  v52 = a1;
-  v19 = *(a1 + 64);
-  v51 = a1 + 64;
-  v20 = 1 << *(a1 + 32);
-  v21 = -1;
-  if (v20 < 64)
+  v51 = a2;
+  v52 = (&v49 - v15);
+  v16 = 0;
+  v50 = a1;
+  v17 = *(a1 + 64);
+  v49 = a1 + 64;
+  v18 = 1 << *(a1 + 32);
+  v19 = -1;
+  if (v18 < 64)
   {
-    v21 = ~(-1 << v20);
+    v19 = ~(-1 << v18);
   }
 
-  v22 = v21 & v19;
-  v23 = (v20 + 63) >> 6;
-  while (v22)
+  v20 = v19 & v17;
+  v21 = (v18 + 63) >> 6;
+  while (v20)
   {
-    v56 = (v22 - 1) & v22;
-    v24 = __clz(__rbit64(v22)) | (v18 << 6);
-    v25 = v55;
+    v54 = (v20 - 1) & v20;
+    v22 = __clz(__rbit64(v20)) | (v16 << 6);
+    v23 = v53;
 LABEL_16:
-    v30 = (*(v52 + 48) + 16 * v24);
-    v31 = *v30;
-    v32 = v30[1];
-    outlined init with copy of NCProtoContactInfo(*(v52 + 56) + *(v5 + 72) * v24, v11, type metadata accessor for NCProtoCallInfo);
-    v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetMR);
-    v34 = *(v33 + 48);
-    *v25 = v31;
-    v25[1] = v32;
-    outlined init with take of NCProtoContactInfo(v11, v25 + v34, type metadata accessor for NCProtoCallInfo);
-    (*(*(v33 - 8) + 56))(v25, 0, 1, v33);
+    v28 = (*(v50 + 48) + 16 * v22);
+    v29 = *v28;
+    v30 = v28[1];
+    outlined init with copy of NCProtoContactInfo(*(v50 + 56) + *(v5 + 72) * v22, v10, type metadata accessor for NCProtoCallInfo);
+    v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetMR);
+    v32 = *(v31 + 48);
+    *v23 = v29;
+    v23[1] = v30;
+    outlined init with take of NCProtoContactInfo(v10, v23 + v32, type metadata accessor for NCProtoCallInfo);
+    (*(*(v31 - 8) + 56))(v23, 0, 1, v31);
 
 LABEL_17:
-    v35 = v54;
-    outlined init with take of (key: String, value: NCProtoCallInfo)?(v25, v54, &_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetSgMd, &_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetSgMR);
-    v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetMR);
-    v37 = (*(*(v36 - 8) + 48))(v35, 1, v36);
-    v38 = v37 == 1;
-    if (v37 == 1)
+    v33 = v52;
+    outlined init with take of (key: String, value: NCProtoCallInfo)?(v23, v52, &_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetSgMd, &_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetSgMR);
+    v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetMR);
+    v35 = (*(*(v34 - 8) + 48))(v33, 1, v34);
+    v36 = v35 == 1;
+    if (v35 == 1)
     {
-      return v38;
+      return v36;
     }
 
-    v39 = v11;
-    v40 = v5;
-    v41 = *(v36 + 48);
-    v43 = *v35;
-    v42 = v35[1];
-    outlined init with take of NCProtoContactInfo(v35 + v41, v9, type metadata accessor for NCProtoCallInfo);
-    v44 = v53;
-    v45 = specialized __RawDictionaryStorage.find<A>(_:)(v43, v42);
-    v47 = v46;
+    v37 = v10;
+    v38 = v5;
+    v39 = *(v34 + 48);
+    v41 = *v33;
+    v40 = v33[1];
+    outlined init with take of NCProtoContactInfo(v33 + v39, v8, type metadata accessor for NCProtoCallInfo);
+    v42 = v51;
+    v43 = specialized __RawDictionaryStorage.find<A>(_:)(v41, v40);
+    v45 = v44;
 
-    if ((v47 & 1) == 0)
+    if ((v45 & 1) == 0)
     {
-      outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoCallInfo);
+      outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoCallInfo);
       return 0;
     }
 
-    v48 = *(v44 + 56);
-    v5 = v40;
-    v11 = v39;
-    outlined init with copy of NCProtoContactInfo(v48 + *(v40 + 72) * v45, v39, type metadata accessor for NCProtoCallInfo);
-    v49 = specialized static NCProtoCallInfo.== infix(_:_:)(v39, v9);
-    outlined destroy of NCProtoContactInfo(v39, type metadata accessor for NCProtoCallInfo);
-    result = outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoCallInfo);
-    v22 = v56;
-    if ((v49 & 1) == 0)
+    v46 = *(v42 + 56);
+    v5 = v38;
+    v10 = v37;
+    outlined init with copy of NCProtoContactInfo(v46 + *(v38 + 72) * v43, v37, type metadata accessor for NCProtoCallInfo);
+    v47 = specialized static NCProtoCallInfo.== infix(_:_:)(v37, v8);
+    outlined destroy of NCProtoContactInfo(v37, type metadata accessor for NCProtoCallInfo);
+    result = outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoCallInfo);
+    v20 = v54;
+    if ((v47 & 1) == 0)
     {
-      return v38;
+      return v36;
     }
   }
 
-  if (v23 <= v18 + 1)
+  if (v21 <= v16 + 1)
   {
-    v26 = v18 + 1;
+    v24 = v16 + 1;
   }
 
   else
   {
-    v26 = v23;
+    v24 = v21;
   }
 
-  v27 = v26 - 1;
-  v25 = v55;
+  v25 = v24 - 1;
+  v23 = v53;
   while (1)
   {
-    v28 = v18 + 1;
-    if (__OFADD__(v18, 1))
+    v26 = v16 + 1;
+    if (__OFADD__(v16, 1))
     {
       break;
     }
 
-    if (v28 >= v23)
+    if (v26 >= v21)
     {
-      v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetMR);
-      (*(*(v50 - 8) + 56))(v25, 1, 1, v50);
-      v56 = 0;
-      v18 = v27;
+      v48 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit15NCProtoCallInfoV5valuetMR);
+      (*(*(v48 - 8) + 56))(v23, 1, 1, v48);
+      v54 = 0;
+      v16 = v25;
       goto LABEL_17;
     }
 
-    v29 = *(v51 + 8 * v28);
-    ++v18;
-    if (v29)
+    v27 = *(v49 + 8 * v26);
+    ++v16;
+    if (v27)
     {
-      v56 = (v29 - 1) & v29;
-      v24 = __clz(__rbit64(v29)) | (v28 << 6);
-      v18 = v28;
+      v54 = (v27 - 1) & v27;
+      v22 = __clz(__rbit64(v27)) | (v26 << 6);
+      v16 = v26;
       goto LABEL_16;
     }
   }
@@ -3706,34 +3024,181 @@ LABEL_13:
 uint64_t _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_21InternalSwiftProtobuf07Google_D6_ValueVTt1g5(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for Google_Protobuf_Value();
-  v63 = *(v4 - 8);
-  v5 = *(v63 + 64);
-  v6 = MEMORY[0x28223BE20](v4);
-  v8 = &v52 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v62 = &v52 - v9;
-  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetSgMd, &_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetSgMR);
-  v11 = *(*(v10 - 8) + 64);
-  v12 = MEMORY[0x28223BE20](v10 - 8);
-  result = MEMORY[0x28223BE20](v12);
-  v58 = a2;
+  v61 = *(v4 - 8);
+  v5 = MEMORY[0x28223BE20](v4);
+  v7 = &v50 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v60 = &v50 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetSgMd, &_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetSgMR);
+  v10 = MEMORY[0x28223BE20](v9 - 8);
+  result = MEMORY[0x28223BE20](v10);
+  v56 = a2;
   if (a1 == a2)
   {
     return 1;
   }
 
-  if (*(a1 + 16) != *(v58 + 16))
+  if (*(a1 + 16) != *(v56 + 16))
   {
     return 0;
   }
 
-  v56 = (&v52 - v14);
-  v57 = v15;
-  v55 = v8;
+  v54 = (&v50 - v12);
+  v55 = v13;
+  v53 = v7;
+  v14 = 0;
+  v51 = a1;
+  v15 = *(a1 + 64);
+  v50 = a1 + 64;
+  v16 = 1 << *(a1 + 32);
+  v17 = -1;
+  if (v16 < 64)
+  {
+    v17 = ~(-1 << v16);
+  }
+
+  v18 = v17 & v15;
+  v19 = (v16 + 63) >> 6;
+  v57 = v61 + 16;
+  v58 = (v61 + 32);
+  v52 = (v61 + 8);
+  while (1)
+  {
+    v20 = v55;
+    if (!v18)
+    {
+      break;
+    }
+
+    v59 = (v18 - 1) & v18;
+    v21 = __clz(__rbit64(v18)) | (v14 << 6);
+LABEL_16:
+    v26 = (*(v51 + 48) + 16 * v21);
+    v27 = *v26;
+    v28 = v26[1];
+    v30 = v60;
+    v29 = v61;
+    (*(v61 + 16))(v60, *(v51 + 56) + *(v61 + 72) * v21, v4);
+    v31 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetMd, &_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetMR);
+    v32 = *(v31 + 48);
+    *v20 = v27;
+    *(v20 + 1) = v28;
+    (*(v29 + 32))(&v20[v32], v30, v4);
+    (*(*(v31 - 8) + 56))(v20, 0, 1, v31);
+
+LABEL_17:
+    v33 = v54;
+    outlined init with take of (key: String, value: NCProtoCallInfo)?(v20, v54, &_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetSgMd, &_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetSgMR);
+    v34 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetMd, &_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetMR);
+    v35 = (*(*(v34 - 8) + 48))(v33, 1, v34);
+    v36 = v35 == 1;
+    if (v35 == 1)
+    {
+      return v36;
+    }
+
+    v37 = *(v34 + 48);
+    v39 = *v33;
+    v38 = v33[1];
+    v40 = v56;
+    v41 = v53;
+    (*v58)(v53, v33 + v37, v4);
+    v42 = specialized __RawDictionaryStorage.find<A>(_:)(v39, v38);
+    v44 = v43;
+
+    if ((v44 & 1) == 0)
+    {
+      (*v52)(v41, v4);
+      return 0;
+    }
+
+    v46 = v60;
+    v45 = v61;
+    (*(v61 + 16))(v60, *(v40 + 56) + *(v61 + 72) * v42, v4);
+    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, MEMORY[0x277D215F0], MEMORY[0x277D21600]);
+    v47 = dispatch thunk of static Equatable.== infix(_:_:)();
+    v48 = *(v45 + 8);
+    v48(v46, v4);
+    result = (v48)(v41, v4);
+    v18 = v59;
+    if ((v47 & 1) == 0)
+    {
+      return v36;
+    }
+  }
+
+  if (v19 <= v14 + 1)
+  {
+    v22 = v14 + 1;
+  }
+
+  else
+  {
+    v22 = v19;
+  }
+
+  v23 = v22 - 1;
+  while (1)
+  {
+    v24 = v14 + 1;
+    if (__OFADD__(v14, 1))
+    {
+      break;
+    }
+
+    if (v24 >= v19)
+    {
+      v49 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetMd, &_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetMR);
+      (*(*(v49 - 8) + 56))(v20, 1, 1, v49);
+      v59 = 0;
+      v14 = v23;
+      goto LABEL_17;
+    }
+
+    v25 = *(v50 + 8 * v24);
+    ++v14;
+    if (v25)
+    {
+      v59 = (v25 - 1) & v25;
+      v21 = __clz(__rbit64(v25)) | (v24 << 6);
+      v14 = v24;
+      goto LABEL_16;
+    }
+  }
+
+  __break(1u);
+  return result;
+}
+
+uint64_t _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListVTt1g5(uint64_t a1, uint64_t a2)
+{
+  v59 = type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList(0);
+  v64 = *(v59 - 8);
+  v4 = MEMORY[0x28223BE20](v59);
+  v6 = &v57 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = MEMORY[0x28223BE20](v4);
+  v9 = &v57 - v8;
+  MEMORY[0x28223BE20](v7);
+  v61 = &v57 - v10;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetSgMd, &_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetSgMR);
+  v12 = MEMORY[0x28223BE20](v11 - 8);
+  v63 = (&v57 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  result = MEMORY[0x28223BE20](v12);
+  v62 = (&v57 - v15);
+  if (a1 == a2)
+  {
+    return 1;
+  }
+
+  if (*(a1 + 16) != *(a2 + 16))
+  {
+    return 0;
+  }
+
   v16 = 0;
-  v53 = a1;
   v17 = *(a1 + 64);
-  v52 = a1 + 64;
+  v57 = a1 + 64;
+  v58 = a1;
   v18 = 1 << *(a1 + 32);
   v19 = -1;
   if (v18 < 64)
@@ -3743,71 +3208,95 @@ uint64_t _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_21InternalSwiftProtobuf07Google_D6_
 
   v20 = v19 & v17;
   v21 = (v18 + 63) >> 6;
-  v59 = v63 + 16;
-  v60 = (v63 + 32);
-  v54 = (v63 + 8);
-  while (1)
+  while (v20)
   {
-    v22 = v57;
-    if (!v20)
-    {
-      break;
-    }
-
-    v61 = (v20 - 1) & v20;
+    v60 = (v20 - 1) & v20;
     v23 = __clz(__rbit64(v20)) | (v16 << 6);
-LABEL_16:
-    v28 = (*(v53 + 48) + 16 * v23);
-    v29 = *v28;
-    v30 = v28[1];
-    v32 = v62;
-    v31 = v63;
-    (*(v63 + 16))(v62, *(v53 + 56) + *(v63 + 72) * v23, v4);
-    v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetMd, &_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetMR);
-    v34 = *(v33 + 48);
-    *v22 = v29;
-    *(v22 + 1) = v30;
-    (*(v31 + 32))(&v22[v34], v32, v4);
-    (*(*(v33 - 8) + 56))(v22, 0, 1, v33);
-
 LABEL_17:
-    v35 = v56;
-    outlined init with take of (key: String, value: NCProtoCallInfo)?(v22, v56, &_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetSgMd, &_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetSgMR);
-    v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetMd, &_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetMR);
-    v37 = (*(*(v36 - 8) + 48))(v35, 1, v36);
-    v38 = v37 == 1;
-    if (v37 == 1)
+    v28 = *(a1 + 56);
+    v29 = (*(a1 + 48) + 16 * v23);
+    v31 = *v29;
+    v30 = v29[1];
+    v32 = v61;
+    outlined init with copy of NCProtoContactInfo(v28 + *(v64 + 72) * v23, v61, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
+    v33 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetMR);
+    v34 = *(v33 + 48);
+    v35 = v63;
+    *v63 = v31;
+    v35[1] = v30;
+    v36 = v35;
+    outlined init with take of NCProtoContactInfo(v32, v35 + v34, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
+    (*(*(v33 - 8) + 56))(v36, 0, 1, v33);
+
+LABEL_18:
+    v37 = v36;
+    v38 = v62;
+    outlined init with take of (key: String, value: NCProtoCallInfo)?(v37, v62, &_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetSgMd, &_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetSgMR);
+    v39 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetMR);
+    v40 = (*(*(v39 - 8) + 48))(v38, 1, v39);
+    v41 = v40 == 1;
+    if (v40 == 1)
     {
-      return v38;
+      return v41;
     }
 
-    v39 = *(v36 + 48);
-    v41 = *v35;
-    v40 = v35[1];
-    v42 = v58;
-    v43 = v55;
-    (*v60)(v55, v35 + v39, v4);
-    v44 = specialized __RawDictionaryStorage.find<A>(_:)(v41, v40);
-    v46 = v45;
+    v42 = v6;
+    v43 = v64;
+    v44 = *(v39 + 48);
+    v45 = v38;
+    v46 = *v38;
+    v47 = v38[1];
+    outlined init with take of NCProtoContactInfo(v45 + v44, v9, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
+    v48 = specialized __RawDictionaryStorage.find<A>(_:)(v46, v47);
+    v50 = v49;
 
-    if ((v46 & 1) == 0)
+    if ((v50 & 1) == 0)
     {
-      (*v54)(v43, v4);
+      goto LABEL_30;
+    }
+
+    v6 = v42;
+    outlined init with copy of NCProtoContactInfo(*(a2 + 56) + *(v43 + 72) * v48, v42, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
+    v51 = *v42;
+    v52 = *v9;
+    v53 = *(*v42 + 16);
+    if (v53 != *(*v9 + 16))
+    {
+      goto LABEL_29;
+    }
+
+    if (v53 && v51 != v52)
+    {
+      v54 = (v51 + 32);
+      v55 = (v52 + 32);
+      while (*v54 == *v55)
+      {
+        ++v54;
+        ++v55;
+        if (!--v53)
+        {
+          goto LABEL_6;
+        }
+      }
+
+LABEL_29:
+      outlined destroy of NCProtoContactInfo(v42, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
+LABEL_30:
+      outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
       return 0;
     }
 
-    v48 = v62;
-    v47 = v63;
-    (*(v63 + 16))(v62, *(v42 + 56) + *(v63 + 72) * v44, v4);
-    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type Google_Protobuf_Value and conformance Google_Protobuf_Value, MEMORY[0x277D215F0]);
-    v49 = dispatch thunk of static Equatable.== infix(_:_:)();
-    v50 = *(v47 + 8);
-    v50(v48, v4);
-    result = (v50)(v43, v4);
-    v20 = v61;
-    if ((v49 & 1) == 0)
+LABEL_6:
+    type metadata accessor for UnknownStorage();
+    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+    v22 = dispatch thunk of static Equatable.== infix(_:_:)();
+    outlined destroy of NCProtoContactInfo(v42, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
+    result = outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
+    a1 = v58;
+    v20 = v60;
+    if ((v22 & 1) == 0)
     {
-      return v38;
+      return v41;
     }
   }
 
@@ -3832,197 +3321,21 @@ LABEL_17:
 
     if (v26 >= v21)
     {
-      v51 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetMd, &_sSS3key_21InternalSwiftProtobuf07Google_D6_ValueV5valuetMR);
-      (*(*(v51 - 8) + 56))(v22, 1, 1, v51);
-      v61 = 0;
+      v56 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetMR);
+      v36 = v63;
+      (*(*(v56 - 8) + 56))(v63, 1, 1, v56);
+      v60 = 0;
       v16 = v25;
-      goto LABEL_17;
-    }
-
-    v27 = *(v52 + 8 * v26);
-    ++v16;
-    if (v27)
-    {
-      v61 = (v27 - 1) & v27;
-      v23 = __clz(__rbit64(v27)) | (v26 << 6);
-      v16 = v26;
-      goto LABEL_16;
-    }
-  }
-
-  __break(1u);
-  return result;
-}
-
-uint64_t _sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListVTt1g5(uint64_t a1, uint64_t a2)
-{
-  v62 = type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList(0);
-  v67 = *(v62 - 8);
-  v4 = *(v67 + 64);
-  v5 = MEMORY[0x28223BE20](v62);
-  v7 = &v60 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = MEMORY[0x28223BE20](v5);
-  v10 = &v60 - v9;
-  MEMORY[0x28223BE20](v8);
-  v64 = &v60 - v11;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetSgMd, &_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetSgMR);
-  v13 = *(*(v12 - 8) + 64);
-  v14 = MEMORY[0x28223BE20](v12 - 8);
-  v66 = (&v60 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0));
-  result = MEMORY[0x28223BE20](v14);
-  v65 = (&v60 - v17);
-  if (a1 == a2)
-  {
-    return 1;
-  }
-
-  if (*(a1 + 16) != *(a2 + 16))
-  {
-    return 0;
-  }
-
-  v18 = 0;
-  v19 = *(a1 + 64);
-  v60 = a1 + 64;
-  v61 = a1;
-  v20 = 1 << *(a1 + 32);
-  v21 = -1;
-  if (v20 < 64)
-  {
-    v21 = ~(-1 << v20);
-  }
-
-  v22 = v21 & v19;
-  v23 = (v20 + 63) >> 6;
-  while (v22)
-  {
-    v63 = (v22 - 1) & v22;
-    v26 = __clz(__rbit64(v22)) | (v18 << 6);
-LABEL_17:
-    v31 = *(a1 + 56);
-    v32 = (*(a1 + 48) + 16 * v26);
-    v34 = *v32;
-    v33 = v32[1];
-    v35 = v64;
-    outlined init with copy of NCProtoContactInfo(v31 + *(v67 + 72) * v26, v64, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
-    v36 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetMR);
-    v37 = *(v36 + 48);
-    v38 = v66;
-    *v66 = v34;
-    v38[1] = v33;
-    v39 = v38;
-    outlined init with take of NCProtoContactInfo(v35, v38 + v37, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
-    (*(*(v36 - 8) + 56))(v39, 0, 1, v36);
-
-LABEL_18:
-    v40 = v39;
-    v41 = v65;
-    outlined init with take of (key: String, value: NCProtoCallInfo)?(v40, v65, &_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetSgMd, &_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetSgMR);
-    v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetMR);
-    v43 = (*(*(v42 - 8) + 48))(v41, 1, v42);
-    v44 = v43 == 1;
-    if (v43 == 1)
-    {
-      return v44;
-    }
-
-    v45 = v7;
-    v46 = v67;
-    v47 = *(v42 + 48);
-    v48 = v41;
-    v49 = *v41;
-    v50 = v41[1];
-    outlined init with take of NCProtoContactInfo(v48 + v47, v10, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
-    v51 = specialized __RawDictionaryStorage.find<A>(_:)(v49, v50);
-    v53 = v52;
-
-    if ((v53 & 1) == 0)
-    {
-      goto LABEL_30;
-    }
-
-    v7 = v45;
-    outlined init with copy of NCProtoContactInfo(*(a2 + 56) + *(v46 + 72) * v51, v45, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
-    v54 = *v45;
-    v55 = *v10;
-    v56 = *(*v45 + 16);
-    if (v56 != *(*v10 + 16))
-    {
-      goto LABEL_29;
-    }
-
-    if (v56 && v54 != v55)
-    {
-      v57 = (v54 + 32);
-      v58 = (v55 + 32);
-      while (*v57 == *v58)
-      {
-        ++v57;
-        ++v58;
-        if (!--v56)
-        {
-          goto LABEL_6;
-        }
-      }
-
-LABEL_29:
-      outlined destroy of NCProtoContactInfo(v45, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
-LABEL_30:
-      outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
-      return 0;
-    }
-
-LABEL_6:
-    v24 = *(v62 + 20);
-    type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    v25 = dispatch thunk of static Equatable.== infix(_:_:)();
-    outlined destroy of NCProtoContactInfo(v45, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
-    result = outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
-    a1 = v61;
-    v22 = v63;
-    if ((v25 & 1) == 0)
-    {
-      return v44;
-    }
-  }
-
-  if (v23 <= v18 + 1)
-  {
-    v27 = v18 + 1;
-  }
-
-  else
-  {
-    v27 = v23;
-  }
-
-  v28 = v27 - 1;
-  while (1)
-  {
-    v29 = v18 + 1;
-    if (__OFADD__(v18, 1))
-    {
-      break;
-    }
-
-    if (v29 >= v23)
-    {
-      v59 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetMd, &_sSS3key_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListV5valuetMR);
-      v39 = v66;
-      (*(*(v59 - 8) + 56))(v66, 1, 1, v59);
-      v63 = 0;
-      v18 = v28;
       goto LABEL_18;
     }
 
-    v30 = *(v60 + 8 * v29);
-    ++v18;
-    if (v30)
+    v27 = *(v57 + 8 * v26);
+    ++v16;
+    if (v27)
     {
-      v63 = (v30 - 1) & v30;
-      v26 = __clz(__rbit64(v30)) | (v29 << 6);
-      v18 = v29;
+      v60 = (v27 - 1) & v27;
+      v23 = __clz(__rbit64(v27)) | (v26 << 6);
+      v16 = v26;
       goto LABEL_17;
     }
   }
@@ -4129,12 +3442,11 @@ LABEL_14:
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:)(uint64_t a1, uint64_t a2)
 {
-  v5 = *(v2 + 40);
   Hasher.init(_seed:)();
   String.hash(into:)();
-  v6 = Hasher._finalize()();
+  v4 = Hasher._finalize()();
 
-  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, a2, v6);
+  return specialized __RawDictionaryStorage.find<A>(_:hashValue:)(a1, a2, v4);
 }
 
 unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -4168,7 +3480,7 @@ unint64_t specialized __RawDictionaryStorage.find<A>(_:hashValue:)(uint64_t a1, 
 
 uint64_t closure #1 in static Data.== infix(_:_:)@<X0>(uint64_t result@<X0>, uint64_t a2@<X2>, unint64_t a3@<X3>, BOOL *a4@<X8>)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   v5 = a3 >> 62;
   if ((a3 >> 62) > 1)
   {
@@ -4255,18 +3567,17 @@ LABEL_32:
   if (!v5)
   {
     __s2 = a2;
-    v21 = a3;
-    v22 = BYTE2(a3);
-    v23 = BYTE3(a3);
-    v24 = BYTE4(a3);
-    v25 = BYTE5(a3);
+    v20 = a3;
+    v21 = BYTE2(a3);
+    v22 = BYTE3(a3);
+    v23 = BYTE4(a3);
+    v24 = BYTE5(a3);
     if (result)
     {
       result = memcmp(result, &__s2, BYTE6(a3));
       v6 = result == 0;
 LABEL_30:
       *a4 = v6;
-      v19 = *MEMORY[0x277D85DE8];
       return result;
     }
 
@@ -4332,18 +3643,18 @@ LABEL_40:
 
 uint64_t specialized Data.withUnsafeBytes<A>(_:)(uint64_t a1, unint64_t a2, uint64_t a3, unint64_t a4)
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v7 = a2 >> 62;
   if ((a2 >> 62) <= 1)
   {
     if (!v7)
     {
-      v14[0] = a1;
-      LOWORD(v14[1]) = a2;
-      BYTE2(v14[1]) = BYTE2(a2);
-      BYTE3(v14[1]) = BYTE3(a2);
-      BYTE4(v14[1]) = BYTE4(a2);
-      BYTE5(v14[1]) = BYTE5(a2);
+      v13[0] = a1;
+      LOWORD(v13[1]) = a2;
+      BYTE2(v13[1]) = BYTE2(a2);
+      BYTE3(v13[1]) = BYTE3(a2);
+      BYTE4(v13[1]) = BYTE4(a2);
+      BYTE5(v13[1]) = BYTE5(a2);
       goto LABEL_9;
     }
 
@@ -4357,7 +3668,7 @@ uint64_t specialized Data.withUnsafeBytes<A>(_:)(uint64_t a1, unint64_t a2, uint
 LABEL_7:
     v10 = specialized __DataStorage.withUnsafeBytes<A>(in:apply:)(v8, v9, a2 & 0x3FFFFFFFFFFFFFFFLL, a3, a4);
     outlined consume of Data._Representation(a3, a4);
-    goto LABEL_11;
+    return v10 & 1;
   }
 
   if (v7 == 2)
@@ -4367,18 +3678,16 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  memset(v14, 0, 14);
+  memset(v13, 0, 14);
 LABEL_9:
-  closure #1 in static Data.== infix(_:_:)(v14, a3, a4, &v13);
+  closure #1 in static Data.== infix(_:_:)(v13, a3, a4, &v12);
   v10 = v4;
   outlined consume of Data._Representation(a3, a4);
   if (!v4)
   {
-    v10 = v13;
+    v10 = v12;
   }
 
-LABEL_11:
-  v11 = *MEMORY[0x277D85DE8];
   return v10 & 1;
 }
 
@@ -4418,158 +3727,153 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit25NCProtoAdd
 {
   v4 = type metadata accessor for NCProtoContactHandleAnonym(0);
   v5 = *(v4 - 8);
-  v103 = v4;
-  v104 = v5;
-  v6 = *(v5 + 64);
-  v7 = MEMORY[0x28223BE20](v4);
-  v9 = &v88 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v7);
-  v11 = (&v88 - v10);
-  v12 = type metadata accessor for NCProtoContactInfo(0);
-  v13 = *(v12 - 1);
-  v14 = *(v13 + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v88 - ((v15 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v17 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
-  v18 = *(*(v17 - 8) + 64);
-  MEMORY[0x28223BE20](v17 - 8);
-  v20 = (&v88 - v19);
-  v21 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMR);
-  v22 = *(*(v21 - 8) + 64);
-  MEMORY[0x28223BE20](v21);
-  v102 = &v88 - v23;
-  v24 = type metadata accessor for NCProtoAddressableContact(0);
-  v25 = *(*(v24 - 8) + 64);
-  v26 = MEMORY[0x28223BE20](v24);
-  v28 = (&v88 - ((v27 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v29 = MEMORY[0x28223BE20](v26);
-  v105 = (&v88 - v31);
-  v32 = *(a1 + 16);
-  if (v32 != *(a2 + 16))
+  v95 = v4;
+  v96 = v5;
+  v6 = MEMORY[0x28223BE20](v4);
+  v8 = &v80 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v6);
+  v10 = (&v80 - v9);
+  v11 = type metadata accessor for NCProtoContactInfo(0);
+  v12 = *(v11 - 8);
+  MEMORY[0x28223BE20](v11);
+  v14 = &v80 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+  MEMORY[0x28223BE20](v15 - 8);
+  v17 = (&v80 - v16);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMR);
+  MEMORY[0x28223BE20](v18);
+  v94 = &v80 - v19;
+  v20 = type metadata accessor for NCProtoAddressableContact(0);
+  v21 = MEMORY[0x28223BE20](v20);
+  v23 = (&v80 - ((v22 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v24 = MEMORY[0x28223BE20](v21);
+  v97 = (&v80 - v26);
+  v27 = *(a1 + 16);
+  if (v27 != *(a2 + 16))
   {
 LABEL_110:
-    v84 = 0;
-    return v84 & 1;
+    v76 = 0;
+    return v76 & 1;
   }
 
-  if (!v32 || a1 == a2)
+  if (!v27 || a1 == a2)
   {
-    v84 = 1;
-    return v84 & 1;
+    v76 = 1;
+    return v76 & 1;
   }
 
-  v97 = *(a1 + 16);
-  v98 = v29;
-  v88 = 0;
-  v89 = v16;
-  v33 = (*(v30 + 80) + 32) & ~*(v30 + 80);
-  v34 = a1 + v33;
-  v94 = a2 + v33;
-  v95 = v21;
-  v92 = v12;
-  v93 = (v13 + 48);
-  v35 = 0;
-  v36 = *(v30 + 72);
-  v101 = v28;
-  v37 = v105;
-  v90 = v36;
-  v91 = v34;
+  v89 = *(a1 + 16);
+  v90 = v24;
+  v80 = 0;
+  v81 = v14;
+  v28 = (*(v25 + 80) + 32) & ~*(v25 + 80);
+  v29 = a1 + v28;
+  v86 = a2 + v28;
+  v87 = v18;
+  v84 = v11;
+  v85 = (v12 + 48);
+  v30 = 0;
+  v31 = *(v25 + 72);
+  v93 = v23;
+  v32 = v97;
+  v82 = v31;
+  v83 = v29;
   while (1)
   {
-    v38 = v36 * v35;
-    result = outlined init with copy of NCProtoContactInfo(v34 + v36 * v35, v37, type metadata accessor for NCProtoAddressableContact);
-    if (v35 == v97)
+    v33 = v31 * v30;
+    result = outlined init with copy of NCProtoContactInfo(v29 + v31 * v30, v32, type metadata accessor for NCProtoAddressableContact);
+    if (v30 == v89)
     {
       goto LABEL_114;
     }
 
-    v96 = v35;
-    outlined init with copy of NCProtoContactInfo(v94 + v38, v28, type metadata accessor for NCProtoAddressableContact);
-    v40 = *(v98 + 28);
-    v41 = *(v95 + 48);
-    v42 = v102;
-    outlined init with copy of NCProtoContactInfo?(v37 + v40, v102, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
-    outlined init with copy of NCProtoContactInfo?(v28 + v40, v42 + v41, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
-    v43 = *v93;
-    if ((*v93)(v42, 1, v12) == 1)
+    v88 = v30;
+    outlined init with copy of NCProtoContactInfo(v86 + v33, v23, type metadata accessor for NCProtoAddressableContact);
+    v35 = *(v90 + 28);
+    v36 = *(v87 + 48);
+    v37 = v94;
+    outlined init with copy of NCProtoContactInfo?(v32 + v35, v94, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+    outlined init with copy of NCProtoContactInfo?(v23 + v35, v37 + v36, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+    v38 = *v85;
+    if ((*v85)(v37, 1, v11) == 1)
     {
-      if (v43(v42 + v41, 1, v12) != 1)
+      if (v38(v37 + v36, 1, v11) != 1)
       {
         goto LABEL_107;
       }
 
-      result = outlined destroy of NCProtoContactInfo?(v42, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+      result = outlined destroy of NCProtoContactInfo?(v37, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
       goto LABEL_70;
     }
 
-    outlined init with copy of NCProtoContactInfo?(v42, v20, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
-    if (v43(v42 + v41, 1, v12) == 1)
+    outlined init with copy of NCProtoContactInfo?(v37, v17, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+    if (v38(v37 + v36, 1, v11) == 1)
     {
-      outlined destroy of NCProtoContactInfo(v20, type metadata accessor for NCProtoContactInfo);
+      outlined destroy of NCProtoContactInfo(v17, type metadata accessor for NCProtoContactInfo);
 LABEL_107:
-      v85 = &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMd;
-      v86 = &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMR;
-      v87 = v42;
+      v77 = &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMd;
+      v78 = &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMR;
+      v79 = v37;
       goto LABEL_108;
     }
 
-    v44 = v89;
-    outlined init with take of NCProtoContactInfo(v42 + v41, v89, type metadata accessor for NCProtoContactInfo);
-    if ((*v20 != *v44 || v20[1] != v44[1]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v20[2] != v44[2] || v20[3] != v44[3]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v20[4] != v44[4] || v20[5] != v44[5]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v20[6] != v44[6] || v20[7] != v44[7]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v20[8] != v44[8] || v20[9] != v44[9]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || ((result = v20[10], result != v44[10]) || v20[11] != v44[11]) && (result = _stringCompareWithSmolCheck(_:_:expecting:)(), (result & 1) == 0))
+    v39 = v81;
+    outlined init with take of NCProtoContactInfo(v37 + v36, v81, type metadata accessor for NCProtoContactInfo);
+    if ((*v17 != *v39 || v17[1] != v39[1]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v17[2] != v39[2] || v17[3] != v39[3]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v17[4] != v39[4] || v17[5] != v39[5]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v17[6] != v39[6] || v17[7] != v39[7]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v17[8] != v39[8] || v17[9] != v39[9]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || ((result = v17[10], result != v39[10]) || v17[11] != v39[11]) && (result = _stringCompareWithSmolCheck(_:_:expecting:)(), (result & 1) == 0))
     {
 LABEL_105:
-      outlined destroy of NCProtoContactInfo(v44, type metadata accessor for NCProtoContactInfo);
-      outlined destroy of NCProtoContactInfo(v20, type metadata accessor for NCProtoContactInfo);
-      v85 = &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd;
-      v86 = &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR;
-      v87 = v102;
+      outlined destroy of NCProtoContactInfo(v39, type metadata accessor for NCProtoContactInfo);
+      outlined destroy of NCProtoContactInfo(v17, type metadata accessor for NCProtoContactInfo);
+      v77 = &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd;
+      v78 = &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR;
+      v79 = v94;
 LABEL_108:
-      outlined destroy of NCProtoContactInfo?(v87, v85, v86);
+      outlined destroy of NCProtoContactInfo?(v79, v77, v78);
 LABEL_109:
-      outlined destroy of NCProtoContactInfo(v101, type metadata accessor for NCProtoAddressableContact);
-      outlined destroy of NCProtoContactInfo(v105, type metadata accessor for NCProtoAddressableContact);
+      outlined destroy of NCProtoContactInfo(v93, type metadata accessor for NCProtoAddressableContact);
+      outlined destroy of NCProtoContactInfo(v97, type metadata accessor for NCProtoAddressableContact);
       goto LABEL_110;
     }
 
-    v46 = v20[12];
-    v45 = v20[13];
-    v48 = v44[12];
-    v47 = v44[13];
-    v49 = v45 >> 62;
-    v50 = v47 >> 62;
-    if (v45 >> 62 == 3)
+    v41 = v17[12];
+    v40 = v17[13];
+    v43 = v39[12];
+    v42 = v39[13];
+    v44 = v40 >> 62;
+    v45 = v42 >> 62;
+    if (v40 >> 62 == 3)
     {
-      v51 = 0;
-      if (!v46 && v45 == 0xC000000000000000 && v47 >> 62 == 3)
+      v46 = 0;
+      if (!v41 && v40 == 0xC000000000000000 && v42 >> 62 == 3)
       {
-        v51 = 0;
-        if (!v48 && v47 == 0xC000000000000000)
+        v46 = 0;
+        if (!v43 && v42 == 0xC000000000000000)
         {
           goto LABEL_55;
         }
       }
     }
 
-    else if (v49)
+    else if (v44)
     {
-      if (v49 == 1)
+      if (v44 == 1)
       {
-        LODWORD(v51) = HIDWORD(v46) - v46;
-        if (__OFSUB__(HIDWORD(v46), v46))
+        LODWORD(v46) = HIDWORD(v41) - v41;
+        if (__OFSUB__(HIDWORD(v41), v41))
         {
           goto LABEL_118;
         }
 
-        v51 = v51;
+        v46 = v46;
       }
 
       else
       {
-        v53 = *(v46 + 16);
-        v52 = *(v46 + 24);
-        v54 = __OFSUB__(v52, v53);
-        v51 = v52 - v53;
-        if (v54)
+        v48 = *(v41 + 16);
+        v47 = *(v41 + 24);
+        v49 = __OFSUB__(v47, v48);
+        v46 = v47 - v48;
+        if (v49)
         {
           goto LABEL_117;
         }
@@ -4578,41 +3882,41 @@ LABEL_109:
 
     else
     {
-      v51 = BYTE6(v45);
+      v46 = BYTE6(v40);
     }
 
-    if (v50 <= 1)
+    if (v45 <= 1)
     {
-      if (v50)
+      if (v45)
       {
-        LODWORD(v55) = HIDWORD(v48) - v48;
-        if (__OFSUB__(HIDWORD(v48), v48))
+        LODWORD(v50) = HIDWORD(v43) - v43;
+        if (__OFSUB__(HIDWORD(v43), v43))
         {
           goto LABEL_116;
         }
 
-        v55 = v55;
+        v50 = v50;
       }
 
       else
       {
-        v55 = BYTE6(v47);
+        v50 = BYTE6(v42);
       }
 
 LABEL_50:
-      if (v51 != v55)
+      if (v46 != v50)
       {
         goto LABEL_105;
       }
 
-      if (v51 >= 1)
+      if (v46 >= 1)
       {
-        outlined copy of Data._Representation(v44[12], v44[13]);
-        v58 = v47;
-        v59 = v88;
-        v60 = specialized Data.withUnsafeBytes<A>(_:)(v46, v45, v48, v58);
-        v88 = v59;
-        if ((v60 & 1) == 0)
+        outlined copy of Data._Representation(v39[12], v39[13]);
+        v53 = v42;
+        v54 = v80;
+        v55 = specialized Data.withUnsafeBytes<A>(_:)(v41, v40, v43, v53);
+        v80 = v54;
+        if ((v55 & 1) == 0)
         {
           goto LABEL_105;
         }
@@ -4621,13 +3925,13 @@ LABEL_50:
       goto LABEL_55;
     }
 
-    if (v50 == 2)
+    if (v45 == 2)
     {
-      v57 = *(v48 + 16);
-      v56 = *(v48 + 24);
-      v54 = __OFSUB__(v56, v57);
-      v55 = v56 - v57;
-      if (v54)
+      v52 = *(v43 + 16);
+      v51 = *(v43 + 24);
+      v49 = __OFSUB__(v51, v52);
+      v50 = v51 - v52;
+      if (v49)
       {
         goto LABEL_115;
       }
@@ -4635,16 +3939,34 @@ LABEL_50:
       goto LABEL_50;
     }
 
-    if (v51)
+    if (v46)
     {
       goto LABEL_105;
     }
 
 LABEL_55:
-    v61 = v12[12];
-    v62 = (v20 + v61);
-    v63 = *(v20 + v61 + 8);
-    v64 = (v44 + v61);
+    v56 = *(v11 + 48);
+    v57 = (v17 + v56);
+    v58 = *(v17 + v56 + 8);
+    v59 = (v39 + v56);
+    v60 = v59[1];
+    if (v58)
+    {
+      if (!v60 || (*v57 != *v59 || v58 != v60) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      {
+        goto LABEL_105;
+      }
+    }
+
+    else if (v60)
+    {
+      goto LABEL_105;
+    }
+
+    v61 = *(v11 + 52);
+    v62 = (v17 + v61);
+    v63 = *(v17 + v61 + 8);
+    v64 = (v39 + v61);
     v65 = v64[1];
     if (v63)
     {
@@ -4659,149 +3981,128 @@ LABEL_55:
       goto LABEL_105;
     }
 
-    v66 = v12[13];
-    v67 = (v20 + v66);
-    v68 = *(v20 + v66 + 8);
-    v69 = (v44 + v66);
-    v70 = v69[1];
-    if (v68)
-    {
-      if (!v70 || (*v67 != *v69 || v68 != v70) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
-      {
-        goto LABEL_105;
-      }
-    }
-
-    else if (v70)
-    {
-      goto LABEL_105;
-    }
-
-    v71 = v12[11];
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    v72 = dispatch thunk of static Equatable.== infix(_:_:)();
-    outlined destroy of NCProtoContactInfo(v44, type metadata accessor for NCProtoContactInfo);
-    outlined destroy of NCProtoContactInfo(v20, type metadata accessor for NCProtoContactInfo);
-    result = outlined destroy of NCProtoContactInfo?(v102, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
-    if ((v72 & 1) == 0)
+    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+    v66 = dispatch thunk of static Equatable.== infix(_:_:)();
+    outlined destroy of NCProtoContactInfo(v39, type metadata accessor for NCProtoContactInfo);
+    outlined destroy of NCProtoContactInfo(v17, type metadata accessor for NCProtoContactInfo);
+    result = outlined destroy of NCProtoContactInfo?(v94, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+    if ((v66 & 1) == 0)
     {
       goto LABEL_109;
     }
 
 LABEL_70:
-    v73 = *v105;
-    v74 = *v101;
-    v75 = *(*v105 + 16);
-    if (v75 != *(*v101 + 16))
+    v67 = *v97;
+    v68 = *v93;
+    v69 = *(*v97 + 16);
+    if (v69 != *(*v93 + 16))
     {
       goto LABEL_109;
     }
 
-    if (v75 && v73 != v74)
+    if (v69 && v67 != v68)
     {
       break;
     }
 
 LABEL_97:
-    if ((v105[1] != v101[1] || v105[2] != v101[2]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    if ((v97[1] != v93[1] || v97[2] != v93[2]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
       goto LABEL_109;
     }
 
-    v83 = *(v98 + 24);
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    v37 = v105;
-    v28 = v101;
-    v84 = dispatch thunk of static Equatable.== infix(_:_:)();
-    outlined destroy of NCProtoContactInfo(v28, type metadata accessor for NCProtoAddressableContact);
-    outlined destroy of NCProtoContactInfo(v37, type metadata accessor for NCProtoAddressableContact);
-    if (v84)
+    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+    v32 = v97;
+    v23 = v93;
+    v76 = dispatch thunk of static Equatable.== infix(_:_:)();
+    outlined destroy of NCProtoContactInfo(v23, type metadata accessor for NCProtoAddressableContact);
+    outlined destroy of NCProtoContactInfo(v32, type metadata accessor for NCProtoAddressableContact);
+    if (v76)
     {
-      v35 = v96 + 1;
-      v34 = v91;
-      v12 = v92;
-      v36 = v90;
-      if (v96 + 1 != v97)
+      v30 = v88 + 1;
+      v29 = v83;
+      v11 = v84;
+      v31 = v82;
+      if (v88 + 1 != v89)
       {
         continue;
       }
     }
 
-    return v84 & 1;
+    return v76 & 1;
   }
 
-  v76 = 0;
-  v77 = (*(v104 + 80) + 32) & ~*(v104 + 80);
-  v99 = v74 + v77;
-  v100 = v73 + v77;
-  while (v76 < *(v73 + 16))
+  v70 = 0;
+  v71 = (*(v96 + 80) + 32) & ~*(v96 + 80);
+  v91 = v68 + v71;
+  v92 = v67 + v71;
+  while (v70 < *(v67 + 16))
   {
-    v78 = *(v104 + 72) * v76;
-    result = outlined init with copy of NCProtoContactInfo(v100 + v78, v11, type metadata accessor for NCProtoContactHandleAnonym);
-    if (v76 >= *(v74 + 16))
+    v72 = *(v96 + 72) * v70;
+    result = outlined init with copy of NCProtoContactInfo(v92 + v72, v10, type metadata accessor for NCProtoContactHandleAnonym);
+    if (v70 >= *(v68 + 16))
     {
       goto LABEL_113;
     }
 
-    outlined init with copy of NCProtoContactInfo(v99 + v78, v9, type metadata accessor for NCProtoContactHandleAnonym);
-    if ((*v11 != *v9 || v11[1] != *(v9 + 1)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    outlined init with copy of NCProtoContactInfo(v91 + v72, v8, type metadata accessor for NCProtoContactHandleAnonym);
+    if ((*v10 != *v8 || v10[1] != *(v8 + 1)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
       goto LABEL_104;
     }
 
-    v79 = v11[2];
-    v80 = *(v9 + 2);
-    if (v9[24] == 1)
+    v73 = v10[2];
+    v74 = *(v8 + 2);
+    if (v8[24] == 1)
     {
-      if (v80)
+      if (v74)
       {
-        if (v80 == 1)
+        if (v74 == 1)
         {
-          if (v79 != 1)
+          if (v73 != 1)
           {
             goto LABEL_104;
           }
         }
 
-        else if (v79 != 2)
+        else if (v73 != 2)
         {
           goto LABEL_104;
         }
       }
 
-      else if (v79)
+      else if (v73)
       {
         goto LABEL_104;
       }
     }
 
-    else if (v79 != v80)
+    else if (v73 != v74)
     {
       goto LABEL_104;
     }
 
-    if ((v11[4] != *(v9 + 4) || v11[5] != *(v9 + 5)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v11[6] != *(v9 + 6) || v11[7] != *(v9 + 7)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+    if ((v10[4] != *(v8 + 4) || v10[5] != *(v8 + 5)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v10[6] != *(v8 + 6) || v10[7] != *(v8 + 7)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
 LABEL_104:
-      outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoContactHandleAnonym);
-      outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoContactHandleAnonym);
+      outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoContactHandleAnonym);
+      outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoContactHandleAnonym);
       goto LABEL_109;
     }
 
-    v81 = *(v103 + 32);
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    v82 = dispatch thunk of static Equatable.== infix(_:_:)();
-    outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoContactHandleAnonym);
-    result = outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoContactHandleAnonym);
-    if ((v82 & 1) == 0)
+    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+    v75 = dispatch thunk of static Equatable.== infix(_:_:)();
+    outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoContactHandleAnonym);
+    result = outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoContactHandleAnonym);
+    if ((v75 & 1) == 0)
     {
       goto LABEL_109;
     }
 
-    if (v75 == ++v76)
+    if (v69 == ++v70)
     {
       goto LABEL_97;
     }
@@ -4826,61 +4127,59 @@ LABEL_118:
 uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit21NCProtoContinuityCallV_Tt1g5(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for NCProtoContinuityCall(0);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v4);
-  v8 = &v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v11 = &v23 - v10;
-  v12 = *(a1 + 16);
-  if (v12 == *(a2 + 16))
+  v5 = MEMORY[0x28223BE20](v4);
+  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v10 = &v21 - v9;
+  v11 = *(a1 + 16);
+  if (v11 == *(a2 + 16))
   {
-    if (!v12 || a1 == a2)
+    if (!v11 || a1 == a2)
     {
       return 1;
     }
 
-    v13 = (*(v9 + 80) + 32) & ~*(v9 + 80);
-    v14 = a1 + v13;
-    v15 = a2 + v13;
-    v16 = *(v9 + 72);
+    v12 = (*(v8 + 80) + 32) & ~*(v8 + 80);
+    v13 = a1 + v12;
+    v14 = a2 + v12;
+    v15 = *(v8 + 72);
     while (1)
     {
-      outlined init with copy of NCProtoContactInfo(v14, v11, type metadata accessor for NCProtoContinuityCall);
-      outlined init with copy of NCProtoContactInfo(v15, v8, type metadata accessor for NCProtoContinuityCall);
-      v17 = *(v4 + 20);
-      v18 = *&v11[v17];
-      v19 = *&v8[v17];
-      if (v18 != v19)
+      outlined init with copy of NCProtoContactInfo(v13, v10, type metadata accessor for NCProtoContinuityCall);
+      outlined init with copy of NCProtoContactInfo(v14, v7, type metadata accessor for NCProtoContinuityCall);
+      v16 = *(v4 + 20);
+      v17 = *&v10[v16];
+      v18 = *&v7[v16];
+      if (v17 != v18)
       {
-        v20 = *&v11[v17];
 
-        v21 = closure #1 in static NCProtoContinuityCall.== infix(_:_:)(v18, v19);
+        v19 = closure #1 in static NCProtoContinuityCall.== infix(_:_:)(v17, v18);
 
-        if (!v21)
+        if (!v19)
         {
           break;
         }
       }
 
       type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
       if ((dispatch thunk of static Equatable.== infix(_:_:)() & 1) == 0)
       {
         break;
       }
 
-      outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoContinuityCall);
-      outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoContinuityCall);
-      v15 += v16;
-      v14 += v16;
-      if (!--v12)
+      outlined destroy of NCProtoContactInfo(v7, type metadata accessor for NCProtoContinuityCall);
+      outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoContinuityCall);
+      v14 += v15;
+      v13 += v15;
+      if (!--v11)
       {
         return 1;
       }
     }
 
-    outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoContinuityCall);
-    outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoContinuityCall);
+    outlined destroy of NCProtoContactInfo(v7, type metadata accessor for NCProtoContinuityCall);
+    outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoContinuityCall);
   }
 
   return 0;
@@ -4888,331 +4187,320 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit21NCProtoCon
 
 uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ10Foundation4DataV_Tt1g5(uint64_t a1, uint64_t a2)
 {
-  v34[3] = *MEMORY[0x277D85DE8];
+  v33[3] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 16);
-  if (v2 == *(a2 + 16))
+  if (v2 != *(a2 + 16))
   {
-    if (v2 && a1 != a2)
+    return 0;
+  }
+
+  if (v2 && a1 != a2)
+  {
+    v3 = 0;
+    v4 = (a1 + 40);
+    for (i = (a2 + 40); ; i += 2)
     {
-      v3 = 0;
-      v4 = (a1 + 40);
-      v5 = (a2 + 40);
-      while (1)
+      v7 = *(v4 - 1);
+      v6 = *v4;
+      v9 = *(i - 1);
+      v8 = *i;
+      v10 = *v4 >> 62;
+      v11 = *i >> 62;
+      if (v10 == 3)
       {
-        v7 = *(v4 - 1);
-        v6 = *v4;
-        v9 = *(v5 - 1);
-        v8 = *v5;
-        v10 = *v4 >> 62;
-        v11 = *v5 >> 62;
-        if (v10 == 3)
-        {
-          break;
-        }
+        break;
+      }
 
-        if (v10 > 1)
+      if (v10 > 1)
+      {
+        if (v10 == 2)
         {
-          if (v10 == 2)
+          v20 = *(v7 + 16);
+          v19 = *(v7 + 24);
+          v17 = __OFSUB__(v19, v20);
+          v13 = v19 - v20;
+          if (v17)
           {
-            v20 = *(v7 + 16);
-            v19 = *(v7 + 24);
-            v17 = __OFSUB__(v19, v20);
-            v13 = v19 - v20;
-            if (v17)
-            {
-              goto LABEL_63;
-            }
-
-            goto LABEL_28;
+            goto LABEL_62;
           }
 
-          v13 = 0;
-          if (v11 <= 1)
-          {
-            goto LABEL_29;
-          }
+          goto LABEL_28;
         }
 
-        else if (v10)
+        v13 = 0;
+        if (v11 <= 1)
         {
-          LODWORD(v13) = HIDWORD(v7) - v7;
-          if (__OFSUB__(HIDWORD(v7), v7))
-          {
-            goto LABEL_64;
-          }
-
-          v13 = v13;
-          if (v11 <= 1)
-          {
-LABEL_29:
-            if (v11)
-            {
-              LODWORD(v18) = HIDWORD(v9) - v9;
-              if (__OFSUB__(HIDWORD(v9), v9))
-              {
-                __break(1u);
-LABEL_62:
-                __break(1u);
-LABEL_63:
-                __break(1u);
-LABEL_64:
-                __break(1u);
-LABEL_65:
-                __break(1u);
-LABEL_66:
-                __break(1u);
-LABEL_67:
-                __break(1u);
-LABEL_68:
-                __break(1u);
-              }
-
-              v18 = v18;
-            }
-
-            else
-            {
-              v18 = BYTE6(v8);
-            }
-
-            goto LABEL_33;
-          }
-        }
-
-        else
-        {
-          v13 = BYTE6(v6);
-          if (v11 <= 1)
-          {
-            goto LABEL_29;
-          }
-        }
-
-LABEL_22:
-        if (v11 != 2)
-        {
-          if (v13)
-          {
-            goto LABEL_58;
-          }
-
-          goto LABEL_6;
-        }
-
-        v16 = *(v9 + 16);
-        v15 = *(v9 + 24);
-        v17 = __OFSUB__(v15, v16);
-        v18 = v15 - v16;
-        if (v17)
-        {
-          goto LABEL_62;
-        }
-
-LABEL_33:
-        if (v13 != v18)
-        {
-          goto LABEL_58;
-        }
-
-        if (v13 < 1)
-        {
-          goto LABEL_6;
-        }
-
-        if (v10 > 1)
-        {
-          if (v10 == 2)
-          {
-            v32 = v3;
-            v21 = *(v7 + 16);
-            v31 = *(v7 + 24);
-            outlined copy of Data._Representation(v7, v6);
-            outlined copy of Data._Representation(v9, v8);
-            v22 = __DataStorage._bytes.getter();
-            if (v22)
-            {
-              v23 = __DataStorage._offset.getter();
-              if (__OFSUB__(v21, v23))
-              {
-                goto LABEL_67;
-              }
-
-              v22 += v21 - v23;
-            }
-
-            if (__OFSUB__(v31, v21))
-            {
-              goto LABEL_66;
-            }
-
-            MEMORY[0x22AA661C0]();
-            v24 = v22;
-            v25 = v9;
-            v26 = v8;
-            v3 = v32;
-            goto LABEL_54;
-          }
-
-          memset(v34, 0, 14);
-          outlined copy of Data._Representation(v7, v6);
-          outlined copy of Data._Representation(v9, v8);
-        }
-
-        else
-        {
-          if (v10)
-          {
-            if (v7 >> 32 < v7)
-            {
-              goto LABEL_65;
-            }
-
-            outlined copy of Data._Representation(v7, v6);
-            outlined copy of Data._Representation(v9, v8);
-            v27 = __DataStorage._bytes.getter();
-            if (v27)
-            {
-              v28 = __DataStorage._offset.getter();
-              if (__OFSUB__(v7, v28))
-              {
-                goto LABEL_68;
-              }
-
-              v27 += v7 - v28;
-            }
-
-            MEMORY[0x22AA661C0]();
-            v24 = v27;
-            v25 = v9;
-            v26 = v8;
-LABEL_54:
-            closure #1 in static Data.== infix(_:_:)(v24, v25, v26, v34);
-            outlined consume of Data._Representation(v9, v8);
-            outlined consume of Data._Representation(v7, v6);
-            if ((v34[0] & 1) == 0)
-            {
-              goto LABEL_58;
-            }
-
-            goto LABEL_6;
-          }
-
-          v34[0] = *(v4 - 1);
-          LOWORD(v34[1]) = v6;
-          BYTE2(v34[1]) = BYTE2(v6);
-          BYTE3(v34[1]) = BYTE3(v6);
-          BYTE4(v34[1]) = BYTE4(v6);
-          BYTE5(v34[1]) = BYTE5(v6);
-          outlined copy of Data._Representation(v7, v6);
-          outlined copy of Data._Representation(v9, v8);
-        }
-
-        closure #1 in static Data.== infix(_:_:)(v34, v9, v8, &v33);
-        outlined consume of Data._Representation(v9, v8);
-        outlined consume of Data._Representation(v7, v6);
-        if (!v33)
-        {
-          goto LABEL_58;
-        }
-
-LABEL_6:
-        v4 += 2;
-        v5 += 2;
-        if (!--v2)
-        {
-          goto LABEL_59;
+          goto LABEL_29;
         }
       }
 
-      if (v7)
+      else if (v10)
       {
-        v12 = 0;
+        LODWORD(v13) = HIDWORD(v7) - v7;
+        if (__OFSUB__(HIDWORD(v7), v7))
+        {
+          goto LABEL_63;
+        }
+
+        v13 = v13;
+        if (v11 <= 1)
+        {
+LABEL_29:
+          if (v11)
+          {
+            LODWORD(v18) = HIDWORD(v9) - v9;
+            if (__OFSUB__(HIDWORD(v9), v9))
+            {
+              __break(1u);
+LABEL_61:
+              __break(1u);
+LABEL_62:
+              __break(1u);
+LABEL_63:
+              __break(1u);
+LABEL_64:
+              __break(1u);
+LABEL_65:
+              __break(1u);
+LABEL_66:
+              __break(1u);
+LABEL_67:
+              __break(1u);
+            }
+
+            v18 = v18;
+          }
+
+          else
+          {
+            v18 = BYTE6(v8);
+          }
+
+          goto LABEL_33;
+        }
       }
 
       else
       {
-        v12 = v6 == 0xC000000000000000;
+        v13 = BYTE6(v6);
+        if (v11 <= 1)
+        {
+          goto LABEL_29;
+        }
       }
 
-      v13 = 0;
-      v14 = v12 && *v5 >> 62 == 3;
-      if (v14 && !v9 && v8 == 0xC000000000000000)
+LABEL_22:
+      if (v11 != 2)
+      {
+        if (v13)
+        {
+          return 0;
+        }
+
+        goto LABEL_6;
+      }
+
+      v16 = *(v9 + 16);
+      v15 = *(v9 + 24);
+      v17 = __OFSUB__(v15, v16);
+      v18 = v15 - v16;
+      if (v17)
+      {
+        goto LABEL_61;
+      }
+
+LABEL_33:
+      if (v13 != v18)
+      {
+        return 0;
+      }
+
+      if (v13 < 1)
       {
         goto LABEL_6;
       }
 
-LABEL_28:
-      if (v11 <= 1)
+      if (v10 > 1)
       {
-        goto LABEL_29;
+        if (v10 == 2)
+        {
+          v31 = v3;
+          v21 = *(v7 + 16);
+          v30 = *(v7 + 24);
+          outlined copy of Data._Representation(v7, v6);
+          outlined copy of Data._Representation(v9, v8);
+          v22 = __DataStorage._bytes.getter();
+          if (v22)
+          {
+            v23 = __DataStorage._offset.getter();
+            if (__OFSUB__(v21, v23))
+            {
+              goto LABEL_66;
+            }
+
+            v22 += v21 - v23;
+          }
+
+          if (__OFSUB__(v30, v21))
+          {
+            goto LABEL_65;
+          }
+
+          MEMORY[0x22AA661C0]();
+          v24 = v22;
+          v25 = v9;
+          v26 = v8;
+          v3 = v31;
+          goto LABEL_54;
+        }
+
+        memset(v33, 0, 14);
+        outlined copy of Data._Representation(v7, v6);
+        outlined copy of Data._Representation(v9, v8);
       }
 
-      goto LABEL_22;
+      else
+      {
+        if (v10)
+        {
+          if (v7 >> 32 < v7)
+          {
+            goto LABEL_64;
+          }
+
+          outlined copy of Data._Representation(v7, v6);
+          outlined copy of Data._Representation(v9, v8);
+          v27 = __DataStorage._bytes.getter();
+          if (v27)
+          {
+            v28 = __DataStorage._offset.getter();
+            if (__OFSUB__(v7, v28))
+            {
+              goto LABEL_67;
+            }
+
+            v27 += v7 - v28;
+          }
+
+          MEMORY[0x22AA661C0]();
+          v24 = v27;
+          v25 = v9;
+          v26 = v8;
+LABEL_54:
+          closure #1 in static Data.== infix(_:_:)(v24, v25, v26, v33);
+          outlined consume of Data._Representation(v9, v8);
+          outlined consume of Data._Representation(v7, v6);
+          if ((v33[0] & 1) == 0)
+          {
+            return 0;
+          }
+
+          goto LABEL_6;
+        }
+
+        v33[0] = *(v4 - 1);
+        LOWORD(v33[1]) = v6;
+        BYTE2(v33[1]) = BYTE2(v6);
+        BYTE3(v33[1]) = BYTE3(v6);
+        BYTE4(v33[1]) = BYTE4(v6);
+        BYTE5(v33[1]) = BYTE5(v6);
+        outlined copy of Data._Representation(v7, v6);
+        outlined copy of Data._Representation(v9, v8);
+      }
+
+      closure #1 in static Data.== infix(_:_:)(v33, v9, v8, &v32);
+      outlined consume of Data._Representation(v9, v8);
+      outlined consume of Data._Representation(v7, v6);
+      if (!v32)
+      {
+        return 0;
+      }
+
+LABEL_6:
+      v4 += 2;
+      if (!--v2)
+      {
+        return 1;
+      }
     }
 
-LABEL_59:
-    result = 1;
-  }
-
-  else
-  {
-LABEL_58:
-    result = 0;
-  }
-
-  v30 = *MEMORY[0x277D85DE8];
-  return result;
-}
-
-uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit25NCProtoActiveConversationV_Tt1g5Tm(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), uint64_t (*a4)(void), uint64_t (*a5)(char *, char *), uint64_t (*a6)(void))
-{
-  v11 = a3(0);
-  v12 = *(*(v11 - 8) + 64);
-  v13 = MEMORY[0x28223BE20](v11 - 8);
-  v15 = &v26 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v13);
-  v18 = &v26 - v17;
-  v19 = *(a1 + 16);
-  if (v19 == *(a2 + 16))
-  {
-    if (!v19 || a1 == a2)
+    if (v7)
     {
-      v24 = 1;
+      v12 = 0;
     }
 
     else
     {
-      v20 = (*(v16 + 80) + 32) & ~*(v16 + 80);
-      v21 = a1 + v20;
-      v22 = a2 + v20;
-      v23 = *(v16 + 72);
+      v12 = v6 == 0xC000000000000000;
+    }
+
+    v13 = 0;
+    v14 = v12 && *i >> 62 == 3;
+    if (v14 && !v9 && v8 == 0xC000000000000000)
+    {
+      goto LABEL_6;
+    }
+
+LABEL_28:
+    if (v11 <= 1)
+    {
+      goto LABEL_29;
+    }
+
+    goto LABEL_22;
+  }
+
+  return 1;
+}
+
+uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit25NCProtoActiveConversationV_Tt1g5Tm(uint64_t a1, uint64_t a2, uint64_t (*a3)(void), uint64_t (*a4)(void), uint64_t (*a5)(char *, char *), uint64_t (*a6)(void))
+{
+  v11 = a3(0) - 8;
+  v12 = MEMORY[0x28223BE20](v11);
+  v14 = &v25 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v12);
+  v17 = &v25 - v16;
+  v18 = *(a1 + 16);
+  if (v18 == *(a2 + 16))
+  {
+    if (!v18 || a1 == a2)
+    {
+      v23 = 1;
+    }
+
+    else
+    {
+      v19 = (*(v15 + 80) + 32) & ~*(v15 + 80);
+      v20 = a1 + v19;
+      v21 = a2 + v19;
+      v22 = *(v15 + 72);
       do
       {
-        outlined init with copy of NCProtoContactInfo(v21, v18, a4);
-        outlined init with copy of NCProtoContactInfo(v22, v15, a4);
-        v24 = a5(v18, v15);
-        outlined destroy of NCProtoContactInfo(v15, a6);
-        outlined destroy of NCProtoContactInfo(v18, a6);
-        if ((v24 & 1) == 0)
+        outlined init with copy of NCProtoContactInfo(v20, v17, a4);
+        outlined init with copy of NCProtoContactInfo(v21, v14, a4);
+        v23 = a5(v17, v14);
+        outlined destroy of NCProtoContactInfo(v14, a6);
+        outlined destroy of NCProtoContactInfo(v17, a6);
+        if ((v23 & 1) == 0)
         {
           break;
         }
 
-        v22 += v23;
-        v21 += v23;
-        --v19;
+        v21 += v22;
+        v20 += v22;
+        --v18;
       }
 
-      while (v19);
+      while (v18);
     }
   }
 
   else
   {
-    v24 = 0;
+    v23 = 0;
   }
 
-  return v24 & 1;
+  return v23 & 1;
 }
 
 uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit32NCProtoStartLagunaSessionRequestV19RecentCallFetchTypeO_Tt1g5Tm(uint64_t a1, uint64_t a2)
@@ -5275,97 +4563,95 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit32NCProtoSta
 uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit26NCProtoContactHandleAnonymV_Tt1g5(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for NCProtoContactHandleAnonym(0);
-  v5 = *(*(v4 - 8) + 64);
-  v6 = MEMORY[0x28223BE20](v4);
-  v8 = &v23 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v6);
-  v11 = (&v23 - v10);
-  v12 = *(a1 + 16);
-  if (v12 != *(a2 + 16))
+  v5 = MEMORY[0x28223BE20](v4);
+  v7 = &v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v5);
+  v10 = (&v21 - v9);
+  v11 = *(a1 + 16);
+  if (v11 != *(a2 + 16))
   {
 LABEL_31:
-    v21 = 0;
-    return v21 & 1;
+    v19 = 0;
+    return v19 & 1;
   }
 
-  if (v12 && a1 != a2)
+  if (v11 && a1 != a2)
   {
-    v13 = (*(v9 + 80) + 32) & ~*(v9 + 80);
-    v14 = a1 + v13;
-    v15 = a2 + v13;
-    v16 = *(v9 + 72);
+    v12 = (*(v8 + 80) + 32) & ~*(v8 + 80);
+    v13 = a1 + v12;
+    v14 = a2 + v12;
+    v15 = *(v8 + 72);
     while (1)
     {
-      outlined init with copy of NCProtoContactInfo(v14, v11, type metadata accessor for NCProtoContactHandleAnonym);
-      outlined init with copy of NCProtoContactInfo(v15, v8, type metadata accessor for NCProtoContactHandleAnonym);
-      v17 = *v11 == *v8 && v11[1] == *(v8 + 1);
-      if (!v17 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      outlined init with copy of NCProtoContactInfo(v13, v10, type metadata accessor for NCProtoContactHandleAnonym);
+      outlined init with copy of NCProtoContactInfo(v14, v7, type metadata accessor for NCProtoContactHandleAnonym);
+      v16 = *v10 == *v7 && v10[1] == *(v7 + 1);
+      if (!v16 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
       {
         break;
       }
 
-      v18 = v11[2];
-      v19 = *(v8 + 2);
-      if (v8[24] == 1)
+      v17 = v10[2];
+      v18 = *(v7 + 2);
+      if (v7[24] == 1)
       {
-        if (v19)
+        if (v18)
         {
-          if (v19 == 1)
+          if (v18 == 1)
           {
-            if (v18 != 1)
+            if (v17 != 1)
             {
               break;
             }
           }
 
-          else if (v18 != 2)
+          else if (v17 != 2)
           {
             break;
           }
         }
 
-        else if (v18)
+        else if (v17)
         {
           break;
         }
       }
 
-      else if (v18 != v19)
+      else if (v17 != v18)
       {
         break;
       }
 
-      if ((v11[4] != *(v8 + 4) || v11[5] != *(v8 + 5)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v11[6] != *(v8 + 6) || v11[7] != *(v8 + 7)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+      if ((v10[4] != *(v7 + 4) || v10[5] != *(v7 + 5)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (v10[6] != *(v7 + 6) || v10[7] != *(v7 + 7)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
       {
         break;
       }
 
-      v20 = *(v4 + 32);
       type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v21 = dispatch thunk of static Equatable.== infix(_:_:)();
-      outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoContactHandleAnonym);
-      outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoContactHandleAnonym);
-      if (v21)
+      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+      v19 = dispatch thunk of static Equatable.== infix(_:_:)();
+      outlined destroy of NCProtoContactInfo(v7, type metadata accessor for NCProtoContactHandleAnonym);
+      outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoContactHandleAnonym);
+      if (v19)
       {
-        v15 += v16;
-        v14 += v16;
-        if (--v12)
+        v14 += v15;
+        v13 += v15;
+        if (--v11)
         {
           continue;
         }
       }
 
-      return v21 & 1;
+      return v19 & 1;
     }
 
-    outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoContactHandleAnonym);
-    outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoContactHandleAnonym);
+    outlined destroy of NCProtoContactInfo(v7, type metadata accessor for NCProtoContactHandleAnonym);
+    outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoContactHandleAnonym);
     goto LABEL_31;
   }
 
-  v21 = 1;
-  return v21 & 1;
+  v19 = 1;
+  return v19 & 1;
 }
 
 uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZs6UInt64V_Tt1g5(uint64_t result, uint64_t a2)
@@ -5401,9 +4687,9 @@ uint64_t _sSasSQRzlE2eeoiySbSayxG_ABtFZs6UInt64V_Tt1g5(uint64_t result, uint64_t
 
 uint64_t specialized NCProtoContinuityCall._StorageClass.init(copying:)(uint64_t a1)
 {
-  v3 = (*(*(__swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR) - 8) + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v43 = &v39 - v4;
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+  MEMORY[0x28223BE20](v3 - 8);
+  v42 = &v38 - v4;
   *(v1 + 41) = 0u;
   *(v1 + 32) = 0u;
   *(v1 + 16) = 0u;
@@ -5412,26 +4698,26 @@ uint64_t specialized NCProtoContinuityCall._StorageClass.init(copying:)(uint64_t
   *(v1 + 64) = 0;
   *(v1 + 80) = 514;
   v5 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__info;
-  v42 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__info;
+  v41 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__info;
   v6 = type metadata accessor for NCProtoCallInfo(0);
   (*(*(v6 - 8) + 56))(v1 + v5, 1, 1, v6);
   v7 = (v1 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__callGroupUuidString);
   *v7 = 0;
   v7[1] = 0;
-  v41 = (v1 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__imageData);
+  v40 = (v1 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__imageData);
   *(v1 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__imageData) = xmmword_2255D3AC0;
   v8 = v1 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__service;
-  v44 = v1 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__service;
+  v43 = v1 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__service;
   *v8 = 0;
   *(v8 + 8) = 256;
-  v45 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__wantsHoldMusic;
+  v44 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__wantsHoldMusic;
   *(v1 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__wantsHoldMusic) = 2;
-  v46 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__isScreening;
+  v45 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__isScreening;
   *(v1 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__isScreening) = 2;
   swift_beginAccess();
   v9 = *(a1 + 16);
-  v40 = *(a1 + 24);
-  v10 = v40;
+  v39 = *(a1 + 24);
+  v10 = v39;
   swift_beginAccess();
   *(v1 + 16) = v9;
   *(v1 + 24) = v10;
@@ -5465,9 +4751,9 @@ uint64_t specialized NCProtoContinuityCall._StorageClass.init(copying:)(uint64_t
   *(v1 + 81) = v16;
   v18 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__info;
   swift_beginAccess();
-  v19 = v43;
-  outlined init with copy of NCProtoContactInfo?(a1 + v18, v43, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
-  v20 = v42;
+  v19 = v42;
+  outlined init with copy of NCProtoContactInfo?(a1 + v18, v42, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+  v20 = v41;
   swift_beginAccess();
 
   outlined assign with take of NCProtoCallInfo?(v19, v1 + v20, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
@@ -5477,44 +4763,43 @@ uint64_t specialized NCProtoContinuityCall._StorageClass.init(copying:)(uint64_t
   v22 = *v21;
   v23 = v21[1];
   swift_beginAccess();
-  v24 = v7[1];
   *v7 = v22;
   v7[1] = v23;
 
-  v25 = (a1 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__imageData);
+  v24 = (a1 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__imageData);
   swift_beginAccess();
-  v27 = *v25;
-  v26 = v25[1];
-  v28 = v41;
+  v26 = *v24;
+  v25 = v24[1];
+  v27 = v40;
   swift_beginAccess();
-  v29 = *v28;
-  v30 = v28[1];
-  *v28 = v27;
-  v28[1] = v26;
-  outlined copy of Data?(v27, v26);
-  outlined consume of Data?(v29, v30);
-  v31 = (a1 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__service);
+  v28 = *v27;
+  v29 = v27[1];
+  *v27 = v26;
+  v27[1] = v25;
+  outlined copy of Data?(v26, v25);
+  outlined consume of Data?(v28, v29);
+  v30 = (a1 + OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__service);
   swift_beginAccess();
-  v32 = *v31;
-  LOBYTE(v26) = *(v31 + 8);
-  LOBYTE(v31) = *(v31 + 9);
-  v33 = v44;
+  v31 = *v30;
+  LOBYTE(v25) = *(v30 + 8);
+  LOBYTE(v30) = *(v30 + 9);
+  v32 = v43;
   swift_beginAccess();
-  *v33 = v32;
-  *(v33 + 8) = v26;
-  *(v33 + 9) = v31;
-  v34 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__wantsHoldMusic;
+  *v32 = v31;
+  *(v32 + 8) = v25;
+  *(v32 + 9) = v30;
+  v33 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__wantsHoldMusic;
   swift_beginAccess();
-  LOBYTE(v34) = *(a1 + v34);
-  v35 = v45;
+  LOBYTE(v33) = *(a1 + v33);
+  v34 = v44;
   swift_beginAccess();
-  *(v1 + v35) = v34;
-  v36 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__isScreening;
+  *(v1 + v34) = v33;
+  v35 = OBJC_IVAR____TtCV27NeighborhoodActivityConduit21NCProtoContinuityCallP33_CB6A211CAF00535343C883FC296F066313_StorageClass__isScreening;
   swift_beginAccess();
-  LOBYTE(a1) = *(a1 + v36);
-  v37 = v46;
+  LOBYTE(a1) = *(a1 + v35);
+  v36 = v45;
   swift_beginAccess();
-  *(v1 + v37) = a1;
+  *(v1 + v36) = a1;
   return v1;
 }
 
@@ -5579,51 +4864,50 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_27NeighborhoodActivityCond
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_27NeighborhoodActivityConduit18NCProtoContactInfoVtMd, &_sSS_27NeighborhoodActivityConduit18NCProtoContactInfoVtMR);
   v3 = *(v2 - 8);
-  v4 = (*(v3 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v6 = (&v23 - v5);
-  v7 = *(a1 + 16);
-  if (v7)
+  MEMORY[0x28223BE20](v2);
+  v5 = (&v22 - v4);
+  v6 = *(a1 + 16);
+  if (v6)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS27NeighborhoodActivityConduit18NCProtoContactInfoVGMd, &_ss18_DictionaryStorageCySS27NeighborhoodActivityConduit18NCProtoContactInfoVGMR);
-    v8 = static _DictionaryStorage.allocate(capacity:)();
-    v9 = *(v2 + 48);
-    v10 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
-    v11 = *(v3 + 72);
+    v7 = static _DictionaryStorage.allocate(capacity:)();
+    v8 = *(v2 + 48);
+    v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
+    v10 = *(v3 + 72);
 
     while (1)
     {
-      outlined init with copy of NCProtoContactInfo?(v10, v6, &_sSS_27NeighborhoodActivityConduit18NCProtoContactInfoVtMd, &_sSS_27NeighborhoodActivityConduit18NCProtoContactInfoVtMR);
-      v12 = *v6;
-      v13 = v6[1];
-      result = specialized __RawDictionaryStorage.find<A>(_:)(*v6, v13);
-      if (v15)
+      outlined init with copy of NCProtoContactInfo?(v9, v5, &_sSS_27NeighborhoodActivityConduit18NCProtoContactInfoVtMd, &_sSS_27NeighborhoodActivityConduit18NCProtoContactInfoVtMR);
+      v11 = *v5;
+      v12 = v5[1];
+      result = specialized __RawDictionaryStorage.find<A>(_:)(*v5, v12);
+      if (v14)
       {
         break;
       }
 
-      v16 = result;
-      *(v8 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v17 = (v8[6] + 16 * result);
-      *v17 = v12;
-      v17[1] = v13;
-      v18 = v8[7];
-      v19 = type metadata accessor for NCProtoContactInfo(0);
-      result = outlined init with take of NCProtoContactInfo(v6 + v9, v18 + *(*(v19 - 8) + 72) * v16, type metadata accessor for NCProtoContactInfo);
-      v20 = v8[2];
-      v21 = __OFADD__(v20, 1);
-      v22 = v20 + 1;
-      if (v21)
+      v15 = result;
+      *(v7 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v16 = (v7[6] + 16 * result);
+      *v16 = v11;
+      v16[1] = v12;
+      v17 = v7[7];
+      v18 = type metadata accessor for NCProtoContactInfo(0);
+      result = outlined init with take of NCProtoContactInfo(v5 + v8, v17 + *(*(v18 - 8) + 72) * v15, type metadata accessor for NCProtoContactInfo);
+      v19 = v7[2];
+      v20 = __OFADD__(v19, 1);
+      v21 = v19 + 1;
+      if (v20)
       {
         goto LABEL_10;
       }
 
-      v8[2] = v22;
-      v10 += v11;
-      if (!--v7)
+      v7[2] = v21;
+      v9 += v10;
+      if (!--v6)
       {
 
-        return v8;
+        return v7;
       }
     }
 
@@ -5698,51 +4982,50 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_27NeighborhoodActivityCond
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_27NeighborhoodActivityConduit15NCProtoCallInfoVtMd, &_sSS_27NeighborhoodActivityConduit15NCProtoCallInfoVtMR);
   v3 = *(v2 - 8);
-  v4 = (*(v3 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v6 = (&v23 - v5);
-  v7 = *(a1 + 16);
-  if (v7)
+  MEMORY[0x28223BE20](v2);
+  v5 = (&v22 - v4);
+  v6 = *(a1 + 16);
+  if (v6)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS27NeighborhoodActivityConduit15NCProtoCallInfoVGMd, &_ss18_DictionaryStorageCySS27NeighborhoodActivityConduit15NCProtoCallInfoVGMR);
-    v8 = static _DictionaryStorage.allocate(capacity:)();
-    v9 = *(v2 + 48);
-    v10 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
-    v11 = *(v3 + 72);
+    v7 = static _DictionaryStorage.allocate(capacity:)();
+    v8 = *(v2 + 48);
+    v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
+    v10 = *(v3 + 72);
 
     while (1)
     {
-      outlined init with copy of NCProtoContactInfo?(v10, v6, &_sSS_27NeighborhoodActivityConduit15NCProtoCallInfoVtMd, &_sSS_27NeighborhoodActivityConduit15NCProtoCallInfoVtMR);
-      v12 = *v6;
-      v13 = v6[1];
-      result = specialized __RawDictionaryStorage.find<A>(_:)(*v6, v13);
-      if (v15)
+      outlined init with copy of NCProtoContactInfo?(v9, v5, &_sSS_27NeighborhoodActivityConduit15NCProtoCallInfoVtMd, &_sSS_27NeighborhoodActivityConduit15NCProtoCallInfoVtMR);
+      v11 = *v5;
+      v12 = v5[1];
+      result = specialized __RawDictionaryStorage.find<A>(_:)(*v5, v12);
+      if (v14)
       {
         break;
       }
 
-      v16 = result;
-      *(v8 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v17 = (v8[6] + 16 * result);
-      *v17 = v12;
-      v17[1] = v13;
-      v18 = v8[7];
-      v19 = type metadata accessor for NCProtoCallInfo(0);
-      result = outlined init with take of NCProtoContactInfo(v6 + v9, v18 + *(*(v19 - 8) + 72) * v16, type metadata accessor for NCProtoCallInfo);
-      v20 = v8[2];
-      v21 = __OFADD__(v20, 1);
-      v22 = v20 + 1;
-      if (v21)
+      v15 = result;
+      *(v7 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v16 = (v7[6] + 16 * result);
+      *v16 = v11;
+      v16[1] = v12;
+      v17 = v7[7];
+      v18 = type metadata accessor for NCProtoCallInfo(0);
+      result = outlined init with take of NCProtoContactInfo(v5 + v8, v17 + *(*(v18 - 8) + 72) * v15, type metadata accessor for NCProtoCallInfo);
+      v19 = v7[2];
+      v20 = __OFADD__(v19, 1);
+      v21 = v19 + 1;
+      if (v20)
       {
         goto LABEL_10;
       }
 
-      v8[2] = v22;
-      v10 += v11;
-      if (!--v7)
+      v7[2] = v21;
+      v9 += v10;
+      if (!--v6)
       {
 
-        return v8;
+        return v7;
       }
     }
 
@@ -5770,51 +5053,50 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_21InternalSwiftProtobuf07G
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_21InternalSwiftProtobuf07Google_C6_ValueVtMd, &_sSS_21InternalSwiftProtobuf07Google_C6_ValueVtMR);
   v3 = *(v2 - 8);
-  v4 = (*(v3 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v6 = (&v23 - v5);
-  v7 = *(a1 + 16);
-  if (v7)
+  MEMORY[0x28223BE20](v2);
+  v5 = (&v22 - v4);
+  v6 = *(a1 + 16);
+  if (v6)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS21InternalSwiftProtobuf07Google_E6_ValueVGMd, &_ss18_DictionaryStorageCySS21InternalSwiftProtobuf07Google_E6_ValueVGMR);
-    v8 = static _DictionaryStorage.allocate(capacity:)();
-    v9 = *(v2 + 48);
-    v10 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
-    v11 = *(v3 + 72);
+    v7 = static _DictionaryStorage.allocate(capacity:)();
+    v8 = *(v2 + 48);
+    v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
+    v10 = *(v3 + 72);
 
     while (1)
     {
-      outlined init with copy of NCProtoContactInfo?(v10, v6, &_sSS_21InternalSwiftProtobuf07Google_C6_ValueVtMd, &_sSS_21InternalSwiftProtobuf07Google_C6_ValueVtMR);
-      v12 = *v6;
-      v13 = v6[1];
-      result = specialized __RawDictionaryStorage.find<A>(_:)(*v6, v13);
-      if (v15)
+      outlined init with copy of NCProtoContactInfo?(v9, v5, &_sSS_21InternalSwiftProtobuf07Google_C6_ValueVtMd, &_sSS_21InternalSwiftProtobuf07Google_C6_ValueVtMR);
+      v11 = *v5;
+      v12 = v5[1];
+      result = specialized __RawDictionaryStorage.find<A>(_:)(*v5, v12);
+      if (v14)
       {
         break;
       }
 
-      v16 = result;
-      *(v8 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v17 = (v8[6] + 16 * result);
-      *v17 = v12;
-      v17[1] = v13;
-      v18 = v8[7];
-      v19 = type metadata accessor for Google_Protobuf_Value();
-      result = (*(*(v19 - 8) + 32))(v18 + *(*(v19 - 8) + 72) * v16, v6 + v9, v19);
-      v20 = v8[2];
-      v21 = __OFADD__(v20, 1);
-      v22 = v20 + 1;
-      if (v21)
+      v15 = result;
+      *(v7 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v16 = (v7[6] + 16 * result);
+      *v16 = v11;
+      v16[1] = v12;
+      v17 = v7[7];
+      v18 = type metadata accessor for Google_Protobuf_Value();
+      result = (*(*(v18 - 8) + 32))(v17 + *(*(v18 - 8) + 72) * v15, v5 + v8, v18);
+      v19 = v7[2];
+      v20 = __OFADD__(v19, 1);
+      v21 = v19 + 1;
+      if (v20)
       {
         goto LABEL_10;
       }
 
-      v8[2] = v22;
-      v10 += v11;
-      if (!--v7)
+      v7[2] = v21;
+      v9 += v10;
+      if (!--v6)
       {
 
-        return v8;
+        return v7;
       }
     }
 
@@ -5835,51 +5117,50 @@ unint64_t _sSD17dictionaryLiteralSDyxq_Gx_q_td_tcfCSS_27NeighborhoodActivityCond
 {
   v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListVtMd, &_sSS_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListVtMR);
   v3 = *(v2 - 8);
-  v4 = (*(v3 + 64) + 15) & 0xFFFFFFFFFFFFFFF0;
-  MEMORY[0x28223BE20]();
-  v6 = (&v23 - v5);
-  v7 = *(a1 + 16);
-  if (v7)
+  MEMORY[0x28223BE20](v2);
+  v5 = (&v22 - v4);
+  v6 = *(a1 + 16);
+  if (v6)
   {
     __swift_instantiateConcreteTypeFromMangledNameV2(&_ss18_DictionaryStorageCySS27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListVGMd, &_ss18_DictionaryStorageCySS27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListVGMR);
-    v8 = static _DictionaryStorage.allocate(capacity:)();
-    v9 = *(v2 + 48);
-    v10 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
-    v11 = *(v3 + 72);
+    v7 = static _DictionaryStorage.allocate(capacity:)();
+    v8 = *(v2 + 48);
+    v9 = a1 + ((*(v3 + 80) + 32) & ~*(v3 + 80));
+    v10 = *(v3 + 72);
 
     while (1)
     {
-      outlined init with copy of NCProtoContactInfo?(v10, v6, &_sSS_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListVtMd, &_sSS_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListVtMR);
-      v12 = *v6;
-      v13 = v6[1];
-      result = specialized __RawDictionaryStorage.find<A>(_:)(*v6, v13);
-      if (v15)
+      outlined init with copy of NCProtoContactInfo?(v9, v5, &_sSS_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListVtMd, &_sSS_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListVtMR);
+      v11 = *v5;
+      v12 = v5[1];
+      result = specialized __RawDictionaryStorage.find<A>(_:)(*v5, v12);
+      if (v14)
       {
         break;
       }
 
-      v16 = result;
-      *(v8 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
-      v17 = (v8[6] + 16 * result);
-      *v17 = v12;
-      v17[1] = v13;
-      v18 = v8[7];
-      v19 = type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList(0);
-      result = outlined init with take of NCProtoContactInfo(v6 + v9, v18 + *(*(v19 - 8) + 72) * v16, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
-      v20 = v8[2];
-      v21 = __OFADD__(v20, 1);
-      v22 = v20 + 1;
-      if (v21)
+      v15 = result;
+      *(v7 + ((result >> 3) & 0x1FFFFFFFFFFFFFF8) + 64) |= 1 << result;
+      v16 = (v7[6] + 16 * result);
+      *v16 = v11;
+      v16[1] = v12;
+      v17 = v7[7];
+      v18 = type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList(0);
+      result = outlined init with take of NCProtoContactInfo(v5 + v8, v17 + *(*(v18 - 8) + 72) * v15, type metadata accessor for NCProtoIDSProxyMessage.ParticipantIDList);
+      v19 = v7[2];
+      v20 = __OFADD__(v19, 1);
+      v21 = v19 + 1;
+      if (v20)
       {
         goto LABEL_10;
       }
 
-      v8[2] = v22;
-      v10 += v11;
-      if (!--v7)
+      v7[2] = v21;
+      v9 += v10;
+      if (!--v6)
       {
 
-        return v8;
+        return v7;
       }
     }
 
@@ -5929,7 +5210,7 @@ LABEL_9:
   return v12;
 }
 
-uint64_t specialized static Data.== infix(_:_:)(uint64_t result, unint64_t a2, uint64_t a3, unint64_t a4)
+BOOL specialized static Data.== infix(_:_:)(_BOOL8 result, unint64_t a2, uint64_t a3, unint64_t a4)
 {
   v4 = a2 >> 62;
   v5 = a4 >> 62;
@@ -6043,142 +5324,135 @@ uint64_t specialized static NCProtoSuggestionAdvertisementDidChangeEvent.== infi
 {
   v4 = type metadata accessor for NCProtoSuggestionAdvertisement(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v24[0] = v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = v24 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSg_ADtMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = v24 - v15;
-  v17 = *(type metadata accessor for NCProtoSuggestionAdvertisementDidChangeEvent(0) + 20);
-  v18 = *(v13 + 56);
-  v24[1] = a1;
-  outlined init with copy of NCProtoContactInfo?(a1 + v17, v16, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
-  outlined init with copy of NCProtoContactInfo?(a2 + v17, &v16[v18], &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, v4) == 1)
+  v21[0] = v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = (v21 - v8);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSg_ADtMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSg_ADtMR);
+  v11 = v10 - 8;
+  MEMORY[0x28223BE20](v10);
+  v13 = v21 - v12;
+  v14 = *(type metadata accessor for NCProtoSuggestionAdvertisementDidChangeEvent(0) + 20);
+  v15 = *(v11 + 56);
+  v21[1] = a1;
+  outlined init with copy of NCProtoContactInfo?(a1 + v14, v13, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
+  outlined init with copy of NCProtoContactInfo?(a2 + v14, &v13[v15], &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) == 1)
   {
-    if (v19(&v16[v18], 1, v4) == 1)
+    if (v16(&v13[v15], 1, v4) == 1)
     {
-      outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
+      outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
 LABEL_9:
       type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v20 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v20 & 1;
+      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+      v17 = dispatch thunk of static Equatable.== infix(_:_:)();
+      return v17 & 1;
     }
 
     goto LABEL_6;
   }
 
-  outlined init with copy of NCProtoContactInfo?(v16, v11, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
-  if (v19(&v16[v18], 1, v4) == 1)
+  outlined init with copy of NCProtoContactInfo?(v13, v9, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
+  if (v16(&v13[v15], 1, v4) == 1)
   {
-    outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoSuggestionAdvertisement);
+    outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoSuggestionAdvertisement);
 LABEL_6:
-    outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSg_ADtMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSg_ADtMR);
+    outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSg_ADtMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSg_ADtMR);
     goto LABEL_7;
   }
 
-  v21 = v24[0];
-  outlined init with take of NCProtoContactInfo(&v16[v18], v24[0], type metadata accessor for NCProtoSuggestionAdvertisement);
-  v22 = specialized static NCProtoSuggestionAdvertisement.== infix(_:_:)(v11, v21);
-  outlined destroy of NCProtoContactInfo(v21, type metadata accessor for NCProtoSuggestionAdvertisement);
-  outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoSuggestionAdvertisement);
-  outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
-  if (v22)
+  v18 = v21[0];
+  outlined init with take of NCProtoContactInfo(&v13[v15], v21[0], type metadata accessor for NCProtoSuggestionAdvertisement);
+  v19 = specialized static NCProtoSuggestionAdvertisement.== infix(_:_:)(v9, v18);
+  outlined destroy of NCProtoContactInfo(v18, type metadata accessor for NCProtoSuggestionAdvertisement);
+  outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoSuggestionAdvertisement);
+  outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMd, &_s27NeighborhoodActivityConduit30NCProtoSuggestionAdvertisementVSgMR);
+  if (v19)
   {
     goto LABEL_9;
   }
 
 LABEL_7:
-  v20 = 0;
-  return v20 & 1;
+  v17 = 0;
+  return v17 & 1;
 }
 
 uint64_t specialized static NCProtoGetDestinationCapabilitiesResponse.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
   v4 = type metadata accessor for NCProtoDestinationCapabilities(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v27[0] = v27 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = v27 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSg_ADtMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = v27 - v15;
-  v17 = *(type metadata accessor for NCProtoGetDestinationCapabilitiesResponse(0) + 20);
-  v18 = *(v13 + 56);
-  v27[1] = a1;
-  outlined init with copy of NCProtoContactInfo?(a1 + v17, v16, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
-  outlined init with copy of NCProtoContactInfo?(a2 + v17, &v16[v18], &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, v4) != 1)
+  v23[0] = v23 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = v23 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSg_ADtMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSg_ADtMR);
+  v11 = v10 - 8;
+  MEMORY[0x28223BE20](v10);
+  v13 = v23 - v12;
+  v14 = *(type metadata accessor for NCProtoGetDestinationCapabilitiesResponse(0) + 20);
+  v15 = *(v11 + 56);
+  v23[1] = a1;
+  outlined init with copy of NCProtoContactInfo?(a1 + v14, v13, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
+  outlined init with copy of NCProtoContactInfo?(a2 + v14, &v13[v15], &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) != 1)
   {
-    outlined init with copy of NCProtoContactInfo?(v16, v11, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
-    if (v19(&v16[v18], 1, v4) != 1)
+    outlined init with copy of NCProtoContactInfo?(v13, v9, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
+    if (v16(&v13[v15], 1, v4) != 1)
     {
-      v23 = v27[0];
-      outlined init with take of NCProtoContactInfo(&v16[v18], v27[0], type metadata accessor for NCProtoDestinationCapabilities);
-      if (*v11 == *v23 && v11[1] == v23[1] && v11[2] == v23[2])
+      v20 = v23[0];
+      outlined init with take of NCProtoContactInfo(&v13[v15], v23[0], type metadata accessor for NCProtoDestinationCapabilities);
+      if (*v9 == *v20 && v9[1] == v20[1] && v9[2] == v20[2])
       {
-        v25 = *(v4 + 28);
         type metadata accessor for UnknownStorage();
-        lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-        v26 = dispatch thunk of static Equatable.== infix(_:_:)();
-        outlined destroy of NCProtoContactInfo(v23, type metadata accessor for NCProtoDestinationCapabilities);
-        if (v26)
+        lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+        v22 = dispatch thunk of static Equatable.== infix(_:_:)();
+        outlined destroy of NCProtoContactInfo(v20, type metadata accessor for NCProtoDestinationCapabilities);
+        if (v22)
         {
-          outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoDestinationCapabilities);
+          outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoDestinationCapabilities);
           goto LABEL_3;
         }
       }
 
       else
       {
-        outlined destroy of NCProtoContactInfo(v23, type metadata accessor for NCProtoDestinationCapabilities);
+        outlined destroy of NCProtoContactInfo(v20, type metadata accessor for NCProtoDestinationCapabilities);
       }
 
-      outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoDestinationCapabilities);
-      v21 = &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd;
-      v22 = &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR;
+      outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoDestinationCapabilities);
+      v18 = &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd;
+      v19 = &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR;
 LABEL_12:
-      outlined destroy of NCProtoContactInfo?(v16, v21, v22);
-      v20 = 0;
-      return v20 & 1;
+      outlined destroy of NCProtoContactInfo?(v13, v18, v19);
+      v17 = 0;
+      return v17 & 1;
     }
 
-    outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoDestinationCapabilities);
+    outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoDestinationCapabilities);
 LABEL_6:
-    v21 = &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSg_ADtMd;
-    v22 = &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSg_ADtMR;
+    v18 = &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSg_ADtMd;
+    v19 = &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSg_ADtMR;
     goto LABEL_12;
   }
 
-  if (v19(&v16[v18], 1, v4) != 1)
+  if (v16(&v13[v15], 1, v4) != 1)
   {
     goto LABEL_6;
   }
 
 LABEL_3:
-  outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
+  outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMd, &_s27NeighborhoodActivityConduit30NCProtoDestinationCapabilitiesVSgMR);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v20 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v20 & 1;
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+  v17 = dispatch thunk of static Equatable.== infix(_:_:)();
+  return v17 & 1;
 }
 
-uint64_t specialized static NCProtoTransferActiveConversationRequest.== infix(_:_:)(void *a1, void *a2)
+uint64_t specialized static NCProtoTransferActiveConversationRequest.== infix(_:_:)(uint64_t *a1, void *a2)
 {
   v4 = *a1 == *a2 && a1[1] == a2[1];
   if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
@@ -6187,7 +5461,7 @@ uint64_t specialized static NCProtoTransferActiveConversationRequest.== infix(_:
   }
 
   active = type metadata accessor for NCProtoTransferActiveConversationRequest(0);
-  v6 = active[6];
+  v6 = *(active + 24);
   v7 = *(a1 + v6);
   v8 = *(a2 + v6);
   if (v7 == 2)
@@ -6203,7 +5477,7 @@ uint64_t specialized static NCProtoTransferActiveConversationRequest.== infix(_:
     return 0;
   }
 
-  v9 = active[7];
+  v9 = *(active + 28);
   v10 = *(a1 + v9);
   v11 = *(a2 + v9);
   if (v10 == 2)
@@ -6219,9 +5493,8 @@ uint64_t specialized static NCProtoTransferActiveConversationRequest.== infix(_:
     return 0;
   }
 
-  v13 = active[5];
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -6230,53 +5503,51 @@ uint64_t specialized static NCProtoGetDestinationCapabilitiesRequest.== infix(_:
   v4 = *a1 == *a2 && a1[1] == a2[1];
   if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
-    DestinationCapabilitiesRequest = type metadata accessor for NCProtoGetDestinationCapabilitiesRequest(0);
-    v6 = *(DestinationCapabilitiesRequest + 24);
-    v7 = (a1 + v6);
-    v8 = *(a1 + v6 + 9);
-    v9 = a2 + v6;
-    v10 = *(a2 + v6 + 9);
-    if (v8)
+    v5 = *(type metadata accessor for NCProtoGetDestinationCapabilitiesRequest(0) + 24);
+    v6 = (a1 + v5);
+    v7 = *(a1 + v5 + 9);
+    v8 = a2 + v5;
+    v9 = *(a2 + v5 + 9);
+    if (v7)
     {
-      if (v10)
+      if (v9)
       {
 LABEL_8:
-        v11 = *(DestinationCapabilitiesRequest + 20);
         type metadata accessor for UnknownStorage();
-        lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+        lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
         return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
       }
     }
 
-    else if ((v10 & 1) == 0)
+    else if ((v9 & 1) == 0)
     {
-      v13 = *v7;
-      v14 = *v9;
-      if (v9[8])
+      v11 = *v6;
+      v12 = *v8;
+      if (v8[8])
       {
-        if (v14)
+        if (v12)
         {
-          if (v14 == 1)
+          if (v12 == 1)
           {
-            if (v13 == 1)
+            if (v11 == 1)
             {
               goto LABEL_8;
             }
           }
 
-          else if (v13 == 2)
+          else if (v11 == 2)
           {
             goto LABEL_8;
           }
         }
 
-        else if (!v13)
+        else if (!v11)
         {
           goto LABEL_8;
         }
       }
 
-      else if (v13 == v14)
+      else if (v11 == v12)
       {
         goto LABEL_8;
       }
@@ -6290,94 +5561,91 @@ uint64_t specialized static NCProtoGetRingtoneConfigurationResponse.== infix(_:_
 {
   v4 = type metadata accessor for NCProtoRingtoneConfiguration(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v32[0] = v32 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = v32 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSg_ADtMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = v32 - v15;
-  v17 = *(type metadata accessor for NCProtoGetRingtoneConfigurationResponse(0) + 20);
-  v18 = *(v13 + 56);
-  v32[1] = a1;
-  outlined init with copy of NCProtoContactInfo?(a1 + v17, v16, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
-  outlined init with copy of NCProtoContactInfo?(a2 + v17, &v16[v18], &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, v4) != 1)
+  v29[0] = v29 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = v29 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSg_ADtMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSg_ADtMR);
+  v11 = v10 - 8;
+  MEMORY[0x28223BE20](v10);
+  v13 = v29 - v12;
+  v14 = *(type metadata accessor for NCProtoGetRingtoneConfigurationResponse(0) + 20);
+  v15 = *(v11 + 56);
+  v29[1] = a1;
+  outlined init with copy of NCProtoContactInfo?(a1 + v14, v13, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
+  outlined init with copy of NCProtoContactInfo?(a2 + v14, &v13[v15], &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) != 1)
   {
-    outlined init with copy of NCProtoContactInfo?(v16, v11, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
-    if (v19(&v16[v18], 1, v4) == 1)
+    outlined init with copy of NCProtoContactInfo?(v13, v9, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
+    if (v16(&v13[v15], 1, v4) == 1)
     {
-      outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoRingtoneConfiguration);
+      outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoRingtoneConfiguration);
       goto LABEL_7;
     }
 
-    v23 = v32[0];
-    outlined init with take of NCProtoContactInfo(&v16[v18], v32[0], type metadata accessor for NCProtoRingtoneConfiguration);
-    v24 = *(v4 + 20);
-    v25 = &v11[v24];
-    v26 = *&v11[v24 + 8];
-    v27 = (v23 + v24);
-    v28 = v27[1];
-    if (v26)
+    v20 = v29[0];
+    outlined init with take of NCProtoContactInfo(&v13[v15], v29[0], type metadata accessor for NCProtoRingtoneConfiguration);
+    v21 = *(v4 + 20);
+    v22 = &v9[v21];
+    v23 = *&v9[v21 + 8];
+    v24 = (v20 + v21);
+    v25 = v24[1];
+    if (v23)
     {
-      if (v28)
+      if (v25)
       {
-        v29 = *v25 == *v27 && v26 == v28;
-        if (v29 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
+        v26 = *v22 == *v24 && v23 == v25;
+        if (v26 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
         {
 LABEL_15:
           type metadata accessor for UnknownStorage();
-          lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-          v30 = dispatch thunk of static Equatable.== infix(_:_:)();
-          outlined destroy of NCProtoContactInfo(v23, type metadata accessor for NCProtoRingtoneConfiguration);
-          outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoRingtoneConfiguration);
-          outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
-          if (v30)
+          lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+          v27 = dispatch thunk of static Equatable.== infix(_:_:)();
+          outlined destroy of NCProtoContactInfo(v20, type metadata accessor for NCProtoRingtoneConfiguration);
+          outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoRingtoneConfiguration);
+          outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
+          if (v27)
           {
             goto LABEL_4;
           }
 
 LABEL_20:
-          v20 = 0;
-          return v20 & 1;
+          v17 = 0;
+          return v17 & 1;
         }
       }
     }
 
-    else if (!v28)
+    else if (!v25)
     {
       goto LABEL_15;
     }
 
-    outlined destroy of NCProtoContactInfo(v23, type metadata accessor for NCProtoRingtoneConfiguration);
-    outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoRingtoneConfiguration);
-    v21 = &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd;
-    v22 = &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR;
+    outlined destroy of NCProtoContactInfo(v20, type metadata accessor for NCProtoRingtoneConfiguration);
+    outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoRingtoneConfiguration);
+    v18 = &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd;
+    v19 = &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR;
     goto LABEL_19;
   }
 
-  if (v19(&v16[v18], 1, v4) != 1)
+  if (v16(&v13[v15], 1, v4) != 1)
   {
 LABEL_7:
-    v21 = &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSg_ADtMd;
-    v22 = &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSg_ADtMR;
+    v18 = &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSg_ADtMd;
+    v19 = &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSg_ADtMR;
 LABEL_19:
-    outlined destroy of NCProtoContactInfo?(v16, v21, v22);
+    outlined destroy of NCProtoContactInfo?(v13, v18, v19);
     goto LABEL_20;
   }
 
-  outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
+  outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMd, &_s27NeighborhoodActivityConduit28NCProtoRingtoneConfigurationVSgMR);
 LABEL_4:
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v20 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v20 & 1;
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+  v17 = dispatch thunk of static Equatable.== infix(_:_:)();
+  return v17 & 1;
 }
 
 uint64_t specialized static NCProtoIncomingCallBannerActionRequest.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
@@ -6419,38 +5687,31 @@ uint64_t specialized static NCProtoIncomingCallBannerActionRequest.== infix(_:_:
     return 0;
   }
 
-  v7 = type metadata accessor for NCProtoIncomingCallBannerActionRequest(0);
-  v8 = *(v7 + 28);
-  v9 = (a1 + v8);
-  v10 = *(a1 + v8 + 8);
-  v11 = (a2 + v8);
-  v12 = v11[1];
-  if (v10)
+  v7 = *(type metadata accessor for NCProtoIncomingCallBannerActionRequest(0) + 28);
+  v8 = (a1 + v7);
+  v9 = *(a1 + v7 + 8);
+  v10 = (a2 + v7);
+  v11 = v10[1];
+  if (v9)
   {
-    if (!v12)
+    if (!v11)
     {
       return 0;
     }
 
-    if (*v9 != *v11 || v10 != v12)
+    v12 = *v8 == *v10 && v9 == v11;
+    if (!v12 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
     {
-      v14 = v7;
-      v15 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v7 = v14;
-      if ((v15 & 1) == 0)
-      {
-        return 0;
-      }
+      return 0;
     }
 
 LABEL_23:
-    v16 = *(v7 + 24);
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
     return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
   }
 
-  if (!v12)
+  if (!v11)
   {
     goto LABEL_23;
   }
@@ -6465,15 +5726,14 @@ uint64_t specialized static NCProtoGetAddressableContactsResponse.== infix(_:_:)
     return 0;
   }
 
-  AddressableContactsResponse = type metadata accessor for NCProtoGetAddressableContactsResponse(0);
-  v5 = *(AddressableContactsResponse + 24);
-  v6 = (a1 + v5);
-  v7 = *(a1 + v5 + 8);
-  v8 = (a2 + v5);
-  v9 = *(a2 + v5 + 8);
-  if (v7)
+  v4 = *(type metadata accessor for NCProtoGetAddressableContactsResponse(0) + 24);
+  v5 = (a1 + v4);
+  v6 = *(a1 + v4 + 8);
+  v7 = (a2 + v4);
+  v8 = *(a2 + v4 + 8);
+  if (v6)
   {
-    if (!v9)
+    if (!v8)
     {
       return 0;
     }
@@ -6481,24 +5741,23 @@ uint64_t specialized static NCProtoGetAddressableContactsResponse.== infix(_:_:)
 
   else
   {
-    if (*v6 != *v8)
+    if (*v5 != *v7)
     {
-      LOBYTE(v9) = 1;
+      LOBYTE(v8) = 1;
     }
 
-    if (v9)
+    if (v8)
     {
       return 0;
     }
   }
 
-  v11 = *(AddressableContactsResponse + 20);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
-uint64_t specialized static NCProtoTransferContinuityCallRequest.== infix(_:_:)(void *a1, void *a2)
+uint64_t specialized static NCProtoTransferContinuityCallRequest.== infix(_:_:)(uint64_t *a1, void *a2)
 {
   v4 = *a1 == *a2 && a1[1] == a2[1];
   if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
@@ -6506,13 +5765,12 @@ uint64_t specialized static NCProtoTransferContinuityCallRequest.== infix(_:_:)(
     return 0;
   }
 
-  v5 = type metadata accessor for NCProtoTransferContinuityCallRequest(0);
-  v6 = *(v5 + 24);
-  v7 = *(a1 + v6);
-  v8 = *(a2 + v6);
-  if (v7 != 2)
+  v5 = *(type metadata accessor for NCProtoTransferContinuityCallRequest(0) + 24);
+  v6 = *(a1 + v5);
+  v7 = *(a2 + v5);
+  if (v6 != 2)
   {
-    if (v8 != 2 && ((v7 ^ v8) & 1) == 0)
+    if (v7 != 2 && ((v6 ^ v7) & 1) == 0)
     {
       goto LABEL_12;
     }
@@ -6520,15 +5778,14 @@ uint64_t specialized static NCProtoTransferContinuityCallRequest.== infix(_:_:)(
     return 0;
   }
 
-  if (v8 != 2)
+  if (v7 != 2)
   {
     return 0;
   }
 
 LABEL_12:
-  v10 = *(v5 + 20);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -6600,7 +5857,7 @@ uint64_t specialized static NCProtoJoinActiveConversationRequest.== infix(_:_:)(
 
 LABEL_21:
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -6608,62 +5865,59 @@ uint64_t specialized static NCProtoGetCallDisplayDetailsResponse.== infix(_:_:)(
 {
   v4 = type metadata accessor for NCProtoCallInfo(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v24[0] = v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = (v24 - v10);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = v24 - v15;
-  v17 = *(type metadata accessor for NCProtoGetCallDisplayDetailsResponse(0) + 20);
-  v18 = *(v13 + 56);
-  v24[1] = a1;
-  outlined init with copy of NCProtoContactInfo?(a1 + v17, v16, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
-  outlined init with copy of NCProtoContactInfo?(a2 + v17, &v16[v18], &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, v4) == 1)
+  v21[0] = v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = (v21 - v8);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit15NCProtoCallInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSg_ADtMR);
+  v11 = v10 - 8;
+  MEMORY[0x28223BE20](v10);
+  v13 = v21 - v12;
+  v14 = *(type metadata accessor for NCProtoGetCallDisplayDetailsResponse(0) + 20);
+  v15 = *(v11 + 56);
+  v21[1] = a1;
+  outlined init with copy of NCProtoContactInfo?(a1 + v14, v13, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+  outlined init with copy of NCProtoContactInfo?(a2 + v14, &v13[v15], &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) == 1)
   {
-    if (v19(&v16[v18], 1, v4) == 1)
+    if (v16(&v13[v15], 1, v4) == 1)
     {
-      outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+      outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
 LABEL_9:
       type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v20 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v20 & 1;
+      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+      v17 = dispatch thunk of static Equatable.== infix(_:_:)();
+      return v17 & 1;
     }
 
     goto LABEL_6;
   }
 
-  outlined init with copy of NCProtoContactInfo?(v16, v11, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
-  if (v19(&v16[v18], 1, v4) == 1)
+  outlined init with copy of NCProtoContactInfo?(v13, v9, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+  if (v16(&v13[v15], 1, v4) == 1)
   {
-    outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoCallInfo);
+    outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoCallInfo);
 LABEL_6:
-    outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSg_ADtMR);
+    outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSg_ADtMR);
     goto LABEL_7;
   }
 
-  v21 = v24[0];
-  outlined init with take of NCProtoContactInfo(&v16[v18], v24[0], type metadata accessor for NCProtoCallInfo);
-  v22 = specialized static NCProtoCallInfo.== infix(_:_:)(v11, v21);
-  outlined destroy of NCProtoContactInfo(v21, type metadata accessor for NCProtoCallInfo);
-  outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoCallInfo);
-  outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
-  if (v22)
+  v18 = v21[0];
+  outlined init with take of NCProtoContactInfo(&v13[v15], v21[0], type metadata accessor for NCProtoCallInfo);
+  v19 = specialized static NCProtoCallInfo.== infix(_:_:)(v9, v18);
+  outlined destroy of NCProtoContactInfo(v18, type metadata accessor for NCProtoCallInfo);
+  outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoCallInfo);
+  outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMd, &_s27NeighborhoodActivityConduit15NCProtoCallInfoVSgMR);
+  if (v19)
   {
     goto LABEL_9;
   }
 
 LABEL_7:
-  v20 = 0;
-  return v20 & 1;
+  v17 = 0;
+  return v17 & 1;
 }
 
 uint64_t specialized static NCProtoPullLagunaSessionToTVRequest.== infix(_:_:)(void *a1, void *a2)
@@ -6671,61 +5925,59 @@ uint64_t specialized static NCProtoPullLagunaSessionToTVRequest.== infix(_:_:)(v
   v4 = *a1 == *a2 && a1[1] == a2[1];
   if (v4 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0)
   {
-    v5 = type metadata accessor for NCProtoPullLagunaSessionToTVRequest(0);
-    v6 = *(v5 + 24);
-    v7 = (a1 + v6);
-    v8 = *(a1 + v6 + 9);
-    v9 = a2 + v6;
-    v10 = *(a2 + v6 + 9);
-    if (v8)
+    v5 = *(type metadata accessor for NCProtoPullLagunaSessionToTVRequest(0) + 24);
+    v6 = (a1 + v5);
+    v7 = *(a1 + v5 + 9);
+    v8 = a2 + v5;
+    v9 = *(a2 + v5 + 9);
+    if (v7)
     {
-      if (v10)
+      if (v9)
       {
 LABEL_8:
-        v11 = *(v5 + 20);
         type metadata accessor for UnknownStorage();
-        lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+        lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
         return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
       }
     }
 
-    else if ((v10 & 1) == 0)
+    else if ((v9 & 1) == 0)
     {
-      v13 = *v7;
-      v14 = *v9;
-      if (v9[8])
+      v11 = *v6;
+      v12 = *v8;
+      if (v8[8])
       {
-        if (v14 > 1)
+        if (v12 > 1)
         {
-          if (v14 == 2)
+          if (v12 == 2)
           {
-            if (v13 == 2)
+            if (v11 == 2)
             {
               goto LABEL_8;
             }
           }
 
-          else if (v13 == 3)
+          else if (v11 == 3)
           {
             goto LABEL_8;
           }
         }
 
-        else if (v14)
+        else if (v12)
         {
-          if (v13 == 1)
+          if (v11 == 1)
           {
             goto LABEL_8;
           }
         }
 
-        else if (!v13)
+        else if (!v11)
         {
           goto LABEL_8;
         }
       }
 
-      else if (v13 == v14)
+      else if (v11 == v12)
       {
         goto LABEL_8;
       }
@@ -6742,24 +5994,22 @@ uint64_t specialized static NCProtoNearbyCallStatusChangedEvent.== infix(_:_:)(u
     return 0;
   }
 
-  v4 = type metadata accessor for NCProtoNearbyCallStatusChangedEvent(0);
-  v5 = *(v4 + 28);
-  v7 = *(a1 + v5);
-  v6 = *(a1 + v5 + 8);
-  v8 = (a2 + v5);
-  v10 = *v8;
-  v9 = v8[1];
-  if (v6 >> 60 != 15)
+  v4 = *(type metadata accessor for NCProtoNearbyCallStatusChangedEvent(0) + 28);
+  v6 = *(a1 + v4);
+  v5 = *(a1 + v4 + 8);
+  v7 = (a2 + v4);
+  v9 = *v7;
+  v8 = v7[1];
+  if (v5 >> 60 != 15)
   {
-    if (v9 >> 60 != 15)
+    if (v8 >> 60 != 15)
     {
-      v11 = v4;
-      outlined copy of Data?(v7, v6);
-      outlined copy of Data?(v10, v9);
-      v12 = specialized static Data.== infix(_:_:)(v7, v6, v10, v9);
-      outlined consume of Data?(v10, v9);
-      outlined consume of Data?(v7, v6);
-      if ((v12 & 1) == 0)
+      outlined copy of Data?(v6, v5);
+      outlined copy of Data?(v9, v8);
+      v10 = specialized static Data.== infix(_:_:)(v6, v5, v9, v8);
+      outlined consume of Data?(v9, v8);
+      outlined consume of Data?(v6, v5);
+      if (!v10)
       {
         return 0;
       }
@@ -6768,28 +6018,26 @@ uint64_t specialized static NCProtoNearbyCallStatusChangedEvent.== infix(_:_:)(u
     }
 
 LABEL_6:
-    outlined copy of Data?(v7, v6);
-    outlined copy of Data?(v10, v9);
-    outlined consume of Data?(v7, v6);
-    outlined consume of Data?(v10, v9);
+    outlined copy of Data?(v6, v5);
+    outlined copy of Data?(v9, v8);
+    outlined consume of Data?(v6, v5);
+    outlined consume of Data?(v9, v8);
     return 0;
   }
 
-  if (v9 >> 60 != 15)
+  if (v8 >> 60 != 15)
   {
     goto LABEL_6;
   }
 
-  v11 = v4;
-  outlined copy of Data?(v7, v6);
-  outlined copy of Data?(v10, v9);
-  outlined consume of Data?(v7, v6);
+  outlined copy of Data?(v6, v5);
+  outlined copy of Data?(v9, v8);
+  outlined consume of Data?(v6, v5);
 LABEL_8:
   if (_sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(a1[1], a2[1]))
   {
-    v13 = *(v11 + 24);
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
     return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
   }
 
@@ -6803,9 +6051,9 @@ uint64_t specialized static NCProtoStartLagunaSessionResponse.== infix(_:_:)(uin
     return 0;
   }
 
-  v4 = *(type metadata accessor for NCProtoStartLagunaSessionResponse(0) + 40);
+  type metadata accessor for NCProtoStartLagunaSessionResponse(0);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -6846,7 +6094,7 @@ LABEL_5:
   v12 = specialized static Data.== infix(_:_:)(v7, v6, v10, v9);
   outlined consume of Data?(v10, v9);
   outlined consume of Data?(v7, v6);
-  if ((v12 & 1) == 0)
+  if (!v12)
   {
     return 0;
   }
@@ -6903,7 +6151,7 @@ LABEL_8:
 
 LABEL_10:
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -6911,98 +6159,94 @@ uint64_t specialized static NCProtoUpdateBlockedStateRequest.== infix(_:_:)(uint
 {
   v4 = type metadata accessor for NCProtoSpamCallModelInfo(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &updated - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &updated - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13);
-  v17 = &updated - v16;
-  v18 = *a1;
-  v19 = *a2;
+  v7 = &updated - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &updated - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSg_ADtMR);
+  v12 = MEMORY[0x28223BE20](v11);
+  v14 = &updated - v13;
+  v15 = *a1;
+  v16 = *a2;
   if (*(a2 + 8) == 1)
   {
-    if (v19)
+    if (v16)
     {
-      if (v19 == 1)
+      if (v16 == 1)
       {
-        if (v18 != 1)
+        if (v15 != 1)
         {
           goto LABEL_18;
         }
       }
 
-      else if (v18 != 2)
+      else if (v15 != 2)
       {
         goto LABEL_18;
       }
     }
 
-    else if (v18)
+    else if (v15)
     {
       goto LABEL_18;
     }
   }
 
-  else if (v18 != v19)
+  else if (v15 != v16)
   {
     goto LABEL_18;
   }
 
-  v20 = v15;
+  v17 = v12;
   if (_sSasSQRzlE2eeoiySbSayxG_ABtFZ10Foundation4DataV_Tt1g5(a1[2], a2[2]))
   {
     updated = type metadata accessor for NCProtoUpdateBlockedStateRequest(0);
-    v21 = *(updated + 28);
-    v22 = *(v20 + 48);
-    outlined init with copy of NCProtoContactInfo?(a1 + v21, v17, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMR);
-    v30 = v22;
-    outlined init with copy of NCProtoContactInfo?(a2 + v21, &v17[v22], &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMR);
-    v23 = *(v5 + 48);
-    if (v23(v17, 1, v4) == 1)
+    v18 = *(updated + 28);
+    v19 = *(v17 + 48);
+    outlined init with copy of NCProtoContactInfo?(a1 + v18, v14, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMR);
+    v26 = v19;
+    outlined init with copy of NCProtoContactInfo?(a2 + v18, &v14[v19], &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMR);
+    v20 = *(v5 + 48);
+    if (v20(v14, 1, v4) == 1)
     {
-      if (v23(&v17[v30], 1, v4) == 1)
+      if (v20(&v14[v26], 1, v4) == 1)
       {
-        outlined destroy of NCProtoContactInfo?(v17, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMR);
+        outlined destroy of NCProtoContactInfo?(v14, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMR);
 LABEL_21:
-        v28 = *(updated + 24);
         type metadata accessor for UnknownStorage();
-        lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-        v25 = dispatch thunk of static Equatable.== infix(_:_:)();
-        return v25 & 1;
+        lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+        v22 = dispatch thunk of static Equatable.== infix(_:_:)();
+        return v22 & 1;
       }
 
       goto LABEL_17;
     }
 
-    outlined init with copy of NCProtoContactInfo?(v17, v12, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMR);
-    v24 = v30;
-    if (v23(&v17[v30], 1, v4) == 1)
+    outlined init with copy of NCProtoContactInfo?(v14, v10, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMR);
+    v21 = v26;
+    if (v20(&v14[v26], 1, v4) == 1)
     {
-      outlined destroy of NCProtoContactInfo(v12, type metadata accessor for NCProtoSpamCallModelInfo);
+      outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoSpamCallModelInfo);
 LABEL_17:
-      outlined destroy of NCProtoContactInfo?(v17, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSg_ADtMR);
+      outlined destroy of NCProtoContactInfo?(v14, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSg_ADtMR);
       goto LABEL_18;
     }
 
-    outlined init with take of NCProtoContactInfo(&v17[v24], v8, type metadata accessor for NCProtoSpamCallModelInfo);
-    v27 = specialized static NCProtoSpamCallModelInfo.== infix(_:_:)(v12, v8);
-    outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoSpamCallModelInfo);
-    outlined destroy of NCProtoContactInfo(v12, type metadata accessor for NCProtoSpamCallModelInfo);
-    outlined destroy of NCProtoContactInfo?(v17, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMR);
-    if (v27)
+    outlined init with take of NCProtoContactInfo(&v14[v21], v7, type metadata accessor for NCProtoSpamCallModelInfo);
+    v24 = specialized static NCProtoSpamCallModelInfo.== infix(_:_:)(v10, v7);
+    outlined destroy of NCProtoContactInfo(v7, type metadata accessor for NCProtoSpamCallModelInfo);
+    outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoSpamCallModelInfo);
+    outlined destroy of NCProtoContactInfo?(v14, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMd, &_s27NeighborhoodActivityConduit24NCProtoSpamCallModelInfoVSgMR);
+    if (v24)
     {
       goto LABEL_21;
     }
   }
 
 LABEL_18:
-  v25 = 0;
-  return v25 & 1;
+  v22 = 0;
+  return v22 & 1;
 }
 
 uint64_t specialized static NCProtoRecentCallsDidChangeEvent.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
@@ -7012,9 +6256,9 @@ uint64_t specialized static NCProtoRecentCallsDidChangeEvent.== infix(_:_:)(uint
     return 0;
   }
 
-  v4 = *(type metadata accessor for NCProtoRecentCallsDidChangeEvent(0) + 28);
+  type metadata accessor for NCProtoRecentCallsDidChangeEvent(0);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -7031,7 +6275,7 @@ uint64_t specialized static NCProtoStartConversationRequest.== infix(_:_:)(uint6
     {
 LABEL_3:
       type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
       return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
     }
   }
@@ -7081,21 +6325,21 @@ LABEL_3:
   return 0;
 }
 
-uint64_t specialized static NCProtoSuggestionAdvertisement.== infix(_:_:)(uint64_t a1, uint64_t a2)
+uint64_t specialized static NCProtoSuggestionAdvertisement.== infix(_:_:)(uint64_t *a1, uint64_t a2)
 {
-  v4 = *a1 == *a2 && *(a1 + 8) == *(a2 + 8);
+  v4 = *a1 == *a2 && a1[1] == *(a2 + 8);
   if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
     return 0;
   }
 
-  v5 = *(a1 + 16) == *(a2 + 16) && *(a1 + 24) == *(a2 + 24);
+  v5 = a1[2] == *(a2 + 16) && a1[3] == *(a2 + 24);
   if (!v5 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
     return 0;
   }
 
-  v6 = *(a1 + 32);
+  v6 = a1[4];
   v7 = *(a2 + 32);
   if (*(a1 + 40))
   {
@@ -7123,9 +6367,9 @@ uint64_t specialized static NCProtoSuggestionAdvertisement.== infix(_:_:)(uint64
     return 0;
   }
 
-  v9 = *(type metadata accessor for NCProtoSuggestionAdvertisement(0) + 28);
+  type metadata accessor for NCProtoSuggestionAdvertisement(0);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -7133,74 +6377,70 @@ uint64_t specialized static NCProtoLagunaConnectionRequest.== infix(_:_:)(uint64
 {
   v4 = type metadata accessor for NCProtoCallState(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v26 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v26 - v15;
+  v7 = &v22 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v22 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMR);
+  MEMORY[0x28223BE20](v11);
+  v13 = &v22 - v12;
   if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ10Foundation4DataV_Tt1g5(*a1, *a2) & 1) == 0 || (_sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_27NeighborhoodActivityConduit18NCProtoContactInfoVTt1g5(a1[1], a2[1]) & 1) == 0)
   {
     goto LABEL_15;
   }
 
-  v17 = type metadata accessor for NCProtoLagunaConnectionRequest(0);
-  v18 = *(v17 + 44);
-  v19 = *(v13 + 48);
-  v26 = v17;
-  v27 = a1;
-  outlined init with copy of NCProtoContactInfo?(a1 + v18, v16, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-  outlined init with copy of NCProtoContactInfo?(a2 + v18, &v16[v19], &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-  v20 = *(v5 + 48);
-  if (v20(v16, 1, v4) != 1)
+  v14 = type metadata accessor for NCProtoLagunaConnectionRequest(0);
+  v15 = *(v14 + 44);
+  v16 = *(v11 + 48);
+  v22 = v14;
+  v23 = a1;
+  outlined init with copy of NCProtoContactInfo?(a1 + v15, v13, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  outlined init with copy of NCProtoContactInfo?(a2 + v15, &v13[v16], &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  v17 = *(v5 + 48);
+  if (v17(v13, 1, v4) != 1)
   {
-    outlined init with copy of NCProtoContactInfo?(v16, v12, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-    if (v20(&v16[v19], 1, v4) != 1)
+    outlined init with copy of NCProtoContactInfo?(v13, v10, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+    if (v17(&v13[v16], 1, v4) != 1)
     {
-      outlined init with take of NCProtoContactInfo(&v16[v19], v8, type metadata accessor for NCProtoCallState);
-      v21 = specialized static NCProtoCallState.== infix(_:_:)(v12, v8);
-      outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoCallState);
-      outlined destroy of NCProtoContactInfo(v12, type metadata accessor for NCProtoCallState);
-      outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-      if (v21)
+      outlined init with take of NCProtoContactInfo(&v13[v16], v7, type metadata accessor for NCProtoCallState);
+      v18 = specialized static NCProtoCallState.== infix(_:_:)(v10, v7);
+      outlined destroy of NCProtoContactInfo(v7, type metadata accessor for NCProtoCallState);
+      outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoCallState);
+      outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+      if (v18)
       {
         goto LABEL_10;
       }
 
 LABEL_15:
-      v24 = 0;
-      return v24 & 1;
+      v20 = 0;
+      return v20 & 1;
     }
 
-    outlined destroy of NCProtoContactInfo(v12, type metadata accessor for NCProtoCallState);
+    outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoCallState);
 LABEL_8:
-    outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMR);
+    outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMR);
     goto LABEL_15;
   }
 
-  if (v20(&v16[v19], 1, v4) != 1)
+  if (v17(&v13[v16], 1, v4) != 1)
   {
     goto LABEL_8;
   }
 
-  outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
 LABEL_10:
-  v22 = v27;
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit25NCProtoActiveConversationV_Tt1g5Tm(v27[2], a2[2], type metadata accessor for NCProtoActiveConversation, type metadata accessor for NCProtoActiveConversation, specialized static NCProtoActiveConversation.== infix(_:_:), type metadata accessor for NCProtoActiveConversation) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit25NCProtoActiveConversationV_Tt1g5Tm(v22[3], a2[3], type metadata accessor for NCProtoContinuityFavorite, type metadata accessor for NCProtoContinuityFavorite, specialized static NCProtoContinuityFavorite.== infix(_:_:), type metadata accessor for NCProtoContinuityFavorite) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit21NCProtoContinuityCallV_Tt1g5(v22[4], a2[4]) & 1) == 0 || (_sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_27NeighborhoodActivityConduit15NCProtoCallInfoVTt1g5(v22[5], a2[5]) & 1) == 0)
+  v19 = v23;
+  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit25NCProtoActiveConversationV_Tt1g5Tm(v23[2], a2[2], type metadata accessor for NCProtoActiveConversation, type metadata accessor for NCProtoActiveConversation, specialized static NCProtoActiveConversation.== infix(_:_:), type metadata accessor for NCProtoActiveConversation) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit25NCProtoActiveConversationV_Tt1g5Tm(v19[3], a2[3], type metadata accessor for NCProtoContinuityFavorite, type metadata accessor for NCProtoContinuityFavorite, specialized static NCProtoContinuityFavorite.== infix(_:_:), type metadata accessor for NCProtoContinuityFavorite) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit21NCProtoContinuityCallV_Tt1g5(v19[4], a2[4]) & 1) == 0 || (_sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_27NeighborhoodActivityConduit15NCProtoCallInfoVTt1g5(v19[5], a2[5]) & 1) == 0)
   {
     goto LABEL_15;
   }
 
-  v23 = *(v26 + 40);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v24 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v24 & 1;
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+  v20 = dispatch thunk of static Equatable.== infix(_:_:)();
+  return v20 & 1;
 }
 
 uint64_t specialized static NCProtoDestinationCapabilities.== infix(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
@@ -7210,9 +6450,9 @@ uint64_t specialized static NCProtoDestinationCapabilities.== infix(_:_:)(unsign
     return 0;
   }
 
-  v3 = *(type metadata accessor for NCProtoDestinationCapabilities(0) + 28);
+  type metadata accessor for NCProtoDestinationCapabilities(0);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -7239,7 +6479,7 @@ uint64_t specialized static NCProtoLinkConversationSendLetMeInRequest.== infix(_
   {
 LABEL_8:
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
     return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
   }
 
@@ -7250,165 +6490,161 @@ uint64_t specialized static NCProtoStartedSessionEvent.== infix(_:_:)(void *a1, 
 {
   v4 = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = (&v39 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = (&v39 - v11);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v39 - v15;
-  if ((*a1 != *a2 || a1[1] != a2[1]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (specialized static Data.== infix(_:_:)(a1[2], a1[3], a2[2], a2[3]) & 1) == 0)
-  {
-    goto LABEL_11;
-  }
-
-  v39 = v8;
-  v40 = type metadata accessor for NCProtoStartedSessionEvent(0);
-  v17 = v40[7];
-  v18 = *(v13 + 48);
-  outlined init with copy of NCProtoContactInfo?(a1 + v17, v16, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
-  outlined init with copy of NCProtoContactInfo?(a2 + v17, &v16[v18], &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, v4) != 1)
-  {
-    outlined init with copy of NCProtoContactInfo?(v16, v12, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
-    if (v19(&v16[v18], 1, v4) != 1)
-    {
-      v22 = &v16[v18];
-      v23 = v39;
-      outlined init with take of NCProtoContactInfo(v22, v39, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
-      v24 = specialized static NCProtoMemberAssociationPrimaryInfo.== infix(_:_:)(v12, v23);
-      outlined destroy of NCProtoContactInfo(v23, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
-      outlined destroy of NCProtoContactInfo(v12, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
-      outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
-      if ((v24 & 1) == 0)
-      {
-        goto LABEL_11;
-      }
-
-      goto LABEL_14;
-    }
-
-    outlined destroy of NCProtoContactInfo(v12, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
-LABEL_10:
-    outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSg_ADtMR);
-    goto LABEL_11;
-  }
-
-  if (v19(&v16[v18], 1, v4) != 1)
+  v7 = (&v35 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = (&v35 - v9);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSg_ADtMR);
+  MEMORY[0x28223BE20](v11);
+  v13 = &v35 - v12;
+  if (*a1 != *a2 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || !specialized static Data.== infix(_:_:)(a1[2], a1[3], a2[2], a2[3]))
   {
     goto LABEL_10;
   }
 
-  outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
-LABEL_14:
-  v25 = v40[8];
-  v26 = (a1 + v25);
-  v27 = *(a1 + v25 + 9);
-  v28 = a2 + v25;
-  v29 = *(a2 + v25 + 9);
-  if (v27)
+  v35 = v7;
+  v36 = type metadata accessor for NCProtoStartedSessionEvent(0);
+  v14 = v36[7];
+  v15 = *(v11 + 48);
+  outlined init with copy of NCProtoContactInfo?(a1 + v14, v13, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  outlined init with copy of NCProtoContactInfo?(a2 + v14, &v13[v15], &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) != 1)
   {
-    if ((v29 & 1) == 0)
+    outlined init with copy of NCProtoContactInfo?(v13, v10, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+    if (v16(&v13[v15], 1, v4) != 1)
     {
-      goto LABEL_11;
+      v19 = &v13[v15];
+      v20 = v35;
+      outlined init with take of NCProtoContactInfo(v19, v35, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+      v21 = specialized static NCProtoMemberAssociationPrimaryInfo.== infix(_:_:)(v10, v20);
+      outlined destroy of NCProtoContactInfo(v20, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+      outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+      outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+      if ((v21 & 1) == 0)
+      {
+        goto LABEL_10;
+      }
+
+      goto LABEL_13;
+    }
+
+    outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+LABEL_9:
+    outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSg_ADtMR);
+    goto LABEL_10;
+  }
+
+  if (v16(&v13[v15], 1, v4) != 1)
+  {
+    goto LABEL_9;
+  }
+
+  outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+LABEL_13:
+  v22 = v36[8];
+  v23 = (a1 + v22);
+  v24 = *(a1 + v22 + 9);
+  v25 = a2 + v22;
+  v26 = *(a2 + v22 + 9);
+  if (v24)
+  {
+    if ((v26 & 1) == 0)
+    {
+      goto LABEL_10;
     }
   }
 
   else
   {
-    if (v29)
+    if (v26)
     {
-      goto LABEL_11;
+      goto LABEL_10;
     }
 
-    v33 = *v26;
-    v34 = *v28;
-    if (v28[8])
+    v30 = *v23;
+    v31 = *v25;
+    if (v25[8])
     {
-      if (v34 > 1)
+      if (v31 > 1)
       {
-        if (v34 == 2)
+        if (v31 == 2)
         {
-          if (v33 != 2)
+          if (v30 != 2)
           {
-            goto LABEL_11;
+            goto LABEL_10;
           }
         }
 
-        else if (v33 != 3)
+        else if (v30 != 3)
         {
-          goto LABEL_11;
+          goto LABEL_10;
         }
       }
 
-      else if (v34)
+      else if (v31)
       {
-        if (v33 != 1)
+        if (v30 != 1)
         {
-          goto LABEL_11;
+          goto LABEL_10;
         }
       }
 
-      else if (v33)
+      else if (v30)
       {
-        goto LABEL_11;
+        goto LABEL_10;
       }
     }
 
-    else if (v33 != v34)
+    else if (v30 != v31)
     {
-      goto LABEL_11;
+      goto LABEL_10;
     }
   }
 
-  v30 = v40[9];
-  v31 = *(a1 + v30);
-  v32 = *(a2 + v30);
-  if (v31 == 2)
+  v27 = v36[9];
+  v28 = *(a1 + v27);
+  v29 = *(a2 + v27);
+  if (v28 == 2)
   {
-    if (v32 != 2)
+    if (v29 != 2)
     {
-      goto LABEL_11;
+      goto LABEL_10;
     }
   }
 
-  else if (v32 == 2 || ((v31 ^ v32) & 1) != 0)
+  else if (v29 == 2 || ((v28 ^ v29) & 1) != 0)
   {
-    goto LABEL_11;
+    goto LABEL_10;
   }
 
-  v35 = v40[10];
-  v36 = *(a1 + v35);
-  v37 = *(a2 + v35);
-  if (v36 == 2)
+  v32 = v36[10];
+  v33 = *(a1 + v32);
+  v34 = *(a2 + v32);
+  if (v33 == 2)
   {
-    if (v37 == 2)
+    if (v34 == 2)
     {
-LABEL_34:
-      v38 = v40[6];
+LABEL_33:
       type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v20 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v20 & 1;
+      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+      v17 = dispatch thunk of static Equatable.== infix(_:_:)();
+      return v17 & 1;
     }
   }
 
-  else if (v37 != 2 && ((v36 ^ v37) & 1) == 0)
+  else if (v34 != 2 && ((v33 ^ v34) & 1) == 0)
   {
-    goto LABEL_34;
+    goto LABEL_33;
   }
 
-LABEL_11:
-  v20 = 0;
-  return v20 & 1;
+LABEL_10:
+  v17 = 0;
+  return v17 & 1;
 }
 
-uint64_t specialized static NCProtoDeviceTokenResponse.== infix(_:_:)(void *a1, void *a2)
+uint64_t specialized static NCProtoDeviceTokenResponse.== infix(_:_:)(uint64_t *a1, void *a2)
 {
   v4 = *a1 == *a2 && a1[1] == a2[1];
   if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
@@ -7416,23 +6652,22 @@ uint64_t specialized static NCProtoDeviceTokenResponse.== infix(_:_:)(void *a1, 
     return 0;
   }
 
-  v5 = type metadata accessor for NCProtoDeviceTokenResponse(0);
-  v6 = *(v5 + 24);
-  v8 = *(a1 + v6);
-  v7 = *(a1 + v6 + 8);
-  v9 = (a2 + v6);
-  v11 = *v9;
-  v10 = v9[1];
-  if (v7 >> 60 != 15)
+  v5 = *(type metadata accessor for NCProtoDeviceTokenResponse(0) + 24);
+  v7 = *(a1 + v5);
+  v6 = *(a1 + v5 + 8);
+  v8 = (a2 + v5);
+  v10 = *v8;
+  v9 = v8[1];
+  if (v6 >> 60 != 15)
   {
-    if (v10 >> 60 != 15)
+    if (v9 >> 60 != 15)
     {
-      outlined copy of Data?(v8, v7);
-      outlined copy of Data?(v11, v10);
-      v13 = specialized static Data.== infix(_:_:)(v8, v7, v11, v10);
-      outlined consume of Data?(v11, v10);
-      outlined consume of Data?(v8, v7);
-      if (v13)
+      outlined copy of Data?(v7, v6);
+      outlined copy of Data?(v10, v9);
+      v12 = specialized static Data.== infix(_:_:)(v7, v6, v10, v9);
+      outlined consume of Data?(v10, v9);
+      outlined consume of Data?(v7, v6);
+      if (v12)
       {
         goto LABEL_13;
       }
@@ -7441,25 +6676,24 @@ uint64_t specialized static NCProtoDeviceTokenResponse.== infix(_:_:)(void *a1, 
     }
 
 LABEL_10:
-    outlined copy of Data?(v8, v7);
-    outlined copy of Data?(v11, v10);
-    outlined consume of Data?(v8, v7);
-    outlined consume of Data?(v11, v10);
+    outlined copy of Data?(v7, v6);
+    outlined copy of Data?(v10, v9);
+    outlined consume of Data?(v7, v6);
+    outlined consume of Data?(v10, v9);
     return 0;
   }
 
-  if (v10 >> 60 != 15)
+  if (v9 >> 60 != 15)
   {
     goto LABEL_10;
   }
 
-  outlined copy of Data?(v8, v7);
-  outlined copy of Data?(v11, v10);
-  outlined consume of Data?(v8, v7);
+  outlined copy of Data?(v7, v6);
+  outlined copy of Data?(v10, v9);
+  outlined consume of Data?(v7, v6);
 LABEL_13:
-  v14 = *(v5 + 20);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -7524,7 +6758,7 @@ LABEL_14:
   v18 = specialized static Data.== infix(_:_:)(v13, v12, v16, v15);
   outlined consume of Data?(v16, v15);
   outlined consume of Data?(v13, v12);
-  if ((v18 & 1) == 0)
+  if (!v18)
   {
     return 0;
   }
@@ -7582,116 +6816,109 @@ LABEL_30:
     return 0;
   }
 
-  v29 = v4[5];
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
 uint64_t specialized static NCProtoDeviceTokenRequest.== infix(_:_:)(void *a1, void *a2)
 {
   v4 = type metadata accessor for NCProtoCallState(0);
-  v65 = *(v4 - 8);
-  v66 = v4;
-  v5 = *(v65 + 64);
+  v58 = *(v4 - 8);
+  v59 = v4;
   MEMORY[0x28223BE20](v4);
-  v7 = &v61 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v64 = &v61 - v10;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMR);
-  v12 = *(*(v11 - 8) + 64);
+  v6 = &v54 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  MEMORY[0x28223BE20](v7 - 8);
+  v57 = &v54 - v8;
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMR);
+  MEMORY[0x28223BE20](v9);
+  v60 = &v54 - v10;
+  v11 = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
+  v12 = *(v11 - 8);
   MEMORY[0x28223BE20](v11);
-  v67 = &v61 - v13;
-  v14 = type metadata accessor for NCProtoMemberAssociationPrimaryInfo(0);
-  v15 = *(v14 - 8);
-  v16 = *(v15 + 64);
-  MEMORY[0x28223BE20](v14);
-  v18 = (&v61 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v19 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
-  v20 = *(*(v19 - 8) + 64);
-  MEMORY[0x28223BE20](v19 - 8);
-  v22 = (&v61 - v21);
-  v23 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSg_ADtMR);
-  v24 = *(*(v23 - 8) + 64);
-  MEMORY[0x28223BE20](v23);
-  v26 = &v61 - v25;
-  v27 = *a1;
-  v28 = a1[1];
-  v68 = a1;
-  if ((v27 != *a2 || v28 != a2[1]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  v14 = (&v54 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  MEMORY[0x28223BE20](v15 - 8);
+  v17 = (&v54 - v16);
+  v18 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSg_ADtMR);
+  MEMORY[0x28223BE20](v18);
+  v20 = &v54 - v19;
+  v21 = *a1;
+  v22 = a1[1];
+  v61 = a1;
+  if ((v21 != *a2 || v22 != a2[1]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
     goto LABEL_18;
   }
 
-  v61 = v7;
-  v62 = v11;
-  v63 = type metadata accessor for NCProtoDeviceTokenRequest(0);
-  v29 = *(v63 + 24);
-  v30 = *(v23 + 48);
-  outlined init with copy of NCProtoContactInfo?(v68 + v29, v26, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
-  v31 = a2 + v29;
-  v32 = a2;
-  outlined init with copy of NCProtoContactInfo?(v31, &v26[v30], &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
-  v33 = *(v15 + 48);
-  if (v33(v26, 1, v14) == 1)
+  v54 = v6;
+  v55 = v9;
+  v56 = type metadata accessor for NCProtoDeviceTokenRequest(0);
+  v23 = *(v56 + 24);
+  v24 = *(v18 + 48);
+  outlined init with copy of NCProtoContactInfo?(v61 + v23, v20, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  v25 = a2 + v23;
+  v26 = a2;
+  outlined init with copy of NCProtoContactInfo?(v25, &v20[v24], &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  v27 = *(v12 + 48);
+  if (v27(v20, 1, v11) == 1)
   {
-    if (v33(&v26[v30], 1, v14) == 1)
+    if (v27(&v20[v24], 1, v11) == 1)
     {
-      outlined destroy of NCProtoContactInfo?(v26, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+      outlined destroy of NCProtoContactInfo?(v20, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
       goto LABEL_11;
     }
 
 LABEL_9:
-    v34 = &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSg_ADtMd;
-    v35 = &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSg_ADtMR;
-    v36 = v26;
+    v28 = &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSg_ADtMd;
+    v29 = &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSg_ADtMR;
+    v30 = v20;
 LABEL_17:
-    outlined destroy of NCProtoContactInfo?(v36, v34, v35);
+    outlined destroy of NCProtoContactInfo?(v30, v28, v29);
     goto LABEL_18;
   }
 
-  outlined init with copy of NCProtoContactInfo?(v26, v22, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
-  if (v33(&v26[v30], 1, v14) == 1)
+  outlined init with copy of NCProtoContactInfo?(v20, v17, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  if (v27(&v20[v24], 1, v11) == 1)
   {
-    outlined destroy of NCProtoContactInfo(v22, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+    outlined destroy of NCProtoContactInfo(v17, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
     goto LABEL_9;
   }
 
-  outlined init with take of NCProtoContactInfo(&v26[v30], v18, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
-  v37 = specialized static NCProtoMemberAssociationPrimaryInfo.== infix(_:_:)(v22, v18);
-  outlined destroy of NCProtoContactInfo(v18, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
-  outlined destroy of NCProtoContactInfo(v22, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
-  outlined destroy of NCProtoContactInfo?(v26, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
-  if ((v37 & 1) == 0)
+  outlined init with take of NCProtoContactInfo(&v20[v24], v14, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  v31 = specialized static NCProtoMemberAssociationPrimaryInfo.== infix(_:_:)(v17, v14);
+  outlined destroy of NCProtoContactInfo(v14, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  outlined destroy of NCProtoContactInfo(v17, type metadata accessor for NCProtoMemberAssociationPrimaryInfo);
+  outlined destroy of NCProtoContactInfo?(v20, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMd, &_s27NeighborhoodActivityConduit35NCProtoMemberAssociationPrimaryInfoVSgMR);
+  if ((v31 & 1) == 0)
   {
     goto LABEL_18;
   }
 
 LABEL_11:
-  v38 = v63;
-  v39 = *(v63 + 28);
-  v40 = *(v62 + 48);
-  v41 = v67;
-  outlined init with copy of NCProtoContactInfo?(v68 + v39, v67, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-  outlined init with copy of NCProtoContactInfo?(v32 + v39, v41 + v40, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-  v42 = v66;
-  v43 = *(v65 + 48);
-  if (v43(v41, 1, v66) != 1)
+  v32 = v56;
+  v33 = *(v56 + 28);
+  v34 = *(v55 + 48);
+  v35 = v60;
+  outlined init with copy of NCProtoContactInfo?(v61 + v33, v60, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  outlined init with copy of NCProtoContactInfo?(v26 + v33, v35 + v34, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  v36 = v59;
+  v37 = *(v58 + 48);
+  if (v37(v35, 1, v59) != 1)
   {
-    v44 = v64;
-    outlined init with copy of NCProtoContactInfo?(v41, v64, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-    if (v43(v41 + v40, 1, v42) != 1)
+    v38 = v57;
+    outlined init with copy of NCProtoContactInfo?(v35, v57, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+    if (v37(v35 + v34, 1, v36) != 1)
     {
-      v47 = v41 + v40;
-      v48 = v61;
-      outlined init with take of NCProtoContactInfo(v47, v61, type metadata accessor for NCProtoCallState);
-      v49 = specialized static NCProtoCallState.== infix(_:_:)(v44, v48);
-      outlined destroy of NCProtoContactInfo(v48, type metadata accessor for NCProtoCallState);
-      outlined destroy of NCProtoContactInfo(v44, type metadata accessor for NCProtoCallState);
-      outlined destroy of NCProtoContactInfo?(v41, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-      if ((v49 & 1) == 0)
+      v41 = v35 + v34;
+      v42 = v54;
+      outlined init with take of NCProtoContactInfo(v41, v54, type metadata accessor for NCProtoCallState);
+      v43 = specialized static NCProtoCallState.== infix(_:_:)(v38, v42);
+      outlined destroy of NCProtoContactInfo(v42, type metadata accessor for NCProtoCallState);
+      outlined destroy of NCProtoContactInfo(v38, type metadata accessor for NCProtoCallState);
+      outlined destroy of NCProtoContactInfo?(v35, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+      if ((v43 & 1) == 0)
       {
         goto LABEL_18;
       }
@@ -7699,111 +6926,110 @@ LABEL_11:
       goto LABEL_21;
     }
 
-    outlined destroy of NCProtoContactInfo(v44, type metadata accessor for NCProtoCallState);
+    outlined destroy of NCProtoContactInfo(v38, type metadata accessor for NCProtoCallState);
     goto LABEL_16;
   }
 
-  if (v43(v41 + v40, 1, v42) != 1)
+  if (v37(v35 + v34, 1, v36) != 1)
   {
 LABEL_16:
-    v34 = &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMd;
-    v35 = &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMR;
-    v36 = v41;
+    v28 = &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMd;
+    v29 = &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMR;
+    v30 = v35;
     goto LABEL_17;
   }
 
-  outlined destroy of NCProtoContactInfo?(v41, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  outlined destroy of NCProtoContactInfo?(v35, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
 LABEL_21:
-  v50 = v38[8];
-  v51 = *(v68 + v50);
-  v52 = *(v32 + v50);
-  if (v51 == 2)
+  v44 = *(v32 + 32);
+  v45 = *(v61 + v44);
+  v46 = *(v26 + v44);
+  if (v45 == 2)
   {
-    if (v52 != 2)
+    if (v46 != 2)
     {
       goto LABEL_18;
     }
   }
 
-  else if (v52 == 2 || ((v51 ^ v52) & 1) != 0)
+  else if (v46 == 2 || ((v45 ^ v46) & 1) != 0)
   {
     goto LABEL_18;
   }
 
-  v53 = v38[9];
-  v54 = (v68 + v53);
-  v55 = *(v68 + v53 + 9);
-  v56 = v32 + v53;
-  v57 = *(v32 + v53 + 9);
-  if (v55)
+  v47 = *(v32 + 36);
+  v48 = (v61 + v47);
+  v49 = *(v61 + v47 + 9);
+  v50 = v26 + v47;
+  v51 = *(v26 + v47 + 9);
+  if (v49)
   {
-    if (v57)
+    if (v51)
     {
 LABEL_28:
-      v58 = v38[5];
       type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v45 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v45 & 1;
+      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+      v39 = dispatch thunk of static Equatable.== infix(_:_:)();
+      return v39 & 1;
     }
   }
 
-  else if ((v57 & 1) == 0)
+  else if ((v51 & 1) == 0)
   {
-    v59 = *v54;
-    v60 = *v56;
-    if (v56[8])
+    v52 = *v48;
+    v53 = *v50;
+    if (v50[8])
     {
-      if (v60 <= 1)
+      if (v53 <= 1)
       {
-        if (v60)
+        if (v53)
         {
-          if (v59 == 1)
+          if (v52 == 1)
           {
             goto LABEL_28;
           }
         }
 
-        else if (!v59)
+        else if (!v52)
         {
           goto LABEL_28;
         }
       }
 
-      else if (v60 == 2)
+      else if (v53 == 2)
       {
-        if (v59 == 2)
+        if (v52 == 2)
         {
           goto LABEL_28;
         }
       }
 
-      else if (v60 == 3)
+      else if (v53 == 3)
       {
-        if (v59 == 3)
+        if (v52 == 3)
         {
           goto LABEL_28;
         }
       }
 
-      else if (v59 == 4)
+      else if (v52 == 4)
       {
         goto LABEL_28;
       }
     }
 
-    else if (v59 == v60)
+    else if (v52 == v53)
     {
       goto LABEL_28;
     }
   }
 
 LABEL_18:
-  v45 = 0;
-  return v45 & 1;
+  v39 = 0;
+  return v39 & 1;
 }
 
-uint64_t specialized static NCProtoContactHandleAnonym.== infix(_:_:)(void *a1, uint64_t a2)
+uint64_t specialized static NCProtoContactHandleAnonym.== infix(_:_:)(uint64_t *a1, uint64_t a2)
 {
   v4 = *a1 == *a2 && a1[1] == *(a2 + 8);
   if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
@@ -7844,9 +7070,9 @@ uint64_t specialized static NCProtoContactHandleAnonym.== infix(_:_:)(void *a1, 
 
   if (a1[4] == *(a2 + 32) && a1[5] == *(a2 + 40) || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (a1[6] == *(a2 + 48) && a1[7] == *(a2 + 56) || (_stringCompareWithSmolCheck(_:_:expecting:)()))
   {
-    v7 = *(type metadata accessor for NCProtoContactHandleAnonym(0) + 32);
+    type metadata accessor for NCProtoContactHandleAnonym(0);
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
     return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
   }
 
@@ -7855,106 +7081,99 @@ uint64_t specialized static NCProtoContactHandleAnonym.== infix(_:_:)(void *a1, 
 
 uint64_t specialized static NCProtoContinuityFavorite.== infix(_:_:)(void *a1, void *a2)
 {
-  v56 = a2;
+  v48 = a2;
   v3 = type metadata accessor for NCProtoContactHandleAnonym(0);
-  v52 = *(v3 - 8);
-  v53 = v3;
-  v4 = *(v52 + 64);
+  v44 = *(v3 - 8);
+  v45 = v3;
   MEMORY[0x28223BE20](v3);
-  v48 = &v47 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v49 = (&v47 - v8);
-  v50 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSg_ADtMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSg_ADtMR);
-  v9 = *(*(v50 - 8) + 64);
-  MEMORY[0x28223BE20](v50);
-  v54 = &v47 - v10;
-  v11 = type metadata accessor for NCProtoContactInfo(0);
-  v12 = *(v11 - 8);
-  v13 = *(v12 + 64);
-  MEMORY[0x28223BE20](v11);
-  v15 = (&v47 - ((v14 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v16 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
-  v17 = *(*(v16 - 8) + 64);
-  MEMORY[0x28223BE20](v16 - 8);
-  v19 = (&v47 - v18);
-  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMR);
-  v21 = v20 - 8;
-  v22 = *(*(v20 - 8) + 64);
-  MEMORY[0x28223BE20](v20);
-  v24 = &v47 - v23;
-  v51 = type metadata accessor for NCProtoContinuityFavorite(0);
-  v25 = *(v51 + 32);
-  v26 = *(v21 + 56);
-  v55 = a1;
-  outlined init with copy of NCProtoContactInfo?(a1 + v25, v24, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
-  v27 = v56;
-  outlined init with copy of NCProtoContactInfo?(v56 + v25, &v24[v26], &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
-  v28 = *(v12 + 48);
-  if (v28(v24, 1, v11) == 1)
+  v40 = &v39 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
+  MEMORY[0x28223BE20](v5 - 8);
+  v41 = (&v39 - v6);
+  v42 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSg_ADtMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSg_ADtMR);
+  MEMORY[0x28223BE20](v42);
+  v46 = &v39 - v7;
+  v8 = type metadata accessor for NCProtoContactInfo(0);
+  v9 = *(v8 - 8);
+  MEMORY[0x28223BE20](v8);
+  v11 = (&v39 - ((v10 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+  MEMORY[0x28223BE20](v12 - 8);
+  v14 = (&v39 - v13);
+  v15 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMR);
+  v16 = v15 - 8;
+  MEMORY[0x28223BE20](v15);
+  v18 = &v39 - v17;
+  v43 = type metadata accessor for NCProtoContinuityFavorite(0);
+  v19 = *(v43 + 32);
+  v20 = *(v16 + 56);
+  v47 = a1;
+  outlined init with copy of NCProtoContactInfo?(a1 + v19, v18, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+  v21 = v48;
+  outlined init with copy of NCProtoContactInfo?(v48 + v19, &v18[v20], &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+  v22 = *(v9 + 48);
+  if (v22(v18, 1, v8) == 1)
   {
-    if (v28(&v24[v26], 1, v11) == 1)
+    if (v22(&v18[v20], 1, v8) == 1)
     {
-      outlined destroy of NCProtoContactInfo?(v24, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+      outlined destroy of NCProtoContactInfo?(v18, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
       goto LABEL_8;
     }
 
 LABEL_6:
-    v29 = &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMd;
-    v30 = &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMR;
-    v31 = v24;
+    v23 = &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMd;
+    v24 = &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMR;
+    v25 = v18;
 LABEL_17:
-    outlined destroy of NCProtoContactInfo?(v31, v29, v30);
+    outlined destroy of NCProtoContactInfo?(v25, v23, v24);
     goto LABEL_18;
   }
 
-  outlined init with copy of NCProtoContactInfo?(v24, v19, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
-  if (v28(&v24[v26], 1, v11) == 1)
+  outlined init with copy of NCProtoContactInfo?(v18, v14, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+  if (v22(&v18[v20], 1, v8) == 1)
   {
-    outlined destroy of NCProtoContactInfo(v19, type metadata accessor for NCProtoContactInfo);
+    outlined destroy of NCProtoContactInfo(v14, type metadata accessor for NCProtoContactInfo);
     goto LABEL_6;
   }
 
-  outlined init with take of NCProtoContactInfo(&v24[v26], v15, type metadata accessor for NCProtoContactInfo);
-  v32 = specialized static NCProtoContactInfo.== infix(_:_:)(v19, v15);
-  outlined destroy of NCProtoContactInfo(v15, type metadata accessor for NCProtoContactInfo);
-  outlined destroy of NCProtoContactInfo(v19, type metadata accessor for NCProtoContactInfo);
-  outlined destroy of NCProtoContactInfo?(v24, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
-  if ((v32 & 1) == 0)
+  outlined init with take of NCProtoContactInfo(&v18[v20], v11, type metadata accessor for NCProtoContactInfo);
+  v26 = specialized static NCProtoContactInfo.== infix(_:_:)(v14, v11);
+  outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoContactInfo);
+  outlined destroy of NCProtoContactInfo(v14, type metadata accessor for NCProtoContactInfo);
+  outlined destroy of NCProtoContactInfo?(v18, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+  if ((v26 & 1) == 0)
   {
     goto LABEL_18;
   }
 
 LABEL_8:
-  v33 = v55;
-  if ((*v55 != *v27 || v55[1] != v27[1]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  v27 = v47;
+  if ((*v47 != *v21 || v47[1] != v21[1]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
     goto LABEL_18;
   }
 
-  v34 = v51;
-  v35 = *(v51 + 36);
-  v36 = *(v50 + 48);
-  v37 = v54;
-  outlined init with copy of NCProtoContactInfo?(v33 + v35, v54, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
-  outlined init with copy of NCProtoContactInfo?(v27 + v35, v37 + v36, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
-  v38 = v53;
-  v39 = *(v52 + 48);
-  if (v39(v37, 1, v53) != 1)
+  v28 = *(v43 + 36);
+  v29 = *(v42 + 48);
+  v30 = v46;
+  outlined init with copy of NCProtoContactInfo?(v27 + v28, v46, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
+  outlined init with copy of NCProtoContactInfo?(v21 + v28, v30 + v29, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
+  v31 = v45;
+  v32 = *(v44 + 48);
+  if (v32(v30, 1, v45) != 1)
   {
-    v40 = v49;
-    outlined init with copy of NCProtoContactInfo?(v37, v49, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
-    if (v39(v37 + v36, 1, v38) != 1)
+    v33 = v41;
+    outlined init with copy of NCProtoContactInfo?(v30, v41, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
+    if (v32(v30 + v29, 1, v31) != 1)
     {
-      v43 = v37 + v36;
-      v44 = v48;
-      outlined init with take of NCProtoContactInfo(v43, v48, type metadata accessor for NCProtoContactHandleAnonym);
-      v45 = specialized static NCProtoContactHandleAnonym.== infix(_:_:)(v40, v44);
-      outlined destroy of NCProtoContactInfo(v44, type metadata accessor for NCProtoContactHandleAnonym);
-      outlined destroy of NCProtoContactInfo(v40, type metadata accessor for NCProtoContactHandleAnonym);
-      outlined destroy of NCProtoContactInfo?(v37, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
-      if ((v45 & 1) == 0)
+      v36 = v30 + v29;
+      v37 = v40;
+      outlined init with take of NCProtoContactInfo(v36, v40, type metadata accessor for NCProtoContactHandleAnonym);
+      v38 = specialized static NCProtoContactHandleAnonym.== infix(_:_:)(v33, v37);
+      outlined destroy of NCProtoContactInfo(v37, type metadata accessor for NCProtoContactHandleAnonym);
+      outlined destroy of NCProtoContactInfo(v33, type metadata accessor for NCProtoContactHandleAnonym);
+      outlined destroy of NCProtoContactInfo?(v30, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
+      if ((v38 & 1) == 0)
       {
         goto LABEL_18;
       }
@@ -7962,103 +7181,98 @@ LABEL_8:
       goto LABEL_21;
     }
 
-    outlined destroy of NCProtoContactInfo(v40, type metadata accessor for NCProtoContactHandleAnonym);
+    outlined destroy of NCProtoContactInfo(v33, type metadata accessor for NCProtoContactHandleAnonym);
     goto LABEL_16;
   }
 
-  if (v39(v37 + v36, 1, v38) != 1)
+  if (v32(v30 + v29, 1, v31) != 1)
   {
 LABEL_16:
-    v29 = &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSg_ADtMd;
-    v30 = &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSg_ADtMR;
-    v31 = v37;
+    v23 = &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSg_ADtMd;
+    v24 = &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSg_ADtMR;
+    v25 = v30;
     goto LABEL_17;
   }
 
-  outlined destroy of NCProtoContactInfo?(v37, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
+  outlined destroy of NCProtoContactInfo?(v30, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMd, &_s27NeighborhoodActivityConduit26NCProtoContactHandleAnonymVSgMR);
 LABEL_21:
-  if (v33[2] == v27[2] && v33[3] == v27[3] || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (v33[4] == v27[4] && v33[5] == v27[5] || (_stringCompareWithSmolCheck(_:_:expecting:)()))
+  if (v27[2] == v21[2] && v27[3] == v21[3] || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (v27[4] == v21[4] && v27[5] == v21[5] || (_stringCompareWithSmolCheck(_:_:expecting:)()))
   {
-    v46 = *(v34 + 28);
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-    v41 = dispatch thunk of static Equatable.== infix(_:_:)();
-    return v41 & 1;
+    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+    v34 = dispatch thunk of static Equatable.== infix(_:_:)();
+    return v34 & 1;
   }
 
 LABEL_18:
-  v41 = 0;
-  return v41 & 1;
+  v34 = 0;
+  return v34 & 1;
 }
 
 uint64_t specialized static NCProtoAddressableContact.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
 {
   v4 = type metadata accessor for NCProtoContactInfo(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v28 = (&v26 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = (&v26 - v10);
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = &v26 - v15;
-  v27 = type metadata accessor for NCProtoAddressableContact(0);
-  v17 = *(v27 + 28);
-  v18 = *(v13 + 56);
-  v29 = a1;
-  outlined init with copy of NCProtoContactInfo?(a1 + v17, v16, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
-  outlined init with copy of NCProtoContactInfo?(a2 + v17, &v16[v18], &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, v4) != 1)
+  v24 = (&v22 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = (&v22 - v8);
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMR);
+  v11 = v10 - 8;
+  MEMORY[0x28223BE20](v10);
+  v13 = &v22 - v12;
+  v23 = type metadata accessor for NCProtoAddressableContact(0);
+  v14 = *(v23 + 28);
+  v15 = *(v11 + 56);
+  v25 = a1;
+  outlined init with copy of NCProtoContactInfo?(a1 + v14, v13, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+  outlined init with copy of NCProtoContactInfo?(a2 + v14, &v13[v15], &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) != 1)
   {
-    outlined init with copy of NCProtoContactInfo?(v16, v11, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
-    if (v19(&v16[v18], 1, v4) != 1)
+    outlined init with copy of NCProtoContactInfo?(v13, v9, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+    if (v16(&v13[v15], 1, v4) != 1)
     {
-      v20 = v28;
-      outlined init with take of NCProtoContactInfo(&v16[v18], v28, type metadata accessor for NCProtoContactInfo);
-      v21 = specialized static NCProtoContactInfo.== infix(_:_:)(v11, v20);
-      outlined destroy of NCProtoContactInfo(v20, type metadata accessor for NCProtoContactInfo);
-      outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoContactInfo);
-      outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
-      if (v21)
+      v17 = v24;
+      outlined init with take of NCProtoContactInfo(&v13[v15], v24, type metadata accessor for NCProtoContactInfo);
+      v18 = specialized static NCProtoContactInfo.== infix(_:_:)(v9, v17);
+      outlined destroy of NCProtoContactInfo(v17, type metadata accessor for NCProtoContactInfo);
+      outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoContactInfo);
+      outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+      if (v18)
       {
         goto LABEL_8;
       }
 
 LABEL_13:
-      v24 = 0;
-      return v24 & 1;
+      v20 = 0;
+      return v20 & 1;
     }
 
-    outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoContactInfo);
+    outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoContactInfo);
 LABEL_6:
-    outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMR);
+    outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSg_ADtMR);
     goto LABEL_13;
   }
 
-  if (v19(&v16[v18], 1, v4) != 1)
+  if (v16(&v13[v15], 1, v4) != 1)
   {
     goto LABEL_6;
   }
 
-  outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
+  outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMd, &_s27NeighborhoodActivityConduit18NCProtoContactInfoVSgMR);
 LABEL_8:
-  v22 = v29;
-  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit26NCProtoContactHandleAnonymV_Tt1g5(*v29, *a2) & 1) == 0 || (v22[1] != a2[1] || v22[2] != a2[2]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  v19 = v25;
+  if ((_sSasSQRzlE2eeoiySbSayxG_ABtFZ27NeighborhoodActivityConduit26NCProtoContactHandleAnonymV_Tt1g5(*v25, *a2) & 1) == 0 || (v19[1] != a2[1] || v19[2] != a2[2]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
     goto LABEL_13;
   }
 
-  v23 = *(v27 + 24);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-  v24 = dispatch thunk of static Equatable.== infix(_:_:)();
-  return v24 & 1;
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+  v20 = dispatch thunk of static Equatable.== infix(_:_:)();
+  return v20 & 1;
 }
 
 uint64_t specialized static NCProtoActiveConversation.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
@@ -8369,9 +7583,8 @@ uint64_t specialized static NCProtoActiveConversation.== infix(_:_:)(uint64_t *a
         outlined copy of Data?(v49, v48);
         outlined consume of Data?(v46, v45);
 LABEL_75:
-        v55 = v33[5];
         type metadata accessor for UnknownStorage();
-        lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+        lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
         return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
       }
 
@@ -8404,44 +7617,41 @@ LABEL_67:
 
 uint64_t specialized static NCProtoSpamCallModelInfo.== infix(_:_:)(unsigned __int8 *a1, unsigned __int8 *a2)
 {
-  v4 = type metadata accessor for NCProtoSpamCallModelInfo(0);
-  v5 = *(v4 + 40);
-  v7 = *&a1[v5];
-  v6 = *&a1[v5 + 8];
-  v8 = &a2[v5];
-  v10 = *v8;
-  v9 = v8[1];
-  if (v6 >> 60 == 15)
+  v4 = *(type metadata accessor for NCProtoSpamCallModelInfo(0) + 40);
+  v6 = *&a1[v4];
+  v5 = *&a1[v4 + 8];
+  v7 = &a2[v4];
+  v9 = *v7;
+  v8 = v7[1];
+  if (v5 >> 60 == 15)
   {
-    if (v9 >> 60 == 15)
+    if (v8 >> 60 == 15)
     {
-      v11 = v4;
-      outlined copy of Data?(v7, v6);
-      outlined copy of Data?(v10, v9);
-      outlined consume of Data?(v7, v6);
+      outlined copy of Data?(v6, v5);
+      outlined copy of Data?(v9, v8);
+      outlined consume of Data?(v6, v5);
       goto LABEL_7;
     }
 
     goto LABEL_5;
   }
 
-  if (v9 >> 60 == 15)
+  if (v8 >> 60 == 15)
   {
 LABEL_5:
-    outlined copy of Data?(v7, v6);
-    outlined copy of Data?(v10, v9);
-    outlined consume of Data?(v7, v6);
-    outlined consume of Data?(v10, v9);
+    outlined copy of Data?(v6, v5);
+    outlined copy of Data?(v9, v8);
+    outlined consume of Data?(v6, v5);
+    outlined consume of Data?(v9, v8);
     return 0;
   }
 
-  v11 = v4;
-  outlined copy of Data?(v7, v6);
-  outlined copy of Data?(v10, v9);
-  v12 = specialized static Data.== infix(_:_:)(v7, v6, v10, v9);
-  outlined consume of Data?(v10, v9);
-  outlined consume of Data?(v7, v6);
-  if ((v12 & 1) == 0)
+  outlined copy of Data?(v6, v5);
+  outlined copy of Data?(v9, v8);
+  v10 = specialized static Data.== infix(_:_:)(v6, v5, v9, v8);
+  outlined consume of Data?(v9, v8);
+  outlined consume of Data?(v6, v5);
+  if (!v10)
   {
     return 0;
   }
@@ -8452,21 +7662,20 @@ LABEL_7:
     return 0;
   }
 
-  v14 = *(v11 + 36);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
 uint64_t specialized static NCProtoDisconnectRequest.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  if ((specialized static Data.== infix(_:_:)(*a1, *(a1 + 8), *a2, *(a2 + 8)) & 1) == 0)
+  if (!specialized static Data.== infix(_:_:)(*a1, *(a1 + 8), *a2, *(a2 + 8)))
   {
     return 0;
   }
 
   v4 = type metadata accessor for NCProtoDisconnectRequest(0);
-  v5 = v4[6];
+  v5 = *(v4 + 24);
   v6 = *(a1 + v5);
   v7 = *(a2 + v5);
   if (v6 == 2)
@@ -8482,7 +7691,7 @@ uint64_t specialized static NCProtoDisconnectRequest.== infix(_:_:)(uint64_t a1,
     return 0;
   }
 
-  v8 = v4[7];
+  v8 = *(v4 + 28);
   v9 = (a1 + v8);
   v10 = *(a1 + v8 + 9);
   v11 = a2 + v8;
@@ -8494,21 +7703,21 @@ uint64_t specialized static NCProtoDisconnectRequest.== infix(_:_:)(uint64_t a1,
       return 0;
     }
 
-    v15 = *v9;
-    v16 = *v11;
+    v14 = *v9;
+    v15 = *v11;
     if (*(v11 + 8))
     {
-      if (v16 > 1)
+      if (v15 > 1)
       {
-        if (v16 == 2)
+        if (v15 == 2)
         {
-          if (v15 != 2)
+          if (v14 != 2)
           {
             return 0;
           }
         }
 
-        else if (v15 != 3)
+        else if (v14 != 3)
         {
           return 0;
         }
@@ -8516,9 +7725,9 @@ uint64_t specialized static NCProtoDisconnectRequest.== infix(_:_:)(uint64_t a1,
 
       else
       {
-        if (!v16)
+        if (!v15)
         {
-          if (!v15)
+          if (!v14)
           {
             goto LABEL_9;
           }
@@ -8526,22 +7735,21 @@ uint64_t specialized static NCProtoDisconnectRequest.== infix(_:_:)(uint64_t a1,
           return 0;
         }
 
-        if (v15 != 1)
+        if (v14 != 1)
         {
           return 0;
         }
       }
     }
 
-    else if (v15 != v16)
+    else if (v14 != v15)
     {
       return 0;
     }
 
 LABEL_9:
-    v13 = v4[5];
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
     return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
   }
 
@@ -8557,65 +7765,62 @@ uint64_t specialized static NCProtoCallStateResponse.== infix(_:_:)(uint64_t a1,
 {
   v4 = type metadata accessor for NCProtoCallState(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v24[0] = v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-  v9 = *(*(v8 - 8) + 64);
-  MEMORY[0x28223BE20](v8 - 8);
-  v11 = v24 - v10;
-  v12 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMR);
-  v13 = v12 - 8;
-  v14 = *(*(v12 - 8) + 64);
-  MEMORY[0x28223BE20](v12);
-  v16 = v24 - v15;
-  v17 = *(type metadata accessor for NCProtoCallStateResponse(0) + 20);
-  v18 = *(v13 + 56);
-  v24[1] = a1;
-  outlined init with copy of NCProtoContactInfo?(a1 + v17, v16, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-  outlined init with copy of NCProtoContactInfo?(a2 + v17, &v16[v18], &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v16, 1, v4) == 1)
+  v21[0] = v21 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  MEMORY[0x28223BE20](v7 - 8);
+  v9 = v21 - v8;
+  v10 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMR);
+  v11 = v10 - 8;
+  MEMORY[0x28223BE20](v10);
+  v13 = v21 - v12;
+  v14 = *(type metadata accessor for NCProtoCallStateResponse(0) + 20);
+  v15 = *(v11 + 56);
+  v21[1] = a1;
+  outlined init with copy of NCProtoContactInfo?(a1 + v14, v13, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  outlined init with copy of NCProtoContactInfo?(a2 + v14, &v13[v15], &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  v16 = *(v5 + 48);
+  if (v16(v13, 1, v4) == 1)
   {
-    if (v19(&v16[v18], 1, v4) == 1)
+    if (v16(&v13[v15], 1, v4) == 1)
     {
-      outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+      outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
 LABEL_9:
       type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v20 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v20 & 1;
+      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+      v17 = dispatch thunk of static Equatable.== infix(_:_:)();
+      return v17 & 1;
     }
 
     goto LABEL_6;
   }
 
-  outlined init with copy of NCProtoContactInfo?(v16, v11, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-  if (v19(&v16[v18], 1, v4) == 1)
+  outlined init with copy of NCProtoContactInfo?(v13, v9, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  if (v16(&v13[v15], 1, v4) == 1)
   {
-    outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoCallState);
+    outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoCallState);
 LABEL_6:
-    outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMR);
+    outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSg_ADtMR);
     goto LABEL_7;
   }
 
-  v21 = v24[0];
-  outlined init with take of NCProtoContactInfo(&v16[v18], v24[0], type metadata accessor for NCProtoCallState);
-  v22 = specialized static NCProtoCallState.== infix(_:_:)(v11, v21);
-  outlined destroy of NCProtoContactInfo(v21, type metadata accessor for NCProtoCallState);
-  outlined destroy of NCProtoContactInfo(v11, type metadata accessor for NCProtoCallState);
-  outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
-  if (v22)
+  v18 = v21[0];
+  outlined init with take of NCProtoContactInfo(&v13[v15], v21[0], type metadata accessor for NCProtoCallState);
+  v19 = specialized static NCProtoCallState.== infix(_:_:)(v9, v18);
+  outlined destroy of NCProtoContactInfo(v18, type metadata accessor for NCProtoCallState);
+  outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoCallState);
+  outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMd, &_s27NeighborhoodActivityConduit16NCProtoCallStateVSgMR);
+  if (v19)
   {
     goto LABEL_9;
   }
 
 LABEL_7:
-  v20 = 0;
-  return v20 & 1;
+  v17 = 0;
+  return v17 & 1;
 }
 
-uint64_t specialized static NCProtoAddMemberRequest.== infix(_:_:)(void *a1, uint64_t a2)
+uint64_t specialized static NCProtoAddMemberRequest.== infix(_:_:)(uint64_t *a1, uint64_t a2)
 {
   v4 = *a1 == *a2 && a1[1] == *(a2 + 8);
   if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
@@ -8684,26 +7889,25 @@ uint64_t specialized static NCProtoAddMemberRequest.== infix(_:_:)(void *a1, uin
     return 0;
   }
 
-  v8 = type metadata accessor for NCProtoAddMemberRequest(0);
-  v9 = *(v8 + 32);
-  v11 = *(a1 + v9);
-  v10 = *(a1 + v9 + 8);
-  v12 = (a2 + v9);
-  v14 = *v12;
-  v13 = v12[1];
-  if (v10 >> 60 != 15)
+  v8 = *(type metadata accessor for NCProtoAddMemberRequest(0) + 32);
+  v10 = *(a1 + v8);
+  v9 = *(a1 + v8 + 8);
+  v11 = (a2 + v8);
+  v13 = *v11;
+  v12 = v11[1];
+  if (v9 >> 60 != 15)
   {
-    if (v13 >> 60 == 15)
+    if (v12 >> 60 == 15)
     {
       goto LABEL_26;
     }
 
-    outlined copy of Data?(v11, v10);
-    outlined copy of Data?(v14, v13);
-    v16 = specialized static Data.== infix(_:_:)(v11, v10, v14, v13);
-    outlined consume of Data?(v14, v13);
-    outlined consume of Data?(v11, v10);
-    if (v16)
+    outlined copy of Data?(v10, v9);
+    outlined copy of Data?(v13, v12);
+    v15 = specialized static Data.== infix(_:_:)(v10, v9, v13, v12);
+    outlined consume of Data?(v13, v12);
+    outlined consume of Data?(v10, v9);
+    if (v15)
     {
       goto LABEL_29;
     }
@@ -8711,23 +7915,22 @@ uint64_t specialized static NCProtoAddMemberRequest.== infix(_:_:)(void *a1, uin
     return 0;
   }
 
-  if (v13 >> 60 != 15)
+  if (v12 >> 60 != 15)
   {
 LABEL_26:
-    outlined copy of Data?(v11, v10);
-    outlined copy of Data?(v14, v13);
-    outlined consume of Data?(v11, v10);
-    outlined consume of Data?(v14, v13);
+    outlined copy of Data?(v10, v9);
+    outlined copy of Data?(v13, v12);
+    outlined consume of Data?(v10, v9);
+    outlined consume of Data?(v13, v12);
     return 0;
   }
 
-  outlined copy of Data?(v11, v10);
-  outlined copy of Data?(v14, v13);
-  outlined consume of Data?(v11, v10);
+  outlined copy of Data?(v10, v9);
+  outlined copy of Data?(v13, v12);
+  outlined consume of Data?(v10, v9);
 LABEL_29:
-  v17 = *(v8 + 28);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -8735,71 +7938,68 @@ uint64_t specialized static NCProtoIDSProxyMessage.== infix(_:_:)(uint64_t a1, u
 {
   v4 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v24 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = &v24 - v11;
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSg_AFtMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSg_AFtMR);
-  v14 = *(*(v13 - 8) + 64);
-  v15 = MEMORY[0x28223BE20](v13 - 8);
-  v17 = &v24 - v16;
-  v18 = *(v15 + 56);
-  outlined init with copy of NCProtoContactInfo?(a1, &v24 - v16, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  outlined init with copy of NCProtoContactInfo?(a2, &v17[v18], &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  v19 = *(v5 + 48);
-  if (v19(v17, 1, v4) == 1)
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = &v20 - v9;
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSg_AFtMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSg_AFtMR);
+  v12 = MEMORY[0x28223BE20](v11 - 8);
+  v14 = &v20 - v13;
+  v15 = *(v12 + 56);
+  outlined init with copy of NCProtoContactInfo?(a1, &v20 - v13, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+  outlined init with copy of NCProtoContactInfo?(a2, &v14[v15], &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+  v16 = *(v5 + 48);
+  if (v16(v14, 1, v4) == 1)
   {
-    if (v19(&v17[v18], 1, v4) == 1)
+    if (v16(&v14[v15], 1, v4) == 1)
     {
-      outlined destroy of NCProtoContactInfo?(v17, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+      outlined destroy of NCProtoContactInfo?(v14, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
 LABEL_9:
-      v22 = *(type metadata accessor for NCProtoIDSProxyMessage(0) + 20);
+      type metadata accessor for NCProtoIDSProxyMessage(0);
       type metadata accessor for UnknownStorage();
-      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-      v20 = dispatch thunk of static Equatable.== infix(_:_:)();
-      return v20 & 1;
+      lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+      v17 = dispatch thunk of static Equatable.== infix(_:_:)();
+      return v17 & 1;
     }
 
     goto LABEL_6;
   }
 
-  outlined init with copy of NCProtoContactInfo?(v17, v12, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  if (v19(&v17[v18], 1, v4) == 1)
+  outlined init with copy of NCProtoContactInfo?(v14, v10, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+  if (v16(&v14[v15], 1, v4) == 1)
   {
-    outlined destroy of NCProtoContactInfo(v12, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+    outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
 LABEL_6:
-    outlined destroy of NCProtoContactInfo?(v17, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSg_AFtMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSg_AFtMR);
+    outlined destroy of NCProtoContactInfo?(v14, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSg_AFtMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSg_AFtMR);
     goto LABEL_7;
   }
 
-  outlined init with take of NCProtoContactInfo(&v17[v18], v8, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
-  v21 = specialized static NCProtoIDSProxyMessage.OneOf_Message.== infix(_:_:)(v12, v8);
-  outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
-  outlined destroy of NCProtoContactInfo(v12, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
-  outlined destroy of NCProtoContactInfo?(v17, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
-  if (v21)
+  outlined init with take of NCProtoContactInfo(&v14[v15], v7, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+  v18 = specialized static NCProtoIDSProxyMessage.OneOf_Message.== infix(_:_:)(v10, v7);
+  outlined destroy of NCProtoContactInfo(v7, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+  outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+  outlined destroy of NCProtoContactInfo?(v14, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0OSgMR);
+  if (v18)
   {
     goto LABEL_9;
   }
 
 LABEL_7:
-  v20 = 0;
-  return v20 & 1;
+  v17 = 0;
+  return v17 & 1;
 }
 
-uint64_t specialized static NCProtoIDSProxyMessage.Resource.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
+uint64_t specialized static NCProtoIDSProxyMessage.Resource.== infix(_:_:)(_BOOL8 *a1, uint64_t *a2)
 {
-  if ((specialized static Data.== infix(_:_:)(*a1, a1[1], *a2, a2[1]) & 1) == 0 || (specialized static Data.== infix(_:_:)(a1[2], a1[3], a2[2], a2[3]) & 1) == 0 || (a1[4] != a2[4] || a1[5] != a2[5]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (_sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_21InternalSwiftProtobuf07Google_D6_ValueVTt1g5(a1[6], a2[6]) & 1) == 0)
+  if (!specialized static Data.== infix(_:_:)(*a1, a1[1], *a2, a2[1]) || !specialized static Data.== infix(_:_:)(a1[2], a1[3], a2[2], a2[3]) || (a1[4] != a2[4] || a1[5] != a2[5]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (_sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_21InternalSwiftProtobuf07Google_D6_ValueVTt1g5(a1[6], a2[6]) & 1) == 0)
   {
     return 0;
   }
 
-  v4 = *(type metadata accessor for NCProtoIDSProxyMessage.Resource(0) + 32);
+  type metadata accessor for NCProtoIDSProxyMessage.Resource(0);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -8813,13 +8013,12 @@ uint64_t specialized static NCProtoIDSProxyMessage.GroupUpdate.== infix(_:_:)(un
   if (*(a1 + 1) != *(a2 + 1) || *(a1 + 2) != *(a2 + 2))
   {
     v3 = a1;
-    v4 = *(a1 + 1);
-    v5 = a2;
-    v6 = _stringCompareWithSmolCheck(_:_:expecting:)();
-    a2 = v5;
-    v7 = v6;
+    v4 = a2;
+    v5 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    a2 = v4;
+    v6 = v5;
     a1 = v3;
-    if ((v7 & 1) == 0)
+    if ((v6 & 1) == 0)
     {
       return 0;
     }
@@ -8832,14 +8031,13 @@ uint64_t specialized static NCProtoIDSProxyMessage.GroupUpdate.== infix(_:_:)(un
 
   if (*(a1 + 4) != *(a2 + 4) || *(a1 + 5) != *(a2 + 5))
   {
-    v8 = a1;
-    v9 = *(a1 + 4);
-    v10 = a2;
-    v11 = _stringCompareWithSmolCheck(_:_:expecting:)();
-    a2 = v10;
-    v12 = v11;
-    a1 = v8;
-    if ((v12 & 1) == 0)
+    v7 = a1;
+    v8 = a2;
+    v9 = _stringCompareWithSmolCheck(_:_:expecting:)();
+    a2 = v8;
+    v10 = v9;
+    a1 = v7;
+    if ((v10 & 1) == 0)
     {
       return 0;
     }
@@ -8865,21 +8063,21 @@ uint64_t specialized static NCProtoIDSProxyMessage.GroupUpdate.== infix(_:_:)(un
     return 0;
   }
 
-  v13 = a1;
-  v14 = a2;
-  if ((specialized static Data.== infix(_:_:)(*(a1 + 10), *(a1 + 11), *(a2 + 10), *(a2 + 11)) & 1) == 0 || (specialized static Data.== infix(_:_:)(v13[12], v13[13], v14[12], v14[13]) & 1) == 0 || (_sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(v13[14], v14[14]) & 1) == 0 || (_sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListVTt1g5(v13[15], v14[15]) & 1) == 0)
+  v11 = a1;
+  v12 = a2;
+  if (!specialized static Data.== infix(_:_:)(*(a1 + 10), *(a1 + 11), *(a2 + 10), *(a2 + 11)) || !specialized static Data.== infix(_:_:)(*(v11 + 12), *(v11 + 13), *(v12 + 12), *(v12 + 13)) || (_sSasSQRzlE2eeoiySbSayxG_ABtFZSS_Tt1g5(*(v11 + 14), *(v12 + 14)) & 1) == 0 || (_sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV17ParticipantIDListVTt1g5(*(v11 + 15), *(v12 + 15)) & 1) == 0)
   {
     return 0;
   }
 
-  if ((v13[16] != v14[16] || v13[17] != v14[17]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
+  if ((*(v11 + 16) != *(v12 + 16) || *(v11 + 17) != *(v12 + 17)) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
   {
     return 0;
   }
 
-  v15 = *(type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate(0) + 68);
+  type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate(0);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -8890,22 +8088,21 @@ uint64_t specialized static NCProtoContinuityCall.== infix(_:_:)(uint64_t a1, ui
   v6 = *(a2 + v4);
   if (v5 != v6)
   {
-    v7 = *(a1 + v4);
 
-    v8 = closure #1 in static NCProtoContinuityCall.== infix(_:_:)(v5, v6);
+    v7 = closure #1 in static NCProtoContinuityCall.== infix(_:_:)(v5, v6);
 
-    if (!v8)
+    if (!v7)
     {
       return 0;
     }
   }
 
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
-uint64_t specialized static NCProtoContactInfo.== infix(_:_:)(void *a1, void *a2)
+uint64_t specialized static NCProtoContactInfo.== infix(_:_:)(uint64_t *a1, void *a2)
 {
   v4 = *a1 == *a2 && a1[1] == a2[1];
   if (!v4 && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0)
@@ -8919,13 +8116,13 @@ uint64_t specialized static NCProtoContactInfo.== infix(_:_:)(void *a1, void *a2
     return 0;
   }
 
-  if ((a1[6] != a2[6] || a1[7] != a2[7]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (a1[8] != a2[8] || a1[9] != a2[9]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (a1[10] != a2[10] || a1[11] != a2[11]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (specialized static Data.== infix(_:_:)(a1[12], a1[13], a2[12], a2[13]) & 1) == 0)
+  if ((a1[6] != a2[6] || a1[7] != a2[7]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (a1[8] != a2[8] || a1[9] != a2[9]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || (a1[10] != a2[10] || a1[11] != a2[11]) && (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) == 0 || !specialized static Data.== infix(_:_:)(a1[12], a1[13], a2[12], a2[13]))
   {
     return 0;
   }
 
   v6 = type metadata accessor for NCProtoContactInfo(0);
-  v7 = v6[12];
+  v7 = *(v6 + 48);
   v8 = (a1 + v7);
   v9 = *(a1 + v7 + 8);
   v10 = (a2 + v7);
@@ -8954,36 +8151,24 @@ uint64_t specialized static NCProtoContactInfo.== infix(_:_:)(void *a1, void *a2
     return 0;
   }
 
-  v14 = v6[13];
+  v14 = *(v6 + 52);
   v15 = (a1 + v14);
   v16 = *(a1 + v14 + 8);
   v17 = (a2 + v14);
   v18 = v17[1];
   if (v16)
   {
-    if (v18)
+    if (v18 && (*v15 == *v17 && v16 == v18 || (_stringCompareWithSmolCheck(_:_:expecting:)() & 1) != 0))
     {
-      if (*v15 == *v17 && v16 == v18)
-      {
-        goto LABEL_36;
-      }
-
-      v19 = v6;
-      v20 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v6 = v19;
-      if (v20)
-      {
-        goto LABEL_36;
-      }
+      goto LABEL_36;
     }
   }
 
   else if (!v18)
   {
 LABEL_36:
-    v21 = v6[11];
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
     return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
   }
 
@@ -8992,14 +8177,14 @@ LABEL_36:
 
 uint64_t specialized static NCProtoJoinEvent.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  if ((specialized static Data.== infix(_:_:)(*a1, *(a1 + 8), *a2, *(a2 + 8)) & 1) == 0 || (specialized static Data.== infix(_:_:)(*(a1 + 16), *(a1 + 24), *(a2 + 16), *(a2 + 24)) & 1) == 0 || (_sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_SbTt1g5(*(a1 + 32), *(a2 + 32)) & 1) == 0)
+  if (!specialized static Data.== infix(_:_:)(*a1, *(a1 + 8), *a2, *(a2 + 8)) || !specialized static Data.== infix(_:_:)(*(a1 + 16), *(a1 + 24), *(a2 + 16), *(a2 + 24)) || (_sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_SbTt1g5(*(a1 + 32), *(a2 + 32)) & 1) == 0)
   {
     return 0;
   }
 
-  v4 = *(type metadata accessor for NCProtoJoinEvent(0) + 28);
+  type metadata accessor for NCProtoJoinEvent(0);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
@@ -9110,7 +8295,7 @@ LABEL_13:
     }
 
     type metadata accessor for UnknownStorage();
-    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+    lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
     return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
   }
 
@@ -9121,150 +8306,146 @@ uint64_t specialized static NCProtoCallInfo.== infix(_:_:)(uint64_t *a1, uint64_
 {
   v4 = type metadata accessor for NCProtoSenderIdentity(0);
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = (&v69 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
-  v10 = *(*(v9 - 8) + 64);
-  MEMORY[0x28223BE20](v9 - 8);
-  v12 = (&v69 - v11);
-  v13 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSg_ADtMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSg_ADtMR);
-  v14 = *(*(v13 - 8) + 64);
-  MEMORY[0x28223BE20](v13);
-  v16 = &v69 - v15;
-  v17 = type metadata accessor for NCProtoCallInfo(0);
-  v18 = v17[6];
-  v19 = (a1 + v18);
-  v20 = *(a1 + v18 + 8);
-  v21 = (a2 + v18);
-  v22 = v21[1];
-  if (v20)
+  v7 = (&v64 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v8 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = (&v64 - v9);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSg_ADtMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSg_ADtMR);
+  MEMORY[0x28223BE20](v11);
+  v13 = &v64 - v12;
+  v14 = type metadata accessor for NCProtoCallInfo(0);
+  v15 = v14[6];
+  v16 = (a1 + v15);
+  v17 = *(a1 + v15 + 8);
+  v18 = (a2 + v15);
+  v19 = v18[1];
+  if (v17)
   {
-    if (!v22)
+    if (!v19)
     {
       goto LABEL_63;
     }
 
-    if (*v19 != *v21 || v20 != v22)
+    if (*v16 != *v18 || v17 != v19)
     {
-      v24 = v17;
-      v25 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v17 = v24;
-      if ((v25 & 1) == 0)
+      v21 = v14;
+      v22 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v14 = v21;
+      if ((v22 & 1) == 0)
       {
         goto LABEL_63;
       }
     }
   }
 
-  else if (v22)
+  else if (v19)
   {
     goto LABEL_63;
   }
 
-  v26 = v17[7];
-  v27 = (a1 + v26);
-  v28 = *(a1 + v26 + 8);
-  v29 = (a2 + v26);
-  v30 = v29[1];
-  if (v28)
+  v23 = v14[7];
+  v24 = (a1 + v23);
+  v25 = *(a1 + v23 + 8);
+  v26 = (a2 + v23);
+  v27 = v26[1];
+  if (v25)
   {
-    if (!v30)
+    if (!v27)
     {
       goto LABEL_63;
     }
 
-    if (*v27 != *v29 || v28 != v30)
+    if (*v24 != *v26 || v25 != v27)
     {
-      v32 = v17;
-      v33 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v17 = v32;
-      if ((v33 & 1) == 0)
+      v29 = v14;
+      v30 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v14 = v29;
+      if ((v30 & 1) == 0)
       {
         goto LABEL_63;
       }
     }
   }
 
-  else if (v30)
+  else if (v27)
   {
     goto LABEL_63;
   }
 
-  v34 = v17[8];
-  v35 = (a1 + v34);
-  v36 = *(a1 + v34 + 8);
-  v37 = (a2 + v34);
-  v38 = v37[1];
-  if (v36)
+  v31 = v14[8];
+  v32 = (a1 + v31);
+  v33 = *(a1 + v31 + 8);
+  v34 = (a2 + v31);
+  v35 = v34[1];
+  if (v33)
   {
-    if (!v38)
+    if (!v35)
     {
       goto LABEL_63;
     }
 
-    if (*v35 != *v37 || v36 != v38)
+    if (*v32 != *v34 || v33 != v35)
     {
-      v39 = v17;
-      v40 = _stringCompareWithSmolCheck(_:_:expecting:)();
-      v17 = v39;
-      if ((v40 & 1) == 0)
+      v36 = v14;
+      v37 = _stringCompareWithSmolCheck(_:_:expecting:)();
+      v14 = v36;
+      if ((v37 & 1) == 0)
       {
         goto LABEL_63;
       }
     }
   }
 
-  else if (v38)
+  else if (v35)
   {
     goto LABEL_63;
   }
 
-  v41 = v17[9];
-  v42 = *(a1 + v41);
-  v43 = *(a2 + v41);
-  if (v42 == 2)
+  v38 = v14[9];
+  v39 = *(a1 + v38);
+  v40 = *(a2 + v38);
+  if (v39 == 2)
   {
-    if (v43 != 2)
+    if (v40 != 2)
     {
       goto LABEL_63;
     }
   }
 
-  else if (v43 == 2 || ((v42 ^ v43) & 1) != 0)
+  else if (v40 == 2 || ((v39 ^ v40) & 1) != 0)
   {
     goto LABEL_63;
   }
 
-  v70 = v17;
+  v65 = v14;
   if ((_sSDsSQR_rlE2eeoiySbSDyxq_G_ABtFZSS_SSTt1g5(*a1, *a2) & 1) == 0)
   {
     goto LABEL_63;
   }
 
-  v44 = v70[10];
-  v45 = *(v13 + 48);
-  outlined init with copy of NCProtoContactInfo?(a1 + v44, v16, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
-  v46 = a2 + v44;
-  v47 = v45;
-  outlined init with copy of NCProtoContactInfo?(v46, &v16[v45], &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
-  v48 = *(v5 + 48);
-  if (v48(v16, 1, v4) != 1)
+  v41 = v65[10];
+  v42 = *(v11 + 48);
+  outlined init with copy of NCProtoContactInfo?(a1 + v41, v13, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
+  v43 = a2 + v41;
+  v44 = v42;
+  outlined init with copy of NCProtoContactInfo?(v43, &v13[v42], &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
+  v45 = *(v5 + 48);
+  if (v45(v13, 1, v4) != 1)
   {
-    outlined init with copy of NCProtoContactInfo?(v16, v12, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
-    if (v48(&v16[v47], 1, v4) != 1)
+    outlined init with copy of NCProtoContactInfo?(v13, v10, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
+    if (v45(&v13[v44], 1, v4) != 1)
     {
-      outlined init with take of NCProtoContactInfo(&v16[v47], v8, type metadata accessor for NCProtoSenderIdentity);
-      if (*v12 == *v8 && v12[1] == v8[1] || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (v12[2] == v8[2] && v12[3] == v8[3] || (_stringCompareWithSmolCheck(_:_:expecting:)()))
+      outlined init with take of NCProtoContactInfo(&v13[v44], v7, type metadata accessor for NCProtoSenderIdentity);
+      if (*v10 == *v7 && v10[1] == v7[1] || (_stringCompareWithSmolCheck(_:_:expecting:)()) && (v10[2] == v7[2] && v10[3] == v7[3] || (_stringCompareWithSmolCheck(_:_:expecting:)()))
       {
-        v52 = *(v4 + 24);
         type metadata accessor for UnknownStorage();
-        lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-        v53 = dispatch thunk of static Equatable.== infix(_:_:)();
-        outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoSenderIdentity);
-        outlined destroy of NCProtoContactInfo(v12, type metadata accessor for NCProtoSenderIdentity);
-        outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
-        if ((v53 & 1) == 0)
+        lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+        v49 = dispatch thunk of static Equatable.== infix(_:_:)();
+        outlined destroy of NCProtoContactInfo(v7, type metadata accessor for NCProtoSenderIdentity);
+        outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoSenderIdentity);
+        outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
+        if ((v49 & 1) == 0)
         {
           goto LABEL_63;
         }
@@ -9272,95 +8453,94 @@ uint64_t specialized static NCProtoCallInfo.== infix(_:_:)(uint64_t *a1, uint64_
         goto LABEL_46;
       }
 
-      outlined destroy of NCProtoContactInfo(v8, type metadata accessor for NCProtoSenderIdentity);
-      outlined destroy of NCProtoContactInfo(v12, type metadata accessor for NCProtoSenderIdentity);
-      v49 = &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd;
-      v50 = &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR;
+      outlined destroy of NCProtoContactInfo(v7, type metadata accessor for NCProtoSenderIdentity);
+      outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoSenderIdentity);
+      v46 = &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd;
+      v47 = &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR;
 LABEL_38:
-      outlined destroy of NCProtoContactInfo?(v16, v49, v50);
-      v51 = 0;
-      return v51 & 1;
+      outlined destroy of NCProtoContactInfo?(v13, v46, v47);
+      v48 = 0;
+      return v48 & 1;
     }
 
-    outlined destroy of NCProtoContactInfo(v12, type metadata accessor for NCProtoSenderIdentity);
+    outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoSenderIdentity);
 LABEL_37:
-    v49 = &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSg_ADtMd;
-    v50 = &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSg_ADtMR;
+    v46 = &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSg_ADtMd;
+    v47 = &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSg_ADtMR;
     goto LABEL_38;
   }
 
-  if (v48(&v16[v47], 1, v4) != 1)
+  if (v45(&v13[v44], 1, v4) != 1)
   {
     goto LABEL_37;
   }
 
-  outlined destroy of NCProtoContactInfo?(v16, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
+  outlined destroy of NCProtoContactInfo?(v13, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMd, &_s27NeighborhoodActivityConduit21NCProtoSenderIdentityVSgMR);
 LABEL_46:
-  v54 = v70[11];
-  v56 = *(a1 + v54);
-  v55 = *(a1 + v54 + 8);
-  v57 = (a2 + v54);
-  v59 = *v57;
-  v58 = v57[1];
-  if (v55 >> 60 == 15)
+  v50 = v65[11];
+  v52 = *(a1 + v50);
+  v51 = *(a1 + v50 + 8);
+  v53 = (a2 + v50);
+  v55 = *v53;
+  v54 = v53[1];
+  if (v51 >> 60 == 15)
   {
-    if (v58 >> 60 == 15)
+    if (v54 >> 60 == 15)
     {
-      outlined copy of Data?(v56, v55);
-      outlined copy of Data?(v59, v58);
-      outlined consume of Data?(v56, v55);
+      outlined copy of Data?(v52, v51);
+      outlined copy of Data?(v55, v54);
+      outlined consume of Data?(v52, v51);
 LABEL_53:
-      v61 = v70[12];
-      v62 = *(a1 + v61);
-      v63 = *(a2 + v61);
-      if (v62 == 2)
+      v57 = v65[12];
+      v58 = *(a1 + v57);
+      v59 = *(a2 + v57);
+      if (v58 == 2)
       {
-        if (v63 != 2)
+        if (v59 != 2)
         {
           goto LABEL_63;
         }
       }
 
-      else if (v63 == 2 || ((v62 ^ v63) & 1) != 0)
+      else if (v59 == 2 || ((v58 ^ v59) & 1) != 0)
       {
         goto LABEL_63;
       }
 
-      v64 = v70[13];
-      v65 = *(a1 + v64);
-      v66 = *(a2 + v64);
-      if (v65 == 2)
+      v60 = v65[13];
+      v61 = *(a1 + v60);
+      v62 = *(a2 + v60);
+      if (v61 == 2)
       {
-        if (v66 == 2)
+        if (v62 == 2)
         {
 LABEL_65:
-          v68 = v70[5];
           type metadata accessor for UnknownStorage();
-          lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
-          v51 = dispatch thunk of static Equatable.== infix(_:_:)();
-          return v51 & 1;
+          lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
+          v48 = dispatch thunk of static Equatable.== infix(_:_:)();
+          return v48 & 1;
         }
       }
 
-      else if (v66 != 2 && ((v65 ^ v66) & 1) == 0)
+      else if (v62 != 2 && ((v61 ^ v62) & 1) == 0)
       {
         goto LABEL_65;
       }
 
 LABEL_63:
-      v51 = 0;
-      return v51 & 1;
+      v48 = 0;
+      return v48 & 1;
     }
   }
 
-  else if (v58 >> 60 != 15)
+  else if (v54 >> 60 != 15)
   {
-    outlined copy of Data?(v56, v55);
-    outlined copy of Data?(v59, v58);
-    v60 = specialized static Data.== infix(_:_:)(v56, v55, v59, v58);
-    outlined consume of Data?(v59, v58);
-    outlined consume of Data?(v56, v55);
-    if ((v60 & 1) == 0)
+    outlined copy of Data?(v52, v51);
+    outlined copy of Data?(v55, v54);
+    v56 = specialized static Data.== infix(_:_:)(v52, v51, v55, v54);
+    outlined consume of Data?(v55, v54);
+    outlined consume of Data?(v52, v51);
+    if (!v56)
     {
       goto LABEL_63;
     }
@@ -9368,17 +8548,17 @@ LABEL_63:
     goto LABEL_53;
   }
 
-  outlined copy of Data?(v56, v55);
-  outlined copy of Data?(v59, v58);
-  outlined consume of Data?(v56, v55);
-  outlined consume of Data?(v59, v58);
-  v51 = 0;
-  return v51 & 1;
+  outlined copy of Data?(v52, v51);
+  outlined copy of Data?(v55, v54);
+  outlined consume of Data?(v52, v51);
+  outlined consume of Data?(v55, v54);
+  v48 = 0;
+  return v48 & 1;
 }
 
-uint64_t specialized static NCProtoIDSProxyMessage.RawData.== infix(_:_:)(uint64_t *a1, uint64_t *a2)
+uint64_t specialized static NCProtoIDSProxyMessage.RawData.== infix(_:_:)(_BOOL8 *a1, uint64_t *a2)
 {
-  if ((specialized static Data.== infix(_:_:)(*a1, a1[1], *a2, a2[1]) & 1) == 0)
+  if (!specialized static Data.== infix(_:_:)(*a1, a1[1], *a2, a2[1]))
   {
     return 0;
   }
@@ -9389,105 +8569,100 @@ uint64_t specialized static NCProtoIDSProxyMessage.RawData.== infix(_:_:)(uint64
     return 0;
   }
 
-  v5 = *(type metadata accessor for NCProtoIDSProxyMessage.RawData(0) + 28);
+  type metadata accessor for NCProtoIDSProxyMessage.RawData(0);
   type metadata accessor for UnknownStorage();
-  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8]);
+  lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(&lazy protocol witness table cache variable for type UnknownStorage and conformance UnknownStorage, MEMORY[0x277D216C8], MEMORY[0x277D216D0]);
   return dispatch thunk of static Equatable.== infix(_:_:)() & 1;
 }
 
 uint64_t specialized static NCProtoIDSProxyMessage.OneOf_Message.== infix(_:_:)(uint64_t a1, uint64_t a2)
 {
-  v39 = a2;
+  v34 = a2;
   v3 = type metadata accessor for NCProtoIDSProxyMessage.Resource(0);
-  v4 = *(*(v3 - 8) + 64);
   MEMORY[0x28223BE20](v3 - 8);
-  v38 = (&v38 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v6 = type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate(0);
-  v7 = *(*(v6 - 8) + 64);
-  MEMORY[0x28223BE20](v6 - 8);
-  v9 = &v38 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = type metadata accessor for NCProtoIDSProxyMessage.RawData(0);
-  v11 = *(*(v10 - 8) + 64);
-  MEMORY[0x28223BE20](v10 - 8);
-  v13 = (&v38 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v14 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
-  v15 = *(*(v14 - 8) + 64);
-  v16 = MEMORY[0x28223BE20](v14);
-  v18 = (&v38 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0));
-  v19 = MEMORY[0x28223BE20](v16);
-  v21 = &v38 - v20;
-  MEMORY[0x28223BE20](v19);
-  v23 = (&v38 - v22);
-  v24 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0O_AEtMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0O_AEtMR);
-  v25 = *(*(v24 - 8) + 64);
-  v26 = MEMORY[0x28223BE20](v24 - 8);
-  v28 = &v38 - v27;
-  v29 = *(v26 + 56);
-  outlined init with copy of NCProtoContactInfo(a1, &v38 - v27, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
-  outlined init with copy of NCProtoContactInfo(v39, &v28[v29], type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+  v33 = (&v33 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v5 = type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate(0);
+  MEMORY[0x28223BE20](v5 - 8);
+  v7 = &v33 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = type metadata accessor for NCProtoIDSProxyMessage.RawData(0);
+  MEMORY[0x28223BE20](v8 - 8);
+  v10 = (&v33 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v11 = type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message(0);
+  v12 = MEMORY[0x28223BE20](v11);
+  v14 = (&v33 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v15 = MEMORY[0x28223BE20](v12);
+  v17 = &v33 - v16;
+  MEMORY[0x28223BE20](v15);
+  v19 = (&v33 - v18);
+  v20 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0O_AEtMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0O_AEtMR);
+  v21 = MEMORY[0x28223BE20](v20 - 8);
+  v23 = &v33 - v22;
+  v24 = *(v21 + 56);
+  outlined init with copy of NCProtoContactInfo(a1, &v33 - v22, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+  outlined init with copy of NCProtoContactInfo(v34, &v23[v24], type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
   EnumCaseMultiPayload = swift_getEnumCaseMultiPayload();
   if (EnumCaseMultiPayload)
   {
     if (EnumCaseMultiPayload == 1)
     {
-      outlined init with copy of NCProtoContactInfo(v28, v21, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+      outlined init with copy of NCProtoContactInfo(v23, v17, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
       if (swift_getEnumCaseMultiPayload() == 1)
       {
-        outlined init with take of NCProtoContactInfo(&v28[v29], v9, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
-        v31 = specialized static NCProtoIDSProxyMessage.GroupUpdate.== infix(_:_:)(v21, v9);
-        v32 = type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate;
-        outlined destroy of NCProtoContactInfo(v9, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
-        v33 = v21;
+        outlined init with take of NCProtoContactInfo(&v23[v24], v7, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
+        v26 = specialized static NCProtoIDSProxyMessage.GroupUpdate.== infix(_:_:)(v17, v7);
+        v27 = type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate;
+        outlined destroy of NCProtoContactInfo(v7, type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate);
+        v28 = v17;
 LABEL_13:
-        outlined destroy of NCProtoContactInfo(v33, v32);
-        outlined destroy of NCProtoContactInfo(v28, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
-        return v31 & 1;
+        outlined destroy of NCProtoContactInfo(v28, v27);
+        outlined destroy of NCProtoContactInfo(v23, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+        return v26 & 1;
       }
 
-      v34 = type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate;
-      v35 = v21;
+      v29 = type metadata accessor for NCProtoIDSProxyMessage.GroupUpdate;
+      v30 = v17;
     }
 
     else
     {
-      outlined init with copy of NCProtoContactInfo(v28, v18, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+      outlined init with copy of NCProtoContactInfo(v23, v14, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
       if (swift_getEnumCaseMultiPayload() == 2)
       {
-        v36 = v38;
-        outlined init with take of NCProtoContactInfo(&v28[v29], v38, type metadata accessor for NCProtoIDSProxyMessage.Resource);
-        v31 = specialized static NCProtoIDSProxyMessage.Resource.== infix(_:_:)(v18, v36);
-        v32 = type metadata accessor for NCProtoIDSProxyMessage.Resource;
-        outlined destroy of NCProtoContactInfo(v36, type metadata accessor for NCProtoIDSProxyMessage.Resource);
-        v33 = v18;
+        v31 = v33;
+        outlined init with take of NCProtoContactInfo(&v23[v24], v33, type metadata accessor for NCProtoIDSProxyMessage.Resource);
+        v26 = specialized static NCProtoIDSProxyMessage.Resource.== infix(_:_:)(v14, v31);
+        v27 = type metadata accessor for NCProtoIDSProxyMessage.Resource;
+        outlined destroy of NCProtoContactInfo(v31, type metadata accessor for NCProtoIDSProxyMessage.Resource);
+        v28 = v14;
         goto LABEL_13;
       }
 
-      v34 = type metadata accessor for NCProtoIDSProxyMessage.Resource;
-      v35 = v18;
+      v29 = type metadata accessor for NCProtoIDSProxyMessage.Resource;
+      v30 = v14;
     }
   }
 
   else
   {
-    outlined init with copy of NCProtoContactInfo(v28, v23, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
+    outlined init with copy of NCProtoContactInfo(v23, v19, type metadata accessor for NCProtoIDSProxyMessage.OneOf_Message);
     if (!swift_getEnumCaseMultiPayload())
     {
-      outlined init with take of NCProtoContactInfo(&v28[v29], v13, type metadata accessor for NCProtoIDSProxyMessage.RawData);
-      v31 = specialized static NCProtoIDSProxyMessage.RawData.== infix(_:_:)(v23, v13);
-      v32 = type metadata accessor for NCProtoIDSProxyMessage.RawData;
-      outlined destroy of NCProtoContactInfo(v13, type metadata accessor for NCProtoIDSProxyMessage.RawData);
-      v33 = v23;
+      outlined init with take of NCProtoContactInfo(&v23[v24], v10, type metadata accessor for NCProtoIDSProxyMessage.RawData);
+      v26 = specialized static NCProtoIDSProxyMessage.RawData.== infix(_:_:)(v19, v10);
+      v27 = type metadata accessor for NCProtoIDSProxyMessage.RawData;
+      outlined destroy of NCProtoContactInfo(v10, type metadata accessor for NCProtoIDSProxyMessage.RawData);
+      v28 = v19;
       goto LABEL_13;
     }
 
-    v34 = type metadata accessor for NCProtoIDSProxyMessage.RawData;
-    v35 = v23;
+    v29 = type metadata accessor for NCProtoIDSProxyMessage.RawData;
+    v30 = v19;
   }
 
-  outlined destroy of NCProtoContactInfo(v35, v34);
-  outlined destroy of NCProtoContactInfo?(v28, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0O_AEtMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0O_AEtMR);
-  v31 = 0;
-  return v31 & 1;
+  outlined destroy of NCProtoContactInfo(v30, v29);
+  outlined destroy of NCProtoContactInfo?(v23, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0O_AEtMd, &_s27NeighborhoodActivityConduit22NCProtoIDSProxyMessageV06OneOf_F0O_AEtMR);
+  v26 = 0;
+  return v26 & 1;
 }
 
 uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
@@ -9545,7 +8720,7 @@ unint64_t lazy protocol witness table accessor for type NCProtoContactHandleAnon
   return result;
 }
 
-uint64_t lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t lazy protocol witness table accessor for type NCProtoContactInfo and conformance NCProtoContactInfo(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9781,4 +8956,786 @@ unint64_t lazy protocol witness table accessor for type NCProtoContactImageType 
   }
 
   return result;
+}
+
+unint64_t lazy protocol witness table accessor for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action()
+{
+  result = lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action;
+  if (!lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action;
+  if (!lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action;
+  if (!lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action;
+  if (!lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoIncomingCallBannerActionRequest.Action and conformance NCProtoIncomingCallBannerActionRequest.Action);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType()
+{
+  result = lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType;
+  if (!lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType;
+  if (!lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType;
+  if (!lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType;
+  if (!lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoMemberAssociationPrimaryInfo.MemberAssociationType and conformance NCProtoMemberAssociationPrimaryInfo.MemberAssociationType);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode()
+{
+  result = lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode;
+  if (!lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode;
+  if (!lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode;
+  if (!lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode;
+  if (!lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationAVMode and conformance NCProtoConversationAVMode);
+  }
+
+  return result;
+}
+
+uint64_t __swift_instantiateConcreteTypeFromMangledNameAbstractV2(uint64_t *a1, uint64_t *a2)
+{
+  result = *a1;
+  if (!result)
+  {
+    result = swift_getTypeByMangledNameInContextInMetadataState2();
+    *a1 = result;
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type NCProtoConversationState and conformance NCProtoConversationState()
+{
+  result = lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState;
+  if (!lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState;
+  if (!lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState;
+  if (!lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState;
+  if (!lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationState and conformance NCProtoConversationState);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState()
+{
+  result = lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState;
+  if (!lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState;
+  if (!lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState;
+  if (!lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState;
+  if (!lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoConversationLetMeInRequestState and conformance NCProtoConversationLetMeInRequestState);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status()
+{
+  result = lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status;
+  if (!lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status;
+  if (!lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status;
+  if (!lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status;
+  if (!lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoContinuityCall.Status and conformance NCProtoContinuityCall.Status);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service()
+{
+  result = lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service;
+  if (!lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service;
+  if (!lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service;
+  if (!lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service;
+  if (!lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoContinuityCall.Service and conformance NCProtoContinuityCall.Service);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason()
+{
+  result = lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason;
+  if (!lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason;
+  if (!lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason;
+  if (!lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason;
+  if (!lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoPullLagunaSessionToTVRequest.Reason and conformance NCProtoPullLagunaSessionToTVRequest.Reason);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType()
+{
+  result = lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType;
+  if (!lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType;
+  if (!lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType;
+  if (!lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType;
+  if (!lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoGetDestinationCapabilitiesRequest.DestinationType and conformance NCProtoGetDestinationCapabilitiesRequest.DestinationType);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType()
+{
+  result = lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType;
+  if (!lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType;
+  if (!lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType;
+  if (!lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType;
+  if (!lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoDeviceTokenRequest.ConversationHandoffType and conformance NCProtoDeviceTokenRequest.ConversationHandoffType);
+  }
+
+  return result;
+}
+
+unint64_t lazy protocol witness table accessor for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason()
+{
+  result = lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason;
+  if (!lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason;
+  if (!lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason;
+  if (!lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason);
+  }
+
+  return result;
+}
+
+{
+  result = lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason;
+  if (!lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason)
+  {
+    result = swift_getWitnessTable();
+    atomic_store(result, &lazy protocol witness table cache variable for type NCProtoDisconnectRequest.DisconnectReason and conformance NCProtoDisconnectRequest.DisconnectReason);
+  }
+
+  return result;
+}
+
+uint64_t lazy protocol witness table accessor for type [NCProtoConversationAVMode] and conformance [A](unint64_t *a1, uint64_t *a2, uint64_t *a3)
+{
+  result = *a1;
+  if (!result)
+  {
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(a2, a3);
+    result = swift_getWitnessTable();
+    atomic_store(result, a1);
+  }
+
+  return result;
+}
+
+uint64_t __swift_memcpy9_8(uint64_t result, uint64_t *a2)
+{
+  v2 = *a2;
+  *(result + 8) = *(a2 + 8);
+  *result = v2;
+  return result;
+}
+
+void type metadata completion function for NCProtoContactInfo(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
+}
+
+uint64_t type metadata completion function for NCProtoContactHandleAnonym(uint64_t a1)
+{
+  result = type metadata accessor for UnknownStorage();
+  if (v2 <= 0x3F)
+  {
+    swift_cvw_initStructMetadataWithLayoutString();
+    return 0;
+  }
+
+  return result;
+}
+
+void type metadata completion function for NCProtoContinuityFavorite(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for NCProtoContactInfo?, type metadata accessor for NCProtoContactInfo, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for NCProtoContactHandleAnonym?, type metadata accessor for NCProtoContactHandleAnonym, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata accessor for NCProtoContactInfo?(uint64_t a1, unint64_t *a2, uint64_t (*a3)(uint64_t), uint64_t (*a4)(uint64_t, uint64_t))
+{
+  if (!*a2)
+  {
+    v7 = a3(255);
+    v8 = a4(a1, v7);
+    if (!v9)
+    {
+      atomic_store(v8, a2);
+    }
+  }
+}
+
+void type metadata completion function for NCProtoAddressableContact(uint64_t a1)
+{
+  type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for [NCProtoContactHandleAnonym], type metadata accessor for NCProtoContactHandleAnonym, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for UnknownStorage();
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for NCProtoContactInfo?, type metadata accessor for NCProtoContactInfo, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        swift_cvw_initStructMetadataWithLayoutString();
+      }
+    }
+  }
+}
+
+void type metadata completion function for NCProtoActiveConversation(uint64_t a1)
+{
+  type metadata accessor for String?(319, &lazy cache variable for type metadata for [String], MEMORY[0x277D837D0], MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for UnknownStorage();
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for String?(319, &lazy cache variable for type metadata for String?, MEMORY[0x277D837D0], MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for String?(319, &lazy cache variable for type metadata for NCProtoConversationAVMode?, &type metadata for NCProtoConversationAVMode, MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for String?(319, &lazy cache variable for type metadata for UInt64?, MEMORY[0x277D84D38], MEMORY[0x277D83D88]);
+          if (v5 <= 0x3F)
+          {
+            type metadata accessor for String?(319, &lazy cache variable for type metadata for NCProtoConversationState?, &type metadata for NCProtoConversationState, MEMORY[0x277D83D88]);
+            if (v6 <= 0x3F)
+            {
+              type metadata accessor for String?(319, &lazy cache variable for type metadata for NCProtoConversationLetMeInRequestState?, &type metadata for NCProtoConversationLetMeInRequestState, MEMORY[0x277D83D88]);
+              if (v7 <= 0x3F)
+              {
+                type metadata accessor for String?(319, &lazy cache variable for type metadata for Data?, MEMORY[0x277CC9318], MEMORY[0x277D83D88]);
+                if (v8 <= 0x3F)
+                {
+                  swift_cvw_initStructMetadataWithLayoutString();
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+uint64_t type metadata completion function for NCProtoContinuityCall(uint64_t a1)
+{
+  result = type metadata accessor for UnknownStorage();
+  if (v2 <= 0x3F)
+  {
+    result = type metadata accessor for NCProtoContinuityCall._StorageClass(319);
+    if (v3 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void type metadata completion function for NCProtoStartedSessionEvent(uint64_t a1)
+{
+  type metadata accessor for UnknownStorage();
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for NCProtoMemberAssociationPrimaryInfo?, type metadata accessor for NCProtoMemberAssociationPrimaryInfo, MEMORY[0x277D83D88]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for String?(319, &lazy cache variable for type metadata for NCProtoConversationAVMode?, &type metadata for NCProtoConversationAVMode, MEMORY[0x277D83D88]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for String?(319, &lazy cache variable for type metadata for Bool?, MEMORY[0x277D839B0], MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+uint64_t type metadata completion function for NCProtoAddMemberResponse(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t (*a6)(uint64_t, uint64_t, uint64_t))
+{
+  result = a6(319, a4, a5);
+  if (v7 <= 0x3F)
+  {
+    result = type metadata accessor for UnknownStorage();
+    if (v8 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+      return 0;
+    }
+  }
+
+  return result;
+}
+
+void type metadata completion function for NCProtoRecentCallsDidChangeEvent(uint64_t a1)
+{
+  type metadata accessor for String?(319, &lazy cache variable for type metadata for [Data], MEMORY[0x277CC9318], MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [String : NCProtoContactInfo](319, &lazy cache variable for type metadata for [String : NCProtoContactInfo], type metadata accessor for NCProtoContactInfo);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for [String : NCProtoContactInfo](319, &lazy cache variable for type metadata for [String : NCProtoCallInfo], type metadata accessor for NCProtoCallInfo);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for UnknownStorage();
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for NCProtoLagunaConnectionRequest(uint64_t a1)
+{
+  type metadata accessor for String?(319, &lazy cache variable for type metadata for [Data], MEMORY[0x277CC9318], MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for [String : NCProtoContactInfo](319, &lazy cache variable for type metadata for [String : NCProtoContactInfo], type metadata accessor for NCProtoContactInfo);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for [NCProtoActiveConversation], type metadata accessor for NCProtoActiveConversation, MEMORY[0x277D83940]);
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for [NCProtoContinuityFavorite], type metadata accessor for NCProtoContinuityFavorite, MEMORY[0x277D83940]);
+        if (v4 <= 0x3F)
+        {
+          type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for [NCProtoContinuityCall], type metadata accessor for NCProtoContinuityCall, MEMORY[0x277D83940]);
+          if (v5 <= 0x3F)
+          {
+            type metadata accessor for [String : NCProtoContactInfo](319, &lazy cache variable for type metadata for [String : NCProtoCallInfo], type metadata accessor for NCProtoCallInfo);
+            if (v6 <= 0x3F)
+            {
+              type metadata accessor for UnknownStorage();
+              if (v7 <= 0x3F)
+              {
+                type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for NCProtoCallState?, type metadata accessor for NCProtoCallState, MEMORY[0x277D83D88]);
+                if (v8 <= 0x3F)
+                {
+                  swift_cvw_initStructMetadataWithLayoutString();
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for NCProtoNearbyCallStatusChangedEvent(uint64_t a1)
+{
+  type metadata accessor for NCProtoContactInfo?(319, &lazy cache variable for type metadata for [NCProtoContinuityCall], type metadata accessor for NCProtoContinuityCall, MEMORY[0x277D83940]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for String?(319, &lazy cache variable for type metadata for [String], MEMORY[0x277D837D0], MEMORY[0x277D83940]);
+    if (v2 <= 0x3F)
+    {
+      type metadata accessor for UnknownStorage();
+      if (v3 <= 0x3F)
+      {
+        type metadata accessor for String?(319, &lazy cache variable for type metadata for Data?, MEMORY[0x277CC9318], MEMORY[0x277D83D88]);
+        if (v4 <= 0x3F)
+        {
+          swift_cvw_initStructMetadataWithLayoutString();
+        }
+      }
+    }
+  }
+}
+
+void type metadata completion function for NCProtoBlockedListUpdateEvent(uint64_t a1)
+{
+  type metadata accessor for [String : Bool](319, &lazy cache variable for type metadata for [String : Bool], MEMORY[0x277D839B0]);
+  if (v1 <= 0x3F)
+  {
+    type metadata accessor for UnknownStorage();
+    if (v2 <= 0x3F)
+    {
+      swift_cvw_initStructMetadataWithLayoutString();
+    }
+  }
 }

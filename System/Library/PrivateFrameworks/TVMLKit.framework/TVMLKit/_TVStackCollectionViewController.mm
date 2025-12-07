@@ -934,7 +934,7 @@ LABEL_51:
           v29 = v28;
           if (v28)
           {
-            [v28 rowMetrics];
+            objc_msgSend_rowMetrics(v28);
             v30 = *(&v71 + 1);
           }
 
@@ -965,7 +965,7 @@ LABEL_51:
       v67 = 0uLL;
       if (v7)
       {
-        [v7 rowMetrics];
+        objc_msgSend_rowMetrics(v7);
         v32 = *(&v62 + 1);
       }
 
@@ -990,7 +990,7 @@ LABEL_51:
       v49 = v20;
       if (v7)
       {
-        [v7 rowMetrics];
+        objc_msgSend_rowMetrics(v7);
       }
 
       else
@@ -1061,7 +1061,7 @@ LABEL_32:
           v41 = v40;
           if (v40)
           {
-            [v40 rowMetrics];
+            objc_msgSend_rowMetrics(v40);
             v42 = *(&v53 + 1);
           }
 
@@ -1087,7 +1087,7 @@ LABEL_32:
       {
         if (v45)
         {
-          [v45 rowMetrics];
+          objc_msgSend_rowMetrics(v45);
           v47 = v52;
           goto LABEL_47;
         }
@@ -1095,7 +1095,7 @@ LABEL_32:
 
       else if (v45)
       {
-        [v45 rowMetrics];
+        objc_msgSend_rowMetrics(v45);
         v47 = v51;
 LABEL_47:
 
@@ -1238,7 +1238,7 @@ LABEL_49:
                 v36 = v35;
                 if (v35)
                 {
-                  [v35 rowMetrics];
+                  objc_msgSend_rowMetrics(v35);
                 }
 
                 else

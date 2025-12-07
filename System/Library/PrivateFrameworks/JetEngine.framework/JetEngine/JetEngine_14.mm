@@ -90,7 +90,7 @@ uint64_t BrotliEncoderSetParameter(uint64_t a1, int a2, unsigned int a3)
   return 1;
 }
 
-void *(**BrotliEncoderCreateInstance(void *(*a1)(int a1, size_t size), void (*a2)(int a1, void *a2), void *(*a3)(int a1, size_t size)))(int a1, size_t size)
+void *(**BrotliEncoderCreateInstance(uint64_t (*a1)(uint64_t, size_t), void (*a2)(int a1, void *a2), void *(*a3)(int a1, size_t size)))(int a1, size_t size)
 {
   v6 = BrotliBootstrapAlloc(0x1B40uLL, a1, a2, a3);
   v7 = v6;
@@ -131,12 +131,12 @@ void *(**BrotliEncoderCreateInstance(void *(*a1)(int a1, size_t size), void (*a2
   return v7;
 }
 
-uint64_t BrotliEncoderDestroyInstance(uint64_t result)
+void *BrotliEncoderDestroyInstance(void *result)
 {
   if (result)
   {
     v1 = result;
-    BrotliFree(result + 1400);
+    BrotliFree((result + 175));
     v1[203] = 0;
     BrotliFree((v1 + 175));
     v1[185] = 0;
@@ -176,7 +176,7 @@ uint64_t BrotliEncoderDestroyInstance(uint64_t result)
     v1[862] = 0;
     BrotliFree((v1 + 175));
     v1[863] = 0;
-    BrotliCleanupSharedEncoderDictionary((v1 + 175), (v1 + 10));
+    BrotliCleanupSharedEncoderDictionary((v1 + 175), v1 + 10);
 
     return BrotliBootstrapFree(v1, (v1 + 175));
   }
@@ -184,7 +184,7 @@ uint64_t BrotliEncoderDestroyInstance(uint64_t result)
   return result;
 }
 
-uint64_t BrotliEncoderMaxCompressedSize(unint64_t a1)
+unint64_t BrotliEncoderMaxCompressedSize(unint64_t a1)
 {
   v1 = a1 + 4 * (a1 >> 14) + 6;
   if (v1 < a1)
@@ -336,7 +336,7 @@ uint64_t BrotliEncoderCompress(int a1, int a2, int a3, unint64_t a4, char *a5, u
   return 0;
 }
 
-uint64_t BrotliEncoderCompressStream(uint64_t a1, int a2, unint64_t *a3, const void **a4, size_t *a5, void **a6, size_t *a7)
+uint64_t BrotliEncoderCompressStream(uint64_t a1, int a2, unint64_t *a3, const void **a4, size_t *a5, void **a6, unint64_t *a7)
 {
   if (*(a1 + 6972))
   {
@@ -3102,7 +3102,7 @@ uint64_t BrotliEncoderTakeOutput(uint64_t a1, unint64_t *a2)
   return v4;
 }
 
-uint64_t BrotliEncoderPrepareDictionary(int a1, unint64_t a2, uint64_t a3, uint64_t a4, void *(*a5)(int a1, size_t size), void (*a6)(int a1, void *a2), void *(*a7)(int a1, size_t size))
+uint64_t BrotliEncoderPrepareDictionary(int a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t (*a5)(uint64_t, size_t), void (*a6)(int a1, void *a2), void *(*a7)(int a1, size_t size))
 {
   if (a1)
   {
@@ -5233,13 +5233,13 @@ uint64_t BrotliZopfliComputeShortestPath(uint64_t a1, unint64_t a2, uint64_t a3,
     v17 = 0;
   }
 
-  v18 = v10[11];
-  v203 = v10[12];
+  v18 = *(v10 + 88);
+  v203 = *(v10 + 96);
   v19 = BrotliAllocate(a1);
   *a10 = 0;
   a10[3] = 0;
   v187 = a1;
-  InitZopfliCostModel(a1, v19, (v10 + 7), a2);
+  InitZopfliCostModel(a1, v19, v10 + 56, a2);
   v207 = v19;
   v210 = a3;
   ZopfliCostModelSetFromLiteralCosts(v19, a3, a4, a5);
@@ -5254,15 +5254,15 @@ uint64_t BrotliZopfliComputeShortestPath(uint64_t a1, unint64_t a2, uint64_t a3,
   v209 = (1 << v211) - 16;
   v188 = v17 + v210;
   v189 = v10 + 629;
-  v191 = v10 + 87;
+  v191 = v10 + 696;
   v192 = a2;
   v22 = (v197 + ((v18 != 0) << 11));
   v208 = v22 - 64;
   v198 = v22;
   v201 = v22 - 516;
   v202 = v10;
-  v212 = v10 + 13;
-  v204 = v10 + 45;
+  v212 = v10 + 104;
+  v204 = v10 + 360;
   do
   {
     v23 = v20 + v210;
@@ -5283,7 +5283,7 @@ uint64_t BrotliZopfliComputeShortestPath(uint64_t a1, unint64_t a2, uint64_t a3,
     }
 
     v194 = v25;
-    if (*(v10 + 156))
+    if (*(v10 + 624))
     {
       if (v23)
       {
@@ -5293,7 +5293,7 @@ uint64_t BrotliZopfliComputeShortestPath(uint64_t a1, unint64_t a2, uint64_t a3,
         {
           v28 = *(a4 + ((v23 - 2) & a5));
 LABEL_20:
-          v29 = v189[*(a6 + 256 + v28) | *(a6 + v26)];
+          v29 = *(v189 + (*(a6 + 256 + v28) | *(a6 + v26)));
           v20 = v27;
           goto LABEL_21;
         }
@@ -5311,12 +5311,12 @@ LABEL_20:
 
     v29 = 0;
 LABEL_21:
-    v195 = v191[v29];
+    v195 = *(v191 + 8 * v29);
     v199 = v20;
     v30 = a2 - v20;
     v31 = v23 & a5;
     v32 = 16;
-    if (*(v10 + 1) == 11)
+    if (*(v10 + 4) == 11)
     {
       v32 = 64;
     }
@@ -5645,7 +5645,7 @@ LABEL_89:
     v91 = 3;
     while (2)
     {
-      v92 = v212[v87];
+      v92 = *(v212 + 8 * v87);
       v94 = *(v92 + 16);
       v93 = *(v92 + 20);
       v95 = v92 + 24;
@@ -5666,7 +5666,7 @@ LABEL_89:
       }
 
       v101 = 0;
-      v102 = v204[v87];
+      v102 = *(v204 + 8 * v87);
       v103 = &v208[v86];
       v104 = *(v92 + 8);
       v105 = (v97 + 4 * (*(v95 + 4 * ((0xFFFFFFFF >> -v93) & v99)) + v100));
@@ -8356,9 +8356,9 @@ LABEL_13:
   while (v6);
 }
 
-void sub_1AB12373C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1AB12373C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8414,9 +8414,9 @@ id getMTStandardIDServiceClass()
   return v1;
 }
 
-void sub_1AB123DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AB123DC0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8446,7 +8446,7 @@ Class __getMTStandardIDServiceClass_block_invoke(uint64_t a1)
 
     else
     {
-      v2 = abort_report_np();
+      v2 = abort_report_np("%s", v4[0]);
     }
 
     free(v2);
@@ -8464,7 +8464,7 @@ LABEL_4:
   return result;
 }
 
-uint64_t __MetricsKitLibraryCore_block_invoke()
+uint64_t __MetricsKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   MetricsKitLibraryCore_frameworkLibrary = result;

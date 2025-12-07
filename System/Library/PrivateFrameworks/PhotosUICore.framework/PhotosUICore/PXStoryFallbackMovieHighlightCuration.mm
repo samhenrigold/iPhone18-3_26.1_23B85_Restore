@@ -151,10 +151,10 @@
   v5 = assetCopy;
   if (assetCopy)
   {
-    [assetCopy livePhotoVideoDuration];
+    objc_msgSend_livePhotoVideoDuration(assetCopy);
     *&v25[48] = *v25;
     memset(v25, 0, 48);
-    [v5 px_storyResourceFetchBestPlaybackRange];
+    objc_msgSend_px_storyResourceFetchBestPlaybackRange(v5);
   }
 
   else
@@ -197,14 +197,14 @@
   v53 = *MEMORY[0x1E69E9840];
   assetCopy = asset;
   memset(&start, 0, sizeof(start));
-  [assetCopy duration];
+  objc_msgSend_duration(assetCopy);
   CMTimeMakeWithSeconds(&start, v5, 600);
   memset(&v49, 0, sizeof(v49));
   v6 = assetCopy;
   v7 = v6;
   if (v6)
   {
-    [v6 px_storyResourceFetchBestPlaybackRange];
+    objc_msgSend_px_storyResourceFetchBestPlaybackRange(v6);
   }
 
   else
@@ -231,7 +231,7 @@
       memset(&time1, 0, sizeof(time1));
       if (px_storyResourceFetchVideoAdjustments)
       {
-        [px_storyResourceFetchVideoAdjustments slowMotionTimeRange];
+        objc_msgSend_slowMotionTimeRange(px_storyResourceFetchVideoAdjustments);
       }
 
       v10 = MEMORY[0x1E69C0890];
@@ -318,7 +318,7 @@ LABEL_21:
 LABEL_22:
   memset(&time1, 0, sizeof(time1));
   time2 = v49;
-  [self defaultHighlightRangeForPlaybackRange:&time2];
+  objc_msgSend_defaultHighlightRangeForPlaybackRange_(self);
   v29 = v7;
   [v29 px_storyResourceFetchBestPlaybackRect];
   v31 = v30;
@@ -385,7 +385,7 @@ LABEL_22:
   *&retstr->var0.var3 = v5;
   *&retstr->var1.var1 = *&a4->var1.var1;
   memset(&v11, 0, sizeof(v11));
-  [a2 maxHighlightDuration];
+  objc_msgSend_maxHighlightDuration(a2, range);
   time1 = retstr->var1;
   time2 = v11;
   result = CMTimeCompare(&time1, &time2);
@@ -436,7 +436,7 @@ LABEL_22:
     v6 = v5;
     if (v5)
     {
-      [v5 maximumDurations];
+      objc_msgSend_maximumDurations(v5);
     }
 
     else

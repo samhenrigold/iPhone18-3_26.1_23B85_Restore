@@ -3381,7 +3381,7 @@ LABEL_24:
   dispatch_sync(externalIsolation, block);
 }
 
-uint64_t __46__PUActivityItemSource_setSharingPreferences___block_invoke(uint64_t a1)
+void *__46__PUActivityItemSource_setSharingPreferences___block_invoke(uint64_t a1)
 {
   v21 = *MEMORY[0x1E69E9840];
   result = [*(a1 + 32) state];
@@ -3413,9 +3413,9 @@ uint64_t __46__PUActivityItemSource_setSharingPreferences___block_invoke(uint64_
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = *(a1 + 32);
-      v6 = *(v5 + 136);
-      v7 = PUActivityItemSharingPreferencesDescription(*(v5 + 288));
-      v8 = PUActivityItemSharingPreferencesDescription(*(a1 + 40));
+      v6 = v5[17];
+      v7 = PUActivityItemSharingPreferencesDescription(v5[36], v5[37]);
+      v8 = PUActivityItemSharingPreferencesDescription(*(a1 + 40), *(a1 + 48));
       *buf = 138543874;
       v16 = v6;
       v17 = 2114;
@@ -3445,16 +3445,16 @@ uint64_t __46__PUActivityItemSource_setSharingPreferences___block_invoke(uint64_
   dispatch_sync(externalIsolation, v4);
 }
 
-uint64_t __33__PUActivityItemSource_setState___block_invoke(uint64_t result)
+void *__33__PUActivityItemSource_setState___block_invoke(void *result)
 {
   v15 = *MEMORY[0x1E69E9840];
-  if (*(*(result + 32) + 176) != *(result + 40))
+  if (*(result[4] + 176) != result[5])
   {
     v1 = result;
     v2 = PLShareSheetGetLog();
     if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
     {
-      v3 = *(v1 + 32);
+      v3 = v1[4];
       v4 = *(v3 + 176);
       if (v4 > 2)
       {
@@ -3467,7 +3467,7 @@ uint64_t __33__PUActivityItemSource_setState___block_invoke(uint64_t result)
       }
 
       v6 = *(v3 + 136);
-      v7 = *(v1 + 40);
+      v7 = v1[5];
       if (v7 > 2)
       {
         v8 = @"unknown";
@@ -3487,8 +3487,8 @@ uint64_t __33__PUActivityItemSource_setState___block_invoke(uint64_t result)
       _os_log_impl(&dword_1B36F3000, v2, OS_LOG_TYPE_DEFAULT, "[Item: %{public}@] Changing state from %{public}@ to %{public}@", &v9, 0x20u);
     }
 
-    *(*(v1 + 32) + 176) = *(v1 + 40);
-    return [*(v1 + 32) signalChange:1];
+    *(v1[4] + 176) = v1[5];
+    return [v1[4] signalChange:1];
   }
 
   return result;

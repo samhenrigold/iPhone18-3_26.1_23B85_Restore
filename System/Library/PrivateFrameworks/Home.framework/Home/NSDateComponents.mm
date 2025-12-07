@@ -126,7 +126,7 @@ uint64_t __76__NSDateComponents_Additions__hf_zeroDateComponentsWithComponents_c
   return [v3 setValue:v4 forComponent:a2];
 }
 
-uint64_t __49__NSDateComponents_Additions__hf_validComponents__block_invoke(uint64_t a1, uint64_t a2)
+void *__49__NSDateComponents_Additions__hf_validComponents__block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) valueForComponent:a2];
   if (result != 0x7FFFFFFFFFFFFFFFLL)

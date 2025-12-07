@@ -53,15 +53,16 @@ LABEL_6:
   }
 
   field = [term field];
-  v8 = OrgApacheLuceneUtilBytesRef_deepCopyOfWithOrgApacheLuceneUtilBytesRef_([term bytes]);
-  v9 = new_OrgApacheLuceneIndexTerm_initWithNSString_withOrgApacheLuceneUtilBytesRef_(field, v8);
+  bytes = [term bytes];
+  v10 = OrgApacheLuceneUtilBytesRef_deepCopyOfWithOrgApacheLuceneUtilBytesRef_(bytes, v9);
+  v11 = new_OrgApacheLuceneIndexTerm_initWithNSString_withOrgApacheLuceneUtilBytesRef_(field, v10);
   if (int < 0)
   {
-    v32 = JreStrcat("$I", v10, v11, v12, v13, v14, v15, v16, @"Positions must be >= 0, got ");
+    v34 = JreStrcat("$I", v12, v13, v14, v15, v16, v17, v18, @"Positions must be >= 0, got ");
     goto LABEL_17;
   }
 
-  v17 = v9;
+  v19 = v11;
   positions = self->positions_;
   if (!positions)
   {
@@ -70,15 +71,15 @@ LABEL_6:
 
   if (([(JavaUtilList *)positions isEmpty]& 1) == 0)
   {
-    v19 = [(JavaUtilList *)self->positions_ getWithInt:[(JavaUtilList *)self->positions_ size]- 1];
-    if (!v19)
+    v21 = [(JavaUtilList *)self->positions_ getWithInt:[(JavaUtilList *)self->positions_ size]- 1];
+    if (!v21)
     {
       goto LABEL_18;
     }
 
-    if ([v19 intValue] > int)
+    if ([v21 intValue] > int)
     {
-      v32 = JreStrcat("$I$I", v20, v21, v22, v23, v24, v25, v26, @"Positions must be added in order, got ");
+      v34 = JreStrcat("$I$I", v22, v23, v24, v25, v26, v27, v28, @"Positions must be added in order, got ");
       goto LABEL_17;
     }
   }
@@ -92,27 +93,27 @@ LABEL_18:
 
   if (([(JavaUtilList *)terms isEmpty]& 1) == 0)
   {
-    field2 = [(OrgApacheLuceneIndexTerm *)v17 field];
+    field2 = [(OrgApacheLuceneIndexTerm *)v19 field];
     if (field2)
     {
-      v29 = field2;
-      v30 = [(JavaUtilList *)self->terms_ getWithInt:0];
-      if (v30)
+      v31 = field2;
+      v32 = [(JavaUtilList *)self->terms_ getWithInt:0];
+      if (v32)
       {
-        if ([v29 isEqual:{objc_msgSend(v30, "field")}])
+        if ([v31 isEqual:{objc_msgSend(v32, "field")}])
         {
           goto LABEL_12;
         }
 
-        [(OrgApacheLuceneIndexTerm *)v17 field];
-        v33 = [(JavaUtilList *)self->terms_ getWithInt:0];
-        if (v33)
+        [(OrgApacheLuceneIndexTerm *)v19 field];
+        v35 = [(JavaUtilList *)self->terms_ getWithInt:0];
+        if (v35)
         {
-          [v33 field];
-          v32 = JreStrcat("$$$$", v34, v35, v36, v37, v38, v39, v40, @"All terms must be on the same field, got ");
+          [v35 field];
+          v34 = JreStrcat("$$$$", v36, v37, v38, v39, v40, v41, v42, @"All terms must be on the same field, got ");
 LABEL_17:
-          v41 = new_JavaLangIllegalArgumentException_initWithNSString_(v32);
-          objc_exception_throw(v41);
+          v43 = new_JavaLangIllegalArgumentException_initWithNSString_(v34);
+          objc_exception_throw(v43);
         }
       }
     }
@@ -121,7 +122,7 @@ LABEL_17:
   }
 
 LABEL_12:
-  [(JavaUtilList *)self->terms_ addWithId:v17];
+  [(JavaUtilList *)self->terms_ addWithId:v19];
   [(JavaUtilList *)self->positions_ addWithId:JavaLangInteger_valueOfWithInt_(int)];
   return self;
 }
@@ -134,38 +135,39 @@ LABEL_12:
     goto LABEL_13;
   }
 
-  v4 = [(JavaUtilList *)terms toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:[(JavaUtilList *)self->terms_ size] type:OrgApacheLuceneIndexTerm_class_()]];
+  v4 = [(JavaUtilList *)self->terms_ size];
+  v6 = [(JavaUtilList *)terms toArrayWithNSObjectArray:[IOSObjectArray arrayWithLength:v4 type:OrgApacheLuceneIndexTerm_class_(v4, v5)]];
   positions = self->positions_;
   if (!positions)
   {
     goto LABEL_13;
   }
 
-  v6 = [IOSIntArray arrayWithLength:[(JavaUtilList *)positions size]];
-  v7 = v6;
-  if (v6->super.size_ >= 1)
+  v8 = [IOSIntArray arrayWithLength:[(JavaUtilList *)positions size]];
+  v9 = v8;
+  if (v8->super.size_ >= 1)
   {
-    v8 = 0;
-    v9 = v6;
+    v10 = 0;
+    v11 = v8;
     while (1)
     {
-      v10 = [(JavaUtilList *)self->positions_ getWithInt:v8];
-      if (!v10)
+      v12 = [(JavaUtilList *)self->positions_ getWithInt:v10];
+      if (!v12)
       {
         break;
       }
 
-      intValue = [v10 intValue];
-      v12 = *(v7 + 8);
-      if (v8 >= v12)
+      intValue = [v12 intValue];
+      v14 = *(v9 + 8);
+      if (v10 >= v14)
       {
-        IOSArray_throwOutOfBoundsWithMsg(v12, v8);
+        IOSArray_throwOutOfBoundsWithMsg(v14, v10);
       }
 
-      *(&v9->super.size_ + 1) = intValue;
-      ++v8;
-      v9 = (v9 + 4);
-      if (v8 >= *(v7 + 8))
+      *(&v11->super.size_ + 1) = intValue;
+      ++v10;
+      v11 = (v11 + 4);
+      if (v10 >= *(v9 + 8))
       {
         goto LABEL_10;
       }
@@ -177,10 +179,10 @@ LABEL_13:
 
 LABEL_10:
   slop = self->slop_;
-  v14 = [OrgApacheLuceneSearchPhraseQuery alloc];
-  sub_1000AC334(v14, slop, v4, v7);
+  v16 = [OrgApacheLuceneSearchPhraseQuery alloc];
+  sub_1000AC334(v16, slop, v6, v9);
 
-  return v14;
+  return v16;
 }
 
 - (void)dealloc

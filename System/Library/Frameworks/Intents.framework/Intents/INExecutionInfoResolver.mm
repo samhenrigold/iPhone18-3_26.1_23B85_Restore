@@ -52,18 +52,18 @@
 
 - (id)_resolveUserActivityExecutionInfoUsingCounterparts:(id)counterparts
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   counterpartsCopy = counterparts;
   launchableAppBundleId = [counterpartsCopy launchableAppBundleId];
   userActivityType = [counterpartsCopy userActivityType];
   v7 = [(INExecutionInfoResolver *)self localIdentifiersForCounterpartIdentifier:launchableAppBundleId];
-  v23[0] = MEMORY[0x1E69E9820];
-  v23[1] = 3221225472;
-  v23[2] = __78__INExecutionInfoResolver__resolveUserActivityExecutionInfoUsingCounterparts___block_invoke;
-  v23[3] = &unk_1E727FD90;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __78__INExecutionInfoResolver__resolveUserActivityExecutionInfoUsingCounterparts___block_invoke;
+  v22[3] = &unk_1E727FD90;
   v8 = userActivityType;
-  v24 = v8;
-  v9 = [v7 if_compactMap:v23];
+  v23 = v8;
+  v9 = [v7 if_compactMap:v22];
   if ([v9 count] < 2)
   {
     anyObject = [v9 anyObject];
@@ -81,11 +81,11 @@
       v14 = v13;
       bundleIdentifier = [anyObject bundleIdentifier];
       *buf = 136315650;
-      v26 = "[INExecutionInfoResolver _resolveUserActivityExecutionInfoUsingCounterparts:]";
-      v27 = 2114;
-      v28 = launchableAppBundleId;
-      v29 = 2114;
-      v30 = bundleIdentifier;
+      v25 = "[INExecutionInfoResolver _resolveUserActivityExecutionInfoUsingCounterparts:]";
+      v26 = 2114;
+      v27 = launchableAppBundleId;
+      v28 = 2114;
+      v29 = bundleIdentifier;
       _os_log_error_impl(&dword_18E991000, v14, OS_LOG_TYPE_ERROR, "%s Matched multiple counterpart applications for %{public}@, choosing %{public}@", buf, 0x20u);
     }
   }
@@ -103,8 +103,6 @@
   {
     v20 = 0;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }
@@ -202,20 +200,20 @@ uint64_t __78__INExecutionInfoResolver__resolveUserActivityExecutionInfoUsingCou
 
 - (id)_resolveIntentExecutionInfoUsingCounterparts:(id)counterparts
 {
-  v53 = *MEMORY[0x1E69E9840];
+  v52 = *MEMORY[0x1E69E9840];
   counterpartsCopy = counterparts;
   launchableAppBundleId = [counterpartsCopy launchableAppBundleId];
   intentClassName = [counterpartsCopy intentClassName];
   v7 = [(INExecutionInfoResolver *)self localIdentifiersForCounterpartIdentifier:launchableAppBundleId];
-  v44[0] = MEMORY[0x1E69E9820];
-  v44[1] = 3221225472;
-  v44[2] = __72__INExecutionInfoResolver__resolveIntentExecutionInfoUsingCounterparts___block_invoke;
-  v44[3] = &unk_1E727FD48;
+  v43[0] = MEMORY[0x1E69E9820];
+  v43[1] = 3221225472;
+  v43[2] = __72__INExecutionInfoResolver__resolveIntentExecutionInfoUsingCounterparts___block_invoke;
+  v43[3] = &unk_1E727FD48;
   v8 = counterpartsCopy;
-  v45 = v8;
+  v44 = v8;
   v9 = intentClassName;
-  v46 = v9;
-  v10 = [v7 if_compactMap:v44];
+  v45 = v9;
+  v10 = [v7 if_compactMap:v43];
   if ([v10 count] < 2)
   {
     anyObject = [v10 anyObject];
@@ -233,11 +231,11 @@ uint64_t __78__INExecutionInfoResolver__resolveUserActivityExecutionInfoUsingCou
       v15 = v14;
       bundleIdentifier = [anyObject bundleIdentifier];
       *buf = 136315650;
-      v48 = "[INExecutionInfoResolver _resolveIntentExecutionInfoUsingCounterparts:]";
-      v49 = 2114;
-      v50 = launchableAppBundleId;
-      v51 = 2114;
-      v52 = bundleIdentifier;
+      v47 = "[INExecutionInfoResolver _resolveIntentExecutionInfoUsingCounterparts:]";
+      v48 = 2114;
+      v49 = launchableAppBundleId;
+      v50 = 2114;
+      v51 = bundleIdentifier;
       _os_log_error_impl(&dword_18E991000, v15, OS_LOG_TYPE_ERROR, "%s Matched multiple launchable counterpart applications for %{public}@, choosing %{public}@", buf, 0x20u);
     }
   }
@@ -246,7 +244,7 @@ uint64_t __78__INExecutionInfoResolver__resolveUserActivityExecutionInfoUsingCou
   selfCopy = self;
   v19 = displayableAppBundleId;
   v20 = [(INExecutionInfoResolver *)selfCopy localIdentifiersForCounterpartIdentifier:displayableAppBundleId];
-  v43 = v20;
+  v42 = v20;
   if ([v20 count] < 2)
   {
     anyObject2 = [v20 anyObject];
@@ -264,11 +262,11 @@ uint64_t __78__INExecutionInfoResolver__resolveUserActivityExecutionInfoUsingCou
     if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315650;
-      v48 = "[INExecutionInfoResolver _resolveIntentExecutionInfoUsingCounterparts:]";
-      v49 = 2114;
-      v50 = v19;
-      v51 = 2114;
-      v52 = anyObject2;
+      v47 = "[INExecutionInfoResolver _resolveIntentExecutionInfoUsingCounterparts:]";
+      v48 = 2114;
+      v49 = v19;
+      v50 = 2114;
+      v51 = anyObject2;
       _os_log_error_impl(&dword_18E991000, v26, OS_LOG_TYPE_ERROR, "%s Matched multiple displayable counterpart applications for %{public}@, choosing %{public}@", buf, 0x20u);
     }
 
@@ -278,28 +276,28 @@ uint64_t __78__INExecutionInfoResolver__resolveUserActivityExecutionInfoUsingCou
 
   if (anyObject | anyObject2)
   {
-    v40 = [INIntentExecutionInfo alloc];
+    v39 = [INIntentExecutionInfo alloc];
     preferredCallProvider = [v8 preferredCallProvider];
     bundleIdentifier2 = [anyObject bundleIdentifier];
     [v8 extensionBundleId];
     v28 = v27 = v9;
     [v8 uiExtensionBundleId];
-    v29 = v42 = launchableAppBundleId;
+    v29 = v41 = launchableAppBundleId;
     [anyObject URL];
-    v41 = v19;
+    v40 = v19;
     v30 = anyObject;
     v31 = v10;
     v32 = v8;
     v34 = v33 = v7;
-    v35 = [(INIntentExecutionInfo *)v40 _initWithIntentClassName:v27 preferredCallProvider:preferredCallProvider launchableAppBundleId:bundleIdentifier2 displayableAppBundleId:anyObject2 extensionBundleId:v28 uiExtensionBundleId:v29 containingAppBundleURL:v34];
+    v35 = [(INIntentExecutionInfo *)v39 _initWithIntentClassName:v27 preferredCallProvider:preferredCallProvider launchableAppBundleId:bundleIdentifier2 displayableAppBundleId:anyObject2 extensionBundleId:v28 uiExtensionBundleId:v29 containingAppBundleURL:v34];
 
     v7 = v33;
     v8 = v32;
     v10 = v31;
     anyObject = v30;
-    v19 = v41;
+    v19 = v40;
 
-    launchableAppBundleId = v42;
+    launchableAppBundleId = v41;
     v9 = v27;
   }
 
@@ -308,14 +306,12 @@ uint64_t __78__INExecutionInfoResolver__resolveUserActivityExecutionInfoUsingCou
     v35 = 0;
   }
 
-  v36 = *MEMORY[0x1E69E9840];
-
   return v35;
 }
 
 id __72__INExecutionInfoResolver__resolveIntentExecutionInfoUsingCounterparts___block_invoke(uint64_t a1, void *a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [objc_alloc(MEMORY[0x1E69635F8]) initWithBundleIdentifier:v3 allowPlaceholder:0 error:0];
   v5 = [v4 applicationState];
@@ -334,9 +330,9 @@ id __72__INExecutionInfoResolver__resolveIntentExecutionInfoUsingCounterparts___
     {
       v12 = objc_alloc(MEMORY[0x1E69635D0]);
       v13 = [*(a1 + 32) extensionBundleId];
-      v23 = 0;
-      v14 = [v12 initWithBundleIdentifier:v13 error:&v23];
-      v15 = v23;
+      v22 = 0;
+      v14 = [v12 initWithBundleIdentifier:v13 error:&v22];
+      v15 = v22;
 
       if (v14)
       {
@@ -352,9 +348,9 @@ id __72__INExecutionInfoResolver__resolveIntentExecutionInfoUsingCounterparts___
         if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315394;
-          v25 = "[INExecutionInfoResolver _resolveIntentExecutionInfoUsingCounterparts:]_block_invoke";
-          v26 = 2114;
-          v27 = v15;
+          v24 = "[INExecutionInfoResolver _resolveIntentExecutionInfoUsingCounterparts:]_block_invoke";
+          v25 = 2114;
+          v26 = v15;
           _os_log_error_impl(&dword_18E991000, v18, OS_LOG_TYPE_ERROR, "%s Failed to create application extension record: %{public}@", buf, 0x16u);
         }
       }
@@ -381,19 +377,17 @@ id __72__INExecutionInfoResolver__resolveIntentExecutionInfoUsingCounterparts___
       if (os_log_type_enabled(INSiriLogContextIntents, OS_LOG_TYPE_ERROR))
       {
         *buf = 136315650;
-        v25 = "[INExecutionInfoResolver _resolveIntentExecutionInfoUsingCounterparts:]_block_invoke";
-        v26 = 2114;
-        v27 = v3;
-        v28 = 2114;
-        v29 = 0;
+        v24 = "[INExecutionInfoResolver _resolveIntentExecutionInfoUsingCounterparts:]_block_invoke";
+        v25 = 2114;
+        v26 = v3;
+        v27 = 2114;
+        v28 = 0;
         _os_log_error_impl(&dword_18E991000, v20, OS_LOG_TYPE_ERROR, "%s Failed to get the supported intents for %{public}@: %{public}@", buf, 0x20u);
       }
 
       v7 = 0;
     }
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v7;
 }
@@ -764,12 +758,11 @@ LABEL_22:
 
 uint64_t __42__INExecutionInfoResolver_defaultResolver__block_invoke(uint64_t a1)
 {
-  v1 = *(a1 + 32);
-  v2 = objc_alloc_init(objc_opt_class());
-  v3 = defaultResolver_resolver;
-  defaultResolver_resolver = v2;
+  v1 = objc_alloc_init(objc_opt_class());
+  v2 = defaultResolver_resolver;
+  defaultResolver_resolver = v1;
 
-  return MEMORY[0x1EEE66BB8](v2, v3);
+  return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
 + (void)initialize

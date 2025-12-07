@@ -54,7 +54,7 @@
   result = self->_world;
   if (result)
   {
-    return sub_1AF1CF878(result);
+    return sub_1AF1CF878(result, a2);
   }
 
   return result;
@@ -62,41 +62,41 @@
 
 - (void)_updateVFXCoreSpeedFactor
 {
-  v4 = objc_msgSend__scene(self, a2, v2, v3);
+  v3 = objc_msgSend__scene(self, a2, v2);
 
-  MEMORY[0x1EEE66B58](v4, sel_setSpeedFactor_, v5, v6);
+  MEMORY[0x1EEE66B58](v3, sel_setSpeedFactor_, v4);
 }
 
 - (void)_updateVFXCorePause
 {
   paused = self->_paused;
-  v5 = objc_msgSend__scene(self, a2, v2, v3);
+  v4 = objc_msgSend__scene(self, a2, v2);
 
-  objc_msgSend_setPaused_(v5, v6, paused, v7);
+  objc_msgSend_setPaused_(v4, v5, paused);
 }
 
 - (void)_updateVFXCoreTime:(double)time
 {
   timeCopy = time;
-  v6 = objc_msgSend__scene(self, a2, v3, v4);
-  *&v10 = timeCopy;
+  v5 = objc_msgSend__scene(self, a2, v3);
+  *&v8 = timeCopy;
 
-  objc_msgSend_setTime_(v6, v7, v8, v9, v10);
+  objc_msgSend_setTime_(v5, v6, v7, v8);
 }
 
 - (void)_updateVFXCoreUseFixedTimeStep:(BOOL)step
 {
   stepCopy = step;
-  v5 = objc_msgSend__scene(self, a2, step, v3);
+  v4 = objc_msgSend__scene(self, a2, step);
 
-  objc_msgSend_setUseFixedTimeStep_(v5, v6, stepCopy, v7);
+  objc_msgSend_setUseFixedTimeStep_(v4, v5, stepCopy);
 }
 
 - (void)_updateVFXCoreTimeStep:(double)step
 {
-  v6 = objc_msgSend__scene(self, a2, v3, v4);
+  v5 = objc_msgSend__scene(self, a2, v3);
 
-  objc_msgSend_setTimeStep_(v6, v7, v8, v9, step);
+  objc_msgSend_setTimeStep_(v5, v6, v7, step);
 }
 
 - (void)setSpeed:(float)speed
@@ -118,7 +118,7 @@
       self->_wasPaused = 1;
     }
 
-    (MEMORY[0x1EEE66B58])(self, sel__updateVFXCorePause, paused);
+    MEMORY[0x1EEE66B58](self, sel__updateVFXCorePause, paused);
   }
 }
 

@@ -3,6 +3,8 @@
 - (BOOL)registerWithAssetsDelegate:(id)delegate withType:(int64_t)type;
 - (CDMClient)init;
 - (CDMClient)initWithDelegate:(id)delegate;
+- (CDMClient)initWithXPC:(BOOL)c;
+- (CDMClient)initWithXPCDelegate:(BOOL)delegate withDelegate:(id)withDelegate;
 - (void)dealloc;
 - (void)initProxyObject:(BOOL)object delegate:(id)delegate;
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context;
@@ -55,7 +57,7 @@
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   changeCopy = change;
   v10 = [changeCopy objectForKey:*MEMORY[0x1E696A4F0]];
@@ -86,11 +88,11 @@ LABEL_7:
         v12 = CDMOSLoggerForCategory(0);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
         {
-          v14 = 136315394;
-          v15 = "[CDMClient observeValueForKeyPath:ofObject:change:context:]";
-          v16 = 2112;
-          v17 = v10;
-          _os_log_debug_impl(&dword_1DC287000, v12, OS_LOG_TYPE_DEBUG, "%s Setting daemonKilled to: %@", &v14, 0x16u);
+          v13 = 136315394;
+          v14 = "[CDMClient observeValueForKeyPath:ofObject:change:context:]";
+          v15 = 2112;
+          v16 = v10;
+          _os_log_debug_impl(&dword_1DC287000, v12, OS_LOG_TYPE_DEBUG, "%s Setting daemonKilled to: %@", &v13, 0x16u);
         }
       }
 
@@ -99,11 +101,11 @@ LABEL_7:
         v12 = CDMOSLoggerForCategory(0);
         if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
-          v14 = 136315394;
-          v15 = "[CDMClient observeValueForKeyPath:ofObject:change:context:]";
-          v16 = 2112;
-          v17 = pathCopy;
-          _os_log_error_impl(&dword_1DC287000, v12, OS_LOG_TYPE_ERROR, "%s [ERR]: Not expecting keyPath %@", &v14, 0x16u);
+          v13 = 136315394;
+          v14 = "[CDMClient observeValueForKeyPath:ofObject:change:context:]";
+          v15 = 2112;
+          v16 = pathCopy;
+          _os_log_error_impl(&dword_1DC287000, v12, OS_LOG_TYPE_ERROR, "%s [ERR]: Not expecting keyPath %@", &v13, 0x16u);
         }
       }
 
@@ -119,23 +121,21 @@ LABEL_7:
   }
 
 LABEL_15:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)initProxyObject:(BOOL)object delegate:(id)delegate
 {
   objectCopy = object;
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   delegateCopy = delegate;
   if (objectCopy)
   {
     v7 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 136315138;
-      v17 = "[CDMClient initProxyObject:delegate:]";
-      _os_log_debug_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEBUG, "%s Creating CDMXPCClient", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "[CDMClient initProxyObject:delegate:]";
+      _os_log_debug_impl(&dword_1DC287000, v7, OS_LOG_TYPE_DEBUG, "%s Creating CDMXPCClient", &v15, 0xCu);
     }
 
     v8 = [[CDMXPCClient alloc] initWithDelegate:delegateCopy];
@@ -148,9 +148,9 @@ LABEL_15:
     v10 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 136315138;
-      v17 = "[CDMClient initProxyObject:delegate:]";
-      _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s Creating CDMFoundationClient", &v16, 0xCu);
+      v15 = 136315138;
+      v16 = "[CDMClient initProxyObject:delegate:]";
+      _os_log_debug_impl(&dword_1DC287000, v10, OS_LOG_TYPE_DEBUG, "%s Creating CDMFoundationClient", &v15, 0xCu);
     }
 
     mainBundle = [MEMORY[0x1E696AAE8] mainBundle];
@@ -159,19 +159,37 @@ LABEL_15:
     v12 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v16 = 136315394;
-      v17 = "[CDMClient initProxyObject:delegate:]";
-      v18 = 2112;
-      v19 = client;
-      _os_log_debug_impl(&dword_1DC287000, v12, OS_LOG_TYPE_DEBUG, "%s Calling bundle ID %@", &v16, 0x16u);
+      v15 = 136315394;
+      v16 = "[CDMClient initProxyObject:delegate:]";
+      v17 = 2112;
+      v18 = client;
+      _os_log_debug_impl(&dword_1DC287000, v12, OS_LOG_TYPE_DEBUG, "%s Calling bundle ID %@", &v15, 0x16u);
     }
 
     v13 = [[CDMFoundationClient alloc] initWithDelegate:delegateCopy withCallingBundleId:client];
     v14 = self->_client;
     self->_client = &v13->super;
   }
+}
 
-  v15 = *MEMORY[0x1E69E9840];
+- (CDMClient)initWithXPC:(BOOL)c
+{
+  cCopy = c;
+  [(CDMClient *)self sharedInitTasks];
+  [(CDMClient *)self initProxyObject:cCopy delegate:0];
+  [(CDMClient *)self setupKVOForwarding];
+  return self;
+}
+
+- (CDMClient)initWithXPCDelegate:(BOOL)delegate withDelegate:(id)withDelegate
+{
+  delegateCopy = delegate;
+  withDelegateCopy = withDelegate;
+  [(CDMClient *)self sharedInitTasks];
+  [(CDMClient *)self initProxyObject:delegateCopy delegate:withDelegateCopy];
+  [(CDMClient *)self setupKVOForwarding];
+
+  return self;
 }
 
 - (CDMClient)initWithDelegate:(id)delegate
@@ -211,7 +229,7 @@ LABEL_15:
 
 void __74__CDMClient_NLUPreprocess__processNLUPreprocessRequest_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   if (v6)
@@ -219,11 +237,11 @@ void __74__CDMClient_NLUPreprocess__processNLUPreprocessRequest_completionHandle
     v7 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v14 = [v6 localizedDescription];
+      v13 = [v6 localizedDescription];
       *buf = 136315394;
-      v16 = "[CDMClient(NLUPreprocess) processNLUPreprocessRequest:completionHandler:]_block_invoke";
-      v17 = 2080;
-      v18 = [v14 UTF8String];
+      v15 = "[CDMClient(NLUPreprocess) processNLUPreprocessRequest:completionHandler:]_block_invoke";
+      v16 = 2080;
+      v17 = [v13 UTF8String];
       _os_log_error_impl(&dword_1DC287000, v7, OS_LOG_TYPE_ERROR, "%s [ERR]: %s", buf, 0x16u);
     }
 
@@ -250,8 +268,6 @@ void __74__CDMClient_NLUPreprocess__processNLUPreprocessRequest_completionHandle
       (*(*(a1 + 40) + 16))();
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processText:(id)text requestConnectionId:(id)id completionHandler:(id)handler
@@ -295,17 +311,17 @@ void __74__CDMClient_NLUPreprocess__processNLUPreprocessRequest_completionHandle
 
 - (void)setupNLUWithLocale:(id)locale completionHandler:(id)handler
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   handlerCopy = handler;
   v8 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v13 = 136315394;
-    v14 = "[CDMClient(NLU) setupNLUWithLocale:completionHandler:]";
-    v15 = 2112;
-    v16 = localeCopy;
-    _os_log_debug_impl(&dword_1DC287000, v8, OS_LOG_TYPE_DEBUG, "%s CDM NLU client graph setup, locale=%@", &v13, 0x16u);
+    v12 = 136315394;
+    v13 = "[CDMClient(NLU) setupNLUWithLocale:completionHandler:]";
+    v14 = 2112;
+    v15 = localeCopy;
+    _os_log_debug_impl(&dword_1DC287000, v8, OS_LOG_TYPE_DEBUG, "%s CDM NLU client graph setup, locale=%@", &v12, 0x16u);
   }
 
   v9 = [CDMClientSetup alloc];
@@ -313,30 +329,29 @@ void __74__CDMClient_NLUPreprocess__processNLUPreprocessRequest_completionHandle
   v11 = [(CDMClientSetup *)v9 initWithLocaleIdentifier:localeCopy sandboxId:0 activeServiceGraph:v10];
 
   [(CDMClient *)self setup:v11 completionHandler:handlerCopy];
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)processEmbeddingRequest:(id)request requestId:(id)id completionHandler:(id)handler
 {
-  v29[1] = *MEMORY[0x1E69E9840];
+  v28[1] = *MEMORY[0x1E69E9840];
   requestCopy = request;
   idCopy = id;
   handlerCopy = handler;
   if ([(CDMClient *)self daemonKilled])
   {
     v11 = MEMORY[0x1E696ABC0];
-    v28 = *MEMORY[0x1E696A578];
-    v29[0] = @"assistant_cdmd has been killed. Please call setup to ensure CDM can handle requests.";
-    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x1E696A578];
+    v28[0] = @"assistant_cdmd has been killed. Please call setup to ensure CDM can handle requests.";
+    v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     v13 = [v11 errorWithDomain:@"CDMXPCClientErrorDomain" code:0 userInfo:v12];
 
     v14 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v25 = "[CDMClient(Embedding) processEmbeddingRequest:requestId:completionHandler:]";
-      v26 = 2112;
-      v27 = v13;
+      v24 = "[CDMClient(Embedding) processEmbeddingRequest:requestId:completionHandler:]";
+      v25 = 2112;
+      v26 = v13;
       _os_log_error_impl(&dword_1DC287000, v14, OS_LOG_TYPE_ERROR, "%s [ERR]: %@", buf, 0x16u);
     }
 
@@ -350,39 +365,37 @@ void __74__CDMClient_NLUPreprocess__processNLUPreprocessRequest_completionHandle
     if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
       *buf = 136315394;
-      v25 = "[CDMClient(Embedding) processEmbeddingRequest:requestId:completionHandler:]";
-      v26 = 2112;
-      v27 = v13;
+      v24 = "[CDMClient(Embedding) processEmbeddingRequest:requestId:completionHandler:]";
+      v25 = 2112;
+      v26 = v13;
       _os_log_debug_impl(&dword_1DC287000, v15, OS_LOG_TYPE_DEBUG, "%s Created CDMEmbeddingGraphRequestCommand to pass into CDMEmbeddingGraph, %@", buf, 0x16u);
     }
 
-    v18 = MEMORY[0x1E69E9820];
-    v19 = 3221225472;
-    v20 = __76__CDMClient_Embedding__processEmbeddingRequest_requestId_completionHandler___block_invoke;
-    v21 = &unk_1E862F590;
+    v17 = MEMORY[0x1E69E9820];
+    v18 = 3221225472;
+    v19 = __76__CDMClient_Embedding__processEmbeddingRequest_requestId_completionHandler___block_invoke;
+    v20 = &unk_1E862F590;
     selfCopy = self;
-    v23 = handlerCopy;
-    v16 = _Block_copy(&v18);
-    [(CDMClient *)self doHandleCommand:v13 forCallback:v16, v18, v19, v20, v21];
+    v22 = handlerCopy;
+    v16 = _Block_copy(&v17);
+    [(CDMClient *)self doHandleCommand:v13 forCallback:v16, v17, v18, v19, v20];
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 void __76__CDMClient_Embedding__processEmbeddingRequest_requestId_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v30 = "[CDMClient(Embedding) processEmbeddingRequest:requestId:completionHandler:]_block_invoke";
-    v31 = 2112;
-    v32 = v5;
-    v33 = 2112;
-    v34 = v6;
+    v29 = "[CDMClient(Embedding) processEmbeddingRequest:requestId:completionHandler:]_block_invoke";
+    v30 = 2112;
+    v31 = v5;
+    v32 = 2112;
+    v33 = v6;
     _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s CDM Embedding client graph finished processing, output=%@, error=%@", buf, 0x20u);
   }
 
@@ -391,12 +404,12 @@ void __76__CDMClient_Embedding__processEmbeddingRequest_requestId_completionHand
     v8 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v27 = [v6 localizedDescription];
-      v28 = [v27 UTF8String];
+      v26 = [v6 localizedDescription];
+      v27 = [v26 UTF8String];
       *buf = 136315394;
-      v30 = "[CDMClient(Embedding) processEmbeddingRequest:requestId:completionHandler:]_block_invoke";
-      v31 = 2080;
-      v32 = v28;
+      v29 = "[CDMClient(Embedding) processEmbeddingRequest:requestId:completionHandler:]_block_invoke";
+      v30 = 2080;
+      v31 = v27;
       _os_log_error_impl(&dword_1DC287000, v8, OS_LOG_TYPE_ERROR, "%s [ERR]: %s", buf, 0x16u);
     }
 
@@ -420,7 +433,7 @@ void __76__CDMClient_Embedding__processEmbeddingRequest_requestId_completionHand
         if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v30 = "[CDMClient(Embedding) processEmbeddingRequest:requestId:completionHandler:]_block_invoke";
+          v29 = "[CDMClient(Embedding) processEmbeddingRequest:requestId:completionHandler:]_block_invoke";
           _os_log_impl(&dword_1DC287000, v14, OS_LOG_TYPE_INFO, "%s [WARN]: CDMEmbeddingGraphResponseCommand output from graph doesn't have SIRINLUINTERNALSubwordTokenChain subwordTokenChain?", buf, 0xCu);
         }
       }
@@ -437,7 +450,7 @@ void __76__CDMClient_Embedding__processEmbeddingRequest_requestId_completionHand
         if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v30 = "[CDMClient(Embedding) processEmbeddingRequest:requestId:completionHandler:]_block_invoke";
+          v29 = "[CDMClient(Embedding) processEmbeddingRequest:requestId:completionHandler:]_block_invoke";
           _os_log_impl(&dword_1DC287000, v18, OS_LOG_TYPE_INFO, "%s [WARN]: CDMEmbeddingGraphResponseCommand output from graph doesn't have any NSMutableArray<SIRINLUINTERNALEMBEDDINGEmbeddingTensorOutput *> *_subwordEmbeddingTensorOutputs?", buf, 0xCu);
         }
       }
@@ -451,7 +464,7 @@ void __76__CDMClient_Embedding__processEmbeddingRequest_requestId_completionHand
         if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
         {
           *buf = 136315138;
-          v30 = "[CDMClient(Embedding) processEmbeddingRequest:requestId:completionHandler:]_block_invoke";
+          v29 = "[CDMClient(Embedding) processEmbeddingRequest:requestId:completionHandler:]_block_invoke";
           _os_log_impl(&dword_1DC287000, v21, OS_LOG_TYPE_INFO, "%s [WARN]: Did not expect CDMEmbeddingGraphResponseCommand output from graph to include more than 1 NSMutableArray<SIRINLUINTERNALEMBEDDINGEmbeddingTensorOutput *> *_subwordEmbeddingTensorOutputs. But it's OK, will only propagate the firstObject", buf, 0xCu);
         }
       }
@@ -473,13 +486,11 @@ void __76__CDMClient_Embedding__processEmbeddingRequest_requestId_completionHand
       (*(*(a1 + 40) + 16))();
     }
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setupWithLocale:(id)locale embeddingVersion:(id)version deallocationTime:(double)time completionHandler:(id)handler
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   localeCopy = locale;
   versionCopy = version;
   handlerCopy = handler;
@@ -490,15 +501,15 @@ void __76__CDMClient_Embedding__processEmbeddingRequest_requestId_completionHand
   {
     if (v15)
     {
-      v22 = 136315906;
-      v23 = "[CDMClient(Embedding) setupWithLocale:embeddingVersion:deallocationTime:completionHandler:]";
-      v24 = 2112;
-      v25 = localeCopy;
-      v26 = 2112;
-      v27 = versionCopy;
-      v28 = 2048;
+      v21 = 136315906;
+      v22 = "[CDMClient(Embedding) setupWithLocale:embeddingVersion:deallocationTime:completionHandler:]";
+      v23 = 2112;
+      v24 = localeCopy;
+      v25 = 2112;
+      v26 = versionCopy;
+      v27 = 2048;
       timeCopy = time;
-      _os_log_debug_impl(&dword_1DC287000, v14, OS_LOG_TYPE_DEBUG, "%s CDM Embedding client graph setup, locale=%@, version=%@, deallocationTime=%.1f", &v22, 0x2Au);
+      _os_log_debug_impl(&dword_1DC287000, v14, OS_LOG_TYPE_DEBUG, "%s CDM Embedding client graph setup, locale=%@, version=%@, deallocationTime=%.1f", &v21, 0x2Au);
     }
 
     v16 = [CDMClientSetup alloc];
@@ -513,9 +524,9 @@ void __76__CDMClient_Embedding__processEmbeddingRequest_requestId_completionHand
   {
     if (v15)
     {
-      v22 = 136315138;
-      v23 = "[CDMClient(Embedding) setupWithLocale:embeddingVersion:deallocationTime:completionHandler:]";
-      _os_log_debug_impl(&dword_1DC287000, v14, OS_LOG_TYPE_DEBUG, "%s CDM Embedding client embedding version cannot be empty. Setup is failed.", &v22, 0xCu);
+      v21 = 136315138;
+      v22 = "[CDMClient(Embedding) setupWithLocale:embeddingVersion:deallocationTime:completionHandler:]";
+      _os_log_debug_impl(&dword_1DC287000, v14, OS_LOG_TYPE_DEBUG, "%s CDM Embedding client embedding version cannot be empty. Setup is failed.", &v21, 0xCu);
     }
 
     v19 = [MEMORY[0x1E696AEC0] stringWithFormat:@"CDM Embedding client embedding version cannot be empty. Setup is failed."];
@@ -524,8 +535,6 @@ void __76__CDMClient_Embedding__processEmbeddingRequest_requestId_completionHand
 
     handlerCopy = v20;
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setupWithLocale:(id)locale embeddingVersion:(id)version completionHandler:(id)handler
@@ -546,7 +555,7 @@ void __76__CDMClient_Embedding__processEmbeddingRequest_requestId_completionHand
 
 - (void)processSsuInferenceRequest:(id)request completionHandler:(id)handler
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
   requestCopy = request;
   v8 = [[CDMSsuInferenceGraphRequestCommand alloc] initWithSsuRequest:requestCopy];
@@ -555,39 +564,37 @@ void __76__CDMClient_Embedding__processEmbeddingRequest_requestId_completionHand
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v20 = "[CDMClient(SsuInference) processSsuInferenceRequest:completionHandler:]";
-    v21 = 2112;
-    v22 = v8;
+    v19 = "[CDMClient(SsuInference) processSsuInferenceRequest:completionHandler:]";
+    v20 = 2112;
+    v21 = v8;
     _os_log_debug_impl(&dword_1DC287000, v9, OS_LOG_TYPE_DEBUG, "%s Create CDMSsuInferenceGraphRequestCommand to pass into CDMSsuInferenceServiceGraph, %@", buf, 0x16u);
   }
 
-  v13 = MEMORY[0x1E69E9820];
-  v14 = 3221225472;
-  v15 = __72__CDMClient_SsuInference__processSsuInferenceRequest_completionHandler___block_invoke;
-  v16 = &unk_1E862F590;
+  v12 = MEMORY[0x1E69E9820];
+  v13 = 3221225472;
+  v14 = __72__CDMClient_SsuInference__processSsuInferenceRequest_completionHandler___block_invoke;
+  v15 = &unk_1E862F590;
   selfCopy = self;
-  v18 = handlerCopy;
+  v17 = handlerCopy;
   v10 = handlerCopy;
-  v11 = _Block_copy(&v13);
-  [(CDMClient *)self doHandleCommand:v8 forCallback:v11, v13, v14, v15, v16, selfCopy];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = _Block_copy(&v12);
+  [(CDMClient *)self doHandleCommand:v8 forCallback:v11, v12, v13, v14, v15, selfCopy];
 }
 
 void __72__CDMClient_SsuInference__processSsuInferenceRequest_completionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = CDMOSLoggerForCategory(0);
   if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     *buf = 136315650;
-    v20 = "[CDMClient(SsuInference) processSsuInferenceRequest:completionHandler:]_block_invoke";
-    v21 = 2112;
-    v22 = v5;
-    v23 = 2112;
-    v24 = v6;
+    v19 = "[CDMClient(SsuInference) processSsuInferenceRequest:completionHandler:]_block_invoke";
+    v20 = 2112;
+    v21 = v5;
+    v22 = 2112;
+    v23 = v6;
     _os_log_impl(&dword_1DC287000, v7, OS_LOG_TYPE_INFO, "%s CDM SSU Inference client graph finished processing, output=%@, error=%@", buf, 0x20u);
   }
 
@@ -596,12 +603,12 @@ void __72__CDMClient_SsuInference__processSsuInferenceRequest_completionHandler_
     v8 = CDMOSLoggerForCategory(0);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v17 = [v6 localizedDescription];
-      v18 = [v17 UTF8String];
+      v16 = [v6 localizedDescription];
+      v17 = [v16 UTF8String];
       *buf = 136315394;
-      v20 = "[CDMClient(SsuInference) processSsuInferenceRequest:completionHandler:]_block_invoke";
-      v21 = 2080;
-      v22 = v18;
+      v19 = "[CDMClient(SsuInference) processSsuInferenceRequest:completionHandler:]_block_invoke";
+      v20 = 2080;
+      v21 = v17;
       _os_log_error_impl(&dword_1DC287000, v8, OS_LOG_TYPE_ERROR, "%s [ERR]: %s", buf, 0x16u);
     }
 
@@ -627,7 +634,7 @@ void __72__CDMClient_SsuInference__processSsuInferenceRequest_completionHandler_
         if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
         {
           *buf = 136315138;
-          v20 = "[CDMClient(SsuInference) processSsuInferenceRequest:completionHandler:]_block_invoke";
+          v19 = "[CDMClient(SsuInference) processSsuInferenceRequest:completionHandler:]_block_invoke";
           _os_log_error_impl(&dword_1DC287000, v14, OS_LOG_TYPE_ERROR, "%s [ERR]: CDMSsuInferenceGraphResponseCommand output from graph doesn't have SIRINLUEXTERNALSSU_INFERENCESsuInferenceResponse ssuResponse.", buf, 0xCu);
         }
 
@@ -646,13 +653,11 @@ void __72__CDMClient_SsuInference__processSsuInferenceRequest_completionHandler_
       (*(*(a1 + 40) + 16))();
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setupSsuInference:(id)inference serviceStateDirectory:(id)directory completionHandler:(id)handler
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   inferenceCopy = inference;
   directoryCopy = directory;
   handlerCopy = handler;
@@ -666,9 +671,9 @@ void __72__CDMClient_SsuInference__processSsuInferenceRequest_completionHandler_
 
     if (v14)
     {
-      v24 = 0;
-      v15 = [MEMORY[0x1E696AEC0] stringWithContentsOfFile:v12 encoding:4 error:&v24];
-      v16 = v24;
+      v23 = 0;
+      v15 = [MEMORY[0x1E696AEC0] stringWithContentsOfFile:v12 encoding:4 error:&v23];
+      v16 = v23;
       if (v16)
       {
         v17 = v16;
@@ -696,9 +701,9 @@ void __72__CDMClient_SsuInference__processSsuInferenceRequest_completionHandler_
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315394;
-    v26 = "[CDMClient(SsuInference) setupSsuInference:serviceStateDirectory:completionHandler:]";
-    v27 = 2112;
-    v28 = v12;
+    v25 = "[CDMClient(SsuInference) setupSsuInference:serviceStateDirectory:completionHandler:]";
+    v26 = 2112;
+    v27 = v12;
     _os_log_debug_impl(&dword_1DC287000, v20, OS_LOG_TYPE_DEBUG, "%s CDM SSU Inference client graph setup, locale=%@", buf, 0x16u);
   }
 
@@ -708,8 +713,6 @@ void __72__CDMClient_SsuInference__processSsuInferenceRequest_completionHandler_
 
   [(CDMClient *)self setup:v17 completionHandler:handlerCopy];
 LABEL_11:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 @end

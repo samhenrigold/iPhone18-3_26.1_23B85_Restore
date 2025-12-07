@@ -17,48 +17,46 @@
 {
   v3 = *(&self->super.isa + OBJC_IVAR___ASCredentialRequestPaneHeaderConfiguration_rawConfiguration);
   swift_getKeyPath();
-  sub_1B1CE4298(&qword_1EB774DA8);
+  sub_1B1CE4298(&qword_1EB774DA8, &unk_1B1D85A18);
   selfCopy = self;
   sub_1B1D7B6DC();
 
-  v6 = *(v3 + 16);
   v5 = *(v3 + 24);
 
   if (v5)
   {
-    v7 = sub_1B1D7BE1C();
+    v6 = sub_1B1D7BE1C();
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (NSString)subtitle
 {
   v3 = *(&self->super.isa + OBJC_IVAR___ASCredentialRequestPaneHeaderConfiguration_rawConfiguration);
   swift_getKeyPath();
-  sub_1B1CE4298(&qword_1EB774DA8);
+  sub_1B1CE4298(&qword_1EB774DA8, &unk_1B1D85A18);
   selfCopy = self;
   sub_1B1D7B6DC();
 
-  v6 = *(v3 + 32);
   v5 = *(v3 + 40);
 
   if (v5)
   {
-    v7 = sub_1B1D7BE1C();
+    v6 = sub_1B1D7BE1C();
   }
 
   else
   {
-    v7 = 0;
+    v6 = 0;
   }
 
-  return v7;
+  return v6;
 }
 
 - (ASCredentialRequestPaneHeaderConfiguration)initWithTitle:(id)title subtitle:(id)subtitle
@@ -115,21 +113,20 @@ LABEL_3:
 
 - (int64_t)hash
 {
-  v3 = *(&self->super.isa + OBJC_IVAR___ASCredentialRequestPaneHeaderConfiguration_rawConfiguration);
   sub_1B1D7C5CC();
   selfCopy = self;
-  sub_1B1CE1A50();
-  v5 = sub_1B1D7C61C();
+  sub_1B1CE1A50(v6);
+  v4 = sub_1B1D7C61C();
 
-  return v5;
+  return v4;
 }
 
 + (id)noCredentialsErrorWithServiceName:(id)name
 {
-  sub_1B1D7BE4C();
-  v3 = _sSo42ASCredentialRequestPaneHeaderConfigurationC22AuthenticationServicesE18noCredentialsError15withServiceNameABSS_tFZ_0();
+  v3 = sub_1B1D7BE4C();
+  v5 = _sSo42ASCredentialRequestPaneHeaderConfigurationC22AuthenticationServicesE18noCredentialsError15withServiceNameABSS_tFZ_0(v3, v4);
 
-  return v3;
+  return v5;
 }
 
 + (id)signInFailedErrorWithSubtitle:(id)subtitle
@@ -153,38 +150,36 @@ LABEL_3:
 
 + (id)passwordManagerHeaderWithTitle:(id)title subtitle:(id)subtitle
 {
-  subtitleCopy = subtitle;
   if (title)
   {
-    v5 = sub_1B1D7BE4C();
-    v7 = v6;
-    if (subtitleCopy)
+    sub_1B1D7BE4C();
+    v6 = v5;
+    if (subtitle)
     {
 LABEL_3:
-      subtitleCopy = sub_1B1D7BE4C();
-      v9 = v8;
+      sub_1B1D7BE4C();
+      v8 = v7;
       goto LABEL_6;
     }
   }
 
   else
   {
-    v5 = 0;
-    v7 = 0;
+    v6 = 0;
     if (subtitle)
     {
       goto LABEL_3;
     }
   }
 
-  v9 = 0;
+  v8 = 0;
 LABEL_6:
   type metadata accessor for ASCredentialRequestPaneHeaderConfiguration();
-  memset(v12, 0, sizeof(v12));
-  v13 = 98;
-  v10 = ASCredentialRequestPaneHeaderConfiguration.init(title:subtitle:icon:)(v5, v7, subtitleCopy, v9, v12);
+  memset(v11, 0, sizeof(v11));
+  v12 = 98;
+  v9 = ASCredentialRequestPaneHeaderConfiguration.init(title:subtitle:icon:)(v6, v8, v11, 0x62);
 
-  return v10;
+  return v9;
 }
 
 + (id)credentialProviderHeaderWithApplicationBundleID:(id)d title:(id)title subtitle:(id)subtitle
@@ -193,12 +188,12 @@ LABEL_6:
   v9 = v8;
   if (title)
   {
-    title = sub_1B1D7BE4C();
+    sub_1B1D7BE4C();
     v11 = v10;
     if (subtitle)
     {
 LABEL_3:
-      subtitle = sub_1B1D7BE4C();
+      sub_1B1D7BE4C();
       v13 = v12;
       goto LABEL_6;
     }
@@ -220,7 +215,7 @@ LABEL_6:
   v16[1] = v9;
   v16[2] = 0;
   v17 = 96;
-  v14 = ASCredentialRequestPaneHeaderConfiguration.init(title:subtitle:icon:)(title, v11, subtitle, v13, v16);
+  v14 = ASCredentialRequestPaneHeaderConfiguration.init(title:subtitle:icon:)(v11, v13, v16, 0x60);
 
   return v14;
 }

@@ -85,7 +85,7 @@
 
   if (v3)
   {
-    sub_1D7E0A1A8(0, &qword_1EDBB3260);
+    sub_1D7E0A1A8(0, &qword_1EDBB3260, 0x1E69DCBA0);
     v4 = sub_1D8191304();
   }
 

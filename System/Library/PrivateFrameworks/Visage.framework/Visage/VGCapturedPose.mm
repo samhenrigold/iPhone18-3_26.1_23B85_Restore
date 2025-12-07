@@ -33,25 +33,25 @@
 
 - (VGCapturedPose)initWithCoder:(id)coder
 {
-  v18[7] = *MEMORY[0x277D85DE8];
+  v17[7] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
-  v17.receiver = self;
-  v17.super_class = VGCapturedPose;
-  v5 = [(VGCapturedPose *)&v17 init];
+  v16.receiver = self;
+  v16.super_class = VGCapturedPose;
+  v5 = [(VGCapturedPose *)&v16 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"captureData"];
     [(VGCapturedPose *)v5 setCaptureData:v6];
 
     v7 = MEMORY[0x277CBEB98];
-    v18[0] = objc_opt_class();
-    v18[1] = objc_opt_class();
-    v18[2] = objc_opt_class();
-    v18[3] = objc_opt_class();
-    v18[4] = objc_opt_class();
-    v18[5] = objc_opt_class();
-    v18[6] = objc_opt_class();
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:7];
+    v17[0] = objc_opt_class();
+    v17[1] = objc_opt_class();
+    v17[2] = objc_opt_class();
+    v17[3] = objc_opt_class();
+    v17[4] = objc_opt_class();
+    v17[5] = objc_opt_class();
+    v17[6] = objc_opt_class();
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:7];
     v9 = [v7 setWithArray:v8];
     v10 = [coderCopy decodeObjectOfClasses:v9 forKey:@"trackingData"];
     [(VGCapturedPose *)v5 setTrackingData:v10];
@@ -90,7 +90,6 @@
     v14 = v5;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

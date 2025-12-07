@@ -114,7 +114,7 @@ LABEL_18:
 
 - (BOOL)isEmptyState
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if ([(BDSReadingHistoryStateInfo *)self currentStreak])
   {
     v3 = 0;
@@ -135,28 +135,28 @@ LABEL_18:
     }
   }
 
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   readingHistory = [(BDSReadingHistoryStateInfo *)self readingHistory];
-  v7 = [readingHistory countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v7 = [readingHistory countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v15;
+    v9 = *v14;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v15 != v9)
+        if (*v14 != v9)
         {
           objc_enumerationMutation(readingHistory);
         }
 
         if (v3)
         {
-          v11 = [*(*(&v14 + 1) + 8 * i) day];
+          v11 = [*(*(&v13 + 1) + 8 * i) day];
           v3 = [v11 readingTime] == 0;
         }
 
@@ -166,13 +166,12 @@ LABEL_18:
         }
       }
 
-      v8 = [readingHistory countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v8 = [readingHistory countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v8);
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v3;
 }
 

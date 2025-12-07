@@ -16,6 +16,7 @@
 - (void)stopSharingTypes:(id)types alertLabel:(id)label alertDetail:(id)detail;
 - (void)tableView:(id)view didDeselectRowAtIndexPath:(id)path;
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation DSPublicResourceSharingController
@@ -24,9 +25,11 @@
 {
   if (objc_opt_class() == self)
   {
-    DSLogPublicResourceSharingController = os_log_create("com.apple.DigitalSeparation", "DSPublicResourceSharingController");
+    v2 = os_log_create("com.apple.DigitalSeparation", "DSPublicResourceSharingController");
+    v3 = DSLogPublicResourceSharingController;
+    DSLogPublicResourceSharingController = v2;
 
-    MEMORY[0x2821F96F8]();
+    MEMORY[0x2821F96F8](v2, v3);
   }
 }
 
@@ -91,6 +94,14 @@
   return v6;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = DSPublicResourceSharingController;
+  [(OBTableWelcomeController *)&v4 viewWillAppear:appear];
+  [(DSPublicResourceSharingController *)self reloadTableViewData];
+}
+
 - (void)_pushNextPane
 {
   delegate = [(DSPublicResourceSharingController *)self delegate];
@@ -125,35 +136,35 @@
 void __77__DSPublicResourceSharingController_stopSharingTypes_alertLabel_alertDetail___block_invoke_2(uint64_t a1)
 {
   v1 = a1;
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) buttonTray];
   [v2 showButtonsBusy];
 
   v3 = dispatch_group_create();
   v4 = [MEMORY[0x277CBEB18] array];
   v5 = [*(v1 + 32) permissions];
+  v29 = 0u;
   v30 = 0u;
   v31 = 0u;
   v32 = 0u;
-  v33 = 0u;
   obj = *(v1 + 40);
-  v23 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
-  if (v23)
+  v22 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
+  if (v22)
   {
-    v7 = *v31;
+    v7 = *v30;
     *&v6 = 138543362;
-    v21 = v6;
+    v20 = v6;
     do
     {
       v8 = 0;
       do
       {
-        if (*v31 != v7)
+        if (*v30 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v30 + 1) + 8 * v8);
+        v9 = *(*(&v29 + 1) + 8 * v8);
         dispatch_group_enter(v3);
         v10 = DSLogPublicResourceSharingController;
         if (os_log_type_enabled(DSLogPublicResourceSharingController, OS_LOG_TYPE_INFO))
@@ -165,8 +176,8 @@ void __77__DSPublicResourceSharingController_stopSharingTypes_alertLabel_alertDe
           v14 = v4;
           v15 = v5;
           v17 = v16 = v1;
-          *buf = v21;
-          v35 = v17;
+          *buf = v20;
+          v34 = v17;
           _os_log_impl(&dword_248C7E000, v11, OS_LOG_TYPE_INFO, "Stopping all public sharing for type %{public}@", buf, 0xCu);
 
           v1 = v16;
@@ -176,24 +187,24 @@ void __77__DSPublicResourceSharingController_stopSharingTypes_alertLabel_alertDe
         }
 
         v18 = [*(v1 + 32) workQueue];
-        v26[0] = MEMORY[0x277D85DD0];
-        v26[1] = 3221225472;
-        v26[2] = __77__DSPublicResourceSharingController_stopSharingTypes_alertLabel_alertDetail___block_invoke_340;
-        v26[3] = &unk_278F75628;
-        v26[4] = v9;
-        v27 = v4;
-        v28 = v5;
-        v29 = v3;
-        [v9 stopAllSharingOnQueue:v18 completion:v26];
+        v25[0] = MEMORY[0x277D85DD0];
+        v25[1] = 3221225472;
+        v25[2] = __77__DSPublicResourceSharingController_stopSharingTypes_alertLabel_alertDetail___block_invoke_340;
+        v25[3] = &unk_278F75628;
+        v25[4] = v9;
+        v26 = v4;
+        v27 = v5;
+        v28 = v3;
+        [v9 stopAllSharingOnQueue:v18 completion:v25];
 
         ++v8;
       }
 
-      while (v23 != v8);
-      v23 = [obj countByEnumeratingWithState:&v30 objects:v36 count:16];
+      while (v22 != v8);
+      v22 = [obj countByEnumeratingWithState:&v29 objects:v35 count:16];
     }
 
-    while (v23);
+    while (v22);
   }
 
   block[0] = MEMORY[0x277D85DD0];
@@ -201,16 +212,14 @@ void __77__DSPublicResourceSharingController_stopSharingTypes_alertLabel_alertDe
   block[2] = __77__DSPublicResourceSharingController_stopSharingTypes_alertLabel_alertDetail___block_invoke_342;
   block[3] = &unk_278F75650;
   block[4] = *(v1 + 32);
-  v25 = v4;
+  v24 = v4;
   v19 = v4;
   dispatch_group_notify(v3, MEMORY[0x277D85CD0], block);
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __77__DSPublicResourceSharingController_stopSharingTypes_alertLabel_alertDetail___block_invoke_340(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = DSLogPublicResourceSharingController;
   if (os_log_type_enabled(DSLogPublicResourceSharingController, OS_LOG_TYPE_INFO))
@@ -219,9 +228,9 @@ void __77__DSPublicResourceSharingController_stopSharingTypes_alertLabel_alertDe
     v6 = v4;
     v7 = [v5 source];
     v8 = [v7 name];
-    v11 = 138543362;
-    v12 = v8;
-    _os_log_impl(&dword_248C7E000, v6, OS_LOG_TYPE_INFO, "Finished stop all public sharing for type %{public}@", &v11, 0xCu);
+    v10 = 138543362;
+    v11 = v8;
+    _os_log_impl(&dword_248C7E000, v6, OS_LOG_TYPE_INFO, "Finished stop all public sharing for type %{public}@", &v10, 0xCu);
   }
 
   if (v3)
@@ -241,8 +250,6 @@ void __77__DSPublicResourceSharingController_stopSharingTypes_alertLabel_alertDe
   }
 
   dispatch_group_leave(*(a1 + 56));
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 void __77__DSPublicResourceSharingController_stopSharingTypes_alertLabel_alertDetail___block_invoke_342(uint64_t a1)
@@ -385,7 +392,7 @@ void __77__DSPublicResourceSharingController_stopSharingTypes_alertLabel_alertDe
 
 - (int64_t)tableView:(id)view numberOfRowsInSection:(int64_t)section
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v5 = [(DSPublicResourceSharingController *)self permissions:view];
   publicSharingTypesCount = [v5 publicSharingTypesCount];
 
@@ -400,35 +407,35 @@ void __77__DSPublicResourceSharingController_stopSharingTypes_alertLabel_alertDe
   else
   {
     v7 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v24 = 0u;
     v25 = 0u;
     v26 = 0u;
     v27 = 0u;
-    v28 = 0u;
-    v24 = objc_alloc_init(MEMORY[0x277D054C8]);
-    sources = [v24 sources];
-    v9 = [sources countByEnumeratingWithState:&v25 objects:v29 count:16];
+    v23 = objc_alloc_init(MEMORY[0x277D054C8]);
+    sources = [v23 sources];
+    v9 = [sources countByEnumeratingWithState:&v24 objects:v28 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v26;
+      v11 = *v25;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v26 != v11)
+          if (*v25 != v11)
           {
             objc_enumerationMutation(sources);
           }
 
           v13 = MEMORY[0x277D054C0];
-          name = [*(*(&v25 + 1) + 8 * i) name];
+          name = [*(*(&v24 + 1) + 8 * i) name];
           v15 = [v13 sourceDescriptorForSource:name];
           localizedAppName = [v15 localizedAppName];
 
           [v7 addObject:localizedAppName];
         }
 
-        v10 = [sources countByEnumeratingWithState:&v25 objects:v29 count:16];
+        v10 = [sources countByEnumeratingWithState:&v24 objects:v28 count:16];
       }
 
       while (v10);
@@ -445,10 +452,9 @@ void __77__DSPublicResourceSharingController_stopSharingTypes_alertLabel_alertDe
     [(DSTableWelcomeController *)self setIsModelEmpty:1];
     [(DSPublicResourceSharingController *)self _updateButton];
 
-    publicSharingTypesCount = 0;
+    return 0;
   }
 
-  v22 = *MEMORY[0x277D85DE8];
   return publicSharingTypesCount;
 }
 
@@ -494,18 +500,16 @@ void __77__DSPublicResourceSharingController_stopSharingTypes_alertLabel_alertDe
 
 void __77__DSPublicResourceSharingController_stopSharingTypes_alertLabel_alertDetail___block_invoke_340_cold_1(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 32);
   v5 = a2;
   v6 = [v4 source];
   v7 = [v6 name];
-  v9 = 138543618;
-  v10 = v7;
-  v11 = 2114;
-  v12 = a3;
-  _os_log_error_impl(&dword_248C7E000, v5, OS_LOG_TYPE_ERROR, "Failed to stop all public sharing for sharing type %{public}@ because %{public}@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138543618;
+  v9 = v7;
+  v10 = 2114;
+  v11 = a3;
+  _os_log_error_impl(&dword_248C7E000, v5, OS_LOG_TYPE_ERROR, "Failed to stop all public sharing for sharing type %{public}@ because %{public}@", &v8, 0x16u);
 }
 
 @end

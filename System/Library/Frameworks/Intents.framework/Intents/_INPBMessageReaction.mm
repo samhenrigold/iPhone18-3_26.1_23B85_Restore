@@ -3,6 +3,7 @@
 - (_INPBMessageReaction)initWithCoder:(id)coder;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)dictionaryRepresentation;
+- (id)reactionTypeAsString:(int)string;
 - (int)StringAsReactionType:(id)type;
 - (unint64_t)hash;
 - (void)encodeWithCoder:(id)coder;
@@ -234,7 +235,6 @@ LABEL_22:
 
   if (emoji)
   {
-    emoji = self->_emoji;
     PBDataWriterWriteStringField();
   }
 
@@ -242,25 +242,23 @@ LABEL_22:
 
   if (reactionDescription)
   {
-    reactionDescription = self->_reactionDescription;
     PBDataWriterWriteStringField();
   }
 
   if ([(_INPBMessageReaction *)self hasReactionType])
   {
-    reactionType = self->_reactionType;
     PBDataWriterWriteInt32Field();
   }
 
   sticker = [(_INPBMessageReaction *)self sticker];
 
-  v10 = toCopy;
+  v7 = toCopy;
   if (sticker)
   {
     sticker2 = [(_INPBMessageReaction *)self sticker];
     PBDataWriterWriteSubmessage();
 
-    v10 = toCopy;
+    v7 = toCopy;
   }
 }
 
@@ -330,6 +328,21 @@ LABEL_22:
   else
   {
     v4 = 1;
+  }
+
+  return v4;
+}
+
+- (id)reactionTypeAsString:(int)string
+{
+  if ((string - 1) >= 0xC)
+  {
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_1E72823B0[string - 1];
   }
 
   return v4;

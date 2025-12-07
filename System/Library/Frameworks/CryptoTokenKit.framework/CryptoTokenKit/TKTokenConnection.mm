@@ -40,16 +40,15 @@
 - (BOOL)listener:(id)listener shouldAcceptNewConnection:(id)connection
 {
   gotLoadHelper_x8__OBJC_CLASS___LAContext(v4);
-  v7 = *(v6 + 3664);
-  v9 = v8;
+  v7 = v6;
   objc_opt_class();
-  v10 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F5A8D7B0];
-  [v9 setExportedInterface:v10];
+  v8 = [MEMORY[0x1E696B0D0] interfaceWithProtocol:&unk_1F5A8D7B0];
+  [v7 setExportedInterface:v8];
 
-  v11 = [[TKTokenSessionConnection alloc] initWithTokenConnection:self];
-  [v9 setExportedObject:v11];
+  v9 = [[TKTokenSessionConnection alloc] initWithTokenConnection:self];
+  [v7 setExportedObject:v9];
 
-  [v9 resume];
+  [v7 resume];
   return 1;
 }
 

@@ -96,16 +96,16 @@ CBPresetsParser *__33__CBPresetsParser_sharedInstance__block_invoke()
   objc_sync_exit(self);
 }
 
-void __37__CBPresetsParser_refreshPresetState__block_invoke(uint64_t a1, void *a2)
+double __37__CBPresetsParser_refreshPresetState__block_invoke(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v5 = +[CBPreset newActive:](CBPreset, "newActive:", [a2 unsignedIntValue]);
-  if (v5)
+  v9 = *MEMORY[0x1E69E9840];
+  v6 = +[CBPreset newActive:](CBPreset, "newActive:", [a2 unsignedIntValue]);
+  if (v6)
   {
-    [*(*(a1 + 32) + 16) setObject:v5 forKey:a2];
+    [*(*(a1 + 32) + 16) setObject:v6 forKey:a2];
     if (*(*(a1 + 32) + 24))
     {
-      v3 = *(*(a1 + 32) + 24);
+      v4 = *(*(a1 + 32) + 24);
     }
 
     else
@@ -120,19 +120,19 @@ void __37__CBPresetsParser_refreshPresetState__block_invoke(uint64_t a1, void *a
         inited = init_default_corebrightness_log();
       }
 
-      v3 = inited;
+      v4 = inited;
     }
 
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      __os_log_helper_16_2_2_8_64_8_64(v7, a2, v5);
-      _os_log_impl(&dword_1DE8E5000, v3, OS_LOG_TYPE_INFO, "Presets: display %@ updated info: %@", v7, 0x16u);
+      __os_log_helper_16_2_2_8_64_8_64(v8, a2, v6);
+      _os_log_impl(&dword_1DE8E5000, v4, OS_LOG_TYPE_INFO, "Presets: display %@ updated info: %@", v8, 0x16u);
     }
 
-    MEMORY[0x1E69E5920](v5);
+    *&result = MEMORY[0x1E69E5920](v6).n128_u64[0];
   }
 
-  *MEMORY[0x1E69E9840];
+  return result;
 }
 
 - (BOOL)trueToneDisabled
@@ -186,7 +186,6 @@ void __37__CBPresetsParser_refreshPresetState__block_invoke(uint64_t a1, void *a
   v4 = *(v9 + 24);
   _Block_object_dispose(&v8, 8);
   objc_sync_exit(self);
-  *MEMORY[0x1E69E9840];
   return v4 & 1;
 }
 
@@ -256,7 +255,6 @@ uint64_t __35__CBPresetsParser_trueToneDisabled__block_invoke(uint64_t a1, uint6
   v4 = *(v9 + 24);
   _Block_object_dispose(&v8, 8);
   objc_sync_exit(self);
-  *MEMORY[0x1E69E9840];
   return v4 & 1;
 }
 
@@ -365,7 +363,6 @@ uint64_t __37__CBPresetsParser_nightShiftDisabled__block_invoke(uint64_t a1, uin
 
   objc_autoreleasePoolPop(context);
   objc_sync_exit(self);
-  *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -411,7 +408,6 @@ uint64_t __37__CBPresetsParser_nightShiftDisabled__block_invoke(uint64_t a1, uin
 
   objc_autoreleasePoolPop(context);
   objc_sync_exit(self);
-  *MEMORY[0x1E69E9840];
   return brightnessDisabled & 1;
 }
 
@@ -457,7 +453,6 @@ uint64_t __37__CBPresetsParser_nightShiftDisabled__block_invoke(uint64_t a1, uin
 
   objc_autoreleasePoolPop(context);
   objc_sync_exit(self);
-  *MEMORY[0x1E69E9840];
   return referenceMode & 1;
 }
 

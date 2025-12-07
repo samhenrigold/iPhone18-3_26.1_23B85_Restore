@@ -10,7 +10,7 @@
 
 - (_TtC10WorkflowUI26MoveToFolderViewController)initWithDatabase:(id)database shortcutsToMove:(id)move
 {
-  sub_27471CF08(0, &qword_28159E4A8);
+  sub_27471CF08(0, &qword_28159E4A8, 0x277D7CAA8);
   v5 = sub_2749FCF84();
   return MoveToFolderViewController.init(database:shortcutsToMove:)(database, v5);
 }
@@ -47,7 +47,7 @@
   sub_2749F9234();
   viewCopy = view;
   selfCopy = self;
-  MoveToFolderViewController.collectionView(_:didSelectItemAt:)();
+  MoveToFolderViewController.collectionView(_:didSelectItemAt:)(selfCopy, v9);
 
   (*(v7 + 8))(v9, v6);
 }

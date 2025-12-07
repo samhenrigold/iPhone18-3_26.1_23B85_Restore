@@ -265,7 +265,7 @@ LABEL_18:
     v5 = 0.0;
   }
 
-  _resolvedStringDrawingContext = [(_UILabelConfiguration *)&configuration->super.isa _resolvedStringDrawingContext];
+  _resolvedStringDrawingContext = [(_UILabelConfiguration *)configuration _resolvedStringDrawingContext];
   _content = [(_UILabelConfiguration *)&self->_configuration->super.isa _content];
   attributedString = [_content attributedString];
 

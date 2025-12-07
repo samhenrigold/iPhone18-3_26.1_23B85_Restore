@@ -220,10 +220,10 @@ LABEL_44:
 
 - (id)runAction
 {
-  v37 = *MEMORY[0x1E69E9840];
-  v30.receiver = self;
-  v30.super_class = AMSUIWebVerifyCredentialsAction;
-  runAction = [(AMSUIWebAction *)&v30 runAction];
+  v36 = *MEMORY[0x1E69E9840];
+  v29.receiver = self;
+  v29.super_class = AMSUIWebVerifyCredentialsAction;
+  runAction = [(AMSUIWebAction *)&v29 runAction];
   mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
   if (!mEMORY[0x1E698C968])
   {
@@ -238,11 +238,11 @@ LABEL_44:
     account = [(AMSUIWebVerifyCredentialsAction *)self account];
     v9 = AMSHashIfNeeded();
     *buf = 138543874;
-    v32 = v6;
-    v33 = 2114;
-    v34 = v7;
-    v35 = 2114;
-    v36 = v9;
+    v31 = v6;
+    v32 = 2114;
+    v33 = v7;
+    v34 = 2114;
+    v35 = v9;
     _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_DEFAULT, "%{public}@: [%{public}@] Running AuthKit action for account: %{public}@", buf, 0x20u);
   }
 
@@ -289,8 +289,6 @@ LABEL_44:
   performAuthKitUpdate = [(AMSAuthKitUpdateTask *)v25 performAuthKitUpdate];
   v27 = [performAuthKitUpdate thenWithBlock:&__block_literal_global_35];
 
-  v28 = *MEMORY[0x1E69E9840];
-
   return v27;
 }
 
@@ -307,16 +305,14 @@ id __44__AMSUIWebVerifyCredentialsAction_runAction__block_invoke(uint64_t a1, vo
 
 + (int64_t)_serviceTypeFromType:(int64_t)type
 {
-  v16 = *MEMORY[0x1E69E9840];
-  if (!type)
+  v15 = *MEMORY[0x1E69E9840];
+  if (type)
   {
-LABEL_9:
-    result = 2;
-    goto LABEL_10;
-  }
+    if (type == 1)
+    {
+      return 1;
+    }
 
-  if (type != 1)
-  {
     mEMORY[0x1E698C968] = [MEMORY[0x1E698C968] sharedWebUIConfig];
     if (!mEMORY[0x1E698C968])
     {
@@ -328,22 +324,17 @@ LABEL_9:
     {
       v7 = objc_opt_class();
       v8 = AMSLogKey();
-      v10 = 138543874;
-      v11 = v7;
-      v12 = 2114;
-      v13 = v8;
-      v14 = 2048;
+      v9 = 138543874;
+      v10 = v7;
+      v11 = 2114;
+      v12 = v8;
+      v13 = 2048;
       typeCopy = type;
-      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Defaulting to STORE service type. (%ld)", &v10, 0x20u);
+      _os_log_impl(&dword_1BB036000, oSLogObject, OS_LOG_TYPE_ERROR, "%{public}@: [%{public}@] Defaulting to STORE service type. (%ld)", &v9, 0x20u);
     }
-
-    goto LABEL_9;
   }
 
-  result = 1;
-LABEL_10:
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return 2;
 }
 
 + (id)_authenticationTypeFromStringedType:(id)type

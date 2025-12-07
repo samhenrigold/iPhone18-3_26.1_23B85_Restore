@@ -1,23 +1,23 @@
 @interface PKDataDetectorInteractionHelper
+- (_BYTE)setDetectionViewsHidden:(_BYTE *)result;
 - (_BYTE)setShouldHideItems:(_BYTE *)result;
 - (double)boundingBoxForHashtagOrMentionWithUUID:(uint64_t)d;
 - (id)_accessibilityUserTestingChildren;
 - (id)drawing;
 - (id)initWithView:(void *)view parentView:(void *)parentView recognitionController:;
 - (id)inlineViewAtPoint:(double)point;
+- (id)removeDetectionViews;
 - (id)setDelegate:(id *)result;
+- (id)updateHashtagsAndMentionsActivationState;
 - (id)window;
-- (uint64_t)removeDetectionViews;
-- (uint64_t)setDetectionViewsHidden:(uint64_t)result;
-- (uint64_t)updateHashtagsAndMentionsActivationState;
 - (void)_removeViews:(void *)views animated:(char)animated;
 - (void)_updateAllPossibleParticipantNameTokens:(uint64_t)tokens;
-- (void)foundDataDetectorItems:(uint64_t)items;
+- (void)foundDataDetectorItems:(uint64_t)result;
 - (void)foundProofreadingItems:(uint64_t)items;
 - (void)hashtagViewDidActivateHashtag:(id)hashtag;
 - (void)hashtagViewDidDeactivateHashtag:(id)hashtag;
 - (void)hashtagViewWillDeactivateHashtag:(id)hashtag;
-- (void)layoutInlineViewsDrawingTransform:(id *)transform;
+- (void)layoutInlineViewsDrawingTransform:(uint64_t)transform;
 - (void)mentionViewDidActivateMention:(id)mention withParticpant:(id)particpant;
 - (void)mentionViewDidDeactivateMention:(id)mention;
 - (void)mentionViewWillDeactivateMention:(id)mention;
@@ -75,14 +75,14 @@
   return self;
 }
 
-- (uint64_t)setDetectionViewsHidden:(uint64_t)result
+- (_BYTE)setDetectionViewsHidden:(_BYTE *)result
 {
   if (result)
   {
     v2 = result;
-    if (*(result + 13) != a2)
+    if (result[13] != a2)
     {
-      *(result + 13) = a2;
+      result[13] = a2;
       if (a2)
       {
         v8[0] = MEMORY[0x1E69E9820];
@@ -250,20 +250,20 @@
   return result;
 }
 
-- (uint64_t)removeDetectionViews
+- (id)removeDetectionViews
 {
   if (result)
   {
     v1 = result;
-    [*(result + 56) makeObjectsPerformSelector:sel_removeFromSuperview];
-    [*(v1 + 56) removeAllObjects];
-    [*(v1 + 88) removeAllObjects];
-    [*(v1 + 72) makeObjectsPerformSelector:sel_removeFromSuperview];
-    [*(v1 + 72) removeAllObjects];
-    [*(v1 + 96) removeAllObjects];
-    [*(v1 + 64) makeObjectsPerformSelector:sel_removeFromSuperview];
-    [*(v1 + 64) removeAllObjects];
-    v2 = *(v1 + 104);
+    [result[7] makeObjectsPerformSelector:sel_removeFromSuperview];
+    [v1[7] removeAllObjects];
+    [v1[11] removeAllObjects];
+    [v1[9] makeObjectsPerformSelector:sel_removeFromSuperview];
+    [v1[9] removeAllObjects];
+    [v1[12] removeAllObjects];
+    [v1[8] makeObjectsPerformSelector:sel_removeFromSuperview];
+    [v1[8] removeAllObjects];
+    v2 = v1[13];
 
     return [v2 removeAllObjects];
   }
@@ -475,11 +475,11 @@ LABEL_37:
   return selfCopy;
 }
 
-- (void)foundDataDetectorItems:(uint64_t)items
+- (void)foundDataDetectorItems:(uint64_t)result
 {
-  if (items)
+  if (result)
   {
-    [(PKDataDetectorInteractionHelper *)items updateDetectionViews:a2 withItems:*(items + 88) previousItems:?];
+    [(PKDataDetectorInteractionHelper *)result updateDetectionViews:a2 withItems:*(result + 88) previousItems:?];
   }
 }
 
@@ -528,30 +528,30 @@ LABEL_37:
   }
 }
 
-- (void)layoutInlineViewsDrawingTransform:(id *)transform
+- (void)layoutInlineViewsDrawingTransform:(uint64_t)transform
 {
   v42 = *MEMORY[0x1E69E9840];
   if (transform)
   {
     array = [MEMORY[0x1E695DF70] array];
-    if ([transform[7] count])
+    if ([*(transform + 56) count])
     {
-      [array addObjectsFromArray:transform[7]];
+      [array addObjectsFromArray:*(transform + 56)];
     }
 
-    if ([transform[9] count])
+    if ([*(transform + 72) count])
     {
-      [array addObjectsFromArray:transform[9]];
+      [array addObjectsFromArray:*(transform + 72)];
     }
 
-    if ([transform[8] count])
+    if ([*(transform + 64) count])
     {
-      [array addObjectsFromArray:transform[8]];
+      [array addObjectsFromArray:*(transform + 64)];
     }
 
-    if ([transform[10] count])
+    if ([*(transform + 80) count])
     {
-      [array addObjectsFromArray:transform[10]];
+      [array addObjectsFromArray:*(transform + 80)];
     }
 
     v39 = 0u;
@@ -594,7 +594,7 @@ LABEL_37:
           [v11 setFrame:?];
           if (v11)
           {
-            [v11 drawingTransform];
+            objc_msgSend_drawingTransform(v11);
           }
 
           else
@@ -662,13 +662,13 @@ LABEL_37:
   }
 }
 
-- (uint64_t)updateHashtagsAndMentionsActivationState
+- (id)updateHashtagsAndMentionsActivationState
 {
   if (result)
   {
     v1 = result;
-    [*(result + 72) makeObjectsPerformSelector:sel_updateActivationState];
-    v2 = *(v1 + 64);
+    [result[9] makeObjectsPerformSelector:sel_updateActivationState];
+    v2 = v1[8];
 
     return [v2 makeObjectsPerformSelector:sel_updateActivationState];
   }

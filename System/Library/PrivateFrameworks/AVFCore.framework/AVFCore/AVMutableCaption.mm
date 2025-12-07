@@ -31,7 +31,7 @@
   _figCaptionData = [(AVCaption *)self _figCaptionData];
   if (self)
   {
-    [(AVMutableCaption *)self timeRange];
+    objc_msgSend_timeRange(self);
   }
 
   else

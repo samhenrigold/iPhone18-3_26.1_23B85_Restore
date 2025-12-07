@@ -2,6 +2,7 @@
 - (MADetailSnippetViewController)initWithMapItemSnippet:(id)snippet;
 - (_MKPlaceCardConforming)placeViewController;
 - (double)desiredHeightForWidth:(double)width;
+- (id)_placeItemFromMapItem:(id)item isIntermediate:(BOOL)intermediate;
 - (id)_placeViewControllerWithPlaceItem:(id)item;
 - (void)_registerURLDelegate;
 - (void)_unregisterURLDelegate;
@@ -10,6 +11,7 @@
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations;
 - (void)openURL:(id)l bundleIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)openURL:(id)l completionHandler:(id)handler;
+- (void)placeViewController:(id)controller didSelectActivityOfType:(id)type completed:(BOOL)completed;
 - (void)placeViewController:(id)controller didSelectParent:(id)parent;
 - (void)placeViewController:(id)controller didSelectRouteToCurrentSearchResultWithMode:(unint64_t)mode;
 - (void)placeViewController:(id)controller didSelectRouteToCurrentSearchResultWithTransportTypePreference:(id)preference;
@@ -19,7 +21,10 @@
 - (void)placeViewControllerDidSelectShareLocation:(id)location;
 - (void)placeViewControllerDidUpdateHeight:(id)height;
 - (void)updatePlaceItem;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
+- (void)viewWillDisappear:(BOOL)disappear;
 @end
 
 @implementation MADetailSnippetViewController
@@ -27,29 +32,28 @@
 - (void)locationManager:(id)manager didUpdateLocations:(id)locations
 {
   lastObject = [locations lastObject];
-  placeViewController = self->_placeViewController;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  v7 = self->_placeViewController;
+  placeViewController = self->_placeViewController;
   if (isKindOfClass)
   {
-    v8 = lastObject;
+    v7 = lastObject;
   }
 
   else
   {
     objc_opt_class();
-    v9 = objc_opt_isKindOfClass();
-    v8 = lastObject;
-    if ((v9 & 1) == 0)
+    v8 = objc_opt_isKindOfClass();
+    v7 = lastObject;
+    if ((v8 & 1) == 0)
     {
       goto LABEL_6;
     }
 
-    v7 = self->_placeViewController;
+    placeViewController = self->_placeViewController;
   }
 
-  [(_MKPlaceCardConforming *)v7 setLocation:v8];
+  [(_MKPlaceCardConforming *)placeViewController setLocation:v7];
 LABEL_6:
 
   _objc_release_x1();
@@ -74,6 +78,15 @@ LABEL_6:
   }
 
   return v4;
+}
+
+- (id)_placeItemFromMapItem:(id)item isIntermediate:(BOOL)intermediate
+{
+  intermediateCopy = intermediate;
+  itemCopy = item;
+  v6 = +[_MKMapItemPlaceItem placeItemWithMapItem:options:isIntermediateMapItem:](_MKMapItemPlaceItem, "placeItemWithMapItem:options:isIntermediateMapItem:", itemCopy, [itemCopy isCurrentLocation], intermediateCopy);
+
+  return v6;
 }
 
 - (_MKPlaceCardConforming)placeViewController
@@ -192,6 +205,35 @@ LABEL_6:
   [NSLayoutConstraint activateConstraints:v28];
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  appearCopy = appear;
+  v5.receiver = self;
+  v5.super_class = MADetailSnippetViewController;
+  [(MABaseSnippetViewController *)&v5 viewWillAppear:?];
+  [(_MKPlaceCardConforming *)self->_placeViewController viewWillAppear:appearCopy];
+  [(MADetailSnippetViewController *)self _registerURLDelegate];
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v4.receiver = self;
+  v4.super_class = MADetailSnippetViewController;
+  [(MABaseSnippetViewController *)&v4 viewDidAppear:appear];
+  [(MADetailSnippetViewController *)self updatePlaceItem];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v6.receiver = self;
+  v6.super_class = MADetailSnippetViewController;
+  [(MABaseSnippetViewController *)&v6 viewWillDisappear:disappear];
+  [(MADetailSnippetViewController *)self _unregisterURLDelegate];
+  selectedLocalSearchMapItem = [(MABaseSnippetViewController *)self selectedLocalSearchMapItem];
+  placeData2 = [selectedLocalSearchMapItem placeData2];
+  [(MABaseSnippetViewController *)self captureUserAction:4 mapItemPlaceData:placeData2];
+}
+
 - (void)_registerURLDelegate
 {
   v3 = +[MKSystemController sharedInstance];
@@ -245,6 +287,12 @@ LABEL_6:
 {
   delegate = [(MADetailSnippetViewController *)self delegate];
   [delegate siriSnippetViewController:self setStatusViewHidden:1];
+}
+
+- (void)placeViewController:(id)controller didSelectActivityOfType:(id)type completed:(BOOL)completed
+{
+  v6 = [(MADetailSnippetViewController *)self delegate:controller];
+  [v6 siriSnippetViewController:self setStatusViewHidden:0];
 }
 
 - (void)placeViewController:(id)controller didSelectRouteToCurrentSearchResultWithMode:(unint64_t)mode

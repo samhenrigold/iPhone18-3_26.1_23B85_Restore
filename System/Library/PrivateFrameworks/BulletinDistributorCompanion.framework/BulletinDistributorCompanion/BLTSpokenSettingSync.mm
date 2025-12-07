@@ -1,11 +1,13 @@
 @interface BLTSpokenSettingSync
 - (BLTSpokenSettingSync)initWithSettingsGateway:(id)gateway syncServer:(id)server;
 - (BOOL)_queue_isUpdatingLocalStateFromRemote;
+- (BOOL)_queue_updateLocalGlobalSpokenSettingEnabledFromUser:(BOOL)user;
 - (BOOL)_queue_updateLocalSetting;
 - (id)_remoteSettingStoreURL;
 - (void)_queue_readSettings;
 - (void)_queue_resolveState;
 - (void)_queue_setNewLocalStateFromRemote:(BOOL)remote;
+- (void)_queue_synchronizeSettingsWithLocalEnabled:(BOOL)enabled;
 - (void)_queue_writeLocalSetting;
 - (void)_queue_writeRemoteSetting;
 - (void)bbUpdateLocalGlobalSpokenSettingEnabled:(int64_t)enabled;
@@ -43,7 +45,7 @@
   return v10;
 }
 
-uint64_t __59__BLTSpokenSettingSync_initWithSettingsGateway_syncServer___block_invoke(uint64_t a1)
+void *__59__BLTSpokenSettingSync_initWithSettingsGateway_syncServer___block_invoke(uint64_t a1)
 {
   [*(a1 + 32) _queue_readSettings];
   result = [*(a1 + 32) _queue_updateLocalSetting];
@@ -132,14 +134,12 @@ uint64_t __59__BLTSpokenSettingSync_initWithSettingsGateway_syncServer___block_i
     defaultManager = [MEMORY[0x277CCAA00] defaultManager];
     [defaultManager removeItemAtURL:_remoteSettingStoreURL error:0];
 
-    v11 = blt_ids_log();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = blt_ids_log(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      [(BLTSpokenSettingSync *)v11 _queue_writeRemoteSetting];
+      [(BLTSpokenSettingSync *)v12 _queue_writeRemoteSetting];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)_queue_updateLocalSetting
@@ -186,7 +186,7 @@ void __64__BLTSpokenSettingSync_bbUpdateLocalGlobalSpokenSettingEnabled___block_
   v3 = *(a1 + 40);
   if (v3 == -1)
   {
-    v7 = blt_settings_log();
+    v7 = blt_settings_log(v2);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
       *v8 = 0;
@@ -213,6 +213,36 @@ void __64__BLTSpokenSettingSync_bbUpdateLocalGlobalSpokenSettingEnabled___block_
   }
 }
 
+- (BOOL)_queue_updateLocalGlobalSpokenSettingEnabledFromUser:(BOOL)user
+{
+  userCopy = user;
+  v11 = *MEMORY[0x277D85DE8];
+  dispatch_assert_queue_V2(self->_queue);
+  if ([(BLTSpokenSettingSync *)self localGlobalSpokenSettingEnabled]== userCopy && ([(BLTSpokenSettingSync *)self localGlobalSpokenSettingDate], v5 = objc_claimAutoreleasedReturnValue(), v5, v5))
+  {
+    v7 = blt_settings_log(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      v10[0] = 67109120;
+      v10[1] = userCopy;
+      _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "Received local global spoken setting that is the same as the cached version: %{BOOL}u", v10, 8u);
+    }
+
+    return 0;
+  }
+
+  else
+  {
+    [(BLTSpokenSettingSync *)self setLocalGlobalSpokenSettingEnabled:userCopy];
+    date = [MEMORY[0x277CBEAA8] date];
+    [(BLTSpokenSettingSync *)self setLocalGlobalSpokenSettingDate:date];
+
+    [(BLTSpokenSettingSync *)self _queue_writeLocalSetting];
+    [(BLTSpokenSettingSync *)self _queue_resolveState];
+    return 1;
+  }
+}
+
 - (void)transportUpdateRemoteGlobalSpokenSettingEnabled:(BOOL)enabled date:(id)date
 {
   dateCopy = date;
@@ -230,7 +260,7 @@ void __64__BLTSpokenSettingSync_bbUpdateLocalGlobalSpokenSettingEnabled___block_
 
 void __77__BLTSpokenSettingSync_transportUpdateRemoteGlobalSpokenSettingEnabled_date___block_invoke(uint64_t a1)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) remoteGlobalSpokenSettingEnabled];
   v3 = *(a1 + 48);
   if (v3 == v2)
@@ -240,19 +270,18 @@ void __77__BLTSpokenSettingSync_transportUpdateRemoteGlobalSpokenSettingEnabled_
 
     if (v5 != -1)
     {
-      v6 = blt_settings_log();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+      v7 = blt_settings_log(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
       {
-        v7 = *(a1 + 48);
-        v8 = *(a1 + 40);
-        v12[0] = 67109378;
-        v12[1] = v7;
-        v13 = 2112;
-        v14 = v8;
-        _os_log_impl(&dword_241FB3000, v6, OS_LOG_TYPE_DEFAULT, "Received remote global spoken setting and dropping: %{BOOL}u date: %@", v12, 0x12u);
+        v8 = *(a1 + 48);
+        v9 = *(a1 + 40);
+        v11[0] = 67109378;
+        v11[1] = v8;
+        v12 = 2112;
+        v13 = v9;
+        _os_log_impl(&dword_241FB3000, v7, OS_LOG_TYPE_DEFAULT, "Received remote global spoken setting and dropping: %{BOOL}u date: %@", v11, 0x12u);
       }
 
-      v9 = *MEMORY[0x277D85DE8];
       return;
     }
 
@@ -263,7 +292,6 @@ void __77__BLTSpokenSettingSync_transportUpdateRemoteGlobalSpokenSettingEnabled_
   [*(a1 + 32) setRemoteGlobalSpokenSettingDate:*(a1 + 40)];
   [*(a1 + 32) _queue_writeRemoteSetting];
   v10 = *(a1 + 32);
-  v11 = *MEMORY[0x277D85DE8];
 
   [v10 _queue_resolveState];
 }
@@ -284,7 +312,7 @@ void __77__BLTSpokenSettingSync_transportUpdateRemoteGlobalSpokenSettingEnabled_
   {
 LABEL_4:
     localGlobalSpokenSettingDate2 = [(BLTSpokenSettingSync *)self localGlobalSpokenSettingDate];
-    v6 = localGlobalSpokenSettingDate2;
+    v7 = localGlobalSpokenSettingDate2;
     if (localGlobalSpokenSettingDate2)
     {
       distantPast = localGlobalSpokenSettingDate2;
@@ -295,10 +323,10 @@ LABEL_4:
       distantPast = [MEMORY[0x277CBEAA8] distantPast];
     }
 
-    v8 = distantPast;
+    v9 = distantPast;
 
     remoteGlobalSpokenSettingDate2 = [(BLTSpokenSettingSync *)self remoteGlobalSpokenSettingDate];
-    v10 = remoteGlobalSpokenSettingDate2;
+    v11 = remoteGlobalSpokenSettingDate2;
     if (remoteGlobalSpokenSettingDate2)
     {
       distantPast2 = remoteGlobalSpokenSettingDate2;
@@ -309,12 +337,13 @@ LABEL_4:
       distantPast2 = [MEMORY[0x277CBEAA8] distantPast];
     }
 
-    v12 = distantPast2;
+    v13 = distantPast2;
 
-    v13 = [v8 compare:v12];
-    if (v13 == 1)
+    v14 = [v9 compare:v13];
+    if (v14 == 1)
     {
-      if ([MEMORY[0x277D2BCC8] activePairedDeviceSupportsSpokenNotificationSettings])
+      activePairedDeviceSupportsSpokenNotificationSettings = [MEMORY[0x277D2BCC8] activePairedDeviceSupportsSpokenNotificationSettings];
+      if (activePairedDeviceSupportsSpokenNotificationSettings)
       {
         syncServer = [(BLTSpokenSettingSync *)self syncServer];
         localGlobalSpokenSettingEnabled = [(BLTSpokenSettingSync *)self localGlobalSpokenSettingEnabled];
@@ -324,19 +353,19 @@ LABEL_4:
         goto LABEL_21;
       }
 
-      v17 = blt_settings_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = blt_settings_log(activePairedDeviceSupportsSpokenNotificationSettings);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        v18 = "Not sending spoken setting enabled to active paired device as it doesn't support the protocol";
-        v19 = buf;
+        v20 = "Not sending spoken setting enabled to active paired device as it doesn't support the protocol";
+        v21 = buf;
         goto LABEL_19;
       }
     }
 
     else
     {
-      if (v13 == -1)
+      if (v14 == -1)
       {
         [(BLTSpokenSettingSync *)self _queue_setNewLocalStateFromRemote:[(BLTSpokenSettingSync *)self remoteGlobalSpokenSettingEnabled]];
 LABEL_21:
@@ -344,24 +373,24 @@ LABEL_21:
         goto LABEL_22;
       }
 
-      v17 = blt_settings_log();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+      v19 = blt_settings_log(v14);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
       {
-        v20 = 0;
-        v18 = "Local and remote spoken settings resolved to the same";
-        v19 = &v20;
+        v22 = 0;
+        v20 = "Local and remote spoken settings resolved to the same";
+        v21 = &v22;
 LABEL_19:
-        _os_log_impl(&dword_241FB3000, v17, OS_LOG_TYPE_DEFAULT, v18, v19, 2u);
+        _os_log_impl(&dword_241FB3000, v19, OS_LOG_TYPE_DEFAULT, v20, v21, 2u);
       }
     }
 
     goto LABEL_21;
   }
 
-  v8 = blt_settings_log();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+  v9 = blt_settings_log(v5);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
   {
-    [(BLTSpokenSettingSync *)v8 _queue_resolveState];
+    [(BLTSpokenSettingSync *)v9 _queue_resolveState];
   }
 
 LABEL_22:
@@ -372,27 +401,68 @@ LABEL_22:
   remoteCopy = remote;
   v9 = *MEMORY[0x277D85DE8];
   dispatch_assert_queue_V2(self->_queue);
-  v5 = blt_settings_log();
-  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  v6 = blt_settings_log(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     v8[0] = 67109120;
     v8[1] = remoteCopy;
-    _os_log_impl(&dword_241FB3000, v5, OS_LOG_TYPE_DEFAULT, "Setting spoken settings on BulletinBoard to enabled: %{BOOL}u", v8, 8u);
+    _os_log_impl(&dword_241FB3000, v6, OS_LOG_TYPE_DEFAULT, "Setting spoken settings on BulletinBoard to enabled: %{BOOL}u", v8, 8u);
   }
 
   [(BLTSpokenSettingSync *)self _queue_setUpdatingLocalStateFromRemote];
   if (remoteCopy)
   {
-    v6 = 2;
+    v7 = 2;
   }
 
   else
   {
-    v6 = 1;
+    v7 = 1;
   }
 
-  [(BBSettingsGateway *)self->_settingsGateway setEffectiveGlobalSpokenNotificationSetting:v6];
-  v7 = *MEMORY[0x277D85DE8];
+  [(BBSettingsGateway *)self->_settingsGateway setEffectiveGlobalSpokenNotificationSetting:v7];
+}
+
+- (void)_queue_synchronizeSettingsWithLocalEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v14 = *MEMORY[0x277D85DE8];
+  dispatch_assert_queue_V2(self->_queue);
+  v6 = blt_settings_log(v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  {
+    v13[0] = 67109120;
+    v13[1] = enabledCopy;
+    _os_log_impl(&dword_241FB3000, v6, OS_LOG_TYPE_DEFAULT, "Synchronizing spoken settings with enabled: %{BOOL}u", v13, 8u);
+  }
+
+  localGlobalSpokenSettingDate = [(BLTSpokenSettingSync *)self localGlobalSpokenSettingDate];
+  if (localGlobalSpokenSettingDate)
+  {
+    localGlobalSpokenSettingDate2 = [(BLTSpokenSettingSync *)self localGlobalSpokenSettingDate];
+    [(BLTSpokenSettingSync *)self remoteGlobalSpokenSettingDate];
+  }
+
+  else
+  {
+    localGlobalSpokenSettingDate2 = [(BLTSpokenSettingSync *)self remoteGlobalSpokenSettingDate];
+    [(BLTSpokenSettingSync *)self localGlobalSpokenSettingDate];
+  }
+  v9 = ;
+  v10 = [localGlobalSpokenSettingDate2 laterDate:v9];
+
+  [(BLTSpokenSettingSync *)self setLocalGlobalSpokenSettingDate:v10];
+  [(BLTSpokenSettingSync *)self setRemoteGlobalSpokenSettingDate:v10];
+  [(BLTSpokenSettingSync *)self setLocalGlobalSpokenSettingEnabled:enabledCopy];
+  [(BLTSpokenSettingSync *)self setRemoteGlobalSpokenSettingEnabled:enabledCopy];
+  [(BLTSpokenSettingSync *)self _queue_writeRemoteSetting];
+  [(BLTSpokenSettingSync *)self _queue_writeLocalSetting];
+  if ([MEMORY[0x277D2BCC8] activePairedDeviceSupportsSpokenNotificationSettings])
+  {
+    syncServer = [(BLTSpokenSettingSync *)self syncServer];
+    localGlobalSpokenSettingDate3 = [(BLTSpokenSettingSync *)self localGlobalSpokenSettingDate];
+    [syncServer sendRemoteGlobalSpokenSettingEnabled:enabledCopy date:localGlobalSpokenSettingDate3];
+  }
 }
 
 @end

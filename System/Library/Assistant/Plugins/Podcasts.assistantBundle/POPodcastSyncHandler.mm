@@ -24,187 +24,184 @@
 
 - (id)validity
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v5 = objc_msgSend_sharedInstance(PODataSource, a2, v2, v3, v4);
   v10 = objc_msgSend_validity(v5, v6, v7, v8, v9);
 
-  POLogInitIfNeeded();
+  POLogInitIfNeeded(v11, v12);
   if (POLogContextSync)
   {
-    v11 = POLogContextSync;
+    v13 = POLogContextSync;
   }
 
   else
   {
-    v11 = MEMORY[0x277D86220];
+    v13 = MEMORY[0x277D86220];
   }
 
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
   {
-    v14 = 138412290;
-    v15 = v10;
-    _os_log_impl(&dword_23352D000, v11, OS_LOG_TYPE_INFO, "Data source's validity is %@", &v14, 0xCu);
+    v15 = 138412290;
+    v16 = v10;
+    _os_log_impl(&dword_23352D000, v13, OS_LOG_TYPE_INFO, "Data source's validity is %@", &v15, 0xCu);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v10;
 }
 
 - (void)beginSyncWithAnchor:(id)anchor validity:(id)validity count:(int64_t)count forKey:(id)key beginInfo:(id)info
 {
-  v115 = *MEMORY[0x277D85DE8];
+  v118 = *MEMORY[0x277D85DE8];
   anchorCopy = anchor;
   validityCopy = validity;
   keyCopy = key;
   infoCopy = info;
-  if (objc_msgSend_isEqual_(keyCopy, v15, @"com.apple.media.podcasts", v16, v17) && (anchorCopy | validityCopy || (objc_msgSend_sharedInstance(PODataSource, v18, v19, v20, v21), v22 = objc_claimAutoreleasedReturnValue(), isPodcastsInstalled = objc_msgSend_isPodcastsInstalled(v22, v23, v24, v25, v26), v22, (isPodcastsInstalled & 1) != 0)))
+  isEqual = objc_msgSend_isEqual_(keyCopy, v15, @"com.apple.media.podcasts", v16, v17);
+  if (isEqual && (anchorCopy | validityCopy || (objc_msgSend_sharedInstance(PODataSource, v19, v20, v21, v22), v23 = objc_claimAutoreleasedReturnValue(), isPodcastsInstalled = objc_msgSend_isPodcastsInstalled(v23, v24, v25, v26, v27), v23, (isPodcastsInstalled & 1) != 0)))
   {
-    POLogInitIfNeeded();
+    POLogInitIfNeeded(isEqual, v19);
     if (POLogContextSync)
     {
-      v28 = POLogContextSync;
+      v29 = POLogContextSync;
     }
 
     else
     {
-      v28 = MEMORY[0x277D86220];
+      v29 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
     {
       *buf = 138413058;
-      v108 = anchorCopy;
-      v109 = 2112;
-      v110 = validityCopy;
-      v111 = 2112;
-      v112 = keyCopy;
-      v113 = 2112;
-      v114 = infoCopy;
-      _os_log_impl(&dword_23352D000, v28, OS_LOG_TYPE_INFO, "Begin sync with anchor getting called, anchor is %@, validity is %@, key is %@ and beginInfo is %@", buf, 0x2Au);
+      v111 = anchorCopy;
+      v112 = 2112;
+      v113 = validityCopy;
+      v114 = 2112;
+      v115 = keyCopy;
+      v116 = 2112;
+      v117 = infoCopy;
+      _os_log_impl(&dword_23352D000, v29, OS_LOG_TYPE_INFO, "Begin sync with anchor getting called, anchor is %@, validity is %@, key is %@ and beginInfo is %@", buf, 0x2Au);
     }
 
-    v33 = objc_msgSend_validity(self, v29, v30, v31, v32);
-    isEqual = objc_msgSend_isEqual_(validityCopy, v34, v33, v35, v36);
+    v34 = objc_msgSend_validity(self, v30, v31, v32, v33);
+    v38 = objc_msgSend_isEqual_(validityCopy, v35, v34, v36, v37);
 
-    v100 = validityCopy;
-    v99 = infoCopy;
-    if ((isEqual & 1) == 0)
+    v103 = validityCopy;
+    v102 = infoCopy;
+    if ((v38 & 1) == 0)
     {
-      POLogInitIfNeeded();
+      POLogInitIfNeeded(v39, v40);
       if (POLogContextSync)
       {
-        v42 = POLogContextSync;
+        v44 = POLogContextSync;
       }
 
       else
       {
-        v42 = MEMORY[0x277D86220];
+        v44 = MEMORY[0x277D86220];
       }
 
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_INFO))
       {
-        v47 = v42;
-        v52 = objc_msgSend_validity(self, v48, v49, v50, v51);
+        v49 = v44;
+        v54 = objc_msgSend_validity(self, v50, v51, v52, v53);
         *buf = 138412290;
-        v108 = v52;
-        _os_log_impl(&dword_23352D000, v47, OS_LOG_TYPE_INFO, "Podcasts are resetting with validity %@", buf, 0xCu);
+        v111 = v54;
+        _os_log_impl(&dword_23352D000, v49, OS_LOG_TYPE_INFO, "Podcasts are resetting with validity %@", buf, 0xCu);
       }
 
-      v53 = objc_msgSend_validity(self, v43, v44, v45, v46);
-      objc_msgSend_resetWithValidity_(infoCopy, v54, v53, v55, v56);
+      v55 = objc_msgSend_validity(self, v45, v46, v47, v48);
+      objc_msgSend_resetWithValidity_(infoCopy, v56, v55, v57, v58);
 
       anchorCopy = @"0";
     }
 
-    v104 = 0u;
+    v107 = 0u;
+    v108 = 0u;
     v105 = 0u;
-    v102 = 0u;
-    v103 = 0u;
-    v57 = objc_msgSend_sharedInstance(PODataSource, v38, v39, v40, v41);
-    v101 = anchorCopy;
-    v62 = objc_msgSend_longLongValue(anchorCopy, v58, v59, v60, v61);
-    v66 = objc_msgSend_podcastRevisionsSinceAnchor_(v57, v63, v62, v64, v65);
+    v106 = 0u;
+    v59 = objc_msgSend_sharedInstance(PODataSource, v40, v41, v42, v43);
+    v104 = anchorCopy;
+    v64 = objc_msgSend_longLongValue(anchorCopy, v60, v61, v62, v63);
+    v68 = objc_msgSend_podcastRevisionsSinceAnchor_(v59, v65, v64, v66, v67);
 
-    v68 = objc_msgSend_countByEnumeratingWithState_objects_count_(v66, v67, &v102, v106, 16);
-    if (v68)
+    v70 = objc_msgSend_countByEnumeratingWithState_objects_count_(v68, v69, &v105, v109, 16);
+    if (v70)
     {
-      v73 = v68;
-      v74 = *v103;
+      v75 = v70;
+      v76 = *v106;
       do
       {
-        for (i = 0; i != v73; ++i)
+        for (i = 0; i != v75; ++i)
         {
-          if (*v103 != v74)
+          if (*v106 != v76)
           {
-            objc_enumerationMutation(v66);
+            objc_enumerationMutation(v68);
           }
 
-          v76 = *(*(&v102 + 1) + 8 * i);
-          v77 = MEMORY[0x277CCACA8];
-          v78 = objc_msgSend_revisionID(v76, v69, v70, v71, v72);
-          v82 = objc_msgSend_stringWithFormat_(v77, v79, @"%lu", v80, v81, v78);
-          v87 = objc_msgSend_anchorToRevision(self, v83, v84, v85, v86);
-          objc_msgSend_setObject_forKeyedSubscript_(v87, v88, v76, v82, v89);
+          v78 = *(*(&v105 + 1) + 8 * i);
+          v79 = MEMORY[0x277CCACA8];
+          v80 = objc_msgSend_revisionID(v78, v71, v72, v73, v74);
+          v84 = objc_msgSend_stringWithFormat_(v79, v81, @"%lu", v82, v83, v80);
+          v89 = objc_msgSend_anchorToRevision(self, v85, v86, v87, v88);
+          objc_msgSend_setObject_forKeyedSubscript_(v89, v90, v78, v84, v91);
         }
 
-        v73 = objc_msgSend_countByEnumeratingWithState_objects_count_(v66, v69, &v102, v106, 16);
+        v75 = objc_msgSend_countByEnumeratingWithState_objects_count_(v68, v71, &v105, v109, 16);
       }
 
-      while (v73);
+      while (v75);
     }
 
-    POLogInitIfNeeded();
+    POLogInitIfNeeded(v92, v93);
     if (POLogContextSync)
     {
-      v90 = POLogContextSync;
+      v94 = POLogContextSync;
     }
 
     else
     {
-      v90 = MEMORY[0x277D86220];
+      v94 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v90, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v94, OS_LOG_TYPE_INFO))
     {
-      v91 = v90;
-      v96 = objc_msgSend_anchorToRevision(self, v92, v93, v94, v95);
+      v95 = v94;
+      v100 = objc_msgSend_anchorToRevision(self, v96, v97, v98, v99);
       *buf = 138412290;
-      v108 = v96;
-      _os_log_impl(&dword_23352D000, v91, OS_LOG_TYPE_INFO, "Anchors to revisions are %@", buf, 0xCu);
+      v111 = v100;
+      _os_log_impl(&dword_23352D000, v95, OS_LOG_TYPE_INFO, "Anchors to revisions are %@", buf, 0xCu);
     }
 
-    validityCopy = v100;
-    anchorCopy = v101;
-    infoCopy = v99;
+    validityCopy = v103;
+    anchorCopy = v104;
+    infoCopy = v102;
   }
 
   else
   {
-    POLogInitIfNeeded();
+    POLogInitIfNeeded(isEqual, v19);
     if (POLogContextSync)
     {
-      v97 = POLogContextSync;
+      v101 = POLogContextSync;
     }
 
     else
     {
-      v97 = MEMORY[0x277D86220];
+      v101 = MEMORY[0x277D86220];
     }
 
-    if (os_log_type_enabled(v97, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&dword_23352D000, v97, OS_LOG_TYPE_INFO, "Nil anchor, nil validity, and podcasts isn't installed.  Nothing to sync.", buf, 2u);
+      _os_log_impl(&dword_23352D000, v101, OS_LOG_TYPE_INFO, "Nil anchor, nil validity, and podcasts isn't installed.  Nothing to sync.", buf, 2u);
     }
   }
-
-  v98 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getChangeAfterAnchor:(id)anchor changeInfo:(id)info
 {
-  v107 = *MEMORY[0x277D85DE8];
+  v108 = *MEMORY[0x277D85DE8];
   anchorCopy = anchor;
   infoCopy = info;
   if (!anchorCopy)
@@ -265,32 +262,30 @@
   }
 
 LABEL_11:
-  POLogInitIfNeeded();
+  POLogInitIfNeeded(v101, v102);
   if (POLogContextSync)
   {
-    v101 = POLogContextSync;
+    v103 = POLogContextSync;
   }
 
   else
   {
-    v101 = MEMORY[0x277D86220];
+    v103 = MEMORY[0x277D86220];
   }
 
-  if (os_log_type_enabled(v101, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(v103, OS_LOG_TYPE_INFO))
   {
     *buf = 138412546;
-    v104 = anchorCopy;
-    v105 = 2112;
-    v106 = infoCopy;
-    _os_log_impl(&dword_23352D000, v101, OS_LOG_TYPE_INFO, "Get change getting called with anchor %@, changeInfo %@", buf, 0x16u);
+    v105 = anchorCopy;
+    v106 = 2112;
+    v107 = infoCopy;
+    _os_log_impl(&dword_23352D000, v103, OS_LOG_TYPE_INFO, "Get change getting called with anchor %@, changeInfo %@", buf, 0x16u);
   }
-
-  v102 = *MEMORY[0x277D85DE8];
 }
 
 - (void)syncDidEnd
 {
-  POLogInitIfNeeded();
+  POLogInitIfNeeded(self, a2);
   if (POLogContextSync)
   {
     v3 = POLogContextSync;

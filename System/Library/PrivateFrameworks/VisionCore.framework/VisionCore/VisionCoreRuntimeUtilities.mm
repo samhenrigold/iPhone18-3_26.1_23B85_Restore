@@ -124,7 +124,7 @@ LABEL_15:
   return v9;
 }
 
-uint64_t __80__VisionCoreRuntimeUtilities__subclassesOfClass_excludingRootClass_passingTest___block_invoke(uint64_t a1, uint64_t a2)
+void *__80__VisionCoreRuntimeUtilities__subclassesOfClass_excludingRootClass_passingTest___block_invoke(uint64_t a1, uint64_t a2)
 {
   v4 = *(a1 + 40);
   if (!v4 || (result = (*(v4 + 16))(v4, a2), result))

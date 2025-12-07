@@ -813,7 +813,7 @@ uint64_t __54__HUICCMenuCheckmarkView_updateConversationBoostCache__block_invoke
   return [v8 _updateMenuViewIfNecessary];
 }
 
-uint64_t __54__HUICCMenuCheckmarkView_updateConversationBoostCache__block_invoke_3(uint64_t a1)
+void *__54__HUICCMenuCheckmarkView_updateConversationBoostCache__block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) module];
   if (result == 35)

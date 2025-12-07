@@ -114,8 +114,8 @@
 
 - (void)_queue_deliverResultsWithActivitySummaries:(uint64_t)summaries isFinalBatch:(uint64_t)batch clearPendingBatches:(void *)batches error:
 {
-  v23 = *MEMORY[0x277D85DE8];
-  v19 = a2;
+  v22 = *MEMORY[0x277D85DE8];
+  v18 = a2;
   batchesCopy = batches;
   v10 = batchesCopy;
   if (self)
@@ -126,11 +126,11 @@
       goto LABEL_14;
     }
 
-    v11 = v19;
+    v11 = v18;
     activitySummaryType = [MEMORY[0x277CCCFC0] activitySummaryType];
-    v20 = 0;
-    v13 = [self authorizationStatusRecordForType:activitySummaryType error:&v20];
-    v14 = v20;
+    v19 = 0;
+    v13 = [self authorizationStatusRecordForType:activitySummaryType error:&v19];
+    v14 = v19;
 
     if (v13)
     {
@@ -160,7 +160,7 @@ LABEL_13:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543362;
-        v22 = v14;
+        v21 = v14;
         _os_log_error_impl(&dword_228986000, v17, OS_LOG_TYPE_ERROR, "Failed to retrieve authorization status for activity summary type: %{public}@", buf, 0xCu);
       }
 
@@ -172,8 +172,6 @@ LABEL_13:
   }
 
 LABEL_14:
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_queue_deliverErrorToClient:(void *)client

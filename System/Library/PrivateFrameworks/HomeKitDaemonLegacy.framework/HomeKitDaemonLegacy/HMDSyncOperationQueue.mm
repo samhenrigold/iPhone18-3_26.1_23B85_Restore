@@ -36,35 +36,35 @@
 
 - (id)operationsToCancel
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   waitingOperations = [(HMDSyncOperationQueue *)self waitingOperations];
-  v4 = [waitingOperations copy];
+  v4 = objc_msgSend_copy(waitingOperations);
 
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
-    v6 = *v15;
+    v6 = *v14;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v15 != v6)
+        if (*v14 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v14 + 1) + 8 * i);
+        v8 = *(*(&v13 + 1) + 8 * i);
         delayTimer = [v8 delayTimer];
         [delayTimer cancel];
 
         [v8 setDelayTimer:0];
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v5);
@@ -79,7 +79,6 @@
   [(NSMutableArray *)self->_stagedOperations removeAllObjects];
   [(NSMutableArray *)self->_waitingOperations removeAllObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v12 = *MEMORY[0x277D85DE8];
 
   return allOperations;
 }
@@ -141,7 +140,7 @@
 
 - (BOOL)processFiredTimer:(id)timer
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   timerCopy = timer;
   backoffTimer = [(HMDSyncOperationQueue *)self backoffTimer];
 
@@ -160,25 +159,25 @@
 
   else
   {
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     waitingOperations = [(HMDSyncOperationQueue *)self waitingOperations];
-    v7 = [waitingOperations countByEnumeratingWithState:&v23 objects:v31 count:16];
+    v7 = [waitingOperations countByEnumeratingWithState:&v22 objects:v30 count:16];
     if (v7)
     {
-      v8 = *v24;
+      v8 = *v23;
 LABEL_4:
       v9 = 0;
       while (1)
       {
-        if (*v24 != v8)
+        if (*v23 != v8)
         {
           objc_enumerationMutation(waitingOperations);
         }
 
-        v10 = *(*(&v23 + 1) + 8 * v9);
+        v10 = *(*(&v22 + 1) + 8 * v9);
         delayTimer = [v10 delayTimer];
         v12 = delayTimer == timerCopy;
 
@@ -189,7 +188,7 @@ LABEL_4:
 
         if (v7 == ++v9)
         {
-          v7 = [waitingOperations countByEnumeratingWithState:&v23 objects:v31 count:16];
+          v7 = [waitingOperations countByEnumeratingWithState:&v22 objects:v30 count:16];
           if (v7)
           {
             goto LABEL_4;
@@ -217,9 +216,9 @@ LABEL_4:
       {
         v19 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v28 = v19;
-        v29 = 2112;
-        v30 = v14;
+        v27 = v19;
+        v28 = 2112;
+        v29 = v14;
         _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Sync queue delay timer fired, staging %@", buf, 0x16u);
       }
 
@@ -241,39 +240,38 @@ LABEL_10:
 
 LABEL_20:
 
-  v21 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
 - (void)dropAllOperations
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   waitingOperations = [(HMDSyncOperationQueue *)self waitingOperations];
-  v4 = [waitingOperations countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v4 = [waitingOperations countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v4)
   {
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(waitingOperations);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * i);
+        v7 = *(*(&v9 + 1) + 8 * i);
         delayTimer = [v7 delayTimer];
         [delayTimer cancel];
 
         [v7 setDelayTimer:0];
       }
 
-      v4 = [waitingOperations countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [waitingOperations countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
@@ -283,7 +281,6 @@ LABEL_20:
   [(NSMutableArray *)self->_stagedOperations removeAllObjects];
   [(NSMutableArray *)self->_waitingOperations removeAllObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)dropOperation:(id)operation
@@ -322,7 +319,7 @@ LABEL_20:
 
 - (void)addOperation:(id)operation withDelay:(double)delay
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
   if (operationCopy)
   {
@@ -351,11 +348,11 @@ LABEL_20:
       if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
       {
         v16 = HMFGetLogIdentifier();
-        v24 = 138543618;
-        v25 = v16;
-        v26 = 2048;
+        v23 = 138543618;
+        v24 = v16;
+        v25 = 2048;
         delayCopy = delay;
-        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Current delay is %g", &v24, 0x16u);
+        _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Current delay is %g", &v23, 0x16u);
       }
 
       objc_autoreleasePoolPop(v13);
@@ -384,34 +381,32 @@ LABEL_20:
 
     [(HMDSyncOperationQueue *)self _addOperation:operationCopy];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addOperation:(id)operation
 {
-  v149 = *MEMORY[0x277D85DE8];
+  v148 = *MEMORY[0x277D85DE8];
   operationCopy = operation;
+  v135 = 0u;
   v136 = 0u;
   v137 = 0u;
   v138 = 0u;
-  v139 = 0u;
   stagedOperations = [(HMDSyncOperationQueue *)self stagedOperations];
-  v6 = [stagedOperations countByEnumeratingWithState:&v136 objects:v148 count:16];
+  v6 = [stagedOperations countByEnumeratingWithState:&v135 objects:v147 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v137;
+    v8 = *v136;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v137 != v8)
+        if (*v136 != v8)
         {
           objc_enumerationMutation(stagedOperations);
         }
 
-        v10 = *(*(&v136 + 1) + 8 * i);
+        v10 = *(*(&v135 + 1) + 8 * i);
         zoneName = [operationCopy zoneName];
         zoneName2 = [v10 zoneName];
         v13 = [zoneName isEqualToString:zoneName2];
@@ -431,7 +426,7 @@ LABEL_20:
             {
               v35 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v142 = v35;
+              v141 = v35;
               _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Dropping new operation, already have staged operation", buf, 0xCu);
             }
 
@@ -456,7 +451,7 @@ LABEL_20:
           {
             v20 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v142 = v20;
+            v141 = v20;
             _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Dropping staged operation, new operation has longer delay that must be respected", buf, 0xCu);
           }
 
@@ -480,7 +475,7 @@ LABEL_20:
         }
       }
 
-      v7 = [stagedOperations countByEnumeratingWithState:&v136 objects:v148 count:16];
+      v7 = [stagedOperations countByEnumeratingWithState:&v135 objects:v147 count:16];
       if (v7)
       {
         continue;
@@ -496,29 +491,29 @@ LABEL_16:
 
   if (!delayTimer)
   {
-    v130 = 0uLL;
-    v131 = 0uLL;
-    *(&v128 + 1) = 0;
     v129 = 0uLL;
+    v130 = 0uLL;
+    *(&v127 + 1) = 0;
+    v128 = 0uLL;
     waitingOperations = [(HMDSyncOperationQueue *)self waitingOperations];
-    v52 = [waitingOperations countByEnumeratingWithState:&v128 objects:v140 count:16];
+    v52 = [waitingOperations countByEnumeratingWithState:&v127 objects:v139 count:16];
     if (!v52)
     {
       goto LABEL_44;
     }
 
     v53 = v52;
-    v54 = *v129;
+    v54 = *v128;
     while (1)
     {
       for (j = 0; j != v53; ++j)
       {
-        if (*v129 != v54)
+        if (*v128 != v54)
         {
           objc_enumerationMutation(waitingOperations);
         }
 
-        v56 = *(*(&v128 + 1) + 8 * j);
+        v56 = *(*(&v127 + 1) + 8 * j);
         zoneName3 = [operationCopy zoneName];
         zoneName4 = [v56 zoneName];
         v59 = [zoneName3 isEqualToString:zoneName4];
@@ -533,9 +528,9 @@ LABEL_16:
             v63 = HMFGetLogIdentifier();
             zoneName5 = [v56 zoneName];
             *buf = 138543618;
-            v142 = v63;
-            v143 = 2112;
-            v144 = zoneName5;
+            v141 = v63;
+            v142 = 2112;
+            v143 = zoneName5;
             _os_log_impl(&dword_2531F8000, v62, OS_LOG_TYPE_INFO, "%{public}@Dropping scheduled operation, new operation being added directly to staged for %@", buf, 0x16u);
           }
 
@@ -556,7 +551,7 @@ LABEL_16:
               {
                 v70 = HMFGetLogIdentifier();
                 *buf = 138543362;
-                v142 = v70;
+                v141 = v70;
                 _os_log_impl(&dword_2531F8000, v69, OS_LOG_TYPE_INFO, "%{public}@Dropping new operation, found operation has delay that must respected", buf, 0xCu);
               }
 
@@ -597,9 +592,9 @@ LABEL_66:
           {
             v97 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v142 = v97;
-            v143 = 2112;
-            v144 = operationCopy;
+            v141 = v97;
+            v142 = 2112;
+            v143 = operationCopy;
             _os_log_impl(&dword_2531F8000, v96, OS_LOG_TYPE_INFO, "%{public}@Schedule operation without delay %@", buf, 0x16u);
           }
 
@@ -609,7 +604,7 @@ LABEL_66:
         }
       }
 
-      v53 = [waitingOperations countByEnumeratingWithState:&v128 objects:v140 count:16];
+      v53 = [waitingOperations countByEnumeratingWithState:&v127 objects:v139 count:16];
       if (!v53)
       {
 LABEL_44:
@@ -619,28 +614,28 @@ LABEL_44:
     }
   }
 
-  v134 = 0uLL;
-  v135 = 0uLL;
-  v132 = 0uLL;
   v133 = 0uLL;
+  v134 = 0uLL;
+  v131 = 0uLL;
+  v132 = 0uLL;
   waitingOperations2 = [(HMDSyncOperationQueue *)self waitingOperations];
-  stagedOperations = [waitingOperations2 countByEnumeratingWithState:&v132 objects:v147 count:16];
+  stagedOperations = [waitingOperations2 countByEnumeratingWithState:&v131 objects:v146 count:16];
   if (!stagedOperations)
   {
     goto LABEL_80;
   }
 
-  v29 = *v133;
+  v29 = *v132;
   while (2)
   {
     for (k = 0; k != stagedOperations; k = k + 1)
     {
-      if (*v133 != v29)
+      if (*v132 != v29)
       {
         objc_enumerationMutation(waitingOperations2);
       }
 
-      v31 = *(*(&v132 + 1) + 8 * k);
+      v31 = *(*(&v131 + 1) + 8 * k);
       zoneName6 = [operationCopy zoneName];
       zoneName7 = [v31 zoneName];
       v34 = [zoneName6 isEqualToString:zoneName7];
@@ -669,7 +664,7 @@ LABEL_44:
             {
               v49 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v142 = v49;
+              v141 = v49;
               v50 = "%{public}@Dropping found operation, must respect delay for new operation";
 LABEL_76:
               _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_INFO, v50, buf, 0xCu);
@@ -707,7 +702,7 @@ LABEL_76:
 
             v75 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v142 = v75;
+            v141 = v75;
             v76 = "%{public}@Dropping new operation, must respect delay for found operation";
             goto LABEL_88;
           }
@@ -738,7 +733,7 @@ LABEL_76:
               {
                 v49 = HMFGetLogIdentifier();
                 *buf = 138543362;
-                v142 = v49;
+                v141 = v49;
                 v50 = "%{public}@Dropping found operation, new operation delay is longer and must respected";
                 goto LABEL_76;
               }
@@ -771,7 +766,7 @@ LABEL_77:
             {
               v75 = HMFGetLogIdentifier();
               *buf = 138543362;
-              v142 = v75;
+              v141 = v75;
               v76 = "%{public}@Dropping new operation, found operation delay is longer and must respected";
 LABEL_88:
               _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_INFO, v76, buf, 0xCu);
@@ -818,7 +813,7 @@ LABEL_88:
           {
             v49 = HMFGetLogIdentifier();
             *buf = 138543362;
-            v142 = v49;
+            v141 = v49;
             v50 = "%{public}@Dropping found operation, new operation delay is shorter";
             goto LABEL_76;
           }
@@ -830,7 +825,7 @@ LABEL_88:
         {
           v75 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v142 = v75;
+          v141 = v75;
           v76 = "%{public}@Dropping new operation, found operation delay is shorter";
           goto LABEL_88;
         }
@@ -853,7 +848,7 @@ LABEL_89:
       }
     }
 
-    stagedOperations = [waitingOperations2 countByEnumeratingWithState:&v132 objects:v147 count:16];
+    stagedOperations = [waitingOperations2 countByEnumeratingWithState:&v131 objects:v146 count:16];
     if (stagedOperations)
     {
       continue;
@@ -876,11 +871,11 @@ LABEL_81:
     v120 = v119;
     zoneName8 = [stagedOperations zoneName];
     *buf = 138543874;
-    v142 = v117;
-    v143 = 2048;
-    v144 = v120;
-    v145 = 2112;
-    v146 = zoneName8;
+    v141 = v117;
+    v142 = 2048;
+    v143 = v120;
+    v144 = 2112;
+    v145 = zoneName8;
     _os_log_impl(&dword_2531F8000, v116, OS_LOG_TYPE_INFO, "%{public}@Schedule operation with delay %g: %@", buf, 0x20u);
   }
 
@@ -891,7 +886,6 @@ LABEL_81:
 LABEL_93:
 
 LABEL_94:
-  v127 = *MEMORY[0x277D85DE8];
 }
 
 - (void)resetBackoffTimer
@@ -945,12 +939,11 @@ LABEL_94:
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   name = [(HMDSyncOperationQueue *)self name];
-  stagedOperations = self->_stagedOperations;
-  v7 = [v3 stringWithFormat:@"<%@ %@, Staged Operations = %@, Waiting Operations = %@>", v4, name, stagedOperations, self->_waitingOperations];
+  v6 = [v3 stringWithFormat:@"<%@ %@, Staged Operations = %@, Waiting Operations = %@>", v4, name, self->_stagedOperations, self->_waitingOperations];
 
   os_unfair_lock_unlock(&self->_lock);
 
-  return v7;
+  return v6;
 }
 
 - (void)_removeWaitingOperation:(id)operation
@@ -988,7 +981,7 @@ LABEL_94:
 - (NSArray)waitingOperations
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSMutableArray *)self->_waitingOperations copy];
+  v3 = objc_msgSend_copy(self->_waitingOperations);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -997,7 +990,7 @@ LABEL_94:
 - (NSArray)stagedOperations
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSMutableArray *)self->_stagedOperations copy];
+  v3 = objc_msgSend_copy(self->_stagedOperations);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -1046,12 +1039,11 @@ LABEL_94:
 
 uint64_t __36__HMDSyncOperationQueue_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v29_96929;
-  logCategory__hmf_once_v29_96929 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v29_96929;
+  logCategory__hmf_once_v29_96929 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

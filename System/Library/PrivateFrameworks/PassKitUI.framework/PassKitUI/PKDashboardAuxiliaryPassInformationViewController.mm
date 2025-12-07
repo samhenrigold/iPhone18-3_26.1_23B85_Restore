@@ -680,9 +680,10 @@ void __68__PKDashboardAuxiliaryPassInformationViewController__barButtonItems__bl
 
 - (void)_handleMessageButtonTapped
 {
-  if (PKStoreDemoModeEnabled())
+  v3 = PKStoreDemoModeEnabled();
+  if (v3)
   {
-    dataSource = PKUIStoreDemoGatewayViewController();
+    dataSource = PKUIStoreDemoGatewayViewController(v3, v4, v5);
     [(PKDashboardAuxiliaryPassInformationViewController *)self presentViewController:dataSource animated:1 completion:0];
   }
 
@@ -701,9 +702,10 @@ void __68__PKDashboardAuxiliaryPassInformationViewController__barButtonItems__bl
 
 - (void)_handlePhoneButtonTapped
 {
-  if (PKStoreDemoModeEnabled())
+  v3 = PKStoreDemoModeEnabled();
+  if (v3)
   {
-    dataSource = PKUIStoreDemoGatewayViewController();
+    dataSource = PKUIStoreDemoGatewayViewController(v3, v4, v5);
     [(PKDashboardAuxiliaryPassInformationViewController *)self presentViewController:dataSource animated:1 completion:0];
   }
 
@@ -715,7 +717,7 @@ void __68__PKDashboardAuxiliaryPassInformationViewController__barButtonItems__bl
 
     if (phoneNumber)
     {
-      v5 = PKTelephoneURLFromPhoneNumber();
+      v8 = PKTelephoneURLFromPhoneNumber();
       PKOpenURL();
     }
   }

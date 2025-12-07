@@ -112,63 +112,61 @@
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v8 = toCopy;
+  v6 = toCopy;
   if (self->_contactWrapper)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_deleteWrapper)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_favoritesSyncObject)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_countValidationObject)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 2) != 0)
   {
-    sequenceNumber = self->_sequenceNumber;
     PBDataWriterWriteInt32Field();
-    toCopy = v8;
+    toCopy = v6;
     has = self->_has;
   }
 
   if (has)
   {
-    sendTimestamp = self->_sendTimestamp;
     PBDataWriterWriteDoubleField();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_accountsSyncObject)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_containerSyncObject)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 
   if (self->_lmaSyncData)
   {
     PBDataWriterWriteSubmessage();
-    toCopy = v8;
+    toCopy = v6;
   }
 }
 
@@ -325,7 +323,6 @@
     }
   }
 
-  v9 = *(equalCopy + 76);
   if ((*&self->_has & 2) != 0)
   {
     if ((*(equalCopy + 76) & 2) == 0 || self->_sequenceNumber != *(equalCopy + 18))
@@ -337,7 +334,7 @@
   else if ((*(equalCopy + 76) & 2) != 0)
   {
 LABEL_26:
-    v13 = 0;
+    v12 = 0;
     goto LABEL_27;
   }
 
@@ -372,17 +369,17 @@ LABEL_26:
   lmaSyncData = self->_lmaSyncData;
   if (lmaSyncData | *(equalCopy + 8))
   {
-    v13 = [(ABSPBLimitedAccessSyncData *)lmaSyncData isEqual:?];
+    v12 = [(ABSPBLimitedAccessSyncData *)lmaSyncData isEqual:?];
   }
 
   else
   {
-    v13 = 1;
+    v12 = 1;
   }
 
 LABEL_27:
 
-  return v13;
+  return v12;
 }
 
 - (unint64_t)hash

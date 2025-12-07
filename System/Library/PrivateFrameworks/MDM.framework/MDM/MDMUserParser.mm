@@ -25,23 +25,21 @@
 
 void __29__MDMUserParser__allCommands__block_invoke()
 {
-  v5[9] = *MEMORY[0x277D85DE8];
+  v4[9] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB98];
-  v5[0] = @"ProfileList";
-  v5[1] = @"InstallProfile";
-  v5[2] = @"RemoveProfile";
-  v5[3] = @"Restrictions";
-  v5[4] = @"InviteToProgram";
-  v5[5] = @"DeviceInformation";
-  v5[6] = @"DeclarativeManagement";
-  v5[7] = @"Settings";
-  v5[8] = @"UserConfigured";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:9];
+  v4[0] = @"ProfileList";
+  v4[1] = @"InstallProfile";
+  v4[2] = @"RemoveProfile";
+  v4[3] = @"Restrictions";
+  v4[4] = @"InviteToProgram";
+  v4[5] = @"DeviceInformation";
+  v4[6] = @"DeclarativeManagement";
+  v4[7] = @"Settings";
+  v4[8] = @"UserConfigured";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:9];
   v2 = [v0 setWithArray:v1];
   v3 = _allCommands_set;
   _allCommands_set = v2;
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_allSettingsItems
@@ -65,23 +63,21 @@ void __29__MDMUserParser__allCommands__block_invoke()
 
 void __34__MDMUserParser__allSettingsItems__block_invoke()
 {
-  v10[2] = *MEMORY[0x277D85DE8];
+  v9[2] = *MEMORY[0x277D85DE8];
   v0 = MEMORY[0x277CBEB58];
-  v10[0] = @"AccessibilitySettings";
-  v10[1] = @"DefaultApplications";
-  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:2];
+  v9[0] = @"AccessibilitySettings";
+  v9[1] = @"DefaultApplications";
+  v1 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
   v2 = [v0 setWithArray:v1];
   v3 = _allSettingsItems_supervisedSet;
   _allSettingsItems_supervisedSet = v2;
 
   v4 = MEMORY[0x277CBEB58];
-  v9 = @"DefaultApplications";
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v9 count:1];
+  v8 = @"DefaultApplications";
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:&v8 count:1];
   v6 = [v4 setWithArray:v5];
   v7 = _allSettingsItems_nonSupervisedSet;
   _allSettingsItems_nonSupervisedSet = v6;
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_removeProfile:(id)profile
@@ -103,7 +99,7 @@ void __34__MDMUserParser__allSettingsItems__block_invoke()
 
 - (id)_declarativeManagement:(id)management
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   managementCopy = management;
   v5 = *(DMCLogObjects() + 8);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -114,10 +110,10 @@ void __34__MDMUserParser__allSettingsItems__block_invoke()
 
   v6 = [(MDMAbstractTunnelParser *)MDMParser responseWithStatus:@"Acknowledged"];
   managingProfileIdentifier = [(MDMParser *)self managingProfileIdentifier];
-  v16 = 0;
-  v8 = [MDMDeclarativeManagementCommand processMultiUserDeviceUserChannelRequestTypeWithProfileIdentifier:managingProfileIdentifier request:managementCopy error:&v16];
+  v15 = 0;
+  v8 = [MDMDeclarativeManagementCommand processMultiUserDeviceUserChannelRequestTypeWithProfileIdentifier:managingProfileIdentifier request:managementCopy error:&v15];
 
-  v9 = v16;
+  v9 = v15;
   if (!v8)
   {
     v10 = *(DMCLogObjects() + 8);
@@ -126,7 +122,7 @@ void __34__MDMUserParser__allSettingsItems__block_invoke()
       v11 = v10;
       dMCVerboseDescription = [v9 DMCVerboseDescription];
       *buf = 138543362;
-      v18 = dMCVerboseDescription;
+      v17 = dMCVerboseDescription;
       _os_log_impl(&dword_2561F5000, v11, OS_LOG_TYPE_ERROR, "Failed to process DeclarativeManagement command with error: %{public}@", buf, 0xCu);
     }
 
@@ -134,8 +130,6 @@ void __34__MDMUserParser__allSettingsItems__block_invoke()
 
     v6 = v13;
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -169,10 +163,8 @@ void __34__MDMUserParser__allSettingsItems__block_invoke()
     v9 = [(MDMParser *)self _analyticsCommandNameFromRequest:requestCopy];
     v10 = [(MDMParser *)self _analyticsErrorFromResponse:responseCopy];
 
-    [(MDMParser *)self _analyticsRequiresNetworkTetheringFromRequest:requestCopy];
-    [sharedConfiguration isTeslaEnrolled];
-    [sharedConfiguration isSupervised];
-    MDMAnalyticsSendCommandEvent(v9, v10);
+    LOBYTE(self) = [(MDMParser *)self _analyticsRequiresNetworkTetheringFromRequest:requestCopy];
+    MDMAnalyticsSendCommandEvent(v9, v10, self, [sharedConfiguration isTeslaEnrolled], objc_msgSend(sharedConfiguration, "isSupervised"), 0, 1, 1);
   }
 }
 

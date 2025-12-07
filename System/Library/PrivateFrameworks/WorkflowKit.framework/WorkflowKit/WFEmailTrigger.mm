@@ -41,26 +41,26 @@
 
 - (WFEmailTrigger)initWithCoder:(id)coder
 {
-  v35[2] = *MEMORY[0x1E69E9840];
+  v34[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v31.receiver = self;
-  v31.super_class = WFEmailTrigger;
-  v5 = [(WFTrigger *)&v31 initWithCoder:coderCopy];
+  v30.receiver = self;
+  v30.super_class = WFEmailTrigger;
+  v5 = [(WFTrigger *)&v30 initWithCoder:coderCopy];
   if (v5)
   {
     v6 = MEMORY[0x1E695DFD8];
-    v35[0] = objc_opt_class();
-    v35[1] = objc_opt_class();
-    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v35 count:2];
+    v34[0] = objc_opt_class();
+    v34[1] = objc_opt_class();
+    v7 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
     v8 = [v6 setWithArray:v7];
     v9 = [coderCopy decodeObjectOfClasses:v8 forKey:@"selectedAccountIdentifiers"];
     selectedAccountIdentifiers = v5->_selectedAccountIdentifiers;
     v5->_selectedAccountIdentifiers = v9;
 
     v11 = MEMORY[0x1E695DFD8];
-    v34[0] = objc_opt_class();
-    v34[1] = objc_opt_class();
-    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v34 count:2];
+    v33[0] = objc_opt_class();
+    v33[1] = objc_opt_class();
+    v12 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
     v13 = [v11 setWithArray:v12];
     v14 = [coderCopy decodeObjectOfClasses:v13 forKey:@"selectedAccountDescriptions"];
     selectedAccountDescriptions = v5->_selectedAccountDescriptions;
@@ -71,18 +71,18 @@
     v5->_selectedSubject = v16;
 
     v18 = MEMORY[0x1E695DFD8];
-    v33[0] = objc_opt_class();
-    v33[1] = objc_opt_class();
-    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v33 count:2];
+    v32[0] = objc_opt_class();
+    v32[1] = objc_opt_class();
+    v19 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
     v20 = [v18 setWithArray:v19];
     v21 = [coderCopy decodeObjectOfClasses:v20 forKey:@"selectedRecipients"];
     selectedRecipients = v5->_selectedRecipients;
     v5->_selectedRecipients = v21;
 
     v23 = MEMORY[0x1E695DFD8];
-    v32[0] = objc_opt_class();
-    v32[1] = objc_opt_class();
-    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:2];
+    v31[0] = objc_opt_class();
+    v31[1] = objc_opt_class();
+    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:2];
     v25 = [v23 setWithArray:v24];
     v26 = [coderCopy decodeObjectOfClasses:v25 forKey:@"selectedSenders"];
     selectedSenders = v5->_selectedSenders;
@@ -91,7 +91,6 @@
     v28 = v5;
   }
 
-  v29 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

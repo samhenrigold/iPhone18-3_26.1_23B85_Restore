@@ -44,7 +44,6 @@
   v15 = *(&selfCopy->super.isa + OBJC_IVAR____TtC13TranslationUI25DisambiguationResultModel_userSelectionHandler);
   if (v15)
   {
-    v16 = *&selfCopy->disambiguableResult[OBJC_IVAR____TtC13TranslationUI25DisambiguationResultModel_userSelectionHandler];
     selectionCopy = selectionCopy;
     v15(sentenceCopy, selectionCopy);
 

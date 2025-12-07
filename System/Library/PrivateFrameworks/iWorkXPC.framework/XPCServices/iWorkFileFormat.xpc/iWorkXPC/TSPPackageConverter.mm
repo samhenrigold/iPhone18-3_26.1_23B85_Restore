@@ -1,6 +1,7 @@
 @interface TSPPackageConverter
 + (BOOL)convertDocumentAtURL:(id)l toPackageType:(int64_t)type removeEntriesMatchingFilter:(id)filter error:(id *)error;
 + (NSArray)regularRexpressionsForCachedCollaborationData;
++ (id)newPackageConverterWithURL:(id)l preserveExtendedAttributes:(BOOL)attributes error:(id *)error;
 - (BOOL)enumeratePackageEntriesWithZipArchive:(id)archive needsReadChannel:(BOOL)channel accessor:(id)accessor;
 - (BOOL)hasEntriesMatchingFilter:(id)filter;
 - (BOOL)isDataPath:(id)path;
@@ -11,6 +12,7 @@
 - (BOOL)writeToURL:(id)l packageType:(int64_t)type removeEntriesMatchingFilter:(id)filter error:(id *)error;
 - (TSPPackageConverter)init;
 - (TSPPackageConverter)initWithURL:(id)l package:(id)package fileCoordinatorDelegate:(id)delegate preserveExtendedAttributes:(BOOL)attributes error:(id *)error;
+- (id)newWriteChannelAtPath:(id)path lastModificationDate:(id)date size:(unint64_t)size CRC:(unsigned int)c packageWriter:(id)writer error:(id *)error;
 - (unint64_t)progressTotalUnitCountWithZipArchive:(id)archive;
 @end
 
@@ -58,6 +60,36 @@
   return v13;
 }
 
++ (id)newPackageConverterWithURL:(id)l preserveExtendedAttributes:(BOOL)attributes error:(id *)error
+{
+  attributesCopy = attributes;
+  lCopy = l;
+  v8 = [[TSPPackageConverterFileCoordinatorDelegate alloc] initWithURL:lCopy];
+  v9 = [TSPPackage newLazyPackageWithURL:lCopy packageIdentifier:1 decryptionKey:0 fileCoordinatorDelegate:v8];
+  v10 = v9;
+  if (v9)
+  {
+    if ([v9 packageType] >= 3)
+    {
+      v11 = 0;
+    }
+
+    else
+    {
+      v11 = objc_opt_class();
+    }
+
+    v12 = [[v11 alloc] initWithURL:lCopy package:v10 fileCoordinatorDelegate:v8 preserveExtendedAttributes:attributesCopy error:error];
+  }
+
+  else
+  {
+    v12 = 0;
+  }
+
+  return v12;
+}
+
 - (TSPPackageConverter)init
 {
   v2 = +[TSUAssertionHandler _atomicIncrementAssertCount];
@@ -103,29 +135,7 @@
     v24.receiver = self;
     v24.super_class = TSPPackageConverter;
     v15 = [(TSPPackageConverter *)&v24 init];
-    if (!v15)
-    {
-      goto LABEL_5;
-    }
-
-    v16 = [lCopy copy];
-    URL = v15->_URL;
-    v15->_URL = v16;
-
-    objc_storeStrong(&v15->_package, package);
-    objc_storeStrong(&v15->_fileCoordinatorDelegate, delegate);
-    if (!attributesCopy)
-    {
-      goto LABEL_5;
-    }
-
-    v18 = [TSUExtendedAttributeCollection alloc];
-    path = [lCopy path];
-    v20 = [(TSUExtendedAttributeCollection *)v18 initWithPath:path options:0 error:error];
-    extendedAttributeCollection = v15->_extendedAttributeCollection;
-    v15->_extendedAttributeCollection = v20;
-
-    if (!v15->_extendedAttributeCollection)
+    if (v15 && (v16 = [lCopy copy], URL = v15->_URL, v15->_URL = v16, URL, objc_storeStrong(&v15->_package, package), objc_storeStrong(&v15->_fileCoordinatorDelegate, delegate), attributesCopy) && (v18 = [TSUExtendedAttributeCollection alloc], objc_msgSend(lCopy, "path"), v19 = objc_claimAutoreleasedReturnValue(), v20 = -[TSUExtendedAttributeCollection initWithPath:options:error:](v18, "initWithPath:options:error:", v19, 0, error), extendedAttributeCollection = v15->_extendedAttributeCollection, v15->_extendedAttributeCollection = v20, extendedAttributeCollection, v19, !v15->_extendedAttributeCollection))
     {
       selfCopy = 0;
       self = v15;
@@ -133,7 +143,6 @@
 
     else
     {
-LABEL_5:
       self = v15;
       selfCopy = self;
     }
@@ -296,16 +305,15 @@ LABEL_11:
     goto LABEL_37;
   }
 
-  v49 = 0;
-  v50 = &v49;
-  v51 = 0x3032000000;
-  v52 = sub_100019804;
-  v53 = sub_100019814;
-  v54 = 0;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x3032000000;
+  v51 = sub_100019804;
+  v52 = sub_100019814;
+  v53 = 0;
   zipArchive = [(TSPPackage *)self->_package zipArchive];
   if (!zipArchive)
   {
-    package = self->_package;
     if (([objc_opt_class() hasZipArchive] & 1) == 0)
     {
       goto LABEL_12;
@@ -313,14 +321,14 @@ LABEL_11:
 
 LABEL_24:
     lastReloadError = [(TSPPackage *)self->_package lastReloadError];
-    v24 = lastReloadError;
+    v23 = lastReloadError;
     if (!lastReloadError)
     {
-      v24 = [NSError tsp_unknownReadErrorWithUserInfo:0];
+      v23 = [NSError tsp_unknownReadErrorWithUserInfo:0];
     }
 
-    objc_storeStrong(v50 + 5, v24);
-    v28 = 0;
+    objc_storeStrong(v49 + 5, v23);
+    v27 = 0;
     v15 = 0;
     if (lastReloadError)
     {
@@ -338,9 +346,9 @@ LABEL_24:
     if ([(TSPPackageConverter *)self packageType]== 2)
     {
       componentZipArchive = [(TSPPackage *)self->_package componentZipArchive];
-      v18 = [componentZipArchive entryForName:v13];
+      v17 = [componentZipArchive entryForName:v13];
 
-      if (v18)
+      if (v17)
       {
         goto LABEL_12;
       }
@@ -354,49 +362,76 @@ LABEL_24:
   }
 
 LABEL_12:
-  v38 = filterCopy;
+  v37 = filterCopy;
   lastReloadError = +[NSProgress currentProgress];
 
   if (lastReloadError)
   {
     lastReloadError = [NSProgress progressWithTotalUnitCount:[(TSPPackageConverter *)self progressTotalUnitCountWithZipArchive:zipArchive]];
-    v48[0] = _NSConcreteStackBlock;
-    v48[1] = 3221225472;
-    v48[2] = sub_10001981C;
-    v48[3] = &unk_1001C5710;
-    v48[4] = self;
-    [lastReloadError setCancellationHandler:v48];
+    v47[0] = _NSConcreteStackBlock;
+    v47[1] = 3221225472;
+    v47[2] = sub_10001981C;
+    v47[3] = &unk_1001C5710;
+    v47[4] = self;
+    [lastReloadError setCancellationHandler:v47];
   }
 
   documentProperties = [(TSPPackage *)self->_package documentProperties];
-  v21 = self->_package;
+  package = self->_package;
   fileCoordinatorDelegate = self->_fileCoordinatorDelegate;
-  v23 = v50;
-  v47 = v50[5];
-  LOBYTE(v37) = 0;
-  v24 = [TSPPackageWriter newPackageWriterWithPackageType:type URL:lCopy documentTargetURL:lCopy relativeURLForExternalData:lCopy packageIdentifier:1 documentProperties:documentProperties documentMetadata:0 fileFormatVersion:0 updateType:2 cloneMode:v37 documentSaveValidationPolicy:0 encryptionKey:0 originalDocumentPackage:v21 originalSupportPackage:0 fileCoordinatorDelegate:fileCoordinatorDelegate progress:0 error:&v47];
-  objc_storeStrong(v23 + 5, v47);
+  v22 = v49;
+  v46 = v49[5];
+  LOBYTE(v36) = 0;
+  v23 = [TSPPackageWriter newPackageWriterWithPackageType:type URL:lCopy documentTargetURL:lCopy relativeURLForExternalData:lCopy packageIdentifier:1 documentProperties:documentProperties documentMetadata:0 fileFormatVersion:0 updateType:2 cloneMode:v36 documentSaveValidationPolicy:0 encryptionKey:0 originalDocumentPackage:package originalSupportPackage:0 fileCoordinatorDelegate:fileCoordinatorDelegate progress:0 error:&v46];
+  objc_storeStrong(v22 + 5, v46);
 
-  if (v24)
+  if (v23)
   {
-    v42[0] = _NSConcreteStackBlock;
-    v42[1] = 3221225472;
-    v42[2] = sub_10001982C;
-    v42[3] = &unk_1001C64D8;
-    v42[4] = self;
-    v43 = filterCopy;
-    v24 = v24;
-    v44 = v24;
-    v46 = &v49;
+    v41[0] = _NSConcreteStackBlock;
+    v41[1] = 3221225472;
+    v41[2] = sub_10001982C;
+    v41[3] = &unk_1001C64D8;
+    v41[4] = self;
+    v42 = filterCopy;
+    v23 = v23;
+    v43 = v23;
+    v45 = &v48;
     lastReloadError = lastReloadError;
-    v45 = lastReloadError;
-    if ([(TSPPackageConverter *)self enumeratePackageEntriesWithZipArchive:zipArchive needsReadChannel:1 accessor:v42])
+    v44 = lastReloadError;
+    if ([(TSPPackageConverter *)self enumeratePackageEntriesWithZipArchive:zipArchive needsReadChannel:1 accessor:v41])
     {
       documentProperties2 = [(TSPPackage *)self->_package documentProperties];
-      v26 = v50;
-      obj = v50[5];
-      v27 = [documentProperties2 writeToPackageWriter:v24 error:&obj];
-      objc_storeStrong(v26 + 5, obj);
+      v25 = v49;
+      obj = v49[5];
+      v26 = [documentProperties2 writeToPackageWriter:v23 error:&obj];
+      objc_storeStrong(v25 + 5, obj);
+    }
+
+    else
+    {
+      v26 = 0;
+    }
+
+    v28 = v49;
+    v39 = v49[5];
+    v29 = [v23 closeAndReturnError:&v39];
+    objc_storeStrong(v28 + 5, v39);
+    if ((v29 & v26) == 1)
+    {
+      extendedAttributeCollection = self->_extendedAttributeCollection;
+      if (extendedAttributeCollection)
+      {
+        path = [lCopy path];
+        v32 = v49;
+        v38 = v49[5];
+        v27 = [(TSUExtendedAttributeCollection *)extendedAttributeCollection setAttributeCollectionToPath:path intent:2 options:0 error:&v38];
+        objc_storeStrong(v32 + 5, v38);
+      }
+
+      else
+      {
+        v27 = 1;
+      }
     }
 
     else
@@ -404,62 +439,35 @@ LABEL_12:
       v27 = 0;
     }
 
-    v29 = v50;
-    v40 = v50[5];
-    v30 = [v24 closeAndReturnError:&v40];
-    objc_storeStrong(v29 + 5, v40);
-    if ((v30 & v27) == 1)
-    {
-      extendedAttributeCollection = self->_extendedAttributeCollection;
-      if (extendedAttributeCollection)
-      {
-        path = [lCopy path];
-        v33 = v50;
-        v39 = v50[5];
-        v28 = [(TSUExtendedAttributeCollection *)extendedAttributeCollection setAttributeCollectionToPath:path intent:2 options:0 error:&v39];
-        objc_storeStrong(v33 + 5, v39);
-      }
-
-      else
-      {
-        v28 = 1;
-      }
-    }
-
-    else
-    {
-      v28 = 0;
-    }
-
-    filterCopy = v38;
+    filterCopy = v37;
   }
 
   else
   {
-    v28 = 0;
+    v27 = 0;
   }
 
 LABEL_30:
 
-  v15 = v28;
+  v15 = v27;
 LABEL_31:
 
   if (error && !v15)
   {
-    v34 = v50[5];
-    if (v34)
+    v33 = v49[5];
+    if (v33)
     {
-      *error = v34;
+      *error = v33;
     }
 
     else
     {
-      v35 = [NSError tsp_unknownWriteErrorWithUserInfo:0];
-      *error = v35;
+      v34 = [NSError tsp_unknownWriteErrorWithUserInfo:0];
+      *error = v34;
     }
   }
 
-  _Block_object_dispose(&v49, 8);
+  _Block_object_dispose(&v48, 8);
 LABEL_37:
 
   return v15;
@@ -556,6 +564,40 @@ LABEL_37:
 
   _Block_object_dispose(&v20, 8);
   return archiveCopy;
+}
+
+- (id)newWriteChannelAtPath:(id)path lastModificationDate:(id)date size:(unint64_t)size CRC:(unsigned int)c packageWriter:(id)writer error:(id *)error
+{
+  v9 = *&c;
+  pathCopy = path;
+  dateCopy = date;
+  writerCopy = writer;
+  if (!pathCopy)
+  {
+    v15 = +[TSUAssertionHandler _atomicIncrementAssertCount];
+    if (TSUAssertCat_init_token != -1)
+    {
+      sub_100152A60();
+    }
+
+    v16 = TSUAssertCat_log_t;
+    if (os_log_type_enabled(TSUAssertCat_log_t, OS_LOG_TYPE_ERROR))
+    {
+      sub_100152A74(v15, v16);
+    }
+
+    v17 = [NSString stringWithUTF8String:"[TSPPackageConverter newWriteChannelAtPath:lastModificationDate:size:CRC:packageWriter:error:]"];
+    v18 = [NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkXPC/shared/persistence/src/TSPPackageConverter.mm"];
+    [TSUAssertionHandler handleFailureInFunction:v17 file:v18 lineNumber:433 isFatal:0 description:"invalid nil value for '%{public}s'", "path"];
+
+    +[TSUAssertionHandler logBacktraceThrottled];
+  }
+
+  zipArchiveWriter = [writerCopy zipArchiveWriter];
+  [zipArchiveWriter beginEntryWithName:pathCopy force32BitSize:0 lastModificationDate:dateCopy size:size CRC:v9 forceCalculatingSizeAndCRCForPreservingLastModificationDate:0];
+  v20 = [[TSPZipFileWriteChannel alloc] initWithArchiveWriter:zipArchiveWriter];
+
+  return v20;
 }
 
 @end

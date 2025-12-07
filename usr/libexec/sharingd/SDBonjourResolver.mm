@@ -4,6 +4,7 @@
 - (void)cancel;
 - (void)dealloc;
 - (void)notifyClient:(int)client;
+- (void)parseResults:(const char *)results port:(unsigned __int16)port txtLen:(unsigned __int16)len txtRecord:(const char *)record interface:(unsigned int)interface;
 - (void)resolve;
 @end
 
@@ -59,6 +60,111 @@
   self->_error = client;
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
   [WeakRetained bonjourResolverDidChange:self];
+}
+
+- (void)parseResults:(const char *)results port:(unsigned __int16)port txtLen:(unsigned __int16)len txtRecord:(const char *)record interface:(unsigned int)interface
+{
+  v7 = *&interface;
+  portCopy = port;
+  v12 = CFStringCreateWithCString(0, results, 0x8000100u);
+  if (v12)
+  {
+    v13 = v12;
+    v14 = sub_1001F2B40(v12);
+    hostName = self->_hostName;
+    self->_hostName = &v14->isa;
+
+    CFRelease(v13);
+  }
+
+  v16 = [NSNumber numberWithUnsignedShort:portCopy];
+  portNumber = self->_portNumber;
+  self->_portNumber = v16;
+
+  if (!self->_path)
+  {
+    LOBYTE(v38) = 0;
+    ValuePtr = TXTRecordGetValuePtr(len, record, "path", &v38);
+    if (ValuePtr)
+    {
+      v19 = ValuePtr;
+      v20 = [NSString alloc];
+      v21 = [v20 initWithBytes:v19 length:v38 encoding:4];
+      path = self->_path;
+      self->_path = v21;
+    }
+  }
+
+  v23 = sub_10011885C(self->_type);
+  if (v23)
+  {
+    v24 = v23;
+    v25 = CFEqual(v23, kSFNodeProtocolAirDrop);
+    v26 = +[SDStatusMonitor sharedMonitor];
+    v27 = v26;
+    if (!v25 || ([v26 browseAllInterfaces]& 1) != 0 || sub_1001F2A44() == v7)
+    {
+      v28 = airdrop_log();
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
+      {
+        name = self->_name;
+        v30 = sub_1001F04A8(v7);
+        v31 = v30;
+        if (!v30)
+        {
+          v31 = [NSNumber numberWithInt:v7];
+        }
+
+        v38 = 138412546;
+        v39 = name;
+        v40 = 2112;
+        v41 = v31;
+        _os_log_impl(&_mh_execute_header, v28, OS_LOG_TYPE_DEFAULT, "Bonjour resolved %@ over %@", &v38, 0x16u);
+        if (!v30)
+        {
+        }
+      }
+
+      v32 = sub_1001174F4(v24, 0, 0, self->_hostName, [(NSNumber *)self->_portNumber intValue], self->_path, 0, 0);
+      url = self->_url;
+      self->_url = v32;
+
+      [(SDBonjourResolver *)self notifyClient:0];
+    }
+
+    else
+    {
+      v34 = airdrop_log();
+      if (os_log_type_enabled(v34, OS_LOG_TYPE_DEFAULT))
+      {
+        v35 = self->_name;
+        v36 = sub_1001F04A8(v7);
+        v37 = v36;
+        if (!v36)
+        {
+          v37 = [NSNumber numberWithInt:v7];
+        }
+
+        v38 = 138412546;
+        v39 = v35;
+        v40 = 2112;
+        v41 = v37;
+        _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "Ignoring Bonjour resolve of %@ over %@", &v38, 0x16u);
+        if (!v36)
+        {
+        }
+      }
+    }
+  }
+
+  else
+  {
+    v27 = browser_log();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
+    {
+      sub_10027239C();
+    }
+  }
 }
 
 - (void)resolve

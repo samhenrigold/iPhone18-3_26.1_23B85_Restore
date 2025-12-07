@@ -246,7 +246,7 @@
     v40 = [(SBAppLayout *)self->_appLayout itemForLayoutRole:1];
     v41 = [v39 flexibleAutoLayoutItemForDisplayItem:v40];
 
-    [v41 frame];
+    objc_msgSend_frame(v41);
     v43 = v42;
     v45 = v44;
     [(SBDockToStageZoomWindowingModifier *)self containerViewBounds];
@@ -430,7 +430,7 @@ uint64_t __78__SBDockToStageZoomWindowingModifier_appLayoutsForContinuousExposeI
           }
 
           v15 = *(*(&v45 + 1) + 8 * v14);
-          if (([v5 containsObject:{v15, v31}] & 1) == 0)
+          if ((objc_msgSend_containsObject_(v5, v31) & 1) == 0)
           {
             if ([*(&self->super.super.super.super.isa + v8) isEqual:v15])
             {
@@ -539,7 +539,7 @@ uint64_t __70__SBDockToStageZoomWindowingModifier_adjustedAppLayoutsForAppLayout
   v2 = *(a1 + 32);
   v3 = a2;
   v4 = [v2 allItems];
-  v5 = [v4 containsObject:v3];
+  v5 = objc_msgSend_containsObject_(v4);
 
   return v5 ^ 1u;
 }
@@ -989,7 +989,7 @@ id __70__SBDockToStageZoomWindowingModifier_adjustedAppLayoutsForAppLayouts___bl
   {
     v8 = [(SBDockToStageZoomWindowingModifier *)self maximizedCenteredAndUnoccludedDisplayItemsInAppLayout:self->_appLayout ignoreOcclusion:1 ignoreCentering:0];
     v9 = [(SBAppLayout *)self->_appLayout itemForLayoutRole:1];
-    v10 = [v8 containsObject:v9];
+    v10 = objc_msgSend_containsObject_(v8);
 
     if (v10)
     {
@@ -1126,7 +1126,7 @@ LABEL_7:
 
     else
     {
-      [(SBDockToStageZoomWindowingModifier *)self homeScreenGlassHighlightForAppLayout:self->_appLayout];
+      objc_msgSend_homeScreenGlassHighlightForAppLayout_(self);
     }
 
     _layoutSettings = [(SBDockToStageZoomWindowingModifier *)self _layoutSettings];
@@ -1196,7 +1196,7 @@ LABEL_7:
   if (![(SBDockToStageZoomWindowingModifier *)self _isIndexZoomAppLayout:index])
   {
     desktopSpaceDisplayItems = [(SBDockToStageZoomWindowingModifier *)self desktopSpaceDisplayItems];
-    if ([desktopSpaceDisplayItems containsObject:v9])
+    if (objc_msgSend_containsObject_(desktopSpaceDisplayItems))
     {
 LABEL_5:
 

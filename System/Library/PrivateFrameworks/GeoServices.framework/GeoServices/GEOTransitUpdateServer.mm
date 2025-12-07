@@ -57,35 +57,34 @@ LABEL_10:
 - (void)cancelTransitRouteUpdateRequestWithRequest:(id)request
 {
   requestCopy = request;
-  v5 = [[GEOTransitRouteUpdateReplySimple alloc] initWithRequest:requestCopy];
+  v4 = [[GEOTransitRouteUpdateReplySimple alloc] initWithRequest:requestCopy];
   request = [requestCopy request];
 
   if (request)
   {
-    v11 = 0;
-    v12 = &v11;
-    v13 = 0x3032000000;
-    v14 = sub_1000268F4;
-    v15 = sub_100026904;
-    v16 = 0;
-    isolater = self->_isolater;
-    v10 = requestCopy;
+    v9 = 0;
+    v10 = &v9;
+    v11 = 0x3032000000;
+    v12 = sub_1000268F4;
+    v13 = sub_100026904;
+    v14 = 0;
+    v8 = requestCopy;
     geo_isolate_sync_data();
-    if (v12[5])
+    if (v10[5])
     {
-      v8 = +[GEOTransitUpdateServerRequester sharedRequester];
-      [v8 cancelSimpleTransitRouteUpdateRequest:v12[5]];
+      v6 = +[GEOTransitUpdateServerRequester sharedRequester];
+      [v6 cancelSimpleTransitRouteUpdateRequest:v10[5]];
     }
 
-    _Block_object_dispose(&v11, 8);
+    _Block_object_dispose(&v9, 8);
   }
 
   else
   {
-    v9 = [NSError GEOErrorWithCode:-10];
-    [v5 setError:v9];
+    v7 = [NSError GEOErrorWithCode:-10];
+    [v4 setError:v7];
 
-    [v5 send];
+    [v4 send];
   }
 }
 
@@ -97,31 +96,30 @@ LABEL_10:
 
   if (request)
   {
-    isolater = self->_isolater;
-    v15 = _NSConcreteStackBlock;
-    v16 = 3221225472;
-    v17 = sub_100026B70;
-    v18 = &unk_100083940;
+    v14 = _NSConcreteStackBlock;
+    v15 = 3221225472;
+    v16 = sub_100026B70;
+    v17 = &unk_100083940;
     selfCopy = self;
-    v20 = requestCopy;
+    v19 = requestCopy;
     geo_isolate_sync_data();
-    v8 = +[GEOTransitUpdateServerRequester sharedRequester];
-    request2 = [v20 request];
-    preferredAuditToken = [v20 preferredAuditToken];
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100026BD0;
-    v12[3] = &unk_100082338;
-    v12[4] = self;
-    v13 = v20;
-    v14 = v5;
-    [v8 startSimpleTransitRouteUpdateRequest:request2 auditToken:preferredAuditToken networkActivity:0 completion:v12];
+    v7 = +[GEOTransitUpdateServerRequester sharedRequester];
+    request2 = [v19 request];
+    preferredAuditToken = [v19 preferredAuditToken];
+    v11[0] = _NSConcreteStackBlock;
+    v11[1] = 3221225472;
+    v11[2] = sub_100026BD0;
+    v11[3] = &unk_100082338;
+    v11[4] = self;
+    v12 = v19;
+    v13 = v5;
+    [v7 startSimpleTransitRouteUpdateRequest:request2 auditToken:preferredAuditToken networkActivity:0 completion:v11];
   }
 
   else
   {
-    v11 = [NSError GEOErrorWithCode:-10];
-    [v5 setError:v11];
+    v10 = [NSError GEOErrorWithCode:-10];
+    [v5 setError:v10];
 
     [v5 send];
   }

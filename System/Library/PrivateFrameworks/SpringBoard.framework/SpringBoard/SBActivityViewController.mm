@@ -181,7 +181,7 @@ LABEL_19:
 
 - (void)_viewWillLayoutSubviews
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   view = [(SBActivityViewController *)self view];
   [view bounds];
   v5 = v4;
@@ -194,31 +194,31 @@ LABEL_19:
 
   BSFloatRoundForScale();
   v12 = v11;
-  BSFloatRoundForScale();
-  v14 = v13;
+  v13 = BSFloatRoundForScale();
+  v15 = v14;
   if (v7 < v5)
   {
     v5 = v7;
   }
 
-  v15 = SBLogActivity();
-  if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+  v16 = SBLogActivity(v13);
+  if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
   {
     activityIdentifier = [(ACUISActivityHostViewController *)self->_activityHostViewController activityIdentifier];
-    v24.origin.x = v12;
-    v24.origin.y = v14;
-    v24.size.width = v5;
-    v24.size.height = v9;
-    v17 = NSStringFromCGRect(v24);
-    v19 = 138543618;
-    v20 = activityIdentifier;
-    v21 = 2112;
-    v22 = v17;
-    _os_log_impl(&dword_21ED4E000, v15, OS_LOG_TYPE_DEFAULT, "Activity[%{public}@] Setting host view controller frame: %@", &v19, 0x16u);
+    v25.origin.x = v12;
+    v25.origin.y = v15;
+    v25.size.width = v5;
+    v25.size.height = v9;
+    v18 = NSStringFromCGRect(v25);
+    v20 = 138543618;
+    v21 = activityIdentifier;
+    v22 = 2112;
+    v23 = v18;
+    _os_log_impl(&dword_21ED4E000, v16, OS_LOG_TYPE_DEFAULT, "Activity[%{public}@] Setting host view controller frame: %@", &v20, 0x16u);
   }
 
   view2 = [(ACUISActivityHostViewController *)self->_activityHostViewController view];
-  [view2 setFrame:{v12, v14, v5, v9}];
+  [view2 setFrame:{v12, v15, v5, v9}];
 }
 
 - (CGSize)preferredActivityContentSize
@@ -283,7 +283,7 @@ LABEL_19:
 
 - (void)_unlockAndLaunchAppIfPossible:(id)possible withAction:(id)action
 {
-  v27[3] = *MEMORY[0x277D85DE8];
+  v29[3] = *MEMORY[0x277D85DE8];
   actionCopy = action;
   possibleCopy = possible;
   BSDispatchQueueAssertMain();
@@ -295,58 +295,58 @@ LABEL_19:
 
   if (platterTargetBundleIdentifier)
   {
-    v11 = MEMORY[0x277D0AD60];
-    v26[0] = *MEMORY[0x277D0ABD0];
+    v12 = MEMORY[0x277D0AD60];
+    v28[0] = *MEMORY[0x277D0ABD0];
     if (actionCopy)
     {
-      v25 = actionCopy;
-      v12 = [MEMORY[0x277CBEA60] arrayWithObjects:&v25 count:1];
+      v27 = actionCopy;
+      v13 = [MEMORY[0x277CBEA60] arrayWithObjects:&v27 count:1];
     }
 
     else
     {
-      v12 = MEMORY[0x277CBEBF8];
+      v13 = MEMORY[0x277CBEBF8];
     }
 
-    v14 = *MEMORY[0x277D0AC58];
-    v27[0] = v12;
-    v27[1] = MEMORY[0x277CBEC38];
-    v15 = *MEMORY[0x277D0AC70];
-    v26[1] = v14;
-    v26[2] = v15;
-    v27[2] = MEMORY[0x277CBEC38];
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:3];
-    v13 = [v11 optionsWithDictionary:v16];
+    v15 = *MEMORY[0x277D0AC58];
+    v29[0] = v13;
+    v29[1] = MEMORY[0x277CBEC38];
+    v16 = *MEMORY[0x277D0AC70];
+    v28[1] = v15;
+    v28[2] = v16;
+    v29[2] = MEMORY[0x277CBEC38];
+    v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:3];
+    v14 = [v12 optionsWithDictionary:v17];
 
     if (actionCopy)
     {
     }
 
-    v17 = SBLogActivity();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v19 = SBLogActivity(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543619;
-      v22 = activityIdentifier;
-      v23 = 2113;
-      v24 = actionCopy;
-      _os_log_impl(&dword_21ED4E000, v17, OS_LOG_TYPE_DEFAULT, "Activity[%{public}@] Sending open application request for %{private}@", buf, 0x16u);
+      v24 = activityIdentifier;
+      v25 = 2113;
+      v26 = actionCopy;
+      _os_log_impl(&dword_21ED4E000, v19, OS_LOG_TYPE_DEFAULT, "Activity[%{public}@] Sending open application request for %{private}@", buf, 0x16u);
     }
 
     serviceWithDefaultShellEndpoint = [MEMORY[0x277D0AD78] serviceWithDefaultShellEndpoint];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __69__SBActivityViewController__unlockAndLaunchAppIfPossible_withAction___block_invoke;
-    v19[3] = &unk_2783B49B8;
-    v20 = activityIdentifier;
-    [serviceWithDefaultShellEndpoint openApplication:platterTargetBundleIdentifier withOptions:v13 completion:v19];
+    v21[0] = MEMORY[0x277D85DD0];
+    v21[1] = 3221225472;
+    v21[2] = __69__SBActivityViewController__unlockAndLaunchAppIfPossible_withAction___block_invoke;
+    v21[3] = &unk_2783B49B8;
+    v22 = activityIdentifier;
+    [serviceWithDefaultShellEndpoint openApplication:platterTargetBundleIdentifier withOptions:v14 completion:v21];
   }
 
   else
   {
-    v13 = SBLogActivity();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
+    v14 = SBLogActivity(v11);
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_FAULT))
     {
-      [SBActivityViewController _unlockAndLaunchAppIfPossible:activityIdentifier withAction:v13];
+      [SBActivityViewController _unlockAndLaunchAppIfPossible:activityIdentifier withAction:v14];
     }
   }
 }
@@ -355,7 +355,7 @@ void __69__SBActivityViewController__unlockAndLaunchAppIfPossible_withAction___b
 {
   v10 = *MEMORY[0x277D85DE8];
   v4 = a3;
-  v5 = SBLogActivity();
+  v5 = SBLogActivity(v4);
   v6 = v5;
   if (v4)
   {

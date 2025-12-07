@@ -572,7 +572,7 @@ uint64_t sub_1000DCD04(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 {
   *(v12 + v9 - 33) = a8;
   *(v14 + 4 * (v9 - 33)) = -893578120;
-  return (*(v13 + 8 * (((v9 + 1 != 80 * (v8 ^ v11) - 2943) * v10) ^ v8)))();
+  return (*(v13 + 8 * (((v9 + 1 != 80 * (v8 ^ v11) - 2943) * v10) ^ v8)))(a1, a2, a3, a4, a5, a6, a7);
 }
 
 uint64_t sub_1000DCD48@<X0>(uint64_t a1@<X8>, __n128 a2@<Q0>, __n128 a3@<Q4>)
@@ -621,7 +621,7 @@ uint64_t sub_1000DCF50(uint64_t a1, uint64_t a2, int a3)
 {
   LODWORD(STACK[0x17E0]) = a3;
   LODWORD(STACK[0x17F0]) = v3;
-  return (*(v5 + 8 * (v4 - 3735)))();
+  return (*(v5 + 8 * (v4 - 3735)))(a1, a2);
 }
 
 uint64_t sub_1000DCFE8(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -1035,7 +1035,7 @@ uint64_t sub_1000DF4CC(uint64_t a1, int a2)
   LODWORD(STACK[0x18A0]) = -1592555582;
   LODWORD(STACK[0x1850]) = 755964425;
   LODWORD(STACK[0x18B0]) = -1804286311;
-  return v3();
+  return v3(a1);
 }
 
 uint64_t sub_1000DF704()
@@ -1168,7 +1168,7 @@ uint64_t sub_1000E035C@<X0>(uint64_t a1@<X0>, int a2@<W1>, uint64_t a3@<X2>, uin
     *(v19 - 0x10AC49A2DA621035) = (BYTE1(LODWORD(STACK[0x17D0])) ^ 0x82) - ((LODWORD(STACK[0x17D0]) >> 7) & 0xBA) - 35;
     *(v19 - 0x10AC49A2DA621037) = -8739;
     *(v19 - 0x10AC49A2DA621034) = (v17 - 104) ^ v18;
-    return (*(STACK[0x1708] + 8 * (v17 - 682)))();
+    return (*(STACK[0x1708] + 8 * (v17 - 682)))(a1);
   }
 
   else
@@ -1319,7 +1319,7 @@ uint64_t sub_1000E1548(__n128 a1, double a2, double a3, double a4, __n128 a5, ui
   v18[7] = a1;
   v18[4] = a1;
   v18[5] = a1;
-  return (*(v16 + 8 * (((v12 == 32) * (((v15 + a8) & a11) + a12)) ^ v15)))();
+  return (*(v16 + 8 * (((v12 == 32) * (((v15 + a8) & a11) + a12)) ^ v15)))(a6, a7);
 }
 
 uint64_t sub_1000E1634@<X0>(uint64_t a1@<X1>, char a2@<W4>, uint64_t a3@<X8>)
@@ -8997,7 +8997,7 @@ uint64_t sub_1000F0E10(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int a
   return (*(STACK[0x1708] + 8 * a8))();
 }
 
-uint64_t sub_1000F1240@<X0>(uint64_t a1@<X1>, int a2@<W2>, uint64_t a3@<X3>, uint64_t a4@<X4>, unsigned int a5@<W5>, int a6@<W7>, uint64_t a7@<X8>)
+uint64_t sub_1000F1240@<X0>(uint64_t a1@<X1>, unsigned int a2@<W2>, uint64_t a3@<X3>, uint64_t a4@<X4>, unsigned int a5@<W5>, int a6@<W7>, uint64_t a7@<X8>)
 {
   v25 = 257 * v16 - ((v17 + v16 * v9) & v13) + v23;
   *(v20 + 8 * (v15 ^ v25)) = v8;

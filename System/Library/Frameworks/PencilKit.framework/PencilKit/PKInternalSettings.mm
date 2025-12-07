@@ -1,8 +1,8 @@
 @interface PKInternalSettings
 + (id)sharedInstance;
-- (uint64_t)forceShowImageWandOnboarding;
-- (uint64_t)imageWandOnboardingDisabled;
-- (uint64_t)showResetImageWandOnboardingInPalette;
+- (void)forceShowImageWandOnboarding;
+- (void)imageWandOnboardingDisabled;
+- (void)showResetImageWandOnboardingInPalette;
 @end
 
 @implementation PKInternalSettings
@@ -15,28 +15,28 @@
     dispatch_once(&_MergedGlobals_173, &__block_literal_global_93);
   }
 
-  v0 = qword_1ED6A5598;
+  v1 = qword_1ED6A5598;
 
-  return v0;
+  return v1;
 }
 
-void __36__PKInternalSettings_sharedInstance__block_invoke()
+void __36__PKInternalSettings_sharedInstance__block_invoke(uint64_t a1, uint64_t a2)
 {
   if (os_variant_has_internal_diagnostics())
   {
-    v0 = objc_alloc_init(PKInternalSettings);
+    v2 = objc_alloc_init(PKInternalSettings);
   }
 
   else
   {
-    v0 = 0;
+    v2 = 0;
   }
 
-  v1 = qword_1ED6A5598;
-  qword_1ED6A5598 = v0;
+  v3 = qword_1ED6A5598;
+  qword_1ED6A5598 = v2;
 }
 
-- (uint64_t)showResetImageWandOnboardingInPalette
+- (void)showResetImageWandOnboardingInPalette
 {
   if (result)
   {
@@ -49,7 +49,7 @@ void __36__PKInternalSettings_sharedInstance__block_invoke()
   return result;
 }
 
-- (uint64_t)forceShowImageWandOnboarding
+- (void)forceShowImageWandOnboarding
 {
   if (result)
   {
@@ -62,7 +62,7 @@ void __36__PKInternalSettings_sharedInstance__block_invoke()
   return result;
 }
 
-- (uint64_t)imageWandOnboardingDisabled
+- (void)imageWandOnboardingDisabled
 {
   if (result)
   {

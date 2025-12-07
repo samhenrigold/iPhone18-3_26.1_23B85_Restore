@@ -179,8 +179,9 @@ void __44__SearchUICommandRowModel_safelyUpdateView___block_invoke(uint64_t a1)
   }
 }
 
-void __62__SearchUICommandRowModel_toggleStateWithDetailedSectionView___block_invoke(id *a1, int a2)
+void __62__SearchUICommandRowModel_toggleStateWithDetailedSectionView___block_invoke(id *a1, uint64_t a2)
 {
+  v2 = a2;
   if (a1[4])
   {
     aBlock[0] = MEMORY[0x1E69E9820];
@@ -192,7 +193,7 @@ void __62__SearchUICommandRowModel_toggleStateWithDetailedSectionView___block_in
     v11 = a1[5];
     v4 = _Block_copy(aBlock);
     v5 = MEMORY[0x1E69D9240];
-    if (a2)
+    if (v2)
     {
       v6 = v9;
       v9[0] = MEMORY[0x1E69E9820];
@@ -224,7 +225,7 @@ void __62__SearchUICommandRowModel_toggleStateWithDetailedSectionView___block_in
     v7 = SearchUIGeneralLog();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      __62__SearchUICommandRowModel_toggleStateWithDetailedSectionView___block_invoke_cold_1(a2, v7);
+      __62__SearchUICommandRowModel_toggleStateWithDetailedSectionView___block_invoke_cold_1(v2, v7);
     }
   }
 }

@@ -75,7 +75,7 @@
     {
       v13 = self->_namePrefix;
       namePrefix2 = [(PLRevGeoCompoundNameInfo *)v7 namePrefix];
-      LODWORD(v13) = [(NSString *)v13 isEqualToString:namePrefix2];
+      LODWORD(v13) = objc_msgSend_isEqualToString_(v13);
 
       if (!v13)
       {
@@ -94,7 +94,7 @@
     {
       v18 = self->_nameSuffix;
       nameSuffix2 = [(PLRevGeoCompoundNameInfo *)v7 nameSuffix];
-      LODWORD(v18) = [(NSString *)v18 isEqualToString:nameSuffix2];
+      LODWORD(v18) = objc_msgSend_isEqualToString_(v18);
 
       if (!v18)
       {
@@ -133,7 +133,7 @@ LABEL_15:
 {
   v25 = *MEMORY[0x1E69E9840];
   localizedSortedNames = [(PLRevGeoCompoundNameInfo *)self localizedSortedNames];
-  if ([localizedSortedNames count])
+  if (objc_msgSend_count(localizedSortedNames))
   {
     v3 = objc_alloc_init(MEMORY[0x1E696AD60]);
     v20 = 0u;
@@ -167,7 +167,7 @@ LABEL_15:
             v13 = @"MOMENT_TITLE_LIST_MID_SEPARATOR_FORMAT";
             if (v9 == lastObject)
             {
-              if ([v4 count] == 2)
+              if (objc_msgSend_count(v4) == 2)
               {
                 v13 = @"MOMENT_TITLE_LIST_END_SEPARATOR_FORMAT_1";
               }
@@ -211,7 +211,7 @@ LABEL_15:
   v35 = *MEMORY[0x1E69E9840];
   if ([(NSString *)self->_namePrefix length]|| [(NSString *)self->_nameSuffix length]|| self->_isContinuation)
   {
-    v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:{-[NSArray count](self->_sortedNames, "count")}];
+    v3 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:objc_msgSend_count(self->_sortedNames)];
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
@@ -275,7 +275,7 @@ LABEL_15:
           v12 = self->_namePrefix;
           if ([(NSString *)v12 length])
           {
-            if ([(NSArray *)self->_sortedNames count]== 1 && [(NSString *)self->_namePrefix rangeOfString:v9]!= 0x7FFFFFFFFFFFFFFFLL)
+            if (objc_msgSend_count(self->_sortedNames) == 1 && [(NSString *)self->_namePrefix rangeOfString:v9]!= 0x7FFFFFFFFFFFFFFFLL)
             {
               v18 = v12 && self->_nameSuffix && [(NSString *)v12 containsString:?];
               if (self->_suffixWhenPrefixOnly && [(NSString *)self->_nameSuffix length]!= 0 && !v18)
@@ -397,7 +397,7 @@ LABEL_48:
 + (id)_localizedNameForName:(id)name
 {
   nameCopy = name;
-  if ([nameCopy isEqualToString:@"_$!<Home>!$_"])
+  if (objc_msgSend_isEqualToString_(nameCopy))
   {
     v4 = PLMomentsLocalizedFrameworkString(@"MOMENT_HOME");
   }

@@ -79,9 +79,10 @@ void __carEndpoint_SendData_block_invoke(uint64_t a1)
       }
 
       *(*(*(a1 + 40) + 8) + 24) = v7;
-      if (*(*(*(a1 + 40) + 8) + 24))
+      v8 = *(*(*(a1 + 40) + 8) + 24);
+      if (v8)
       {
-        __carEndpoint_SendData_block_invoke_cold_1();
+        __carEndpoint_SendData_block_invoke_cold_1(v8);
       }
     }
 

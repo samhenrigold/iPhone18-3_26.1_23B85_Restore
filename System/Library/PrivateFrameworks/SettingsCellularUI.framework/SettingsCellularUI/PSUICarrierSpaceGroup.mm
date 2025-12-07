@@ -436,17 +436,16 @@ LABEL_11:
 
 - (void)newCarrierNotification
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICarrierSpaceGroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[PSUICarrierSpaceGroup newCarrierNotification]";
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s reloading specifiers", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[PSUICarrierSpaceGroup newCarrierNotification]";
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s reloading specifiers", &v4, 0xCu);
   }
 
   [(PSUICarrierSpaceGroup *)self refreshSpecifiers];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (id)descriptionForPlans:(id)plans
@@ -534,17 +533,16 @@ LABEL_13:
 
 - (void)carrierSpaceChanged
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   getLogger = [(PSUICarrierSpaceGroup *)self getLogger];
   if (os_log_type_enabled(getLogger, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 136315138;
-    v6 = "[PSUICarrierSpaceGroup carrierSpaceChanged]";
-    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s reloading specifiers", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[PSUICarrierSpaceGroup carrierSpaceChanged]";
+    _os_log_impl(&dword_2658DE000, getLogger, OS_LOG_TYPE_DEFAULT, "%s reloading specifiers", &v4, 0xCu);
   }
 
   [(PSUICarrierSpaceGroup *)self refreshSpecifiers];
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (void)showConsentFlow:(id)flow
@@ -727,7 +725,7 @@ void __64__PSUICarrierSpaceGroup_showTermsAndConditions_consentFlowInfo___block_
 
 void __64__PSUICarrierSpaceGroup_showTermsAndConditions_consentFlowInfo___block_invoke_66(uint64_t a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v5 = a3;
   if (v5 || (a2 & 1) == 0)
   {
@@ -736,17 +734,15 @@ void __64__PSUICarrierSpaceGroup_showTermsAndConditions_consentFlowInfo___block_
     {
       v7 = *(a1 + 40);
       v8 = [MEMORY[0x277CCABB0] numberWithBool:a2];
-      v10 = 138412802;
-      v11 = v7;
-      v12 = 2112;
-      v13 = v8;
-      v14 = 2112;
-      v15 = v5;
-      _os_log_impl(&dword_2658DE000, v6, OS_LOG_TYPE_DEFAULT, "Could not load consent url: %@, success: %@, error: %@", &v10, 0x20u);
+      v9 = 138412802;
+      v10 = v7;
+      v11 = 2112;
+      v12 = v8;
+      v13 = 2112;
+      v14 = v5;
+      _os_log_impl(&dword_2658DE000, v6, OS_LOG_TYPE_DEFAULT, "Could not load consent url: %@, success: %@, error: %@", &v9, 0x20u);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)openURLWithSpecifier:(id)specifier

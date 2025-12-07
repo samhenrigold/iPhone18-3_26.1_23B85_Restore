@@ -16,7 +16,7 @@
 
   v8 = [v7 count];
   v9 = [waypoints count];
-  v10 = sub_100053324();
+  v10 = sub_100053324(v9);
   v11 = os_log_type_enabled(v10, OS_LOG_TYPE_INFO);
   if (v8 == v9)
   {
@@ -79,7 +79,7 @@
   if ([(NanoRoutePlanningState *)self isActive])
   {
     v8 = sub_1000282B8(waypointsCopy, &stru_1000853B0);
-    v9 = sub_100053324();
+    v9 = sub_100053324(v8);
     v10 = v9;
     if (errorCopy)
     {

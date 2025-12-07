@@ -66,7 +66,7 @@
 
 - (void)_configureTargetAccessories:(id)accessories reason:(id)reason targetAccessories:(id)targetAccessories responseHandler:(id)handler
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   accessoriesCopy = accessories;
   reasonCopy = reason;
   targetAccessoriesCopy = targetAccessories;
@@ -82,22 +82,22 @@
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v27 = v19;
+      v26 = v19;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Configure target accessories", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v16);
     objc_initWeak(buf, selfCopy);
     workQueue = [(HMDTargetControllerManager *)selfCopy workQueue];
-    v23[0] = MEMORY[0x277D85DD0];
-    v23[1] = 3221225472;
-    v23[2] = __99__HMDTargetControllerManager__configureTargetAccessories_reason_targetAccessories_responseHandler___block_invoke;
-    v23[3] = &unk_279734508;
-    objc_copyWeak(&v25, buf);
-    v24 = handlerCopy;
-    [controller writeValue:accessoriesCopy toCharacteristic:v15 queue:workQueue source:1200 completion:v23];
+    v22[0] = MEMORY[0x277D85DD0];
+    v22[1] = 3221225472;
+    v22[2] = __99__HMDTargetControllerManager__configureTargetAccessories_reason_targetAccessories_responseHandler___block_invoke;
+    v22[3] = &unk_279734508;
+    objc_copyWeak(&v24, buf);
+    v23 = handlerCopy;
+    [controller writeValue:accessoriesCopy toCharacteristic:v15 queue:workQueue source:1200 completion:v22];
 
-    objc_destroyWeak(&v25);
+    objc_destroyWeak(&v24);
     objc_destroyWeak(buf);
   }
 
@@ -106,8 +106,6 @@
     v21 = [MEMORY[0x277CCA9B8] hmErrorWithCode:48];
     (*(handlerCopy + 2))(handlerCopy, v21, 0);
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 }
 
 void __99__HMDTargetControllerManager__configureTargetAccessories_reason_targetAccessories_responseHandler___block_invoke(uint64_t a1, void *a2)
@@ -136,7 +134,7 @@ void __99__HMDTargetControllerManager__configureTargetAccessories_reason_targetA
 
 - (void)_handleConfigureTargets:(id)targets responseHandler:(id)handler
 {
-  v105[1] = *MEMORY[0x277D85DE8];
+  v104[1] = *MEMORY[0x277D85DE8];
   targetsCopy = targets;
   handlerCopy = handler;
   controller = [(HMDTargetControllerManager *)self controller];
@@ -147,13 +145,13 @@ void __99__HMDTargetControllerManager__configureTargetAccessories_reason_targetA
     v11 = *MEMORY[0x277CCECD8];
     v12 = [targetsCopy objectForKey:*MEMORY[0x277CCECD8]];
 
-    v84 = home;
+    v83 = home;
     if (v12)
     {
       v13 = v11;
-      v92 = 0;
-      v14 = [(HMDTargetControllerManager *)self _dataForResetTargetsWithOutError:&v92];
-      v15 = v92;
+      v91 = 0;
+      v14 = [(HMDTargetControllerManager *)self _dataForResetTargetsWithOutError:&v91];
+      v15 = v91;
       goto LABEL_8;
     }
 
@@ -163,9 +161,9 @@ void __99__HMDTargetControllerManager__configureTargetAccessories_reason_targetA
     if (v18)
     {
       v13 = v17;
-      v91 = 0;
-      v14 = [(HMDTargetControllerManager *)self _dataForListTargetsWithOutError:&v91];
-      v15 = v91;
+      v90 = 0;
+      v14 = [(HMDTargetControllerManager *)self _dataForListTargetsWithOutError:&v90];
+      v15 = v90;
 LABEL_8:
       v19 = v15;
       v20 = 0;
@@ -202,7 +200,7 @@ LABEL_44:
       if (!v14)
       {
         v19 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
-        v81 = v24;
+        v80 = v24;
         v20 = 0;
         v33 = 0;
         goto LABEL_29;
@@ -214,29 +212,29 @@ LABEL_44:
         v26 = v25 = v14;
         v27 = identifierForTargetWithUUID(v24, v26);
 
-        v78 = v25;
+        v77 = v25;
         category = [v25 category];
-        v73 = mapTargetCategory(category);
+        v72 = mapTargetCategory(category);
 
-        v69 = [HMDTargetConfiguration alloc];
+        v68 = [HMDTargetConfiguration alloc];
         v29 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v27];
         [v25 name];
-        v30 = v81 = v24;
+        v30 = v80 = v24;
         buttonConfiguration = [(HMDTargetControllerManager *)self buttonConfiguration];
-        v74 = [(HMDTargetConfiguration *)v69 initWithIdentifier:v29 name:v30 category:v73 buttonConfiguration:buttonConfiguration];
+        v73 = [(HMDTargetConfiguration *)v68 initWithIdentifier:v29 name:v30 category:v72 buttonConfiguration:buttonConfiguration];
 
-        v105[0] = v25;
-        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v105 count:1];
-        v104 = v74;
-        v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v104 count:1];
-        v90 = 0;
-        v14 = [(HMDTargetControllerManager *)self _dataForAddTargets:v32 outError:&v90];
-        v19 = v90;
+        v104[0] = v25;
+        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:v104 count:1];
+        v103 = v73;
+        v32 = [MEMORY[0x277CBEA60] arrayWithObjects:&v103 count:1];
+        v89 = 0;
+        v14 = [(HMDTargetControllerManager *)self _dataForAddTargets:v32 outError:&v89];
+        v19 = v89;
 
-        v33 = v78;
+        v33 = v77;
 LABEL_29:
 
-        v44 = v81;
+        v44 = v80;
         goto LABEL_43;
       }
 
@@ -245,22 +243,22 @@ LABEL_29:
       v47 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
       {
-        v83 = HMFGetLogIdentifier();
+        v82 = HMFGetLogIdentifier();
         obja = [controller name];
         [controller uuid];
-        v76 = v45;
+        v75 = v45;
         v49 = v48 = v24;
         uUIDString = [v49 UUIDString];
         *buf = 138543874;
-        v97 = v83;
-        v98 = 2112;
-        v99 = obja;
-        v100 = 2112;
-        v101 = uUIDString;
+        v96 = v82;
+        v97 = 2112;
+        v98 = obja;
+        v99 = 2112;
+        v100 = uUIDString;
         _os_log_impl(&dword_2531F8000, v47, OS_LOG_TYPE_ERROR, "%{public}@Attempting to configure targets for a controller %@/%@ that is not configured with a home", buf, 0x20u);
 
         v24 = v48;
-        v45 = v76;
+        v45 = v75;
       }
 
       objc_autoreleasePoolPop(v45);
@@ -293,7 +291,7 @@ LABEL_29:
 
 LABEL_47:
 
-        home = v84;
+        home = v83;
         goto LABEL_48;
       }
 
@@ -313,41 +311,41 @@ LABEL_55:
     {
       if (!home)
       {
-        v55 = objc_autoreleasePoolPush();
+        v54 = objc_autoreleasePoolPush();
         selfCopy2 = self;
-        v57 = HMFGetOSLogHandle();
-        if (os_log_type_enabled(v57, OS_LOG_TYPE_ERROR))
+        v56 = HMFGetOSLogHandle();
+        if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
         {
-          v80 = HMFGetLogIdentifier();
+          v79 = HMFGetLogIdentifier();
           objb = [v20 uuid];
           [objb UUIDString];
-          v64 = v72 = selfCopy2;
+          v63 = v71 = selfCopy2;
           name = [controller name];
           [controller uuid];
-          v77 = v55;
-          v59 = v58 = v20;
-          [v59 UUIDString];
+          v76 = v54;
+          v58 = v57 = v20;
+          [v58 UUIDString];
           *buf = 138544130;
-          v97 = v80;
-          v98 = 2112;
-          v99 = v64;
-          v100 = 2112;
-          v101 = name;
-          v103 = v102 = 2112;
-          v60 = v103;
-          _os_log_impl(&dword_2531F8000, v57, OS_LOG_TYPE_ERROR, "%{public}@Attempting to remove target %@ for a controller %@/%@ that is not configured with a home", buf, 0x2Au);
+          v96 = v79;
+          v97 = 2112;
+          v98 = v63;
+          v99 = 2112;
+          v100 = name;
+          v102 = v101 = 2112;
+          v59 = v102;
+          _os_log_impl(&dword_2531F8000, v56, OS_LOG_TYPE_ERROR, "%{public}@Attempting to remove target %@ for a controller %@/%@ that is not configured with a home", buf, 0x2Au);
 
-          v20 = v58;
-          v55 = v77;
+          v20 = v57;
+          v54 = v76;
 
-          selfCopy2 = v72;
+          selfCopy2 = v71;
         }
 
-        objc_autoreleasePoolPop(v55);
+        objc_autoreleasePoolPop(v54);
         if (handlerCopy)
         {
-          v61 = [MEMORY[0x277CCA9B8] hmErrorWithCode:21];
-          handlerCopy[2](handlerCopy, v61, 0);
+          v60 = [MEMORY[0x277CCA9B8] hmErrorWithCode:21];
+          handlerCopy[2](handlerCopy, v60, 0);
         }
 
 LABEL_54:
@@ -355,33 +353,33 @@ LABEL_54:
         goto LABEL_55;
       }
 
-      v63 = v37;
+      v62 = v37;
       uuid = [home uuid];
-      v65 = v36;
-      v79 = identifierForTargetWithUUID(v36, uuid);
+      v64 = v36;
+      v78 = identifierForTargetWithUUID(v36, uuid);
 
-      v88 = 0u;
-      v89 = 0u;
-      v86 = 0u;
       v87 = 0u;
+      v88 = 0u;
+      v85 = 0u;
+      v86 = 0u;
       obj = [(HMDTargetControllerManager *)self configuredTargets];
-      v75 = [obj countByEnumeratingWithState:&v86 objects:v95 count:16];
-      if (v75)
+      v74 = [obj countByEnumeratingWithState:&v85 objects:v94 count:16];
+      if (v74)
       {
-        v70 = *v87;
-        v82 = v13;
+        v69 = *v86;
+        v81 = v13;
 LABEL_21:
         v39 = 0;
         while (1)
         {
-          if (*v87 != v70)
+          if (*v86 != v69)
           {
             objc_enumerationMutation(obj);
           }
 
-          v40 = *(*(&v86 + 1) + 8 * v39);
+          v40 = *(*(&v85 + 1) + 8 * v39);
           identifier = [v40 identifier];
-          v42 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v79];
+          v42 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v78];
           v43 = [identifier isEqual:v42];
 
           if (v43)
@@ -390,11 +388,11 @@ LABEL_21:
           }
 
           ++v39;
-          v13 = v82;
-          if (v75 == v39)
+          v13 = v81;
+          if (v74 == v39)
           {
-            v75 = [obj countByEnumeratingWithState:&v86 objects:v95 count:16];
-            if (v75)
+            v74 = [obj countByEnumeratingWithState:&v85 objects:v94 count:16];
+            if (v74)
             {
               goto LABEL_21;
             }
@@ -405,22 +403,22 @@ LABEL_21:
 
         v51 = v40;
 
-        v13 = v82;
+        v13 = v81;
         if (!v51)
         {
           goto LABEL_40;
         }
 
-        v94 = v63;
-        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v94 count:1];
-        v93 = v51;
-        v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v93 count:1];
-        v85 = 0;
-        [(HMDTargetControllerManager *)self _dataForRemoveTargets:v52 outError:&v85];
+        v93 = v62;
+        v20 = [MEMORY[0x277CBEA60] arrayWithObjects:&v93 count:1];
+        v92 = v51;
+        v52 = [MEMORY[0x277CBEA60] arrayWithObjects:&v92 count:1];
+        v84 = 0;
+        [(HMDTargetControllerManager *)self _dataForRemoveTargets:v52 outError:&v84];
         v14 = v53 = v51;
-        v19 = v85;
+        v19 = v84;
 
-        v13 = v82;
+        v13 = v81;
         goto LABEL_42;
       }
 
@@ -433,15 +431,15 @@ LABEL_40:
 
     else
     {
-      v63 = 0;
-      v65 = v36;
+      v62 = 0;
+      v64 = v36;
       v19 = [MEMORY[0x277CCA9B8] hmErrorWithCode:2];
     }
 
     v14 = 0;
 LABEL_42:
 
-    v44 = v65;
+    v44 = v64;
 LABEL_43:
 
     if (v19)
@@ -459,8 +457,6 @@ LABEL_43:
   }
 
 LABEL_48:
-
-  v54 = *MEMORY[0x277D85DE8];
 }
 
 - (void)handleConfigureTargets:(id)targets responseHandler:(id)handler
@@ -482,7 +478,7 @@ LABEL_48:
 
 - (id)targetConfigurationMatchingAccessory:(id)accessory
 {
-  v35 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   controller = [(HMDTargetControllerManager *)self controller];
   home = [controller home];
@@ -503,61 +499,59 @@ LABEL_48:
     v14 = HMFGetOSLogHandle();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
-      v22 = HMFGetLogIdentifier();
+      v21 = HMFGetLogIdentifier();
       name = [accessoryCopy name];
       uuid3 = [accessoryCopy uuid];
       uUIDString = [uuid3 UUIDString];
       [controller name];
-      v17 = v24 = v12;
+      v17 = v23 = v12;
       uuid4 = [controller uuid];
       [uuid4 UUIDString];
       *buf = 138544386;
-      v26 = v22;
-      v27 = 2112;
-      v28 = name;
-      v29 = 2112;
-      v30 = uUIDString;
-      v31 = 2112;
-      v32 = v17;
-      v34 = v33 = 2112;
-      v19 = v34;
+      v25 = v21;
+      v26 = 2112;
+      v27 = name;
+      v28 = 2112;
+      v29 = uUIDString;
+      v30 = 2112;
+      v31 = v17;
+      v33 = v32 = 2112;
+      v19 = v33;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_ERROR, "%{public}@Attempting to lookup target %@/%@ for a controller %@/%@ that is not configured with a home", buf, 0x34u);
 
-      v12 = v24;
+      v12 = v23;
     }
 
     objc_autoreleasePoolPop(v12);
     v11 = 0;
   }
 
-  v20 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (id)targetConfigurationMatchingIdentifier:(id)identifier
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   [(HMDTargetControllerManager *)self configuredTargets];
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
-  v5 = v17 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = v16 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         identifier = [v9 identifier];
         v11 = [identifier isEqual:identifierCopy];
 
@@ -568,7 +562,7 @@ LABEL_48:
         }
       }
 
-      v6 = [v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -579,8 +573,6 @@ LABEL_48:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }
@@ -601,39 +593,39 @@ LABEL_11:
 
 void __44__HMDTargetControllerManager_updateTargets___block_invoke(uint64_t a1)
 {
-  v99 = *MEMORY[0x277D85DE8];
-  v69 = [*(a1 + 32) controller];
-  v2 = [v69 home];
+  v98 = *MEMORY[0x277D85DE8];
+  v68 = [*(a1 + 32) controller];
+  v2 = [v68 home];
   v3 = [*(a1 + 32) targetUUIDs];
   v4 = [MEMORY[0x277CBEB58] setWithArray:*(a1 + 40)];
-  v70 = v3;
+  v69 = v3;
   v5 = v3;
   v6 = a1;
   v7 = [MEMORY[0x277CBEB98] setWithArray:v5];
   [v4 minusSet:v7];
 
-  v87 = 0u;
-  v88 = 0u;
-  v85 = 0u;
   v86 = 0u;
+  v87 = 0u;
+  v84 = 0u;
+  v85 = 0u;
   obj = v4;
   v8 = 0x277CCA000uLL;
-  v71 = v2;
-  v76 = v6;
-  v79 = [obj countByEnumeratingWithState:&v85 objects:v98 count:16];
-  if (v79)
+  v70 = v2;
+  v75 = v6;
+  v78 = [obj countByEnumeratingWithState:&v84 objects:v97 count:16];
+  if (v78)
   {
-    v77 = *v86;
+    v76 = *v85;
     do
     {
-      for (i = 0; i != v79; ++i)
+      for (i = 0; i != v78; ++i)
       {
-        if (*v86 != v77)
+        if (*v85 != v76)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v85 + 1) + 8 * i);
+        v10 = *(*(&v84 + 1) + 8 * i);
         v11 = [objc_alloc(*(v8 + 3448)) initWithUUIDString:v10];
         if (v11)
         {
@@ -650,28 +642,28 @@ void __44__HMDTargetControllerManager_updateTargets___block_invoke(uint64_t a1)
             if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
             {
               HMFGetLogIdentifier();
-              v19 = v73 = v16;
+              v19 = v72 = v16;
               v20 = [v12 name];
               v21 = [v12 uuid];
               v22 = [v21 UUIDString];
               *buf = 138543874;
-              v93 = v19;
-              v94 = 2112;
-              v95 = v20;
-              v96 = 2112;
-              v97 = v22;
+              v92 = v19;
+              v93 = 2112;
+              v94 = v20;
+              v95 = 2112;
+              v96 = v22;
               _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@(Update) Adding target accessory %@/%@", buf, 0x20u);
 
-              v2 = v71;
-              v16 = v73;
+              v2 = v70;
+              v16 = v72;
             }
 
             objc_autoreleasePoolPop(v16);
-            v23 = *(v76 + 32);
-            v91 = v15;
-            v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v91 count:1];
+            v23 = *(v75 + 32);
+            v90 = v15;
+            v24 = [MEMORY[0x277CBEA60] arrayWithObjects:&v90 count:1];
             v25 = v23;
-            v6 = v76;
+            v6 = v75;
             [v25 _addTargets:v24];
 
             v8 = 0x277CCA000;
@@ -686,9 +678,9 @@ void __44__HMDTargetControllerManager_updateTargets___block_invoke(uint64_t a1)
             {
               v33 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v93 = v33;
-              v94 = 2112;
-              v95 = v10;
+              v92 = v33;
+              v93 = 2112;
+              v94 = v10;
               _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Cannot look up target accessory from UUID %@ to add", buf, 0x16u);
 
               v8 = 0x277CCA000uLL;
@@ -707,9 +699,9 @@ void __44__HMDTargetControllerManager_updateTargets___block_invoke(uint64_t a1)
           {
             v29 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v93 = v29;
-            v94 = 2112;
-            v95 = v10;
+            v92 = v29;
+            v93 = 2112;
+            v94 = v10;
             _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Incorrectly formatted target UUID %@ to add", buf, 0x16u);
           }
 
@@ -717,36 +709,36 @@ void __44__HMDTargetControllerManager_updateTargets___block_invoke(uint64_t a1)
         }
       }
 
-      v79 = [obj countByEnumeratingWithState:&v85 objects:v98 count:16];
+      v78 = [obj countByEnumeratingWithState:&v84 objects:v97 count:16];
     }
 
-    while (v79);
+    while (v78);
   }
 
-  v34 = [MEMORY[0x277CBEB58] setWithArray:v70];
+  v34 = [MEMORY[0x277CBEB58] setWithArray:v69];
   v35 = [MEMORY[0x277CBEB98] setWithArray:*(v6 + 40)];
   [v34 minusSet:v35];
 
-  v36 = v76;
-  v83 = 0u;
-  v84 = 0u;
-  v81 = 0u;
+  v36 = v75;
   v82 = 0u;
-  v74 = v34;
-  v80 = [v74 countByEnumeratingWithState:&v81 objects:v90 count:16];
-  if (v80)
+  v83 = 0u;
+  v80 = 0u;
+  v81 = 0u;
+  v73 = v34;
+  v79 = [v73 countByEnumeratingWithState:&v80 objects:v89 count:16];
+  if (v79)
   {
-    v78 = *v82;
+    v77 = *v81;
     while (2)
     {
-      for (j = 0; j != v80; ++j)
+      for (j = 0; j != v79; ++j)
       {
-        if (*v82 != v78)
+        if (*v81 != v77)
         {
-          objc_enumerationMutation(v74);
+          objc_enumerationMutation(v73);
         }
 
-        v38 = *(*(&v81 + 1) + 8 * j);
+        v38 = *(*(&v80 + 1) + 8 * j);
         v39 = [objc_alloc(*(v8 + 3448)) initWithUUIDString:v38];
         if (v39)
         {
@@ -771,14 +763,14 @@ void __44__HMDTargetControllerManager_updateTargets___block_invoke(uint64_t a1)
                 v66 = [v42 uuid];
                 v67 = [v66 UUIDString];
                 *buf = 138543874;
-                v93 = v64;
-                v94 = 2112;
-                v95 = v65;
-                v96 = 2112;
-                v97 = v67;
+                v92 = v64;
+                v93 = 2112;
+                v94 = v65;
+                v95 = 2112;
+                v96 = v67;
                 _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_INFO, "%{public}@Attempt to remove a target %@/%@ that cannot be looked up in target controller manager", buf, 0x20u);
 
-                v2 = v71;
+                v2 = v70;
               }
 
               objc_autoreleasePoolPop(v46);
@@ -788,31 +780,31 @@ void __44__HMDTargetControllerManager_updateTargets___block_invoke(uint64_t a1)
             if (v49)
             {
               HMFGetLogIdentifier();
-              v50 = v72 = v46;
+              v50 = v71 = v46;
               v51 = [v42 name];
               v52 = [v42 uuid];
               v53 = [v52 UUIDString];
               *buf = 138543874;
-              v93 = v50;
-              v94 = 2112;
-              v95 = v51;
-              v96 = 2112;
-              v97 = v53;
+              v92 = v50;
+              v93 = 2112;
+              v94 = v51;
+              v95 = 2112;
+              v96 = v53;
               _os_log_impl(&dword_2531F8000, v48, OS_LOG_TYPE_INFO, "%{public}@(Update) Removing target accessory %@/%@", buf, 0x20u);
 
-              v2 = v71;
+              v2 = v70;
               v8 = 0x277CCA000;
 
-              v46 = v72;
+              v46 = v71;
             }
 
             objc_autoreleasePoolPop(v46);
-            v54 = *(v76 + 32);
-            v89 = v43;
-            v55 = [MEMORY[0x277CBEA60] arrayWithObjects:&v89 count:1];
+            v54 = *(v75 + 32);
+            v88 = v43;
+            v55 = [MEMORY[0x277CBEA60] arrayWithObjects:&v88 count:1];
             [v54 _removeTargets:v55];
 
-            v36 = v76;
+            v36 = v75;
           }
 
           else
@@ -824,12 +816,12 @@ void __44__HMDTargetControllerManager_updateTargets___block_invoke(uint64_t a1)
             {
               v63 = HMFGetLogIdentifier();
               *buf = 138543618;
-              v93 = v63;
-              v94 = 2112;
-              v95 = v38;
+              v92 = v63;
+              v93 = 2112;
+              v94 = v38;
               _os_log_impl(&dword_2531F8000, v62, OS_LOG_TYPE_INFO, "%{public}@Cannot look up target accessory from UUID %@ to remove", buf, 0x16u);
 
-              v36 = v76;
+              v36 = v75;
             }
 
             objc_autoreleasePoolPop(v60);
@@ -845,20 +837,20 @@ void __44__HMDTargetControllerManager_updateTargets___block_invoke(uint64_t a1)
           {
             v59 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v93 = v59;
-            v94 = 2112;
-            v95 = v38;
+            v92 = v59;
+            v93 = 2112;
+            v94 = v38;
             _os_log_impl(&dword_2531F8000, v58, OS_LOG_TYPE_INFO, "%{public}@Incorrectly formatted target UUID %@ to remove", buf, 0x16u);
 
-            v36 = v76;
+            v36 = v75;
           }
 
           objc_autoreleasePoolPop(v56);
         }
       }
 
-      v80 = [v74 countByEnumeratingWithState:&v81 objects:v90 count:16];
-      if (v80)
+      v79 = [v73 countByEnumeratingWithState:&v80 objects:v89 count:16];
+      if (v79)
       {
         continue;
       }
@@ -868,8 +860,6 @@ void __44__HMDTargetControllerManager_updateTargets___block_invoke(uint64_t a1)
   }
 
 LABEL_44:
-
-  v68 = *MEMORY[0x277D85DE8];
 }
 
 - (void)autoConfigureTargets
@@ -885,7 +875,7 @@ LABEL_44:
 
 void __50__HMDTargetControllerManager_autoConfigureTargets__block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = [MEMORY[0x277D0F8D0] sharedPreferences];
   v3 = [v2 preferenceForKey:@"autoConfigureNewTargetControllers"];
   v4 = [v3 BOOLValue];
@@ -899,35 +889,35 @@ void __50__HMDTargetControllerManager_autoConfigureTargets__block_invoke(uint64_
     {
       v8 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v29 = v8;
+      v28 = v8;
       _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Preference set to auto-configure existing targets when new target controller is added - configuring them...", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
     v9 = [*(a1 + 32) controller];
     v10 = [MEMORY[0x277CBEB18] array];
+    v23 = 0u;
     v24 = 0u;
     v25 = 0u;
     v26 = 0u;
-    v27 = 0u;
     v11 = [v9 home];
     v12 = [v11 accessories];
 
-    v13 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v25;
+      v15 = *v24;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v25 != v15)
+          if (*v24 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v24 + 1) + 8 * i);
+          v17 = *(*(&v23 + 1) + 8 * i);
           if ([v17 supportsTargetControl])
           {
             v18 = [[HMDTargetConfiguration alloc] initWithAccessory:v17 buttonConfiguration:0];
@@ -935,7 +925,7 @@ void __50__HMDTargetControllerManager_autoConfigureTargets__block_invoke(uint64_
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v24 objects:v32 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v23 objects:v31 count:16];
       }
 
       while (v14);
@@ -949,46 +939,44 @@ void __50__HMDTargetControllerManager_autoConfigureTargets__block_invoke(uint64_
     {
       v22 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v29 = v22;
-      v30 = 2112;
-      v31 = v10;
+      v28 = v22;
+      v29 = 2112;
+      v30 = v10;
       _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Saving targetUUIDs after auto-configuration of targets - %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v19);
     [*(a1 + 32) _saveTargetUUIDs];
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_saveTargetUUIDs
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CBEB18];
   configuredTargets = [(HMDTargetControllerManager *)self configuredTargets];
   v5 = [v3 arrayWithCapacity:{objc_msgSend(configuredTargets, "count")}];
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
+  v19 = 0u;
+  v16 = 0u;
+  v17 = 0u;
   configuredTargets2 = [(HMDTargetControllerManager *)self configuredTargets];
-  v7 = [configuredTargets2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v7 = [configuredTargets2 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v18;
+    v9 = *v17;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v18 != v9)
+        if (*v17 != v9)
         {
           objc_enumerationMutation(configuredTargets2);
         }
 
-        v11 = *(*(&v17 + 1) + 8 * i);
+        v11 = *(*(&v16 + 1) + 8 * i);
         uuid = [v11 uuid];
 
         if (uuid)
@@ -999,7 +987,7 @@ void __50__HMDTargetControllerManager_autoConfigureTargets__block_invoke(uint64_
         }
       }
 
-      v8 = [configuredTargets2 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v8 = [configuredTargets2 countByEnumeratingWithState:&v16 objects:v20 count:16];
     }
 
     while (v8);
@@ -1007,42 +995,40 @@ void __50__HMDTargetControllerManager_autoConfigureTargets__block_invoke(uint64_
 
   controller = [(HMDTargetControllerManager *)self controller];
   [controller saveTargetUUIDs:v5];
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__characteristicEventsReceived:(id)received
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   userInfo = [received userInfo];
   v4 = [userInfo hmf_arrayForKey:*MEMORY[0x277CFE5A8]];
   selfCopy = self;
   controller = [(HMDTargetControllerManager *)self controller];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v6 = v4;
-  v7 = [v6 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v34;
-    v31 = *MEMORY[0x277CD0F10];
-    v29 = *MEMORY[0x277CCF750];
-    v30 = controller;
+    v9 = *v33;
+    v30 = *MEMORY[0x277CD0F10];
+    v28 = *MEMORY[0x277CCF750];
+    v29 = controller;
     do
     {
       v10 = 0;
-      v32 = v8;
+      v31 = v8;
       do
       {
-        if (*v34 != v9)
+        if (*v33 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v33 + 1) + 8 * v10);
+        v11 = *(*(&v32 + 1) + 8 * v10);
         serverIdentifier = [v11 serverIdentifier];
         accessoryInstanceID = [v11 accessoryInstanceID];
         v14 = [controller matchesHAPAccessoryWithServerIdentifier:serverIdentifier instanceID:accessoryInstanceID];
@@ -1057,7 +1043,7 @@ void __50__HMDTargetControllerManager_autoConfigureTargets__block_invoke(uint64_
           if (accessory)
           {
             type = [service type];
-            if (![type isEqualToString:v31])
+            if (![type isEqualToString:v30])
             {
               goto LABEL_14;
             }
@@ -1065,11 +1051,11 @@ void __50__HMDTargetControllerManager_autoConfigureTargets__block_invoke(uint64_
             [v16 type];
             v20 = v9;
             v22 = v21 = v6;
-            v23 = [v22 isEqualToString:v29];
+            v23 = [v22 isEqualToString:v28];
 
             v6 = v21;
             v9 = v20;
-            controller = v30;
+            controller = v29;
 
             if (v23)
             {
@@ -1092,20 +1078,18 @@ LABEL_14:
             }
           }
 
-          v8 = v32;
+          v8 = v31;
         }
 
         ++v10;
       }
 
       while (v8 != v10);
-      v8 = [v6 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v8);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (void)registerForActiveIdentifierNotifications
@@ -1121,29 +1105,29 @@ LABEL_14:
 
 - (void)_registerForActiveIdentifierNotifications
 {
-  v49 = *MEMORY[0x277D85DE8];
+  v48 = *MEMORY[0x277D85DE8];
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter addObserver:self selector:sel___characteristicEventsReceived_ name:*MEMORY[0x277CFE5A0] object:0];
 
   controller = [(HMDTargetControllerManager *)self controller];
   services = [controller services];
   v4 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(services, "count")}];
-  v42 = 0u;
-  v43 = 0u;
-  *location = 0u;
   v41 = 0u;
+  v42 = 0u;
+  *location = 0u;
+  v40 = 0u;
   v5 = services;
   v6 = [v5 countByEnumeratingWithState:location objects:buf count:16];
   if (v6)
   {
-    v7 = *v41;
+    v7 = *v40;
     v8 = *MEMORY[0x277CD0F10];
     v9 = *MEMORY[0x277CCF750];
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v41 != v7)
+        if (*v40 != v7)
         {
           objc_enumerationMutation(v5);
         }
@@ -1168,7 +1152,7 @@ LABEL_14:
     while (v6);
   }
 
-  v15 = [v4 copy];
+  v15 = objc_msgSend_copy(v4);
   if ([v15 count])
   {
     v16 = objc_autoreleasePoolPush();
@@ -1178,38 +1162,38 @@ LABEL_14:
     {
       v19 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v46 = v19;
-      v47 = 2112;
-      v48 = v15;
+      v45 = v19;
+      v46 = 2112;
+      v47 = v15;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Registering for notification on active selection characteristics: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v16);
     [controller enableNotification:1 forCharacteristics:v15 message:0 clientIdentifier:@"com.apple.HomeKitDaemon.targetControl"];
     v20 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(v15, "count")}];
-    v38 = 0u;
-    v39 = 0u;
-    v36 = 0u;
     v37 = 0u;
+    v38 = 0u;
+    v35 = 0u;
+    v36 = 0u;
     v21 = v15;
-    v22 = [v21 countByEnumeratingWithState:&v36 objects:v44 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v35 objects:v43 count:16];
     if (v22)
     {
-      v23 = *v37;
+      v23 = *v36;
       do
       {
         for (j = 0; j != v22; ++j)
         {
-          if (*v37 != v23)
+          if (*v36 != v23)
           {
             objc_enumerationMutation(v21);
           }
 
-          v25 = [HMDCharacteristicRequest requestWithCharacteristic:*(*(&v36 + 1) + 8 * j)];
+          v25 = [HMDCharacteristicRequest requestWithCharacteristic:*(*(&v35 + 1) + 8 * j)];
           [v20 addObject:v25];
         }
 
-        v22 = [v21 countByEnumeratingWithState:&v36 objects:v44 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v35 objects:v43 count:16];
       }
 
       while (v22);
@@ -1223,24 +1207,22 @@ LABEL_14:
     {
       v29 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v46 = v29;
+      v45 = v29;
       _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Refreshing the active selections on the controller", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v26);
     workQueue = [(HMDTargetControllerManager *)v27 workQueue];
-    v34[0] = MEMORY[0x277D85DD0];
-    v34[1] = 3221225472;
-    v34[2] = __71__HMDTargetControllerManager__registerForActiveIdentifierNotifications__block_invoke;
-    v34[3] = &unk_279735360;
-    objc_copyWeak(&v35, location);
-    [controller readCharacteristicValues:v20 source:1200 queue:workQueue completionHandler:v34];
+    v33[0] = MEMORY[0x277D85DD0];
+    v33[1] = 3221225472;
+    v33[2] = __71__HMDTargetControllerManager__registerForActiveIdentifierNotifications__block_invoke;
+    v33[3] = &unk_279735360;
+    objc_copyWeak(&v34, location);
+    [controller readCharacteristicValues:v20 source:1200 queue:workQueue completionHandler:v33];
 
-    objc_destroyWeak(&v35);
+    objc_destroyWeak(&v34);
     objc_destroyWeak(location);
   }
-
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void __71__HMDTargetControllerManager__registerForActiveIdentifierNotifications__block_invoke(uint64_t a1, void *a2)
@@ -1256,33 +1238,33 @@ void __71__HMDTargetControllerManager__registerForActiveIdentifierNotifications_
 
 - (void)_handleActiveIdentifierReadResponses:(id)responses
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
+  v28 = 0u;
   v29 = 0u;
   v30 = 0u;
   v31 = 0u;
-  v32 = 0u;
   obj = responses;
-  v4 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+  v4 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v30;
-    v25 = *MEMORY[0x277CD0F10];
-    v22 = *MEMORY[0x277CCF750];
+    v6 = *v29;
+    v24 = *MEMORY[0x277CD0F10];
+    v21 = *MEMORY[0x277CCF750];
     selfCopy = self;
-    v26 = *v30;
+    v25 = *v29;
     do
     {
       v7 = 0;
-      v27 = v5;
+      v26 = v5;
       do
       {
-        if (*v30 != v6)
+        if (*v29 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v29 + 1) + 8 * v7);
+        v8 = *(*(&v28 + 1) + 8 * v7);
         request = [v8 request];
         characteristic = [request characteristic];
 
@@ -1313,22 +1295,22 @@ void __71__HMDTargetControllerManager__registerForActiveIdentifierNotifications_
         }
 
         type = [service type];
-        if (![type isEqualToString:v25])
+        if (![type isEqualToString:v24])
         {
 
 LABEL_18:
-          v6 = v26;
-          v5 = v27;
+          v6 = v25;
+          v5 = v26;
           goto LABEL_19;
         }
 
         type2 = [characteristic type];
-        v24 = [type2 isEqualToString:v22];
+        v23 = [type2 isEqualToString:v21];
 
         self = selfCopy;
-        v6 = v26;
-        v5 = v27;
-        if (!v24)
+        v6 = v25;
+        v5 = v26;
+        if (!v23)
         {
           goto LABEL_20;
         }
@@ -1356,18 +1338,16 @@ LABEL_20:
       }
 
       while (v5 != v7);
-      v5 = [obj countByEnumeratingWithState:&v29 objects:v33 count:16];
+      v5 = [obj countByEnumeratingWithState:&v28 objects:v32 count:16];
     }
 
     while (v5);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__handleActiveIdentifierChange:(id)change forCharacteristic:(id)characteristic
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   changeCopy = change;
   characteristicCopy = characteristic;
   service = [characteristicCopy service];
@@ -1384,29 +1364,29 @@ LABEL_20:
         v13 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
         {
-          v22 = HMFGetLogIdentifier();
+          v21 = HMFGetLogIdentifier();
           [accessory name];
-          v14 = v23 = v11;
+          v14 = v22 = v11;
           [service instanceID];
           *buf = 138544130;
-          v27 = v22;
-          v28 = 2112;
-          v29 = changeCopy;
-          v30 = 2112;
-          v31 = v14;
-          v33 = v32 = 2112;
-          v15 = v33;
+          v26 = v21;
+          v27 = 2112;
+          v28 = changeCopy;
+          v29 = 2112;
+          v30 = v14;
+          v32 = v31 = 2112;
+          v15 = v32;
           _os_log_impl(&dword_2531F8000, v13, OS_LOG_TYPE_INFO, "%{public}@Unable to look up target for identifier %@ while reading activeIdentifier characteristic %@/%@", buf, 0x2Au);
 
-          v11 = v23;
+          v11 = v22;
         }
 
         objc_autoreleasePoolPop(v11);
       }
 
-      v24 = @"activeIdentifier";
-      v25 = changeCopy;
-      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v25 forKeys:&v24 count:1];
+      v23 = @"activeIdentifier";
+      v24 = changeCopy;
+      v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v24 forKeys:&v23 count:1];
       [(HMDTargetControllerManager *)self _postSelectionChangeNotification:1 object:service userInfo:v16];
     }
 
@@ -1425,18 +1405,16 @@ LABEL_20:
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543874;
-      v27 = v20;
-      v28 = 2112;
-      v29 = 0;
-      v30 = 2112;
-      v31 = characteristicCopy;
+      v26 = v20;
+      v27 = 2112;
+      v28 = 0;
+      v29 = 2112;
+      v30 = characteristicCopy;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Received a non-number (%@) for activeIdentifier characteristic %@", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v17);
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)acknowledgeTargetControlService:(id)service active:(BOOL)active
@@ -1456,33 +1434,33 @@ LABEL_20:
 
 void __69__HMDTargetControllerManager_acknowledgeTargetControlService_active___block_invoke(uint64_t a1)
 {
-  v51 = *MEMORY[0x277D85DE8];
+  v50 = *MEMORY[0x277D85DE8];
   v1 = *(a1 + 32);
   v2 = MEMORY[0x277CBEB18];
   v3 = [v1 characteristics];
   v4 = [v2 arrayWithCapacity:{objc_msgSend(v3, "count")}];
 
-  v40 = 0u;
-  v41 = 0u;
-  v38 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v37 = 0u;
+  v38 = 0u;
   v5 = [v1 characteristics];
-  v6 = [v5 countByEnumeratingWithState:&v38 objects:buf count:16];
+  v6 = [v5 countByEnumeratingWithState:&v37 objects:buf count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v39;
+    v8 = *v38;
     v9 = *MEMORY[0x277CCF790];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v39 != v8)
+        if (*v38 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v11 = *(*(&v38 + 1) + 8 * i);
+        v11 = *(*(&v37 + 1) + 8 * i);
         v12 = [v11 type];
         v13 = [v12 isEqualToString:v9];
 
@@ -1492,13 +1470,13 @@ void __69__HMDTargetControllerManager_acknowledgeTargetControlService_active___b
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v38 objects:buf count:16];
+      v7 = [v5 countByEnumeratingWithState:&v37 objects:buf count:16];
     }
 
     while (v7);
   }
 
-  v14 = [v4 copy];
+  v14 = objc_msgSend_copy(v4);
   if ([v14 count])
   {
     v15 = a1;
@@ -1523,13 +1501,13 @@ void __69__HMDTargetControllerManager_acknowledgeTargetControlService_active___b
       v23 = [v22 name];
       v24 = [*(a1 + 32) instanceID];
       *buf = 138544130;
-      v44 = v20;
-      v45 = 2112;
-      v46 = v21;
-      v47 = 2112;
-      v48 = v23;
-      v49 = 2112;
-      v50 = v24;
+      v43 = v20;
+      v44 = 2112;
+      v45 = v21;
+      v46 = 2112;
+      v47 = v23;
+      v48 = 2112;
+      v49 = v24;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@%@ for notifications from event characteristics on controller service %@/%@", buf, 0x2Au);
 
       v15 = a1;
@@ -1553,8 +1531,8 @@ void __69__HMDTargetControllerManager_acknowledgeTargetControlService_active___b
         }
 
         v27 = [HMDCharacteristicWriteRequest writeRequestWithCharacteristic:v25 value:v26 authorizationData:0 type:0];
-        v42 = v27;
-        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v42 count:1];
+        v41 = v27;
+        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:&v41 count:1];
         v29 = [*(v15 + 40) workQueue];
         [v16 writeCharacteristicValues:v28 source:1200 queue:v29 completionHandler:0];
       }
@@ -1570,11 +1548,11 @@ void __69__HMDTargetControllerManager_acknowledgeTargetControlService_active___b
           v34 = [v16 name];
           v35 = [*(v15 + 32) instanceID];
           *buf = 138543874;
-          v44 = v33;
-          v45 = 2112;
-          v46 = v34;
-          v47 = 2112;
-          v48 = v35;
+          v43 = v33;
+          v44 = 2112;
+          v45 = v34;
+          v46 = 2112;
+          v47 = v35;
           _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Unable to look up active characteirstic in controller %@ service %@ for active selection acknowledgement", buf, 0x20u);
         }
 
@@ -1582,20 +1560,18 @@ void __69__HMDTargetControllerManager_acknowledgeTargetControlService_active___b
       }
     }
   }
-
-  v36 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_resetTargets
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   controller = [(HMDTargetControllerManager *)self controller];
   v4 = [controller findCharacteristicType:*MEMORY[0x277CCFB38] forServiceType:*MEMORY[0x277CD0F18]];
   if (v4)
   {
-    v20 = 0;
-    v5 = [(HMDTargetControllerManager *)self _dataForResetTargetsWithOutError:&v20];
-    v6 = v20;
+    v19 = 0;
+    v5 = [(HMDTargetControllerManager *)self _dataForResetTargetsWithOutError:&v19];
+    v6 = v19;
     v7 = objc_autoreleasePoolPush();
     selfCopy = self;
     v9 = HMFGetOSLogHandle();
@@ -1606,9 +1582,9 @@ void __69__HMDTargetControllerManager_acknowledgeTargetControlService_active___b
       {
         v11 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v22 = v11;
-        v23 = 2112;
-        v24 = v6;
+        v21 = v11;
+        v22 = 2112;
+        v23 = v6;
         _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Failed to serialize request for resetting targets - error %@", buf, 0x16u);
       }
 
@@ -1621,18 +1597,18 @@ void __69__HMDTargetControllerManager_acknowledgeTargetControlService_active___b
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v22 = v16;
+        v21 = v16;
         _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Reset targets for controller", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v7);
       workQueue = [(HMDTargetControllerManager *)selfCopy workQueue];
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __43__HMDTargetControllerManager__resetTargets__block_invoke;
-      v19[3] = &unk_2797359D8;
-      v19[4] = selfCopy;
-      [controller writeValue:v5 toCharacteristic:v4 queue:workQueue source:1200 completion:v19];
+      v18[0] = MEMORY[0x277D85DD0];
+      v18[1] = 3221225472;
+      v18[2] = __43__HMDTargetControllerManager__resetTargets__block_invoke;
+      v18[3] = &unk_2797359D8;
+      v18[4] = selfCopy;
+      [controller writeValue:v5 toCharacteristic:v4 queue:workQueue source:1200 completion:v18];
     }
   }
 
@@ -1645,19 +1621,17 @@ void __69__HMDTargetControllerManager_acknowledgeTargetControlService_active___b
     {
       v15 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v22 = v15;
+      v21 = v15;
       _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Failed to look up target list characteristic for resetting targets", buf, 0xCu);
     }
 
     objc_autoreleasePoolPop(v12);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __43__HMDTargetControllerManager__resetTargets__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_autoreleasePoolPush();
   v5 = *(a1 + 32);
@@ -1668,51 +1642,50 @@ void __43__HMDTargetControllerManager__resetTargets__block_invoke(uint64_t a1, v
     if (v7)
     {
       v8 = HMFGetLogIdentifier();
-      v11 = 138543362;
-      v12 = v8;
+      v10 = 138543362;
+      v11 = v8;
       v9 = "%{public}@Failed to write request for resetting targets";
 LABEL_6:
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, v9, &v11, 0xCu);
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, v9, &v10, 0xCu);
     }
   }
 
   else if (v7)
   {
     v8 = HMFGetLogIdentifier();
-    v11 = 138543362;
-    v12 = v8;
+    v10 = 138543362;
+    v11 = v8;
     v9 = "%{public}@Successfully resetting targets";
     goto LABEL_6;
   }
 
   objc_autoreleasePoolPop(v4);
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dataForResetTargetsWithOutError:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
+  v36 = *MEMORY[0x277D85DE8];
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v20 = 0u;
+  v23 = 0u;
   v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   TLV8BufferInit();
   if (TLV8BufferAppend())
   {
@@ -1728,14 +1701,14 @@ LABEL_6:
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v13 = v9;
-      v14 = 2048;
-      v15 = 4;
+      v12 = v9;
+      v13 = 2048;
+      v14 = 4;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Encoding for reset target - operation %lu", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
-    v5 = [MEMORY[0x277CBEA90] dataWithBytes:v16 length:?];
+    v5 = [MEMORY[0x277CBEA90] dataWithBytes:v15 length:?];
   }
 
   TLV8BufferFree();
@@ -1744,14 +1717,12 @@ LABEL_6:
     *error = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
   }
 
-  v10 = *MEMORY[0x277D85DE8];
-
   return v5;
 }
 
 - (void)removeTargetAccessory:(id)accessory
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   if (accessoryCopy)
   {
@@ -1759,13 +1730,13 @@ LABEL_6:
     if (v5)
     {
       workQueue = [(HMDTargetControllerManager *)self workQueue];
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __52__HMDTargetControllerManager_removeTargetAccessory___block_invoke;
-      v15[3] = &unk_2797359B0;
-      v15[4] = self;
-      v16 = v5;
-      dispatch_async(workQueue, v15);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __52__HMDTargetControllerManager_removeTargetAccessory___block_invoke;
+      v14[3] = &unk_2797359B0;
+      v14[4] = self;
+      v15 = v5;
+      dispatch_async(workQueue, v14);
     }
 
     else
@@ -1780,37 +1751,33 @@ LABEL_6:
         uuid = [accessoryCopy uuid];
         uUIDString = [uuid UUIDString];
         *buf = 138543874;
-        v18 = v10;
-        v19 = 2112;
-        v20 = name;
-        v21 = 2112;
-        v22 = uUIDString;
+        v17 = v10;
+        v18 = 2112;
+        v19 = name;
+        v20 = 2112;
+        v21 = uUIDString;
         _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Attempt to remove a target %@/%@ that cannot be looked up in target controller manager", buf, 0x20u);
       }
 
       objc_autoreleasePoolPop(v7);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __52__HMDTargetControllerManager_removeTargetAccessory___block_invoke(uint64_t a1)
 {
-  v6[1] = *MEMORY[0x277D85DE8];
+  v5[1] = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
-  v6[0] = *(a1 + 40);
-  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:1];
+  v5[0] = *(a1 + 40);
+  v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:1];
   [v2 _removeTargets:v3];
 
-  result = [*(a1 + 32) _saveTargetUUIDs];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  return [*(a1 + 32) _saveTargetUUIDs];
 }
 
 - (void)_removeTargets:(id)targets
 {
-  v61 = *MEMORY[0x277D85DE8];
+  v60 = *MEMORY[0x277D85DE8];
   targetsCopy = targets;
   if ([targetsCopy count])
   {
@@ -1818,24 +1785,24 @@ uint64_t __52__HMDTargetControllerManager_removeTargetAccessory___block_invoke(u
     v6 = [controller findCharacteristicType:*MEMORY[0x277CCFB38] forServiceType:*MEMORY[0x277CD0F18]];
     if (v6)
     {
-      v51 = 0;
-      v7 = [(HMDTargetControllerManager *)self _dataForRemoveTargets:targetsCopy outError:&v51];
-      v42 = v51;
-      if (v42)
+      v50 = 0;
+      v7 = [(HMDTargetControllerManager *)self _dataForRemoveTargets:targetsCopy outError:&v50];
+      v41 = v50;
+      if (v41)
       {
         v8 = objc_autoreleasePoolPush();
         selfCopy = self;
         v10 = HMFGetOSLogHandle();
-        v11 = v42;
+        v11 = v41;
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           v12 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v56 = v12;
-          v57 = 2112;
-          v58 = targetsCopy;
-          v59 = 2112;
-          v60 = v42;
+          v55 = v12;
+          v56 = 2112;
+          v57 = targetsCopy;
+          v58 = 2112;
+          v59 = v41;
           _os_log_impl(&dword_2531F8000, v10, OS_LOG_TYPE_INFO, "%{public}@Failed to serialize request for removing targets %@ - error %@", buf, 0x20u);
         }
 
@@ -1844,32 +1811,32 @@ uint64_t __52__HMDTargetControllerManager_removeTargetAccessory___block_invoke(u
 
       else
       {
-        v38 = v7;
-        v39 = v6;
-        v40 = controller;
+        v37 = v7;
+        v38 = v6;
+        v39 = controller;
         v17 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(targetsCopy, "count")}];
+        v46 = 0u;
         v47 = 0u;
         v48 = 0u;
         v49 = 0u;
-        v50 = 0u;
-        v41 = targetsCopy;
+        v40 = targetsCopy;
         v18 = targetsCopy;
-        v19 = [v18 countByEnumeratingWithState:&v47 objects:v54 count:16];
-        v43 = v18;
+        v19 = [v18 countByEnumeratingWithState:&v46 objects:v53 count:16];
+        v42 = v18;
         if (v19)
         {
           v20 = v19;
-          v21 = *v48;
+          v21 = *v47;
           do
           {
             for (i = 0; i != v20; ++i)
             {
-              if (*v48 != v21)
+              if (*v47 != v21)
               {
                 objc_enumerationMutation(v18);
               }
 
-              v23 = *(*(&v47 + 1) + 8 * i);
+              v23 = *(*(&v46 + 1) + 8 * i);
               [(HMDTargetControllerManager *)self removeConfiguredTarget:v23];
               uuid = [v23 uuid];
 
@@ -1888,30 +1855,30 @@ uint64_t __52__HMDTargetControllerManager_removeTargetAccessory___block_invoke(u
                 {
                   v29 = HMFGetLogIdentifier();
                   *buf = 138543618;
-                  v56 = v29;
-                  v57 = 2112;
-                  v58 = v23;
+                  v55 = v29;
+                  v56 = 2112;
+                  v57 = v23;
                   _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Target being removed %@ does not have a UUID", buf, 0x16u);
 
-                  v18 = v43;
+                  v18 = v42;
                 }
 
                 objc_autoreleasePoolPop(v26);
               }
             }
 
-            v20 = [v18 countByEnumeratingWithState:&v47 objects:v54 count:16];
+            v20 = [v18 countByEnumeratingWithState:&v46 objects:v53 count:16];
           }
 
           while (v20);
         }
 
-        v52 = @"HMDTargetAccessoriesUUIDKey";
-        v53 = v17;
-        v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+        v51 = @"HMDTargetAccessoriesUUIDKey";
+        v52 = v17;
+        v30 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
         defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-        controller = v40;
-        [defaultCenter postNotificationName:@"HMDTargetAccessoryUnconfiguredNotificationKey" object:v40 userInfo:v30];
+        controller = v39;
+        [defaultCenter postNotificationName:@"HMDTargetAccessoryUnconfiguredNotificationKey" object:v39 userInfo:v30];
 
         v32 = objc_autoreleasePoolPush();
         selfCopy3 = self;
@@ -1920,24 +1887,24 @@ uint64_t __52__HMDTargetControllerManager_removeTargetAccessory___block_invoke(u
         {
           v35 = HMFGetLogIdentifier();
           *buf = 138543362;
-          v56 = v35;
+          v55 = v35;
           _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_INFO, "%{public}@Remove controller accessory targets", buf, 0xCu);
         }
 
         objc_autoreleasePoolPop(v32);
         workQueue = [(HMDTargetControllerManager *)selfCopy3 workQueue];
-        v44[0] = MEMORY[0x277D85DD0];
-        v44[1] = 3221225472;
-        v44[2] = __45__HMDTargetControllerManager__removeTargets___block_invoke;
-        v44[3] = &unk_279734D88;
-        v44[4] = selfCopy3;
-        v45 = v43;
-        v46 = v39;
-        [v40 writeValue:v38 toCharacteristic:v46 queue:workQueue source:1200 completion:v44];
+        v43[0] = MEMORY[0x277D85DD0];
+        v43[1] = 3221225472;
+        v43[2] = __45__HMDTargetControllerManager__removeTargets___block_invoke;
+        v43[3] = &unk_279734D88;
+        v43[4] = selfCopy3;
+        v44 = v42;
+        v45 = v38;
+        [v39 writeValue:v37 toCharacteristic:v45 queue:workQueue source:1200 completion:v43];
 
-        v7 = v38;
-        v6 = v39;
-        targetsCopy = v41;
+        v7 = v37;
+        v6 = v38;
+        targetsCopy = v40;
         v11 = 0;
       }
     }
@@ -1951,22 +1918,20 @@ uint64_t __52__HMDTargetControllerManager_removeTargetAccessory___block_invoke(u
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v56 = v16;
-        v57 = 2112;
-        v58 = targetsCopy;
+        v55 = v16;
+        v56 = 2112;
+        v57 = targetsCopy;
         _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Failed to look up target list characteristic for removing targets %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v13);
     }
   }
-
-  v37 = *MEMORY[0x277D85DE8];
 }
 
 void __45__HMDTargetControllerManager__removeTargets___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -1977,11 +1942,11 @@ void __45__HMDTargetControllerManager__removeTargets___block_invoke(uint64_t a1,
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v19 = 138543618;
-      v20 = v7;
-      v21 = 2112;
-      v22 = v8;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Failed to write request for removing targets %@", &v19, 0x16u);
+      v18 = 138543618;
+      v19 = v7;
+      v20 = 2112;
+      v21 = v8;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Failed to write request for removing targets %@", &v18, 0x16u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -2003,7 +1968,7 @@ void __45__HMDTargetControllerManager__removeTargets___block_invoke(uint64_t a1,
 
     v11 = v10;
 
-    v12 = _parseTargetList(v11);
+    v12 = _parseTargetList(v11, 0);
     v13 = objc_autoreleasePoolPush();
     v14 = *(a1 + 32);
     v15 = HMFGetOSLogHandle();
@@ -2011,71 +1976,49 @@ void __45__HMDTargetControllerManager__removeTargets___block_invoke(uint64_t a1,
     {
       v16 = HMFGetLogIdentifier();
       v17 = *(a1 + 40);
-      v19 = 138543874;
-      v20 = v16;
-      v21 = 2112;
-      v22 = v17;
-      v23 = 2112;
-      v24 = v12;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Successfully removed targets %@ - response %@", &v19, 0x20u);
+      v18 = 138543874;
+      v19 = v16;
+      v20 = 2112;
+      v21 = v17;
+      v22 = 2112;
+      v23 = v12;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Successfully removed targets %@ - response %@", &v18, 0x20u);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dataForRemoveTargets:(id)targets outError:(id *)error
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v59 = *MEMORY[0x277D85DE8];
   targetsCopy = targets;
   [targetsCopy count];
-  v79 = 0u;
-  v80 = 0u;
-  v77 = 0u;
-  v78 = 0u;
-  v75 = 0u;
-  v76 = 0u;
-  v73 = 0u;
-  v74 = 0u;
-  v71 = 0u;
-  v72 = 0u;
-  v69 = 0u;
-  v70 = 0u;
-  v67 = 0u;
-  v68 = 0u;
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
-  v64 = 0u;
-  v61 = 0u;
-  v62 = 0u;
-  v60 = 0u;
-  TLV8BufferInit();
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
-  v54 = 0u;
+  v58 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
-  v46 = 0u;
+  v50 = 0u;
   v47 = 0u;
-  v44 = 0u;
+  v48 = 0u;
   v45 = 0u;
-  v42 = 0u;
+  v46 = 0u;
   v43 = 0u;
-  v40 = 0u;
+  v44 = 0u;
   v41 = 0u;
+  v42 = 0u;
   v39 = 0u;
+  v40 = 0u;
+  v38 = 0u;
   TLV8BufferInit();
-  v31 = 3;
+  memset(&v37[8], 0, 336);
+  TLV8BufferInit();
+  v30 = 3;
   if (TLV8BufferAppend())
   {
     v7 = 0;
@@ -2084,30 +2027,30 @@ void __45__HMDTargetControllerManager__removeTargets___block_invoke(uint64_t a1,
 
   else
   {
-    v24 = targetsCopy;
+    v23 = targetsCopy;
     errorCopy = error;
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v8 = targetsCopy;
-    v9 = [v8 countByEnumeratingWithState:&v27 objects:v38 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v26 objects:v37 count:16];
     if (v9)
     {
       v10 = v9;
       v11 = 0;
-      v12 = *v28;
+      v12 = *v27;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v28 != v12)
+          if (*v27 != v12)
           {
             objc_enumerationMutation(v8);
           }
 
-          v14 = *(*(&v27 + 1) + 8 * i);
-          if ((v11 & 1) != 0 && TLV8BufferAppend() || ([v14 identifier], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "unsignedIntegerValue"), v15, v26 = v16, TLV8BufferAppend()))
+          v14 = *(*(&v26 + 1) + 8 * i);
+          if ((v11 & 1) != 0 && TLV8BufferAppend() || ([v14 identifier], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "unsignedIntegerValue"), v15, v25 = v16, TLV8BufferAppend()))
           {
             v7 = 0;
             v21 = 0;
@@ -2121,11 +2064,11 @@ void __45__HMDTargetControllerManager__removeTargets___block_invoke(uint64_t a1,
           {
             v20 = HMFGetLogIdentifier();
             *buf = 138543874;
-            v33 = v20;
-            v34 = 2048;
-            v35 = v31;
-            v36 = 2048;
-            v37 = v26;
+            v32 = v20;
+            v33 = 2048;
+            v34 = v30;
+            v35 = 2048;
+            v36 = v25;
             _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Encoding for remove target - operation %lu  identifier %lu", buf, 0x20u);
           }
 
@@ -2133,7 +2076,7 @@ void __45__HMDTargetControllerManager__removeTargets___block_invoke(uint64_t a1,
           v11 = 1;
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v27 objects:v38 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v26 objects:v37 count:16];
         if (v10)
         {
           continue;
@@ -2143,22 +2086,22 @@ void __45__HMDTargetControllerManager__removeTargets___block_invoke(uint64_t a1,
       }
     }
 
-    v8 = [MEMORY[0x277CBEA90] dataWithBytes:v60 length:?];
+    v8 = [MEMORY[0x277CBEA90] dataWithBytes:v38 length:?];
     [v8 bytes];
     [v8 length];
     if (TLV8BufferAppend())
     {
       v7 = 0;
-      targetsCopy = v24;
+      targetsCopy = v23;
       error = errorCopy;
     }
 
     else
     {
-      v21 = [MEMORY[0x277CBEA90] dataWithBytes:v39 length:?];
+      v21 = [MEMORY[0x277CBEA90] dataWithBytes:v37[8] length:?];
       v7 = 1;
 LABEL_18:
-      targetsCopy = v24;
+      targetsCopy = v23;
       error = errorCopy;
 
       v8 = v21;
@@ -2177,8 +2120,6 @@ LABEL_18:
   {
     *error = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
   }
-
-  v22 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -2203,7 +2144,7 @@ LABEL_18:
 
 void __69__HMDTargetControllerManager_addTargetAccessory_buttonConfiguration___block_invoke(uint64_t a1)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = [HMDTargetConfiguration alloc];
   v3 = v2;
   v4 = *(a1 + 32);
@@ -2225,40 +2166,39 @@ void __69__HMDTargetControllerManager_addTargetAccessory_buttonConfiguration___b
   {
     v10 = HMFGetLogIdentifier();
     v11 = [*(a1 + 32) name];
-    v19 = [*(a1 + 32) uuid];
-    v12 = [v19 UUIDString];
+    v18 = [*(a1 + 32) uuid];
+    v12 = [v18 UUIDString];
     [(HMDTargetConfiguration *)v5 buttonConfiguration];
-    v13 = v20 = v7;
+    v13 = v19 = v7;
     v14 = buttonConfigurationAsString(v13);
     v15 = [(HMFObject *)v5 shortDescription];
     *buf = 138544386;
-    v23 = v10;
-    v24 = 2112;
-    v25 = v11;
-    v26 = 2112;
-    v27 = v12;
-    v28 = 2112;
-    v29 = v14;
-    v30 = 2112;
-    v31 = v15;
+    v22 = v10;
+    v23 = 2112;
+    v24 = v11;
+    v25 = 2112;
+    v26 = v12;
+    v27 = 2112;
+    v28 = v14;
+    v29 = 2112;
+    v30 = v15;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Adding target accessory %@/%@ with button configuration %@ - target configuration %@", buf, 0x34u);
 
-    v7 = v20;
+    v7 = v19;
   }
 
   objc_autoreleasePoolPop(v7);
   v16 = *(a1 + 48);
-  v21 = v5;
-  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v21 count:1];
+  v20 = v5;
+  v17 = [MEMORY[0x277CBEA60] arrayWithObjects:&v20 count:1];
   [v16 _addTargets:v17];
 
   [*(a1 + 48) _saveTargetUUIDs];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_addTargets:(id)targets
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   targetsCopy = targets;
   if ([targetsCopy count])
   {
@@ -2266,9 +2206,9 @@ void __69__HMDTargetControllerManager_addTargetAccessory_buttonConfiguration___b
     v6 = [controller findCharacteristicType:*MEMORY[0x277CCFB38] forServiceType:*MEMORY[0x277CD0F18]];
     if (v6)
     {
-      v63 = 0;
-      v7 = [(HMDTargetControllerManager *)self _dataForAddTargets:targetsCopy outError:&v63];
-      v8 = v63;
+      v62 = 0;
+      v7 = [(HMDTargetControllerManager *)self _dataForAddTargets:targetsCopy outError:&v62];
+      v8 = v62;
       if (v8)
       {
         v9 = objc_autoreleasePoolPush();
@@ -2278,9 +2218,9 @@ void __69__HMDTargetControllerManager_addTargetAccessory_buttonConfiguration___b
         {
           v12 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v69 = v12;
-          v70 = 2112;
-          v71 = targetsCopy;
+          v68 = v12;
+          v69 = 2112;
+          v70 = targetsCopy;
           _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Failed to serialize request for adding targets %@", buf, 0x16u);
         }
 
@@ -2289,64 +2229,64 @@ void __69__HMDTargetControllerManager_addTargetAccessory_buttonConfiguration___b
 
       else
       {
-        v47 = v7;
-        v48 = v6;
-        v49 = controller;
-        v61 = 0u;
-        v62 = 0u;
+        v46 = v7;
+        v47 = v6;
+        v48 = controller;
         v60 = 0u;
+        v61 = 0u;
         v59 = 0u;
+        v58 = 0u;
         v17 = targetsCopy;
-        v18 = [v17 countByEnumeratingWithState:&v59 objects:v67 count:16];
+        v18 = [v17 countByEnumeratingWithState:&v58 objects:v66 count:16];
         if (v18)
         {
           v19 = v18;
-          v20 = *v60;
+          v20 = *v59;
           do
           {
             for (i = 0; i != v19; ++i)
             {
-              if (*v60 != v20)
+              if (*v59 != v20)
               {
                 objc_enumerationMutation(v17);
               }
 
-              [(HMDTargetControllerManager *)self addConfiguredTarget:*(*(&v59 + 1) + 8 * i)];
+              [(HMDTargetControllerManager *)self addConfiguredTarget:*(*(&v58 + 1) + 8 * i)];
             }
 
-            v19 = [v17 countByEnumeratingWithState:&v59 objects:v67 count:16];
+            v19 = [v17 countByEnumeratingWithState:&v58 objects:v66 count:16];
           }
 
           while (v19);
         }
 
-        v46 = v17;
-        v50 = targetsCopy;
+        v45 = v17;
+        v49 = targetsCopy;
 
         configuredTargets = [(HMDTargetControllerManager *)self configuredTargets];
         v23 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(configuredTargets, "count")}];
+        v54 = 0u;
         v55 = 0u;
         v56 = 0u;
         v57 = 0u;
-        v58 = 0u;
         v24 = configuredTargets;
-        v25 = [v24 countByEnumeratingWithState:&v55 objects:v66 count:16];
+        v25 = [v24 countByEnumeratingWithState:&v54 objects:v65 count:16];
         if (v25)
         {
           v26 = v25;
-          v27 = *v56;
+          v27 = *v55;
           do
           {
             v28 = 0;
-            v51 = v26;
+            v50 = v26;
             do
             {
-              if (*v56 != v27)
+              if (*v55 != v27)
               {
                 objc_enumerationMutation(v24);
               }
 
-              v29 = *(*(&v55 + 1) + 8 * v28);
+              v29 = *(*(&v54 + 1) + 8 * v28);
               uuid = [v29 uuid];
 
               if (uuid)
@@ -2368,16 +2308,16 @@ void __69__HMDTargetControllerManager_addTargetAccessory_buttonConfiguration___b
                   v37 = v23;
                   v39 = v38 = v24;
                   *buf = 138543618;
-                  v69 = v39;
-                  v70 = 2112;
-                  v71 = v29;
+                  v68 = v39;
+                  v69 = 2112;
+                  v70 = v29;
                   _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_ERROR, "%{public}@Target being added %@ does not have a UUID", buf, 0x16u);
 
                   v24 = v38;
                   v23 = v37;
                   self = selfCopy3;
                   v27 = v35;
-                  v26 = v51;
+                  v26 = v50;
                 }
 
                 objc_autoreleasePoolPop(v32);
@@ -2387,37 +2327,37 @@ void __69__HMDTargetControllerManager_addTargetAccessory_buttonConfiguration___b
             }
 
             while (v26 != v28);
-            v26 = [v24 countByEnumeratingWithState:&v55 objects:v66 count:16];
+            v26 = [v24 countByEnumeratingWithState:&v54 objects:v65 count:16];
           }
 
           while (v26);
         }
 
-        v64 = @"HMDTargetAccessoriesUUIDKey";
-        v65 = v23;
-        v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v65 forKeys:&v64 count:1];
+        v63 = @"HMDTargetAccessoriesUUIDKey";
+        v64 = v23;
+        v40 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v64 forKeys:&v63 count:1];
         v41 = [v40 mutableCopy];
 
         v42 = [(HMDTargetControllerManager *)self __refreshedConfiguration:0];
         [v41 addEntriesFromDictionary:v42];
 
         defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
-        controller = v49;
-        [defaultCenter postNotificationName:@"HMDTargetAccessoryConfiguredNotificationKey" object:v49 userInfo:v41];
+        controller = v48;
+        [defaultCenter postNotificationName:@"HMDTargetAccessoryConfiguredNotificationKey" object:v48 userInfo:v41];
 
         workQueue = [(HMDTargetControllerManager *)self workQueue];
-        v52[0] = MEMORY[0x277D85DD0];
-        v52[1] = 3221225472;
-        v52[2] = __42__HMDTargetControllerManager__addTargets___block_invoke;
-        v52[3] = &unk_279734D88;
-        v52[4] = self;
-        v53 = v46;
-        v6 = v48;
-        v54 = v48;
-        v7 = v47;
-        [v49 writeValue:v47 toCharacteristic:v54 queue:workQueue source:1200 completion:v52];
+        v51[0] = MEMORY[0x277D85DD0];
+        v51[1] = 3221225472;
+        v51[2] = __42__HMDTargetControllerManager__addTargets___block_invoke;
+        v51[3] = &unk_279734D88;
+        v51[4] = self;
+        v52 = v45;
+        v6 = v47;
+        v53 = v47;
+        v7 = v46;
+        [v48 writeValue:v46 toCharacteristic:v53 queue:workQueue source:1200 completion:v51];
 
-        targetsCopy = v50;
+        targetsCopy = v49;
         v8 = 0;
       }
     }
@@ -2431,22 +2371,20 @@ void __69__HMDTargetControllerManager_addTargetAccessory_buttonConfiguration___b
       {
         v16 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v69 = v16;
-        v70 = 2112;
-        v71 = targetsCopy;
+        v68 = v16;
+        v69 = 2112;
+        v70 = targetsCopy;
         _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Failed to look up target list characteristic for adding targets %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v13);
     }
   }
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 void __42__HMDTargetControllerManager__addTargets___block_invoke(uint64_t a1, void *a2)
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2457,13 +2395,13 @@ void __42__HMDTargetControllerManager__addTargets___block_invoke(uint64_t a1, vo
     {
       v7 = HMFGetLogIdentifier();
       v8 = *(a1 + 40);
-      v20 = 138543874;
-      v21 = v7;
-      v22 = 2112;
-      v23 = v8;
-      v24 = 2112;
-      v25 = v3;
-      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Failed to write request for adding targets %@ - error %@", &v20, 0x20u);
+      v19 = 138543874;
+      v20 = v7;
+      v21 = 2112;
+      v22 = v8;
+      v23 = 2112;
+      v24 = v3;
+      _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Failed to write request for adding targets %@ - error %@", &v19, 0x20u);
     }
 
     objc_autoreleasePoolPop(v4);
@@ -2485,7 +2423,7 @@ void __42__HMDTargetControllerManager__addTargets___block_invoke(uint64_t a1, vo
 
     v11 = v10;
 
-    v12 = _parseTargetList(v11);
+    v12 = _parseTargetList(v11, 0);
     v13 = objc_autoreleasePoolPush();
     v14 = *(a1 + 32);
     v15 = HMFGetOSLogHandle();
@@ -2494,21 +2432,19 @@ void __42__HMDTargetControllerManager__addTargets___block_invoke(uint64_t a1, vo
       v16 = HMFGetLogIdentifier();
       v17 = *(a1 + 40);
       v18 = [*(a1 + 32) configuredTargets];
-      v20 = 138544130;
-      v21 = v16;
-      v22 = 2112;
-      v23 = v17;
-      v24 = 2112;
-      v25 = v18;
-      v26 = 2112;
-      v27 = v12;
-      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Successfully added targets %@ configuredTargets %@ - response %@", &v20, 0x2Au);
+      v19 = 138544130;
+      v20 = v16;
+      v21 = 2112;
+      v22 = v17;
+      v23 = 2112;
+      v24 = v18;
+      v25 = 2112;
+      v26 = v12;
+      _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Successfully added targets %@ configuredTargets %@ - response %@", &v19, 0x2Au);
     }
 
     objc_autoreleasePoolPop(v13);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_postSelectionChangeNotification:(BOOL)notification object:(id)object userInfo:(id)info
@@ -2532,37 +2468,37 @@ void __42__HMDTargetControllerManager__addTargets___block_invoke(uint64_t a1, vo
 
 - (id)_dataForAddTargets:(id)targets outError:(id *)error
 {
-  v79 = *MEMORY[0x277D85DE8];
+  v78 = *MEMORY[0x277D85DE8];
   targetsCopy = targets;
   selfCopy = self;
   buttonConfiguration = [(HMDTargetControllerManager *)self buttonConfiguration];
   targetConfigurationTLVSize(targetsCopy, buttonConfiguration);
 
-  memset(v68, 0, sizeof(v68));
+  memset(v67, 0, sizeof(v67));
   TLV8BufferInit();
-  v66 = 0u;
-  v67 = 0u;
-  v64 = 0u;
   v65 = 0u;
-  v62 = 0u;
+  v66 = 0u;
   v63 = 0u;
-  v60 = 0u;
+  v64 = 0u;
   v61 = 0u;
-  v58 = 0u;
+  v62 = 0u;
   v59 = 0u;
-  v56 = 0u;
+  v60 = 0u;
   v57 = 0u;
-  v54 = 0u;
+  v58 = 0u;
   v55 = 0u;
-  v52 = 0u;
+  v56 = 0u;
   v53 = 0u;
-  v50 = 0u;
+  v54 = 0u;
   v51 = 0u;
-  v48 = 0u;
+  v52 = 0u;
   v49 = 0u;
+  v50 = 0u;
   v47 = 0u;
+  v48 = 0u;
+  v46 = 0u;
   TLV8BufferInit();
-  v43 = 2;
+  v42 = 2;
   if (TLV8BufferAppend())
   {
     v8 = 0;
@@ -2571,42 +2507,42 @@ void __42__HMDTargetControllerManager__addTargets___block_invoke(uint64_t a1, vo
 
   else
   {
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v9 = targetsCopy;
-    v36 = [v9 countByEnumeratingWithState:&v39 objects:v46 count:16];
-    if (v36)
+    v35 = [v9 countByEnumeratingWithState:&v38 objects:v45 count:16];
+    if (v35)
     {
-      v37 = *v40;
-      v31 = targetsCopy;
+      v36 = *v39;
+      v30 = targetsCopy;
       errorCopy = error;
       while (2)
       {
-        for (i = 0; i != v36; ++i)
+        for (i = 0; i != v35; ++i)
         {
-          if (*v40 != v37)
+          if (*v39 != v36)
           {
             objc_enumerationMutation(v9);
           }
 
-          v11 = *(*(&v39 + 1) + 8 * i);
-          v12 = [(HMDTargetControllerManager *)selfCopy buttonConfiguration:v31];
+          v11 = *(*(&v38 + 1) + 8 * i);
+          v12 = [(HMDTargetControllerManager *)selfCopy buttonConfiguration:v30];
           v13 = v11;
           v14 = v12;
           identifier = [v13 identifier];
           unsignedIntegerValue = [identifier unsignedIntegerValue];
 
-          v45 = unsignedIntegerValue;
-          if (TLV8BufferAppend() || ([v13 name], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "UTF8String"), v17, v18) && (strlen(v18), TLV8BufferAppend()) || (v44 = objc_msgSend(v13, "category"), TLV8BufferAppend()))
+          v44 = unsignedIntegerValue;
+          if (TLV8BufferAppend() || ([v13 name], v17 = objc_claimAutoreleasedReturnValue(), v18 = objc_msgSend(v17, "UTF8String"), v17, v18) && (strlen(v18), TLV8BufferAppend()) || (v43 = objc_msgSend(v13, "category"), TLV8BufferAppend()))
           {
             buttonConfiguration2 = 0;
 LABEL_22:
 
             v8 = 0;
             v28 = 0;
-            targetsCopy = v31;
+            targetsCopy = v30;
             error = errorCopy;
             goto LABEL_23;
           }
@@ -2619,7 +2555,7 @@ LABEL_22:
             buttonConfiguration2 = v20;
           }
 
-          if (__addButtonConfigurationTLV(v68, buttonConfiguration2))
+          if (__addButtonConfigurationTLV(v67, buttonConfiguration2))
           {
             goto LABEL_22;
           }
@@ -2629,37 +2565,37 @@ LABEL_22:
           if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
           {
             v23 = HMFGetLogIdentifier();
-            v35 = v14;
+            v34 = v14;
             v24 = v9;
-            v25 = v45;
-            v33 = v44;
+            v25 = v44;
+            v32 = v43;
             buttonConfiguration3 = [v13 buttonConfiguration];
             buttonConfigurationAsString(buttonConfiguration3);
-            v27 = v34 = v21;
+            v27 = v33 = v21;
             *buf = 138544386;
-            v70 = v23;
-            v71 = 2048;
-            v72 = v25;
+            v69 = v23;
+            v70 = 2048;
+            v71 = v25;
             v9 = v24;
-            v14 = v35;
-            v73 = 2080;
-            v74 = v18;
-            v75 = 2048;
-            v76 = v33;
-            v77 = 2112;
-            v78 = v27;
+            v14 = v34;
+            v72 = 2080;
+            v73 = v18;
+            v74 = 2048;
+            v75 = v32;
+            v76 = 2112;
+            v77 = v27;
             _os_log_impl(&dword_2531F8000, v22, OS_LOG_TYPE_INFO, "%{public}@Adding TLVs for add target operation - identifier %lu  name %s  category %lu  buttonConfiguration: %@", buf, 0x34u);
 
-            v21 = v34;
+            v21 = v33;
           }
 
           objc_autoreleasePoolPop(v21);
         }
 
-        targetsCopy = v31;
+        targetsCopy = v30;
         error = errorCopy;
-        v36 = [v9 countByEnumeratingWithState:&v39 objects:v46 count:16];
-        if (v36)
+        v35 = [v9 countByEnumeratingWithState:&v38 objects:v45 count:16];
+        if (v35)
         {
           continue;
         }
@@ -2668,7 +2604,7 @@ LABEL_22:
       }
     }
 
-    v9 = [MEMORY[0x277CBEA90] dataWithBytes:v68[0] length:?];
+    v9 = [MEMORY[0x277CBEA90] dataWithBytes:v67[0] length:?];
     [v9 bytes];
     [v9 length];
     if (TLV8BufferAppend())
@@ -2678,7 +2614,7 @@ LABEL_22:
 
     else
     {
-      v28 = [MEMORY[0x277CBEA90] dataWithBytes:v47 length:?];
+      v28 = [MEMORY[0x277CBEA90] dataWithBytes:v46 length:?];
       v8 = 1;
 LABEL_23:
 
@@ -2698,8 +2634,6 @@ LABEL_23:
   {
     *error = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
@@ -2732,7 +2666,7 @@ void __77__HMDTargetControllerManager_updateTargetAccessory_name_buttonConfigura
 
 - (void)_updateName:(id)name buttonConfiguration:(id)configuration target:(id)target
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v75 = *MEMORY[0x277D85DE8];
   nameCopy = name;
   configurationCopy = configuration;
   targetCopy = target;
@@ -2744,9 +2678,9 @@ void __77__HMDTargetControllerManager_updateTargetAccessory_name_buttonConfigura
       v12 = [controller findCharacteristicType:*MEMORY[0x277CCFB38] forServiceType:*MEMORY[0x277CD0F18]];
       if (v12)
       {
-        v55 = 0;
-        v13 = [(HMDTargetControllerManager *)self _dataForUpdateTarget:targetCopy name:nameCopy buttonConfiguration:configurationCopy outError:&v55];
-        v14 = v55;
+        v54 = 0;
+        v13 = [(HMDTargetControllerManager *)self _dataForUpdateTarget:targetCopy name:nameCopy buttonConfiguration:configurationCopy outError:&v54];
+        v14 = v54;
         if (v14)
         {
           context = objc_autoreleasePoolPush();
@@ -2755,13 +2689,13 @@ void __77__HMDTargetControllerManager_updateTargetAccessory_name_buttonConfigura
           if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
           {
             HMFGetLogIdentifier();
-            v17 = v43 = v12;
+            v17 = v42 = v12;
             [targetCopy name];
-            v18 = v40 = v14;
+            v18 = v39 = v14;
             [targetCopy identifier];
-            v19 = v44 = controller;
+            v19 = v43 = controller;
             buttonConfigurationAsString(configurationCopy);
-            v20 = v41 = v13;
+            v20 = v40 = v13;
             *buf = 138544386;
             *&buf[4] = v17;
             *&buf[12] = 2112;
@@ -2774,11 +2708,11 @@ void __77__HMDTargetControllerManager_updateTargetAccessory_name_buttonConfigura
             *&buf[44] = v20;
             _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@Failed to serialize request for updating %@/%@ with name %@  buttonConfiguration %@", buf, 0x34u);
 
-            controller = v44;
-            v14 = v40;
+            controller = v43;
+            v14 = v39;
 
-            v13 = v41;
-            v12 = v43;
+            v13 = v40;
+            v12 = v42;
           }
 
           objc_autoreleasePoolPop(context);
@@ -2786,27 +2720,27 @@ void __77__HMDTargetControllerManager_updateTargetAccessory_name_buttonConfigura
 
         else if ([v13 length])
         {
-          v74 = 0u;
-          v75 = 0u;
-          v72 = 0u;
           v73 = 0u;
-          v70 = 0u;
+          v74 = 0u;
           v71 = 0u;
-          v68 = 0u;
+          v72 = 0u;
           v69 = 0u;
-          v66 = 0u;
+          v70 = 0u;
           v67 = 0u;
-          v64 = 0u;
+          v68 = 0u;
           v65 = 0u;
-          v62 = 0u;
+          v66 = 0u;
           v63 = 0u;
-          v60 = 0u;
+          v64 = 0u;
           v61 = 0u;
+          v62 = 0u;
           v59 = 0u;
+          v60 = 0u;
+          v58 = 0u;
           memset(buf, 0, sizeof(buf));
           buttonConfigurationTLVSize(configurationCopy);
           TLV8BufferInit();
-          v54 = 5;
+          v53 = 5;
           if (TLV8BufferAppend() || ([v13 bytes], objc_msgSend(v13, "length"), TLV8BufferAppend()))
           {
             TLV8BufferFree();
@@ -2814,38 +2748,38 @@ void __77__HMDTargetControllerManager_updateTargetAccessory_name_buttonConfigura
 
           else
           {
-            v42 = v13;
-            v34 = v12;
+            v41 = v13;
+            v33 = v12;
             contexta = [MEMORY[0x277CBEA90] dataWithBytes:*buf length:*&buf[8]];
             TLV8BufferFree();
-            v35 = objc_autoreleasePoolPush();
+            v34 = objc_autoreleasePoolPush();
             selfCopy2 = self;
-            v37 = HMFGetOSLogHandle();
-            if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+            v36 = HMFGetOSLogHandle();
+            if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
             {
-              v38 = HMFGetLogIdentifier();
-              *v56 = 138543362;
-              v57 = v38;
-              _os_log_impl(&dword_2531F8000, v37, OS_LOG_TYPE_INFO, "%{public}@Update target name or button configuration", v56, 0xCu);
+              v37 = HMFGetLogIdentifier();
+              *v55 = 138543362;
+              v56 = v37;
+              _os_log_impl(&dword_2531F8000, v36, OS_LOG_TYPE_INFO, "%{public}@Update target name or button configuration", v55, 0xCu);
 
               v14 = 0;
             }
 
-            objc_autoreleasePoolPop(v35);
+            objc_autoreleasePoolPop(v34);
             workQueue = [(HMDTargetControllerManager *)selfCopy2 workQueue];
-            v49[0] = MEMORY[0x277D85DD0];
-            v49[1] = 3221225472;
-            v49[2] = __69__HMDTargetControllerManager__updateName_buttonConfiguration_target___block_invoke;
-            v49[3] = &unk_279727688;
-            v49[4] = selfCopy2;
-            v50 = targetCopy;
-            v51 = nameCopy;
-            v52 = configurationCopy;
-            v53 = v34;
-            [controller writeValue:contexta toCharacteristic:v53 queue:workQueue source:1200 completion:v49];
+            v48[0] = MEMORY[0x277D85DD0];
+            v48[1] = 3221225472;
+            v48[2] = __69__HMDTargetControllerManager__updateName_buttonConfiguration_target___block_invoke;
+            v48[3] = &unk_279727688;
+            v48[4] = selfCopy2;
+            v49 = targetCopy;
+            v50 = nameCopy;
+            v51 = configurationCopy;
+            v52 = v33;
+            [controller writeValue:contexta toCharacteristic:v52 queue:workQueue source:1200 completion:v48];
 
-            v12 = v34;
-            v13 = v42;
+            v12 = v33;
+            v13 = v41;
           }
         }
       }
@@ -2862,7 +2796,7 @@ void __77__HMDTargetControllerManager_updateTargetAccessory_name_buttonConfigura
           [targetCopy identifier];
           v31 = contextb = v26;
           buttonConfigurationAsString(configurationCopy);
-          v32 = v45 = controller;
+          v32 = v44 = controller;
           *buf = 138544386;
           *&buf[4] = v29;
           *&buf[12] = 2112;
@@ -2876,7 +2810,7 @@ void __77__HMDTargetControllerManager_updateTargetAccessory_name_buttonConfigura
           _os_log_impl(&dword_2531F8000, v28, OS_LOG_TYPE_INFO, "%{public}@Failed to look up target list characteristic for updating %@/%@ with name %@  buttonConfiguration %@", buf, 0x34u);
 
           v26 = contextb;
-          controller = v45;
+          controller = v44;
 
           v12 = 0;
         }
@@ -2906,13 +2840,11 @@ void __77__HMDTargetControllerManager_updateTargetAccessory_name_buttonConfigura
 
     objc_autoreleasePoolPop(v21);
   }
-
-  v33 = *MEMORY[0x277D85DE8];
 }
 
 void __69__HMDTargetControllerManager__updateName_buttonConfiguration_target___block_invoke(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x277D85DE8];
+  v39 = *MEMORY[0x277D85DE8];
   v3 = a2;
   if (v3)
   {
@@ -2927,15 +2859,15 @@ void __69__HMDTargetControllerManager__updateName_buttonConfiguration_target___b
       v10 = *(a1 + 48);
       v11 = buttonConfigurationAsString(*(a1 + 56));
       *buf = 138544386;
-      v29 = v7;
-      v30 = 2112;
-      v31 = v8;
-      v32 = 2112;
-      v33 = v9;
-      v34 = 2112;
-      v35 = v10;
-      v36 = 2112;
-      v37 = v11;
+      v28 = v7;
+      v29 = 2112;
+      v30 = v8;
+      v31 = 2112;
+      v32 = v9;
+      v33 = 2112;
+      v34 = v10;
+      v35 = 2112;
+      v36 = v11;
       _os_log_impl(&dword_2531F8000, v6, OS_LOG_TYPE_INFO, "%{public}@Failed to write request for updating %@/%@ with name %@  buttonConfiguration %@", buf, 0x34u);
     }
 
@@ -2958,7 +2890,7 @@ void __69__HMDTargetControllerManager__updateName_buttonConfiguration_target___b
 
     v14 = v13;
 
-    v15 = _parseTargetList(v14);
+    v15 = _parseTargetList(v14, 0);
     v16 = objc_autoreleasePoolPush();
     v17 = *(a1 + 32);
     v18 = HMFGetOSLogHandle();
@@ -2967,66 +2899,64 @@ void __69__HMDTargetControllerManager__updateName_buttonConfiguration_target___b
       v19 = HMFGetLogIdentifier();
       v20 = [*(a1 + 40) name];
       v21 = [*(a1 + 40) identifier];
-      v27 = v14;
+      v26 = v14;
       v22 = v15;
       v23 = v16;
       v24 = *(a1 + 48);
       v25 = buttonConfigurationAsString(*(a1 + 56));
       *buf = 138544642;
-      v29 = v19;
-      v30 = 2112;
-      v31 = v20;
-      v32 = 2112;
-      v33 = v21;
-      v34 = 2112;
-      v35 = v24;
+      v28 = v19;
+      v29 = 2112;
+      v30 = v20;
+      v31 = 2112;
+      v32 = v21;
+      v33 = 2112;
+      v34 = v24;
       v16 = v23;
       v15 = v22;
-      v14 = v27;
-      v36 = 2112;
-      v37 = v25;
-      v38 = 2112;
-      v39 = v15;
+      v14 = v26;
+      v35 = 2112;
+      v36 = v25;
+      v37 = 2112;
+      v38 = v15;
       _os_log_impl(&dword_2531F8000, v18, OS_LOG_TYPE_INFO, "%{public}@Successfully updated %@/%@ with name %@  buttonConfiguration %@ - response %@", buf, 0x3Eu);
     }
 
     objc_autoreleasePoolPop(v16);
   }
-
-  v26 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_dataForUpdateTarget:(id)target name:(id)name buttonConfiguration:(id)configuration outError:(id *)error
 {
-  v54 = *MEMORY[0x277D85DE8];
+  v53 = *MEMORY[0x277D85DE8];
   targetCopy = target;
   nameCopy = name;
   configurationCopy = configuration;
   v13 = configurationCopy;
   if (nameCopy || [configurationCopy count])
   {
-    v37 = nameCopy;
+    v36 = nameCopy;
     v14 = v13;
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     configuredTargets = [(HMDTargetControllerManager *)self configuredTargets];
-    v16 = [configuredTargets countByEnumeratingWithState:&v39 objects:v53 count:16];
+    v16 = [configuredTargets countByEnumeratingWithState:&v38 objects:v52 count:16];
     if (v16)
     {
       v17 = v16;
-      v18 = *v40;
+      v18 = *v39;
       while (2)
       {
         for (i = 0; i != v17; ++i)
         {
-          if (*v40 != v18)
+          if (*v39 != v18)
           {
             objc_enumerationMutation(configuredTargets);
           }
 
-          v20 = *(*(&v39 + 1) + 8 * i);
+          v20 = *(*(&v38 + 1) + 8 * i);
           identifier = [targetCopy identifier];
           identifier2 = [v20 identifier];
           v23 = [identifier isEqual:identifier2];
@@ -3034,9 +2964,9 @@ void __69__HMDTargetControllerManager__updateName_buttonConfiguration_target___b
           if (v23)
           {
 
-            memset(v52, 0, sizeof(v52));
-            v51 = targetCopy;
-            v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v51 count:1];
+            memset(v51, 0, 336);
+            v50 = targetCopy;
+            v25 = [MEMORY[0x277CBEA60] arrayWithObjects:&v50 count:1];
             v13 = v14;
             targetConfigurationTLVSize(v25, v14);
 
@@ -3044,18 +2974,18 @@ void __69__HMDTargetControllerManager__updateName_buttonConfiguration_target___b
             identifier3 = [targetCopy identifier];
             unsignedIntegerValue = [identifier3 unsignedIntegerValue];
 
-            v38 = unsignedIntegerValue;
+            v37 = unsignedIntegerValue;
             if (TLV8BufferAppend())
             {
               v24 = 0;
-              nameCopy = v37;
+              nameCopy = v36;
             }
 
             else
             {
-              nameCopy = v37;
-              uTF8String = [v37 UTF8String];
-              if (v37 && (strlen(uTF8String), TLV8BufferAppend()) || v13 && __addButtonConfigurationTLV(v52, v13))
+              nameCopy = v36;
+              uTF8String = [v36 UTF8String];
+              if (v36 && (strlen(uTF8String), TLV8BufferAppend()) || v13 && __addButtonConfigurationTLV(v51, v13))
               {
                 v24 = 0;
               }
@@ -3063,25 +2993,25 @@ void __69__HMDTargetControllerManager__updateName_buttonConfiguration_target___b
               else
               {
                 v29 = objc_autoreleasePoolPush();
-                v30 = v36;
+                v30 = v35;
                 v31 = HMFGetOSLogHandle();
                 if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
                 {
                   v32 = HMFGetLogIdentifier();
                   v33 = buttonConfigurationAsString(v13);
                   *buf = 138544130;
-                  v44 = v32;
-                  v45 = 2048;
-                  v46 = v38;
-                  v47 = 2112;
-                  v48 = v37;
-                  v49 = 2112;
-                  v50 = v33;
+                  v43 = v32;
+                  v44 = 2048;
+                  v45 = v37;
+                  v46 = 2112;
+                  v47 = v36;
+                  v48 = 2112;
+                  v49 = v33;
                   _os_log_impl(&dword_2531F8000, v31, OS_LOG_TYPE_INFO, "%{public}@Encoding for update target - identifier %lu  updatedName %@  buttonConfiguration: %@", buf, 0x2Au);
                 }
 
                 objc_autoreleasePoolPop(v29);
-                v24 = [MEMORY[0x277CBEA90] dataWithBytes:v52[0] length:?];
+                v24 = [MEMORY[0x277CBEA90] dataWithBytes:v51[0] length:v51[1]];
               }
             }
 
@@ -3095,7 +3025,7 @@ void __69__HMDTargetControllerManager__updateName_buttonConfiguration_target___b
           }
         }
 
-        v17 = [configuredTargets countByEnumeratingWithState:&v39 objects:v53 count:16];
+        v17 = [configuredTargets countByEnumeratingWithState:&v38 objects:v52 count:16];
         if (v17)
         {
           continue;
@@ -3117,7 +3047,7 @@ void __69__HMDTargetControllerManager__updateName_buttonConfiguration_target___b
     }
 
     v13 = v14;
-    nameCopy = v37;
+    nameCopy = v36;
   }
 
   else if (error)
@@ -3132,8 +3062,6 @@ void __69__HMDTargetControllerManager__updateName_buttonConfiguration_target___b
   }
 
 LABEL_30:
-
-  v34 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -3154,27 +3082,27 @@ LABEL_30:
 
 void __65__HMDTargetControllerManager_updateButtonConfigurationForTarget___block_invoke(uint64_t a1)
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v2 = [*(a1 + 32) configuredTargets];
-  v3 = [v2 countByEnumeratingWithState:&v17 objects:v25 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v16 objects:v24 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v18;
+    v5 = *v17;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v18 != v5)
+        if (*v17 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = *(*(&v17 + 1) + 8 * i);
+        v7 = *(*(&v16 + 1) + 8 * i);
         v8 = [*(a1 + 40) identifier];
         v9 = [v7 identifier];
         v10 = [v8 isEqual:v9];
@@ -3191,9 +3119,9 @@ void __65__HMDTargetControllerManager_updateButtonConfigurationForTarget___block
           {
             v15 = HMFGetLogIdentifier();
             *buf = 138543618;
-            v22 = v15;
-            v23 = 2112;
-            v24 = v7;
+            v21 = v15;
+            v22 = 2112;
+            v23 = v7;
             _os_log_impl(&dword_2531F8000, v14, OS_LOG_TYPE_INFO, "%{public}@Updated the button configuration for target %@", buf, 0x16u);
           }
 
@@ -3202,7 +3130,7 @@ void __65__HMDTargetControllerManager_updateButtonConfigurationForTarget___block
         }
       }
 
-      v4 = [v2 countByEnumeratingWithState:&v17 objects:v25 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v16 objects:v24 count:16];
       if (v4)
       {
         continue;
@@ -3213,18 +3141,16 @@ void __65__HMDTargetControllerManager_updateButtonConfigurationForTarget___block
   }
 
 LABEL_13:
-
-  v16 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_auditTargets:(id)targets
 {
-  v72 = *MEMORY[0x277D85DE8];
+  v71 = *MEMORY[0x277D85DE8];
   targetsCopy = targets;
   configuredTargets = [(HMDTargetControllerManager *)self configuredTargets];
-  v6 = [configuredTargets copy];
+  v6 = objc_msgSend_copy(configuredTargets);
 
-  v48 = [MEMORY[0x277CBEB98] setWithArray:targetsCopy];
+  v47 = [MEMORY[0x277CBEB98] setWithArray:targetsCopy];
   v7 = objc_autoreleasePoolPush();
   selfCopy = self;
   v9 = HMFGetOSLogHandle();
@@ -3232,38 +3158,38 @@ LABEL_13:
   {
     v10 = HMFGetLogIdentifier();
     *buf = 138543874;
-    v67 = v10;
-    v68 = 2112;
-    v69 = targetsCopy;
-    v70 = 2112;
-    v71 = v6;
+    v66 = v10;
+    v67 = 2112;
+    v68 = targetsCopy;
+    v69 = 2112;
+    v70 = v6;
     _os_log_impl(&dword_2531F8000, v9, OS_LOG_TYPE_INFO, "%{public}@Read targets %@, Configured targets %@", buf, 0x20u);
   }
 
   objc_autoreleasePoolPop(v7);
-  v47 = v6;
+  v46 = v6;
   v11 = [v6 mutableCopy];
-  [v11 intersectSet:v48];
-  v61 = 0u;
-  v62 = 0u;
-  v59 = 0u;
+  [v11 intersectSet:v47];
   v60 = 0u;
+  v61 = 0u;
+  v58 = 0u;
+  v59 = 0u;
   obj = v11;
-  v12 = [obj countByEnumeratingWithState:&v59 objects:v65 count:16];
+  v12 = [obj countByEnumeratingWithState:&v58 objects:v64 count:16];
   if (v12)
   {
     v13 = v12;
-    v14 = *v60;
+    v14 = *v59;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v60 != v14)
+        if (*v59 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v16 = *(*(&v59 + 1) + 8 * i);
+        v16 = *(*(&v58 + 1) + 8 * i);
         v17 = [targetsCopy objectAtIndex:{objc_msgSend(targetsCopy, "indexOfObject:", v16)}];
         name = [v16 name];
         name2 = [v17 name];
@@ -3276,34 +3202,34 @@ LABEL_13:
         }
       }
 
-      v13 = [obj countByEnumeratingWithState:&v59 objects:v65 count:16];
+      v13 = [obj countByEnumeratingWithState:&v58 objects:v64 count:16];
     }
 
     while (v13);
   }
 
-  v22 = [v47 mutableCopy];
-  [v22 minusSet:v48];
-  v57 = 0u;
-  v58 = 0u;
-  v55 = 0u;
+  v22 = [v46 mutableCopy];
+  [v22 minusSet:v47];
   v56 = 0u;
-  v49 = v22;
-  v23 = [v49 countByEnumeratingWithState:&v55 objects:v64 count:16];
+  v57 = 0u;
+  v54 = 0u;
+  v55 = 0u;
+  v48 = v22;
+  v23 = [v48 countByEnumeratingWithState:&v54 objects:v63 count:16];
   if (v23)
   {
     v24 = v23;
-    v25 = *v56;
+    v25 = *v55;
     do
     {
       for (j = 0; j != v24; ++j)
       {
-        if (*v56 != v25)
+        if (*v55 != v25)
         {
-          objc_enumerationMutation(v49);
+          objc_enumerationMutation(v48);
         }
 
-        v27 = *(*(&v55 + 1) + 8 * j);
+        v27 = *(*(&v54 + 1) + 8 * j);
         v28 = objc_autoreleasePoolPush();
         v29 = selfCopy;
         v30 = HMFGetOSLogHandle();
@@ -3311,48 +3237,48 @@ LABEL_13:
         {
           v31 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v67 = v31;
-          v68 = 2112;
-          v69 = v27;
+          v66 = v31;
+          v67 = 2112;
+          v68 = v27;
           _os_log_impl(&dword_2531F8000, v30, OS_LOG_TYPE_INFO, "%{public}@Target %@ not present in controller's target list - adding...", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v28);
       }
 
-      v24 = [v49 countByEnumeratingWithState:&v55 objects:v64 count:16];
+      v24 = [v48 countByEnumeratingWithState:&v54 objects:v63 count:16];
     }
 
     while (v24);
   }
 
-  v46 = targetsCopy;
+  v45 = targetsCopy;
 
-  allObjects = [v49 allObjects];
+  allObjects = [v48 allObjects];
   [(HMDTargetControllerManager *)selfCopy _addTargets:allObjects];
 
-  v33 = [v48 mutableCopy];
-  [v33 minusSet:v47];
-  v53 = 0u;
-  v54 = 0u;
-  v51 = 0u;
+  v33 = [v47 mutableCopy];
+  [v33 minusSet:v46];
   v52 = 0u;
+  v53 = 0u;
+  v50 = 0u;
+  v51 = 0u;
   v34 = v33;
-  v35 = [v34 countByEnumeratingWithState:&v51 objects:v63 count:16];
+  v35 = [v34 countByEnumeratingWithState:&v50 objects:v62 count:16];
   if (v35)
   {
     v36 = v35;
-    v37 = *v52;
+    v37 = *v51;
     do
     {
       for (k = 0; k != v36; ++k)
       {
-        if (*v52 != v37)
+        if (*v51 != v37)
         {
           objc_enumerationMutation(v34);
         }
 
-        v39 = *(*(&v51 + 1) + 8 * k);
+        v39 = *(*(&v50 + 1) + 8 * k);
         v40 = objc_autoreleasePoolPush();
         v41 = selfCopy;
         v42 = HMFGetOSLogHandle();
@@ -3360,16 +3286,16 @@ LABEL_13:
         {
           v43 = HMFGetLogIdentifier();
           *buf = 138543618;
-          v67 = v43;
-          v68 = 2112;
-          v69 = v39;
+          v66 = v43;
+          v67 = 2112;
+          v68 = v39;
           _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_INFO, "%{public}@Target %@ present in controller's target list - removing...", buf, 0x16u);
         }
 
         objc_autoreleasePoolPop(v40);
       }
 
-      v36 = [v34 countByEnumeratingWithState:&v51 objects:v63 count:16];
+      v36 = [v34 countByEnumeratingWithState:&v50 objects:v62 count:16];
     }
 
     while (v36);
@@ -3377,21 +3303,19 @@ LABEL_13:
 
   allObjects2 = [v34 allObjects];
   [(HMDTargetControllerManager *)selfCopy _removeTargets:allObjects2];
-
-  v45 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_listTargetsWithCompletionHandler:(id)handler
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   controller = [(HMDTargetControllerManager *)self controller];
   v6 = [controller findCharacteristicType:*MEMORY[0x277CCFB38] forServiceType:*MEMORY[0x277CD0F18]];
   if (v6)
   {
-    v26 = 0;
-    v7 = [(HMDTargetControllerManager *)self _dataForListTargetsWithOutError:&v26];
-    v8 = v26;
+    v25 = 0;
+    v7 = [(HMDTargetControllerManager *)self _dataForListTargetsWithOutError:&v25];
+    v8 = v25;
     v9 = objc_autoreleasePoolPush();
     selfCopy = self;
     v11 = HMFGetOSLogHandle();
@@ -3402,9 +3326,9 @@ LABEL_13:
       {
         v13 = HMFGetLogIdentifier();
         *buf = 138543618;
-        v28 = v13;
-        v29 = 2112;
-        v30 = v8;
+        v27 = v13;
+        v28 = 2112;
+        v29 = v8;
         _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Unable to generate serialized data for listing targets - error %@", buf, 0x16u);
       }
 
@@ -3422,25 +3346,25 @@ LABEL_13:
         v18 = HMFGetLogIdentifier();
         v19 = [v6 description];
         *buf = 138543618;
-        v28 = v18;
-        v29 = 2112;
-        v30 = v19;
+        v27 = v18;
+        v28 = 2112;
+        v29 = v19;
         _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@write target list characteristic %@", buf, 0x16u);
       }
 
       objc_autoreleasePoolPop(v9);
       objc_initWeak(buf, selfCopy);
       workQueue = [(HMDTargetControllerManager *)selfCopy workQueue];
-      v22[0] = MEMORY[0x277D85DD0];
-      v22[1] = 3221225472;
-      v22[2] = __64__HMDTargetControllerManager__listTargetsWithCompletionHandler___block_invoke;
-      v22[3] = &unk_2797346E0;
-      objc_copyWeak(&v25, buf);
-      v24 = handlerCopy;
-      v23 = v6;
-      [controller writeValue:v7 toCharacteristic:v23 queue:workQueue source:1200 completion:v22];
+      v21[0] = MEMORY[0x277D85DD0];
+      v21[1] = 3221225472;
+      v21[2] = __64__HMDTargetControllerManager__listTargetsWithCompletionHandler___block_invoke;
+      v21[3] = &unk_2797346E0;
+      objc_copyWeak(&v24, buf);
+      v23 = handlerCopy;
+      v22 = v6;
+      [controller writeValue:v7 toCharacteristic:v22 queue:workQueue source:1200 completion:v21];
 
-      objc_destroyWeak(&v25);
+      objc_destroyWeak(&v24);
       objc_destroyWeak(buf);
     }
 
@@ -3454,7 +3378,7 @@ LABEL_13:
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v28 = v17;
+    v27 = v17;
     _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_INFO, "%{public}@No Target List characteristic to audit configured target accessories - skipping", buf, 0xCu);
   }
 
@@ -3465,8 +3389,6 @@ LABEL_13:
     handlerCopy[2](handlerCopy, v8, 0);
 LABEL_15:
   }
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 void __64__HMDTargetControllerManager__listTargetsWithCompletionHandler___block_invoke(uint64_t a1, void *a2)
@@ -3507,9 +3429,10 @@ void __64__HMDTargetControllerManager__listTargetsWithCompletionHandler___block_
 
       v8 = v7;
 
-      v9 = _parseTargetList(v8);
+      v13 = 0;
+      v9 = _parseTargetList(v8, &v13);
 
-      v10 = 0;
+      v10 = v13;
       v11 = *(a1 + 40);
       if (v11)
       {
@@ -3521,28 +3444,28 @@ void __64__HMDTargetControllerManager__listTargetsWithCompletionHandler___block_
 
 - (id)_dataForListTargetsWithOutError:(id *)error
 {
-  v37 = *MEMORY[0x277D85DE8];
-  v35 = 0u;
-  v36 = 0u;
-  v33 = 0u;
+  v36 = *MEMORY[0x277D85DE8];
   v34 = 0u;
-  v31 = 0u;
+  v35 = 0u;
   v32 = 0u;
-  v29 = 0u;
+  v33 = 0u;
   v30 = 0u;
-  v27 = 0u;
+  v31 = 0u;
   v28 = 0u;
-  v25 = 0u;
+  v29 = 0u;
   v26 = 0u;
-  v23 = 0u;
+  v27 = 0u;
   v24 = 0u;
+  v25 = 0u;
   v22 = 0u;
-  v20 = 0u;
+  v23 = 0u;
   v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
-  v16 = 0u;
+  v20 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   TLV8BufferInit();
   if (TLV8BufferAppend())
   {
@@ -3558,14 +3481,14 @@ void __64__HMDTargetControllerManager__listTargetsWithCompletionHandler___block_
     {
       v9 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v13 = v9;
-      v14 = 2048;
-      v15 = 1;
+      v12 = v9;
+      v13 = 2048;
+      v14 = 1;
       _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Encoding for list target - operation %lu", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
-    v5 = [MEMORY[0x277CBEA90] dataWithBytes:v16 length:?];
+    v5 = [MEMORY[0x277CBEA90] dataWithBytes:v15 length:?];
   }
 
   TLV8BufferFree();
@@ -3573,8 +3496,6 @@ void __64__HMDTargetControllerManager__listTargetsWithCompletionHandler___block_
   {
     *error = [MEMORY[0x277CCA9B8] hmErrorWithCode:3];
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v5;
 }
@@ -3665,7 +3586,7 @@ void __66__HMDTargetControllerManager__refreshConfigurationWithCompletion___bloc
 
 uint64_t __66__HMDTargetControllerManager__refreshConfigurationWithCompletion___block_invoke_3(uint64_t a1)
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = objc_autoreleasePoolPush();
   v3 = *(a1 + 32);
   v4 = HMFGetOSLogHandle();
@@ -3676,15 +3597,15 @@ uint64_t __66__HMDTargetControllerManager__refreshConfigurationWithCompletion___
     v7 = [*(a1 + 32) ticksPerSecond];
     v8 = [*(a1 + 32) buttonConfiguration];
     v9 = buttonConfigurationAsString(v8);
-    v13 = 138544130;
-    v14 = v5;
-    v15 = 2048;
-    v16 = v6;
-    v17 = 2048;
-    v18 = v7;
-    v19 = 2112;
-    v20 = v9;
-    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Notifying supported configuration: Maximum Targets: %lu  Ticks Per Second: %lu  Buttons: %@", &v13, 0x2Au);
+    v12 = 138544130;
+    v13 = v5;
+    v14 = 2048;
+    v15 = v6;
+    v16 = 2048;
+    v17 = v7;
+    v18 = 2112;
+    v19 = v9;
+    _os_log_impl(&dword_2531F8000, v4, OS_LOG_TYPE_INFO, "%{public}@Notifying supported configuration: Maximum Targets: %lu  Ticks Per Second: %lu  Buttons: %@", &v12, 0x2Au);
   }
 
   objc_autoreleasePoolPop(v2);
@@ -3698,24 +3619,23 @@ uint64_t __66__HMDTargetControllerManager__refreshConfigurationWithCompletion___
       v11 = *(*(*(a1 + 64) + 8) + 40);
     }
 
-    result = (*(result + 16))(result, v11);
+    return (*(result + 16))(result, v11);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (void)_readSupportedConfigurationWithCompletion:(id)completion
 {
-  v27[1] = *MEMORY[0x277D85DE8];
+  v26[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   controller = [(HMDTargetControllerManager *)self controller];
   v6 = [controller findCharacteristicType:*MEMORY[0x277CCFAE8] forServiceType:*MEMORY[0x277CD0F18]];
   if (v6)
   {
     v7 = [HMDCharacteristicRequest requestWithCharacteristic:v6];
-    v27[0] = v7;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v27 count:1];
+    v26[0] = v7;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v26 count:1];
 
     v9 = objc_autoreleasePoolPush();
     selfCopy = self;
@@ -3724,25 +3644,25 @@ uint64_t __66__HMDTargetControllerManager__refreshConfigurationWithCompletion___
     {
       v12 = HMFGetLogIdentifier();
       *buf = 138543618;
-      v24 = v12;
-      v25 = 2048;
-      v26 = [v8 count];
+      v23 = v12;
+      v24 = 2048;
+      v25 = [v8 count];
       _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Read supported configuration. size: %lu", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v9);
     objc_initWeak(buf, selfCopy);
     workQueue = [(HMDTargetControllerManager *)selfCopy workQueue];
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __72__HMDTargetControllerManager__readSupportedConfigurationWithCompletion___block_invoke;
-    v19[3] = &unk_279727610;
-    objc_copyWeak(&v22, buf);
-    v21 = completionCopy;
-    v20 = v6;
-    [controller readCharacteristicValues:v8 source:1200 queue:workQueue completionHandler:v19];
+    v18[0] = MEMORY[0x277D85DD0];
+    v18[1] = 3221225472;
+    v18[2] = __72__HMDTargetControllerManager__readSupportedConfigurationWithCompletion___block_invoke;
+    v18[3] = &unk_279727610;
+    objc_copyWeak(&v21, buf);
+    v20 = completionCopy;
+    v19 = v6;
+    [controller readCharacteristicValues:v8 source:1200 queue:workQueue completionHandler:v18];
 
-    objc_destroyWeak(&v22);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(buf);
     goto LABEL_9;
   }
@@ -3754,7 +3674,7 @@ uint64_t __66__HMDTargetControllerManager__refreshConfigurationWithCompletion___
   {
     v17 = HMFGetLogIdentifier();
     *buf = 138543362;
-    v24 = v17;
+    v23 = v17;
     _os_log_impl(&dword_2531F8000, v16, OS_LOG_TYPE_ERROR, "%{public}@No Supported target Configuration characteristic to refresh the configuration for the controller", buf, 0xCu);
   }
 
@@ -3765,13 +3685,11 @@ uint64_t __66__HMDTargetControllerManager__refreshConfigurationWithCompletion___
     (*(completionCopy + 2))(completionCopy, v8);
 LABEL_9:
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 void __72__HMDTargetControllerManager__readSupportedConfigurationWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v62 = *MEMORY[0x277D85DE8];
+  v61 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 48));
   if (WeakRetained)
@@ -3794,11 +3712,11 @@ void __72__HMDTargetControllerManager__readSupportedConfigurationWithCompletion_
           v12 = HMFGetLogIdentifier();
           v13 = [v5 error];
           *buf = 138543874;
-          v55 = v12;
-          v56 = 2112;
-          v57 = v13;
-          v58 = 2112;
-          v59 = v7;
+          v54 = v12;
+          v55 = 2112;
+          v56 = v13;
+          v57 = 2112;
+          v58 = v7;
           _os_log_impl(&dword_2531F8000, v11, OS_LOG_TYPE_INFO, "%{public}@Error %@ response for reading characteristic %@", buf, 0x20u);
         }
 
@@ -3847,7 +3765,7 @@ void __72__HMDTargetControllerManager__readSupportedConfigurationWithCompletion_
               {
                 v36 = HMFGetLogIdentifier();
                 *buf = 138543362;
-                v55 = v36;
+                v54 = v36;
                 _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_INFO, "%{public}@No data to parse for supported configuration", buf, 0xCu);
               }
 
@@ -3861,14 +3779,14 @@ void __72__HMDTargetControllerManager__readSupportedConfigurationWithCompletion_
               if (v35)
               {
                 HMFGetLogIdentifier();
-                v46 = v53 = v32;
+                v46 = v52 = v32;
                 *buf = 138543618;
-                v55 = v46;
-                v56 = 2048;
-                v57 = v31;
+                v54 = v46;
+                v55 = 2048;
+                v56 = v31;
                 _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_INFO, "%{public}@Parsing supported configuration data failed with error %lu", buf, 0x16u);
 
-                v32 = v53;
+                v32 = v52;
               }
 
               objc_autoreleasePoolPop(v32);
@@ -3883,21 +3801,21 @@ void __72__HMDTargetControllerManager__readSupportedConfigurationWithCompletion_
           {
             if (v35)
             {
-              v50 = HMFGetLogIdentifier();
-              v52 = v32;
+              v49 = HMFGetLogIdentifier();
+              v51 = v32;
               v44 = [v33 maximumTargets];
-              v49 = [v33 ticksPerSecond];
-              v51 = [v33 buttonConfiguration];
-              buttonConfigurationAsString(v51);
+              v48 = [v33 ticksPerSecond];
+              v50 = [v33 buttonConfiguration];
+              buttonConfigurationAsString(v50);
               *buf = 138544130;
-              v55 = v50;
-              v56 = 2048;
-              v57 = v44;
-              v32 = v52;
-              v58 = 2048;
-              v59 = v49;
-              v61 = v60 = 2112;
-              v45 = v61;
+              v54 = v49;
+              v55 = 2048;
+              v56 = v44;
+              v32 = v51;
+              v57 = 2048;
+              v58 = v48;
+              v60 = v59 = 2112;
+              v45 = v60;
               _os_log_impl(&dword_2531F8000, v34, OS_LOG_TYPE_INFO, "%{public}@Refreshed supported configuration: Maximum Targets: %lu  Ticks Per Second: %lu  Buttons: %@", buf, 0x2Au);
             }
 
@@ -3916,11 +3834,11 @@ void __72__HMDTargetControllerManager__readSupportedConfigurationWithCompletion_
             v42 = HMFGetLogIdentifier();
             v43 = *(a1 + 32);
             *buf = 138543874;
-            v55 = v42;
-            v56 = 2112;
-            v57 = v43;
-            v58 = 2112;
-            v59 = v7;
+            v54 = v42;
+            v55 = 2112;
+            v56 = v43;
+            v57 = 2112;
+            v58 = v7;
             _os_log_impl(&dword_2531F8000, v41, OS_LOG_TYPE_INFO, "%{public}@Got unexpected response - attempting to read %@, got %@", buf, 0x20u);
           }
 
@@ -3946,7 +3864,7 @@ LABEL_40:
     {
       v25 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v55 = v25;
+      v54 = v25;
       _os_log_impl(&dword_2531F8000, v24, OS_LOG_TYPE_ERROR, "%{public}@No responses refreshing controller configuration", buf, 0xCu);
     }
 
@@ -3968,7 +3886,7 @@ LABEL_40:
     {
       v18 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v55 = v18;
+      v54 = v18;
       _os_log_impl(&dword_2531F8000, v17, OS_LOG_TYPE_ERROR, "%{public}@Accessory not found for reading supported target configuration characteristic", buf, 0xCu);
     }
 
@@ -3984,8 +3902,6 @@ LABEL_16:
 LABEL_41:
     }
   }
-
-  v48 = *MEMORY[0x277D85DE8];
 }
 
 - (void)refreshConfigurationWithCompletion:(id)completion
@@ -4015,16 +3931,16 @@ LABEL_41:
 
 - (id)__refreshedConfiguration:(id)configuration
 {
-  v21[3] = *MEMORY[0x277D85DE8];
+  v20[3] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   if ([(HMDTargetControllerManager *)self configurationRefreshed])
   {
     if (configurationCopy)
     {
-      v20[0] = @"ticksPerSecond";
+      v19[0] = @"ticksPerSecond";
       v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[HMDTargetControllerManager ticksPerSecond](self, "ticksPerSecond")}];
-      v21[0] = v5;
-      v20[1] = @"buttonConfiguration";
+      v20[0] = v5;
+      v19[1] = @"buttonConfiguration";
       buttonConfiguration = [(HMDTargetControllerManager *)self buttonConfiguration];
       v7 = buttonConfiguration;
       v8 = MEMORY[0x277CBEBF8];
@@ -4033,21 +3949,21 @@ LABEL_41:
         v8 = buttonConfiguration;
       }
 
-      v20[2] = @"targetConfiguration";
-      v21[1] = v8;
-      v21[2] = configurationCopy;
+      v19[2] = @"targetConfiguration";
+      v20[1] = v8;
+      v20[2] = configurationCopy;
       v9 = MEMORY[0x277CBEAC0];
-      v10 = v21;
-      v11 = v20;
+      v10 = v20;
+      v11 = v19;
       v12 = 3;
     }
 
     else
     {
-      v18[0] = @"ticksPerSecond";
+      v17[0] = @"ticksPerSecond";
       v5 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{-[HMDTargetControllerManager ticksPerSecond](self, "ticksPerSecond")}];
-      v18[1] = @"buttonConfiguration";
-      v19[0] = v5;
+      v17[1] = @"buttonConfiguration";
+      v18[0] = v5;
       buttonConfiguration2 = [(HMDTargetControllerManager *)self buttonConfiguration];
       v7 = buttonConfiguration2;
       v15 = MEMORY[0x277CBEBF8];
@@ -4056,10 +3972,10 @@ LABEL_41:
         v15 = buttonConfiguration2;
       }
 
-      v19[1] = v15;
+      v18[1] = v15;
       v9 = MEMORY[0x277CBEAC0];
-      v10 = v19;
-      v11 = v18;
+      v10 = v18;
+      v11 = v17;
       v12 = 2;
     }
 
@@ -4071,37 +3987,142 @@ LABEL_41:
     v13 = MEMORY[0x277CBEC10];
   }
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v13;
 }
 
 - (int)_parseSupportedTargetConfiguration:(id)configuration
 {
   configurationCopy = configuration;
-  if ([configurationCopy length])
+  v25 = 0;
+  if (![configurationCopy length])
   {
-    [configurationCopy bytes];
-    [configurationCopy length];
-      ;
+    v10 = -6727;
+    goto LABEL_29;
+  }
+
+  selfCopy = self;
+  [configurationCopy bytes];
+  [configurationCopy length];
+  v5 = 0;
+  v6 = 0;
+  v24 = 0;
+  v22 = 0;
+  v23 = 0;
+  v7 = 16;
+  v8 = 1000;
+  v21 = 0;
+  while (1)
+  {
+    while (1)
+    {
+      while (1)
+      {
+        if (TLV8GetNext())
+        {
+          v14 = v6;
+          goto LABEL_25;
+        }
+
+        if (v24 > 2u)
+        {
+          break;
+        }
+
+        if (v24 == 1)
+        {
+          UInt64 = TLV8GetUInt64();
+          v10 = v25;
+          if (v25)
+          {
+            goto LABEL_28;
+          }
+
+          v7 = UInt64;
+        }
+
+        else if (v24 == 2)
+        {
+          v9 = TLV8GetUInt64();
+          if (v9 <= 0x3E8)
+          {
+            v8 = 1000;
+          }
+
+          else
+          {
+            v8 = v9;
+          }
+
+          goto LABEL_13;
+        }
+      }
+
+      if (v24 == 3)
+      {
+        break;
+      }
+
+      if (v24 == 4)
+      {
+        v5 = TLV8GetUInt64() == 1;
+LABEL_13:
+        v10 = v25;
+        if (v25)
+        {
+          goto LABEL_28;
+        }
+      }
     }
 
-    [(HMDTargetControllerManager *)self setMaximumTargets:16];
-    [(HMDTargetControllerManager *)self setTicksPerSecond:1000];
-    [(HMDTargetControllerManager *)self setButtonConfiguration:0];
-    controller = [(HMDTargetControllerManager *)self controller];
-    [controller saveHardwareSupport:0];
+    v20 = 0;
+    v12 = TLV8GetOrCopyCoalesced();
+    v25 = v12;
+    if (v12)
+    {
+      v10 = v12;
+      goto LABEL_28;
+    }
 
-    [(HMDTargetControllerManager *)self setConfigurationRefreshed:1];
-    v5 = 0;
+    v13 = [MEMORY[0x277CBEA90] dataWithBytes:? length:?];
+    v19 = 0;
+    v14 = _parseTargetButtonConfiguration(v13, &v19);
+    v15 = v19;
+
+    if (v20)
+    {
+      free(v20);
+      v20 = 0;
+    }
+
+    if (v15)
+    {
+      break;
+    }
+
+    v6 = v14;
   }
 
-  else
+  v25 = -6742;
+
+LABEL_25:
+  v10 = v25;
+  if (!v25)
   {
-    v5 = -6727;
+    [(HMDTargetControllerManager *)selfCopy setMaximumTargets:v7];
+    [(HMDTargetControllerManager *)selfCopy setTicksPerSecond:v8];
+    [(HMDTargetControllerManager *)selfCopy setButtonConfiguration:v14];
+    controller = [(HMDTargetControllerManager *)selfCopy controller];
+    [controller saveHardwareSupport:v5];
+
+    [(HMDTargetControllerManager *)selfCopy setConfigurationRefreshed:1];
+    v10 = v25;
   }
 
-  return v5;
+  v6 = v14;
+LABEL_28:
+
+LABEL_29:
+  return v10;
 }
 
 - (void)__accessoryRemoved:(id)removed
@@ -4120,7 +4141,7 @@ LABEL_41:
 
 void __49__HMDTargetControllerManager___accessoryRemoved___block_invoke(uint64_t a1)
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) userInfo];
   v3 = [v2 objectForKey:@"HMDAccessoryNotificationKey"];
 
@@ -4147,11 +4168,11 @@ void __49__HMDTargetControllerManager___accessoryRemoved___block_invoke(uint64_t
     v11 = [v5 uuid];
     v12 = [v11 UUIDString];
     *buf = 138543874;
-    v72 = v9;
-    v73 = 2112;
-    v74 = v10;
-    v75 = 2112;
-    v76 = v12;
+    v71 = v9;
+    v72 = 2112;
+    v73 = v10;
+    v74 = 2112;
+    v75 = v12;
     _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Received notification that an accessory %@/%@ has been removed from the home", buf, 0x20u);
   }
 
@@ -4170,7 +4191,7 @@ void __49__HMDTargetControllerManager___accessoryRemoved___block_invoke(uint64_t
     {
       v20 = HMFGetLogIdentifier();
       *buf = 138543362;
-      v72 = v20;
+      v71 = v20;
       _os_log_impl(&dword_2531F8000, v19, OS_LOG_TYPE_INFO, "%{public}@Received notification that controller has been removed from the home - invalidating...", buf, 0xCu);
     }
 
@@ -4183,32 +4204,32 @@ void __49__HMDTargetControllerManager___accessoryRemoved___block_invoke(uint64_t
     v21 = [v13 home];
     if (v21)
     {
-      v59 = v13;
+      v58 = v13;
       v22 = [v5 uuid];
-      v62 = v21;
+      v61 = v21;
       v23 = [v21 uuid];
       v24 = identifierForTargetWithUUID(v22, v23);
 
-      v67 = 0u;
-      v68 = 0u;
-      v65 = 0u;
       v66 = 0u;
+      v67 = 0u;
+      v64 = 0u;
+      v65 = 0u;
       obj = [*(a1 + 40) configuredTargets];
-      v25 = [obj countByEnumeratingWithState:&v65 objects:v70 count:16];
+      v25 = [obj countByEnumeratingWithState:&v64 objects:v69 count:16];
       if (v25)
       {
         v26 = v25;
-        v27 = *v66;
+        v27 = *v65;
         while (2)
         {
           for (i = 0; i != v26; ++i)
           {
-            if (*v66 != v27)
+            if (*v65 != v27)
             {
               objc_enumerationMutation(obj);
             }
 
-            v29 = *(*(&v65 + 1) + 8 * i);
+            v29 = *(*(&v64 + 1) + 8 * i);
             v30 = [v29 identifier];
             v31 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v24];
             v32 = [v30 isEqual:v31];
@@ -4225,18 +4246,18 @@ void __49__HMDTargetControllerManager___accessoryRemoved___block_invoke(uint64_t
                 v45 = [v5 uuid];
                 v46 = [v45 UUIDString];
                 *buf = 138543874;
-                v72 = v43;
-                v73 = 2112;
-                v74 = v44;
-                v75 = 2112;
-                v76 = v46;
+                v71 = v43;
+                v72 = 2112;
+                v73 = v44;
+                v74 = 2112;
+                v75 = v46;
                 _os_log_impl(&dword_2531F8000, v42, OS_LOG_TYPE_INFO, "%{public}@Received notification that target accessory %@/%@ has been removed", buf, 0x20u);
               }
 
               objc_autoreleasePoolPop(v40);
               v47 = *(a1 + 40);
-              v69 = v29;
-              v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v69 count:1];
+              v68 = v29;
+              v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v68 count:1];
               [v47 _removeTargets:v48];
 
               [*(a1 + 40) _saveTargetUUIDs];
@@ -4244,7 +4265,7 @@ void __49__HMDTargetControllerManager___accessoryRemoved___block_invoke(uint64_t
             }
           }
 
-          v26 = [obj countByEnumeratingWithState:&v65 objects:v70 count:16];
+          v26 = [obj countByEnumeratingWithState:&v64 objects:v69 count:16];
           if (v26)
           {
             continue;
@@ -4256,8 +4277,8 @@ void __49__HMDTargetControllerManager___accessoryRemoved___block_invoke(uint64_t
 
 LABEL_27:
 
-      v13 = v59;
-      v21 = v62;
+      v13 = v58;
+      v21 = v61;
     }
 
     else
@@ -4267,24 +4288,24 @@ LABEL_27:
       v51 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
       {
-        v60 = HMFGetLogIdentifier();
+        v59 = HMFGetLogIdentifier();
         v52 = [v5 name];
-        v61 = [v5 uuid];
-        v53 = [v61 UUIDString];
+        v60 = [v5 uuid];
+        v53 = [v60 UUIDString];
         [v13 name];
         v54 = obja = v49;
         v55 = [v13 uuid];
         v56 = [v55 UUIDString];
         *buf = 138544386;
-        v72 = v60;
-        v73 = 2112;
-        v74 = v52;
-        v75 = 2112;
-        v76 = v53;
-        v77 = 2112;
-        v78 = v54;
-        v79 = 2112;
-        v80 = v56;
+        v71 = v59;
+        v72 = 2112;
+        v73 = v52;
+        v74 = 2112;
+        v75 = v53;
+        v76 = 2112;
+        v77 = v54;
+        v78 = 2112;
+        v79 = v56;
         v57 = v56;
         _os_log_impl(&dword_2531F8000, v51, OS_LOG_TYPE_ERROR, "%{public}@Attempting to process accessory %@/%@ removal for a controller %@/%@ that is not configured with a home", buf, 0x34u);
 
@@ -4307,18 +4328,16 @@ LABEL_27:
       v38 = [v5 uuid];
       v39 = [v38 UUIDString];
       *buf = 138543874;
-      v72 = v36;
-      v73 = 2112;
-      v74 = v37;
-      v75 = 2112;
-      v76 = v39;
+      v71 = v36;
+      v72 = 2112;
+      v73 = v37;
+      v74 = 2112;
+      v75 = v39;
       _os_log_impl(&dword_2531F8000, v35, OS_LOG_TYPE_INFO, "%{public}@Removed accessory %@/%@ does not support target control - ignoring", buf, 0x20u);
     }
 
     objc_autoreleasePoolPop(v33);
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__accessoryNameUpdated:(id)updated
@@ -4337,7 +4356,7 @@ LABEL_27:
 
 void __53__HMDTargetControllerManager___accessoryNameUpdated___block_invoke(uint64_t a1)
 {
-  v77 = *MEMORY[0x277D85DE8];
+  v76 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) object];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -4362,11 +4381,11 @@ void __53__HMDTargetControllerManager___accessoryNameUpdated___block_invoke(uint
     v10 = [v4 uuid];
     v11 = [v10 UUIDString];
     *buf = 138543874;
-    v69 = v8;
-    v70 = 2112;
-    v71 = v9;
-    v72 = 2112;
-    v73 = v11;
+    v68 = v8;
+    v69 = 2112;
+    v70 = v9;
+    v71 = 2112;
+    v72 = v11;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Received notification that the name of an accessory %@/%@ has been updated", buf, 0x20u);
   }
 
@@ -4379,31 +4398,31 @@ void __53__HMDTargetControllerManager___accessoryNameUpdated___block_invoke(uint
     if (v13)
     {
       v14 = [v4 uuid];
-      v62 = v13;
+      v61 = v13;
       v15 = [v13 uuid];
       v16 = identifierForTargetWithUUID(v14, v15);
 
-      v66 = 0u;
-      v67 = 0u;
-      v64 = 0u;
       v65 = 0u;
+      v66 = 0u;
+      v63 = 0u;
+      v64 = 0u;
       v17 = [*(a1 + 40) configuredTargets];
-      v18 = [v17 countByEnumeratingWithState:&v64 objects:v76 count:16];
+      v18 = [v17 countByEnumeratingWithState:&v63 objects:v75 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v65;
-        v61 = a1;
+        v20 = *v64;
+        v60 = a1;
         while (2)
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v65 != v20)
+            if (*v64 != v20)
             {
               objc_enumerationMutation(v17);
             }
 
-            v22 = *(*(&v64 + 1) + 8 * i);
+            v22 = *(*(&v63 + 1) + 8 * i);
             v23 = [v22 identifier];
             v24 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v16];
             v25 = [v23 isEqual:v24];
@@ -4411,8 +4430,8 @@ void __53__HMDTargetControllerManager___accessoryNameUpdated___block_invoke(uint
             if (v25)
             {
               v26 = objc_autoreleasePoolPush();
-              v27 = v61;
-              v28 = *(v61 + 40);
+              v27 = v60;
+              v28 = *(v60 + 40);
               v29 = HMFGetOSLogHandle();
               if (os_log_type_enabled(v29, OS_LOG_TYPE_INFO))
               {
@@ -4422,15 +4441,15 @@ void __53__HMDTargetControllerManager___accessoryNameUpdated___block_invoke(uint
                 [v4 name];
                 v34 = v33 = v26;
                 *buf = 138543874;
-                v69 = v30;
-                v70 = 2112;
-                v71 = v32;
-                v72 = 2112;
-                v73 = v34;
+                v68 = v30;
+                v69 = 2112;
+                v70 = v32;
+                v71 = 2112;
+                v72 = v34;
                 _os_log_impl(&dword_2531F8000, v29, OS_LOG_TYPE_INFO, "%{public}@Received notification that the name of target accessory %@ has been updated to %@", buf, 0x20u);
 
                 v26 = v33;
-                v27 = v61;
+                v27 = v60;
               }
 
               objc_autoreleasePoolPop(v26);
@@ -4445,24 +4464,24 @@ void __53__HMDTargetControllerManager___accessoryNameUpdated___block_invoke(uint
                 v40 = HMFGetOSLogHandle();
                 if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
                 {
-                  v58 = HMFGetLogIdentifier();
+                  v57 = HMFGetLogIdentifier();
                   v41 = [v22 name];
-                  v59 = [v4 uuid];
-                  v60 = v38;
-                  v42 = [v59 UUIDString];
+                  v58 = [v4 uuid];
+                  v59 = v38;
+                  v42 = [v58 UUIDString];
                   v43 = [v4 name];
                   *buf = 138544130;
-                  v69 = v58;
-                  v70 = 2112;
-                  v71 = v41;
-                  v72 = 2112;
-                  v73 = v42;
+                  v68 = v57;
+                  v69 = 2112;
+                  v70 = v41;
+                  v71 = 2112;
+                  v72 = v42;
                   v44 = v42;
-                  v74 = 2112;
-                  v75 = v43;
+                  v73 = 2112;
+                  v74 = v43;
                   _os_log_impl(&dword_2531F8000, v40, OS_LOG_TYPE_INFO, "%{public}@Updating the name of target accessory %@/%@ to %@", buf, 0x2Au);
 
-                  v38 = v60;
+                  v38 = v59;
                 }
 
                 objc_autoreleasePoolPop(v38);
@@ -4478,7 +4497,7 @@ void __53__HMDTargetControllerManager___accessoryNameUpdated___block_invoke(uint
             }
           }
 
-          v19 = [v17 countByEnumeratingWithState:&v64 objects:v76 count:16];
+          v19 = [v17 countByEnumeratingWithState:&v63 objects:v75 count:16];
           if (v19)
           {
             continue;
@@ -4490,7 +4509,7 @@ void __53__HMDTargetControllerManager___accessoryNameUpdated___block_invoke(uint
 
 LABEL_23:
 
-      v13 = v62;
+      v13 = v61;
     }
 
     else
@@ -4506,23 +4525,21 @@ LABEL_23:
         v54 = [*(a1 + 40) controller];
         v55 = [v54 uuid];
         [v55 UUIDString];
-        v56 = v63 = v48;
+        v56 = v62 = v48;
         *buf = 138543874;
-        v69 = v51;
-        v70 = 2112;
-        v71 = v53;
-        v72 = 2112;
-        v73 = v56;
+        v68 = v51;
+        v69 = 2112;
+        v70 = v53;
+        v71 = 2112;
+        v72 = v56;
         _os_log_impl(&dword_2531F8000, v50, OS_LOG_TYPE_ERROR, "%{public}@Attempting to process accessory name update with a controller %@/%@ that is not configured with a home", buf, 0x20u);
 
-        v48 = v63;
+        v48 = v62;
       }
 
       objc_autoreleasePoolPop(v48);
     }
   }
-
-  v57 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__accessoryConnected:(id)connected
@@ -4541,7 +4558,7 @@ LABEL_23:
 
 void __51__HMDTargetControllerManager___accessoryConnected___block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) object];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -4566,11 +4583,11 @@ void __51__HMDTargetControllerManager___accessoryConnected___block_invoke(uint64
     v10 = [v4 uuid];
     v11 = [v10 UUIDString];
     *buf = 138543874;
-    v28 = v8;
-    v29 = 2112;
-    v30 = v9;
-    v31 = 2112;
-    v32 = v11;
+    v27 = v8;
+    v28 = 2112;
+    v29 = v9;
+    v30 = 2112;
+    v31 = v11;
     _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Connected to accessory %@/%@", buf, 0x20u);
   }
 
@@ -4605,30 +4622,28 @@ void __51__HMDTargetControllerManager___accessoryConnected___block_invoke(uint64
       {
         v22 = HMFGetLogIdentifier();
         *buf = 138543362;
-        v28 = v22;
+        v27 = v22;
         _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Connected to controller - refreshing the supported target configuration and auditing the list of targets", buf, 0xCu);
       }
 
       objc_autoreleasePoolPop(v19);
       objc_initWeak(buf, *(a1 + 40));
       v23 = *(a1 + 40);
-      v25[0] = MEMORY[0x277D85DD0];
-      v25[1] = 3221225472;
-      v25[2] = __51__HMDTargetControllerManager___accessoryConnected___block_invoke_59;
-      v25[3] = &unk_279734708;
-      objc_copyWeak(&v26, buf);
-      [v23 _refreshConfigurationWithCompletion:v25];
-      objc_destroyWeak(&v26);
+      v24[0] = MEMORY[0x277D85DD0];
+      v24[1] = 3221225472;
+      v24[2] = __51__HMDTargetControllerManager___accessoryConnected___block_invoke_59;
+      v24[3] = &unk_279734708;
+      objc_copyWeak(&v25, buf);
+      [v23 _refreshConfigurationWithCompletion:v24];
+      objc_destroyWeak(&v25);
       objc_destroyWeak(buf);
     }
   }
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 void __51__HMDTargetControllerManager___accessoryConnected___block_invoke_59(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = WeakRetained;
@@ -4640,17 +4655,15 @@ void __51__HMDTargetControllerManager___accessoryConnected___block_invoke_59(uin
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       v9 = HMFGetLogIdentifier();
-      v11 = 138543618;
-      v12 = v9;
-      v13 = 2112;
-      v14 = v3;
-      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Failed to refresh the supported target configuration - error %@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v9;
+      v12 = 2112;
+      v13 = v3;
+      _os_log_impl(&dword_2531F8000, v8, OS_LOG_TYPE_INFO, "%{public}@Failed to refresh the supported target configuration - error %@", &v10, 0x16u);
     }
 
     objc_autoreleasePoolPop(v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)__accessoryDisconnected:(id)disconnected
@@ -4669,7 +4682,7 @@ void __51__HMDTargetControllerManager___accessoryConnected___block_invoke_59(uin
 
 void __54__HMDTargetControllerManager___accessoryDisconnected___block_invoke(uint64_t a1)
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) object];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -4693,13 +4706,13 @@ void __54__HMDTargetControllerManager___accessoryDisconnected___block_invoke(uin
     v9 = [v4 name];
     v10 = [v4 uuid];
     v11 = [v10 UUIDString];
-    v24 = 138543874;
-    v25 = v8;
-    v26 = 2112;
-    v27 = v9;
-    v28 = 2112;
-    v29 = v11;
-    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Disconnected from accessory %@/%@", &v24, 0x20u);
+    v23 = 138543874;
+    v24 = v8;
+    v25 = 2112;
+    v26 = v9;
+    v27 = 2112;
+    v28 = v11;
+    _os_log_impl(&dword_2531F8000, v7, OS_LOG_TYPE_INFO, "%{public}@Disconnected from accessory %@/%@", &v23, 0x20u);
   }
 
   objc_autoreleasePoolPop(v5);
@@ -4732,17 +4745,15 @@ void __54__HMDTargetControllerManager___accessoryDisconnected___block_invoke(uin
       if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
         v22 = HMFGetLogIdentifier();
-        v24 = 138543362;
-        v25 = v22;
-        _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Disconnected from controller - marking configuation as stale", &v24, 0xCu);
+        v23 = 138543362;
+        v24 = v22;
+        _os_log_impl(&dword_2531F8000, v21, OS_LOG_TYPE_INFO, "%{public}@Disconnected from controller - marking configuation as stale", &v23, 0xCu);
       }
 
       objc_autoreleasePoolPop(v19);
       [*(a1 + 40) setConfigurationRefreshed:0];
     }
   }
-
-  v23 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setButtonConfiguration:(id)configuration
@@ -4782,31 +4793,31 @@ void __54__HMDTargetControllerManager___accessoryDisconnected___block_invoke(uin
 
 - (NSArray)targetUUIDs
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   configuredTargets = [(HMDTargetControllerManager *)self configuredTargets];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(configuredTargets, "count")}];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
   obj = configuredTargets;
-  v4 = [obj countByEnumeratingWithState:&v25 objects:v35 count:16];
+  v4 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
   if (v4)
   {
     v6 = v4;
-    v7 = *v26;
+    v7 = *v25;
     *&v5 = 138543874;
-    v22 = v5;
+    v21 = v5;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v26 != v7)
+        if (*v25 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v25 + 1) + 8 * i);
+        v9 = *(*(&v24 + 1) + 8 * i);
         uuid = [v9 uuid];
 
         if (uuid)
@@ -4826,12 +4837,12 @@ void __54__HMDTargetControllerManager___accessoryDisconnected___block_invoke(uin
             v16 = HMFGetLogIdentifier();
             name = [v9 name];
             identifier = [v9 identifier];
-            *buf = v22;
-            v30 = v16;
-            v31 = 2112;
-            v32 = name;
-            v33 = 2112;
-            v34 = identifier;
+            *buf = v21;
+            v29 = v16;
+            v30 = 2112;
+            v31 = name;
+            v32 = 2112;
+            v33 = identifier;
             _os_log_impl(&dword_2531F8000, v15, OS_LOG_TYPE_INFO, "%{public}@Target %@/%@ does not have a UUID", buf, 0x20u);
           }
 
@@ -4839,14 +4850,13 @@ void __54__HMDTargetControllerManager___accessoryDisconnected___block_invoke(uin
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v25 objects:v35 count:16];
+      v6 = [obj countByEnumeratingWithState:&v24 objects:v34 count:16];
     }
 
     while (v6);
   }
 
-  v19 = [v3 copy];
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = objc_msgSend_copy(v3);
 
   return v19;
 }
@@ -4878,7 +4888,7 @@ void __54__HMDTargetControllerManager___accessoryDisconnected___block_invoke(uin
 - (NSMutableSet)configuredTargets
 {
   os_unfair_lock_lock_with_options();
-  v3 = [(NSMutableSet *)self->_configuredTargets copy];
+  v3 = objc_msgSend_copy(self->_configuredTargets);
   os_unfair_lock_unlock(&self->_lock);
 
   return v3;
@@ -4886,33 +4896,31 @@ void __54__HMDTargetControllerManager___accessoryDisconnected___block_invoke(uin
 
 - (void)invalidate
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v3 = objc_autoreleasePoolPush();
   selfCopy = self;
   v5 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     v6 = HMFGetLogIdentifier();
-    v9 = 138543362;
-    v10 = v6;
-    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Invalidating target controller manager", &v9, 0xCu);
+    v8 = 138543362;
+    v9 = v6;
+    _os_log_impl(&dword_2531F8000, v5, OS_LOG_TYPE_INFO, "%{public}@Invalidating target controller manager", &v8, 0xCu);
   }
 
   objc_autoreleasePoolPop(v3);
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter removeObserver:selfCopy];
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDTargetControllerManager)initWithTargetControllerAccessory:(id)accessory targets:(id)targets
 {
-  v90 = *MEMORY[0x277D85DE8];
+  v89 = *MEMORY[0x277D85DE8];
   accessoryCopy = accessory;
   targetsCopy = targets;
-  v78.receiver = self;
-  v78.super_class = HMDTargetControllerManager;
-  v8 = [(HMDTargetControllerManager *)&v78 init];
+  v77.receiver = self;
+  v77.super_class = HMDTargetControllerManager;
+  v8 = [(HMDTargetControllerManager *)&v77 init];
   if (!v8)
   {
     goto LABEL_25;
@@ -4921,58 +4929,58 @@ void __54__HMDTargetControllerManager___accessoryDisconnected___block_invoke(uin
   v9 = HMDispatchQueueNameString();
   uTF8String = [v9 UTF8String];
   dispatch_queue_attr_make_with_autorelease_frequency(0, DISPATCH_AUTORELEASE_FREQUENCY_WORK_ITEM);
-  v11 = v69 = v8;
+  v11 = v68 = v8;
   v12 = dispatch_queue_create(uTF8String, v11);
-  workQueue = v69->_workQueue;
-  v69->_workQueue = v12;
+  workQueue = v68->_workQueue;
+  v68->_workQueue = v12;
 
-  p_isa = &v69->super.super.isa;
-  objc_storeWeak(&v69->_controller, accessoryCopy);
-  v69->_configurationRefreshed = 0;
-  v69->_maximumTargets = 16;
-  v69->_ticksPerSecond = 1000;
-  buttonConfiguration = v69->_buttonConfiguration;
-  v69->_buttonConfiguration = MEMORY[0x277CBEBF8];
+  p_isa = &v68->super.super.isa;
+  objc_storeWeak(&v68->_controller, accessoryCopy);
+  v68->_configurationRefreshed = 0;
+  v68->_maximumTargets = 16;
+  v68->_ticksPerSecond = 1000;
+  buttonConfiguration = v68->_buttonConfiguration;
+  v68->_buttonConfiguration = MEMORY[0x277CBEBF8];
 
   v16 = [MEMORY[0x277CBEB58] set];
-  configuredTargets = v69->_configuredTargets;
-  v69->_configuredTargets = v16;
+  configuredTargets = v68->_configuredTargets;
+  v68->_configuredTargets = v16;
 
   v18 = 0x277CCA000;
-  v68 = accessoryCopy;
+  v67 = accessoryCopy;
   if (![targetsCopy count])
   {
     goto LABEL_22;
   }
 
   v19 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(targetsCopy, "count")}];
+  v73 = 0u;
   v74 = 0u;
   v75 = 0u;
   v76 = 0u;
-  v77 = 0u;
-  v64 = targetsCopy;
+  v63 = targetsCopy;
   v20 = targetsCopy;
   v21 = v19;
   obj = v20;
-  v73 = [v20 countByEnumeratingWithState:&v74 objects:v89 count:16];
-  if (!v73)
+  v72 = [v20 countByEnumeratingWithState:&v73 objects:v88 count:16];
+  if (!v72)
   {
     goto LABEL_21;
   }
 
-  v72 = *v75;
-  v70 = v19;
+  v71 = *v74;
+  v69 = v19;
   do
   {
     v22 = 0;
     do
     {
-      if (*v75 != v72)
+      if (*v74 != v71)
       {
         objc_enumerationMutation(obj);
       }
 
-      v23 = *(*(&v74 + 1) + 8 * v22);
+      v23 = *(*(&v73 + 1) + 8 * v22);
       v24 = [objc_alloc(MEMORY[0x277CCAD78]) initWithUUIDString:v23];
       home = [accessoryCopy home];
       [v21 addObject:v24];
@@ -4998,14 +5006,14 @@ LABEL_14:
         {
           v33 = HMFGetLogIdentifier();
           *buf = 138543874;
-          v82 = v33;
-          v83 = 2112;
-          v84 = v23;
-          v85 = 2048;
-          v86 = v29;
+          v81 = v33;
+          v82 = 2112;
+          v83 = v23;
+          v84 = 2048;
+          v85 = v29;
           _os_log_impl(&dword_2531F8000, v32, OS_LOG_TYPE_INFO, "%{public}@Unable to look up the target with UUID %@ - adding with identifier %lu", buf, 0x20u);
 
-          accessoryCopy = v68;
+          accessoryCopy = v67;
         }
 
         objc_autoreleasePoolPop(v30);
@@ -5013,8 +5021,8 @@ LABEL_14:
         v35 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:v29];
         v27 = [(HMDTargetConfiguration *)v34 initWithIdentifier:v35 name:0 category:0 buttonConfiguration:0];
 
-        p_isa = &v69->super.super.isa;
-        v21 = v70;
+        p_isa = &v68->super.super.isa;
+        v21 = v69;
         goto LABEL_14;
       }
 
@@ -5023,76 +5031,76 @@ LABEL_14:
       v38 = HMFGetOSLogHandle();
       if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
       {
-        v66 = HMFGetLogIdentifier();
+        v65 = HMFGetLogIdentifier();
         uUIDString = [v24 UUIDString];
         v40 = accessoryCopy;
         v41 = uUIDString;
         name = [v40 name];
-        uuid2 = [v68 uuid];
+        uuid2 = [v67 uuid];
         [uuid2 UUIDString];
-        v43 = v67 = v36;
+        v43 = v66 = v36;
         *buf = 138544130;
-        v82 = v66;
-        v83 = 2112;
-        v84 = v41;
-        v85 = 2112;
-        v86 = name;
-        v87 = 2112;
-        v88 = v43;
+        v81 = v65;
+        v82 = 2112;
+        v83 = v41;
+        v84 = 2112;
+        v85 = name;
+        v86 = 2112;
+        v87 = v43;
         _os_log_impl(&dword_2531F8000, v38, OS_LOG_TYPE_ERROR, "%{public}@Attempting to initialize target with UUID %@ for a controller %@/%@ that is not configured with a home", buf, 0x2Au);
 
-        v36 = v67;
-        accessoryCopy = v68;
-        p_isa = &v69->super.super.isa;
+        v36 = v66;
+        accessoryCopy = v67;
+        p_isa = &v68->super.super.isa;
       }
 
       objc_autoreleasePoolPop(v36);
-      v21 = v70;
+      v21 = v69;
 LABEL_15:
 
       ++v22;
     }
 
-    while (v73 != v22);
-    v44 = [obj countByEnumeratingWithState:&v74 objects:v89 count:16];
-    v73 = v44;
+    while (v72 != v22);
+    v44 = [obj countByEnumeratingWithState:&v73 objects:v88 count:16];
+    v72 = v44;
   }
 
   while (v44);
 LABEL_21:
 
-  v79 = @"HMDTargetAccessoriesUUIDKey";
-  v80 = v21;
-  v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v80 forKeys:&v79 count:1];
+  v78 = @"HMDTargetAccessoriesUUIDKey";
+  v79 = v21;
+  v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v79 forKeys:&v78 count:1];
   v18 = 0x277CCA000uLL;
   defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
   [defaultCenter postNotificationName:@"HMDTargetAccessoryConfiguredNotificationKey" object:accessoryCopy userInfo:v45];
 
-  targetsCopy = v64;
+  targetsCopy = v63;
 LABEL_22:
   v47 = MEMORY[0x277CCACA8];
   name2 = [accessoryCopy name];
   uuid3 = [accessoryCopy uuid];
   uUIDString2 = [uuid3 UUIDString];
   v51 = [v47 stringWithFormat:@"%@/%@", name2, uUIDString2];
-  logID = v69->_logID;
-  v69->_logID = v51;
+  logID = v68->_logID;
+  v68->_logID = v51;
 
-  v8 = v69;
+  v8 = v68;
   v53 = objc_autoreleasePoolPush();
-  v54 = v69;
+  v54 = v68;
   v55 = HMFGetOSLogHandle();
   if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
   {
     v56 = HMFGetLogIdentifier();
-    v57 = v69->_configuredTargets;
+    v57 = v68->_configuredTargets;
     *buf = 138543618;
-    v82 = v56;
-    v83 = 2112;
-    v84 = v57;
+    v81 = v56;
+    v82 = 2112;
+    v83 = v57;
     _os_log_impl(&dword_2531F8000, v55, OS_LOG_TYPE_INFO, "%{public}@Initializing target controller manager with targets %@", buf, 0x16u);
 
-    v8 = v69;
+    v8 = v68;
   }
 
   objc_autoreleasePoolPop(v53);
@@ -5108,10 +5116,9 @@ LABEL_22:
   defaultCenter5 = [*(v18 + 2968) defaultCenter];
   [defaultCenter5 addObserver:v54 selector:sel___accessoryRemoved_ name:@"HMDHomeAccessoryRemovedNotification" object:0];
 
-  accessoryCopy = v68;
+  accessoryCopy = v67;
 LABEL_25:
 
-  v62 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -5142,12 +5149,11 @@ LABEL_25:
 
 uint64_t __41__HMDTargetControllerManager_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v7_54058;
-  logCategory__hmf_once_v7_54058 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v7_54058;
+  logCategory__hmf_once_v7_54058 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

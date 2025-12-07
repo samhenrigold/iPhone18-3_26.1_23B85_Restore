@@ -1,247 +1,6 @@
-uint64_t llvm::MDNodeKeyImpl<llvm::GenericDINode>::MDNodeKeyImpl(uint64_t result, uint64_t a2)
-{
-  *result = 0;
-  *(result + 8) = 0;
-  v2 = a2 - 16;
-  v3 = *(a2 - 16);
-  if ((v3 & 2) != 0)
-  {
-    v4 = *(a2 - 32);
-    v5 = *(a2 - 24);
-  }
-
-  else
-  {
-    v4 = v2 - 8 * ((v3 >> 2) & 0xF);
-    v5 = (v3 >> 6) & 0xF;
-  }
-
-  *(result + 16) = v4 + 8;
-  *(result + 24) = (8 * v5 - 8) >> 3;
-  v6 = *(a2 + 2);
-  *(result + 32) = *(a2 + 4);
-  *(result + 36) = v6;
-  v7 = *(a2 - 16);
-  if ((v7 & 2) != 0)
-  {
-    v8 = *(a2 - 32);
-  }
-
-  else
-  {
-    v8 = (v2 - 8 * ((v7 >> 2) & 0xF));
-  }
-
-  *(result + 40) = *v8;
-  return result;
-}
-
-void *llvm::DenseMapBase<llvm::DenseMap<llvm::GenericDINode *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::GenericDINode>,llvm::detail::DenseSetPair<llvm::GenericDINode *>>,llvm::GenericDINode *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::GenericDINode>,llvm::detail::DenseSetPair<llvm::GenericDINode *>>::InsertIntoBucketImpl<llvm::GenericDINode *>(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
-{
-  v6 = *(a1 + 8);
-  v7 = *(a1 + 16);
-  if (4 * v6 + 4 >= 3 * v7)
-  {
-    v7 *= 2;
-  }
-
-  else if (v7 + ~v6 - *(a1 + 12) > v7 >> 3)
-  {
-    goto LABEL_3;
-  }
-
-  llvm::DenseMap<llvm::GenericDINode *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::GenericDINode>,llvm::detail::DenseSetPair<llvm::GenericDINode *>>::grow(a1, v7);
-  v9 = 0;
-  llvm::DenseMapBase<llvm::DenseMap<llvm::GenericDINode *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::GenericDINode>,llvm::detail::DenseSetPair<llvm::GenericDINode *>>,llvm::GenericDINode *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::GenericDINode>,llvm::detail::DenseSetPair<llvm::GenericDINode *>>::LookupBucketFor<llvm::GenericDINode *>(a1, a3, &v9);
-  a4 = v9;
-LABEL_3:
-  ++*(a1 + 8);
-  if (*a4 != -4096)
-  {
-    --*(a1 + 12);
-  }
-
-  return a4;
-}
-
-char *llvm::DenseMap<llvm::GenericDINode *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::GenericDINode>,llvm::detail::DenseSetPair<llvm::GenericDINode *>>::grow(uint64_t a1, int a2)
-{
-  v3 = *(a1 + 16);
-  v4 = *a1;
-  v5 = (a2 - 1) | ((a2 - 1) >> 1);
-  v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
-  v7 = ((v6 | (v6 >> 8)) >> 16) | v6 | (v6 >> 8);
-  if ((v7 + 1) > 0x40)
-  {
-    v8 = v7 + 1;
-  }
-
-  else
-  {
-    v8 = 64;
-  }
-
-  *(a1 + 16) = v8;
-  result = operator new(8 * v8, 8uLL);
-  *a1 = result;
-  if (v4)
-  {
-    llvm::DenseMapBase<llvm::DenseMap<llvm::GenericDINode *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::GenericDINode>,llvm::detail::DenseSetPair<llvm::GenericDINode *>>,llvm::GenericDINode *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::GenericDINode>,llvm::detail::DenseSetPair<llvm::GenericDINode *>>::moveFromOldBuckets(a1, v4, &v4[v3]);
-
-    JUMPOUT(0x277C69E30);
-  }
-
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
-  if (v10)
-  {
-    v11 = 0;
-    v12 = v10 + 0x1FFFFFFFFFFFFFFFLL;
-    v13 = v12 & 0x1FFFFFFFFFFFFFFFLL;
-    v14 = (v12 & 0x1FFFFFFFFFFFFFFFLL) - (v12 & 1) + 2;
-    v15 = vdupq_n_s64(v13);
-    v16 = result + 8;
-    do
-    {
-      v17 = vmovn_s64(vcgeq_u64(v15, vorrq_s8(vdupq_n_s64(v11), xmmword_2750C1210)));
-      if (v17.i8[0])
-      {
-        *(v16 - 1) = -4096;
-      }
-
-      if (v17.i8[4])
-      {
-        *v16 = -4096;
-      }
-
-      v11 += 2;
-      v16 += 2;
-    }
-
-    while (v14 != v11);
-  }
-
-  return result;
-}
-
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::GenericDINode *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::GenericDINode>,llvm::detail::DenseSetPair<llvm::GenericDINode *>>,llvm::GenericDINode *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::GenericDINode>,llvm::detail::DenseSetPair<llvm::GenericDINode *>>::moveFromOldBuckets(uint64_t result, uint64_t *a2, uint64_t *a3)
-{
-  v5 = result;
-  *(result + 8) = 0;
-  v6 = *(result + 16);
-  if (v6)
-  {
-    v7 = 0;
-    v8 = v6 + 0x1FFFFFFFFFFFFFFFLL;
-    v9 = v8 & 0x1FFFFFFFFFFFFFFFLL;
-    v10 = (v8 & 0x1FFFFFFFFFFFFFFFLL) - (v8 & 1) + 2;
-    v11 = vdupq_n_s64(v9);
-    v12 = (*result + 8);
-    do
-    {
-      v13 = vmovn_s64(vcgeq_u64(v11, vorrq_s8(vdupq_n_s64(v7), xmmword_2750C1210)));
-      if (v13.i8[0])
-      {
-        *(v12 - 1) = -4096;
-      }
-
-      if (v13.i8[4])
-      {
-        *v12 = -4096;
-      }
-
-      v7 += 2;
-      v12 += 2;
-    }
-
-    while (v10 != v7);
-  }
-
-  while (a2 != a3)
-  {
-    if ((*a2 | 0x1000) != 0xFFFFFFFFFFFFF000)
-    {
-      v14 = 0;
-      result = llvm::DenseMapBase<llvm::DenseMap<llvm::GenericDINode *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::GenericDINode>,llvm::detail::DenseSetPair<llvm::GenericDINode *>>,llvm::GenericDINode *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::GenericDINode>,llvm::detail::DenseSetPair<llvm::GenericDINode *>>::LookupBucketFor<llvm::GenericDINode *>(v5, a2, &v14);
-      *v14 = *a2;
-      ++*(v5 + 8);
-    }
-
-    ++a2;
-  }
-
-  return result;
-}
-
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DISubrange *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DISubrange>,llvm::detail::DenseSetPair<llvm::DISubrange *>>,llvm::DISubrange *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DISubrange>,llvm::detail::DenseSetPair<llvm::DISubrange *>>::LookupBucketFor<llvm::MDNodeKeyImpl<llvm::DISubrange>>(uint64_t *a1, uint64_t *a2, uint64_t **a3)
-{
-  v4 = *(a1 + 4);
-  if (v4)
-  {
-    v6 = *a1;
-    HashValue = llvm::MDNodeKeyImpl<llvm::DISubrange>::getHashValue(a2);
-    v8 = 0;
-    v9 = v4 - 1;
-    for (i = 1; ; ++i)
-    {
-      v11 = HashValue & v9;
-      v12 = (v6 + 8 * (HashValue & v9));
-      v13 = *v12;
-      if ((*v12 | 0x1000) != 0xFFFFFFFFFFFFF000)
-      {
-        if (llvm::MDNodeKeyImpl<llvm::DISubrange>::isKeyOf(a2, v13))
-        {
-          result = 1;
-          goto LABEL_18;
-        }
-
-        v13 = *v12;
-      }
-
-      if (v13 == -4096)
-      {
-        break;
-      }
-
-      if (v8)
-      {
-        v14 = 0;
-      }
-
-      else
-      {
-        v14 = v13 == -8192;
-      }
-
-      if (v14)
-      {
-        v8 = (v6 + 8 * v11);
-      }
-
-      HashValue = v11 + i;
-    }
-
-    result = 0;
-    if (v8)
-    {
-      v12 = v8;
-    }
-  }
-
-  else
-  {
-    v12 = 0;
-    result = 0;
-  }
-
-LABEL_18:
-  *a3 = v12;
-  return result;
-}
-
 unint64_t llvm::MDNodeKeyImpl<llvm::DISubrange>::getHashValue(uint64_t *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   v2 = *a1;
   if (*a1 && *v2 == 1)
   {
@@ -257,19 +16,16 @@ unint64_t llvm::MDNodeKeyImpl<llvm::DISubrange>::getHashValue(uint64_t *a1)
       v5 = (*(v3 + 24) << -v4) >> -v4;
     }
 
-    v8 = v5;
-    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v9);
-    result = llvm::hashing::detail::hash_combine_recursive_helper::combine<long long,llvm::Metadata *,llvm::Metadata *,llvm::Metadata *>(v9, 0, v9, v10, &v8, a1 + 1, a1 + 2, a1 + 3);
+    v7 = v5;
+    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v8);
+    return llvm::hashing::detail::hash_combine_recursive_helper::combine<long long,llvm::Metadata *,llvm::Metadata *,llvm::Metadata *>(v8, 0, v8, v9, &v7, a1 + 1, a1 + 2, a1 + 3);
   }
 
   else
   {
-    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v9);
-    result = llvm::hashing::detail::hash_combine_recursive_helper::combine<long long,llvm::Metadata *,llvm::Metadata *,llvm::Metadata *>(v9, 0, v9, v10, a1, a1 + 1, a1 + 2, a1 + 3);
+    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v8);
+    return llvm::hashing::detail::hash_combine_recursive_helper::combine<long long,llvm::Metadata *,llvm::Metadata *,llvm::Metadata *>(v8, 0, v8, v9, a1, a1 + 1, a1 + 2, a1 + 3);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 unint64_t llvm::hashing::detail::hash_combine_recursive_helper::combine<long long,llvm::Metadata *,llvm::Metadata *,llvm::Metadata *>(llvm::hashing::detail::hash_combine_recursive_helper *a1, unint64_t a2, void *a3, char *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8)
@@ -752,9 +508,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DISubrange *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DISubrange>,llvm::detail::DenseSetPair<llvm::DISubrange *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DISubrange *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DISubrange>,llvm::detail::DenseSetPair<llvm::DISubrange *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -769,7 +525,7 @@ char *llvm::DenseMap<llvm::DISubrange *,llvm::detail::DenseSetEmpty,llvm::MDNode
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -779,8 +535,8 @@ char *llvm::DenseMap<llvm::DISubrange *,llvm::detail::DenseSetEmpty,llvm::MDNode
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -803,7 +559,7 @@ char *llvm::DenseMap<llvm::DISubrange *,llvm::detail::DenseSetEmpty,llvm::MDNode
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -943,17 +699,17 @@ BOOL llvm::MDNodeKeyImpl<llvm::DIGenericSubrange>::isKeyOf(void *a1, uint64_t a2
   return *a1 == *v3 && a1[1] == v3[1] && a1[2] == v3[2] && a1[3] == v3[3];
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIEnumerator *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIEnumerator>,llvm::detail::DenseSetPair<llvm::DIEnumerator *>>,llvm::DIEnumerator *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIEnumerator>,llvm::detail::DenseSetPair<llvm::DIEnumerator *>>::LookupBucketFor<llvm::MDNodeKeyImpl<llvm::DIEnumerator>>(uint64_t *a1, uint64_t a2, uint64_t **a3)
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIEnumerator *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIEnumerator>,llvm::detail::DenseSetPair<llvm::DIEnumerator *>>,llvm::DIEnumerator *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIEnumerator>,llvm::detail::DenseSetPair<llvm::DIEnumerator *>>::LookupBucketFor<llvm::MDNodeKeyImpl<llvm::DIEnumerator>>(uint64_t *a1, llvm *a2, uint64_t **a3)
 {
-  v18[8] = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 4);
   if (v4)
   {
     v6 = *a1;
-    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v17);
+    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v16);
     v7 = 0;
     v8 = v4 - 1;
-    v9 = v8 & llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::APInt,llvm::MDString *>(v17, 0, v17, v18, a2, (a2 + 16));
+    v9 = v8 & llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::APInt,llvm::MDString *>(v16, 0, v16, v17, a2, a2 + 2);
     for (i = 1; ; ++i)
     {
       v11 = (v6 + 8 * v9);
@@ -1008,11 +764,10 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIEnumerator *,llvm::detail::De
 
 LABEL_18:
   *a3 = v11;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
-unint64_t llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::APInt,llvm::MDString *>(llvm::hashing::detail::hash_combine_recursive_helper *a1, const llvm::APInt *a2, void *a3, unint64_t *a4, llvm::hashing::detail::hash_state **this, uint64_t *a6)
+unint64_t llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::APInt,llvm::MDString *>(llvm::hashing::detail::hash_combine_recursive_helper *a1, const llvm::APInt *a2, void *a3, char *a4, llvm::hashing::detail::hash_state **this, uint64_t *a6)
 {
   v14 = a2;
   v10 = llvm::hash_value(this, a2, a3, a4);
@@ -1156,29 +911,28 @@ LABEL_5:
 
 unint64_t llvm::MDNodeInfo<llvm::DIEnumerator>::getHashValue(uint64_t a1)
 {
-  v8[8] = *MEMORY[0x277D85DE8];
-  llvm::MDNodeKeyImpl<llvm::DIEnumerator>::MDNodeKeyImpl(&v4, a1);
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v7);
-  v1 = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::APInt,llvm::MDString *>(v7, 0, v7, v8, &v4, &v6);
-  if (v5 >= 0x41 && v4)
+  v8 = *MEMORY[0x277D85DE8];
+  llvm::MDNodeKeyImpl<llvm::DIEnumerator>::MDNodeKeyImpl(&v3, a1);
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v6);
+  v1 = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::APInt,llvm::MDString *>(v6, 0, v6, v7, &v3, &v5);
+  if (v4 >= 0x41 && v3)
   {
-    MEMORY[0x277C69E10](v4, 0x1000C8000313F17);
+    MEMORY[0x277C69E10](v3, 0x1000C8000313F17);
   }
 
-  v2 = *MEMORY[0x277D85DE8];
   return v1;
 }
 
-uint64_t llvm::MDNodeKeyImpl<llvm::DIEnumerator>::MDNodeKeyImpl(uint64_t result, uint64_t a2)
+uint64_t llvm::MDNodeKeyImpl<llvm::DIEnumerator>::MDNodeKeyImpl(uint64_t a1, uint64_t a2)
 {
   v2 = *(a2 + 24);
-  *(result + 8) = v2;
+  *(a1 + 8) = v2;
   if (v2 > 0x40)
   {
     operator new[]();
   }
 
-  *result = *(a2 + 16);
+  *a1 = *(a2 + 16);
   v3 = *(a2 - 16);
   if ((v3 & 2) != 0)
   {
@@ -1190,9 +944,9 @@ uint64_t llvm::MDNodeKeyImpl<llvm::DIEnumerator>::MDNodeKeyImpl(uint64_t result,
     v4 = (a2 - 16 - 8 * ((v3 >> 2) & 0xF));
   }
 
-  *(result + 16) = *v4;
-  *(result + 24) = *(a2 + 4) != 0;
-  return result;
+  *(a1 + 16) = *v4;
+  *(a1 + 24) = *(a2 + 4) != 0;
+  return a1;
 }
 
 void *llvm::DenseMapBase<llvm::DenseMap<llvm::DIEnumerator *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIEnumerator>,llvm::detail::DenseSetPair<llvm::DIEnumerator *>>,llvm::DIEnumerator *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIEnumerator>,llvm::detail::DenseSetPair<llvm::DIEnumerator *>>::InsertIntoBucketImpl<llvm::DIEnumerator *>(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
@@ -1223,9 +977,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DIEnumerator *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIEnumerator>,llvm::detail::DenseSetPair<llvm::DIEnumerator *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DIEnumerator *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIEnumerator>,llvm::detail::DenseSetPair<llvm::DIEnumerator *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -1240,7 +994,7 @@ char *llvm::DenseMap<llvm::DIEnumerator *,llvm::detail::DenseSetEmpty,llvm::MDNo
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -1250,8 +1004,8 @@ char *llvm::DenseMap<llvm::DIEnumerator *,llvm::detail::DenseSetEmpty,llvm::MDNo
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -1274,7 +1028,7 @@ char *llvm::DenseMap<llvm::DIEnumerator *,llvm::detail::DenseSetEmpty,llvm::MDNo
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -1400,12 +1154,10 @@ LABEL_18:
 
 unint64_t llvm::MDNodeKeyImpl<llvm::DIBasicType>::getHashValue(int *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v4);
-  v4 = *a1;
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,unsigned long long,unsigned int,unsigned int>(&v4, 0, v5, v6, a1 + 1, a1 + 2, a1 + 6, a1 + 7);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v3);
+  v3 = *a1;
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,unsigned long long,unsigned int,unsigned int>(&v3, 0, v4, v5, a1 + 1, a1 + 2, a1 + 6, a1 + 7);
 }
 
 unint64_t llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,unsigned long long,unsigned int,unsigned int>(llvm::hashing::detail::hash_combine_recursive_helper *a1, unint64_t a2, void *a3, char *a4, uint64_t *a5, uint64_t *a6, int *a7, int *a8)
@@ -1568,9 +1320,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DIBasicType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIBasicType>,llvm::detail::DenseSetPair<llvm::DIBasicType *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DIBasicType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIBasicType>,llvm::detail::DenseSetPair<llvm::DIBasicType *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -1585,7 +1337,7 @@ char *llvm::DenseMap<llvm::DIBasicType *,llvm::detail::DenseSetEmpty,llvm::MDNod
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -1595,8 +1347,8 @@ char *llvm::DenseMap<llvm::DIBasicType *,llvm::detail::DenseSetEmpty,llvm::MDNod
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -1619,7 +1371,7 @@ char *llvm::DenseMap<llvm::DIBasicType *,llvm::detail::DenseSetEmpty,llvm::MDNod
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -1745,11 +1497,9 @@ LABEL_18:
 
 unint64_t llvm::MDNodeKeyImpl<llvm::DIStringType>::getHashValue(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v4);
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<unsigned int,llvm::MDString *,llvm::Metadata *,unsigned int>(v4, 0, v4, v5, a1, (a1 + 8), (a1 + 16), (a1 + 52));
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = *MEMORY[0x277D85DE8];
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v3);
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<unsigned int,llvm::MDString *,llvm::Metadata *,unsigned int>(v3, 0, v3, v4, a1, (a1 + 8), (a1 + 16), (a1 + 52));
 }
 
 unint64_t llvm::hashing::detail::hash_combine_recursive_helper::combine<unsigned int,llvm::MDString *,llvm::Metadata *,unsigned int>(llvm::hashing::detail::hash_combine_recursive_helper *a1, unint64_t a2, _DWORD *a3, char *a4, int *a5, uint64_t *a6, uint64_t *a7, int *a8)
@@ -1951,9 +1701,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DIStringType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIStringType>,llvm::detail::DenseSetPair<llvm::DIStringType *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DIStringType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIStringType>,llvm::detail::DenseSetPair<llvm::DIStringType *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -1968,7 +1718,7 @@ char *llvm::DenseMap<llvm::DIStringType *,llvm::detail::DenseSetEmpty,llvm::MDNo
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -1978,8 +1728,8 @@ char *llvm::DenseMap<llvm::DIStringType *,llvm::detail::DenseSetEmpty,llvm::MDNo
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -2002,7 +1752,7 @@ char *llvm::DenseMap<llvm::DIStringType *,llvm::detail::DenseSetEmpty,llvm::MDNo
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -2060,7 +1810,7 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIStringType *,llvm::detail::De
   return result;
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIDerivedType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIDerivedType>,llvm::detail::DenseSetPair<llvm::DIDerivedType *>>,llvm::DIDerivedType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIDerivedType>,llvm::detail::DenseSetPair<llvm::DIDerivedType *>>::LookupBucketFor<llvm::MDNodeKeyImpl<llvm::DIDerivedType>>(uint64_t *a1, uint64_t a2, uint64_t **a3)
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIDerivedType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIDerivedType>,llvm::detail::DenseSetPair<llvm::DIDerivedType *>>,llvm::DIDerivedType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIDerivedType>,llvm::detail::DenseSetPair<llvm::DIDerivedType *>>::LookupBucketFor<llvm::MDNodeKeyImpl<llvm::DIDerivedType>>(uint64_t *a1, unsigned int *a2, uint64_t **a3)
 {
   v4 = *(a1 + 4);
   if (v4)
@@ -2119,14 +1869,14 @@ LABEL_5:
   return result;
 }
 
-BOOL llvm::MDNodeInfo<llvm::DIDerivedType>::isEqual(uint64_t a1, uint64_t a2)
+BOOL llvm::MDNodeInfo<llvm::DIDerivedType>::isEqual(unsigned int *a1, uint64_t a2)
 {
   if ((a2 | 0x1000) == 0xFFFFFFFFFFFFF000)
   {
     return 0;
   }
 
-  if (llvm::MDNodeSubsetEqualImpl<llvm::DIDerivedType>::isODRMember(*a1, *(a1 + 32), *(a1 + 8), a2))
+  if (llvm::MDNodeSubsetEqualImpl<llvm::DIDerivedType>::isODRMember(*a1, *(a1 + 4), *(a1 + 1), a2))
   {
     return 1;
   }
@@ -2136,22 +1886,19 @@ BOOL llvm::MDNodeInfo<llvm::DIDerivedType>::isEqual(uint64_t a1, uint64_t a2)
 
 unint64_t llvm::MDNodeKeyImpl<llvm::DIDerivedType>::getHashValue(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (*a1 == 13 && (v2 = (a1 + 8), *(a1 + 8)) && (v4 = (a1 + 32), (v3 = *(a1 + 32)) != 0) && *v3 == 13 && ((v5 = *(v3 - 2), (v5 & 2) != 0) ? (v6 = *(v3 - 4)) : (v6 = &v3[-8 * ((v5 >> 2) & 0xF) - 16]), *(v6 + 56)))
   {
-    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v9);
-    result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::hash_code,llvm::hash_code>(v9, 0, v9, v10, v2, v4);
+    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v8);
+    return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::hash_code,llvm::hash_code>(v8, 0, v8, v9, v2, v4);
   }
 
   else
   {
-    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v9);
-    LODWORD(v9[0]) = *a1;
-    result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,llvm::Metadata *,unsigned int,llvm::Metadata *,llvm::Metadata *,unsigned int>(v9, 0, (v9 + 4), v10, (a1 + 8), (a1 + 16), (a1 + 24), (a1 + 32), (a1 + 40), (a1 + 84));
+    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v8);
+    LODWORD(v8[0]) = *a1;
+    return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,llvm::Metadata *,unsigned int,llvm::Metadata *,llvm::Metadata *,unsigned int>(v8, 0, (v8 + 4), v9, (a1 + 8), (a1 + 16), (a1 + 24), (a1 + 32), (a1 + 40), (a1 + 84));
   }
-
-  v8 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 unint64_t llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,llvm::Metadata *,unsigned int,llvm::Metadata *,llvm::Metadata *,unsigned int>(llvm::hashing::detail::hash_combine_recursive_helper *a1, unint64_t a2, void *a3, char *a4, uint64_t *a5, uint64_t *a6, int *a7, uint64_t *a8, uint64_t *a9, int *a10)
@@ -2267,7 +2014,7 @@ BOOL llvm::MDNodeSubsetEqualImpl<llvm::DIDerivedType>::isODRMember(int a1, _BYTE
   result = 0;
   if (a2 && a1 == 13 && a3)
   {
-    if (*a2 == 13 && ((v6 = *(a2 - 2), (v6 & 2) != 0) ? (v7 = *(a2 - 4)) : (v7 = &a2[-8 * ((v6 >> 2) & 0xF) - 16]), *(v7 + 56) && *(a4 + 2) == 13 && ((v8 = *(a4 - 16), (v8 & 2) != 0) ? (v9 = *(a4 - 32)) : (v9 = a4 - 16 - 8 * ((v8 >> 2) & 0xF)), *(v9 + 16) == a3)))
+    if (*a2 == 13 && ((v6 = *(a2 - 2), (v6 & 2) != 0) ? (v7 = *(a2 - 4)) : (v7 = &a2[-8 * ((v6 >> 2) & 0xF) - 16]), *(v7 + 7) && *(a4 + 2) == 13 && ((v8 = *(a4 - 16), (v8 & 2) != 0) ? (v9 = *(a4 - 32)) : (v9 = a4 - 16 - 8 * ((v8 >> 2) & 0xF)), *(v9 + 16) == a3)))
     {
       return *(v9 + 8) == a2;
     }
@@ -2537,9 +2284,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DIDerivedType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIDerivedType>,llvm::detail::DenseSetPair<llvm::DIDerivedType *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DIDerivedType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIDerivedType>,llvm::detail::DenseSetPair<llvm::DIDerivedType *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -2554,7 +2301,7 @@ char *llvm::DenseMap<llvm::DIDerivedType *,llvm::detail::DenseSetEmpty,llvm::MDN
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -2564,8 +2311,8 @@ char *llvm::DenseMap<llvm::DIDerivedType *,llvm::detail::DenseSetEmpty,llvm::MDN
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -2588,7 +2335,7 @@ char *llvm::DenseMap<llvm::DIDerivedType *,llvm::detail::DenseSetEmpty,llvm::MDN
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -2714,15 +2461,13 @@ LABEL_18:
 
 unint64_t llvm::MDNodeKeyImpl<llvm::DICompositeType>::getHashValue(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = (a1 + 72);
   v4 = (a1 + 96);
   v5 = (a1 + 152);
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v8);
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,llvm::Metadata *,unsigned int,llvm::Metadata *,llvm::Metadata *,llvm::Metadata *,llvm::Metadata *,llvm::Metadata *>(v8, 0, v8, v9, (a1 + 8), (a1 + 16), (a1 + 24), (a1 + 40), v2, v3, v4, v5);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v7);
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,llvm::Metadata *,unsigned int,llvm::Metadata *,llvm::Metadata *,llvm::Metadata *,llvm::Metadata *,llvm::Metadata *>(v7, 0, v7, v8, (a1 + 8), (a1 + 16), (a1 + 24), (a1 + 40), v2, v3, v4, v5);
 }
 
 unint64_t llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,llvm::Metadata *,unsigned int,llvm::Metadata *,llvm::Metadata *,llvm::Metadata *,llvm::Metadata *,llvm::Metadata *>(llvm::hashing::detail::hash_combine_recursive_helper *a1, unint64_t a2, void *a3, char *a4, uint64_t *a5, uint64_t *a6, int *a7, uint64_t *a8, uint64_t *a9, uint64_t *a10, uint64_t *a11, uint64_t *a12)
@@ -3083,9 +2828,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DICompositeType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DICompositeType>,llvm::detail::DenseSetPair<llvm::DICompositeType *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DICompositeType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DICompositeType>,llvm::detail::DenseSetPair<llvm::DICompositeType *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -3100,7 +2845,7 @@ char *llvm::DenseMap<llvm::DICompositeType *,llvm::detail::DenseSetEmpty,llvm::M
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -3110,8 +2855,8 @@ char *llvm::DenseMap<llvm::DICompositeType *,llvm::detail::DenseSetEmpty,llvm::M
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -3134,7 +2879,7 @@ char *llvm::DenseMap<llvm::DICompositeType *,llvm::detail::DenseSetEmpty,llvm::M
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -3260,12 +3005,10 @@ LABEL_18:
 
 unint64_t llvm::MDNodeKeyImpl<llvm::DISubroutineType>::getHashValue(int *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v4);
-  v4 = *a1;
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<unsigned char,llvm::Metadata *>(&v4, 0, v5, v6, a1 + 4, a1 + 1);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v3);
+  v3 = *a1;
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<unsigned char,llvm::Metadata *>(&v3, 0, v4, v5, a1 + 4, a1 + 1);
 }
 
 unint64_t llvm::hashing::detail::hash_combine_recursive_helper::combine<unsigned char,llvm::Metadata *>(llvm::hashing::detail::hash_combine_recursive_helper *a1, unint64_t a2, _BYTE *a3, char *a4, char *a5, uint64_t *a6)
@@ -3437,9 +3180,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DISubroutineType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DISubroutineType>,llvm::detail::DenseSetPair<llvm::DISubroutineType *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DISubroutineType *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DISubroutineType>,llvm::detail::DenseSetPair<llvm::DISubroutineType *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -3454,7 +3197,7 @@ char *llvm::DenseMap<llvm::DISubroutineType *,llvm::detail::DenseSetEmpty,llvm::
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -3464,8 +3207,8 @@ char *llvm::DenseMap<llvm::DISubroutineType *,llvm::detail::DenseSetEmpty,llvm::
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -3488,7 +3231,7 @@ char *llvm::DenseMap<llvm::DISubroutineType *,llvm::detail::DenseSetEmpty,llvm::
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -3614,7 +3357,7 @@ LABEL_18:
 
 unint64_t llvm::MDNodeKeyImpl<llvm::DIFile>::getHashValue(uint64_t *a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   if (a1[4])
   {
     v2 = *(a1 + 4);
@@ -3627,13 +3370,11 @@ unint64_t llvm::MDNodeKeyImpl<llvm::DIFile>::getHashValue(uint64_t *a1)
     v3 = 0;
   }
 
-  v7 = v2;
-  v6 = v3;
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v8);
-  v8 = *a1;
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,int,llvm::MDString *,llvm::MDString *>(&v8, 0, v9, v10, a1 + 1, &v7, &v6, a1 + 5);
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = v2;
+  v5 = v3;
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v7);
+  v7 = *a1;
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,int,llvm::MDString *,llvm::MDString *>(&v7, 0, v8, v9, a1 + 1, &v6, &v5, a1 + 5);
 }
 
 unint64_t llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,int,llvm::MDString *,llvm::MDString *>(llvm::hashing::detail::hash_combine_recursive_helper *a1, unint64_t a2, void *a3, char *a4, uint64_t *a5, int *a6, uint64_t *a7, uint64_t *a8)
@@ -3801,7 +3542,7 @@ __n128 llvm::MDNodeKeyImpl<llvm::DIFile>::MDNodeKeyImpl(__n128 *a1, __n128 *a2)
     v5 = &v2->n128_u64[-((v2->n128_u64[0] >> 2) & 0xF)];
   }
 
-  a1->n128_u64[1] = v5[1];
+  a1->n128_u64[1] = *(v5 + 8);
   result = a2[1];
   a1[2].n128_u64[0] = a2[2].n128_u64[0];
   a1[1] = result;
@@ -3809,7 +3550,7 @@ __n128 llvm::MDNodeKeyImpl<llvm::DIFile>::MDNodeKeyImpl(__n128 *a1, __n128 *a2)
   return result;
 }
 
-__n128 **llvm::DenseMapBase<llvm::DenseMap<llvm::DIFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIFile>,llvm::detail::DenseSetPair<llvm::DIFile *>>,llvm::DIFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIFile>,llvm::detail::DenseSetPair<llvm::DIFile *>>::InsertIntoBucketImpl<llvm::DIFile *>(uint64_t a1, uint64_t a2, __n128 **a3, __n128 **a4)
+void *llvm::DenseMapBase<llvm::DenseMap<llvm::DIFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIFile>,llvm::detail::DenseSetPair<llvm::DIFile *>>,llvm::DIFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIFile>,llvm::detail::DenseSetPair<llvm::DIFile *>>::InsertIntoBucketImpl<llvm::DIFile *>(uint64_t a1, uint64_t a2, __n128 **a3, void *a4)
 {
   v6 = *(a1 + 8);
   v7 = *(a1 + 16);
@@ -3837,9 +3578,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DIFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIFile>,llvm::detail::DenseSetPair<llvm::DIFile *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DIFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIFile>,llvm::detail::DenseSetPair<llvm::DIFile *>>::grow(uint64_t *a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -3854,7 +3595,7 @@ char *llvm::DenseMap<llvm::DIFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -3864,8 +3605,8 @@ char *llvm::DenseMap<llvm::DIFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -3888,7 +3629,7 @@ char *llvm::DenseMap<llvm::DIFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -3897,7 +3638,7 @@ char *llvm::DenseMap<llvm::DIFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo
   return result;
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIFile>,llvm::detail::DenseSetPair<llvm::DIFile *>>,llvm::DIFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIFile>,llvm::detail::DenseSetPair<llvm::DIFile *>>::moveFromOldBuckets(uint64_t result, __n128 **a2, __n128 **a3)
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIFile>,llvm::detail::DenseSetPair<llvm::DIFile *>>,llvm::DIFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIFile>,llvm::detail::DenseSetPair<llvm::DIFile *>>::moveFromOldBuckets(uint64_t result, void *a2, void *a3)
 {
   v5 = result;
   *(result + 8) = 0;
@@ -4022,22 +3763,19 @@ BOOL llvm::MDNodeInfo<llvm::DISubprogram>::isEqual(uint64_t a1, uint64_t a2)
 
 unint64_t llvm::MDNodeKeyImpl<llvm::DISubprogram>::getHashValue(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   if ((*(a1 + 76) & 8) == 0 && *(a1 + 16) && (v2 = *a1) != 0 && *v2 == 13 && ((v3 = *(v2 - 2), (v3 & 2) != 0) ? (v4 = *(v2 - 4)) : (v4 = &v2[-8 * ((v3 >> 2) & 0xF) - 16]), *(v4 + 56)))
   {
-    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v7);
-    result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::hash_code,llvm::hash_code>(&v7, 0, &v7, v9, (a1 + 16), a1);
+    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v6);
+    return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::hash_code,llvm::hash_code>(&v6, 0, &v6, v8, (a1 + 16), a1);
   }
 
   else
   {
-    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v7);
-    v7 = *(a1 + 8);
-    result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,llvm::Metadata *,llvm::Metadata *,unsigned int>(&v7, 0, v8, v9, a1, (a1 + 24), (a1 + 40), (a1 + 32));
+    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v6);
+    v6 = *(a1 + 8);
+    return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,llvm::Metadata *,llvm::Metadata *,unsigned int>(&v6, 0, v7, v8, a1, (a1 + 24), (a1 + 40), (a1 + 32));
   }
-
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
 }
 
 unint64_t llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,llvm::Metadata *,llvm::Metadata *,unsigned int>(llvm::hashing::detail::hash_combine_recursive_helper *a1, unint64_t a2, void *a3, char *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, int *a8)
@@ -4288,7 +4026,7 @@ BOOL llvm::MDNodeSubsetEqualImpl<llvm::DISubprogram>::isDeclarationOfODRMember(i
       v7 = &a2[-8 * ((v6 >> 2) & 0xF) - 16];
     }
 
-    v5 = *(v7 + 56);
+    v5 = *(v7 + 7);
     if (v5)
     {
       if (!((*(a5 + 36) & 8) >> 3))
@@ -4297,7 +4035,7 @@ BOOL llvm::MDNodeSubsetEqualImpl<llvm::DISubprogram>::isDeclarationOfODRMember(i
         if ((v8 & 2) != 0)
         {
           v9 = *(a5 - 32);
-          if (v9[1] == a2 && v9[3] == a3)
+          if (*(v9 + 8) == a2 && *(v9 + 24) == a3)
           {
             if (*(a5 - 24) < 0xAu)
             {
@@ -4310,8 +4048,8 @@ BOOL llvm::MDNodeSubsetEqualImpl<llvm::DISubprogram>::isDeclarationOfODRMember(i
 
         else
         {
-          v9 = (a5 - 16 - 8 * ((v8 >> 2) & 0xF));
-          if (v9[1] == a2 && v9[3] == a3)
+          v9 = a5 - 16 - 8 * ((v8 >> 2) & 0xF);
+          if (*(v9 + 8) == a2 && *(v9 + 24) == a3)
           {
             if ((*(a5 - 16) & 0x380uLL) <= 0x240)
             {
@@ -4321,7 +4059,7 @@ LABEL_14:
             }
 
 LABEL_20:
-            v10 = v9[9];
+            v10 = *(v9 + 72);
             return v10 == a4;
           }
         }
@@ -4713,9 +4451,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DISubprogram *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DISubprogram>,llvm::detail::DenseSetPair<llvm::DISubprogram *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DISubprogram *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DISubprogram>,llvm::detail::DenseSetPair<llvm::DISubprogram *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -4730,7 +4468,7 @@ char *llvm::DenseMap<llvm::DISubprogram *,llvm::detail::DenseSetEmpty,llvm::MDNo
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -4740,8 +4478,8 @@ char *llvm::DenseMap<llvm::DISubprogram *,llvm::detail::DenseSetEmpty,llvm::MDNo
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -4764,7 +4502,7 @@ char *llvm::DenseMap<llvm::DISubprogram *,llvm::detail::DenseSetEmpty,llvm::MDNo
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -4890,11 +4628,9 @@ LABEL_18:
 
 unint64_t llvm::MDNodeKeyImpl<llvm::DILexicalBlock>::getHashValue(uint64_t a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v4);
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,unsigned long long,unsigned int,unsigned int>(v4, 0, v4, v5, a1, (a1 + 8), (a1 + 16), (a1 + 20));
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = *MEMORY[0x277D85DE8];
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v3);
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,unsigned long long,unsigned int,unsigned int>(v3, 0, v3, v4, a1, (a1 + 8), (a1 + 16), (a1 + 20));
 }
 
 BOOL llvm::MDNodeKeyImpl<llvm::DILexicalBlock>::isKeyOf(uint64_t a1, uint64_t a2)
@@ -5094,9 +4830,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DILexicalBlock *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILexicalBlock>,llvm::detail::DenseSetPair<llvm::DILexicalBlock *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DILexicalBlock *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILexicalBlock>,llvm::detail::DenseSetPair<llvm::DILexicalBlock *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -5111,7 +4847,7 @@ char *llvm::DenseMap<llvm::DILexicalBlock *,llvm::detail::DenseSetEmpty,llvm::MD
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -5121,8 +4857,8 @@ char *llvm::DenseMap<llvm::DILexicalBlock *,llvm::detail::DenseSetEmpty,llvm::MD
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -5145,7 +4881,7 @@ char *llvm::DenseMap<llvm::DILexicalBlock *,llvm::detail::DenseSetEmpty,llvm::MD
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -5271,12 +5007,10 @@ LABEL_18:
 
 unint64_t llvm::MDNodeKeyImpl<llvm::DILexicalBlockFile>::getHashValue(uint64_t *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v4);
-  v4 = *a1;
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::ArrayType *,unsigned int>(&v4, 0, v5, v6, a1 + 1, a1 + 4);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v3);
+  v3 = *a1;
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::ArrayType *,unsigned int>(&v3, 0, v4, v5, a1 + 1, a1 + 4);
 }
 
 BOOL llvm::MDNodeKeyImpl<llvm::DILexicalBlockFile>::isKeyOf(uint64_t a1, uint64_t a2)
@@ -5474,9 +5208,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DILexicalBlockFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILexicalBlockFile>,llvm::detail::DenseSetPair<llvm::DILexicalBlockFile *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DILexicalBlockFile *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILexicalBlockFile>,llvm::detail::DenseSetPair<llvm::DILexicalBlockFile *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -5491,7 +5225,7 @@ char *llvm::DenseMap<llvm::DILexicalBlockFile *,llvm::detail::DenseSetEmpty,llvm
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -5501,8 +5235,8 @@ char *llvm::DenseMap<llvm::DILexicalBlockFile *,llvm::detail::DenseSetEmpty,llvm
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -5525,7 +5259,7 @@ char *llvm::DenseMap<llvm::DILexicalBlockFile *,llvm::detail::DenseSetEmpty,llvm
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -5585,15 +5319,15 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DILexicalBlockFile *,llvm::deta
 
 uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DINamespace *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DINamespace>,llvm::detail::DenseSetPair<llvm::DINamespace *>>,llvm::DINamespace *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DINamespace>,llvm::detail::DenseSetPair<llvm::DINamespace *>>::LookupBucketFor<llvm::MDNodeKeyImpl<llvm::DINamespace>>(uint64_t *a1, uint64_t *a2, uint64_t **a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 4);
   if (v4)
   {
     v6 = *a1;
-    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v17);
+    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v16);
     v7 = 0;
     v8 = v4 - 1;
-    v9 = v8 & llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::hash_code,llvm::hash_code>(v17, 0, v17, v18, a2, a2 + 1);
+    v9 = v8 & llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::hash_code,llvm::hash_code>(v16, 0, v16, v17, a2, a2 + 1);
     for (i = 1; ; ++i)
     {
       v11 = (v6 + 8 * v9);
@@ -5648,7 +5382,6 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DINamespace *,llvm::detail::Den
 
 LABEL_18:
   *a3 = v11;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5695,14 +5428,14 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DINamespace *,llvm::detail::Den
 
 uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DINamespace *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DINamespace>,llvm::detail::DenseSetPair<llvm::DINamespace *>>,llvm::DINamespace *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DINamespace>,llvm::detail::DenseSetPair<llvm::DINamespace *>>::LookupBucketFor<llvm::DINamespace *>(uint64_t *a1, uint64_t *a2, void *a3)
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 4);
   if (v4)
   {
     v6 = *a1;
-    llvm::MDNodeKeyImpl<llvm::DINamespace>::MDNodeKeyImpl(&v18, *a2);
-    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v20);
-    v7 = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::hash_code,llvm::hash_code>(v20, 0, v20, v21, &v18, &v19);
+    llvm::MDNodeKeyImpl<llvm::DINamespace>::MDNodeKeyImpl(&v17, *a2);
+    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v19);
+    v7 = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::hash_code,llvm::hash_code>(v19, 0, v19, v20, &v17, &v18);
     v8 = v4 - 1;
     v9 = (v4 - 1) & v7;
     v10 = (v6 + 8 * v9);
@@ -5714,29 +5447,29 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DINamespace *,llvm::detail::Den
 
     else
     {
-      v14 = 0;
-      v15 = 1;
+      v13 = 0;
+      v14 = 1;
       result = 1;
       while (v11 != -4096)
       {
-        if (v14)
+        if (v13)
         {
-          v16 = 0;
+          v15 = 0;
         }
 
         else
         {
-          v16 = v11 == -8192;
+          v15 = v11 == -8192;
         }
 
-        if (v16)
+        if (v15)
         {
-          v14 = v10;
+          v13 = v10;
         }
 
-        v17 = v9 + v15++;
-        v9 = v17 & v8;
-        v10 = (v6 + 8 * (v17 & v8));
+        v16 = v9 + v14++;
+        v9 = v16 & v8;
+        v10 = (v6 + 8 * (v16 & v8));
         v11 = *v10;
         if (*a2 == *v10)
         {
@@ -5745,9 +5478,9 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DINamespace *,llvm::detail::Den
       }
 
       result = 0;
-      if (v14)
+      if (v13)
       {
-        v10 = v14;
+        v10 = v13;
       }
     }
   }
@@ -5760,7 +5493,6 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DINamespace *,llvm::detail::Den
 
 LABEL_5:
   *a3 = v10;
-  v13 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -5822,9 +5554,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DINamespace *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DINamespace>,llvm::detail::DenseSetPair<llvm::DINamespace *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DINamespace *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DINamespace>,llvm::detail::DenseSetPair<llvm::DINamespace *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -5839,7 +5571,7 @@ char *llvm::DenseMap<llvm::DINamespace *,llvm::detail::DenseSetEmpty,llvm::MDNod
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -5849,8 +5581,8 @@ char *llvm::DenseMap<llvm::DINamespace *,llvm::detail::DenseSetEmpty,llvm::MDNod
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -5873,7 +5605,7 @@ char *llvm::DenseMap<llvm::DINamespace *,llvm::detail::DenseSetEmpty,llvm::MDNod
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -5999,12 +5731,10 @@ LABEL_18:
 
 unint64_t llvm::MDNodeKeyImpl<llvm::DICommonBlock>::getHashValue(uint64_t *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v4);
-  v4 = *a1;
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,llvm::Metadata *,llvm::Metadata *,unsigned int>(&v4, 0, v5, v6, a1 + 1, a1 + 2, a1 + 3, a1 + 8);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v3);
+  v3 = *a1;
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,llvm::Metadata *,llvm::Metadata *,unsigned int>(&v3, 0, v4, v5, a1 + 1, a1 + 2, a1 + 3, a1 + 8);
 }
 
 BOOL llvm::MDNodeKeyImpl<llvm::DICommonBlock>::isKeyOf(uint64_t a1, uint64_t a2)
@@ -6196,9 +5926,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DICommonBlock *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DICommonBlock>,llvm::detail::DenseSetPair<llvm::DICommonBlock *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DICommonBlock *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DICommonBlock>,llvm::detail::DenseSetPair<llvm::DICommonBlock *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -6213,7 +5943,7 @@ char *llvm::DenseMap<llvm::DICommonBlock *,llvm::detail::DenseSetEmpty,llvm::MDN
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -6223,8 +5953,8 @@ char *llvm::DenseMap<llvm::DICommonBlock *,llvm::detail::DenseSetEmpty,llvm::MDN
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -6247,7 +5977,7 @@ char *llvm::DenseMap<llvm::DICommonBlock *,llvm::detail::DenseSetEmpty,llvm::MDN
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -6373,11 +6103,9 @@ LABEL_18:
 
 unint64_t llvm::MDNodeKeyImpl<llvm::DIModule>::getHashValue(uint64_t *a1)
 {
-  v6 = *MEMORY[0x277D85DE8];
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v4);
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<long long,llvm::Metadata *,llvm::Metadata *,llvm::Metadata *>(v4, 0, v4, v5, a1 + 1, a1 + 2, a1 + 3, a1 + 4);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v5 = *MEMORY[0x277D85DE8];
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v3);
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<long long,llvm::Metadata *,llvm::Metadata *,llvm::Metadata *>(v3, 0, v3, v4, a1 + 1, a1 + 2, a1 + 3, a1 + 4);
 }
 
 BOOL llvm::MDNodeKeyImpl<llvm::DIModule>::isKeyOf(uint64_t a1, uint64_t a2)
@@ -6621,9 +6349,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DIModule *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIModule>,llvm::detail::DenseSetPair<llvm::DIModule *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DIModule *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIModule>,llvm::detail::DenseSetPair<llvm::DIModule *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -6638,7 +6366,7 @@ char *llvm::DenseMap<llvm::DIModule *,llvm::detail::DenseSetEmpty,llvm::MDNodeIn
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -6648,8 +6376,8 @@ char *llvm::DenseMap<llvm::DIModule *,llvm::detail::DenseSetEmpty,llvm::MDNodeIn
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -6672,7 +6400,7 @@ char *llvm::DenseMap<llvm::DIModule *,llvm::detail::DenseSetEmpty,llvm::MDNodeIn
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -6798,12 +6526,10 @@ LABEL_18:
 
 unint64_t llvm::MDNodeKeyImpl<llvm::DITemplateTypeParameter>::getHashValue(uint64_t *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v4);
-  v4 = *a1;
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,BOOL>(&v4, 0, v5, v6, a1 + 1, a1 + 16);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v3);
+  v3 = *a1;
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,BOOL>(&v3, 0, v4, v5, a1 + 1, a1 + 16);
 }
 
 BOOL llvm::MDNodeKeyImpl<llvm::DITemplateTypeParameter>::isKeyOf(uint64_t a1, uint64_t a2)
@@ -6973,9 +6699,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DITemplateTypeParameter *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DITemplateTypeParameter>,llvm::detail::DenseSetPair<llvm::DITemplateTypeParameter *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DITemplateTypeParameter *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DITemplateTypeParameter>,llvm::detail::DenseSetPair<llvm::DITemplateTypeParameter *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -6990,7 +6716,7 @@ char *llvm::DenseMap<llvm::DITemplateTypeParameter *,llvm::detail::DenseSetEmpty
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -7000,8 +6726,8 @@ char *llvm::DenseMap<llvm::DITemplateTypeParameter *,llvm::detail::DenseSetEmpty
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -7024,7 +6750,7 @@ char *llvm::DenseMap<llvm::DITemplateTypeParameter *,llvm::detail::DenseSetEmpty
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -7150,12 +6876,10 @@ LABEL_18:
 
 unint64_t llvm::MDNodeKeyImpl<llvm::DITemplateValueParameter>::getHashValue(int *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v4);
-  v4 = *a1;
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,llvm::Metadata *,BOOL,llvm::Metadata *>(&v4, 0, v5, v6, a1 + 1, a1 + 2, a1 + 24, a1 + 4);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v3);
+  v3 = *a1;
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,llvm::Metadata *,BOOL,llvm::Metadata *>(&v3, 0, v4, v5, a1 + 1, a1 + 2, a1 + 24, a1 + 4);
 }
 
 unint64_t llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,llvm::Metadata *,BOOL,llvm::Metadata *>(llvm::hashing::detail::hash_combine_recursive_helper *a1, unint64_t a2, void *a3, char *a4, uint64_t *a5, uint64_t *a6, char *a7, uint64_t *a8)
@@ -7359,9 +7083,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DITemplateValueParameter *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DITemplateValueParameter>,llvm::detail::DenseSetPair<llvm::DITemplateValueParameter *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DITemplateValueParameter *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DITemplateValueParameter>,llvm::detail::DenseSetPair<llvm::DITemplateValueParameter *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -7376,7 +7100,7 @@ char *llvm::DenseMap<llvm::DITemplateValueParameter *,llvm::detail::DenseSetEmpt
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -7386,8 +7110,8 @@ char *llvm::DenseMap<llvm::DITemplateValueParameter *,llvm::detail::DenseSetEmpt
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -7410,7 +7134,7 @@ char *llvm::DenseMap<llvm::DITemplateValueParameter *,llvm::detail::DenseSetEmpt
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -7538,15 +7262,13 @@ unint64_t llvm::MDNodeKeyImpl<llvm::DIGlobalVariable>::getHashValue(uint64_t *a1
 {
   v2 = (a1 + 4);
   v3 = a1 + 5;
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v4 = (a1 + 6);
   v5 = a1 + 49;
   v6 = a1 + 7;
   v7 = a1 + 10;
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v10);
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,llvm::MDString *,llvm::MDString *,llvm::Metadata *,unsigned int,llvm::Metadata *,BOOL,BOOL,llvm::Metadata *,llvm::Metadata *>(v10, 0, v10, v11, a1, a1 + 1, a1 + 2, a1 + 3, v2, v3, v4, v5, v6, v7);
-  v9 = *MEMORY[0x277D85DE8];
-  return result;
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v9);
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,llvm::MDString *,llvm::MDString *,llvm::Metadata *,unsigned int,llvm::Metadata *,BOOL,BOOL,llvm::Metadata *,llvm::Metadata *>(v9, 0, v9, v10, a1, a1 + 1, a1 + 2, a1 + 3, v2, v3, v4, v5, v6, v7);
 }
 
 unint64_t llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,llvm::MDString *,llvm::MDString *,llvm::Metadata *,unsigned int,llvm::Metadata *,BOOL,BOOL,llvm::Metadata *,llvm::Metadata *>(llvm::hashing::detail::hash_combine_recursive_helper *a1, unint64_t a2, void *a3, char *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, uint64_t *a8, int *a9, uint64_t *a10, char *a11, char *a12, uint64_t *a13, uint64_t *a14)
@@ -7851,9 +7573,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DIGlobalVariable *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIGlobalVariable>,llvm::detail::DenseSetPair<llvm::DIGlobalVariable *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DIGlobalVariable *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIGlobalVariable>,llvm::detail::DenseSetPair<llvm::DIGlobalVariable *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -7868,7 +7590,7 @@ char *llvm::DenseMap<llvm::DIGlobalVariable *,llvm::detail::DenseSetEmpty,llvm::
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -7878,8 +7600,8 @@ char *llvm::DenseMap<llvm::DIGlobalVariable *,llvm::detail::DenseSetEmpty,llvm::
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -7902,7 +7624,7 @@ char *llvm::DenseMap<llvm::DIGlobalVariable *,llvm::detail::DenseSetEmpty,llvm::
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -8028,15 +7750,13 @@ LABEL_18:
 
 unint64_t llvm::MDNodeKeyImpl<llvm::DILocalVariable>::getHashValue(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 32);
   v3 = (a1 + 40);
   v4 = (a1 + 44);
   v5 = (a1 + 56);
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v8);
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,llvm::MDString *,llvm::Metadata *,unsigned int,llvm::Metadata *,unsigned int,unsigned int,llvm::Metadata *>(v8, 0, v8, v9, a1, (a1 + 8), (a1 + 16), (a1 + 24), v2, v3, v4, v5);
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v7);
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,llvm::MDString *,llvm::Metadata *,unsigned int,llvm::Metadata *,unsigned int,unsigned int,llvm::Metadata *>(v7, 0, v7, v8, a1, (a1 + 8), (a1 + 16), (a1 + 24), v2, v3, v4, v5);
 }
 
 unint64_t llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,llvm::MDString *,llvm::Metadata *,unsigned int,llvm::Metadata *,unsigned int,unsigned int,llvm::Metadata *>(llvm::hashing::detail::hash_combine_recursive_helper *a1, unint64_t a2, void *a3, char *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, int *a8, uint64_t *a9, int *a10, int *a11, uint64_t *a12)
@@ -8294,9 +8014,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DILocalVariable *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILocalVariable>,llvm::detail::DenseSetPair<llvm::DILocalVariable *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DILocalVariable *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILocalVariable>,llvm::detail::DenseSetPair<llvm::DILocalVariable *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -8311,7 +8031,7 @@ char *llvm::DenseMap<llvm::DILocalVariable *,llvm::detail::DenseSetEmpty,llvm::M
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -8321,8 +8041,8 @@ char *llvm::DenseMap<llvm::DILocalVariable *,llvm::detail::DenseSetEmpty,llvm::M
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -8345,7 +8065,7 @@ char *llvm::DenseMap<llvm::DILocalVariable *,llvm::detail::DenseSetEmpty,llvm::M
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -8471,12 +8191,10 @@ LABEL_18:
 
 unint64_t llvm::MDNodeKeyImpl<llvm::DILabel>::getHashValue(uint64_t *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v4);
-  v4 = *a1;
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::ArrayType *,unsigned int>(&v4, 0, v5, v6, a1 + 1, a1 + 6);
-  v3 = *MEMORY[0x277D85DE8];
-  return result;
+  v6 = *MEMORY[0x277D85DE8];
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v3);
+  v3 = *a1;
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::ArrayType *,unsigned int>(&v3, 0, v4, v5, a1 + 1, a1 + 6);
 }
 
 BOOL llvm::MDNodeKeyImpl<llvm::DILabel>::isKeyOf(uint64_t a1, uint64_t a2)
@@ -8657,9 +8375,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DILabel *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILabel>,llvm::detail::DenseSetPair<llvm::DILabel *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DILabel *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DILabel>,llvm::detail::DenseSetPair<llvm::DILabel *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -8674,7 +8392,7 @@ char *llvm::DenseMap<llvm::DILabel *,llvm::detail::DenseSetEmpty,llvm::MDNodeInf
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -8684,8 +8402,8 @@ char *llvm::DenseMap<llvm::DILabel *,llvm::detail::DenseSetEmpty,llvm::MDNodeInf
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -8708,7 +8426,7 @@ char *llvm::DenseMap<llvm::DILabel *,llvm::detail::DenseSetEmpty,llvm::MDNodeInf
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -8839,10 +8557,10 @@ BOOL llvm::MDNodeKeyImpl<llvm::DIExpression>::isKeyOf(uint64_t a1, uint64_t a2)
   return v3 == (*(a2 + 24) - v4) >> 3 && memcmp(*a1, v4, 8 * v3) == 0;
 }
 
-uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIExpression>,llvm::detail::DenseSetPair<llvm::DIExpression *>>,llvm::DIExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIExpression>,llvm::detail::DenseSetPair<llvm::DIExpression *>>::try_emplace<llvm::detail::DenseSetEmpty&>@<X0>(uint64_t a1@<X0>, void *a2@<X1>, unint64_t *a3@<X3>, uint64_t a4@<X8>)
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIExpression>,llvm::detail::DenseSetPair<llvm::DIExpression *>>,llvm::DIExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIExpression>,llvm::detail::DenseSetPair<llvm::DIExpression *>>::try_emplace<llvm::detail::DenseSetEmpty&>@<X0>(uint64_t a1@<X0>, void *a2@<X1>, uint64_t a3@<X8>, unint64_t *a4@<X3>)
 {
   v11 = 0;
-  result = llvm::DenseMapBase<llvm::DenseMap<llvm::DIExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIExpression>,llvm::detail::DenseSetPair<llvm::DIExpression *>>,llvm::DIExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIExpression>,llvm::detail::DenseSetPair<llvm::DIExpression *>>::LookupBucketFor<llvm::DIExpression *>(a1, a2, &v11, a3);
+  result = llvm::DenseMapBase<llvm::DenseMap<llvm::DIExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIExpression>,llvm::detail::DenseSetPair<llvm::DIExpression *>>,llvm::DIExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIExpression>,llvm::detail::DenseSetPair<llvm::DIExpression *>>::LookupBucketFor<llvm::DIExpression *>(a1, a2, &v11, a4);
   v8 = v11;
   if (result)
   {
@@ -8858,9 +8576,9 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIExpression *,llvm::detail::De
   }
 
   v10 = *a1 + 8 * *(a1 + 16);
-  *a4 = v8;
-  *(a4 + 8) = v10;
-  *(a4 + 16) = v9;
+  *a3 = v8;
+  *(a3 + 8) = v10;
+  *(a3 + 16) = v9;
   return result;
 }
 
@@ -8959,9 +8677,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DIExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIExpression>,llvm::detail::DenseSetPair<llvm::DIExpression *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DIExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIExpression>,llvm::detail::DenseSetPair<llvm::DIExpression *>>::grow(uint64_t *a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -8976,7 +8694,7 @@ char *llvm::DenseMap<llvm::DIExpression *,llvm::detail::DenseSetEmpty,llvm::MDNo
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -8986,8 +8704,8 @@ char *llvm::DenseMap<llvm::DIExpression *,llvm::detail::DenseSetEmpty,llvm::MDNo
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v11 = *(a1 + 16);
+  a1[1] = 0;
+  v11 = *(a1 + 4);
   if (v11)
   {
     v12 = 0;
@@ -9010,7 +8728,7 @@ char *llvm::DenseMap<llvm::DIExpression *,llvm::detail::DenseSetEmpty,llvm::MDNo
       }
 
       v12 += 2;
-      v17 += 2;
+      v17 += 16;
     }
 
     while (v15 != v12);
@@ -9070,15 +8788,15 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIExpression *,llvm::detail::De
 
 uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIGlobalVariableExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIGlobalVariableExpression>,llvm::detail::DenseSetPair<llvm::DIGlobalVariableExpression *>>,llvm::DIGlobalVariableExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIGlobalVariableExpression>,llvm::detail::DenseSetPair<llvm::DIGlobalVariableExpression *>>::LookupBucketFor<llvm::MDNodeKeyImpl<llvm::DIGlobalVariableExpression>>(uint64_t *a1, uint64_t *a2, uint64_t **a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v4 = *(a1 + 4);
   if (v4)
   {
     v6 = *a1;
-    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v17);
+    llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v16);
     v7 = 0;
     v8 = v4 - 1;
-    v9 = v8 & llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::hash_code,llvm::hash_code>(v17, 0, v17, v18, a2, a2 + 1);
+    v9 = v8 & llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::hash_code,llvm::hash_code>(v16, 0, v16, v17, a2, a2 + 1);
     for (i = 1; ; ++i)
     {
       v11 = (v6 + 8 * v9);
@@ -9133,7 +8851,6 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIGlobalVariableExpression *,ll
 
 LABEL_18:
   *a3 = v11;
-  v16 = *MEMORY[0x277D85DE8];
   return result;
 }
 
@@ -9247,7 +8964,7 @@ LABEL_5:
 
 unint64_t llvm::MDNodeInfo<llvm::DIGlobalVariableExpression>::getHashValue(uint64_t a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v1 = *(a1 - 16);
   if ((v1 & 2) != 0)
   {
@@ -9259,11 +8976,9 @@ unint64_t llvm::MDNodeInfo<llvm::DIGlobalVariableExpression>::getHashValue(uint6
     v2 = (a1 - 16 - 8 * ((v1 >> 2) & 0xF));
   }
 
-  *v5 = *v2;
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v6);
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::hash_code,llvm::hash_code>(v6, 0, v6, v7, v5, &v5[1]);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  *v4 = *v2;
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(v5);
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::hash_code,llvm::hash_code>(v5, 0, v5, v6, v4, &v4[1]);
 }
 
 void *llvm::DenseMapBase<llvm::DenseMap<llvm::DIGlobalVariableExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIGlobalVariableExpression>,llvm::detail::DenseSetPair<llvm::DIGlobalVariableExpression *>>,llvm::DIGlobalVariableExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIGlobalVariableExpression>,llvm::detail::DenseSetPair<llvm::DIGlobalVariableExpression *>>::InsertIntoBucketImpl<llvm::DIGlobalVariableExpression *>(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
@@ -9294,9 +9009,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DIGlobalVariableExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIGlobalVariableExpression>,llvm::detail::DenseSetPair<llvm::DIGlobalVariableExpression *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DIGlobalVariableExpression *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIGlobalVariableExpression>,llvm::detail::DenseSetPair<llvm::DIGlobalVariableExpression *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -9311,7 +9026,7 @@ char *llvm::DenseMap<llvm::DIGlobalVariableExpression *,llvm::detail::DenseSetEm
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -9321,8 +9036,8 @@ char *llvm::DenseMap<llvm::DIGlobalVariableExpression *,llvm::detail::DenseSetEm
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -9345,7 +9060,7 @@ char *llvm::DenseMap<llvm::DIGlobalVariableExpression *,llvm::detail::DenseSetEm
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -9471,13 +9186,11 @@ LABEL_18:
 
 unint64_t llvm::MDNodeKeyImpl<llvm::DIObjCProperty>::getHashValue(uint64_t *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = (a1 + 5);
-  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v5);
-  v5 = *a1;
-  result = llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,unsigned int,llvm::MDString *,llvm::MDString *,unsigned int,llvm::Metadata *>(&v5, 0, v6, v7, a1 + 1, a1 + 4, a1 + 3, a1 + 4, v2, a1 + 6);
-  v4 = *MEMORY[0x277D85DE8];
-  return result;
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v4);
+  v4 = *a1;
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,unsigned int,llvm::MDString *,llvm::MDString *,unsigned int,llvm::Metadata *>(&v4, 0, v5, v6, a1 + 1, a1 + 4, a1 + 3, a1 + 4, v2, a1 + 6);
 }
 
 unint64_t llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,unsigned int,llvm::MDString *,llvm::MDString *,unsigned int,llvm::Metadata *>(llvm::hashing::detail::hash_combine_recursive_helper *a1, unint64_t a2, void *a3, char *a4, uint64_t *a5, int *a6, uint64_t *a7, uint64_t *a8, int *a9, uint64_t *a10)
@@ -9723,9 +9436,9 @@ LABEL_3:
   return a4;
 }
 
-char *llvm::DenseMap<llvm::DIObjCProperty *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIObjCProperty>,llvm::detail::DenseSetPair<llvm::DIObjCProperty *>>::grow(uint64_t a1, int a2)
+char *llvm::DenseMap<llvm::DIObjCProperty *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIObjCProperty>,llvm::detail::DenseSetPair<llvm::DIObjCProperty *>>::grow(uint64_t **a1, int a2)
 {
-  v3 = *(a1 + 16);
+  v3 = *(a1 + 4);
   v4 = *a1;
   v5 = (a2 - 1) | ((a2 - 1) >> 1);
   v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
@@ -9740,7 +9453,7 @@ char *llvm::DenseMap<llvm::DIObjCProperty *,llvm::detail::DenseSetEmpty,llvm::MD
     v8 = 64;
   }
 
-  *(a1 + 16) = v8;
+  *(a1 + 4) = v8;
   result = operator new(8 * v8, 8uLL);
   *a1 = result;
   if (v4)
@@ -9750,8 +9463,8 @@ char *llvm::DenseMap<llvm::DIObjCProperty *,llvm::detail::DenseSetEmpty,llvm::MD
     JUMPOUT(0x277C69E30);
   }
 
-  *(a1 + 8) = 0;
-  v10 = *(a1 + 16);
+  a1[1] = 0;
+  v10 = *(a1 + 4);
   if (v10)
   {
     v11 = 0;
@@ -9774,7 +9487,7 @@ char *llvm::DenseMap<llvm::DIObjCProperty *,llvm::detail::DenseSetEmpty,llvm::MD
       }
 
       v11 += 2;
-      v16 += 2;
+      v16 += 16;
     }
 
     while (v14 != v11);
@@ -9895,5 +9608,282 @@ uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail
 
 LABEL_18:
   *a3 = v12;
+  return result;
+}
+
+unint64_t llvm::MDNodeKeyImpl<llvm::DIImportedEntity>::getHashValue(int *a1)
+{
+  v7 = *MEMORY[0x277D85DE8];
+  v2 = (a1 + 10);
+  llvm::hashing::detail::hash_combine_recursive_helper::hash_combine_recursive_helper(&v4);
+  v4 = *a1;
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,llvm::Metadata *,llvm::Metadata *,unsigned int,llvm::MDString *,llvm::Metadata *>(&v4, 0, v5, v6, a1 + 1, a1 + 2, a1 + 3, a1 + 8, v2, a1 + 6);
+}
+
+unint64_t llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::Metadata *,llvm::Metadata *,llvm::Metadata *,unsigned int,llvm::MDString *,llvm::Metadata *>(llvm::hashing::detail::hash_combine_recursive_helper *a1, unint64_t a2, void *a3, char *a4, uint64_t *a5, uint64_t *a6, uint64_t *a7, int *a8, uint64_t *a9, uint64_t *a10)
+{
+  v18 = a2;
+  v15 = llvm::hashing::detail::hash_combine_recursive_helper::combine_data<unsigned long>(a1, &v18, a3, a4, *a5);
+  v19 = v18;
+  v16 = llvm::hashing::detail::hash_combine_recursive_helper::combine_data<unsigned long>(a1, &v19, v15, a4, *a6);
+  return llvm::hashing::detail::hash_combine_recursive_helper::combine<llvm::MDString *,int,llvm::MDString *,llvm::MDString *>(a1, v19, v16, a4, a7, a8, a9, a10);
+}
+
+BOOL llvm::MDNodeKeyImpl<llvm::DIImportedEntity>::isKeyOf(uint64_t a1, uint64_t a2)
+{
+  if (*a1 == *(a2 + 2) && ((v2 = a2 - 16, v3 = *(a2 - 16), (v3 & 2) != 0) ? (v4 = *(a2 - 32)) : (v4 = (v2 - 8 * ((v3 >> 2) & 0xF))), *(a1 + 8) == *v4 && *(a1 + 16) == v4[1] && *(a1 + 24) == v4[3] && *(a1 + 32) == *(a2 + 16) && ((v3 & 2) != 0 ? (v5 = *(a2 - 32)) : (v5 = v2 - 8 * ((v3 >> 2) & 0xF)), *(a1 + 40) == *(v5 + 16))))
+  {
+    return *(a1 + 48) == *(v5 + 32);
+  }
+
+  else
+  {
+    return 0;
+  }
+}
+
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>,llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::try_emplace<llvm::detail::DenseSetEmpty&>@<X0>(uint64_t a1@<X0>, uint64_t *a2@<X1>, uint64_t a3@<X8>)
+{
+  v10 = 0;
+  result = llvm::DenseMapBase<llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>,llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::LookupBucketFor<llvm::DIImportedEntity *>(a1, a2, &v10);
+  v7 = v10;
+  if (result)
+  {
+    v8 = 0;
+  }
+
+  else
+  {
+    result = llvm::DenseMapBase<llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>,llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::InsertIntoBucketImpl<llvm::DIImportedEntity *>(a1, a2, a2, v10);
+    v7 = result;
+    *result = *a2;
+    v8 = 1;
+  }
+
+  v9 = *a1 + 8 * *(a1 + 16);
+  *a3 = v7;
+  *(a3 + 8) = v9;
+  *(a3 + 16) = v8;
+  return result;
+}
+
+uint64_t llvm::DenseMapBase<llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>,llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::LookupBucketFor<llvm::DIImportedEntity *>(uint64_t *a1, uint64_t *a2, void *a3)
+{
+  v4 = *(a1 + 4);
+  if (v4)
+  {
+    v6 = *a1;
+    llvm::MDNodeKeyImpl<llvm::DIImportedEntity>::MDNodeKeyImpl(v17, *a2);
+    HashValue = llvm::MDNodeKeyImpl<llvm::DIImportedEntity>::getHashValue(v17);
+    v8 = v4 - 1;
+    v9 = HashValue & (v4 - 1);
+    v10 = (v6 + 8 * v9);
+    v11 = *v10;
+    if (*a2 == *v10)
+    {
+      result = 1;
+    }
+
+    else
+    {
+      v13 = 0;
+      v14 = 1;
+      result = 1;
+      while (v11 != -4096)
+      {
+        if (v13)
+        {
+          v15 = 0;
+        }
+
+        else
+        {
+          v15 = v11 == -8192;
+        }
+
+        if (v15)
+        {
+          v13 = v10;
+        }
+
+        v16 = v9 + v14++;
+        v9 = v16 & v8;
+        v10 = (v6 + 8 * (v16 & v8));
+        v11 = *v10;
+        if (*a2 == *v10)
+        {
+          goto LABEL_5;
+        }
+      }
+
+      result = 0;
+      if (v13)
+      {
+        v10 = v13;
+      }
+    }
+  }
+
+  else
+  {
+    v10 = 0;
+    result = 0;
+  }
+
+LABEL_5:
+  *a3 = v10;
+  return result;
+}
+
+uint64_t llvm::MDNodeKeyImpl<llvm::DIImportedEntity>::MDNodeKeyImpl(uint64_t result, uint64_t a2)
+{
+  *result = *(a2 + 2);
+  v2 = (a2 - 16);
+  v3 = *(a2 - 16);
+  if ((v3 & 2) != 0)
+  {
+    v4 = *(a2 - 32);
+  }
+
+  else
+  {
+    v4 = &v2[-((v3 >> 2) & 0xF)];
+  }
+
+  *(result + 8) = *v4;
+  if ((*v2 & 2) != 0)
+  {
+    v5 = *(a2 - 32);
+  }
+
+  else
+  {
+    v5 = &v2[-((*v2 >> 2) & 0xFLL)];
+  }
+
+  *(result + 16) = v5[1];
+  if ((*v2 & 2) != 0)
+  {
+    v6 = *(a2 - 32);
+  }
+
+  else
+  {
+    v6 = &v2[-((*v2 >> 2) & 0xFLL)];
+  }
+
+  *(result + 24) = v6[3];
+  *(result + 32) = *(a2 + 16);
+  v7 = *(a2 - 16);
+  if ((v7 & 2) != 0)
+  {
+    v8 = *(a2 - 32);
+  }
+
+  else
+  {
+    v8 = &v2[-((v7 >> 2) & 0xF)];
+  }
+
+  *(result + 40) = v8[2];
+  if ((*v2 & 2) != 0)
+  {
+    v9 = *(a2 - 32);
+  }
+
+  else
+  {
+    v9 = &v2[-((*v2 >> 2) & 0xFLL)];
+  }
+
+  *(result + 48) = v9[4];
+  return result;
+}
+
+void *llvm::DenseMapBase<llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>,llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::InsertIntoBucketImpl<llvm::DIImportedEntity *>(uint64_t a1, uint64_t a2, uint64_t *a3, void *a4)
+{
+  v6 = *(a1 + 8);
+  v7 = *(a1 + 16);
+  if (4 * v6 + 4 >= 3 * v7)
+  {
+    v7 *= 2;
+  }
+
+  else if (v7 + ~v6 - *(a1 + 12) > v7 >> 3)
+  {
+    goto LABEL_3;
+  }
+
+  llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::grow(a1, v7);
+  v9 = 0;
+  llvm::DenseMapBase<llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>,llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::LookupBucketFor<llvm::DIImportedEntity *>(a1, a3, &v9);
+  a4 = v9;
+LABEL_3:
+  ++*(a1 + 8);
+  if (*a4 != -4096)
+  {
+    --*(a1 + 12);
+  }
+
+  return a4;
+}
+
+char *llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::grow(uint64_t **a1, int a2)
+{
+  v3 = *(a1 + 4);
+  v4 = *a1;
+  v5 = (a2 - 1) | ((a2 - 1) >> 1);
+  v6 = v5 | (v5 >> 2) | ((v5 | (v5 >> 2)) >> 4);
+  v7 = ((v6 | (v6 >> 8)) >> 16) | v6 | (v6 >> 8);
+  if ((v7 + 1) > 0x40)
+  {
+    v8 = v7 + 1;
+  }
+
+  else
+  {
+    v8 = 64;
+  }
+
+  *(a1 + 4) = v8;
+  result = operator new(8 * v8, 8uLL);
+  *a1 = result;
+  if (v4)
+  {
+    llvm::DenseMapBase<llvm::DenseMap<llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>,llvm::DIImportedEntity *,llvm::detail::DenseSetEmpty,llvm::MDNodeInfo<llvm::DIImportedEntity>,llvm::detail::DenseSetPair<llvm::DIImportedEntity *>>::moveFromOldBuckets(a1, v4, &v4[v3]);
+
+    JUMPOUT(0x277C69E30);
+  }
+
+  a1[1] = 0;
+  v10 = *(a1 + 4);
+  if (v10)
+  {
+    v11 = 0;
+    v12 = v10 + 0x1FFFFFFFFFFFFFFFLL;
+    v13 = v12 & 0x1FFFFFFFFFFFFFFFLL;
+    v14 = (v12 & 0x1FFFFFFFFFFFFFFFLL) - (v12 & 1) + 2;
+    v15 = vdupq_n_s64(v13);
+    v16 = result + 8;
+    do
+    {
+      v17 = vmovn_s64(vcgeq_u64(v15, vorrq_s8(vdupq_n_s64(v11), xmmword_2750C1210)));
+      if (v17.i8[0])
+      {
+        *(v16 - 1) = -4096;
+      }
+
+      if (v17.i8[4])
+      {
+        *v16 = -4096;
+      }
+
+      v11 += 2;
+      v16 += 16;
+    }
+
+    while (v14 != v11);
+  }
+
   return result;
 }

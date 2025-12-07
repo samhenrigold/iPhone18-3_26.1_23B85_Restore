@@ -64,7 +64,7 @@
   result = self->_assetInspector;
   if (result)
   {
-    return [($3CC8671D27C23BF42ADDB32F2B5E48AE *)result duration];
+    return objc_msgSend_duration(result, a3);
   }
 
   retstr->var0 = 0;

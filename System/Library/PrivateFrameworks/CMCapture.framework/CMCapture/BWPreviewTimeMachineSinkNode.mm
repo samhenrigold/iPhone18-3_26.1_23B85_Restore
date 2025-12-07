@@ -3,9 +3,9 @@
 - ($3CC8671D27C23BF42ADDB32F2B5E48AE)earliestAllowedPTS;
 - (BWPreviewTimeMachineSinkNode)initWithCaptureDevice:(id)device processingQueuePriority:(unsigned int)priority timeMachineCapacity:(int)capacity smartCameraMotionDetectionEnabled:(BOOL)enabled sinkID:(id)d;
 - (uint64_t)_computeMotionDetectionFaceRectForSampleBuffers:(uint64_t)buffers faceMotionRectOut:;
-- (uint64_t)_setupStateMachine;
-- (uint64_t)_trimToTimeRange:(uint64_t)result;
 - (uint64_t)dealloc;
+- (void)_setupStateMachine;
+- (void)_trimToTimeRange:(void *)result;
 - (void)dealloc;
 - (void)detectMotionOnStoredFramesWithSmartCameraDiagnostics:(id)diagnostics completionHandler:(id)handler;
 - (void)didReachEndOfDataForInput:(id)input;
@@ -216,7 +216,7 @@ uint64_t __103__BWPreviewTimeMachineSinkNode_detectMotionOnStoredFramesWithSmart
             v12 = *(*(a1 + 40) + 328);
             if (v12)
             {
-              [v12 motionStatistics];
+              objc_msgSend_motionStatistics(v12);
               if (BYTE9(v26) & 1) != 0 && (BYTE8(v26))
               {
                 v16 = *(a1 + 48);
@@ -272,7 +272,7 @@ LABEL_23:
 {
   if ((range->var0.var2 & 1) == 0 || (range->var1.var2 & 1) == 0 || range->var1.var3 || range->var1.var0 < 0)
   {
-    [BWPreviewTimeMachineSinkNode suspendWithPTSRange:completionHandler:];
+    [BWPreviewTimeMachineSinkNode suspendWithPTSRange:a2 completionHandler:?];
     v11 = 1;
     if (!handler)
     {
@@ -528,7 +528,7 @@ LABEL_19:
         goto LABEL_19;
       }
 
-      [BWPreviewTimeMachineSinkNode renderSampleBuffer:forInput:];
+      [BWPreviewTimeMachineSinkNode renderSampleBuffer:? forInput:?];
     }
 
 LABEL_25:
@@ -637,7 +637,7 @@ void __60__BWPreviewTimeMachineSinkNode_renderSampleBuffer_forInput___block_invo
 
 - (void)handleDroppedSample:(id)sample forInput:(id)input
 {
-  if ([objc_msgSend(sample "reason")])
+  if (objc_msgSend_isEqualToString_([sample reason]))
   {
     os_unfair_lock_lock(&self->_timeMachineLock);
     if ([(NSMutableArray *)self->_timeMachineFrames count])
@@ -669,17 +669,17 @@ BOOL __49__BWPreviewTimeMachineSinkNode__trimToTimeRange___block_invoke(_OWORD *
   return CMTimeRangeContainsTime(&v5, &time) == 0;
 }
 
-- (uint64_t)_setupStateMachine
+- (void)_setupStateMachine
 {
   if (result)
   {
     v1 = result;
     v2 = [[FigStateMachine alloc] initWithLabel:@"BWPreviewTimeMachineStateMachine" stateCount:3 initialState:1 owner:result];
-    *(v1 + 240) = v2;
+    *(v1 + 30) = v2;
     [(FigStateMachine *)v2 setPerformsAtomicStateTransitions:0];
-    [*(v1 + 240) setLabel:@"Running" forState:1];
-    [*(v1 + 240) setLabel:@"Suspending" forState:2];
-    v3 = *(v1 + 240);
+    [*(v1 + 30) setLabel:@"Running" forState:1];
+    [*(v1 + 30) setLabel:@"Suspending" forState:2];
+    v3 = *(v1 + 30);
 
     return [v3 setLabel:@"Suspended" forState:4];
   }
@@ -687,12 +687,12 @@ BOOL __49__BWPreviewTimeMachineSinkNode__trimToTimeRange___block_invoke(_OWORD *
   return result;
 }
 
-- (uint64_t)_trimToTimeRange:(uint64_t)result
+- (void)_trimToTimeRange:(void *)result
 {
   if (result)
   {
     v2 = result;
-    v3 = *(result + 224);
+    v3 = result[28];
     v5[0] = MEMORY[0x1E69E9820];
     v5[1] = 3221225472;
     v5[2] = __49__BWPreviewTimeMachineSinkNode__trimToTimeRange___block_invoke;
@@ -701,7 +701,7 @@ BOOL __49__BWPreviewTimeMachineSinkNode__trimToTimeRange___block_invoke(_OWORD *
     v6 = *a2;
     v7 = v4;
     v8 = a2[2];
-    return [*(v2 + 224) removeObjectsAtIndexes:{objc_msgSend(v3, "indexesOfObjectsPassingTest:", v5)}];
+    return [v2[28] removeObjectsAtIndexes:{objc_msgSend(v3, "indexesOfObjectsPassingTest:", v5)}];
   }
 
   return result;
@@ -719,11 +719,11 @@ BOOL __49__BWPreviewTimeMachineSinkNode__trimToTimeRange___block_invoke(_OWORD *
     fig_log_get_emitter();
     OUTLINED_FUNCTION_1_11();
     OUTLINED_FUNCTION_2_5();
-    FigDebugAssert3();
+    FigDebugAssert3(v61);
   }
 
   v6 = objc_opt_new();
-  v14 = OUTLINED_FUNCTION_5_26(v6, v7, v8, v9, v10, v11, v12, v13, v61, v63, v65, v68, v3, buffers, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93, v95, v97, v99, v101, v103, v105, 0);
+  v14 = OUTLINED_FUNCTION_5_26(v6, v7, v8, v9, v10, v11, v12, v13, v62, v64, v66, v69, v3, buffers, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106);
   if (v14)
   {
     v15 = v14;
@@ -752,7 +752,7 @@ BOOL __49__BWPreviewTimeMachineSinkNode__trimToTimeRange___block_invoke(_OWORD *
         }
       }
 
-      v15 = OUTLINED_FUNCTION_5_26(v21, v22, v23, v24, v25, v26, v27, v28, v62, v64, v66, v69, v72, v74, v76, v78, v80, v82, v84, v86, v88, v90, v92, v94, v96, v98, v100, v102, v104, v106, v107);
+      v15 = OUTLINED_FUNCTION_5_26(v21, v22, v23, v24, v25, v26, v27, v28, v63, v65, v67, v70, v73, v75, v77, v79, v81, v83, v85, v87, v89, v91, v93, v95, v97, v99, v101, v103, v105, v107);
     }
 
     while (v15);
@@ -772,8 +772,8 @@ BOOL __49__BWPreviewTimeMachineSinkNode__trimToTimeRange___block_invoke(_OWORD *
       if (v34)
       {
         v35 = v34;
-        v67 = v32;
-        v70 = v31;
+        v68 = v32;
+        v71 = v31;
         v36 = *v115;
         v37 = *off_1E798B310;
         v38 = *off_1E798B308;
@@ -813,7 +813,7 @@ LABEL_19:
         }
 
         memset(&v111, 0, sizeof(v111));
-        BWGetAffineTransformFromSensorToPreview(v70, v67, v41, &v111);
+        BWGetAffineTransformFromSensorToPreview(v71, v68, v41, &v111);
         CGAffineTransformMakeScale(&t2, v30, SHIDWORD(v30));
         t1 = v111;
         CGAffineTransformConcat(&v110, &t1, &t2);
@@ -869,7 +869,7 @@ LABEL_19:
           v50 = v51 / v48;
         }
 
-        v71 = SHIDWORD(v30);
+        v72 = SHIDWORD(v30);
         v54 = v44 * v50;
         v55 = v45 * v50;
         v119.origin.x = OUTLINED_FUNCTION_3_22();
@@ -916,19 +916,19 @@ LABEL_19:
           v124.origin.y = v58;
           v124.size.width = v54;
           v124.size.height = v55;
-          if (CGRectGetMaxY(v124) > v71)
+          if (CGRectGetMaxY(v124) > v72)
           {
-            v58 = v71 - v55;
+            v58 = v72 - v55;
           }
         }
 
-        if (v74)
+        if (v75)
         {
-          *v74 = v57;
-          v74[1] = v58;
+          *v75 = v57;
+          v75[1] = v58;
           v52 = 1;
-          v74[2] = v54;
-          v74[3] = v55;
+          v75[2] = v54;
+          v75[3] = v55;
         }
 
         else
@@ -944,7 +944,7 @@ LABEL_19:
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_1_36();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)");
     }
   }
 
@@ -960,7 +960,7 @@ LABEL_41:
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_5();
-  result = FigDebugAssert3();
+  result = FigDebugAssert3(v4);
   *a2 = *self;
   return result;
 }
@@ -970,23 +970,9 @@ LABEL_41:
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_5();
-  result = FigDebugAssert3();
+  result = FigDebugAssert3(v4);
   *a2 = *a1;
   return result;
-}
-
-- (uint64_t)suspendWithPTSRange:completionHandler:.cold.2()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)renderSampleBuffer:forInput:.cold.1()
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_1_11();
-  return FigDebugAssert3();
 }
 
 uint64_t __60__BWPreviewTimeMachineSinkNode_renderSampleBuffer_forInput___block_invoke_cold_1(void *a1, void *a2)
@@ -994,7 +980,7 @@ uint64_t __60__BWPreviewTimeMachineSinkNode_renderSampleBuffer_forInput___block_
   fig_log_get_emitter();
   OUTLINED_FUNCTION_1_11();
   OUTLINED_FUNCTION_2_5();
-  result = FigDebugAssert3();
+  result = FigDebugAssert3(v4);
   *a2 = *a1;
   return result;
 }

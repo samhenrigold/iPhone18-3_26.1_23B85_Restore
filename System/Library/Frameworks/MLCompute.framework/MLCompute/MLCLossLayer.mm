@@ -1,6 +1,26 @@
 @interface MLCLossLayer
++ (MLCLossLayer)categoricalCrossEntropyLossWithReductionType:(MLCReductionType)reductionType labelSmoothing:(float)labelSmoothing classCount:(NSUInteger)classCount weight:(float)weight;
++ (MLCLossLayer)categoricalCrossEntropyLossWithReductionType:(MLCReductionType)reductionType labelSmoothing:(float)labelSmoothing classCount:(NSUInteger)classCount weights:(MLCTensor *)weights;
++ (MLCLossLayer)cosineDistanceLossWithReductionType:(MLCReductionType)reductionType weight:(float)weight;
++ (MLCLossLayer)cosineDistanceLossWithReductionType:(MLCReductionType)reductionType weights:(MLCTensor *)weights;
++ (MLCLossLayer)hingeLossWithReductionType:(MLCReductionType)reductionType weight:(float)weight;
++ (MLCLossLayer)hingeLossWithReductionType:(MLCReductionType)reductionType weights:(MLCTensor *)weights;
++ (MLCLossLayer)huberLossWithReductionType:(MLCReductionType)reductionType delta:(float)delta weight:(float)weight;
++ (MLCLossLayer)huberLossWithReductionType:(MLCReductionType)reductionType delta:(float)delta weights:(MLCTensor *)weights;
 + (MLCLossLayer)layerWithDescriptor:(MLCLossDescriptor *)lossDescriptor;
 + (MLCLossLayer)layerWithDescriptor:(MLCLossDescriptor *)lossDescriptor weights:(MLCTensor *)weights;
++ (MLCLossLayer)logLossWithReductionType:(MLCReductionType)reductionType epsilon:(float)epsilon weight:(float)weight;
++ (MLCLossLayer)logLossWithReductionType:(MLCReductionType)reductionType epsilon:(float)epsilon weights:(MLCTensor *)weights;
++ (MLCLossLayer)meanAbsoluteErrorLossWithReductionType:(MLCReductionType)reductionType weight:(float)weight;
++ (MLCLossLayer)meanAbsoluteErrorLossWithReductionType:(MLCReductionType)reductionType weights:(MLCTensor *)weights;
++ (MLCLossLayer)meanSquaredErrorLossWithReductionType:(MLCReductionType)reductionType weight:(float)weight;
++ (MLCLossLayer)meanSquaredErrorLossWithReductionType:(MLCReductionType)reductionType weights:(MLCTensor *)weights;
++ (MLCLossLayer)sigmoidCrossEntropyLossWithReductionType:(MLCReductionType)reductionType labelSmoothing:(float)labelSmoothing weight:(float)weight;
++ (MLCLossLayer)sigmoidCrossEntropyLossWithReductionType:(MLCReductionType)reductionType labelSmoothing:(float)labelSmoothing weights:(MLCTensor *)weights;
++ (MLCLossLayer)softmaxCrossEntropyLossWithReductionType:(MLCReductionType)reductionType labelSmoothing:(float)labelSmoothing classCount:(NSUInteger)classCount weight:(float)weight;
++ (MLCLossLayer)softmaxCrossEntropyLossWithReductionType:(MLCReductionType)reductionType labelSmoothing:(float)labelSmoothing classCount:(NSUInteger)classCount weights:(MLCTensor *)weights;
++ (id)categoricalCrossEntropyLossWithReductionType:(int)type weight:(float)weight;
++ (id)categoricalCrossEntropyLossWithReductionType:(int)type weights:(id)weights;
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor;
 - (MLCLossLayer)initWithDescriptor:(id)descriptor weights:(id)weights;
 - (id)description;
@@ -28,6 +48,230 @@
   v8 = [[self alloc] initWithDescriptor:v7 weights:v6];
 
   return v8;
+}
+
++ (MLCLossLayer)softmaxCrossEntropyLossWithReductionType:(MLCReductionType)reductionType labelSmoothing:(float)labelSmoothing classCount:(NSUInteger)classCount weight:(float)weight
+{
+  *&v8 = weight;
+  *&v9 = labelSmoothing;
+  v10 = [MLCLossDescriptor descriptorWithType:2 reductionType:*&reductionType weight:classCount labelSmoothing:v8 classCount:v9];
+  v11 = [[self alloc] initWithDescriptor:v10 weights:0];
+
+  return v11;
+}
+
++ (MLCLossLayer)softmaxCrossEntropyLossWithReductionType:(MLCReductionType)reductionType labelSmoothing:(float)labelSmoothing classCount:(NSUInteger)classCount weights:(MLCTensor *)weights
+{
+  v8 = *&reductionType;
+  v10 = weights;
+  LODWORD(v11) = 1.0;
+  *&v12 = labelSmoothing;
+  v13 = [MLCLossDescriptor descriptorWithType:2 reductionType:v8 weight:classCount labelSmoothing:v11 classCount:v12];
+  v14 = [[self alloc] initWithDescriptor:v13 weights:v10];
+
+  return v14;
+}
+
++ (MLCLossLayer)categoricalCrossEntropyLossWithReductionType:(MLCReductionType)reductionType labelSmoothing:(float)labelSmoothing classCount:(NSUInteger)classCount weight:(float)weight
+{
+  *&v8 = weight;
+  *&v9 = labelSmoothing;
+  v10 = [MLCLossDescriptor descriptorWithType:4 reductionType:*&reductionType weight:classCount labelSmoothing:v8 classCount:v9];
+  v11 = [[self alloc] initWithDescriptor:v10 weights:0];
+
+  return v11;
+}
+
++ (MLCLossLayer)categoricalCrossEntropyLossWithReductionType:(MLCReductionType)reductionType labelSmoothing:(float)labelSmoothing classCount:(NSUInteger)classCount weights:(MLCTensor *)weights
+{
+  v8 = *&reductionType;
+  v10 = weights;
+  LODWORD(v11) = 1.0;
+  *&v12 = labelSmoothing;
+  v13 = [MLCLossDescriptor descriptorWithType:4 reductionType:v8 weight:classCount labelSmoothing:v11 classCount:v12];
+  v14 = [[self alloc] initWithDescriptor:v13 weights:v10];
+
+  return v14;
+}
+
++ (MLCLossLayer)sigmoidCrossEntropyLossWithReductionType:(MLCReductionType)reductionType labelSmoothing:(float)labelSmoothing weight:(float)weight
+{
+  *&v7 = weight;
+  *&v8 = labelSmoothing;
+  v9 = [MLCLossDescriptor descriptorWithType:3 reductionType:*&reductionType weight:1 labelSmoothing:v7 classCount:v8];
+  v10 = [[self alloc] initWithDescriptor:v9 weights:0];
+
+  return v10;
+}
+
++ (MLCLossLayer)sigmoidCrossEntropyLossWithReductionType:(MLCReductionType)reductionType labelSmoothing:(float)labelSmoothing weights:(MLCTensor *)weights
+{
+  v6 = *&reductionType;
+  v8 = weights;
+  LODWORD(v9) = 1.0;
+  *&v10 = labelSmoothing;
+  v11 = [MLCLossDescriptor descriptorWithType:3 reductionType:v6 weight:1 labelSmoothing:v9 classCount:v10];
+  v12 = [[self alloc] initWithDescriptor:v11 weights:v8];
+
+  return v12;
+}
+
++ (id)categoricalCrossEntropyLossWithReductionType:(int)type weight:(float)weight
+{
+  v5 = [MLCLossDescriptor descriptorWithType:4 reductionType:*&type weight:?];
+  v6 = [[self alloc] initWithDescriptor:v5 weights:0];
+
+  return v6;
+}
+
++ (id)categoricalCrossEntropyLossWithReductionType:(int)type weights:(id)weights
+{
+  v4 = *&type;
+  weightsCopy = weights;
+  v7 = [MLCLossDescriptor descriptorWithType:4 reductionType:v4];
+  v8 = [[self alloc] initWithDescriptor:v7 weights:weightsCopy];
+
+  return v8;
+}
+
++ (MLCLossLayer)logLossWithReductionType:(MLCReductionType)reductionType epsilon:(float)epsilon weight:(float)weight
+{
+  LODWORD(v6) = 1.0;
+  *&v9 = weight;
+  *&v5 = epsilon;
+  v10 = [MLCLossDescriptor descriptorWithType:8 reductionType:*&reductionType weight:1 labelSmoothing:v9 classCount:0.0 epsilon:v5 delta:v6];
+  v11 = [[self alloc] initWithDescriptor:v10 weights:0];
+
+  return v11;
+}
+
++ (MLCLossLayer)logLossWithReductionType:(MLCReductionType)reductionType epsilon:(float)epsilon weights:(MLCTensor *)weights
+{
+  v6 = *&reductionType;
+  v8 = weights;
+  LODWORD(v9) = 1.0;
+  LODWORD(v10) = 1.0;
+  *&v11 = epsilon;
+  v12 = [MLCLossDescriptor descriptorWithType:8 reductionType:v6 weight:1 labelSmoothing:v9 classCount:0.0 epsilon:v11 delta:v10];
+  v13 = [[self alloc] initWithDescriptor:v12 weights:v8];
+
+  return v13;
+}
+
++ (MLCLossLayer)huberLossWithReductionType:(MLCReductionType)reductionType delta:(float)delta weight:(float)weight
+{
+  *&v6 = delta;
+  LODWORD(v5) = 869711765;
+  *&v8 = weight;
+  v9 = [MLCLossDescriptor descriptorWithType:6 reductionType:*&reductionType weight:1 labelSmoothing:v8 classCount:0.0 epsilon:v5 delta:v6];
+  v10 = [[self alloc] initWithDescriptor:v9 weights:0];
+
+  return v10;
+}
+
++ (MLCLossLayer)huberLossWithReductionType:(MLCReductionType)reductionType delta:(float)delta weights:(MLCTensor *)weights
+{
+  v6 = *&reductionType;
+  v8 = weights;
+  LODWORD(v9) = 869711765;
+  LODWORD(v10) = 1.0;
+  *&v11 = delta;
+  v12 = [MLCLossDescriptor descriptorWithType:6 reductionType:v6 weight:1 labelSmoothing:v10 classCount:0.0 epsilon:v9 delta:v11];
+  v13 = [[self alloc] initWithDescriptor:v12 weights:v8];
+
+  return v13;
+}
+
++ (MLCLossLayer)meanAbsoluteErrorLossWithReductionType:(MLCReductionType)reductionType weight:(float)weight
+{
+  v5 = [MLCLossDescriptor descriptorWithType:0 reductionType:*&reductionType weight:?];
+  v6 = [[self alloc] initWithDescriptor:v5 weights:0];
+
+  return v6;
+}
+
++ (MLCLossLayer)meanAbsoluteErrorLossWithReductionType:(MLCReductionType)reductionType weights:(MLCTensor *)weights
+{
+  v4 = *&reductionType;
+  v6 = weights;
+  v7 = [MLCLossDescriptor descriptorWithType:0 reductionType:v4];
+  v8 = [[self alloc] initWithDescriptor:v7 weights:v6];
+
+  return v8;
+}
+
++ (MLCLossLayer)meanSquaredErrorLossWithReductionType:(MLCReductionType)reductionType weight:(float)weight
+{
+  v5 = [MLCLossDescriptor descriptorWithType:1 reductionType:*&reductionType weight:?];
+  v6 = [[self alloc] initWithDescriptor:v5 weights:0];
+
+  return v6;
+}
+
++ (MLCLossLayer)meanSquaredErrorLossWithReductionType:(MLCReductionType)reductionType weights:(MLCTensor *)weights
+{
+  v4 = *&reductionType;
+  v6 = weights;
+  v7 = [MLCLossDescriptor descriptorWithType:1 reductionType:v4];
+  v8 = [[self alloc] initWithDescriptor:v7 weights:v6];
+
+  return v8;
+}
+
++ (MLCLossLayer)hingeLossWithReductionType:(MLCReductionType)reductionType weight:(float)weight
+{
+  v5 = [MLCLossDescriptor descriptorWithType:5 reductionType:*&reductionType weight:?];
+  v6 = [[self alloc] initWithDescriptor:v5 weights:0];
+
+  return v6;
+}
+
++ (MLCLossLayer)hingeLossWithReductionType:(MLCReductionType)reductionType weights:(MLCTensor *)weights
+{
+  v4 = *&reductionType;
+  v6 = weights;
+  v7 = [MLCLossDescriptor descriptorWithType:5 reductionType:v4];
+  v8 = [[self alloc] initWithDescriptor:v7 weights:v6];
+
+  return v8;
+}
+
++ (MLCLossLayer)cosineDistanceLossWithReductionType:(MLCReductionType)reductionType weight:(float)weight
+{
+  v5 = *&reductionType;
+  if (reductionType == MLCReductionTypeMean)
+  {
+    v8 = +[MLCLog framework];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      [MLCLossLayer cosineDistanceLossWithReductionType:a2 weight:?];
+    }
+  }
+
+  *&v9 = weight;
+  v10 = [MLCLossDescriptor descriptorWithType:7 reductionType:v5 weight:v9];
+  v11 = [[self alloc] initWithDescriptor:v10 weights:0];
+
+  return v11;
+}
+
++ (MLCLossLayer)cosineDistanceLossWithReductionType:(MLCReductionType)reductionType weights:(MLCTensor *)weights
+{
+  v4 = *&reductionType;
+  v7 = weights;
+  if (v4 == 2)
+  {
+    v8 = +[MLCLog framework];
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      [MLCLossLayer cosineDistanceLossWithReductionType:a2 weight:?];
+    }
+  }
+
+  v9 = [MLCLossDescriptor descriptorWithType:7 reductionType:v4];
+  v10 = [[self alloc] initWithDescriptor:v9 weights:v7];
+
+  return v10;
 }
 
 - (MLCLossLayer)initWithDescriptor:(id)descriptor weights:(id)weights
@@ -61,7 +305,7 @@
 
 - (BOOL)compileForDevice:(id)device sourceTensors:(id)tensors resultTensor:(id)tensor
 {
-  v59 = *MEMORY[0x277D85DE8];
+  v58 = *MEMORY[0x277D85DE8];
   deviceCopy = device;
   tensorsCopy = tensors;
   tensorCopy = tensor;
@@ -95,13 +339,13 @@
       {
         v46 = NSStringFromSelector(a2);
         *buf = 138413058;
-        v52 = v46;
-        v53 = 2048;
-        v54 = v14;
-        v55 = 1024;
-        v56 = dataType;
-        v57 = 2112;
-        v58 = deviceCopy;
+        v51 = v46;
+        v52 = 2048;
+        v53 = v14;
+        v54 = 1024;
+        v55 = dataType;
+        v56 = 2112;
+        v57 = deviceCopy;
         _os_log_error_impl(&dword_238C1D000, v35, OS_LOG_TYPE_ERROR, "%@: sourceTensor[%lu] uses unsupported data type = %d on a device = %@", buf, 0x26u);
       }
 
@@ -146,23 +390,11 @@ LABEL_6:
 
 LABEL_10:
     lossLabels = [(MLCLossLayer *)self lossLabels];
-    if (!lossLabels)
+    if (!lossLabels || (v28 = lossLabels, -[MLCLossLayer lossLabels](self, "lossLabels"), v29 = objc_claimAutoreleasedReturnValue(), [v29 descriptor], v30 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v30, "shape"), v31 = objc_claimAutoreleasedReturnValue(), v32 = objc_msgSend(v31, "count"), v31, v30, v29, v28, v21 == v32))
     {
-      goto LABEL_12;
-    }
-
-    v28 = lossLabels;
-    lossLabels2 = [(MLCLossLayer *)self lossLabels];
-    descriptor4 = [lossLabels2 descriptor];
-    shape3 = [descriptor4 shape];
-    v32 = [shape3 count];
-
-    if (v21 == v32)
-    {
-LABEL_12:
       computeEngine = [deviceCopy computeEngine];
-      descriptor5 = [(MLCLossLayer *)self descriptor];
-      v35 = [computeEngine lossLayerWithDescriptor:descriptor5];
+      descriptor4 = [(MLCLossLayer *)self descriptor];
+      v35 = [computeEngine lossLayerWithDescriptor:descriptor4];
 
       if (v35 && [v35 count])
       {
@@ -171,17 +403,17 @@ LABEL_12:
 
         if (v37)
         {
-          v50.receiver = self;
-          v50.super_class = MLCLossLayer;
-          [(MLCLayer *)&v50 bindDevice:deviceCopy deviceOps:v35];
+          v49.receiver = self;
+          v49.super_class = MLCLossLayer;
+          [(MLCLayer *)&v49 bindDevice:deviceCopy deviceOps:v35];
           computeEngine3 = [deviceCopy computeEngine];
           deviceList = [computeEngine3 deviceList];
           v40 = [deviceList count];
 
           if (v40 >= 2)
           {
-            descriptor6 = [(MLCLossLayer *)self descriptor];
-            [tensorCopy setMultiDeviceReductionType:{objc_msgSend(descriptor6, "reductionType")}];
+            descriptor5 = [(MLCLossLayer *)self descriptor];
+            [tensorCopy setMultiDeviceReductionType:{objc_msgSend(descriptor5, "reductionType")}];
           }
 
           weights = [(MLCLossLayer *)self weights];
@@ -243,7 +475,6 @@ LABEL_29:
   v45 = 0;
 LABEL_30:
 
-  v47 = *MEMORY[0x277D85DE8];
   return v45;
 }
 
@@ -457,72 +688,54 @@ LABEL_9:
 
 + (void)cosineDistanceLossWithReductionType:(const char *)a1 weight:.cold.1(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:sourceTensors:resultTensor:.cold.1()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:sourceTensors:resultTensor:.cold.2()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:(const char *)a1 sourceTensors:resultTensor:.cold.3(const char *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(a1);
   OUTLINED_FUNCTION_2_0();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0xCu);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:sourceTensors:resultTensor:.cold.4()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)compileForDevice:sourceTensors:resultTensor:.cold.5()
 {
   OUTLINED_FUNCTION_5_0();
-  v8 = *MEMORY[0x277D85DE8];
   v1 = NSStringFromSelector(v0);
   OUTLINED_FUNCTION_1_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 @end

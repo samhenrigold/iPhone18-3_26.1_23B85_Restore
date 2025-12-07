@@ -467,7 +467,7 @@ LABEL_4:
         v12 = v11;
         if (v11)
         {
-          if (([v11 isEqual:self] & 1) == 0)
+          if ((objc_msgSend_isEqual_(v11) & 1) == 0)
           {
             (*(block + 2))(block, v10, v12, &v17);
             if (v17)

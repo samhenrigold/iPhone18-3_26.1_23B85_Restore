@@ -358,28 +358,28 @@ LABEL_27:
 
 - (id)formattedDescription:(unint64_t)description
 {
-  v18[12] = *MEMORY[0x1E69E9840];
+  v17[12] = *MEMORY[0x1E69E9840];
   v5 = [@"\n" stringByPaddingToLength:description + 4 withString:@" " startingAtIndex:0];
   v6 = v5;
-  v18[0] = v5;
-  v18[1] = @"label =";
+  v17[0] = v5;
+  v17[1] = @"label =";
   label = self->_label;
   if (!label)
   {
     label = @"<none>";
   }
 
-  v18[2] = label;
-  v18[3] = v5;
-  v18[4] = @"screenSize.width =";
-  v18[5] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_screenSize.width];
-  v18[6] = v6;
-  v18[7] = @"screenSize.height =";
-  v18[8] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_screenSize.height];
-  v18[9] = v6;
-  v18[10] = @"layerCount =";
-  v18[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[MTLRasterizationRateMapDescriptorInternal layerCount](self, "layerCount")}];
-  v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v18 count:12];
+  v17[2] = label;
+  v17[3] = v5;
+  v17[4] = @"screenSize.width =";
+  v17[5] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_screenSize.width];
+  v17[6] = v6;
+  v17[7] = @"screenSize.height =";
+  v17[8] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:self->_screenSize.height];
+  v17[9] = v6;
+  v17[10] = @"layerCount =";
+  v17[11] = [MEMORY[0x1E696AD98] numberWithUnsignedInteger:{-[MTLRasterizationRateMapDescriptorInternal layerCount](self, "layerCount")}];
+  v15 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:12];
   v8 = objc_opt_new();
   begin = self->_layers.__begin_;
   var0 = self->_layers.var0;
@@ -406,11 +406,10 @@ LABEL_27:
     while (v11 < var0 - begin);
   }
 
-  v17.receiver = self;
-  v17.super_class = MTLRasterizationRateMapDescriptorInternal;
-  v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", -[MTLRasterizationRateMapDescriptorInternal description](&v17, sel_description), objc_msgSend(v16, "componentsJoinedByString:", @" ", objc_msgSend(v8, "componentsJoinedByString:", &stru_1EF478240)];
+  v16.receiver = self;
+  v16.super_class = MTLRasterizationRateMapDescriptorInternal;
+  v13 = [MEMORY[0x1E696AEC0] stringWithFormat:@"%@%@%@", -[MTLRasterizationRateMapDescriptorInternal description](&v16, sel_description), objc_msgSend(v15, "componentsJoinedByString:", @" ", objc_msgSend(v8, "componentsJoinedByString:", &stru_1EF478240)];
 
-  v14 = *MEMORY[0x1E69E9840];
   return v13;
 }
 

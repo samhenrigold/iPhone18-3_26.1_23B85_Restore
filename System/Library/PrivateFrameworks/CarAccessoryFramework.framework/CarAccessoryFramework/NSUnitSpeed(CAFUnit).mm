@@ -11,9 +11,9 @@
     +[NSUnitSpeed(CAFUnit) metersPerHour];
   }
 
-  v1 = metersPerHour_metersPerHour;
+  v2 = metersPerHour_metersPerHour;
 
-  return v1;
+  return v2;
 }
 
 @end

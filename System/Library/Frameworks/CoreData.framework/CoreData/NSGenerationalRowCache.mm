@@ -37,10 +37,9 @@
 
 - (id)rowCacheForGeneration:(uint64_t)generation
 {
-  v15 = *MEMORY[0x1E69E9840];
   if (!generation)
   {
-    goto LABEL_10;
+    return 0;
   }
 
   if ([a2 _isEnabled])
@@ -61,26 +60,20 @@
 
         else
         {
-          v12 = *(generation + 8);
           v7 = [objc_alloc(objc_msgSend(objc_opt_class() "rowCacheClass"))];
           [*(generation + 24) setObject:v7 forKey:v5];
         }
 
         os_unfair_lock_unlock((generation + 32));
-        v13 = v7;
-        goto LABEL_13;
+        v11 = v7;
+        return v7;
       }
     }
 
-LABEL_10:
-    v7 = 0;
-LABEL_13:
-    v14 = *MEMORY[0x1E69E9840];
-    return v7;
+    return 0;
   }
 
   v9 = *(generation + 16);
-  v10 = *MEMORY[0x1E69E9840];
 
   return v9;
 }
@@ -98,35 +91,35 @@ LABEL_13:
 
 - (void)forgetAllGenerationalExternalData
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (self)
   {
     os_unfair_lock_lock_with_options();
     v2 = objc_autoreleasePoolPush();
+    v7 = 0u;
     v8 = 0u;
     v9 = 0u;
     v10 = 0u;
-    v11 = 0u;
     allValues = [*(self + 24) allValues];
-    v4 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+    v4 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
     if (v4)
     {
-      v5 = *v9;
+      v5 = *v8;
       do
       {
         v6 = 0;
         do
         {
-          if (*v9 != v5)
+          if (*v8 != v5)
           {
             objc_enumerationMutation(allValues);
           }
 
-          [(NSPersistentStoreCache *)*(*(&v8 + 1) + 8 * v6++) forgetAllExternalData];
+          [(NSPersistentStoreCache *)*(*(&v7 + 1) + 8 * v6++) forgetAllExternalData];
         }
 
         while (v4 != v6);
-        v4 = [allValues countByEnumeratingWithState:&v8 objects:v12 count:16];
+        v4 = [allValues countByEnumeratingWithState:&v7 objects:v11 count:16];
       }
 
       while (v4);
@@ -135,8 +128,6 @@ LABEL_13:
     objc_autoreleasePoolPop(v2);
     os_unfair_lock_unlock((self + 32));
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

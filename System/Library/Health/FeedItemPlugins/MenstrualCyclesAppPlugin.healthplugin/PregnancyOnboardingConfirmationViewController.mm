@@ -57,9 +57,9 @@
   v2 = sub_29DFDB5CC();
   [v2 showsBusyIndicator];
 
-  LODWORD(v2) = *(&selfCopy->super.super.super.super.super.isa + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin45PregnancyOnboardingConfirmationViewController_onboardingStep);
+  v3 = *(&selfCopy->super.super.super.super.super.isa + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin45PregnancyOnboardingConfirmationViewController_onboardingStep);
 
-  sub_29E27EA20(v2, 2u);
+  sub_29E27EA20(v3, 2u, v4);
 }
 
 - (_TtC24MenstrualCyclesAppPlugin45PregnancyOnboardingConfirmationViewController)initWithTitle:(id)title detailText:(id)text symbolName:(id)name contentLayout:(int64_t)layout

@@ -8,8 +8,8 @@
 
 - (id)hk_filterRepresentationForDataTypes:()HKFilterExtension isSubpredicate:
 {
-  v42 = *MEMORY[0x1E69E9840];
-  v36 = a3;
+  v41 = *MEMORY[0x1E69E9840];
+  v35 = a3;
   leftExpression = [self leftExpression];
   rightExpression = [self rightExpression];
   predicateOperatorType = [self predicateOperatorType];
@@ -33,7 +33,7 @@
     v11 = 0;
   }
 
-  v35 = leftExpression;
+  v34 = leftExpression;
   if ([leftExpression expressionType] && (leftExpression = rightExpression, objc_msgSend(rightExpression, "expressionType")))
   {
     constantValue = 0;
@@ -67,35 +67,35 @@ LABEL_13:
     predicateOperatorType2 = qword_191DCD040[predicateOperatorType2];
   }
 
-  v31 = predicateOperatorType2;
-  v33 = rightExpression;
+  v30 = predicateOperatorType2;
+  v32 = rightExpression;
   if (hk_filterRepresentationForDataTypes_isSubpredicate__onceToken != -1)
   {
     [NSComparisonPredicate(HKFilterExtension) hk_filterRepresentationForDataTypes:isSubpredicate:];
   }
 
-  v39 = 0u;
-  v40 = 0u;
-  v37 = 0u;
   v38 = 0u;
+  v39 = 0u;
+  v36 = 0u;
+  v37 = 0u;
   v17 = hk_filterRepresentationForDataTypes_isSubpredicate__statsPrefixes;
-  v18 = [v17 countByEnumeratingWithState:&v37 objects:v41 count:16];
+  v18 = [v17 countByEnumeratingWithState:&v36 objects:v40 count:16];
   if (v18)
   {
     v19 = v18;
-    v20 = *v38;
+    v20 = *v37;
     v21 = *v8;
     do
     {
       v22 = 0;
       do
       {
-        if (*v38 != v20)
+        if (*v37 != v20)
         {
           objc_enumerationMutation(v17);
         }
 
-        v23 = *(*(&v37 + 1) + 8 * v22);
+        v23 = *(*(&v36 + 1) + 8 * v22);
         if ([keyPath hasPrefix:v23])
         {
           v24 = [self _quantityTypeFromKeyPath:keyPath prefix:v23];
@@ -144,16 +144,14 @@ LABEL_37:
       }
 
       while (v19 != v22);
-      v27 = [v17 countByEnumeratingWithState:&v37 objects:v41 count:16];
+      v27 = [v17 countByEnumeratingWithState:&v36 objects:v40 count:16];
       v19 = v27;
     }
 
     while (v27);
   }
 
-  v28 = [self _comparisonFilterWithKeyPath:keyPath operatorType:v31 value:constantValue dataTypes:v36 isSubpredicate:a4];
-
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = [self _comparisonFilterWithKeyPath:keyPath operatorType:v30 value:constantValue dataTypes:v35 isSubpredicate:a4];
 
   return v28;
 }
@@ -187,30 +185,30 @@ LABEL_37:
 
 - (id)_comparisonFilterWithKeyPath:()HKFilterExtension operatorType:value:dataTypes:isSubpredicate:
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v11 = a3;
   v12 = a5;
   v13 = a6;
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v14 = HKComparisonFilterClasses();
-  v15 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v14 = HKComparisonFilterClasses(v13);
+  v15 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v25;
+    v17 = *v24;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v25 != v17)
+        if (*v24 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [*(*(&v24 + 1) + 8 * i) filterForKeyPath:v11 operatorType:a4 value:v12 dataTypes:v13 isSubpredicate:a7];
+        v19 = [*(*(&v23 + 1) + 8 * i) filterForKeyPath:v11 operatorType:a4 value:v12 dataTypes:v13 isSubpredicate:a7];
         if (v19)
         {
           v20 = v19;
@@ -219,7 +217,7 @@ LABEL_37:
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v23 objects:v27 count:16];
       if (v16)
       {
         continue;
@@ -232,8 +230,6 @@ LABEL_37:
   [MEMORY[0x1E695DF30] raise:*MEMORY[0x1E695D940] format:{@"Unsupported key path %@ in comparison expression: %@", v11, self}];
   v20 = 0;
 LABEL_11:
-
-  v21 = *MEMORY[0x1E69E9840];
 
   return v20;
 }

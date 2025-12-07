@@ -168,40 +168,41 @@ LABEL_8:
 
 - (void)setFeatureValuesAndFilterPredictableActions:(id)actions actionStatistics:(id)statistics
 {
-  MEMORY[0x28223BE20](self, a2);
+  MEMORY[0x28223BE20](self);
   v5 = v4;
-  v64 = v6;
+  v87 = v6;
   buf[418] = *MEMORY[0x277D85DE8];
-  v67 = v7;
+  v90 = v7;
   v8 = v5;
   v9 = objc_opt_new();
   v10 = 0;
   *&v11 = 138412290;
-  v63 = v11;
-  while (v10 < [v67 count])
+  v86 = v11;
+  while (v10 < [v90 count])
   {
     v12 = objc_autoreleasePoolPush();
-    v13 = [v67 objectAtIndexedSubscript:v10];
+    v13 = [v90 objectAtIndexedSubscript:v10];
     scoredAction = [v13 scoredAction];
     predictedItem = [scoredAction predictedItem];
 
     if (!predictedItem)
     {
-      v20 = __atxlog_handle_default();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v24 = __atxlog_handle_default(v16);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [(ATXActionValuation *)&v72 setFeatureValuesAndFilterPredictableActions:v73 actionStatistics:v20];
+        [(ATXActionValuation *)&v95 setFeatureValuesAndFilterPredictableActions:v96 actionStatistics:v24];
       }
 
       goto LABEL_14;
     }
 
-    if (([predictedItem hasActionTitle] & 1) == 0)
+    hasActionTitle = [predictedItem hasActionTitle];
+    if ((hasActionTitle & 1) == 0)
     {
-      v20 = __atxlog_handle_default();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v24 = __atxlog_handle_default(hasActionTitle);
+      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        [(ATXActionValuation *)&v70 setFeatureValuesAndFilterPredictableActions:v71 actionStatistics:v20];
+        [(ATXActionValuation *)&v93 setFeatureValuesAndFilterPredictableActions:v94 actionStatistics:v24];
       }
 
 LABEL_14:
@@ -211,77 +212,81 @@ LABEL_14:
     }
 
     intent = [predictedItem intent];
-    if (intent && ([v64 shouldPredictIntent:intent] & 1) == 0)
+    if (intent)
     {
-      v21 = __atxlog_handle_default();
-      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
+      v18 = [v87 shouldPredictIntent:intent];
+      if ((v18 & 1) == 0)
       {
-        _className = [intent _className];
-        LODWORD(buf[0]) = v63;
-        *(buf + 4) = _className;
-        _os_log_impl(&dword_2263AA000, v21, OS_LOG_TYPE_INFO, "Removed intent of class %@ because of special logic for the intent class", buf, 0xCu);
-      }
+        v25 = __atxlog_handle_default(v18);
+        if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
+        {
+          _className = [intent _className];
+          LODWORD(buf[0]) = v86;
+          *(buf + 4) = _className;
+          _os_log_impl(&dword_2263AA000, v25, OS_LOG_TYPE_INFO, "Removed intent of class %@ because of special logic for the intent class", buf, 0xCu);
+        }
 
-      [v9 addIndex:v10];
-      goto LABEL_44;
+        [v9 addIndex:v10];
+        goto LABEL_44;
+      }
     }
 
-    v16 = [ATXMinimalSlotResolutionParameters alloc];
+    v19 = [ATXMinimalSlotResolutionParameters alloc];
     slotSet = [v13 slotSet];
-    v65 = [(ATXMinimalSlotResolutionParameters *)v16 initWithAction:predictedItem slots:slotSet];
+    v88 = [(ATXMinimalSlotResolutionParameters *)v19 initWithAction:predictedItem slots:slotSet];
 
-    v18 = [*(v8 + 1) objectForKeyedSubscript:v65];
+    v21 = [*(v8 + 1) objectForKeyedSubscript:v88];
     if (!v13)
     {
       bzero(buf, 0xD08uLL);
-      if (!v18)
+      if (!v21)
       {
         goto LABEL_20;
       }
 
 LABEL_19:
-      ATXProbability(v18[29], *(v8 + 2));
-      ATXSetInput(buf, 0x13CuLL, v23);
-      ATXProbability(v18[46], *(v8 + 3));
-      ATXSetInput(buf, 0x13DuLL, v24);
-      ATXProbability(v18[47], *(v8 + 4));
-      ATXSetInput(buf, 0x13EuLL, v25);
-      ATXProbability(v18[48], *(v8 + 5));
-      ATXSetInput(buf, 0x13FuLL, v26);
-      ATXProbability(v18[49], *(v8 + 6));
-      ATXSetInput(buf, 0x140uLL, v27);
-      ATXProbability(v18[50], *(v8 + 7));
-      ATXSetInput(buf, 0x141uLL, v28);
-      ATXProbability(v18[51], *(v8 + 8));
-      ATXSetInput(buf, 0x142uLL, v29);
-      ATXProbability(v18[52], *(v8 + 9));
-      ATXSetInput(buf, 0x143uLL, v30);
-      ATXProbability(v18[53], *(v8 + 21));
-      ATXSetInput(buf, 0x144uLL, v31);
-      ATXProbability(v18[54], *(v8 + 10));
-      ATXSetInput(buf, 0x145uLL, v32);
-      ATXProbability(v18[55], *(v8 + 11));
-      ATXSetInput(buf, 0x146uLL, v33);
-      ATXProbability(v18[56], *(v8 + 12));
-      ATXSetInput(buf, 0x147uLL, v34);
-      ATXProbability(v18[61], *(v8 + 17));
-      ATXSetInput(buf, 0x148uLL, v35);
-      ATXProbability(v18[62], *(v8 + 18));
-      ATXSetInput(buf, 0x149uLL, v36);
-      ATXProbability(v18[63], *(v8 + 19));
-      ATXSetInput(buf, 0x14AuLL, v37);
-      ATXProbability(v18[64], *(v8 + 20));
-      ATXSetInput(buf, 0x14BuLL, v38);
-      ATXProbability(v18[58], *(v8 + 14));
-      ATXSetInput(buf, 0x14CuLL, v39);
-      ATXProbability(v18[57], *(v8 + 13));
-      ATXSetInput(buf, 0x14DuLL, v40);
-      ATXProbability(v18[59], *(v8 + 15));
-      ATXSetInput(buf, 0x14EuLL, v41);
-      ATXProbability(v18[60], *(v8 + 16));
-      ATXSetInput(buf, 0x14FuLL, v42);
-      ATXProbability(v18[65], *(v8 + 22));
-      ATXSetInput(buf, 0x150uLL, v43);
+      ATXProbability(v22, v21[29], *(v8 + 2));
+      ATXSetInput(buf, 0x13CuLL, v27);
+      ATXProbability(v28, v21[46], *(v8 + 3));
+      ATXSetInput(buf, 0x13DuLL, v29);
+      ATXProbability(v30, v21[47], *(v8 + 4));
+      ATXSetInput(buf, 0x13EuLL, v31);
+      ATXProbability(v32, v21[48], *(v8 + 5));
+      ATXSetInput(buf, 0x13FuLL, v33);
+      ATXProbability(v34, v21[49], *(v8 + 6));
+      ATXSetInput(buf, 0x140uLL, v35);
+      ATXProbability(v36, v21[50], *(v8 + 7));
+      ATXSetInput(buf, 0x141uLL, v37);
+      ATXProbability(v38, v21[51], *(v8 + 8));
+      ATXSetInput(buf, 0x142uLL, v39);
+      ATXProbability(v40, v21[52], *(v8 + 9));
+      ATXSetInput(buf, 0x143uLL, v41);
+      ATXProbability(v42, v21[53], *(v8 + 21));
+      ATXSetInput(buf, 0x144uLL, v43);
+      ATXProbability(v44, v21[54], *(v8 + 10));
+      ATXSetInput(buf, 0x145uLL, v45);
+      ATXProbability(v46, v21[55], *(v8 + 11));
+      ATXSetInput(buf, 0x146uLL, v47);
+      ATXProbability(v48, v21[56], *(v8 + 12));
+      ATXSetInput(buf, 0x147uLL, v49);
+      ATXProbability(v50, v21[61], *(v8 + 17));
+      ATXSetInput(buf, 0x148uLL, v51);
+      ATXProbability(v52, v21[62], *(v8 + 18));
+      ATXSetInput(buf, 0x149uLL, v53);
+      ATXProbability(v54, v21[63], *(v8 + 19));
+      ATXSetInput(buf, 0x14AuLL, v55);
+      ATXProbability(v56, v21[64], *(v8 + 20));
+      ATXSetInput(buf, 0x14BuLL, v57);
+      ATXProbability(v58, v21[58], *(v8 + 14));
+      ATXSetInput(buf, 0x14CuLL, v59);
+      ATXProbability(v60, v21[57], *(v8 + 13));
+      ATXSetInput(buf, 0x14DuLL, v61);
+      ATXProbability(v62, v21[59], *(v8 + 15));
+      ATXSetInput(buf, 0x14EuLL, v63);
+      ATXProbability(v64, v21[60], *(v8 + 16));
+      ATXSetInput(buf, 0x14FuLL, v65);
+      ATXProbability(v66, v21[65], *(v8 + 22));
+      ATXSetInput(buf, 0x150uLL, v67);
       ATXSetInput(buf, 0x151uLL, *(v8 + 23));
       ATXSetInput(buf, 0x152uLL, *(v8 + 24));
       ATXSetInput(buf, 0x153uLL, *(v8 + 25));
@@ -306,11 +311,11 @@ LABEL_19:
       ATXSetInput(buf, 0x136uLL, *(v8 + 47));
       ATXSetInput(buf, 0x137uLL, *(v8 + 48));
       ATXSetInput(buf, 0x138uLL, *(v8 + 49));
-      *&v44 = ATXSetInput(buf, 0x139uLL, *(v8 + 50));
-      v45 = ATXRatio(*(v8 + 45) + *(v8 + 44), [*(v8 + 46) count]);
-      *&v46 = ATXSetInput(buf, 0x13AuLL, v45);
-      v47 = ATXRatio(*(v8 + 44), [*(v8 + 46) count]);
-      ATXSetInput(buf, 0x13BuLL, v47);
+      *&v68 = ATXSetInput(buf, 0x139uLL, *(v8 + 50));
+      v69 = ATXRatio(*(v8 + 45) + *(v8 + 44), [*(v8 + 46) count]);
+      *&v70 = ATXSetInput(buf, 0x13AuLL, v69);
+      v71 = ATXRatio(*(v8 + 44), [*(v8 + 46) count]);
+      ATXSetInput(buf, 0x13BuLL, v71);
       ATXSetInput(buf, 0x1A6uLL, *(v8 + 51));
       ATXSetInput(buf, 0x1A8uLL, *(v8 + 52));
       ATXSetInput(buf, 0x1AAuLL, *(v8 + 53));
@@ -346,12 +351,12 @@ LABEL_19:
       ATXSetInput(buf, 0x31BuLL, *(v8 + 80));
       ATXSetInput(buf, 0x31EuLL, *(v8 + 82));
       ATXSetInput(buf, 0x321uLL, *(v8 + 84));
-      *&v19 = ATXSetInput(buf, 0x324uLL, *(v8 + 86));
+      *&v23 = ATXSetInput(buf, 0x324uLL, *(v8 + 86));
       goto LABEL_20;
     }
 
-    [v13 predictionItem];
-    if (v18)
+    v22 = objc_msgSend_predictionItem(v13);
+    if (v21)
     {
       goto LABEL_19;
     }
@@ -362,7 +367,7 @@ LABEL_20:
     {
       if (!actionType)
       {
-        v52 = 1.0;
+        v76 = 1.0;
         goto LABEL_32;
       }
 
@@ -374,17 +379,17 @@ LABEL_20:
         }
 
 LABEL_28:
-        v50 = 1.0;
+        v74 = 1.0;
         ATXSetInput(buf, 0x17AuLL, 0.0);
         goto LABEL_33;
       }
 
 LABEL_29:
       ATXSetInput(buf, 0x17AuLL, 0.0);
-      v51 = 1.0;
+      v75 = 1.0;
       ATXSetInput(buf, 0x17BuLL, 0.0);
 LABEL_34:
-      *&v49 = ATXSetInput(buf, 0x17CuLL, v51);
+      *&v73 = ATXSetInput(buf, 0x17CuLL, v75);
       goto LABEL_35;
     }
 
@@ -393,51 +398,51 @@ LABEL_34:
       case 5:
         goto LABEL_29;
       case 6:
-        v52 = 0.0;
+        v76 = 0.0;
 LABEL_32:
-        v50 = 0.0;
-        ATXSetInput(buf, 0x17AuLL, v52);
+        v74 = 0.0;
+        ATXSetInput(buf, 0x17AuLL, v76);
 LABEL_33:
-        v51 = 0.0;
-        ATXSetInput(buf, 0x17BuLL, v50);
+        v75 = 0.0;
+        ATXSetInput(buf, 0x17BuLL, v74);
         goto LABEL_34;
       case 7:
         goto LABEL_28;
     }
 
 LABEL_35:
-    *&v53 = ATXSetInput(buf, 0x176uLL, [predictedItem isFutureMedia]);
+    *&v77 = ATXSetInput(buf, 0x176uLL, [predictedItem isFutureMedia]);
     intent2 = [predictedItem intent];
     ATXSetInput(buf, 0x87uLL, [intent2 _intentCategory]);
 
-    v55 = objc_autoreleasePoolPush();
+    v79 = objc_autoreleasePoolPush();
     intent3 = [predictedItem intent];
     if (intent3)
     {
-      v57 = v64[1];
+      v81 = v87[1];
       intent4 = [predictedItem intent];
-      v59 = v57;
+      v83 = v81;
       v5 = intent4;
-      v60 = [v59 supportsBackgroundExecutionForIntent:?];
+      v84 = [v83 supportsBackgroundExecutionForIntent:?];
     }
 
     else
     {
-      v60 = 0;
+      v84 = 0;
     }
 
-    ATXSetInput(buf, 0x177uLL, v60);
+    ATXSetInput(buf, 0x177uLL, v84);
     if (intent3)
     {
     }
 
-    objc_autoreleasePoolPop(v55);
-    v61 = buf[0];
-    v68 = v61;
-    memcpy(v69, &buf[1], sizeof(v69));
+    objc_autoreleasePoolPop(v79);
+    v85 = buf[0];
+    v91 = v85;
+    memcpy(v92, &buf[1], sizeof(v92));
     if (v13)
     {
-      [v13 setPredictionItem:&v68];
+      [v13 setPredictionItem:&v91];
     }
 
     else
@@ -451,14 +456,12 @@ LABEL_45:
     ++v10;
   }
 
-  [v67 removeObjectsAtIndexes:v9];
-
-  v62 = *MEMORY[0x277D85DE8];
+  [v90 removeObjectsAtIndexes:v9];
 }
 
 - (void)scoreActions:(id)actions scoreLogger:(id)logger consumerSubType:(unsigned __int8)type
 {
-  MEMORY[0x28223BE20](self, a2);
+  MEMORY[0x28223BE20](self);
   v6 = v5;
   v8 = v7;
   v10 = v9;
@@ -518,7 +521,7 @@ LABEL_45:
 LABEL_9:
     if (v14)
     {
-      [v14 predictionItem];
+      objc_msgSend_predictionItem(v14);
     }
 
     else

@@ -107,7 +107,7 @@
   {
     [(STUIStatusBar_Wrapper *)statusBar removeFromSuperview];
     objc_storeStrong(&self->_statusBar, bar);
-    [(STUIStatusBar_Wrapper *)self->_statusBar frame];
+    objc_msgSend_frame(self->_statusBar);
     [(SBStatusBarWindow *)self bounds];
     [(STUIStatusBar_Wrapper *)self->_statusBar setFrame:*MEMORY[0x277CBF348], *(MEMORY[0x277CBF348] + 8)];
     [(STUIStatusBar_Wrapper *)self->_statusBar setAutoresizingMask:34];
@@ -196,7 +196,7 @@ uint64_t __56__SBStatusBarWindow_setOrientation_animationParameters___block_invo
   return [v2 _rotate];
 }
 
-uint64_t __56__SBStatusBarWindow_setOrientation_animationParameters___block_invoke_4(uint64_t a1)
+void *__56__SBStatusBarWindow_setOrientation_animationParameters___block_invoke_4(uint64_t a1)
 {
   [*(a1 + 32) _rotate];
   result = [*(*(a1 + 32) + 928) isHidden];
@@ -256,7 +256,7 @@ uint64_t __56__SBStatusBarWindow_setOrientation_animationParameters___block_invo
   {
     _FBSScene = [windowScene _FBSScene];
     settings = [_FBSScene settings];
-    [settings frame];
+    objc_msgSend_frame(settings);
   }
 
   else

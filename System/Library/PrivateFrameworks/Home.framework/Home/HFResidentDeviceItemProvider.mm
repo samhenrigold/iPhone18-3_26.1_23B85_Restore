@@ -37,8 +37,8 @@
 - (id)reloadItems
 {
   objc_initWeak(&location, self);
-  home = [(HFResidentDeviceItemProvider *)self home];
-  residentDevices = [home residentDevices];
+  v3 = objc_msgSend_home(self);
+  residentDevices = [v3 residentDevices];
   filter = [(HFResidentDeviceItemProvider *)self filter];
   v6 = [(HFItemProvider *)self reloadItemsWithHomeKitObjects:residentDevices filter:filter itemMap:&__block_literal_global_179];
   v9[0] = MEMORY[0x277D85DD0];

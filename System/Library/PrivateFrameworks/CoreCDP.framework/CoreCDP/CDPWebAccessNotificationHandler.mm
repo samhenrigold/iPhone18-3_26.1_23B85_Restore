@@ -37,7 +37,7 @@ uint64_t __49__CDPWebAccessNotificationHandler_sharedInstance__block_invoke()
 - (void)startObservingWebAccessStateChangeNotification
 {
   isObservingWebAccessStatus = self->_isObservingWebAccessStatus;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (isObservingWebAccessStatus)
   {
@@ -65,7 +65,7 @@ uint64_t __49__CDPWebAccessNotificationHandler_sharedInstance__block_invoke()
 - (void)_stopObservingWebAccessStateChangeNotification
 {
   isObservingWebAccessStatus = self->_isObservingWebAccessStatus;
-  v4 = _CDPLogSystem();
+  v4 = _CDPLogSystem(self);
   v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
   if (isObservingWebAccessStatus)
   {

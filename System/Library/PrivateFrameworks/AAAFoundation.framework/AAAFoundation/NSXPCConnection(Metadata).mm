@@ -8,7 +8,7 @@
 
 - (__CFString)aaf_processName
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   processIdentifier = [self processIdentifier];
   if (proc_name(processIdentifier, buffer, 0x20u) >= 1)
   {
@@ -19,19 +19,19 @@ LABEL_3:
     goto LABEL_5;
   }
 
-  *v10 = 0xE00000001;
-  v11 = 1;
-  v12 = processIdentifier;
-  v8 = 648;
-  memset(v9, 0, 512);
-  v5 = sysctl(v10, 4u, v9, &v8, 0, 0);
+  *v9 = 0xE00000001;
+  v10 = 1;
+  v11 = processIdentifier;
+  v7 = 648;
+  memset(v8, 0, 512);
+  v5 = sysctl(v9, 4u, v8, &v7, 0, 0);
   v4 = 0;
   if (!v5)
   {
-    if (BYTE3(v9[15]))
+    if (BYTE3(v8[15]))
     {
       v2 = MEMORY[0x1E696AEC0];
-      v3 = &v9[15] + 3;
+      v3 = &v8[15] + 3;
       goto LABEL_3;
     }
 
@@ -39,7 +39,6 @@ LABEL_3:
   }
 
 LABEL_5:
-  v6 = *MEMORY[0x1E69E9840];
 
   return v4;
 }
@@ -47,84 +46,81 @@ LABEL_5:
 - (id)aaf_bundleID
 {
   v14 = *MEMORY[0x1E69E9840];
-  [self auditToken];
-  v2 = SecTaskCreateWithAuditToken(0, &token);
-  if (v2)
+  objc_msgSend_auditToken(self, a2);
+  v3 = SecTaskCreateWithAuditToken(0, &token);
+  if (v3)
   {
-    v3 = v2;
+    v4 = v3;
     error = 0;
-    v4 = SecTaskCopySigningIdentifier(v2, &error);
-    v5 = v4;
+    v5 = SecTaskCopySigningIdentifier(v3, &error);
+    v6 = v5;
     if (error)
     {
-      v6 = _AAFLogSystem();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = _AAFLogSystem(v5);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         token.val[0] = 138412802;
         *&token.val[1] = self;
         LOWORD(token.val[3]) = 2112;
-        *(&token.val[3] + 2) = v3;
+        *(&token.val[3] + 2) = v4;
         HIWORD(token.val[5]) = 2112;
         *&token.val[6] = error;
-        _os_log_error_impl(&dword_1C8644000, v6, OS_LOG_TYPE_ERROR, "%@: Failed to copy signing ID from task (%@) with error (%@)", &token, 0x20u);
+        _os_log_error_impl(&dword_1C8644000, v7, OS_LOG_TYPE_ERROR, "%@: Failed to copy signing ID from task (%@) with error (%@)", &token, 0x20u);
       }
 
       CFRelease(error);
-      if (!v5)
+      if (!v6)
       {
         goto LABEL_15;
       }
 
-      CFRelease(v5);
+      CFRelease(v6);
     }
 
     else
     {
-      if (v4)
+      if (v5)
       {
 LABEL_15:
-        CFRelease(v3);
+        CFRelease(v4);
         goto LABEL_16;
       }
 
-      v8 = _AAFLogSystem();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = _AAFLogSystem(0);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [(NSXPCConnection(Metadata) *)self aaf_bundleID];
       }
     }
 
-    v5 = 0;
+    v6 = 0;
     goto LABEL_15;
   }
 
-  v7 = _AAFLogSystem();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = _AAFLogSystem(0);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
     [(NSXPCConnection(Metadata) *)self aaf_bundleID];
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_16:
-  if (![v5 length])
+  if (![v6 length])
   {
-    v9 = [MEMORY[0x1E696AEC0] stringWithFormat:@"UNKNOWN-%0000x", arc4random_uniform(0xFFFFu)];
+    v10 = [MEMORY[0x1E696AEC0] stringWithFormat:@"UNKNOWN-%0000x", arc4random_uniform(0xFFFFu)];
 
-    v5 = v9;
+    v6 = v10;
   }
 
-  v10 = *MEMORY[0x1E69E9840];
-
-  return v5;
+  return v6;
 }
 
 - (void)aaf_bundleID
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_1C8644000, a2, OS_LOG_TYPE_ERROR, "%@: Failed to allocate security task (using framework-provided identifier)", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C8644000, a2, OS_LOG_TYPE_ERROR, "%@: Failed to allocate security task (using framework-provided identifier)", &v2, 0xCu);
 }
 
 @end

@@ -22,13 +22,13 @@
   v12 = v11;
   if (v11)
   {
-    [(TUILayout *)v11 specifiedWidth];
+    objc_msgSend_specifiedWidth(v11);
     if ((v13 & 0x6000000000000) == 0x2000000000000)
     {
       [(TUILayout *)v12 setSpecifiedHeightComputeInherited:1];
     }
 
-    v14 = [(TUILayout *)v12 box];
+    v14 = objc_msgSend_box(v12);
     v12->_guideLayout = [v14 layoutMode] == &dword_0 + 1;
   }
 
@@ -128,9 +128,9 @@ LABEL_6:
   v44 = 0u;
   v45 = 0u;
   v46 = 0u;
-  children = [(TUILayout *)self children];
+  v5 = objc_msgSend_children(self);
   v6 = 0;
-  v7 = [children countByEnumeratingWithState:&v43 objects:v48 count:16];
+  v7 = [v5 countByEnumeratingWithState:&v43 objects:v48 count:16];
   if (v7)
   {
     v8 = *v44;
@@ -140,18 +140,18 @@ LABEL_6:
       {
         if (*v44 != v8)
         {
-          objc_enumerationMutation(children);
+          objc_enumerationMutation(v5);
         }
 
         v10 = *(*(&v43 + 1) + 8 * i);
         [v10 setFlexedWidth:NAN];
         [(TUILayout *)self containingWidth];
         [v10 setContainingWidth:?];
-        [v10 validateLayout];
+        objc_msgSend_validateLayout(v10);
         if (([v10 hidden] & 1) == 0 && !-[TUIMutableHStack addChildLayout:ifFitting:](v6, "addChildLayout:ifFitting:", v10, 1))
         {
           v11 = [TUIMutableHStack alloc];
-          v12 = [(TUILayout *)self box];
+          v12 = objc_msgSend_box(self);
           hspacing = [v12 hspacing];
           v15 = [(TUIMutableHStack *)v11 initWithLayout:self spacing:hspacing maxWidth:v14, v4];
 
@@ -167,7 +167,7 @@ LABEL_6:
         }
       }
 
-      v7 = [children countByEnumeratingWithState:&v43 objects:v48 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v43 objects:v48 count:16];
     }
 
     while (v7);
@@ -211,10 +211,10 @@ LABEL_6:
   v36 = &v35;
   v37 = 0x2020000000;
   v38 = 0;
-  v23 = [(TUILayout *)self box];
+  v23 = objc_msgSend_box(self);
   [v23 vspacing];
 
-  v24 = [(TUILayout *)self box];
+  v24 = objc_msgSend_box(self);
   v25 = COERCE_FLOAT([v24 vspacing]);
 
   v26 = v25;
@@ -230,7 +230,7 @@ LABEL_6:
 
   else
   {
-    v31 = [(TUILayout *)self box];
+    v31 = objc_msgSend_box(self);
     halign = [v31 halign];
 
     if (halign < 2)

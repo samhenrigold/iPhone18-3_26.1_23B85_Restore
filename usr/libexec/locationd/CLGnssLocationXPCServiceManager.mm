@@ -390,7 +390,7 @@
 {
   sub_10001CAF4(&v12);
   LOBYTE(v14) = 0;
-  v3 = sub_10001CB4C(v12, "CLGnssLocationXPCServiceManager.TriangleSleepEnabled", &v14);
+  v3 = sub_10001CB4C(v12, "CLGnssLocationXPCServiceManager.TriangleSleepEnabled", &v14, 0xFFFFFFFFLL);
   v4 = v3 & v14;
   if (v13)
   {

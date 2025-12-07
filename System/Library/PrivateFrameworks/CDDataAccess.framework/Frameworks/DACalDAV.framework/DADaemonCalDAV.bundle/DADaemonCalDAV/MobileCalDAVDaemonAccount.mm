@@ -29,6 +29,7 @@
 - (void)_removeRefreshDidCompleteObserver;
 - (void)_serverProbeTimedOut;
 - (void)_updateWatchedCollections;
+- (void)account:(id)account isValid:(BOOL)valid validationError:(id)error;
 - (void)bumpRefreshReason:(int)reason;
 - (void)calendarDirectorySearchIsGoingAway:(id)away;
 - (void)cancelAllAttachmentDownloads;
@@ -43,6 +44,7 @@
 - (void)rd_observePrimaryCloudKitAccountPersonIDSaltChanges;
 - (void)rd_unobservePrimaryCloudKitAccountPersonIDSaltChanges;
 - (void)refreshActor:(id)actor didCompleteWithError:(id)error;
+- (void)refreshCollections:(id)collections withReason:(int)reason;
 - (void)setSafeToRefresh:(BOOL)refresh;
 - (void)shareResponseIsGoingAway:(id)away;
 @end
@@ -1920,6 +1922,41 @@ LABEL_36:
   }
 }
 
+- (void)account:(id)account isValid:(BOOL)valid validationError:(id)error
+{
+  validCopy = valid;
+  accountCopy = account;
+  errorCopy = error;
+  v10 = self->_validityCheckConsumer;
+  validityCheckConsumer = self->_validityCheckConsumer;
+  self->_validityCheckConsumer = 0;
+
+  v12 = DALoggingwithCategory();
+  v13 = _CPLog_to_os_log_type[5];
+  if (os_log_type_enabled(v12, v13))
+  {
+    accountDescription = [accountCopy accountDescription];
+    v17 = 138412802;
+    v18 = accountDescription;
+    v19 = 1024;
+    v20 = validCopy;
+    v21 = 2112;
+    v22 = errorCopy;
+    _os_log_impl(&dword_0, v12, v13, "Discovery task got account %@ {isValid: %d, validationError: %@}.", &v17, 0x1Cu);
+  }
+
+  [(DAValidityCheckConsumer *)v10 account:accountCopy isValid:validCopy validationError:errorCopy];
+  if (self->_holdingDiscoveryGatekeeperLock)
+  {
+    self->_holdingDiscoveryGatekeeperLock = 0;
+    v15 = +[DALocalDBGateKeeper sharedGateKeeper];
+    [v15 relinquishLocksForWaiter:self dataclasses:20 moreComing:0];
+  }
+
+  v16 = +[DABabysitter sharedBabysitter];
+  [v16 unregisterAccount:self forOperationWithName:@"CalDAVValidityCheck"];
+}
+
 - (void)discoverInitialPropertiesWithConsumer:(id)consumer
 {
   consumerCopy = consumer;
@@ -2088,6 +2125,54 @@ LABEL_36:
         }
       }
     }
+  }
+}
+
+- (void)refreshCollections:(id)collections withReason:(int)reason
+{
+  v4 = *&reason;
+  [objc_opt_class() convertToMobileCalDAVRefreshReason:*&reason];
+  v6 = DALoggingwithCategory();
+  v7 = _CPLog_to_os_log_type[6];
+  if (os_log_type_enabled(v6, v7))
+  {
+    accountDescription = [(MobileCalDAVDaemonAccount *)self accountDescription];
+    v13 = 138412546;
+    v14 = accountDescription;
+    v15 = 1024;
+    v16 = v4;
+    _os_log_impl(&dword_0, v6, v7, "Account %@ was told to refresh its collections with reason %d", &v13, 0x12u);
+  }
+
+  [(MobileCalDAVDaemonAccount *)self setFullRefresh:1];
+  -[MobileCalDAVDaemonAccount bumpRefreshReason:](self, "bumpRefreshReason:", [objc_opt_class() convertToMobileCalDAVRefreshReason:v4]);
+  mainPrincipal = [(MobileCalDAVDaemonAccount *)self mainPrincipal];
+  principalURL = [mainPrincipal principalURL];
+  if (principalURL)
+  {
+  }
+
+  else
+  {
+    WeakRetained = objc_loadWeakRetained(&self->_consumer);
+
+    if (WeakRetained)
+    {
+      v12 = objc_loadWeakRetained(&self->_consumer);
+      [v12 _validateAndSync:0];
+
+      return;
+    }
+  }
+
+  if (([(MobileCalDAVDaemonAccount *)self refreshReason]& 8) != 0 || ![(MobileCalDAVDaemonAccount *)self refreshReason])
+  {
+    [(MobileCalDAVDaemonAccount *)self _probeAndSync];
+  }
+
+  else
+  {
+    [(MobileCalDAVDaemonAccount *)self _refresh];
   }
 }
 

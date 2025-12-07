@@ -82,7 +82,7 @@ BOOL __49___ATXActionUtils_filterContainersWithNilAction___block_invoke(uint64_t
 void __66___ATXActionUtils_fetchDataAndUpdateContentAttributeSetForAction___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = __atxlog_handle_action_prediction();
+  v4 = __atxlog_handle_action_prediction(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
   {
     __66___ATXActionUtils_fetchDataAndUpdateContentAttributeSetForAction___block_invoke_cold_1(v3, v4);
@@ -254,92 +254,89 @@ LABEL_8:
 
 void __51___ATXActionUtils_resetHistogramsAndRemoveUICaches__block_invoke()
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v0 = [MEMORY[0x277CEBCB0] uiCachesRootDirectory];
   v1 = [MEMORY[0x277CCAA00] defaultManager];
-  v21 = 0;
-  v2 = [v1 contentsOfDirectoryAtPath:v0 error:&v21];
-  v3 = v21;
+  v22 = 0;
+  v2 = [v1 contentsOfDirectoryAtPath:v0 error:&v22];
+  v3 = v22;
 
   if (v2)
   {
-    v19 = 0u;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
-    v4 = v2;
-    v5 = [v4 countByEnumeratingWithState:&v17 objects:v24 count:16];
-    if (v5)
+    v19 = 0u;
+    v5 = v2;
+    v6 = [v5 countByEnumeratingWithState:&v18 objects:v25 count:16];
+    if (v6)
     {
-      v6 = v5;
-      v14 = v3;
-      v15 = v2;
-      v7 = *v18;
+      v7 = v6;
+      v15 = v3;
+      v16 = v2;
+      v8 = *v19;
       do
       {
-        for (i = 0; i != v6; ++i)
+        for (i = 0; i != v7; ++i)
         {
-          if (*v18 != v7)
+          if (*v19 != v8)
           {
-            objc_enumerationMutation(v4);
+            objc_enumerationMutation(v5);
           }
 
-          v9 = [v0 stringByAppendingPathComponent:{*(*(&v17 + 1) + 8 * i), v14, v15}];
-          v10 = [MEMORY[0x277CCAA00] defaultManager];
-          v16 = 0;
-          [v10 removeItemAtPath:v9 error:&v16];
-          v11 = v16;
+          v10 = [v0 stringByAppendingPathComponent:{*(*(&v18 + 1) + 8 * i), v15, v16}];
+          v11 = [MEMORY[0x277CCAA00] defaultManager];
+          v17 = 0;
+          [v11 removeItemAtPath:v10 error:&v17];
+          v12 = v17;
 
-          if (v11)
+          if (v12)
           {
-            v12 = __atxlog_handle_default();
-            if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+            v14 = __atxlog_handle_default(v13);
+            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
             {
               *buf = 138412290;
-              v23 = v11;
-              _os_log_error_impl(&dword_2263AA000, v12, OS_LOG_TYPE_ERROR, "Error removing blending UI caches. Error: %@", buf, 0xCu);
+              v24 = v12;
+              _os_log_error_impl(&dword_2263AA000, v14, OS_LOG_TYPE_ERROR, "Error removing blending UI caches. Error: %@", buf, 0xCu);
             }
           }
         }
 
-        v6 = [v4 countByEnumeratingWithState:&v17 objects:v24 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v18 objects:v25 count:16];
       }
 
-      while (v6);
-      v3 = v14;
-      v2 = v15;
+      while (v7);
+      v3 = v15;
+      v2 = v16;
     }
   }
 
   else
   {
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_default(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __51___ATXActionUtils_resetHistogramsAndRemoveUICaches__block_invoke_cold_1(v3, v4);
+      __51___ATXActionUtils_resetHistogramsAndRemoveUICaches__block_invoke_cold_1(v3, v5);
     }
   }
 
   +[_ATXAppLaunchHistogramManager resetDataForHistograms];
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 void __66___ATXActionUtils_fetchDataAndUpdateContentAttributeSetForAction___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "CBE: attributeValues: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_2263AA000, a2, OS_LOG_TYPE_DEBUG, "CBE: attributeValues: %@", &v2, 0xCu);
 }
 
 void __51___ATXActionUtils_resetHistogramsAndRemoveUICaches__block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Failed to get contents: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "Failed to get contents: %@", &v2, 0xCu);
 }
 
 @end

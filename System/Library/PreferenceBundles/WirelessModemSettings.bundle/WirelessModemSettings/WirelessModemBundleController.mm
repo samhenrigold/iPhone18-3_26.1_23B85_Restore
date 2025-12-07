@@ -13,84 +13,85 @@
 
 - (WirelessModemBundleController)initWithParentListController:(id)controller
 {
-  v33.receiver = self;
-  v33.super_class = WirelessModemBundleController;
-  v3 = [(WirelessModemBundleController *)&v33 initWithParentListController:controller];
+  v37.receiver = self;
+  v37.super_class = WirelessModemBundleController;
+  v3 = [(WirelessModemBundleController *)&v37 initWithParentListController:controller];
   if (!v3)
   {
 LABEL_28:
-    v27 = v3;
+    v31 = v3;
     goto LABEL_29;
   }
 
-  if (MGGetBoolAnswer())
+  v4 = MGGetBoolAnswer();
+  if (v4)
   {
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:v3 selector:sel_MISStateChangedNotification_ name:@"MISManagerStateChangedNotification" object:0];
 
-    v5 = WiFiManagerClientCreate();
-    if (v5)
+    v6 = WiFiManagerClientCreate();
+    if (v6)
     {
-      v6 = v5;
+      v7 = v6;
       v3->_wifiTetheringSupported = WiFiManagerClientIsTetheringSupported() != 0;
-      CFRelease(v6);
+      CFRelease(v7);
     }
 
-    v7 = objc_alloc_init(MEMORY[0x277CC37B0]);
-    v8 = [objc_alloc(MEMORY[0x277CC3620]) initWithBundleType:1];
-    v32 = 0;
-    v9 = [v7 getCurrentDataSubscriptionContextSync:&v32];
-    v10 = v32;
-    if (v10)
+    v8 = objc_alloc_init(MEMORY[0x277CC37B0]);
+    v9 = [objc_alloc(MEMORY[0x277CC3620]) initWithBundleType:1];
+    v36 = 0;
+    v10 = [v8 getCurrentDataSubscriptionContextSync:&v36];
+    v11 = v36;
+    if (v11)
     {
-      v11 = v10;
-      v12 = WMSLogComponent();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v12 = v11;
+      v13 = WMSLogComponent(v11);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         [WirelessModemBundleController initWithParentListController:];
       }
     }
 
-    v31 = 0;
-    v13 = [v7 copyCarrierBundleValue:v9 key:@"CarrierName" bundleType:v8 error:&v31];
-    v14 = v31;
+    v35 = 0;
+    v14 = [v8 copyCarrierBundleValue:v10 key:@"CarrierName" bundleType:v9 error:&v35];
+    v15 = v35;
     carrierName = v3->_carrierName;
-    v3->_carrierName = v13;
+    v3->_carrierName = v14;
 
-    if (v14)
+    if (v15)
     {
-      v16 = WMSLogComponent();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v18 = WMSLogComponent(v17);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
         [WirelessModemBundleController initWithParentListController:];
       }
     }
 
-    v30 = 0;
-    v17 = [v7 copyCarrierBundleValue:v9 key:@"TetheringURL" bundleType:v8 error:&v30];
-    v18 = v30;
+    v34 = 0;
+    v19 = [v8 copyCarrierBundleValue:v10 key:@"TetheringURL" bundleType:v9 error:&v34];
+    v20 = v34;
     tetheringURL = v3->_tetheringURL;
-    v3->_tetheringURL = v17;
+    v3->_tetheringURL = v19;
 
-    if (v18)
+    if (v20)
     {
-      v20 = WMSLogComponent();
-      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+      v23 = WMSLogComponent(v22);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         [WirelessModemBundleController initWithParentListController:];
       }
     }
 
-    v29 = 0;
-    v21 = [v7 copyCarrierBundleValue:v9 key:@"TetheringPhoneNumber" bundleType:v8 error:&v29];
-    v22 = v29;
+    v33 = 0;
+    v24 = [v8 copyCarrierBundleValue:v10 key:@"TetheringPhoneNumber" bundleType:v9 error:&v33];
+    v25 = v33;
     tetheringPhoneNumber = v3->_tetheringPhoneNumber;
-    v3->_tetheringPhoneNumber = v21;
+    v3->_tetheringPhoneNumber = v24;
 
-    if (v22)
+    if (v25)
     {
-      v24 = WMSLogComponent();
-      if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+      v28 = WMSLogComponent(v27);
+      if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
       {
         [WirelessModemBundleController initWithParentListController:];
       }
@@ -98,8 +99,8 @@ LABEL_28:
 
     if ([MEMORY[0x277CCACC8] isMainThread])
     {
-      v25 = +[MISManager sharedManager];
-      [v25 authenticate];
+      v29 = +[MISManager sharedManager];
+      [v29 authenticate];
     }
 
     else
@@ -110,16 +111,16 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  v26 = WMSLogComponent();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+  v30 = WMSLogComponent(v4);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
   {
     [WirelessModemBundleController initWithParentListController:];
   }
 
-  v27 = 0;
+  v31 = 0;
 LABEL_29:
 
-  return v27;
+  return v31;
 }
 
 void __62__WirelessModemBundleController_initWithParentListController___block_invoke()
@@ -173,8 +174,8 @@ void __61__WirelessModemBundleController_MISStateChangedNotification___block_inv
       return;
     }
 
-    v11 = WMSLogComponent();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = WMSLogComponent(v11);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       __61__WirelessModemBundleController_MISStateChangedNotification___block_invoke_cold_3();
     }
@@ -191,19 +192,19 @@ void __61__WirelessModemBundleController_MISStateChangedNotification___block_inv
       goto LABEL_15;
     }
 
-    v15 = *(a1 + 40);
-    v16 = [v15[6] objectAtIndexedSubscript:0];
-    [v15 updateSpecifiersForState:v4 andReason:v7 andButton:v16];
+    v16 = *(a1 + 40);
+    v17 = [v16[6] objectAtIndexedSubscript:0];
+    [v16 updateSpecifiersForState:v4 andReason:v7 andButton:v17];
 
-    v17 = WMSLogComponent();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    v19 = WMSLogComponent(v18);
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       __61__WirelessModemBundleController_MISStateChangedNotification___block_invoke_cold_1();
     }
 
     WeakRetained = objc_loadWeakRetained((*(a1 + 40) + *MEMORY[0x277D3FBE0]));
-    v18 = [*(*(a1 + 40) + 48) objectAtIndexedSubscript:0];
-    [WeakRetained reloadSpecifier:v18 animated:1];
+    v20 = [*(*(a1 + 40) + 48) objectAtIndexedSubscript:0];
+    [WeakRetained reloadSpecifier:v20 animated:1];
 
 LABEL_14:
 LABEL_15:
@@ -215,14 +216,14 @@ LABEL_15:
     return;
   }
 
-  v13 = WMSLogComponent();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  v14 = WMSLogComponent(v11);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
   {
     __61__WirelessModemBundleController_MISStateChangedNotification___block_invoke_cold_2();
   }
 
-  v14 = objc_loadWeakRetained((*(a1 + 40) + *MEMORY[0x277D3FBE0]));
-  [v14 removeContiguousSpecifiers:*(*(a1 + 40) + 48) animated:1];
+  v15 = objc_loadWeakRetained((*(a1 + 40) + *MEMORY[0x277D3FBE0]));
+  [v15 removeContiguousSpecifiers:*(*(a1 + 40) + 48) animated:1];
 }
 
 - (void)showSetupAlert:(id)alert
@@ -234,7 +235,7 @@ LABEL_15:
     goto LABEL_17;
   }
 
-  v40 = alertCopy;
+  v41 = alertCopy;
   v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
   v7 = [v6 localizedStringForKey:@"SETUP_ALERT_TITLE" value:&stru_284EED640 table:@"WirelessModemSettings"];
 
@@ -250,7 +251,7 @@ LABEL_15:
     {
       v14 = [v12 localizedStringForKey:@"SETUP_ALERT_MESSAGE_ALL_INFO" value:&stru_284EED640 table:@"WirelessModemSettings"];
       v15 = self->_tetheringPhoneNumber;
-      v37 = self->_tetheringURL;
+      v38 = self->_tetheringURL;
     }
 
     else
@@ -259,7 +260,7 @@ LABEL_15:
       v15 = self->_tetheringPhoneNumber;
     }
 
-    v36 = v15;
+    v37 = v15;
     goto LABEL_9;
   }
 
@@ -267,68 +268,68 @@ LABEL_15:
   {
     v14 = [v12 localizedStringForKey:@"SETUP_ALERT_MESSAGE_NO_INFO" value:&stru_284EED640 table:@"WirelessModemSettings"];
 LABEL_9:
-    [v11 stringWithFormat:v14, v8, v36, v37];
+    [v11 stringWithFormat:v14, v8, v37, v38];
     goto LABEL_10;
   }
 
   v14 = [v12 localizedStringForKey:@"SETUP_ALERT_MESSAGE_NO_NUMBER" value:&stru_284EED640 table:@"WirelessModemSettings"];
-  [v11 stringWithFormat:v14, self->_tetheringURL, v36, v37];
+  [v11 stringWithFormat:v14, self->_tetheringURL, v37, v38];
   v16 = LABEL_10:;
-  v38 = v8;
+  v39 = v8;
 
-  v17 = WMSLogComponent();
-  if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+  v18 = WMSLogComponent(v17);
+  if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
   {
-    [(WirelessModemBundleController *)v7 showSetupAlert:v16, v17];
+    [(WirelessModemBundleController *)v7 showSetupAlert:v16, v18];
   }
 
-  v39 = v7;
-  v18 = [MEMORY[0x277D75110] alertControllerWithTitle:v7 message:v16 preferredStyle:1];
+  v40 = v7;
+  v19 = [MEMORY[0x277D75110] alertControllerWithTitle:v7 message:v16 preferredStyle:1];
   tetheringAlert = self->_tetheringAlert;
-  self->_tetheringAlert = v18;
+  self->_tetheringAlert = v19;
 
-  v20 = MEMORY[0x277D750F8];
-  v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v22 = [v21 localizedStringForKey:@"SETUP_ALERT_WEB_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
+  v21 = MEMORY[0x277D750F8];
+  v22 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v23 = [v22 localizedStringForKey:@"SETUP_ALERT_WEB_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
+  v43[0] = MEMORY[0x277D85DD0];
+  v43[1] = 3221225472;
+  v43[2] = __48__WirelessModemBundleController_showSetupAlert___block_invoke;
+  v43[3] = &unk_278BB50F0;
+  v43[4] = self;
+  v24 = [v21 actionWithTitle:v23 style:0 handler:v43];
+
+  v25 = MEMORY[0x277D750F8];
+  v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v27 = [v26 localizedStringForKey:@"SETUP_ALERT_CALL_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
   v42[0] = MEMORY[0x277D85DD0];
   v42[1] = 3221225472;
-  v42[2] = __48__WirelessModemBundleController_showSetupAlert___block_invoke;
+  v42[2] = __48__WirelessModemBundleController_showSetupAlert___block_invoke_62;
   v42[3] = &unk_278BB50F0;
   v42[4] = self;
-  v23 = [v20 actionWithTitle:v22 style:0 handler:v42];
+  v28 = [v25 actionWithTitle:v27 style:0 handler:v42];
 
-  v24 = MEMORY[0x277D750F8];
-  v25 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v26 = [v25 localizedStringForKey:@"SETUP_ALERT_CALL_BUTTON" value:&stru_284EED640 table:@"WirelessModemSettings"];
-  v41[0] = MEMORY[0x277D85DD0];
-  v41[1] = 3221225472;
-  v41[2] = __48__WirelessModemBundleController_showSetupAlert___block_invoke_62;
-  v41[3] = &unk_278BB50F0;
-  v41[4] = self;
-  v27 = [v24 actionWithTitle:v26 style:0 handler:v41];
-
-  v28 = self->_tetheringURL;
+  v29 = self->_tetheringURL;
   if (self->_tetheringPhoneNumber)
   {
-    [(UIAlertController *)self->_tetheringAlert addAction:v27];
+    [(UIAlertController *)self->_tetheringAlert addAction:v28];
   }
 
-  if (v28)
+  if (v29)
   {
-    [(UIAlertController *)self->_tetheringAlert addAction:v23];
+    [(UIAlertController *)self->_tetheringAlert addAction:v24];
   }
 
-  v29 = self->_tetheringAlert;
-  v30 = MEMORY[0x277D750F8];
-  v31 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v32 = [v31 localizedStringForKey:@"CANCEL" value:&stru_284EED640 table:@"WirelessModemSettings"];
-  v33 = [v30 actionWithTitle:v32 style:1 handler:0];
-  [(UIAlertController *)v29 addAction:v33];
+  v30 = self->_tetheringAlert;
+  v31 = MEMORY[0x277D750F8];
+  v32 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v33 = [v32 localizedStringForKey:@"CANCEL" value:&stru_284EED640 table:@"WirelessModemSettings"];
+  v34 = [v31 actionWithTitle:v33 style:1 handler:0];
+  [(UIAlertController *)v30 addAction:v34];
 
-  v5 = v40;
+  v5 = v41;
 LABEL_17:
-  v34 = WMSLogComponent();
-  if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+  v35 = WMSLogComponent(alertCopy);
+  if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
   {
     [WirelessModemBundleController showSetupAlert:];
   }
@@ -339,7 +340,7 @@ LABEL_17:
 
 uint64_t __48__WirelessModemBundleController_showSetupAlert___block_invoke(uint64_t a1)
 {
-  v2 = WMSLogComponent();
+  v2 = WMSLogComponent(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __48__WirelessModemBundleController_showSetupAlert___block_invoke_cold_1();
@@ -354,7 +355,7 @@ uint64_t __48__WirelessModemBundleController_showSetupAlert___block_invoke(uint6
 
 uint64_t __48__WirelessModemBundleController_showSetupAlert___block_invoke_62(uint64_t a1)
 {
-  v2 = WMSLogComponent();
+  v2 = WMSLogComponent(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __48__WirelessModemBundleController_showSetupAlert___block_invoke_62_cold_1();
@@ -462,61 +463,61 @@ LABEL_13:
 
 - (id)_specifiersWithSpecifierMain:(id)main
 {
-  v16[3] = *MEMORY[0x277D85DE8];
+  v17[3] = *MEMORY[0x277D85DE8];
   v4 = objc_alloc_init(MEMORY[0x277CBEB18]);
   specifiers = self->_specifiers;
   self->_specifiers = v4;
 
-  v14 = 0;
+  v15 = 0;
   v6 = +[MISManager sharedManager];
-  [v6 getState:&v14 + 4 andReason:&v14];
+  [v6 getState:&v15 + 4 andReason:&v15];
 
-  v7 = WMSLogComponent();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+  v8 = WMSLogComponent(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    [(WirelessModemBundleController *)&v14 + 1 _specifiersWithSpecifierMain:v7];
+    [(WirelessModemBundleController *)&v15 + 1 _specifiersWithSpecifierMain:v8];
   }
 
-  v16[0] = @"ph-mis-state";
-  v15[0] = @"type";
-  v15[1] = @"value";
-  if ((HIDWORD(v14) - 1020) > 3)
-  {
-    v8 = @"unknown";
-  }
-
-  else
-  {
-    v8 = off_278BB5138[HIDWORD(v14) - 1020];
-  }
-
-  v16[1] = v8;
-  v15[2] = @"context";
-  if (v14 > 6)
+  v17[0] = @"ph-mis-state";
+  v16[0] = @"type";
+  v16[1] = @"value";
+  if ((HIDWORD(v15) - 1020) > 3)
   {
     v9 = @"unknown";
   }
 
   else
   {
-    v9 = off_278BB5158[v14];
+    v9 = off_278BB5138[HIDWORD(v15) - 1020];
   }
 
-  v16[2] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:3];
-  WMSubmitUIEventMetric(v10);
-
-  if (HIDWORD(v14) != 1020)
+  v17[1] = v9;
+  v16[2] = @"context";
+  if (v15 > 6)
   {
-    v11 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:&stru_284EED640 target:self set:0 get:0 detail:0 cell:-1 edit:0];
-    [v11 setProperty:@"INTERNET_TETHERING" forKey:*MEMORY[0x277D3FFB8]];
-    [(WirelessModemBundleController *)self updateSpecifiersForState:HIDWORD(v14) andReason:v14 andButton:v11];
-    [(NSMutableArray *)self->_specifiers addObject:v11];
+    v10 = @"unknown";
   }
 
-  v12 = self->_specifiers;
+  else
+  {
+    v10 = off_278BB5158[v15];
+  }
 
-  return v12;
+  v17[2] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
+  WMSubmitUIEventMetric(v11);
+
+  if (HIDWORD(v15) != 1020)
+  {
+    v12 = [MEMORY[0x277D3FAD8] preferenceSpecifierNamed:&stru_284EED640 target:self set:0 get:0 detail:0 cell:-1 edit:0];
+    [v12 setProperty:@"INTERNET_TETHERING" forKey:*MEMORY[0x277D3FFB8]];
+    [(WirelessModemBundleController *)self updateSpecifiersForState:HIDWORD(v15) andReason:v15 andButton:v12];
+    [(NSMutableArray *)self->_specifiers addObject:v12];
+  }
+
+  v13 = self->_specifiers;
+
+  return v13;
 }
 
 - (id)specifiersWithSpecifier:(id)specifier

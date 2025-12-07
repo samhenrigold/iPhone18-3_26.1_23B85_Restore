@@ -174,7 +174,7 @@
   [path bounds];
   if (self)
   {
-    [(CRLAngleGradientFill *)self p_shadingTransformForBounds:?];
+    objc_msgSend_p_shadingTransformForBounds_(self);
     v5 = 0u;
     v6 = 0u;
     v7 = 0u;
@@ -199,7 +199,7 @@
   [path bounds];
   if (self)
   {
-    [(CRLAngleGradientFill *)self p_shadingTransformForBounds:?];
+    objc_msgSend_p_shadingTransformForBounds_(self);
     v5 = 0u;
     v6 = 0u;
     v7 = vmulq_f64(0, 0);
@@ -236,7 +236,7 @@
   {
     if (self)
     {
-      [(CRLGradientFill *)self centeredRadialTransformInRect:x, y, width, height];
+      objc_msgSend_centeredRadialTransformInRect_(self, x, y, width, height);
     }
 
     else
@@ -505,7 +505,7 @@
     memset(&v13[1], 0, sizeof(CGAffineTransform));
     if (self)
     {
-      [(CRLAngleGradientFill *)self p_shadingTransformForBounds:x, y, width, height];
+      objc_msgSend_p_shadingTransformForBounds_(self, x, y, width, height);
     }
 
     v13[0] = v13[1];

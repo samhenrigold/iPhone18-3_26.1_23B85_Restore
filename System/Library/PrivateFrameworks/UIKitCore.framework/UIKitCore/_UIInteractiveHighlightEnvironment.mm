@@ -703,7 +703,7 @@
   {
     if (_AXSEnhanceBackgroundContrastEnabled())
     {
-      v4 = +[UIColor blackColor];
+      v4 = objc_msgSend_blackColor(UIColor);
       v5 = [UIVisualEffect effectCompositingColor:v4 withMode:1 alpha:progress * 0.3 + (1.0 - progress) * 0.0];
       v12[0] = v5;
       v6 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:1];
@@ -714,7 +714,7 @@
       v7 = (1.0 - progress) * 0.0;
       v4 = [_UIZoomEffect _underlayZoomEffectWithMagnitude:progress * 0.015 + v7];
       v11[0] = v4;
-      v5 = +[UIColor blackColor];
+      v5 = objc_msgSend_blackColor(UIColor);
       v8 = [UIVisualEffect effectCompositingColor:v5 withMode:1 alpha:progress * 0.055 + v7];
       v11[1] = v8;
       v9 = [UIBlurEffect effectWithBlurRadius:progress * 7.0 + v7];

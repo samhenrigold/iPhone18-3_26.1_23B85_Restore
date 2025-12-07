@@ -175,12 +175,12 @@
   v3.super_class = PKAccountBillPaymentMessageContentView;
   [(PKAccountBillPaymentMessageContentView *)&v3 layoutSubviews];
   [(PKAccountBillPaymentMessageContentView *)self bounds];
-  [(PKAccountBillPaymentMessageContentView *)self _layoutWithBounds:0 isTemplateLayout:?];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self);
 }
 
 - (CGSize)sizeThatFits:(CGSize)fits
 {
-  [(PKAccountBillPaymentMessageContentView *)self _layoutWithBounds:1 isTemplateLayout:*MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height];
+  objc_msgSend__layoutWithBounds_isTemplateLayout_(self, a2, 1, *MEMORY[0x1E695EFF8], *(MEMORY[0x1E695EFF8] + 8), fits.width, fits.height);
   result.height = v4;
   result.width = v3;
   return result;
@@ -189,7 +189,7 @@
 - (CGSize)_layoutWithBounds:(CGRect)bounds isTemplateLayout:(BOOL)layout
 {
   width = bounds.size.width;
-  memset(&v22, 0, sizeof(v22));
+  memset(&v29, 0, sizeof(v29));
   v7 = bounds.origin.x + 16.0;
   v8 = bounds.origin.y + 10.0;
   remainder.origin.x = bounds.origin.x + 16.0;
@@ -215,36 +215,42 @@
     [(UIImageView *)imageView sizeThatFits:width + -32.0, v9];
     v15 = v14;
     v13 = v16;
-    v25.origin.x = v7;
-    v25.origin.y = v8;
-    v25.size.width = width + -32.0;
-    v25.size.height = v9;
-    CGRectDivide(v25, &v22, &remainder, v15, v10);
-    PKSizeAlignedInRect();
+    v32.origin.x = v7;
+    v32.origin.y = v8;
+    v32.size.width = width + -32.0;
+    v32.size.height = v9;
+    CGRectDivide(v32, &v29, &remainder, v15, v10);
+    v18.n128_u64[0] = *&v29.origin.y;
+    v17.n128_u64[0] = *&v29.origin.x;
+    v20.n128_u64[0] = *&v29.size.height;
+    v19.n128_u64[0] = *&v29.size.width;
+    v21.n128_f64[0] = v15;
+    v22.n128_f64[0] = v13;
+    PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v21, v22, v17, v18, v19, v20, v23);
     if (!layout)
     {
       [(UIImageView *)self->_imageView setFrame:?];
     }
 
-    CGRectDivide(remainder, &v22, &remainder, 16.0, v10);
+    CGRectDivide(remainder, &v29, &remainder, 16.0, v10);
   }
 
   messageTextView = self->_messageTextView;
   if (messageTextView)
   {
     [(UITextView *)messageTextView sizeThatFits:remainder.size.width, remainder.size.height];
-    v12 = v18;
-    CGRectDivide(remainder, &v22, &remainder, v19, v10);
+    v12 = v25;
+    CGRectDivide(remainder, &v29, &remainder, v26, v10);
     if (!layout)
     {
-      [(UITextView *)self->_messageTextView setFrame:*&v22.origin, *&v22.size];
+      [(UITextView *)self->_messageTextView setFrame:*&v29.origin, *&v29.size];
     }
   }
 
-  v20 = fmax(v12, v13) + 0.0 + 20.0;
-  v21 = width;
-  result.height = v20;
-  result.width = v21;
+  v27 = fmax(v12, v13) + 0.0 + 20.0;
+  v28 = width;
+  result.height = v27;
+  result.width = v28;
   return result;
 }
 

@@ -22,7 +22,7 @@ void __50___NSBundleODRDataForApplications_initWithBundle___block_invoke_192(uin
   if (a3)
   {
     v5 = a3;
-    if (![(NSString *)[(NSError *)a3 domain] isEqualToString:@"NSCocoaErrorDomain"])
+    if ((objc_msgSend_isEqualToString_([(NSError *)a3 domain]) & 1) == 0)
     {
       v11 = @"NSUnderlyingError";
       v12[0] = a3;
@@ -73,7 +73,7 @@ void __50___NSBundleODRDataForApplications_initWithBundle___block_invoke_195(uin
   if (a3)
   {
     v5 = a3;
-    if (![(NSString *)[(NSError *)a3 domain] isEqualToString:@"NSCocoaErrorDomain"])
+    if ((objc_msgSend_isEqualToString_([(NSError *)a3 domain]) & 1) == 0)
     {
       v23 = @"NSUnderlyingError";
       v24[0] = a3;

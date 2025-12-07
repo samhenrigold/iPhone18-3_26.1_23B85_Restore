@@ -110,21 +110,20 @@ void __46__CXXPCChannelProvider_initWithConfiguration___block_invoke_2(uint64_t 
   v10 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = CXDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CXDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412290;
       v9 = v3;
-      _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Activated connection %@", &v8, 0xCu);
+      _os_log_impl(&dword_1B47F3000, v6, OS_LOG_TYPE_DEFAULT, "Activated connection %@", &v8, 0xCu);
     }
 
-    v6 = [WeakRetained abstractProvider];
-    [v6 sendDidBeginForProvider:*(a1 + 32)];
+    v7 = [v5 abstractProvider];
+    [v7 sendDidBeginForProvider:*(a1 + 32)];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __46__CXXPCChannelProvider_initWithConfiguration___block_invoke_8(uint64_t a1, void *a2)
@@ -132,23 +131,22 @@ void __46__CXXPCChannelProvider_initWithConfiguration___block_invoke_8(uint64_t 
   v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = CXDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CXDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412546;
       v9 = v3;
       v10 = 2112;
-      v11 = WeakRetained;
-      _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Interrupted connection %@ for XPC provider %@", &v8, 0x16u);
+      v11 = v5;
+      _os_log_impl(&dword_1B47F3000, v6, OS_LOG_TYPE_DEFAULT, "Interrupted connection %@ for XPC provider %@", &v8, 0x16u);
     }
 
-    v6 = [WeakRetained abstractProvider];
-    [v6 handleConnectionInterruptionForProvider:WeakRetained];
+    v7 = [v5 abstractProvider];
+    [v7 handleConnectionInterruptionForProvider:v5];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void __46__CXXPCChannelProvider_initWithConfiguration___block_invoke_9(uint64_t a1, void *a2)
@@ -156,24 +154,23 @@ void __46__CXXPCChannelProvider_initWithConfiguration___block_invoke_9(uint64_t 
   v12 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
+  v5 = WeakRetained;
   if (WeakRetained)
   {
-    v5 = CXDefaultLog();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = CXDefaultLog(WeakRetained);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
       v8 = 138412546;
       v9 = v3;
       v10 = 2112;
-      v11 = WeakRetained;
-      _os_log_impl(&dword_1B47F3000, v5, OS_LOG_TYPE_DEFAULT, "Invalidated connection %@ for XPC provider %@", &v8, 0x16u);
+      v11 = v5;
+      _os_log_impl(&dword_1B47F3000, v6, OS_LOG_TYPE_DEFAULT, "Invalidated connection %@ for XPC provider %@", &v8, 0x16u);
     }
 
-    [WeakRetained setConnection:0];
-    v6 = [WeakRetained abstractProvider];
-    [v6 handleConnectionInterruptionForProvider:WeakRetained];
+    [v5 setConnection:0];
+    v7 = [v5 abstractProvider];
+    [v7 handleConnectionInterruptionForProvider:v5];
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dealloc

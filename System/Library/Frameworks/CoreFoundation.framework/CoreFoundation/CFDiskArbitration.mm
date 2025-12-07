@@ -3,7 +3,7 @@
 
 @implementation CFDiskArbitration
 
-void *____CFDiskArbitration_DASessionCreate_block_invoke()
+uint64_t (*____CFDiskArbitration_DASessionCreate_block_invoke())(void)
 {
   result = _CFLookupDiskArbitrationFunction("DASessionCreate");
   _MergedGlobals = result;

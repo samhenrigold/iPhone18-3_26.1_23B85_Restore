@@ -131,27 +131,27 @@ void __92__PLClientLogAggregator_aggregateForClientID_async_eventName_eventDicti
 
 - (BOOL)_aggregateForClientID:(id)d eventName:(id)name eventDictionary:(id)dictionary configuration:(id)configuration
 {
-  v59 = *MEMORY[0x1E69E9840];
+  v58 = *MEMORY[0x1E69E9840];
   dCopy = d;
   nameCopy = name;
   dictionaryCopy = dictionary;
   configurationCopy = configuration;
   v13 = configurationCopy;
   v14 = 0;
-  v41 = dCopy;
+  v40 = dCopy;
   if (dCopy && nameCopy && dictionaryCopy && configurationCopy)
   {
     logHandle = [(PLClientLogAggregator *)self logHandle];
     if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
     {
       *buf = 138413058;
-      v52 = dCopy;
-      v53 = 2112;
-      v54 = nameCopy;
-      v55 = 2112;
-      v56 = dictionaryCopy;
-      v57 = 2112;
-      v58 = v13;
+      v51 = dCopy;
+      v52 = 2112;
+      v53 = nameCopy;
+      v54 = 2112;
+      v55 = dictionaryCopy;
+      v56 = 2112;
+      v57 = v13;
       _os_log_debug_impl(&dword_1BACB7000, logHandle, OS_LOG_TYPE_DEBUG, "Received (clientID:%@, eventName:%@, eventDictionary:%@) for aggregation with configuration:%@", buf, 0x2Au);
     }
 
@@ -170,45 +170,45 @@ void __92__PLClientLogAggregator_aggregateForClientID_async_eventName_eventDicti
         if (v21 != 0x7FFFFFFFFFFFFFFFLL)
         {
 
-          v40 = 0;
+          v39 = 0;
           v14 = 0;
 LABEL_31:
 
           goto LABEL_32;
         }
 
-        v35 = v20;
-        v40 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjects:v18 forKeys:v20];
+        v34 = v20;
+        v39 = [objc_alloc(MEMORY[0x1E695DF20]) initWithObjects:v18 forKeys:v20];
       }
 
       else
       {
-        v35 = v16;
-        v40 = &unk_1F38E3678;
+        v34 = v16;
+        v39 = &unk_1F38E3678;
       }
 
-      v48 = 0u;
-      v49 = 0u;
-      v46 = 0u;
       v47 = 0u;
-      v37 = v13;
+      v48 = 0u;
+      v45 = 0u;
+      v46 = 0u;
+      v36 = v13;
       v22 = v13;
-      v43 = [v22 countByEnumeratingWithState:&v46 objects:v50 count:16];
-      if (v43)
+      v42 = [v22 countByEnumeratingWithState:&v45 objects:v49 count:16];
+      if (v42)
       {
-        v42 = *v47;
+        v41 = *v46;
         selfCopy = self;
-        v39 = v22;
+        v38 = v22;
         while (2)
         {
-          for (i = 0; i != v43; ++i)
+          for (i = 0; i != v42; ++i)
           {
-            if (*v47 != v42)
+            if (*v46 != v41)
             {
               objc_enumerationMutation(v22);
             }
 
-            v24 = *(*(&v46 + 1) + 8 * i);
+            v24 = *(*(&v45 + 1) + 8 * i);
             context = objc_autoreleasePoolPush();
             v25 = [v22 objectForKeyedSubscript:v24];
             if ([v25 unsignedIntValue])
@@ -219,8 +219,8 @@ LABEL_31:
 
                 objc_autoreleasePoolPop(context);
                 v14 = 0;
-                v20 = v35;
-                v13 = v37;
+                v20 = v34;
+                v13 = v36;
                 goto LABEL_31;
               }
 
@@ -229,21 +229,21 @@ LABEL_31:
 
               if (v28)
               {
-                v29 = [(PLClientLogAggregator *)self _eventAggregate:v41 eventName:nameCopy aggregateKey:v40 valueLabel:v24];
+                v29 = [(PLClientLogAggregator *)self _eventAggregate:v40 eventName:nameCopy aggregateKey:v39 valueLabel:v24];
                 v30 = [dictionaryCopy objectForKeyedSubscript:v24];
                 v31 = (*(v27 + 16))(v27, v29, v30);
 
-                v22 = v39;
+                v22 = v38;
                 self = selfCopy;
-                [(PLClientLogAggregator *)selfCopy _setEventAggregate:v41 eventName:nameCopy aggregateKey:v40 valueLabel:v24 value:v31];
+                [(PLClientLogAggregator *)selfCopy _setEventAggregate:v40 eventName:nameCopy aggregateKey:v39 valueLabel:v24 value:v31];
               }
             }
 
             objc_autoreleasePoolPop(context);
           }
 
-          v43 = [v22 countByEnumeratingWithState:&v46 objects:v50 count:16];
-          if (v43)
+          v42 = [v22 countByEnumeratingWithState:&v45 objects:v49 count:16];
+          if (v42)
           {
             continue;
           }
@@ -259,14 +259,14 @@ LABEL_31:
       }
 
       numAggregations = [(PLClientLogAggregator *)self numAggregations];
-      v20 = v36;
+      v20 = v35;
       if (numAggregations >= 0x14)
       {
         [(PLClientLogAggregator *)self _flushToPowerLog];
       }
 
       v14 = 1;
-      v13 = v37;
+      v13 = v36;
       goto LABEL_31;
     }
 
@@ -275,40 +275,39 @@ LABEL_31:
 
 LABEL_32:
 
-  v33 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
 - (BOOL)_isEventInputValid:(id)valid configuration:(id)configuration
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v37 = *MEMORY[0x1E69E9840];
   validCopy = valid;
   configurationCopy = configuration;
   v8 = [validCopy count];
   if (v8 == [configurationCopy count])
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     logHandle4 = validCopy;
-    v10 = [logHandle4 countByEnumeratingWithState:&v27 objects:v37 count:16];
+    v10 = [logHandle4 countByEnumeratingWithState:&v26 objects:v36 count:16];
     if (v10)
     {
       v11 = v10;
-      v25 = validCopy;
-      v26 = 0;
-      v12 = *v28;
+      v24 = validCopy;
+      v25 = 0;
+      v12 = *v27;
       while (2)
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v28 != v12)
+          if (*v27 != v12)
           {
             objc_enumerationMutation(logHandle4);
           }
 
-          v14 = *(*(&v27 + 1) + 8 * i);
+          v14 = *(*(&v26 + 1) + 8 * i);
           objc_opt_class();
           if ((objc_opt_isKindOfClass() & 1) == 0)
           {
@@ -331,7 +330,7 @@ LABEL_32:
             }
 
 LABEL_31:
-            validCopy = v25;
+            validCopy = v24;
             goto LABEL_32;
           }
 
@@ -348,28 +347,28 @@ LABEL_31:
               }
 
               unsignedIntegerValue = [v15 unsignedIntegerValue];
-              validCopy = v25;
+              validCopy = v24;
               if (unsignedIntegerValue > 4)
               {
-                v24 = @"(null)";
+                v23 = @"(null)";
               }
 
               else
               {
-                v24 = off_1E7F18BB0[unsignedIntegerValue & 7];
+                v23 = off_1E7F18BB0[unsignedIntegerValue & 7];
               }
 
               *buf = 138412802;
-              v32 = v14;
-              v33 = 2112;
-              v34 = v16;
-              v35 = 2112;
-              v36 = v24;
+              v31 = v14;
+              v32 = 2112;
+              v33 = v16;
+              v34 = 2112;
+              v35 = v23;
               _os_log_debug_impl(&dword_1BACB7000, logHandle3, OS_LOG_TYPE_DEBUG, "Invalid event data -- value for %@: %@ (according to configuration, %@ expects NSNumber)", buf, 0x20u);
               goto LABEL_40;
             }
 
-            v26 = 1;
+            v25 = 1;
           }
 
           else
@@ -387,7 +386,7 @@ LABEL_31:
                 }
 
 LABEL_39:
-                validCopy = v25;
+                validCopy = v24;
 LABEL_40:
 
                 goto LABEL_32;
@@ -396,7 +395,7 @@ LABEL_40:
           }
         }
 
-        v11 = [logHandle4 countByEnumeratingWithState:&v27 objects:v37 count:16];
+        v11 = [logHandle4 countByEnumeratingWithState:&v26 objects:v36 count:16];
         if (v11)
         {
           continue;
@@ -405,8 +404,8 @@ LABEL_40:
         break;
       }
 
-      validCopy = v25;
-      if (v26)
+      validCopy = v24;
+      if (v25)
       {
         v17 = 1;
         goto LABEL_33;
@@ -438,7 +437,6 @@ LABEL_32:
   v17 = 0;
 LABEL_33:
 
-  v20 = *MEMORY[0x1E69E9840];
   return v17;
 }
 
@@ -480,7 +478,7 @@ LABEL_33:
 
 - (BOOL)_setEventAggregate:(id)aggregate eventName:(id)name aggregateKey:(id)key valueLabel:(id)label value:(id)value
 {
-  v70 = *MEMORY[0x1E69E9840];
+  v69 = *MEMORY[0x1E69E9840];
   aggregateCopy = aggregate;
   nameCopy = name;
   keyCopy = key;
@@ -496,7 +494,7 @@ LABEL_33:
     [aggregatesCache2 setObject:v19 forKeyedSubscript:aggregateCopy];
   }
 
-  v65 = labelCopy;
+  v64 = labelCopy;
   aggregatesCache3 = [(PLClientLogAggregator *)self aggregatesCache];
   v22 = [aggregatesCache3 objectForKeyedSubscript:aggregateCopy];
   v23 = [v22 objectForKeyedSubscript:nameCopy];
@@ -547,7 +545,7 @@ LABEL_33:
   v49 = [aggregatesCache9 objectForKeyedSubscript:aggregateCopy];
   v50 = [v49 objectForKeyedSubscript:nameCopy];
   v51 = [v50 objectForKeyedSubscript:keyCopy];
-  [v51 setObject:valueCopy forKeyedSubscript:v65];
+  [v51 setObject:valueCopy forKeyedSubscript:v64];
 
   v52 = [MEMORY[0x1E696AD98] numberWithDouble:v29];
   aggregatesCache10 = [(PLClientLogAggregator *)self aggregatesCache];
@@ -560,55 +558,36 @@ LABEL_33:
   if (os_log_type_enabled(logHandle, OS_LOG_TYPE_DEBUG))
   {
     aggregatesCache11 = [(PLClientLogAggregator *)self aggregatesCache];
-    v61 = [aggregatesCache11 objectForKeyedSubscript:aggregateCopy];
-    v62 = [v61 objectForKeyedSubscript:nameCopy];
-    v63 = [v62 objectForKeyedSubscript:keyCopy];
-    v64 = [v63 objectForKeyedSubscript:@"__number"];
+    v60 = [aggregatesCache11 objectForKeyedSubscript:aggregateCopy];
+    v61 = [v60 objectForKeyedSubscript:nameCopy];
+    v62 = [v61 objectForKeyedSubscript:keyCopy];
+    v63 = [v62 objectForKeyedSubscript:@"__number"];
     *buf = 138412546;
-    v67 = v64;
-    v68 = 2112;
-    v69 = v65;
+    v66 = v63;
+    v67 = 2112;
+    v68 = v64;
     _os_log_debug_impl(&dword_1BACB7000, logHandle, OS_LOG_TYPE_DEBUG, "-- Updated aggregated event #%@ (key: %@)", buf, 0x16u);
   }
 
-  v58 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (void)_isEventInputValid:(NSObject *)a3 configuration:.cold.1(void *a1, void *a2, NSObject *a3)
 {
-  v10 = *MEMORY[0x1E69E9840];
-  v6 = 134218240;
-  v7 = [a1 count];
-  v8 = 2048;
-  v9 = [a2 count];
-  _os_log_debug_impl(&dword_1BACB7000, a3, OS_LOG_TYPE_DEBUG, "Invalid configuration -- event data (%lu) and configuration (%lu) should have the same number of keys", &v6, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
+  v5 = 134218240;
+  v6 = [a1 count];
+  v7 = 2048;
+  v8 = [a2 count];
+  _os_log_debug_impl(&dword_1BACB7000, a3, OS_LOG_TYPE_DEBUG, "Invalid configuration -- event data (%lu) and configuration (%lu) should have the same number of keys", &v5, 0x16u);
 }
 
 - (void)_isEventInputValid:(uint64_t)a1 configuration:(NSObject *)a2 .cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1BACB7000, a2, OS_LOG_TYPE_DEBUG, "Invalid event data -- %@ key (expected NSString)", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_isEventInputValid:configuration:.cold.3()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1BACB7000, v0, v1, "Invalid event data -- GROUP_BY on %@: %@ (expected NSString or NSNumber)");
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_isEventInputValid:configuration:.cold.4()
-{
-  v3 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_2(&dword_1BACB7000, v0, v1, "Invalid configuration -- value for %@: %@ (expected AggregateType)");
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1BACB7000, a2, OS_LOG_TYPE_DEBUG, "Invalid event data -- %@ key (expected NSString)", &v2, 0xCu);
 }
 
 @end

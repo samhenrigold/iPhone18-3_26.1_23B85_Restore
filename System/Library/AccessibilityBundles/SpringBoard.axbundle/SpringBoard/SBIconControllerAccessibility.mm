@@ -249,9 +249,9 @@ void __62__SBIconControllerAccessibility__accessibilityCloseOpenFolder__block_in
 
 void __49__SBIconControllerAccessibility__axShowTodayView__block_invoke()
 {
-  v1 = AXMainSBHomeScreenController();
-  v0 = AXSBHIconManagerFromSharedIconController();
-  [v1 presentTodayOverlayForIconManager:v0];
+  v2 = AXMainSBHomeScreenController();
+  v1 = AXSBHIconManagerFromSharedIconController(v2, v0);
+  [v2 presentTodayOverlayForIconManager:v1];
 }
 
 - (void)_axHideTodayView
@@ -286,10 +286,10 @@ void __49__SBIconControllerAccessibility__axHideTodayView__block_invoke()
 
 void __50__SBIconControllerAccessibility__axShowAppLibrary__block_invoke()
 {
-  v2 = AXMainSBHomeScreenController();
-  v0 = AXSBHIconManagerFromSharedIconController();
-  v1 = AXWindowScene(@"activeDisplayWindowScene");
-  [v2 presentLibraryForIconManager:v0 windowScene:v1 animated:1];
+  v3 = AXMainSBHomeScreenController();
+  v1 = AXSBHIconManagerFromSharedIconController(v3, v0);
+  v2 = AXWindowScene(@"activeDisplayWindowScene");
+  [v3 presentLibraryForIconManager:v1 windowScene:v2 animated:1];
 }
 
 - (void)_axHideAppLibrary
@@ -322,7 +322,7 @@ void __50__SBIconControllerAccessibility__axHideAppLibrary__block_invoke_2(uint6
 
 - (BOOL)_axIsShowingAppLibrary
 {
-  v2 = AXSBHIconManagerFromSharedIconController();
+  v2 = AXSBHIconManagerFromSharedIconController(self, a2);
   v3 = [v2 safeBoolForKey:@"isMainDisplayLibraryViewVisible"];
 
   return v3;

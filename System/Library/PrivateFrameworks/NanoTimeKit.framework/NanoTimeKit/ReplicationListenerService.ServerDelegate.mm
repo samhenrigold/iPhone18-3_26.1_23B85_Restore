@@ -29,7 +29,7 @@
 
 - (void)sendGalleryRefreshMessageWithCompletion:(id)completion
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DA2D440);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27DA2D440, &qword_22DCEA540);
   MEMORY[0x28223BE20](v5 - 8, v6, v7);
   v9 = &v14 - v8;
   v10 = _Block_copy(completion);
@@ -53,7 +53,7 @@
   swift_defaultActor_initialize();
   type metadata accessor for SnapshotReplicationStore();
   v4 = swift_allocObject();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DA2D4B8);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27DA2D4B8, &qword_22DCEBE10);
   v5 = swift_allocObject();
   *(v5 + 16) = 0u;
   *(v5 + 32) = 0u;

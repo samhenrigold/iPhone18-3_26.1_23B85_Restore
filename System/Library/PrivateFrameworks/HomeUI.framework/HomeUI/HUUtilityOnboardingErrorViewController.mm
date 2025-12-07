@@ -49,12 +49,12 @@
   swift_unknownObjectRelease();
   sub_20D0D6EE0();
 
-  __swift_destroy_boxed_opaque_existential_1(&v5);
+  __swift_destroy_boxed_opaque_existential_1(v5);
 }
 
 - (Class)onboardingFlowClass
 {
-  sub_20CECF940(0, &qword_27C81E450);
+  sub_20CECF940(0, &qword_27C81E450, off_277DB19A0);
 
   return swift_getObjCClassFromMetadata();
 }

@@ -9,7 +9,7 @@
 
 + (id)newSafeDBHolder:(id)holder withDatabaseURL:(id)l
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   holderCopy = holder;
   lCopy = l;
   v8 = lCopy;
@@ -23,17 +23,16 @@
     v11 = brc_default_log();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
     {
-      v14 = 134218498;
-      v15 = v9;
-      v16 = 2112;
-      v17 = v8;
-      v18 = 2112;
-      v19 = v10;
-      _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] <BRCSafeDBHolder %p> - Creating for db in path: %@%@", &v14, 0x20u);
+      v13 = 134218498;
+      v14 = v9;
+      v15 = 2112;
+      v16 = v8;
+      v17 = 2112;
+      v18 = v10;
+      _os_log_debug_impl(&dword_223E7A000, v11, OS_LOG_TYPE_DEBUG, "[DEBUG] <BRCSafeDBHolder %p> - Creating for db in path: %@%@", &v13, 0x20u);
     }
   }
 
-  v12 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -95,7 +94,7 @@ LABEL_11:
 
 void __86__BRCSafeDBHolder_closeDatabaseSynchronously_dispatchToSerialQueue_completionHandler___block_invoke(void *a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = brc_bread_crumbs();
   v3 = brc_default_log();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
@@ -104,9 +103,9 @@ void __86__BRCSafeDBHolder_closeDatabaseSynchronously_dispatchToSerialQueue_comp
   }
 
   v4 = a1[5];
-  v12 = 0;
-  v5 = [v4 brc_closeWithError:&v12];
-  v6 = v12;
+  v11 = 0;
+  v5 = [v4 brc_closeWithError:&v11];
+  v6 = v11;
   if (v5)
   {
     v7 = brc_bread_crumbs();
@@ -123,13 +122,13 @@ void __86__BRCSafeDBHolder_closeDatabaseSynchronously_dispatchToSerialQueue_comp
     v8 = brc_default_log();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_FAULT))
     {
-      v11 = a1[4];
+      v10 = a1[4];
       *buf = 138412802;
-      v14 = v11;
-      v15 = 2112;
-      v16 = v6;
-      v17 = 2112;
-      v18 = v7;
+      v13 = v10;
+      v14 = 2112;
+      v15 = v6;
+      v16 = 2112;
+      v17 = v7;
       _os_log_fault_impl(&dword_223E7A000, v8, OS_LOG_TYPE_FAULT, "[CRIT] %@ - Error closing BRCPendingChangesStream DB connection: %@%@", buf, 0x20u);
     }
   }
@@ -139,46 +138,44 @@ void __86__BRCSafeDBHolder_closeDatabaseSynchronously_dispatchToSerialQueue_comp
   {
     (*(v9 + 16))(v9, v6);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (BOOL)closeWithError:(id *)error
 {
-  v26 = *MEMORY[0x277D85DE8];
-  v12 = 0;
-  v13 = &v12;
-  v14 = 0x3032000000;
-  v15 = __Block_byref_object_copy__4;
-  v16 = __Block_byref_object_dispose__4;
-  v17 = 0;
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __34__BRCSafeDBHolder_closeWithError___block_invoke;
-  v11[3] = &unk_2785000C0;
-  v11[4] = &v12;
-  [(BRCSafeDBHolder *)self closeDatabaseSynchronously:1 dispatchToSerialQueue:0 completionHandler:v11];
-  v4 = v13[5];
+  v25 = *MEMORY[0x277D85DE8];
+  v11 = 0;
+  v12 = &v11;
+  v13 = 0x3032000000;
+  v14 = __Block_byref_object_copy__4;
+  v15 = __Block_byref_object_dispose__4;
+  v16 = 0;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __34__BRCSafeDBHolder_closeWithError___block_invoke;
+  v10[3] = &unk_2785000C0;
+  v10[4] = &v11;
+  [(BRCSafeDBHolder *)self closeDatabaseSynchronously:1 dispatchToSerialQueue:0 completionHandler:v10];
+  v4 = v12[5];
   if (v4)
   {
     v5 = brc_bread_crumbs();
     v6 = brc_default_log();
     if (os_log_type_enabled(v6, 0x90u))
     {
-      v10 = "(passed to caller)";
+      v9 = "(passed to caller)";
       *buf = 136315906;
-      v19 = "[BRCSafeDBHolder closeWithError:]";
-      v20 = 2080;
+      v18 = "[BRCSafeDBHolder closeWithError:]";
+      v19 = 2080;
       if (!error)
       {
-        v10 = "(ignored by caller)";
+        v9 = "(ignored by caller)";
       }
 
-      v21 = v10;
-      v22 = 2112;
-      v23 = v4;
-      v24 = 2112;
-      v25 = v5;
+      v20 = v9;
+      v21 = 2112;
+      v22 = v4;
+      v23 = 2112;
+      v24 = v5;
       _os_log_error_impl(&dword_223E7A000, v6, 0x90u, "[ERROR] %s: %s error: %@%@", buf, 0x2Au);
     }
   }
@@ -189,39 +186,32 @@ void __86__BRCSafeDBHolder_closeDatabaseSynchronously_dispatchToSerialQueue_comp
     *error = v4;
   }
 
-  _Block_object_dispose(&v12, 8);
-  v8 = *MEMORY[0x277D85DE8];
+  _Block_object_dispose(&v11, 8);
   return v4 == 0;
 }
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 134218242;
-  *(&v4 + 4) = self;
+  LODWORD(v3) = 134218242;
+  *(&v3 + 4) = self;
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] <BRCSafeDBHolder %p> - dealloc called%@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] <BRCSafeDBHolder %p> - dealloc called%@", v3, DWORD2(v3));
 }
 
 void __86__BRCSafeDBHolder_closeDatabaseSynchronously_dispatchToSerialQueue_completionHandler___block_invoke_cold_1(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = *(a1 + 32);
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] %@ - Closing the database%@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] %@ - Closing the database%@", v3, DWORD2(v3));
 }
 
 void __86__BRCSafeDBHolder_closeDatabaseSynchronously_dispatchToSerialQueue_completionHandler___block_invoke_cold_2(uint64_t a1)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  LODWORD(v4) = 138412546;
-  *(&v4 + 4) = *(a1 + 32);
+  LODWORD(v3) = 138412546;
+  *(&v3 + 4) = *(a1 + 32);
   OUTLINED_FUNCTION_0_0();
-  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] %@ - Database closed%@", v4, DWORD2(v4));
-  v3 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_223E7A000, v1, v2, "[DEBUG] %@ - Database closed%@", v3, DWORD2(v3));
 }
 
 @end

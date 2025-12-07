@@ -218,7 +218,7 @@ LABEL_9:
 
 - (void)createBuckets:(_HIDAnalyticsHistogramSegmentConfig *)buckets count:(int64_t)count
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   self->_segmentCount = count;
   v7 = malloc_type_malloc(16 * count, 0x10200408CB94CA5uLL);
   self->_segments = v7;
@@ -245,9 +245,9 @@ LABEL_9:
       {
         fieldName = self->_fieldName;
         *buf = 134218242;
-        v21 = v12;
-        v22 = 2112;
-        v23 = fieldName;
+        v20 = v12;
+        v21 = 2112;
+        v22 = fieldName;
         _os_log_impl(&dword_25092B000, v9, OS_LOG_TYPE_DEFAULT, "HIDAnalytics higher value normalizer %llu for field %@ , reduce to 1 ", buf, 0x16u);
       }
 
@@ -278,8 +278,6 @@ LABEL_9:
 
     while (v8 != count);
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setIntegerValue:(unint64_t)value

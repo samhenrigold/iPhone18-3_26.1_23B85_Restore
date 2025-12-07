@@ -16,14 +16,14 @@
 
 - (id)addPeer
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v3 = _MRLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     device = [(MRCryptoPairingSession *)self device];
-    v12 = 138412290;
-    v13 = device;
-    _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils-System)] Pairing Device %@", &v12, 0xCu);
+    v11 = 138412290;
+    v12 = device;
+    _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils-System)] Pairing Device %@", &v11, 0xCu);
   }
 
   v5 = [MRCoreUtilsPairingSession alloc];
@@ -34,21 +34,19 @@
   removePeer = [(MRCoreUtilsPairingSession *)v7 removePeer];
   updatePeer = [(MRCoreUtilsSystemPairingSession *)self updatePeer];
 
-  v10 = *MEMORY[0x1E69E9840];
-
   return updatePeer;
 }
 
 - (id)removePeer
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   v3 = _MRLogForCategory(0);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     device = [(MRCryptoPairingSession *)self device];
-    v9 = 138412290;
-    v10 = device;
-    _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils-System)] Unpairing Device %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = device;
+    _os_log_impl(&dword_1A2860000, v3, OS_LOG_TYPE_DEFAULT, "[CryptoPairingSession(CoreUtils-System)] Unpairing Device %@", &v8, 0xCu);
   }
 
   device2 = [(MRCryptoPairingSession *)self device];
@@ -63,7 +61,6 @@
     MRCreateCryptoError(@"Cannot remove peer, No device available");
   }
   v6 = ;
-  v7 = *MEMORY[0x1E69E9840];
 
   return v6;
 }
@@ -222,49 +219,49 @@
 
 void __51__MRCoreUtilsSystemPairingSession_pairedPeerDevice__block_invoke(uint64_t a1, void *a2, void *a3, _BYTE *a4)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   v7 = a2;
   v8 = a3;
   v9 = [*(a1 + 32) device];
   v10 = [v9 identifier];
   v11 = [v8 identifier];
-  v12 = [v10 isEqualToString:v11];
+  isEqualToString = objc_msgSend_isEqualToString_(v10);
 
-  if (v12)
+  if (isEqualToString)
   {
-    v22 = a4;
-    v25 = 0u;
-    v26 = 0u;
-    v23 = 0u;
+    v21 = a4;
     v24 = 0u;
+    v25 = 0u;
+    v22 = 0u;
+    v23 = 0u;
     v13 = *(a1 + 40);
-    v14 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+    v14 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
     if (v14)
     {
       v15 = v14;
-      v16 = *v24;
+      v16 = *v23;
       while (2)
       {
         for (i = 0; i != v15; ++i)
         {
-          if (*v24 != v16)
+          if (*v23 != v16)
           {
             objc_enumerationMutation(v13);
           }
 
-          v18 = *(*(&v23 + 1) + 8 * i);
+          v18 = *(*(&v22 + 1) + 8 * i);
           v19 = [v18 identifier];
-          v20 = [v19 isEqualToString:v7];
+          v20 = objc_msgSend_isEqualToString_(v19);
 
           if (v20)
           {
             objc_storeStrong((*(*(a1 + 48) + 8) + 40), v18);
-            *v22 = 1;
+            *v21 = 1;
             goto LABEL_12;
           }
         }
 
-        v15 = [v13 countByEnumeratingWithState:&v23 objects:v27 count:16];
+        v15 = [v13 countByEnumeratingWithState:&v22 objects:v26 count:16];
         if (v15)
         {
           continue;
@@ -276,8 +273,6 @@ void __51__MRCoreUtilsSystemPairingSession_pairedPeerDevice__block_invoke(uint64
 
 LABEL_12:
   }
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (id)pairedPeerDevices
@@ -331,23 +326,23 @@ LABEL_12:
 
 void __52__MRCoreUtilsSystemPairingSession_pairedPeerDevices__block_invoke_3(uint64_t a1, void *a2)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v3 = a2;
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
-  v4 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v12;
+    v6 = *v11;
     do
     {
       v7 = 0;
       do
       {
-        if (*v12 != v6)
+        if (*v11 != v6)
         {
           objc_enumerationMutation(v3);
         }
@@ -360,15 +355,13 @@ void __52__MRCoreUtilsSystemPairingSession_pairedPeerDevices__block_invoke_3(uin
       }
 
       while (v5 != v7);
-      v5 = [v3 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v5 = [v3 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v5);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (MRDeviceInfo)_createPeerDeviceFromPairedPeer:(uint64_t)peer
@@ -434,27 +427,27 @@ void __52__MRCoreUtilsSystemPairingSession_pairedPeerDevices__block_invoke_3(uin
 
 void __59__MRCoreUtilsSystemPairingSession_mediaRemotePairedDevices__block_invoke_3(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = a2;
-  v2 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v2 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v2)
   {
     v3 = v2;
-    v17 = *v19;
+    v16 = *v18;
     do
     {
       for (i = 0; i != v3; ++i)
       {
-        if (*v19 != v17)
+        if (*v18 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v5 = *(*(&v18 + 1) + 8 * i);
+        v5 = *(*(&v17 + 1) + 8 * i);
         v6 = [v5 info];
         v7 = [v6 objectForKey:@"MediaRemote_ExtendedInfo"];
         v8 = [v7 objectForKey:@"MediaRemote_PeerIdentifier"];
@@ -471,15 +464,13 @@ void __59__MRCoreUtilsSystemPairingSession_mediaRemotePairedDevices__block_invok
         }
       }
 
-      v3 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v3);
   }
 
   dispatch_semaphore_signal(*(a1 + 40));
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 intptr_t __65__MRCoreUtilsSystemPairingSession_updateMediaRemotePairedDevice___block_invoke(uint64_t a1)
@@ -514,43 +505,32 @@ intptr_t __65__MRCoreUtilsSystemPairingSession_updateMediaRemotePairedDevice___b
 
 void __65__MRCoreUtilsSystemPairingSession_updateMediaRemotePairedDevice___block_invoke_3(uint64_t a1, void *a2)
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   obj = a2;
-  v3 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v3 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v3)
   {
     v4 = v3;
-    v17 = *v19;
+    v16 = *v18;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v19 != v17)
+        if (*v18 != v16)
         {
           objc_enumerationMutation(obj);
         }
 
-        v6 = *(*(&v18 + 1) + 8 * i);
+        v6 = *(*(&v17 + 1) + 8 * i);
         v7 = [v6 info];
         v8 = [v7 objectForKey:@"MediaRemote_ExtendedInfo"];
         v9 = [v8 objectForKey:@"MediaRemote_PeerIdentifier"];
-        if ([v9 isEqualToString:*(a1 + 32)])
+        if ((objc_msgSend_isEqualToString_(v9) & 1) != 0 || (v10 = *(a1 + 40), [v6 identifier], v11 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v11, "UUIDString"), v12 = objc_claimAutoreleasedReturnValue(), LODWORD(v10) = objc_msgSend_isEqualToString_(v10), v12, v11, v10))
         {
-          goto LABEL_21;
-        }
-
-        v10 = *(a1 + 40);
-        v11 = [v6 identifier];
-        v12 = [v11 UUIDString];
-        LODWORD(v10) = [v10 isEqualToString:v12];
-
-        if (v10)
-        {
-LABEL_21:
           if (*(a1 + 48))
           {
             v13 = [v7 mutableCopy];
@@ -577,7 +557,7 @@ LABEL_21:
         }
       }
 
-      v4 = [obj countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v4 = [obj countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v4)
       {
         continue;
@@ -590,7 +570,6 @@ LABEL_21:
 LABEL_18:
 
   dispatch_semaphore_signal(*(a1 + 64));
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __65__MRCoreUtilsSystemPairingSession_updateMediaRemotePairedDevice___block_invoke_4(uint64_t a1, void *a2)
@@ -617,17 +596,17 @@ void __65__MRCoreUtilsSystemPairingSession_updateMediaRemotePairedDevice___block
   return systemPairingAvailable_supportsSystemPairing;
 }
 
-uint64_t __57__MRCoreUtilsSystemPairingSession_systemPairingAvailable__block_invoke()
+uint64_t __57__MRCoreUtilsSystemPairingSession_systemPairingAvailable__block_invoke(uint64_t a1, uint64_t a2)
 {
-  if (MRProcessIsMediaRemoteDaemon())
+  if (MRProcessIsMediaRemoteDaemon(a1, a2))
   {
     result = 1;
   }
 
   else
   {
-    v1 = MRGetSharedService();
-    result = MRMediaRemoteServiceSupportsSystemPairing(v1);
+    v3 = MRGetSharedService();
+    result = MRMediaRemoteServiceSupportsSystemPairing(v3);
   }
 
   systemPairingAvailable_supportsSystemPairing = result;

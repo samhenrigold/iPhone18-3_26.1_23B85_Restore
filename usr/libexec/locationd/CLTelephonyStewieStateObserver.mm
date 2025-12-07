@@ -66,7 +66,7 @@
   if (changed)
   {
     isStewieActive = [changed isStewieActive];
-    v17 = isStewieActive;
+    HIBYTE(v18) = isStewieActive;
     status = [changed status];
     reason = [changed reason];
     allowedServices = [changed allowedServices];
@@ -84,14 +84,14 @@
       {
         *buf = 67241216;
         *&buf[4] = status;
-        v28 = 1026;
-        v29 = reason;
-        v30 = 1026;
-        v31 = allowedServices;
-        v32 = 1026;
-        v33 = v10;
-        v34 = 1026;
-        v35 = isStewieActive;
+        v29 = 1026;
+        v30 = reason;
+        v31 = 1026;
+        v32 = allowedServices;
+        v33 = 1026;
+        v34 = v10;
+        v35 = 1026;
+        v36 = isStewieActive;
         _os_log_impl(dword_100000000, v11, OS_LOG_TYPE_DEFAULT, "#CLT,CTStewieStateMonitor,status,%{public}d,reason,%{public}d,service,%{public}d,transport,%{public}d,usecaseactive,%{public}d", buf, 0x20u);
       }
 
@@ -105,23 +105,25 @@
 
         LODWORD(values) = 67241216;
         HIDWORD(values) = status;
-        v19 = 1026;
-        v20 = reason;
-        v21 = 1026;
-        v22 = allowedServices;
-        v23 = 1026;
-        v24 = v10;
-        v25 = 1026;
-        v26 = isStewieActive;
-        v16 = _os_log_send_and_compose_impl();
+        v20 = 1026;
+        v21 = reason;
+        v22 = 1026;
+        v23 = allowedServices;
+        v24 = 1026;
+        v25 = v10;
+        v26 = 1026;
+        v27 = isStewieActive;
+        LODWORD(v18) = 32;
+        _os_log_send_and_compose_impl(2, 0, buf, 1628, dword_100000000, qword_1025D4878, 0, "#CLT,CTStewieStateMonitor,status,%{public}d,reason,%{public}d,service,%{public}d,transport,%{public}d,usecaseactive,%{public}d", &values, v18);
+        v17 = v16;
         sub_100152C7C("Generic", 1, 0, 2, "[CLTelephonyStewieStateObserver stateChanged:]", "%s\n", v16);
-        if (v16 != buf)
+        if (v17 != buf)
         {
-          free(v16);
+          free(v17);
         }
       }
 
-      v12 = sub_1001CF0F0(&v17);
+      v12 = sub_1001CF0F0(&v18 + 7);
       *buf = @"kStewieUseCaseActiveKey";
       values = v12;
       v13 = CFDictionaryCreate(0, buf, &values, 1, &kCFCopyStringDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);

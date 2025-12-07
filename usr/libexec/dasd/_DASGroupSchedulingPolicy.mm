@@ -65,7 +65,7 @@
   if (_os_feature_enabled_impl())
   {
     internalGroupNames = [activityCopy internalGroupNames];
-    v8 = [internalGroupNames count];
+    v8 = objc_msgSend_count(internalGroupNames);
 
     if (v8)
     {

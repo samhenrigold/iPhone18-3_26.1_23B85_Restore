@@ -399,7 +399,7 @@ uint64_t __47__CAMSemanticStylePicker_setExpanded_animated___block_invoke(uint64
   return [v4 layoutIfNeeded];
 }
 
-uint64_t __47__CAMSemanticStylePicker_setExpanded_animated___block_invoke_2(uint64_t a1)
+void *__47__CAMSemanticStylePicker_setExpanded_animated___block_invoke_2(uint64_t a1)
 {
   [*(a1 + 32) _setExpandedAnimationCounter:{objc_msgSend(*(a1 + 32), "_expansionAnimationCounter") - 1}];
   result = [*(a1 + 32) _expansionAnimationCounter];
@@ -855,14 +855,14 @@ void __61__CAMSemanticStylePicker__updateMaterialOpacityWithDuration___block_inv
   return v22;
 }
 
-void __37__CAMSemanticStylePicker__tileFrames__block_invoke(uint64_t a1, uint64_t a2, unint64_t a3)
+void __37__CAMSemanticStylePicker__tileFrames__block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   v5 = *(a1 + 56);
   v6 = *(a1 + 48) + a3 * (v5 + *(a1 + 64));
   v7 = *(a1 + 96);
   if ([*(a1 + 32) _selectedTileExpanded])
   {
-    if ([*(a1 + 32) selectedStyleIndex] - 1 == a3)
+    if (([*(a1 + 32) selectedStyleIndex] - 1) == a3)
     {
       v8 = *(a1 + 104);
 LABEL_4:
@@ -877,7 +877,7 @@ LABEL_4:
       v5 = v5 + v9 * 2.0;
     }
 
-    else if ([*(a1 + 32) selectedStyleIndex] + 1 == a3)
+    else if (([*(a1 + 32) selectedStyleIndex] + 1) == a3)
     {
       v8 = *(a1 + 104);
       v6 = v6 + v8;
@@ -981,12 +981,12 @@ void __40__CAMSemanticStylePicker_layoutSubviews__block_invoke(uint64_t a1, void
   [v5 setFrame:?];
 }
 
-void __40__CAMSemanticStylePicker_layoutSubviews__block_invoke_2(uint64_t a1, void *a2, uint64_t a3)
+void __40__CAMSemanticStylePicker_layoutSubviews__block_invoke_2(uint64_t a1, void *a2, char *a3)
 {
   v5 = *(a1 + 32);
   v31 = a2;
   v6 = [v5 _spacerViews];
-  v7 = [v6 count] - 1;
+  v7 = ([v6 count] - 1);
 
   v8 = v7 == a3 || a3 == 0;
   v9 = 56;

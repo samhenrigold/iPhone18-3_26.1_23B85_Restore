@@ -168,7 +168,7 @@
   if (mode >= 3)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -187,7 +187,7 @@
   if (mode >= 3)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -206,7 +206,7 @@
   if (mode >= 3)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -225,7 +225,7 @@
   if ((prioritization - 1) >= 3)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -244,7 +244,7 @@
   if (mode >= 3)
   {
     v3 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:0];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v3, v4))
     {
       objc_exception_throw(v3);
     }
@@ -267,10 +267,10 @@
 
 - (void)setBravoCameraSelectionBehaviorForRecording:(id)recording
 {
-  v6[0] = @"AVCaptureBravoCameraSelectionBehaviorEvaluatesContinuously";
-  v6[1] = @"AVCaptureBravoCameraSelectionBehaviorEvaluatesOnZoomChange";
-  v6[2] = @"AVCaptureBravoCameraSelectionBehaviorEvaluatesNever";
-  if ([objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v6 count:{3), "containsObject:", recording}])
+  v7[0] = @"AVCaptureBravoCameraSelectionBehaviorEvaluatesContinuously";
+  v7[1] = @"AVCaptureBravoCameraSelectionBehaviorEvaluatesOnZoomChange";
+  v7[2] = @"AVCaptureBravoCameraSelectionBehaviorEvaluatesNever";
+  if ([objc_msgSend(MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:{3), "containsObject:", recording}])
   {
 
     self->_bravoCameraSelectionBehaviorForRecording = [recording copy];
@@ -279,7 +279,7 @@
   else
   {
     v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D940] reason:AVMethodExceptionReasonWithObjectAndSelector() userInfo:{0, recording}];
-    if (AVCaptureShouldThrowForAPIViolations())
+    if (AVCaptureShouldThrowForAPIViolations(v5, v6))
     {
       objc_exception_throw(v5);
     }

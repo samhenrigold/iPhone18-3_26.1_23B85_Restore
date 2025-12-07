@@ -1,5 +1,6 @@
 @interface AUParameter
 - (AUParameter)initWithCoder:(id)coder;
+- (AUParameter)initWithID:(id)d name:(id)name address:(unint64_t)address min:(float)min max:(float)max unit:(unsigned int)unit unitName:(id)unitName flags:(unsigned int)self0 valueStrings:(id)self1 dependentParameters:(id)self2;
 - (AUValue)value;
 - (AUValue)valueFromString:(NSString *)string;
 - (NSString)stringFromValue:(const AUValue *)value;
@@ -312,7 +313,7 @@ LABEL_10:
 
 void __59__AUParameter_setValue_extOriginator_atHostTime_eventType___block_invoke(uint64_t a1)
 {
-  v49 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   *(*(a1 + 32) + 100) = *(a1 + 72);
   atomic_store(1u, (*(a1 + 32) + 88));
   v2 = *(a1 + 56);
@@ -366,28 +367,28 @@ LABEL_13:
       }
 
       [*(a1 + 40) remoteParameterSynchronizerXPCConnection];
-      v43[0] = &unk_1F033F978;
-      v43[1] = &__block_literal_global_7237;
-      v12 = v43[3] = v43;
-      v44 = v12;
-      _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v45, v43);
+      v42[0] = &unk_1F033F978;
+      v42[1] = &__block_literal_global_7237;
+      v12 = v42[3] = v42;
+      v43 = v12;
+      _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v44, v42);
 
-      _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v43);
-      _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v48, v45);
-      v13 = v44;
-      v46[0] = MEMORY[0x1E69E9820];
-      v46[1] = 3321888768;
-      v46[2] = ___ZN5caulk3xpc7messageIU8__strongPU44objcproto33_AURemoteParameterSynchronization11objc_objectJEE11async_proxyEv_block_invoke;
-      v46[3] = &__block_descriptor_64_ea8_32c50_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJEEEEEE_e17_v16__0__NSError_8l;
-      _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v47, v48);
-      v14 = [v13 remoteObjectProxyWithErrorHandler:v46];
+      _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v42);
+      _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v47, v44);
+      v13 = v43;
+      v45[0] = MEMORY[0x1E69E9820];
+      v45[1] = 3321888768;
+      v45[2] = ___ZN5caulk3xpc7messageIU8__strongPU44objcproto33_AURemoteParameterSynchronization11objc_objectJEE11async_proxyEv_block_invoke;
+      v45[3] = &__block_descriptor_64_ea8_32c50_ZTSNSt3__18functionIFvP7NSErrorONS_5tupleIJEEEEEE_e17_v16__0__NSError_8l;
+      _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEEC2B8ne200100ERKS8_(v46, v47);
+      v14 = [v13 remoteObjectProxyWithErrorHandler:v45];
+      _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v46);
       _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v47);
-      _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v48);
       v15 = [*(a1 + 32) address];
       LODWORD(v16) = *(a1 + 72);
       [v14 syncParameter:v15 value:v11 extOriginator:*(a1 + 64) hostTime:*(a1 + 76) eventType:v16];
 
-      _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v45);
+      _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(v44);
     }
   }
 
@@ -433,30 +434,30 @@ LABEL_13:
         }
 
         {
-          serialDeferralQueue(void)::gDeferralQueue = dispatch_queue_create("AUParameterTree.deferralQueue", 0);
+          {
+            serialDeferralQueue(void)::gDeferralQueue = dispatch_queue_create("AUParameterTree.deferralQueue", 0);
+          }
         }
 
         v30 = serialDeferralQueue(void)::gDeferralQueue;
-        v35[0] = MEMORY[0x1E69E9820];
-        v35[1] = 3221225472;
-        v35[2] = __59__AUParameter_setValue_extOriginator_atHostTime_eventType___block_invoke_3;
-        v35[3] = &unk_1E72C1398;
+        v34[0] = MEMORY[0x1E69E9820];
+        v34[1] = 3221225472;
+        v34[2] = __59__AUParameter_setValue_extOriginator_atHostTime_eventType___block_invoke_3;
+        v34[3] = &unk_1E72C1398;
         v31 = *(a1 + 40);
-        v40 = v28;
-        v41 = v19;
+        v39 = v28;
+        v40 = v19;
         v33 = *(a1 + 48);
         v32 = *(a1 + 56);
-        v38 = v23;
-        v39 = v32;
-        v36 = v31;
-        v37 = v33;
-        v42 = *(a1 + 76);
-        dispatch_async(v30, v35);
+        v37 = v23;
+        v38 = v32;
+        v35 = v31;
+        v36 = v33;
+        v41 = *(a1 + 76);
+        dispatch_async(v30, v34);
       }
     }
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void __59__AUParameter_setValue_extOriginator_atHostTime_eventType___block_invoke_3(uint64_t a1)
@@ -479,7 +480,7 @@ void __59__AUParameter_setValue_extOriginator_atHostTime_eventType___block_invok
 
 uint64_t __59__AUParameter_setValue_extOriginator_atHostTime_eventType___block_invoke_4(uint64_t a1)
 {
-  v27[4] = *MEMORY[0x1E69E9840];
+  v28[4] = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) observerController];
   v3 = v2;
   v4 = *(a1 + 64);
@@ -497,55 +498,58 @@ uint64_t __59__AUParameter_setValue_extOriginator_atHostTime_eventType___block_i
       atomic_fetch_add_explicit((v9 + 16), 1uLL, memory_order_relaxed);
     }
 
-    v27[0] = &unk_1F032F260;
-    v27[1] = v10;
-    v27[2] = v9;
-    v27[3] = v27;
-    CAEventReceiver::createTimer(*(v2 + 32), v27);
-    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v27);
+    v28[0] = &unk_1F032F260;
+    v28[1] = v10;
+    v28[2] = v9;
+    v28[3] = v28;
+    CAEventReceiver::createTimer(*(v2 + 32), v28);
+    std::__function::__value_func<void ()(void)>::~__value_func[abi:ne200100](v28);
   }
 
   if (v4)
   {
-    std::__tree<AUObserverController::AddressOriginator>::__emplace_unique_key_args<AUObserverController::AddressOriginator,AUObserverController::AddressOriginator>(v3 + 56, v6, *(a1 + 56));
+    v11 = *(a1 + 56);
+    *&v27 = v6;
+    *(&v27 + 1) = v11;
+    std::__tree<AUObserverController::AddressOriginator>::__emplace_unique_key_args<AUObserverController::AddressOriginator,AUObserverController::AddressOriginator>((v3 + 56), v6, v11, &v27);
   }
 
   if ((v4 & 2) != 0)
   {
-    v11 = *(a1 + 56) & 0xFFFFFFFELL;
-    v13 = v11 != 6 && v11 != 10 && v11 != 2;
-    v14 = *(v3 + 88);
-    v15 = *(v3 + 96);
-    if (v14 >= v15)
+    v12 = *(a1 + 56) & 0xFFFFFFFELL;
+    v14 = v12 != 6 && v12 != 10 && v12 != 2;
+    v15 = *(v3 + 88);
+    v16 = *(v3 + 96);
+    if (v15 >= v16)
     {
-      v17 = *(v3 + 80);
-      v18 = v14 - v17;
-      v19 = 0xCCCCCCCCCCCCCCCDLL * ((v14 - v17) >> 3);
-      v20 = v19 + 1;
-      if (v19 + 1 > 0x666666666666666)
+      v18 = *(v3 + 80);
+      v19 = v15 - v18;
+      v20 = 0xCCCCCCCCCCCCCCCDLL * ((v15 - v18) >> 3);
+      v21 = v20 + 1;
+      if (v20 + 1 > 0x666666666666666)
       {
         std::vector<APAC::UI18>::__throw_length_error[abi:ne200100]();
       }
 
-      v21 = 0xCCCCCCCCCCCCCCCDLL * ((v15 - v17) >> 3);
-      if (2 * v21 > v20)
+      v22 = 0xCCCCCCCCCCCCCCCDLL * ((v16 - v18) >> 3);
+      if (2 * v22 > v21)
       {
-        v20 = 2 * v21;
+        v21 = 2 * v22;
       }
 
-      if (v21 >= 0x333333333333333)
+      if (v22 >= 0x333333333333333)
       {
-        v22 = 0x666666666666666;
+        v23 = 0x666666666666666;
       }
 
       else
       {
-        v22 = v20;
+        v23 = v21;
       }
 
-      if (v22)
+      if (v23)
       {
-        if (v22 <= 0x666666666666666)
+        if (v23 <= 0x666666666666666)
         {
           operator new();
         }
@@ -553,42 +557,40 @@ uint64_t __59__AUParameter_setValue_extOriginator_atHostTime_eventType___block_i
         std::__throw_bad_array_new_length[abi:ne200100]();
       }
 
-      v23 = 40 * v19;
-      *v23 = v7;
-      *(v23 + 8) = v6;
-      *(v23 + 16) = v5;
-      *(v23 + 20) = v8;
-      *(v23 + 24) = v13;
-      *(v23 + 32) = v11;
-      v16 = 40 * v19 + 40;
-      v24 = (40 * v19 - v18);
-      memcpy(v24, v17, v18);
-      *(v3 + 80) = v24;
-      *(v3 + 88) = v16;
+      v24 = 40 * v20;
+      *v24 = v7;
+      *(v24 + 8) = v6;
+      *(v24 + 16) = v5;
+      *(v24 + 20) = v8;
+      *(v24 + 24) = v14;
+      *(v24 + 32) = v12;
+      v17 = 40 * v20 + 40;
+      v25 = (40 * v20 - v19);
+      memcpy(v25, v18, v19);
+      *(v3 + 80) = v25;
+      *(v3 + 88) = v17;
       *(v3 + 96) = 0;
-      if (v17)
+      if (v18)
       {
-        operator delete(v17);
+        operator delete(v18);
       }
     }
 
     else
     {
-      *v14 = v7;
-      *(v14 + 8) = v6;
-      *(v14 + 16) = v5;
-      *(v14 + 20) = v8;
-      v16 = v14 + 40;
-      *(v14 + 24) = v13;
-      *(v14 + 32) = v11;
+      *v15 = v7;
+      *(v15 + 8) = v6;
+      *(v15 + 16) = v5;
+      *(v15 + 20) = v8;
+      v17 = v15 + 40;
+      *(v15 + 24) = v14;
+      *(v15 + 32) = v12;
     }
 
-    *(v3 + 88) = v16;
+    *(v3 + 88) = v17;
   }
 
-  result = CAEventReceiver::Impl::timerShouldFireWithin(*(v3 + 32), 0.05);
-  v26 = *MEMORY[0x1E69E9840];
-  return result;
+  return CAEventReceiver::Impl::timerShouldFireWithin(*(v3 + 32), 0.05);
 }
 
 - (void)setValue:(AUValue)value
@@ -634,7 +636,7 @@ uint64_t __59__AUParameter_setValue_extOriginator_atHostTime_eventType___block_i
   return v8;
 }
 
-uint64_t __20__AUParameter_value__block_invoke(uint64_t a1)
+void *__20__AUParameter_value__block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) _internalValue];
   *(*(*(a1 + 40) + 8) + 24) = v3;
@@ -709,6 +711,40 @@ LABEL_9:
   v2.receiver = self;
   v2.super_class = AUParameter;
   [(AUParameterNode *)&v2 dealloc];
+}
+
+- (AUParameter)initWithID:(id)d name:(id)name address:(unint64_t)address min:(float)min max:(float)max unit:(unsigned int)unit unitName:(id)unitName flags:(unsigned int)self0 valueStrings:(id)self1 dependentParameters:(id)self2
+{
+  v12 = *&flags;
+  v13 = *&unit;
+  unitNameCopy = unitName;
+  stringsCopy = strings;
+  parametersCopy = parameters;
+  v30.receiver = self;
+  v30.super_class = AUParameter;
+  v23 = [(AUParameterNode *)&v30 initWithID:d name:name];
+  if (v23)
+  {
+    v24 = objc_alloc_init(_AUStaticParameterInfo);
+    *&v25 = min;
+    [(_AUStaticParameterInfo *)v24 setMinValue:v25];
+    *&v26 = max;
+    [(_AUStaticParameterInfo *)v24 setMaxValue:v26];
+    [(_AUStaticParameterInfo *)v24 setFlags:v12];
+    [(_AUStaticParameterInfo *)v24 setValueStrings:stringsCopy];
+    [(_AUStaticParameterInfo *)v24 setUnit:v13];
+    [(_AUStaticParameterInfo *)v24 setUnitName:unitNameCopy];
+    [(_AUStaticParameterInfo *)v24 setDefaultValue:0.0];
+    [(_AUStaticParameterInfo *)v24 setOriginalOrder:0];
+    info = v23->_info;
+    v23->_info = v24;
+    v28 = v24;
+
+    v23->_address = address;
+    objc_storeStrong(&v23->_dependentParameters, parameters);
+  }
+
+  return v23;
 }
 
 @end

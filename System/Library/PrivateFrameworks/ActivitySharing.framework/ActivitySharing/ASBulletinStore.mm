@@ -11,7 +11,7 @@
 
 - (void)loadBulletins
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   v3 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.ActivitySharing"];
   v4 = [v3 valueForKey:@"bulletins"];
   v5 = v4;
@@ -28,18 +28,16 @@
   bulletins = self->_bulletins;
   self->_bulletins = v6;
 
-  ASLoggingInitialize();
-  v8 = ASLogNotifications;
+  ASLoggingInitialize(v8, v9);
+  v10 = ASLogNotifications;
   if (os_log_type_enabled(ASLogNotifications, OS_LOG_TYPE_DEFAULT))
   {
-    v9 = self->_bulletins;
-    v10 = v8;
-    v12 = 134217984;
-    v13 = [(NSArray *)v9 count];
-    _os_log_impl(&dword_23E4FA000, v10, OS_LOG_TYPE_DEFAULT, "Loaded %lu pending bulletins", &v12, 0xCu);
+    v11 = self->_bulletins;
+    v12 = v10;
+    v13 = 134217984;
+    v14 = [(NSArray *)v11 count];
+    _os_log_impl(&dword_23E4FA000, v12, OS_LOG_TYPE_DEFAULT, "Loaded %lu pending bulletins", &v13, 0xCu);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 ASCodableBulletin *__32__ASBulletinStore_loadBulletins__block_invoke(uint64_t a1, void *a2)
@@ -65,7 +63,7 @@ ASCodableBulletin *__32__ASBulletinStore_loadBulletins__block_invoke(uint64_t a1
 
 - (void)removeAllBulletins
 {
-  ASLoggingInitialize();
+  ASLoggingInitialize(self, a2);
   v3 = ASLogNotifications;
   if (os_log_type_enabled(ASLogNotifications, OS_LOG_TYPE_DEFAULT))
   {
@@ -81,46 +79,47 @@ ASCodableBulletin *__32__ASBulletinStore_loadBulletins__block_invoke(uint64_t a1
 
 - (void)removeBulletinsMatchingCriteria:(id)criteria
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   criteriaCopy = criteria;
-  v21 = 0u;
   v22 = 0u;
   v23 = 0u;
   v24 = 0u;
+  v25 = 0u;
   selfCopy = self;
   location = &self->_bulletins;
   v5 = self->_bulletins;
-  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v21 objects:v29 count:16];
+  v6 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v9 = *v22;
+    v9 = *v23;
     v10 = MEMORY[0x277CBEBF8];
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v22 != v9)
+        if (*v23 != v9)
         {
           objc_enumerationMutation(v5);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
-        if (criteriaCopy[2](criteriaCopy, v12))
+        v12 = *(*(&v22 + 1) + 8 * i);
+        v13 = criteriaCopy[2](criteriaCopy, v12);
+        if (v13)
         {
-          ASLoggingInitialize();
-          v13 = ASLogNotifications;
+          ASLoggingInitialize(v13, v14);
+          v15 = ASLogNotifications;
           if (os_log_type_enabled(ASLogNotifications, OS_LOG_TYPE_DEFAULT))
           {
-            v14 = v13;
+            v16 = v15;
             type = [v12 type];
             title = [v12 title];
             *buf = 134218242;
-            v26 = type;
-            v27 = 2112;
-            v28 = title;
-            _os_log_impl(&dword_23E4FA000, v14, OS_LOG_TYPE_DEFAULT, "Removing matching pending bulletin: %lu/%@", buf, 0x16u);
+            v27 = type;
+            v28 = 2112;
+            v29 = title;
+            _os_log_impl(&dword_23E4FA000, v16, OS_LOG_TYPE_DEFAULT, "Removing matching pending bulletin: %lu/%@", buf, 0x16u);
           }
 
           v8 = 1;
@@ -128,13 +127,13 @@ ASCodableBulletin *__32__ASBulletinStore_loadBulletins__block_invoke(uint64_t a1
 
         else
         {
-          v17 = [v10 arrayByAddingObject:v12];
+          v19 = [v10 arrayByAddingObject:v12];
 
-          v10 = v17;
+          v10 = v19;
         }
       }
 
-      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v21 objects:v29 count:16];
+      v7 = [(NSArray *)v5 countByEnumeratingWithState:&v22 objects:v30 count:16];
     }
 
     while (v7);
@@ -151,14 +150,12 @@ ASCodableBulletin *__32__ASBulletinStore_loadBulletins__block_invoke(uint64_t a1
   {
     [(ASBulletinStore *)selfCopy _persistBulletins];
   }
-
-  v18 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeBulletinsOlderThanInterval:(double)interval
 {
-  v13 = *MEMORY[0x277D85DE8];
-  ASLoggingInitialize();
+  v12 = *MEMORY[0x277D85DE8];
+  ASLoggingInitialize(self, a2);
   v5 = ASLogNotifications;
   if (os_log_type_enabled(ASLogNotifications, OS_LOG_TYPE_DEFAULT))
   {
@@ -171,14 +168,13 @@ ASCodableBulletin *__32__ASBulletinStore_loadBulletins__block_invoke(uint64_t a1
   [date timeIntervalSinceReferenceDate];
   v8 = v7;
 
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __52__ASBulletinStore_removeBulletinsOlderThanInterval___block_invoke;
-  v10[3] = &__block_descriptor_48_e27_B16__0__ASCodableBulletin_8l;
-  v10[4] = v8;
-  *&v10[5] = interval;
-  [(ASBulletinStore *)self removeBulletinsMatchingCriteria:v10];
-  v9 = *MEMORY[0x277D85DE8];
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __52__ASBulletinStore_removeBulletinsOlderThanInterval___block_invoke;
+  v9[3] = &__block_descriptor_48_e27_B16__0__ASCodableBulletin_8l;
+  v9[4] = v8;
+  *&v9[5] = interval;
+  [(ASBulletinStore *)self removeBulletinsMatchingCriteria:v9];
 }
 
 BOOL __52__ASBulletinStore_removeBulletinsOlderThanInterval___block_invoke(uint64_t a1, void *a2)
@@ -190,23 +186,21 @@ BOOL __52__ASBulletinStore_removeBulletinsOlderThanInterval___block_invoke(uint6
 
 - (void)_persistBulletins
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v3 = [(NSArray *)self->_bulletins hk_map:&__block_literal_global_13_0];
   v4 = [objc_alloc(MEMORY[0x277CBEBD0]) initWithSuiteName:@"com.apple.ActivitySharing"];
   [v4 setObject:v3 forKey:@"bulletins"];
-  [v4 synchronize];
-  ASLoggingInitialize();
-  v5 = ASLogNotifications;
+  synchronize = [v4 synchronize];
+  ASLoggingInitialize(synchronize, v6);
+  v7 = ASLogNotifications;
   if (os_log_type_enabled(ASLogNotifications, OS_LOG_TYPE_DEFAULT))
   {
     bulletins = self->_bulletins;
-    v7 = v5;
-    v9 = 134217984;
-    v10 = [(NSArray *)bulletins count];
-    _os_log_impl(&dword_23E4FA000, v7, OS_LOG_TYPE_DEFAULT, "Persisted %lu pending bulletins", &v9, 0xCu);
+    v9 = v7;
+    v10 = 134217984;
+    v11 = [(NSArray *)bulletins count];
+    _os_log_impl(&dword_23E4FA000, v9, OS_LOG_TYPE_DEFAULT, "Persisted %lu pending bulletins", &v10, 0xCu);
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 @end

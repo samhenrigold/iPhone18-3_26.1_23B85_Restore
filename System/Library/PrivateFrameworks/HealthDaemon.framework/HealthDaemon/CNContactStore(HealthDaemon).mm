@@ -8,13 +8,13 @@
 
 + (id)hd_contactStoreWithHealthAppIdentity
 {
-  v0 = objc_alloc_init(MEMORY[0x277CBDAC0]);
+  v1 = objc_alloc_init(MEMORY[0x277CBDAC0]);
   _healthAppTCCIdentity = [objc_opt_class() _healthAppTCCIdentity];
-  [v0 setAssumedIdentity:_healthAppTCCIdentity];
+  [v1 setAssumedIdentity:_healthAppTCCIdentity];
 
-  v2 = [objc_alloc(objc_opt_class()) initWithConfiguration:v0];
+  v3 = [objc_alloc(objc_opt_class()) initWithConfiguration:v1];
 
-  return v2;
+  return v3;
 }
 
 + (id)_healthAppTCCIdentity
@@ -30,15 +30,15 @@
   _healthAppTCCIdentity = [objc_opt_class() _healthAppTCCIdentity];
   if (_healthAppTCCIdentity)
   {
-    v1 = [objc_opt_class() authorizationStatusForEntityType:0 assumedIdentity:_healthAppTCCIdentity];
+    v2 = [objc_opt_class() authorizationStatusForEntityType:0 assumedIdentity:_healthAppTCCIdentity];
   }
 
   else
   {
-    v1 = 0;
+    v2 = 0;
   }
 
-  return v1;
+  return v2;
 }
 
 @end

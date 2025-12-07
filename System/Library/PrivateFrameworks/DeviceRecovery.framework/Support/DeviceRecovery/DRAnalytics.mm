@@ -70,31 +70,31 @@
       goto LABEL_8;
     }
 
-    v6 = sub_1000118BC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = sub_1000118BC(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100017E30(v6, v7, v8, v9, v10, v11, v12, v13);
+      sub_100017E30(v8, v9, v10, v11, v12, v13, v14, v15);
     }
   }
 
   else
   {
-    v6 = sub_1000118BC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = sub_1000118BC(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100017EA8(v6, v14, v15, v16, v17, v18, v19, v20);
+      sub_100017EA8(v8, v16, v17, v18, v19, v20, v21, v22);
     }
   }
 
 LABEL_8:
-  v21 = sub_1000118BC();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v23 = sub_1000118BC(v7);
+  if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
   {
-    v24 = 136446466;
-    v25 = "[DRAnalytics _queue_addEvent:]";
-    v26 = 2114;
-    v27 = eventCopy;
-    _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%{public}s: ADD_EVENT: Adding CoreAnalytics event to the submission queue: %{public}@", &v24, 0x16u);
+    v26 = 136446466;
+    v27 = "[DRAnalytics _queue_addEvent:]";
+    v28 = 2114;
+    v29 = eventCopy;
+    _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "%{public}s: ADD_EVENT: Adding CoreAnalytics event to the submission queue: %{public}@", &v26, 0x16u);
   }
 
   events = self->_events;
@@ -106,7 +106,7 @@ LABEL_8:
 {
   dispatch_assert_queue_V2(self->_stateQueue);
   allValues = [(NSMutableDictionary *)self->_events allValues];
-  v4 = sub_1000118BC();
+  v4 = sub_1000118BC(allValues);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136446466;
@@ -128,15 +128,16 @@ LABEL_8:
     v8 = *v14;
     do
     {
-      for (i = 0; i != v7; i = i + 1)
+      v9 = 0;
+      do
       {
         if (*v14 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * i);
-        v11 = sub_1000118BC();
+        v10 = *(*(&v13 + 1) + 8 * v9);
+        v11 = sub_1000118BC(v6);
         if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
         {
           eventName = [v10 eventName];
@@ -148,13 +149,16 @@ LABEL_8:
         }
 
         [(DRAnalytics *)self _queue_submitEvent:v10];
-        [(DRAnalytics *)self _queue_removeEvent:v10];
+        v6 = [(DRAnalytics *)self _queue_removeEvent:v10];
+        v9 = v9 + 1;
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v7 != v9);
+      v6 = [v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = v6;
     }
 
-    while (v7);
+    while (v6);
   }
 }
 
@@ -165,18 +169,18 @@ LABEL_8:
   if (eventCopy)
   {
     eventName = [eventCopy eventName];
-    v14 = eventCopy;
+    v15 = eventCopy;
     AnalyticsSendEventLazy();
 
-    v6 = v14;
+    v7 = v15;
   }
 
   else
   {
-    v6 = sub_1000118BC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1000118BC(v5);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      sub_100017F20(v6, v7, v8, v9, v10, v11, v12, v13);
+      sub_100017F20(v7, v8, v9, v10, v11, v12, v13, v14);
     }
   }
 }
@@ -194,46 +198,46 @@ LABEL_8:
       goto LABEL_8;
     }
 
-    v6 = sub_1000118BC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = sub_1000118BC(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100017F98(v6, v7, v8, v9, v10, v11, v12, v13);
+      sub_100017F98(v8, v9, v10, v11, v12, v13, v14, v15);
     }
   }
 
   else
   {
-    v6 = sub_1000118BC();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v8 = sub_1000118BC(v5);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      sub_100018010(v6, v14, v15, v16, v17, v18, v19, v20);
+      sub_100018010(v8, v16, v17, v18, v19, v20, v21, v22);
     }
   }
 
 LABEL_8:
   events = self->_events;
   eventUUID2 = [eventCopy eventUUID];
-  v23 = [(NSMutableDictionary *)events objectForKey:eventUUID2];
+  v25 = [(NSMutableDictionary *)events objectForKey:eventUUID2];
 
-  v24 = sub_1000118BC();
-  eventUUID3 = v24;
-  if (v23)
+  v27 = sub_1000118BC(v26);
+  eventUUID3 = v27;
+  if (v25)
   {
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
     {
-      v27 = 136446466;
-      v28 = "[DRAnalytics _queue_removeEvent:]";
-      v29 = 2114;
-      v30 = v23;
-      _os_log_impl(&_mh_execute_header, eventUUID3, OS_LOG_TYPE_DEFAULT, "%{public}s: REMOVE_EVENT: Removed event %{public}@ from queue", &v27, 0x16u);
+      v30 = 136446466;
+      v31 = "[DRAnalytics _queue_removeEvent:]";
+      v32 = 2114;
+      v33 = v25;
+      _os_log_impl(&_mh_execute_header, eventUUID3, OS_LOG_TYPE_DEFAULT, "%{public}s: REMOVE_EVENT: Removed event %{public}@ from queue", &v30, 0x16u);
     }
 
-    v26 = self->_events;
+    v29 = self->_events;
     eventUUID3 = [eventCopy eventUUID];
-    [(NSMutableDictionary *)v26 removeObjectForKey:eventUUID3];
+    [(NSMutableDictionary *)v29 removeObjectForKey:eventUUID3];
   }
 
-  else if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+  else if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
   {
     sub_100018088(eventCopy, eventUUID3);
   }

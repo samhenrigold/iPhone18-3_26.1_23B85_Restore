@@ -11,7 +11,7 @@
 
 - (id)_image
 {
-  v3 = [(TUILayout *)self box];
+  v3 = objc_msgSend_box(self, a2);
   controller = [(TUILayout *)self controller];
   instantiateContext = [controller instantiateContext];
   environment = [instantiateContext environment];
@@ -67,11 +67,11 @@
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicWidth
 {
-  _image = [(TUISymbolImageLayout *)self _image];
-  [_image alignmentInsets];
+  v3 = objc_msgSend__image(self, a3);
+  [v3 alignmentInsets];
   v5 = v4;
   v7 = v6;
-  [_image size];
+  [v3 size];
   v9 = v8 - v5 - v7;
   if (v9 <= -3.40282347e38)
   {
@@ -96,11 +96,11 @@ LABEL_7:
 
 - ($E297CC25127479E857BE23A4F8632EA4)computeIntrinsicHeight
 {
-  _image = [(TUISymbolImageLayout *)self _image];
-  [_image alignmentInsets];
+  v3 = objc_msgSend__image(self, a3);
+  [v3 alignmentInsets];
   v5 = v4;
   v7 = v6;
-  [_image size];
+  [v3 size];
   v9 = v8 - v5 - v7;
   if (v9 <= -3.40282347e38)
   {
@@ -125,21 +125,21 @@ LABEL_7:
 
 - (void)computeLayout
 {
-  _image = [(TUISymbolImageLayout *)self _image];
-  [_image alignmentInsets];
+  v16 = objc_msgSend__image(self, a2);
+  [v16 alignmentInsets];
   v4 = v3;
   v6 = v5;
   v8 = v7;
   v10 = v9;
-  [_image size];
+  [v16 size];
   v12 = v11 - v6 - v10;
-  [_image size];
+  [v16 size];
   v14 = v13 - v4 - v8;
   [(TUILayout *)self setComputedNaturalSize:v12, v14];
   self->_heightAbovePivot = v14;
-  if ([_image hasBaseline])
+  if ([v16 hasBaseline])
   {
-    [_image baselineOffsetFromBottom];
+    [v16 baselineOffsetFromBottom];
     self->_heightAbovePivot = self->_heightAbovePivot - (v15 - v8);
   }
 }
@@ -157,7 +157,7 @@ LABEL_7:
   {
     v9 = v7;
     v10 = v8;
-    v11 = [(TUILayout *)self box];
+    v11 = objc_msgSend_box(self);
     if ([v11 hflipForRTL])
     {
       v12 = [(TUILayout *)self computedLayoutDirection]== &dword_0 + 2;
@@ -171,17 +171,17 @@ LABEL_7:
     v14 = [_TUISymbolImageLayerConfig alloc];
     [contextCopy contentsScale];
     v16 = v15;
-    _image = [(TUISymbolImageLayout *)self _image];
-    v18 = [(TUILayout *)self box];
+    v17 = objc_msgSend__image(self);
+    v18 = objc_msgSend_box(self);
     colors = [v18 colors];
     firstObject = [colors firstObject];
-    v21 = [(TUILayout *)self box];
+    v21 = objc_msgSend_box(self);
     blendMode = [v21 blendMode];
-    v23 = [(_TUISymbolImageLayerConfig *)v14 initWithContentsScale:_image image:firstObject color:v12 hflip:blendMode blendMode:v16];
+    v23 = [(_TUISymbolImageLayerConfig *)v14 initWithContentsScale:v17 image:firstObject color:v12 hflip:blendMode blendMode:v16];
 
     v13 = [[TUIRenderModelLayer alloc] initWithSubmodels:0 config:v23 erasableInsets:UIEdgeInsetsZero.top, UIEdgeInsetsZero.left, UIEdgeInsetsZero.bottom, UIEdgeInsetsZero.right];
     [(TUIRenderModelLayer *)v13 setSize:v9, v10];
-    v24 = [(TUILayout *)self box];
+    v24 = objc_msgSend_box(self);
     identifier = [v24 identifier];
     [(TUIRenderModelLayer *)v13 setIdentifier:identifier];
   }

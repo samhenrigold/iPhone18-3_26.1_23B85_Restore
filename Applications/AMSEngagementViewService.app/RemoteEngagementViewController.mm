@@ -19,14 +19,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_10000EB58;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   contextCopy = context;
   selfCopy = self;
   sub_100009AD8(context, v6);
-  sub_100006708(v6);
+  sub_100006708(v6, v7);
 }
 
 - (void)prepareForActivationWithContext:(id)context completion:(id)completion
@@ -34,14 +40,20 @@
   v6 = _Block_copy(completion);
   if (v6)
   {
-    *(swift_allocObject() + 16) = v6;
+    v7 = swift_allocObject();
+    *(v7 + 16) = v6;
     v6 = sub_10000EB14;
+  }
+
+  else
+  {
+    v7 = 0;
   }
 
   contextCopy = context;
   selfCopy = self;
   sub_10000A0A0(context, v6);
-  sub_100006708(v6);
+  sub_100006708(v6, v7);
 }
 
 - (void)handleButtonActions:(id)actions
@@ -76,8 +88,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_10000ADC8(appear, &selRef_viewWillAppear_, &ViewControllerPresenter.viewWillAppear());
+  sub_10000ADC8(appearCopy, &selRef_viewWillAppear_, &ViewControllerPresenter.viewWillAppear());
 }
 
 - (void)viewDidAppear:(BOOL)appear
@@ -94,14 +107,15 @@
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_10000ADC8(disappear, &selRef_viewDidDisappear_, &ViewControllerPresenter.viewDidDisappear());
+  sub_10000ADC8(disappearCopy, &selRef_viewDidDisappear_, &ViewControllerPresenter.viewDidDisappear());
 }
 
 - (void)didReceiveMemoryWarning
 {
   selfCopy = self;
-  sub_10000AED4();
+  sub_10000AED4(selfCopy);
 }
 
 - (_TtC24AMSEngagementViewService30RemoteEngagementViewController)initWithNibName:(id)name bundle:(id)bundle

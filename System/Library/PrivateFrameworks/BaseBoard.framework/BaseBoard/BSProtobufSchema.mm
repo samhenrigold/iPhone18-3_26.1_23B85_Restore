@@ -1,12 +1,12 @@
 @interface BSProtobufSchema
 - (BSProtobufSchema)init;
-- (uint64_t)_addSubclassesForField:(void *)field allowedSubclasses:(int)subclasses assertSubclassRelationship:;
+- (void)_addSubclassesForField:(void *)field allowedSubclasses:(int)subclasses assertSubclassRelationship:;
 - (void)addField:(const char *)field allowedClasses:(id)classes;
 - (void)addField:(const char *)field forTag:(int64_t)tag;
 - (void)addRepeatingField:(const char *)field containsClass:(Class)class;
 - (void)addRepeatingField:(const char *)field containsClass:(Class)class forTag:(int64_t)tag;
 - (void)addRepeatingField:(const char *)field containsClasses:(id)classes;
-- (void)addRepeatingField:(uint64_t)field forTag:(void *)tag allowedClasses:;
+- (void)addRepeatingField:(unint64_t)field forTag:(void *)tag allowedClasses:;
 - (void)dealloc;
 - (void)setAcceptableConcreteSubclasses:(id)subclasses;
 @end
@@ -251,19 +251,19 @@ LABEL_23:
   }
 }
 
-- (uint64_t)_addSubclassesForField:(void *)field allowedSubclasses:(int)subclasses assertSubclassRelationship:
+- (void)_addSubclassesForField:(void *)field allowedSubclasses:(int)subclasses assertSubclassRelationship:
 {
   v44 = *MEMORY[0x1E69E9840];
   if (result)
   {
     v4 = result;
-    v5 = *(result + 24);
+    v5 = result[3];
     v6 = [field count];
-    [*(v4 + 48) increaseLengthBy:96 * v6];
-    mutableBytes = [*(v4 + 48) mutableBytes];
-    *(v4 + 40) = mutableBytes;
-    v8 = *(v4 + 24);
-    *(v4 + 24) = v8 + v6;
+    [v4[6] increaseLengthBy:96 * v6];
+    mutableBytes = [v4[6] mutableBytes];
+    v4[5] = mutableBytes;
+    v8 = v4[3];
+    v4[3] = v8 + v6;
     v9 = mutableBytes + 96 * v5;
     *(v9 - 32) = v6;
     *(v9 - 24) = malloc_type_calloc(v6, 8uLL, 0x2004093837F09uLL);
@@ -290,9 +290,9 @@ LABEL_23:
           }
 
           v15 = *(*(&v27 + 1) + 8 * v13);
-          v16 = *(v4 + 32);
+          v16 = v4[4];
           v17 = v16 + 1;
-          *(v4 + 32) = v16 + 1;
+          v4[4] = v16 + 1;
           BSProtobufValidateIncomingTag(v4, (v16 + 1));
           if (subclasses && ([v15 isSubclassOfClass:*(v9 - 64)] & 1) == 0)
           {
@@ -332,7 +332,7 @@ LABEL_23:
           *(v14 + 80) = v9 - 96;
           *(v14 + 88) = 1;
           *(*(v9 - 24) + 8 * v11++) = v14;
-          ++v13;
+          v13 = (v13 + 1);
           v14 += 96;
         }
 
@@ -505,7 +505,7 @@ LABEL_23:
   -[BSProtobufSchema addRepeatingField:forTag:allowedClasses:](self, field, v4, [MEMORY[0x1E695DEC8] arrayWithObjects:v5 count:1]);
 }
 
-- (void)addRepeatingField:(uint64_t)field forTag:(void *)tag allowedClasses:
+- (void)addRepeatingField:(unint64_t)field forTag:(void *)tag allowedClasses:
 {
   v54 = *MEMORY[0x1E69E9840];
   if (!self)
@@ -525,7 +525,7 @@ LABEL_23:
     goto LABEL_66;
   }
 
-  if ((field - 19000) < 0x3E8)
+  if (field - 19000 < 0x3E8)
   {
     v34 = @"tag must not be between 19000 and 19999, inclusive";
     goto LABEL_66;

@@ -28,19 +28,18 @@
 
 void __74__CHIntegrationTestClient_populateSampleAppLaunchEmbeddingWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = ch_test_handle();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
-    v6 = [v3 localizedDescription];
-    v7 = 138412290;
-    v8 = v6;
-    _os_log_error_impl(&dword_243B92000, v4, OS_LOG_TYPE_ERROR, "CHSensorDataClient remoteObjectProxy error: %@", &v7, 0xCu);
+    v5 = [v3 localizedDescription];
+    v6 = 138412290;
+    v7 = v5;
+    _os_log_error_impl(&dword_243B92000, v4, OS_LOG_TYPE_ERROR, "CHSensorDataClient remoteObjectProxy error: %@", &v6, 0xCu);
   }
 
   (*(*(a1 + 32) + 16))();
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (CHIntegrationTestClient)init
@@ -66,30 +65,26 @@ void __74__CHIntegrationTestClient_populateSampleAppLaunchEmbeddingWithCompletio
 
 void __31__CHIntegrationTestClient_init__block_invoke_10()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = ch_xpc_handle();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    v2 = 138412290;
-    v3 = @"com.apple.cognitivehealth.integrationtest";
-    _os_log_error_impl(&dword_243B92000, v0, OS_LOG_TYPE_ERROR, "Connection to %@ invalidated.", &v2, 0xCu);
+    v1 = 138412290;
+    v2 = @"com.apple.cognitivehealth.integrationtest";
+    _os_log_error_impl(&dword_243B92000, v0, OS_LOG_TYPE_ERROR, "Connection to %@ invalidated.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 void __31__CHIntegrationTestClient_init__block_invoke()
 {
-  v4 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
   v0 = ch_xpc_handle();
   if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
   {
-    v2 = 138412290;
-    v3 = @"com.apple.cognitivehealth.integrationtest";
-    _os_log_error_impl(&dword_243B92000, v0, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v2, 0xCu);
+    v1 = 138412290;
+    v2 = @"com.apple.cognitivehealth.integrationtest";
+    _os_log_error_impl(&dword_243B92000, v0, OS_LOG_TYPE_ERROR, "Connection to %@ interrupted.", &v1, 0xCu);
   }
-
-  v1 = *MEMORY[0x277D85DE8];
 }
 
 @end

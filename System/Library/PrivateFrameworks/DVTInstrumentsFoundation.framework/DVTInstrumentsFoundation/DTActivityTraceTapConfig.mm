@@ -17,6 +17,14 @@
 - (mach_timebase_info)machTimebase;
 - (unint64_t)machContinuousStart;
 - (unint64_t)mode;
+- (void)setEnableBacktraceReplacement:(BOOL)replacement;
+- (void)setEnableHTTPArchiveLogging:(BOOL)logging;
+- (void)setEnablePowerLog:(BOOL)log;
+- (void)setExcludeDebug:(BOOL)debug;
+- (void)setExcludeInfo:(BOOL)info;
+- (void)setIncludeEmitLocation:(BOOL)location;
+- (void)setIncludeSenderInfo:(BOOL)info;
+- (void)setIncludeWallTime:(BOOL)time;
 - (void)setMachContinuousStart:(unint64_t)start;
 - (void)setMachTimebase:(mach_timebase_info)timebase;
 - (void)setMemoHandler:(id)handler;
@@ -24,6 +32,9 @@
 - (void)setOnlySignposts:(BOOL)signposts;
 - (void)setPredicateString:(id)string;
 - (void)setSignpostsAndLogs:(BOOL)logs;
+- (void)setTargetPID:(int)d;
+- (void)setTrackExpiredPIDs:(BOOL)ds;
+- (void)setTrackPIDToExecNameMapping:(BOOL)mapping;
 @end
 
 @implementation DTActivityTraceTapConfig
@@ -127,12 +138,24 @@
   return bOOLValue;
 }
 
+- (void)setTrackExpiredPIDs:(BOOL)ds
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:ds];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"trackExpiredPIDs"];
+}
+
 - (BOOL)trackExpiredPIDs
 {
   v2 = [(DTTapConfig *)self _getSerializableObjectForKey:@"trackExpiredPIDs"];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setExcludeInfo:(BOOL)info
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:info];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"excludeInfo"];
 }
 
 - (BOOL)excludeInfo
@@ -143,12 +166,24 @@
   return bOOLValue;
 }
 
+- (void)setExcludeDebug:(BOOL)debug
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:debug];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"excludeDebug"];
+}
+
 - (BOOL)excludeDebug
 {
   v2 = [(DTTapConfig *)self _getSerializableObjectForKey:@"excludeDebug"];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setIncludeSenderInfo:(BOOL)info
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:info];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"includeSenderInfo"];
 }
 
 - (BOOL)includeSenderInfo
@@ -167,12 +202,30 @@
   return bOOLValue;
 }
 
+- (void)setIncludeEmitLocation:(BOOL)location
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:location];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"includeEmitLocation"];
+}
+
+- (void)setIncludeWallTime:(BOOL)time
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:time];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"includeWallTime"];
+}
+
 - (BOOL)includeWallTime
 {
   v2 = [(DTTapConfig *)self _getSerializableObjectForKey:@"includeWallTime"];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setEnableHTTPArchiveLogging:(BOOL)logging
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:logging];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"enableHTTPArchiveLogging"];
 }
 
 - (BOOL)enableHTTPArchiveLogging
@@ -183,6 +236,12 @@
   return bOOLValue;
 }
 
+- (void)setEnableBacktraceReplacement:(BOOL)replacement
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:replacement];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"enableBacktraceReplacement"];
+}
+
 - (BOOL)enableBacktraceReplacement
 {
   v2 = [(DTTapConfig *)self _getSerializableObjectForKey:@"enableBacktraceReplacement"];
@@ -191,12 +250,24 @@
   return bOOLValue;
 }
 
+- (void)setEnablePowerLog:(BOOL)log
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:log];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"enablePowerlogLogging"];
+}
+
 - (BOOL)enablePowerLog
 {
   v2 = [(DTTapConfig *)self _getSerializableObjectForKey:@"enablePowerlogLogging"];
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setTargetPID:(int)d
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithInt:*&d];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"targetPID"];
 }
 
 - (int)targetPID
@@ -213,6 +284,12 @@
   bOOLValue = [v2 BOOLValue];
 
   return bOOLValue;
+}
+
+- (void)setTrackPIDToExecNameMapping:(BOOL)mapping
+{
+  v4 = [MEMORY[0x277CCABB0] numberWithBool:mapping];
+  [(DTTapConfig *)self _setSerializableObject:v4 forKey:@"trackPidToExecNameMapping"];
 }
 
 - (void)setMachTimebase:(mach_timebase_info)timebase

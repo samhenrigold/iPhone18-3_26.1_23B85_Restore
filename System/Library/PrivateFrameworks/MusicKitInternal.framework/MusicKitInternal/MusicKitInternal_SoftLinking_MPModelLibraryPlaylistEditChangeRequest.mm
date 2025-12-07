@@ -1,4 +1,5 @@
 @interface MusicKitInternal_SoftLinking_MPModelLibraryPlaylistEditChangeRequest
+- (MusicKitInternal_SoftLinking_MPModelLibraryPlaylistEditChangeRequest)initWithParentPlaylist:(id)playlist playlistEntries:(id)entries children:(id)children playlistName:(id)name playlistDescription:(id)description createFolder:(BOOL)folder playlistUserImage:(CGImage *)image coverArtworkRecipe:(id)self0 publicPlaylist:(id)self1 visiblePlaylist:(id)self2 authorStoreIdentifier:(id)self3;
 - (MusicKitInternal_SoftLinking_MPModelLibraryPlaylistEditChangeRequest)initWithPlaylist:(id)playlist parentPlaylist:(id)parentPlaylist playlistEntries:(id)entries playlistName:(id)name playlistDescription:(id)description playlistUserImage:(CGImage *)image publicPlaylist:(id)publicPlaylist visiblePlaylist:(id)self0 authorStoreIdentifier:(id)self1;
 - (MusicKitInternal_SoftLinking_MPModelLibraryPlaylistEditChangeRequest)initWithPlaylist:(id)playlist playlistEntries:(id)entries playlistName:(id)name playlistDescription:(id)description playlistUserImage:(CGImage *)image publicPlaylist:(id)publicPlaylist visiblePlaylist:(id)visiblePlaylist authorStoreIdentifier:(id)self0;
 - (void)performWithCompletionPolicy:(int64_t)policy completionHandler:(id)handler;
@@ -146,6 +147,77 @@
   }
 
   return v27;
+}
+
+- (MusicKitInternal_SoftLinking_MPModelLibraryPlaylistEditChangeRequest)initWithParentPlaylist:(id)playlist playlistEntries:(id)entries children:(id)children playlistName:(id)name playlistDescription:(id)description createFolder:(BOOL)folder playlistUserImage:(CGImage *)image coverArtworkRecipe:(id)self0 publicPlaylist:(id)self1 visiblePlaylist:(id)self2 authorStoreIdentifier:(id)self3
+{
+  folderCopy = folder;
+  playlistCopy = playlist;
+  entriesCopy = entries;
+  childrenCopy = children;
+  nameCopy = name;
+  descriptionCopy = description;
+  recipeCopy = recipe;
+  publicPlaylistCopy = publicPlaylist;
+  visiblePlaylistCopy = visiblePlaylist;
+  identifierCopy = identifier;
+  v43.receiver = self;
+  v43.super_class = MusicKitInternal_SoftLinking_MPModelLibraryPlaylistEditChangeRequest;
+  v26 = [(MusicKitInternal_SoftLinking_MPModelLibraryPlaylistEditChangeRequest *)&v43 init];
+  if (v26)
+  {
+    v40 = nameCopy;
+    v39 = descriptionCopy;
+    v27 = objc_alloc_init(getMPModelLibraryPlaylistEditChangeRequestClass());
+    underlyingRequest = v26->_underlyingRequest;
+    v26->_underlyingRequest = v27;
+
+    v29 = v26->_underlyingRequest;
+    deviceMediaLibrary = [getMPMediaLibraryClass() deviceMediaLibrary];
+    [(MPModelLibraryPlaylistEditChangeRequest *)v29 setMediaLibrary:deviceMediaLibrary];
+
+    [(MPModelLibraryPlaylistEditChangeRequest *)v26->_underlyingRequest setShouldCreatePlaylist:1];
+    [(MPModelLibraryPlaylistEditChangeRequest *)v26->_underlyingRequest setCreateFolder:folderCopy];
+    v31 = v26->_underlyingRequest;
+    _underlyingModelObject = [playlistCopy _underlyingModelObject];
+    [(MPModelLibraryPlaylistEditChangeRequest *)v31 setParentPlaylist:_underlyingModelObject];
+
+    if (entriesCopy)
+    {
+      v33 = [entriesCopy msv_map:&__block_literal_global_19_0];
+      v34 = objc_alloc_init(getMPMutableSectionedCollectionClass_0());
+      [v34 appendSection:&stru_1F50C75D0];
+      [v34 appendItems:v33];
+      [(MPModelLibraryPlaylistEditChangeRequest *)v26->_underlyingRequest setPlaylistEntries:v34];
+    }
+
+    if (childrenCopy)
+    {
+      v35 = [childrenCopy msv_map:&__block_literal_global_23_0];
+      [(MPModelLibraryPlaylistEditChangeRequest *)v26->_underlyingRequest setChildren:v35];
+    }
+
+    if (image)
+    {
+      v36 = [objc_alloc(getUIImageClass()) initWithCGImage:image];
+      [(MPModelLibraryPlaylistEditChangeRequest *)v26->_underlyingRequest setPlaylistUserImage:v36];
+    }
+
+    [(MPModelLibraryPlaylistEditChangeRequest *)v26->_underlyingRequest setCoverArtworkRecipe:recipeCopy];
+    [(MPModelLibraryPlaylistEditChangeRequest *)v26->_underlyingRequest setIsOwner:MEMORY[0x1E695E118]];
+    playlist = [(MPModelLibraryPlaylistEditChangeRequest *)v26->_underlyingRequest playlist];
+    [playlist setOwner:1];
+
+    nameCopy = v40;
+    [(MPModelLibraryPlaylistEditChangeRequest *)v26->_underlyingRequest setPlaylistName:v40];
+    descriptionCopy = v39;
+    [(MPModelLibraryPlaylistEditChangeRequest *)v26->_underlyingRequest setPlaylistDescription:v39];
+    [(MPModelLibraryPlaylistEditChangeRequest *)v26->_underlyingRequest setPublicPlaylist:publicPlaylistCopy];
+    [(MPModelLibraryPlaylistEditChangeRequest *)v26->_underlyingRequest setVisiblePlaylist:visiblePlaylistCopy];
+    [(MPModelLibraryPlaylistEditChangeRequest *)v26->_underlyingRequest setAuthorStoreIdentifier:identifierCopy];
+  }
+
+  return v26;
 }
 
 - (void)performWithCompletionPolicy:(int64_t)policy completionHandler:(id)handler

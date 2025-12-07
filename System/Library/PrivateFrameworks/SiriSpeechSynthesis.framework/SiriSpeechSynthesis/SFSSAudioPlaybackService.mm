@@ -57,7 +57,7 @@
 
 - (BOOL)isAudioQueueRunning
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   ioDataSize = 4;
   outData = 0;
   Property = AudioQueueGetProperty(self->_audioQueue, 0x6171726Eu, &outData, &ioDataSize);
@@ -68,19 +68,17 @@
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       *buf = 67109120;
-      v10 = v3;
+      v9 = v3;
       _os_log_error_impl(&dword_269079000, v4, OS_LOG_TYPE_ERROR, "Error AudioQueueGetProperty isRunning %d", buf, 8u);
     }
   }
 
-  result = outData != 0;
-  v6 = *MEMORY[0x277D85DE8];
-  return result;
+  return outData != 0;
 }
 
 - (id)enqueue:(id)enqueue packetCount:(int64_t)count packetDescriptions:(id)descriptions
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   enqueueCopy = enqueue;
   descriptionsCopy = descriptions;
   if ([enqueueCopy length])
@@ -147,14 +145,14 @@ LABEL_7:
       enqueuedSampleCount = self->_enqueuedSampleCount;
       *buf = 134219008;
       selfCopy = self;
-      v29 = 2048;
-      v30 = 0;
-      v31 = 2048;
-      v32 = v22;
-      v33 = 2048;
-      v34 = enqueuedSampleCount;
-      v35 = 2048;
-      v36 = v19 / mSampleRate;
+      v28 = 2048;
+      v29 = 0;
+      v30 = 2048;
+      v31 = v22;
+      v32 = 2048;
+      v33 = enqueuedSampleCount;
+      v34 = 2048;
+      v35 = v19 / mSampleRate;
       _os_log_impl(&dword_269079000, v21, OS_LOG_TYPE_INFO, "AudioPlaybackService %p enqueued audio buffer at sample time: %.2f, size: %ld, total enqueued samples: %.0f, enqueued audio duration: %.3f", buf, 0x34u);
     }
   }
@@ -162,14 +160,12 @@ LABEL_7:
   v17 = 0;
 LABEL_16:
 
-  v24 = *MEMORY[0x277D85DE8];
-
   return v17;
 }
 
 - (void)reset
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = AudioQueueReset(self->_audioQueue);
   if (v3)
   {
@@ -177,19 +173,18 @@ LABEL_16:
     v5 = SFSSGetLogObject();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7[0] = 67109120;
-      v7[1] = v4;
-      _os_log_error_impl(&dword_269079000, v5, OS_LOG_TYPE_ERROR, "Error AudioQueueReset %d", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = v4;
+      _os_log_error_impl(&dword_269079000, v5, OS_LOG_TYPE_ERROR, "Error AudioQueueReset %d", v6, 8u);
     }
   }
 
   self->_enqueuedSampleCount = 0.0;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)pause
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = AudioQueuePause(self->_audioQueue);
   v4 = SFSSGetLogObject();
   v5 = v4;
@@ -197,25 +192,23 @@ LABEL_16:
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v7 = 67109120;
+      v6 = 67109120;
       LODWORD(selfCopy) = v3;
-      _os_log_error_impl(&dword_269079000, v5, OS_LOG_TYPE_ERROR, "Error AudioQueuePause %d", &v7, 8u);
+      _os_log_error_impl(&dword_269079000, v5, OS_LOG_TYPE_ERROR, "Error AudioQueuePause %d", &v6, 8u);
     }
   }
 
   else if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v7 = 134217984;
+    v6 = 134217984;
     selfCopy = self;
-    _os_log_impl(&dword_269079000, v5, OS_LOG_TYPE_INFO, "VSAudioPlaybackServices %p success AudioQueuePause", &v7, 0xCu);
+    _os_log_impl(&dword_269079000, v5, OS_LOG_TYPE_INFO, "VSAudioPlaybackServices %p success AudioQueuePause", &v6, 0xCu);
   }
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)waitForAudioQueueStop
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   if ([(SFSSAudioPlaybackService *)self isAudioQueueRunning])
   {
     do
@@ -233,25 +226,23 @@ LABEL_16:
     v5 = SFSSGetLogObject();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v8[0] = 67109120;
-      v8[1] = v4;
-      _os_log_error_impl(&dword_269079000, v5, OS_LOG_TYPE_ERROR, "Error AudioQueueRemovePropertyListener %d", v8, 8u);
+      v7[0] = 67109120;
+      v7[1] = v4;
+      _os_log_error_impl(&dword_269079000, v5, OS_LOG_TYPE_ERROR, "Error AudioQueueRemovePropertyListener %d", v7, 8u);
     }
   }
 
   v6 = SFSSGetLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    LOWORD(v8[0]) = 0;
-    _os_log_impl(&dword_269079000, v6, OS_LOG_TYPE_INFO, "Audio queue stopped.", v8, 2u);
+    LOWORD(v7[0]) = 0;
+    _os_log_impl(&dword_269079000, v6, OS_LOG_TYPE_INFO, "Audio queue stopped.", v7, 2u);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = AudioQueueStop(self->_audioQueue, 1u);
   if (v3)
   {
@@ -259,19 +250,18 @@ LABEL_16:
     v5 = SFSSGetLogObject();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7[0] = 67109120;
-      v7[1] = v4;
-      _os_log_error_impl(&dword_269079000, v5, OS_LOG_TYPE_ERROR, "Error AudioQueueStop %d", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = v4;
+      _os_log_error_impl(&dword_269079000, v5, OS_LOG_TYPE_ERROR, "Error AudioQueueStop %d", v6, 8u);
     }
   }
 
   self->_enqueuedSampleCount = 0.0;
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)flushAndStop
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v3 = AudioQueueFlush(self->_audioQueue);
   if (v3)
   {
@@ -279,11 +269,11 @@ LABEL_16:
     v5 = SFSSGetLogObject();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = 67109120;
-      v11 = v4;
+      v9 = 67109120;
+      v10 = v4;
       v6 = "Error AudioQueueFlush %d";
 LABEL_10:
-      _os_log_error_impl(&dword_269079000, v5, OS_LOG_TYPE_ERROR, v6, &v10, 8u);
+      _os_log_error_impl(&dword_269079000, v5, OS_LOG_TYPE_ERROR, v6, &v9, 8u);
     }
   }
 
@@ -293,27 +283,24 @@ LABEL_10:
     if (!v7)
     {
       self->_enqueuedSampleCount = 0.0;
-      goto LABEL_7;
+      return;
     }
 
     v8 = v7;
     v5 = SFSSGetLogObject();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v10 = 67109120;
-      v11 = v8;
+      v9 = 67109120;
+      v10 = v8;
       v6 = "Error AudioQueueStop %d";
       goto LABEL_10;
     }
   }
-
-LABEL_7:
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (id)start
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   v3 = AudioQueueStart(self->_audioQueue, 0);
   v4 = SFSSGetLogObject();
   v5 = v4;
@@ -321,16 +308,16 @@ LABEL_7:
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v12 = 67109120;
+      v11 = 67109120;
       LODWORD(selfCopy2) = v3;
-      _os_log_error_impl(&dword_269079000, v5, OS_LOG_TYPE_ERROR, "Error AudioQueueStart %d", &v12, 8u);
+      _os_log_error_impl(&dword_269079000, v5, OS_LOG_TYPE_ERROR, "Error AudioQueueStart %d", &v11, 8u);
     }
 
     v6 = MEMORY[0x277CCA9B8];
     v7 = *MEMORY[0x277CCA590];
-    v14 = *MEMORY[0x277CCA450];
-    v15[0] = @"Error AudioQueueStart";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x277CCA450];
+    v14[0] = @"Error AudioQueueStart";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v9 = [v6 errorWithDomain:v7 code:v3 userInfo:v8];
   }
 
@@ -338,9 +325,9 @@ LABEL_7:
   {
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v12 = 134217984;
+      v11 = 134217984;
       selfCopy2 = self;
-      _os_log_impl(&dword_269079000, v5, OS_LOG_TYPE_INFO, "AudioPlaybackService %p success AudioQueueStart", &v12, 0xCu);
+      _os_log_impl(&dword_269079000, v5, OS_LOG_TYPE_INFO, "AudioPlaybackService %p success AudioQueueStart", &v11, 0xCu);
     }
 
     if (![(SFSSAudioPlaybackService *)self isAudioQueueRunning])
@@ -356,26 +343,24 @@ LABEL_7:
     v8 = SFSSGetLogObject();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
-      v12 = 134217984;
+      v11 = 134217984;
       selfCopy2 = self;
-      _os_log_impl(&dword_269079000, v8, OS_LOG_TYPE_INFO, "AudioPlaybackService %p success AudioQueueStart started", &v12, 0xCu);
+      _os_log_impl(&dword_269079000, v8, OS_LOG_TYPE_INFO, "AudioPlaybackService %p success AudioQueueStart started", &v11, 0xCu);
     }
 
     v9 = 0;
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (SFSSAudioPlaybackService)initWithAudioSessionID:(unsigned int)d asbd:(AudioStreamBasicDescription *)asbd
 {
-  v55 = *MEMORY[0x277D85DE8];
+  v52 = *MEMORY[0x277D85DE8];
   date = [MEMORY[0x277CBEAA8] date];
-  v49.receiver = self;
-  v49.super_class = SFSSAudioPlaybackService;
-  v8 = [(SFSSAudioPlaybackService *)&v49 init];
+  v46.receiver = self;
+  v46.super_class = SFSSAudioPlaybackService;
+  v8 = [(SFSSAudioPlaybackService *)&v46 init];
   v9 = v8;
   if (v8)
   {
@@ -395,130 +380,126 @@ LABEL_7:
       mEMORY[0x277CB83F8] = [MEMORY[0x277CB83F8] sharedInstance];
       v9->_sessionID = [mEMORY[0x277CB83F8] opaqueSessionID];
       p_sessionID = &v9->_sessionID;
-
-      sessionID = v9->_sessionID;
     }
 
-    v15 = *MEMORY[0x277CBF048];
-    v16 = AudioQueueNewOutputWithAudioSession();
-    if (v16)
+    v14 = AudioQueueNewOutputWithAudioSession();
+    if (v14)
     {
-      v17 = v16;
-      v18 = SFSSGetLogObject();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      v15 = v14;
+      v16 = SFSSGetLogObject();
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v51) = v17;
-        _os_log_error_impl(&dword_269079000, v18, OS_LOG_TYPE_ERROR, "Error AudioQueueNewOutputWithAudioSession %d", buf, 8u);
+        LODWORD(v48) = v15;
+        _os_log_error_impl(&dword_269079000, v16, OS_LOG_TYPE_ERROR, "Error AudioQueueNewOutputWithAudioSession %d", buf, 8u);
       }
 
 LABEL_26:
-      v39 = 0;
+      v37 = 0;
       goto LABEL_33;
     }
 
-    v19 = [MEMORY[0x277CB83F8] retrieveSessionWithID:*p_sessionID];
-    currentRoute = [v19 currentRoute];
+    v17 = [MEMORY[0x277CB83F8] retrieveSessionWithID:*p_sessionID];
+    currentRoute = [v17 currentRoute];
 
     array = [MEMORY[0x277CBEB18] array];
+    v42 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
-    v47 = 0u;
-    v48 = 0u;
     outputs = [currentRoute outputs];
-    v23 = [outputs countByEnumeratingWithState:&v45 objects:v54 count:16];
-    if (v23)
+    v21 = [outputs countByEnumeratingWithState:&v42 objects:v51 count:16];
+    if (v21)
     {
-      v24 = v23;
-      v25 = *v46;
+      v22 = v21;
+      v23 = *v43;
       do
       {
-        for (i = 0; i != v24; ++i)
+        for (i = 0; i != v22; ++i)
         {
-          if (*v46 != v25)
+          if (*v43 != v23)
           {
             objc_enumerationMutation(outputs);
           }
 
-          portType = [*(*(&v45 + 1) + 8 * i) portType];
+          portType = [*(*(&v42 + 1) + 8 * i) portType];
           [array addObject:portType];
         }
 
-        v24 = [outputs countByEnumeratingWithState:&v45 objects:v54 count:16];
+        v22 = [outputs countByEnumeratingWithState:&v42 objects:v51 count:16];
       }
 
-      while (v24);
+      while (v22);
     }
 
-    v28 = [array componentsJoinedByString:{@", "}];
+    v26 = [array componentsJoinedByString:{@", "}];
     outputRoute = v9->_outputRoute;
-    v9->_outputRoute = v28;
+    v9->_outputRoute = v26;
 
-    v30 = SFSSGetLogObject();
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+    v28 = SFSSGetLogObject();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_INFO))
     {
-      v31 = v9->_outputRoute;
+      v29 = v9->_outputRoute;
       *buf = 138412290;
-      v51 = v31;
-      _os_log_impl(&dword_269079000, v30, OS_LOG_TYPE_INFO, "Current audio output route: %@", buf, 0xCu);
+      v48 = v29;
+      _os_log_impl(&dword_269079000, v28, OS_LOG_TYPE_INFO, "Current audio output route: %@", buf, 0xCu);
     }
 
-    v32 = AudioQueueSetProperty(v9->_audioQueue, 0x63756964u, &AudioPlaybackAudioQueueUID, 8u);
-    if (v32)
+    v30 = AudioQueueSetProperty(v9->_audioQueue, 0x63756964u, &AudioPlaybackAudioQueueUID, 8u);
+    if (v30)
     {
-      v33 = v32;
-      v34 = SFSSGetLogObject();
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      v31 = v30;
+      v32 = SFSSGetLogObject();
+      if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v51) = v33;
-        _os_log_error_impl(&dword_269079000, v34, OS_LOG_TYPE_ERROR, "Unable to set kAudioQueueProperty_ClientUID, errno: %d", buf, 8u);
+        LODWORD(v48) = v31;
+        _os_log_error_impl(&dword_269079000, v32, OS_LOG_TYPE_ERROR, "Unable to set kAudioQueueProperty_ClientUID, errno: %d", buf, 8u);
       }
     }
 
     defaultCenter = [MEMORY[0x277CCAB98] defaultCenter];
     [defaultCenter addObserver:v9 selector:sel_handleMediaServerReset name:*MEMORY[0x277CB80A0] object:0];
 
-    v36 = AudioQueueAddPropertyListener(v9->_audioQueue, 0x6171726Eu, _audioPlaybackServiceRunningStateChanged, v9);
-    v37 = SFSSGetLogObject();
-    v38 = v37;
-    if (v36)
+    v34 = AudioQueueAddPropertyListener(v9->_audioQueue, 0x6171726Eu, _audioPlaybackServiceRunningStateChanged, v9);
+    v35 = SFSSGetLogObject();
+    v36 = v35;
+    if (v34)
     {
-      if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_ERROR))
       {
         *buf = 67109120;
-        LODWORD(v51) = v36;
-        _os_log_error_impl(&dword_269079000, v38, OS_LOG_TYPE_ERROR, "Error AudioQueueAddPropertyListener %d", buf, 8u);
+        LODWORD(v48) = v34;
+        _os_log_error_impl(&dword_269079000, v36, OS_LOG_TYPE_ERROR, "Error AudioQueueAddPropertyListener %d", buf, 8u);
       }
 
       goto LABEL_26;
     }
 
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
     {
       *buf = 67109120;
-      LODWORD(v51) = d;
-      _os_log_impl(&dword_269079000, v38, OS_LOG_TYPE_INFO, "AudioQueue initialized with session ID: %d", buf, 8u);
+      LODWORD(v48) = d;
+      _os_log_impl(&dword_269079000, v36, OS_LOG_TYPE_INFO, "AudioQueue initialized with session ID: %d", buf, 8u);
     }
   }
 
   [date timeIntervalSinceNow];
-  v41 = v40;
-  v42 = SFSSGetLogObject();
-  if (os_log_type_enabled(v42, OS_LOG_TYPE_INFO))
+  v39 = v38;
+  v40 = SFSSGetLogObject();
+  if (os_log_type_enabled(v40, OS_LOG_TYPE_INFO))
   {
     *buf = 134218240;
-    v51 = v9;
-    v52 = 2048;
-    v53 = v41;
-    _os_log_impl(&dword_269079000, v42, OS_LOG_TYPE_INFO, "AudioPlaybackService %p init latency: %.3f", buf, 0x16u);
+    v48 = v9;
+    v49 = 2048;
+    v50 = v39;
+    _os_log_impl(&dword_269079000, v40, OS_LOG_TYPE_INFO, "AudioPlaybackService %p init latency: %.3f", buf, 0x16u);
   }
 
-  v39 = v9;
+  v37 = v9;
 LABEL_33:
 
-  v43 = *MEMORY[0x277D85DE8];
-  return v39;
+  return v37;
 }
 
 @end

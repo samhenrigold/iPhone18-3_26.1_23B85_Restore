@@ -43,30 +43,30 @@
 
 - (id)logStringWithScanRecords
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   string = [MEMORY[0x277CCAB68] string];
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   selfCopy = self;
   allObjects = [self allObjects];
-  v4 = [allObjects countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v4 = [allObjects countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v4)
   {
     v5 = v4;
     v6 = 0;
-    v7 = *v19;
+    v7 = *v18;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v19 != v7)
+        if (*v18 != v7)
         {
           objc_enumerationMutation(allObjects);
         }
 
-        v9 = *(*(&v18 + 1) + 8 * i);
+        v9 = *(*(&v17 + 1) + 8 * i);
         objc_opt_class();
         if (objc_opt_isKindOfClass())
         {
@@ -102,13 +102,11 @@
         }
       }
 
-      v5 = [allObjects countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v5 = [allObjects countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v5);
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return string;
 }

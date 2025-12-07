@@ -70,103 +70,99 @@
 
 + (id)entryEventBackwardDefinitionBBIcePeriodicMetrics
 {
-  v29[2] = *MEMORY[0x277D85DE8];
-  v28[0] = *MEMORY[0x277D3F4E8];
+  v28[2] = *MEMORY[0x277D85DE8];
+  v27[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F558];
-  v26[0] = *MEMORY[0x277D3F568];
-  v26[1] = v2;
-  v27[0] = &unk_282C1CAD8;
-  v27[1] = MEMORY[0x277CBEC38];
-  v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v27 forKeys:v26 count:2];
-  v29[0] = v18;
-  v28[1] = *MEMORY[0x277D3F540];
-  v24[0] = @"triggerId";
+  v25[0] = *MEMORY[0x277D3F568];
+  v25[1] = v2;
+  v26[0] = &unk_282C1CAD8;
+  v26[1] = MEMORY[0x277CBEC38];
+  v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:2];
+  v28[0] = v17;
+  v27[1] = *MEMORY[0x277D3F540];
+  v23[0] = @"triggerId";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v25[0] = commonTypeDict_IntegerFormat;
-  v24[1] = @"triggerCnt";
+  v24[0] = commonTypeDict_IntegerFormat;
+  v23[1] = @"triggerCnt";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v25[1] = commonTypeDict_IntegerFormat2;
-  v24[2] = @"bbtimestamp";
+  v24[1] = commonTypeDict_IntegerFormat2;
+  v23[2] = @"bbtimestamp";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v25[2] = commonTypeDict_IntegerFormat3;
-  v24[3] = @"mid";
+  v24[2] = commonTypeDict_IntegerFormat3;
+  v23[3] = @"mid";
   v7 = *MEMORY[0x277D3F598];
-  v21[0] = *MEMORY[0x277D3F5A8];
-  v6 = v21[0];
-  v21[1] = v7;
-  v23[0] = &unk_282C12E28;
-  v23[1] = &unk_282C12E40;
-  v22 = *MEMORY[0x277D3F5A0];
-  v8 = v22;
-  v23[2] = &unk_282C12E58;
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v21 count:3];
-  v25[3] = v9;
-  v24[4] = @"data";
-  v19[0] = v6;
-  v19[1] = v7;
-  v20[0] = &unk_282C12E28;
-  v20[1] = &unk_282C12E40;
-  v19[2] = v8;
-  v20[2] = &unk_282C12E70;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
-  v25[4] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:v24 count:5];
-  v29[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v20[0] = *MEMORY[0x277D3F5A8];
+  v6 = v20[0];
+  v20[1] = v7;
+  v22[0] = &unk_282C12E28;
+  v22[1] = &unk_282C12E40;
+  v21 = *MEMORY[0x277D3F5A0];
+  v8 = v21;
+  v22[2] = &unk_282C12E58;
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v20 count:3];
+  v24[3] = v9;
+  v23[4] = @"data";
+  v18[0] = v6;
+  v18[1] = v7;
+  v19[0] = &unk_282C12E28;
+  v19[1] = &unk_282C12E40;
+  v18[2] = v8;
+  v19[2] = &unk_282C12E70;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+  v24[4] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:v23 count:5];
+  v28[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
 
   return v12;
 }
 
 + (id)entryEventBackwardDefinitionBBIceEventMetrics
 {
-  v21[2] = *MEMORY[0x277D85DE8];
-  v20[0] = *MEMORY[0x277D3F4E8];
+  v20[2] = *MEMORY[0x277D85DE8];
+  v19[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F558];
-  v18[0] = *MEMORY[0x277D3F568];
-  v18[1] = v2;
-  v19[0] = &unk_282C1CAE8;
-  v19[1] = MEMORY[0x277CBEC38];
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
-  v21[0] = v15;
-  v20[1] = *MEMORY[0x277D3F540];
-  v16[0] = @"triggerCnt";
+  v17[0] = *MEMORY[0x277D3F568];
+  v17[1] = v2;
+  v18[0] = &unk_282C1CAE8;
+  v18[1] = MEMORY[0x277CBEC38];
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+  v20[0] = v14;
+  v19[1] = *MEMORY[0x277D3F540];
+  v15[0] = @"triggerCnt";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat = [mEMORY[0x277D3F198] commonTypeDict_IntegerFormat];
-  v17[0] = commonTypeDict_IntegerFormat;
-  v16[1] = @"bbtimestamp";
+  v16[0] = commonTypeDict_IntegerFormat;
+  v15[1] = @"bbtimestamp";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_IntegerFormat];
-  v17[1] = commonTypeDict_IntegerFormat2;
-  v16[2] = @"metricId";
+  v16[1] = commonTypeDict_IntegerFormat2;
+  v15[2] = @"metricId";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_IntegerFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_IntegerFormat];
-  v17[2] = commonTypeDict_IntegerFormat3;
-  v16[3] = @"metricData";
+  v16[2] = commonTypeDict_IntegerFormat3;
+  v15[3] = @"metricData";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]4 commonTypeDict_StringFormat];
-  v17[3] = commonTypeDict_StringFormat;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:4];
-  v21[1] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v16[3] = commonTypeDict_StringFormat;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v20[1] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
 
   return v12;
 }
 
 - (void)logBBIceAperiodicMetrics
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v3 = PLLogCommon();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     *buf = 136315138;
-    v20 = "[PLICEBBHardwareMessage logBBIceAperiodicMetrics]";
+    v19 = "[PLICEBBHardwareMessage logBBIceAperiodicMetrics]";
     _os_log_debug_impl(&dword_21A4C6000, v3, OS_LOG_TYPE_DEBUG, "%s", buf, 0xCu);
   }
 
@@ -174,10 +170,10 @@
   {
     v4 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v15 = 3221225472;
-    v16 = __50__PLICEBBHardwareMessage_logBBIceAperiodicMetrics__block_invoke;
-    v17 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v18 = v4;
+    v14 = 3221225472;
+    v15 = __50__PLICEBBHardwareMessage_logBBIceAperiodicMetrics__block_invoke;
+    v16 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v17 = v4;
     if (qword_2811F7FB8 != -1)
     {
       dispatch_once(&qword_2811F7FB8, &block);
@@ -185,7 +181,7 @@
 
     if (_MergedGlobals_113 == 1)
     {
-      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLICEBBHardwareMessage logBBIceAperiodicMetrics]", block, v15, v16, v17, v18];
+      v5 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLICEBBHardwareMessage logBBIceAperiodicMetrics]", block, v14, v15, v16, v17];
       v6 = MEMORY[0x277D3F178];
       v7 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBHardwareMessage.m"];
       lastPathComponent = [v7 lastPathComponent];
@@ -196,7 +192,7 @@
       if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v20 = v5;
+        v19 = v5;
         _os_log_debug_impl(&dword_21A4C6000, v10, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -217,11 +213,9 @@
     [v12 setObject:self->_metricData forKeyedSubscript:@"metricData"];
     [(PLAgent *)self->_logAgent logEntry:v12];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __50__PLICEBBHardwareMessage_logBBIceAperiodicMetrics__block_invoke(uint64_t a1)
+void *__50__PLICEBBHardwareMessage_logBBIceAperiodicMetrics__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   _MergedGlobals_113 = result;
@@ -230,15 +224,15 @@ uint64_t __50__PLICEBBHardwareMessage_logBBIceAperiodicMetrics__block_invoke(uin
 
 - (void)logBBIcePeriodicMetrics
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
     v3 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v14 = 3221225472;
-    v15 = __49__PLICEBBHardwareMessage_logBBIcePeriodicMetrics__block_invoke;
-    v16 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v17 = v3;
+    v13 = 3221225472;
+    v14 = __49__PLICEBBHardwareMessage_logBBIcePeriodicMetrics__block_invoke;
+    v15 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v16 = v3;
     if (qword_2811F7FC0 != -1)
     {
       dispatch_once(&qword_2811F7FC0, &block);
@@ -246,7 +240,7 @@ uint64_t __50__PLICEBBHardwareMessage_logBBIceAperiodicMetrics__block_invoke(uin
 
     if (byte_2811F7FA9 == 1)
     {
-      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLICEBBHardwareMessage logBBIcePeriodicMetrics]", block, v14, v15, v16, v17];
+      v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLICEBBHardwareMessage logBBIcePeriodicMetrics]", block, v13, v14, v15, v16];
       v5 = MEMORY[0x277D3F178];
       v6 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBHardwareMessage.m"];
       lastPathComponent = [v6 lastPathComponent];
@@ -257,7 +251,7 @@ uint64_t __50__PLICEBBHardwareMessage_logBBIceAperiodicMetrics__block_invoke(uin
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v19 = v4;
+        v18 = v4;
         _os_log_debug_impl(&dword_21A4C6000, v9, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -279,11 +273,9 @@ uint64_t __50__PLICEBBHardwareMessage_logBBIceAperiodicMetrics__block_invoke(uin
     [v11 setObject:self->_metricDataArr forKeyedSubscript:@"data"];
     [(PLAgent *)self->_logAgent logEntry:v11];
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __49__PLICEBBHardwareMessage_logBBIcePeriodicMetrics__block_invoke(uint64_t a1)
+void *__49__PLICEBBHardwareMessage_logBBIcePeriodicMetrics__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7FA9 = result;
@@ -292,7 +284,7 @@ uint64_t __49__PLICEBBHardwareMessage_logBBIcePeriodicMetrics__block_invoke(uint
 
 - (void)addToListMetric:(id)metric payload:(id)payload
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   metricCopy = metric;
   v7 = MEMORY[0x277D3F180];
   payloadCopy = payload;
@@ -300,10 +292,10 @@ uint64_t __49__PLICEBBHardwareMessage_logBBIcePeriodicMetrics__block_invoke(uint
   {
     v9 = objc_opt_class();
     block = MEMORY[0x277D85DD0];
-    v20 = 3221225472;
-    v21 = __50__PLICEBBHardwareMessage_addToListMetric_payload___block_invoke;
-    v22 = &__block_descriptor_40_e5_v8__0lu32l8;
-    v23 = v9;
+    v19 = 3221225472;
+    v20 = __50__PLICEBBHardwareMessage_addToListMetric_payload___block_invoke;
+    v21 = &__block_descriptor_40_e5_v8__0lu32l8;
+    v22 = v9;
     if (qword_2811F7FC8 != -1)
     {
       dispatch_once(&qword_2811F7FC8, &block);
@@ -311,7 +303,7 @@ uint64_t __49__PLICEBBHardwareMessage_logBBIcePeriodicMetrics__block_invoke(uint
 
     if (byte_2811F7FAA == 1)
     {
-      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLICEBBHardwareMessage addToListMetric:payload:]", block, v20, v21, v22, v23];
+      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s", "-[PLICEBBHardwareMessage addToListMetric:payload:]", block, v19, v20, v21, v22];
       v11 = MEMORY[0x277D3F178];
       v12 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBHardwareMessage.m"];
       lastPathComponent = [v12 lastPathComponent];
@@ -322,7 +314,7 @@ uint64_t __49__PLICEBBHardwareMessage_logBBIcePeriodicMetrics__block_invoke(uint
       if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v25 = v10;
+        v24 = v10;
         _os_log_debug_impl(&dword_21A4C6000, v15, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
@@ -333,10 +325,9 @@ uint64_t __49__PLICEBBHardwareMessage_logBBIcePeriodicMetrics__block_invoke(uint
   v17 = [PLICEBBMetricUtility convertToStringData:payloadCopy];
 
   [(NSMutableArray *)metricDataArr addObject:v17];
-  v18 = *MEMORY[0x277D85DE8];
 }
 
-uint64_t __50__PLICEBBHardwareMessage_addToListMetric_payload___block_invoke(uint64_t a1)
+void *__50__PLICEBBHardwareMessage_addToListMetric_payload___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7FAA = result;
@@ -516,7 +507,7 @@ LABEL_43:
 
 - (id)decodePayload:(id)payload forMetricId:(id)id
 {
-  v111 = *MEMORY[0x277D85DE8];
+  v110 = *MEMORY[0x277D85DE8];
   payloadCopy = payload;
   idCopy = id;
   v8 = objc_opt_new();
@@ -791,31 +782,31 @@ LABEL_155:
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v36 = objc_opt_class();
-          v105[0] = MEMORY[0x277D85DD0];
-          v105[1] = 3221225472;
-          v105[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_103;
-          v105[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v105[4] = v36;
+          v104[0] = MEMORY[0x277D85DD0];
+          v104[1] = 3221225472;
+          v104[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_103;
+          v104[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v104[4] = v36;
           if (qword_2811F7FE8 != -1)
           {
-            dispatch_once(&qword_2811F7FE8, v105);
+            dispatch_once(&qword_2811F7FE8, v104);
           }
 
           if (byte_2811F7FAE == 1)
           {
             v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"ICE_HW_RF_EVDO_HIST - plMetricLog %@", v9];
-            v94 = MEMORY[0x277D3F178];
+            v93 = MEMORY[0x277D3F178];
             v38 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBHardwareMessage.m"];
             lastPathComponent = [v38 lastPathComponent];
             v40 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLICEBBHardwareMessage decodePayload:forMetricId:]"];
-            [v94 logMessage:v37 fromFile:lastPathComponent fromFunction:v40 fromLineNumber:700];
+            [v93 logMessage:v37 fromFile:lastPathComponent fromFunction:v40 fromLineNumber:700];
 
             v41 = v37;
             v42 = PLLogCommon();
             if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v110 = v41;
+              v109 = v41;
               _os_log_debug_impl(&dword_21A4C6000, v42, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
           }
@@ -825,36 +816,36 @@ LABEL_155:
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v44 = objc_opt_class();
-          v104[0] = MEMORY[0x277D85DD0];
-          v104[1] = 3221225472;
-          v104[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_109;
-          v104[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v104[4] = v44;
+          v103[0] = MEMORY[0x277D85DD0];
+          v103[1] = 3221225472;
+          v103[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_109;
+          v103[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v103[4] = v44;
           if (qword_2811F7FF0 != -1)
           {
-            dispatch_once(&qword_2811F7FF0, v104);
+            dispatch_once(&qword_2811F7FF0, v103);
           }
 
           if (byte_2811F7FAF == 1)
           {
-            v95 = v43;
+            v94 = v43;
             v45 = [MEMORY[0x277CCACA8] stringWithFormat:@"ICE_HW_RF_EVDO_HIST - myClass %@", v43];
-            v89 = MEMORY[0x277D3F178];
+            v88 = MEMORY[0x277D3F178];
             v46 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBHardwareMessage.m"];
             lastPathComponent2 = [v46 lastPathComponent];
             v48 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLICEBBHardwareMessage decodePayload:forMetricId:]"];
-            [v89 logMessage:v45 fromFile:lastPathComponent2 fromFunction:v48 fromLineNumber:702];
+            [v88 logMessage:v45 fromFile:lastPathComponent2 fromFunction:v48 fromLineNumber:702];
 
             v49 = v45;
             v50 = PLLogCommon();
             if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v110 = v49;
+              v109 = v49;
               _os_log_debug_impl(&dword_21A4C6000, v50, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
-            v43 = v95;
+            v43 = v94;
           }
         }
 
@@ -862,19 +853,19 @@ LABEL_155:
         if ([MEMORY[0x277D3F180] debugEnabled])
         {
           v51 = objc_opt_class();
-          v103[0] = MEMORY[0x277D85DD0];
-          v103[1] = 3221225472;
-          v103[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_115;
-          v103[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v103[4] = v51;
+          v102[0] = MEMORY[0x277D85DD0];
+          v102[1] = 3221225472;
+          v102[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_115;
+          v102[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v102[4] = v51;
           if (qword_2811F7FF8 != -1)
           {
-            dispatch_once(&qword_2811F7FF8, v103);
+            dispatch_once(&qword_2811F7FF8, v102);
           }
 
           if (byte_2811F7FB0 == 1)
           {
-            v96 = v43;
+            v95 = v43;
             v52 = [MEMORY[0x277CCACA8] stringWithFormat:@"ICE_HW_RF_EVDO_HIST - entry %@", v8];
             v53 = MEMORY[0x277D3F178];
             v54 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBHardwareMessage.m"];
@@ -886,11 +877,11 @@ LABEL_155:
             if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              v110 = v52;
+              v109 = v52;
               _os_log_debug_impl(&dword_21A4C6000, v57, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
             }
 
-            v43 = v96;
+            v43 = v95;
           }
         }
 
@@ -918,18 +909,18 @@ LABEL_155:
         if (byte_2811F7FAB == 1)
         {
           v60 = [MEMORY[0x277CCACA8] stringWithFormat:@"ICE_HW_RF_CDMA1X_HIST - plMetricLog %@", v9];
-          v97 = MEMORY[0x277D3F178];
+          v96 = MEMORY[0x277D3F178];
           v61 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBHardwareMessage.m"];
           lastPathComponent4 = [v61 lastPathComponent];
           v63 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLICEBBHardwareMessage decodePayload:forMetricId:]"];
-          [v97 logMessage:v60 fromFile:lastPathComponent4 fromFunction:v63 fromLineNumber:685];
+          [v96 logMessage:v60 fromFile:lastPathComponent4 fromFunction:v63 fromLineNumber:685];
 
           v64 = v60;
           v65 = PLLogCommon();
           if (os_log_type_enabled(v65, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v110 = v64;
+            v109 = v64;
             _os_log_debug_impl(&dword_21A4C6000, v65, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -939,36 +930,36 @@ LABEL_155:
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v66 = objc_opt_class();
-        v107[0] = MEMORY[0x277D85DD0];
-        v107[1] = 3221225472;
-        v107[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_91;
-        v107[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v107[4] = v66;
+        v106[0] = MEMORY[0x277D85DD0];
+        v106[1] = 3221225472;
+        v106[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_91;
+        v106[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v106[4] = v66;
         if (qword_2811F7FD8 != -1)
         {
-          dispatch_once(&qword_2811F7FD8, v107);
+          dispatch_once(&qword_2811F7FD8, v106);
         }
 
         if (byte_2811F7FAC == 1)
         {
-          v98 = v21;
+          v97 = v21;
           v67 = [MEMORY[0x277CCACA8] stringWithFormat:@"ICE_HW_RF_CDMA1X_HIST - myClass %@", v21];
-          v90 = MEMORY[0x277D3F178];
+          v89 = MEMORY[0x277D3F178];
           v68 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBHardwareMessage.m"];
           lastPathComponent5 = [v68 lastPathComponent];
           v70 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLICEBBHardwareMessage decodePayload:forMetricId:]"];
-          [v90 logMessage:v67 fromFile:lastPathComponent5 fromFunction:v70 fromLineNumber:687];
+          [v89 logMessage:v67 fromFile:lastPathComponent5 fromFunction:v70 fromLineNumber:687];
 
           v71 = v67;
           v72 = PLLogCommon();
           if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v110 = v71;
+            v109 = v71;
             _os_log_debug_impl(&dword_21A4C6000, v72, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
 
-          v21 = v98;
+          v21 = v97;
         }
       }
 
@@ -979,14 +970,14 @@ LABEL_155:
       }
 
       v73 = objc_opt_class();
-      v106[0] = MEMORY[0x277D85DD0];
-      v106[1] = 3221225472;
-      v106[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_97;
-      v106[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v106[4] = v73;
+      v105[0] = MEMORY[0x277D85DD0];
+      v105[1] = 3221225472;
+      v105[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_97;
+      v105[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v105[4] = v73;
       if (qword_2811F7FE0 != -1)
       {
-        dispatch_once(&qword_2811F7FE0, v106);
+        dispatch_once(&qword_2811F7FE0, v105);
       }
 
       if (byte_2811F7FAD != 1)
@@ -994,7 +985,7 @@ LABEL_155:
         goto LABEL_136;
       }
 
-      v93 = v21;
+      v92 = v21;
       v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"ICE_HW_RF_CDMA1X_HIST - entry %@", v8];
       v74 = MEMORY[0x277D3F178];
       v75 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBHardwareMessage.m"];
@@ -1009,7 +1000,7 @@ LABEL_155:
       }
 
       *buf = 138412290;
-      v110 = v30;
+      v109 = v30;
     }
 
     else
@@ -1022,31 +1013,31 @@ LABEL_155:
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v14 = objc_opt_class();
-        v102[0] = MEMORY[0x277D85DD0];
-        v102[1] = 3221225472;
-        v102[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_121;
-        v102[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v102[4] = v14;
+        v101[0] = MEMORY[0x277D85DD0];
+        v101[1] = 3221225472;
+        v101[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_121;
+        v101[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v101[4] = v14;
         if (qword_2811F8000 != -1)
         {
-          dispatch_once(&qword_2811F8000, v102);
+          dispatch_once(&qword_2811F8000, v101);
         }
 
         if (byte_2811F7FB1 == 1)
         {
           v15 = [MEMORY[0x277CCACA8] stringWithFormat:@"ICE_HW_RF_CDMA1X_CONN_HIST - plMetricLog %@", v9];
-          v91 = MEMORY[0x277D3F178];
+          v90 = MEMORY[0x277D3F178];
           v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBHardwareMessage.m"];
           lastPathComponent7 = [v16 lastPathComponent];
           v18 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLICEBBHardwareMessage decodePayload:forMetricId:]"];
-          [v91 logMessage:v15 fromFile:lastPathComponent7 fromFunction:v18 fromLineNumber:709];
+          [v90 logMessage:v15 fromFile:lastPathComponent7 fromFunction:v18 fromLineNumber:709];
 
           v19 = v15;
           v20 = PLLogCommon();
           if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v110 = v19;
+            v109 = v19;
             _os_log_debug_impl(&dword_21A4C6000, v20, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
         }
@@ -1056,36 +1047,36 @@ LABEL_155:
       if ([MEMORY[0x277D3F180] debugEnabled])
       {
         v22 = objc_opt_class();
-        v101[0] = MEMORY[0x277D85DD0];
-        v101[1] = 3221225472;
-        v101[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_127;
-        v101[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-        v101[4] = v22;
+        v100[0] = MEMORY[0x277D85DD0];
+        v100[1] = 3221225472;
+        v100[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_127;
+        v100[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+        v100[4] = v22;
         if (qword_2811F8008 != -1)
         {
-          dispatch_once(&qword_2811F8008, v101);
+          dispatch_once(&qword_2811F8008, v100);
         }
 
         if (byte_2811F7FB2 == 1)
         {
-          v92 = v21;
+          v91 = v21;
           v23 = [MEMORY[0x277CCACA8] stringWithFormat:@"ICE_HW_RF_CDMA1X_CONN_HIST - myClass %@", v21];
-          v88 = MEMORY[0x277D3F178];
+          v87 = MEMORY[0x277D3F178];
           v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBHardwareMessage.m"];
           lastPathComponent8 = [v24 lastPathComponent];
           v26 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLICEBBHardwareMessage decodePayload:forMetricId:]"];
-          [v88 logMessage:v23 fromFile:lastPathComponent8 fromFunction:v26 fromLineNumber:711];
+          [v87 logMessage:v23 fromFile:lastPathComponent8 fromFunction:v26 fromLineNumber:711];
 
           v27 = v23;
           v28 = PLLogCommon();
           if (os_log_type_enabled(v28, OS_LOG_TYPE_DEBUG))
           {
             *buf = 138412290;
-            v110 = v27;
+            v109 = v27;
             _os_log_debug_impl(&dword_21A4C6000, v28, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
           }
 
-          v21 = v92;
+          v21 = v91;
         }
       }
 
@@ -1096,14 +1087,14 @@ LABEL_155:
       }
 
       v29 = objc_opt_class();
-      v100[0] = MEMORY[0x277D85DD0];
-      v100[1] = 3221225472;
-      v100[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_133;
-      v100[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v100[4] = v29;
+      v99[0] = MEMORY[0x277D85DD0];
+      v99[1] = 3221225472;
+      v99[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_133;
+      v99[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v99[4] = v29;
       if (qword_2811F8010 != -1)
       {
-        dispatch_once(&qword_2811F8010, v100);
+        dispatch_once(&qword_2811F8010, v99);
       }
 
       if (byte_2811F7FB3 != 1)
@@ -1115,7 +1106,7 @@ LABEL_160:
         goto LABEL_161;
       }
 
-      v93 = v21;
+      v92 = v21;
       v30 = [MEMORY[0x277CCACA8] stringWithFormat:@"ICE_HW_RF_CDMA1X_CONN_HIST - entry %@", v8];
       v31 = MEMORY[0x277D3F178];
       v32 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBHardwareMessage.m"];
@@ -1128,12 +1119,12 @@ LABEL_160:
       {
 LABEL_135:
 
-        v21 = v93;
+        v21 = v92;
         goto LABEL_136;
       }
 
       *buf = 138412290;
-      v110 = v30;
+      v109 = v30;
     }
 
     _os_log_debug_impl(&dword_21A4C6000, v35, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
@@ -1178,32 +1169,32 @@ LABEL_158:
 LABEL_164:
   if ([MEMORY[0x277D3F180] debugEnabled])
   {
-    v81 = objc_opt_class();
-    v99[0] = MEMORY[0x277D85DD0];
-    v99[1] = 3221225472;
-    v99[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_139;
-    v99[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-    v99[4] = v81;
+    v80 = objc_opt_class();
+    v98[0] = MEMORY[0x277D85DD0];
+    v98[1] = 3221225472;
+    v98[2] = __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_139;
+    v98[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+    v98[4] = v80;
     if (qword_2811F8018 != -1)
     {
-      dispatch_once(&qword_2811F8018, v99);
+      dispatch_once(&qword_2811F8018, v98);
     }
 
     if (byte_2811F7FB4 == 1)
     {
-      v82 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error: unexpected metric Id"];
-      v83 = MEMORY[0x277D3F178];
-      v84 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBHardwareMessage.m"];
-      lastPathComponent10 = [v84 lastPathComponent];
-      v86 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLICEBBHardwareMessage decodePayload:forMetricId:]"];
-      [v83 logMessage:v82 fromFile:lastPathComponent10 fromFunction:v86 fromLineNumber:730];
+      v81 = [MEMORY[0x277CCACA8] stringWithFormat:@"Error: unexpected metric Id"];
+      v82 = MEMORY[0x277D3F178];
+      v83 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Utilities/Baseband/KICE/PLICEBBHardwareMessage.m"];
+      lastPathComponent10 = [v83 lastPathComponent];
+      v85 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLICEBBHardwareMessage decodePayload:forMetricId:]"];
+      [v82 logMessage:v81 fromFile:lastPathComponent10 fromFunction:v85 fromLineNumber:730];
 
-      v87 = PLLogCommon();
-      if (os_log_type_enabled(v87, OS_LOG_TYPE_DEBUG))
+      v86 = PLLogCommon();
+      if (os_log_type_enabled(v86, OS_LOG_TYPE_DEBUG))
       {
         *buf = 138412290;
-        v110 = v82;
-        _os_log_debug_impl(&dword_21A4C6000, v87, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
+        v109 = v81;
+        _os_log_debug_impl(&dword_21A4C6000, v86, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
       }
     }
   }
@@ -1211,75 +1202,73 @@ LABEL_164:
   v78 = 0;
 LABEL_161:
 
-  v79 = *MEMORY[0x277D85DE8];
-
   return v78;
 }
 
-uint64_t __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke(uint64_t a1)
+void *__52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7FAB = result;
   return result;
 }
 
-uint64_t __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_91(uint64_t a1)
+void *__52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_91(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7FAC = result;
   return result;
 }
 
-uint64_t __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_97(uint64_t a1)
+void *__52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_97(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7FAD = result;
   return result;
 }
 
-uint64_t __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_103(uint64_t a1)
+void *__52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_103(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7FAE = result;
   return result;
 }
 
-uint64_t __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_109(uint64_t a1)
+void *__52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_109(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7FAF = result;
   return result;
 }
 
-uint64_t __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_115(uint64_t a1)
+void *__52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_115(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7FB0 = result;
   return result;
 }
 
-uint64_t __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_121(uint64_t a1)
+void *__52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_121(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7FB1 = result;
   return result;
 }
 
-uint64_t __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_127(uint64_t a1)
+void *__52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_127(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7FB2 = result;
   return result;
 }
 
-uint64_t __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_133(uint64_t a1)
+void *__52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_133(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7FB3 = result;
   return result;
 }
 
-uint64_t __52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_139(uint64_t a1)
+void *__52__PLICEBBHardwareMessage_decodePayload_forMetricId___block_invoke_139(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   byte_2811F7FB4 = result;

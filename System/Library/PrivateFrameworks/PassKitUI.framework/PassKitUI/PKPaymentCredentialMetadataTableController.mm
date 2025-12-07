@@ -52,7 +52,7 @@
   [detailTextLabel2 setAdjustsFontSizeToFitWidth:1];
   [detailTextLabel2 setMinimumScaleFactor:0.75];
   [detailTextLabel2 setNumberOfLines:2];
-  [v6 setSelectionStyle:0];
+  v17 = [v6 setSelectionStyle:0];
   if (self->_cellStyle == 3)
   {
     if (PKPaymentSetupContextIsBridge())
@@ -60,8 +60,8 @@
       systemGrayColor = [MEMORY[0x1E69DC888] systemGrayColor];
       [textLabel setTextColor:systemGrayColor];
 
-      v18 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD80]];
-      [textLabel setFont:v18];
+      v19 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD80]];
+      [textLabel setFont:v19];
 
       [MEMORY[0x1E69DC888] whiteColor];
     }
@@ -71,27 +71,27 @@
       secondaryLabelColor2 = [MEMORY[0x1E69DC888] secondaryLabelColor];
       [textLabel setTextColor:secondaryLabelColor2];
 
-      v22 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD80]];
-      [textLabel setFont:v22];
+      v24 = [MEMORY[0x1E69DB878] preferredFontForTextStyle:*MEMORY[0x1E69DDD80]];
+      [textLabel setFont:v24];
 
       [MEMORY[0x1E69DC888] labelColor];
     }
-    v23 = ;
-    [detailTextLabel2 setTextColor:v23];
+    v25 = ;
+    [detailTextLabel2 setTextColor:v25];
 
-    v20 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD00], 0, 0, 4);
+    v22 = PKFontForDefaultDesign(*MEMORY[0x1E69DDD00], 0, 0, 4);
   }
 
   else
   {
-    v19 = PKOBKListTextFieldCellLabelFont();
-    [textLabel setFont:v19];
+    v20 = PKOBKListTextFieldCellLabelFont(v17);
+    [textLabel setFont:v20];
 
-    v20 = PKOBKListTextFieldCellTextFieldFont();
+    v22 = PKOBKListTextFieldCellTextFieldFont(v21);
   }
 
-  v24 = v20;
-  [detailTextLabel2 setFont:v20];
+  v26 = v22;
+  [detailTextLabel2 setFont:v22];
 
   return v6;
 }

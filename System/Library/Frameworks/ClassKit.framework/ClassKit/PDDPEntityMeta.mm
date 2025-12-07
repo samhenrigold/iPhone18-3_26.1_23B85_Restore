@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)sourceAsString:(int)string;
 - (int)StringAsSource:(id)source;
 - (int)source;
 - (unint64_t)hash;
@@ -26,6 +27,21 @@
   {
     return 0;
   }
+}
+
+- (id)sourceAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [NSString stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = *(&off_100204490 + string);
+  }
+
+  return v4;
 }
 
 - (int)StringAsSource:(id)source
@@ -148,12 +164,11 @@
 {
   toCopy = to;
   has = self->_has;
-  v9 = toCopy;
+  v6 = toCopy;
   if (has)
   {
-    source = self->_source;
     PBDataWriterWriteInt32Field();
-    toCopy = v9;
+    toCopy = v6;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -172,15 +187,13 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  isEditable = self->_isEditable;
   PBDataWriterWriteBOOLField();
-  toCopy = v9;
+  toCopy = v6;
   if ((*&self->_has & 2) != 0)
   {
 LABEL_4:
-    isAdhocOriginated = self->_isAdhocOriginated;
     PBDataWriterWriteBOOLField();
-    toCopy = v9;
+    toCopy = v6;
   }
 
 LABEL_5:
@@ -291,7 +304,6 @@ LABEL_4:
       goto LABEL_15;
     }
 
-    v7 = *(equalCopy + 13);
     if (self->_isEditable)
     {
       if ((*(equalCopy + 13) & 1) == 0)

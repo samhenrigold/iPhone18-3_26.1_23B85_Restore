@@ -16,9 +16,9 @@
   {
     v5 = v3[1];
     selfCopy = self;
-    v7 = sub_10001F89C(v4);
+    v7 = sub_10001F89C(v4, v5);
     v4(v7);
-    sub_100010520(v4);
+    sub_100010520(v4, v5);
     v8 = *v3;
   }
 
@@ -31,7 +31,7 @@
   v10 = v3[1];
   *v3 = 0;
   v3[1] = 0;
-  sub_100010520(v8);
+  sub_100010520(v8, v10);
 }
 
 - (void)datapathConfirmedForPeerDataAddress:(id)address serviceSpecificInfo:(id)info

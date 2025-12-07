@@ -118,51 +118,51 @@ LABEL_4:
   session;
   objectsCopy = objects;
   v5 = sub_1001CA2CC();
-  v31 = sub_10010C758();
+  v30 = sub_10010C758();
   v6 = sub_1001CA208();
   Current = CFAbsoluteTimeGetCurrent();
+  v45 = 0;
+  v46 = 0;
   v47 = 0;
-  v48 = 0;
-  v49 = 0;
+  v41 = 0u;
+  v42 = 0u;
   v43 = 0u;
   v44 = 0u;
-  v45 = 0u;
-  v46 = 0u;
   obj = objectsCopy;
-  v8 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
+  v8 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
   if (v8)
   {
-    v35 = *v44;
+    v33 = *v42;
     do
     {
       for (i = 0; i != v8; i = i + 1)
       {
         while (1)
         {
-          if (*v44 != v35)
+          if (*v42 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v43 + 1) + 8 * i);
-          sub_10008B558(&v36);
+          v10 = *(*(&v41 + 1) + 8 * i);
+          sub_10008B558(&v34);
           [v10 distance];
-          v42 |= 8u;
-          v39 = v11;
+          v40 |= 8u;
+          v37 = v11;
           if (([v10 relationship] & 2) != 0)
           {
-            v42 |= 4u;
+            v40 |= 4u;
             v13 = 2;
           }
 
           else
           {
             relationship = [v10 relationship];
-            v42 |= 4u;
+            v40 |= 4u;
             v13 = relationship & 1;
           }
 
-          LODWORD(v41) = v13;
+          LODWORD(v39) = v13;
           discoveryToken = [v10 discoveryToken];
           rawToken = [discoveryToken rawToken];
           v16 = rawToken;
@@ -170,22 +170,22 @@ LABEL_4:
           discoveryToken2 = [v10 discoveryToken];
           rawToken2 = [discoveryToken2 rawToken];
           v20 = [rawToken2 length];
-          v42 |= 1u;
-          if (v37 == &wireless_diagnostics::google::protobuf::internal::kEmptyString)
+          v40 |= 1u;
+          if (v35 == &wireless_diagnostics::google::protobuf::internal::kEmptyString)
           {
             operator new();
           }
 
-          std::string::assign(v37, bytes, v20);
+          std::string::assign(v35, bytes, v20);
 
           discoveryToken3 = [v10 discoveryToken];
           v22 = [discoveryToken3 hash];
-          v42 |= 2u;
-          v38 = v22;
+          v40 |= 2u;
+          v36 = v22;
 
-          v42 |= 0x10u;
-          v23 = v40;
-          if (!v40)
+          v40 |= 0x10u;
+          v23 = v38;
+          if (!v38)
           {
             operator new();
           }
@@ -193,9 +193,9 @@ LABEL_4:
           [v10 direction];
           *(v23 + 48) |= 2u;
           *(v23 + 16) = v24;
-          v42 |= 0x10u;
-          v25 = v40;
-          if (!v40)
+          v40 |= 0x10u;
+          v25 = v38;
+          if (!v38)
           {
             operator new();
           }
@@ -203,9 +203,9 @@ LABEL_4:
           [v10 direction];
           *(v25 + 48) |= 4u;
           *(v25 + 24) = v26;
-          v42 |= 0x10u;
-          v27 = v40;
-          if (!v40)
+          v40 |= 0x10u;
+          v27 = v38;
+          if (!v38)
           {
             operator new();
           }
@@ -213,14 +213,14 @@ LABEL_4:
           [v10 direction];
           *(v27 + 48) |= 8u;
           *(v27 + 32) = v28;
-          v29 = v48;
-          if (v48 < v49)
+          v29 = v46;
+          if (v46 < v47)
           {
             break;
           }
 
-          v48 = sub_10030D61C(&v47, &v36);
-          sub_10008C4C4(&v36);
+          v46 = sub_10030D61C(&v45, &v34);
+          sub_10008C4C4(&v34);
           i = i + 1;
           if (v8 == i)
           {
@@ -228,20 +228,19 @@ LABEL_4:
           }
         }
 
-        sub_10008C408(v48, &v36);
-        v48 = v29 + 88;
-        sub_10008C4C4(&v36);
+        sub_10008C408(v46, &v34);
+        v46 = v29 + 88;
+        sub_10008C4C4(&v34);
       }
 
 LABEL_20:
-      v8 = [obj countByEnumeratingWithState:&v43 objects:v50 count:16];
+      v8 = [obj countByEnumeratingWithState:&v41 objects:v48 count:16];
     }
 
     while (v8);
   }
 
-  ptr = self->_sensor.__ptr_;
-  sub_100324A00(&v36, v31, &v47, v5, v6, Current);
+  sub_100324A00(&v34, v30, &v45, v5, v6, Current);
   operator new();
 }
 

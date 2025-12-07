@@ -1,2896 +1,353 @@
-uint64_t AppleBCMWLANCore::prepareScanRejectStatsForCA(uint64_t *a1)
+uint64_t AppleBCMWLANCore::handleEventLogGetAsyncCallback()
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:Prepared Scan Reject Stats event to CA\n", "prepareScanRejectStatsForCA", 42441);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate valueRejBlocked\n", "prepareScanRejectStatsForCA", 42438);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate keyRejBlocked\n", "prepareScanRejectStatsForCA", 42436);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate valueRejLLSupp\n", "prepareScanRejectStatsForCA", 42432);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate keyRejLLSupp\n", "prepareScanRejectStatsForCA", 42430);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate valueRejLowRssiRoam\n", "prepareScanRejectStatsForCA", 42426);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate keyRejLowRssiRoam\n", "prepareScanRejectStatsForCA", 42424);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate valueRejIPRes\n", "prepareScanRejectStatsForCA", 42420);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate keyRejIPRes\n", "prepareScanRejectStatsForCA", 42418);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate valueRejBusy\n", "prepareScanRejectStatsForCA", 42414);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate keyRejBusy\n", "prepareScanRejectStatsForCA", 42412);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate valueRejJoin\n", "prepareScanRejectStatsForCA", 42408);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate keyRejJoin\n", "prepareScanRejectStatsForCA", 42406);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate valueRejLowPrio\n", "prepareScanRejectStatsForCA", 42402);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyRejLowPrio\n", "prepareScanRejectStatsForCA", 42400);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logCrit(v5, "[dk] %s@%d:Failed to allocate AppleBCMWLANRoamManager_IVars\n", "prepareScanRejectStatsForCA", 42398);
-    }
-  }
-
-  return result;
-}
-
-uint64_t AppleBCMWLANCore::SendSlicesScanStatsCoreAnalytics(uint64_t *a1)
-{
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Fail to allocate numValue\n", "SendSlicesScanStatsCoreAnalytics", 42962);
-    }
-  }
-
-  *v1 = v2;
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v6, "[dk] %s@%d:Fail to allocate keyString\n", "SendSlicesScanStatsCoreAnalytics", 42959);
-    }
-  }
-
-  *v1 = 0;
-  return result;
-}
-
-{
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Fail to allocate numValue\n", "SendSlicesScanStatsCoreAnalytics", 42952);
-    }
-  }
-
-  *v1 = v2;
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v6, "[dk] %s@%d:Fail to allocate keyString\n", "SendSlicesScanStatsCoreAnalytics", 42949);
-    }
-  }
-
-  *v1 = 0;
-  return result;
-}
-
-{
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Fail to allocate numValue\n", "SendSlicesScanStatsCoreAnalytics", 42942);
-    }
-  }
-
-  *v1 = v2;
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v6, "[dk] %s@%d:Fail to allocate keyString\n", "SendSlicesScanStatsCoreAnalytics", 42939);
-    }
-  }
-
-  *v1 = 0;
-  return result;
-}
-
-{
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Fail to allocate numValue\n", "SendSlicesScanStatsCoreAnalytics", 42932);
-    }
-  }
-
-  *v1 = v2;
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v6, "[dk] %s@%d:Fail to allocate keyString\n", "SendSlicesScanStatsCoreAnalytics", 42929);
-    }
-  }
-
-  *v1 = 0;
-  return result;
-}
-
-{
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Fail to allocate numValue\n", "SendSlicesScanStatsCoreAnalytics", 42922);
-    }
-  }
-
-  *v1 = v2;
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v6, "[dk] %s@%d:Fail to allocate keyString\n", "SendSlicesScanStatsCoreAnalytics", 42919);
-    }
-  }
-
-  *v1 = 0;
-  return result;
-}
-
-{
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Fail to allocate numValue\n", "SendSlicesScanStatsCoreAnalytics", 42909);
-    }
-  }
-
-  *v1 = v2;
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v6, "[dk] %s@%d:Fail to allocate keyString\n", "SendSlicesScanStatsCoreAnalytics", 42906);
-    }
-  }
-
-  *v1 = 0;
-  return result;
-}
-
-{
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Fail to allocate numValue\n", "SendSlicesScanStatsCoreAnalytics", 42899);
-    }
-  }
-
-  *v1 = v2;
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v6, "[dk] %s@%d:Fail to allocate keyString\n", "SendSlicesScanStatsCoreAnalytics", 42896);
-    }
-  }
-
-  *v1 = 0;
-  return result;
-}
-
-{
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Fail to allocate numValue\n", "SendSlicesScanStatsCoreAnalytics", 42889);
-    }
-  }
-
-  *v1 = v2;
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v6, "[dk] %s@%d:Fail to allocate keyString\n", "SendSlicesScanStatsCoreAnalytics", 42886);
-    }
-  }
-
-  *v1 = 0;
-  return result;
-}
-
-{
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Fail to allocate numValue\n", "SendSlicesScanStatsCoreAnalytics", 42879);
-    }
-  }
-
-  *v1 = v2;
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v6, "[dk] %s@%d:Fail to allocate keyString\n", "SendSlicesScanStatsCoreAnalytics", 42876);
-    }
-  }
-
-  *v1 = 0;
-  return result;
-}
-
-{
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Fail to allocate numValue\n", "SendSlicesScanStatsCoreAnalytics", 42869);
-    }
-  }
-
-  *v1 = v2;
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v6, "[dk] %s@%d:Fail to allocate keyString\n", "SendSlicesScanStatsCoreAnalytics", 42866);
-    }
-  }
-
-  *v1 = 0;
-  return result;
-}
-
-{
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Fail to allocate numValue\n", "SendSlicesScanStatsCoreAnalytics", 42858);
-    }
-  }
-
-  *v1 = v2;
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v6, "[dk] %s@%d:Fail to allocate keyString\n", "SendSlicesScanStatsCoreAnalytics", 42855);
-    }
-  }
-
-  *v1 = 0;
-  return result;
-}
-
-{
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Fail to allocate numValue\n", "SendSlicesScanStatsCoreAnalytics", 42848);
-    }
-  }
-
-  *v1 = v2;
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v6, "[dk] %s@%d:Fail to allocate keyString\n", "SendSlicesScanStatsCoreAnalytics", 42845);
-    }
-  }
-
-  *v1 = 0;
-  return result;
-}
-
-{
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Fail to allocate numValue\n", "SendSlicesScanStatsCoreAnalytics", 42838);
-    }
-  }
-
-  *v1 = v2;
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v6, "[dk] %s@%d:Fail to allocate keyString\n", "SendSlicesScanStatsCoreAnalytics", 42835);
-    }
-  }
-
-  *v1 = 0;
-  return result;
-}
-
-{
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Fail to allocate numValue\n", "SendSlicesScanStatsCoreAnalytics", 42828);
-    }
-  }
-
-  *v1 = v2;
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v6, "[dk] %s@%d:Fail to allocate keyString\n", "SendSlicesScanStatsCoreAnalytics", 42825);
-    }
-  }
-
-  *v1 = 0;
-  return result;
-}
-
-{
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Fail to allocate numValue\n", "SendSlicesScanStatsCoreAnalytics", 42818);
-    }
-  }
-
-  *v1 = v2;
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v6, "[dk] %s@%d:Fail to allocate keyString\n", "SendSlicesScanStatsCoreAnalytics", 42815);
-    }
-  }
-
-  *v1 = 0;
-  return result;
-}
-
-{
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Fail to allocate numValue\n", "SendSlicesScanStatsCoreAnalytics", 42806);
-    }
-  }
-
-  *v1 = v2;
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v6, "[dk] %s@%d:Fail to allocate keyString\n", "SendSlicesScanStatsCoreAnalytics", 42804);
-    }
-  }
-
-  *v1 = 0;
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v6, "[dk] %s@%d:Fail to allocate eventPayload\n", "SendSlicesScanStatsCoreAnalytics", 42799);
-    }
-  }
-
-  *v1 = 0;
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate eventName\n", "SendSlicesScanStatsCoreAnalytics", 42797);
-    }
-  }
-
-  return result;
-}
-
-void AppleBCMWLANCore::sendePNOEventsCoreAnalytics(uint64_t *a1)
-{
-  OUTLINED_FUNCTION_33_3(a1);
-  if ((*(v2 + 1952))())
-  {
-    (*(*v1 + 1952))(v1);
-    if (CCLogStream::shouldLog())
-    {
-      v3 = (*(*v1 + 1952))(v1);
-      CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate eventPayload\n", "sendePNOEventsCoreAnalytics", 43026);
-    }
-  }
-
-  OUTLINED_FUNCTION_208();
-}
-
-{
-  OUTLINED_FUNCTION_33_3(a1);
-  if ((*(v2 + 1952))())
-  {
-    (*(*v1 + 1952))(v1);
-    if (CCLogStream::shouldLog())
-    {
-      v3 = (*(*v1 + 1952))(v1);
-      CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate eventPayload\n", "sendePNOEventsCoreAnalytics", 43017);
-    }
-  }
-
-  OUTLINED_FUNCTION_208();
-}
-
-{
-  OUTLINED_FUNCTION_33_3(a1);
-  if ((*(v2 + 1952))())
-  {
-    (*(*v1 + 1952))(v1);
-    if (CCLogStream::shouldLog())
-    {
-      v3 = (*(*v1 + 1952))(v1);
-      CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate eventPayload\n", "sendePNOEventsCoreAnalytics", 43008);
-    }
-  }
-
-  OUTLINED_FUNCTION_208();
-}
-
-{
-  OUTLINED_FUNCTION_33_3(a1);
-  if ((*(v2 + 1952))())
-  {
-    (*(*v1 + 1952))(v1);
-    if (CCLogStream::shouldLog())
-    {
-      v3 = (*(*v1 + 1952))(v1);
-      CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate eventPayload\n", "sendePNOEventsCoreAnalytics", 42999);
-    }
-  }
-
-  OUTLINED_FUNCTION_208();
-}
-
-uint64_t AppleBCMWLANCore::sendePNOEventsCoreAnalytics(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate eventName\n", "sendePNOEventsCoreAnalytics", 43024);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate eventName\n", "sendePNOEventsCoreAnalytics", 43015);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate eventName\n", "sendePNOEventsCoreAnalytics", 43006);
-    }
-  }
-
-  return result;
-}
-
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:Submitted ePNO event type %d to CA\n", v5, v6, v7);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate valueePNOevent\n", "sendePNOEventsCoreAnalytics", 43033);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate eventName\n", "sendePNOEventsCoreAnalytics", 42997);
-    }
-  }
-
-  return result;
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Fail to allocate keyePNOevent\n", "sendePNOEventsCoreAnalytics", 43031);
-}
-
-uint64_t AppleBCMWLANCore::sendSCTxBlankingStatsEventCoreAnalytics(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyString\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43221);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyString\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43213);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyString\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43205);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyString\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43197);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyString\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43189);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyString\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43181);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyString\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43173);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyString\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43165);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyString\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43157);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyString\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43149);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyString\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43141);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyString\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43133);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyString\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43125);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyString\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43117);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyString\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43109);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyString\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43101);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate keyString\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43093);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate eventPayload\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43090);
-    }
-  }
-
-  return result;
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Fail to allocate eventName\n", "sendSCTxBlankingStatsEventCoreAnalytics", 43088);
-    }
-  }
-
-  return result;
-}
-
-uint64_t AppleBCMWLANCore::updateDynSARSimpleReport(uint64_t *a1)
-{
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      v8 = *v2 + (v1 << 6);
-      v9 = *(v8 + 4760);
-      return CCLogStream::logEmergency(v7, "[dk] %s@%d: Overflow detected: non_opt_dur[%llu] pwr_opt_dur[%llu] fail_safe_dur[%llu] no_mute_dur[%llu] hybrid_dur[%llu] txdc_throttle_dur[%llu] pwr_opt_txdc_throttle_dur[%llu]\n", "updateDynSARSimpleReport", 43268, *(v8 + 4744), *(v8 + 4752), *(v8 + 4760), *(v8 + 4768), *(v8 + 4776), *(v8 + 4784), *(v8 + 4792));
-    }
-  }
-
-  return result;
-}
-
-uint64_t AppleBCMWLANCore::configureLPASEntry(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to enable LPAS mode in F/W\n", "configureLPASEntry", 43751);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to Configure LPAS Packet Filters\n", "configureLPASEntry", 43783);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureWoWEntry(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Configuring NAT/CarPlay/VPN Keep-Alives Not Supported\n", "configureWoWEntry", 43890);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to configure NAT/CarPlay/VPN Keep Alives\n", "configureWoWEntry", 43892);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to Configure Pkt Filters\n", "configureWoWEntry", 43898);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to UnConfigure Pkt Filters\n", "configureWoWEntry", 43901);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureAssociatedSleepEntryParams(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to turn on Link Up filtering: %s\n", v9, v10, v11);
+  return CCLogStream::logNotice(v0, "[dk] %s@%d:LQM-WiFi-Roam: fail to dump roam target evaluation - %s\n", v5, v6, v7);
 }
 
+uint64_t AppleBCMWLANCore::setTxHighCapTimeout()
 {
-  v1 = OUTLINED_FUNCTION_5_6(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_232();
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: rval[0x%08x], fAssociatedbeforeSleep[%u] -> true, fPowerSaveMode[%u]\n", v5, v6, v7, v8, v9);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: txcap high power timeout is not supported!\n", "setTxHighCapTimeout", 53497);
 }
 
+uint64_t AppleBCMWLANCore::sendTxPowerCapBypassToFirmware()
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureLPASMode(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v3 = OUTLINED_FUNCTION_10_5(a1);
-  (*(v4 + 1952))(v3);
-  v5 = OUTLINED_FUNCTION_12_1();
-  IsBitSet = AppleBCMWLANCore::featureFlagIsBitSet(v5, 26);
-  v7 = AppleBCMWLANCore::featureFlagIsBitSet(v1, 70);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d: rval[0x%08x], supported[%u] concurrency[%u] softAP[%u] fLPASEnabledBeforeSleep[%u] fPowerSaveMode[%u]\n", "configureLPASMode", 50458, 0, IsBitSet, v7, (*(*(v1 + 9) + 19801) >> 2) & 1, *(*(v1 + 9) + 777), *(*(v1 + 9) + 6724));
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Failure to configure LPAS in FW: %s\n", v9, v10, v11);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d: Unable to set txcapbypass: %s\n", v5, v6, v7);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureLPASMode(uint64_t *a1, uint64_t a2, _DWORD *a3)
-{
-  v5 = OUTLINED_FUNCTION_0_8(a1);
-  (*(v6 + 1952))(v5);
-  OUTLINED_FUNCTION_3_5();
-  v8 = *(v7 + 112);
-  v9 = OUTLINED_FUNCTION_172();
-  v11 = v10(v9);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: LPAS request in FW: %s %d \n", "configureLPASMode", 50485, v11, *a3);
-}
-
-uint64_t AppleBCMWLANCore::configurePktFilters(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Lost Link while configuring Packet Filters\n", "configurePktFilters", 50071);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to get packet filter data\n", "configurePktFilters", 50091);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to Configure Legacy Unicast Filter\n", "configurePktFilters", 50157);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to Configure IPv4 Pkt Filter ID %d\n", "configurePktFilters", 50118, 102);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Failed to Configure Max Num of Pkt Filters\n", "configurePktFilters", 50130);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to Configure IPv6 Pkt Filter %d\n", "configurePktFilters", 50137, 107);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Added %s Filters\n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to Configure Magic Packet Filter %d at offset %d\n", "configurePktFilters", 50178, 104, 14);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to configure Magic Packet Filter %d\n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to configure Active Ports, Disable Port Filtering and rely on IP Filtering\n", "configurePktFilters", 50211);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to turn on IP packet filter: %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Unicast IPv4 filter enabled (ID=%d)\n", "configurePktFilters", 50232, 102);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Unable to turn on ARP Offload\n", "configurePktFilters", 50238);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: ARP Offload enabled\n", "configurePktFilters", 50242);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Enabled the 'ICMP' packet filter\n", "configurePktFilters", 50261);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Neighbor Discovery Offload Enabled in F/W\n", "configurePktFilters", 50268);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Enabled IPv6 Pkt Filters\n", "configurePktFilters", 50272);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to turn on IPv6 packet filter: %s\n", v9, v10, v11);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  v4 = (*(v3 + 1952))(v2);
-  return CCLogStream::logNotice(v4, "(ID=%d) \n", v1);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to turn on Magic packet filter: %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Enabled WOMP filter  (ID=%d) (ID=%d)\n", "configurePktFilters", 50292, 104, 105);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:%s: Enable WoWEapolFilter\n", v5, v6, v7);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to turn on EAPOL filter: %s\n", v9, v10, v11);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to turn on Magic packet filter: %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: WOMP Magic Packet filter enabled (ID=%d)  \n", "configurePktFilters", 50310, 104);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to allocate packet filter buffer\n", "configurePktFilters", 50078);
-}
-
-uint64_t AppleBCMWLANCore::unConfigurePktFilters(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to configure Active Ports\n", "unConfigurePktFilters", 50328);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to turn off IPv4 packet filter: %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d: Disabled IPv4 packet filter\n", "unConfigurePktFilters", 50338);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d: Disabled ARP Offload:\n", "unConfigurePktFilters", 50345);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d: Disabled the 'ICMP' packet filter\n", "unConfigurePktFilters", 50350);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to turn off IPv6 packet filter: %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Disabling WoWEapolFiter\n", "unConfigurePktFilters", 50361);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to turn off magic packet filter: %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::initialize6GCapabilities(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logAlertIf(v3, 0x4000uLL, "[dk] %s@%d:%s WiFiRoam : 6GHz configuration not allowed\n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logAlertIf(v3, 0x4000uLL, "[dk] %s@%d:%s WiFiRoam : 6GHz configuration IS allowed\n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureAvgRssiParamsForAssociatedSleepEntry(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logNotice(v3, "[dk] %s@%d:Associated to IBSS, Bailout\n", "configureAvgRssiParamsForAssociatedSleepEntry", 55794);
-}
-
-uint64_t AppleBCMWLANCore::resetClockDrifts(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Failed to reset drift stats\n", "resetClockDrifts", 44646);
-}
-
-uint64_t AppleBCMWLANCore::updateInactivityAndSleepCounters(uint64_t *a1)
-{
-  v3 = OUTLINED_FUNCTION_5_6(a1);
-  v5 = (*(v4 + 1952))(v3);
-  return CCLogStream::logInfo(v5, "[dk] %s@%d:Most recent traffic inactivity duration = %llu, Accumulated = %llu \n", "updateInactivityAndSleepCounters", 55631, v1 - *(*v2 + 17712), *(*v2 + 17728));
-}
-
-{
-  v3 = OUTLINED_FUNCTION_5_6(a1);
-  v5 = (*(v4 + 1952))(v3);
-  return CCLogStream::logAlert(v5, "[dk] %s@%d:Most recent LPAS/WoW duration = %llu Accumulated = %llu \n", "updateInactivityAndSleepCounters", 55625, v1 - *(*v2 + 17720), *(*v2 + 17736));
-}
-
-uint64_t AppleBCMWLANCore::configureAvgRssiParamsForAssociatedSleepExit(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logNotice(v3, "[dk] %s@%d:Associated to IBSS, Bailout\n", "configureAvgRssiParamsForAssociatedSleepExit", 55823);
-}
-
-uint64_t AppleBCMWLANCore::configureLPASExit(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_10_5(a1);
-  (*(v3 + 1952))(v2);
-  v4 = OUTLINED_FUNCTION_12_1();
-  AppleBCMWLANCore::featureFlagIsBitSet(v4, 26);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: LPAS supported[%u]\n", v6, v7, v8);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to disable LPAS mode in F/W\n", "configureLPASExit", 44199);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to UnConfigure Pkt Filters\n", "configureLPASExit", 44205);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureWoWExit(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to UnConfigure Keep-Alives\n", "configureWoWExit", 44251);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to UnConfigure Pkt Filters\n", "configureWoWExit", 44264);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureAssociatedSleepExitParams(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to turn off Link Up filtering %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to release Events\n", "configureAssociatedSleepExitParams", 44326);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_6(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_232();
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: rval[0x%08x], fAssociatedbeforeSleep[%u] -> false, fPowerSaveMode[%u]\n", v5, v6, v7, v8, v9);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::timeSinceLastActivity_abs(uint64_t *a1, uint64_t a2, uint64_t a3, void *a4)
-{
-  OUTLINED_FUNCTION_19_6(a1);
-  result = (*(v8 + 1952))();
-  if (result)
-  {
-    (*(*v6 + 1952))(v6);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v10 = (*(*v6 + 1952))(v6);
-      result = CCLogStream::logEmergency(v10, "[dk] %s@%d: Overflow detected, now_abs[%llu] ivars->fLastLinkActivity_abs[%llu]\n", "timeSinceLastActivity_abs", 44804, *v5, *(*v4 + 6536));
-    }
-  }
-
-  *a4 = 0;
-  return result;
-}
-
-uint64_t AppleBCMWLANCore::captureRequestCallback(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Problem reported from corecapture: %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:Faulter Reporter is busy!\n", "captureRequestCallback", 45490);
-}
-
-uint64_t AppleBCMWLANCore::setLogFlagsCallback(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Setting loggerstream flags to 0x%llX\n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::getFeatures(uint64_t *a1)
-{
-  v3 = OUTLINED_FUNCTION_5_6(a1);
-  v5 = (*(v4 + 1952))(v3);
-  return CCLogStream::logInfoIf(v5, 0x80uLL, "[dk] %s@%d:[WiFiTimeSync] ptmMode = %d supported features = 0x%x\n", "getFeatures", 45960, *(*v2 + 30088), v1);
-}
-
-uint64_t AppleBCMWLANCore::getCHANNELS_INFO(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
-  v4 = *(*v1 + 19916);
-  OUTLINED_FUNCTION_198();
-  return CCLogStream::logAlert(v5, "[dk] %s@%d:Querying FW as number of chanspecs is %d, current CC %s\n", "getCHANNELS_INFO", 46077, v7, v8);
-}
-
-uint64_t AppleBCMWLANCore::getCOUNTRY_BAND_SUPPORT(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logInfo(v3, "[dk] %s@%d: %s WiFiMC : Country supports 6GHz\n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::handleGetChanSpecs(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:Error: cannot get chanspecs: %s\n", v9, v10, v11);
-}
-
-{
-  v3 = OUTLINED_FUNCTION_5_6(a1);
-  v5 = (*(v4 + 1952))(v3);
-  return CCLogStream::logNoticeIf(v5, 0x4000000400uLL, "[dk] %s@%d:Num chanspecs in response: %d, Saved: %d\n", "handleGetChanSpecs", 46214, *v2, v1);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_234();
-  OUTLINED_FUNCTION_139();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:WiFiCC : Writing current FW country code [%s] to fChanListQueriedForCountryCode\n", "handleGetChanSpecs", 46235, v5);
-}
-
-uint64_t AppleBCMWLANCore::get6GTxPowerFromFW(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Invalid power mode %d\n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::handleGetCountryListAsyncCallBack(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Failed to retrieve country code list from firmware: %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logNotice(v3, "[dk] %s@%d:No valid data\n", "handleGetCountryListAsyncCallBack", 46593);
-}
-
-uint64_t AppleBCMWLANCore::handleGet6ECountryListAsyncCallBack(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Failed to retrieve country code list from firmware: %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_15_4();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:WiFiCC : Total # of 6E supported countries in CLM: %d\n", "handleGet6ECountryListAsyncCallBack", 46628, v5);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logNotice(v3, "[dk] %s@%d:No valid data\n", "handleGet6ECountryListAsyncCallBack", 46623);
-}
-
-uint64_t AppleBCMWLANCore::getGUARD_INTERVAL(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logCrit(v1, "[dk] %s@%d:nrate failed, error %s\n", v9, v10, v11);
-}
-
-uint64_t AppleBCMWLANCore::getPOWER_DEBUG_INFO(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logNotice(v3, "[dk] %s@%d: Failed to get PM/MPC Duration Values, retrieving Cached Values \n", "getPOWER_DEBUG_INFO", 47498);
-}
-
-uint64_t AppleBCMWLANCore::collectOPSEBTStatus(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to Collect OPS Stats\n", "collectOPSEBTStatus", 48103);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to Collect EBT Status\n", "collectOPSEBTStatus", 48121);
-}
-
-uint64_t AppleBCMWLANCore::getActivePortsFromNetworkStack(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to get packet filter data\n", "getActivePortsFromNetworkStack", 48296);
-}
-
-{
-  v3 = OUTLINED_FUNCTION_5_6(a1);
-  v5 = (*(v4 + 1952))(v3);
-  return CCLogStream::logAlert(v5, "[dk] %s@%d:%s: Number of active ports - %d networking %d arr size %lu \n", "getActivePortsFromNetworkStack", 48305, "getActivePortsFromNetworkStack", *(*v2 + 10300), *v1, 128);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: is enabled but there are no active ports in the system, falling back to legacy WoW \n", "getActivePortsFromNetworkStack", 48315);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to allocate packet filter buffer\n", "getActivePortsFromNetworkStack", 48283);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:ivars->fInfraSkywalkInterface is null\n", "getActivePortsFromNetworkStack", 48235);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureActivePortsInToChip(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to configure Packet Port List : %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureMaxPktFilter(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureComplexFilters(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureComplexFilters(uint64_t *a1, uint64_t a2, unsigned __int8 a3)
-{
-  v5 = OUTLINED_FUNCTION_11_4(a1);
-  v7 = (*(v6 + 1952))(v5);
-  my_ip6_sprintf((*(v3 + 72) + 16 * a3 + 9524));
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logInfo(v7, "[dk] %s@%d:IPv6 address %s\n", v9, v10, v11);
-}
-
-uint64_t AppleBCMWLANCore::configureComplexFilters()
-{
-  OUTLINED_FUNCTION_32_1();
-  v3 = OUTLINED_FUNCTION_5_5(v2);
-  v5 = (*(v4 + 1952))(v3);
-  v6 = *v0;
-  v7 = *(*v0 + 10040);
-  v8 = my_ip6_sprintf((v6 + 16 * v1 + 9524));
-  return CCLogStream::logAlert(v5, "[dk] %s@%d: Added complex filter: ipv6 filterType[%u] index[%u], addr count[%u] '%s'\n", "configureComplexFilters", 48638, 107, v1, v7, v8);
-}
-
-uint64_t AppleBCMWLANCore::configureEapolFilter(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:%s: Configuring WoWEapolFilter\n", v5, v6, v7);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: pkt_filter_add failed to set packet filter: %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureMagicPktFilter(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  v4 = (*(v3 + 1952))(v2);
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:%s: Failed to get magic pattern data (%d)\n", "configureMagicPktFilter", 48713, "configureMagicPktFilter", v1);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: pkt_filter_add failed to set packet filter: %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureMagicPktFilter()
-{
-  OUTLINED_FUNCTION_32_1();
-  v3 = OUTLINED_FUNCTION_5_5(v2);
-  v5 = (*(v4 + 1952))(v3);
-  return CCLogStream::logAlert(v5, "[dk] %s@%d:Magic pattern(%d) length - %d\n", "configureMagicPktFilter", 48729, v1, *(v0 + 42 * v1 + 4));
-}
-
-uint64_t AppleBCMWLANCore::configureMagicPktFilter(uint64_t *a1, uint64_t a2, uint64_t a3, int a4)
-{
-  v7 = OUTLINED_FUNCTION_29_5(a1);
-  (*(v8 + 1952))(v7);
-  v9 = OUTLINED_FUNCTION_77();
-  ClassNameHelper = getClassNameHelper(v9);
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:%s::%s():invalid parameters %d %u\n", "configureMagicPktFilter", 48750, ClassNameHelper, "configureMagicPktFilter", *(*a3 + 19848), a4);
-}
-
-uint64_t AppleBCMWLANCore::configureLegacyFilters(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to set IP address packet filter: %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Added Unicast IP filter \n", "configureLegacyFilters", 48806);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::enablePacketFilters(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Lost Link while enabling Packet Filters\n", "enablePacketFilters", 48821);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::disablePacketFilters(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::deleteIPv6PktFilters(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to delete Unicast IPv6 address packet filter: %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::deleteIPv4PktFilters(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Failed SET IOCTL, cret[0x%08x]\n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::deleteEapolFilter(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:%s: deleting WoWEapolFilter\n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Failed SET IOCTL, cret[0x%08x]\n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::deleteMagicPktFilters(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Failed SET IOCTL, cret[0x%08x]\n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Failed SET IOCTL, cret[0x%08x]\n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::resetWoWConfig(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to enable EBT in F/W\n", "resetWoWConfig", 49019);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d: Deleted IPv4/IPv6 and Magic packet filters\n", "resetWoWConfig", 49025);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::resetOffloads(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureICMP(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::isIPv6AlreadyProgrammed(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureARPOffload(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Error: Unable to turn on ARP monitoring: %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Failed SET IOCTL, cret[0x%08x]\n", v5, v6, v7);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  v4 = (*(v3 + 1952))(v2);
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:%s: Failed to get protocol offload data (%d)\n", "configureARPOffload", 49124, "configureARPOffload", v1);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to program IP address for ARP filtering: %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureNeighbourDiscovery(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Failed to configure HOST IPs for Neighbor Discovery\n", "configureNeighbourDiscovery", 49320);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::clearHostIPv6TableForNeighbourDiscovery(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Failed to Clear IPV6 addresses from to IPV6 Table %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureHostIPsForNeighbourDiscovery(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  v4 = (*(v3 + 1952))(v2);
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:%s: Failed to get protocol offload data (%d)\n", "configureHostIPsForNeighbourDiscovery", 49341, "configureHostIPsForNeighbourDiscovery", v1);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Failed to add IPV6 address in to IPV6 Table %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::getNeighbourDiscoveryStats(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Failure to get Neighbour Discovery status: %s\n", v9, v10, v11);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Failed collect Neighbor Discovery Stats %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::ignoreUnicastPackets(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Enter %s \n", v5, v6, v7);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to configure Packet Port  0 : %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v3, 0x8000000uLL, "[dk] %s@%d:Leave %s \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::disableECounters(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:setEcountersEnableStateSync fail =(0x%x) from disableECounters\n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::enableECounters(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:setEcountersEnableStateSync fail =(0x%x) from enableECounters\n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::enableECountersV2(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Error: Unable to set ecounters V2: %s\n", v9, v10, v11);
-}
-
-uint64_t AppleBCMWLANCore::enableECountersV1(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Error: Unable to set ecounters: %s\n", v9, v10, v11);
-}
-
-uint64_t AppleBCMWLANCore::disableECountersV1(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Error: Unable to set ecounters: %s\n", v9, v10, v11);
-}
-
-uint64_t AppleBCMWLANCore::configureEventLogShrinkStats(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:Event Log Configuration failed\n", "configureEventLogShrinkStats", 52662);
-}
-
-uint64_t AppleBCMWLANCore::handleEventLogGetAsyncCallback(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logNotice(v1, "[dk] %s@%d:LQM-WiFi-Roam: fail to dump roam target evaluation - %s\n", v9, v10, v11);
-}
-
-uint64_t AppleBCMWLANCore::setTxHighCapTimeout(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: txcap high power timeout is not supported!\n", "setTxHighCapTimeout", 53497);
-}
-
-uint64_t AppleBCMWLANCore::sendTxPowerCapBypassToFirmware(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to set txcapbypass: %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_233();
-  v5 = "UNINITIALIZED";
-  v6 = *(v4 + 3388);
-  if (v6)
+  v3 = "UNINITIALIZED";
+  v4 = *(v2 + 3388);
+  if (v4)
   {
-    v7 = "UNINITIALIZED";
+    v5 = "UNINITIALIZED";
   }
 
   else
   {
-    v7 = "INACTIVE";
+    v5 = "INACTIVE";
   }
 
-  if (v6 == 1)
+  if (v4 == 1)
+  {
+    v6 = "ACTIVE";
+  }
+
+  else
+  {
+    v6 = v5;
+  }
+
+  v7 = *(v2 + 3392);
+  if (!v7)
+  {
+    v3 = "INACTIVE";
+  }
+
+  if (v7 == 1)
   {
     v8 = "ACTIVE";
   }
 
   else
   {
-    v8 = v7;
+    v8 = v3;
   }
 
-  v9 = *(v4 + 3392);
-  if (!v9)
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:builtInReceiverState is %s and cellularTxState is %s. Skipping setting txcapbypass iovar\n", "sendTxPowerCapBypassToFirmware", 53289, v6, v8);
+}
+
+uint64_t AppleBCMWLANCore::getTxPowerCapState()
+{
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
+  OUTLINED_FUNCTION_3_5();
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
+  OUTLINED_FUNCTION_6();
+  return CCLogStream::logAlert(v0, "[dk] %s@%d: Unable to retrive txcap state: ret  %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: txcap state is not supported!\n", "getTxPowerCapState", 53366);
+}
+
+uint64_t AppleBCMWLANCore::getTxPowerCapStateV3()
+{
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
+  OUTLINED_FUNCTION_3_5();
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
+  OUTLINED_FUNCTION_6();
+  return CCLogStream::logAlert(v0, "[dk] %s@%d: Unable to retrive txcap state: ret  %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: txcap state is not supported!\n", "getTxPowerCapStateV3", 53389);
+}
+
+uint64_t AppleBCMWLANCore::getTxPowerCapStateV4()
+{
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
+  OUTLINED_FUNCTION_3_5();
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
+  OUTLINED_FUNCTION_6();
+  return CCLogStream::logAlert(v0, "[dk] %s@%d: Unable to retrive txcap state: ret  %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: txcap state is not supported!\n", "getTxPowerCapStateV4", 53412);
+}
+
+uint64_t AppleBCMWLANCore::getTxPowerCapDebugInfoV3()
+{
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
+  OUTLINED_FUNCTION_3_5();
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
+  OUTLINED_FUNCTION_6();
+  return CCLogStream::logAlert(v0, "[dk] %s@%d: Unable to retrive txcap state: ret  %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: txcap dump is not supported!\n", "getTxPowerCapDebugInfoV3", 53434);
+}
+
+uint64_t AppleBCMWLANCore::getTxPowerCapDebugInfoV5()
+{
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
+  OUTLINED_FUNCTION_3_5();
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
+  OUTLINED_FUNCTION_6();
+  return CCLogStream::logAlert(v0, "[dk] %s@%d: Unable to retrive txcap state: ret  %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: txcap dump is not supported!\n", "getTxPowerCapDebugInfoV5", 53454);
+}
+
+uint64_t AppleBCMWLANCore::getTxPowerCapDebugInfoV7()
+{
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
+  OUTLINED_FUNCTION_3_5();
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
+  OUTLINED_FUNCTION_6();
+  return CCLogStream::logAlert(v0, "[dk] %s@%d: Unable to retrive txcap state: ret  %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: txcap dump is not supported!\n", "getTxPowerCapDebugInfoV7", 53473);
+}
+
+uint64_t AppleBCMWLANCore::getTxHighCapTimeout()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: txcap high power timeout is not supported!\n", "getTxHighCapTimeout", 53543);
+}
+
+uint64_t AppleBCMWLANCore::selfDiagnosticsReport()
+{
+  OUTLINED_FUNCTION_35_1();
+  result = (*(v1 + 1952))();
+  if (result)
   {
-    v5 = "INACTIVE";
+    (*(*v0 + 1952))(v0);
+    result = CCLogStream::shouldLog();
+    if (result)
+    {
+      v3 = (*(*v0 + 1952))(v0);
+      return CCLogStream::logAlert(v3, "[dk] %s@%d: kIO80211ReturnPostMessageError Reported. Skipping capture ...\n", "selfDiagnosticsReport", 53598);
+    }
   }
 
-  if (v9 == 1)
+  return result;
+}
+
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_11_3();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:SlowWiFiRecovery due to %s. Attempting to trap.\n", v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:SlowDPS Reported. Attempting to trap.\n", "selfDiagnosticsReport", 53569);
+}
+
+uint64_t AppleBCMWLANCore::configureReportGated()
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_20_3();
+  result = (*(v4 + 1952))();
+  if (result)
   {
-    v10 = "ACTIVE";
+    (*(*v1 + 1952))(v1);
+    result = CCLogStream::shouldLog();
+    if (result)
+    {
+      (*(*v1 + 1952))(v1);
+      v6 = OUTLINED_FUNCTION_86();
+      getClassNameHelper(v6);
+      OUTLINED_FUNCTION_74_0();
+      result = CCLogStream::logEmergency(v2, "[dk] %s@%d:DKReporter::%s::%s(%d) getIOReporterCore()->configureReport failed", v7, v8, v9, v10, v11);
+    }
   }
 
-  else
+  *v0 = v3;
+  return result;
+}
+
+{
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_20_3();
+  result = (*(v4 + 1952))();
+  if (result)
   {
-    v10 = v5;
+    (*(*v1 + 1952))(v1);
+    result = CCLogStream::shouldLog();
+    if (result)
+    {
+      (*(*v1 + 1952))(v1);
+      v6 = OUTLINED_FUNCTION_86();
+      getClassNameHelper(v6);
+      OUTLINED_FUNCTION_74_0();
+      result = CCLogStream::logEmergency(v2, "[dk] %s@%d:DKReporter::%s::%s(%d) getIOReporterPerSlice()->configureReport failed", v7, v8, v9, v10, v11);
+    }
   }
 
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:builtInReceiverState is %s and cellularTxState is %s. Skipping setting txcapbypass iovar\n", "sendTxPowerCapBypassToFirmware", 53289, v8, v10);
-}
-
-uint64_t AppleBCMWLANCore::getTxPowerCapState(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to retrive txcap state: ret  %s\n", v9, v10, v11);
+  *v0 = v3;
+  return result;
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: txcap state is not supported!\n", "getTxPowerCapState", 53366);
-}
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_20_3();
+  result = (*(v4 + 1952))();
+  if (result)
+  {
+    (*(*v1 + 1952))(v1);
+    result = CCLogStream::shouldLog();
+    if (result)
+    {
+      (*(*v1 + 1952))(v1);
+      v6 = OUTLINED_FUNCTION_86();
+      getClassNameHelper(v6);
+      OUTLINED_FUNCTION_74_0();
+      result = CCLogStream::logEmergency(v2, "[dk] %s@%d:DKReporter::%s::%s(%d) fAudioProtector->configureReport failed", v7, v8, v9, v10, v11);
+    }
+  }
 
-uint64_t AppleBCMWLANCore::getTxPowerCapStateV3(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to retrive txcap state: ret  %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: txcap state is not supported!\n", "getTxPowerCapStateV3", 53389);
-}
-
-uint64_t AppleBCMWLANCore::getTxPowerCapStateV4(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to retrive txcap state: ret  %s\n", v9, v10, v11);
+  *v0 = v3;
+  return result;
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: txcap state is not supported!\n", "getTxPowerCapStateV4", 53412);
-}
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_20_3();
+  result = (*(v4 + 1952))();
+  if (result)
+  {
+    (*(*v1 + 1952))(v1);
+    result = CCLogStream::shouldLog();
+    if (result)
+    {
+      (*(*v1 + 1952))(v1);
+      v6 = OUTLINED_FUNCTION_86();
+      getClassNameHelper(v6);
+      OUTLINED_FUNCTION_74_0();
+      result = CCLogStream::logEmergency(v2, "[dk] %s@%d:DKReporter::%s::%s(%d) fCommander->configureReport failed", v7, v8, v9, v10, v11);
+    }
+  }
 
-uint64_t AppleBCMWLANCore::getTxPowerCapDebugInfoV3(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to retrive txcap state: ret  %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: txcap dump is not supported!\n", "getTxPowerCapDebugInfoV3", 53434);
-}
-
-uint64_t AppleBCMWLANCore::getTxPowerCapDebugInfoV5(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to retrive txcap state: ret  %s\n", v9, v10, v11);
+  *v0 = v3;
+  return result;
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: txcap dump is not supported!\n", "getTxPowerCapDebugInfoV5", 53454);
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_20_3();
+  result = (*(v4 + 1952))();
+  if (result)
+  {
+    (*(*v1 + 1952))(v1);
+    result = CCLogStream::shouldLog();
+    if (result)
+    {
+      (*(*v1 + 1952))(v1);
+      v6 = OUTLINED_FUNCTION_86();
+      getClassNameHelper(v6);
+      OUTLINED_FUNCTION_74_0();
+      result = CCLogStream::logEmergency(v2, "[dk] %s@%d:DKReporter::%s::%s(%d) fApStaInterface->configureReport failed", v7, v8, v9, v10, v11);
+    }
+  }
+
+  *v0 = v3;
+  return result;
 }
 
-uint64_t AppleBCMWLANCore::getTxPowerCapDebugInfoV7(uint64_t *a1)
 {
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to retrive txcap state: ret  %s\n", v9, v10, v11);
+  OUTLINED_FUNCTION_4();
+  OUTLINED_FUNCTION_20_3();
+  result = (*(v4 + 1952))();
+  if (result)
+  {
+    (*(*v1 + 1952))(v1);
+    result = CCLogStream::shouldLog();
+    if (result)
+    {
+      (*(*v1 + 1952))(v1);
+      v6 = OUTLINED_FUNCTION_86();
+      getClassNameHelper(v6);
+      OUTLINED_FUNCTION_74_0();
+      result = CCLogStream::logEmergency(v2, "[dk] %s@%d:DKReporter::%s::%s(%d) super::configureReport(channels, action, sumCount) failed", v7, v8, v9, v10, v11);
+    }
+  }
+
+  *v0 = v3;
+  return result;
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: txcap dump is not supported!\n", "getTxPowerCapDebugInfoV7", 53473);
-}
-
-uint64_t AppleBCMWLANCore::getTxHighCapTimeout(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: txcap high power timeout is not supported!\n", "getTxHighCapTimeout", 53543);
-}
-
-uint64_t AppleBCMWLANCore::selfDiagnosticsReport(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_0_25();
+  result = (*(v3 + 1952))();
   if (result)
   {
     (*(*v1 + 1952))(v1);
@@ -2898,503 +355,346 @@ uint64_t AppleBCMWLANCore::selfDiagnosticsReport(uint64_t *a1)
     if (result)
     {
       v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d: kIO80211ReturnPostMessageError Reported. Skipping capture ...\n", "selfDiagnosticsReport", 53598);
+      result = CCLogStream::logEmergency(v5, "[dk] %s@%d:outCount pointer invalid\n", "configureReportGated", 53885);
     }
   }
 
+  *v0 = v2;
   return result;
 }
 
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:SlowWiFiRecovery due to %s. Attempting to trap.\n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:SlowDPS Reported. Attempting to trap.\n", "selfDiagnosticsReport", 53569);
-}
-
-uint64_t AppleBCMWLANCore::configureReportGated()
-{
-  OUTLINED_FUNCTION_4();
-  v5 = OUTLINED_FUNCTION_20_3(v4);
-  result = (*(v6 + 1952))(v5);
+  OUTLINED_FUNCTION_0_25();
+  result = (*(v3 + 1952))();
   if (result)
   {
     (*(*v1 + 1952))(v1);
     result = CCLogStream::shouldLog();
     if (result)
     {
-      (*(*v1 + 1952))(v1);
-      v8 = OUTLINED_FUNCTION_86();
-      getClassNameHelper(v8);
-      OUTLINED_FUNCTION_74_0();
-      result = CCLogStream::logEmergency(v2, "[dk] %s@%d:DKReporter::%s::%s(%d) getIOReporterCore()->configureReport failed", v9, v10, v11, v12, v13);
+      v5 = (*(*v1 + 1952))(v1);
+      result = CCLogStream::logEmergency(v5, "[dk] %s@%d:channels pointer invalid\n", "configureReportGated", 53884);
     }
   }
 
-  *v0 = v3;
+  *v0 = v2;
   return result;
 }
 
 {
-  OUTLINED_FUNCTION_4();
-  v5 = OUTLINED_FUNCTION_20_3(v4);
-  result = (*(v6 + 1952))(v5);
+  OUTLINED_FUNCTION_0_25();
+  result = (*(v3 + 1952))();
   if (result)
   {
     (*(*v1 + 1952))(v1);
     result = CCLogStream::shouldLog();
     if (result)
     {
-      (*(*v1 + 1952))(v1);
-      v8 = OUTLINED_FUNCTION_86();
-      getClassNameHelper(v8);
-      OUTLINED_FUNCTION_74_0();
-      result = CCLogStream::logEmergency(v2, "[dk] %s@%d:DKReporter::%s::%s(%d) getIOReporterPerSlice()->configureReport failed", v9, v10, v11, v12, v13);
+      v5 = (*(*v1 + 1952))(v1);
+      result = CCLogStream::logEmergency(v5, "[dk] %s@%d:No valid vars given to configureReportGated\n", "configureReportGated", 53879);
     }
   }
 
-  *v0 = v3;
+  *v0 = v2;
   return result;
 }
 
+uint64_t AppleBCMWLANCore::configureReport()
 {
-  OUTLINED_FUNCTION_4();
-  v5 = OUTLINED_FUNCTION_20_3(v4);
-  result = (*(v6 + 1952))(v5);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      (*(*v1 + 1952))(v1);
-      v8 = OUTLINED_FUNCTION_86();
-      getClassNameHelper(v8);
-      OUTLINED_FUNCTION_74_0();
-      result = CCLogStream::logEmergency(v2, "[dk] %s@%d:DKReporter::%s::%s(%d) fAudioProtector->configureReport failed", v9, v10, v11, v12, v13);
-    }
-  }
-
-  *v0 = v3;
-  return result;
-}
-
-{
-  OUTLINED_FUNCTION_4();
-  v5 = OUTLINED_FUNCTION_20_3(v4);
-  result = (*(v6 + 1952))(v5);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      (*(*v1 + 1952))(v1);
-      v8 = OUTLINED_FUNCTION_86();
-      getClassNameHelper(v8);
-      OUTLINED_FUNCTION_74_0();
-      result = CCLogStream::logEmergency(v2, "[dk] %s@%d:DKReporter::%s::%s(%d) fCommander->configureReport failed", v9, v10, v11, v12, v13);
-    }
-  }
-
-  *v0 = v3;
-  return result;
-}
-
-{
-  OUTLINED_FUNCTION_4();
-  v5 = OUTLINED_FUNCTION_20_3(v4);
-  result = (*(v6 + 1952))(v5);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      (*(*v1 + 1952))(v1);
-      v8 = OUTLINED_FUNCTION_86();
-      getClassNameHelper(v8);
-      OUTLINED_FUNCTION_74_0();
-      result = CCLogStream::logEmergency(v2, "[dk] %s@%d:DKReporter::%s::%s(%d) fApStaInterface->configureReport failed", v9, v10, v11, v12, v13);
-    }
-  }
-
-  *v0 = v3;
-  return result;
-}
-
-{
-  OUTLINED_FUNCTION_4();
-  v5 = OUTLINED_FUNCTION_20_3(v4);
-  result = (*(v6 + 1952))(v5);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      (*(*v1 + 1952))(v1);
-      v8 = OUTLINED_FUNCTION_86();
-      getClassNameHelper(v8);
-      OUTLINED_FUNCTION_74_0();
-      result = CCLogStream::logEmergency(v2, "[dk] %s@%d:DKReporter::%s::%s(%d) super::configureReport(channels, action, sumCount) failed", v9, v10, v11, v12, v13);
-    }
-  }
-
-  *v0 = v3;
-  return result;
-}
-
-uint64_t AppleBCMWLANCore::configureReportGated(uint64_t *a1)
-{
-  v4 = OUTLINED_FUNCTION_0_25(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logEmergency(v7, "[dk] %s@%d:outCount pointer invalid\n", "configureReportGated", 53885);
-    }
-  }
-
-  *v1 = v3;
-  return result;
-}
-
-{
-  v4 = OUTLINED_FUNCTION_0_25(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logEmergency(v7, "[dk] %s@%d:channels pointer invalid\n", "configureReportGated", 53884);
-    }
-  }
-
-  *v1 = v3;
-  return result;
-}
-
-{
-  v4 = OUTLINED_FUNCTION_0_25(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logEmergency(v7, "[dk] %s@%d:No valid vars given to configureReportGated\n", "configureReportGated", 53879);
-    }
-  }
-
-  *v1 = v3;
-  return result;
-}
-
-uint64_t AppleBCMWLANCore::configureReport(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_10_5(a1);
-  (*(v3 + 1952))(v2);
-  v4 = OUTLINED_FUNCTION_12_1();
-  getClassNameHelper(v4);
+  OUTLINED_FUNCTION_10_5();
+  (*(v1 + 1952))();
+  v2 = OUTLINED_FUNCTION_12_1();
+  getClassNameHelper(v2);
   OUTLINED_FUNCTION_74_0();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:DKReporter::%s::%s(%d) \n", v6, v7, v8, v9, v10);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d:DKReporter::%s::%s(%d) \n", v4, v5, v6, v7, v8);
 }
 
-uint64_t AppleBCMWLANCore::updateReportGated(uint64_t *a1, _DWORD *a2, void *a3, void *a4)
+uint64_t AppleBCMWLANCore::updateReportGated(OSObject *a1, _DWORD *a2, void *a3, void *a4)
 {
-  v8 = OUTLINED_FUNCTION_5_0(a1);
-  result = (*(v9 + 1952))(v8);
+  OUTLINED_FUNCTION_5_0();
+  result = (*(v8 + 1952))();
   if (result)
   {
-    (*(*a1 + 1952))(a1);
+    (a1->OSMetaClassBase::__vftable[34].free)(a1);
     result = CCLogStream::shouldLog();
     if (result)
     {
-      v11 = (*(*a1 + 1952))(a1);
+      v10 = (a1->OSMetaClassBase::__vftable[34].free)(a1);
       ClassNameHelper = getClassNameHelper(a1);
-      return CCLogStream::logEmergency(v11, "[dk] %s@%d:DKReporter::%s::%s(%d) super::updateReport failed count %u offset %llu capacity %llu", "updateReportGated", 54058, ClassNameHelper, "updateReportGated", 54058, *a2, *a3, *a4);
+      return CCLogStream::logEmergency(v10, "[dk] %s@%d:DKReporter::%s::%s(%d) super::updateReport failed count %u offset %llu capacity %llu", "updateReportGated", 54058, ClassNameHelper, "updateReportGated", 54058, *a2, *a3, *a4);
     }
   }
 
   return result;
 }
 
-uint64_t AppleBCMWLANCore::updateReportGated(uint64_t *a1)
+uint64_t AppleBCMWLANCore::updateReportGated()
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logEmergency(v3, "[dk] %s@%d:buffer pointer invalid\n", "updateReportGated", 54012);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logEmergency(v1, "[dk] %s@%d:buffer pointer invalid\n", "updateReportGated", 54012);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logEmergency(v3, "[dk] %s@%d:count pointer invalid\n", "updateReportGated", 54011);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logEmergency(v1, "[dk] %s@%d:count pointer invalid\n", "updateReportGated", 54011);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logEmergency(v3, "[dk] %s@%d:channels pointer invalid\n", "updateReportGated", 54010);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logEmergency(v1, "[dk] %s@%d:channels pointer invalid\n", "updateReportGated", 54010);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logEmergency(v3, "[dk] %s@%d:No valid vars given to updateReportGated\n", "updateReportGated", 53999);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logEmergency(v1, "[dk] %s@%d:No valid vars given to updateReportGated\n", "updateReportGated", 53999);
 }
 
-uint64_t AppleBCMWLANCore::updateReportGated(uint64_t *a1, uint64_t a2, int *a3, void *a4)
+uint64_t AppleBCMWLANCore::updateReportGated(OSObject *a1, uint64_t a2, int *a3, void *a4)
 {
-  v7 = OUTLINED_FUNCTION_5_5(a1);
-  v9 = (*(v8 + 1952))(v7);
+  OUTLINED_FUNCTION_5_5();
+  v8 = (*(v7 + 1952))();
   ClassNameHelper = getClassNameHelper(a1);
   if (a3)
   {
-    v11 = *a3;
+    v10 = *a3;
   }
 
   else
   {
-    v11 = 0;
+    v10 = 0;
   }
 
-  return CCLogStream::logEmergency(v9, "[dk] %s@%d:DKReporter::%s::%s(%d) FAILED outElementCount %u capacity %llu", "updateReportGated", 54072, ClassNameHelper, "updateReportGated", 54072, v11, *a4);
+  return CCLogStream::logEmergency(v8, "[dk] %s@%d:DKReporter::%s::%s(%d) FAILED outElementCount %u capacity %llu", "updateReportGated", 54072, ClassNameHelper, "updateReportGated", 54072, v10, *a4);
 }
 
-uint64_t AppleBCMWLANCore::updateReport(uint64_t *a1)
+uint64_t AppleBCMWLANCore::updateReport()
 {
-  v2 = OUTLINED_FUNCTION_10_5(a1);
-  (*(v3 + 1952))(v2);
-  v4 = OUTLINED_FUNCTION_12_1();
-  getClassNameHelper(v4);
+  OUTLINED_FUNCTION_10_5();
+  (*(v1 + 1952))();
+  v2 = OUTLINED_FUNCTION_12_1();
+  getClassNameHelper(v2);
   OUTLINED_FUNCTION_74_0();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:DKReporter::%s::%s(%d) \n", v6, v7, v8, v9, v10);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d:DKReporter::%s::%s(%d) \n", v4, v5, v6, v7, v8);
 }
 
-uint64_t AppleBCMWLANCore::configureManagementFrameProtection(uint64_t *a1)
+uint64_t AppleBCMWLANCore::configureManagementFrameProtection()
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_15_4();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:MFP boot-arg override: %d\n", "configureManagementFrameProtection", 54306, v5);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:MFP boot-arg override: %d\n", "configureManagementFrameProtection", 54306, v3);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_15_4();
-  return CCLogStream::logNoticeIf(v3, 0x80uLL, "[dk] %s@%d:MFP is %d(0 -- Disabled, 1 -- Enabled, 2 -- Required)\n", "configureManagementFrameProtection", 54327, v5);
+  return CCLogStream::logNoticeIf(v1, 0x80uLL, "[dk] %s@%d:MFP is %d(0 -- Disabled, 1 -- Enabled, 2 -- Required)\n", "configureManagementFrameProtection", 54327, v3);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_5_5();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:%s: MFP boot-arg disable mfp but it is required\n", v5, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:%s: MFP boot-arg disable mfp but it is required\n", v3, v4, v5);
 }
 
-uint64_t AppleBCMWLANCore::enablePacketTimestamping(uint64_t *a1)
+uint64_t AppleBCMWLANCore::setWiFiCallPolicies()
 {
-  v2 = OUTLINED_FUNCTION_10_5(a1);
-  (*(v3 + 1952))(v2);
-  v4 = OUTLINED_FUNCTION_12_1();
-  ClassNameHelper = getClassNameHelper(v4);
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:[WiFiTimeSync] %s::%s\n", "enablePacketTimestamping", 54547, ClassNameHelper, "enablePacketTimestamping");
+  OUTLINED_FUNCTION_5_5();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Enter %s \n", v3, v4, v5);
 }
 
-uint64_t AppleBCMWLANCore::disablePacketTimestamping(uint64_t *a1)
 {
-  v2 = OUTLINED_FUNCTION_10_5(a1);
-  (*(v3 + 1952))(v2);
-  v4 = OUTLINED_FUNCTION_12_1();
-  ClassNameHelper = getClassNameHelper(v4);
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:[WiFiTimeSync] %s::%s\n", "disablePacketTimestamping", 54555, ClassNameHelper, "disablePacketTimestamping");
+  OUTLINED_FUNCTION_5_5();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
-uint64_t AppleBCMWLANCore::setLMTPCCallback(uint64_t *a1)
+uint64_t AppleBCMWLANCore::enablePacketTimestamping()
 {
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_10_5();
+  (*(v1 + 1952))();
+  v2 = OUTLINED_FUNCTION_12_1();
+  ClassNameHelper = getClassNameHelper(v2);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d:[WiFiTimeSync] %s::%s\n", "enablePacketTimestamping", 54547, ClassNameHelper, "enablePacketTimestamping");
+}
+
+uint64_t AppleBCMWLANCore::disablePacketTimestamping()
+{
+  OUTLINED_FUNCTION_10_5();
+  (*(v1 + 1952))();
+  v2 = OUTLINED_FUNCTION_12_1();
+  ClassNameHelper = getClassNameHelper(v2);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d:[WiFiTimeSync] %s::%s\n", "disablePacketTimestamping", 54555, ClassNameHelper, "disablePacketTimestamping");
+}
+
+uint64_t AppleBCMWLANCore::setLMTPCCallback()
+{
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:Setting lpc failed: %s\n", v9, v10, v11);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d:Setting lpc failed: %s\n", v5, v6, v7);
 }
 
-uint64_t AppleBCMWLANCore::setConcurrencyState(uint64_t *a1)
+uint64_t AppleBCMWLANCore::setConcurrencyState()
 {
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  v4 = (*(v3 + 1952))(v2);
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:%s: concurrent state %d\n", "setConcurrencyState", 54871, "setConcurrencyState", *(*v1 + 19801));
+  OUTLINED_FUNCTION_2_7();
+  v2 = (*(v1 + 1952))();
+  return CCLogStream::logAlert(v2, "[dk] %s@%d:%s: concurrent state %d\n", "setConcurrencyState", 54871, "setConcurrencyState", *(*v0 + 19801));
 }
 
-uint64_t AppleBCMWLANCore::destroySkywalkInterface(uint64_t *a1, uint64_t a2, unsigned int a3)
+uint64_t AppleBCMWLANCore::destroySkywalkInterface(uint64_t a1, uint64_t a2, unsigned int a3)
 {
-  v5 = OUTLINED_FUNCTION_11_4(a1);
-  v7 = (*(v6 + 1952))(v5);
-  return CCLogStream::logAlert(v7, "[dk] %s@%d:AppleBCMWLANCore::destroySkywalkInterface ifid:%d %p\n", "destroySkywalkInterface", 55161, a3, **(*(v3 + 72) + 8 * a3 + 11192));
+  OUTLINED_FUNCTION_11_4();
+  v6 = (*(v5 + 1952))();
+  return CCLogStream::logAlert(v6, "[dk] %s@%d:AppleBCMWLANCore::destroySkywalkInterface ifid:%d %p\n", "destroySkywalkInterface", 55161, a3, **(*(v3 + 72) + 8 * a3 + 11192));
 }
 
-uint64_t AppleBCMWLANCore::setRADIO_CHANSEQ_CONTROL(uint64_t *a1)
+uint64_t AppleBCMWLANCore::setRADIO_CHANSEQ_CONTROL()
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logCrit(v3, "[dk] %s@%d:Bad Parameter,no AWDL interface but AWDL channel sequence is specified \n", "setRADIO_CHANSEQ_CONTROL", 55209);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logCrit(v3, "[dk] %s@%d:Bad Parameter, no NAN interface but NAN channel sequence is specified \n", "setRADIO_CHANSEQ_CONTROL", 55225);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logCrit(v1, "[dk] %s@%d:Bad Parameter,no AWDL interface but AWDL channel sequence is specified \n", "setRADIO_CHANSEQ_CONTROL", 55209);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logCrit(v3, "[dk] %s@%d:No AWDL Interface present \n", "setRADIO_CHANSEQ_CONTROL", 55236);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logCrit(v1, "[dk] %s@%d:Bad Parameter, no NAN interface but NAN channel sequence is specified \n", "setRADIO_CHANSEQ_CONTROL", 55225);
 }
 
-uint64_t AppleBCMWLANCore::setRC2CoexMode(uint64_t *a1)
 {
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logCrit(v1, "[dk] %s@%d:No AWDL Interface present \n", "setRADIO_CHANSEQ_CONTROL", 55236);
+}
+
+uint64_t AppleBCMWLANCore::setRC2CoexMode()
+{
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logCrit(v1, "[dk] %s@%d:rc2cx setting coexmode failed, error %s\n", v9, v10, v11);
+  return CCLogStream::logCrit(v0, "[dk] %s@%d:rc2cx setting coexmode failed, error %s\n", v5, v6, v7);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:rc2cx cmd alloc fail\n", "setRC2CoexMode", 55396);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:rc2cx cmd alloc fail\n", "setRC2CoexMode", 55396);
 }
 
-uint64_t AppleBCMWLANCore::setRC2CoexMode(uint64_t *a1, uint64_t a2, uint64_t a3)
+uint64_t AppleBCMWLANCore::setRC2CoexMode(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v5 = OUTLINED_FUNCTION_0_8(a1);
-  (*(v6 + 1952))(v5);
+  OUTLINED_FUNCTION_0_8();
+  (*(v5 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v8 = *(v7 + 112);
-  v9 = OUTLINED_FUNCTION_172();
-  v11 = v10(v9);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Configured RC2 Coex mode to %s, 0x%x\n", "setRC2CoexMode", 55436, v11, *(*a3 + 10712));
+  v6 = OUTLINED_FUNCTION_172();
+  v8 = v7(v6);
+  return CCLogStream::logAlert(v3, "[dk] %s@%d:Configured RC2 Coex mode to %s, 0x%x\n", "setRC2CoexMode", 55436, v8, *(*a3 + 10712));
 }
 
-uint64_t AppleBCMWLANCore::setRC2CoexPMProtectionMode(uint64_t *a1)
+uint64_t AppleBCMWLANCore::setRC2CoexPMProtectionMode()
 {
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logCrit(v1, "[dk] %s@%d:rc2cx setting PM Protection mode failed, error %s\n", v9, v10, v11);
+  return CCLogStream::logCrit(v0, "[dk] %s@%d:rc2cx setting PM Protection mode failed, error %s\n", v5, v6, v7);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:rc2cx cmd alloc fail\n", "setRC2CoexPMProtectionMode", 55465);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:rc2cx cmd alloc fail\n", "setRC2CoexPMProtectionMode", 55465);
 }
 
-uint64_t AppleBCMWLANCore::setRC2CoexCTS2Sconfig(uint64_t *a1)
+uint64_t AppleBCMWLANCore::setRC2CoexCTS2Sconfig()
 {
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logCrit(v1, "[dk] %s@%d:rc2cx setting CTS2S config mode failed, error %s\n", v9, v10, v11);
+  return CCLogStream::logCrit(v0, "[dk] %s@%d:rc2cx setting CTS2S config mode failed, error %s\n", v5, v6, v7);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:rc2cx cmd alloc fail\n", "setRC2CoexCTS2Sconfig", 55534);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:rc2cx cmd alloc fail\n", "setRC2CoexCTS2Sconfig", 55534);
 }
 
-uint64_t AppleBCMWLANCore::setRC1CoexMode(uint64_t *a1)
+uint64_t AppleBCMWLANCore::setRC1CoexMode()
 {
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logCrit(v1, "[dk] %s@%d:rc1coex_mode failed, error %s\n", v9, v10, v11);
+  return CCLogStream::logCrit(v0, "[dk] %s@%d:rc1coex_mode failed, error %s\n", v5, v6, v7);
 }
 
-uint64_t AppleBCMWLANCore::handleConfigureAvgRssiParamsAsyncCallback(uint64_t *a1)
+uint64_t AppleBCMWLANCore::handleConfigureAvgRssiParamsAsyncCallback()
 {
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Error: cannot Configure RSSI Window: %s\n", v9, v10, v11);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d: Error: cannot Configure RSSI Window: %s\n", v5, v6, v7);
 }
 
-uint64_t AppleBCMWLANCore::handleGetDtimParam(uint64_t *a1)
+uint64_t AppleBCMWLANCore::handleGetDtimParam()
 {
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:Error: cannot get DTIM param: %s\n", v9, v10, v11);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d:Error: cannot get DTIM param: %s\n", v5, v6, v7);
 }
 
 {
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  v4 = (*(v3 + 1952))(v2);
-  return CCLogStream::logInfo(v4, "[dk] %s@%d:AP DTIM = %d\n", "handleGetDtimParam", 55874, *(*v1 + 10364));
+  OUTLINED_FUNCTION_2_7();
+  v2 = (*(v1 + 1952))();
+  return CCLogStream::logInfo(v2, "[dk] %s@%d:AP DTIM = %d\n", "handleGetDtimParam", 55874, *(*v0 + 10364));
 }
 
 uint64_t AppleBCMWLANCore::setHP2P_CTRL()
 {
   OUTLINED_FUNCTION_4();
-  v3 = OUTLINED_FUNCTION_14_3(v2);
-  result = (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_14_3();
+  result = (*(v2 + 1952))();
   if (result)
   {
     OUTLINED_FUNCTION_19_1();
-    (*(v6 + 1952))(v1);
+    (*(v4 + 1952))(v1);
     result = CCLogStream::shouldLog();
     if (result)
     {
       OUTLINED_FUNCTION_19_1();
-      v8 = (*(v7 + 1952))(v1);
-      result = CCLogStream::logAlert(v8, "[dk] %s@%d:FW does not support llw", "setHP2P_CTRL", 56037);
+      v6 = (*(v5 + 1952))(v1);
+      result = CCLogStream::logAlert(v6, "[dk] %s@%d:FW does not support llw", "setHP2P_CTRL", 56037);
     }
   }
 
@@ -3403,19 +703,37 @@ uint64_t AppleBCMWLANCore::setHP2P_CTRL()
 }
 
 {
+  OUTLINED_FUNCTION_11_9();
+  result = (*(v3 + 1952))();
+  if (result)
+  {
+    (*(*v2 + 1952))(v2);
+    result = CCLogStream::shouldLog();
+    if (result)
+    {
+      v5 = (*(*v2 + 1952))(v2);
+      result = CCLogStream::logAlert(v5, "[dk] %s@%d:hp2p set iovar failed\n", "setHP2P_CTRL", 56075);
+    }
+  }
+
+  *v0 = v1;
+  return result;
+}
+
+{
   OUTLINED_FUNCTION_4();
-  v3 = OUTLINED_FUNCTION_14_3(v2);
-  result = (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_14_3();
+  result = (*(v2 + 1952))();
   if (result)
   {
     OUTLINED_FUNCTION_19_1();
-    (*(v6 + 1952))(v1);
+    (*(v4 + 1952))(v1);
     result = CCLogStream::shouldLog();
     if (result)
     {
       OUTLINED_FUNCTION_19_1();
-      v8 = (*(v7 + 1952))(v1);
-      result = CCLogStream::logAlert(v8, "[dk] %s@%d:hp2p cmd alloc fail\n", "setHP2P_CTRL", 56039);
+      v6 = (*(v5 + 1952))(v1);
+      result = CCLogStream::logAlert(v6, "[dk] %s@%d:hp2p cmd alloc fail\n", "setHP2P_CTRL", 56039);
     }
   }
 
@@ -3425,18 +743,18 @@ uint64_t AppleBCMWLANCore::setHP2P_CTRL()
 
 {
   OUTLINED_FUNCTION_4();
-  v3 = OUTLINED_FUNCTION_14_3(v2);
-  result = (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_14_3();
+  result = (*(v2 + 1952))();
   if (result)
   {
     OUTLINED_FUNCTION_19_1();
-    (*(v6 + 1952))(v1);
+    (*(v4 + 1952))(v1);
     result = CCLogStream::shouldLog();
     if (result)
     {
       OUTLINED_FUNCTION_19_1();
-      v8 = (*(v7 + 1952))(v1);
-      result = CCLogStream::logAlert(v8, "[dk] %s@%d:bad argument\n", "setHP2P_CTRL", 56038);
+      v6 = (*(v5 + 1952))(v1);
+      result = CCLogStream::logAlert(v6, "[dk] %s@%d:bad argument\n", "setHP2P_CTRL", 56038);
     }
   }
 
@@ -3444,307 +762,270 @@ uint64_t AppleBCMWLANCore::setHP2P_CTRL()
   return result;
 }
 
-uint64_t AppleBCMWLANCore::setHP2P_CTRL(uint64_t *a1)
+uint64_t AppleBCMWLANCore::setBSS_BLACKLIST()
 {
-  v4 = OUTLINED_FUNCTION_11_9(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v3 + 1952))(v3);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v3 + 1952))(v3);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:hp2p set iovar failed\n", "setHP2P_CTRL", 56075);
-    }
-  }
-
-  *v1 = v2;
-  return result;
-}
-
-uint64_t AppleBCMWLANCore::setBSS_BLACKLIST(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_102_0(*v1);
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:BSS Blacklist configured - bssCount:%d\n", "setBSS_BLACKLIST", 56222, v6);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_102_0();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:BSS Blacklist configured - bssCount:%d\n", "setBSS_BLACKLIST", 56222, v3);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_5_6(a1);
-  (*(v4 + 1952))(v3);
-  OUTLINED_FUNCTION_64_0((*v2 + 6 * v1 + 17859));
+  OUTLINED_FUNCTION_5_6();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_64_0();
   OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v5, v6);
+  return CCLogStream::logAlert(v1, v2);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:BSS Blacklist cleared!\n", "setBSS_BLACKLIST", 56233);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:BSS Blacklist cleared!\n", "setBSS_BLACKLIST", 56233);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Bad argument for BSS Blacklist!\n", "setBSS_BLACKLIST", 56243);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Bad argument for BSS Blacklist!\n", "setBSS_BLACKLIST", 56243);
 }
 
-uint64_t AppleBCMWLANCore::setBssBlacklistMode(uint64_t *a1)
+uint64_t AppleBCMWLANCore::setBssBlacklistMode()
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Configuring FW with BSS Blacklist mode:%d\n", v5, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Configuring FW with BSS Blacklist mode:%d\n", v3, v4, v5);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v9 = v8(v7);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d: Error: cannot set macmode: ret %x: %s\n", "setBssBlacklistMode", 56411, v1, v9);
+  v3 = OUTLINED_FUNCTION_16_2();
+  v5 = v4(v3);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: Error: cannot set macmode: ret %x: %s\n", "setBssBlacklistMode", 56411, v0, v5);
 }
 
-uint64_t AppleBCMWLANCore::getBssBlacklistModeAsync(uint64_t *a1)
+uint64_t AppleBCMWLANCore::getBssBlacklistModeAsync()
 {
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v9 = v8(v7);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d: Error: cannot get macmode: ret %x: %s\n", "getBssBlacklistModeAsync", 56436, v1, v9);
+  v3 = OUTLINED_FUNCTION_16_2();
+  v5 = v4(v3);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: Error: cannot get macmode: ret %x: %s\n", "getBssBlacklistModeAsync", 56436, v0, v5);
 }
 
-uint64_t AppleBCMWLANCore::setBssBlacklist(uint64_t *a1)
+uint64_t AppleBCMWLANCore::setBssBlacklist()
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_15_4();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Configuring FW with BSS Blacklist - bssCount:%d\n", "setBssBlacklist", 56310, v5);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Configuring FW with BSS Blacklist - bssCount:%d\n", "setBssBlacklist", 56310, v3);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_5_6(a1);
-  (*(v4 + 1952))(v3);
-  OUTLINED_FUNCTION_64_0((v2 + 6 * v1));
+  OUTLINED_FUNCTION_5_6();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_64_0();
   OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v5, v6);
+  return CCLogStream::logAlert(v1, v2);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v9 = v8(v7);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d: Error: cannot set maclist: ret %x: %s\n", "setBssBlacklist", 56318, v1, v9);
+  v3 = OUTLINED_FUNCTION_16_2();
+  v5 = v4(v3);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: Error: cannot set maclist: ret %x: %s\n", "setBssBlacklist", 56318, v0, v5);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Clearing FW BSS Blacklist\n", "setBssBlacklist", 56321);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Clearing FW BSS Blacklist\n", "setBssBlacklist", 56321);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v9 = v8(v7);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d: Error: cannot set maclist: ret %x: %s\n", "setBssBlacklist", 56327, v1, v9);
+  v3 = OUTLINED_FUNCTION_16_2();
+  v5 = v4(v3);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: Error: cannot set maclist: ret %x: %s\n", "setBssBlacklist", 56327, v0, v5);
 }
 
 {
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  v4 = (*(v3 + 1952))(v2);
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:Exceeded BSSID count %u > %u\n", "setBssBlacklist", 56282, *v1, 7);
+  OUTLINED_FUNCTION_2_7();
+  v2 = (*(v1 + 1952))();
+  return CCLogStream::logAlert(v2, "[dk] %s@%d:Exceeded BSSID count %u > %u\n", "setBssBlacklist", 56282, *v0, 7);
 }
 
-uint64_t AppleBCMWLANCore::getBssBlacklistAsyncGated(uint64_t *a1)
+uint64_t AppleBCMWLANCore::getBssBlacklistAsyncGated()
 {
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v9 = v8(v7);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d: Error: cannot get maclist: ret %x: %s\n", "getBssBlacklistAsyncGated", 56384, v1, v9);
+  v3 = OUTLINED_FUNCTION_16_2();
+  v5 = v4(v3);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: Error: cannot get maclist: ret %x: %s\n", "getBssBlacklistAsyncGated", 56384, v0, v5);
 }
 
-uint64_t AppleBCMWLANCore::setBssBlacklistAsyncCallback(uint64_t *a1)
+uint64_t AppleBCMWLANCore::setBssBlacklistAsyncCallback()
 {
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: setting maclist failure, error %s\n", v9, v10, v11);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d: setting maclist failure, error %s\n", v5, v6, v7);
 }
 
-uint64_t AppleBCMWLANCore::getBssBlacklistAsyncCallback(uint64_t *a1)
+uint64_t AppleBCMWLANCore::getBssBlacklistAsyncCallback()
 {
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: getting maclist failure, error %s\n", v9, v10, v11);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d: getting maclist failure, error %s\n", v5, v6, v7);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_15_4();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:FW BSS Blacklist - bssCount:%d\n", "getBssBlacklistAsyncCallback", 56353, v5);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:FW BSS Blacklist - bssCount:%d\n", "getBssBlacklistAsyncCallback", 56353, v3);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_5_6(a1);
-  (*(v4 + 1952))(v3);
-  OUTLINED_FUNCTION_64_0((v2 + 6 * v1));
+  OUTLINED_FUNCTION_5_6();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_64_0();
   OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v5, v6);
+  return CCLogStream::logAlert(v1, v2);
 }
 
-uint64_t AppleBCMWLANCore::setBssBlacklistModeAsyncCallback(uint64_t *a1)
+uint64_t AppleBCMWLANCore::setBssBlacklistModeAsyncCallback()
 {
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: setting maclist failure, error %s\n", v9, v10, v11);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d: setting maclist failure, error %s\n", v5, v6, v7);
 }
 
-uint64_t AppleBCMWLANCore::getBssBlacklistModeAsyncCallback(uint64_t *a1)
+uint64_t AppleBCMWLANCore::getBssBlacklistModeAsyncCallback()
 {
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: getting maclist failure, error %s\n", v9, v10, v11);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d: getting maclist failure, error %s\n", v5, v6, v7);
 }
 
 {
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  v4 = (*(v3 + 1952))(v2);
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:Mode = %d\n", "getBssBlacklistModeAsyncCallback", 56422, **v1);
+  OUTLINED_FUNCTION_2_7();
+  v2 = (*(v1 + 1952))();
+  return CCLogStream::logAlert(v2, "[dk] %s@%d:Mode = %d\n", "getBssBlacklistModeAsyncCallback", 56422, **v0);
 }
 
-uint64_t AppleBCMWLANCore::handleSetEntropyForRNGAsyncCallback(uint64_t *a1)
+uint64_t AppleBCMWLANCore::handleSetEntropyForRNGAsyncCallback()
 {
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: Error: cannot set entroy for RNG: %s\n", v9, v10, v11);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d: Error: cannot set entroy for RNG: %s\n", v5, v6, v7);
 }
 
-uint64_t AppleBCMWLANCore::setDBRG_ENTROPY(uint64_t *a1)
+uint64_t AppleBCMWLANCore::setDBRG_ENTROPY()
 {
-  v2 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_0_9();
+  (*(v1 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_16_2();
-  v7(v6);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:Unable to set entropy to RNG: %s\n", v9, v10, v11);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d:Unable to set entropy to RNG: %s\n", v5, v6, v7);
 }
 
-uint64_t AppleBCMWLANCore::isP2pAirplayActive(uint64_t *a1)
+uint64_t AppleBCMWLANCore::isP2pAirplayActive()
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Null proximity interface! \n", "isP2pAirplayActive", 56528);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: Null proximity interface! \n", "isP2pAirplayActive", 56528);
 }
 
-uint64_t AppleBCMWLANCore::mapLowLatencyLowPriority(uint64_t *a1)
+uint64_t AppleBCMWLANCore::mapLowLatencyLowPriority()
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Null proximity interface! \n", "mapLowLatencyLowPriority", 56547);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: Null proximity interface! \n", "mapLowLatencyLowPriority", 56547);
 }
 
-uint64_t AppleBCMWLANCore::isLlwRequeueEnabled(uint64_t *a1)
+uint64_t AppleBCMWLANCore::isLlwRequeueEnabled()
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Null proximity interface! \n", "isLlwRequeueEnabled", 56562);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: Null proximity interface! \n", "isLlwRequeueEnabled", 56562);
 }
 
-uint64_t AppleBCMWLANCore::getCUR_PMK(uint64_t *a1)
+uint64_t AppleBCMWLANCore::getCUR_PMK()
 {
-  v2 = OUTLINED_FUNCTION_10_5(a1);
-  v4 = (*(v3 + 1952))(v2);
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:Get PMK: %p len=%d\n", "getCUR_PMK", 56665, (*(v1 + 72) + 223), *(*(v1 + 72) + 288));
+  OUTLINED_FUNCTION_10_5();
+  v2 = (*(v1 + 1952))();
+  return CCLogStream::logAlert(v2, "[dk] %s@%d:Get PMK: %p len=%d\n", "getCUR_PMK", 56665, (*(v0 + 72) + 223), *(*(v0 + 72) + 288));
 }
 
-uint64_t AppleBCMWLANCore::saveCUR_PMK(uint64_t *a1)
+uint64_t AppleBCMWLANCore::saveCUR_PMK()
 {
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
-  v9 = *(v1 + 4);
-  v10 = *(v1 + 8);
+  OUTLINED_FUNCTION_2_7();
+  (*(v1 + 1952))();
+  v7 = *(v0 + 4);
+  v8 = *(v0 + 8);
   OUTLINED_FUNCTION_113();
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:Save PMK: %p len=%d type=0x%x\n", v6, v7, v8, v9, v10);
+  return CCLogStream::logAlert(v2, "[dk] %s@%d:Save PMK: %p len=%d type=0x%x\n", v4, v5, v6, v7, v8);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_6(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_5_6();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_134();
-  v12 = v3[237];
-  v13 = v3[238];
-  v10 = v3[235];
-  v11 = v3[236];
-  v8 = v3[233];
-  v9 = v3[234];
-  v7 = v3[232];
   OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v4, v5);
+  return CCLogStream::logAlert(v1, v2);
 }
 
-uint64_t AppleBCMWLANCore::wasDynSARInFailSafeMode(uint64_t *a1)
+uint64_t AppleBCMWLANCore::wasDynSARInFailSafeMode()
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:DynSAR: wasDynSARInFailSafeMode, %d\n", v5, v6, v7);
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:DynSAR: wasDynSARInFailSafeMode, %d\n", v3, v4, v5);
 }
 
-uint64_t AppleBCMWLANCore::qosSetIOVar(uint64_t *a1)
+uint64_t AppleBCMWLANCore::qosSetIOVar()
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:WiFi-QoS: QoS Management is disabled\n", "qosSetIOVar", 58077);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WiFi-QoS: QoS Management is disabled\n", "qosSetIOVar", 58077);
 }
 
 uint64_t AppleBCMWLANCore::qosSetIOVar(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
   OUTLINED_FUNCTION_77_0();
-  v6 = OUTLINED_FUNCTION_5_0(v5);
-  result = (*(v7 + 1952))(v6);
+  OUTLINED_FUNCTION_5_0();
+  result = (*(v5 + 1952))();
   if (result)
   {
     (*(*v3 + 1952))(v3);
@@ -3753,7 +1034,7 @@ uint64_t AppleBCMWLANCore::qosSetIOVar(uint64_t a1, uint64_t a2, _DWORD *a3)
     {
       (*(*v3 + 1952))(v3);
       OUTLINED_FUNCTION_66();
-      result = CCLogStream::logAlert(v9, "[dk] %s@%d:Failed to allocate qos_iov_buf for %s\n", v10, v11, v12);
+      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Failed to allocate qos_iov_buf for %s\n", v8, v9, v10);
     }
   }
 
@@ -3761,1177 +1042,504 @@ uint64_t AppleBCMWLANCore::qosSetIOVar(uint64_t a1, uint64_t a2, _DWORD *a3)
   return result;
 }
 
-uint64_t AppleBCMWLANCore::enableQoSMgmtMSCS(uint64_t *a1)
+uint64_t AppleBCMWLANCore::enableQoSMgmtMSCS()
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:WiFi-QoS: QoS Management is disabled\n", "enableQoSMgmtMSCS", 58112);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WiFi-QoS: QoS Management is disabled\n", "enableQoSMgmtMSCS", 58112);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:WiFi-QoS: QoS Management enableFlags = %u\n", v5, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WiFi-QoS: QoS Management enableFlags = %u\n", v3, v4, v5);
 }
 
-uint64_t AppleBCMWLANCore::confiQoSMgmtMSCS(uint64_t *a1)
+uint64_t AppleBCMWLANCore::confiQoSMgmtMSCS()
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:WiFi-QoS: QoS Management is disabled\n", "confiQoSMgmtMSCS", 58133);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WiFi-QoS: QoS Management is disabled\n", "confiQoSMgmtMSCS", 58133);
 }
 
-uint64_t AppleBCMWLANCore::confiQoSMgmtMSCS(uint64_t *a1, uint64_t a2, unsigned __int8 a3, unsigned __int8 a4)
+uint64_t AppleBCMWLANCore::confiQoSMgmtMSCS(uint64_t a1, uint64_t a2, unsigned __int8 a3, unsigned __int8 a4)
 {
-  v6 = OUTLINED_FUNCTION_5_5(a1);
-  v8 = (*(v7 + 1952))(v6);
-  return CCLogStream::logAlert(v8, "[dk] %s@%d:WiFi-QoS: qosReqType=%d qosFCMask=0x%x\n", "confiQoSMgmtMSCS", 58146, a3, a4);
+  OUTLINED_FUNCTION_5_5();
+  v7 = (*(v6 + 1952))();
+  return CCLogStream::logAlert(v7, "[dk] %s@%d:WiFi-QoS: qosReqType=%d qosFCMask=0x%x\n", "confiQoSMgmtMSCS", 58146, a3, a4);
 }
 
-uint64_t AppleBCMWLANCore::initQoSMgmtMSCS(uint64_t *a1)
+uint64_t AppleBCMWLANCore::initQoSMgmtMSCS()
 {
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  v4 = (*(v3 + 1952))(v2);
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:WiFi-QoS: boot-arg wlan.qos.enableFlags=%d\n", "initQoSMgmtMSCS", 58173, v1);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  v4 = (*(v3 + 1952))(v2);
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:WiFi-QoS: boot-arg wlan.qos.FCMask=0x%x\n", "initQoSMgmtMSCS", 58180, v1);
-}
-
-uint64_t AppleBCMWLANCore::sendQoSMgmtMSCSReq(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:WiFi-QoS: QoS Management is disabled\n", "sendQoSMgmtMSCSReq", 58201);
+  OUTLINED_FUNCTION_2_7();
+  v2 = (*(v1 + 1952))();
+  return CCLogStream::logAlert(v2, "[dk] %s@%d:WiFi-QoS: boot-arg wlan.qos.enableFlags=%d\n", "initQoSMgmtMSCS", 58173, v0);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:WiFi-QoS: AP does not support QoS MSCS\n", "sendQoSMgmtMSCSReq", 58206);
+  OUTLINED_FUNCTION_2_7();
+  v2 = (*(v1 + 1952))();
+  return CCLogStream::logAlert(v2, "[dk] %s@%d:WiFi-QoS: boot-arg wlan.qos.FCMask=0x%x\n", "initQoSMgmtMSCS", 58180, v0);
+}
+
+uint64_t AppleBCMWLANCore::sendQoSMgmtMSCSReq()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WiFi-QoS: QoS Management is disabled\n", "sendQoSMgmtMSCSReq", 58201);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:WiFi-QoS: QoS MSCS is already terminated\n", "sendQoSMgmtMSCSReq", 58215);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WiFi-QoS: AP does not support QoS MSCS\n", "sendQoSMgmtMSCSReq", 58206);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:WiFi-QoS: QoS MSCS is already active\n", "sendQoSMgmtMSCSReq", 58211);
-}
-
-uint64_t AppleBCMWLANCore::collectRealTimeAppCongestionState(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:Traffic Monitoring not supported \n", "collectRealTimeAppCongestionState", 58264);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WiFi-QoS: QoS MSCS is already terminated\n", "sendQoSMgmtMSCSReq", 58215);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:Trigger check overflows on RT packet count\n", "collectRealTimeAppCongestionState", 58273);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WiFi-QoS: QoS MSCS is already active\n", "sendQoSMgmtMSCSReq", 58211);
+}
+
+uint64_t AppleBCMWLANCore::collectRealTimeAppCongestionState()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:Traffic Monitoring not supported \n", "collectRealTimeAppCongestionState", 58264);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:Trigger check overflows on NRT packet count\n", "collectRealTimeAppCongestionState", 58278);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:Trigger check overflows on RT packet count\n", "collectRealTimeAppCongestionState", 58273);
 }
 
 {
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
-  v4 = *(*v1 + 35290);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:Trigger check overflows on NRT packet count\n", "collectRealTimeAppCongestionState", 58278);
+}
+
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_128();
   OUTLINED_FUNCTION_113();
-  return CCLogStream::logInfo(v5, "[dk] %s@%d:[Traffic Engineering]: Real Time Application is %s\n", v7, v8, v9);
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:[Traffic Engineering]: Real Time Application is %s\n", v3, v4, v5);
 }
 
-uint64_t AppleBCMWLANCore::trafficMonitorCallback(uint64_t *a1)
+uint64_t AppleBCMWLANCore::trafficMonitorCallback()
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Provider for Skywalk interface set WMMBWReset false for dqeue mechanism", "trafficMonitorCallback", 58392);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Provider for Skywalk interface set WMMBWReset false for dqeue mechanism", "trafficMonitorCallback", 58363);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Provider for Skywalk interface set WMMBWReset false for dqeue mechanism", "trafficMonitorCallback", 58392);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Provider for Skywalk interface set WMMBWReset true for dqeue mechanism", "trafficMonitorCallback", 58339);
-}
-
-uint64_t AppleBCMWLANCore::handleAppTrafficIndication(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:[TrafficEngineering]:RealTime/Non-Real Time Application are running, Inform TrafficEng Module\n", "handleAppTrafficIndication", 58517);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Provider for Skywalk interface set WMMBWReset false for dqeue mechanism", "trafficMonitorCallback", 58363);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:[TrafficEngineering]:Non Real Time Application Exited, Real Time application Running\n", "handleAppTrafficIndication", 58520);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Provider for Skywalk interface set WMMBWReset true for dqeue mechanism", "trafficMonitorCallback", 58339);
+}
+
+uint64_t AppleBCMWLANCore::handleAppTrafficIndication()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:[TrafficEngineering]:RealTime/Non-Real Time Application are running, Inform TrafficEng Module\n", "handleAppTrafficIndication", 58517);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:[TrafficEngineering]:Real Time Application launched, Inform TrafficEng Module\n", "handleAppTrafficIndication", 58522);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:[TrafficEngineering]:Non Real Time Application Exited, Real Time application Running\n", "handleAppTrafficIndication", 58520);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:[TrafficEngineering]:Real Time Application Exited, Non Real Time application Running\n", "handleAppTrafficIndication", 58526);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:[TrafficEngineering]:Real Time Application launched, Inform TrafficEng Module\n", "handleAppTrafficIndication", 58522);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:[TrafficEngineering]:Non-Real Time Application launched, Inform TrafficEng Module\n", "handleAppTrafficIndication", 58528);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:[TrafficEngineering]:Real Time Application Exited, Non Real Time application Running\n", "handleAppTrafficIndication", 58526);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:[TrafficEngineering]:No application is using significant bandwidth, Inform TrafficEng Module\n", "handleAppTrafficIndication", 58531);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:[TrafficEngineering]:Non-Real Time Application launched, Inform TrafficEng Module\n", "handleAppTrafficIndication", 58528);
 }
 
-uint64_t AppleBCMWLANCore::changeAggregationPerEDCATID(uint64_t *a1)
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:[TrafficEngineering]:No application is using significant bandwidth, Inform TrafficEng Module\n", "handleAppTrafficIndication", 58531);
+}
+
+uint64_t AppleBCMWLANCore::changeAggregationPerEDCATID()
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_26_1();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Error: cannot set Block Ack Policy on TID %d", "changeAggregationPerEDCATID", 58470, v5);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: Error: cannot set Block Ack Policy on TID %d", "changeAggregationPerEDCATID", 58470, v3);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:INFO: BA session change executed successfully", "changeAggregationPerEDCATID", 58491);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:INFO: BA session change executed successfully", "changeAggregationPerEDCATID", 58491);
 }
 
-uint64_t AppleBCMWLANCore::changeAggregationPerEDCATID(uint64_t *a1, uint64_t a2, char a3, unsigned __int8 *a4)
+uint64_t AppleBCMWLANCore::changeAggregationPerEDCATID(uint64_t a1, uint64_t a2, char a3, unsigned __int8 *a4)
 {
-  v6 = OUTLINED_FUNCTION_5_5(a1);
-  v8 = (*(v7 + 1952))(v6);
-  v9 = "deletion";
+  OUTLINED_FUNCTION_5_5();
+  v7 = (*(v6 + 1952))();
+  v8 = "deletion";
   if (a3)
   {
-    v9 = "establishment";
+    v8 = "establishment";
   }
 
-  return CCLogStream::logAlert(v8, "[dk] %s@%d: Error: BA session %s failed for TID %d", "changeAggregationPerEDCATID", 58488, v9, *a4);
+  return CCLogStream::logAlert(v7, "[dk] %s@%d: Error: BA session %s failed for TID %d", "changeAggregationPerEDCATID", 58488, v8, *a4);
 }
 
-uint64_t AppleBCMWLANCore::dbgConfigureBcnlossCoreCapture(uint64_t *a1)
+uint64_t AppleBCMWLANCore::dbgConfigureBcnlossCoreCapture()
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:Beacon loss CC will trigger after %d link downs due to beacon loss \n", v5, v6, v7);
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:Beacon loss CC will trigger after %d link downs due to beacon loss \n", v3, v4, v5);
 }
 
-uint64_t AppleBCMWLANCore::Start_Impl(uint64_t *a1)
+uint64_t AppleBCMWLANCore::Start_Impl()
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:core driverkit framework start fail 0x%x\n", v5, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:core driverkit framework start fail 0x%x\n", v3, v4, v5);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Start done", "Start_Impl", 58682);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Start done", "Start_Impl", 58682);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to create ReporterProxy 0x%x\n", v5, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to create ReporterProxy 0x%x\n", v3, v4, v5);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:ReporterProxy Create Successful\n", "Start_Impl", 58687);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:ReporterProxy Create Successful\n", "Start_Impl", 58687);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Started provider[%p]\n", v5, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Started provider[%p]\n", v3, v4, v5);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to setup the Deispatch Queue 0x%x\n", v5, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to setup the Deispatch Queue 0x%x\n", v3, v4, v5);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to create System State Notification Service 0x%x", v5, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to create System State Notification Service 0x%x", v3, v4, v5);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Successfully created System State Notification Service\n", "Start_Impl", 58703);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Successfully created System State Notification Service\n", "Start_Impl", 58703);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to create System State Notification 0x%x", v5, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to create System State Notification 0x%x", v3, v4, v5);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to create System State Notification Action 0x%x", v5, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to create System State Notification Action 0x%x", v3, v4, v5);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Failed to Set System State Notification Action 0x%x", v5, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to Set System State Notification Action 0x%x", v3, v4, v5);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Skipping setting up listeners for Audio Notifications! No Audio Protector created\n", "Start_Impl", 58733);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Skipping setting up listeners for Audio Notifications! No Audio Protector created\n", "Start_Impl", 58733);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_5_5();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_211();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:wlan core start done 0x%x\n", v5, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:wlan core start done 0x%x\n", v3, v4, v5);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:invalid dispatch queue\n", "Start_Impl", 58696);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:invalid dispatch queue\n", "Start_Impl", 58696);
 }
 
-uint64_t ___ZN16AppleBCMWLANCore10Start_ImplEP9IOService_block_invoke_cold_1(uint64_t *a1)
+uint64_t ___ZN16AppleBCMWLANCore10Start_ImplEP9IOService_block_invoke_cold_1()
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Firmware not initialized\n", "Start_Impl_block_invoke", 58740);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Firmware not initialized\n", "Start_Impl_block_invoke", 58740);
 }
 
-uint64_t AppleBCMWLANCore::SystemStateNotificationReady_Impl(uint64_t *a1)
+uint64_t AppleBCMWLANCore::SystemStateNotificationReady_Impl()
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logCrit(v3, "[dk] %s@%d:Successfully received Mic State notification\n", "SystemStateNotificationReady_Impl", 58808);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logCrit(v3, "[dk] %s@%d:Successfully received Receiver State notification\n", "SystemStateNotificationReady_Impl", 58816);
-}
-
-uint64_t AppleBCMWLANCore::Stop_Impl(uint64_t *a1, uint64_t a2, const void *a3)
-{
-  v5 = OUTLINED_FUNCTION_11_4(a1);
-  v7 = (*(v6 + 1952))(v5);
-  return CCLogStream::logAlert(v7, "[dk] %s@%d:::Stop_Impl[%u] stop( %p) this[%p]\n", "Stop_Impl", 58834, 58834, a3, v3);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logCrit(v1, "[dk] %s@%d:Successfully received Mic State notification\n", "SystemStateNotificationReady_Impl", 58808);
 }
 
 {
-  v5 = OUTLINED_FUNCTION_11_4(a1);
-  v7 = (*(v6 + 1952))(v5);
-  return CCLogStream::logAlert(v7, "[dk] %s@%d:::Stop_Impl[%u] stop( %p) this[%p] unregisterDriver\n", "Stop_Impl", 58840, 58840, a3, v3);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logCrit(v1, "[dk] %s@%d:Successfully received Receiver State notification\n", "SystemStateNotificationReady_Impl", 58816);
 }
 
-uint64_t AppleBCMWLANCore::newUserClientGated(uint64_t *a1)
+uint64_t AppleBCMWLANCore::Stop_Impl(uint64_t a1, uint64_t a2, const void *a3)
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logEmergency(v3, "[dk] %s@%d:wifiFirmwareLoader logic is not supported\n", "newUserClientGated", 58868);
+  OUTLINED_FUNCTION_11_4();
+  v6 = (*(v5 + 1952))();
+  return CCLogStream::logAlert(v6, "[dk] %s@%d:::Stop_Impl[%u] stop( %p) this[%p]\n", "Stop_Impl", 58834, 58834, a3, v3);
 }
 
-uint64_t AppleBCMWLANCore::setAndBootInfraInterface(uint64_t *a1)
 {
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_11_4();
+  v6 = (*(v5 + 1952))();
+  return CCLogStream::logAlert(v6, "[dk] %s@%d:::Stop_Impl[%u] stop( %p) this[%p] unregisterDriver\n", "Stop_Impl", 58840, 58840, a3, v3);
+}
+
+uint64_t AppleBCMWLANCore::newUserClientGated()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logEmergency(v1, "[dk] %s@%d:wifiFirmwareLoader logic is not supported\n", "newUserClientGated", 58868);
+}
+
+uint64_t AppleBCMWLANCore::setAndBootInfraInterface()
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v1 + 1952))();
   OUTLINED_FUNCTION_209();
-  return CCLogStream::logEmergency(v4, "[dk] %s@%d:%s:%s: interfaceId (%d) is not kAPPLE80211InterfaceIdSTA\n", v6, v7, v8, "setAndBootInfraInterface", v1);
+  return CCLogStream::logEmergency(v2, "[dk] %s@%d:%s:%s: interfaceId (%d) is not kAPPLE80211InterfaceIdSTA\n", v4, v5, v6, "setAndBootInfraInterface", v0);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_5_5();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_209();
-  return CCLogStream::logEmergency(v3, "[dk] %s@%d:%s:%s: interfaceId %d failed to boot. trying wifiFirmwareLoader.\n", v5, v6, v7, "setAndBootInfraInterface", 0);
+  return CCLogStream::logEmergency(v1, "[dk] %s@%d:%s:%s: interfaceId %d failed to boot. trying wifiFirmwareLoader.\n", v3, v4, v5, "setAndBootInfraInterface", 0);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_5_5();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_209();
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:%s:%s: interfaceId %d booted\n", v5, v6, v7, "setAndBootInfraInterface", 0);
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:%s:%s: interfaceId %d booted\n", v3, v4, v5, "setAndBootInfraInterface", 0);
 }
 
-uint64_t AppleBCMWLANCore::downloadFdr(uint64_t *a1)
+uint64_t AppleBCMWLANCore::downloadFdr()
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_5_5();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:%s unavailable in ioreg\n", v5, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:%s unavailable in ioreg\n", v3, v4, v5);
 }
 
 {
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  v4 = (*(v3 + 1952))(v2);
-  return CCLogStream::logAlert(v4, "[dk] %s@%d: %s, bcmInterfaceState[%u]\n", "downloadFdr", 58979, "wifi-calibration-fdr", v1 & 1);
+  OUTLINED_FUNCTION_2_7();
+  v2 = (*(v1 + 1952))();
+  return CCLogStream::logAlert(v2, "[dk] %s@%d: %s, bcmInterfaceState[%u]\n", "downloadFdr", 58979, "wifi-calibration-fdr", v0 & 1);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v9 = v8(v7);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d:Failed WLC_DOWN, rv 0x%x/'%s'\n", "downloadFdr", 58982, v1, v9);
+  v3 = OUTLINED_FUNCTION_16_2();
+  v5 = v4(v3);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed WLC_DOWN, rv 0x%x/'%s'\n", "downloadFdr", 58982, v0, v5);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: downloadCal, calling ...\n", "downloadFdr", 58985);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: downloadCal, calling ...\n", "downloadFdr", 58985);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v13 = v8(v7);
+  v3 = OUTLINED_FUNCTION_16_2();
+  v9 = v4(v3);
   OUTLINED_FUNCTION_211();
-  return CCLogStream::logAlert(v2, "[dk] %s@%d: downloadCal, called ..., isGeneric[%u], rv[0x%08x]/'%s'\n", v10, v11, v12, v1, v13);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: downloadCal, called ..., isGeneric[%u], rv[0x%08x]/'%s'\n", v6, v7, v8, v0, v9);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v13 = v8(v7);
+  v3 = OUTLINED_FUNCTION_16_2();
+  v9 = v4(v3);
   OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logAlert(v2, "[dk] %s@%d:Failed to download %s, rv 0x%x %s\n", v10, v11, v12, v1, v13);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to download %s, rv 0x%x %s\n", v6, v7, v8, v0, v9);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v11 = v8(v7);
+  v3 = OUTLINED_FUNCTION_16_2();
+  v7 = v4(v3);
   OUTLINED_FUNCTION_168();
-  return CCLogStream::logAlert(v2, "[dk] %s@%d: bcmInterfaceState[%u], restored rv[0x%08x]/'%s'\n", "downloadFdr", 58993, v10, v1, v11);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: bcmInterfaceState[%u], restored rv[0x%08x]/'%s'\n", "downloadFdr", 58993, v6, v0, v7);
 }
 
-uint64_t AppleBCMWLANCore::downloadGenericCalibrationData(uint64_t *a1)
+uint64_t AppleBCMWLANCore::downloadGenericCalibrationData()
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:OSBundle\n", "downloadGenericCalibrationData", 59030);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:OSBundle\n", "downloadGenericCalibrationData", 59030);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Checked bcmInterfaceState[%u], down firmware sending ...\n", v5, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: Checked bcmInterfaceState[%u], down firmware sending ...\n", v3, v4, v5);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v9 = v8(v7);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d:Failed WLC_DOWN, rv 0x%x %s\n", "downloadGenericCalibrationData", 59046, v1, v9);
+  v3 = OUTLINED_FUNCTION_16_2();
+  v5 = v4(v3);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed WLC_DOWN, rv 0x%x %s\n", "downloadGenericCalibrationData", 59046, v0, v5);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_5_6(a1);
-  v5 = (*(v4 + 1952))(v3);
-  v6 = OSMappedFile::size(*v2);
-  return CCLogStream::logAlert(v5, "[dk] %s@%d: calload calling ..., %s: size[%zu]\n", "downloadGenericCalibrationData", 59048, v1, v6);
+  OUTLINED_FUNCTION_5_6();
+  v3 = (*(v2 + 1952))();
+  v4 = OSMappedFile::size(*v1);
+  return CCLogStream::logAlert(v3, "[dk] %s@%d: calload calling ..., %s: size[%zu]\n", "downloadGenericCalibrationData", 59048, v0, v4);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
+  OUTLINED_FUNCTION_5_5();
+  (*(v0 + 1952))();
   OUTLINED_FUNCTION_168();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: retrieveCalMSFStatus calling ..., isGeneric[%u]\n", "downloadGenericCalibrationData", 59053, v5);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: retrieveCalMSFStatus calling ..., isGeneric[%u]\n", "downloadGenericCalibrationData", 59053, v3);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v9 = v8(v7);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d: retrieveCalMSFStatus ... called, rv[0x%08x]/'%s'\n", "downloadGenericCalibrationData", 59055, v1, v9);
+  v3 = OUTLINED_FUNCTION_16_2();
+  v5 = v4(v3);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: retrieveCalMSFStatus ... called, rv[0x%08x]/'%s'\n", "downloadGenericCalibrationData", 59055, v0, v5);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v9 = v8(v7);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d:retrieveCalMSFStatus error, rv 0x%x %s\n", "downloadGenericCalibrationData", 59058, v1, v9);
+  v3 = OUTLINED_FUNCTION_16_2();
+  v5 = v4(v3);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:retrieveCalMSFStatus error, rv 0x%x %s\n", "downloadGenericCalibrationData", 59058, v0, v5);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_5_6(a1);
-  v5 = (*(v4 + 1952))(v3);
-  v6 = OSMappedFile::size(*v2);
-  return CCLogStream::logAlert(v5, "[dk] %s@%d: clmload calling ..., %s: size[%zu]\n", "downloadGenericCalibrationData", 59067, v1, v6);
+  OUTLINED_FUNCTION_5_6();
+  v3 = (*(v2 + 1952))();
+  v4 = OSMappedFile::size(*v1);
+  return CCLogStream::logAlert(v3, "[dk] %s@%d: clmload calling ..., %s: size[%zu]\n", "downloadGenericCalibrationData", 59067, v0, v4);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: retrieveRegTableStatus calling ...\n", "downloadGenericCalibrationData", 59072);
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: retrieveRegTableStatus calling ...\n", "downloadGenericCalibrationData", 59072);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v9 = v8(v7);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d: retrieveRegTableStatus ... called, rv[0x%08x]/'%s'\n", "downloadGenericCalibrationData", 59074, v1, v9);
+  v3 = OUTLINED_FUNCTION_16_2();
+  v5 = v4(v3);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: retrieveRegTableStatus ... called, rv[0x%08x]/'%s'\n", "downloadGenericCalibrationData", 59074, v0, v5);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v9 = v8(v7);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d:retrieveRegTableStatus error, rv %s 0x%x\n", "downloadGenericCalibrationData", 59077, v9, v1);
+  v3 = OUTLINED_FUNCTION_16_2();
+  v5 = v4(v3);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:retrieveRegTableStatus error, rv %s 0x%x\n", "downloadGenericCalibrationData", 59077, v5, v0);
 }
 
 {
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
   OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v11 = v8(v7);
+  v3 = OUTLINED_FUNCTION_16_2();
+  v7 = v4(v3);
   OUTLINED_FUNCTION_168();
-  return CCLogStream::logAlert(v2, "[dk] %s@%d: bcmInterfaceState[%u], restored rv[0x%08x]/'%s'\n", "downloadGenericCalibrationData", 59082, v10, v1, v11);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: bcmInterfaceState[%u], restored rv[0x%08x]/'%s'\n", "downloadGenericCalibrationData", 59082, v6, v0, v7);
 }
 
 {
-  v4 = OUTLINED_FUNCTION_21_3(a1);
-  result = (*(v5 + 1952))(v4);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v7 = (*(*v2 + 1952))(v2);
-      result = CCLogStream::logAlert(v7, "[dk] %s@%d:Invalid OSBundle\n", "downloadGenericCalibrationData", 59034);
-    }
-  }
-
-  *v1 = v3;
-  return result;
-}
-
-uint64_t AppleBCMWLANCore::isHWIdentifiersLate(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:isHWIdentifiersLate %d\n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::handleFdr(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:platform does not need FDR.\n", "handleFdr", 59113);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: FDR platform\n", "handleFdr", 59117);
-}
-
-uint64_t AppleBCMWLANCore::userSetPropertiesGated(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_10_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Calling setPlatformConfigProperties: [%p]\n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_10_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Calling setPlatformConfigProperties: [%p] ... done\n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Write %s to ioreg\n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:failed to get %s\n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Write %s to ioreg\n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:failed to get %s\n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::configureDynamicRssiWindow(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:InCorrect RSSI Window Size %u\n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::triggerTTR(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Unrecognised TTR reason %d", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::is6ESupportedInCurrentCountry(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_234();
-  OUTLINED_FUNCTION_251();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:WiFiCC : Current FW country code [%s] does not match the country for channels last queried [%s]\n", "is6ESupportedInCurrentCountry", 60553, v5, v6);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_1_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_4_6();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_118();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: fw queried again for chanspecs : %s\n", v9, v10, v11);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_180();
-  OUTLINED_FUNCTION_198();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:WiFiCC : Host country code [%s] does not match FW country code[%s].\n", "is6ESupportedInCurrentCountry", 60536, v5, v6);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_180();
-  OUTLINED_FUNCTION_251();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:WiFiCC : Current Host country code [%s] does not match the country for channels last queried [%s] \n", "is6ESupportedInCurrentCountry", 60540, v5, v6);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_1_9(a1);
-  (*(v3 + 1952))(v2);
-  OUTLINED_FUNCTION_4_6();
-  v5 = *(v4 + 112);
-  v6 = OUTLINED_FUNCTION_118();
-  v7(v6);
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d: fw queried again for chanspecs : %s\n", v9, v10, v11);
-}
-
-uint64_t AppleBCMWLANCore::setMWS_WIFI_TYPE_7_BITMAP_WIFI_ENH(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Got APPLE80211_IOC_MWS_WIFI_TYPE_7_BITMAP_WIFI_ENH indication\n", "setMWS_WIFI_TYPE_7_BITMAP_WIFI_ENH", 60998);
-}
-
-uint64_t AppleBCMWLANCore::setMWS_COEX_BITMAP_WIFI_ENH(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Got APPLE80211_IOC_MWS_COEX_BITMAP_WIFI_ENH indication\n", "setMWS_COEX_BITMAP_WIFI_ENH", 61020);
-}
-
-uint64_t AppleBCMWLANCore::setMWS_DISABLE_OCL_BITMAP_WIFI_ENH(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Got APPLE80211_IOC_MWS_DisableOCL_BITMAP_WiFiEnh indication\n", "setMWS_DISABLE_OCL_BITMAP_WIFI_ENH", 61047);
-}
-
-uint64_t AppleBCMWLANCore::setMWS_RFEM_CONFIG_WIFI_ENH(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Got APPLE80211_IOC_MWS_RFEM_CONFIG_WIFI_ENH indication\n", "setMWS_RFEM_CONFIG_WIFI_ENH", 61074);
-}
-
-uint64_t AppleBCMWLANCore::setMWS_ASSOC_PROTECTION_BITMAP_WIFI_ENH(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Got APPLE80211_IOC_MWS_ASSOC_PROTECTION_BITMAP_WIFI_ENH indication\n", "setMWS_ASSOC_PROTECTION_BITMAP_WIFI_ENH", 61102);
-}
-
-uint64_t AppleBCMWLANCore::setMWS_SCAN_FREQ_WIFI_ENH(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Got APPLE80211_IOC_MWS_SCAN_FREQ_WIFI_ENH indication\n", "setMWS_SCAN_FREQ_WIFI_ENH", 61129);
-}
-
-uint64_t AppleBCMWLANCore::setMWS_SCAN_FREQ_MODE_WIFI_ENH(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Got APPLE80211_IOC_MWS_SCAN_FREQ_MODE_WIFI_ENH indication\n", "setMWS_SCAN_FREQ_MODE_WIFI_ENH", 61160);
-}
-
-uint64_t AppleBCMWLANCore::setMWS_CONDITION_ID_BITMAP_WIFI_ENH(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Got APPLE80211_IOC_MWS_CONDITION_ID_BITMAP_WIFI_ENH indication for entire config\n", "setMWS_CONDITION_ID_BITMAP_WIFI_ENH", 61182);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Got APPLE80211_IOC_MWS_CONDITION_ID_BITMAP_WIFI_ENH indication for 1 bitmap\n", "setMWS_CONDITION_ID_BITMAP_WIFI_ENH", 61186);
-}
-
-uint64_t AppleBCMWLANCore::setMWS_ANTENNA_SELECTION_WIFI_ENH(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Got APPLE80211_IOC_MWS_ANTENNA_SELECTION_WIFI_ENH indication\n", "setMWS_ANTENNA_SELECTION_WIFI_ENH", 61228);
-}
-
-{
-  v3 = OUTLINED_FUNCTION_5_6(a1);
-  v5 = (*(v4 + 1952))(v3);
-  return CCLogStream::logAlert(v5, "[dk] %s@%d:APPLE80211_IOC_MWS_ANTENNA_SELECTION_WIFI_ENH wifiBand = %d, AntSel[0]=0x%X, AntSel[1]=0x%X, AntSel[2]=0x%X, AntSel[3]=0x%X\n", "setMWS_ANTENNA_SELECTION_WIFI_ENH", 61238, *v2, *v1, v1[1], v1[2], v1[3]);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
-  v4 = v1[4];
-  v5 = v1[5];
-  v6 = v1[6];
-  v7 = v1[7];
-  OUTLINED_FUNCTION_112();
-  return CCLogStream::logAlert(v8, "[dk] %s@%d:APPLE80211_IOC_MWS_ANTENNA_SELECTION_WIFI_ENH AntSel[4]=0x%X, AntSel[5]=0x%X, AntSel[6]=0x%X, AntSel[7]=0x%X\n", "setMWS_ANTENNA_SELECTION_WIFI_ENH", 61240, v10, v11, v12, v13);
-}
-
-uint64_t AppleBCMWLANCore::setOS_FEATURE_FLAGS(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: rejecting OS_FEATURE_FLAGS\n", "setOS_FEATURE_FLAGS", 61391);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
-  v4 = *(*v1 + 17520);
-  OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logAlert(v5, "[dk] %s@%d:LBT Feature flag: 0x%llx\n", v7, v8, v9);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
-  v4 = *(*v1 + 30064);
-  OUTLINED_FUNCTION_128();
-  OUTLINED_FUNCTION_113();
-  return CCLogStream::logAlert(v5, "[dk] %s@%d:WiFi LQM CrashTracer Feature flag %s\n", v7, v8, v9);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
-  v4 = *(*v1 + 30069);
-  OUTLINED_FUNCTION_181();
-  OUTLINED_FUNCTION_113();
-  return CCLogStream::logAlert(v5, "[dk] %s@%d:WiFi ViVODatapath Tuning Feature flag %s\n\n", v7, v8, v9);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
-  v4 = *(*v1 + 31176);
-  v5 = *(*v1 + 31172);
-  v6 = *(*v1 + 31168);
-  OUTLINED_FUNCTION_247();
-  return CCLogStream::logAlert(v7, "[dk] %s@%d:Dynamic RTS Algorithm Setting: enable %u, p95-latency-th = %u, tx-per-th = %u\n", "setOS_FEATURE_FLAGS", 61418, v9, v10, v11);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
-  v4 = *(*v1 + 30070);
-  OUTLINED_FUNCTION_128();
-  OUTLINED_FUNCTION_113();
-  return CCLogStream::logAlert(v5, "[dk] %s@%d:DNS symptoms feature flag %s\n", v7, v8, v9);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
-  v4 = *(*v1 + 30081);
-  OUTLINED_FUNCTION_128();
-  OUTLINED_FUNCTION_113();
-  return CCLogStream::logAlert(v5, "[dk] %s@%d:WiFi-QoS: Feature flag %s\n", v7, v8, v9);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
-  v4 = *(*v1 + 30080);
-  OUTLINED_FUNCTION_128();
-  OUTLINED_FUNCTION_113();
-  return CCLogStream::logAlert(v5, "[dk] %s@%d:P2P Optimization For Ultra Low Latency Realtime Infra Feature flag %s\n", v7, v8, v9);
-}
-
-uint64_t AppleBCMWLANCore::setDHCP_RENEWAL_DATA(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
-  v4 = *(*v1 + 6730);
-  OUTLINED_FUNCTION_128();
-  OUTLINED_FUNCTION_113();
-  return CCLogStream::logAlert(v5, "[dk] %s@%d:Active during sleep supported (%s)\n", v7, v8, v9);
-}
-
-uint64_t AppleBCMWLANCore::setBATTERY_POWERSAVE_CONFIG(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logNoticeIf(v3, 0x20uLL, "[dk] %s@%d:MIMO_PS: Battery Save Mode = %s  \n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::setMIMO_CONFIG(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logNoticeIf(v3, 0x20uLL, "[dk] %s@%d:MIMO_PS: Device %s  Mode\n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::setFACETIME_WIFICALLING_PARAMS(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:FaceTime/WiFi Call = %s\n", v5, v6, v7);
-}
-
-uint64_t AppleBCMWLANCore::setIPV4_PARAMS(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_8_7(a1);
-  (*(v3 + 1952))(v2);
-  if (IO80211_io80211isSensitiveInfoAllowed())
-  {
-    v4 = *(*v1 + 9496);
-  }
-
-  if (IO80211_io80211isSensitiveInfoAllowed())
-  {
-    v5 = *(*v1 + 9497);
-  }
-
-  if (IO80211_io80211isSensitiveInfoAllowed())
-  {
-    v6 = *(*v1 + 9498);
-  }
-
-  if (IO80211_io80211isSensitiveInfoAllowed())
-  {
-    v7 = *(*v1 + 9499);
-  }
-
-  if (IO80211_io80211isSensitiveInfoAllowed())
-  {
-    v8 = *(*v1 + 9500);
-  }
-
-  v9 = IO80211_io80211isSensitiveInfoAllowed();
-  if (v9)
-  {
-    v16 = *(*v1 + 9501);
-  }
-
-  return OUTLINED_FUNCTION_228(v9, "[dk] %s@%d: Router MAC address for IPv4 = %02X:%02X:%02X:%02X:%02X:%02X\n", v10, v11, v12, v13, v14, v15, v18, v19);
-}
-
-uint64_t AppleBCMWLANCore::setEAP_FILTER_CONFIG(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
-  v4 = *(*v1 + 19784);
-  OUTLINED_FUNCTION_181();
-  OUTLINED_FUNCTION_113();
-  return CCLogStream::logAlert(v5, "[dk] %s@%d:WoWEapolFilterEnable is %s\n", v7, v8, v9);
-}
-
-uint64_t AppleBCMWLANCore::setCONGESTION_CTRL_IND(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
-  v4 = *v1;
-  OUTLINED_FUNCTION_181();
-  OUTLINED_FUNCTION_113();
-  return CCLogStream::logInfo(v5, "[dk] %s@%d:[Traffic Engineering]: Congestion Control State = (%s)\n", v7, v8, v9);
-}
-
-uint64_t AppleBCMWLANCore::setLMTPC_CONFIG(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Got APPLE80211_IOC_LMTPC_CONFIG indication\n", "setLMTPC_CONFIG", 62007);
-}
-
-uint64_t AppleBCMWLANCore::setBTMRejectionAsyncCallback(uint64_t *a1)
-{
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
-  OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v9 = v8(v7);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d:Setting wnm_bsstrans_rej callback failed: %s(%d)\n", "setBTMRejectionAsyncCallback", 62028, v9, v1);
-}
-
-uint64_t AppleBCMWLANCore::setBTMRejection(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Issuing wnm_bsstrans_rej (%d) to FW\n", v5, v6, v7);
-}
-
-{
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
-  OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v9 = v8(v7);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d: Error: cannot async set wnm_bsstrans_rej : ret %x: %s\n", "setBTMRejection", 62046, v1, v9);
-}
-
-uint64_t AppleBCMWLANCore::setBTCSlottedBssPolicyAsyncCallback(uint64_t *a1)
-{
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
-  OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v9 = v8(v7);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d:Setting btc_slotted_bss_policy callback failed: %s(%d)\n", "setBTCSlottedBssPolicyAsyncCallback", 62056, v9, v1);
-}
-
-uint64_t AppleBCMWLANCore::setBTCSlottedBssPolicy(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d: Issuing btc_slotted_bss_policy (%d) to FW\n", v5, v6, v7);
-}
-
-{
-  v3 = OUTLINED_FUNCTION_0_9(a1);
-  (*(v4 + 1952))(v3);
-  OUTLINED_FUNCTION_3_5();
-  v6 = *(v5 + 112);
-  v7 = OUTLINED_FUNCTION_16_2();
-  v9 = v8(v7);
-  return CCLogStream::logAlert(v2, "[dk] %s@%d: Error: cannot async set wnm_bsstrans_rej : ret %x: %s\n", "setBTCSlottedBssPolicy", 62074, v1, v9);
-}
-
-uint64_t AppleBCMWLANCore::setWCL_ASSOCIATED_SLEEP(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_11_3();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Enters for %d state\n", v5, v6, v7);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Exiting associated sleep\n", "setWCL_ASSOCIATED_SLEEP", 62101);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
-  v4 = *(*v1 + 6728);
-  OUTLINED_FUNCTION_128();
-  OUTLINED_FUNCTION_113();
-  return CCLogStream::logAlert(v5, "[dk] %s@%d:Entering associated sleep for %s...\n", v7, v8, v9);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v3 + 1952))(v2);
-  v4 = *(*v1 + 19784);
-  OUTLINED_FUNCTION_181();
-  OUTLINED_FUNCTION_113();
-  return CCLogStream::logAlert(v5, "[dk] %s@%d:Eapol filter - %s", v7, v8, v9);
-}
-
-uint64_t AppleBCMWLANCore::getPLATFORM_CONFIG(uint64_t *a1)
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logNotice(v3, "[dk] %s@%d:Enter: \n", "getPLATFORM_CONFIG", 62130);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_26_1();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:WiFiRoam : 6GHz support defaults to disable for platform, %d\n", "getPLATFORM_CONFIG", 62154, v5);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_26_1();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:WiFiRoam : 6GHz support explicitly disabled via platform config, %d\n", "getPLATFORM_CONFIG", 62150, v5);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_2_7(a1);
-  (*(v2 + 1952))(v1);
-  OUTLINED_FUNCTION_26_1();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:WiFiRoam : 6GHz supported for this platform, %d\n", "getPLATFORM_CONFIG", 62147, v5);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logNotice(v3, "[dk] %s@%d:Exit: \n", "getPLATFORM_CONFIG", 62198);
-}
-
-uint64_t AppleBCMWLANCore::processScanForwardStats(uint64_t *a1)
-{
-  v2 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v3 + 1952))(v2);
-  if (result)
-  {
-    (*(*v1 + 1952))(v1);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      (*(*v1 + 1952))(v1);
-      OUTLINED_FUNCTION_12_3();
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:Incorrect ID in scan metrics %u\n", "processScanForwardStats", 62349, v6);
-    }
-  }
-
-  return result;
-}
-
-{
-  v3 = OUTLINED_FUNCTION_16_5(a1);
-  result = (*(v4 + 1952))(v3);
-  if (result)
-  {
-    (*(*v2 + 1952))(v2);
-    result = CCLogStream::shouldLog();
-    if (result)
-    {
-      v6 = (*(*v2 + 1952))(v2);
-      return CCLogStream::logAlert(v6, "[dk] %s@%d:Incorrect data in scan metrics received length %u expected %lu\n", "processScanForwardStats", 62352, *v1, 76);
-    }
-  }
-
-  return result;
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62356);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62357);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62358);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62359);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62360);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62361);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62362);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62363);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62364);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62365);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62366);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62367);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62368);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62369);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62370);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62371);
-}
-
-{
-  v1 = OUTLINED_FUNCTION_5_5(a1);
-  v3 = (*(v2 + 1952))(v1);
-  return CCLogStream::logInfo(v3, "[dk] %s@%d:Submitting new scan forward metrics\n", "processScanForwardStats", 62390);
-}
-
-{
-  v2 = OUTLINED_FUNCTION_35_1(a1);
-  result = (*(v3 + 1952))(v2);
+  OUTLINED_FUNCTION_21_3();
+  result = (*(v3 + 1952))();
   if (result)
   {
     (*(*v1 + 1952))(v1);
@@ -4939,18 +1547,631 @@ uint64_t AppleBCMWLANCore::processScanForwardStats(uint64_t *a1)
     if (result)
     {
       v5 = (*(*v1 + 1952))(v1);
-      return CCLogStream::logAlert(v5, "[dk] %s@%d:NULL data in scan metrics\n", "processScanForwardStats", 62346);
+      result = CCLogStream::logAlert(v5, "[dk] %s@%d:Invalid OSBundle\n", "downloadGenericCalibrationData", 59034);
+    }
+  }
+
+  *v0 = v2;
+  return result;
+}
+
+uint64_t AppleBCMWLANCore::isHWIdentifiersLate()
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_9_4();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:isHWIdentifiersLate %d\n", v3, v4, v5);
+}
+
+uint64_t AppleBCMWLANCore::handleFdr()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:platform does not need FDR.\n", "handleFdr", 59113);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: FDR platform\n", "handleFdr", 59117);
+}
+
+uint64_t AppleBCMWLANCore::userSetPropertiesGated()
+{
+  OUTLINED_FUNCTION_10_5();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_11_3();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: Calling setPlatformConfigProperties: [%p]\n", v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_10_5();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_11_3();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: Calling setPlatformConfigProperties: [%p] ... done\n", v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_9_4();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Write %s to ioreg\n", v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_9_4();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:failed to get %s\n", v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_9_4();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Write %s to ioreg\n", v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_9_4();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:failed to get %s\n", v3, v4, v5);
+}
+
+uint64_t AppleBCMWLANCore::configureDynamicRssiWindow()
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_11_3();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:InCorrect RSSI Window Size %u\n", v3, v4, v5);
+}
+
+uint64_t AppleBCMWLANCore::triggerTTR()
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_11_3();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Unrecognised TTR reason %d", v3, v4, v5);
+}
+
+uint64_t AppleBCMWLANCore::is6ESupportedInCurrentCountry()
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_234();
+  OUTLINED_FUNCTION_251();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WiFiCC : Current FW country code [%s] does not match the country for channels last queried [%s]\n", "is6ESupportedInCurrentCountry", 60553, v3, v4);
+}
+
+{
+  OUTLINED_FUNCTION_1_9();
+  (*(v1 + 1952))();
+  OUTLINED_FUNCTION_4_6();
+  v2 = OUTLINED_FUNCTION_118();
+  v3(v2);
+  OUTLINED_FUNCTION_6();
+  return CCLogStream::logAlert(v0, "[dk] %s@%d: fw queried again for chanspecs : %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_180();
+  OUTLINED_FUNCTION_198();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WiFiCC : Host country code [%s] does not match FW country code[%s].\n", "is6ESupportedInCurrentCountry", 60536, v3, v4);
+}
+
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_180();
+  OUTLINED_FUNCTION_251();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WiFiCC : Current Host country code [%s] does not match the country for channels last queried [%s] \n", "is6ESupportedInCurrentCountry", 60540, v3, v4);
+}
+
+{
+  OUTLINED_FUNCTION_1_9();
+  (*(v1 + 1952))();
+  OUTLINED_FUNCTION_4_6();
+  v2 = OUTLINED_FUNCTION_118();
+  v3(v2);
+  OUTLINED_FUNCTION_6();
+  return CCLogStream::logAlert(v0, "[dk] %s@%d: fw queried again for chanspecs : %s\n", v5, v6, v7);
+}
+
+uint64_t AppleBCMWLANCore::setMWS_WIFI_TYPE_7_BITMAP_WIFI_ENH()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Got APPLE80211_IOC_MWS_WIFI_TYPE_7_BITMAP_WIFI_ENH indication\n", "setMWS_WIFI_TYPE_7_BITMAP_WIFI_ENH", 60998);
+}
+
+uint64_t AppleBCMWLANCore::setMWS_COEX_BITMAP_WIFI_ENH()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Got APPLE80211_IOC_MWS_COEX_BITMAP_WIFI_ENH indication\n", "setMWS_COEX_BITMAP_WIFI_ENH", 61020);
+}
+
+uint64_t AppleBCMWLANCore::setMWS_DISABLE_OCL_BITMAP_WIFI_ENH()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Got APPLE80211_IOC_MWS_DisableOCL_BITMAP_WiFiEnh indication\n", "setMWS_DISABLE_OCL_BITMAP_WIFI_ENH", 61047);
+}
+
+uint64_t AppleBCMWLANCore::setMWS_RFEM_CONFIG_WIFI_ENH()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Got APPLE80211_IOC_MWS_RFEM_CONFIG_WIFI_ENH indication\n", "setMWS_RFEM_CONFIG_WIFI_ENH", 61074);
+}
+
+uint64_t AppleBCMWLANCore::setMWS_ASSOC_PROTECTION_BITMAP_WIFI_ENH()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Got APPLE80211_IOC_MWS_ASSOC_PROTECTION_BITMAP_WIFI_ENH indication\n", "setMWS_ASSOC_PROTECTION_BITMAP_WIFI_ENH", 61102);
+}
+
+uint64_t AppleBCMWLANCore::setMWS_SCAN_FREQ_WIFI_ENH()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Got APPLE80211_IOC_MWS_SCAN_FREQ_WIFI_ENH indication\n", "setMWS_SCAN_FREQ_WIFI_ENH", 61129);
+}
+
+uint64_t AppleBCMWLANCore::setMWS_SCAN_FREQ_MODE_WIFI_ENH()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Got APPLE80211_IOC_MWS_SCAN_FREQ_MODE_WIFI_ENH indication\n", "setMWS_SCAN_FREQ_MODE_WIFI_ENH", 61160);
+}
+
+uint64_t AppleBCMWLANCore::setMWS_CONDITION_ID_BITMAP_WIFI_ENH()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Got APPLE80211_IOC_MWS_CONDITION_ID_BITMAP_WIFI_ENH indication for entire config\n", "setMWS_CONDITION_ID_BITMAP_WIFI_ENH", 61182);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Got APPLE80211_IOC_MWS_CONDITION_ID_BITMAP_WIFI_ENH indication for 1 bitmap\n", "setMWS_CONDITION_ID_BITMAP_WIFI_ENH", 61186);
+}
+
+uint64_t AppleBCMWLANCore::setMWS_ANTENNA_SELECTION_WIFI_ENH()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Got APPLE80211_IOC_MWS_ANTENNA_SELECTION_WIFI_ENH indication\n", "setMWS_ANTENNA_SELECTION_WIFI_ENH", 61228);
+}
+
+{
+  OUTLINED_FUNCTION_5_6();
+  v3 = (*(v2 + 1952))();
+  return CCLogStream::logAlert(v3, "[dk] %s@%d:APPLE80211_IOC_MWS_ANTENNA_SELECTION_WIFI_ENH wifiBand = %d, AntSel[0]=0x%X, AntSel[1]=0x%X, AntSel[2]=0x%X, AntSel[3]=0x%X\n", "setMWS_ANTENNA_SELECTION_WIFI_ENH", 61238, *v1, *v0, v0[1], v0[2], v0[3]);
+}
+
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_112();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:APPLE80211_IOC_MWS_ANTENNA_SELECTION_WIFI_ENH AntSel[4]=0x%X, AntSel[5]=0x%X, AntSel[6]=0x%X, AntSel[7]=0x%X\n", "setMWS_ANTENNA_SELECTION_WIFI_ENH", 61240, v3, v4, v5, v6);
+}
+
+uint64_t AppleBCMWLANCore::setOS_FEATURE_FLAGS()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: rejecting OS_FEATURE_FLAGS\n", "setOS_FEATURE_FLAGS", 61391);
+}
+
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_9_4();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:LBT Feature flag: 0x%llx\n", v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_128();
+  OUTLINED_FUNCTION_113();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WiFi LQM CrashTracer Feature flag %s\n", v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_181();
+  OUTLINED_FUNCTION_113();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WiFi ViVODatapath Tuning Feature flag %s\n\n", v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_247();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Dynamic RTS Algorithm Setting: enable %u, p95-latency-th = %u, tx-per-th = %u\n", "setOS_FEATURE_FLAGS", 61418, v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_128();
+  OUTLINED_FUNCTION_113();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:DNS symptoms feature flag %s\n", v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_128();
+  OUTLINED_FUNCTION_113();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WiFi-QoS: Feature flag %s\n", v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_128();
+  OUTLINED_FUNCTION_113();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:P2P Optimization For Ultra Low Latency Realtime Infra Feature flag %s\n", v3, v4, v5);
+}
+
+uint64_t AppleBCMWLANCore::setDHCP_RENEWAL_DATA()
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_128();
+  OUTLINED_FUNCTION_113();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Active during sleep supported (%s)\n", v3, v4, v5);
+}
+
+uint64_t AppleBCMWLANCore::setBATTERY_POWERSAVE_CONFIG()
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_9_4();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Battery Save Mode = %s  \n", v3, v4, v5);
+}
+
+uint64_t AppleBCMWLANCore::setMIMO_CONFIG()
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_9_4();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Device %s  Mode\n", v3, v4, v5);
+}
+
+uint64_t AppleBCMWLANCore::setFACETIME_WIFICALLING_PARAMS()
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_9_4();
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:FaceTime/WiFi Call = %s\n", v3, v4, v5);
+}
+
+uint64_t AppleBCMWLANCore::setIPV4_PARAMS()
+{
+  OUTLINED_FUNCTION_8_7();
+  (*(v0 + 1952))();
+  IO80211_io80211isSensitiveInfoAllowed();
+  IO80211_io80211isSensitiveInfoAllowed();
+  IO80211_io80211isSensitiveInfoAllowed();
+  IO80211_io80211isSensitiveInfoAllowed();
+  IO80211_io80211isSensitiveInfoAllowed();
+  v1 = IO80211_io80211isSensitiveInfoAllowed();
+  return OUTLINED_FUNCTION_228(v1, "[dk] %s@%d: Router MAC address for IPv4 = %02X:%02X:%02X:%02X:%02X:%02X\n", v2, v3, v4, v5, v6, v7, v9, v10);
+}
+
+uint64_t AppleBCMWLANCore::setEAP_FILTER_CONFIG()
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_181();
+  OUTLINED_FUNCTION_113();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WoWEapolFilterEnable is %s\n", v3, v4, v5);
+}
+
+uint64_t AppleBCMWLANCore::setCONGESTION_CTRL_IND()
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_181();
+  OUTLINED_FUNCTION_113();
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:[Traffic Engineering]: Congestion Control State = (%s)\n", v3, v4, v5);
+}
+
+uint64_t AppleBCMWLANCore::setLMTPC_CONFIG()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Got APPLE80211_IOC_LMTPC_CONFIG indication\n", "setLMTPC_CONFIG", 62007);
+}
+
+uint64_t AppleBCMWLANCore::setBTMRejectionAsyncCallback()
+{
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
+  OUTLINED_FUNCTION_3_5();
+  v3 = OUTLINED_FUNCTION_16_2();
+  v5 = v4(v3);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Setting wnm_bsstrans_rej callback failed: %s(%d)\n", "setBTMRejectionAsyncCallback", 62028, v5, v0);
+}
+
+uint64_t AppleBCMWLANCore::setBTMRejection()
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_11_3();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: Issuing wnm_bsstrans_rej (%d) to FW\n", v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
+  OUTLINED_FUNCTION_3_5();
+  v3 = OUTLINED_FUNCTION_16_2();
+  v5 = v4(v3);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: Error: cannot async set wnm_bsstrans_rej : ret %x: %s\n", "setBTMRejection", 62046, v0, v5);
+}
+
+uint64_t AppleBCMWLANCore::setBTCSlottedBssPolicyAsyncCallback()
+{
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
+  OUTLINED_FUNCTION_3_5();
+  v3 = OUTLINED_FUNCTION_16_2();
+  v5 = v4(v3);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Setting btc_slotted_bss_policy callback failed: %s(%d)\n", "setBTCSlottedBssPolicyAsyncCallback", 62056, v5, v0);
+}
+
+uint64_t AppleBCMWLANCore::setBTCSlottedBssPolicy()
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_11_3();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: Issuing btc_slotted_bss_policy (%d) to FW\n", v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_0_9();
+  (*(v2 + 1952))();
+  OUTLINED_FUNCTION_3_5();
+  v3 = OUTLINED_FUNCTION_16_2();
+  v5 = v4(v3);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: Error: cannot async set wnm_bsstrans_rej : ret %x: %s\n", "setBTCSlottedBssPolicy", 62074, v0, v5);
+}
+
+uint64_t AppleBCMWLANCore::setWCL_ASSOCIATED_SLEEP()
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_11_3();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Enters for %d state\n", v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Exiting associated sleep\n", "setWCL_ASSOCIATED_SLEEP", 62101);
+}
+
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_128();
+  OUTLINED_FUNCTION_113();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Entering associated sleep for %s...\n", v3, v4, v5);
+}
+
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_181();
+  OUTLINED_FUNCTION_113();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Eapol filter - %s", v3, v4, v5);
+}
+
+uint64_t AppleBCMWLANCore::getPLATFORM_CONFIG()
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logNotice(v1, "[dk] %s@%d:Enter: \n", "getPLATFORM_CONFIG", 62130);
+}
+
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_26_1();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WiFiRoam : 6GHz support defaults to disable for platform, %d\n", "getPLATFORM_CONFIG", 62154, v3);
+}
+
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_26_1();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WiFiRoam : 6GHz support explicitly disabled via platform config, %d\n", "getPLATFORM_CONFIG", 62150, v3);
+}
+
+{
+  OUTLINED_FUNCTION_2_7();
+  (*(v0 + 1952))();
+  OUTLINED_FUNCTION_26_1();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:WiFiRoam : 6GHz supported for this platform, %d\n", "getPLATFORM_CONFIG", 62147, v3);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logNotice(v1, "[dk] %s@%d:Exit: \n", "getPLATFORM_CONFIG", 62198);
+}
+
+uint64_t AppleBCMWLANCore::processScanForwardStats()
+{
+  OUTLINED_FUNCTION_16_5();
+  result = (*(v1 + 1952))();
+  if (result)
+  {
+    (*(*v0 + 1952))(v0);
+    result = CCLogStream::shouldLog();
+    if (result)
+    {
+      (*(*v0 + 1952))(v0);
+      OUTLINED_FUNCTION_12_3();
+      return CCLogStream::logAlert(v3, "[dk] %s@%d:Incorrect ID in scan metrics %u\n", "processScanForwardStats", 62349, v4);
     }
   }
 
   return result;
 }
 
-uint64_t AppleBCMWLANCore::setOS_ELIGIBILITY(uint64_t *a1)
 {
-  v3 = OUTLINED_FUNCTION_5_6(a1);
-  v5 = (*(v4 + 1952))(v3);
-  return CCLogStream::logAlert(v5, "[dk] %s@%d: Aggressive EDCA eligibility changed: %u->%u\n", "setOS_ELIGIBILITY", 62523, *(*v2 + 36084) & 1, *v1 & 1);
+  OUTLINED_FUNCTION_16_5();
+  result = (*(v2 + 1952))();
+  if (result)
+  {
+    (*(*v1 + 1952))(v1);
+    result = CCLogStream::shouldLog();
+    if (result)
+    {
+      v4 = (*(*v1 + 1952))(v1);
+      return CCLogStream::logAlert(v4, "[dk] %s@%d:Incorrect data in scan metrics received length %u expected %lu\n", "processScanForwardStats", 62352, *v0, 76);
+    }
+  }
+
+  return result;
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62356);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62357);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62358);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62359);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62360);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62361);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62362);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62363);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62364);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62365);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62366);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62367);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62368);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62369);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62370);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Overflow occurred in scan metric\n", "processScanForwardStats", 62371);
+}
+
+{
+  OUTLINED_FUNCTION_5_5();
+  v1 = (*(v0 + 1952))();
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:Submitting new scan forward metrics\n", "processScanForwardStats", 62390);
+}
+
+{
+  OUTLINED_FUNCTION_35_1();
+  result = (*(v1 + 1952))();
+  if (result)
+  {
+    (*(*v0 + 1952))(v0);
+    result = CCLogStream::shouldLog();
+    if (result)
+    {
+      v3 = (*(*v0 + 1952))(v0);
+      return CCLogStream::logAlert(v3, "[dk] %s@%d:NULL data in scan metrics\n", "processScanForwardStats", 62346);
+    }
+  }
+
+  return result;
+}
+
+uint64_t AppleBCMWLANCore::setOS_ELIGIBILITY()
+{
+  OUTLINED_FUNCTION_5_6();
+  v3 = (*(v2 + 1952))();
+  return CCLogStream::logAlert(v3, "[dk] %s@%d: Aggressive EDCA eligibility changed: %u->%u\n", "setOS_ELIGIBILITY", 62523, *(*v1 + 36084) & 1, *v0 & 1);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::publishHWIdentifiers(AppleBCMWLANBusInterfacePCIe *this)
@@ -4971,9 +2192,9 @@ uint64_t AppleBCMWLANBusInterfacePCIe::publishHWIdentifiers(AppleBCMWLANBusInter
     }
 
     Logger = AppleBCMWLANBusInterface::getLogger(this);
-    v53 = 5694;
+    v64 = 5694;
 LABEL_75:
-    CCLogStream::logAlert(Logger, "[dk] %s@%d: Bad argument\n", "publishHWIdentifiers", v53);
+    CCLogStream::logAlert(Logger, "[dk] %s@%d: Bad argument\n", "publishHWIdentifiers", v64);
     return v2;
   }
 
@@ -4992,7 +2213,7 @@ LABEL_75:
     }
 
     Logger = AppleBCMWLANBusInterface::getLogger(this);
-    v53 = 5695;
+    v64 = 5695;
     goto LABEL_75;
   }
 
@@ -5010,7 +2231,7 @@ LABEL_75:
     }
 
     Logger = AppleBCMWLANBusInterface::getLogger(this);
-    v53 = 5696;
+    v64 = 5696;
     goto LABEL_75;
   }
 
@@ -5028,7 +2249,7 @@ LABEL_75:
     }
 
     Logger = AppleBCMWLANBusInterface::getLogger(this);
-    v53 = 5697;
+    v64 = 5697;
     goto LABEL_75;
   }
 
@@ -5040,49 +2261,49 @@ LABEL_75:
 
   v4 = v3;
   PacketPool = AppleBCMWLANPCIeSkywalk::getPacketPool(this);
-  v6 = OUTLINED_FUNCTION_22_5(PacketPool);
-  if (v6 || (Product = AppleBCMWLANBusInterface::getProduct(this), v6 = OUTLINED_FUNCTION_22_5(Product), v6) || (ProductInfo0 = AppleBCMWLANBusInterface::getProductInfo0(this), v6 = OUTLINED_FUNCTION_22_5(ProductInfo0), v6) || (ProductInfo1 = AppleBCMWLANBusInterface::getProductInfo1(this), v6 = OUTLINED_FUNCTION_22_5(ProductInfo1), v6))
+  v9 = OUTLINED_FUNCTION_22_5(PacketPool, v6, v7, v8);
+  if (v9 || (Product = AppleBCMWLANBusInterface::getProduct(this), v9 = OUTLINED_FUNCTION_22_5(Product, v11, v12, v13), v9) || (ProductInfo0 = AppleBCMWLANBusInterface::getProductInfo0(this), v9 = OUTLINED_FUNCTION_22_5(ProductInfo0, v15, v16, v17), v9) || (ProductInfo1 = AppleBCMWLANBusInterface::getProductInfo1(this), v9 = OUTLINED_FUNCTION_22_5(ProductInfo1, v19, v20, v21), v9))
   {
-    v2 = v6;
+    v2 = v9;
     goto LABEL_60;
   }
 
-  v10 = OSNumber::withNumber(*(*(this + 9) + 3312), 0x20uLL);
-  if (!v10)
+  v22 = OSNumber::withNumber(*(*(this + 9) + 3312), 0x20uLL);
+  if (!v22)
   {
     v2 = 3758097085;
     goto LABEL_60;
   }
 
-  v11 = v10;
-  if (!OSDictionary::setObject(v4, "C", v10))
+  v23 = v22;
+  if (!OSDictionary::setObject(v4, "C", v22))
   {
     goto LABEL_62;
   }
 
   OUTLINED_FUNCTION_19_1();
-  v13 = (*(v12 + 984))(this);
-  v15 = AppleBCMWLANUtil::copyDTParameterString(v13, "IOService", "module-instance", 0, v14);
-  if (!v15)
+  v25 = (*(v24 + 984))(this);
+  v27 = AppleBCMWLANUtil::copyDTParameterString(v25, "IOService", "module-instance", 0, v26);
+  if (!v27)
   {
     OUTLINED_FUNCTION_19_1();
-    v27 = (*(v26 + 984))(this);
-    acquireProperty<OSObject>(v27, "module-instance", &anObject, 0, "IOService");
+    v39 = (*(v38 + 984))(this);
+    acquireProperty<OSObject>(v39, "module-instance", &anObject, 0, "IOService");
     if (!anObject)
     {
       goto LABEL_14;
     }
 
-    if (OSMetaClassBase::safeMetaCast(anObject, gOSDataMetaClass) && (v28 = OSMetaClassBase::safeMetaCast(anObject, gOSDataMetaClass), OSData::getBytesNoCopy(v28)))
+    if (OSMetaClassBase::safeMetaCast(anObject, gOSDataMetaClass) && (v40 = OSMetaClassBase::safeMetaCast(anObject, gOSDataMetaClass), OSData::getBytesNoCopy(v40)))
     {
-      v29 = OSMetaClassBase::safeMetaCast(anObject, gOSDataMetaClass);
-      if (!OSData::getBytesNoCopy(v29))
+      v41 = OSMetaClassBase::safeMetaCast(anObject, gOSDataMetaClass);
+      if (!OSData::getBytesNoCopy(v41))
       {
         goto LABEL_58;
       }
 
-      v30 = OSMetaClassBase::safeMetaCast(anObject, gOSDataMetaClass);
-      BytesNoCopy = OSData::getBytesNoCopy(v30);
+      v42 = OSMetaClassBase::safeMetaCast(anObject, gOSDataMetaClass);
+      BytesNoCopy = OSData::getBytesNoCopy(v42);
     }
 
     else
@@ -5097,35 +2318,35 @@ LABEL_75:
         goto LABEL_56;
       }
 
-      v42 = OSMetaClassBase::safeMetaCast(anObject, gOSStringMetaClass);
-      if (!OSString::getCStringNoCopy(v42))
+      v54 = OSMetaClassBase::safeMetaCast(anObject, gOSStringMetaClass);
+      if (!OSString::getCStringNoCopy(v54))
       {
         goto LABEL_56;
       }
 
-      v43 = OSMetaClassBase::safeMetaCast(anObject, gOSStringMetaClass);
-      if (!OSString::getCStringNoCopy(v43))
+      v55 = OSMetaClassBase::safeMetaCast(anObject, gOSStringMetaClass);
+      if (!OSString::getCStringNoCopy(v55))
       {
         goto LABEL_58;
       }
 
-      v44 = OSMetaClassBase::safeMetaCast(anObject, gOSStringMetaClass);
-      BytesNoCopy = OSString::getCStringNoCopy(v44);
+      v56 = OSMetaClassBase::safeMetaCast(anObject, gOSStringMetaClass);
+      BytesNoCopy = OSString::getCStringNoCopy(v56);
     }
 
-    v45 = OSString::withCString(BytesNoCopy);
-    if (v45)
+    v57 = OSString::withCString(BytesNoCopy);
+    if (v57)
     {
-      v46 = v45;
-      v47 = OSDictionary::setObject(v4, "P", v45);
-      (v46->release)(v46);
-      if (v47)
+      v58 = v57;
+      v59 = OSDictionary::setObject(v4, "P", v57);
+      (v58->release)(v58);
+      if (v59)
       {
 LABEL_56:
         if (anObject)
         {
-          v48 = OUTLINED_FUNCTION_5_0(anObject);
-          (*(v49 + 16))(v48);
+          OUTLINED_FUNCTION_5_0();
+          (*(v60 + 16))();
           anObject = 0;
         }
 
@@ -5142,7 +2363,7 @@ LABEL_58:
     goto LABEL_59;
   }
 
-  if (!OSDictionary::setObject(v4, "P", v15))
+  if (!OSDictionary::setObject(v4, "P", v27))
   {
     v2 = 3758097086;
     goto LABEL_88;
@@ -5150,12 +2371,12 @@ LABEL_58:
 
 LABEL_14:
   Object = OSDictionary::getObject(v4, "M");
-  v17 = OSMetaClassBase::safeMetaCast(Object, gOSStringMetaClass);
-  if (v17)
+  v29 = OSMetaClassBase::safeMetaCast(Object, gOSStringMetaClass);
+  if (v29)
   {
     *__str = 0u;
-    v63 = 0u;
-    CStringNoCopy = OSString::getCStringNoCopy(v17);
+    v74 = 0u;
+    CStringNoCopy = OSString::getCStringNoCopy(v29);
     if (snprintf(__str, 0x20uLL, "module-instance_M-%s", CStringNoCopy) > 31)
     {
       v2 = 3758097128;
@@ -5163,11 +2384,11 @@ LABEL_14:
     }
 
     OUTLINED_FUNCTION_19_1();
-    v21 = (*(v20 + 984))(this);
-    v23 = AppleBCMWLANUtil::copyDTParameterString(v21, "IOService", __str, 0, v22);
-    if (v23)
+    v33 = (*(v32 + 984))(this);
+    v35 = AppleBCMWLANUtil::copyDTParameterString(v33, "IOService", __str, 0, v34);
+    if (v35)
     {
-      if (!OSDictionary::setObject(v4, "P", v23))
+      if (!OSDictionary::setObject(v4, "P", v35))
       {
         goto LABEL_85;
       }
@@ -5177,9 +2398,9 @@ LABEL_14:
         AppleBCMWLANBusInterface::getLogger(this);
         if (CCLogStream::shouldLog())
         {
-          v24 = AppleBCMWLANBusInterface::getLogger(this);
-          v25 = OSString::getCStringNoCopy(v23);
-          CCLogStream::logAlert(v24, "[dk] %s@%d:Platform overriden via Device Tree %s=%s\n", "publishHWIdentifiers", 5776, __str, v25);
+          v36 = AppleBCMWLANBusInterface::getLogger(this);
+          v37 = OSString::getCStringNoCopy(v35);
+          CCLogStream::logAlert(v36, "[dk] %s@%d:Platform overriden via Device Tree %s=%s\n", "publishHWIdentifiers", 5776, __str, v37);
         }
       }
     }
@@ -5187,13 +2408,13 @@ LABEL_14:
 
   else
   {
-    v23 = 0;
+    v35 = 0;
   }
 
-  v32 = AppleBCMWLANUtil::copyDTParameterString(this, "IOService", "wlan.debug.module-instance", 0, v18);
-  if (v32)
+  v44 = AppleBCMWLANUtil::copyDTParameterString(this, "IOService", "wlan.debug.module-instance", 0, v30);
+  if (v44)
   {
-    if (!OSDictionary::setObject(v4, "P", v32))
+    if (!OSDictionary::setObject(v4, "P", v44))
     {
       goto LABEL_84;
     }
@@ -5203,19 +2424,19 @@ LABEL_14:
       AppleBCMWLANBusInterface::getLogger(this);
       if (CCLogStream::shouldLog())
       {
-        v58 = AppleBCMWLANBusInterface::getLogger(this);
-        v55 = OSString::getCStringNoCopy(v32);
-        CCLogStream::logAlert(v58, "[dk] %s@%d:Platform overriden via boot-arg %s=%s\n", "publishHWIdentifiers", 5785, "wlan.debug.module-instance", v55);
+        v69 = AppleBCMWLANBusInterface::getLogger(this);
+        v66 = OSString::getCStringNoCopy(v44);
+        CCLogStream::logAlert(v69, "[dk] %s@%d:Platform overriden via boot-arg %s=%s\n", "publishHWIdentifiers", 5785, "wlan.debug.module-instance", v66);
       }
     }
   }
 
-  v33 = OSDictionary::getObject(v4, "P");
-  v34 = OSMetaClassBase::safeMetaCast(v33, gOSStringMetaClass);
-  if (v34)
+  v45 = OSDictionary::getObject(v4, "P");
+  v46 = OSMetaClassBase::safeMetaCast(v45, gOSStringMetaClass);
+  if (v46)
   {
-    v35 = v34;
-    if (!setPropertyHelper(this, "module-instance", v34))
+    v47 = v46;
+    if (!setPropertyHelper(this, "module-instance", v46))
     {
       goto LABEL_83;
     }
@@ -5225,39 +2446,39 @@ LABEL_14:
       AppleBCMWLANBusInterface::getLogger(this);
       if (CCLogStream::shouldLog())
       {
-        v59 = AppleBCMWLANBusInterface::getLogger(this);
-        v56 = OSString::getCStringNoCopy(v35);
-        CCLogStream::logAlert(v59, "[dk] %s@%d:Platform set to %s=%s\n", "publishHWIdentifiers", 5793, "module-instance", v56);
+        v70 = AppleBCMWLANBusInterface::getLogger(this);
+        v67 = OSString::getCStringNoCopy(v47);
+        CCLogStream::logAlert(v70, "[dk] %s@%d:Platform set to %s=%s\n", "publishHWIdentifiers", 5793, "module-instance", v67);
       }
     }
   }
 
-  v36 = AppleBCMWLANBusInterface::getLogger(this);
-  if (CCLogStream::shouldLog(v36, 0x80uLL))
+  v48 = AppleBCMWLANBusInterface::getLogger(this);
+  if (CCLogStream::shouldLog(v48, 0x80uLL))
   {
     *__str = 0;
     *&__str[8] = __str;
-    v63 = 0x2000000000uLL;
-    v60[0] = _NSConcreteStackBlock;
-    v60[1] = 1107296256;
-    v60[2] = ___ZN28AppleBCMWLANBusInterfacePCIe20publishHWIdentifiersEv_block_invoke;
-    v60[3] = &__block_descriptor_tmp_261;
-    v60[4] = __str;
-    v60[5] = this;
-    v60[6] = v4;
+    v74 = 0x2000000000uLL;
+    v71[0] = _NSConcreteStackBlock;
+    v71[1] = 1107296256;
+    v71[2] = ___ZN28AppleBCMWLANBusInterfacePCIe20publishHWIdentifiersEv_block_invoke;
+    v71[3] = &__block_descriptor_tmp_261;
+    v71[4] = __str;
+    v71[5] = this;
+    v71[6] = v4;
     OUTLINED_FUNCTION_24_1();
-    (*(v37 + 56))(v4, v60);
+    (*(v49 + 56))(v4, v71);
     _Block_object_dispose(__str, 8);
   }
 
   removePropertyHelper(this, "HWIdentifiers");
   OUTLINED_FUNCTION_19_1();
-  if (((*(v38 + 1056))(this, "HWIdentifiers", v4) & 1) == 0)
+  if (((*(v50 + 1056))(this, "HWIdentifiers", v4) & 1) == 0)
   {
     if (!AppleBCMWLANBusInterface::getLogger(this) || (AppleBCMWLANBusInterface::getLogger(this), !CCLogStream::shouldLog()))
     {
 LABEL_83:
-      if (!v32)
+      if (!v44)
       {
         goto LABEL_85;
       }
@@ -5265,8 +2486,8 @@ LABEL_83:
       goto LABEL_84;
     }
 
-    v54 = AppleBCMWLANBusInterface::getLogger(this);
-    CCLogStream::logAlert(v54, "[dk] %s@%d: Unable to setProperty() on OLYHAL\n");
+    v65 = AppleBCMWLANBusInterface::getLogger(this);
+    CCLogStream::logAlert(v65, "[dk] %s@%d: Unable to setProperty() on OLYHAL\n");
     goto LABEL_92;
   }
 
@@ -5283,108 +2504,108 @@ LABEL_83:
       goto LABEL_83;
     }
 
-    v57 = AppleBCMWLANBusInterface::getLogger(this);
-    CCLogStream::logAlert(v57, "[dk] %s@%d: Unable to setProperty()\n");
+    v68 = AppleBCMWLANBusInterface::getLogger(this);
+    CCLogStream::logAlert(v68, "[dk] %s@%d: Unable to setProperty()\n");
 LABEL_92:
-    if (!v32)
+    if (!v44)
     {
 LABEL_85:
       v2 = 3758097086;
-      if (v23)
+      if (v35)
       {
-        (v23->release)(v23);
+        (v35->release)(v35);
       }
 
 LABEL_87:
-      if (v15)
+      if (v27)
       {
 LABEL_88:
-        (*(*v15 + 16))(v15);
+        (*(*v27 + 16))(v27);
       }
 
 LABEL_59:
       OUTLINED_FUNCTION_89_0();
-      (*(v50 + 16))(v11);
+      (*(v61 + 16))(v23);
 LABEL_60:
       OUTLINED_FUNCTION_24_1();
-      (*(v51 + 16))(v4);
+      (*(v62 + 16))(v4);
       return v2;
     }
 
 LABEL_84:
-    (v32->release)(v32);
+    (v44->release)(v44);
     goto LABEL_85;
   }
 
-  if (v32)
+  if (v44)
   {
-    (v32->release)(v32);
+    (v44->release)(v44);
   }
 
-  if (v23)
+  if (v35)
   {
-    (v23->release)(v23);
+    (v35->release)(v35);
   }
 
-  if (v15)
+  if (v27)
   {
-    (*(*v15 + 16))(v15);
+    (*(*v27 + 16))(v27);
   }
 
   OUTLINED_FUNCTION_89_0();
-  (*(v39 + 16))(v11);
+  (*(v51 + 16))(v23);
   OUTLINED_FUNCTION_24_1();
-  (*(v40 + 16))(v4);
+  (*(v52 + 16))(v4);
   return 0;
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::performBPReset(AppleBCMWLANBusInterfacePCIe *this)
 {
-  v18 = 0;
-  v16 = 0;
   v17 = 0;
-  v2 = OUTLINED_FUNCTION_5_0(this);
-  (*(v3 + 1208))(v2, "performBPReset", 4695);
-  v4 = *(*(this + 9) + 3312);
-  if ((v4 - 4345) <= 0x36 && ((1 << (v4 + 7)) & 0x400C0300000001) != 0 || v4 == 43452 || v4 == 276347)
+  v15 = 0;
+  v16 = 0;
+  OUTLINED_FUNCTION_5_0();
+  (*(v2 + 1208))();
+  v3 = *(*(this + 9) + 3312);
+  if ((v3 - 4345) <= 0x36 && ((1 << (v3 + 7)) & 0x400C0300000001) != 0 || v3 == 43452 || v3 == 276347)
   {
     return 0;
   }
 
   read_random();
-  v10 = OUTLINED_FUNCTION_27_5();
-  AppleBCMWLANChipBackplane::writeCommonCoreReg32(v10, 0xD0u, v17);
-  v11 = AppleBCMWLANChipConfigSpace::readReg16(*(*(this + 9) + 3352), 0x88u, &v18);
-  if (v11)
+  v9 = OUTLINED_FUNCTION_27_5();
+  AppleBCMWLANChipBackplane::writeCommonCoreReg32(v9, 0xD0u, v16);
+  v10 = AppleBCMWLANChipConfigSpace::readReg16(*(*(this + 9) + 3352), 0x88u, &v17);
+  if (v10)
   {
-    return v11;
+    return v10;
   }
 
-  v12 = OUTLINED_FUNCTION_27_5();
-  AppleBCMWLANChipBackplane::writeCommonCoreReg32(v12, 0x80u, 1u);
+  v11 = OUTLINED_FUNCTION_27_5();
+  AppleBCMWLANChipBackplane::writeCommonCoreReg32(v11, 0x80u, 1u);
   IOSleep(4uLL);
-  v13 = OUTLINED_FUNCTION_27_5();
-  v11 = AppleBCMWLANChipBackplane::readCommonCoreReg32(v13, 0xD0u, &v16);
-  if (v11)
+  v12 = OUTLINED_FUNCTION_27_5();
+  v10 = AppleBCMWLANChipBackplane::readCommonCoreReg32(v12, 0xD0u, &v15);
+  if (v10)
   {
-    return v11;
+    return v10;
   }
 
-  v8 = 3758097084;
-  if (v17 != v16)
+  v7 = 3758097084;
+  if (v16 != v15)
   {
-    v14 = OUTLINED_FUNCTION_27_5();
-    if (AppleBCMWLANChipBackplane::validateCores(v14))
+    v13 = OUTLINED_FUNCTION_27_5();
+    if (AppleBCMWLANChipBackplane::validateCores(v13))
     {
-      v15 = OUTLINED_FUNCTION_27_5();
-      if (AppleBCMWLANChipBackplane::validateWrappers(v15))
+      v14 = OUTLINED_FUNCTION_27_5();
+      if (AppleBCMWLANChipBackplane::validateWrappers(v14))
       {
         return 0;
       }
     }
   }
 
-  return v8;
+  return v7;
 }
 
 const OSString *AppleBCMWLANBusInterfacePCIe::doesHWIdentifiersKeyContainString(AppleBCMWLANBusInterfacePCIe *this, OSDictionary *a2, const char *a3, const char *a4)
@@ -5393,16 +2614,16 @@ const OSString *AppleBCMWLANBusInterfacePCIe::doesHWIdentifiersKeyContainString(
   anObject = 0;
   if (a2 && a3)
   {
-    v8 = OUTLINED_FUNCTION_5_0(this);
-    v10 = (*(v9 + 984))(v8);
-    if (acquireProperty<OSString>(v10, "HWIdentifiers", &anObject, 0, "IOService"))
+    OUTLINED_FUNCTION_5_0();
+    v9 = (*(v8 + 984))();
+    if (acquireProperty<OSString>(v9, "HWIdentifiers", &anObject, 0, "IOService"))
     {
-      v11 = OSMetaClassBase::safeMetaCast(anObject, gOSDictionaryMetaClass);
-      v4 = AppleBCMWLANUtil::doesDictionaryKeyContainString(v11, a2, a3, a4);
+      v10 = OSMetaClassBase::safeMetaCast(anObject, gOSDictionaryMetaClass);
+      v4 = AppleBCMWLANUtil::doesDictionaryKeyContainString(v10, a2, a3, a4);
       if (anObject)
       {
-        v12 = OUTLINED_FUNCTION_5_0(anObject);
-        (*(v13 + 16))(v12);
+        OUTLINED_FUNCTION_5_0();
+        (*(v11 + 16))();
       }
     }
 
@@ -5421,16 +2642,16 @@ const OSString *AppleBCMWLANBusInterfacePCIe::doesHWIdentifiersKeyEqualString(Ap
   anObject = 0;
   if (a2 && a3)
   {
-    v8 = OUTLINED_FUNCTION_5_0(this);
-    v10 = (*(v9 + 984))(v8);
-    if (acquireProperty<OSString>(v10, "HWIdentifiers", &anObject, 0, "IOService"))
+    OUTLINED_FUNCTION_5_0();
+    v9 = (*(v8 + 984))();
+    if (acquireProperty<OSString>(v9, "HWIdentifiers", &anObject, 0, "IOService"))
     {
-      v11 = OSMetaClassBase::safeMetaCast(anObject, gOSDictionaryMetaClass);
-      v4 = AppleBCMWLANUtil::doesDictionaryKeyEqualString(v11, a2, a3, a4);
+      v10 = OSMetaClassBase::safeMetaCast(anObject, gOSDictionaryMetaClass);
+      v4 = AppleBCMWLANUtil::doesDictionaryKeyEqualString(v10, a2, a3, a4);
       if (anObject)
       {
-        v12 = OUTLINED_FUNCTION_5_0(anObject);
-        (*(v13 + 16))(v12);
+        OUTLINED_FUNCTION_5_0();
+        (*(v11 + 16))();
       }
     }
 
@@ -5471,22 +2692,22 @@ uint64_t AppleBCMWLANBusInterfacePCIe::deassertDeviceWake(AppleBCMWLANBusInterfa
   return result;
 }
 
-void *AppleBCMWLANBusInterfacePCIe::prepareForRingSubmission(void *this)
+AppleBCMWLANBusInterface *AppleBCMWLANBusInterfacePCIe::prepareForRingSubmission(AppleBCMWLANBusInterface *this)
 {
-  v1 = this[9];
+  v1 = *(this + 9);
   if (*(v1 + 2844) == 2 && *(v1 + 1306) == 1 && *(v1 + 1224) == 7)
   {
     v2 = this;
     v3 = *(v1 + 5204);
     v4 = *(v1 + 5208);
     *(v1 + 5208) = 64;
-    *(this[9] + 5204) = 1;
+    *(*(this + 9) + 5204) = 1;
     AppleBCMWLANBusInterfacePCIe::changeSleepState(this, 8, 11364);
-    v5 = OUTLINED_FUNCTION_5_0(*(v2[9] + 312));
-    (*(v6 + 192))(v5, 1, 0);
-    this = AppleBCMWLANPCIeDoorbell::cancelRing(*(v2[9] + 3640));
-    *(v2[9] + 5204) = v3;
-    *(v2[9] + 5208) = v4;
+    OUTLINED_FUNCTION_5_0();
+    (*(v5 + 192))();
+    this = AppleBCMWLANPCIeDoorbell::cancelRing(*(*(v2 + 9) + 3640));
+    *(*(v2 + 9) + 5204) = v3;
+    *(*(v2 + 9) + 5208) = v4;
   }
 
   return this;
@@ -5494,15 +2715,15 @@ void *AppleBCMWLANBusInterfacePCIe::prepareForRingSubmission(void *this)
 
 uint64_t AppleBCMWLANBusInterfacePCIe::hitDoorbell(AppleBCMWLANBusInterfacePCIe *this, const char *a2)
 {
-  v3 = OUTLINED_FUNCTION_5_0(this);
-  result = (*(v4 + 1208))(v3, "hitDoorbell", 17001);
-  v6 = *(this + 9);
-  if ((*(v6 + 3706) & 1) == 0 && *(v6 + 1306) == 1)
+  OUTLINED_FUNCTION_5_0();
+  result = (*(v3 + 1208))();
+  v5 = *(this + 9);
+  if ((*(v5 + 3706) & 1) == 0 && *(v5 + 1306) == 1)
   {
     OUTLINED_FUNCTION_218();
     kdebug_trace();
-    v7 = *(this + 9);
-    if (*(v7 + 2844) == 2 && *(v7 + 1224) == 8 && !AppleBCMWLANBusInterfacePCIe::changeSleepState(this, 9, 17020))
+    v6 = *(this + 9);
+    if (*(v6 + 2844) == 2 && *(v6 + 1224) == 8 && !AppleBCMWLANBusInterfacePCIe::changeSleepState(this, 9, 17020))
     {
       result = AppleBCMWLANBusInterface::getLogger(this);
       if (result)
@@ -5520,17 +2741,15 @@ uint64_t AppleBCMWLANBusInterfacePCIe::hitDoorbell(AppleBCMWLANBusInterfacePCIe 
     else
     {
       mach_continuous_time();
-      v8 = *(this + 9);
       absolutetime_to_nanoseconds();
-      AppleBCMWLANChipBackplane::writePCIeDoorbell(*(*(this + 9) + 3360), 0x140u, *(*(this + 9) + 2936) / 0x3E8uLL);
+      AppleBCMWLANChipBackplane::writePCIeDoorbell(*(*(this + 9) + 3360), 320, *(*(this + 9) + 2936) / 0x3E8uLL);
       ++*(*(this + 9) + 1296);
       AppleBCMWLANBusInterface::getTxCommittedCommandDescriptor(this);
-      if (AppleBCMWLANCommandQueue::getSize(v9))
+      if (AppleBCMWLANCommandQueue::getSize(v7))
       {
         AppleBCMWLANBusInterface::reportCommittedTxCommands(this);
       }
 
-      v10 = *(*(this + 9) + 2936);
       OUTLINED_FUNCTION_218();
 
       return kdebug_trace();
@@ -5566,26 +2785,25 @@ AppleBCMWLANPCIeTransmitFlowRing *AppleBCMWLANBusInterfacePCIe::findAndReleaseFl
 {
   if (a2)
   {
-    v3 = *(*(this + 9) + 4480);
-    if (v3)
+    if (*(*(this + 9) + 4480))
     {
-      v5 = OUTLINED_FUNCTION_5_0(v3);
-      result = (*(v6 + 120))(v5);
-      v8 = *(this + 9);
-      if (*(v8 + 372) <= result)
+      OUTLINED_FUNCTION_5_0();
+      result = (*(v4 + 120))();
+      v6 = *(this + 9);
+      if (*(v6 + 372) <= result)
       {
-        v9 = result;
-        if (*(v8 + 376) > result)
+        v7 = result;
+        if (*(v6 + 376) > result)
         {
-          result = *(v8 + 8 * result + 4816);
+          result = *(v6 + 8 * result + 4816);
           if (result)
           {
-            v10 = *(v8 + 4480);
-            v11 = *a2;
-            v12 = a2[1];
+            v8 = *(v6 + 4480);
+            v9 = *a2;
+            v10 = a2[1];
             isLowLatencyRing = AppleBCMWLANPCIeTransmitFlowRing::isLowLatencyRing(result);
 
-            return AppleBCMWLANPCIeSkywalk::detachTxSubmFwQueue(v10, v11, v12, v9, isLowLatencyRing);
+            return AppleBCMWLANPCIeSkywalk::detachTxSubmFwQueue(v8, v9, v10, v7, isLowLatencyRing);
           }
         }
       }
@@ -5616,8 +2834,8 @@ AppleBCMWLANPCIeTransmitFlowRing *AppleBCMWLANBusInterfacePCIe::findAndReleaseFl
       result = CCLogStream::shouldLog();
       if (result)
       {
-        v14 = AppleBCMWLANBusInterface::getLogger(this);
-        return CCLogStream::logAlert(v14, "[dk] %s@%d:find and release flow queue, invalid hash\n");
+        v12 = AppleBCMWLANBusInterface::getLogger(this);
+        return CCLogStream::logAlert(v12, "[dk] %s@%d:find and release flow queue, invalid hash\n");
       }
     }
   }
@@ -5625,7 +2843,7 @@ AppleBCMWLANPCIeTransmitFlowRing *AppleBCMWLANBusInterfacePCIe::findAndReleaseFl
   return result;
 }
 
-AppleBCMWLANBusInterface *AppleBCMWLANBusInterfacePCIe::findAndReleaseFlowQueueWithFlowId(AppleBCMWLANBusInterface *this, unsigned __int8 *a2, unsigned int a3)
+AppleBCMWLANBusInterface *AppleBCMWLANBusInterfacePCIe::findAndReleaseFlowQueueWithFlowId(AppleBCMWLANBusInterface *this, uint64_t a2, uint64_t a3)
 {
   v3 = this;
   if (a2)
@@ -5638,12 +2856,11 @@ AppleBCMWLANBusInterface *AppleBCMWLANBusInterfacePCIe::findAndReleaseFlowQueueW
         this = *(v4 + 8 * a3 + 4816);
         if (this)
         {
-          v6 = *a2;
-          v7 = a2[1];
+          v6 = *(a2 + 1);
           AppleBCMWLANPCIeTransmitFlowRing::isLowLatencyRing(this);
-          v8 = OUTLINED_FUNCTION_16_2();
+          v7 = OUTLINED_FUNCTION_16_2();
 
-          return AppleBCMWLANPCIeSkywalk::detachTxSubmFwQueue(v8, v9, v7, a3, v10);
+          return AppleBCMWLANPCIeSkywalk::detachTxSubmFwQueue(v7, v8, v6, a3, v9);
         }
       }
     }
@@ -5673,8 +2890,8 @@ AppleBCMWLANBusInterface *AppleBCMWLANBusInterfacePCIe::findAndReleaseFlowQueueW
       this = CCLogStream::shouldLog();
       if (this)
       {
-        v11 = AppleBCMWLANBusInterface::getLogger(v3);
-        return CCLogStream::logAlert(v11, "[dk] %s@%d:find and release flow queue, invalid hash\n");
+        v10 = AppleBCMWLANBusInterface::getLogger(v3);
+        return CCLogStream::logAlert(v10, "[dk] %s@%d:find and release flow queue, invalid hash\n");
       }
     }
   }
@@ -5682,72 +2899,44 @@ AppleBCMWLANBusInterface *AppleBCMWLANBusInterfacePCIe::findAndReleaseFlowQueueW
   return this;
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::start(AppleBCMWLANBusInterface *a1, uint64_t a2)
+uint64_t AppleBCMWLANBusInterfacePCIe::start(AppleBCMWLANBusInterface *a1)
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *(*a2 + 2868);
   OUTLINED_FUNCTION_128();
   OUTLINED_FUNCTION_113();
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:Deep Sleep is %s\n", v6, v7, v8);
-}
-
-{
-  Logger = AppleBCMWLANBusInterface::getLogger(a1);
-  return CCLogStream::logAlert(Logger, "[dk] %s@%d:Failed to set wlan.pcie.DSState Property - %u\n", "start", 1849, *(*a2 + 2868));
-}
-
-{
-  Logger = AppleBCMWLANBusInterface::getLogger(a1);
-  return CCLogStream::logAlert(Logger, "[dk] %s@%d: Setting WLAN_REG_ON reset duration to %lu milliseconds\n", "start", 1858, *(*a2 + 2848));
-}
-
-{
-  Logger = AppleBCMWLANBusInterface::getLogger(a1);
-  return CCLogStream::logAlert(Logger, "[dk] %s@%d:PCIe HMAP window limit from boot config: %uMB\n", "start", 1935, *(*a2 + 4544));
-}
-
-{
-  Logger = AppleBCMWLANBusInterface::getLogger(a1);
-  return CCLogStream::logAlert(Logger, "[dk] %s@%d:PCIe HMAP window limit from device tree:%uMB\n", "start", 1949, *(*a2 + 4544));
-}
-
-{
-  Logger = AppleBCMWLANBusInterface::getLogger(a1);
-  return CCLogStream::logCrit(Logger, "[dk] %s@%d:port enable retry override: %u\n", "start", 1990, *(*a2 + 3129));
-}
-
-uint64_t AppleBCMWLANBusInterfacePCIe::start(AppleBCMWLANBusInterface *a1, uint64_t *a2)
-{
-  AppleBCMWLANBusInterface::getLogger(a1);
-  OUTLINED_FUNCTION_102_0(*a2);
-  return CCLogStream::logCrit(v3, "[dk] %s@%d:Disable MultiFunction ASPM Workaround override: %u\n", "start", 1898, v5);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Deep Sleep is %s\n", v3, v4, v5);
 }
 
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  OUTLINED_FUNCTION_102_0(*a2);
-  return CCLogStream::logCrit(v3, "[dk] %s@%d:Enable MultiFunction D3 collection override: %u\n", "start", 1904, v5);
+  OUTLINED_FUNCTION_102_0();
+  return CCLogStream::logCrit(v1, "[dk] %s@%d:Disable MultiFunction ASPM Workaround override: %u\n", "start", 1898, v3);
 }
 
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  OUTLINED_FUNCTION_102_0(*a2);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Enable log collection when upgrade to full reset: %u\n", "start", 1909, v5);
+  OUTLINED_FUNCTION_102_0();
+  return CCLogStream::logCrit(v1, "[dk] %s@%d:Enable MultiFunction D3 collection override: %u\n", "start", 1904, v3);
 }
 
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  OUTLINED_FUNCTION_102_0(*a2);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Enable log collection of WLAN APB registers : %u\n", "start", 1915, v5);
+  OUTLINED_FUNCTION_102_0();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Enable log collection when upgrade to full reset: %u\n", "start", 1909, v3);
 }
 
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  OUTLINED_FUNCTION_102_0(*a2);
-  return CCLogStream::logCrit(v3, "[dk] %s@%d:Panic on Pending Backplane Errors override: %u\n", "start", 1928, v5);
+  OUTLINED_FUNCTION_102_0();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Enable log collection of WLAN APB registers : %u\n", "start", 1915, v3);
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::start(AppleBCMWLANBusInterface *a1)
+{
+  AppleBCMWLANBusInterface::getLogger(a1);
+  OUTLINED_FUNCTION_102_0();
+  return CCLogStream::logCrit(v1, "[dk] %s@%d:Panic on Pending Backplane Errors override: %u\n", "start", 1928, v3);
+}
+
 {
   Logger = AppleBCMWLANBusInterface::getLogger(a1);
   return CCLogStream::logCrit(Logger, "[dk] %s@%d:Opt-out port enable retry for new HW\n", "start", 1980);
@@ -5786,6 +2975,32 @@ uint64_t AppleBCMWLANBusInterfacePCIe::start(AppleBCMWLANBusInterface *a1)
 {
   Logger = AppleBCMWLANBusInterface::getLogger(a1);
   return CCLogStream::logCrit(Logger, "[dk] %s@%d:Failed to create command gate\n", "start", 2065);
+}
+
+uint64_t AppleBCMWLANBusInterfacePCIe::start(AppleBCMWLANBusInterface *a1, uint64_t a2)
+{
+  Logger = AppleBCMWLANBusInterface::getLogger(a1);
+  return CCLogStream::logAlert(Logger, "[dk] %s@%d:Failed to set wlan.pcie.DSState Property - %u\n", "start", 1849, *(*a2 + 2868));
+}
+
+{
+  Logger = AppleBCMWLANBusInterface::getLogger(a1);
+  return CCLogStream::logAlert(Logger, "[dk] %s@%d: Setting WLAN_REG_ON reset duration to %lu milliseconds\n", "start", 1858, *(*a2 + 2848));
+}
+
+{
+  Logger = AppleBCMWLANBusInterface::getLogger(a1);
+  return CCLogStream::logAlert(Logger, "[dk] %s@%d:PCIe HMAP window limit from boot config: %uMB\n", "start", 1935, *(*a2 + 4544));
+}
+
+{
+  Logger = AppleBCMWLANBusInterface::getLogger(a1);
+  return CCLogStream::logAlert(Logger, "[dk] %s@%d:PCIe HMAP window limit from device tree:%uMB\n", "start", 1949, *(*a2 + 4544));
+}
+
+{
+  Logger = AppleBCMWLANBusInterface::getLogger(a1);
+  return CCLogStream::logCrit(Logger, "[dk] %s@%d:port enable retry override: %u\n", "start", 1990, *(*a2 + 3129));
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::createDestroyRequestTracker(AppleBCMWLANBusInterface *a1)
@@ -5885,11 +3100,10 @@ uint64_t AppleBCMWLANBusInterfacePCIe::commitRings()
   OUTLINED_FUNCTION_4();
   AppleBCMWLANBusInterface::getLogger(v1);
   OUTLINED_FUNCTION_52_0();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_130();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_130();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v0, "[dk] %s@%d:retainCTS Not kIOReturnSuccess(%s)n", v7, v8, v9);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d:retainCTS Not kIOReturnSuccess(%s)n", v5, v6, v7);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::commitRings(AppleBCMWLANBusInterface *a1)
@@ -5918,28 +3132,29 @@ uint64_t AppleBCMWLANBusInterfacePCIe::commitRings(AppleBCMWLANBusInterface *a1)
   return CCLogStream::logAlert(Logger, "[dk] %s@%d:link down detected. Bailing out\n", "commitRings", 17064);
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::deleteFlowTimeout(AppleBCMWLANBusInterface *a1, uint64_t a2)
+uint64_t AppleBCMWLANBusInterfacePCIe::deleteFlowTimeout(AppleBCMWLANBusInterface *a1)
+{
+  Logger = AppleBCMWLANBusInterface::getLogger(a1);
+  return CCLogStream::logAlert(Logger, "[dk] %s@%d:Timed out waiting for ring (%d) to delete, epoch=%llu\n", "deleteFlowTimeout", 9469, *(*(a1 + 9) + 3008), *(*(a1 + 9) + 8 * *(*(a1 + 9) + 3008) + 736));
+}
+
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *(*a2 + 8 * *(*a2 + 3008) + 736);
   OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logCrit(v4, "[dk] %s@%d:Delaying Ring deletion Failure due to pending work epoch %llu\n", v6, v7, v8);
+  return CCLogStream::logCrit(v1, "[dk] %s@%d:Delaying Ring deletion Failure due to pending work epoch %llu\n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::createFlowRingTimeout(AppleBCMWLANBusInterface *a1)
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  v2 = *(*(a1 + 9) + 8 * *(*(a1 + 9) + 3012) + 384);
   OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Timed out waiting for ring create, epoch=%llu\n", v5, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Timed out waiting for ring create, epoch=%llu\n", v3, v4, v5);
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::createFlowRingTimeout(AppleBCMWLANBusInterface *a1, uint64_t a2)
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *(*a2 + 8 * *(*a2 + 3012) + 384);
   OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logCrit(v4, "[dk] %s@%d:Delaying Ring creation Failure due to pending work epoch %llu\n", v6, v7, v8);
+  return CCLogStream::logCrit(v1, "[dk] %s@%d:Delaying Ring creation Failure due to pending work epoch %llu\n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::allocateIPCDescriptorQueues(AppleBCMWLANBusInterface *a1)
@@ -6037,6 +3252,12 @@ uint64_t AppleBCMWLANBusInterfacePCIe::deferredStart(AppleBCMWLANBusInterface *a
 }
 
 {
+  AppleBCMWLANBusInterface::getLogger(a1);
+  OUTLINED_FUNCTION_102_0();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Setting wifi firmware download throttle %u\n", "deferredStart", 2966, v3);
+}
+
+{
   Logger = AppleBCMWLANBusInterface::getLogger(a1);
   return CCLogStream::logAlert(Logger, "[dk] %s@%d:This platform needs PTM Workaround\n", "deferredStart", 2978);
 }
@@ -6066,13 +3287,6 @@ uint64_t AppleBCMWLANBusInterfacePCIe::deferredStart(AppleBCMWLANBusInterface *a
   return CCLogStream::logAlert(Logger, "[dk] %s@%d:deferd setting adjust busy timer, will stop when core register or timeout %u\n", "deferredStart", 3014, 30000);
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::deferredStart(AppleBCMWLANBusInterface *a1, uint64_t *a2)
-{
-  AppleBCMWLANBusInterface::getLogger(a1);
-  OUTLINED_FUNCTION_102_0(*a2);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Setting wifi firmware download throttle %u\n", "deferredStart", 2966, v5);
-}
-
 uint64_t AppleBCMWLANBusInterfacePCIe::startOLYHAL(AppleBCMWLANBusInterface *a1)
 {
   Logger = AppleBCMWLANBusInterface::getLogger(a1);
@@ -6080,48 +3294,45 @@ uint64_t AppleBCMWLANBusInterfacePCIe::startOLYHAL(AppleBCMWLANBusInterface *a1)
 }
 
 {
+  AppleBCMWLANBusInterface::getLogger(a1);
+  OUTLINED_FUNCTION_9_4();
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:Platform interface %p\n", v3, v4, v5);
+}
+
+{
   Logger = AppleBCMWLANBusInterface::getLogger(a1);
   return CCLogStream::logInfo(Logger, "[dk] %s@%d:Create PERST# port\n", "startOLYHAL", 22318);
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::startOLYHAL(AppleBCMWLANBusInterface *a1, uint64_t a2)
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *(*a2 + 5184);
   OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logInfo(v4, "[dk] %s@%d:Platform interface %p\n", v6, v7, v8);
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:Port interface %p\n", v3, v4, v5);
 }
 
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *(*a2 + 5192);
   OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logInfo(v4, "[dk] %s@%d:Port interface %p\n", v6, v7, v8);
-}
-
-{
-  Logger = AppleBCMWLANBusInterface::getLogger(a1);
-  return CCLogStream::logInfo(Logger, "[dk] %s@%d:%s %p\n", "startOLYHAL", 22355, "OLYHALKextToDextQueue", *(*a2 + 5296));
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:CreateActionPortErrorMsgHandler action %p\n", v3, v4, v5);
 }
 
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *(*a2 + 5288);
   OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logInfo(v4, "[dk] %s@%d:CreateActionPortErrorMsgHandler action %p\n", v6, v7, v8);
-}
-
-{
-  AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *(*a2 + 5280);
-  OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logInfo(v4, "[dk] %s@%d:CreateActionPortEventMsgHandler action %p\n", v6, v7, v8);
+  return CCLogStream::logInfo(v1, "[dk] %s@%d:CreateActionPortEventMsgHandler action %p\n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::prepareFRCallback(AppleBCMWLANBusInterface *a1)
 {
   Logger = AppleBCMWLANBusInterface::getLogger(a1);
   return CCLogStream::logCrit(Logger, "[dk] %s@%d:Failed to create memory access.\n", "prepareFRCallback", 19368);
+}
+
+{
+  AppleBCMWLANBusInterface::getLogger(a1);
+  OUTLINED_FUNCTION_128();
+  OUTLINED_FUNCTION_113();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:APB is not accessible, upgrading to full reset ? %s\n", v3, v4, v5);
 }
 
 {
@@ -6132,15 +3343,6 @@ uint64_t AppleBCMWLANBusInterfacePCIe::prepareFRCallback(AppleBCMWLANBusInterfac
 {
   Logger = AppleBCMWLANBusInterface::getLogger(a1);
   return CCLogStream::logAlert(Logger, "[dk] %s@%d:Host initiated DAR based trap timed out\n", "prepareFRCallback", 19398);
-}
-
-uint64_t AppleBCMWLANBusInterfacePCIe::prepareFRCallback(AppleBCMWLANBusInterface *a1, uint64_t a2)
-{
-  AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *(*a2 + 4564);
-  OUTLINED_FUNCTION_128();
-  OUTLINED_FUNCTION_113();
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:APB is not accessible, upgrading to full reset ? %s\n", v6, v7, v8);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::collectImmediateFaultDataCallback(AppleBCMWLANBusInterface *a1)
@@ -6322,12 +3524,11 @@ uint64_t AppleBCMWLANBusInterfacePCIe::Stop_Impl()
   return CCLogStream::logAlert(Logger, "[dk] %s@%d:::Stop_Impl: fPCIeBus %s, fPCIeBus[%p] stop( %p) this[%p]\n", "Stop_Impl", 3175, v5, v4, v0, v1);
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::Stop_Impl(AppleBCMWLANBusInterface *a1, uint64_t a2)
+uint64_t AppleBCMWLANBusInterfacePCIe::Stop_Impl(AppleBCMWLANBusInterface *a1)
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *(*a2 + 3248);
   OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:fPCIeBus Closing(), [%p]\n", v6, v7, v8);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:fPCIeBus Closing(), [%p]\n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::destroyFirmwarePCIeIPC(AppleBCMWLANBusInterface *a1)
@@ -6361,21 +3562,19 @@ uint64_t AppleBCMWLANBusInterfacePCIe::attachPCIeBusGated(AppleBCMWLANBusInterfa
 {
   OUTLINED_FUNCTION_5_14(a1);
   OUTLINED_FUNCTION_3_5();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_16_2();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logCrit(v1, "[dk] %s@%d:Failed to configure, %s\n", v7, v8, v9);
+  return CCLogStream::logCrit(v1, "[dk] %s@%d:Failed to configure, %s\n", v5, v6, v7);
 }
 
 {
   OUTLINED_FUNCTION_5_14(a1);
   OUTLINED_FUNCTION_3_5();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_16_2();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logCrit(v1, "[dk] %s@%d:WiFi chip environment compromised, %s\n", v7, v8, v9);
+  return CCLogStream::logCrit(v1, "[dk] %s@%d:WiFi chip environment compromised, %s\n", v5, v6, v7);
 }
 
 {
@@ -6386,21 +3585,19 @@ uint64_t AppleBCMWLANBusInterfacePCIe::attachPCIeBusGated(AppleBCMWLANBusInterfa
 {
   OUTLINED_FUNCTION_5_14(a1);
   OUTLINED_FUNCTION_3_5();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_16_2();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to Parse OTP %s\n", v7, v8, v9);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to Parse OTP %s\n", v5, v6, v7);
 }
 
 {
   OUTLINED_FUNCTION_5_14(a1);
   OUTLINED_FUNCTION_3_5();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_16_2();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to publish HW identifiers %s\n", v7, v8, v9);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to publish HW identifiers %s\n", v5, v6, v7);
 }
 
 {
@@ -6595,10 +3792,9 @@ void AppleBCMWLANBusInterfacePCIe::nanoPowerCycleGated()
   OUTLINED_FUNCTION_4();
   getClassNameHelper(v1);
   OUTLINED_FUNCTION_52_0();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_130();
-  v6 = v5(v4);
-  panic("%s::%s(): Failed to enable port (%s)\n", v0, "nanoPowerCycleGated", v6);
+  v2 = OUTLINED_FUNCTION_130();
+  v4 = v3(v2);
+  panic("%s::%s(): Failed to enable port (%s)\n", v0, "nanoPowerCycleGated", v4);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::registerDriver()
@@ -6631,22 +3827,20 @@ uint64_t AppleBCMWLANBusInterfacePCIe::parseOTP()
   OUTLINED_FUNCTION_4();
   AppleBCMWLANBusInterface::getLogger(v1);
   OUTLINED_FUNCTION_52_0();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_130();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_130();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v0, "[dk] %s@%d: Error parsing OTP, %s. Using default provisioning data\n", v7, v8, v9);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d: Error parsing OTP, %s. Using default provisioning data\n", v5, v6, v7);
 }
 
 {
   OUTLINED_FUNCTION_4();
   AppleBCMWLANBusInterface::getLogger(v1);
   OUTLINED_FUNCTION_52_0();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_130();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_130();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v0, "[dk] %s@%d: Error parsing OTP Data 2, %s\n", v7, v8, v9);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d: Error parsing OTP Data 2, %s\n", v5, v6, v7);
 }
 
 uint64_t ___ZN28AppleBCMWLANBusInterfacePCIe20publishHWIdentifiersEv_block_invoke_cold_1()
@@ -6751,22 +3945,20 @@ uint64_t AppleBCMWLANBusInterfacePCIe::flr()
   OUTLINED_FUNCTION_4();
   AppleBCMWLANBusInterface::getLogger(v1);
   OUTLINED_FUNCTION_52_0();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_130();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_130();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v0, "[dk] %s@%d:fPlatform->flrHold() failed with error %s\n", v7, v8, v9);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d:fPlatform->flrHold() failed with error %s\n", v5, v6, v7);
 }
 
 {
   OUTLINED_FUNCTION_4();
   AppleBCMWLANBusInterface::getLogger(v1);
   OUTLINED_FUNCTION_52_0();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_130();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_130();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v0, "[dk] %s@%d:fPlatform->flrRelease() failed with error %s\n", v7, v8, v9);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d:fPlatform->flrRelease() failed with error %s\n", v5, v6, v7);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::halt(AppleBCMWLANBusInterface *a1)
@@ -6803,11 +3995,10 @@ uint64_t AppleBCMWLANBusInterfacePCIe::halt(AppleBCMWLANBusInterface *a1)
 {
   OUTLINED_FUNCTION_5_14(a1);
   OUTLINED_FUNCTION_3_5();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_16_2();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:halt failed because saveDeviceState returned %s\n", v7, v8, v9);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:halt failed because saveDeviceState returned %s\n", v5, v6, v7);
 }
 
 {
@@ -6871,11 +4062,10 @@ uint64_t AppleBCMWLANBusInterfacePCIe::halt()
   OUTLINED_FUNCTION_4();
   AppleBCMWLANBusInterface::getLogger(v1);
   OUTLINED_FUNCTION_52_0();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_130();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_130();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v0, "[dk] %s@%d:fPlatform->flrHold() failed with error %s\n", v7, v8, v9);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d:fPlatform->flrHold() failed with error %s\n", v5, v6, v7);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::trapDevice(AppleBCMWLANBusInterface *a1)
@@ -7014,11 +4204,10 @@ uint64_t AppleBCMWLANBusInterfacePCIe::reset()
   OUTLINED_FUNCTION_4();
   AppleBCMWLANBusInterface::getLogger(v1);
   OUTLINED_FUNCTION_52_0();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_130();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_130();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v0, "[dk] %s@%d:Failed to enable port (%s)\n", v7, v8, v9);
+  return CCLogStream::logAlert(v0, "[dk] %s@%d:Failed to enable port (%s)\n", v5, v6, v7);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::dumpRegistersFWDebug(AppleBCMWLANBusInterface *a1)
@@ -7076,6 +4265,13 @@ uint64_t AppleBCMWLANBusInterfacePCIe::loadChipImage(AppleBCMWLANBusInterface *a
 
 {
   AppleBCMWLANBusInterface::getLogger(a1);
+  OUTLINED_FUNCTION_128();
+  OUTLINED_FUNCTION_113();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:%s\n", v3, v4, v5);
+}
+
+{
+  AppleBCMWLANBusInterface::getLogger(a1);
   OUTLINED_FUNCTION_9_4();
   return CCLogStream::logAlert(v1, "[dk] %s@%d:Dump SOCRAM - On '%s'\n", v3, v4, v5);
 }
@@ -7083,11 +4279,10 @@ uint64_t AppleBCMWLANBusInterfacePCIe::loadChipImage(AppleBCMWLANBusInterface *a
 {
   OUTLINED_FUNCTION_5_14(a1);
   OUTLINED_FUNCTION_3_5();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_16_2();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to create firmware IPC, %s\n", v7, v8, v9);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to create firmware IPC, %s\n", v5, v6, v7);
 }
 
 {
@@ -7098,11 +4293,10 @@ uint64_t AppleBCMWLANBusInterfacePCIe::loadChipImage(AppleBCMWLANBusInterface *a
 {
   OUTLINED_FUNCTION_5_14(a1);
   OUTLINED_FUNCTION_3_5();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_16_2();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to enable BusLead %s\n", v7, v8, v9);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to enable BusLead %s\n", v5, v6, v7);
 }
 
 {
@@ -7128,11 +4322,10 @@ uint64_t AppleBCMWLANBusInterfacePCIe::loadChipImage(AppleBCMWLANBusInterface *a
 {
   OUTLINED_FUNCTION_5_14(a1);
   OUTLINED_FUNCTION_3_5();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_16_2();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_16_2();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to enable BusLead %s\n", v7, v8, v9);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Failed to enable BusLead %s\n", v5, v6, v7);
 }
 
 {
@@ -7143,15 +4336,6 @@ uint64_t AppleBCMWLANBusInterfacePCIe::loadChipImage(AppleBCMWLANBusInterface *a
 {
   Logger = AppleBCMWLANBusInterface::getLogger(a1);
   return CCLogStream::logAlert(Logger, "[dk] %s@%d:No backplane object!!\n", "loadChipImage", 7420);
-}
-
-uint64_t AppleBCMWLANBusInterfacePCIe::loadChipImage(AppleBCMWLANBusInterface *a1, uint64_t a2)
-{
-  AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *(*a2 + 4809);
-  OUTLINED_FUNCTION_128();
-  OUTLINED_FUNCTION_113();
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:%s\n", v6, v7, v8);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::loadImage(AppleBCMWLANBusInterface *a1)
@@ -7257,6 +4441,12 @@ uint64_t AppleBCMWLANBusInterfacePCIe::printVStatus(AppleBCMWLANBusInterface *a1
 }
 
 {
+  AppleBCMWLANBusInterface::getLogger(a1);
+  OUTLINED_FUNCTION_9_4();
+  return CCLogStream::logAlert(v1, v2);
+}
+
+{
   result = AppleBCMWLANBusInterface::getLogger(a1);
   if (result)
   {
@@ -7270,24 +4460,6 @@ uint64_t AppleBCMWLANBusInterfacePCIe::printVStatus(AppleBCMWLANBusInterface *a1
   }
 
   return result;
-}
-
-uint64_t AppleBCMWLANBusInterfacePCIe::printVStatus(AppleBCMWLANBusInterface *a1, unsigned int *a2)
-{
-  AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *a2;
-  v15 = a2[8];
-  v16 = a2[9];
-  v13 = a2[6];
-  v14 = a2[7];
-  v11 = a2[4];
-  v12 = a2[5];
-  v9 = a2[2];
-  v10 = a2[3];
-  v7 = *(a2 + 2);
-  v8 = *(a2 + 3);
-  OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logAlert(v4, v5);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::createFirmwarePCIeIPC(AppleBCMWLANBusInterface *a1)
@@ -7322,6 +4494,12 @@ uint64_t AppleBCMWLANBusInterfacePCIe::createFirmwarePCIeIPC(AppleBCMWLANBusInte
 }
 
 {
+  AppleBCMWLANBusInterface::getLogger(a1);
+  OUTLINED_FUNCTION_113();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Force %s FW low latency features\n", v3, v4, v5);
+}
+
+{
   Logger = AppleBCMWLANBusInterface::getLogger(a1);
   return CCLogStream::logAlert(Logger, "[dk] %s@%d:Enabling DB0 doorbell timestamp support\n", "createFirmwarePCIeIPC", 10157);
 }
@@ -7352,6 +4530,12 @@ uint64_t AppleBCMWLANBusInterfacePCIe::createFirmwarePCIeIPC(AppleBCMWLANBusInte
 }
 
 {
+  AppleBCMWLANBusInterface::getLogger(a1);
+  OUTLINED_FUNCTION_113();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:DW negotiation result: %s\n", v3, v4, v5);
+}
+
+{
   Logger = AppleBCMWLANBusInterface::getLogger(a1);
   return CCLogStream::logAlert(Logger, "[dk] %s@%d:Failed to map DART memory\n", "createFirmwarePCIeIPC", 10322);
 }
@@ -7376,25 +4560,10 @@ uint64_t AppleBCMWLANBusInterfacePCIe::createFirmwarePCIeIPC(AppleBCMWLANBusInte
   return CCLogStream::logCrit(Logger, "[dk] %s@%d:device does not support oob or inband device wake, bailing", "createFirmwarePCIeIPC", 10127);
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::createFirmwarePCIeIPC(AppleBCMWLANBusInterface *a1, _DWORD *a2)
-{
-  AppleBCMWLANBusInterface::getLogger(a1);
-  *a2;
-  OUTLINED_FUNCTION_113();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:Force %s FW low latency features\n", v5, v6, v7);
-}
-
 uint64_t AppleBCMWLANBusInterfacePCIe::createFirmwarePCIeIPC(AppleBCMWLANBusInterface *a1, uint64_t a2)
 {
   Logger = AppleBCMWLANBusInterface::getLogger(a1);
   return CCLogStream::logAlert(Logger, "[dk] %s@%d:Using txChipDelayToUsecMultiplier=%d rxChipDelayToUsecMultiplier=%d\n", "createFirmwarePCIeIPC", 10235, *(*a2 + 4628), *(*a2 + 4632));
-}
-
-{
-  AppleBCMWLANBusInterface::getLogger(a1);
-  *(*a2 + 2844);
-  OUTLINED_FUNCTION_113();
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:DW negotiation result: %s\n", v5, v6, v7);
 }
 
 {
@@ -7516,11 +4685,10 @@ uint64_t AppleBCMWLANBusInterfacePCIe::D2HDebugRingCreateComplete()
   OUTLINED_FUNCTION_4();
   AppleBCMWLANBusInterface::getLogger(v1);
   OUTLINED_FUNCTION_52_0();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_130();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_130();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logCrit(v0, "[dk] %s@%d:%s\n", v7, v8, v9);
+  return CCLogStream::logCrit(v0, "[dk] %s@%d:%s\n", v5, v6, v7);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::createTransmitFlowRing(AppleBCMWLANBusInterface *a1)
@@ -7600,15 +4768,11 @@ uint64_t AppleBCMWLANBusInterfacePCIe::deleteFlow(AppleBCMWLANBusInterface *a1)
   return CCLogStream::logCrit(Logger, "[dk] %s@%d:Unexpected flow deletion\n", "deleteFlow", 9378);
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::workPendingForEpoch(AppleBCMWLANBusInterface *a1, uint64_t a2, uint64_t a3)
+uint64_t AppleBCMWLANBusInterfacePCIe::workPendingForEpoch(AppleBCMWLANBusInterface *a1)
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  v9 = *(*a3 + 4800);
-  v10 = *(*a3 + 3004);
-  v8 = *(*a3 + 4792);
-  v7 = *(*a3 + 4776);
   OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logAlert(v4, v5);
+  return CCLogStream::logAlert(v1, v2);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::configHMAP(AppleBCMWLANBusInterface *a1)
@@ -7710,9 +4874,9 @@ void AppleBCMWLANBusInterfacePCIe::flushTrackedControlIO(OSObject *a1, const voi
 uint64_t AppleBCMWLANBusInterfacePCIe::flushTrackedFlowDeleteRequest(AppleBCMWLANBusInterface *a1, unsigned __int16 a2)
 {
   Logger = AppleBCMWLANBusInterface::getLogger(a1);
-  v5 = OUTLINED_FUNCTION_5_0(*(*(a1 + 9) + 1096));
-  v7 = (*(v6 + 72))(v5);
-  return CCLogStream::logInfo(Logger, "[dk] %s@%d:Trigger deleteFlowCallback for ring %u, tracker count %u\n", "flushTrackedFlowDeleteRequest", 10837, a2, v7);
+  OUTLINED_FUNCTION_5_0();
+  v5 = (*(v4 + 72))();
+  return CCLogStream::logInfo(Logger, "[dk] %s@%d:Trigger deleteFlowCallback for ring %u, tracker count %u\n", "flushTrackedFlowDeleteRequest", 10837, a2, v5);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::requestFlowId()
@@ -7724,10 +4888,9 @@ uint64_t AppleBCMWLANBusInterfacePCIe::requestFlowId()
 
 uint64_t AppleBCMWLANBusInterfacePCIe::requestIOTx(uint64_t a1, uint64_t a2, _DWORD *a3)
 {
-  OUTLINED_FUNCTION_5_0(*(*a1 + 3472));
-  v5 = *(v4 + 56);
+  OUTLINED_FUNCTION_5_0();
   OUTLINED_FUNCTION_218();
-  result = v6();
+  result = v4();
   *a3 = result;
   return result;
 }
@@ -7768,70 +4931,108 @@ uint64_t AppleBCMWLANBusInterfacePCIe::printWorkPendingForIPCStats(AppleBCMWLANB
 
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  OUTLINED_FUNCTION_23_7();
-  v4 = OUTLINED_FUNCTION_5_0(*(v3 + 1112));
-  (*(v5 + 72))(v4);
-  OUTLINED_FUNCTION_13_8();
-  v7 = *(v6 + 4120);
-  OUTLINED_FUNCTION_31_3();
-  if (v10 < v9)
-  {
-    v11 = OUTLINED_FUNCTION_5_0(*(v8 + 1112));
-    v9 = v2 - (*(v12 + 72))(v11);
-  }
+  OUTLINED_FUNCTION_9_4();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:IPC RequestIOTx ts=%llu\n", v3, v4, v5);
+}
 
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:IPC H2D ring create %u\n", "printWorkPendingForIPCStats", 11570, v9);
+{
+  AppleBCMWLANBusInterface::getLogger(a1);
+  OUTLINED_FUNCTION_102_0();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:IPC ivars->fH2DMailboxPending.pending %u\n", "printWorkPendingForIPCStats", 11567, v3);
 }
 
 {
   AppleBCMWLANBusInterface::getLogger(a1);
   OUTLINED_FUNCTION_23_7();
-  v4 = OUTLINED_FUNCTION_5_0(*(v3 + 1120));
-  (*(v5 + 72))(v4);
-  OUTLINED_FUNCTION_13_8();
-  v7 = *(v6 + 4152);
-  OUTLINED_FUNCTION_31_3();
-  if (v10 < v9)
+  v3 = 1 - *(v2 + 1176);
+  OUTLINED_FUNCTION_5_0();
+  if (v3 >= (*(v4 + 72))())
   {
-    v11 = OUTLINED_FUNCTION_5_0(*(v8 + 1120));
-    v9 = v2 - (*(v12 + 72))(v11);
+    OUTLINED_FUNCTION_5_0();
+    (*(v5 + 72))();
   }
 
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:IPC H2D ring destroy %u\n", "printWorkPendingForIPCStats", 11571, v9);
+  OUTLINED_FUNCTION_6();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:IPC flow create %u\n", v7, v8, v9);
 }
 
 {
   AppleBCMWLANBusInterface::getLogger(a1);
   OUTLINED_FUNCTION_23_7();
-  v4 = OUTLINED_FUNCTION_5_0(*(v3 + 1128));
-  (*(v5 + 72))(v4);
-  OUTLINED_FUNCTION_13_8();
-  v7 = *(v6 + 4136);
-  OUTLINED_FUNCTION_31_3();
-  if (v10 < v9)
+  v3 = 1 - *(v2 + 1180);
+  OUTLINED_FUNCTION_5_0();
+  if (v3 >= (*(v4 + 72))())
   {
-    v11 = OUTLINED_FUNCTION_5_0(*(v8 + 1128));
-    v9 = v2 - (*(v12 + 72))(v11);
+    OUTLINED_FUNCTION_5_0();
+    (*(v5 + 72))();
   }
 
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:IPC D2H ring create %u\n", "printWorkPendingForIPCStats", 11572, v9);
+  OUTLINED_FUNCTION_6();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:IPC flow destroy %u\n", v7, v8, v9);
 }
 
 {
   AppleBCMWLANBusInterface::getLogger(a1);
   OUTLINED_FUNCTION_23_7();
-  v4 = OUTLINED_FUNCTION_5_0(*(v3 + 1136));
-  (*(v5 + 72))(v4);
+  OUTLINED_FUNCTION_5_0();
+  (*(v3 + 72))();
   OUTLINED_FUNCTION_13_8();
-  v7 = *(v6 + 4168);
   OUTLINED_FUNCTION_31_3();
-  if (v10 < v9)
+  if (v5 < v4)
   {
-    v11 = OUTLINED_FUNCTION_5_0(*(v8 + 1136));
-    v9 = v2 - (*(v12 + 72))(v11);
+    OUTLINED_FUNCTION_5_0();
+    v4 = v2 - (*(v6 + 72))();
   }
 
-  return CCLogStream::logAlert(v1, "[dk] %s@%d:IPC D2H ring destroy %u\n", "printWorkPendingForIPCStats", 11573, v9);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:IPC H2D ring create %u\n", "printWorkPendingForIPCStats", 11570, v4);
+}
+
+{
+  AppleBCMWLANBusInterface::getLogger(a1);
+  OUTLINED_FUNCTION_23_7();
+  OUTLINED_FUNCTION_5_0();
+  (*(v3 + 72))();
+  OUTLINED_FUNCTION_13_8();
+  OUTLINED_FUNCTION_31_3();
+  if (v5 < v4)
+  {
+    OUTLINED_FUNCTION_5_0();
+    v4 = v2 - (*(v6 + 72))();
+  }
+
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:IPC H2D ring destroy %u\n", "printWorkPendingForIPCStats", 11571, v4);
+}
+
+{
+  AppleBCMWLANBusInterface::getLogger(a1);
+  OUTLINED_FUNCTION_23_7();
+  OUTLINED_FUNCTION_5_0();
+  (*(v3 + 72))();
+  OUTLINED_FUNCTION_13_8();
+  OUTLINED_FUNCTION_31_3();
+  if (v5 < v4)
+  {
+    OUTLINED_FUNCTION_5_0();
+    v4 = v2 - (*(v6 + 72))();
+  }
+
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:IPC D2H ring create %u\n", "printWorkPendingForIPCStats", 11572, v4);
+}
+
+{
+  AppleBCMWLANBusInterface::getLogger(a1);
+  OUTLINED_FUNCTION_23_7();
+  OUTLINED_FUNCTION_5_0();
+  (*(v3 + 72))();
+  OUTLINED_FUNCTION_13_8();
+  OUTLINED_FUNCTION_31_3();
+  if (v5 < v4)
+  {
+    OUTLINED_FUNCTION_5_0();
+    v4 = v2 - (*(v6 + 72))();
+  }
+
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:IPC D2H ring destroy %u\n", "printWorkPendingForIPCStats", 11573, v4);
 }
 
 {
@@ -7843,13 +5044,6 @@ uint64_t AppleBCMWLANBusInterfacePCIe::printWorkPendingForIPCStats(AppleBCMWLANB
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::printWorkPendingForIPCStats(AppleBCMWLANBusInterface *a1, uint64_t a2)
-{
-  AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *(*a2 + 5232);
-  OUTLINED_FUNCTION_9_4();
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:IPC RequestIOTx ts=%llu\n", v6, v7, v8);
-}
-
 {
   Logger = AppleBCMWLANBusInterface::getLogger(a1);
   return CCLogStream::logAlert(Logger, "[dk] %s@%d:IPC active command %u\n", "printWorkPendingForIPCStats", 11574, 1 - *(*a2 + 1152));
@@ -7872,64 +5066,13 @@ uint64_t AppleBCMWLANBusInterfacePCIe::printWorkPendingForIPCStats(AppleBCMWLANB
   return CCLogStream::logAlert(Logger, "[dk] %s@%d:MSI: Last: %06llu.%06llu to %06llu.%06llu; LAST H2D DB: at=%06llu.%06llu. CtrlCompl@lastMSI: {%d,%d}, ringDrain=%06llu.%06llu, cbReportStart=%06llu.%06llu, cbReportComplete=%06llu.%06llu\n", "printWorkPendingForIPCStats", 11589, v4 / 0x3B9ACA00, v4 % 0x3B9ACA00 / 0x3E8, v5 / 0x3B9ACA00, v5 % 0x3B9ACA00 / 0x3E8, *(*a2 + 2936) / 0x3B9ACA00uLL, *(*a2 + 2936) % 0x3B9ACA00uLL / 0x3E8, *(*a2 + 3860), *(*a2 + 3864), *(*a2 + 2960) / 0x3B9ACA00uLL, *(*a2 + 2960) % 0x3B9ACA00uLL / 0x3E8, *(*a2 + 2968) / 0x3B9ACA00uLL, *(*a2 + 2968) % 0x3B9ACA00uLL / 0x3E8, *(*a2 + 2976) / 0x3B9ACA00uLL, *(*a2 + 2976) % 0x3B9ACA00uLL / 0x3E8);
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::printWorkPendingForIPCStats(AppleBCMWLANBusInterface *a1, uint64_t *a2)
-{
-  AppleBCMWLANBusInterface::getLogger(a1);
-  OUTLINED_FUNCTION_102_0(*a2);
-  return CCLogStream::logAlert(v3, "[dk] %s@%d:IPC ivars->fH2DMailboxPending.pending %u\n", "printWorkPendingForIPCStats", 11567, v5);
-}
-
-{
-  AppleBCMWLANBusInterface::getLogger(a1);
-  OUTLINED_FUNCTION_23_7();
-  v5 = 1 - *(v4 + 1176);
-  v6 = OUTLINED_FUNCTION_5_0(*(v4 + 1088));
-  v8 = (*(v7 + 72))(v6);
-  v9 = *a2;
-  if (v5 >= v8)
-  {
-    v11 = OUTLINED_FUNCTION_5_0(*(v9 + 1088));
-    (*(v12 + 72))(v11);
-  }
-
-  else
-  {
-    v10 = (1 - *(v9 + 1176));
-  }
-
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v2, "[dk] %s@%d:IPC flow create %u\n", v14, v15, v16);
-}
-
-{
-  AppleBCMWLANBusInterface::getLogger(a1);
-  OUTLINED_FUNCTION_23_7();
-  v5 = 1 - *(v4 + 1180);
-  v6 = OUTLINED_FUNCTION_5_0(*(v4 + 1096));
-  v8 = (*(v7 + 72))(v6);
-  v9 = *a2;
-  if (v5 >= v8)
-  {
-    v11 = OUTLINED_FUNCTION_5_0(*(v9 + 1096));
-    (*(v12 + 72))(v11);
-  }
-
-  else
-  {
-    v10 = (1 - *(v9 + 1180));
-  }
-
-  OUTLINED_FUNCTION_6();
-  return CCLogStream::logAlert(v2, "[dk] %s@%d:IPC flow destroy %u\n", v14, v15, v16);
-}
-
-uint64_t AppleBCMWLANBusInterfacePCIe::submitDeleteFlowRequestMsg(AppleBCMWLANBusInterface *a1, uint64_t a2)
+uint64_t AppleBCMWLANBusInterfacePCIe::submitDeleteFlowRequestMsg(AppleBCMWLANBusInterface *a1)
 {
   Logger = AppleBCMWLANBusInterface::getLogger(a1);
-  v4 = OUTLINED_FUNCTION_5_0(*(*a2 + 24));
-  (*(v5 + 208))(v4);
+  OUTLINED_FUNCTION_5_0();
+  (*(v2 + 208))();
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logInfo(Logger, "[dk] %s@%d:Deleting flow: %u\n", v7, v8, v9);
+  return CCLogStream::logInfo(Logger, "[dk] %s@%d:Deleting flow: %u\n", v4, v5, v6);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::completeDebugBufferCompletetMsg(uint64_t a1, uint64_t a2, _DWORD *a3)
@@ -8046,11 +5189,10 @@ uint64_t AppleBCMWLANBusInterfacePCIe::completeIOCtlResponseMsg()
   OUTLINED_FUNCTION_4();
   AppleBCMWLANBusInterface::getLogger(v1);
   OUTLINED_FUNCTION_52_0();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_130();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_130();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logCrit(v0, "[dk] %s@%d:Error during drain: %s\n", v7, v8, v9);
+  return CCLogStream::logCrit(v0, "[dk] %s@%d:Error during drain: %s\n", v5, v6, v7);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::completeRxEventMsg()
@@ -8069,15 +5211,15 @@ uint64_t AppleBCMWLANBusInterfacePCIe::completeRxEventMsg()
   return CCLogStream::logAlert(Logger, "[dk] %s@%d:Rx event, wake packet bit, header flags %d ifId %d flowid %d, length %d, SN %d @ {%d %d}, type:0x%08x\n", "completeRxEventMsg", 13220, v5, v6, v7, v8, v9, v11, v13, 16);
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::completeRxEventMsg(uint64_t *a1)
+uint64_t AppleBCMWLANBusInterfacePCIe::completeRxEventMsg(uint64_t a1)
 {
-  v2 = OUTLINED_FUNCTION_5_0(a1);
-  result = (*(v3 + 1104))(v2);
+  OUTLINED_FUNCTION_5_0();
+  result = (*(v2 + 1104))();
   if (result)
   {
-    v5 = (*(*a1 + 1104))(a1);
+    v4 = (*(*a1 + 1104))(a1);
 
-    return AppleBCMWLANCore::setWiFiWakeType(v5, 16);
+    return AppleBCMWLANCore::setWiFiWakeType(v4, 16);
   }
 
   return result;
@@ -8239,11 +5381,11 @@ uint64_t AppleBCMWLANBusInterfacePCIe::completeFlowRingDeleteResponseMsg(AppleBC
 uint64_t AppleBCMWLANBusInterfacePCIe::completeFlowRingDeleteResponseMsg()
 {
   OUTLINED_FUNCTION_16_6();
-  Logger = AppleBCMWLANBusInterface::getLogger(v2);
-  v4 = *v1;
-  v5 = OUTLINED_FUNCTION_5_0(*(*v0 + 1096));
-  v7 = (*(v6 + 72))(v5);
-  return CCLogStream::logInfo(Logger, "[dk] %s@%d:Trigger deleteFlowCallback for ring %u, tracker count %u\n", "completeFlowRingDeleteResponseMsg", 13378, v4, v7);
+  Logger = AppleBCMWLANBusInterface::getLogger(v1);
+  v3 = *v0;
+  OUTLINED_FUNCTION_5_0();
+  v5 = (*(v4 + 72))();
+  return CCLogStream::logInfo(Logger, "[dk] %s@%d:Trigger deleteFlowCallback for ring %u, tracker count %u\n", "completeFlowRingDeleteResponseMsg", 13378, v3, v5);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::handleMBDataInbandDS(AppleBCMWLANBusInterface *a1)
@@ -8288,20 +5430,19 @@ uint64_t AppleBCMWLANBusInterfacePCIe::handleMBDataInbandDS()
   OUTLINED_FUNCTION_24_7();
   ++*(v3 + 3016);
   mach_continuous_time();
-  v4 = *v2;
   result = absolutetime_to_nanoseconds();
   if ((*(*v2 + 3725) & 1) == 0)
   {
     result = AppleBCMWLANBusInterfacePCIe::changeSleepState(v1, 6, 13580);
     if (!result)
     {
-      v6 = -536870167;
+      v5 = -536870167;
       goto LABEL_8;
     }
 
     if ((*(*v2 + 4496) & 2) != 0)
     {
-      v6 = 0;
+      v5 = 0;
       *(*v2 + 4528) = 1;
       goto LABEL_8;
     }
@@ -8309,9 +5450,9 @@ uint64_t AppleBCMWLANBusInterfacePCIe::handleMBDataInbandDS()
     result = AppleBCMWLANBusInterfacePCIe::ackDSRequest(v1);
   }
 
-  v6 = 0;
+  v5 = 0;
 LABEL_8:
-  *v0 = v6;
+  *v0 = v5;
   return result;
 }
 
@@ -8371,9 +5512,8 @@ AppleBCMWLANBusInterface *AppleBCMWLANBusInterfacePCIe::handleMBDataOOBDW(AppleB
   if ((*(result + 4496) & 2) == 0)
   {
     OUTLINED_FUNCTION_16_6();
-    ++*(v3 + 3016);
+    ++*(v2 + 3016);
     mach_continuous_time();
-    v4 = *v2;
     absolutetime_to_nanoseconds();
 
     return AppleBCMWLANBusInterfacePCIe::ackDSRequest(v1);
@@ -8451,50 +5591,58 @@ uint64_t AppleBCMWLANBusInterfacePCIe::readSoCRAM(AppleBCMWLANBusInterface *a1)
   return CCLogStream::logAlert(Logger, "[dk] %s@%d:Fail to allocate Memory\n", "readSoCRAM", 14078);
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::readSoCRAM(AppleBCMWLANBusInterface *a1, uint64_t *a2)
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *(*a2 + 1304);
-  OUTLINED_FUNCTION_7_14(*a2);
+  OUTLINED_FUNCTION_7_14();
   OUTLINED_FUNCTION_6_10();
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:Bus is NOT accessible ivars->fChipHalted:%s, ivars->fPCIeBus:%s\n", "readSoCRAM", 14061, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Bus is NOT accessible ivars->fChipHalted:%s, ivars->fPCIeBus:%s\n", "readSoCRAM", 14061, v3, v4);
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::readcoexSoCRAM(AppleBCMWLANBusInterface *a1, uint64_t *a2)
+uint64_t AppleBCMWLANBusInterfacePCIe::readcoexSoCRAM(AppleBCMWLANBusInterface *a1)
 {
-  AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *(*a2 + 1304);
-  OUTLINED_FUNCTION_7_14(*a2);
-  OUTLINED_FUNCTION_6_10();
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:Bus is NOT accessible ivars->fChipHalted:%s, ivars->fPCIeBus:%s\n", "readcoexSoCRAM", 14155, v6, v7);
+  Logger = AppleBCMWLANBusInterface::getLogger(a1);
+  return CCLogStream::logAlert(Logger, "[dk] %s@%d:Fail to allocate Memory\n", "readcoexSoCRAM", 14172);
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::readUCodeRAM(AppleBCMWLANBusInterface *a1, uint64_t *a2)
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *(*a2 + 1304);
-  OUTLINED_FUNCTION_7_14(*a2);
+  OUTLINED_FUNCTION_7_14();
   OUTLINED_FUNCTION_6_10();
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:Bus is NOT accessible ivars->fChipHalted:%s, ivars->fPCIeBus:%s\n", "readUCodeRAM", 14235, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Bus is NOT accessible ivars->fChipHalted:%s, ivars->fPCIeBus:%s\n", "readcoexSoCRAM", 14155, v3, v4);
+}
+
+uint64_t AppleBCMWLANBusInterfacePCIe::readUCodeRAM(AppleBCMWLANBusInterface *a1)
+{
+  AppleBCMWLANBusInterface::getLogger(a1);
+  OUTLINED_FUNCTION_7_14();
+  OUTLINED_FUNCTION_6_10();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Bus is NOT accessible ivars->fChipHalted:%s, ivars->fPCIeBus:%s\n", "readUCodeRAM", 14235, v3, v4);
+}
+
+uint64_t AppleBCMWLANBusInterfacePCIe::signalDriverEventGated(AppleBCMWLANBusInterface *a1)
+{
+  AppleBCMWLANBusInterface::getLogger(a1);
+  OUTLINED_FUNCTION_9_4();
+  return CCLogStream::logNoticeIf(v1, 0x200000uLL, "[dk] %s@%d: Signaling (%s) event\n", v3, v4, v5);
 }
 
 AppleBCMWLANBusInterface *AppleBCMWLANBusInterfacePCIe::ackDSRequestInbandDS(uint64_t a1, uint64_t a2, AppleBCMWLANBusInterfacePCIe *a3)
 {
   *(a1 + 5208) = 2;
   *(*a2 + 5204) = 1;
-  v5 = OUTLINED_FUNCTION_5_0(*(*a2 + 312));
-  (*(v6 + 192))(v5, 1, 0);
+  OUTLINED_FUNCTION_5_0();
+  (*(v5 + 192))();
   AppleBCMWLANPCIeDoorbell::cancelRing(*(*a2 + 3640));
-  AppleBCMWLANBusInterfacePCIe::hitDoorbell(a3, v7);
+  AppleBCMWLANBusInterfacePCIe::hitDoorbell(a3, v6);
   result = AppleBCMWLANBusInterfacePCIe::setDeviceInDeepSleep(a3, 1);
-  v9 = *a2;
+  v8 = *a2;
   if (*(*a2 + 2868) == 1)
   {
-    v9[1124] = v9[1124] & 0xFFFFFFFA | 4;
-    v9 = *a2;
+    v8[1124] = v8[1124] & 0xFFFFFFFA | 4;
+    v8 = *a2;
   }
 
-  v9[323] = v9[314];
+  v8[323] = v8[314];
   return result;
 }
 
@@ -8502,11 +5650,11 @@ uint64_t AppleBCMWLANBusInterfacePCIe::retainCTSInbandDS(uint64_t a1, uint64_t a
 {
   *(a1 + 5208) = 64;
   *(*a2 + 5204) = 1;
-  v3 = OUTLINED_FUNCTION_5_0(*(*a2 + 312));
-  (*(v4 + 192))(v3, 1, 0);
-  v5 = *(*a2 + 3640);
+  OUTLINED_FUNCTION_5_0();
+  (*(v3 + 192))();
+  v4 = *(*a2 + 3640);
 
-  return AppleBCMWLANPCIeDoorbell::cancelRing(v5);
+  return AppleBCMWLANPCIeDoorbell::cancelRing(v4);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::SetPowerState_Impl(AppleBCMWLANBusInterface *a1)
@@ -8735,36 +5883,6 @@ uint64_t AppleBCMWLANBusInterfacePCIe::SetPowerStateGated_Impl(AppleBCMWLANBusIn
   return CCLogStream::logAlert(Logger, "[dk] %s@%d:handling of link down pending\n", "SetPowerStateGated_Impl", 15338);
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::SetPowerStateGated_Impl(AppleBCMWLANBusInterface *a1, uint64_t a2)
-{
-  Logger = AppleBCMWLANBusInterface::getLogger(a1);
-  v4 = &off_1003D18C8;
-  v5 = 14;
-  v6 = "UNKNOWN";
-  while (*(v4 - 2) != *(*a2 + 1224))
-  {
-    v4 += 2;
-    if (!--v5)
-    {
-      return CCLogStream::logCritIf(Logger, 2uLL, "[dk] %s@%d:Completed, now: %s\n", "SetPowerStateGated_Impl", 15623, v6);
-    }
-  }
-
-  v6 = *v4;
-  return CCLogStream::logCritIf(Logger, 2uLL, "[dk] %s@%d:Completed, now: %s\n", "SetPowerStateGated_Impl", 15623, v6);
-}
-
-{
-  Logger = AppleBCMWLANBusInterface::getLogger(a1);
-  v4 = "before init";
-  if (*(*a2 + 1306) == 1 && !*(*a2 + 1304))
-  {
-    v4 = "after chip start";
-  }
-
-  return CCLogStream::logCrit(Logger, "[dk] %s@%d:Power transition %s\n", "SetPowerStateGated_Impl", 15305, v4);
-}
-
 uint64_t AppleBCMWLANBusInterfacePCIe::dumpRegisters(AppleBCMWLANBusInterface *a1)
 {
   Logger = AppleBCMWLANBusInterface::getLogger(a1);
@@ -8828,13 +5946,11 @@ uint64_t AppleBCMWLANBusInterfacePCIe::dumpDebugInfo(AppleBCMWLANBusInterface *a
   return CCLogStream::logAlert(Logger, "[dk] %s@%d: Failed to allocate buffer for register dump\n", "dumpDebugInfo", 15890);
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::dumpDebugInfo(AppleBCMWLANBusInterface *a1, uint64_t *a2)
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *(*a2 + 1304);
-  OUTLINED_FUNCTION_7_14(*a2);
+  OUTLINED_FUNCTION_7_14();
   OUTLINED_FUNCTION_6_10();
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:Bus is NOT accessible ivars->fChipHalted:%s, ivars->fPCIeBus:%s\n", "dumpDebugInfo", 15884, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Bus is NOT accessible ivars->fChipHalted:%s, ivars->fPCIeBus:%s\n", "dumpDebugInfo", 15884, v3, v4);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::checkAPBAccessibility(AppleBCMWLANBusInterface *a1)
@@ -8898,13 +6014,17 @@ uint64_t AppleBCMWLANBusInterfacePCIe::checkTCMAccessibility()
   return result;
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::dumpUCodeRegistersDebugInfo(AppleBCMWLANBusInterface *a1, uint64_t *a2)
+uint64_t AppleBCMWLANBusInterfacePCIe::dumpUCodeRegistersDebugInfo(AppleBCMWLANBusInterface *a1)
+{
+  Logger = AppleBCMWLANBusInterface::getLogger(a1);
+  return CCLogStream::logAlert(Logger, "[dk] %s@%d: Failed to create Dict for register dump\n", "dumpUCodeRegistersDebugInfo", 16066);
+}
+
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *(*a2 + 1304);
-  OUTLINED_FUNCTION_7_14(*a2);
+  OUTLINED_FUNCTION_7_14();
   OUTLINED_FUNCTION_6_10();
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:Bus is NOT accessible ivars->fChipHalted:%s, ivars->fPCIeBus:%s\n", "dumpUCodeRegistersDebugInfo", 16054, v6, v7);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:Bus is NOT accessible ivars->fChipHalted:%s, ivars->fPCIeBus:%s\n", "dumpUCodeRegistersDebugInfo", 16054, v3, v4);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::configureReportGated(uint64_t a1, uint64_t a2, int a3)
@@ -9005,13 +6125,12 @@ uint64_t AppleBCMWLANBusInterfacePCIe::disablePacketTimestamping()
   return CCLogStream::logAlert(Logger, "[dk] %s@%d:[WiFiTimeSync] %s::%s fPacketTimestampingEnabled:%d\n", "disablePacketTimestamping", 18251, ClassNameHelper, "disablePacketTimestamping", *(*v0 + 3996));
 }
 
-uint64_t AppleBCMWLANBusInterfacePCIe::configureTimeSyncCapability(AppleBCMWLANBusInterface *a1, unsigned __int8 *a2)
+uint64_t AppleBCMWLANBusInterfacePCIe::configureTimeSyncCapability(AppleBCMWLANBusInterface *a1)
 {
   AppleBCMWLANBusInterface::getLogger(a1);
-  v3 = *a2;
   OUTLINED_FUNCTION_128();
   OUTLINED_FUNCTION_113();
-  return CCLogStream::logAlert(v4, "[dk] %s@%d:[WiFiTimeSync] Force WiFi software timestamping %s\n", v6, v7, v8);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:[WiFiTimeSync] Force WiFi software timestamping %s\n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::configureTimeSyncCapability(AppleBCMWLANBusInterface *a1, uint64_t a2)
@@ -9125,11 +6244,10 @@ uint64_t AppleBCMWLANBusInterfacePCIe::H2DDebugRingCreateComplete()
   OUTLINED_FUNCTION_4();
   AppleBCMWLANBusInterface::getLogger(v1);
   OUTLINED_FUNCTION_52_0();
-  v3 = *(v2 + 104);
-  v4 = OUTLINED_FUNCTION_130();
-  v5(v4);
+  v2 = OUTLINED_FUNCTION_130();
+  v3(v2);
   OUTLINED_FUNCTION_6();
-  return CCLogStream::logCrit(v0, "[dk] %s@%d:%s\n", v7, v8, v9);
+  return CCLogStream::logCrit(v0, "[dk] %s@%d:%s\n", v5, v6, v7);
 }
 
 uint64_t AppleBCMWLANBusInterfacePCIe::isSystemHibernating(AppleBCMWLANBusInterface *a1)
@@ -9345,7 +6463,7 @@ uint64_t AppleBCMWLANPowerManager::configureMIMOPowerSaveConfiguration(uint64_t 
   return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
-uint64_t AppleBCMWLANPowerManager::configureSISOPowerSavePolicy(uint64_t ***a1)
+uint64_t AppleBCMWLANPowerManager::configureSISOPowerSavePolicy(uint64_t a1)
 {
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
@@ -9353,7 +6471,6 @@ uint64_t AppleBCMWLANPowerManager::configureSISOPowerSavePolicy(uint64_t ***a1)
   return CCLogStream::logAlert(v1, "[dk] %s@%d:MIMO_PS: Failed to Configure MIMO Power Save Params %s\n", v5, v6, v7);
 }
 
-uint64_t AppleBCMWLANPowerManager::configureSISOPowerSavePolicy(uint64_t a1)
 {
   OUTLINED_FUNCTION_3(a1);
   OUTLINED_FUNCTION_5_2();
@@ -9376,7 +6493,7 @@ uint64_t AppleBCMWLANPowerManager::configureScanPowerPolicy(uint64_t a1)
   return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
-uint64_t AppleBCMWLANPowerManager::configureMRCThreshold(uint64_t ***a1)
+uint64_t AppleBCMWLANPowerManager::configureMRCThreshold(uint64_t a1)
 {
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
@@ -9384,7 +6501,6 @@ uint64_t AppleBCMWLANPowerManager::configureMRCThreshold(uint64_t ***a1)
   return CCLogStream::logAlert(v1, "[dk] %s@%d:MIMO_PS: Failed to Configure Beacon Based Radio Chain Configuration  %s\n", v5, v6, v7);
 }
 
-uint64_t AppleBCMWLANPowerManager::configureMRCThreshold(uint64_t a1)
 {
   OUTLINED_FUNCTION_3(a1);
   OUTLINED_FUNCTION_5_2();
@@ -9415,17 +6531,16 @@ uint64_t AppleBCMWLANPowerManager::handleConfigureBcnBasedRadioChainSwitchAsyncC
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleConfigureBcnBasedRadioChainSwitchAsyncCallback(uint64_t ***a1)
-{
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
   OUTLINED_FUNCTION_6();
   return CCLogStream::logAlert(v1, "[dk] %s@%d:MIMO_PS: Error: Failed to Configure Beacon Based Radio Chain Switch: %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::handleMRCThresholdConfigurationAsyncCallback(uint64_t a1)
@@ -9436,17 +6551,16 @@ uint64_t AppleBCMWLANPowerManager::handleMRCThresholdConfigurationAsyncCallback(
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleMRCThresholdConfigurationAsyncCallback(uint64_t ***a1)
-{
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
   OUTLINED_FUNCTION_6();
   return CCLogStream::logAlert(v1, "[dk] %s@%d:MIMO_PS: Error: Failed to Configure MRC Threshold: %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::handleScanPowerPolicyConfigurationAsyncCallback(uint64_t a1)
@@ -9457,17 +6571,16 @@ uint64_t AppleBCMWLANPowerManager::handleScanPowerPolicyConfigurationAsyncCallba
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleScanPowerPolicyConfigurationAsyncCallback(uint64_t ***a1)
-{
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
   OUTLINED_FUNCTION_6();
   return CCLogStream::logAlert(v1, "[dk] %s@%d:MIMO_PS: Error: Failed to Configure Scan Power Policy: %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::configureMIMOPowerSaveParams(uint64_t a1)
@@ -9525,7 +6638,7 @@ void AppleBCMWLANPowerManager::configureMIMOPowerSaveAssociatedSleepEntry(uint64
   OUTLINED_FUNCTION_12_2();
 }
 
-uint64_t AppleBCMWLANPowerManager::configureTVPMPeriodicity(uint64_t ***a1)
+uint64_t AppleBCMWLANPowerManager::configureTVPMPeriodicity(uint64_t a1)
 {
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
@@ -9533,7 +6646,6 @@ uint64_t AppleBCMWLANPowerManager::configureTVPMPeriodicity(uint64_t ***a1)
   return CCLogStream::logAlert(v1, "[dk] %s@%d:TVPM: Failed to Configure TVPM Periodicity  %s\n", v5, v6, v7);
 }
 
-uint64_t AppleBCMWLANPowerManager::configureTVPMPeriodicity(uint64_t a1)
 {
   v1 = OUTLINED_FUNCTION_3(a1);
   return CCLogStream::logInfo(v1, "[dk] %s@%d: TVPM Periodicity is = %d\n", "configureTVPMPeriodicity", 3620, *(v2 + 136));
@@ -9554,7 +6666,7 @@ uint64_t AppleBCMWLANPowerManager::configureTVPMPeriodicity(uint64_t a1)
   return CCLogStream::logInfo(v1, "[dk] %s@%d:Can not program TVPM Periodicty to %d, Waiting for IP address\n", "configureTVPMPeriodicity", 3572, 1);
 }
 
-uint64_t AppleBCMWLANPowerManager::configureBeaconBasedChannelWidthSwitch(uint64_t ***a1)
+uint64_t AppleBCMWLANPowerManager::configureBeaconBasedChannelWidthSwitch(uint64_t a1)
 {
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2, 3825173508);
@@ -9567,6 +6679,11 @@ uint64_t AppleBCMWLANPowerManager::configureBeaconBasedChannelWidthSwitch(uint64
   (*(v3 + 112))(v2);
   OUTLINED_FUNCTION_6();
   return CCLogStream::logAlert(v1, "[dk] %s@%d:MIMO_PS: Failed to Configure Beacon Based Radio Channel Width Configuration  %s\n", v5, v6, v7);
+}
+
+{
+  v1 = OUTLINED_FUNCTION_3(a1);
+  return CCLogStream::logAlert(v1, "[dk] %s@%d:BCN Channel Switch Param buffer allocation failed\n", "configureBeaconBasedChannelWidthSwitch", 3755);
 }
 
 uint64_t AppleBCMWLANPowerManager::configureMIMOPowerSaveAssociatedSleepExit(uint64_t a1)
@@ -9598,17 +6715,16 @@ uint64_t AppleBCMWLANPowerManager::handleConfigureMIMOPSCfgAsyncCallback(uint64_
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleConfigureMIMOPSCfgAsyncCallback(uint64_t ***a1)
-{
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
   OUTLINED_FUNCTION_6();
   return CCLogStream::logAlert(v1, "[dk] %s@%d:MIMO_PS: Error: Failed MIMO Power Save Configuration: %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::setBatterySaveModeConfiguration(uint64_t a1)
@@ -9650,17 +6766,16 @@ uint64_t AppleBCMWLANPowerManager::handleGetTxRadioChainsAsyncCallback(uint64_t 
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleGetTxRadioChainsAsyncCallback(uint64_t ***a1)
-{
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
   OUTLINED_FUNCTION_6();
   return CCLogStream::logAlert(v1, "[dk] %s@%d:MIMO_PS: Error: Failed to Get Tx Radio Chain Configuration: %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::handleGetRxRadioChainsAsyncCallback(uint64_t a1)
@@ -9671,17 +6786,16 @@ uint64_t AppleBCMWLANPowerManager::handleGetRxRadioChainsAsyncCallback(uint64_t 
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleGetRxRadioChainsAsyncCallback(uint64_t ***a1)
-{
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
   OUTLINED_FUNCTION_6();
   return CCLogStream::logAlert(v1, "[dk] %s@%d:MIMO_PS: Error: Failed to Get Rx Radio Chain Configuration: %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::handleGetRxChannelSpecAsyncCallback(uint64_t a1)
@@ -9692,17 +6806,16 @@ uint64_t AppleBCMWLANPowerManager::handleGetRxChannelSpecAsyncCallback(uint64_t 
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleGetRxChannelSpecAsyncCallback(uint64_t ***a1)
-{
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
   OUTLINED_FUNCTION_6();
   return CCLogStream::logAlert(v1, "[dk] %s@%d:MIMO_PS: Error: Failed to Get Rx Radio Chain Configuration: %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::handleConfigureMIMOPSCfgGetAsyncCallback(uint64_t a1)
@@ -9713,17 +6826,16 @@ uint64_t AppleBCMWLANPowerManager::handleConfigureMIMOPSCfgGetAsyncCallback(uint
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleConfigureMIMOPSCfgGetAsyncCallback(uint64_t ***a1)
-{
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
   OUTLINED_FUNCTION_6();
   return CCLogStream::logAlert(v1, "[dk] %s@%d:MIMO_PS: Error: Failed MIMO Power Save Configuration: %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::handleLinkDownConfiguration(uint64_t a1)
@@ -9753,17 +6865,16 @@ uint64_t AppleBCMWLANPowerManager::handleGetMRCRssiThresholdAsyncCallback(uint64
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleGetMRCRssiThresholdAsyncCallback(uint64_t ***a1)
-{
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
   OUTLINED_FUNCTION_6();
   return CCLogStream::logAlert(v1, "[dk] %s@%d:MIMO_PS: Error: Failed to Get MRC Threshold: %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::handleGetBCNRXAsyncCallback(uint64_t a1)
@@ -9774,17 +6885,16 @@ uint64_t AppleBCMWLANPowerManager::handleGetBCNRXAsyncCallback(uint64_t a1)
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleGetBCNRXAsyncCallback(uint64_t ***a1)
-{
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
   OUTLINED_FUNCTION_6();
   return CCLogStream::logAlert(v1, "[dk] %s@%d:MIMO_PS: Error: Failed to Get Beacon Based Radio Switch State: %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::handleGetMIMOGaurdAsyncCallback(uint64_t a1)
@@ -9795,17 +6905,16 @@ uint64_t AppleBCMWLANPowerManager::handleGetMIMOGaurdAsyncCallback(uint64_t a1)
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleGetMIMOGaurdAsyncCallback(uint64_t ***a1)
-{
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
   OUTLINED_FUNCTION_6();
   return CCLogStream::logAlert(v1, "[dk] %s@%d:MIMO_PS: Error: Failed to get MIMO Leak Gaurd Interval: %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::handleGetMIMOPowerSaveStatusAsyncCallback(uint64_t a1)
@@ -9816,17 +6925,16 @@ uint64_t AppleBCMWLANPowerManager::handleGetMIMOPowerSaveStatusAsyncCallback(uin
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleGetMIMOPowerSaveStatusAsyncCallback(uint64_t ***a1)
-{
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
   OUTLINED_FUNCTION_6();
   return CCLogStream::logAlert(v1, "[dk] %s@%d:MIMO_PS: Error: Failed to get MIMO Power Save Status: %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::handleConfigureBcnBasedRadioChannelWidthSwitchAsyncCallback(uint64_t a1)
@@ -9837,17 +6945,16 @@ uint64_t AppleBCMWLANPowerManager::handleConfigureBcnBasedRadioChannelWidthSwitc
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleConfigureBcnBasedRadioChannelWidthSwitchAsyncCallback(uint64_t ***a1)
-{
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
   OUTLINED_FUNCTION_6();
   return CCLogStream::logAlert(v1, "[dk] %s@%d:MIMO_PS: Error: Failed to Configure Beacon Based Radio Channel Width Switch: %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::handleConfigureTVPMPeriodicityAsyncCallback(uint64_t a1)
@@ -9858,17 +6965,16 @@ uint64_t AppleBCMWLANPowerManager::handleConfigureTVPMPeriodicityAsyncCallback(u
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleConfigureTVPMPeriodicityAsyncCallback(uint64_t ***a1)
-{
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
   OUTLINED_FUNCTION_6();
   return CCLogStream::logAlert(v1, "[dk] %s@%d:TVPM: Error: Failed to Configure TVPM Periodicity: %s\n", v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::configureOCLParams(uint64_t a1)
@@ -9890,23 +6996,29 @@ uint64_t AppleBCMWLANPowerManager::configureOCLSetting(uint64_t a1)
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::configureOCLSetting(uint64_t ***a1)
-{
   v1 = OUTLINED_FUNCTION_0(a1);
   (*(v2 + 112))(v1);
   OUTLINED_FUNCTION_6();
   return OUTLINED_FUNCTION_8_14(v3, v4, "[dk] %s@%d:OCL: Failed to Configure OCL %s\n");
 }
 
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
+}
+
 uint64_t AppleBCMWLANPowerManager::configureOCLRssiThreshold(uint64_t a1)
 {
   v1 = OUTLINED_FUNCTION_3(a1);
   return CCLogStream::logAlertIf(v1, 0x20uLL, "[dk] %s@%d:OCL: OCL NOT Enabled by Host!\n", "configureOCLRssiThreshold", 2296);
+}
+
+{
+  v1 = OUTLINED_FUNCTION_0(a1);
+  (*(v2 + 112))(v1);
+  OUTLINED_FUNCTION_6();
+  return OUTLINED_FUNCTION_8_14(v3, v4, "[dk] %s@%d:OCL: Failed to Configure OCL Threshold  %s\n");
 }
 
 {
@@ -9918,14 +7030,6 @@ uint64_t AppleBCMWLANPowerManager::configureOCLRssiThreshold(uint64_t a1)
   OUTLINED_FUNCTION_3(a1);
   OUTLINED_FUNCTION_5_2();
   return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::configureOCLRssiThreshold(uint64_t ***a1)
-{
-  v1 = OUTLINED_FUNCTION_0(a1);
-  (*(v2 + 112))(v1);
-  OUTLINED_FUNCTION_6();
-  return OUTLINED_FUNCTION_8_14(v3, v4, "[dk] %s@%d:OCL: Failed to Configure OCL Threshold  %s\n");
 }
 
 uint64_t AppleBCMWLANPowerManager::configurePowerSaveForAWDL(uint64_t a1)
@@ -9974,17 +7078,16 @@ uint64_t AppleBCMWLANPowerManager::handleEBTConfigurationAsyncCallback(uint64_t 
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleEBTConfigurationAsyncCallback(uint64_t ***a1)
-{
   v1 = OUTLINED_FUNCTION_0(a1);
   (*(v2 + 112))(v1);
   OUTLINED_FUNCTION_6();
   return OUTLINED_FUNCTION_8_14(v3, v4, "[dk] %s@%d:EBT: Error: Failed to Configure Opportunistic Power Save: %s\n");
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::handleOPSConfigurationAsyncCallback(uint64_t a1)
@@ -9995,17 +7098,16 @@ uint64_t AppleBCMWLANPowerManager::handleOPSConfigurationAsyncCallback(uint64_t 
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleOPSConfigurationAsyncCallback(uint64_t ***a1)
-{
   v1 = OUTLINED_FUNCTION_0(a1);
   (*(v2 + 112))(v1);
   OUTLINED_FUNCTION_6();
   return OUTLINED_FUNCTION_8_14(v3, v4, "[dk] %s@%d:OPS: Error: Failed to Configure Opportunistic Power Save: %s\n");
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::handleDigitalNapConfigurationAsyncCallback(uint64_t a1)
@@ -10016,17 +7118,16 @@ uint64_t AppleBCMWLANPowerManager::handleDigitalNapConfigurationAsyncCallback(ui
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleDigitalNapConfigurationAsyncCallback(uint64_t ***a1)
-{
   v1 = OUTLINED_FUNCTION_0(a1);
   (*(v2 + 112))(v1);
   OUTLINED_FUNCTION_6();
   return OUTLINED_FUNCTION_8_14(v3, v4, "[dk] %s@%d:OPS: Error: Failed to Configure Digital Nap Power Save: %s\n");
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::handleOCLConfigurationAsyncCallback(uint64_t a1)
@@ -10037,17 +7138,16 @@ uint64_t AppleBCMWLANPowerManager::handleOCLConfigurationAsyncCallback(uint64_t 
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleOCLConfigurationAsyncCallback(uint64_t ***a1)
-{
   v1 = OUTLINED_FUNCTION_0(a1);
   (*(v2 + 112))(v1);
   OUTLINED_FUNCTION_6();
   return OUTLINED_FUNCTION_8_14(v3, v4, "[dk] %s@%d:OCL: Error: Failed to Configure OCL: %s\n");
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::handleOCLRssiThresholdConfigurationAsyncCallback(uint64_t a1)
@@ -10058,17 +7158,16 @@ uint64_t AppleBCMWLANPowerManager::handleOCLRssiThresholdConfigurationAsyncCallb
 }
 
 {
-  OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_5_2();
-  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
-}
-
-uint64_t AppleBCMWLANPowerManager::handleOCLRssiThresholdConfigurationAsyncCallback(uint64_t ***a1)
-{
   v1 = OUTLINED_FUNCTION_0(a1);
   (*(v2 + 112))(v1);
   OUTLINED_FUNCTION_6();
   return OUTLINED_FUNCTION_8_14(v3, v4, "[dk] %s@%d:OCL: Error: Failed to Configure OCL Threshold: %s\n");
+}
+
+{
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_5_2();
+  return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
 uint64_t AppleBCMWLANPowerManager::setMWSCoexIoVarsAsync_mws_ocl_coex_bitmap(uint64_t a1)
@@ -10116,15 +7215,15 @@ uint64_t AppleBCMWLANPowerManager::getOPSStatus(uint64_t a1)
 }
 
 {
-  v1 = OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_7_15(v1, v2, v3, v4);
-  return CCLogStream::logAlertIf(v6, 0x20uLL, "[dk] %s@%d:OPS STATUS: Version=%d Len=%d slice_index=%d disable_obss=%d disable_reasons=%d disable_duration=%d applied_ops_config=%d partial_ops_dur=%d full_ops_dur=%d OPS Histogram[%d] [%d] [%d] [%d] [%d] nav_cnt=%d plcp_cnt=%d mybss_cnt=%d obss_cnt=%d miss_dur_cnt=%d miss_pret_cnt=%d max_dur_cnt=%d wake_cnt=%d bcn_wait_cnt=%d\n", "getOPSStatus", 3684, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v7, v8, v5[10], v5[11], v5[12], v5[13], v5[14], v5[15], v5[16], v5[17], v5[18], v5[19], v5[20]);
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_7_15();
+  return CCLogStream::logAlertIf(v2, 0x20uLL, "[dk] %s@%d:OPS STATUS: Version=%d Len=%d slice_index=%d disable_obss=%d disable_reasons=%d disable_duration=%d applied_ops_config=%d partial_ops_dur=%d full_ops_dur=%d OPS Histogram[%d] [%d] [%d] [%d] [%d] nav_cnt=%d plcp_cnt=%d mybss_cnt=%d obss_cnt=%d miss_dur_cnt=%d miss_pret_cnt=%d max_dur_cnt=%d wake_cnt=%d bcn_wait_cnt=%d\n", "getOPSStatus", 3684, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v3, v4, v1[10], v1[11], v1[12], v1[13], v1[14], v1[15], v1[16], v1[17], v1[18], v1[19], v1[20]);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_3(a1);
-  OUTLINED_FUNCTION_7_15(v1, v2, v3, v4);
-  return CCLogStream::logAlertIf(v6, 0x20uLL, "[dk] %s@%d:OPS STATUS: Version=%d Len=%d slice_index=%d disable_obss=%d disable_reasons=%d disable_duration=%d applied_ops_config=%d partial_ops_dur=%d full_ops_dur=%d OPS Histogram[%d] [%d] [%d] [%d] [%d] nav_cnt=%d plcp_cnt=%d mybss_cnt=%d obss_cnt=%d miss_dur_cnt=%d miss_pret_cnt=%d max_dur_cnt=%d wake_cnt=%d bcn_wait_cnt=%d rx_time_mybss=%d,rx_time_ibss=%d,rx_time_obss=%d\n", "getOPSStatus", 3681, v9, v10, v11, v12, v13, v14, v15, v16, v17, v18, v7, v8, v5[10], v5[11], v5[12], v5[13], v5[14], v5[15], v5[16], v5[17], v5[18], v5[19], v5[20], v5[21], v5[22], v5[23]);
+  OUTLINED_FUNCTION_3(a1);
+  OUTLINED_FUNCTION_7_15();
+  return CCLogStream::logAlertIf(v2, 0x20uLL, "[dk] %s@%d:OPS STATUS: Version=%d Len=%d slice_index=%d disable_obss=%d disable_reasons=%d disable_duration=%d applied_ops_config=%d partial_ops_dur=%d full_ops_dur=%d OPS Histogram[%d] [%d] [%d] [%d] [%d] nav_cnt=%d plcp_cnt=%d mybss_cnt=%d obss_cnt=%d miss_dur_cnt=%d miss_pret_cnt=%d max_dur_cnt=%d wake_cnt=%d bcn_wait_cnt=%d rx_time_mybss=%d,rx_time_ibss=%d,rx_time_obss=%d\n", "getOPSStatus", 3681, v5, v6, v7, v8, v9, v10, v11, v12, v13, v14, v3, v4, v1[10], v1[11], v1[12], v1[13], v1[14], v1[15], v1[16], v1[17], v1[18], v1[19], v1[20], v1[21], v1[22], v1[23]);
 }
 
 {
@@ -10160,7 +7259,7 @@ uint64_t AppleBCMWLANPowerManager::getEBTStatus(uint64_t a1)
   return CCLogStream::logNoticeIf(v1, 0x20uLL, "[dk] %s@%d:MIMO_PS: Leave %s \n", v3, v4, v5);
 }
 
-uint64_t AppleBCMWLANPowerManager::handleConfigureMPCThresholdAsyncCallback(uint64_t ***a1)
+uint64_t AppleBCMWLANPowerManager::handleConfigureMPCThresholdAsyncCallback(uint64_t a1)
 {
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
@@ -10168,7 +7267,7 @@ uint64_t AppleBCMWLANPowerManager::handleConfigureMPCThresholdAsyncCallback(uint
   return CCLogStream::logAlert(v1, "[dk] %s@%d: Error: cannot configure MPC Threshold  value: %s\n", v5, v6, v7);
 }
 
-uint64_t AppleBCMWLANPowerManager::handleConfigureBCMInterfaceStateAsyncCallback(uint64_t ***a1)
+uint64_t AppleBCMWLANPowerManager::handleConfigureBCMInterfaceStateAsyncCallback(uint64_t a1)
 {
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
@@ -10176,7 +7275,7 @@ uint64_t AppleBCMWLANPowerManager::handleConfigureBCMInterfaceStateAsyncCallback
   return CCLogStream::logAlert(v1, "[dk] %s@%d: Error: cannot configure BCM Interface State : %s\n", v5, v6, v7);
 }
 
-uint64_t AppleBCMWLANPowerManager::configureUnAssocFRTS(uint64_t ***a1)
+uint64_t AppleBCMWLANPowerManager::configureUnAssocFRTS(uint64_t a1)
 {
   v2 = OUTLINED_FUNCTION_0(a1);
   (*(v3 + 112))(v2);
@@ -10200,9 +7299,9 @@ uint64_t AppleBCMWLANPowerManager::configureUnAssocFRTS(uint64_t a1, _DWORD *a2)
   return result;
 }
 
-uint64_t AppleBCMWLANPowerManager::configureBCMInterface(uint64_t ***a1, char a2)
+uint64_t AppleBCMWLANPowerManager::configureBCMInterface(uint64_t *a1, char a2)
 {
-  v2 = (*a1)[3];
+  v2 = *(*a1 + 24);
   if (a2)
   {
     v3 = "Up";
@@ -10219,7 +7318,7 @@ uint64_t AppleBCMWLANPowerManager::configureBCMInterface(uint64_t ***a1, char a2
 }
 
 {
-  v2 = (*a1)[3];
+  v2 = *(*a1 + 24);
   if (a2)
   {
     v3 = "Up";
@@ -10235,7 +7334,7 @@ uint64_t AppleBCMWLANPowerManager::configureBCMInterface(uint64_t ***a1, char a2
   return CCLogStream::logInfo(v2, "[dk] %s@%d:BCM Interface is = %s %s\n", "configureBCMInterface", 4008, v3, v6);
 }
 
-uint64_t AppleBCMWLANPowerManager::setHtSisoOnly(uint64_t ***a1)
+uint64_t AppleBCMWLANPowerManager::setHtSisoOnly(uint64_t a1)
 {
   v2 = OUTLINED_FUNCTION_0(a1);
   v5 = *v4;
@@ -10243,7 +7342,7 @@ uint64_t AppleBCMWLANPowerManager::setHtSisoOnly(uint64_t ***a1)
   return CCLogStream::logAlert(v1, "[dk] %s@%d:isHtSisoOnly <%d> rval=<%s>\n", "setHtSisoOnly", 4022, v5, v7);
 }
 
-uint64_t AppleBCMWLANPowerManager::getHtSisoOnly(uint64_t ***a1)
+uint64_t AppleBCMWLANPowerManager::getHtSisoOnly(uint64_t a1)
 {
   v2 = OUTLINED_FUNCTION_0(a1);
   v5 = *v4;
@@ -10333,7 +7432,7 @@ uint64_t AppleBCMWLANCommander::checkCurrentCmdStuck(uint64_t result)
   return result;
 }
 
-AppleBCMWLANCommand *AppleBCMWLANCommander::dequeueTxCommands(AppleBCMWLANCommander *a1, unsigned __int16 *a2)
+uint64_t AppleBCMWLANCommander::dequeueTxCommands(AppleBCMWLANCommander *a1, unsigned __int16 *a2)
 {
   v2 = *(a1 + 8);
   v3 = *(v2 + 148);
@@ -10624,7 +7723,7 @@ void AppleBCMWLANCommander::checkQueues(uint64_t a1)
 
 uint64_t AppleBCMWLANCommander::completeFaultReportCallback(uint64_t a1, CCFaultReport *a2)
 {
-  OUTLINED_FUNCTION_12_9(a1);
+  OUTLINED_FUNCTION_12_9();
   v5 = (*(*v4 + 56))(v4);
   CStringNoCopy = OSString::getCStringNoCopy(v5);
   WatchdogResult = CCFaultReport::getWatchdogResult(a2);
@@ -10633,7 +7732,7 @@ uint64_t AppleBCMWLANCommander::completeFaultReportCallback(uint64_t a1, CCFault
 
 uint64_t AppleBCMWLANCommander::completeFaultReportCallback(uint64_t a1)
 {
-  OUTLINED_FUNCTION_12_9(a1);
+  OUTLINED_FUNCTION_12_9();
   v4 = *(v3 + 172);
   Size = AppleBCMWLANCommandQueue::getSize(*(v3 + 88));
   v6 = AppleBCMWLANCommandQueue::getSize(*(*a1 + 96));
@@ -10648,94 +7747,87 @@ uint64_t AppleBCMWLANCommander::completeFaultReportCallback(uint64_t a1)
 
 uint64_t AppleBCMWLANCommander::issueCommand(uint64_t a1)
 {
-  v1 = OUTLINED_FUNCTION_3_12(a1);
-  v3 = *v2;
-  *(v2 + 1);
-  v4 = *(v2 + 4);
-  OUTLINED_FUNCTION_1_22(v1, v2);
-  return CCLogStream::logAlert(v5, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1753, v7, v8, v9, v10, v11);
+  OUTLINED_FUNCTION_3_12(a1);
+  OUTLINED_FUNCTION_1_22();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1753, v3, v4, v5, v6, v7);
 }
 
 {
-  v1 = OUTLINED_FUNCTION_3_12(a1);
-  v3 = *v2;
-  *v4;
-  v5 = *(v2 + 4);
-  OUTLINED_FUNCTION_1_22(v1, v2);
-  return CCLogStream::logAlert(v6, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1763, v8, v9, v10, v11, v12);
-}
-
-uint64_t AppleBCMWLANCommander::issueCommand(uint64_t a1, unsigned __int8 *a2, uint64_t a3, uint64_t *a4)
-{
-  v4 = OUTLINED_FUNCTION_2_19(a1, a2, a3, a4);
-  OUTLINED_FUNCTION_0_27(v4, v5, v6);
-  return CCLogStream::logAlert(v7, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1774, v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_3_12(a1);
+  OUTLINED_FUNCTION_1_22();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1763, v3, v4, v5, v6, v7);
 }
 
 {
-  v4 = OUTLINED_FUNCTION_2_19(a1, a2, a3, a4);
-  OUTLINED_FUNCTION_0_27(v4, v5, v6);
-  return CCLogStream::logAlert(v7, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1799, v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_2_19(a1);
+  OUTLINED_FUNCTION_0_27();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1774, v3, v4, v5, v6, v7);
 }
 
 {
-  v4 = OUTLINED_FUNCTION_2_19(a1, a2, a3, a4);
-  OUTLINED_FUNCTION_0_27(v4, v5, v6);
-  return CCLogStream::logAlert(v7, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1793, v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_2_19(a1);
+  OUTLINED_FUNCTION_0_27();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1799, v3, v4, v5, v6, v7);
 }
 
 {
-  v4 = OUTLINED_FUNCTION_2_19(a1, a2, a3, a4);
-  OUTLINED_FUNCTION_0_27(v4, v5, v6);
-  return CCLogStream::logAlert(v7, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1787, v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_2_19(a1);
+  OUTLINED_FUNCTION_0_27();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1793, v3, v4, v5, v6, v7);
 }
 
 {
-  v4 = OUTLINED_FUNCTION_2_19(a1, a2, a3, a4);
-  OUTLINED_FUNCTION_0_27(v4, v5, v6);
-  return CCLogStream::logAlert(v7, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1780, v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_2_19(a1);
+  OUTLINED_FUNCTION_0_27();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1787, v3, v4, v5, v6, v7);
 }
 
 {
-  v4 = OUTLINED_FUNCTION_2_19(a1, a2, a3, a4);
-  OUTLINED_FUNCTION_0_27(v4, v5, v6);
-  return CCLogStream::logAlert(v7, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1843, v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_2_19(a1);
+  OUTLINED_FUNCTION_0_27();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1780, v3, v4, v5, v6, v7);
 }
 
 {
-  v4 = OUTLINED_FUNCTION_2_19(a1, a2, a3, a4);
-  OUTLINED_FUNCTION_0_27(v4, v5, v6);
-  return CCLogStream::logAlert(v7, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1813, v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_2_19(a1);
+  OUTLINED_FUNCTION_0_27();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1843, v3, v4, v5, v6, v7);
 }
 
 {
-  v4 = OUTLINED_FUNCTION_2_19(a1, a2, a3, a4);
-  OUTLINED_FUNCTION_0_27(v4, v5, v6);
-  return CCLogStream::logAlert(v7, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1807, v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_2_19(a1);
+  OUTLINED_FUNCTION_0_27();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1813, v3, v4, v5, v6, v7);
 }
 
 {
-  v4 = OUTLINED_FUNCTION_2_19(a1, a2, a3, a4);
-  OUTLINED_FUNCTION_0_27(v4, v5, v6);
-  return CCLogStream::logAlert(v7, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1838, v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_2_19(a1);
+  OUTLINED_FUNCTION_0_27();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1807, v3, v4, v5, v6, v7);
 }
 
 {
-  v4 = OUTLINED_FUNCTION_2_19(a1, a2, a3, a4);
-  OUTLINED_FUNCTION_0_27(v4, v5, v6);
-  return CCLogStream::logAlert(v7, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1832, v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_2_19(a1);
+  OUTLINED_FUNCTION_0_27();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1838, v3, v4, v5, v6, v7);
 }
 
 {
-  v4 = OUTLINED_FUNCTION_2_19(a1, a2, a3, a4);
-  OUTLINED_FUNCTION_0_27(v4, v5, v6);
-  return CCLogStream::logAlert(v7, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1826, v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_2_19(a1);
+  OUTLINED_FUNCTION_0_27();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1832, v3, v4, v5, v6, v7);
 }
 
 {
-  v4 = OUTLINED_FUNCTION_2_19(a1, a2, a3, a4);
-  OUTLINED_FUNCTION_0_27(v4, v5, v6);
-  return CCLogStream::logAlert(v7, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1820, v9, v10, v11, v12, v13);
+  OUTLINED_FUNCTION_2_19(a1);
+  OUTLINED_FUNCTION_0_27();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1826, v3, v4, v5, v6, v7);
+}
+
+{
+  OUTLINED_FUNCTION_2_19(a1);
+  OUTLINED_FUNCTION_0_27();
+  return CCLogStream::logAlert(v1, "[dk] %s@%d: CommandID info: interface[%3u] type[0x%04x] ioctl[0x%04x/%4u] iovar['%s']\n", "issueCommand", 1820, v3, v4, v5, v6, v7);
 }
 
 void AppleBCMWLANCommander::issueCommand(uint64_t *a1)
@@ -10835,7 +7927,7 @@ uint64_t AppleBCMWLANCommander::quiesce(uint64_t a1)
 
 uint64_t AppleBCMWLANCommander::reset(uint64_t a1)
 {
-  OUTLINED_FUNCTION_12_9(a1);
+  OUTLINED_FUNCTION_12_9();
   Size = AppleBCMWLANCommandQueue::getSize(*(v3 + 80));
   v5 = AppleBCMWLANCommandQueue::getSize(*(*a1 + 104));
   v6 = AppleBCMWLANCommandQueue::getSize(*(*a1 + 96));
@@ -10969,7 +8061,7 @@ uint64_t AppleBCMWLANCommander::processCompletedCommand(uint64_t a1, AppleBCMWLA
 
 uint64_t ___ZN21AppleBCMWLANCommander11checkQueuesEP18IO80211TimerSource_block_invoke_cold_1(uint64_t a1, AppleBCMWLANCommand *a2)
 {
-  OUTLINED_FUNCTION_12_9(a1);
+  OUTLINED_FUNCTION_12_9();
   CmdName = AppleBCMWLANCommand::getCmdName(v4);
   TransactionID = AppleBCMWLANCommand::getTransactionID(a2);
   v7 = AppleBCMWLANCommand::getQueuedTime_ns(a2) / 0x3B9ACA00uLL;
@@ -11091,7 +8183,7 @@ uint64_t AppleBCMWLANSensingAdapter::initWithDriver(uint64_t a1)
   return CCLogStream::logAlert(v1, "[dk] %s@%d: Unable to get Command Manager\n", "initWithDriver", 560);
 }
 
-uint64_t AppleBCMWLANSensingAdapter::updateSensingVersion(uint64_t a1)
+uint64_t AppleBCMWLANSensingAdapter::updateSensingVersion(uint64_t *a1)
 {
   result = OUTLINED_FUNCTION_3(a1);
   if (result)
@@ -11110,6 +8202,7 @@ uint64_t AppleBCMWLANSensingAdapter::updateSensingVersion(uint64_t a1)
   return result;
 }
 
+uint64_t AppleBCMWLANSensingAdapter::updateSensingVersion(uint64_t a1)
 {
   v2 = OUTLINED_FUNCTION_0_28(a1);
   (*(v3 + 112))(v2);
@@ -11150,7 +8243,7 @@ uint64_t AppleBCMWLANSensingAdapter::handleSensingVersion(uint64_t a1, unsigned 
 uint64_t AppleBCMWLANSensingAdapter::setSENSING_ENABLE(uint64_t a1, uint64_t a2, void *a3, void *a4)
 {
   v6 = *(a1 + 24);
-  (*(**(a1 + 8) + 112))(*(a1 + 8));
+  (*(**(a1 + 8) + 112))(*(a1 + 8), a2);
   OUTLINED_FUNCTION_6();
   result = CCLogStream::logAlert(v6, "[dk] %s@%d:Unable to set WL_CSI_SUBCMD_ENABLE: %s\n", v8, v9, v10);
   *a4 = *a3;
@@ -11356,16 +8449,16 @@ OSObject *AppleBCMWLANTimeTrace::withSize(AppleBCMWLANTimeTrace *this, int a2, i
   }
 
   v5 = this;
-  v9 = 0xAAAAAAAAAAAAAAAALL;
-  if (OSObjectAllocate(gAppleBCMWLANTimeTraceMetaClass, &v9))
+  v8 = 0xAAAAAAAAAAAAAAAALL;
+  if (OSObjectAllocate(gAppleBCMWLANTimeTraceMetaClass, &v8))
   {
     return 0;
   }
 
-  v6 = v9;
-  if (v9)
+  v6 = v8;
+  if (v8)
   {
-    if (((v9->init)(v9) & 1) == 0 || (LODWORD(v6[1].retain) = v5, HIDWORD(v6[1].getMetaClass) = a2, LODWORD(v6[1].getMetaClass) = a3, HIDWORD(v6[1].retain) = 0, v6[1].Dispatch = (552 * LODWORD(v6[1].retain)), Dispatch = v6[1].Dispatch, (v6[1].isEqualTo = IOMallocZeroData()) == 0))
+    if (((v8->init)(v8) & 1) == 0 || (LODWORD(v6[1].retain) = v5, HIDWORD(v6[1].getMetaClass) = a2, LODWORD(v6[1].getMetaClass) = a3, HIDWORD(v6[1].retain) = 0, v6[1].Dispatch = (552 * LODWORD(v6[1].retain)), (v6[1].isEqualTo = IOMallocZeroData()) == 0))
     {
       (v6->release)(v6);
       return 0;
@@ -11912,7 +9005,7 @@ uint64_t AppleBCMWLANChipManagerPCIe::validateChipProvisioningData(AppleBCMWLANC
   {
     *v35 = 0u;
     v36 = 0u;
-    if (OUTLINED_FUNCTION_3_6(0, "SROM:version", v2, v3, v4, v5, v6, v7, v28, v30, v32, v34, 0) || *(*(this + 8) + 136) != v35[0])
+    if (OUTLINED_FUNCTION_3_6(0, "SROM:version", v2, v3, v4, v5, v6, v7, v28, v30, v32, v34) || *(*(this + 8) + 136) != v35[0])
     {
       v14 = 3825175811;
       OUTLINED_FUNCTION_24_1();
@@ -11933,7 +9026,7 @@ uint64_t AppleBCMWLANChipManagerPCIe::validateChipProvisioningData(AppleBCMWLANC
     {
       *v35 = 0u;
       v36 = 0u;
-      if (OUTLINED_FUNCTION_3_6(0, "SROM:signature", v8, v9, v10, v11, v12, v13, v29, v31, v33, v34, 0) || *(*(this + 8) + 144) != bswap32(*v35) >> 16)
+      if (OUTLINED_FUNCTION_3_6(0, "SROM:signature", v8, v9, v10, v11, v12, v13, v29, v31, v33, v34) || *(*(this + 8) + 144) != bswap32(*v35) >> 16)
       {
         OUTLINED_FUNCTION_24_1();
         v14 = 3825175812;
@@ -12113,7 +9206,7 @@ uint64_t *IO80211TLVIterator<IO80211TLVHeader<unsigned char,unsigned char,0ul,1u
     v4 = 0;
   }
 
-  result = IO80211BufferCursor::_crop((a1 + 8), v4, 0xFFFFFFFFFFFFFFFFLL, v7);
+  result = IO80211BufferCursor::_crop(v7, (a1 + 8), v4, -1);
   if (v2 == v7)
   {
     v6 = *(a1 + 16);
@@ -12359,7 +9452,7 @@ uint64_t AppleBCMWLANScanAdapter::eventScanComplete(uint64_t a1, _DWORD *a2)
   return result;
 }
 
-uint64_t AppleBCMWLANScanAdapter::dumpScanResult(uint64_t a1, _BYTE *a2)
+uint64_t AppleBCMWLANScanAdapter::dumpScanResult(uint64_t a1, const char *a2)
 {
   result = OUTLINED_FUNCTION_6_5(a1);
   if (result)
@@ -12367,8 +9460,8 @@ uint64_t AppleBCMWLANScanAdapter::dumpScanResult(uint64_t a1, _BYTE *a2)
     result = CCLogStream::shouldLog();
     if (result)
     {
-      OUTLINED_FUNCTION_15_3();
-      result = CCLogStream::log();
+      v4 = OUTLINED_FUNCTION_15_3();
+      result = CCLogStream::log(v4, 6, "%s", a2);
     }
   }
 
@@ -12886,7 +9979,7 @@ uint64_t AppleBCMWLANTxBuffer::initWithParams(IOCommand *a1, uint64_t a2, unint6
   return result;
 }
 
-uint64_t AppleBCMWLANChipBackplane::isCoreMapped(uint64_t a1, unsigned int a2)
+BOOL AppleBCMWLANChipBackplane::isCoreMapped(uint64_t a1, unsigned int a2)
 {
   if (a2 > 0xA)
   {
@@ -13601,11 +10694,15 @@ uint64_t AppleBCMWLANLeakyApParser::sendLeakyApInfo(uint64_t a1)
   return CCLogStream::logAlert(v1, "[dk] %s@%d: ERROR: Family callback function or owner is NULL \n", "sendLeakyApInfo", 346);
 }
 
-uint64_t AppleBCMWLAN11axAdapter::handleUlOfdmaConfigurationAsyncCallback(uint64_t ***a1)
+uint64_t AppleBCMWLAN11axAdapter::handleUlOfdmaConfigurationAsyncCallback(uint64_t a1)
 {
   v2 = OUTLINED_FUNCTION_0(a1);
   v4 = (*(v3 + 112))(v2);
   return CCLogStream::logAlert(v1, "[dk] %s@%d:11ax: Error: Failed to Configure UL OFDMA: %s\n", "handleUlOfdmaConfigurationAsyncCallback", 250, v4);
+}
+
+{
+  return CCLogStream::logNotice(*(*a1 + 24), "[dk] %s@%d:11ax: No valid data while configuring UL OFDMA\n", "handleUlOfdmaConfigurationAsyncCallback", 255);
 }
 
 uint64_t CCLogStream::shouldLog()

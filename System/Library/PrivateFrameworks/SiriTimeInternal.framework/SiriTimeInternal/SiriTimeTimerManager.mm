@@ -27,17 +27,16 @@
 
 + (id)timerManagerWithEndpointUUIDString:(id)string
 {
-  v9 = *MEMORY[0x277D85DE8];
+  v8 = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277CEF098];
   if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
   {
-    v7 = 136315138;
-    v8 = "+[SiriTimeTimerManager timerManagerWithEndpointUUIDString:]";
-    _os_log_impl(&dword_2692D8000, v3, OS_LOG_TYPE_DEFAULT, "%s Creating MTTimerManager", &v7, 0xCu);
+    v6 = 136315138;
+    v7 = "+[SiriTimeTimerManager timerManagerWithEndpointUUIDString:]";
+    _os_log_impl(&dword_2692D8000, v3, OS_LOG_TYPE_DEFAULT, "%s Creating MTTimerManager", &v6, 0xCu);
   }
 
   v4 = objc_alloc_init(MEMORY[0x277D29740]);
-  v5 = *MEMORY[0x277D85DE8];
 
   return v4;
 }

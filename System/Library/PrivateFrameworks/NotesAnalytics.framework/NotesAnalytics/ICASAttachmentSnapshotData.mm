@@ -28,8 +28,8 @@
 
 - (id)toDict
 {
-  v19[4] = *MEMORY[0x277D85DE8];
-  v18[0] = @"attachmentSnapshotSummary";
+  v18[4] = *MEMORY[0x277D85DE8];
+  v17[0] = @"attachmentSnapshotSummary";
   attachmentSnapshotSummary = [(ICASAttachmentSnapshotData *)self attachmentSnapshotSummary];
   if (attachmentSnapshotSummary)
   {
@@ -42,8 +42,8 @@
   }
 
   v5 = attachmentSnapshotSummary2;
-  v19[0] = attachmentSnapshotSummary2;
-  v18[1] = @"docScanSnapshotSummary";
+  v18[0] = attachmentSnapshotSummary2;
+  v17[1] = @"docScanSnapshotSummary";
   docScanSnapshotSummary = [(ICASAttachmentSnapshotData *)self docScanSnapshotSummary];
   if (docScanSnapshotSummary)
   {
@@ -56,8 +56,8 @@
   }
 
   v8 = docScanSnapshotSummary2;
-  v19[1] = docScanSnapshotSummary2;
-  v18[2] = @"drawingSnapshotSummary";
+  v18[1] = docScanSnapshotSummary2;
+  v17[2] = @"drawingSnapshotSummary";
   drawingSnapshotSummary = [(ICASAttachmentSnapshotData *)self drawingSnapshotSummary];
   if (drawingSnapshotSummary)
   {
@@ -70,8 +70,8 @@
   }
 
   v11 = drawingSnapshotSummary2;
-  v19[2] = drawingSnapshotSummary2;
-  v18[3] = @"tableSnapshotSummary";
+  v18[2] = drawingSnapshotSummary2;
+  v17[3] = @"tableSnapshotSummary";
   tableSnapshotSummary = [(ICASAttachmentSnapshotData *)self tableSnapshotSummary];
   if (tableSnapshotSummary)
   {
@@ -84,10 +84,8 @@
   }
 
   v14 = tableSnapshotSummary2;
-  v19[3] = tableSnapshotSummary2;
-  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:4];
-
-  v16 = *MEMORY[0x277D85DE8];
+  v18[3] = tableSnapshotSummary2;
+  v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:4];
 
   return v15;
 }

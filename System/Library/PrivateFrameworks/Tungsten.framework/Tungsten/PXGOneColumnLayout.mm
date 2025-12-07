@@ -1267,10 +1267,10 @@ LABEL_7:
     [currentHandler handleFailureInMethod:a2 object:self file:@"PXGOneColumnLayout.m" lineNumber:421 description:@"Every loaded item should have a sprite at this point"];
   }
 
-  v34 = 0;
-  v35 = &v34;
-  v36 = 0x2020000000;
-  v37 = 0x7FFFFFFFFFFFFFFFLL;
+  v33 = 0;
+  v34 = &v33;
+  v35 = 0x2020000000;
+  v36 = 0x7FFFFFFFFFFFFFFFLL;
   numberOfItems = [(PXGItemsLayout *)self numberOfItems];
   localNumberOfSprites2 = [(PXGLayout *)self localNumberOfSprites];
   if (numberOfItems >= 1)
@@ -1278,74 +1278,66 @@ LABEL_7:
     v11 = localNumberOfSprites2;
     if (localNumberOfSprites2)
     {
-      v33[0] = 0;
-      v33[1] = v33;
-      v33[2] = 0x2020000000;
-      v33[3] = 0x7FEFFFFFFFFFFFFFLL;
-      v32[0] = MEMORY[0x277D85DD0];
-      v32[1] = 3221225472;
-      v32[2] = __36__PXGOneColumnLayout_itemClosestTo___block_invoke;
-      v32[3] = &unk_2782AA390;
-      *&v32[7] = x;
-      *&v32[8] = y;
-      v32[5] = v33;
-      v32[6] = &v34;
-      v32[4] = self;
-      v12 = MEMORY[0x21CEE40A0](v32);
+      v32[0] = 0;
+      v32[1] = v32;
+      v32[2] = 0x2020000000;
+      v32[3] = 0x7FEFFFFFFFFFFFFFLL;
+      v31[0] = MEMORY[0x277D85DD0];
+      v31[1] = 3221225472;
+      v31[2] = __36__PXGOneColumnLayout_itemClosestTo___block_invoke;
+      v31[3] = &unk_2782AA390;
+      *&v31[7] = x;
+      *&v31[8] = y;
+      v31[5] = v32;
+      v31[6] = &v33;
+      v31[4] = self;
+      v12 = MEMORY[0x21CEE40A0](v31);
       PXRectWithCenterAndSize();
       v14 = v13;
       v16 = v15;
       v18 = v17;
       v20 = v19;
       spriteDataStore = [(PXGLayout *)self spriteDataStore];
-      v30[0] = MEMORY[0x277D85DD0];
-      v30[1] = 3221225472;
-      v30[2] = __36__PXGOneColumnLayout_itemClosestTo___block_invoke_2;
-      v30[3] = &unk_2782AA3B8;
+      v29[0] = MEMORY[0x277D85DD0];
+      v29[1] = 3221225472;
+      v29[2] = __36__PXGOneColumnLayout_itemClosestTo___block_invoke_2;
+      v29[3] = &unk_2782AA3B8;
       v22 = v12;
-      v31 = v22;
-      [spriteDataStore enumerateSpritesInRect:v30 usingBlock:{v14, v16, v18, v20}];
+      v30 = v22;
+      [spriteDataStore enumerateSpritesInRect:v29 usingBlock:{v14, v16, v18, v20}];
 
-      if (v35[3] == 0x7FFFFFFFFFFFFFFFLL)
+      if (v34[3] == 0x7FFFFFFFFFFFFFFFLL)
       {
-        memset(v29, 0, sizeof(v29));
-        [(PXGLayout *)self geometryForSpriteAtIndex:0];
-        (*(v22 + 2))(v22, 0, v29);
-        v23 = v11 - 1;
-        [(PXGLayout *)self geometryForSpriteAtIndex:v23, 0, 0, 0, 0];
-        (*(v22 + 2))(v22, v23, &v28);
-        if (v35[3] == 0x7FFFFFFFFFFFFFFFLL)
+        memset(v28, 0, sizeof(v28));
+        objc_msgSend_geometryForSpriteAtIndex_(self);
+        (*(v22 + 2))(v22, 0, v28);
+        objc_msgSend_geometryForSpriteAtIndex_(self, 0, 0, 0, 0);
+        (*(v22 + 2))(v22, v11 - 1, &v27);
+        if (v34[3] == 0x7FFFFFFFFFFFFFFFLL)
         {
           currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
           [currentHandler2 handleFailureInMethod:a2 object:self file:@"PXGOneColumnLayout.m" lineNumber:456 description:@"Should always be able to find a closest item."];
         }
       }
 
-      _Block_object_dispose(v33, 8);
+      _Block_object_dispose(v32, 8);
     }
   }
 
-  v24 = v35[3];
-  _Block_object_dispose(&v34, 8);
-  return v24;
+  v23 = v34[3];
+  _Block_object_dispose(&v33, 8);
+  return v23;
 }
 
-uint64_t __36__PXGOneColumnLayout_itemClosestTo___block_invoke(uint64_t a1, uint64_t a2)
+void __36__PXGOneColumnLayout_itemClosestTo___block_invoke(uint64_t a1, uint64_t a2, float32x2_t *a3)
 {
-  result = PXRectShortestDistanceToPoint();
+  PXRectShortestDistanceToPoint();
   v6 = v5;
-  if (v5 < *(*(*(a1 + 40) + 8) + 24))
+  if (v5 < *(*(*(a1 + 40) + 8) + 24) && (PXSizeIsEmpty() & 1) == 0)
   {
-    result = PXSizeIsEmpty();
-    if ((result & 1) == 0)
-    {
-      *(*(*(a1 + 40) + 8) + 24) = v6;
-      result = [*(a1 + 32) itemForSpriteIndex:a2];
-      *(*(*(a1 + 48) + 8) + 24) = result;
-    }
+    *(*(*(a1 + 40) + 8) + 24) = v6;
+    *(*(*(a1 + 48) + 8) + 24) = [*(a1 + 32) itemForSpriteIndex:a2];
   }
-
-  return result;
 }
 
 - (CGRect)frameForItem:(int64_t)item
@@ -1358,35 +1350,34 @@ uint64_t __36__PXGOneColumnLayout_itemClosestTo___block_invoke(uint64_t a1, uint
     [currentHandler handleFailureInMethod:a2 object:self file:@"PXGOneColumnLayout.m" lineNumber:408 description:@"Every loaded item should have a sprite at this point"];
   }
 
-  v8 = [(PXGItemsLayout *)self spriteIndexForItem:item];
-  if (v8 == -1)
+  if ([(PXGItemsLayout *)self spriteIndexForItem:item]== -1)
   {
-    v10 = *MEMORY[0x277CBF398];
-    v11 = *(MEMORY[0x277CBF398] + 8);
-    v12 = *(MEMORY[0x277CBF398] + 16);
-    v13 = *(MEMORY[0x277CBF398] + 24);
+    v9 = *MEMORY[0x277CBF398];
+    v10 = *(MEMORY[0x277CBF398] + 8);
+    v11 = *(MEMORY[0x277CBF398] + 16);
+    v12 = *(MEMORY[0x277CBF398] + 24);
     currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
     [currentHandler2 handleFailureInMethod:a2 object:self file:@"PXGOneColumnLayout.m" lineNumber:416 description:@"Invalid to ask for the frame of an item without a sprite representing it"];
   }
 
   else
   {
-    [(PXGLayout *)self geometryForSpriteAtIndex:v8];
-    v9 = vmul_f32(0, 0x3F0000003F000000);
-    v10 = 0.0 - v9.f32[0];
-    v11 = 0.0 - v9.f32[1];
+    objc_msgSend_geometryForSpriteAtIndex_(self);
+    v8 = vmul_f32(0, 0x3F0000003F000000);
+    v9 = 0.0 - v8.f32[0];
+    v10 = 0.0 - v8.f32[1];
+    v11 = 0.0;
     v12 = 0.0;
-    v13 = 0.0;
   }
 
+  v14 = v9;
   v15 = v10;
   v16 = v11;
   v17 = v12;
-  v18 = v13;
-  result.size.height = v18;
-  result.size.width = v17;
-  result.origin.y = v16;
-  result.origin.x = v15;
+  result.size.height = v17;
+  result.size.width = v16;
+  result.origin.y = v15;
+  result.origin.x = v14;
   return result;
 }
 
@@ -1529,11 +1520,11 @@ LABEL_22:
   loadedItems = [(PXGItemsLayout *)self loadedItems];
   v10 = v9;
   [(PXGLayout *)self visibleRect];
-  x = v42.origin.x;
-  y = v42.origin.y;
-  width = v42.size.width;
-  height = v42.size.height;
-  if (CGRectIsEmpty(v42) || !v10)
+  x = v41.origin.x;
+  y = v41.origin.y;
+  width = v41.size.width;
+  height = v41.size.height;
+  if (CGRectIsEmpty(v41) || !v10)
   {
     goto LABEL_15;
   }
@@ -1550,16 +1541,16 @@ LABEL_22:
       v20 = v19;
       v22 = v21;
       v24 = v23;
-      v43.origin.x = x;
-      v43.origin.y = y;
-      v43.size.width = width;
-      v43.size.height = height;
-      MidY = CGRectGetMidY(v43);
-      *&v44.origin.x = rect[0];
-      v44.origin.y = v20;
-      v44.size.width = v22;
-      v44.size.height = v24;
-      v26 = v17 + llround((MidY - CGRectGetMidY(v44)) / width);
+      v42.origin.x = x;
+      v42.origin.y = y;
+      v42.size.width = width;
+      v42.size.height = height;
+      MidY = CGRectGetMidY(v42);
+      *&v43.origin.x = rect[0];
+      v43.origin.y = v20;
+      v43.size.width = v22;
+      v43.size.height = v24;
+      v26 = v17 + llround((MidY - CGRectGetMidY(v43)) / width);
       if (v4 - 1 < v26)
       {
         v26 = v4 - 1;
@@ -1572,11 +1563,11 @@ LABEL_15:
         v27 = PXGTungstenGetLog();
         if (os_log_type_enabled(v27, OS_LOG_TYPE_DEFAULT))
         {
-          v45.origin.x = x;
-          v45.origin.y = y;
-          v45.size.width = width;
-          v45.size.height = height;
-          v28 = NSStringFromCGRect(v45);
+          v44.origin.x = x;
+          v44.origin.y = y;
+          v44.size.width = width;
+          v44.size.height = height;
+          v28 = NSStringFromCGRect(v44);
           LODWORD(rect[1]) = 138412546;
           *(&rect[1] + 4) = self;
           WORD2(rect[2]) = 2112;
@@ -1595,13 +1586,12 @@ LABEL_15:
   {
     v32 = *MEMORY[0x277D3CFB0];
     v33 = *(MEMORY[0x277D3CFB0] + 8);
-    v34 = [(PXGItemsLayout *)self spriteIndexForItem:v7];
-    if (v34 != -1)
+    if ([(PXGItemsLayout *)self spriteIndexForItem:v7]!= -1)
     {
       memset(&rect[1], 0, 32);
-      [(PXGLayout *)self geometryForSpriteAtIndex:v34];
-      v35 = *&rect[1];
-      v36 = *&rect[2];
+      objc_msgSend_geometryForSpriteAtIndex_(self);
+      v34 = *&rect[1];
+      v35 = *&rect[2];
       if (*&rect[2] != 0.0 || *&rect[1] != 0.0)
       {
         v32 = *&rect[1];
@@ -1609,15 +1599,15 @@ LABEL_15:
       }
     }
 
-    [(PXGOneColumnLayout *)self setAnchorItem:v7, v35, v36];
+    [(PXGOneColumnLayout *)self setAnchorItem:v7, v34, v35];
     [(PXGOneColumnLayout *)self setAnchorItemCenter:v32, v33];
   }
 
 LABEL_30:
-  v38 = height2;
-  v39 = v31;
-  result.length = v39;
-  result.location = v38;
+  v37 = height2;
+  v38 = v31;
+  result.length = v38;
+  result.location = v37;
   return result;
 }
 
@@ -1710,7 +1700,7 @@ LABEL_30:
   }
 }
 
-uint64_t __41__PXGOneColumnLayout__updateSpriteStyles__block_invoke(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4)
+void *__41__PXGOneColumnLayout__updateSpriteStyles__block_invoke(void *result, unint64_t a2, float32x2_t *a3, uint64_t a4)
 {
   v4 = HIDWORD(a2);
   if (HIDWORD(a2))
@@ -1729,12 +1719,12 @@ uint64_t __41__PXGOneColumnLayout__updateSpriteStyles__block_invoke(uint64_t res
     v20 = PXGSpriteStyleDefault;
     do
     {
-      v8 = *(v7 + 56) + v6;
+      v8 = *(v7 + 7) + v6;
       v9 = xmmword_21AE2D390;
       if (*(v7 + 88) == 1)
       {
         PXClamp();
-        [*(v7 + 32) itemsLayout:*(v7 + 40) bestCropRectForItem:v8 withAspectRatio:?];
+        [*(v7 + 4) itemsLayout:*(v7 + 5) bestCropRectForItem:v8 withAspectRatio:?];
         v11.f64[1] = v10;
         v13.f64[1] = v12;
         v9 = vcvt_hight_f32_f64(vcvt_f32_f64(v13), v11);
@@ -1751,9 +1741,9 @@ uint64_t __41__PXGOneColumnLayout__updateSpriteStyles__block_invoke(uint64_t res
       *a4 = v20;
       *(a4 + 16) = v19;
       *(a4 + 4) = v9;
-      v14 = *(v7 + 80);
+      v14 = *(v7 + 10);
       *a4 = v14;
-      result = [*(v7 + 48) itemsLayout:*(v7 + 40) cornerRadiusForItem:{v8, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28}];
+      result = [*(v7 + 6) itemsLayout:*(v7 + 5) cornerRadiusForItem:{v8, v19, v20, v21, v22, v23, v24, v25, v26, v27, v28}];
       *(a4 + 36) = v15;
       *(a4 + 40) = v16;
       *(a4 + 44) = v17;
@@ -1784,15 +1774,14 @@ uint64_t __41__PXGOneColumnLayout__updateSpriteStyles__block_invoke(uint64_t res
     v11 = v10;
     v13 = v12;
     v15 = v14;
-    v16 = [(PXGItemsLayout *)self spriteIndexForItem:v5];
-    if (v16 == -1)
+    if ([(PXGItemsLayout *)self spriteIndexForItem:v5]== -1)
     {
       currentHandler = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler handleFailureInMethod:a2 object:self file:@"PXGOneColumnLayout.m" lineNumber:226 description:@"Must have a sprite representing the item at this point."];
     }
 
-    [(PXGLayout *)self geometryForSpriteAtIndex:v16, 0];
-    if (v24 == 0.0)
+    objc_msgSend_geometryForSpriteAtIndex_(self, 0);
+    if (v23 == 0.0)
     {
       currentHandler2 = [MEMORY[0x277CCA890] currentHandler];
       [currentHandler2 handleFailureInMethod:a2 object:self file:@"PXGOneColumnLayout.m" lineNumber:230 description:@"Sprite must have valid geometry at this point."];
@@ -1801,18 +1790,18 @@ uint64_t __41__PXGOneColumnLayout__updateSpriteStyles__block_invoke(uint64_t res
     if (PXPointIsNull())
     {
       PXRectGetCenter();
-      v7 = v17;
+      v7 = v16;
     }
 
-    v25.origin.x = v9;
-    v25.origin.y = v11;
-    v25.size.width = v13;
-    v25.size.height = v15;
-    v26 = CGRectOffset(v25, 0.0, 0.0 - v7);
-    x = v26.origin.x;
-    y = v26.origin.y;
-    width = v26.size.width;
-    height = v26.size.height;
+    v24.origin.x = v9;
+    v24.origin.y = v11;
+    v24.size.width = v13;
+    v24.size.height = v15;
+    v25 = CGRectOffset(v24, 0.0, 0.0 - v7);
+    x = v25.origin.x;
+    y = v25.origin.y;
+    width = v25.size.width;
+    height = v25.size.height;
     if ((PXRectApproximatelyEqualToRect() & 1) == 0)
     {
       [(PXGLayout *)self changeVisibleRectToProposedVisibleRect:x, y, width, height];
@@ -2017,50 +2006,49 @@ LABEL_35:
   _Block_object_dispose(&v80, 8);
 }
 
-uint64_t __36__PXGOneColumnLayout__updateSprites__block_invoke(uint64_t result, unint64_t a2, uint64_t a3, uint64_t a4, float32x2_t *a5)
+void __36__PXGOneColumnLayout__updateSprites__block_invoke(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, float32x2_t *a5)
 {
   v5 = HIDWORD(a2);
   if (HIDWORD(a2))
   {
     v8 = a2;
-    v9 = result;
     do
     {
-      v10 = *(v9 + 72) + v8;
-      [*(v9 + 32) itemsLayout:*(v9 + 40) aspectRatioForItem:{v10, v22}];
+      v10 = *(a1 + 72) + v8;
+      [*(a1 + 32) itemsLayout:*(a1 + 40) aspectRatioForItem:{v10, v22}];
       PXClamp();
       if (PXFloatEqualToFloatWithTolerance())
       {
         PXFloatByLinearlyInterpolatingFloats();
       }
 
-      [*(v9 + 48) itemsLayout:*(v9 + 40) marginForItem:v10];
-      [*(v9 + 56) itemsLayout:*(v9 + 40) insetForItem:v10];
+      [*(a1 + 48) itemsLayout:*(a1 + 40) marginForItem:v10];
+      [*(a1 + 56) itemsLayout:*(a1 + 40) insetForItem:v10];
       PXSizeAdd();
       v23 = v12;
       v24 = v11;
       PXFloatRoundToPixel();
       v22 = v13;
-      v14.f64[0] = *(v9 + 120);
+      v14.f64[0] = *(a1 + 120);
       *&v14.f64[1] = v13;
       v15.f64[0] = v24;
       v15.f64[1] = v23;
       v16 = vcvt_f32_f64(vmaxnmq_f64(vsubq_f64(v14, v15), 0));
       PXFloatRoundToPixel();
-      v17.f64[0] = *(v9 + 120);
+      v17.f64[0] = *(a1 + 120);
       v17.f64[1] = v18;
       v19 = vcvt_f32_f64(v17);
-      *v17.f64 = *(v9 + 128);
-      v20 = *(*(*(v9 + 64) + 8) + 24) + *&v22 * 0.5;
-      *a3 = *(v9 + 144);
+      *v17.f64 = *(a1 + 128);
+      v20 = *(*(*(a1 + 64) + 8) + 24) + *&v22 * 0.5;
+      *a3 = *(a1 + 144);
       *(a3 + 8) = v20;
       *(a3 + 16) = 0;
       *(a3 + 24) = v16;
-      a5->i8[0] = *(v9 + 148);
-      a5->i8[1] = *(v9 + 149);
+      a5->i8[0] = *(a1 + 148);
+      a5->i8[1] = *(a1 + 149);
       a5[1] = vmul_n_f32(v19, *v17.f64);
-      result = PXFloatRoundToPixel();
-      *(*(*(v9 + 64) + 8) + 24) = v21;
+      PXFloatRoundToPixel();
+      *(*(*(a1 + 64) + 8) + 24) = v21;
       ++v8;
       a3 += 32;
       a5 += 5;
@@ -2069,8 +2057,6 @@ uint64_t __36__PXGOneColumnLayout__updateSprites__block_invoke(uint64_t result, 
 
     while (v5);
   }
-
-  return result;
 }
 
 - (void)update

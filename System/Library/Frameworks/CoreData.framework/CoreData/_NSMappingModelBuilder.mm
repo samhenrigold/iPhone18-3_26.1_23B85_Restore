@@ -35,41 +35,41 @@
 - (NSMappingModel)newInferredMappingModel:(NSMappingModel *)model
 {
   modelCopy = model;
-  v155 = *MEMORY[0x1E69E9840];
+  v154 = *MEMORY[0x1E69E9840];
   if (!model)
   {
-    goto LABEL_89;
+    return modelCopy;
   }
 
   model->_reserved2 = 0;
 
   modelCopy->_entityMappings = 0;
   v3 = objc_alloc_init(MEMORY[0x1E695DF90]);
+  v96 = 0u;
   v97 = 0u;
   v98 = 0u;
   v99 = 0u;
-  v100 = 0u;
-  v83 = modelCopy;
+  v82 = modelCopy;
   reserved = modelCopy->_reserved;
   v5 = 0;
-  v6 = [reserved countByEnumeratingWithState:&v97 objects:v148 count:16];
+  v6 = [reserved countByEnumeratingWithState:&v96 objects:v147 count:16];
   if (v6)
   {
-    v7 = *v98;
+    v7 = *v97;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v98 != v7)
+        if (*v97 != v7)
         {
           objc_enumerationMutation(reserved);
         }
 
-        [v3 setObject:*(*(&v97 + 1) + 8 * i) forKey:{objc_msgSend(*(*(&v97 + 1) + 8 * i), "renamingIdentifier")}];
+        [v3 setObject:*(*(&v96 + 1) + 8 * i) forKey:{objc_msgSend(*(*(&v96 + 1) + 8 * i), "renamingIdentifier")}];
       }
 
       v5 += v6;
-      v6 = [reserved countByEnumeratingWithState:&v97 objects:v148 count:16];
+      v6 = [reserved countByEnumeratingWithState:&v96 objects:v147 count:16];
     }
 
     while (v6);
@@ -80,7 +80,7 @@
     v59 = objc_alloc(MEMORY[0x1E696ABC0]);
     v60 = [MEMORY[0x1E695DF20] dictionaryWithObject:@"Each source entity must have a unique renaming identifier" forKey:@"reason"];
     v61 = [v59 initWithDomain:*MEMORY[0x1E696A250] code:134190 userInfo:v60];
-    v83->_entityMappings = v61;
+    v82->_entityMappings = v61;
     modelCopy = 0;
     if (a2)
     {
@@ -92,26 +92,26 @@
 
   v9 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:2 * v5];
   obj = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:2 * v5];
-  v95 = 0u;
-  v96 = 0u;
-  v93 = 0u;
   v94 = 0u;
-  reserved1 = v83->_reserved1;
+  v95 = 0u;
+  v92 = 0u;
+  v93 = 0u;
+  reserved1 = v82->_reserved1;
   v11 = 0;
-  v12 = [reserved1 countByEnumeratingWithState:&v93 objects:v147 count:16];
+  v12 = [reserved1 countByEnumeratingWithState:&v92 objects:v146 count:16];
   if (v12)
   {
-    v13 = *v94;
+    v13 = *v93;
     do
     {
       for (j = 0; j != v12; ++j)
       {
-        if (*v94 != v13)
+        if (*v93 != v13)
         {
           objc_enumerationMutation(reserved1);
         }
 
-        v15 = *(*(&v93 + 1) + 8 * j);
+        v15 = *(*(&v92 + 1) + 8 * j);
         renamingIdentifier = [v15 renamingIdentifier];
         v17 = -[_NSMappingModelBuilder newEntityMappingWithSource:destination:]([v3 objectForKey:renamingIdentifier], v15);
         [obj addObject:v17];
@@ -121,7 +121,7 @@
       }
 
       v11 += v12;
-      v12 = [reserved1 countByEnumeratingWithState:&v93 objects:v147 count:16];
+      v12 = [reserved1 countByEnumeratingWithState:&v92 objects:v146 count:16];
     }
 
     while (v12);
@@ -132,7 +132,7 @@
     v62 = objc_alloc(MEMORY[0x1E696ABC0]);
     v63 = [MEMORY[0x1E695DF20] dictionaryWithObject:@"Each destination entity must have a unique renaming identifier" forKey:@"reason"];
     v64 = [v62 initWithDomain:*MEMORY[0x1E696A250] code:134190 userInfo:v63];
-    v83->_entityMappings = v64;
+    v82->_entityMappings = v64;
     if (a2)
     {
       *a2 = v64;
@@ -143,39 +143,39 @@
     goto LABEL_88;
   }
 
-  v91 = 0u;
-  v92 = 0u;
-  v89 = 0u;
   v90 = 0u;
-  v18 = [v3 countByEnumeratingWithState:&v89 objects:v146 count:16];
+  v91 = 0u;
+  v88 = 0u;
+  v89 = 0u;
+  v18 = [v3 countByEnumeratingWithState:&v88 objects:v145 count:16];
   if (v18)
   {
-    v19 = *v90;
+    v19 = *v89;
     do
     {
       for (k = 0; k != v18; ++k)
       {
-        if (*v90 != v19)
+        if (*v89 != v19)
         {
           objc_enumerationMutation(v3);
         }
 
-        v21 = -[_NSMappingModelBuilder newEntityMappingWithSource:destination:]([v3 objectForKey:*(*(&v89 + 1) + 8 * k)], 0);
+        v21 = -[_NSMappingModelBuilder newEntityMappingWithSource:destination:]([v3 objectForKey:*(*(&v88 + 1) + 8 * k)], 0);
         [obj addObject:v21];
       }
 
-      v18 = [v3 countByEnumeratingWithState:&v89 objects:v146 count:16];
+      v18 = [v3 countByEnumeratingWithState:&v88 objects:v145 count:16];
     }
 
     while (v18);
   }
 
-  v87 = 0u;
-  v88 = 0u;
-  v85 = 0u;
   v86 = 0u;
-  v74 = [obj countByEnumeratingWithState:&v85 objects:v145 count:16];
-  if (!v74)
+  v87 = 0u;
+  v84 = 0u;
+  v85 = 0u;
+  v73 = [obj countByEnumeratingWithState:&v84 objects:v144 count:16];
+  if (!v73)
   {
 LABEL_72:
     modelCopy = objc_alloc_init(NSMappingModel);
@@ -183,28 +183,28 @@ LABEL_72:
     goto LABEL_87;
   }
 
-  v73 = *v86;
-  v71 = *MEMORY[0x1E696A250];
+  v72 = *v85;
+  v70 = *MEMORY[0x1E696A250];
 LABEL_27:
-  v82 = 0;
+  v81 = 0;
   while (1)
   {
-    if (*v86 != v73)
+    if (*v85 != v72)
     {
       objc_enumerationMutation(obj);
     }
 
-    v22 = *(*(&v85 + 1) + 8 * v82);
+    v22 = *(*(&v84 + 1) + 8 * v81);
     if ([v22 mappingType] == 4 || objc_msgSend(v22, "mappingType") == 5)
     {
       break;
     }
 
 LABEL_70:
-    if (++v82 == v74)
+    if (++v81 == v73)
     {
-      v74 = [obj countByEnumeratingWithState:&v85 objects:v145 count:16];
-      if (!v74)
+      v73 = [obj countByEnumeratingWithState:&v84 objects:v144 count:16];
+      if (!v73)
       {
         goto LABEL_72;
       }
@@ -213,10 +213,10 @@ LABEL_70:
     }
   }
 
-  v23 = [objc_msgSend(v83->_reserved "entitiesByName")];
-  v78 = [objc_msgSend(v83->_reserved1 "entitiesByName")];
-  v83->_reserved2 = v22;
-  v80 = objc_alloc_init(MEMORY[0x1E696AAC8]);
+  v23 = [objc_msgSend(v82->_reserved "entitiesByName")];
+  v77 = [objc_msgSend(v82->_reserved1 "entitiesByName")];
+  v82->_reserved2 = v22;
+  v79 = objc_alloc_init(MEMORY[0x1E696AAC8]);
   v24 = MEMORY[0x1E696ABC8];
   v25 = [MEMORY[0x1E696ABC8] expressionForVariable:@"manager"];
   v26 = MEMORY[0x1E695DEC8];
@@ -226,60 +226,60 @@ LABEL_70:
   propertiesByName = [v23 propertiesByName];
   v30 = [propertiesByName count];
   v31 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:v30];
-  v141 = 0;
-  v142 = &v141;
-  v143 = 0x2020000000;
-  v144 = 0;
+  v140 = 0;
+  v141 = &v140;
+  v142 = 0x2020000000;
+  v143 = 0;
   v32 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:v30];
-  v75 = v22;
-  v135 = 0;
-  v136 = &v135;
-  v137 = 0x3052000000;
-  v138 = __Block_byref_object_copy__6;
-  v139 = __Block_byref_object_dispose__6;
-  v134[0] = MEMORY[0x1E69E9820];
-  v134[1] = 3221225472;
-  v134[2] = __64___NSMappingModelBuilder_inferPropertyMappingsForEntityMapping___block_invoke;
-  v134[3] = &unk_1E6EC1938;
-  v134[6] = &v141;
-  v134[4] = v31;
-  v81 = v32;
-  v134[5] = v32;
-  v140 = v134;
-  v128 = 0;
-  v129 = &v128;
-  v130 = 0x3052000000;
-  v131 = __Block_byref_object_copy__6;
-  v132 = __Block_byref_object_dispose__6;
-  v127[0] = MEMORY[0x1E69E9820];
-  v127[1] = 3221225472;
-  v127[2] = __64___NSMappingModelBuilder_inferPropertyMappingsForEntityMapping___block_invoke_2;
-  v127[3] = &unk_1E6EC1960;
-  v127[4] = &v128;
-  v127[5] = &v135;
-  v133 = v127;
-  v125 = 0u;
-  v126 = 0u;
-  v123 = 0u;
+  v74 = v22;
+  v134 = 0;
+  v135 = &v134;
+  v136 = 0x3052000000;
+  v137 = __Block_byref_object_copy__6;
+  v138 = __Block_byref_object_dispose__6;
+  v133[0] = MEMORY[0x1E69E9820];
+  v133[1] = 3221225472;
+  v133[2] = __64___NSMappingModelBuilder_inferPropertyMappingsForEntityMapping___block_invoke;
+  v133[3] = &unk_1E6EC1938;
+  v133[6] = &v140;
+  v133[4] = v31;
+  v80 = v32;
+  v133[5] = v32;
+  v139 = v133;
+  v127 = 0;
+  v128 = &v127;
+  v129 = 0x3052000000;
+  v130 = __Block_byref_object_copy__6;
+  v131 = __Block_byref_object_dispose__6;
+  v126[0] = MEMORY[0x1E69E9820];
+  v126[1] = 3221225472;
+  v126[2] = __64___NSMappingModelBuilder_inferPropertyMappingsForEntityMapping___block_invoke_2;
+  v126[3] = &unk_1E6EC1960;
+  v126[4] = &v127;
+  v126[5] = &v134;
+  v132 = v126;
   v124 = 0u;
+  v125 = 0u;
+  v122 = 0u;
+  v123 = 0u;
   allValues = [propertiesByName allValues];
-  v34 = [allValues countByEnumeratingWithState:&v123 objects:buf count:16];
+  v34 = [allValues countByEnumeratingWithState:&v122 objects:buf count:16];
   if (!v34)
   {
     goto LABEL_51;
   }
 
-  v35 = *v124;
+  v35 = *v123;
   do
   {
     for (m = 0; m != v34; ++m)
     {
-      if (*v124 != v35)
+      if (*v123 != v35)
       {
         objc_enumerationMutation(allValues);
       }
 
-      v37 = *(*(&v123 + 1) + 8 * m);
+      v37 = *(*(&v122 + 1) + 8 * m);
       if (([v37 isTransient] & 1) == 0)
       {
         _propertyType = [v37 _propertyType];
@@ -287,7 +287,7 @@ LABEL_70:
         {
           if (_propertyType == 7)
           {
-            v41 = v129[5];
+            v41 = v128[5];
             elements = [v37 elements];
             renamingIdentifier2 = [v37 renamingIdentifier];
             v37 = elements;
@@ -302,7 +302,7 @@ LABEL_70:
 
 LABEL_46:
             renamingIdentifier2 = 0;
-            v41 = v136[5];
+            v41 = v135[5];
           }
 
           (*(v41 + 16))(v41, v37, renamingIdentifier2);
@@ -316,107 +316,107 @@ LABEL_46:
       }
     }
 
-    v34 = [allValues countByEnumeratingWithState:&v123 objects:buf count:16];
+    v34 = [allValues countByEnumeratingWithState:&v122 objects:buf count:16];
   }
 
   while (v34);
 LABEL_51:
-  v43 = v142[3];
+  v43 = v141[3];
   if (v43 == [v31 count])
   {
-    propertiesByName2 = [v78 propertiesByName];
+    propertiesByName2 = [v77 propertiesByName];
     v45 = [propertiesByName2 count];
     v46 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:v45];
-    v76 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:v45];
-    v79 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v45];
-    v77 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v45];
+    v75 = [objc_alloc(MEMORY[0x1E695DFA8]) initWithCapacity:v45];
+    v78 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v45];
+    v76 = [objc_alloc(MEMORY[0x1E695DF70]) initWithCapacity:v45];
     v47 = objc_alloc_init(MEMORY[0x1E695DF90]);
-    v119 = 0;
-    v120 = &v119;
-    v121 = 0x2020000000;
-    v122 = 0;
-    v113 = 0;
-    v114 = &v113;
-    v115 = 0x3052000000;
-    v116 = __Block_byref_object_copy__6;
-    v117 = __Block_byref_object_dispose__6;
-    v112[0] = MEMORY[0x1E69E9820];
-    v112[1] = 3221225472;
-    v112[2] = __64___NSMappingModelBuilder_inferPropertyMappingsForEntityMapping___block_invoke_3;
-    v112[3] = &unk_1E6EC1988;
-    v112[4] = v31;
-    v112[5] = v83;
-    v72 = v46;
-    v112[6] = v46;
-    v112[7] = v76;
-    v112[8] = v47;
-    v112[9] = v79;
-    v112[10] = v77;
-    v112[11] = v81;
-    v112[12] = &v119;
-    v118 = v112;
-    v106 = 0;
-    v107 = &v106;
-    v108 = 0x3052000000;
-    v109 = __Block_byref_object_copy__6;
-    v110 = __Block_byref_object_dispose__6;
-    v105[0] = MEMORY[0x1E69E9820];
-    v105[1] = 3221225472;
-    v105[2] = __64___NSMappingModelBuilder_inferPropertyMappingsForEntityMapping___block_invoke_59;
-    v105[3] = &unk_1E6EC19B0;
-    v105[5] = &v106;
-    v105[4] = v47;
-    v105[6] = &v113;
-    v111 = v105;
+    v118 = 0;
+    v119 = &v118;
+    v120 = 0x2020000000;
+    v121 = 0;
+    v112 = 0;
+    v113 = &v112;
+    v114 = 0x3052000000;
+    v115 = __Block_byref_object_copy__6;
+    v116 = __Block_byref_object_dispose__6;
+    v111[0] = MEMORY[0x1E69E9820];
+    v111[1] = 3221225472;
+    v111[2] = __64___NSMappingModelBuilder_inferPropertyMappingsForEntityMapping___block_invoke_3;
+    v111[3] = &unk_1E6EC1988;
+    v111[4] = v31;
+    v111[5] = v82;
+    v71 = v46;
+    v111[6] = v46;
+    v111[7] = v75;
+    v111[8] = v47;
+    v111[9] = v78;
+    v111[10] = v76;
+    v111[11] = v80;
+    v111[12] = &v118;
+    v117 = v111;
+    v105 = 0;
+    v106 = &v105;
+    v107 = 0x3052000000;
+    v108 = __Block_byref_object_copy__6;
+    v109 = __Block_byref_object_dispose__6;
+    v104[0] = MEMORY[0x1E69E9820];
+    v104[1] = 3221225472;
+    v104[2] = __64___NSMappingModelBuilder_inferPropertyMappingsForEntityMapping___block_invoke_59;
+    v104[3] = &unk_1E6EC19B0;
+    v104[5] = &v105;
+    v104[4] = v47;
+    v104[6] = &v112;
+    v110 = v104;
+    v100 = 0u;
     v101 = 0u;
     v102 = 0u;
     v103 = 0u;
-    v104 = 0u;
     allValues2 = [propertiesByName2 allValues];
-    v49 = [allValues2 countByEnumeratingWithState:&v101 objects:v150 count:16];
+    v49 = [allValues2 countByEnumeratingWithState:&v100 objects:v149 count:16];
     if (v49)
     {
-      v50 = *v102;
+      v50 = *v101;
       do
       {
         for (n = 0; n != v49; ++n)
         {
-          if (*v102 != v50)
+          if (*v101 != v50)
           {
             objc_enumerationMutation(allValues2);
           }
 
-          v52 = *(*(&v101 + 1) + 8 * n);
+          v52 = *(*(&v100 + 1) + 8 * n);
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            v53 = v107[5];
-            v149 = v52;
-            (*(v53 + 16))(v53, [MEMORY[0x1E695DEC8] arrayWithObjects:&v149 count:1], 0);
+            v53 = v106[5];
+            v148 = v52;
+            (*(v53 + 16))(v53, [MEMORY[0x1E695DEC8] arrayWithObjects:&v148 count:1], 0);
           }
 
           else
           {
-            (*(v114[5] + 16))();
+            (*(v113[5] + 16))();
           }
         }
 
-        v49 = [allValues2 countByEnumeratingWithState:&v101 objects:v150 count:16];
+        v49 = [allValues2 countByEnumeratingWithState:&v100 objects:v149 count:16];
       }
 
       while (v49);
     }
 
-    if (v120[3])
+    if (v119[3])
     {
     }
 
     else
     {
-      [v75 setAttributeMappings:v79];
-      [v75 setRelationshipMappings:v77];
+      [v74 setAttributeMappings:v78];
+      [v74 setRelationshipMappings:v76];
 
-      userInfo = [v75 userInfo];
+      userInfo = [v74 userInfo];
       v57 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(userInfo, "count") + 3}];
       v58 = v57;
       if (userInfo)
@@ -424,37 +424,37 @@ LABEL_51:
         [v57 addEntriesFromDictionary:userInfo];
       }
 
-      [v58 setObject:v81 forKey:_NSInferredRemovedPropertiesKey];
-      [v58 setObject:v72 forKey:_NSInferredAddedPropertiesKey];
-      [v58 setObject:v76 forKey:_NSInferredMappedPropertiesKey];
-      [v75 setUserInfo:v58];
+      [v58 setObject:v80 forKey:_NSInferredRemovedPropertiesKey];
+      [v58 setObject:v71 forKey:_NSInferredAddedPropertiesKey];
+      [v58 setObject:v75 forKey:_NSInferredMappedPropertiesKey];
+      [v74 setUserInfo:v58];
     }
 
-    [v80 drain];
-    v55 = *(v120 + 24) ^ 1;
-    _Block_object_dispose(&v106, 8);
-    _Block_object_dispose(&v113, 8);
-    _Block_object_dispose(&v119, 8);
+    [v79 drain];
+    v55 = *(v119 + 24) ^ 1;
+    _Block_object_dispose(&v105, 8);
+    _Block_object_dispose(&v112, 8);
+    _Block_object_dispose(&v118, 8);
   }
 
   else
   {
     v54 = objc_alloc(MEMORY[0x1E696ABC0]);
-    v83->_entityMappings = [v54 initWithDomain:v71 code:134190 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObject:forKey:", @"Each property must have a unique renaming identifier", @"reason"}];
+    v82->_entityMappings = [v54 initWithDomain:v70 code:134190 userInfo:{objc_msgSend(MEMORY[0x1E695DF20], "dictionaryWithObject:forKey:", @"Each property must have a unique renaming identifier", @"reason"}];
 
-    [v80 drain];
+    [v79 drain];
     v55 = 0;
   }
 
-  _Block_object_dispose(&v128, 8);
-  _Block_object_dispose(&v135, 8);
-  _Block_object_dispose(&v141, 8);
+  _Block_object_dispose(&v127, 8);
+  _Block_object_dispose(&v134, 8);
+  _Block_object_dispose(&v140, 8);
   if (v55)
   {
     goto LABEL_70;
   }
 
-  entityMappings = v83->_entityMappings;
+  entityMappings = v82->_entityMappings;
   if (entityMappings)
   {
     if (a2)
@@ -471,9 +471,9 @@ LABEL_51:
     if (os_log_type_enabled(LogStream, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v152 = "/Library/Caches/com.apple.xbs/Sources/Persistence/_NSMappingModelBuilder.m";
-      v153 = 1024;
-      v154 = 132;
+      v151 = "/Library/Caches/com.apple.xbs/Sources/Persistence/_NSMappingModelBuilder.m";
+      v152 = 1024;
+      v153 = 132;
       _os_log_error_impl(&dword_18565F000, LogStream, OS_LOG_TYPE_ERROR, "CoreData: fault: Illegal attempt to return an error without one in %s:%d\n", buf, 0x12u);
     }
 
@@ -481,9 +481,9 @@ LABEL_51:
     if (os_log_type_enabled(v67, OS_LOG_TYPE_FAULT))
     {
       *buf = 136315394;
-      v152 = "/Library/Caches/com.apple.xbs/Sources/Persistence/_NSMappingModelBuilder.m";
-      v153 = 1024;
-      v154 = 132;
+      v151 = "/Library/Caches/com.apple.xbs/Sources/Persistence/_NSMappingModelBuilder.m";
+      v152 = 1024;
+      v153 = 132;
       _os_log_fault_impl(&dword_18565F000, v67, OS_LOG_TYPE_FAULT, "CoreData: Illegal attempt to return an error without one in %s:%d", buf, 0x12u);
     }
   }
@@ -493,8 +493,6 @@ LABEL_87:
   v3 = obj;
 LABEL_88:
 
-LABEL_89:
-  v68 = *MEMORY[0x1E69E9840];
   return modelCopy;
 }
 

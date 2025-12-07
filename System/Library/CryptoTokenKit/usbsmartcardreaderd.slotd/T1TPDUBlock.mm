@@ -1,5 +1,6 @@
 @interface T1TPDUBlock
 + (BOOL)checkRedundacyCode:(id)code redundacyCode:(char)redundacyCode;
++ (id)blockWithData:(id)data redundacyCode:(char)code sequence:(char)sequence rcError:(BOOL *)error;
 - (NSData)informationField;
 - (NSNumber)redundancyCode;
 - (T1TPDUBlock)initWithData:(id)data needAck:(BOOL)ack;
@@ -105,6 +106,62 @@
   return v3;
 }
 
++ (id)blockWithData:(id)data redundacyCode:(char)code sequence:(char)sequence rcError:(BOOL *)error
+{
+  codeCopy = code;
+  dataCopy = data;
+  v9 = dataCopy;
+  if (dataCopy && (dataCopy = [dataCopy length], dataCopy > 3))
+  {
+    v13 = [T1TPDUBlock checkRedundacyCode:v9 redundacyCode:codeCopy];
+    if (v13)
+    {
+      bytes = [v9 bytes];
+      if ((bytes[1] & 0xC0) == 0x80)
+      {
+        v15 = off_100024360;
+      }
+
+      else
+      {
+        v15 = &off_100024368;
+      }
+
+      if (bytes[1] >= 0)
+      {
+        v15 = off_100024358;
+      }
+
+      v11 = [objc_alloc(*v15) initWithData:v9];
+    }
+
+    else
+    {
+      v16 = sub_10000BF14(v13);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      {
+        sub_100016A70(v16);
+      }
+
+      v11 = 0;
+      *error = 1;
+    }
+  }
+
+  else
+  {
+    v10 = sub_10000BF14(dataCopy);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      sub_100016AB4(v10);
+    }
+
+    v11 = 0;
+  }
+
+  return v11;
+}
+
 + (BOOL)checkRedundacyCode:(id)code redundacyCode:(char)redundacyCode
 {
   redundacyCodeCopy = redundacyCode;
@@ -172,7 +229,7 @@
   if (![(T1TPDUBlock *)self lengthByte])
   {
 LABEL_6:
-    v7 = 0;
+    v8 = 0;
     goto LABEL_8;
   }
 
@@ -182,8 +239,8 @@ LABEL_6:
 
   if (v4 < v5)
   {
-    v6 = sub_10000BF14();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_10000BF14(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_100016B0C(self);
     }
@@ -192,11 +249,11 @@ LABEL_6:
   }
 
   data2 = [(T1TPDUBlock *)self data];
-  v7 = [data2 subdataWithRange:{3, -[T1TPDUBlock lengthByte](self, "lengthByte")}];
+  v8 = [data2 subdataWithRange:{3, -[T1TPDUBlock lengthByte](self, "lengthByte")}];
 
 LABEL_8:
 
-  return v7;
+  return v8;
 }
 
 - (NSNumber)redundancyCode

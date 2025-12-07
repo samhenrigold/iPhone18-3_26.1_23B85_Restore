@@ -1,3 +1,39 @@
+void sub_25FB2E9A4(_Unwind_Exception *exception_object)
+{
+  if (v1)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v1);
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+double TXTextObject::getDropShadowOpacity(TXTextObject *this, CMTime *a2)
+{
+  v4 = *(this + 33);
+  v5 = *(v4 + 8);
+  v6 = *(v4 + 16);
+  if (v6)
+  {
+    atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
+  }
+
+  v13 = *a2;
+  OZChannel::getValueAsDouble((v5 + 18040), &v13, 0.0);
+  v7 = *(this + 68);
+  v8 = (*(*v7 + 736))(v7, v7 + 26080, v7 + 46184, a2);
+  TypeOn = TXTextLayout::getTypeOn(*(this + 68), *(this + 24), a2);
+  v13 = *a2;
+  OZChannel::getValueAsDouble((v7 + 19448), &v13, 0.0);
+  v11 = v10;
+  if (v6)
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+  }
+
+  return v8 * TypeOn * v11;
+}
+
 void sub_25FB2EAE4(_Unwind_Exception *exception_object)
 {
   if (v1)
@@ -332,7 +368,7 @@ void sub_25FB2F1BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 {
   if (a33)
   {
-    (*(*a33 + 24))(a33);
+    (*(*a33 + 24))(a33, a2, a3, a4, a5, a6, a7, a8);
   }
 
   PCCFRef<CGColorSpace *>::~PCCFRef((v43 + 56));
@@ -480,7 +516,7 @@ void sub_25FB2F718(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-CGColorSpace *TXTextObjectRender::getHelium@<X0>(TXTextObjectRender *this@<X0>, LiAgent *a2@<X1>, HGCrop **a3@<X8>)
+HGXForm *TXTextObjectRender::getHelium@<X0>(TXTextObjectRender *this@<X0>, LiAgent *a2@<X1>, HGCrop **a3@<X8>)
 {
   v104 = *MEMORY[0x277D85DE8];
   if (LiRenderingTechnology::getSharpText((this + 1348)))
@@ -672,7 +708,7 @@ LABEL_53:
     *&v71 = -*&v71;
     if (isVerticalLayout)
     {
-      TXTextObject::getImageBounds(*(this + 187), (this + 32), &v87);
+      TXTextObject::getImageBounds(&v87, *(this + 187), (this + 32));
       v62._pcColorDesc._colorSpaceRef._obj = 0;
       *&v62._pcColorDesc._dynamicRange = 0;
       *&v62._pcColorDesc._toneMapMethod._gain = v60;
@@ -951,19 +987,19 @@ double TXTextObjectRender::fixPixelTransform(uint64_t a1, uint64_t a2, uint64_t 
       return result;
     }
 
-    v23 = *(a3 + 80);
-    v40 = *(a3 + 64);
-    v41 = v23;
-    v24 = *(a3 + 112);
-    v42 = *(a3 + 96);
-    v43 = v24;
-    v25 = *(a3 + 16);
-    v37[0] = *a3;
-    v37[1] = v25;
-    v26 = *(a3 + 48);
-    v38 = *(a3 + 32);
-    v39 = v26;
-    TXTextObject::getTextureBounds(*(a1 + 1496), (a1 + 32), *(a1 + 14), v37, 0, 0, &v30, *(a1 + 16));
+    v18 = *(a3 + 80);
+    v35 = *(a3 + 64);
+    v36 = v18;
+    v19 = *(a3 + 112);
+    v37 = *(a3 + 96);
+    v38 = v19;
+    v20 = *(a3 + 16);
+    v32[0] = *a3;
+    v32[1] = v20;
+    v21 = *(a3 + 48);
+    v33 = *(a3 + 32);
+    v34 = v21;
+    TXTextObject::getTextureBounds(*(a1 + 1496), (a1 + 32), *(a1 + 14), v32, 0, 0, &v25, *(a1 + 16));
     *(a3 + 120) = 0x3FF0000000000000;
     *(a3 + 80) = 0x3FF0000000000000;
     *(a3 + 40) = 0x3FF0000000000000;
@@ -974,26 +1010,26 @@ double TXTextObjectRender::fixPixelTransform(uint64_t a1, uint64_t a2, uint64_t 
     *(a3 + 64) = 0u;
     *(a3 + 88) = 0u;
     *(a3 + 104) = 0u;
-    v19 = v37[0].f64[0];
-    v20 = *(&v38 + 1);
-    v21 = 1.0;
-    return PCMatrix44Tmpl<double>::rightScale(a3, v19, v20, v21);
+    v14 = v32[0].f64[0];
+    v15 = *(&v33 + 1);
+    v16 = 1.0;
+    return PCMatrix44Tmpl<double>::rightScale(a3, v14, v15, v16);
   }
 
   if (TextRenderQuality == 2)
   {
-    v37[0].f64[0] = 0.0;
-    v29 = 0.0;
-    *&v30 = 0;
-    TXTextObject::getScale(*(a1 + 1496), (a1 + 32), v37[0].f64, &v30, &v29, 1, 1, 1, *(a1 + 24), SHIBYTE(*(a1 + 24)), 1);
+    v32[0].f64[0] = 0.0;
+    v24 = 0.0;
+    *&v25 = 0;
+    TXTextObject::getScale(*(a1 + 1496), (a1 + 32), v32[0].f64, &v25, &v24, 1, 1, 1, *(a1 + 24), SHIBYTE(*(a1 + 24)), 1);
     if (*(a4 + 144))
     {
-      v22 = *(a4 + 152);
+      v17 = *(a4 + 152);
     }
 
     else
     {
-      v22 = 1.0;
+      v17 = 1.0;
     }
 
     *(a3 + 120) = 0x3FF0000000000000;
@@ -1006,10 +1042,10 @@ double TXTextObjectRender::fixPixelTransform(uint64_t a1, uint64_t a2, uint64_t 
     *(a3 + 64) = 0u;
     *(a3 + 88) = 0u;
     *(a3 + 104) = 0u;
-    v19 = v22 * fabs(v37[0].f64[0]);
-    v20 = v22 * fabs(*&v30);
-    v21 = v22 * fabs(v29);
-    return PCMatrix44Tmpl<double>::rightScale(a3, v19, v20, v21);
+    v14 = v17 * fabs(v32[0].f64[0]);
+    v15 = v17 * fabs(*&v25);
+    v16 = v17 * fabs(v24);
+    return PCMatrix44Tmpl<double>::rightScale(a3, v14, v15, v16);
   }
 
   if (TextRenderQuality)
@@ -1024,18 +1060,18 @@ double TXTextObjectRender::fixPixelTransform(uint64_t a1, uint64_t a2, uint64_t 
   {
     if (v12)
     {
-      OZRenderParams::getPixelTransform((a1 + 32), v37);
-      v31 = 0u;
-      v32 = 0u;
+      OZRenderParams::getPixelTransform(v32, (a1 + 32));
+      v26 = 0u;
+      v27 = 0u;
+      v25 = 0u;
+      v28 = 4;
+      v29 = 0u;
       v30 = 0u;
-      v33 = 4;
-      v34 = 0u;
-      v35 = 0u;
-      v36 = 0;
-      Transformation = PCMatrix44Tmpl<double>::getTransformation(v37, &v30);
+      v31 = 0;
+      Transformation = PCMatrix44Tmpl<double>::getTransformation(v32, &v25);
       if (!Transformation)
       {
-        _pcCheckGetTransformation(Transformation, "/Library/Caches/com.apple.xbs/Sources/MotioniOS/Text/TXTextObject.cpp", 5627, v14, v15, v16, v17, v18);
+        _pcCheckGetTransformation(Transformation, "/Library/Caches/com.apple.xbs/Sources/MotioniOS/Text/TXTextObject.cpp", 5627);
         return LiImageSource::fixPixelTransform(a1, a2, a3, a4);
       }
 
@@ -1048,15 +1084,15 @@ double TXTextObjectRender::fixPixelTransform(uint64_t a1, uint64_t a2, uint64_t 
       *(a3 + 64) = 0u;
       *(a3 + 88) = 0u;
       *(a3 + 104) = 0u;
-      v19 = fabs(*(&v31 + 1));
-      v20 = fabs(*&v32);
-      v21 = fabs(*(&v32 + 1));
+      v14 = fabs(*(&v26 + 1));
+      v15 = fabs(*&v27);
+      v16 = fabs(*(&v27 + 1));
       *a3 = 0x3FF0000000000000;
-      return PCMatrix44Tmpl<double>::rightScale(a3, v19, v20, v21);
+      return PCMatrix44Tmpl<double>::rightScale(a3, v14, v15, v16);
     }
 
-    v27 = *a3;
-    v28 = *(a3 + 40);
+    v22 = *a3;
+    v23 = *(a3 + 40);
     *(a3 + 120) = 0x3FF0000000000000;
     *(a3 + 80) = 0x3FF0000000000000;
     *(a3 + 8) = 0u;
@@ -1068,7 +1104,7 @@ double TXTextObjectRender::fixPixelTransform(uint64_t a1, uint64_t a2, uint64_t 
     *(a3 + 40) = 0x3FF0000000000000;
     *a3 = 0x3FF0000000000000;
 
-    return PCMatrix44Tmpl<double>::rightScale(a3, v27, v28, 1.0);
+    return PCMatrix44Tmpl<double>::rightScale(a3, v22, v23, 1.0);
   }
 
   else
@@ -1127,10 +1163,10 @@ void sub_25FB30B08(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-CGColorSpace **TXTextureDecal::getHelium@<X0>(LiImageSource **this@<X0>, LiAgent *a2@<X1>, HGNode **a3@<X8>)
+HGNode *TXTextureDecal::getHelium@<X0>(LiImageSource **this@<X0>, LiAgent *a2@<X1>, HGNode **a3@<X8>)
 {
   RequestedColorDescription = LiAgent::getRequestedColorDescription(a2);
-  LiAgent::getHelium(a2, this[2], &v17);
+  LiAgent::getHelium(&v17, a2, this[2]);
   result = LiAgent::setActualColorDescription(a2, RequestedColorDescription);
   if (v17)
   {
@@ -1142,7 +1178,7 @@ CGColorSpace **TXTextureDecal::getHelium@<X0>(LiImageSource **this@<X0>, LiAgent
       __asm { FMOV            V0.2D, #-1.0 }
 
       v16 = _Q0;
-      if ((*(*result + 3))(result, a2, v15))
+      if ((*(*result + 24))(result, a2, v15))
       {
         operator new();
       }
@@ -1275,7 +1311,7 @@ double LiCachedGaussianBlur::fixPixelTransform(uint64_t a1, __n128 *a2, uint64_t
       v20 = 1.0;
       TXTextObject::getScale(*(a1 + 80), (a1 + 96), &v22, &v21, &v20, 1, 1, 1, 0, 0, 1);
       v10 = *(a1 + 80);
-      LiAgent::getROI(a2, &v18);
+      LiAgent::getROI(&v18, a2);
       v11.i64[0] = v18.n128_i32[0];
       v11.i64[1] = v18.n128_i32[1];
       v12 = vcvtq_f64_s64(v11);
@@ -1342,7 +1378,7 @@ double LiCachedGaussianBlur::fixPixelTransform(uint64_t a1, __n128 *a2, uint64_t
 CGColorSpace **LiCachedGaussianBlur::getHelium@<X0>(LiCachedGaussianBlur *this@<X0>, double **a2@<X1>, HGBlur **a3@<X8>)
 {
   RequestedColorDescription = LiAgent::getRequestedColorDescription(a2);
-  LiAgent::getHelium(a2, *(this + 2), &v24);
+  LiAgent::getHelium(&v24, a2, *(this + 2));
   result = LiAgent::setActualColorDescription(a2, RequestedColorDescription);
   if (v24)
   {
@@ -1378,7 +1414,7 @@ CGColorSpace **LiCachedGaussianBlur::getHelium@<X0>(LiCachedGaussianBlur *this@<
     result = v24;
     if (v24)
     {
-      return (*(*v24 + 24))(v24);
+      return (*(*v24 + 3))(v24);
     }
   }
 
@@ -1401,40 +1437,40 @@ void sub_25FB31A48(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void LiCachedGaussianBlur::getCacheHash(uint64_t a1)
+void LiCachedGaussianBlur::getCacheHash(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v1 = MEMORY[0x28223BE20](a1);
-  v4 = v3;
-  v16[520] = *MEMORY[0x277D85DE8];
-  v5 = v1[15];
-  v6 = v1[16];
-  v7 = v1 + 15;
-  v8 = v1[17];
-  v9 = v1[18];
-  if (v6 | v5 | v8 | v9)
+  MEMORY[0x28223BE20](a1, a2, a3, a4, a5);
+  v7 = v6;
+  v20[520] = *MEMORY[0x277D85DE8];
+  v9 = v8[15];
+  v10 = v8[16];
+  v11 = v8 + 15;
+  v12 = v8[17];
+  v13 = v8[18];
+  if (v10 | v9 | v12 | v13)
   {
-    v13 = 0.0;
-    v14 = 0.0;
-    v15 = 0;
-    v11 = 0uLL;
-    v12 = 0;
-    getScaleTranslate(v2, &v13, &v11);
-    PCHashWriteStream::PCHashWriteStream(v16);
-    PCHashWriteStream::writeValue(v16, v13);
-    PCHashWriteStream::writeValue(v16, v14);
-    PCHashWriteStream::close(v16);
-    Hash = PCHashWriteStream::getHash(v16);
-    PCHash128::operator+=(v7, Hash);
-    *v4 = *v7;
-    PCHashWriteStream::~PCHashWriteStream(v16);
+    v17 = 0.0;
+    v18 = 0.0;
+    v19 = 0;
+    v15 = 0uLL;
+    v16 = 0;
+    getScaleTranslate(v5, &v17, &v15);
+    PCHashWriteStream::PCHashWriteStream(v20);
+    PCHashWriteStream::writeValue(v20, v17);
+    PCHashWriteStream::writeValue(v20, v18);
+    PCHashWriteStream::close(v20);
+    Hash = PCHashWriteStream::getHash(v20);
+    PCHash128::operator+=(v11, Hash);
+    *v7 = *v11;
+    PCHashWriteStream::~PCHashWriteStream(v20);
   }
 
   else
   {
-    *v4 = v5;
-    *(v4 + 4) = v6;
-    *(v4 + 8) = v8;
-    *(v4 + 12) = v9;
+    *v7 = v9;
+    *(v7 + 4) = v10;
+    *(v7 + 8) = v12;
+    *(v7 + 12) = v13;
   }
 }
 
@@ -1490,7 +1526,7 @@ uint64_t TXTextObject::buildLighting(TXTextObject *this, LiGeode *a2, const LiLi
       v12 = LiGeode::getLightFilter(a2);
       v13 = v12;
       v14 = (v12 + 472);
-      if ((v12 + 472) != v35)
+      if (v12 + 472 != v35)
       {
         for (i = 0; i != 16; i += 4)
         {
@@ -1507,16 +1543,16 @@ uint64_t TXTextObject::buildLighting(TXTextObject *this, LiGeode *a2, const LiLi
         v37 = xmmword_2603426F0;
         liFindMatrixPlane(v14, &v36);
         v18 = *(&v36 + 1);
-        v13[61] = v36;
-        v13[65] = v18;
+        *(v13 + 61) = v36;
+        *(v13 + 65) = v18;
         v19 = *(&v37 + 1);
-        v13[69] = v37;
-        v13[73] = v19;
+        *(v13 + 69) = v37;
+        *(v13 + 73) = v19;
       }
 
       LiGeode::setLit(a2, 1);
       v20 = LiGeode::getLightFilter(a2);
-      *(v20 + 184) = (*(**(this + 68) + 984))();
+      *(v20 + 23) = (*(**(this + 68) + 984))();
       if (*(LiGeode::getLightFilter(a2) + 174) == 1)
       {
         v36 = 0uLL;
@@ -1891,9 +1927,9 @@ void PCMatrix44Tmpl<double>::rightRotate(double *a1, int a2, double a3)
   }
 }
 
-uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
+void std::vector<BOOL>::reserve(char **a1, unint64_t a2)
 {
-  if (a2 > *(result + 16) << 6)
+  if (a2 > a1[2] << 6)
   {
     if ((a2 & 0x8000000000000000) == 0)
     {
@@ -1904,8 +1940,6 @@ uint64_t std::vector<BOOL>::reserve(uint64_t result, unint64_t a2)
 
     std::vector<double>::__throw_length_error[abi:ne200100]();
   }
-
-  return result;
 }
 
 void sub_25FB3313C(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, void *__p)
@@ -1918,7 +1952,7 @@ void sub_25FB3313C(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
+void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t *a1, uint64_t a2)
 {
   if ((a2 & 0x8000000000000000) == 0)
   {
@@ -1938,7 +1972,7 @@ void std::vector<BOOL>::__vallocate[abi:ne200100](uint64_t a1, uint64_t a2)
   std::vector<double>::__throw_length_error[abi:ne200100]();
 }
 
-void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>>(void *a1, uint64_t *a2, uint64_t *a3, uint64_t a4)
 {
   v6 = a1[1];
   v7 = v6 + a4;
@@ -1960,9 +1994,9 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
 
   v20 = v4;
   v21 = v5;
-  v9 = *(a2 + 8);
+  v9 = *(a2 + 2);
   v10 = *a3;
-  v11 = *(a3 + 8);
+  v11 = *(a3 + 2);
   v12 = *a1 + 8 * (v6 >> 6);
   v18 = *a2;
   v19 = v9;
@@ -1970,7 +2004,7 @@ void std::vector<BOOL>::__construct_at_end<std::__bit_iterator<std::vector<BOOL>
   v17 = v11;
   v14 = v12;
   v15 = v6 & 0x3F;
-  std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, &v13);
+  std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(&v18, &v16, &v14, v13);
 }
 
 void std::__copy_move_unwrap_iters[abi:ne200100]<std::__copy_impl,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,std::__bit_iterator<std::vector<BOOL>,false,0ul>,0>(uint64_t *a1@<X0>, uint64_t *a2@<X1>, uint64_t *a3@<X2>, uint64_t a4@<X8>)
@@ -2055,23 +2089,23 @@ void std::__copy_impl::operator()[abi:ne200100]<std::__bit_iterator<std::vector<
   *(a4 + 24) = v6;
 }
 
-unint64_t *std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>@<X0>(unint64_t *__src@<X0>, unsigned int a2@<W1>, uint64_t a3@<X2>, unsigned int a4@<W3>, uint64_t a5@<X4>, uint64_t a6@<X8>)
+unint64_t *std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>@<X0>(unint64_t **__return_ptr a1@<X8>, unint64_t *__src@<X0>, unsigned int a3@<W1>, uint64_t a4@<X2>, unsigned int a5@<W3>, uint64_t a6@<X4>)
 {
-  v8 = a4 - a2 + 8 * (a3 - __src);
+  v8 = a5 - a3 + 8 * (a4 - __src);
   if (v8 <= 0)
   {
-    v16 = *a5;
+    v16 = *a6;
   }
 
   else
   {
     v9 = __src;
-    __src = *a5;
-    if (a2)
+    __src = *a6;
+    if (a3)
     {
-      if (v8 >= (64 - a2))
+      if (v8 >= (64 - a3))
       {
-        v10 = 64 - a2;
+        v10 = 64 - a3;
       }
 
       else
@@ -2081,11 +2115,11 @@ unint64_t *std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>@<X0>(unint6
 
       v8 -= v10;
       v11 = *v9++;
-      *__src = *__src & ~((0xFFFFFFFFFFFFFFFFLL >> (64 - a2 - v10)) & (-1 << a2)) | v11 & (0xFFFFFFFFFFFFFFFFLL >> (64 - a2 - v10)) & (-1 << a2);
-      v12 = v10 + *(a5 + 8);
+      *__src = *__src & ~((0xFFFFFFFFFFFFFFFFLL >> (64 - a3 - v10)) & (-1 << a3)) | v11 & (0xFFFFFFFFFFFFFFFFLL >> (64 - a3 - v10)) & (-1 << a3);
+      v12 = v10 + *(a6 + 8);
       __src = (__src + ((v12 >> 3) & 0x3FFFFFF8));
-      *a5 = __src;
-      *(a5 + 8) = v12 & 0x3F;
+      *a6 = __src;
+      *(a6 + 8) = v12 & 0x3F;
     }
 
     if (v8 >= 0)
@@ -2102,21 +2136,21 @@ unint64_t *std::__copy_aligned[abi:ne200100]<std::vector<BOOL>,true>@<X0>(unint6
     if ((v8 + 63) >= 0x7F)
     {
       memmove(__src, v9, 8 * v14);
-      __src = *a5;
+      __src = *a6;
     }
 
     v15 = v8 - (v14 << 6);
     v16 = &__src[v14];
-    *a5 = v16;
+    *a6 = v16;
     if (v15 >= 1)
     {
       *v16 = *v16 & ~(0xFFFFFFFFFFFFFFFFLL >> ((v14 << 6) - v8)) | v9[v14] & (0xFFFFFFFFFFFFFFFFLL >> ((v14 << 6) - v8));
-      *(a5 + 8) = v15;
+      *(a6 + 8) = v15;
     }
   }
 
-  *a6 = v16;
-  *(a6 + 8) = *(a5 + 8);
+  *a1 = v16;
+  *(a1 + 2) = *(a6 + 8);
   return __src;
 }
 
@@ -2261,10 +2295,11 @@ uint64_t PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTexture
   return PCMutex::unlock(v8);
 }
 
-void sub_25FB33788(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, char a11)
+void sub_25FB33788(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, ...)
 {
-  PGHelium::MetalTextureCacheEntry::~MetalTextureCacheEntry(v11);
-  PCLockSentry<PCMutex>::~PCLockSentry(&a11);
+  va_start(va, a10);
+  PGHelium::MetalTextureCacheEntry::~MetalTextureCacheEntry(v10);
+  PCLockSentry<PCMutex>::~PCLockSentry(va);
   _Unwind_Resume(a1);
 }
 
@@ -2494,7 +2529,7 @@ uint64_t PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTexture
       v36 = v51;
       v45 = v60;
       v46 = v61;
-      v47 = std::__tree<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,std::__map_value_compare<std::pair<HGMTLDeviceType,PCHash128>,std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,std::less<std::pair<HGMTLDeviceType,PCHash128>>,true>,std::allocator<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>>>::__emplace_unique_key_args<std::pair<HGMTLDeviceType,PCHash128>,std::pair<std::pair<HGMTLDeviceType,PCHash128> const,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>>(a1 + 88, &v32);
+      v47 = std::__tree<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,std::__map_value_compare<std::pair<HGMTLDeviceType,PCHash128>,std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,std::less<std::pair<HGMTLDeviceType,PCHash128>>,true>,std::allocator<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>>>::__emplace_unique_key_args<std::pair<HGMTLDeviceType,PCHash128>,std::pair<std::pair<HGMTLDeviceType,PCHash128> const,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>>((a1 + 88), &v32, &v32);
       v48 = v27;
       PGHelium::MetalTextureCacheEntry::~MetalTextureCacheEntry(&v34);
       PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,std::__tree_node<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,void *> *,long>>>::add(a1 + 112, &v47);
@@ -2605,10 +2640,11 @@ uint64_t PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTexture
   return PCMutex::unlock(v8);
 }
 
-void sub_25FB33DE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, char a38)
+void sub_25FB33DE4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, ...)
 {
-  PGHelium::MetalTextureCacheEntry::~MetalTextureCacheEntry(&a38);
-  PCLockSentry<PCMutex>::~PCLockSentry(v38 - 80);
+  va_start(va, a37);
+  PGHelium::MetalTextureCacheEntry::~MetalTextureCacheEntry(va);
+  PCLockSentry<PCMutex>::~PCLockSentry(v37 - 80);
   _Unwind_Resume(a1);
 }
 
@@ -2699,15 +2735,15 @@ void PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<s
   }
 }
 
-uint64_t std::__tree<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,std::__map_value_compare<std::pair<HGMTLDeviceType,PCHash128>,std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,std::less<std::pair<HGMTLDeviceType,PCHash128>>,true>,std::allocator<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>>>::__emplace_unique_key_args<std::pair<HGMTLDeviceType,PCHash128>,std::pair<std::pair<HGMTLDeviceType,PCHash128> const,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>>(uint64_t a1, unint64_t *a2)
+void *std::__tree<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,std::__map_value_compare<std::pair<HGMTLDeviceType,PCHash128>,std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,std::less<std::pair<HGMTLDeviceType,PCHash128>>,true>,std::allocator<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>>>::__emplace_unique_key_args<std::pair<HGMTLDeviceType,PCHash128>,std::pair<std::pair<HGMTLDeviceType,PCHash128> const,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>>(uint64_t **a1, unint64_t *a2, uint64_t a3)
 {
-  v2 = *std::__tree<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,std::__map_value_compare<std::pair<HGMTLDeviceType,PCHash128>,std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,std::less<std::pair<HGMTLDeviceType,PCHash128>>,true>,std::allocator<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>>>::__find_equal<std::pair<HGMTLDeviceType,PCHash128>>(a1, &v4, a2);
-  if (!v2)
+  v3 = *std::__tree<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,std::__map_value_compare<std::pair<HGMTLDeviceType,PCHash128>,std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,std::less<std::pair<HGMTLDeviceType,PCHash128>>,true>,std::allocator<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>>>::__find_equal<std::pair<HGMTLDeviceType,PCHash128>>(a1, &v5, a2);
+  if (!v3)
   {
     std::__tree<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,std::__map_value_compare<std::pair<HGMTLDeviceType,PCHash128>,std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,std::less<std::pair<HGMTLDeviceType,PCHash128>>,true>,std::allocator<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>>>::__construct_node<std::pair<std::pair<HGMTLDeviceType,PCHash128> const,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>>();
   }
 
-  return v2;
+  return v3;
 }
 
 void *std::__tree<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,std::__map_value_compare<std::pair<HGMTLDeviceType,PCHash128>,std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>,std::less<std::pair<HGMTLDeviceType,PCHash128>>,true>,std::allocator<std::__value_type<std::pair<HGMTLDeviceType,PCHash128>,PCCacheImpl<std::pair<HGMTLDeviceType,PCHash128>,PGHelium::MetalTextureCacheEntry,PCMutex,std::less<std::pair<HGMTLDeviceType,PCHash128>>>::Data>>>::__find_equal<std::pair<HGMTLDeviceType,PCHash128>>(uint64_t a1, void *a2, unint64_t *a3)
@@ -2846,7 +2882,7 @@ void PCEvictionHeap<std::__map_iterator<std::__tree_iterator<std::__value_type<s
 void TX3DExtrusionPropertiesChannelResetCallback(OZChannelBase *a1, void *a2)
 {
   ObjectManipulator = OZChannelBase::getObjectManipulator(a1);
-  TXTextStylePtrFromObjectManipulator(ObjectManipulator, &v4);
+  TXTextStylePtrFromObjectManipulator(&v4, ObjectManipulator);
   v3 = (*(*v4 + 120))(v4);
   if (v3)
   {
@@ -2869,14 +2905,14 @@ void sub_25FB34370(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TXTextStylePtrFromObjectManipulator(OZObjectManipulator *a1@<X0>, void *a2@<X8>)
+void TXTextStylePtrFromObjectManipulator(uint64_t *__return_ptr a1@<X8>, OZObjectManipulator *a2@<X0>)
 {
   {
     std::shared_ptr<OZStyle>::shared_ptr[abi:ne200100]<OZStyle,0>(&lpsrc, v3 + 7);
     {
       v5 = v7;
-      *a2 = v4;
-      a2[1] = v5;
+      *a1 = v4;
+      a1[1] = v5;
       if (v5)
       {
         atomic_fetch_add_explicit(&v5->__shared_owners_, 1uLL, memory_order_relaxed);
@@ -2885,8 +2921,8 @@ void TXTextStylePtrFromObjectManipulator(OZObjectManipulator *a1@<X0>, void *a2@
 
     else
     {
-      *a2 = 0;
-      a2[1] = 0;
+      *a1 = 0;
+      a1[1] = 0;
     }
 
     if (v7)
@@ -2897,8 +2933,8 @@ void TXTextStylePtrFromObjectManipulator(OZObjectManipulator *a1@<X0>, void *a2@
 
   else
   {
-    *a2 = 0;
-    a2[1] = 0;
+    *a1 = 0;
+    a1[1] = 0;
   }
 }
 
@@ -2913,7 +2949,7 @@ void TXKerningResetCallback(OZChannelBase *a1, void *a2)
 {
   (*(a1->var0 + 35))(a1, 0);
   ObjectManipulator = OZChannelBase::getObjectManipulator(a1);
-  TXTextStylePtrFromObjectManipulator(ObjectManipulator, &v5);
+  TXTextStylePtrFromObjectManipulator(&v5, ObjectManipulator);
   v4 = (*(*v5 + 120))(v5);
   if (v4)
   {
@@ -2936,11 +2972,11 @@ void sub_25FB345EC(_Unwind_Exception *exception_object, int a2, int a3, int a4, 
   _Unwind_Resume(exception_object);
 }
 
-void TXTextStyle::create(void *a1@<X8>)
+void TXTextStyle::create(uint64_t *a3@<X8>)
 {
   v5 = xmmword_260347AB0;
   Style = OZApplication::createStyle(theApp, &v5);
-  std::shared_ptr<TXTextStyle>::shared_ptr[abi:ne200100]<TXTextStyle,0>(a1, Style);
+  std::shared_ptr<TXTextStyle>::shared_ptr[abi:ne200100]<TXTextStyle,0>(a3, Style);
 }
 
 void TXTextStyle::TXTextStyle(TXTextStyle *this, OZFactory *a2, const PCString *a3, unsigned int a4)
@@ -3220,7 +3256,7 @@ void TXTextStyle::TXTextStyle(TXTextStyle *this, OZFactory *a2, const PCString *
   OZChannelPercent::OZChannelPercent((this + 49568), 0.0, &v68, (this + 72), 0x4Fu, 2u, v51, v52);
   PCString::~PCString(&v68);
   PCURL::PCURL(&v68, @"Text Advanced Formatting");
-  OZChannelFolder::OZChannelFolder((this + 49720), &v68, (this + 72), 0x5Au, 2u, 0);
+  OZChannelFolder::OZChannelFolder((this + 49720), &v68, (this + 72), 0x5Au, 2, 0);
   PCString::~PCString(&v68);
   *(this + 49855) = 0;
   *(this + 6231) = 0;
@@ -3232,7 +3268,7 @@ void TXTextStyle::TXTextStyle(TXTextStyle *this, OZFactory *a2, const PCString *
   OZChannelFolder::setFoldFlag((this + 72), 0x80000);
   v53 = OZChannelFolder::saveStateAsDefault((this + 72));
   v54 = TXFontManager::getInstance(v53);
-  OZFontManagerBase::getDefaultSystemFontFace(v54, &v65);
+  OZFontManagerBase::getDefaultSystemFontFace(&v65, v54);
   TXTextStyle::setFont(this, &v65);
   if (v66)
   {
@@ -3460,7 +3496,7 @@ void TXTextStyle::TXTextStyle(TXTextStyle *this, const TXTextStyle *a2, OZSceneN
   OZChannel::OZChannel(this + 13, (a2 + 1976), (this + 72));
   *(this + 247) = &unk_287245C60;
   *(this + 249) = &unk_287245FC0;
-  OZChannelFolder::OZChannelFolder((this + 2128), (a2 + 2128), (this + 72));
+  OZChannelFolder::OZChannelFolder((this + 2128), a2 + 19, (this + 72));
   OZChannel::OZChannel((this + 2256), (a2 + 2256), (this + 72));
   *(this + 282) = &unk_287245C60;
   *(this + 284) = &unk_287245FC0;
@@ -3743,7 +3779,7 @@ uint64_t OZLayeredMaterial_Factory::getInstance(OZLayeredMaterial_Factory *this)
   return OZLayeredMaterial_Factory::_instance;
 }
 
-uint64_t TXTextStyle::materialChannelValueWillBeSet(uint64_t this, OZChannel *a2, const CMTime *a3, int a4)
+OZChannel *TXTextStyle::materialChannelValueWillBeSet(OZChannel *this, OZChannel *a2, const CMTime *a3, int a4)
 {
   v7 = this;
   v8 = a2;
@@ -3760,7 +3796,7 @@ uint64_t TXTextStyle::materialChannelValueWillBeSet(uint64_t this, OZChannel *a2
     this = OZFactory::isKindOfClass(var1, &v12);
     if (this)
     {
-      if ((this + 2296) == a2)
+      if (&this[15].var2 == a2)
       {
         v10 = this;
         v12 = *a3;
@@ -3871,7 +3907,7 @@ void TXTextStyle::~TXTextStyle(TXTextStyle *this)
     if (theApp && (*(theApp + 80) & 1) == 0)
     {
       Instance = OZCurrentThread::getInstance(v5);
-      isSelf = PCThread::isSelf(*(Instance + 8));
+      isSelf = PCThread::isSelf(*(Instance + 1));
       v12 = v6 && isSelf;
       if (v12 && !OZChannelBase::isObjectRef(v6) && (v2[952] & 1) == 0)
       {
@@ -3927,7 +3963,7 @@ void TXTextStyle::~TXTextStyle(TXTextStyle *this)
   OZChannelBool::~OZChannelBool((this + 48960));
   OZ3DExtrusionProperties::~OZ3DExtrusionProperties((this + 40520));
   OZChannelQuad::~OZChannelQuad((this + 37568));
-  OZChannelEnum::~OZChannelEnum((this + 37312));
+  OZChannelEnum::~OZChannelEnum(this + 4664);
   OZChannelPosition::~OZChannelPosition((this + 36608));
   OZChannel2D::~OZChannel2D((this + 36168));
   OZChannel::~OZChannel((this + 36016));
@@ -3937,11 +3973,11 @@ void TXTextStyle::~TXTextStyle(TXTextStyle *this)
   OZChannelImageWithOptions::~OZChannelImageWithOptions((this + 33680));
   OZChannelGradientWithAngle::~OZChannelGradientWithAngle((this + 32472));
   OZChannelColorNoAlpha::~OZChannelColorNoAlpha((this + 31464));
-  OZChannelEnum::~OZChannelEnum((this + 31208));
+  OZChannelEnum::~OZChannelEnum(this + 3901);
   OZChannelFolder::~OZChannelFolder((this + 31080));
   OZChannelBool::~OZChannelBool((this + 30928));
   OZChannelQuad::~OZChannelQuad((this + 27976));
-  OZChannelEnum::~OZChannelEnum((this + 27720));
+  OZChannelEnum::~OZChannelEnum(this + 3465);
   OZChannel::~OZChannel((this + 27568));
   OZChannel::~OZChannel((this + 27416));
   OZChannel2D::~OZChannel2D((this + 26976));
@@ -3949,7 +3985,7 @@ void TXTextStyle::~TXTextStyle(TXTextStyle *this)
   OZChannelImageWithOptions::~OZChannelImageWithOptions((this + 25232));
   OZChannelGradientWithAngle::~OZChannelGradientWithAngle((this + 24024));
   OZChannelColorNoAlpha::~OZChannelColorNoAlpha((this + 23016));
-  OZChannelEnum::~OZChannelEnum((this + 22760));
+  OZChannelEnum::~OZChannelEnum(this + 2845);
   OZChannelFolder::~OZChannelFolder((this + 22632));
   OZChannelQuad::~OZChannelQuad((this + 19680));
   OZChannelBool::~OZChannelBool((this + 19528));
@@ -3962,7 +3998,7 @@ void TXTextStyle::~TXTextStyle(TXTextStyle *this)
   OZChannelImageWithOptions::~OZChannelImageWithOptions((this + 16448));
   OZChannelGradientWithAngle::~OZChannelGradientWithAngle((this + 15240));
   OZChannelColorNoAlpha::~OZChannelColorNoAlpha((this + 14232));
-  OZChannelEnum::~OZChannelEnum((this + 13976));
+  OZChannelEnum::~OZChannelEnum(this + 1747);
   OZChannelFolder::~OZChannelFolder((this + 13848));
   OZChannelQuad::~OZChannelQuad((this + 10896));
   OZChannel::~OZChannel((this + 10744));
@@ -3971,7 +4007,7 @@ void TXTextStyle::~TXTextStyle(TXTextStyle *this)
   OZChannelImageWithOptions::~OZChannelImageWithOptions((this + 8560));
   OZChannelGradientWithAngle::~OZChannelGradientWithAngle((this + 7352));
   OZChannelColorNoAlpha::~OZChannelColorNoAlpha((this + 6344));
-  OZChannelEnum::~OZChannelEnum((this + 6088));
+  OZChannelEnum::~OZChannelEnum(this + 761);
   OZChannelFolder::~OZChannelFolder((this + 5960));
   OZChannel::~OZChannel((this + 5808));
   OZChannelPercent::~OZChannelPercent((this + 5656));
@@ -3991,8 +4027,8 @@ void TXTextStyle::~TXTextStyle(TXTextStyle *this)
   OZChannelFolder::~OZChannelFolder((this + 2128));
   OZChannel::~OZChannel(this + 13);
   OZChannelFontBase::~OZChannelFontBase(this + 163);
-  OZChannelEnum::~OZChannelEnum((this + 1048));
-  OZChannelEnum::~OZChannelEnum((this + 792));
+  OZChannelEnum::~OZChannelEnum(this + 131);
+  OZChannelEnum::~OZChannelEnum(this + 99);
   TXCollectionEnum::~TXCollectionEnum((this + 536));
   v17 = *(this + 66);
   if (v17)
@@ -4050,10 +4086,10 @@ uint64_t StyleWillReplaceMaterial(const TXTextStyle *a1, const TXTextStyle *a2)
 void TXTextStyle::copyStyle(Li3DEngineScene **this, const TXTextStyle *a2)
 {
   v4 = a2 + 48952;
-  v5 = (this + 6118);
+  v5 = this + 6118;
   v6 = Li3DEngineScene::sceneManager(this[6118]);
-  OZLockingGroup::WriteSentry::WriteSentry(v23, v6);
-  v5[912] = v4[904];
+  OZLockingGroup::WriteSentry::WriteSentry(&v23, v6);
+  *(v5 + 912) = v4[904];
   if (*v4)
   {
     v7 = *(a2 + 65);
@@ -4080,7 +4116,7 @@ void TXTextStyle::copyStyle(Li3DEngineScene **this, const TXTextStyle *a2)
 
   if ((v10 & 0xF) != 0)
   {
-    if (((*(this[688] + 30))(this + 5504, a2 + 5504) & 1) == 0)
+    if (((*(this[688] + 30))(this + 688, a2 + 5504) & 1) == 0)
     {
       *(*v5 + 19321) = 1;
     }
@@ -4193,15 +4229,15 @@ void TXTextStyle::copyStyle(Li3DEngineScene **this, const TXTextStyle *a2)
     OZ3DExtrusionProperties::operator=((this + 5065), a2 + 40520);
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v23);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v23);
 }
 
-void sub_25FB38F20(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB38F20(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  if (v2)
+  va_start(va, a3);
+  if (v3)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v3);
   }
 
   OZLockingGroup::WriteSentry::~WriteSentry(va);
@@ -4221,7 +4257,7 @@ uint64_t TXTextStyle::behaviorChangedState(TXTextStyle *this, OZBehavior *lpsrc)
         *v16 = 0;
         Widget = OZRigBehavior::getWidget(v4);
         v7 = (*(*this + 128))(this);
-        OZScene::getCurrentTime(v7, &v14);
+        OZScene::getCurrentTime(&v14, v7);
         OZRigWidget::getCurrentSnapshotIDs(Widget, &v14, &v16[1], v16, &v15);
         ChannelForSnapshot = OZRigBehavior::getChannelForSnapshot(v4, v16[1]);
         if (ChannelForSnapshot)
@@ -4267,11 +4303,11 @@ uint64_t TXTextStyle::clearCachedFontFace(TXTextStyle *this)
 
 void TXTextStyle::updateFont(TXTextStyle *this)
 {
-  TXTextStyle::getFontFace(this, &v4);
+  TXTextStyle::getFontFace(&v4, this);
   if (!v4)
   {
-    v2 = *(&v4 + 1);
-    if (!*(&v4 + 1))
+    v2 = v5;
+    if (!v5)
     {
       return;
     }
@@ -4279,14 +4315,15 @@ void TXTextStyle::updateFont(TXTextStyle *this)
     goto LABEL_7;
   }
 
-  v2 = *(&v4 + 1);
-  v3 = v4;
-  if (*(&v4 + 1))
+  v2 = v5;
+  v3[0] = v4;
+  v3[1] = v5;
+  if (v5)
   {
-    atomic_fetch_add_explicit((*(&v4 + 1) + 8), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit((v5 + 8), 1uLL, memory_order_relaxed);
   }
 
-  TXTextStyle::setFont(this, &v3);
+  TXTextStyle::setFont(this, v3);
   if (v2)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v2);
@@ -4307,19 +4344,19 @@ void sub_25FB39240(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-uint64_t TXTextStyle::getFontFace@<X0>(TXTextStyle *this@<X0>, _OWORD *a2@<X8>)
+uint64_t *TXTextStyle::getFontFace@<X0>(uint64_t *__return_ptr a1@<X8>, TXTextStyle *this@<X0>)
 {
   v4 = this + 49152;
   PCMutex::lock((this + 49888));
   if (!*(v4 + 90))
   {
-    OZChannelFontBase::getValidatedFontName((this + 1304), v16);
+    OZChannelFontBase::getValidatedFontName(v16, (this + 1304));
     v5 = PCString::compare(v16, (*(this + 65) + 8));
     PCString::~PCString(v16);
     if (v5)
     {
       Instance = TXFontManager::getInstance(v6);
-      OZChannelFontBase::getValidatedFontName((this + 1304), &v15);
+      OZChannelFontBase::getValidatedFontName(&v15, (this + 1304));
       (*(*Instance + 56))(v16, Instance, &v15);
       v8 = *&v16[0].var0;
       v16[0].var0 = 0;
@@ -4358,7 +4395,7 @@ uint64_t TXTextStyle::getFontFace@<X0>(TXTextStyle *this@<X0>, _OWORD *a2@<X8>)
   }
 
   v13 = *(v4 + 45);
-  *a2 = v13;
+  *a1 = v13;
   if (*(&v13 + 1))
   {
     atomic_fetch_add_explicit((*(&v13 + 1) + 8), 1uLL, memory_order_relaxed);
@@ -4371,7 +4408,7 @@ void TXTextStyle::setFont(PCString *this, PCString *a2)
 {
   OZChannelFontBase::validateAndSetFontName(this + 163, a2);
   Instance = TXFontManager::getInstance(v3);
-  OZChannelFontBase::getValidatedFontName(&this[163], &v7);
+  OZChannelFontBase::getValidatedFontName(&v7, &this[163]);
   (*(*Instance + 56))(&v8, Instance, &v7);
   PCString::~PCString(&v7);
   if (v8)
@@ -4463,7 +4500,7 @@ uint64_t TXTextStyle::updateGradient(uint64_t this, CMTime *a2)
   return this;
 }
 
-uint64_t TXTextStyle::getFaceGradient(TXTextStyle *this, CMTime *a2, const FxColorDescription *a3)
+uint64_t TXTextStyle::getFaceGradient(TXTextStyle *this, CMTime *a2, FxColorDescription *a3)
 {
   v3 = *(this + 6113);
   if (!v3)
@@ -4474,7 +4511,7 @@ uint64_t TXTextStyle::getFaceGradient(TXTextStyle *this, CMTime *a2, const FxCol
   return *(v3 + 24);
 }
 
-uint64_t TXTextStyle::getOutlineGradient(TXTextStyle *this, CMTime *a2, const FxColorDescription *a3)
+uint64_t TXTextStyle::getOutlineGradient(TXTextStyle *this, CMTime *a2, FxColorDescription *a3)
 {
   v3 = *(this + 6114);
   if (!v3)
@@ -4485,7 +4522,7 @@ uint64_t TXTextStyle::getOutlineGradient(TXTextStyle *this, CMTime *a2, const Fx
   return *(v3 + 24);
 }
 
-uint64_t TXTextStyle::getGlowGradient(TXTextStyle *this, CMTime *a2, const FxColorDescription *a3)
+uint64_t TXTextStyle::getGlowGradient(TXTextStyle *this, CMTime *a2, FxColorDescription *a3)
 {
   v3 = *(this + 6115);
   if (!v3)
@@ -4496,7 +4533,7 @@ uint64_t TXTextStyle::getGlowGradient(TXTextStyle *this, CMTime *a2, const FxCol
   return *(v3 + 24);
 }
 
-uint64_t TXTextStyle::getDropShadowGradient(TXTextStyle *this, CMTime *a2, const FxColorDescription *a3)
+uint64_t TXTextStyle::getDropShadowGradient(TXTextStyle *this, CMTime *a2, FxColorDescription *a3)
 {
   v3 = *(this + 6116);
   if (!v3)
@@ -4519,7 +4556,7 @@ void TXTextStyle::getTextureLiImageSource(TXTextStyle *this, CMTime *a2, OZChann
   v12 = 0uLL;
   v13 = 0;
   v9 = *a2;
-  OZChannelImageWithOptions::getFrame(a3, &v9, &v12);
+  OZChannelImageWithOptions::getFrame(&v12, a3, &v9);
   OZRenderParams::OZRenderParams(&v9, a2);
   OZRenderParams::setImageType(&v9, 2);
   *&v9.value = v12;
@@ -4530,7 +4567,7 @@ void TXTextStyle::getTextureLiImageSource(TXTextStyle *this, CMTime *a2, OZChann
   operator new();
 }
 
-void sub_25FB39BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
+void sub_25FB39BC8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, PCSharedCount a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
 {
   Render360GroupAsEquirectSentry::~Render360GroupAsEquirectSentry(&a10);
   OZRenderGraphState::~OZRenderGraphState(&a19);
@@ -4565,7 +4602,7 @@ void TXTextStyle::writeBody(PCString *this, PCSerializerWriteStream *a2, BOOL a3
     v12 = 0;
   }
 
-  OZLockingGroup::WriteSentry::WriteSentry(v17, v12);
+  OZLockingGroup::WriteSentry::WriteSentry(&v17, v12);
   PCSerializerWriteStream::pushScope(a2, &TXStyleScope);
   v13 = v10[2];
   (*(*a2 + 16))(a2, 1002);
@@ -4586,17 +4623,18 @@ void TXTextStyle::writeBody(PCString *this, PCSerializerWriteStream *a2, BOOL a3
   PCString::~PCString(&v16);
   PCSerializerWriteStream::popScope(a2);
   OZStyle::writeBody(this, a2, a3, a4, a5);
-  OZLockingGroup::WriteSentry::~WriteSentry(v17);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v17);
 }
 
-void sub_25FB39FCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, char a10)
+void sub_25FB39FCC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   PCString::~PCString(&a9);
-  OZLockingGroup::WriteSentry::~WriteSentry(&a10);
+  OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
 
-OZFactories *TXTextStyle::markFactoriesForSerialization(TXTextStyle *this, PCSerializerWriteStream *a2)
+uint64_t *TXTextStyle::markFactoriesForSerialization(TXTextStyle *this, PCSerializerWriteStream *a2, BOOL a3)
 {
   OZStyle::markFactoriesForSerialization(this, a2);
   OZChannelGradient::markFactoriesForSerialization((this + 7352), a2, 0);
@@ -4606,10 +4644,10 @@ OZFactories *TXTextStyle::markFactoriesForSerialization(TXTextStyle *this, PCSer
   return OZChannelGradient::markFactoriesForSerialization((this + 15240), a2, 0);
 }
 
-uint64_t TXTextStyle::parseBegin(TXTextStyle *this, PCSerializerReadStream *a2)
+uint64_t TXTextStyle::parseBegin(OZMaterialBase ***this, PCSerializerReadStream *a2)
 {
   OZStyle::unregisterAllMaterials(this);
-  while (*(this + 61) != *(this + 60))
+  while (this[61] != this[60])
   {
     OZStyle::removeMaterialAtIndex(this, 0);
   }
@@ -4675,7 +4713,7 @@ uint64_t TXTextStyle::parseEnd(TXTextStyle *this, PCSerializerReadStream *a2)
   return 1;
 }
 
-uint64_t TXTextStyle::parseElement(PCSerializer **this, PCSerializerReadStream *a2, PCStreamElement *a3)
+uint64_t TXTextStyle::parseElement(PCString *this, PCSerializerReadStream *a2, PCStreamElement *a3)
 {
   OZStyle::parseElement(this, a2, a3);
   v6 = *(a3 + 2);
@@ -4718,7 +4756,7 @@ uint64_t TXTextStyle::parseElement(PCSerializer **this, PCSerializerReadStream *
       {
         if (v6 == 1002)
         {
-          (*(*a3 + 32))(a3, this + 48952);
+          (*(*a3 + 32))(a3, this + 6119);
         }
 
         return 1;
@@ -4733,7 +4771,7 @@ uint64_t TXTextStyle::parseElement(PCSerializer **this, PCSerializerReadStream *
       PCSharedCount::PCSharedCount(&v15);
       if (PCSerializerReadStream::getAsString(a2, a3, &v15))
       {
-        (*(*this + 21))(this, &v15, 1);
+        (this->var0[5].info)(this, &v15, 1);
       }
     }
 
@@ -4752,17 +4790,17 @@ LABEL_22:
       v10 = 49852;
       goto LABEL_22;
     case 1005:
-      PCSerializerReadStream::getAsString(a2, a3, (this + 6233));
+      PCSerializerReadStream::getAsString(a2, a3, &this[6233]);
       break;
   }
 
   return 1;
 }
 
-void TXTextStyle::calcStaticHash(uint64_t a1, const void *a2, uint64_t a3)
+void TXTextStyle::calcStaticHash(uint64_t a1, const void *a2, uint64_t **a3)
 {
   v6 = Li3DEngineScene::sceneManager(*(a1 + 48944));
-  OZLockingGroup::WriteSentry::WriteSentry(v21, v6);
+  OZLockingGroup::WriteSentry::WriteSentry(&v22, v6);
   if (!v7)
   {
     __cxa_bad_cast();
@@ -4771,85 +4809,86 @@ void TXTextStyle::calcStaticHash(uint64_t a1, const void *a2, uint64_t a3)
   v8 = v7;
   (*(*v7 + 40))(v7);
   (*(*a1 + 184))(a1, a2, 0, 0, 1);
-  v20 = *PCHashWriteStream::getHash(v8)->i8;
+  v21 = *PCHashWriteStream::getHash(v8)->i8;
   v9 = *(a1 + 504);
   if (v9 && (*(*v9 + 272))(v9))
   {
     v10 = (*(**(a1 + 504) + 272))(*(a1 + 504));
-    v19[0] = 0;
-    v19[1] = 0;
-    v18 = v19;
-    OZScene::getImmediatelyReferencedNodes(v10, *(a1 + 96), &v18);
-    v11 = v18;
-    if (v18 != v19)
+    v20[0] = 0;
+    v20[1] = 0;
+    v19 = v20;
+    OZScene::getImmediatelyReferencedNodes(v10, *(a1 + 96), &v19);
+    v11 = v19;
+    if (v19 != v20)
     {
       do
       {
         Node = OZScene::getNode(v10, *(v11 + 7));
-        if (Node && !OZObjectManipulator::isInObjectList(Node + 16, a3))
+        v13 = Node;
+        if (Node && !OZObjectManipulator::isInObjectList((Node + 1), a3))
         {
-          OZObjectManipulator::getStaticHash();
+          OZObjectManipulator::getStaticHash(v13 + 1, a2, a3);
         }
 
-        v13 = v11[1];
-        if (v13)
+        v14 = v11[1];
+        if (v14)
         {
           do
           {
-            v14 = v13;
-            v13 = *v13;
+            v15 = v14;
+            v14 = *v14;
           }
 
-          while (v13);
+          while (v14);
         }
 
         else
         {
           do
           {
-            v14 = v11[2];
-            v15 = *v14 == v11;
-            v11 = v14;
+            v15 = v11[2];
+            v16 = *v15 == v11;
+            v11 = v15;
           }
 
-          while (!v15);
+          while (!v16);
         }
 
-        v11 = v14;
+        v11 = v15;
       }
 
-      while (v14 != v19);
+      while (v15 != v20);
     }
 
-    std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&v18, v19[0]);
+    std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&v19, v20[0]);
   }
 
   if (OZChannel::getValueAsInt((a1 + 48752), MEMORY[0x277CC08F0], 0.0))
   {
-    v17 = *(a1 + 480);
-    v16 = *(a1 + 488);
-    while (v17 != v16)
+    v18 = *(a1 + 480);
+    v17 = *(a1 + 488);
+    while (v18 != v17)
     {
-      (*(*(*v17 + 16) + 440))(*v17 + 16, a2, a3);
-      v17 += 8;
+      (*(*(*v18 + 16) + 440))(*v18 + 16, a2, a3);
+      v18 += 8;
     }
   }
 
-  PCHashWriteStream::setHash(v8, &v20);
-  OZLockingGroup::WriteSentry::~WriteSentry(v21);
+  PCHashWriteStream::setHash(v8, &v21);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v22);
 }
 
-void sub_25FB3A99C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB3A99C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v3 = va_arg(va1, void);
-  v5 = va_arg(va1, void *);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v4 = va_arg(va1, void);
+  v6 = va_arg(va1, void *);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
-  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(va, v5);
+  v10 = va_arg(va1, void);
+  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(va, v6);
   OZLockingGroup::WriteSentry::~WriteSentry(va1);
   _Unwind_Resume(a1);
 }
@@ -4857,7 +4896,7 @@ void sub_25FB3A99C(_Unwind_Exception *a1, uint64_t a2, ...)
 void TXTextStyle::calcHashForState(uint64_t a1, void *a2, CMTime *a3, uint64_t a4)
 {
   v8 = Li3DEngineScene::sceneManager(*(a1 + 48944));
-  OZLockingGroup::WriteSentry::WriteSentry(v20, v8);
+  OZLockingGroup::WriteSentry::WriteSentry(&v20, v8);
   if (!v9)
   {
     __cxa_bad_cast();
@@ -4920,24 +4959,24 @@ void TXTextStyle::calcHashForState(uint64_t a1, void *a2, CMTime *a3, uint64_t a
   }
 
   PCHashWriteStream::setHash(v10, &v18);
-  OZLockingGroup::WriteSentry::~WriteSentry(v20);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v20);
 }
 
-void sub_25FB3ABF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FB3ABF8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va1, a5);
-  va_start(va, a5);
-  v6 = va_arg(va1, void);
-  v8 = va_arg(va1, void *);
-  v9 = va_arg(va1, void);
-  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(va, v8);
+  va_start(va1, a9);
+  va_start(va, a9);
+  v10 = va_arg(va1, void);
+  v12 = va_arg(va1, void *);
+  v13 = va_arg(va1, void);
+  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(va, v12);
   OZLockingGroup::WriteSentry::~WriteSentry(va1);
   _Unwind_Resume(a1);
 }
 
 uint64_t TXTextStyle::calcHashForStateAffectingLayout(TXTextStyle *this, PCSerializerWriteStream *a2, const CMTime *a3)
 {
-  OZChannelFontBase::getValidatedFontName((this + 1304), &v7);
+  OZChannelFontBase::getValidatedFontName(&v7, (this + 1304));
   (*(*a2 + 104))(a2, &v7);
   PCString::~PCString(&v7);
   (*(*(this + 67) + 448))(this + 536, a2, a3);
@@ -5070,7 +5109,7 @@ char *TXTextStyle::getGradientChannel(TXTextStyle *this, int a2)
   }
 }
 
-uint64_t TXTextStyle::getGradient(TXTextStyle *this, int a2, CMTime *a3, const FxColorDescription *a4)
+uint64_t TXTextStyle::getGradient(TXTextStyle *this, int a2, CMTime *a3, FxColorDescription *a4)
 {
   v4 = 0;
   if (a2 > 1)
@@ -5157,7 +5196,7 @@ uint64_t TXTextStyle::prerollBeginForNode(uint64_t a1, uint64_t a2, const OZRend
   v20 = 0uLL;
   v21 = 0;
   v17[0] = *a3;
-  OZChannelImageWithOptions::getFrame(a2, v17, &v20);
+  OZChannelImageWithOptions::getFrame(&v20, a2, v17);
   OZRenderParams::OZRenderParams(v17, a3);
   *&v17[0].value = v20;
   v18 = 0;
@@ -5191,7 +5230,7 @@ uint64_t TXTextStyle::prerollEndForNode(TXTextStyle *this, OZChannelImageWithOpt
   v16 = 0uLL;
   v17 = 0;
   v13[0] = *a3;
-  OZChannelImageWithOptions::getFrame(a2, v13, &v16);
+  OZChannelImageWithOptions::getFrame(&v16, a2, v13);
   OZRenderParams::OZRenderParams(v13, a3);
   *&v13[0].value = v16;
   v14 = 0;
@@ -5225,7 +5264,7 @@ uint64_t TXTextStyle::setRateForNode(TXTextStyle *this, OZChannelImageWithOption
   v18 = 0uLL;
   v19 = 0;
   v15[0] = *a3;
-  OZChannelImageWithOptions::getFrame(a2, v15, &v18);
+  OZChannelImageWithOptions::getFrame(&v18, a2, v15);
   OZRenderParams::OZRenderParams(v15, a3);
   *&v15[0].value = v18;
   v16 = 0;
@@ -5261,7 +5300,7 @@ uint64_t TXTextStyle::scheduleTokensForNode(uint64_t a1, uint64_t a2, CMTime *a3
   v43 = 0uLL;
   v44 = 0;
   v40 = *a3;
-  OZChannelImageWithOptions::getFrame(a2, &v40, &v43);
+  OZChannelImageWithOptions::getFrame(&v43, a2, &v40);
   OZRenderParams::OZRenderParams(&v40, a3);
   *&v40.value = v43;
   v41 = 0;
@@ -5295,7 +5334,7 @@ uint64_t TXTextStyle::scheduleTokensForNode(uint64_t a1, uint64_t a2, CMTime *a3
           *&v36.value = v26;
           v34 = 0uLL;
           v35 = 0;
-          OZChannelImageWithOptions::getFrame(a2, &v36, &v34);
+          OZChannelImageWithOptions::getFrame(&v34, a2, &v36);
           v27 = *(v37 + 48 * v17 + 24) + 24 * v23;
           v28 = v34;
           *(v27 + 16) = v35;
@@ -5322,19 +5361,19 @@ uint64_t TXTextStyle::scheduleTokensForNode(uint64_t a1, uint64_t a2, CMTime *a3
   return v30;
 }
 
-void sub_25FB3BBA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_25FB3BBA8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va2, a7);
-  va_start(va1, a7);
-  va_start(va, a7);
+  va_start(va2, a13);
+  va_start(va1, a13);
+  va_start(va, a13);
   va_arg(va1, void);
-  v10 = va_arg(va1, void);
-  v11 = va_arg(va1, void);
+  v16 = va_arg(va1, void);
+  v17 = va_arg(va1, void);
   va_copy(va2, va1);
-  v12 = va_arg(va2, void);
-  v14 = va_arg(va2, void);
-  v15 = va_arg(va2, void);
-  va_copy(v8, va1);
+  v18 = va_arg(va2, void);
+  v20 = va_arg(va2, void);
+  v21 = va_arg(va2, void);
+  va_copy(v14, va1);
   std::vector<std::pair<CMTime,std::vector<CMTime>>>::__destroy_vector::operator()[abi:ne200100](va);
   OZRenderParams::~OZRenderParams(va2);
   _Unwind_Resume(a1);
@@ -5364,7 +5403,7 @@ uint64_t TXTextStyle::hintTokensWillImageForNode(uint64_t a1, uint64_t a2, CMTim
   v40 = 0uLL;
   v41 = 0;
   v37 = *a3;
-  OZChannelImageWithOptions::getFrame(a2, &v37, &v40);
+  OZChannelImageWithOptions::getFrame(&v40, a2, &v37);
   OZRenderParams::OZRenderParams(&v37, a3);
   *&v37.value = v40;
   v38 = 0;
@@ -5398,7 +5437,7 @@ uint64_t TXTextStyle::hintTokensWillImageForNode(uint64_t a1, uint64_t a2, CMTim
           *&v33.value = v24;
           v31 = 0uLL;
           v32 = 0;
-          OZChannelImageWithOptions::getFrame(a2, &v33, &v31);
+          OZChannelImageWithOptions::getFrame(&v31, a2, &v33);
           v25 = *(v34 + 48 * v15 + 24) + 24 * v21;
           v26 = v31;
           *(v25 + 16) = v32;
@@ -5425,19 +5464,19 @@ uint64_t TXTextStyle::hintTokensWillImageForNode(uint64_t a1, uint64_t a2, CMTim
   return v28;
 }
 
-void sub_25FB3BED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FB3BED4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
   va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   va_copy(va2, va1);
-  v10 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
-  va_copy(v6, va1);
+  v14 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
+  v17 = va_arg(va2, void);
+  va_copy(v10, va1);
   std::vector<std::pair<CMTime,std::vector<CMTime>>>::__destroy_vector::operator()[abi:ne200100](va);
   OZRenderParams::~OZRenderParams(va2);
   _Unwind_Resume(a1);
@@ -5467,7 +5506,7 @@ uint64_t TXTextStyle::getTokensImageForNode(uint64_t a1, uint64_t a2, CMTime *a3
   v40 = 0uLL;
   v41 = 0;
   v37 = *a3;
-  OZChannelImageWithOptions::getFrame(a2, &v37, &v40);
+  OZChannelImageWithOptions::getFrame(&v40, a2, &v37);
   OZRenderParams::OZRenderParams(&v37, a3);
   *&v37.value = v40;
   v38 = 0;
@@ -5501,7 +5540,7 @@ uint64_t TXTextStyle::getTokensImageForNode(uint64_t a1, uint64_t a2, CMTime *a3
           *&v33.value = v24;
           v31 = 0uLL;
           v32 = 0;
-          OZChannelImageWithOptions::getFrame(a2, &v33, &v31);
+          OZChannelImageWithOptions::getFrame(&v31, a2, &v33);
           v25 = *(v34 + 48 * v15 + 24) + 24 * v21;
           v26 = v31;
           *(v25 + 16) = v32;
@@ -5528,19 +5567,19 @@ uint64_t TXTextStyle::getTokensImageForNode(uint64_t a1, uint64_t a2, CMTime *a3
   return v28;
 }
 
-void sub_25FB3C1E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_25FB3C1E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va2, a5);
-  va_start(va1, a5);
-  va_start(va, a5);
+  va_start(va2, a9);
+  va_start(va1, a9);
+  va_start(va, a9);
   va_arg(va1, void);
-  v8 = va_arg(va1, void);
-  v9 = va_arg(va1, void);
+  v12 = va_arg(va1, void);
+  v13 = va_arg(va1, void);
   va_copy(va2, va1);
-  v10 = va_arg(va2, void);
-  v12 = va_arg(va2, void);
-  v13 = va_arg(va2, void);
-  va_copy(v6, va1);
+  v14 = va_arg(va2, void);
+  v16 = va_arg(va2, void);
+  v17 = va_arg(va2, void);
+  va_copy(v10, va1);
   std::vector<std::pair<CMTime,std::vector<CMTime>>>::__destroy_vector::operator()[abi:ne200100](va);
   OZRenderParams::~OZRenderParams(va2);
   _Unwind_Resume(a1);
@@ -6407,7 +6446,7 @@ void OZChannelImageWithOptions::~OZChannelImageWithOptions(OZChannelImageWithOpt
 {
   *this = &unk_2872AF1E0;
   *(this + 2) = &unk_2872AF538;
-  OZChannelEnum::~OZChannelEnum((this + 1328));
+  OZChannelEnum::~OZChannelEnum(this + 166);
   OZChannelPosition::~OZChannelPosition((this + 624));
   OZChannelBool::~OZChannelBool((this + 472));
   OZChannel::~OZChannel((this + 320));
@@ -6428,8 +6467,8 @@ void OZChannelFontBase::~OZChannelFontBase(PCString *this)
   this[2].var0 = &unk_2872B4BD8;
   PCString::~PCString(this + 82);
   PCString::~PCString(this + 81);
-  OZChannelEnum::~OZChannelEnum(&this[49]);
-  OZChannelEnum::~OZChannelEnum(&this[17]);
+  OZChannelEnum::~OZChannelEnum(this + 49);
+  OZChannelEnum::~OZChannelEnum(this + 17);
 
   OZCompoundChannel::~OZCompoundChannel(this);
 }
@@ -6443,15 +6482,6 @@ void OZLayeredMaterial_Factory::OZLayeredMaterial_Factory(OZLayeredMaterial_Fact
   PCSingleton::PCSingleton((v2 + 16), 0);
   *this = &unk_2871F7378;
   *(this + 16) = &unk_2871F7450;
-}
-
-void OZLayeredMaterial_Factory::createMaterialCopy(OZLayeredMaterial_Factory *this, OZMaterialBase *a2)
-{
-  operator new();
-}
-
-{
-  operator new();
 }
 
 void *std::shared_ptr<OZStyle>::shared_ptr[abi:ne200100]<OZStyle,0>(void *a1, void *a2)
@@ -6651,66 +6681,66 @@ void sub_25FB40350(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void TXTextureGlyph::~TXTextureGlyph(TXTextureGlyph *this)
+void TXTextureGlyph::~TXTextureGlyph(OZChannelBase *this)
 {
-  *this = &unk_2871F7640;
-  v2 = (this + 48);
-  PCSharedMutex::lock((this + 48));
-  v3 = *(this + 3);
-  v4 = this + 32;
-  if (v3 != this + 32)
+  this->var0 = &unk_2871F7640;
+  p_var6 = &this->var6;
+  PCSharedMutex::lock(&this->var6);
+  v3 = *&this->var3;
+  p_var4 = &this->var4;
+  if (v3 != &this->var4)
   {
     do
     {
-      v5 = *(v3 + 6);
-      if (v5)
+      var6 = v3->var6;
+      if (var6)
       {
-        MEMORY[0x2666E9F00](v5, 0x1000C40A735B7EELL);
+        MEMORY[0x2666E9F00](var6, 0x1000C40A735B7EELL);
       }
 
-      *(v3 + 6) = 0;
-      v6 = *(v3 + 1);
-      if (v6)
+      v3->var6 = 0;
+      var1 = v3->var1;
+      if (var1)
       {
         do
         {
-          v7 = v6;
-          v6 = *v6;
+          var2 = var1;
+          var1 = *var1;
         }
 
-        while (v6);
+        while (var1);
       }
 
       else
       {
         do
         {
-          v7 = *(v3 + 2);
-          v8 = *v7 == v3;
-          v3 = v7;
+          var2 = v3->var2;
+          v8 = var2->var0 == v3;
+          v3 = var2;
         }
 
         while (!v8);
       }
 
-      v3 = v7;
+      v3 = var2;
     }
 
-    while (v7 != v4);
+    while (var2 != p_var4);
   }
 
-  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(this + 24, *(this + 4));
-  *(this + 4) = 0;
-  *(this + 5) = 0;
-  *(this + 3) = v4;
-  PCSharedMutex::unlock(v2);
-  PCSharedMutex::~PCSharedMutex(v2);
-  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(this + 24, *(this + 4));
+  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&this->var3, &this->var4.var0->isa);
+  this->var4.var0 = 0;
+  this->var5 = 0;
+  *&this->var3 = p_var4;
+  PCSharedMutex::unlock(p_var6);
+  PCSharedMutex::~PCSharedMutex(p_var6);
+  std::__tree<std::__value_type<int,__CVBuffer *>,std::__map_value_compare<int,std::__value_type<int,__CVBuffer *>,std::less<int>,true>,std::allocator<std::__value_type<int,__CVBuffer *>>>::destroy(&this->var3, &this->var4.var0->isa);
 
   OZChannelBase::setRangeName(this, v9);
 }
 
-void TXTextureGlyph::cacheMetrics(uint64_t a1, const PCHash128 *a2, uint64_t a3)
+void TXTextureGlyph::cacheMetrics(uint64_t a1, _DWORD *a2, uint64_t a3)
 {
   PCSharedMutex::lock((a1 + 48));
   v6 = *(a1 + 152);
@@ -6775,7 +6805,8 @@ void TXTextureGlyph::cacheMetrics(uint64_t a1, const PCHash128 *a2, uint64_t a3)
   }
 
   *(a1 + 152) = v6 + 1;
-  v13 = std::__tree<std::__value_type<PCHash128,TXTextureGlyph::CachedMetrics>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,TXTextureGlyph::CachedMetrics>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,TXTextureGlyph::CachedMetrics>>>::__emplace_unique_key_args<PCHash128,std::piecewise_construct_t const&,std::tuple<PCHash128 const&>,std::tuple<>>(a1 + 24, a2);
+  v14 = a2;
+  v13 = std::__tree<std::__value_type<PCHash128,TXTextureGlyph::CachedMetrics>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,TXTextureGlyph::CachedMetrics>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,TXTextureGlyph::CachedMetrics>>>::__emplace_unique_key_args<PCHash128,std::piecewise_construct_t const&,std::tuple<PCHash128 const&>,std::tuple<>>((a1 + 24), a2, &std::piecewise_construct, &v14);
   *(v13 + 48) = a3;
   *(v13 + 56) = v6;
   *(v13 + 60) = 0;
@@ -6800,15 +6831,15 @@ uint64_t TXTextureGlyph::getCachedMetrics(TXTextureGlyph *this, const PCHash128 
   return v5;
 }
 
-uint64_t std::__tree<std::__value_type<PCHash128,TXTextureGlyph::CachedMetrics>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,TXTextureGlyph::CachedMetrics>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,TXTextureGlyph::CachedMetrics>>>::__emplace_unique_key_args<PCHash128,std::piecewise_construct_t const&,std::tuple<PCHash128 const&>,std::tuple<>>(uint64_t a1, const PCHash128 *a2)
+uint64_t std::__tree<std::__value_type<PCHash128,TXTextureGlyph::CachedMetrics>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,TXTextureGlyph::CachedMetrics>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,TXTextureGlyph::CachedMetrics>>>::__emplace_unique_key_args<PCHash128,std::piecewise_construct_t const&,std::tuple<PCHash128 const&>,std::tuple<>>(uint64_t **a1, const PCHash128 *a2, uint64_t a3, _DWORD **a4)
 {
-  v2 = *std::__tree<std::__value_type<PCHash128,PCRect<double>>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,PCRect<double>>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,PCRect<double>>>>::__find_equal<PCHash128>(a1, &v4, a2);
-  if (!v2)
+  v4 = *std::__tree<std::__value_type<PCHash128,PCRect<double>>,std::__map_value_compare<PCHash128,std::__value_type<PCHash128,PCRect<double>>,std::less<PCHash128>,true>,std::allocator<std::__value_type<PCHash128,PCRect<double>>>>::__find_equal<PCHash128>(a1, &v6, a2);
+  if (!v4)
   {
     operator new();
   }
 
-  return v2;
+  return v4;
 }
 
 void sub_25FB40BF4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, _Unwind_Exception *exception_object, PCString a15, PCString a16)
@@ -6866,20 +6897,20 @@ void TXTranscriptionGenerator::TXTranscriptionGenerator(TXTranscriptionGenerator
   *(this + 8178) = 0;
   *(this + 8179) = 0;
   *(this + 8177) = 0;
-  std::vector<TXTranscriptionSegment>::__init_with_size[abi:ne200100]<TXTranscriptionSegment*,TXTranscriptionSegment*>(this + 65416, *(a2 + 8177), *(a2 + 8178), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8178) - *(a2 + 8177)) >> 4));
+  std::vector<TXTranscriptionSegment>::__init_with_size[abi:ne200100]<TXTranscriptionSegment*,TXTranscriptionSegment*>(this + 8177, *(a2 + 8177), *(a2 + 8178), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8178) - *(a2 + 8177)) >> 4));
   *(this + 4090) = 0u;
   *(this + 8182) = 0;
-  std::vector<TXTranscriptionSegment>::__init_with_size[abi:ne200100]<TXTranscriptionSegment*,TXTranscriptionSegment*>(this + 65440, *(a2 + 8180), *(a2 + 8181), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8181) - *(a2 + 8180)) >> 4));
+  std::vector<TXTranscriptionSegment>::__init_with_size[abi:ne200100]<TXTranscriptionSegment*,TXTranscriptionSegment*>(this + 8180, *(a2 + 8180), *(a2 + 8181), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8181) - *(a2 + 8180)) >> 4));
   *(this + 65480) = 0u;
   *(this + 65496) = 0u;
   *(this + 65464) = 0u;
-  std::vector<TXTranscriptionSegment>::__init_with_size[abi:ne200100]<TXTranscriptionSegment*,TXTranscriptionSegment*>(this + 65488, *(a2 + 8186), *(a2 + 8187), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8187) - *(a2 + 8186)) >> 4));
+  std::vector<TXTranscriptionSegment>::__init_with_size[abi:ne200100]<TXTranscriptionSegment*,TXTranscriptionSegment*>(this + 8186, *(a2 + 8186), *(a2 + 8187), 0xAAAAAAAAAAAAAAABLL * ((*(a2 + 8187) - *(a2 + 8186)) >> 4));
   *(this + 8197) = 0;
   *(this + 65544) = 0u;
   *(this + 65560) = 0u;
   *(this + 65512) = 0u;
   *(this + 65528) = 0u;
-  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>((v5 + 1096), *(a2 + 8195), *(a2 + 8196), (*(a2 + 8196) - *(a2 + 8195)) >> 2);
+  std::vector<int>::__init_with_size[abi:ne200100]<int *,int *>(v5 + 137, *(a2 + 8195), *(a2 + 8196), (*(a2 + 8196) - *(a2 + 8195)) >> 2);
   *(v5 + 1128) = 0u;
   *(v5 + 140) = v5 + 1128;
   *(v5 + 286) = -1;
@@ -6990,9 +7021,9 @@ void TXTranscriptionGenerator::~TXTranscriptionGenerator(TXTranscriptionGenerato
   v4 = (this + 65416);
   std::vector<TXTranscriptionSegment>::__destroy_vector::operator()[abi:ne200100](&v4);
   OZChannel::~OZChannel((this + 65264));
-  OZChannelEnum::~OZChannelEnum((this + 65008));
+  OZChannelEnum::~OZChannelEnum(this + 8126);
   OZChannel::~OZChannel((this + 64856));
-  OZChannelEnum::~OZChannelEnum((this + 64600));
+  OZChannelEnum::~OZChannelEnum(this + 8075);
   OZChannelFolder::~OZChannelFolder((this + 64472));
   TXFileLoadingGenerator::~TXFileLoadingGenerator(this);
 }
@@ -7054,7 +7085,7 @@ void non-virtual thunk toTXTranscriptionGenerator::~TXTranscriptionGenerator(TXT
   JUMPOUT(0x2666E9F00);
 }
 
-OZNotificationManager *TXTranscriptionGenerator::notify(TXTranscriptionGenerator *this, char a2)
+TXTextLayout *TXTranscriptionGenerator::notify(TXTranscriptionGenerator *this, char a2)
 {
   result = TXTextLayout::notify(this, a2);
   if ((a2 & 8) != 0)
@@ -7075,7 +7106,7 @@ OZNotificationManager *TXTranscriptionGenerator::notify(TXTranscriptionGenerator
   return result;
 }
 
-BOOL TXTranscriptionGenerator::isEmpty(TXTranscriptionGenerator *this)
+uint64_t TXTranscriptionGenerator::isEmpty(TXTranscriptionGenerator *this)
 {
   v1 = *(this + 8177);
   v2 = *(this + 8178);
@@ -7309,14 +7340,14 @@ double TXTranscriptionGenerator::generateString(TXTranscriptionGenerator *this, 
     }
 
     TXTranscriptionGenerator::computeActiveTranscriptionFromBlocks(this, &v29);
-    TXTranscriptionGenerator::generateStringByBlock(this, &v29, &time1);
+    TXTranscriptionGenerator::generateStringByBlock(&time1, this, &v29);
     PCString::set(a2, &time1);
   }
 
   else
   {
     TXTranscriptionGenerator::computeActiveTranscriptionFromWordSegments(this, &v29);
-    TXTranscriptionGenerator::generateStringByWord(this, &time1);
+    TXTranscriptionGenerator::generateStringByWord(&time1, this);
     PCString::set(a2, &time1);
   }
 
@@ -7591,13 +7622,13 @@ void TXTranscriptionGenerator::computeTranscriptionBlocks(TXTranscriptionGenerat
 
               else
               {
-                PCString::substr(&v57, 0, v30 - v32, &v56.var0);
+                PCString::substr(&v56.var0, &v57, 0, v30 - v32);
                 PCString::append(&time, &v56);
                 *(&v59 + 1) += v48;
                 v49 = *&time.timescale + *&time.epoch;
                 v50 = (*(v31 + 8) + *(v31 + 16) - (*&time.timescale + *&time.epoch)) * (v48 / *(v31 + 32));
                 *&time.epoch = *&time.epoch + v50;
-                PCString::substr(&v57, v30 - v32, v47 - v48, &v55.var0);
+                PCString::substr(&v55.var0, &v57, v30 - v32, v47 - v48);
                 PCString::set(&v57, &v55);
                 PCString::~PCString(&v55);
                 v41 = v49 + v50;
@@ -7691,8 +7722,9 @@ void TXTranscriptionGenerator::computeTranscriptionBlocks(TXTranscriptionGenerat
   }
 }
 
-void sub_25FB42650(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, PCString a12, PCString a13, PCString a14, PCString a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, char a25)
+void sub_25FB42650(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, PCString a12, PCString a13, PCString a14, PCString a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, void *__p, uint64_t a23, uint64_t a24, ...)
 {
+  va_start(va, a24);
   PCString::~PCString(&a15);
   if (__p)
   {
@@ -7700,7 +7732,7 @@ void sub_25FB42650(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
     operator delete(__p);
   }
 
-  PCArray<unsigned long,PCArray_Traits<unsigned long>>::~PCArray(&a25);
+  PCArray<unsigned long,PCArray_Traits<unsigned long>>::~PCArray(va);
   _Unwind_Resume(a1);
 }
 
@@ -7712,8 +7744,8 @@ void TXTranscriptionGenerator::computeActiveTranscriptionFromBlocks(PCString *th
   v5 = this + 8177;
   v33 = 0u;
   v32 = 0u;
-  LOBYTE(v34) = 1;
-  HIDWORD(v34) = 0;
+  LOBYTE(info) = 1;
+  HIDWORD(info) = 0;
   var0 = this[8189].var0;
   v7 = this[8190].var0;
   while (var0 != v7)
@@ -7721,15 +7753,15 @@ void TXTranscriptionGenerator::computeActiveTranscriptionFromBlocks(PCString *th
     if (TXTranscriptionGenerator::isBlockActiveAtTime(this, var0, a2))
     {
       PCString::set(&v31, var0);
-      v8 = *(var0 + 8);
-      v9 = *(var0 + 24);
-      v34 = *(var0 + 40);
+      v8 = *&var0->info;
+      v9 = *&var0->length;
+      info = var0[1].info;
       v33 = v9;
       v32 = v8;
       break;
     }
 
-    var0 += 48;
+    var0 = (var0 + 48);
   }
 
   PCString::PCString(&v27, &v31);
@@ -7807,7 +7839,7 @@ void TXTranscriptionGenerator::computeActiveTranscriptionFromBlocks(PCString *th
     v22 = v33;
     *&this[8250].var0 = v32;
     *&this[8252].var0 = v22;
-    this[8254].var0 = v34;
+    this[8254].var0 = info;
     _Block_object_dispose(v25, 8);
     _Block_object_dispose(&v27, 8);
   }
@@ -7816,7 +7848,7 @@ void TXTranscriptionGenerator::computeActiveTranscriptionFromBlocks(PCString *th
   OZLockingGroup::WriteSentry::~WriteSentry(v35);
 }
 
-void sub_25FB42994(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, PCString a23, uint64_t a24, uint64_t a25, uint64_t a26, PCString a27)
+void sub_25FB42994(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, PCString a23, uint64_t a24, uint64_t a25, uint64_t a26, PCString a27)
 {
   _Block_object_dispose(&a19, 8);
   _Block_object_dispose(&a23, 8);
@@ -7825,9 +7857,9 @@ void sub_25FB42994(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void TXTranscriptionGenerator::generateStringByBlock(TXTranscriptionGenerator *this@<X0>, CMTime *a2@<X1>, PCSharedCount *a3@<X8>)
+void TXTranscriptionGenerator::generateStringByBlock(PCSharedCount *__return_ptr a1@<X8>, TXTranscriptionGenerator *this@<X0>, CMTime *a3@<X1>)
 {
-  PCSharedCount::PCSharedCount(a3);
+  PCSharedCount::PCSharedCount(a1);
   v10 = *(this + 65720);
   Seconds = CMTimeGetSeconds(&v10);
   v7 = *(this + 8189);
@@ -7837,9 +7869,9 @@ void TXTranscriptionGenerator::generateStringByBlock(TXTranscriptionGenerator *t
     v9 = Seconds;
     do
     {
-      if (*(v7 + 8) >= v9 && TXTranscriptionGenerator::isBlockActiveAtTime(this, v7, a2))
+      if (*(v7 + 8) >= v9 && TXTranscriptionGenerator::isBlockActiveAtTime(this, v7, a3))
       {
-        PCString::append(a3, v7);
+        PCString::append(a1, v7);
       }
 
       v7 += 48;
@@ -7852,7 +7884,7 @@ void TXTranscriptionGenerator::generateStringByBlock(TXTranscriptionGenerator *t
 void TXTranscriptionGenerator::computeActiveTranscriptionFromWordSegments(TXTranscriptionGenerator *this, CMTime *a2)
 {
   v4 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v23, v4);
+  OZLockingGroup::WriteSentry::WriteSentry(&v23, v4);
   time = *(this + 65720);
   Seconds = CMTimeGetSeconds(&time);
   v6 = *(this + 8181);
@@ -7910,42 +7942,49 @@ void TXTranscriptionGenerator::computeActiveTranscriptionFromWordSegments(TXTran
     while (v8 != v9);
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v23);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v23);
 }
 
-void TXTranscriptionGenerator::generateStringByWord(TXTranscriptionGenerator *this@<X0>, PCSharedCount *a2@<X8>)
+void sub_25FB42C80(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, PCString a10, PCString a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  v4 = this + 65440;
-  PCSharedCount::PCSharedCount(a2);
-  v5 = *v4;
-  v6 = *(v4 + 1);
-  if (*v4 != v6)
+  va_start(va, a17);
+  OZLockingGroup::WriteSentry::~WriteSentry(va);
+  _Unwind_Resume(a1);
+}
+
+void TXTranscriptionGenerator::generateStringByWord(PCSharedCount *__return_ptr a1@<X8>, TXTranscriptionGenerator *this@<X0>)
+{
+  v3 = this + 65440;
+  PCSharedCount::PCSharedCount(a1);
+  v4 = *v3;
+  v5 = *(v3 + 1);
+  if (*v3 != v5)
   {
-    v7 = 1;
+    v6 = 1;
     do
     {
-      if ((v4[232] & 1) == 0 && (v7 & 1) == 0)
+      if ((v3[232] & 1) == 0 && (v6 & 1) == 0)
       {
-        PCString::append(a2, " ");
+        PCString::append(a1, " ");
       }
 
-      PCString::append(a2, v5);
-      v7 = [(__CFString *)PCString::ns_str(v5) hasSuffix:@"\n"];
-      v5 += 6;
+      PCString::append(a1, v4);
+      v6 = [(__CFString *)PCString::ns_str(v4) hasSuffix:@"\n"];
+      v4 += 6;
     }
 
-    while (v5 != v6);
+    while (v4 != v5);
   }
 }
 
 void TXTranscriptionGenerator::invalidateTranscriptionByLineCache(TXTranscriptionGenerator *this)
 {
   v2 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v4, v2);
+  OZLockingGroup::WriteSentry::WriteSentry(&v4, v2);
   v3 = MEMORY[0x277CC0898];
   *(this + 65612) = *MEMORY[0x277CC0898];
   *(this + 65628) = *(v3 + 16);
-  OZLockingGroup::WriteSentry::~WriteSentry(v4);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v4);
 }
 
 BOOL TXTranscriptionGenerator::isSegmentActiveAtTime(TXTranscriptionGenerator *a1, uint64_t a2, CMTime *a3)
@@ -8150,7 +8189,7 @@ void TXTranscriptionGenerator::loadFile(TXTranscriptionGenerator *this)
   *v2 = [v12 fileModificationDate];
 }
 
-uint64_t TXTranscriptionGenerator::loadTranscription(TXTranscriptionGenerator *this, __CFString *a2)
+void *TXTranscriptionGenerator::loadTranscription(TXTranscriptionGenerator *this, __CFString *a2)
 {
   v34 = *MEMORY[0x277D85DE8];
   v3 = [(__CFString *)a2 componentsSeparatedByString:@"|"];
@@ -8230,7 +8269,7 @@ uint64_t TXTranscriptionGenerator::loadTranscription(TXTranscriptionGenerator *t
           std::vector<int>::push_back[abi:ne200100](this + 8195, &v32);
         }
 
-        ++v7;
+        v7 = v7 + 1;
       }
 
       while (v5 != v7);
@@ -8286,12 +8325,12 @@ void TXTranscriptionGenerator::loadText(TXTranscriptionGenerator *this, __CFStri
   _Block_object_dispose(v11, 8);
 }
 
-void sub_25FB43838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_25FB43838(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
-  _Block_object_dispose((v13 - 64), 8);
+  _Block_object_dispose((v20 - 96), 8);
+  _Block_object_dispose((v20 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -8383,8 +8422,8 @@ void TXTranscriptionGenerator::transcriptionDuration(TXTranscriptionGenerator *t
   v10 = (*(*(this + 25) + 272))(this + 200);
   if (v10)
   {
-    OZSceneSettings::getFrameDuration((v10 + 336), &v18);
-    operator*(300, &v18, &v19);
+    OZSceneSettings::getFrameDuration(&v18, (v10 + 336));
+    operator*(&v19, 300, &v18);
   }
 
   OZRenderState::OZRenderState(&v18);
@@ -8607,7 +8646,7 @@ unint64_t TXTranscriptionGenerator::invalidateSequenceBehaviorCache(unint64_t th
 __n128 TXTranscriptionGenerator::resetTranscription(TXTranscriptionGenerator *this)
 {
   v2 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v16, v2);
+  OZLockingGroup::WriteSentry::WriteSentry(&v16, v2);
   (*(*this + 544))(this);
   v4 = *(this + 8177);
     ;
@@ -8644,13 +8683,13 @@ __n128 TXTranscriptionGenerator::resetTranscription(TXTranscriptionGenerator *th
   *(this + 65652) = v14;
   *(this + 8214) = 0;
   *(this + 8223) = 0;
-  OZLockingGroup::WriteSentry::~WriteSentry(v16);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v16);
   return result;
 }
 
-void sub_25FB44420(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB44420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
@@ -8658,15 +8697,15 @@ void sub_25FB44420(_Unwind_Exception *a1, uint64_t a2, ...)
 void TXTranscriptionGenerator::resetToDefault(TXTranscriptionGenerator *this)
 {
   v2 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v3, v2);
+  OZLockingGroup::WriteSentry::WriteSentry(&v3, v2);
   (*(*this + 1248))(this);
   (*(*this + 1240))(this);
-  OZLockingGroup::WriteSentry::~WriteSentry(v3);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v3);
 }
 
-void sub_25FB444EC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB444EC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
@@ -8706,7 +8745,7 @@ void TXTranscriptionGenerator::setTranscription(PCString *this, void *a2, __CFSt
 void TXTranscriptionGenerator::setTranscriptionArray(TXTranscriptionGenerator *this, void *a2, __CFString *a3, int a4)
 {
   v8 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v9, v8);
+  OZLockingGroup::WriteSentry::WriteSentry(&v9, v8);
   *(this + 65672) = 1;
   if (a4)
   {
@@ -8718,17 +8757,17 @@ void TXTranscriptionGenerator::setTranscriptionArray(TXTranscriptionGenerator *t
     TXTranscriptionGenerator::updateLiveTranscription(this, a2, a3);
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v9);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v9);
 }
 
-void sub_25FB4472C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB4472C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t TXTranscriptionGenerator::setTranscriptionObject(TXTranscriptionGenerator *this, void *a2, const CMTime *a3, int a4)
+void *TXTranscriptionGenerator::setTranscriptionObject(TXTranscriptionGenerator *this, void *a2, const CMTime *a3, int a4)
 {
   v64 = *MEMORY[0x277D85DE8];
   v6 = (this + 61440);
@@ -8774,14 +8813,14 @@ uint64_t TXTranscriptionGenerator::setTranscriptionObject(TXTranscriptionGenerat
           v33 = [v32 substring];
           [v32 timestamp];
           v35 = v34;
-          [v32 duration];
+          objc_msgSend_duration(v32);
           v37 = v36;
           [v32 confidence];
           NSLog(&cfstr_SegmentTimesta.isa, v33, v35, v37, v38);
           PCURL::PCURL(&v48, [v32 substring]);
           [v32 timestamp];
           v40 = v39;
-          [v32 duration];
+          objc_msgSend_duration(v32);
           v42 = v41;
           v43 = [v32 substringRange];
           [v32 substringRange];
@@ -8796,7 +8835,7 @@ uint64_t TXTranscriptionGenerator::setTranscriptionObject(TXTranscriptionGenerat
           PCString::~PCString(&v48);
           std::vector<TXTranscriptionSegment>::push_back[abi:ne200100](this + 65416, &time);
           PCString::~PCString(&time);
-          ++v31;
+          v31 = v31 + 1;
         }
 
         while (v29 != v31);
@@ -8849,7 +8888,7 @@ uint64_t TXTranscriptionGenerator::setTranscriptionObject(TXTranscriptionGenerat
             }
 
             v20 = (*(*(this + 25) + 272))(this + 200);
-            OZSceneSettings::getFrameDuration((v20 + 336), &v48);
+            OZSceneSettings::getFrameDuration(&v48, (v20 + 336));
             ValueAsInt = OZChannel::getValueAsInt((this + 64856), MEMORY[0x277CC08F0], 0.0);
             operator*(&v48, ValueAsInt, &time);
             v22 = CMTimeGetSeconds(&time);
@@ -8874,7 +8913,7 @@ uint64_t TXTranscriptionGenerator::setTranscriptionObject(TXTranscriptionGenerat
             v10 += 48;
           }
 
-          ++v15;
+          v15 = v15 + 1;
         }
 
         while (v13 != v15);
@@ -8889,7 +8928,7 @@ uint64_t TXTranscriptionGenerator::setTranscriptionObject(TXTranscriptionGenerat
   return result;
 }
 
-uint64_t TXTranscriptionGenerator::setFinalTranscription(TXTranscriptionGenerator *this, void *a2, __CFString *a3)
+void *TXTranscriptionGenerator::setFinalTranscription(TXTranscriptionGenerator *this, void *a2, __CFString *a3)
 {
   v25 = this;
   v50 = *MEMORY[0x277D85DE8];
@@ -8950,7 +8989,7 @@ uint64_t TXTranscriptionGenerator::setFinalTranscription(TXTranscriptionGenerato
             if (v12 - *(v18 - 40) > 1.0 && v19 != 0)
             {
               LODWORD(v37.var0) = v34 + 1;
-              std::__tree<int>::__emplace_unique_key_args<int,int>(v25 + 65584, &v37);
+              std::__tree<int>::__emplace_unique_key_args<int,int>(v25 + 65584, &v37, &v37);
               std::vector<int>::push_back[abi:ne200100](v25 + 8195, &v48);
               if (ValueAsInt == 2)
               {
@@ -8968,7 +9007,7 @@ uint64_t TXTranscriptionGenerator::setFinalTranscription(TXTranscriptionGenerato
             if ([a2 count] == v32 + 1)
             {
               LODWORD(v37.var0) = [(__CFString *)v17 length]+ v34 + 1;
-              std::__tree<int>::__emplace_unique_key_args<int,int>(v25 + 65584, &v37);
+              std::__tree<int>::__emplace_unique_key_args<int,int>(v25 + 65584, &v37, &v37);
               LODWORD(v37.var0) = v48 + 1;
               std::vector<int>::push_back[abi:ne200100](v25 + 8195, &v37);
               if (ValueAsInt == 2)
@@ -9027,7 +9066,7 @@ LABEL_22:
             ++v32;
           }
 
-          ++v8;
+          v8 = v8 + 1;
         }
 
         while (v31 != v8);
@@ -9136,7 +9175,14 @@ void TXTranscriptionGenerator::updateLiveTranscription(TXTranscriptionGenerator 
   }
 }
 
-uint64_t TXTranscriptionGenerator::setFinalTranscription(TXTranscriptionGenerator *this, void *a2)
+void sub_25FB453A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, ...)
+{
+  va_start(va, a27);
+  OZLockingGroup::WriteSentry::~WriteSentry(va);
+  _Unwind_Resume(a1);
+}
+
+void *TXTranscriptionGenerator::setFinalTranscription(TXTranscriptionGenerator *this, void *a2)
 {
   v33 = *MEMORY[0x277D85DE8];
   (*(*this + 1248))(this);
@@ -9226,7 +9272,7 @@ LABEL_17:
         ++v31;
         v7 += v18 + 1;
         PCString::~PCString(&v20);
-        ++v9;
+        v9 = v9 + 1;
       }
 
       while (v6 != v9);
@@ -9241,7 +9287,7 @@ LABEL_17:
   return result;
 }
 
-uint64_t TXTranscriptionGenerator::updateWordDuringLiveTranscription(uint64_t a1, __CFString *a2, __CFString *a3, uint64_t *a4, uint64_t a5, double a6, double a7)
+char *TXTranscriptionGenerator::updateWordDuringLiveTranscription(uint64_t a1, __CFString *a2, __CFString *a3, uint64_t *a4, uint64_t a5, double a6, double a7)
 {
   v11 = *a4;
   if (*a4 != *(a1 + 65416))
@@ -9267,7 +9313,7 @@ uint64_t TXTranscriptionGenerator::updateWordDuringLiveTranscription(uint64_t a1
   *(v11 + 32) = [(__CFString *)a2 length];
   *(v11 + 8) = a6;
   *(v11 + 16) = a7;
-  return [(__CFString *)a2 length]+ a5;
+  return ([(__CFString *)a2 length]+ a5);
 }
 
 uint64_t TXTranscriptionGenerator::addWordDuringLiveTranscription(TXTranscriptionGenerator *this, __CFString *a2, const __CFString *a3, double a4, uint64_t a5)
@@ -9275,7 +9321,7 @@ uint64_t TXTranscriptionGenerator::addWordDuringLiveTranscription(TXTranscriptio
   v10 = MEMORY[0x277CC08F0];
   ValueAsInt = OZChannel::getValueAsInt((this + 65008), MEMORY[0x277CC08F0], 0.0);
   v12 = (*(*(this + 25) + 272))(this + 200);
-  OZSceneSettings::getFrameDuration((v12 + 336), &v26);
+  OZSceneSettings::getFrameDuration(&v26, (v12 + 336));
   v13 = OZChannel::getValueAsInt((this + 64856), v10, 0.0);
   operator*(&v26, v13, &time);
   Seconds = CMTimeGetSeconds(&time);
@@ -9365,7 +9411,7 @@ PCString *std::vector<TXTranscriptionSegment>::erase(uint64_t a1, PCString *this
   return this;
 }
 
-void **TXTranscriptionGenerator::getTranscriptionByLine(TXTranscriptionGenerator *this)
+PCString **TXTranscriptionGenerator::getTranscriptionByLine(TXTranscriptionGenerator *this)
 {
   v1 = this + 61440;
   v2 = (this + 65464);
@@ -9463,8 +9509,8 @@ void TXTranscriptionGenerator::computeTranscriptionByLine(Li3DEngineScene *a1@<X
 
           v23 = v22 + v11;
           v24 = v13 - (v22 + v11);
-          PCString::substr(&v35, v13 - v23, v23, &v34.var0);
-          PCString::substr(&v35, 0, v13 - v23, &v33.var0);
+          PCString::substr(&v34.var0, &v35, v13 - v23, v23);
+          PCString::substr(&v33.var0, &v35, 0, v13 - v23);
           PCString::set(&v35, &v33);
           PCString::~PCString(&v33);
           if ([-[__CFString stringByTrimmingCharactersInSet:](PCString::ns_str(&v35) stringByTrimmingCharactersInSet:{objc_msgSend(MEMORY[0x277CCA900], "whitespaceCharacterSet")), "length"}])
@@ -9562,11 +9608,12 @@ void TXTranscriptionGenerator::computeTranscriptionByLine(Li3DEngineScene *a1@<X
   OZLockingGroup::WriteSentry::~WriteSentry(v43);
 }
 
-void sub_25FB45F7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __CFString *a13, PCString a14, PCString a15, PCString a16, PCString a17, PCString a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, char a25)
+void sub_25FB45F7C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, __CFString *a13, PCString a14, PCString a15, PCString a16, PCString a17, PCString a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, ...)
 {
+  va_start(va, a24);
   a18.var0 = a13;
   std::vector<TXTranscriptionSegment>::__destroy_vector::operator()[abi:ne200100](&a18);
-  OZLockingGroup::WriteSentry::~WriteSentry(&a25);
+  OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
 
@@ -9595,29 +9642,29 @@ char *TXTranscriptionGenerator::getTranscriptionByBlock(TXTranscriptionGenerator
 {
   v4 = this + 61440;
   v5 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v7, v5);
+  OZLockingGroup::WriteSentry::WriteSentry(&v7, v5);
   if (*(v4 + 509) == *(v4 + 510))
   {
     TXTranscriptionGenerator::computeTranscriptionBlocks(this, a2);
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v7);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v7);
   return v4 + 4072;
 }
 
-void sub_25FB4615C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25FB4615C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
 
 uint64_t TXTranscriptionGenerator::getLineBreaksForEntireString(TXTranscriptionGenerator *this, const CMTime *a2)
 {
-  PCSharedCount::PCSharedCount(&v14);
-  *&v13.var0.var0 = *(this + 65720);
-  v13.var0.var3 = *(this + 8217);
-  Seconds = CMTimeGetSeconds(&v13);
+  PCSharedCount::PCSharedCount(&v16);
+  *&v15.var0.var0 = *(this + 65720);
+  v15.var0.var3 = *(this + 8217);
+  Seconds = CMTimeGetSeconds(&v15);
   v5 = *(this + 8177);
   v6 = *(this + 8178);
   if (v5 != v6)
@@ -9627,9 +9674,9 @@ uint64_t TXTranscriptionGenerator::getLineBreaksForEntireString(TXTranscriptionG
     {
       if (*(v5 + 40) == 1 && *(v5 + 8) >= v7)
       {
-        PCString::PCString(&v13, v5);
-        PCString::append(&v14, &v13);
-        PCString::~PCString(&v13);
+        PCString::PCString(&v15, v5);
+        PCString::append(&v16, &v15);
+        PCString::~PCString(&v15);
       }
 
       v5 += 48;
@@ -9639,23 +9686,23 @@ uint64_t TXTranscriptionGenerator::getLineBreaksForEntireString(TXTranscriptionG
   }
 
   TXTextLayout::resetState(this);
-  TXTextLayout::setString(this, &v14, 1);
-  v9 = PCString::size(&v14);
+  TXTextLayout::setString(this, &v16, 1);
+  v9 = PCString::size(&v16);
   TXTextLayout::updateStyleRunsAfterTextInsert(this, 0, v9);
   TXTextLayout::updateDisplayString(this, a2);
   v10 = *(*(this + 2422) + 16);
-  TXTextLayout::getDisplayString(this, &v13);
-  v11 = PCString::size(&v13);
+  TXTextLayout::getDisplayString(this, &v15);
+  v11 = PCString::size(&v15);
   *(v10 + 24) = 0;
   *(v10 + 28) = v11;
-  PCString::~PCString(&v13);
+  PCString::~PCString(&v15);
   TXTextLayout::rebuildParagraphStyles(this);
   TXTextLayout::setAllParagraphsDirty(this);
-  OZRenderState::OZRenderState(&v13);
-  *&v13.var0.var0 = *&a2->value;
-  v13.var0.var3 = a2->epoch;
-  TXTextLayout::doLayout(this, &v13, 0);
-  PCString::~PCString(&v14);
+  OZRenderState::OZRenderState(&v15);
+  *&v15.var0.var0 = *&a2->value;
+  v15.var0.var3 = a2->epoch;
+  TXTextLayout::doLayout(this, &v15, 0, v12, v13);
+  PCString::~PCString(&v16);
   return this + 52200;
 }
 
@@ -9707,7 +9754,7 @@ LABEL_8:
 uint64_t TXTranscriptionGenerator::getActiveTranscriptionByBlock(TXTranscriptionGenerator *this, CMTime *a2)
 {
   v4 = Li3DEngineScene::sceneManager(this);
-  OZLockingGroup::WriteSentry::WriteSentry(v17, v4);
+  OZLockingGroup::WriteSentry::WriteSentry(&v17, v4);
   v14 = *a2;
   time2 = *(this + 65636);
   if (CMTimeCompare(&v14, &time2))
@@ -9754,18 +9801,19 @@ LABEL_10:
     *(this + 65636) = v12;
   }
 
-  OZLockingGroup::WriteSentry::~WriteSentry(v17);
+  OZLockingGroup::WriteSentry::~WriteSentry(&v17);
   return this + 0x10000;
 }
 
-void sub_25FB464F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, char a16)
+void sub_25FB464F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
+  va_start(va, a15);
   PCString::~PCString(&a9);
-  OZLockingGroup::WriteSentry::~WriteSentry(&a16);
+  OZLockingGroup::WriteSentry::~WriteSentry(va);
   _Unwind_Resume(a1);
 }
 
-void **TXTranscriptionGenerator::getTranscriptionByUnit(TXTranscriptionGenerator *a1, int *a2)
+PCString **TXTranscriptionGenerator::getTranscriptionByUnit(TXTranscriptionGenerator *a1, int *a2)
 {
   v2 = *a2;
   if (*a2 > 3)
@@ -9805,56 +9853,4 @@ uint64_t TXTranscriptionGenerator::getActiveTranscriptionByUnit(TXTranscriptionG
   }
 
   return TXTranscriptionGenerator::getActiveTranscriptionByBlock(a1, a3);
-}
-
-uint64_t TXTranscriptionGenerator::getWordIndexInPhrase(TXTranscriptionGenerator *this, int a2, int a3, unsigned int *a4)
-{
-  result = 0;
-  if (!a4)
-  {
-    return result;
-  }
-
-  v6 = this + 0x10000;
-  if (*(this + 8195) == *(this + 8196))
-  {
-    return result;
-  }
-
-  v9 = (*(*this + 720))(this);
-  v11 = *(v6 + 3);
-  v10 = *(v6 + 4);
-  if (v11 == v10)
-  {
-    return 0;
-  }
-
-  v12 = *v11;
-  if (v9 >= *v11)
-  {
-    v14 = (v11 + 1);
-    while (v14 != v10)
-    {
-      v13 = v12;
-      v15 = *v14++;
-      v12 = v15;
-      if (v9 < v15)
-      {
-        goto LABEL_9;
-      }
-    }
-
-    return 0;
-  }
-
-  v13 = 0;
-LABEL_9:
-  v16 = v12 + ~v9;
-  if (!a3)
-  {
-    v16 = v9 - v13;
-  }
-
-  *a4 = v16;
-  return 1;
 }

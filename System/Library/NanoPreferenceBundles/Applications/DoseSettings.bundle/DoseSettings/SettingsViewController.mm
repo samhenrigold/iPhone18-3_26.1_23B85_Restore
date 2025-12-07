@@ -10,9 +10,12 @@
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path;
 - (int64_t)preferredUserInterfaceStyle;
 - (void)_environmentalAudioExposureAboutLinkTapped;
+- (void)onboardingCompletedWithEnabled:(BOOL)enabled;
 - (void)setNoiseEnabled:(id)enabled forSpecifier:(id)specifier;
 - (void)setNotificationCoalescingValue:(id)value specifier:(id)specifier;
 - (void)traitCollectionDidChange:(id)change;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation SettingsViewController
@@ -47,6 +50,30 @@
   return [NSBundle bundleForClass:v2];
 }
 
+- (void)viewDidAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = SettingsViewController;
+  [(SettingsViewController *)&v7 viewDidAppear:appear];
+  v4 = +[HUNoiseSettings sharedInstance];
+  onboardingCompleted = [v4 onboardingCompleted];
+
+  if (onboardingCompleted)
+  {
+    [(SettingsViewController *)self reloadSpecifiers];
+  }
+
+  else
+  {
+    v6 = objc_alloc_init(NoiseOnboardingViewController);
+    [(NoiseOnboardingViewController *)v6 setNoiseOnboardingDelegate:self];
+    [(SettingsViewController *)self setNeedsUserInterfaceAppearanceUpdate];
+    [(SettingsViewController *)self setWelcomeController:v6];
+    [(NoiseOnboardingViewController *)v6 setModalPresentationStyle:0];
+    [(SettingsViewController *)self presentViewController:v6 animated:1 completion:0];
+  }
+}
+
 - (int64_t)preferredUserInterfaceStyle
 {
   v2 = +[HUNoiseSettings sharedInstance];
@@ -61,6 +88,28 @@
   }
 
   return v3;
+}
+
+- (void)onboardingCompletedWithEnabled:(BOOL)enabled
+{
+  enabledCopy = enabled;
+  v5 = +[HUNoiseSettings sharedInstance];
+  [v5 setOnboardingCompleted:1];
+
+  v6 = +[HUNoiseSettings sharedInstance];
+  [v6 setNoiseEnabled:enabledCopy];
+
+  v7 = +[HUNoiseSettings sharedInstance];
+  [v7 setNotificationsEnabled:enabledCopy];
+
+  welcomeController = self->_welcomeController;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_2F38;
+  v9[3] = &unk_C300;
+  v10 = enabledCopy;
+  v9[4] = self;
+  [(NoiseOnboardingViewController *)welcomeController dismissViewControllerAnimated:1 completion:v9];
 }
 
 - (id)specifiers
@@ -167,6 +216,24 @@
   }
 
   return v4;
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v12.receiver = self;
+  v12.super_class = SettingsViewController;
+  [(SettingsViewController *)&v12 viewWillAppear:appear];
+  v3 = [NSBundle bundleForClass:objc_opt_class()];
+  v4 = [_NSLocalizedStringResource alloc];
+  v5 = +[NSLocale currentLocale];
+  bundleURL = [v3 bundleURL];
+  v7 = [v4 initWithKey:@"MAIN_PANE_TITLE" table:@"Localizable" locale:v5 bundleURL:bundleURL];
+
+  bundleIdentifier = [v3 bundleIdentifier];
+  bundleIdentifier2 = [v3 bundleIdentifier];
+  v10 = [NSString stringWithFormat:@"bridge:root=%@", bundleIdentifier2];
+  v11 = [NSURL URLWithString:v10];
+  [BPSWatchSettingsNavigationDonation emitNavigationEventForApplicationSettingWithIconSpecifierIdentifier:bundleIdentifier title:v7 localizedNavigationComponents:&__NSArray0__struct deepLink:v11];
 }
 
 - (id)tableView:(id)view cellForRowAtIndexPath:(id)path

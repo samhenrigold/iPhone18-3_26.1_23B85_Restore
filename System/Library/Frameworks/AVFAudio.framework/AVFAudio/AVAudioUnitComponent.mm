@@ -23,7 +23,7 @@
 {
   if (self)
   {
-    [(AVAudioUnitComponent *)self audioComponentDescription];
+    objc_msgSend_audioComponentDescription(self, a2);
   }
 
   return !match->componentType && !match->componentSubType && match->componentManufacturer == 0;

@@ -114,11 +114,10 @@
 
   else
   {
-    v6 = self->_value;
     objc_opt_class();
-    LOBYTE(v6) = objc_opt_isKindOfClass();
+    isKindOfClass = objc_opt_isKindOfClass();
 
-    if ((v6 & 1) == 0)
+    if ((isKindOfClass & 1) == 0)
     {
       NSLog(&cfstr_FailedToConver.isa, self->_value);
     }
@@ -140,11 +139,10 @@
 
   else
   {
-    v6 = self->_value;
     objc_opt_class();
-    LOBYTE(v6) = objc_opt_isKindOfClass();
+    isKindOfClass = objc_opt_isKindOfClass();
 
-    if ((v6 & 1) == 0)
+    if ((isKindOfClass & 1) == 0)
     {
       NSLog(&cfstr_FailedToConver_0.isa, self->_value);
     }
@@ -166,11 +164,10 @@
 
   else
   {
-    v6 = self->_value;
     objc_opt_class();
-    LOBYTE(v6) = objc_opt_isKindOfClass();
+    isKindOfClass = objc_opt_isKindOfClass();
 
-    if ((v6 & 1) == 0)
+    if ((isKindOfClass & 1) == 0)
     {
       NSLog(&cfstr_FailedToConver_1.isa, self->_value);
     }
@@ -193,11 +190,10 @@
 
   else
   {
-    v6 = self->_value;
     objc_opt_class();
-    LOBYTE(v6) = objc_opt_isKindOfClass();
+    isKindOfClass = objc_opt_isKindOfClass();
 
-    if ((v6 & 1) == 0)
+    if ((isKindOfClass & 1) == 0)
     {
       NSLog(&cfstr_FailedToConver_1.isa, self->_value);
     }
@@ -220,11 +216,10 @@
 
   else
   {
-    v6 = self->_value;
     objc_opt_class();
-    LOBYTE(v6) = objc_opt_isKindOfClass();
+    isKindOfClass = objc_opt_isKindOfClass();
 
-    if ((v6 & 1) == 0)
+    if ((isKindOfClass & 1) == 0)
     {
       NSLog(&cfstr_FailedToConver_1.isa, self->_value);
     }
@@ -246,11 +241,10 @@
 
   else
   {
-    v6 = self->_value;
     objc_opt_class();
-    LOBYTE(v6) = objc_opt_isKindOfClass();
+    isKindOfClass = objc_opt_isKindOfClass();
 
-    if ((v6 & 1) == 0)
+    if ((isKindOfClass & 1) == 0)
     {
       NSLog(&cfstr_FailedToConver_1.isa, self->_value);
     }
@@ -272,11 +266,10 @@
 
   else
   {
-    v6 = self->_value;
     objc_opt_class();
-    LOBYTE(v6) = objc_opt_isKindOfClass();
+    isKindOfClass = objc_opt_isKindOfClass();
 
-    if ((v6 & 1) == 0)
+    if ((isKindOfClass & 1) == 0)
     {
       NSLog(&cfstr_FailedToConver_1.isa, self->_value);
     }
@@ -298,11 +291,10 @@
 
   else
   {
-    v6 = self->_value;
     objc_opt_class();
-    LOBYTE(v6) = objc_opt_isKindOfClass();
+    isKindOfClass = objc_opt_isKindOfClass();
 
-    if ((v6 & 1) == 0)
+    if ((isKindOfClass & 1) == 0)
     {
       NSLog(&cfstr_FailedToConver_1.isa, self->_value);
     }
@@ -324,11 +316,10 @@
 
   else
   {
-    v6 = self->_value;
     objc_opt_class();
-    LOBYTE(v6) = objc_opt_isKindOfClass();
+    isKindOfClass = objc_opt_isKindOfClass();
 
-    if ((v6 & 1) == 0)
+    if ((isKindOfClass & 1) == 0)
     {
       NSLog(&cfstr_FailedToConver_1.isa, self->_value);
     }
@@ -350,11 +341,10 @@
 
   else
   {
-    v6 = self->_value;
     objc_opt_class();
-    LOBYTE(v6) = objc_opt_isKindOfClass();
+    isKindOfClass = objc_opt_isKindOfClass();
 
-    if ((v6 & 1) == 0)
+    if ((isKindOfClass & 1) == 0)
     {
       NSLog(&cfstr_FailedToConver_2.isa, self->_value);
     }
@@ -376,11 +366,10 @@
 
   else
   {
-    v6 = self->_value;
     objc_opt_class();
-    LOBYTE(v6) = objc_opt_isKindOfClass();
+    isKindOfClass = objc_opt_isKindOfClass();
 
-    if ((v6 & 1) == 0)
+    if ((isKindOfClass & 1) == 0)
     {
       NSLog(&cfstr_FailedToConver_3.isa, self->_value);
     }
@@ -402,11 +391,10 @@
 
   else
   {
-    v6 = self->_value;
     objc_opt_class();
-    LOBYTE(v6) = objc_opt_isKindOfClass();
+    isKindOfClass = objc_opt_isKindOfClass();
 
-    if ((v6 & 1) == 0)
+    if ((isKindOfClass & 1) == 0)
     {
       NSLog(&cfstr_FailedToConver_4.isa, self->_value);
     }

@@ -1,5 +1,6 @@
 @interface CBClassicManager
 - (BOOL)isMsgAllowedAlways:(unsigned __int16)always;
+- (BOOL)secureBluetooth:(BOOL)bluetooth withAuthData:(id)data;
 - (BOOL)setBTPowerState:(BOOL)state;
 - (CBClassicManager)initWithQueue:(id)queue options:(id)options;
 - (id)classicPeerWithInfo:(id)info;
@@ -19,6 +20,7 @@
 - (void)dealloc;
 - (void)forEachClassicPeer:(id)peer;
 - (void)handleLocalDeviceStateUpdatedMsg:(id)msg;
+- (void)handleMsg:(unsigned __int16)msg args:(id)args;
 - (void)handlePeerConnectionCompleted:(id)completed;
 - (void)handlePeerConnectionStateUpdated:(id)updated;
 - (void)handlePeerDisconnectionCompleted:(id)completed;
@@ -32,6 +34,7 @@
 - (void)removeAllServicesFromInquiryList;
 - (void)removeService:(id)service;
 - (void)removeServiceFromInquiryList:(id)list;
+- (void)removeServiceHandle:(unsigned int)handle;
 - (void)setBTConnectable:(BOOL)connectable;
 - (void)setBTDiscoverable:(BOOL)discoverable;
 - (void)setTestMode:(BOOL)mode;
@@ -253,64 +256,76 @@ void __38__CBClassicManager_orphanClassicPeers__block_invoke(uint64_t a1, void *
 
 - (void)setBTConnectable:(BOOL)connectable
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   if (self->_connectable != connectable)
   {
-    v7 = @"kCBMsgArgConnectableState";
+    v6 = @"kCBMsgArgConnectableState";
     v4 = [MEMORY[0x1E696AD98] numberWithBool:?];
-    v8[0] = v4;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v7[0] = v4;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     [(CBManager *)self sendMsg:34 args:v5];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setBTDiscoverable:(BOOL)discoverable
 {
-  v8[1] = *MEMORY[0x1E69E9840];
+  v7[1] = *MEMORY[0x1E69E9840];
   if (self->_discoverable != discoverable)
   {
-    v7 = @"kCBMsgArgDiscoverableState";
+    v6 = @"kCBMsgArgDiscoverableState";
     v4 = [MEMORY[0x1E696AD98] numberWithBool:?];
-    v8[0] = v4;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
+    v7[0] = v4;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v7 forKeys:&v6 count:1];
     [(CBManager *)self sendMsg:35 args:v5];
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)setBTPowerState:(BOOL)state
 {
-  v11[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   powerState = self->_powerState;
   if (state)
   {
     if (powerState == 2)
     {
-LABEL_3:
-      result = 0;
-      v5 = *MEMORY[0x1E69E9840];
-      return result;
+      return 0;
     }
   }
 
   else if (powerState != 2)
   {
-    goto LABEL_3;
+    return 0;
   }
 
-  v10 = @"kCBMsgArgBTPowerState";
+  v8 = @"kCBMsgArgBTPowerState";
   selfCopy = self;
-  v7 = [MEMORY[0x1E696AD98] numberWithBool:?];
-  v11[0] = v7;
-  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
-  LOBYTE(selfCopy) = [(CBManager *)selfCopy sendMsg:33 args:v8];
+  v6 = [MEMORY[0x1E696AD98] numberWithBool:?];
+  v9[0] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  LOBYTE(selfCopy) = [(CBManager *)selfCopy sendMsg:33 args:v7];
 
-  result = selfCopy;
-  v9 = *MEMORY[0x1E69E9840];
-  return result;
+  return selfCopy;
+}
+
+- (BOOL)secureBluetooth:(BOOL)bluetooth withAuthData:(id)data
+{
+  bluetoothCopy = bluetooth;
+  v12[2] = *MEMORY[0x1E69E9840];
+  dataCopy = data;
+  if (!dataCopy)
+  {
+    [CBClassicManager secureBluetooth:withAuthData:];
+  }
+
+  v11[0] = @"kCBMsgArgSecureBluetoothMode";
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:bluetoothCopy];
+  v11[1] = @"kCBMsgArgSecureBluetoothData";
+  v12[0] = v7;
+  v12[1] = dataCopy;
+  v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v9 = [(CBManager *)self sendMsg:66 args:v8];
+
+  return v9;
 }
 
 - (void)handleLocalDeviceStateUpdatedMsg:(id)msg
@@ -369,7 +384,7 @@ LABEL_3:
 
 - (void)startInquiryWithOptions:(id)options classicPeerDiscovered:(id)discovered
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   discoveredCopy = discovered;
   if (CBLogInitOnce != -1)
@@ -452,17 +467,15 @@ LABEL_19:
       }
     }
 
-    v17 = 136315394;
-    v18 = "[CBClassicManager startInquiryWithOptions:classicPeerDiscovered:]";
-    v19 = 2112;
-    v20 = v14;
-    _os_log_impl(&dword_1C0AC1000, v15, OS_LOG_TYPE_DEFAULT, "%s reportDuplicates set to %@", &v17, 0x16u);
+    v16 = 136315394;
+    v17 = "[CBClassicManager startInquiryWithOptions:classicPeerDiscovered:]";
+    v18 = 2112;
+    v19 = v14;
+    _os_log_impl(&dword_1C0AC1000, v15, OS_LOG_TYPE_DEFAULT, "%s reportDuplicates set to %@", &v16, 0x16u);
     goto LABEL_19;
   }
 
 LABEL_24:
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)stopInquiry
@@ -578,7 +591,7 @@ void __51__CBClassicManager_retrievePairedPeersWithOptions___block_invoke(uint64
 
 - (void)addService:(id)service
 {
-  v15[1] = *MEMORY[0x1E69E9840];
+  v14[1] = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   if (![(CBManager *)self tccApproved])
   {
@@ -634,9 +647,9 @@ LABEL_4:
   }
 
 LABEL_12:
-  v14 = @"kCBMsgArgServiceUUID";
-  v15[0] = serviceCopy;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+  v13 = @"kCBMsgArgServiceUUID";
+  v14[0] = serviceCopy;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
   v12 = [(CBManager *)self sendMsg:37 args:v11];
 
   if (!v12)
@@ -662,13 +675,11 @@ LABEL_12:
   }
 
 LABEL_15:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeService:(id)service
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   if (![(CBManager *)self tccApproved])
   {
@@ -699,9 +710,9 @@ LABEL_4:
     [CBClassicManager removeService:];
   }
 
-  v8 = @"kCBMsgArgServiceUUID";
-  v9[0] = serviceCopy;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = @"kCBMsgArgServiceUUID";
+  v8[0] = serviceCopy;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v6 = [(CBManager *)self sendMsg:38 args:v5];
 
   if (!v6)
@@ -727,8 +738,68 @@ LABEL_4:
   }
 
 LABEL_9:
+}
 
-  v7 = *MEMORY[0x1E69E9840];
+- (void)removeServiceHandle:(unsigned int)handle
+{
+  v3 = *&handle;
+  v10[1] = *MEMORY[0x1E69E9840];
+  if (![(CBManager *)self tccApproved])
+  {
+    return;
+  }
+
+  if (v3)
+  {
+    if (CBLogInitOnce == -1)
+    {
+      goto LABEL_4;
+    }
+  }
+
+  else
+  {
+    [CBClassicManager removeServiceHandle:];
+    if (CBLogInitOnce == -1)
+    {
+      goto LABEL_4;
+    }
+  }
+
+  [CBClassicPeer dealloc];
+LABEL_4:
+  v5 = CBLogComponent;
+  if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEBUG))
+  {
+    [(CBClassicManager *)v3 removeServiceHandle:v5];
+  }
+
+  v9 = @"kCBMsgArgServiceHandle";
+  v6 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v3];
+  v10[0] = v6;
+  v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+  v8 = [(CBManager *)self sendMsg:38 args:v7];
+
+  if (!v8)
+  {
+    if (CBLogInitOnce == -1)
+    {
+      if (!os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_ERROR))
+      {
+        return;
+      }
+
+LABEL_13:
+      [CBClassicManager removeServiceHandle:];
+      return;
+    }
+
+    [CBClassicPeer handlePeerUpdated:];
+    if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_ERROR))
+    {
+      goto LABEL_13;
+    }
+  }
 }
 
 - (void)removeAllServices
@@ -740,7 +811,7 @@ LABEL_9:
 
 - (void)addServiceToInquiryList:(id)list
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   listCopy = list;
   if (![(CBManager *)self tccApproved])
   {
@@ -795,9 +866,9 @@ LABEL_4:
   }
 
 LABEL_12:
-  v13 = @"kCBMsgArgServiceUUID";
-  v14[0] = listCopy;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+  v12 = @"kCBMsgArgServiceUUID";
+  v13[0] = listCopy;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
   v11 = [(CBManager *)self sendMsg:40 args:v10];
 
   if (!v11)
@@ -823,13 +894,11 @@ LABEL_12:
   }
 
 LABEL_15:
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeServiceFromInquiryList:(id)list
 {
-  v9[1] = *MEMORY[0x1E69E9840];
+  v8[1] = *MEMORY[0x1E69E9840];
   listCopy = list;
   if (![(CBManager *)self tccApproved])
   {
@@ -860,9 +929,9 @@ LABEL_4:
     [CBClassicManager removeServiceFromInquiryList:];
   }
 
-  v8 = @"kCBMsgArgServiceUUID";
-  v9[0] = listCopy;
-  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
+  v7 = @"kCBMsgArgServiceUUID";
+  v8[0] = listCopy;
+  v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v8 forKeys:&v7 count:1];
   v6 = [(CBManager *)self sendMsg:41 args:v5];
 
   if (!v6)
@@ -888,8 +957,6 @@ LABEL_4:
   }
 
 LABEL_9:
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeAllServicesFromInquiryList
@@ -901,7 +968,7 @@ LABEL_9:
 
 - (void)addService:(id)service sdpRecord:(id)record sdpRecordAddedHandler:(id)handler
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   serviceCopy = service;
   recordCopy = record;
   handlerCopy = handler;
@@ -935,11 +1002,11 @@ LABEL_4:
   }
 
   [(CBClassicManager *)self setSdpRecordAddedHandler:handlerCopy];
-  v14[0] = @"kCBMsgArgUUID";
-  v14[1] = @"kCBMsgArgOptions";
-  v15[0] = serviceCopy;
-  v15[1] = recordCopy;
-  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+  v13[0] = @"kCBMsgArgUUID";
+  v13[1] = @"kCBMsgArgOptions";
+  v14[0] = serviceCopy;
+  v14[1] = recordCopy;
+  v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
   v12 = [(CBManager *)self sendMsg:37 args:v11];
 
   if (!v12)
@@ -965,13 +1032,11 @@ LABEL_4:
   }
 
 LABEL_9:
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (unsigned)addServiceWithData:(id)data
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   dataCopy = data;
   if ([(CBManager *)self tccApproved])
   {
@@ -980,9 +1045,9 @@ LABEL_9:
       [CBClassicManager addServiceWithData:];
     }
 
-    v11 = @"kCBMsgArgSDPRecordData";
-    v12[0] = dataCopy;
-    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v10 = @"kCBMsgArgSDPRecordData";
+    v11[0] = dataCopy;
+    v5 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v6 = [(CBManager *)self sendSyncMsg:37 args:v5];
 
     v7 = [v6 objectForKeyedSubscript:@"kCBMsgArgServiceHandle"];
@@ -994,13 +1059,12 @@ LABEL_9:
     unsignedIntValue = 0;
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return unsignedIntValue;
 }
 
 - (void)connectPeer:(id)peer options:(id)options
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   peerCopy = peer;
   optionsCopy = options;
   if ([(CBManager *)self tccApproved])
@@ -1022,19 +1086,19 @@ LABEL_9:
       v10 = v9;
       name = [peerCopy name];
       *buf = 136315650;
-      v20 = "[CBClassicManager connectPeer:options:]";
-      v21 = 2112;
-      v22 = name;
-      v23 = 2112;
-      v24 = v8;
+      v19 = "[CBClassicManager connectPeer:options:]";
+      v20 = 2112;
+      v21 = name;
+      v22 = 2112;
+      v23 = v8;
       _os_log_impl(&dword_1C0AC1000, v10, OS_LOG_TYPE_DEFAULT, "%s %@ uuids: %@", buf, 0x20u);
     }
 
     identifier = [peerCopy identifier];
-    v17[1] = @"kCBMsgArgOptions";
-    v18[0] = identifier;
-    v18[1] = optionsCopy;
-    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v16[1] = @"kCBMsgArgOptions";
+    v17[0] = identifier;
+    v17[1] = optionsCopy;
+    v13 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v17 forKeys:v16 count:2];
     v14 = [(CBManager *)self sendMsg:45 args:v13];
 
     if (v14)
@@ -1046,8 +1110,6 @@ LABEL_9:
       }
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 - (void)cancelPeerConnection:(id)connection
@@ -1089,7 +1151,7 @@ LABEL_9:
 
 - (void)cancelPeerConnection:(id)connection options:(id)options
 {
-  v15[2] = *MEMORY[0x1E69E9840];
+  v14[2] = *MEMORY[0x1E69E9840];
   connectionCopy = connection;
   optionsCopy = options;
   if ([(CBManager *)self tccApproved])
@@ -1099,19 +1161,19 @@ LABEL_9:
       [CBClassicManager cancelPeerConnection:options:];
     }
 
-    v14[0] = @"kCBMsgArgDeviceUUID";
+    v13[0] = @"kCBMsgArgDeviceUUID";
     identifier = [connectionCopy identifier];
     v9 = identifier;
-    v14[1] = @"kCBMsgArgOptions";
+    v13[1] = @"kCBMsgArgOptions";
     v10 = MEMORY[0x1E695E0F8];
     if (optionsCopy)
     {
       v10 = optionsCopy;
     }
 
-    v15[0] = identifier;
-    v15[1] = v10;
-    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:2];
+    v14[0] = identifier;
+    v14[1] = v10;
+    v11 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:v13 count:2];
     v12 = [(CBManager *)self sendMsg:46 args:v11];
 
     if (v12 && ([connectionCopy state] - 1) <= 1)
@@ -1119,19 +1181,17 @@ LABEL_9:
       [connectionCopy setState:3];
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setTestMode:(BOOL)mode
 {
-  v10[1] = *MEMORY[0x1E69E9840];
+  v9[1] = *MEMORY[0x1E69E9840];
   if (self->_testMode != mode)
   {
-    v9 = @"kCBMsgArgState";
+    v8 = @"kCBMsgArgState";
     v5 = [MEMORY[0x1E696AD98] numberWithBool:?];
-    v10[0] = v5;
-    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v10 forKeys:&v9 count:1];
+    v9[0] = v5;
+    v6 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v9 forKeys:&v8 count:1];
     v7 = [(CBManager *)self sendMsg:49 args:v6];
 
     if (v7)
@@ -1139,23 +1199,21 @@ LABEL_9:
       self->_testMode = mode;
     }
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)retrievePeerWithAddress:(id)address
 {
-  v14[1] = *MEMORY[0x1E69E9840];
+  v13[1] = *MEMORY[0x1E69E9840];
   addressCopy = address;
   if ([(CBManager *)self tccApproved])
   {
     if ([addressCopy length])
     {
-      v13 = @"kCBMsgArgAddressString";
+      v12 = @"kCBMsgArgAddressString";
       whitespaceCharacterSet = [MEMORY[0x1E696AB08] whitespaceCharacterSet];
       v6 = [addressCopy stringByTrimmingCharactersInSet:whitespaceCharacterSet];
-      v14[0] = v6;
-      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+      v13[0] = v6;
+      v7 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
       v8 = [(CBManager *)self sendSyncMsg:44 args:v7];
 
       v9 = [v8 objectForKeyedSubscript:@"kCBMsgArgDevices"];
@@ -1187,14 +1245,187 @@ LABEL_9:
   v10 = 0;
 LABEL_12:
 
-  v11 = *MEMORY[0x1E69E9840];
-
   return v10;
+}
+
+- (void)handleMsg:(unsigned __int16)msg args:(id)args
+{
+  msgCopy = msg;
+  argsCopy = args;
+  if (msgCopy <= 52)
+  {
+    if (msgCopy <= 49)
+    {
+      if ((msgCopy - 19) < 2)
+      {
+        pairingStatusHandler = [(CBClassicManager *)self pairingStatusHandler];
+
+        if (pairingStatusHandler)
+        {
+          v12 = [(CBClassicManager *)self classicPeerWithInfo:argsCopy];
+          v13 = [MEMORY[0x1E696ABC0] errorWithInfo:argsCopy];
+          pairingStatusHandler2 = [(CBClassicManager *)self pairingStatusHandler];
+          (pairingStatusHandler2)[2](pairingStatusHandler2, v12, [v13 code]);
+        }
+
+        sharedPairingAgent = [(CBManager *)self sharedPairingAgent];
+        [sharedPairingAgent handlePairingMessage:msgCopy args:argsCopy];
+        goto LABEL_25;
+      }
+
+      if ((msgCopy - 27) >= 2)
+      {
+        if (msgCopy == 18)
+        {
+          sharedPairingAgent2 = [(CBManager *)self sharedPairingAgent];
+          [sharedPairingAgent2 handlePairingMessage:18 args:argsCopy];
+
+          return;
+        }
+
+        goto LABEL_30;
+      }
+
+LABEL_21:
+      sharedPairingAgent = [(CBClassicManager *)self classicPeerWithInfo:argsCopy];
+      [sharedPairingAgent handleMsg:msgCopy args:argsCopy];
+LABEL_25:
+
+      return;
+    }
+
+    if (msgCopy == 50)
+    {
+      v8 = 0;
+      v9 = sel_handlePeerDiscovered_;
+      if ([(CBManager *)self state]== CBManagerStatePoweredOn)
+      {
+        goto LABEL_38;
+      }
+    }
+
+    else
+    {
+      if (msgCopy == 51)
+      {
+        goto LABEL_21;
+      }
+
+      v8 = 0;
+      v9 = sel_handleServiceAddedToSDP_;
+      if ([(CBManager *)self state]== CBManagerStatePoweredOn)
+      {
+LABEL_38:
+        [self v9];
+
+        return;
+      }
+    }
+
+LABEL_37:
+    if ((([(CBManager *)self state]!= 10) & ~v8) != 0)
+    {
+      if (CBLogInitOnce != -1)
+      {
+        [CBClassicPeer dealloc];
+      }
+
+      if (!os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_ERROR))
+      {
+        goto LABEL_33;
+      }
+
+      [CBClassicManager handleMsg:args:];
+
+      return;
+    }
+
+    goto LABEL_38;
+  }
+
+  if (msgCopy <= 55)
+  {
+    if (msgCopy == 53)
+    {
+      v8 = 0;
+      v9 = sel_handleSDPRecordAdded_;
+      if ([(CBManager *)self state]== CBManagerStatePoweredOn)
+      {
+        goto LABEL_38;
+      }
+    }
+
+    else if (msgCopy == 54)
+    {
+      v8 = 0;
+      v9 = sel_handleServiceAddedToInquiryList_;
+      if ([(CBManager *)self state]== CBManagerStatePoweredOn)
+      {
+        goto LABEL_38;
+      }
+    }
+
+    else
+    {
+      v8 = 0;
+      v9 = sel_handlePeerConnectionCompleted_;
+      if ([(CBManager *)self state]== CBManagerStatePoweredOn)
+      {
+        goto LABEL_38;
+      }
+    }
+
+    goto LABEL_37;
+  }
+
+  if ((msgCopy - 62) < 2)
+  {
+    goto LABEL_21;
+  }
+
+  if (msgCopy == 56)
+  {
+    v8 = 0;
+    v9 = sel_handlePeerDisconnectionCompleted_;
+    if ([(CBManager *)self state]== CBManagerStatePoweredOn)
+    {
+      goto LABEL_38;
+    }
+
+    goto LABEL_37;
+  }
+
+  if (msgCopy == 57)
+  {
+    v8 = 1;
+    v9 = sel_handlePeerConnectionStateUpdated_;
+    if ([(CBManager *)self state]== CBManagerStatePoweredOn)
+    {
+      goto LABEL_38;
+    }
+
+    goto LABEL_37;
+  }
+
+LABEL_30:
+  if (CBLogInitOnce != -1)
+  {
+    [CBClassicPeer dealloc];
+  }
+
+  if (!os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_ERROR))
+  {
+LABEL_33:
+
+    return;
+  }
+
+  [CBCentralManager handleMsg:args:];
 }
 
 - (void)handlePeerDiscovered:(id)discovered
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   discoveredCopy = discovered;
   if (self->_isInquiryRunning)
   {
@@ -1211,13 +1442,13 @@ LABEL_12:
       {
         v7 = v6;
         name = [v5 name];
-        v11 = 136315650;
-        v12 = "[CBClassicManager handlePeerDiscovered:]";
-        v13 = 2112;
-        v14 = name;
-        v15 = 2112;
-        v16 = discoveredCopy;
-        _os_log_impl(&dword_1C0AC1000, v7, OS_LOG_TYPE_DEFAULT, "%s %@ - %@", &v11, 0x20u);
+        v10 = 136315650;
+        v11 = "[CBClassicManager handlePeerDiscovered:]";
+        v12 = 2112;
+        v13 = name;
+        v14 = 2112;
+        v15 = discoveredCopy;
+        _os_log_impl(&dword_1C0AC1000, v7, OS_LOG_TYPE_DEFAULT, "%s %@ - %@", &v10, 0x20u);
       }
 
       classicPeerDiscovered = [(CBClassicManager *)self classicPeerDiscovered];
@@ -1250,8 +1481,6 @@ LABEL_12:
       [CBClassicManager handlePeerDiscovered:];
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handlePeerConnectionStateUpdated:(id)updated
@@ -1394,7 +1623,7 @@ LABEL_6:
 
 - (void)handlePeerConnectionCompleted:(id)completed
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v21 = *MEMORY[0x1E69E9840];
   completedCopy = completed;
   v5 = [completedCopy objectForKeyedSubscript:@"kCBMsgArgDeviceUUID"];
   v6 = [(CBClassicManager *)self peerWithIdentifier:v5];
@@ -1409,13 +1638,13 @@ LABEL_6:
     v7 = CBLogComponent;
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
     {
-      v16 = 136315650;
-      v17 = "[CBClassicManager handlePeerConnectionCompleted:]";
-      v18 = 2112;
-      v19 = v6;
-      v20 = 2112;
-      v21 = completedCopy;
-      _os_log_impl(&dword_1C0AC1000, v7, OS_LOG_TYPE_DEFAULT, "%s %@ %@", &v16, 0x20u);
+      v15 = 136315650;
+      v16 = "[CBClassicManager handlePeerConnectionCompleted:]";
+      v17 = 2112;
+      v18 = v6;
+      v19 = 2112;
+      v20 = completedCopy;
+      _os_log_impl(&dword_1C0AC1000, v7, OS_LOG_TYPE_DEFAULT, "%s %@ %@", &v15, 0x20u);
     }
 
     v8 = [completedCopy objectForKeyedSubscript:@"kCBMsgArgInternalState"];
@@ -1468,13 +1697,11 @@ LABEL_11:
   }
 
 LABEL_16:
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handlePeerDisconnectionCompleted:(id)completed
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   completedCopy = completed;
   v5 = [completedCopy objectForKeyedSubscript:@"kCBMsgArgDeviceUUID"];
   v6 = [(CBClassicManager *)self peerWithIdentifier:v5];
@@ -1489,13 +1716,13 @@ LABEL_16:
     v7 = CBLogComponent;
     if (os_log_type_enabled(CBLogComponent, OS_LOG_TYPE_DEFAULT))
     {
-      v15 = 136315650;
-      v16 = "[CBClassicManager handlePeerDisconnectionCompleted:]";
-      v17 = 2112;
-      v18 = v6;
-      v19 = 2112;
-      v20 = completedCopy;
-      _os_log_impl(&dword_1C0AC1000, v7, OS_LOG_TYPE_DEFAULT, "%s %@ %@", &v15, 0x20u);
+      v14 = 136315650;
+      v15 = "[CBClassicManager handlePeerDisconnectionCompleted:]";
+      v16 = 2112;
+      v17 = v6;
+      v18 = 2112;
+      v19 = completedCopy;
+      _os_log_impl(&dword_1C0AC1000, v7, OS_LOG_TYPE_DEFAULT, "%s %@ %@", &v14, 0x20u);
     }
 
     v8 = [completedCopy objectForKeyedSubscript:@"kCBMsgArgInternalState"];
@@ -1529,16 +1756,13 @@ LABEL_16:
       [(CBClassicManager *)v13 handlePeerDisconnectionCompleted:completedCopy];
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __38__CBClassicManager_orphanClassicPeers__block_invoke_cold_2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2_6();
-  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, v6);
 }
 
 - (void)secureBluetooth:withAuthData:.cold.1()
@@ -1551,25 +1775,22 @@ void __38__CBClassicManager_orphanClassicPeers__block_invoke_cold_2()
 
 - (void)startInquiryWithOptions:(uint64_t)a3 classicPeerDiscovered:.cold.2(void *a1, void *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a1;
-  v7 = 136315650;
-  v8 = "[CBClassicManager startInquiryWithOptions:classicPeerDiscovered:]";
-  v9 = 2048;
-  v10 = [a2 state];
-  v11 = 2112;
-  v12 = a3;
-  _os_log_debug_impl(&dword_1C0AC1000, v5, OS_LOG_TYPE_DEBUG, "%s block with state %ld and options: %@ ", &v7, 0x20u);
-
-  v6 = *MEMORY[0x1E69E9840];
+  v6 = 136315650;
+  v7 = "[CBClassicManager startInquiryWithOptions:classicPeerDiscovered:]";
+  v8 = 2048;
+  v9 = [a2 state];
+  v10 = 2112;
+  v11 = a3;
+  _os_log_debug_impl(&dword_1C0AC1000, v5, OS_LOG_TYPE_DEBUG, "%s block with state %ld and options: %@ ", &v6, 0x20u);
 }
 
 - (void)retrievePairedPeersWithOptions:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2_6();
-  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, v6);
 }
 
 - (void)addService:.cold.1()
@@ -1582,18 +1803,16 @@ void __38__CBClassicManager_orphanClassicPeers__block_invoke_cold_2()
 
 - (void)addService:(void *)a1 .cold.3(void *a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [a1 data];
-  v6 = 136315650;
-  v7 = "[CBClassicManager addService:]";
-  v8 = 2112;
-  v9 = a1;
-  v10 = 2048;
-  v11 = [v4 length];
-  _os_log_debug_impl(&dword_1C0AC1000, v3, OS_LOG_TYPE_DEBUG, "%s %@, len: %lu", &v6, 0x20u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  v5 = 136315650;
+  v6 = "[CBClassicManager addService:]";
+  v7 = 2112;
+  v8 = a1;
+  v9 = 2048;
+  v10 = [v4 length];
+  _os_log_debug_impl(&dword_1C0AC1000, v3, OS_LOG_TYPE_DEBUG, "%s %@, len: %lu", &v5, 0x20u);
 }
 
 - (void)addService:.cold.5()
@@ -1613,19 +1832,16 @@ void __38__CBClassicManager_orphanClassicPeers__block_invoke_cold_2()
 
 - (void)removeService:.cold.3()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2_6();
-  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, v6);
 }
 
 - (void)removeService:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeServiceHandle:.cold.1()
@@ -1638,21 +1854,12 @@ void __38__CBClassicManager_orphanClassicPeers__block_invoke_cold_2()
 
 - (void)removeServiceHandle:(int)a1 .cold.3(int a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v3 = 136315394;
-  v4 = "[CBClassicManager removeServiceHandle:]";
-  v5 = 1024;
-  v6 = a1;
-  _os_log_debug_impl(&dword_1C0AC1000, a2, OS_LOG_TYPE_DEBUG, "%s %X", &v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
-}
-
-- (void)removeServiceHandle:.cold.5()
-{
   v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_5_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
+  v2 = 136315394;
+  v3 = "[CBClassicManager removeServiceHandle:]";
+  v4 = 1024;
+  v5 = a1;
+  _os_log_debug_impl(&dword_1C0AC1000, a2, OS_LOG_TYPE_DEBUG, "%s %X", &v2, 0x12u);
 }
 
 - (void)addServiceToInquiryList:.cold.1()
@@ -1665,10 +1872,9 @@ void __38__CBClassicManager_orphanClassicPeers__block_invoke_cold_2()
 
 - (void)addServiceToInquiryList:.cold.3()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2_6();
-  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, v6);
 }
 
 - (void)addServiceToInquiryList:.cold.5()
@@ -1688,19 +1894,16 @@ void __38__CBClassicManager_orphanClassicPeers__block_invoke_cold_2()
 
 - (void)removeServiceFromInquiryList:.cold.3()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2_6();
-  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, v6);
 }
 
 - (void)removeServiceFromInquiryList:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addService:sdpRecord:sdpRecordAddedHandler:.cold.1()
@@ -1713,22 +1916,19 @@ void __38__CBClassicManager_orphanClassicPeers__block_invoke_cold_2()
 
 - (void)addService:sdpRecord:sdpRecordAddedHandler:.cold.3()
 {
-  v7 = *MEMORY[0x1E69E9840];
-  v4[0] = 136315650;
+  v6 = *MEMORY[0x1E69E9840];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_2_6();
-  v5 = v0;
-  v6 = v1;
-  _os_log_debug_impl(&dword_1C0AC1000, v2, OS_LOG_TYPE_DEBUG, "%s %@ sdp: %@", v4, 0x20u);
-  v3 = *MEMORY[0x1E69E9840];
+  v4 = v0;
+  v5 = v1;
+  _os_log_debug_impl(&dword_1C0AC1000, v2, OS_LOG_TYPE_DEBUG, "%s %@ sdp: %@", v3, 0x20u);
 }
 
 - (void)addService:sdpRecord:sdpRecordAddedHandler:.cold.5()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
   OUTLINED_FUNCTION_5_0();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addServiceWithData:.cold.1()
@@ -1772,12 +1972,11 @@ void __38__CBClassicManager_orphanClassicPeers__block_invoke_cold_2()
 
 - (void)handleMsg:args:.cold.2()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_3();
-  v4 = 1024;
-  v5 = v0;
-  _os_log_error_impl(&dword_1C0AC1000, v1, OS_LOG_TYPE_ERROR, "%@ is not powered on, ignoring message: %u", v3, 0x12u);
-  v2 = *MEMORY[0x1E69E9840];
+  v3 = 1024;
+  v4 = v0;
+  _os_log_error_impl(&dword_1C0AC1000, v1, OS_LOG_TYPE_ERROR, "%@ is not powered on, ignoring message: %u", v2, 0x12u);
 }
 
 - (void)handlePeerDiscovered:.cold.2()
@@ -1796,57 +1995,49 @@ void __38__CBClassicManager_orphanClassicPeers__block_invoke_cold_2()
 
 - (void)handlePeerConnectionStateUpdated:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2_6();
-  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, v6);
 }
 
 - (void)handleServiceAddedToSDP:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2_6();
-  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, v6);
 }
 
 - (void)handleServiceAddedToInquiryList:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2_6();
-  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, v6);
 }
 
 - (void)handleSDPRecordAdded:.cold.2()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2_6();
-  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_3_5(&dword_1C0AC1000, v0, v1, "%s %@", v2, v3, v4, v5, v6);
 }
 
 - (void)handlePeerConnectionCompleted:(void *)a1 .cold.3(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 objectForKeyedSubscript:@"kCBMsgArgDeviceUUID"];
-  v6[0] = 136315394;
+  v5[0] = 136315394;
   OUTLINED_FUNCTION_2_6();
-  _os_log_error_impl(&dword_1C0AC1000, v3, OS_LOG_TYPE_ERROR, "%s %@ not found", v6, 0x16u);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C0AC1000, v3, OS_LOG_TYPE_ERROR, "%s %@ not found", v5, 0x16u);
 }
 
 - (void)handlePeerDisconnectionCompleted:(void *)a1 .cold.3(void *a1, void *a2)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = a1;
   v4 = [a2 objectForKeyedSubscript:@"kCBMsgArgDeviceUUID"];
   OUTLINED_FUNCTION_3();
-  _os_log_error_impl(&dword_1C0AC1000, v3, OS_LOG_TYPE_ERROR, "handlePeerDisconnectionCompleted: %@ not found", v6, 0xCu);
-
-  v5 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(&dword_1C0AC1000, v3, OS_LOG_TYPE_ERROR, "handlePeerDisconnectionCompleted: %@ not found", v5, 0xCu);
 }
 
 @end

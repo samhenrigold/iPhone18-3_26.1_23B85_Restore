@@ -50,7 +50,7 @@
   v9 = fmin(v6, v4);
   if (v9 <= 250.0)
   {
-    gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(v8, 0x10018u, 0);
+    gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(v8, 65560, 0);
     v13 = 0;
     v12 = *(v7 + 224);
   }
@@ -77,7 +77,7 @@
       v11 = v10;
     }
 
-    gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(v8, 0x10018u, v11);
+    gss::ClientStyleState<gss::PropertyID>::setClientStyleAttribute(v8, 65560, v11);
     v12 = *(v7 + 224);
     if (v9 <= 450.0)
     {

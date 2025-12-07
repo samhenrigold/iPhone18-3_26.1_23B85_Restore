@@ -13,7 +13,7 @@
 
 - (void)dealloc
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     sub_100227F84(self, v3);
@@ -27,7 +27,7 @@
 
 - (void)deinitializeRequest
 {
-  v3 = sub_100002880();
+  v3 = sub_100002880(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     v6 = 138412546;
@@ -92,25 +92,25 @@
   }
 
   v8 = +[FMDProtectedContextManager sharedManager];
-  v18 = 0;
   v19 = 0;
-  v9 = [v8 contextForKey:@"serverContextHeaderContext" contextUUID:&v19 error:&v18];
-  v10 = v19;
-  v11 = v18;
+  v20 = 0;
+  v9 = [v8 contextForKey:@"serverContextHeaderContext" contextUUID:&v20 error:&v19];
+  v10 = v20;
+  v11 = v19;
 
   if (v11)
   {
-    v12 = sub_100002880();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v13 = sub_100002880(v12);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
     {
-      sub_10022802C(v11, v12);
+      sub_10022802C(v11, v13);
     }
   }
 
   [v3 fm_safelyMapKey:@"X-Apple-Ctx" toObject:v9];
   [v3 setObject:@"6.0" forKeyedSubscript:@"X-Apple-Find-API-Ver"];
-  v13 = +[FMDServerConfig sharedInstance];
-  userAgent = [v13 userAgent];
+  v14 = +[FMDServerConfig sharedInstance];
+  userAgent = [v14 userAgent];
 
   if (userAgent)
   {
@@ -130,10 +130,10 @@
   }
 
   [v3 setObject:@"1.0" forKeyedSubscript:@"X-Apple-Realm-Support"];
-  v16 = +[FMDPreferencesMgr httpRequestHeaders];
-  if (v16)
+  v17 = +[FMDPreferencesMgr httpRequestHeaders];
+  if (v17)
   {
-    [v3 addEntriesFromDictionary:v16];
+    [v3 addEntriesFromDictionary:v17];
   }
 
   return v3;
@@ -145,34 +145,34 @@
   authToken = [(FMDRequest *)self authToken];
   v5 = [NSString stringWithFormat:@"%@:%@", authId, authToken];
 
-  v6 = sub_100002880();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
+  v7 = sub_100002880(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
   {
-    sub_1002280A4(v5, v6);
+    sub_1002280A4(v5, v7);
   }
 
-  v7 = [v5 dataUsingEncoding:4];
-  v8 = v7;
-  if (v7 && [v7 length])
+  v8 = [v5 dataUsingEncoding:4];
+  v9 = v8;
+  if (v8 && [v8 length])
   {
-    base64EncodedString = [v8 base64EncodedString];
+    base64EncodedString = [v9 base64EncodedString];
     if (base64EncodedString)
     {
-      v10 = [NSString stringWithFormat:@"Basic %@", base64EncodedString];
+      v11 = [NSString stringWithFormat:@"Basic %@", base64EncodedString];
     }
 
     else
     {
-      v10 = 0;
+      v11 = 0;
     }
   }
 
   else
   {
-    v10 = 0;
+    v11 = 0;
   }
 
-  return v10;
+  return v11;
 }
 
 - (int64_t)responseErrorType

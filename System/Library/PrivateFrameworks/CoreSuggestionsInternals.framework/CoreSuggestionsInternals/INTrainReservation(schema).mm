@@ -7,7 +7,7 @@
 
 + (id)schemaFromTrainReservation:()schema
 {
-  v63[2] = *MEMORY[0x277D85DE8];
+  v62[2] = *MEMORY[0x277D85DE8];
   v3 = a3;
   v4 = [MEMORY[0x277CD3F90] schemaFromReservation:v3];
   v5 = [v4 mutableCopy];
@@ -87,14 +87,14 @@
 
   if (name)
   {
-    v62[1] = @"name";
-    v63[0] = @"http://schema.org/TrainStation";
-    v62[0] = @"@type";
+    v61[1] = @"name";
+    v62[0] = @"http://schema.org/TrainStation";
+    v61[0] = @"@type";
     trainTrip14 = [v3 trainTrip];
     departureStationLocation2 = [trainTrip14 departureStationLocation];
     name2 = [departureStationLocation2 name];
-    v63[1] = name2;
-    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v63 forKeys:v62 count:2];
+    v62[1] = name2;
+    v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v62 forKeys:v61 count:2];
     [v6 setObject:v43 forKeyedSubscript:@"departureStation"];
   }
 
@@ -104,14 +104,14 @@
 
   if (name3)
   {
-    v60[1] = @"name";
-    v61[0] = @"http://schema.org/TrainStation";
-    v60[0] = @"@type";
+    v59[1] = @"name";
+    v60[0] = @"http://schema.org/TrainStation";
+    v59[0] = @"@type";
     trainTrip16 = [v3 trainTrip];
     arrivalStationLocation2 = [trainTrip16 arrivalStationLocation];
     name4 = [arrivalStationLocation2 name];
-    v61[1] = name4;
-    v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:2];
+    v60[1] = name4;
+    v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v60 forKeys:v59 count:2];
     [v6 setObject:v50 forKeyedSubscript:@"arrivalStation"];
   }
 
@@ -120,22 +120,20 @@
 
   if (provider)
   {
-    v58[1] = @"name";
-    v59[0] = @"http://schema.org/Organization";
-    v58[0] = @"@type";
+    v57[1] = @"name";
+    v58[0] = @"http://schema.org/Organization";
+    v57[0] = @"@type";
     trainTrip18 = [v3 trainTrip];
     provider2 = [trainTrip18 provider];
-    v59[1] = provider2;
-    v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v59 forKeys:v58 count:2];
+    v58[1] = provider2;
+    v55 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:2];
     [v6 setObject:v55 forKeyedSubscript:@"provider"];
   }
 
-  if ([v6 count] >= 2)
+  if (objc_msgSend_count(v6) >= 2)
   {
     [v5 setObject:v6 forKeyedSubscript:@"reservationFor"];
   }
-
-  v56 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

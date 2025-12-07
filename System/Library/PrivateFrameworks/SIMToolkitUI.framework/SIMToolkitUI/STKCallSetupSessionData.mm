@@ -23,11 +23,10 @@
 
 - (void)encodeWithXPCDictionary:(id)dictionary
 {
-  v6.receiver = self;
-  v6.super_class = STKCallSetupSessionData;
+  v5.receiver = self;
+  v5.super_class = STKCallSetupSessionData;
   dictionaryCopy = dictionary;
-  [(STKTextSessionData *)&v6 encodeWithXPCDictionary:dictionaryCopy];
-  phoneNumber = self->_phoneNumber;
+  [(STKTextSessionData *)&v5 encodeWithXPCDictionary:dictionaryCopy];
   BSSerializeStringToXPCDictionaryWithKey();
   xpc_dictionary_set_BOOL(dictionaryCopy, "_callPriority", self->_isHighPriority);
 }

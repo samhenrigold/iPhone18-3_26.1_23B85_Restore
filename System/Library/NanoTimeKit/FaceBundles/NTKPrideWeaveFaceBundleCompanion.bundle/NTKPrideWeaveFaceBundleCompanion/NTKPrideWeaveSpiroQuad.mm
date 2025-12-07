@@ -2,6 +2,7 @@
 - (BOOL)prepareForTime:(double)time;
 - (NTKPrideWeaveSpiroQuad)init;
 - (void)renderForDisplayWithEncoder:(id)encoder;
+- (void)setTritiumProgress:(float)progress;
 - (void)setupForQuadView:(id)view;
 @end
 
@@ -35,6 +36,15 @@
   }
 
   return v2;
+}
+
+- (void)setTritiumProgress:(float)progress
+{
+  for (i = 0; i != 11; ++i)
+  {
+    *&v6 = progress;
+    [(NTKPrideWeaveSpiroQuad *)self setTritiumProgress:i forLoop:v6];
+  }
 }
 
 - (void)setupForQuadView:(id)view
@@ -126,26 +136,24 @@
     v14 = 0;
     v15 = (v11 - v13) * 0.5;
     v16 = v15 + -0.05;
-    v17 = self->_thickness;
-    v18 = (v15 + v13);
-    v19 = (contents + 16);
+    v17 = (v15 + v13);
+    v18 = (contents + 16);
     do
     {
-      v20 = self->_tritiumProgress[(v14 + [(NTKPrideWeaveSpiroQuad *)self startLoop]) % 11];
+      v19 = self->_tritiumProgress[(v14 + [(NTKPrideWeaveSpiroQuad *)self startLoop]) % 11];
       CLKInterpolateBetweenFloatsUnclipped();
-      *&v21 = v21;
-      *(v19 - 4) = v16;
-      v22 = v18 + v20 * -0.05;
-      *(v19 - 1) = v22;
-      *v19 = *&v21;
-      *(v19 - 3) = 1.0;
-      *&v21 = self->_rotation + ((v14 / 11.0) + (v14 / 11.0)) * 3.14159265;
-      *(v19 - 2) = *&v21;
-      v23 = vmovl_s16(PRIDE_WEAVE_COLORS[v14]);
+      *&v20 = v20;
+      *(v18 - 4) = v16;
+      v21 = v17 + v19 * -0.05;
+      *(v18 - 1) = v21;
+      *v18 = *&v20;
+      *(v18 - 3) = 1.0;
+      *&v20 = self->_rotation + ((v14 / 11.0) + (v14 / 11.0)) * 3.14159265;
+      *(v18 - 2) = *&v20;
       CLKUIConvertToRGBfFromSRGBf_fast();
-      *(v19 + 1) = v24;
+      *(v18 + 1) = v22;
       ++v14;
-      v19 += 12;
+      v18 += 12;
     }
 
     while (v14 != 11);

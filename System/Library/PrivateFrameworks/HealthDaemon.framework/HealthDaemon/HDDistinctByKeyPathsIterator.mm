@@ -54,7 +54,7 @@ LABEL_3:
   if (v11)
   {
     objc_storeStrong(&v11->_sourceIterator, iterator);
-    v13 = [v10 copy];
+    v13 = objc_msgSend_copy(v10);
     keyPaths = v12->_keyPaths;
     v12->_keyPaths = v13;
 
@@ -68,7 +68,7 @@ LABEL_3:
 
 - (BOOL)advanceWithError:(id *)error
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   v5 = [(NSArray *)self->_keyPaths count];
   v6 = [(HDSampleIterator *)self->_sourceIterator advanceWithError:error];
   v7 = (v5 == 0) & v6;
@@ -77,26 +77,26 @@ LABEL_3:
     while (1)
     {
       v8 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v18 = 0u;
       v19 = 0u;
       v20 = 0u;
       v21 = 0u;
-      v22 = 0u;
       v9 = self->_keyPaths;
-      v10 = [(NSArray *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+      v10 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
       if (v10)
       {
         v11 = v10;
-        v12 = *v20;
+        v12 = *v19;
         while (2)
         {
           for (i = 0; i != v11; ++i)
           {
-            if (*v20 != v12)
+            if (*v19 != v12)
             {
               objc_enumerationMutation(v9);
             }
 
-            v14 = *(*(&v19 + 1) + 8 * i);
+            v14 = *(*(&v18 + 1) + 8 * i);
             sample = [(HDSampleIterator *)self->_sourceIterator sample];
             v16 = [sample uniqueIdentifierForDistinctByKeyPath:v14 error:error];
 
@@ -109,7 +109,7 @@ LABEL_3:
             [v8 addObject:v16];
           }
 
-          v11 = [(NSArray *)v9 countByEnumeratingWithState:&v19 objects:v23 count:16];
+          v11 = [(NSArray *)v9 countByEnumeratingWithState:&v18 objects:v22 count:16];
           if (v11)
           {
             continue;
@@ -119,7 +119,7 @@ LABEL_3:
         }
       }
 
-      v9 = [v8 copy];
+      v9 = objc_msgSend_copy(v8);
       if (([(NSMutableSet *)self->_seenValues containsObject:v9]& 1) == 0)
       {
         break;
@@ -128,7 +128,7 @@ LABEL_3:
       v7 = 0;
       if (([(HDSampleIterator *)self->_sourceIterator advanceWithError:error]& 1) == 0)
       {
-        goto LABEL_16;
+        return v7;
       }
     }
 
@@ -137,8 +137,6 @@ LABEL_3:
 LABEL_15:
   }
 
-LABEL_16:
-  v17 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -157,7 +155,7 @@ LABEL_16:
 
 - (BOOL)restoreIteratorStateFromData:(id)data error:(id *)error
 {
-  v22[4] = *MEMORY[0x277D85DE8];
+  v21[4] = *MEMORY[0x277D85DE8];
   v6 = MEMORY[0x277CCAAC8];
   dataCopy = data;
   v8 = [[v6 alloc] initForReadingFromData:dataCopy error:error];
@@ -170,11 +168,11 @@ LABEL_16:
       if ([(HDSampleIterator *)self->_sourceIterator restoreIteratorStateFromData:v9 error:error])
       {
         v10 = MEMORY[0x277CBEB98];
-        v22[0] = objc_opt_class();
-        v22[1] = objc_opt_class();
-        v22[2] = objc_opt_class();
-        v22[3] = objc_opt_class();
-        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v22 count:4];
+        v21[0] = objc_opt_class();
+        v21[1] = objc_opt_class();
+        v21[2] = objc_opt_class();
+        v21[3] = objc_opt_class();
+        v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v21 count:4];
         v12 = [v10 setWithArray:v11];
         v13 = [v8 decodeObjectOfClasses:v12 forKey:@"SeenValues"];
 
@@ -235,7 +233,6 @@ LABEL_19:
   v14 = 0;
 LABEL_20:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v14;
 }
 

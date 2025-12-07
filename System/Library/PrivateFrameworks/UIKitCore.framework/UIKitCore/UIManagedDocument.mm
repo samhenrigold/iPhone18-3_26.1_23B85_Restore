@@ -256,7 +256,7 @@ void __88__UIManagedDocument__handleRelocatingStoreContentDirectoryFromNonSynced
   _Block_object_dispose(&v16, 8);
 }
 
-uint64_t __88__UIManagedDocument__handleRelocatingStoreContentDirectoryFromSyncedURL_toNonSyncedURL___block_invoke(uint64_t a1, void *a2)
+void *__88__UIManagedDocument__handleRelocatingStoreContentDirectoryFromSyncedURL_toNonSyncedURL___block_invoke(uint64_t a1, void *a2)
 {
   *(*(*(a1 + 56) + 8) + 24) = 1;
   v6 = 1;
@@ -323,7 +323,7 @@ void __88__UIManagedDocument__handleRelocatingStoreContentDirectoryFromSyncedURL
   return v6;
 }
 
-uint64_t __50__UIManagedDocument__readMetadataFromDocumentURL___block_invoke(uint64_t a1, uint64_t a2)
+void *__50__UIManagedDocument__readMetadataFromDocumentURL___block_invoke(uint64_t a1, uint64_t a2)
 {
   *(*(*(a1 + 32) + 8) + 24) = 1;
   result = [objc_alloc(MEMORY[0x1E695DF20]) initWithContentsOfURL:a2];
@@ -387,7 +387,7 @@ uint64_t __50__UIManagedDocument__readMetadataFromDocumentURL___block_invoke(uin
   return v9 & 1;
 }
 
-uint64_t __49__UIManagedDocument__writeMetadataToDocumentURL___block_invoke(void *a1, uint64_t a2)
+void *__49__UIManagedDocument__writeMetadataToDocumentURL___block_invoke(void *a1, uint64_t a2)
 {
   *(*(a1[5] + 8) + 24) = 1;
   result = [*(a1[4] + 224) writeToURL:a2 atomically:0];
@@ -535,7 +535,7 @@ LABEL_43:
 
         v19 = [(NSDictionary *)[(UIManagedDocument *)self persistentStoreOptions] objectForKey:@"NSPersistentStoreUbiquitousContentNameKey"];
         v20 = [(NSDictionary *)self->_documentMetadata objectForKey:@"NSPersistentStoreUbiquitousContentNameKey"];
-        if (!v19 || (v21 = v20, ([v19 isEqualToString:v20] & 1) != 0))
+        if (!v19 || (v21 = v20, (objc_msgSend_isEqualToString_(v19) & 1) != 0))
         {
 LABEL_27:
           if ((v10 & 1) == 0)
@@ -677,7 +677,7 @@ LABEL_18:
   return v13 & 1;
 }
 
-uint64_t __39__UIManagedDocument_readFromURL_error___block_invoke(uint64_t a1, void *a2)
+void *__39__UIManagedDocument_readFromURL_error___block_invoke(uint64_t a1, void *a2)
 {
   *(*(*(a1 + 72) + 8) + 24) = 1;
   result = [*(a1 + 32) fileExistsAtPath:{objc_msgSend(a2, "path")}];
@@ -696,7 +696,7 @@ uint64_t __39__UIManagedDocument_readFromURL_error___block_invoke(uint64_t a1, v
   return result;
 }
 
-uint64_t __39__UIManagedDocument_readFromURL_error___block_invoke_2(uint64_t a1)
+void *__39__UIManagedDocument_readFromURL_error___block_invoke_2(uint64_t a1)
 {
   *(*(*(a1 + 96) + 8) + 24) = 1;
   result = [*(a1 + 32) fileExistsAtPath:{objc_msgSend(*(a1 + 40), "path")}];
@@ -725,7 +725,7 @@ uint64_t __39__UIManagedDocument_readFromURL_error___block_invoke_2(uint64_t a1)
   return result;
 }
 
-uint64_t __39__UIManagedDocument_readFromURL_error___block_invoke_3(uint64_t a1, void *a2)
+void *__39__UIManagedDocument_readFromURL_error___block_invoke_3(uint64_t a1, void *a2)
 {
   *(*(*(a1 + 72) + 8) + 24) = 1;
   result = [*(a1 + 32) configurePersistentStoreCoordinatorForURL:a2 ofType:*(a1 + 40) modelConfiguration:*(a1 + 48) storeOptions:*(a1 + 56) error:*(*(a1 + 88) + 8) + 40];
@@ -739,7 +739,7 @@ uint64_t __39__UIManagedDocument_readFromURL_error___block_invoke_3(uint64_t a1,
   return result;
 }
 
-uint64_t __39__UIManagedDocument_readFromURL_error___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
+void *__39__UIManagedDocument_readFromURL_error___block_invoke_4(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v8 = 0;
   v5 = [*(a1 + 32) createDirectoryAtURL:a2 withIntermediateDirectories:0 attributes:0 error:&v8];
@@ -765,7 +765,7 @@ uint64_t __39__UIManagedDocument_readFromURL_error___block_invoke_4(uint64_t a1,
   return result;
 }
 
-uint64_t __39__UIManagedDocument_readFromURL_error___block_invoke_5(uint64_t a1)
+void *__39__UIManagedDocument_readFromURL_error___block_invoke_5(uint64_t a1)
 {
   result = [*(a1 + 32) parentContext];
   *(*(*(a1 + 40) + 8) + 40) = result;
@@ -788,7 +788,7 @@ void __39__UIManagedDocument_readFromURL_error___block_invoke_6(uint64_t a1)
   _Block_object_dispose(&v3, 8);
 }
 
-uint64_t __39__UIManagedDocument_readFromURL_error___block_invoke_7(uint64_t a1, uint64_t a2)
+void *__39__UIManagedDocument_readFromURL_error___block_invoke_7(uint64_t a1, uint64_t a2)
 {
   *(*(*(a1 + 40) + 8) + 24) = 1;
   result = [*(a1 + 32) readAdditionalContentFromURL:a2 error:*(a1 + 56)];
@@ -834,7 +834,7 @@ uint64_t __39__UIManagedDocument_readFromURL_error___block_invoke_7(uint64_t a1,
   return v10;
 }
 
-uint64_t __43__UIManagedDocument_contentsForType_error___block_invoke(uint64_t a1)
+void *__43__UIManagedDocument_contentsForType_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) save:*(a1 + 48)];
   if (result)
@@ -933,7 +933,7 @@ LABEL_18:
   return v17 & 1;
 }
 
-uint64_t __84__UIManagedDocument_writeContents_andAttributes_safelyToURL_forSaveOperation_error___block_invoke(uint64_t a1, uint64_t a2)
+void *__84__UIManagedDocument_writeContents_andAttributes_safelyToURL_forSaveOperation_error___block_invoke(uint64_t a1, uint64_t a2)
 {
   *(*(*(a1 + 64) + 8) + 24) = 1;
   *(*(*(a1 + 72) + 8) + 24) = 1;
@@ -1003,45 +1003,49 @@ LABEL_7:
   v15 = [(NSDictionary *)persistentStoreOptions objectForKey:@"NSPersistentStoreUbiquitousContentNameKey"];
   if (v15)
   {
-    v16 = [v15 isEqual:{-[NSDictionary objectForKey:](self->_documentMetadata, "objectForKey:", @"NSPersistentStoreUbiquitousContentNameKey"}];
+    v16 = v15;
+    [(NSDictionary *)self->_documentMetadata objectForKey:@"NSPersistentStoreUbiquitousContentNameKey"];
+    isEqual = objc_msgSend_isEqual_(v16);
   }
 
   else
   {
-    v16 = 1;
+    isEqual = 1;
   }
 
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
-  v33 = 0;
-  v34 = &v33;
-  v35 = 0x2020000000;
-  v36 = 1;
+  v35 = 0;
+  v36 = &v35;
+  v37 = 0x2020000000;
+  v38 = 1;
   if (operation)
   {
-    v17 = 0;
     v18 = 0;
     v19 = 0;
-    v29 = 0;
+    v20 = 0;
+    v31 = 0;
   }
 
   else
   {
     if ([objc_opt_class() isPersistentStoreSynchronizedViaUbiquitousContentWithOptions:persistentStoreOptions])
     {
-      v23 = @"StoreContent.nosync";
+      v24 = @"StoreContent.nosync";
     }
 
     else
     {
-      v23 = @"StoreContent";
+      v24 = @"StoreContent";
     }
 
-    v19 = [l URLByAppendingPathComponent:v23];
-    v29 = [v19 URLByAppendingPathComponent:{objc_msgSend(objc_opt_class(), "persistentStoreName")}];
-    v24 = [objc_msgSend(v19 "fileReferenceURL")];
-    if (v24)
+    v20 = [l URLByAppendingPathComponent:v24];
+    v31 = [v20 URLByAppendingPathComponent:{objc_msgSend(objc_opt_class(), "persistentStoreName")}];
+    fileReferenceURL = [v20 fileReferenceURL];
+    [l fileReferenceURL];
+    v26 = objc_msgSend_isEqual_(fileReferenceURL);
+    if (v26)
     {
-      if ((v34[3] & 1) == 0)
+      if ((v36[3] & 1) == 0)
       {
         goto LABEL_40;
       }
@@ -1049,82 +1053,82 @@ LABEL_7:
 
     else
     {
-      v25 = [defaultManager createDirectoryAtURL:v19 withIntermediateDirectories:0 attributes:0 error:error];
-      *(v34 + 24) = v25;
-      if (!v25)
+      v27 = [defaultManager createDirectoryAtURL:v20 withIntermediateDirectories:0 attributes:0 error:error];
+      *(v36 + 24) = v27;
+      if (!v27)
       {
         goto LABEL_40;
       }
     }
 
-    v18 = [(UIManagedDocument *)self configurePersistentStoreCoordinatorForURL:v29 ofType:v13 modelConfiguration:[(UIManagedDocument *)self modelConfiguration] storeOptions:[(UIManagedDocument *)self persistentStoreOptions] error:error];
-    v17 = v24 ^ 1;
-    if ((v34[3] & 1) == 0)
+    v19 = [(UIManagedDocument *)self configurePersistentStoreCoordinatorForURL:v31 ofType:v13 modelConfiguration:[(UIManagedDocument *)self modelConfiguration] storeOptions:[(UIManagedDocument *)self persistentStoreOptions] error:error];
+    v18 = v26 ^ 1;
+    if ((v36[3] & 1) == 0)
     {
-      v20 = 0;
+      v21 = 0;
 LABEL_15:
-      if (v20)
+      if (v21)
       {
         goto LABEL_40;
       }
 
-      if (!v18)
+      if (!v19)
       {
         goto LABEL_37;
       }
 
       [(NSPersistentStoreCoordinator *)self->_persistentStoreCoordinator lock];
-      v31 = 0;
-      v21 = [(NSPersistentStoreCoordinator *)self->_persistentStoreCoordinator persistentStoreForURL:v29];
-      if (!v21)
+      v33 = 0;
+      v22 = [(NSPersistentStoreCoordinator *)self->_persistentStoreCoordinator persistentStoreForURL:v31];
+      if (!v22)
       {
         goto LABEL_30;
       }
 
-      if ([(NSPersistentStoreCoordinator *)self->_persistentStoreCoordinator removePersistentStore:v21 error:&v31])
+      if ([(NSPersistentStoreCoordinator *)self->_persistentStoreCoordinator removePersistentStore:v22 error:&v33])
       {
         goto LABEL_32;
       }
 
-      if (v31)
+      if (v33)
       {
-        v22 = [v31 description];
+        v23 = [v33 description];
       }
 
       else
       {
 LABEL_30:
-        v22 = @"No store registered at URL";
+        v23 = @"No store registered at URL";
       }
 
-      NSLog(&cfstr_Uimanageddocum_3.isa, v29, v22);
+      NSLog(&cfstr_Uimanageddocum_3.isa, v31, v23);
 LABEL_32:
       [(NSPersistentStoreCoordinator *)self->_persistentStoreCoordinator unlock];
-      if (v29)
+      if (v31)
       {
-        v31 = 0;
-        if (([defaultManager removeItemAtURL:v29 error:&v31] & 1) == 0)
+        v33 = 0;
+        if (([defaultManager removeItemAtURL:v31 error:&v33] & 1) == 0)
         {
-          NSLog(&cfstr_Uimanageddocum_4.isa, v29, v31);
+          NSLog(&cfstr_Uimanageddocum_4.isa, v31, v33);
         }
 
-        if ((v17 & 1) == 0)
+        if ((v18 & 1) == 0)
         {
           goto LABEL_40;
         }
 
 LABEL_38:
-        v31 = 0;
-        if (([defaultManager removeItemAtURL:v19 error:&v31] & 1) == 0)
+        v33 = 0;
+        if (([defaultManager removeItemAtURL:v20 error:&v33] & 1) == 0)
         {
-          NSLog(&cfstr_Uimanageddocum_5.isa, v19, v31);
+          NSLog(&cfstr_Uimanageddocum_5.isa, v20, v33);
         }
 
         goto LABEL_40;
       }
 
 LABEL_37:
-      if (!v17)
+      if (!v18)
       {
         goto LABEL_40;
       }
@@ -1133,19 +1137,19 @@ LABEL_37:
     }
   }
 
-  v32[0] = MEMORY[0x1E69E9820];
-  v32[1] = 3221225472;
-  v32[2] = __84__UIManagedDocument_writeContents_toURL_forSaveOperation_originalContentsURL_error___block_invoke;
-  v32[3] = &unk_1E7105ED0;
-  v32[4] = v11;
-  v32[5] = &v33;
-  v32[6] = error;
-  [v11 performBlockAndWait:v32];
-  v20 = *(v34 + 24);
-  if (!(v16 & 1 | ((v20 & 1) == 0)))
+  v34[0] = MEMORY[0x1E69E9820];
+  v34[1] = 3221225472;
+  v34[2] = __84__UIManagedDocument_writeContents_toURL_forSaveOperation_originalContentsURL_error___block_invoke;
+  v34[3] = &unk_1E7105ED0;
+  v34[4] = v11;
+  v34[5] = &v35;
+  v34[6] = error;
+  [v11 performBlockAndWait:v34];
+  v21 = *(v36 + 24);
+  if (!(isEqual & 1 | ((v21 & 1) == 0)))
   {
     [(UIManagedDocument *)self _writeMetadataToDocumentURL:l];
-    v20 = *(v34 + 24);
+    v21 = *(v36 + 24);
   }
 
   if (!operation)
@@ -1154,12 +1158,12 @@ LABEL_37:
   }
 
 LABEL_40:
-  v26 = *(v34 + 24);
-  _Block_object_dispose(&v33, 8);
-  return v26;
+  v28 = *(v36 + 24);
+  _Block_object_dispose(&v35, 8);
+  return v28;
 }
 
-uint64_t __84__UIManagedDocument_writeContents_toURL_forSaveOperation_originalContentsURL_error___block_invoke(uint64_t a1)
+void *__84__UIManagedDocument_writeContents_toURL_forSaveOperation_originalContentsURL_error___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) save:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = result;

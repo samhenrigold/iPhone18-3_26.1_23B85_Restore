@@ -222,14 +222,14 @@
       }
     }
 
-    v18 = [(TSSStyle *)TextStyleAtCellID intValueForProperty:44];
-    if (v18 == -1)
+    v19 = [(TSSStyle *)TextStyleAtCellID intValueForProperty:44];
+    if (v19 == -1)
     {
-      v18 = [(TSSStyle *)[(TSTTableModel *)[(TSTEditingState *)self tableModel] tableStyle] intValueForProperty:798]== 1;
+      v19 = [(TSSStyle *)[(TSTTableModel *)[(TSTEditingState *)self tableModel] tableStyle] intValueForProperty:798]== 1;
     }
 
-    LODWORD(v21) = v18;
-    v8 = [[TSWPStorage alloc] initWithContext:[(TSPObject *)self context] string:NSStringForEditingWithTSTCell(v5) kind:5 stylesheet:stylesheet paragraphStyle:TextStyleAtCellID listStyle:[(TSSStylesheet *)stylesheet defaultListStyle] section:0 columnStyle:0 paragraphDirection:v21];
+    LODWORD(v22) = v19;
+    v8 = [[TSWPStorage alloc] initWithContext:[(TSPObject *)self context] string:NSStringForEditingWithTSTCell(v5 kind:v18) stylesheet:5 paragraphStyle:stylesheet listStyle:TextStyleAtCellID section:[(TSSStylesheet *)stylesheet defaultListStyle] columnStyle:0 paragraphDirection:0, v22];
   }
 
   else
@@ -237,9 +237,9 @@
     v8 = [(TSWPStorage *)[(TSTRichTextPayload *)v5->mPrivate.mRichTextPayload storage] copyWithContext:[(TSPObject *)self context]];
   }
 
-  v19 = v8;
+  v20 = v8;
 
-  return v19;
+  return v20;
 }
 
 - (void)changeEditingMode:(int)mode

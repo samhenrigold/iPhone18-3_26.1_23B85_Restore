@@ -11,17 +11,16 @@ void sub_1230(uint64_t a1, void *a2)
   [*(a1 + 32) setFill];
   v13 = [v3 CGContext];
 
-  v17.origin.x = v6;
-  v17.origin.y = v8;
-  v17.size.width = v10;
-  v17.size.height = v12;
-  CGContextFillEllipseInRect(v13, v17);
+  v16.origin.x = v6;
+  v16.origin.y = v8;
+  v16.size.width = v10;
+  v16.size.height = v12;
+  CGContextFillEllipseInRect(v13, v16);
   CLKRectGetCenter();
-  v14 = *(a1 + 48) * 0.5;
-  v15 = [UIBezierPath bezierPathWithArcCenter:"bezierPathWithArcCenter:radius:startAngle:endAngle:clockwise:" radius:0 startAngle:? endAngle:? clockwise:?];
-  [v15 closePath];
+  v14 = [UIBezierPath bezierPathWithArcCenter:"bezierPathWithArcCenter:radius:startAngle:endAngle:clockwise:" radius:0 startAngle:? endAngle:? clockwise:?];
+  [v14 closePath];
   [*(a1 + 40) setFill];
-  [v15 fill];
+  [v14 fill];
 }
 
 id sub_1704(uint64_t a1)
@@ -165,16 +164,16 @@ double sub_3B74(uint64_t a1, uint64_t a2)
   return v4;
 }
 
-id sub_3FB4()
+id sub_3FB4(uint64_t a1)
 {
   if (qword_D625E0 != -1)
   {
     sub_9750();
   }
 
-  v1 = qword_D625D8;
+  v2 = qword_D625D8;
 
-  return v1;
+  return v2;
 }
 
 id sub_486C()
@@ -229,8 +228,9 @@ _UNKNOWN **sub_4AD8(int a1, int a2, uint64_t a3)
   }
 }
 
-CGPath *sub_4BAC(unsigned int a1, int a2, float64_t a3, float64_t a4, double a5)
+CGPath *sub_4BAC(uint64_t a1, uint64_t a2, float64_t a3, float64_t a4, double a5)
 {
+  v6 = a2;
   v19 = 0;
   v9 = sub_79E0(a1, &v19);
   v10 = v19;
@@ -251,7 +251,7 @@ CGPath *sub_4BAC(unsigned int a1, int a2, float64_t a3, float64_t a4, double a5)
       if (v11[5 * v12 + 4].i32[0] == 2)
       {
         v15 = a4;
-        v13 |= sub_7B9C(&v11[5 * v14], v12++ - v14, a2, v15, a5);
+        v13 |= sub_7B9C(&v11[5 * v14], v12++ - v14, v6, v15, a5);
         v14 = v12;
       }
 
@@ -265,7 +265,7 @@ CGPath *sub_4BAC(unsigned int a1, int a2, float64_t a3, float64_t a4, double a5)
   }
 
   v16 = a4;
-  if (sub_7B9C(&v11[5 * v14], v9 - v14, a2, v16, a5) & 1) != 0 || (v13)
+  if (sub_7B9C(&v11[5 * v14], v9 - v14, v6, v16, a5) & 1) != 0 || (v13)
   {
     v17 = sub_7F28(v11, v9, a3, a4);
   }
@@ -493,7 +493,7 @@ uint64_t sub_79E0(unsigned int a1, void *a2)
   return v2;
 }
 
-uint64_t sub_7B9C(uint64_t a1, int a2, int a3, float a4, double a5)
+uint64_t sub_7B9C(uint64_t a1, unsigned int a2, int a3, float a4, double a5)
 {
   if (a2 < 3)
   {

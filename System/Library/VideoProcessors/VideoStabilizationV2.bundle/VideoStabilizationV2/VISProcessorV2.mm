@@ -3,11 +3,8 @@
 - (VISProcessorV2)init;
 - (int)enqueueBufferForProcessing:(opaqueCMSampleBuffer *)processing;
 - (int)finishProcessing;
-- (int)prepareToProcess:(unsigned int)process;
 - (int)prewarm;
 - (int)purgeResources;
-- (uint64_t)finishProcessing;
-- (uint64_t)purgeResources;
 - (void)dealloc;
 - (void)didCompleteProcessingOfBuffer:(opaqueCMSampleBuffer *)buffer withStatus:(int)status;
 - (void)setDelegate:(id)delegate;
@@ -28,9 +25,10 @@
 - (int)finishProcessing
 {
   finishProcessing = [(VISWrapper *)self->_visWrapper finishProcessing];
+  v4 = finishProcessing;
   if (finishProcessing)
   {
-    [VISProcessorV2 finishProcessing];
+    [(VISProcessorV2 *)finishProcessing finishProcessing];
   }
 
   else
@@ -38,18 +36,19 @@
     self->_buffersEnqueued = 0;
   }
 
-  return finishProcessing;
+  return v4;
 }
 
 - (int)purgeResources
 {
   purgeResources = [(VISWrapper *)self->_visWrapper purgeResources];
+  v3 = purgeResources;
   if (purgeResources)
   {
-    [VISProcessorV2 purgeResources];
+    [(VISProcessorV2 *)purgeResources purgeResources];
   }
 
-  return purgeResources;
+  return v3;
 }
 
 - (int)prewarm
@@ -144,30 +143,6 @@
   return v5;
 }
 
-- (int)prepareToProcess:(unsigned int)process
-{
-  if (self->_buffersEnqueued)
-  {
-    return -12782;
-  }
-
-  if (!self->_configuration)
-  {
-    return -12780;
-  }
-
-  [(VISWrapper *)self->_visWrapper setConfiguration:?];
-  [(VISWrapper *)self->_visWrapper setDelegate:self];
-  prepareToProcess = [(VISWrapper *)self->_visWrapper prepareToProcess];
-  if (prepareToProcess)
-  {
-    fig_log_get_emitter();
-    FigDebugAssert3();
-  }
-
-  return prepareToProcess;
-}
-
 - (int)enqueueBufferForProcessing:(opaqueCMSampleBuffer *)processing
 {
   if (!self->_visWrapper)
@@ -188,7 +163,7 @@
     {
       fig_log_get_emitter();
       OUTLINED_FUNCTION_0_0();
-      FigDebugAssert3();
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", v8, v9, v10, v11, v12, v13, v14, v15);
     }
 
     else
@@ -198,20 +173,6 @@
   }
 
   return v6;
-}
-
-- (uint64_t)finishProcessing
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
-}
-
-- (uint64_t)purgeResources
-{
-  fig_log_get_emitter();
-  OUTLINED_FUNCTION_0_0();
-  return FigDebugAssert3();
 }
 
 @end

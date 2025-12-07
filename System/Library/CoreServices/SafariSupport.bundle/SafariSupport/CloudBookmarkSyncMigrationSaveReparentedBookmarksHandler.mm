@@ -28,10 +28,10 @@
 {
   errorCopy = error;
   v5 = objc_retainBlock(self->_completionHandler);
-  v6 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+  v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v5, v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
   {
-    sub_10008627C(v6, errorCopy);
+    sub_10008627C(v7, errorCopy);
   }
 
   completionHandler = self->_completionHandler;
@@ -49,14 +49,14 @@
   completionHandler = self->_completionHandler;
   namesCopy = names;
   v6 = objc_retainBlock(completionHandler);
-  v7 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
+  v8 = [CloudTabGroupSyncCoordinator _bookmarksLog]_0(v6, v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
-    *v10 = 0;
-    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "Did finish saving reparented records", v10, 2u);
+    *v11 = 0;
+    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "Did finish saving reparented records", v11, 2u);
   }
 
-  v8 = self->_completionHandler;
+  v9 = self->_completionHandler;
   self->_completionHandler = 0;
 
   self->_isSavingReparentedRecords = 0;

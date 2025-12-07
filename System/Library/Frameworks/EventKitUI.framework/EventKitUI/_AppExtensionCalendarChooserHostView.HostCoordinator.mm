@@ -34,14 +34,20 @@
   v12 = v11;
   selfCopy = self;
   sub_1D35D9B48(v7, v9, v10, v12, style);
+
+  v9, v14, v15, v16, v17, v18, v19, v20;
+
+  v12, v21, v22, v23, v24, v25, v26, v27;
 }
 
 - (void)calendarSelectionChanged:(id)changed allSelected:(BOOL)selected
 {
-  sub_1D35A52E0(0, &qword_1EC76B210);
+  sub_1D35A52E0(0, &qword_1EC76B210, off_1E843D370);
   v6 = sub_1D35DF3E4();
   selfCopy = self;
   sub_1D35D9F44(v6, selected);
+
+  v6, v8, v9, v10, v11, v12, v13, v14;
 }
 
 - (_TtCV10EventKitUI36_AppExtensionCalendarChooserHostView15HostCoordinator)init

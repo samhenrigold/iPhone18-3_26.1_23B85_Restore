@@ -24,21 +24,21 @@
 
 - (void)_validateSpotlightClientStateWithLastError:(id)error attempts:(int64_t)attempts completion:(id)completion
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   completionCopy = completion;
   if (attempts < 5)
   {
-    if (objc_msgSend_needsIndexing(MEMORY[0x1E69A7FF8], v9, v10))
+    if (objc_msgSend_needsIndexing(MEMORY[0x1E69A7FF8], v9, v10, v11))
     {
       if (IMOSLoggingEnabled())
       {
-        v13 = OSLogHandleForIMFoundationCategory();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+        v14 = OSLogHandleForIMFoundationCategory();
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
         {
           *buf = 136446210;
-          v22 = "[IMDSpotlightQueryProvider _validateSpotlightClientStateWithLastError:attempts:completion:]";
-          _os_log_impl(&dword_1B7AD5000, v13, OS_LOG_TYPE_INFO, "%{public}s CS already needs reindexing, not checking client state", buf, 0xCu);
+          v23 = "[IMDSpotlightQueryProvider _validateSpotlightClientStateWithLastError:attempts:completion:]";
+          _os_log_impl(&dword_1B7AD5000, v14, OS_LOG_TYPE_INFO, "%{public}s CS already needs reindexing, not checking client state", buf, 0xCu);
         }
       }
 
@@ -47,29 +47,29 @@
 
     else
     {
-      v14 = IMCoreSpotlightCriticalIndex();
-      if (v14)
+      v15 = IMCoreSpotlightCriticalIndex();
+      if (v15)
       {
-        v18[0] = MEMORY[0x1E69E9820];
-        v18[1] = 3221225472;
-        v18[2] = sub_1B7BC6CB0;
-        v18[3] = &unk_1E7CBC290;
+        v19[0] = MEMORY[0x1E69E9820];
+        v19[1] = 3221225472;
+        v19[2] = sub_1B7BC6CB0;
+        v19[3] = &unk_1E7CBC290;
         attemptsCopy = attempts;
-        v18[4] = self;
-        v19 = completionCopy;
-        objc_msgSend_fetchLastClientStateWithCompletionHandler_(v14, v15, v18);
+        v19[4] = self;
+        v20 = completionCopy;
+        objc_msgSend_fetchLastClientStateWithCompletionHandler_(v15, v16, v19, v17);
       }
 
       else
       {
         if (IMOSLoggingEnabled())
         {
-          v16 = OSLogHandleForIMFoundationCategory();
-          if (os_log_type_enabled(v16, OS_LOG_TYPE_INFO))
+          v18 = OSLogHandleForIMFoundationCategory();
+          if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
           {
             *buf = 136446210;
-            v22 = "[IMDSpotlightQueryProvider _validateSpotlightClientStateWithLastError:attempts:completion:]";
-            _os_log_impl(&dword_1B7AD5000, v16, OS_LOG_TYPE_INFO, "%{public}s Failed to fetch Spotlight index, bailing", buf, 0xCu);
+            v23 = "[IMDSpotlightQueryProvider _validateSpotlightClientStateWithLastError:attempts:completion:]";
+            _os_log_impl(&dword_1B7AD5000, v18, OS_LOG_TYPE_INFO, "%{public}s Failed to fetch Spotlight index, bailing", buf, 0xCu);
           }
         }
 
@@ -80,16 +80,14 @@
 
   else
   {
-    v12 = IMLogHandleForCategory();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_FAULT))
+    v13 = IMLogHandleForCategory();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_FAULT))
     {
-      sub_1B7CFB514(v12);
+      sub_1B7CFB514(v13);
     }
 
     (completionCopy)[2](completionCopy, 1, errorCopy);
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)validateSpotlightClientStateWithCompletion:(id)completion
@@ -134,13 +132,13 @@
   metadataCopy = metadata;
   collaborationMetadataCopy = collaborationMetadata;
   blockCopy = block;
-  v13 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v11, v12);
-  isSpotlightRefactorEnabled = objc_msgSend_isSpotlightRefactorEnabled(v13, v14, v15);
+  v14 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v11, v12, v13);
+  isSpotlightRefactorEnabled = objc_msgSend_isSpotlightRefactorEnabled(v14, v15, v16, v17);
 
   if (isSpotlightRefactorEnabled)
   {
-    v19 = objc_msgSend_sharedManager(IMDCoreSpotlightIndexingManager, v17, v18);
-    objc_msgSend_reindexMessagesWithCollaborationMetadata_collaborationMetadata_reason_completionBlock_(v19, v20, metadataCopy, collaborationMetadataCopy, reason, blockCopy);
+    v22 = objc_msgSend_sharedManager(IMDCoreSpotlightIndexingManager, v19, v20, v21);
+    objc_msgSend_reindexMessagesWithCollaborationMetadata_collaborationMetadata_reason_completionBlock_(v22, v23, metadataCopy, collaborationMetadataCopy, reason, blockCopy);
   }
 
   else
@@ -152,14 +150,14 @@
 - (void)fetchLastSpotlightIndexDeleteReasonWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v3, v4);
-  isSpotlightRefactorEnabled = objc_msgSend_isSpotlightRefactorEnabled(v5, v6, v7);
+  v6 = objc_msgSend_sharedFeatureFlags(MEMORY[0x1E69A8070], v3, v4, v5);
+  isSpotlightRefactorEnabled = objc_msgSend_isSpotlightRefactorEnabled(v6, v7, v8, v9);
 
   if (isSpotlightRefactorEnabled)
   {
-    v11 = objc_msgSend_sharedManager(IMDCoreSpotlightIndexingManager, v9, v10);
-    v14 = objc_msgSend__lastIndexDeleteReason(v11, v12, v13);
-    completionCopy[2](completionCopy, v14);
+    v14 = objc_msgSend_sharedManager(IMDCoreSpotlightIndexingManager, v11, v12, v13);
+    v18 = objc_msgSend__lastIndexDeleteReason(v14, v15, v16, v17);
+    completionCopy[2](completionCopy, v18);
   }
 
   else

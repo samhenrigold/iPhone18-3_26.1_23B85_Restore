@@ -46,7 +46,7 @@
 
 - (id)initialNotificationSubtitle
 {
-  v2 = MSPBundle();
+  v2 = MSPBundle(self);
   v3 = [v2 localizedStringForKey:@"[Shared Trip] Notification's subtitle when sharing" value:@"%@ is sharing ETA" table:0];
 
   v4 = MEMORY[0x277CCACA8];
@@ -70,7 +70,7 @@
   numberOfIntermediateStopsRemaining = [self numberOfIntermediateStopsRemaining];
   destinationName = [self destinationName];
   v10 = MEMORY[0x277CCACA8];
-  v11 = MSPBundle();
+  v11 = MSPBundle(destinationName);
   v12 = v11;
   if (destinationName)
   {
@@ -104,7 +104,7 @@
   numberOfIntermediateStopsRemaining = [self numberOfIntermediateStopsRemaining];
   destinationName = [self destinationName];
   v10 = MEMORY[0x277CCACA8];
-  v11 = MSPBundle();
+  v11 = MSPBundle(destinationName);
   v12 = v11;
   if (destinationName)
   {
@@ -125,7 +125,7 @@
 - (id)updateNotificationSubtitle
 {
   v2 = MEMORY[0x277CCACA8];
-  v3 = MSPBundle();
+  v3 = MSPBundle(self);
   v4 = [v3 localizedStringForKey:@"[Shared Trip] update Notification's subtitle when sharing" value:@"%@’s ETA has changed" table:0];
   senderName = [self senderName];
   v6 = [v2 stringWithFormat:v4, senderName];
@@ -148,24 +148,24 @@
   name = [nextWaypointInfo name];
 
   v10 = MEMORY[0x277CCACA8];
-  v11 = MSPBundle();
-  v12 = v11;
+  v12 = MSPBundle(v11);
+  v13 = v12;
   if (name)
   {
-    v13 = [v11 localizedStringForKey:@"[Shared Trip] update Notification's body when sharing (with destination)" value:@"%1$@ will now arrive at %2$@ around %3$@" table:0];
+    v14 = [v12 localizedStringForKey:@"[Shared Trip] update Notification's body when sharing (with destination)" value:@"%1$@ will now arrive at %2$@ around %3$@" table:0];
     senderNameIncludingHandleIfNecessary = [self senderNameIncludingHandleIfNecessary];
-    [v10 stringWithFormat:v13, senderNameIncludingHandleIfNecessary, name, v7];
+    [v10 stringWithFormat:v14, senderNameIncludingHandleIfNecessary, name, v7];
   }
 
   else
   {
-    v13 = [v11 localizedStringForKey:@"[Shared Trip] update Notification's body when sharing (without destination)" value:@"%1$@ will now arrive around %2$@" table:0];
+    v14 = [v12 localizedStringForKey:@"[Shared Trip] update Notification's body when sharing (without destination)" value:@"%1$@ will now arrive around %2$@" table:0];
     senderNameIncludingHandleIfNecessary = [self senderNameIncludingHandleIfNecessary];
-    [v10 stringWithFormat:v13, senderNameIncludingHandleIfNecessary, v7, v17];
+    [v10 stringWithFormat:v14, senderNameIncludingHandleIfNecessary, v7, v18];
   }
-  v15 = ;
+  v16 = ;
 
-  return v15;
+  return v16;
 }
 
 - (id)updateMessage
@@ -183,27 +183,27 @@
   name = [nextWaypointInfo name];
 
   v10 = MEMORY[0x277CCACA8];
-  v11 = MSPBundle();
-  v12 = v11;
+  v12 = MSPBundle(v11);
+  v13 = v12;
   if (name)
   {
-    v13 = [v11 localizedStringForKey:@"[Shared Trip] update text message body (with destination)" value:@"My updated arrival time to %1$@ is now around %2$@." table:0];
-    [v10 stringWithFormat:v13, name, v7];
+    v14 = [v12 localizedStringForKey:@"[Shared Trip] update text message body (with destination)" value:@"My updated arrival time to %1$@ is now around %2$@." table:0];
+    [v10 stringWithFormat:v14, name, v7];
   }
 
   else
   {
-    v13 = [v11 localizedStringForKey:@"[Shared Trip] update text message body (without destination)" value:@"My updated arrival time is now around %@." table:0];
-    [v10 stringWithFormat:v13, v7, v16];
+    v14 = [v12 localizedStringForKey:@"[Shared Trip] update text message body (without destination)" value:@"My updated arrival time is now around %@." table:0];
+    [v10 stringWithFormat:v14, v7, v17];
   }
-  v14 = ;
+  v15 = ;
 
-  return v14;
+  return v15;
 }
 
 - (id)chargingStopNotificationSubtitle
 {
-  v2 = MSPBundle();
+  v2 = MSPBundle(self);
   v3 = [v2 localizedStringForKey:@"[Shared Trip] Notification's subtitle when stopping at a charger" value:@"%@ is making a stop" table:0];
 
   v4 = MEMORY[0x277CCACA8];
@@ -219,12 +219,12 @@
   name = [nextWaypointInfo name];
 
   v4 = MEMORY[0x277CCACA8];
-  v5 = MSPBundle();
-  v6 = [v5 localizedStringForKey:@"[Shared Trip] Notification's body when stopping at a charger" value:@"%@ has stopped at a charging station in %@." table:0];
+  v6 = MSPBundle(v5);
+  v7 = [v6 localizedStringForKey:@"[Shared Trip] Notification's body when stopping at a charger" value:@"%@ has stopped at a charging station in %@." table:0];
   senderNameIncludingHandleIfNecessary = [self senderNameIncludingHandleIfNecessary];
-  v8 = [v4 stringWithFormat:v6, senderNameIncludingHandleIfNecessary, name];
+  v9 = [v4 stringWithFormat:v7, senderNameIncludingHandleIfNecessary, name];
 
-  return v8;
+  return v9;
 }
 
 - (id)chargingStopMessage
@@ -233,16 +233,16 @@
   name = [nextWaypointInfo name];
 
   v3 = MEMORY[0x277CCACA8];
-  v4 = MSPBundle();
-  v5 = [v4 localizedStringForKey:@"[Shared Trip] text message body when stopping at a charger" value:@"I have stopped at a charging station in %@." table:0];
-  v6 = [v3 stringWithFormat:v5, name];
+  v5 = MSPBundle(v4);
+  v6 = [v5 localizedStringForKey:@"[Shared Trip] text message body when stopping at a charger" value:@"I have stopped at a charging station in %@." table:0];
+  v7 = [v3 stringWithFormat:v6, name];
 
-  return v6;
+  return v7;
 }
 
 - (id)intermediateArrivalNotificationSubtitle
 {
-  v2 = MSPBundle();
+  v2 = MSPBundle(self);
   v3 = [v2 localizedStringForKey:@"[Shared Trip] Notification's subtitle when stopping at an intermediate waypoint" value:@"%@ is making a stop" table:0];
 
   v4 = MEMORY[0x277CCACA8];
@@ -259,7 +259,7 @@
 
   destinationName = [self destinationName];
   v5 = MEMORY[0x277CCACA8];
-  v6 = MSPBundle();
+  v6 = MSPBundle(destinationName);
   v7 = v6;
   if (destinationName)
   {
@@ -286,7 +286,7 @@
 
   destinationName = [self destinationName];
   v5 = MEMORY[0x277CCACA8];
-  v6 = MSPBundle();
+  v6 = MSPBundle(destinationName);
   v7 = v6;
   if (destinationName)
   {
@@ -306,7 +306,7 @@
 
 - (id)waypointResumeNotificationSubtitle
 {
-  v2 = MSPBundle();
+  v2 = MSPBundle(self);
   v3 = [v2 localizedStringForKey:@"[Shared Trip] Notification's subtitle when resuming sharing" value:@"%@ has resumed the route" table:0];
 
   v4 = MEMORY[0x277CCACA8];
@@ -329,7 +329,7 @@
 
   destinationName = [self destinationName];
   v9 = MEMORY[0x277CCACA8];
-  v10 = MSPBundle();
+  v10 = MSPBundle(destinationName);
   v11 = v10;
   if (destinationName)
   {
@@ -362,7 +362,7 @@
 
   destinationName = [self destinationName];
   v9 = MEMORY[0x277CCACA8];
-  v10 = MSPBundle();
+  v10 = MSPBundle(destinationName);
   v11 = v10;
   if (destinationName)
   {
@@ -383,7 +383,7 @@
 - (id)arrivalNotificationSubtitle
 {
   v2 = MEMORY[0x277CCACA8];
-  v3 = MSPBundle();
+  v3 = MSPBundle(self);
   v4 = [v3 localizedStringForKey:@"[Shared Trip] arrival notification subtitle" value:@"%@ is arriving" table:0];
   senderName = [self senderName];
   v6 = [v2 stringWithFormat:v4, senderName];
@@ -397,24 +397,24 @@
   name = [nextWaypointInfo name];
 
   v4 = MEMORY[0x277CCACA8];
-  v5 = MSPBundle();
-  v6 = v5;
+  v6 = MSPBundle(v5);
+  v7 = v6;
   if (name)
   {
-    v7 = [v5 localizedStringForKey:@"[Shared Trip] arrival notification body" value:@"%@ is arriving at %@." table:0];
+    v8 = [v6 localizedStringForKey:@"[Shared Trip] arrival notification body" value:@"%@ is arriving at %@." table:0];
     senderNameIncludingHandleIfNecessary = [self senderNameIncludingHandleIfNecessary];
-    [v4 stringWithFormat:v7, senderNameIncludingHandleIfNecessary, name];
+    [v4 stringWithFormat:v8, senderNameIncludingHandleIfNecessary, name];
   }
 
   else
   {
-    v7 = [v5 localizedStringForKey:@"[Shared Trip] arrival notification body value:generic" table:{@"%@ is arriving at their destination.", 0}];
+    v8 = [v6 localizedStringForKey:@"[Shared Trip] arrival notification body value:generic" table:{@"%@ is arriving at their destination.", 0}];
     senderNameIncludingHandleIfNecessary = [self senderNameIncludingHandleIfNecessary];
-    [v4 stringWithFormat:v7, senderNameIncludingHandleIfNecessary, v11];
+    [v4 stringWithFormat:v8, senderNameIncludingHandleIfNecessary, v12];
   }
-  v9 = ;
+  v10 = ;
 
-  return v9;
+  return v10;
 }
 
 - (id)arrivalMessage
@@ -423,22 +423,22 @@
   name = [nextWaypointInfo name];
 
   v3 = MEMORY[0x277CCACA8];
-  v4 = MSPBundle();
-  v5 = v4;
+  v5 = MSPBundle(v4);
+  v6 = v5;
   if (name)
   {
-    v6 = [v4 localizedStringForKey:@"[Shared Trip] arrival text message body" value:@"I’m arriving at %@ soon." table:0];
-    [v3 stringWithFormat:v6, name];
+    v7 = [v5 localizedStringForKey:@"[Shared Trip] arrival text message body" value:@"I’m arriving at %@ soon." table:0];
+    [v3 stringWithFormat:v7, name];
   }
 
   else
   {
-    v6 = [v4 localizedStringForKey:@"[Shared Trip] arrival text message body value:generic" table:{@"I’m arriving at my destination soon.", 0}];
-    [v3 stringWithFormat:v6, v9];
+    v7 = [v5 localizedStringForKey:@"[Shared Trip] arrival text message body value:generic" table:{@"I’m arriving at my destination soon.", 0}];
+    [v3 stringWithFormat:v7, v10];
   }
-  v7 = ;
+  v8 = ;
 
-  return v7;
+  return v8;
 }
 
 @end

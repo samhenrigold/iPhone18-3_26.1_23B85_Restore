@@ -114,11 +114,11 @@
 
   if (self)
   {
-    [(WebVisiblePosition *)self _visiblePosition];
+    objc_msgSend__visiblePosition(self);
     if (equal)
     {
 LABEL_4:
-      [equal _visiblePosition];
+      objc_msgSend__visiblePosition(equal);
       goto LABEL_9;
     }
   }
@@ -186,11 +186,11 @@ LABEL_15:
 {
   if (self)
   {
-    [(WebVisiblePosition *)self _visiblePosition];
+    objc_msgSend__visiblePosition(self, a2);
     if (compare)
     {
 LABEL_3:
-      [compare _visiblePosition];
+      objc_msgSend__visiblePosition(compare);
       goto LABEL_6;
     }
   }
@@ -265,11 +265,11 @@ LABEL_17:
 {
   if (self)
   {
-    [(WebVisiblePosition *)self _visiblePosition];
+    objc_msgSend__visiblePosition(self, a2);
     if (position)
     {
 LABEL_3:
-      [position _visiblePosition];
+      objc_msgSend__visiblePosition(position);
       goto LABEL_6;
     }
   }
@@ -333,7 +333,7 @@ LABEL_12:
   v3 = [MEMORY[0x1E696AD60] stringWithString:{-[WebVisiblePosition description](&v17, sel_description)}];
   if (self)
   {
-    [(WebVisiblePosition *)self _visiblePosition];
+    objc_msgSend__visiblePosition(self);
     v4 = v14;
     if (v14)
     {
@@ -443,138 +443,152 @@ LABEL_12:
 {
   if (self)
   {
-    [(WebVisiblePosition *)self _visiblePosition];
+    objc_msgSend__visiblePosition(self, a2);
     LOBYTE(downstreamCopy) = downstream;
     if (direction <= 2)
     {
       goto LABEL_3;
     }
 
-    goto LABEL_15;
+    goto LABEL_18;
   }
 
-  v34 = 0;
-  v35 = 0;
+  v36 = 0;
+  v37 = 0;
   downstreamCopy = downstream;
   if (direction > 2)
   {
-LABEL_15:
+LABEL_18:
     if (direction != 5)
     {
       if (direction != 4)
       {
         if (direction != 3 || !amount)
         {
-          goto LABEL_58;
+          goto LABEL_64;
         }
 
         while (1)
         {
-          WebCore::VisiblePosition::left(&v34, 0, 0);
-          v10 = v30;
-          v30 = 0;
-          v11 = v34;
-          v34 = v10;
-          if (v11)
+          WebCore::VisiblePosition::left(&v32, &v36, 0, 0);
+          v11 = v32;
+          v32 = 0;
+          v12 = v36;
+          v36 = v11;
+          if (v12)
           {
-            if (*(v11 + 7) == 2)
+            if (*(v12 + 7) == 2)
             {
-              WebCore::Node::removedLastRef(v11);
-              LODWORD(v35) = v31;
-              BYTE4(v35) = v32;
-              LOBYTE(downstreamCopy) = v33;
-              v30 = 0;
-              goto LABEL_20;
+              WebCore::Node::removedLastRef(v12);
+              v13 = v32;
+              LODWORD(v37) = v33;
+              BYTE4(v37) = v34;
+              LOBYTE(downstreamCopy) = v35;
+              v32 = 0;
+              if (v13)
+              {
+                if (*(v13 + 7) == 2)
+                {
+                  WebCore::Node::removedLastRef(v13);
+                }
+
+                else
+                {
+                  *(v13 + 7) -= 2;
+                }
+              }
+
+              goto LABEL_24;
             }
 
-            *(v11 + 7) -= 2;
+            *(v12 + 7) -= 2;
           }
 
-          LODWORD(v35) = v31;
-          BYTE4(v35) = v32;
-          LOBYTE(downstreamCopy) = v33;
-LABEL_20:
+          LODWORD(v37) = v33;
+          BYTE4(v37) = v34;
+          LOBYTE(downstreamCopy) = v35;
+LABEL_24:
           if (!--amount)
           {
-            goto LABEL_58;
+            goto LABEL_64;
           }
         }
       }
 
-      WebCore::VisiblePosition::lineDirectionPointForBlockDirectionNavigation(&v34);
+      WebCore::VisiblePosition::lineDirectionPointForBlockDirectionNavigation(&v36);
       if (!amount)
       {
-        goto LABEL_58;
+        goto LABEL_64;
       }
 
       while (1)
       {
         WebCore::previousLinePosition();
-        v18 = v30;
-        v30 = 0;
-        v19 = v34;
-        v34 = v18;
-        if (v19)
+        v20 = v32;
+        v32 = 0;
+        v21 = v36;
+        v36 = v20;
+        if (v21)
         {
-          if (*(v19 + 7) == 2)
+          if (*(v21 + 7) == 2)
           {
-            WebCore::Node::removedLastRef(v19);
-            LODWORD(v35) = v31;
-            BYTE4(v35) = v32;
-            LOBYTE(downstreamCopy) = v33;
-            v30 = 0;
-            goto LABEL_52;
+            WebCore::Node::removedLastRef(v21);
+            LODWORD(v37) = v33;
+            BYTE4(v37) = v34;
+            LOBYTE(downstreamCopy) = v35;
+            v32 = 0;
+            goto LABEL_58;
           }
 
-          *(v19 + 7) -= 2;
+          *(v21 + 7) -= 2;
         }
 
-        LODWORD(v35) = v31;
-        BYTE4(v35) = v32;
-        LOBYTE(downstreamCopy) = v33;
-LABEL_52:
+        LODWORD(v37) = v33;
+        BYTE4(v37) = v34;
+        LOBYTE(downstreamCopy) = v35;
+LABEL_58:
         if (!--amount)
         {
-          goto LABEL_58;
+          goto LABEL_64;
         }
       }
     }
 
-    WebCore::VisiblePosition::lineDirectionPointForBlockDirectionNavigation(&v34);
+    WebCore::VisiblePosition::lineDirectionPointForBlockDirectionNavigation(&v36);
     if (!amount)
     {
-      goto LABEL_58;
+      goto LABEL_64;
     }
 
     while (1)
     {
       WebCore::nextLinePosition();
-      v14 = v30;
-      v30 = 0;
-      v15 = v34;
-      v34 = v14;
-      if (v15)
+      v16 = v32;
+      v32 = 0;
+      v17 = v36;
+      v36 = v16;
+      if (v17)
       {
-        if (*(v15 + 7) == 2)
+        if (*(v17 + 7) == 2)
         {
-          WebCore::Node::removedLastRef(v15);
-          LODWORD(v35) = v31;
-          BYTE4(v35) = v32;
-          LOBYTE(downstreamCopy) = v33;
-          v30 = 0;
-          goto LABEL_36;
+          WebCore::Node::removedLastRef(v17);
+          LODWORD(v37) = v33;
+          BYTE4(v37) = v34;
+          LOBYTE(downstreamCopy) = v35;
+          v32 = 0;
+          goto LABEL_42;
         }
 
-        *(v15 + 7) -= 2;
+        *(v17 + 7) -= 2;
       }
 
-      LODWORD(v35) = v31;
-      BYTE4(v35) = v32;
-      LOBYTE(downstreamCopy) = v33;
-LABEL_36:
+      LODWORD(v37) = v33;
+      BYTE4(v37) = v34;
+      LOBYTE(downstreamCopy) = v35;
+LABEL_42:
       if (!--amount)
       {
-        goto LABEL_58;
+        goto LABEL_64;
       }
     }
   }
@@ -584,38 +598,38 @@ LABEL_3:
   {
     if (!amount)
     {
-      goto LABEL_58;
+      goto LABEL_64;
     }
 
     while (1)
     {
       WebCore::VisiblePosition::next();
-      v12 = v30;
-      v30 = 0;
-      v13 = v34;
-      v34 = v12;
-      if (v13)
+      v14 = v32;
+      v32 = 0;
+      v15 = v36;
+      v36 = v14;
+      if (v15)
       {
-        if (*(v13 + 7) == 2)
+        if (*(v15 + 7) == 2)
         {
-          WebCore::Node::removedLastRef(v13);
-          LODWORD(v35) = v31;
-          BYTE4(v35) = v32;
-          LOBYTE(downstreamCopy) = v33;
-          v30 = 0;
-          goto LABEL_28;
+          WebCore::Node::removedLastRef(v15);
+          LODWORD(v37) = v33;
+          BYTE4(v37) = v34;
+          LOBYTE(downstreamCopy) = v35;
+          v32 = 0;
+          goto LABEL_34;
         }
 
-        *(v13 + 7) -= 2;
+        *(v15 + 7) -= 2;
       }
 
-      LODWORD(v35) = v31;
-      BYTE4(v35) = v32;
-      LOBYTE(downstreamCopy) = v33;
-LABEL_28:
+      LODWORD(v37) = v33;
+      BYTE4(v37) = v34;
+      LOBYTE(downstreamCopy) = v35;
+LABEL_34:
       if (!--amount)
       {
-        goto LABEL_58;
+        goto LABEL_64;
       }
     }
   }
@@ -624,38 +638,38 @@ LABEL_28:
   {
     if (!amount)
     {
-      goto LABEL_58;
+      goto LABEL_64;
     }
 
     while (1)
     {
       WebCore::VisiblePosition::previous();
-      v16 = v30;
-      v30 = 0;
-      v17 = v34;
-      v34 = v16;
-      if (v17)
+      v18 = v32;
+      v32 = 0;
+      v19 = v36;
+      v36 = v18;
+      if (v19)
       {
-        if (*(v17 + 7) == 2)
+        if (*(v19 + 7) == 2)
         {
-          WebCore::Node::removedLastRef(v17);
-          LODWORD(v35) = v31;
-          BYTE4(v35) = v32;
-          LOBYTE(downstreamCopy) = v33;
-          v30 = 0;
-          goto LABEL_44;
+          WebCore::Node::removedLastRef(v19);
+          LODWORD(v37) = v33;
+          BYTE4(v37) = v34;
+          LOBYTE(downstreamCopy) = v35;
+          v32 = 0;
+          goto LABEL_50;
         }
 
-        *(v17 + 7) -= 2;
+        *(v19 + 7) -= 2;
       }
 
-      LODWORD(v35) = v31;
-      BYTE4(v35) = v32;
-      LOBYTE(downstreamCopy) = v33;
-LABEL_44:
+      LODWORD(v37) = v33;
+      BYTE4(v37) = v34;
+      LOBYTE(downstreamCopy) = v35;
+LABEL_50:
       if (!--amount)
       {
-        goto LABEL_58;
+        goto LABEL_64;
       }
     }
   }
@@ -664,88 +678,102 @@ LABEL_44:
   {
     do
     {
-      WebCore::VisiblePosition::right(&v34, 0, 0);
-      v8 = v30;
-      v30 = 0;
-      v9 = v34;
-      v34 = v8;
+      WebCore::VisiblePosition::right(&v32, &v36, 0, 0);
+      v8 = v32;
+      v32 = 0;
+      v9 = v36;
+      v36 = v8;
       if (v9)
       {
         if (*(v9 + 7) == 2)
         {
           WebCore::Node::removedLastRef(v9);
-          LODWORD(v35) = v31;
-          BYTE4(v35) = v32;
-          LOBYTE(downstreamCopy) = v33;
-          v30 = 0;
-          goto LABEL_8;
+          v10 = v32;
+          LODWORD(v37) = v33;
+          BYTE4(v37) = v34;
+          LOBYTE(downstreamCopy) = v35;
+          v32 = 0;
+          if (v10)
+          {
+            if (*(v10 + 7) == 2)
+            {
+              WebCore::Node::removedLastRef(v10);
+            }
+
+            else
+            {
+              *(v10 + 7) -= 2;
+            }
+          }
+
+          goto LABEL_9;
         }
 
         *(v9 + 7) -= 2;
       }
 
-      LODWORD(v35) = v31;
-      BYTE4(v35) = v32;
-      LOBYTE(downstreamCopy) = v33;
-LABEL_8:
+      LODWORD(v37) = v33;
+      BYTE4(v37) = v34;
+      LOBYTE(downstreamCopy) = v35;
+LABEL_9:
       --amount;
     }
 
     while (amount);
   }
 
-LABEL_58:
-  v20 = v34;
-  if (v34)
+LABEL_64:
+  v22 = v36;
+  if (v36)
   {
-    *(v34 + 7) += 2;
+    *(v36 + 7) += 2;
   }
 
-  v26 = v20;
-  v27 = v35;
-  v28 = BYTE4(v35);
-  v29 = downstreamCopy;
-  result = [WebVisiblePosition _wrapVisiblePositionIfValid:&v26];
-  v22 = v26;
-  v26 = 0;
-  if (v22)
+  v28 = v22;
+  v29 = v37;
+  v30 = BYTE4(v37);
+  v31 = downstreamCopy;
+  result = [WebVisiblePosition _wrapVisiblePositionIfValid:&v28];
+  v24 = v28;
+  v28 = 0;
+  if (v24)
   {
-    if (*(v22 + 7) == 2)
+    if (*(v24 + 7) == 2)
     {
-      v24 = result;
-      WebCore::Node::removedLastRef(v22);
-      result = v24;
-      v23 = v34;
-      v34 = 0;
-      if (!v23)
+      v26 = result;
+      WebCore::Node::removedLastRef(v24);
+      result = v26;
+      v25 = v36;
+      v36 = 0;
+      if (!v25)
       {
         return result;
       }
 
-      goto LABEL_66;
+      goto LABEL_72;
     }
 
-    *(v22 + 7) -= 2;
+    *(v24 + 7) -= 2;
   }
 
-  v23 = v34;
-  v34 = 0;
-  if (!v23)
+  v25 = v36;
+  v36 = 0;
+  if (!v25)
   {
     return result;
   }
 
-LABEL_66:
-  if (*(v23 + 7) == 2)
+LABEL_72:
+  if (*(v25 + 7) == 2)
   {
-    v25 = result;
-    WebCore::Node::removedLastRef(v23);
-    return v25;
+    v27 = result;
+    WebCore::Node::removedLastRef(v25);
+    return v27;
   }
 
   else
   {
-    *(v23 + 7) -= 2;
+    *(v25 + 7) -= 2;
   }
 
   return result;
@@ -755,7 +783,7 @@ LABEL_66:
 {
   if (self)
   {
-    [(WebVisiblePosition *)self _visiblePosition];
+    objc_msgSend__visiblePosition(self, a2);
   }
 
   else
@@ -786,7 +814,7 @@ LABEL_66:
 {
   if (self)
   {
-    [(WebVisiblePosition *)self _visiblePosition];
+    objc_msgSend__visiblePosition(self, a2);
   }
 
   else
@@ -843,7 +871,7 @@ LABEL_10:
 {
   if (self)
   {
-    [(WebVisiblePosition *)self _visiblePosition];
+    objc_msgSend__visiblePosition(self, a2);
   }
 
   else
@@ -874,7 +902,7 @@ LABEL_10:
 {
   if (self)
   {
-    [(WebVisiblePosition *)self _visiblePosition];
+    objc_msgSend__visiblePosition(self, a2);
   }
 
   else
@@ -961,7 +989,7 @@ LABEL_19:
 {
   if (self)
   {
-    [(WebVisiblePosition *)self _visiblePosition];
+    objc_msgSend__visiblePosition(self, a2);
     v2 = v76;
     if (v76)
     {
@@ -1613,7 +1641,7 @@ LABEL_90:
 {
   if (self)
   {
-    [(WebVisiblePosition *)self _visiblePosition];
+    objc_msgSend__visiblePosition(self, a2);
     v2 = v7;
     if (v7)
     {
@@ -1674,7 +1702,7 @@ LABEL_11:
 {
   if (self)
   {
-    [(WebVisiblePosition *)self _visiblePosition];
+    objc_msgSend__visiblePosition(self, a2);
   }
 
   else
@@ -1753,7 +1781,7 @@ LABEL_11:
     if (self)
     {
 LABEL_3:
-      [(WebVisiblePosition *)self _visiblePosition];
+      objc_msgSend__visiblePosition(self, a2);
       goto LABEL_6;
     }
   }
@@ -1856,7 +1884,7 @@ LABEL_6:
     return 0;
   }
 
-  [(WebVisiblePosition *)self _visiblePosition];
+  objc_msgSend__visiblePosition(self, a2);
   v4 = v42;
   if (v42)
   {
@@ -2132,7 +2160,7 @@ LABEL_44:
     return 0;
   }
 
-  [(WebVisiblePosition *)self _visiblePosition];
+  objc_msgSend__visiblePosition(self, a2);
   v2 = v36;
   if (v36)
   {
@@ -2373,7 +2401,7 @@ LABEL_39:
     return 0;
   }
 
-  [(WebVisiblePosition *)self _visiblePosition];
+  objc_msgSend__visiblePosition(self, a2);
   v2 = v5;
   v3 = v6;
   v5 = 0;

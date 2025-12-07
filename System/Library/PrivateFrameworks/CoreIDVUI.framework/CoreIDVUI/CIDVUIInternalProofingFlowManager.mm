@@ -22,7 +22,7 @@
 
 - (void)startProofingWithConfiguration:(CIDVUIProofingConfiguration *)configuration completionHandler:(id)handler
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0, &qword_2459171A0);
   MEMORY[0x28223BE20](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(handler);
@@ -52,14 +52,14 @@
   selfCopy = self;
   sub_2458C75F0();
   v3 = *(&selfCopy->super.isa + OBJC_IVAR____TtC9CoreIDVUI33CIDVUIInternalProofingFlowManager_configuration);
-  v4 = sub_2458935AC();
+  v4 = sub_2458935AC(v3);
 
   return v4;
 }
 
 - (void)proofingFlowAvailabilityWithCompletionHandler:(id)handler
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0, &qword_2459171A0);
   MEMORY[0x28223BE20](v5 - 8);
   v7 = &v14 - v6;
   v8 = _Block_copy(handler);
@@ -84,7 +84,7 @@
 
 - (void)proofingStatusFor:(NSString *)for country:(NSString *)country completionHandler:(id)handler
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27EE297B0, &qword_2459171A0);
   MEMORY[0x28223BE20](v9 - 8);
   v11 = &v20 - v10;
   v12 = _Block_copy(handler);

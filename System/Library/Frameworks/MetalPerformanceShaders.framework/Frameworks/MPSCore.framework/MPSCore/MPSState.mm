@@ -377,7 +377,7 @@ LABEL_17:
     result->_label = 0;
     result[1]._resources = 0;
     LOWORD(result[1]._resourceCount) = 0;
-    MPSAutoTexture::InitDeferredUsingTextureCache(&result->_resources, descriptor, cmdBuf, MPSImageFeatureChannelFormatNone, 0);
+    MPSAutoTexture::InitDeferredUsingTextureCache(&result->_resources, descriptor, cmdBuf, 0, 0);
     v11 = [self alloc];
     v15 = objc_msgSend_initWithResource_(v11, v12, 0, v13, v14);
     if (v15)
@@ -547,7 +547,7 @@ LABEL_17:
     v8->_readCount = 0;
     v8->_label = 0;
     v8->_resourceCount = 0;
-    v10 = *(MPSDevice + 16);
+    v10 = *(MPSDevice + 2);
     v8->_resourceCount = bufferSize;
     v8->_readCount = v10;
     *&v8->_flags = xmmword_22E37B630;

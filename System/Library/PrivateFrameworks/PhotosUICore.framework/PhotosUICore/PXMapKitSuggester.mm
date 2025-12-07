@@ -17,9 +17,9 @@
   v4[1] = 0;
   v5 = (self + OBJC_IVAR____TtC12PhotosUICore17PXMapKitSuggester_coordinateRegion);
   *v5 = MKCoordinateRegionForMapRect(*MEMORY[0x1E696F0D8]);
-  v7.receiver = self;
-  v7.super_class = type metadata accessor for PXMapKitSuggester();
-  return [(PXMapKitSuggester *)&v7 init];
+  v9.receiver = self;
+  v9.super_class = type metadata accessor for PXMapKitSuggester(v6, v7);
+  return [(PXMapKitSuggester *)&v9 init];
 }
 
 - (void)completerDidUpdateResults:(id)results
@@ -34,7 +34,7 @@
   completerCopy = completer;
   errorCopy = error;
   selfCopy = self;
-  sub_1A3DD2D0C();
+  sub_1A3DD2D0C(errorCopy);
 }
 
 @end

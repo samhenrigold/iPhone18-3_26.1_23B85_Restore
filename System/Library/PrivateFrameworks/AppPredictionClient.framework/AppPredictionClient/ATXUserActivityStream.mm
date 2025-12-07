@@ -106,8 +106,8 @@ void __110__ATXUserActivityStream__enumerateActivityIntentEventsBetweenStartDate
 
   if (v3)
   {
-    v4 = __atxlog_handle_default();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = __atxlog_handle_default(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       __110__ATXUserActivityStream__enumerateActivityIntentEventsBetweenStartDate_endDate_bundleIdFilter_reversed_block___block_invoke_cold_1(v2);
     }
@@ -133,7 +133,7 @@ uint64_t __110__ATXUserActivityStream__enumerateActivityIntentEventsBetweenStart
 
 - (id)_getActivityEventFromBMAppActivity:(id)activity bundleIdFilter:(id)filter
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v49 = *MEMORY[0x1E69E9840];
   activityCopy = activity;
   filterCopy = filter;
   eventBody = [activityCopy eventBody];
@@ -146,10 +146,10 @@ uint64_t __110__ATXUserActivityStream__enumerateActivityIntentEventsBetweenStart
     bundleID = [eventBody bundleID];
     if ([bundleID length])
     {
-      if (filterCopy && ([filterCopy isEqualToString:bundleID] & 1) == 0)
+      if (filterCopy && (v13 = [filterCopy isEqualToString:bundleID], (v13 & 1) == 0))
       {
-        v17 = __atxlog_handle_default();
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
+        v21 = __atxlog_handle_default(v13);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
           [ATXUserActivityStream _getActivityEventFromBMAppActivity:bundleIdFilter:];
         }
@@ -157,52 +157,52 @@ uint64_t __110__ATXUserActivityStream__enumerateActivityIntentEventsBetweenStart
 
       else
       {
-        v12 = +[ATXIntentGlobals sharedInstance];
-        onlyAcceptBecomeCurrentNSUAs = [v12 onlyAcceptBecomeCurrentNSUAs];
+        v14 = +[ATXIntentGlobals sharedInstance];
+        onlyAcceptBecomeCurrentNSUAs = [v14 onlyAcceptBecomeCurrentNSUAs];
 
-        if (!onlyAcceptBecomeCurrentNSUAs || ([eventBody beginningOfActivity] & 1) != 0 || (-[NSObject isEqualToString:](bundleID, "isEqualToString:", @"com.apple.mobilesafari") & 1) != 0)
+        if (!onlyAcceptBecomeCurrentNSUAs || ([eventBody beginningOfActivity] & 1) != 0 || (v16 = -[NSObject isEqualToString:](bundleID, "isEqualToString:", @"com.apple.mobilesafari"), (v16 & 1) != 0))
         {
           userActivityRequiredString = [eventBody userActivityRequiredString];
 
           if (userActivityRequiredString)
           {
-            v15 = objc_alloc(MEMORY[0x1E69636A8]);
+            v19 = objc_alloc(MEMORY[0x1E69636A8]);
             userActivityRequiredString2 = [eventBody userActivityRequiredString];
-            v17 = [v15 _initWithUserActivityStrings:userActivityRequiredString2 secondaryString:0 optionalData:0];
+            v21 = [v19 _initWithUserActivityStrings:userActivityRequiredString2 secondaryString:0 optionalData:0];
 
-            activityType = [v17 activityType];
+            activityType = [v21 activityType];
             if (!activityType)
             {
-              v33 = __atxlog_handle_default();
-              if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+              v39 = __atxlog_handle_default(0);
+              if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
               {
                 [ATXUserActivityStream _getActivityEventFromBMAppActivity:bundleIdFilter:];
               }
 
-              v32 = 0;
+              v38 = 0;
               goto LABEL_40;
             }
 
-            v19 = MEMORY[0x1E695DF00];
+            v23 = MEMORY[0x1E695DF00];
             [activityCopy timestamp];
-            v39 = [v19 dateWithTimeIntervalSinceReferenceDate:?];
-            v40 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:v39 endDate:v39];
+            v45 = [v23 dateWithTimeIntervalSinceReferenceDate:?];
+            v46 = [objc_alloc(MEMORY[0x1E696AB80]) initWithStartDate:v45 endDate:v45];
             itemIdentifier = [eventBody itemIdentifier];
 
             if (!itemIdentifier)
             {
-              v23 = __atxlog_handle_default();
-              if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
+              v28 = __atxlog_handle_default(v25);
+              if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
               {
                 [ATXUserActivityStream _getActivityEventFromBMAppActivity:bundleIdFilter:];
               }
 
-              v32 = 0;
+              v38 = 0;
               goto LABEL_39;
             }
 
             itemRelatedContentURL = [eventBody itemRelatedContentURL];
-            v38 = activityType;
+            v44 = activityType;
             if (itemRelatedContentURL || ([eventBody itemRelatedUniqueIdentifier], (itemRelatedContentURL = objc_claimAutoreleasedReturnValue()) != 0))
             {
             }
@@ -213,58 +213,59 @@ uint64_t __110__ATXUserActivityStream__enumerateActivityIntentEventsBetweenStart
 
               if (!contentDescription)
               {
-                v23 = 0;
+                v28 = 0;
                 goto LABEL_15;
               }
             }
 
-            v22 = objc_alloc(MEMORY[0x1E6964E90]);
-            v23 = [v22 initWithContentType:*MEMORY[0x1E6982D50]];
+            v27 = objc_alloc(MEMORY[0x1E6964E90]);
+            v28 = [v27 initWithContentType:*MEMORY[0x1E6982D50]];
             itemRelatedUniqueIdentifier = [eventBody itemRelatedUniqueIdentifier];
-            [v23 setRelatedUniqueIdentifier:itemRelatedUniqueIdentifier];
+            [v28 setRelatedUniqueIdentifier:itemRelatedUniqueIdentifier];
 
             itemRelatedContentURL2 = [eventBody itemRelatedContentURL];
-            [v23 setContentURL:itemRelatedContentURL2];
+            [v28 setContentURL:itemRelatedContentURL2];
 
             contentDescription2 = [eventBody contentDescription];
-            [v23 setContentDescription:contentDescription2];
+            [v28 setContentDescription:contentDescription2];
 
 LABEL_15:
-            v27 = [ATXAction alloc];
+            v32 = [ATXAction alloc];
             userActivityRequiredString3 = [eventBody userActivityRequiredString];
             itemIdentifier2 = [eventBody itemIdentifier];
-            LOBYTE(v37) = 0;
-            v30 = [(ATXAction *)v27 initWithNSUserActivityString:userActivityRequiredString3 actionUUID:v10 bundleId:bundleID itemIdentifier:itemIdentifier2 contentAttributeSet:v23 heuristic:0 heuristicMetadata:0 isFutureMedia:v37 title:0 subtitle:0];
+            LOBYTE(v43) = 0;
+            v35 = [(ATXAction *)v32 initWithNSUserActivityString:userActivityRequiredString3 actionUUID:v10 bundleId:bundleID itemIdentifier:itemIdentifier2 contentAttributeSet:v28 heuristic:0 heuristicMetadata:0 isFutureMedia:v43 title:0 subtitle:0];
 
-            if ([(ATXAction *)v30 hasActionTitle])
+            hasActionTitle = [(ATXAction *)v35 hasActionTitle];
+            if (hasActionTitle)
             {
-              v31 = [ATXAction getNSUATypefromActivityType:v38];
-              v32 = [[ATXIntentEvent alloc] initWithBundleId:bundleID intentType:v31 dateInterval:v40 action:v30];
+              v37 = [ATXAction getNSUATypefromActivityType:v44];
+              v38 = [[ATXIntentEvent alloc] initWithBundleId:bundleID intentType:v37 dateInterval:v46 action:v35];
 
-              activityType = v38;
+              activityType = v44;
             }
 
             else
             {
-              v34 = __atxlog_handle_default();
-              activityType = v38;
-              if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+              v40 = __atxlog_handle_default(hasActionTitle);
+              activityType = v44;
+              if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
               {
                 [ATXUserActivityStream _getActivityEventFromBMAppActivity:bundleIdFilter:];
               }
 
-              v32 = 0;
+              v38 = 0;
             }
 
 LABEL_39:
-            v33 = v39;
+            v39 = v45;
 
 LABEL_40:
             goto LABEL_41;
           }
 
-          v17 = __atxlog_handle_default();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+          v21 = __atxlog_handle_default(v18);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
           {
             [ATXUserActivityStream _getActivityEventFromBMAppActivity:bundleIdFilter:];
           }
@@ -272,12 +273,12 @@ LABEL_40:
 
         else
         {
-          v17 = __atxlog_handle_default();
-          if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
+          v21 = __atxlog_handle_default(v16);
+          if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v42 = bundleID;
-            _os_log_impl(&dword_1BF549000, v17, OS_LOG_TYPE_INFO, "Donation Processing (NSUA) - skipping non-beginning activity for bundleId: %@", buf, 0xCu);
+            v48 = bundleID;
+            _os_log_impl(&dword_1BF549000, v21, OS_LOG_TYPE_INFO, "Donation Processing (NSUA) - skipping non-beginning activity for bundleId: %@", buf, 0xCu);
           }
         }
       }
@@ -285,36 +286,36 @@ LABEL_40:
 
     else
     {
-      v17 = __atxlog_handle_default();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v21 = __atxlog_handle_default(0);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
       {
         [ATXUserActivityStream _getActivityEventFromBMAppActivity:eventBody bundleIdFilter:?];
       }
     }
 
-    v32 = 0;
+    v38 = 0;
 LABEL_41:
 
     goto LABEL_42;
   }
 
-  bundleID = __atxlog_handle_default();
+  bundleID = __atxlog_handle_default(v11);
   if (os_log_type_enabled(bundleID, OS_LOG_TYPE_ERROR))
   {
     [ATXUserActivityStream _getActivityEventFromBMAppActivity:bundleID bundleIdFilter:?];
   }
 
-  v32 = 0;
+  v38 = 0;
 LABEL_42:
 
-  return v32;
+  return v38;
 }
 
 void __110__ATXUserActivityStream__enumerateActivityIntentEventsBetweenStartDate_endDate_bundleIdFilter_reversed_block___block_invoke_cold_1(void *a1)
 {
   v1 = [a1 error];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_4(&dword_1BF549000, v2, v3, "ATXUserActivityStream: Can't read App.Activity stream with error: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_4(&dword_1BF549000, v2, v3, "ATXUserActivityStream: Can't read App.Activity stream with error: %@", v4, v5, v6, v7);
 }
 
 - (void)_getActivityEventFromBMAppActivity:bundleIdFilter:.cold.1()
@@ -330,7 +331,7 @@ void __110__ATXUserActivityStream__enumerateActivityIntentEventsBetweenStartDate
 {
   v1 = [a1 userActivityUUID];
   OUTLINED_FUNCTION_1_0();
-  OUTLINED_FUNCTION_0_4(&dword_1BF549000, v2, v3, "Donation Processing (NSUA) - No bundleId found for eventUUID: %@", v4, v5, v6, v7, v8);
+  OUTLINED_FUNCTION_0_4(&dword_1BF549000, v2, v3, "Donation Processing (NSUA) - No bundleId found for eventUUID: %@", v4, v5, v6, v7);
 }
 
 @end

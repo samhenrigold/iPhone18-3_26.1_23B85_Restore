@@ -434,9 +434,9 @@ id __53__PKAccountEnhancedMerchant_hashedPaymentIdentifiers__block_invoke(uint64
       goto LABEL_88;
     }
 
-    v10 = [(NSString *)v7 isEqualToString:v8];
+    isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-    if (!v10)
+    if (!isEqualToString)
     {
       goto LABEL_89;
     }
@@ -457,7 +457,7 @@ id __53__PKAccountEnhancedMerchant_hashedPaymentIdentifiers__block_invoke(uint64
       goto LABEL_88;
     }
 
-    v13 = [(NSString *)v7 isEqualToString:v12];
+    v13 = objc_msgSend_isEqualToString_(v7);
 
     if (!v13)
     {
@@ -480,7 +480,7 @@ id __53__PKAccountEnhancedMerchant_hashedPaymentIdentifiers__block_invoke(uint64
       goto LABEL_88;
     }
 
-    v16 = [(NSString *)v7 isEqualToString:v15];
+    v16 = objc_msgSend_isEqualToString_(v7);
 
     if (!v16)
     {
@@ -623,7 +623,7 @@ id __53__PKAccountEnhancedMerchant_hashedPaymentIdentifiers__block_invoke(uint64
       goto LABEL_88;
     }
 
-    v35 = [(NSString *)v7 isEqualToString:v34];
+    v35 = objc_msgSend_isEqualToString_(v7);
 
     if (!v35)
     {
@@ -646,7 +646,7 @@ id __53__PKAccountEnhancedMerchant_hashedPaymentIdentifiers__block_invoke(uint64
       goto LABEL_88;
     }
 
-    v38 = [(NSString *)v7 isEqualToString:v37];
+    v38 = objc_msgSend_isEqualToString_(v7);
 
     if (!v38)
     {
@@ -684,7 +684,7 @@ id __53__PKAccountEnhancedMerchant_hashedPaymentIdentifiers__block_invoke(uint64
       goto LABEL_88;
     }
 
-    v43 = [(NSString *)v7 isEqualToString:v42];
+    v43 = objc_msgSend_isEqualToString_(v7);
 
     if (!v43)
     {
@@ -709,7 +709,7 @@ LABEL_88:
     goto LABEL_89;
   }
 
-  v46 = [(NSString *)v7 isEqualToString:v45];
+  v46 = objc_msgSend_isEqualToString_(v7);
 
   if (!v46)
   {

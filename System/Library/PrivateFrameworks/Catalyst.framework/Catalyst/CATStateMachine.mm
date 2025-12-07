@@ -152,11 +152,10 @@
 
 - (void)start
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_24329F000, a2, OS_LOG_TYPE_DEBUG, "%@ starting...", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_24329F000, a2, OS_LOG_TYPE_DEBUG, "%@ starting...", &v2, 0xCu);
 }
 
 - (BOOL)canTransitionWithTriggeringEvent:(id)event
@@ -171,7 +170,7 @@
 
 - (void)transitionWithTriggeringEvent:(id)event
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   currentState = [(CATStateMachine *)self currentState];
 
@@ -196,10 +195,11 @@
     [(CATStateMachine *)a2 transitionWithTriggeringEvent:self, eventCopy];
   }
 
-  if ([(CATStateMachine *)self logLevel])
+  logLevel = [(CATStateMachine *)self logLevel];
+  if (logLevel)
   {
-    v12 = _CATLogFSM();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
+    v13 = _CATLogFSM(logLevel);
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
     {
       currentState3 = [(CATStateMachine *)self currentState];
       name = [currentState3 name];
@@ -208,13 +208,13 @@
       trigger2 = [v7 trigger];
       *buf = 138413058;
       selfCopy2 = self;
-      v37 = 2112;
-      v38 = name;
-      v39 = 2112;
-      v40 = name2;
-      v41 = 2112;
-      v42 = trigger2;
-      _os_log_debug_impl(&dword_24329F000, v12, OS_LOG_TYPE_DEBUG, "%@ transitioning from %@ to %@ because %@", buf, 0x2Au);
+      v40 = 2112;
+      v41 = name;
+      v42 = 2112;
+      v43 = name2;
+      v44 = 2112;
+      v45 = trigger2;
+      _os_log_debug_impl(&dword_24329F000, v13, OS_LOG_TYPE_DEBUG, "%@ transitioning from %@ to %@ because %@", buf, 0x2Au);
     }
   }
 
@@ -225,44 +225,46 @@
     mCalloutReason = self->mCalloutReason;
     self->mCalloutReason = @"Calling Exit Action";
 
-    if ([(CATStateMachine *)self logLevel]>= 2)
+    logLevel2 = [(CATStateMachine *)self logLevel];
+    if (logLevel2 >= 2)
     {
-      v15 = _CATLogFSM();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v17 = _CATLogFSM(logLevel2);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
       {
         currentState4 = [(CATStateMachine *)self currentState];
         name3 = [currentState4 name];
         *buf = 138412546;
         selfCopy2 = self;
-        v37 = 2112;
-        v38 = name3;
-        _os_log_debug_impl(&dword_24329F000, v15, OS_LOG_TYPE_DEBUG, "%@ leaving %@", buf, 0x16u);
+        v40 = 2112;
+        v41 = name3;
+        _os_log_debug_impl(&dword_24329F000, v17, OS_LOG_TYPE_DEBUG, "%@ leaving %@", buf, 0x16u);
       }
     }
 
     currentState5 = [(CATStateMachine *)self currentState];
     [(CATStateMachine *)self delegateWillExitState:currentState5 event:v7];
 
-    v17 = *p_mCalloutReason;
+    v19 = *p_mCalloutReason;
     *p_mCalloutReason = 0;
   }
 
   if ([v10 action])
   {
-    v18 = self->mCalloutReason;
+    v20 = self->mCalloutReason;
     self->mCalloutReason = @"Calling Transition Action";
 
-    if ([(CATStateMachine *)self logLevel]>= 2)
+    logLevel3 = [(CATStateMachine *)self logLevel];
+    if (logLevel3 >= 2)
     {
-      v19 = _CATLogFSM();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+      v22 = _CATLogFSM(logLevel3);
+      if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
       {
-        [(CATStateMachine *)self transitionWithTriggeringEvent:v10, v19];
+        [(CATStateMachine *)self transitionWithTriggeringEvent:v10, v22];
       }
     }
 
     -[CATStateMachine invokeAction:event:](self, "invokeAction:event:", [v10 action], v7);
-    v20 = *p_mCalloutReason;
+    v23 = *p_mCalloutReason;
     *p_mCalloutReason = 0;
   }
 
@@ -273,13 +275,14 @@
     state4 = [v10 state];
     [(CATStateMachine *)self setCurrentState:state4];
 
-    if ([(CATStateMachine *)self logLevel]>= 2)
+    logLevel4 = [(CATStateMachine *)self logLevel];
+    if (logLevel4 >= 2)
     {
-      v23 = _CATLogFSM();
-      if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
+      v27 = _CATLogFSM(logLevel4);
+      if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
       {
         currentState6 = [(CATStateMachine *)self currentState];
-        [(CATStateMachine *)self transitionWithTriggeringEvent:currentState6, buf, v23];
+        [(CATStateMachine *)self transitionWithTriggeringEvent:currentState6, buf, v27];
       }
     }
 
@@ -287,10 +290,8 @@
     [(CATStateMachine *)self delegateDidEnterState:currentState7 event:v7];
   }
 
-  v26 = *p_mCalloutReason;
+  v30 = *p_mCalloutReason;
   *p_mCalloutReason = 0;
-
-  v27 = *MEMORY[0x277D85DE8];
 }
 
 - (id)eventForTriggeringEvent:(id)event
@@ -318,10 +319,11 @@
   eventCopy = event;
   if ([stateCopy exitAction])
   {
-    if ([(CATStateMachine *)self logLevel]>= 2)
+    logLevel = [(CATStateMachine *)self logLevel];
+    if (logLevel >= 2)
     {
-      v8 = _CATLogFSM();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v9 = _CATLogFSM(logLevel);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         [CATStateMachine delegateWillExitState:event:];
       }
@@ -337,10 +339,11 @@
   eventCopy = event;
   if ([stateCopy enterAction])
   {
-    if ([(CATStateMachine *)self logLevel]>= 2)
+    logLevel = [(CATStateMachine *)self logLevel];
+    if (logLevel >= 2)
     {
-      v8 = _CATLogFSM();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+      v9 = _CATLogFSM(logLevel);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
         [CATStateMachine delegateDidEnterState:event:];
       }
@@ -440,13 +443,12 @@
 
 - (void)transitionWithTriggeringEvent:(os_log_t)log .cold.4(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_24329F000, log, OS_LOG_TYPE_DEBUG, "%@ invoking action for %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_24329F000, log, OS_LOG_TYPE_DEBUG, "%@ invoking action for %@", &v3, 0x16u);
 }
 
 - (void)transitionWithTriggeringEvent:(uint8_t *)buf .cold.5(uint64_t a1, void *a2, uint8_t *buf, os_log_t log)
@@ -461,25 +463,19 @@
 - (void)delegateWillExitState:event:.cold.1()
 {
   OUTLINED_FUNCTION_0_2();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = NSStringFromSelector([v1 exitAction]);
   v3 = [v0 name];
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_5(&dword_24329F000, v4, v5, "%@ invoking exit action (%@) for %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_24329F000, v4, v5, "%@ invoking exit action (%@) for %@", v6, v7, v8, v9);
 }
 
 - (void)delegateDidEnterState:event:.cold.1()
 {
   OUTLINED_FUNCTION_0_2();
-  v12 = *MEMORY[0x277D85DE8];
   v2 = NSStringFromSelector([v1 enterAction]);
   v3 = [v0 name];
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_5(&dword_24329F000, v4, v5, "%@ invoking enter action (%@) for %@", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_5(&dword_24329F000, v4, v5, "%@ invoking enter action (%@) for %@", v6, v7, v8, v9);
 }
 
 @end

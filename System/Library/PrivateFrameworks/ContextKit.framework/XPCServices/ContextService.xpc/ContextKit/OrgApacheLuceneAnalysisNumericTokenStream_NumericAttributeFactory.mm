@@ -8,14 +8,14 @@
 
 - (OrgApacheLuceneAnalysisNumericTokenStream_NumericAttributeFactory)initWithOrgApacheLuceneUtilAttributeFactory:(id)factory
 {
-  OrgApacheLuceneUtilAttributeFactory_init(self, a2);
+  OrgApacheLuceneUtilAttributeFactory_init();
   JreStrongAssign(&self->delegate_, factory);
   return self;
 }
 
 - (id)createAttributeInstanceWithIOSClass:(id)class
 {
-  if ([OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_() isAssignableFrom:class])
+  if ([OrgApacheLuceneAnalysisTokenattributesCharTermAttribute_class_(self a2)])
   {
     v7 = new_JavaLangIllegalArgumentException_initWithNSString_(@"NumericTokenStream does not support CharTermAttribute.");
     objc_exception_throw(v7);

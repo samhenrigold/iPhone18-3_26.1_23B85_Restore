@@ -128,104 +128,94 @@ void exsltDateRegister(void)
 
 void exsltDateAddFunction(xmlXPathParserContextPtr ctxt, int a2)
 {
-  v87 = *MEMORY[0x29EDCA608];
-  if (a2 != 2)
+  v85 = *MEMORY[0x29EDCA608];
+  if (a2 == 2)
   {
-    xmlXPatherror(ctxt, "/Library/Caches/com.apple.xbs/Sources/libxslt/libxslt/libexslt/date.c", 3629, 12);
-    if (ctxt)
+    v3 = xmlXPathPopString(ctxt);
+    if (ctxt->error)
     {
-      ctxt->error = 12;
+      return;
     }
 
-    goto LABEL_9;
-  }
-
-  v3 = xmlXPathPopString(ctxt);
-  if (ctxt->error)
-  {
-LABEL_9:
-    v7 = *MEMORY[0x29EDCA608];
-    return;
-  }
-
-  v4 = v3;
-  v5 = xmlXPathPopString(ctxt);
-  if (!ctxt->error)
-  {
-    v8 = v5;
-    v9 = 0;
-    if (!v4 || !v5 || (v10 = exsltDateParse(v5), (v9 = v10) == 0))
+    v4 = v3;
+    v5 = xmlXPathPopString(ctxt);
+    if (ctxt->error)
     {
-LABEL_32:
+
       free(v4);
-      free(v8);
-      if (v9)
-      {
-        v28 = xmlXPathWrapString(v9);
-      }
-
-      else
-      {
-        v28 = xmlXPathNewCString(&unk_29878660E);
-      }
-
-      valuePush(ctxt, v28);
-      goto LABEL_9;
+      return;
     }
 
-    if ((*v10 & 0xFFFFFFF8) != 8 || (exsltDateParseDuration(v4, v11), !v12))
+    v6 = v5;
+    v7 = 0;
+    if (!v4)
     {
-      free(v9);
-LABEL_31:
-      v9 = 0;
       goto LABEL_32;
     }
 
-    v13 = v12;
-    Date = exsltDateCreateDate(*v9);
-    v15 = Date;
+    if (!v5)
+    {
+      goto LABEL_32;
+    }
+
+    v8 = exsltDateParse(v5);
+    v7 = v8;
+    if (!v8)
+    {
+      goto LABEL_32;
+    }
+
+    if ((*v8 & 0xFFFFFFF8) != 8 || (exsltDateParseDuration(v4, v9), !v10))
+    {
+      free(v7);
+      goto LABEL_31;
+    }
+
+    v11 = v10;
+    Date = exsltDateCreateDate(*v7);
+    v13 = Date;
     if (Date)
     {
-      v16 = *v13 / 12;
-      v17 = *v13 % 12 + (*(v9 + 4) & 0xF);
-      v18 = v17 - 12;
-      if (v17 < 0xD)
+      v14 = *v11 / 12;
+      v15 = *v11 % 12 + (v7[2] & 0xF);
+      v16 = v15 - 12;
+      if (v15 < 0xD)
       {
-        v19 = *v13 / 12;
+        v17 = *v11 / 12;
       }
 
       else
       {
-        v19 = v16 + 1;
+        v17 = v14 + 1;
       }
 
-      if (v17 < 0xD)
+      if (v15 < 0xD)
       {
-        v18 = *v13 % 12 + (*(v9 + 4) & 0xF);
+        v16 = *v11 % 12 + (v7[2] & 0xF);
       }
 
-      v20 = v17 + 12;
-      v21 = v16 - 1;
-      v22 = v17 <= 0;
-      v23 = v17 <= 0 ? v21 : v19;
-      v24 = v22 ? v20 : v18;
-      v25 = Date[2] & 0xFFFFFFF0 | v24;
-      *(Date + 4) = v25;
-      v26 = v23 + 400 * (*(v13 + 1) / 146097);
-      if (v26 < 1)
+      v18 = v15 + 12;
+      v19 = v14 - 1;
+      v20 = v15 <= 0;
+      v21 = v15 <= 0 ? v19 : v17;
+      v22 = v20 ? v18 : v16;
+      v23 = Date[2] & 0xFFFFFFF0 | v22;
+      *(Date + 4) = v23;
+      v24 = v21 + 400 * (*(v11 + 1) / 146097);
+      if (v24 < 1)
       {
-        v27 = *(v9 + 1);
-        if (v26)
+        v25 = v7[1];
+        if (v24)
         {
-          v29 = v27 < (0x8000000000000002 - v26);
+          v27 = v25 < (0x8000000000000002 - v24);
         }
 
         else
         {
-          v29 = 0;
+          v27 = 0;
         }
 
-        if (v29)
+        if (v27)
         {
           goto LABEL_85;
         }
@@ -233,282 +223,282 @@ LABEL_31:
 
       else
       {
-        v27 = *(v9 + 1);
-        if (v27 > (v26 ^ 0x7FFFFFFFFFFFFFFFLL))
+        v25 = v7[1];
+        if (v25 > (v24 ^ 0x7FFFFFFFFFFFFFFFLL))
         {
 LABEL_85:
-          free(v15);
-          v15 = 0;
+          free(v13);
+          v13 = 0;
           goto LABEL_96;
         }
       }
 
-      v30 = v27 + v26;
-      Date[1] = v27 + v26;
-      v31 = Date[4] & 0xE001 | (2 * ((v9[16] >> 1) & 0xFFF));
-      *(Date + 16) = v31;
-      *(Date + 16) = v31 & 0xFFFE | v9[16] & 1;
-      v32 = *(v9 + 3) + v13[2];
-      v33 = fmod(v32, 60.0);
-      *(v15 + 3) = v33;
-      v34 = (v32 / 60.0);
-      v35 = v34 / 60;
-      v36 = v34 % 60 + ((*(v9 + 4) >> 14) & 0x3F);
-      if (v36 > 59)
+      v28 = v25 + v24;
+      Date[1] = v25 + v24;
+      v29 = Date[4] & 0xE001 | (2 * ((*(v7 + 16) >> 1) & 0xFFF));
+      *(Date + 16) = v29;
+      *(Date + 16) = v29 & 0xFFFE | v7[4] & 1;
+      v30 = *(v7 + 3) + v11[2];
+      v31 = fmod(v30, 60.0);
+      *(v13 + 3) = v31;
+      v32 = (v30 / 60.0);
+      v33 = v32 / 60;
+      v34 = v32 % 60 + ((*(v7 + 4) >> 14) & 0x3F);
+      if (v34 > 59)
       {
-        ++v35;
-        LOBYTE(v36) = v36 - 60;
+        ++v33;
+        LOBYTE(v34) = v34 - 60;
       }
 
-      v37 = v25 & 0xFFF03FFF | ((v36 & 0x3F) << 14);
-      *(v15 + 4) = v37;
-      v38 = v35 % 24 + ((*(v9 + 4) >> 9) & 0x1F);
-      if (v38 <= 23)
+      v35 = v23 & 0xFFF03FFF | ((v34 & 0x3F) << 14);
+      *(v13 + 4) = v35;
+      v36 = v33 % 24 + ((*(v7 + 4) >> 9) & 0x1F);
+      if (v36 <= 23)
       {
-        v39 = v35 / 24;
-      }
-
-      else
-      {
-        v39 = v35 / 24 + 1;
-      }
-
-      if (v38 > 23)
-      {
-        LOBYTE(v38) = v38 - 24;
-      }
-
-      v40 = v37 & 0xFFFFC1FF | ((v38 & 0x1F) << 9);
-      *(v15 + 4) = v40;
-      v41 = (*(v9 + 4) >> 4) & 0x1F;
-      if ((v30 & 3) != 0)
-      {
-        v42 = daysInMonth[v24 - 1];
+        v37 = v33 / 24;
       }
 
       else
       {
-        v43 = v24 - 1;
-        if ((0x51EB851EB851EB8 - 0x70A3D70A3D70A3D7 * v30) <= 0xA3D70A3D70A3D70 && (v30 & 0xC) != 0)
-        {
-          v42 = daysInMonth[v43];
-        }
-
-        else
-        {
-          v42 = daysInMonthLeap[v43];
-        }
+        v37 = v33 / 24 + 1;
       }
 
-      if (v42 >= v41)
+      if (v36 > 23)
       {
-        if (v41)
+        LOBYTE(v36) = v36 - 24;
+      }
+
+      v38 = v35 & 0xFFFFC1FF | ((v36 & 0x1F) << 9);
+      *(v13 + 4) = v38;
+      v39 = (*(v7 + 4) >> 4) & 0x1F;
+      if ((v28 & 3) != 0)
+      {
+        v40 = daysInMonth[v22 - 1];
+      }
+
+      else
+      {
+        v41 = v22 - 1;
+        if ((0x51EB851EB851EB8 - 0x70A3D70A3D70A3D7 * v28) <= 0xA3D70A3D70A3D70 && (v28 & 0xC) != 0)
         {
-          v42 = (*(v9 + 4) >> 4) & 0x1F;
+          v40 = daysInMonth[v41];
         }
 
         else
         {
-          v42 = 1;
+          v40 = daysInMonthLeap[v41];
         }
       }
 
-      v44 = v39 + v42 + *(v13 + 1) % 146097;
+      if (v40 >= v39)
+      {
+        if (v39)
+        {
+          v40 = (*(v7 + 4) >> 4) & 0x1F;
+        }
+
+        else
+        {
+          v40 = 1;
+        }
+      }
+
+      v42 = v37 + v40 + *(v11 + 1) % 146097;
 LABEL_58:
-      v45 = (v30 & 0xC) == 0 || (0x51EB851EB851EB8 - 0x70A3D70A3D70A3D7 * v30) > 0xA3D70A3D70A3D70;
-      v46 = v45;
+      v43 = (v28 & 0xC) == 0 || (0x51EB851EB851EB8 - 0x70A3D70A3D70A3D7 * v28) > 0xA3D70A3D70A3D70;
+      v44 = v43;
       while (1)
       {
-        if (v44 <= 0)
+        if (v42 <= 0)
         {
-          if ((v40 & 0xE) != 0)
+          if ((v38 & 0xE) != 0)
           {
-            v40 = v40 & 0xFFFFFFF0 | (v40 - 1) & 0xF;
-            *(v15 + 4) = v40;
+            v38 = v38 & 0xFFFFFFF0 | (v38 - 1) & 0xF;
+            *(v13 + 4) = v38;
           }
 
           else
           {
-            if (v30 == 0x8000000000000002)
+            if (v28 == 0x8000000000000002)
             {
               goto LABEL_85;
             }
 
-            v40 = v40 & 0xFFFFFFF0 | 0xC;
-            *(v15 + 4) = v40;
-            v15[1] = --v30;
+            v38 = v38 & 0xFFFFFFF0 | 0xC;
+            *(v13 + 4) = v38;
+            v13[1] = --v28;
           }
 
-          if ((v30 & 3) != 0 || ((0x51EB851EB851EB8 - 0x70A3D70A3D70A3D7 * v30) <= 0xA3D70A3D70A3D70 ? (v49 = (v30 & 0xC) == 0) : (v49 = 1), v50 = daysInMonthLeap, !v49))
+          if ((v28 & 3) != 0 || ((0x51EB851EB851EB8 - 0x70A3D70A3D70A3D7 * v28) <= 0xA3D70A3D70A3D70 ? (v47 = (v28 & 0xC) == 0) : (v47 = 1), v48 = daysInMonthLeap, !v47))
           {
-            v50 = daysInMonth;
+            v48 = daysInMonth;
           }
 
-          v44 += v50[(v40 & 0xF) - 1];
+          v42 += v48[(v38 & 0xF) - 1];
           goto LABEL_58;
         }
 
-        v47 = (v40 & 0xF) - 1;
-        if ((v30 & 3) != 0 || !v46)
+        v45 = (v38 & 0xF) - 1;
+        if ((v28 & 3) != 0 || !v44)
         {
-          v48 = daysInMonth[v47];
+          v46 = daysInMonth[v45];
         }
 
         else
         {
-          v48 = daysInMonthLeap[v47];
+          v46 = daysInMonthLeap[v45];
         }
 
-        if (v44 <= v48)
+        if (v42 <= v46)
         {
           break;
         }
 
-        v44 -= v48;
-        if ((~v40 & 0xC) == 0)
+        v42 -= v46;
+        if ((~v38 & 0xC) == 0)
         {
-          if (v30 == 0x7FFFFFFFFFFFFFFFLL)
+          if (v28 == 0x7FFFFFFFFFFFFFFFLL)
           {
             goto LABEL_85;
           }
 
-          v40 = v40 & 0xFFFFFFF0 | 1;
-          *(v15 + 4) = v40;
-          v15[1] = ++v30;
+          v38 = v38 & 0xFFFFFFF0 | 1;
+          *(v13 + 4) = v38;
+          v13[1] = ++v28;
           goto LABEL_58;
         }
 
-        v40 = v40 & 0xFFFFFFF0 | (v40 + 1) & 0xF;
-        *(v15 + 4) = v40;
+        v38 = v38 & 0xFFFFFFF0 | (v38 + 1) & 0xF;
+        *(v13 + 4) = v38;
       }
 
-      *(v15 + 4) = v40 & 0xFFFFFE0F | (16 * (v44 & 0x1F));
-      v51 = *v15;
-      if (*v15 != 15)
+      *(v13 + 4) = v38 & 0xFFFFFE0F | (16 * (v42 & 0x1F));
+      v49 = *v13;
+      if (*v13 != 15)
       {
-        if ((v40 & 0xFFE00) != 0 || v33 != 0.0)
+        if ((v38 & 0xFFE00) != 0 || v31 != 0.0)
         {
-          v52 = 15;
+          v50 = 15;
           goto LABEL_95;
         }
 
-        if (v51 == 14)
+        if (v49 == 14)
         {
           goto LABEL_96;
         }
 
-        if ((v44 & 0x1F) != 1)
+        if ((v42 & 0x1F) != 1)
         {
-          v52 = 14;
+          v50 = 14;
           goto LABEL_95;
         }
 
-        if (v51 != 12 && (v40 & 0xF) != 1)
+        if (v49 != 12 && (v38 & 0xF) != 1)
         {
-          v52 = 12;
+          v50 = 12;
 LABEL_95:
-          *v15 = v52;
+          *v13 = v50;
         }
       }
     }
 
 LABEL_96:
-    free(v9);
-    free(v13);
-    if (v15)
+    free(v7);
+    free(v11);
+    if (v13)
     {
-      v53 = *v15;
-      if (*v15 == 1)
+      v51 = *v13;
+      if (*v13 == 1)
       {
-        v54 = exsltDateFormatTime(v15);
+        v52 = exsltDateFormatTime(v13);
         goto LABEL_160;
       }
 
-      if (v53 == 14)
+      if (v51 == 14)
       {
-        v54 = exsltDateFormatDate(v15);
+        v52 = exsltDateFormatDate(v13);
         goto LABEL_160;
       }
 
-      if (v53 == 15)
+      if (v51 == 15)
       {
-        v54 = exsltDateFormatDateTime(v15);
+        v52 = exsltDateFormatDateTime(v13);
 LABEL_160:
-        v9 = v54;
+        v7 = v52;
         goto LABEL_161;
       }
 
-      if ((v53 & 8) == 0)
+      if ((v51 & 8) == 0)
       {
-        v9 = 0;
+        v7 = 0;
 LABEL_161:
-        free(v15);
+        free(v13);
         goto LABEL_32;
       }
 
-      v86 = 0;
-      v84 = 0u;
-      v85 = 0u;
+      v84 = 0;
       v82 = 0u;
       v83 = 0u;
-      *cur = 0u;
+      v80 = 0u;
       v81 = 0u;
-      v55 = v15[1];
-      if (v55 <= 0)
+      *cur = 0u;
+      v79 = 0u;
+      v53 = v13[1];
+      if (v53 <= 0)
       {
-        v57 = &cur[1];
+        v55 = &cur[1];
         cur[0] = 45;
-        v56 = 1;
+        v54 = 1;
       }
 
       else
       {
-        v56 = 0;
-        v57 = cur;
+        v54 = 0;
+        v55 = cur;
       }
 
-      v79 = 0;
-      v58 = 1 - v55;
-      if (v55 >= 1)
+      v77 = 0;
+      v56 = 1 - v53;
+      if (v53 >= 1)
       {
-        v58 = v55;
+        v56 = v53;
       }
 
-      memset(v78, 0, sizeof(v78));
-      if (v58 < 1)
+      memset(v76, 0, sizeof(v76));
+      if (v56 < 1)
       {
-        v62 = v78;
+        v60 = v76;
       }
 
       else
       {
-        v59 = 0;
+        v57 = 0;
         do
         {
-          v60 = v59 + 1;
-          *(v78 + v59) = (v58 % 0xA) | 0x30;
-          if (v58 < 0xA)
+          v58 = v57 + 1;
+          *(v76 + v57) = (v56 % 0xA) | 0x30;
+          if (v56 < 0xA)
           {
             break;
           }
 
-          v58 /= 0xAuLL;
+          v56 /= 0xAuLL;
         }
 
-        while (v59++ < 0x62);
-        v62 = v78 + v60;
+        while (v57++ < 0x62);
+        v60 = v76 + v58;
       }
 
-      v63 = v62 - v78;
-      if (v62 - v78 <= 3)
+      v61 = v60 - v76;
+      if (v60 - v76 <= 3)
       {
-        memset(v62, 48, v78 + 4 - v62);
-        v62 = v78 + 4;
+        memset(v60, 48, v76 + 4 - v60);
+        v60 = v76 + 4;
       }
 
-      if (v62 <= v78)
+      if (v60 <= v76)
       {
-        if (v53 != 12)
+        if (v51 != 12)
         {
           goto LABEL_141;
         }
@@ -516,87 +506,87 @@ LABEL_161:
 
       else
       {
-        v64 = 4;
-        if (v63 > 4)
+        v62 = 4;
+        if (v61 > 4)
         {
-          v64 = v63;
+          v62 = v61;
         }
 
-        v65 = v78 + v64 - 1;
+        v63 = v76 + v62 - 1;
         do
         {
-          v66 = v56++;
-          v22 = v65 > v78;
-          v67 = *v65--;
-          *v57 = v67;
-          if (!v22)
+          v64 = v54++;
+          v20 = v63 > v76;
+          v65 = *v63--;
+          *v55 = v65;
+          if (!v20)
           {
             break;
           }
 
-          v57 = &cur[v56];
+          v55 = &cur[v54];
         }
 
-        while (v66 < 0x62);
-        if (v53 != 12)
+        while (v64 < 0x62);
+        if (v51 != 12)
         {
 LABEL_141:
-          v72 = &cur[v56];
-          v73 = *(v15 + 16);
-          if ((v73 & 0x1FFF) != 0)
+          v70 = &cur[v54];
+          v71 = *(v13 + 16);
+          if ((v71 & 0x1FFF) != 0)
           {
-            if ((8 * v73) <= 0xFu)
+            if ((8 * v71) <= 0xFu)
             {
-              if (v56 <= 98)
+              if (v54 <= 98)
               {
-                *v72++ = 90;
+                *v70++ = 90;
               }
 
               goto LABEL_159;
             }
 
-            v74 = (8 * v73) >> 4;
-            if (v74 < 0)
+            v72 = (8 * v71) >> 4;
+            if (v72 < 0)
             {
-              v74 = -v74;
+              v72 = -v72;
             }
 
-            if (v56 <= 98)
+            if (v54 <= 98)
             {
-              if ((v15[4] & 0x1000) != 0)
+              if ((v13[4] & 0x1000) != 0)
               {
-                v75 = 45;
+                v73 = 45;
               }
 
               else
               {
-                v75 = 43;
+                v73 = 43;
               }
 
-              cur[v56] = v75;
-              if (v56 != 98)
+              cur[v54] = v73;
+              if (v54 != 98)
               {
-                v72[1] = (v74 / 0x258u) | 0x30;
-                if (v56 <= 96)
+                v70[1] = (v72 / 0x258u) | 0x30;
+                if (v54 <= 96)
                 {
-                  v76 = v74 / 0x3Cu;
-                  v72[2] = (v76 % 0xAu) | 0x30;
-                  if (v56 != 96)
+                  v74 = v72 / 0x3Cu;
+                  v70[2] = (v74 % 0xAu) | 0x30;
+                  if (v54 != 96)
                   {
-                    v72[3] = 58;
-                    if (v56 < 95)
+                    v70[3] = 58;
+                    if (v54 < 95)
                     {
-                      v77 = v74 - 60 * v76;
-                      v72[4] = (v77 / 0xAu) | 0x30;
-                      if (v56 == 94)
+                      v75 = v72 - 60 * v74;
+                      v70[4] = (v75 / 0xAu) | 0x30;
+                      if (v54 == 94)
                       {
-                        v72 += 5;
+                        v70 += 5;
                       }
 
                       else
                       {
-                        v72[5] = (v77 % 0xAu) | 0x30;
-                        v72 += 6;
+                        v70[5] = (v75 % 0xAu) | 0x30;
+                        v70 += 6;
                       }
 
                       goto LABEL_159;
@@ -605,71 +595,89 @@ LABEL_141:
                 }
               }
 
-              v56 = 99;
+              v54 = 99;
             }
 
-            v72 = &cur[v56];
+            v70 = &cur[v54];
           }
 
 LABEL_159:
-          *v72 = 0;
-          v54 = xmlStrdup(cur);
+          *v70 = 0;
+          v52 = xmlStrdup(cur);
           goto LABEL_160;
         }
 
-        if (v66 > 0x61)
+        if (v64 > 0x61)
         {
 LABEL_131:
-          if (v56 <= 98)
+          if (v54 <= 98)
           {
-            v68 = &cur[v56];
-            v69 = *(v15 + 4);
-            if ((v69 & 0xEu) <= 9)
+            v66 = &cur[v54];
+            v67 = *(v13 + 4);
+            if ((v67 & 0xEu) <= 9)
             {
-              v70 = 48;
+              v68 = 48;
             }
 
             else
             {
-              v70 = 49;
+              v68 = 49;
             }
 
-            *v68 = v70;
-            if (v56 == 98)
+            *v66 = v68;
+            if (v54 == 98)
             {
-              v56 = 99;
+              v54 = 99;
             }
 
             else
             {
-              v71 = v69 & 0xF;
-              if (v71 >= 0xA)
+              v69 = v67 & 0xF;
+              if (v69 >= 0xA)
               {
-                LOBYTE(v71) = v71 - 10;
+                LOBYTE(v69) = v69 - 10;
               }
 
-              v56 += 2;
-              v68[1] = v71 | 0x30;
+              v54 += 2;
+              v66[1] = v69 | 0x30;
             }
           }
 
           goto LABEL_141;
         }
 
-        v57 = &cur[v56];
+        v55 = &cur[v54];
       }
 
-      ++v56;
-      *v57 = 45;
+      ++v54;
+      *v55 = 45;
       goto LABEL_131;
     }
 
-    goto LABEL_31;
+LABEL_31:
+    v7 = 0;
+LABEL_32:
+    free(v4);
+    free(v6);
+    if (v7)
+    {
+      v26 = xmlXPathWrapString(v7);
+    }
+
+    else
+    {
+      v26 = xmlXPathNewCString(&unk_29878660E);
+    }
+
+    valuePush(ctxt, v26);
+    return;
   }
 
-  v6 = *MEMORY[0x29EDCA608];
-
-  free(v4);
+  xmlXPatherror(ctxt, "/Library/Caches/com.apple.xbs/Sources/libxslt/libxslt/libexslt/date.c", 3629, 12);
+  if (ctxt)
+  {
+    ctxt->error = 12;
+  }
 }
 
 void exsltDateAddDurationFunction(xmlXPathParserContextPtr ctxt, int a2)
@@ -2197,7 +2205,7 @@ LABEL_14:
           v13 = v7[4];
           v14 = _exsltDateDayInWeek(v12[(v13 & 0xF) - 1] + 1, v10);
           v15 = v14 + 6;
-          if ((v14 + 6) >= 7)
+          if (v14 + 6 >= 7)
           {
             v15 = v14 - 1;
           }
@@ -2291,7 +2299,7 @@ LABEL_14:
           v13 = v12[(v7[4] & 0xF) - 1] + ((v7[4] >> 4) & 0x1F);
           v14 = _exsltDateDayInWeek(v13, *(v7 + 1));
           v15 = v14 + 6;
-          if ((v14 + 6) >= 7)
+          if (v14 + 6 >= 7)
           {
             v15 = v14 - 1;
           }
@@ -2808,13 +2816,13 @@ LABEL_29:
                 if ((v22 & 3) != 0 || 0x8F5C28F5C28F5C29 * v22 + 0x51EB851EB851EB8 <= 0xA3D70A3D70A3D70 && (v22 & 0xC) != 0)
                 {
                   v23 = (v20 >> 4) & 0x1F;
-                  v24 = &daysInMonth;
+                  v24 = daysInMonth;
                 }
 
                 else
                 {
                   v23 = (v20 >> 4) & 0x1F;
-                  v24 = &daysInMonthLeap;
+                  v24 = daysInMonthLeap;
                 }
 
                 if (v24[v21] < v23)
@@ -2839,13 +2847,13 @@ LABEL_29:
                         if ((v30 & 3) != 0 || 0x8F5C28F5C28F5C29 * v30 + 0x51EB851EB851EB8 <= 0xA3D70A3D70A3D70 && (v30 & 0xC) != 0)
                         {
                           v31 = (v28 >> 4) & 0x1F;
-                          v32 = &daysInMonth;
+                          v32 = daysInMonth;
                         }
 
                         else
                         {
                           v31 = (v28 >> 4) & 0x1F;
-                          v32 = &daysInMonthLeap;
+                          v32 = daysInMonthLeap;
                         }
 
                         if (v32[v29] >= v31 && (~v28 & 0x3000) != 0 && (v28 & 0xF0000) != 0xF0000)
@@ -3458,515 +3466,494 @@ void *exsltDateCreateDuration()
 
 xmlChar *exsltDateFormatDateTime(uint64_t a1)
 {
-  v50 = *MEMORY[0x29EDCA608];
+  v49 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 16);
   v2 = (*(a1 + 16) & 0xF) - 1;
   if (v2 > 0xB)
   {
-    goto LABEL_11;
+    return 0;
   }
 
   v4 = *(a1 + 8);
   if ((v4 & 3) == 0 && (0x8F5C28F5C28F5C29 * v4 + 0x51EB851EB851EB8 <= 0xA3D70A3D70A3D70 ? (v5 = (*(a1 + 8) & 0xCLL) == 0) : (v5 = 1), v5))
   {
     v6 = (v1 >> 4) & 0x1F;
-    v7 = &daysInMonthLeap;
+    v7 = daysInMonthLeap;
   }
 
   else
   {
     v6 = (v1 >> 4) & 0x1F;
-    v7 = &daysInMonth;
+    v7 = daysInMonth;
   }
 
   if (v7[v2] < v6)
   {
-    goto LABEL_11;
+    return 0;
   }
 
   result = 0;
   if ((~v1 & 0x3000) != 0 && (v1 & 0xF0000) != 0xF0000)
   {
-    v10 = *(a1 + 24);
-    v11 = v10 >= 0.0 && v10 < 60.0;
-    if (!v11 || ((*(a1 + 32) << 19 >> 20) + 1439) > 0xB3E)
+    v9 = *(a1 + 24);
+    v10 = v9 >= 0.0 && v9 < 60.0;
+    if (!v10 || ((*(a1 + 32) << 19 >> 20) + 1439) > 0xB3E)
     {
-LABEL_11:
-      result = 0;
-      goto LABEL_12;
+      return 0;
     }
 
-    v49 = 0;
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
+    v48 = 0;
     v46 = 0u;
-    *cur = 0u;
+    v47 = 0u;
     v44 = 0u;
+    v45 = 0u;
+    *cur = 0u;
+    v43 = 0u;
     if (v4 <= 0)
     {
-      v13 = &cur[1];
+      v12 = &cur[1];
       cur[0] = 45;
-      v12 = 1;
+      v11 = 1;
     }
 
     else
     {
-      v12 = 0;
-      v13 = cur;
+      v11 = 0;
+      v12 = cur;
     }
 
-    v42 = 0;
-    v14 = 1 - v4;
+    v41 = 0;
+    v13 = 1 - v4;
     if (v4 >= 1)
     {
-      v14 = v4;
+      v13 = v4;
     }
 
-    memset(v41, 0, sizeof(v41));
-    if (v14 < 1)
+    memset(v40, 0, sizeof(v40));
+    if (v13 < 1)
     {
-      v18 = v41;
+      v17 = v40;
     }
 
     else
     {
-      v15 = 0;
+      v14 = 0;
       do
       {
-        v16 = v15 + 1;
-        *(v41 + v15) = (v14 % 0xA) | 0x30;
-        if (v14 < 0xA)
+        v15 = v14 + 1;
+        *(v40 + v14) = (v13 % 0xA) | 0x30;
+        if (v13 < 0xA)
         {
           break;
         }
 
-        v14 /= 0xAuLL;
-        v17 = v15++ >= 0x62;
+        v13 /= 0xAuLL;
+        v16 = v14++ >= 0x62;
       }
 
-      while (!v17);
-      v18 = v41 + v16;
+      while (!v16);
+      v17 = v40 + v15;
     }
 
-    v19 = v18 - v41;
-    if (v18 - v41 <= 3)
+    v18 = v17 - v40;
+    if (v17 - v40 <= 3)
     {
-      memset(v18, 48, v41 + 4 - v18);
-      v18 = v41 + 4;
+      memset(v17, 48, v40 + 4 - v17);
+      v17 = v40 + 4;
     }
 
-    if (v18 > v41)
+    if (v17 > v40)
     {
-      v20 = 4;
-      if (v19 > 4)
+      v19 = 4;
+      if (v18 > 4)
       {
-        v20 = v19;
+        v19 = v18;
       }
 
-      v21 = v41 + v20 - 1;
+      v20 = v40 + v19 - 1;
       do
       {
-        v22 = v12++;
-        v23 = v21 > v41;
-        v24 = *v21--;
-        *v13 = v24;
-        if (!v23)
+        v21 = v11++;
+        v22 = v20 > v40;
+        v23 = *v20--;
+        *v12 = v23;
+        if (!v22)
         {
           break;
         }
 
-        v13 = &cur[v12];
+        v12 = &cur[v11];
       }
 
-      while (v22 < 0x62);
-      if (v22 > 0x61)
+      while (v21 < 0x62);
+      if (v21 > 0x61)
       {
 LABEL_45:
-        if (v12 <= 98)
+        if (v11 <= 98)
         {
-          v25 = &cur[v12];
+          v24 = &cur[v11];
           if ((v1 & 0xE) <= 9)
           {
-            v26 = 48;
+            v25 = 48;
           }
 
           else
           {
-            v26 = 49;
+            v25 = 49;
           }
 
-          *v25 = v26;
-          if (v12 == 98)
+          *v24 = v25;
+          if (v11 == 98 || (v24[1] = ((v1 & 0xF) % 0xA) | 0x30, v11 > 96) || (v24[2] = 45, v11 == 96) || (v24[3] = ((26 * ((v1 >> 4) & 0x1E)) >> 8) | 0x30, v11 > 94) || (v24[4] = (((v1 >> 4) & 0x1F) - 10 * ((26 * ((v1 >> 4) & 0x1F)) >> 8)) | 0x30, v11 == 94) || (v24[5] = 84, v11 > 92) || (v24[6] = ((26 * ((v1 >> 9) & 0x1E)) >> 8) | 0x30, v11 == 92) || (v24[7] = (((v1 >> 9) & 0x1F) - 10 * ((26 * ((v1 >> 9) & 0x1F)) >> 8)) | 0x30, v11 > 90) || (v24[8] = 58, v11 == 90) || (v24[9] = ((26 * ((v1 >> 14) & 0x3E)) >> 8) | 0x30, v11 > 88) || (v24[10] = (((v1 >> 14) & 0x3F) - 10 * ((26 * ((v1 >> 14) & 0x3F)) >> 8)) | 0x30, v11 == 88))
           {
-            goto LABEL_60;
-          }
-
-          v25[1] = ((v1 & 0xF) % 0xA) | 0x30;
-          if (v12 > 96)
-          {
-            goto LABEL_60;
-          }
-
-          v25[2] = 45;
-          if (v12 == 96)
-          {
-            goto LABEL_60;
-          }
-
-          v25[3] = ((26 * ((v1 >> 4) & 0x1E)) >> 8) | 0x30;
-          if (v12 > 94 || (v25[4] = (((v1 >> 4) & 0x1F) - 10 * ((26 * ((v1 >> 4) & 0x1F)) >> 8)) | 0x30, v12 == 94) || (v25[5] = 84, v12 > 92) || (v25[6] = ((26 * ((v1 >> 9) & 0x1E)) >> 8) | 0x30, v12 == 92) || (v25[7] = (((v1 >> 9) & 0x1F) - 10 * ((26 * ((v1 >> 9) & 0x1F)) >> 8)) | 0x30, v12 > 90) || (v25[8] = 58, v12 == 90) || (v25[9] = ((26 * ((v1 >> 14) & 0x3E)) >> 8) | 0x30, v12 > 88) || (v25[10] = (((v1 >> 14) & 0x3F) - 10 * ((26 * ((v1 >> 14) & 0x3F)) >> 8)) | 0x30, v12 == 88))
-          {
-LABEL_60:
-            v12 = 99;
+            v11 = 99;
           }
 
           else
           {
-            v40 = v12 + 12;
-            v25[11] = 58;
-            if (v10 >= 10.0 || v12 > 86)
+            v39 = v11 + 12;
+            v24[11] = 58;
+            if (v9 >= 10.0 || v11 > 86)
             {
-              v12 += 12;
+              v11 += 12;
             }
 
             else
             {
-              v12 += 13;
-              cur[v40] = 48;
+              v11 += 13;
+              cur[v39] = 48;
             }
           }
         }
 
-        v27 = xmlXPathCastNumberToString(v10);
-        v28 = &cur[v12];
-        v29 = *v27;
-        v30 = v12 < 99;
-        if (*v27 && v12 <= 98)
+        v26 = xmlXPathCastNumberToString(v9);
+        v27 = &cur[v11];
+        v28 = *v26;
+        v29 = v11 < 99;
+        if (*v26 && v11 <= 98)
         {
-          v31 = v27 + 1;
+          v30 = v26 + 1;
           do
           {
-            v32 = v12 + 1;
-            *v28++ = v29;
-            v33 = *v31++;
-            v29 = v33;
-            v30 = v12 < 0x62;
-            if (!v33)
+            v31 = v11 + 1;
+            *v27++ = v28;
+            v32 = *v30++;
+            v28 = v32;
+            v29 = v11 < 0x62;
+            if (!v32)
             {
               break;
             }
 
-            v17 = v12++ >= 0x62;
+            v16 = v11++ >= 0x62;
           }
 
-          while (!v17);
+          while (!v16);
         }
 
         else
         {
-          v32 = v12;
+          v31 = v11;
         }
 
-        free(v27);
-        v34 = *(a1 + 32);
-        if ((8 * v34) <= 0xFu)
+        free(v26);
+        v33 = *(a1 + 32);
+        if ((8 * v33) > 0xFu)
         {
-          if (v30)
+          v34 = (8 * v33) >> 4;
+          if (v34 < 0)
           {
-            *v28++ = 90;
+            v34 = -v34;
           }
 
-          goto LABEL_86;
-        }
-
-        v35 = (8 * v34) >> 4;
-        if (v35 < 0)
-        {
-          v35 = -v35;
-        }
-
-        if (v30)
-        {
-          if ((*(a1 + 32) & 0x1000) != 0)
+          if (v29)
           {
-            v36 = 45;
-          }
-
-          else
-          {
-            v36 = 43;
-          }
-
-          *v28 = v36;
-          if (v32 != 98)
-          {
-            v37 = &cur[v32];
-            cur[v32 + 1] = (v35 / 0x258u) | 0x30;
-            if (v32 <= 96)
+            if ((*(a1 + 32) & 0x1000) != 0)
             {
-              v38 = v35 / 0x3Cu;
-              v37[2] = (v38 % 0xAu) | 0x30;
-              if (v32 != 96)
+              v35 = 45;
+            }
+
+            else
+            {
+              v35 = 43;
+            }
+
+            *v27 = v35;
+            if (v31 != 98)
+            {
+              v36 = &cur[v31];
+              cur[v31 + 1] = (v34 / 0x258u) | 0x30;
+              if (v31 <= 96)
               {
-                v37[3] = 58;
-                if (v32 < 95)
+                v37 = v34 / 0x3Cu;
+                v36[2] = (v37 % 0xAu) | 0x30;
+                if (v31 != 96)
                 {
-                  v39 = v35 - 60 * v38;
-                  v37[4] = (v39 / 0xAu) | 0x30;
-                  if (v32 == 94)
+                  v36[3] = 58;
+                  if (v31 < 95)
                   {
-                    v28 = v37 + 5;
-                  }
+                    v38 = v34 - 60 * v37;
+                    v36[4] = (v38 / 0xAu) | 0x30;
+                    if (v31 == 94)
+                    {
+                      v27 = v36 + 5;
+                    }
 
-                  else
-                  {
-                    v28 = v37 + 6;
-                    v37[5] = (v39 % 0xAu) | 0x30;
-                  }
+                    else
+                    {
+                      v27 = v36 + 6;
+                      v36[5] = (v38 % 0xAu) | 0x30;
+                    }
 
-                  goto LABEL_86;
+                    goto LABEL_86;
+                  }
                 }
               }
             }
+
+            v31 = 99;
           }
 
-          v32 = 99;
+          v27 = &cur[v31];
         }
 
-        v28 = &cur[v32];
+        else if (v29)
+        {
+          *v27++ = 90;
+        }
+
 LABEL_86:
-        *v28 = 0;
-        result = xmlStrdup(cur);
-        goto LABEL_12;
+        *v27 = 0;
+        return xmlStrdup(cur);
       }
 
-      v13 = &cur[v12];
+      v12 = &cur[v11];
     }
 
-    ++v12;
-    *v13 = 45;
+    ++v11;
+    *v12 = 45;
     goto LABEL_45;
   }
 
-LABEL_12:
-  v9 = *MEMORY[0x29EDCA608];
   return result;
 }
 
 xmlChar *exsltDateFormatDate(uint64_t a1)
 {
-  v42 = *MEMORY[0x29EDCA608];
+  v41 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 16);
   v2 = (*(a1 + 16) & 0xF) - 1;
   if (v2 > 0xB)
   {
-    goto LABEL_11;
+    return 0;
   }
 
   v3 = *(a1 + 8);
   if ((v3 & 3) == 0 && (0x8F5C28F5C28F5C29 * v3 + 0x51EB851EB851EB8 <= 0xA3D70A3D70A3D70 ? (v4 = (*(a1 + 8) & 0xCLL) == 0) : (v4 = 1), v4))
   {
     v5 = (v1 >> 4) & 0x1F;
-    v6 = &daysInMonthLeap;
+    v6 = daysInMonthLeap;
   }
 
   else
   {
     v5 = (v1 >> 4) & 0x1F;
-    v6 = &daysInMonth;
+    v6 = daysInMonth;
   }
 
   if (v6[v2] < v5)
   {
-    goto LABEL_11;
+    return 0;
   }
 
   v7 = 0;
   if ((~v1 & 0x3000) != 0 && (v1 & 0xF0000) != 0xF0000)
   {
-    v10 = *(a1 + 24);
-    v11 = v10 >= 0.0 && v10 < 60.0;
-    if (!v11 || (v12 = *(a1 + 32), v13 = v12 << 19 >> 20, (v13 + 1439) > 0xB3E))
+    v9 = *(a1 + 24);
+    if (v9 < 0.0 || v9 >= 60.0)
     {
-LABEL_11:
-      v7 = 0;
-      goto LABEL_12;
+      return 0;
     }
 
-    v41 = 0;
-    v39 = 0u;
-    v40 = 0u;
-    v37 = 0u;
+    v11 = *(a1 + 32);
+    v12 = v11 << 19 >> 20;
+    if ((v12 + 1439) > 0xB3E)
+    {
+      return 0;
+    }
+
+    v40 = 0;
     v38 = 0u;
-    *cur = 0u;
+    v39 = 0u;
     v36 = 0u;
+    v37 = 0u;
+    *cur = 0u;
+    v35 = 0u;
     if (v3 <= 0)
     {
-      v15 = &cur[1];
+      v14 = &cur[1];
       cur[0] = 45;
-      v14 = 1;
+      v13 = 1;
     }
 
     else
     {
-      v14 = 0;
-      v15 = cur;
+      v13 = 0;
+      v14 = cur;
     }
 
-    v34 = 0;
-    v16 = 1 - v3;
+    v33 = 0;
+    v15 = 1 - v3;
     if (v3 >= 1)
     {
-      v16 = v3;
+      v15 = v3;
     }
 
-    memset(v33, 0, sizeof(v33));
-    if (v16 < 1)
+    memset(v32, 0, sizeof(v32));
+    if (v15 < 1)
     {
-      v20 = v33;
+      v19 = v32;
     }
 
     else
     {
-      v17 = 0;
+      v16 = 0;
       do
       {
-        v18 = v17 + 1;
-        *(v33 + v17) = (v16 % 0xA) | 0x30;
-        if (v16 < 0xA)
+        v17 = v16 + 1;
+        *(v32 + v16) = (v15 % 0xA) | 0x30;
+        if (v15 < 0xA)
         {
           break;
         }
 
-        v16 /= 0xAuLL;
+        v15 /= 0xAuLL;
       }
 
-      while (v17++ < 0x62);
-      v20 = v33 + v18;
+      while (v16++ < 0x62);
+      v19 = v32 + v17;
     }
 
-    v21 = v20 - v33;
-    if (v20 - v33 <= 3)
+    v20 = v19 - v32;
+    if (v19 - v32 <= 3)
     {
-      memset(v20, 48, v33 + 4 - v20);
-      v20 = v33 + 4;
+      memset(v19, 48, v32 + 4 - v19);
+      v19 = v32 + 4;
     }
 
-    if (v20 > v33)
+    if (v19 > v32)
     {
-      v22 = 4;
-      if (v21 > 4)
+      v21 = 4;
+      if (v20 > 4)
       {
-        v22 = v21;
+        v21 = v20;
       }
 
-      v23 = v33 + v22 - 1;
+      v22 = v32 + v21 - 1;
       do
       {
-        v24 = v14++;
-        v25 = v23 > v33;
-        v26 = *v23--;
-        *v15 = v26;
-        if (!v25)
+        v23 = v13++;
+        v24 = v22 > v32;
+        v25 = *v22--;
+        *v14 = v25;
+        if (!v24)
         {
           break;
         }
 
-        v15 = &cur[v14];
+        v14 = &cur[v13];
       }
 
-      while (v24 < 0x62);
-      if (v24 > 0x61)
+      while (v23 < 0x62);
+      if (v23 > 0x61)
       {
 LABEL_45:
-        if (v14 <= 98)
+        if (v13 <= 98)
         {
-          v27 = &cur[v14];
+          v26 = &cur[v13];
           if ((v1 & 0xE) <= 9)
           {
-            v28 = 48;
+            v27 = 48;
           }
 
           else
           {
-            v28 = 49;
+            v27 = 49;
           }
 
-          *v27 = v28;
-          if (v14 == 98 || (v27[1] = ((v1 & 0xF) % 0xA) | 0x30, v14 > 96) || (v27[2] = 45, v14 == 96) || (v27[3] = ((26 * ((v1 >> 4) & 0x1E)) >> 8) | 0x30, v14 > 94))
+          *v26 = v27;
+          if (v13 == 98 || (v26[1] = ((v1 & 0xF) % 0xA) | 0x30, v13 > 96) || (v26[2] = 45, v13 == 96) || (v26[3] = ((26 * ((v1 >> 4) & 0x1E)) >> 8) | 0x30, v13 > 94))
           {
-            v14 = 99;
+            v13 = 99;
           }
 
           else
           {
-            v14 += 5;
-            v27[4] = (((v1 >> 4) & 0x1F) - 10 * ((26 * ((v1 >> 4) & 0x1F)) >> 8)) | 0x30;
+            v13 += 5;
+            v26[4] = (((v1 >> 4) & 0x1F) - 10 * ((26 * ((v1 >> 4) & 0x1F)) >> 8)) | 0x30;
           }
         }
 
-        v29 = &cur[v14];
-        if ((v12 & 0x1FFF) == 0)
+        v28 = &cur[v13];
+        if ((v11 & 0x1FFF) == 0)
         {
           goto LABEL_74;
         }
 
-        if ((8 * v12) <= 0xFu)
+        if ((8 * v11) <= 0xFu)
         {
-          if (v14 <= 98)
+          if (v13 <= 98)
           {
-            *v29++ = 90;
+            *v28++ = 90;
           }
 
           goto LABEL_74;
         }
 
-        if (v13 >= 0)
+        if (v12 >= 0)
         {
-          LOWORD(v30) = (8 * v12) >> 4;
+          LOWORD(v29) = (8 * v11) >> 4;
         }
 
         else
         {
-          v30 = -v13;
+          v29 = -v12;
         }
 
-        if (v14 <= 98)
+        if (v13 <= 98)
         {
-          if ((v12 & 0x1000) != 0)
+          if ((v11 & 0x1000) != 0)
           {
-            v31 = 45;
+            v30 = 45;
           }
 
           else
           {
-            v31 = 43;
+            v30 = 43;
           }
 
-          cur[v14] = v31;
-          if (v14 != 98)
+          cur[v13] = v30;
+          if (v13 != 98)
           {
-            v29[1] = (v30 / 0x258u - 10 * ((103 * (v30 / 0x258u)) >> 10)) | 0x30;
-            if (v14 <= 96)
+            v28[1] = (v29 / 0x258u - 10 * ((103 * (v29 / 0x258u)) >> 10)) | 0x30;
+            if (v13 <= 96)
             {
-              v29[2] = (v30 / 0x3Cu - 10 * ((6554 * (v30 / 0x3Cu)) >> 16)) | 0x30;
-              if (v14 != 96)
+              v28[2] = (v29 / 0x3Cu - 10 * ((6554 * (v29 / 0x3Cu)) >> 16)) | 0x30;
+              if (v13 != 96)
               {
-                v29[3] = 58;
-                if (v14 < 95)
+                v28[3] = 58;
+                if (v13 < 95)
                 {
-                  v32 = v30 % 0x3Cu;
-                  v29[4] = (v32 / 0xAu) | 0x30;
-                  if (v14 == 94)
+                  v31 = v29 % 0x3Cu;
+                  v28[4] = (v31 / 0xAu) | 0x30;
+                  if (v13 == 94)
                   {
-                    v29 += 5;
+                    v28 += 5;
                   }
 
                   else
                   {
-                    v29[5] = (v32 % 0xAu) | 0x30;
-                    v29 += 6;
+                    v28[5] = (v31 % 0xAu) | 0x30;
+                    v28 += 6;
                   }
 
                   goto LABEL_74;
@@ -3975,156 +3962,148 @@ LABEL_45:
             }
           }
 
-          v14 = 99;
+          v13 = 99;
         }
 
-        v29 = &cur[v14];
+        v28 = &cur[v13];
 LABEL_74:
-        *v29 = 0;
-        v7 = xmlStrdup(cur);
-        goto LABEL_12;
+        *v28 = 0;
+        return xmlStrdup(cur);
       }
 
-      v15 = &cur[v14];
+      v14 = &cur[v13];
     }
 
-    ++v14;
-    *v15 = 45;
+    ++v13;
+    *v14 = 45;
     goto LABEL_45;
   }
 
-LABEL_12:
-  v8 = *MEMORY[0x29EDCA608];
   return v7;
 }
 
 xmlChar *exsltDateFormatTime(uint64_t a1)
 {
-  v31 = *MEMORY[0x29EDCA608];
+  v30 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 16);
   v2 = (v1 >> 9) & 0x1F;
-  if ((~v1 & 0xF0000) != 0 && v2 <= 0x17)
+  if ((~v1 & 0xF0000) == 0 || v2 > 0x17)
   {
-    v5 = *(a1 + 24);
-    v6 = v5 >= 0.0 && v5 < 60.0;
-    if (v6 && ((*(a1 + 32) << 19 >> 20) + 1439) <= 0xB3E)
+    return 0;
+  }
+
+  v5 = *(a1 + 24);
+  v6 = v5 >= 0.0 && v5 < 60.0;
+  if (!v6 || ((*(a1 + 32) << 19 >> 20) + 1439) > 0xB3E)
+  {
+    return 0;
+  }
+
+  memset(v29, 0, sizeof(v29));
+  v28 = 0u;
+  v27 = 0u;
+  v26 = 0u;
+  v25 = 0u;
+  v7 = (205 * ((v1 >> 9) & 0x1F)) >> 11;
+  cur[0] = v7 | 0x30;
+  cur[1] = (v2 - 10 * v7) | 0x30;
+  cur[2] = 58;
+  cur[3] = ((26 * ((v1 >> 14) & 0x3E)) >> 8) | 0x30;
+  cur[4] = (((v1 >> 14) & 0x3F) - 10 * ((26 * ((v1 >> 14) & 0x3F)) >> 8)) | 0x30;
+  cur[5] = 58;
+  if (v5 >= 10.0)
+  {
+    v8 = 6;
+  }
+
+  else
+  {
+    LOBYTE(v25) = 48;
+    v8 = 7;
+  }
+
+  v10 = xmlXPathCastNumberToString(v5);
+  v11 = *v10;
+  if (*v10)
+  {
+    v12 = v10 + 1;
+    v13 = v8;
+    do
     {
-      memset(v30, 0, sizeof(v30));
-      v29 = 0u;
-      v28 = 0u;
-      v27 = 0u;
-      v26 = 0u;
-      v7 = (205 * ((v1 >> 9) & 0x1F)) >> 11;
-      cur[0] = v7 | 0x30;
-      cur[1] = (v2 - 10 * v7) | 0x30;
-      cur[2] = 58;
-      cur[3] = ((26 * ((v1 >> 14) & 0x3E)) >> 8) | 0x30;
-      cur[4] = (((v1 >> 14) & 0x3F) - 10 * ((26 * ((v1 >> 14) & 0x3F)) >> 8)) | 0x30;
-      cur[5] = 58;
-      if (v5 >= 10.0)
+      v8 = v13 + 1;
+      cur[v13] = v11;
+      v14 = *v12++;
+      v11 = v14;
+      v15 = v13 < 0x62;
+      if (!v14)
       {
-        v8 = 6;
+        break;
+      }
+    }
+
+    while (v13++ < 0x62);
+  }
+
+  else
+  {
+    v15 = 1;
+  }
+
+  v17 = &cur[v8];
+  free(v10);
+  v18 = *(a1 + 32);
+  if ((v18 & 0x1FFF) != 0)
+  {
+    if ((8 * v18) > 0xFu)
+    {
+      v19 = (8 * v18) >> 4;
+      if (v19 < 0)
+      {
+        v19 = -v19;
       }
 
-      else
-      {
-        LOBYTE(v26) = 48;
-        v8 = 7;
-      }
-
-      v11 = xmlXPathCastNumberToString(v5);
-      v12 = *v11;
-      if (*v11)
-      {
-        v13 = v11 + 1;
-        v14 = v8;
-        do
-        {
-          v8 = v14 + 1;
-          cur[v14] = v12;
-          v15 = *v13++;
-          v12 = v15;
-          v16 = v14 < 0x62;
-          if (!v15)
-          {
-            break;
-          }
-        }
-
-        while (v14++ < 0x62);
-      }
-
-      else
-      {
-        v16 = 1;
-      }
-
-      v18 = &cur[v8];
-      free(v11);
-      v19 = *(a1 + 32);
-      if ((v19 & 0x1FFF) == 0)
-      {
-        goto LABEL_40;
-      }
-
-      if ((8 * v19) <= 0xFu)
-      {
-        if (v16)
-        {
-          *v18++ = 90;
-        }
-
-        goto LABEL_40;
-      }
-
-      v20 = (8 * v19) >> 4;
-      if (v20 < 0)
-      {
-        v20 = -v20;
-      }
-
-      if (v16)
+      if (v15)
       {
         if ((*(a1 + 32) & 0x1000) != 0)
         {
-          v21 = 45;
+          v20 = 45;
         }
 
         else
         {
-          v21 = 43;
+          v20 = 43;
         }
 
-        cur[v8++] = v21;
+        cur[v8++] = v20;
       }
 
       if (v8 <= 0x62)
       {
-        v22 = &cur[v8];
-        cur[v8] = (v20 / 0x258u) | 0x30;
+        v21 = &cur[v8];
+        cur[v8] = (v19 / 0x258u) | 0x30;
         if (v8 != 98)
         {
-          v23 = v20 / 0x3Cu;
-          v22[1] = (v23 % 0xAu) | 0x30;
+          v22 = v19 / 0x3Cu;
+          v21[1] = (v22 % 0xAu) | 0x30;
           if (v8 <= 0x60)
           {
-            v22[2] = 58;
+            v21[2] = 58;
             if (v8 != 96)
             {
-              v24 = v20 - 60 * v23;
-              v22[3] = (v24 / 0xAu) | 0x30;
+              v23 = v19 - 60 * v22;
+              v21[3] = (v23 / 0xAu) | 0x30;
               if (v8 > 0x5E)
               {
-                v18 = v22 + 4;
+                v17 = v21 + 4;
               }
 
               else
               {
-                v18 = v22 + 5;
-                v22[4] = (v24 % 0xAu) | 0x30;
+                v17 = v21 + 5;
+                v21[4] = (v23 % 0xAu) | 0x30;
               }
 
-              goto LABEL_40;
+              goto LABEL_39;
             }
           }
         }
@@ -4132,23 +4111,23 @@ xmlChar *exsltDateFormatTime(uint64_t a1)
         v8 = 99;
       }
 
-      v18 = &cur[v8];
-LABEL_40:
-      *v18 = 0;
-      result = xmlStrdup(cur);
-      goto LABEL_14;
+      v17 = &cur[v8];
+    }
+
+    else if (v15)
+    {
+      *v17++ = 90;
     }
   }
 
-  result = 0;
-LABEL_14:
-  v10 = *MEMORY[0x29EDCA608];
-  return result;
+LABEL_39:
+  *v17 = 0;
+  return xmlStrdup(cur);
 }
 
 xmlChar *exsltDateFormatDuration(uint64_t a1)
 {
-  v63 = *MEMORY[0x29EDCA608];
+  v61 = *MEMORY[0x29EDCA608];
   v1 = *(a1 + 16);
   v2 = *a1;
   v3 = *(a1 + 8);
@@ -4180,7 +4159,7 @@ xmlChar *exsltDateFormatDuration(uint64_t a1)
 LABEL_13:
     v8 = (v2 / 12);
     v9 = v2 % 12;
-    memset(v62, 0, sizeof(v62));
+    memset(v60, 0, sizeof(v60));
     if (v2 >= -11)
     {
       v10 = v9 < 0;
@@ -4216,7 +4195,7 @@ LABEL_13:
     p_cur = &cur;
     if (v11 == 45)
     {
-      p_cur = v62;
+      p_cur = v60;
       v14 = 2;
     }
 
@@ -4239,7 +4218,7 @@ LABEL_13:
         v16 = 1;
       }
 
-      v17 = &v62[v16 - 1];
+      v17 = &v60[v16 - 1];
       v18 = *v15;
       if (!*v15)
       {
@@ -4258,7 +4237,7 @@ LABEL_13:
           break;
         }
 
-        v17 = &v62[v14 - 1];
+        v17 = &v60[v14 - 1];
         ++v19;
       }
 
@@ -4266,7 +4245,7 @@ LABEL_13:
       free(v15);
       if (v20 <= 0x61)
       {
-        v17 = &v62[v14 - 1];
+        v17 = &v60[v14 - 1];
 LABEL_40:
         ++v14;
         *v17 = 89;
@@ -4279,41 +4258,41 @@ LABEL_40:
 LABEL_42:
     if (v12 >= 1.0)
     {
-      v23 = xmlXPathCastNumberToString(floor(v12));
-      v24 = &v62[v14 - 1];
-      v25 = *v23;
-      v26 = v14 < 0x63;
-      if (*v23 && v14 <= 0x62)
+      v22 = xmlXPathCastNumberToString(floor(v12));
+      v23 = &v60[v14 - 1];
+      v24 = *v22;
+      v25 = v14 < 0x63;
+      if (*v22 && v14 <= 0x62)
       {
-        v27 = v23 + 1;
+        v26 = v22 + 1;
         do
         {
-          v28 = v14 + 1;
-          *v24++ = v25;
-          v29 = *v27++;
-          v25 = v29;
-          v26 = v14 < 0x62;
-          if (!v29)
+          v27 = v14 + 1;
+          *v23++ = v24;
+          v28 = *v26++;
+          v24 = v28;
+          v25 = v14 < 0x62;
+          if (!v28)
           {
             break;
           }
 
-          v30 = v14++ >= 0x62;
+          v29 = v14++ >= 0x62;
         }
 
-        while (!v30);
+        while (!v29);
       }
 
       else
       {
-        v28 = v14;
+        v27 = v14;
       }
 
-      free(v23);
-      if (v26)
+      free(v22);
+      if (v25)
       {
-        v14 = v28 + 1;
-        *v24 = 77;
+        v14 = v27 + 1;
+        *v23 = 77;
       }
 
       else
@@ -4324,79 +4303,79 @@ LABEL_42:
 
     if (v5 >= 1.0)
     {
-      v31 = xmlXPathCastNumberToString(floor(v5));
-      v32 = &v62[v14 - 1];
-      v33 = *v31;
-      v34 = v14 < 0x63;
-      if (*v31 && v14 <= 0x62)
+      v30 = xmlXPathCastNumberToString(floor(v5));
+      v31 = &v60[v14 - 1];
+      v32 = *v30;
+      v33 = v14 < 0x63;
+      if (*v30 && v14 <= 0x62)
       {
-        v35 = v31 + 1;
+        v34 = v30 + 1;
         do
         {
-          v36 = v14 + 1;
-          *v32++ = v33;
-          v37 = *v35++;
-          v33 = v37;
-          v34 = v14 < 0x62;
-          if (!v37)
+          v35 = v14 + 1;
+          *v31++ = v32;
+          v36 = *v34++;
+          v32 = v36;
+          v33 = v14 < 0x62;
+          if (!v36)
           {
             break;
           }
 
-          v30 = v14++ >= 0x62;
+          v29 = v14++ >= 0x62;
         }
 
-        while (!v30);
+        while (!v29);
       }
 
       else
       {
-        v36 = v14;
+        v35 = v14;
       }
 
-      free(v31);
-      if (!v34)
+      free(v30);
+      if (!v33)
       {
         v14 = 99;
 LABEL_69:
         if (v1 >= 3600.0)
         {
-          v38 = floor(v1 / 3600.0);
-          v39 = xmlXPathCastNumberToString(v38);
-          v40 = &v62[v14 - 1];
-          v41 = *v39;
-          v42 = v14 < 0x63;
-          if (*v39 && v14 <= 0x62)
+          v37 = floor(v1 / 3600.0);
+          v38 = xmlXPathCastNumberToString(v37);
+          v39 = &v60[v14 - 1];
+          v40 = *v38;
+          v41 = v14 < 0x63;
+          if (*v38 && v14 <= 0x62)
           {
-            v43 = v39 + 1;
+            v42 = v38 + 1;
             do
             {
-              v44 = v14 + 1;
-              *v40++ = v41;
-              v45 = *v43++;
-              v41 = v45;
-              v42 = v14 < 0x62;
-              if (!v45)
+              v43 = v14 + 1;
+              *v39++ = v40;
+              v44 = *v42++;
+              v40 = v44;
+              v41 = v14 < 0x62;
+              if (!v44)
               {
                 break;
               }
 
-              v30 = v14++ >= 0x62;
+              v29 = v14++ >= 0x62;
             }
 
-            while (!v30);
+            while (!v29);
           }
 
           else
           {
-            v44 = v14;
+            v43 = v14;
           }
 
-          free(v39);
-          if (v42)
+          free(v38);
+          if (v41)
           {
-            v14 = v44 + 1;
-            *v40 = 72;
+            v14 = v43 + 1;
+            *v39 = 72;
           }
 
           else
@@ -4404,47 +4383,47 @@ LABEL_69:
             v14 = 99;
           }
 
-          v1 = v1 + v38 * -3600.0;
+          v1 = v1 + v37 * -3600.0;
         }
 
         if (v1 >= 60.0)
         {
-          v46 = floor(v1 / 60.0);
-          v47 = xmlXPathCastNumberToString(v46);
-          v48 = &v62[v14 - 1];
-          v49 = *v47;
-          v50 = v14 < 0x63;
-          if (*v47 && v14 <= 0x62)
+          v45 = floor(v1 / 60.0);
+          v46 = xmlXPathCastNumberToString(v45);
+          v47 = &v60[v14 - 1];
+          v48 = *v46;
+          v49 = v14 < 0x63;
+          if (*v46 && v14 <= 0x62)
           {
-            v51 = v47 + 1;
+            v50 = v46 + 1;
             do
             {
-              v52 = v14 + 1;
-              *v48++ = v49;
-              v53 = *v51++;
-              v49 = v53;
-              v50 = v14 < 0x62;
-              if (!v53)
+              v51 = v14 + 1;
+              *v47++ = v48;
+              v52 = *v50++;
+              v48 = v52;
+              v49 = v14 < 0x62;
+              if (!v52)
               {
                 break;
               }
 
-              v30 = v14++ >= 0x62;
+              v29 = v14++ >= 0x62;
             }
 
-            while (!v30);
+            while (!v29);
           }
 
           else
           {
-            v52 = v14;
+            v51 = v14;
           }
 
-          free(v47);
-          if (v50)
+          free(v46);
+          if (v49)
           {
-            v14 = v52 + 1;
-            *v48 = 77;
+            v14 = v51 + 1;
+            *v47 = 77;
           }
 
           else
@@ -4452,55 +4431,53 @@ LABEL_69:
             v14 = 99;
           }
 
-          v1 = v1 + v46 * -60.0;
+          v1 = v1 + v45 * -60.0;
         }
 
-        v54 = &v62[v14 - 1];
+        v53 = &v60[v14 - 1];
         if (v1 > 0.0)
         {
-          v55 = xmlXPathCastNumberToString(v1);
-          v56 = *v55;
-          v57 = v14 < 0x63;
-          if (*v55 && v14 <= 0x62)
+          v54 = xmlXPathCastNumberToString(v1);
+          v55 = *v54;
+          v56 = v14 < 0x63;
+          if (*v54 && v14 <= 0x62)
           {
-            v58 = v55 + 1;
+            v57 = v54 + 1;
             do
             {
-              *v54++ = v56;
-              v59 = *v58++;
-              v56 = v59;
-              v57 = v14 < 0x62;
-              if (!v59)
+              *v53++ = v55;
+              v58 = *v57++;
+              v55 = v58;
+              v56 = v14 < 0x62;
+              if (!v58)
               {
                 break;
               }
 
-              v30 = v14++ >= 0x62;
+              v29 = v14++ >= 0x62;
             }
 
-            while (!v30);
+            while (!v29);
           }
 
-          free(v55);
-          if (v57)
+          free(v54);
+          if (v56)
           {
-            *v54++ = 83;
+            *v53++ = 83;
           }
         }
 
-        *v54 = 0;
-        result = xmlStrdup(&cur);
-        v60 = *MEMORY[0x29EDCA608];
-        return result;
+        *v53 = 0;
+        return xmlStrdup(&cur);
       }
 
-      v14 = v36 + 1;
-      *v32 = 68;
+      v14 = v35 + 1;
+      *v31 = 68;
     }
 
     if (v1 > 0.0 && v14 <= 0x62)
     {
-      v62[v14++ - 1] = 84;
+      v60[v14++ - 1] = 84;
     }
 
     goto LABEL_69;
@@ -4512,8 +4489,6 @@ LABEL_69:
     v5 = 0.0;
     goto LABEL_13;
   }
-
-  v21 = *MEMORY[0x29EDCA608];
 
   return xmlStrdup("P0D");
 }
@@ -4700,7 +4675,7 @@ double exsltDateDayInWeek(unsigned __int8 *a1)
   return v7;
 }
 
-uint64_t _exsltDateDayInWeek(uint64_t a1, uint64_t a2)
+unint64_t _exsltDateDayInWeek(uint64_t a1, uint64_t a2)
 {
   v2 = (-a2 * 0x2492492492492493uLL) >> 64;
   v3 = (a1 - (-a2 / 0x190uLL + (-a2 >> 2)) - (-7 * ((v2 + ((-a2 - v2) >> 1)) >> 2) - a2) + -a2 / 0x64uLL - 2) % 7;
@@ -4716,7 +4691,7 @@ uint64_t _exsltDateDayInWeek(uint64_t a1, uint64_t a2)
   }
 }
 
-double *_exsltDateDifference(unsigned int *a1, uint64_t a2, int a3)
+double *_exsltDateDifference(unsigned int *a1, unsigned int *a2, int a3)
 {
   v4 = *a1;
   if ((*a1 & 0xFFFFFFF8) != 8)
@@ -4761,13 +4736,13 @@ double *_exsltDateDifference(unsigned int *a1, uint64_t a2, int a3)
     else if (!a3 && *v7 == 12)
     {
 LABEL_14:
-      v10 = *(v7 + 8);
+      v10 = *(v7 + 1);
       if ((v10 - 0x555555555555555) >= 0xF555555555555557)
       {
-        v11 = *(a2 + 8);
+        v11 = *(a2 + 1);
         if ((v11 - 0x555555555555555) >= 0xF555555555555557)
         {
-          *Duration = (*(a2 + 16) & 0xF) - (*(v7 + 16) & 0xF) + 12 * (v11 - v10);
+          *Duration = (a2[4] & 0xF) - (v7[4] & 0xF) + 12 * (v11 - v10);
           return v9;
         }
       }
@@ -4775,17 +4750,17 @@ LABEL_14:
       goto LABEL_19;
     }
 
-    if ((*(v7 + 8) - 0x2CD38620EB5681) >= 0xFFA658F3BE2952FFLL && (*(a2 + 8) - 0x2CD38620EB5681) >= 0xFFA658F3BE2952FFLL)
+    if ((*(v7 + 1) - 0x2CD38620EB5681) >= 0xFFA658F3BE2952FFLL && (*(a2 + 1) - 0x2CD38620EB5681) >= 0xFFA658F3BE2952FFLL)
     {
-      v13 = *(a2 + 24) + (60 * ((*(a2 + 16) >> 14) & 0x3F) + 3600 * ((*(a2 + 16) >> 9) & 0x1Fu)) - (*(v7 + 24) + (60 * ((*(v7 + 16) >> 14) & 0x3F) + 3600 * ((*(v7 + 16) >> 9) & 0x1Fu)));
+      v13 = *(a2 + 3) + (60 * ((a2[4] >> 14) & 0x3F) + 3600 * ((a2[4] >> 9) & 0x1F)) - (*(v7 + 3) + (60 * ((v7[4] >> 14) & 0x3F) + 3600 * ((v7[4] >> 9) & 0x1F)));
       Duration[2] = v13;
-      v14 = v13 + (60 * ((*(v7 + 32) << 19 >> 20) - ((8 * *(a2 + 32)) >> 4)));
+      v14 = v13 + (60 * ((*(v7 + 16) << 19 >> 20) - ((8 * *(a2 + 16)) >> 4)));
       v15 = vcvtmd_s64_f64(v14 / 86400.0);
       Duration[2] = v14 - (86400 * v15);
       v16 = _exsltDateCastYMToDays(a2);
       v17 = _exsltDateCastYMToDays(v7);
       *(v9 + 1) = v16 - v17;
-      *(v9 + 1) = v16 - v17 + ((*(a2 + 16) >> 4) & 0x1F) - ((*(v7 + 16) >> 4) & 0x1F) + v15;
+      *(v9 + 1) = v16 - v17 + (((a2[4] >> 4) & 0x1F) - ((v7[4] >> 4) & 0x1F)) + v15;
       return v9;
     }
 
@@ -4835,7 +4810,7 @@ LABEL_5:
   return result;
 }
 
-uint64_t _exsltDateCastYMToDays(uint64_t a1)
+unint64_t _exsltDateCastYMToDays(uint64_t a1)
 {
   v1 = *(a1 + 8);
   if (v1 <= 0)
@@ -4894,7 +4869,7 @@ double exsltDateSeconds(unsigned __int8 *a1)
   {
 LABEL_7:
     v7 = v4;
-    if (*v4 >= 8u)
+    if (*v4 >= 8)
     {
       Date = exsltDateCreateDate(15);
       if (Date)
@@ -5637,7 +5612,7 @@ LABEL_25:
   return v10(v11, v12);
 }
 
-uint64_t exsltFuncRegisterFunc(uint64_t result, xsltTransformContext *a2, const char *a3, const char *a4)
+uint64_t exsltFuncRegisterFunc(uint64_t result, xsltTransformContext *a2, const xmlChar *a3, const xmlChar *a4)
 {
   if (result && a2 && a3 && a4)
   {

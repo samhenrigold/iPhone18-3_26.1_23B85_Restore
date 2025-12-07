@@ -31,18 +31,17 @@
 
 - (id)forwardingTargetForSelector:(SEL)selector
 {
-  clientFeedbackHelper = self->_clientFeedbackHelper;
   if (objc_opt_respondsToSelector())
   {
-    v5 = self->_clientFeedbackHelper;
+    v4 = self->_clientFeedbackHelper;
   }
 
   else
   {
-    v5 = 0;
+    v4 = 0;
   }
 
-  return v5;
+  return v4;
 }
 
 - (void)registerFeedback:(id)feedback completion:(id)completion
@@ -82,7 +81,7 @@
 
 void __49__PPQuickTypeBroker_registerFeedback_completion___block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v5 = a3;
   v6 = *(a1 + 32);
   if (v5)
@@ -90,9 +89,9 @@ void __49__PPQuickTypeBroker_registerFeedback_completion___block_invoke(uint64_t
     v7 = pp_xpc_client_log_handle();
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v10 = 138412290;
-      v11 = v5;
-      _os_log_error_impl(&dword_1A7FD3000, v7, OS_LOG_TYPE_ERROR, "Error from _remoteObjectProxy %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = v5;
+      _os_log_error_impl(&dword_1A7FD3000, v7, OS_LOG_TYPE_ERROR, "Error from _remoteObjectProxy %@", &v9, 0xCu);
     }
   }
 
@@ -101,8 +100,6 @@ void __49__PPQuickTypeBroker_registerFeedback_completion___block_invoke(uint64_t
   {
     (*(v8 + 16))(v8, a2, v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)hibernateWithCompletion:(id)completion
@@ -134,22 +131,7 @@ void __49__PPQuickTypeBroker_registerFeedback_completion___block_invoke(uint64_t
   recipientsCopy = recipients;
   bundleIdentifierCopy = bundleIdentifier;
   completionCopy = completion;
-  if (!tokensCopy)
-  {
-    goto LABEL_7;
-  }
-
-  v19 = [tokensCopy objectForKeyedSubscript:@"type"];
-  if (!v19)
-  {
-    goto LABEL_7;
-  }
-
-  v20 = v19;
-  v21 = [tokensCopy objectForKeyedSubscript:@"type"];
-  v22 = [v21 isEqualToString:@"photosharing"];
-
-  if (v22)
+  if (tokensCopy && ([tokensCopy objectForKeyedSubscript:@"type"], (v19 = objc_claimAutoreleasedReturnValue()) != 0) && (v20 = v19, objc_msgSend(tokensCopy, "objectForKeyedSubscript:", @"type"), v21 = objc_claimAutoreleasedReturnValue(), v22 = objc_msgSend(v21, "isEqualToString:", @"photosharing"), v21, v20, v22))
   {
     v23 = pp_xpc_client_log_handle();
     if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
@@ -164,7 +146,6 @@ void __49__PPQuickTypeBroker_registerFeedback_completion___block_invoke(uint64_t
 
   else
   {
-LABEL_7:
     _remoteObjectProxy = [(PPQuickTypeBroker *)self _remoteObjectProxy];
     [_remoteObjectProxy quickTypeItemsWithLanguageModelingTokens:tokensCopy localeIdentifier:identifierCopy recipients:recipientsCopy bundleIdentifier:bundleIdentifierCopy limit:limit completion:completionCopy];
   }
@@ -221,13 +202,12 @@ LABEL_7:
 
 void __35__PPQuickTypeBroker_sharedInstance__block_invoke(uint64_t a1)
 {
-  v2 = objc_autoreleasePoolPush();
-  v3 = *(a1 + 32);
-  v4 = objc_opt_new();
-  v5 = sharedInstance__pasExprOnceResult_211;
-  sharedInstance__pasExprOnceResult_211 = v4;
+  v1 = objc_autoreleasePoolPush();
+  v2 = objc_opt_new();
+  v3 = sharedInstance__pasExprOnceResult_211;
+  sharedInstance__pasExprOnceResult_211 = v2;
 
-  objc_autoreleasePoolPop(v2);
+  objc_autoreleasePoolPop(v1);
 }
 
 @end

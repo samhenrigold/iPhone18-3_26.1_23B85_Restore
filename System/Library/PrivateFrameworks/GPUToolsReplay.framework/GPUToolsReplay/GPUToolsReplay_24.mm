@@ -1,467 +1,3 @@
-uint64_t RenderPassDescriptorContainsClear(uint64_t result)
-{
-  if (result)
-  {
-    if (*(result + 680) && *(result + 697) == 2 || *(result + 728) && *(result + 745) == 2)
-    {
-      return 1;
-    }
-
-    else
-    {
-      v1 = (result + 25);
-      v2 = 8;
-      result = 1;
-      while (!*(v1 - 17) || *v1 != 2)
-      {
-        v1 += 64;
-        if (!--v2)
-        {
-          return 0;
-        }
-      }
-    }
-  }
-
-  return result;
-}
-
-uint64_t SoftwareCounterForFunc(uint64_t a1, uint64_t a2)
-{
-  result = 0;
-  v4 = *(a1 + 8);
-  if (v4 <= -16219)
-  {
-    switch(v4)
-    {
-      case -16251:
-        goto LABEL_13;
-      case -16249:
-LABEL_14:
-        v9 = GTTraceFunc_argumentBytesWithMap(a1, *(a1 + 13), a2);
-        result = *(v9 + 2);
-LABEL_16:
-        v10 = *(v9 + 6);
-        return result;
-      case -16248:
-        return *(GTTraceFunc_argumentBytesWithMap(a1, *(a1 + 13), a2) + 2);
-    }
-  }
-
-  else
-  {
-    if (v4 <= -16148)
-    {
-      if (v4 != -16218)
-      {
-        if (v4 != -16217)
-        {
-          return result;
-        }
-
-        goto LABEL_14;
-      }
-
-LABEL_13:
-      v7 = GTTraceFunc_argumentBytesWithMap(a1, *(a1 + 13), a2);
-      result = 0;
-      v8 = *(v7 + 4);
-      return result;
-    }
-
-    if (v4 == -16147)
-    {
-      v9 = GTTraceFunc_argumentBytesWithMap(a1, *(a1 + 13), a2);
-      result = 0;
-      goto LABEL_16;
-    }
-
-    if (v4 == -16145)
-    {
-      v5 = GTTraceFunc_argumentBytesWithMap(a1, *(a1 + 13), a2);
-      result = 0;
-      v6 = *(v5 + 8);
-    }
-  }
-
-  return result;
-}
-
-id GTMTLReplayHost_collectSoftwareEncoderCounters(void *a1, int a2)
-{
-  v44[3] = *MEMORY[0x277D85DE8];
-  v33 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v35 = a1;
-  v3 = a1[15];
-  v4 = *(v3 + 12);
-  if (v4 >= 1)
-  {
-    v5 = 0;
-    v36 = a1[2];
-    v6 = a1[16];
-    v32 = a1[15];
-    do
-    {
-      v7 = (*(v3 + 24) + 24 * v5);
-      if (GTMTLReplayHost_IsFuncEnumSampledEncoder(*(*(v6 + 24) + (*v7 << 6) + 8), a2, 0))
-      {
-        RenderPassDescriptor = GetRenderPassDescriptor();
-        v34 = RenderPassDescriptorContainsClear(RenderPassDescriptor);
-        v9 = *v7;
-        if (v9 + 1 < v7[1])
-        {
-          v10 = 0;
-          v11 = 0;
-          v12 = v9 + 1;
-          while (1)
-          {
-            v13 = *(v6 + 24) + (v12 << 6);
-            v14 = *(v13 + 8);
-            if (!GTFenumIsSampledCall(v14, a2))
-            {
-              break;
-            }
-
-            v10 += SoftwareCounterForFunc(v13, v36);
-            v11 += v15;
-LABEL_24:
-            if (++v12 >= v7[1])
-            {
-              goto LABEL_27;
-            }
-          }
-
-          if (v14 >> 2 != 1073737833)
-          {
-            goto LABEL_24;
-          }
-
-          GetExecuteCommandsInBufferArgs(v38, v13, v35[2]);
-          v43 = 0;
-          v42 = 0u;
-          memset(v41, 0, sizeof(v41));
-          Object = GTMTLSMContext_getObject(*v35[5], v38[0], *v13);
-          GTMTLCreateIndirectCommandEncoder(v41, Object[14]);
-          v17 = v39;
-          if (!v39)
-          {
-            goto LABEL_24;
-          }
-
-          v18 = v38[1] << 32;
-          while (2)
-          {
-            v19 = 0;
-            v20 = v40 + v43 * (v18 >> 32);
-            v21 = *(v20 + v41[1]);
-            if (v21 <= 1)
-            {
-              if (!v21)
-              {
-                goto LABEL_23;
-              }
-
-              v22 = 0;
-              if (v21 != 1)
-              {
-                goto LABEL_22;
-              }
-
-              v19 = 0;
-              v23 = (v20 + *(&v42 + 1) + 24);
-            }
-
-            else if (v21 == 2)
-            {
-              v24 = v20 + *(&v42 + 1);
-              v19 = *(v24 + 8);
-              v23 = (v24 + 32);
-            }
-
-            else
-            {
-              if (v21 != 4)
-              {
-                v22 = 0;
-                if (v21 == 8)
-                {
-                  v19 = 0;
-                  v23 = (v20 + *(&v42 + 1) + 64);
-                  break;
-                }
-
-LABEL_22:
-                v10 += v19;
-                v11 += v22;
-LABEL_23:
-                v18 += 0x100000000;
-                if (!--v17)
-                {
-                  goto LABEL_24;
-                }
-
-                continue;
-              }
-
-              v19 = 0;
-              v23 = (v20 + *(&v42 + 1) + 56);
-            }
-
-            break;
-          }
-
-          v22 = *v23;
-          goto LABEL_22;
-        }
-
-        v11 = 0;
-        v10 = 0;
-LABEL_27:
-        v25 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v34];
-        v44[0] = v25;
-        v26 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v10];
-        v44[1] = v26;
-        v27 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:v11];
-        v44[2] = v27;
-        v28 = [MEMORY[0x277CBEA60] arrayWithObjects:v44 count:3];
-        [v33 addObject:v28];
-
-        v5 += v7[3];
-        v3 = v32;
-        v4 = *(v32 + 12);
-      }
-
-      ++v5;
-    }
-
-    while (v5 < v4);
-  }
-
-  v29 = [v33 copy];
-
-  v30 = *MEMORY[0x277D85DE8];
-
-  return v29;
-}
-
-id GTMTLReplayHost_rawCounters(void *a1)
-{
-  v28 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(v1, "count")}];
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v3 = v1;
-  v17 = [v3 countByEnumeratingWithState:&v22 objects:v27 count:16];
-  if (v17)
-  {
-    v16 = *v23;
-    do
-    {
-      for (i = 0; i != v17; ++i)
-      {
-        if (*v23 != v16)
-        {
-          objc_enumerationMutation(v3);
-        }
-
-        v5 = [v3 objectForKeyedSubscript:{*(*(&v22 + 1) + 8 * i), v16}];
-        v18 = 0u;
-        v19 = 0u;
-        v20 = 0u;
-        v21 = 0u;
-        v6 = [v5 objectForKeyedSubscript:@"counters"];
-        v7 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
-        if (v7)
-        {
-          v8 = v7;
-          v9 = *v19;
-          do
-          {
-            for (j = 0; j != v8; ++j)
-            {
-              if (*v19 != v9)
-              {
-                objc_enumerationMutation(v6);
-              }
-
-              v11 = *(*(&v18 + 1) + 8 * j);
-              v12 = [v3 objectForKeyedSubscript:v11];
-
-              if (!v12)
-              {
-                [v2 addObject:v11];
-              }
-            }
-
-            v8 = [v6 countByEnumeratingWithState:&v18 objects:v26 count:16];
-          }
-
-          while (v8);
-        }
-      }
-
-      v17 = [v3 countByEnumeratingWithState:&v22 objects:v27 count:16];
-    }
-
-    while (v17);
-  }
-
-  v13 = [v2 allObjects];
-
-  v14 = *MEMORY[0x277D85DE8];
-
-  return v13;
-}
-
-id GTMTLReplayHost_rawCountersToNormalizeSet(void *a1)
-{
-  v32 = *MEMORY[0x277D85DE8];
-  v1 = a1;
-  v2 = [objc_alloc(MEMORY[0x277CBEB58]) initWithCapacity:{objc_msgSend(v1, "count")}];
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0u;
-  v29 = 0u;
-  v3 = v1;
-  v4 = [v3 countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v4)
-  {
-    v5 = v4;
-    v6 = *v27;
-    v19 = *v27;
-    do
-    {
-      v7 = 0;
-      v20 = v5;
-      do
-      {
-        if (*v27 != v6)
-        {
-          objc_enumerationMutation(v3);
-        }
-
-        v8 = [v3 objectForKeyedSubscript:*(*(&v26 + 1) + 8 * v7)];
-        v9 = [v8 objectForKeyedSubscript:@"subtype"];
-        if ([v9 isEqualToString:@"Normalize"])
-        {
-          v21 = v9;
-          v24 = 0u;
-          v25 = 0u;
-          v22 = 0u;
-          v23 = 0u;
-          v10 = [v8 objectForKeyedSubscript:@"counters"];
-          v11 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
-          if (v11)
-          {
-            v12 = v11;
-            v13 = *v23;
-            do
-            {
-              for (i = 0; i != v12; ++i)
-              {
-                if (*v23 != v13)
-                {
-                  objc_enumerationMutation(v10);
-                }
-
-                v15 = *(*(&v22 + 1) + 8 * i);
-                v16 = [v3 objectForKeyedSubscript:v15];
-
-                if (!v16)
-                {
-                  [v2 addObject:v15];
-                }
-              }
-
-              v12 = [v10 countByEnumeratingWithState:&v22 objects:v30 count:16];
-            }
-
-            while (v12);
-          }
-
-          v6 = v19;
-          v5 = v20;
-          v9 = v21;
-        }
-
-        ++v7;
-      }
-
-      while (v7 != v5);
-      v5 = [v3 countByEnumeratingWithState:&v26 objects:v31 count:16];
-    }
-
-    while (v5);
-  }
-
-  v17 = *MEMORY[0x277D85DE8];
-
-  return v2;
-}
-
-id GTMTLReplayHost_createPerCounterCommandData(void *a1, void *a2)
-{
-  v26 = *MEMORY[0x277D85DE8];
-  v3 = a1;
-  v4 = a2;
-  v5 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v3, "count")}];
-  v20 = v4;
-  v6 = [v4 count];
-  if ([v3 count])
-  {
-    v7 = 0;
-    do
-    {
-      v8 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:v6];
-      v21 = 0u;
-      v22 = 0u;
-      v23 = 0u;
-      v24 = 0u;
-      v9 = v20;
-      v10 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
-      if (v10)
-      {
-        v11 = v10;
-        v12 = *v22;
-        do
-        {
-          for (i = 0; i != v11; ++i)
-          {
-            if (*v22 != v12)
-            {
-              objc_enumerationMutation(v9);
-            }
-
-            v14 = [*(*(&v21 + 1) + 8 * i) objectAtIndexedSubscript:v7];
-            [v8 addObject:v14];
-          }
-
-          v11 = [v9 countByEnumeratingWithState:&v21 objects:v25 count:16];
-        }
-
-        while (v11);
-      }
-
-      v15 = [v3 objectAtIndexedSubscript:v7];
-      v16 = [v8 copy];
-      [v5 setObject:v16 forKeyedSubscript:v15];
-
-      ++v7;
-    }
-
-    while (v7 < [v3 count]);
-  }
-
-  v17 = [v5 copy];
-
-  v18 = *MEMORY[0x277D85DE8];
-
-  return v17;
-}
-
 uint64_t ResizeFormat(uint64_t result)
 {
   v1 = result + 6;
@@ -503,44 +39,44 @@ LABEL_6:
 
 id _processThumbnailAttachments(void *a1, void *a2, uint64_t a3)
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   v4 = a1;
   v5 = a2;
-  v26 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v5, "count")}];
+  v25 = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:{objc_msgSend(v5, "count")}];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = v5;
-  v6 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+  v6 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v6)
   {
     v7 = v6;
     v8 = 0;
-    v24 = *v28;
+    v23 = *v27;
     do
     {
       v9 = 0;
       v10 = v8;
       do
       {
-        if (*v28 != v24)
+        if (*v27 != v23)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v27 + 1) + 8 * v9);
+        v11 = *(*(&v26 + 1) + 8 * v9);
         v12 = [v11 objectForKeyedSubscript:@"DependencyGraphRequestedTextureAttachmentIndex"];
         v13 = [v11 objectForKeyedSubscript:@"format"];
         v14 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v4, "count")}];
-        v33[0] = @"object";
-        v33[1] = @"format";
-        v34[0] = v14;
-        v34[1] = v13;
-        v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:2];
+        v32[0] = @"object";
+        v32[1] = @"format";
+        v33[0] = v14;
+        v33[1] = v13;
+        v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:2];
 
         v15 = [&unk_2860D5B40 objectAtIndexedSubscript:{objc_msgSend(v12, "unsignedIntegerValue")}];
-        [v26 setObject:v8 forKeyedSubscript:v15];
+        [v25 setObject:v8 forKeyedSubscript:v15];
 
         v16 = [v11 mutableCopy];
         v17 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:a3 + 1];
@@ -554,7 +90,7 @@ id _processThumbnailAttachments(void *a1, void *a2, uint64_t a3)
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v27 objects:v35 count:16];
+      v7 = [obj countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v7);
@@ -567,31 +103,29 @@ id _processThumbnailAttachments(void *a1, void *a2, uint64_t a3)
 
   v18 = [v8 objectForKeyedSubscript:@"object"];
   v19 = [v8 objectForKeyedSubscript:@"format"];
-  v31[0] = @"object";
-  v31[1] = @"format";
-  v32[0] = v18;
-  v32[1] = v19;
-  v31[2] = @"target";
-  v32[2] = v26;
-  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v30[0] = @"object";
+  v30[1] = @"format";
+  v31[0] = v18;
+  v31[1] = v19;
+  v30[2] = @"target";
+  v31[2] = v25;
+  v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:3];
 
   return v20;
 }
 
 id GTMTLReplay_dictionaryFromCommandBuffer(void *a1)
 {
-  v153[4] = *MEMORY[0x277D85DE8];
+  v152[4] = *MEMORY[0x277D85DE8];
   v1 = a1;
-  v74 = [v1 error];
-  v105[0] = @"retainedReferences";
+  v73 = [v1 error];
+  v104[0] = @"retainedReferences";
   v2 = 0x277CCA000uLL;
-  v106[0] = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v1, "retainedReferences")}];
-  v105[1] = @"label";
-  v72 = [v1 label];
-  v73 = v106[0];
-  if (v72)
+  v105[0] = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v1, "retainedReferences")}];
+  v104[1] = @"label";
+  v71 = [v1 label];
+  v72 = v105[0];
+  if (v71)
   {
     [v1 label];
   }
@@ -600,80 +134,80 @@ id GTMTLReplay_dictionaryFromCommandBuffer(void *a1)
   {
     [MEMORY[0x277CBEB68] null];
   }
-  v71 = ;
-  v106[1] = v71;
-  v105[2] = @"kernelStartTime";
+  v70 = ;
+  v105[1] = v70;
+  v104[2] = @"kernelStartTime";
   v3 = MEMORY[0x277CCABB0];
   [v1 kernelStartTime];
-  v70 = [v3 numberWithDouble:?];
-  v106[2] = v70;
-  v105[3] = @"kernelEndTime";
+  v69 = [v3 numberWithDouble:?];
+  v105[2] = v69;
+  v104[3] = @"kernelEndTime";
   v4 = MEMORY[0x277CCABB0];
   [v1 kernelEndTime];
-  v107 = [v4 numberWithDouble:?];
-  v105[4] = @"GPUStartTime";
+  v106 = [v4 numberWithDouble:?];
+  v104[4] = @"GPUStartTime";
   v5 = MEMORY[0x277CCABB0];
   [v1 GPUStartTime];
-  v108 = [v5 numberWithDouble:?];
-  v105[5] = @"GPUEndTime";
+  v107 = [v5 numberWithDouble:?];
+  v104[5] = @"GPUEndTime";
   v6 = MEMORY[0x277CCABB0];
   [v1 GPUEndTime];
-  v109 = [v6 numberWithDouble:?];
-  v105[6] = @"status";
-  v75 = v1;
-  v110 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v1, "status")}];
-  v105[7] = @"error";
-  v68 = v108;
-  v69 = v107;
-  v66 = v110;
-  v67 = v109;
-  if (v74)
+  v108 = [v6 numberWithDouble:?];
+  v104[6] = @"status";
+  v74 = v1;
+  v109 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v1, "status")}];
+  v104[7] = @"error";
+  v67 = v107;
+  v68 = v106;
+  v65 = v109;
+  v66 = v108;
+  if (v73)
   {
-    v7 = v74;
+    v7 = v73;
     v8 = [v7 userInfo];
     v9 = [v8 objectForKeyedSubscript:@"MTLCommandBufferEncoderInfoErrorKey"];
 
-    v114 = @"domain";
+    v113 = @"domain";
     v10 = [v7 domain];
-    v125 = v10;
-    v115 = @"code";
+    v124 = v10;
+    v114 = @"code";
     v11 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v7, "code")}];
-    v126 = v11;
-    v116 = @"localizedDescription";
+    v125 = v11;
+    v115 = @"localizedDescription";
     v12 = [v7 localizedDescription];
     v13 = v12;
-    v127 = v12;
-    v117 = @"commandBufferEncoderInfo";
+    v126 = v12;
+    v116 = @"commandBufferEncoderInfo";
     if (v9)
     {
-      v93 = v12;
-      v95 = v11;
-      v97 = v10;
-      v99 = v9;
-      v101 = v7;
+      v92 = v12;
+      v94 = v11;
+      v96 = v10;
+      v98 = v9;
+      v100 = v7;
       v14 = v9;
       v15 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v14, "count")}];
+      v135 = 0u;
       v136 = 0u;
       v137 = 0u;
       v138 = 0u;
-      v139 = 0u;
       obj = v14;
-      v16 = [obj countByEnumeratingWithState:&v136 objects:&v144 count:16];
+      v16 = [obj countByEnumeratingWithState:&v135 objects:&v143 count:16];
       if (v16)
       {
         v17 = v16;
-        v18 = *v137;
+        v18 = *v136;
         do
         {
           for (i = 0; i != v17; ++i)
           {
-            if (*v137 != v18)
+            if (*v136 != v18)
             {
               objc_enumerationMutation(obj);
             }
 
-            v20 = *(*(&v136 + 1) + 8 * i);
-            *&v140 = @"label";
+            v20 = *(*(&v135 + 1) + 8 * i);
+            *&v139 = @"label";
             v21 = [v20 label];
             if (v21)
             {
@@ -685,8 +219,8 @@ id GTMTLReplay_dictionaryFromCommandBuffer(void *a1)
               [MEMORY[0x277CBEB68] null];
             }
             v22 = ;
-            *&v148 = v22;
-            *(&v140 + 1) = @"debugSignposts";
+            *&v147 = v22;
+            *(&v139 + 1) = @"debugSignposts";
             v23 = [v20 debugSignposts];
             if (v23)
             {
@@ -698,15 +232,15 @@ id GTMTLReplay_dictionaryFromCommandBuffer(void *a1)
               [MEMORY[0x277CBEB68] null];
             }
             v24 = ;
-            *(&v148 + 1) = v24;
-            *&v141 = @"errorState";
+            *(&v147 + 1) = v24;
+            *&v140 = @"errorState";
             v25 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v20, "errorState")}];
-            *&v149 = v25;
-            v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v148 forKeys:&v140 count:3];
+            *&v148 = v25;
+            v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v147 forKeys:&v139 count:3];
             [v15 addObject:v26];
           }
 
-          v17 = [obj countByEnumeratingWithState:&v136 objects:&v144 count:16];
+          v17 = [obj countByEnumeratingWithState:&v135 objects:&v143 count:16];
         }
 
         while (v17);
@@ -714,11 +248,11 @@ id GTMTLReplay_dictionaryFromCommandBuffer(void *a1)
 
       v27 = [v15 copy];
       v2 = 0x277CCA000;
-      v9 = v99;
-      v7 = v101;
-      v11 = v95;
-      v10 = v97;
-      v13 = v93;
+      v9 = v98;
+      v7 = v100;
+      v11 = v94;
+      v10 = v96;
+      v13 = v92;
     }
 
     else
@@ -726,8 +260,8 @@ id GTMTLReplay_dictionaryFromCommandBuffer(void *a1)
       v27 = [MEMORY[0x277CBEB68] null];
     }
 
-    v128 = v27;
-    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v125 forKeys:&v114 count:4];
+    v127 = v27;
+    v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v124 forKeys:&v113 count:4];
   }
 
   else
@@ -735,37 +269,37 @@ id GTMTLReplay_dictionaryFromCommandBuffer(void *a1)
     v28 = [MEMORY[0x277CBEB68] null];
   }
 
-  v65 = v28;
-  v111 = v28;
-  v105[8] = @"errorOptions";
-  v64 = [*(v2 + 2992) numberWithUnsignedInteger:{objc_msgSend(v75, "errorOptions")}];
-  v112 = v64;
-  v105[9] = @"logs";
-  v29 = [v75 logs];
-  v78 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v64 = v28;
+  v110 = v28;
+  v104[8] = @"errorOptions";
+  v63 = [*(v2 + 2992) numberWithUnsignedInteger:{objc_msgSend(v74, "errorOptions")}];
+  v111 = v63;
+  v104[9] = @"logs";
+  v29 = [v74 logs];
+  v77 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v139 = 0u;
   v140 = 0u;
   v141 = 0u;
   v142 = 0u;
-  v143 = 0u;
-  v76 = v29;
-  v79 = [v76 countByEnumeratingWithState:&v140 objects:&v136 count:16];
-  if (v79)
+  v75 = v29;
+  v78 = [v75 countByEnumeratingWithState:&v139 objects:&v135 count:16];
+  if (v78)
   {
-    v77 = *v141;
+    v76 = *v140;
     do
     {
       v30 = 0;
       do
       {
-        if (*v141 != v77)
+        if (*v140 != v76)
         {
-          objc_enumerationMutation(v76);
+          objc_enumerationMutation(v75);
         }
 
-        v31 = *(*(&v140 + 1) + 8 * v30);
+        v31 = *(*(&v139 + 1) + 8 * v30);
         v32 = [v31 function];
         v33 = [v31 buffer];
-        v91 = v30;
+        v90 = v30;
         if (objc_opt_respondsToSelector())
         {
           [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v31, "performSelector:", sel_encoderIdentifier)}];
@@ -775,7 +309,7 @@ id GTMTLReplay_dictionaryFromCommandBuffer(void *a1)
         {
           [MEMORY[0x277CBEB68] null];
         }
-        v94 = ;
+        v93 = ;
         if (objc_opt_respondsToSelector())
         {
           v34 = [v31 performSelector:sel_encoderLabel];
@@ -787,24 +321,24 @@ id GTMTLReplay_dictionaryFromCommandBuffer(void *a1)
         }
 
         v35 = v34;
-        v89 = v34;
-        v114 = @"type";
-        v88 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v31, "type")}];
-        v125 = v88;
-        v115 = @"encoderMethodIdentifier";
-        v87 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v31, "encoderMethodIdentifier")}];
-        v126 = v87;
-        v127 = v35;
-        v116 = @"encoderLabel";
-        v117 = @"encoderIdentifier";
-        v128 = v94;
-        v118 = @"function";
-        v90 = v32;
-        v92 = v33;
+        v88 = v34;
+        v113 = @"type";
+        v87 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v31, "type")}];
+        v124 = v87;
+        v114 = @"encoderMethodIdentifier";
+        v86 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v31, "encoderMethodIdentifier")}];
+        v125 = v86;
+        v126 = v35;
+        v115 = @"encoderLabel";
+        v116 = @"encoderIdentifier";
+        v127 = v93;
+        v117 = @"function";
+        v89 = v32;
+        v91 = v33;
         if (v32)
         {
           v36 = v32;
-          *&v148 = @"label";
+          *&v147 = @"label";
           v37 = [v36 label];
           if (v37)
           {
@@ -816,16 +350,16 @@ id GTMTLReplay_dictionaryFromCommandBuffer(void *a1)
             [MEMORY[0x277CBEB68] null];
           }
           v39 = ;
-          v144 = v39;
-          *(&v148 + 1) = @"functionType";
+          v143 = v39;
+          *(&v147 + 1) = @"functionType";
           v40 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v36, "functionType")}];
-          v145 = v40;
-          *&v149 = @"name";
+          v144 = v40;
+          *&v148 = @"name";
           v41 = [v36 name];
-          v146 = v41;
-          v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v144 forKeys:&v148 count:3];
+          v145 = v41;
+          v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v143 forKeys:&v147 count:3];
 
-          v33 = v92;
+          v33 = v91;
         }
 
         else
@@ -833,11 +367,11 @@ id GTMTLReplay_dictionaryFromCommandBuffer(void *a1)
           v38 = [MEMORY[0x277CBEB68] null];
         }
 
-        v86 = v38;
-        v129 = v38;
-        v119 = @"logMessage";
-        v85 = [v31 description];
-        if (v85)
+        v85 = v38;
+        v128 = v38;
+        v118 = @"logMessage";
+        v84 = [v31 description];
+        if (v84)
         {
           [v31 description];
         }
@@ -846,19 +380,19 @@ id GTMTLReplay_dictionaryFromCommandBuffer(void *a1)
         {
           [MEMORY[0x277CBEB68] null];
         }
-        v84 = ;
-        v130 = v84;
-        v120 = @"addressSpace";
-        v83 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v31, "addressSpace")}];
-        v131 = v83;
-        v121 = @"buffer";
+        v83 = ;
+        v129 = v83;
+        v119 = @"addressSpace";
+        v82 = [MEMORY[0x277CCABB0] numberWithUnsignedInt:{objc_msgSend(v31, "addressSpace")}];
+        v130 = v82;
+        v120 = @"buffer";
         if (v33)
         {
           v42 = v33;
-          *&v148 = @"length";
+          *&v147 = @"length";
           v43 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v42, "length")}];
-          v144 = v43;
-          *(&v148 + 1) = @"label";
+          v143 = v43;
+          *(&v147 + 1) = @"label";
           v44 = [v42 label];
           if (v44)
           {
@@ -870,14 +404,14 @@ id GTMTLReplay_dictionaryFromCommandBuffer(void *a1)
             [MEMORY[0x277CBEB68] null];
           }
           v33 = ;
-          v145 = v33;
-          *&v149 = @"resourceOptions";
+          v144 = v33;
+          *&v148 = @"resourceOptions";
           v46 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v42, "resourceOptions")}];
-          v146 = v46;
-          *(&v149 + 1) = @"allocatedSize";
+          v145 = v46;
+          *(&v148 + 1) = @"allocatedSize";
           v47 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v42, "allocatedSize")}];
-          v147 = v47;
-          v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v144 forKeys:&v148 count:4];
+          v146 = v47;
+          v45 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v143 forKeys:&v147 count:4];
         }
 
         else
@@ -885,37 +419,37 @@ id GTMTLReplay_dictionaryFromCommandBuffer(void *a1)
           v45 = [MEMORY[0x277CBEB68] null];
         }
 
-        v82 = v45;
-        v132 = v45;
-        v122 = @"offset";
-        v81 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v31, "offset")}];
-        v133 = v81;
-        v123 = @"operation";
-        v80 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v31, "operation")}];
-        v134 = v80;
-        v124 = @"errorStackTrace";
+        v81 = v45;
+        v131 = v45;
+        v121 = @"offset";
+        v80 = [MEMORY[0x277CCABB0] numberWithUnsignedLongLong:{objc_msgSend(v31, "offset")}];
+        v132 = v80;
+        v122 = @"operation";
+        v79 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v31, "operation")}];
+        v133 = v79;
+        v123 = @"errorStackTrace";
         v48 = [v31 errorStackTrace];
-        v100 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v48, "count")}];
+        v99 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v48, "count")}];
+        v147 = 0u;
         v148 = 0u;
         v149 = 0u;
         v150 = 0u;
-        v151 = 0u;
-        v96 = v48;
-        v102 = [v96 countByEnumeratingWithState:&v148 objects:&v144 count:16];
-        if (v102)
+        v95 = v48;
+        v101 = [v95 countByEnumeratingWithState:&v147 objects:&v143 count:16];
+        if (v101)
         {
-          v98 = *v149;
+          v97 = *v148;
           do
           {
-            for (j = 0; j != v102; ++j)
+            for (j = 0; j != v101; ++j)
             {
-              if (*v149 != v98)
+              if (*v148 != v97)
               {
-                objc_enumerationMutation(v96);
+                objc_enumerationMutation(v95);
               }
 
-              v50 = *(*(&v148 + 1) + 8 * j);
-              v152[0] = @"functionName";
+              v50 = *(*(&v147 + 1) + 8 * j);
+              v151[0] = @"functionName";
               obja = [v50 functionName];
               if (obja)
               {
@@ -927,8 +461,8 @@ id GTMTLReplay_dictionaryFromCommandBuffer(void *a1)
                 [MEMORY[0x277CBEB68] null];
               }
               v51 = ;
-              v153[0] = v51;
-              v152[1] = @"URL";
+              v152[0] = v51;
+              v151[1] = @"URL";
               v52 = [v50 URL];
               v53 = [v52 path];
               if (v53)
@@ -942,14 +476,14 @@ id GTMTLReplay_dictionaryFromCommandBuffer(void *a1)
                 [MEMORY[0x277CBEB68] null];
               }
               v54 = ;
-              v153[1] = v54;
-              v152[2] = @"line";
+              v152[1] = v54;
+              v151[2] = @"line";
               v55 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v50, "line")}];
-              v153[2] = v55;
-              v152[3] = @"column";
+              v152[2] = v55;
+              v151[3] = @"column";
               v56 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v50, "column")}];
-              v153[3] = v56;
-              v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v153 forKeys:v152 count:4];
+              v152[3] = v56;
+              v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v152 forKeys:v151 count:4];
 
               if (v53)
               {
@@ -957,71 +491,69 @@ id GTMTLReplay_dictionaryFromCommandBuffer(void *a1)
                 v54 = v33;
               }
 
-              [v100 addObject:v57];
+              [v99 addObject:v57];
             }
 
-            v102 = [v96 countByEnumeratingWithState:&v148 objects:&v144 count:16];
+            v101 = [v95 countByEnumeratingWithState:&v147 objects:&v143 count:16];
           }
 
-          while (v102);
+          while (v101);
         }
 
-        v58 = [v100 copy];
-        v135 = v58;
-        v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v125 forKeys:&v114 count:11];
-        [v78 addObject:v59];
+        v58 = [v99 copy];
+        v134 = v58;
+        v59 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v124 forKeys:&v113 count:11];
+        [v77 addObject:v59];
 
-        v30 = v91 + 1;
+        v30 = v90 + 1;
       }
 
-      while (v91 + 1 != v79);
-      v79 = [v76 countByEnumeratingWithState:&v140 objects:&v136 count:16];
+      while (v90 + 1 != v78);
+      v78 = [v75 countByEnumeratingWithState:&v139 objects:&v135 count:16];
     }
 
-    while (v79);
+    while (v78);
   }
 
-  v60 = [v78 copy];
-  v113 = v60;
-  v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v106 forKeys:v105 count:10];
-
-  v62 = *MEMORY[0x277D85DE8];
+  v60 = [v77 copy];
+  v112 = v60;
+  v61 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v105 forKeys:v104 count:10];
 
   return v61;
 }
 
 id GTMTLReplay_dictionaryFromCommitFeedback(void *a1)
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 error];
-  v17[0] = @"GPUStartTime";
+  v16[0] = @"GPUStartTime";
   v3 = MEMORY[0x277CCABB0];
   [v1 GPUStartTime];
   v4 = [v3 numberWithDouble:?];
-  v18[0] = v4;
-  v17[1] = @"GPUEndTime";
+  v17[0] = v4;
+  v16[1] = @"GPUEndTime";
   v5 = MEMORY[0x277CCABB0];
   [v1 GPUEndTime];
   v7 = v6;
 
   v8 = [v5 numberWithDouble:v7];
-  v18[1] = v8;
-  v17[2] = @"error";
+  v17[1] = v8;
+  v16[2] = @"error";
   if (v2)
   {
-    v19[0] = @"domain";
+    v18[0] = @"domain";
     v9 = v2;
     v10 = [v9 domain];
-    v20[0] = v10;
-    v19[1] = @"code";
+    v19[0] = v10;
+    v18[1] = @"code";
     v11 = [MEMORY[0x277CCABB0] numberWithInteger:{objc_msgSend(v9, "code")}];
-    v20[1] = v11;
-    v19[2] = @"localizedDescription";
+    v19[1] = v11;
+    v18[2] = @"localizedDescription";
     v12 = [v9 localizedDescription];
 
-    v20[2] = v12;
-    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
+    v19[2] = v12;
+    v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
   }
 
   else
@@ -1029,22 +561,22 @@ id GTMTLReplay_dictionaryFromCommitFeedback(void *a1)
     v13 = [MEMORY[0x277CBEB68] null];
   }
 
-  v18[2] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:3];
-
-  v15 = *MEMORY[0x277D85DE8];
+  v17[2] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:3];
 
   return v14;
 }
 
-void GTMTLReplay_handleError(int a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void GTMTLReplay_handleError(uint64_t a1, char *a2, uint64_t a3, uint64_t a4, uint64_t a5, const char *a6, ...)
 {
-  v30[4] = *MEMORY[0x277D85DE8];
-  v15 = objc_alloc(MEMORY[0x277CCACA8]);
-  v16 = [MEMORY[0x277CCACA8] stringWithUTF8String:a6];
-  v17 = [v15 initWithFormat:v16 arguments:&a9];
+  va_start(va, a6);
+  v11 = a1;
+  v26[4] = *MEMORY[0x277D85DE8];
+  v12 = objc_alloc(MEMORY[0x277CCACA8]);
+  v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:a6];
+  v14 = [v12 initWithFormat:v13 arguments:va];
 
-  v18 = strstr(a2, "gputools");
+  v15 = strstr(a2, "gputools");
   if (a5 == 1)
   {
     goto LABEL_20;
@@ -1055,18 +587,18 @@ void GTMTLReplay_handleError(int a1, char *a2, uint64_t a3, uint64_t a4, uint64_
     switch(a5)
     {
       case 2:
-        v19 = "Shader Profiler";
+        v16 = "Shader Profiler";
         goto LABEL_19;
       case 4:
-        v19 = "Shader Debugger";
+        v16 = "Shader Debugger";
         goto LABEL_19;
       case 8:
-        v19 = "Thumbnails";
+        v16 = "Thumbnails";
         goto LABEL_19;
     }
 
 LABEL_15:
-    v19 = "Internal";
+    v16 = "Internal";
     goto LABEL_19;
   }
 
@@ -1074,13 +606,13 @@ LABEL_15:
   {
     if (a5 == 64)
     {
-      v19 = "Access tracking";
+      v16 = "Access tracking";
       goto LABEL_19;
     }
 
     if (a5 == 128)
     {
-      v19 = "Post vertex";
+      v16 = "Post vertex";
       goto LABEL_19;
     }
 
@@ -1089,7 +621,7 @@ LABEL_15:
 
   if (a5 == 16)
   {
-    v19 = "Wireframe";
+    v16 = "Wireframe";
     goto LABEL_19;
   }
 
@@ -1098,71 +630,70 @@ LABEL_15:
     goto LABEL_15;
   }
 
-  v19 = "Fetch resource";
+  v16 = "Fetch resource";
 LABEL_19:
-  v20 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %@", v19, v17];
+  v17 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %@", v16, v14];
 
-  v17 = v20;
+  v14 = v17;
 LABEL_20:
-  if (v18)
+  if (v15)
   {
-    v21 = v18;
+    v18 = v15;
   }
 
   else
   {
-    v21 = a2;
+    v18 = a2;
   }
 
-  v22 = *MEMORY[0x277CCA450];
-  v30[0] = v17;
-  v29[0] = v22;
-  v29[1] = @"GTErrorKeyFile";
-  v23 = [MEMORY[0x277CCACA8] stringWithUTF8String:v21];
-  v30[1] = v23;
-  v29[2] = @"GTErrorKeyFunction";
-  v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:a3];
-  v30[2] = v24;
-  v29[3] = @"GTErrorKeyLine";
-  v25 = [MEMORY[0x277CCABB0] numberWithInt:a4];
-  v30[3] = v25;
-  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:4];
-  v27 = MakeNSError(a1, v26);
+  v19 = *MEMORY[0x277CCA450];
+  v26[0] = v14;
+  v25[0] = v19;
+  v25[1] = @"GTErrorKeyFile";
+  v20 = [MEMORY[0x277CCACA8] stringWithUTF8String:v18];
+  v26[1] = v20;
+  v25[2] = @"GTErrorKeyFunction";
+  v21 = [MEMORY[0x277CCACA8] stringWithUTF8String:a3];
+  v26[2] = v21;
+  v25[3] = @"GTErrorKeyLine";
+  v22 = [MEMORY[0x277CCABB0] numberWithInt:a4];
+  v26[3] = v22;
+  v23 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v26 forKeys:v25 count:4];
+  v24 = MakeNSError(v11, v23);
 
-  GTMTLReplay_handleNSError(v27);
-  v28 = *MEMORY[0x277D85DE8];
+  GTMTLReplay_handleNSError(v24);
 }
 
 id MakeNSError(int a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
   v5 = v3;
-  v6 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v25;
+    v8 = *v24;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v25 != v8)
+        if (*v24 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v24 + 1) + 8 * i);
-        v11 = [v5 objectForKeyedSubscript:{v10, v24}];
+        v10 = *(*(&v23 + 1) + 8 * i);
+        v11 = [v5 objectForKeyedSubscript:{v10, v23}];
         [v4 setObject:v11 forKey:v10];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
     }
 
     while (v7);
@@ -1181,7 +712,7 @@ id MakeNSError(int a1, void *a2)
 
   v14 = pthread_self();
   pthread_rwlock_rdlock(&rwlock);
-  v15 = &threadLocalLogs;
+  v15 = threadLocalLogs;
   v16 = 7;
   while (!pthread_equal(v14, *v15))
   {
@@ -1231,35 +762,19 @@ LABEL_11:
   }
 
 LABEL_26:
-  v20 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.gputools.MTLReplayer" code:a1 userInfo:{v4, v24}];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.gputools.MTLReplayer" code:a1 userInfo:{v4, v23}];
 
   return v20;
 }
 
 void GTMTLReplay_handleNSError(void *a1)
 {
-  v57 = *MEMORY[0x277D85DE8];
+  v56 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 domain];
 
-  if (v2 != @"com.apple.gputools.MTLReplayer")
+  if (v2 != @"com.apple.gputools.MTLReplayer" || (([v1 userInfo], v3 = objc_claimAutoreleasedReturnValue(), v4 = *MEMORY[0x277CCA450], objc_msgSend(v3, "objectForKeyedSubscript:", *MEMORY[0x277CCA450]), v5 = objc_claimAutoreleasedReturnValue(), v5, v3, objc_msgSend(v1, "userInfo"), v6 = objc_claimAutoreleasedReturnValue(), v7 = *MEMORY[0x277CCA470], objc_msgSend(v6, "objectForKeyedSubscript:", *MEMORY[0x277CCA470]), v8 = objc_claimAutoreleasedReturnValue(), v8, v6, v5) ? (v9 = v8 == 0) : (v9 = 1), !v9))
   {
-    goto LABEL_10;
-  }
-
-  v3 = [v1 userInfo];
-  v4 = *MEMORY[0x277CCA450];
-  v5 = [v3 objectForKeyedSubscript:*MEMORY[0x277CCA450]];
-
-  v6 = [v1 userInfo];
-  v7 = *MEMORY[0x277CCA470];
-  v8 = [v6 objectForKeyedSubscript:*MEMORY[0x277CCA470]];
-
-  if (v5 && v8 != 0)
-  {
-LABEL_10:
     v13 = v1;
     goto LABEL_11;
   }
@@ -1270,59 +785,59 @@ LABEL_10:
 
   if (!v5)
   {
-    v32 = v1;
-    v33 = [v32 domain];
-    v34 = [v33 isEqualToString:@"com.apple.gputools.MTLReplayer"];
+    v31 = v1;
+    v32 = [v31 domain];
+    v33 = [v32 isEqualToString:@"com.apple.gputools.MTLReplayer"];
 
-    if (v34)
+    if (v33)
     {
-      v35 = [v32 code];
-      if (v35 == 201)
+      v34 = [v31 code];
+      if (v34 == 201)
       {
-        v37 = objc_alloc_init(MEMORY[0x277CCAB68]);
-        [(__CFString *)v37 appendString:@"The replayer encountered an error during command buffer"];
-        v45 = [v32 userInfo];
-        v46 = [v45 objectForKeyedSubscript:@"GTErrorKeyMTLCommandBuffer"];
-        v47 = [v46 objectForKeyedSubscript:@"label"];
+        v36 = objc_alloc_init(MEMORY[0x277CCAB68]);
+        [(__CFString *)v36 appendString:@"The replayer encountered an error during command buffer"];
+        v44 = [v31 userInfo];
+        v45 = [v44 objectForKeyedSubscript:@"GTErrorKeyMTLCommandBuffer"];
+        v46 = [v45 objectForKeyedSubscript:@"label"];
 
-        if (v47)
+        if (v46)
         {
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [(__CFString *)v37 appendFormat:@" %@", v47];
+            [(__CFString *)v36 appendFormat:@" %@", v46];
           }
         }
 
-        [(__CFString *)v37 appendString:@" execution."];
+        [(__CFString *)v36 appendString:@" execution."];
       }
 
       else
       {
-        v36 = @"The replayer encountered an internal error.";
-        if (v35 != 101)
+        v35 = @"The replayer encountered an internal error.";
+        if (v34 != 101)
         {
-          v36 = 0;
+          v35 = 0;
         }
 
-        if (v35 == 102)
+        if (v34 == 102)
         {
-          v37 = @"The replayer could not harvest a resource.";
+          v36 = @"The replayer could not harvest a resource.";
         }
 
         else
         {
-          v37 = v36;
+          v36 = v35;
         }
       }
     }
 
     else
     {
-      v37 = 0;
+      v36 = 0;
     }
 
-    [v12 setObject:v37 forKeyedSubscript:v4];
+    [v12 setObject:v36 forKeyedSubscript:v4];
     if (v8)
     {
       goto LABEL_46;
@@ -1334,40 +849,40 @@ LABEL_10:
   if (!v8)
   {
 LABEL_34:
-    v38 = v1;
-    v39 = [v38 domain];
-    v40 = [v39 isEqualToString:@"com.apple.gputools.MTLReplayer"];
+    v37 = v1;
+    v38 = [v37 domain];
+    v39 = [v38 isEqualToString:@"com.apple.gputools.MTLReplayer"];
 
-    if (v40 && [v38 code] == 201)
+    if (v39 && [v37 code] == 201)
     {
-      v41 = [v38 userInfo];
-      v42 = [v41 objectForKeyedSubscript:@"GTErrorKeyMTLCommandBuffer"];
-      v43 = [v42 objectForKeyedSubscript:@"error"];
+      v40 = [v37 userInfo];
+      v41 = [v40 objectForKeyedSubscript:@"GTErrorKeyMTLCommandBuffer"];
+      v42 = [v41 objectForKeyedSubscript:@"error"];
 
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        v44 = [v43 objectForKeyedSubscript:@"localizedDescription"];
+        v43 = [v42 objectForKeyedSubscript:@"localizedDescription"];
       }
 
       else
       {
-        v44 = 0;
+        v43 = 0;
       }
     }
 
     else
     {
-      v44 = 0;
+      v43 = 0;
     }
 
-    [v12 setObject:v44 forKeyedSubscript:v7];
+    [v12 setObject:v43 forKeyedSubscript:v7];
   }
 
 LABEL_46:
-  v48 = MEMORY[0x277CCA9B8];
-  v49 = [v1 domain];
-  v13 = [v48 errorWithDomain:v49 code:objc_msgSend(v1 userInfo:{"code"), v12}];
+  v47 = MEMORY[0x277CCA9B8];
+  v48 = [v1 domain];
+  v13 = [v47 errorWithDomain:v48 code:objc_msgSend(v1 userInfo:{"code"), v12}];
 
 LABEL_11:
   v14 = v13;
@@ -1380,32 +895,32 @@ LABEL_11:
     v19 = [v14 localizedFailureReason];
     [v15 appendFormat:@"Replayer error\nDomain: %@\nCode: %d\nDescription: %@\nReason: %@\n", v16, v17, v18, v19];
 
-    v52 = 0u;
-    v53 = 0u;
-    v50 = 0u;
     v51 = 0u;
+    v52 = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v20 = [v14 userInfo];
-    v21 = [v20 countByEnumeratingWithState:&v50 objects:v56 count:16];
+    v21 = [v20 countByEnumeratingWithState:&v49 objects:v55 count:16];
     if (v21)
     {
       v22 = v21;
-      v23 = *v51;
+      v23 = *v50;
       do
       {
         for (i = 0; i != v22; ++i)
         {
-          if (*v51 != v23)
+          if (*v50 != v23)
           {
             objc_enumerationMutation(v20);
           }
 
-          v25 = *(*(&v50 + 1) + 8 * i);
+          v25 = *(*(&v49 + 1) + 8 * i);
           v26 = [v14 userInfo];
           v27 = [v26 objectForKeyedSubscript:v25];
           [v15 appendFormat:@"%@: %@\n", v25, v27];
         }
 
-        v22 = [v20 countByEnumeratingWithState:&v50 objects:v56 count:16];
+        v22 = [v20 countByEnumeratingWithState:&v49 objects:v55 count:16];
       }
 
       while (v22);
@@ -1418,7 +933,7 @@ LABEL_11:
       {
         v29 = [v15 UTF8String];
         *buf = 136315138;
-        v55 = v29;
+        v54 = v29;
         _os_log_fault_impl(&dword_24D764000, v28, OS_LOG_TYPE_FAULT, "fail: %s", buf, 0xCu);
       }
     }
@@ -1432,7 +947,6 @@ LABEL_11:
   }
 
   [_observer notifyError:v14];
-  v31 = *MEMORY[0x277D85DE8];
 }
 
 void GTMTLReplay_handleUnderlyingNSError(void *a1, void *a2)
@@ -1483,27 +997,27 @@ void GTMTLReplay_handleMTL4CommitFeedbackError(void *a1, uint64_t a2)
 
 void HandleCrashSignal(uint64_t a1)
 {
-  v12[2] = *MEMORY[0x277D85DE8];
-  v11[0] = *MEMORY[0x277CCA450];
+  v11[2] = *MEMORY[0x277D85DE8];
+  v10[0] = *MEMORY[0x277CCA450];
   v2 = [MEMORY[0x277CCACA8] stringWithUTF8String:strsignal(a1)];
-  v11[1] = @"GTErrorKeyProcessSignal";
-  v12[0] = v2;
+  v10[1] = @"GTErrorKeyProcessSignal";
+  v11[0] = v2;
   v3 = MEMORY[0x277CCACA8];
   v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:*(MEMORY[0x277D85EC0] + 8 * a1)];
   v5 = [v4 uppercaseString];
   v6 = [v3 stringWithFormat:@"SIG%@", v5];
-  v12[1] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:2];
+  v11[1] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:v10 count:2];
   v8 = MakeNSError(100, v7);
 
   GTMTLReplay_handleNSError(v8);
-  v10 = *&oldHandlers[2 * a1];
-  sigaction(a1, &v10, 0);
-  if (v10.__sigaction_u.__sa_handler != 1)
+  v9 = *&oldHandlers[2 * a1];
+  sigaction(a1, &v9, 0);
+  if (v9.__sigaction_u.__sa_handler != 1)
   {
-    if (v10.__sigaction_u.__sa_handler)
+    if (v9.__sigaction_u.__sa_handler)
     {
-      (v10.__sigaction_u.__sa_handler)(a1);
+      (v9.__sigaction_u.__sa_handler)(a1);
     }
 
     else
@@ -1511,63 +1025,59 @@ void HandleCrashSignal(uint64_t a1)
       raise(a1);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 id SerializeMTLTextureDescriptorToDictionary(void *a1)
 {
-  v23[14] = *MEMORY[0x277D85DE8];
-  v22[0] = @"textureType";
+  v22[14] = *MEMORY[0x277D85DE8];
+  v21[0] = @"textureType";
   v1 = MEMORY[0x277CCABB0];
   v2 = a1;
-  v21 = [v1 numberWithUnsignedInteger:{objc_msgSend(v2, "textureType")}];
-  v23[0] = v21;
-  v22[1] = @"pixelFormat";
-  v20 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "pixelFormat")}];
-  v23[1] = v20;
-  v22[2] = @"width";
-  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "width")}];
-  v23[2] = v19;
-  v22[3] = @"height";
-  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "height")}];
-  v23[3] = v18;
-  v22[4] = @"depth";
-  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "depth")}];
-  v23[4] = v17;
-  v22[5] = @"mipmapLevelCount";
-  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "mipmapLevelCount")}];
-  v23[5] = v16;
-  v22[6] = @"sampleCount";
+  v20 = [v1 numberWithUnsignedInteger:{objc_msgSend(v2, "textureType")}];
+  v22[0] = v20;
+  v21[1] = @"pixelFormat";
+  v19 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "pixelFormat")}];
+  v22[1] = v19;
+  v21[2] = @"width";
+  v18 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "width")}];
+  v22[2] = v18;
+  v21[3] = @"height";
+  v17 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "height")}];
+  v22[3] = v17;
+  v21[4] = @"depth";
+  v16 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "depth")}];
+  v22[4] = v16;
+  v21[5] = @"mipmapLevelCount";
+  v15 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "mipmapLevelCount")}];
+  v22[5] = v15;
+  v21[6] = @"sampleCount";
   v3 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "sampleCount")}];
-  v23[6] = v3;
-  v22[7] = @"arrayLength";
+  v22[6] = v3;
+  v21[7] = @"arrayLength";
   v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "arrayLength")}];
-  v23[7] = v4;
-  v22[8] = @"cpuCacheMode";
+  v22[7] = v4;
+  v21[8] = @"cpuCacheMode";
   v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "cpuCacheMode")}];
-  v23[8] = v5;
-  v22[9] = @"storageMode";
+  v22[8] = v5;
+  v21[9] = @"storageMode";
   v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "storageMode")}];
-  v23[9] = v6;
-  v22[10] = @"hazardTrackingMode";
+  v22[9] = v6;
+  v21[10] = @"hazardTrackingMode";
   v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "hazardTrackingMode")}];
-  v23[10] = v7;
-  v22[11] = @"allowGPUOptimizedContents";
+  v22[10] = v7;
+  v21[11] = @"allowGPUOptimizedContents";
   v8 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v2, "allowGPUOptimizedContents")}];
-  v23[11] = v8;
-  v22[12] = @"usage";
+  v22[11] = v8;
+  v21[12] = @"usage";
   v9 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v2, "usage")}];
-  v23[12] = v9;
-  v22[13] = @"swizzleKey";
+  v22[12] = v9;
+  v21[13] = @"swizzleKey";
   v10 = MEMORY[0x277CCABB0];
   v11 = [v2 swizzleKey];
 
   v12 = [v10 numberWithUnsignedInt:v11];
-  v23[13] = v12;
-  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:v22 count:14];
-
-  v14 = *MEMORY[0x277D85DE8];
+  v22[13] = v12;
+  v13 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:14];
 
   return v13;
 }
@@ -1620,18 +1130,18 @@ std::string *RemappingCSVPath(std::string *a1)
 
 void GTAGXProfilingSupportHelper::Initialize(GTAGXProfilingSupportHelper *this, NSDictionary *a2)
 {
-  v89 = *MEMORY[0x277D85DE8];
-  v61 = this;
-  v2 = [(GTAGXProfilingSupportHelper *)v61 objectForKeyedSubscript:@"gpu_gen"];
+  v88 = *MEMORY[0x277D85DE8];
+  v60 = this;
+  v2 = [(GTAGXProfilingSupportHelper *)v60 objectForKeyedSubscript:@"gpu_gen"];
   v3 = [v2 unsignedIntValue];
 
-  v4 = [(GTAGXProfilingSupportHelper *)v61 objectForKeyedSubscript:@"num_cores"];
+  v4 = [(GTAGXProfilingSupportHelper *)v60 objectForKeyedSubscript:@"num_cores"];
   v5 = [v4 unsignedIntValue];
 
-  v6 = [(GTAGXProfilingSupportHelper *)v61 objectForKeyedSubscript:@"num_mgpus"];
+  v6 = [(GTAGXProfilingSupportHelper *)v60 objectForKeyedSubscript:@"num_mgpus"];
   v7 = [v6 unsignedIntValue];
 
-  v8 = [(GTAGXProfilingSupportHelper *)v61 objectForKeyedSubscript:@"gpu_var"];
+  v8 = [(GTAGXProfilingSupportHelper *)v60 objectForKeyedSubscript:@"gpu_var"];
   v9 = v8;
   if (!v8 || [v8 length] != 1)
   {
@@ -1731,7 +1241,7 @@ LABEL_21:
 
 LABEL_27:
 
-  v12 = [(GTAGXProfilingSupportHelper *)v61 objectForKeyedSubscript:@"gpu_rev"];
+  v12 = [(GTAGXProfilingSupportHelper *)v60 objectForKeyedSubscript:@"gpu_rev"];
   if ([v12 isEqualToString:@"A0"])
   {
     v13 = 1;
@@ -1767,47 +1277,47 @@ LABEL_27:
     v13 = 5;
   }
 
-  v64 = agxps_gpu_create(v3, v11, v13);
-  v87 = agxps_derived_counter_gpu_descriptor_create(v3, v11, 0, 0, 0, 0, 0, 0);
-  agxps_initialize(&v87, 1, 0, 0);
-  RemappingCSVPath(&v86);
-  if ((v86.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
+  v63 = agxps_gpu_create(v3, v11, v13, 0);
+  v86 = agxps_derived_counter_gpu_descriptor_create(v3, v11, 0, 0, 0, 0, 0, 0);
+  agxps_initialize(&v86, 1, 0, 0);
+  RemappingCSVPath(&v85);
+  if ((v85.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0)
   {
-    v14 = &v86;
+    v14 = &v85;
   }
 
   else
   {
-    v14 = v86.__r_.__value_.__r.__words[0];
+    v14 = v85.__r_.__value_.__r.__words[0];
   }
 
   agxps_load_counter_obfuscation_map(v14);
-  std::string::basic_string[abi:nn200100]<0>(&v88, "AF Bandwidth");
-  memset(v84, 0, sizeof(v84));
-  v85 = 1065353216;
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v84, &v88);
-  if (SHIBYTE(v88.__end_) < 0)
+  std::string::basic_string[abi:nn200100]<0>(&v87, "AF Bandwidth");
+  memset(v83, 0, sizeof(v83));
+  v84 = 1065353216;
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string const&>(v83, &v87, &v87);
+  if (SHIBYTE(v87.__end_) < 0)
   {
-    operator delete(v88.__first_);
+    operator delete(v87.__first_);
   }
 
-  v82 = 0u;
-  *v83 = 0u;
-  v83[4] = 1065353216;
-  v80 = 0u;
-  *v81 = 0u;
-  v81[4] = 1065353216;
-  v78 = 0u;
-  *v79 = 0u;
-  v79[4] = 1065353216;
-  v76 = 0u;
-  *v77 = 0u;
-  v77[4] = 1065353216;
-  v74 = 0u;
-  *v75 = 0u;
-  v75[4] = 1065353216;
-  v72 = 3735928559;
-  v73 = 1;
+  v81 = 0u;
+  *v82 = 0u;
+  v82[4] = 1065353216;
+  v79 = 0u;
+  *v80 = 0u;
+  v80[4] = 1065353216;
+  v77 = 0u;
+  *v78 = 0u;
+  v78[4] = 1065353216;
+  v75 = 0u;
+  *v76 = 0u;
+  v76[4] = 1065353216;
+  v73 = 0u;
+  *v74 = 0u;
+  v74[4] = 1065353216;
+  v71 = 3735928559;
+  v72 = 1;
   if (v3 > 17 || v3 == 17 && v11 > 3)
   {
     goto LABEL_48;
@@ -1821,7 +1331,7 @@ LABEL_27:
 
   if (v3 == 16)
   {
-    v60 = v11 != 3 || v13 > 2;
+    v59 = v11 != 3 || v13 > 2;
     goto LABEL_160;
   }
 
@@ -1832,21 +1342,21 @@ LABEL_27:
 
   if ((v11 - 5) < 2)
   {
-    v60 = v13 > 2;
+    v59 = v13 > 2;
     goto LABEL_160;
   }
 
   if (v11 == 7)
   {
-    v60 = v13 > 1;
+    v59 = v13 > 1;
 LABEL_160:
-    v15 = v60;
+    v15 = v59;
     goto LABEL_49;
   }
 
   if (v11 == 4)
   {
-    v60 = v13 > 4;
+    v59 = v13 > 4;
     goto LABEL_160;
   }
 
@@ -1858,9 +1368,9 @@ LABEL_49:
   v17 = 1;
   do
   {
-    v63 = v17;
-    derived_counters = agxps_counter_group_get_derived_counters(v64, off_2796582E0[v16], &v73, &v72);
-    if (v72)
+    v62 = v17;
+    derived_counters = agxps_counter_group_get_derived_counters(v63, off_2796582E0[v16], &v72, &v71);
+    if (v71)
     {
       v19 = derived_counters;
     }
@@ -1875,92 +1385,92 @@ LABEL_49:
       v20 = 0;
       do
       {
-        name = agxps_counter_get_name(*(v73 + 8 * v20));
-        std::string::basic_string[abi:nn200100]<0>(&v88, name);
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v84[0], v84[1], &v88);
-        if (SHIBYTE(v88.__end_) < 0)
+        name = agxps_counter_get_name(*(v72 + 8 * v20));
+        std::string::basic_string[abi:nn200100]<0>(&v87, name);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v83[0], v83[1], &v87);
+        if (SHIBYTE(v87.__end_) < 0)
         {
-          operator delete(v88.__first_);
+          operator delete(v87.__first_);
         }
 
         __p = 1;
-        v71 = 3735928559;
-        if (agxps_counter_get_raw_counters_used_by_derived_counters(v64, (v73 + 8 * v20), 1, &__p, &v71))
+        v70 = 3735928559;
+        if (agxps_counter_get_raw_counters_used_by_derived_counters(v63, (v72 + 8 * v20), 1, &__p, &v70))
         {
-          memset(&v88, 0, 24);
-          std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_impl<char const*&,std::vector<std::string>>();
+          memset(&v87, 0, 24);
+          std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_impl<char const*&,std::vector<std::string>>(&xmmword_27F09C7A8, &name, &v87);
         }
 
         ++v20;
       }
 
-      while (v20 < v72);
+      while (v20 < v71);
     }
 
     v17 = 0;
     v16 = 1;
   }
 
-  while ((v63 & 1) != 0);
-  size = HIBYTE(v86.__r_.__value_.__r.__words[2]);
-  if ((v86.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
+  while ((v62 & 1) != 0);
+  size = HIBYTE(v85.__r_.__value_.__r.__words[2]);
+  if ((v85.__r_.__value_.__r.__words[2] & 0x8000000000000000) != 0)
   {
-    size = v86.__r_.__value_.__l.__size_;
+    size = v85.__r_.__value_.__l.__size_;
   }
 
   if (size)
   {
     v22 = [MEMORY[0x277CCAA00] defaultManager];
-    v23 = (v86.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v86 : v86.__r_.__value_.__r.__words[0];
+    v23 = (v85.__r_.__value_.__r.__words[2] & 0x8000000000000000) == 0 ? &v85 : v85.__r_.__value_.__r.__words[0];
     v24 = [MEMORY[0x277CCACA8] stringWithUTF8String:v23];
     v25 = [v22 fileExistsAtPath:v24];
 
     if (v25)
     {
       v26 = agxps_counter_deobfuscate_name("_3a44d3ac845ba763709a81d9ebfe1682780127650594e9ce4f2a50abfd030008");
-      std::string::basic_string[abi:nn200100]<0>(&v88, v26);
-      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&v82, &v88);
-      if (SHIBYTE(v88.__end_) < 0)
+      std::string::basic_string[abi:nn200100]<0>(&v87, v26);
+      std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&v81, &v87, &v87);
+      if (SHIBYTE(v87.__end_) < 0)
       {
-        operator delete(v88.__first_);
+        operator delete(v87.__first_);
       }
 
-      v27 = [(GTAGXProfilingSupportHelper *)v61 objectForKeyedSubscript:@"device_state"];
+      v27 = [(GTAGXProfilingSupportHelper *)v60 objectForKeyedSubscript:@"device_state"];
       v28 = v27 == 0;
 
       if (!v28)
       {
         v29 = agxps_counter_deobfuscate_name("_1aee9428fdbe36067f4e285f5d84812f2f4a8a3ff8f9316ca9f443e6a8d72f85");
-        std::string::basic_string[abi:nn200100]<0>(&v88, v29);
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&v82, &v88);
-        if (SHIBYTE(v88.__end_) < 0)
+        std::string::basic_string[abi:nn200100]<0>(&v87, v29);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&v81, &v87, &v87);
+        if (SHIBYTE(v87.__end_) < 0)
         {
-          operator delete(v88.__first_);
+          operator delete(v87.__first_);
         }
 
         v30 = agxps_counter_deobfuscate_name("_df3a8796e4c9960564543461607c8c201c2ea4c255c96231d0e7d1b50510f2cc");
-        std::string::basic_string[abi:nn200100]<0>(&v88, v30);
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&v82, &v88);
-        if (SHIBYTE(v88.__end_) < 0)
+        std::string::basic_string[abi:nn200100]<0>(&v87, v30);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&v81, &v87, &v87);
+        if (SHIBYTE(v87.__end_) < 0)
         {
-          operator delete(v88.__first_);
+          operator delete(v87.__first_);
         }
 
         v31 = agxps_counter_deobfuscate_name("_a4f903620ff46e28df2781497c6c8f6ac0fd5b00fa1c47f44ddcab3defabb016");
-        std::string::basic_string[abi:nn200100]<0>(&v88, v31);
-        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&v82, &v88);
-        if (SHIBYTE(v88.__end_) < 0)
+        std::string::basic_string[abi:nn200100]<0>(&v87, v31);
+        std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(&v81, &v87, &v87);
+        if (SHIBYTE(v87.__end_) < 0)
         {
-          operator delete(v88.__first_);
+          operator delete(v87.__first_);
         }
       }
     }
   }
 
-  if (*v83)
+  if (*v82)
   {
     v32 = 0;
-    v33 = *v83;
+    v33 = *v82;
     do
     {
       ++v32;
@@ -1975,19 +1485,19 @@ LABEL_49:
     v32 = 0;
   }
 
-  std::vector<std::string>::__assign_with_size[abi:nn200100]<std::__hash_const_iterator<std::__hash_node<std::string,void *> *>,std::__hash_const_iterator<std::__hash_node<std::string,void *> *>>(&xmmword_27F09C718, *v83, v32);
+  std::vector<std::string>::__assign_with_size[abi:nn200100]<std::__hash_const_iterator<std::__hash_node<std::string,void *> *>,std::__hash_const_iterator<std::__hash_node<std::string,void *> *>>(&xmmword_27F09C718, *v82, v32);
   v34 = agxps_counter_deobfuscate_name("_ae23bde9704f5d8ed4f6fe1bd07d71d94edccfc3853db7d008dce330be2b3844");
-  std::string::basic_string[abi:nn200100]<0>(&v88, v34);
-  std::vector<std::string>::push_back[abi:nn200100](&xmmword_27F09C778, &v88);
-  if (SHIBYTE(v88.__end_) < 0)
+  std::string::basic_string[abi:nn200100]<0>(&v87, v34);
+  std::vector<std::string>::push_back[abi:nn200100](&xmmword_27F09C778, &v87);
+  if (SHIBYTE(v87.__end_) < 0)
   {
-    operator delete(v88.__first_);
+    operator delete(v87.__first_);
   }
 
-  if (*v81)
+  if (*v80)
   {
     v35 = 0;
-    v36 = *v81;
+    v36 = *v80;
     do
     {
       ++v35;
@@ -2002,15 +1512,15 @@ LABEL_49:
     v35 = 0;
   }
 
-  std::vector<std::string>::__assign_with_size[abi:nn200100]<std::__hash_const_iterator<std::__hash_node<std::string,void *> *>,std::__hash_const_iterator<std::__hash_node<std::string,void *> *>>(&qword_27F09C760, *v81, v35);
+  std::vector<std::string>::__assign_with_size[abi:nn200100]<std::__hash_const_iterator<std::__hash_node<std::string,void *> *>,std::__hash_const_iterator<std::__hash_node<std::string,void *> *>>(&qword_27F09C760, *v80, v35);
   v37 = 0;
-  memset(v69, 0, sizeof(v69));
-  v70 = 1065353216;
+  memset(v68, 0, sizeof(v68));
+  v69 = 1065353216;
   do
   {
-    v62 = v37;
-    v38 = agxps_counter_group_get_derived_counters(v64, off_2796582F0[v37], &v73, &v72);
-    if (v72)
+    v61 = v37;
+    v38 = agxps_counter_group_get_derived_counters(v63, off_2796582F0[v37], &v72, &v71);
+    if (v71)
     {
       v39 = v38;
     }
@@ -2025,31 +1535,31 @@ LABEL_49:
       v40 = 0;
       do
       {
-        v71 = agxps_counter_get_name(*(v73 + 8 * v40));
-        v67 = 3735928559;
-        v68 = 1;
-        if (agxps_counter_get_raw_counters_used_by_derived_counters(v64, (v73 + 8 * v40), 1, &v68, &v67))
+        v70 = agxps_counter_get_name(*(v72 + 8 * v40));
+        v66 = 3735928559;
+        v67 = 1;
+        if (agxps_counter_get_raw_counters_used_by_derived_counters(v63, (v72 + 8 * v40), 1, &v67, &v66))
         {
-          memset(&v88, 0, 24);
-          std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_impl<char const*&,std::vector<std::string>>();
+          memset(&v87, 0, 24);
+          std::__hash_table<std::__hash_value_type<std::string,std::vector<std::string>>,std::__unordered_map_hasher<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::hash<std::string>,std::equal_to<std::string>,true>,std::__unordered_map_equal<std::string,std::__hash_value_type<std::string,std::vector<std::string>>,std::equal_to<std::string>,std::hash<std::string>,true>,std::allocator<std::__hash_value_type<std::string,std::vector<std::string>>>>::__emplace_unique_impl<char const*&,std::vector<std::string>>(&xmmword_27F09C7A8, &v70, &v87);
         }
 
         ++v40;
       }
 
-      while (v40 < v72);
+      while (v40 < v71);
     }
 
-    v37 = v62 + 1;
+    v37 = v61 + 1;
   }
 
-  while (v62 != 3);
-  v41 = *v77;
-  if (*v77)
+  while (v61 != 3);
+  v41 = *v76;
+  if (*v76)
   {
     while (1)
     {
-      v42 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v82, *(&v82 + 1), (v41 + 2));
+      v42 = std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::find<std::string>(v81, *(&v81 + 1), (v41 + 2));
       v43 = *v41;
       if (v42)
       {
@@ -2064,24 +1574,24 @@ LABEL_128:
       }
     }
 
-    v44 = *(&v76 + 1);
+    v44 = *(&v75 + 1);
     v45 = v41[1];
-    v46 = vcnt_s8(*(&v76 + 8));
+    v46 = vcnt_s8(*(&v75 + 8));
     v46.i16[0] = vaddlv_u8(v46);
     if (v46.u32[0] > 1uLL)
     {
-      if (v45 >= *(&v76 + 1))
+      if (v45 >= *(&v75 + 1))
       {
-        v45 %= *(&v76 + 1);
+        v45 %= *(&v75 + 1);
       }
     }
 
     else
     {
-      v45 &= *(&v76 + 1) - 1;
+      v45 &= *(&v75 + 1) - 1;
     }
 
-    v47 = *(v76 + 8 * v45);
+    v47 = *(v75 + 8 * v45);
     do
     {
       v48 = v47;
@@ -2089,7 +1599,7 @@ LABEL_128:
     }
 
     while (v47 != v41);
-    if (v48 == v77)
+    if (v48 == v76)
     {
       goto LABEL_165;
     }
@@ -2097,15 +1607,15 @@ LABEL_128:
     v49 = *(v48 + 1);
     if (v46.u32[0] > 1uLL)
     {
-      if (v49 >= *(&v76 + 1))
+      if (v49 >= *(&v75 + 1))
       {
-        v49 %= *(&v76 + 1);
+        v49 %= *(&v75 + 1);
       }
     }
 
     else
     {
-      v49 &= *(&v76 + 1) - 1;
+      v49 &= *(&v75 + 1) - 1;
     }
 
     v50 = *v41;
@@ -2117,15 +1627,15 @@ LABEL_165:
         v51 = v43[1];
         if (v46.u32[0] > 1uLL)
         {
-          if (v51 >= *(&v76 + 1))
+          if (v51 >= *(&v75 + 1))
           {
-            v51 %= *(&v76 + 1);
+            v51 %= *(&v75 + 1);
           }
         }
 
         else
         {
-          v51 &= *(&v76 + 1) - 1;
+          v51 &= *(&v75 + 1) - 1;
         }
 
         v50 = *v41;
@@ -2135,7 +1645,7 @@ LABEL_165:
         }
       }
 
-      *(v76 + 8 * v45) = 0;
+      *(v75 + 8 * v45) = 0;
       v50 = *v41;
     }
 
@@ -2144,7 +1654,7 @@ LABEL_165:
 LABEL_127:
       *v48 = v50;
       *v41 = 0;
-      --*&v77[2];
+      --*&v76[2];
       std::__hash_node_destructor<std::allocator<std::__hash_node<std::string,void *>>>::operator()[abi:nn200100](1, v41);
       goto LABEL_128;
     }
@@ -2166,7 +1676,7 @@ LABEL_121:
 
     if (v52 != v45)
     {
-      *(v76 + 8 * v52) = v48;
+      *(v75 + 8 * v52) = v48;
       v50 = *v41;
     }
 
@@ -2174,10 +1684,10 @@ LABEL_121:
   }
 
 LABEL_129:
-  if (*v79)
+  if (*v78)
   {
     v53 = 0;
-    v54 = *v79;
+    v54 = *v78;
     do
     {
       ++v53;
@@ -2192,11 +1702,11 @@ LABEL_129:
     v53 = 0;
   }
 
-  std::vector<std::string>::__assign_with_size[abi:nn200100]<std::__hash_const_iterator<std::__hash_node<std::string,void *> *>,std::__hash_const_iterator<std::__hash_node<std::string,void *> *>>(&qword_27F09C730, *v79, v53);
-  if (*v77)
+  std::vector<std::string>::__assign_with_size[abi:nn200100]<std::__hash_const_iterator<std::__hash_node<std::string,void *> *>,std::__hash_const_iterator<std::__hash_node<std::string,void *> *>>(&qword_27F09C730, *v78, v53);
+  if (*v76)
   {
     v55 = 0;
-    v56 = *v77;
+    v56 = *v76;
     do
     {
       ++v55;
@@ -2211,11 +1721,11 @@ LABEL_129:
     v55 = 0;
   }
 
-  std::vector<std::string>::__assign_with_size[abi:nn200100]<std::__hash_const_iterator<std::__hash_node<std::string,void *> *>,std::__hash_const_iterator<std::__hash_node<std::string,void *> *>>(&xmmword_27F09C748, *v77, v55);
-  if (*v75)
+  std::vector<std::string>::__assign_with_size[abi:nn200100]<std::__hash_const_iterator<std::__hash_node<std::string,void *> *>,std::__hash_const_iterator<std::__hash_node<std::string,void *> *>>(&xmmword_27F09C748, *v76, v55);
+  if (*v74)
   {
     v57 = 0;
-    v58 = *v75;
+    v58 = *v74;
     do
     {
       ++v57;
@@ -2230,100 +1740,99 @@ LABEL_129:
     v57 = 0;
   }
 
-  std::vector<std::string>::__assign_with_size[abi:nn200100]<std::__hash_const_iterator<std::__hash_node<std::string,void *> *>,std::__hash_const_iterator<std::__hash_node<std::string,void *> *>>(&qword_27F09C790, *v75, v57);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v69);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v74);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v76);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v78);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v80);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v82);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v84);
-  if (SHIBYTE(v86.__r_.__value_.__r.__words[2]) < 0)
+  std::vector<std::string>::__assign_with_size[abi:nn200100]<std::__hash_const_iterator<std::__hash_node<std::string,void *> *>,std::__hash_const_iterator<std::__hash_node<std::string,void *> *>>(&qword_27F09C790, *v74, v57);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v68);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v73);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v75);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v77);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v79);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&v81);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v83);
+  if (SHIBYTE(v85.__r_.__value_.__r.__words[2]) < 0)
   {
-    operator delete(v86.__r_.__value_.__l.__data_);
+    operator delete(v85.__r_.__value_.__l.__data_);
   }
-
-  v59 = *MEMORY[0x277D85DE8];
 }
 
-void sub_24D91B380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, char a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, char a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, char a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57)
+void sub_24D91B380(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, ...)
 {
-  if (*(v57 - 121) < 0)
+  va_start(va, a56);
+  if (*(v56 - 121) < 0)
   {
-    operator delete(*(v57 - 144));
+    operator delete(*(v56 - 144));
   }
 
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a33);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a39);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a45);
   std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a51);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(&a57);
-  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v57 - 224);
-  if (*(v57 - 153) < 0)
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(va);
+  std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::~__hash_table(v56 - 224);
+  if (*(v56 - 153) < 0)
   {
-    operator delete(*(v57 - 176));
+    operator delete(*(v56 - 176));
   }
 
   _Unwind_Resume(a1);
 }
 
-void sub_24D91BAB0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_24D91BAB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<std::string,std::vector<std::string>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<std::string,std::vector<std::string>>,void *>>>>::~unique_ptr[abi:nn200100](va);
   _Unwind_Resume(a1);
 }
 
-BOOL std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, uint64_t a2)
+void std::__hash_table<std::string,std::hash<std::string>,std::equal_to<std::string>,std::allocator<std::string>>::__emplace_unique_key_args<std::string,std::string>(void *a1, uint64_t a2, uint64_t a3)
 {
-  v4 = *(a2 + 23);
-  if (v4 >= 0)
+  v5 = *(a2 + 23);
+  if (v5 >= 0)
   {
-    v5 = a2;
+    v6 = a2;
   }
 
   else
   {
-    v5 = *a2;
+    v6 = *a2;
   }
 
-  if (v4 >= 0)
+  if (v5 >= 0)
   {
-    v6 = *(a2 + 23);
+    v7 = *(a2 + 23);
   }
 
   else
   {
-    v6 = *(a2 + 8);
+    v7 = *(a2 + 8);
   }
 
-  v7 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v5, v6);
-  v8 = v7;
-  v9 = a1[1];
-  if (!*&v9)
+  v8 = std::__murmur2_or_cityhash<unsigned long,64ul>::operator()[abi:nn200100](v6, v7);
+  v9 = v8;
+  v10 = a1[1];
+  if (!*&v10)
   {
     goto LABEL_24;
   }
 
-  v10 = vcnt_s8(v9);
-  v10.i16[0] = vaddlv_u8(v10);
-  v11 = v10.u32[0];
-  if (v10.u32[0] > 1uLL)
+  v11 = vcnt_s8(v10);
+  v11.i16[0] = vaddlv_u8(v11);
+  v12 = v11.u32[0];
+  if (v11.u32[0] > 1uLL)
   {
-    v12 = v7;
-    if (v7 >= *&v9)
+    v13 = v8;
+    if (v8 >= *&v10)
     {
-      v12 = v7 % *&v9;
+      v13 = v8 % *&v10;
     }
   }
 
   else
   {
-    v12 = (*&v9 - 1) & v7;
+    v13 = (*&v10 - 1) & v8;
   }
 
-  v13 = *(*a1 + 8 * v12);
-  if (!v13 || (v14 = *v13) == 0)
+  v14 = *(*a1 + 8 * v13);
+  if (!v14 || (v15 = *v14) == 0)
   {
 LABEL_24:
     operator new();
@@ -2331,45 +1840,42 @@ LABEL_24:
 
   while (1)
   {
-    v15 = v14[1];
-    if (v15 == v8)
+    v16 = v15[1];
+    if (v16 == v9)
     {
       break;
     }
 
-    if (v11 > 1)
+    if (v12 > 1)
     {
-      if (v15 >= *&v9)
+      if (v16 >= *&v10)
       {
-        v15 %= *&v9;
+        v16 %= *&v10;
       }
     }
 
     else
     {
-      v15 &= *&v9 - 1;
+      v16 &= *&v10 - 1;
     }
 
-    if (v15 != v12)
+    if (v16 != v13)
     {
       goto LABEL_24;
     }
 
 LABEL_23:
-    v14 = *v14;
-    if (!v14)
+    v15 = *v15;
+    if (!v15)
     {
       goto LABEL_24;
     }
   }
 
-  result = std::equal_to<std::string>::operator()[abi:nn200100](v14 + 2, a2);
-  if (!result)
+  if (!std::equal_to<std::string>::operator()[abi:nn200100](v15 + 2, a2))
   {
     goto LABEL_23;
   }
-
-  return result;
 }
 
 uint64_t std::vector<std::string>::__emplace_back_slow_path<char const*&>(uint64_t a1, char **a2)
@@ -2463,7 +1969,7 @@ void std::vector<std::string>::__assign_with_size[abi:nn200100]<std::__hash_cons
     {
       do
       {
-        std::string::operator=(begin, (v4 + 16));
+        std::string::operator=(begin, (v4 + 2));
         v4 = *v4;
         ++begin;
       }
@@ -2502,7 +2008,7 @@ void std::vector<std::string>::__assign_with_size[abi:nn200100]<std::__hash_cons
       {
         do
         {
-          std::string::operator=(begin, (v4 + 16));
+          std::string::operator=(begin, (v4 + 2));
           v4 = *v4;
           ++begin;
         }
@@ -2556,8 +2062,7 @@ void std::vector<std::string>::push_back[abi:nn200100](uint64_t a1, __int128 *a2
     v12 = *a2;
     *(v11 + 16) = *(a2 + 2);
     *v11 = v12;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = 24 * v7 + 24;
     v13 = *(a1 + 8) - *a1;
@@ -2580,8 +2085,7 @@ void std::vector<std::string>::push_back[abi:nn200100](uint64_t a1, __int128 *a2
     v5 = *a2;
     *(v3 + 16) = *(a2 + 2);
     *v3 = v5;
-    *(a2 + 1) = 0;
-    *(a2 + 2) = 0;
+    *(a2 + 8) = 0uLL;
     *a2 = 0;
     v6 = v3 + 24;
   }
@@ -2776,7 +2280,7 @@ void *GTAGXProfilingSupportHelper::GetCountersForDerivedCounter(uint64_t a1)
 
 id GTShaderDebuggerMDSerializerError(unsigned int a1, NSString *a2)
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = v3;
   v5 = MEMORY[0x277CCA9B8];
@@ -2790,12 +2294,10 @@ id GTShaderDebuggerMDSerializerError(unsigned int a1, NSString *a2)
     v6 = &stru_2860BD438;
   }
 
-  v11 = *MEMORY[0x277CCA450];
-  v12[0] = v6;
-  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
+  v10 = *MEMORY[0x277CCA450];
+  v11[0] = v6;
+  v7 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v11 forKeys:&v10 count:1];
   v8 = [v5 errorWithDomain:@"GTShaderDebuggerMDSerializerErrorDomain" code:a1 userInfo:v7];
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -2985,16 +2487,16 @@ apr_array_header_t *GetQueueForRef(apr_pool_t **a1, uint64_t a2)
   return v4;
 }
 
-void GTMTLReplayController_restoreMTLBufferContents(uint64_t a1, void *a2)
+void GTMTLReplayController_restoreMTLBufferContents(const char ****a1, void *a2)
 {
-  v93 = *MEMORY[0x277D85DE8];
-  v69 = **a1;
-  v71 = *(a1 + 184);
+  v92 = *MEMORY[0x277D85DE8];
+  v68 = **a1;
+  v70 = a1[23];
   v4 = a2[3];
-  v70 = *(a1 + 8);
+  v69 = a1[1];
   if (*a2 == 50)
   {
-    v14 = [v70 bufferForHeapKey:a2[1]];
+    v14 = [v69 bufferForHeapKey:a2[1]];
     v6 = v14;
     if (s_logUsingOsLog != 1)
     {
@@ -3025,10 +2527,10 @@ void GTMTLReplayController_restoreMTLBufferContents(uint64_t a1, void *a2)
       *&buf[14] = v17;
       *&buf[22] = 2080;
       *&buf[24] = v20;
-      *v92 = 2048;
-      *&v92[2] = v18;
-      *&v92[10] = 2048;
-      *&v92[12] = v19;
+      *v91 = 2048;
+      *&v91[2] = v18;
+      *&v91[10] = 2048;
+      *&v91[12] = v19;
       _os_log_impl(&dword_24D764000, v7, OS_LOG_TYPE_DEFAULT, "Restoring heap %llu '%s' from file '%s' [length = %llu, offset = %llu]", buf, 0x34u);
 
       goto LABEL_9;
@@ -3041,7 +2543,7 @@ LABEL_13:
 
   if (*a2 == 22)
   {
-    v5 = [v70 bufferForKey:a2[1]];
+    v5 = [v69 bufferForKey:a2[1]];
     v6 = v5;
     if (s_logUsingOsLog == 1)
     {
@@ -3060,10 +2562,10 @@ LABEL_13:
         *&buf[14] = v10;
         *&buf[22] = 2080;
         *&buf[24] = v13;
-        *v92 = 2048;
-        *&v92[2] = v11;
-        *&v92[10] = 2048;
-        *&v92[12] = v12;
+        *v91 = 2048;
+        *&v91[2] = v11;
+        *&v91[10] = 2048;
+        *&v91[12] = v12;
         _os_log_impl(&dword_24D764000, v7, OS_LOG_TYPE_DEFAULT, "Restoring buffer %llu '%s' from file '%s' [length = %llu, offset = %llu]", buf, 0x34u);
 LABEL_9:
 
@@ -3087,75 +2589,75 @@ LABEL_9:
   }
 
 LABEL_14:
-  v31 = *(a1 + 24);
+  v31 = a1[3];
   v32 = [v31 bufferWithLength:a2[5] alignment:1];
-  *v92 = 0u;
+  *v91 = 0u;
   memset(buf, 0, sizeof(buf));
-  GTCaptureArchive_fillBuffer(v69, v71, v4, [v32 contents], a2[5], buf);
+  GTCaptureArchive_fillBuffer(v68, v70, v4, [v32 contents], a2[5], buf);
   v33 = [v31 blitCommandEncoder];
   v34 = [v32 heapBuffer];
   [v33 copyFromBuffer:v34 sourceOffset:objc_msgSend(v32 toBuffer:"heapLocation") destinationOffset:v6 size:{a2[4], a2[5]}];
 
   if ((qword_27F09CF90 & 0x200000000) != 0 && *a2 == 50)
   {
-    v35 = [*(*a1 + 48) heapTextureRestoreOverrides];
+    v35 = [(*a1)[6] heapTextureRestoreOverrides];
 
     if (v35)
     {
-      v36 = [*(*a1 + 48) heapTextureRestoreOverrides];
+      v36 = [(*a1)[6] heapTextureRestoreOverrides];
       v37 = [MEMORY[0x277CCACA8] stringWithUTF8String:a2[3]];
       v38 = [v36 objectForKeyedSubscript:v37];
 
       if (v38)
       {
-        v62 = v32;
-        v63 = v6;
-        v87 = 0u;
-        v88 = 0u;
-        v85 = 0u;
+        v61 = v32;
+        v62 = v6;
         v86 = 0u;
-        v61 = v38;
+        v87 = 0u;
+        v84 = 0u;
+        v85 = 0u;
+        v60 = v38;
         obj = v38;
-        v65 = [obj countByEnumeratingWithState:&v85 objects:v90 count:16];
-        if (v65)
+        v64 = [obj countByEnumeratingWithState:&v84 objects:v89 count:16];
+        if (v64)
         {
-          v64 = *v86;
-          v68 = v31;
+          v63 = *v85;
+          v67 = v31;
           do
           {
             v39 = 0;
             do
             {
-              if (*v86 != v64)
+              if (*v85 != v63)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v67 = v39;
-              v73 = *(*(&v85 + 1) + 8 * v39);
+              v66 = v39;
+              v72 = *(*(&v84 + 1) + 8 * v39);
               v40 = [obj objectForKeyedSubscript:?];
+              v80 = 0u;
               v81 = 0u;
               v82 = 0u;
               v83 = 0u;
-              v84 = 0u;
-              v74 = [v40 countByEnumeratingWithState:&v81 objects:v89 count:16];
-              if (v74)
+              v73 = [v40 countByEnumeratingWithState:&v80 objects:v88 count:16];
+              if (v73)
               {
-                v72 = *v82;
+                v71 = *v81;
                 do
                 {
-                  for (i = 0; i != v74; ++i)
+                  for (i = 0; i != v73; ++i)
                   {
-                    if (*v82 != v72)
+                    if (*v81 != v71)
                     {
                       objc_enumerationMutation(v40);
                     }
 
-                    v42 = *(*(&v81 + 1) + 8 * i);
+                    v42 = *(*(&v80 + 1) + 8 * i);
                     v43 = [v40 objectForKeyedSubscript:v42];
                     v44 = [v31 bufferWithLength:objc_msgSend(v43 alignment:{"fileSize"), 16}];
                     v45 = [v43 filename];
-                    GTCaptureArchive_fillBuffer(v69, v71, [v45 UTF8String], objc_msgSend(v44, "contents"), objc_msgSend(v43, "fileSize"), buf);
+                    GTCaptureArchive_fillBuffer(v68, v70, [v45 UTF8String], objc_msgSend(v44, "contents"), objc_msgSend(v43, "fileSize"), buf);
 
                     v46 = [v42 plane];
 
@@ -3180,78 +2682,76 @@ LABEL_14:
                       v49 = 0;
                     }
 
-                    v50 = [v70 textureForKey:{objc_msgSend(v73, "unsignedLongLongValue")}];
+                    v50 = [v69 textureForKey:{objc_msgSend(v72, "unsignedLongLongValue")}];
                     if (v50)
                     {
                       [v31 blitCommandEncoder];
-                      v51 = v77 = v49;
+                      v51 = v76 = v49;
                       v52 = [v44 heapBuffer];
-                      v78 = [v44 heapLocation];
-                      v76 = [v43 bytesPerRow];
-                      v75 = [v43 bytesPerImage];
+                      v77 = [v44 heapLocation];
+                      v75 = [v43 bytesPerRow];
+                      v74 = [v43 bytesPerImage];
                       v53 = [v43 width];
                       v54 = [v43 height];
-                      v80[0] = v53;
-                      v80[1] = v54;
-                      v80[2] = 1;
-                      v55 = [v42 slice];
+                      v79[0] = v53;
+                      v79[1] = v54;
+                      v79[2] = 1;
+                      v55 = objc_msgSend_slice(v42);
                       v56 = v40;
                       v57 = [v42 mipLevel];
                       v58 = [v42 depthPlane];
-                      v79[0] = 0;
-                      v79[1] = 0;
-                      v79[2] = v58;
-                      v60 = v57;
+                      v78[0] = 0;
+                      v78[1] = 0;
+                      v78[2] = v58;
+                      v59 = v57;
                       v40 = v56;
-                      v31 = v68;
-                      [v51 copyFromBuffer:v52 sourceOffset:v78 sourceBytesPerRow:v76 sourceBytesPerImage:v75 sourceSize:v80 toTexture:v50 destinationSlice:v55 destinationLevel:v60 destinationOrigin:v79 options:v77];
+                      v31 = v67;
+                      [v51 copyFromBuffer:v52 sourceOffset:v77 sourceBytesPerRow:v75 sourceBytesPerImage:v74 sourceSize:v79 toTexture:v50 destinationSlice:v55 destinationLevel:v59 destinationOrigin:v78 options:v76];
                     }
                   }
 
-                  v74 = [v40 countByEnumeratingWithState:&v81 objects:v89 count:16];
+                  v73 = [v40 countByEnumeratingWithState:&v80 objects:v88 count:16];
                 }
 
-                while (v74);
+                while (v73);
               }
 
-              v39 = v67 + 1;
+              v39 = v66 + 1;
             }
 
-            while (v67 + 1 != v65);
-            v65 = [obj countByEnumeratingWithState:&v85 objects:v90 count:16];
+            while (v66 + 1 != v64);
+            v64 = [obj countByEnumeratingWithState:&v84 objects:v89 count:16];
           }
 
-          while (v65);
+          while (v64);
         }
 
-        v32 = v62;
-        v6 = v63;
-        v38 = v61;
+        v32 = v61;
+        v6 = v62;
+        v38 = v60;
       }
     }
   }
 
-  apr_pool_clear(*v71);
-
-  v59 = *MEMORY[0x277D85DE8];
+  apr_pool_clear(*v70);
 }
 
-void GTMTLReplayController_restoreMTLTensor(uint64_t a1, uint64_t a2)
+void GTMTLReplayController_restoreMTLTensor(const char ****a1, uint64_t a2)
 {
-  v91[1] = *MEMORY[0x277D85DE8];
+  v90[1] = *MEMORY[0x277D85DE8];
   v4 = **a1;
-  v5 = *(a1 + 184);
+  v5 = a1[23];
   v6 = *(a2 + 24);
-  v79 = *(a1 + 8);
-  v7 = [v79 tensorForKey:*(a2 + 8)];
-  v80 = v7;
+  v78 = a1[1];
+  v7 = [v78 tensorForKey:*(a2 + 8)];
+  v79 = v7;
   if (s_logUsingOsLog == 1)
   {
     v8 = gt_tagged_log(0xEu);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       v9 = *(a2 + 8);
-      v10 = [v80 label];
+      v10 = [v79 label];
       v11 = [v10 UTF8String];
       v12 = *(a2 + 24);
       *buf = 134218498;
@@ -3274,15 +2774,15 @@ void GTMTLReplayController_restoreMTLTensor(uint64_t a1, uint64_t a2)
     fprintf(v13, "%s\n", [v17 UTF8String]);
   }
 
-  v18 = *(a1 + 24);
+  v18 = a1[3];
   v19 = RequestSize(a2);
   v20 = [v18 bufferWithLength:v19 alignment:RequestAlignment(a2)];
-  memset(v81, 0, sizeof(v81));
-  GTCaptureArchive_fillBuffer(v4, v5, v6, [v20 contents], v19, v81);
-  if (DWORD1(v81[0]))
+  memset(v80, 0, sizeof(v80));
+  GTCaptureArchive_fillBuffer(v4, v5, v6, [v20 contents], v19, v80);
+  if (DWORD1(v80[0]))
   {
-    v90 = *MEMORY[0x277CCA450];
-    v77 = MEMORY[0x277CCACA8];
+    v89 = *MEMORY[0x277CCA450];
+    v76 = MEMORY[0x277CCACA8];
     if (GTError_initialize_onceToken != -1)
     {
       dispatch_once(&GTError_initialize_onceToken, &__block_literal_global_10851);
@@ -3290,16 +2790,16 @@ void GTMTLReplayController_restoreMTLTensor(uint64_t a1, uint64_t a2)
 
     v21 = 0;
     v22 = "";
-    v23 = v81;
+    v23 = v80;
     v24 = "Assertion failed: ";
     while (1)
     {
       if (!v23)
       {
 LABEL_42:
-        v45 = [v77 stringWithUTF8String:v22];
-        v91[0] = v45;
-        v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v91 forKeys:&v90 count:1];
+        v45 = [v76 stringWithUTF8String:v22];
+        v90[0] = v45;
+        v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v90 forKeys:&v89 count:1];
 
         v47 = MakeNSError(101, v46);
         GTMTLReplay_handleNSError(v47);
@@ -3331,7 +2831,7 @@ LABEL_42:
               v44 = 0;
             }
 
-            v28 = apr_pstrcat(v33, v22, "Error #", v42, " Archive data:\n\tFilename: ", v43, "\n\tReason: ", *(v23 + 2), " is false", v44, 0, v74, v75, v76);
+            v28 = apr_pstrcat(v33, v22, "Error #", v42, " Archive data:\n\tFilename: ", v43, "\n\tReason: ", *(v23 + 2), " is false", v44, 0, v73, v74, v75);
           }
 
           else
@@ -3342,7 +2842,7 @@ LABEL_42:
               v34 = "(none)";
             }
 
-            v28 = apr_pstrcat(s_errorPool, v22, "Archive data error: \n", "\tFilename: ", v34, "\n", "\tReason: ", *(v23 + 2), " is false", 0, v73, v74, v75, v76);
+            v28 = apr_pstrcat(s_errorPool, v22, "Archive data error: \n", "\tFilename: ", v34, "\n", "\tReason: ", *(v23 + 2), " is false", 0, v72, v73, v74, v75);
           }
 
           goto LABEL_40;
@@ -3353,7 +2853,7 @@ LABEL_42:
           v29 = s_errorPool;
           if ((*v23 & 2) != 0)
           {
-            v78 = apr_itoa(s_errorPool, v21);
+            v77 = apr_itoa(s_errorPool, v21);
             v38 = v24;
             v39 = apr_ltoa(s_errorPool, *(v23 + 1));
             v40 = apr_ltoa(s_errorPool, *(v23 + 2));
@@ -3367,16 +2867,16 @@ LABEL_42:
               v41 = 0;
             }
 
-            v68 = v39;
+            v67 = v39;
             v24 = v38;
-            v28 = apr_pstrcat(v29, v22, "Error #", v78, " GetStream:\n\tDevice object: ", v68, "\n\tFunc index: ", v40, "\n", "\tReason: ", *(v23 + 3), " is false", v41, 0);
+            v28 = apr_pstrcat(v29, v22, "Error #", v77, " GetStream:\n\tDevice object: ", v67, "\n\tFunc index: ", v40, "\n", "\tReason: ", *(v23 + 3), " is false", v41, 0);
           }
 
           else
           {
             v30 = apr_ltoa(s_errorPool, *(v23 + 1));
             v31 = apr_ltoa(s_errorPool, *(v23 + 2));
-            v28 = apr_pstrcat(v29, v22, "GetStream failed: \n", "\tDevice object: ", v30, "\n", "\tFunc index: ", v31, "\n", "\tReason: ", *(v23 + 3), " is false", 0, v76);
+            v28 = apr_pstrcat(v29, v22, "GetStream failed: \n", "\tDevice object: ", v30, "\n", "\tFunc index: ", v31, "\n", "\tReason: ", *(v23 + 3), " is false", 0, v75);
           }
 
           goto LABEL_40;
@@ -3387,7 +2887,7 @@ LABEL_42:
       {
         if (v25 == 500)
         {
-          v28 = apr_pstrcat(s_errorPool, v22, v24, *(v23 + 1), 0, v67, v69, v70, v71, v72, v73, v74, v75, v76);
+          v28 = apr_pstrcat(s_errorPool, v22, v24, *(v23 + 1), 0, v66, v68, v69, v70, v71, v72, v73, v74, v75);
           goto LABEL_40;
         }
 
@@ -3408,13 +2908,13 @@ LABEL_42:
               v37 = 0;
             }
 
-            v28 = apr_pstrcat(v26, v22, "Error #", v35, " DYDecode:\n\tFunc index: ", v36, "\n\tFenum: ", *(v23 + 2), "\n\tReason: ", *(v23 + 3), " is false", v37, 0, v76);
+            v28 = apr_pstrcat(v26, v22, "Error #", v35, " DYDecode:\n\tFunc index: ", v36, "\n\tFenum: ", *(v23 + 2), "\n\tReason: ", *(v23 + 3), " is false", v37, 0, v75);
           }
 
           else
           {
             v27 = apr_ltoa(s_errorPool, *(v23 + 1));
-            v28 = apr_pstrcat(v26, v22, "DYDecode failed: \n", "\tFunc index: ", v27, "\n", "\tFenum: ", *(v23 + 2), "\n", "\tReason: ", *(v23 + 3), " is false", 0, v76);
+            v28 = apr_pstrcat(v26, v22, "DYDecode failed: \n", "\tFunc index: ", v27, "\n", "\tFenum: ", *(v23 + 2), "\n", "\tReason: ", *(v23 + 3), " is false", 0, v75);
           }
 
           goto LABEL_40;
@@ -3422,8 +2922,8 @@ LABEL_42:
       }
 
       v32 = s_errorPool;
-      v66 = apr_itoa(s_errorPool, v25);
-      v28 = apr_pstrcat(v32, v22, "Code: ", v66, 0, v67, v69, v70, v71, v72, v73, v74, v75, v76);
+      v65 = apr_itoa(s_errorPool, v25);
+      v28 = apr_pstrcat(v32, v22, "Code: ", v65, 0, v66, v68, v69, v70, v71, v72, v73, v74, v75);
 LABEL_40:
       v22 = v28;
       ++v21;
@@ -3437,43 +2937,43 @@ LABEL_40:
   }
 
   v48 = *(a2 + 144);
-  v87 = *(a2 + 128);
-  v88 = v48;
-  v89 = *(a2 + 160);
+  v86 = *(a2 + 128);
+  v87 = v48;
+  v88 = *(a2 + 160);
   v49 = *(a2 + 80);
-  v83 = *(a2 + 64);
-  v84 = v49;
+  v82 = *(a2 + 64);
+  v83 = v49;
   v50 = *(a2 + 112);
-  v85 = *(a2 + 96);
-  v86 = v50;
+  v84 = *(a2 + 96);
+  v85 = v50;
   v51 = *(a2 + 48);
   *buf = *(a2 + 32);
   *&buf[16] = v51;
   v46 = MakeMTLTensorExtents(buf);
   v52 = *(a2 + 248);
   v53 = *(a2 + 280);
-  v87 = *(a2 + 264);
-  v88 = v53;
-  v89 = *(a2 + 296);
+  v86 = *(a2 + 264);
+  v87 = v53;
+  v88 = *(a2 + 296);
   v54 = *(a2 + 184);
   v55 = *(a2 + 216);
-  v83 = *(a2 + 200);
-  v84 = v55;
-  v85 = *(a2 + 232);
-  v86 = v52;
+  v82 = *(a2 + 200);
+  v83 = v55;
+  v84 = *(a2 + 232);
+  v85 = v52;
   *buf = *(a2 + 168);
   *&buf[16] = v54;
   v47 = MakeMTLTensorExtents(buf);
   v56 = *(a2 + 416);
-  v87 = *(a2 + 400);
-  v88 = v56;
-  v89 = *(a2 + 432);
+  v86 = *(a2 + 400);
+  v87 = v56;
+  v88 = *(a2 + 432);
   v57 = *(a2 + 352);
-  v83 = *(a2 + 336);
-  v84 = v57;
+  v82 = *(a2 + 336);
+  v83 = v57;
   v58 = *(a2 + 384);
-  v85 = *(a2 + 368);
-  v86 = v58;
+  v84 = *(a2 + 368);
+  v85 = v58;
   v59 = *(a2 + 320);
   *buf = *(a2 + 304);
   *&buf[16] = v59;
@@ -3487,7 +2987,7 @@ LABEL_40:
   if (v62)
   {
     v63 = [v18 blitCommandEncoder];
-    [v63 copyFromTensor:v62 sourceOrigin:v46 sourceDimensions:v47 toTensor:v80 destinationOrigin:v46 destinationDimensions:v47];
+    [v63 copyFromTensor:v62 sourceOrigin:v46 sourceDimensions:v47 toTensor:v79 destinationOrigin:v46 destinationDimensions:v47];
 
     apr_pool_clear(*v5);
   }
@@ -3499,7 +2999,6 @@ LABEL_40:
   }
 
 LABEL_47:
-  v65 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t RequestSize(uint64_t a1)
@@ -3609,12 +3108,12 @@ uint64_t RequestAlignment(uint64_t a1)
   return result;
 }
 
-void GTMTLReplayController_replaceRegion_mipmapLevel_slice_withBytes_bytesPerRow_bytesPerImage(uint64_t a1, uint64_t a2)
+void GTMTLReplayController_replaceRegion_mipmapLevel_slice_withBytes_bytesPerRow_bytesPerImage(const char ****a1, uint64_t a2)
 {
-  v127 = *MEMORY[0x277D85DE8];
+  v125 = *MEMORY[0x277D85DE8];
   v4 = **a1;
-  v5 = *(a1 + 184);
-  v6 = *(a1 + 8);
+  v5 = a1[23];
+  v6 = a1[1];
   v7 = v6;
   if (!*(a2 + 8))
   {
@@ -3634,20 +3133,20 @@ void GTMTLReplayController_replaceRegion_mipmapLevel_slice_withBytes_bytesPerRow
 
   v10 = [v8 device];
   v11 = [v9 pixelFormat];
-  v103 = [v9 sampleCount];
-  v119 = 0;
-  memset(v118, 0, sizeof(v118));
-  v94 = v11;
-  GTMTLPixelFormatGetInfoForDevice(v118, v10, v11);
-  *&v126 = 0;
-  v88 = v7;
-  v91 = v5;
-  if ((~DWORD2(v118[0]) & 0x60) != 0)
+  v101 = [v9 sampleCount];
+  v117 = 0;
+  memset(v116, 0, sizeof(v116));
+  v92 = v11;
+  GTMTLPixelFormatGetInfoForDevice(v116, v10, v11);
+  *&v124 = 0;
+  v86 = v7;
+  v89 = v5;
+  if ((~DWORD2(v116[0]) & 0x60) != 0)
   {
-    if ((WORD4(v118[0]) & 0x2000) != 0)
+    if ((WORD4(v116[0]) & 0x2000) != 0)
     {
       v12 = 4;
-      *&v126 = 4;
+      *&v124 = 4;
     }
 
     else
@@ -3655,48 +3154,47 @@ void GTMTLReplayController_replaceRegion_mipmapLevel_slice_withBytes_bytesPerRow
       v12 = 0;
     }
 
-    v98 = 1;
+    v96 = 1;
   }
 
   else
   {
-    v126 = xmmword_24DA8BC50;
-    v98 = 2;
+    v124 = xmmword_24DA8BC50;
+    v96 = 2;
     v12 = 1;
   }
 
-  v97 = *(a2 + 36);
-  v96 = *(a2 + 38);
-  v95 = *(a2 + 40);
+  v95 = *(a2 + 36);
+  v94 = *(a2 + 38);
+  v93 = *(a2 + 40);
   v14 = *(a2 + 42);
   v15 = *(a2 + 44);
   v16 = *(a2 + 46);
-  v117 = 0;
-  v115 = 0u;
-  *size = 0u;
+  v115 = 0;
   v113 = 0u;
-  v114 = 0u;
+  *size = 0u;
   v111 = 0u;
   v112 = 0u;
-  v86 = v12;
+  v109 = 0u;
+  v110 = 0u;
   v17 = v10;
   v18 = v14;
-  v100 = v15;
-  v93 = v16;
-  GTMTLGetTextureLevelInfoForDeviceWithOptions(&v111, v10, v11, v14, v15, v16, v103);
+  v98 = v15;
+  v91 = v16;
+  GTMTLGetTextureLevelInfoForDeviceWithOptions(&v109, v10, v11, v14, v15, v16, v101, 0, v12);
   v19 = *(GTCaptureArchive_getFileWithFilename(v4, *(a2 + 24)) + 8);
-  v90 = *(a1 + 24);
-  v20 = [v90 bufferWithLength:v19 alignment:{*(&v115 + 1), v86}];
-  GTCaptureArchive_fillBuffer(v4, v91, *(a2 + 24), [v20 contents], v19, 0);
+  v88 = a1[3];
+  v20 = [v88 bufferWithLength:v19 alignment:*(&v113 + 1)];
+  GTCaptureArchive_fillBuffer(v4, v89, *(a2 + 24), [v20 contents], v19, 0);
   v21 = [v20 contents];
-  v105 = v20;
+  v103 = v20;
   v22 = [v20 length];
   v23 = 0;
   v24 = 0;
   if (v21)
   {
     v25 = v18;
-    v26 = v91;
+    v26 = v89;
     if (v22 >= 0x10)
     {
       if (*v21 == 0x63617074757265)
@@ -3725,21 +3223,21 @@ void GTMTLReplayController_replaceRegion_mipmapLevel_slice_withBytes_bytesPerRow
   else
   {
     v25 = v18;
-    v26 = v91;
+    v26 = v89;
   }
 
-  if ((BYTE9(v118[0]) & 0x20) != 0 && ((*(*a1 + 352) & 1) != 0 || strncmp(*(a2 + 24), "MTLTexture-", 0xBuLL)))
+  if ((BYTE9(v116[0]) & 0x20) != 0 && (((*a1)[44] & 1) != 0 || strncmp(*(a2 + 24), "MTLTexture-", 0xBuLL)))
   {
-    v27 = ([v105 contents] + v24);
+    v27 = ([v103 contents] + v24);
     v28 = size[1];
     v29 = apr_palloc(*v26, size[1]);
-    if (v113 >= 1)
+    if (v111 >= 1)
     {
       v30 = 0;
-      v31 = DWORD2(v112);
-      v32 = DWORD2(v112);
-      v33 = v113 & 0x7FFFFFFF;
-      v34 = 8 * DWORD2(v112);
+      v31 = DWORD2(v110);
+      v32 = DWORD2(v110);
+      v33 = v111 & 0x7FFFFFFF;
+      v34 = 8 * DWORD2(v110);
       v35 = v29;
       do
       {
@@ -3770,41 +3268,41 @@ void GTMTLReplayController_replaceRegion_mipmapLevel_slice_withBytes_bytesPerRow
     memcpy(v27, v29, v28);
   }
 
-  v106 = v17;
-  v124 = v94;
-  v125 = v94;
-  v122[0] = v25;
-  v122[1] = v100;
-  v122[2] = v93;
-  v123[0] = v25;
-  v123[1] = v100;
-  v123[2] = v93;
-  v87 = v9;
-  v120 = v9;
-  v104 = v120;
-  v121 = v104;
-  v99 = v23;
-  PlanePixelFormat = GetPlanePixelFormat(v94, 0);
+  v104 = v17;
+  v122 = v92;
+  v123 = v92;
+  v120[0] = v25;
+  v120[1] = v98;
+  v120[2] = v91;
+  v121[0] = v25;
+  v121[1] = v98;
+  v121[2] = v91;
+  v85 = v9;
+  v118 = v9;
+  v102 = v118;
+  v119 = v102;
+  v97 = v23;
+  PlanePixelFormat = GetPlanePixelFormat(v92, 0);
   if (PlanePixelFormat)
   {
-    v42 = MakeMTLTextureDescriptorFromTextureWithoutResourceIndex(v104);
+    v42 = MakeMTLTextureDescriptorFromTextureWithoutResourceIndex(v102);
     v43.i64[0] = v25;
-    v43.i64[1] = v100;
-    v101 = v43;
+    v43.i64[1] = v98;
+    v99 = v43;
     *v43.i8 = vrhadd_u32(vmovn_s64(v43), 0);
-    v44 = &v124;
+    v44 = &v122;
     v45.i64[0] = v43.u32[0];
     v45.i64[1] = v43.u32[1];
-    v92 = v45;
-    v46 = v122;
-    v47 = &v120;
+    v90 = v45;
+    v46 = v120;
+    v47 = &v118;
     v48 = 1;
     v49 = PlanePixelFormat;
-    v50 = v94;
+    v50 = v92;
     while (1)
     {
       *v44 = v49;
-      if (v50 == 543 || (v51 = v101, v50 == 540))
+      if (v50 == 543 || (v51 = v99, v50 == 540))
       {
         if (v48)
         {
@@ -3816,11 +3314,11 @@ void GTMTLReplayController_replaceRegion_mipmapLevel_slice_withBytes_bytesPerRow
           v52 = 0;
         }
 
-        v51 = vbslq_s8(vdupq_n_s64(v52), v101, v92);
+        v51 = vbslq_s8(vdupq_n_s64(v52), v99, v90);
       }
 
       *v46 = v51;
-      v46[1].i64[0] = v93;
+      v46[1].i64[0] = v91;
       [v42 setWidth:v51.i64[0]];
       [v42 setHeight:v46->i64[1]];
       [v42 setPixelFormat:v49];
@@ -3833,25 +3331,25 @@ void GTMTLReplayController_replaceRegion_mipmapLevel_slice_withBytes_bytesPerRow
         break;
       }
 
-      v50 = v94;
-      v49 = GetPlanePixelFormat(v94, 1);
+      v50 = v92;
+      v49 = GetPlanePixelFormat(v92, 1);
       v48 = 0;
-      v47 = &v121;
-      v46 = v123;
-      v44 = &v125;
+      v47 = &v119;
+      v46 = v121;
+      v44 = &v123;
     }
 
-    v98 = 2;
+    v96 = 2;
   }
 
-  v102 = [v90 blitCommandEncoder];
+  v100 = [v88 blitCommandEncoder];
   v55 = 0;
   v56 = (v23 + 64);
-  v57 = v122;
+  v57 = v120;
   do
   {
-    v58 = *(&v126 + v55);
-    *&v59 = GTMTLGetTextureLevelInfoForDeviceWithOptions(&v111, v106, *(&v124 + v55), *v57, v57[1], v57[2], v103).n128_u64[0];
+    v58 = *(&v124 + v55);
+    *&v59 = GTMTLGetTextureLevelInfoForDeviceWithOptions(&v109, v104, *(&v122 + v55), *v57, v57[1], v57[2], v101, 0, v58).n128_u64[0];
     if (v23 && *(v23 + 10) == 1 && *(v23 + 16) >= v55)
     {
       v60 = *(v56 - 1);
@@ -3864,7 +3362,7 @@ void GTMTLReplayController_replaceRegion_mipmapLevel_slice_withBytes_bytesPerRow
       v61 = *(a2 + 52);
     }
 
-    v62 = [v104 textureType];
+    v62 = [v102 textureType];
     if (v62 < 2)
     {
       goto LABEL_47;
@@ -3878,7 +3376,7 @@ LABEL_47:
         v60 = size[0];
       }
 
-      v61 = v113 * v60;
+      v61 = v111 * v60;
       goto LABEL_55;
     }
 
@@ -3889,38 +3387,38 @@ LABEL_47:
 
     if (!v61)
     {
-      v61 = v60 * v113;
+      v61 = v60 * v111;
     }
 
 LABEL_55:
-    v63 = [v105 heapBuffer];
-    v64 = [v105 heapLocation];
-    v65 = *(&v120 + v55);
+    v63 = [v103 heapBuffer];
+    v64 = [v103 heapLocation];
+    v65 = *(&v118 + v55);
     v66 = *(a2 + 32);
     v67 = *(a2 + 34);
-    v109 = *v57;
-    v110 = v57[2];
-    v108[0] = v97;
-    v108[1] = v96;
-    v108[2] = v95;
-    [v102 copyFromBuffer:v63 sourceOffset:v64 + v24 sourceBytesPerRow:v60 sourceBytesPerImage:v61 sourceSize:&v109 toTexture:v65 destinationSlice:v66 destinationLevel:v67 destinationOrigin:v108 options:v58];
+    v107 = *v57;
+    v108 = v57[2];
+    v106[0] = v95;
+    v106[1] = v94;
+    v106[2] = v93;
+    [v100 copyFromBuffer:v63 sourceOffset:v64 + v24 sourceBytesPerRow:v60 sourceBytesPerImage:v61 sourceSize:&v107 toTexture:v65 destinationSlice:v66 destinationLevel:v67 destinationOrigin:v106 options:v58];
 
-    v24 += v117;
+    v24 += v115;
     ++v55;
     v56 += 6;
     v57 += 3;
-    v23 = v99;
+    v23 = v97;
   }
 
-  while (v98 != v55);
-  v13 = v106;
+  while (v96 != v55);
+  v13 = v104;
   if (PlanePixelFormat)
   {
-    v68 = GTMTLReplayController_defaultLibrary(v106);
+    v68 = GTMTLReplayController_defaultLibrary(v104);
     v69 = objc_alloc_init(MEMORY[0x277CD6F70]);
     v70 = [v69 colorAttachments];
     v71 = [v70 objectAtIndexedSubscript:0];
-    [v71 setPixelFormat:v94];
+    [v71 setPixelFormat:v92];
 
     v72 = [v68 newFunctionWithName:@"Harvest2PVertexForDownloader"];
     [v69 setVertexFunction:v72];
@@ -3928,13 +3426,13 @@ LABEL_55:
     v73 = [v68 newFunctionWithName:@"Harvest2PFragmentUpload"];
     [v69 setFragmentFunction:v73];
 
-    v107 = 0;
-    v74 = [v106 newRenderPipelineStateWithDescriptor:v69 error:&v107];
-    v75 = v107;
+    v105 = 0;
+    v74 = [v104 newRenderPipelineStateWithDescriptor:v69 error:&v105];
+    v75 = v105;
     v76 = objc_alloc_init(MEMORY[0x277CD6F48]);
     v77 = [v76 colorAttachments];
     v78 = [v77 objectAtIndexedSubscript:0];
-    [v78 setTexture:v104];
+    [v78 setTexture:v102];
 
     v79 = [v76 colorAttachments];
     v80 = [v79 objectAtIndexedSubscript:0];
@@ -3944,18 +3442,18 @@ LABEL_55:
     v82 = [v81 objectAtIndexedSubscript:0];
     [v82 setStoreAction:1];
 
-    v83 = [v90 renderCommandEncoderWithDescriptor:v76];
+    v83 = [v88 renderCommandEncoderWithDescriptor:v76];
     [v83 setRenderPipelineState:v74];
-    [v83 setFragmentTexture:v120 atIndex:0];
-    [v83 setFragmentTexture:v121 atIndex:1];
+    [v83 setFragmentTexture:v118 atIndex:0];
+    [v83 setFragmentTexture:v119 atIndex:1];
 
     [v83 drawPrimitives:3 vertexStart:0 vertexCount:3];
   }
 
-  apr_pool_clear(*v91);
+  apr_pool_clear(*v89);
 
   v84 = 8;
-  v9 = v87;
+  v9 = v85;
   do
   {
 
@@ -3964,16 +3462,15 @@ LABEL_55:
 
   while (v84 != -8);
 
-  v7 = v88;
+  v7 = v86;
 LABEL_63:
 
 LABEL_64:
-  v85 = *MEMORY[0x277D85DE8];
 }
 
 char *GTMTLReplayController_makeDataSource(const char *a1, apr_pool_t *a2)
 {
-  v896 = *MEMORY[0x277D85DE8];
+  v895 = *MEMORY[0x277D85DE8];
   v3 = &unk_27F09B000;
   v4 = g_signpostLog;
   if (os_signpost_enabled(v4))
@@ -3985,7 +3482,7 @@ char *GTMTLReplayController_makeDataSource(const char *a1, apr_pool_t *a2)
 
   bzero(buf, 0x400uLL);
   v5 = realpath_DARWIN_EXTSN(a1, buf[0].i8);
-  memset(&v890.st_blksize, 0, 32);
+  memset(&v889.st_blksize, 0, 32);
   if (v5)
   {
     v6 = v5;
@@ -3996,7 +3493,7 @@ char *GTMTLReplayController_makeDataSource(const char *a1, apr_pool_t *a2)
     v6 = a1;
   }
 
-  memset(&v890, 0, 112);
+  memset(&v889, 0, 112);
   v7 = gt_filepath_merge(v6, "index", a2);
   v8 = open(v7, 0);
   if (v8 < 0)
@@ -4005,30 +3502,30 @@ char *GTMTLReplayController_makeDataSource(const char *a1, apr_pool_t *a2)
   }
 
   v9 = v8;
-  fstat(v8, &v890);
-  v10 = mmap(0, v890.st_size, 1, 2, v9, 0);
+  fstat(v8, &v889);
+  v10 = mmap(0, v889.st_size, 1, 2, v9, 0);
   close(v9);
-  if (v10 == -1 || v890.st_size < 0x14uLL || *v10 != 1667851384 && v10[1])
+  if (v10 == -1 || v889.st_size < 0x14uLL || *v10 != 1667851384 && v10[1])
   {
     goto LABEL_21;
   }
 
   v11 = v10[2];
-  if (v890.st_size - 20 < (12 * v11))
+  if (v889.st_size - 20 < (12 * v11))
   {
     goto LABEL_21;
   }
 
   v12 = &v10[3 * v11 + 5];
   v13 = v10[3];
-  if (v890.st_size - (12 * v11 + 20) < 24 * v13)
+  if (v889.st_size - (12 * v11 + 20) < 24 * v13)
   {
     goto LABEL_21;
   }
 
   v14 = v12 + 24 * v13;
   v15 = v10[4];
-  if (v10 + v890.st_size - v14 < 2 * v15)
+  if (v10 + v889.st_size - v14 < 2 * v15)
   {
     goto LABEL_21;
   }
@@ -4044,63 +3541,74 @@ LABEL_18:
     if ((v21 & 0x80000000) == 0)
     {
       v22 = v21;
-      memset(&v894, 0, sizeof(v894));
-      fstat(v21, &v894);
-      if (v894.st_size < 1)
+      memset(&v893, 0, sizeof(v893));
+      fstat(v21, &v893);
+      if (v893.st_size < 1)
       {
         st_size = 0;
-        v840 = 0;
+        v839 = 0;
       }
 
       else
       {
-        v23 = mmap(0, v894.st_size, 1, 2, v22, 0);
-        st_size = v894.st_size;
-        v840 = v23;
+        v23 = mmap(0, v893.st_size, 1, 2, v22, 0);
+        st_size = v893.st_size;
+        v839 = v23;
       }
 
       close(v22);
-      v792 = apr_palloc(a2, 0xA0uLL);
-      v24 = v792;
-      if (v792)
+      v791 = apr_palloc(a2, 0xA0uLL);
+      v24 = v791;
+      if (v791)
       {
-        v792[8] = 0u;
-        v792[9] = 0u;
-        v792[6] = 0u;
-        v792[7] = 0u;
-        v792[4] = 0u;
-        v792[5] = 0u;
-        v792[2] = 0u;
-        v792[3] = 0u;
-        *v792 = 0u;
-        v792[1] = 0u;
+        v791[8] = 0u;
+        v791[9] = 0u;
+        v791[6] = 0u;
+        v791[7] = 0u;
+        v791[4] = 0u;
+        v791[5] = 0u;
+        v791[2] = 0u;
+        v791[3] = 0u;
+        *v791 = 0u;
+        v791[1] = 0u;
       }
 
-      *v792 = apr_pstrdup(a2, v6);
+      *v791 = apr_pstrdup(a2, v6);
       *(v24 + 8) = a2;
       pthread_mutex_init((v24 + 16), 0);
       *(v24 + 80) = apr_array_make(a2, v10[2], 32);
       *(v24 + 88) = apr_hash_make(a2);
-      v793 = v10[2];
-      if (v793)
+      v792 = v10[2];
+      if (v792)
       {
-        v794 = 0;
-        v795 = v10 + 6;
-        v846 = v12;
+        v793 = 0;
+        v794 = v10 + 6;
+        v845 = v12;
         do
         {
-          v796 = *(v795 - 1);
-          if (v796 != -1)
+          v795 = *(v794 - 1);
+          if (v795 != -1)
           {
-            v797 = v12 + 24 * v796;
-            v798 = *(v797 + 4);
-            v869 = *v797;
-            v799 = *(v797 + 8);
-            v800 = *(v797 + 16);
-            v861 = v800;
-            v801 = apr_pstrdup(a2, *&arr->elts[8 * *v795]);
-            v802 = v801;
-            if ((v800 & 2) != 0)
+            v796 = v12 + 24 * v795;
+            v797 = *(v796 + 4);
+            v868 = *v796;
+            v798 = *(v796 + 8);
+            v799 = *(v796 + 16);
+            v860 = v799;
+            v800 = apr_pstrdup(a2, *&arr->elts[8 * *v794]);
+            v801 = v800;
+            if ((v799 & 2) != 0)
+            {
+              v802 = 0;
+            }
+
+            else
+            {
+              v802 = v797;
+            }
+
+            hid = v802;
+            if ((v799 & 2) != 0)
             {
               v803 = 0;
             }
@@ -4110,69 +3618,58 @@ LABEL_18:
               v803 = v798;
             }
 
-            hid = v803;
-            if ((v800 & 2) != 0)
-            {
-              v804 = 0;
-            }
-
-            else
-            {
-              v804 = v799;
-            }
-
-            v850 = v804;
-            v805 = *(v24 + 88);
-            v806 = a1;
-            v807 = *(*(v24 + 80) + 12);
-            v808 = strlen(v801);
-            v809 = apr_palloc(*(v24 + 8), 8uLL);
-            *v809 = v807;
-            a1 = v806;
-            v810 = v805;
+            v849 = v803;
+            v804 = *(v24 + 88);
+            v805 = a1;
+            v806 = *(*(v24 + 80) + 12);
+            v807 = strlen(v800);
+            v808 = apr_palloc(*(v24 + 8), 8uLL);
+            *v808 = v806;
+            a1 = v805;
+            v809 = v804;
             v3 = &unk_27F09B000;
-            v811 = v808;
-            v12 = v846;
-            apr_hash_set(v810, v802, v811, v809);
-            v812 = apr_array_push(*(v24 + 80));
-            *v812 = v802;
-            v812[2] = v869;
-            v812[3] = hid;
-            *(v812 + 2) = v850;
-            v812[6] = v861;
-            v812[7] = 0;
-            v793 = v10[2];
+            v810 = v807;
+            v12 = v845;
+            apr_hash_set(v809, v801, v810, v808);
+            v811 = apr_array_push(*(v24 + 80));
+            *v811 = v801;
+            v811[2] = v868;
+            v811[3] = hid;
+            *(v811 + 2) = v849;
+            v811[6] = v860;
+            v811[7] = 0;
+            v792 = v10[2];
           }
 
-          ++v794;
-          v795 += 3;
+          ++v793;
+          v794 += 3;
         }
 
-        while (v794 < v793);
+        while (v793 < v792);
       }
 
-      *(v24 + 96) = v840;
+      *(v24 + 96) = v839;
       *(v24 + 104) = st_size;
       *(v24 + 112) = st_size;
       *(v24 + 128) = 0;
-      v813 = compression_encode_scratch_buffer_size(0x505u);
-      v814 = compression_decode_scratch_buffer_size(COMPRESSION_ZLIB);
-      if (v813 <= v814)
+      v812 = compression_encode_scratch_buffer_size(0x505u);
+      v813 = compression_decode_scratch_buffer_size(COMPRESSION_ZLIB);
+      if (v812 <= v813)
       {
-        v815 = v814;
+        v814 = v813;
       }
 
       else
       {
-        v815 = v813;
+        v814 = v812;
       }
 
-      *(v24 + 120) = apr_palloc(a2, v815);
+      *(v24 + 120) = apr_palloc(a2, v814);
       *(v24 + 136) = apr_hash_make(a2);
-      munmap(v10, v890.st_size);
-      v816 = v6;
+      munmap(v10, v889.st_size);
+      v815 = v6;
       v25 = a2;
-      GetUUIDFromMetadata((v24 + 144), v816, a2, v817);
+      GetUUIDFromMetadata((v24 + 144), v815, a2, v816);
       apr_pool_cleanup_register(a2, v24, GTCaptureArchive_cleanup, apr_pool_cleanup_null);
       goto LABEL_22;
     }
@@ -4184,7 +3681,7 @@ LABEL_21:
   }
 
   v17 = 0;
-  v18 = v10 + v890.st_size;
+  v18 = v10 + v889.st_size;
   v19 = v14 + 2 * v16;
   while (v18 > v19)
   {
@@ -4209,22 +3706,21 @@ LABEL_22:
 
   if (!v24)
   {
-    v845 = 0;
-    goto LABEL_947;
+    return 0;
   }
 
-  v818 = a1;
+  v817 = a1;
   newpool = 0;
   apr_pool_create_ex(&newpool, v25, 0, v27);
-  v892 = 0;
-  v891 = 0u;
-  memset(&v890, 0, sizeof(v890));
+  v891 = 0;
+  v890 = 0u;
+  memset(&v889, 0, sizeof(v889));
   v28 = v25;
   v29 = newpool;
-  *&v894.st_dev = 0;
-  apr_pool_create_ex(&v894, v28, 0, v30);
-  *&v890.st_dev = v24;
-  v890.st_ino = GTCaptureArchiveDecompressor_create(v29);
+  *&v893.st_dev = 0;
+  apr_pool_create_ex(&v893, v28, 0, v30);
+  *&v889.st_dev = v24;
+  v889.st_ino = GTCaptureArchiveDecompressor_create(v29);
   buf[0].i64[0] = 0;
   apr_pool_create_ex(buf, 0, 0, v31);
   v32 = buf[0].i64[0];
@@ -4275,18 +3771,18 @@ LABEL_22:
   *(v34 + 120) = GTTraceContext_openStream(v34, 0);
   atomic_store(0, (v34 + 128));
   atomic_store(0, (v34 + 112));
-  *&v890.st_uid = v34;
-  *&v890.st_rdev = apr_hash_make(a2);
-  v890.st_atimespec.tv_sec = apr_hash_make(a2);
-  v890.st_atimespec.tv_nsec = apr_hash_make(a2);
-  v890.st_mtimespec.tv_sec = a2;
-  v890.st_mtimespec.tv_nsec = *&v894.st_dev;
-  memset(&v890.st_ctimespec, 0, 80);
-  v891 = 0u;
-  v890.st_blksize = 4;
-  v892 = 0;
-  v36 = *&v890.st_uid;
-  st_ino = v890.st_ino;
+  *&v889.st_uid = v34;
+  *&v889.st_rdev = apr_hash_make(a2);
+  v889.st_atimespec.tv_sec = apr_hash_make(a2);
+  v889.st_atimespec.tv_nsec = apr_hash_make(a2);
+  v889.st_mtimespec.tv_sec = a2;
+  v889.st_mtimespec.tv_nsec = *&v893.st_dev;
+  memset(&v889.st_ctimespec, 0, 80);
+  v890 = 0u;
+  v889.st_blksize = 4;
+  v891 = 0;
+  v36 = *&v889.st_uid;
+  st_ino = v889.st_ino;
   v37 = apr_palloc(a2, 0x168uLL);
   v38 = v37;
   if (v37)
@@ -4316,12 +3812,12 @@ LABEL_22:
   }
 
   *v37 = v24;
-  *(v37 + 24) = *&v890.st_rdev;
-  memset(v889, 0, sizeof(v889));
-  v39 = GTCaptureArchive_mapData(v24, st_ino, "environment", a2, v889);
-  v845 = v38;
-  v830 = v36;
-  v841 = v24;
+  *(v37 + 24) = *&v889.st_rdev;
+  memset(v888, 0, sizeof(v888));
+  v39 = GTCaptureArchive_mapData(v24, st_ino, "environment", a2, v888);
+  v844 = v38;
+  v829 = v36;
+  v840 = v24;
   if (v39 && v40)
   {
     v41 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v39 length:v40 freeWhenDone:0];
@@ -4332,9 +3828,9 @@ LABEL_22:
     v43 = [MEMORY[0x277CBEA60] arrayWithObjects:buf count:3];
     v44 = [v42 setWithArray:v43];
 
-    *&v894.st_dev = 0;
-    v45 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v44 fromData:v41 error:&v894];
-    v46 = *&v894.st_dev;
+    *&v893.st_dev = 0;
+    v45 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClasses:v44 fromData:v41 error:&v893];
+    v46 = *&v893.st_dev;
     v47 = apr_palloc(a2, 0x30uLL);
     v48 = v47;
     if (v47)
@@ -4437,16 +3933,16 @@ LABEL_22:
     v79 = [v45 objectForKeyedSubscript:@"MTLCAPTURE_DISABLE_CADISPLAY"];
     *(v48 + 10) = *(v48 + 10) & 0xDFFFFFFF | (([v79 unsignedLongLongValue] & 1) << 29);
 
-    *(v845 + 43) = v48;
+    *(v844 + 43) = v48;
     v29 = newpool;
     v3 = &unk_27F09B000;
-    v24 = v841;
+    v24 = v840;
   }
 
   v80 = apr_array_make(a2, 128, 448);
-  atomic_store(1u, (*&v890.st_uid + 112));
-  v888 = 0;
-  apr_pool_create_ex(&v888, v29, 0, v81);
+  atomic_store(1u, (*&v889.st_uid + 112));
+  v887 = 0;
+  apr_pool_create_ex(&v887, v29, 0, v81);
   v82 = v3[262];
   if (os_signpost_enabled(v82))
   {
@@ -4454,7 +3950,7 @@ LABEL_22:
     _os_signpost_emit_with_name_impl(&dword_24D764000, v82, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Replayer-1-serial", "SortArchiveStrings", buf, 2u);
   }
 
-  v83 = v888;
+  v83 = v887;
   pthread_mutex_lock((v24 + 16));
   v84 = apr_array_make(v83, *(*(v24 + 80) + 12), 8);
   v85 = *(v24 + 80);
@@ -4492,26 +3988,26 @@ LABEL_22:
   v91 = apr_array_make(newpool, 4, 8);
   GTCaptureArchive_filenamesWithPrefix(v84->nelts, v84->elts, "startup", v91);
   GTCaptureArchive_filenamesWithPrefix(v84->nelts, v84->elts, "device-resources", v91);
-  v92 = v845;
+  v92 = v844;
   if ((qword_27F09CF90 & 0x1000) == 0)
   {
     GTCaptureArchive_filenamesWithPrefix(v84->nelts, v84->elts, "unused-device-resources", v91);
   }
 
-  v838 = v80;
+  v837 = v80;
   if (v91->nelts >= 1)
   {
     v93 = 0;
     arra = 0;
-    v834 = v91;
+    v833 = v91;
     while (1)
     {
       v94 = *&v91->elts[8 * v93];
-      v95 = v888;
-      v96 = GTCaptureArchive_mapData(v24, st_ino, v94, v888, 0);
+      v95 = v887;
+      v96 = GTCaptureArchive_mapData(v24, st_ino, v94, v887, 0);
       v98 = v97;
       v99 = strncmp(v94, "unused-device-resources", 0x17uLL);
-      v856 = qword_27F09CF90;
+      v855 = qword_27F09CF90;
       v100 = apr_array_make(v95, 16, 8);
       v101 = v3[262];
       if (os_signpost_enabled(v101))
@@ -4523,8 +4019,8 @@ LABEL_22:
         _os_signpost_emit_with_name_impl(&dword_24D764000, v101, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Replayer-1-serial", "ReadTrace %{public}s (%{xcode:size-in-bytes}zu)", buf, 0x16u);
       }
 
-      v102 = atomic_load((*&v890.st_uid + 80));
-      v862 = v99;
+      v102 = atomic_load((*&v889.st_uid + 80));
+      v861 = v99;
       hi = v102;
       if (v98 >= 9)
       {
@@ -4534,13 +4030,13 @@ LABEL_22:
       v110 = arra;
 LABEL_89:
       arra = v110;
-      v80 = v838;
+      v80 = v837;
       if (v100->nelts)
       {
         v121 = 0;
         do
         {
-          AddResourceRestoreRequest(v838, &v890, *&v100->elts[8 * v121++], 0xFFFFFFFFFFFFFFFFLL);
+          AddResourceRestoreRequest(v837, &v889, *&v100->elts[8 * v121++], 0xFFFFFFFFFFFFFFFFLL);
         }
 
         while (v121 < v100->nelts);
@@ -4548,24 +4044,24 @@ LABEL_89:
 
       v3 = &unk_27F09B000;
       v122 = g_signpostLog;
-      v24 = v841;
-      v91 = v834;
+      v24 = v840;
+      v91 = v833;
       if (os_signpost_enabled(v122))
       {
         buf[0].i16[0] = 0;
         _os_signpost_emit_with_name_impl(&dword_24D764000, v122, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Replayer-1-serial", &unk_24DA93952, buf, 2u);
       }
 
-      apr_pool_clear(v888);
-      v92 = v845;
-      if (!v862)
+      apr_pool_clear(v887);
+      v92 = v844;
+      if (!v861)
       {
-        v123 = atomic_load((*&v890.st_uid + 80));
-        *(v845 + 9) = hi;
-        *(v845 + 10) = v123 - hi;
+        v123 = atomic_load((*&v889.st_uid + 80));
+        *(v844 + 9) = hi;
+        *(v844 + 10) = v123 - hi;
       }
 
-      if (++v93 >= v834->nelts)
+      if (++v93 >= v833->nelts)
       {
         goto LABEL_100;
       }
@@ -4575,7 +4071,7 @@ LABEL_89:
     for (i = 8; i < v98; i += v107)
     {
       v105 = &v96[i];
-      GTTraceFbufToFunc_createStream(&v890, &v96[i], v103);
+      GTTraceFbufToFunc_createStream(&v889, &v96[i], v103);
       v106 = *&v96[i];
       if ((v96[i + 33] & 0x10) != 0)
       {
@@ -4605,7 +4101,7 @@ LABEL_89:
 
     else
     {
-      v108 = (v856 >> 10) & 1;
+      v108 = (v855 >> 10) & 1;
     }
 
     v109 = 8;
@@ -4614,7 +4110,7 @@ LABEL_89:
     {
       v111 = &v96[v109];
       v112 = v110;
-      GTTraceFbufToFunc(&v890, &v96[v109]);
+      GTTraceFbufToFunc(&v889, &v96[v109]);
       v113 = *&v96[v109 + 4];
       if (v113 <= -14804)
       {
@@ -4668,7 +4164,7 @@ LABEL_80:
   arra = 0;
 LABEL_100:
   qsort(v80->elts, v80->nelts, v80->elt_size, GTMTLDataSource_compareRestores);
-  v124 = atomic_load((*&v890.st_uid + 80));
+  v124 = atomic_load((*&v889.st_uid + 80));
   if (!(*(v92 + 9) + *(v92 + 10)))
   {
     *(v92 + 9) = v124;
@@ -4703,25 +4199,25 @@ LABEL_100:
     while (v127);
   }
 
-  v824 = v124;
-  LODWORD(v885[0]) = 1;
-  *(v885 + 4) = 0u;
-  *(&v885[1] + 4) = 0u;
-  v885[2] = 0u;
-  v887 = apr_array_make(a2, 15, 8);
-  v886 = apr_array_make(a2, 2048, 24);
-  *(v845 + 17) = apr_array_make(a2, 128, 8);
-  *(v845 + 19) = apr_hash_make(a2);
-  *(v845 + 22) = apr_hash_make(a2);
+  v823 = v124;
+  LODWORD(v884[0]) = 1;
+  *(v884 + 4) = 0u;
+  *(&v884[1] + 4) = 0u;
+  v884[2] = 0u;
+  v886 = apr_array_make(a2, 15, 8);
+  v885 = apr_array_make(a2, 2048, 24);
+  *(v844 + 17) = apr_array_make(a2, 128, 8);
+  *(v844 + 19) = apr_hash_make(a2);
+  *(v844 + 22) = apr_hash_make(a2);
   v132 = apr_hash_make(a2);
-  *(v845 + 23) = v132;
-  v828 = *(v845 + 22);
-  v829 = v132;
-  v133 = v888;
-  v825 = GTCaptureArchive_mapData(v24, st_ino, "capture", v888, 0);
+  *(v844 + 23) = v132;
+  v827 = *(v844 + 22);
+  v828 = v132;
+  v133 = v887;
+  v824 = GTCaptureArchive_mapData(v24, st_ino, "capture", v887, 0);
   v135 = v134;
-  v833 = apr_hash_make(v133);
-  v835 = apr_hash_make(v133);
+  v832 = apr_hash_make(v133);
+  v834 = apr_hash_make(v133);
   v136 = v3[262];
   if (os_signpost_enabled(v136))
   {
@@ -4733,22 +4229,22 @@ LABEL_100:
   }
 
   v137 = a2;
-  v138 = v825;
+  v138 = v824;
   if (v135 >= 9)
   {
-    v848 = 0;
+    v847 = 0;
     v139 = 8;
-    hia = v824;
-    v831 = v824;
-    v832 = v135;
+    hia = v823;
+    v830 = v823;
+    v831 = v135;
     while (1)
     {
       v140 = &v138[v139];
       v141 = *&v138[v139 + 4];
-      v842 = v139;
+      v841 = v139;
       if (v141 + 15345) <= 0x38 && ((0x17C40BE00017E7FuLL >> (v141 - 15)))
       {
-        if (v848)
+        if (v847)
         {
           isBeginCommandBuffer = v141 != -15343;
         }
@@ -4759,7 +4255,7 @@ LABEL_100:
         }
       }
 
-      else if (v848)
+      else if (v847)
       {
         isBeginCommandBuffer = GTFenum_isEndCommandBuffer(v141) ^ 1;
       }
@@ -4769,24 +4265,24 @@ LABEL_100:
         isBeginCommandBuffer = GTFenum_isBeginCommandBuffer(v141);
       }
 
-      v848 = isBeginCommandBuffer;
+      v847 = isBeginCommandBuffer;
       if (GTFenum_isDestructor(v141))
       {
         v143 = *(v140 + 5);
-        v144 = *&v890.st_rdev;
-        v145 = atomic_load((*&v890.st_uid + 80));
+        v144 = *&v889.st_rdev;
+        v145 = atomic_load((*&v889.st_uid + 80));
         if (GetAliasStream(v144, v143, v145))
         {
-          GTTraceFbufToFunc_createStream(&v890, v140, arra);
+          GTTraceFbufToFunc_createStream(&v889, v140, arra);
           v146 = (&arra->pool + 1);
-          GTTraceFbufToFunc(&v890, v140);
+          GTTraceFbufToFunc(&v889, v140);
           goto LABEL_301;
         }
       }
 
-      if ((v140[32] & 2) != 0 || isBeginCommandBuffer && AddResourceRestoreRequest(v80, &v890, v140, hia))
+      if ((v140[32] & 2) != 0 || isBeginCommandBuffer && AddResourceRestoreRequest(v80, &v889, v140, hia))
       {
-        atomic_fetch_add((v830 + 80), 1uLL);
+        atomic_fetch_add((v829 + 80), 1uLL);
         v147 = *(v140 + 1);
         if (!GTFenum_getConstructorType(v147) && !GTFenum_isBeginCommandBuffer(v147))
         {
@@ -4794,7 +4290,7 @@ LABEL_100:
           goto LABEL_302;
         }
 
-        atomic_fetch_add((v830 + 88), 1uLL);
+        atomic_fetch_add((v829 + 88), 1uLL);
         goto LABEL_300;
       }
 
@@ -4802,19 +4298,19 @@ LABEL_100:
       {
         v148 = strcmp(v140 + 36, "CUUUU");
         v149 = *(v140 + 44);
-        v884 = 0;
-        v880 = v149;
+        v883 = 0;
+        v879 = v149;
         buf[0].i64[0] = 16;
         appended = AppendString_13794(&appended, (v140 + 36), buf[0].i64);
+        v881 = AppendString_13794(&v881, (v140 + 36), buf[0].i64);
         v882 = AppendString_13794(&v882, (v140 + 36), buf[0].i64);
-        v883 = AppendString_13794(&v883, (v140 + 36), buf[0].i64);
         if (!v148)
         {
-          v884 = AppendString_13794(&v884, (v140 + 36), buf[0].i64);
+          v883 = AppendString_13794(&v883, (v140 + 36), buf[0].i64);
         }
 
-        v823 = v140;
-        v150 = *(v845 + 19);
+        v822 = v140;
+        v150 = *(v844 + 19);
         v151 = *v150;
         v152 = apr_palloc(*v150, 0x90uLL);
         if (v152)
@@ -4830,14 +4326,14 @@ LABEL_100:
           *(v152 + 8) = 0u;
         }
 
-        *v152 = v880;
-        v827 = v152;
+        *v152 = v879;
+        v826 = v152;
         apr_hash_set(v150, v152, 8, v152);
-        v826 = *v890.st_ino;
-        Data = GTCaptureArchive_readData(*&v890.st_dev, v890.st_ino, appended, *v890.st_ino, 0);
-        v857 = *(Data + 1);
-        v863 = apr_array_make(v151, v857, 8);
-        if (v857)
+        v825 = *v889.st_ino;
+        Data = GTCaptureArchive_readData(*&v889.st_dev, v889.st_ino, appended, *v889.st_ino, 0);
+        v856 = *(Data + 1);
+        v862 = apr_array_make(v151, v856, 8);
+        if (v856)
         {
           v154 = 0;
           v155 = (Data + 16);
@@ -4846,14 +4342,14 @@ LABEL_100:
             v157 = *v155++;
             v156 = v157;
             v158 = apr_hash_make(v151);
-            *apr_array_push(v863) = v158;
+            *apr_array_push(v862) = v158;
             if (v157)
             {
               v159 = 0;
               do
               {
                 v160 = apr_palloc(v151, 8uLL);
-                AliasStream2 = GetAliasStream2(&v890, *v155);
+                AliasStream2 = GetAliasStream2(&v889, *v155);
                 if (AliasStream2)
                 {
                   v162 = *AliasStream2;
@@ -4870,7 +4366,7 @@ LABEL_100:
                 apr_hash_set(v158, v160, 8, v164);
                 for (v155 += 2; v163; --v163)
                 {
-                  v165 = GetAliasStream2(&v890, *v155);
+                  v165 = GetAliasStream2(&v889, *v155);
                   if (v165)
                   {
                     v166 = *v165;
@@ -4896,15 +4392,15 @@ LABEL_100:
             ++v154;
           }
 
-          while (v154 != v857);
+          while (v154 != v856);
         }
 
-        *(v827 + 14) = v863;
-        apr_pool_clear(v826);
-        v169 = GTCaptureArchive_readData(*&v890.st_dev, v890.st_ino, v882, v826, 0);
+        *(v826 + 14) = v862;
+        apr_pool_clear(v825);
+        v169 = GTCaptureArchive_readData(*&v889.st_dev, v889.st_ino, v881, v825, 0);
         v170 = *(v169 + 2);
         v171 = apr_array_make(v151, 32, 40);
-        v864 = apr_array_make(v151, v170, 16);
+        v863 = apr_array_make(v151, v170, 16);
         if (v170 >= 1)
         {
           v172 = 0;
@@ -4914,7 +4410,7 @@ LABEL_100:
             v174 = v171->nelts;
             v176 = *v173++;
             v175 = v176;
-            v177 = apr_array_push(v864);
+            v177 = apr_array_push(v863);
             *v177 = v174;
             v177[1] = v176;
             v178 = v176;
@@ -4924,7 +4420,7 @@ LABEL_100:
               {
                 v179 = apr_array_push(v171);
                 v180 = v173 + 5;
-                v181 = GetAliasStream2(&v890, *v173);
+                v181 = GetAliasStream2(&v889, *v173);
                 if (v181)
                 {
                   v182 = *v181;
@@ -4938,7 +4434,7 @@ LABEL_100:
                 *v179 = v182;
                 v179[1] = v173[1];
                 v179[2] = v173[2];
-                v183 = GetAliasStream2(&v890, v173[3]);
+                v183 = GetAliasStream2(&v889, v173[3]);
                 if (v183)
                 {
                   v184 = *v183;
@@ -4966,11 +4462,11 @@ LABEL_100:
           while (v172 != v170);
         }
 
-        *(v827 + 15) = v171;
-        *(v827 + 16) = v864;
-        apr_pool_clear(v826);
-        v185 = GTCaptureArchive_readData(*&v890.st_dev, v890.st_ino, v883, v826, 0);
-        memset(&v894.st_ino, 0, 88);
+        *(v826 + 15) = v171;
+        *(v826 + 16) = v863;
+        apr_pool_clear(v825);
+        v185 = GTCaptureArchive_readData(*&v889.st_dev, v889.st_ino, v882, v825, 0);
+        memset(&v893.st_ino, 0, 88);
         v186 = *v185;
         v187 = v185 + 4;
         v188 = v185[2];
@@ -4993,47 +4489,47 @@ LABEL_100:
         }
 
         buf[0].i64[0] = v187;
-        *&v894.st_dev = v189;
+        *&v893.st_dev = v189;
         UniqueIdentifierResourceGroup = LoadUniqueIdentifierResourceGroup(buf, v186, v151);
-        *&v894.st_uid = UniqueIdentifierResourceGroup;
+        *&v893.st_uid = UniqueIdentifierResourceGroup;
         v193 = LoadUniqueIdentifierResourceGroup(buf, v186, v151);
-        *&v894.st_rdev = v193;
+        *&v893.st_rdev = v193;
         if (v186 <= 0x16)
         {
           v194 = apr_array_make(v151, 0, 32);
-          v894.st_atimespec.tv_sec = v194;
+          v893.st_atimespec.tv_sec = v194;
           v195 = apr_array_make(v151, 0, 32);
-          v894.st_atimespec.tv_nsec = v195;
+          v893.st_atimespec.tv_nsec = v195;
           tv_sec = apr_array_make(v151, 0, 32);
-          v894.st_mtimespec.tv_sec = tv_sec;
+          v893.st_mtimespec.tv_sec = tv_sec;
         }
 
         else
         {
           v194 = LoadUniqueIdentifierResourceGroup(buf, v186, v151);
-          v894.st_atimespec.tv_sec = v194;
+          v893.st_atimespec.tv_sec = v194;
           v195 = LoadUniqueIdentifierResourceGroup(buf, v186, v151);
-          v894.st_atimespec.tv_nsec = v195;
-          v894.st_mtimespec.tv_sec = LoadUniqueIdentifierResourceGroup(buf, v186, v151);
-          tv_sec = v894.st_mtimespec.tv_sec;
+          v893.st_atimespec.tv_nsec = v195;
+          v893.st_mtimespec.tv_sec = LoadUniqueIdentifierResourceGroup(buf, v186, v151);
+          tv_sec = v893.st_mtimespec.tv_sec;
           if (v186 > 0x2E)
           {
-            v894.st_mtimespec.tv_nsec = LoadUniqueIdentifierResourceGroup(buf, v186, v151);
-            tv_nsec = v894.st_mtimespec.tv_nsec;
+            v893.st_mtimespec.tv_nsec = LoadUniqueIdentifierResourceGroup(buf, v186, v151);
+            tv_nsec = v893.st_mtimespec.tv_nsec;
             if (v186 > 0x35)
             {
               v196 = LoadUniqueIdentifierResourceGroup(buf, v186, v151);
-              v894.st_ctimespec.tv_sec = v196;
-              v819 = LoadUniqueIdentifierResourceGroup(buf, v186, v151);
-              v894.st_ctimespec.tv_nsec = v819;
+              v893.st_ctimespec.tv_sec = v196;
+              v818 = LoadUniqueIdentifierResourceGroup(buf, v186, v151);
+              v893.st_ctimespec.tv_nsec = v818;
               if (v186 > 0x64)
               {
-                v821 = LoadUniqueIdentifierResourceGroup(buf, v186, v151);
-                v894.st_birthtimespec.tv_sec = v821;
+                v820 = LoadUniqueIdentifierResourceGroup(buf, v186, v151);
+                v893.st_birthtimespec.tv_sec = v820;
                 if (v186 > 0x67)
                 {
-                  v894.st_ino = LoadUniqueIdentifierResourceGroup(buf, v186, v151);
-                  v822 = v894.st_ino;
+                  v893.st_ino = LoadUniqueIdentifierResourceGroup(buf, v186, v151);
+                  v821 = v893.st_ino;
                   if (v186 >= 0x6E)
                   {
                     v197 = buf[0].i64[0];
@@ -5066,8 +4562,8 @@ LABEL_100:
 LABEL_183:
                   v199 = apr_array_make(v151, 0, 24);
 LABEL_184:
-                  v820 = v199;
-                  v894.st_birthtimespec.tv_nsec = v199;
+                  v819 = v199;
+                  v893.st_birthtimespec.tv_nsec = v199;
                   if (v189->nelts >= 1)
                   {
                     v211 = 0;
@@ -5075,7 +4571,7 @@ LABEL_184:
                     do
                     {
                       v213 = v189->elts;
-                      v214 = GetAliasStream2(&v890, *&v213[v212]);
+                      v214 = GetAliasStream2(&v889, *&v213[v212]);
                       if (v214)
                       {
                         v215 = *v214;
@@ -5101,7 +4597,7 @@ LABEL_184:
                     do
                     {
                       v218 = UniqueIdentifierResourceGroup->elts;
-                      v219 = GetAliasStream2(&v890, *&v218[v217]);
+                      v219 = GetAliasStream2(&v889, *&v218[v217]);
                       if (v219)
                       {
                         v220 = *v219;
@@ -5128,7 +4624,7 @@ LABEL_184:
                     do
                     {
                       v223 = v193->elts;
-                      v224 = GetAliasStream2(&v890, *&v223[v222]);
+                      v224 = GetAliasStream2(&v889, *&v223[v222]);
                       if (v224)
                       {
                         v225 = *v224;
@@ -5154,7 +4650,7 @@ LABEL_184:
                     do
                     {
                       v228 = v194->elts;
-                      v229 = GetAliasStream2(&v890, *&v228[v227]);
+                      v229 = GetAliasStream2(&v889, *&v228[v227]);
                       if (v229)
                       {
                         v230 = *v229;
@@ -5180,7 +4676,7 @@ LABEL_184:
                     do
                     {
                       v233 = v195->elts;
-                      v234 = GetAliasStream2(&v890, *&v233[v232]);
+                      v234 = GetAliasStream2(&v889, *&v233[v232]);
                       if (v234)
                       {
                         v235 = *v234;
@@ -5200,7 +4696,7 @@ LABEL_184:
                   }
 
                   v236 = tv_sec;
-                  v140 = v823;
+                  v140 = v822;
                   if (*(tv_sec + 12) >= 1)
                   {
                     v237 = 0;
@@ -5208,7 +4704,7 @@ LABEL_184:
                     do
                     {
                       v239 = *(v236 + 24);
-                      v240 = GetAliasStream2(&v890, *(v239 + v238));
+                      v240 = GetAliasStream2(&v889, *(v239 + v238));
                       if (v240)
                       {
                         v241 = *v240;
@@ -5236,7 +4732,7 @@ LABEL_184:
                     do
                     {
                       v245 = v242->elts;
-                      v246 = GetAliasStream2(&v890, *&v245[v244]);
+                      v246 = GetAliasStream2(&v889, *&v245[v244]);
                       if (v246)
                       {
                         v247 = *v246;
@@ -5264,7 +4760,7 @@ LABEL_184:
                     do
                     {
                       v251 = v248->elts;
-                      v252 = GetAliasStream2(&v890, *&v251[v250]);
+                      v252 = GetAliasStream2(&v889, *&v251[v250]);
                       if (v252)
                       {
                         v253 = *v252;
@@ -5284,14 +4780,14 @@ LABEL_184:
                     while (v249 < v196->nelts);
                   }
 
-                  if (v819->nelts >= 1)
+                  if (v818->nelts >= 1)
                   {
                     v254 = 0;
                     v255 = 8;
                     do
                     {
-                      v256 = v819->elts;
-                      v257 = GetAliasStream2(&v890, *&v256[v255]);
+                      v256 = v818->elts;
+                      v257 = GetAliasStream2(&v889, *&v256[v255]);
                       if (v257)
                       {
                         v258 = *v257;
@@ -5307,17 +4803,17 @@ LABEL_184:
                       v255 += 32;
                     }
 
-                    while (v254 < v819->nelts);
+                    while (v254 < v818->nelts);
                   }
 
-                  if (v821->nelts >= 1)
+                  if (v820->nelts >= 1)
                   {
                     v259 = 0;
                     v260 = 8;
                     do
                     {
-                      v261 = v821->elts;
-                      v262 = GetAliasStream2(&v890, *&v261[v260]);
+                      v261 = v820->elts;
+                      v262 = GetAliasStream2(&v889, *&v261[v260]);
                       if (v262)
                       {
                         v263 = *v262;
@@ -5333,17 +4829,17 @@ LABEL_184:
                       v260 += 32;
                     }
 
-                    while (v259 < v821->nelts);
+                    while (v259 < v820->nelts);
                   }
 
-                  if (*(v822 + 12) >= 1)
+                  if (*(v821 + 12) >= 1)
                   {
                     v264 = 0;
                     v265 = 8;
                     do
                     {
-                      v266 = *(v822 + 24);
-                      v267 = GetAliasStream2(&v890, *(v266 + v265));
+                      v266 = *(v821 + 24);
+                      v267 = GetAliasStream2(&v889, *(v266 + v265));
                       if (v267)
                       {
                         v268 = *v267;
@@ -5359,17 +4855,17 @@ LABEL_184:
                       v265 += 32;
                     }
 
-                    while (v264 < *(v822 + 12));
+                    while (v264 < *(v821 + 12));
                   }
 
-                  if (v820->nelts >= 1)
+                  if (v819->nelts >= 1)
                   {
                     v269 = 0;
                     v270 = 0;
                     do
                     {
-                      v271 = v820->elts;
-                      v272 = GetAliasStream2(&v890, *&v271[v269]);
+                      v271 = v819->elts;
+                      v272 = GetAliasStream2(&v889, *&v271[v269]);
                       if (v272)
                       {
                         v273 = *v272;
@@ -5385,25 +4881,25 @@ LABEL_184:
                       v269 += 24;
                     }
 
-                    while (v270 < v820->nelts);
+                    while (v270 < v819->nelts);
                   }
 
-                  GTMTLIndirectResources_optimizeByKey(buf[0].i64, &v894.st_dev, 0, v151);
-                  *(v827 + 56) = buf[3];
-                  *(v827 + 72) = buf[4];
-                  *(v827 + 88) = buf[5];
-                  *(v827 + 13) = buf[6].i64[0];
-                  *(v827 + 8) = buf[0];
-                  *(v827 + 24) = buf[1];
-                  *(v827 + 40) = buf[2];
-                  apr_pool_clear(v826);
-                  v138 = v825;
-                  if (v884)
+                  GTMTLIndirectResources_optimizeByKey(buf[0].i64, &v893.st_dev, 0, v151);
+                  *(v826 + 56) = buf[3];
+                  *(v826 + 72) = buf[4];
+                  *(v826 + 88) = buf[5];
+                  *(v826 + 13) = buf[6].i64[0];
+                  *(v826 + 8) = buf[0];
+                  *(v826 + 24) = buf[1];
+                  *(v826 + 40) = buf[2];
+                  apr_pool_clear(v825);
+                  v138 = v824;
+                  if (v883)
                   {
-                    v274 = GTCaptureArchive_readData(*&v890.st_dev, v890.st_ino, v884, v151, 0);
+                    v274 = GTCaptureArchive_readData(*&v889.st_dev, v889.st_ino, v883, v151, 0);
                     v276 = dispatch_data_create(v274, v275, 0, &__block_literal_global_2642);
-                    v277 = *(v827 + 17);
-                    *(v827 + 17) = v276;
+                    v277 = *(v826 + 17);
+                    *(v826 + 17) = v276;
 
                     if (v151)
                     {
@@ -5418,7 +4914,7 @@ LABEL_184:
                         v278 = apr_palloc(v151, 0x20uLL);
                       }
 
-                      v278[1] = v827;
+                      v278[1] = v826;
                       v278[2] = DYMTLIndirectArgumentBufferManager_cleanup;
                       v278[3] = apr_pool_cleanup_null;
                       *v278 = *(v151 + 4);
@@ -5426,52 +4922,52 @@ LABEL_184:
                     }
                   }
 
-                  atomic_fetch_add((v830 + 80), 1uLL);
-                  v80 = v838;
+                  atomic_fetch_add((v829 + 80), 1uLL);
+                  v80 = v837;
 LABEL_300:
                   v146 = arra;
                   goto LABEL_301;
                 }
 
 LABEL_182:
-                v822 = apr_array_make(v151, 0, 32);
-                v894.st_ino = v822;
+                v821 = apr_array_make(v151, 0, 32);
+                v893.st_ino = v821;
                 goto LABEL_183;
               }
 
 LABEL_181:
-              v821 = apr_array_make(v151, 0, 32);
-              v894.st_birthtimespec.tv_sec = v821;
+              v820 = apr_array_make(v151, 0, 32);
+              v893.st_birthtimespec.tv_sec = v820;
               goto LABEL_182;
             }
 
 LABEL_180:
             v196 = apr_array_make(v151, 0, 32);
-            v894.st_ctimespec.tv_sec = v196;
-            v819 = apr_array_make(v151, 0, 32);
-            v894.st_ctimespec.tv_nsec = v819;
+            v893.st_ctimespec.tv_sec = v196;
+            v818 = apr_array_make(v151, 0, 32);
+            v893.st_ctimespec.tv_nsec = v818;
             goto LABEL_181;
           }
         }
 
         tv_nsec = apr_array_make(v151, 0, 32);
-        v894.st_mtimespec.tv_nsec = tv_nsec;
+        v893.st_mtimespec.tv_nsec = tv_nsec;
         goto LABEL_180;
       }
 
-      GTTraceFbufToFunc_createStream(&v890, v140, arra);
-      GTTraceFbufToFunc(&v890, v140);
+      GTTraceFbufToFunc_createStream(&v889, v140, arra);
+      GTTraceFbufToFunc(&v889, v140);
       v206 = *(v140 + 1);
       if ((GTFenum_isBeginCommandBuffer(v206) & 1) != 0 || GTFenum_getConstructorType(v206) == 51)
       {
         v207 = (*v140 - 36);
-        *&v894.st_dev = 0;
-        FBDecoder_DecodeArguments(&v894, (v140 + 36), v207, buf, 0x10uLL);
-        *&v894.st_mode = 0;
-        FBDecoder_DecodeArguments(&v894, (v140 + 36), v207, buf, 0x10uLL);
-        *&v894.st_dev = *buf[0].i64[0];
-        v208 = *(v845 + 19);
-        v209 = *(*(*find_entry(*(v845 + 3), &v894, 8uLL, 0) + 32) + 8);
+        *&v893.st_dev = 0;
+        FBDecoder_DecodeArguments(&v893, (v140 + 36), v207, buf, 0x10uLL);
+        *&v893.st_mode = 0;
+        FBDecoder_DecodeArguments(&v893, (v140 + 36), v207, buf, 0x10uLL);
+        *&v893.st_dev = *buf[0].i64[0];
+        v208 = *(v844 + 19);
+        v209 = *(*(*find_entry(*(v844 + 3), &v893, 8uLL, 0) + 32) + 8);
         if (v209)
         {
           v210 = *v209;
@@ -5482,7 +4978,7 @@ LABEL_180:
           v210 = 0;
         }
 
-        entry = find_entry(v208, &v894, 8uLL, 0);
+        entry = find_entry(v208, &v893, 8uLL, 0);
         if (*entry)
         {
           v280 = *(*entry + 32);
@@ -5498,13 +4994,13 @@ LABEL_180:
         v206 = *(v140 + 1);
       }
 
-      v281 = (hia - v824);
+      v281 = (hia - v823);
       if (v206 == -12281 || (GTFenum_isPushDebugGroup(v206) & 1) != 0 || (ConstructorType = GTFenum_getConstructorType(v206), GTFenum_isMTLCommandEncoder(ConstructorType)) || ConstructorType == 51 || (ConstructorType - 95) <= 0xA && ((0x409u >> (ConstructorType - 95)) & 1) != 0 || GTFenum_isBeginCommandBuffer(v206))
       {
-        v282 = v887->nelts;
+        v282 = v886->nelts;
         if (v282)
         {
-          v283 = &v887->elts[8 * v282 - 8];
+          v283 = &v886->elts[8 * v282 - 8];
         }
 
         else
@@ -5512,9 +5008,9 @@ LABEL_180:
           v283 = 0;
         }
 
-        v284 = apr_array_push(v887);
-        v285 = v886;
-        *v284 = v886->nelts;
+        v284 = apr_array_push(v886);
+        v285 = v885;
+        *v284 = v885->nelts;
         v284[1] = v206;
         v286 = apr_array_push(v285);
         v286[5] = v284[1];
@@ -5544,13 +5040,13 @@ LABEL_274:
       if ((GTFenum_isGPUCommandCall(v147) & 1) == 0 && (v147 & 0xFFFFFFFC) != 0xFFFFC1A4)
       {
         v146 = arrb;
-        v138 = v825;
+        v138 = v824;
         goto LABEL_302;
       }
 
-      *apr_array_push(*(v845 + 17)) = v281;
+      *apr_array_push(*(v844 + 17)) = v281;
       v146 = arrb;
-      v138 = v825;
+      v138 = v824;
 LABEL_301:
       v147 = *(v140 + 1);
 LABEL_302:
@@ -5558,8 +5054,8 @@ LABEL_302:
       if (v147 == -15597)
       {
         buf[0].i64[0] = *(v140 + 44);
-        *&v894.st_dev = 16;
-        AppendString_13794(&buf[0].i64[1], (v140 + 36), &v894.st_dev);
+        *&v893.st_dev = 16;
+        AppendString_13794(&buf[0].i64[1], (v140 + 36), &v893.st_dev);
         v289 = buf[0].i64[0];
       }
 
@@ -5573,10 +5069,10 @@ LABEL_302:
         v289 = *(v140 + 44);
       }
 
-      DeviceObjectStreamRef = GetDeviceObjectStreamRef(&v890, v289);
-      v291 = apr_palloc(*v833, 8uLL);
+      DeviceObjectStreamRef = GetDeviceObjectStreamRef(&v889, v289);
+      v291 = apr_palloc(*v832, 8uLL);
       *v291 = DeviceObjectStreamRef;
-      apr_hash_set(v833, v291, 8, &RecordVisibleFunctionTableMutation_sValue);
+      apr_hash_set(v832, v291, 8, &RecordVisibleFunctionTableMutation_sValue);
       v147 = *(v140 + 1);
 LABEL_307:
       if (v147 > -15531)
@@ -5586,10 +5082,10 @@ LABEL_307:
           if (v147 == -15258)
           {
 LABEL_327:
-            v296 = GetDeviceObjectStreamRef(&v890, *(v140 + 44));
-            v297 = apr_palloc(*v835, 8uLL);
+            v296 = GetDeviceObjectStreamRef(&v889, *(v140 + 44));
+            v297 = apr_palloc(*v834, 8uLL);
             *v297 = v296;
-            apr_hash_set(v835, v297, 8, &RecordIntersectionFunctionTableMutation_sValue);
+            apr_hash_set(v834, v297, 8, &RecordIntersectionFunctionTableMutation_sValue);
             v137 = a2;
             goto LABEL_328;
           }
@@ -5658,18 +5154,18 @@ LABEL_327:
         v293 = buf[0].i64[0];
       }
 
-      v294 = GetDeviceObjectStreamRef(&v890, v293);
-      v295 = apr_palloc(*v835, 8uLL);
+      v294 = GetDeviceObjectStreamRef(&v889, v293);
+      v295 = apr_palloc(*v834, 8uLL);
       *v295 = v294;
-      apr_hash_set(v835, v295, 8, &RecordIntersectionFunctionTableMutation_sValue);
+      apr_hash_set(v834, v295, 8, &RecordIntersectionFunctionTableMutation_sValue);
 LABEL_328:
       if (GTFenum_isEndCommandBuffer(*(v140 + 1)))
       {
-        GenerateRestores(v833, v828, hia, v831, v137);
-        GenerateRestores(v835, v829, hia, v831, v137);
-        apr_hash_clear(v833);
-        apr_hash_clear(v835);
-        v831 = hia;
+        GenerateRestores(v832, v827, hia, v830, v137);
+        GenerateRestores(v834, v828, hia, v830, v137);
+        apr_hash_clear(v832);
+        apr_hash_clear(v834);
+        v830 = hia;
       }
 
       v298 = *v140;
@@ -5691,9 +5187,9 @@ LABEL_328:
         v299 = *v140;
       }
 
-      v139 = v842 + v299;
+      v139 = v841 + v299;
       hia = (hia + 1);
-      if (v139 >= v832)
+      if (v139 >= v831)
       {
         goto LABEL_354;
       }
@@ -5711,19 +5207,19 @@ LABEL_328:
 LABEL_343:
         while (1)
         {
-          v301 = v887;
-          if (!v887)
+          v301 = v886;
+          if (!v886)
           {
             goto LABEL_352;
           }
 
-          v302 = v887->nelts;
-          if (!v302 || !GTFenum_isPushDebugGroup(*&v887->elts[8 * v302 - 4]))
+          v302 = v886->nelts;
+          if (!v302 || !GTFenum_isPushDebugGroup(*&v886->elts[8 * v302 - 4]))
           {
             goto LABEL_348;
           }
 
-          GroupBuilder_popGroup(v885, v281);
+          GroupBuilder_popGroup(v884, v281);
         }
       }
 
@@ -5740,8 +5236,8 @@ LABEL_343:
         }
 
 LABEL_347:
-        v301 = v887;
-        if (v887)
+        v301 = v886;
+        if (v886)
         {
 LABEL_348:
           v303 = v301->nelts;
@@ -5751,7 +5247,7 @@ LABEL_348:
           {
             if (!isPopDebugGroup || GTFenum_isPushDebugGroup(*&v301->elts[8 * v303 - 4]))
             {
-              GroupBuilder_popGroup(v885, v281);
+              GroupBuilder_popGroup(v884, v281);
             }
 
             goto LABEL_274;
@@ -5763,7 +5259,7 @@ LABEL_348:
 LABEL_352:
         v305 = GTFenum_isPopDebugGroup(v206);
 LABEL_353:
-        gt_error_assert_add_error(v885, v305, "GTFenum_isPopDebugGroup(fenum)");
+        gt_error_assert_add_error(v884, v305, "GTFenum_isPopDebugGroup(fenum)");
         goto LABEL_274;
       }
 
@@ -5791,21 +5287,21 @@ LABEL_354:
     _os_signpost_emit_with_name_impl(&dword_24D764000, v306, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Replayer-2-restore", &unk_24DA93952, buf, 2u);
   }
 
-  apr_pool_clear(v888);
-  v307 = atomic_load((*&v890.st_uid + 80));
-  *(v845 + 11) = v824;
-  *(v845 + 12) = v307 - v824;
-  buf[0] = v885[0];
-  buf[1] = v885[1];
-  buf[2] = v885[2];
-  GTError_addError(v889, buf);
-  while (v887 && v887->nelts)
+  apr_pool_clear(v887);
+  v307 = atomic_load((*&v889.st_uid + 80));
+  *(v844 + 11) = v823;
+  *(v844 + 12) = v307 - v823;
+  buf[0] = v884[0];
+  buf[1] = v884[1];
+  buf[2] = v884[2];
+  GTError_addError(v888, buf);
+  while (v886 && v886->nelts)
   {
-    GroupBuilder_popGroup(v885, v307);
+    GroupBuilder_popGroup(v884, v307);
   }
 
-  *(v845 + 15) = v886;
-  apr_pool_destroy(v888);
+  *(v844 + 15) = v885;
+  apr_pool_destroy(v887);
   v308 = v3[262];
   if (os_signpost_enabled(v308))
   {
@@ -5813,12 +5309,12 @@ LABEL_354:
     _os_signpost_emit_with_name_impl(&dword_24D764000, v308, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Replayer-1-serial", "BuildMemoryMap", buf, 2u);
   }
 
-  v309 = *&v890.st_uid;
-  pthread_mutex_lock((*&v890.st_uid + 8));
+  v309 = *&v889.st_uid;
+  pthread_mutex_lock((*&v889.st_uid + 8));
   v310 = v137;
   v311 = apr_hash_copy(v137, *(v309 + 96));
   pthread_mutex_unlock((v309 + 8));
-  *(v845 + 1) = v311;
+  *(v844 + 1) = v311;
   v312 = apr_hash_make(v310);
   *(v311 + 3) = 0;
   *(v311 + 4) = 0;
@@ -5856,28 +5352,28 @@ LABEL_354:
     while (v314);
   }
 
-  *(v845 + 2) = v312;
+  *(v844 + 2) = v312;
   v321 = v3[262];
   if (os_signpost_enabled(v321))
   {
-    v322 = *(*(v845 + 2) + 48);
+    v322 = *(*(v844 + 2) + 48);
     buf[0].i32[0] = 67109120;
     buf[0].i32[1] = v322;
     _os_signpost_emit_with_name_impl(&dword_24D764000, v321, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Replayer-1-serial", "%d", buf, 8u);
   }
 
-  hib = *(v845 + 11);
+  hib = *(v844 + 11);
   v323 = v3[262];
-  v324 = v845;
+  v324 = v844;
   if (os_signpost_enabled(v323))
   {
     buf[0].i16[0] = 0;
     _os_signpost_emit_with_name_impl(&dword_24D764000, v323, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Replayer-1-serial", "OrderDispatchCommandBuffers", buf, 2u);
   }
 
-  v325 = *(v845 + 1);
-  v327 = *(v845 + 11);
-  v326 = *(v845 + 12);
+  v325 = *(v844 + 1);
+  v327 = *(v844 + 11);
+  v326 = *(v844 + 12);
   v328 = apr_array_make(a2, v326, 64);
   v328->nelts = v326;
   *(v325 + 40) = 0;
@@ -5974,10 +5470,10 @@ LABEL_400:
     while (v329);
   }
 
-  *(v845 + 16) = v328;
-  v348 = *(v845 + 1);
-  v349 = *(v845 + 2);
-  v843 = apr_array_make(a2, 8, 8);
+  *(v844 + 16) = v328;
+  v348 = *(v844 + 1);
+  v349 = *(v844 + 2);
+  v842 = apr_array_make(a2, 8, 8);
   if (v328->nelts)
   {
     v351 = *v328->elts;
@@ -5995,8 +5491,8 @@ LABEL_400:
         v356 = *(v355 + 8);
         if (v356 == -16362)
         {
-          *&v894.st_dev = GTTraceFunc_targetContext(&v354[64 * v353], v349);
-          v357 = find_entry(v348, &v894, 8uLL, 0);
+          *&v893.st_dev = GTTraceFunc_targetContext(&v354[64 * v353], v349);
+          v357 = find_entry(v348, &v893, 8uLL, 0);
           if (*v357 && (v358 = *(*v357 + 32)) != 0 && (v359 = *(v358 + 32)) != 0 && (*(v359 + 79) & 8) != 0)
           {
             v360 = (v359 + 64);
@@ -6011,15 +5507,15 @@ LABEL_400:
           {
             v361 = GTTraceFunc_targetContext(v360, v349);
             QueueForRef = GetQueueForRef(&arrc->pool, v361);
-            v363 = *&v894.st_dev;
+            v363 = *&v893.st_dev;
             *apr_array_push(QueueForRef) = v363;
           }
         }
 
         else if ((GTFenum_isEndCommandBuffer(*(v355 + 8)) & 1) != 0 || v356 == -15343)
         {
-          *&v894.st_dev = GTTraceFunc_targetContext(v355, v349);
-          v364 = find_entry(v348, &v894, 8uLL, 0);
+          *&v893.st_dev = GTTraceFunc_targetContext(v355, v349);
+          v364 = find_entry(v348, &v893, 8uLL, 0);
           if (*v364 && (v365 = *(*v364 + 32)) != 0 && (v366 = *(v365 + 32)) != 0 && (*(v366 + 79) & 8) != 0)
           {
             v367 = (v366 + 64);
@@ -6035,7 +5531,7 @@ LABEL_400:
             v368 = GTTraceFunc_targetContext(v367, v349);
             v369 = GetQueueForRef(&arrc->pool, v368);
             v370 = v369;
-            v371 = *&v894.st_dev;
+            v371 = *&v893.st_dev;
             v372 = v369->nelts;
             if (v372 < 1)
             {
@@ -6044,7 +5540,7 @@ LABEL_400:
 
             v373 = 0;
             v374 = v369->elts;
-            while (*&v374[8 * v373] != *&v894.st_dev)
+            while (*&v374[8 * v373] != *&v893.st_dev)
             {
               if (v372 == ++v373)
               {
@@ -6073,7 +5569,7 @@ LABEL_427:
               do
               {
                 v377 = v379;
-                *apr_array_push(v843) = v376 & 0x7FFFFFFFFFFFFFFFLL;
+                *apr_array_push(v842) = v376 & 0x7FFFFFFFFFFFFFFFLL;
                 v375 = v370->nelts;
                 v374 = v370->elts;
                 if (v377 >= v375)
@@ -6104,7 +5600,7 @@ LABEL_427:
 
       while (v353 < v328->nelts);
       v352 = buf[0].i64[0];
-      v80 = v838;
+      v80 = v837;
     }
 
     apr_pool_destroy(v352);
@@ -6114,7 +5610,7 @@ LABEL_427:
   v380 = v3[262];
   if (os_signpost_enabled(v380))
   {
-    v381 = *(*(v845 + 16) + 12);
+    v381 = *(*(v844 + 16) + 12);
     buf[0].i32[0] = 67109120;
     buf[0].i32[1] = v381;
     _os_signpost_emit_with_name_impl(&dword_24D764000, v380, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Replayer-1-serial", "%d", buf, 8u);
@@ -6127,7 +5623,7 @@ LABEL_427:
     _os_signpost_emit_with_name_impl(&dword_24D764000, v382, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Replayer-1-serial", "BuildDeviceMirror", buf, 2u);
   }
 
-  *(v845 + 5) = GTMTLSMContext_buildDeviceMirrorWithIgnoreFlags(*(v845 + 1), *(v845 + 2), *(v845 + 16), *(v845 + 11), *(v845 + 12), a2);
+  *(v844 + 5) = GTMTLSMContext_buildDeviceMirrorWithIgnoreFlags(*(v844 + 1), *(v844 + 2), *(v844 + 16), *(v844 + 11), *(v844 + 12), a2);
   v383 = v3[262];
   if (os_signpost_enabled(v383))
   {
@@ -6138,7 +5634,7 @@ LABEL_427:
   if (v80->nelts >= 1)
   {
     v384 = 0;
-    v385 = *(v845 + 5);
+    v385 = *(v844 + 5);
     v386 = 440;
     do
     {
@@ -6168,10 +5664,10 @@ LABEL_427:
     while (v384 < v80->nelts);
   }
 
-  *(v845 + 13) = 0;
-  v391 = *(v845 + 15);
-  v392 = *(v845 + 16);
-  *(v845 + 14) = *(v392 + 12);
+  *(v844 + 13) = 0;
+  v391 = *(v844 + 15);
+  v392 = *(v844 + 16);
+  *(v844 + 14) = *(v392 + 12);
   v393 = *(v391 + 12);
   if (v393 >= 1)
   {
@@ -6201,7 +5697,7 @@ LABEL_427:
         if (v395 & 1 | (v396 == 0))
         {
 LABEL_462:
-          *(v845 + 14) = v399[1] - v394 + 1;
+          *(v844 + 14) = v399[1] - v394 + 1;
           v395 = 1;
 LABEL_466:
           v397 += v399[3];
@@ -6210,7 +5706,7 @@ LABEL_466:
         }
 
 LABEL_461:
-        *(v845 + 13) = v401;
+        *(v844 + 13) = v401;
         arrd = v401;
         v394 = v401;
         goto LABEL_462;
@@ -6247,8 +5743,8 @@ LABEL_471:
   }
 
   v403 = apr_array_make(a2, 128, 8);
-  *(v845 + 28) = v403;
-  GTMTLSMContext_getObjects(*(*(v845 + 5) + 216), hib, v403);
+  *(v844 + 28) = v403;
+  GTMTLSMContext_getObjects(*(*(v844 + 5) + 216), hib, v403);
   v404 = v403->nelts;
   if (v404 >= 1)
   {
@@ -6270,10 +5766,10 @@ LABEL_471:
   }
 
   v408 = 0;
-  v409 = *(v845 + 28);
-  v410 = *(v845 + 11);
-  v411 = *(v845 + 5) + 8;
-  v412 = v410 + *(v845 + 12);
+  v409 = *(v844 + 28);
+  v410 = *(v844 + 11);
+  v411 = *(v844 + 5) + 8;
+  v412 = v410 + *(v844 + 12);
   do
   {
     v413 = *(v411 + 8 * v408);
@@ -6300,8 +5796,8 @@ LABEL_471:
   }
 
   while (v408 != 50);
-  v421 = *(v845 + 9);
-  v422 = *(v845 + 10);
+  v421 = *(v844 + 9);
+  v422 = *(v844 + 10);
   v423 = v409->nelts;
   v409->nelts = 0;
   if (v423 < 1)
@@ -6337,15 +5833,15 @@ LABEL_471:
   }
 
   qsort(v409->elts, v433, 8uLL, GTMTLSMObject_compare);
-  GTMTLSMContext_getObjects(*(*(v845 + 5) + 144), v428, v409);
-  GTMTLSMContext_getObjects(*(*(v845 + 5) + 160), v428, v409);
-  GTMTLSMContext_getObjects(*(*(v845 + 5) + 152), v428, v409);
+  GTMTLSMContext_getObjects(*(*(v844 + 5) + 144), v428, v409);
+  GTMTLSMContext_getObjects(*(*(v844 + 5) + 160), v428, v409);
+  GTMTLSMContext_getObjects(*(*(v844 + 5) + 152), v428, v409);
   v434 = apr_array_make(a2, 128, 8);
   v435 = 0;
-  *(v845 + 27) = v434;
-  v436 = *(v845 + 11);
-  v437 = *(v845 + 5) + 8;
-  v438 = v436 + *(v845 + 12);
+  *(v844 + 27) = v434;
+  v436 = *(v844 + 11);
+  v437 = *(v844 + 5) + 8;
+  v438 = v436 + *(v844 + 12);
   do
   {
     v439 = *(v437 + 8 * v435);
@@ -6377,11 +5873,11 @@ LABEL_471:
 
   v446 = newpool;
   v447 = apr_array_make(newpool, 128, 8);
-  GTMTLSMContext_getObjects(*(*(v845 + 5) + 64), hib, v447);
+  GTMTLSMContext_getObjects(*(*(v844 + 5) + 64), hib, v447);
   if (v447->nelts >= 1)
   {
     v448 = 0;
-    v449 = *(v845 + 22);
+    v449 = *(v844 + 22);
     do
     {
       buf[0].i64[0] = *(*&v447->elts[8 * v448] + 8);
@@ -6395,7 +5891,7 @@ LABEL_471:
       }
 
       v453 = apr_array_push(v451);
-      v454 = *(v845 + 11);
+      v454 = *(v844 + 11);
       *v453 = 0;
       v453[1] = v454;
       ++v448;
@@ -6405,11 +5901,11 @@ LABEL_471:
   }
 
   v455 = apr_array_make(v446, 128, 8);
-  GTMTLSMContext_getObjects(*(*(v845 + 5) + 72), hib, v455);
+  GTMTLSMContext_getObjects(*(*(v844 + 5) + 72), hib, v455);
   if (v455->nelts >= 1)
   {
     v456 = 0;
-    v457 = *(v845 + 23);
+    v457 = *(v844 + 23);
     do
     {
       buf[0].i64[0] = *(*&v455->elts[8 * v456] + 8);
@@ -6423,7 +5919,7 @@ LABEL_471:
       }
 
       v461 = apr_array_push(v459);
-      v462 = *(v845 + 11);
+      v462 = *(v844 + 11);
       *v461 = 0;
       v461[1] = v462;
       ++v456;
@@ -6433,13 +5929,13 @@ LABEL_471:
   }
 
   v463 = apr_hash_make(a2);
-  v464 = *(*(v845 + 5) + 216);
+  v464 = *(*(v844 + 5) + 216);
   v465 = v464->nelts;
   if (v465 >= 1)
   {
     v466 = 0;
-    v467 = *(*(v845 + 15) + 24) + 24 * *(*(v845 + 15) + 12);
-    arre = *(*(v845 + 5) + 216);
+    v467 = *(*(v844 + 15) + 24) + 24 * *(*(v844 + 15) + 12);
+    arre = *(*(v844 + 5) + 216);
     do
     {
       v468 = *&v464->elts[8 * v466];
@@ -6486,7 +5982,7 @@ LABEL_471:
               if (!v481 || (v482 = *(v481 + 32)) == 0)
               {
                 v482 = apr_array_make(a2, 1, 8);
-                v324 = v845;
+                v324 = v844;
                 v483 = apr_palloc(a2, 8uLL);
                 *v483 = buf[0].i64[0];
                 apr_hash_set(v463, v483, 8, v482);
@@ -6515,7 +6011,7 @@ LABEL_471:
   }
 
   *(v324 + 24) = v463;
-  v866 = *(v324 + 1);
+  v865 = *(v324 + 1);
   arrf = *(v324 + 2);
   v484 = *(v324 + 16);
   v485 = a2;
@@ -6523,7 +6019,7 @@ LABEL_471:
   if (*(v484 + 12) >= 1)
   {
     v487 = 0;
-    v859 = v484;
+    v858 = v484;
     do
     {
       v488 = *(v484 + 24) + (v487 << 6);
@@ -6535,8 +6031,8 @@ LABEL_471:
 LABEL_577:
           buf[0] = 0uLL;
           v500 = GTTraceFunc_targetContext(v488, arrf);
-          *&v894.st_dev = v500;
-          v501 = *(*(*find_entry(v866, &v894, 8uLL, 0) + 32) + 32);
+          *&v893.st_dev = v500;
+          v501 = *(*(*find_entry(v865, &v893, 8uLL, 0) + 32) + 32);
           if (v501)
           {
             v502 = 0;
@@ -6597,19 +6093,19 @@ LABEL_595:
           buf[0].i64[0] = *v488;
           GTTraceDump_setCommandBufferInfo(v486, v500, buf);
           v485 = a2;
-          v484 = v859;
+          v484 = v858;
           goto LABEL_596;
         }
 
         if ((v489 + 14847) <= 0xE && ((1 << (v489 - 1)) & 0x4003) != 0 || v489 == -15158)
         {
           v495 = GTTraceFunc_targetContext(*(v484 + 24) + (v487 << 6), arrf);
-          *&v894.st_dev = 0;
-          Mtl4Commits = GTTraceFuncArgs_getMtl4Commits(v488, arrf, &v894);
+          *&v893.st_dev = 0;
+          Mtl4Commits = GTTraceFuncArgs_getMtl4Commits(v488, arrf, &v893);
           if (Mtl4Commits)
           {
             v497 = Mtl4Commits;
-            v498 = *&v894.st_dev;
+            v498 = *&v893.st_dev;
             do
             {
               buf[0] = 0uLL;
@@ -6644,14 +6140,14 @@ LABEL_596:
   *(v324 + 18) = v513;
   buf[0].i64[0] = 0;
   v514 = hib;
-  if (v838->nelts >= 1)
+  if (v837->nelts >= 1)
   {
     v515 = 0;
     LODWORD(v516) = 0;
     v517 = 0;
     while (1)
     {
-      v518 = &v838->elts[448 * v515];
+      v518 = &v837->elts[448 * v515];
       v520 = *(v518 + 16);
       v519 = (v518 + 16);
       if (v514 < v520)
@@ -6668,7 +6164,7 @@ LABEL_605:
       v525 = v517[3] + 1;
       v517[3] = v525;
       v517[4] = v525;
-      if (++v515 >= v838->nelts)
+      if (++v515 >= v837->nelts)
       {
         goto LABEL_606;
       }
@@ -6677,7 +6173,7 @@ LABEL_605:
     v516 = v516;
     do
     {
-      v521 = *&v843->elts[8 * v516++];
+      v521 = *&v842->elts[8 * v516++];
       buf[0].i64[0] = v521;
       CommandBufferCommitIndex = GTTraceDump_getCommandBufferCommitIndex(*(v324 + 25), v521);
     }
@@ -6687,12 +6183,12 @@ LABEL_605:
 LABEL_604:
     v517 = apr_palloc(a2, 0x20uLL);
     *v517 = a2;
-    elt_size = v838->elt_size;
+    elt_size = v837->elt_size;
     v517[3] = 0;
     v517[4] = 0;
     v517[2] = elt_size;
-    *(v517 + 3) = &v838->elts[v515 * elt_size];
-    v324 = v845;
+    *(v517 + 3) = &v837->elts[v515 * elt_size];
+    v324 = v844;
     v524 = apr_palloc(a2, 8uLL);
     *v524 = buf[0].i64[0];
     apr_hash_set(v513, v524, 8, v517);
@@ -6702,7 +6198,7 @@ LABEL_604:
 LABEL_606:
   buf[0].i64[0] = 0;
   v526 = *find_entry(v513, buf, 8uLL, 0);
-  v527 = v843;
+  v527 = v842;
   if (!v526)
   {
     *(v324 + 29) = 0;
@@ -6723,11 +6219,11 @@ LABEL_610:
   }
 
 LABEL_611:
-  v836 = v529;
+  v835 = v529;
   buf[0] = *(v324 + 8);
   buf[1] = newpool;
   v532 = GTResourceTrackerMakeWithDescriptor(buf);
-  if (v843->nelts < 1)
+  if (v842->nelts < 1)
   {
     goto LABEL_698;
   }
@@ -6735,9 +6231,9 @@ LABEL_611:
   v533 = 0;
   do
   {
-    v839 = v533;
+    v838 = v533;
     v534 = *&v527->elts[8 * v533];
-    v535 = *(v845 + 25);
+    v535 = *(v844 + 25);
     buf[0].i64[0] = v534;
     v536 = *(*find_entry(v535, buf, 8uLL, 0) + 32);
     v538 = *v536;
@@ -6776,10 +6272,10 @@ LABEL_611:
       goto LABEL_697;
     }
 
-    *&v894.st_dev = 0;
-    apr_pool_create_ex(&v894, 0, 0, v531);
-    v546 = *&v894.st_dev;
-    v547 = apr_hash_make(*&v894.st_dev);
+    *&v893.st_dev = 0;
+    apr_pool_create_ex(&v893, 0, 0, v531);
+    v546 = *&v893.st_dev;
+    v547 = apr_hash_make(*&v893.st_dev);
     v548 = apr_hash_make(v546);
     v549 = apr_hash_first(v546, v532[6]);
     if (!v549)
@@ -6857,7 +6353,7 @@ LABEL_630:
         }
       }
 
-      v860 = v547;
+      v859 = v547;
       v564 = *(v552 + 32);
       if (v564)
       {
@@ -6890,7 +6386,7 @@ LABEL_647:
         v568 = 0;
       }
 
-      v867 = v559;
+      v866 = v559;
 LABEL_649:
       v569 = v564 + 64;
       while (v564)
@@ -6920,7 +6416,7 @@ LABEL_649:
             {
               v586 = apr_hash_copy(*v548, v548);
               v569 = v564 + 64;
-              v860 = v586;
+              v859 = v586;
               goto LABEL_680;
             }
 
@@ -6940,7 +6436,7 @@ LABEL_676:
             }
 
 LABEL_679:
-            v559 = v867;
+            v559 = v866;
             v569 = v564 + 64;
             goto LABEL_680;
           }
@@ -6952,7 +6448,7 @@ LABEL_679:
             if (*(v573 + 1))
             {
               v575 = v574;
-              v849 = v553;
+              v848 = v553;
               v576 = 0;
               v577 = 0;
               do
@@ -6979,7 +6475,7 @@ LABEL_679:
               }
 
               while (*(v573 + 1) > v577);
-              v553 = v849;
+              v553 = v848;
             }
 
             goto LABEL_679;
@@ -7005,13 +6501,13 @@ LABEL_680:
       }
 
       v587 = 1;
-      v547 = v860;
+      v547 = v859;
       do
       {
         v588 = v587;
         if (v587)
         {
-          v589 = v860;
+          v589 = v859;
         }
 
         else
@@ -7019,7 +6515,7 @@ LABEL_680:
           v589 = v548;
         }
 
-        for (jj = apr_hash_first(*&v894.st_dev, v589); ; jj = apr_hash_next(v591))
+        for (jj = apr_hash_first(*&v893.st_dev, v589); ; jj = apr_hash_next(v591))
         {
           v591 = jj;
           if (!jj)
@@ -7047,22 +6543,22 @@ LABEL_680:
       }
 
       while ((v588 & 1) != 0);
-      apr_hash_clear(v860);
+      apr_hash_clear(v859);
       apr_hash_clear(v548);
       v549 = apr_hash_next(hic);
     }
 
     while (v549);
-    v546 = *&v894.st_dev;
+    v546 = *&v893.st_dev;
 LABEL_696:
     apr_pool_destroy(v546);
     apr_hash_clear(v532[6]);
 LABEL_697:
-    v527 = v843;
-    v533 = v839 + 1;
+    v527 = v842;
+    v533 = v838 + 1;
   }
 
-  while (v839 + 1 < v843->nelts);
+  while (v838 + 1 < v842->nelts);
 LABEL_698:
   if (*(v532[4] + 48))
   {
@@ -7218,10 +6714,10 @@ LABEL_704:
     apr_hash_clear(v532[4]);
   }
 
-  *&v894.st_dev = 0;
-  apr_pool_create_ex(&v894, *v532[5], 0, v531);
-  v612 = *&v894.st_dev;
-  v613 = apr_array_make(*&v894.st_dev, 16, 8);
+  *&v893.st_dev = 0;
+  apr_pool_create_ex(&v893, *v532[5], 0, v531);
+  v612 = *&v893.st_dev;
+  v613 = apr_array_make(*&v893.st_dev, 16, 8);
   v614 = v532[5];
   *(v614 + 40) = 0;
   *(v614 + 16) = v614;
@@ -7310,7 +6806,7 @@ LABEL_704:
     v627 = 0;
     do
     {
-      *&v885[0] = *&v613->elts[8 * v627];
+      *&v884[0] = *&v613->elts[8 * v627];
       memset(buf, 0, 24);
       memset(&buf[6], 0, 120);
       memset(&buf[2], 0, 48);
@@ -7318,7 +6814,7 @@ LABEL_704:
       buf[1].i64[1] = -1;
       buf[6].i16[5] = 2;
       buf[5] = 0xFFFFFFFFFFFFFFFFLL;
-      v628 = *(*(*find_entry(*v532, v885, 8uLL, 0) + 32) + 32);
+      v628 = *(*(*find_entry(*v532, v884, 8uLL, 0) + 32) + 32);
       if (v628)
       {
         v629 = 0;
@@ -7382,14 +6878,14 @@ LABEL_755:
     }
 
     while (v627 < v613->nelts);
-    v612 = *&v894.st_dev;
+    v612 = *&v893.st_dev;
   }
 
   apr_pool_destroy(v612);
-  *&v894.st_dev = 0;
-  apr_pool_create_ex(&v894, *v532[5], 0, v639);
-  v640 = *&v894.st_dev;
-  v868 = apr_array_make(*&v894.st_dev, 16, 16);
+  *&v893.st_dev = 0;
+  apr_pool_create_ex(&v893, *v532[5], 0, v639);
+  v640 = *&v893.st_dev;
+  v867 = apr_array_make(*&v893.st_dev, 16, 16);
   arrg = apr_hash_make(v640);
   v641 = v532[3];
   *(v641 + 40) = 0;
@@ -7468,8 +6964,8 @@ LABEL_784:
           }
         }
 
-        v640 = *&v894.st_dev;
-        v659 = apr_palloc(*&v894.st_dev, 8uLL);
+        v640 = *&v893.st_dev;
+        v659 = apr_palloc(*&v893.st_dev, 8uLL);
         *v659 = buf[3].i64[0];
         apr_hash_set(arrg, v659, 8, v644);
       }
@@ -7498,7 +6994,7 @@ LABEL_784:
                 GTMTLSMTexture_processTraceFuncWithMap(buf, v532[1], v648 + 64);
                 if (buf[12].i64[1] || buf[7].i64[0] && *(buf[7].i64[0] + 44))
                 {
-                  *apr_array_push(v868) = *v644;
+                  *apr_array_push(v867) = *v644;
                 }
               }
             }
@@ -7512,7 +7008,7 @@ LABEL_784:
     while (v643);
   }
 
-  if (v868->nelts)
+  if (v867->nelts)
   {
     v660 = *v532;
     *(v660 + 24) = 0;
@@ -7595,10 +7091,10 @@ LABEL_810:
                 }
               }
 
-              v674 = v868->nelts;
+              v674 = v867->nelts;
               if (v674 >= 1)
               {
-                v675 = v868->elts;
+                v675 = v867->elts;
                 while (1)
                 {
                   v676 = *v675;
@@ -7625,14 +7121,14 @@ LABEL_822:
       }
 
       while (v662);
-      v640 = *&v894.st_dev;
+      v640 = *&v893.st_dev;
     }
   }
 
   apr_pool_destroy(v640);
-  v677 = *v836;
-  v678 = (*v836)->nelts;
-  (*v836)->nelts = 0;
+  v677 = *v835;
+  v678 = (*v835)->nelts;
+  (*v835)->nelts = 0;
   if (v678 < 1)
   {
     v683 = 0;
@@ -7671,8 +7167,8 @@ LABEL_822:
   v685[4] = v684;
   v685[2] = v686;
   *(v685 + 3) = &v677->elts[v686 * v683];
-  *(v845 + 33) = v685;
-  v687 = *(v845 + 28);
+  *(v844 + 33) = v685;
+  v687 = *(v844 + 28);
   if (*(v687 + 12) >= 1)
   {
     v688 = 0;
@@ -7689,7 +7185,7 @@ LABEL_822:
       }
 
       ++v688;
-      v687 = *(v845 + 28);
+      v687 = *(v844 + 28);
     }
 
     while (v688 < *(v687 + 12));
@@ -7730,7 +7226,7 @@ LABEL_854:
       }
     }
 
-    Object = GTMTLSMContext_getObject(**(v845 + 5), *(v693 + 1), *(v845 + 11));
+    Object = GTMTLSMContext_getObject(**(v844 + 5), *(v693 + 1), *(v844 + 11));
     v697 = *(Object + 52);
     if ((GTFenum_isSharedResourceConstructor(*(Object + 1)) & 1) != 0 || (v697 & 0xE0) == 0)
     {
@@ -7768,10 +7264,10 @@ LABEL_857:
   v705[4] = v704;
   v705[2] = v706;
   *(v705 + 3) = &v677->elts[v706 * v703];
-  *(v845 + 30) = v705;
-  v707 = *(*(v845 + 5) + 296);
+  *(v844 + 30) = v705;
+  v707 = *(*(v844 + 5) + 296);
   v708 = *(v707 + 24);
-  *(v845 + 35) = apr_array_make(a2, *(v707 + 12), 8);
+  *(v844 + 35) = apr_array_make(a2, *(v707 + 12), 8);
   LODWORD(v709) = *(v707 + 12);
   if (v709 >= 1)
   {
@@ -7789,7 +7285,7 @@ LABEL_857:
         v712 = 0;
       }
 
-      v713 = *(v845 + 1);
+      v713 = *(v844 + 1);
       buf[0].i64[0] = v712;
       v714 = *find_entry(v713, buf, 8uLL, 0);
       if (v714)
@@ -7802,9 +7298,9 @@ LABEL_857:
         v715 = 0;
       }
 
-      if (*GTTraceStream_lastFunc(v715) >= *(v845 + 11))
+      if (*GTTraceStream_lastFunc(v715) >= *(v844 + 11))
       {
-        *apr_array_push(*(v845 + 35)) = v711;
+        *apr_array_push(*(v844 + 35)) = v711;
       }
 
       ++v710;
@@ -7814,9 +7310,9 @@ LABEL_857:
     while (v710 < v709);
   }
 
-  v716 = v845;
-  *(v845 + 36) = apr_array_make(a2, v709, 8);
-  v717 = *(*(v845 + 5) + 200);
+  v716 = v844;
+  *(v844 + 36) = apr_array_make(a2, v709, 8);
+  v717 = *(*(v844 + 5) + 200);
   v718 = apr_hash_make(a2);
   if (*(v717 + 12) >= 1)
   {
@@ -7836,8 +7332,8 @@ LABEL_857:
         v722 = 0;
       }
 
-      v716 = v845;
-      GatherCommandQueueResidencySetsUpToIndex(v718, v722, *(v845 + 2), *(v845 + 12) + *(v845 + 11), 0);
+      v716 = v844;
+      GatherCommandQueueResidencySetsUpToIndex(v718, v722, *(v844 + 2), *(v844 + 12) + *(v844 + 11), 0);
       ++v719;
     }
 
@@ -7861,7 +7357,7 @@ LABEL_857:
   *(v716 + 21) = apr_hash_make(a2);
   v726 = *(v716 + 43);
   v727 = v716;
-  v728 = v843;
+  v728 = v842;
   if (v726 && (*(v726 + 42) & 0x40) != 0)
   {
     if ((qword_27F09CF90 & 0x100000) == 0)
@@ -7877,7 +7373,7 @@ LABEL_857:
     v729 = 0;
   }
 
-  if (v843->nelts >= 1)
+  if (v842->nelts >= 1)
   {
     v730 = 0;
     do
@@ -7890,17 +7386,17 @@ LABEL_857:
       v731 = GTResourceTrackerMakeWithDescriptor(buf);
       v732 = *&v728->elts[8 * v730];
       GTResourceTrackerProcessCommandBuffer(v731, v732);
-      v733 = *(v845 + 21);
+      v733 = *(v844 + 21);
       v734 = apr_palloc(a2, 8uLL);
       *v734 = v732;
-      v728 = v843;
+      v728 = v842;
       v735 = v731;
-      v727 = v845;
+      v727 = v844;
       apr_hash_set(v733, v734, 8, v735);
       ++v730;
     }
 
-    while (v730 < v843->nelts);
+    while (v730 < v842->nelts);
   }
 
   v736 = *(v727 + 5);
@@ -7953,32 +7449,32 @@ LABEL_857:
   }
 
   v749 = apr_array_make(a2, v739[12], 448);
-  v750 = v845;
-  *(v845 + 32) = v749;
-  PushSparseDownloadRequests(*(v845 + 30), v749, v739);
+  v750 = v844;
+  *(v844 + 32) = v749;
+  PushSparseDownloadRequests(*(v844 + 30), v749, v739);
   qsort(*(*(v750 + 32) + 24), *(*(v750 + 32) + 12), *(*(v750 + 32) + 8), CompareRequestByTextureLevel);
   v751 = apr_array_make(a2, v739[12], 448);
-  *(v845 + 31) = v751;
-  PushSparseDownloadRequests(*(v845 + 29), v751, v739);
+  *(v844 + 31) = v751;
+  PushSparseDownloadRequests(*(v844 + 29), v751, v739);
   qsort(*(*(v750 + 31) + 24), *(*(v750 + 31) + 12), *(*(v750 + 31) + 8), CompareRequestByTextureLevel);
-  if (GTCaptureArchive_getFileWithFilename(*v845, "gttrace-dump"))
+  if (GTCaptureArchive_getFileWithFilename(*v844, "gttrace-dump"))
   {
-    v752 = *(v845 + 44) & 0xFFFFFFFFFFFFFFFELL;
+    v752 = *(v844 + 44) & 0xFFFFFFFFFFFFFFFELL;
   }
 
   else
   {
-    v752 = (*(v845 + 44) & 0xFFFFFFFFFFFFFFFELL) + 1;
+    v752 = (*(v844 + 44) & 0xFFFFFFFFFFFFFFFELL) + 1;
   }
 
-  *(v845 + 44) = v752;
-  v753 = *(v845 + 5);
+  *(v844 + 44) = v752;
+  v753 = *(v844 + 5);
   if (*(v753[10] + 12) > 0)
   {
     goto LABEL_901;
   }
 
-  v768 = *(v845 + 16);
+  v768 = *(v844 + 16);
   v769 = v753[5];
   v770 = *(v769 + 12);
   if (v770 >= 1)
@@ -8062,8 +7558,8 @@ LABEL_922:
     if (v788 < 3)
     {
 LABEL_901:
-      *(v845 + 44) = v752 | 2;
-      v754 = GTMTLSMContext_getDevice(*v753, *(v845 + 11))[5];
+      *(v844 + 44) = v752 | 2;
+      v754 = GTMTLSMContext_getDevice(*v753, *(v844 + 11))[5];
       v755 = *(v754 + 72);
       if (!v755 || !strcmp(v755, "Apple"))
       {
@@ -8075,16 +7571,16 @@ LABEL_901:
         v756 = 0;
       }
 
-      v757 = v818;
-      v758 = v845;
+      v757 = v817;
+      v758 = v844;
       goto LABEL_906;
     }
   }
 
   v756 = 0;
-  v758 = v845;
-  *(v845 + 44) = v752 & 0xFFFFFFFFFFFFFFFDLL;
-  v757 = v818;
+  v758 = v844;
+  *(v844 + 44) = v752 & 0xFFFFFFFFFFFFFFFDLL;
+  v757 = v817;
 LABEL_906:
   *(v758 + 44) = *(v758 + 44) & 0xFFFFFFFFFFFFFFFBLL | v756;
   v759 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s/overrides/database", v757];
@@ -8093,16 +7589,16 @@ LABEL_906:
 
   if (v761)
   {
-    v879 = 0;
-    v762 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v759 options:0 error:&v879];
-    v763 = v879;
+    v878 = 0;
+    v762 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:v759 options:0 error:&v878];
+    v763 = v878;
     if (v762)
     {
       v764 = MEMORY[0x277CCAAC8];
       v765 = +[GTCaptureArchiveOverrides allowedClasses];
-      v878 = v763;
-      v766 = [v764 unarchivedObjectOfClasses:v765 fromData:v762 error:&v878];
-      v767 = v878;
+      v877 = v763;
+      v766 = [v764 unarchivedObjectOfClasses:v765 fromData:v762 error:&v877];
+      v767 = v877;
 
       v763 = v767;
     }
@@ -8118,12 +7614,10 @@ LABEL_906:
     v766 = 0;
   }
 
-  objc_storeStrong(v845 + 6, v766);
+  objc_storeStrong(v844 + 6, v766);
   apr_pool_destroy(newpool);
 
-LABEL_947:
-  v790 = *MEMORY[0x277D85DE8];
-  return v845;
+  return v844;
 }
 
 uint64_t GetDeviceObjectStreamRef(uint64_t a1, uint64_t a2)
@@ -8245,7 +7739,7 @@ uint64_t CompareRequestByTextureLevel(uint64_t a1, uint64_t a2)
 
 id GTMTLReplayController_dumpLibrary(uint64_t a1, char *a2, const char *a3)
 {
-  v58[1] = *MEMORY[0x277D85DE8];
+  v57[1] = *MEMORY[0x277D85DE8];
   if (a3)
   {
     v5 = a3;
@@ -8296,17 +7790,17 @@ id GTMTLReplayController_dumpLibrary(uint64_t a1, char *a2, const char *a3)
 
       v31 = [MEMORY[0x277CCAA00] defaultManager];
       v32 = [v8 URLByDeletingLastPathComponent];
-      v49 = 0;
-      v33 = [v31 createDirectoryAtURL:v32 withIntermediateDirectories:1 attributes:0 error:&v49];
-      v24 = v49;
+      v48 = 0;
+      v33 = [v31 createDirectoryAtURL:v32 withIntermediateDirectories:1 attributes:0 error:&v48];
+      v24 = v48;
 
       if (v33)
       {
         v34 = [MEMORY[0x277CCAA00] defaultManager];
         v35 = [v8 path];
-        v48 = v24;
-        v36 = [v34 copyItemAtPath:v19 toPath:v35 error:&v48];
-        v18 = v48;
+        v47 = v24;
+        v36 = [v34 copyItemAtPath:v19 toPath:v35 error:&v47];
+        v18 = v47;
 
         if (v36)
         {
@@ -8315,20 +7809,20 @@ LABEL_20:
           goto LABEL_21;
         }
 
-        v55 = *MEMORY[0x277CCA7E8];
-        v56 = v18;
-        v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v56 forKeys:&v55 count:1];
-        v47 = 0;
-        GTMTLReplay_fillError(&v47, 101, v38);
-        v39 = v47;
+        v54 = *MEMORY[0x277CCA7E8];
+        v55 = v18;
+        v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v55 forKeys:&v54 count:1];
+        v46 = 0;
+        GTMTLReplay_fillError(&v46, 101, v38);
+        v39 = v46;
         v24 = v18;
       }
 
       else
       {
-        v57 = *MEMORY[0x277CCA7E8];
-        v58[0] = v24;
-        v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:&v57 count:1];
+        v56 = *MEMORY[0x277CCA7E8];
+        v57[0] = v24;
+        v38 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v57 forKeys:&v56 count:1];
         v39 = MakeNSError(101, v38);
       }
 
@@ -8340,27 +7834,27 @@ LABEL_20:
     {
       v21 = [MEMORY[0x277CCAA00] defaultManager];
       v22 = [v8 URLByDeletingLastPathComponent];
-      v46 = 0;
-      v23 = [v21 createDirectoryAtURL:v22 withIntermediateDirectories:1 attributes:0 error:&v46];
-      v24 = v46;
+      v45 = 0;
+      v23 = [v21 createDirectoryAtURL:v22 withIntermediateDirectories:1 attributes:0 error:&v45];
+      v24 = v45;
 
       if (v23)
       {
         v25 = *(a1 + 184);
         v19 = [objc_alloc(MEMORY[0x277CBEB28]) initWithLength:*(v15 + 8)];
         GTCaptureArchive_fillBufferCompressedDeflate(v13, v25, v15, [v19 mutableBytes], *(v15 + 8), 0);
-        v44 = v24;
-        v26 = [v19 writeToURL:v8 options:1 error:&v44];
-        v18 = v44;
+        v43 = v24;
+        v26 = [v19 writeToURL:v8 options:1 error:&v43];
+        v18 = v43;
 
         if ((v26 & 1) == 0)
         {
-          v51 = *MEMORY[0x277CCA7E8];
-          v52 = v18;
-          v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v52 forKeys:&v51 count:1];
-          v43 = 0;
-          GTMTLReplay_fillError(&v43, 101, v27);
-          v28 = v43;
+          v50 = *MEMORY[0x277CCA7E8];
+          v51 = v18;
+          v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v51 forKeys:&v50 count:1];
+          v42 = 0;
+          GTMTLReplay_fillError(&v42, 101, v27);
+          v28 = v42;
           GTMTLReplay_handleNSError(v28);
 
           goto LABEL_12;
@@ -8369,12 +7863,12 @@ LABEL_20:
         goto LABEL_20;
       }
 
-      v53 = *MEMORY[0x277CCA7E8];
-      v54 = v24;
-      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v54 forKeys:&v53 count:1];
-      v45 = 0;
-      GTMTLReplay_fillError(&v45, 101, v19);
-      v37 = v45;
+      v52 = *MEMORY[0x277CCA7E8];
+      v53 = v24;
+      v19 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v53 forKeys:&v52 count:1];
+      v44 = 0;
+      GTMTLReplay_fillError(&v44, 101, v19);
+      v37 = v44;
       GTMTLReplay_handleNSError(v37);
     }
 
@@ -8382,9 +7876,9 @@ LABEL_20:
   }
 
   v16 = *(a1 + 184);
-  v50 = 0;
-  v17 = DumpDirectoryTree(v13, v16, a2, v8, &v50);
-  v18 = v50;
+  v49 = 0;
+  v17 = DumpDirectoryTree(v13, v16, a2, v8, &v49);
+  v18 = v49;
   if (v17)
   {
 LABEL_21:
@@ -8401,14 +7895,12 @@ LABEL_27:
   v12 = 0;
 LABEL_28:
 
-  v41 = *MEMORY[0x277D85DE8];
-
   return v12;
 }
 
 uint64_t DumpDirectoryTree(uint64_t a1, uint64_t a2, char *a3, void *a4, void **a5)
 {
-  v29[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   v9 = a4;
   newpool = 0;
   apr_pool_create_ex(&newpool, 0, 0, v10);
@@ -8446,9 +7938,9 @@ uint64_t DumpDirectoryTree(uint64_t a1, uint64_t a2, char *a3, void *a4, void **
 
   else
   {
-    v28 = *MEMORY[0x277CCA450];
-    v29[0] = @"File not found in archive";
-    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:&v28 count:1];
+    v27 = *MEMORY[0x277CCA450];
+    v28[0] = @"File not found in archive";
+    v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:&v27 count:1];
     GTMTLReplay_fillError(a5, 101, v14);
     if (a5)
     {
@@ -8465,28 +7957,27 @@ uint64_t DumpDirectoryTree(uint64_t a1, uint64_t a2, char *a3, void *a4, void **
   }
 
   apr_pool_destroy(v11);
-  v25 = *MEMORY[0x277D85DE8];
   return v22;
 }
 
 uint64_t DumpDirectory(void *a1, void *a2)
 {
-  v34[1] = *MEMORY[0x277D85DE8];
+  v33[1] = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   [MEMORY[0x277CCAA00] defaultManager];
-  v24 = v29 = 0;
-  v5 = [v24 createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:0 error:&v29];
-  v6 = v29;
+  v23 = v28 = 0;
+  v5 = [v23 createDirectoryAtPath:v4 withIntermediateDirectories:1 attributes:0 error:&v28];
+  v6 = v28;
   v7 = v6;
   if (v5)
   {
-    v27 = 0u;
-    v28 = 0u;
-    v25 = 0u;
     v26 = 0u;
+    v27 = 0u;
+    v24 = 0u;
+    v25 = 0u;
     v8 = v3;
-    v9 = [v8 countByEnumeratingWithState:&v25 objects:v32 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v24 objects:v31 count:16];
     if (!v9)
     {
       v17 = 1;
@@ -8494,19 +7985,19 @@ uint64_t DumpDirectory(void *a1, void *a2)
     }
 
     v10 = v9;
-    v22 = v7;
-    v23 = v3;
-    v11 = *v26;
+    v21 = v7;
+    v22 = v3;
+    v11 = *v25;
 LABEL_4:
     v12 = 0;
     while (1)
     {
-      if (*v26 != v11)
+      if (*v25 != v11)
       {
         objc_enumerationMutation(v8);
       }
 
-      v13 = *(*(&v25 + 1) + 8 * v12);
+      v13 = *(*(&v24 + 1) + 8 * v12);
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) == 0)
       {
@@ -8519,7 +8010,7 @@ LABEL_4:
       if (objc_opt_isKindOfClass())
       {
         v16 = v15;
-        if ((DumpDirectory() & 1) == 0)
+        if ((DumpDirectory(v16, v14) & 1) == 0)
         {
           v18 = MakeNSError(101, MEMORY[0x277CBEC10]);
           GTMTLReplay_handleNSError(v18);
@@ -8539,33 +8030,33 @@ LABEL_4:
           goto LABEL_21;
         }
 
-        if (([v24 createFileAtPath:v14 contents:v16 attributes:0] & 1) == 0)
+        if (([v23 createFileAtPath:v14 contents:v16 attributes:0] & 1) == 0)
         {
-          v30 = *MEMORY[0x277CCA450];
-          v31 = @"Failed to create temporary metal library file";
-          v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v31 forKeys:&v30 count:1];
+          v29 = *MEMORY[0x277CCA450];
+          v30 = @"Failed to create temporary metal library file";
+          v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
           v19 = MakeNSError(101, v18);
           GTMTLReplay_handleNSError(v19);
 
 LABEL_21:
 LABEL_22:
-          v7 = v22;
-          v3 = v23;
+          v7 = v21;
+          v3 = v22;
           goto LABEL_23;
         }
       }
 
       if (v10 == ++v12)
       {
-        v10 = [v8 countByEnumeratingWithState:&v25 objects:v32 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v24 objects:v31 count:16];
         v17 = 1;
         if (v10)
         {
           goto LABEL_4;
         }
 
-        v7 = v22;
-        v3 = v23;
+        v7 = v21;
+        v3 = v22;
         goto LABEL_24;
       }
     }
@@ -8575,9 +8066,9 @@ LABEL_22:
     goto LABEL_22;
   }
 
-  v33 = *MEMORY[0x277CCA7E8];
-  v34[0] = v6;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:&v33 count:1];
+  v32 = *MEMORY[0x277CCA7E8];
+  v33[0] = v6;
+  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:&v32 count:1];
   v14 = MakeNSError(101, v8);
   GTMTLReplay_handleNSError(v14);
 LABEL_23:
@@ -8585,13 +8076,12 @@ LABEL_23:
   v17 = 0;
 LABEL_24:
 
-  v20 = *MEMORY[0x277D85DE8];
   return v17;
 }
 
 id GTMTLReplayController_dumpPipelineLibrary(uint64_t a1, char *a2, char *a3)
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v23[1] = *MEMORY[0x277D85DE8];
   if (!a3)
   {
     a3 = a2;
@@ -8607,13 +8097,13 @@ id GTMTLReplayController_dumpPipelineLibrary(uint64_t a1, char *a2, char *a3)
 
   v7 = [*(a1 + 22648) URLByAppendingPathComponent:v5];
   v8 = [MEMORY[0x277CCAA00] defaultManager];
-  v22 = 0;
+  v21 = 0;
   v9 = [v7 path];
-  v10 = [v8 fileExistsAtPath:v9 isDirectory:&v22];
+  v10 = [v8 fileExistsAtPath:v9 isDirectory:&v21];
 
   if (v10)
   {
-    if (v22)
+    if (v21)
     {
       v11 = v7;
     }
@@ -8631,9 +8121,9 @@ id GTMTLReplayController_dumpPipelineLibrary(uint64_t a1, char *a2, char *a3)
   {
     v12 = **a1;
     v13 = *(a1 + 184);
-    v21 = 0;
-    v14 = DumpDirectoryTree(v12, v13, a2, v7, &v21);
-    v15 = v21;
+    v20 = 0;
+    v14 = DumpDirectoryTree(v12, v13, a2, v7, &v20);
+    v15 = v20;
     if (v14)
     {
       v11 = v7;
@@ -8641,17 +8131,15 @@ id GTMTLReplayController_dumpPipelineLibrary(uint64_t a1, char *a2, char *a3)
 
     else
     {
-      v23 = *MEMORY[0x277CCA450];
-      v24[0] = @"Failed to serialize pipeline library directory.";
-      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+      v22 = *MEMORY[0x277CCA450];
+      v23[0] = @"Failed to serialize pipeline library directory.";
+      v17 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v23 forKeys:&v22 count:1];
       v18 = MakeNSError(101, v17);
       GTMTLReplay_handleNSError(v18);
 
       v11 = 0;
     }
   }
-
-  v19 = *MEMORY[0x277D85DE8];
 
   return v11;
 }
@@ -8661,11 +8149,11 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
   p[16] = *MEMORY[0x277D85DE8];
   v11 = a3;
   obj = a4;
-  v229 = a4;
-  v226 = a5;
-  v222 = a5;
+  v228 = a4;
+  v225 = a5;
+  v221 = a5;
   context = a6;
-  v223 = a6;
+  v222 = a6;
   newpool = 0;
   pool = a2;
   apr_pool_create_ex(&newpool, a2, 0, v12);
@@ -8679,7 +8167,7 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
   v15 = apr_hash_make(newpool);
   GTMTLSMContext_buildResourceChildrenMap(*(a1 + 40), v14, v15, v16);
   ht = v15;
-  v234 = a1;
+  v233 = a1;
   v17 = *(a1 + 40);
   p[0] = 0;
   v18 = *v15;
@@ -8706,7 +8194,7 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
     while (v21 < v20->nelts);
   }
 
-  v230 = v14;
+  v229 = v14;
   v25 = GT_ENV;
   v26 = v11;
   v27 = insertBinaryArchives;
@@ -8718,33 +8206,33 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
     v29 = [v28 componentsSeparatedByString:@":"];
     v30 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v29, "count")}];
     v31 = objc_alloc_init(MEMORY[0x277CD6C90]);
-    *v242 = 0u;
+    *v241 = 0u;
+    v242 = 0u;
     v243 = 0u;
     v244 = 0u;
-    v245 = 0u;
     v32 = v29;
-    v33 = [v32 countByEnumeratingWithState:v242 objects:p count:16];
+    v33 = [v32 countByEnumeratingWithState:v241 objects:p count:16];
     if (v33)
     {
-      v34 = *v243;
+      v34 = *v242;
       do
       {
         for (i = 0; i != v33; ++i)
         {
-          if (*v243 != v34)
+          if (*v242 != v34)
           {
             objc_enumerationMutation(v32);
           }
 
-          v36 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:*(v242[1] + i) isDirectory:0];
+          v36 = [objc_alloc(MEMORY[0x277CBEBC0]) initFileURLWithPath:*(v241[1] + i) isDirectory:0];
           [v31 setUrl:v36];
 
-          v241 = 0;
-          v37 = [v26 newBinaryArchiveWithDescriptor:v31 error:&v241];
+          v240 = 0;
+          v37 = [v26 newBinaryArchiveWithDescriptor:v31 error:&v240];
           [v30 addObject:v37];
         }
 
-        v33 = [v32 countByEnumeratingWithState:v242 objects:p count:16];
+        v33 = [v32 countByEnumeratingWithState:v241 objects:p count:16];
       }
 
       while (v33);
@@ -8755,7 +8243,7 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
     insertBinaryArchives = v38;
   }
 
-  v40 = *(*(v234 + 40) + 200);
+  v40 = *(*(v233 + 40) + 200);
   v41 = *(v40 + 12);
   if (v41 < 1)
   {
@@ -8783,28 +8271,28 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
     [v45 setLockParameterBufferSizeToMax:1];
     v46 = v26;
     v47 = [v46 newCommandQueueWithDescriptor:v45];
-    [v229 setDefaultCommandQueue:v47];
+    [v228 setDefaultCommandQueue:v47];
   }
 
   else
   {
     v45 = [v26 newCommandQueueWithMaxCommandBufferCount:v43];
-    [v229 setDefaultCommandQueue:v45];
+    [v228 setDefaultCommandQueue:v45];
   }
 
   if ([v26 supportsFamily:5002])
   {
     v48 = [v26 newMTL4CommandQueue];
-    [v229 setDefaultCommandQueue4:v48];
+    [v228 setDefaultCommandQueue4:v48];
 
     v49 = objc_opt_new();
     [v49 setLabel:@"com.apple.gputools.Compiler"];
-    v239 = 0;
-    v50 = [v26 newCompilerWithDescriptor:v49 error:&v239];
-    v51 = v239;
-    [v229 setDefaultCompiler:v50];
+    v238 = 0;
+    v50 = [v26 newCompilerWithDescriptor:v49 error:&v238];
+    v51 = v238;
+    [v228 setDefaultCompiler:v50];
 
-    v52 = [v229 defaultCompiler];
+    v52 = [v228 defaultCompiler];
     v53 = v52 == 0;
 
     if (v53)
@@ -8817,16 +8305,16 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
   {
     v54 = objc_opt_new();
     v55 = [v26 newResidencySetWithDescriptor:v54 error:0];
-    [v229 setGlobalResourceResidencySet:v55];
+    [v228 setGlobalResourceResidencySet:v55];
 
-    v56 = [v229 defaultCommandQueue];
-    v57 = [v229 globalResourceResidencySet];
+    v56 = [v228 defaultCommandQueue];
+    v57 = [v228 globalResourceResidencySet];
     [v56 addResidencySet:v57];
   }
 
-  [v229 defaultCommandQueue];
+  [v228 defaultCommandQueue];
 
-  v221 = byte_27F09CF8F;
+  v220 = byte_27F09CF8F;
   if (byte_27F09CF8F >= 7u)
   {
     v58 = 7;
@@ -8863,7 +8351,7 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
   v63[3] = apr_pool_cleanup_null;
   *v63 = *(v62 + 4);
   *(v62 + 4) = v63;
-  *v61 = v234;
+  *v61 = v233;
   objc_storeStrong((v61 + 8), obj);
   v64 = [[GTMTLReplaySharedResourcePool alloc] initWithDevice:v26 bufferCapacity:0x2000000];
   v65 = *(v61 + 16);
@@ -8871,13 +8359,13 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
 
   [*(v61 + 16) setMaxPooledBuffers:(v58 + 2)];
   v66 = [GTMTLReplaySharedBlitBuffer alloc];
-  v67 = [v229 defaultCommandQueue];
+  v67 = [v228 defaultCommandQueue];
   v68 = [(GTMTLReplaySharedBlitBuffer *)v66 initWithCommandQueue:v67 resourcePool:*(v61 + 16) sync:v61 + 40];
   v69 = *(v61 + 24);
   *(v61 + 24) = v68;
 
   *(v61 + 184) = GTCaptureArchiveDecompressor_create(pool);
-  objc_storeStrong((v61 + 168), v226);
+  objc_storeStrong((v61 + 168), v225);
   objc_storeStrong((v61 + 160), context);
   v70 = objc_opt_new();
   v71 = *(v61 + 64);
@@ -8887,16 +8375,16 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
   {
     v72 = objc_opt_new();
     [v72 setInitialCapacity:100];
-    v73 = [v229 defaultDevice];
-    v238 = 0;
-    v74 = [v73 newResidencySetWithDescriptor:v72 error:&v238];
-    v227 = v238;
+    v73 = [v228 defaultDevice];
+    v237 = 0;
+    v74 = [v73 newResidencySetWithDescriptor:v72 error:&v237];
+    v226 = v237;
     v75 = *(v61 + 144);
     *(v61 + 144) = v74;
 
     if (!*(v61 + 144))
     {
-      GTMTLReplay_handleUnderlyingNSError(@"Failed to create indirect resource usage residency set", v227);
+      GTMTLReplay_handleUnderlyingNSError(@"Failed to create indirect resource usage residency set", v226);
 
       v61 = 0;
       goto LABEL_182;
@@ -8905,7 +8393,7 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
 
   else
   {
-    v227 = 0;
+    v226 = 0;
   }
 
   v76 = [v26 newSharedEvent];
@@ -8913,24 +8401,24 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
   *(v61 + 40) = v76;
 
   atomic_store(1uLL, (v61 + 48));
-  v78 = [v229 defaultDevice];
+  v78 = [v228 defaultDevice];
   v79 = [v78 supportsRaytracing];
 
   if (v79)
   {
     v80 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v81 = [v229 defaultDevice];
-    v237 = v227;
-    v82 = [v81 newDefaultLibraryWithBundle:v80 error:&v237];
-    v83 = v237;
+    v81 = [v228 defaultDevice];
+    v236 = v226;
+    v82 = [v81 newDefaultLibraryWithBundle:v80 error:&v236];
+    v83 = v236;
 
     v84 = [v82 newFunctionWithName:@"RestoreMTLIntersectionFunctionTable"];
     if (v84)
     {
-      v85 = [v229 defaultDevice];
-      v236 = v83;
-      v86 = [v85 newComputePipelineStateWithFunction:v84 error:&v236];
-      v227 = v236;
+      v85 = [v228 defaultDevice];
+      v235 = v83;
+      v86 = [v85 newComputePipelineStateWithFunction:v84 error:&v235];
+      v226 = v235;
 
       if (v86)
       {
@@ -8939,13 +8427,13 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
 
       else
       {
-        GTMTLReplay_handleUnderlyingNSError(@"Failed to create IFT restore pipeline", v227);
+        GTMTLReplay_handleUnderlyingNSError(@"Failed to create IFT restore pipeline", v226);
       }
     }
 
     else
     {
-      v227 = v83;
+      v226 = v83;
     }
   }
 
@@ -8962,9 +8450,9 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
 
   v92 = [MEMORY[0x277CCAA00] defaultManager];
   v93 = *(v61 + 22640);
-  v235 = 0;
-  v94 = [v92 createDirectoryAtURL:v93 withIntermediateDirectories:1 attributes:0 error:&v235];
-  v95 = v235;
+  v234 = 0;
+  v94 = [v92 createDirectoryAtURL:v93 withIntermediateDirectories:1 attributes:0 error:&v234];
+  v95 = v234;
 
   if (v94)
   {
@@ -9070,7 +8558,7 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
   *(v61 + 22608) = v123;
 
   *(v61 + 22656) = v58;
-  if (v221)
+  if (v220)
   {
     v125 = v61 + 22664;
     do
@@ -9085,7 +8573,7 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
   }
 
   v126 = g_activityLog;
-  v127 = [MEMORY[0x277CCACA8] stringWithUTF8String:**v234];
+  v127 = [MEMORY[0x277CCACA8] stringWithUTF8String:**v233];
   [v126 enterLoadArchiveWithPath:v127];
 
   v128 = g_signpostLog;
@@ -9095,14 +8583,14 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
     _os_signpost_emit_with_name_impl(&dword_24D764000, v128, OS_SIGNPOST_INTERVAL_BEGIN, 0xEEEEB0B5B2B2EEEELL, "Replayer-1-serial", "CreateDeviceResources", p, 2u);
   }
 
-  v129 = *(v234 + 40);
+  v129 = *(v233 + 40);
   v130 = *v61;
-  v242[0] = 0;
-  apr_pool_create_ex(v242, 0, 0, v131);
-  v132 = v242[0];
-  v133 = apr_array_make(v242[0], 128, 8);
+  v241[0] = 0;
+  apr_pool_create_ex(v241, 0, 0, v131);
+  v132 = v241[0];
+  v133 = apr_array_make(v241[0], 128, 8);
   v134 = apr_array_make(v132, 128, 8);
-  GTMTLSMContext_getObjects(v129[13], v230, v134);
+  GTMTLSMContext_getObjects(v129[13], v229, v134);
   if (v134->nelts >= 1)
   {
     v135 = 0;
@@ -9115,7 +8603,7 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
   }
 
   v134->nelts = 0;
-  GTMTLSMContext_getObjects(v129[3], v230, v134);
+  GTMTLSMContext_getObjects(v129[3], v229, v134);
   nelts = v134->nelts;
   if (nelts >= 1)
   {
@@ -9131,7 +8619,7 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
   }
 
   v134->nelts = 0;
-  GTMTLSMContext_getObjects(v129[1], v230, v134);
+  GTMTLSMContext_getObjects(v129[1], v229, v134);
   v139 = v134->nelts;
   if (v139 >= 1)
   {
@@ -9146,8 +8634,8 @@ uint64_t GTMTLReplayController_makeController(uint64_t a1, apr_pool_t *a2, void 
     }
   }
 
-  GTMTLSMContext_getObjects(v129[2], v230, v133);
-  GTMTLSMContext_getObjects(v129[10], v230, v133);
+  GTMTLSMContext_getObjects(v129[2], v229, v133);
+  GTMTLSMContext_getObjects(v129[10], v229, v133);
   v142 = *(v130 + 8);
   v143 = *(*v61 + 8);
   p[0] = 0;
@@ -9186,7 +8674,7 @@ LABEL_110:
   while (v144)
   {
     v149 = v144 + 64 + ((HIDWORD(v148) - v148) << 6);
-    if ((*(v149 + 15) & 8) == 0 || *v149 >= v230)
+    if ((*(v149 + 15) & 8) == 0 || *v149 >= v229)
     {
       break;
     }
@@ -9194,7 +8682,7 @@ LABEL_110:
     v150 = objc_autoreleasePoolPush();
     if (*(v149 + 8) == -7155)
     {
-      GTMTLReplayController_defaultDispatchFunction(v61, v144 + 64 + ((HIDWORD(v148) - v148) << 6));
+      GTMTLReplayController_defaultDispatchFunction(v61, (v144 + 64 + ((HIDWORD(v148) - v148) << 6)));
     }
 
     objc_autoreleasePoolPop(v150);
@@ -9236,7 +8724,7 @@ LABEL_110:
       break;
     }
 
-    CreateResourceFromStream(v61, v156, v230);
+    CreateResourceFromStream(v61, v156, v229);
   }
 
   LODWORD(v160) = v133->nelts;
@@ -9263,7 +8751,7 @@ LABEL_110:
         v164 = 0;
       }
 
-      CreateResourceFromStream(v61, v164, v230);
+      CreateResourceFromStream(v61, v164, v229);
       ++v161;
       v160 = v133->nelts;
     }
@@ -9271,7 +8759,7 @@ LABEL_110:
     while (v161 < v160);
   }
 
-  apr_pool_destroy(v242[0]);
+  apr_pool_destroy(v241[0]);
   v165 = g_signpostLog;
   if (os_signpost_enabled(v165))
   {
@@ -9280,16 +8768,16 @@ LABEL_110:
     _os_signpost_emit_with_name_impl(&dword_24D764000, v165, OS_SIGNPOST_INTERVAL_END, 0xEEEEB0B5B2B2EEEELL, "Replayer-1-serial", "%d", p, 8u);
   }
 
-  if ((GT_SUPPORT_0 & 0x800) != 0 && (*(*(v234 + 256) + 12) || *(*(v234 + 248) + 12)))
+  if ((GT_SUPPORT_0 & 0x800) != 0 && (*(*(v233 + 256) + 12) || *(*(v233 + 248) + 12)))
   {
     v166 = objc_autoreleasePoolPush();
-    v167 = [v229 defaultCommandQueue];
+    v167 = [v228 defaultCommandQueue];
     v168 = InternalCommandBuffer(v167, @"MapSparseTextureRegions", v61 + 40);
 
     v169 = [v168 resourceStateCommandEncoder];
     v170 = **(v61 + 184);
-    MapSparseTextureRegions(v169, *(v61 + 8), *(v234 + 256), v170);
-    MapSparseTextureRegions(v169, *(v61 + 8), *(v234 + 248), v170);
+    MapSparseTextureRegions(v169, *(v61 + 8), *(v233 + 256), v170);
+    MapSparseTextureRegions(v169, *(v61 + 8), *(v233 + 248), v170);
     apr_pool_clear(v170);
     [v169 endEncoding];
     GTMTLReplay_commitCommandBuffer(v168);
@@ -9297,9 +8785,9 @@ LABEL_110:
     objc_autoreleasePoolPop(v166);
   }
 
-  FillRequestsAlignment(*(v234 + 240), *(v234 + 40), v26);
-  GroupRequestsByCapacity(*(v234 + 240), v171, v172, v173);
-  v174 = *(v234 + 144);
+  FillRequestsAlignment(*(v233 + 240), *(v233 + 40), v26);
+  GroupRequestsByCapacity(*(v233 + 240), v171, v172, v173);
+  v174 = *(v233 + 144);
   *(v174 + 24) = 0;
   *(v174 + 32) = 0;
   *(v174 + 16) = v174;
@@ -9307,23 +8795,23 @@ LABEL_110:
   for (ii = apr_hash_next((v174 + 16)); ii; ii = apr_hash_next(ii))
   {
     v176 = *(*(ii + 1) + 32);
-    FillRequestsAlignment(v176, *(v234 + 40), v26);
+    FillRequestsAlignment(v176, *(v233 + 40), v26);
     GroupRequestsByCapacity(v176, v177, v178, v179);
   }
 
-  AppendRestoreJobsToLoadQueue(v61, *(v234 + 240));
-  AppendRestoreJobsToLoadQueue(v61, *(v234 + 232));
+  AppendRestoreJobsToLoadQueue(v61, *(v233 + 240));
+  AppendRestoreJobsToLoadQueue(v61, *(v233 + 232));
   SignalLoadQueueThreads(v61, *(*(v61 + 22584) + 12));
   v180 = os_signpost_id_make_with_pointer(g_signpostLog, v61);
   v181 = apr_array_make(newpool, 128, 8);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 360), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 120), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 112), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 240), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 128), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 40), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 48), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 368), v230, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 360), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 120), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 112), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 240), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 128), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 40), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 48), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 368), v229, v181);
   qsort(v181->elts, v181->nelts, 8uLL, GTMTLSMObject_compare);
   v182 = g_signpostLog;
   v183 = v182;
@@ -9347,7 +8835,7 @@ LABEL_110:
         v187 = *(v187 + 1);
       }
 
-      v188 = *(v234 + 8);
+      v188 = *(v233 + 8);
       p[0] = v187;
       v189 = *find_entry(v188, p, 8uLL, 0);
       if (v189)
@@ -9360,7 +8848,7 @@ LABEL_110:
         v190 = 0;
       }
 
-      CreateResourceFromStream(v61, v190, v230);
+      CreateResourceFromStream(v61, v190, v229);
       ++v186;
     }
 
@@ -9376,30 +8864,30 @@ LABEL_110:
   }
 
   v181->nelts = 0;
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 88), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 144), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 136), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 232), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 56), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 216), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 32), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 160), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 152), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 272), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 64), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 72), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 280), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 288), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 352), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 344), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 296), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 200), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 208), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 312), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 320), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 328), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 336), v230, v181);
-  GTMTLSMContext_getObjects(*(*(v234 + 40) + 96), v230, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 88), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 144), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 136), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 232), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 56), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 216), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 32), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 160), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 152), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 272), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 64), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 72), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 280), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 288), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 352), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 344), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 296), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 200), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 208), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 312), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 320), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 328), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 336), v229, v181);
+  GTMTLSMContext_getObjects(*(*(v233 + 40) + 96), v229, v181);
   v193 = g_signpostLog;
   v194 = v193;
   if (v184 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v193))
@@ -9421,7 +8909,7 @@ LABEL_110:
         v197 = *(v197 + 1);
       }
 
-      v198 = *(v234 + 8);
+      v198 = *(v233 + 8);
       p[0] = v197;
       v199 = *find_entry(v198, p, 8uLL, 0);
       if (v199)
@@ -9434,7 +8922,7 @@ LABEL_110:
         v200 = 0;
       }
 
-      CreateResourceFromStream(v61, v200, v230);
+      CreateResourceFromStream(v61, v200, v229);
       ++v196;
     }
 
@@ -9451,9 +8939,9 @@ LABEL_110:
 
   v203 = [GTMTLReplayActivityLog alloc];
   v204 = [(GTMTLReplayActivityLog *)v203 initWithLog:g_activityLog];
-  RestoreOrderedResourcesFromArchive(v61, *(*(v234 + 264) + 24), *(*(v234 + 264) + 12), v204);
-  RestoreVisibleFunctionTablesForFunctionIndex(v61, v230 - 1);
-  RestoreIntersectionFunctionTablesForFunctionIndex(v61, v230 - 1);
+  RestoreOrderedResourcesFromArchive(v61, *(*(v233 + 264) + 24), *(*(v233 + 264) + 12), v204);
+  RestoreVisibleFunctionTablesForFunctionIndex(v61, v229 - 1);
+  RestoreIntersectionFunctionTablesForFunctionIndex(v61, v229 - 1);
   add = atomic_fetch_add((v61 + 22592), 1u);
   v206 = *(v61 + 22584);
   if (add >= *(v206 + 12))
@@ -9506,10 +8994,821 @@ LABEL_110:
 
   *(v61 + 22576) = apr_hash_make(pool);
   *(v61 + 22624) = apr_hash_make(pool);
-  *(v61 + 22632) = *(v234 + 144);
+  *(v61 + 22632) = *(v233 + 144);
   [g_activityLog leaveActivity];
 LABEL_182:
 
-  v219 = *MEMORY[0x277D85DE8];
   return v61;
+}
+
+uint64_t ExpandChildren(apr_array_header_t *a1, uint64_t a2, uint64_t a3)
+{
+  *apr_array_push(a1) = a2;
+  result = find_entry(a3, (a2 + 8), 8uLL, 0);
+  if (*result)
+  {
+    v7 = *(*result + 32);
+    if (v7)
+    {
+      if (*(v7 + 12) >= 1)
+      {
+        v8 = 0;
+        do
+        {
+          result = ExpandChildren(a1, *(*(v7 + 24) + 8 * v8++), a3);
+        }
+
+        while (v8 < *(v7 + 12));
+      }
+    }
+  }
+
+  return result;
+}
+
+void CreateResourceFromStream(const char ****a1, uint64_t a2, unint64_t a3)
+{
+  v5 = a1;
+  v6 = (*a1)[2];
+  v31 = a1[1];
+  v7 = *(a2 + 32);
+  ConstructorType = GTFenum_getConstructorType(*(v7 + 72));
+  v8 = 0;
+  while (1)
+  {
+    v9 = atomic_load((v7 + 4));
+    v10 = v8 + (v9 >> 6) - 1;
+    if (v10 > 0)
+    {
+      break;
+    }
+
+    v7 = *(v7 + 40);
+    v8 = v10;
+    if (!v7)
+    {
+      v8 = v10;
+      goto LABEL_6;
+    }
+  }
+
+  v10 = 0;
+LABEL_6:
+  v11 = v8 | (v10 << 32);
+  v12 = v31;
+  while (v7)
+  {
+    v13 = v7 + 64;
+    v14 = v7 + 64 + ((HIDWORD(v11) - v11) << 6);
+    if ((*(v14 + 15) & 8) == 0 || *v14 >= a3)
+    {
+      break;
+    }
+
+    if (*(v14 + 8) != -16120 || (GT_SUPPORT_0 & 0x80000) == 0)
+    {
+      v15 = objc_autoreleasePoolPush();
+      v16 = *(v14 + 8);
+      if (v16 <= -14803)
+      {
+        if (v16 == -16313)
+        {
+          goto LABEL_23;
+        }
+
+        if (v16 != -16236)
+        {
+          v18 = -14969;
+LABEL_20:
+          if (v16 != v18 || ConstructorType != 80)
+          {
+            GTMTLReplayController_defaultDispatchFunction(v5, (v13 + ((HIDWORD(v11) - v11) << 6)));
+          }
+        }
+      }
+
+      else
+      {
+        v17 = (v16 + 10238);
+        if (v17 > 0x30)
+        {
+          goto LABEL_16;
+        }
+
+        if (((1 << (v16 - 2)) & 0x1100000000005) == 0)
+        {
+          if (v17 != 1)
+          {
+LABEL_16:
+            v18 = -14802;
+            goto LABEL_20;
+          }
+
+LABEL_23:
+          if ((GT_SUPPORT_0 & 0x80000) == 0)
+          {
+            v28 = v5;
+            v19 = GTTraceFunc_argumentBytesWithMap((v13 + ((HIDWORD(v11) - v11) << 6)), *(v14 + 13), v6);
+            v20 = [v31 deviceForKey:*v19];
+            v21 = v20;
+            if ((qword_27F09CF90 & 4) != 0)
+            {
+              v22 = 32;
+            }
+
+            else
+            {
+              v22 = *(v19 + 3) & 0xFFFFFFFFFFEFFFFFLL;
+            }
+
+            v23 = [v20 newBufferWithLength:*(v19 + 2) options:{v22, v6, v28}];
+            if (v23)
+            {
+              [v31 setBuffer:v23 forKey:*(v19 + 1)];
+            }
+
+            v6 = v27;
+            v5 = v29;
+          }
+        }
+      }
+
+      objc_autoreleasePoolPop(v15);
+      v12 = v31;
+    }
+
+    v24 = atomic_load((v7 + 4));
+    v25 = v11 + (v24 >> 6);
+    v26 = (HIDWORD(v11) + 1);
+    v11 = (v26 << 32) | v11;
+    if (v26 == v25 - 1)
+    {
+      v11 = (v26 << 32) | v26;
+      v7 = *(v7 + 40);
+    }
+  }
+}
+
+void MapSparseTextureRegions(void *a1, void *a2, uint64_t a3, apr_pool_t *a4)
+{
+  v7 = a1;
+  v35 = a2;
+  v8 = apr_array_make(a4, 8, 48);
+  arr = apr_array_make(a4, 8, 48);
+  v37 = apr_array_make(a4, 8, 8);
+  v36 = apr_array_make(a4, 8, 8);
+  v34 = v7;
+  v33 = [v7 device];
+  if (*(a3 + 12) < 1)
+  {
+    v12 = 0;
+  }
+
+  else
+  {
+    v9 = 0;
+    v10 = 0;
+    v11 = 0;
+    v12 = 0;
+    v13 = 0;
+    do
+    {
+      v14 = *(a3 + 24);
+      v15 = v14 + v9;
+      v16 = *(v14 + v9 + 8);
+      if (v16 != v11)
+      {
+        if (v8->nelts >= 1)
+        {
+          v41 = 0uLL;
+          v42 = 0;
+          [v12 textureType];
+          [v12 pixelFormat];
+          [v12 sampleCount];
+          if (v33)
+          {
+            objc_msgSend_sparseTileSizeWithTextureType_pixelFormat_sampleCount_(v33);
+          }
+
+          else
+          {
+            v41 = 0uLL;
+            v42 = 0;
+          }
+
+          elts = v8->elts;
+          v18 = arr->elts;
+          nelts = v8->nelts;
+          v39 = v41;
+          v40 = v42;
+          [v33 convertSparsePixelRegions:elts toTileRegions:v18 withTileSize:&v39 alignmentMode:0 numRegions:{nelts, v33}];
+          [v34 updateTextureMappings:v12 mode:0 regions:arr->elts mipLevels:v37->elts slices:v36->elts numRegions:v8->nelts];
+          arr->nelts = 0;
+          v8->nelts = 0;
+          v37->nelts = 0;
+          v36->nelts = 0;
+          v16 = *(v15 + 8);
+        }
+
+        v20 = [v35 textureForKey:{v16, v33}];
+
+        v13 = [v20 firstMipmapInTail];
+        v11 = *(v15 + 8);
+        v12 = v20;
+      }
+
+      if (v13 >= *(v15 + 34))
+      {
+        apr_array_push(arr);
+        v21 = apr_array_push(v8);
+        v22 = *(v14 + v9 + 44);
+        v23 = *(v14 + v9 + 46);
+        v24 = vmovl_u16(*(v14 + v9 + 36));
+        *&v25 = v24.u32[0];
+        *(&v25 + 1) = v24.u32[1];
+        v26 = v25;
+        *&v25 = v24.u32[2];
+        *(&v25 + 1) = v24.u32[3];
+        *v21 = v26;
+        v21[1] = v25;
+        *(v21 + 4) = v22;
+        *(v21 + 5) = v23;
+        v27 = *(v15 + 34);
+        *apr_array_push(v37) = v27;
+        v28 = *(v14 + v9 + 32);
+        *apr_array_push(v36) = v28;
+      }
+
+      ++v10;
+      v9 += 448;
+    }
+
+    while (v10 < *(a3 + 12));
+  }
+
+  v29 = v33;
+  if (v8->nelts > 0)
+  {
+    v41 = 0uLL;
+    v42 = 0;
+    [v12 textureType];
+    [v12 pixelFormat];
+    [v12 sampleCount];
+    if (v33)
+    {
+      objc_msgSend_sparseTileSizeWithTextureType_pixelFormat_sampleCount_(v33);
+    }
+
+    else
+    {
+      v41 = 0uLL;
+      v42 = 0;
+    }
+
+    v30 = v8->elts;
+    v31 = arr->elts;
+    v32 = v8->nelts;
+    v39 = v41;
+    v40 = v42;
+    [v33 convertSparsePixelRegions:v30 toTileRegions:v31 withTileSize:&v39 alignmentMode:0 numRegions:{v32, v33}];
+    [v34 updateTextureMappings:v12 mode:0 regions:arr->elts mipLevels:v37->elts slices:v36->elts numRegions:v8->nelts];
+  }
+}
+
+void FillRequestsAlignment(uint64_t a1, uint64_t *a2, void *a3)
+{
+  v5 = a3;
+  v6 = *(a1 + 12);
+  if (v6 >= 1)
+  {
+    v7 = 0;
+    for (i = 0; i < v6; ++i)
+    {
+      v9 = *(a1 + 24);
+      if (*(v9 + v7) == 80)
+      {
+        v28 = 0;
+        v26 = 0u;
+        v27 = 0u;
+        v25 = 0u;
+        v10 = v9 + v7;
+        GTMTLSMContext_getTextureDescriptor(a2, *(v9 + v7 + 8), *(v9 + v7 + 16), &v25);
+        v11 = WORD1(v27);
+        v24 = 0;
+        memset(v23, 0, sizeof(v23));
+        GTMTLPixelFormatGetInfoForDevice(v23, v5, WORD1(v27));
+        v13 = xmmword_24DA8BC50;
+        if ((~DWORD2(v23[0]) & 0x60) != 0)
+        {
+          v12.i32[0] = 0;
+          v14.i64[1] = v18;
+          v14.i64[0] = 0;
+          v13.i32[0] = WORD4(v23[0]) & 0x2000;
+          v15 = vdupq_lane_s32(*&vceqq_s32(v13, v12), 0);
+          v16.i64[1] = v18;
+          v16.i64[0] = 4;
+          v13 = vbslq_s8(v15, v14, v16);
+        }
+
+        v22 = 0;
+        v20 = 0u;
+        v21 = 0u;
+        v18 = v13.i64[1];
+        memset(v19, 0, sizeof(v19));
+        v17 = v13.i8[0];
+        GTMTLGetTextureLevelInfoForDeviceWithOptions(v19, v5, v11, DWORD2(v26), v27, HIWORD(v26), HIBYTE(v27), *(v10 + 34), v13.i64[0]);
+        *(v10 + 60) = WORD4(v20);
+        *(v10 + 62) = v17;
+        v6 = *(a1 + 12);
+      }
+
+      v7 += 448;
+    }
+  }
+}
+
+void GroupRequestsByCapacity(apr_array_header_t *a1, uint64_t a2, uint64_t a3, apr_allocator_t *a4)
+{
+  newpool = 0;
+  apr_pool_create_ex(&newpool, a1->pool, 0, a4);
+  v5 = newpool;
+  v6 = apr_array_copy(newpool, a1);
+  qsort(v6->elts, v6->nelts, v6->elt_size, CompareRequestsBySize);
+  a1->nelts = 0;
+  while (v6->nelts)
+  {
+    elts = v6->elts;
+    v8 = apr_array_push(a1);
+    memcpy(v8, elts, 0x1C0uLL);
+    v9 = RequestSize(elts);
+    nelts = v6->nelts;
+    v6->nelts = 0;
+    if (nelts < 2)
+    {
+      break;
+    }
+
+    v11 = v9;
+    v12 = 448 * nelts;
+    v13 = 448;
+    do
+    {
+      v14 = v6->elts;
+      v15 = RequestAlignment(&v14[v13]);
+      v16 = (v11 + v15 - 1) & -v15;
+      v17 = v16 + RequestSize(&v14[v13]);
+      v18 = v6;
+      if (v17 <= 0x2000000)
+      {
+        v11 = v16 + RequestSize(&v14[v13]);
+        v18 = a1;
+      }
+
+      v19 = apr_array_push(v18);
+      memcpy(v19, &v14[v13], 0x1C0uLL);
+      v13 += 448;
+    }
+
+    while (v12 != v13);
+  }
+
+  apr_pool_destroy(v5);
+}
+
+uint64_t AppendRestoreJobsToLoadQueue(uint64_t result, uint64_t a2)
+{
+  if (a2 && *(a2 + 12) >= 1)
+  {
+    v3 = result;
+    v4 = 0;
+    do
+    {
+      v5 = apr_array_push(*(v3 + 22584));
+      *v5 = 0;
+      v6 = *(a2 + 24) + 448 * v4;
+      v5[1] = v6;
+      v7 = *(a2 + 12);
+      result = CountRequestsWithinCapacity(v6, (v7 - v4));
+      *(v5 + 1) = result;
+      v4 += result;
+    }
+
+    while (v4 < v7);
+  }
+
+  return result;
+}
+
+intptr_t SignalLoadQueueThreads(intptr_t result, int a2)
+{
+  atomic_store(0, (result + 22592));
+  if (*(result + 22656) >= a2)
+  {
+    v2 = a2;
+  }
+
+  else
+  {
+    v2 = *(result + 22656);
+  }
+
+  if (v2 >= 1)
+  {
+    v3 = result;
+    do
+    {
+      dispatch_group_enter(*(v3 + 22608));
+      result = dispatch_semaphore_signal(*(v3 + 22600));
+      --v2;
+    }
+
+    while (v2);
+  }
+
+  return result;
+}
+
+void RestoreOrderedResourcesFromArchive(const char ****a1, uint64_t a2, uint64_t a3, void *a4)
+{
+  v131 = *MEMORY[0x277D85DE8];
+  v5 = a4;
+  if (s_logUsingOsLog == 1)
+  {
+    v6 = gt_tagged_log(0xEu);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    {
+      v7 = "s";
+      if (a3 == 1)
+      {
+        v7 = "";
+      }
+
+      *buf = 67109378;
+      *&buf[4] = a3;
+      *&buf[8] = 2080;
+      *&buf[10] = v7;
+      _os_log_impl(&dword_24D764000, v6, OS_LOG_TYPE_DEFAULT, "Restoring %d ordered resource%s", buf, 0x12u);
+    }
+  }
+
+  else
+  {
+    v8 = *MEMORY[0x277D85E08];
+    v9 = "s";
+    if (a3 == 1)
+    {
+      v9 = "";
+    }
+
+    v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"Restoring %d ordered resource%s", a3, v9];
+    fprintf(v8, "%s\n", [v10 UTF8String]);
+  }
+
+  v11 = os_signpost_id_make_with_pointer(g_signpostLog, a1);
+  [v5 enterRestoreResources:a2 count:a3];
+  v109 = a1[3];
+  v104 = [a1[1] defaultDevice];
+  v12 = [v104 sharedMemorySize];
+  v13 = g_signpostLog;
+  v14 = v13;
+  spid = v11;
+  v15 = v11 - 1;
+  if (v11 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v13))
+  {
+    *buf = 67109120;
+    *&buf[4] = a3;
+    _os_signpost_emit_with_name_impl(&dword_24D764000, v14, OS_SIGNPOST_INTERVAL_BEGIN, v11, "Replayer-2-restore", "RestoreOrderedResourcesFromArchive x%d", buf, 8u);
+  }
+
+  v105 = v5;
+
+  if (a3 >= 1)
+  {
+    v16 = 0;
+    v17 = 0;
+    v18 = a3;
+    v19 = 0;
+    v119 = v18;
+    v120 = 4 * v12 / 0xAuLL;
+    v20 = MEMORY[0x277D86228];
+    v112 = v15;
+    while (1)
+    {
+      v21 = objc_autoreleasePoolPush();
+      v22 = a2 + 448 * v16;
+      v23 = RequestSize(v22);
+      v24 = v20;
+      if (v15 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v20))
+      {
+        v25 = *(v22 + 8);
+        v26 = *(v22 + 24);
+        *buf = 134218498;
+        *&buf[4] = v25;
+        *&buf[12] = 2048;
+        *&buf[14] = v23;
+        *&buf[22] = 2082;
+        *&buf[24] = v26;
+        _os_signpost_emit_with_name_impl(&dword_24D764000, v20, OS_SIGNPOST_INTERVAL_BEGIN, spid, "Replayer-6-high", "%llu. %{xcode:size-in-bytes}zu %{public}s", buf, 0x20u);
+      }
+
+      if (*v22 == 16)
+      {
+        v123 = v16;
+        v124 = v23;
+        v113 = v21;
+        v45 = **a1;
+        v46 = a1[23];
+        v47 = a1[1];
+        v48 = *(v22 + 24);
+        v111 = v47;
+        v49 = [v47 accelerationStructureForKey:*(v22 + 8)];
+        v50 = a1[3];
+        FileWithFilename = GTCaptureArchive_getFileWithFilename(v45, v48);
+        v117 = v50;
+        v52 = v50;
+        v53 = v46;
+        v54 = [v52 bufferWithLength:*(FileWithFilename + 8) alignment:32];
+        GTCaptureArchive_fillBuffer(v45, v53, v48, [v54 contents], *(FileWithFilename + 8), 0);
+        v55 = v54;
+        v56 = [a1[1] defaultDevice];
+        v110 = v56;
+        v115 = v55;
+        if ([v55 length] > 0x17)
+        {
+          v107 = v53;
+          v57 = v19;
+          v58 = [v55 contents];
+          v59 = *v58;
+          v60 = v58[1];
+          v61 = v58[2];
+          v62 = *(FileWithFilename + 8);
+          v63 = objc_msgSend_size(v49);
+          v64 = [v56 isCompatibleWithAccelerationStructure:v59];
+          v65 = v60 > v62 || v61 > v63;
+          if (v65 || (v64 & 1) == 0)
+          {
+            apr_pool_clear(*v107);
+            v15 = v112;
+            v21 = v113;
+            v20 = MEMORY[0x277D86228];
+            v19 = v57;
+            v42 = v111;
+            v16 = v123;
+            v23 = v124;
+          }
+
+          else
+          {
+            v106 = [v117 accelerationStructureCommandEncoder];
+            v21 = v113;
+            v19 = v57;
+            if (*(v22 + 40))
+            {
+              if (s_logUsingOsLog)
+              {
+                v66 = gt_tagged_log(0xEu);
+                if (os_log_type_enabled(v66, OS_LOG_TYPE_DEFAULT))
+                {
+                  v67 = *(v22 + 8);
+                  v68 = [v49 label];
+                  v69 = [v68 UTF8String];
+                  v70 = *(v22 + 24);
+                  v71 = *(v22 + 32);
+                  v72 = *(v22 + 48);
+                  *buf = 134219010;
+                  *&buf[4] = v67;
+                  *&buf[12] = 2080;
+                  *&buf[14] = v69;
+                  *&buf[22] = 2080;
+                  *&buf[24] = v70;
+                  LOWORD(v126) = 2048;
+                  *(&v126 + 2) = v71;
+                  WORD5(v126) = 1024;
+                  HIDWORD(v126) = v72;
+                  _os_log_impl(&dword_24D764000, v66, OS_LOG_TYPE_DEFAULT, "Restoring instance acceleration structure %llu '%s' from file '%s' [serializedSize = %llu, primitiveAccelerationStructuresCount = %d]", buf, 0x30u);
+                }
+              }
+
+              else
+              {
+                v79 = *MEMORY[0x277D85E08];
+                v80 = MEMORY[0x277CCACA8];
+                v81 = *(v22 + 8);
+                v66 = [v49 label];
+                v82 = [v80 stringWithFormat:@"Restoring instance acceleration structure %llu '%s' from file '%s' [serializedSize = %llu, primitiveAccelerationStructuresCount = %d]", v81, -[NSObject UTF8String](v66, "UTF8String"), *(v22 + 24), *(v22 + 32), *(v22 + 48)];
+                fprintf(v79, "%s\n", [v82 UTF8String]);
+              }
+
+              v42 = v111;
+
+              v83 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:*(v22 + 48)];
+              v16 = v123;
+              if (*(v22 + 48))
+              {
+                v84 = 0;
+                do
+                {
+                  v85 = [v111 accelerationStructureForKey:*(*(v22 + 40) + 8 * v84)];
+                  [v83 addObject:v85];
+
+                  ++v84;
+                }
+
+                while (v84 < *(v22 + 48));
+              }
+
+              v86 = [MEMORY[0x277CCACA8] stringWithFormat:@"deserializeInstanceAccelerationStructure %llu", *(v22 + 8)];
+              v87 = v106;
+              [v106 insertDebugSignpost:v86];
+
+              v88 = [v115 heapBuffer];
+              [v106 deserializeInstanceAccelerationStructure:v49 primitiveAccelerationStructures:v83 fromBuffer:v88 serializedBufferOffset:{objc_msgSend(v115, "heapLocation")}];
+
+              v15 = v112;
+              v21 = v113;
+              v23 = v124;
+            }
+
+            else
+            {
+              if (s_logUsingOsLog)
+              {
+                v73 = gt_tagged_log(0xEu);
+                v23 = v124;
+                if (os_log_type_enabled(v73, OS_LOG_TYPE_DEFAULT))
+                {
+                  v74 = *(v22 + 8);
+                  v75 = [v49 label];
+                  v76 = [v75 UTF8String];
+                  v77 = *(v22 + 24);
+                  v78 = *(v22 + 32);
+                  *buf = 134218754;
+                  *&buf[4] = v74;
+                  *&buf[12] = 2080;
+                  *&buf[14] = v76;
+                  *&buf[22] = 2080;
+                  *&buf[24] = v77;
+                  LOWORD(v126) = 2048;
+                  *(&v126 + 2) = v78;
+                  _os_log_impl(&dword_24D764000, v73, OS_LOG_TYPE_DEFAULT, "Restoring primitive acceleration structure %llu '%s' from file '%s' [serializedSize = %llu]", buf, 0x2Au);
+                }
+
+                v15 = v112;
+              }
+
+              else
+              {
+                v89 = *MEMORY[0x277D85E08];
+                v90 = MEMORY[0x277CCACA8];
+                v91 = *(v22 + 8);
+                v73 = [v49 label];
+                v92 = [v90 stringWithFormat:@"Restoring primitive acceleration structure %llu '%s' from file '%s' [serializedSize = %llu]", v91, -[NSObject UTF8String](v73, "UTF8String"), *(v22 + 24), *(v22 + 32)];
+                fprintf(v89, "%s\n", [v92 UTF8String]);
+
+                v15 = v112;
+                v23 = v124;
+              }
+
+              v42 = v111;
+
+              v93 = [MEMORY[0x277CCACA8] stringWithFormat:@"deserializePrimitiveAccelerationStructure %llu", *(v22 + 8)];
+              v87 = v106;
+              [v106 insertDebugSignpost:v93];
+
+              v83 = [v115 heapBuffer];
+              [v106 deserializePrimitiveAccelerationStructure:v49 fromBuffer:v83 serializedBufferOffset:{objc_msgSend(v115, "heapLocation")}];
+              v16 = v123;
+            }
+
+            apr_pool_clear(*v107);
+            v20 = MEMORY[0x277D86228];
+          }
+        }
+
+        else
+        {
+          apr_pool_clear(*v53);
+          v15 = v112;
+          v21 = v113;
+          v20 = MEMORY[0x277D86228];
+          v16 = v123;
+          v23 = v124;
+          v42 = v111;
+        }
+      }
+
+      else
+      {
+        if (*v22 != 57)
+        {
+          goto LABEL_47;
+        }
+
+        v27 = *a1;
+        Object = GTMTLSMContext_getObject(*(*a1)[5], *(v22 + 8), *(v22 + 16));
+        v29 = *(Object + 36);
+        v114 = v29;
+        v116 = v19;
+        v30 = Object[14];
+        v31 = MakeMTLIndirectCommandBufferDescriptorWithoutResourceIndex(v30);
+        v32 = [a1[1] defaultDevice];
+        v122 = v16;
+        v33 = [v32 newIndirectCommandBufferWithDescriptor:v31 maxCommandCount:v29 options:256];
+
+        v34 = a1[23];
+        v35 = *v34;
+        Data = GTCaptureArchive_readData(*v27, v34, *(v22 + 24), *v34, 0);
+        v130 = 0;
+        v128 = 0u;
+        v129 = 0u;
+        v126 = 0u;
+        v127 = 0u;
+        memset(buf, 0, sizeof(buf));
+        GTMTLSMContext_indirectCommandBufferResources(buf, v27[5], v27[11], v35);
+        v37 = objc_msgSend_size(v33);
+        [a1[1] restoreIndirectCommandBufferDataMap];
+        v38 = v17;
+        v40 = v39 = v21;
+        v41 = v37;
+        v15 = v112;
+        GTMTLEncodeIndirectCommandBufferWithRange(v33, 0, v41, v30, Data, buf, v40);
+
+        v21 = v39;
+        v17 = v38;
+        v42 = v33;
+        v16 = v122;
+        v43 = [a1[1] indirectCommandBufferForKey:*(v22 + 8)];
+        v44 = [a1[3] blitCommandEncoder];
+        [v44 copyIndirectCommandBuffer:v42 sourceRange:0 destination:v114 destinationIndex:{v43, 0}];
+
+        v20 = MEMORY[0x277D86228];
+        apr_pool_clear(v35);
+
+        v19 = v116;
+      }
+
+LABEL_47:
+      v94 = g_signpostLog;
+      v95 = v94;
+      if (v15 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v94))
+      {
+        *buf = 0;
+        _os_signpost_emit_with_name_impl(&dword_24D764000, v95, OS_SIGNPOST_INTERVAL_END, spid, "Replayer-6-high", &unk_24DA93952, buf, 2u);
+      }
+
+      v19 += v23;
+
+      if (v19 >= v120)
+      {
+        if (s_logUsingOsLog == 1)
+        {
+          v96 = gt_tagged_log(0xEu);
+          if (os_log_type_enabled(v96, OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_24D764000, v96, OS_LOG_TYPE_DEFAULT, "RestoreOrderedResourcesFromArchive ran over the shared blit buffer usage limit, flushing shared blit buffer", buf, 2u);
+          }
+        }
+
+        else
+        {
+          v97 = *MEMORY[0x277D85E08];
+          v96 = [MEMORY[0x277CCACA8] stringWithFormat:@"RestoreOrderedResourcesFromArchive ran over the shared blit buffer usage limit, flushing shared blit buffer"];
+          fprintf(v97, "%s\n", [v96 UTF8String]);
+        }
+
+        v98 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", @"com.apple.gputools.replay", @"RestoreOrderedResourcesFromArchive"];
+        v99 = [v109 commandBuffer];
+        [v99 setLabel:v98];
+
+        [v109 commitCommandBuffer];
+        v19 = 0;
+      }
+
+      v17 += v23;
+      objc_autoreleasePoolPop(v21);
+      if (++v16 == v119)
+      {
+        goto LABEL_59;
+      }
+    }
+  }
+
+  v17 = 0;
+LABEL_59:
+  v100 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@.%@", @"com.apple.gputools.replay", @"RestoreOrderedResourcesFromArchive"];
+  v101 = [v109 commandBuffer];
+  [v101 setLabel:v100];
+
+  [v109 commitCommandBuffer];
+  v102 = g_signpostLog;
+  v103 = v102;
+  if (v15 < 0xFFFFFFFFFFFFFFFELL && os_signpost_enabled(v102))
+  {
+    *buf = 134217984;
+    *&buf[4] = v17;
+    _os_signpost_emit_with_name_impl(&dword_24D764000, v103, OS_SIGNPOST_INTERVAL_END, spid, "Replayer-2-restore", "%{xcode:size-in-bytes}zu", buf, 0xCu);
+  }
+
+  [v105 leaveActivity];
 }

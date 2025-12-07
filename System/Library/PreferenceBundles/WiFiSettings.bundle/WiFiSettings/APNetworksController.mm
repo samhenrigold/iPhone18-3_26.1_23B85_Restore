@@ -4,6 +4,9 @@
 - (void)_notifyAirPortSettingsVisible:(BOOL)visible;
 - (void)handleURL:(id)l;
 - (void)loadView;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewDidDisappear:(BOOL)disappear;
+- (void)viewWillDisappear:(BOOL)disappear;
 - (void)willBecomeActive;
 - (void)willMoveToParentViewController:(id)controller;
 - (void)willResignActive;
@@ -155,6 +158,69 @@
       [(APNetworksController *)self setDeferredURL:0];
     }
   }
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v14.receiver = self;
+  v14.super_class = APNetworksController;
+  [(APNetworksController *)&v14 viewDidAppear:appear];
+  v4 = WFLogForCategory();
+  v5 = OSLogForWFLogLevel();
+  if (WFCurrentLogLevel() && v4 && os_log_type_enabled(v4, v5))
+  {
+    *buf = 136315138;
+    v16 = "[APNetworksController viewDidAppear:]";
+    _os_log_impl(&dword_0, v4, v5, "%s: APNetworksController view did appear, start scanning", buf, 0xCu);
+  }
+
+  airportController = [(APNetworksController *)self airportController];
+  [airportController startScanning];
+
+  [(APNetworksController *)self _notifyAirPortSettingsVisible:1];
+  v7 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.WiFi"];
+  v8 = [_NSLocalizedStringResource alloc];
+  v9 = WFWiFiTitleString();
+  v10 = +[NSLocale currentLocale];
+  v11 = [NSBundle bundleForClass:objc_opt_class()];
+  bundleURL = [v11 bundleURL];
+  v13 = [v8 initWithKey:v9 table:0 locale:v10 bundleURL:bundleURL];
+
+  if (objc_opt_respondsToSelector())
+  {
+    [(APNetworksController *)self pe_emitNavigationEventForSystemSettingsWithGraphicIconIdentifier:@"com.apple.graphic-icon.wifi" title:v13 localizedNavigationComponents:&__NSArray0__struct deepLink:v7];
+  }
+}
+
+- (void)viewDidDisappear:(BOOL)disappear
+{
+  disappearCopy = disappear;
+  v7.receiver = self;
+  v7.super_class = APNetworksController;
+  [(APNetworksController *)&v7 viewDidDisappear:?];
+  airportController = [(APNetworksController *)self airportController];
+  viewController = [airportController viewController];
+  [viewController viewDidDisappear:disappearCopy];
+}
+
+- (void)viewWillDisappear:(BOOL)disappear
+{
+  v7.receiver = self;
+  v7.super_class = APNetworksController;
+  [(APNetworksController *)&v7 viewWillDisappear:disappear];
+  v4 = WFLogForCategory();
+  v5 = OSLogForWFLogLevel();
+  if (WFCurrentLogLevel() && v4 && os_log_type_enabled(v4, v5))
+  {
+    *buf = 136315138;
+    v9 = "[APNetworksController viewWillDisappear:]";
+    _os_log_impl(&dword_0, v4, v5, "%s: APNetworksController view will disappear, stop scanning", buf, 0xCu);
+  }
+
+  airportController = [(APNetworksController *)self airportController];
+  [airportController stopScanning];
+
+  [(APNetworksController *)self _notifyAirPortSettingsVisible:0];
 }
 
 - (void)willMoveToParentViewController:(id)controller

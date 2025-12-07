@@ -81,7 +81,7 @@ void __28__BRShareSaveOperation_main__block_invoke(uint64_t a1, void *a2, void *
 
 + (BOOL)shouldRetryShareSaveOnError:(id)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   errorCopy = error;
   domain = [errorCopy domain];
   v6 = [domain isEqualToString:@"BRCloudDocsErrorDomain"];
@@ -123,26 +123,26 @@ LABEL_23:
       v17 = getCKPartialErrorsByItemIDKey();
       domain3 = [userInfo objectForKeyedSubscript:v17];
 
-      v30 = 0u;
-      v31 = 0u;
-      v28 = 0u;
       v29 = 0u;
+      v30 = 0u;
+      v27 = 0u;
+      v28 = 0u;
       objectEnumerator = [domain3 objectEnumerator];
-      v18 = [objectEnumerator countByEnumeratingWithState:&v28 objects:v32 count:16];
+      v18 = [objectEnumerator countByEnumeratingWithState:&v27 objects:v31 count:16];
       if (v18)
       {
         v19 = v18;
-        v20 = *v29;
+        v20 = *v28;
         do
         {
           for (i = 0; i != v19; ++i)
           {
-            if (*v29 != v20)
+            if (*v28 != v20)
             {
               objc_enumerationMutation(objectEnumerator);
             }
 
-            v22 = *(*(&v28 + 1) + 8 * i);
+            v22 = *(*(&v27 + 1) + 8 * i);
             domain4 = [v22 domain];
             v24 = getCKErrorDomain();
             if ([domain4 isEqualToString:v24])
@@ -161,7 +161,7 @@ LABEL_23:
             }
           }
 
-          v19 = [objectEnumerator countByEnumeratingWithState:&v28 objects:v32 count:16];
+          v19 = [objectEnumerator countByEnumeratingWithState:&v27 objects:v31 count:16];
         }
 
         while (v19);
@@ -182,23 +182,20 @@ LABEL_23:
   v9 = [self shouldRetryShareSaveOnError:v8];
 
 LABEL_25:
-  v26 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 + (void)shouldRetryShareSaveOnError:.cold.1()
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
   v0 = brc_bread_crumbs("+[BRShareSaveOperation shouldRetryShareSaveOnError:]", 502);
   v1 = brc_default_log(0, 0);
   if (os_log_type_enabled(v1, OS_LOG_TYPE_FAULT))
   {
-    v3 = 138412290;
-    v4 = v0;
-    _os_log_fault_impl(&dword_1AE2A9000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: error != underlyingError%@", &v3, 0xCu);
+    v2 = 138412290;
+    v3 = v0;
+    _os_log_fault_impl(&dword_1AE2A9000, v1, OS_LOG_TYPE_FAULT, "[CRIT] Assertion failed: error != underlyingError%@", &v2, 0xCu);
   }
-
-  v2 = *MEMORY[0x1E69E9840];
 }
 
 @end

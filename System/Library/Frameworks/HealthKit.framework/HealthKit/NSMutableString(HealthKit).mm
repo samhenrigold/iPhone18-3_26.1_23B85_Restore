@@ -6,36 +6,36 @@
 
 - (void)hk_appendComponentsJoinedByString:()HealthKit container:componentGenerator:
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v20 = a3;
+  v25 = *MEMORY[0x1E69E9840];
+  v19 = a3;
   v8 = a4;
   v9 = a5;
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v10 = v8;
-  v11 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v11)
   {
     v12 = v11;
     v13 = 0;
-    v14 = *v22;
+    v14 = *v21;
     do
     {
       v15 = 0;
       do
       {
-        if (*v22 != v14)
+        if (*v21 != v14)
         {
           objc_enumerationMutation(v10);
         }
 
-        v16 = *(*(&v21 + 1) + 8 * v15);
+        v16 = *(*(&v20 + 1) + 8 * v15);
         v17 = objc_autoreleasePoolPush();
         if (v13)
         {
-          [self appendString:v20];
+          [self appendString:v19];
         }
 
         v18 = v9[2](v9, v16);
@@ -47,13 +47,11 @@
       }
 
       while (v12 != v15);
-      v12 = [v10 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = [v10 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v12);
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 @end

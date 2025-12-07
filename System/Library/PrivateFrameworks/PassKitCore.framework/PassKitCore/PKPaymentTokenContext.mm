@@ -79,8 +79,8 @@ LABEL_7:
   [(PKProtobufPaymentTokenContext *)v3 setCustomPrecisionAmount:v10];
 
   amount3 = [(PKPaymentTokenContext *)self amount];
-  v12 = PKProtoSupportProtoDecimalNumberFromDecimalNumber(amount3);
-  [(PKProtobufPaymentTokenContext *)v3 setDecimalAmount:v12];
+  v13 = PKProtoSupportProtoDecimalNumberFromDecimalNumber(amount3, v12);
+  [(PKProtobufPaymentTokenContext *)v3 setDecimalAmount:v13];
 
   return v3;
 }

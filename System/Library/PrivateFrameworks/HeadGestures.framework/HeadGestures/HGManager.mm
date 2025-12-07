@@ -1,5 +1,6 @@
 @interface HGManager
 - (HGManager)initWithDelegate:(id)delegate config:(id)config;
+- (void)setRequestPartGestures:(BOOL)gestures;
 @end
 
 @implementation HGManager
@@ -34,6 +35,13 @@
   }
 
   return v9;
+}
+
+- (void)setRequestPartGestures:(BOOL)gestures
+{
+  gesturesCopy = gestures;
+  configuration = [(HGManagerInternal *)self->_internal configuration];
+  [configuration setRequestPartGestures:gesturesCopy];
 }
 
 @end

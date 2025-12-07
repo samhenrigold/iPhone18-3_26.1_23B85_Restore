@@ -34,7 +34,7 @@
   v4 = v3;
   if (v3)
   {
-    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v3->_set.__table_.__bucket_list_.__ptr_, &int64Copy);
+    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v3->_set.__table_.__bucket_list_.__ptr_, &int64Copy, &int64Copy);
     v5 = v4;
   }
 
@@ -94,7 +94,8 @@
       bytes = [v6 bytes];
       do
       {
-        std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v5->_set.__table_.__bucket_list_.__ptr_, bytes++);
+        std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>(&v5->_set.__table_.__bucket_list_.__ptr_, bytes, bytes);
+        ++bytes;
         --v8;
       }
 

@@ -24,18 +24,16 @@
   return v8;
 }
 
-void __64__BLTSectionConfigurationItemFactory_itemForSection_dictionary___block_invoke()
+void __64__BLTSectionConfigurationItemFactory_itemForSection_dictionary___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4[2] = *MEMORY[0x277D85DE8];
-  v3[0] = @"com.apple.cmas";
-  v3[1] = @"com.apple.MobileSMS";
-  v4[0] = objc_opt_class();
-  v4[1] = objc_opt_class();
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:2];
-  v1 = itemForSection_dictionary___sectionToItemClassMap;
-  itemForSection_dictionary___sectionToItemClassMap = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
+  v4[0] = @"com.apple.cmas";
+  v4[1] = @"com.apple.MobileSMS";
+  v5[0] = objc_opt_class();
+  v5[1] = objc_opt_class();
+  v2 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v5 forKeys:v4 count:2];
+  v3 = itemForSection_dictionary___sectionToItemClassMap;
+  itemForSection_dictionary___sectionToItemClassMap = v2;
 }
 
 @end

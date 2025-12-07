@@ -8,7 +8,7 @@
 {
   fetchCopy = fetch;
   selfCopy = self;
-  v6 = sub_1000240EC();
+  v6 = sub_1000240EC(fetchCopy);
 
   return v6;
 }

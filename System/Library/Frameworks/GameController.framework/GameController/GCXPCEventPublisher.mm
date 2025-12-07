@@ -10,9 +10,9 @@
 - (GCXPCEventPublisher)initWithStreamName:(id)name isStatefulEventPublisher:(BOOL)publisher
 {
   nameCopy = name;
-  v29.receiver = self;
-  v29.super_class = GCXPCEventPublisher;
-  v8 = [(GCXPCEventPublisher *)&v29 init];
+  v25.receiver = self;
+  v25.super_class = GCXPCEventPublisher;
+  v8 = [(GCXPCEventPublisher *)&v25 init];
   v9 = v8;
   if (v8)
   {
@@ -23,14 +23,13 @@
     v9->_queue = v11;
 
     [nameCopy UTF8String];
-    v13 = v9->_queue;
-    v14 = xpc_event_publisher_create();
+    v13 = xpc_event_publisher_create();
     publisher = v9->_publisher;
-    v9->_publisher = v14;
+    v9->_publisher = v13;
 
-    v16 = [MEMORY[0x1E695DFA8] set];
+    v15 = [MEMORY[0x1E695DFA8] set];
     tokens = v9->_tokens;
-    v9->_tokens = v16;
+    v9->_tokens = v15;
 
     v9->_statefulEventPublisher = publisher;
     if (!publisher)
@@ -47,17 +46,14 @@
       aBlock[1] = 3221225472;
       aBlock[2] = __67__GCXPCEventPublisher_initWithStreamName_isStatefulEventPublisher___block_invoke;
       aBlock[3] = &unk_1E841A320;
-      objc_copyWeak(&v27, &location);
-      v20 = _Block_copy(aBlock);
-      v21 = v9->_publisher;
+      objc_copyWeak(&v23, &location);
+      v19 = _Block_copy(aBlock);
       xpc_event_publisher_set_handler();
-      v22 = v9->_publisher;
-      v25 = nameCopy;
+      v21 = nameCopy;
       xpc_event_publisher_set_error_handler();
-      v23 = v9->_publisher;
       xpc_event_publisher_activate();
 
-      objc_destroyWeak(&v27);
+      objc_destroyWeak(&v23);
       objc_destroyWeak(&location);
     }
   }
@@ -72,25 +68,26 @@ void __67__GCXPCEventPublisher_initWithStreamName_isStatefulEventPublisher___blo
   [WeakRetained handleEventWithAction:a2 token:a3 descriptor:v7];
 }
 
-void __67__GCXPCEventPublisher_initWithStreamName_isStatefulEventPublisher___block_invoke_2(uint64_t a1)
+void __67__GCXPCEventPublisher_initWithStreamName_isStatefulEventPublisher___block_invoke_2(uint64_t a1, uint64_t a2)
 {
-  if (gc_isInternalBuild())
+  if (gc_isInternalBuild(a1, a2))
   {
-    __67__GCXPCEventPublisher_initWithStreamName_isStatefulEventPublisher___block_invoke_2_cold_1(a1);
+    __67__GCXPCEventPublisher_initWithStreamName_isStatefulEventPublisher___block_invoke_2_cold_1(a1, a2);
   }
 }
 
 - (void)handleEventWithAction:(unsigned int)action token:(unint64_t)token descriptor:(id)descriptor
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v40 = *MEMORY[0x1E69E9840];
   descriptorCopy = descriptor;
-  v9 = descriptorCopy;
+  v10 = descriptorCopy;
   if (descriptorCopy)
   {
-    v10 = MEMORY[0x1D38AD550](descriptorCopy);
-    if (!gc_isInternalBuild())
+    v11 = MEMORY[0x1D38AD550](descriptorCopy);
+    isInternalBuild = gc_isInternalBuild(v11, v12);
+    if (!isInternalBuild)
     {
-      if (!v10)
+      if (!v11)
       {
         goto LABEL_7;
       }
@@ -98,31 +95,35 @@ void __67__GCXPCEventPublisher_initWithStreamName_isStatefulEventPublisher___blo
       goto LABEL_4;
     }
 
-    v22 = getGCLogger();
-    if (os_log_type_enabled(v22, OS_LOG_TYPE_INFO))
+    v25 = getGCLogger(isInternalBuild);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_INFO))
     {
       streamName = self->_streamName;
       *buf = 138544130;
-      v30 = streamName;
-      v31 = 1024;
+      v33 = streamName;
+      v34 = 1024;
       actionCopy = action;
-      v33 = 2048;
+      v36 = 2048;
       tokenCopy = token;
-      v35 = 2080;
-      v36 = v10;
-      _os_log_impl(&dword_1D2CD5000, v22, OS_LOG_TYPE_INFO, "XPC event publisher for stream %{public}@ received xpc event with action %d and token %llu: %s", buf, 0x26u);
+      v38 = 2080;
+      v39 = v11;
+      _os_log_impl(&dword_1D2CD5000, v25, OS_LOG_TYPE_INFO, "XPC event publisher for stream %{public}@ received xpc event with action %d and token %llu: %s", buf, 0x26u);
     }
 
-    if (v10)
+    if (v11)
     {
 LABEL_4:
-      free(v10);
+      free(v11);
     }
   }
 
-  else if (gc_isInternalBuild())
+  else
   {
-    [GCXPCEventPublisher handleEventWithAction:? token:? descriptor:?];
+    isInternalBuild = gc_isInternalBuild(0, v9);
+    if (isInternalBuild)
+    {
+      [GCXPCEventPublisher handleEventWithAction:? token:? descriptor:?];
+    }
   }
 
 LABEL_7:
@@ -131,14 +132,14 @@ LABEL_7:
     if (action == 1)
     {
       tokens = self->_tokens;
-      v12 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:token];
-      [(NSMutableSet *)tokens removeObject:v12];
+      v16 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:token];
+      [(NSMutableSet *)tokens removeObject:v16];
       goto LABEL_27;
     }
 
     if (action == 2)
     {
-      if (gc_isInternalBuild())
+      if (gc_isInternalBuild(isInternalBuild, v14))
       {
         [GCXPCEventPublisher handleEventWithAction:? token:? descriptor:?];
       }
@@ -150,34 +151,34 @@ LABEL_7:
         goto LABEL_28;
       }
 
-      v16 = [(NSMutableArray *)self->_pendingSendEvents copy];
+      v20 = [(NSMutableArray *)self->_pendingSendEvents copy];
       [(NSMutableArray *)self->_pendingSendEvents removeAllObjects];
-      v26 = 0u;
+      v29 = 0u;
+      v30 = 0u;
       v27 = 0u;
-      v24 = 0u;
-      v25 = 0u;
-      v12 = v16;
-      v17 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
-      if (v17)
+      v28 = 0u;
+      v16 = v20;
+      v21 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
+      if (v21)
       {
-        v18 = v17;
-        v19 = *v25;
+        v22 = v21;
+        v23 = *v28;
         do
         {
-          for (i = 0; i != v18; ++i)
+          for (i = 0; i != v22; ++i)
           {
-            if (*v25 != v19)
+            if (*v28 != v23)
             {
-              objc_enumerationMutation(v12);
+              objc_enumerationMutation(v16);
             }
 
-            [(GCXPCEventPublisher *)self sendEvent:*(*(&v24 + 1) + 8 * i), v24];
+            [(GCXPCEventPublisher *)self sendEvent:*(*(&v27 + 1) + 8 * i), v27];
           }
 
-          v18 = [v12 countByEnumeratingWithState:&v24 objects:v28 count:16];
+          v22 = [v16 countByEnumeratingWithState:&v27 objects:v31 count:16];
         }
 
-        while (v18);
+        while (v22);
       }
 
 LABEL_27:
@@ -186,25 +187,23 @@ LABEL_27:
 
   else
   {
-    v13 = self->_tokens;
-    v14 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:token];
-    [(NSMutableSet *)v13 addObject:v14];
+    v17 = self->_tokens;
+    v18 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:token];
+    [(NSMutableSet *)v17 addObject:v18];
 
     if (self->_statefulEventPublisher)
     {
       stateEvent = self->_stateEvent;
       if (stateEvent)
       {
-        v12 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:token];
-        [(GCXPCEventPublisher *)self sendEvent:stateEvent toSubscriber:v12];
+        v16 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:token];
+        [(GCXPCEventPublisher *)self sendEvent:stateEvent toSubscriber:v16];
         goto LABEL_27;
       }
     }
   }
 
 LABEL_28:
-
-  v21 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendEvent:(id)event
@@ -221,76 +220,79 @@ LABEL_28:
   dispatch_async(queue, v7);
 }
 
-void __33__GCXPCEventPublisher_sendEvent___block_invoke(uint64_t a1)
+void __33__GCXPCEventPublisher_sendEvent___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
-  v3 = a1 + 32;
-  v2 = *(a1 + 32);
-  if (*(v2 + 8) == 1)
+  v31 = *MEMORY[0x1E69E9840];
+  v4 = a1 + 32;
+  v3 = *(a1 + 32);
+  if (*(v3 + 8) == 1)
   {
-    objc_storeStrong((v2 + 48), *(a1 + 40));
-    v2 = *(a1 + 32);
+    objc_storeStrong((v3 + 48), *(a1 + 40));
+    v3 = *(a1 + 32);
   }
 
-  v4 = *(v2 + 9);
-  isInternalBuild = gc_isInternalBuild();
-  if (v4 == 1)
+  v5 = *(v3 + 9);
+  isInternalBuild = gc_isInternalBuild(a1, a2);
+  if (v5 == 1)
   {
     if (isInternalBuild)
     {
-      __33__GCXPCEventPublisher_sendEvent___block_invoke_cold_2(v3, a1);
+      __33__GCXPCEventPublisher_sendEvent___block_invoke_cold_2(v4);
     }
 
-    v21 = 0u;
     v22 = 0u;
-    v19 = 0u;
+    v23 = 0u;
     v20 = 0u;
-    v6 = *(*v3 + 56);
-    v7 = [v6 countByEnumeratingWithState:&v19 objects:v29 count:16];
-    if (v7)
+    v21 = 0u;
+    v7 = *(*v4 + 56);
+    v8 = [v7 countByEnumeratingWithState:&v20 objects:v30 count:16];
+    if (v8)
     {
-      v8 = v7;
-      v9 = *v20;
+      v9 = v8;
+      v10 = *v21;
       do
       {
-        v10 = 0;
+        v11 = 0;
         do
         {
-          if (*v20 != v9)
+          if (*v21 != v10)
           {
-            objc_enumerationMutation(v6);
+            objc_enumerationMutation(v7);
           }
 
-          v11 = *(*(&v19 + 1) + 8 * v10);
-          v12 = *(*(a1 + 32) + 16);
-          [v11 unsignedLongLongValue];
-          v13 = *(a1 + 40);
-          if (xpc_event_publisher_fire() && gc_isInternalBuild())
+          v12 = *(*(&v20 + 1) + 8 * v11);
+          [v12 unsignedLongLongValue];
+          v13 = xpc_event_publisher_fire();
+          if (v13)
           {
-            v14 = getGCLogger();
-            if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+            v15 = gc_isInternalBuild(v13, v14);
+            if (v15)
             {
-              v18 = *(*v3 + 24);
-              v15 = xpc_strerror();
-              *buf = 138543874;
-              v24 = v18;
-              v25 = 2112;
-              v26 = v11;
-              v27 = 2080;
-              v28 = v15;
-              _os_log_error_impl(&dword_1D2CD5000, v14, OS_LOG_TYPE_ERROR, "Failed to send event to XPC event stream %{public}@ for token %@: %s", buf, 0x20u);
+              v16 = getGCLogger(v15);
+              if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+              {
+                v19 = *(*v4 + 24);
+                v17 = xpc_strerror();
+                *buf = 138543874;
+                v25 = v19;
+                v26 = 2112;
+                v27 = v12;
+                v28 = 2080;
+                v29 = v17;
+                _os_log_error_impl(&dword_1D2CD5000, v16, OS_LOG_TYPE_ERROR, "Failed to send event to XPC event stream %{public}@ for token %@: %s", buf, 0x20u);
+              }
             }
           }
 
-          ++v10;
+          ++v11;
         }
 
-        while (v8 != v10);
-        v16 = [v6 countByEnumeratingWithState:&v19 objects:v29 count:16];
-        v8 = v16;
+        while (v9 != v11);
+        v18 = [v7 countByEnumeratingWithState:&v20 objects:v30 count:16];
+        v9 = v18;
       }
 
-      while (v16);
+      while (v18);
     }
   }
 
@@ -301,13 +303,11 @@ void __33__GCXPCEventPublisher_sendEvent___block_invoke(uint64_t a1)
       __33__GCXPCEventPublisher_sendEvent___block_invoke_cold_1(a1);
     }
 
-    if ((*(*v3 + 8) & 1) == 0)
+    if ((*(*v4 + 8) & 1) == 0)
     {
-      [*(*v3 + 40) addObject:*(a1 + 40)];
+      [*(*v4 + 40) addObject:*(a1 + 40)];
     }
   }
-
-  v17 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sendEvent:(id)event toSubscriber:(id)subscriber
@@ -327,131 +327,106 @@ void __33__GCXPCEventPublisher_sendEvent___block_invoke(uint64_t a1)
   dispatch_async(queue, block);
 }
 
-void __46__GCXPCEventPublisher_sendEvent_toSubscriber___block_invoke(uint64_t a1)
+void __46__GCXPCEventPublisher_sendEvent_toSubscriber___block_invoke(uint64_t result, uint64_t a2)
 {
-  v1 = a1 + 32;
-  if (*(*(a1 + 32) + 9) == 1)
+  v2 = result + 32;
+  if (*(*(result + 32) + 9) == 1)
   {
-    if (gc_isInternalBuild())
+    if (gc_isInternalBuild(result, a2))
     {
-      __46__GCXPCEventPublisher_sendEvent_toSubscriber___block_invoke_cold_1(v1, a1);
+      __46__GCXPCEventPublisher_sendEvent_toSubscriber___block_invoke_cold_1(v2);
     }
 
-    v4 = *(a1 + 48);
-    v3 = (a1 + 48);
-    v5 = *(*(v3 - 2) + 16);
-    [v4 unsignedLongLongValue];
-    v6 = *(v3 - 1);
-    if (xpc_event_publisher_fire())
+    v5 = *(result + 48);
+    v4 = (result + 48);
+    [v5 unsignedLongLongValue];
+    v6 = xpc_event_publisher_fire();
+    if (v6)
     {
-      if (gc_isInternalBuild())
+      v8 = v6;
+      if (gc_isInternalBuild(v6, v7))
       {
-        __46__GCXPCEventPublisher_sendEvent_toSubscriber___block_invoke_cold_2(v1, v3);
+        __46__GCXPCEventPublisher_sendEvent_toSubscriber___block_invoke_cold_2(v2, v4, v8);
       }
     }
   }
 }
 
-void __67__GCXPCEventPublisher_initWithStreamName_isStatefulEventPublisher___block_invoke_2_cold_1(uint64_t a1)
+void __67__GCXPCEventPublisher_initWithStreamName_isStatefulEventPublisher___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
 {
   v9 = *MEMORY[0x1E69E9840];
-  v2 = getGCLogger();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
+  v3 = getGCLogger(a1);
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     v4 = *(a1 + 32);
     v5 = 138543618;
     v6 = v4;
     v7 = 2080;
     v8 = xpc_strerror();
-    _os_log_error_impl(&dword_1D2CD5000, v2, OS_LOG_TYPE_ERROR, "Unexpected error from XPC event publisher for stream %{public}@: %s", &v5, 0x16u);
+    _os_log_error_impl(&dword_1D2CD5000, v3, OS_LOG_TYPE_ERROR, "Unexpected error from XPC event publisher for stream %{public}@: %s", &v5, 0x16u);
   }
-
-  v3 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleEventWithAction:(uint64_t)a1 token:descriptor:.cold.1(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
-    v4 = *(a1 + 24);
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v5, v6, v7, v8, v9, 0x1Cu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x1Cu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)handleEventWithAction:(uint64_t)a1 token:descriptor:.cold.2(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v3))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
-    v4 = *(a1 + 24);
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __33__GCXPCEventPublisher_sendEvent___block_invoke_cold_1(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = getGCLogger();
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
+  {
+    OUTLINED_FUNCTION_4_1();
+    OUTLINED_FUNCTION_1();
+    _os_log_impl(v3, v4, v5, v6, v7, 0xCu);
+  }
+}
+
+void __33__GCXPCEventPublisher_sendEvent___block_invoke_cold_2(uint64_t a1)
+{
+  v3 = getGCLogger(a1);
   if (OUTLINED_FUNCTION_11(v3))
   {
-    v4 = *(a1 + 40);
-    OUTLINED_FUNCTION_4_1();
-    OUTLINED_FUNCTION_1();
-    _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
-  }
-
-  v10 = *MEMORY[0x1E69E9840];
-}
-
-void __33__GCXPCEventPublisher_sendEvent___block_invoke_cold_2(uint64_t a1, uint64_t a2)
-{
-  v14 = *MEMORY[0x1E69E9840];
-  v5 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v5))
-  {
-    v12 = *(*a1 + 24);
-    v13 = *(a2 + 40);
     [*(*a1 + 56) count];
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v6, v7, v8, v9, v10, 0x1Cu);
+    _os_log_impl(v4, v5, v6, v7, v8, 0x1Cu);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
-void __46__GCXPCEventPublisher_sendEvent_toSubscriber___block_invoke_cold_1(uint64_t a1, uint64_t a2)
+void __46__GCXPCEventPublisher_sendEvent_toSubscriber___block_invoke_cold_1(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v5 = getGCLogger();
-  if (OUTLINED_FUNCTION_11(v5))
+  v2 = getGCLogger(a1);
+  if (OUTLINED_FUNCTION_11(v2))
   {
-    v6 = *(*a1 + 24);
-    v7 = *(a2 + 40);
-    v8 = *(a2 + 48);
     OUTLINED_FUNCTION_4_1();
     OUTLINED_FUNCTION_1();
-    _os_log_impl(v9, v10, v11, v12, v13, 0x20u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x20u);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-void __46__GCXPCEventPublisher_sendEvent_toSubscriber___block_invoke_cold_2(uint64_t a1, uint64_t *a2)
+void __46__GCXPCEventPublisher_sendEvent_toSubscriber___block_invoke_cold_2(uint64_t a1, uint64_t *a2, uint64_t a3)
 {
   v14 = *MEMORY[0x1E69E9840];
-  v4 = getGCLogger();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+  v5 = getGCLogger(a1);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     v6 = *(*a1 + 24);
     v7 = *a2;
@@ -461,10 +436,8 @@ void __46__GCXPCEventPublisher_sendEvent_toSubscriber___block_invoke_cold_2(uint
     v11 = v7;
     v12 = 2080;
     v13 = xpc_strerror();
-    _os_log_error_impl(&dword_1D2CD5000, v4, OS_LOG_TYPE_ERROR, "Failed to send event to XPC event stream %{public}@ for token %@: %s", &v8, 0x20u);
+    _os_log_error_impl(&dword_1D2CD5000, v5, OS_LOG_TYPE_ERROR, "Failed to send event to XPC event stream %{public}@ for token %@: %s", &v8, 0x20u);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 @end

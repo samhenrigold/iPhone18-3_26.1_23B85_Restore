@@ -1,17 +1,3 @@
-void sub_100028378(void *a1, uint64_t a2)
-{
-  v3 = a1;
-  if (!v3 || (v6 = v3, v4 = [v3 isEqualToString:BKSDisplayUUIDMainKey], v6, v3 = v6, v4))
-  {
-
-    v3 = 0;
-  }
-
-  v7 = v3;
-  v5 = sub_100007D54(v3, "_BKDisplaySetDisabled");
-  [v5 setDisablesUpdates:a2];
-}
-
 void sub_100028414(uint64_t a1)
 {
   v3 = [*(a1 + 32) windowServerDisplay];
@@ -555,7 +541,7 @@ void sub_100028F80(id a1)
   os_unfair_lock_unlock(&unk_100125DE8);
   v50 = +[BKDisplayRenderOverlayManager sharedInstance];
   v51 = +[BKBootUIPresenter sharedInstance];
-  v52 = sub_1000597A4();
+  v52 = sub_1000597A4(BKTVOutController);
   [BKTVOutController _handleIapServerConnectionDied]_0(v52);
 
   v53 = +[BKTetherController sharedInstance];
@@ -1500,25 +1486,23 @@ void sub_10002E9C8(uint64_t a1)
   }
 
   v3 = *(a1 + 80);
-  v4 = *(a1 + 64);
-  v10 = *(a1 + 48);
-  v5 = BSVersionedPIDForAuditToken();
-  v6 = v2;
-  *&v10 = _NSConcreteStackBlock;
-  *(&v10 + 1) = 3221225472;
-  v11 = sub_100028720;
-  v12 = &unk_1000FC018;
-  v13 = objc_opt_self();
+  v4 = BSVersionedPIDForAuditToken();
+  v5 = v2;
+  v9[0] = _NSConcreteStackBlock;
+  v9[1] = 3221225472;
+  v9[2] = sub_100028720;
+  v9[3] = &unk_1000FC018;
+  v9[4] = objc_opt_self();
   if (qword_100125DC8 != -1)
   {
-    dispatch_once(&qword_100125DC8, &v10);
+    dispatch_once(&qword_100125DC8, v9);
   }
 
-  v7 = v3 != 0;
-  v8 = qword_100125DD0;
-  v9 = sub_100028868(v8, v6, v7, v5);
+  v6 = v3 != 0;
+  v7 = qword_100125DD0;
+  v8 = sub_100028868(v7, v5, v6, v4);
 
-  **(a1 + 40) = v9;
+  **(a1 + 40) = v8;
 }
 
 uint64_t sub_10002EB04(_BYTE *a1, uint64_t a2, float a3, float a4, float a5, float a6)
@@ -1609,7 +1593,7 @@ LABEL_13:
 
   v3 = BSPIDForAuditToken();
   v4 = [NSString stringWithUTF8String:*(a1 + 32)];
-  v5 = sub_1000597A4();
+  v5 = sub_1000597A4(BKTVOutController);
   v6 = v4;
   v13 = v6;
   if (v5)
@@ -1654,7 +1638,7 @@ void sub_10002EF3C(uint64_t a1)
   {
     v2 = BSPIDForAuditToken();
     v3 = [NSString stringWithUTF8String:*(a1 + 32)];
-    v4 = sub_1000597A4();
+    v4 = sub_1000597A4(BKTVOutController);
     v7 = v3;
     if (v4)
     {
@@ -1717,127 +1701,124 @@ void sub_10002F1F8(uint64_t a1)
   v3 = BKLogDisplay();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v4 = *(a1 + 32);
-    v5 = BSDeviceOrientationDescription();
-    v26 = 138543362;
-    v27 = v5;
-    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "UpdateMirroredDisplayOrientationWithInterfaceOrientation:%{public}@ ", &v26, 0xCu);
+    v4 = BSDeviceOrientationDescription();
+    v23 = 138543362;
+    v24 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "UpdateMirroredDisplayOrientationWithInterfaceOrientation:%{public}@ ", &v23, 0xCu);
   }
 
-  v6 = +[BKTetherController sharedInstance];
-  v7 = [v6 isTethered];
-  v8 = [v6 usesDisplayPortTethering];
-  v9 = [v2 isSteveNoteRotationEnabled];
-  if (v7)
+  v5 = +[BKTetherController sharedInstance];
+  v6 = [v5 isTethered];
+  v7 = [v5 usesDisplayPortTethering];
+  v8 = [v2 isSteveNoteRotationEnabled];
+  if (v6)
   {
-    v10 = v8 == 0;
+    v9 = v7 == 0;
   }
 
   else
   {
-    v10 = 1;
+    v9 = 1;
   }
 
-  if (v10 || (v9 & 1) != 0)
+  if (v9 || (v8 & 1) != 0)
   {
-    v17 = [v2 forceMirroredOrientation];
+    v15 = [v2 forceMirroredOrientation];
 
-    if (!v17)
+    if (!v15)
     {
-      v19 = +[CAWindowServer serverIfRunning];
-      v11 = [v19 displays];
+      v16 = +[CAWindowServer serverIfRunning];
+      v10 = [v16 displays];
 
-      if ([v11 count])
+      if ([v10 count])
       {
-        v13 = kCAWindowServerOrientation_Portrait;
+        v11 = kCAWindowServerOrientation_Portrait;
         if (*(a1 + 32) - 2 <= 2)
         {
-          v20 = **(&off_1000FAB60 + (*(a1 + 32) - 2));
+          v17 = **(&off_1000FAB60 + (*(a1 + 32) - 2));
 
-          v13 = v20;
+          v11 = v17;
         }
 
-        v21 = [v11 objectAtIndex:0];
-        v22 = [v21 orientation];
-        v23 = [v22 isEqualToString:v13];
-        v24 = BKLogDisplay();
-        v25 = os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT);
-        if (v23)
+        v18 = [v10 objectAtIndex:0];
+        v19 = [v18 orientation];
+        v20 = [v19 isEqualToString:v11];
+        v21 = BKLogDisplay();
+        v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT);
+        if (v20)
         {
-          if (v25)
+          if (v22)
           {
-            v26 = 138543362;
-            v27 = v13;
-            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Ignoring request to update to same display interface orientation (%{public}@)", &v26, 0xCu);
+            v23 = 138543362;
+            v24 = v11;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Ignoring request to update to same display interface orientation (%{public}@)", &v23, 0xCu);
           }
         }
 
         else
         {
-          if (v25)
+          if (v22)
           {
-            v26 = 138543618;
-            v27 = v22;
-            v28 = 2114;
-            *v29 = v13;
-            _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Updating external display interface orientation from %{public}@ to %{public}@", &v26, 0x16u);
+            v23 = 138543618;
+            v24 = v19;
+            v25 = 2114;
+            *v26 = v11;
+            _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "Updating external display interface orientation from %{public}@ to %{public}@", &v23, 0x16u);
           }
 
-          [v21 setOrientation:v13];
+          [v18 setOrientation:v11];
         }
 
         goto LABEL_27;
       }
 
-      v13 = BKLogDisplay();
-      if (!os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+      v11 = BKLogDisplay();
+      if (!os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_27:
 
         goto LABEL_28;
       }
 
-      LOWORD(v26) = 0;
-      v14 = "Ignoring request to update to same display interface orientation because there are no CADisplays";
-      v15 = v13;
-      v16 = 2;
+      LOWORD(v23) = 0;
+      v12 = "Ignoring request to update to same display interface orientation because there are no CADisplays";
+      v13 = v11;
+      v14 = 2;
 LABEL_13:
-      _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, v14, &v26, v16);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, v12, &v23, v14);
       goto LABEL_27;
     }
 
-    v11 = BKLogDisplay();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = BKLogDisplay();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = *(a1 + 32);
-      v13 = BSDeviceOrientationDescription();
-      v26 = 138543362;
-      v27 = v13;
-      v14 = "ignoring mirrored display orientation update to %{public}@ because (forceMirroredOrientation:YES)";
-      v15 = v11;
-      v16 = 12;
+      v11 = BSDeviceOrientationDescription();
+      v23 = 138543362;
+      v24 = v11;
+      v12 = "ignoring mirrored display orientation update to %{public}@ because (forceMirroredOrientation:YES)";
+      v13 = v10;
+      v14 = 12;
       goto LABEL_13;
     }
   }
 
   else
   {
-    v11 = BKLogDisplay();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v10 = BKLogDisplay();
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v12 = *(a1 + 32);
-      v13 = BSDeviceOrientationDescription();
-      v26 = 138544130;
-      v27 = v13;
-      v28 = 1024;
-      *v29 = 1;
-      *&v29[4] = 1024;
-      *&v29[6] = 1;
-      v30 = 1024;
-      v31 = 0;
-      v14 = "ignoring mirrored display orientation update to %{public}@ because (tethered:%{BOOL}u displayPortTethering:%{BOOL}u stevenoteRotationEnabled:%{BOOL}u)";
-      v15 = v11;
-      v16 = 30;
+      v11 = BSDeviceOrientationDescription();
+      v23 = 138544130;
+      v24 = v11;
+      v25 = 1024;
+      *v26 = 1;
+      *&v26[4] = 1024;
+      *&v26[6] = 1;
+      v27 = 1024;
+      v28 = 0;
+      v12 = "ignoring mirrored display orientation update to %{public}@ because (tethered:%{BOOL}u displayPortTethering:%{BOOL}u stevenoteRotationEnabled:%{BOOL}u)";
+      v13 = v10;
+      v14 = 30;
       goto LABEL_13;
     }
   }
@@ -1916,15 +1897,17 @@ LABEL_9:
   }
 }
 
-uint64_t sub_10002F844(uint64_t a1, unsigned int a2, uint64_t a3, unsigned int a4, uint64_t a5)
+uint64_t sub_10002F844(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a4;
+  v7 = a2;
   if (!sub_1000025C8("_BKDisplayXXApplyRenderOverlay", BKBackBoardClientEntitlement, a5))
   {
     return 5;
   }
 
-  v9 = sub_10002F984(a1, a2);
-  v10 = sub_10002FA20(a3, a4);
+  v9 = sub_10002F984(a1, v7);
+  v10 = sub_10002FA20(a3, v5);
   if (v9)
   {
     v11 = [v9 displayUUID];
@@ -2018,9 +2001,9 @@ id sub_10002FA98(void *a1)
   return v5;
 }
 
-void sub_10002FBD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10002FBD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2037,12 +2020,11 @@ void sub_10002FC00(uint64_t a1, void *a2, _BYTE *a3)
   v9 = a2;
   if ([v9 type] == 1)
   {
-    v6 = *(a1 + 32);
-    v7 = [v9 descriptor];
-    v8 = [v7 displayUUID];
-    LODWORD(v6) = BSEqualStrings();
+    v6 = [v9 descriptor];
+    v7 = [v6 displayUUID];
+    v8 = BSEqualStrings();
 
-    if (v6)
+    if (v8)
     {
       objc_storeStrong((*(*(a1 + 40) + 8) + 40), a2);
       *a3 = 1;
@@ -2181,11 +2163,11 @@ void sub_100030040(uint64_t a1)
   [v1 dismissOverlayWithAnimationSettings:v2 requstedByPID:BSPIDForAuditToken()];
 }
 
-id sub_1000300C0(const char *a1)
+id sub_1000300C0(const char *a1, uint64_t a2, uint64_t a3)
 {
-  v2 = GSRegisterPurpleNamedPort();
+  v4 = GSRegisterPurpleNamedPort();
   port_info = 16;
-  mach_port_set_attributes(mach_task_self_, v2, 1, &port_info, 1u);
+  mach_port_set_attributes(mach_task_self_, v4, 1, &port_info, 1u);
   inactive = dispatch_workloop_create_inactive(a1);
   dispatch_set_qos_class_fallback();
   dispatch_workloop_set_scheduler_priority();
@@ -2258,9 +2240,9 @@ id sub_100031CD4(uint64_t a1)
   return [v2 _dismissWithAnimationSettings:v3];
 }
 
-void sub_1000320E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1000320E8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2374,21 +2356,18 @@ void sub_100033044(uint64_t a1)
 
 uint64_t sub_100033B28(uint64_t result)
 {
-  v1 = *(result + 32);
-  if (*(v1 + 17) == 1)
+  if (*(*(result + 32) + 17) == 1)
   {
-    v2 = result;
-    v3 = *(v1 + 8);
-    v4 = *(v2 + 40);
+    v1 = result;
     result = BSEqualObjects();
     if ((result & 1) == 0)
     {
-      objc_storeStrong((*(v2 + 32) + 8), *(v2 + 40));
-      v5 = *(v2 + 32);
-      v6 = *(v2 + 40);
-      v7 = v5[3];
+      objc_storeStrong((*(v1 + 32) + 8), *(v1 + 40));
+      v2 = *(v1 + 32);
+      v3 = *(v1 + 40);
+      v4 = v2[3];
 
-      return [v5 hitTestRegionsDidChangeSwift:v6 displayAnnotationController:v7];
+      return [v2 hitTestRegionsDidChangeSwift:v3 displayAnnotationController:v4];
     }
   }
 
@@ -2424,16 +2403,15 @@ id sub_100033F48(uint64_t a1)
 uint64_t sub_10003401C(uint64_t a1)
 {
   [*(a1 + 32) _queue_setCenter:*(a1 + 72) forTouchIdentifier:{*(a1 + 40), *(a1 + 48)}];
-  v2 = *(a1 + 56);
   result = BSFloatIsZero();
   if ((result & 1) == 0)
   {
-    v4 = *(a1 + 32);
-    v5 = *(a1 + 72);
-    v7 = *(a1 + 56);
-    v6 = *(a1 + 64);
+    v3 = *(a1 + 32);
+    v4 = *(a1 + 72);
+    v6 = *(a1 + 56);
+    v5 = *(a1 + 64);
 
-    return [v4 _queue_updateHoverStateForTouchIdentifier:v5 z:v6 maxZ:v7];
+    return [v3 _queue_updateHoverStateForTouchIdentifier:v4 z:v5 maxZ:v6];
   }
 
   return result;
@@ -2630,9 +2608,9 @@ void sub_100034E2C(id a1)
   qword_100125E28 = v1;
 }
 
-void sub_100035C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100035C08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   sub_100035C24(va);
   _Unwind_Resume(a1);
 }
@@ -2690,31 +2668,31 @@ void sub_100035C70(uint64_t a1, const char *a2)
 void sub_100035D34(uint64_t a1, uint64_t a2, uint64_t a3, int a4, void *a5, void *a6)
 {
   v10 = a5;
-  v24 = a6;
+  v25 = a6;
   if (a1)
   {
-    v29 = 0u;
     v30 = 0u;
-    v27 = 0u;
+    v31 = 0u;
     v28 = 0u;
-    v11 = [v10 countByEnumeratingWithState:&v27 objects:v35 count:16];
+    v29 = 0u;
+    v11 = [v10 countByEnumeratingWithState:&v28 objects:v36 count:16];
     if (v11)
     {
       v12 = v11;
-      v26 = *v28;
+      v27 = *v29;
       type = 2 * (a4 == 0);
       do
       {
         v13 = 0;
-        v14 = v24;
+        v14 = v25;
         do
         {
-          if (*v28 != v26)
+          if (*v29 != v27)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v27 + 1) + 8 * v13);
+          v15 = *(*(&v28 + 1) + 8 * v13);
           Copy = IOHIDEventCreateCopy();
           v17 = [BKSHIDEventBaseAttributes baseAttributesFromProvider:v15];
           BKSHIDEventSetAttributes();
@@ -2724,18 +2702,18 @@ void sub_100035D34(uint64_t a1, uint64_t a2, uint64_t a3, int a4, void *a5, void
           {
             if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
             {
-              sub_100027568(Copy);
-              v20 = v10;
-              v22 = v21 = a3;
+              sub_100027568(Copy, v20);
+              v21 = v10;
+              v23 = v22 = a3;
               *buf = 138543618;
-              v32 = v22;
-              v33 = 2114;
-              v34 = v15;
+              v33 = v23;
+              v34 = 2114;
+              v35 = v15;
               _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "out %{public}@ -> %{public}@", buf, 0x16u);
 
-              a3 = v21;
-              v10 = v20;
-              v14 = v24;
+              a3 = v22;
+              v10 = v21;
+              v14 = v25;
             }
           }
 
@@ -2743,9 +2721,9 @@ void sub_100035D34(uint64_t a1, uint64_t a2, uint64_t a3, int a4, void *a5, void
           {
             TimeStamp = IOHIDEventGetTimeStamp();
             *buf = 134218242;
-            v32 = TimeStamp;
-            v33 = 2114;
-            v34 = v15;
+            v33 = TimeStamp;
+            v34 = 2114;
+            v35 = v15;
             _os_log_impl(&_mh_execute_header, v19, type, "out %llX -> %{public}@", buf, 0x16u);
           }
 
@@ -2756,7 +2734,7 @@ void sub_100035D34(uint64_t a1, uint64_t a2, uint64_t a3, int a4, void *a5, void
         }
 
         while (v12 != v13);
-        v12 = [v10 countByEnumeratingWithState:&v27 objects:v35 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v28 objects:v36 count:16];
       }
 
       while (v12);
@@ -2932,63 +2910,85 @@ void sub_100035FC0(void *a1, uint64_t a2, uint64_t a3)
 LABEL_22:
 }
 
-void sub_100036588(uint64_t a1)
+void sub_100036588(uint64_t a1, uint64_t a2)
 {
-  v2 = **(a1 + 64);
-  if (v2)
-  {
-    v3 = *(v2 + 16);
-  }
-
-  v4 = *(a1 + 32);
+  v4 = **(a1 + 64);
   if (v4)
   {
-    v5 = *(v4 + 8);
-    v6 = *(v4 + 10);
+    v5 = *(v4 + 16);
   }
 
-  mach_absolute_time();
-  v7 = sub_100026FBC();
-  v8 = *(a1 + 64);
-  v9 = *(v8 + 8);
-  if (v9 && *(v9 + 32))
+  else
+  {
+    v5 = 0;
+  }
+
+  v6 = *(a1 + 32);
+  if (v6)
+  {
+    v7 = *(v6 + 8);
+    v8 = *(v6 + 10);
+  }
+
+  else
+  {
+    v7 = 0;
+    v8 = 0;
+  }
+
+  v9 = mach_absolute_time();
+  v10 = sub_100026FBC(v5, v7, v8, v9, 1, a2);
+  v11 = *(a1 + 64);
+  v12 = *(v11 + 8);
+  if (v12 && *(v12 + 32))
   {
     IOHIDEventAppendEvent();
-    v8 = *(a1 + 64);
+    v11 = *(a1 + 64);
   }
 
-  sub_100035D34(*(a1 + 40), v7, 1, *(v8 + 20), *(a1 + 48), *(a1 + 56));
+  sub_100035D34(*(a1 + 40), v10, 1, *(v11 + 20), *(a1 + 48), *(a1 + 56));
 
-  CFRelease(v7);
+  CFRelease(v10);
 }
 
-void sub_100036664(uint64_t a1)
+void sub_100036664(uint64_t a1, uint64_t a2)
 {
-  v2 = **(a1 + 64);
-  if (v2)
-  {
-    v3 = *(v2 + 16);
-  }
-
-  v4 = *(a1 + 32);
+  v4 = **(a1 + 64);
   if (v4)
   {
-    v5 = *(v4 + 8);
-    v6 = *(v4 + 10);
+    v5 = *(v4 + 16);
   }
 
-  mach_absolute_time();
-  v7 = sub_100026FBC();
-  v8 = *(*(a1 + 64) + 8);
-  if (v8 && *(v8 + 32))
+  else
+  {
+    v5 = 0;
+  }
+
+  v6 = *(a1 + 32);
+  if (v6)
+  {
+    v7 = *(v6 + 8);
+    v8 = *(v6 + 10);
+  }
+
+  else
+  {
+    v7 = 0;
+    v8 = 0;
+  }
+
+  v9 = mach_absolute_time();
+  v10 = sub_100026FBC(v5, v7, v8, v9, 2, a2);
+  v11 = *(*(a1 + 64) + 8);
+  if (v11 && *(v11 + 32))
   {
     IOHIDEventAppendEvent();
   }
 
   IOHIDEventSetPhase();
-  sub_100035D34(*(a1 + 40), v7, 1, *(*(a1 + 64) + 20), *(a1 + 48), *(a1 + 56));
+  sub_100035D34(*(a1 + 40), v10, 1, *(*(a1 + 64) + 20), *(a1 + 48), *(a1 + 56));
 
-  CFRelease(v7);
+  CFRelease(v10);
 }
 
 void sub_100036B38(uint64_t a1)
@@ -3079,7 +3079,7 @@ void sub_100036F34(uint64_t a1)
   }
 }
 
-id sub_1000371D0(uint64_t a1, void *a2, int a3)
+BKUISensorClient *sub_1000371D0(uint64_t a1, void *a2, int a3)
 {
   os_unfair_lock_assert_owner((a1 + 8));
   v6 = *(a1 + 24);
@@ -3496,9 +3496,8 @@ void sub_1000393C8(uint64_t a1)
   [v6 appendString:v5 withName:v7];
 LABEL_7:
   v8 = *(a1 + 40);
-  v9 = *(*(a1 + 32) + 24);
-  v10 = NSStringFromBKSDisplayServicesCloneMirroringMode();
-  [v8 appendString:v10 withName:@"mode"];
+  v9 = NSStringFromBKSDisplayServicesCloneMirroringMode();
+  [v8 appendString:v9 withName:@"mode"];
 }
 
 void sub_1000397E8(uint64_t a1)
@@ -4080,16 +4079,16 @@ id sub_10003D4D4(int a1)
   return v4;
 }
 
-void sub_10003E4D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10003E4D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va1, a9);
-  va_start(va, a9);
-  v10 = va_arg(va1, void);
-  v12 = va_arg(va1, void);
-  v13 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a16);
+  va_start(va, a16);
+  v17 = va_arg(va1, void);
+  v19 = va_arg(va1, void);
+  v20 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -4266,9 +4265,9 @@ LABEL_24:
   }
 }
 
-void sub_10003EA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_10003EA38(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4394,7 +4393,7 @@ id sub_10003F6B8(uint64_t a1, uint64_t a2, int a3)
   return v8;
 }
 
-id sub_10003FD10()
+id sub_10003FD10(uint64_t a1)
 {
   objc_opt_self();
   if (qword_100125E98 != -1)
@@ -4402,9 +4401,9 @@ id sub_10003FD10()
     dispatch_once(&qword_100125E98, &stru_1000FAF60);
   }
 
-  v0 = qword_100125EA0;
+  v1 = qword_100125EA0;
 
-  return v0;
+  return v1;
 }
 
 void sub_10003FD68(id a1)
@@ -4498,15 +4497,14 @@ void sub_10004041C(uint64_t a1)
     v4 = BKLogCommon();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v5 = *(a1 + 32);
-      v6 = objc_opt_class();
-      v7 = *(a1 + 40);
-      v9 = 138543618;
-      v10 = v6;
-      v11 = 2114;
-      v12 = v7;
-      v8 = v6;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%{public}@: missing sensor record for displayUUID %{public}@", &v9, 0x16u);
+      v5 = objc_opt_class();
+      v6 = *(a1 + 40);
+      v8 = 138543618;
+      v9 = v5;
+      v10 = 2114;
+      v11 = v6;
+      v7 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%{public}@: missing sensor record for displayUUID %{public}@", &v8, 0x16u);
     }
   }
 }
@@ -4525,62 +4523,61 @@ void sub_1000405C0(uint64_t a1)
     v4 = BKLogCommon();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
-      v5 = *(a1 + 32);
-      v6 = objc_opt_class();
-      v7 = *(a1 + 40);
-      v9 = 138543618;
-      v10 = v6;
-      v11 = 2114;
-      v12 = v7;
-      v8 = v6;
-      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%{public}@: missing sensor record for displayUUID %{public}@", &v9, 0x16u);
+      v5 = objc_opt_class();
+      v6 = *(a1 + 40);
+      v8 = 138543618;
+      v9 = v5;
+      v10 = 2114;
+      v11 = v6;
+      v7 = v5;
+      _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%{public}@: missing sensor record for displayUUID %{public}@", &v8, 0x16u);
     }
   }
 }
 
-id sub_100040D9C(uint64_t a1)
+id sub_100040D9C(uint64_t a1, double a2)
 {
-  v2 = sub_100052774();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_100052774();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 40);
-    v13 = 134217984;
-    v14 = v3;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Checkpoint after interval: %gs", &v13, 0xCu);
+    v4 = *(a1 + 40);
+    v14 = 134217984;
+    v15 = v4;
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "Checkpoint after interval: %gs", &v14, 0xCu);
   }
 
   [*(a1 + 32) _queue_clearTimer];
-  v4 = *(a1 + 32);
-  if (v4[11] == 1)
+  v5 = *(a1 + 32);
+  if (v5[11] == 1)
   {
-    v5 = &kBKSHIDServicesUserEventPresenceExpired;
-    return [v4 _queue_postNotification:*v5];
+    v6 = &kBKSHIDServicesUserEventPresenceExpired;
+    return [v5 _queue_postNotification:*v6];
   }
 
-  v6 = CACurrentMediaTime();
-  v7 = *(a1 + 32);
-  v8 = *(v7 + 8);
-  v9 = v6 - *(v7 + 16);
-  if (v9 >= v8)
+  v7 = CACurrentMediaTime();
+  v8 = *(a1 + 32);
+  v9 = *(v8 + 8);
+  v10 = v7 - *(v8 + 16);
+  if (v10 >= v9)
   {
-    *(v7 + 40) = 1;
-    v4 = *(a1 + 32);
-    v5 = &kBKSHIDServicesUserEventIdled;
-    return [v4 _queue_postNotification:*v5];
+    *(v8 + 40) = 1;
+    v5 = *(a1 + 32);
+    v6 = &kBKSHIDServicesUserEventIdled;
+    return [v5 _queue_postNotification:*v6];
   }
 
-  v10 = v8 - v9;
-  v11 = sub_100052774();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v11 = v9 - v10;
+  v12 = sub_100052774();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = 134218240;
-    v14 = v10;
-    v15 = 2048;
-    v16 = v9;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Rescheduling checkpoint with new interval: %gs (last user event was %gs ago)", &v13, 0x16u);
+    v14 = 134218240;
+    v15 = v11;
+    v16 = 2048;
+    v17 = v10;
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Rescheduling checkpoint with new interval: %gs (last user event was %gs ago)", &v14, 0x16u);
   }
 
-  return [*(a1 + 32) _queue_scheduleTimerWithTimeInterval:v10];
+  return [*(a1 + 32) _queue_scheduleTimerWithTimeInterval:v11];
 }
 
 _BYTE *sub_1000411C4(uint64_t a1)
@@ -4611,12 +4608,11 @@ _BYTE *sub_1000411C4(uint64_t a1)
   return result;
 }
 
-id sub_1000412F4(uint64_t a1)
+id sub_1000412F4(uint64_t a1, double a2)
 {
-  v2 = sub_100052774();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
+  v3 = sub_100052774();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v3 = *(a1 + 56);
     v4 = NSStringFromBKSHIDServicesUserEventTimerMode();
     v5 = v4;
     v6 = *(a1 + 40);
@@ -4629,7 +4625,7 @@ id sub_1000412F4(uint64_t a1)
     v16 = v4;
     v17 = 2048;
     v18 = v6;
-    _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "reset timer to mode:%{public}@ duration:%gs", &v15, 0x16u);
+    _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "reset timer to mode:%{public}@ duration:%gs", &v15, 0x16u);
   }
 
   v7 = *(a1 + 56);
@@ -4743,11 +4739,10 @@ id sub_100042534(uint64_t a1)
 
 void sub_1000429F8(uint64_t a1, void *a2)
 {
-  v4 = a2;
-  objc_msgSend(v4, "appendString:", @"(");
-  v3 = *(*(a1 + 32) + 80);
+  v2 = a2;
+  objc_msgSend(v2, "appendString:", @"(");
   BSDescriptionStreamAppendBKSKeyModifierFlags();
-  [v4 appendString:@""]);
+  [v2 appendString:@""]);
 }
 
 id sub_100042B68(id a1, BKIOHIDService *a2)
@@ -4938,35 +4933,31 @@ void sub_10004518C(uint64_t a1, void *a2)
 
 void sub_10004544C(uint64_t a1, void *a2, void *a3)
 {
-  v13 = a2;
+  v9 = a2;
   v5 = a3;
-  if (v13)
+  if (v9)
   {
-    if (v13[1] != *(a1 + 32))
+    if (v9[1] != *(a1 + 32))
     {
-      goto LABEL_5;
+      goto LABEL_4;
     }
 
-    v6 = *(v13 + 8);
-    v7 = *(v13 + 12);
-    goto LABEL_4;
+    goto LABEL_3;
   }
 
   if (!*(a1 + 32))
   {
-LABEL_4:
-    v8 = *(a1 + 40);
+LABEL_3:
     KeyboardEvent = IOHIDEventCreateKeyboardEvent();
-    v10 = *(a1 + 32);
     IOHIDEventSetSenderID();
-    v11 = [v5 firstAdditionalContext];
-    v12 = [v11 copy];
+    v7 = [v5 firstAdditionalContext];
+    v8 = [v7 copy];
 
-    [v5 postEvent:KeyboardEvent position:3 additionalContext:v12];
+    [v5 postEvent:KeyboardEvent position:3 additionalContext:v8];
     CFRelease(KeyboardEvent);
   }
 
-LABEL_5:
+LABEL_4:
 }
 
 void sub_1000457B8(void *a1)
@@ -5458,7 +5449,7 @@ void sub_10004AED0(uint64_t a1, uint64_t a2)
 
             if (!v8)
             {
-              sub_100008070(v29, a2);
+              sub_100008070(v29, a2, 0);
               v9 = objc_alloc_init(NSMutableArray);
               v27 = 0u;
               v28 = 0u;
@@ -5480,7 +5471,7 @@ void sub_10004AED0(uint64_t a1, uint64_t a2)
                     }
 
                     v14 = *(*(&v25 + 1) + 8 * v13);
-                    sub_100083608(v14, v29);
+                    sub_100083608(v14, v29, 4);
                     if (v6)
                     {
                       v15 = *(v6 + 8);
@@ -5533,11 +5524,13 @@ void sub_10004AED0(uint64_t a1, uint64_t a2)
   }
 }
 
-void sub_10004C0B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, id a39, uint64_t a40, char a41)
+void sub_10004C0B8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, void *a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, id a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, id a39, uint64_t a40, ...)
 {
-  _Block_object_dispose(&a29, 8);
+  va_start(va, a40);
 
-  _Block_object_dispose(&a41, 8);
+  _Block_object_dispose(&a29, 8);
+  _Block_object_dispose(va, 8);
+
   _Unwind_Resume(a1);
 }
 
@@ -5645,32 +5638,31 @@ void sub_10004C6D0(uint64_t a1, uint64_t a2, uint64_t a3)
 
 void sub_10004C7E0(uint64_t a1, uint64_t a2, id *a3)
 {
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v4 = sub_100002D14(a3);
-  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v5)
   {
-    v6 = *v10;
+    v6 = *v9;
     do
     {
       v7 = 0;
       do
       {
-        if (*v10 != v6)
+        if (*v9 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        v8 = *(*(&v9 + 1) + 8 * v7);
         (*(*(a1 + 32) + 16))(*(a1 + 32));
-        v7 = v7 + 1;
+        ++v7;
       }
 
       while (v5 != v7);
-      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v5);
@@ -6432,7 +6424,7 @@ void sub_10004E9DC(uint64_t a1, uint64_t a2)
 
           sub_100081370(v2, v46, 6, 1);
           sub_100081370(v2, v46, 1, 1);
-          sub_100008070(buf, v2);
+          sub_100008070(buf, v2, 0);
           v51 = objc_alloc_init(NSMutableArray);
           v14 = [v46 copy];
           v15 = v14;
@@ -6498,7 +6490,7 @@ void sub_10004E9DC(uint64_t a1, uint64_t a2)
                 if (v27 <= 29 && v46[v27 + 1])
                 {
                   *(v26 + 249) = 1;
-                  sub_100083608(v26, buf);
+                  sub_100083608(v26, buf, 35);
                   v28 = sub_100088EFC(v2, v26, v3, v52, 2);
                   [v51 addObject:v28];
                   v29 = sub_100089118(v2, v3, v48);
@@ -6543,7 +6535,7 @@ void sub_10004E9DC(uint64_t a1, uint64_t a2)
 
                 else
                 {
-                  sub_100083608(*(*(&v57 + 1) + 8 * j), buf);
+                  sub_100083608(*(*(&v57 + 1) + 8 * j), buf, 4);
                   v28 = sub_100088EFC(v2, v26, v3, v52, 1);
                   [v51 addObject:v28];
                 }
@@ -6728,7 +6720,7 @@ void sub_10004F6B8(uint64_t a1, uint64_t a2)
           _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "cancel clients due to system gesture stealing the touches", buf, 2u);
         }
 
-        sub_1000804F0(v2, 2u, v3);
+        sub_1000804F0(v2, 2, v3);
       }
 
       else if (v3 && v6 == 2 && (*(v3 + 9) & 1) != 0)
@@ -6879,14 +6871,13 @@ void sub_10004FC44(uint64_t a1)
     if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
       v25 = *(a1 + 64);
-      v26 = *(a1 + 68);
-      v27 = NSStringFromBKSTouchStreamIdentifier();
+      v26 = NSStringFromBKSTouchStreamIdentifier();
       *buf = 67109634;
-      *v52 = v10;
-      *&v52[4] = 1024;
-      *&v52[6] = v25;
-      *v53 = 2114;
-      *&v53[2] = v27;
+      *v51 = v10;
+      *&v51[4] = 1024;
+      *&v51[6] = v25;
+      *v52 = 2114;
+      *&v52[2] = v26;
       _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "BKDigitizerTouchStreamCreate: invalid taskPort (0x%X) for contextID:0x%X (touchstreamIdentifier:%{public}@)", buf, 0x18u);
     }
   }
@@ -6914,32 +6905,32 @@ void sub_10004FC44(uint64_t a1)
     v17 = v11;
     if (!v11)
     {
-      v28 = objc_opt_class();
-      v29 = NSStringFromClass(v28);
-      v30 = [NSString stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"touchStream", v29];
+      v27 = objc_opt_class();
+      v28 = NSStringFromClass(v27);
+      v29 = [NSString stringWithFormat:@"Value for '%@' was unexpectedly nil. Expected %@.", @"touchStream", v28];
 
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v31 = NSStringFromSelector("destinationWithTouchStream:contextID:clientPort:");
-        v32 = objc_opt_class();
-        v33 = NSStringFromClass(v32);
+        v30 = NSStringFromSelector("destinationWithTouchStream:contextID:clientPort:");
+        v31 = objc_opt_class();
+        v32 = NSStringFromClass(v31);
         *buf = 138544642;
-        *v52 = v31;
-        *&v52[8] = 2114;
-        *v53 = v33;
-        *&v53[8] = 2048;
-        v54 = v16;
-        v55 = 2114;
-        v56 = @"BKTouchDestination.m";
-        v57 = 1024;
-        v58 = 43;
-        v59 = 2114;
-        v60 = v30;
+        *v51 = v30;
+        *&v51[8] = 2114;
+        *v52 = v32;
+        *&v52[8] = 2048;
+        v53 = v16;
+        v54 = 2114;
+        v55 = @"BKTouchDestination.m";
+        v56 = 1024;
+        v57 = 43;
+        v58 = 2114;
+        v59 = v29;
         _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v34 = v30;
-      [v30 UTF8String];
+      v33 = v29;
+      [v29 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x100050054);
@@ -6949,39 +6940,39 @@ void sub_10004FC44(uint64_t a1)
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0)
     {
-      v35 = [(BKDigitizerTouchStreamClient *)v18 classForCoder];
-      if (!v35)
+      v34 = [(BKDigitizerTouchStreamClient *)v18 classForCoder];
+      if (!v34)
       {
-        v35 = objc_opt_class();
+        v34 = objc_opt_class();
       }
 
-      v36 = NSStringFromClass(v35);
-      v37 = objc_opt_class();
-      v38 = NSStringFromClass(v37);
-      v39 = [NSString stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"touchStream", v36, v38];
+      v35 = NSStringFromClass(v34);
+      v36 = objc_opt_class();
+      v37 = NSStringFromClass(v36);
+      v38 = [NSString stringWithFormat:@"Value for '%@' was of unexpected class %@. Expected %@.", @"touchStream", v35, v37];
 
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v40 = NSStringFromSelector("destinationWithTouchStream:contextID:clientPort:");
-        v41 = objc_opt_class();
-        v42 = NSStringFromClass(v41);
+        v39 = NSStringFromSelector("destinationWithTouchStream:contextID:clientPort:");
+        v40 = objc_opt_class();
+        v41 = NSStringFromClass(v40);
         *buf = 138544642;
-        *v52 = v40;
-        *&v52[8] = 2114;
-        *v53 = v42;
-        *&v53[8] = 2048;
-        v54 = v16;
-        v55 = 2114;
-        v56 = @"BKTouchDestination.m";
-        v57 = 1024;
-        v58 = 43;
-        v59 = 2114;
-        v60 = v39;
+        *v51 = v39;
+        *&v51[8] = 2114;
+        *v52 = v41;
+        *&v52[8] = 2048;
+        v53 = v16;
+        v54 = 2114;
+        v55 = @"BKTouchDestination.m";
+        v56 = 1024;
+        v57 = 43;
+        v58 = 2114;
+        v59 = v38;
         _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v43 = v39;
-      [v39 UTF8String];
+      v42 = v38;
+      [v38 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x100050194);
@@ -6989,29 +6980,29 @@ void sub_10004FC44(uint64_t a1)
 
     if (!v15)
     {
-      v44 = [NSString stringWithFormat:@"Invalid condition not satisfying: %@", @"contextID != 0"];
+      v43 = [NSString stringWithFormat:@"Invalid condition not satisfying: %@", @"contextID != 0"];
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        v45 = NSStringFromSelector("destinationWithTouchStream:contextID:clientPort:");
-        v46 = objc_opt_class();
-        v47 = NSStringFromClass(v46);
+        v44 = NSStringFromSelector("destinationWithTouchStream:contextID:clientPort:");
+        v45 = objc_opt_class();
+        v46 = NSStringFromClass(v45);
         *buf = 138544642;
-        *v52 = v45;
-        *&v52[8] = 2114;
-        *v53 = v47;
-        *&v53[8] = 2048;
-        v54 = v16;
-        v55 = 2114;
-        v56 = @"BKTouchDestination.m";
-        v57 = 1024;
-        v58 = 44;
-        v59 = 2114;
-        v60 = v44;
+        *v51 = v44;
+        *&v51[8] = 2114;
+        *v52 = v46;
+        *&v52[8] = 2048;
+        v53 = v16;
+        v54 = 2114;
+        v55 = @"BKTouchDestination.m";
+        v56 = 1024;
+        v57 = 44;
+        v58 = 2114;
+        v59 = v43;
         _os_log_error_impl(&_mh_execute_header, &_os_log_default, OS_LOG_TYPE_ERROR, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", buf, 0x3Au);
       }
 
-      v48 = v44;
-      [v44 UTF8String];
+      v47 = v43;
+      [v43 UTF8String];
       _bs_set_crash_log_message();
       __break(0);
       JUMPOUT(0x100050290);
@@ -7035,13 +7026,13 @@ void sub_10004FC44(uint64_t a1)
     *(*(*(a1 + 48) + 8) + 24) = [*(a1 + 32) _queue_addTouchStreamClient:v18 toDisplayUUID:*(a1 + 40) versionedPID:*(a1 + 56)];
     v23 = *(a1 + 32);
     v22 = *(a1 + 40);
-    v49[0] = _NSConcreteStackBlock;
-    v49[1] = 3221225472;
-    v49[2] = sub_100050314;
-    v49[3] = &unk_1000FB410;
+    v48[0] = _NSConcreteStackBlock;
+    v48[1] = 3221225472;
+    v48[2] = sub_100050314;
+    v48[3] = &unk_1000FB410;
     v24 = v18;
-    v50 = v24;
-    [v23 _queue_enumerateDigitizersForDisplay:v22 usingBlock:v49];
+    v49 = v24;
+    [v23 _queue_enumerateDigitizersForDisplay:v22 usingBlock:v48];
   }
 }
 
@@ -7053,7 +7044,7 @@ uint64_t sub_100050314(uint64_t result, uint64_t a2)
   }
 
   v3 = *(result + 32);
-  sub_100008070(v26, a2);
+  sub_100008070(v24, a2, 2);
   v4 = objc_alloc_init(NSMutableArray);
   if (v3)
   {
@@ -7093,66 +7084,65 @@ LABEL_5:
         v11 = 0;
       }
 
-      v24 = 0u;
-      v25 = 0u;
       v22 = 0u;
       v23 = 0u;
+      v20 = 0u;
+      v21 = 0u;
       v12 = *(a2 + 112);
-      v13 = [v12 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      v13 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
       if (v13)
       {
-        v14 = *v23;
+        v14 = *v21;
         do
         {
           v15 = 0;
           do
           {
-            if (*v23 != v14)
+            if (*v21 != v14)
             {
               objc_enumerationMutation(v12);
             }
 
-            v16 = *(*(&v22 + 1) + 8 * v15);
-            v17 = *(v16 + 8);
-            v18 = *(v16 + 64);
-            sub_1000081F0(v26);
+            v16 = *(*(&v20 + 1) + 8 * v15);
+            sub_1000081F0(v24, *(v16 + 8), 2, *(v16 + 64));
             IOHIDEventSetIntegerValue();
-            v19 = sub_100088EFC(a2, v16, v11, v10, 0);
-            [v4 addObject:{v19, v22}];
+            v17 = sub_100088EFC(a2, v16, v11, v10, 0);
+            [v4 addObject:{v17, v20}];
 
             v15 = v15 + 1;
           }
 
           while (v13 != v15);
-          v13 = [v12 countByEnumeratingWithState:&v22 objects:v27 count:16];
+          v13 = [v12 countByEnumeratingWithState:&v20 objects:v25 count:16];
         }
 
         while (v13);
       }
 
-      v20 = sub_10000839C(v26);
-      v21 = objc_alloc_init(BKHIDEventCollector);
-      sub_100084C1C(a2, v20, v6, v21, 0, v4, *(a2 + 96));
-      sub_100081F08(a2, v21);
+      v18 = sub_10000839C(v24);
+      v19 = objc_alloc_init(BKHIDEventCollector);
+      sub_100084C1C(a2, v18, v6, v19, 0, v4, *(a2 + 96));
+      sub_100081F08(a2, v19);
 
-      if (v20)
+      if (v18)
       {
-        CFRelease(v20);
+        CFRelease(v18);
       }
     }
   }
 
-  return sub_10000968C(v26);
+  return sub_10000968C(v24);
 }
 
-void sub_100050578(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17)
+void sub_100050578(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  if (v20)
+  va_start(va, a16);
+  if (v19)
   {
-    CFRelease(v20);
+    CFRelease(v19);
   }
 
-  sub_10000968C(&a17);
+  sub_10000968C(va);
   _Unwind_Resume(a1);
 }
 
@@ -7203,12 +7193,12 @@ void sub_100050994(uint64_t a1)
 
 void sub_100050A58(uint64_t a1, uint64_t a2)
 {
-  sub_1000804F0(a2, 2u, 0);
+  sub_1000804F0(a2, 2, 0);
   v4 = *(a1 + 32);
   if (a2)
   {
     v5 = *(a1 + 40);
-    sub_1000804F0(a2, 1u, 0);
+    sub_1000804F0(a2, 1, 0);
     v6 = *(a2 + 32);
     if (!v6)
     {
@@ -7304,12 +7294,12 @@ void sub_1000515A8(uint64_t a1)
   v2 = [v1 appendObject:? withName:?];
 }
 
-void sub_100051718(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_100051718(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = BKHIDDirectTouchEventProcessor;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7577,9 +7567,9 @@ void sub_1000529E4(id a1)
   qword_100125F80 = v1;
 }
 
-void sub_1000534D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
+void sub_1000534D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
 {
-  va_start(va, a8);
+  va_start(va, a15);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -7592,7 +7582,6 @@ void *sub_1000534F4(void *result, uint64_t a2, int a3)
     if (a3)
     {
       v4 = result[4];
-      v5 = *(*(v3[5] + 8) + 24);
       if (a3 != 1)
       {
         if (*(*(v3[5] + 8) + 24))
@@ -7610,12 +7599,12 @@ void *sub_1000534F4(void *result, uint64_t a2, int a3)
 
       if (*(*(v3[5] + 8) + 24))
       {
-        v6 = @", secondary";
+        v5 = @", secondary";
       }
 
       else
       {
-        v6 = @"secondary";
+        v5 = @"secondary";
       }
     }
 
@@ -7624,16 +7613,16 @@ void *sub_1000534F4(void *result, uint64_t a2, int a3)
       v4 = result[4];
       if (*(*(v3[5] + 8) + 24) == 1)
       {
-        v6 = @", primary";
+        v5 = @", primary";
       }
 
       else
       {
-        v6 = @"primary";
+        v5 = @"primary";
       }
     }
 
-    result = [v4 appendString:v6];
+    result = [v4 appendString:v5];
 LABEL_14:
     *(*(v3[5] + 8) + 24) = 1;
   }
@@ -7641,9 +7630,9 @@ LABEL_14:
   return result;
 }
 
-void sub_1000542DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000542DC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8413,11 +8402,11 @@ void sub_100058E74(uint64_t a1)
 
 void sub_10005974C()
 {
-  v0 = sub_1000597A4();
+  v0 = sub_1000597A4(BKTVOutController);
   [v0 performSelectorOnMainThread:"_handleIapServerConnectionDied" withObject:0 waitUntilDone:0];
 }
 
-id sub_1000597A4()
+id sub_1000597A4(uint64_t a1)
 {
   objc_opt_self();
   if (qword_100125FD8 != -1)
@@ -8425,9 +8414,9 @@ id sub_1000597A4()
     dispatch_once(&qword_100125FD8, &stru_1000FBA40);
   }
 
-  v0 = qword_100125FD0;
+  v1 = qword_100125FD0;
 
-  return v0;
+  return v1;
 }
 
 void sub_1000597FC(id a1)
@@ -8442,13 +8431,13 @@ void sub_1000597FC(id a1)
 
 void sub_10005985C(id a1)
 {
-  v1 = sub_1000597A4();
+  v1 = sub_1000597A4(BKTVOutController);
   [BKTVOutController _handleIapServerConnectionDied]_0(v1);
 }
 
-void sub_100059C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100059C40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -8474,14 +8463,14 @@ void sub_100059F5C(id a1)
   qword_100125FE8 = v2;
 }
 
-const os_unfair_lock *sub_10005A750(const os_unfair_lock *result, void *a2)
+const os_unfair_lock *sub_10005A750(const os_unfair_lock *result, unint64_t a2)
 {
   if (result)
   {
     v3 = result;
     os_unfair_lock_assert_owner(result + 2);
-    [*(v3 + 240) frameWillBegin];
-    if ([*(v3 + 240) eventTypeMask])
+    [*&v3[60]._os_unfair_lock_opaque frameWillBegin];
+    if ([*&v3[60]._os_unfair_lock_opaque eventTypeMask])
     {
       v4 = 0;
       do
@@ -8494,23 +8483,23 @@ const os_unfair_lock *sub_10005A750(const os_unfair_lock *result, void *a2)
 
         else
         {
-          v5 = [*(v3 + 240) shouldUseButtonDownRecenteringBehavior];
+          v5 = [*&v3[60]._os_unfair_lock_opaque shouldUseButtonDownRecenteringBehavior];
           v6 = 1;
-          [*(v3 + 240) setShouldUseButtonDownRecenteringBehavior:1];
+          [*&v3[60]._os_unfair_lock_opaque setShouldUseButtonDownRecenteringBehavior:1];
           sub_10005AC3C(v3, a2, 1);
-          [*(v3 + 240) setShouldUseButtonDownRecenteringBehavior:v5];
+          [*&v3[60]._os_unfair_lock_opaque setShouldUseButtonDownRecenteringBehavior:v5];
         }
 
         v4 |= v6;
         sub_10005AC3C(v3, a2, v6);
-        [*(v3 + 240) nextEvent];
+        [*&v3[60]._os_unfair_lock_opaque nextEvent];
       }
 
-      while ([*(v3 + 240) eventTypeMask]);
-      [*(v3 + 360) didPostEvent];
+      while ([*&v3[60]._os_unfair_lock_opaque eventTypeMask]);
+      [*&v3[90]._os_unfair_lock_opaque didPostEvent];
     }
 
-    v7 = *(v3 + 240);
+    v7 = *&v3[60]._os_unfair_lock_opaque;
 
     return [v7 frameDidEnd];
   }
@@ -8669,34 +8658,34 @@ LABEL_37:
   }
 }
 
-void sub_10005AC3C(uint64_t a1, void *a2, char a3)
+void sub_10005AC3C(uint64_t a1, unint64_t a2, char a3)
 {
   os_unfair_lock_assert_owner((a1 + 8));
-  v100 = 0u;
-  v101 = 0u;
-  v98 = 0u;
   v99 = 0u;
-  v96 = 0u;
+  v100 = 0u;
+  v97 = 0u;
+  v98 = 0u;
+  v95 = 0u;
   obj = a2;
-  v97 = a2;
-  *(&v97 + 1) = [*(a1 + 240) lastRemoteEventTimestamp];
-  *&v98 = [*(a1 + 240) eventSequenceStartTimestamp];
+  v96 = a2;
+  *(&v96 + 1) = [*(a1 + 240) lastRemoteEventTimestamp];
+  *&v97 = [*(a1 + 240) eventSequenceStartTimestamp];
   [*(a1 + 240) unacceleratedRelativePointerPosition];
-  *(&v98 + 1) = v6;
-  *&v99 = v7;
+  *(&v97 + 1) = v6;
+  *&v98 = v7;
   [*(a1 + 240) acceleratedRelativePointerPosition];
   v9 = v8;
   v11 = v10;
-  *(&v99 + 1) = v8;
-  *&v100 = v10;
-  *(&v100 + 1) = [*(a1 + 240) mostRecentSender];
-  *&v101 = +[BKTouchDeliveryPolicyServer sharedServer];
-  BYTE8(v101) = 0;
-  v95 = 0;
-  sub_10005A858(a1, &v95);
+  *(&v98 + 1) = v8;
+  *&v99 = v10;
+  *(&v99 + 1) = [*(a1 + 240) mostRecentSender];
+  *&v100 = +[BKTouchDeliveryPolicyServer sharedServer];
+  BYTE8(v100) = 0;
+  v94 = 0;
+  sub_10005A858(a1, &v94);
   if (a3)
   {
-    goto LABEL_19;
+    goto LABEL_18;
   }
 
   v12 = [*(a1 + 240) absolutePositionIsValid];
@@ -8715,39 +8704,34 @@ void sub_10005AC3C(uint64_t a1, void *a2, char a3)
       [*(a1 + 136) convertToGlobalPoint:*(a1 + 168) fromRegion:*(a1 + 176)];
     }
 
-    else
-    {
-      y = CGPointZero.y;
-    }
-
     if ((BSPointEqualToPoint() & 1) == 0)
     {
       sub_10005E2D4(a1, 0, @"HID abs", v19, v21);
-      v122 = 0u;
-      v123 = 0u;
-      v120 = 0u;
       v121 = 0u;
-      v23 = *(a1 + 376);
-      v24 = [v23 countByEnumeratingWithState:&v120 objects:buf count:16];
-      if (v24)
+      v122 = 0u;
+      v119 = 0u;
+      v120 = 0u;
+      v22 = *(a1 + 376);
+      v23 = [v22 countByEnumeratingWithState:&v119 objects:buf count:16];
+      if (v23)
       {
-        v25 = *v121;
+        v24 = *v120;
         do
         {
-          for (i = 0; i != v24; i = i + 1)
+          for (i = 0; i != v23; i = i + 1)
           {
-            if (*v121 != v25)
+            if (*v120 != v24)
             {
-              objc_enumerationMutation(v23);
+              objc_enumerationMutation(v22);
             }
 
-            [*(*(&v120 + 1) + 8 * i) observeMouseAbsolutePointDidChange:{v19, v21}];
+            [*(*(&v119 + 1) + 8 * i) observeMouseAbsolutePointDidChange:{v19, v21}];
           }
 
-          v24 = [v23 countByEnumeratingWithState:&v120 objects:buf count:16];
+          v23 = [v22 countByEnumeratingWithState:&v119 objects:buf count:16];
         }
 
-        while (v24);
+        while (v23);
       }
     }
 
@@ -8757,330 +8741,330 @@ void sub_10005AC3C(uint64_t a1, void *a2, char a3)
   if (v9 != 0.0 || v11 != 0.0)
   {
     sub_10005B7F4(a1, @"HID r", v9, v11);
-LABEL_19:
+LABEL_18:
     v13 = 0;
   }
 
-  BYTE9(v101) = v13;
-  v85 = [*(a1 + 144) displayUUID];
-  v94 = 0uLL;
-  v93 = 0;
-  sub_10005B9D4(a1, &v94, &v93, &v96 + 1);
-  v87 = v93;
-  if (!v87)
+  BYTE9(v100) = v13;
+  v84 = [*(a1 + 144) displayUUID];
+  v93 = 0uLL;
+  v92 = 0;
+  sub_10005B9D4(a1, &v93, &v92, &v95 + 1);
+  v86 = v92;
+  if (!v86)
   {
-    goto LABEL_95;
+    goto LABEL_94;
   }
 
-  v27 = [*(a1 + 240) hitTestReason];
-  *&v96 = v27;
-  if (!v27)
+  v26 = [*(a1 + 240) hitTestReason];
+  *&v95 = v26;
+  if (!v26)
   {
     if ([*(a1 + 248) count])
     {
-      if (v95 != 1)
+      if (v94 != 1)
       {
-        BYTE8(v101) = 0;
-        v29 = *&v94.i64[1];
-        v28 = *v94.i64;
-        v35 = *(a1 + 248);
-        v36 = 0;
-        v32 = 0;
-        goto LABEL_28;
+        BYTE8(v100) = 0;
+        v28 = *&v93.i64[1];
+        v27 = *v93.i64;
+        v34 = *(a1 + 248);
+        v35 = 0;
+        v31 = 0;
+        goto LABEL_27;
       }
 
-      v27 = 5;
+      v26 = 5;
     }
 
     else
     {
-      v27 = 4;
+      v26 = 4;
     }
 
-    *&v96 = v27;
+    *&v95 = v26;
   }
 
-  BYTE8(v101) = 1;
-  v29 = *&v94.i64[1];
-  v28 = *v94.i64;
-  v30 = sub_10001AE04(*v94.i64, *&v94.i64[1], BKMouseDestination, (v27 > 6) | (0xCu >> v27) & 1, v87, *(&v100 + 1), *(a1 + 24), *(a1 + 248));
-  v31 = [v30 mutableCopy];
-  [v31 minusSet:*(a1 + 248)];
-  v32 = v31;
-  v33 = [v30 mutableCopy];
-  [v33 intersectSet:*(a1 + 248)];
-  [v33 unionSet:*(a1 + 424)];
-  v34 = *(a1 + 248);
-  v35 = v33;
-  v36 = [v34 mutableCopy];
-  [v36 minusSet:v30];
-  v37 = *(a1 + 248);
-  *(a1 + 248) = v30;
+  BYTE8(v100) = 1;
+  v28 = *&v93.i64[1];
+  v27 = *v93.i64;
+  v29 = sub_10001AE04(BKMouseDestination, (v26 > 6) | (0xCu >> v26) & 1, v86, *(&v99 + 1), *(a1 + 24), *(a1 + 248), *v93.i64, *&v93.i64[1]);
+  v30 = [v29 mutableCopy];
+  [v30 minusSet:*(a1 + 248)];
+  v31 = v30;
+  v32 = [v29 mutableCopy];
+  [v32 intersectSet:*(a1 + 248)];
+  [v32 unionSet:*(a1 + 424)];
+  v33 = *(a1 + 248);
+  v34 = v32;
+  v35 = [v33 mutableCopy];
+  [v35 minusSet:v29];
+  v36 = *(a1 + 248);
+  *(a1 + 248) = v29;
 
-LABEL_28:
-  v38 = v32;
+LABEL_27:
+  v37 = v31;
+  v38 = v34;
   v39 = v35;
-  v40 = v36;
 
-  v84 = v32;
-  v82 = v35;
-  v86 = v36;
-  v91 = objc_alloc_init(BKHIDEventCollector);
-  v41 = *(a1 + 408);
+  v83 = v31;
+  v81 = v34;
+  v85 = v35;
+  v90 = objc_alloc_init(BKHIDEventCollector);
+  v40 = *(a1 + 408);
+  v41 = [*(a1 + 144) displayUUID];
+  v82 = [v40 objectForKeyedSubscript:v41];
+
+  sub_10005BAF0(a1, v82, &v95, v90, v27, v28);
   v42 = [*(a1 + 144) displayUUID];
-  v83 = [v41 objectForKeyedSubscript:v42];
-
-  sub_10005BAF0(a1, v83, &v96, v91, v28, v29);
-  v43 = [*(a1 + 144) displayUUID];
-  v122 = 0u;
-  v123 = 0u;
-  v120 = 0u;
   v121 = 0u;
-  v44 = [*(a1 + 416) copy];
-  v45 = [v44 countByEnumeratingWithState:&v120 objects:buf count:16];
-  if (v45)
+  v122 = 0u;
+  v119 = 0u;
+  v120 = 0u;
+  v43 = [*(a1 + 416) copy];
+  v44 = [v43 countByEnumeratingWithState:&v119 objects:buf count:16];
+  if (v44)
   {
-    v46 = *v121;
+    v45 = *v120;
     do
     {
-      v47 = 0;
+      v46 = 0;
       do
       {
-        if (*v121 != v46)
+        if (*v120 != v45)
         {
-          objc_enumerationMutation(v44);
+          objc_enumerationMutation(v43);
         }
 
-        v48 = *(*(&v120 + 1) + 8 * v47);
-        if (v48)
+        v47 = *(*(&v119 + 1) + 8 * v46);
+        if (v47)
         {
-          v49 = *(v48 + 40);
+          v48 = *(v47 + 40);
         }
 
         else
         {
-          v49 = 0;
+          v48 = 0;
         }
 
-        v50 = v49;
-        v51 = BSEqualObjects();
+        v49 = v48;
+        v50 = BSEqualObjects();
 
-        if ((v51 & 1) == 0)
+        if ((v50 & 1) == 0)
         {
-          sub_10001ADEC(v48, *(&v100 + 1));
-          sub_10005D948(a1, v48, v119, &v96, v28, v29);
-          sub_10005E1A0(a1, 0, v48, &v96, v91);
+          sub_10001ADEC(v47, *(&v99 + 1));
+          sub_10005D948(a1, v47, v118, &v95, v27, v28);
+          sub_10005E1A0(a1, 0, v47, &v95, v90);
         }
 
-        v47 = v47 + 1;
+        v46 = v46 + 1;
       }
 
-      while (v45 != v47);
-      v52 = [v44 countByEnumeratingWithState:&v120 objects:buf count:16];
-      v45 = v52;
+      while (v44 != v46);
+      v51 = [v43 countByEnumeratingWithState:&v119 objects:buf count:16];
+      v44 = v51;
     }
 
-    while (v52);
+    while (v51);
   }
 
-  if (v96 == 1)
+  if (v95 == 1)
   {
-    sub_10005BD2C(a1, 0, v85, 1, obj, v91);
+    sub_10005BD2C(a1, 0, v84, 1, obj, v90);
   }
 
   if ([*(a1 + 376) count])
   {
-    v116 = 0u;
-    v117 = 0u;
-    v114 = 0u;
     v115 = 0u;
-    obja = v84;
-    v53 = [obja countByEnumeratingWithState:&v114 objects:buf count:16];
-    if (v53)
+    v116 = 0u;
+    v113 = 0u;
+    v114 = 0u;
+    obja = v83;
+    v52 = [obja countByEnumeratingWithState:&v113 objects:buf count:16];
+    if (v52)
     {
-      v54 = *v115;
+      v53 = *v114;
       do
       {
-        for (j = 0; j != v53; j = j + 1)
+        for (j = 0; j != v52; j = j + 1)
         {
-          if (*v115 != v54)
+          if (*v114 != v53)
           {
             objc_enumerationMutation(obja);
           }
 
-          v56 = *(*(&v114 + 1) + 8 * j);
-          v57 = sub_10001B448(v56, *(a1 + 464));
-          v112 = 0u;
-          v113 = 0u;
-          v110 = 0u;
+          v55 = *(*(&v113 + 1) + 8 * j);
+          v56 = sub_10001B448(v55, *(a1 + 464));
           v111 = 0u;
-          v58 = *(a1 + 376);
-          v59 = [v58 countByEnumeratingWithState:&v110 objects:&v120 count:16];
-          if (v59)
+          v112 = 0u;
+          v109 = 0u;
+          v110 = 0u;
+          v57 = *(a1 + 376);
+          v58 = [v57 countByEnumeratingWithState:&v109 objects:&v119 count:16];
+          if (v58)
           {
-            v60 = *v111;
+            v59 = *v110;
             do
             {
-              v61 = 0;
+              v60 = 0;
               do
               {
-                if (*v111 != v60)
+                if (*v110 != v59)
                 {
-                  objc_enumerationMutation(v58);
+                  objc_enumerationMutation(v57);
                 }
 
-                if (v56)
+                if (v55)
                 {
-                  v62 = *(v56 + 8);
+                  v61 = *(v55 + 8);
                 }
 
                 else
                 {
-                  v62 = 0;
+                  v61 = 0;
                 }
 
-                [*(*(&v110 + 1) + 8 * v61) observeMouseDidEnterContextID:v62 pid:v57];
-                v61 = v61 + 1;
+                [*(*(&v109 + 1) + 8 * v60) observeMouseDidEnterContextID:v61 pid:v56];
+                v60 = v60 + 1;
               }
 
-              while (v59 != v61);
-              v63 = [v58 countByEnumeratingWithState:&v110 objects:&v120 count:16];
-              v59 = v63;
+              while (v58 != v60);
+              v62 = [v57 countByEnumeratingWithState:&v109 objects:&v119 count:16];
+              v58 = v62;
             }
 
-            while (v63);
+            while (v62);
           }
         }
 
-        v53 = [obja countByEnumeratingWithState:&v114 objects:buf count:16];
+        v52 = [obja countByEnumeratingWithState:&v113 objects:buf count:16];
       }
 
-      while (v53);
+      while (v52);
     }
 
-    v108 = 0u;
-    v109 = 0u;
-    v106 = 0u;
     v107 = 0u;
-    objb = v86;
-    v64 = [objb countByEnumeratingWithState:&v106 objects:v119 count:16];
-    if (v64)
+    v108 = 0u;
+    v105 = 0u;
+    v106 = 0u;
+    objb = v85;
+    v63 = [objb countByEnumeratingWithState:&v105 objects:v118 count:16];
+    if (v63)
     {
-      v65 = *v107;
+      v64 = *v106;
       do
       {
-        for (k = 0; k != v64; k = k + 1)
+        for (k = 0; k != v63; k = k + 1)
         {
-          if (*v107 != v65)
+          if (*v106 != v64)
           {
             objc_enumerationMutation(objb);
           }
 
-          v67 = *(*(&v106 + 1) + 8 * k);
-          v68 = sub_10001B448(v67, *(a1 + 464));
-          v104 = 0u;
-          v105 = 0u;
-          v102 = 0u;
+          v66 = *(*(&v105 + 1) + 8 * k);
+          v67 = sub_10001B448(v66, *(a1 + 464));
           v103 = 0u;
-          v69 = *(a1 + 376);
-          v70 = [v69 countByEnumeratingWithState:&v102 objects:v118 count:16];
-          if (v70)
+          v104 = 0u;
+          v101 = 0u;
+          v102 = 0u;
+          v68 = *(a1 + 376);
+          v69 = [v68 countByEnumeratingWithState:&v101 objects:v117 count:16];
+          if (v69)
           {
-            v71 = *v103;
+            v70 = *v102;
             do
             {
-              v72 = 0;
+              v71 = 0;
               do
               {
-                if (*v103 != v71)
+                if (*v102 != v70)
                 {
-                  objc_enumerationMutation(v69);
+                  objc_enumerationMutation(v68);
                 }
 
-                if (v67)
+                if (v66)
                 {
-                  v73 = *(v67 + 8);
+                  v72 = *(v66 + 8);
                 }
 
                 else
                 {
-                  v73 = 0;
+                  v72 = 0;
                 }
 
-                [*(*(&v102 + 1) + 8 * v72) observeMouseDidExitContextID:v73 pid:v68];
-                v72 = v72 + 1;
+                [*(*(&v101 + 1) + 8 * v71) observeMouseDidExitContextID:v72 pid:v67];
+                v71 = v71 + 1;
               }
 
-              while (v70 != v72);
-              v74 = [v69 countByEnumeratingWithState:&v102 objects:v118 count:16];
-              v70 = v74;
+              while (v69 != v71);
+              v73 = [v68 countByEnumeratingWithState:&v101 objects:v117 count:16];
+              v69 = v73;
             }
 
-            while (v74);
+            while (v73);
           }
         }
 
-        v64 = [objb countByEnumeratingWithState:&v106 objects:v119 count:16];
+        v63 = [objb countByEnumeratingWithState:&v105 objects:v118 count:16];
       }
 
-      while (v64);
+      while (v63);
     }
   }
 
-  sub_10005C084(a1, 1, v84, &v96, v91, v28, v29);
-  sub_10005C084(a1, 0, v82, &v96, v91, v28, v29);
-  if ([v86 count])
+  sub_10005C084(a1, 1, v83, &v95, v90, v27, v28);
+  sub_10005C084(a1, 0, v81, &v95, v90, v27, v28);
+  if ([v85 count])
   {
-    v75 = [*(a1 + 424) count];
-    [*(a1 + 424) minusSet:v86];
-    if ([*(a1 + 424) count] != v75)
+    v74 = [*(a1 + 424) count];
+    [*(a1 + 424) minusSet:v85];
+    if ([*(a1 + 424) count] != v74)
     {
-      v76 = BKLogMousePointer();
-      if (os_log_type_enabled(v76, OS_LOG_TYPE_DEFAULT))
+      v75 = BKLogMousePointer();
+      if (os_log_type_enabled(v75, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543362;
-        v125 = v86;
-        _os_log_impl(&_mh_execute_header, v76, OS_LOG_TYPE_DEFAULT, "unpinning hit-test contexts (for context exit) %{public}@", buf, 0xCu);
+        v124 = v85;
+        _os_log_impl(&_mh_execute_header, v75, OS_LOG_TYPE_DEFAULT, "unpinning hit-test contexts (for context exit) %{public}@", buf, 0xCu);
       }
     }
 
-    v122 = 0u;
-    v123 = 0u;
-    v120 = 0u;
     v121 = 0u;
-    v77 = v86;
-    v78 = [v77 countByEnumeratingWithState:&v120 objects:buf count:16];
-    if (v78)
+    v122 = 0u;
+    v119 = 0u;
+    v120 = 0u;
+    v76 = v85;
+    v77 = [v76 countByEnumeratingWithState:&v119 objects:buf count:16];
+    if (v77)
     {
-      v79 = *v121;
-      v80 = v97;
+      v78 = *v120;
+      v79 = v96;
       do
       {
-        for (m = 0; m != v78; m = m + 1)
+        for (m = 0; m != v77; m = m + 1)
         {
-          if (*v121 != v79)
+          if (*v120 != v78)
           {
-            objc_enumerationMutation(v77);
+            objc_enumerationMutation(v76);
           }
 
-          sub_10005D0A8(a1, *(*(&v120 + 1) + 8 * m), v80, v91);
+          sub_10005D0A8(a1, *(*(&v119 + 1) + 8 * m), v79, v90);
         }
 
-        v78 = [v77 countByEnumeratingWithState:&v120 objects:buf count:16];
+        v77 = [v76 countByEnumeratingWithState:&v119 objects:buf count:16];
       }
 
-      while (v78);
+      while (v77);
     }
   }
 
-  v92[0] = _NSConcreteStackBlock;
-  v92[1] = 3221225472;
-  v92[2] = sub_10005CF70;
-  v92[3] = &unk_1000FBD90;
-  v92[4] = a1;
-  sub_10002D658(v91, v92);
+  v91[0] = _NSConcreteStackBlock;
+  v91[1] = 3221225472;
+  v91[2] = sub_10005CF70;
+  v91[3] = &unk_1000FBD90;
+  v91[4] = a1;
+  sub_10002D658(v90, v91);
 
-LABEL_95:
+LABEL_94:
 }
 
 void sub_10005B7F4(uint64_t a1, uint64_t a2, double a3, double a4)
@@ -9136,33 +9120,130 @@ void sub_10005B7F4(uint64_t a1, uint64_t a2, double a3, double a4)
   }
 }
 
-void sub_10005B9D4(uint64_t a1, int8x16_t *a2, void *a3, const os_unfair_lock **a4)
+void sub_10005B9D4(uint64_t a1, int8x16_t *a2, void *a3, const char **a4)
 {
-  v33 = [*(a1 + 144) displayUUID];
-  v8 = sub_10005DD24(a1, v33);
+  v31 = [*(a1 + 144) displayUUID];
+  v8 = sub_10005DD24(a1, v31);
   v9 = [v8 uniqueId];
-  v10 = sub_10005DDD4(a1, v33);
-  v11 = *(a1 + 168);
-  v12 = *(a1 + 176);
+  v10 = sub_10005DDD4(a1, v31);
   sub_10005DE60(v8, v10, *(a1 + 312));
   [*(a1 + 312) convertReferenceLocation:v9 toCAScreenLocationForDisplayUUID:?];
-  v31 = v14;
-  v32 = v13;
+  v29 = v12;
+  v30 = v11;
   [v8 bounds];
-  v16.f64[1] = v15;
+  v14.f64[1] = v13;
   __asm { FMOV            V1.2D, #1.0 }
 
-  v23.f64[1] = v22;
-  v24 = vaddq_f64(v16, _Q1);
-  v25 = vaddq_f64(v16, v23);
+  v21.f64[1] = v20;
+  v22 = vaddq_f64(v14, _Q1);
+  v23 = vaddq_f64(v14, v21);
   __asm { FMOV            V2.2D, #-2.0 }
 
-  v27 = vaddq_f64(v25, _Q2);
-  v28.f64[0] = v32;
-  v28.f64[1] = v31;
-  v29 = vbslq_s8(vcgtq_f64(v27, v28), v28, v27);
-  *a2 = vbslq_s8(vcgtq_f64(v29, v24), v29, v24);
+  v25 = vaddq_f64(v23, _Q2);
+  v26.f64[0] = v30;
+  v26.f64[1] = v29;
+  v27 = vbslq_s8(vcgtq_f64(v25, v26), v26, v25);
+  *a2 = vbslq_s8(vcgtq_f64(v27, v22), v27, v22);
   *a4 = v10;
-  v30 = v8;
+  v28 = v8;
   *a3 = v8;
+}
+
+void sub_10005BAF0(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, double a5, double a6)
+{
+  v29 = 0u;
+  v30 = 0u;
+  v31 = 0u;
+  v32 = 0u;
+  v11 = a2;
+  v12 = [v11 countByEnumeratingWithState:&v29 objects:v35 count:16];
+  if (v12)
+  {
+    v14 = v12;
+    v15 = *v30;
+    *&v13 = 138543362;
+    v28 = v13;
+    do
+    {
+      v16 = 0;
+      do
+      {
+        if (*v30 != v15)
+        {
+          objc_enumerationMutation(v11);
+        }
+
+        v17 = *(*(&v29 + 1) + 8 * v16);
+        if (v17)
+        {
+          v18 = *(v17 + 24);
+        }
+
+        else
+        {
+          v18 = 0;
+        }
+
+        v19 = v18;
+        if ((*a3 & 0xFFFFFFFFFFFFFFFELL) == 2)
+        {
+          v20 = v17 ? *(v17 + 16) : 0;
+          if ([v20 pinOnButtonDown])
+          {
+            v21 = v11;
+            v22 = *(a1 + 416);
+            if (!v22)
+            {
+              v23 = objc_alloc_init(NSMutableSet);
+              v24 = *(a1 + 416);
+              *(a1 + 416) = v23;
+
+              v22 = *(a1 + 416);
+            }
+
+            [v22 addObject:v19];
+            v25 = BKLogMousePointer();
+            if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = v28;
+              v34 = v19;
+              _os_log_impl(&_mh_execute_header, v25, OS_LOG_TYPE_DEFAULT, "pinning global destination: %{public}@", buf, 0xCu);
+            }
+
+            v11 = v21;
+          }
+        }
+
+        sub_10001ADEC(v19, *(a3 + 72));
+        if (v19)
+        {
+          v19[10] = a5;
+          v19[11] = a6;
+        }
+
+        if (v17)
+        {
+          if (*(v17 + 8))
+          {
+            v26 = 0;
+            goto LABEL_24;
+          }
+
+          *(v17 + 8) = 1;
+        }
+
+        v26 = 1;
+LABEL_24:
+        sub_10005E1A0(a1, v26, v19, a3, a4);
+
+        v16 = v16 + 1;
+      }
+
+      while (v14 != v16);
+      v27 = [v11 countByEnumeratingWithState:&v29 objects:v35 count:16];
+      v14 = v27;
+    }
+
+    while (v27);
+  }
 }

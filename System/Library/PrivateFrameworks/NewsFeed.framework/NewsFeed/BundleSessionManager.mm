@@ -44,7 +44,7 @@
 
 - (void)didUpdateNewslettersFrom:(id)from to:(id)to
 {
-  sub_1D5B5A498(0, &qword_1EDF1AC18);
+  sub_1D5B5A498(0, &qword_1EDF1AC18, 0x1E69B53F0);
   v5 = sub_1D726267C();
   v6 = sub_1D726267C();
   selfCopy = self;

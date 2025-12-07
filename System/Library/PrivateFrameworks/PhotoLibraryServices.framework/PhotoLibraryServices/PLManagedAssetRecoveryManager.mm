@@ -319,7 +319,7 @@ void __177__PLManagedAssetRecoveryManager__generateMissingFullSizeAdjustedResour
         }
 
         v21 = [PLResourceGenerator expectedLocalResourceRecipesForAsset:resourcesCopy versions:&unk_1F0FBFE08];
-        if ([v21 count])
+        if (objc_msgSend_count(v21))
         {
           v41 = v19;
           v22 = uuid;
@@ -331,8 +331,8 @@ void __177__PLManagedAssetRecoveryManager__generateMissingFullSizeAdjustedResour
           v26 = [MEMORY[0x1E696AE18] predicateWithFormat:@"%K = %d AND %K IN %@", @"remoteAvailability", 1, @"recipeID", v24];
           v27 = [persistedAdjustedResources filteredSetUsingPredicate:v26];
 
-          v28 = [v27 count];
-          if (v28 == [v21 count])
+          v28 = objc_msgSend_count(v27);
+          if (v28 == objc_msgSend_count(v21))
           {
             v46[0] = MEMORY[0x1E69E9820];
             v46[1] = 3221225472;
@@ -428,7 +428,7 @@ void __177__PLManagedAssetRecoveryManager__generateMissingFullSizeAdjustedResour
     v32 = [MEMORY[0x1E695DFD8] setWithArray:&unk_1F0FBFE08];
     v33 = [PLResourceGenerator locallyUnavailableRecipesFromRecipes:v31 versions:v32 asset:resourcesCopy];
 
-    if ([v33 count])
+    if (objc_msgSend_count(v33))
     {
       managerCopy = v29;
       [(PLManagedAssetRecoveryManager *)self _generateMissingFullSizeAdjustedResourcesForAsset:resourcesCopy recipesToGenerate:v33 cloudPhotoLibraryManager:v29 recoveryState:state usingSyncableLibrary:libraryCopy completionBlock:blockCopy];
@@ -575,9 +575,9 @@ void __146__PLManagedAssetRecoveryManager__fixMissingFullSizeAdjustedResources_c
           v11 = [v10 fingerprint];
           v12 = [v6 identity];
           v13 = [v12 fingerPrint];
-          v14 = [v11 isEqualToString:v13];
+          isEqualToString = objc_msgSend_isEqualToString_(v11);
 
-          if (v14)
+          if (isEqualToString)
           {
             ++v27;
           }
@@ -614,7 +614,7 @@ void __146__PLManagedAssetRecoveryManager__fixMissingFullSizeAdjustedResources_c
     v27 = 0;
   }
 
-  if (v27 == [*(a1 + 40) count])
+  if (v27 == objc_msgSend_count(*(a1 + 40)))
   {
     v20 = *(a1 + 56);
     v21 = *(a1 + 64);
@@ -774,8 +774,8 @@ void __102__PLManagedAssetRecoveryManager__performTransactionOnLibrary_withObjec
     pairingIdentifier = [v16 pairingIdentifier];
     if (v16)
     {
-      [v16 videoDuration];
-      [v16 imageDisplayTime];
+      objc_msgSend_videoDuration(v16);
+      objc_msgSend_imageDisplayTime(v16);
     }
 
     else
@@ -1517,7 +1517,7 @@ LABEL_9:
   managerCopy = manager;
   v52 = resourcesCopy;
   handlerCopy = handler;
-  if ([resourcesCopy count])
+  if (objc_msgSend_count(resourcesCopy))
   {
     selfCopy = self;
     uuid = [assetCopy uuid];
@@ -1574,8 +1574,8 @@ LABEL_9:
       while (v13);
     }
 
-    v24 = [v61 count];
-    if (v24 >= [obj count])
+    v24 = objc_msgSend_count(v61);
+    if (v24 >= objc_msgSend_count(obj))
     {
       availableSpace = [(PLVolumeInfo *)selfCopy->_volumeInfo availableSpace];
       nearLowDiskThreshold = [(PLVolumeInfo *)selfCopy->_volumeInfo nearLowDiskThreshold];
@@ -1643,7 +1643,7 @@ LABEL_9:
         v35 = PLBackendGetLog();
         if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
         {
-          v36 = [obj count];
+          v36 = objc_msgSend_count(obj);
           *v105 = 134218498;
           v106 = v36;
           v107 = 2114;
@@ -2045,7 +2045,7 @@ void __147__PLManagedAssetRecoveryManager__performAssetRecoveryTaskForInconsiste
   else
   {
     v32 = managerCopy;
-    v21 = [(NSMutableArray *)self->_recoveryErrors count]== 0;
+    v21 = objc_msgSend_count(self->_recoveryErrors) == 0;
     v40 = 0u;
     v41 = 0u;
     v42 = 0u;
@@ -2393,7 +2393,7 @@ LABEL_6:
   dispatch_async(v16, block);
 }
 
-uint64_t __145__PLManagedAssetRecoveryManager__recoverNextAssetWithEnumerator_cloudPhotoLibraryManager_transaction_usingNonSyncableLibrary_andSyncableLibrary___block_invoke_3(uint64_t a1)
+void *__145__PLManagedAssetRecoveryManager__recoverNextAssetWithEnumerator_cloudPhotoLibraryManager_transaction_usingNonSyncableLibrary_andSyncableLibrary___block_invoke_3(uint64_t a1)
 {
   v2 = ([*(a1 + 32) cloudStateRecoveryAttemptsCount] + 1);
   result = [*(a1 + 32) setCloudStateRecoveryAttemptsCount:v2];
@@ -2757,7 +2757,7 @@ void __89__PLManagedAssetRecoveryManager__startRecoveryUsingCloudPhotoLibraryMan
   v10 = [v9 executeFetchRequest:v4 error:&v21];
   v11 = v21;
 
-  *(*(a1 + 40) + 24) = [v10 count];
+  *(*(a1 + 40) + 24) = objc_msgSend_count(v10);
   if (!*(*(a1 + 40) + 24))
   {
     v15 = PLBackendGetLog();
@@ -2795,7 +2795,7 @@ LABEL_10:
   v12 = PLBackendGetLog();
   if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
-    v13 = [v10 count];
+    v13 = objc_msgSend_count(v10);
     *buf = 134217984;
     v23 = v13;
     _os_log_impl(&dword_19BF1F000, v12, OS_LOG_TYPE_DEFAULT, "Starting recovery of %lu assets in inconsistent state.", buf, 0xCu);

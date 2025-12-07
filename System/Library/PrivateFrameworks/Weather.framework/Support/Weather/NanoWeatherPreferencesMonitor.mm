@@ -12,6 +12,7 @@
 - (void)_cleanupSharedManagers;
 - (void)_clearXPCTransaction;
 - (void)_completeMonitoringStartup;
+- (void)_doFullUpdateOfNanoPrefs:(BOOL)prefs;
 - (void)_endDelayingNanoPreferencesSync;
 - (void)_endXPCTransactionIfOK;
 - (void)_loadCompanionCityListOnCompletion:(id)completion;
@@ -572,6 +573,14 @@ LABEL_5:
 
     [(NanoWeatherPreferencesMonitor *)self _doFullUpdateOfNanoPrefs:0];
   }
+}
+
+- (void)_doFullUpdateOfNanoPrefs:(BOOL)prefs
+{
+  [(NanoWeatherPreferencesMonitor *)self _beginDelayingNanoPreferencesSync];
+  [(NanoWeatherPreferencesMonitor *)self _updateCityList];
+  [(NanoWeatherPreferencesMonitor *)self _endDelayingNanoPreferencesSync];
+  self->_fullUpdateDone = 1;
 }
 
 - (void)_loadCompanionCityListOnCompletion:(id)completion

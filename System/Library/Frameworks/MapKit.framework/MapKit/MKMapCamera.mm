@@ -434,7 +434,7 @@
   v5 = allowPitch;
   height = viewSize.height;
   width = viewSize.width;
-  v223 = *MEMORY[0x1E69E9840];
+  v236 = *MEMORY[0x1E69E9840];
   v9 = mapItem;
   _viewportFrame = [(MKMapItem *)v9 _viewportFrame];
 
@@ -475,7 +475,7 @@
     [v29 setPitch:v31];
     if (width == v25 && height == v27)
     {
-      v212 = v29;
+      v225 = v29;
 LABEL_100:
 
       goto LABEL_101;
@@ -540,15 +540,15 @@ LABEL_30:
     v95 = MKTilePointForCoordinate(v65, v67, 21.0);
     v97 = v96;
     v98 = 1.0 / exp2(21.0 - fmax(v63, 15.0));
-    v206 = width;
+    v218 = width;
     v99 = width / v98;
-    v212 = height;
+    v225 = height;
     v100 = height / v98;
     v101 = v95 - v99 * 0.5;
     v102 = v97 - v100 * 0.5;
     if ([_viewportFrame2 hasViewTargetBounds])
     {
-      v204 = v67;
+      v216 = v67;
       [_viewportFrame2 minViewTargetBounds];
       v104 = v103;
       [_viewportFrame2 maxViewTargetBounds];
@@ -576,7 +576,7 @@ LABEL_30:
       MKMapRectMakeWithRadialDistance(v17.latitude, v17.longitude, v112 * (v111 * 0.5));
       if (v114 <= v99)
       {
-        v67 = v204;
+        v67 = v216;
       }
 
       else
@@ -588,22 +588,22 @@ LABEL_30:
           v100 = v100 * v115;
         }
 
-        v67 = v204;
+        v67 = v216;
       }
     }
 
-    v212 = [MKMapCamera _cameraLookingAtMapRect:v101 forViewSize:v102, v99, v100, v206, v212];
+    v225 = [MKMapCamera _cameraLookingAtMapRect:v101 forViewSize:v102, v99, v100, v218, v225];
     [_viewportFrame2 heading];
-    [v212 setHeading:v189];
-    [v212 setCenterCoordinate:{v65, v67}];
-    v190 = 0.0;
+    [v225 setHeading:v199];
+    [v225 setCenterCoordinate:{v65, v67}];
+    v200 = 0.0;
     if (v5)
     {
       [_viewportFrame2 pitch];
-      v190 = v191;
+      v200 = v201;
     }
 
-    [v212 setPitch:v190];
+    [v225 setPitch:v200];
 
     goto LABEL_100;
   }
@@ -613,13 +613,13 @@ LABEL_30:
   v37 = v36;
   if (fabs(v36) > 180.0 || fabs(v34) > 90.0)
   {
-    v212 = +[MKMapCamera camera];
+    v225 = +[MKMapCamera camera];
     goto LABEL_101;
   }
 
   v38 = [self _sizeCategoryForViewSize:{width, height}];
   v39 = 0.0;
-  v209 = 0.0;
+  v222 = 0.0;
   v40 = 0.0;
   if (v38 <= 2)
   {
@@ -627,20 +627,20 @@ LABEL_30:
     v40 = dbl_1A30F7798[v38];
   }
 
-  v201 = v39;
+  v213 = v39;
   v41 = MKTilePointForCoordinate(v35, v37, 21.0);
   v43 = v42;
-  v200 = v40;
+  v212 = v40;
   v44 = 1.0 / exp2(21.0 - v40);
   placemark = [(MKMapItem *)v9 placemark];
-  region = [placemark region];
+  v46 = objc_msgSend_region(placemark);
 
   objc_opt_class();
-  v202 = v41;
-  v203 = v43;
+  v214 = v41;
+  v215 = v43;
   if (objc_opt_isKindOfClass())
   {
-    v47 = region;
+    v47 = v46;
     [v47 center];
     v49 = v48;
     v51 = v50;
@@ -649,19 +649,19 @@ LABEL_30:
 
     v54 = MKMapRectMakeWithRadialDistance(v49, v51, v53);
     rect = v55;
-    v208 = v56;
-    v209 = v57;
+    v221 = v56;
+    v222 = v57;
   }
 
   else
   {
     v54 = INFINITY;
-    v208 = 0.0;
+    v221 = 0.0;
     rect = INFINITY;
   }
 
   v71 = width / v44;
-  v211 = height;
+  v224 = height;
   v72 = height / v44;
   _geoMapItem = [(MKMapItem *)v9 _geoMapItem];
   displayMapRegionOrNil = [_geoMapItem displayMapRegionOrNil];
@@ -670,7 +670,7 @@ LABEL_30:
   {
     v75 = displayMapRegionOrNil;
     GEOMapRectForMapRegion();
-    MKCoordinateRegionForMapRect(v225);
+    MKCoordinateRegionForMapRect(v238);
 
     v71 = width / v44;
     v72 = height / v44;
@@ -700,60 +700,60 @@ LABEL_30:
   v119 = rect;
   if (v54 == INFINITY && rect == INFINITY)
   {
-    v207 = v83;
-    v210 = v81;
-    v121 = v202;
-    v120 = v203;
+    v219 = v83;
+    v223 = v81;
+    v121 = v214;
+    v120 = v215;
     if (v118)
     {
-      v208 = 0.0;
-      v209 = 0.0;
+      v221 = 0.0;
+      v222 = 0.0;
       v54 = INFINITY;
       v122 = INFINITY;
       goto LABEL_72;
     }
 
-    v198 = v72 * 0.5;
-    v199 = v71 * 0.5;
-    v146 = MKGetMKMapCameraLog();
-    if (os_log_type_enabled(v146, OS_LOG_TYPE_INFO))
+    v210 = v72 * 0.5;
+    v211 = v71 * 0.5;
+    v156 = MKGetMKMapCameraLog();
+    if (os_log_type_enabled(v156, OS_LOG_TYPE_INFO))
     {
-      v147 = MEMORY[0x1E696AEC0];
-      v148 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v77, *&v79];
-      v149 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v210, *&v207];
-      [v147 stringWithFormat:@"{%@, %@}", v148, v149];
-      v150 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+      v157 = MEMORY[0x1E696AEC0];
+      v158 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v77, *&v79];
+      v159 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v223, *&v219];
+      [v157 stringWithFormat:@"{%@, %@}", v158, v159];
+      v160 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
 
       *buf = 138477827;
-      v218 = v150;
-      _os_log_impl(&dword_1A2EA0000, v146, OS_LOG_TYPE_INFO, "Only display framing data is present - display:%{private}@", buf, 0xCu);
+      v231 = v160;
+      _os_log_impl(&dword_1A2EA0000, v156, OS_LOG_TYPE_INFO, "Only display framing data is present - display:%{private}@", buf, 0xCu);
     }
 
     v54 = v77;
     v122 = v79;
-    v208 = v210;
-    v209 = v207;
+    v221 = v223;
+    v222 = v219;
   }
 
   else
   {
-    v198 = v72 * 0.5;
-    v199 = v71 * 0.5;
+    v210 = v72 * 0.5;
+    v211 = v71 * 0.5;
     if (v118)
     {
       v123 = MKGetMKMapCameraLog();
-      v121 = v202;
-      v120 = v203;
+      v121 = v214;
+      v120 = v215;
       if (os_log_type_enabled(v123, OS_LOG_TYPE_INFO))
       {
         v124 = MEMORY[0x1E696AEC0];
         v125 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v54, *&rect];
-        v126 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v208, *&v209];
+        v126 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v221, *&v222];
         [v124 stringWithFormat:@"{%@, %@}", v125, v126];
         v127 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
 
         *buf = 138477827;
-        v218 = v127;
+        v231 = v127;
         _os_log_impl(&dword_1A2EA0000, v123, OS_LOG_TYPE_INFO, "Only placemark framing data is present - placemark:%{private}@", buf, 0xCu);
       }
 
@@ -762,234 +762,249 @@ LABEL_30:
 
     else
     {
-      v197 = v71;
-      v215 = 0.0;
-      v216 = 0.0;
-      v213 = 0.0;
-      v214 = 0.0;
+      v208 = v72;
+      v209 = v71;
+      v220 = width;
+      v228 = 0.0;
+      v229 = 0.0;
+      v226 = 0.0;
+      v227 = 0.0;
       v128 = v54;
-      v129 = v208;
-      v130 = v209;
-      MKCoordinateRegionForMapRect(*(&v119 - 1));
-      __61__MKMapCamera_cameraLookingAtMapItem_forViewSize_allowPitch___block_invoke(&v216, &v215);
+      v129 = v221;
+      v130 = v222;
+      v239 = MKCoordinateRegionForMapRect(*(&v119 - 1));
+      __61__MKMapCamera_cameraLookingAtMapItem_forViewSize_allowPitch___block_invoke(&v229, &v228, v239.center.latitude, v239.center.longitude, v239.span.latitudeDelta, v239.span.longitudeDelta);
       v131 = displayMapRegionOrNil;
       GEOMapRectForMapRegion();
-      MKCoordinateRegionForMapRect(v226);
+      v241 = MKCoordinateRegionForMapRect(v240);
+      v132 = v241.center.latitude;
+      v133 = v83;
+      v134 = v54;
+      v135 = v241.center.longitude;
+      v207 = v77;
+      v136 = v79;
+      v137 = v81;
+      latitudeDelta = v241.span.latitudeDelta;
+      longitudeDelta = v241.span.longitudeDelta;
 
-      v132 = v208;
-      __61__MKMapCamera_cameraLookingAtMapItem_forViewSize_allowPitch___block_invoke(&v214, &v213);
-      v133 = v213 < v215 || v214 < v216;
-      v134 = MKGetMKMapCameraLog();
-      if (os_log_type_enabled(v134, OS_LOG_TYPE_INFO))
+      v140 = v132;
+      v141 = v221;
+      v142 = v135;
+      v54 = v134;
+      __61__MKMapCamera_cameraLookingAtMapItem_forViewSize_allowPitch___block_invoke(&v227, &v226, v140, v142, latitudeDelta, longitudeDelta);
+      v143 = v226 < v228 || v227 < v229;
+      v144 = MKGetMKMapCameraLog();
+      if (os_log_type_enabled(v144, OS_LOG_TYPE_INFO))
       {
-        *&v135 = COERCE_DOUBLE(@"placemark");
-        if (v133)
+        *&v145 = COERCE_DOUBLE(@"placemark");
+        if (v143)
         {
-          *&v135 = COERCE_DOUBLE(@"display");
+          *&v145 = COERCE_DOUBLE(@"display");
         }
 
-        v193 = v135;
-        v136 = MEMORY[0x1E696AEC0];
-        v196 = region;
-        [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v77, *&v79];
-        v137 = v195 = displayMapRegionOrNil;
-        [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v81, *&v83];
-        v138 = v194 = v133;
-        v138 = [v136 stringWithFormat:@"{%@, %@}", v137, v138];
+        v203 = v145;
+        v146 = MEMORY[0x1E696AEC0];
+        v206 = v46;
+        [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v207, *&v136];
+        v147 = v205 = displayMapRegionOrNil;
+        [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v137, *&v133];
+        v148 = v204 = v143;
+        v148 = [v146 stringWithFormat:@"{%@, %@}", v147, v148];
 
-        v140 = MEMORY[0x1E696AEC0];
-        v141 = v138;
-        v142 = [v140 stringWithFormat:@"{%.1f, %.1f}", *&v54, *&rect];
-        v143 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v208, *&v209];
-        v143 = [v140 stringWithFormat:@"{%@, %@}", v142, v143];
+        v150 = MEMORY[0x1E696AEC0];
+        v151 = v148;
+        v152 = [v150 stringWithFormat:@"{%.1f, %.1f}", *&v134, *&rect];
+        v153 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v221, *&v222];
+        v153 = [v150 stringWithFormat:@"{%@, %@}", v152, v153];
 
-        region = v196;
-        displayMapRegionOrNil = v195;
+        v46 = v206;
+        displayMapRegionOrNil = v205;
         *buf = 138543875;
-        v218 = *&v193;
-        v219 = 2113;
-        v220 = v138;
-        v221 = 2113;
-        v222 = v143;
-        _os_log_impl(&dword_1A2EA0000, v134, OS_LOG_TYPE_INFO, "Will prefer %{public}@ framing data - display:%{private}@ placemark:%{private}@", buf, 0x20u);
+        v231 = *&v203;
+        v232 = 2113;
+        v233 = v148;
+        v234 = 2113;
+        v235 = v153;
+        _os_log_impl(&dword_1A2EA0000, v144, OS_LOG_TYPE_INFO, "Will prefer %{public}@ framing data - display:%{private}@ placemark:%{private}@", buf, 0x20u);
 
-        v133 = v194;
+        v143 = v204;
       }
 
-      if (v133)
+      if (v143)
       {
-        v54 = v77;
+        v54 = v207;
       }
 
       v122 = rect;
-      if (v133)
+      width = v220;
+      if (v143)
       {
-        v122 = v79;
-        v132 = v81;
+        v122 = v136;
+        v141 = v137;
       }
 
-      v145 = v209;
-      if (v133)
+      v155 = v222;
+      if (v143)
       {
-        v145 = v83;
+        v155 = v133;
       }
 
-      v208 = v132;
-      v209 = v145;
-      v121 = v202;
-      v120 = v203;
-      v71 = v197;
+      v221 = v141;
+      v222 = v155;
+      v121 = v214;
+      v120 = v215;
+      v72 = v208;
+      v71 = v209;
     }
   }
 
-  v117 = v198;
-  v116 = v199;
+  v117 = v210;
+  v116 = v211;
 LABEL_72:
-  v151 = v121 - v116;
-  v152 = v120 - v117;
+  v161 = v121 - v116;
+  v162 = v120 - v117;
   if (v54 == INFINITY && v122 == INFINITY)
   {
-    v153 = MKGetMKMapCameraLog();
-    if (os_log_type_enabled(v153, OS_LOG_TYPE_INFO))
+    v163 = MKGetMKMapCameraLog();
+    if (os_log_type_enabled(v163, OS_LOG_TYPE_INFO))
     {
-      v154 = MEMORY[0x1E696AEC0];
-      v155 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v151, *&v152];
-      v156 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v71, *&v72];
-      v156 = [v154 stringWithFormat:@"{%@, %@}", v155, v156];
+      v164 = MEMORY[0x1E696AEC0];
+      v165 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v161, *&v162];
+      v166 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v71, *&v72];
+      v166 = [v164 stringWithFormat:@"{%@, %@}", v165, v166];
 
       *buf = 134349315;
-      v218 = v200;
-      v219 = 2113;
-      v220 = v156;
-      _os_log_impl(&dword_1A2EA0000, v153, OS_LOG_TYPE_INFO, "No framing data is present - zoomLevel:%{public}f zoom:%{private}@", buf, 0x16u);
+      v231 = v212;
+      v232 = 2113;
+      v233 = v166;
+      _os_log_impl(&dword_1A2EA0000, v163, OS_LOG_TYPE_INFO, "No framing data is present - zoomLevel:%{public}f zoom:%{private}@", buf, 0x16u);
     }
 
-    v158 = v72;
+    v168 = v72;
 
-    v159 = v201;
+    v169 = v213;
   }
 
   else
   {
-    v227.origin.x = v151;
-    v227.origin.y = v120 - v117;
-    v227.size.width = v71;
-    v227.size.height = v72;
-    v160 = v54;
-    v161 = v54;
-    v162 = v122;
-    v163 = v208;
-    v164 = v209;
-    v165 = MKMapRectContainsRect(v227, *(&v122 - 1));
-    v166 = MKGetMKMapCameraLog();
-    v167 = os_log_type_enabled(v166, OS_LOG_TYPE_INFO);
-    if (v165)
+    v242.origin.x = v161;
+    v242.origin.y = v120 - v117;
+    v242.size.width = v71;
+    v242.size.height = v72;
+    v170 = v54;
+    v171 = v54;
+    v172 = v122;
+    v173 = v221;
+    v174 = v222;
+    v175 = MKMapRectContainsRect(v242, *(&v122 - 1));
+    v176 = MKGetMKMapCameraLog();
+    v177 = os_log_type_enabled(v176, OS_LOG_TYPE_INFO);
+    if (v175)
     {
-      if (v167)
+      if (v177)
       {
-        v168 = MEMORY[0x1E696AEC0];
-        v169 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v151, *&v152];
-        v170 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v71, *&v72];
-        v170 = [v168 stringWithFormat:@"{%@, %@}", v169, v170];
+        v178 = MEMORY[0x1E696AEC0];
+        v179 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v161, *&v162];
+        v180 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v71, *&v72];
+        v180 = [v178 stringWithFormat:@"{%@, %@}", v179, v180];
 
         *buf = 134349315;
-        v218 = v200;
-        v219 = 2113;
-        v220 = v170;
-        _os_log_impl(&dword_1A2EA0000, v166, OS_LOG_TYPE_INFO, "Framing data rect fits within zoom level rect - zoomLevel:%{public}f zoom:%{private}@", buf, 0x16u);
+        v231 = v212;
+        v232 = 2113;
+        v233 = v180;
+        _os_log_impl(&dword_1A2EA0000, v176, OS_LOG_TYPE_INFO, "Framing data rect fits within zoom level rect - zoomLevel:%{public}f zoom:%{private}@", buf, 0x16u);
       }
 
-      v158 = v72;
+      v168 = v72;
     }
 
     else
     {
-      if (v167)
+      if (v177)
       {
-        v172 = MEMORY[0x1E696AEC0];
-        v173 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v151, *&v152];
-        v174 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v71, *&v72];
-        v174 = [v172 stringWithFormat:@"{%@, %@}", v173, v174];
+        v182 = MEMORY[0x1E696AEC0];
+        v183 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v161, *&v162];
+        v184 = [MEMORY[0x1E696AEC0] stringWithFormat:@"{%.1f, %.1f}", *&v71, *&v72];
+        v184 = [v182 stringWithFormat:@"{%@, %@}", v183, v184];
 
         *buf = 134349315;
-        v218 = v200;
-        v219 = 2113;
-        v220 = v174;
-        _os_log_impl(&dword_1A2EA0000, v166, OS_LOG_TYPE_INFO, "Framing data rect is too large to fit in zoom level rect - zoomLevel:%{public}f zoom:%{private}@", buf, 0x16u);
+        v231 = v212;
+        v232 = 2113;
+        v233 = v184;
+        _os_log_impl(&dword_1A2EA0000, v176, OS_LOG_TYPE_INFO, "Framing data rect is too large to fit in zoom level rect - zoomLevel:%{public}f zoom:%{private}@", buf, 0x16u);
       }
 
-      v151 = v160;
-      v152 = v162;
-      v71 = v208;
-      v158 = v209;
+      v161 = v170;
+      v162 = v172;
+      v71 = v221;
+      v168 = v222;
     }
 
-    v159 = v201;
-    v120 = v203;
+    v169 = v213;
+    v120 = v215;
   }
 
-  v212 = [self _cameraLookingAtMapRect:v151 forViewSize:{v152, v71, v158, width, v211}];
-  if (v159 > 0.0 && v5)
+  v225 = [self _cameraLookingAtMapRect:v161 forViewSize:{v162, v71, v168, width, v224}];
+  if (v169 > 0.0 && v5)
   {
-    v176 = [self _cameraLookingAtMapRect:v202 - width / 0.14358737 * 0.5 forViewSize:{v120 - v211 / 0.14358737 * 0.5, width / 0.14358737, v211 / 0.14358737, width, v211}];
-    [v212 centerCoordinateDistance];
-    v178 = v177;
-    [v176 centerCoordinateDistance];
-    v180 = v179;
-    v181 = MKGetMKMapCameraLog();
-    v182 = os_log_type_enabled(v181, OS_LOG_TYPE_INFO);
-    if (v178 <= v180)
+    v186 = [self _cameraLookingAtMapRect:v214 - width / 0.14358737 * 0.5 forViewSize:{v120 - v224 / 0.14358737 * 0.5, width / 0.14358737, v224 / 0.14358737, width, v224}];
+    [v225 centerCoordinateDistance];
+    v188 = v187;
+    [v186 centerCoordinateDistance];
+    v190 = v189;
+    v191 = MKGetMKMapCameraLog();
+    v192 = os_log_type_enabled(v191, OS_LOG_TYPE_INFO);
+    if (v188 <= v190)
     {
-      if (v182)
+      if (v192)
       {
-        [v212 centerCoordinateDistance];
-        v187 = v186;
-        [v176 centerCoordinateDistance];
+        [v225 centerCoordinateDistance];
+        v197 = v196;
+        [v186 centerCoordinateDistance];
         *buf = 134349568;
-        v218 = v159;
-        v219 = 2050;
-        v220 = v187;
-        v221 = 2050;
-        v222 = v188;
-        _os_log_impl(&dword_1A2EA0000, v181, OS_LOG_TYPE_INFO, "Pitching the camera %{public}f degrees - camera:%{public}f max:%{public}f", buf, 0x20u);
+        v231 = v169;
+        v232 = 2050;
+        v233 = v197;
+        v234 = 2050;
+        v235 = v198;
+        _os_log_impl(&dword_1A2EA0000, v191, OS_LOG_TYPE_INFO, "Pitching the camera %{public}f degrees - camera:%{public}f max:%{public}f", buf, 0x20u);
       }
 
-      [v212 setPitch:v159];
+      [v225 setPitch:v169];
     }
 
     else
     {
-      if (v182)
+      if (v192)
       {
-        [v212 centerCoordinateDistance];
-        v184 = v183;
-        [v176 centerCoordinateDistance];
+        [v225 centerCoordinateDistance];
+        v194 = v193;
+        [v186 centerCoordinateDistance];
         *buf = 134349312;
-        v218 = v184;
-        v219 = 2050;
-        v220 = v185;
-        _os_log_impl(&dword_1A2EA0000, v181, OS_LOG_TYPE_INFO, "Not pitching the camera - camera:%{public}f max:%{public}f", buf, 0x16u);
+        v231 = v194;
+        v232 = 2050;
+        v233 = v195;
+        _os_log_impl(&dword_1A2EA0000, v191, OS_LOG_TYPE_INFO, "Not pitching the camera - camera:%{public}f max:%{public}f", buf, 0x16u);
       }
     }
   }
 
 LABEL_101:
 
-  return v212;
+  return v225;
 }
 
-uint64_t __61__MKMapCamera_cameraLookingAtMapItem_forViewSize_allowPitch___block_invoke(void *a1, void *a2)
+void __61__MKMapCamera_cameraLookingAtMapItem_forViewSize_allowPitch___block_invoke(double *a1, double *a2, double a3, double a4, double a5, double a6)
 {
-  v8.latitude = 0.0;
-  v8.longitude = 0.0;
-  v7.latitude = 0.0;
-  v7.longitude = 0.0;
-  MKCoordinatesForRegion(&v8, &v7);
+  v11.latitude = 0.0;
+  v11.longitude = 0.0;
+  v10.latitude = 0.0;
+  v10.longitude = 0.0;
+  MKCoordinatesForRegion(&v11, &v10, a3, a4, a5, a6);
   GEOCalculateDistance();
-  *a2 = v4;
-  result = GEOCalculateDistance();
-  *a1 = v6;
-  return result;
+  *a2 = v8;
+  GEOCalculateDistance();
+  *a1 = v9;
 }
 
 + (MKMapCamera)cameraLookingAtCenterCoordinate:(CLLocationCoordinate2D)centerCoordinate fromDistance:(CLLocationDistance)distance pitch:(CGFloat)pitch heading:(CLLocationDirection)heading

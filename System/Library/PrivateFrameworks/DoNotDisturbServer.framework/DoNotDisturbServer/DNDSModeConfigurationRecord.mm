@@ -33,7 +33,7 @@
   lastModified = [recordCopy lastModified];
   if (recordCopy)
   {
-    [recordCopy lastModifiedByVersion];
+    objc_msgSend_lastModifiedByVersion(recordCopy);
   }
 
   else
@@ -110,7 +110,7 @@
 
 - (void)log:(id)log withMessage:(id)message
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   logCopy = log;
   messageCopy = message;
   mode = [(DNDSModeConfigurationRecord *)self mode];
@@ -118,22 +118,22 @@
 
   if (os_log_type_enabled(logCopy, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 138543618;
-    v27 = modeIdentifier;
-    v28 = 2114;
-    v29 = messageCopy;
-    _os_log_impl(&dword_24912E000, logCopy, OS_LOG_TYPE_DEFAULT, "[%{public}@] Begin: %{public}@", &v26, 0x16u);
+    v25 = 138543618;
+    v26 = modeIdentifier;
+    v27 = 2114;
+    v28 = messageCopy;
+    _os_log_impl(&dword_24912E000, logCopy, OS_LOG_TYPE_DEFAULT, "[%{public}@] Begin: %{public}@", &v25, 0x16u);
   }
 
   v10 = logCopy;
   if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
     shortDescription = [(DNDSModeConfigurationRecord *)self shortDescription];
-    v26 = 138543618;
-    v27 = modeIdentifier;
-    v28 = 2114;
-    v29 = shortDescription;
-    _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@", &v26, 0x16u);
+    v25 = 138543618;
+    v26 = modeIdentifier;
+    v27 = 2114;
+    v28 = shortDescription;
+    _os_log_impl(&dword_24912E000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] %{public}@", &v25, 0x16u);
   }
 
   v12 = v10;
@@ -141,51 +141,51 @@
   {
     created = [(DNDSModeConfigurationRecord *)self created];
     lastModified = [(DNDSModeConfigurationRecord *)self lastModified];
-    [(DNDSModeConfigurationRecord *)self lastModifiedByVersion];
+    objc_msgSend_lastModifiedByVersion(self);
     v15 = DNDStringFromOperatingSystemVersion();
     lastModifiedByDeviceID = [(DNDSModeConfigurationRecord *)self lastModifiedByDeviceID];
     isAutomaticallyGenerated = [(DNDSModeConfigurationRecord *)self isAutomaticallyGenerated];
     v18 = [MEMORY[0x277CCABB0] numberWithInteger:{-[DNDSModeConfigurationRecord compatibilityVersion](self, "compatibilityVersion")}];
     hasSecureData = [(DNDSModeConfigurationRecord *)self hasSecureData];
-    v26 = 138545154;
-    v27 = modeIdentifier;
-    v28 = 2114;
-    v29 = created;
-    v30 = 2114;
-    v31 = lastModified;
-    v32 = 2114;
-    v33 = v15;
-    v34 = 2112;
-    v35 = lastModifiedByDeviceID;
-    v36 = 1026;
-    v37 = isAutomaticallyGenerated;
-    v38 = 2114;
-    v39 = v18;
-    v40 = 1026;
-    v41 = hasSecureData;
-    _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] created: %{public}@; lastModified: %{public}@; lastModifiedByVersion: %{public}@; lastModifiedByDeviceID: %@; isAutomaticallyGenerated: %{public}d; compatibilityVersion: %{public}@; hasSecureData: %{public}d; ", &v26, 0x4Au);
+    v25 = 138545154;
+    v26 = modeIdentifier;
+    v27 = 2114;
+    v28 = created;
+    v29 = 2114;
+    v30 = lastModified;
+    v31 = 2114;
+    v32 = v15;
+    v33 = 2112;
+    v34 = lastModifiedByDeviceID;
+    v35 = 1026;
+    v36 = isAutomaticallyGenerated;
+    v37 = 2114;
+    v38 = v18;
+    v39 = 1026;
+    v40 = hasSecureData;
+    _os_log_impl(&dword_24912E000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] created: %{public}@; lastModified: %{public}@; lastModifiedByVersion: %{public}@; lastModifiedByDeviceID: %@; isAutomaticallyGenerated: %{public}d; compatibilityVersion: %{public}@; hasSecureData: %{public}d; ", &v25, 0x4Au);
   }
 
   v20 = v12;
   if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
   {
     triggers = [(DNDSModeConfigurationRecord *)self triggers];
-    v26 = 138543619;
-    v27 = modeIdentifier;
-    v28 = 2113;
-    v29 = triggers;
-    _os_log_impl(&dword_24912E000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] triggers: %{private}@", &v26, 0x16u);
+    v25 = 138543619;
+    v26 = modeIdentifier;
+    v27 = 2113;
+    v28 = triggers;
+    _os_log_impl(&dword_24912E000, v20, OS_LOG_TYPE_DEFAULT, "[%{public}@] triggers: %{private}@", &v25, 0x16u);
   }
 
   v22 = v20;
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     configuration = [(DNDSModeConfigurationRecord *)self configuration];
-    v26 = 138543619;
-    v27 = modeIdentifier;
-    v28 = 2113;
-    v29 = configuration;
-    _os_log_impl(&dword_24912E000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] configuration: %{private}@", &v26, 0x16u);
+    v25 = 138543619;
+    v26 = modeIdentifier;
+    v27 = 2113;
+    v28 = configuration;
+    _os_log_impl(&dword_24912E000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] configuration: %{private}@", &v25, 0x16u);
   }
 
   secureConfiguration = [(DNDSModeConfigurationRecord *)self secureConfiguration];
@@ -193,12 +193,10 @@
 
   if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
-    v26 = 138543362;
-    v27 = modeIdentifier;
-    _os_log_impl(&dword_24912E000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] End", &v26, 0xCu);
+    v25 = 138543362;
+    v26 = modeIdentifier;
+    _os_log_impl(&dword_24912E000, v22, OS_LOG_TYPE_DEFAULT, "[%{public}@] End", &v25, 0xCu);
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 - (unint64_t)hash
@@ -320,10 +318,10 @@ LABEL_44:
             lastModified = lastModifiedByDeviceID6;
           }
 
-          [(DNDSModeConfigurationRecord *)self lastModifiedByVersion];
+          objc_msgSend_lastModifiedByVersion(self);
           if (v5)
           {
-            [(DNDSModeConfigurationRecord *)v5 lastModifiedByVersion];
+            objc_msgSend_lastModifiedByVersion(v5);
           }
 
           if (DNDOperatingSystemVersionCompare())
@@ -689,7 +687,7 @@ LABEL_54:
   v13 = DNDEnabledSettingToString();
   created = [(DNDSModeConfigurationRecord *)self created];
   lastModified = [(DNDSModeConfigurationRecord *)self lastModified];
-  [(DNDSModeConfigurationRecord *)self lastModifiedByVersion];
+  objc_msgSend_lastModifiedByVersion(self);
   v5 = DNDStringFromOperatingSystemVersion();
   lastModifiedByDeviceID = [(DNDSModeConfigurationRecord *)self lastModifiedByDeviceID];
   v7 = [MEMORY[0x277CCABB0] numberWithBool:{-[DNDSModeConfigurationRecord isAutomaticallyGenerated](self, "isAutomaticallyGenerated")}];
@@ -1124,9 +1122,7 @@ LABEL_54:
 
   else
   {
-    [(DNDSModeConfigurationRecord *)self lastModifiedByVersion];
-    v6 = *MEMORY[0x277D05858];
-    v7 = *(MEMORY[0x277D05858] + 16);
+    objc_msgSend_lastModifiedByVersion(self);
     v4 = DNDOperatingSystemVersionCompare() != 0;
   }
 
@@ -1135,7 +1131,7 @@ LABEL_54:
 
 + (id)dictionaryRepresentationWithCKRecord:(id)record partitionType:(unint64_t)type
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   recordCopy = record;
   if (type == 1)
   {
@@ -1161,24 +1157,24 @@ LABEL_54:
 
   if (v10)
   {
-    v21 = 0;
-    v11 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v10 options:0 error:&v21];
-    v12 = v21;
+    v20 = 0;
+    v11 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v10 options:0 error:&v20];
+    v12 = v20;
     if (v12)
     {
       v13 = DNDSLogModeConfigurations;
       if (os_log_type_enabled(DNDSLogModeConfigurations, OS_LOG_TYPE_ERROR))
       {
-        v18 = v13;
+        v17 = v13;
         recordID = [recordCopy recordID];
         recordName = [recordID recordName];
         *buf = 138412802;
-        v23 = v6;
-        v24 = 2114;
-        v25 = recordName;
-        v26 = 2114;
-        v27 = v12;
-        _os_log_error_impl(&dword_24912E000, v18, OS_LOG_TYPE_ERROR, "Failed to decode %@ partition data %{public}@: %{public}@", buf, 0x20u);
+        v22 = v6;
+        v23 = 2114;
+        v24 = recordName;
+        v25 = 2114;
+        v26 = v12;
+        _os_log_error_impl(&dword_24912E000, v17, OS_LOG_TYPE_ERROR, "Failed to decode %@ partition data %{public}@: %{public}@", buf, 0x20u);
       }
 
       v14 = 0;
@@ -1202,7 +1198,6 @@ LABEL_54:
   }
 
 LABEL_17:
-  v16 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

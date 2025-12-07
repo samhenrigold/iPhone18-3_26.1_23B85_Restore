@@ -37,7 +37,7 @@ void std::__tree<std::__value_type<std::string,long>,std::__map_value_compare<st
   }
 }
 
-_BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
+void *std::string::basic_string[abi:nn200100]<0>(void *a1, char *__s)
 {
   v4 = strlen(__s);
   if (v4 >= 0x7FFFFFFFFFFFFFF8)
@@ -51,13 +51,13 @@ _BYTE *std::string::basic_string[abi:nn200100]<0>(_BYTE *a1, char *__s)
     operator new();
   }
 
-  a1[23] = v4;
+  *(a1 + 23) = v4;
   if (v4)
   {
     memmove(a1, __s, v4);
   }
 
-  a1[v5] = 0;
+  *(a1 + v5) = 0;
   return a1;
 }
 
@@ -122,7 +122,7 @@ uint64_t std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocat
   return 255;
 }
 
-void sub_26D4927C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__split_buffer<std::string> *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, void **a21, id a22)
+void sub_26D4927C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, std::__split_buffer<std::string> *a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, char *a21, id a22)
 {
   a21 = &a17;
   std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](&a21);
@@ -130,7 +130,7 @@ void sub_26D4927C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void std::__introsort<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(std::string const&,std::string const&),std::string*,false>(uint64_t a1, _OWORD *a2, uint64_t a3, uint64_t a4, char a5)
+void std::__introsort<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(std::string const&,std::string const&),std::string*,false>(__int128 *a1, _OWORD *a2, uint64_t a3, uint64_t a4, char a5)
 {
   while (2)
   {
@@ -420,14 +420,14 @@ LABEL_133:
                     v99 = 2 * v98 + 2;
                   }
 
-                  v101 = a1 + 24 * v98;
+                  v101 = (a1 + 24 * v98);
                   a2 = v135;
                   if (((*(*a3 + 16))() & 1) == 0)
                   {
-                    v187 = *(v101 + 16);
+                    v187 = *(v101 + 2);
                     v162 = *v101;
-                    *(v101 + 8) = 0;
-                    *(v101 + 16) = 0;
+                    *(v101 + 1) = 0;
+                    *(v101 + 2) = 0;
                     *v101 = 0;
                     while (1)
                     {
@@ -438,7 +438,7 @@ LABEL_133:
                       }
 
                       v103 = *v100;
-                      *(v101 + 16) = *(v100 + 16);
+                      *(v101 + 2) = *(v100 + 16);
                       *v101 = v103;
                       *(v100 + 23) = 0;
                       *v100 = 0;
@@ -494,17 +494,17 @@ LABEL_133:
                 v107 = 0;
                 v108 = a2;
                 v136 = *a1;
-                *v194 = *(a1 + 8);
+                *v194 = *(a1 + 1);
                 *&v194[7] = *(a1 + 15);
                 v139 = *(a1 + 23);
-                *(a1 + 8) = 0;
-                *(a1 + 16) = 0;
+                *(a1 + 1) = 0;
+                *(a1 + 2) = 0;
                 *a1 = 0;
                 do
                 {
                   v109 = a1;
                   v110 = a1 + 24 * v107;
-                  a1 = v110 + 24;
+                  a1 = (v110 + 24);
                   v111 = 2 * v107;
                   v107 = (2 * v107) | 1;
                   v112 = v111 + 2;
@@ -524,7 +524,7 @@ LABEL_133:
                   }
 
                   v114 = *a1;
-                  *(v109 + 16) = *(a1 + 16);
+                  *(v109 + 16) = *(a1 + 2);
                   *v109 = v114;
                   *(a1 + 23) = 0;
                   *a1 = 0;
@@ -535,7 +535,7 @@ LABEL_133:
                 if (a1 == (v108 - 24))
                 {
                   *a1 = v136;
-                  *(a1 + 8) = *v194;
+                  *(a1 + 1) = *v194;
                   *(a1 + 15) = *&v194[7];
                   *(a1 + 23) = v139;
                 }
@@ -543,7 +543,7 @@ LABEL_133:
                 else
                 {
                   v115 = *a2;
-                  *(a1 + 16) = *(v108 - 1);
+                  *(a1 + 2) = *(v108 - 1);
                   *a1 = v115;
                   *(v108 - 3) = v136;
                   *(v108 - 9) = *&v194[7];
@@ -556,10 +556,10 @@ LABEL_133:
                     v118 = v141 + 24 * v117;
                     if ((*(*a3 + 16))())
                     {
-                      v188 = *(a1 + 16);
+                      v188 = *(a1 + 2);
                       v163 = *a1;
-                      *(a1 + 8) = 0;
-                      *(a1 + 16) = 0;
+                      *(a1 + 1) = 0;
+                      *(a1 + 2) = 0;
                       *a1 = 0;
                       while (1)
                       {
@@ -570,7 +570,7 @@ LABEL_133:
                         }
 
                         v120 = *v118;
-                        *(a1 + 16) = *(v118 + 16);
+                        *(a1 + 2) = *(v118 + 16);
                         *a1 = v120;
                         *(v118 + 23) = 0;
                         *v118 = 0;
@@ -620,19 +620,19 @@ LABEL_133:
             {
               if (v18)
               {
-                v167 = *(a1 + 16);
+                v167 = *(a1 + 2);
                 v142 = *a1;
                 v19 = *v9;
-                *(a1 + 16) = *(a2 - 1);
+                *(a1 + 2) = *(a2 - 1);
                 *a1 = v19;
               }
 
               else
               {
-                v173 = *(a1 + 16);
+                v173 = *(a1 + 2);
                 v148 = *a1;
                 v27 = *v15;
-                *(a1 + 16) = *(v15 + 16);
+                *(a1 + 2) = *(v15 + 16);
                 *a1 = v27;
                 *(v15 + 16) = v173;
                 *v15 = v148;
@@ -663,10 +663,10 @@ LABEL_133:
               *v9 = v144;
               if ((*(*a3 + 16))())
               {
-                v170 = *(a1 + 16);
+                v170 = *(a1 + 2);
                 v145 = *a1;
                 v24 = *v15;
-                *(a1 + 16) = *(v15 + 16);
+                *(a1 + 2) = *(v15 + 16);
                 *a1 = v24;
                 *(v15 + 16) = v170;
                 *v15 = v145;
@@ -682,10 +682,10 @@ LABEL_27:
               if (v31)
               {
                 v32 = *(a1 + 24);
-                v33 = *(a1 + 40);
+                v33 = *(a1 + 5);
                 v34 = *(a2 - 4);
                 *(a1 + 24) = *v137;
-                *(a1 + 40) = v34;
+                *(a1 + 5) = v34;
                 *(a2 - 4) = v33;
                 *v137 = v32;
               }
@@ -693,18 +693,18 @@ LABEL_27:
               else
               {
                 v41 = *(a1 + 24);
-                v42 = *(a1 + 40);
-                v43 = *(a1 + 24 * v14 - 8);
+                v42 = *(a1 + 5);
+                v43 = *(a1 + 3 * v14 - 1);
                 *(a1 + 24) = *v29;
-                *(a1 + 40) = v43;
-                *(a1 + 24 * v14 - 8) = v42;
+                *(a1 + 5) = v43;
+                *(a1 + 3 * v14 - 1) = v42;
                 *v29 = v41;
                 if ((*(*a3 + 16))())
                 {
-                  v176 = *(a1 + 24 * v14 - 8);
+                  v176 = *(a1 + 3 * v14 - 1);
                   v151 = *v29;
                   v44 = *v137;
-                  *(a1 + 24 * v14 - 8) = *(a2 - 4);
+                  *(a1 + 3 * v14 - 1) = *(a2 - 4);
                   *v29 = v44;
                   *(a2 - 4) = v176;
                   *v137 = v151;
@@ -714,21 +714,21 @@ LABEL_27:
 
             else if (v31)
             {
-              v174 = *(a1 + 24 * v14 - 8);
+              v174 = *(a1 + 3 * v14 - 1);
               v149 = *v29;
               v35 = *v137;
-              *(a1 + 24 * v14 - 8) = *(a2 - 4);
+              *(a1 + 3 * v14 - 1) = *(a2 - 4);
               *v29 = v35;
               *(a2 - 4) = v174;
               *v137 = v149;
               if ((*(*a3 + 16))())
               {
                 v36 = *(a1 + 24);
-                v37 = *(a1 + 40);
-                v38 = *(a1 + 24 * v14 - 8);
+                v37 = *(a1 + 5);
+                v38 = *(a1 + 3 * v14 - 1);
                 *(a1 + 24) = *v29;
-                *(a1 + 40) = v38;
-                *(a1 + 24 * v14 - 8) = v37;
+                *(a1 + 5) = v38;
+                *(a1 + 3 * v14 - 1) = v37;
                 *v29 = v36;
               }
             }
@@ -740,20 +740,20 @@ LABEL_27:
             {
               if (v47)
               {
-                v48 = *(a1 + 48);
-                v49 = *(a1 + 64);
+                v48 = a1[3];
+                v49 = *(a1 + 8);
                 v50 = *(a2 - 7);
-                *(a1 + 48) = *v10;
-                *(a1 + 64) = v50;
+                a1[3] = *v10;
+                *(a1 + 8) = v50;
               }
 
               else
               {
-                v55 = *(a1 + 48);
-                v56 = *(a1 + 64);
+                v55 = a1[3];
+                v56 = *(a1 + 8);
                 v57 = *(v45 + 40);
-                *(a1 + 48) = *(v45 + 24);
-                *(a1 + 64) = v57;
+                a1[3] = *(v45 + 24);
+                *(a1 + 8) = v57;
                 *(v45 + 40) = v56;
                 *(v45 + 24) = v55;
                 if (!(*(*a3 + 16))())
@@ -785,11 +785,11 @@ LABEL_27:
               *v10 = v152;
               if ((*(*a3 + 16))())
               {
-                v52 = *(a1 + 48);
-                v53 = *(a1 + 64);
+                v52 = a1[3];
+                v53 = *(a1 + 8);
                 v54 = *(v45 + 40);
-                *(a1 + 48) = *(v45 + 24);
-                *(a1 + 64) = v54;
+                a1[3] = *(v45 + 24);
+                *(a1 + 8) = v54;
                 *(v45 + 40) = v53;
                 *(v45 + 24) = v52;
               }
@@ -841,10 +841,10 @@ LABEL_47:
               if (!(*(*a3 + 16))())
               {
 LABEL_56:
-                v183 = *(a1 + 16);
+                v183 = *(a1 + 2);
                 v158 = *a1;
                 v61 = *v15;
-                *(a1 + 16) = *(v15 + 16);
+                *(a1 + 2) = *(v15 + 16);
                 *a1 = v61;
                 *(v15 + 16) = v183;
                 *v15 = v158;
@@ -882,16 +882,16 @@ LABEL_35:
             v175 = *(v15 + 16);
             v150 = *v15;
             v39 = *a1;
-            *(v15 + 16) = *(a1 + 16);
+            *(v15 + 16) = *(a1 + 2);
             *v15 = v39;
-            *(a1 + 16) = v175;
+            *(a1 + 2) = v175;
             *a1 = v150;
             if ((*(*a3 + 16))())
             {
-              v168 = *(a1 + 16);
+              v168 = *(a1 + 2);
               v143 = *a1;
               v40 = *v9;
-              *(a1 + 16) = *(a2 - 1);
+              *(a1 + 2) = *(a2 - 1);
               *a1 = v40;
               goto LABEL_35;
             }
@@ -899,10 +899,10 @@ LABEL_35:
 
           else if (v21)
           {
-            v171 = *(a1 + 16);
+            v171 = *(a1 + 2);
             v146 = *a1;
             v25 = *v9;
-            *(a1 + 16) = *(a2 - 1);
+            *(a1 + 2) = *(a2 - 1);
             *a1 = v25;
             *(a2 - 1) = v171;
             *v9 = v146;
@@ -911,9 +911,9 @@ LABEL_35:
               v172 = *(v15 + 16);
               v147 = *v15;
               v26 = *a1;
-              *(v15 + 16) = *(a1 + 16);
+              *(v15 + 16) = *(a1 + 2);
               *v15 = v26;
-              *(a1 + 16) = v172;
+              *(a1 + 2) = v172;
               *a1 = v147;
             }
           }
@@ -925,10 +925,10 @@ LABEL_57:
             break;
           }
 
-          v196 = *(a1 + 16);
+          v196 = *(a1 + 2);
           v193 = *a1;
-          *(a1 + 8) = 0;
-          *(a1 + 16) = 0;
+          *(a1 + 1) = 0;
+          *(a1 + 2) = 0;
           *a1 = 0;
           if ((*(*a3 + 16))())
           {
@@ -995,7 +995,7 @@ LABEL_57:
           }
 
           v75 = (v11 - 24);
-          if (v11 - 24 == a1)
+          if ((v11 - 24) == a1)
           {
             if (*(v11 - 1) < 0)
             {
@@ -1011,7 +1011,7 @@ LABEL_57:
             }
 
             v76 = *v75;
-            *(a1 + 16) = *(v11 - 8);
+            *(a1 + 2) = *(v11 - 8);
             *a1 = v76;
             *(v11 - 1) = 0;
             *(v11 - 24) = 0;
@@ -1022,10 +1022,10 @@ LABEL_57:
           *v75 = v193;
         }
 
-        v195 = *(a1 + 16);
+        v195 = *(a1 + 2);
         v192 = *a1;
-        *(a1 + 8) = 0;
-        *(a1 + 16) = 0;
+        *(a1 + 1) = 0;
+        *(a1 + 2) = 0;
         *a1 = 0;
         v62 = a1;
         do
@@ -1035,7 +1035,7 @@ LABEL_57:
 
         while (((*(*a3 + 16))() & 1) != 0);
         v63 = a2;
-        if (v62 - 24 == a1)
+        if ((v62 - 24) == a1)
         {
           v63 = a2;
           do
@@ -1069,10 +1069,10 @@ LABEL_57:
           {
             v65 = *v11;
             v66 = *(v11 + 16);
-            v67 = *(v64 + 16);
+            v67 = v64[1].n128_i64[0];
             *v11 = *v64;
             *(v11 + 16) = v67;
-            *(v64 + 16) = v66;
+            v64[1].n128_u64[0] = v66;
             *v64 = v65;
             do
             {
@@ -1082,7 +1082,7 @@ LABEL_57:
             while (((*(*a3 + 16))() & 1) != 0);
             do
             {
-              v64 -= 24;
+              v64 = (v64 - 24);
             }
 
             while (!(*(*a3 + 16))());
@@ -1092,7 +1092,7 @@ LABEL_57:
         }
 
         v68 = (v11 - 24);
-        if (v11 - 24 == a1)
+        if ((v11 - 24) == a1)
         {
           if (*(v11 - 1) < 0)
           {
@@ -1108,7 +1108,7 @@ LABEL_57:
           }
 
           v69 = *v68;
-          *(a1 + 16) = *(v11 - 8);
+          *(a1 + 2) = *(v11 - 8);
           *a1 = v69;
           *(v11 - 1) = 0;
           *(v11 - 24) = 0;
@@ -1122,11 +1122,11 @@ LABEL_57:
         }
 
 LABEL_82:
-        std::__introsort<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(std::string const&,std::string const&),std::string*,false>(a1, v11 - 24, a3, a4, a5 & 1);
+        std::__introsort<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(std::string const&,std::string const&),std::string*,false>(a1, (v11 - 24), a3, a4, a5 & 1);
         a5 = 0;
       }
 
-      v70 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(std::string const&,std::string const&),std::string*>(a1, v11 - 24, a3);
+      v70 = std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(std::string const&,std::string const&),std::string*>(a1, (v11 - 24), a3);
       if (std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(std::string const&,std::string const&),std::string*>(v11, a2, a3))
       {
         break;
@@ -1170,10 +1170,10 @@ void std::vector<std::string>::__destroy_vector::operator()[abi:nn200100](void *
   }
 }
 
-void *std::__tree<std::__value_type<std::string,long>,std::__map_value_compare<std::string,std::__value_type<std::string,long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t a1, void *a2)
+uint64_t *std::__tree<std::__value_type<std::string,long>,std::__map_value_compare<std::string,std::__value_type<std::string,long>,std::less<std::string>,true>,std::allocator<std::__value_type<std::string,long>>>::__emplace_unique_key_args<std::string,std::piecewise_construct_t const&,std::tuple<std::string const&>,std::tuple<>>(uint64_t **a1, void *a2, __int128 **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_7:
     operator new();
@@ -1183,26 +1183,26 @@ LABEL_7:
   {
     while (1)
     {
-      v4 = v2;
-      if ((std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v2 + 4) & 0x80) == 0)
+      v5 = v3;
+      if ((std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(a2, v3 + 4) & 0x80) == 0)
       {
         break;
       }
 
-      v2 = *v4;
-      if (!*v4)
+      v3 = *v5;
+      if (!*v5)
       {
         goto LABEL_7;
       }
     }
 
-    if ((std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(v4 + 4, a2) & 0x80) == 0)
+    if ((std::operator<=>[abi:nn200100]<char,std::char_traits<char>,std::allocator<char>>(v5 + 4, a2) & 0x80) == 0)
     {
-      return v4;
+      return v5;
     }
 
-    v2 = v4[1];
-    if (!v2)
+    v3 = v5[1];
+    if (!v3)
     {
       goto LABEL_7;
     }
@@ -1361,7 +1361,7 @@ LABEL_9:
 LABEL_10:
   if ((*(*a5 + 16))())
   {
-    v26 = a3[1].n128_i64[0];
+    v26 = a3[1].n128_u64[0];
     v27 = *a3;
     v28 = a4[1].n128_u64[0];
     *a3 = *a4;
@@ -1393,7 +1393,7 @@ LABEL_10:
   return result;
 }
 
-BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(std::string const&,std::string const&),std::string*>(uint64_t a1, uint64_t a2, uint64_t a3)
+BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,BOOL({block_pointer} {__strong}&)(std::string const&,std::string const&),std::string*>(uint64_t a1, __int128 *a2, uint64_t a3)
 {
   v6 = 0xAAAAAAAAAAAAAAABLL * ((a2 - a1) >> 3);
   if (v6 > 2)
@@ -1523,11 +1523,11 @@ BOOL std::__insertion_sort_incomplete[abi:nn200100]<std::_ClassicAlgPolicy,BOOL(
     {
       v8 = *(a1 + 16);
       v9 = *a1;
-      v10 = *(a2 - 8);
+      v10 = *(a2 - 1);
       *a1 = *v7;
       *(a1 + 16) = v10;
       *v7 = v9;
-      *(a2 - 8) = v8;
+      *(a2 - 1) = v8;
     }
 
     return 1;
@@ -1590,8 +1590,8 @@ LABEL_16:
   }
 
 LABEL_33:
-  v45 = a1 + 72;
-  if (a1 + 72 == a2)
+  v45 = (a1 + 72);
+  if ((a1 + 72) == a2)
   {
     return 1;
   }
@@ -1603,9 +1603,9 @@ LABEL_33:
     if ((*(*a3 + 16))())
     {
       v52 = *v45;
-      v53 = *(v45 + 16);
-      *(v45 + 8) = 0;
-      *(v45 + 16) = 0;
+      v53 = *(v45 + 2);
+      *(v45 + 1) = 0;
+      *(v45 + 2) = 0;
       *v45 = 0;
       v48 = v46;
       do
@@ -1641,12 +1641,12 @@ LABEL_44:
       *(v50 + 16) = v53;
       if (++v47 == 8)
       {
-        return v45 + 24 == a2;
+        return (v45 + 24) == a2;
       }
     }
 
     v46 += 24;
-    v45 += 24;
+    v45 = (v45 + 24);
     if (v45 == a2)
     {
       return 1;
@@ -1896,9 +1896,9 @@ void __createDirectoryAtPath(void *a1)
   }
 }
 
-void sub_26D4972AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26D4972AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2130,7 +2130,7 @@ LABEL_6:
 
 void TITargetKeyRangesForSourceTokens(void *a1, void *a2, void *a3, void *a4, void *a5, uint64_t a6)
 {
-  v86 = *MEMORY[0x277D85DE8];
+  v87 = *MEMORY[0x277D85DE8];
   v11 = a1;
   v12 = a2;
   v13 = a3;
@@ -2139,10 +2139,10 @@ void TITargetKeyRangesForSourceTokens(void *a1, void *a2, void *a3, void *a4, vo
   if ([v14 count])
   {
     v16 = 0;
-    v85 = xmmword_26D4EC000;
+    v86 = xmmword_26D4EC000;
     do
     {
-      *(a6 + 16 * v16++) = v85;
+      *(a6 + 16 * v16++) = v86;
     }
 
     while (v16 < [v14 count]);
@@ -2150,39 +2150,39 @@ void TITargetKeyRangesForSourceTokens(void *a1, void *a2, void *a3, void *a4, vo
 
   if ([v14 count] && objc_msgSend(v15, "count"))
   {
-    v80 = v15;
-    v81 = v13;
+    v81 = v15;
+    v82 = v13;
     if ([v14 count])
     {
       v17 = 0;
-      v85 = xmmword_26D4EC000;
+      v86 = xmmword_26D4EC000;
       do
       {
-        *(a6 + 16 * v17++) = v85;
+        *(a6 + 16 * v17++) = v86;
       }
 
       while (v17 < [v14 count]);
     }
 
-    v84 = a6;
-    v79 = v11;
+    v85 = a6;
+    v80 = v11;
     v18 = v11;
-    v78 = v12;
+    v79 = v12;
     v19 = v12;
-    v77 = v14;
+    v78 = v14;
     v20 = v14;
-    v83 = v20;
+    v84 = v20;
     if ([v20 count])
     {
       v21 = 0;
       v22 = 0;
       v23 = 0;
       v24 = 0;
-      v82 = v19;
+      v83 = v19;
       do
       {
-        *&v85 = v23;
-        v25 = [v20 objectAtIndex:{v23, v77}];
+        *&v86 = v23;
+        v25 = [v20 objectAtIndex:{v23, v78}];
         v26 = [MEMORY[0x277CCAB68] string];
         v27 = [v26 length];
         v28 = [v25 length];
@@ -2281,180 +2281,180 @@ void TITargetKeyRangesForSourceTokens(void *a1, void *a2, void *a3, void *a4, vo
           while (v21 != v24);
         }
 
-        v40 = v85;
-        v41 = (v84 + 16 * v85);
+        v40 = v86;
+        v41 = (v85 + 16 * v86);
         *v41 = v32;
         v41[1] = v31;
 
         v23 = v40 + 1;
-        v20 = v83;
+        v20 = v84;
         v21 = v24;
-        v19 = v82;
+        v19 = v83;
       }
 
-      while (v23 < [v83 count]);
+      while (v23 < [v84 count]);
     }
 
-    v42 = v80;
-    [v80 count];
-    v43 = &v77 - 2 * MEMORY[0x28223BE20]();
-    v44 = v81;
-    v45 = v42;
-    if ([v45 count])
+    v42 = v81;
+    v43 = [v81 count];
+    v44 = &v78 - 2 * MEMORY[0x28223BE20](v43);
+    v45 = v82;
+    v46 = v42;
+    if ([v46 count])
     {
-      v46 = 0;
       v47 = 0;
       v48 = 0;
+      v49 = 0;
       do
       {
-        v49 = [v45 objectAtIndex:{v47, v77}];
-        v50 = [MEMORY[0x277CCAB68] string];
-        v51 = [v50 length];
-        if (v51 < [v49 length])
+        v50 = [v46 objectAtIndex:{v48, v78}];
+        v51 = [MEMORY[0x277CCAB68] string];
+        v52 = [v51 length];
+        if (v52 < [v50 length])
         {
-          v52 = v46;
+          v53 = v47;
           do
           {
-            v48 = v52 + 1;
-            v53 = [v44 objectAtIndex:?];
-            [v50 appendString:v53];
+            v49 = v53 + 1;
+            v54 = [v45 objectAtIndex:?];
+            [v51 appendString:v54];
 
-            v54 = [v50 length];
-            v55 = [v49 length];
-            v52 = v48;
+            v55 = [v51 length];
+            v56 = [v50 length];
+            v53 = v49;
           }
 
-          while (v54 < v55);
+          while (v55 < v56);
         }
 
-        v56 = &v43[2 * v47];
-        *v56 = v46;
-        v56[1] = (v48 - v46);
+        v57 = &v44[2 * v48];
+        *v57 = v47;
+        v57[1] = (v49 - v47);
 
-        ++v47;
-        v46 = v48;
+        ++v48;
+        v47 = v49;
       }
 
-      while (v47 < [v45 count]);
+      while (v48 < [v46 count]);
     }
 
-    v57 = [v83 count];
-    v58 = [v45 count];
-    v59 = &v43[2 * v58];
-    v60 = *(v59 - 2) + *(v59 - 1);
-    v61 = 0;
-    if (v57)
+    v58 = [v84 count];
+    v59 = [v46 count];
+    v60 = &v44[2 * v59];
+    v61 = *(v60 - 2) + *(v60 - 1);
+    v62 = 0;
+    if (v58)
     {
-      v62 = 0;
-      v63 = v57 - 1;
-      v64 = v84;
-      v65 = (v84 + 16);
-      v12 = v78;
-      v11 = v79;
-      v14 = v77;
+      v63 = 0;
+      v64 = v58 - 1;
+      v65 = v85;
+      v66 = (v85 + 16);
+      v12 = v79;
+      v11 = v80;
+      v14 = v78;
       do
       {
-        v66 = (v64 + 16 * v62);
-        v67 = *v66;
-        if (*v66 == 0x7FFFFFFFFFFFFFFFLL)
+        v67 = (v65 + 16 * v63);
+        v68 = *v67;
+        if (*v67 == 0x7FFFFFFFFFFFFFFFLL)
         {
-          v68 = 0;
-          *v66 = v61;
-          v66[1] = 0;
-          v67 = v61;
+          v69 = 0;
+          *v67 = v62;
+          v67[1] = 0;
+          v68 = v62;
         }
 
         else
         {
-          v68 = v66[1];
+          v69 = v67[1];
         }
 
-        ++v62;
-        v69 = v65;
-        v70 = v63;
-        v71 = v60;
-        if (v62 < v57)
+        ++v63;
+        v70 = v66;
+        v71 = v64;
+        v72 = v61;
+        if (v63 < v58)
         {
           while (1)
           {
-            v72 = *v69;
-            v69 += 2;
-            v71 = v72;
-            if (v72 != 0x7FFFFFFFFFFFFFFFLL)
+            v73 = *v70;
+            v70 += 2;
+            v72 = v73;
+            if (v73 != 0x7FFFFFFFFFFFFFFFLL)
             {
               break;
             }
 
-            if (!--v70)
+            if (!--v71)
             {
-              v71 = v60;
+              v72 = v61;
               break;
             }
           }
         }
 
-        v73 = v68 + v67;
-        if (v67 != v61)
+        v74 = v69 + v68;
+        if (v68 != v62)
         {
-          v68 = v73 - v61;
-          *v66 = v61;
-          v66[1] = v73 - v61;
+          v69 = v74 - v62;
+          *v67 = v62;
+          v67[1] = v74 - v62;
         }
 
-        if (v71 != v73)
+        if (v72 != v74)
         {
-          v74 = v43;
-          if (v58 < 1)
+          v75 = v44;
+          if (v59 < 1)
           {
             goto LABEL_65;
           }
 
           while (1)
           {
-            v75 = *v74;
-            if (*v74 >= v73)
+            v76 = *v75;
+            if (*v75 >= v74)
             {
               break;
             }
 
-            v74 += 2;
-            if (v74 >= v59)
+            v75 += 2;
+            if (v75 >= v60)
             {
               goto LABEL_65;
             }
           }
 
-          if (v75 > v71 || v75 == 0x7FFFFFFFFFFFFFFFLL)
+          if (v76 > v72 || v76 == 0x7FFFFFFFFFFFFFFFLL)
           {
 LABEL_65:
-            v75 = v71;
+            v76 = v72;
           }
 
-          v68 = v75 - v61;
-          v66[1] = v75 - v61;
+          v69 = v76 - v62;
+          v67[1] = v76 - v62;
         }
 
-        v61 += v68;
-        --v63;
-        v65 += 2;
+        v62 += v69;
+        --v64;
+        v66 += 2;
       }
 
-      while (v62 != v57);
+      while (v63 != v58);
     }
 
     else
     {
-      v12 = v78;
-      v11 = v79;
-      v64 = v84;
-      v14 = v77;
+      v12 = v79;
+      v11 = v80;
+      v65 = v85;
+      v14 = v78;
     }
 
-    v15 = v80;
-    v13 = v81;
-    if (v61 < v60)
+    v15 = v81;
+    v13 = v82;
+    if (v62 < v61)
     {
-      *(v64 + 16 * v57 - 8) = v60 - *(v64 + 16 * v57 - 16);
+      *(v65 + 16 * v58 - 8) = v61 - *(v65 + 16 * v58 - 16);
     }
   }
 }
@@ -2957,7 +2957,7 @@ id TIPlistFormattedAlignedTypingSequence(void *a1, char a2, char a3, char a4)
   return v9;
 }
 
-void __TIPlistFormattedAlignedTypingSequence_block_invoke(uint64_t a1, void *a2, unint64_t a3)
+void __TIPlistFormattedAlignedTypingSequence_block_invoke(uint64_t a1, void *a2, char *a3)
 {
   v70[5] = *MEMORY[0x277D85DE8];
   v5 = a2;
@@ -3210,8 +3210,9 @@ LABEL_45:
   [*(v64 + 40) addObject:v47];
 }
 
-void sub_26D49AAFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_26D49AAFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,void *>>>>::~unique_ptr[abi:nn200100](&a12);
   std::pair<KB::String const,std::shared_ptr<KB::AddressBookTrieLoader>>::~pair(&a15);
   if (a11)
@@ -3219,15 +3220,16 @@ void sub_26D49AAFC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:nn200100](a11);
   }
 
-  KB::String::~String(&a33);
-  KB::String::~String((v33 - 160));
+  KB::String::~String(va);
+  KB::String::~String((v32 - 160));
 
-  KB::String::~String((v33 - 128));
+  KB::String::~String((v32 - 128));
   _Unwind_Resume(a1);
 }
 
-void sub_26D49B224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33)
+void sub_26D49B224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, uint64_t a10, std::__shared_weak_count *a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, ...)
 {
+  va_start(va, a32);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,void *>>>>::~unique_ptr[abi:nn200100](&a12);
   std::pair<KB::String const,std::shared_ptr<KB::AddressBookTrieLoader>>::~pair(&a15);
   if (a11)
@@ -3235,98 +3237,98 @@ void sub_26D49B224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
     std::__shared_weak_count::__release_shared[abi:nn200100](a11);
   }
 
-  KB::String::~String(&a33);
-  KB::String::~String((v33 - 160));
+  KB::String::~String(va);
+  KB::String::~String((v32 - 160));
 
-  KB::String::~String((v33 - 128));
+  KB::String::~String((v32 - 128));
   _Unwind_Resume(a1);
 }
 
-void *std::__hash_table<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>>>::find<KB::String>(void *a1, void *a2)
+void *std::__hash_table<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,std::shared_ptr<KB::AddressBookTrieLoader>>>>::find<KB::String>(void *a1, const KB::String *a2, unsigned int a3)
 {
-  if (a2[1])
+  if (*(a2 + 1))
   {
-    v4 = a2[1];
+    v5 = *(a2 + 1);
   }
 
   else
   {
-    v4 = (a2 + 2);
+    v5 = (a2 + 16);
   }
 
-  v5 = KB::String::hash(v4, *a2);
-  v6 = a1[1];
-  if (!v6)
+  v6 = KB::String::hash(v5, *a2);
+  v7 = a1[1];
+  if (!v7)
   {
     return 0;
   }
 
-  v7 = v5;
-  v8 = vcnt_s8(v6);
-  v8.i16[0] = vaddlv_u8(v8);
-  v9 = v8.u32[0];
-  if (v8.u32[0] > 1uLL)
+  v8 = v6;
+  v9 = vcnt_s8(v7);
+  v9.i16[0] = vaddlv_u8(v9);
+  v10 = v9.u32[0];
+  if (v9.u32[0] > 1uLL)
   {
-    v10 = v5;
-    if (v6 <= v5)
+    v11 = v6;
+    if (v7 <= v6)
     {
-      v10 = v5 % v6;
+      v11 = v6 % v7;
     }
   }
 
   else
   {
-    v10 = (v6 - 1) & v5;
+    v11 = (v7 - 1) & v6;
   }
 
-  v11 = *(*a1 + 8 * v10);
-  if (!v11)
+  v12 = *(*a1 + 8 * v11);
+  if (!v12)
   {
     return 0;
   }
 
-  v12 = *v11;
-  if (*v11)
+  v13 = *v12;
+  if (*v12)
   {
     do
     {
-      v13 = v12[1];
-      if (v13 == v7)
+      v14 = v13[1];
+      if (v14 == v8)
       {
-        if (v12 + 2 == a2 || (KB::String::equal((v12 + 2), a2) & 1) != 0)
+        if (v13 + 2 == a2 || (KB::String::equal((v13 + 2), a2) & 1) != 0)
         {
-          return v12;
+          return v13;
         }
       }
 
       else
       {
-        if (v9 > 1)
+        if (v10 > 1)
         {
-          if (v13 >= v6)
+          if (v14 >= v7)
           {
-            v13 %= v6;
+            v14 %= v7;
           }
         }
 
         else
         {
-          v13 &= v6 - 1;
+          v14 &= v7 - 1;
         }
 
-        if (v13 != v10)
+        if (v14 != v11)
         {
           return 0;
         }
       }
 
-      v12 = *v12;
+      v13 = *v13;
     }
 
-    while (v12);
+    while (v13);
   }
 
-  return v12;
+  return v13;
 }
 
 void std::pair<KB::String const,std::shared_ptr<KB::AddressBookTrieLoader>>::~pair(KB::String *this)
@@ -3357,10 +3359,10 @@ uint64_t *std::unique_ptr<std::__hash_node<std::__hash_value_type<KB::String,std
   return a1;
 }
 
-void sub_26D49B72C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_26D49B72C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
-  _Block_object_dispose((v11 - 96), 8);
+  va_start(va, a17);
+  _Block_object_dispose((v18 - 96), 8);
 
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
@@ -3401,7 +3403,7 @@ uint64_t LexiconLibrary(void)
 
     else
     {
-      v1 = abort_report_np();
+      v1 = abort_report_np("%s", v3[0]);
     }
 
     free(v1);
@@ -3411,7 +3413,7 @@ uint64_t LexiconLibrary(void)
   return LexiconLibraryCore(char **)::frameworkLibrary;
 }
 
-uint64_t ___ZL18LexiconLibraryCorePPc_block_invoke()
+uint64_t ___ZL18LexiconLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   LexiconLibraryCore(char **)::frameworkLibrary = result;
@@ -3434,35 +3436,35 @@ void sub_26D49BB88(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_26D49BEDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_26D49BEDC(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = TITransientLexiconManagerMock;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
 id getkLXLexiconNameKey(void)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getkLXLexiconNameKeySymbolLoc(void)::ptr;
-  v8 = getkLXLexiconNameKeySymbolLoc(void)::ptr;
+  v9 = getkLXLexiconNameKeySymbolLoc(void)::ptr;
   if (!getkLXLexiconNameKeySymbolLoc(void)::ptr)
   {
     v1 = LexiconLibrary();
-    v6[3] = dlsym(v1, "kLXLexiconNameKey");
-    getkLXLexiconNameKeySymbolLoc(void)::ptr = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "kLXLexiconNameKey");
+    getkLXLexiconNameKeySymbolLoc(void)::ptr = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    dlerror();
-    v4 = abort_report_np();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    v4 = dlerror();
+    v5 = abort_report_np("%s", v4);
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -3472,26 +3474,26 @@ id getkLXLexiconNameKey(void)
 
 id getkLXLexiconLocaleKey(void)
 {
-  v5 = 0;
-  v6 = &v5;
-  v7 = 0x2020000000;
+  v6 = 0;
+  v7 = &v6;
+  v8 = 0x2020000000;
   v0 = getkLXLexiconLocaleKeySymbolLoc(void)::ptr;
-  v8 = getkLXLexiconLocaleKeySymbolLoc(void)::ptr;
+  v9 = getkLXLexiconLocaleKeySymbolLoc(void)::ptr;
   if (!getkLXLexiconLocaleKeySymbolLoc(void)::ptr)
   {
     v1 = LexiconLibrary();
-    v6[3] = dlsym(v1, "kLXLexiconLocaleKey");
-    getkLXLexiconLocaleKeySymbolLoc(void)::ptr = v6[3];
-    v0 = v6[3];
+    v7[3] = dlsym(v1, "kLXLexiconLocaleKey");
+    getkLXLexiconLocaleKeySymbolLoc(void)::ptr = v7[3];
+    v0 = v7[3];
   }
 
-  _Block_object_dispose(&v5, 8);
+  _Block_object_dispose(&v6, 8);
   if (!v0)
   {
-    dlerror();
-    v4 = abort_report_np();
-    _Block_object_dispose(&v5, 8);
-    _Unwind_Resume(v4);
+    v4 = dlerror();
+    v5 = abort_report_np("%s", v4);
+    _Block_object_dispose(&v6, 8);
+    _Unwind_Resume(v5);
   }
 
   v2 = *v0;
@@ -3501,26 +3503,26 @@ id getkLXLexiconLocaleKey(void)
 
 uint64_t __LXLexiconCreateTransient(const __CFDictionary *a1, __CFError **a2)
 {
-  v8 = 0;
-  v9 = &v8;
-  v10 = 0x2020000000;
+  v9 = 0;
+  v10 = &v9;
+  v11 = 0x2020000000;
   v4 = getLXLexiconCreateTransientSymbolLoc(void)::ptr;
-  v11 = getLXLexiconCreateTransientSymbolLoc(void)::ptr;
+  v12 = getLXLexiconCreateTransientSymbolLoc(void)::ptr;
   if (!getLXLexiconCreateTransientSymbolLoc(void)::ptr)
   {
     v5 = LexiconLibrary();
-    v9[3] = dlsym(v5, "LXLexiconCreateTransient");
-    getLXLexiconCreateTransientSymbolLoc(void)::ptr = v9[3];
-    v4 = v9[3];
+    v10[3] = dlsym(v5, "LXLexiconCreateTransient");
+    getLXLexiconCreateTransientSymbolLoc(void)::ptr = v10[3];
+    v4 = v10[3];
   }
 
-  _Block_object_dispose(&v8, 8);
+  _Block_object_dispose(&v9, 8);
   if (!v4)
   {
-    dlerror();
-    v7 = abort_report_np();
-    _Block_object_dispose(&v8, 8);
-    _Unwind_Resume(v7);
+    v7 = dlerror();
+    v8 = abort_report_np("%s", v7);
+    _Block_object_dispose(&v9, 8);
+    _Unwind_Resume(v8);
   }
 
   return v4(a1, a2);
@@ -3553,9 +3555,9 @@ void *___ZL29getkLXLexiconNameKeySymbolLocv_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_26D49CA00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26D49CA00(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -3658,9 +3660,9 @@ id _TIConvertTIMockContactCollection(void *a1)
   return v1;
 }
 
-void sub_26D49F22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_26D49F22C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -3708,9 +3710,9 @@ void sub_26D4A09D8(_Unwind_Exception *a1)
 
 void sub_26D4A1120(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *a14, void *a15, void *a16, void *a17, void *a18, void *a19, void *a20, void *a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, void *a26, void *a27, void *a28, void *a29, void *a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, void *a35, void *a36, void *a37, void *a38, void *a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, void *a44, void *a45, void *a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, void *a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, void *a56, void *a57, void *a58, void *a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
-  _Block_object_dispose(&a67, 8);
+  _Block_object_dispose(&a66, 8);
 
-  _Block_object_dispose((v73 - 184), 8);
+  _Block_object_dispose((v68 - 184), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4021,7 +4023,7 @@ uint64_t WTF::RefCounted<TI::Favonius::Key>::deref(uint64_t result)
 
 void TI::CP::TestCaseConverter::TestCaseConverter(std::string *this, __int128 *a2, std::string::size_type *a3, int a4)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (*(a2 + 23) < 0)
   {
     std::string::__init_copy_ctor_external(this, *a2, *(a2 + 1));
@@ -4073,44 +4075,46 @@ void TI::CP::TestCaseConverter::TestCaseConverter(std::string *this, __int128 *a
   }
 
   v13 = [MEMORY[0x277CCACA8] stringWithUTF8String:v12];
-  KB::String::String(v18);
-  KB::String::String(&v19);
+  KB::String::String(v19);
   KB::String::String(&v20);
   KB::String::String(&v21);
-  KB::String::String(v22);
+  KB::String::String(&v22);
+  KB::String::String(v23);
   v14 = UIKeyboardStaticUnigramsFile();
-  KB::utf8_string(v17, v14, v15);
+  KB::utf8_string(v18, v14, v15);
   KB::String::operator=();
-  KB::String::~String(v17);
+  KB::String::~String(v18);
 
   v16 = v13;
   [v13 UTF8String];
-  v22[8] = TILexiconIDForLocaleIdentifier();
-  KB::LexiconInfo::LexiconInfo(v17, v18);
-  std::vector<KB::LexiconInfo>::__init_with_size[abi:nn200100]<KB::LexiconInfo const*,KB::LexiconInfo const*>();
+  v23[8] = TILexiconIDForLocaleIdentifier();
+  KB::LexiconInfo::LexiconInfo(v18, v19);
+  memset(v17, 0, sizeof(v17));
+  std::vector<KB::LexiconInfo>::__init_with_size[abi:nn200100]<KB::LexiconInfo const*,KB::LexiconInfo const*>(v17, v18, v19);
 }
 
-void sub_26D4A4C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void **a13, char a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36)
+void sub_26D4A4C6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, void **a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
 {
+  va_start(va, a35);
   std::vector<KB::LexiconInfo>::__destroy_vector::operator()[abi:nn200100](&a13);
   KB::LexiconInfo::~LexiconInfo(&a14);
-  KB::LexiconInfo::~LexiconInfo(&a36);
+  KB::LexiconInfo::~LexiconInfo(va);
 
-  std::__hash_table<std::__hash_value_type<KB::String,WTF::RefPtr<TI::Favonius::KeyboardLayout>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,WTF::RefPtr<TI::Favonius::KeyboardLayout>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,WTF::RefPtr<TI::Favonius::KeyboardLayout>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,WTF::RefPtr<TI::Favonius::KeyboardLayout>>>>::~__hash_table((v38 + 1));
-  if (*v38)
+  std::__hash_table<std::__hash_value_type<KB::String,WTF::RefPtr<TI::Favonius::KeyboardLayout>>,std::__unordered_map_hasher<KB::String,std::__hash_value_type<KB::String,WTF::RefPtr<TI::Favonius::KeyboardLayout>>,std::hash<KB::String>,std::equal_to<KB::String>,true>,std::__unordered_map_equal<KB::String,std::__hash_value_type<KB::String,WTF::RefPtr<TI::Favonius::KeyboardLayout>>,std::equal_to<KB::String>,std::hash<KB::String>,true>,std::allocator<std::__hash_value_type<KB::String,WTF::RefPtr<TI::Favonius::KeyboardLayout>>>>::~__hash_table((v37 + 1));
+  if (*v37)
   {
-    WTF::RefCounted<KB::DictionaryContainer>::deref(*v38);
+    WTF::RefCounted<KB::DictionaryContainer>::deref(*v37);
   }
 
-  v40 = *(v36 + 32);
-  if (v40)
+  v39 = *(v35 + 32);
+  if (v39)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v40);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v39);
   }
 
-  if (*(v36 + 23) < 0)
+  if (*(v35 + 23) < 0)
   {
-    operator delete(*v36);
+    operator delete(*v35);
   }
 
   _Unwind_Resume(a1);
@@ -4279,14 +4283,14 @@ void __Block_byref_object_dispose__1062(uint64_t a1)
   }
 }
 
-KB::LanguageModelContext *std::pair<KB::LanguageModelContext,KB::String>::pair[abi:nn200100]<KB::LanguageModelContext&,KB::String,0>(KB::LanguageModelContext *a1, const KB::LanguageModelContext *a2)
+KB::LanguageModelContext *std::pair<KB::LanguageModelContext,KB::String>::pair[abi:nn200100]<KB::LanguageModelContext&,KB::String,0>(KB::LanguageModelContext *a1, const KB::LanguageModelContext *a2, uint64_t a3)
 {
   KB::LanguageModelContext::LanguageModelContext(a1, a2);
   KB::String::String();
   return a1;
 }
 
-void ___ZNK2TI2CP17TestCaseConverter35compute_linguistic_context_and_stemEP8NSString_block_invoke(uint64_t a1, NSString *a2, uint64_t a3, int a4)
+void ___ZNK2TI2CP17TestCaseConverter35compute_linguistic_context_and_stemEP8NSString_block_invoke(uint64_t a1, NSString *a2, uint64_t a3, unint64_t a4)
 {
   v8[4] = *MEMORY[0x277D85DE8];
   if (a4)
@@ -4312,9 +4316,9 @@ void ___ZNK2TI2CP17TestCaseConverter35compute_linguistic_context_and_stemEP8NSSt
   }
 }
 
-void sub_26D4A51B4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_26D4A51B4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   KB::String::~String(va);
 
   _Unwind_Resume(a1);
@@ -4361,9 +4365,9 @@ void std::__shared_ptr_pointer<KB::LanguageModelStr *,std::shared_ptr<KB::Langua
   JUMPOUT(0x26D6C07C0);
 }
 
-void sub_26D4A5C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26D4A5C90(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4375,13 +4379,13 @@ uint64_t __Block_byref_object_copy__1144(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_26D4A6A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, char a53, uint64_t a54, uint64_t a55, uint64_t a56, char a57, uint64_t a58, uint64_t a59, uint64_t a60, char a61, uint64_t a62, uint64_t a63)
+void sub_26D4A6A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, uint64_t a58, uint64_t a59, uint64_t a60, uint64_t a61, uint64_t a62, uint64_t a63)
 {
   _Block_object_dispose(&a53, 8);
   _Block_object_dispose(&a57, 8);
   _Block_object_dispose(&a61, 8);
   _Block_object_dispose(&a65, 8);
-  _Block_object_dispose(&a69, 8);
+  _Block_object_dispose(&a66, 8);
   _Block_object_dispose(&STACK[0x200], 8);
   _Block_object_dispose(&STACK[0x220], 8);
   _Block_object_dispose(&STACK[0x240], 8);
@@ -4391,9 +4395,9 @@ void sub_26D4A6A64(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-void sub_26D4A8248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26D4A8248(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4420,11 +4424,13 @@ std::mersenne_twister_engine<unsigned int, 32, 624, 397, 31, 2567483615, 11, 429
   return (v6 << 15) & 0xEFC60000 ^ v6 ^ (((v6 << 15) & 0xEFC60000 ^ v6) >> 18);
 }
 
-void sub_26D4ABA3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, void *a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, id a41, char a42)
+void sub_26D4ABA3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, uint64_t a12, void *a13, void *a14, void *a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, id a41, ...)
 {
-  _Block_object_dispose(&a36, 8);
+  va_start(va, a41);
 
-  _Block_object_dispose(&a42, 8);
+  _Block_object_dispose(&a36, 8);
+  _Block_object_dispose(va, 8);
+
   _Unwind_Resume(a1);
 }
 
@@ -5054,9 +5060,11 @@ id TTKLogFacility()
 
 uint64_t __TTKLogFacility_block_invoke()
 {
-  TTKLogFacility_logFacility = os_log_create("com.apple.TextInput", "TTKLog");
+  v0 = os_log_create("com.apple.TextInput", "TTKLog");
+  v1 = TTKLogFacility_logFacility;
+  TTKLogFacility_logFacility = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 void sub_26D4BC280(_Unwind_Exception *a1)
@@ -5393,17 +5401,18 @@ LABEL_51:
   WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::~Vector(&v38);
 }
 
-void sub_26D4BD968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, __int16 a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_26D4BD968(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, __int16 a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
+  va_start(va, a28);
   std::unique_ptr<std::__hash_node<std::__hash_value_type<KB::String,WTF::RefPtr<TI::Favonius::KeyboardLayout>>,void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_value_type<KB::String,WTF::RefPtr<TI::Favonius::KeyboardLayout>>,void *>>>>::~unique_ptr[abi:nn200100](&a22);
   KB::String::~String(&a25);
 
-  if (v29)
+  if (v28)
   {
-    WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(v29);
+    WTF::RefCounted<TI::Favonius::KeyboardLayout>::deref(v28);
   }
 
-  KB::String::~String(&a29);
+  KB::String::~String(va);
   WTF::Vector<WTF::RefPtr<TI::Favonius::LayoutKey>,0ul>::~Vector(&a19);
 
   _Unwind_Resume(a1);
@@ -5628,7 +5637,7 @@ void TI::CP::TTKTestCaseConverter::convert(TI::CP::TTKTestCaseConverter *this@<X
 
       v51 = v77;
       KB::utf8_string(v105, v59, v49);
-      std::pair<KB::LanguageModelContext,KB::String>::pair[abi:nn200100]<KB::LanguageModelContext&,KB::String,0>(&v89, (v51 + 6));
+      std::pair<KB::LanguageModelContext,KB::String>::pair[abi:nn200100]<KB::LanguageModelContext&,KB::String,0>(&v89, (v51 + 6), v105);
       KB::String::~String(v105);
     }
 
@@ -5636,7 +5645,7 @@ void TI::CP::TTKTestCaseConverter::convert(TI::CP::TTKTestCaseConverter *this@<X
     {
       v50 = v77;
       KB::utf8_string(&v106, v59, v42);
-      std::pair<KB::LanguageModelContext,KB::String>::pair[abi:nn200100]<KB::LanguageModelContext&,KB::String,0>(&v89, (v50 + 6));
+      std::pair<KB::LanguageModelContext,KB::String>::pair[abi:nn200100]<KB::LanguageModelContext&,KB::String,0>(&v89, (v50 + 6), &v106);
       KB::String::~String(&v106);
     }
 
@@ -5810,7 +5819,7 @@ void TI::CP::TTKTestCaseConverter::convert(TI::CP::TTKTestCaseConverter *this@<X
   KB::String::~String(&v102);
 }
 
-void sub_26D4BE420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44)
+void sub_26D4BE420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, void *a11, void *a12, void *a13, void *a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44)
 {
   KB::String::~String((v47 - 208));
 
@@ -5916,11 +5925,11 @@ id _TIGetMockingAggdReporterDistribution(uint64_t a1)
   return v3;
 }
 
-id unigramsFilePathForInputMode()
+id unigramsFilePathForInputMode(uint64_t a1)
 {
-  v0 = UIKeyboardStaticUnigramsFile();
+  v1 = UIKeyboardStaticUnigramsFile();
 
-  return v0;
+  return v1;
 }
 
 id phrasesFilePathForInputMode(uint64_t a1)
@@ -5979,50 +5988,53 @@ id deltaUnigramsFilePathForInputMode(uint64_t a1)
   return v2;
 }
 
-void __createAndLoadDictionaryContainer(NSString *a1, NSString *a2)
+void __createAndLoadDictionaryContainer(NSString *a2, NSString *a3)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = a1;
+  v10 = *MEMORY[0x277D85DE8];
   v4 = a2;
-  if (v4)
+  v5 = a3;
+  if (v5)
   {
-    v4 = UIKeyboardDynamicDictionaryFile();
+    v5 = UIKeyboardDynamicDictionaryFile();
   }
 
-  __getLexiconInfo(v3, v4, 1.0, v6);
-  KB::LexiconInfo::LexiconInfo(v5, v6);
-  std::vector<KB::LexiconInfo>::__init_with_size[abi:nn200100]<KB::LexiconInfo const*,KB::LexiconInfo const*>();
+  __getLexiconInfo(v9, v4, v5, 1.0);
+  KB::LexiconInfo::LexiconInfo(v8, v9);
+  v6 = 0;
+  v7 = 0uLL;
+  std::vector<KB::LexiconInfo>::__init_with_size[abi:nn200100]<KB::LexiconInfo const*,KB::LexiconInfo const*>(&v6, v8, v9);
 }
 
-void sub_26D4BFB58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void **a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, char a58)
+void sub_26D4BFB58(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, char a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, void **a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, uint64_t a44, uint64_t a45, uint64_t a46, uint64_t a47, uint64_t a48, uint64_t a49, uint64_t a50, uint64_t a51, uint64_t a52, uint64_t a53, uint64_t a54, uint64_t a55, uint64_t a56, uint64_t a57, ...)
 {
-  KB::String::~String((v59 - 136));
+  va_start(va, a57);
+  KB::String::~String((v58 - 136));
   KB::String::~String(&a36);
   a32 = &a17;
   std::vector<KB::LexiconInfo>::__destroy_vector::operator()[abi:nn200100](&a32);
-  KB::LexiconInfo::~LexiconInfo(&a58);
+  KB::LexiconInfo::~LexiconInfo(va);
 
   _Unwind_Resume(a1);
 }
 
-void __getLexiconInfo(NSString *a1@<X0>, NSString *a2@<X1>, float a3@<S0>, uint64_t a4@<X8>)
+void __getLexiconInfo(uint64_t *__return_ptr a1@<X8>, NSString *a2@<X0>, NSString *a3@<X1>, float a4@<S0>)
 {
-  v18 = a1;
-  v7 = a2;
+  v18 = a2;
+  v7 = a3;
   v8 = UIKeyboardStaticUnigramsFile();
   v9 = deltaUnigramsFilePathForInputMode(v18);
   v10 = phrasesFilePathForInputMode(v18);
   v11 = dynamicFilePathForInputMode(v18, v7);
   [(NSString *)v18 UTF8String];
   v12 = TILexiconIDForLocaleIdentifier();
-  KB::utf8_string(a4, v18, v13);
-  KB::utf8_string((a4 + 32), v8, v14);
-  KB::utf8_string((a4 + 64), v9, v15);
-  KB::utf8_string((a4 + 96), v10, v16);
-  KB::utf8_string((a4 + 128), v11, v17);
-  *(a4 + 160) = v12;
-  *(a4 + 164) = 0;
-  *(a4 + 168) = a3;
+  KB::utf8_string(a1, v18, v13);
+  KB::utf8_string(a1 + 4, v8, v14);
+  KB::utf8_string(a1 + 8, v9, v15);
+  KB::utf8_string(a1 + 12, v10, v16);
+  KB::utf8_string(a1 + 16, v11, v17);
+  *(a1 + 40) = v12;
+  *(a1 + 164) = 0;
+  *(a1 + 42) = a4;
 }
 
 void sub_26D4BFDDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, id a10)
@@ -6037,7 +6049,7 @@ void sub_26D4BFDDC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
 
 uint64_t std::construct_at[abi:nn200100]<KB::LexiconInfo,KB::String const&,KB::String,KB::String,KB::String,KB::String,unsigned int const&,BOOL,int,KB::LexiconInfo*>(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, _BYTE *a7, int *a8)
 {
-  MEMORY[0x26D6C0680]();
+  MEMORY[0x26D6C0680](a1, a2);
   KB::String::String();
   KB::String::String();
   KB::String::String();
@@ -6074,30 +6086,30 @@ uint64_t std::__split_buffer<KB::LexiconInfo>::~__split_buffer(uint64_t a1)
   return a1;
 }
 
-void __createAndLoadLanguageModel(NSString *a1@<X0>, NSString *a2@<X1>, void *a3@<X8>)
+void __createAndLoadLanguageModel(NSString *a1@<X0>, NSString *a2@<X1>, std::__shared_weak_count_vtbl **a4@<X8>)
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v5 = a1;
-  v6 = a2;
-  *a3 = 0;
-  a3[1] = 0;
-  v7[0] = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:v5];
-  [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
+  v8[1] = *MEMORY[0x277D85DE8];
+  v6 = a1;
+  v7 = a2;
+  *a4 = 0;
+  a4[1] = 0;
+  v8[0] = [MEMORY[0x277CBEAF8] localeWithLocaleIdentifier:v6];
+  [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
   objc_claimAutoreleasedReturnValue();
-  [MEMORY[0x277D6FE48] inputModeWithIdentifier:v5];
+  [MEMORY[0x277D6FE48] inputModeWithIdentifier:v6];
   [objc_claimAutoreleasedReturnValue() doesSupportInlineCompletion];
   KB::LanguageModelConfig::LanguageModelConfig();
   operator new();
 }
 
-void sub_26D4C0224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
+void sub_26D4C0224(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
-  va_start(va, a5);
+  va_start(va, a9);
   KB::LanguageModelConfig::~LanguageModelConfig(va);
 
-  if (v10)
+  if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:nn200100](v10);
+    std::__shared_weak_count::__release_shared[abi:nn200100](v14);
   }
 
   _Unwind_Resume(a1);
@@ -6479,9 +6491,9 @@ void _TIMockingUserModelDataStoreClear()
   }
 }
 
-void sub_26D4CB438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26D4CB438(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6493,11 +6505,12 @@ void _TIBeginMockingTrialManager()
   [v0 setSharedManager:v1];
 }
 
-void sub_26D4D1E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29, uint64_t a30, uint64_t a31, uint64_t a32, char a33, uint64_t a34, uint64_t a35, uint64_t a36, char a37)
+void sub_26D4D1E3C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, ...)
 {
+  va_start(va, a36);
   _Block_object_dispose(&a29, 8);
   _Block_object_dispose(&a33, 8);
-  _Block_object_dispose(&a37, 8);
+  _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
@@ -6668,9 +6681,9 @@ uint64_t _TIEndMockingSingletonsWithData(char a1)
   return result;
 }
 
-void sub_26D4D9928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_26D4D9928(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6682,60 +6695,61 @@ uint64_t __Block_byref_object_copy__6070(uint64_t result, uint64_t a2)
   return result;
 }
 
-void sub_26D4D9BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26D4D9BB8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26D4DAAB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26D4DAAB0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26D4DC420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_26D4DC420(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26D4DD8AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_26D4DDD08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
-{
-  va_start(va, a7);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_26D4DE680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
-{
-  va_start(va, a9);
-  _Block_object_dispose(va, 8);
-  _Unwind_Resume(a1);
-}
-
-void sub_26D4E0914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_26D4DD8AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
   va_start(va, a13);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 112), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_26D4E0D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, char a31)
+void sub_26D4DDD08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  _Block_object_dispose(&a31, 8);
-  _Block_object_dispose((v31 - 208), 8);
+  va_start(va, a13);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_26D4DE680(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
+{
+  va_start(va, a16);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_26D4E0914(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
+{
+  va_start(va, a20);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v20 - 112), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_26D4E0D04(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v30 - 208), 8);
   _Unwind_Resume(a1);
 }
 
@@ -6780,7 +6794,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t actDsl_create_buffer(FILE *a1)
+_DWORD *actDsl_create_buffer(FILE *a1)
 {
   v2 = malloc_type_malloc(0x48uLL, 0x9D2437DFuLL);
   if (!v2 || (v3 = v2, v2[6] = 0x4000, v4 = malloc_type_malloc(0x4002uLL, 0x9D2437DFuLL), (*(v3 + 8) = v4) == 0))

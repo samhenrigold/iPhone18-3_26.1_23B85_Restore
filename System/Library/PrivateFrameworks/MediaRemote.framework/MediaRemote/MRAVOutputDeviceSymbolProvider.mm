@@ -318,9 +318,9 @@ LABEL_21:
 
 + (id)compositionForOutputDevices:(id)devices
 {
-  v81 = *MEMORY[0x1E69E9840];
+  v80 = *MEMORY[0x1E69E9840];
   devicesCopy = devices;
-  v27 = devicesCopy;
+  v26 = devicesCopy;
   if ([devicesCopy count] == 1)
   {
     firstObject = [devicesCopy firstObject];
@@ -329,101 +329,101 @@ LABEL_21:
 
   else
   {
-    v74 = 0;
-    v75 = &v74;
-    v76 = 0x2020000000;
-    v77 = 0;
-    v68 = 0;
-    v69 = &v68;
-    v70 = 0x3032000000;
-    v71 = __Block_byref_object_copy__48;
-    v72 = __Block_byref_object_dispose__48;
-    v73 = objc_alloc_init(MEMORY[0x1E695DF70]);
-    v64 = 0;
-    v65 = &v64;
-    v66 = 0x2020000000;
+    v73 = 0;
+    v74 = &v73;
+    v75 = 0x2020000000;
+    v76 = 0;
     v67 = 0;
-    v60 = 0;
-    v61 = &v60;
-    v62 = 0x2020000000;
+    v68 = &v67;
+    v69 = 0x3032000000;
+    v70 = __Block_byref_object_copy__48;
+    v71 = __Block_byref_object_dispose__48;
+    v72 = objc_alloc_init(MEMORY[0x1E695DF70]);
     v63 = 0;
-    v56 = 0;
-    v57 = &v56;
-    v58 = 0x2020000000;
+    v64 = &v63;
+    v65 = 0x2020000000;
+    v66 = 0;
     v59 = 0;
-    v52 = 0;
-    v53 = &v52;
-    v54 = 0x2020000000;
+    v60 = &v59;
+    v61 = 0x2020000000;
+    v62 = 0;
     v55 = 0;
-    v48 = 0;
-    v49 = &v48;
-    v50 = 0x2020000000;
+    v56 = &v55;
+    v57 = 0x2020000000;
+    v58 = 0;
     v51 = 0;
-    v44 = 0;
-    v45 = &v44;
-    v46 = 0x2020000000;
+    v52 = &v51;
+    v53 = 0x2020000000;
+    v54 = 0;
     v47 = 0;
-    v43[0] = MEMORY[0x1E69E9820];
-    v43[1] = 3221225472;
-    v43[2] = __62__MRAVOutputDeviceSymbolProvider_compositionForOutputDevices___block_invoke;
-    v43[3] = &unk_1E76A4408;
-    v43[4] = &v68;
-    v43[5] = &v74;
-    v43[6] = &v64;
-    v43[7] = &v60;
-    v43[8] = &v56;
-    v43[9] = &v52;
-    v43[10] = &v48;
-    v43[11] = &v44;
-    v7 = MEMORY[0x1A58E3570](v43);
-    v41 = 0u;
-    v42 = 0u;
-    v39 = 0u;
+    v48 = &v47;
+    v49 = 0x2020000000;
+    v50 = 0;
+    v43 = 0;
+    v44 = &v43;
+    v45 = 0x2020000000;
+    v46 = 0;
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = __62__MRAVOutputDeviceSymbolProvider_compositionForOutputDevices___block_invoke;
+    v42[3] = &unk_1E76A4408;
+    v42[4] = &v67;
+    v42[5] = &v73;
+    v42[6] = &v63;
+    v42[7] = &v59;
+    v42[8] = &v55;
+    v42[9] = &v51;
+    v42[10] = &v47;
+    v42[11] = &v43;
+    v7 = MEMORY[0x1A58E3570](v42);
     v40 = 0u;
+    v41 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     obj = devicesCopy;
-    v8 = [obj countByEnumeratingWithState:&v39 objects:v80 count:16];
+    v8 = [obj countByEnumeratingWithState:&v38 objects:v79 count:16];
     if (v8)
     {
-      v29 = *v40;
+      v28 = *v39;
       do
       {
-        v30 = v8;
-        for (i = 0; i != v30; ++i)
+        v29 = v8;
+        for (i = 0; i != v29; ++i)
         {
-          if (*v40 != v29)
+          if (*v39 != v28)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v39 + 1) + 8 * i);
+          v10 = *(*(&v38 + 1) + 8 * i);
           if ([v10 deviceSubtype] == 15)
           {
-            v37 = 0u;
-            v38 = 0u;
-            v35 = 0u;
             v36 = 0u;
+            v37 = 0u;
+            v34 = 0u;
+            v35 = 0u;
             clusterComposition = [v10 clusterComposition];
-            v12 = [clusterComposition countByEnumeratingWithState:&v35 objects:v79 count:16];
+            v12 = [clusterComposition countByEnumeratingWithState:&v34 objects:v78 count:16];
             if (v12)
             {
-              v13 = *v36;
+              v13 = *v35;
               do
               {
                 for (j = 0; j != v12; ++j)
                 {
-                  if (*v36 != v13)
+                  if (*v35 != v13)
                   {
                     objc_enumerationMutation(clusterComposition);
                   }
 
-                  v15 = *(*(&v35 + 1) + 8 * j);
+                  v15 = *(*(&v34 + 1) + 8 * j);
                   deviceType = [v15 deviceType];
                   deviceSubtype = [v15 deviceSubtype];
                   modelID = [v15 modelID];
                   (v7)[2](v7, 0, deviceType, deviceSubtype, modelID);
                 }
 
-                v12 = [clusterComposition countByEnumeratingWithState:&v35 objects:v79 count:16];
+                v12 = [clusterComposition countByEnumeratingWithState:&v34 objects:v78 count:16];
               }
 
               while (v12);
@@ -439,59 +439,57 @@ LABEL_21:
           }
         }
 
-        v8 = [obj countByEnumeratingWithState:&v39 objects:v80 count:16];
+        v8 = [obj countByEnumeratingWithState:&v38 objects:v79 count:16];
       }
 
       while (v8);
     }
 
     v6 = objc_alloc_init(MRGroupComposition);
-    [(MRGroupComposition *)v6 setAtvCount:v75[3]];
-    [(MRGroupComposition *)v6 setHeadphoneCount:v65[3]];
-    [(MRGroupComposition *)v6 setSetTopCount:v61[3]];
-    [(MRGroupComposition *)v6 setTvStickCount:v57[3]];
-    [(MRGroupComposition *)v6 setTvCount:v53[3]];
-    [(MRGroupComposition *)v6 setMacCount:v49[3]];
-    [(MRGroupComposition *)v6 setHifiCount:v45[3]];
-    v33 = 0u;
-    v34 = 0u;
-    v31 = 0u;
+    [(MRGroupComposition *)v6 setAtvCount:v74[3]];
+    [(MRGroupComposition *)v6 setHeadphoneCount:v64[3]];
+    [(MRGroupComposition *)v6 setSetTopCount:v60[3]];
+    [(MRGroupComposition *)v6 setTvStickCount:v56[3]];
+    [(MRGroupComposition *)v6 setTvCount:v52[3]];
+    [(MRGroupComposition *)v6 setMacCount:v48[3]];
+    [(MRGroupComposition *)v6 setHifiCount:v44[3]];
     v32 = 0u;
-    v21 = v69[5];
-    v22 = [v21 countByEnumeratingWithState:&v31 objects:v78 count:16];
+    v33 = 0u;
+    v30 = 0u;
+    v31 = 0u;
+    v21 = v68[5];
+    v22 = [v21 countByEnumeratingWithState:&v30 objects:v77 count:16];
     if (v22)
     {
-      v23 = *v32;
+      v23 = *v31;
       do
       {
         for (k = 0; k != v22; ++k)
         {
-          if (*v32 != v23)
+          if (*v31 != v23)
           {
             objc_enumerationMutation(v21);
           }
 
-          [(MRGroupComposition *)v6 addHomePodWithModelIdentifier:*(*(&v31 + 1) + 8 * k), v27];
+          [(MRGroupComposition *)v6 addHomePodWithModelIdentifier:*(*(&v30 + 1) + 8 * k), v26];
         }
 
-        v22 = [v21 countByEnumeratingWithState:&v31 objects:v78 count:16];
+        v22 = [v21 countByEnumeratingWithState:&v30 objects:v77 count:16];
       }
 
       while (v22);
     }
 
-    _Block_object_dispose(&v44, 8);
-    _Block_object_dispose(&v48, 8);
-    _Block_object_dispose(&v52, 8);
-    _Block_object_dispose(&v56, 8);
-    _Block_object_dispose(&v60, 8);
-    _Block_object_dispose(&v64, 8);
-    _Block_object_dispose(&v68, 8);
+    _Block_object_dispose(&v43, 8);
+    _Block_object_dispose(&v47, 8);
+    _Block_object_dispose(&v51, 8);
+    _Block_object_dispose(&v55, 8);
+    _Block_object_dispose(&v59, 8);
+    _Block_object_dispose(&v63, 8);
+    _Block_object_dispose(&v67, 8);
 
-    _Block_object_dispose(&v74, 8);
+    _Block_object_dispose(&v73, 8);
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 
   return v6;
 }

@@ -47,7 +47,7 @@
 {
   if (state == 1)
   {
-    [(PXGridInlinePlaybackRecord *)self bestVideoTimeRange];
+    objc_msgSend_bestVideoTimeRange(self, a2);
     geometryReference = [(PXGridInlinePlaybackRecord *)self geometryReference];
     v7[0] = v7[3];
     v7[1] = v7[4];

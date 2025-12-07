@@ -23,7 +23,7 @@
 
 - (void)performRequest
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   if (![(DADisableableObject *)self isDisabled])
   {
     v3 = +[DADAgentManager sharedManager];
@@ -44,22 +44,20 @@
       if (os_log_type_enabled(v8, v9))
       {
         accountID2 = [(DADClientDelegate *)self accountID];
-        v13 = 138543362;
-        v14 = accountID2;
-        _os_log_impl(&dword_248524000, v8, v9, "Could not get an account with the ID [%{public}@]", &v13, 0xCu);
+        v12 = 138543362;
+        v13 = accountID2;
+        _os_log_impl(&dword_248524000, v8, v9, "Could not get an account with the ID [%{public}@]", &v12, 0xCu);
       }
 
       v11 = [MEMORY[0x277CCA9B8] errorWithDomain:*MEMORY[0x277D038E0] code:55 userInfo:0];
       [(DADClientUpdateGrantedDelegatePermissionResponseDelegate *)self finishWithError:v11];
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)finishWithError:(id)error
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   if (![(DADisableableObject *)self isDisabled]&& ![(DADClientDelegate *)self finished])
   {
@@ -69,12 +67,12 @@
     v7 = *(MEMORY[0x277D03988] + 6);
     if (os_log_type_enabled(v5, v7))
     {
-      *v26 = 138412546;
-      *&v26[4] = objc_opt_class();
-      *&v26[12] = 2112;
-      *&v26[14] = errorCopy;
-      v8 = *&v26[4];
-      _os_log_impl(&dword_248524000, v5, v7, "[%@] finished with error %@", v26, 0x16u);
+      *v25 = 138412546;
+      *&v25[4] = objc_opt_class();
+      *&v25[12] = 2112;
+      *&v25[14] = errorCopy;
+      v8 = *&v25[4];
+      _os_log_impl(&dword_248524000, v5, v7, "[%@] finished with error %@", v25, 0x16u);
     }
 
     if (self->_requestID)
@@ -103,17 +101,17 @@ LABEL_16:
           }
 
           v15 = DALoggingwithCategory();
-          v22 = *(v6 + 3);
-          if (os_log_type_enabled(v15, v22))
+          v21 = *(v6 + 3);
+          if (os_log_type_enabled(v15, v21))
           {
-            v23 = objc_opt_class();
-            v24 = v23;
+            v22 = objc_opt_class();
+            v23 = v22;
             accountID2 = [(DADClientDelegate *)self accountID];
-            *v26 = 138412546;
-            *&v26[4] = v23;
-            *&v26[12] = 2114;
-            *&v26[14] = accountID2;
-            _os_log_impl(&dword_248524000, v15, v22, "[%@] finished, but could not find an account with the ID %{public}@", v26, 0x16u);
+            *v25 = 138412546;
+            *&v25[4] = v22;
+            *&v25[12] = 2114;
+            *&v25[14] = accountID2;
+            _os_log_impl(&dword_248524000, v15, v21, "[%@] finished, but could not find an account with the ID %{public}@", v25, 0x16u);
           }
 
 LABEL_15:
@@ -127,7 +125,7 @@ LABEL_15:
       }
     }
 
-    v14 = [(DADClientDelegate *)self client:*v26];
+    v14 = [(DADClientDelegate *)self client:*v25];
     rawConnection = [v14 rawConnection];
 
     if (!rawConnection)
@@ -153,8 +151,6 @@ LABEL_15:
   }
 
 LABEL_17:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 @end

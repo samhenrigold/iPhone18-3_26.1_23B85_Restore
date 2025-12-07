@@ -27,7 +27,7 @@
 - (void)viewDidAppear:(BOOL)appear
 {
   selfCopy = self;
-  sub_2AE090(appear);
+  sub_2AE090(appear, v4);
 }
 
 - (unint64_t)supportedInterfaceOrientations
@@ -52,7 +52,7 @@
   collectionCopy = collection;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_2AE2A4(collectionCopy, coordinator);
+  sub_2AE2A4(collectionCopy, coordinator, v7);
 
   swift_unknownObjectRelease();
 }
@@ -61,7 +61,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_2AE3D4(change);
+  sub_2AE3D4(change, v6);
 }
 
 - (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id)coordinator
@@ -69,7 +69,7 @@
   height = size.height;
   width = size.width;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for SearchViewController();
+  v8.super_class = type metadata accessor for SearchViewController(0);
   swift_unknownObjectRetain();
   v7 = v8.receiver;
   [(SearchViewController *)&v8 viewWillTransitionToSize:coordinator withTransitionCoordinator:width, height];
@@ -81,7 +81,7 @@
 - (void)viewWillLayoutSubviews
 {
   v4.receiver = self;
-  v4.super_class = type metadata accessor for SearchViewController();
+  v4.super_class = type metadata accessor for SearchViewController(0);
   v2 = v4.receiver;
   [(SearchViewController *)&v4 viewWillLayoutSubviews];
   searchBar = [*&v2[OBJC_IVAR____TtC18ASMessagesProvider20SearchViewController_searchController] searchBar];
@@ -119,7 +119,7 @@
 - (void)didDismissSearchController:(id)controller
 {
   selfCopy = self;
-  sub_5D6BC4(0);
+  sub_5D6BC4(0, v3);
 }
 
 - (void)willPresentSearchController:(id)controller

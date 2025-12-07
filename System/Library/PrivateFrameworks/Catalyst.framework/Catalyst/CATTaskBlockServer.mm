@@ -81,27 +81,27 @@
 
 - (void)cancelLongRunningOperationsForRequestClass:(Class)class
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   objectEnumerator = [(NSMapTable *)self->mLongRunningOperationsByUUID objectEnumerator];
-  v5 = [objectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v5 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v14;
+    v7 = *v13;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v14 != v7)
+        if (*v13 != v7)
         {
           objc_enumerationMutation(objectEnumerator);
         }
 
-        v9 = *(*(&v13 + 1) + 8 * i);
+        v9 = *(*(&v12 + 1) + 8 * i);
         request = [v9 request];
         v11 = [request isMemberOfClass:class];
 
@@ -111,13 +111,11 @@
         }
       }
 
-      v6 = [objectEnumerator countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [objectEnumerator countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v6);
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (id)server:(id)server clientSession:(id)session operationForRequest:(id)request error:(id *)error

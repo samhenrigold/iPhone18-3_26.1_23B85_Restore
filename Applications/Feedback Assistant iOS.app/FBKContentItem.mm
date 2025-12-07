@@ -122,21 +122,21 @@
 + (id)filterGroupsForTeam:(id)team
 {
   teamCopy = team;
-  sub_10007D294(teamCopy);
+  sub_10007D294(teamCopy, v4);
 
-  type metadata accessor for FBAFilterGroup();
-  v4.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  type metadata accessor for FBAFilterGroup(0, v5);
+  v6.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v4.super.isa;
+  return v6.super.isa;
 }
 
 + (id)filterGroupsForAll
 {
-  sub_10007DA94();
-  type metadata accessor for FBAFilterGroup();
-  v2.super.isa = Array._bridgeToObjectiveC()().super.isa;
+  sub_10007DA94(self, a2);
+  type metadata accessor for FBAFilterGroup(0, v2);
+  v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
-  return v2.super.isa;
+  return v3.super.isa;
 }
 
 + (id)assignedToMeFilter
@@ -184,9 +184,9 @@
 + (id)teamActionsFilterGroupWithTeam:(id)team
 {
   teamCopy = team;
-  v5 = sub_10007CA3C(team);
+  v6 = sub_10007CA3C(team, v5);
 
-  return v5;
+  return v6;
 }
 
 + (id)personalActionsFilterGroup
@@ -198,7 +198,7 @@
 
 + (id)teamsFilterGroup
 {
-  v2 = sub_10007D460();
+  v2 = sub_10007D460(self, a2);
 
   return v2;
 }
@@ -206,7 +206,7 @@
 + (id)areaFilterGroupWithContentItems:(id)items
 {
   sub_1000497E4(0, &qword_100109990, FBKContentItem_ptr);
-  sub_10007DA50(&qword_100109998, &qword_100109990, FBKContentItem_ptr);
+  sub_10007DA50(&qword_100109998, &qword_100109990, FBKContentItem_ptr, &protocol conformance descriptor for NSObject);
   v3 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   v4 = sub_10007CF14(v3);
 

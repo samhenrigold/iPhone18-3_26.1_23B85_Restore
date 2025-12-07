@@ -12,7 +12,7 @@
 
 - (UIColor)startColor
 {
-  v2 = SegmentedColorView.startColor.getter();
+  v2 = SegmentedColorView.startColor.getter(self);
 
   return v2;
 }
@@ -26,7 +26,7 @@
 
 - (UIColor)endColor
 {
-  v2 = SegmentedColorView.endColor.getter();
+  v2 = SegmentedColorView.endColor.getter(self);
 
   return v2;
 }

@@ -21,7 +21,7 @@
 
 - (void)setupAlgorithms
 {
-  v3 = sub_100024BD4();
+  v3 = sub_100024BD4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
@@ -35,7 +35,7 @@
 
 - (void)resetAlgorithms
 {
-  v3 = sub_100024BD4();
+  v3 = sub_100024BD4(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     *v4 = 0;

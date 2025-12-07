@@ -182,7 +182,7 @@
   return v16;
 }
 
-id __72__AMSFamilyInfoLookupResult__familyMembersFromDictionaryRepresentation___block_invoke(uint64_t a1, void *a2)
+AMSFamilyMember *__72__AMSFamilyInfoLookupResult__familyMembersFromDictionaryRepresentation___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
   objc_opt_class();

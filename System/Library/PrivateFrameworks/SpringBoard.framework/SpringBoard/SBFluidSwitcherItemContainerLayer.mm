@@ -49,7 +49,7 @@
 - (void)setTransform:(CATransform3D *)transform
 {
   p_previousTransform = &self->_previousTransform;
-  [(SBFluidSwitcherItemContainerLayer *)self transform];
+  objc_msgSend_transform(self, a2);
   v6 = v34;
   *&p_previousTransform->m31 = v33;
   *&p_previousTransform->m33 = v6;
@@ -215,7 +215,7 @@ LABEL_6:
         v35 = 0u;
         v32 = 0u;
         v33 = 0u;
-        [(SBFluidSwitcherItemContainerLayer *)self transform];
+        objc_msgSend_transform(self);
         v31[4] = v36;
         v31[5] = v37;
         v31[6] = v38;

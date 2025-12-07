@@ -42,7 +42,7 @@
   *(v13 + 1) = 0;
   v13[16] = 1;
   v15.receiver = self;
-  v15.super_class = type metadata accessor for PagingCollectionView();
+  v15.super_class = type metadata accessor for PagingCollectionView(0);
   return [(PagingCollectionView *)&v15 initWithFrame:layout collectionViewLayout:x, y, width, height];
 }
 
@@ -58,7 +58,7 @@
   *(v8 + 1) = 0;
   v8[16] = 1;
   v12.receiver = self;
-  v12.super_class = type metadata accessor for PagingCollectionView();
+  v12.super_class = type metadata accessor for PagingCollectionView(0);
   coderCopy = coder;
   v10 = [(PagingCollectionView *)&v12 initWithCoder:coderCopy];
 

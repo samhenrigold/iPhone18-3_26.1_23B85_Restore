@@ -122,7 +122,7 @@
   selfCopy = self;
   DocumentViewController.preferredFocusEnvironments.getter();
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECF31D30);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1ECF31D30, &unk_1E42B7150);
   OUTLINED_FUNCTION_19_3();
   sub_1E42062A4();
   OUTLINED_FUNCTION_50();
@@ -151,10 +151,10 @@
   OUTLINED_FUNCTION_44_11();
   v6 = v5;
   v7 = v4;
-  OUTLINED_FUNCTION_50();
-  v8 = DocumentViewController.customAnimator(for:to:)();
+  v8 = OUTLINED_FUNCTION_50();
+  v9 = DocumentViewController.customAnimator(for:to:)(v8, v6);
 
-  return v8;
+  return v9;
 }
 
 - (id)customAnimatorForNavigationControllerOperation:(int64_t)operation fromViewController:(id)controller
@@ -162,10 +162,10 @@
   OUTLINED_FUNCTION_44_11();
   v6 = v5;
   v7 = v4;
-  OUTLINED_FUNCTION_50();
-  v8 = DocumentViewController.customAnimator(for:from:)();
+  v8 = OUTLINED_FUNCTION_50();
+  v9 = DocumentViewController.customAnimator(for:from:)(v8, v6);
 
-  return v8;
+  return v9;
 }
 
 - (BOOL)handleDeeplink:(id)deeplink

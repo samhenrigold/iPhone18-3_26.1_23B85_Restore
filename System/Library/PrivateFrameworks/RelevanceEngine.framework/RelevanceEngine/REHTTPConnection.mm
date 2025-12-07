@@ -16,9 +16,9 @@
 
 - (REHTTPConnection)initWithConnection:(_CFHTTPServerConnection *)connection
 {
-  v13.receiver = self;
-  v13.super_class = REHTTPConnection;
-  v4 = [(REHTTPConnection *)&v13 init];
+  v12.receiver = self;
+  v12.super_class = REHTTPConnection;
+  v4 = [(REHTTPConnection *)&v12 init];
   if (v4)
   {
     v4->_connection = CFRetain(connection);
@@ -35,7 +35,6 @@
     v4->_pendingResponse = array;
 
     [MEMORY[0x277CCAE60] valueWithWeakObject:v4];
-    connection = v4->_connection;
     _CFHTTPServerConnectionSetClient();
   }
 
@@ -82,8 +81,6 @@
   isValid = [(REHTTPConnection *)self isValid];
   if (isValid)
   {
-    connection = self->_connection;
-    queue = self->_queue;
     _CFHTTPServerConnectionSetDispatchQueue();
   }
 
@@ -107,12 +104,12 @@
 
 void __39__REHTTPConnection_stream_handleEvent___block_invoke(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   v2 = [*(*(a1 + 32) + 24) objectForKey:*(a1 + 40)];
   v3 = *(a1 + 48);
   if (v3 == 2 || v3 == 16)
   {
-    v5 = [*(a1 + 40) read:v11 maxLength:1024];
+    v5 = [*(a1 + 40) read:v10 maxLength:1024];
     if (v5 < 1)
     {
       v8 = *(a1 + 32);
@@ -126,7 +123,7 @@ void __39__REHTTPConnection_stream_handleEvent___block_invoke(uint64_t a1)
       goto LABEL_11;
     }
 
-    v6 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v11 length:v5 freeWhenDone:0];
+    v6 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:v10 length:v5 freeWhenDone:0];
     [v2 appendData:v6];
   }
 
@@ -140,8 +137,6 @@ LABEL_11:
   }
 
 LABEL_12:
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleCompleteRequest:(id)request stream:(id)stream error:(id)error
@@ -241,7 +236,7 @@ void __56__REHTTPConnection__handleCompleteRequest_stream_error___block_invoke(u
   _Block_object_dispose(&v9, 8);
 }
 
-uint64_t __46__REHTTPConnection_didCompleteResponse_error___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__46__REHTTPConnection_didCompleteResponse_error___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 response];
   if (result == *(a1 + 40))

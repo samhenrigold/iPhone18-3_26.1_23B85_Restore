@@ -110,7 +110,7 @@ LABEL_10:
 
 - (BOOL)isAllDayWeekDayRule
 {
-  v81 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   isWeekDayRule = [(HFScheduleRule *)self isWeekDayRule];
   v5 = HFLogForCategory(0x4CuLL);
   v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
@@ -122,11 +122,11 @@ LABEL_10:
       weekDayRule = [(HFScheduleRule *)self weekDayRule];
       *buf = 138413058;
       selfCopy4 = self;
-      v61 = 2112;
-      v62 = v7;
-      v63 = 2112;
-      v64 = weekDayRule;
-      v65 = 2112;
+      v60 = 2112;
+      v61 = v7;
+      v62 = 2112;
+      v63 = weekDayRule;
+      v64 = 2112;
       selfCopy2 = self;
       _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@:%@ Attempting to determine all-day rule for weekDayRule [%@] from schedule rule [%@].", buf, 0x2Au);
     }
@@ -140,7 +140,7 @@ LABEL_10:
 
     dateComponents = [v5 dateComponents];
     hour = [dateComponents hour];
-    v58 = dateComponents;
+    v57 = dateComponents;
     minute = [dateComponents minute];
     hf_sharedCalendar2 = [MEMORY[0x277CBEAA8] hf_sharedCalendar];
     weekDayRule3 = [(HFScheduleRule *)self weekDayRule];
@@ -149,27 +149,27 @@ LABEL_10:
 
     dateComponents2 = [v17 dateComponents];
     hour2 = [dateComponents2 hour];
-    v56 = dateComponents2;
+    v55 = dateComponents2;
     minute2 = [dateComponents2 minute];
     hf_startOfDay = [v5 hf_startOfDay];
     dateComponents3 = [hf_startOfDay dateComponents];
     hour3 = [dateComponents3 hour];
 
-    v55 = hf_startOfDay;
+    v54 = hf_startOfDay;
     dateComponents4 = [hf_startOfDay dateComponents];
     minute3 = [dateComponents4 minute];
 
-    v57 = v17;
+    v56 = v17;
     hf_endOfDay = [v17 hf_endOfDay];
     dateComponents5 = [hf_endOfDay dateComponents];
     hour4 = [dateComponents5 hour];
 
-    v54 = hf_endOfDay;
+    v53 = hf_endOfDay;
     dateComponents6 = [hf_endOfDay dateComponents];
     minute4 = [dateComponents6 minute];
 
-    v48 = minute3;
-    v49 = hour3;
+    v47 = minute3;
+    v48 = hour3;
     v31 = hour == hour3 && minute == minute3;
     v32 = minute2;
     v33 = hour2;
@@ -178,40 +178,40 @@ LABEL_10:
     if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
       aSelectora = NSStringFromSelector(aSelector);
-      v47 = [MEMORY[0x277CCABB0] numberWithInteger:hour];
+      v46 = [MEMORY[0x277CCABB0] numberWithInteger:hour];
       v38 = [MEMORY[0x277CCABB0] numberWithInteger:minute];
       v39 = [MEMORY[0x277CCABB0] numberWithInteger:v33];
       v40 = [MEMORY[0x277CCABB0] numberWithInteger:v32];
-      v41 = [MEMORY[0x277CCABB0] numberWithInteger:v49];
-      [MEMORY[0x277CCABB0] numberWithInteger:v48];
-      v36 = v53 = v36;
+      v41 = [MEMORY[0x277CCABB0] numberWithInteger:v48];
+      [MEMORY[0x277CCABB0] numberWithInteger:v47];
+      v36 = v52 = v36;
       v42 = [MEMORY[0x277CCABB0] numberWithInteger:hour4];
       v43 = [MEMORY[0x277CCABB0] numberWithInteger:minute4];
       *buf = 138414850;
       selfCopy4 = self;
-      v61 = 2112;
-      v62 = aSelectora;
-      v63 = 2112;
-      v64 = v47;
-      v65 = 2112;
+      v60 = 2112;
+      v61 = aSelectora;
+      v62 = 2112;
+      v63 = v46;
+      v64 = 2112;
       selfCopy2 = v38;
-      v67 = 2112;
-      v68 = v39;
-      v69 = 2112;
-      v70 = v40;
-      v71 = 2112;
-      v72 = v41;
-      v73 = 2112;
-      v74 = v36;
-      v75 = 2112;
-      v76 = v42;
-      v77 = 2112;
-      v78 = v43;
-      v79 = 1024;
-      v80 = v53;
+      v66 = 2112;
+      v67 = v39;
+      v68 = 2112;
+      v69 = v40;
+      v70 = 2112;
+      v71 = v41;
+      v72 = 2112;
+      v73 = v36;
+      v74 = 2112;
+      v75 = v42;
+      v76 = 2112;
+      v77 = v43;
+      v78 = 1024;
+      v79 = v52;
       _os_log_impl(&dword_20D9BF000, v37, OS_LOG_TYPE_DEFAULT, "%@:%@ startHour = [%@], startMinute = [%@], endHour = [%@], endMinute = [%@] | startOfDayHour = [%@], startOfDayMinute = [%@], endOfDayHour = [%@], endOfDayMinute = [%@] | isAllDayRule = %{BOOL}d", buf, 0x6Cu);
 
-      LOBYTE(v36) = v53;
+      LOBYTE(v36) = v52;
     }
   }
 
@@ -222,15 +222,14 @@ LABEL_10:
       v44 = NSStringFromSelector(a2);
       *buf = 138412546;
       selfCopy4 = self;
-      v61 = 2112;
-      v62 = v44;
+      v60 = 2112;
+      v61 = v44;
       _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%@:%@ Not a weekDayRule. Unabled to determine if schedule rule is an all-day rule.", buf, 0x16u);
     }
 
     LOBYTE(v36) = 0;
   }
 
-  v45 = *MEMORY[0x277D85DE8];
   return v36;
 }
 

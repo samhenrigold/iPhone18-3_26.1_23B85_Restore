@@ -30,24 +30,24 @@
 
 - (VFXShadableHelper)initWithOwner:(id)owner
 {
-  v10.receiver = self;
-  v10.super_class = VFXShadableHelper;
-  v4 = [(VFXShadableHelper *)&v10 init];
-  v8 = v4;
+  v9.receiver = self;
+  v9.super_class = VFXShadableHelper;
+  v4 = [(VFXShadableHelper *)&v9 init];
+  v7 = v4;
   if (v4)
   {
-    objc_msgSend__commonInit(v4, v5, v6, v7);
-    v8->_owner = owner;
+    objc_msgSend__commonInit(v4, v5, v6);
+    v7->_owner = owner;
   }
 
-  return v8;
+  return v7;
 }
 
 - (void)dealloc
 {
   if (self->_owner)
   {
-    v3 = sub_1AF0D5194();
+    v3 = sub_1AF0D5194(self, a2);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       sub_1AFDF8768(v3);
@@ -63,10 +63,10 @@
 {
   if (self->_program)
   {
-    v5 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, v2, v3);
+    v4 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, v2);
     program = self->_program;
 
-    objc_msgSend_addObserver_selector_name_object_(v5, v6, self, sel__programDidChange_, @"VFXProgramDidChangeNotification", program);
+    objc_msgSend_addObserver_selector_name_object_(v4, v5, self, sel__programDidChange_, @"VFXProgramDidChangeNotification", program);
   }
 }
 
@@ -74,11 +74,11 @@
 {
   if (self->_program)
   {
-    v5 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, v2, v3);
-    objc_msgSend_removeObserver_name_object_(v5, v6, self, @"VFXProgramDidChangeNotification", self->_program);
-    v10 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v7, v8, v9);
+    v4 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], a2, v2);
+    objc_msgSend_removeObserver_name_object_(v4, v5, self, @"VFXProgramDidChangeNotification", self->_program);
+    v8 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v6, v7);
 
-    objc_msgSend_removeObserver_name_object_(v10, v11, self, @"VFXProgramDidCompileNotification", 0);
+    objc_msgSend_removeObserver_name_object_(v8, v9, self, @"VFXProgramDidCompileNotification", 0);
   }
 }
 
@@ -86,9 +86,10 @@
 {
   if (program)
   {
-    if (objc_msgSend_count(self->_shaderModifiers, a2, program, v3))
+    v5 = objc_msgSend_count(self->_shaderModifiers, a2, program);
+    if (v5)
     {
-      v6 = sub_1AF0D5194();
+      v6 = sub_1AF0D5194(v5, a2);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -99,7 +100,7 @@
 
   if (self->_program != program)
   {
-    objc_msgSend__stopObservingProgram(self, a2, program, v3);
+    objc_msgSend__stopObservingProgram(self, a2, program);
 
     self->_program = program;
     owner = self->_owner;
@@ -121,36 +122,36 @@
 
 - (void)_parseAndSetShaderModifier:(id)modifier
 {
-  v38 = *MEMORY[0x1E69E9840];
-  objc_msgSend_removeAllObjects(self->_arguments, a2, modifier, v3);
-  v35 = 0u;
-  v36 = 0u;
+  v35 = *MEMORY[0x1E69E9840];
+  objc_msgSend_removeAllObjects(self->_arguments, a2, modifier);
+  v32 = 0u;
   v33 = 0u;
-  v34 = 0u;
-  v7 = objc_msgSend_countByEnumeratingWithState_objects_count_(modifier, v6, &v33, v37, 16);
-  if (v7)
+  v30 = 0u;
+  v31 = 0u;
+  v6 = objc_msgSend_countByEnumeratingWithState_objects_count_(modifier, v5, &v30, v34, 16);
+  if (v6)
   {
-    v8 = v7;
-    v9 = *v34;
+    v8 = v6;
+    v9 = *v31;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v34 != v9)
+        if (*v31 != v9)
         {
           objc_enumerationMutation(modifier);
         }
 
-        v11 = sub_1AF148894(*(*(&v33 + 1) + 8 * i));
-        v32[0] = MEMORY[0x1E69E9820];
-        v32[1] = 3221225472;
-        v32[2] = sub_1AF32A280;
-        v32[3] = &unk_1E7A7E7E8;
-        v32[4] = self;
-        objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v11, v12, v32, v13);
+        v11 = sub_1AF148894(*(*(&v30 + 1) + 8 * i), v7);
+        v29[0] = MEMORY[0x1E69E9820];
+        v29[1] = 3221225472;
+        v29[2] = sub_1AF32A280;
+        v29[3] = &unk_1E7A7E7E8;
+        v29[4] = self;
+        objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v11, v12, v29);
       }
 
-      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(modifier, v14, &v33, v37, 16);
+      v8 = objc_msgSend_countByEnumeratingWithState_objects_count_(modifier, v7, &v30, v34, 16);
     }
 
     while (v8);
@@ -158,41 +159,41 @@
 
   p_owner = &self->_owner;
   objc_opt_class();
-  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), (objc_opt_isKindOfClass()))
+  if (objc_opt_isKindOfClass() & 1) != 0 || (objc_opt_class(), isKindOfClass = objc_opt_isKindOfClass(), (isKindOfClass))
   {
-    v19 = objc_msgSend___CFObject(*p_owner, v16, v17, v18);
-    v20 = *p_owner;
-    v31[0] = MEMORY[0x1E69E9820];
-    v31[1] = 3221225472;
-    v31[2] = sub_1AF32A30C;
-    v31[3] = &unk_1E7A7E248;
-    v31[4] = modifier;
-    v31[5] = v19;
-    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v21, v20, v31);
+    v17 = objc_msgSend___CFObject(*p_owner, v14, v15);
+    v18 = *p_owner;
+    v28[0] = MEMORY[0x1E69E9820];
+    v28[1] = 3221225472;
+    v28[2] = sub_1AF32A30C;
+    v28[3] = &unk_1E7A7E248;
+    v28[4] = modifier;
+    v28[5] = v17;
+    objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v19, v18, v28);
   }
 
   else
   {
-    v25 = sub_1AF0D5194();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+    v22 = sub_1AF0D5194(isKindOfClass, v14);
+    if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDF87EC();
     }
   }
 
-  v26 = objc_msgSend_worldRef(*p_owner, v22, v23, v24);
-  if (v26)
+  v23 = objc_msgSend_worldRef(*p_owner, v20, v21);
+  if (v23)
   {
-    v27 = v26;
-    if (!sub_1AF1CFF64(v26, 1))
+    v24 = v23;
+    if (!sub_1AF1CFF64(v23, 1))
     {
-      v29 = *p_owner;
-      v30[0] = MEMORY[0x1E69E9820];
-      v30[1] = 3221225472;
-      v30[2] = sub_1AF32A318;
-      v30[3] = &unk_1E7A7E6C0;
-      v30[4] = v27;
-      objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v28, v29, v30);
+      v26 = *p_owner;
+      v27[0] = MEMORY[0x1E69E9820];
+      v27[1] = 3221225472;
+      v27[2] = sub_1AF32A318;
+      v27[3] = &unk_1E7A7E6C0;
+      v27[4] = v24;
+      objc_msgSend_postCommandWithObject_applyBlock_(VFXTransaction, v25, v26, v27);
     }
   }
 }
@@ -206,10 +207,10 @@
 
 - (void)setShaderModifiers:(id)modifiers
 {
-  if (self->_program && objc_msgSend_count(modifiers, a2, modifiers, v3))
+  if (self->_program && (v5 = objc_msgSend_count(modifiers, a2, modifiers)) != 0)
   {
-    v6 = sub_1AF0D5194();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = sub_1AF0D5194(v5, v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1AFDF8864();
     }
@@ -221,52 +222,53 @@
     if (shaderModifiers != modifiers)
     {
 
-      if (objc_msgSend_count(modifiers, v8, v9, v10))
+      if (objc_msgSend_count(modifiers, v9, v10))
       {
-        v14 = objc_alloc(MEMORY[0x1E695DF20]);
-        v16 = objc_msgSend_initWithDictionary_copyItems_(v14, v15, modifiers, 1);
+        v13 = objc_alloc(MEMORY[0x1E695DF20]);
+        v15 = objc_msgSend_initWithDictionary_copyItems_(v13, v14, modifiers, 1);
       }
 
       else if (modifiers)
       {
-        v16 = MEMORY[0x1E695E0F8];
+        v15 = MEMORY[0x1E695E0F8];
       }
 
       else
       {
-        v16 = 0;
+        v15 = 0;
       }
 
-      self->_shaderModifiers = v16;
-      objc_msgSend_owner(self, v11, v12, v13);
-      v17 = self->_shaderModifiers;
-      v18 = MEMORY[0x1E695DF70];
-      v22 = objc_msgSend_count(v17, v19, v20, v21);
-      v25 = objc_msgSend_arrayWithCapacity_(v18, v23, v22, v24);
-      v31[0] = MEMORY[0x1E69E9820];
-      v31[1] = 3221225472;
-      v31[2] = sub_1AF32B16C;
-      v31[3] = &unk_1E7A7E7E8;
-      v31[4] = v25;
-      objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v17, v26, v31, v27);
+      self->_shaderModifiers = v15;
+      objc_msgSend_owner(self, v11, v12);
+      v16 = self->_shaderModifiers;
+      v17 = MEMORY[0x1E695DF70];
+      v20 = objc_msgSend_count(v16, v18, v19);
+      v22 = objc_msgSend_arrayWithCapacity_(v17, v21, v20);
+      v26[0] = MEMORY[0x1E69E9820];
+      v26[1] = 3221225472;
+      v26[2] = sub_1AF32B16C;
+      v26[3] = &unk_1E7A7E7E8;
+      v26[4] = v22;
+      objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v16, v23, v26);
 
-      v28 = v25;
-      self->_cfxShaderModifierCache = v28;
-      objc_msgSend__parseAndSetShaderModifier_(self, v29, v28, v30);
+      v24 = v22;
+      self->_cfxShaderModifierCache = v24;
+      objc_msgSend__parseAndSetShaderModifier_(self, v25, v24);
     }
   }
 }
 
 - (void)copyModifiersFrom:(id)from
 {
-  v5 = *(from + 4);
-  v8 = objc_msgSend_shaderModifiers(from, a2, from, v3);
-  if (v5 && !sub_1AF333168())
+  v4 = *(from + 4);
+  v5 = objc_msgSend_shaderModifiers(from, a2, from);
+  v7 = v5;
+  if (v4 && !sub_1AF333168(v5, v6))
   {
-    if (self->_program && objc_msgSend_count(v8, v6, v9, v7))
+    if (self->_program && (v9 = objc_msgSend_count(v7, v6, v8)) != 0)
     {
-      v10 = sub_1AF0D5194();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = sub_1AF0D5194(v9, v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_1AFDF8864();
       }
@@ -275,16 +277,16 @@
     else
     {
       shaderModifiers = self->_shaderModifiers;
-      if (shaderModifiers != v8)
+      if (shaderModifiers != v7)
       {
 
-        if (objc_msgSend_count(v8, v12, v13, v14))
+        if (objc_msgSend_count(v7, v13, v14))
         {
           v15 = objc_alloc(MEMORY[0x1E695DF20]);
-          v17 = objc_msgSend_initWithDictionary_copyItems_(v15, v16, v8, 1);
+          v17 = objc_msgSend_initWithDictionary_copyItems_(v15, v16, v7, 1);
         }
 
-        else if (v8)
+        else if (v7)
         {
           v17 = MEMORY[0x1E695E0F8];
         }
@@ -296,9 +298,9 @@
 
         self->_shaderModifiers = v17;
 
-        self->_cfxShaderModifierCache = v5;
+        self->_cfxShaderModifierCache = v4;
 
-        objc_msgSend__parseAndSetShaderModifier_(self, v18, v5, v19);
+        objc_msgSend__parseAndSetShaderModifier_(self, v18, v4);
       }
     }
   }
@@ -306,7 +308,7 @@
   else
   {
 
-    objc_msgSend_setShaderModifiers_(self, v6, v8, v7);
+    objc_msgSend_setShaderModifiers_(self, v6, v7);
   }
 }
 
@@ -343,60 +345,60 @@
 
 - (void)_programDidCompile:(id)compile
 {
-  v57 = *MEMORY[0x1E69E9840];
-  v5 = objc_msgSend_userInfo(compile, a2, compile, v3);
-  v8 = objc_msgSend_valueForKey_(v5, v6, @"bindings", v7);
-  objc_msgSend_removeAllObjects(self->_arguments, v9, v10, v11);
-  v54 = 0u;
-  v55 = 0u;
-  v52 = 0u;
-  v53 = 0u;
-  v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v12, &v52, v56, 16);
-  if (v13)
+  v44 = *MEMORY[0x1E69E9840];
+  v4 = objc_msgSend_userInfo(compile, a2, compile);
+  v6 = objc_msgSend_valueForKey_(v4, v5, @"bindings");
+  objc_msgSend_removeAllObjects(self->_arguments, v7, v8);
+  v41 = 0u;
+  v42 = 0u;
+  v39 = 0u;
+  v40 = 0u;
+  v10 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v9, &v39, v43, 16);
+  if (v10)
   {
-    v17 = v13;
-    v18 = *v53;
+    v13 = v10;
+    v14 = *v40;
     do
     {
-      for (i = 0; i != v17; ++i)
+      for (i = 0; i != v13; ++i)
       {
-        if (*v53 != v18)
+        if (*v40 != v14)
         {
-          objc_enumerationMutation(v8);
+          objc_enumerationMutation(v6);
         }
 
-        v20 = *(*(&v52 + 1) + 8 * i);
-        if (objc_msgSend_type(v20, v14, v15, v16))
+        v16 = *(*(&v39 + 1) + 8 * i);
+        if (objc_msgSend_type(v16, v11, v12))
         {
-          if (objc_msgSend_type(v20, v21, v22, v23) != 2)
+          if (objc_msgSend_type(v16, v17, v18) != 2)
           {
             continue;
           }
 
-          v24 = objc_alloc_init(VFXShaderArgument);
-          v28 = objc_msgSend_name(v20, v25, v26, v27);
-          objc_msgSend_setName_(v24, v29, v28, v30);
-          objc_msgSend_setType_(v24, v31, 58, v32);
+          v19 = objc_alloc_init(VFXShaderArgument);
+          v22 = objc_msgSend_name(v16, v20, v21);
+          objc_msgSend_setName_(v19, v23, v22);
+          objc_msgSend_setType_(v19, v24, 58);
         }
 
         else
         {
-          v24 = objc_alloc_init(VFXShaderArgument);
-          v39 = objc_msgSend_name(v20, v36, v37, v38);
-          objc_msgSend_setName_(v24, v40, v39, v41);
-          v45 = objc_msgSend_bufferDataType(v20, v42, v43, v44);
-          objc_msgSend_setType_(v24, v46, v45, v47);
+          v19 = objc_alloc_init(VFXShaderArgument);
+          v29 = objc_msgSend_name(v16, v27, v28);
+          objc_msgSend_setName_(v19, v30, v29);
+          v33 = objc_msgSend_bufferDataType(v16, v31, v32);
+          objc_msgSend_setType_(v19, v34, v33);
         }
 
         arguments = self->_arguments;
-        v49 = objc_msgSend_name(v24, v33, v34, v35);
-        objc_msgSend_setValue_forKey_(arguments, v50, v24, v49);
+        v36 = objc_msgSend_name(v19, v25, v26);
+        objc_msgSend_setValue_forKey_(arguments, v37, v19, v36);
       }
 
-      v17 = objc_msgSend_countByEnumeratingWithState_objects_count_(v8, v14, &v52, v56, 16);
+      v13 = objc_msgSend_countByEnumeratingWithState_objects_count_(v6, v11, &v39, v43, 16);
     }
 
-    while (v17);
+    while (v13);
   }
 
   block[0] = MEMORY[0x1E69E9820];
@@ -409,71 +411,71 @@
 
 - (void)_setCFXProgram
 {
-  IfNeeded = objc_msgSend_materialRefCreateIfNeeded(self->_owner, a2, v2, v3);
+  IfNeeded = objc_msgSend_materialRefCreateIfNeeded(self->_owner, a2, v2);
   if (!IfNeeded)
   {
-    v9 = sub_1AF0D5194();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_FAULT))
+    v7 = sub_1AF0D5194(0, v4);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_FAULT))
     {
-      sub_1AFDF8914(v9);
+      sub_1AFDF8914(v7);
     }
   }
 
-  v10 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v5, v6, v7);
-  objc_msgSend_removeObserver_name_object_(v10, v11, self, @"VFXProgramDidCompileNotification", 0);
+  v8 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v4, v5);
+  objc_msgSend_removeObserver_name_object_(v8, v9, self, @"VFXProgramDidCompileNotification", 0);
   program = self->_program;
   if (program)
   {
-    if (objc_msgSend_source(self->_program, v12, v13, v14))
+    if (objc_msgSend_source(self->_program, v10, v11))
     {
-      v19 = objc_msgSend_vertexFunctionName(self->_program, v16, v17, v18);
-      v23 = objc_msgSend_fragmentFunctionName(self->_program, v20, v21, v22);
-      v27 = objc_msgSend_source(self->_program, v24, v25, v26);
-      v28 = sub_1AF1F32F0();
-      v29 = sub_1AF1D5628(v19, v23, 0, v27, 0, 0, 0, 0, v28, 1);
+      v15 = objc_msgSend_vertexFunctionName(self->_program, v13, v14);
+      v18 = objc_msgSend_fragmentFunctionName(self->_program, v16, v17);
+      v21 = objc_msgSend_source(self->_program, v19, v20);
+      v23 = sub_1AF1F32F0(v21, v22);
+      v24 = sub_1AF1D5628(v15, v18, 0, v21, 0, 0, 0, 0, v23, 1);
     }
 
     else
     {
-      v52[4] = program;
-      v53[0] = MEMORY[0x1E69E9820];
-      v53[1] = 3221225472;
-      v53[2] = sub_1AF32AD28;
-      v53[3] = &unk_1E7A7F100;
-      v53[4] = program;
-      v52[0] = MEMORY[0x1E69E9820];
-      v52[1] = 3221225472;
-      v52[2] = sub_1AF32ADB4;
-      v52[3] = &unk_1E7A7F128;
-      v37 = objc_msgSend_vertexFunctionName(self->_program, v16, v17, v18);
-      v41 = objc_msgSend_fragmentFunctionName(self->_program, v38, v39, v40);
-      v29 = sub_1AF1D5518(v37, v41, 0, v53, v52);
+      v43[4] = program;
+      v44[0] = MEMORY[0x1E69E9820];
+      v44[1] = 3221225472;
+      v44[2] = sub_1AF32AD28;
+      v44[3] = &unk_1E7A7F100;
+      v44[4] = program;
+      v43[0] = MEMORY[0x1E69E9820];
+      v43[1] = 3221225472;
+      v43[2] = sub_1AF32ADB4;
+      v43[3] = &unk_1E7A7F128;
+      v31 = objc_msgSend_vertexFunctionName(self->_program, v13, v14);
+      v34 = objc_msgSend_fragmentFunctionName(self->_program, v32, v33);
+      v24 = sub_1AF1D5518(v31, v34, 0, v44, v43);
     }
 
-    v42 = v29;
-    v43 = objc_msgSend__bufferBindings(self->_program, v30, v31, v32);
-    v51[0] = MEMORY[0x1E69E9820];
-    v51[1] = 3221225472;
-    v51[2] = sub_1AF32ADF0;
-    v51[3] = &unk_1E7A7F148;
-    v51[4] = v42;
-    objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v43, v44, v51, v45);
-    sub_1AF1D5E48(v42, 1);
-    v49 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v46, v47, v48);
-    objc_msgSend_addObserver_selector_name_object_(v49, v50, self, sel__programDidCompile_, @"VFXProgramDidCompileNotification", v42);
-    sub_1AF1A1AB0(IfNeeded, v42);
-    CFRelease(v42);
+    v35 = v24;
+    v36 = objc_msgSend__bufferBindings(self->_program, v25, v26);
+    v42[0] = MEMORY[0x1E69E9820];
+    v42[1] = 3221225472;
+    v42[2] = sub_1AF32ADF0;
+    v42[3] = &unk_1E7A7F148;
+    v42[4] = v35;
+    objc_msgSend_enumerateKeysAndObjectsUsingBlock_(v36, v37, v42);
+    sub_1AF1D5E48(v35, 1);
+    v40 = objc_msgSend_defaultCenter(MEMORY[0x1E696AD88], v38, v39);
+    objc_msgSend_addObserver_selector_name_object_(v40, v41, self, sel__programDidCompile_, @"VFXProgramDidCompileNotification", v35);
+    sub_1AF1A1AB0(IfNeeded, v35);
+    CFRelease(v35);
   }
 
   else
   {
     sub_1AF1A1AB0(IfNeeded, 0);
-    sub_1AF1A1A4C(IfNeeded);
+    sub_1AF1A1A4C(IfNeeded, v27);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v36 = objc_msgSend_modelRef(self->_owner, v33, v34, v35);
-      sub_1AF1B3970(v36, 0);
+      v30 = objc_msgSend_modelRef(self->_owner, v28, v29);
+      sub_1AF1B3970(v30, 0);
     }
   }
 }
@@ -489,63 +491,63 @@
 
 - (void)encodeWithCoder:(id)coder
 {
-  objc_msgSend__customEncodingOfVFXShadableHelper_(self, a2, coder, v3);
+  objc_msgSend__customEncodingOfVFXShadableHelper_(self, a2, coder);
   program = self->_program;
   if (program)
   {
-    objc_msgSend_encodeObject_forKey_(coder, v6, program, @"program");
+    objc_msgSend_encodeObject_forKey_(coder, v5, program, @"program");
   }
 
   shaderModifiers = self->_shaderModifiers;
   if (shaderModifiers)
   {
-    objc_msgSend_encodeObject_forKey_(coder, v6, shaderModifiers, @"shaderModifiers");
+    objc_msgSend_encodeObject_forKey_(coder, v5, shaderModifiers, @"shaderModifiers");
   }
 
   minimumLanguageVersion = self->_minimumLanguageVersion;
   if (minimumLanguageVersion)
   {
 
-    objc_msgSend_encodeObject_forKey_(coder, v6, minimumLanguageVersion, @"minimumLanguageVersion");
+    objc_msgSend_encodeObject_forKey_(coder, v5, minimumLanguageVersion, @"minimumLanguageVersion");
   }
 }
 
 - (VFXShadableHelper)initWithCoder:(id)coder
 {
-  v42[2] = *MEMORY[0x1E69E9840];
-  v41.receiver = self;
-  v41.super_class = VFXShadableHelper;
-  v4 = [(VFXShadableHelper *)&v41 init];
-  v8 = v4;
+  v36[2] = *MEMORY[0x1E69E9840];
+  v35.receiver = self;
+  v35.super_class = VFXShadableHelper;
+  v4 = [(VFXShadableHelper *)&v35 init];
+  v7 = v4;
   if (v4)
   {
-    objc_msgSend__commonInit(v4, v5, v6, v7);
-    v12 = objc_msgSend_immediateMode(VFXTransaction, v9, v10, v11);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v13, 1, v14);
-    v15 = sub_1AF37287C();
-    v17 = objc_msgSend_decodeObjectOfClasses_forKey_(coder, v16, v15, @"owner");
-    v8->_owner = v17;
-    if (v17)
+    objc_msgSend__commonInit(v4, v5, v6);
+    v10 = objc_msgSend_immediateMode(VFXTransaction, v8, v9);
+    v12 = objc_msgSend_setImmediateMode_(VFXTransaction, v11, 1);
+    v14 = sub_1AF37287C(v12, v13);
+    v16 = objc_msgSend_decodeObjectOfClasses_forKey_(coder, v15, v14, @"owner");
+    v7->_owner = v16;
+    if (v16)
     {
-      v20 = objc_opt_class();
-      v22 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v21, v20, @"program");
-      objc_msgSend_setProgram_(v8, v23, v22, v24);
-      v25 = MEMORY[0x1E695DFD8];
-      v42[0] = objc_opt_class();
-      v42[1] = objc_opt_class();
-      v27 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v26, v42, 2);
-      v30 = objc_msgSend_setWithArray_(v25, v28, v27, v29);
-      v32 = objc_msgSend_decodeObjectOfClasses_forKey_(coder, v31, v30, @"shaderModifiers");
-      objc_msgSend_setShaderModifiers_(v8, v33, v32, v34);
-      v35 = objc_opt_class();
-      v37 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v36, v35, @"minimumLanguageVersion");
-      objc_msgSend_setMinimumLanguageVersion_(v8, v38, v37, v39);
+      v18 = objc_opt_class();
+      v20 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v19, v18, @"program");
+      objc_msgSend_setProgram_(v7, v21, v20);
+      v22 = MEMORY[0x1E695DFD8];
+      v36[0] = objc_opt_class();
+      v36[1] = objc_opt_class();
+      v24 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v23, v36, 2);
+      v26 = objc_msgSend_setWithArray_(v22, v25, v24);
+      v28 = objc_msgSend_decodeObjectOfClasses_forKey_(coder, v27, v26, @"shaderModifiers");
+      objc_msgSend_setShaderModifiers_(v7, v29, v28);
+      v30 = objc_opt_class();
+      v32 = objc_msgSend_decodeObjectOfClass_forKey_(coder, v31, v30, @"minimumLanguageVersion");
+      objc_msgSend_setMinimumLanguageVersion_(v7, v33, v32);
     }
 
-    objc_msgSend_setImmediateMode_(VFXTransaction, v18, v12, v19);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v17, v10);
   }
 
-  return v8;
+  return v7;
 }
 
 @end

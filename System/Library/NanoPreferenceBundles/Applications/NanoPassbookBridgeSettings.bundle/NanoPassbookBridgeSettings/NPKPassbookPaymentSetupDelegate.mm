@@ -24,6 +24,7 @@
 - (void)_setDeletionInProgress:(BOOL)progress forPassWithUniqueID:(id)d;
 - (void)_unregisterForPeerPaymentWithCompletion:(id)completion;
 - (void)loadWebService;
+- (void)paymentSetupDidExitPasscodeUpgradeForPasscodeUpgradeFlowController:(id)controller withShouldContinue:(BOOL)continue error:(id)error;
 - (void)paymentSetupDidFinish:(id)finish;
 - (void)paymentSetupDidShowEligibilityIssue;
 - (void)paymentSetupDidShowError:(id)error;
@@ -194,6 +195,37 @@
 
   targetDevice = [(NPKPassbookPaymentSetupDelegate *)self targetDevice];
   [targetDevice requestPasscodeUpgradeForPasscodeUpgradeFlowController:controllerCopy withVisibleViewController:viewControllerCopy completion:completionCopy];
+}
+
+- (void)paymentSetupDidExitPasscodeUpgradeForPasscodeUpgradeFlowController:(id)controller withShouldContinue:(BOOL)continue error:(id)error
+{
+  continueCopy = continue;
+  errorCopy = error;
+  controllerCopy = controller;
+  v10 = pk_Payment_log();
+  v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+
+  if (v11)
+  {
+    v12 = pk_Payment_log();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    {
+      v13 = @"NO";
+      if (continueCopy)
+      {
+        v13 = @"YES";
+      }
+
+      v15 = 138412546;
+      v16 = v13;
+      v17 = 2112;
+      v18 = errorCopy;
+      _os_log_impl(&dword_0, v12, OS_LOG_TYPE_DEFAULT, "Notice: Payment setup did exit passcode upgrade with should continue: %@ error: %@", &v15, 0x16u);
+    }
+  }
+
+  targetDevice = [(NPKPassbookPaymentSetupDelegate *)self targetDevice];
+  [targetDevice exitPasscodeUpgradeForPasscodeUpgradeFlowController:controllerCopy withShouldContinue:continueCopy error:errorCopy];
 }
 
 - (BOOL)handleDeletePassRequestWithPass:(id)pass forViewController:(id)controller

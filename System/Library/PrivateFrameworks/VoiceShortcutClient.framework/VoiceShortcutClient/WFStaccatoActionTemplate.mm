@@ -218,7 +218,7 @@ LABEL_33:
 
 - (WFStaccatoActionTemplate)initWithCoder:(id)coder
 {
-  v17[2] = *MEMORY[0x1E69E9840];
+  v16[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"identifier"];
   v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"sectionIdentifier"];
@@ -226,9 +226,9 @@ LABEL_33:
   v8 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"localizedTitle"];
   v9 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"localizedDescription"];
   v10 = MEMORY[0x1E695DFD8];
-  v17[0] = objc_opt_class();
-  v17[1] = objc_opt_class();
-  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v17 count:2];
+  v16[0] = objc_opt_class();
+  v16[1] = objc_opt_class();
+  v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v16 count:2];
   v12 = [v10 setWithArray:v11];
   v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"parameters"];
 
@@ -239,7 +239,6 @@ LABEL_33:
     selfCopy = self;
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 

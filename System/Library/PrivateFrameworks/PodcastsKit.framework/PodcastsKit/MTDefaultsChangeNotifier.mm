@@ -34,34 +34,34 @@
 
 - (void)start
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if (![(MTDefaultsChangeNotifier *)self isRunning])
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     properties = [(MTDictionaryDiff *)self properties];
-    v4 = [properties countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v4 = [properties countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v10;
+      v6 = *v9;
       do
       {
         v7 = 0;
         do
         {
-          if (*v10 != v6)
+          if (*v9 != v6)
           {
             objc_enumerationMutation(properties);
           }
 
-          [(NSUserDefaults *)self->_defaults addObserver:self forKeyPath:*(*(&v9 + 1) + 8 * v7++) options:0 context:self];
+          [(NSUserDefaults *)self->_defaults addObserver:self forKeyPath:*(*(&v8 + 1) + 8 * v7++) options:0 context:self];
         }
 
         while (v5 != v7);
-        v5 = [properties countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [properties countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v5);
@@ -70,40 +70,38 @@
     [(MTDefaultsChangeNotifier *)self setRunning:1];
     [(MTDefaultsChangeNotifier *)self _defaultsChanged];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)stop
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   if ([(MTDefaultsChangeNotifier *)self isRunning])
   {
-    v11 = 0u;
-    v12 = 0u;
-    v9 = 0u;
     v10 = 0u;
+    v11 = 0u;
+    v8 = 0u;
+    v9 = 0u;
     properties = [(MTDictionaryDiff *)self properties];
-    v4 = [properties countByEnumeratingWithState:&v9 objects:v13 count:16];
+    v4 = [properties countByEnumeratingWithState:&v8 objects:v12 count:16];
     if (v4)
     {
       v5 = v4;
-      v6 = *v10;
+      v6 = *v9;
       do
       {
         v7 = 0;
         do
         {
-          if (*v10 != v6)
+          if (*v9 != v6)
           {
             objc_enumerationMutation(properties);
           }
 
-          [(NSUserDefaults *)self->_defaults removeObserver:self forKeyPath:*(*(&v9 + 1) + 8 * v7++) context:self];
+          [(NSUserDefaults *)self->_defaults removeObserver:self forKeyPath:*(*(&v8 + 1) + 8 * v7++) context:self];
         }
 
         while (v5 != v7);
-        v5 = [properties countByEnumeratingWithState:&v9 objects:v13 count:16];
+        v5 = [properties countByEnumeratingWithState:&v8 objects:v12 count:16];
       }
 
       while (v5);
@@ -111,8 +109,6 @@
 
     [(MTDefaultsChangeNotifier *)self setRunning:0];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context

@@ -65,7 +65,7 @@ uint64_t __37__CDPRecoveryKeyCache_sharedInstance__block_invoke()
 
   else
   {
-    v16 = _CDPLogSystem();
+    v16 = _CDPLogSystem(0);
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
     {
       [CDPRecoveryKeyCache cacheRecoveryKey:v16 forAltDSID:? error:?];
@@ -79,18 +79,19 @@ uint64_t __37__CDPRecoveryKeyCache_sharedInstance__block_invoke()
 {
   v4 = [CDPKeychainItemDescriptor recoveryKeyDescriptorForAltDSID:d];
   keychainManager = self->_keychainManager;
-  v13 = 0;
-  v6 = [(AAFKeychainManager *)keychainManager keychainItemForDescriptor:v4 error:&v13];
-  v7 = v13;
+  v14 = 0;
+  v6 = [(AAFKeychainManager *)keychainManager keychainItemForDescriptor:v4 error:&v14];
+  v7 = v14;
+  v8 = v7;
   if (v7)
   {
-    value2 = _CDPLogSystem();
+    value2 = _CDPLogSystem(v7);
     if (os_log_type_enabled(value2, OS_LOG_TYPE_ERROR))
     {
-      [(CDPRecoveryKeyCache *)v7 fetchRecoveryKeyFromCacheForAltDSID:value2];
+      [(CDPRecoveryKeyCache *)v8 fetchRecoveryKeyFromCacheForAltDSID:value2];
     }
 
-    v9 = 0;
+    v10 = 0;
     goto LABEL_7;
   }
 
@@ -98,45 +99,42 @@ uint64_t __37__CDPRecoveryKeyCache_sharedInstance__block_invoke()
 
   if (value)
   {
-    v11 = objc_alloc(MEMORY[0x1E696AEC0]);
+    v12 = objc_alloc(MEMORY[0x1E696AEC0]);
     value2 = [v6 value];
-    v9 = [v11 initWithData:value2 encoding:4];
+    v10 = [v12 initWithData:value2 encoding:4];
 LABEL_7:
 
     goto LABEL_8;
   }
 
-  v9 = 0;
+  v10 = 0;
 LABEL_8:
 
-  return v9;
+  return v10;
 }
 
 - (void)deleteCache
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_debug_impl(&dword_1DED99000, a2, OS_LOG_TYPE_DEBUG, "Cleared RK cache with error: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  _os_log_debug_impl(&dword_1DED99000, a2, OS_LOG_TYPE_DEBUG, "Cleared RK cache with error: %@", &v2, 0xCu);
 }
 
 - (void)cacheRecoveryKey:(os_log_t)log forAltDSID:error:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 138412290;
-  v3 = 0;
-  _os_log_debug_impl(&dword_1DED99000, log, OS_LOG_TYPE_DEBUG, "Cached RK with error: %@", &v2, 0xCu);
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 138412290;
+  v2 = 0;
+  _os_log_debug_impl(&dword_1DED99000, log, OS_LOG_TYPE_DEBUG, "Cached RK with error: %@", &v1, 0xCu);
 }
 
 - (void)fetchRecoveryKeyFromCacheForAltDSID:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch RK from cache: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_1DED99000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch RK from cache: %@", &v2, 0xCu);
 }
 
 @end

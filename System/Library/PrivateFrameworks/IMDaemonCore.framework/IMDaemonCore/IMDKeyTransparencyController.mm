@@ -24,18 +24,18 @@
   sub_22B6F0AD4(&unk_27D8CE9F0, &qword_22B7F98C0);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_22B7F93B0;
-  v4 = *MEMORY[0x277D19F10];
-  sub_22B7DB6A8();
+  v17 = sub_22B7DB6A8();
   selfCopy = self;
   sub_22B7DC248();
   selfOptedIn = [(IMDKeyTransparencyController *)selfCopy selfOptedIn];
   *(inited + 96) = MEMORY[0x277D839B0];
   *(inited + 72) = selfOptedIn;
-  sub_22B4D7D1C(inited);
+  v6 = sub_22B4D7D1C(inited);
   swift_setDeallocating();
   sub_22B4D0D64(inited + 32, &unk_27D8CD7D0, &qword_22B7FA3F0);
 
   v7 = sub_22B7DB568();
+  v6, v8, v9, v10, v11, v12, v13, v14, v16, v17;
 
   return v7;
 }
@@ -52,14 +52,13 @@
 {
   v4 = sub_22B7DA688();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v10 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v9 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_22B7DA658();
   selfCopy = self;
-  sub_22B7B8078();
+  sub_22B7B8078(v7);
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
 }
 
 @end

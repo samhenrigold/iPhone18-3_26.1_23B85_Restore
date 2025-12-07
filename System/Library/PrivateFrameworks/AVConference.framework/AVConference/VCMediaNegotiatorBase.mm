@@ -279,7 +279,7 @@ LABEL_14:
 
 - (id)negotiatedResultsForGroupID:(unsigned int)d
 {
-  v3 = -[NSMutableDictionary objectForKeyedSubscript:](self->_negotiatedU1MediaSettings, "objectForKeyedSubscript:", [MEMORY[0x1E696AD98] numberWithUnsignedChar:VCMediaNegotiatorMediaType_MediaTypeFromStreamGroupID(d)]);
+  v3 = -[NSMutableDictionary objectForKeyedSubscript:](self->_negotiatedU1MediaSettings, "objectForKeyedSubscript:", [MEMORY[0x1E696AD98] numberWithUnsignedChar:VCMediaNegotiatorMediaType_MediaTypeFromStreamGroupID(*&d)]);
 
   return v3;
 }
@@ -1335,7 +1335,7 @@ LABEL_18:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate the negotiated stream groups array", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate the negotiated stream groups array", v2, v3, v4, v5);
     }
   }
 }
@@ -1349,7 +1349,7 @@ LABEL_18:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate FaceTime settings results", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate FaceTime settings results", v2, v3, v4, v5);
     }
   }
 }
@@ -1363,7 +1363,7 @@ LABEL_18:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate negotiation moments results", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate negotiation moments results", v2, v3, v4, v5);
     }
   }
 }
@@ -1377,7 +1377,7 @@ LABEL_18:
     {
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate negotiation results", v2, v3, v4, v5, v6);
+      OUTLINED_FUNCTION_17(&dword_1DB56E000, v0, v1, " [%s] %s:%d Failed to allocate negotiation results", v2, v3, v4, v5);
     }
   }
 }

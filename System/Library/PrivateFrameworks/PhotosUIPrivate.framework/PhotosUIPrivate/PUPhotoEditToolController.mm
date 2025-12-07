@@ -211,8 +211,8 @@ void __47__PUPhotoEditToolController_updateInteractions__block_invoke(uint64_t a
   memset(&v19, 0, sizeof(v19));
   if (slomoAdjustmentController)
   {
-    [slomoAdjustmentController startTime];
-    [slomoAdjustmentController endTime];
+    objc_msgSend_startTime(slomoAdjustmentController);
+    objc_msgSend_endTime(slomoAdjustmentController);
   }
 
   else
@@ -229,7 +229,7 @@ void __47__PUPhotoEditToolController_updateInteractions__block_invoke(uint64_t a
   v11 = player;
   if (player)
   {
-    [player mediaDuration];
+    objc_msgSend_mediaDuration(player);
   }
 
   else

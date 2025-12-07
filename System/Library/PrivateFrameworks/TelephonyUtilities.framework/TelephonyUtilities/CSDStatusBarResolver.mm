@@ -42,27 +42,27 @@
   queue = [(CSDStatusBarResolver *)self queue];
   dispatch_assert_queue_V2(queue);
 
+  v56 = 0;
+  v57 = &v56;
+  v58 = 0x2020000000;
+  v59 = 1;
+  v52 = 0;
+  v53 = &v52;
+  v54 = 0x2020000000;
   v55 = 0;
-  v56 = &v55;
-  v57 = 0x2020000000;
-  v58 = 1;
+  v48 = 0;
+  v49 = &v48;
+  v50 = 0x2020000000;
   v51 = 0;
-  v52 = &v51;
-  v53 = 0x2020000000;
-  v54 = 0;
-  v47 = 0;
-  v48 = &v47;
-  v49 = 0x2020000000;
-  v50 = 0;
-  v46[0] = _NSConcreteStackBlock;
-  v46[1] = 3221225472;
-  v46[2] = sub_10005317C;
-  v46[3] = &unk_10061C418;
-  v46[4] = self;
-  v46[5] = &v55;
-  v46[6] = &v47;
-  v46[7] = &v51;
-  v4 = objc_retainBlock(v46);
+  v47[0] = _NSConcreteStackBlock;
+  v47[1] = 3221225472;
+  v47[2] = sub_10005317C;
+  v47[3] = &unk_10061C418;
+  v47[4] = self;
+  v47[5] = &v56;
+  v47[6] = &v48;
+  v47[7] = &v52;
+  v4 = objc_retainBlock(v47);
   resolvedCall = [(CSDStatusBarResolver *)self resolvedCall];
   resolvedConversation = [(CSDStatusBarResolver *)self resolvedConversation];
   v7 = resolvedConversation;
@@ -79,11 +79,11 @@
       isThirdPartyVideo = [resolvedCall isThirdPartyVideo];
     }
 
-    v48[3] = isThirdPartyVideo;
+    v49[3] = isThirdPartyVideo;
     if ([resolvedCall isPTT])
     {
       v8 = 2 * ([resolvedCall status] != 1);
-      v48[3] = 3;
+      v49[3] = 3;
     }
 
     if ([resolvedCall isScreening] && objc_msgSend(resolvedCall, "screeningAnnouncementHasFinished"))
@@ -125,19 +125,19 @@
 
     callCenter = [(CSDStatusBarResolver *)self callCenter];
     queue2 = [callCenter queue];
-    v43[0] = _NSConcreteStackBlock;
-    v43[1] = 3221225472;
-    v43[2] = sub_10013AFF8;
-    v43[3] = &unk_10061C440;
-    v45 = v4;
-    v43[4] = self;
-    v44 = resolvedCall;
-    dispatch_sync(queue2, v43);
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = sub_10013AFF8;
+    v44[3] = &unk_10061C440;
+    v46 = v4;
+    v44[4] = self;
+    v45 = resolvedCall;
+    dispatch_sync(queue2, v44);
 
-    if (*(v56 + 24) == 1)
+    if (*(v57 + 24) == 1)
     {
       v22 = [STCallingStatusDomainCallDescriptor alloc];
-      v14 = [v22 initWithCallType:v48[3] callState:v8 copresenceActivityType:v52[3]];
+      v14 = [v22 initWithCallType:v49[3] callState:v8 copresenceActivityType:v53[3]];
     }
 
     else
@@ -145,8 +145,8 @@
       v14 = 0;
     }
 
-    v23 = &v45;
-    v24 = v44;
+    v23 = &v46;
+    v24 = v45;
     goto LABEL_45;
   }
 
@@ -162,10 +162,10 @@
   block[1] = 3221225472;
   block[2] = sub_10013B07C;
   block[3] = &unk_10061C440;
-  v42 = v4;
+  v43 = v4;
   v12 = v7;
-  v40 = v12;
-  v41 = 0;
+  v41 = v12;
+  v42 = 0;
   dispatch_sync(queue3, block);
 
   if ([v12 state] == 2)
@@ -182,7 +182,7 @@
 
     else
     {
-      v25 = v52[3];
+      v25 = v53[3];
 
       if (!v25)
       {
@@ -222,10 +222,10 @@ LABEL_38:
   }
 
 LABEL_41:
-  if (*(v56 + 24) == 1)
+  if (*(v57 + 24) == 1)
   {
     v29 = [STCallingStatusDomainCallDescriptor alloc];
-    v14 = [v29 initWithCallType:v48[3] callState:v13 copresenceActivityType:v52[3]];
+    v14 = [v29 initWithCallType:v49[3] callState:v13 copresenceActivityType:v53[3]];
   }
 
   else
@@ -233,9 +233,9 @@ LABEL_41:
     v14 = 0;
   }
 
-  v23 = &v42;
+  v23 = &v43;
 
-  v24 = v40;
+  v24 = v41;
 LABEL_45:
 
 LABEL_46:
@@ -257,12 +257,11 @@ LABEL_46:
     callDurationUpdateTimer = [(CSDStatusBarResolver *)self callDurationUpdateTimer];
     [callDurationUpdateTimer invalidate];
 
-    [(CSDStatusBarResolver *)self setCallDurationUpdateTimer:0];
-    v36 = sub_100004778();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
+    v37 = sub_100004778([(CSDStatusBarResolver *)self setCallDurationUpdateTimer:0]);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
     {
-      *v38 = 0;
-      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "invalidate callDurationUpdateTimer", v38, 2u);
+      *v39 = 0;
+      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "invalidate callDurationUpdateTimer", v39, 2u);
     }
 
     goto LABEL_55;
@@ -272,23 +271,23 @@ LABEL_46:
 
   if (!callDurationUpdateTimer2)
   {
-    v35 = sub_100004778();
-    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
+    v36 = sub_100004778(v35);
+    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEFAULT))
     {
-      *v38 = 0;
-      _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_DEFAULT, "set up new callDurationUpdateTimer", v38, 2u);
+      *v39 = 0;
+      _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_DEFAULT, "set up new callDurationUpdateTimer", v39, 2u);
     }
 
-    v36 = [NSTimer scheduledTimerWithTimeInterval:self target:"updateResolvedDescriptor" selector:0 userInfo:1 repeats:1.0];
-    [(CSDStatusBarResolver *)self setCallDurationUpdateTimer:v36];
+    v37 = [NSTimer scheduledTimerWithTimeInterval:self target:"updateResolvedDescriptor" selector:0 userInfo:1 repeats:1.0];
+    [(CSDStatusBarResolver *)self setCallDurationUpdateTimer:v37];
 LABEL_55:
   }
 
   os_unfair_lock_unlock(&self->_durationUpdateTimerLock);
 
-  _Block_object_dispose(&v47, 8);
-  _Block_object_dispose(&v51, 8);
-  _Block_object_dispose(&v55, 8);
+  _Block_object_dispose(&v48, 8);
+  _Block_object_dispose(&v52, 8);
+  _Block_object_dispose(&v56, 8);
 }
 
 - (CSDCall)resolvedCall
@@ -530,16 +529,16 @@ LABEL_55:
   self->_callDurationUpdateTimer = 0;
 
   os_unfair_lock_unlock(&self->_durationUpdateTimerLock);
-  v4 = sub_100004778();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+  v5 = sub_100004778(v4);
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "Invalidated callDurationUpdateTimer", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Invalidated callDurationUpdateTimer", buf, 2u);
   }
 
-  v5.receiver = self;
-  v5.super_class = CSDStatusBarResolver;
-  [(CSDStatusBarResolver *)&v5 dealloc];
+  v6.receiver = self;
+  v6.super_class = CSDStatusBarResolver;
+  [(CSDStatusBarResolver *)&v6 dealloc];
 }
 
 - (void)handleSpringBoardPIDChanged:(id)changed
@@ -933,7 +932,7 @@ LABEL_10:
 - (void)callsChangedForCallCenterObserver:(id)observer
 {
   observerCopy = observer;
-  v5 = sub_100004778();
+  v5 = sub_100004778(observerCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -961,7 +960,7 @@ LABEL_10:
 - (void)conversationManager:(id)manager removedActiveConversation:(id)conversation
 {
   conversationCopy = conversation;
-  v6 = sub_100004778();
+  v6 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     uUID = [conversationCopy UUID];
@@ -984,7 +983,7 @@ LABEL_10:
 - (void)conversationManager:(id)manager addedActiveConversation:(id)conversation
 {
   conversationCopy = conversation;
-  v6 = sub_100004778();
+  v6 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     uUID = [conversationCopy UUID];
@@ -1007,7 +1006,7 @@ LABEL_10:
 - (void)conversationManager:(id)manager stateChangedForConversation:(id)conversation
 {
   conversationCopy = conversation;
-  v6 = sub_100004778();
+  v6 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     uUID = [conversationCopy UUID];
@@ -1030,7 +1029,7 @@ LABEL_10:
 - (void)conversationManager:(id)manager activitySessionsChangedForConversation:(id)conversation
 {
   conversationCopy = conversation;
-  v6 = sub_100004778();
+  v6 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     uUID = [conversationCopy UUID];
@@ -1053,7 +1052,7 @@ LABEL_10:
 - (void)conversationManager:(id)manager activeRemoteParticipantsChangedForConversation:(id)conversation
 {
   conversationCopy = conversation;
-  v6 = sub_100004778();
+  v6 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     uUID = [conversationCopy UUID];
@@ -1076,7 +1075,7 @@ LABEL_10:
 - (void)conversationManager:(id)manager localVideoToggledForConversation:(id)conversation
 {
   conversationCopy = conversation;
-  v6 = sub_100004778();
+  v6 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     uUID = [conversationCopy UUID];
@@ -1099,7 +1098,7 @@ LABEL_10:
 - (void)conversationManager:(id)manager handoffEligibilityChangedForConversation:(id)conversation
 {
   conversationCopy = conversation;
-  v6 = sub_100004778();
+  v6 = sub_100004778(conversationCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
     uUID = [conversationCopy UUID];

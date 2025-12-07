@@ -135,12 +135,12 @@
 - (id)visibleDroppedItemsInTargetScreen:(id)screen transform:(CATransform3D *)transform
 {
   screenCopy = screen;
-  v59 = objc_opt_new();
+  v61 = objc_opt_new();
   shownItemModels = [(DRFlockLayoutOutput *)self->_lastFlockLayoutOutput shownItemModels];
   itemViews = [(DRFlockLayoutOutput *)self->_lastFlockLayoutOutput itemViews];
-  v58 = shownItemModels;
+  v60 = shownItemModels;
   v8 = [shownItemModels count];
-  v57 = itemViews;
+  v59 = itemViews;
   v9 = [itemViews count];
   if (v8 >= v9)
   {
@@ -152,14 +152,14 @@
     v10 = v8;
   }
 
-  v56 = v10;
+  v58 = v10;
   if (v10)
   {
     v11 = 0;
     do
     {
-      v12 = [v58 objectAtIndexedSubscript:v11];
-      v13 = [v57 objectAtIndexedSubscript:v11];
+      v12 = [v60 objectAtIndexedSubscript:v11];
+      v13 = [v59 objectAtIndexedSubscript:v11];
       v14 = objc_opt_new();
       [v14 setItemIndex:{objc_msgSend(v12, "itemIndex")}];
       [v12 setIsObjectManipulationActive:0];
@@ -181,16 +181,16 @@
       v18 = model;
       if (model)
       {
-        [model appliedTransform];
+        objc_msgSend_appliedTransform(model);
       }
 
       else
       {
-        memset(&v68, 0, sizeof(v68));
+        memset(&v70, 0, sizeof(v70));
       }
 
-      v62 = v68;
-      [v14 setAppliedTransform:&v62];
+      v64 = v70;
+      [v14 setAppliedTransform:&v64];
 
       layer = [v13 layer];
       layer2 = [v13 layer];
@@ -202,76 +202,77 @@
       superlayer = [layer3 superlayer];
       [layer convertPoint:superlayer toLayer:{v22, v24}];
       v28 = v27;
+      v30 = v29;
 
       _screen = [v13 _screen];
-      sub_100002024(_screen, screenCopy, v28);
+      sub_100002024(_screen, screenCopy, v28, v30);
 
-      v30 = *&transform->m33;
-      v64 = *&transform->m31;
-      v65 = v30;
-      v31 = *&transform->m43;
-      v66 = *&transform->m41;
-      v67 = v31;
-      v32 = *&transform->m13;
-      v62.scale = *&transform->m11;
-      *&v62.horizontalShear = v32;
-      v33 = *&transform->m23;
-      v62.translation = *&transform->m21;
-      v63 = v33;
+      v32 = *&transform->m33;
+      v66 = *&transform->m31;
+      v67 = v32;
+      v33 = *&transform->m43;
+      v68 = *&transform->m41;
+      v69 = v33;
+      v34 = *&transform->m13;
+      v64.scale = *&transform->m11;
+      *&v64.horizontalShear = v34;
+      v35 = *&transform->m23;
+      v64.translation = *&transform->m21;
+      v65 = v35;
       CA_CGPointApplyTransform();
       [v14 setCenter:?];
-      v34 = [v13 _velocityForKey:@"position"];
-      [v34 CGPointValue];
-      v35 = *&transform->m33;
-      v64 = *&transform->m31;
-      v65 = v35;
-      v36 = *&transform->m43;
-      v66 = *&transform->m41;
-      v67 = v36;
-      v37 = *&transform->m13;
-      v62.scale = *&transform->m11;
-      *&v62.horizontalShear = v37;
-      v38 = *&transform->m23;
-      v62.translation = *&transform->m21;
-      v63 = v38;
-      [(DRSessionController *)self _transformVelocity:&v62 withTransform:?];
-      v40 = v39;
+      v36 = [v13 _velocityForKey:@"position"];
+      [v36 CGPointValue];
+      v37 = *&transform->m33;
+      v66 = *&transform->m31;
+      v67 = v37;
+      v38 = *&transform->m43;
+      v68 = *&transform->m41;
+      v69 = v38;
+      v39 = *&transform->m13;
+      v64.scale = *&transform->m11;
+      *&v64.horizontalShear = v39;
+      v40 = *&transform->m23;
+      v64.translation = *&transform->m21;
+      v65 = v40;
+      [(DRSessionController *)self _transformVelocity:&v64 withTransform:?];
       v42 = v41;
+      v44 = v43;
 
-      v43 = [v13 _targetVelocityForKey:@"position"];
-      [v43 CGPointValue];
-      v44 = *&transform->m33;
-      v64 = *&transform->m31;
-      v65 = v44;
-      v45 = *&transform->m43;
-      v66 = *&transform->m41;
-      v67 = v45;
-      v46 = *&transform->m13;
-      v62.scale = *&transform->m11;
-      *&v62.horizontalShear = v46;
-      v47 = *&transform->m23;
-      v62.translation = *&transform->m21;
-      v63 = v47;
-      [(DRSessionController *)self _transformVelocity:&v62 withTransform:?];
-      v49 = v48;
+      v45 = [v13 _targetVelocityForKey:@"position"];
+      [v45 CGPointValue];
+      v46 = *&transform->m33;
+      v66 = *&transform->m31;
+      v67 = v46;
+      v47 = *&transform->m43;
+      v68 = *&transform->m41;
+      v69 = v47;
+      v48 = *&transform->m13;
+      v64.scale = *&transform->m11;
+      *&v64.horizontalShear = v48;
+      v49 = *&transform->m23;
+      v64.translation = *&transform->m21;
+      v65 = v49;
+      [(DRSessionController *)self _transformVelocity:&v64 withTransform:?];
       v51 = v50;
+      v53 = v52;
 
-      v62.scale.width = v40;
-      v62.scale.height = v42;
-      v62.horizontalShear = 0.0;
-      v62.rotation = 0.0;
-      [v14 setVelocity3D:&v62];
-      v62.scale.width = v49;
-      v62.scale.height = v51;
-      v62.horizontalShear = 0.0;
-      v62.rotation = 0.0;
-      [v14 setTargetVelocity3D:&v62];
-      memset(&v62, 0, sizeof(v62));
+      v64.scale.width = v42;
+      v64.scale.height = v44;
+      v64.horizontalShear = 0.0;
+      v64.rotation = 0.0;
+      [v14 setVelocity3D:&v64];
+      v64.scale.width = v51;
+      v64.scale.height = v53;
+      v64.horizontalShear = 0.0;
+      v64.rotation = 0.0;
+      [v14 setTargetVelocity3D:&v64];
+      memset(&v64, 0, sizeof(v64));
       model2 = [(DRSessionController *)self model];
-      v53 = model2;
+      v55 = model2;
       if (model2)
       {
-        [model2 elasticTransform];
+        objc_msgSend_elasticTransform(model2);
       }
 
       else
@@ -279,20 +280,20 @@
         memset(&transform, 0, sizeof(transform));
       }
 
-      CGAffineTransformDecompose(&v62, &transform);
+      CGAffineTransformDecompose(&v64, &transform);
 
       [v14 setConstrainSize:{objc_msgSend(v13, "constrainSize")}];
       [v13 stackRotation];
-      [v14 setRotation:v54 + v62.rotation];
-      [v59 addObject:v14];
+      [v14 setRotation:v56 + v64.rotation];
+      [v61 addObject:v14];
 
       ++v11;
     }
 
-    while (v56 != v11);
+    while (v58 != v11);
   }
 
-  return v59;
+  return v61;
 }
 
 - (void)viewModelInvalidated:(id)invalidated
@@ -327,12 +328,10 @@
   subviewsCopy = subviews;
   if (!self->_didStartAnimateOut)
   {
-    v42 = subviewsCopy;
+    v40 = subviewsCopy;
     [(DRSessionController *)self _requestItemImagesIfNecessary];
     model = [(DRSessionController *)self model];
     [model centroid];
-    v6 = CAPoint3DZero[1];
-    v7 = CAPoint3DZero[2];
     if (CAPoint3DEqualToPoint())
     {
       model2 = [(DRSessionController *)self model];
@@ -340,7 +339,7 @@
       firstObject = [itemModels firstObject];
       preview = [firstObject preview];
 
-      subviewsCopy = v42;
+      subviewsCopy = v40;
       if (!preview)
       {
         goto LABEL_24;
@@ -352,33 +351,33 @@
     }
 
     [(DRSessionController *)self _updatePrecisionMode];
-    v12 = objc_opt_new();
-    [v12 setMaxItemCount:5];
+    v10 = objc_opt_new();
+    [v10 setMaxItemCount:5];
     model3 = [(DRSessionController *)self model];
-    [v12 setModel:model3];
+    [v10 setModel:model3];
 
     view = [(DRSessionController *)self view];
     [view bounds];
-    [v12 setContainerBounds:?];
+    [v10 setContainerBounds:?];
 
     badgeView = [(DRFlockLayoutOutput *)self->_lastFlockLayoutOutput badgeView];
-    v16 = [(DRFlockLayout *)self->_flockLayout layoutWithInput:v12];
-    [(DRSessionController *)self _notifyObserversOfPreviewsChangesUpdatedInLayout:v16];
-    objc_storeStrong(&self->_lastFlockLayoutOutput, v16);
+    v14 = [(DRFlockLayout *)self->_flockLayout layoutWithInput:v10];
+    [(DRSessionController *)self _notifyObserversOfPreviewsChangesUpdatedInLayout:v14];
+    objc_storeStrong(&self->_lastFlockLayoutOutput, v14);
     view2 = [(DRSessionController *)self view];
     flockContainer = [view2 flockContainer];
-    allViews = [v16 allViews];
+    allViews = [v14 allViews];
     sub_100022FC4(flockContainer, allViews);
 
-    badgeView2 = [v16 badgeView];
+    badgeView2 = [v14 badgeView];
 
     if (badgeView2)
     {
-      shouldHideFlock = [v16 shouldHideFlock];
-      badgeView3 = [v16 badgeView];
+      shouldHideFlock = [v14 shouldHideFlock];
+      badgeView3 = [v14 badgeView];
       [badgeView3 setHidden:shouldHideFlock];
 
-      badgeView4 = [v16 badgeView];
+      badgeView4 = [v14 badgeView];
       [view2 addSubview:badgeView4];
     }
 
@@ -389,7 +388,7 @@
 
     if (!self->_animating)
     {
-      model4 = [v12 model];
+      model4 = [v10 model];
       itemModels2 = [model4 itemModels];
 
       if ([itemModels2 count] == 1)
@@ -400,26 +399,26 @@
         if (preview2)
         {
           [preview2 stackAlpha];
-          v29 = v28;
+          v27 = v26;
           flockContainer2 = [view2 flockContainer];
-          [flockContainer2 setAlpha:v29];
+          [flockContainer2 setAlpha:v27];
         }
       }
 
       else
       {
         +[_DUIPreview defaultStackAlpha];
-        v32 = v31;
+        v30 = v29;
         preview2 = [view2 flockContainer];
-        [preview2 setAlpha:v32];
+        [preview2 setAlpha:v30];
       }
     }
 
-    shouldHideFlock2 = [v16 shouldHideFlock];
+    shouldHideFlock2 = [v14 shouldHideFlock];
     flockContainer3 = [view2 flockContainer];
     [flockContainer3 setHidden:shouldHideFlock2];
 
-    [(DRFlockAnimator *)self->_flockAnimator animateFlockLayoutOutput:v16];
+    [(DRFlockAnimator *)self->_flockAnimator animateFlockLayoutOutput:v14];
     model5 = [(DRSessionController *)self model];
     LODWORD(flockContainer3) = [model5 canAddManipulatedTouch];
 
@@ -428,15 +427,15 @@
     {
       if (!dragManipulationHitTestView)
       {
-        v37 = [[UIView alloc] initWithFrame:{0.0, 0.0, 600.0, 600.0}];
-        layer = [(UIView *)v37 layer];
+        v35 = [[UIView alloc] initWithFrame:{0.0, 0.0, 600.0, 600.0}];
+        layer = [(UIView *)v35 layer];
         [layer setHitTestsAsOpaque:1];
 
         flockContainer4 = [view2 flockContainer];
-        [view2 insertSubview:v37 aboveSubview:flockContainer4];
+        [view2 insertSubview:v35 aboveSubview:flockContainer4];
 
-        v40 = self->_dragManipulationHitTestView;
-        self->_dragManipulationHitTestView = v37;
+        v38 = self->_dragManipulationHitTestView;
+        self->_dragManipulationHitTestView = v35;
       }
 
       model6 = [(DRSessionController *)self model];
@@ -450,7 +449,7 @@
       {
 LABEL_23:
 
-        subviewsCopy = v42;
+        subviewsCopy = v40;
         goto LABEL_24;
       }
 
@@ -582,13 +581,13 @@ LABEL_24:
   {
     if (v18)
     {
-      v44 = *p_pendingPrecisionMode;
+      v46 = *p_pendingPrecisionMode;
       *location = 138412802;
       *&location[4] = precisionMode;
-      v49 = 2112;
-      v50 = v5;
       v51 = 2112;
-      v52 = v44;
+      v52 = v5;
+      v53 = 2112;
+      v54 = v46;
       _os_log_debug_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "_updatePrecisionMode from %@ to %@, IS a change, but pending %@ is the same already", location, 0x20u);
     }
 
@@ -597,13 +596,13 @@ LABEL_24:
 
   if (v18)
   {
-    v45 = *p_pendingPrecisionMode;
+    v47 = *p_pendingPrecisionMode;
     *location = 138412802;
     *&location[4] = precisionMode;
-    v49 = 2112;
-    v50 = v5;
     v51 = 2112;
-    v52 = v45;
+    v52 = v5;
+    v53 = 2112;
+    v54 = v47;
     _os_log_debug_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEBUG, "_updatePrecisionMode from %@ to %@, IS a change, replacing pending %@", location, 0x20u);
   }
 
@@ -634,32 +633,32 @@ LABEL_24:
       sub_100031118();
     }
 
-    v32 = byte_100063768 == 1 ? sub_1000244C8() : 0.0666666667;
-    if (v30 < v32)
+    v33 = byte_100063768 == 1 ? sub_1000244C8(v32) : 0.0666666667;
+    if (v30 < v33)
     {
       if (qword_100063760 != -1)
       {
         sub_100031140();
       }
 
-      v33 = 5.0;
+      v34 = 5.0;
       if (byte_100063768 == 1)
       {
-        v33 = sub_100024670();
+        v34 = sub_100024670(v32);
       }
 
-      if (v31 < v33)
+      if (v31 < v34)
       {
-        v34 = DRLogTarget();
-        if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
+        v35 = DRLogTarget();
+        if (os_log_type_enabled(v35, OS_LOG_TYPE_DEBUG))
         {
-          sub_1000311F8(self);
+          sub_1000311F8();
         }
 
         [(DRSessionController *)self _usePrecisionMode:v5];
         model7 = [(DRSessionController *)self model];
         [model7 centroid];
-        self->_precisionModeLimitY = v36;
+        self->_precisionModeLimitY = v37;
 
         goto LABEL_43;
       }
@@ -667,27 +666,28 @@ LABEL_24:
   }
 
   objc_storeStrong(&self->_pendingPrecisionMode, v5);
-  v37 = self->_precisionHysteresisTimer;
-  if (!v37)
+  v38 = self->_precisionHysteresisTimer;
+  if (!v38)
   {
     objc_initWeak(location, self);
-    v38 = [DRDispatchTimer alloc];
-    v39 = &_dispatch_main_q;
-    v46[0] = _NSConcreteStackBlock;
-    v46[1] = 3221225472;
-    v46[2] = sub_100023C6C;
-    v46[3] = &unk_100054CA0;
-    objc_copyWeak(&v47, location);
-    v40 = [(DRDispatchTimer *)v38 initWithQueue:&_dispatch_main_q eventHandler:v46];
+    v39 = [DRDispatchTimer alloc];
+    v40 = &_dispatch_main_q;
+    v48[0] = _NSConcreteStackBlock;
+    v48[1] = 3221225472;
+    v48[2] = sub_100023C6C;
+    v48[3] = &unk_100054CA0;
+    objc_copyWeak(&v49, location);
+    v41 = [(DRDispatchTimer *)v39 initWithQueue:&_dispatch_main_q eventHandler:v48];
 
-    v41 = self->_precisionHysteresisTimer;
-    self->_precisionHysteresisTimer = v40;
+    v42 = self->_precisionHysteresisTimer;
+    self->_precisionHysteresisTimer = v41;
 
-    objc_destroyWeak(&v47);
+    objc_destroyWeak(&v49);
     objc_destroyWeak(location);
   }
 
-  if ([v5 direction])
+  direction = [v5 direction];
+  if (direction)
   {
     if (qword_100063760 != -1)
     {
@@ -696,7 +696,7 @@ LABEL_24:
 
     if (byte_100063768 == 1)
     {
-      v42 = sub_100024814();
+      v44 = sub_100024814(direction);
       goto LABEL_39;
     }
 
@@ -711,17 +711,17 @@ LABEL_24:
   if (byte_100063768 != 1)
   {
 LABEL_38:
-    v42 = 0.2;
+    v44 = 0.2;
     goto LABEL_39;
   }
 
-  v42 = sub_1000249BC();
+  v44 = sub_1000249BC(direction);
 LABEL_39:
-  [(DRDispatchTimer *)self->_precisionHysteresisTimer resetWithTimeout:v42 leeway:v42 * 0.2];
-  if (!v37)
+  [(DRDispatchTimer *)self->_precisionHysteresisTimer resetWithTimeout:v44 leeway:v44 * 0.2];
+  if (!v38)
   {
-    v43 = DRLogTarget();
-    if (os_log_type_enabled(v43, OS_LOG_TYPE_DEBUG))
+    v45 = DRLogTarget();
+    if (os_log_type_enabled(v45, OS_LOG_TYPE_DEBUG))
     {
       sub_1000311B8();
     }
@@ -748,7 +748,7 @@ LABEL_43:
       v9 = DRLogTarget();
       if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
       {
-        sub_100031370(&self->_precisionModeLimitY);
+        sub_100031370();
       }
 
       modeCopy = v8;

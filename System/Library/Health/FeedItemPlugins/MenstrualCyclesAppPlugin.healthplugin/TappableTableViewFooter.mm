@@ -29,7 +29,7 @@
   v5 = (&self->super.super.super.super.isa + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin23TappableTableViewFooter_highlightedText);
   *v5 = 0;
   v5[1] = 0;
-  v6 = (&self->super.super.super.super.isa + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin23TappableTableViewFooter_tapCompletion);
+  v6 = (self + OBJC_IVAR____TtC24MenstrualCyclesAppPlugin23TappableTableViewFooter_tapCompletion);
   *v6 = nullsub_1;
   v6[1] = 0;
   result = sub_29E2C4724();

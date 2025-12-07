@@ -3,6 +3,7 @@
 - (HOProfileInstaller)init;
 - (void)dealloc;
 - (void)deviceProfileCompletedNotification:(id)notification;
+- (void)dismissInstallProfileViewControllerWithAnimation:(BOOL)animation shouldOpenSenderURL:(BOOL)l;
 - (void)installProfileWithCompletionHandler:(id)handler;
 - (void)openSenderURL;
 - (void)showProfileInstallationAlertViewWithTitle:(id)title message:(id)message shouldGoBackToSenderURL:(BOOL)l;
@@ -40,45 +41,46 @@
 {
   titleCopy = title;
   messageCopy = message;
-  v22 = [UIAlertController alertControllerWithTitle:"alertControllerWithTitle:message:preferredStyle:" message:titleCopy preferredStyle:?];
+  v23 = [UIAlertController alertControllerWithTitle:"alertControllerWithTitle:message:preferredStyle:" message:titleCopy preferredStyle:?];
   objc_initWeak(&location, self);
   v6 = +[NSBundle mainBundle];
   v7 = @"HOProfileInstallAlertOKButton";
   v8 = [v6 localizedStringForKey:@"HOProfileInstallAlertOKButton" value:@"_" table:@"HOLocalizable"];
 
-  if ([@"_" isEqualToString:v8])
+  v9 = [@"_" isEqualToString:v8];
+  if (v9)
   {
-    v27 = 0u;
     v28 = 0u;
     v29 = 0u;
     v30 = 0u;
-    v9 = sub_100043000();
-    v10 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
-    if (v10)
+    v31 = 0u;
+    v10 = sub_100043000(v9);
+    v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
+    if (v11)
     {
-      v11 = *v28;
+      v12 = *v29;
 LABEL_4:
-      v12 = 0;
+      v13 = 0;
       while (1)
       {
-        if (*v28 != v11)
+        if (*v29 != v12)
         {
-          objc_enumerationMutation(v9);
+          objc_enumerationMutation(v10);
         }
 
-        v13 = *(*(&v27 + 1) + 8 * v12);
-        v14 = +[NSBundle mainBundle];
-        v15 = [v14 localizedStringForKey:@"HOProfileInstallAlertOKButton" value:@"HOProfileInstallAlertOKButton" table:v13];
+        v14 = *(*(&v28 + 1) + 8 * v13);
+        v15 = +[NSBundle mainBundle];
+        v16 = [v15 localizedStringForKey:@"HOProfileInstallAlertOKButton" value:@"HOProfileInstallAlertOKButton" table:v14];
 
-        if (![(__CFString *)v15 isEqualToString:@"HOProfileInstallAlertOKButton"])
+        if (![(__CFString *)v16 isEqualToString:@"HOProfileInstallAlertOKButton"])
         {
           break;
         }
 
-        if (v10 == ++v12)
+        if (v11 == ++v13)
         {
-          v10 = [v9 countByEnumeratingWithState:&v27 objects:v31 count:16];
-          if (v10)
+          v11 = [v10 countByEnumeratingWithState:&v28 objects:v32 count:16];
+          if (v11)
           {
             goto LABEL_4;
           }
@@ -91,38 +93,38 @@ LABEL_4:
     else
     {
 LABEL_10:
-      v15 = @"_";
+      v16 = @"_";
     }
   }
 
   else
   {
-    v15 = v8;
+    v16 = v8;
   }
 
-  if ([@"_" isEqualToString:v15])
+  if ([@"_" isEqualToString:v16])
   {
     NSLog(@"Sensitive key '%@' not found!", @"HOProfileInstallAlertOKButton");
   }
 
   else
   {
-    v7 = v15;
+    v7 = v16;
   }
 
-  v23[0] = _NSConcreteStackBlock;
-  v23[1] = 3221225472;
-  v23[2] = sub_10004273C;
-  v23[3] = &unk_1000C41B8;
-  objc_copyWeak(&v24, &location);
+  v24[0] = _NSConcreteStackBlock;
+  v24[1] = 3221225472;
+  v24[2] = sub_10004273C;
+  v24[3] = &unk_1000C41B8;
+  objc_copyWeak(&v25, &location);
   lCopy = l;
-  v16 = [UIAlertAction actionWithTitle:v7 style:0 handler:v23];
+  v17 = [UIAlertAction actionWithTitle:v7 style:0 handler:v24];
 
-  [v22 addAction:v16];
+  [v23 addAction:v17];
   baseViewController = [(HOProfileInstaller *)self baseViewController];
-  [baseViewController presentViewController:v22 animated:1 completion:0];
+  [baseViewController presentViewController:v23 animated:1 completion:0];
 
-  objc_destroyWeak(&v24);
+  objc_destroyWeak(&v25);
   objc_destroyWeak(&location);
 }
 
@@ -262,6 +264,35 @@ LABEL_19:
   v5 = presentingViewController != 0;
 
   return v5;
+}
+
+- (void)dismissInstallProfileViewControllerWithAnimation:(BOOL)animation shouldOpenSenderURL:(BOOL)l
+{
+  animationCopy = animation;
+  installProfileViewController = [(HOProfileInstaller *)self installProfileViewController];
+  navigationController = [installProfileViewController navigationController];
+
+  if (navigationController)
+  {
+    installProfileVCCompletionBlock = [(HOProfileInstaller *)self installProfileVCCompletionBlock];
+
+    if (installProfileVCCompletionBlock)
+    {
+      installProfileVCCompletionBlock2 = [(HOProfileInstaller *)self installProfileVCCompletionBlock];
+      installProfileVCCompletionBlock2[2](installProfileVCCompletionBlock2, 0);
+    }
+
+    installProfileViewController2 = [(HOProfileInstaller *)self installProfileViewController];
+    navigationController2 = [installProfileViewController2 navigationController];
+    presentingViewController = [navigationController2 presentingViewController];
+    v14[0] = _NSConcreteStackBlock;
+    v14[1] = 3221225472;
+    v14[2] = sub_100042EE0;
+    v14[3] = &unk_1000C4150;
+    v14[4] = self;
+    lCopy = l;
+    [presentingViewController dismissViewControllerAnimated:animationCopy completion:v14];
+  }
 }
 
 @end

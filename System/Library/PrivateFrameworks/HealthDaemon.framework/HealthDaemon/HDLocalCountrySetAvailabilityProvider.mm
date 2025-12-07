@@ -38,11 +38,11 @@
   v14 = [(HDLocalCountrySetAvailabilityProvider *)&v23 init];
   if (v14)
   {
-    v15 = [identifierCopy copy];
+    v15 = objc_msgSend_copy(identifierCopy);
     featureIdentifier = v14->_featureIdentifier;
     v14->_featureIdentifier = v15;
 
-    v17 = [setCopy copy];
+    v17 = objc_msgSend_copy(setCopy);
     defaultCountrySet = v14->_defaultCountrySet;
     v14->_defaultCountrySet = v17;
 
@@ -98,7 +98,7 @@
 
 - (HKCountrySet)countrySet
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   if (!self)
   {
 LABEL_10:
@@ -109,9 +109,9 @@ LABEL_10:
   WeakRetained = objc_loadWeakRetained(&self->_healthDaemon);
   oTAFeatureAvailabilityManager = [WeakRetained OTAFeatureAvailabilityManager];
   featureIdentifier = self->_featureIdentifier;
-  v20 = 0;
-  v6 = [oTAFeatureAvailabilityManager featureAvailabilityInfoForFeature:featureIdentifier error:&v20];
-  v7 = v20;
+  v19 = 0;
+  v6 = [oTAFeatureAvailabilityManager featureAvailabilityInfoForFeature:featureIdentifier error:&v19];
+  v7 = v19;
   allowedCountrySet = [v6 allowedCountrySet];
 
   if (!allowedCountrySet)
@@ -124,8 +124,8 @@ LABEL_10:
       {
         *buf = 138543618;
         selfCopy2 = self;
-        v23 = 2114;
-        v24 = v7;
+        v22 = 2114;
+        v23 = v7;
         _os_log_error_impl(&dword_228986000, v11, OS_LOG_TYPE_ERROR, "[%{public}@] Unexpected error attempting to read OTA info: %{public}@", buf, 0x16u);
       }
     }
@@ -156,8 +156,8 @@ LABEL_12:
       dictionaryRepresentation = [v13 dictionaryRepresentation];
       *buf = 138543618;
       selfCopy2 = self;
-      v23 = 2114;
-      v24 = dictionaryRepresentation;
+      v22 = 2114;
+      v23 = dictionaryRepresentation;
       _os_log_error_impl(&dword_228986000, v15, OS_LOG_TYPE_ERROR, "[%{public}@] Internal country set override present: %{public}@", buf, 0x16u);
     }
 
@@ -166,7 +166,6 @@ LABEL_12:
 
   v16 = v14;
 
-  v17 = *MEMORY[0x277D85DE8];
   return v14;
 }
 
@@ -178,7 +177,7 @@ LABEL_12:
 
 - (void)observeValueForKeyPath:(id)path ofObject:(id)object change:(id)change context:(void *)context
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   pathCopy = path;
   objectCopy = object;
   changeCopy = change;
@@ -188,41 +187,39 @@ LABEL_12:
 
     if (WeakRetained)
     {
-      v15 = objc_loadWeakRetained(&self->_delegate);
-      [v15 regionAvailabilityProvidingDidUpdate:self];
+      v14 = objc_loadWeakRetained(&self->_delegate);
+      [v14 regionAvailabilityProvidingDidUpdate:self];
     }
 
     else
     {
       _HKInitializeLogging();
-      v16 = HKLogInfrastructure();
-      v17 = os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
+      v15 = HKLogInfrastructure();
+      v16 = os_log_type_enabled(v15, OS_LOG_TYPE_INFO);
 
-      if (!v17)
+      if (!v16)
       {
         goto LABEL_4;
       }
 
-      v15 = HKLogInfrastructure();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
+      v14 = HKLogInfrastructure();
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
       {
         *buf = 138543362;
         selfCopy = self;
-        _os_log_impl(&dword_228986000, v15, OS_LOG_TYPE_INFO, "[%{public}@] No delegate to receive observation message", buf, 0xCu);
+        _os_log_impl(&dword_228986000, v14, OS_LOG_TYPE_INFO, "[%{public}@] No delegate to receive observation message", buf, 0xCu);
       }
     }
   }
 
   else
   {
-    v18.receiver = self;
-    v18.super_class = HDLocalCountrySetAvailabilityProvider;
-    [(HDLocalCountrySetAvailabilityProvider *)&v18 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
+    v17.receiver = self;
+    v17.super_class = HDLocalCountrySetAvailabilityProvider;
+    [(HDLocalCountrySetAvailabilityProvider *)&v17 observeValueForKeyPath:pathCopy ofObject:objectCopy change:changeCopy context:context];
   }
 
 LABEL_4:
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)onboardingEligibilityForCountryCode:(id)code

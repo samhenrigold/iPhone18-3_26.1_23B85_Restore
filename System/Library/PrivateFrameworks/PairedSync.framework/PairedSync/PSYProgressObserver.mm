@@ -75,7 +75,7 @@ uint64_t __37__PSYProgressObserver_initWithQueue___block_invoke(uint64_t a1)
   return v3;
 }
 
-uint64_t __36__PSYProgressObserver_totalProgress__block_invoke(uint64_t a1)
+void *__36__PSYProgressObserver_totalProgress__block_invoke(uint64_t a1)
 {
   result = [*(*(a1 + 32) + 16) sessionProgress];
   *(*(*(a1 + 40) + 8) + 24) = v3;

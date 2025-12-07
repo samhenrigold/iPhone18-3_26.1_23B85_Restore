@@ -9,11 +9,10 @@
 
 - (NSDictionary)additionalBody
 {
-  v2 = *(self + OBJC_IVAR___NDOAMSPropertiesRequestContext_additionalBody);
 
-  v3 = sub_25BD79768();
+  v2 = sub_25BD79768();
 
-  return v3;
+  return v2;
 }
 
 - (NDOAMSPropertiesRequestContext)initWithRequestType:(unint64_t)type serialNumber:(id)number universalLinkPath:(id)path additionalBody:(id)body

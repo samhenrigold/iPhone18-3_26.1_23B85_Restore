@@ -3,6 +3,10 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)ratAsString:(int)string;
+- (id)resultAsString:(int)string;
+- (id)searchReasonAsString:(int)string;
+- (id)searchTypeAsString:(int)string;
 - (int)StringAsRat:(id)rat;
 - (int)StringAsResult:(id)result;
 - (int)StringAsSearchReason:(id)reason;
@@ -51,6 +55,21 @@
   }
 
   *&self->_has = *&self->_has & 0xF7 | v3;
+}
+
+- (id)resultAsString:(int)string
+{
+  if (string >= 5)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A10408[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsResult:(id)result
@@ -115,6 +134,57 @@
   }
 
   *&self->_has = *&self->_has & 0xFB | v3;
+}
+
+- (id)ratAsString:(int)string
+{
+  if (string > 2)
+  {
+    switch(string)
+    {
+      case 3:
+        v4 = @"SYS_RAT_TDS";
+
+        break;
+      case 4:
+        v4 = @"SYS_RAT_NR5G";
+
+        break;
+      case 255:
+        v4 = @"SYS_RAT_INVALID";
+
+        break;
+      default:
+LABEL_20:
+        v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+
+        return v4;
+    }
+  }
+
+  else if (string)
+  {
+    if (string != 1)
+    {
+      if (string == 2)
+      {
+        v4 = @"SYS_RAT_LTE";
+
+        return v4;
+      }
+
+      goto LABEL_20;
+    }
+
+    v4 = @"SYS_RAT_UMTS";
+  }
+
+  else
+  {
+    v4 = @"SYS_RAT_GSM";
+  }
+
+  return v4;
 }
 
 - (int)StringAsRat:(id)rat
@@ -184,6 +254,21 @@
   }
 
   *&self->_has = *&self->_has & 0xDF | v3;
+}
+
+- (id)searchTypeAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A10430[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSearchType:(id)type
@@ -273,6 +358,21 @@
   }
 
   *&self->_has = *&self->_has & 0xEF | v3;
+}
+
+- (id)searchReasonAsString:(int)string
+{
+  if (string >= 8)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279A10480[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsSearchReason:(id)reason
@@ -557,7 +657,6 @@ LABEL_9:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 8) == 0)
@@ -577,7 +676,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  result = self->_result;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 4) == 0)
@@ -592,7 +690,6 @@ LABEL_4:
   }
 
 LABEL_14:
-  rat = self->_rat;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x20) == 0)
@@ -607,7 +704,6 @@ LABEL_5:
   }
 
 LABEL_15:
-  searchType = self->_searchType;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -622,7 +718,6 @@ LABEL_6:
   }
 
 LABEL_16:
-  searchReason = self->_searchReason;
   PBDataWriterWriteInt32Field();
   has = self->_has;
   if ((has & 2) == 0)
@@ -637,12 +732,10 @@ LABEL_7:
   }
 
 LABEL_17:
-  duration = self->_duration;
   PBDataWriterWriteUint32Field();
   if ((*&self->_has & 0x40) != 0)
   {
 LABEL_8:
-    subsId = self->_subsId;
     PBDataWriterWriteUint32Field();
   }
 

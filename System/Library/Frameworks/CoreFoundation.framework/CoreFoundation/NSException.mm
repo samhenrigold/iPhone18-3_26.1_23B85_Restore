@@ -32,12 +32,11 @@
 
 - (void)dealloc
 {
-  v5 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
 
-  v4.receiver = self;
-  v4.super_class = NSException;
-  [(NSException *)&v4 dealloc];
-  v3 = *MEMORY[0x1E69E9840];
+  v3.receiver = self;
+  v3.super_class = NSException;
+  [(NSException *)&v3 dealloc];
 }
 
 - (id)description
@@ -129,33 +128,34 @@ LABEL_6:
 
 - (NSException)initWithName:(id)name reason:(id)reason userInfo:(id)info osLogPack:(void *)pack size:(unint64_t)size
 {
-  v20[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   self->name = [name copy];
   self->reason = [reason copy];
   self->userInfo = info;
-  v12 = v20 - ((_os_log_pack_size() + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = _os_log_pack_size();
+  v13 = v21 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (pack)
   {
     goto LABEL_4;
   }
 
+  v14 = v12;
   if (_NSIsNSCFConstantString(self->reason))
   {
     reason = self->reason;
     SystemEncoding = CFStringGetSystemEncoding();
     CStringPtr = CFStringGetCStringPtr(reason, SystemEncoding);
-    v16 = _os_log_pack_fill();
-    *v16 = 136315138;
-    *(v16 + 4) = CStringPtr;
-    pack = v12;
+    v18 = _os_log_pack_fill(v13, v14, 0, &dword_1830E6000, "%s", v21[0]);
+    *v18 = 136315138;
+    *(v18 + 4) = CStringPtr;
+    pack = v13;
 LABEL_4:
     __CFLookUpClass("NSMutableDictionary");
     self->reserved = objc_opt_new();
-    v17 = CFDataCreate(&__kCFAllocatorSystemDefault, pack, size);
-    [self->reserved setObject:v17 forKey:@"osLogPack"];
+    v19 = CFDataCreate(&__kCFAllocatorSystemDefault, pack, size);
+    [self->reserved setObject:v19 forKey:@"osLogPack"];
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return self;
 }
 

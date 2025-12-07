@@ -8,7 +8,7 @@
 {
   entityCopy = entity;
   contextCopy = context;
-  return PARUsageEvent.init(entity:insertInto:)();
+  return PARUsageEvent.init(entity:insertInto:)(entityCopy, context);
 }
 
 @end

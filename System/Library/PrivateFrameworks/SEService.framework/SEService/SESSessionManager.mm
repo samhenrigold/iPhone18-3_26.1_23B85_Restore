@@ -1,4 +1,5 @@
 @interface SESSessionManager
++ (BOOL)registerCarKeyAppForLaunch:(BOOL)launch error:(id *)error;
 + (id)getVehicleReports:(id *)reports;
 + (id)pauseRangingForReaderIdentifier:(id)identifier durationInSec:(double)sec withAppletIdentifier:(id)appletIdentifier;
 + (id)requestAssertionForKeyID:(id)d withAppletID:(id)iD withOptions:(id)options error:(id *)error;
@@ -48,72 +49,69 @@ uint64_t __35__SESSessionManager_sharedInstance__block_invoke()
 
 - (id)startDigitalCarKeySessionWithOptions:(id)options startCallback:(id)callback
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   callbackCopy = callback;
   v8 = SESDefaultLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v26 = optionsCopy;
+    v25 = optionsCopy;
     _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_INFO, "startDigitalCarKeySessionWithOptions %@", buf, 0xCu);
   }
 
   v9 = +[SESDCKSession newInstance];
   [v9 setDidStartCallback:callbackCopy];
 
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __72__SESSessionManager_startDigitalCarKeySessionWithOptions_startCallback___block_invoke;
-  v24[3] = &unk_1E82D1420;
-  v24[4] = self;
-  [v9 setDidEndCallback:v24];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __72__SESSessionManager_startDigitalCarKeySessionWithOptions_startCallback___block_invoke_2;
-  v22[3] = &unk_1E82D1448;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __72__SESSessionManager_startDigitalCarKeySessionWithOptions_startCallback___block_invoke;
+  v23[3] = &unk_1E82D1420;
+  v23[4] = self;
+  [v9 setDidEndCallback:v23];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __72__SESSessionManager_startDigitalCarKeySessionWithOptions_startCallback___block_invoke_2;
+  v21[3] = &unk_1E82D1448;
   v10 = v9;
-  v23 = v10;
-  v11 = [(SESSessionManager *)self synchronousRemoteObjectProxyWithErrorHandler:v22];
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __72__SESSessionManager_startDigitalCarKeySessionWithOptions_startCallback___block_invoke_510;
-  v19 = &unk_1E82D1470;
+  v22 = v10;
+  v11 = [(SESSessionManager *)self synchronousRemoteObjectProxyWithErrorHandler:v21];
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __72__SESSessionManager_startDigitalCarKeySessionWithOptions_startCallback___block_invoke_510;
+  v18 = &unk_1E82D1470;
   v12 = v10;
-  v20 = v12;
+  v19 = v12;
   selfCopy = self;
-  [v11 startSESDCKSession:v12 completion:&v16];
+  [v11 startSESDCKSession:v12 completion:&v15];
 
   [v12 resume];
   v13 = v12;
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 void __72__SESSessionManager_startDigitalCarKeySessionWithOptions_startCallback___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = SESDefaultLogObject();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_1C7B9A000, v4, OS_LOG_TYPE_ERROR, "Failed to get proxy %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_1C7B9A000, v4, OS_LOG_TYPE_ERROR, "Failed to get proxy %@", &v5, 0xCu);
     }
 
     [*(a1 + 32) endSession];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __72__SESSessionManager_startDigitalCarKeySessionWithOptions_startCallback___block_invoke_510(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = SESDefaultLogObject();
@@ -122,9 +120,9 @@ void __72__SESSessionManager_startDigitalCarKeySessionWithOptions_startCallback_
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = v6;
-      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_ERROR, "Proxy error %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_ERROR, "Proxy error %@", &v11, 0xCu);
     }
 
     [*(a1 + 32) endSession];
@@ -135,9 +133,9 @@ void __72__SESSessionManager_startDigitalCarKeySessionWithOptions_startCallback_
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v9 = *(a1 + 32);
-      v12 = 138412290;
-      v13 = v9;
-      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_INFO, "Adding new SESDCKSession %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v9;
+      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_INFO, "Adding new SESDCKSession %@", &v11, 0xCu);
     }
 
     v10 = *(*(a1 + 40) + 8);
@@ -147,78 +145,73 @@ void __72__SESSessionManager_startDigitalCarKeySessionWithOptions_startCallback_
 
     [*(a1 + 32) setProxy:v5];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)startRKESessionWithOptions:(id)options startCallback:(id)callback
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   callbackCopy = callback;
   v8 = SESDefaultLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v26 = optionsCopy;
+    v25 = optionsCopy;
     _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_INFO, "startRKESessionWithOptions %@", buf, 0xCu);
   }
 
   v9 = +[SESRKESession newInstance];
   [v9 setDidStartCallback:callbackCopy];
 
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __62__SESSessionManager_startRKESessionWithOptions_startCallback___block_invoke;
-  v24[3] = &unk_1E82D1420;
-  v24[4] = self;
-  [v9 setDidEndCallback:v24];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __62__SESSessionManager_startRKESessionWithOptions_startCallback___block_invoke_2;
-  v22[3] = &unk_1E82D1448;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __62__SESSessionManager_startRKESessionWithOptions_startCallback___block_invoke;
+  v23[3] = &unk_1E82D1420;
+  v23[4] = self;
+  [v9 setDidEndCallback:v23];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __62__SESSessionManager_startRKESessionWithOptions_startCallback___block_invoke_2;
+  v21[3] = &unk_1E82D1448;
   v10 = v9;
-  v23 = v10;
-  v11 = [(SESSessionManager *)self synchronousRemoteObjectProxyWithErrorHandler:v22];
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __62__SESSessionManager_startRKESessionWithOptions_startCallback___block_invoke_513;
-  v19 = &unk_1E82D1470;
+  v22 = v10;
+  v11 = [(SESSessionManager *)self synchronousRemoteObjectProxyWithErrorHandler:v21];
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __62__SESSessionManager_startRKESessionWithOptions_startCallback___block_invoke_513;
+  v18 = &unk_1E82D1470;
   v12 = v10;
-  v20 = v12;
+  v19 = v12;
   selfCopy = self;
-  [v11 startSESRKESession:v12 options:optionsCopy completion:&v16];
+  [v11 startSESRKESession:v12 options:optionsCopy completion:&v15];
 
   [v12 resume];
   v13 = v12;
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 void __62__SESSessionManager_startRKESessionWithOptions_startCallback___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = SESDefaultLogObject();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_1C7B9A000, v4, OS_LOG_TYPE_ERROR, "Failed to get proxy %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_1C7B9A000, v4, OS_LOG_TYPE_ERROR, "Failed to get proxy %@", &v5, 0xCu);
     }
 
     [*(a1 + 32) endSession];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __62__SESSessionManager_startRKESessionWithOptions_startCallback___block_invoke_513(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = SESDefaultLogObject();
@@ -227,9 +220,9 @@ void __62__SESSessionManager_startRKESessionWithOptions_startCallback___block_in
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = v6;
-      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_ERROR, "Proxy error %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_ERROR, "Proxy error %@", &v11, 0xCu);
     }
 
     [*(a1 + 32) endSessionWithError:v6];
@@ -240,9 +233,9 @@ void __62__SESSessionManager_startRKESessionWithOptions_startCallback___block_in
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v9 = *(a1 + 32);
-      v12 = 138412290;
-      v13 = v9;
-      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_INFO, "Adding new SESRKESession %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v9;
+      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_INFO, "Adding new SESRKESession %@", &v11, 0xCu);
     }
 
     v10 = *(*(a1 + 40) + 8);
@@ -252,78 +245,73 @@ void __62__SESSessionManager_startRKESessionWithOptions_startCallback___block_in
 
     [*(a1 + 32) setProxy:v5];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (id)startACWGSessionWithOptions:(id)options startCallback:(id)callback
 {
-  v27 = *MEMORY[0x1E69E9840];
+  v26 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   callbackCopy = callback;
   v8 = SESDefaultLogObject();
   if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
   {
     *buf = 138412290;
-    v26 = optionsCopy;
+    v25 = optionsCopy;
     _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_INFO, "startACWGSessionWithOptions %@", buf, 0xCu);
   }
 
   v9 = +[SESACWGSession newInstance];
   [v9 setDidStartCallback:callbackCopy];
 
-  v24[0] = MEMORY[0x1E69E9820];
-  v24[1] = 3221225472;
-  v24[2] = __63__SESSessionManager_startACWGSessionWithOptions_startCallback___block_invoke;
-  v24[3] = &unk_1E82D1420;
-  v24[4] = self;
-  [v9 setDidEndCallback:v24];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __63__SESSessionManager_startACWGSessionWithOptions_startCallback___block_invoke_2;
-  v22[3] = &unk_1E82D1448;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __63__SESSessionManager_startACWGSessionWithOptions_startCallback___block_invoke;
+  v23[3] = &unk_1E82D1420;
+  v23[4] = self;
+  [v9 setDidEndCallback:v23];
+  v21[0] = MEMORY[0x1E69E9820];
+  v21[1] = 3221225472;
+  v21[2] = __63__SESSessionManager_startACWGSessionWithOptions_startCallback___block_invoke_2;
+  v21[3] = &unk_1E82D1448;
   v10 = v9;
-  v23 = v10;
-  v11 = [(SESSessionManager *)self synchronousRemoteObjectProxyWithErrorHandler:v22];
-  v16 = MEMORY[0x1E69E9820];
-  v17 = 3221225472;
-  v18 = __63__SESSessionManager_startACWGSessionWithOptions_startCallback___block_invoke_515;
-  v19 = &unk_1E82D1470;
+  v22 = v10;
+  v11 = [(SESSessionManager *)self synchronousRemoteObjectProxyWithErrorHandler:v21];
+  v15 = MEMORY[0x1E69E9820];
+  v16 = 3221225472;
+  v17 = __63__SESSessionManager_startACWGSessionWithOptions_startCallback___block_invoke_515;
+  v18 = &unk_1E82D1470;
   v12 = v10;
-  v20 = v12;
+  v19 = v12;
   selfCopy = self;
-  [v11 startSESACWGSession:v12 completion:&v16];
+  [v11 startSESACWGSession:v12 completion:&v15];
 
   [v12 resume];
   v13 = v12;
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 void __63__SESSessionManager_startACWGSessionWithOptions_startCallback___block_invoke_2(uint64_t a1, void *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v3 = a2;
   if (v3)
   {
     v4 = SESDefaultLogObject();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      v6 = 138412290;
-      v7 = v3;
-      _os_log_impl(&dword_1C7B9A000, v4, OS_LOG_TYPE_ERROR, "Failed to get proxy %@", &v6, 0xCu);
+      v5 = 138412290;
+      v6 = v3;
+      _os_log_impl(&dword_1C7B9A000, v4, OS_LOG_TYPE_ERROR, "Failed to get proxy %@", &v5, 0xCu);
     }
 
     [*(a1 + 32) endSession];
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __63__SESSessionManager_startACWGSessionWithOptions_startCallback___block_invoke_515(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = SESDefaultLogObject();
@@ -332,9 +320,9 @@ void __63__SESSessionManager_startACWGSessionWithOptions_startCallback___block_i
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v12 = 138412290;
-      v13 = v6;
-      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_ERROR, "Proxy error %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v6;
+      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_ERROR, "Proxy error %@", &v11, 0xCu);
     }
 
     [*(a1 + 32) endSession];
@@ -345,9 +333,9 @@ void __63__SESSessionManager_startACWGSessionWithOptions_startCallback___block_i
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v9 = *(a1 + 32);
-      v12 = 138412290;
-      v13 = v9;
-      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_INFO, "Adding new SESACWGSession %@", &v12, 0xCu);
+      v11 = 138412290;
+      v12 = v9;
+      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_INFO, "Adding new SESACWGSession %@", &v11, 0xCu);
     }
 
     v10 = *(*(a1 + 40) + 8);
@@ -357,28 +345,24 @@ void __63__SESSessionManager_startACWGSessionWithOptions_startCallback___block_i
 
     [*(a1 + 32) setProxy:v5];
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)sessionEnded:(id)ended
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   endedCopy = ended;
   v5 = self->_sessions;
   objc_sync_enter(v5);
   v6 = SESDefaultLogObject();
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = endedCopy;
-    _os_log_impl(&dword_1C7B9A000, v6, OS_LOG_TYPE_INFO, "Session %@ ended", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = endedCopy;
+    _os_log_impl(&dword_1C7B9A000, v6, OS_LOG_TYPE_INFO, "Session %@ ended", &v7, 0xCu);
   }
 
   [(NSMutableSet *)self->_sessions removeObject:endedCopy];
   objc_sync_exit(v5);
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)connect
@@ -439,26 +423,26 @@ void __63__SESSessionManager_startACWGSessionWithOptions_startCallback___block_i
   objc_sync_exit(selfCopy);
 }
 
-void __28__SESSessionManager_connect__block_invoke(uint64_t a1)
+void __28__SESSessionManager_connect__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v2 = SESDefaultLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = SESDefaultLogObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1C7B9A000, v2, OS_LOG_TYPE_INFO, "Connection interrupted", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C7B9A000, v3, OS_LOG_TYPE_INFO, "Connection interrupted", v5, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained connectionDidInterrupt];
 }
 
-void __28__SESSessionManager_connect__block_invoke_559(uint64_t a1)
+void __28__SESSessionManager_connect__block_invoke_559(uint64_t a1, uint64_t a2)
 {
-  v2 = SESDefaultLogObject();
-  if (os_log_type_enabled(v2, OS_LOG_TYPE_INFO))
+  v3 = SESDefaultLogObject();
+  if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
-    *v4 = 0;
-    _os_log_impl(&dword_1C7B9A000, v2, OS_LOG_TYPE_INFO, "Connection invalidated", v4, 2u);
+    *v5 = 0;
+    _os_log_impl(&dword_1C7B9A000, v3, OS_LOG_TYPE_INFO, "Connection invalidated", v5, 2u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -475,40 +459,38 @@ void __28__SESSessionManager_connect__block_invoke_559(uint64_t a1)
 
 - (void)connectionDidInvalidate
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   obj = self->_sessions;
   objc_sync_enter(obj);
+  v13 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
   v3 = [(NSMutableSet *)self->_sessions copy];
-  v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v4)
   {
-    v5 = *v17;
-    v6 = MEMORY[0x1E69E5148];
+    v5 = *v14;
     do
     {
-      v7 = 0;
+      v6 = 0;
       do
       {
-        if (*v17 != v5)
+        if (*v14 != v5)
         {
           objc_enumerationMutation(v3);
         }
 
-        v8 = *(*(&v16 + 1) + 8 * v7);
-        v9 = SESDefaultLogObject();
-        v10 = *v6;
-        v11 = SESCreateAndLogError();
-        [v8 didEndUnexpectedly:v11];
+        v7 = *(*(&v13 + 1) + 8 * v6);
+        v8 = SESDefaultLogObject();
+        v9 = SESCreateAndLogError();
+        [v7 didEndUnexpectedly:v9];
 
-        ++v7;
+        ++v6;
       }
 
-      while (v4 != v7);
-      v4 = [v3 countByEnumeratingWithState:&v16 objects:v20 count:16];
+      while (v4 != v6);
+      v4 = [v3 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v4);
@@ -521,12 +503,11 @@ void __28__SESSessionManager_connect__block_invoke_559(uint64_t a1)
   selfCopy->_connection = 0;
 
   objc_sync_exit(selfCopy);
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 + (id)pauseRangingForReaderIdentifier:(id)identifier durationInSec:(double)sec withAppletIdentifier:(id)appletIdentifier
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   appletIdentifierCopy = appletIdentifier;
   v9 = SESDefaultLogObject();
@@ -537,7 +518,7 @@ void __28__SESSessionManager_connect__block_invoke_559(uint64_t a1)
     *&buf[12] = 2048;
     *&buf[14] = sec;
     *&buf[22] = 2112;
-    v35 = appletIdentifierCopy;
+    v32 = appletIdentifierCopy;
     _os_log_impl(&dword_1C7B9A000, v9, OS_LOG_TYPE_INFO, "pauseRangingForReaderIdentifier %@ durationInSec %f appletIdentifier %@", buf, 0x20u);
   }
 
@@ -546,76 +527,72 @@ void __28__SESSessionManager_connect__block_invoke_559(uint64_t a1)
     *buf = 0;
     *&buf[8] = buf;
     *&buf[16] = 0x3032000000;
-    v35 = __Block_byref_object_copy__7;
-    v36 = __Block_byref_object_dispose__7;
-    v37 = 0;
+    v32 = __Block_byref_object_copy__7;
+    v33 = __Block_byref_object_dispose__7;
+    v34 = 0;
+    v25 = 0;
+    v26 = &v25;
+    v27 = 0x2020000000;
     v28 = 0;
-    v29 = &v28;
-    v30 = 0x2020000000;
-    v31 = 0;
-    v13 = +[SESSessionManager sharedInstance];
-    v27[0] = MEMORY[0x1E69E9820];
-    v27[1] = 3221225472;
-    v27[2] = __88__SESSessionManager_pauseRangingForReaderIdentifier_durationInSec_withAppletIdentifier___block_invoke;
-    v27[3] = &unk_1E82D1170;
-    v27[4] = buf;
-    v14 = [v13 synchronousRemoteObjectProxyWithErrorHandler:v27];
-    v15 = [MEMORY[0x1E696AD98] numberWithDouble:sec];
-    v26[0] = MEMORY[0x1E69E9820];
-    v26[1] = 3221225472;
-    v26[2] = __88__SESSessionManager_pauseRangingForReaderIdentifier_durationInSec_withAppletIdentifier___block_invoke_2;
-    v26[3] = &unk_1E82D0DF0;
-    v26[4] = &v28;
-    v26[5] = buf;
-    [v14 pauseRangingForReaderIdentifier:identifierCopy durationInSec:v15 withAppletIdentifier:appletIdentifierCopy reply:v26];
+    v12 = +[SESSessionManager sharedInstance];
+    v24[0] = MEMORY[0x1E69E9820];
+    v24[1] = 3221225472;
+    v24[2] = __88__SESSessionManager_pauseRangingForReaderIdentifier_durationInSec_withAppletIdentifier___block_invoke;
+    v24[3] = &unk_1E82D1170;
+    v24[4] = buf;
+    v13 = [v12 synchronousRemoteObjectProxyWithErrorHandler:v24];
+    v14 = [MEMORY[0x1E696AD98] numberWithDouble:sec];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __88__SESSessionManager_pauseRangingForReaderIdentifier_durationInSec_withAppletIdentifier___block_invoke_2;
+    v23[3] = &unk_1E82D0DF0;
+    v23[4] = &v25;
+    v23[5] = buf;
+    [v13 pauseRangingForReaderIdentifier:identifierCopy durationInSec:v14 withAppletIdentifier:appletIdentifierCopy reply:v23];
 
-    v16 = *&buf[8];
-    if ((v29[3] & 1) == 0 && !*(*&buf[8] + 40))
+    v15 = *&buf[8];
+    if ((v26[3] & 1) == 0 && !*(*&buf[8] + 40))
     {
-      v17 = SESDefaultLogObject();
-      v18 = *MEMORY[0x1E69E5148];
-      v19 = SESCreateAndLogError();
-      v20 = *(*&buf[8] + 40);
-      *(*&buf[8] + 40) = v19;
+      v16 = SESDefaultLogObject();
+      v17 = SESCreateAndLogError();
+      v18 = *(*&buf[8] + 40);
+      *(*&buf[8] + 40) = v17;
 
-      v16 = *&buf[8];
+      v15 = *&buf[8];
     }
 
-    v21 = *(v16 + 40);
-    if (v21)
+    v19 = *(v15 + 40);
+    if (v19)
     {
-      v22 = SESDefaultLogObject();
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      v20 = SESDefaultLogObject();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
       {
-        v23 = *(*&buf[8] + 40);
-        *v32 = 138412290;
-        v33 = v23;
-        _os_log_impl(&dword_1C7B9A000, v22, OS_LOG_TYPE_ERROR, "%@", v32, 0xCu);
+        v21 = *(*&buf[8] + 40);
+        *v29 = 138412290;
+        v30 = v21;
+        _os_log_impl(&dword_1C7B9A000, v20, OS_LOG_TYPE_ERROR, "%@", v29, 0xCu);
       }
 
-      v21 = *(*&buf[8] + 40);
+      v19 = *(*&buf[8] + 40);
     }
 
-    v12 = v21;
-    _Block_object_dispose(&v28, 8);
+    v11 = v19;
+    _Block_object_dispose(&v25, 8);
     _Block_object_dispose(buf, 8);
   }
 
   else
   {
     v10 = SESDefaultLogObject();
-    v11 = *MEMORY[0x1E69E5148];
-    v12 = SESCreateAndLogError();
+    v11 = SESCreateAndLogError();
   }
 
-  v24 = *MEMORY[0x1E69E9840];
-
-  return v12;
+  return v11;
 }
 
 + (id)resumeRangingForReaderIdentifier:(id)identifier withAppletIdentifier:(id)appletIdentifier
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   appletIdentifierCopy = appletIdentifier;
   v7 = SESDefaultLogObject();
@@ -628,68 +605,65 @@ void __28__SESSessionManager_connect__block_invoke_559(uint64_t a1)
 
   *&buf = 0;
   *(&buf + 1) = &buf;
-  v30 = 0x3032000000;
-  v31 = __Block_byref_object_copy__7;
-  v32 = __Block_byref_object_dispose__7;
-  v33 = 0;
-  v23 = 0;
-  v24 = &v23;
-  v25 = 0x2020000000;
-  v26 = 0;
+  v28 = 0x3032000000;
+  v29 = __Block_byref_object_copy__7;
+  v30 = __Block_byref_object_dispose__7;
+  v31 = 0;
+  v21 = 0;
+  v22 = &v21;
+  v23 = 0x2020000000;
+  v24 = 0;
   v8 = +[SESSessionManager sharedInstance];
-  v22[0] = MEMORY[0x1E69E9820];
-  v22[1] = 3221225472;
-  v22[2] = __75__SESSessionManager_resumeRangingForReaderIdentifier_withAppletIdentifier___block_invoke;
-  v22[3] = &unk_1E82D1170;
-  v22[4] = &buf;
-  v9 = [v8 synchronousRemoteObjectProxyWithErrorHandler:v22];
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __75__SESSessionManager_resumeRangingForReaderIdentifier_withAppletIdentifier___block_invoke_2;
-  v21[3] = &unk_1E82D0DF0;
-  v21[4] = &v23;
-  v21[5] = &buf;
-  [v9 resumeRangingForReaderIdentifier:identifierCopy withAppletIdentifier:appletIdentifierCopy reply:v21];
+  v20[0] = MEMORY[0x1E69E9820];
+  v20[1] = 3221225472;
+  v20[2] = __75__SESSessionManager_resumeRangingForReaderIdentifier_withAppletIdentifier___block_invoke;
+  v20[3] = &unk_1E82D1170;
+  v20[4] = &buf;
+  v9 = [v8 synchronousRemoteObjectProxyWithErrorHandler:v20];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __75__SESSessionManager_resumeRangingForReaderIdentifier_withAppletIdentifier___block_invoke_2;
+  v19[3] = &unk_1E82D0DF0;
+  v19[4] = &v21;
+  v19[5] = &buf;
+  [v9 resumeRangingForReaderIdentifier:identifierCopy withAppletIdentifier:appletIdentifierCopy reply:v19];
 
   v10 = *(&buf + 1);
-  if ((v24[3] & 1) == 0 && !*(*(&buf + 1) + 40))
+  if ((v22[3] & 1) == 0 && !*(*(&buf + 1) + 40))
   {
     v11 = SESDefaultLogObject();
-    v12 = *MEMORY[0x1E69E5148];
-    v13 = SESCreateAndLogError();
-    v14 = *(*(&buf + 1) + 40);
-    *(*(&buf + 1) + 40) = v13;
+    v12 = SESCreateAndLogError();
+    v13 = *(*(&buf + 1) + 40);
+    *(*(&buf + 1) + 40) = v12;
 
     v10 = *(&buf + 1);
   }
 
-  v15 = *(v10 + 40);
-  if (v15)
+  v14 = *(v10 + 40);
+  if (v14)
   {
-    v16 = SESDefaultLogObject();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v15 = SESDefaultLogObject();
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(*(&buf + 1) + 40);
-      *v27 = 138412290;
-      v28 = v17;
-      _os_log_impl(&dword_1C7B9A000, v16, OS_LOG_TYPE_ERROR, "%@", v27, 0xCu);
+      v16 = *(*(&buf + 1) + 40);
+      *v25 = 138412290;
+      v26 = v16;
+      _os_log_impl(&dword_1C7B9A000, v15, OS_LOG_TYPE_ERROR, "%@", v25, 0xCu);
     }
 
-    v15 = *(*(&buf + 1) + 40);
+    v14 = *(*(&buf + 1) + 40);
   }
 
-  v18 = v15;
-  _Block_object_dispose(&v23, 8);
+  v17 = v14;
+  _Block_object_dispose(&v21, 8);
   _Block_object_dispose(&buf, 8);
 
-  v19 = *MEMORY[0x1E69E9840];
-
-  return v18;
+  return v17;
 }
 
 + (id)getVehicleReports:(id *)reports
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   v4 = SESDefaultLogObject();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
@@ -698,68 +672,66 @@ void __28__SESSessionManager_connect__block_invoke_559(uint64_t a1)
   }
 
   *buf = 0;
-  v26 = buf;
-  v27 = 0x3032000000;
-  v28 = __Block_byref_object_copy__7;
-  v29 = __Block_byref_object_dispose__7;
-  v30 = 0;
-  v19 = 0;
-  v20 = &v19;
-  v21 = 0x3032000000;
-  v22 = __Block_byref_object_copy__7;
-  v23 = __Block_byref_object_dispose__7;
-  v24 = 0;
+  v24 = buf;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__7;
+  v27 = __Block_byref_object_dispose__7;
+  v28 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__7;
+  v21 = __Block_byref_object_dispose__7;
+  v22 = 0;
   v5 = +[SESSessionManager sharedInstance];
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __39__SESSessionManager_getVehicleReports___block_invoke;
-  v18[3] = &unk_1E82D1170;
-  v18[4] = buf;
-  v6 = [v5 synchronousRemoteObjectProxyWithErrorHandler:v18];
-  v17[0] = MEMORY[0x1E69E9820];
-  v17[1] = 3221225472;
-  v17[2] = __39__SESSessionManager_getVehicleReports___block_invoke_2;
-  v17[3] = &unk_1E82D1198;
-  v17[4] = &v19;
-  v17[5] = buf;
-  [v6 getVehicleReports:v17];
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __39__SESSessionManager_getVehicleReports___block_invoke;
+  v16[3] = &unk_1E82D1170;
+  v16[4] = buf;
+  v6 = [v5 synchronousRemoteObjectProxyWithErrorHandler:v16];
+  v15[0] = MEMORY[0x1E69E9820];
+  v15[1] = 3221225472;
+  v15[2] = __39__SESSessionManager_getVehicleReports___block_invoke_2;
+  v15[3] = &unk_1E82D1198;
+  v15[4] = &v17;
+  v15[5] = buf;
+  [v6 getVehicleReports:v15];
 
-  v7 = v26;
-  if (!v20[5] && !*(v26 + 5))
+  v7 = v24;
+  if (!v18[5] && !*(v24 + 5))
   {
     v8 = SESDefaultLogObject();
-    v9 = *MEMORY[0x1E69E5148];
-    v10 = SESCreateAndLogError();
-    v11 = *(v26 + 5);
-    *(v26 + 5) = v10;
+    v9 = SESCreateAndLogError();
+    v10 = *(v24 + 5);
+    *(v24 + 5) = v9;
 
-    v7 = v26;
+    v7 = v24;
   }
 
   if (*(v7 + 5))
   {
-    v12 = SESDefaultLogObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    v11 = SESDefaultLogObject();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
-      v13 = *(v26 + 5);
-      *v31 = 138412290;
-      v32 = v13;
-      _os_log_impl(&dword_1C7B9A000, v12, OS_LOG_TYPE_ERROR, "%@", v31, 0xCu);
+      v12 = *(v24 + 5);
+      *v29 = 138412290;
+      v30 = v12;
+      _os_log_impl(&dword_1C7B9A000, v11, OS_LOG_TYPE_ERROR, "%@", v29, 0xCu);
     }
   }
 
   if (reports)
   {
-    *reports = *(v26 + 5);
+    *reports = *(v24 + 5);
   }
 
-  v14 = v20[5];
-  _Block_object_dispose(&v19, 8);
+  v13 = v18[5];
+  _Block_object_dispose(&v17, 8);
 
   _Block_object_dispose(buf, 8);
-  v15 = *MEMORY[0x1E69E9840];
 
-  return v14;
+  return v13;
 }
 
 void __39__SESSessionManager_getVehicleReports___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -776,9 +748,83 @@ void __39__SESSessionManager_getVehicleReports___block_invoke_2(uint64_t a1, voi
   *(v9 + 40) = v6;
 }
 
++ (BOOL)registerCarKeyAppForLaunch:(BOOL)launch error:(id *)error
+{
+  launchCopy = launch;
+  v31 = *MEMORY[0x1E69E9840];
+  v6 = SESDefaultLogObject();
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  {
+    *buf = 67109120;
+    *&buf[4] = launchCopy;
+    _os_log_impl(&dword_1C7B9A000, v6, OS_LOG_TYPE_INFO, "registerCarKeyAppForLaunch %d", buf, 8u);
+  }
+
+  *buf = 0;
+  v26 = buf;
+  v27 = 0x3032000000;
+  v28 = __Block_byref_object_copy__7;
+  v29 = __Block_byref_object_dispose__7;
+  v30 = 0;
+  v19 = 0;
+  v20 = &v19;
+  v21 = 0x2020000000;
+  v22 = 0;
+  v7 = +[SESSessionManager sharedInstance];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __54__SESSessionManager_registerCarKeyAppForLaunch_error___block_invoke;
+  v18[3] = &unk_1E82D1170;
+  v18[4] = buf;
+  v8 = [v7 synchronousRemoteObjectProxyWithErrorHandler:v18];
+  v17[0] = MEMORY[0x1E69E9820];
+  v17[1] = 3221225472;
+  v17[2] = __54__SESSessionManager_registerCarKeyAppForLaunch_error___block_invoke_2;
+  v17[3] = &unk_1E82D0DF0;
+  v17[4] = &v19;
+  v17[5] = buf;
+  [v8 registerCarKeyAppForLaunch:launchCopy reply:v17];
+
+  v9 = v26;
+  if ((v20[3] & 1) == 0 && !*(v26 + 5))
+  {
+    v10 = SESDefaultLogObject();
+    v11 = SESCreateAndLogError();
+    v12 = *(v26 + 5);
+    *(v26 + 5) = v11;
+
+    v9 = v26;
+  }
+
+  if (*(v9 + 5))
+  {
+    v13 = SESDefaultLogObject();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    {
+      v14 = *(v26 + 5);
+      *v23 = 138412290;
+      v24 = v14;
+      _os_log_impl(&dword_1C7B9A000, v13, OS_LOG_TYPE_ERROR, "%@", v23, 0xCu);
+    }
+
+    v9 = v26;
+    if (error)
+    {
+      *error = *(v26 + 5);
+      v9 = v26;
+    }
+  }
+
+  v15 = *(v9 + 5) == 0;
+  _Block_object_dispose(&v19, 8);
+  _Block_object_dispose(buf, 8);
+
+  return v15;
+}
+
 - (id)startDCKAssertionForKeyIdentifier:(id)identifier withOptions:(id)options error:(id *)error
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   optionsCopy = options;
   v10 = SESDefaultLogObject();
@@ -795,25 +841,25 @@ void __39__SESSessionManager_getVehicleReports___block_invoke_2(uint64_t a1, voi
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v30 = __Block_byref_object_copy__7;
-  v31 = __Block_byref_object_dispose__7;
-  v32 = 0;
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __73__SESSessionManager_startDCKAssertionForKeyIdentifier_withOptions_error___block_invoke;
-  v28[3] = &unk_1E82D1170;
-  v28[4] = buf;
-  v12 = [(SESSessionManager *)self synchronousRemoteObjectProxyWithErrorHandler:v28];
+  v28 = __Block_byref_object_copy__7;
+  v29 = __Block_byref_object_dispose__7;
+  v30 = 0;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __73__SESSessionManager_startDCKAssertionForKeyIdentifier_withOptions_error___block_invoke;
+  v26[3] = &unk_1E82D1170;
+  v26[4] = buf;
+  v12 = [(SESSessionManager *)self synchronousRemoteObjectProxyWithErrorHandler:v26];
   keyIdentifier = [(SESDCKAssertion *)v11 keyIdentifier];
   appletIdentifier = [(SESDCKAssertion *)v11 appletIdentifier];
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __73__SESSessionManager_startDCKAssertionForKeyIdentifier_withOptions_error___block_invoke_585;
-  v25[3] = &unk_1E82D1498;
-  v27 = buf;
+  v23[0] = MEMORY[0x1E69E9820];
+  v23[1] = 3221225472;
+  v23[2] = __73__SESSessionManager_startDCKAssertionForKeyIdentifier_withOptions_error___block_invoke_585;
+  v23[3] = &unk_1E82D1498;
+  v25 = buf;
   v15 = v11;
-  v26 = v15;
-  [v12 startSESAssertion:v15 withKeyIdentifier:keyIdentifier withAppletIdentifier:appletIdentifier withOptions:optionsCopy completion:v25];
+  v24 = v15;
+  [v12 startSESAssertion:v15 withKeyIdentifier:keyIdentifier withAppletIdentifier:appletIdentifier withOptions:optionsCopy completion:v23];
 
   v16 = *&buf[8];
   if (v15 || *(*&buf[8] + 40))
@@ -826,11 +872,10 @@ void __39__SESSessionManager_getVehicleReports___block_invoke_2(uint64_t a1, voi
     goto LABEL_6;
   }
 
-  v21 = SESDefaultLogObject();
-  v22 = *MEMORY[0x1E69E5148];
-  v23 = SESCreateAndLogError();
-  v24 = *(*&buf[8] + 40);
-  *(*&buf[8] + 40) = v23;
+  v20 = SESDefaultLogObject();
+  v21 = SESCreateAndLogError();
+  v22 = *(*&buf[8] + 40);
+  *(*&buf[8] + 40) = v21;
 
   v16 = *&buf[8];
   if (error)
@@ -854,34 +899,31 @@ LABEL_7:
   v18 = v17;
 
   _Block_object_dispose(buf, 8);
-  v19 = *MEMORY[0x1E69E9840];
 
   return v18;
 }
 
 void __73__SESSessionManager_startDCKAssertionForKeyIdentifier_withOptions_error___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
     v5 = SESDefaultLogObject();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v4;
-      _os_log_impl(&dword_1C7B9A000, v5, OS_LOG_TYPE_ERROR, "Failed to get proxy %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_1C7B9A000, v5, OS_LOG_TYPE_ERROR, "Failed to get proxy %@", &v6, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __73__SESSessionManager_startDCKAssertionForKeyIdentifier_withOptions_error___block_invoke_585(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = SESDefaultLogObject();
@@ -890,9 +932,9 @@ void __73__SESSessionManager_startDCKAssertionForKeyIdentifier_withOptions_error
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v6;
-      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_ERROR, "Proxy error %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v6;
+      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_ERROR, "Proxy error %@", &v10, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
@@ -903,15 +945,13 @@ void __73__SESSessionManager_startDCKAssertionForKeyIdentifier_withOptions_error
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v9 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_INFO, "Started new SESDCKAssertion %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_INFO, "Started new SESDCKAssertion %@", &v10, 0xCu);
     }
 
     [*(a1 + 32) setProxy:v5];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 + (id)requestAssertionForKeyID:(id)d withAppletID:(id)iD withOptions:(id)options error:(id *)error
@@ -935,7 +975,7 @@ void __73__SESSessionManager_startDCKAssertionForKeyIdentifier_withOptions_error
 
 - (id)startAssertionForKeyIdentifier:(id)identifier withAppletIdentifier:(id)appletIdentifier withOptions:(id)options error:(id *)error
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   identifierCopy = identifier;
   appletIdentifierCopy = appletIdentifier;
   optionsCopy = options;
@@ -947,7 +987,7 @@ void __73__SESSessionManager_startDCKAssertionForKeyIdentifier_withOptions_error
     *&buf[12] = 2112;
     *&buf[14] = appletIdentifierCopy;
     *&buf[22] = 2112;
-    v33 = optionsCopy;
+    v31 = optionsCopy;
     _os_log_impl(&dword_1C7B9A000, v13, OS_LOG_TYPE_INFO, "startAssertionForKeyIdentifier %@ appletIdentifier %@ options %@", buf, 0x20u);
   }
 
@@ -955,25 +995,25 @@ void __73__SESSessionManager_startDCKAssertionForKeyIdentifier_withOptions_error
   *buf = 0;
   *&buf[8] = buf;
   *&buf[16] = 0x3032000000;
-  v33 = __Block_byref_object_copy__7;
-  v34 = __Block_byref_object_dispose__7;
-  v35 = 0;
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __91__SESSessionManager_startAssertionForKeyIdentifier_withAppletIdentifier_withOptions_error___block_invoke;
-  v31[3] = &unk_1E82D1170;
-  v31[4] = buf;
-  v15 = [(SESSessionManager *)self synchronousRemoteObjectProxyWithErrorHandler:v31];
+  v31 = __Block_byref_object_copy__7;
+  v32 = __Block_byref_object_dispose__7;
+  v33 = 0;
+  v29[0] = MEMORY[0x1E69E9820];
+  v29[1] = 3221225472;
+  v29[2] = __91__SESSessionManager_startAssertionForKeyIdentifier_withAppletIdentifier_withOptions_error___block_invoke;
+  v29[3] = &unk_1E82D1170;
+  v29[4] = buf;
+  v15 = [(SESSessionManager *)self synchronousRemoteObjectProxyWithErrorHandler:v29];
   keyIdentifier = [(SESAssertion *)v14 keyIdentifier];
   appletIdentifier = [(SESAssertion *)v14 appletIdentifier];
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __91__SESSessionManager_startAssertionForKeyIdentifier_withAppletIdentifier_withOptions_error___block_invoke_591;
-  v28[3] = &unk_1E82D1498;
-  v30 = buf;
+  v26[0] = MEMORY[0x1E69E9820];
+  v26[1] = 3221225472;
+  v26[2] = __91__SESSessionManager_startAssertionForKeyIdentifier_withAppletIdentifier_withOptions_error___block_invoke_591;
+  v26[3] = &unk_1E82D1498;
+  v28 = buf;
   v18 = v14;
-  v29 = v18;
-  [v15 startSESAssertion:v18 withKeyIdentifier:keyIdentifier withAppletIdentifier:appletIdentifier withOptions:optionsCopy completion:v28];
+  v27 = v18;
+  [v15 startSESAssertion:v18 withKeyIdentifier:keyIdentifier withAppletIdentifier:appletIdentifier withOptions:optionsCopy completion:v26];
 
   v19 = *&buf[8];
   if (v18 || *(*&buf[8] + 40))
@@ -986,11 +1026,10 @@ void __73__SESSessionManager_startDCKAssertionForKeyIdentifier_withOptions_error
     goto LABEL_6;
   }
 
-  v24 = SESDefaultLogObject();
-  v25 = *MEMORY[0x1E69E5148];
-  v26 = SESCreateAndLogError();
-  v27 = *(*&buf[8] + 40);
-  *(*&buf[8] + 40) = v26;
+  v23 = SESDefaultLogObject();
+  v24 = SESCreateAndLogError();
+  v25 = *(*&buf[8] + 40);
+  *(*&buf[8] + 40) = v24;
 
   v19 = *&buf[8];
   if (error)
@@ -1014,34 +1053,31 @@ LABEL_7:
   v21 = v20;
 
   _Block_object_dispose(buf, 8);
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }
 
 void __91__SESSessionManager_startAssertionForKeyIdentifier_withAppletIdentifier_withOptions_error___block_invoke(uint64_t a1, void *a2)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
     v5 = SESDefaultLogObject();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = 138412290;
-      v8 = v4;
-      _os_log_impl(&dword_1C7B9A000, v5, OS_LOG_TYPE_ERROR, "Failed to get proxy %@", &v7, 0xCu);
+      v6 = 138412290;
+      v7 = v4;
+      _os_log_impl(&dword_1C7B9A000, v5, OS_LOG_TYPE_ERROR, "Failed to get proxy %@", &v6, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 32) + 8) + 40), a2);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 void __91__SESSessionManager_startAssertionForKeyIdentifier_withAppletIdentifier_withOptions_error___block_invoke_591(uint64_t a1, void *a2, void *a3)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = SESDefaultLogObject();
@@ -1050,9 +1086,9 @@ void __91__SESSessionManager_startAssertionForKeyIdentifier_withAppletIdentifier
   {
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v11 = 138412290;
-      v12 = v6;
-      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_ERROR, "Proxy error %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v6;
+      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_ERROR, "Proxy error %@", &v10, 0xCu);
     }
 
     objc_storeStrong((*(*(a1 + 40) + 8) + 40), a3);
@@ -1063,15 +1099,13 @@ void __91__SESSessionManager_startAssertionForKeyIdentifier_withAppletIdentifier
     if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
     {
       v9 = *(a1 + 32);
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_INFO, "Started new SESAssertion %@", &v11, 0xCu);
+      v10 = 138412290;
+      v11 = v9;
+      _os_log_impl(&dword_1C7B9A000, v8, OS_LOG_TYPE_INFO, "Started new SESAssertion %@", &v10, 0xCu);
     }
 
     [*(a1 + 32) setProxy:v5];
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (id)remoteObjectProxyWithErrorHandler:(id)handler
@@ -1089,9 +1123,8 @@ void __91__SESSessionManager_startAssertionForKeyIdentifier_withAppletIdentifier
   else
   {
     v8 = SESDefaultLogObject();
-    v9 = *MEMORY[0x1E69E5148];
-    v10 = SESCreateAndLogError();
-    handlerCopy[2](handlerCopy, v10);
+    v9 = SESCreateAndLogError();
+    handlerCopy[2](handlerCopy, v9);
 
     v7 = 0;
   }
@@ -1116,9 +1149,8 @@ void __91__SESSessionManager_startAssertionForKeyIdentifier_withAppletIdentifier
   else
   {
     v8 = SESDefaultLogObject();
-    v9 = *MEMORY[0x1E69E5148];
-    v10 = SESCreateAndLogError();
-    handlerCopy[2](handlerCopy, v10);
+    v9 = SESCreateAndLogError();
+    handlerCopy[2](handlerCopy, v9);
 
     v7 = 0;
   }

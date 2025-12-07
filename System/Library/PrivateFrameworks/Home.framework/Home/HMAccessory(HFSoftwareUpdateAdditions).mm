@@ -1,4 +1,5 @@
 @interface HMAccessory(HFSoftwareUpdateAdditions)
+- (BOOL)hf_supportsSoftwareUpdate;
 - (id)hf_fetchAvailableSoftwareUpdateWithOptions:()HFSoftwareUpdateAdditions;
 - (id)hf_softwareUpdateDependentClasses;
 - (id)hf_softwareUpdateDependentObjects;
@@ -22,12 +23,11 @@
 - (uint64_t)hf_isSoftwareUpdateInstalled;
 - (uint64_t)hf_softwareUpdateDownloadSize;
 - (uint64_t)hf_softwareUpdatePossessesNecessaryDocumentation;
-- (uint64_t)hf_supportsSoftwareUpdate;
 @end
 
 @implementation HMAccessory(HFSoftwareUpdateAdditions)
 
-- (uint64_t)hf_supportsSoftwareUpdate
+- (BOOL)hf_supportsSoftwareUpdate
 {
   if ([self supportsSoftwareUpdateV2])
   {
@@ -252,17 +252,15 @@
 
 - (id)hf_softwareUpdateDependentClasses
 {
-  v6[2] = *MEMORY[0x277D85DE8];
+  v5[2] = *MEMORY[0x277D85DE8];
   v2 = objc_opt_new();
   if (([self supportsSoftwareUpdateV2] & 1) == 0)
   {
-    v6[0] = objc_opt_class();
-    v6[1] = objc_opt_class();
-    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v6 count:2];
+    v5[0] = objc_opt_class();
+    v5[1] = objc_opt_class();
+    v3 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:2];
     [v2 addObjectsFromArray:v3];
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 
   return v2;
 }

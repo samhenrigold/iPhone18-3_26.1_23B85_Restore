@@ -35,21 +35,21 @@
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFVentObservable.ventService(_:didUpdateCurrentIndex:)();
+  CAFVentObservable.ventService(_:didUpdateCurrentIndex:)(selfCopy, index);
 }
 
 - (void)ventService:(id)service didUpdateAutoMode:(BOOL)mode
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFVentObservable.ventService(_:didUpdateAutoMode:)();
+  CAFVentObservable.ventService(_:didUpdateAutoMode:)(selfCopy, mode);
 }
 
 - (void)ventService:(id)service didUpdateOn:(BOOL)on
 {
   serviceCopy = service;
   selfCopy = self;
-  CAFVentObservable.ventService(_:didUpdateOn:)();
+  CAFVentObservable.ventService(_:didUpdateOn:)(selfCopy, on);
 }
 
 - (void)serviceDidUpdate:(id)update characteristic:(id)characteristic fromGroupUpdate:(BOOL)groupUpdate

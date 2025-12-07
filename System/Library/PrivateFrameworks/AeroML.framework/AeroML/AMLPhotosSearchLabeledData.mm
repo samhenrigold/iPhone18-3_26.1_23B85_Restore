@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)uiSurfaceAsString:(int)string;
 - (int)StringAsUiSurface:(id)surface;
 - (int)uiSurface;
 - (unint64_t)hash;
@@ -85,6 +86,21 @@
   }
 
   self->_has = (*&self->_has & 0xFFFEFFFFFFFFFFFFLL | v3);
+}
+
+- (id)uiSurfaceAsString:(int)string
+{
+  if (string >= 4)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2782B5E40[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsUiSurface:(id)surface
@@ -1492,19 +1508,18 @@ LABEL_59:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v57 = toCopy;
+  v6 = toCopy;
   if (self->_searchSessionUUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v57;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((*&has & 0x1000000000000) != 0)
   {
-    uiSurface = self->_uiSurface;
     PBDataWriterWriteInt32Field();
-    toCopy = v57;
+    toCopy = v6;
     has = self->_has;
     if ((*&has & 0x20000000) == 0)
     {
@@ -1523,9 +1538,8 @@ LABEL_5:
     goto LABEL_5;
   }
 
-  matchedPeopleRatio = self->_matchedPeopleRatio;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x4000000) == 0)
   {
@@ -1539,9 +1553,8 @@ LABEL_6:
   }
 
 LABEL_60:
-  matchedLocationRatio = self->_matchedLocationRatio;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x100000000) == 0)
   {
@@ -1555,9 +1568,8 @@ LABEL_7:
   }
 
 LABEL_61:
-  matchedSceneRatio = self->_matchedSceneRatio;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x80000000) == 0)
   {
@@ -1571,9 +1583,8 @@ LABEL_8:
   }
 
 LABEL_62:
-  matchedSceneConfidence = self->_matchedSceneConfidence;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x40000000) == 0)
   {
@@ -1587,9 +1598,8 @@ LABEL_9:
   }
 
 LABEL_63:
-  matchedSceneBoundingBox = self->_matchedSceneBoundingBox;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x8000000) == 0)
   {
@@ -1603,9 +1613,8 @@ LABEL_10:
   }
 
 LABEL_64:
-  matchedOCRCharacterRatio = self->_matchedOCRCharacterRatio;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x10000000) == 0)
   {
@@ -1619,9 +1628,8 @@ LABEL_11:
   }
 
 LABEL_65:
-  matchedOCRImportance = self->_matchedOCRImportance;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x800000000000) == 0)
   {
@@ -1635,9 +1643,8 @@ LABEL_12:
   }
 
 LABEL_66:
-  matchedFieldsCount = self->_matchedFieldsCount;
   PBDataWriterWriteUint32Field();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x1000000) == 0)
   {
@@ -1651,9 +1658,8 @@ LABEL_13:
   }
 
 LABEL_67:
-  l1Score = self->_l1Score;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x20000) == 0)
   {
@@ -1667,9 +1673,8 @@ LABEL_14:
   }
 
 LABEL_68:
-  freshness = self->_freshness;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x4000000000000) == 0)
   {
@@ -1683,9 +1688,8 @@ LABEL_15:
   }
 
 LABEL_69:
-  favorited = self->_favorited;
   PBDataWriterWriteBOOLField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 1) == 0)
   {
@@ -1699,9 +1703,8 @@ LABEL_16:
   }
 
 LABEL_70:
-  aestheticScore = self->_aestheticScore;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x10000) == 0)
   {
@@ -1715,9 +1718,8 @@ LABEL_17:
   }
 
 LABEL_71:
-  curationScore = self->_curationScore;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x80000) == 0)
   {
@@ -1731,9 +1733,8 @@ LABEL_18:
   }
 
 LABEL_72:
-  hasEverClickInLastWeek = self->_hasEverClickInLastWeek;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x40000) == 0)
   {
@@ -1747,9 +1748,8 @@ LABEL_19:
   }
 
 LABEL_73:
-  hasEverClickInLastMonth = self->_hasEverClickInLastMonth;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x200000) == 0)
   {
@@ -1763,9 +1763,8 @@ LABEL_20:
   }
 
 LABEL_74:
-  hasEverShareInLastWeek = self->_hasEverShareInLastWeek;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x100000) == 0)
   {
@@ -1779,9 +1778,8 @@ LABEL_21:
   }
 
 LABEL_75:
-  hasEverShareInLastMonth = self->_hasEverShareInLastMonth;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x4000) == 0)
   {
@@ -1795,9 +1793,8 @@ LABEL_22:
   }
 
 LABEL_76:
-  clickCountInLastWeekNormalizedAcrossItems = self->_clickCountInLastWeekNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x2000) == 0)
   {
@@ -1811,9 +1808,8 @@ LABEL_23:
   }
 
 LABEL_77:
-  clickCountInLastMonthNormalizedAcrossItems = self->_clickCountInLastMonthNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x100000000000) == 0)
   {
@@ -1827,9 +1823,8 @@ LABEL_24:
   }
 
 LABEL_78:
-  shareCountInLastWeekNormalizedAcrossItems = self->_shareCountInLastWeekNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x80000000000) == 0)
   {
@@ -1843,9 +1838,8 @@ LABEL_25:
   }
 
 LABEL_79:
-  shareCountInLastMonthNormalizedAcrossItems = self->_shareCountInLastMonthNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x1000) == 0)
   {
@@ -1859,9 +1853,8 @@ LABEL_26:
   }
 
 LABEL_80:
-  clickCountGivenTimeOfDayInLastWeekNormalizedAcrossItems = self->_clickCountGivenTimeOfDayInLastWeekNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x800) == 0)
   {
@@ -1875,9 +1868,8 @@ LABEL_27:
   }
 
 LABEL_81:
-  clickCountGivenTimeOfDayInLastMonthNormalizedAcrossItems = self->_clickCountGivenTimeOfDayInLastMonthNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x40) == 0)
   {
@@ -1891,9 +1883,8 @@ LABEL_28:
   }
 
 LABEL_82:
-  clickCountGivenLocationInLastWeekNormalizedAcrossItems = self->_clickCountGivenLocationInLastWeekNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x20) == 0)
   {
@@ -1907,9 +1898,8 @@ LABEL_29:
   }
 
 LABEL_83:
-  clickCountGivenLocationInLastMonthNormalizedAcrossItems = self->_clickCountGivenLocationInLastMonthNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 4) == 0)
   {
@@ -1923,9 +1913,8 @@ LABEL_30:
   }
 
 LABEL_84:
-  clickCountGivenDayCategoryInLastWeekNormalizedAcrossItems = self->_clickCountGivenDayCategoryInLastWeekNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 2) == 0)
   {
@@ -1939,9 +1928,8 @@ LABEL_31:
   }
 
 LABEL_85:
-  clickCountGivenDayCategoryInLastMonthNormalizedAcrossItems = self->_clickCountGivenDayCategoryInLastMonthNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x100) == 0)
   {
@@ -1955,9 +1943,8 @@ LABEL_32:
   }
 
 LABEL_86:
-  clickCountGivenRecencyCategoryInLastWeekNormalizedAcrossItems = self->_clickCountGivenRecencyCategoryInLastWeekNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x80) == 0)
   {
@@ -1971,9 +1958,8 @@ LABEL_33:
   }
 
 LABEL_87:
-  clickCountGivenRecencyCategoryInLastMonthNormalizedAcrossItems = self->_clickCountGivenRecencyCategoryInLastMonthNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x400) == 0)
   {
@@ -1987,9 +1973,8 @@ LABEL_34:
   }
 
 LABEL_88:
-  clickCountGivenSceneCategoryInLastWeekNormalizedAcrossItems = self->_clickCountGivenSceneCategoryInLastWeekNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x200) == 0)
   {
@@ -2003,9 +1988,8 @@ LABEL_35:
   }
 
 LABEL_89:
-  clickCountGivenSceneCategoryInLastMonthNormalizedAcrossItems = self->_clickCountGivenSceneCategoryInLastMonthNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x10) == 0)
   {
@@ -2019,9 +2003,8 @@ LABEL_36:
   }
 
 LABEL_90:
-  clickCountGivenFaceCountCategoryInLastWeekNormalizedAcrossItems = self->_clickCountGivenFaceCountCategoryInLastWeekNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 8) == 0)
   {
@@ -2035,9 +2018,8 @@ LABEL_37:
   }
 
 LABEL_91:
-  clickCountGivenFaceCountCategoryInLastMonthNormalizedAcrossItems = self->_clickCountGivenFaceCountCategoryInLastMonthNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x40000000000) == 0)
   {
@@ -2051,9 +2033,8 @@ LABEL_38:
   }
 
 LABEL_92:
-  shareCountGivenTimeOfDayInLastWeekNormalizedAcrossItems = self->_shareCountGivenTimeOfDayInLastWeekNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x20000000000) == 0)
   {
@@ -2067,9 +2048,8 @@ LABEL_39:
   }
 
 LABEL_93:
-  shareCountGivenTimeOfDayInLastMonthNormalizedAcrossItems = self->_shareCountGivenTimeOfDayInLastMonthNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x4000000000) == 0)
   {
@@ -2083,9 +2063,8 @@ LABEL_40:
   }
 
 LABEL_94:
-  shareCountGivenLocationInLastWeekNormalizedAcrossItems = self->_shareCountGivenLocationInLastWeekNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x2000000000) == 0)
   {
@@ -2099,9 +2078,8 @@ LABEL_41:
   }
 
 LABEL_95:
-  shareCountGivenLocationInLastMonthNormalizedAcrossItems = self->_shareCountGivenLocationInLastMonthNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x400000000) == 0)
   {
@@ -2115,9 +2093,8 @@ LABEL_42:
   }
 
 LABEL_96:
-  shareCountGivenDayCategoryInLastWeekNormalizedAcrossItems = self->_shareCountGivenDayCategoryInLastWeekNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x200000000) == 0)
   {
@@ -2131,9 +2108,8 @@ LABEL_43:
   }
 
 LABEL_97:
-  shareCountGivenDayCategoryInLastMonthNormalizedAcrossItems = self->_shareCountGivenDayCategoryInLastMonthNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x10000000000) == 0)
   {
@@ -2147,9 +2123,8 @@ LABEL_44:
   }
 
 LABEL_98:
-  shareCountGivenSceneCategoryInLastWeekNormalizedAcrossItems = self->_shareCountGivenSceneCategoryInLastWeekNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x8000000000) == 0)
   {
@@ -2163,9 +2138,8 @@ LABEL_45:
   }
 
 LABEL_99:
-  shareCountGivenSceneCategoryInLastMonthNormalizedAcrossItems = self->_shareCountGivenSceneCategoryInLastMonthNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x1000000000) == 0)
   {
@@ -2179,9 +2153,8 @@ LABEL_46:
   }
 
 LABEL_100:
-  shareCountGivenFaceCountCategoryInLastWeekNormalizedAcrossItems = self->_shareCountGivenFaceCountCategoryInLastWeekNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x800000000) == 0)
   {
@@ -2195,9 +2168,8 @@ LABEL_47:
   }
 
 LABEL_101:
-  shareCountGivenFaceCountCategoryInLastMonthNormalizedAcrossItems = self->_shareCountGivenFaceCountCategoryInLastMonthNormalizedAcrossItems;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x8000) == 0)
   {
@@ -2211,9 +2183,8 @@ LABEL_48:
   }
 
 LABEL_102:
-  clipScore = self->_clipScore;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x2000000000000) == 0)
   {
@@ -2227,9 +2198,8 @@ LABEL_49:
   }
 
 LABEL_103:
-  clicked = self->_clicked;
   PBDataWriterWriteBOOLField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x200000000000) == 0)
   {
@@ -2243,9 +2213,8 @@ LABEL_50:
   }
 
 LABEL_104:
-  clickOrder = self->_clickOrder;
   PBDataWriterWriteUint32Field();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x400000000000) == 0)
   {
@@ -2259,9 +2228,8 @@ LABEL_51:
   }
 
 LABEL_105:
-  itemPosition = self->_itemPosition;
   PBDataWriterWriteUint32Field();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x2000000) == 0)
   {
@@ -2275,9 +2243,8 @@ LABEL_52:
   }
 
 LABEL_106:
-  l2ModelScore = self->_l2ModelScore;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   has = self->_has;
   if ((*&has & 0x800000) == 0)
   {
@@ -2291,15 +2258,13 @@ LABEL_53:
   }
 
 LABEL_107:
-  isDuplicate = self->_isDuplicate;
   PBDataWriterWriteDoubleField();
-  toCopy = v57;
+  toCopy = v6;
   if ((*&self->_has & 0x400000) != 0)
   {
 LABEL_54:
-    isCompleteMatch = self->_isCompleteMatch;
     PBDataWriterWriteDoubleField();
-    toCopy = v57;
+    toCopy = v6;
   }
 
 LABEL_55:
@@ -4004,7 +3969,6 @@ LABEL_53:
       goto LABEL_265;
     }
 
-    v8 = *(equalCopy + 397);
     if (self->_favorited)
     {
       if ((*(equalCopy + 397) & 1) == 0)
@@ -4457,7 +4421,6 @@ LABEL_53:
   {
     if ((v7 & 0x2000000000000) != 0)
     {
-      v9 = *(equalCopy + 396);
       if (self->_clicked)
       {
         if ((*(equalCopy + 396) & 1) == 0)
@@ -4475,7 +4438,7 @@ LABEL_53:
     }
 
 LABEL_265:
-    v11 = 0;
+    v9 = 0;
     goto LABEL_266;
   }
 
@@ -4537,25 +4500,25 @@ LABEL_240:
     goto LABEL_265;
   }
 
-  v10 = *(equalCopy + 50);
+  v8 = *(equalCopy + 50);
   if ((*&has & 0x400000) != 0)
   {
-    if ((v10 & 0x400000) == 0 || self->_isCompleteMatch != *(equalCopy + 23))
+    if ((v8 & 0x400000) == 0 || self->_isCompleteMatch != *(equalCopy + 23))
     {
       goto LABEL_265;
     }
 
-    v11 = 1;
+    v9 = 1;
   }
 
   else
   {
-    v11 = (v10 & 0x400000) == 0;
+    v9 = (v8 & 0x400000) == 0;
   }
 
 LABEL_266:
 
-  return v11;
+  return v9;
 }
 
 - (unint64_t)hash

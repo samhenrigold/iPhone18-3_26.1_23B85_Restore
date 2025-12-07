@@ -15,7 +15,7 @@
 - (void)prepareForReuse
 {
   selfCopy = self;
-  sub_1000D1F1C();
+  sub_1000D1F1C(selfCopy, v2);
 }
 
 - (void)layoutSubviews
@@ -36,11 +36,12 @@
   v3 = *(&self->super.super.super.super.super.isa + OBJC_IVAR____TtC8AppStore31ProductLockupCollectionViewCell_developerTapHandler);
   if (v3)
   {
+    v4 = *&self->bottomSafeAreaDistance[OBJC_IVAR____TtC8AppStore31ProductLockupCollectionViewCell_developerTapHandler];
     selfCopy = self;
-    v5 = sub_10000827C(v3);
-    v3(v5);
+    v6 = sub_10000827C(v3, v4);
+    v3(v6);
 
-    sub_10001F63C(v3);
+    sub_10001F63C(v3, v4);
   }
 }
 

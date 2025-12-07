@@ -47,7 +47,7 @@
 
 - (void)forwardInvocation:(id)invocation
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   invocationCopy = invocation;
   if (protocol_getMethodDescription(self[16], [invocationCopy selector], 1, 1).types)
   {
@@ -56,12 +56,10 @@
 
   else
   {
-    v6.receiver = self;
-    v6.super_class = TRIXPCHandlerWrapper;
-    [(TRIXPCHandlerWrapper *)&v6 forwardInvocation:invocationCopy];
+    v5.receiver = self;
+    v5.super_class = TRIXPCHandlerWrapper;
+    [(TRIXPCHandlerWrapper *)&v5 forwardInvocation:invocationCopy];
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

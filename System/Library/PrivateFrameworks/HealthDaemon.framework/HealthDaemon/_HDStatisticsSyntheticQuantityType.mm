@@ -30,12 +30,12 @@
     self = objc_msgSendSuper2(&v16, sel__initWithCode_, [v9 code]);
     if (self)
     {
-      v11 = [v9 copy];
+      v11 = objc_msgSend_copy(v9);
       v12 = *(self + 6);
       *(self + 6) = v11;
 
       *(self + 7) = type;
-      v13 = [styleCopy copy];
+      v13 = objc_msgSend_copy(styleCopy);
       v14 = *(self + 8);
       *(self + 8) = v13;
 

@@ -41,7 +41,7 @@ void specialized VoicemailsSearchController.tableViewController(_:didChangeVoice
   v47 = type metadata accessor for MessageID.Value(0);
   __chkstk_darwin(v47);
   v5 = &v42 - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   __chkstk_darwin(v6 - 8);
   v8 = &v42 - v7;
   v9 = a1 >> 62;
@@ -229,7 +229,7 @@ uint64_t keypath_getTm@<X0>(uint64_t *a1@<X0>, uint64_t *a2@<X3>, uint64_t (*a3)
   return result;
 }
 
-uint64_t type metadata accessor for VoicemailsSearchController()
+uint64_t type metadata accessor for VoicemailsSearchController(uint64_t a1)
 {
   result = type metadata singleton initialization cache for VoicemailsSearchController;
   if (!type metadata singleton initialization cache for VoicemailsSearchController)
@@ -240,10 +240,10 @@ uint64_t type metadata accessor for VoicemailsSearchController()
   return result;
 }
 
-uint64_t type metadata completion function for VoicemailsSearchController()
+uint64_t type metadata completion function for VoicemailsSearchController(uint64_t a1)
 {
   result = type metadata accessor for Logger();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     return swift_updateClassMetadata2();
   }
@@ -417,21 +417,21 @@ void @objc UIView.applySmallClearGlassBackground()(void *a1, uint64_t a2, void (
   UIView._background.setter();
 }
 
-uint64_t UIView.applyDiscreetRegularGlassBackgroundWithTintColor(_:)()
+uint64_t UIView.applyDiscreetRegularGlassBackgroundWithTintColor(_:)(uint64_t a1)
 {
-  v0 = type metadata accessor for _Glass._GlassVariant();
-  __chkstk_darwin(v0 - 8);
-  v1 = type metadata accessor for _Glass();
-  v2 = *(v1 - 8);
-  __chkstk_darwin(v1);
-  v4 = &v7[-1] - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v1 = type metadata accessor for _Glass._GlassVariant();
+  __chkstk_darwin(v1 - 8);
+  v2 = type metadata accessor for _Glass();
+  v3 = *(v2 - 8);
+  __chkstk_darwin(v2);
+  v5 = &v8[-1] - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   static _Glass._GlassVariant.regular.getter();
   _Glass.init(_:smoothness:)();
-  v7[3] = v1;
-  v7[4] = &protocol witness table for _Glass;
-  __swift_allocate_boxed_opaque_existential_1(v7);
+  v8[3] = v2;
+  v8[4] = &protocol witness table for _Glass;
+  __swift_allocate_boxed_opaque_existential_1(v8);
   _Glass.tint(_:)();
-  (*(v2 + 8))(v4, v1);
+  (*(v3 + 8))(v5, v2);
   return UIView._background.setter();
 }
 
@@ -455,7 +455,7 @@ void @objc UIView.applyDiscreetRegularGlassBackgroundWithTintColor(_:)(void *a1,
   UIView._background.setter();
 }
 
-uint64_t UICellConfigurationState.highlightedState.getter()
+uint64_t UICellConfigurationState.highlightedState.getter(uint64_t a1)
 {
   if (UICellConfigurationState.isFocused.getter() & 1) != 0 || (UICellConfigurationState.isSelected.getter())
   {
@@ -465,11 +465,11 @@ uint64_t UICellConfigurationState.highlightedState.getter()
   return UICellConfigurationState.isHighlighted.getter();
 }
 
-uint64_t UICellConfigurationState.secondaryColor.getter()
+uint64_t UICellConfigurationState.secondaryColor.getter(uint64_t a1)
 {
   if (UICellConfigurationState.isFocused.getter() & 1) != 0 || (UICellConfigurationState.isSelected.getter() & 1) != 0 || (UICellConfigurationState.isHighlighted.getter())
   {
-    v0 = [objc_opt_self() dynamicCarFocusedPrimaryLabelColor];
+    v1 = [objc_opt_self() dynamicCarFocusedPrimaryLabelColor];
 
     return Color.init(uiColor:)();
   }
@@ -481,61 +481,61 @@ uint64_t UICellConfigurationState.secondaryColor.getter()
   }
 }
 
-uint64_t UICellConfigurationState.secondaryBlendMode.getter@<X0>(uint64_t a1@<X8>)
+uint64_t UICellConfigurationState.secondaryBlendMode.getter@<X0>(uint64_t a2@<X8>)
 {
   if (UICellConfigurationState.isFocused.getter() & 1) != 0 || (UICellConfigurationState.isSelected.getter() & 1) != 0 || (UICellConfigurationState.isHighlighted.getter())
   {
-    v2 = UICellConfigurationState.traitCollection.getter();
-    v3 = [v2 userInterfaceStyle];
+    v3 = UICellConfigurationState.traitCollection.getter();
+    v4 = [v3 userInterfaceStyle];
 
-    v4 = type metadata accessor for BlendMode();
-    v5 = *(*(v4 - 8) + 104);
-    if (v3 == 2)
+    v5 = type metadata accessor for BlendMode();
+    v6 = *(*(v5 - 8) + 104);
+    if (v4 == 2)
     {
 LABEL_5:
-      v6 = &enum case for BlendMode.plusDarker(_:);
+      v7 = &enum case for BlendMode.plusDarker(_:);
       goto LABEL_8;
     }
   }
 
   else
   {
-    v7 = UICellConfigurationState.traitCollection.getter();
-    v8 = [v7 userInterfaceStyle];
+    v8 = UICellConfigurationState.traitCollection.getter();
+    v9 = [v8 userInterfaceStyle];
 
-    v4 = type metadata accessor for BlendMode();
-    v5 = *(*(v4 - 8) + 104);
-    if (v8 != 2)
+    v5 = type metadata accessor for BlendMode();
+    v6 = *(*(v5 - 8) + 104);
+    if (v9 != 2)
     {
       goto LABEL_5;
     }
   }
 
-  v6 = &enum case for BlendMode.plusLighter(_:);
+  v7 = &enum case for BlendMode.plusLighter(_:);
 LABEL_8:
-  v9 = *v6;
+  v10 = *v7;
 
-  return v5(a1, v9, v4);
+  return v6(a2, v10, v5);
 }
 
-uint64_t UICellConfigurationState.backgroundConfiguration.getter()
+uint64_t UICellConfigurationState.backgroundConfiguration.getter(uint64_t a1)
 {
   static UIBackgroundConfiguration.clear()();
   if (UICellConfigurationState.isFocused.getter())
   {
-    v0 = &selRef_dynamicCarFocusedColor;
+    v1 = &selRef_dynamicCarFocusedColor;
   }
 
   else
   {
-    v0 = &selRef_dynamicCarFocusedColor;
+    v1 = &selRef_dynamicCarFocusedColor;
     if ((UICellConfigurationState.isSelected.getter() & 1) == 0 && (UICellConfigurationState.isHighlighted.getter() & 1) == 0)
     {
-      v0 = &selRef_clearColor;
+      v1 = &selRef_clearColor;
     }
   }
 
-  v1 = [objc_opt_self() *v0];
+  v2 = [objc_opt_self() *v1];
   UIBackgroundConfiguration.backgroundColor.setter();
   return UIBackgroundConfiguration.cornerRadius.setter();
 }
@@ -569,60 +569,60 @@ id static CarPlayUtilities.dateFormatter.getter()
   return v1;
 }
 
-uint64_t specialized static CarPlayUtilities.localizedDateString(for:)()
+uint64_t specialized static CarPlayUtilities.localizedDateString(for:)(uint64_t a1)
 {
-  v0 = type metadata accessor for Date();
-  v1 = *(v0 - 8);
-  __chkstk_darwin(v0);
-  v3 = &v19 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v4 = type metadata accessor for Calendar();
-  v5 = *(v4 - 8);
-  __chkstk_darwin(v4);
-  v7 = &v19 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v1 = type metadata accessor for Date();
+  v2 = *(v1 - 8);
+  __chkstk_darwin(v1);
+  v4 = &v20 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = type metadata accessor for Calendar();
+  v6 = *(v5 - 8);
+  __chkstk_darwin(v5);
+  v8 = &v20 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   static Calendar.current.getter();
   static Date.now.getter();
-  v8 = Calendar.isDate(_:inSameDayAs:)();
-  (*(v1 + 8))(v3, v0);
-  v9 = *(v5 + 8);
-  v9(v7, v4);
-  if (v8)
+  v9 = Calendar.isDate(_:inSameDayAs:)();
+  (*(v2 + 8))(v4, v1);
+  v10 = *(v6 + 8);
+  v10(v8, v5);
+  if (v9)
   {
-    v10 = 0;
     v11 = 0;
-    v12 = one-time initialization token for dateFormatter;
-    v13 = 1;
+    v12 = 0;
+    v13 = one-time initialization token for dateFormatter;
+    v14 = 1;
   }
 
   else
   {
     static Calendar.current.getter();
-    v10 = Calendar.isDateInYesterday(_:)();
-    v9(v7, v4);
-    v13 = 0;
-    v12 = one-time initialization token for dateFormatter;
-    v11 = v10;
+    v11 = Calendar.isDateInYesterday(_:)();
+    v10(v8, v5);
+    v14 = 0;
+    v13 = one-time initialization token for dateFormatter;
+    v12 = v11;
   }
 
-  if (v12 != -1)
+  if (v13 != -1)
   {
     swift_once();
-    v11 = v10;
+    v12 = v11;
   }
 
-  v14 = static CarPlayUtilities.dateFormatter;
+  v15 = static CarPlayUtilities.dateFormatter;
   [static CarPlayUtilities.dateFormatter setDateStyle:?];
-  [v14 setTimeStyle:v13];
-  [v14 setDoesRelativeDateFormatting:v11 & 1];
+  [v15 setTimeStyle:v14];
+  [v15 setDoesRelativeDateFormatting:v12 & 1];
   if (one-time initialization token for dateFormatter != -1)
   {
     swift_once();
   }
 
   isa = Date._bridgeToObjectiveC()().super.isa;
-  v16 = [v14 stringFromDate:isa];
+  v17 = [v15 stringFromDate:isa];
 
-  v17 = static String._unconditionallyBridgeFromObjectiveC(_:)();
-  return v17;
+  v18 = static String._unconditionallyBridgeFromObjectiveC(_:)();
+  return v18;
 }
 
 void *specialized _arrayConditionalCast<A, B>(_:)(uint64_t a1)
@@ -659,7 +659,7 @@ void *specialized _arrayConditionalCast<A, B>(_:)(uint64_t a1)
   return 0;
 }
 
-void *specialized _arrayConditionalCast<A, B>(_:)(unint64_t a1, void (*a2)(void))
+void *specialized _arrayConditionalCast<A, B>(_:)(unint64_t a1, uint64_t (*a2)(void))
 {
   if (a1 >> 62)
   {
@@ -745,7 +745,7 @@ char *VisualVoicemailManager.init(visualVoicemailManager:onVoicemailsChanged:)(v
 {
   ObjectType = swift_getObjectType();
   v8 = OBJC_IVAR____TtC11MobilePhone22VisualVoicemailManager_messagesChangedPublisher;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMd, &_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMR);
   swift_allocObject();
   *&v3[v8] = PassthroughSubject.init()();
   *&v3[OBJC_IVAR____TtC11MobilePhone22VisualVoicemailManager_visualVoicemailManager] = a1;
@@ -766,7 +766,7 @@ char *VisualVoicemailManager.init(visualVoicemailManager:onVoicemailsChanged:)(v
 
 uint64_t VisualVoicemailManager.listenForChanges(_:)(uint64_t a1, uint64_t a2)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = type metadata accessor for TaskPriority();
@@ -812,7 +812,7 @@ uint64_t closure #1 in VisualVoicemailManager.listenForChanges(_:)()
   *(v4 + 16) = v2;
   *(v4 + 24) = v1;
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMd, &_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMR);
   lazy protocol witness table accessor for type PassthroughSubject<VoicemailManagerMessageChanges, Never> and conformance PassthroughSubject<A, B>();
   v5 = Publisher<>.sink(receiveValue:)();
 
@@ -837,9 +837,9 @@ uint64_t partial apply for closure #1 in VisualVoicemailManager.listenForChanges
   return closure #1 in VisualVoicemailManager.listenForChanges(_:)(a1, v4, v5, v6, v7, v8);
 }
 
-uint64_t VisualVoicemailManager.voicemailsChanged(messageChanges:)(uint64_t a1, char a2)
+double VisualVoicemailManager.voicemailsChanged(messageChanges:)(uint64_t a1, char a2)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = type metadata accessor for TaskPriority();
@@ -856,6 +856,8 @@ uint64_t VisualVoicemailManager.voicemailsChanged(messageChanges:)(uint64_t a1, 
 
   v12 = v2;
   _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v7, &async function pointer to partial apply for closure #1 in VisualVoicemailManager.voicemailsChanged(messageChanges:), v11);
+
+  return result;
 }
 
 uint64_t closure #1 in VisualVoicemailManager.voicemailsChanged(messageChanges:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6)
@@ -1004,7 +1006,7 @@ LABEL_12:
 
   if (v10 >> 62)
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
     v19 = _bridgeCocoaArray<A>(_:)();
   }
 
@@ -1202,7 +1204,7 @@ uint64_t @objc closure #1 in VisualVoicemailManager.delete(_:)()
 {
   v1 = *(v0 + 32);
   *(v0 + 40) = _Block_copy(*(v0 + 24));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   *(v0 + 48) = v2;
   v3 = v1;
@@ -1359,7 +1361,7 @@ uint64_t @objc closure #1 in VisualVoicemailManager.markAsRead(_:)()
 {
   v1 = *(v0 + 32);
   *(v0 + 40) = _Block_copy(*(v0 + 24));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   *(v0 + 48) = v2;
   v3 = v1;
@@ -1528,7 +1530,7 @@ uint64_t @objc closure #1 in VisualVoicemailManager.moveToTrash(_:)()
 {
   v1 = *(v0 + 32);
   *(v0 + 40) = _Block_copy(*(v0 + 24));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   *(v0 + 48) = v2;
   v3 = v1;
@@ -1685,7 +1687,7 @@ uint64_t @objc closure #1 in VisualVoicemailManager.removeFromTrash(_:)()
 {
   v1 = *(v0 + 32);
   *(v0 + 40) = _Block_copy(*(v0 + 24));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   *(v0 + 48) = v2;
   v3 = v1;
@@ -1951,20 +1953,21 @@ uint64_t @objc closure #1 in VisualVoicemailManager.messages(filteredBy:)()
   return VisualVoicemailManager.messages(filteredBy:)(partial apply for thunk for @escaping @callee_unowned @convention(block) (@unowned Message) -> (@unowned ObjCBool), v4);
 }
 
+uint64_t @objc closure #1 in VisualVoicemailManager.messages(filteredBy:)(uint64_t a1)
 {
-  v1 = *(*v0 + 40);
-  v2 = *(*v0 + 32);
-  v6 = *v0;
+  v2 = *(*v1 + 40);
+  v3 = *(*v1 + 32);
+  v7 = *v1;
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  (v1)[2](v1, isa);
+  (v2)[2](v2, isa);
 
-  _Block_release(v1);
-  v4 = *(v6 + 8);
+  _Block_release(v2);
+  v5 = *(v7 + 8);
 
-  return v4();
+  return v5();
 }
 
 uint64_t VisualVoicemailManager.countOfUnreadMessages()()
@@ -2095,7 +2098,7 @@ LABEL_9:
 
 Swift::Void __swiftcall VisualVoicemailManager.requestInitialStateIfNecessary(sendNotifications:)(Swift::Bool sendNotifications)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v3 - 8);
   v5 = &v10 - v4;
   v6 = type metadata accessor for TaskPriority();
@@ -2135,7 +2138,7 @@ uint64_t closure #1 in VisualVoicemailManager.requestInitialStateIfNecessary(sen
 
 uint64_t protocol witness for Voicemailmanager_ChangeCallback.listenForChanges(_:) in conformance VisualVoicemailManager(uint64_t a1, uint64_t a2)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v5 - 8);
   v7 = &v15 - v6;
   v8 = *v2;
@@ -2186,9 +2189,9 @@ uint64_t protocol witness for VoicemailManager_UnreadCount.countOfUnreadMessages
   return v4(v3);
 }
 
-uint64_t VisualVoicemailManager.handleVoiceMailsChangedNotification(notification:)(uint64_t a1)
+double VisualVoicemailManager.handleVoiceMailsChangedNotification(notification:)(uint64_t a1)
 {
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v3 - 8);
   v5 = &v29 - v4;
   v6 = type metadata accessor for Notification();
@@ -2253,6 +2256,8 @@ uint64_t VisualVoicemailManager.handleVoiceMailsChangedNotification(notification
   *(v26 + 48) = 3;
   v27 = v11;
   _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v5, &closure #1 in VisualVoicemailManager.voicemailsChanged(messageChanges:)partial apply, v26);
+
+  return result;
 }
 
 Swift::Void __swiftcall VisualVoicemailManager.voicemailsDidChangeInitial(_:added:deleted:updated:)(Swift::Bool _, Swift::OpaquePointer_optional added, Swift::OpaquePointer_optional deleted, Swift::OpaquePointer_optional updated)
@@ -2260,7 +2265,7 @@ Swift::Void __swiftcall VisualVoicemailManager.voicemailsDidChangeInitial(_:adde
   rawValue = deleted.value._rawValue;
   v6 = *&added.is_nil;
   v7 = added.value._rawValue;
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v9 - 8);
   v11 = &v29 - v10;
   if (one-time initialization token for mobilePhone != -1)
@@ -2385,7 +2390,7 @@ Swift::Void __swiftcall VisualVoicemailManager.voicemailsDidChangeInitial(_:adde
   _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v11, &closure #1 in VisualVoicemailManager.voicemailsChanged(messageChanges:)partial apply, v27);
 }
 
-void VisualVoicemailManager.onlineStatusDidChange()(const char *a1)
+void VisualVoicemailManager.onlineStatusDidChange()(const char *a1, ...)
 {
   if (one-time initialization token for mobilePhone != -1)
   {
@@ -2450,9 +2455,9 @@ uint64_t closure #1 in VisualVoicemailManager.moveToTrash(_:)(uint64_t a1, uint6
   return VisualVoicemailManager.moveToTrash(_:)(a5);
 }
 
-uint64_t VisualVoicemailManager.delete(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+double VisualVoicemailManager.delete(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v6 - 8);
   v8 = &v15 - v7;
   v9 = type metadata accessor for TaskPriority();
@@ -2468,6 +2473,8 @@ uint64_t VisualVoicemailManager.delete(_:)(uint64_t a1, uint64_t a2, uint64_t a3
   v13 = v3;
 
   _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v8, a3, v12);
+
+  return result;
 }
 
 uint64_t closure #1 in VisualVoicemailManager.removeFromTrash(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -2482,12 +2489,12 @@ uint64_t closure #1 in VisualVoicemailManager.removeFromTrash(_:)(uint64_t a1, u
   return VisualVoicemailManager.removeFromTrash(_:)(a5);
 }
 
-uint64_t @objc VisualVoicemailManager.delete(_:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+double @objc VisualVoicemailManager.delete(_:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
   v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v11 = type metadata accessor for TaskPriority();
   (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
@@ -2501,6 +2508,8 @@ uint64_t @objc VisualVoicemailManager.delete(_:)(void *a1, uint64_t a2, uint64_t
   v14[5] = v10;
   v15 = a1;
   _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v9, a5, v14);
+
+  return result;
 }
 
 void VisualVoicemailManager.estimatedCount.getter()
@@ -2770,7 +2779,7 @@ unint64_t lazy protocol witness table accessor for type PassthroughSubject<Voice
   result = lazy protocol witness table cache variable for type PassthroughSubject<VoicemailManagerMessageChanges, Never> and conformance PassthroughSubject<A, B>;
   if (!lazy protocol witness table cache variable for type PassthroughSubject<VoicemailManagerMessageChanges, Never> and conformance PassthroughSubject<A, B>)
   {
-    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMd);
+    __swift_instantiateConcreteTypeFromMangledNameAbstractV2(&_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMd, &_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMR);
     result = swift_getWitnessTable();
     atomic_store(result, &lazy protocol witness table cache variable for type PassthroughSubject<VoicemailManagerMessageChanges, Never> and conformance PassthroughSubject<A, B>);
   }
@@ -2812,7 +2821,7 @@ void thunk for @escaping @callee_unowned @convention(block) @Sendable (@unowned 
 
 void thunk for @escaping @callee_unowned @convention(block) (@unowned VoicemailAccountManagerUpdate, @unowned NSUUID?) -> ()(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   __chkstk_darwin(v6 - 8);
   v8 = &v12 - v7;
   outlined init with copy of UUID?(a2, &v12 - v7);
@@ -2851,7 +2860,7 @@ uint64_t VoicemailAccountManagerDecorator.online.getter()
     v14 = v9;
     *v8 = 136315394;
     swift_unknownObjectRetain();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone26VMVoicemailManagerProtocol_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone26VMVoicemailManagerProtocol_pMd, &_s11MobilePhone26VMVoicemailManagerProtocol_pMR);
     v10 = String.init<A>(reflecting:)();
     v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, &v14);
 
@@ -2865,7 +2874,7 @@ uint64_t VoicemailAccountManagerDecorator.online.getter()
   return v3 & 1;
 }
 
-uint64_t VoicemailAccountManagerDecorator.anyAccountSubscribed.getter(const char *a1)
+uint64_t VoicemailAccountManagerDecorator.anyAccountSubscribed.getter(const char *a1, ...)
 {
   v3 = *&v1[OBJC_IVAR___MPVoicemailAccountManagerDecorator_vmd + 8];
   ObjectType = swift_getObjectType();
@@ -2888,7 +2897,7 @@ uint64_t VoicemailAccountManagerDecorator.anyAccountSubscribed.getter(const char
     v16 = v11;
     *v10 = 136315394;
     swift_unknownObjectRetain();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone26VMVoicemailManagerProtocol_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone26VMVoicemailManagerProtocol_pMd, &_s11MobilePhone26VMVoicemailManagerProtocol_pMR);
     v12 = String.init<A>(reflecting:)();
     v14 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v12, v13, &v16);
 
@@ -2925,7 +2934,7 @@ uint64_t VoicemailAccountManagerDecorator.storageUsage.getter()
     v14 = v9;
     *v8 = 136315394;
     swift_unknownObjectRetain();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone26VMVoicemailManagerProtocol_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone26VMVoicemailManagerProtocol_pMd, &_s11MobilePhone26VMVoicemailManagerProtocol_pMR);
     v10 = String.init<A>(reflecting:)();
     v12 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v10, v11, &v14);
 
@@ -2972,7 +2981,7 @@ uint64_t VoicemailAccountManagerDecorator.estimatedAccountCount.getter()
     v15 = v10;
     *v9 = 136315394;
     swift_unknownObjectRetain();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone26VMVoicemailManagerProtocol_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone26VMVoicemailManagerProtocol_pMd, &_s11MobilePhone26VMVoicemailManagerProtocol_pMR);
     v11 = String.init<A>(reflecting:)();
     v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, &v15);
 
@@ -3082,7 +3091,7 @@ LABEL_3:
 
       v27 = v46(v3, v21, v22);
       v23(v3, v24);
-      v28 = type metadata accessor for VoicemailAccount();
+      v28 = type metadata accessor for VoicemailAccount(0);
       v29 = objc_allocWithZone(v28);
       v30 = [v19 UUID];
       static UUID._unconditionallyBridgeFromObjectiveC(_:)();
@@ -3193,7 +3202,7 @@ uint64_t closure #1 in VoicemailAccountManagerDecorator.init(vmd:)(uint64_t a1, 
   v3[3] = a2;
   v3[4] = a3;
   v3[2] = a1;
-  v3[5] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone29VoicemailAccountManagerUpdateC_10Foundation4UUIDVSgtMd);
+  v3[5] = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone29VoicemailAccountManagerUpdateC_10Foundation4UUIDVSgtMd, &_s11MobilePhone29VoicemailAccountManagerUpdateC_10Foundation4UUIDVSgtMR);
   v4 = swift_task_alloc();
   v5 = OBJC_IVAR___MPVoicemailAccountManagerDecorator_updatesPublisher;
   v3[6] = v4;
@@ -3279,7 +3288,7 @@ uint64_t VoicemailAccountManagerDecorator.set(greeting:forAccountUUID:completion
 
 uint64_t VoicemailAccountManagerDecorator.listen(with:)(uint64_t a1, uint64_t a2)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v5 - 8);
   v7 = &v16 - v6;
   v8 = swift_allocObject();
@@ -3323,7 +3332,7 @@ uint64_t closure #1 in VoicemailAccountManagerDecorator.listen(with:)()
   v1 = v0[3];
   v0[2] = *(v0[4] + OBJC_IVAR___MPVoicemailAccountManagerDecorator_updatesPublisher);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy11MobilePhone29VoicemailAccountManagerUpdateC_10Foundation4UUIDVSgts5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy11MobilePhone29VoicemailAccountManagerUpdateC_10Foundation4UUIDVSgts5NeverOGMd, &_s7Combine18PassthroughSubjectCy11MobilePhone29VoicemailAccountManagerUpdateC_10Foundation4UUIDVSgts5NeverOGMR);
   lazy protocol witness table accessor for type PassthroughSubject<(VoicemailAccountManagerUpdate, UUID?), Never> and conformance PassthroughSubject<A, B>();
   v2 = Publisher<>.sink(receiveValue:)();
 
@@ -3347,16 +3356,16 @@ uint64_t protocol witness for VMVoicemailManagerProtocol.delegate.setter in conf
   return swift_unknownObjectRelease();
 }
 
-uint64_t (*protocol witness for VMVoicemailManagerProtocol.delegate.modify in conformance VMVoicemailManager(void *a1))(uint64_t a1)
+uint64_t (*protocol witness for VMVoicemailManagerProtocol.delegate.modify in conformance VMVoicemailManager(void *a1))(uint64_t *a1)
 {
   a1[1] = v1;
   *a1 = [v1 delegate];
   return protocol witness for VMVoicemailManagerProtocol.delegate.modify in conformance VMVoicemailManager;
 }
 
-uint64_t protocol witness for VMVoicemailManagerProtocol.delegate.modify in conformance VMVoicemailManager(uint64_t a1)
+uint64_t protocol witness for VMVoicemailManagerProtocol.delegate.modify in conformance VMVoicemailManager(uint64_t *a1)
 {
-  [*(a1 + 8) setDelegate:*a1];
+  [a1[1] setDelegate:*a1];
 
   return swift_unknownObjectRelease();
 }
@@ -3431,7 +3440,7 @@ id protocol witness for VMVoicemailManagerProtocol.minimumPasscodeLength(forAcco
   return v3;
 }
 
-uint64_t protocol witness for VMVoicemailManagerProtocol.setPasscode(_:forAccountUUID:completion:) in conformance VMVoicemailManager(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+double protocol witness for VMVoicemailManagerProtocol.setPasscode(_:forAccountUUID:completion:) in conformance VMVoicemailManager(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
   v6 = v5;
   v9 = String._bridgeToObjectiveC()();
@@ -3446,6 +3455,8 @@ uint64_t protocol witness for VMVoicemailManagerProtocol.setPasscode(_:forAccoun
 
   [v6 setPasscode:v9 forAccountUUID:isa completion:v11];
   _Block_release(v11);
+
+  return result;
 }
 
 double protocol witness for VMVoicemailManagerProtocol.maximumGreetingDuration(forAccountUUID:) in conformance VMVoicemailManager()
@@ -3458,7 +3469,7 @@ double protocol witness for VMVoicemailManagerProtocol.maximumGreetingDuration(f
   return v4;
 }
 
-uint64_t protocol witness for VMVoicemailManagerProtocol.greeting(forAccountUUID:completion:) in conformance VMVoicemailManager(uint64_t a1, uint64_t a2, uint64_t a3)
+double protocol witness for VMVoicemailManagerProtocol.greeting(forAccountUUID:completion:) in conformance VMVoicemailManager(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v4 = v3;
   isa = UUID._bridgeToObjectiveC()().super.isa;
@@ -3472,9 +3483,11 @@ uint64_t protocol witness for VMVoicemailManagerProtocol.greeting(forAccountUUID
 
   [v4 greetingForAccountUUID:isa completion:v8];
   _Block_release(v8);
+
+  return result;
 }
 
-uint64_t protocol witness for VMVoicemailManagerProtocol.setGreeting(_:forAccountUUID:completion:) in conformance VMVoicemailManager(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+double protocol witness for VMVoicemailManagerProtocol.setGreeting(_:forAccountUUID:completion:) in conformance VMVoicemailManager(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v5 = v4;
   isa = UUID._bridgeToObjectiveC()().super.isa;
@@ -3488,6 +3501,8 @@ uint64_t protocol witness for VMVoicemailManagerProtocol.setGreeting(_:forAccoun
 
   [v5 setGreeting:a1 forAccountUUID:isa completion:v10];
   _Block_release(v10);
+
+  return result;
 }
 
 uint64_t protocol witness for VoicemailBadgeCalculatorAccountManager.isAccountSubscribed(_:) in conformance VoicemailAccountManagerDecorator(uint64_t a1)
@@ -3501,7 +3516,7 @@ char *specialized VoicemailAccountManagerDecorator.init(vmd:)(void *a1)
 {
   ObjectType = swift_getObjectType();
   v4 = OBJC_IVAR___MPVoicemailAccountManagerDecorator_updatesPublisher;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy11MobilePhone29VoicemailAccountManagerUpdateC_10Foundation4UUIDVSgts5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy11MobilePhone29VoicemailAccountManagerUpdateC_10Foundation4UUIDVSgts5NeverOGMd, &_s7Combine18PassthroughSubjectCy11MobilePhone29VoicemailAccountManagerUpdateC_10Foundation4UUIDVSgts5NeverOGMR);
   swift_allocObject();
   *&v1[v4] = PassthroughSubject.init()();
   *&v1[OBJC_IVAR___MPVoicemailAccountManagerDecorator_cancellables] = _swiftEmptyArrayStorage;
@@ -3514,7 +3529,7 @@ char *specialized VoicemailAccountManagerDecorator.init(vmd:)(void *a1)
   v7 = objc_msgSendSuper2(&v32, "init");
   v8 = swift_allocObject();
   *(v8 + 16) = v7;
-  v9 = type metadata accessor for VoicemailDelegateDecorator();
+  v9 = type metadata accessor for VoicemailDelegateDecorator(0);
   v10 = objc_allocWithZone(v9);
   v11 = OBJC_IVAR____TtC11MobilePhone26VoicemailDelegateDecorator_queue;
   type metadata accessor for TaskQueue();
@@ -3646,7 +3661,7 @@ uint64_t partial apply for closure #1 in VoicemailAccountManagerDecorator.init(v
 
 uint64_t outlined destroy of (VoicemailAccountManagerUpdate, UUID?)(uint64_t a1)
 {
-  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone29VoicemailAccountManagerUpdateC_10Foundation4UUIDVSgtMd);
+  v2 = __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone29VoicemailAccountManagerUpdateC_10Foundation4UUIDVSgtMd, &_s11MobilePhone29VoicemailAccountManagerUpdateC_10Foundation4UUIDVSgtMR);
   (*(*(v2 - 8) + 8))(a1, v2);
   return a1;
 }
@@ -3710,7 +3725,7 @@ uint64_t one-time initialization function for mock()
   __chkstk_darwin(v0);
   v3 = &v9 - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0);
   UUID.init()();
-  v4 = type metadata accessor for LegacyVoicemail();
+  v4 = type metadata accessor for LegacyVoicemail(0);
   v5 = objc_allocWithZone(v4);
   (*(v1 + 16))(&v5[OBJC_IVAR___MPLegacyVoicemail_accountID], v3, v0);
   v6 = &v5[OBJC_IVAR___MPLegacyVoicemail_label];
@@ -3747,7 +3762,7 @@ id static LegacyVoicemail.mock.getter()
   return v1;
 }
 
-uint64_t type metadata accessor for LegacyVoicemail()
+uint64_t type metadata accessor for LegacyVoicemail(uint64_t a1)
 {
   result = type metadata singleton initialization cache for LegacyVoicemail;
   if (!type metadata singleton initialization cache for LegacyVoicemail)
@@ -3758,10 +3773,10 @@ uint64_t type metadata accessor for LegacyVoicemail()
   return result;
 }
 
-uint64_t type metadata completion function for LegacyVoicemail()
+uint64_t type metadata completion function for LegacyVoicemail(uint64_t a1)
 {
   result = type metadata accessor for UUID();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -3773,11 +3788,11 @@ uint64_t type metadata completion function for LegacyVoicemail()
   return result;
 }
 
-char *FaceTimeVoicemailManager.__allocating_init(logger:onVoicemailsChanged:messageStoreController:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+char *FaceTimeVoicemailManager.__allocating_init(logger:onVoicemailsChanged:messageStoreController:)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
   v9 = objc_allocWithZone(v4);
-  v10 = *(a4 + 24);
-  v11 = *(a4 + 32);
+  v10 = a4[3];
+  v11 = a4[4];
   v12 = __swift_mutable_project_boxed_opaque_existential_1(a4, v10);
   __chkstk_darwin(v12);
   v14 = &v18 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -3831,7 +3846,7 @@ Swift::Void __swiftcall VoiceMailAnalyticsLogger.logEvent(_:withCoreAnalyticsDic
     *(v7 + 12) = 2080;
     aBlock = withCoreAnalyticsDictionary._rawValue;
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSSo8NSObjectCGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSSo8NSObjectCGMd, &_sSDySSSo8NSObjectCGMR);
     v11 = String.init<A>(reflecting:)();
     v13 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v11, v12, &v17);
 
@@ -3858,14 +3873,14 @@ Swift::Void __swiftcall VoiceMailAnalyticsLogger.logEvent(_:withCoreAnalyticsDic
 uint64_t FaceTimeVoicemailManager.onVoicemailsChanged.getter()
 {
   v1 = *(v0 + OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_onVoicemailsChanged);
-  outlined copy of (@escaping @callee_guaranteed @Sendable () -> ())?(v1);
+  outlined copy of (@escaping @callee_guaranteed @Sendable () -> ())?(v1, *(v0 + OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_onVoicemailsChanged + 8));
   return v1;
 }
 
 uint64_t FaceTimeVoicemailManager.allMessagesQuery.getter@<X0>(uint64_t *a1@<X8>)
 {
   v3 = swift_allocObject();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy20FaceTimeMessageStore0fG5QueryOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy20FaceTimeMessageStore0fG5QueryOGMd, &_ss23_ContiguousArrayStorageCy20FaceTimeMessageStore0fG5QueryOGMR);
   v4 = type metadata accessor for MessageStoreQuery();
   v5 = *(v4 - 8);
   v6 = *(v5 + 72);
@@ -3887,10 +3902,10 @@ uint64_t FaceTimeVoicemailManager.allMessagesQuery.getter@<X0>(uint64_t *a1@<X8>
   v11(a1, enum case for MessageStoreQuery.and(_:), v4);
 }
 
-char *FaceTimeVoicemailManager.init(logger:onVoicemailsChanged:messageStoreController:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+char *FaceTimeVoicemailManager.init(logger:onVoicemailsChanged:messageStoreController:)(uint64_t a1, uint64_t a2, uint64_t a3, void *a4)
 {
-  v9 = *(a4 + 24);
-  v10 = *(a4 + 32);
+  v9 = a4[3];
+  v10 = a4[4];
   v11 = __swift_mutable_project_boxed_opaque_existential_1(a4, v9);
   __chkstk_darwin(v11);
   v13 = &v17 - ((v12 + 15) & 0xFFFFFFFFFFFFFFF0);
@@ -3906,7 +3921,7 @@ uint64_t closure #1 in FaceTimeVoicemailManager.init(logger:onVoicemailsChanged:
   *(v4 + 16) = a4;
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v6 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(closure #1 in FaceTimeVoicemailManager.init(logger:onVoicemailsChanged:messageStoreController:), v6, v5);
@@ -3921,10 +3936,10 @@ uint64_t closure #1 in FaceTimeVoicemailManager.init(logger:onVoicemailsChanged:
   return v1();
 }
 
-char *FaceTimeVoicemailManager.init(logger:messageStoreController:)(uint64_t a1, uint64_t a2)
+char *FaceTimeVoicemailManager.init(logger:messageStoreController:)(uint64_t a1, void *a2)
 {
   v38 = a2;
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v4 - 8);
   v37 = &v33 - v5;
   v6 = type metadata accessor for Logger();
@@ -3947,7 +3962,7 @@ char *FaceTimeVoicemailManager.init(logger:messageStoreController:)(uint64_t a1,
   *(v2 + OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_providers) = &outlined read-only object #0 of FaceTimeVoicemailManager.init(logger:messageStoreController:);
   *(v2 + OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_messageTypes) = &outlined read-only object #1 of FaceTimeVoicemailManager.init(logger:messageStoreController:);
   v14 = OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_messagesChangedPublisher;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMd, &_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMR);
   swift_allocObject();
   v15 = v2;
   *(v2 + v14) = PassthroughSubject.init()();
@@ -3976,7 +3991,7 @@ char *FaceTimeVoicemailManager.init(logger:messageStoreController:)(uint64_t a1,
   (*(v10 + 56))(v37, 1, 1, v36);
   type metadata accessor for VoicemailActor();
   inited = swift_initStaticObject();
-  v25 = _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  v25 = _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v26 = swift_allocObject();
   v26[2] = inited;
   v26[3] = v25;
@@ -4001,20 +4016,22 @@ uint64_t closure #1 in FaceTimeVoicemailManager.init(logger:messageStoreControll
   *(v4 + 16) = a4;
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v6 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(closure #1 in FaceTimeVoicemailManager.init(logger:messageStoreController:), v6, v5);
 }
 
-uint64_t FaceTimeVoicemailManager.__ivar_destroyer()
+double FaceTimeVoicemailManager.__ivar_destroyer()
 {
   v1 = OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_logger;
   v2 = type metadata accessor for Logger();
   (*(*(v2 - 8) + 8))(v0 + v1, v2);
   outlined destroy of VoiceMailAnalyticsLogger(v0 + OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_analyticsReporter);
-  outlined consume of (@escaping @callee_guaranteed () -> ())?(*(v0 + OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_onVoicemailsChanged));
-  __swift_destroy_boxed_opaque_existential_0(v0 + OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_messageStoreController);
+  outlined consume of (@escaping @callee_guaranteed () -> ())?(*(v0 + OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_onVoicemailsChanged), *(v0 + OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_onVoicemailsChanged + 8));
+  __swift_destroy_boxed_opaque_existential_0((v0 + OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_messageStoreController));
+
+  return result;
 }
 
 id FaceTimeVoicemailManager.__deallocating_deinit()
@@ -4036,14 +4053,14 @@ id FaceTimeVoicemailManager.__deallocating_deinit()
 
 uint64_t FaceTimeVoicemailManager.listenForChanges(_:)(uint64_t a1, uint64_t a2)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v5 - 8);
   v7 = &v14 - v6;
   v8 = type metadata accessor for TaskPriority();
   (*(*(v8 - 8) + 56))(v7, 1, 1, v8);
   type metadata accessor for VoicemailActor();
   inited = swift_initStaticObject();
-  v10 = _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  v10 = _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v11 = swift_allocObject();
   v11[2] = inited;
   v11[3] = v10;
@@ -4066,7 +4083,7 @@ uint64_t closure #1 in FaceTimeVoicemailManager.listenForChanges(_:)(uint64_t a1
   v6[4] = a4;
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v8 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(closure #1 in FaceTimeVoicemailManager.listenForChanges(_:), v8, v7);
@@ -4082,8 +4099,8 @@ uint64_t closure #1 in FaceTimeVoicemailManager.listenForChanges(_:)()
   *(v4 + 16) = v2;
   *(v4 + 24) = v1;
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMd);
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type PassthroughSubject<VoicemailManagerMessageChanges, Never> and conformance PassthroughSubject<A, B>, &_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMd, &_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMR);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type PassthroughSubject<VoicemailManagerMessageChanges, Never> and conformance PassthroughSubject<A, B>, &_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMd, &_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMR, &protocol conformance descriptor for PassthroughSubject<A, B>);
   v5 = Publisher<>.sink(receiveValue:)();
 
   *v3 = v5;
@@ -4092,8 +4109,9 @@ uint64_t closure #1 in FaceTimeVoicemailManager.listenForChanges(_:)()
   return v6();
 }
 
-uint64_t FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(uint64_t a1, unsigned __int8 a2)
+double FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(uint64_t a1, uint64_t a2)
 {
+  v2 = a2;
 
   v4 = Logger.logObject.getter();
   v5 = static os_log_type_t.default.getter();
@@ -4104,7 +4122,7 @@ uint64_t FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(uint64_t a1
     v7 = swift_slowAlloc();
     v14 = v7;
     *v6 = 136315138;
-    v8 = VoicemailManagerMessageChanges.description.getter(a1, a2);
+    v8 = VoicemailManagerMessageChanges.description.getter(a1, v2);
     v10 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v8, v9, &v14);
 
     *(v6 + 4) = v10;
@@ -4117,9 +4135,11 @@ uint64_t FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(uint64_t a1
   v12 = swift_allocObject();
   *(v12 + 16) = v11;
   *(v12 + 24) = a1;
-  *(v12 + 32) = a2;
+  *(v12 + 32) = v2;
 
   dispatch thunk of TaskQueue.async(_:)();
+
+  return result;
 }
 
 uint64_t closure #1 in FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(uint64_t a1, uint64_t a2, char a3)
@@ -4129,7 +4149,7 @@ uint64_t closure #1 in FaceTimeVoicemailManager.voicemailsChanged(messageChanges
   *(v3 + 64) = a2;
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v5 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(closure #1 in FaceTimeVoicemailManager.voicemailsChanged(messageChanges:), v5, v4);
@@ -4164,7 +4184,7 @@ uint64_t FaceTimeVoicemailManager.fetchMessagesFromDataStore()()
   v1[99] = v0;
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v3 = dispatch thunk of Actor.unownedExecutor.getter();
   v1[100] = v3;
   v1[101] = v2;
@@ -4173,36 +4193,13 @@ uint64_t FaceTimeVoicemailManager.fetchMessagesFromDataStore()()
 }
 
 {
-  v0[102] = OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_logger;
-  v1 = Logger.logObject.getter();
-  v2 = static os_log_type_t.default.getter();
-  if (os_log_type_enabled(v1, v2))
-  {
-    v3 = swift_slowAlloc();
-    *v3 = 0;
-    _os_log_impl(&_mh_execute_header, v1, v2, "Fetching Messages from FTMS", v3, 2u);
-  }
-
-  v4 = v0[99];
-
-  v5 = swift_allocObject();
-  v0[103] = v5;
-  *(v5 + 16) = v4;
-  v6 = v4;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScTySay20FaceTimeMessageStore0C0CGs5Error_pGMd);
-  swift_asyncLet_begin();
-
-  return _swift_asyncLet_get(v0 + 2, v0 + 87, FaceTimeVoicemailManager.fetchMessagesFromDataStore(), v0 + 82);
-}
-
-{
   v1 = v0[87];
   v0[104] = v1;
 
   v2 = swift_task_alloc();
   v0[105] = v2;
-  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay20FaceTimeMessageStore0C0CGMd);
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd);
+  v3 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay20FaceTimeMessageStore0C0CGMd, &_sSay20FaceTimeMessageStore0C0CGMR);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&_ss5Error_pMd, &_ss5Error_pMR);
   *v2 = v0;
   v2[1] = FaceTimeVoicemailManager.fetchMessagesFromDataStore();
 
@@ -4229,7 +4226,7 @@ uint64_t FaceTimeVoicemailManager.fetchMessagesFromDataStore()()
 }
 
 {
-  v13 = v0;
+  v14 = v0;
   v2 = *(v0 + 744);
 
   v3 = Logger.logObject.getter();
@@ -4264,8 +4261,8 @@ LABEL_4:
   if (v4)
   {
 LABEL_8:
-    v12 = _swiftEmptyArrayStorage;
-    v3 = &v12;
+    v13 = _swiftEmptyArrayStorage;
+    v3 = &v13;
     specialized ContiguousArray.reserveCapacity(_:)();
     if (v4 < 0)
     {
@@ -4319,17 +4316,17 @@ LABEL_19:
       if (v4 == v1)
       {
 
-        v10 = v12;
+        v11 = v13;
         goto LABEL_21;
       }
     }
   }
 
-  v10 = _swiftEmptyArrayStorage;
+  v11 = _swiftEmptyArrayStorage;
 LABEL_21:
-  *(v0 + 856) = v10;
+  *(v0 + 856) = v11;
 
-  return _swift_asyncLet_finish(v0 + 16, v0 + 696, FaceTimeVoicemailManager.fetchMessagesFromDataStore(), v0 + 752);
+  return _swift_asyncLet_finish(v0 + 16, v0 + 696, FaceTimeVoicemailManager.fetchMessagesFromDataStore(), v0 + 752, v10);
 }
 
 {
@@ -4345,10 +4342,6 @@ LABEL_21:
 }
 
 {
-  return _swift_asyncLet_finish(v0 + 16, v0 + 696, FaceTimeVoicemailManager.fetchMessagesFromDataStore(), v0 + 704);
-}
-
-{
   return (_swift_task_switch)(FaceTimeVoicemailManager.fetchMessagesFromDataStore(), *(v0 + 800), *(v0 + 808));
 }
 
@@ -4359,11 +4352,39 @@ LABEL_21:
   return v1();
 }
 
+uint64_t FaceTimeVoicemailManager.fetchMessagesFromDataStore()(__n128 a1)
+{
+  v1[102] = OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_logger;
+  v2 = Logger.logObject.getter();
+  v3 = static os_log_type_t.default.getter();
+  if (os_log_type_enabled(v2, v3))
+  {
+    v4 = swift_slowAlloc();
+    *v4 = 0;
+    _os_log_impl(&_mh_execute_header, v2, v3, "Fetching Messages from FTMS", v4, 2u);
+  }
+
+  v5 = v1[99];
+
+  v6 = swift_allocObject();
+  v1[103] = v6;
+  *(v6 + 16) = v5;
+  v7 = v5;
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScTySay20FaceTimeMessageStore0C0CGs5Error_pGMd, &_sScTySay20FaceTimeMessageStore0C0CGs5Error_pGMR);
+  swift_asyncLet_begin();
+
+  return _swift_asyncLet_get(v1 + 2, v1 + 87, FaceTimeVoicemailManager.fetchMessagesFromDataStore(), v1 + 82);
+}
+
+{
+  return _swift_asyncLet_finish(v1 + 16, v1 + 696, FaceTimeVoicemailManager.fetchMessagesFromDataStore(), v1 + 704, a1);
+}
+
 uint64_t implicit closure #1 in FaceTimeVoicemailManager.fetchMessagesFromDataStore()(uint64_t a1, uint64_t a2)
 {
   v2[2] = a1;
   v2[3] = a2;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   v2[4] = swift_task_alloc();
 
   return (_swift_task_switch)(implicit closure #1 in FaceTimeVoicemailManager.fetchMessagesFromDataStore(), 0, 0);
@@ -4418,9 +4439,9 @@ uint64_t closure #1 in implicit closure #1 in FaceTimeVoicemailManager.fetchMess
   FaceTimeVoicemailManager.allMessagesQuery.getter(*(v0 + 80));
   (*(v2 + 104))(v1, enum case for MessageStoreFetchRequest.QuerySearchType.unsorted(_:), v3);
   *(v0 + 16) = _swiftEmptyArrayStorage;
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type MessageFetchOptions and conformance MessageFetchOptions, &type metadata accessor for MessageFetchOptions);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay20FaceTimeMessageStore0C12FetchOptionsVGMd);
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [MessageFetchOptions] and conformance [A], &_sSay20FaceTimeMessageStore0C12FetchOptionsVGMd);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type MessageFetchOptions and conformance MessageFetchOptions, &type metadata accessor for MessageFetchOptions, &protocol conformance descriptor for MessageFetchOptions);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay20FaceTimeMessageStore0C12FetchOptionsVGMd, &_sSay20FaceTimeMessageStore0C12FetchOptionsVGMR);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [MessageFetchOptions] and conformance [A], &_sSay20FaceTimeMessageStore0C12FetchOptionsVGMd, &_sSay20FaceTimeMessageStore0C12FetchOptionsVGMR, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   MessageStoreFetchRequest.init(query:sortType:options:pageSize:page:originatingBundleID:)();
   v4 = *(v9 + OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_messageStoreController + 24);
@@ -4539,7 +4560,7 @@ uint64_t FaceTimeVoicemailManager.message(for:)(uint64_t a1)
   v2[18] = swift_task_alloc();
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v6 = dispatch thunk of Actor.unownedExecutor.getter();
   v2[19] = v6;
   v2[20] = v5;
@@ -4620,7 +4641,7 @@ uint64_t FaceTimeVoicemailManager.message(for:)()
   {
     v27 = *v11;
     v28 = swift_allocObject();
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5Int32VGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5Int32VGMd, &_ss23_ContiguousArrayStorageCys5Int32VGMR);
     v25 = swift_allocObject();
     *(v25 + 16) = xmmword_100209AA0;
     if (!(v27 >> 31))
@@ -4651,7 +4672,7 @@ uint64_t FaceTimeVoicemailManager.message(for:)()
   v17 = v0[12];
   (*(v13 + 32))(v12, v11, v15);
   v18 = swift_allocObject();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation4UUIDVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation4UUIDVGMd, &_ss23_ContiguousArrayStorageCy10Foundation4UUIDVGMR);
   v19 = (*(v13 + 80) + 32) & ~*(v13 + 80);
   v20 = swift_allocObject();
   *(v20 + 16) = xmmword_100209AA0;
@@ -4713,7 +4734,7 @@ LABEL_14:
       v17 = v0[12];
       (*(v13 + 32))(v12, v11, v15);
       v18 = swift_allocObject();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation4UUIDVGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy10Foundation4UUIDVGMd, &_ss23_ContiguousArrayStorageCy10Foundation4UUIDVGMR);
       v19 = (*(v13 + 80) + 32) & ~*(v13 + 80);
       v20 = swift_allocObject();
       *(v20 + 16) = xmmword_100209AA0;
@@ -4731,7 +4752,7 @@ LABEL_14:
     {
       v23 = *v11;
       v24 = swift_allocObject();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5Int32VGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCys5Int32VGMd, &_ss23_ContiguousArrayStorageCys5Int32VGMR);
       result = swift_allocObject();
       *(result + 16) = xmmword_100209AA0;
       if (v23 >> 31)
@@ -4800,7 +4821,7 @@ uint64_t FaceTimeVoicemailManager.faceTimeMessageForQuery(_:)(uint64_t a1)
   v2[17] = swift_task_alloc();
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v8 = dispatch thunk of Actor.unownedExecutor.getter();
   v2[18] = v8;
   v2[19] = v7;
@@ -4840,14 +4861,14 @@ uint64_t FaceTimeVoicemailManager.faceTimeMessageForQuery(_:)()
   v0[20] = v4;
   v0[21] = (v1 + 16) & 0xFFFFFFFFFFFFLL | 0xE3BA000000000000;
   v4();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy20FaceTimeMessageStore0F12FetchOptionsVGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy20FaceTimeMessageStore0F12FetchOptionsVGMd, &_ss23_ContiguousArrayStorageCy20FaceTimeMessageStore0F12FetchOptionsVGMR);
   v5 = swift_allocObject();
   *(v5 + 16) = xmmword_100209AA0;
   static MessageFetchOptions.includeProtectedApps.getter();
   v0[2] = v5;
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type MessageFetchOptions and conformance MessageFetchOptions, &type metadata accessor for MessageFetchOptions);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay20FaceTimeMessageStore0C12FetchOptionsVGMd);
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [MessageFetchOptions] and conformance [A], &_sSay20FaceTimeMessageStore0C12FetchOptionsVGMd);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type MessageFetchOptions and conformance MessageFetchOptions, &type metadata accessor for MessageFetchOptions, &protocol conformance descriptor for MessageFetchOptions);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay20FaceTimeMessageStore0C12FetchOptionsVGMd, &_sSay20FaceTimeMessageStore0C12FetchOptionsVGMR);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [MessageFetchOptions] and conformance [A], &_sSay20FaceTimeMessageStore0C12FetchOptionsVGMd, &_sSay20FaceTimeMessageStore0C12FetchOptionsVGMR, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   (*(v3 + 104))(v2, enum case for MessageStoreFetchRequest.QuerySearchType.unsorted(_:), v11);
   MessageStoreFetchRequest.init(query:sortType:options:pageSize:page:originatingBundleID:)();
@@ -4913,7 +4934,7 @@ LABEL_3:
   v9 = dispatch thunk of Message.messageType.getter();
   if (specialized Sequence<>.contains(_:)(v9, v8))
   {
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCyyXlGMd, &_ss23_ContiguousArrayStorageCyyXlGMR);
     v10 = swift_allocObject();
     *(v10 + 16) = xmmword_100209A80;
     *(v10 + 32) = v7;
@@ -4951,7 +4972,7 @@ LABEL_11:
     v20 = swift_slowAlloc();
     v21 = v20;
     *v11 = 136446466;
-    _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type MessageStoreQuery and conformance MessageStoreQuery, &type metadata accessor for MessageStoreQuery);
+    _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type MessageStoreQuery and conformance MessageStoreQuery, &type metadata accessor for MessageStoreQuery, &protocol conformance descriptor for MessageStoreQuery);
     v12 = dispatch thunk of CustomStringConvertible.description.getter();
     v14 = v13;
     (*(v9 + 8))(v8, v10);
@@ -4987,7 +5008,7 @@ uint64_t @objc closure #1 in FaceTimeVoicemailManager.message(for:)(uint64_t a1,
   v3[2] = a1;
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v5 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(@objc closure #1 in FaceTimeVoicemailManager.message(for:), v5, v4);
@@ -5109,7 +5130,7 @@ LABEL_16:
     }
   }
 
-  FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(_swiftEmptyArrayStorage, 1u);
+  FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(_swiftEmptyArrayStorage, 1);
 }
 
 void MessageStoreDelegate.manager.didset()
@@ -5167,7 +5188,7 @@ uint64_t closure #1 in MessageStoreDelegate.messageStoreDidAddMessages(_:)(uint6
   v5[7] = swift_task_alloc();
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v9 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(closure #1 in MessageStoreDelegate.messageStoreDidAddMessages(_:), v9, v8);
@@ -5240,7 +5261,7 @@ uint64_t closure #1 in MessageStoreDelegate.messageStoreDidUpdateMessages(_:)(ui
   v5[7] = swift_task_alloc();
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v9 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(closure #1 in MessageStoreDelegate.messageStoreDidUpdateMessages(_:), v9, v8);
@@ -5301,9 +5322,9 @@ void closure #1 in MessageStoreDelegate.messageStoreDidUpdateMessages(_:)()
   v20();
 }
 
-uint64_t @objc MessageStoreDelegate.messageStoreDidAddMessages(_:)(uint64_t a1, uint64_t a2, uint64_t a3, void (*a4)(void), uint64_t a5, uint64_t a6)
+double @objc MessageStoreDelegate.messageStoreDidAddMessages(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t (*a4)(void), uint64_t a5, uint64_t a6)
 {
-  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v9 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v9 - 8);
   v11 = &v18 - v10;
   a4(0);
@@ -5312,7 +5333,7 @@ uint64_t @objc MessageStoreDelegate.messageStoreDidAddMessages(_:)(uint64_t a1, 
   (*(*(v13 - 8) + 56))(v11, 1, 1, v13);
   type metadata accessor for VoicemailActor();
   inited = swift_initStaticObject();
-  v15 = _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  v15 = _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v16 = swift_allocObject();
   v16[2] = inited;
   v16[3] = v15;
@@ -5320,6 +5341,8 @@ uint64_t @objc MessageStoreDelegate.messageStoreDidAddMessages(_:)(uint64_t a1, 
   v16[5] = v12;
 
   _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v11, a6, v16);
+
+  return result;
 }
 
 uint64_t closure #1 in MessageStoreDelegate.messageStoreDidDeleteMessages(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -5334,7 +5357,7 @@ uint64_t closure #1 in MessageStoreDelegate.messageStoreDidDeleteMessages(_:)(ui
   v5[7] = swift_task_alloc();
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v9 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(closure #1 in MessageStoreDelegate.messageStoreDidDeleteMessages(_:), v9, v8);
@@ -5407,7 +5430,7 @@ uint64_t closure #1 in MessageStoreDelegate.messageStoreDidDeleteMessagesWithUUI
   v5[7] = swift_task_alloc();
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v9 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(closure #1 in MessageStoreDelegate.messageStoreDidDeleteMessagesWithUUIDs(_:), v9, v8);
@@ -5468,7 +5491,7 @@ void closure #1 in MessageStoreDelegate.messageStoreDidDeleteMessagesWithUUIDs(_
   v20();
 }
 
-uint64_t FaceTimeVoicemailManager.messageStoreDidAddMessages(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+double FaceTimeVoicemailManager.messageStoreDidAddMessages(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   v13[1] = a3;
   v5 = type metadata accessor for Logger();
@@ -5486,6 +5509,8 @@ uint64_t FaceTimeVoicemailManager.messageStoreDidAddMessages(_:)(uint64_t a1, ui
   *(v11 + ((v7 + v10 + 7) & 0xFFFFFFFFFFFFFFF8)) = a1;
 
   dispatch thunk of TaskQueue.async(_:)();
+
+  return result;
 }
 
 uint64_t closure #1 in MessageStoreDelegate.messageStoreDidReconnect()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -5499,7 +5524,7 @@ uint64_t closure #1 in MessageStoreDelegate.messageStoreDidReconnect()(uint64_t 
   v4[6] = swift_task_alloc();
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v8 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(closure #1 in MessageStoreDelegate.messageStoreDidReconnect(), v8, v7);
@@ -5556,22 +5581,24 @@ void closure #1 in MessageStoreDelegate.messageStoreDidReconnect()()
   v17();
 }
 
-uint64_t FaceTimeVoicemailManager.messageStoreRequiresRefetch()()
+double FaceTimeVoicemailManager.messageStoreRequiresRefetch()(uint64_t a1, uint64_t a2)
 {
-  v1 = type metadata accessor for Logger();
-  v2 = *(v1 - 8);
-  v3 = *(v2 + 64);
-  __chkstk_darwin(v1);
-  v4 = OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_logger;
-  v5 = swift_allocObject();
-  swift_unknownObjectWeakInit();
-  (*(v2 + 16))(&v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), v0 + v4, v1);
-  v6 = (*(v2 + 80) + 24) & ~*(v2 + 80);
+  v3 = type metadata accessor for Logger();
+  v4 = *(v3 - 8);
+  v5 = *(v4 + 64);
+  __chkstk_darwin(v3);
+  v6 = OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_logger;
   v7 = swift_allocObject();
-  *(v7 + 16) = v5;
-  (*(v2 + 32))(v7 + v6, &v9 - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0), v1);
+  swift_unknownObjectWeakInit();
+  (*(v4 + 16))(&v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v2 + v6, v3);
+  v8 = (*(v4 + 80) + 24) & ~*(v4 + 80);
+  v9 = swift_allocObject();
+  *(v9 + 16) = v7;
+  (*(v4 + 32))(v9 + v8, &v11 - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0), v3);
 
   dispatch thunk of TaskQueue.async(_:)();
+
+  return result;
 }
 
 uint64_t closure #1 in MessageStoreDelegate.messageStoreRequiresRefetch()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
@@ -5585,7 +5612,7 @@ uint64_t closure #1 in MessageStoreDelegate.messageStoreRequiresRefetch()(uint64
   v4[6] = swift_task_alloc();
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v8 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(closure #1 in MessageStoreDelegate.messageStoreRequiresRefetch(), v8, v7);
@@ -5642,22 +5669,24 @@ void closure #1 in MessageStoreDelegate.messageStoreRequiresRefetch()()
   v17();
 }
 
-uint64_t @objc MessageStoreDelegate.messageStoreDidReconnect()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+double @objc MessageStoreDelegate.messageStoreDidReconnect()(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v6 - 8);
   v8 = &v14 - v7;
   v9 = type metadata accessor for TaskPriority();
   (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
   type metadata accessor for VoicemailActor();
   inited = swift_initStaticObject();
-  v11 = _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  v11 = _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v12 = swift_allocObject();
   v12[2] = inited;
   v12[3] = v11;
   v12[4] = a1;
 
   _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v8, a4, v12);
+
+  return result;
 }
 
 uint64_t MessageStoreDelegate.__deallocating_deinit()
@@ -5677,7 +5706,7 @@ uint64_t closure #1 in FaceTimeVoicemailManager.messageStoreDidAddMessages(_:)(u
   v3[21] = a1;
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v5 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(closure #1 in FaceTimeVoicemailManager.messageStoreDidAddMessages(_:), v5, v4);
@@ -5877,12 +5906,12 @@ LABEL_64:
     if ((v31 & 1) == 0)
     {
       v32 = v30;
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_So8NSNumberCtGMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCySS_So8NSNumberCtGMd, &_ss23_ContiguousArrayStorageCySS_So8NSNumberCtGMR);
       inited = swift_initStackObject();
       *(inited + 16) = xmmword_10020DA80;
       *(inited + 32) = 0x6D766C5F7369;
       *(inited + 40) = 0xE600000000000000;
-      type metadata accessor for NSMutableArray(0, lazy cache variable for type metadata for NSNumber);
+      type metadata accessor for NSMutableArray(0, lazy cache variable for type metadata for NSNumber, NSNumber_ptr);
       dispatch thunk of Message.messageType.getter();
       v34 = MessageType.rawValue.getter();
       v35 = v34 == MessageType.rawValue.getter();
@@ -5904,7 +5933,7 @@ LABEL_64:
       Strong = v61;
       v0 = v62;
       swift_setDeallocating();
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_So8NSNumberCtMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_sSS_So8NSNumberCtMd, &_sSS_So8NSNumberCtMR);
       v27 = v18 & 0xC000000000000001;
       swift_arrayDestroy();
       specialized _dictionaryUpCast<A, B, C, D>(_:)(v39);
@@ -5997,7 +6026,7 @@ LABEL_41:
 
 LABEL_62:
 
-      __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+      __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
       v56 = _bridgeCocoaArray<A>(_:)();
 
       goto LABEL_57;
@@ -6034,7 +6063,7 @@ uint64_t closure #1 in FaceTimeVoicemailManager.messageStoreDidUpdateMessages(_:
   v3[5] = a1;
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v5 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(closure #1 in FaceTimeVoicemailManager.messageStoreDidUpdateMessages(_:), v5, v4);
@@ -6221,7 +6250,7 @@ LABEL_37:
 
 LABEL_51:
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
         v38 = _bridgeCocoaArray<A>(_:)();
 
         goto LABEL_36;
@@ -6351,7 +6380,7 @@ Swift::Void __swiftcall FaceTimeVoicemailManager.updateMessagesHandlingError(mes
     v3 = v10;
   }
 
-  FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(v3, 2u);
+  FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(v3, 2);
 }
 
 uint64_t closure #1 in FaceTimeVoicemailManager.messageStoreDidDeleteMessages(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
@@ -6361,7 +6390,7 @@ uint64_t closure #1 in FaceTimeVoicemailManager.messageStoreDidDeleteMessages(_:
   v3[5] = a1;
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v5 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(closure #1 in FaceTimeVoicemailManager.messageStoreDidDeleteMessages(_:), v5, v4);
@@ -6548,7 +6577,7 @@ LABEL_37:
 
 LABEL_51:
 
-        __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+        __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
         v38 = _bridgeCocoaArray<A>(_:)();
 
         goto LABEL_36;
@@ -6628,7 +6657,7 @@ uint64_t closure #1 in FaceTimeVoicemailManager.messageStoreDidDeleteMessagesWit
   v3[13] = swift_task_alloc();
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v6 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(closure #1 in FaceTimeVoicemailManager.messageStoreDidDeleteMessagesWithUUIDs(_:), v6, v5);
@@ -6736,29 +6765,30 @@ uint64_t closure #1 in FaceTimeVoicemailManager.messageStoreDidDeleteMessagesWit
 
 Swift::Void __swiftcall FaceTimeVoicemailManager.removeMessagesHandlingError(with:)(Swift::OpaquePointer with)
 {
-  v1 = _s11MobilePhone22CachedVoicemailManagerC14removeMessages4withSayAA9MessageIDCGAH_tAC5ErrorOYKF(with._rawValue);
+  _s11MobilePhone22CachedVoicemailManagerC14removeMessages4withSayAA9MessageIDCGAH_tAC5ErrorOYKF(with._rawValue);
+  v2 = v1;
 
-  v2 = Logger.logObject.getter();
-  v3 = static os_log_type_t.default.getter();
+  v3 = Logger.logObject.getter();
+  v4 = static os_log_type_t.default.getter();
 
-  if (os_log_type_enabled(v2, v3))
+  if (os_log_type_enabled(v3, v4))
   {
-    v4 = swift_slowAlloc();
     v5 = swift_slowAlloc();
-    v9 = v5;
-    *v4 = 136315138;
+    v6 = swift_slowAlloc();
+    v10 = v6;
+    *v5 = 136315138;
     type metadata accessor for MessageID(0);
-    v6 = Array.description.getter();
-    v8 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v6, v7, &v9);
+    v7 = Array.description.getter();
+    v9 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v7, v8, &v10);
 
-    *(v4 + 4) = v8;
-    _os_log_impl(&_mh_execute_header, v2, v3, "FaceTimeVoicemailManager did remove: %s", v4, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v5);
+    *(v5 + 4) = v9;
+    _os_log_impl(&_mh_execute_header, v3, v4, "FaceTimeVoicemailManager did remove: %s", v5, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v6);
   }
 
-  if (!(v1 >> 62))
+  if (!(v2 >> 62))
   {
-    if (!*((v1 & 0xFFFFFFFFFFFFFF8) + 0x10))
+    if (!*((v2 & 0xFFFFFFFFFFFFFF8) + 0x10))
     {
       goto LABEL_6;
     }
@@ -6769,7 +6799,7 @@ Swift::Void __swiftcall FaceTimeVoicemailManager.removeMessagesHandlingError(wit
   if (_CocoaArrayWrapper.endIndex.getter())
   {
 LABEL_5:
-    FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(v1, 0);
+    FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(v2, 0);
   }
 
 LABEL_6:
@@ -6781,7 +6811,7 @@ uint64_t closure #1 in FaceTimeVoicemailManager.messageStoreDidReconnect()(uint6
   *(v2 + 48) = a2;
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v4 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(closure #1 in FaceTimeVoicemailManager.messageStoreDidReconnect(), v4, v3);
@@ -6805,7 +6835,7 @@ uint64_t closure #1 in FaceTimeVoicemailManager.messageStoreDidReconnect()()
       _os_log_impl(&_mh_execute_header, v3, v4, "messageStoreDidReconnect(), triggering onVoicemailsChanged().", v5, 2u);
     }
 
-    FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(0, 3u);
+    FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(0, 3);
   }
 
   else
@@ -6831,7 +6861,7 @@ uint64_t closure #1 in FaceTimeVoicemailManager.messageStoreRequiresRefetch()(ui
   *(v2 + 48) = a2;
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v4 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(closure #1 in FaceTimeVoicemailManager.messageStoreRequiresRefetch(), v4, v3);
@@ -6855,7 +6885,7 @@ uint64_t closure #1 in FaceTimeVoicemailManager.messageStoreRequiresRefetch()()
       _os_log_impl(&_mh_execute_header, v3, v4, "messageStoreRequiresRefetch(), triggering onVoicemailsChanged().", v5, 2u);
     }
 
-    FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(0, 3u);
+    FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(0, 3);
   }
 
   else
@@ -6879,7 +6909,7 @@ Swift::Void __swiftcall FaceTimeVoicemailManager.requestInitialStateIfNecessary(
 {
   if (sendNotifications)
   {
-    FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(0, 3u);
+    FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(0, 3);
   }
 }
 
@@ -6899,7 +6929,7 @@ uint64_t FaceTimeVoicemailManager.delete(_:)(uint64_t a1)
   v2[16] = swift_task_alloc();
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v6 = dispatch thunk of Actor.unownedExecutor.getter();
   v2[17] = v6;
   v2[18] = v5;
@@ -7110,7 +7140,7 @@ LABEL_3:
     v21 = _swiftEmptyArrayStorage[3];
     if (v22 >= v21 >> 1)
     {
-      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v21 > 1, v22 + 1, 1);
+      specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v21 > 1), v22 + 1, 1);
     }
 
     v23 = *(v0 + 112);
@@ -7214,7 +7244,7 @@ uint64_t @objc closure #1 in FaceTimeVoicemailManager.delete(_:)(uint64_t a1, ui
   v3[2] = a1;
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v5 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(@objc closure #1 in FaceTimeVoicemailManager.delete(_:), v5, v4);
@@ -7224,7 +7254,7 @@ uint64_t @objc closure #1 in FaceTimeVoicemailManager.delete(_:)()
 {
   v1 = *(v0 + 32);
   *(v0 + 40) = _Block_copy(*(v0 + 24));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   *(v0 + 48) = v2;
   v3 = v1;
@@ -7240,9 +7270,9 @@ uint64_t FaceTimeVoicemailManager.markAsRead(_:)(uint64_t a1)
 {
   v2[4] = a1;
   v2[5] = v1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v2[6] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   v2[7] = swift_task_alloc();
   v2[8] = swift_task_alloc();
   v3 = type metadata accessor for UUID();
@@ -7252,7 +7282,7 @@ uint64_t FaceTimeVoicemailManager.markAsRead(_:)(uint64_t a1)
   v2[12] = swift_task_alloc();
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v5 = dispatch thunk of Actor.unownedExecutor.getter();
   v2[13] = v5;
   v2[14] = v4;
@@ -7275,7 +7305,7 @@ uint64_t FaceTimeVoicemailManager.markAsRead(_:)()
     *v3 = 136315394;
     *(v3 + 4) = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(0x655273416B72616DLL, 0xEE00293A5F286461, v16);
     *(v3 + 12) = 2080;
-    __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
     v4 = Array.description.getter();
     v6 = getNullTerminatedUTF8PointerImpl(_:storingStringOwnersIn:)(v4, v5, v16);
 
@@ -7399,7 +7429,7 @@ LABEL_9:
 
 LABEL_16:
     v28 = _swiftEmptyArrayStorage;
-    FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(_swiftEmptyArrayStorage, 2u);
+    FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(_swiftEmptyArrayStorage, 2);
 
     goto LABEL_17;
   }
@@ -7465,7 +7495,7 @@ LABEL_3:
 
   while (v42 != v4);
   v15 = v0[5].receiver;
-  FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(v44, 2u);
+  FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(v44, 2);
 
   v44 = _swiftEmptyArrayStorage;
   specialized ContiguousArray.reserveCapacity(_:)();
@@ -7608,7 +7638,7 @@ uint64_t @objc closure #1 in FaceTimeVoicemailManager.markAsRead(_:)(uint64_t a1
   v3[2] = a1;
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v5 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(@objc closure #1 in FaceTimeVoicemailManager.markAsRead(_:), v5, v4);
@@ -7618,7 +7648,7 @@ uint64_t @objc closure #1 in FaceTimeVoicemailManager.markAsRead(_:)()
 {
   v1 = *(v0 + 32);
   *(v0 + 40) = _Block_copy(*(v0 + 24));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   *(v0 + 48) = v2;
   v3 = v1;
@@ -7634,9 +7664,9 @@ uint64_t FaceTimeVoicemailManager.moveToTrash(_:)(uint64_t a1)
 {
   v2[4] = a1;
   v2[5] = v1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v2[6] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   v2[7] = swift_task_alloc();
   v2[8] = swift_task_alloc();
   v3 = type metadata accessor for UUID();
@@ -7648,7 +7678,7 @@ uint64_t FaceTimeVoicemailManager.moveToTrash(_:)(uint64_t a1)
   v2[14] = swift_task_alloc();
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v5 = dispatch thunk of Actor.unownedExecutor.getter();
   v2[15] = v5;
   v2[16] = v4;
@@ -7775,7 +7805,7 @@ LABEL_7:
 
 LABEL_16:
     v28 = _swiftEmptyArrayStorage;
-    FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(_swiftEmptyArrayStorage, 2u);
+    FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(_swiftEmptyArrayStorage, 2);
 
     goto LABEL_17;
   }
@@ -7841,7 +7871,7 @@ LABEL_3:
 
   while (v44 != v4);
   v15 = v0[5].receiver;
-  FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(v46, 2u);
+  FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(v46, 2);
 
   v46 = _swiftEmptyArrayStorage;
   specialized ContiguousArray.reserveCapacity(_:)();
@@ -7938,7 +7968,7 @@ LABEL_17:
   return (_swift_task_switch)(FaceTimeVoicemailManager.moveToTrash(_:), v3, v4);
 }
 
-size_t FaceTimeVoicemailManager.moveToTrash(_:)()
+void *FaceTimeVoicemailManager.moveToTrash(_:)()
 {
   v35 = v0;
 
@@ -7997,7 +8027,7 @@ LABEL_4:
             v12 = v9[3];
             if (v13 >= v12 >> 1)
             {
-              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v12 > 1, v13 + 1, 1);
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v12 > 1), v13 + 1, 1);
               v9 = v34;
             }
 
@@ -8025,7 +8055,7 @@ LABEL_4:
             v19 = v9[3];
             if (v20 >= v19 >> 1)
             {
-              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v19 > 1, v20 + 1, 1);
+              specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v19 > 1), v20 + 1, 1);
               v9 = v34;
             }
 
@@ -8081,7 +8111,7 @@ uint64_t @objc closure #1 in FaceTimeVoicemailManager.moveToTrash(_:)(uint64_t a
   v3[2] = a1;
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v5 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(@objc closure #1 in FaceTimeVoicemailManager.moveToTrash(_:), v5, v4);
@@ -8091,7 +8121,7 @@ uint64_t @objc closure #1 in FaceTimeVoicemailManager.moveToTrash(_:)()
 {
   v1 = *(v0 + 32);
   *(v0 + 40) = _Block_copy(*(v0 + 24));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   *(v0 + 48) = v2;
   v3 = v1;
@@ -8107,9 +8137,9 @@ uint64_t FaceTimeVoicemailManager.removeFromTrash(_:)(uint64_t a1)
 {
   v2[4] = a1;
   v2[5] = v1;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation3URLVSgMd, &_s10Foundation3URLVSgMR);
   v2[6] = swift_task_alloc();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s10Foundation4UUIDVSgMd, &_s10Foundation4UUIDVSgMR);
   v2[7] = swift_task_alloc();
   v2[8] = swift_task_alloc();
   v3 = type metadata accessor for UUID();
@@ -8120,7 +8150,7 @@ uint64_t FaceTimeVoicemailManager.removeFromTrash(_:)(uint64_t a1)
   v2[13] = swift_task_alloc();
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v5 = dispatch thunk of Actor.unownedExecutor.getter();
   v2[14] = v5;
   v2[15] = v4;
@@ -8248,7 +8278,7 @@ LABEL_7:
 
 LABEL_16:
     v28 = _swiftEmptyArrayStorage;
-    FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(_swiftEmptyArrayStorage, 2u);
+    FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(_swiftEmptyArrayStorage, 2);
 
     goto LABEL_17;
   }
@@ -8315,7 +8345,7 @@ LABEL_3:
 
   while (v44 != v4);
   v15 = v0[5].receiver;
-  FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(v46, 2u);
+  FaceTimeVoicemailManager.voicemailsChanged(messageChanges:)(v46, 2);
 
   v46 = _swiftEmptyArrayStorage;
   specialized ContiguousArray.reserveCapacity(_:)();
@@ -8411,7 +8441,7 @@ LABEL_17:
   return (_swift_task_switch)(FaceTimeVoicemailManager.removeFromTrash(_:), v3, v4);
 }
 
-size_t FaceTimeVoicemailManager.removeFromTrash(_:)()
+void *FaceTimeVoicemailManager.removeFromTrash(_:)()
 {
   v30 = v0;
 
@@ -8464,7 +8494,7 @@ size_t FaceTimeVoicemailManager.removeFromTrash(_:)()
         v15 = v11[3];
         if (v16 >= v15 >> 1)
         {
-          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)(v15 > 1, v16 + 1, 1);
+          specialized ContiguousArray._createNewBuffer(bufferIsUnique:minimumCapacity:growForAppend:)((v15 > 1), v16 + 1, 1);
           v11 = v29;
         }
 
@@ -8519,7 +8549,7 @@ uint64_t @objc closure #1 in FaceTimeVoicemailManager.removeFromTrash(_:)(uint64
   v3[2] = a1;
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v5 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(@objc closure #1 in FaceTimeVoicemailManager.removeFromTrash(_:), v5, v4);
@@ -8529,7 +8559,7 @@ uint64_t @objc closure #1 in FaceTimeVoicemailManager.removeFromTrash(_:)()
 {
   v1 = *(v0 + 32);
   *(v0 + 40) = _Block_copy(*(v0 + 24));
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
   v2 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   *(v0 + 48) = v2;
   v3 = v1;
@@ -8559,7 +8589,7 @@ uint64_t FaceTimeVoicemailManager.messages(filteredBy:)(uint64_t a1)
 {
   *(*v1 + 56) = a1;
 
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v3 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(FaceTimeVoicemailManager.messages(filteredBy:), v3, v2);
@@ -8664,7 +8694,7 @@ uint64_t @objc closure #1 in FaceTimeVoicemailManager.messages(filteredBy:)(uint
   v3[2] = a1;
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v5 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(@objc closure #1 in FaceTimeVoicemailManager.messages(filteredBy:), v5, v4);
@@ -8688,24 +8718,25 @@ uint64_t @objc closure #1 in FaceTimeVoicemailManager.messages(filteredBy:)()
   return specialized FaceTimeVoicemailManager.messages(filteredBy:)(v6, v3);
 }
 
+uint64_t @objc closure #1 in FaceTimeVoicemailManager.messages(filteredBy:)(uint64_t a1)
 {
-  v1 = *(*v0 + 48);
-  v2 = *(*v0 + 40);
-  v3 = *(*v0 + 32);
-  v7 = *v0;
+  v2 = *(*v1 + 48);
+  v3 = *(*v1 + 40);
+  v4 = *(*v1 + 32);
+  v8 = *v1;
 
-  _Block_release(v2);
-  _Block_release(v2);
+  _Block_release(v3);
+  _Block_release(v3);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
   isa = Array._bridgeToObjectiveC()().super.isa;
 
-  (v1)[2](v1, isa);
+  (v2)[2](v2, isa);
 
-  _Block_release(v1);
-  v5 = *(v7 + 8);
+  _Block_release(v2);
+  v6 = *(v8 + 8);
 
-  return v5();
+  return v6();
 }
 
 uint64_t FaceTimeVoicemailManager.countOfUnreadMessages()()
@@ -8727,7 +8758,7 @@ uint64_t FaceTimeVoicemailManager.countOfUnreadMessages()()
   v1[14] = swift_task_alloc();
   type metadata accessor for VoicemailActor();
   swift_initStaticObject();
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v6 = dispatch thunk of Actor.unownedExecutor.getter();
   v1[15] = v6;
   v1[16] = v5;
@@ -8744,7 +8775,7 @@ uint64_t FaceTimeVoicemailManager.countOfUnreadMessages()()
   v20 = v0[6];
   v3 = v0[3];
   v4 = swift_allocObject();
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy20FaceTimeMessageStore0fG5QueryOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_ss23_ContiguousArrayStorageCy20FaceTimeMessageStore0fG5QueryOGMd, &_ss23_ContiguousArrayStorageCy20FaceTimeMessageStore0fG5QueryOGMR);
   v5 = *(v1 + 72);
   v6 = (*(v1 + 80) + 32) & ~*(v1 + 80);
   v7 = swift_allocObject();
@@ -8765,9 +8796,9 @@ uint64_t FaceTimeVoicemailManager.countOfUnreadMessages()()
   v10(v17, enum case for MessageStoreQuery.and(_:), v2);
   (*(v18 + 104))(v19, enum case for MessageStoreFetchRequest.QuerySearchType.unsorted(_:), v20);
   v0[2] = _swiftEmptyArrayStorage;
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type MessageFetchOptions and conformance MessageFetchOptions, &type metadata accessor for MessageFetchOptions);
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay20FaceTimeMessageStore0C12FetchOptionsVGMd);
-  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [MessageFetchOptions] and conformance [A], &_sSay20FaceTimeMessageStore0C12FetchOptionsVGMd);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type MessageFetchOptions and conformance MessageFetchOptions, &type metadata accessor for MessageFetchOptions, &protocol conformance descriptor for MessageFetchOptions);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSay20FaceTimeMessageStore0C12FetchOptionsVGMd, &_sSay20FaceTimeMessageStore0C12FetchOptionsVGMR);
+  lazy protocol witness table accessor for type [OS_dispatch_queue.Attributes] and conformance [A](&lazy protocol witness table cache variable for type [MessageFetchOptions] and conformance [A], &_sSay20FaceTimeMessageStore0C12FetchOptionsVGMd, &_sSay20FaceTimeMessageStore0C12FetchOptionsVGMR, &protocol conformance descriptor for [A]);
   dispatch thunk of SetAlgebra.init<A>(_:)();
   MessageStoreFetchRequest.init(query:sortType:options:pageSize:page:originatingBundleID:)();
   v12 = *(v3 + OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_messageStoreController + 24);
@@ -8835,7 +8866,7 @@ uint64_t FaceTimeVoicemailManager.countOfUnreadMessages()(uint64_t a1)
 
 uint64_t protocol witness for Voicemailmanager_ChangeCallback.listenForChanges(_:) in conformance FaceTimeVoicemailManager(uint64_t a1, uint64_t a2)
 {
-  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v5 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v5 - 8);
   v7 = &v15 - v6;
   v8 = *v2;
@@ -8843,7 +8874,7 @@ uint64_t protocol witness for Voicemailmanager_ChangeCallback.listenForChanges(_
   (*(*(v9 - 8) + 56))(v7, 1, 1, v9);
   type metadata accessor for VoicemailActor();
   inited = swift_initStaticObject();
-  v11 = _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  v11 = _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v12 = swift_allocObject();
   v12[2] = inited;
   v12[3] = v11;
@@ -8880,16 +8911,16 @@ uint64_t closure #1 in FaceTimeVoicemailManager.delete(_:)(uint64_t a1, uint64_t
   return FaceTimeVoicemailManager.delete(_:)(a5);
 }
 
-uint64_t FaceTimeVoicemailManager.delete(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
+double FaceTimeVoicemailManager.delete(_:)(uint64_t a1, uint64_t a2, uint64_t a3)
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v6 - 8);
   v8 = &v15 - v7;
   v9 = type metadata accessor for TaskPriority();
   (*(*(v9 - 8) + 56))(v8, 1, 1, v9);
   type metadata accessor for VoicemailActor();
   inited = swift_initStaticObject();
-  v11 = _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  v11 = _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v12 = swift_allocObject();
   v12[2] = inited;
   v12[3] = v11;
@@ -8898,6 +8929,8 @@ uint64_t FaceTimeVoicemailManager.delete(_:)(uint64_t a1, uint64_t a2, uint64_t 
   v13 = v3;
 
   _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v8, a3, v12);
+
+  return result;
 }
 
 uint64_t closure #1 in FaceTimeVoicemailManager.markAsRead(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -8912,18 +8945,18 @@ uint64_t closure #1 in FaceTimeVoicemailManager.markAsRead(_:)(uint64_t a1, uint
   return FaceTimeVoicemailManager.markAsRead(_:)(a5);
 }
 
-uint64_t @objc FaceTimeVoicemailManager.delete(_:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
+double @objc FaceTimeVoicemailManager.delete(_:)(void *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
 {
-  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v7 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v7 - 8);
   v9 = &v17 - v8;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s11MobilePhone7Message_pMd, &_s11MobilePhone7Message_pMR);
   v10 = static Array._unconditionallyBridgeFromObjectiveC(_:)();
   v11 = type metadata accessor for TaskPriority();
   (*(*(v11 - 8) + 56))(v9, 1, 1, v11);
   type metadata accessor for VoicemailActor();
   inited = swift_initStaticObject();
-  v13 = _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  v13 = _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v14 = swift_allocObject();
   v14[2] = inited;
   v14[3] = v13;
@@ -8931,6 +8964,8 @@ uint64_t @objc FaceTimeVoicemailManager.delete(_:)(void *a1, uint64_t a2, uint64
   v14[5] = v10;
   v15 = a1;
   _sScTss5NeverORs_rlE4name8priority9operationScTyxABGSSSg_ScPSgxyYaYAcntcfCyt_Tt2g5(0, 0, v9, a5, v14);
+
+  return result;
 }
 
 uint64_t closure #1 in FaceTimeVoicemailManager.moveToTrash(_:)(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5)
@@ -9014,7 +9049,7 @@ char *specialized FaceTimeVoicemailManager.init(logger:onVoicemailsChanged:messa
   v42 = a3;
   v39 = a2;
   v47 = a1;
-  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd);
+  v11 = __swift_instantiateConcreteTypeFromMangledNameV2(&_sScPSgMd, &_sScPSgMR);
   __chkstk_darwin(v11 - 8);
   v44 = &v39 - v12;
   v13 = type metadata accessor for Logger();
@@ -9045,7 +9080,7 @@ char *specialized FaceTimeVoicemailManager.init(logger:onVoicemailsChanged:messa
   *(a5 + OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_providers) = &outlined read-only object #0 of specialized FaceTimeVoicemailManager.init(logger:onVoicemailsChanged:messageStoreController:);
   *(a5 + OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_messageTypes) = &outlined read-only object #1 of specialized FaceTimeVoicemailManager.init(logger:onVoicemailsChanged:messageStoreController:);
   v23 = OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_messagesChangedPublisher;
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMd, &_s7Combine18PassthroughSubjectCy11MobilePhone30VoicemailManagerMessageChangesOs5NeverOGMR);
   swift_allocObject();
   *(a5 + v23) = PassthroughSubject.init()();
   v24 = OBJC_IVAR____TtC11MobilePhone24FaceTimeVoicemailManager_operationQueue;
@@ -9072,7 +9107,7 @@ char *specialized FaceTimeVoicemailManager.init(logger:onVoicemailsChanged:messa
   (*(v40 + 56))(v44, 1, 1, v41);
   type metadata accessor for VoicemailActor();
   inited = swift_initStaticObject();
-  v32 = _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  v32 = _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v33 = swift_allocObject();
   v33[2] = inited;
   v33[3] = v32;
@@ -9256,16 +9291,16 @@ uint64_t partial apply for closure #1 in FaceTimeVoicemailManager.messageStoreDi
   return closure #1 in FaceTimeVoicemailManager.messageStoreDidReconnect()(v4, v0 + v3);
 }
 
-unint64_t outlined consume of CachedVoicemailManager.Error(unint64_t result)
+double outlined consume of CachedVoicemailManager.Error(unint64_t a1)
 {
-  if (result >= 2)
+  if (a1 >= 2)
   {
   }
 
   return result;
 }
 
-uint64_t _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(unint64_t *a1, void (*a2)(uint64_t))
+uint64_t _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(unint64_t *a1, uint64_t (*a2)(uint64_t), uint64_t a3)
 {
   result = *a1;
   if (!result)
@@ -9295,7 +9330,7 @@ uint64_t specialized FaceTimeVoicemailManager.messages(filteredBy:)(uint64_t a1)
 {
   *(*v1 + 48) = a1;
 
-  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor);
+  _s11MobilePhone14VoicemailActorCACScAAAWlTm_2(&lazy protocol witness table cache variable for type VoicemailActor and conformance VoicemailActor, type metadata accessor for VoicemailActor, &protocol conformance descriptor for VoicemailActor);
   v3 = dispatch thunk of Actor.unownedExecutor.getter();
 
   return (_swift_task_switch)(specialized FaceTimeVoicemailManager.messages(filteredBy:), v3, v2);
@@ -9385,15 +9420,15 @@ LABEL_13:
   return v10(_swiftEmptyArrayStorage);
 }
 
-void specialized FaceTimeVoicemailManager.reportTranscription(isAccurate:for:)()
+void specialized FaceTimeVoicemailManager.reportTranscription(isAccurate:for:)(__n128 a1)
 {
   oslog = Logger.logObject.getter();
-  v0 = static os_log_type_t.error.getter();
-  if (os_log_type_enabled(oslog, v0))
+  v1 = static os_log_type_t.error.getter();
+  if (os_log_type_enabled(oslog, v1))
   {
-    v1 = swift_slowAlloc();
-    *v1 = 0;
-    _os_log_impl(&_mh_execute_header, oslog, v0, "VoiceMail rating: We failed to rate becuase we do not support it for FTMessages yet.", v1, 2u);
+    v2 = swift_slowAlloc();
+    *v2 = 0;
+    _os_log_impl(&_mh_execute_header, oslog, v1, "VoiceMail rating: We failed to rate becuase we do not support it for FTMessages yet.", v2, 2u);
   }
 }
 
@@ -9469,10 +9504,10 @@ uint64_t sub_100180AA0(uint64_t a1, uint64_t a2)
   return v5(a1, a2, a2, v4);
 }
 
-uint64_t type metadata completion function for FaceTimeVoicemailManager()
+uint64_t type metadata completion function for FaceTimeVoicemailManager(uint64_t a1)
 {
   result = type metadata accessor for Logger();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -9484,10 +9519,10 @@ uint64_t type metadata completion function for FaceTimeVoicemailManager()
   return result;
 }
 
-uint64_t type metadata completion function for MessageStoreDelegate()
+uint64_t type metadata completion function for MessageStoreDelegate(uint64_t a1)
 {
   result = type metadata accessor for Logger();
-  if (v1 <= 0x3F)
+  if (v2 <= 0x3F)
   {
     result = swift_updateClassMetadata2();
     if (!result)
@@ -9775,7 +9810,7 @@ UIFontWeight UIFont.weight.getter()
 
   outlined init with copy of Any(*(v3 + 56) + 32 * v4, v10);
 
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySo24UIFontDescriptorTraitKeyaypGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySo24UIFontDescriptorTraitKeyaypGMd, &_sSDySo24UIFontDescriptorTraitKeyaypGMR);
   if ((swift_dynamicCast() & 1) == 0)
   {
     return UIFontWeightRegular;
@@ -9797,48 +9832,4 @@ LABEL_8:
   }
 
   return UIFontWeightRegular;
-}
-
-id specialized static UIImage.image(for:)(void *a1)
-{
-  v1 = a1[4];
-  if (v1)
-  {
-    v3 = a1[2];
-    v2 = a1[3];
-    v4 = objc_opt_self();
-    v5 = v1;
-    v6 = [v4 _preferredFontForTextStyle:v2 maximumContentSizeCategory:v5];
-    if (!v6)
-    {
-      v6 = [v4 preferredFontForTextStyle:v2];
-    }
-
-    v7 = objc_opt_self();
-    [v6 pointSize];
-    v9 = v8;
-    v10 = UIFont.weight.getter();
-    v11 = [v7 _configurationWithPointSize:UIImageSymbolWeightForFontWeight(v10) weight:v3 scale:v9];
-  }
-
-  else
-  {
-    v11 = [objc_opt_self() configurationWithTextStyle:a1[3] scale:a1[2]];
-  }
-
-  v12 = String._bridgeToObjectiveC()();
-  v13 = [objc_opt_self() systemImageNamed:v12];
-
-  if (v13)
-  {
-    v14 = [v13 imageWithSymbolConfiguration:v11];
-
-    v13 = [v14 imageWithRenderingMode:2];
-  }
-
-  else
-  {
-  }
-
-  return v13;
 }

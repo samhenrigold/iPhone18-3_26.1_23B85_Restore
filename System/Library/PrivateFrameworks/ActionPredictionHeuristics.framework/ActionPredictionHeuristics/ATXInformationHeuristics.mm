@@ -14,9 +14,9 @@
 
 - (ATXInformationHeuristics)init
 {
-  v22.receiver = self;
-  v22.super_class = ATXInformationHeuristics;
-  v2 = [(ATXInformationHeuristics *)&v22 init];
+  v23.receiver = self;
+  v23.super_class = ATXInformationHeuristics;
+  v2 = [(ATXInformationHeuristics *)&v23 init];
   if (v2)
   {
     v3 = objc_opt_new();
@@ -38,23 +38,23 @@
     objc_initWeak(&location, v2);
     v12 = objc_alloc(MEMORY[0x277D42628]);
     v13 = v2->_queue;
-    v19[0] = MEMORY[0x277D85DD0];
-    v19[1] = 3221225472;
-    v19[2] = __32__ATXInformationHeuristics_init__block_invoke;
-    v19[3] = &unk_278C3BBB8;
-    objc_copyWeak(&v20, &location);
-    v14 = [v12 initWithQueue:v13 operation:v19];
+    v20[0] = MEMORY[0x277D85DD0];
+    v20[1] = 3221225472;
+    v20[2] = __32__ATXInformationHeuristics_init__block_invoke;
+    v20[3] = &unk_278C3BBB8;
+    objc_copyWeak(&v21, &location);
+    v14 = [v12 initWithQueue:v13 operation:v20];
     coalescedRefreshOperation = v2->_coalescedRefreshOperation;
     v2->_coalescedRefreshOperation = v14;
 
-    v16 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = __atxlog_handle_gi(v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
-      *v18 = 0;
-      _os_log_impl(&dword_23E3DF000, v16, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristics: initialized", v18, 2u);
+      *v19 = 0;
+      _os_log_impl(&dword_23E3DF000, v17, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristics: initialized", v19, 2u);
     }
 
-    objc_destroyWeak(&v20);
+    objc_destroyWeak(&v21);
     objc_destroyWeak(&location);
   }
 
@@ -72,7 +72,7 @@ void __32__ATXInformationHeuristics_init__block_invoke(uint64_t a1)
 
   else
   {
-    v3 = __atxlog_handle_gi();
+    v3 = __atxlog_handle_gi(0);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       __32__ATXInformationHeuristics_init__block_invoke_cold_1();
@@ -162,315 +162,304 @@ uint64_t __94__ATXInformationHeuristics_informationHeuristicRefreshTrigger_didTr
 
 - (BOOL)_refreshResultsForHeuristics:(id)heuristics
 {
-  v102 = *MEMORY[0x277D85DE8];
+  v104 = *MEMORY[0x277D85DE8];
   heuristicsCopy = heuristics;
   dispatch_assert_queue_V2(self->_queue);
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   if (WeakRetained)
   {
-    v6 = [(ATXInformationHeuristics *)self getResultsFromHeuristicInterpreter:heuristicsCopy];
-    v65 = v6 != 0;
-    v7 = __atxlog_handle_gi();
-    v8 = v7;
-    v66 = v6;
-    if (v6)
+    v7 = [(ATXInformationHeuristics *)self getResultsFromHeuristicInterpreter:heuristicsCopy];
+    v67 = v7 != 0;
+    v8 = __atxlog_handle_gi(v7);
+    v9 = v8;
+    v68 = v7;
+    if (v7)
     {
-      v64 = heuristicsCopy;
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v66 = heuristicsCopy;
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134217984;
-        v98 = [v6 count];
-        _os_log_impl(&dword_23E3DF000, v8, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristics: received %lu results from HeuristicInterpreter", buf, 0xCu);
+        v100 = [v7 count];
+        _os_log_impl(&dword_23E3DF000, v9, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristics: received %lu results from HeuristicInterpreter", buf, 0xCu);
       }
 
+      v93 = 0u;
+      v94 = 0u;
       v91 = 0u;
       v92 = 0u;
-      v89 = 0u;
-      v90 = 0u;
-      obj = v6;
-      v71 = [obj countByEnumeratingWithState:&v89 objects:v101 count:16];
-      if (v71)
+      obj = v7;
+      v10 = [obj countByEnumeratingWithState:&v91 objects:v103 count:16];
+      v73 = v10;
+      if (v10)
       {
-        v69 = *v90;
+        v71 = *v92;
         do
         {
-          for (i = 0; i != v71; i = i + 1)
+          v11 = 0;
+          do
           {
-            if (*v90 != v69)
+            if (*v92 != v71)
             {
               objc_enumerationMutation(obj);
             }
 
-            v10 = *(*(&v89 + 1) + 8 * i);
-            v11 = __atxlog_handle_gi();
-            if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+            v12 = *(*(&v91 + 1) + 8 * v11);
+            v13 = __atxlog_handle_gi(v10);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
             {
-              heuristicName = [v10 heuristicName];
-              suggestions = [v10 suggestions];
-              v14 = [suggestions count];
+              heuristicName = [v12 heuristicName];
+              suggestions = [v12 suggestions];
+              v16 = [suggestions count];
               *buf = 138412546;
-              v98 = heuristicName;
-              v99 = 2048;
-              v100 = v14;
-              _os_log_impl(&dword_23E3DF000, v11, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristics: update heuristics %@, got %lu new suggestions", buf, 0x16u);
+              v100 = heuristicName;
+              v101 = 2048;
+              v102 = v16;
+              _os_log_impl(&dword_23E3DF000, v13, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristics: update heuristics %@, got %lu new suggestions", buf, 0x16u);
             }
 
-            if ([v10 hasFailed])
+            hasFailed = [v12 hasFailed];
+            if (hasFailed)
             {
-              v15 = __atxlog_handle_gi();
-              if (!os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+              v18 = __atxlog_handle_gi(hasFailed);
+              if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
               {
                 goto LABEL_17;
               }
 
-              heuristicName2 = [v10 heuristicName];
+              heuristicName2 = [v12 heuristicName];
               *buf = 138412290;
-              v98 = heuristicName2;
-              _os_log_impl(&dword_23E3DF000, v15, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristics: updating heuristic %@ has failed in a non-trivial manner; bypassing the suggestions update", buf, 0xCu);
+              v100 = heuristicName2;
+              _os_log_impl(&dword_23E3DF000, v18, OS_LOG_TYPE_DEFAULT, "ATXInformationHeuristics: updating heuristic %@ has failed in a non-trivial manner; bypassing the suggestions update", buf, 0xCu);
             }
 
             else
             {
-              v15 = objc_loadWeakRetained(&self->_delegate);
-              heuristicName2 = [v10 suggestions];
-              heuristicName3 = [v10 heuristicName];
-              [v15 informationHeuristics:self didUpdateSuggestions:heuristicName2 forHeuristic:heuristicName3];
+              v18 = objc_loadWeakRetained(&self->_delegate);
+              heuristicName2 = [v12 suggestions];
+              heuristicName3 = [v12 heuristicName];
+              [v18 informationHeuristics:self didUpdateSuggestions:heuristicName2 forHeuristic:heuristicName3];
             }
 
 LABEL_17:
+            v89 = 0u;
+            v90 = 0u;
             v87 = 0u;
             v88 = 0u;
-            v85 = 0u;
-            v86 = 0u;
-            refreshTriggers = [v10 refreshTriggers];
-            v19 = [refreshTriggers countByEnumeratingWithState:&v85 objects:v96 count:16];
-            if (v19)
+            refreshTriggers = [v12 refreshTriggers];
+            v22 = [refreshTriggers countByEnumeratingWithState:&v87 objects:v98 count:16];
+            if (v22)
             {
-              v20 = v19;
-              v21 = *v86;
+              v23 = v22;
+              v24 = *v88;
               do
               {
-                for (j = 0; j != v20; ++j)
+                for (i = 0; i != v23; ++i)
                 {
-                  if (*v86 != v21)
+                  if (*v88 != v24)
                   {
                     objc_enumerationMutation(refreshTriggers);
                   }
 
-                  v23 = *(*(&v85 + 1) + 8 * j);
-                  if (([(NSMutableSet *)self->_heuristicRefreshTriggers containsObject:v23]& 1) == 0)
+                  v26 = *(*(&v87 + 1) + 8 * i);
+                  if (([(NSMutableSet *)self->_heuristicRefreshTriggers containsObject:v26]& 1) == 0)
                   {
-                    [v23 setDelegate:self];
-                    [(NSMutableSet *)self->_heuristicRefreshTriggers addObject:v23];
+                    [v26 setDelegate:self];
+                    [(NSMutableSet *)self->_heuristicRefreshTriggers addObject:v26];
                   }
                 }
 
-                v20 = [refreshTriggers countByEnumeratingWithState:&v85 objects:v96 count:16];
+                v23 = [refreshTriggers countByEnumeratingWithState:&v87 objects:v98 count:16];
               }
 
-              while (v20);
+              while (v23);
             }
 
+            v85 = 0u;
+            v86 = 0u;
             v83 = 0u;
             v84 = 0u;
-            v81 = 0u;
-            v82 = 0u;
-            v24 = self->_heuristicRefreshTriggers;
-            v25 = [(NSMutableSet *)v24 countByEnumeratingWithState:&v81 objects:v95 count:16];
-            if (v25)
+            v27 = self->_heuristicRefreshTriggers;
+            v28 = [(NSMutableSet *)v27 countByEnumeratingWithState:&v83 objects:v97 count:16];
+            if (v28)
             {
-              v26 = v25;
-              v27 = *v82;
+              v29 = v28;
+              v30 = *v84;
               do
               {
-                for (k = 0; k != v26; ++k)
+                for (j = 0; j != v29; ++j)
                 {
-                  if (*v82 != v27)
+                  if (*v84 != v30)
                   {
-                    objc_enumerationMutation(v24);
+                    objc_enumerationMutation(v27);
                   }
 
-                  v29 = *(*(&v81 + 1) + 8 * k);
-                  refreshTriggers2 = [v10 refreshTriggers];
-                  v31 = [refreshTriggers2 containsObject:v29];
+                  v32 = *(*(&v83 + 1) + 8 * j);
+                  refreshTriggers2 = [v12 refreshTriggers];
+                  v34 = [refreshTriggers2 containsObject:v32];
 
-                  heuristicName4 = [v10 heuristicName];
-                  if (v31)
+                  heuristicName4 = [v12 heuristicName];
+                  if (v34)
                   {
-                    [v29 startTriggeringRefreshForHeuristicIfNotAlready:heuristicName4];
+                    [v32 startTriggeringRefreshForHeuristicIfNotAlready:heuristicName4];
                   }
 
                   else
                   {
-                    [v29 stopTriggeringRefreshForHeuristicIfAlready:heuristicName4];
+                    [v32 stopTriggeringRefreshForHeuristicIfAlready:heuristicName4];
                   }
                 }
 
-                v26 = [(NSMutableSet *)v24 countByEnumeratingWithState:&v81 objects:v95 count:16];
+                v29 = [(NSMutableSet *)v27 countByEnumeratingWithState:&v83 objects:v97 count:16];
               }
 
-              while (v26);
+              while (v29);
             }
+
+            v11 = v11 + 1;
           }
 
-          v71 = [obj countByEnumeratingWithState:&v89 objects:v101 count:16];
+          while (v11 != v73);
+          v10 = [obj countByEnumeratingWithState:&v91 objects:v103 count:16];
+          v73 = v10;
         }
 
-        while (v71);
+        while (v10);
       }
 
-      v33 = objc_opt_new();
+      v36 = objc_opt_new();
       date = [MEMORY[0x277CBEAA8] date];
-      v77 = 0u;
-      v78 = 0u;
       v79 = 0u;
       v80 = 0u;
-      v72 = self->_heuristicRefreshTriggers;
-      v35 = [(NSMutableSet *)v72 countByEnumeratingWithState:&v77 objects:v94 count:16];
-      if (v35)
+      v81 = 0u;
+      v82 = 0u;
+      v74 = self->_heuristicRefreshTriggers;
+      v38 = [(NSMutableSet *)v74 countByEnumeratingWithState:&v79 objects:v96 count:16];
+      if (v38)
       {
-        v36 = v35;
-        v37 = 0;
-        v38 = *v78;
-        obja = v33;
+        v39 = v38;
+        v40 = 0;
+        v41 = *v80;
+        obja = v36;
         do
         {
-          for (m = 0; m != v36; ++m)
+          for (k = 0; k != v39; ++k)
           {
-            if (*v78 != v38)
+            if (*v80 != v41)
             {
-              objc_enumerationMutation(v72);
+              objc_enumerationMutation(v74);
             }
 
-            v40 = *(*(&v77 + 1) + 8 * m);
-            registeredHeuristics = [v40 registeredHeuristics];
-            v42 = [registeredHeuristics count];
+            v43 = *(*(&v79 + 1) + 8 * k);
+            registeredHeuristics = [v43 registeredHeuristics];
+            v45 = [registeredHeuristics count];
 
-            if (v42)
+            if (v45)
             {
               objc_opt_class();
               if (objc_opt_isKindOfClass())
               {
-                v43 = v40;
-                fireDate = [v43 fireDate];
-                v45 = [fireDate earlierDate:date];
+                v46 = v43;
+                fireDate = [v46 fireDate];
+                v48 = [fireDate earlierDate:date];
 
-                if (v45 == date)
+                if (v48 == date)
                 {
-                  if (!v37)
+                  if (!v40 || ([v40 fireDate], v49 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v46, "fireDate"), v50 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v49, "earlierDate:", v50), v51 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v46, "fireDate"), v72 = v40, v52 = date, v53 = objc_claimAutoreleasedReturnValue(), v53, v51, v50, v49, v54 = v51 == v53, date = v52, v36 = obja, v40 = v72, v54))
                   {
-                    goto LABEL_51;
-                  }
+                    v55 = v46;
 
-                  fireDate2 = [v37 fireDate];
-                  fireDate3 = [v43 fireDate];
-                  v48 = [fireDate2 earlierDate:fireDate3];
-                  [v43 fireDate];
-                  v70 = v37;
-                  v50 = v49 = date;
-
-                  v51 = v48 == v50;
-                  date = v49;
-                  v33 = obja;
-                  v37 = v70;
-                  if (v51)
-                  {
-LABEL_51:
-                    v52 = v43;
-
-                    v37 = v52;
+                    v40 = v55;
                   }
                 }
 
                 else
                 {
-                  [v43 stopTriggeringRefreshForAllHeuristics];
-                  [v33 addObject:v43];
+                  [v46 stopTriggeringRefreshForAllHeuristics];
+                  [v36 addObject:v46];
                 }
               }
             }
 
             else
             {
-              [v33 addObject:v40];
+              [v36 addObject:v43];
             }
           }
 
-          v36 = [(NSMutableSet *)v72 countByEnumeratingWithState:&v77 objects:v94 count:16];
+          v39 = [(NSMutableSet *)v74 countByEnumeratingWithState:&v79 objects:v96 count:16];
         }
 
-        while (v36);
+        while (v39);
       }
 
       else
       {
-        v37 = 0;
+        v40 = 0;
       }
 
+      v77 = 0u;
+      v78 = 0u;
       v75 = 0u;
       v76 = 0u;
-      v73 = 0u;
-      v74 = 0u;
-      v8 = v33;
-      v55 = [v8 countByEnumeratingWithState:&v73 objects:v93 count:16];
-      heuristicsCopy = v64;
-      if (v55)
+      v9 = v36;
+      v58 = [v9 countByEnumeratingWithState:&v75 objects:v95 count:16];
+      heuristicsCopy = v66;
+      if (v58)
       {
-        v56 = v55;
-        v57 = *v74;
+        v59 = v58;
+        v60 = *v76;
         do
         {
-          for (n = 0; n != v56; ++n)
+          for (m = 0; m != v59; ++m)
           {
-            if (*v74 != v57)
+            if (*v76 != v60)
             {
-              objc_enumerationMutation(v8);
+              objc_enumerationMutation(v9);
             }
 
-            [(NSMutableSet *)self->_heuristicRefreshTriggers removeObject:*(*(&v73 + 1) + 8 * n)];
+            [(NSMutableSet *)self->_heuristicRefreshTriggers removeObject:*(*(&v75 + 1) + 8 * m)];
           }
 
-          v56 = [v8 countByEnumeratingWithState:&v73 objects:v93 count:16];
+          v59 = [v9 countByEnumeratingWithState:&v75 objects:v95 count:16];
         }
 
-        while (v56);
+        while (v59);
       }
 
-      if (v37)
+      if (v40)
       {
-        fireDate4 = [v37 fireDate];
-        v60 = [(ATXInformationHeuristics *)self _criteriaForRefreshJobOnDate:fireDate4];
-        registeredHeuristics2 = [v37 registeredHeuristics];
-        [(ATXInformationHeuristics *)self _setRefreshCTSJobForCriteria:v60 forHeuristics:registeredHeuristics2];
+        fireDate2 = [v40 fireDate];
+        v63 = [(ATXInformationHeuristics *)self _criteriaForRefreshJobOnDate:fireDate2];
+        registeredHeuristics2 = [v40 registeredHeuristics];
+        [(ATXInformationHeuristics *)self _setRefreshCTSJobForCriteria:v63 forHeuristics:registeredHeuristics2];
 
-        [v37 stopTriggeringRefreshForAllHeuristics];
-        [(NSMutableSet *)self->_heuristicRefreshTriggers removeObject:v37];
+        [v40 stopTriggeringRefreshForAllHeuristics];
+        [(NSMutableSet *)self->_heuristicRefreshTriggers removeObject:v40];
       }
     }
 
-    else if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    else if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [ATXInformationHeuristics _refreshResultsForHeuristics:];
     }
 
-    v53 = v66;
-    v54 = v65;
+    v56 = v68;
+    v57 = v67;
   }
 
   else
   {
-    v53 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v53, OS_LOG_TYPE_ERROR))
+    v56 = __atxlog_handle_gi(v6);
+    if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
     {
       [ATXInformationHeuristics _refreshResultsForHeuristics:];
     }
 
-    v54 = 0;
+    v57 = 0;
   }
 
-  v62 = *MEMORY[0x277D85DE8];
-  return v54;
+  return v57;
 }
 
 - (id)getResultsFromHeuristicInterpreter:(id)interpreter
@@ -515,7 +504,7 @@ LABEL_51:
 void __63__ATXInformationHeuristics_getResultsFromHeuristicInterpreter___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = __atxlog_handle_gi();
+  v3 = __atxlog_handle_gi(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __63__ATXInformationHeuristics_getResultsFromHeuristicInterpreter___block_invoke_cold_1();
@@ -532,8 +521,8 @@ void __63__ATXInformationHeuristics_getResultsFromHeuristicInterpreter___block_i
 
   if (!v5)
   {
-    v9 = __atxlog_handle_gi();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    v10 = __atxlog_handle_gi(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       __63__ATXInformationHeuristics_getResultsFromHeuristicInterpreter___block_invoke_60_cold_1();
     }
@@ -597,30 +586,6 @@ uint64_t __71__ATXInformationHeuristics__setRefreshCTSJobForCriteria_forHeuristi
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
-}
-
-- (void)_refreshResultsForHeuristics:.cold.2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __63__ATXInformationHeuristics_getResultsFromHeuristicInterpreter___block_invoke_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void __63__ATXInformationHeuristics_getResultsFromHeuristicInterpreter___block_invoke_60_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_0();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

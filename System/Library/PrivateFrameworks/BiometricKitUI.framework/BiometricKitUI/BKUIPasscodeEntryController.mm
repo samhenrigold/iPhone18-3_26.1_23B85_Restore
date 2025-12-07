@@ -67,16 +67,16 @@
   v3 = MEMORY[0x277D262A0];
   passcodeCopy = passcode;
   sharedConnection = [v3 sharedConnection];
-  v10 = 0;
-  v6 = [sharedConnection unlockDeviceWithPasscode:passcodeCopy outError:&v10];
+  v11 = 0;
+  v6 = [sharedConnection unlockDeviceWithPasscode:passcodeCopy outError:&v11];
 
-  v7 = v10;
+  v7 = v11;
   if ((v6 & 1) == 0)
   {
-    v8 = _BKUILoggingFacility();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = _BKUILoggingFacility(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      [(BKUIPasscodeEntryController *)v7 verifyPasscode:v8];
+      [(BKUIPasscodeEntryController *)v7 verifyPasscode:v9];
     }
   }
 
@@ -168,13 +168,11 @@ LABEL_10:
 
 - (void)verifyPasscode:(void *)a1 .cold.1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 localizedDescription];
-  v5 = 138412290;
-  v6 = v3;
-  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "Failed to verify passcode %@", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 138412290;
+  v5 = v3;
+  _os_log_error_impl(&dword_241B0A000, a2, OS_LOG_TYPE_ERROR, "Failed to verify passcode %@", &v4, 0xCu);
 }
 
 @end

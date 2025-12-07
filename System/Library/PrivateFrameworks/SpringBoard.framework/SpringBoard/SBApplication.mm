@@ -82,6 +82,7 @@
 - (id)_defaultLaunchImageBaseName;
 - (id)_defaultPNGNameFromSuspensionSettingsWithExpiration:(double *)expiration sceneID:(id)d;
 - (id)_defaultPNGNameUsingFallbacksWithSceneID:(id)d contentOverridesContext:(id)context;
+- (id)_isNewEnoughToKnowAboutRoundPads;
 - (id)_normalizeSnapshotName:(id)name;
 - (id)_preferredImagePathByScaleInBundle:(id)bundle resourceName:(id)name ofType:(id)type scale:(double)scale outScale:(double *)outScale;
 - (id)_preferredImagePathInBundle:(id)bundle baseResourceName:(id)name ofType:(id)type forMainScene:(BOOL)scene size:(CGSize)size scale:(double)scale outScale:(double *)outScale;
@@ -114,7 +115,6 @@
 - (int64_t)preferredSizingPolicyForSwitcherWindowManagementContext:(id)context displayIdentity:(id)identity contentOrientation:(int64_t)orientation containerOrientation:(int64_t)containerOrientation;
 - (uint64_t)_bypassesClassicMode;
 - (uint64_t)_isNewEnoughToKnowAbout2020Phones;
-- (uint64_t)_isNewEnoughToKnowAboutRoundPads;
 - (uint64_t)_screenTypeForClassicMode:(uint64_t)mode;
 - (unint64_t)_appRestrictionReason;
 - (unint64_t)_supportedTypeForClassicModeNone;
@@ -3696,7 +3696,7 @@ LABEL_5:
 
   v3 = alwaysMaximizedInChamois_sAlwaysMaximizedBundleIDs;
   bundleIdentifier = [(SBApplication *)self bundleIdentifier];
-  LOBYTE(v3) = [v3 containsObject:bundleIdentifier];
+  LOBYTE(v3) = objc_msgSend_containsObject_(v3);
 
   return v3;
 }
@@ -4586,7 +4586,7 @@ LABEL_14:
 - (void)_didSuspend
 {
   v10 = *MEMORY[0x277D85DE8];
-  v3 = SBLogWorkspace();
+  v3 = SBLogWorkspace(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_INFO))
   {
     bundleIdentifier = [(SBApplication *)self bundleIdentifier];
@@ -4831,16 +4831,16 @@ LABEL_14:
         v36 = v35;
         [v15 bounds];
         [v28 setPixelSize:v26 nativeBounds:v25 bounds:{v30, v32, v34, v36, v37, v38, v39, v40}];
-        v45 = 0;
-        v41 = [v28 buildConfigurationWithError:&v45];
-        v42 = v45;
+        v46 = 0;
+        v41 = [v28 buildConfigurationWithError:&v46];
+        v42 = v46;
 
         if (v42)
         {
-          v43 = SBLogClassicMode();
-          if (os_log_type_enabled(v43, OS_LOG_TYPE_ERROR))
+          v44 = SBLogClassicMode(v43);
+          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
           {
-            [SBApplication(Classic) restrictedClassicModeDisplayConfigurationForDisplayConfiguration:v42 classicMode:v43];
+            [SBApplication(Classic) restrictedClassicModeDisplayConfigurationForDisplayConfiguration:v42 classicMode:v44];
           }
         }
 
@@ -5918,7 +5918,7 @@ LABEL_38:
   return v6;
 }
 
-uint64_t __106__SBApplication_Classic_Private___niceScreenTypeForClassicType_matchingAValidDisplayZoomModeOnScreenType___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
+void *__106__SBApplication_Classic_Private___niceScreenTypeForClassicType_matchingAValidDisplayZoomModeOnScreenType___block_invoke(uint64_t a1, uint64_t a2, _BYTE *a3)
 {
   result = SBHGetScreenSpecification();
   if (!*(a1 + 64))
@@ -5941,37 +5941,37 @@ uint64_t __106__SBApplication_Classic_Private___niceScreenTypeForClassicType_mat
 
 + (unint64_t)_unobscuredScreenTypeForScreenType:(uint64_t)type
 {
-  objc_opt_self();
+  v3 = objc_opt_self();
   if (a2 >= 0x1F && a2 - 100 >= 0x13)
   {
-    v4 = SBLogClassicMode();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = SBLogClassicMode(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      [(SBApplication *)a2 _unobscuredScreenTypeForScreenType:v4];
+      [(SBApplication *)a2 _unobscuredScreenTypeForScreenType:v5];
     }
 
     IsPad = SBHScreenTypeIsPad();
     HasHomeButton = SBHScreenTypeHasHomeButton();
-    v7 = 3;
+    v8 = 3;
     if (HasHomeButton)
     {
-      v7 = 1;
+      v8 = 1;
     }
 
-    v8 = 111;
+    v9 = 111;
     if (HasHomeButton)
     {
-      v8 = 100;
+      v9 = 100;
     }
 
     if (IsPad)
     {
-      return v8;
+      return v9;
     }
 
     else
     {
-      return v7;
+      return v8;
     }
   }
 
@@ -7024,9 +7024,9 @@ void __67__SBApplication_Classic_Internal__KJHKJHw39rq9w87q903475q0983rskjd__blo
 
 + (BOOL)_displayZoomSizesOnThisDeviceNeedRedaction
 {
-  v0 = objc_opt_self();
-  v1 = SBHScreenTypeForCurrentDevice();
-  return SBHScreenTypeIsZoomed() && v1 != [(SBApplication *)v0 _unobscuredScreenTypeForScreenType:v1];
+  v1 = objc_opt_self();
+  v2 = SBHScreenTypeForCurrentDevice();
+  return SBHScreenTypeIsZoomed() && v2 != [(SBApplication *)v1 _unobscuredScreenTypeForScreenType:v2];
 }
 
 - (void)flushSnapshotsForAllScenes
@@ -7149,7 +7149,7 @@ void __67__SBApplication_Classic_Internal__KJHKJHw39rq9w87q903475q0983rskjd__blo
               else
               {
                 lastPathComponent = [v24 lastPathComponent];
-                if ([v50 containsObject:lastPathComponent])
+                if (objc_msgSend_containsObject_(v50))
                 {
                   v31 = XBLogFileManifest();
                   if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
@@ -7604,7 +7604,7 @@ void __53__SBApplication_Snapshots__deleteSnapshotForContext___block_invoke_2(ui
   [v9 setName:v6];
 
   [v9 setContentTypeMask:1];
-  [*(a1 + 32) frame];
+  objc_msgSend_frame(*(a1 + 32));
   [v9 setReferenceSize:{v7, v8}];
   [*(a1 + 32) scale];
   [v9 setImageScale:?];
@@ -7647,7 +7647,7 @@ void __53__SBApplication_Snapshots__deleteSnapshotForContext___block_invoke_3(ui
     name = [contextCopy name];
     [contextCopy scale];
     v15 = v14;
-    [contextCopy frame];
+    objc_msgSend_frame(contextCopy);
     if (!sceneIdentifier || (v20 = MEMORY[0x277CBF3A0], CGRectEqualToRect(*&v16, *MEMORY[0x277CBF3A0])))
     {
       v21 = XBLogCapture();
@@ -7909,7 +7909,7 @@ void __86__SBApplication_Snapshots___xbactivity_saveSnapshotForSceneHandle_conte
     v14 = 0;
   }
 
-  [*(*(*(a1 + 64) + 8) + 40) frame];
+  objc_msgSend_frame(*(*(*(a1 + 64) + 8) + 40));
   if (v14)
   {
     [*(a1 + 48) defaultLaunchingSizeForDisplayConfiguration:v10];
@@ -7920,7 +7920,7 @@ void __86__SBApplication_Snapshots___xbactivity_saveSnapshotForSceneHandle_conte
   v19 = *(*(a1 + 72) + 8);
   *(v19 + 32) = v15;
   *(v19 + 40) = v16;
-  [v45 frame];
+  objc_msgSend_frame(v45);
   v20 = *(*(a1 + 80) + 8);
   v20[4] = v21;
   v20[5] = v22;
@@ -8321,107 +8321,97 @@ void __86__SBApplication_Snapshots___xbactivity_saveSnapshotForSceneHandle_conte
     if ([(SBApplication *)self classicAppPhoneAppRunningOnPad])
     {
       classicAppZoomedInOrRequiresHiDPI = [(SBApplication *)self classicAppZoomedInOrRequiresHiDPI];
-      v26 = 1.0;
       v27 = 1.0;
+      v28 = 1.0;
       if (classicAppZoomedInOrRequiresHiDPI)
       {
-        v27 = SBClassicUtilitiesScaleFactorForPhoneAppZoomedIn(orientation, v22, v24);
-        v26 = v27;
+        v28 = SBClassicUtilitiesScaleFactorForPhoneAppZoomedIn(orientation, v26, v22, v24);
+        v27 = v28;
       }
     }
 
     else
     {
-      v26 = 1.0;
       v27 = 1.0;
+      v28 = 1.0;
       if (classicAppScaled)
       {
-        v28 = v19;
+        v29 = v19;
         if ([(SBApplication *)self classicAppFullScreen:1.0])
         {
-          v29 = ![(SBApplication *)self classicAppWithRoundedCorners];
+          v30 = ![(SBApplication *)self classicAppWithRoundedCorners];
         }
 
         else
         {
-          v29 = 1;
+          v30 = 1;
         }
 
-        v67.origin.x = x;
-        v67.origin.y = rect_8;
-        v67.size.width = width;
-        v67.size.height = rect_24;
-        v30 = CGRectGetHeight(v67);
-        v68.origin.x = v19;
-        v68.origin.y = rect_16;
-        v68.size.width = v22;
-        v68.size.height = v24;
-        v60 = v30 / CGRectGetHeight(v68);
-        v69.origin.x = rect;
-        v69.origin.y = rect_8;
-        v69.size.width = width;
-        v69.size.height = rect_24;
-        v31 = CGRectGetWidth(v69);
-        v70.origin.x = v28;
-        v70.origin.y = rect_16;
-        v70.size.width = v22;
-        v70.size.height = v24;
-        v27 = v31 / CGRectGetWidth(v70);
-        if (v29)
+        v68.origin.x = x;
+        v68.origin.y = rect_8;
+        v68.size.width = width;
+        v68.size.height = rect_24;
+        v31 = CGRectGetHeight(v68);
+        v69.origin.x = v19;
+        v69.origin.y = rect_16;
+        v69.size.width = v22;
+        v69.size.height = v24;
+        v61 = v31 / CGRectGetHeight(v69);
+        v70.origin.x = rect;
+        v70.origin.y = rect_8;
+        v70.size.width = width;
+        v70.size.height = rect_24;
+        v32 = CGRectGetWidth(v70);
+        v71.origin.x = v29;
+        v71.origin.y = rect_16;
+        v71.size.width = v22;
+        v71.size.height = v24;
+        v28 = v32 / CGRectGetWidth(v71);
+        if (v30)
         {
-          v26 = v60;
-          v19 = v28;
-          if (v27 <= v60)
+          v27 = v61;
+          v19 = v29;
+          if (v28 <= v61)
           {
-            v26 = v27;
+            v27 = v28;
           }
 
-          v27 = v26;
+          v28 = v27;
         }
 
         else
         {
-          v26 = v60;
-          v19 = v28;
+          v27 = v61;
+          v19 = v29;
         }
       }
     }
 
-    v62 = width;
-    v32 = orientation - 3;
+    v63 = width;
+    v33 = orientation - 3;
     if (spaceCopy)
-    {
-      v33 = v24;
-    }
-
-    else
-    {
-      v33 = v22;
-    }
-
-    if (spaceCopy)
-    {
-      v34 = v22;
-    }
-
-    else
     {
       v34 = v24;
     }
 
-    if (v32 >= 2)
+    else
     {
-      v35 = v24;
+      v34 = v22;
+    }
+
+    if (spaceCopy)
+    {
+      v35 = v22;
     }
 
     else
     {
-      v35 = v33;
+      v35 = v24;
     }
 
-    if (v32 >= 2)
+    if (v33 >= 2)
     {
-      v36 = v22;
+      v36 = v24;
     }
 
     else
@@ -8429,100 +8419,110 @@ void __86__SBApplication_Snapshots___xbactivity_saveSnapshotForSceneHandle_conte
       v36 = v34;
     }
 
-    v37 = v26;
+    if (v33 >= 2)
+    {
+      v37 = v22;
+    }
+
+    else
+    {
+      v37 = v35;
+    }
+
     v38 = v27;
-    v59 = v27;
-    v61 = v26;
+    v39 = v28;
+    v60 = v28;
+    v62 = v27;
     if (BSSizeEqualToSize())
     {
       goto LABEL_37;
     }
 
-    v71.origin.x = v19;
-    v71.origin.y = rect_16;
-    v71.size.width = v36;
-    v71.size.height = v35;
-    v39 = round(v38 * CGRectGetWidth(v71));
     v72.origin.x = v19;
     v72.origin.y = rect_16;
-    v72.size.width = v39;
-    v72.size.height = v35;
-    v40 = round(v37 * CGRectGetHeight(v72));
-    v73.origin.x = rect;
-    v73.origin.y = rect_8;
-    v73.size.width = v62;
-    v73.size.height = rect_24;
-    v57 = CGRectGetWidth(v73);
-    v74.origin.x = v19;
-    v74.origin.y = rect_16;
-    v74.size.width = v39;
-    v74.size.height = v40;
-    v58 = v57 - CGRectGetWidth(v74);
-    v75.origin.x = rect;
-    v75.origin.y = rect_8;
-    v75.size.width = v62;
-    v75.size.height = rect_24;
-    v41 = CGRectGetHeight(v75);
-    v76.origin.x = v19;
-    v76.origin.y = rect_16;
-    v76.size.width = v39;
-    v76.size.height = v40;
+    v72.size.width = v37;
+    v72.size.height = v36;
+    v40 = round(v39 * CGRectGetWidth(v72));
+    v73.origin.x = v19;
+    v73.origin.y = rect_16;
+    v73.size.width = v40;
+    v73.size.height = v36;
+    v41 = round(v38 * CGRectGetHeight(v73));
+    v74.origin.x = rect;
+    v74.origin.y = rect_8;
+    v74.size.width = v63;
+    v74.size.height = rect_24;
+    v58 = CGRectGetWidth(v74);
+    v75.origin.x = v19;
+    v75.origin.y = rect_16;
+    v75.size.width = v40;
+    v75.size.height = v41;
+    v59 = v58 - CGRectGetWidth(v75);
+    v76.origin.x = rect;
+    v76.origin.y = rect_8;
+    v76.size.width = v63;
+    v76.size.height = rect_24;
     v42 = CGRectGetHeight(v76);
-    if (v58 > 1.0 || v58 <= 0.0)
+    v77.origin.x = v19;
+    v77.origin.y = rect_16;
+    v77.size.width = v40;
+    v77.size.height = v41;
+    v43 = CGRectGetHeight(v77);
+    if (v59 > 1.0 || v59 <= 0.0)
     {
-      v43 = v41 - v42;
-      if (v43 > 1.0 || v43 <= 0.0)
+      v44 = v42 - v43;
+      if (v44 > 1.0 || v44 <= 0.0)
       {
         if (![(SBApplication *)self classicAppFullScreen])
         {
           goto LABEL_37;
         }
 
-        v47 = rect_24;
+        v48 = rect_24;
         if (![(SBApplication *)self classicAppWithRoundedCorners])
         {
           goto LABEL_37;
         }
 
-        v78.origin.x = rect;
-        v78.origin.y = rect_8;
-        v78.size.width = v62;
-        v78.size.height = rect_24;
-        CGRectGetWidth(v78);
-        v44 = rect;
-        v45 = rect_8;
-        v46 = v62;
+        v79.origin.x = rect;
+        v79.origin.y = rect_8;
+        v79.size.width = v63;
+        v79.size.height = rect_24;
+        CGRectGetWidth(v79);
+        v45 = rect;
+        v46 = rect_8;
+        v47 = v63;
       }
 
       else
       {
-        v44 = rect;
-        v45 = rect_8;
-        v46 = v62;
-        v47 = rect_24;
+        v45 = rect;
+        v46 = rect_8;
+        v47 = v63;
+        v48 = rect_24;
       }
 
-      v48 = v47;
-      CGRectGetHeight(*&v44);
+      v49 = v48;
+      CGRectGetHeight(*&v45);
     }
 
     else
     {
-      v77.origin.x = rect;
-      v77.origin.y = rect_8;
-      v77.size.width = v62;
-      v77.size.height = rect_24;
-      CGRectGetWidth(v77);
+      v78.origin.x = rect;
+      v78.origin.y = rect_8;
+      v78.size.width = v63;
+      v78.size.height = rect_24;
+      CGRectGetWidth(v78);
     }
 
 LABEL_37:
     UIRectCenteredIntegralRect();
-    x = v49;
-    y = v50;
-    width = v51;
-    height = v52;
-    v15 = v59;
-    v14 = v61;
+    x = v50;
+    y = v51;
+    width = v52;
+    height = v53;
+    v15 = v60;
+    v14 = v62;
   }
 
   if (factor)
@@ -8531,14 +8531,14 @@ LABEL_37:
     factor->height = v14;
   }
 
-  v53 = x;
-  v54 = y;
-  v55 = width;
-  v56 = height;
-  result.size.height = v56;
-  result.size.width = v55;
-  result.origin.y = v54;
-  result.origin.x = v53;
+  v54 = x;
+  v55 = y;
+  v56 = width;
+  v57 = height;
+  result.size.height = v57;
+  result.size.width = v56;
+  result.origin.y = v55;
+  result.origin.x = v54;
   return result;
 }
 
@@ -9114,7 +9114,7 @@ LABEL_8:
     v4 = attributionCopy;
   }
 
-  if (![(NSHashTable *)self->_backgroundActivityAttributions containsObject:v4])
+  if ((objc_msgSend_containsObject_(self->_backgroundActivityAttributions, v4, v4) & 1) == 0)
   {
     [(NSHashTable *)self->_backgroundActivityAttributions addObject:attributionCopy];
     backgroundActivityIdentifier = [attributionCopy backgroundActivityIdentifier];
@@ -9148,7 +9148,7 @@ LABEL_8:
   backgroundActivityAttributions = self->_backgroundActivityAttributions;
   if (backgroundActivityAttributions)
   {
-    if ([(NSHashTable *)backgroundActivityAttributions containsObject:attributionCopy])
+    if (objc_msgSend_containsObject_(backgroundActivityAttributions))
     {
       [(NSHashTable *)self->_backgroundActivityAttributions removeObject:attributionCopy];
       SBRemoveBackgroundActivityAttributionByIdentifier(attributionCopy, self->_backgroundActivityAttributionsByIdentifier);
@@ -9604,38 +9604,39 @@ void __34__SBApplication__clearSceneTitles__block_invoke(uint64_t a1)
 
 - (void)_processWillLaunch:(id)launch
 {
-  v17 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   launchCopy = launch;
+  v6 = launchCopy;
   if (!launchCopy)
   {
     [(SBApplication *)a2 _processWillLaunch:?];
   }
 
-  v6 = SBLogWorkspace();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = SBLogWorkspace(launchCopy);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     bundleIdentifier = [(SBApplication *)self bundleIdentifier];
-    v13 = 136315394;
-    v14 = "[SBApplication _processWillLaunch:]";
-    v15 = 2114;
-    v16 = bundleIdentifier;
-    _os_log_impl(&dword_21ED4E000, v6, OS_LOG_TYPE_INFO, "%s %{public}@", &v13, 0x16u);
+    v14 = 136315394;
+    v15 = "[SBApplication _processWillLaunch:]";
+    v16 = 2114;
+    v17 = bundleIdentifier;
+    _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_INFO, "%s %{public}@", &v14, 0x16u);
   }
 
-  state = [launchCopy state];
-  [(SBApplication *)self _updateProcess:launchCopy withState:state];
+  state = [v6 state];
+  [(SBApplication *)self _updateProcess:v6 withState:state];
 
   [(SBApplication *)self _setNewlyInstalled:0];
   [(SBApplication *)self _setRecentlyUpdated:0];
-  v9 = [(SBApplication *)self _prepareInitializationContextIfNecessaryForLaunchOnDisplayConfiguration:0];
-  executionContext = [launchCopy executionContext];
+  v10 = [(SBApplication *)self _prepareInitializationContextIfNecessaryForLaunchOnDisplayConfiguration:0];
+  executionContext = [v6 executionContext];
   environment = [executionContext environment];
-  v12 = [environment objectForKey:@"CLASSIC_OVERRIDE"];
+  v13 = [environment objectForKey:@"CLASSIC_OVERRIDE"];
 
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    self->_currentClassicMode = [v12 integerValue];
+    self->_currentClassicMode = [v13 integerValue];
   }
 }
 
@@ -9643,7 +9644,7 @@ void __34__SBApplication__clearSceneTitles__block_invoke(uint64_t a1)
 {
   v15 = *MEMORY[0x277D85DE8];
   launchCopy = launch;
-  v5 = SBLogWorkspace();
+  v5 = SBLogWorkspace(launchCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
     bundleIdentifier = [(SBApplication *)self bundleIdentifier];
@@ -9673,7 +9674,7 @@ void __34__SBApplication__clearSceneTitles__block_invoke(uint64_t a1)
 {
   v23 = *MEMORY[0x277D85DE8];
   contextCopy = context;
-  v6 = SBLogWorkspace();
+  v6 = SBLogWorkspace(contextCopy);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
   {
     bundleIdentifier = [(SBApplication *)self bundleIdentifier];
@@ -10058,7 +10059,7 @@ uint64_t __58__SBApplication__invalidateBackgroundActivityAttributions__block_in
   }
 
   v17 = v16;
-  v18 = SBLogIcon();
+  v18 = SBLogIcon(v16);
   if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
   {
     bundleIdentifier = [(SBApplication *)self bundleIdentifier];
@@ -10143,7 +10144,7 @@ uint64_t __58__SBApplication__invalidateBackgroundActivityAttributions__block_in
 
 - (BOOL)icon:(id)icon launchFromLocation:(id)location context:(id)context
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   iconCopy = icon;
   locationCopy = location;
   contextCopy = context;
@@ -10188,6 +10189,7 @@ uint64_t __58__SBApplication__invalidateBackgroundActivityAttributions__block_in
 LABEL_12:
     v19 = activationSettings;
     v20 = v19;
+    v21 = v19;
     goto LABEL_14;
   }
 
@@ -10199,23 +10201,24 @@ LABEL_12:
 
 LABEL_13:
   v19 = objc_alloc_init(SBActivationSettings);
-  v20 = 0;
+  v20 = v19;
+  v21 = 0;
 LABEL_14:
-  v21 = SBLogIcon();
-  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+  v22 = SBLogIcon(v19);
+  if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
   {
     bundleIdentifier = [(SBApplication *)self bundleIdentifier];
-    v25 = 138412802;
-    v26 = bundleIdentifier;
-    v27 = 2112;
-    v28 = iconCopy;
-    v29 = 2114;
-    v30 = locationCopy;
-    _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, "Launching application %@ from icon %@, location: %{public}@", &v25, 0x20u);
+    v26 = 138412802;
+    v27 = bundleIdentifier;
+    v28 = 2112;
+    v29 = iconCopy;
+    v30 = 2114;
+    v31 = locationCopy;
+    _os_log_impl(&dword_21ED4E000, v22, OS_LOG_TYPE_DEFAULT, "Launching application %@ from icon %@, location: %{public}@", &v26, 0x20u);
   }
 
-  v23 = +[SBUIController sharedInstance];
-  [v23 activateApplication:self fromIcon:iconCopy location:locationCopy activationSettings:v19 actions:actions];
+  v24 = +[SBUIController sharedInstance];
+  [v24 activateApplication:self fromIcon:iconCopy location:locationCopy activationSettings:v20 actions:actions];
 
   return 1;
 }
@@ -10874,7 +10877,7 @@ void __62__SBApplication_ChamoisCapabilities__alwaysMaximizedInChamois__block_in
 
   v3 = restrictedToTheEmbeddedDisplayInChamois_sRestrictedToEmbeddedBundleIDs;
   bundleIdentifier = [(SBApplication *)self bundleIdentifier];
-  LOBYTE(v3) = [v3 containsObject:bundleIdentifier];
+  LOBYTE(v3) = objc_msgSend_containsObject_(v3);
 
   return v3;
 }
@@ -11743,7 +11746,7 @@ LABEL_15:
 
     else
     {
-      v24 = SBLogWorkspace();
+      v24 = SBLogWorkspace(integerValue);
       v31 = _dataStore;
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
@@ -12225,7 +12228,7 @@ LABEL_43:
             {
               v98 = [v97 rangeAtIndex:1];
               v88 = [v67 substringWithRange:v98, v99];
-              if (-[SBApplication isSystemApplication](selfCopy, "isSystemApplication") || ([v133 urlSchemes], v100 = objc_claimAutoreleasedReturnValue(), v101 = objc_msgSend(v100, "containsObject:", v88), v100, (v101 & 1) != 0))
+              if (-[SBApplication isSystemApplication](selfCopy, "isSystemApplication") || ([v133 urlSchemes], v100 = objc_claimAutoreleasedReturnValue(), v101 = objc_msgSend_containsObject_(v100), v100, (v101 & 1) != 0))
               {
                 v102 = [v97 rangeAtIndex:0];
                 v104 = [v67 stringByReplacingCharactersInRange:v102 withString:v103, &stru_283094718];
@@ -13054,11 +13057,11 @@ LABEL_17:
   return SBHScreenTypeForCurrentDevice();
 }
 
-- (uint64_t)_isNewEnoughToKnowAboutRoundPads
+- (id)_isNewEnoughToKnowAboutRoundPads
 {
   if (result)
   {
-    return [*(result + 168) isPeaceBLinked];
+    return [result[21] isPeaceBLinked];
   }
 
   return result;

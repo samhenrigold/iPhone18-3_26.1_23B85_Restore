@@ -32,7 +32,7 @@
   handlerCopy = handler;
   if (self->listener_source)
   {
-    sub_10003EF30(&v19, handle);
+    sub_10003EF30(v19, handle);
   }
 
   handle[0] = -1;
@@ -43,8 +43,8 @@
 
   if (v9)
   {
-    v10 = sub_10002A1B4();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    v11 = sub_10002A1B4(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_100040EC8();
     }
@@ -52,22 +52,21 @@
 
   else
   {
-    v11 = dispatch_source_create(&_dispatch_source_type_read, handle[0], 0, self->queue);
+    v12 = dispatch_source_create(&_dispatch_source_type_read, handle[0], 0, self->queue);
     listener_source = self->listener_source;
-    self->listener_source = v11;
+    self->listener_source = v12;
 
-    v13 = self->listener_source;
+    v14 = self->listener_source;
     handler[0] = _NSConcreteStackBlock;
     handler[1] = 3221225472;
     handler[2] = sub_10002A1F8;
     handler[3] = &unk_10005DBA0;
     v17 = handlerCopy;
     v18 = handle[0];
-    dispatch_source_set_event_handler(v13, handler);
-    v14 = self->listener_source;
+    dispatch_source_set_event_handler(v14, handler);
     dispatch_source_set_mandatory_cancel_handler();
     dispatch_activate(self->listener_source);
-    v10 = v17;
+    v11 = v17;
   }
 
   return v9;
@@ -79,7 +78,7 @@
   handler = handler;
   if (self->bonjour_listener)
   {
-    sub_100040F50(&v49, buf);
+    sub_100040F50(&v51, buf);
   }
 
   interface = [(RSDListener *)self interface];
@@ -88,7 +87,7 @@
   secure_tcp = nw_parameters_create_secure_tcp(v15, _nw_parameters_configure_protocol_default_configuration);
   if (!index)
   {
-    sub_100041110(&v49, buf);
+    sub_100041110(&v51, buf);
   }
 
   v17 = secure_tcp;
@@ -110,7 +109,7 @@
 
   else
   {
-    v23 = sub_10002A1B4();
+    v23 = sub_10002A1B4(0);
     if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
     {
       sub_100040FD8();
@@ -121,76 +120,76 @@
 
   if (!v22)
   {
-    v24 = sub_10002A1B4();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_FAULT))
+    v25 = sub_10002A1B4(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_FAULT))
     {
-      sub_10003C698(v24);
+      sub_10003C698(v25);
     }
 
-    v38 = 6;
+    v40 = 6;
     handlerCopy2 = handler;
     goto LABEL_18;
   }
 
-  v24 = nw_parameters_copy_required_interface(v22);
-  name = nw_interface_get_name(v24);
+  v25 = nw_parameters_copy_required_interface(v22);
+  name = nw_interface_get_name(v25);
   interface2 = [(RSDListener *)self interface];
-  v27 = strncmp(name, [interface2 name], 0x10uLL);
+  v28 = strncmp(name, [interface2 name], 0x10uLL);
 
-  if (!v27)
+  if (!v28)
   {
-    v28 = nw_listener_create(v22);
+    v29 = nw_listener_create(v22);
     bonjour_listener = self->bonjour_listener;
-    self->bonjour_listener = v28;
+    self->bonjour_listener = v29;
 
-    v30 = self->bonjour_listener;
-    if (!v30)
+    v31 = self->bonjour_listener;
+    if (!v31)
     {
-      sub_100041094(&v49, buf);
+      sub_100041094(&v51, buf);
     }
 
-    v31 = domainCopy;
+    v32 = domainCopy;
 
-    v32 = typeCopy;
-    v33 = nw_advertise_descriptor_create_bonjour_service(nameCopy, typeCopy, v31);
-    if (!v33)
+    v33 = typeCopy;
+    v34 = nw_advertise_descriptor_create_bonjour_service(nameCopy, typeCopy, v32);
+    if (!v34)
     {
-      sub_100041018(&v49, buf);
+      sub_100041018(&v51, buf);
     }
 
-    v34 = v33;
+    v35 = v34;
 
-    nw_advertise_descriptor_set_no_auto_rename(v34, 1);
-    nw_listener_set_advertise_descriptor(self->bonjour_listener, v34);
+    nw_advertise_descriptor_set_no_auto_rename(v35, 1);
+    nw_listener_set_advertise_descriptor(self->bonjour_listener, v35);
     handlerCopy2 = handler;
     nw_listener_set_new_connection_handler(self->bonjour_listener, handler);
-    v36 = self->bonjour_listener;
-    v42[0] = _NSConcreteStackBlock;
-    v42[1] = 3221225472;
-    v42[2] = sub_10002A68C;
-    v42[3] = &unk_10005DBF0;
-    v42[4] = self;
-    v45 = nameCopy;
-    v46 = v32;
-    v47 = v31;
-    v43 = v15;
+    v37 = self->bonjour_listener;
+    v44[0] = _NSConcreteStackBlock;
+    v44[1] = 3221225472;
+    v44[2] = sub_10002A68C;
+    v44[3] = &unk_10005DBF0;
+    v44[4] = self;
+    v47 = nameCopy;
+    v48 = v33;
+    v49 = v32;
+    v45 = v15;
     handlerCopy3 = handler;
-    v48 = -1;
-    nw_listener_set_state_changed_handler(v36, v42);
+    v50 = -1;
+    nw_listener_set_state_changed_handler(v37, v44);
     nw_listener_set_advertised_endpoint_changed_handler(self->bonjour_listener, &stru_10005DC30);
     nw_listener_set_queue(self->bonjour_listener, self->queue);
     nw_listener_start(self->bonjour_listener);
-    v37 = sub_10002A1B4();
-    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
+    v39 = sub_10002A1B4(v38);
+    if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v37, OS_LOG_TYPE_DEFAULT, "create bonjour listener done", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "create bonjour listener done", buf, 2u);
     }
 
-    v38 = 0;
+    v40 = 0;
 LABEL_18:
 
-    return v38;
+    return v40;
   }
 
   os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR);

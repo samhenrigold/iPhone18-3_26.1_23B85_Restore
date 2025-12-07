@@ -1,5 +1,4 @@
 @interface OrgApacheLuceneStoreNativeFSLockFactory_NativeFSLock
-- (id)description;
 - (void)close;
 - (void)dealloc;
 - (void)ensureValid;
@@ -65,7 +64,7 @@ LABEL_19:
   }
 
   v20 = self->path_;
-  OrgLukhnosPortmobileFileAttributeBasicFileAttributes_class_();
+  OrgLukhnosPortmobileFileAttributeBasicFileAttributes_class_(0, v13);
   AttributesWithOrgLukhnosPortmobileFilePath_withIOSClass = OrgLukhnosPortmobileFileFiles_readAttributesWithOrgLukhnosPortmobileFilePath_withIOSClass_(v20);
   if (!AttributesWithOrgLukhnosPortmobileFilePath_withIOSClass || (v22 = [(OrgLukhnosPortmobileFileAttributeBasicFileAttributes *)AttributesWithOrgLukhnosPortmobileFilePath_withIOSClass creationTime], (creationTime = self->creationTime_) == 0))
   {
@@ -75,7 +74,6 @@ LABEL_15:
 
   if (![(OrgLukhnosPortmobileFileAttributeFileTime *)creationTime isEqual:v22])
   {
-    v34 = self->creationTime_;
     v32 = JreStrcat("$@$@C", v24, v25, v26, v27, v28, v29, v30, @"Underlying file changed by an external force at ");
 LABEL_22:
     v33 = new_OrgApacheLuceneStoreAlreadyClosedException_initWithNSString_(v32);
@@ -107,14 +105,6 @@ LABEL_22:
   }
 
   objc_sync_exit(self);
-}
-
-- (id)description
-{
-  creationTime = self->creationTime_;
-  lock = self->lock_;
-  path = self->path_;
-  return JreStrcat("$@$@$@C", a2, v2, v3, v4, v5, v6, v7, @"NativeFSLock(path=");
 }
 
 - (void)dealloc

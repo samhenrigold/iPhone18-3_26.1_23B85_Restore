@@ -45,20 +45,19 @@
 
 - (void)updateWithConfiguration:(id)configuration
 {
-  v5 = *(self + OBJC_IVAR____TtC9AACClient20AECAssessmentSession_taskQueue);
+  v5 = swift_allocObject();
+  swift_unknownObjectWeakInit();
   v6 = swift_allocObject();
-  swift_unknownObjectWeakInit();
+  *(v6 + 16) = v5;
+  *(v6 + 24) = configuration;
   v7 = swift_allocObject();
-  *(v7 + 16) = v6;
-  *(v7 + 24) = configuration;
-  v8 = swift_allocObject();
   swift_unknownObjectWeakInit();
-  v9 = swift_allocObject();
-  *(v9 + 16) = v8;
-  *(v9 + 24) = configuration;
+  v8 = swift_allocObject();
+  *(v8 + 16) = v7;
+  *(v8 + 24) = configuration;
   configurationCopy = configuration;
   selfCopy = self;
-  sub_236E0BF88(sub_236E11034, v7, sub_236E11088, v9);
+  sub_236E0BF88(sub_236E11034, v6, sub_236E11088, v8);
 }
 
 @end

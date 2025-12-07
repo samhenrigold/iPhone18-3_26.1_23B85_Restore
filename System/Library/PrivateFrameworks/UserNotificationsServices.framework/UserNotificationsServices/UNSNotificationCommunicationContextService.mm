@@ -7,7 +7,7 @@
 
 - (id)resolveCommunicationContextForRequest:(id)request bundleIdentifier:(id)identifier
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   requestCopy = request;
   identifierCopy = identifier;
   content = [requestCopy content];
@@ -15,39 +15,40 @@
 
   if (communicationContext)
   {
-    v10 = UNSLogCommunicationNotifications();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = UNSLogCommunicationNotifications(v10);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 138543618;
-      v24 = identifierCopy;
-      v25 = 2082;
-      v26 = "[UNSNotificationCommunicationContextService resolveCommunicationContextForRequest:bundleIdentifier:]";
-      _os_log_impl(&dword_270B08000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}s: Service existing context context", &v23, 0x16u);
+      v24 = 138543618;
+      v25 = identifierCopy;
+      v26 = 2082;
+      v27 = "[UNSNotificationCommunicationContextService resolveCommunicationContextForRequest:bundleIdentifier:]";
+      _os_log_impl(&dword_270B08000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}s: Service existing context context", &v24, 0x16u);
     }
 
-    v11 = [(UNSNotificationCommunicationContextService *)self _updatedCommunicationContext:communicationContext bundleIdentifier:identifierCopy];
-    if (v11)
+    v12 = [(UNSNotificationCommunicationContextService *)self _updatedCommunicationContext:communicationContext bundleIdentifier:identifierCopy];
+    v13 = v12;
+    if (v12)
     {
-      v12 = UNSLogCommunicationNotifications();
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+      v14 = UNSLogCommunicationNotifications(v12);
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v23 = 138543618;
-        v24 = identifierCopy;
-        v25 = 2082;
-        v26 = "[UNSNotificationCommunicationContextService resolveCommunicationContextForRequest:bundleIdentifier:]";
-        _os_log_impl(&dword_270B08000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}s: New context created while servicing request", &v23, 0x16u);
+        v24 = 138543618;
+        v25 = identifierCopy;
+        v26 = 2082;
+        v27 = "[UNSNotificationCommunicationContextService resolveCommunicationContextForRequest:bundleIdentifier:]";
+        _os_log_impl(&dword_270B08000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}s: New context created while servicing request", &v24, 0x16u);
       }
 
       content2 = [requestCopy content];
-      v14 = [content2 mutableCopy];
-      [v14 setCommunicationContext:v11];
+      v16 = [content2 mutableCopy];
+      [v16 setCommunicationContext:v13];
 
-      if (v14)
+      if (v16)
       {
-        v15 = MEMORY[0x277CE1FC0];
+        v17 = MEMORY[0x277CE1FC0];
         identifier = [requestCopy identifier];
         trigger = [requestCopy trigger];
-        v18 = [v15 requestWithIdentifier:identifier content:v14 trigger:trigger destinations:{objc_msgSend(requestCopy, "destinations")}];
+        v20 = [v17 requestWithIdentifier:identifier content:v16 trigger:trigger destinations:{objc_msgSend(requestCopy, "destinations")}];
 
         goto LABEL_12;
       }
@@ -55,32 +56,31 @@
 
     else
     {
-      v14 = 0;
+      v16 = 0;
     }
   }
 
   else
   {
-    v14 = 0;
-    v11 = 0;
+    v16 = 0;
+    v13 = 0;
   }
 
-  v18 = 0;
+  v20 = 0;
 LABEL_12:
-  if (v18)
+  if (v20)
   {
-    v19 = v18;
+    v21 = v20;
   }
 
   else
   {
-    v19 = requestCopy;
+    v21 = requestCopy;
   }
 
-  v20 = v19;
+  v22 = v21;
 
-  v21 = *MEMORY[0x277D85DE8];
-  return v19;
+  return v21;
 }
 
 - (id)_updatedCommunicationContext:(id)context bundleIdentifier:(id)identifier
@@ -97,27 +97,29 @@ LABEL_12:
     v9 = +[UNSNotificationContactService sharedInstance];
     v10 = [v9 updateServiceWithContact:sender bundleIdentifier:identifierCopy];
 
-    if (v10 && ([v10 isEqual:sender] & 1) == 0)
+    if (v10)
     {
-      v11 = UNSLogCommunicationNotifications();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v11 = [v10 isEqual:sender];
+      if ((v11 & 1) == 0)
       {
-        v14 = 138544130;
-        v15 = identifierCopy;
-        v16 = 2082;
-        v17 = "[UNSNotificationCommunicationContextService _updatedCommunicationContext:bundleIdentifier:]";
-        v18 = 2114;
-        v19 = sender;
-        v20 = 2114;
-        v21 = v10;
-        _os_log_impl(&dword_270B08000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}s: Updated sender.\nExisting:%{public}@\nUpdated:%{public}@", &v14, 0x2Au);
-      }
+        v12 = UNSLogCommunicationNotifications(v11);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+        {
+          v14 = 138544130;
+          v15 = identifierCopy;
+          v16 = 2082;
+          v17 = "[UNSNotificationCommunicationContextService _updatedCommunicationContext:bundleIdentifier:]";
+          v18 = 2114;
+          v19 = sender;
+          v20 = 2114;
+          v21 = v10;
+          _os_log_impl(&dword_270B08000, v12, OS_LOG_TYPE_DEFAULT, "%{public}@ %{public}s: Updated sender.\nExisting:%{public}@\nUpdated:%{public}@", &v14, 0x2Au);
+        }
 
-      [v7 setSender:v10];
+        [v7 setSender:v10];
+      }
     }
   }
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v7;
 }

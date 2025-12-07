@@ -1,19 +1,19 @@
-void PDFContentStreamEndTag(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void PDFContentStreamEndTag(uint64_t *a1)
 {
   if (CFArrayGetCount(a1[22]))
   {
-    v10 = *a1;
-    v11 = *(*a1 + 600);
-    if (v11 && CFArrayGetCount(v11) >= 2)
+    v2 = *a1;
+    v3 = *(*a1 + 600);
+    if (v3 && CFArrayGetCount(v3) >= 2)
     {
-      Count = CFArrayGetCount(*(v10 + 600));
-      CFArrayRemoveValueAtIndex(*(v10 + 600), Count - 1);
+      Count = CFArrayGetCount(*(v2 + 600));
+      CFArrayRemoveValueAtIndex(*(v2 + 600), Count - 1);
     }
 
     CGCFArrayRemoveLastValue(a1[22]);
-    v19 = a1[8];
+    v5 = a1[8];
 
-    PDFWriterPrintf(v19, "EMC", v13, v14, v15, v16, v17, v18, a9);
+    PDFWriterPrintf(v5, "EMC");
   }
 }
 
@@ -36,100 +36,100 @@ void PDFContentStreamSetRedactionPath(uint64_t a1, CFTypeRef cf)
   }
 }
 
-void PDFContentStreamBegin(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void PDFContentStreamBegin(uint64_t a1)
 {
   if (a1)
   {
-    PDFDocumentBeginObject(*a1, *(a1 + 8), a3, a4, a5, a6, a7, a8);
-    PDFDocumentPrintf(*a1, "<<", v10, v11, v12, v13, v14, v15, v23);
-    v22 = *a1;
+    PDFDocumentBeginObject(*a1, *(a1 + 8));
+    PDFDocumentPrintf(*a1, "<<");
+    v2 = *a1;
     if (*(*a1 + 73) == 1)
     {
 
-      PDFDocumentPrintf(v22, "/Filter /FlateDecode", v16, v17, v18, v19, v20, v21, a9);
+      PDFDocumentPrintf(v2, "/Filter /FlateDecode");
     }
   }
 }
 
-void PDFContentStreamBeginData(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
-{
-  if (a1)
-  {
-    v10 = *MEMORY[0x1E695E480];
-    Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
-    a1[4] = Mutable;
-    Encryptor = CGDataConsumerCreateWithCFData(Mutable);
-    a1[5] = Encryptor;
-    a1[3] = Encryptor;
-    v13 = *a1;
-    v14 = *(*a1 + 56);
-    if (v14)
-    {
-      Encryptor = PDFSecurityHandlerCreateEncryptor(v14, Encryptor, a1[1]);
-      a1[7] = Encryptor;
-      a1[3] = Encryptor;
-      v13 = *a1;
-    }
-
-    if (*(v13 + 73) == 1)
-    {
-      Encryptor = CGDataConsumerCreateFlateEncoder(Encryptor);
-      a1[6] = Encryptor;
-      a1[3] = Encryptor;
-    }
-
-    v15 = PDFWriterCreate(Encryptor);
-    a1[8] = v15;
-    v16 = *a1;
-    v17 = malloc_type_calloc(1uLL, 0x108uLL, 0x1060040267ABF3BuLL);
-    __CFSetLastAllocationEventName();
-    if (v17)
-    {
-      *v17 = 1;
-      v17[1] = v16;
-      v17[2] = v15;
-      v24 = *(v16 + 440);
-      if (!v24)
-      {
-        v24 = malloc_type_calloc(1uLL, 0x20uLL, 0x102004055CCDE27uLL);
-        __CFSetLastAllocationEventName();
-        if (v24)
-        {
-          *v24 = v16;
-        }
-
-        *(v16 + 440) = v24;
-      }
-
-      v25 = a1[14];
-      v17[3] = v24;
-      v17[4] = v25;
-      v17[5] = CFArrayCreateMutable(v10, 0, 0);
-      gstate_init(v17);
-    }
-
-    a1[13] = v17;
-    v26 = a1[8];
-
-    PDFWriterPrintf(v26, "q", v18, v19, v20, v21, v22, v23, a9);
-  }
-}
-
-uint64_t PDFContentStreamEndData(uint64_t result, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void PDFContentStreamBeginData(uint64_t *result)
 {
   if (result)
   {
-    v8 = result;
-    PDFWriterPrintf(*(result + 64), "Q", a3, a4, a5, a6, a7, a8, v10);
-    CGDataConsumerClose(v8[6]);
-    result = CGDataConsumerClose(v8[7]);
-    v9 = v8[3];
-    if (v9)
+    v2 = *MEMORY[0x1E695E480];
+    Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
+    result[4] = Mutable;
+    Encryptor = CGDataConsumerCreateWithCFData(Mutable);
+    result[5] = Encryptor;
+    result[3] = Encryptor;
+    v5 = *result;
+    v6 = *(*result + 56);
+    if (v6)
     {
-      v9 = *(v9 + 40);
+      Encryptor = PDFSecurityHandlerCreateEncryptor(v6, Encryptor, result[1]);
+      result[7] = Encryptor;
+      result[3] = Encryptor;
+      v5 = *result;
     }
 
-    v8[2] = v9;
+    if (*(v5 + 73) == 1)
+    {
+      Encryptor = CGDataConsumerCreateFlateEncoder(Encryptor);
+      result[6] = Encryptor;
+      result[3] = Encryptor;
+    }
+
+    v7 = PDFWriterCreate(Encryptor);
+    result[8] = v7;
+    v8 = *result;
+    v9 = malloc_type_calloc(1uLL, 0x108uLL, 0x1060040267ABF3BuLL);
+    __CFSetLastAllocationEventName();
+    if (v9)
+    {
+      *v9 = 1;
+      v9[1] = v8;
+      v9[2] = v7;
+      v11 = *(v8 + 440);
+      if (!v11)
+      {
+        v11 = malloc_type_calloc(1uLL, 0x20uLL, 0x102004055CCDE27uLL);
+        __CFSetLastAllocationEventName();
+        if (v11)
+        {
+          *v11 = v8;
+        }
+
+        *(v8 + 440) = v11;
+      }
+
+      v12 = result[14];
+      v9[3] = v11;
+      v9[4] = v12;
+      v9[5] = CFArrayCreateMutable(v2, 0, 0);
+      v10 = gstate_init(v9);
+    }
+
+    result[13] = v9;
+    v13 = result[8];
+
+    PDFWriterPrintf(v13, "q", v10);
+  }
+}
+
+uint64_t PDFContentStreamEndData(uint64_t result)
+{
+  if (result)
+  {
+    v1 = result;
+    PDFWriterPrintf(*(result + 64), "Q");
+    CGDataConsumerClose(v1[6]);
+    result = CGDataConsumerClose(v1[7]);
+    v2 = v1[3];
+    if (v2)
+    {
+      v2 = *(v2 + 40);
+    }
+
+    v1[2] = v2;
   }
 
   return result;
@@ -143,17 +143,17 @@ CFDataRef *PDFContentStreamEnd(CFDataRef *result)
     v2 = *result;
     v3 = *(*result + 3);
     Length = CFDataGetLength(result[4]);
-    PDFDocumentPrintf(v2, "/Length %O", v5, v6, v7, v8, v9, v10, Length);
-    PDFDocumentPrintf(*v1, ">>\n", v11, v12, v13, v14, v15, v16, v45);
-    PDFDocumentPrintf(*v1, "stream\n", v17, v18, v19, v20, v21, v22, v46);
+    PDFDocumentPrintf(v2, "/Length %O", Length);
+    PDFDocumentPrintf(*v1, ">>\n");
+    PDFDocumentPrintf(*v1, "stream\n");
     BytePtr = CFDataGetBytePtr(v1[4]);
-    v24 = CFDataGetLength(v1[4]);
-    CGDataConsumerPutBytes(v3, BytePtr, v24);
-    PDFDocumentPrintf(*v1, "\n", v25, v26, v27, v28, v29, v30, v47);
-    PDFDocumentPrintf(*v1, "endstream\n", v31, v32, v33, v34, v35, v36, v48);
-    v44 = *v1;
+    v6 = CFDataGetLength(v1[4]);
+    CGDataConsumerPutBytes(v3, BytePtr, v6);
+    PDFDocumentPrintf(*v1, "\n");
+    PDFDocumentPrintf(*v1, "endstream\n");
+    v7 = *v1;
 
-    return PDFDocumentEndObject(v44, v37, v38, v39, v40, v41, v42, v43);
+    return PDFDocumentEndObject(v7);
   }
 
   return result;
@@ -169,7 +169,7 @@ void PDFContentStreamDrawImage(const __CFArray **a1, uint64_t a2, CGImageRef cf,
   v8 = a2;
   v9 = a1;
   v10 = a1[25];
-  if (!v10 || (v11 = *(a2 + 40), *&transform.a = *(a2 + 24), *&transform.c = v11, *&transform.tx = *(a2 + 56), v147 = CGRectApplyAffineTransform(*&a4, &transform), width = v147.size.width, height = v147.size.height, x = v147.origin.x, bytesPerRow = v147.origin.y, (CGPathIntersectsRect(v10, v147.origin.x, v147.origin.y, v147.size.width, v147.size.height) & 1) == 0))
+  if (!v10 || (v11 = *(a2 + 40), *&transform.a = *(a2 + 24), *&transform.c = v11, *&transform.tx = *(a2 + 56), v83 = CGRectApplyAffineTransform(*&a4, &transform), width = v83.size.width, height = v83.size.height, x = v83.origin.x, bytesPerRow = v83.origin.y, (CGPathIntersectsRect(v10, v83.origin.x, v83.origin.y, v83.size.width, v83.size.height) & 1) == 0))
   {
     CFRetain(cf);
     Image = cf;
@@ -179,11 +179,11 @@ void PDFContentStreamDrawImage(const __CFArray **a1, uint64_t a2, CGImageRef cf,
   v14 = CGBitmapContextCreateForFlatteningImage(cf, 0, 0);
   v15 = *(cf + 5);
   v16 = *(cf + 6);
-  v148.origin.x = 0.0;
-  v148.origin.y = 0.0;
-  v148.size.width = v15;
-  v148.size.height = v16;
-  CGContextDrawImage(v14, v148, cf);
+  v84.origin.x = 0.0;
+  v84.origin.y = 0.0;
+  v84.size.width = v15;
+  v84.size.height = v16;
+  CGContextDrawImage(v14, v84, cf);
   transform.a = v15 / width;
   transform.b = 0.0;
   transform.c = 0.0;
@@ -233,13 +233,13 @@ void PDFContentStreamDrawImage(const __CFArray **a1, uint64_t a2, CGImageRef cf,
               *&a = (*&v20 - 1) & *&transform.a;
             }
 
-            v128 = *(*(*v9 + 39) + 8 * *&a);
-            if (v128)
+            v66 = *(*(*v9 + 39) + 8 * *&a);
+            if (v66)
             {
-              for (i = *v128; i; i = *i)
+              for (i = *v66; i; i = *i)
               {
-                v130 = i[1];
-                if (v130 == *&transform.a)
+                v68 = i[1];
+                if (v68 == *&transform.a)
                 {
                   if (i[2] == *&transform.a)
                   {
@@ -251,18 +251,18 @@ void PDFContentStreamDrawImage(const __CFArray **a1, uint64_t a2, CGImageRef cf,
                 {
                   if (v21.u32[0] > 1uLL)
                   {
-                    if (v130 >= *&v20)
+                    if (v68 >= *&v20)
                     {
-                      v130 %= *&v20;
+                      v68 %= *&v20;
                     }
                   }
 
                   else
                   {
-                    v130 &= *&v20 - 1;
+                    v68 &= *&v20 - 1;
                   }
 
-                  if (v130 != *&a)
+                  if (v68 != *&a)
                   {
                     break;
                   }
@@ -285,96 +285,96 @@ LABEL_17:
         v24 = PDFDocumentAddImage(*v9, Image, *(*(v8 + 120) + 4));
         v25 = 1;
 LABEL_44:
-        v56 = v9[14];
-        *(v56 + 6) |= 0x1Cu;
-        v57 = *(v56 + 8);
-        if (!v57)
+        v42 = v9[14];
+        *(v42 + 6) |= 0x1Cu;
+        v43 = *(v42 + 8);
+        if (!v43)
         {
-          v57 = CGOrderedSetCreate();
-          *(v56 + 8) = v57;
+          v43 = CGOrderedSetCreate();
+          *(v42 + 8) = v43;
         }
 
-        CGOrderedSetAddValue(v57, v24);
-        v58 = *(v56 + 1);
-        v59 = *(v58 + 632);
-        if (v59)
+        CGOrderedSetAddValue(v43, v24);
+        v44 = *(v42 + 1);
+        v45 = *(v44 + 632);
+        if (v45)
         {
-          v60 = v24[2];
-          if (v60)
+          v46 = v24[2];
+          if (v46)
           {
-            v60 = *(v60 + 8);
+            v46 = *(v46 + 8);
           }
 
-          if (*(v59 + 16) == 1 && !*(v59 + 32))
+          if (*(v45 + 16) == 1 && !*(v45 + 32))
           {
-            *(v59 + 32) = v60;
-            v61 = *(v58 + 640);
-            *(v58 + 640) = v61 + 1;
-            *(v59 + 40) = v61;
+            *(v45 + 32) = v46;
+            v47 = *(v44 + 640);
+            *(v44 + 640) = v47 + 1;
+            *(v45 + 40) = v47;
           }
 
           else
           {
-            v61 = -1;
+            v47 = -1;
           }
 
-          v24[13] = v61;
+          v24[13] = v47;
         }
 
-        v62 = v9[8];
-        v63 = v9[13];
-        PDFGStateSetClipStack(v63, *(v8 + 112));
-        v70 = *(v8 + 120);
-        v71 = *(v70 + 4);
-        if (((v71 >> 20) & 0xF) != 0)
+        v48 = v9[8];
+        v49 = v9[13];
+        PDFGStateSetClipStack(v49, *(v8 + 112));
+        v50 = *(v8 + 120);
+        v51 = *(v50 + 4);
+        if (((v51 >> 20) & 0xF) != 0)
         {
-          v72 = v71 << 8;
+          v52 = v51 << 8;
         }
 
         else
         {
-          v72 = v71 << 12;
+          v52 = v51 << 12;
         }
 
-        if (v72 >> 28)
+        if (v52 >> 28)
         {
-          v73 = v72 >> 28;
+          v53 = v52 >> 28;
         }
 
         else
         {
-          v73 = 2;
+          v53 = 2;
         }
 
-        if (*(v63 + 80) != v73)
+        if (*(v49 + 80) != v53)
         {
-          *(v63 + 80) = v73;
-          addEmitFunction(v63, emitRenderingIntentChange);
-          v70 = *(v8 + 120);
+          *(v49 + 80) = v53;
+          addEmitFunction(v49, emitRenderingIntentChange);
+          v50 = *(v8 + 120);
         }
 
-        v74 = *(v70 + 8);
+        v54 = *(v50 + 8);
         if (v25)
         {
           FillColor = CGGStateGetFillColor(v8);
-          PDFGStateSetFillColor(v63, FillColor);
-          v76 = *(v9 + 17);
+          PDFGStateSetFillColor(v49, FillColor);
+          v56 = *(v9 + 17);
           *&transform.a = *(v9 + 15);
-          *&transform.c = v76;
+          *&transform.c = v56;
           *&transform.tx = *(v9 + 19);
-          PDFGStateSetPatternMatrix(v63, &transform, v77, v78, v79, v80, v81, v82, *(*(v8 + 120) + 24), *(*(v8 + 120) + 32));
-          v84 = *(*(v8 + 144) + 16);
-          if (*(v63 + 224) != v84)
+          PDFGStateSetPatternMatrix(v49, &transform, *(*(v8 + 120) + 24), *(*(v8 + 120) + 32));
+          v57 = *(*(v8 + 144) + 16);
+          if (*(v49 + 224) != v57)
           {
-            *(v63 + 224) = v84;
-            addEmitFunction(v63, emitSmoothnessChange);
+            *(v49 + 224) = v57;
+            addEmitFunction(v49, emitSmoothnessChange);
           }
 
           if (FillColor)
           {
             if ((FillColor & 0x8000000000000000) != 0)
             {
-              Alpha = CGTaggedColorGetAlpha(FillColor, v83, v64, v65, v66, v67, v68, v69);
+              Alpha = CGTaggedColorGetAlpha(FillColor);
             }
 
             else
@@ -388,81 +388,87 @@ LABEL_44:
             Alpha = 0.0;
           }
 
-          v74 = v74 * Alpha;
+          v54 = v54 * Alpha;
+          v59 = "image mask";
         }
 
-        if (*(v63 + 168) != v74)
+        else
         {
-          *(v63 + 168) = v74;
-          addEmitFunction(v63, emitNonStrokeAlphaChange);
+          v59 = "image";
         }
 
-        v86 = *(v8 + 144);
-        v87 = *(v86 + 24);
-        if (*(v63 + 200) != v87)
+        if (*(v49 + 168) != v54)
         {
-          *(v63 + 200) = v87;
-          addEmitFunction(v63, emitNonStrokeOverprintChange);
-          v86 = *(v8 + 144);
+          *(v49 + 168) = v54;
+          addEmitFunction(v49, emitNonStrokeAlphaChange);
         }
 
-        PDFGStateSetOverprintMode(v63, *(v86 + 28), v64, v65, v66, v67, v68, v69);
-        PDFGStateSetBlackGeneration(v63, *(*(v8 + 144) + 32));
-        PDFGStateSetUndercolorRemoval(v63, *(*(v8 + 144) + 40));
-        PDFGStateSetStyle(v63, *(*(v8 + 120) + 16));
-        PDFGStateSetSoftMask(v63, *(*(v8 + 120) + 40));
-        v94 = (*(*(v8 + 120) + 4) << 16) >> 24;
-        if ((v94 - 13) >= 0xF)
+        v60 = *(v8 + 144);
+        v61 = *(v60 + 24);
+        if (*(v49 + 200) != v61)
         {
-          v94 = 2;
+          *(v49 + 200) = v61;
+          addEmitFunction(v49, emitNonStrokeOverprintChange);
+          v60 = *(v8 + 144);
         }
 
-        if (*(v63 + 248) != v94)
+        PDFGStateSetOverprintMode(v49, *(v60 + 28));
+        PDFGStateSetBlackGeneration(v49, *(*(v8 + 144) + 32));
+        PDFGStateSetUndercolorRemoval(v49, *(*(v8 + 144) + 40));
+        PDFGStateSetStyle(v49, *(*(v8 + 120) + 16));
+        PDFGStateSetSoftMask(v49, *(*(v8 + 120) + 40));
+        v62 = (*(*(v8 + 120) + 4) << 16) >> 24;
+        if ((v62 - 13) >= 0xF)
         {
-          *(v63 + 248) = v94;
-          addEmitFunction(v63, emitBlendModeChange);
+          v62 = 2;
         }
 
-        PDFWriterAnnotate(v62, "  BEGIN: synchronizing gstate.", v88, v89, v90, v91, v92, v93, decode);
-        PDFGStateEmit(v63);
-        PDFWriterAnnotate(v62, "  END: synchronizing gstate.", v95, v96, v97, v98, v99, v100, decodea);
-        PDFWriterAnnotate(v62, "%s: BEGIN: drawing %s.", v101, v102, v103, v104, v105, v106, "PDFWriteImage");
-        v113 = *(v8 + 40);
+        if (*(v49 + 248) != v62)
+        {
+          *(v49 + 248) = v62;
+          addEmitFunction(v49, emitBlendModeChange);
+        }
+
+        PDFWriterAnnotate(v48, "  BEGIN: synchronizing gstate.");
+        PDFGStateEmit(v49);
+        PDFWriterAnnotate(v48, "  END: synchronizing gstate.");
+        PDFWriterAnnotate(v48, "%s: BEGIN: drawing %s.", "PDFWriteImage", v59);
+        v63 = *(v8 + 40);
         *&transform.a = *(v8 + 24);
-        *&transform.c = v113;
+        *&transform.c = v63;
         *&transform.tx = *(v8 + 56);
-        *&transform.tx = vmlaq_n_f64(vmlaq_n_f64(*&transform.tx, *&transform.a, a4), v113, a5);
-        v114 = vmulq_n_f64(*&transform.a, a6);
-        v115 = vmulq_n_f64(v113, a7);
-        *&transform.a = v114;
-        *&transform.c = v115;
-        if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(v114, xmmword_18439C630), vceqq_f64(v115, xmmword_18439C780))))) & 1) == 0 && transform.tx == 0.0 && transform.ty == 0.0)
+        *&transform.tx = vmlaq_n_f64(vmlaq_n_f64(*&transform.tx, *&transform.a, a4), v63, a5);
+        v64 = vmulq_n_f64(*&transform.a, a6);
+        v65 = vmulq_n_f64(v63, a7);
+        *&transform.a = v64;
+        *&transform.c = v65;
+        if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqq_f64(v64, xmmword_18439C630), vceqq_f64(v65, xmmword_18439C780))))) & 1) == 0 && transform.tx == 0.0 && transform.ty == 0.0)
         {
-          PDFWriterPrintf(v62, "/%N Do", v107, v108, v109, v110, v111, v112, (v24 + 3));
+          PDFWriterPrintf(v48, "/%N Do", v24 + 3);
         }
 
-        else if (-v114.f64[1] * v115.f64[0] + v114.f64[0] * v115.f64[1] != 0.0)
+        else if (-v64.f64[1] * v65.f64[0] + v64.f64[0] * v65.f64[1] != 0.0)
         {
-          PDFWriterPrintf(v62, "q %*m cm", v107, v108, v109, v110, v111, v112, &transform);
-          PDFWriterPrintf(v62, "/%N Do", v116, v117, v118, v119, v120, v121, (v24 + 3));
-          PDFWriterPrintf(v62, "Q", v122, v123, v124, v125, v126, v127, decodeb);
+          PDFWriterPrintf(v48, "q %*m cm", &transform);
+          PDFWriterPrintf(v48, "/%N Do", v24 + 3);
+          PDFWriterPrintf(v48, "Q", decode);
         }
 
-        PDFWriterAnnotate(v62, "%s: END: drawing %s.", v107, v108, v109, v110, v111, v112, "PDFWriteImage");
+        PDFWriterAnnotate(v48, "%s: END: drawing %s.", "PDFWriteImage", v59);
         CFRelease(Image);
         return;
       }
 
       NumberOfComponents = CGGStateGetFillColor(v8);
-      v34 = NumberOfComponents;
-      v136 = v8;
-      v137 = v9;
-      v139 = v23;
+      v27 = NumberOfComponents;
+      v72 = v8;
+      v73 = v9;
+      v75 = v23;
       if (NumberOfComponents)
       {
         if (NumberOfComponents < 0)
         {
-          NumberOfComponents = CGTaggedColorGetNumberOfComponents(NumberOfComponents, v27, v28, v29, v30, v31, v32, v33);
+          NumberOfComponents = CGTaggedColorGetNumberOfComponents(NumberOfComponents);
         }
 
         else
@@ -471,82 +477,82 @@ LABEL_44:
         }
       }
 
-      v35 = NumberOfComponents - 1;
-      v36 = *(Image + 5);
-      v37 = *(Image + 6);
-      bytesPerRowa = (NumberOfComponents - 1) * v36;
-      v134 = bytesPerRowa * v37;
-      v135 = Image;
-      v38 = malloc_type_malloc(bytesPerRowa * v37, 0xCC251E8uLL);
-      if (v37)
+      v28 = NumberOfComponents - 1;
+      v29 = *(Image + 5);
+      v30 = *(Image + 6);
+      bytesPerRowa = (NumberOfComponents - 1) * v29;
+      v70 = bytesPerRowa * v30;
+      v71 = Image;
+      v31 = malloc_type_malloc(bytesPerRowa * v30, 0xCC251E8uLL);
+      if (v30)
       {
-        for (j = 0; j != v37; ++j)
+        for (j = 0; j != v30; ++j)
         {
-          if (v36)
+          if (v29)
           {
-            v40 = 0;
-            v41 = &v38[j * bytesPerRowa];
+            v33 = 0;
+            v34 = &v31[j * bytesPerRowa];
             do
             {
-              if (v35)
+              if (v28)
               {
-                v42 = 0;
-                v43 = v35;
+                v35 = 0;
+                v36 = v28;
                 do
                 {
-                  *v41++ = (CGColorGetComponents(v34)[v42++] * 255.0 + 0.5);
-                  --v43;
+                  *v34++ = (CGColorGetComponents(v27)[v35++] * 255.0 + 0.5);
+                  --v36;
                 }
 
-                while (v43);
+                while (v36);
               }
 
-              ++v40;
+              ++v33;
             }
 
-            while (v40 != v36);
+            while (v33 != v29);
           }
         }
       }
 
-      check_clients_buffer("CGDataProviderCreateWithData", v38, v134);
-      v51 = CGDataProviderCreateWithDataInternal(0, v38, v134, release_data, 0);
-      if (v34)
+      check_clients_buffer("CGDataProviderCreateWithData", v31, v70);
+      v37 = CGDataProviderCreateWithDataInternal(0, v31, v70, release_data, 0);
+      if (v27)
       {
-        v9 = v137;
-        v52 = v139;
-        if ((v34 & 0x8000000000000000) != 0)
+        v9 = v73;
+        v38 = v75;
+        if ((v27 & 0x8000000000000000) != 0)
         {
-          ColorSpace = CGTaggedColorGetColorSpace(v34, v44, v45, v46, v47, v48, v49, v50);
+          ColorSpace = CGTaggedColorGetColorSpace(v27);
         }
 
         else
         {
-          ColorSpace = *(v34 + 24);
+          ColorSpace = *(v27 + 24);
         }
       }
 
       else
       {
         ColorSpace = 0;
-        v9 = v137;
-        v52 = v139;
+        v9 = v73;
+        v38 = v75;
       }
 
-      v54 = CGImageCreate(v36, v37, 8uLL, 8 * v35, bytesPerRowa, ColorSpace, 0, v51, 0, 1, kCGRenderingIntentDefault);
-      CGDataProviderRelease(v51);
-      Image = v135;
-      v55 = CGImageCreateWithMaskAndMatte(v54, v135, 0);
-      if (v54)
+      v40 = CGImageCreate(v29, v30, 8uLL, 8 * v28, bytesPerRowa, ColorSpace, 0, v37, 0, 1, kCGRenderingIntentDefault);
+      CGDataProviderRelease(v37);
+      Image = v71;
+      v41 = CGImageCreateWithMaskAndMatte(v40, v71, 0);
+      if (v40)
       {
-        CFRelease(v54);
+        CFRelease(v40);
       }
 
-      v24 = PDFDocumentAddImage(*v9, v55, v52);
-      v8 = v136;
-      if (v55)
+      v24 = PDFDocumentAddImage(*v9, v41, v38);
+      v8 = v72;
+      if (v41)
       {
-        CFRelease(v55);
+        CFRelease(v41);
       }
     }
 
@@ -560,188 +566,186 @@ LABEL_44:
   }
 }
 
-void PDFContentStreamDrawGlyphs(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double *a5, unint64_t a6, __n128 a7)
+void PDFContentStreamDrawGlyphs(uint64_t a1, uint64_t a2, float64x2_t *a3, CGGlyph *a4, double *a5, unint64_t a6)
 {
-  v212 = a5;
-  v211 = a4;
-  v213 = a3;
-  v226 = *MEMORY[0x1E69E9840];
-  v10 = MEMORY[0x1EEE9AC00](2 * a6, a7);
-  v215 = &v211 - v13;
-  if ((v12 - 0x7FFFFFFFFFFFFFFFLL) >= 0x8000000000000102)
+  v130 = a5;
+  v129 = a4;
+  v131 = a3;
+  v144 = *MEMORY[0x1E69E9840];
+  v9 = MEMORY[0x1EEE9AC00](2 * a6);
+  v133 = &v129 - v11;
+  if ((v10 - 0x7FFFFFFFFFFFFFFFLL) >= 0x8000000000000102)
   {
-    malloc_type_malloc(v10, 0x87F0E7C6uLL);
+    malloc_type_malloc(v9, 0x87F0E7C6uLL);
   }
 
-  v14 = MEMORY[0x1EEE9AC00](16 * a6, v11);
-  v24 = v210.f64 - v23 + 1;
-  v214 = v210.f64 - v23 + 1;
-  if (v21 > 0xFFFFFFFFFFFFFFELL)
+  v12 = MEMORY[0x1EEE9AC00](16 * a6);
+  v16 = &v129 - v15 - 15;
+  v132 = v16;
+  if (v13 > 0xFFFFFFFFFFFFFFELL)
   {
-    v24 = 0;
+    v16 = 0;
   }
 
-  v216 = v22;
-  if (v21 - 0xFFFFFFFFFFFFFFFLL >= 0xF000000000000102)
+  v134 = v14;
+  if (v13 - 0xFFFFFFFFFFFFFFFLL >= 0xF000000000000102)
   {
-    v217 = malloc_type_malloc(v14, 0x16328146uLL);
+    v135 = malloc_type_malloc(v12, 0x16328146uLL);
   }
 
   else
   {
-    v217 = v24;
+    v135 = v16;
   }
 
-  v25 = *(a1 + 200);
-  v26 = a6;
-  if (v25)
+  v17 = *(a1 + 200);
+  v18 = a6;
+  if (v17)
   {
-    v26 = 0;
-    v28 = *v213;
-    v27 = v213[1];
-    v29 = v213[2].f64[1];
-    v218 = v213[2].f64[0];
-    v30 = v28.f64[1];
-    v222 = v27;
-    v31 = v27.f64[1];
-    v32 = v211;
-    v33 = v212;
-    v34 = a6;
-    v221 = v28;
+    v18 = 0;
+    v20 = *v131;
+    v19 = v131[1];
+    v21 = v131[2].f64[1];
+    v136 = v131[2].f64[0];
+    v22 = v20.f64[1];
+    v140 = v19;
+    v23 = v19.f64[1];
+    v24 = v129;
+    v25 = v130;
+    v26 = a6;
+    v139 = v20;
     do
     {
-      v36 = *v33;
-      v35 = v33[1];
-      glyphs = *v32;
-      v37 = *(*(a2 + 136) + 8);
-      font_info = get_font_info(v37);
+      v28 = *v25;
+      v27 = v25[1];
+      glyphs = *v24;
+      v29 = *(*(a2 + 136) + 8);
+      font_info = get_font_info(v29);
       if (font_info)
       {
-        v39 = font_info[2];
+        v31 = font_info[2];
       }
 
       else
       {
-        v39 = 0.0;
+        v31 = 0.0;
       }
 
-      v40 = *(*(a2 + 136) + 16) / v39;
-      v220 = vmulq_n_f64(v222, v40);
-      v219 = vmulq_n_f64(v221, v40);
+      v32 = *(*(a2 + 136) + 16) / v31;
+      v138 = vmulq_n_f64(v140, v32);
+      v137 = vmulq_n_f64(v139, v32);
       memset(&bboxes, 0, 32);
-      GlyphBBoxes = CGFontGetGlyphBBoxes(v37, &glyphs, 1uLL, &bboxes);
-      v42 = v35 * v222.f64[0];
-      v43 = v35 * v31;
+      GlyphBBoxes = CGFontGetGlyphBBoxes(v29, &glyphs, 1uLL, &bboxes);
+      v34 = v27 * v140.f64[0];
+      v35 = v27 * v23;
       if (GlyphBBoxes)
       {
-        v44 = v218 + v42 + v221.f64[0] * v36;
-        v228.origin.x = bboxes.a;
-        v228.origin.y = bboxes.b;
-        v228.size.width = bboxes.c;
-        v228.size.height = bboxes.d;
-        *&v225.a = v219;
-        *&v225.c = v220;
-        v225.tx = 0.0;
-        v225.ty = 0.0;
-        v229 = CGRectApplyAffineTransform(v228, &v225);
-        v230 = CGRectOffset(v229, v44, v29 + v43 + v30 * v36);
+        v36 = v136 + v34 + v139.f64[0] * v28;
+        v146.origin.x = bboxes.a;
+        v146.origin.y = bboxes.b;
+        v146.size.width = bboxes.c;
+        v146.size.height = bboxes.d;
+        *&v143.a = v137;
+        *&v143.c = v138;
+        v143.tx = 0.0;
+        v143.ty = 0.0;
+        v147 = CGRectApplyAffineTransform(v146, &v143);
+        v148 = CGRectOffset(v147, v36, v21 + v35 + v22 * v28);
       }
 
       else
       {
-        v231.origin.x = -v39;
-        v231.size.width = v39 + v39;
-        *&v225.a = v219;
-        *&v225.c = v220;
-        v225.tx = 0.0;
-        v225.ty = 0.0;
-        v231.origin.y = -v39;
-        v231.size.height = v39 + v39;
-        v232 = CGRectApplyAffineTransform(v231, &v225);
-        v234 = CGRectOffset(v232, v218 + v42 + v221.f64[0] * v36, v29 + v43 + v30 * v36);
-        v230 = CGRectUnion(v234, v234);
+        v149.origin.x = -v31;
+        v149.size.width = v31 + v31;
+        *&v143.a = v137;
+        *&v143.c = v138;
+        v143.tx = 0.0;
+        v143.ty = 0.0;
+        v149.origin.y = -v31;
+        v149.size.height = v31 + v31;
+        v150 = CGRectApplyAffineTransform(v149, &v143);
+        v152 = CGRectOffset(v150, v136 + v34 + v139.f64[0] * v28, v21 + v35 + v22 * v28);
+        v148 = CGRectUnion(v152, v152);
       }
 
-      v45 = *(a2 + 40);
-      *&v225.a = *(a2 + 24);
-      *&v225.c = v45;
-      *&v225.tx = *(a2 + 56);
-      v233 = CGRectApplyAffineTransform(v230, &v225);
-      x = v233.origin.x;
-      y = v233.origin.y;
-      if ((CGPathIntersectsRect(v25, v233.origin.x, v233.origin.y, v233.size.width, v233.size.height) & 1) == 0)
+      v37 = *(a2 + 40);
+      *&v143.a = *(a2 + 24);
+      *&v143.c = v37;
+      *&v143.tx = *(a2 + 56);
+      v151 = CGRectApplyAffineTransform(v148, &v143);
+      x = v151.origin.x;
+      y = v151.origin.y;
+      if ((CGPathIntersectsRect(v17, v151.origin.x, v151.origin.y, v151.size.width, v151.size.height) & 1) == 0)
       {
-        v227.x = x;
-        v227.y = y;
-        if (!CGPathContainsPoint(v25, 0, v227, 0))
+        v145.x = x;
+        v145.y = y;
+        if (!CGPathContainsPoint(v17, 0, v145, 0))
         {
-          *&v216[2 * v26] = *v32;
-          *&v217[16 * v26++] = *v33;
+          *&v134[2 * v18] = *v24;
+          *&v135[2 * v18++] = *v25;
         }
       }
 
-      v33 += 2;
-      ++v32;
-      --v34;
+      v25 += 2;
+      ++v24;
+      --v26;
     }
 
-    while (v34);
+    while (v26);
   }
 
-  if (!v26)
+  if (!v18)
   {
     goto LABEL_31;
   }
 
-  v48 = *(*(a2 + 136) + 1);
+  v40 = *(*(a2 + 136) + 1);
   if (*(a1 + 169))
   {
-    v48 = 3;
+    v40 = 3;
   }
 
-  if (v48 >= 8)
+  if (v40 >= 8)
   {
 LABEL_31:
-    v63 = v217;
-    if (v216 != v215)
+    v47 = v135;
+    if (v134 != v133)
     {
-      free(v216);
+      free(v134);
     }
 
-    if (v63 != v214)
+    if (v47 != v132)
     {
-      free(v63);
+      free(v47);
     }
 
     return;
   }
 
-  v49 = dword_184564550[v48];
-  v50 = *(a1 + 64);
-  *&v210.f64[1] = off_1E6E33200[v48];
-  PDFWriterAnnotate(v50, "%s: BEGIN: %s", v15, v16, v17, v18, v19, v20, "PDFContentStreamDrawGlyphs");
+  v41 = dword_184564550[v40];
+  PDFWriterAnnotate(*(a1 + 64), "%s: BEGIN: %s", "PDFContentStreamDrawGlyphs", off_1E6E33200[v40]);
   PDFGStateSetClipStack(*(a1 + 104), *(a2 + 112));
   if (*(a1 + 169))
   {
-    v57 = 3;
+    v42 = 3;
   }
 
   else
   {
-    v57 = v49;
+    v42 = v41;
   }
 
-  if ((v57 & 1) == 0)
+  if ((v42 & 1) == 0)
   {
-    v58 = *(*(a2 + 120) + 8);
+    v43 = *(*(a2 + 120) + 8);
     FillColor = CGGStateGetFillColor(a2);
     PDFGStateSetFillColor(*(a1 + 104), FillColor);
-    v61 = *(a1 + 104);
+    v45 = *(a1 + 104);
     if (FillColor)
     {
       if ((FillColor & 0x8000000000000000) != 0)
       {
-        Alpha = CGTaggedColorGetAlpha(FillColor, v60, v51, v52, v53, v54, v55, v56);
+        Alpha = CGTaggedColorGetAlpha(FillColor);
       }
 
       else
@@ -755,533 +759,526 @@ LABEL_31:
       Alpha = 0.0;
     }
 
-    v64 = v58 * Alpha;
-    if (*(v61 + 168) != v64)
+    v48 = v43 * Alpha;
+    if (*(v45 + 168) != v48)
     {
-      *(v61 + 168) = v64;
-      addEmitFunction(v61, emitNonStrokeAlphaChange);
+      *(v45 + 168) = v48;
+      addEmitFunction(v45, emitNonStrokeAlphaChange);
     }
 
-    v65 = *(a1 + 104);
-    v66 = *(*(a2 + 144) + 24);
-    if (*(v65 + 200) != v66)
+    v49 = *(a1 + 104);
+    v50 = *(*(a2 + 144) + 24);
+    if (*(v49 + 200) != v50)
     {
-      *(v65 + 200) = v66;
-      addEmitFunction(v65, emitNonStrokeOverprintChange);
+      *(v49 + 200) = v50;
+      addEmitFunction(v49, emitNonStrokeOverprintChange);
     }
   }
 
-  if ((v57 - 1) <= 1)
+  if ((v42 - 1) <= 1)
   {
-    v67 = *(*(a2 + 120) + 8);
+    v51 = *(*(a2 + 120) + 8);
     StrokeColor = CGGStateGetStrokeColor(a2);
     PDFGStateSetStrokeColor(*(a1 + 104), StrokeColor);
-    v76 = *(a1 + 104);
+    v53 = *(a1 + 104);
     if (StrokeColor)
     {
       if ((StrokeColor & 0x8000000000000000) != 0)
       {
-        v77 = CGTaggedColorGetAlpha(StrokeColor, v69, v70, v71, v72, v73, v74, v75);
+        v54 = CGTaggedColorGetAlpha(StrokeColor);
       }
 
       else
       {
-        v77 = *(StrokeColor + 8 * *(StrokeColor + 56) + 64);
+        v54 = *(StrokeColor + 8 * *(StrokeColor + 56) + 64);
       }
     }
 
     else
     {
-      v77 = 0.0;
+      v54 = 0.0;
     }
 
-    v79 = v67 * v77;
-    if (*(v76 + 176) != v79)
+    v56 = v51 * v54;
+    if (*(v53 + 176) != v56)
     {
-      *(v76 + 176) = v79;
-      addEmitFunction(v76, emitStrokeAlphaChange);
+      *(v53 + 176) = v56;
+      addEmitFunction(v53, emitStrokeAlphaChange);
     }
 
     PDFGStateSetStrokeOverprint(*(a1 + 104), *(*(a2 + 144) + 25));
-    v80 = *(a1 + 104);
-    v81 = *(a2 + 128);
-    v82 = *(v81 + 8);
-    if (v82 == -1.0905473e16)
+    v57 = *(a1 + 104);
+    v58 = *(a2 + 128);
+    v59 = *(v58 + 8);
+    if (v59 == -1.0905473e16)
     {
-      v82 = 0.0;
+      v59 = 0.0;
     }
 
-    if (*(v80 + 48) != v82)
+    if (*(v57 + 48) != v59)
     {
-      *(v80 + 48) = v82;
-      addEmitFunction(v80, emitLineWidthChange);
-      v80 = *(a1 + 104);
-      v81 = *(a2 + 128);
+      *(v57 + 48) = v59;
+      addEmitFunction(v57, emitLineWidthChange);
+      v57 = *(a1 + 104);
+      v58 = *(a2 + 128);
     }
 
-    v83 = *(v81 + 2);
-    if (*(v80 + 56) != v83)
+    v60 = *(v58 + 2);
+    if (*(v57 + 56) != v60)
     {
-      *(v80 + 56) = v83;
-      addEmitFunction(v80, emitLineCapChange);
-      v80 = *(a1 + 104);
-      v81 = *(a2 + 128);
-      v83 = *(v81 + 2);
+      *(v57 + 56) = v60;
+      addEmitFunction(v57, emitLineCapChange);
+      v57 = *(a1 + 104);
+      v58 = *(a2 + 128);
+      v60 = *(v58 + 2);
     }
 
-    if (*(v80 + 60) != v83 >> 8)
+    if (*(v57 + 60) != v60 >> 8)
     {
-      *(v80 + 60) = v83 >> 8;
-      addEmitFunction(v80, emitLineJoinChange);
-      v80 = *(a1 + 104);
-      v81 = *(a2 + 128);
+      *(v57 + 60) = v60 >> 8;
+      addEmitFunction(v57, emitLineJoinChange);
+      v57 = *(a1 + 104);
+      v58 = *(a2 + 128);
     }
 
-    v84 = *(v81 + 16);
-    if (*(v80 + 64) != v84)
+    v61 = *(v58 + 16);
+    if (*(v57 + 64) != v61)
     {
-      *(v80 + 64) = v84;
-      addEmitFunction(v80, emitMiterLimitChange);
-      v80 = *(a1 + 104);
-      v81 = *(a2 + 128);
+      *(v57 + 64) = v61;
+      addEmitFunction(v57, emitMiterLimitChange);
+      v57 = *(a1 + 104);
+      v58 = *(a2 + 128);
     }
 
-    PDFGStateSetLineDash(v80, *(v81 + 32));
-    v78 = *(a1 + 104);
+    PDFGStateSetLineDash(v57, *(v58 + 32));
+    v55 = *(a1 + 104);
     goto LABEL_63;
   }
 
-  v78 = *(a1 + 104);
-  if (v57 != 3)
+  v55 = *(a1 + 104);
+  if (v42 != 3)
   {
 LABEL_63:
-    v85 = *(*(a2 + 144) + 8);
-    if (*(v78 + 88) != v85)
+    v62 = *(*(a2 + 144) + 8);
+    if (*(v55 + 88) != v62)
     {
-      *(v78 + 88) = v85;
-      addEmitFunction(v78, emitFlatnessChange);
-      v78 = *(a1 + 104);
+      *(v55 + 88) = v62;
+      addEmitFunction(v55, emitFlatnessChange);
+      v55 = *(a1 + 104);
     }
 
-    v86 = *(*(a2 + 128) + 1);
-    if (*(v78 + 96) != v86)
+    v63 = *(*(a2 + 128) + 1);
+    if (*(v55 + 96) != v63)
     {
-      *(v78 + 96) = v86;
-      addEmitFunction(v78, emitStrokeAdjustChange);
-      v78 = *(a1 + 104);
+      *(v55 + 96) = v63;
+      addEmitFunction(v55, emitStrokeAdjustChange);
+      v55 = *(a1 + 104);
     }
 
-    v87 = *(a2 + 120);
-    v88 = *(v87 + 4);
-    if ((v88 & 0xF0000) != 0)
+    v64 = *(a2 + 120);
+    v65 = *(v64 + 4);
+    if ((v65 & 0xF0000) != 0)
     {
-      v89 = v88 << 12 >> 28;
+      v66 = v65 << 12 >> 28;
     }
 
     else
     {
-      v89 = 2;
+      v66 = 2;
     }
 
-    if (*(v78 + 80) != v89)
+    if (*(v55 + 80) != v66)
     {
-      *(v78 + 80) = v89;
-      addEmitFunction(v78, emitRenderingIntentChange);
-      v78 = *(a1 + 104);
-      v87 = *(a2 + 120);
+      *(v55 + 80) = v66;
+      addEmitFunction(v55, emitRenderingIntentChange);
+      v55 = *(a1 + 104);
+      v64 = *(a2 + 120);
     }
 
-    v90 = *(v87 + 24);
-    v91 = *(v87 + 32);
-    v92 = *(a1 + 136);
-    *&v225.a = *(a1 + 120);
-    *&v225.c = v92;
-    *&v225.tx = *(a1 + 152);
-    PDFGStateSetPatternMatrix(v78, &v225, v51, v52, v53, v54, v55, v56, v90, v91);
-    v99 = *(a1 + 104);
-    v100 = *(a2 + 144);
-    v101 = *(v100 + 16);
-    if (*(v99 + 224) != v101)
+    v67 = *(v64 + 24);
+    v68 = *(v64 + 32);
+    v69 = *(a1 + 136);
+    *&v143.a = *(a1 + 120);
+    *&v143.c = v69;
+    *&v143.tx = *(a1 + 152);
+    PDFGStateSetPatternMatrix(v55, &v143, v67, v68);
+    v70 = *(a1 + 104);
+    v71 = *(a2 + 144);
+    v72 = *(v71 + 16);
+    if (*(v70 + 224) != v72)
     {
-      *(v99 + 224) = v101;
-      addEmitFunction(v99, emitSmoothnessChange);
-      v99 = *(a1 + 104);
-      v100 = *(a2 + 144);
+      *(v70 + 224) = v72;
+      addEmitFunction(v70, emitSmoothnessChange);
+      v70 = *(a1 + 104);
+      v71 = *(a2 + 144);
     }
 
-    PDFGStateSetOverprintMode(v99, *(v100 + 28), v93, v94, v95, v96, v97, v98);
+    PDFGStateSetOverprintMode(v70, *(v71 + 28));
     PDFGStateSetBlackGeneration(*(a1 + 104), *(*(a2 + 144) + 32));
     PDFGStateSetUndercolorRemoval(*(a1 + 104), *(*(a2 + 144) + 40));
     PDFGStateSetStyle(*(a1 + 104), *(*(a2 + 120) + 16));
     PDFGStateSetSoftMask(*(a1 + 104), *(*(a2 + 120) + 40));
-    v78 = *(a1 + 104);
-    v102 = (*(*(a2 + 120) + 4) << 16) >> 24;
-    if ((v102 - 13) >= 0xF)
+    v55 = *(a1 + 104);
+    v73 = (*(*(a2 + 120) + 4) << 16) >> 24;
+    if ((v73 - 13) >= 0xF)
     {
-      v102 = 2;
+      v73 = 2;
     }
 
-    if (*(v78 + 248) != v102)
+    if (*(v55 + 248) != v73)
     {
-      *(v78 + 248) = v102;
-      addEmitFunction(v78, emitBlendModeChange);
-      v78 = *(a1 + 104);
+      *(v55 + 248) = v73;
+      addEmitFunction(v55, emitBlendModeChange);
+      v55 = *(a1 + 104);
     }
 
-    if (*(v78 + 184) == v57)
+    if (*(v55 + 184) == v42)
     {
       goto LABEL_81;
     }
 
-    *(v78 + 184) = v57;
+    *(v55 + 184) = v42;
     goto LABEL_80;
   }
 
-  if (*(v78 + 184) != 3)
+  if (*(v55 + 184) != 3)
   {
-    *(v78 + 184) = 3;
+    *(v55 + 184) = 3;
 LABEL_80:
-    addEmitFunction(v78, emitTextDrawingModeChange);
+    addEmitFunction(v55, emitTextDrawingModeChange);
   }
 
 LABEL_81:
-  PDFWriterAnnotate(*(a1 + 64), "  BEGIN: synchronizing gstate.", v51, v52, v53, v54, v55, v56, v211);
+  PDFWriterAnnotate(*(a1 + 64), "  BEGIN: synchronizing gstate.", v129, v130);
   PDFGStateEmit(*(a1 + 104));
-  PDFWriterAnnotate(*(a1 + 64), "  END: synchronizing gstate.", v103, v104, v105, v106, v107, v108, v211);
-  v109 = PDFDocumentAddFont(*a1, *(*(a2 + 136) + 8));
-  v110 = v109;
+  PDFWriterAnnotate(*(a1 + 64), "  END: synchronizing gstate.");
+  v74 = PDFDocumentAddFont(*a1, *(*(a2 + 136) + 8));
+  v75 = v74;
   if (*(a1 + 169) == 1)
   {
-    *(v109 + 56) = 1;
+    *(v74 + 56) = 1;
   }
 
-  v111 = *(a1 + 112);
-  if (v111 && v109)
+  v76 = *(a1 + 112);
+  if (v76 && v74)
   {
-    *(v111 + 24) |= 2u;
-    v112 = *(v111 + 48);
-    if (!v112)
+    *(v76 + 24) |= 2u;
+    v77 = *(v76 + 48);
+    if (!v77)
     {
-      v112 = CGOrderedSetCreate();
-      *(v111 + 48) = v112;
+      v77 = CGOrderedSetCreate();
+      *(v76 + 48) = v77;
     }
 
-    CGOrderedSetAddValue(v112, v110);
+    CGOrderedSetAddValue(v77, v75);
   }
 
-  v113 = *a1;
-  v114 = *(a1 + 64);
-  v115 = malloc_type_calloc(1uLL, 0x58uLL, 0x102004003B7C86CuLL);
+  v78 = *a1;
+  v79 = *(a1 + 64);
+  v80 = malloc_type_calloc(1uLL, 0x58uLL, 0x102004003B7C86CuLL);
   __CFSetLastAllocationEventName();
-  *v115 = 1;
-  v115[1] = v113;
-  v115[2] = v114;
-  v115[9] = 0;
-  v116 = *(a2 + 24);
-  v117 = *(a2 + 40);
-  *(v115 + 7) = *(a2 + 56);
-  *(v115 + 5) = v117;
-  *(v115 + 3) = v116;
-  if (v26 >= a6)
+  *v80 = 1;
+  v80[1] = v78;
+  v80[2] = v79;
+  v80[9] = 0;
+  v81 = *(a2 + 24);
+  v82 = *(a2 + 40);
+  *(v80 + 7) = *(a2 + 56);
+  *(v80 + 5) = v82;
+  *(v80 + 3) = v81;
+  if (v18 >= a6)
   {
-    v118 = v211;
-    v119 = v212;
-    v120 = a6;
+    v83 = v129;
+    v84 = v130;
+    v85 = a6;
   }
 
   else
   {
-    v118 = v216;
-    v119 = v217;
-    v120 = v26;
+    v83 = v134;
+    v84 = v135;
+    v85 = v18;
   }
 
-  PDFTextLayoutAddGlyphsWithPositions(v115, *(*(a2 + 136) + 8), v213, v118, v119, v120, *(*(a2 + 136) + 16));
-  v128 = v115[10];
-  if (v128)
+  PDFTextLayoutAddGlyphsWithPositions(v80, *(*(a2 + 136) + 8), v131, v83, v84, v85, *(*(a2 + 136) + 16));
+  v86 = v80[10];
+  if (v86)
   {
-    v129 = 0;
+    v87 = 0;
     do
     {
-      v130 = v128;
-      v128 = *v128;
-      *v130 = v129;
-      v129 = v130;
+      v88 = v86;
+      v86 = *v86;
+      *v88 = v87;
+      v87 = v88;
     }
 
-    while (v128);
-    v115[10] = 0;
-    v131 = v130;
+    while (v86);
+    v80[10] = 0;
+    v89 = v88;
     do
     {
-      v132 = v131[1];
-      layout_flush_block(v115, v132, v127);
-      if (v132)
+      v90 = v89[1];
+      layout_flush_block(v80, v90);
+      if (v90)
       {
-        v133 = *(v132 + 24);
-        if (v133)
+        v91 = *(v90 + 24);
+        if (v91)
         {
-          CFRelease(v133);
+          CFRelease(v91);
         }
 
-        free(*(v132 + 8));
-        free(*(v132 + 16));
-        free(v132);
+        free(*(v90 + 8));
+        free(*(v90 + 16));
+        free(v90);
       }
 
-      v131 = *v131;
+      v89 = *v89;
     }
 
-    while (v131);
+    while (v89);
     do
     {
-      v134 = *v130;
-      free(v130);
-      v130 = v134;
+      v92 = *v88;
+      free(v88);
+      v88 = v92;
     }
 
-    while (v134);
+    while (v92);
   }
 
-  v135 = v115[2];
-  PDFWriterAnnotate(v135, "BEGIN: begin text object.", v121, v122, v123, v124, v125, v126, v211);
-  if (*(v115 + 3) == 1.0 && (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqzq_f64(*(v115 + 2)), vceqq_f64(*(v115 + 3), xmmword_18439C630))))) & 1) == 0 && *(v115 + 8) == 0.0)
+  v93 = v80[2];
+  PDFWriterAnnotate(v93, "BEGIN: begin text object.");
+  if (*(v80 + 3) == 1.0 && (vmaxv_u16(vmovn_s32(vmvnq_s8(vuzp1q_s32(vceqzq_f64(*(v80 + 2)), vceqq_f64(*(v80 + 3), xmmword_18439C630))))) & 1) == 0 && *(v80 + 8) == 0.0)
   {
-    v142 = 1;
+    v94 = 1;
   }
 
   else
   {
-    PDFWriterPrintf(v135, "q %*m cm", v136, v137, v138, v139, v140, v141, (v115 + 3));
-    v142 = 0;
+    PDFWriterPrintf(v93, "q %*m cm", v80 + 24);
+    v94 = 0;
   }
 
-  PDFWriterPrintf(v135, "BT", v136, v137, v138, v139, v140, v141, v211);
-  v149 = v115[9];
-  if (v149)
+  PDFWriterPrintf(v93, "BT");
+  v95 = v80[9];
+  if (v95)
   {
-    LODWORD(v222.f64[0]) = v142;
-    v150 = 0;
+    LODWORD(v140.f64[0]) = v94;
+    v96 = 0;
     do
     {
-      v151 = v149;
-      v149 = *v149;
-      *v151 = v150;
-      v150 = v151;
+      v97 = v95;
+      v95 = *v95;
+      *v97 = v96;
+      v96 = v97;
     }
 
-    while (v149);
-    v152 = 0;
-    v115[9] = v151;
-    v153 = 0.0;
+    while (v95);
+    v98 = 0;
+    v80[9] = v97;
+    v99 = 0.0;
     while (1)
     {
-      v154 = v151[1];
-      if (v154[9])
+      v100 = v97[1];
+      if (*(v100 + 72))
       {
         break;
       }
 
-LABEL_143:
-      v151 = *v151;
-      if (!v151)
+LABEL_142:
+      v97 = *v97;
+      if (!v97)
       {
-        LOBYTE(v142) = LOBYTE(v222.f64[0]);
-        if (v153 == 0.0)
+        LOBYTE(v94) = LOBYTE(v140.f64[0]);
+        if (v99 == 0.0)
         {
-          v186 = 0;
+          v117 = 0;
         }
 
         else
         {
-          v186 = LODWORD(v222.f64[0]);
+          v117 = LODWORD(v140.f64[0]);
         }
 
-        if (v186 == 1)
+        if (v117 == 1)
         {
-          PDFWriterPrintf(v135, "0 Tc", v143, v144, v145, v146, v147, v148, v211);
+          PDFWriterPrintf(v93, "0 Tc");
         }
 
-        goto LABEL_149;
+        goto LABEL_148;
       }
     }
 
-    if (*(v154 + 8) != v153)
+    if (*(v100 + 64) != v99)
     {
-      PDFWriterPrintf(v135, "%f Tc", v143, v144, v145, v146, v147, v148, v154[8]);
-      v153 = *(v154 + 8);
+      PDFWriterPrintf(v93, "%f Tc", *(v100 + 64));
+      v99 = *(v100 + 64);
     }
 
-    if (v152)
+    if (v98)
     {
-      v155 = v152[7];
-      v156 = v154[7];
-      if (v155 && v156)
+      v101 = *(v98 + 56);
+      v102 = *(v100 + 56);
+      if (v101 && v102)
       {
-        bboxes = *v155;
-        CGAffineTransformInvert(&v225, &bboxes);
-        v157 = vmlaq_n_f64(vmulq_n_f64(*&v225.c, v156[1]), *&v225.a, *v156);
-        v158 = vmlaq_n_f64(vmulq_n_f64(*&v225.c, v156[3]), *&v225.a, v156[2]);
-        v159 = fabs(v157.f64[1]);
-        v160 = fabs(v158.f64[0]);
-        v162 = fabs(v157.f64[0] + -1.0) > 0.00000596046448 || v159 > 0.00000596046448 || v160 > 0.00000596046448;
-        v163 = fabs(v158.f64[1] + -1.0);
-        if (!v162 && v163 <= 0.00000596046448)
+        bboxes = *v101;
+        CGAffineTransformInvert(&v143, &bboxes);
+        v103 = vmlaq_n_f64(vmulq_n_f64(*&v143.c, v102[1]), *&v143.a, *v102);
+        v104 = vmlaq_n_f64(vmulq_n_f64(*&v143.c, v102[3]), *&v143.a, v102[2]);
+        v105 = fabs(v103.f64[1]);
+        v106 = fabs(v104.f64[0]);
+        v108 = fabs(v103.f64[0] + -1.0) > 0.00000596046448 || v105 > 0.00000596046448 || v106 > 0.00000596046448;
+        v109 = fabs(v104.f64[1] + -1.0);
+        if (!v108 && v109 <= 0.00000596046448)
         {
-          v210 = vaddq_f64(*&v225.tx, vmlaq_n_f64(vmulq_n_f64(*&v225.c, v156[5]), *&v225.a, v156[4]));
-          v165 = v135;
-          v166 = "%f %f Td";
-LABEL_130:
-          PDFWriterPrintf(v165, v166, v143, v144, v145, v146, v147, v148, *&v210.f64[0]);
-LABEL_131:
-          PDFWriterPrintf(v135, "/%s 1 Tf", v143, v144, v145, v146, v147, v148, *v154);
-          v173 = v154[9];
-          if (*v173 || (v185 = v173[1], *(v185 + 8) != 0.0))
-          {
-            PDFWriterPrintf(v135, "[", v167, v168, v169, v170, v171, v172, v211);
-            v180 = v154[9];
-            if (v180)
-            {
-              v181 = 0;
-              do
-              {
-                v182 = v180;
-                v180 = *v180;
-                *v182 = v181;
-                v181 = v182;
-              }
-
-              while (v180);
-              v154[9] = v182;
-              do
-              {
-                v183 = v182[1];
-                emit_sequence(v135, v183, v174, v175, v176, v177, v178, v179);
-                if (*(v183 + 8) != 0.0)
-                {
-                  PDFWriterPrintf(v135, "%f", v174, v175, v176, v177, v178, v179, *(v183 + 8));
-                }
-
-                v182 = *v182;
-              }
-
-              while (v182);
-            }
-
-            v184 = "] TJ";
-          }
-
-          else
-          {
-            emit_sequence(v135, v185, v167, v168, v169, v170, v171, v172);
-            v184 = "Tj";
-          }
-
-          PDFWriterPrintf(v135, v184, v174, v175, v176, v177, v178, v179, v211);
-          v152 = v154;
-          goto LABEL_143;
+          PDFWriterPrintf(v93, "%f %f Td");
+          goto LABEL_130;
         }
 
 LABEL_129:
-        *&v210.f64[0] = v156;
-        v165 = v135;
-        v166 = "%*m Tm";
-        goto LABEL_130;
+        PDFWriterPrintf(v93, "%*m Tm");
+LABEL_130:
+        PDFWriterPrintf(v93, "/%s 1 Tf", *v100);
+        v111 = *(v100 + 72);
+        if (*v111 || (v116 = v111[1], *(v116 + 8) != 0.0))
+        {
+          PDFWriterPrintf(v93, "[");
+          v112 = *(v100 + 72);
+          if (v112)
+          {
+            v113 = 0;
+            do
+            {
+              v114 = v112;
+              v112 = *v112;
+              *v114 = v113;
+              v113 = v114;
+            }
+
+            while (v112);
+            *(v100 + 72) = v114;
+            do
+            {
+              v115 = v114[1];
+              emit_sequence(v93, v115);
+              if (*(v115 + 8) != 0.0)
+              {
+                PDFWriterPrintf(v93, "%f", *(v115 + 8));
+              }
+
+              v114 = *v114;
+            }
+
+            while (v114);
+          }
+
+          PDFWriterPrintf(v93, "] TJ");
+        }
+
+        else
+        {
+          emit_sequence(v93, v116);
+          PDFWriterPrintf(v93, "Tj");
+        }
+
+        v98 = v100;
+        goto LABEL_142;
       }
     }
 
     else
     {
-      v156 = v154[7];
+      v102 = *(v100 + 56);
     }
 
-    if (!v156)
+    if (!v102)
     {
-      goto LABEL_131;
+      goto LABEL_130;
     }
 
     goto LABEL_129;
   }
 
-LABEL_149:
-  PDFWriterPrintf(v135, "ET", v143, v144, v145, v146, v147, v148, v211);
-  if ((v142 & 1) == 0)
+LABEL_148:
+  PDFWriterPrintf(v93, "ET");
+  if ((v94 & 1) == 0)
   {
-    PDFWriterPrintf(v135, "Q", v187, v188, v189, v190, v191, v192, v211);
+    PDFWriterPrintf(v93, "Q");
   }
 
-  PDFWriterAnnotate(v135, "BEGIN: end text object.", v187, v188, v189, v190, v191, v192, v211);
-  v199 = atomic_fetch_add_explicit(v115, 0xFFFFFFFF, memory_order_relaxed) == 1;
-  v200 = v216;
-  v201 = v217;
-  if (v199)
+  PDFWriterAnnotate(v93, "BEGIN: end text object.");
+  v118 = atomic_fetch_add_explicit(v80, 0xFFFFFFFF, memory_order_relaxed) == 1;
+  v119 = v134;
+  v120 = v135;
+  if (v118)
   {
-    v202 = v115[9];
-    if (v202)
+    v121 = v80[9];
+    if (v121)
     {
-      v203 = v216;
+      v122 = v134;
       do
       {
-        v204 = v202[1];
-        v205 = v204[9];
-        if (v205)
+        v123 = v121[1];
+        v124 = v123[9];
+        if (v124)
         {
           do
           {
-            free(v205[1]);
-            v205 = *v205;
+            free(v124[1]);
+            v124 = *v124;
           }
 
-          while (v205);
-          v206 = v204[9];
-          if (v206)
+          while (v124);
+          v125 = v123[9];
+          if (v125)
           {
             do
             {
-              v207 = *v206;
-              free(v206);
-              v206 = v207;
+              v126 = *v125;
+              free(v125);
+              v125 = v126;
             }
 
-            while (v207);
+            while (v126);
           }
         }
 
-        free(v204);
-        v202 = *v202;
+        free(v123);
+        v121 = *v121;
       }
 
-      while (v202);
-      v208 = v115[9];
-      v200 = v203;
-      v201 = v217;
-      if (v208)
+      while (v121);
+      v127 = v80[9];
+      v119 = v122;
+      v120 = v135;
+      if (v127)
       {
         do
         {
-          v209 = *v208;
-          free(v208);
-          v208 = v209;
+          v128 = *v127;
+          free(v127);
+          v127 = v128;
         }
 
-        while (v209);
+        while (v128);
       }
     }
 
-    free(v115);
+    free(v80);
   }
 
-  if (v200 != v215)
+  if (v119 != v133)
   {
-    free(v200);
+    free(v119);
   }
 
-  if (v201 != v214)
+  if (v120 != v132)
   {
-    free(v201);
+    free(v120);
   }
 
-  PDFWriterAnnotate(*(a1 + 64), "%s: END", v193, v194, v195, v196, v197, v198, "PDFContentStreamDrawGlyphs");
+  PDFWriterAnnotate(*(a1 + 64), "%s: END", "PDFContentStreamDrawGlyphs");
 }
 
 void PDFContentStreamBeginTagWithMCID(uint64_t *a1, uint64_t a2, uint64_t a3)
@@ -1310,22 +1307,22 @@ void PDFContentStreamBeginTagWithMCID(uint64_t *a1, uint64_t a2, uint64_t a3)
 
             else
             {
-              v20 = -1;
-              CGCFDictionaryGetNumber(v7, @"TagNodeMCID", kCFNumberSInt64Type, &v20);
-              v19 = CGPDFTagTypeDiv;
-              CGCFDictionaryGetInteger(v7, @"TagNodeType", &v19);
+              v14 = -1;
+              CGCFDictionaryGetNumber(v7, @"TagNodeMCID", kCFNumberSInt64Type, &v14);
+              v13 = CGPDFTagTypeDiv;
+              CGCFDictionaryGetInteger(v7, @"TagNodeType", &v13);
               Value = CFDictionaryGetValue(v7, @"TagNodeProperties");
-              *(v5 + 608) = PDFDocumentCreateTagNode(v5, v20, v19, Value, 0);
+              *(v5 + 608) = PDFDocumentCreateTagNode(v5, v14, v13, Value, 0);
               valuePtr = -1;
               CGCFDictionaryGetNumber(v7, @"TagNodeObjectRefID", kCFNumberSInt64Type, &valuePtr);
               CGCFDictionarySetNumber(*(v5 + 608), @"TagNodeObjectRefID", kCFNumberSInt64Type, &valuePtr);
-              v16 = CFDictionaryGetValue(v7, @"ID");
-              if (v16)
+              v10 = CFDictionaryGetValue(v7, @"ID");
+              if (v10)
               {
-                v17 = v16;
-                if (CFGetTypeID(v16) == 134217984)
+                v11 = v10;
+                if (CFGetTypeID(v10) == 134217984)
                 {
-                  CFDictionarySetValue(*(v5 + 608), @"ID", v17);
+                  CFDictionarySetValue(*(v5 + 608), @"ID", v11);
                 }
               }
             }
@@ -1339,36 +1336,36 @@ void PDFContentStreamBeginTagWithMCID(uint64_t *a1, uint64_t a2, uint64_t a3)
   }
 
   CGCFArrayAppendInt64(a1[22], a3);
-  PDFWriterPrintf(a1[8], "/P << /MCID %d >> BDC", v9, v10, v11, v12, v13, v14, a3);
+  PDFWriterPrintf(a1[8], "/P << /MCID %d >> BDC", a3);
 }
 
 void PDFContentStreamBeginAccessibilitySpan(uint64_t a1, const __CFDictionary *a2)
 {
   v4 = 0;
   v5 = 0;
-  v23[10] = *MEMORY[0x1E69E9840];
-  v22[0] = @"CGPDFTagPropertyAlternativeText";
-  v22[1] = "Alt";
-  v23[0] = 0;
-  v23[1] = @"CGPDFTagPropertyActualText";
-  v23[2] = "ActualText";
-  v23[3] = 0;
-  v23[4] = @"CGPDFTagPropertyLanguageText";
-  v23[5] = "Lang";
-  v23[6] = 0;
-  v23[7] = @"CGPDFTagPropertyExpansionText";
-  v23[8] = "E";
-  v23[9] = 0;
+  v16[10] = *MEMORY[0x1E69E9840];
+  v15[0] = @"CGPDFTagPropertyAlternativeText";
+  v15[1] = "Alt";
+  v16[0] = 0;
+  v16[1] = @"CGPDFTagPropertyActualText";
+  v16[2] = "ActualText";
+  v16[3] = 0;
+  v16[4] = @"CGPDFTagPropertyLanguageText";
+  v16[5] = "Lang";
+  v16[6] = 0;
+  v16[7] = @"CGPDFTagPropertyExpansionText";
+  v16[8] = "E";
+  v16[9] = 0;
 LABEL_2:
-  v6 = &v22[3 * v4];
+  v6 = &v15[3 * v4];
   do
   {
-    v21 = 0;
+    v14 = 0;
     v7 = *v6;
     TypeID = CFStringGetTypeID();
-    if (CGCFDictionaryGetCFTypeRef(a2, v7, TypeID, &v21))
+    if (CGCFDictionaryGetCFTypeRef(a2, v7, TypeID, &v14))
     {
-      v6[2] = v21;
+      v6[2] = v14;
       ++v4;
       v5 = 1;
       if (v4 != 4)
@@ -1386,32 +1383,32 @@ LABEL_2:
   while (v4 != 4);
   if ((v5 & 1) == 0)
   {
-    v15 = (a1 + 64);
-    v19 = "/Span BDC";
+    v9 = (a1 + 64);
+    v13 = "/Span BDC";
     goto LABEL_15;
   }
 
 LABEL_9:
-  v16 = *(a1 + 64);
-  v15 = (a1 + 64);
-  PDFWriterPrintf(v16, "/Span <<", v9, v10, v11, v12, v13, v14, v20);
-  v17 = v23;
-  v18 = 4;
-  v19 = ">> BDC";
+  v10 = *(a1 + 64);
+  v9 = (a1 + 64);
+  PDFWriterPrintf(v10, "/Span <<");
+  v11 = v16;
+  v12 = 4;
+  v13 = ">> BDC";
   do
   {
-    if (*v17)
+    if (*v11)
     {
-      PDFWriterPrintf(*v15, "/%s %T", v9, v10, v11, v12, v13, v14, *(v17 - 1));
+      PDFWriterPrintf(*v9, "/%s %T", *(v11 - 1), *v11);
     }
 
-    v17 += 3;
-    --v18;
+    v11 += 3;
+    --v12;
   }
 
-  while (v18);
+  while (v12);
 LABEL_15:
-  PDFWriterPrintf(*v15, v19, v9, v10, v11, v12, v13, v14, v20);
+  PDFWriterPrintf(*v9, v13);
 }
 
 uint64_t CGGStateRetain(uint64_t result)
@@ -1455,16 +1452,16 @@ uint64_t __CGColorDataConverterGetTypeID_block_invoke_2()
   return result;
 }
 
-uint64_t converter_retain_count(uint64_t a1, atomic_uint *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t converter_retain_count(uint64_t a1, atomic_uint *a2)
 {
   switch(a1)
   {
     case -1:
       if (atomic_fetch_add_explicit(a2 + 4, 0xFFFFFFFF, memory_order_relaxed) == 1)
       {
-        converter_provider_finalize(a2, a2, a3, a4, a5, a6, a7, a8);
-        v10 = CFGetAllocator(a2);
-        CFAllocatorDeallocate(v10, a2);
+        converter_provider_finalize(a2);
+        v4 = CFGetAllocator(a2);
+        CFAllocatorDeallocate(v4, a2);
       }
 
       break;
@@ -1477,17 +1474,17 @@ uint64_t converter_retain_count(uint64_t a1, atomic_uint *a2, uint64_t a3, uint6
   return 0;
 }
 
-uint64_t converter_provider_finalize(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t converter_provider_finalize(uint64_t a1)
 {
   if (*(a1 + 16))
   {
-    _CGHandleAssert("converter_provider_finalize", 61, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Color/CGConvertColorDataWithFormat.c", "CGAtomicGet(&converter->retain_count) == 0", "retain count %d", a6, a7, a8, *(a1 + 16));
+    _CGHandleAssert("converter_provider_finalize", 61, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/Color/CGConvertColorDataWithFormat.c", "CGAtomicGet(&converter->retain_count) == 0", "retain count %d", *(a1 + 16));
   }
 
-  v9 = *(a1 + 88);
-  if (v9)
+  v2 = *(a1 + 88);
+  if (v2)
   {
-    CGAccessSessionRelease(v9);
+    CGAccessSessionRelease(v2);
   }
 
   return pthread_mutex_destroy((a1 + 24));
@@ -1519,9 +1516,9 @@ BOOL CGConvertColorDataWithFormat(size_t width, size_t height, void *dst_data, C
   return convert_color_data_with_format(0, width, height, dst_data, v12, src_data, v10, options);
 }
 
-BOOL convert_color_data_with_format(uint64_t *a1, vImagePixelCount a2, CGDataProvider *a3, char *a4, uint64_t a5, const void *a6, uint64_t a7, const __CFDictionary *a8)
+uint64_t *convert_color_data_with_format(uint64_t *a1, vImagePixelCount a2, CGDataProvider *a3, char *a4, uint64_t a5, const void *a6, uint64_t a7, const __CFDictionary *a8)
 {
-  v74 = *MEMORY[0x1E69E9840];
+  v68 = *MEMORY[0x1E69E9840];
   if (a1 && (v16 = *a1) != 0)
   {
     pthread_mutex_lock((v16 + 24));
@@ -1534,11 +1531,11 @@ BOOL convert_color_data_with_format(uint64_t *a1, vImagePixelCount a2, CGDataPro
     __src[2] = *(a5 + 32);
     *&__src[3] = *(a5 + 48);
     v21 = *(a7 + 16);
-    v71[0] = *a7;
-    v71[1] = v21;
-    v71[2] = *(a7 + 32);
-    *&v71[3] = *(a7 + 48);
-    converted_data = session_get_converted_data(v17, a2, a3, a4, __src, v18, v71, v19);
+    v65[0] = *a7;
+    v65[1] = v21;
+    v65[2] = *(a7 + 32);
+    *&v65[3] = *(a7 + 48);
+    converted_data = session_get_converted_data(v17, a2, a3, a4, __src, v18, v65, v19);
     pthread_mutex_unlock((v16 + 24));
   }
 
@@ -1562,7 +1559,7 @@ BOOL convert_color_data_with_format(uint64_t *a1, vImagePixelCount a2, CGDataPro
     if (v27)
     {
       v28 = v27;
-      v69 = a4;
+      v63 = a4;
       v29 = colorspace_from_info(*(a5 + 8));
       v30 = colorspace_from_info(*(a7 + 8));
       ResolvedOptions = CGColorConversionInfoCreateResolvedOptions(v30, *(a7 + 16), a8);
@@ -1572,7 +1569,7 @@ BOOL convert_color_data_with_format(uint64_t *a1, vImagePixelCount a2, CGDataPro
         v32 = color_transform_create(v29, ResolvedOptions);
         if (v32)
         {
-          v67 = v32;
+          v61 = v32;
           memset(__src, 0, sizeof(__src));
           v33 = *(a5 + 16);
           v34 = *(a5 + 24);
@@ -1588,7 +1585,7 @@ BOOL convert_color_data_with_format(uint64_t *a1, vImagePixelCount a2, CGDataPro
           }
 
           CGBitmapPixelInfoInitialize(__src, __src, v35, v34, v36, v33 & 0x1F, v33 & 0x7000, v33 & 0xF0000, *(a5 + 48));
-          memset(v71, 0, sizeof(v71));
+          memset(v65, 0, sizeof(v65));
           v37 = *(a7 + 16);
           v38 = *(a7 + 24);
           v39 = component_from_format(v37, v38);
@@ -1602,13 +1599,13 @@ BOOL convert_color_data_with_format(uint64_t *a1, vImagePixelCount a2, CGDataPro
             v40 = 0;
           }
 
-          CGBitmapPixelInfoInitialize(v71, v71, v39, v38, v40, v37 & 0x1F, v37 & 0x7000, v37 & 0xF0000, *(a7 + 48));
+          CGBitmapPixelInfoInitialize(v65, v65, v39, v38, v40, v37 & 0x1F, v37 & 0x7000, v37 & 0xF0000, *(a7 + 48));
           v41 = *(a5 + 32);
           v42 = *(a7 + 32);
           v43 = *(a7 + 40);
           memcpy(__dst, __src, sizeof(__dst));
-          memcpy(v70, v71, sizeof(v70));
-          v44 = CGDataProviderCreateForDestination(v67, a2, a3, __dst, v41, v28, v30, v70, v42, v43);
+          memcpy(v64, v65, sizeof(v64));
+          v44 = CGDataProviderCreateForDestination(v61, a2, a3, __dst, v41, v28, v30, v64, v42, v43);
           if (v44)
           {
             v45 = v44;
@@ -1631,15 +1628,15 @@ BOOL convert_color_data_with_format(uint64_t *a1, vImagePixelCount a2, CGDataPro
             __dst[2] = *(a5 + 32);
             __dst[3].__sig = *(a5 + 48);
             v52 = *(a7 + 16);
-            v70[0] = *a7;
-            v70[1] = v52;
-            v70[2] = *(a7 + 32);
+            v64[0] = *a7;
+            v64[1] = v52;
+            v64[2] = *(a7 + 32);
             v53 = *(a7 + 48);
             v54 = v50;
-            *&v70[3] = v53;
+            *&v64[3] = v53;
             v55 = a2;
             v56 = v48;
-            v57 = session_get_converted_data(v46, v55, a3, v69, __dst, v50, v70, v48);
+            v57 = session_get_converted_data(v46, v55, a3, v63, __dst, v50, v64, v48);
             converted_data = v57;
             if (a1)
             {
@@ -1650,8 +1647,8 @@ BOOL convert_color_data_with_format(uint64_t *a1, vImagePixelCount a2, CGDataPro
                   dispatch_once(&kCGConvertColorDataUseColorSyncForToneMapping_block_invoke_once, &__block_literal_global_12_20232);
                 }
 
-                Instance = CGTypeCreateInstance(CGColorDataConverterGetTypeID_id, 96, v58, v59, v60, v61, v62, v63);
-                v65 = Instance;
+                Instance = CGTypeCreateInstance(CGColorDataConverterGetTypeID_id, 96);
+                v59 = Instance;
                 if (Instance)
                 {
                   *(Instance + 88) = v46;
@@ -1661,11 +1658,11 @@ BOOL convert_color_data_with_format(uint64_t *a1, vImagePixelCount a2, CGDataPro
                   __dst[0] = 0uLL;
                   pthread_mutexattr_init(__dst);
                   pthread_mutexattr_settype(__dst, 2);
-                  pthread_mutex_init((v65 + 24), __dst);
+                  pthread_mutex_init((v59 + 24), __dst);
                   pthread_mutexattr_destroy(__dst);
                 }
 
-                *a1 = v65;
+                *a1 = v59;
               }
             }
 
@@ -1682,7 +1679,7 @@ BOOL convert_color_data_with_format(uint64_t *a1, vImagePixelCount a2, CGDataPro
             converted_data = 0;
           }
 
-          CFRelease(v67);
+          CFRelease(v61);
         }
 
         else
@@ -1861,30 +1858,40 @@ uint64_t component_from_format(__int16 a1, uint64_t a2)
   }
 }
 
-BOOL session_get_converted_data(_BOOL8 result, uint64_t a2, uint64_t a3, char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t *session_get_converted_data(uint64_t *result, uint64_t a2, uint64_t a3, char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
   if (result)
   {
     v15 = result;
     CGAccessSessionRewind(result);
-    v17 = (a8 * a2 + 7) >> 3;
-    v18 = *(a7 + 32);
-    if (v18)
+    v16 = (a8 * a2 + 7) >> 3;
+    v17 = *(a7 + 32);
+    if (v17)
     {
-      v19 = v18 >= v17;
+      v18 = v17 >= v16;
     }
 
     else
     {
-      v19 = 1;
+      v18 = 1;
     }
 
-    if (v19 && ((v20 = (a6 * a2 + 7) >> 3, (v21 = *(a5 + 32)) == 0) || v21 >= v20))
+    if (v18 && ((v19 = (a6 * a2 + 7) >> 3, (v20 = *(a5 + 32)) == 0) || v20 >= v19))
     {
-      v22 = v18 - v17;
-      if (v18)
+      v21 = v17 - v16;
+      if (v17)
       {
-        v23 = v22;
+        v22 = v21;
+      }
+
+      else
+      {
+        v22 = 0;
+      }
+
+      if (v20)
+      {
+        v23 = v20 - v19;
       }
 
       else
@@ -1892,17 +1899,7 @@ BOOL session_get_converted_data(_BOOL8 result, uint64_t a2, uint64_t a3, char *a
         v23 = 0;
       }
 
-      if (v21)
-      {
-        v24 = v21 - v20;
-      }
-
-      else
-      {
-        v24 = 0;
-      }
-
-      return CGAccessSessionGetChunksAtPosition(v15, 0, v20, v23, a3, a4, v24, v16) == v20 * a3;
+      return (CGAccessSessionGetChunksAtPosition(v15, 0, v19, v22, a3, a4, v23) == v19 * a3);
     }
 
     else
@@ -1914,7 +1911,7 @@ BOOL session_get_converted_data(_BOOL8 result, uint64_t a2, uint64_t a3, char *a
   return result;
 }
 
-BOOL CGConvertColorData(uint64_t *a1, vImagePixelCount a2, CGDataProvider *a3, char *a4, uint64_t a5, const void *a6, uint64_t a7, const __CFDictionary *a8)
+uint64_t *CGConvertColorData(uint64_t *a1, vImagePixelCount a2, CGDataProvider *a3, char *a4, uint64_t a5, const void *a6, uint64_t a7, const __CFDictionary *a8)
 {
   v8 = *(a5 + 16);
   v13[0] = *a5;
@@ -1956,7 +1953,7 @@ uint64_t CGColorConversionInfoConvertData(void *a1, vImagePixelCount a2, CGColor
 
   if (CGColorConversionInfoConvertData_f() < 0xF010001)
   {
-    CGPostError("%s requires ColorSync version 3770.1.4 or newer", v14, v15, v16, v17, v18, v19, v20, "CGColorConversionInfoConvertData");
+    CGPostError("%s requires ColorSync version 3770.1.4 or newer");
     return 0;
   }
 
@@ -1965,16 +1962,16 @@ uint64_t CGColorConversionInfoConvertData(void *a1, vImagePixelCount a2, CGColor
     goto LABEL_21;
   }
 
-  v21 = CFGetTypeID(a1);
+  v14 = CFGetTypeID(a1);
   if (CGColorConversionInfoGetTypeID_predicate != -1)
   {
     dispatch_once(&CGColorConversionInfoGetTypeID_predicate, &__block_literal_global_1190);
   }
 
-  if (v21 != kCGColorConverterRuntimeID)
+  if (v14 != kCGColorConverterRuntimeID)
   {
 LABEL_21:
-    CGPostError("%s: info %p is invalid", v14, v15, v16, v17, v18, v19, v20, "CGColorConversionInfoConvertData");
+    CGPostError("%s: info %p is invalid");
     return 0;
   }
 
@@ -1982,12 +1979,12 @@ LABEL_21:
   {
     if (!a6)
     {
-      CGPostError("%s: Source data pointer cannot be NULL", v14, v15, v16, v17, v18, v19, v20, "CGColorConversionInfoConvertData");
+      CGPostError("%s: Source data pointer cannot be NULL", "CGColorConversionInfoConvertData");
     }
 
     if (!a4)
     {
-      CGPostError("%s: Destination data pointer cannot be NULL", v14, v15, v16, v17, v18, v19, v20, "CGColorConversionInfoConvertData");
+      CGPostError("%s: Destination data pointer cannot be NULL", "CGColorConversionInfoConvertData");
       return a4;
     }
 
@@ -2000,275 +1997,273 @@ LABEL_21:
     dispatch_once(&CGColorConversionInfoConvertData_cglibrarypredicate_18, &__block_literal_global_21_20256);
   }
 
-  v23 = CGColorConversionInfoConvertData_f_17(ColorSyncTransform);
+  v16 = CGColorConversionInfoConvertData_f_17(ColorSyncTransform);
   if (CGColorConversionInfoConvertData_cglibrarypredicate_24 != -1)
   {
     dispatch_once(&CGColorConversionInfoConvertData_cglibrarypredicate_24, &__block_literal_global_27_20257);
   }
 
-  v24 = CGColorConversionInfoConvertData_f_23(ColorSyncTransform);
-  v25 = a5[1];
-  v96 = *a5;
-  v97 = v25;
-  v94 = v24;
-  v31 = verify_format(&v96, v24, a2, v26, v27, v28, v29, v30);
-  v32 = a7[1];
-  v96 = *a7;
-  v97 = v32;
-  v38 = verify_format(&v96, v23, a2, v33, v34, v35, v36, v37);
-  v46 = v38;
-  if (!v31 || !v38)
+  v17 = CGColorConversionInfoConvertData_f_23(ColorSyncTransform);
+  v18 = a5[1];
+  v55 = *a5;
+  v56 = v18;
+  v53 = v17;
+  v19 = verify_format(&v55, v17, a2);
+  v20 = a7[1];
+  v55 = *a7;
+  v56 = v20;
+  v21 = verify_format(&v55, v16, a2);
+  v22 = v21;
+  if (!v19 || !v21)
   {
-    if (!v31)
+    if (!v19)
     {
-      CGPostError("%s: Destination format is invalid", v39, v40, v41, v42, v43, v44, v45, "CGColorConversionInfoConvertData");
+      CGPostError("%s: Destination format is invalid", "CGColorConversionInfoConvertData");
     }
 
-    if (!v46)
+    if (!v22)
     {
-      CGPostError("%s: Source format is invalid", v39, v40, v41, v42, v43, v44, v45, "CGColorConversionInfoConvertData");
+      CGPostError("%s: Source format is invalid");
     }
 
     return 0;
   }
 
-  v47 = 0;
-  v48 = *(a5 + 1);
-  v49 = *(a5 + 1);
-  if (v48 > 15)
+  v23 = 0;
+  v24 = *(a5 + 1);
+  v25 = *(a5 + 1);
+  if (v24 > 15)
   {
-    if (v48 == 16)
+    if (v24 == 16)
     {
-      if ((v49 & 0x100) != 0)
+      if ((v25 & 0x100) != 0)
       {
-        v47 = 5;
+        v23 = 5;
       }
 
       else
       {
-        v47 = 2;
+        v23 = 2;
       }
     }
 
-    else if (v48 == 32)
+    else if (v24 == 32)
     {
-      if ((v49 & 0x100) != 0)
+      if ((v25 & 0x100) != 0)
       {
-        v47 = 4;
+        v23 = 4;
       }
 
       else
       {
-        v47 = 3;
+        v23 = 3;
       }
     }
   }
 
-  else if (v48 == 8)
+  else if (v24 == 8)
   {
-    v47 = 1;
+    v23 = 1;
   }
 
-  else if (v48 == 10)
+  else if (v24 == 10)
   {
-    v47 = 6;
+    v23 = 6;
   }
 
-  v51 = *(a7 + 1);
-  v52 = 1;
-  if (v51 > 15)
+  v27 = *(a7 + 1);
+  v28 = 1;
+  if (v27 > 15)
   {
-    if (v51 != 16)
+    if (v27 != 16)
     {
-      if (v51 != 32)
+      if (v27 != 32)
       {
 LABEL_64:
-        if (!v47)
+        if (!v23)
         {
-          CGPostError("%s: Incorrect destination data component", v39, v40, v41, v42, v43, v44, v45, "CGColorConversionInfoConvertData");
+          CGPostError("%s: Incorrect destination data component", "CGColorConversionInfoConvertData");
         }
 
-        CGPostError("%s: Incorrect source data component", v39, v40, v41, v42, v43, v44, v45, "CGColorConversionInfoConvertData");
+        CGPostError("%s: Incorrect source data component");
         return 0;
       }
 
-      v52 = (*(a7 + 1) & 0x100) == 0;
+      v28 = (*(a7 + 1) & 0x100) == 0;
     }
   }
 
-  else if (v51 != 8 && v51 != 10)
+  else if (v27 != 8 && v27 != 10)
   {
     goto LABEL_64;
   }
 
-  if (!v47)
+  if (!v23)
   {
-    CGPostError("%s: Incorrect destination data component", v39, v40, v41, v42, v43, v44, v45, "CGColorConversionInfoConvertData");
+    CGPostError("%s: Incorrect destination data component");
     return 0;
   }
 
-  v53 = v49 & 0x1F;
-  v54 = *(a7 + 1) & 0x1F;
-  v56 = v47 != 4 || (*(a5 + 1) & 0x7000) != 0x2000;
-  v57 = (*(a7 + 1) & 0x7000) != 0x2000 || v52;
-  v92 = v56;
-  if (v56)
+  v29 = v25 & 0x1F;
+  v30 = *(a7 + 1) & 0x1F;
+  v32 = v23 != 4 || (*(a5 + 1) & 0x7000) != 0x2000;
+  v33 = (*(a7 + 1) & 0x7000) != 0x2000 || v28;
+  v51 = v32;
+  if (v32)
   {
-    if (v53 >= 7)
+    if (v29 >= 7)
     {
-      CGPostError("Bad CGImageAlphaInfo", v39, v40, v41, v42, v43, v44, v45, v88);
-      v53 = 0;
+      CGPostError("Bad CGImageAlphaInfo");
+      v29 = 0;
     }
 
     else
     {
-      v53 = dword_184564578[v53];
+      v29 = dword_184564578[v29];
     }
 
-    if ((v57 & 1) == 0)
+    if ((v33 & 1) == 0)
     {
-      v90 = 0;
-      v91 = v54;
-      v93 = v53;
-      v59 = *(a7 + 3);
-      v61 = 4 * a2;
+      v49 = 0;
+      v50 = v30;
+      v52 = v29;
+      v35 = *(a7 + 3);
+      v37 = 4 * a2;
 LABEL_76:
-      v80 = v94;
-      if (v93)
+      v42 = v53;
+      if (v52)
       {
-        v80 = v94 + 1;
+        v42 = v53 + 1;
       }
 
-      v95 = (v61 * v80);
-      v81 = malloc_type_calloc(1uLL, v61 * v80 * a3, 0x97037321uLL);
-      if (v81)
+      v54 = (v37 * v42);
+      v43 = malloc_type_calloc(1uLL, v37 * v42 * a3, 0x97037321uLL);
+      if (v43)
       {
-        v82 = v81;
-        v58 = v81;
+        v44 = v43;
+        v34 = v43;
         goto LABEL_84;
       }
 
-      v83 = "%s: failed to allocate local destination buffer";
-      v70 = v90;
+      v39 = v49;
+      CGPostError("%s: failed to allocate local destination buffer");
       goto LABEL_92;
     }
   }
 
-  else if ((v57 & 1) == 0)
+  else if ((v33 & 1) == 0)
   {
-    v90 = 0;
-    v91 = *(a7 + 1) & 0x1F;
-    v58 = 0;
-    v59 = *(a7 + 3);
-    v93 = v49 & 0x1F;
-    v95 = *(a5 + 3);
+    v49 = 0;
+    v50 = *(a7 + 1) & 0x1F;
+    v34 = 0;
+    v35 = *(a7 + 3);
+    v52 = v25 & 0x1F;
+    v54 = *(a5 + 3);
     goto LABEL_83;
   }
 
-  v93 = v53;
-  if (v54 >= 7)
+  v52 = v29;
+  if (v30 >= 7)
   {
-    CGPostError("Bad CGImageAlphaInfo", v39, v40, v41, v42, v43, v44, v45, v88);
-    v60 = 0;
-    v91 = 0;
+    CGPostError("Bad CGImageAlphaInfo");
+    v36 = 0;
+    v50 = 0;
   }
 
   else
   {
-    v91 = dword_184564578[v54];
-    v60 = 1;
+    v50 = dword_184564578[v30];
+    v36 = 1;
   }
 
-  v62 = v60 + v23;
-  v61 = 4 * a2;
-  v59 = 4 * a2 * v62;
-  v70 = malloc_type_calloc(1uLL, v59 * a3, 0xBA7A0233uLL);
-  if (!v70)
+  v38 = v36 + v16;
+  v37 = 4 * a2;
+  v35 = 4 * a2 * v38;
+  v39 = malloc_type_calloc(1uLL, v35 * a3, 0xBA7A0233uLL);
+  if (!v39)
   {
-    v83 = "%s: failed to allocate local source buffer";
+    CGPostError("%s: failed to allocate local source buffer");
 LABEL_92:
-    CGPostError(v83, v63, v64, v65, v66, v67, v68, v69, "CGColorConversionInfoConvertData");
-    v58 = 0;
+    v34 = 0;
     goto LABEL_93;
   }
 
-  v71 = a7[1];
-  v96 = *a7;
-  v97 = v71;
-  v72 = convert_src_data_to_float_20259(a1, a2, a3, a6, &v96, v70, v59);
-  if (v92 && v72)
+  v40 = a7[1];
+  v55 = *a7;
+  v56 = v40;
+  v41 = convert_src_data_to_float_20259(a1, a2, a3, a6, &v55, v39, v35);
+  if (v51 && v41)
   {
-    v90 = v70;
-    a6 = v70;
+    v49 = v39;
+    a6 = v39;
     goto LABEL_76;
   }
 
-  v58 = 0;
-  if (!v72)
+  v34 = 0;
+  if (!v41)
   {
 LABEL_93:
-    v87 = "%s: failed to convert source data to float";
+    CGPostError("%s: failed to convert source data to float");
     goto LABEL_94;
   }
 
-  v95 = *(a5 + 3);
-  v90 = v70;
-  a6 = v70;
+  v54 = *(a5 + 3);
+  v49 = v39;
+  a6 = v39;
 LABEL_83:
-  v82 = a4;
+  v44 = a4;
 LABEL_84:
   if (CGColorConversionInfoConvertData_cglibrarypredicate_32 != -1)
   {
     dispatch_once(&CGColorConversionInfoConvertData_cglibrarypredicate_32, &__block_literal_global_35_20260);
   }
 
-  v84 = CGColorConversionInfoConvertData_f_31;
-  v85 = CGColorConversionInfoGetColorSyncTransform(a1);
-  LODWORD(v89) = 7;
-  HIDWORD(v89) = v91;
-  if (!(v84)(v85, a2, a3, v82, 7, v93, v95, a6, v89, v59, 0))
+  v45 = CGColorConversionInfoConvertData_f_31;
+  v46 = CGColorConversionInfoGetColorSyncTransform(a1);
+  LODWORD(v48) = 7;
+  HIDWORD(v48) = v50;
+  if (!(v45)(v46, a2, a3, v44, 7, v52, v54, a6, v48, v35, 0))
   {
-    v87 = "%s: ColorSyncTransformConvert failed";
-    v70 = v90;
+    v39 = v49;
+    CGPostError("%s: ColorSyncTransformConvert failed");
 LABEL_94:
-    CGPostError(v87, v73, v74, v75, v76, v77, v78, v79, "CGColorConversionInfoConvertData");
     a4 = 0;
     goto LABEL_95;
   }
 
-  v70 = v90;
-  if (v92)
+  v39 = v49;
+  if (v51)
   {
-    v86 = a5[1];
-    v96 = *a5;
-    v97 = v86;
-    if (!convert_float_data_to_dst(a1, a2, a3, a4, &v96, v93, v58, v95))
+    v47 = a5[1];
+    v55 = *a5;
+    v56 = v47;
+    if (!convert_float_data_to_dst(a1, a2, a3, a4, &v55, v52, v34, v54))
     {
-      v87 = "%s: failed to convert local data to destination";
+      CGPostError("%s: failed to convert local data to destination");
       goto LABEL_94;
     }
   }
 
   a4 = 1;
 LABEL_95:
-  if (v70)
+  if (v39)
   {
-    free(v70);
+    free(v39);
   }
 
-  if (v58)
+  if (v34)
   {
-    free(v58);
+    free(v34);
   }
 
   return a4;
 }
 
-BOOL verify_format(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+BOOL verify_format(uint64_t a1, unint64_t a2, uint64_t a3)
 {
   if (*a1)
   {
-    CGPostError("CGColorConversionInfoConvertData: unsupported version %d", a2, a3, a4, a5, a6, a7, a8, *a1);
+    CGPostError("CGColorConversionInfoConvertData: unsupported version %d", *a1);
     return 0;
   }
 
@@ -2278,27 +2273,27 @@ BOOL verify_format(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t
     return result;
   }
 
-  v10 = *(a1 + 4);
-  v11 = v10 & 0x1F;
-  v12 = *(a1 + 16);
-  if (*(a1 + 24) < (v12 * a3) >> 3 || v11 == 7)
+  v5 = *(a1 + 4);
+  v6 = v5 & 0x1F;
+  v7 = *(a1 + 16);
+  if (*(a1 + 24) < (v7 * a3) >> 3 || v6 == 7)
   {
     return 0;
   }
 
   result = 0;
-  v14 = v10 & 0x7000;
-  v15 = v10 & 0xF0000;
-  v16 = *(a1 + 8);
-  if (v16 <= 15)
+  v9 = v5 & 0x7000;
+  v10 = v5 & 0xF0000;
+  v11 = *(a1 + 8);
+  if (v11 <= 15)
   {
-    if (v16 != 8)
+    if (v11 != 8)
     {
-      if (v16 == 10)
+      if (v11 == 10)
       {
-        if (v12 == 32 && (v14 == 0x4000 || v14 == 0x2000) && v15 == 196608)
+        if (v7 == 32 && (v9 == 0x4000 || v9 == 0x2000) && v10 == 196608)
         {
-          return (v11 - 5) < 2;
+          return (v6 - 5) < 2;
         }
 
         return 0;
@@ -2307,40 +2302,40 @@ BOOL verify_format(uint64_t a1, unint64_t a2, uint64_t a3, uint64_t a4, uint64_t
       return result;
     }
 
-    result = v12 == 24 || v12 == 32;
-    if (v12 != 32 && v12 != 24)
+    result = v7 == 24 || v7 == 32;
+    if (v7 != 32 && v7 != 24)
     {
       return result;
     }
 
-    return ((v10 & 0x5000) == 0 || v14 == 0x4000) && v15 == 0;
+    return ((v5 & 0x5000) == 0 || v9 == 0x4000) && v10 == 0;
   }
 
-  if (v16 == 16)
+  if (v11 == 16)
   {
-    result = v12 == 48 || v12 == 64;
-    if (v12 != 64 && v12 != 48)
+    result = v7 == 48 || v7 == 64;
+    if (v7 != 64 && v7 != 48)
     {
       return result;
     }
 
-    return (v10 & 0xF5000) == 4096;
+    return (v5 & 0xF5000) == 4096;
   }
 
-  if (v16 == 32)
+  if (v11 == 32)
   {
-    if ((v10 & 0x100) == 0)
+    if ((v5 & 0x100) == 0)
     {
       return 0;
     }
 
-    result = v12 == 96 || (v12 == 128);
-    if (v12 == 128 || v12 == 96)
+    result = v7 == 96 || (v7 == 128);
+    if (v7 == 128 || v7 == 96)
     {
-      result = v14 == 0x4000 || (v14 == 0x2000);
-      if (v14 == 0x4000 || v14 == 0x2000)
+      result = v9 == 0x4000 || (v9 == 0x2000);
+      if (v9 == 0x4000 || v9 == 0x2000)
       {
-        return v15 == 0;
+        return v10 == 0;
       }
     }
   }
@@ -2435,77 +2430,77 @@ BOOL convert_src_data_to_float_20259(void *a1, vImagePixelCount a2, CGColorSpace
     v17 = v16();
   }
 
-  v25 = v17;
+  v18 = v17;
   if (!v17)
   {
     return 0;
   }
 
-  v26 = *(a5 + 4) & 0x1F;
+  v19 = *(a5 + 4) & 0x1F;
   if ((*(a5 + 4) & 0x1Fu) > 6)
   {
-    CGPostError("Bad CGImageAlphaInfo", v18, v19, v20, v21, v22, v23, v24, v51.data);
-    v28 = 0;
-    v29 = 8448;
-    v27 = 96;
+    CGPostError("Bad CGImageAlphaInfo");
+    v21 = 0;
+    v22 = 8448;
+    v20 = 96;
   }
 
   else
   {
-    v27 = 128;
-    v28 = ((1 << v26) & 0x1E) == 0;
-    if (((1 << v26) & 0x1E) != 0)
+    v20 = 128;
+    v21 = ((1 << v19) & 0x1E) == 0;
+    if (((1 << v19) & 0x1E) != 0)
     {
-      v29 = 8451;
+      v22 = 8451;
     }
 
     else
     {
-      v29 = 8453;
+      v22 = 8453;
     }
   }
 
   if (*(a5 + 8) != 10)
   {
-    v38 = *(a5 + 16);
+    v31 = *(a5 + 16);
     srcFormat.bitsPerComponent = *(a5 + 8);
-    srcFormat.bitsPerPixel = v38;
-    srcFormat.colorSpace = v25;
+    srcFormat.bitsPerPixel = v31;
+    srcFormat.colorSpace = v18;
     srcFormat.bitmapInfo = *(a5 + 4);
     memset(&srcFormat.version, 0, 20);
     destFormat.bitsPerComponent = 32;
-    destFormat.bitsPerPixel = v27;
-    destFormat.colorSpace = v25;
-    destFormat.bitmapInfo = v29;
+    destFormat.bitsPerPixel = v20;
+    destFormat.colorSpace = v18;
+    destFormat.bitmapInfo = v22;
     memset(&destFormat.version, 0, 20);
-    v39 = vImageConverter_CreateWithCGImageFormat(&srcFormat, &destFormat, 0, 0x100u, 0);
-    if (v39)
+    v32 = vImageConverter_CreateWithCGImageFormat(&srcFormat, &destFormat, 0, 0x100u, 0);
+    if (v32)
     {
-      v40 = v39;
+      v33 = v32;
       srcs.data = a4;
       srcs.height = a3;
-      v41 = *(a5 + 24);
+      v34 = *(a5 + 24);
       srcs.width = a2;
-      srcs.rowBytes = v41;
-      v51.data = a6;
-      v51.height = a3;
-      v51.width = a2;
-      v51.rowBytes = a7;
-      v42 = vImageConvert_AnyToAny(v39, &srcs, &v51, 0, 0x80u);
-      if (v42 < 0 || (v43 = malloc_type_malloc(v42, 0xA5D9A365uLL)) == 0)
+      srcs.rowBytes = v34;
+      v44.data = a6;
+      v44.height = a3;
+      v44.width = a2;
+      v44.rowBytes = a7;
+      v35 = vImageConvert_AnyToAny(v32, &srcs, &v44, 0, 0x80u);
+      if (v35 < 0 || (v36 = malloc_type_malloc(v35, 0xA5D9A365uLL)) == 0)
       {
-        v45 = 0;
+        v38 = 0;
       }
 
       else
       {
-        v44 = v43;
-        v45 = vImageConvert_AnyToAny(v40, &srcs, &v51, v43, 0x10u) == 0;
-        free(v44);
+        v37 = v36;
+        v38 = vImageConvert_AnyToAny(v33, &srcs, &v44, v36, 0x10u) == 0;
+        free(v37);
       }
 
-      vImageConverter_Release(v40);
-      return v45;
+      vImageConverter_Release(v33);
+      return v38;
     }
 
     return 0;
@@ -2513,68 +2508,68 @@ BOOL convert_src_data_to_float_20259(void *a1, vImagePixelCount a2, CGColorSpace
 
   if ((*(a5 + 4) & 0x7000) == 0x4000)
   {
-    v30 = malloc_type_malloc(*(a5 + 24) * (a3 - 1) + ((*(a5 + 16) * a2) >> 3), 0xD659A0FAuLL);
-    v31 = v30;
+    v23 = malloc_type_malloc(*(a5 + 24) * (a3 - 1) + ((*(a5 + 16) * a2) >> 3), 0xD659A0FAuLL);
+    v24 = v23;
     if (a3)
     {
-      v32 = 0;
-      v33 = *(a5 + 24);
+      v25 = 0;
+      v26 = *(a5 + 24);
       do
       {
         if (a2)
         {
-          v34 = &a4[v33 * v32];
-          v35 = &v30[v33 * v32];
-          v36 = a2;
+          v27 = &a4[v26 * v25];
+          v28 = &v23[v26 * v25];
+          v29 = a2;
           do
           {
-            v37 = *v34++;
-            *v35 = bswap32(v37);
-            v35 += 4;
-            --v36;
+            v30 = *v27++;
+            *v28 = bswap32(v30);
+            v28 += 4;
+            --v29;
           }
 
-          while (v36);
+          while (v29);
         }
 
-        v32 = (v32 + 1);
+        v25 = (v25 + 1);
       }
 
-      while (v32 != a3);
+      while (v25 != a3);
     }
 
-    a4 = v30;
+    a4 = v23;
   }
 
   else
   {
-    v31 = 0;
+    v24 = 0;
   }
 
   *&srcFormat.bitsPerComponent = a4;
   srcFormat.colorSpace = a3;
-  v47 = *(a5 + 24);
+  v40 = *(a5 + 24);
   *&srcFormat.bitmapInfo = a2;
-  srcFormat.decode = v47;
+  srcFormat.decode = v40;
   *&destFormat.bitsPerComponent = a6;
   destFormat.colorSpace = a3;
   *&destFormat.bitmapInfo = a2;
   destFormat.decode = a7;
   LODWORD(srcs.data) = 197121;
-  v48 = vImageConvert_ARGB2101010ToARGBFFFF(&srcFormat, &destFormat, 0, 1023, &srcs, 0x10u);
-  if (v31)
+  v41 = vImageConvert_ARGB2101010ToARGBFFFF(&srcFormat, &destFormat, 0, 1023, &srcs, 0x10u);
+  if (v24)
   {
-    free(v31);
+    free(v24);
   }
 
-  v49 = v48 == 0;
-  v45 = v48 == 0;
-  if (v49 && v28)
+  v42 = v41 == 0;
+  v38 = v41 == 0;
+  if (v42 && v21)
   {
     vImageOverwriteChannelsWithScalar_ARGBFFFF(1.0, &destFormat, &destFormat, 1u, 0x10u);
   }
 
-  return v45;
+  return v38;
 }
 
 BOOL convert_float_data_to_dst(void *a1, vImagePixelCount a2, CGColorSpace *a3, char *a4, uint64_t a5, int a6, void *a7, const CGFloat *a8)
@@ -2831,8 +2826,8 @@ uint64_t (*__convert_src_data_to_float_block_invoke())()
 
 uint64_t CGColorConversionInfoConvertColorComponents(void *a1, double *a2, double *a3)
 {
-  v39 = *MEMORY[0x1E69E9840];
-  v32 = a1;
+  v37 = *MEMORY[0x1E69E9840];
+  v30 = a1;
   ColorSyncTransform = CGColorConversionInfoGetColorSyncTransform(a1);
   if (CGColorConversionInfoConvertColorComponents_cglibrarypredicate != -1)
   {
@@ -2847,90 +2842,90 @@ uint64_t CGColorConversionInfoConvertColorComponents(void *a1, double *a2, doubl
 
   v7 = CGColorConversionInfoConvertColorComponents_f_51(ColorSyncTransform);
   v8 = v7 + 1;
-  v10 = MEMORY[0x1EEE9AC00](v7, v9);
-  if (v11 <= 0x3FFFFFFFFFFFFFFELL)
+  v9 = MEMORY[0x1EEE9AC00](v7);
+  if (v10 <= 0x3FFFFFFFFFFFFFFELL)
   {
-    v15 = &v30 - v12;
+    v13 = &v28 - v11;
   }
 
   else
   {
-    v15 = 0;
+    v13 = 0;
   }
 
-  v31 = &v30 - v12;
-  if (v11 - 0x3FFFFFFFFFFFFFFFLL >= v13)
+  v29 = &v28 - v11;
+  if (v10 - 0x3FFFFFFFFFFFFFFFLL >= v12)
   {
-    v10 = malloc_type_malloc(4 * v6, 0xAF1F6967uLL);
-    v15 = v10;
+    v9 = malloc_type_malloc(4 * v6, 0xAF1F6967uLL);
+    v13 = v9;
   }
 
-  MEMORY[0x1EEE9AC00](v10, v14);
-  v19 = (&v30 - v17);
-  if (v16 <= 0x3FFFFFFFFFFFFFFELL)
+  MEMORY[0x1EEE9AC00](v9);
+  v17 = (&v28 - v15);
+  if (v14 <= 0x3FFFFFFFFFFFFFFELL)
   {
-    v20 = (&v30 - v17);
+    v18 = (&v28 - v15);
   }
 
   else
   {
-    v20 = 0;
+    v18 = 0;
   }
 
-  if (v16 - 0x3FFFFFFFFFFFFFFFLL >= v18)
+  if (v14 - 0x3FFFFFFFFFFFFFFFLL >= v16)
   {
-    v20 = malloc_type_malloc(4 * v8, 0x7B12D676uLL);
+    v18 = malloc_type_malloc(4 * v8, 0x7B12D676uLL);
   }
 
-  v21 = v32;
+  v19 = v30;
   if (v6)
   {
-    v22 = v15;
-    v23 = v6;
+    v20 = v13;
+    v21 = v6;
     do
     {
-      v24 = *a2++;
-      v25 = v24;
-      *v22++ = v25;
-      --v23;
+      v22 = *a2++;
+      v23 = v22;
+      *v20++ = v23;
+      --v21;
     }
 
-    while (v23);
+    while (v21);
   }
 
-  *&v36 = 0x210300000000;
-  *(&v36 + 1) = 32;
-  v37 = 32 * v8;
-  v38 = 4 * v8;
-  *&v33 = 0x210300000000;
-  *(&v33 + 1) = 32;
-  v34 = 32 * v6;
-  v35 = 4 * v6;
-  v26 = CGColorConversionInfoConvertData(v21, 1uLL, 1, v20, &v36, v15, &v33);
-  if (v26 && v8)
+  *&v34 = 0x210300000000;
+  *(&v34 + 1) = 32;
+  v35 = 32 * v8;
+  v36 = 4 * v8;
+  *&v31 = 0x210300000000;
+  *(&v31 + 1) = 32;
+  v32 = 32 * v6;
+  v33 = 4 * v6;
+  v24 = CGColorConversionInfoConvertData(v19, 1uLL, 1, v18, &v34, v13, &v31);
+  if (v24 && v8)
   {
-    v27 = v20;
+    v25 = v18;
     do
     {
-      v28 = *v27++;
-      *a3++ = v28;
+      v26 = *v25++;
+      *a3++ = v26;
       --v8;
     }
 
     while (v8);
   }
 
-  if (v15 != v31)
+  if (v13 != v29)
   {
-    free(v15);
+    free(v13);
   }
 
-  if (v20 != v19)
+  if (v18 != v17)
   {
-    free(v20);
+    free(v18);
   }
 
-  return v26;
+  return v24;
 }
 
 _DWORD *shadingRetain(uint64_t a1, _DWORD *a2)
@@ -2944,142 +2939,142 @@ _DWORD *shadingRetain(uint64_t a1, _DWORD *a2)
   return result;
 }
 
-void emitShadingDefinition(uint64_t a1, _BYTE *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void emitShadingDefinition(uint64_t a1, _BYTE *a2)
 {
   if ((*(a1 + 48) & 1) == 0)
   {
-    v10 = *(a1 + 16);
-    if (v10)
+    v4 = *(a1 + 16);
+    if (v4)
     {
-      if ((*(v10 + 20) - 1) <= 3)
+      if ((*(v4 + 20) - 1) <= 3)
       {
-        PDFDocumentBeginObject(*(a1 + 8), *(a1 + 24), a3, a4, a5, a6, a7, a8);
-        PDFDocumentPrintf(*(a1 + 8), "<<", v11, v12, v13, v14, v15, v16, v123);
+        PDFDocumentBeginObject(*(a1 + 8), *(a1 + 24));
+        PDFDocumentPrintf(*(a1 + 8), "<<");
         p_y = &CGRectInfinite.origin.y;
         p_size = &CGRectInfinite.size;
-        v25 = (v10 + 48);
-        if (*(v10 + 40) == 1)
+        v7 = (v4 + 48);
+        if (*(v4 + 40) == 1)
         {
-          p_size = (v10 + 64);
-          p_y = (v10 + 56);
-          p_height = (v10 + 72);
+          p_size = (v4 + 64);
+          p_y = (v4 + 56);
+          p_height = (v4 + 72);
         }
 
         else
         {
-          v25 = &CGRectInfinite;
+          v7 = &CGRectInfinite;
           p_height = &CGRectInfinite.size.height;
         }
 
-        v27 = *p_height;
-        v28 = *p_y;
+        v9 = *p_height;
+        v10 = *p_y;
         width = p_size->width;
-        v127[0] = v25->origin.x;
-        v127[1] = v28;
-        v127[2] = width;
-        v127[3] = v27;
-        if (v127[0] != -8.98846567e307 || v28 != -8.98846567e307 || width != 1.79769313e308 || v27 != 1.79769313e308)
+        v31[0] = v7->origin.x;
+        v31[1] = v10;
+        v31[2] = width;
+        v31[3] = v9;
+        if (v31[0] != -8.98846567e307 || v10 != -8.98846567e307 || width != 1.79769313e308 || v9 != 1.79769313e308)
         {
-          PDFDocumentPrintf(*(a1 + 8), "/BBox %r", v17, v18, v19, v20, v21, v22, v127);
+          PDFDocumentPrintf(*(a1 + 8), "/BBox %r", v31);
         }
 
-        v33 = PDFDocumentResolveColorSpace(*(a1 + 8), *(v10 + 24));
-        v34 = PDFDocumentAddColorSpace(*(a1 + 8), v33);
-        PDFDocumentPrintf(*(a1 + 8), "/ColorSpace", v35, v36, v37, v38, v39, v40, v124);
-        PDFColorSpaceEmitReference(v34, v41, v42, v43, v44, v45, v46, v47);
-        if (v33)
+        v15 = PDFDocumentResolveColorSpace(*(a1 + 8), *(v4 + 24));
+        v16 = PDFDocumentAddColorSpace(*(a1 + 8), v15);
+        PDFDocumentPrintf(*(a1 + 8), "/ColorSpace");
+        PDFColorSpaceEmitReference(v16);
+        if (v15)
         {
-          v54 = *(*(v33 + 3) + 48);
+          v17 = *(*(v15 + 3) + 48);
         }
 
         else
         {
-          v54 = 0;
+          v17 = 0;
         }
 
-        v55 = *(v10 + 32);
-        if (v55)
+        v18 = *(v4 + 32);
+        if (v18)
         {
-          PDFDocumentPrintf(*(a1 + 8), "/Background [", v48, v49, v50, v51, v52, v53, v125);
-          if (v54)
+          PDFDocumentPrintf(*(a1 + 8), "/Background [");
+          if (v17)
           {
-            v62 = v54;
+            v19 = v17;
             do
             {
-              v63 = *v55++;
-              PDFDocumentPrintf(*(a1 + 8), "%f", v56, v57, v58, v59, v60, v61, v63);
-              --v62;
+              v20 = *v18++;
+              PDFDocumentPrintf(*(a1 + 8), "%f", v20);
+              --v19;
             }
 
-            while (v62);
+            while (v19);
           }
 
-          PDFDocumentPrintf(*(a1 + 8), "]", v56, v57, v58, v59, v60, v61, v126);
+          PDFDocumentPrintf(*(a1 + 8), "]");
         }
 
-        v64 = *(v10 + 20);
-        switch(v64)
+        v21 = *(v4 + 20);
+        switch(v21)
         {
           case 1:
-            v92 = *(a1 + 16);
-            if (v92 && (*(v92 + 20) - 1) <= 3)
+            v25 = *(a1 + 16);
+            if (v25 && (*(v25 + 20) - 1) <= 3)
             {
-              PDFDocumentPrintf(*(a1 + 8), "/ShadingType 2", v48, v49, v50, v51, v52, v53, v125);
-              PDFDocumentPrintf(*(a1 + 8), "/Coords [ %f %f %f %f ]", v93, v94, v95, v96, v97, v98, *(v92 + 128));
-              PDFDocumentPrintf(*(a1 + 8), "/Domain [ %f %f ]", v99, v100, v101, v102, v103, v104, *(v92 + 176));
-              PDFDocumentPrintf(*(a1 + 8), "/Extend [ %b %b ]", v105, v106, v107, v108, v109, v110, *(v92 + 144));
+              PDFDocumentPrintf(*(a1 + 8), "/ShadingType 2");
+              PDFDocumentPrintf(*(a1 + 8), "/Coords [ %f %f %f %f ]", *(v25 + 128), *(v25 + 136), *(v25 + 152), *(v25 + 160));
+              PDFDocumentPrintf(*(a1 + 8), "/Domain [ %f %f ]", *(v25 + 176), *(v25 + 184));
+              PDFDocumentPrintf(*(a1 + 8), "/Extend [ %b %b ]", *(v25 + 144), *(v25 + 168));
             }
 
-            v72 = 64;
+            v23 = 64;
             break;
           case 2:
-            v73 = *(a1 + 16);
-            if (v73 && (*(v73 + 20) - 1) <= 3)
+            v24 = *(a1 + 16);
+            if (v24 && (*(v24 + 20) - 1) <= 3)
             {
-              PDFDocumentPrintf(*(a1 + 8), "/ShadingType 3", v48, v49, v50, v51, v52, v53, v125);
-              PDFDocumentPrintf(*(a1 + 8), "/Coords [ %f %f %f %f %f %f ]", v74, v75, v76, v77, v78, v79, *(v73 + 128));
-              PDFDocumentPrintf(*(a1 + 8), "/Domain [ %f %f ]", v80, v81, v82, v83, v84, v85, *(v73 + 192));
-              PDFDocumentPrintf(*(a1 + 8), "/Extend [ %b %b ]", v86, v87, v88, v89, v90, v91, *(v73 + 152));
+              PDFDocumentPrintf(*(a1 + 8), "/ShadingType 3");
+              PDFDocumentPrintf(*(a1 + 8), "/Coords [ %f %f %f %f %f %f ]", *(v24 + 128), *(v24 + 136), *(v24 + 144), *(v24 + 160), *(v24 + 168), *(v24 + 176));
+              PDFDocumentPrintf(*(a1 + 8), "/Domain [ %f %f ]", *(v24 + 192), *(v24 + 200));
+              PDFDocumentPrintf(*(a1 + 8), "/Extend [ %b %b ]", *(v24 + 152), *(v24 + 184));
             }
 
-            v72 = 80;
+            v23 = 80;
             break;
           case 4:
-            v65 = *(a1 + 16);
-            if (v65 && (*(v65 + 20) - 1) <= 3)
+            v22 = *(a1 + 16);
+            if (v22 && (*(v22 + 20) - 1) <= 3)
             {
-              PDFDocumentPrintf(*(a1 + 8), "/ShadingType 1", v48, v49, v50, v51, v52, v53, v125);
-              PDFDocumentPrintf(*(a1 + 8), "/Domain [ %f %f %f %f ]", v66, v67, v68, v69, v70, v71, *(v65 + 128));
+              PDFDocumentPrintf(*(a1 + 8), "/ShadingType 1");
+              PDFDocumentPrintf(*(a1 + 8), "/Domain [ %f %f %f %f ]", *(v22 + 128), *(v22 + 136), *(v22 + 144), *(v22 + 152));
             }
 
-            v72 = 32;
+            v23 = 32;
             break;
           default:
 LABEL_46:
-            PDFDocumentPrintf(*(a1 + 8), ">>", v48, v49, v50, v51, v52, v53, v125);
-            PDFDocumentEndObject(*(a1 + 8), v116, v117, v118, v119, v120, v121, v122);
+            PDFDocumentPrintf(*(a1 + 8), ">>");
+            PDFDocumentEndObject(*(a1 + 8));
             *(a1 + 16) = 0;
-            CFRelease(v10);
+            CFRelease(v4);
             *(a1 + 48) = 1;
             goto LABEL_47;
         }
 
-        v111 = *(v10 + 128 + v72);
-        if (v111)
+        v26 = *(v4 + 128 + v23);
+        if (v26)
         {
-          v112 = *(a1 + 8);
-          v113 = v54 - 1;
-          v114 = *(v112 + 408);
-          if (!v114)
+          v27 = *(a1 + 8);
+          v28 = v17 - 1;
+          v29 = *(v27 + 408);
+          if (!v29)
           {
-            v114 = PDFFunctionSetCreate(*(a1 + 8));
-            *(v112 + 408) = v114;
+            v29 = PDFFunctionSetCreate(*(a1 + 8));
+            *(v27 + 408) = v29;
           }
 
-          v115 = PDFFunctionSetAddFunctionWithRange(v114, v111, v113, 1);
-          if (v115)
+          v30 = PDFFunctionSetAddFunctionWithRange(v29, v26, v28, 1);
+          if (v30)
           {
-            PDFDocumentPrintReference(*(a1 + 8), "/Function %R", v115[6], v49, v50, v51, v52, v53);
+            PDFDocumentPrintReference(*(a1 + 8), "/Function %R", v30[6]);
           }
         }
 
@@ -3092,77 +3087,76 @@ LABEL_47:
   *a2 = 1;
 }
 
-_BYTE *emit_empty_image(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+_BYTE *emit_empty_image(uint64_t a1)
 {
-  v9 = *(a1 + 16);
-  PDFDocumentBeginObject(*v9, *(v9 + 8), a3, a4, a5, a6, a7, a8);
-  PDFDocumentPrintf(*v9, "<<", v10, v11, v12, v13, v14, v15, v61);
-  PDFDocumentPrintf(*(a1 + 8), "/Type /XObject", v16, v17, v18, v19, v20, v21, v62);
-  PDFDocumentPrintf(*(a1 + 8), "/Subtype /Image", v22, v23, v24, v25, v26, v27, v63);
-  PDFDocumentPrintf(*(a1 + 8), "/Width 1", v28, v29, v30, v31, v32, v33, v64);
-  PDFDocumentPrintf(*(a1 + 8), "/Height 1", v34, v35, v36, v37, v38, v39, v65);
-  PDFDocumentPrintf(*(a1 + 8), "/BitsPerComponent 1", v40, v41, v42, v43, v44, v45, v66);
-  PDFDocumentPrintf(*(a1 + 8), "/ColorSpace /DeviceGray", v46, v47, v48, v49, v50, v51, v67);
+  v2 = *(a1 + 16);
+  PDFDocumentBeginObject(*v2, *(v2 + 8));
+  PDFDocumentPrintf(*v2, "<<");
+  PDFDocumentPrintf(*(a1 + 8), "/Type /XObject");
+  PDFDocumentPrintf(*(a1 + 8), "/Subtype /Image");
+  PDFDocumentPrintf(*(a1 + 8), "/Width 1");
+  PDFDocumentPrintf(*(a1 + 8), "/Height 1");
+  PDFDocumentPrintf(*(a1 + 8), "/BitsPerComponent 1");
+  PDFDocumentPrintf(*(a1 + 8), "/ColorSpace /DeviceGray");
   if (*(a1 + 104) != -1)
   {
-    PDFDocumentPrintf(*(a1 + 8), "/StructParent %d", v52, v53, v54, v55, v56, v57, *(a1 + 104));
+    PDFDocumentPrintf(*(a1 + 8), "/StructParent %d", *(a1 + 104));
   }
 
-  v58 = *(a1 + 56);
-  if (v58)
+  v3 = *(a1 + 56);
+  if (v3)
   {
-    PDFDocumentPrintReference(*(a1 + 8), "/AAPL:EPSData %R", v58, v53, v54, v55, v56, v57);
+    PDFDocumentPrintReference(*(a1 + 8), "/AAPL:EPSData %R", v3);
   }
 
   if (*(a1 + 96))
   {
-    PDFDocumentPrintf(*(a1 + 8), "/AAPL:ImageTag %T", v58, v53, v54, v55, v56, v57, *(a1 + 96));
+    PDFDocumentPrintf(*(a1 + 8), "/AAPL:ImageTag %T", *(a1 + 96));
   }
 
   PDFStreamBeginData(*(a1 + 16));
   CGDataConsumerPutBytes(*(*(a1 + 16) + 24), &unk_184564594, 1);
   PDFStreamEndData(*(a1 + 16));
-  v59 = *(a1 + 16);
+  v4 = *(a1 + 16);
 
-  return PDFStreamEnd(v59);
+  return PDFStreamEnd(v4);
 }
 
-void emit_interpolation(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void emit_interpolation(uint64_t a1)
 {
-  v10 = *(a1 + 8);
-  if ((*(v10 + 91) & 1) == 0)
+  v2 = *(a1 + 8);
+  if ((*(v2 + 91) & 1) == 0)
   {
-    v11 = *(a1 + 44);
-    if ((v11 - 2) >= 2)
+    v3 = *(a1 + 44);
+    if ((v3 - 2) >= 2)
     {
-      if (v11 == 1 || !CGImageGetShouldInterpolate(*(a1 + 48)))
+      if (v3 == 1 || !CGImageGetShouldInterpolate(*(a1 + 48)))
       {
         return;
       }
 
-      v10 = *(a1 + 8);
+      v2 = *(a1 + 8);
     }
 
-    PDFDocumentPrintf(v10, "/Interpolate true", a3, a4, a5, a6, a7, a8, a9);
+    PDFDocumentPrintf(v2, "/Interpolate true");
   }
 }
 
-void emit_decode(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9)
+void emit_decode(uint64_t a1, double *a2, uint64_t a3)
 {
   if (a2)
   {
-    v9 = a3;
-    v10 = a2;
-    PDFDocumentPrintf(*(a1 + 8), "/Decode [", a3, a4, a5, a6, a7, a8, v20);
-    for (; v9; --v9)
+    v4 = a2;
+    PDFDocumentPrintf(*(a1 + 8), "/Decode [");
+    for (; a3; --a3)
     {
-      v18 = *v10++;
-      PDFDocumentPrintf(*(a1 + 8), "%f", v12, v13, v14, v15, v16, v17, v18);
+      v6 = *v4++;
+      PDFDocumentPrintf(*(a1 + 8), "%f", v6);
     }
 
-    v19 = *(a1 + 8);
+    v7 = *(a1 + 8);
 
-    PDFDocumentPrintf(v19, "]", v12, v13, v14, v15, v16, v17, a9);
+    PDFDocumentPrintf(v7, "]");
   }
 }
 
@@ -3184,80 +3178,80 @@ uint64_t emit_jpeg_data(uint64_t a1)
   return PDFStreamEndData(v6);
 }
 
-uint64_t emit_jpeg2000_data(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+uint64_t emit_jpeg2000_data(uint64_t a1, uint64_t a2)
 {
   if (a2 && (*(a2 + 39) & 4) != 0 && !*(a2 + 176))
   {
-    v9 = *(a1 + 8);
-    v10 = *(v9 + 4);
-    if (v10 <= 0)
+    v3 = *(a1 + 8);
+    v4 = *(v3 + 4);
+    if (v4 <= 0)
     {
-      *(v9 + 4) = 1;
-      v11 = (v9 + 8);
+      *(v3 + 4) = 1;
+      v5 = (v3 + 8);
     }
 
     else
     {
-      if (v10 != 1)
+      if (v4 != 1)
       {
         goto LABEL_10;
       }
 
-      v11 = (v9 + 8);
-      if (*(v9 + 8) > 4)
+      v5 = (v3 + 8);
+      if (*(v3 + 8) > 4)
       {
         goto LABEL_10;
       }
     }
 
-    *v11 = 5;
-    v9 = *(a1 + 8);
+    *v5 = 5;
+    v3 = *(a1 + 8);
 LABEL_10:
-    PDFDocumentPrintf(v9, "/SMaskInData 1", a3, a4, a5, a6, a7, a8, v18);
+    PDFDocumentPrintf(v3, "/SMaskInData 1");
   }
 
   PDFStreamSetFilter(*(a1 + 16), "JPXDecode");
   PDFStreamBeginData(*(a1 + 16));
-  v12 = *(a1 + 80);
-  if (v12)
+  v6 = *(a1 + 80);
+  if (v6)
   {
-    v13 = *(a1 + 16);
-    BytePtr = CFDataGetBytePtr(v12);
+    v7 = *(a1 + 16);
+    BytePtr = CFDataGetBytePtr(v6);
     Length = CFDataGetLength(*(a1 + 80));
-    CGDataConsumerPutBytes(*(v13 + 24), BytePtr, Length);
+    CGDataConsumerPutBytes(*(v7 + 24), BytePtr, Length);
   }
 
-  v16 = *(a1 + 16);
+  v10 = *(a1 + 16);
 
-  return PDFStreamEndData(v16);
+  return PDFStreamEndData(v10);
 }
 
-_BYTE *emit_image(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+_BYTE *emit_image(uint64_t a1, CGImage *a2)
 {
-  v173 = *MEMORY[0x1E69E9840];
-  v10 = *(a1 + 16);
-  PDFDocumentBeginObject(*v10, *(v10 + 8), a3, a4, a5, a6, a7, a8);
-  PDFDocumentPrintf(*v10, "<<", v11, v12, v13, v14, v15, v16, v156);
-  PDFDocumentPrintf(*(a1 + 8), "/Type /XObject", v17, v18, v19, v20, v21, v22, v157);
-  PDFDocumentPrintf(*(a1 + 8), "/Subtype /Image", v23, v24, v25, v26, v27, v28, v158);
-  v35 = *(a1 + 8);
+  v52 = *MEMORY[0x1E69E9840];
+  v4 = *(a1 + 16);
+  PDFDocumentBeginObject(*v4, *(v4 + 8));
+  PDFDocumentPrintf(*v4, "<<");
+  PDFDocumentPrintf(*(a1 + 8), "/Type /XObject");
+  PDFDocumentPrintf(*(a1 + 8), "/Subtype /Image");
+  v5 = *(a1 + 8);
   if (a2)
   {
-    PDFDocumentPrintf(v35, "/Width %z", v29, v30, v31, v32, v33, v34, a2[5]);
-    v42 = a2[6];
+    PDFDocumentPrintf(v5, "/Width %z", *(a2 + 5));
+    v6 = *(a2 + 6);
   }
 
   else
   {
-    PDFDocumentPrintf(v35, "/Width %z", v29, v30, v31, v32, v33, v34, 0);
-    v42 = 0;
+    PDFDocumentPrintf(v5, "/Width %z", 0);
+    v6 = 0;
   }
 
-  PDFDocumentPrintf(*(a1 + 8), "/Height %z", v36, v37, v38, v39, v40, v41, v42);
-  emit_interpolation(a1, v43, v44, v45, v46, v47, v48, v49, v159);
+  PDFDocumentPrintf(*(a1 + 8), "/Height %z", v6);
+  emit_interpolation(a1);
   if (*(a1 + 104) != -1)
   {
-    PDFDocumentPrintf(*(a1 + 8), "/StructParent %d", v50, v51, v52, v53, v54, v55, *(a1 + 104));
+    PDFDocumentPrintf(*(a1 + 8), "/StructParent %d", *(a1 + 104));
   }
 
   if ((*(a1 + 73) & 1) == 0 && *(a1 + 74) != 1 || (ColorSpace = *(a1 + 88)) == 0)
@@ -3265,48 +3259,48 @@ _BYTE *emit_image(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t 
     ColorSpace = CGImageGetColorSpace(a2);
   }
 
-  v57 = *(a1 + 8);
-  v58 = PDFDocumentResolveColorSpace(v57, ColorSpace);
-  v59 = PDFDocumentAddColorSpace(v57, v58);
-  PDFDocumentPrintf(*(a1 + 8), "/ColorSpace", v60, v61, v62, v63, v64, v65, v160);
-  PDFColorSpaceEmitReference(v59, v66, v67, v68, v69, v70, v71, v72);
+  v8 = *(a1 + 8);
+  v9 = PDFDocumentResolveColorSpace(v8, ColorSpace);
+  v10 = PDFDocumentAddColorSpace(v8, v9);
+  PDFDocumentPrintf(*(a1 + 8), "/ColorSpace");
+  PDFColorSpaceEmitReference(v10);
   if (CGImageGetDecode(a2))
   {
     if (ColorSpace)
     {
-      v73 = 2 * *(*(ColorSpace + 3) + 48);
+      v11 = 2 * *(*(ColorSpace + 3) + 48);
     }
 
     else
     {
-      v73 = 0;
+      v11 = 0;
     }
 
     Decode = CGImageGetDecode(a2);
-    emit_decode(a1, Decode, v73, v75, v76, v77, v78, v79, v161);
+    emit_decode(a1, Decode, v11);
   }
 
-  v86 = CGImageGetRenderingIntent(a2) - 1;
-  if (v86 <= 3)
+  v13 = CGImageGetRenderingIntent(a2) - 1;
+  if (v13 <= 3)
   {
-    PDFDocumentPrintf(*(a1 + 8), off_1E6E333F0[v86], v80, v81, v82, v83, v84, v85, v161);
+    PDFDocumentPrintf(*(a1 + 8), off_1E6E333F0[v13]);
   }
 
-  v87 = *(a1 + 56);
-  if (v87)
+  v14 = *(a1 + 56);
+  if (v14)
   {
-    PDFDocumentPrintReference(*(a1 + 8), "/AAPL:EPSData %R", v87, v81, v82, v83, v84, v85);
+    PDFDocumentPrintReference(*(a1 + 8), "/AAPL:EPSData %R", v14);
   }
 
-  v88 = *(a1 + 48);
-  if (v88)
+  v15 = *(a1 + 48);
+  if (v15)
   {
-    v89 = *(v88 + 216);
-    if (v89)
+    v16 = *(v15 + 216);
+    if (v16)
     {
-      if (CGPropertiesGetProperty(v89, @"kCGPDFImageIsSignature"))
+      if (CGPropertiesGetProperty(v16, @"kCGPDFImageIsSignature"))
       {
-        PDFDocumentPrintf(*(a1 + 8), "%*/ true", v90, v91, v92, v93, v94, v95, @"kCGPDFImageIsSignature");
+        PDFDocumentPrintf(*(a1 + 8), "%*/ true", @"kCGPDFImageIsSignature");
       }
     }
   }
@@ -3314,225 +3308,232 @@ _BYTE *emit_image(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4, uint64_t 
   Mask = CGImageGetMask(a2);
   if (Mask)
   {
-    v97 = Mask;
+    v18 = Mask;
     if (!CGImageGetMatte(a2))
     {
-      v107 = PDFDocumentAddSMask(*(a1 + 8), v97, 0, *(a1 + 44));
+      v22 = PDFDocumentAddSMask(*(a1 + 8), v18, 0, *(a1 + 44));
       goto LABEL_36;
     }
 
-    v98 = CGImageGetColorSpace(a2);
+    v19 = CGImageGetColorSpace(a2);
     if (ColorSpace)
     {
-      v99 = *(*(ColorSpace + 3) + 48);
-      if (v98)
+      v20 = *(*(ColorSpace + 3) + 48);
+      if (v19)
       {
 LABEL_27:
-        v100 = *(*(v98 + 3) + 48);
+        v21 = *(*(v19 + 3) + 48);
         goto LABEL_31;
       }
     }
 
     else
     {
-      v99 = 0;
-      if (v98)
+      v20 = 0;
+      if (v19)
       {
         goto LABEL_27;
       }
     }
 
-    v100 = 0;
+    v21 = 0;
 LABEL_31:
-    if (v99 == v100)
+    if (v20 == v21)
     {
-      v172 = 0;
-      v170 = 0u;
-      v171 = 0u;
-      v168 = 0u;
-      v169 = 0u;
-      v166 = 0u;
-      v167 = 0u;
+      v51 = 0;
+      v49 = 0u;
+      v50 = 0u;
+      v47 = 0u;
+      v48 = 0u;
+      v45 = 0u;
+      v46 = 0u;
       *components = 0u;
-      v165 = 0u;
+      v44 = 0u;
       CGImageGetMatte(a2);
       __memcpy_chk();
-      components[v99] = 1.0;
-      v108 = CGColorCreate(ColorSpace, components);
+      components[v20] = 1.0;
+      v23 = CGColorCreate(ColorSpace, components);
     }
 
     else
     {
-      v108 = 0;
+      v23 = 0;
     }
 
-    v107 = PDFDocumentAddSMask(*(a1 + 8), v97, v108, *(a1 + 44));
-    if (v108)
+    v22 = PDFDocumentAddSMask(*(a1 + 8), v18, v23, *(a1 + 44));
+    if (v23)
     {
-      CFRelease(v108);
+      CFRelease(v23);
     }
 
 LABEL_36:
-    if (!v107)
+    if (!v22)
     {
-      goto LABEL_47;
+      goto LABEL_46;
     }
 
-    v109 = *(a1 + 8);
-    v110 = *(v109 + 4);
-    if (v110 <= 0)
+    v24 = *(a1 + 8);
+    v25 = *(v24 + 4);
+    if (v25 <= 0)
     {
-      *(v109 + 4) = 1;
-      v111 = (v109 + 8);
+      *(v24 + 4) = 1;
+      v26 = (v24 + 8);
     }
 
-    else if (v110 != 1 || (v111 = (v109 + 8), *(v109 + 8) > 3))
+    else
     {
+      if (v25 != 1)
+      {
+        goto LABEL_43;
+      }
+
+      v26 = (v24 + 8);
+      if (*(v24 + 8) > 3)
+      {
+        goto LABEL_43;
+      }
+    }
+
+    *v26 = 4;
+    v24 = *(a1 + 8);
 LABEL_43:
-      PDFDocumentPrintf(v109, "/SMask", v101, v102, v103, v104, v105, v106, v161);
-      v117 = v107[2];
-      if (v117)
-      {
-        v118 = *(v117 + 8);
-      }
-
-      else
-      {
-        v118 = 0;
-      }
-
-      PDFDocumentPrintReference(*(a1 + 8), "%R", v118, v112, v113, v114, v115, v116);
-      goto LABEL_47;
+    PDFDocumentPrintf(v24, "/SMask");
+    v27 = *(a1 + 8);
+    v28 = v22[2];
+    if (v28)
+    {
+      PDFDocumentPrintReference(v27, "%R", *(v28 + 8));
     }
 
-    *v111 = 4;
-    v109 = *(a1 + 8);
-    goto LABEL_43;
+    else
+    {
+      PDFDocumentPrintReference(v27, "%R", 0);
+    }
   }
 
-LABEL_47:
+LABEL_46:
   if (!CGImageGetMaskingColors(a2))
   {
-    goto LABEL_68;
+    goto LABEL_67;
   }
 
   if (!a2)
   {
-    v125 = 0;
-LABEL_55:
-    v126 = 8;
-    goto LABEL_56;
+    v29 = 0;
+LABEL_54:
+    v30 = 8;
+    goto LABEL_55;
   }
 
-  v125 = a2[7];
-  if (v125 - 1 >= 8)
+  v29 = *(a2 + 7);
+  if (v29 - 1 >= 8)
   {
-    if (v125 > 0x20)
+    if (v29 > 0x20)
     {
       if (*(a1 + 73) == 1)
       {
-        v127 = *(a1 + 8);
-        goto LABEL_70;
+        v31 = *(a1 + 8);
+        goto LABEL_69;
       }
 
       if (*(a1 + 74) == 1)
       {
-        v147 = *(a1 + 8);
-        goto LABEL_73;
+        v39 = *(a1 + 8);
+        goto LABEL_72;
       }
 
-LABEL_80:
+LABEL_79:
       PDFImageEmitData(a1, a2);
       return PDFStreamEnd(*(a1 + 16));
     }
 
-    goto LABEL_55;
+    goto LABEL_54;
   }
 
-  v126 = qword_184564598[v125 - 1];
-LABEL_56:
+  v30 = qword_184564598[v29 - 1];
+LABEL_55:
   MaskingColors = CGImageGetMaskingColors(a2);
-  v163 = a2;
-  v129 = CGImageGetColorSpace(a2);
-  if (v129)
+  v42 = a2;
+  v33 = CGImageGetColorSpace(a2);
+  if (v33)
   {
-    v136 = 2 * *(*(v129 + 3) + 48);
-    PDFDocumentPrintf(*(a1 + 8), "/Mask [", v130, v131, v132, v133, v134, v135, v161);
-    if (v136)
+    v34 = 2 * *(*(v33 + 3) + 48);
+    PDFDocumentPrintf(*(a1 + 8), "/Mask [");
+    if (v34)
     {
-      if (v125 <= v126)
+      if (v29 <= v30)
       {
-        v143 = 0;
+        v35 = 0;
       }
 
       else
       {
-        v143 = v125 - v126;
+        v35 = v29 - v30;
       }
 
       do
       {
-        v144 = *MaskingColors;
-        if (v125 >= v126)
+        v36 = *MaskingColors;
+        if (v29 >= v30)
         {
-          v145 = (v144 >> v143);
+          LODWORD(v37) = v36 >> v35;
         }
 
         else
         {
-          v145 = ((~(-1 << v125) >> 1) + ~(-1 << v126) * v144) / ~(-1 << v125);
+          v37 = ((~(-1 << v29) >> 1) + ~(-1 << v30) * v36) / ~(-1 << v29);
         }
 
-        PDFDocumentPrintf(*(a1 + 8), "%d", v137, v138, v139, v140, v141, v142, v145);
+        PDFDocumentPrintf(*(a1 + 8), "%d", v37);
         ++MaskingColors;
-        --v136;
+        --v34;
       }
 
-      while (v136);
+      while (v34);
     }
   }
 
   else
   {
-    PDFDocumentPrintf(*(a1 + 8), "/Mask [", v130, v131, v132, v133, v134, v135, v161);
+    PDFDocumentPrintf(*(a1 + 8), "/Mask [");
   }
 
-  PDFDocumentPrintf(*(a1 + 8), "]", v137, v138, v139, v140, v141, v142, v162);
-  a2 = v163;
-LABEL_68:
+  PDFDocumentPrintf(*(a1 + 8), "]");
+  a2 = v42;
+LABEL_67:
   if ((*(a1 + 73) & 1) == 0)
   {
     if (*(a1 + 74))
     {
-      v147 = *(a1 + 8);
+      v39 = *(a1 + 8);
       if (!a2)
       {
-        v148 = 0;
-        goto LABEL_77;
+        v40 = 0;
+        goto LABEL_76;
       }
 
-LABEL_73:
-      v148 = a2[7];
-LABEL_77:
-      PDFDocumentPrintf(v147, "/BitsPerComponent %z", v119, v120, v121, v122, v123, v124, v148);
-      emit_jpeg2000_data(a1, a2, v149, v150, v151, v152, v153, v154);
+LABEL_72:
+      v40 = *(a2 + 7);
+LABEL_76:
+      PDFDocumentPrintf(v39, "/BitsPerComponent %z", v40);
+      emit_jpeg2000_data(a1, a2);
       return PDFStreamEnd(*(a1 + 16));
     }
 
-    goto LABEL_80;
+    goto LABEL_79;
   }
 
-  v127 = *(a1 + 8);
+  v31 = *(a1 + 8);
   if (!a2)
   {
-    v146 = 0;
-    goto LABEL_75;
+    v38 = 0;
+    goto LABEL_74;
   }
 
-LABEL_70:
-  v146 = a2[7];
-LABEL_75:
-  PDFDocumentPrintf(v127, "/BitsPerComponent %z", v119, v120, v121, v122, v123, v124, v146);
+LABEL_69:
+  v38 = *(a2 + 7);
+LABEL_74:
+  PDFDocumentPrintf(v31, "/BitsPerComponent %z", v38);
   emit_jpeg_data(a1);
   return PDFStreamEnd(*(a1 + 16));
 }
@@ -3623,7 +3624,7 @@ uint64_t CGPDFReferenceCreate(uint64_t a1, uint64_t a2)
     dispatch_once(&CGPDFReferenceTypeID_onceToken, &__block_literal_global_20501);
   }
 
-  result = pdf_create_cftype();
+  result = pdf_create_cftype(CGPDFReferenceTypeID_id, 32);
   *(result + 16) = a1;
   *(result + 24) = a2;
   return result;
@@ -3707,7 +3708,7 @@ uint64_t CGPDFNameCreate(const char *a1)
     dispatch_once(&CGPDFNameTypeID_onceToken, &__block_literal_global_6_20515);
   }
 
-  cftype = pdf_create_cftype();
+  cftype = pdf_create_cftype(CGPDFNameTypeID_id, 24);
   if (*a1 == 47)
   {
     *(cftype + 16) = strdup(a1);
@@ -3791,7 +3792,7 @@ uint64_t CGPDFStreamObjectCreate(const void *a1, const void *a2)
     dispatch_once(&CGPDFStreamObjectTypeID_onceToken, &__block_literal_global_11_20529);
   }
 
-  cftype = pdf_create_cftype();
+  cftype = pdf_create_cftype(CGPDFStreamObjectTypeID_id, 40);
   *(cftype + 16) = a1;
   CFRetain(a1);
   *(cftype + 24) = a2;
@@ -3871,7 +3872,7 @@ uint64_t CGPDFHexDataCreate(const UInt8 *a1, CFIndex a2)
     dispatch_once(&CGPDFHexDataTypeID_onceToken, &__block_literal_global_15_20550);
   }
 
-  cftype = pdf_create_cftype();
+  cftype = pdf_create_cftype(CGPDFHexDataTypeID_id, 24);
   *(cftype + 16) = CFDataCreate(*MEMORY[0x1E695E480], a1, a2);
   return cftype;
 }
@@ -3910,7 +3911,7 @@ uint64_t __CGPDFAppenderCreateCFDictionary_block_invoke(uint64_t a1, const char 
   return 1;
 }
 
-const __CFData *CGPDFAppenderCreateCFObject(uint64_t a1, char a2)
+CFMutableDictionaryRef CGPDFAppenderCreateCFObject(uint64_t a1, char a2)
 {
   v3 = *(a1 + 24);
   if ((a2 & 1) == 0 && *(a1 + 16) | *(a1 + 24))
@@ -4158,7 +4159,7 @@ const __CFData *CGPDFAppenderCreateCGPDFStreamObject(uint64_t *a1)
   return result;
 }
 
-uint64_t CGPDFAppenderCGPDFObjectMatchesCFType(uint64_t a1, const __CFString *a2)
+uint64_t CGPDFAppenderCGPDFObjectMatchesCFType(uint64_t a1, __CFString *a2)
 {
   v4 = CFGetTypeID(a2);
   if (a1)
@@ -4848,147 +4849,149 @@ uint64_t provider_with_masking_colors_retain_data(uint64_t *a1)
   return CGDataProviderRetainData(v2);
 }
 
-unint64_t provider_with_masking_colors_get_bytes_at_position(uint64_t a1, unsigned __int8 *a2, unint64_t a3, unint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t provider_with_masking_colors_get_bytes_at_position(uint64_t a1, unsigned __int8 *a2, unint64_t a3, unint64_t a4)
 {
   if ((*(a1 + 8) & 1) == 0)
   {
-    _CGHandleAssert("provider_with_masking_colors_get_bytes_at_position", 269, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "info->src_provider_uses_random_access == true", "", a6, a7, a8, v8);
+    _CGHandleAssert("provider_with_masking_colors_get_bytes_at_position", 269, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "info->src_provider_uses_random_access == true", "", v4, v5);
   }
 
-  return provider_with_masking_colors_get_bytes_at_position_inner(a1, a2, a3, a4, 0, a6, a7, a8);
+  return provider_with_masking_colors_get_bytes_at_position_inner(a1, a2, a3, a4, 0);
 }
 
-unint64_t provider_with_masking_colors_get_bytes_at_position_inner(uint64_t a1, unsigned __int8 *a2, unint64_t a3, unint64_t a4, int a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t provider_with_masking_colors_get_bytes_at_position_inner(uint64_t a1, unsigned __int8 *a2, unint64_t a3, unint64_t a4, int a5)
 {
-  v143 = *MEMORY[0x1E69E9840];
+  v113 = *MEMORY[0x1E69E9840];
   if ((a3 & 0x8000000000000000) != 0)
   {
-    _CGHandleAssert("provider_with_masking_colors_get_bytes_at_position_inner", 191, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "pos >= 0", "position is negative %lld", a6, a7, a8, a3);
+    _CGHandleAssert("provider_with_masking_colors_get_bytes_at_position_inner", 191, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "pos >= 0", "position is negative %lld", a3);
   }
 
   memcpy(__dst, (a1 + 16), 0x130uLL);
-  BitsPerPixel = CGBitmapPixelInfoGetBitsPerPixel(__dst, v13, v14, v15, v16, v17, v18, v19);
+  BitsPerPixel = CGBitmapPixelInfoGetBitsPerPixel(__dst);
   memcpy(__dst, (a1 + 344), 0x130uLL);
-  v28 = CGBitmapPixelInfoGetBitsPerPixel(__dst, v21, v22, v23, v24, v25, v26, v27);
-  v29 = *(a1 + 936);
+  v11 = CGBitmapPixelInfoGetBitsPerPixel(__dst);
+  v12 = *(a1 + 936);
   memcpy(__src, (a1 + 16), sizeof(__src));
-  v35 = destination_position_to_source_position(v28, *(a1 + 648), *(a1 + 656), BitsPerPixel, *(a1 + 320), a3, v30, v31);
-  if (v35 >= 0x7FFFFFFF)
+  v13 = destination_position_to_source_position(v11, *(a1 + 648), *(a1 + 656), BitsPerPixel, *(a1 + 320), a3);
+  if (v13 >= 0x7FFFFFFF)
   {
-    _CGHandleAssert("provider_with_masking_colors_get_bytes_at_position_inner", 219, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "src_pos >= 0 && src_pos < INT_MAX", "src position %lld", v32, v33, v34, v35);
+    _CGHandleAssert("provider_with_masking_colors_get_bytes_at_position_inner", 219, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "src_pos >= 0 && src_pos < INT_MAX", "src position %lld", v13);
   }
 
-  v125 = a5;
-  v126 = a4;
-  v127 = v28;
-  v36 = 8 * a4;
-  v37 = *(a1 + 344);
-  v141 = *(a1 + 356);
-  v140 = *(a1 + 348);
-  v38 = *(a1 + 360);
-  v39 = *(a1 + 368);
-  v122 = *(a1 + 372);
-  v123 = v36;
-  v40 = v36 / v28;
-  memcpy(v139, (a1 + 376), sizeof(v139));
-  v48 = *a1;
-  v121 = BitsPerPixel;
-  v49 = (v40 * BitsPerPixel + 7) >> 3;
-  if (v49 > *(a1 + 944))
+  v95 = a5;
+  v96 = a4;
+  v97 = v11;
+  v14 = 8 * a4;
+  v15 = *(a1 + 344);
+  v111 = *(a1 + 356);
+  v110 = *(a1 + 348);
+  v16 = *(a1 + 360);
+  v17 = *(a1 + 368);
+  v92 = *(a1 + 372);
+  v93 = v14;
+  v18 = v14 / v11;
+  memcpy(v109, (a1 + 376), sizeof(v109));
+  v19 = *a1;
+  v91 = BitsPerPixel;
+  v20 = (v18 * BitsPerPixel + 7) >> 3;
+  v21 = *(a1 + 944);
+  if (v20 > v21)
   {
-    v50 = (v40 * BitsPerPixel + 7) >> 3;
-    CGPostError("%s: bytes_to_read %zd > work_buffer_size %zd", v41, v42, v43, v44, v45, v46, v47, "provider_with_masking_colors_get_bytes_at_position_inner");
-    v49 = v50;
-    if (v50 > *(a1 + 944))
+    v22 = (v18 * BitsPerPixel + 7) >> 3;
+    CGPostError("%s: bytes_to_read %zd > work_buffer_size %zd", "provider_with_masking_colors_get_bytes_at_position_inner", v22, v21);
+    v20 = v22;
+    v23 = *(a1 + 944);
+    if (v22 > v23)
     {
-      _CGHandleAssert("provider_with_masking_colors_get_bytes_at_position_inner", 231, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "bytes_to_read <= info->work_buffer_size", "bytes to read %zu  buffer size %zu", v45, v46, v47, v50);
+      _CGHandleAssert("provider_with_masking_colors_get_bytes_at_position_inner", 231, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "bytes_to_read <= info->work_buffer_size", "bytes to read %zu  buffer size %zu", v22, v23);
     }
   }
 
-  v124 = v49;
-  BytesAtPositionInternal = CGDataProviderGetBytesAtPositionInternal(v48, *(a1 + 8), *(a1 + 936), v35, v49, v45, v46, v47);
-  v55 = *(a1 + 928);
-  if (v55)
+  v94 = v20;
+  BytesAtPositionInternal = CGDataProviderGetBytesAtPositionInternal(v19, *(a1 + 8), *(a1 + 936), v13, v20);
+  v25 = *(a1 + 928);
+  if (v25)
   {
-    *__dst = v29;
-    *&__dst[8] = v40;
+    *__dst = v12;
+    *&__dst[8] = v18;
     *&__dst[16] = xmmword_18439CC50;
     *&__dst[32] = 0;
     memcpy(&__dst[40], __src, 0x130uLL);
-    v128[0] = a2;
-    v128[1] = v40;
-    v129 = xmmword_18439CC50;
-    v130 = 0;
-    v131 = v37;
-    v132 = v140;
-    v133 = v141;
-    v134 = v38;
-    v135 = v39;
-    v136 = v122;
-    memcpy(v137, v139, sizeof(v137));
-    vImageConverterConvert(v55, __dst, v128, 0);
+    v98[0] = a2;
+    v98[1] = v18;
+    v99 = xmmword_18439CC50;
+    v100 = 0;
+    v101 = v15;
+    v102 = v110;
+    v103 = v111;
+    v104 = v16;
+    v105 = v17;
+    v106 = v92;
+    memcpy(v107, v109, sizeof(v107));
+    vImageConverterConvert(v25, __dst, v98, 0);
   }
 
-  v56 = 1;
-  if (v39 != 9)
+  v26 = 1;
+  if (v17 != 9)
   {
-    if (v39 == 8)
+    if (v17 == 8)
     {
-      LOBYTE(v39) = 1;
+      v17 = 1;
     }
 
     else
     {
-      v56 = v39 == 3;
-      if ((v39 - 5) > 0xFFFFFFFD)
+      v26 = v17 == 3;
+      if ((v17 - 5) > 0xFFFFFFFD)
       {
         goto LABEL_10;
       }
     }
 
-    _CGHandleAssert("mask_colors", 156, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "alpha_info == kCGImageAlphaFirst || alpha_info == kCGImageAlphaLast", "alpha info %d", v51, v52, v53, v39);
+    _CGHandleAssert("mask_colors", 156, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "alpha_info == kCGImageAlphaFirst || alpha_info == kCGImageAlphaLast", "alpha info %d", v17);
   }
 
 LABEL_10:
-  if (v37 <= 4)
+  if (v15 <= 4)
   {
-    if (v37 == 1)
+    if (v15 == 1)
     {
-      v57 = v125;
-      if (v127 <= v123)
+      v27 = v95;
+      if (v97 <= v93)
       {
-        v68 = 0;
-        v69 = (v122 == 0x2000) ^ v56;
-        if (v69)
+        v38 = 0;
+        v39 = (v92 == 0x2000) ^ v26;
+        if (v39)
         {
-          v70 = v38;
+          v40 = v16;
         }
 
         else
         {
-          v70 = 0;
+          v40 = 0;
         }
 
-        v71 = &a2[v70];
-        v72 = &a2[v69 ^ 1];
-        v73 = v38 + 1;
+        v41 = &a2[v40];
+        v42 = &a2[v39 ^ 1];
+        v43 = v16 + 1;
         do
         {
-          if (v38)
+          if (v16)
           {
-            v74 = 0;
-            v75 = (a1 + 673);
+            v44 = 0;
+            v45 = (a1 + 673);
             while (1)
             {
-              v76 = v72[v74];
-              if (v76 < *(v75 - 1) || v76 > *v75)
+              v46 = v42[v44];
+              if (v46 < *(v45 - 1) || v46 > *v45)
               {
                 break;
               }
 
-              ++v74;
-              v75 += 2;
-              if (v38 == v74)
+              ++v44;
+              v45 += 2;
+              if (v16 == v44)
               {
                 goto LABEL_49;
               }
@@ -4998,60 +5001,60 @@ LABEL_10:
           else
           {
 LABEL_49:
-            *v71 = 0;
+            *v41 = 0;
           }
 
-          v72 += v73;
-          v71 += v73;
-          ++v68;
+          v42 += v43;
+          v41 += v43;
+          ++v38;
         }
 
-        while (v68 != v40);
+        while (v38 != v18);
       }
     }
 
-    else if (v37 == 2)
+    else if (v15 == 2)
     {
-      v57 = v125;
-      if (v127 <= v123)
+      v27 = v95;
+      if (v97 <= v93)
       {
-        v111 = 0;
-        v112 = !v56;
-        if (v56)
+        v81 = 0;
+        v82 = !v26;
+        if (v26)
         {
-          v113 = v38;
+          v83 = v16;
         }
 
         else
         {
-          v113 = 0;
+          v83 = 0;
         }
 
-        v114 = &a2[2 * v113];
-        v115 = 2;
-        if (!v112)
+        v84 = &a2[2 * v83];
+        v85 = 2;
+        if (!v82)
         {
-          v115 = 0;
+          v85 = 0;
         }
 
-        v116 = &a2[v115];
+        v86 = &a2[v85];
         do
         {
-          if (v38)
+          if (v16)
           {
-            v117 = 0;
-            v118 = (a1 + 674);
+            v87 = 0;
+            v88 = (a1 + 674);
             while (1)
             {
-              v119 = *&v116[2 * v117];
-              if (v119 < *(v118 - 1) || v119 > *v118)
+              v89 = *&v86[2 * v87];
+              if (v89 < *(v88 - 1) || v89 > *v88)
               {
                 break;
               }
 
-              ++v117;
-              v118 += 2;
-              if (v38 == v117)
+              ++v87;
+              v88 += 2;
+              if (v16 == v87)
               {
                 goto LABEL_122;
               }
@@ -5061,61 +5064,61 @@ LABEL_49:
           else
           {
 LABEL_122:
-            *v114 = 0;
+            *v84 = 0;
           }
 
-          v114 += 2 * v38 + 2;
-          ++v111;
-          v116 += 2 * v38 + 2;
+          v84 += 2 * v16 + 2;
+          ++v81;
+          v86 += 2 * v16 + 2;
         }
 
-        while (v111 != v40);
+        while (v81 != v18);
       }
     }
 
     else
     {
-      _ZF = v37 == 4;
-      v57 = v125;
-      if (_ZF && v127 <= v123)
+      _ZF = v15 == 4;
+      v27 = v95;
+      if (_ZF && v97 <= v93)
       {
-        v59 = 0;
-        _ZF = !v56;
-        if (v56)
+        v29 = 0;
+        _ZF = !v26;
+        if (v26)
         {
-          v61 = v38;
+          v31 = v16;
         }
 
         else
         {
-          v61 = 0;
+          v31 = 0;
         }
 
-        v62 = &a2[4 * v61];
-        v63 = 4;
+        v32 = &a2[4 * v31];
+        v33 = 4;
         if (!_ZF)
         {
-          v63 = 0;
+          v33 = 0;
         }
 
-        v64 = &a2[v63];
+        v34 = &a2[v33];
         do
         {
-          if (v38)
+          if (v16)
           {
-            v65 = 0;
-            v66 = (a1 + 680);
+            v35 = 0;
+            v36 = (a1 + 680);
             while (1)
             {
-              v67 = *&v64[4 * v65];
-              if (*(v66 - 1) > v67 || *v66 < v67)
+              v37 = *&v34[4 * v35];
+              if (*(v36 - 1) > v37 || *v36 < v37)
               {
                 break;
               }
 
-              ++v65;
-              v66 += 2;
-              if (v38 == v65)
+              ++v35;
+              v36 += 2;
+              if (v16 == v35)
               {
                 goto LABEL_32;
               }
@@ -5125,111 +5128,110 @@ LABEL_122:
           else
           {
 LABEL_32:
-            *v62 = 0;
+            *v32 = 0;
           }
 
-          v62 += 4 * v38 + 4;
-          ++v59;
-          v64 += 4 * v38 + 4;
+          v32 += 4 * v16 + 4;
+          ++v29;
+          v34 += 4 * v16 + 4;
         }
 
-        while (v59 != v40);
+        while (v29 != v18);
       }
     }
   }
 
   else
   {
-    if (v37 > 7)
+    if (v15 > 7)
     {
-      if (v37 == 9)
+      if (v15 == 9)
       {
-        v58 = 4;
-        v57 = v125;
+        v28 = 4;
+        v27 = v95;
       }
 
       else
       {
-        _ZF = v37 == 8;
-        v57 = v125;
+        _ZF = v15 == 8;
+        v27 = v95;
         if (!_ZF)
         {
           goto LABEL_124;
         }
 
-        v58 = 2;
+        v28 = 2;
       }
 
 LABEL_68:
-      if (v127 > v123)
+      if (v97 > v93)
       {
         goto LABEL_124;
       }
 
-      v90 = 0;
+      v60 = 0;
       LODWORD(j) = 0;
-      v92 = 0;
-      v93 = 0;
-      v94 = 0;
-      v95 = ~(-1 << v58);
-      v96 = a2;
-      while (!v56)
+      v62 = 0;
+      v63 = 0;
+      v64 = 0;
+      v65 = ~(-1 << v28);
+      v66 = a2;
+      while (!v26)
       {
-        if (v58 > v93)
+        if (v28 > v63)
         {
-          v93 += 8;
-          v98 = *v96++;
-          v94 = v98 | (v94 << 8);
+          v63 += 8;
+          v68 = *v66++;
+          v64 = v68 | (v64 << 8);
         }
 
-        v93 -= v58;
-        v97 = (v94 >> v93) & v95;
-        if (v38)
+        v63 -= v28;
+        v67 = (v64 >> v63) & v65;
+        if (v16)
         {
           goto LABEL_76;
         }
 
 LABEL_80:
-        if (v56)
+        if (v26)
         {
-          if (v58 > v93)
+          if (v28 > v63)
           {
-            v93 += 8;
-            v102 = *v96++;
-            v94 = v102 | (v94 << 8);
+            v63 += 8;
+            v72 = *v66++;
+            v64 = v72 | (v64 << 8);
           }
 
-          v93 -= v58;
-          v97 = (v94 >> v93) & v95;
+          v63 -= v28;
+          v67 = (v64 >> v63) & v65;
         }
 
-        if (v38)
+        if (v16)
         {
-          v103 = 1;
-          v104 = __dst;
-          v105 = (a1 + 673);
-          v106 = v38;
+          v73 = 1;
+          v74 = __dst;
+          v75 = (a1 + 673);
+          v76 = v16;
           do
           {
-            v53 = *(v105 - 1);
-            v108 = *v104++;
-            v107 = v108;
-            if (v108 < v53 || (v53 = *v105, v107 > v53))
+            v78 = *v74++;
+            v77 = v78;
+            if (v78 < *(v75 - 1) || v77 > *v75)
             {
-              v103 = 0;
+              v73 = 0;
             }
 
-            v105 += 2;
-            --v106;
+            v75 += 2;
+            --v76;
           }
 
-          while (v106);
-          if (v103)
+          while (v76);
+          if (v73)
           {
-            v97 = 0;
+            v67 = 0;
           }
 
-          if (v56)
+          if (v26)
           {
             goto LABEL_98;
           }
@@ -5238,139 +5240,139 @@ LABEL_95:
           if (j >= 8)
           {
             LODWORD(j) = j - 8;
-            *a2++ = v92 >> j;
+            *a2++ = v62 >> j;
           }
 
-          v92 = (v92 << v58) | v97 & v95;
-          LODWORD(j) = j + v58;
+          v62 = (v62 << v28) | v67 & v65;
+          LODWORD(j) = j + v28;
           goto LABEL_98;
         }
 
-        v97 = 0;
-        if (!v56)
+        v67 = 0;
+        if (!v26)
         {
           goto LABEL_95;
         }
 
 LABEL_98:
-        if (v38)
+        if (v16)
         {
-          for (i = 0; i != v38; ++i)
+          for (i = 0; i != v16; ++i)
           {
-            v110 = __dst[i];
+            v80 = __dst[i];
             if (j >= 8)
             {
-              for (j = j; j > 7; *a2++ = v92 >> j)
+              for (j = j; j > 7; *a2++ = v62 >> j)
               {
                 j -= 8;
               }
             }
 
-            v92 = (v92 << v58) | v110 & v95;
-            LODWORD(j) = j + v58;
+            v62 = (v62 << v28) | v80 & v65;
+            LODWORD(j) = j + v28;
           }
         }
 
-        if (v56)
+        if (v26)
         {
           if (j >= 8)
           {
             LODWORD(j) = j - 8;
-            *a2++ = v92 >> j;
+            *a2++ = v62 >> j;
           }
 
-          v92 = (v92 << v58) | v97 & v95;
-          LODWORD(j) = j + v58;
+          v62 = (v62 << v28) | v67 & v65;
+          LODWORD(j) = j + v28;
         }
 
-        if (++v90 == v40)
+        if (++v60 == v18)
         {
           goto LABEL_124;
         }
       }
 
-      v97 = 1;
-      if (!v38)
+      v67 = 1;
+      if (!v16)
       {
         goto LABEL_80;
       }
 
 LABEL_76:
-      v99 = __dst;
-      v100 = v38;
+      v69 = __dst;
+      v70 = v16;
       do
       {
-        if (v58 > v93)
+        if (v28 > v63)
         {
-          v93 += 8;
-          v101 = *v96++;
-          v94 = v101 | (v94 << 8);
+          v63 += 8;
+          v71 = *v66++;
+          v64 = v71 | (v64 << 8);
         }
 
-        v93 -= v58;
-        *v99++ = (v94 >> v93) & v95;
-        --v100;
+        v63 -= v28;
+        *v69++ = (v64 >> v63) & v65;
+        --v70;
       }
 
-      while (v100);
+      while (v70);
       goto LABEL_80;
     }
 
-    if (v37 != 5)
+    if (v15 != 5)
     {
-      _ZF = v37 == 7;
-      v57 = v125;
+      _ZF = v15 == 7;
+      v27 = v95;
       if (!_ZF)
       {
         goto LABEL_124;
       }
 
-      v58 = 1;
+      v28 = 1;
       goto LABEL_68;
     }
 
-    v57 = v125;
-    if (v127 <= v123)
+    v27 = v95;
+    if (v97 <= v93)
     {
-      v77 = 0;
-      v78 = !v56;
-      if (v56)
+      v47 = 0;
+      v48 = !v26;
+      if (v26)
       {
-        v79 = v38;
+        v49 = v16;
       }
 
       else
       {
-        v79 = 0;
+        v49 = 0;
       }
 
-      v80 = &a2[2 * v79];
-      v81 = 2;
-      if (!v78)
+      v50 = &a2[2 * v49];
+      v51 = 2;
+      if (!v48)
       {
-        v81 = 0;
+        v51 = 0;
       }
 
-      v82 = &a2[v81];
+      v52 = &a2[v51];
       do
       {
-        if (v38)
+        if (v16)
         {
-          v83 = 0;
-          v84 = (a1 + 680);
+          v53 = 0;
+          v54 = (a1 + 680);
           while (1)
           {
-            _H1 = *&v82[2 * v83];
+            _H1 = *&v52[2 * v53];
             __asm { FCVT            D1, H1 }
 
-            if (*(v84 - 1) > _D1 || *v84 < _D1)
+            if (*(v54 - 1) > _D1 || *v54 < _D1)
             {
               break;
             }
 
-            ++v83;
-            v84 += 2;
-            if (v38 == v83)
+            ++v53;
+            v54 += 2;
+            if (v16 == v53)
             {
               goto LABEL_64;
             }
@@ -5380,26 +5382,26 @@ LABEL_76:
         else
         {
 LABEL_64:
-          *v80 = 0;
+          *v50 = 0;
         }
 
-        v80 += 2 * v38 + 2;
-        ++v77;
-        v82 += 2 * v38 + 2;
+        v50 += 2 * v16 + 2;
+        ++v47;
+        v52 += 2 * v16 + 2;
       }
 
-      while (v77 != v40);
+      while (v47 != v18);
     }
   }
 
 LABEL_124:
-  result = v126;
-  if (BytesAtPositionInternal < v124)
+  result = v96;
+  if (BytesAtPositionInternal < v94)
   {
-    result = byte_count_to_byte_count(v121, *(a1 + 320), *(a1 + 328), *(a1 + 336), v127, *(a1 + 648), BytesAtPositionInternal, v53);
+    result = byte_count_to_byte_count(v91, *(a1 + 320), *(a1 + 328), *(a1 + 336), v97, *(a1 + 648), BytesAtPositionInternal);
   }
 
-  if (v57)
+  if (v27)
   {
     *(a1 + 336) += BytesAtPositionInternal;
     *(a1 + 664) += result;
@@ -5408,20 +5410,20 @@ LABEL_124:
   return result;
 }
 
-void provider_with_masking_colors_rewind(uint64_t *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+void provider_with_masking_colors_rewind(uint64_t *a1)
 {
-  v9 = *a1;
-  if (!v9)
+  v2 = *a1;
+  if (!v2)
   {
-    _CGHandleAssert("CGDataProviderGetType", 212, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProvider.c", "provider != NULL", "provider is NULL", a6, a7, a8, v10);
+    _CGHandleAssert("CGDataProviderGetType", 212, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProvider.c", "provider != NULL", "provider is NULL");
   }
 
-  if ((*(v9 + 20) | 2) != 3)
+  if ((*(v2 + 20) | 2) != 3)
   {
-    _CGHandleAssert("provider_with_masking_colors_rewind", 336, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "", "Unimplemented", a6, a7, a8, v10);
+    _CGHandleAssert("provider_with_masking_colors_rewind", 336, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "", "Unimplemented");
   }
 
-  CGDataProviderRewind(v9);
+  CGDataProviderRewind(v2);
   a1[83] = 0;
   a1[42] = 0;
 }
@@ -5430,41 +5432,41 @@ unint64_t provider_with_masking_colors_skip_forward(uint64_t a1, unint64_t a2)
 {
   v4 = *a1;
   memcpy(__dst, (a1 + 16), sizeof(__dst));
-  BitsPerPixel = CGBitmapPixelInfoGetBitsPerPixel(__dst, v5, v6, v7, v8, v9, v10, v11);
+  BitsPerPixel = CGBitmapPixelInfoGetBitsPerPixel(__dst);
   memcpy(__dst, (a1 + 344), sizeof(__dst));
-  v20 = CGBitmapPixelInfoGetBitsPerPixel(__dst, v13, v14, v15, v16, v17, v18, v19);
+  v6 = CGBitmapPixelInfoGetBitsPerPixel(__dst);
   if ((a2 & 0x8000000000000000) != 0)
   {
-    _CGHandleAssert("provider_with_masking_colors_skip_forward", 290, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "count >= 0", "count = %lld", v21, v22, v23, a2);
+    _CGHandleAssert("provider_with_masking_colors_skip_forward", 290, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "count >= 0", "count = %lld", a2);
   }
 
-  v24 = v20;
-  v25 = byte_count_to_byte_count(v20, *(a1 + 648), *(a1 + 656), *(a1 + 664), BitsPerPixel, *(a1 + 320), a2, v23);
-  v26 = CGDataProviderSkipForwardInternal(v4, v25);
-  v30 = v26;
-  if ((v26 & 0x8000000000000000) != 0)
+  v7 = v6;
+  v8 = byte_count_to_byte_count(v6, *(a1 + 648), *(a1 + 656), *(a1 + 664), BitsPerPixel, *(a1 + 320), a2);
+  v9 = CGDataProviderSkipForwardInternal(v4, v8);
+  v10 = v9;
+  if ((v9 & 0x8000000000000000) != 0)
   {
-    _CGHandleAssert("provider_with_masking_colors_skip_forward", 303, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "skipped >= 0", "skipped %lld", v27, v28, v29, v26);
+    _CGHandleAssert("provider_with_masking_colors_skip_forward", 303, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "skipped >= 0", "skipped %lld", v9);
   }
 
-  if (v26 != v25)
+  if (v9 != v8)
   {
-    a2 = byte_count_to_byte_count(BitsPerPixel, *(a1 + 320), *(a1 + 328), *(a1 + 336), v24, *(a1 + 648), v26, v29);
+    a2 = byte_count_to_byte_count(BitsPerPixel, *(a1 + 320), *(a1 + 328), *(a1 + 336), v7, *(a1 + 648), v9);
   }
 
-  *(a1 + 336) += v30;
+  *(a1 + 336) += v10;
   *(a1 + 664) += a2;
   return a2;
 }
 
-unint64_t provider_with_masking_colors_get_bytes(uint64_t a1, unsigned __int8 *a2, unint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+unint64_t provider_with_masking_colors_get_bytes(uint64_t a1, unsigned __int8 *a2, unint64_t a3)
 {
   if (*(a1 + 8))
   {
-    _CGHandleAssert("provider_with_masking_colors_get_bytes", 277, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "info->src_provider_uses_random_access == false", "", a6, a7, a8, v8);
+    _CGHandleAssert("provider_with_masking_colors_get_bytes", 277, "/Library/Caches/com.apple.xbs/Sources/CoreGraphics/CoreGraphics/DataManagers/CGDataProviderWithMaskingColors.c", "info->src_provider_uses_random_access == false", "", v3, v4);
   }
 
-  return provider_with_masking_colors_get_bytes_at_position_inner(a1, a2, 0, a3, 1, a6, a7, a8);
+  return provider_with_masking_colors_get_bytes_at_position_inner(a1, a2, 0, a3, 1);
 }
 
 uint64_t PBPageLayoutPkg::PBCharacterStyle::formatText(PBPageLayoutPkg::PBCharacterStyle *this, PB::TextFormatter *a2, const char *a3)
@@ -5847,56 +5849,56 @@ double *get_pattern_phase(double *result, int *a2, double a3, double a4, double 
   return result;
 }
 
-char *create_pattern_tile_pattern(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, int *a5, _OWORD *a6, uint64_t a7, uint64_t a8, double a9)
+char *create_pattern_tile_pattern(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, _OWORD *a6, double a7)
 {
   if (a4 < 1)
   {
-    v16 = 0;
+    v14 = 0;
   }
 
   else
   {
-    v16 = *(a4 + 32);
+    v14 = *(a4 + 32);
   }
 
-  v18 = *(v16 + 104);
-  v17 = *(v16 + 112);
-  v20 = *(v16 + 120);
-  v19 = *(v16 + 128);
-  if (v20 < 0.0 || v19 < 0.0)
+  v16 = *(v14 + 104);
+  v15 = *(v14 + 112);
+  v18 = *(v14 + 120);
+  v17 = *(v14 + 128);
+  if (v18 < 0.0 || v17 < 0.0)
   {
-    v32 = CGRectStandardize(*(v16 + 104));
-    v21 = fabs(v32.size.width);
-    v32.origin.x = v18;
-    v32.origin.y = v17;
-    v32.size.width = v20;
-    v32.size.height = v19;
-    *(&v22 - 3) = CGRectStandardize(v32);
+    v30 = CGRectStandardize(*(v14 + 104));
+    v19 = fabs(v30.size.width);
+    v30.origin.x = v16;
+    v30.origin.y = v15;
+    v30.size.width = v18;
+    v30.size.height = v17;
+    *(&v20 - 3) = CGRectStandardize(v30);
   }
 
   else
   {
-    v21 = fabs(v20);
-    v22 = *(v16 + 128);
+    v19 = fabs(v18);
+    v20 = *(v14 + 128);
   }
 
-  if (*(v16 + 20) == 1)
+  if (*(v14 + 20) == 1)
   {
     goto LABEL_14;
   }
 
-  if (v18 == INFINITY || v17 == INFINITY)
+  if (v16 == INFINITY || v15 == INFINITY)
   {
     return 0;
   }
 
-  v29 = 0;
-  if (v20 != 0.0 && v19 != 0.0)
+  v27 = 0;
+  if (v18 != 0.0 && v17 != 0.0)
   {
 LABEL_14:
-    if (a9 >= 1.0 && (*(v16 + 186) & 1) != 0 && ((v23 = fabs(v22), v24 = fabs(*(v16 + 144)), v21 == fabs(*(v16 + 136))) ? (v25 = v23 == v24) : (v25 = 0), v25))
+    if (a7 >= 1.0 && (*(v14 + 186) & 1) != 0 && ((v21 = fabs(v20), v22 = fabs(*(v14 + 144)), v19 == fabs(*(v14 + 136))) ? (v23 = v21 == v22) : (v23 = 0), v23))
     {
-      v26 = 32;
+      v24 = 32;
       if (a2)
       {
         goto LABEL_16;
@@ -5905,26 +5907,26 @@ LABEL_14:
 
     else
     {
-      v26 = 33;
+      v24 = 33;
       if (a2)
       {
 LABEL_16:
-        v27 = *(a2 + 4);
+        v25 = *(a2 + 4);
         goto LABEL_28;
       }
     }
 
-    v27 = 3;
+    v25 = 3;
 LABEL_28:
-    v30 = RIPLayerCreate(RIPLayer_ripl_class, a5, v26, *(*(a1 + 48) + 32), v27, a6, a7, a8);
-    v29 = v30;
-    if (v30)
+    v28 = RIPLayerCreate(RIPLayer_ripl_class, a5, v24, *(*(a1 + 48) + 32), v25);
+    v27 = v28;
+    if (v28)
     {
-      build_tile(v30, a1, a2, a3, a4, 0, a6, *a5, a5[1], a5[2], a5[3], a9);
+      build_tile(v28, a1, a2, a3, a4, 0, a6, *a5, *(a5 + 4), *(a5 + 8), *(a5 + 12), a7);
     }
   }
 
-  return v29;
+  return v27;
 }
 
 float64x2_t __CGAffineTransformInverseConcat(float64x2_t *a1, _OWORD *a2, float64x2_t *a3)
@@ -5951,28 +5953,28 @@ void build_tile(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5,
 {
   v21 = a2;
   v22 = a1;
-  v195 = *MEMORY[0x1E69E9840];
-  memset(&v176[16], 0, 96);
-  v177 = 0u;
-  *v176 = 0u;
-  v173 = 0u;
-  v174 = 0u;
-  v171 = 0u;
-  v172 = 0u;
-  *&v176[24] = *(a2 + 120);
-  *&v176[40] = *(a2 + 136);
-  *&v176[56] = *(a2 + 152);
-  *&v176[72] = *(a2 + 168);
-  *&v176[8] = *(a2 + 104);
-  *&v172 = *(a2 + 16);
-  *(&v173 + 1) = *(a2 + 40);
-  v174 = *(a2 + 48);
-  memset(v175, 0, sizeof(v175));
-  *&v175[0] = *(a2 + 64);
+  v180 = *MEMORY[0x1E69E9840];
+  memset(&v161[16], 0, 96);
+  v162 = 0u;
+  *v161 = 0u;
+  v158 = 0u;
+  v159 = 0u;
+  v156 = 0u;
+  v157 = 0u;
+  *&v161[24] = *(a2 + 120);
+  *&v161[40] = *(a2 + 136);
+  *&v161[56] = *(a2 + 152);
+  *&v161[72] = *(a2 + 168);
+  *&v161[8] = *(a2 + 104);
+  *&v157 = *(a2 + 16);
+  *(&v158 + 1) = *(a2 + 40);
+  v159 = *(a2 + 48);
+  memset(v160, 0, sizeof(v160));
+  *&v160[0] = *(a2 + 64);
   *(a2 + 56) = 0u;
-  *(v175 + 8) = *(a2 + 72);
+  *(v160 + 8) = *(a2 + 72);
   *(a2 + 72) = 0u;
-  DWORD2(v177) = *(a2 + 216);
+  DWORD2(v162) = *(a2 + 216);
   *(a2 + 40) = 0x3FF0000000000000;
   *(a2 + 48) = a1;
   CGRenderingStateCreateCopy(a3);
@@ -6046,8 +6048,8 @@ LABEL_15:
 
 LABEL_18:
   v36 = *v21;
-  v196 = CGRectStandardize(*(v33 + 104));
-  if (v196.size.width == 0.0 || (height = v196.size.height, v196.size.height == 0.0))
+  v181 = CGRectStandardize(*(v33 + 104));
+  if (v181.size.width == 0.0 || (height = v181.size.height, v181.size.height == 0.0))
   {
 LABEL_76:
     if (atomic_fetch_add_explicit(v24, 0xFFFFFFFF, memory_order_relaxed) == 1)
@@ -6058,52 +6060,52 @@ LABEL_76:
     goto LABEL_78;
   }
 
-  x = v196.origin.x;
-  y = v196.origin.y;
-  width = v196.size.width;
-  v143 = v22;
+  x = v181.origin.x;
+  y = v181.origin.y;
+  width = v181.size.width;
+  v128 = v22;
   v41 = *(v33 + 152);
   v42 = *(v24 + 24);
   v43 = *(v24 + 40);
   v44 = vaddq_f64(*(*(v28 + 120) + 24), *(v33 + 56));
   v45 = vmlaq_n_f64(vmulq_laneq_f64(v43, *(v33 + 24), 1), v42, *(v33 + 24));
   v46 = vmlaq_n_f64(vmulq_laneq_f64(v43, *(v33 + 40), 1), v42, *(v33 + 40));
-  v155 = *(v33 + 136);
-  v160 = fabs(v155);
-  v151 = *(v33 + 144);
-  v163 = fabs(v151);
+  v140 = *(v33 + 136);
+  v145 = fabs(v140);
+  v136 = *(v33 + 144);
+  v148 = fabs(v136);
   rect = y;
-  v145 = x;
-  v142 = a12;
-  v146 = vaddq_f64(*(v24 + 56), vmlaq_n_f64(vmulq_laneq_f64(v43, v44, 1), v42, v44.f64[0]));
-  if (x == -8.98846567e307 && y == -8.98846567e307 && v196.size.width == 1.79769313e308 && height == 1.79769313e308)
+  v130 = x;
+  v127 = a12;
+  v131 = vaddq_f64(*(v24 + 56), vmlaq_n_f64(vmulq_laneq_f64(v43, v44, 1), v42, v44.f64[0]));
+  if (x == -8.98846567e307 && y == -8.98846567e307 && v181.size.width == 1.79769313e308 && height == 1.79769313e308)
   {
     v41 = 0;
     v47 = 0.0;
-    v149 = v46;
-    v150 = v45;
+    v134 = v46;
+    v135 = v45;
     v48 = 0.0;
     goto LABEL_41;
   }
 
-  if (v155 != 0.0)
+  if (v140 != 0.0)
   {
-    v49 = vmuld_lane_f64(v160, v45, 1);
-    v50 = v49 * v49 + v160 * v45.f64[0] * (v160 * v45.f64[0]);
+    v49 = vmuld_lane_f64(v145, v45, 1);
+    v50 = v49 * v49 + v145 * v45.f64[0] * (v145 * v45.f64[0]);
     if (v50 != 0.0 && v50 < 0.253921509)
     {
       v45 = vmulq_n_f64(v45, (1.0 / sqrt(v50) + 0.5));
     }
   }
 
-  if (v151 == 0.0)
+  if (v136 == 0.0)
   {
     goto LABEL_33;
   }
 
   v51 = v46.f64[1];
-  v52 = vmuld_lane_f64(v163, v46, 1);
-  v53 = v52 * v52 + v163 * v46.f64[0] * (v163 * v46.f64[0]);
+  v52 = vmuld_lane_f64(v148, v46, 1);
+  v53 = v52 * v52 + v148 * v46.f64[0] * (v148 * v46.f64[0]);
   if (v53 != 0.0 && v53 < 0.253921509)
   {
     v46 = vmulq_n_f64(v46, (1.0 / sqrt(v53) + 0.5));
@@ -6117,8 +6119,8 @@ LABEL_33:
     {
       v41 = 0;
       v47 = x;
-      v149 = v46;
-      v150 = v45;
+      v134 = v46;
+      v135 = v45;
       goto LABEL_40;
     }
 
@@ -6132,81 +6134,82 @@ LABEL_33:
     v46.f64[0] = 0.0;
   }
 
-  v149 = v46;
-  v150 = v45;
+  v134 = v46;
+  v135 = v45;
   v47 = x;
 LABEL_40:
   v48 = y;
 LABEL_41:
-  v197.origin.x = a8;
-  v197.origin.y = a9;
-  v197.size.width = a10;
-  v197.size.height = a11;
-  v198 = CGRectInset(v197, 0.00390625, 0.00390625);
-  *&v178.a = v150;
-  *&v178.c = v149;
-  *&v178.tx = v146;
-  v54.n64_f64[0] = CGRectApplyInverseAffineTransform(&v178.a, *&v198.origin.x, v198.origin.y, v198.size.width, v198.size.height).n64_f64[0] - v47;
-  if (v155 == 0.0)
+  v182.origin.x = a8;
+  v182.origin.y = a9;
+  v182.size.width = a10;
+  v182.size.height = a11;
+  v183 = CGRectInset(v182, 0.00390625, 0.00390625);
+  *&v163.a = v135;
+  *&v163.c = v134;
+  *&v163.tx = v131;
+  v54.n64_f64[0] = CGRectApplyInverseAffineTransform(&v163.a, *&v183.origin.x, v183.origin.y, v183.size.width, v183.size.height).n64_f64[0] - v47;
+  if (v140 == 0.0)
   {
-    v159 = vdupq_lane_s64(*&v160, 0);
+    v144 = vdupq_lane_s64(*&v145, 0);
     v60 = v54.n64_f64[0] - v54.n64_f64[0];
   }
 
   else
   {
     v58 = v56.n64_f64[0] + v54.n64_f64[0];
-    v59 = floor(v54.n64_f64[0] / v160);
-    v60 = v160 * v59;
-    v159 = vmulq_n_f64(v150, v160);
-    v160 = ((v58 - v160 * v59) / v160);
+    v59 = floor(v54.n64_f64[0] / v145);
+    v60 = v145 * v59;
+    v144 = vmulq_n_f64(v135, v145);
+    v145 = ((v58 - v145 * v59) / v145);
   }
 
   v61 = v55.n64_f64[0] - v48;
-  v62 = v145;
-  v141 = v21;
-  if (v151 == 0.0)
+  v62 = v130;
+  v126 = v21;
+  if (v136 == 0.0)
   {
     v66 = v61 - v61;
-    v154 = vdupq_lane_s64(*&v163, 0);
-    v63 = v149;
+    v139 = vdupq_lane_s64(*&v148, 0);
+    v63 = v134;
   }
 
   else
   {
-    v63 = v149;
-    v154 = vmulq_n_f64(v149, v163);
+    v63 = v134;
+    v139 = vmulq_n_f64(v134, v148);
     v64 = v57.n64_f64[0] + v61;
-    v65 = floor(v61 / v163);
-    v66 = v163 * v65;
-    v163 = ((v64 - v163 * v65) / v163);
+    v65 = floor(v61 / v148);
+    v66 = v148 * v65;
+    v148 = ((v64 - v148 * v65) / v148);
   }
 
   v67 = rect;
-  v147 = vmlaq_n_f64(vmlaq_n_f64(v146, v150, v60), v63, v66);
-  *&v178.a = v150;
-  *&v178.c = v63;
-  *&v178.tx = v147;
+  v132 = vmlaq_n_f64(vmlaq_n_f64(v131, v135, v60), v63, v66);
+  *&v163.a = v135;
+  *&v163.c = v63;
+  *&v163.tx = v132;
   v68 = width;
   v69 = height;
-  v199 = CGRectApplyAffineTransform(*&v62, &v178);
-  v76 = v199.size.width;
-  v77 = v147;
-  v78 = v199.size.height;
-  v79 = v199.origin.y;
-  v158 = vsubq_f64(v199.origin, v147);
-  if (*(v33 + 20) || *(v33 + 184) != 1 || (v80 = *(v33 + 80)) == 0 || (ClipPath = CGImageGetClipPath(*(v33 + 80)), v77 = v147, ClipPath))
+  v184 = CGRectApplyAffineTransform(*&v62, &v163);
+  v71 = v184.size.width;
+  v72 = v132;
+  v73 = v184.size.height;
+  v74 = v184.origin.y;
+  v143 = vsubq_f64(v184.origin, v132);
+  if (*(v33 + 20) || *(v33 + 184) != 1 || (v75 = *(v33 + 80)) == 0 || (ClipPath = CGImageGetClipPath(*(v33 + 80)), v72 = v132, ClipPath))
   {
-    v82 = v160;
-    v83 = v163;
-    if (v163 | v160)
+    v77 = v145;
+    v78 = v148;
+    if (v148 | v145)
     {
-      if (CG::DisplayList::createCGDisplayList(0, &CGRectInfinite, v70, v71, v72, v73, v74, v75))
+      CGDisplayList = CG::DisplayList::createCGDisplayList(0, &CGRectInfinite, v70);
+      if (CGDisplayList)
       {
-        CG::DisplayList::createContextDelegate();
+        CG::DisplayList::createContextDelegate(CGDisplayList);
       }
 
-      v77 = v147;
+      v72 = v132;
       if (v41)
       {
         goto LABEL_53;
@@ -6218,194 +6221,193 @@ LABEL_41:
 LABEL_53:
       __asm { FMOV            V1.2D, #1.0 }
 
-      v89 = vdivq_f64(_Q1, vaddq_f64(v159, v154));
+      v84 = vdivq_f64(_Q1, vaddq_f64(v144, v139));
 LABEL_63:
-      v152 = v89;
-      v93 = 0;
-      v94 = v150;
-      v156 = v149;
+      v137 = v84;
+      v88 = 0;
+      v89 = v135;
+      v141 = v134;
       while (1)
       {
-        v95 = 0;
-        v148 = v77;
-        v96 = v77;
+        v90 = 0;
+        v133 = v72;
+        v91 = v72;
         do
         {
-          v161 = v96;
-          v164 = v94;
-          v97 = vaddq_f64(v96, v158);
-          v98 = v97.f64[1];
-          v200.origin.x = a8;
-          v200.origin.y = a9;
-          v200.size.width = a10;
-          v200.size.height = a11;
-          v99 = v76;
-          v100 = v78;
-          if (!CGRectIntersectsRect(v200, *v97.f64))
+          v146 = v91;
+          v149 = v89;
+          v92 = vaddq_f64(v91, v143);
+          v93 = v92.f64[1];
+          v185.origin.x = a8;
+          v185.origin.y = a9;
+          v185.size.width = a10;
+          v185.size.height = a11;
+          v94 = v71;
+          v95 = v73;
+          if (!CGRectIntersectsRect(v185, *v92.f64))
           {
             goto LABEL_72;
           }
 
-          v94 = v164;
+          v89 = v149;
           if (!v41)
           {
-            v106 = v161;
-            v109 = v156;
+            v97 = v146;
+            v100 = v141;
             goto LABEL_71;
           }
 
-          v105 = v161;
-          v106 = vrndaq_f64(v161);
-          v107 = vmulq_f64(v152, vsubq_f64(vrndaq_f64(vaddq_f64(vaddq_f64(v161, v159), v154)), v106));
-          if (v107.f64[0] != 0.0 && v107.f64[1] != 0.0)
+          v96 = v146;
+          v97 = vrndaq_f64(v146);
+          v98 = vmulq_f64(v137, vsubq_f64(vrndaq_f64(vaddq_f64(vaddq_f64(v146, v144), v139)), v97));
+          if (v98.f64[0] != 0.0 && v98.f64[1] != 0.0)
           {
-            v108 = vabsq_f64(v107);
-            v94 = vmulq_f64(v108, v150);
-            v109 = vmulq_f64(v108, v149);
+            v99 = vabsq_f64(v98);
+            v89 = vmulq_f64(v99, v135);
+            v100 = vmulq_f64(v99, v134);
 LABEL_71:
-            v164 = v94;
-            *(v28 + 24) = v94;
-            v156 = v109;
-            *(v28 + 40) = v109;
-            *(v28 + 56) = v106;
-            CGPatternDrawInContextDelegate(v33, v36, v24, v28, v101, v102, v103, v104);
+            v149 = v89;
+            *(v28 + 24) = v89;
+            v141 = v100;
+            *(v28 + 40) = v100;
+            *(v28 + 56) = v97;
+            CGPatternDrawInContextDelegate(v33, v36, v24, v28);
 LABEL_72:
-            v105 = v161;
-            v94 = v164;
+            v96 = v146;
+            v89 = v149;
           }
 
-          ++v95;
-          v96 = vaddq_f64(v105, v159);
+          ++v90;
+          v91 = vaddq_f64(v96, v144);
         }
 
-        while (v95 <= v82);
-        ++v93;
-        v77 = vaddq_f64(v148, v154);
-        if (v93 > v83)
+        while (v90 <= v77);
+        ++v88;
+        v72 = vaddq_f64(v133, v139);
+        if (v88 > v78)
         {
           goto LABEL_75;
         }
       }
     }
 
-    v89 = 0uLL;
+    v84 = 0uLL;
     goto LABEL_63;
   }
 
-  v178.a = v145;
-  v178.b = rect;
-  v178.c = width;
-  v178.d = height;
-  *&v167 = v80;
-  v90.n128_u64[1] = *&v149.f64[1];
-  *(v28 + 24) = v150;
-  *(v28 + 40) = v149;
-  *(v28 + 56) = v147;
-  if (width != v155 || (v90.n128_f64[0] = v151, height != v151) || CGContextDelegateDrawImages(v36, v24, v28, &v178, &v167, 0, 1, v90))
+  v163.a = v130;
+  v163.b = rect;
+  v163.c = width;
+  v163.d = height;
+  *&v152 = v75;
+  *(v28 + 24) = v135;
+  *(v28 + 40) = v134;
+  *(v28 + 56) = v132;
+  if (width != v140 || height != v136 || CGContextDelegateDrawImages(v36, v24, v28, &v163, &v152, 0, 1))
   {
     if (v41)
     {
       __asm { FMOV            V1.2D, #1.0 }
 
-      v92 = vdivq_f64(_Q1, vaddq_f64(v159, v154));
+      v87 = vdivq_f64(_Q1, vaddq_f64(v144, v139));
     }
 
     else
     {
-      v92 = 0uLL;
+      v87 = 0uLL;
     }
 
-    v153 = v92;
-    v124 = 0;
-    v125 = v160;
-    v126 = v163;
-    v127 = v150;
-    v157 = v149;
+    v138 = v87;
+    v109 = 0;
+    v110 = v145;
+    v111 = v148;
+    v112 = v135;
+    v142 = v134;
     do
     {
-      v128 = 0;
-      v129 = v147;
+      v113 = 0;
+      v114 = v132;
       do
       {
-        v162 = v129;
-        v165 = v127;
-        v130 = vaddq_f64(v129, v158);
-        v131 = v130.f64[1];
-        v201.origin.x = a8;
-        v201.origin.y = a9;
-        v201.size.width = a10;
-        v201.size.height = a11;
-        v132 = v76;
-        v133 = v78;
-        if (!CGRectIntersectsRect(v201, *v130.f64))
+        v147 = v114;
+        v150 = v112;
+        v115 = vaddq_f64(v114, v143);
+        v116 = v115.f64[1];
+        v186.origin.x = a8;
+        v186.origin.y = a9;
+        v186.size.width = a10;
+        v186.size.height = a11;
+        v117 = v71;
+        v118 = v73;
+        if (!CGRectIntersectsRect(v186, *v115.f64))
         {
-          v134 = v162;
-          v127 = v165;
+          v119 = v147;
+          v112 = v150;
           goto LABEL_112;
         }
 
-        v127 = v165;
+        v112 = v150;
         if (v41)
         {
-          v134 = v162;
-          v135 = vrndaq_f64(v162);
-          v136 = vmulq_f64(v153, vsubq_f64(vrndaq_f64(vaddq_f64(vaddq_f64(v162, v159), v154)), v135));
-          if (v136.f64[0] == 0.0 || v136.f64[1] == 0.0)
+          v119 = v147;
+          v120 = vrndaq_f64(v147);
+          v121 = vmulq_f64(v138, vsubq_f64(vrndaq_f64(vaddq_f64(vaddq_f64(v147, v144), v139)), v120));
+          if (v121.f64[0] == 0.0 || v121.f64[1] == 0.0)
           {
             goto LABEL_112;
           }
 
-          v137 = vabsq_f64(v136);
-          v127 = vmulq_f64(v137, v150);
-          v138 = vmulq_f64(v137, v149);
+          v122 = vabsq_f64(v121);
+          v112 = vmulq_f64(v122, v135);
+          v123 = vmulq_f64(v122, v134);
         }
 
         else
         {
-          v134 = v162;
-          v135 = v162;
-          v138 = v157;
+          v119 = v147;
+          v120 = v147;
+          v123 = v142;
         }
 
-        *(v28 + 24) = v127;
-        v157 = v138;
-        *(v28 + 40) = v138;
-        *(v28 + 56) = v135;
+        *(v28 + 24) = v112;
+        v142 = v123;
+        *(v28 + 40) = v123;
+        *(v28 + 56) = v120;
         if (v36)
         {
-          v139 = v36[10];
-          if (!v139)
+          v124 = v36[10];
+          if (!v124)
           {
             goto LABEL_75;
           }
 
-          v166 = v127;
-          v140 = v139(v36, v24, v28, v80, v178.a, v178.b, v178.c, v178.d);
-          v134 = v162;
-          v127 = v166;
-          if (v140)
+          v151 = v112;
+          v125 = v124(v36, v24, v28, v75, v163.a, v163.b, v163.c, v163.d);
+          v119 = v147;
+          v112 = v151;
+          if (v125)
           {
             goto LABEL_75;
           }
         }
 
 LABEL_112:
-        ++v128;
-        v129 = vaddq_f64(v134, v159);
+        ++v113;
+        v114 = vaddq_f64(v119, v144);
       }
 
-      while (v128 <= v125);
-      ++v124;
-      v147 = vaddq_f64(v147, v154);
+      while (v113 <= v110);
+      ++v109;
+      v132 = vaddq_f64(v132, v139);
     }
 
-    while (v124 <= v126);
+    while (v109 <= v111);
   }
 
 LABEL_75:
-  v22 = v143;
-  a12 = v142;
-  v21 = v141;
+  v22 = v128;
+  a12 = v127;
+  v21 = v126;
   if (v24)
   {
     goto LABEL_76;
@@ -6413,106 +6415,106 @@ LABEL_75:
 
 LABEL_78:
   CGGStateRelease(v28);
-  ripc_ContextRestore(v21, &v171);
+  ripc_ContextRestore(v21, &v156);
   if (a12 < 1.0)
   {
     if (v22)
     {
-      v110 = *v22;
+      v101 = *v22;
       if (*v22)
       {
-        v111 = a12;
-        if (v111 < 1.0 && (*(v22 + 20) & 0x80000000) == 0 && (*(v22 + 24) & 0x80000000) == 0)
+        v102 = a12;
+        if (v102 < 1.0 && (*(v22 + 20) & 0x80000000) == 0 && (*(v22 + 24) & 0x80000000) == 0)
         {
-          v194 = 0;
-          v192 = 0u;
-          v193 = 0u;
-          v190 = 0u;
-          v191 = 0u;
-          v188 = 0u;
-          v189 = 0u;
-          v186 = 0u;
-          v187 = 0u;
-          v184 = 0u;
-          v185 = 0u;
-          v182 = 0u;
-          v183 = 0u;
-          v180 = 0u;
-          v181 = 0u;
-          v179 = 0u;
-          memset(&v178, 0, sizeof(v178));
+          v179 = 0;
+          v177 = 0u;
+          v178 = 0u;
+          v175 = 0u;
+          v176 = 0u;
+          v173 = 0u;
+          v174 = 0u;
+          v171 = 0u;
+          v172 = 0u;
           v169 = 0u;
           v170 = 0u;
           v167 = 0u;
           v168 = 0u;
-          v112 = (*(v110 + 32))(v22, 32, v22 + 12);
-          if (v112)
+          v165 = 0u;
+          v166 = 0u;
+          v164 = 0u;
+          memset(&v163, 0, sizeof(v163));
+          v154 = 0u;
+          v155 = 0u;
+          v152 = 0u;
+          v153 = 0u;
+          v103 = (*(v101 + 32))(v22, 32, v22 + 12);
+          if (v103)
           {
-            v119 = v112;
-            v120 = *v112;
-            if (*v112 && (*(v22 + 56) || ripl_CreateMask(v22, 1, v113, v114, v115, v116, v117, v118)))
+            v104 = v103;
+            v105 = *v103;
+            if (*v103 && (*(v22 + 56) || ripl_CreateMask(v22, 1)))
             {
-              v121 = *(v22 + 40);
-              if (v121)
+              v106 = *(v22 + 40);
+              if (v106)
               {
-                v122 = LODWORD(v121->a) & 0xFFFFFF00 | 1;
+                v107 = LODWORD(v106->a) & 0xFFFFFF00 | 1;
               }
 
               else
               {
-                *&v190 = 0;
-                v188 = 0u;
-                v189 = 0u;
-                v186 = 0u;
-                v187 = 0u;
-                v184 = 0u;
-                v185 = 0u;
-                v182 = 0u;
-                v183 = 0u;
-                v180 = 0u;
-                v181 = 0u;
-                v179 = 0u;
-                v121 = &v178;
-                v122 = 1;
-                memset(&v178, 0, sizeof(v178));
+                *&v175 = 0;
+                v173 = 0u;
+                v174 = 0u;
+                v171 = 0u;
+                v172 = 0u;
+                v169 = 0u;
+                v170 = 0u;
+                v167 = 0u;
+                v168 = 0u;
+                v165 = 0u;
+                v166 = 0u;
+                v164 = 0u;
+                v106 = &v163;
+                v107 = 1;
+                memset(&v163, 0, sizeof(v163));
               }
 
-              LODWORD(v121->a) = v122;
-              ripl_BltOpDestination(v121, v22 + 12, v22);
-              ripl_BltOpSourceLayer(v121, (v22 + 12), v22, 0, v22);
-              LODWORD(v121[2].d) = 0;
-              LODWORD(v121[2].tx) = 0;
-              if ((LODWORD(v121->a) & 0xFF0000) != 0)
+              LODWORD(v106->a) = v107;
+              ripl_BltOpDestination(v106, v22 + 12, v22);
+              ripl_BltOpSourceLayer(v106, (v22 + 12), v22, 0, v22);
+              LODWORD(v106[2].d) = 0;
+              LODWORD(v106[2].tx) = 0;
+              if ((LODWORD(v106->a) & 0xFF0000) != 0)
               {
-                LODWORD(v121->a) &= 0xFF00FFFF;
-                HIDWORD(v121[2].d) = 0;
-                v121[2].ty = 0.0;
-                v121[2].b = 0.0;
-                v121[2].c = 0.0;
+                LODWORD(v106->a) &= 0xFF00FFFF;
+                HIDWORD(v106[2].d) = 0;
+                v106[2].ty = 0.0;
+                v106[2].b = 0.0;
+                v106[2].c = 0.0;
               }
 
-              *&v167 = *v120;
-              v168 = 0uLL;
-              *(&v167 + 2) = a12;
-              v169 = *(v22 + 20);
-              v170 = 0uLL;
-              if ((*(v120 + 5))(v119, v121, &v167))
+              *&v152 = *v105;
+              v153 = 0uLL;
+              *(&v152 + 2) = a12;
+              v154 = *(v22 + 20);
+              v155 = 0uLL;
+              if ((*(v105 + 5))(v104, v106, &v152))
               {
-                v123 = v22 + 12;
+                v108 = v22 + 12;
               }
 
               else
               {
-                v123 = 0;
+                v108 = 0;
               }
             }
 
             else
             {
-              v123 = 0;
+              v108 = 0;
             }
 
-            (*(*v22 + 48))(v22, v123);
+            (*(*v22 + 48))(v22, v108);
           }
         }
       }
@@ -6534,21 +6536,21 @@ uint64_t RIPColorConvertColorComponents(void *a1, double *a2, unint64_t a3, uint
   }
 
   ContentHeadroom = CGColorGetContentHeadroom(a3);
-  v18 = *(a4 + 120);
-  v19 = *(v18 + 48);
-  if (v19 >= 1.0 || v19 <= 0.0)
+  v11 = *(a4 + 120);
+  v12 = *(v11 + 48);
+  if (v12 >= 1.0 || v12 <= 0.0)
   {
-    v21 = *(v18 + 48);
+    v14 = *(v11 + 48);
   }
 
   else
   {
-    v21 = 1.0;
+    v14 = 1.0;
   }
 
-  if (v19 >= 0.0)
+  if (v12 >= 0.0)
   {
-    HeadroomInfo = v21;
+    HeadroomInfo = v14;
   }
 
   else
@@ -6561,13 +6563,13 @@ uint64_t RIPColorConvertColorComponents(void *a1, double *a2, unint64_t a3, uint
     HeadroomInfo = CGColorSpaceGetHeadroomInfo(v9, 0);
   }
 
-  v24 = ContentHeadroom > HeadroomInfo && HeadroomInfo > 0.0;
-  v25 = v24 && ContentHeadroom >= 1.0;
+  v17 = ContentHeadroom > HeadroomInfo && HeadroomInfo > 0.0;
+  v18 = v17 && ContentHeadroom >= 1.0;
   if (a3)
   {
     if ((a3 & 0x8000000000000000) != 0)
     {
-      ColorSpace = CGTaggedColorGetColorSpace(a3, v10, v11, v12, v13, v14, v15, v16);
+      ColorSpace = CGTaggedColorGetColorSpace(a3);
     }
 
     else
@@ -6581,55 +6583,55 @@ uint64_t RIPColorConvertColorComponents(void *a1, double *a2, unint64_t a3, uint
     ColorSpace = 0;
   }
 
-  v27 = *(a4 + 120);
-  if (v25)
+  v20 = *(a4 + 120);
+  if (v18)
   {
-    v28 = *(v27 + 56);
-    v29 = *(v27 + 64);
+    v21 = *(v20 + 56);
+    v22 = *(v20 + 64);
     err = 0;
-    v30 = CGColorConversionInfoCreateForToneMapping(ColorSpace, v9, v28, v29, &err, ContentHeadroom, HeadroomInfo);
+    v23 = CGColorConversionInfoCreateForToneMapping(ColorSpace, v9, v21, v22, &err, ContentHeadroom, HeadroomInfo);
     if (err)
     {
-      v31 = CFErrorCopyDescription(err);
-      CGLog(2, "convert_color_components failed: %@", v32, v33, v34, v35, v36, v37, v31);
-      CFRelease(v31);
+      v24 = CFErrorCopyDescription(err);
+      CGLog(2, "convert_color_components failed: %@", v24);
+      CFRelease(v24);
       CFRelease(err);
-      v38 = 0;
-      if (!v30)
+      v25 = 0;
+      if (!v23)
       {
-        return v38;
+        return v25;
       }
     }
 
     else
     {
       Components = CGColorGetComponents(a3);
-      v38 = CGColorConversionInfoConvertColorComponents(v30, Components, a2);
-      if (!v30)
+      v25 = CGColorConversionInfoConvertColorComponents(v23, Components, a2);
+      if (!v23)
       {
-        return v38;
+        return v25;
       }
     }
 
-    CFRelease(v30);
-    return v38;
+    CFRelease(v23);
+    return v25;
   }
 
-  v40 = ((*(v27 + 4) << 12) >> 28);
-  v41 = CGColorGetComponents(a3);
+  v27 = ((*(v20 + 4) << 12) >> 28);
+  v28 = CGColorGetComponents(a3);
 
-  return CGColorTransformConvertColorComponents(a1, ColorSpace, v40, v41, a2);
+  return CGColorTransformConvertColorComponents(a1, ColorSpace, v27, v28, a2);
 }
 
-CGDataProvider *CGDataProviderCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+CGDataProvider *CGDataProviderCreate(uint64_t a1, uint64_t a2)
 {
   if (!a2 || !*a2)
   {
     return 0;
   }
 
-  provider = create_provider(a1, 3, a3, a4, a5, a6, a7, a8);
-  v10 = provider;
+  provider = create_provider(a1, 3);
+  v4 = provider;
   if (provider)
   {
     *(provider + 40) = *a2;
@@ -6637,19 +6639,19 @@ CGDataProvider *CGDataProviderCreate(uint64_t a1, uint64_t a2, uint64_t a3, uint
     *(provider + 72) = *(a2 + 24);
     if (!CGDataProviderIsRewindable(provider))
     {
-      v11 = CGDataProviderCopyData(v10);
-      v12 = CGDataProviderCreateWithCFData(v11);
-      if (v11)
+      v5 = CGDataProviderCopyData(v4);
+      v6 = CGDataProviderCreateWithCFData(v5);
+      if (v5)
       {
-        CFRelease(v11);
+        CFRelease(v5);
       }
 
-      CFRelease(v10);
-      return v12;
+      CFRelease(v4);
+      return v6;
     }
   }
 
-  return v10;
+  return v4;
 }
 
 uint64_t CGDataProviderGetSize(uint64_t a1)
@@ -6895,7 +6897,7 @@ uint64_t CGPDFShadingType6Init(uint64_t a1, uint64_t *a2, _OWORD *a3)
     dispatch_once(&type6_info_getTypeID_onceToken, &__block_literal_global_20700);
   }
 
-  result = pdf_create_cftype();
+  result = pdf_create_cftype(type6_info_getTypeID_id, 112);
   if (!result)
   {
     return result;
@@ -7064,10 +7066,10 @@ uint64_t type6_create_shading(CGRect *a1, const void *a2)
   x = v3->origin.x;
   v9 = *p_y;
   width = p_size->width;
-  v21[0] = *&v3->origin.x;
-  *&v21[1] = v9;
-  *&v21[2] = width;
-  *&v21[3] = v7;
+  v17[0] = *&v3->origin.x;
+  *&v17[1] = v9;
+  *&v17[2] = width;
+  *&v17[3] = v7;
   if (a1)
   {
     y = a1[1].origin.y;
@@ -7080,18 +7082,18 @@ uint64_t type6_create_shading(CGRect *a1, const void *a2)
   }
 
   Components = CGColorGetComponents(a1);
-  v17 = x == -8.98846567e307;
+  v13 = x == -8.98846567e307;
   if (v9 != -8.98846567e307)
   {
-    v17 = 0;
+    v13 = 0;
   }
 
   if (width != 1.79769313e308)
   {
-    v17 = 0;
+    v13 = 0;
   }
 
-  v18 = v7 == 1.79769313e308 && v17;
+  v14 = v7 == 1.79769313e308 && v13;
   if (a2)
   {
     CFRetain(a2);
@@ -7110,17 +7112,17 @@ uint64_t type6_create_shading(CGRect *a1, const void *a2)
     }
   }
 
-  if (v18)
+  if (v14)
   {
-    v20 = 0;
+    v16 = 0;
   }
 
   else
   {
-    v20 = v21;
+    v16 = v17;
   }
 
-  result = CGShadingCreateEmpty(0, *&y, Components, v20, v12, v13, v14, v15);
+  result = CGShadingCreateEmpty(0, *&y, Components, v16);
   *(result + 80) = a2;
   *(result + 104) = type6_create_shading_type6_drawing_callbacks;
   *(result + 120) = off_1EF2425F0[0];
@@ -7138,33 +7140,33 @@ void cg_shading_type6_release(CFTypeRef cf)
 void cg_shading_type6_draw(uint64_t a1, CGContextRef c)
 {
   v2 = c;
-  v780 = *MEMORY[0x1E69E9840];
+  v767 = *MEMORY[0x1E69E9840];
   CGContextSetFillColorSpace(c, *(a1 + 24));
   CGContextSetStrokeColorSpace(v2, *(a1 + 24));
   if (!*(a1 + 96))
   {
     v4 = *(a1 + 24);
-    v649 = a1;
+    v636 = a1;
     v5 = v4 ? *(*(v4 + 24) + 48) : 0;
     v6 = malloc_type_malloc(32 * v5 + 32, 0x100004000313F17uLL);
     v7 = a1;
     if (v6)
     {
       v8 = v6;
-      v627 = 2 * v5;
-      v626 = 3 * v5;
-      v629 = v5 + 1;
-      v625 = 8 * (v5 + 1);
-      v647 = 8 * v5;
-      v628 = v5;
+      v614 = 2 * v5;
+      v613 = 3 * v5;
+      v616 = v5 + 1;
+      v612 = 8 * (v5 + 1);
+      v634 = 8 * v5;
+      v615 = v5;
       v9 = 1.0;
       v10 = 0.25;
       v11 = 1;
-      v654 = v2;
-      v666 = v6;
+      v641 = v2;
+      v653 = v6;
       while (1)
       {
-        v650 = v11;
+        v637 = v11;
         v12 = v7;
         BytePtr = CFDataGetBytePtr(*(v7 + 104));
         Length = CFDataGetLength(*(v12 + 104));
@@ -7176,11 +7178,11 @@ void cg_shading_type6_draw(uint64_t a1, CGContextRef c)
         v15 = 0;
         v16 = 0;
         v17 = &BytePtr[Length];
-        v648 = v17;
+        v635 = v17;
         do
         {
-          v18 = *(v649 + 48);
-          if (*(v649 + 16) == 6)
+          v18 = *(v636 + 48);
+          if (*(v636 + 16) == 6)
           {
             if (v18 < 0x19)
             {
@@ -7190,8 +7192,8 @@ void cg_shading_type6_draw(uint64_t a1, CGContextRef c)
 LABEL_38:
                 LOBYTE(v26) = 0;
 LABEL_39:
-                v31 = *(v649 + 32);
-                v30 = *(v649 + 40);
+                v31 = *(v636 + 32);
+                v30 = *(v636 + 40);
                 v32 = (0xFFFFFFFF >> -v31);
                 v33 = v26 | v24;
                 v34 = (0xFFFFFFFF >> -v30);
@@ -7207,10 +7209,10 @@ LABEL_39:
                   }
 
                   while (v35 != 64);
-                  v37 = *(v649 + 56);
-                  v38 = *(v649 + 64);
-                  v39 = *(v649 + 72) - v37;
-                  v40 = *(v649 + 80) - v38;
+                  v37 = *(v636 + 56);
+                  v38 = *(v636 + 64);
+                  v39 = *(v636 + 72) - v37;
+                  v40 = *(v636 + 80) - v38;
                   v41 = v31 - 24;
                   v42 = 4;
                   while (1)
@@ -7377,7 +7379,7 @@ LABEL_101:
                       }
 
                       v65 = 0;
-                      v66 = *(v649 + 88);
+                      v66 = *(v636 + 88);
                       v67 = &v8[v63 * v5];
                       while (2)
                       {
@@ -7450,10 +7452,10 @@ LABEL_95:
                 }
 
                 v73 = 0;
-                v74 = *(v649 + 56);
-                v75 = *(v649 + 64);
-                v76 = *(v649 + 72) - v74;
-                v77 = *(v649 + 80) - v75;
+                v74 = *(v636 + 56);
+                v75 = *(v636 + 64);
+                v76 = *(v636 + 72) - v74;
+                v77 = *(v636 + 80) - v75;
                 v78 = v31 - 24;
                 while (1)
                 {
@@ -7585,7 +7587,7 @@ LABEL_157:
                     }
 
                     v92 = 0;
-                    v93 = *(v649 + 88);
+                    v93 = *(v636 + 88);
                     while (2)
                     {
                       if (v30 < 0x19)
@@ -7770,8 +7772,8 @@ LABEL_31:
 
           LOBYTE(v29) = 0;
 LABEL_162:
-          v100 = *(v649 + 32);
-          v99 = *(v649 + 40);
+          v100 = *(v636 + 32);
+          v99 = *(v636 + 40);
           v101 = (0xFFFFFFFF >> -v100);
           v102 = v29 | v27;
           v103 = (0xFFFFFFFF >> -v99);
@@ -7787,10 +7789,10 @@ LABEL_162:
             }
 
             while (v104 != 64);
-            v106 = *(v649 + 56);
-            v107 = *(v649 + 64);
-            v108 = *(v649 + 72) - v106;
-            v109 = *(v649 + 80) - v107;
+            v106 = *(v636 + 56);
+            v107 = *(v636 + 64);
+            v108 = *(v636 + 72) - v106;
+            v109 = *(v636 + 80) - v107;
             v110 = v100 - 24;
             v111 = 4;
             while (1)
@@ -8066,7 +8068,7 @@ LABEL_257:
                     }
 
                     v142 = 0;
-                    v143 = *(v649 + 88);
+                    v143 = *(v636 + 88);
                     v144 = &v8[v140 * v5];
                     while (2)
                     {
@@ -8140,10 +8142,10 @@ LABEL_251:
             }
           }
 
-          v150 = *(v649 + 56);
-          v151 = *(v649 + 64);
-          v152 = *(v649 + 72) - v150;
-          v153 = *(v649 + 80) - v151;
+          v150 = *(v636 + 56);
+          v151 = *(v636 + 64);
+          v152 = *(v636 + 72) - v150;
+          v153 = *(v636 + 80) - v151;
           v154 = v100 - 24;
           do
           {
@@ -8384,7 +8386,7 @@ LABEL_325:
             if (v5)
             {
               v176 = 0;
-              v177 = *(v649 + 88);
+              v177 = *(v636 + 88);
               while (v99 < 0x19)
               {
                 v180 = 0;
@@ -8452,69 +8454,69 @@ LABEL_346:
           }
 
 LABEL_347:
-          v659 = BytePtr;
-          if ((v650 & 1) == 0)
+          v646 = BytePtr;
+          if ((v637 & 1) == 0)
           {
-            v210 = 0;
-            v211 = x;
-            v212 = y;
-            v213 = x;
-            v214 = y;
+            v204 = 0;
+            v205 = x;
+            v206 = y;
+            v207 = x;
+            v208 = y;
             do
             {
-              v216 = *(&cp1x + v210);
-              v215 = *(&cp1y + v210);
-              if (v216 > v213)
+              v210 = *(&cp1x + v204);
+              v209 = *(&cp1y + v204);
+              if (v210 > v207)
               {
-                v217 = *(&cp1x + v210);
+                v211 = *(&cp1x + v204);
               }
 
               else
               {
-                v217 = v213;
+                v211 = v207;
               }
 
-              if (v216 < v211)
+              if (v210 < v205)
               {
-                v211 = *(&cp1x + v210);
+                v205 = *(&cp1x + v204);
               }
 
               else
               {
-                v213 = v217;
+                v207 = v211;
               }
 
-              if (v215 >= v212)
+              if (v209 >= v206)
               {
-                if (v215 > v214)
+                if (v209 > v208)
                 {
-                  v214 = *(&cp1y + v210);
+                  v208 = *(&cp1y + v204);
                 }
               }
 
               else
               {
-                v212 = *(&cp1y + v210);
+                v206 = *(&cp1y + v204);
               }
 
-              v210 += 16;
+              v204 += 16;
             }
 
-            while (v210 != 176);
+            while (v204 != 176);
             ClipBoundingBox = CGContextGetClipBoundingBox(v2);
-            v782 = CGRectIntegral(ClipBoundingBox);
-            v218 = v782.origin.x;
-            v219 = v782.origin.y;
-            v220 = v782.size.width;
-            height = v782.size.height;
-            v710 = v782;
-            v782.origin.x = fmin(v782.size.width, v782.size.height);
-            v222 = v782.origin.x < 0.0;
-            if (v782.origin.x >= 0.0)
+            v769 = CGRectIntegral(ClipBoundingBox);
+            v212 = v769.origin.x;
+            v213 = v769.origin.y;
+            v214 = v769.size.width;
+            height = v769.size.height;
+            v697 = v769;
+            v769.origin.x = fmin(v769.size.width, v769.size.height);
+            v216 = v769.origin.x < 0.0;
+            if (v769.origin.x >= 0.0)
             {
-              v233 = v782.origin.y + v782.size.height;
-              v235 = v211 <= v218 + v782.size.width && v213 >= v218 && v212 <= v233;
-              if (v235)
+              v227 = v769.origin.y + v769.size.height;
+              v229 = v205 <= v212 + v769.size.width && v207 >= v212 && v206 <= v227;
+              if (v229)
               {
                 goto LABEL_395;
               }
@@ -8522,1336 +8524,1336 @@ LABEL_347:
               goto LABEL_710;
             }
 
-            v223 = v218;
-            rect = v782.origin.y;
-            v783 = CGRectStandardize(v782);
-            v224 = rect;
-            if (v211 <= v783.origin.x + v783.size.width)
+            v217 = v212;
+            rect = v769.origin.y;
+            v770 = CGRectStandardize(v769);
+            v218 = rect;
+            if (v205 <= v770.origin.x + v770.size.width)
             {
-              v225 = v218;
-              v226 = v220;
-              v227 = height;
-              v228 = COERCE_DOUBLE(CGRectStandardize(*(&v224 - 1)));
-              v229 = rect;
-              if (v213 >= v228)
+              v219 = v212;
+              v220 = v214;
+              v221 = height;
+              v222 = COERCE_DOUBLE(CGRectStandardize(*(&v218 - 1)));
+              v223 = rect;
+              if (v207 >= v222)
               {
-                v230 = v218;
-                v231 = v220;
-                v232 = height;
-                v784 = CGRectStandardize(*(&v229 - 1));
-                v219 = rect;
-                if (v212 <= v784.origin.y + v784.size.height)
+                v224 = v212;
+                v225 = v214;
+                v226 = height;
+                v771 = CGRectStandardize(*(&v223 - 1));
+                v213 = rect;
+                if (v206 <= v771.origin.y + v771.size.height)
                 {
-                  if (v222)
+                  if (v216)
                   {
-                    v785.origin.x = v218;
-                    v785.origin.y = rect;
-                    v785.size.width = v220;
-                    v785.size.height = height;
-                    v786 = CGRectStandardize(v785);
-                    v219 = v786.origin.y;
+                    v772.origin.x = v212;
+                    v772.origin.y = rect;
+                    v772.size.width = v214;
+                    v772.size.height = height;
+                    v773 = CGRectStandardize(v772);
+                    v213 = v773.origin.y;
                   }
 
 LABEL_395:
-                  if (v214 >= v219)
+                  if (v208 >= v213)
                   {
-                    v709 = 0;
-                    memset(v693, 0, sizeof(v693));
-                    memset(v694, 0, sizeof(v694));
-                    v695 = 0u;
-                    v696 = 0u;
-                    v697 = 0u;
-                    v698 = 0u;
-                    v699 = 0u;
-                    v700 = 0u;
-                    v701 = 0u;
-                    v702 = 0u;
-                    v703 = 0u;
-                    v704 = 0u;
+                    v696 = 0;
+                    memset(v680, 0, sizeof(v680));
+                    memset(v681, 0, sizeof(v681));
+                    v682 = 0u;
+                    v683 = 0u;
+                    v684 = 0u;
+                    v685 = 0u;
+                    v686 = 0u;
+                    v687 = 0u;
+                    v688 = 0u;
+                    v689 = 0u;
+                    v690 = 0u;
+                    v691 = 0u;
                     CGContextGetCTM(&__src, v2);
-                    v681.f64[0] = __src.tx + __src.c * y + __src.a * x;
-                    v681.f64[1] = __src.ty + __src.d * y + __src.b * x;
-                    v682.f64[0] = __src.tx + __src.c * cp1y + __src.a * cp1x;
-                    v682.f64[1] = __src.ty + __src.d * cp1y + __src.b * cp1x;
-                    v683.f64[0] = __src.tx + __src.c * cp2y + __src.a * cp2x;
-                    v683.f64[1] = __src.ty + __src.d * cp2y + __src.b * cp2x;
-                    v684.f64[0] = __src.tx + __src.c * v732 + __src.a * v731;
-                    v684.f64[1] = __src.ty + __src.d * v732 + __src.b * v731;
-                    v685.f64[0] = __src.tx + __src.c * v734 + __src.a * v733;
-                    v685.f64[1] = __src.ty + __src.d * v734 + __src.b * v733;
-                    v686.f64[0] = __src.tx + __src.c * v736 + __src.a * v735;
-                    v686.f64[1] = __src.ty + __src.d * v736 + __src.b * v735;
-                    v687.f64[0] = __src.tx + __src.c * v738 + __src.a * v737;
-                    v687.f64[1] = __src.ty + __src.d * v738 + __src.b * v737;
-                    v688.f64[0] = __src.tx + __src.c * v740 + __src.a * v739;
-                    v688.f64[1] = __src.ty + __src.d * v740 + __src.b * v739;
-                    v689.f64[0] = __src.tx + __src.c * v742 + __src.a * v741;
-                    v689.f64[1] = __src.ty + __src.d * v742 + __src.b * v741;
-                    v690.f64[0] = __src.tx + __src.c * v744 + __src.a * v743;
-                    v690.f64[1] = __src.ty + __src.d * v744 + __src.b * v743;
-                    v691.f64[0] = __src.tx + __src.c * v746 + __src.a * v745;
-                    v691.f64[1] = __src.ty + __src.d * v746 + __src.b * v745;
-                    v692.f64[0] = __src.tx + __src.c * v748 + __src.a * v747;
-                    v692.f64[1] = __src.ty + __src.d * v748 + __src.b * v747;
-                    if (v629 <= 5)
+                    v668.f64[0] = __src.tx + __src.c * y + __src.a * x;
+                    v668.f64[1] = __src.ty + __src.d * y + __src.b * x;
+                    v669.f64[0] = __src.tx + __src.c * cp1y + __src.a * cp1x;
+                    v669.f64[1] = __src.ty + __src.d * cp1y + __src.b * cp1x;
+                    v670.f64[0] = __src.tx + __src.c * cp2y + __src.a * cp2x;
+                    v670.f64[1] = __src.ty + __src.d * cp2y + __src.b * cp2x;
+                    v671.f64[0] = __src.tx + __src.c * v719 + __src.a * v718;
+                    v671.f64[1] = __src.ty + __src.d * v719 + __src.b * v718;
+                    v672.f64[0] = __src.tx + __src.c * v721 + __src.a * v720;
+                    v672.f64[1] = __src.ty + __src.d * v721 + __src.b * v720;
+                    v673.f64[0] = __src.tx + __src.c * v723 + __src.a * v722;
+                    v673.f64[1] = __src.ty + __src.d * v723 + __src.b * v722;
+                    v674.f64[0] = __src.tx + __src.c * v725 + __src.a * v724;
+                    v674.f64[1] = __src.ty + __src.d * v725 + __src.b * v724;
+                    v675.f64[0] = __src.tx + __src.c * v727 + __src.a * v726;
+                    v675.f64[1] = __src.ty + __src.d * v727 + __src.b * v726;
+                    v676.f64[0] = __src.tx + __src.c * v729 + __src.a * v728;
+                    v676.f64[1] = __src.ty + __src.d * v729 + __src.b * v728;
+                    v677.f64[0] = __src.tx + __src.c * v731 + __src.a * v730;
+                    v677.f64[1] = __src.ty + __src.d * v731 + __src.b * v730;
+                    v678.f64[0] = __src.tx + __src.c * v733 + __src.a * v732;
+                    v678.f64[1] = __src.ty + __src.d * v733 + __src.b * v732;
+                    v679.f64[0] = __src.tx + __src.c * v735 + __src.a * v734;
+                    v679.f64[1] = __src.ty + __src.d * v735 + __src.b * v734;
+                    if (v616 <= 5)
                     {
                       if (v5)
                       {
-                        v236 = v693;
-                        v237 = v8;
-                        v238 = v5;
+                        v230 = v680;
+                        v231 = v8;
+                        v232 = v5;
                         do
                         {
-                          *v236 = *v237;
-                          v236[5] = *&v237[v5];
-                          v236[10] = *&v237[v627];
-                          v236[15] = *&v237[v626];
-                          ++v237;
-                          ++v236;
-                          --v238;
+                          *v230 = *v231;
+                          v230[5] = *&v231[v5];
+                          v230[10] = *&v231[v614];
+                          v230[15] = *&v231[v613];
+                          ++v231;
+                          ++v230;
+                          --v232;
                         }
 
-                        while (v238);
+                        while (v232);
                       }
 
-                      v693[v5] = 0x3FF0000000000000;
-                      v693[v5 + 5] = 0x3FF0000000000000;
-                      v694[v5] = 0x3FF0000000000000;
-                      v694[v5 + 5] = 0x3FF0000000000000;
+                      v680[v5] = 0x3FF0000000000000;
+                      v680[v5 + 5] = 0x3FF0000000000000;
+                      v681[v5] = 0x3FF0000000000000;
+                      v681[v5 + 5] = 0x3FF0000000000000;
                       __asm { FMOV            V27.2D, #3.0 }
 
-                      v695 = v681;
-                      v696 = vmulq_f64(vsubq_f64(v692, v681), _Q27);
+                      v682 = v668;
+                      v683 = vmulq_f64(vsubq_f64(v679, v668), _Q27);
                       __asm
                       {
                         FMOV            V7.2D, #5.0
                         FMOV            V22.2D, #-2.0
                       }
 
-                      v697 = vmulq_f64(vsubq_f64(v682, v681), _Q27);
-                      v698 = vsubq_f64(vmlaq_f64(vmlaq_f64(vmulq_f64(vsubq_f64(vaddq_f64(vsubq_f64(v685, v692), v689), v682), _Q27), _Q7, v681), _Q22, vaddq_f64(v684, v690)), v687);
-                      v699 = vmulq_f64(vaddq_f64(v681, vmlaq_f64(v691, _Q22, v692)), _Q27);
-                      v700 = vmulq_f64(vaddq_f64(v681, vmlaq_f64(v683, _Q22, v682)), _Q27);
+                      v684 = vmulq_f64(vsubq_f64(v669, v668), _Q27);
+                      v685 = vsubq_f64(vmlaq_f64(vmlaq_f64(vmulq_f64(vsubq_f64(vaddq_f64(vsubq_f64(v672, v679), v676), v669), _Q27), _Q7, v668), _Q22, vaddq_f64(v671, v677)), v674);
+                      v686 = vmulq_f64(vaddq_f64(v668, vmlaq_f64(v678, _Q22, v679)), _Q27);
+                      v687 = vmulq_f64(vaddq_f64(v668, vmlaq_f64(v670, _Q22, v669)), _Q27);
                       __asm { FMOV            V19.2D, #2.0 }
 
-                      v638 = _Q19;
-                      v708 = v629;
-                      v701 = vmulq_f64(vmlaq_f64(vsubq_f64(vsubq_f64(vaddq_f64(v684, v686), v691), v681), _Q19, vsubq_f64(v692, v685)), _Q27);
-                      v702 = vmulq_f64(vmlaq_f64(vsubq_f64(vsubq_f64(vaddq_f64(v690, v688), v683), v681), _Q19, vsubq_f64(v682, v689)), _Q27);
-                      v703 = vmlaq_f64(vsubq_f64(v690, v681), _Q27, vsubq_f64(v692, v691));
-                      v704 = vmlaq_f64(vsubq_f64(v684, v681), _Q27, vsubq_f64(v682, v683));
-                      v641 = _Q27;
-                      v705 = vmlaq_f64(vaddq_f64(v681, vsubq_f64(vsubq_f64(v687, v684), v690)), _Q27, vaddq_f64(v685, vsubq_f64(vsubq_f64(v691, v692), v686)));
-                      v706 = vmlaq_f64(vaddq_f64(v681, vsubq_f64(vsubq_f64(v687, v690), v684)), _Q27, vaddq_f64(v689, vsubq_f64(vsubq_f64(v683, v682), v688)));
-                      if (v629)
+                      v625 = _Q19;
+                      v695 = v616;
+                      v688 = vmulq_f64(vmlaq_f64(vsubq_f64(vsubq_f64(vaddq_f64(v671, v673), v678), v668), _Q19, vsubq_f64(v679, v672)), _Q27);
+                      v689 = vmulq_f64(vmlaq_f64(vsubq_f64(vsubq_f64(vaddq_f64(v677, v675), v670), v668), _Q19, vsubq_f64(v669, v676)), _Q27);
+                      v690 = vmlaq_f64(vsubq_f64(v677, v668), _Q27, vsubq_f64(v679, v678));
+                      v691 = vmlaq_f64(vsubq_f64(v671, v668), _Q27, vsubq_f64(v669, v670));
+                      v628 = _Q27;
+                      v692 = vmlaq_f64(vaddq_f64(v668, vsubq_f64(vsubq_f64(v674, v671), v677)), _Q27, vaddq_f64(v672, vsubq_f64(vsubq_f64(v678, v679), v673)));
+                      v693 = vmlaq_f64(vaddq_f64(v668, vsubq_f64(vsubq_f64(v674, v677), v671)), _Q27, vaddq_f64(v676, vsubq_f64(vsubq_f64(v670, v669), v675)));
+                      if (v616)
                       {
-                        v245 = &v681;
-                        v246 = v629;
+                        v239 = &v668;
+                        v240 = v616;
                         do
                         {
-                          v247 = v245[12].f64[0];
-                          v245[34].f64[0] = v247;
-                          v248 = v245[19].f64[1];
-                          v245[36].f64[1] = v248 - v247;
-                          v249 = v245[14].f64[1];
-                          v245[39].f64[0] = v249 - v247;
-                          v245[41].f64[1] = v247 + v245[17].f64[0] - v249 - v248;
-                          v245 = (v245 + 8);
-                          --v246;
+                          v241 = v239[12].f64[0];
+                          v239[34].f64[0] = v241;
+                          v242 = v239[19].f64[1];
+                          v239[36].f64[1] = v242 - v241;
+                          v243 = v239[14].f64[1];
+                          v239[39].f64[0] = v243 - v241;
+                          v239[41].f64[1] = v241 + v239[17].f64[0] - v243 - v242;
+                          v239 = (v239 + 8);
+                          --v240;
                         }
 
-                        while (v246);
+                        while (v240);
                       }
 
-                      v250 = malloc_type_malloc(0x30uLL, 0x1000040451B5BE8uLL);
+                      v244 = malloc_type_malloc(0x30uLL, 0x1000040451B5BE8uLL);
                       __asm { FMOV            V0.2D, #0.5 }
 
-                      v630 = _Q0;
-                      v645 = v250;
-                      if (v250)
+                      v617 = _Q0;
+                      v632 = v244;
+                      if (v244)
                       {
-                        v643 = malloc_type_malloc(0x78uLL, 0x100004000313F17uLL);
-                        if (v643)
+                        v630 = malloc_type_malloc(0x78uLL, 0x100004000313F17uLL);
+                        if (v630)
                         {
-                          v252 = v708;
-                          v253 = malloc_type_calloc(1uLL, 0x50uLL, 0x1020040AF517F5CuLL);
-                          if (v253)
+                          v246 = v695;
+                          v247 = malloc_type_calloc(1uLL, 0x50uLL, 0x1020040AF517F5CuLL);
+                          if (v247)
                           {
-                            v254 = v253;
-                            v253[1] = 0;
-                            v253[3] = 0;
-                            v253[5] = 0;
-                            *v253 = v252;
-                            v255 = malloc_type_malloc(0x1098uLL, 0x1000040FF89C88EuLL);
-                            v254[1] = v255;
-                            if (v255)
+                            v248 = v247;
+                            v247[1] = 0;
+                            v247[3] = 0;
+                            v247[5] = 0;
+                            *v247 = v246;
+                            v249 = malloc_type_malloc(0x1098uLL, 0x1000040FF89C88EuLL);
+                            v248[1] = v249;
+                            if (v249)
                             {
-                              v256 = -4248;
+                              v250 = -4248;
                               do
                               {
-                                v257 = v254[1] + v256;
-                                *(v257 + 4312) = 0;
-                                *(v257 + 4280) = 0uLL;
-                                *(v257 + 4296) = 0uLL;
-                                *(v257 + 4248) = 0uLL;
-                                *(v257 + 4264) = 0uLL;
-                                v256 += 72;
+                                v251 = v248[1] + v250;
+                                *(v251 + 4312) = 0;
+                                *(v251 + 4280) = 0uLL;
+                                *(v251 + 4296) = 0uLL;
+                                *(v251 + 4248) = 0uLL;
+                                *(v251 + 4264) = 0uLL;
+                                v250 += 72;
                               }
 
-                              while (v256);
-                              v254[2] = 0x3B00000000;
-                              v258 = malloc_type_malloc(0x528uLL, 0x1000040A86A77D5uLL);
-                              v254[3] = v258;
-                              if (v258)
+                              while (v250);
+                              v248[2] = 0x3B00000000;
+                              v252 = malloc_type_malloc(0x528uLL, 0x1000040A86A77D5uLL);
+                              v248[3] = v252;
+                              if (v252)
                               {
                                 for (j = 0; j != 1320; j += 20)
                                 {
-                                  v260 = v254[3] + j;
-                                  *(v260 + 16) = -1;
-                                  *v260 = -1;
-                                  *(v260 + 8) = -1;
+                                  v254 = v248[3] + j;
+                                  *(v254 + 16) = -1;
+                                  *v254 = -1;
+                                  *(v254 + 8) = -1;
                                 }
 
-                                v254[4] = 0x4200000000;
-                                v261 = malloc_type_malloc(0xAE0uLL, 0x1000040EED21634uLL);
-                                v254[5] = v261;
-                                if (v261)
+                                v248[4] = 0x4200000000;
+                                v255 = malloc_type_malloc(0xAE0uLL, 0x1000040EED21634uLL);
+                                v248[5] = v255;
+                                if (v255)
                                 {
-                                  v263 = 0;
-                                  *&v264 = -1;
-                                  *(&v264 + 1) = -1;
+                                  v257 = 0;
+                                  *&v258 = -1;
+                                  *(&v258 + 1) = -1;
                                   do
                                   {
-                                    v265 = v254[5] + v263;
-                                    *v265 = v264;
-                                    *(v265 + 16) = v264;
-                                    *(v265 + 32) = -1;
-                                    *(v265 + 40) = 1;
-                                    v263 += 48;
+                                    v259 = v248[5] + v257;
+                                    *v259 = v258;
+                                    *(v259 + 16) = v258;
+                                    *(v259 + 32) = -1;
+                                    *(v259 + 40) = 1;
+                                    v257 += 48;
                                   }
 
-                                  while (v263 != 2784);
-                                  v266 = 0;
-                                  v254[7] = -1;
-                                  v254[8] = -1;
-                                  *(v254 + 4) = 9;
-                                  *(v254 + 8) = 16;
-                                  v254[6] = 0x3A00000008;
-                                  *&v262 = 0;
-                                  recta = v254;
-                                  v651 = (v254 + 7);
+                                  while (v257 != 2784);
+                                  v260 = 0;
+                                  v248[7] = -1;
+                                  v248[8] = -1;
+                                  *(v248 + 4) = 9;
+                                  *(v248 + 8) = 16;
+                                  v248[6] = 0x3A00000008;
+                                  *&v256 = 0;
+                                  recta = v248;
+                                  v638 = (v248 + 7);
                                   while (1)
                                   {
-                                    v663 = v266;
-                                    v268 = v701;
-                                    v267 = v702;
-                                    v270 = v705;
-                                    v269 = v706;
-                                    v272 = v695;
-                                    v271 = v696;
-                                    v273 = v697;
-                                    v274 = v698;
-                                    v275 = v699;
-                                    v276 = v700;
-                                    v277 = v703;
-                                    v278 = v704;
-                                    v279 = v708;
-                                    if (v708)
+                                    v650 = v260;
+                                    v262 = v688;
+                                    v261 = v689;
+                                    v264 = v692;
+                                    v263 = v693;
+                                    v266 = v682;
+                                    v265 = v683;
+                                    v267 = v684;
+                                    v268 = v685;
+                                    v269 = v686;
+                                    v270 = v687;
+                                    v271 = v690;
+                                    v272 = v691;
+                                    v273 = v695;
+                                    if (v695)
                                     {
-                                      v280 = &v749;
+                                      v274 = &v736;
                                       p_src = &__src;
-                                      v282 = &v707;
-                                      v283 = v708;
+                                      v276 = &v694;
+                                      v277 = v695;
                                       do
                                       {
-                                        v284 = v282[5] + v282[15] * *&v262;
-                                        p_src->a = *v282 + v282[10] * *&v262 + v284 * 0.0;
+                                        v278 = v276[5] + v276[15] * *&v256;
+                                        p_src->a = *v276 + v276[10] * *&v256 + v278 * 0.0;
                                         p_src = (p_src + 8);
-                                        v280->f64[0] = v284 * 0.5;
-                                        v280 = (v280 + 8);
-                                        ++v282;
-                                        --v283;
+                                        v274->f64[0] = v278 * 0.5;
+                                        v274 = (v274 + 8);
+                                        ++v276;
+                                        --v277;
                                       }
 
-                                      while (v283);
+                                      while (v277);
                                     }
 
-                                    v285 = 0;
-                                    v286 = vmlaq_n_f64(v277, v270, *&v262);
-                                    v287 = vmlaq_n_f64(v275, v268, *&v262);
-                                    v288 = vmlaq_n_f64(v271, vmlaq_n_f64(v274, vmlaq_n_f64(v267, v269, *&v262), *&v262), *&v262);
-                                    v289 = vmlaq_n_f64(v272, vmlaq_n_f64(v273, vmlaq_n_f64(v276, v278, *&v262), *&v262), *&v262);
-                                    v290 = vmulq_f64(vmulq_f64(v286, v641), v630);
-                                    v291 = vmulq_f64(vmlaq_f64(v290, v638, v287), v630);
-                                    v292 = vmulq_f64(vaddq_f64(v290, v290), v630);
-                                    v293 = vmlaq_f64(v289, 0, vmlaq_f64(v288, 0, vmlaq_f64(v287, 0, v286)));
-                                    v294 = vmlaq_f64(vmulq_f64(vmlaq_f64(v288, v630, vmlaq_f64(v287, v630, v286)), v630), 0, vmlaq_f64(v291, 0, v290));
-                                    v295 = vmlaq_f64(vmulq_f64(vmlaq_f64(v291, v630, v290), v630), 0, v292);
-                                    v660 = vmulq_f64(v292, v630);
-                                    v297 = v643;
-                                    v296 = v645;
-                                    *v655 = v262;
+                                    v279 = 0;
+                                    v280 = vmlaq_n_f64(v271, v264, *&v256);
+                                    v281 = vmlaq_n_f64(v269, v262, *&v256);
+                                    v282 = vmlaq_n_f64(v265, vmlaq_n_f64(v268, vmlaq_n_f64(v261, v263, *&v256), *&v256), *&v256);
+                                    v283 = vmlaq_n_f64(v266, vmlaq_n_f64(v267, vmlaq_n_f64(v270, v272, *&v256), *&v256), *&v256);
+                                    v284 = vmulq_f64(vmulq_f64(v280, v628), v617);
+                                    v285 = vmulq_f64(vmlaq_f64(v284, v625, v281), v617);
+                                    v286 = vmulq_f64(vaddq_f64(v284, v284), v617);
+                                    v287 = vmlaq_f64(v283, 0, vmlaq_f64(v282, 0, vmlaq_f64(v281, 0, v280)));
+                                    v288 = vmlaq_f64(vmulq_f64(vmlaq_f64(v282, v617, vmlaq_f64(v281, v617, v280)), v617), 0, vmlaq_f64(v285, 0, v284));
+                                    v289 = vmlaq_f64(vmulq_f64(vmlaq_f64(v285, v617, v284), v617), 0, v286);
+                                    v647 = vmulq_f64(v286, v617);
+                                    v291 = v630;
+                                    v290 = v632;
+                                    *v642 = v256;
                                     do
                                     {
-                                      *v296 = v293;
-                                      if (v279)
+                                      *v290 = v287;
+                                      if (v273)
                                       {
-                                        v298 = &__src;
-                                        v670 = v294;
-                                        *widthc = v293;
-                                        v667 = v295;
-                                        memcpy(v297, &__src, 8 * v279);
-                                        v295 = v667;
-                                        v294 = v670;
-                                        v293 = *widthc;
-                                        v262 = *v655;
-                                        v299 = &v749;
-                                        v300 = v279;
+                                        v292 = &__src;
+                                        v657 = v288;
+                                        *widthc = v287;
+                                        v654 = v289;
+                                        memcpy(v291, &__src, 8 * v273);
+                                        v289 = v654;
+                                        v288 = v657;
+                                        v287 = *widthc;
+                                        v256 = *v642;
+                                        v293 = &v736;
+                                        v294 = v273;
                                         do
                                         {
-                                          v301 = v299->f64[0];
-                                          v299 = (v299 + 8);
-                                          v298->a = v301 + v298->a;
-                                          v298 = (v298 + 8);
-                                          --v300;
+                                          v295 = v293->f64[0];
+                                          v293 = (v293 + 8);
+                                          v292->a = v295 + v292->a;
+                                          v292 = (v292 + 8);
+                                          --v294;
                                         }
 
-                                        while (v300);
+                                        while (v294);
                                       }
 
-                                      v293 = vaddq_f64(v293, v294);
-                                      v294 = vaddq_f64(v294, v295);
-                                      v295 = vaddq_f64(v660, v295);
-                                      ++v285;
-                                      ++v296;
-                                      v297 += 40;
+                                      v287 = vaddq_f64(v287, v288);
+                                      v288 = vaddq_f64(v288, v289);
+                                      v289 = vaddq_f64(v647, v289);
+                                      ++v279;
+                                      ++v290;
+                                      v291 += 40;
                                     }
 
-                                    while (v285 != 3);
-                                    v302 = 0;
-                                    v303 = v663;
-                                    v304 = 3 * v663;
-                                    v305 = 2 * v663;
-                                    v306 = 3 * v663 + 1;
-                                    v307 = 2 * v663 + 2;
-                                    v308 = 3 * v663 + 3;
-                                    width = 2 * v663 + 12;
-                                    v309 = 2 * v663 + 4;
-                                    v310 = 2 * (v663 + 1);
-                                    v311 = *&v262 <= 1.0 ? *&v262 : 1.0;
-                                    v312 = 0.0;
-                                    v313 = v643;
-                                    v314 = v645;
-                                    v315 = recta;
+                                    while (v279 != 3);
+                                    v296 = 0;
+                                    v297 = v650;
+                                    v298 = 3 * v650;
+                                    v299 = 2 * v650;
+                                    v300 = 3 * v650 + 1;
+                                    v301 = 2 * v650 + 2;
+                                    v302 = 3 * v650 + 3;
+                                    width = 2 * v650 + 12;
+                                    v303 = 2 * v650 + 4;
+                                    v304 = 2 * (v650 + 1);
+                                    v305 = *&v256 <= 1.0 ? *&v256 : 1.0;
+                                    v306 = 0.0;
+                                    v307 = v630;
+                                    v308 = v632;
+                                    v309 = recta;
                                     while (1)
                                     {
-                                      v316 = v302 + v304;
-                                      v317 = *(v315 + 1) + 72 * (v302 + v304);
-                                      *v317 = *v314;
-                                      if (v312 <= 1.0)
+                                      v310 = v296 + v298;
+                                      v311 = *(v309 + 1) + 72 * (v296 + v298);
+                                      *v311 = *v308;
+                                      if (v306 <= 1.0)
                                       {
-                                        v318 = v312;
+                                        v312 = v306;
                                       }
 
                                       else
                                       {
-                                        v318 = 1.0;
+                                        v312 = 1.0;
                                       }
 
-                                      *(v317 + 16) = v318;
-                                      *(v317 + 24) = v311;
-                                      v319 = *v315;
-                                      if (v319)
+                                      *(v311 + 16) = v312;
+                                      *(v311 + 24) = v305;
+                                      v313 = *v309;
+                                      if (v313)
                                       {
-                                        v320 = 0;
-                                        v321 = v317 + 32;
-                                        v322 = 8 * v319;
+                                        v314 = 0;
+                                        v315 = v311 + 32;
+                                        v316 = 8 * v313;
                                         do
                                         {
-                                          *(v321 + v320) = *&v313[v320];
-                                          v320 += 8;
+                                          *(v315 + v314) = *&v307[v314];
+                                          v314 += 8;
                                         }
 
-                                        while (v322 != v320);
+                                        while (v316 != v314);
                                       }
 
-                                      if (v302 == 2)
+                                      if (v296 == 2)
                                       {
                                         break;
                                       }
 
-                                      v323 = *(v315 + 3);
-                                      v324 = v302 + v305;
-                                      v325 = (v323 + 20 * (v302 + v305));
-                                      v326 = v306 + v302;
-                                      *v325 = v316;
-                                      v325[1] = v306 + v302;
-                                      if (v303 == 2)
+                                      v317 = *(v309 + 3);
+                                      v318 = v296 + v299;
+                                      v319 = (v317 + 20 * (v296 + v299));
+                                      v320 = v300 + v296;
+                                      *v319 = v310;
+                                      v319[1] = v300 + v296;
+                                      if (v297 == 2)
                                       {
-                                        v325[2] = -1;
-                                        v325[3] = 3 * (v302 + v307);
-                                        v327 = v302 + 1;
+                                        v319[2] = -1;
+                                        v319[3] = 3 * (v296 + v301);
+                                        v321 = v296 + 1;
                                       }
 
                                       else
                                       {
-                                        v328 = 3 * v324;
-                                        v325[2] = 3 * v324;
-                                        if (v303)
+                                        v322 = 3 * v318;
+                                        v319[2] = 3 * v318;
+                                        if (v297)
                                         {
-                                          v325[3] = 3 * (v302 + v307);
-                                          v329 = v323 + 20 * v316;
-                                          *(v329 + 120) = v302 + v308;
-                                          *(v329 + 124) = v316;
-                                          v330 = v302 + v308;
+                                          v319[3] = 3 * (v296 + v301);
+                                          v323 = v317 + 20 * v310;
+                                          *(v323 + 120) = v296 + v302;
+                                          *(v323 + 124) = v310;
+                                          v324 = v296 + v302;
                                         }
 
                                         else
                                         {
-                                          v325[3] = -1;
-                                          v331 = v323 + 20 * v316;
-                                          v330 = v302 + 3;
-                                          *(v331 + 120) = v302 + 3;
-                                          *(v331 + 124) = v316;
+                                          v319[3] = -1;
+                                          v325 = v317 + 20 * v310;
+                                          v324 = v296 + 3;
+                                          *(v325 + 120) = v296 + 3;
+                                          *(v325 + 124) = v310;
                                         }
 
-                                        v332 = v323 + 20 * v316;
-                                        v333 = v328 + 11;
-                                        v334 = 3 * v302 + 12;
-                                        if (!v663)
+                                        v326 = v317 + 20 * v310;
+                                        v327 = v322 + 11;
+                                        v328 = 3 * v296 + 12;
+                                        if (!v650)
                                         {
-                                          v334 = -1;
+                                          v328 = -1;
                                         }
 
-                                        if (!v302)
+                                        if (!v296)
                                         {
-                                          v333 = -1;
+                                          v327 = -1;
                                         }
 
-                                        *(v332 + 128) = v328 + 2;
-                                        *(v332 + 132) = v333;
-                                        v335 = (v323 + 20 * (width + v302));
-                                        *v335 = v326;
-                                        v335[1] = v330;
-                                        v336 = v328 + 1;
-                                        v337 = v302 + v309;
-                                        v338 = 3 * (v302 + v309) + 1;
-                                        v335[2] = v336;
-                                        v335[3] = v338;
-                                        v339 = *(recta + 5);
-                                        v340 = (v339 + 48 * v324);
-                                        *v340 = v316;
-                                        v340[1] = v326;
-                                        v340[2] = v330;
-                                        v340[3] = 2 * v324;
-                                        v341 = 2 * (width + v302);
-                                        v340[4] = v341;
-                                        v340[5] = 2 * v316 + 12;
-                                        v340[6] = v334;
-                                        v340[7] = v338;
-                                        v315 = recta;
-                                        if (v302)
+                                        *(v326 + 128) = v322 + 2;
+                                        *(v326 + 132) = v327;
+                                        v329 = (v317 + 20 * (width + v296));
+                                        *v329 = v320;
+                                        v329[1] = v324;
+                                        v330 = v322 + 1;
+                                        v331 = v296 + v303;
+                                        v332 = 3 * (v296 + v303) + 1;
+                                        v329[2] = v330;
+                                        v329[3] = v332;
+                                        v333 = *(recta + 5);
+                                        v334 = (v333 + 48 * v318);
+                                        *v334 = v310;
+                                        v334[1] = v320;
+                                        v334[2] = v324;
+                                        v334[3] = 2 * v318;
+                                        v335 = 2 * (width + v296);
+                                        v334[4] = v335;
+                                        v334[5] = 2 * v310 + 12;
+                                        v334[6] = v328;
+                                        v334[7] = v332;
+                                        v309 = recta;
+                                        if (v296)
                                         {
-                                          v342 = 3 * v309 + 2;
+                                          v336 = 3 * v303 + 2;
                                         }
 
                                         else
                                         {
-                                          v342 = -1;
+                                          v336 = -1;
                                         }
 
-                                        v340[8] = v342;
-                                        v343 = recta[14];
-                                        if (v343 == -1)
+                                        v334[8] = v336;
+                                        v337 = recta[14];
+                                        if (v337 == -1)
                                         {
-                                          recta[15] = v324;
+                                          recta[15] = v318;
                                         }
 
-                                        v340[9] = v343;
-                                        *v651 = v324;
-                                        v340[10] = 1;
-                                        v340[11] = 7 - v324;
-                                        v344 = (v339 + 48 * v337);
-                                        v327 = v302 + 1;
-                                        *v344 = v302 + 1 + v308;
-                                        v344[1] = v302 + v308;
-                                        v345 = v302 + 1 + v304;
-                                        v344[2] = v345;
-                                        v344[3] = (2 * (v302 + v310)) | 1;
-                                        v344[4] = v341 | 1;
-                                        v344[5] = 2 * v345 + 13;
-                                        v346 = 3 * (v302 + v310);
-                                        if (v663 == 1)
+                                        v334[9] = v337;
+                                        *v638 = v318;
+                                        v334[10] = 1;
+                                        v334[11] = 7 - v318;
+                                        v338 = (v333 + 48 * v331);
+                                        v321 = v296 + 1;
+                                        *v338 = v296 + 1 + v302;
+                                        v338[1] = v296 + v302;
+                                        v339 = v296 + 1 + v298;
+                                        v338[2] = v339;
+                                        v338[3] = (2 * (v296 + v304)) | 1;
+                                        v338[4] = v335 | 1;
+                                        v338[5] = 2 * v339 + 13;
+                                        v340 = 3 * (v296 + v304);
+                                        if (v650 == 1)
                                         {
-                                          v346 = -1;
+                                          v340 = -1;
                                         }
 
-                                        v344[6] = v346;
-                                        v344[7] = v336;
-                                        if (v302 == 1)
+                                        v338[6] = v340;
+                                        v338[7] = v330;
+                                        if (v296 == 1)
                                         {
-                                          v347 = -1;
+                                          v341 = -1;
                                         }
 
                                         else
                                         {
-                                          v347 = 3 * (v327 + v305) + 2;
+                                          v341 = 3 * (v321 + v299) + 2;
                                         }
 
-                                        v344[8] = v347;
-                                        v348 = *v651;
-                                        if (*v651 == -1)
+                                        v338[8] = v341;
+                                        v342 = *v638;
+                                        if (*v638 == -1)
                                         {
-                                          recta[15] = v337;
+                                          recta[15] = v331;
                                         }
 
-                                        v344[9] = v348;
-                                        *v651 = v337;
-                                        v344[10] = 1;
-                                        v344[11] = 7 - v337;
-                                        v2 = v654;
-                                        v303 = v663;
+                                        v338[9] = v342;
+                                        *v638 = v331;
+                                        v338[10] = 1;
+                                        v338[11] = 7 - v331;
+                                        v2 = v641;
+                                        v297 = v650;
                                       }
 
-                                      v312 = v312 + 0.5;
-                                      ++v314;
-                                      v313 += 40;
-                                      v302 = v327;
+                                      v306 = v306 + 0.5;
+                                      ++v308;
+                                      v307 += 40;
+                                      v296 = v321;
                                     }
 
-                                    if (v303 == 2)
+                                    if (v297 == 2)
                                     {
                                       break;
                                     }
 
-                                    v349 = (*(v315 + 3) + 20 * v316);
-                                    v349[30] = v304 + 5;
-                                    v349[31] = v316;
-                                    v349[32] = -1;
-                                    v349[33] = 3 * v307 + 11;
-                                    *&v262 = *&v262 + 0.5;
-                                    v266 = v663 + 1;
+                                    v343 = (*(v309 + 3) + 20 * v310);
+                                    v343[30] = v298 + 5;
+                                    v343[31] = v310;
+                                    v343[32] = -1;
+                                    v343[33] = 3 * v301 + 11;
+                                    *&v256 = *&v256 + 0.5;
+                                    v260 = v650 + 1;
                                   }
 
-                                  free(v643);
-                                  free(v645);
+                                  free(v630);
+                                  free(v632);
 LABEL_464:
-                                  *(v315 + 9) = 0;
-                                  v350 = v315[14];
-                                  for (rectb = v315; v350 != -1; v350 = v315[14])
+                                  *(v309 + 9) = 0;
+                                  v344 = v309[14];
+                                  for (rectb = v309; v344 != -1; v344 = v309[14])
                                   {
-                                    v351 = *(v315 + 5);
-                                    v352 = (v351 + 48 * v350);
-                                    v315[14] = v352[9];
-                                    v353 = *(v315 + 1);
-                                    v354 = (v353 + 72 * *v352);
-                                    v355 = *v354;
-                                    v356 = v354[1];
-                                    v357 = (v353 + 72 * v352[1]);
-                                    v358 = *v357;
-                                    v359 = v357[1];
-                                    v360 = (v353 + 72 * v352[2]);
-                                    if (fabs(((v358 - v355) * (v359 - v356) + (*v360 - v358) * (v359 - v356 + v360[1] - v356) + (v355 - *v360) * (v360[1] - v356)) * 0.5) >= 8.0)
+                                    v345 = *(v309 + 5);
+                                    v346 = (v345 + 48 * v344);
+                                    v309[14] = v346[9];
+                                    v347 = *(v309 + 1);
+                                    v348 = (v347 + 72 * *v346);
+                                    v349 = *v348;
+                                    v350 = v348[1];
+                                    v351 = (v347 + 72 * v346[1]);
+                                    v352 = *v351;
+                                    v353 = v351[1];
+                                    v354 = (v347 + 72 * v346[2]);
+                                    if (fabs(((v352 - v349) * (v353 - v350) + (*v354 - v352) * (v353 - v350 + v354[1] - v350) + (v349 - *v354) * (v354[1] - v350)) * 0.5) >= 8.0)
                                     {
-                                      v361 = 0;
-                                      v362 = 0;
-                                      v363 = v352 + 6;
+                                      v355 = 0;
+                                      v356 = 0;
+                                      v357 = v346 + 6;
                                       do
                                       {
-                                        v362 |= v363[v361++] == -1;
+                                        v356 |= v357[v355++] == -1;
                                       }
 
-                                      while (v361 != 3);
-                                      if ((*(v352 + 41) < 7) | v362 & 1)
+                                      while (v355 != 3);
+                                      if ((*(v346 + 41) < 7) | v356 & 1)
                                       {
-                                        v364 = 0;
-                                        v749 = 0uLL;
+                                        v358 = 0;
+                                        v736 = 0uLL;
                                         do
                                         {
-                                          v365 = v363[v364];
-                                          if (v365 == -1)
+                                          v359 = v357[v358];
+                                          if (v359 == -1)
                                           {
-                                            v381 = v364 + 1;
+                                            v375 = v358 + 1;
                                           }
 
                                           else
                                           {
-                                            v366 = v365 / 3;
-                                            v367 = v365 % 3;
-                                            v368 = (v364 - 1);
-                                            if (!v364)
+                                            v360 = v359 / 3;
+                                            v361 = v359 % 3;
+                                            v362 = (v358 - 1);
+                                            if (!v358)
                                             {
-                                              v368 = 2;
+                                              v362 = 2;
                                             }
 
-                                            v369 = v351 + 48 * v366;
-                                            v370 = (v353 + 72 * v352[v368]);
-                                            v371 = *v370;
-                                            v372 = v370[1];
-                                            v373 = v367 + 2;
-                                            v374 = v367 - 1;
-                                            if (v373 < 3)
+                                            v363 = v345 + 48 * v360;
+                                            v364 = (v347 + 72 * v346[v362]);
+                                            v365 = *v364;
+                                            v366 = v364[1];
+                                            v367 = v361 + 2;
+                                            v368 = v361 - 1;
+                                            if (v367 < 3)
                                             {
-                                              v374 = v373;
+                                              v368 = v367;
                                             }
 
-                                            v375 = (v353 + 72 * *(v369 + 4 * v374));
-                                            v376 = *v375;
-                                            v377 = v375[1];
-                                            v378 = (v353 + 72 * v352[v364]);
-                                            v379 = *v378;
-                                            v380 = v378[1];
-                                            v381 = v364 + 1;
-                                            v382 = (v364 + 1);
-                                            if (v364 == 2)
+                                            v369 = (v347 + 72 * *(v363 + 4 * v368));
+                                            v370 = *v369;
+                                            v371 = v369[1];
+                                            v372 = (v347 + 72 * v346[v358]);
+                                            v373 = *v372;
+                                            v374 = v372[1];
+                                            v375 = v358 + 1;
+                                            v376 = (v358 + 1);
+                                            if (v358 == 2)
                                             {
-                                              v382 = 0;
+                                              v376 = 0;
                                             }
 
-                                            v383 = (v353 + 72 * v352[v382]);
-                                            v384 = *v383 - v379;
-                                            v385 = v383[1] - v380;
-                                            v386 = v372 - v380;
-                                            if (fabs((v371 - v379) * (v377 - v380 - v385) + v384 * (v386 - (v377 - v380)) + (v376 - v379) * (v385 - v386)) <= 2.22507386e-308)
+                                            v377 = (v347 + 72 * v346[v376]);
+                                            v378 = *v377 - v373;
+                                            v379 = v377[1] - v374;
+                                            v380 = v366 - v374;
+                                            if (fabs((v365 - v373) * (v371 - v374 - v379) + v378 * (v380 - (v371 - v374)) + (v370 - v373) * (v379 - v380)) <= 2.22507386e-308)
                                             {
                                               goto LABEL_510;
                                             }
 
-                                            if ((v376 - v379) * v385 - (v377 - v380) * v384 >= 0.0 == v384 * v386 - v385 * (v371 - v379) < 0.0)
+                                            if ((v370 - v373) * v379 - (v371 - v374) * v378 >= 0.0 == v378 * v380 - v379 * (v365 - v373) < 0.0)
                                             {
                                               ++rectb[19];
                                               goto LABEL_506;
                                             }
                                           }
 
-                                          v364 = v381;
+                                          v358 = v375;
                                         }
 
-                                        while (v381 != 3);
-                                        v387 = 0;
-                                        LODWORD(v364) = -1;
-                                        v388 = 0.0;
+                                        while (v375 != 3);
+                                        v381 = 0;
+                                        LODWORD(v358) = -1;
+                                        v382 = 0.0;
                                         do
                                         {
-                                          v389 = *(rectb + 1);
-                                          v390 = (v389 + 72 * v352[v387]);
-                                          if (v387 == 2)
+                                          v383 = *(rectb + 1);
+                                          v384 = (v383 + 72 * v346[v381]);
+                                          if (v381 == 2)
                                           {
-                                            v391 = 0;
+                                            v385 = 0;
                                           }
 
                                           else
                                           {
-                                            v391 = v387 + 1;
+                                            v385 = v381 + 1;
                                           }
 
-                                          v392 = (v389 + 72 * v352[v391]);
-                                          v393 = v387 + 1;
-                                          v394 = (*v390 + *v392) * 0.5;
-                                          v395 = (v390[1] + v392[1]) * 0.5;
-                                          Coons(&v681, &v749, &__src.a, (v390[2] + v392[2]) * 0.5, (v390[3] + v392[3]) * 0.5);
-                                          v396 = (v749.f64[1] - v395) * (v749.f64[1] - v395);
-                                          if (v396 + (v749.f64[0] - v394) * (v749.f64[0] - v394) >= v388)
+                                          v386 = (v383 + 72 * v346[v385]);
+                                          v387 = v381 + 1;
+                                          v388 = (*v384 + *v386) * 0.5;
+                                          v389 = (v384[1] + v386[1]) * 0.5;
+                                          Coons(&v668, &v736, &__src.a, (v384[2] + v386[2]) * 0.5, (v384[3] + v386[3]) * 0.5);
+                                          v390 = (v736.f64[1] - v389) * (v736.f64[1] - v389);
+                                          if (v390 + (v736.f64[0] - v388) * (v736.f64[0] - v388) >= v382)
                                           {
-                                            LODWORD(v364) = v387;
-                                            v388 = v396 + (v749.f64[0] - v394) * (v749.f64[0] - v394);
+                                            LODWORD(v358) = v381;
+                                            v382 = v390 + (v736.f64[0] - v388) * (v736.f64[0] - v388);
                                           }
 
-                                          ++v387;
+                                          ++v381;
                                         }
 
-                                        while (v393 != 3);
-                                        if (v364 != -1 && v388 > 0.49)
+                                        while (v387 != 3);
+                                        if (v358 != -1 && v382 > 0.49)
                                         {
                                           ++rectb[18];
 LABEL_506:
-                                          v749 = 0uLL;
-                                          v671 = v352[v364];
-                                          v409 = (v364 + 1) % 3;
-                                          v668 = v352[v409];
-                                          v664 = v352[(v364 + 2) % 3];
-                                          v410 = *(rectb + 5);
-                                          v411 = v363[v364];
-                                          v637 = (v364 + 2) % 3;
-                                          v661 = v411;
-                                          if (v411 == -1)
+                                          v736 = 0uLL;
+                                          v658 = v346[v358];
+                                          v403 = (v358 + 1) % 3;
+                                          v655 = v346[v403];
+                                          v651 = v346[(v358 + 2) % 3];
+                                          v404 = *(rectb + 5);
+                                          v405 = v357[v358];
+                                          v624 = (v358 + 2) % 3;
+                                          v648 = v405;
+                                          if (v405 == -1)
                                           {
-                                            v639 = 0;
+                                            v626 = 0;
                                             widtha = 0;
-                                            v644 = -1;
-                                            v652 = -1;
+                                            v631 = -1;
+                                            v639 = -1;
                                           }
 
                                           else
                                           {
-                                            v412 = v411 / 3;
-                                            v413 = v411 % 3;
-                                            v652 = v412;
-                                            v414 = v413 + 2;
-                                            v639 = v413;
-                                            if ((v413 + 2) >= 3)
+                                            v406 = v405 / 3;
+                                            v407 = v405 % 3;
+                                            v639 = v406;
+                                            v408 = v407 + 2;
+                                            v626 = v407;
+                                            if ((v407 + 2) >= 3)
                                             {
-                                              v414 = v413 - 1;
+                                              v408 = v407 - 1;
                                             }
 
-                                            widtha = v410 + 48 * v412;
-                                            v644 = *(widtha + 4 * v414);
+                                            widtha = v404 + 48 * v406;
+                                            v631 = *(widtha + 4 * v408);
                                           }
 
-                                          v642 = v364;
-                                          v646 = 0xAAAAAAAAAAAAAAABLL * ((v352 - v410) >> 4);
-                                          *v656 = vmulq_f64(vaddq_f64(*(*(rectb + 1) + 72 * v671 + 16), *(*(rectb + 1) + 72 * v668 + 16)), v630);
-                                          Coons(&v681, &v749, &__src.a, *v656, *&v656[1]);
-                                          v415 = &v722;
-                                          v416 = 1;
+                                          v629 = v358;
+                                          v633 = 0xAAAAAAAAAAAAAAABLL * ((v346 - v404) >> 4);
+                                          *v643 = vmulq_f64(vaddq_f64(*(*(rectb + 1) + 72 * v658 + 16), *(*(rectb + 1) + 72 * v655 + 16)), v617);
+                                          Coons(&v668, &v736, &__src.a, *v643, *&v643[1]);
+                                          v409 = &v709;
+                                          v410 = 1;
                                           do
                                           {
-                                            v417 = v416;
+                                            v411 = v410;
                                             AllocateCoonsMeshTriangle(rectb);
-                                            v416 = 0;
-                                            v418 = *(rectb + 5);
-                                            *v415 = -1431655765 * ((v419 - v418) >> 4);
-                                            v415 = &v721;
+                                            v410 = 0;
+                                            v412 = *(rectb + 5);
+                                            *v409 = -1431655765 * ((v413 - v412) >> 4);
+                                            v409 = &v708;
                                           }
 
-                                          while ((v417 & 1) != 0);
-                                          v724 = 0;
-                                          v723 = 0;
-                                          if (v661 == -1)
+                                          while ((v411 & 1) != 0);
+                                          v711 = 0;
+                                          v710 = 0;
+                                          if (v648 == -1)
                                           {
-                                            v720 = -1;
-                                            v719 = -1;
+                                            v707 = -1;
+                                            v706 = -1;
                                           }
 
                                           else
                                           {
-                                            v420 = &v724;
-                                            v421 = &v720;
-                                            v422 = 1;
+                                            v414 = &v711;
+                                            v415 = &v707;
+                                            v416 = 1;
                                             do
                                             {
-                                              v423 = v422;
+                                              v417 = v416;
                                               AllocateCoonsMeshTriangle(rectb);
-                                              v422 = 0;
-                                              *v420 = v424;
-                                              v418 = *(rectb + 5);
-                                              *v421 = -1431655765 * ((v424 - v418) >> 4);
-                                              v420 = &v723;
-                                              v421 = &v719;
+                                              v416 = 0;
+                                              *v414 = v418;
+                                              v412 = *(rectb + 5);
+                                              *v415 = -1431655765 * ((v418 - v412) >> 4);
+                                              v414 = &v710;
+                                              v415 = &v706;
                                             }
 
-                                            while ((v423 & 1) != 0);
+                                            while ((v417 & 1) != 0);
                                           }
 
-                                          v425 = v722;
-                                          v426 = v721;
-                                          if (v661 != -1)
+                                          v419 = v709;
+                                          v420 = v708;
+                                          if (v648 != -1)
                                           {
-                                            v724 = (v418 + 48 * v720);
-                                            v723 = (v418 + 48 * v719);
-                                            widtha = v418 + 48 * v652;
+                                            v711 = (v412 + 48 * v707);
+                                            v710 = (v412 + 48 * v706);
+                                            widtha = v412 + 48 * v639;
                                           }
 
-                                          v427 = v749;
-                                          v428 = rectb[4];
-                                          v429 = *(rectb + 1);
-                                          if (v428 == rectb[5])
+                                          v421 = v736;
+                                          v422 = rectb[4];
+                                          v423 = *(rectb + 1);
+                                          if (v422 == rectb[5])
                                           {
-                                            v635 = v749;
-                                            v429 = malloc_type_realloc(v429, 72 * (v428 + 50), 0x1000040FF89C88EuLL);
-                                            *(rectb + 1) = v429;
-                                            if (v429)
+                                            v622 = v736;
+                                            v423 = malloc_type_realloc(v423, 72 * (v422 + 50), 0x1000040FF89C88EuLL);
+                                            *(rectb + 1) = v423;
+                                            if (v423)
                                             {
-                                              v428 = rectb[4];
+                                              v422 = rectb[4];
                                               rectb[5] += 50;
-                                              v427 = v635;
+                                              v421 = v622;
                                               goto LABEL_526;
                                             }
 
-                                            v631 = 0;
+                                            v618 = 0;
                                           }
 
                                           else
                                           {
 LABEL_526:
-                                            rectb[4] = v428 + 1;
-                                            v430 = &v429[72 * v428];
-                                            *v430 = v427;
-                                            v430[1] = *v656;
-                                            v431 = *rectb;
-                                            v631 = v430;
-                                            if (v431)
+                                            rectb[4] = v422 + 1;
+                                            v424 = &v423[72 * v422];
+                                            *v424 = v421;
+                                            v424[1] = *v643;
+                                            v425 = *rectb;
+                                            v618 = v424;
+                                            if (v425)
                                             {
-                                              v432 = 72 * v428 + 32;
-                                              v433 = &__src;
+                                              v426 = 72 * v422 + 32;
+                                              v427 = &__src;
                                               do
                                               {
-                                                a = v433->a;
-                                                v433 = (v433 + 8);
-                                                *&v429[v432] = a;
-                                                v432 += 8;
-                                                --v431;
+                                                a = v427->a;
+                                                v427 = (v427 + 8);
+                                                *&v423[v426] = a;
+                                                v426 += 8;
+                                                --v425;
                                               }
 
-                                              while (v431);
+                                              while (v425);
                                             }
                                           }
 
-                                          v634 = v425;
-                                          v636 = v426;
-                                          v435 = v418 + 48 * v425;
-                                          v436 = v418 + 48 * v426;
-                                          v657 = v418 + 48 * v646;
+                                          v621 = v419;
+                                          v623 = v420;
+                                          v429 = v412 + 48 * v419;
+                                          v430 = v412 + 48 * v420;
+                                          v644 = v412 + 48 * v633;
                                           CoonsMeshEdge = AllocateCoonsMeshEdge(rectb);
-                                          v632 = *(rectb + 3);
-                                          v633 = CoonsMeshEdge;
-                                          v438 = &v718;
-                                          v439 = 1;
+                                          v619 = *(rectb + 3);
+                                          v620 = CoonsMeshEdge;
+                                          v432 = &v705;
+                                          v433 = 1;
                                           do
                                           {
-                                            v440 = v439;
-                                            v441 = AllocateCoonsMeshEdge(rectb);
-                                            v439 = 0;
-                                            v442 = *(rectb + 3);
-                                            *v438 = -858993459 * ((v441 - v442) >> 2);
-                                            v438 = &v717;
+                                            v434 = v433;
+                                            v435 = AllocateCoonsMeshEdge(rectb);
+                                            v433 = 0;
+                                            v436 = *(rectb + 3);
+                                            *v432 = -858993459 * ((v435 - v436) >> 2);
+                                            v432 = &v704;
                                           }
 
-                                          while ((v440 & 1) != 0);
-                                          if (v661 == -1)
+                                          while ((v434 & 1) != 0);
+                                          if (v648 == -1)
                                           {
-                                            v444 = 0;
-                                            v443 = 0;
+                                            v438 = 0;
+                                            v437 = 0;
                                           }
 
                                           else
                                           {
-                                            v443 = AllocateCoonsMeshEdge(rectb);
-                                            v442 = *(rectb + 3);
-                                            v444 = -858993459 * ((v443 - v442) >> 2);
+                                            v437 = AllocateCoonsMeshEdge(rectb);
+                                            v436 = *(rectb + 3);
+                                            v438 = -858993459 * ((v437 - v436) >> 2);
                                           }
 
-                                          v445 = v639;
-                                          v446 = v718;
-                                          v447 = v717;
-                                          if (v661 == -1)
+                                          v439 = v626;
+                                          v440 = v705;
+                                          v441 = v704;
+                                          if (v648 == -1)
                                           {
-                                            v448 = v443;
+                                            v442 = v437;
                                           }
 
                                           else
                                           {
-                                            v448 = (v442 + 20 * v444);
+                                            v442 = (v436 + 20 * v438);
                                           }
 
-                                          v640 = v444;
+                                          v627 = v438;
                                           if (widtha)
                                           {
-                                            v449 = widtha + 12;
-                                            if (*(v657 + 4 * v642 + 12) >= 0)
+                                            v443 = widtha + 12;
+                                            if (*(v644 + 4 * v629 + 12) >= 0)
                                             {
-                                              v450 = *(v657 + 4 * v642 + 12) & 1;
+                                              v444 = *(v644 + 4 * v629 + 12) & 1;
                                             }
 
                                             else
                                             {
-                                              v450 = -(*(v657 + 4 * v642 + 12) & 1);
+                                              v444 = -(*(v644 + 4 * v629 + 12) & 1);
                                             }
 
-                                            if (*(widtha + 12 + 4 * v445) >= 0)
+                                            if (*(widtha + 12 + 4 * v439) >= 0)
                                             {
-                                              v451 = *(widtha + 12 + 4 * v445) & 1;
+                                              v445 = *(widtha + 12 + 4 * v439) & 1;
                                             }
 
                                             else
                                             {
-                                              v451 = -(*(widtha + 12 + 4 * v445) & 1);
+                                              v445 = -(*(widtha + 12 + 4 * v439) & 1);
                                             }
 
-                                            v452 = widtha + 24;
-                                            v453 = v632;
-                                            v454 = 0;
-                                            if (v450 == v451)
+                                            v446 = widtha + 24;
+                                            v447 = v619;
+                                            v448 = 0;
+                                            if (v444 == v445)
                                             {
-                                              v455 = v445 + 2;
-                                              v456 = &v716;
-                                              v457 = &v714;
-                                              v458 = &v712;
-                                              v459 = 1;
+                                              v449 = v439 + 2;
+                                              v450 = &v703;
+                                              v451 = &v701;
+                                              v452 = &v699;
+                                              v453 = 1;
                                               do
                                               {
-                                                v460 = v459;
-                                                v461 = (v455 + v454) % 3;
-                                                v462 = *(v449 + 4 * v461);
-                                                *v456 = v462 / 2;
-                                                *v457 = ((v462 + (v462 >> 31)) & 0xFFFFFFFE) - v462 + 1;
-                                                *v458 = *(v452 + 4 * v461);
-                                                v454 = -1;
-                                                v456 = &v715;
-                                                v457 = &v713;
-                                                v458 = &v711;
-                                                v459 = 0;
+                                                v454 = v453;
+                                                v455 = (v449 + v448) % 3;
+                                                v456 = *(v443 + 4 * v455);
+                                                *v450 = v456 / 2;
+                                                *v451 = ((v456 + (v456 >> 31)) & 0xFFFFFFFE) - v456 + 1;
+                                                *v452 = *(v446 + 4 * v455);
+                                                v448 = -1;
+                                                v450 = &v702;
+                                                v451 = &v700;
+                                                v452 = &v698;
+                                                v453 = 0;
                                               }
 
-                                              while ((v460 & 1) != 0);
+                                              while ((v454 & 1) != 0);
                                             }
 
                                             else
                                             {
-                                              v463 = v445 + 1;
-                                              v464 = &v716;
-                                              v465 = &v714;
-                                              v466 = &v712;
-                                              v467 = 1;
+                                              v457 = v439 + 1;
+                                              v458 = &v703;
+                                              v459 = &v701;
+                                              v460 = &v699;
+                                              v461 = 1;
                                               do
                                               {
-                                                v468 = v467;
-                                                v469 = (v463 + v454) % 3;
-                                                v470 = *(v449 + 4 * v469);
-                                                *v464 = v470 / 2;
-                                                *v465 = v470 % 2;
-                                                v471 = *(v452 + 4 * v469);
-                                                v454 = 1;
-                                                *v466 = v471;
-                                                v464 = &v715;
-                                                v465 = &v713;
-                                                v466 = &v711;
-                                                v467 = 0;
+                                                v462 = v461;
+                                                v463 = (v457 + v448) % 3;
+                                                v464 = *(v443 + 4 * v463);
+                                                *v458 = v464 / 2;
+                                                *v459 = v464 % 2;
+                                                v465 = *(v446 + 4 * v463);
+                                                v448 = 1;
+                                                *v460 = v465;
+                                                v458 = &v702;
+                                                v459 = &v700;
+                                                v460 = &v698;
+                                                v461 = 0;
                                               }
 
-                                              while ((v468 & 1) != 0);
+                                              while ((v462 & 1) != 0);
                                             }
                                           }
 
                                           else
                                           {
-                                            v716 = -1;
-                                            v715 = -1;
-                                            v453 = v632;
+                                            v703 = -1;
+                                            v702 = -1;
+                                            v447 = v619;
                                           }
 
-                                          v472 = 954437177 * ((v631 - v429) >> 3);
-                                          v473 = 0xCCCCCCCCCCCCCCCDLL * ((v633 - v453) >> 2);
-                                          v474 = (v442 + 20 * v446);
-                                          v475 = (v442 + 20 * v447);
-                                          v476 = v657 + 12;
-                                          v477 = *(v657 + 12 + 4 * v637);
-                                          v478 = *(v657 + 24 + 4 * v637);
-                                          v479 = (v442 + 20 * v473);
-                                          v480 = *(v657 + 12 + 4 * v409);
-                                          v481 = *(v657 + 24 + 4 * v409);
-                                          *v479 = v472;
-                                          v479[1] = v664;
-                                          v482 = 3 * v634;
-                                          v483 = 3 * v634 + 1;
-                                          v484 = 3 * v636;
-                                          v485 = 3 * v636 + 1;
-                                          v479[2] = v483;
-                                          v479[3] = v485;
-                                          *v474 = v671;
-                                          v474[1] = v472;
-                                          v486 = 3 * v720;
-                                          if (v720 == -1)
+                                          v466 = 954437177 * ((v618 - v423) >> 3);
+                                          v467 = 0xCCCCCCCCCCCCCCCDLL * ((v620 - v447) >> 2);
+                                          v468 = (v436 + 20 * v440);
+                                          v469 = (v436 + 20 * v441);
+                                          v470 = v644 + 12;
+                                          v471 = *(v644 + 12 + 4 * v624);
+                                          v472 = *(v644 + 24 + 4 * v624);
+                                          v473 = (v436 + 20 * v467);
+                                          v474 = *(v644 + 12 + 4 * v403);
+                                          v475 = *(v644 + 24 + 4 * v403);
+                                          *v473 = v466;
+                                          v473[1] = v651;
+                                          v476 = 3 * v621;
+                                          v477 = 3 * v621 + 1;
+                                          v478 = 3 * v623;
+                                          v479 = 3 * v623 + 1;
+                                          v473[2] = v477;
+                                          v473[3] = v479;
+                                          *v468 = v658;
+                                          v468[1] = v466;
+                                          v480 = 3 * v707;
+                                          if (v707 == -1)
                                           {
-                                            v487 = -1;
+                                            v481 = -1;
                                           }
 
                                           else
                                           {
-                                            v487 = v486 + 1;
+                                            v481 = v480 + 1;
                                           }
 
-                                          v474[2] = v482;
-                                          v474[3] = v487;
-                                          *v475 = v472;
-                                          v475[1] = v668;
-                                          v488 = v484 + 2;
-                                          v489 = 3 * v719;
-                                          if (v719 == -1)
+                                          v468[2] = v476;
+                                          v468[3] = v481;
+                                          *v469 = v466;
+                                          v469[1] = v655;
+                                          v482 = v478 + 2;
+                                          v483 = 3 * v706;
+                                          if (v706 == -1)
                                           {
-                                            v490 = -1;
+                                            v484 = -1;
                                           }
 
                                           else
                                           {
-                                            v490 = v489 + 1;
+                                            v484 = v483 + 1;
                                           }
 
-                                          v475[2] = v488;
-                                          v475[3] = v490;
+                                          v469[2] = v482;
+                                          v469[3] = v484;
                                           if (widtha)
                                           {
-                                            *v448 = v644;
-                                            v448[1] = v472;
-                                            v448[2] = v486;
-                                            v448[3] = v489 + 2;
+                                            *v442 = v631;
+                                            v442[1] = v466;
+                                            v442[2] = v480;
+                                            v442[3] = v483 + 2;
                                           }
 
-                                          v491 = v477 / 2;
-                                          *v435 = v671;
-                                          *(v435 + 4) = v472;
-                                          v492 = 2 * v446;
-                                          *(v435 + 8) = v664;
-                                          *(v435 + 12) = 2 * v446;
-                                          v493 = 2 * v473;
-                                          *(v435 + 16) = v493;
-                                          v494 = (v442 + 20 * (v477 / 2));
-                                          if (*v494 == v664)
+                                          v485 = v471 / 2;
+                                          *v429 = v658;
+                                          *(v429 + 4) = v466;
+                                          v486 = 2 * v440;
+                                          *(v429 + 8) = v651;
+                                          *(v429 + 12) = 2 * v440;
+                                          v487 = 2 * v467;
+                                          *(v429 + 16) = v487;
+                                          v488 = (v436 + 20 * (v471 / 2));
+                                          if (*v488 == v651)
                                           {
-                                            v495 = 2 * v491;
+                                            v489 = 2 * v485;
                                             goto LABEL_565;
                                           }
 
-                                          if (v494[1] == v664)
+                                          if (v488[1] == v651)
                                           {
-                                            v495 = (2 * v491) | 1;
+                                            v489 = (2 * v485) | 1;
 LABEL_565:
-                                            *(v435 + 20) = v495;
+                                            *(v429 + 20) = v489;
                                           }
 
-                                          *(v435 + 24) = v487;
-                                          *(v435 + 28) = v485;
-                                          *(v435 + 32) = v478;
-                                          v496 = *(rectb + 5);
-                                          v497 = -1431655765 * ((v435 - v496) >> 4);
-                                          *(v435 + 36) = -1;
+                                          *(v429 + 24) = v481;
+                                          *(v429 + 28) = v479;
+                                          *(v429 + 32) = v472;
+                                          v490 = *(rectb + 5);
+                                          v491 = -1431655765 * ((v429 - v490) >> 4);
+                                          *(v429 + 36) = -1;
                                           if (rectb[14] == -1)
                                           {
-                                            rectb[14] = v497;
+                                            rectb[14] = v491;
                                           }
 
                                           else
                                           {
-                                            *(v496 + 48 * rectb[15] + 36) = v497;
+                                            *(v490 + 48 * rectb[15] + 36) = v491;
                                           }
 
-                                          rectb[15] = v497;
-                                          *(v435 + 40) = 1;
-                                          v498 = *(v657 + 41) + 1;
-                                          *(v435 + 41) = v498;
-                                          *(v435 + 42) += 1 << (16 - v498);
-                                          if (v478 != -1)
+                                          rectb[15] = v491;
+                                          *(v429 + 40) = 1;
+                                          v492 = *(v644 + 41) + 1;
+                                          *(v429 + 41) = v492;
+                                          *(v429 + 42) += 1 << (16 - v492);
+                                          if (v472 != -1)
                                           {
-                                            *(v496 + 48 * (v478 / 3) + 4 * (v478 % 3) + 24) = v482 + 2;
+                                            *(v490 + 48 * (v472 / 3) + 4 * (v472 % 3) + 24) = v476 + 2;
                                           }
 
-                                          v499 = v442 + 20 * v491;
-                                          v502 = *(v499 + 8);
-                                          v500 = (v499 + 8);
-                                          v501 = v502;
-                                          if (v502 != -1 && v501 / 3 == v646)
+                                          v493 = v436 + 20 * v485;
+                                          v496 = *(v493 + 8);
+                                          v494 = (v493 + 8);
+                                          v495 = v496;
+                                          if (v496 != -1 && v495 / 3 == v633)
                                           {
-                                            v2 = v654;
+                                            v2 = v641;
                                             goto LABEL_576;
                                           }
 
-                                          v504 = v500[1];
-                                          ++v500;
-                                          v503 = v504;
-                                          v2 = v654;
-                                          if (v504 != -1 && v503 / 3 == v646)
+                                          v498 = v494[1];
+                                          ++v494;
+                                          v497 = v498;
+                                          v2 = v641;
+                                          if (v498 != -1 && v497 / 3 == v633)
                                           {
 LABEL_576:
-                                            *v500 = v482 + 2;
+                                            *v494 = v476 + 2;
                                           }
 
-                                          v505 = v480 / 2;
-                                          *v436 = v668;
-                                          *(v436 + 4) = v664;
-                                          *(v436 + 8) = v472;
-                                          v506 = (v442 + 20 * v505);
-                                          if (*v506 == v668)
+                                          v499 = v474 / 2;
+                                          *v430 = v655;
+                                          *(v430 + 4) = v651;
+                                          *(v430 + 8) = v466;
+                                          v500 = (v436 + 20 * v499);
+                                          if (*v500 == v655)
                                           {
-                                            v507 = 2 * v505;
-                                            v508 = widtha;
+                                            v501 = 2 * v499;
+                                            v502 = widtha;
                                             goto LABEL_581;
                                           }
 
-                                          v508 = widtha;
-                                          if (v506[1] == v668)
+                                          v502 = widtha;
+                                          if (v500[1] == v655)
                                           {
-                                            v507 = (2 * v505) | 1;
+                                            v501 = (2 * v499) | 1;
 LABEL_581:
-                                            *(v436 + 12) = v507;
+                                            *(v430 + 12) = v501;
                                           }
 
-                                          v509 = 2 * v447;
-                                          *(v436 + 16) = v493 | 1;
-                                          *(v436 + 20) = v509;
-                                          *(v436 + 24) = v481;
-                                          *(v436 + 28) = v483;
-                                          v510 = -1431655765 * ((v436 - v496) >> 4);
-                                          *(v436 + 32) = v490;
-                                          *(v436 + 36) = -1;
+                                          v503 = 2 * v441;
+                                          *(v430 + 16) = v487 | 1;
+                                          *(v430 + 20) = v503;
+                                          *(v430 + 24) = v475;
+                                          *(v430 + 28) = v477;
+                                          v504 = -1431655765 * ((v430 - v490) >> 4);
+                                          *(v430 + 32) = v484;
+                                          *(v430 + 36) = -1;
                                           if (rectb[14] == -1)
                                           {
-                                            rectb[14] = v510;
+                                            rectb[14] = v504;
                                           }
 
                                           else
                                           {
-                                            *(v496 + 48 * rectb[15] + 36) = v510;
+                                            *(v490 + 48 * rectb[15] + 36) = v504;
                                           }
 
-                                          rectb[15] = v510;
-                                          *(v436 + 40) = 1;
-                                          *(v436 + 41) = *(v657 + 41) + 1;
-                                          if (v481 != -1)
+                                          rectb[15] = v504;
+                                          *(v430 + 40) = 1;
+                                          *(v430 + 41) = *(v644 + 41) + 1;
+                                          if (v475 != -1)
                                           {
-                                            *(v496 + 48 * (v481 / 3) + 4 * (v481 % 3) + 24) = v484;
+                                            *(v490 + 48 * (v475 / 3) + 4 * (v475 % 3) + 24) = v478;
                                           }
 
-                                          v511 = v442 + 20 * v505;
-                                          v514 = *(v511 + 8);
-                                          v512 = (v511 + 8);
-                                          v513 = v514;
-                                          if (v514 != -1 && v513 / 3 == v646)
+                                          v505 = v436 + 20 * v499;
+                                          v508 = *(v505 + 8);
+                                          v506 = (v505 + 8);
+                                          v507 = v508;
+                                          if (v508 != -1 && v507 / 3 == v633)
                                           {
-                                            v315 = rectb;
+                                            v309 = rectb;
                                             goto LABEL_592;
                                           }
 
-                                          v516 = v512[1];
-                                          ++v512;
-                                          v515 = v516;
-                                          v315 = rectb;
-                                          if (v516 != -1 && v515 / 3 == v646)
+                                          v510 = v506[1];
+                                          ++v506;
+                                          v509 = v510;
+                                          v309 = rectb;
+                                          if (v510 != -1 && v509 / 3 == v633)
                                           {
 LABEL_592:
-                                            *v512 = v484;
+                                            *v506 = v478;
                                           }
 
-                                          v517 = v724;
-                                          if (v724)
+                                          v511 = v711;
+                                          if (v711)
                                           {
-                                            *v724 = v644;
-                                            v517[1] = v472;
-                                            v517[2] = v671;
-                                            v517[3] = 2 * v640;
-                                            v518 = v716;
-                                            v519 = v714 + 2 * v716;
-                                            v517[4] = v492 | 1;
-                                            v517[5] = v519;
-                                            v517[6] = v489 + 2;
-                                            v517[7] = v482;
-                                            v520 = v712;
-                                            v517[8] = v712;
-                                            if (*(v508 + 40) == 1)
+                                            *v711 = v631;
+                                            v511[1] = v466;
+                                            v511[2] = v658;
+                                            v511[3] = 2 * v627;
+                                            v512 = v703;
+                                            v513 = v701 + 2 * v703;
+                                            v511[4] = v486 | 1;
+                                            v511[5] = v513;
+                                            v511[6] = v483 + 2;
+                                            v511[7] = v476;
+                                            v514 = v699;
+                                            v511[8] = v699;
+                                            if (*(v502 + 40) == 1)
                                             {
-                                              v521 = -1431655765 * ((v517 - v496) >> 4);
-                                              v517[9] = -1;
-                                              if (v315[14] == -1)
+                                              v515 = -1431655765 * ((v511 - v490) >> 4);
+                                              v511[9] = -1;
+                                              if (v309[14] == -1)
                                               {
-                                                v315[14] = v521;
+                                                v309[14] = v515;
                                               }
 
                                               else
                                               {
-                                                *(v496 + 48 * v315[15] + 36) = v521;
+                                                *(v490 + 48 * v309[15] + 36) = v515;
                                               }
 
-                                              v315[15] = v521;
-                                              v522 = 1;
+                                              v309[15] = v515;
+                                              v516 = 1;
                                             }
 
                                             else
                                             {
-                                              v522 = 0;
-                                              v517[9] = -1;
+                                              v516 = 0;
+                                              v511[9] = -1;
                                             }
 
-                                            *(v517 + 40) = v522;
-                                            *(v517 + 41) = *(v508 + 41) + 1;
-                                            if (v520 != -1)
+                                            *(v511 + 40) = v516;
+                                            *(v511 + 41) = *(v502 + 41) + 1;
+                                            if (v514 != -1)
                                             {
-                                              *(v496 + 48 * (v520 / 3) + 4 * (v520 % 3) + 24) = v486 + 2;
+                                              *(v490 + 48 * (v514 / 3) + 4 * (v514 % 3) + 24) = v480 + 2;
                                             }
 
-                                            v523 = v442 + 20 * v518;
-                                            v526 = *(v523 + 8);
-                                            v525 = (v523 + 8);
-                                            v524 = v526;
-                                            if (v526 != -1 && v524 / 3 == v652 || (v528 = v525[1], ++v525, v527 = v528, v528 != -1) && v527 / 3 == v652)
+                                            v517 = v436 + 20 * v512;
+                                            v520 = *(v517 + 8);
+                                            v519 = (v517 + 8);
+                                            v518 = v520;
+                                            if (v520 != -1 && v518 / 3 == v639 || (v522 = v519[1], ++v519, v521 = v522, v522 != -1) && v521 / 3 == v639)
                                             {
-                                              *v525 = v486 + 2;
+                                              *v519 = v480 + 2;
                                             }
                                           }
 
-                                          v529 = v723;
-                                          if (v723)
+                                          v523 = v710;
+                                          if (v710)
                                           {
-                                            *v723 = v644;
-                                            v529[1] = v668;
-                                            v530 = v715;
-                                            v531 = v713 + 2 * v715;
-                                            v529[2] = v472;
-                                            v529[3] = v531;
-                                            v529[4] = v509 | 1;
-                                            v529[5] = (2 * v640) | 1;
-                                            v532 = v711;
-                                            v529[6] = v711;
-                                            v529[7] = v488;
-                                            v529[8] = v486;
-                                            if (*(v508 + 40) == 1)
+                                            *v710 = v631;
+                                            v523[1] = v655;
+                                            v524 = v702;
+                                            v525 = v700 + 2 * v702;
+                                            v523[2] = v466;
+                                            v523[3] = v525;
+                                            v523[4] = v503 | 1;
+                                            v523[5] = (2 * v627) | 1;
+                                            v526 = v698;
+                                            v523[6] = v698;
+                                            v523[7] = v482;
+                                            v523[8] = v480;
+                                            if (*(v502 + 40) == 1)
                                             {
-                                              v533 = -1431655765 * ((v529 - v496) >> 4);
-                                              v529[9] = -1;
-                                              if (v315[14] == -1)
+                                              v527 = -1431655765 * ((v523 - v490) >> 4);
+                                              v523[9] = -1;
+                                              if (v309[14] == -1)
                                               {
-                                                v315[14] = v533;
+                                                v309[14] = v527;
                                               }
 
                                               else
                                               {
-                                                *(v496 + 48 * v315[15] + 36) = v533;
+                                                *(v490 + 48 * v309[15] + 36) = v527;
                                               }
 
-                                              v315[15] = v533;
-                                              v537 = 1;
+                                              v309[15] = v527;
+                                              v531 = 1;
                                             }
 
                                             else
                                             {
-                                              v537 = 0;
-                                              v529[9] = -1;
+                                              v531 = 0;
+                                              v523[9] = -1;
                                             }
 
-                                            *(v529 + 40) = v537;
-                                            *(v529 + 41) = *(v508 + 41) + 1;
-                                            if (v532 != -1)
+                                            *(v523 + 40) = v531;
+                                            *(v523 + 41) = *(v502 + 41) + 1;
+                                            if (v526 != -1)
                                             {
-                                              *(v496 + 48 * (v532 / 3) + 4 * (v532 % 3) + 24) = v489;
+                                              *(v490 + 48 * (v526 / 3) + 4 * (v526 % 3) + 24) = v483;
                                             }
 
-                                            v538 = v442 + 20 * v530;
-                                            v541 = *(v538 + 8);
-                                            v539 = (v538 + 8);
-                                            v540 = v541;
-                                            if (v541 != -1 && v540 / 3 == v652 || (v543 = v539[1], ++v539, v542 = v543, v543 != -1) && v542 / 3 == v652)
+                                            v532 = v436 + 20 * v524;
+                                            v535 = *(v532 + 8);
+                                            v533 = (v532 + 8);
+                                            v534 = v535;
+                                            if (v535 != -1 && v534 / 3 == v639 || (v537 = v533[1], ++v533, v536 = v537, v537 != -1) && v536 / 3 == v639)
                                             {
-                                              *v539 = v489;
+                                              *v533 = v483;
                                             }
 
 LABEL_623:
-                                            v536 = -1431655765 * ((v508 - v496) >> 4);
-                                            v544 = v315[14];
-                                            if (v544 != -1)
+                                            v530 = -1431655765 * ((v502 - v490) >> 4);
+                                            v538 = v309[14];
+                                            if (v538 != -1)
                                             {
-                                              v545 = 0xFFFFFFFFLL;
+                                              v539 = 0xFFFFFFFFLL;
                                               do
                                               {
-                                                v546 = v544;
-                                                v544 = *(v496 + 48 * v544 + 36);
-                                                if (v546 == v536)
+                                                v540 = v538;
+                                                v538 = *(v490 + 48 * v538 + 36);
+                                                if (v540 == v530)
                                                 {
-                                                  if (v545 == -1)
+                                                  if (v539 == -1)
                                                   {
-                                                    v315[14] = v544;
+                                                    v309[14] = v538;
                                                   }
 
                                                   else
                                                   {
-                                                    *(v496 + 48 * v545 + 36) = v544;
+                                                    *(v490 + 48 * v539 + 36) = v538;
                                                   }
 
-                                                  if (v315[15] == v536)
+                                                  if (v309[15] == v530)
                                                   {
-                                                    v315[15] = v545;
+                                                    v309[15] = v539;
                                                   }
 
-                                                  v546 = v545;
+                                                  v540 = v539;
                                                 }
 
-                                                v545 = v546;
+                                                v539 = v540;
                                               }
 
-                                              while (v544 != -1);
+                                              while (v538 != -1);
                                             }
 
-                                            v547 = *(v476 + 4 * v642);
-                                            v548 = v442 + 20 * (v547 / 2);
-                                            *(v548 + 16) = v315[17];
-                                            v315[17] = v547 / 2;
-                                            *v548 = 0xC0000000CLL;
-                                            *(v657 + 36) = v315[16];
-                                            v315[16] = -1431655765 * ((v657 - v496) >> 4);
-                                            *(v657 + 8) = -13;
-                                            *v657 = 0xC0000000CLL;
+                                            v541 = *(v470 + 4 * v629);
+                                            v542 = v436 + 20 * (v541 / 2);
+                                            *(v542 + 16) = v309[17];
+                                            v309[17] = v541 / 2;
+                                            *v542 = 0xC0000000CLL;
+                                            *(v644 + 36) = v309[16];
+                                            v309[16] = -1431655765 * ((v644 - v490) >> 4);
+                                            *(v644 + 8) = -13;
+                                            *v644 = 0xC0000000CLL;
                                           }
 
                                           else
                                           {
-                                            if (v508)
+                                            if (v502)
                                             {
                                               goto LABEL_623;
                                             }
 
-                                            v534 = *(v476 + 4 * v642) / 2;
-                                            v535 = v442 + 20 * v534;
-                                            *(v535 + 16) = v315[17];
-                                            v315[17] = v534;
-                                            *v535 = 0xC0000000CLL;
-                                            v536 = -1431655765 * ((v657 - v496) >> 4);
-                                            v508 = v657;
+                                            v528 = *(v470 + 4 * v629) / 2;
+                                            v529 = v436 + 20 * v528;
+                                            *(v529 + 16) = v309[17];
+                                            v309[17] = v528;
+                                            *v529 = 0xC0000000CLL;
+                                            v530 = -1431655765 * ((v644 - v490) >> 4);
+                                            v502 = v644;
                                           }
 
-                                          *(v508 + 36) = v315[16];
-                                          v315[16] = v536;
-                                          *(v508 + 8) = -13;
-                                          *v508 = 0xC0000000CLL;
+                                          *(v502 + 36) = v309[16];
+                                          v309[16] = v530;
+                                          *(v502 + 8) = -13;
+                                          *v502 = 0xC0000000CLL;
                                           continue;
                                         }
 
-                                        v397 = 0;
-                                        v398 = *(rectb + 1) + 32;
-                                        LODWORD(v364) = -1;
-                                        v399 = 0.0;
+                                        v391 = 0;
+                                        v392 = *(rectb + 1) + 32;
+                                        LODWORD(v358) = -1;
+                                        v393 = 0.0;
                                         do
                                         {
-                                          v400 = v397 + 1;
-                                          if (v397 == 2)
+                                          v394 = v391 + 1;
+                                          if (v391 == 2)
                                           {
-                                            v401 = 0;
+                                            v395 = 0;
                                           }
 
                                           else
                                           {
-                                            v401 = v397 + 1;
+                                            v395 = v391 + 1;
                                           }
 
                                           if (*rectb)
                                           {
-                                            v402 = (v398 + 72 * v352[v401]);
-                                            v403 = (v398 + 72 * v352[v397]);
-                                            v404 = *rectb;
+                                            v396 = (v392 + 72 * v346[v395]);
+                                            v397 = (v392 + 72 * v346[v391]);
+                                            v398 = *rectb;
                                             do
                                             {
-                                              v405 = *v403++;
-                                              v406 = v405;
-                                              v407 = *v402++;
-                                              v408 = v406 - v407;
-                                              if (v408 < 0.0)
+                                              v399 = *v397++;
+                                              v400 = v399;
+                                              v401 = *v396++;
+                                              v402 = v400 - v401;
+                                              if (v402 < 0.0)
                                               {
-                                                v408 = -v408;
+                                                v402 = -v402;
                                               }
 
-                                              if (v408 >= v399)
+                                              if (v402 >= v393)
                                               {
-                                                LODWORD(v364) = v397;
-                                                v399 = v408;
+                                                LODWORD(v358) = v391;
+                                                v393 = v402;
                                               }
 
-                                              --v404;
+                                              --v398;
                                             }
 
-                                            while (v404);
+                                            while (v398);
                                           }
 
-                                          ++v397;
+                                          ++v391;
                                         }
 
-                                        while (v400 != 3);
-                                        if (v364 != -1 && v399 > 0.1)
+                                        while (v394 != 3);
+                                        if (v358 != -1 && v393 > 0.1)
                                         {
                                           goto LABEL_506;
                                         }
@@ -9859,69 +9861,56 @@ LABEL_623:
                                     }
 
 LABEL_510:
-                                    *(v352 + 40) = 0;
-                                    v315 = rectb;
+                                    *(v346 + 40) = 0;
+                                    v309 = rectb;
                                   }
 
-                                  v549 = v315[12];
-                                  if (v549)
+                                  v543 = v309[12];
+                                  if (v543)
                                   {
-                                    LODWORD(v550) = 0;
-                                    v551 = *(v315 + 5);
+                                    LODWORD(v544) = 0;
+                                    v545 = *(v309 + 5);
                                     do
                                     {
-                                      v552 = *v551;
-                                      v551 += 12;
-                                      if (v552 == -13)
+                                      v546 = *v545;
+                                      v545 += 12;
+                                      if (v546 == -13)
                                       {
-                                        v550 = v550;
+                                        v544 = v544;
                                       }
 
                                       else
                                       {
-                                        v550 = (v550 + 1);
+                                        v544 = (v544 + 1);
                                       }
 
-                                      --v549;
+                                      --v543;
                                     }
 
-                                    while (v549);
-                                    v653 = v550;
-                                    v658 = malloc_type_malloc(8 * v550, 0x2004093837F09uLL);
-                                    if (v658)
+                                    while (v543);
+                                    v640 = v544;
+                                    v645 = malloc_type_malloc(8 * v544, 0x2004093837F09uLL);
+                                    if (v645)
                                     {
-                                      v553 = v315[12];
-                                      if (v553)
+                                      v547 = v309[12];
+                                      if (v547)
                                       {
-                                        v554 = 0;
-                                        v555 = *(v315 + 5);
+                                        v548 = 0;
+                                        v549 = *(v309 + 5);
                                         do
                                         {
-                                          if (*v555 != -13)
+                                          if (*v549 != -13)
                                           {
-                                            v658[v554++] = v555;
+                                            v645[v548++] = v549;
                                           }
 
-                                          v555 += 12;
-                                          --v553;
+                                          v549 += 12;
+                                          --v547;
                                         }
 
-                                        while (v553);
+                                        while (v547);
                                       }
 
-                                      v779 = 0uLL;
-                                      v778 = 0uLL;
-                                      v777 = 0uLL;
-                                      v776 = 0uLL;
-                                      v775 = 0uLL;
-                                      v774 = 0uLL;
-                                      v773 = 0uLL;
-                                      v772 = 0uLL;
-                                      v771 = 0uLL;
-                                      v770 = 0uLL;
-                                      v769 = 0uLL;
-                                      v768 = 0uLL;
-                                      v767 = 0uLL;
                                       v766 = 0uLL;
                                       v765 = 0uLL;
                                       v764 = 0uLL;
@@ -9938,41 +9927,54 @@ LABEL_510:
                                       v753 = 0uLL;
                                       v752 = 0uLL;
                                       v751 = 0uLL;
-                                      v665 = &v658[v653];
+                                      v750 = 0uLL;
+                                      v749 = 0uLL;
+                                      v748 = 0uLL;
+                                      v747 = 0uLL;
+                                      v746 = 0uLL;
+                                      v745 = 0uLL;
+                                      v744 = 0uLL;
+                                      v743 = 0uLL;
+                                      v742 = 0uLL;
+                                      v741 = 0uLL;
+                                      v740 = 0uLL;
+                                      v739 = 0uLL;
+                                      v738 = 0uLL;
+                                      v652 = &v645[v640];
                                       memset(&__src, 0, sizeof(__src));
-                                      if (v653 >= 0xB)
+                                      if (v640 >= 0xB)
                                       {
-                                        v594 = v665 - 1;
-                                        v662 = &__src;
-                                        tx = *&v658;
+                                        v581 = v652 - 1;
+                                        v649 = &__src;
+                                        tx = *&v645;
 LABEL_679:
                                         while (2)
                                         {
-                                          v669 = (*&tx + 16);
-                                          v596 = v594;
+                                          v656 = (*&tx + 16);
+                                          v583 = v581;
                                           widthb = tx;
                                           while (1)
                                           {
                                             while (1)
                                             {
-                                              v597 = (4 * (((v596 - *&tx) >> 3) + ((v596 - *&tx) >> 63))) & 0xFFFFFFFFFFFFFFF8;
-                                              v598 = *(*&tx + 8);
-                                              *(*&tx + 8) = *(*&tx + v597);
-                                              *(*&tx + v597) = v598;
-                                              v599 = *(v315 + 1);
-                                              v600 = **&tx;
-                                              v601 = *(*&tx + 8);
-                                              v602 = TriangleGreater(v599, **&tx, v601);
-                                              v603 = *v596;
-                                              if (v602)
+                                              v584 = (4 * (((v583 - *&tx) >> 3) + ((v583 - *&tx) >> 63))) & 0xFFFFFFFFFFFFFFF8;
+                                              v585 = *(*&tx + 8);
+                                              *(*&tx + 8) = *(*&tx + v584);
+                                              *(*&tx + v584) = v585;
+                                              v586 = *(v309 + 1);
+                                              v587 = **&tx;
+                                              v588 = *(*&tx + 8);
+                                              v589 = TriangleGreater(v586, **&tx, v588);
+                                              v590 = *v583;
+                                              if (v589)
                                               {
-                                                if (TriangleGreater(v599, *v596, v601))
+                                                if (TriangleGreater(v586, *v583, v588))
                                                 {
-                                                  if (TriangleGreater(v599, v600, v603))
+                                                  if (TriangleGreater(v586, v587, v590))
                                                   {
-                                                    *v596 = v600;
+                                                    *v583 = v587;
                                                     **&tx = *(*&tx + 8);
-                                                    *(*&tx + 8) = v603;
+                                                    *(*&tx + 8) = v590;
                                                   }
 
                                                   else
@@ -9983,113 +9985,113 @@ LABEL_679:
 
                                                 else
                                                 {
-                                                  *v596 = v600;
-                                                  **&tx = v603;
+                                                  *v583 = v587;
+                                                  **&tx = v590;
                                                 }
                                               }
 
-                                              else if (TriangleGreater(v599, v601, *v596))
+                                              else if (TriangleGreater(v586, v588, *v583))
                                               {
-                                                if (TriangleGreater(v599, v600, v603))
+                                                if (TriangleGreater(v586, v587, v590))
                                                 {
-                                                  **&tx = v603;
-                                                  *v596 = v600;
-                                                  *v596 = *(*&tx + 8);
-                                                  *(*&tx + 8) = v600;
+                                                  **&tx = v590;
+                                                  *v583 = v587;
+                                                  *v583 = *(*&tx + 8);
+                                                  *(*&tx + 8) = v587;
                                                 }
 
                                                 else
                                                 {
-                                                  *(*&tx + 8) = v603;
-                                                  *v596 = v601;
+                                                  *(*&tx + 8) = v590;
+                                                  *v583 = v588;
                                                 }
                                               }
 
-                                              v604 = v669;
-                                              v672 = v596;
+                                              v591 = v656;
+                                              v659 = v583;
                                               while (1)
                                               {
-                                                v605 = *(rectb + 1);
-                                                v606 = *(*&widthb + 8);
+                                                v592 = *(rectb + 1);
+                                                v593 = *(*&widthb + 8);
                                                 do
                                                 {
-                                                  v607 = v604;
-                                                  v609 = *v604++;
-                                                  v608 = v609;
+                                                  v594 = v591;
+                                                  v596 = *v591++;
+                                                  v595 = v596;
                                                 }
 
-                                                while (TriangleGreater(v605, v606, v609));
+                                                while (TriangleGreater(v592, v593, v596));
                                                 do
                                                 {
-                                                  v610 = v596;
-                                                  v612 = *--v596;
-                                                  v611 = v612;
+                                                  v597 = v583;
+                                                  v599 = *--v583;
+                                                  v598 = v599;
                                                 }
 
-                                                while (TriangleGreater(v605, v612, v606));
-                                                if (v596 < v604)
+                                                while (TriangleGreater(v592, v599, v593));
+                                                if (v583 < v591)
                                                 {
                                                   break;
                                                 }
 
-                                                *v607 = v611;
-                                                *v596 = v608;
+                                                *v594 = v598;
+                                                *v583 = v595;
                                               }
 
                                               tx = widthb;
-                                              *(*&widthb + 8) = v611;
-                                              *v596 = v606;
-                                              v613 = (v596 - *&widthb) >> 3;
-                                              v594 = v672;
-                                              v614 = (v672 - v607 + 8) >> 3;
-                                              v596 = v610 - 2;
-                                              if (v613 <= v614)
+                                              *(*&widthb + 8) = v598;
+                                              *v583 = v593;
+                                              v600 = (v583 - *&widthb) >> 3;
+                                              v581 = v659;
+                                              v601 = (v659 - v594 + 8) >> 3;
+                                              v583 = v597 - 2;
+                                              if (v600 <= v601)
                                               {
                                                 break;
                                               }
 
-                                              v8 = v666;
-                                              v315 = rectb;
-                                              if (v613 <= 10)
+                                              v8 = v653;
+                                              v309 = rectb;
+                                              if (v600 <= 10)
                                               {
                                                 goto LABEL_703;
                                               }
 
-                                              if (v614 >= 11)
+                                              if (v601 >= 11)
                                               {
-                                                v662->a = widthb;
-                                                *&v662->b = v596;
-                                                tx = *&v607;
-                                                v662 = (v662 + 16);
+                                                v649->a = widthb;
+                                                *&v649->b = v583;
+                                                tx = *&v594;
+                                                v649 = (v649 + 16);
                                                 goto LABEL_679;
                                               }
                                             }
 
-                                            v8 = v666;
-                                            v315 = rectb;
-                                            if (v614 <= 10)
+                                            v8 = v653;
+                                            v309 = rectb;
+                                            if (v601 <= 10)
                                             {
                                               break;
                                             }
 
-                                            if (v613 < 11)
+                                            if (v600 < 11)
                                             {
-                                              tx = *&v607;
+                                              tx = *&v594;
                                               goto LABEL_679;
                                             }
 
-                                            *&v662->a = v607;
-                                            *&v662->b = v672;
-                                            v662 = (v662 + 16);
+                                            *&v649->a = v594;
+                                            *&v649->b = v659;
+                                            v649 = (v649 + 16);
                                           }
 
 LABEL_703:
-                                          v615 = v662;
-                                          if (v662 != &__src)
+                                          v602 = v649;
+                                          if (v649 != &__src)
                                           {
-                                            tx = v662[-1].tx;
-                                            v662 = (v662 - 16);
-                                            v594 = *&v615[-1].ty;
+                                            tx = v649[-1].tx;
+                                            v649 = (v649 - 16);
+                                            v581 = *&v602[-1].ty;
                                             continue;
                                           }
 
@@ -10097,230 +10099,230 @@ LABEL_703:
                                         }
                                       }
 
-                                      v556 = (v665 - 1);
-                                      v2 = v654;
-                                      if (v665 - 1 > v658)
+                                      v550 = (v652 - 1);
+                                      v2 = v641;
+                                      if (v652 - 1 > v645)
                                       {
-                                        v557 = -8;
+                                        v551 = -8;
                                         do
                                         {
-                                          v558 = v557;
-                                          v559 = v556;
-                                          v557 -= 8;
-                                          v561 = *(v556 - 8);
-                                          v556 -= 8;
-                                          v560 = v561;
-                                          v562 = *(rectb + 1);
-                                          while (TriangleGreater(v562, v560, *(v665 + v558)))
+                                          v552 = v551;
+                                          v553 = v550;
+                                          v551 -= 8;
+                                          v555 = *(v550 - 8);
+                                          v550 -= 8;
+                                          v554 = v555;
+                                          v556 = *(rectb + 1);
+                                          while (TriangleGreater(v556, v554, *(v652 + v552)))
                                           {
-                                            v235 = v558 <= -16;
-                                            v558 += 8;
-                                            if (!v235)
+                                            v229 = v552 <= -16;
+                                            v552 += 8;
+                                            if (!v229)
                                             {
-                                              v563 = &v658[v653];
+                                              v557 = &v645[v640];
                                               goto LABEL_655;
                                             }
                                           }
 
-                                          v563 = v665 + v558;
+                                          v557 = v652 + v552;
 LABEL_655:
-                                          if (v556 != v563 - 8)
+                                          if (v550 != v557 - 8)
                                           {
-                                            if (v559 < v563)
+                                            if (v553 < v557)
                                             {
-                                              v564 = 0;
+                                              v558 = 0;
                                               do
                                               {
-                                                v565 = v559 + v564;
-                                                *(v565 - 8) = *(v559 + v564);
-                                                v564 += 8;
+                                                v559 = v553 + v558;
+                                                *(v559 - 8) = *(v553 + v558);
+                                                v558 += 8;
                                               }
 
-                                              while (v565 + 8 < v563);
+                                              while (v559 + 8 < v557);
                                             }
 
-                                            *(v563 - 8) = v560;
+                                            *(v557 - 8) = v554;
                                           }
                                         }
 
-                                        while (v556 > v658);
+                                        while (v550 > v645);
                                       }
 
-                                      v566 = malloc_type_malloc(0x28uLL, 0x102004050851865uLL);
-                                      if (v566)
+                                      v560 = malloc_type_malloc(0x28uLL, 0x102004050851865uLL);
+                                      if (v560)
                                       {
-                                        v567 = v566;
-                                        *v566 = *rectb;
-                                        v566[4] = rectb[4];
-                                        v566[8] = v653;
-                                        v568 = malloc_type_malloc(16 * v653, 0x1000040451B5BE8uLL);
-                                        if (v568)
+                                        v561 = v560;
+                                        *v560 = *rectb;
+                                        v560[4] = rectb[4];
+                                        v560[8] = v640;
+                                        v562 = malloc_type_malloc(16 * v640, 0x1000040451B5BE8uLL);
+                                        if (v562)
                                         {
-                                          v569 = v568;
-                                          *(v567 + 3) = v568;
-                                          if (v653)
+                                          v563 = v562;
+                                          *(v561 + 3) = v562;
+                                          if (v640)
                                           {
-                                            v570 = 0;
-                                            v571 = v568;
+                                            v564 = 0;
+                                            v565 = v562;
                                             do
                                             {
-                                              v572 = 0;
-                                              v573 = v658[v570];
-                                              v571[3] = 0;
+                                              v566 = 0;
+                                              v567 = v645[v564];
+                                              v565[3] = 0;
                                               do
                                               {
-                                                v574 = &v573[v572];
-                                                v571[v572] = *v574;
-                                                if (v574[6] == -1)
+                                                v568 = &v567[v566];
+                                                v565[v566] = *v568;
+                                                if (v568[6] == -1)
                                                 {
-                                                  v571[3] |= 1 << v572;
+                                                  v565[3] |= 1 << v566;
                                                 }
 
-                                                ++v572;
+                                                ++v566;
                                               }
 
-                                              while (v572 != 3);
-                                              ++v570;
-                                              v571 += 4;
+                                              while (v566 != 3);
+                                              ++v564;
+                                              v565 += 4;
                                             }
 
-                                            while (v570 != v653);
+                                            while (v564 != v640);
                                           }
 
-                                          v575 = malloc_type_malloc(72 * rectb[4], 0x1000040FF89C88EuLL);
-                                          if (v575)
+                                          v569 = malloc_type_malloc(72 * rectb[4], 0x1000040FF89C88EuLL);
+                                          if (v569)
                                           {
-                                            *(v567 + 1) = v575;
-                                            v315 = rectb;
+                                            *(v561 + 1) = v569;
+                                            v309 = rectb;
                                             if (rectb[4])
                                             {
-                                              v576 = 0;
-                                              v577 = *(rectb + 1);
+                                              v570 = 0;
+                                              v571 = *(rectb + 1);
                                               do
                                               {
-                                                *v575 = *v577;
-                                                v578 = *(v577 + 16);
-                                                v579 = *(v577 + 32);
-                                                v580 = *(v577 + 48);
-                                                v575[8] = *(v577 + 64);
-                                                *(v575 + 2) = v579;
-                                                *(v575 + 3) = v580;
-                                                *(v575 + 1) = v578;
-                                                ++v576;
-                                                v575 += 9;
-                                                v577 += 72;
+                                                *v569 = *v571;
+                                                v572 = *(v571 + 16);
+                                                v573 = *(v571 + 32);
+                                                v574 = *(v571 + 48);
+                                                v569[8] = *(v571 + 64);
+                                                *(v569 + 2) = v573;
+                                                *(v569 + 3) = v574;
+                                                *(v569 + 1) = v572;
+                                                ++v570;
+                                                v569 += 9;
+                                                v571 += 72;
                                               }
 
-                                              while (v576 < rectb[4]);
+                                              while (v570 < rectb[4]);
                                             }
 
-                                            free(v658);
-                                            if (RenderTriangleMesh(*(v567 + 1), v567[4], *(v567 + 3), v567[8], v629, &v709, &v710.origin.x))
+                                            free(v645);
+                                            if (RenderTriangleMesh(*(v561 + 1), v561[4], *(v561 + 3), v561[8], v616, &v696, &v697.origin.x))
                                             {
-                                              CGContextSaveGState(v654);
-                                              CGContextResetCTM(v654, v581, v582, v583, v584, v585, v586, v587);
-                                              v588 = v710.size.width;
-                                              v589 = v710.size.height;
-                                              v590 = v710.origin.x;
-                                              v591 = v710.origin.y;
-                                              if (v710.size.width < 0.0 || v710.size.height < 0.0)
+                                              CGContextSaveGState(v641);
+                                              CGContextResetCTM(v641);
+                                              v575 = v697.size.width;
+                                              v576 = v697.size.height;
+                                              v577 = v697.origin.x;
+                                              v578 = v697.origin.y;
+                                              if (v697.size.width < 0.0 || v697.size.height < 0.0)
                                               {
-                                                v787 = CGRectStandardize(v710);
-                                                v592 = v787.size.width;
-                                                v787.origin.x = v590;
-                                                v787.origin.y = v591;
-                                                v787.size.width = v588;
-                                                v787.size.height = v589;
-                                                *(&v593 - 3) = CGRectStandardize(v787);
+                                                v774 = CGRectStandardize(v697);
+                                                v579 = v774.size.width;
+                                                v774.origin.x = v577;
+                                                v774.origin.y = v578;
+                                                v774.size.width = v575;
+                                                v774.size.height = v576;
+                                                *(&v580 - 3) = CGRectStandardize(v774);
                                               }
 
                                               else
                                               {
-                                                v592 = v710.size.width;
-                                                v593 = v710.size.height;
+                                                v579 = v697.size.width;
+                                                v580 = v697.size.height;
                                               }
 
-                                              widthd = v592;
-                                              v617 = v593;
-                                              v618 = (v625 * v592) >> 3;
-                                              v619 = v709;
-                                              v620 = v618 * v593;
-                                              check_clients_buffer("CGDataProviderCreateWithData", v709, v620);
-                                              v621 = CGDataProviderCreateWithDataInternal(0, v619, v620, patch_data_release_20716, 0);
-                                              v622 = CGImageCreate(widthd, v617, 8uLL, v625, v618, *(v649 + 24), 3u, v621, 0, 0, kCGRenderingIntentDefault);
-                                              CGDataProviderRelease(v621);
-                                              CGImageSetCachingFlags(v622, 1);
-                                              v788.origin.x = v590;
-                                              v788.origin.y = v591;
-                                              v788.size.width = v588;
-                                              v788.size.height = v589;
-                                              CGContextDrawImage(v654, v788, v622);
-                                              CGContextRestoreGState(v654);
-                                              if (v622)
+                                              widthd = v579;
+                                              v604 = v580;
+                                              v605 = (v612 * v579) >> 3;
+                                              v606 = v696;
+                                              v607 = v605 * v580;
+                                              check_clients_buffer("CGDataProviderCreateWithData", v696, v607);
+                                              v608 = CGDataProviderCreateWithDataInternal(0, v606, v607, patch_data_release_20716, 0);
+                                              v609 = CGImageCreate(widthd, v604, 8uLL, v612, v605, *(v636 + 24), 3u, v608, 0, 0, kCGRenderingIntentDefault);
+                                              CGDataProviderRelease(v608);
+                                              CGImageSetCachingFlags(v609, 1);
+                                              v775.origin.x = v577;
+                                              v775.origin.y = v578;
+                                              v775.size.width = v575;
+                                              v775.size.height = v576;
+                                              CGContextDrawImage(v641, v775, v609);
+                                              CGContextRestoreGState(v641);
+                                              if (v609)
                                               {
-                                                CFRelease(v622);
+                                                CFRelease(v609);
                                               }
 
-                                              v623 = *(v567 + 1);
-                                              v315 = rectb;
-                                              if (v623)
+                                              v610 = *(v561 + 1);
+                                              v309 = rectb;
+                                              if (v610)
                                               {
-                                                free(v623);
+                                                free(v610);
                                               }
 
-                                              v624 = *(v567 + 3);
-                                              if (v624)
+                                              v611 = *(v561 + 3);
+                                              if (v611)
                                               {
-                                                free(v624);
+                                                free(v611);
                                               }
 
-                                              free(v567);
+                                              free(v561);
                                             }
                                           }
 
                                           else
                                           {
-                                            free(v658);
-                                            free(v567);
-                                            free(v569);
-                                            v315 = rectb;
+                                            free(v645);
+                                            free(v561);
+                                            free(v563);
+                                            v309 = rectb;
                                           }
 
                                           goto LABEL_709;
                                         }
 
-                                        free(v658);
-                                        v616 = v567;
+                                        free(v645);
+                                        v603 = v561;
                                       }
 
                                       else
                                       {
-                                        v616 = v658;
+                                        v603 = v645;
                                       }
 
-                                      free(v616);
-                                      v315 = rectb;
+                                      free(v603);
+                                      v309 = rectb;
                                     }
                                   }
 
 LABEL_709:
-                                  CoonsMeshFree(v315);
-                                  v5 = v628;
+                                  CoonsMeshFree(v309);
+                                  v5 = v615;
                                   goto LABEL_710;
                                 }
                               }
                             }
 
-                            CoonsMeshFree(v254);
+                            CoonsMeshFree(v248);
                           }
 
-                          free(v643);
+                          free(v630);
                         }
 
-                        free(v645);
+                        free(v632);
                       }
 
-                      v315 = 0;
+                      v309 = 0;
                       goto LABEL_464;
                     }
                   }
@@ -10334,7 +10336,7 @@ LABEL_710:
             goto LABEL_711;
           }
 
-          v183 = malloc_type_malloc(v647 + 8, 0x100004000313F17uLL);
+          v183 = malloc_type_malloc(v634 + 8, 0x100004000313F17uLL);
           v184 = v183;
           if (v5)
           {
@@ -10350,7 +10352,7 @@ LABEL_710:
               {
                 v187 = v187 + *v188;
                 v183[v185] = v187;
-                v188 = (v188 + v647);
+                v188 = (v188 + v634);
                 --v189;
               }
 
@@ -10365,10 +10367,10 @@ LABEL_710:
           v183[v5] = 1.0;
           CGContextSetFillColor(v2, v183);
           CGContextMoveToPoint(v2, x, y);
-          CGContextAddCurveToPoint(v2, cp1x, cp1y, cp2x, cp2y, v731, v732);
-          CGContextAddCurveToPoint(v2, v733, v734, v735, v736, v737, v738);
-          CGContextAddCurveToPoint(v2, v739, v740, v741, v742, v743, v744);
-          CGContextAddCurveToPoint(v2, v745, v746, v747, v748, x, y);
+          CGContextAddCurveToPoint(v2, cp1x, cp1y, cp2x, cp2y, v718, v719);
+          CGContextAddCurveToPoint(v2, v720, v721, v722, v723, v724, v725);
+          CGContextAddCurveToPoint(v2, v726, v727, v728, v729, v730, v731);
+          CGContextAddCurveToPoint(v2, v732, v733, v734, v735, x, y);
           CGContextDrawPath(v2, kCGPathFill);
           for (k = 0; k != 4; ++k)
           {
@@ -10420,22 +10422,22 @@ LABEL_710:
               CGContextAddCurveToPoint(v2, v194[2], v194[3], v194[4], v194[5], v200, v199);
             }
 
-            CGContextSetCTM(v2, &CGAffineTransformIdentity, v204, v205, v206, v207, v208, v209);
+            CGContextSetCTM(v2, &CGAffineTransformIdentity);
             CGContextDrawPath(v2, kCGPathStroke);
             CGContextRestoreGState(v2);
           }
 
           free(v184);
 LABEL_711:
-          BytePtr = v659;
-          v17 = v648;
+          BytePtr = v646;
+          v17 = v635;
         }
 
-        while (v15 || v659 != v648);
+        while (v15 || v646 != v635);
 LABEL_724:
         v11 = 0;
-        v7 = v649;
-        if ((v650 & 1) == 0)
+        v7 = v636;
+        if ((v637 & 1) == 0)
         {
           free(v8);
           return;

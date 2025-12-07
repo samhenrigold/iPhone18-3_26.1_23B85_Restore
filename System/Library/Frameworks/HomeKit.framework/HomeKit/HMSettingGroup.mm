@@ -306,7 +306,7 @@ uint64_t __42__HMSettingGroup_settingGroupWithKeyPath___block_invoke(uint64_t a1
 
 void __58__HMSettingGroup_initWithIdentifier_name_groups_settings___block_invoke(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -324,20 +324,18 @@ void __58__HMSettingGroup_initWithIdentifier_name_groups_settings___block_invoke
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unexpected type found while decoding group", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unexpected type found while decoding group", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 void __58__HMSettingGroup_initWithIdentifier_name_groups_settings___block_invoke_3(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v3 = a2;
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
@@ -355,15 +353,13 @@ void __58__HMSettingGroup_initWithIdentifier_name_groups_settings___block_invoke
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       v8 = HMFGetLogIdentifier();
-      v10 = 138543362;
-      v11 = v8;
-      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unexpected type found while decoding setting", &v10, 0xCu);
+      v9 = 138543362;
+      v10 = v8;
+      _os_log_impl(&dword_19BB39000, v7, OS_LOG_TYPE_ERROR, "%{public}@Unexpected type found while decoding setting", &v9, 0xCu);
     }
 
     objc_autoreleasePoolPop(v5);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 @end

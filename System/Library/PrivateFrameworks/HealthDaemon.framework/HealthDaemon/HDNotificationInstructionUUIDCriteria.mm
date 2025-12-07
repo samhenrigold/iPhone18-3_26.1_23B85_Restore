@@ -20,7 +20,7 @@
   v5 = [(HDNotificationInstructionUUIDCriteria *)&v9 init];
   if (v5)
   {
-    v6 = [dCopy copy];
+    v6 = objc_msgSend_copy(dCopy);
     UUID = v5->_UUID;
     v5->_UUID = v6;
   }
@@ -119,13 +119,11 @@ LABEL_7:
 
 - (id)messageDictionary
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"UUID";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"UUID";
   uUIDString = [(NSUUID *)self->_UUID UUIDString];
-  v7[0] = uUIDString;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = uUIDString;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

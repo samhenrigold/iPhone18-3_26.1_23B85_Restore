@@ -51,7 +51,7 @@ NSString *___NSInflect_block_invoke_2(uint64_t a1)
   return v2;
 }
 
-void ___NSInflect_block_invoke_3(uint64_t a1, NSInflectionRule *a2, NSUInteger a3, uint64_t a4)
+void ___NSInflect_block_invoke_3(uint64_t a1, NSInflectionRule *a2, NSUInteger a3, char *a4)
 {
   v253 = *MEMORY[0x1E69E9840];
   if (!a2)
@@ -71,7 +71,7 @@ void ___NSInflect_block_invoke_3(uint64_t a1, NSInflectionRule *a2, NSUInteger a
   if (v9)
   {
     v10 = *v250;
-    v11 = a3 + a4;
+    v11 = &a4[a3];
     do
     {
       for (i = 0; i != v9; ++i)
@@ -85,12 +85,12 @@ void ___NSInflect_block_invoke_3(uint64_t a1, NSInflectionRule *a2, NSUInteger a
         v14 = [v13 replacementRangeInResult];
         if (v14 + v15 >= v11)
         {
-          v16 = a3 + a4;
+          v16 = &a4[a3];
         }
 
         else
         {
-          v16 = v14 + v15;
+          v16 = (v14 + v15);
         }
 
         if (a3 > v14 || v14 >= v11)
@@ -500,7 +500,7 @@ LABEL_138:
         }
 
         v38 = (*(*(v169 + 80) + 16))();
-        v39 = v36 - v37;
+        v39 = (v36 - v37);
         v40 = (*(*(v169 + 80) + 16))();
         v213 = 0;
         v207 = 0;
@@ -531,7 +531,8 @@ LABEL_138:
           v44 = v207;
           if (v213)
           {
-            v161 = [v38 isEqualToString:{objc_msgSend(v38, "lowercaseStringWithLocale:", v30)}] ^ 1;
+            [v38 lowercaseStringWithLocale:v30];
+            v161 = objc_msgSend_isEqualToString_(v38) ^ 1;
           }
 
           else
@@ -540,7 +541,7 @@ LABEL_138:
           }
 
           v162 = v43 + a3;
-          v49 = a4 - (v43 + v44);
+          v49 = &a4[-v43 - v44];
           if ([v7 count] == 1 && v49 == v39)
           {
             [v7 removeAllObjects];
@@ -813,7 +814,7 @@ LABEL_201:
                   v95 = *(*(&v231 + 1) + 8 * k);
                   v96 = [v95 replacementRangeInResult];
                   v98 = v97;
-                  if ([v95 replacementKind] != 2 && a3 <= v96 && a3 + a4 >= v96 + v98)
+                  if ([v95 replacementKind] != 2 && a3 <= v96 && &a4[a3] >= v96 + v98)
                   {
                     v172(v171, v95);
                   }
@@ -1315,7 +1316,7 @@ LABEL_38:
   [*(v22 + 48) addObject:{+[NSValue valueWithRange:](NSValue, "valueWithRange:", a3, a4)}];
 }
 
-uint64_t ___NSInflect_block_invoke_24(void *a1, void *a2, uint64_t a3)
+uint64_t ___NSInflect_block_invoke_24(void *a1, void *a2, void *a3)
 {
   v27 = *MEMORY[0x1E69E9840];
   if (![a2 count])
@@ -1570,7 +1571,7 @@ void *___NSInflect_block_invoke_41(void *result, void *a2, uint64_t a3, uint64_t
   if (a2)
   {
     v10 = result;
-    result = [a2 capitalizedStringWithLocale:result[4]];
+    result = [a2 capitalizedStringWithLocale:{result[4], a4, a5, a6}];
     *(*(v10[5] + 8) + 40) = result;
     v11 = *(v10[6] + 8);
     *(v11 + 32) = a3;
@@ -1595,7 +1596,7 @@ void ___NSInflect_block_invoke_43(void *a1, void *a2, uint64_t a3, uint64_t a4, 
     v11 = [a2 _formattedString:v10 withStringLocale:objc_msgSend(MEMORY[0x1E695DF58] andDisplayLocale:{"localeWithLocaleIdentifier:", (*(a1[8] + 16))()), a1[4]}];
     if (v11)
     {
-      if (([v11 isEqualToString:v10] & 1) == 0)
+      if ((objc_msgSend_isEqualToString_(v11) & 1) == 0)
       {
         (*(a1[9] + 16))();
         (*(a1[10] + 16))();

@@ -35,13 +35,14 @@
 - (void)viewDidLoad
 {
   selfCopy = self;
-  sub_24E122FDC();
+  sub_24E122FDC(selfCopy, v2);
 }
 
 - (void)viewDidAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_24E1232FC(appear);
+  sub_24E1232FC(appearCopy, v4);
 }
 
 - (void)viewWillDisappear:(BOOL)disappear
@@ -53,14 +54,14 @@
 - (void)viewDidLayoutSubviews
 {
   selfCopy = self;
-  sub_24E12358C();
+  sub_24E12358C(selfCopy, v2);
 }
 
 - (void)traitCollectionDidChange:(id)change
 {
   changeCopy = change;
   selfCopy = self;
-  sub_24E123690(change);
+  sub_24E123690(change, v6);
 }
 
 @end

@@ -112,27 +112,28 @@ LABEL_14:
 
   if (var2)
   {
-    v15 = MAPSGetMapsAssertLog();
+    v15 = MAPSGetMapsAssertLog(v11);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
-      v20 = 136315650;
-      v21 = "+[RoutePlanningTiming timingWithTimePoint:departureTimeZone:arrivalTimeZone:]";
-      v22 = 2080;
-      v23 = "RoutePlanningTiming.m";
-      v24 = 1024;
-      v25 = 65;
-      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion reached unexpectedly!", &v20, 0x1Cu);
+      v21 = 136315650;
+      v22 = "+[RoutePlanningTiming timingWithTimePoint:departureTimeZone:arrivalTimeZone:]";
+      v23 = 2080;
+      v24 = "RoutePlanningTiming.m";
+      v25 = 1024;
+      v26 = 65;
+      _os_log_impl(&dword_0, v15, OS_LOG_TYPE_ERROR, "%s [%s:%d] Assertion reached unexpectedly!", &v21, 0x1Cu);
     }
 
-    if (_isInternalInstall())
+    v16 = _isInternalInstall();
+    if (v16)
     {
-      v16 = MAPSGetMapsAssertLog();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = MAPSGetMapsAssertLog(v16);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v17 = +[NSThread callStackSymbols];
-        v20 = 138412290;
-        v21 = v17;
-        _os_log_impl(&dword_0, v16, OS_LOG_TYPE_ERROR, "%@", &v20, 0xCu);
+        v18 = +[NSThread callStackSymbols];
+        v21 = 138412290;
+        v22 = v18;
+        _os_log_impl(&dword_0, v17, OS_LOG_TYPE_ERROR, "%@", &v21, 0xCu);
       }
     }
 
@@ -145,9 +146,9 @@ LABEL_14:
 LABEL_15:
 
 LABEL_16:
-  v18 = [[self alloc] initWithDepartureDate:v13 arrivalDate:v14 departureTimeZone:zoneCopy arrivalTimeZone:timeZoneCopy];
+  v19 = [[self alloc] initWithDepartureDate:v13 arrivalDate:v14 departureTimeZone:zoneCopy arrivalTimeZone:timeZoneCopy];
 
-  return v18;
+  return v19;
 }
 
 - (NSTimeZone)bestTimeZone

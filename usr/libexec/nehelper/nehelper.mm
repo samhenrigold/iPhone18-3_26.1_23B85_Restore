@@ -40,9 +40,9 @@ void sub_100001530(uint64_t a1, void *a2)
   }
 }
 
-void sub_100001698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100001698(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -67,7 +67,7 @@ id sub_1000016DC()
   return v0;
 }
 
-void sub_100001D9C(uint64_t a1, void *a2, void *a3)
+void sub_100001D9C(void *a1, void *a2, void *a3)
 {
   v5 = a2;
   v6 = a3;
@@ -78,11 +78,11 @@ void sub_100001D9C(uint64_t a1, void *a2, void *a3)
     {
 LABEL_3:
 
-      sub_10000BA0C(NEHelperServer, *(a1 + 40), 2, 0);
+      sub_10000BA0C(NEHelperServer, a1[5], 2, 0);
       goto LABEL_4;
     }
 
-    v41 = *(a1 + 32);
+    v41 = a1[4];
     *buf = 138412546;
     v84 = v41;
     v85 = 2112;
@@ -105,14 +105,14 @@ LABEL_45:
       goto LABEL_3;
     }
 
-    v21 = *(a1 + 32);
+    v21 = a1[4];
     *buf = 138412290;
     v84 = v21;
     v22 = "%@ no relay found in configuration";
     goto LABEL_44;
   }
 
-  v9 = *(a1 + 56);
+  v9 = a1[7];
   if (v9 == 2)
   {
     v72 = 0u;
@@ -143,7 +143,7 @@ LABEL_45:
           if (v31)
           {
             v32 = [v30 certificateReferences];
-            v33 = [v32 containsObject:*(a1 + 48)];
+            v33 = [v32 containsObject:a1[6]];
 
             v27 |= v33;
           }
@@ -162,7 +162,7 @@ LABEL_45:
         v80[0] = kCFBooleanTrue;
         v80[1] = kSecClassCertificate;
         v79[2] = kSecValuePersistentRef;
-        v80[2] = *(a1 + 48);
+        v80[2] = a1[6];
         v34 = [NSDictionary dictionaryWithObjects:v80 forKeys:v79 count:3];
         result = 0;
         v35 = SecItemCopyMatching(v34, &result);
@@ -176,7 +176,7 @@ LABEL_45:
             myCFRelease();
             v37 = xpc_dictionary_create(0, 0, 0);
             xpc_dictionary_set_value(v37, "relay-certificate-data", v36);
-            sub_10000BA0C(NEHelperServer, *(a1 + 40), 0, v37);
+            sub_10000BA0C(NEHelperServer, a1[5], 0, v37);
 
 LABEL_60:
             goto LABEL_69;
@@ -185,13 +185,13 @@ LABEL_60:
           v62 = ne_log_obj();
           if (os_log_type_enabled(v62, OS_LOG_TYPE_ERROR))
           {
-            v66 = *(a1 + 32);
+            v66 = a1[4];
             *buf = 138412290;
             v84 = v66;
             _os_log_error_impl(&_mh_execute_header, v62, OS_LOG_TYPE_ERROR, "%@ SecCertificateCopyData failed", buf, 0xCu);
           }
 
-          v60 = *(a1 + 40);
+          v60 = a1[5];
           v61 = 22;
 LABEL_68:
           sub_10000BA0C(NEHelperServer, v60, v61, 0);
@@ -205,12 +205,12 @@ LABEL_69:
         {
 LABEL_64:
 
-          v60 = *(a1 + 40);
+          v60 = a1[5];
           v61 = 2;
           goto LABEL_68;
         }
 
-        v56 = *(a1 + 32);
+        v56 = a1[4];
         *buf = 138412546;
         v84 = v56;
         v85 = 1024;
@@ -234,7 +234,7 @@ LABEL_71:
       goto LABEL_3;
     }
 
-    v44 = *(a1 + 32);
+    v44 = a1[4];
     *buf = 138412290;
     v84 = v44;
     v22 = "%@ requested certificate not found in relay configuration";
@@ -277,7 +277,7 @@ LABEL_10:
       {
         v18 = v17;
         v19 = [v16 identityReference];
-        v20 = [v19 isEqualToData:*(a1 + 48)];
+        v20 = [v19 isEqualToData:a1[6]];
 
         if (v20)
         {
@@ -306,7 +306,7 @@ LABEL_10:
 
     if (qword_100046968)
     {
-      v38 = [qword_100046968 objectForKeyedSubscript:*(a1 + 48)];
+      v38 = [qword_100046968 objectForKeyedSubscript:a1[6]];
       if (v38)
       {
         v36 = v38;
@@ -336,13 +336,13 @@ LABEL_57:
         v54 = ne_log_obj();
         if (os_log_type_enabled(v54, OS_LOG_TYPE_ERROR))
         {
-          v64 = *(a1 + 32);
+          v64 = a1[4];
           *buf = 138412290;
           v84 = v64;
           _os_log_error_impl(&_mh_execute_header, v54, OS_LOG_TYPE_ERROR, "%@ key proxy creation failed ", buf, 0xCu);
         }
 
-        sub_10000BA0C(NEHelperServer, *(a1 + 40), 12, 0);
+        sub_10000BA0C(NEHelperServer, a1[5], 12, 0);
         goto LABEL_60;
       }
 
@@ -364,7 +364,7 @@ LABEL_51:
             v48 = qword_100046968;
           }
 
-          [v48 setObject:v36 forKeyedSubscript:*(a1 + 48)];
+          [v48 setObject:v36 forKeyedSubscript:a1[6]];
         }
 
         v51 = [v36 endpoint];
@@ -372,7 +372,7 @@ LABEL_51:
 
         v53 = xpc_dictionary_create(0, 0, 0);
         xpc_dictionary_set_value(v53, "relay-identity-xpc-endpoint", v52);
-        sub_10000BA0C(NEHelperServer, *(a1 + 40), 0, v53);
+        sub_10000BA0C(NEHelperServer, a1[5], 0, v53);
 
         goto LABEL_60;
       }
@@ -387,7 +387,7 @@ LABEL_51:
       goto LABEL_64;
     }
 
-    v65 = *(a1 + 32);
+    v65 = a1[4];
     *buf = 138412290;
     v84 = v65;
     v57 = "%@ Unable to generate identity reference";
@@ -402,13 +402,13 @@ LABEL_37:
   v40 = ne_log_obj();
   if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
   {
-    v63 = *(a1 + 32);
+    v63 = a1[4];
     *buf = 138412290;
     v84 = v63;
     _os_log_error_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, "%@ requested identity not found in relay configuration", buf, 0xCu);
   }
 
-  sub_10000BA0C(NEHelperServer, *(a1 + 40), 2, 0);
+  sub_10000BA0C(NEHelperServer, a1[5], 2, 0);
   v5 = v67;
 LABEL_4:
 }
@@ -1539,7 +1539,7 @@ BOOL sub_10000555C(uint64_t a1, void *a2)
   v5 = v4;
   if (!a1)
   {
-    v39 = 0;
+    v38 = 0;
     goto LABEL_75;
   }
 
@@ -1551,20 +1551,19 @@ BOOL sub_10000555C(uint64_t a1, void *a2)
     {
       v9 = xpc_dictionary_create(0, 0, 0);
       xpc_dictionary_set_uint64(v9, "MessageType", 0x3EDuLL);
-      v32 = *(a1 + 8);
-      v33 = WiFiManagerClientCopyNetworksWithBundleIdentifier();
-      length = v33;
-      if (v33)
+      v32 = WiFiManagerClientCopyNetworksWithBundleIdentifier();
+      length = v32;
+      if (v32)
       {
-        v34 = v33;
-        Count = CFArrayGetCount(v33);
+        v33 = v32;
+        Count = CFArrayGetCount(v32);
         if (Count)
         {
-          v36 = Count;
-          v37 = objc_alloc_init(NSMutableArray);
-          if (v36 < 1)
+          v35 = Count;
+          v36 = objc_alloc_init(NSMutableArray);
+          if (v35 < 1)
           {
-            v39 = 1;
+            v38 = 1;
 LABEL_66:
             v57 = _CFXPCCreateXPCObjectFromCFObject();
             xpc_dictionary_set_value(v9, "QueryResult", v57);
@@ -1573,22 +1572,22 @@ LABEL_66:
 
           else
           {
+            v37 = 0;
             v38 = 0;
-            v39 = 0;
             while (1)
             {
-              CFArrayGetValueAtIndex(v34, v38);
-              v40 = sub_100006E34();
+              ValueAtIndex = CFArrayGetValueAtIndex(v33, v37);
+              v40 = sub_100006E34(ValueAtIndex);
               if (!v40)
               {
                 break;
               }
 
               v41 = v40;
-              [v37 addObject:v40];
+              [v36 addObject:v40];
 
-              v39 = v36 <= ++v38;
-              if (v36 == v38)
+              v38 = v35 <= ++v37;
+              if (v35 == v37)
               {
                 goto LABEL_66;
               }
@@ -1619,7 +1618,7 @@ LABEL_73:
         sub_10000BA0C(NEHelperServer, v31, 100, v9);
       }
 
-      v39 = 1;
+      v38 = 1;
       goto LABEL_73;
     }
 
@@ -1627,7 +1626,7 @@ LABEL_73:
     if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
 LABEL_41:
-      v39 = 0;
+      v38 = 0;
       goto LABEL_73;
     }
 
@@ -1645,7 +1644,7 @@ LABEL_128:
   {
     if (uint64 != 1001)
     {
-      v39 = 1;
+      v38 = 1;
       goto LABEL_75;
     }
 
@@ -1677,7 +1676,7 @@ LABEL_128:
           xpc_dictionary_set_uint64(v60, "MessageType", 0x3ECuLL);
           sub_10000BA0C(NEHelperServer, v7, v58, v60);
 
-          v39 = 1;
+          v38 = 1;
           goto LABEL_45;
         }
 
@@ -1992,7 +1991,7 @@ LABEL_106:
 
                     v110 = WiFiManagerClientAddNetworkAsync();
                     myCFRelease();
-                    v39 = v110 == 0;
+                    v38 = v110 == 0;
                     if (v110)
                     {
                       v111 = ne_log_obj();
@@ -2023,7 +2022,7 @@ LABEL_106:
 
                   myCFRelease();
 LABEL_44:
-                  v39 = 0;
+                  v38 = 0;
 LABEL_45:
 
                   goto LABEL_73;
@@ -2105,7 +2104,7 @@ LABEL_130:
     {
 LABEL_47:
 
-      v39 = 0;
+      v38 = 0;
       goto LABEL_74;
     }
 
@@ -2228,10 +2227,9 @@ LABEL_54:
   myCFRelease();
 LABEL_57:
   v49 = [NSString stringWithUTF8String:v17];
-  v50 = *(a1 + 8);
-  v51 = WiFiManagerClientCopyNetworksWithBundleIdentifier();
-  length = v51;
-  if (!v51)
+  v50 = WiFiManagerClientCopyNetworksWithBundleIdentifier();
+  length = v50;
+  if (!v50)
   {
     v62 = ne_log_obj();
     if (os_log_type_enabled(v62, OS_LOG_TYPE_DEBUG))
@@ -2249,25 +2247,31 @@ LABEL_57:
     goto LABEL_157;
   }
 
-  v52 = v51;
-  v53 = CFArrayGetCount(v51);
-  if (v53 < 1)
+  v51 = v50;
+  v52 = CFArrayGetCount(v50);
+  if (v52 < 1)
   {
     goto LABEL_156;
   }
 
-  v54 = v53;
-  v55 = 0;
-  while (!CFArrayGetValueAtIndex(v52, v55))
+  v53 = v52;
+  v54 = 0;
+  while (1)
   {
+    v55 = CFArrayGetValueAtIndex(v51, v54);
+    if (v55)
+    {
+      break;
+    }
+
 LABEL_63:
-    if (v54 == ++v55)
+    if (v53 == ++v54)
     {
       goto LABEL_156;
     }
   }
 
-  v56 = sub_100006E34();
+  v56 = sub_100006E34(v55);
   if (![v49 isEqualToString:v56])
   {
 
@@ -2342,11 +2346,11 @@ LABEL_156:
 LABEL_157:
 
 LABEL_158:
-  v39 = 1;
+  v38 = 1;
 LABEL_74:
 
 LABEL_75:
-  return v39;
+  return v38;
 }
 
 uint64_t sub_100006D68(int a1)
@@ -2376,7 +2380,7 @@ uint64_t sub_100006D68(int a1)
   return v1;
 }
 
-uint64_t sub_100006E34()
+uint64_t sub_100006E34(uint64_t a1)
 {
   if (WiFiNetworkIsHotspot())
   {
@@ -2397,13 +2401,13 @@ uint64_t sub_100006E34()
   return result;
 }
 
-id sub_100006EB4()
+id sub_100006EB4(uint64_t a1)
 {
-  v0 = ne_log_obj();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = ne_log_obj();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v2 = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_INFO, "[NEHelperHotspotConfigurationManager] WiFiManager restarted", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_INFO, "[NEHelperHotspotConfigurationManager] WiFiManager restarted", v3, 2u);
   }
 
   sub_100006D68(1);
@@ -2473,8 +2477,8 @@ LABEL_8:
 
 void sub_1000070EC(uint64_t a1, uint64_t a2, int a3, void *a4)
 {
-  v6 = ne_log_obj();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+  v7 = ne_log_obj();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_INFO))
   {
     if (a3 <= 4)
     {
@@ -2482,17 +2486,17 @@ void sub_1000070EC(uint64_t a1, uint64_t a2, int a3, void *a4)
       {
         if (a3 == 2)
         {
-          v7 = @"System has cancelled the popup or it timed out.";
+          v8 = @"System has cancelled the popup or it timed out.";
         }
 
         else if (a3 == 3)
         {
-          v7 = @"Request failed, already asking the user for consent.";
+          v8 = @"Request failed, already asking the user for consent.";
         }
 
         else
         {
-          v7 = @"Request failed, invalid bundle ID.";
+          v8 = @"Request failed, invalid bundle ID.";
         }
 
         goto LABEL_26;
@@ -2500,13 +2504,13 @@ void sub_1000070EC(uint64_t a1, uint64_t a2, int a3, void *a4)
 
       if (!a3)
       {
-        v7 = @"User has given consent, network added and joined successfully.";
+        v8 = @"User has given consent, network added and joined successfully.";
         goto LABEL_26;
       }
 
       if (a3 == 1)
       {
-        v7 = @"User did NOT given consent.";
+        v8 = @"User did NOT given consent.";
         goto LABEL_26;
       }
     }
@@ -2517,17 +2521,17 @@ void sub_1000070EC(uint64_t a1, uint64_t a2, int a3, void *a4)
       {
         if (a3 == 5)
         {
-          v7 = @"Request failed, existing network that cannot be overwritten.";
+          v8 = @"Request failed, existing network that cannot be overwritten.";
         }
 
         else if (a3 == 6)
         {
-          v7 = @"Request succeed, already associated to that network.";
+          v8 = @"Request succeed, already associated to that network.";
         }
 
         else
         {
-          v7 = @"Added to known networks, but association failed.";
+          v8 = @"Added to known networks, but association failed.";
         }
 
         goto LABEL_26;
@@ -2536,24 +2540,24 @@ void sub_1000070EC(uint64_t a1, uint64_t a2, int a3, void *a4)
       switch(a3)
       {
         case 8:
-          v7 = @"Session based add failed, application is not in foreground.";
+          v8 = @"Session based add failed, application is not in foreground.";
           goto LABEL_26;
         case 9:
-          v7 = @"Request failed, network not found.";
+          v8 = @"Request failed, network not found.";
           goto LABEL_26;
         case 0x7FFFFFFF:
-          v7 = @"Request failed, unknown error.";
+          v8 = @"Request failed, unknown error.";
 LABEL_26:
           *buf = 67109378;
           *&buf[4] = a3;
-          LOWORD(v33) = 2112;
-          *(&v33 + 2) = v7;
-          _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "[NEHelperHotspotConfigurationManager] add network callback callled, result: [%d][%@]", buf, 0x12u);
+          LOWORD(v34) = 2112;
+          *(&v34 + 2) = v8;
+          _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_INFO, "[NEHelperHotspotConfigurationManager] add network callback callled, result: [%d][%@]", buf, 0x12u);
           goto LABEL_27;
       }
     }
 
-    v7 = @"unknown";
+    v8 = @"unknown";
     goto LABEL_26;
   }
 
@@ -2561,74 +2565,74 @@ LABEL_27:
 
   if ([qword_100046AD0 count])
   {
-    v31 = a4;
-    v8 = a4;
+    v32 = a4;
+    v9 = a4;
     objc_opt_self();
-    if (v8)
+    if (v9)
     {
-      v9 = [qword_100046AD0 objectForKeyedSubscript:v8];
-      [qword_100046AD0 removeObjectForKey:v8];
+      v10 = [qword_100046AD0 objectForKeyedSubscript:v9];
+      [qword_100046AD0 removeObjectForKey:v9];
     }
 
     else
     {
-      v9 = 0;
+      v10 = 0;
     }
 
     myCFRelease();
-    if (!v9)
+    if (!v10)
     {
-      v11 = ne_log_obj();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
+      v12 = ne_log_obj();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "[NEHelperHotspotConfigurationManager] failed to find the task object", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "[NEHelperHotspotConfigurationManager] failed to find the task object", buf, 2u);
       }
 
       goto LABEL_44;
     }
 
-    v11 = objc_getProperty(v9, v10, 24, 1);
-    v12 = xpc_dictionary_create(0, 0, 0);
-    xpc_dictionary_set_uint64(v12, "MessageType", 0x3ECuLL);
+    v12 = objc_getProperty(v10, v11, 24, 1);
+    v13 = xpc_dictionary_create(0, 0, 0);
+    xpc_dictionary_set_uint64(v13, "MessageType", 0x3ECuLL);
     if (a3 != 7)
     {
       if (a3)
       {
-        sub_10000BA0C(NEHelperServer, v11, a3, v12);
+        sub_10000BA0C(NEHelperServer, v12, a3, v13);
         goto LABEL_43;
       }
 
-      if (*(v9 + 9))
+      if (*(v10 + 9))
       {
-        v13 = sub_100006E34();
-        Property = objc_getProperty(v9, v14, 32, 1);
-        v26[0] = _NSConcreteStackBlock;
-        v26[1] = 3221225472;
-        v26[2] = sub_1000075F4;
-        v26[3] = &unk_10003CD88;
-        v30 = 0;
-        v27 = v11;
+        v14 = sub_100006E34(a2);
+        Property = objc_getProperty(v10, v15, 32, 1);
+        v27[0] = _NSConcreteStackBlock;
+        v27[1] = 3221225472;
+        v27[2] = sub_1000075F4;
+        v27[3] = &unk_10003CD88;
+        v31 = 0;
         v28 = v12;
-        v29 = v9;
-        v16 = v13;
-        v17 = Property;
-        v18 = v26;
+        v29 = v13;
+        v30 = v10;
+        v17 = v14;
+        v18 = Property;
+        v19 = v27;
         objc_opt_self();
-        v19 = +[NEConfigurationManager sharedManagerForAllUsers];
+        v20 = +[NEConfigurationManager sharedManagerForAllUsers];
         *buf = _NSConcreteStackBlock;
-        *&v33 = 3221225472;
-        *(&v33 + 1) = sub_1000079A4;
-        v34 = &unk_10003CD18;
-        v35 = v17;
-        v36 = v16;
-        v37 = v19;
-        v38 = v18;
-        v20 = v19;
-        v21 = v16;
+        *&v34 = 3221225472;
+        *(&v34 + 1) = sub_1000079A4;
+        v35 = &unk_10003CD18;
+        v36 = v18;
+        v37 = v17;
+        v38 = v20;
+        v39 = v19;
+        v21 = v20;
         v22 = v17;
         v23 = v18;
-        [v20 loadConfigurationsWithCompletionQueue:&_dispatch_main_q handler:buf];
+        v24 = v19;
+        [v21 loadConfigurationsWithCompletionQueue:&_dispatch_main_q handler:buf];
 
 LABEL_43:
 LABEL_44:
@@ -2637,21 +2641,21 @@ LABEL_44:
       }
     }
 
-    sub_10000BA0C(NEHelperServer, v11, 0, v12);
-    if ((*(v9 + 8) & 1) == 0)
+    sub_10000BA0C(NEHelperServer, v12, 0, v13);
+    if ((*(v10 + 8) & 1) == 0)
     {
-      v25 = objc_getProperty(v9, v24, 32, 1);
-      sub_100007728(NEHelperHotspotConfigurationTask, v25);
+      v26 = objc_getProperty(v10, v25, 32, 1);
+      sub_100007728(NEHelperHotspotConfigurationTask, v26);
     }
 
     goto LABEL_43;
   }
 
-  v9 = ne_log_obj();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = ne_log_obj();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "[NEHelperHotspotConfigurationManager] there are no pending tasks", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "[NEHelperHotspotConfigurationManager] there are no pending tasks", buf, 2u);
   }
 
 LABEL_45:
@@ -2981,28 +2985,26 @@ void sub_100008110(uint64_t a1)
       }
 
       *buf = 138412290;
-      v32 = objc_opt_class();
-      v11 = v32;
+      v29 = objc_opt_class();
+      v11 = v29;
       _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "%@ failed to create hotspot configuration preference file.", buf, 0xCu);
 LABEL_23:
 
 LABEL_24:
       if (WiFiManagerClientCreate())
       {
-        v18 = *(a1 + 32);
         WiFiManagerClientRemoveNetworksWithBundleIdentifier();
-        v19 = ne_log_obj();
-        if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+        v18 = ne_log_obj();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
         {
-          v20 = *(a1 + 40);
-          v21 = objc_opt_class();
-          v22 = *(a1 + 32);
+          v19 = objc_opt_class();
+          v20 = *(a1 + 32);
           *buf = 138412546;
-          v32 = v21;
-          v33 = 2112;
-          v34 = v22;
-          v23 = v21;
-          _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "%@ removed all networks matching the bundle identifier [%@]", buf, 0x16u);
+          v29 = v19;
+          v30 = 2112;
+          v31 = v20;
+          v21 = v19;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_INFO, "%@ removed all networks matching the bundle identifier [%@]", buf, 0x16u);
         }
 
         myCFRelease();
@@ -3010,18 +3012,17 @@ LABEL_24:
 
       else
       {
-        v24 = ne_log_obj();
-        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+        v22 = ne_log_obj();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
         {
-          v25 = *(a1 + 40);
-          v26 = objc_opt_class();
-          v27 = *(a1 + 32);
+          v23 = objc_opt_class();
+          v24 = *(a1 + 32);
           *buf = 138412546;
-          v32 = v26;
-          v33 = 2112;
-          v34 = v27;
-          v28 = v26;
-          _os_log_error_impl(&_mh_execute_header, v24, OS_LOG_TYPE_ERROR, "%@ failed to get WiFiManager client, unable to remove networks matching bundle identifier [%@]", buf, 0x16u);
+          v29 = v23;
+          v30 = 2112;
+          v31 = v24;
+          v25 = v23;
+          _os_log_error_impl(&_mh_execute_header, v22, OS_LOG_TYPE_ERROR, "%@ failed to get WiFiManager client, unable to remove networks matching bundle identifier [%@]", buf, 0x16u);
         }
       }
 
@@ -3054,9 +3055,9 @@ LABEL_22:
         v14 = v13;
         v15 = SCError();
         *buf = 138412546;
-        v32 = v13;
-        v33 = 2080;
-        v34 = SCErrorString(v15);
+        v29 = v13;
+        v30 = 2080;
+        v31 = SCErrorString(v15);
         v16 = "%@ SCPreferencesCommitChanges failed: %s";
 LABEL_33:
         _os_log_error_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, v16, buf, 0x16u);
@@ -3068,13 +3069,13 @@ LABEL_33:
       v12 = ne_log_obj();
       if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        v29 = objc_opt_class();
-        v14 = v29;
-        v30 = SCError();
+        v26 = objc_opt_class();
+        v14 = v26;
+        v27 = SCError();
         *buf = 138412546;
-        v32 = v29;
-        v33 = 2080;
-        v34 = SCErrorString(v30);
+        v29 = v26;
+        v30 = 2080;
+        v31 = SCErrorString(v27);
         v16 = "%@ SCPreferencesSetValue failed: %s";
         goto LABEL_33;
       }
@@ -3087,8 +3088,8 @@ LABEL_33:
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v32 = objc_opt_class();
-    v17 = v32;
+    v29 = objc_opt_class();
+    v17 = v29;
     _os_log_error_impl(&_mh_execute_header, v5, OS_LOG_TYPE_ERROR, "%@ failed to create hotspot configuration preference file.", buf, 0xCu);
   }
 
@@ -3301,16 +3302,15 @@ void sub_100009BB4(uint64_t a1, int a2)
   {
     if (v5)
     {
-      v6 = *(a1 + 32);
-      v8 = objc_opt_class();
+      v7 = objc_opt_class();
       Property = *(a1 + 32);
       if (Property)
       {
-        Property = objc_getProperty(Property, v7, 32, 1);
+        Property = objc_getProperty(Property, v6, 32, 1);
       }
 
       *buf = 138412546;
-      *&buf[4] = v8;
+      *&buf[4] = v7;
       *&buf[12] = 2112;
       *&buf[14] = Property;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%@ [%@] has an active VPN or DNS configuration", buf, 0x16u);
@@ -3323,31 +3323,50 @@ void sub_100009BB4(uint64_t a1, int a2)
   {
     if (v5)
     {
-      v10 = *(a1 + 32);
-      v12 = objc_opt_class();
-      v13 = *(a1 + 32);
-      if (v13)
+      v10 = objc_opt_class();
+      v11 = *(a1 + 32);
+      if (v11)
       {
-        v13 = objc_getProperty(v13, v11, 32, 1);
+        v11 = objc_getProperty(v11, v9, 32, 1);
       }
 
       *buf = 138412546;
-      *&buf[4] = v12;
+      *&buf[4] = v10;
       *&buf[12] = 2112;
-      *&buf[14] = v13;
+      *&buf[14] = v11;
       _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%@ [%@] has no active VPN or DNS configuration", buf, 0x16u);
     }
 
-    v14 = +[LSApplicationWorkspace defaultWorkspace];
-    v15 = [v14 isVersion:*(a1 + 48) greaterThanOrEqualToVersion:@"13.0"];
+    v12 = +[LSApplicationWorkspace defaultWorkspace];
+    v13 = [v12 isVersion:*(a1 + 48) greaterThanOrEqualToVersion:@"13.0"];
 
-    v16 = ne_log_obj();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
-    if (v15)
+    v14 = ne_log_obj();
+    v15 = os_log_type_enabled(v14, OS_LOG_TYPE_INFO);
+    if (v13)
     {
-      if (v17)
+      if (v15)
       {
+        v17 = objc_opt_class();
         v18 = *(a1 + 32);
+        if (v18)
+        {
+          v18 = objc_getProperty(v18, v16, 32, 1);
+        }
+
+        *buf = 138412546;
+        *&buf[4] = v17;
+        *&buf[12] = 2112;
+        *&buf[14] = v18;
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "%@ [%@] is linked on or above iOS 13.0, retuning nil", buf, 0x16u);
+      }
+
+      sub_10000A098(*(a1 + 32), *(a1 + 40), 1);
+    }
+
+    else
+    {
+      if (v15)
+      {
         v20 = objc_opt_class();
         v21 = *(a1 + 32);
         if (v21)
@@ -3359,114 +3378,92 @@ void sub_100009BB4(uint64_t a1, int a2)
         *&buf[4] = v20;
         *&buf[12] = 2112;
         *&buf[14] = v21;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%@ [%@] is linked on or above iOS 13.0, retuning nil", buf, 0x16u);
+        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "%@ returning pseudo Wi-Fi information to [%@]", buf, 0x16u);
       }
 
-      sub_10000A098(*(a1 + 32), *(a1 + 40), 1);
-    }
-
-    else
-    {
-      if (v17)
-      {
-        v22 = *(a1 + 32);
-        v24 = objc_opt_class();
-        v25 = *(a1 + 32);
-        if (v25)
-        {
-          v25 = objc_getProperty(v25, v23, 32, 1);
-        }
-
-        *buf = 138412546;
-        *&buf[4] = v24;
-        *&buf[12] = 2112;
-        *&buf[14] = v25;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "%@ returning pseudo Wi-Fi information to [%@]", buf, 0x16u);
-      }
-
-      v26 = *(a1 + 32);
-      v27 = *(a1 + 40);
-      if (v26)
+      v22 = *(a1 + 32);
+      v23 = *(a1 + 40);
+      if (v22)
       {
         if (!qword_100046AF0)
         {
           if ((byte_100046AE8 & 1) == 0)
           {
             byte_100046AE8 = 1;
-            v28 = &_CPGetDeviceRegionCode;
+            v24 = &_CPGetDeviceRegionCode;
             if (&_CPGetDeviceRegionCode)
             {
-              v29 = CPGetDeviceRegionCode();
-              v30 = v29;
-              if (v29)
+              v25 = CPGetDeviceRegionCode();
+              v26 = v25;
+              if (v25)
               {
-                LOBYTE(v28) = CFEqual(v29, @"CH") != 0;
+                LOBYTE(v24) = CFEqual(v25, @"CH") != 0;
               }
 
               else
               {
-                LOBYTE(v28) = 0;
+                LOBYTE(v24) = 0;
               }
             }
 
             else
             {
-              v30 = 0;
+              v26 = 0;
             }
 
-            byte_100046AE9 = v28;
-            v31 = ne_log_obj();
-            if (os_log_type_enabled(v31, OS_LOG_TYPE_DEBUG))
+            byte_100046AE9 = v24;
+            v27 = ne_log_obj();
+            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
             {
               *buf = 138412290;
-              *&buf[4] = v30;
-              _os_log_debug_impl(&_mh_execute_header, v31, OS_LOG_TYPE_DEBUG, "region code is %@", buf, 0xCu);
+              *&buf[4] = v26;
+              _os_log_debug_impl(&_mh_execute_header, v27, OS_LOG_TYPE_DEBUG, "region code is %@", buf, 0xCu);
             }
           }
 
           if (byte_100046AE9)
           {
-            v32 = @"WLAN";
+            v28 = @"WLAN";
           }
 
           else
           {
-            v32 = @"Wi-Fi";
+            v28 = @"Wi-Fi";
           }
 
-          ExternalRepresentation = CFStringCreateExternalRepresentation(kCFAllocatorDefault, v32, 0x8000100u, 0);
+          ExternalRepresentation = CFStringCreateExternalRepresentation(kCFAllocatorDefault, v28, 0x8000100u, 0);
           if (ExternalRepresentation)
           {
-            v34 = ExternalRepresentation;
+            v30 = ExternalRepresentation;
             *buf = kCNNetworkInfoKeySSIDData;
             *&buf[8] = kCNNetworkInfoKeySSID;
             *&buf[16] = kCNNetworkInfoKeyBSSID;
             values[0] = ExternalRepresentation;
-            values[1] = v32;
+            values[1] = v28;
             values[2] = @"00:00:00:00:00:00";
             qword_100046AF0 = CFDictionaryCreate(kCFAllocatorDefault, buf, values, 3, &kCFTypeDictionaryKeyCallBacks, &kCFTypeDictionaryValueCallBacks);
-            CFRelease(v34);
+            CFRelease(v30);
           }
         }
 
-        v35 = _CFXPCCreateXPCObjectFromCFObject();
-        v36 = ne_log_obj();
-        if (os_log_type_enabled(v36, OS_LOG_TYPE_INFO))
+        v31 = _CFXPCCreateXPCObjectFromCFObject();
+        v32 = ne_log_obj();
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
         {
-          v37 = objc_opt_class();
-          v38 = *(v26 + 32);
+          v33 = objc_opt_class();
+          v34 = *(v22 + 32);
           *buf = 138412546;
-          *&buf[4] = v37;
+          *&buf[4] = v33;
           *&buf[12] = 2112;
-          *&buf[14] = v38;
-          v39 = v37;
-          _os_log_impl(&_mh_execute_header, v36, OS_LOG_TYPE_INFO, "%@ sending pseudo Wi-Fi info to [%@]", buf, 0x16u);
+          *&buf[14] = v34;
+          v35 = v33;
+          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "%@ sending pseudo Wi-Fi info to [%@]", buf, 0x16u);
         }
 
-        sub_10000BA0C(NEHelperServer, v27, 0, v35);
+        sub_10000BA0C(NEHelperServer, v23, 0, v31);
         myCFRelease();
-        v40 = *(v26 + 40);
-        *(v26 + 40) = 0;
+        v36 = *(v22 + 40);
+        *(v22 + 40) = 0;
       }
     }
   }
@@ -3766,13 +3763,13 @@ uint64_t sub_10000A67C(int a1)
   return v1;
 }
 
-uint64_t sub_10000A748()
+uint64_t sub_10000A748(uint64_t a1)
 {
-  v0 = ne_log_obj();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_INFO))
+  v1 = ne_log_obj();
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_INFO))
   {
-    *v2 = 0;
-    _os_log_impl(&_mh_execute_header, v0, OS_LOG_TYPE_INFO, "[NEHelperWiFiInfoManager] WiFiManager restarted", v2, 2u);
+    *v3 = 0;
+    _os_log_impl(&_mh_execute_header, v1, OS_LOG_TYPE_INFO, "[NEHelperWiFiInfoManager] WiFiManager restarted", v3, 2u);
   }
 
   return sub_10000A67C(1);
@@ -4093,9 +4090,9 @@ LABEL_35:
 LABEL_38:
 }
 
-void sub_10000B574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, ...)
+void sub_10000B574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, ...)
 {
-  va_start(va, a15);
+  va_start(va, a22);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -4103,19 +4100,17 @@ void sub_10000B574(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 id sub_10000B5A8(uint64_t a1, int a2)
 {
   objc_opt_self();
-  v3 = a2 - 1;
-  if (a2 - 1) <= 0xD && ((0x3FBBu >> v3))
+  if (a2 - 1) <= 0xD && ((0x3FBBu >> (a2 - 1)))
   {
-    v4 = *off_10003D060[v3];
-    v5 = objc_opt_class();
+    v3 = objc_opt_class();
   }
 
   else
   {
-    v5 = 0;
+    v3 = 0;
   }
 
-  return v5;
+  return v3;
 }
 
 void sub_10000B614(os_unfair_lock_s *a1, void *a2)
@@ -4640,7 +4635,7 @@ void sub_10000C6D4(uint64_t a1)
     *(v3 + 12) = 1;
   }
 
-  v4 = sub_100020804();
+  v4 = sub_100020804(NEHelperCacheManager);
   sub_100024D20(v4, v5);
 }
 
@@ -4709,7 +4704,7 @@ void sub_10000C898(void *a1, void *a2, const char *a3)
             v45[4] = &v48;
             [v24 handleFileRemovedWithCompletionQueue:v26 completionHandler:v45];
 
-            v27 = sub_100020804();
+            v27 = sub_100020804(NEHelperCacheManager);
             sub_100025D30(v27, v28);
 
             _Block_object_dispose(&v48, 8);
@@ -4807,7 +4802,7 @@ void sub_10000C898(void *a1, void *a2, const char *a3)
               if ([v29 count])
               {
                 dispatch_group_enter(group);
-                v31 = sub_100020804();
+                v31 = sub_100020804(NEHelperCacheManager);
                 v56[0] = _NSConcreteStackBlock;
                 v56[1] = 3221225472;
                 v56[2] = sub_10000D1D8;
@@ -4819,7 +4814,7 @@ void sub_10000C898(void *a1, void *a2, const char *a3)
               if ([v30 count])
               {
                 dispatch_group_enter(group);
-                v33 = sub_100020804();
+                v33 = sub_100020804(NEHelperCacheManager);
                 v54[0] = _NSConcreteStackBlock;
                 v54[1] = 3221225472;
                 v54[2] = sub_10000D1E0;
@@ -4857,7 +4852,7 @@ void sub_10000C898(void *a1, void *a2, const char *a3)
             _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Handling an application database updated notification", &buf, 2u);
           }
 
-          v9 = sub_100020804();
+          v9 = sub_100020804(NEHelperCacheManager);
           sub_100025C9C(v9, v10);
 
           notify_post("com.apple.networkextension.apps-changed");
@@ -4867,6 +4862,13 @@ void sub_10000C898(void *a1, void *a2, const char *a3)
 
     NWPrivilegedHelperHandleEvent();
   }
+}
+
+void sub_10000D0D8(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, ...)
+{
+  va_start(va, a30);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 void sub_10000D0FC(uint64_t a1)
@@ -5100,6 +5102,13 @@ LABEL_39:
     v70 = v40;
     [v41 loadConfigurationsWithCompletionQueue:Property handler:&buf];
   }
+}
+
+void sub_10000D8E0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, ...)
+{
+  va_start(va, a40);
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
 }
 
 uint64_t sub_10000D90C(uint64_t a1, int a2)
@@ -5402,13 +5411,13 @@ BOOL sub_10000DFEC(id a1, id a2, NSDictionary *a3)
   return v4;
 }
 
-BOOL sub_10000E080(uint64_t a1, void *a2)
+BOOL sub_10000E080(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = a2;
+  v3 = a2;
   objc_opt_self();
-  v3 = xpc_connection_copy_entitlement_value();
+  v4 = xpc_connection_copy_entitlement_value();
 
-  return v3 != 0;
+  return v4 != 0;
 }
 
 id sub_10000E0E0(uint64_t a1, void *a2)
@@ -5703,14 +5712,14 @@ LABEL_30:
   return 22;
 }
 
-void sub_1000114BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1000114BC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va1, a11);
-  va_start(va, a11);
-  v12 = va_arg(va1, void);
-  v14 = va_arg(va1, void);
-  v15 = va_arg(va1, void);
-  v16 = va_arg(va1, void);
+  va_start(va1, a18);
+  va_start(va, a18);
+  v19 = va_arg(va1, void);
+  v21 = va_arg(va1, void);
+  v22 = va_arg(va1, void);
+  v23 = va_arg(va1, void);
   _Block_object_dispose(va, 8);
   _Block_object_dispose(va1, 8);
   _Unwind_Resume(a1);
@@ -6322,7 +6331,7 @@ id sub_100014F10(uint64_t a1, void *a2)
   v13 = sub_1000169A0;
   v14 = sub_1000169B0;
   v15 = 0;
-  sub_10001BAF0();
+  sub_10001BAF0(NEHelperPendingOperation);
   v3 = qword_100046B90;
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
@@ -6338,9 +6347,9 @@ id sub_100014F10(uint64_t a1, void *a2)
   return v5;
 }
 
-void sub_100015030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_100015030(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6509,9 +6518,9 @@ id sub_1000153AC(void *a1)
   return v4;
 }
 
-void sub_1000154CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1000154CC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6526,7 +6535,7 @@ void sub_1000154E4(uint64_t a1, char a2, void *a3, void *a4)
     dispatch_once(&qword_100046B78, &stru_10003D5F0);
   }
 
-  v8 = sub_1000155F4();
+  v8 = sub_1000155F4(NEHelperConfigurationManager);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10001934C;
@@ -6539,7 +6548,7 @@ void sub_1000154E4(uint64_t a1, char a2, void *a3, void *a4)
   dispatch_async(v8, block);
 }
 
-id sub_1000155F4()
+id sub_1000155F4(uint64_t a1)
 {
   objc_opt_self();
   if (qword_100046B48 != -1)
@@ -6547,9 +6556,9 @@ id sub_1000155F4()
     dispatch_once(&qword_100046B48, &stru_10003D0F8);
   }
 
-  v0 = qword_100046B40;
+  v1 = qword_100046B40;
 
-  return v0;
+  return v1;
 }
 
 void sub_10001564C(uint64_t a1)
@@ -6799,7 +6808,7 @@ LABEL_36:
               }
 
               v56 = +[NEConfigurationManager sharedManagerForAllUsers];
-              v57 = sub_1000155F4();
+              v57 = sub_1000155F4(NEHelperConfigurationManager);
               v69[0] = _NSConcreteStackBlock;
               v69[1] = 3221225472;
               v69[2] = sub_1000169B8;
@@ -7253,7 +7262,7 @@ void sub_1000169B8(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 
             v20 = *(v177 + 48);
             v21 = [v16 identifier];
-            v22 = sub_1000155F4();
+            v22 = sub_1000155F4(NEHelperConfigurationManager);
             v207[0] = _NSConcreteStackBlock;
             v207[1] = 3221225472;
             v207[2] = sub_1000183F8;
@@ -7564,7 +7573,7 @@ LABEL_71:
   v77 = *(v177 + 32);
   if (v77 && (*(v77 + 15) & 1) != 0)
   {
-    v78 = sub_1000155F4();
+    v78 = sub_1000155F4(NEHelperConfigurationManager);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100018B04;
@@ -7593,7 +7602,7 @@ LABEL_71:
     v117 = [NEUserNotification alloc];
     v118 = *(v177 + 72);
     v119 = *(*(*(v177 + 96) + 8) + 40);
-    v120 = sub_1000155F4();
+    v120 = sub_1000155F4(NEHelperConfigurationManager);
     v79 = [v117 initAndShowLocalNetworkAlertWithAppName:v118 reasonString:v119 extensionItem:0 callbackQueue:v120 callbackHandler:v163];
 
     if (v79)
@@ -7895,7 +7904,7 @@ LABEL_143:
   v139 = [NEUserNotification alloc];
   v140 = *(v177 + 72);
   v141 = *(*(*(v177 + 96) + 8) + 40);
-  v142 = sub_1000155F4();
+  v142 = sub_1000155F4(NEHelperConfigurationManager);
   v143 = [v139 initAndShowLocalNetworkAlertWithAppName:v140 reasonString:v141 extensionItem:v79 callbackQueue:v142 callbackHandler:v163];
 
   if (v143)
@@ -8198,7 +8207,7 @@ void sub_100018504(uint64_t a1, uint64_t a2)
 
   v44 = a2 == 0;
   v45 = *(a1 + 72);
-  v46 = sub_1000155F4();
+  v46 = sub_1000155F4(NEHelperConfigurationManager);
   v56[0] = _NSConcreteStackBlock;
   v56[1] = 3221225472;
   v56[2] = sub_100018B1C;
@@ -8455,7 +8464,7 @@ LABEL_41:
   [*(*(*(a1 + 104) + 8) + 40) setMulticastPreferenceSet:1];
   v44 = *(a1 + 88);
   v45 = *(a1 + 96);
-  v46 = sub_1000155F4();
+  v46 = sub_1000155F4(NEHelperConfigurationManager);
   v64[0] = _NSConcreteStackBlock;
   v64[1] = 3221225472;
   v64[2] = sub_1000191B0;
@@ -8775,7 +8784,7 @@ LABEL_54:
   v42 = NEGetRootUUID();
   v43 = +[NEConfigurationManager networkPrivacyConfigurationName];
   v44 = +[NEConfigurationManager sharedManagerForAllUsers];
-  v45 = sub_1000155F4();
+  v45 = sub_1000155F4(NEHelperConfigurationManager);
   v54[0] = _NSConcreteStackBlock;
   v54[1] = 3221225472;
   v54[2] = sub_100019A80;
@@ -8799,32 +8808,32 @@ void sub_100019A80(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
 {
   v8 = a2;
   v9 = a3;
-  v90 = a5;
+  v89 = a5;
   if (!v9)
   {
     v10 = objc_alloc_init(NSMutableArray);
+    v115 = 0u;
     v116 = 0u;
     v117 = 0u;
     v118 = 0u;
-    v119 = 0u;
     v11 = v8;
-    v12 = [v11 countByEnumeratingWithState:&v116 objects:v128 count:16];
-    v85 = v8;
+    v12 = [v11 countByEnumeratingWithState:&v115 objects:v127 count:16];
+    v84 = v8;
     if (v12)
     {
       v13 = v12;
       v14 = 0;
-      v15 = *v117;
+      v15 = *v116;
       do
       {
         for (i = 0; i != v13; i = i + 1)
         {
-          if (*v117 != v15)
+          if (*v116 != v15)
           {
             objc_enumerationMutation(v11);
           }
 
-          v17 = *(*(&v116 + 1) + 8 * i);
+          v17 = *(*(&v115 + 1) + 8 * i);
           v18 = [v17 name];
           v19 = [v18 isEqualToString:*(a1 + 32)];
 
@@ -8835,25 +8844,25 @@ void sub_100019A80(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
               v20 = ne_log_obj();
               if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
               {
-                v95 = *(a1 + 32);
+                v94 = *(a1 + 32);
                 v24 = [v17 identifier];
                 *buf = 138543618;
-                v125 = v95;
-                v126 = 2114;
-                v127 = v24;
+                v124 = v94;
+                v125 = 2114;
+                v126 = v24;
                 _os_log_error_impl(&_mh_execute_header, v20, OS_LOG_TYPE_ERROR, "Found a duplicate %{public}@ configuration %{public}@, removing", buf, 0x16u);
               }
 
               v21 = *(a1 + 40);
               v22 = [v17 identifier];
-              v23 = sub_1000155F4();
-              v113[0] = _NSConcreteStackBlock;
-              v113[1] = 3221225472;
-              v113[2] = sub_10001A6B8;
-              v113[3] = &unk_10003D2E8;
-              v114 = *(a1 + 32);
-              v115 = 0;
-              [v21 removeConfigurationFromDisk:v22 completionQueue:v23 completionHandler:v113];
+              v23 = sub_1000155F4(NEHelperConfigurationManager);
+              v112[0] = _NSConcreteStackBlock;
+              v112[1] = 3221225472;
+              v112[2] = sub_10001A6B8;
+              v112[3] = &unk_10003D2E8;
+              v113 = *(a1 + 32);
+              v114 = 0;
+              [v21 removeConfigurationFromDisk:v22 completionQueue:v23 completionHandler:v112];
             }
 
             else
@@ -8863,7 +8872,7 @@ void sub_100019A80(uint64_t a1, void *a2, void *a3, uint64_t a4, void *a5)
           }
         }
 
-        v13 = [v11 countByEnumeratingWithState:&v116 objects:v128 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v115 objects:v127 count:16];
       }
 
       while (v13);
@@ -8901,69 +8910,69 @@ LABEL_22:
       v30 = [v25 pathController];
       [v30 setIgnoreFallback:1];
 
-      v111 = 0u;
-      v112 = 0u;
-      v109 = 0u;
       v110 = 0u;
+      v111 = 0u;
+      v108 = 0u;
+      v109 = 0u;
       obj = v10;
-      v91 = [obj countByEnumeratingWithState:&v109 objects:v123 count:16];
-      if (!v91)
+      v90 = [obj countByEnumeratingWithState:&v108 objects:v122 count:16];
+      if (!v90)
       {
 LABEL_94:
 
         v9 = 0;
-        v8 = v85;
+        v8 = v84;
         goto LABEL_95;
       }
 
-      v89 = *v110;
+      v88 = *v109;
 LABEL_26:
       v31 = 0;
       while (1)
       {
-        if (*v110 != v89)
+        if (*v109 != v88)
         {
           objc_enumerationMutation(obj);
         }
 
-        v94 = v31;
-        v32 = *(*(&v109 + 1) + 8 * v31);
-        v33 = [v90 objectForKeyedSubscript:@"ConfigurationProperties"];
+        v93 = v31;
+        v32 = *(*(&v108 + 1) + 8 * v31);
+        v33 = [v89 objectForKeyedSubscript:@"ConfigurationProperties"];
         v34 = [v32 identifier];
         v35 = [v33 objectForKeyedSubscript:v34];
-        v93 = [v35 objectForKeyedSubscript:@"Signature"];
+        v92 = [v35 objectForKeyedSubscript:@"Signature"];
 
-        v92 = [v32 pathController];
+        v91 = [v32 pathController];
         v36 = objc_alloc_init(NSMutableArray);
         if ((*(a1 + 72) & 1) == 0)
         {
           v37 = objc_alloc_init(NSMutableArray);
           v38 = [v32 pathController];
+          v104 = 0u;
           v105 = 0u;
           v106 = 0u;
           v107 = 0u;
-          v108 = 0u;
-          v88 = v38;
+          v87 = v38;
           v39 = [v38 pathRules];
-          v40 = [v39 countByEnumeratingWithState:&v105 objects:v122 count:16];
+          v40 = [v39 countByEnumeratingWithState:&v104 objects:v121 count:16];
           if (!v40)
           {
             goto LABEL_51;
           }
 
           v41 = v40;
-          v42 = *v106;
+          v42 = *v105;
           while (1)
           {
             v43 = 0;
             do
             {
-              if (*v106 != v42)
+              if (*v105 != v42)
               {
                 objc_enumerationMutation(v39);
               }
 
-              v44 = *(*(&v105 + 1) + 8 * v43);
+              v44 = *(*(&v104 + 1) + 8 * v43);
               if ([v44 isDefaultPathRule])
               {
                 goto LABEL_43;
@@ -8976,7 +8985,7 @@ LABEL_26:
                 {
                   v51 = [v44 matchSigningIdentifier];
                   *buf = 138412290;
-                  v125 = v51;
+                  v124 = v51;
                   v52 = v50;
                   v53 = "Removing rule for %@, not found";
                   goto LABEL_49;
@@ -9001,7 +9010,7 @@ LABEL_43:
                 {
                   v51 = [v44 matchSigningIdentifier];
                   *buf = 138412290;
-                  v125 = v51;
+                  v124 = v51;
                   v52 = v50;
                   v53 = "Removing rule for %@, uninstalled";
 LABEL_49:
@@ -9014,7 +9023,7 @@ LABEL_46:
             }
 
             while (v41 != v43);
-            v55 = [v39 countByEnumeratingWithState:&v105 objects:v122 count:16];
+            v55 = [v39 countByEnumeratingWithState:&v104 objects:v121 count:16];
             v41 = v55;
             if (!v55)
             {
@@ -9024,7 +9033,7 @@ LABEL_51:
               if (os_log_type_enabled(v56, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v125 = v37;
+                v124 = v37;
                 _os_log_debug_impl(&_mh_execute_header, v56, OS_LOG_TYPE_DEBUG, "Existing apps: %@", buf, 0xCu);
               }
 
@@ -9037,18 +9046,18 @@ LABEL_51:
         v57 = ne_log_large_obj();
         if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
         {
-          v84 = *(a1 + 48);
+          v83 = *(a1 + 48);
           *buf = 138412290;
-          v125 = v84;
+          v124 = v83;
           _os_log_debug_impl(&_mh_execute_header, v57, OS_LOG_TYPE_DEBUG, "Apps for which we need a policy: %@", buf, 0xCu);
         }
 
-        v103 = 0u;
-        v104 = 0u;
-        v101 = 0u;
         v102 = 0u;
+        v103 = 0u;
+        v100 = 0u;
+        v101 = 0u;
         v58 = *(a1 + 48);
-        v59 = [v58 countByEnumeratingWithState:&v101 objects:v121 count:16];
+        v59 = [v58 countByEnumeratingWithState:&v100 objects:v120 count:16];
         v60 = &AnalyticsSendEvent_ptr;
         if (v59)
         {
@@ -9057,7 +9066,7 @@ LABEL_51:
 
 LABEL_81:
 
-        [v92 setPathRules:v36];
+        [v91 setPathRules:v36];
         v73 = ne_log_obj();
         if (os_log_type_enabled(v73, OS_LOG_TYPE_DEBUG))
         {
@@ -9065,51 +9074,50 @@ LABEL_81:
           _os_log_debug_impl(&_mh_execute_header, v73, OS_LOG_TYPE_DEBUG, "Final rule list:", buf, 2u);
         }
 
-        v98 = 0u;
-        v99 = 0u;
-        v96 = 0u;
         v97 = 0u;
-        v74 = [v92 pathRules];
-        v75 = [v74 countByEnumeratingWithState:&v96 objects:v120 count:16];
+        v98 = 0u;
+        v95 = 0u;
+        v96 = 0u;
+        v74 = [v91 pathRules];
+        v75 = [v74 countByEnumeratingWithState:&v95 objects:v119 count:16];
         if (v75)
         {
           v76 = v75;
-          v77 = *v97;
+          v77 = *v96;
           do
           {
             for (j = 0; j != v76; j = j + 1)
             {
-              if (*v97 != v77)
+              if (*v96 != v77)
               {
                 objc_enumerationMutation(v74);
               }
 
-              v79 = *(*(&v96 + 1) + 8 * j);
+              v79 = *(*(&v95 + 1) + 8 * j);
               v80 = ne_log_obj();
               if (os_log_type_enabled(v80, OS_LOG_TYPE_DEBUG))
               {
                 *buf = 138412290;
-                v125 = v79;
+                v124 = v79;
                 _os_log_debug_impl(&_mh_execute_header, v80, OS_LOG_TYPE_DEBUG, "%@", buf, 0xCu);
               }
             }
 
-            v76 = [v74 countByEnumeratingWithState:&v96 objects:v120 count:16];
+            v76 = [v74 countByEnumeratingWithState:&v95 objects:v119 count:16];
           }
 
           while (v76);
         }
 
         v81 = *(a1 + 40);
-        v82 = *(a1 + 64);
-        v83 = sub_1000155F4();
+        v82 = sub_1000155F4(NEHelperConfigurationManager);
         [v81 saveConfigurationToDisk:? currentSignature:? userUUID:? isUpgrade:? completionQueue:? completionHandler:?];
 
-        v31 = v94 + 1;
-        if ((v94 + 1) == v91)
+        v31 = v93 + 1;
+        if ((v93 + 1) == v90)
         {
-          v91 = [obj countByEnumeratingWithState:&v109 objects:v123 count:16];
-          if (!v91)
+          v90 = [obj countByEnumeratingWithState:&v108 objects:v122 count:16];
+          if (!v90)
           {
             goto LABEL_94;
           }
@@ -9119,26 +9127,26 @@ LABEL_81:
       }
 
       v61 = v59;
-      v62 = *v102;
+      v62 = *v101;
 LABEL_58:
       v63 = 0;
       while (1)
       {
-        if (*v102 != v62)
+        if (*v101 != v62)
         {
           objc_enumerationMutation(v58);
         }
 
-        v64 = *(*(&v101 + 1) + 8 * v63);
-        if (*(a1 + 73) & 1) != 0 || ([qword_100046B70 containsObject:*(*(&v101 + 1) + 8 * v63)])
+        v64 = *(*(&v100 + 1) + 8 * v63);
+        if (*(a1 + 73) & 1) != 0 || ([qword_100046B70 containsObject:*(*(&v100 + 1) + 8 * v63)])
         {
           goto LABEL_71;
         }
 
         v65 = [LSApplicationRecord alloc];
-        v100 = 0;
-        v66 = [v65 initWithBundleIdentifier:v64 allowPlaceholder:0 error:&v100];
-        v67 = v100;
+        v99 = 0;
+        v66 = [v65 initWithBundleIdentifier:v64 allowPlaceholder:0 error:&v99];
+        v67 = v99;
         if ([v66 developerType] == 1)
         {
           v68 = [v66 isAppStoreVendable];
@@ -9153,7 +9161,7 @@ LABEL_77:
               if (os_log_type_enabled(v71, OS_LOG_TYPE_INFO))
               {
                 *buf = 138412290;
-                v125 = v64;
+                v124 = v64;
                 _os_log_impl(&_mh_execute_header, v71, OS_LOG_TYPE_INFO, "Ignoring local network rule for %@, not eligible", buf, 0xCu);
               }
 
@@ -9188,9 +9196,9 @@ LABEL_71:
         if (os_log_type_enabled(v70, OS_LOG_TYPE_DEBUG))
         {
           *buf = 138412546;
-          v125 = v64;
-          v126 = 2112;
-          v127 = v67;
+          v124 = v64;
+          v125 = 2112;
+          v126 = v67;
           _os_log_debug_impl(&_mh_execute_header, v70, OS_LOG_TYPE_DEBUG, "Created path rule for %@: %@", buf, 0x16u);
         }
 
@@ -9199,7 +9207,7 @@ LABEL_74:
 
         if (v61 == ++v63)
         {
-          v72 = [v58 countByEnumeratingWithState:&v101 objects:v121 count:16];
+          v72 = [v58 countByEnumeratingWithState:&v100 objects:v120 count:16];
           v61 = v72;
           if (!v72)
           {
@@ -9220,7 +9228,7 @@ LABEL_21:
   if (os_log_type_enabled(log, OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v125 = v9;
+    v124 = v9;
     _os_log_error_impl(&_mh_execute_header, log, OS_LOG_TYPE_ERROR, "Failed to load configurations with error %@", buf, 0xCu);
   }
 

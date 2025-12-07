@@ -106,13 +106,24 @@
 
 - (id)description
 {
+  v9 = 0;
   contacts = self->_contacts;
   iconData = [(SharingXPCHelperContactIcon *)self iconData];
-  [(SharingXPCHelperContactIcon *)self iconIndex];
-  NSAppendPrintF();
-  v5 = 0;
+  if (iconData)
+  {
+    v5 = @"has";
+  }
 
-  return 0;
+  else
+  {
+    v5 = @"does not have";
+  }
+
+  NSAppendPrintF(&v9, "SharingXPCHelperGroupContactIcon for contacts %{private}@ %@ iconData at index %llu", contacts, v5, [(SharingXPCHelperContactIcon *)self iconIndex]);
+  v6 = v9;
+  v7 = v9;
+
+  return v6;
 }
 
 @end

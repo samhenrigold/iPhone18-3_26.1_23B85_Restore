@@ -17,30 +17,11 @@
 - (W5PeerFileTransferRequestPayload)initWithRequest:(id)request
 {
   requestCopy = request;
-  v22.receiver = self;
-  v22.super_class = W5PeerFileTransferRequestPayload;
-  v5 = [(W5PeerFileTransferRequestPayload *)&v22 init];
-  if (!v5)
+  v24.receiver = self;
+  v24.super_class = W5PeerFileTransferRequestPayload;
+  v5 = [(W5PeerFileTransferRequestPayload *)&v24 init];
+  if (!v5 || (v6 = [requestCopy objectForKey:@"version"], (v5->_version = v6) == 0) || (v7 = [NSURL alloc], objc_msgSend(requestCopy, "objectForKey:", @"url"), v8 = objc_claimAutoreleasedReturnValue(), v9 = objc_msgSend(v7, "initWithString:", v8), remotePath = v5->_remotePath, v5->_remotePath = v9, remotePath, v8, !v5->_remotePath))
   {
-    goto LABEL_11;
-  }
-
-  v6 = [requestCopy objectForKey:@"version"];
-  v5->_version = v6;
-  if (!v6)
-  {
-    goto LABEL_11;
-  }
-
-  v7 = [NSURL alloc];
-  v8 = [requestCopy objectForKey:@"url"];
-  v9 = [v7 initWithString:v8];
-  remotePath = v5->_remotePath;
-  v5->_remotePath = v9;
-
-  if (!v5->_remotePath)
-  {
-LABEL_11:
     v14 = 0;
     v11 = 0;
     goto LABEL_12;
@@ -48,9 +29,9 @@ LABEL_11:
 
   v11 = [requestCopy objectForKey:@"type"];
   v12 = [NSSet setWithObjects:objc_opt_class(), 0];
-  v21 = 0;
-  v13 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v12 fromData:v11 error:&v21];
-  v14 = v21;
+  v23 = 0;
+  v13 = [NSKeyedUnarchiver unarchivedObjectOfClasses:v12 fromData:v11 error:&v23];
+  v14 = v23;
   v5->_type = [v13 integerValue];
 
   type = v5->_type;
@@ -75,13 +56,14 @@ LABEL_12:
     p_super = sub_100098A04();
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_DEFAULT))
     {
-      v23 = 136315650;
-      v24 = "[W5PeerFileTransferRequestPayload initWithRequest:]";
-      v25 = 2080;
-      v26 = "W5PeerFileTransferRequestPayload.m";
-      v27 = 1024;
-      v28 = 53;
-      _os_log_send_and_compose_impl();
+      v25 = 136315650;
+      v26 = "[W5PeerFileTransferRequestPayload initWithRequest:]";
+      v27 = 2080;
+      v28 = "W5PeerFileTransferRequestPayload.m";
+      v29 = 1024;
+      v30 = 53;
+      LODWORD(v21) = 28;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, p_super, 0, "[wifivelocity] %s (%s:%u) init error some objects were not found in request", &v25, v21, v22);
     }
 
     v5 = 0;
@@ -112,9 +94,9 @@ LABEL_10:
     if ([(W5PeerFileTransferRequestPayload *)self type])
     {
       v8 = [[NSNumber alloc] initWithInteger:{-[W5PeerFileTransferRequestPayload type](self, "type")}];
-      v21 = 0;
-      version = [NSKeyedArchiver archivedDataWithRootObject:v8 requiringSecureCoding:1 error:&v21];
-      v9 = v21;
+      v20 = 0;
+      version = [NSKeyedArchiver archivedDataWithRootObject:v8 requiringSecureCoding:1 error:&v20];
+      v9 = v20;
 
       [v3 setObject:version forKey:@"type"];
       if ([(W5PeerFileTransferRequestPayload *)self type]== 1)
@@ -141,17 +123,16 @@ LABEL_10:
       v14 = sub_100098A04();
       if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
       {
-        v22 = 136315906;
-        v23 = "[W5PeerFileTransferRequestPayload encode]";
-        v24 = 2080;
-        v25 = "W5PeerFileTransferRequestPayload.m";
-        v26 = 1024;
-        v27 = 85;
-        v28 = 2114;
-        v29 = v3;
-        LODWORD(v20) = 38;
-        v19 = &v22;
-        _os_log_send_and_compose_impl();
+        v21 = 136315906;
+        v22 = "[W5PeerFileTransferRequestPayload encode]";
+        v23 = 2080;
+        v24 = "W5PeerFileTransferRequestPayload.m";
+        v25 = 1024;
+        v26 = 85;
+        v27 = 2114;
+        v28 = v3;
+        v19 = 38;
+        _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v14, 0, "[wifivelocity] %s (%s:%u) Payload: %{public}@", &v21, v19);
       }
     }
 

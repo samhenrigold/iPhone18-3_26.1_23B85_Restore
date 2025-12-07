@@ -88,7 +88,7 @@
   return v18;
 }
 
-uint64_t __73__SKUISignInTemplateView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
+void *__73__SKUISignInTemplateView_prefetchResourcesForViewElement_reason_context___block_invoke(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) prefetchResourcesForViewElement:a2 reason:*(a1 + 48)];
   *(*(*(a1 + 40) + 8) + 24) = (*(*(*(a1 + 40) + 8) + 24) | result) & 1;
@@ -739,9 +739,9 @@ void __40__SKUISignInTemplateView_layoutSubviews__block_invoke(uint64_t a1, void
   v12 = SKUIViewElementPlainColorWithStyle(styleCopy, tintColor);
 
   textAlignment = [styleCopy textAlignment];
-  v14 = [textCopy attributedStringWithDefaultFont:v10 foregroundColor:v12 textAlignment:SKUIViewElementNSTextAlignmentForIKElementAlignment(textAlignment)];
+  v15 = [textCopy attributedStringWithDefaultFont:v10 foregroundColor:v12 textAlignment:{SKUIViewElementNSTextAlignmentForIKElementAlignment(textAlignment, v14)}];
 
-  return v14;
+  return v15;
 }
 
 + (void)_enumerateChildrenOfViewElement:(id)element usingBlock:(id)block
@@ -916,6 +916,36 @@ LABEL_10:
   WeakRetained = objc_loadWeakRetained(&self->_delegate);
 
   return WeakRetained;
+}
+
+- (void)initWithFrame:(uint64_t)a3 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "[SKUISignInTemplateView initWithFrame:]";
+}
+
++ (void)prefetchResourcesForViewElement:(uint64_t)a3 reason:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISignInTemplateView prefetchResourcesForViewElement:reason:context:]";
+}
+
++ (void)preferredSizeForViewElement:(uint64_t)a3 context:(uint64_t)a4 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISignInTemplateView preferredSizeForViewElement:context:]";
+}
+
++ (void)requestLayoutForViewElement:(uint64_t)a3 width:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISignInTemplateView requestLayoutForViewElement:width:context:]";
+}
+
++ (void)sizeThatFitsWidth:(uint64_t)a3 viewElement:(uint64_t)a4 context:(uint64_t)a5 .cold.1(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
+{
+  LODWORD(v8) = 136446210;
+  *(&v8 + 4) = "+[SKUISignInTemplateView sizeThatFitsWidth:viewElement:context:]";
 }
 
 @end

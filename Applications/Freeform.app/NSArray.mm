@@ -535,9 +535,9 @@ LABEL_5:
       sub_10131EBCC();
     }
 
-    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Can't remove the first object of an empty array!", v6, v7, v8, v9, v10, v11, v12, "[NSArray(CRLAdditions) crl_arrayByRemovingFirstObject]");
-    v13 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[NSArray(CRLAdditions) crl_arrayByRemovingFirstObject]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/NSArray_CRLAdditions.m"] lineNumber:239 isFatal:1 description:"Can't remove the first object of an empty array!"];
-    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v13, v14);
+    sub_10028E070("Fatal Assertion failure: %{public}s %{public}s:%d Can't remove the first object of an empty array!", "[NSArray(CRLAdditions) crl_arrayByRemovingFirstObject]", "/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/NSArray_CRLAdditions.m", 239);
+    v6 = [CRLAssertionHandler handleFailureInFunction:[NSString stringWithUTF8String:"[NSArray(CRLAdditions) crl_arrayByRemovingFirstObject]"] file:[NSString stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Freeform/Source/CRLUtility/NSArray_CRLAdditions.m"] lineNumber:239 isFatal:1 description:"Can't remove the first object of an empty array!"];
+    SyncEvent.FetchedRecordZoneChanges.Deletion.init(recordID:recordType:)(v6, v7);
     abort();
   }
 

@@ -9,7 +9,7 @@
 
 + (void)fetchAttributesForDocumentsWithIndexKeys:(id)keys completion:(id)completion
 {
-  v30[1] = *MEMORY[0x277D85DE8];
+  v29[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   v7 = MEMORY[0x277CBEB70];
   keysCopy = keys;
@@ -29,31 +29,29 @@
   }
 
   v14 = [objc_alloc(MEMORY[0x277CC3498]) initWithQueryString:v12 queryContext:v10];
-  v30[0] = @"com.apple.mobilemail";
-  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v30 count:1];
+  v29[0] = @"com.apple.mobilemail";
+  v15 = [MEMORY[0x277CBEA60] arrayWithObjects:v29 count:1];
   [v14 setBundleIDs:v15];
 
   array2 = [MEMORY[0x277CBEB18] array];
-  v28[0] = MEMORY[0x277D85DD0];
-  v28[1] = 3221225472;
-  v28[2] = __88__SYDocumentAttributesFetchRequest_fetchAttributesForDocumentsWithIndexKeys_completion___block_invoke;
-  v28[3] = &unk_27856B640;
+  v27[0] = MEMORY[0x277D85DD0];
+  v27[1] = 3221225472;
+  v27[2] = __88__SYDocumentAttributesFetchRequest_fetchAttributesForDocumentsWithIndexKeys_completion___block_invoke;
+  v27[3] = &unk_27856B640;
   v17 = array2;
-  v29 = v17;
-  [v14 setFoundItemsHandler:v28];
-  v21 = MEMORY[0x277D85DD0];
-  v22 = 3221225472;
-  v23 = __88__SYDocumentAttributesFetchRequest_fetchAttributesForDocumentsWithIndexKeys_completion___block_invoke_2;
-  v24 = &unk_27856C738;
-  v26 = completionCopy;
+  v28 = v17;
+  [v14 setFoundItemsHandler:v27];
+  v20 = MEMORY[0x277D85DD0];
+  v21 = 3221225472;
+  v22 = __88__SYDocumentAttributesFetchRequest_fetchAttributesForDocumentsWithIndexKeys_completion___block_invoke_2;
+  v23 = &unk_27856C738;
+  v25 = completionCopy;
   selfCopy = self;
-  v25 = v17;
+  v24 = v17;
   v18 = completionCopy;
   v19 = v17;
-  [v14 setCompletionHandler:&v21];
+  [v14 setCompletionHandler:&v20];
   [v14 start];
-
-  v20 = *MEMORY[0x277D85DE8];
 }
 
 void __88__SYDocumentAttributesFetchRequest_fetchAttributesForDocumentsWithIndexKeys_completion___block_invoke_2(uint64_t a1, void *a2)
@@ -103,42 +101,42 @@ void __88__SYDocumentAttributesFetchRequest_fetchAttributesForDocumentsWithIndex
 
 + (id)_buildResultWithMatches:(id)matches
 {
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   matchesCopy = matches;
-  v48 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(matchesCopy, "count")}];
+  v47 = [MEMORY[0x277CBEB18] arrayWithCapacity:{objc_msgSend(matchesCopy, "count")}];
+  v55 = 0u;
   v56 = 0u;
   v57 = 0u;
   v58 = 0u;
-  v59 = 0u;
   obj = matchesCopy;
-  v5 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
+  v5 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v57;
+    v8 = *v56;
     *&v6 = 138412546;
-    v47 = v6;
-    v49 = *v57;
+    v46 = v6;
+    v48 = *v56;
     selfCopy = self;
     do
     {
       v9 = 0;
-      v51 = v7;
+      v50 = v7;
       do
       {
-        if (*v57 != v8)
+        if (*v56 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v56 + 1) + 8 * v9);
-        v55 = 0;
-        v11 = [self _isValidSearchableItem:v10 loggableErrorDescription:{&v55, v47}];
-        v12 = v55;
+        v10 = *(*(&v55 + 1) + 8 * v9);
+        v54 = 0;
+        v11 = [self _isValidSearchableItem:v10 loggableErrorDescription:{&v54, v46}];
+        v12 = v54;
         v13 = v12;
         if (v11)
         {
-          v54 = v12;
+          v53 = v12;
           attributeSet = [v10 attributeSet];
           bundleID = [attributeSet bundleID];
           v16 = bundleID;
@@ -167,7 +165,7 @@ void __88__SYDocumentAttributesFetchRequest_fetchAttributesForDocumentsWithIndex
             v22 = &stru_2838DFF18;
           }
 
-          v53 = v22;
+          v52 = v22;
 
           attributeSet3 = [v10 attributeSet];
           contentURL = [attributeSet3 contentURL];
@@ -212,20 +210,20 @@ void __88__SYDocumentAttributesFetchRequest_fetchAttributesForDocumentsWithIndex
           {
             v40 = v30;
             v41 = [[SYDocumentSender alloc] initWithName:v30 handle:v36];
-            v42 = v53;
-            v43 = [[SYDocumentAttributes alloc] initWithSourceBundleIdentifier:v18 indexKey:v53 originalFileURL:contentURL receivedDate:firstObject3 sender:v41];
-            [v48 addObject:v43];
+            v42 = v52;
+            v43 = [[SYDocumentAttributes alloc] initWithSourceBundleIdentifier:v18 indexKey:v52 originalFileURL:contentURL receivedDate:firstObject3 sender:v41];
+            [v47 addObject:v43];
 
             self = selfCopy;
-            v7 = v51;
+            v7 = v50;
           }
 
           else
           {
             v40 = v30;
-            v42 = v53;
+            v42 = v52;
             v41 = os_log_create("com.apple.synapse", "DocumentWorkflows");
-            v7 = v51;
+            v7 = v50;
             if (os_log_type_enabled(&v41->super, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 0;
@@ -235,8 +233,8 @@ void __88__SYDocumentAttributesFetchRequest_fetchAttributesForDocumentsWithIndex
             self = selfCopy;
           }
 
-          v8 = v49;
-          v13 = v54;
+          v8 = v48;
+          v13 = v53;
         }
 
         else
@@ -244,10 +242,10 @@ void __88__SYDocumentAttributesFetchRequest_fetchAttributesForDocumentsWithIndex
           v18 = os_log_create("com.apple.synapse", "DocumentWorkflows");
           if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
           {
-            *buf = v47;
-            v61 = v10;
-            v62 = 2112;
-            v63 = v13;
+            *buf = v46;
+            v60 = v10;
+            v61 = 2112;
+            v62 = v13;
             _os_log_impl(&dword_225901000, v18, OS_LOG_TYPE_DEFAULT, "Searchable item isn't valid: %@, reason: %@", buf, 0x16u);
           }
         }
@@ -256,14 +254,13 @@ void __88__SYDocumentAttributesFetchRequest_fetchAttributesForDocumentsWithIndex
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
+      v7 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
     }
 
     while (v7);
   }
 
-  v44 = [v48 copy];
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = [v47 copy];
 
   return v44;
 }

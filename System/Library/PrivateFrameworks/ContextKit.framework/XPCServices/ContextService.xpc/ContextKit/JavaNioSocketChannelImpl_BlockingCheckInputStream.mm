@@ -3,6 +3,7 @@
 - (id)checkBlocking;
 - (int)read;
 - (int)readWithByteArray:(id)array;
+- (int)readWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
 - (void)close;
 - (void)dealloc;
 @end
@@ -44,6 +45,20 @@
   }
 
   return result;
+}
+
+- (int)readWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
+{
+  v5 = *&withInt;
+  v6 = *&int;
+  [JavaNioSocketChannelImpl_BlockingCheckInputStream checkBlocking]_0(self);
+  v9 = atomic_load(&self->super.in_);
+  if (!v9)
+  {
+    JreThrowNullPointerException();
+  }
+
+  return [v9 readWithByteArray:array withInt:v6 withInt:v5];
 }
 
 - (int)readWithByteArray:(id)array

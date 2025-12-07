@@ -41,17 +41,17 @@
     sub_1002960DC(dsCopy, v9);
   }
 
-  v20 = @"contact-association-ids";
-  v21 = dsCopy;
-  v10 = [NSDictionary dictionaryWithObjects:&v21 forKeys:&v20 count:1];
-  objc_initWeak(&location, self);
+  location[1] = @"contact-association-ids";
+  location[2] = dsCopy;
+  v10 = objc_msgSend_dictionaryWithObjects_forKeys_count_(NSDictionary);
+  objc_initWeak(location, self);
   networkManager = [(GKRerankNetworkRequester *)self networkManager];
   clientProxy = [(GKRerankNetworkRequester *)self clientProxy];
   v15[0] = _NSConcreteStackBlock;
   v15[1] = 3221225472;
   v15[2] = sub_10019D0E8;
   v15[3] = &unk_10036A3F0;
-  objc_copyWeak(&v18, &location);
+  objc_copyWeak(&v18, location);
   v13 = handlerCopy;
   v17 = v13;
   v14 = dsCopy;
@@ -59,7 +59,7 @@
   [networkManager issueRequest:v10 bagKey:@"gk-get-suggested-friends" clientProxy:clientProxy handler:v15];
 
   objc_destroyWeak(&v18);
-  objc_destroyWeak(&location);
+  objc_destroyWeak(location);
 }
 
 @end

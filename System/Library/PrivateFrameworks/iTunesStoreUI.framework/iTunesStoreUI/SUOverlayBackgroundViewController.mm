@@ -971,7 +971,7 @@ uint64_t __56__SUOverlayBackgroundViewController__captureViewAction___block_invo
   view = [(SUOverlayBackgroundViewController *)self view];
   if (type)
   {
-    [transition duration];
+    objc_msgSend_duration(transition);
     if (v8 != 1 && (type & 0xFFFFFFFFFFFFFFFELL) != 2)
     {
       [(SUOverlayBackgroundViewController *)self _removeViewController:viewController];
@@ -1087,7 +1087,7 @@ LABEL_27:
     [MEMORY[0x1E69DD250] setAnimationDelegate:self];
     [MEMORY[0x1E69DD250] setAnimationDidStopSelector:sel__backgroundAnimationDidStop_finished_context_];
     v15 = MEMORY[0x1E69DD250];
-    [transition duration];
+    objc_msgSend_duration(transition);
     [v15 setAnimationDuration:?];
     v27 = 0u;
     v28 = 0u;
@@ -1238,7 +1238,7 @@ LABEL_18:
     [MEMORY[0x1E69DD250] setAnimationDelegate:self];
     [MEMORY[0x1E69DD250] setAnimationDidStopSelector:sel__backgroundAnimationDidStop_finished_context_];
     v11 = MEMORY[0x1E69DD250];
-    [transition duration];
+    objc_msgSend_duration(transition);
     [v11 setAnimationDuration:?];
     if ((type & 0xFFFFFFFFFFFFFFFELL) == 2)
     {
@@ -1432,7 +1432,7 @@ LABEL_7:
 
     [(SUScalingFlipView *)activeFlipView setDelegate:self];
     v20 = self->_activeFlipView;
-    [transition duration];
+    objc_msgSend_duration(transition);
     [(SUScalingFlipView *)v20 setDuration:?];
     v21 = self->_activeFlipView;
     if (v12 == 0x7FFFFFFFFFFFFFFFLL)

@@ -18,77 +18,75 @@
 
 + (id)entryEventPointDefinitions
 {
-  v37[1] = *MEMORY[0x277D85DE8];
-  v36 = kPLPMUAgentSensors;
-  v34[0] = *MEMORY[0x277D3F4E8];
+  v36[1] = *MEMORY[0x277D85DE8];
+  v35 = kPLPMUAgentSensors;
+  v33[0] = *MEMORY[0x277D3F4E8];
   v2 = *MEMORY[0x277D3F4D8];
-  v32[0] = *MEMORY[0x277D3F568];
-  v32[1] = v2;
-  v33[0] = &unk_2870FEE30;
-  v33[1] = MEMORY[0x277CBEC38];
-  v32[2] = *MEMORY[0x277D3F4F8];
-  v33[2] = MEMORY[0x277CBEC38];
-  v27 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v33 forKeys:v32 count:3];
-  v35[0] = v27;
-  v34[1] = *MEMORY[0x277D3F540];
-  v30[0] = @"C-ich";
+  v31[0] = *MEMORY[0x277D3F568];
+  v31[1] = v2;
+  v32[0] = &unk_2870FEE30;
+  v32[1] = MEMORY[0x277CBEC38];
+  v31[2] = *MEMORY[0x277D3F4F8];
+  v32[2] = MEMORY[0x277CBEC38];
+  v26 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v32 forKeys:v31 count:3];
+  v34[0] = v26;
+  v33[1] = *MEMORY[0x277D3F540];
+  v29[0] = @"C-ich";
   mEMORY[0x277D3F198] = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat = [mEMORY[0x277D3F198] commonTypeDict_RealFormat];
-  v31[0] = commonTypeDict_RealFormat;
-  v30[1] = @"C-vbus";
+  v30[0] = commonTypeDict_RealFormat;
+  v29[1] = @"C-vbus";
   mEMORY[0x277D3F198]2 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat2 = [mEMORY[0x277D3F198]2 commonTypeDict_RealFormat];
-  v31[1] = commonTypeDict_RealFormat2;
-  v30[2] = @"C-ich_avg";
+  v30[1] = commonTypeDict_RealFormat2;
+  v29[2] = @"C-ich_avg";
   mEMORY[0x277D3F198]3 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat3 = [mEMORY[0x277D3F198]3 commonTypeDict_RealFormat];
-  v31[2] = commonTypeDict_RealFormat3;
-  v30[3] = @"V-vbus";
+  v30[2] = commonTypeDict_RealFormat3;
+  v29[3] = @"V-vbus";
   mEMORY[0x277D3F198]4 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat4 = [mEMORY[0x277D3F198]4 commonTypeDict_RealFormat];
-  v31[3] = commonTypeDict_RealFormat4;
-  v30[4] = @"V-adc_in7";
+  v30[3] = commonTypeDict_RealFormat4;
+  v29[4] = @"V-adc_in7";
   mEMORY[0x277D3F198]5 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat5 = [mEMORY[0x277D3F198]5 commonTypeDict_RealFormat];
-  v31[4] = commonTypeDict_RealFormat5;
-  v30[5] = @"V-vbat";
+  v30[4] = commonTypeDict_RealFormat5;
+  v29[5] = @"V-vbat";
   mEMORY[0x277D3F198]6 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat6 = [mEMORY[0x277D3F198]6 commonTypeDict_RealFormat];
-  v31[5] = commonTypeDict_RealFormat6;
-  v30[6] = @"V-vcc_main";
+  v30[5] = commonTypeDict_RealFormat6;
+  v29[6] = @"V-vcc_main";
   mEMORY[0x277D3F198]7 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat7 = [mEMORY[0x277D3F198]7 commonTypeDict_RealFormat];
-  v31[6] = commonTypeDict_RealFormat7;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v31 forKeys:v30 count:7];
-  v35[1] = v5;
-  v34[2] = *MEMORY[0x277D3F500];
-  v28[0] = @"value";
+  v30[6] = commonTypeDict_RealFormat7;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v30 forKeys:v29 count:7];
+  v34[1] = v5;
+  v33[2] = *MEMORY[0x277D3F500];
+  v27[0] = @"value";
   mEMORY[0x277D3F198]8 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_RealFormat8 = [mEMORY[0x277D3F198]8 commonTypeDict_RealFormat];
-  v28[1] = @"unit";
-  v29[0] = commonTypeDict_RealFormat8;
+  v27[1] = @"unit";
+  v28[0] = commonTypeDict_RealFormat8;
   mEMORY[0x277D3F198]9 = [MEMORY[0x277D3F198] sharedInstance];
   commonTypeDict_StringFormat = [mEMORY[0x277D3F198]9 commonTypeDict_StringFormat];
-  v29[1] = commonTypeDict_StringFormat;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v29 forKeys:v28 count:2];
-  v35[2] = v10;
-  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v35 forKeys:v34 count:3];
-  v37[0] = v11;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:&v36 count:1];
-
-  v13 = *MEMORY[0x277D85DE8];
+  v28[1] = commonTypeDict_StringFormat;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v28 forKeys:v27 count:2];
+  v34[2] = v10;
+  v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v34 forKeys:v33 count:3];
+  v36[0] = v11;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v36 forKeys:&v35 count:1];
 
   return v12;
 }
 
 - (PLPMUAgent)init
 {
-  v104[2] = *MEMORY[0x277D85DE8];
+  v100[2] = *MEMORY[0x277D85DE8];
   if ([MEMORY[0x277D3F208] isArchARM])
   {
-    v98.receiver = self;
-    v98.super_class = PLPMUAgent;
-    v3 = [(PLAgent *)&v98 init];
+    v94.receiver = self;
+    v94.super_class = PLPMUAgent;
+    v3 = [(PLAgent *)&v94 init];
     if (!v3)
     {
 LABEL_51:
@@ -97,22 +95,21 @@ LABEL_51:
       goto LABEL_52;
     }
 
-    v4 = *MEMORY[0x277CBECE8];
-    v5 = IOHIDEventSystemClientCreate();
-    v3->hidEventSystem = v5;
-    if (!v5)
+    v4 = IOHIDEventSystemClientCreate();
+    v3->hidEventSystem = v4;
+    if (!v4)
     {
       if (![MEMORY[0x277D3F180] debugEnabled])
       {
         goto LABEL_51;
       }
 
-      v25 = objc_opt_class();
+      v23 = objc_opt_class();
       block[0] = MEMORY[0x277D85DD0];
       block[1] = 3221225472;
       block[2] = __18__PLPMUAgent_init__block_invoke;
       block[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      block[4] = v25;
+      block[4] = v23;
       if (init_defaultOnce != -1)
       {
         dispatch_once(&init_defaultOnce, block);
@@ -123,81 +120,80 @@ LABEL_51:
         goto LABEL_51;
       }
 
-      v10 = [MEMORY[0x277CCACA8] stringWithFormat:@"PMU: could not create HIDEventSystem"];
-      v26 = MEMORY[0x277D3F178];
-      v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Hardware/PLPMUAgent.m"];
-      lastPathComponent = [v27 lastPathComponent];
-      v29 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPMUAgent init]"];
-      [v26 logMessage:v10 fromFile:lastPathComponent fromFunction:v29 fromLineNumber:119];
+      v9 = [MEMORY[0x277CCACA8] stringWithFormat:@"PMU: could not create HIDEventSystem"];
+      v24 = MEMORY[0x277D3F178];
+      v25 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Hardware/PLPMUAgent.m"];
+      lastPathComponent = [v25 lastPathComponent];
+      v27 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPMUAgent init]"];
+      [v24 logMessage:v9 fromFile:lastPathComponent fromFunction:v27 fromLineNumber:119];
 
-      v13 = PLLogCommon();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v11 = PLLogCommon();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        [(PLPMUAgent *)v10 init:v13];
+        [(PLPMUAgent *)v9 init:v11];
       }
 
       goto LABEL_50;
     }
 
-    v6 = objc_opt_new();
+    v5 = objc_opt_new();
     matchingSensors = v3->matchingSensors;
-    v3->matchingSensors = v6;
+    v3->matchingSensors = v5;
 
-    v103[0] = @"PrimaryUsagePage";
-    v8 = [MEMORY[0x277CCABB0] numberWithInt:65288];
-    v103[1] = @"PrimaryUsage";
-    v104[0] = v8;
-    v9 = [MEMORY[0x277CCABB0] numberWithInt:3];
-    v104[1] = v9;
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v104 forKeys:v103 count:2];
+    v99[0] = @"PrimaryUsagePage";
+    v7 = [MEMORY[0x277CCABB0] numberWithInt:65288];
+    v99[1] = @"PrimaryUsage";
+    v100[0] = v7;
+    v8 = [MEMORY[0x277CCABB0] numberWithInt:3];
+    v100[1] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v100 forKeys:v99 count:2];
 
-    hidEventSystem = v3->hidEventSystem;
     IOHIDEventSystemClientSetMatching();
-    v12 = IOHIDEventSystemClientCopyServices(v3->hidEventSystem);
-    v13 = v12;
-    v84 = v12;
-    if (v12)
+    v10 = IOHIDEventSystemClientCopyServices(v3->hidEventSystem);
+    v11 = v10;
+    v80 = v10;
+    if (v10)
     {
-      v94 = 0u;
-      v95 = 0u;
-      v92 = 0u;
-      v93 = 0u;
-      obj = v12;
-      v14 = [(__CFArray *)obj countByEnumeratingWithState:&v92 objects:v102 count:16];
-      if (v14)
+      v90 = 0u;
+      v91 = 0u;
+      v88 = 0u;
+      v89 = 0u;
+      obj = v10;
+      v12 = [(__CFArray *)obj countByEnumeratingWithState:&v88 objects:v98 count:16];
+      if (v12)
       {
-        v15 = v14;
-        v82 = v10;
-        v16 = *v93;
+        v13 = v12;
+        v78 = v9;
+        v14 = *v89;
         do
         {
-          for (i = 0; i != v15; ++i)
+          for (i = 0; i != v13; ++i)
           {
-            if (*v93 != v16)
+            if (*v89 != v14)
             {
               objc_enumerationMutation(obj);
             }
 
-            v18 = *(*(&v92 + 1) + 8 * i);
-            v19 = IOHIDServiceClientCopyProperty(v18, @"Product");
-            v20 = v19;
-            if (v19)
+            v16 = *(*(&v88 + 1) + 8 * i);
+            v17 = IOHIDServiceClientCopyProperty(v16, @"Product");
+            v18 = v17;
+            if (v17)
             {
-              v21 = v3->matchingSensors;
-              [v19 stringByReplacingOccurrencesOfString:@"PMU " withString:@"V-"];
-              v23 = v22 = v3;
-              [(NSMutableDictionary *)v21 setObject:v18 forKey:v23];
+              v19 = v3->matchingSensors;
+              [v17 stringByReplacingOccurrencesOfString:@"PMU " withString:@"V-"];
+              v21 = v20 = v3;
+              [(NSMutableDictionary *)v19 setObject:v16 forKey:v21];
 
-              v3 = v22;
+              v3 = v20;
             }
           }
 
-          v15 = [(__CFArray *)obj countByEnumeratingWithState:&v92 objects:v102 count:16];
+          v13 = [(__CFArray *)obj countByEnumeratingWithState:&v88 objects:v98 count:16];
         }
 
-        while (v15);
-        v10 = v82;
-        v13 = v84;
+        while (v13);
+        v9 = v78;
+        v11 = v80;
       }
     }
 
@@ -208,76 +204,75 @@ LABEL_51:
         goto LABEL_30;
       }
 
-      v36 = objc_opt_class();
-      v96[0] = MEMORY[0x277D85DD0];
-      v96[1] = 3221225472;
-      v96[2] = __18__PLPMUAgent_init__block_invoke_60;
-      v96[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-      v96[4] = v36;
+      v34 = objc_opt_class();
+      v92[0] = MEMORY[0x277D85DD0];
+      v92[1] = 3221225472;
+      v92[2] = __18__PLPMUAgent_init__block_invoke_60;
+      v92[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+      v92[4] = v34;
       if (init_defaultOnce_58 != -1)
       {
-        dispatch_once(&init_defaultOnce_58, v96);
+        dispatch_once(&init_defaultOnce_58, v92);
       }
 
       if (init_classDebugEnabled_59 != 1)
       {
 LABEL_30:
-        v100[0] = @"PrimaryUsagePage";
-        v49 = [MEMORY[0x277CCABB0] numberWithInt:65288];
-        v100[1] = @"PrimaryUsage";
-        v101[0] = v49;
-        v50 = [MEMORY[0x277CCABB0] numberWithInt:2];
-        v101[1] = v50;
-        v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v101 forKeys:v100 count:2];
+        v96[0] = @"PrimaryUsagePage";
+        v47 = [MEMORY[0x277CCABB0] numberWithInt:65288];
+        v96[1] = @"PrimaryUsage";
+        v97[0] = v47;
+        v48 = [MEMORY[0x277CCABB0] numberWithInt:2];
+        v97[1] = v48;
+        v49 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v97 forKeys:v96 count:2];
 
-        v52 = v3->hidEventSystem;
         IOHIDEventSystemClientSetMatching();
-        v53 = IOHIDEventSystemClientCopyServices(v3->hidEventSystem);
-        v54 = v53;
-        if (v53)
+        v50 = IOHIDEventSystemClientCopyServices(v3->hidEventSystem);
+        v51 = v50;
+        if (v50)
         {
-          v55 = v10;
-          v89 = 0u;
-          v90 = 0u;
-          v87 = 0u;
-          v88 = 0u;
-          v56 = v53;
-          v57 = [(__CFArray *)v56 countByEnumeratingWithState:&v87 objects:v99 count:16];
-          if (v57)
+          v52 = v9;
+          v85 = 0u;
+          v86 = 0u;
+          v83 = 0u;
+          v84 = 0u;
+          v53 = v50;
+          v54 = [(__CFArray *)v53 countByEnumeratingWithState:&v83 objects:v95 count:16];
+          if (v54)
           {
-            v58 = v57;
-            v81 = v54;
-            v83 = v55;
-            obja = v51;
-            v59 = *v88;
+            v55 = v54;
+            v77 = v51;
+            v79 = v52;
+            obja = v49;
+            v56 = *v84;
             do
             {
-              for (j = 0; j != v58; ++j)
+              for (j = 0; j != v55; ++j)
               {
-                if (*v88 != v59)
+                if (*v84 != v56)
                 {
-                  objc_enumerationMutation(v56);
+                  objc_enumerationMutation(v53);
                 }
 
-                v61 = *(*(&v87 + 1) + 8 * j);
-                v62 = IOHIDServiceClientCopyProperty(v61, @"Product");
-                v63 = v62;
-                if (v62)
+                v58 = *(*(&v83 + 1) + 8 * j);
+                v59 = IOHIDServiceClientCopyProperty(v58, @"Product");
+                v60 = v59;
+                if (v59)
                 {
-                  v64 = v3->matchingSensors;
-                  v65 = [v62 stringByReplacingOccurrencesOfString:@"PMU " withString:@"C-"];
-                  [(NSMutableDictionary *)v64 setObject:v61 forKey:v65];
+                  v61 = v3->matchingSensors;
+                  v62 = [v59 stringByReplacingOccurrencesOfString:@"PMU " withString:@"C-"];
+                  [(NSMutableDictionary *)v61 setObject:v58 forKey:v62];
                 }
               }
 
-              v58 = [(__CFArray *)v56 countByEnumeratingWithState:&v87 objects:v99 count:16];
+              v55 = [(__CFArray *)v53 countByEnumeratingWithState:&v83 objects:v95 count:16];
             }
 
-            while (v58);
-            v55 = v83;
-            v13 = v84;
-            v51 = obja;
-            v54 = v81;
+            while (v55);
+            v52 = v79;
+            v11 = v80;
+            v49 = obja;
+            v51 = v77;
           }
         }
 
@@ -288,15 +283,15 @@ LABEL_30:
             goto LABEL_49;
           }
 
-          v66 = objc_opt_class();
-          v91[0] = MEMORY[0x277D85DD0];
-          v91[1] = 3221225472;
-          v91[2] = __18__PLPMUAgent_init__block_invoke_75;
-          v91[3] = &__block_descriptor_40_e5_v8__0lu32l8;
-          v91[4] = v66;
+          v63 = objc_opt_class();
+          v87[0] = MEMORY[0x277D85DD0];
+          v87[1] = 3221225472;
+          v87[2] = __18__PLPMUAgent_init__block_invoke_75;
+          v87[3] = &__block_descriptor_40_e5_v8__0lu32l8;
+          v87[4] = v63;
           if (init_defaultOnce_73 != -1)
           {
-            dispatch_once(&init_defaultOnce_73, v91);
+            dispatch_once(&init_defaultOnce_73, v87);
           }
 
           if (init_classDebugEnabled_74 != 1)
@@ -304,46 +299,46 @@ LABEL_30:
             goto LABEL_49;
           }
 
-          v55 = v10;
-          v67 = [MEMORY[0x277CCACA8] stringWithFormat:@"ERROR: PMU: Could not find any current sensors"];
-          v68 = MEMORY[0x277D3F178];
-          v69 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Hardware/PLPMUAgent.m"];
-          lastPathComponent2 = [v69 lastPathComponent];
-          v71 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPMUAgent init]"];
-          v56 = v67;
-          [v68 logMessage:v67 fromFile:lastPathComponent2 fromFunction:v71 fromLineNumber:149];
+          v52 = v9;
+          v64 = [MEMORY[0x277CCACA8] stringWithFormat:@"ERROR: PMU: Could not find any current sensors"];
+          v65 = MEMORY[0x277D3F178];
+          v66 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Hardware/PLPMUAgent.m"];
+          lastPathComponent2 = [v66 lastPathComponent];
+          v68 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPMUAgent init]"];
+          v53 = v64;
+          [v65 logMessage:v64 fromFile:lastPathComponent2 fromFunction:v68 fromLineNumber:149];
 
-          v72 = PLLogCommon();
-          if (os_log_type_enabled(v72, OS_LOG_TYPE_DEBUG))
+          v69 = PLLogCommon();
+          if (os_log_type_enabled(v69, OS_LOG_TYPE_DEBUG))
           {
-            [(PLPMUAgent *)v67 init:v72];
+            [(PLPMUAgent *)v64 init:v69];
           }
 
-          v13 = v84;
+          v11 = v80;
         }
 
-        v10 = v55;
+        v9 = v52;
 LABEL_49:
 
 LABEL_50:
         goto LABEL_51;
       }
 
-      v37 = [MEMORY[0x277CCACA8] stringWithFormat:@"ERROR: PMU: Could not find any voltage sensors"];
-      v38 = MEMORY[0x277D3F178];
-      v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Hardware/PLPMUAgent.m"];
-      lastPathComponent3 = [v39 lastPathComponent];
-      v41 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPMUAgent init]"];
-      obj = v37;
-      [v38 logMessage:v37 fromFile:lastPathComponent3 fromFunction:v41 fromLineNumber:131];
+      v35 = [MEMORY[0x277CCACA8] stringWithFormat:@"ERROR: PMU: Could not find any voltage sensors"];
+      v36 = MEMORY[0x277D3F178];
+      v37 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/PerfPowerServices_Operators/Operators/Agents/Hardware/PLPMUAgent.m"];
+      lastPathComponent3 = [v37 lastPathComponent];
+      v39 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[PLPMUAgent init]"];
+      obj = v35;
+      [v36 logMessage:v35 fromFile:lastPathComponent3 fromFunction:v39 fromLineNumber:131];
 
-      v42 = PLLogCommon();
-      if (os_log_type_enabled(v42, OS_LOG_TYPE_DEBUG))
+      v40 = PLLogCommon();
+      if (os_log_type_enabled(v40, OS_LOG_TYPE_DEBUG))
       {
-        [(PLPMUAgent *)v37 init:v42];
+        [(PLPMUAgent *)v35 init:v40];
       }
 
-      v13 = 0;
+      v11 = 0;
     }
 
     goto LABEL_30;
@@ -352,25 +347,24 @@ LABEL_50:
   selfCopy = 0;
 LABEL_52:
 
-  v79 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 
-uint64_t __18__PLPMUAgent_init__block_invoke(uint64_t a1)
+void *__18__PLPMUAgent_init__block_invoke(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   init_classDebugEnabled = result;
   return result;
 }
 
-uint64_t __18__PLPMUAgent_init__block_invoke_60(uint64_t a1)
+void *__18__PLPMUAgent_init__block_invoke_60(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   init_classDebugEnabled_59 = result;
   return result;
 }
 
-uint64_t __18__PLPMUAgent_init__block_invoke_75(uint64_t a1)
+void *__18__PLPMUAgent_init__block_invoke_75(uint64_t a1)
 {
   result = [MEMORY[0x277D3F180] isClassDebugEnabled:*(a1 + 32)];
   init_classDebugEnabled_74 = result;
@@ -390,31 +384,31 @@ uint64_t __18__PLPMUAgent_init__block_invoke_75(uint64_t a1)
 
 - (void)logEventPointSensors
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   if (self->matchingSensors)
   {
-    v14 = [(PLOperator *)PLPMUAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:kPLPMUAgentSensors];
-    v3 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v14];
+    v13 = [(PLOperator *)PLPMUAgent entryKeyForType:*MEMORY[0x277D3F5E8] andName:kPLPMUAgentSensors];
+    v3 = [objc_alloc(MEMORY[0x277D3F190]) initWithEntryKey:v13];
+    v14 = 0u;
     v15 = 0u;
     v16 = 0u;
     v17 = 0u;
-    v18 = 0u;
     allKeys = [(NSMutableDictionary *)self->matchingSensors allKeys];
-    v5 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+    v5 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v5)
     {
       v6 = v5;
-      v7 = *v16;
+      v7 = *v15;
       do
       {
         for (i = 0; i != v6; ++i)
         {
-          if (*v16 != v7)
+          if (*v15 != v7)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v9 = *(*(&v15 + 1) + 8 * i);
+          v9 = *(*(&v14 + 1) + 8 * i);
           [(NSMutableDictionary *)self->matchingSensors objectForKeyedSubscript:v9];
 
           v10 = IOHIDServiceClientCopyEvent();
@@ -429,7 +423,7 @@ uint64_t __18__PLPMUAgent_init__block_invoke_75(uint64_t a1)
           }
         }
 
-        v6 = [allKeys countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [allKeys countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v6);
@@ -437,15 +431,13 @@ uint64_t __18__PLPMUAgent_init__block_invoke_75(uint64_t a1)
 
     [(PLOperator *)self logEntry:v3];
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)init
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_25EE16000, a2, a3, "%@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = self;
+  OUTLINED_FUNCTION_0(&dword_25EE16000, a2, a3, "%@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

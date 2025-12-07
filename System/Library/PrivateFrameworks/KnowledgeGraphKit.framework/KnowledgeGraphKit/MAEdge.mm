@@ -408,7 +408,7 @@ LABEL_13:
 {
   propertyDictionary = [(MAEdge *)self propertyDictionary];
   [(MAEdge *)self weight];
-  v5 = [(MAKGWeightConversion *)v4 kgPropertiesForMAProperties:propertyDictionary weight:?];
+  v5 = [MAKGWeightConversion kgPropertiesForMAProperties:propertyDictionary weight:v4];
 
   return v5;
 }

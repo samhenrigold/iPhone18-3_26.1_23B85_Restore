@@ -301,7 +301,7 @@ LABEL_77:
               if (v61)
               {
                 v62 = v61;
-                v15->super.mErrorType = sub_2770952E8(v60, v71);
+                v15->super.mErrorType = sub_2770952E8(v60, v71, mappingsCopy, v61);
                 free(v62);
                 v63 = v60;
                 v32 = v66;

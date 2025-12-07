@@ -9,28 +9,29 @@
 
 + (CRKIdentity)identity
 {
-  v2 = CFBundleCreate(0, [MEMORY[0x277CBEBC0] fileURLWithPath:@"/System/Library/PrivateFrameworks/ManagedConfiguration.framework"]);
-  v3 = v2;
-  if (v2)
+  Executable = CFBundleCreate(0, [MEMORY[0x277CBEBC0] fileURLWithPath:@"/System/Library/PrivateFrameworks/ManagedConfiguration.framework"]);
+  v3 = Executable;
+  if (Executable)
   {
-    if (CFBundleLoadExecutable(v2))
+    Executable = CFBundleLoadExecutable(Executable);
+    if (Executable)
     {
-      FunctionPointerForName = CFBundleGetFunctionPointerForName(v3, @"MCMDMFilePath");
-      if (FunctionPointerForName)
+      Executable = CFBundleGetFunctionPointerForName(v3, @"MCMDMFilePath");
+      if (Executable)
       {
-        v5 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:FunctionPointerForName()];
-        v6 = [MEMORY[0x277CCAC58] propertyListWithData:v5 options:0 format:0 error:0];
-        v7 = [v6 valueForKey:*MEMORY[0x277D24808]];
-        if (v7)
+        v4 = [MEMORY[0x277CBEA90] dataWithContentsOfFile:(Executable)()];
+        v5 = [MEMORY[0x277CCAC58] propertyListWithData:v4 options:0 format:0 error:0];
+        v6 = [v5 valueForKey:*MEMORY[0x277D24808]];
+        if (v6)
         {
-          v8 = +[CRKKeychainProvider sharedProvider];
-          keychain = [v8 keychain];
-          v10 = [keychain identityWithPersistentID:v7];
+          v7 = +[CRKKeychainProvider sharedProvider];
+          keychain = [v7 keychain];
+          v9 = [keychain identityWithPersistentID:v6];
         }
 
         else
         {
-          v10 = 0;
+          v9 = 0;
         }
 
 LABEL_12:
@@ -40,13 +41,13 @@ LABEL_12:
     }
   }
 
-  v11 = _CRKLogGeneral_4();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+  v10 = _CRKLogGeneral_4(Executable);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
   {
-    +[(CRKMDMIdentityProvider *)v11];
+    +[(CRKMDMIdentityProvider *)v10];
   }
 
-  v10 = 0;
+  v9 = 0;
   if (v3)
   {
     goto LABEL_12;
@@ -54,7 +55,7 @@ LABEL_12:
 
 LABEL_13:
 
-  return v10;
+  return v9;
 }
 
 - (CRKMDMIdentityProvider)init

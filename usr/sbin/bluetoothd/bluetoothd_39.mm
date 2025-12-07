@@ -1,4 +1,130 @@
-void sub_10029BCD4(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
+__n128 sub_10029BA70(__n128 *a1)
+{
+  result = *a1;
+  xmmword_100B602F8 = *a1;
+  return result;
+}
+
+__n128 sub_10029BA84(__n128 *a1)
+{
+  result = *a1;
+  xmmword_100B60308 = *a1;
+  return result;
+}
+
+void sub_10029BA98(char *ptr, uint64_t a2, int a3)
+{
+  if (ptr)
+  {
+    v4 = a2;
+    v6 = *ptr;
+    v16 = 0uLL;
+    if (a2)
+    {
+      v7 = 0;
+    }
+
+    else
+    {
+      v16 = *(ptr + 562);
+      v7 = ptr[593];
+    }
+
+    v9 = *(ptr + 3);
+    if (v9)
+    {
+      sub_10002242C(v9);
+      *(ptr + 3) = 0;
+    }
+
+    if (!v4)
+    {
+      if (ptr[612] == 1)
+      {
+        if (sub_10000C240())
+        {
+          sub_10000AF54("Pairing completed with a compromised device");
+          v10 = sub_10000C050(0x43u);
+          if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+          {
+            sub_1000E09C0();
+          }
+        }
+
+        v4 = 4832;
+      }
+
+      else
+      {
+        v4 = 0;
+      }
+    }
+
+    if (*(ptr + 154))
+    {
+      if (sub_10000C240())
+      {
+        sub_10000AF54("using override status %d", *(ptr + 154));
+        v11 = sub_10000C050(0x43u);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+        {
+          sub_1000E09C0();
+        }
+      }
+
+      v4 = *(ptr + 154);
+    }
+
+    v12 = *(ptr + 13);
+    sub_10000C1E8(ptr);
+    if (sub_1000ABD24(v6))
+    {
+      *(v6 + 272) = 0;
+      if (a3 && unk_100BCE1E0)
+      {
+        if (*(v6 + 55))
+        {
+          v13 = v6 + 56;
+        }
+
+        else
+        {
+          v13 = 0;
+        }
+
+        unk_100BCE1E0(v6 + 48, v13, v4, 0, v12);
+      }
+
+      v15 = v4 == 4832 || v4 == 0;
+      *(v6 + 240) = v15;
+      sub_1002BE6B0(v6);
+    }
+
+    else if (sub_1000B8B5C(v6))
+    {
+      *(v6 + 312) = 0;
+      if (a3)
+      {
+        if (off_100BCE1E8)
+        {
+          off_100BCE1E8(v6 + 48, v4, &v16, v7 & 1, 0);
+        }
+      }
+    }
+  }
+
+  else if (sub_10000C240())
+  {
+    sub_10000AF54("SMP_DestroyPairingDeviceAndDispatch: invalid data.");
+    v8 = sub_10000C050(0x43u);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000E09C0();
+    }
+  }
+}
+
+void sub_10029BCD4(uint64_t a1, unsigned __int8 *a2, int a3)
 {
   if (!a2 || !a3)
   {
@@ -7,9 +133,9 @@ void sub_10029BCD4(uint64_t a1, unsigned __int8 *a2, uint64_t a3)
       return;
     }
 
-    sub_10000AF54("BR/EDR Security Manager error : invalid size %d", v8, v9, v10, v11, v12, v13, v14, a3);
-    v15 = sub_10000C050(0x43u);
-    if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("BR/EDR Security Manager error : invalid size %d", a3);
+    v8 = sub_10000C050(0x43u);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       return;
     }
@@ -36,9 +162,9 @@ LABEL_21:
       return;
     }
 
-    sub_10000AF54("Invalid connection", v17, v18, v19, v20, v21, v22, v23, v33);
-    v24 = sub_10000C050(0x43u);
-    if (!os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Invalid connection");
+    v10 = sub_10000C050(0x43u);
+    if (!os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       return;
     }
@@ -48,17 +174,17 @@ LABEL_21:
 
   v7 = &unk_100AE9E30;
 LABEL_12:
-  v16 = v7[v6];
-  if (!v16)
+  v9 = v7[v6];
+  if (!v9)
   {
     if (!sub_10000C240())
     {
       return;
     }
 
-    sub_10000AF54("Unknow SMP header 0x%x or invalid connection", v25, v26, v27, v28, v29, v30, v31, *a2);
-    v32 = sub_10000C050(0x43u);
-    if (!os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Unknow SMP header 0x%x or invalid connection", *a2);
+    v11 = sub_10000C050(0x43u);
+    if (!os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       return;
     }
@@ -66,7 +192,7 @@ LABEL_12:
     goto LABEL_21;
   }
 
-  v16(a1, a2 + 1, (a3 - 1));
+  v9(a1, a2 + 1, (a3 - 1));
 }
 
 uint64_t sub_10029BE74(uint64_t a1)
@@ -88,14 +214,20 @@ uint64_t sub_10029BE74(uint64_t a1)
 
 uint64_t sub_10029BEC0(__int128 *a1, char *a2, size_t a3, int a4)
 {
-  memset(v49, 0, sizeof(v49));
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v21 = 0u;
+  v22 = 0u;
+  v20 = 0u;
   if (!sub_1000ABD24(a1) && !sub_1000B8B5C(a1))
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Invalid handle", v27, v28, v29, v30, v31, v32, v33, v48);
-      v34 = sub_10000C050(0x43u);
-      if (os_log_type_enabled(v34, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Invalid handle");
+      v13 = sub_10000C050(0x43u);
+      if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
       {
         sub_1000E09C0();
       }
@@ -104,18 +236,18 @@ uint64_t sub_10029BEC0(__int128 *a1, char *a2, size_t a3, int a4)
     return 4820;
   }
 
-  v8 = sub_10001FF10(v49, 1u);
+  v8 = sub_10001FF10(&v20, 1u);
   if (!v8)
   {
-    v18 = sub_10001F968(v49, a2, a3, 2u);
-    if (v18)
+    v11 = sub_10001F968(&v20, a2, a3, 2u);
+    if (v11)
     {
-      v9 = v18;
+      v9 = v11;
       if (sub_10000C240())
       {
-        sub_10000AF54("Failed to append mbuf result %!", v19, v20, v21, v22, v23, v24, v25, v9);
-        v26 = sub_10000C050(0x43u);
-        if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Failed to append mbuf result %!", v9);
+        v12 = sub_10000C050(0x43u);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_26;
         }
@@ -126,7 +258,7 @@ uint64_t sub_10029BEC0(__int128 *a1, char *a2, size_t a3, int a4)
 
     if (sub_1000B8B5C(a1))
     {
-      v36 = 7;
+      v15 = 7;
     }
 
     else
@@ -137,25 +269,25 @@ uint64_t sub_10029BEC0(__int128 *a1, char *a2, size_t a3, int a4)
         goto LABEL_23;
       }
 
-      v36 = 6;
+      v15 = 6;
     }
 
-    v9 = sub_1000B7EDC(0, v36, a1, v49, 0);
+    v9 = sub_1000B7EDC(0, v15, a1, &v20, 0);
     if (v9)
     {
       sub_1000D660C();
     }
 
 LABEL_23:
-    sub_1000B7B40(v49);
-    v37 = sub_10029BE74(a1);
+    sub_1000B7B40(&v20);
+    v16 = sub_10029BE74(a1);
     if (v9)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("Could not write to the SMP channel for handle 0x%x with status %!", v38, v39, v40, v41, v42, v43, v44, a1);
-        v45 = sub_10000C050(0x43u);
-        if (os_log_type_enabled(v45, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Could not write to the SMP channel for handle 0x%x with status %!", a1, v9, v20, v21, v22, v23, v24, v25, v26);
+        v17 = sub_10000C050(0x43u);
+        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_26;
         }
@@ -164,19 +296,19 @@ LABEL_23:
 
     else
     {
-      v46 = v37;
-      if (v37)
+      v18 = v16;
+      if (v16)
       {
-        v47 = *(v37 + 12);
-        if (v47)
+        v19 = *(v16 + 12);
+        if (v19)
         {
-          sub_10002242C(v47);
-          v46[3] = 0;
+          sub_10002242C(v19);
+          v18[3] = 0;
         }
 
         if (a4)
         {
-          sub_10029C104(v46);
+          sub_10029C104(v18);
         }
       }
 
@@ -189,9 +321,9 @@ LABEL_23:
   v9 = v8;
   if (sub_10000C240())
   {
-    sub_10000AF54("Failed to init mbuf result %!", v10, v11, v12, v13, v14, v15, v16, v9);
-    v17 = sub_10000C050(0x43u);
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Failed to init mbuf result %!", v9);
+    v10 = sub_10000C050(0x43u);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
 LABEL_26:
       sub_10080F604();
@@ -203,17 +335,17 @@ LABEL_26:
 
 void sub_10029C104(int *a1)
 {
-  v11[1] = a1;
-  v11[0] = 8;
-  v1 = sub_10002195C(sub_10029C4EC, v11, 300, a1 + 3);
+  v4[1] = a1;
+  v4[0] = 8;
+  v1 = sub_10002195C(sub_10029C4EC, v4, 300, a1 + 3);
   if (v1)
   {
     v2 = v1;
     if (sub_10000C240())
     {
-      sub_10000AF54("Could not register timeout for SMP Tx wth status %!.", v3, v4, v5, v6, v7, v8, v9, v2);
-      v10 = sub_10000C050(0x43u);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Could not register timeout for SMP Tx wth status %!.", v2);
+      v3 = sub_10000C050(0x43u);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -321,13 +453,13 @@ void sub_10029C3C0(uint64_t a1, char a2)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("SMP State device:%: %s -> %s", v4, v5, v6, v7, v8, v9, v10, *a1 + 49);
-      v11 = sub_10000C050(0x43u);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      sub_10000AF54("SMP State device:%: %s -> %s", *a1 + 49, "", "");
+      v4 = sub_10000C050(0x43u);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136446210;
-        v13 = sub_10000C0FC();
-        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
+        v6 = sub_10000C0FC();
+        _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, " %{public}s", buf, 0xCu);
       }
     }
   }
@@ -351,9 +483,9 @@ void sub_10029C4EC(uint64_t a1)
   v1 = **(a1 + 8);
   if (sub_10000C240())
   {
-    sub_10000AF54("SMP timeout for handle 0x%x.", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x43u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("SMP timeout for handle 0x%x.", v1);
+    v2 = sub_10000C050(0x43u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_1000E09C0();
     }
@@ -366,9 +498,9 @@ void sub_10029C4EC(uint64_t a1)
       return;
     }
 
-    sub_10000AF54("Handle is not valid anymore, probably disconnected. Ignoring.", v22, v23, v24, v25, v26, v27, v28, v30);
-    v29 = sub_10000C050(0x43u);
-    if (!os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Handle is not valid anymore, probably disconnected. Ignoring.");
+    v8 = sub_10000C050(0x43u);
+    if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       return;
     }
@@ -378,17 +510,17 @@ LABEL_17:
     return;
   }
 
-  v10 = sub_10029BE74(v1);
-  if (!v10)
+  v3 = sub_10029BE74(v1);
+  if (!v3)
   {
     if (!sub_10000C240())
     {
       return;
     }
 
-    sub_10000AF54("No pairing entry for handle 0x%x", v14, v15, v16, v17, v18, v19, v20, v1);
-    v21 = sub_10000C050(0x43u);
-    if (!os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("No pairing entry for handle 0x%x", v1);
+    v7 = sub_10000C050(0x43u);
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       return;
     }
@@ -396,29 +528,29 @@ LABEL_17:
     goto LABEL_17;
   }
 
-  v11 = v10;
-  v12 = sub_1000ABD24(v1);
-  v13 = 4807;
-  if (v12)
+  v4 = v3;
+  v5 = sub_1000ABD24(v1);
+  v6 = 4807;
+  if (v5)
   {
-    if (v11[490])
+    if (v4[490])
     {
-      v13 = 4807;
+      v6 = 4807;
     }
 
     else
     {
-      v13 = 4827;
+      v6 = 4827;
     }
   }
 
-  sub_10029BA98(v11, v13, 1);
+  sub_10029BA98(v4, v6, 1);
 }
 
 uint64_t sub_10029C6AC(uint64_t a1, _WORD *a2)
 {
   v4 = *(a1 + 4);
-  __chkstk_darwin();
+  __chkstk_darwin(a1);
   v6 = &v8[-v5];
   bzero(&v8[-v5], v4);
   v9 = 0;
@@ -433,7 +565,7 @@ uint64_t sub_10029C6AC(uint64_t a1, _WORD *a2)
   return result;
 }
 
-uint64_t sub_10029C77C(unsigned int a1)
+int *sub_10029C77C(unsigned int a1)
 {
   v2 = 0;
   if (sub_1000ABC7C(a1, &v2))
@@ -485,7 +617,7 @@ uint64_t sub_10029C820(unsigned int a1, char a2)
   return result;
 }
 
-uint64_t sub_10029C878(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_10029C878(int *a1, uint64_t a2, uint64_t a3)
 {
   if (!sub_10029C92C(a1))
   {
@@ -519,7 +651,7 @@ uint64_t sub_10029C878(uint64_t a1, uint64_t a2, uint64_t a3)
   return *(sub_1000B12AC(a1) + 65);
 }
 
-BOOL sub_10029C92C(uint64_t a1)
+BOOL sub_10029C92C(int *a1)
 {
   v2 = *sub_1000B12AC(a1);
   v3 = *(sub_1000B12AC(a1) + 64);
@@ -527,9 +659,9 @@ BOOL sub_10029C92C(uint64_t a1)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Forcing channel mode for non-ACL handle.", v4, v5, v6, v7, v8, v9, v10, v13);
-      v11 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Forcing channel mode for non-ACL handle.");
+      v4 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -567,7 +699,7 @@ BOOL sub_10029C92C(uint64_t a1)
   }
 }
 
-uint64_t sub_10029CA24(uint64_t a1)
+uint64_t sub_10029CA24(int *a1)
 {
   if (!a1)
   {
@@ -577,7 +709,7 @@ uint64_t sub_10029CA24(uint64_t a1)
   return *(sub_1000B12AC(a1) + 65);
 }
 
-uint64_t sub_10029CA58(uint64_t a1)
+uint64_t sub_10029CA58(int a1)
 {
   if (a1 > 2)
   {
@@ -607,9 +739,9 @@ LABEL_10:
 LABEL_7:
     if (sub_10000C240())
     {
-      sub_10000AF54("Unknown mode 0x%x.", v3, v4, v5, v6, v7, v8, v9, a1);
-      v10 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Unknown mode 0x%x.", a1);
+      v3 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -622,7 +754,7 @@ LABEL_7:
   return v2 & 1;
 }
 
-uint64_t sub_10029CB2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
+uint64_t sub_10029CB2C(int *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v8 = *(sub_1000B12AC(a1) + 64);
   v9 = *(a2 + 10);
@@ -641,14 +773,14 @@ uint64_t sub_10029CB2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
     if (*(sub_1000B12AC(a1) + 65) == 1)
     {
-      v23 = 2;
+      v16 = 2;
       if (sub_10000C240())
       {
-        v40 = sub_10029D670(v9);
-        sub_10029D670(v8);
-        sub_10000AF54("Remote responded with %s, since our mode (%s) is mandatory, failing.", v41, v42, v43, v44, v45, v46, v47, v40);
-        v48 = sub_10000C050(0x2Fu);
-        if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+        v19 = sub_10029D670(v9);
+        v20 = sub_10029D670(v8);
+        sub_10000AF54("Remote responded with %s, since our mode (%s) is mandatory, failing.", v19, v20);
+        v21 = sub_10000C050(0x2Fu);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_59;
         }
@@ -656,7 +788,7 @@ uint64_t sub_10029CB2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
         return 2;
       }
 
-      return v23;
+      return v16;
     }
 
     if (sub_10029CA58(v9))
@@ -666,9 +798,9 @@ uint64_t sub_10029CB2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
     if (sub_10000C240())
     {
-      sub_10000AF54("Remote device responded with a mode we don't support, falling back to basic.", v57, v58, v59, v60, v61, v62, v63, v99);
-      v64 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Remote device responded with a mode we don't support, falling back to basic.");
+      v23 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -682,20 +814,20 @@ uint64_t sub_10029CB2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     sub_1000D660C();
   }
 
-  v21 = *(sub_1000B12AC(a1) + 65);
-  v22 = *(sub_1000B12AC(a1) + 76);
-  if (v21 != 1)
+  v14 = *(sub_1000B12AC(a1) + 65);
+  v15 = *(sub_1000B12AC(a1) + 76);
+  if (v14 != 1)
   {
-    if (v22)
+    if (v15)
     {
       if (!sub_10029CA58(v9))
       {
-        v23 = 2;
+        v16 = 2;
         if (sub_10000C240())
         {
-          sub_10000AF54("Remote device requested an unsupported mode a second time, failling negotiation.", v49, v50, v51, v52, v53, v54, v55, v99);
-          v56 = sub_10000C050(0x2Fu);
-          if (os_log_type_enabled(v56, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Remote device requested an unsupported mode a second time, failling negotiation.");
+          v22 = sub_10000C050(0x2Fu);
+          if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
           {
             goto LABEL_59;
           }
@@ -703,7 +835,7 @@ uint64_t sub_10029CB2C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
           return 2;
         }
 
-        return v23;
+        return v16;
       }
 
 LABEL_48:
@@ -718,9 +850,9 @@ LABEL_3:
         {
           if (sub_10000C240())
           {
-            sub_10000AF54("Mode negotiation resulted in using our mode -> using our params.", v32, v33, v34, v35, v36, v37, v38, v99);
-            v39 = sub_10000C050(0x2Fu);
-            if (os_log_type_enabled(v39, OS_LOG_TYPE_ERROR))
+            sub_10000AF54("Mode negotiation resulted in using our mode -> using our params.");
+            v18 = sub_10000C050(0x2Fu);
+            if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
             {
               sub_10080F7A0();
             }
@@ -742,9 +874,9 @@ LABEL_3:
         {
           if (sub_10000C240())
           {
-            sub_10000AF54("Invalid parameter %s:%d=%d", v13, v14, v15, v16, v17, v18, v19, "checkParams");
-            v20 = sub_10000C050(0x2Fu);
-            if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
+            sub_10000AF54("Invalid parameter %s:%d=%d", "checkParams", 539, *(a2 + 11));
+            v13 = sub_10000C050(0x2Fu);
+            if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
             {
 LABEL_56:
               sub_10080F7A0();
@@ -752,12 +884,12 @@ LABEL_56:
           }
 
 LABEL_57:
-          v23 = 2;
+          v16 = 2;
           if (sub_10000C240())
           {
-            sub_10000AF54("Remote side parameters are invalid, bailing.", v90, v91, v92, v93, v94, v95, v96, v99);
-            v97 = sub_10000C050(0x2Fu);
-            if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+            sub_10000AF54("Remote side parameters are invalid, bailing.");
+            v28 = sub_10000C050(0x2Fu);
+            if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
             {
 LABEL_59:
               sub_10080F7A0();
@@ -766,7 +898,7 @@ LABEL_59:
             return 2;
           }
 
-          return v23;
+          return v16;
         }
 
         if ((a3 & 1) == 0)
@@ -775,9 +907,9 @@ LABEL_59:
           {
             if (sub_10000C240())
             {
-              sub_10000AF54("Invalid parameter %s:%d=%d", v74, v75, v76, v77, v78, v79, v80, "checkParams");
-              v81 = sub_10000C050(0x2Fu);
-              if (os_log_type_enabled(v81, OS_LOG_TYPE_ERROR))
+              sub_10000AF54("Invalid parameter %s:%d=%d", "checkParams", 542, *(a2 + 14));
+              v26 = sub_10000C050(0x2Fu);
+              if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_56;
               }
@@ -790,9 +922,9 @@ LABEL_59:
           {
             if (sub_10000C240())
             {
-              sub_10000AF54("Invalid parameter %s:%d=%d", v82, v83, v84, v85, v86, v87, v88, "checkParams");
-              v89 = sub_10000C050(0x2Fu);
-              if (os_log_type_enabled(v89, OS_LOG_TYPE_ERROR))
+              sub_10000AF54("Invalid parameter %s:%d=%d", "checkParams", 544, *(a2 + 16));
+              v27 = sub_10000C050(0x2Fu);
+              if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
               {
                 goto LABEL_56;
               }
@@ -814,8 +946,8 @@ LABEL_45:
       {
 LABEL_46:
         *(a4 + 10) = v8;
-        v73 = sub_1000B12AC(a1);
-        ++*(v73 + 76);
+        v25 = sub_1000B12AC(a1);
+        ++*(v25 + 76);
         goto LABEL_3;
       }
 
@@ -827,16 +959,16 @@ LABEL_47:
     goto LABEL_3;
   }
 
-  if (!v22)
+  if (!v15)
   {
     if (!sub_10029C92C(a1))
     {
-      v23 = 2;
+      v16 = 2;
       if (sub_10000C240())
       {
-        sub_10000AF54("Remote device doesn't support our mandatory mode, can't negotiate.", v65, v66, v67, v68, v69, v70, v71, v99);
-        v72 = sub_10000C050(0x2Fu);
-        if (os_log_type_enabled(v72, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Remote device doesn't support our mandatory mode, can't negotiate.");
+        v24 = sub_10000C050(0x2Fu);
+        if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
         {
           goto LABEL_59;
         }
@@ -844,18 +976,18 @@ LABEL_47:
         return 2;
       }
 
-      return v23;
+      return v16;
     }
 
     goto LABEL_46;
   }
 
-  v23 = 2;
+  v16 = 2;
   if (sub_10000C240())
   {
-    sub_10000AF54("Failed to negotiate mode.", v24, v25, v26, v27, v28, v29, v30, v99);
-    v31 = sub_10000C050(0x2Fu);
-    if (os_log_type_enabled(v31, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Failed to negotiate mode.");
+    v17 = sub_10000C050(0x2Fu);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_59;
     }
@@ -863,18 +995,18 @@ LABEL_47:
     return 2;
   }
 
-  return v23;
+  return v16;
 }
 
-uint64_t sub_10029CFF4(uint64_t a1, int a2, char a3)
+uint64_t sub_10029CFF4(int *a1, int a2, char a3)
 {
-  v37 = 0;
+  v29 = 0;
   if (a1)
   {
-    sub_1002593B4(&v37);
-    if (v37 - 12 <= word_100B53E12)
+    sub_1002593B4(&v29);
+    if (v29 - 12 <= word_100B53E12)
     {
-      word_100B53E12 = v37 - 12;
+      word_100B53E12 = v29 - 12;
     }
 
     result = 490;
@@ -882,36 +1014,36 @@ uint64_t sub_10029CFF4(uint64_t a1, int a2, char a3)
     {
       if (a2 == 4)
       {
-        v23 = *(sub_1000B12AC(a1) + 48);
-        v24 = sub_1000B12AC(a1);
-        v25 = v24;
-        if (v23)
+        v16 = *(sub_1000B12AC(a1) + 48);
+        v17 = sub_1000B12AC(a1);
+        v18 = v17;
+        if (v16)
         {
-          v26 = sub_1000B12AC(a1);
-          v27 = *(v26 + 50);
-          *(v25 + 66) = *(v26 + 42);
-          *(v25 + 74) = v27;
-          v28 = sub_1000B12AC(a1);
-          v29 = sub_1000B12AC(a1);
-          v30 = *(v29 + 50);
-          *(v28 + 54) = *(v29 + 42);
-          *(v28 + 62) = v30;
+          v19 = sub_1000B12AC(a1);
+          v20 = *(v19 + 50);
+          *(v18 + 66) = *(v19 + 42);
+          *(v18 + 74) = v20;
+          v21 = sub_1000B12AC(a1);
+          v22 = sub_1000B12AC(a1);
+          v23 = *(v22 + 50);
+          *(v21 + 54) = *(v22 + 42);
+          *(v21 + 62) = v23;
         }
 
         else
         {
-          *(v24 + 66) = 0;
+          *(v17 + 66) = 0;
           *(sub_1000B12AC(a1) + 67) = 0;
           *(sub_1000B12AC(a1) + 68) = 0;
           *(sub_1000B12AC(a1) + 70) = 0;
-          v33 = word_100B53E12 - 4;
-          *(sub_1000B12AC(a1) + 72) = v33;
+          v26 = word_100B53E12 - 4;
+          *(sub_1000B12AC(a1) + 72) = v26;
           *(sub_1000B12AC(a1) + 54) = 0;
           *(sub_1000B12AC(a1) + 55) = 0;
           *(sub_1000B12AC(a1) + 56) = 0;
           *(sub_1000B12AC(a1) + 58) = 0;
-          v34 = word_100B53E12 - 4;
-          *(sub_1000B12AC(a1) + 60) = v34;
+          v27 = word_100B53E12 - 4;
+          *(sub_1000B12AC(a1) + 60) = v27;
         }
       }
 
@@ -972,14 +1104,14 @@ uint64_t sub_10029CFF4(uint64_t a1, int a2, char a3)
         *(sub_1000B12AC(a1) + 67) = 16;
         *(sub_1000B12AC(a1) + 68) = 2000;
         *(sub_1000B12AC(a1) + 70) = 12000;
-        v31 = word_100B53E12 - 4;
-        *(sub_1000B12AC(a1) + 72) = v31;
+        v24 = word_100B53E12 - 4;
+        *(sub_1000B12AC(a1) + 72) = v24;
         *(sub_1000B12AC(a1) + 54) = 63;
         *(sub_1000B12AC(a1) + 55) = 16;
         *(sub_1000B12AC(a1) + 56) = 2000;
         *(sub_1000B12AC(a1) + 58) = 12000;
-        v32 = word_100B53E12 - 4;
-        *(sub_1000B12AC(a1) + 60) = v32;
+        v25 = word_100B53E12 - 4;
+        *(sub_1000B12AC(a1) + 60) = v25;
       }
 
       sub_10029915C(a1);
@@ -1001,9 +1133,9 @@ uint64_t sub_10029CFF4(uint64_t a1, int a2, char a3)
 
     *(sub_1000B12AC(a1) + 64) = a2;
     *(sub_1000B12AC(a1) + 65) = a3;
-    v35 = sub_1000B12AC(a1);
+    v28 = sub_1000B12AC(a1);
     result = 0;
-    *(v35 + 52) = a2;
+    *(v28 + 52) = a2;
   }
 
   else
@@ -1011,9 +1143,9 @@ uint64_t sub_10029CFF4(uint64_t a1, int a2, char a3)
     sub_1000D660C();
     if (sub_10000C240())
     {
-      sub_10000AF54("Invalid channel", v15, v16, v17, v18, v19, v20, v21, v36);
-      v22 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Invalid channel");
+      v15 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -1025,7 +1157,7 @@ uint64_t sub_10029CFF4(uint64_t a1, int a2, char a3)
   return result;
 }
 
-uint64_t sub_10029D3EC(uint64_t a1)
+uint64_t sub_10029D3EC(int *a1)
 {
   if (*(sub_1000B12AC(a1) + 52) == 3 || *(sub_1000B12AC(a1) + 64) == 3)
   {
@@ -1062,20 +1194,17 @@ uint64_t sub_10029D484(unsigned int a1)
   return 0;
 }
 
-uint64_t sub_10029D4DC(uint64_t a1)
+void sub_10029D4DC(int *a1)
 {
-  result = sub_1000B12AC(a1);
-  if (*(result + 64) == 3)
+  if (*(sub_1000B12AC(a1) + 64) == 3)
   {
-    v3 = *(sub_1000B12AC(a1) + 128);
+    v2 = *(sub_1000B12AC(a1) + 128);
 
-    return sub_1002976B0(v3);
+    sub_1002976B0(v2);
   }
-
-  return result;
 }
 
-uint64_t sub_10029D538(uint64_t a1, int a2, uint64_t a3)
+uint64_t sub_10029D538(int *a1, int a2, uint64_t a3)
 {
   v6 = *(a3 + 10);
   result = sub_1000B12AC(a1);
@@ -1132,7 +1261,7 @@ uint64_t sub_10029D538(uint64_t a1, int a2, uint64_t a3)
   return result;
 }
 
-uint64_t sub_10029D610(uint64_t a1, uint64_t a2, uint64_t a3)
+uint64_t sub_10029D610(int *a1, uint64_t a2, uint64_t a3)
 {
   v5 = *(a3 + 10);
   result = sub_1000B12AC(a1);
@@ -1251,7 +1380,7 @@ uint64_t sub_10029D858(uint64_t a1, uint64_t a2, uint64_t a3)
   return sub_10029EAB8(v9);
 }
 
-uint64_t sub_10029D8EC(uint64_t result, const void **a2)
+void sub_10029D8EC(uint64_t result, const void **a2)
 {
   v2 = result;
   if (a2)
@@ -1302,7 +1431,7 @@ uint64_t sub_10029D8EC(uint64_t result, const void **a2)
       {
         sub_100304AF8("\t\t iFrames : %p\n", *a2);
         v7 = sub_1000B47B8(*a2);
-        v14 = v7;
+        v16 = v7;
         if (v7)
         {
           v8 = 0;
@@ -1311,53 +1440,53 @@ uint64_t sub_10029D8EC(uint64_t result, const void **a2)
             v9 = sub_1000BC720(v7);
             sub_100304AF8("\tiFrame number %d\n", v8);
             sub_10029DB6C(v9);
-            sub_1000BC828(&v14);
+            sub_1000BC828(&v16);
             ++v8;
-            v7 = v14;
+            v7 = v16;
           }
 
-          while (v14);
+          while (v16);
         }
 
         sub_100304AF8("\t\t sFrames : %p\n", a2[1]);
-        result = sub_1000B47B8(a2[1]);
-        v14 = result;
-        if (result)
+        v10 = sub_1000B47B8(a2[1]);
+        v16 = v10;
+        if (v10)
         {
-          v10 = 0;
+          v11 = 0;
           do
           {
-            v11 = sub_1000BC720(result);
-            sub_100304AF8("\tsFrame number %d\n", v10);
-            sub_10029DB6C(v11);
-            sub_1000BC828(&v14);
-            ++v10;
-            result = v14;
+            v12 = sub_1000BC720(v10);
+            sub_100304AF8("\tsFrame number %d\n", v11);
+            sub_10029DB6C(v12);
+            sub_1000BC828(&v16);
+            ++v11;
+            v10 = v16;
           }
 
-          while (v14);
+          while (v16);
         }
       }
 
       else
       {
         sub_100304AF8("\t\t dataQueues : %p\n", *a2);
-        result = sub_1000B47B8(*a2);
-        v14 = result;
-        if (result)
+        v13 = sub_1000B47B8(*a2);
+        v16 = v13;
+        if (v13)
         {
-          v12 = 0;
+          v14 = 0;
           do
           {
-            v13 = sub_1000BC720(result);
-            sub_100304AF8("\tFrame number %d\n", v12);
-            sub_10029DB6C(v13);
-            sub_1000BC828(&v14);
-            ++v12;
-            result = v14;
+            v15 = sub_1000BC720(v13);
+            sub_100304AF8("\tFrame number %d\n", v14);
+            sub_10029DB6C(v15);
+            sub_1000BC828(&v16);
+            ++v14;
+            v13 = v16;
           }
 
-          while (v14);
+          while (v16);
         }
       }
     }
@@ -1365,14 +1494,12 @@ uint64_t sub_10029D8EC(uint64_t result, const void **a2)
 
   else
   {
-    sub_1000D660C(result);
-    return sub_100304AF8("Queue is null, cid 0x%x", v2);
+    sub_1000D660C();
+    sub_100304AF8("Queue is null, cid 0x%x", v2);
   }
-
-  return result;
 }
 
-uint64_t sub_10029DB6C(unsigned __int8 *a1)
+void sub_10029DB6C(unsigned __int8 *a1)
 {
   sub_100304AF8("\t\t\t address : %p\n", a1);
   sub_100304AF8("\t\t\t frameType : 0x%x\n", *a1);
@@ -1405,7 +1532,7 @@ uint64_t sub_10029DB6C(unsigned __int8 *a1)
     sub_100304AF8("\t\t\t payloadMBuf : NONE\n");
   }
 
-  return sub_100304AF8("\t\t\t retryCount : %d\n", a1[48]);
+  sub_100304AF8("\t\t\t retryCount : %d\n", a1[48]);
 }
 
 void sub_10029DCCC()
@@ -1498,7 +1625,7 @@ void sub_10029DCCC()
 uint64_t sub_10029DECC(unsigned int a1)
 {
   v3 = 0;
-  if (!sub_1000ABC7C(a1, &v3) && v3 && (*v3 != 4 ? (v2 = *v3 == 2) : (v2 = 1), v2 && sub_1000E10E0(*(v3 + 4))))
+  if (!sub_1000ABC7C(a1, &v3) && v3 && (*v3 != 4 ? (v2 = *v3 == 2) : (v2 = 1), v2 && sub_1000E10E0(*(v3 + 2))))
   {
     return sub_10028A16C(v3);
   }
@@ -1509,7 +1636,7 @@ uint64_t sub_10029DECC(unsigned int a1)
   }
 }
 
-uint64_t sub_10029DF2C(uint64_t a1)
+uint64_t sub_10029DF2C(unsigned int a1)
 {
   if (qword_100B60318)
   {
@@ -1538,10 +1665,10 @@ LABEL_9:
       sub_1000D660C();
     }
 
-    v13 = sub_1000BB054(*v2, 0);
-    if (v13)
+    v6 = sub_1000BB054(*v2, 0);
+    if (v6)
     {
-      (*(v2 + 72))(v2, v13);
+      (*(v2 + 72))(v2, v6);
       sub_10028E154(a1);
     }
 
@@ -1553,9 +1680,9 @@ LABEL_9:
         return result;
       }
 
-      sub_10000AF54("Invalid packet", v14, v15, v16, v17, v18, v19, v20, v22);
-      v21 = sub_10000C050(0x2Fu);
-      result = os_log_type_enabled(v21, OS_LOG_TYPE_ERROR);
+      sub_10000AF54("Invalid packet");
+      v7 = sub_10000C050(0x2Fu);
+      result = os_log_type_enabled(v7, OS_LOG_TYPE_ERROR);
       if (!result)
       {
         return result;
@@ -1569,9 +1696,9 @@ LABEL_9:
 
   if (sub_10000C240())
   {
-    sub_10000AF54("Should not be flushing Queue with E/RT enabled", v4, v5, v6, v7, v8, v9, v10, v22);
-    v11 = sub_10000C050(0x2Fu);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("Should not be flushing Queue with E/RT enabled");
+    v4 = sub_10000C050(0x2Fu);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_1000E09C0();
     }
@@ -1929,15 +2056,16 @@ uint64_t sub_10029E664(int a1)
   return sub_10000C248(*v1);
 }
 
-void sub_10029E6A0(unsigned int a1)
+void sub_10029E6A0(uint64_t result)
 {
   if (!qword_100B60318)
   {
     return;
   }
 
+  v1 = result;
   v2 = qword_100B60318;
-  while (*(v2 + 24) != a1)
+  while (*(v2 + 24) != result)
   {
     v2 = *(v2 + 80);
     if (v2 == qword_100B60318 || v2 == 0)
@@ -1948,12 +2076,12 @@ void sub_10029E6A0(unsigned int a1)
 
   if (*(v2 + 16) != 1)
   {
-    v6 = sub_1000E10E0(a1);
+    v6 = sub_1000E10E0(result);
     v7 = sub_10000C248(*v2);
     v8 = *(v2 + 26);
     if (v6)
     {
-      if (v7 != v8 - sub_10029DECC(a1))
+      if (v7 != v8 - sub_10029DECC(v1))
       {
         goto LABEL_14;
       }
@@ -2089,21 +2217,22 @@ LABEL_10:
       sub_1000D660C();
     }
 
-    sub_1000B11F4();
+    v4 = *(v2 + 48);
+    v5 = sub_1000B11F4();
     if (sub_10000C240())
     {
-      sub_10000AF54("Stall Monitor detected TX stall on CID 0x%04x Priority= %u maxLatency=%llu lastServiceTime=%llu, deltaTime=%llu ms,  CB 0x%x", v4, v5, v6, v7, v8, v9, v10, v1);
-      v11 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Stall Monitor detected TX stall on CID 0x%04x Priority= %u maxLatency=%llu lastServiceTime=%llu, deltaTime=%llu ms,  CB 0x%x", v1, *(v2 + 27), *(v2 + 56), *(v2 + 48), v4 - v5, *(v2 + 40));
+      v6 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
         sub_1000E09C0();
       }
     }
 
-    v12 = *(v2 + 40);
-    if (v12)
+    v7 = *(v2 + 40);
+    if (v7)
     {
-      v12(v1);
+      v7(v1);
     }
   }
 
@@ -2145,9 +2274,9 @@ uint64_t sub_10029E9E4(uint64_t a1)
 LABEL_12:
     if (sub_10000C240())
     {
-      sub_10000AF54("Can't retransmit a basic flow control channel.", v4, v5, v6, v7, v8, v9, v10, v12);
-      v11 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Can't retransmit a basic flow control channel.");
+      v4 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         sub_1000E09C0();
       }
@@ -2160,7 +2289,7 @@ LABEL_12:
   return result;
 }
 
-uint64_t sub_10029EAB8(unsigned int a1)
+uint64_t sub_10029EAB8(uint64_t a1)
 {
   if (!qword_100B60318)
   {
@@ -2197,9 +2326,9 @@ uint64_t sub_10029EAB8(unsigned int a1)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("Warning there is packets queued in the basic queue. This will drop packets", v18, v19, v20, v21, v22, v23, v24, v27);
-        v25 = sub_10000C050(0x2Fu);
-        if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Warning there is packets queued in the basic queue. This will drop packets");
+        v11 = sub_10000C050(0x2Fu);
+        if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
         {
           sub_1000E09C0();
         }
@@ -2216,9 +2345,9 @@ uint64_t sub_10029EAB8(unsigned int a1)
     v2[8] = sub_1000BA610;
     v2[9] = sub_1000BBCA8;
 LABEL_28:
-    v26 = sub_10029C77C(a1);
+    v12 = sub_10029C77C(a1);
     result = 0;
-    *(v2 + 26) = v26 + 1;
+    *(v2 + 26) = v12 + 1;
     return result;
   }
 
@@ -2226,9 +2355,9 @@ LABEL_28:
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Warning there is packets queued in the sFrame or iFrame queues. This will drop packets", v9, v10, v11, v12, v13, v14, v15, v27);
-      v16 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Warning there is packets queued in the sFrame or iFrame queues. This will drop packets");
+      v9 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_1000E09C0();
       }
@@ -2241,9 +2370,9 @@ LABEL_28:
   *(v2 + 5) = 0;
   sub_1000BBDD0(*v2);
   sub_1000BBDD0(v2[1]);
-  v17 = sub_1000BAE38(0, sub_1000BC728);
+  v10 = sub_1000BAE38(0, sub_1000BC728);
   result = 0;
-  *v2 = v17;
+  *v2 = v10;
   v2[8] = sub_1000B8D48;
   v2[9] = sub_10029E47C;
   return result;
@@ -2316,9 +2445,9 @@ uint64_t sub_10029ED68(int a1, unsigned int a2, unsigned int a3)
     if (sub_10000C240())
     {
       v4 = 19;
-      sub_10000AF54("Scaling down requested priority to %d", v8, v9, v10, v11, v12, v13, v14, 19);
-      v15 = sub_10000C050(0x2Fu);
-      if (!os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Scaling down requested priority to %d", 19);
+      v8 = sub_10000C050(0x2Fu);
+      if (!os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         goto LABEL_17;
       }
@@ -2343,27 +2472,27 @@ LABEL_18:
   *(v5 + 56) = a3;
   *(v5 + 48) = sub_1000B11F4();
   *(v5 + 27) = v4;
-  v16 = qword_100B60318;
+  v9 = qword_100B60318;
   if (qword_100B60318 == v5)
   {
     return 0;
   }
 
-  v17 = *(v5 + 80);
-  if (v5 == v17)
+  v10 = *(v5 + 80);
+  if (v5 == v10)
   {
     return 0;
   }
 
   result = 0;
-  v18 = *(v5 + 88);
-  *(v18 + 80) = v17;
-  *(*(v5 + 80) + 88) = v18;
-  v19 = *(v16 + 88);
-  *(v5 + 80) = v16;
-  *(v5 + 88) = v19;
-  *(v19 + 80) = v5;
-  *(v16 + 88) = v5;
+  v11 = *(v5 + 88);
+  *(v11 + 80) = v10;
+  *(*(v5 + 80) + 88) = v11;
+  v12 = *(v9 + 88);
+  *(v5 + 80) = v9;
+  *(v5 + 88) = v12;
+  *(v12 + 80) = v5;
+  *(v9 + 88) = v5;
   qword_100B60318 = v5;
   return result;
 }
@@ -2538,9 +2667,9 @@ void sub_10029F2C0(uint64_t a1, uint64_t a2, int a3)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Invalid connection type.", v5, v6, v7, v8, v9, v10, v11, v13);
-      v12 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Invalid connection type.");
+      v5 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -2569,9 +2698,9 @@ void sub_10029F388(uint64_t a1, uint64_t a2)
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Received mode change for non ACL connection handle.", v2, v3, v4, v5, v6, v7, v8, v10);
-      v9 = sub_10000C050(0x2Fu);
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Received mode change for non ACL connection handle.");
+      v2 = sub_10000C050(0x2Fu);
+      if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
       {
         sub_10080F7A0();
       }
@@ -2689,19 +2818,19 @@ void sub_10029F510(uint64_t a1, unsigned int a2, char *__src, unsigned int a4, i
   sub_1000D660C();
   if (sub_10000C240())
   {
-    sub_10000AF54("L2CAPAGG RX: This should never happen, Invalid packet boundary flag for aggregated packets - dropping packet", v17, v18, v19, v20, v21, v22, v23, v25);
-    v24 = sub_10000C050(0x2Fu);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("L2CAPAGG RX: This should never happen, Invalid packet boundary flag for aggregated packets - dropping packet");
+    v17 = sub_10000C050(0x2Fu);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
     {
       sub_10080F7A0();
     }
   }
 
   sub_1000C52F4(411);
-  sub_10029F660();
+  sub_10029F660(v18, v19);
 }
 
-void sub_10029F660(uint64_t a1, const void *a2)
+void sub_10029F660(int a1, const void *a2)
 {
   dword_100B603C0 = a1;
   if ((a1 - 1) <= 0x7CE)
@@ -2730,9 +2859,9 @@ LABEL_6:
 
     if (sub_10000C240())
     {
-      sub_10000AF54("Invalid chipset %d", v4, v5, v6, v7, v8, v9, v10, a1);
-      v11 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Invalid chipset %d", a1);
+      v4 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -2769,9 +2898,9 @@ uint64_t sub_10029F820()
   {
     if (sub_10000C240())
     {
-      sub_10000AF54("Failed to register vsevent %!", v1, v2, v3, v4, v5, v6, v7, v0);
-      v8 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("Failed to register vsevent %!", v0);
+      v1 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
       {
         sub_10080F6C8();
       }
@@ -2792,9 +2921,9 @@ void sub_10029F8C8(uint64_t a1)
       {
         if (sub_10000C240())
         {
-          sub_10000AF54("Invalid chipset %d", v1, v2, v3, v4, v5, v6, v7, dword_100B603C0);
-          v8 = sub_10000C050(0x54u);
-          if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("Invalid chipset %d", dword_100B603C0);
+          v1 = sub_10000C050(0x54u);
+          if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
           {
             sub_10080F604();
           }
@@ -2831,9 +2960,9 @@ void sub_10029F9F0(uint64_t a1)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("Invalid chipset %d for LMP Halt VSE Callback Registration", v1, v2, v3, v4, v5, v6, v7, dword_100B603C0);
-        v8 = sub_10000C050(0x54u);
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Invalid chipset %d for LMP Halt VSE Callback Registration", dword_100B603C0);
+        v1 = sub_10000C050(0x54u);
+        if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
         {
           sub_10080F604();
         }
@@ -2863,9 +2992,9 @@ void sub_10029FAE0(uint64_t a1)
     {
       if (sub_10000C240())
       {
-        sub_10000AF54("Invalid chipset %d for Advanced Sniff Mode Change Registration", v1, v2, v3, v4, v5, v6, v7, dword_100B603C0);
-        v8 = sub_10000C050(0x54u);
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+        sub_10000AF54("Invalid chipset %d for Advanced Sniff Mode Change Registration", dword_100B603C0);
+        v1 = sub_10000C050(0x54u);
+        if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
         {
           sub_10080F604();
         }
@@ -2904,9 +3033,9 @@ uint64_t sub_10029FBC4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2933,9 +3062,9 @@ uint64_t sub_10029FC50()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2962,9 +3091,9 @@ uint64_t sub_10029FCDC()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -2996,9 +3125,9 @@ uint64_t sub_10029FD68(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v9, v10, v11, v12, v13, v14, v15, v8);
-    v16 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v8);
+    v9 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3030,9 +3159,9 @@ uint64_t sub_10029FE2C(uint64_t a1, uint64_t a2, uint64_t a3)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v7, v8, v9, v10, v11, v12, v13, v6);
-    v14 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v6);
+    v7 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3059,9 +3188,9 @@ uint64_t sub_10029FEE8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3088,9 +3217,9 @@ uint64_t sub_10029FF74()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3117,9 +3246,9 @@ uint64_t sub_1002A0000()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3151,9 +3280,9 @@ uint64_t sub_1002A008C(uint64_t a1, uint64_t a2, uint64_t a3)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v7, v8, v9, v10, v11, v12, v13, v6);
-    v14 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v6);
+    v7 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3180,9 +3309,9 @@ uint64_t sub_1002A0148()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3209,9 +3338,9 @@ uint64_t sub_1002A01D4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3243,9 +3372,9 @@ uint64_t sub_1002A0260(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3272,9 +3401,9 @@ uint64_t sub_1002A02F8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3301,9 +3430,9 @@ uint64_t sub_1002A0384()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3330,9 +3459,9 @@ uint64_t sub_1002A0410()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3359,9 +3488,9 @@ uint64_t sub_1002A049C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3388,9 +3517,9 @@ uint64_t sub_1002A0528()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3417,9 +3546,9 @@ uint64_t sub_1002A05B4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3446,9 +3575,9 @@ uint64_t sub_1002A0640()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3475,9 +3604,9 @@ uint64_t sub_1002A06CC()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3504,9 +3633,9 @@ uint64_t sub_1002A0758()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3533,9 +3662,9 @@ uint64_t sub_1002A07E4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3562,9 +3691,9 @@ uint64_t sub_1002A0870()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3591,9 +3720,9 @@ uint64_t sub_1002A08FC()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3620,9 +3749,9 @@ uint64_t sub_1002A0988()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3649,9 +3778,9 @@ uint64_t sub_1002A0A14()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3678,9 +3807,9 @@ uint64_t sub_1002A0AA0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3696,13 +3825,13 @@ uint64_t sub_1002A0B2C(uint64_t a1, uint64_t a2, uint64_t a3)
     return 101;
   }
 
-  v15 = 0;
-  v5 = sub_10023DB58(a2, &v15);
+  v8 = 0;
+  v5 = sub_10023DB58(a2, &v8);
   if (!v5)
   {
     if (off_100B60528)
     {
-      v5 = off_100B60528(a1, v15, a3);
+      v5 = off_100B60528(a1, v8, a3);
       if (!v5)
       {
         return v5;
@@ -3716,9 +3845,9 @@ uint64_t sub_1002A0B2C(uint64_t a1, uint64_t a2, uint64_t a3)
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v7, v8, v9, v10, v11, v12, v13, v5);
-      v14 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v5);
+      v7 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -3746,9 +3875,9 @@ uint64_t sub_1002A0BF8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3775,9 +3904,9 @@ uint64_t sub_1002A0C84()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3809,9 +3938,9 @@ uint64_t sub_1002A0D10(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3843,9 +3972,9 @@ uint64_t sub_1002A0DA8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3872,9 +4001,9 @@ uint64_t sub_1002A0E4C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3901,9 +4030,9 @@ uint64_t sub_1002A0ED8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3930,9 +4059,9 @@ uint64_t sub_1002A0F64()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3959,9 +4088,9 @@ uint64_t sub_1002A0FF0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -3988,9 +4117,9 @@ uint64_t sub_1002A107C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4017,9 +4146,9 @@ uint64_t sub_1002A1108()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4030,16 +4159,16 @@ uint64_t sub_1002A1108()
 
 uint64_t sub_1002A1194(uint64_t a1, unint64_t a2, uint64_t a3)
 {
-  v18 = 0;
+  v11 = 0;
   v5 = sub_1002D3618(a2);
-  v16 = v5;
-  v17 = WORD2(v5);
-  v6 = sub_10023DB58(&v16, &v18);
+  v9 = v5;
+  v10 = WORD2(v5);
+  v6 = sub_10023DB58(&v9, &v11);
   if (!v6)
   {
     if (off_100B60608)
     {
-      v6 = off_100B60608(a1, v18, a3);
+      v6 = off_100B60608(a1, v11, a3);
       if (!v6)
       {
         return v6;
@@ -4053,9 +4182,9 @@ uint64_t sub_1002A1194(uint64_t a1, unint64_t a2, uint64_t a3)
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v8, v9, v10, v11, v12, v13, v14, v6);
-      v15 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v6);
+      v8 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -4083,9 +4212,9 @@ uint64_t sub_1002A1268()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4112,9 +4241,9 @@ uint64_t sub_1002A12F4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4141,9 +4270,9 @@ uint64_t sub_1002A1380()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4170,9 +4299,9 @@ uint64_t sub_1002A140C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4199,9 +4328,9 @@ uint64_t sub_1002A1498()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4228,9 +4357,9 @@ uint64_t sub_1002A1524(uint64_t a1, uint64_t a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v2);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4243,9 +4372,9 @@ uint64_t sub_1002A15C0(unsigned int a1, unsigned int a2, unsigned int a3, unsign
 {
   if (off_100B60DE0)
   {
-    BYTE4(v35) = a24;
-    LODWORD(v35) = a23;
-    v25 = off_100B60DE0(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, v35, a25);
+    BYTE4(v28) = a24;
+    LODWORD(v28) = a23;
+    v25 = off_100B60DE0(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13, a14, a15, a16, a17, a18, a19, a20, a21, a22, v28, a25);
     if (!v25)
     {
       return v25;
@@ -4259,9 +4388,9 @@ uint64_t sub_1002A15C0(unsigned int a1, unsigned int a2, unsigned int a3, unsign
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v26, v27, v28, v29, v30, v31, v32, v25);
-    v33 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v25);
+    v26 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4288,9 +4417,9 @@ uint64_t sub_1002A1794()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4317,9 +4446,9 @@ uint64_t sub_1002A1820()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4346,9 +4475,9 @@ uint64_t sub_1002A18AC()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC LMP Halt failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC LMP Halt failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4375,9 +4504,9 @@ uint64_t sub_1002A1938()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4404,9 +4533,9 @@ uint64_t sub_1002A19C4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4433,9 +4562,9 @@ uint64_t sub_1002A1A50()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4465,9 +4594,9 @@ uint64_t sub_1002A1ADC(unsigned int a1, uint64_t a2)
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-      v10 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v2);
+      v3 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -4484,7 +4613,7 @@ uint64_t sub_1002A1B78(uint64_t a1, uint64_t a2, uint64_t a3)
   {
     if (off_100B60678)
     {
-      v3 = off_100B60678();
+      v3 = off_100B60678(a1);
       if (!v3)
       {
         return v3;
@@ -4498,9 +4627,9 @@ uint64_t sub_1002A1B78(uint64_t a1, uint64_t a2, uint64_t a3)
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v4, v5, v6, v7, v8, v9, v10, v3);
-      v11 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v3);
+      v4 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -4519,7 +4648,7 @@ uint64_t sub_1002A1C10(uint64_t a1, uint64_t a2)
 
   if (off_100B60680)
   {
-    v2 = off_100B60680();
+    v2 = off_100B60680(a1);
     if (!v2)
     {
       return v2;
@@ -4533,9 +4662,9 @@ uint64_t sub_1002A1C10(uint64_t a1, uint64_t a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v2);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4562,9 +4691,9 @@ uint64_t sub_1002A1CA8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4591,9 +4720,9 @@ uint64_t sub_1002A1D34()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4625,9 +4754,9 @@ uint64_t sub_1002A1DC0(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4659,9 +4788,9 @@ uint64_t sub_1002A1E58(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4688,9 +4817,9 @@ uint64_t sub_1002A1EF0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4717,9 +4846,9 @@ uint64_t sub_1002A1F7C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4749,9 +4878,9 @@ uint64_t sub_1002A2008(uint64_t a1, unsigned int a2)
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-      v10 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v2);
+      v3 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -4782,9 +4911,9 @@ uint64_t sub_1002A20A4(uint64_t a1, unsigned int a2)
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-      v10 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v2);
+      v3 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -4812,9 +4941,9 @@ uint64_t sub_1002A2140()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4841,9 +4970,9 @@ uint64_t sub_1002A21CC()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4870,9 +4999,9 @@ uint64_t sub_1002A2258()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -4902,9 +5031,9 @@ uint64_t sub_1002A22E4(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v5, v6, v7, v8, v9, v10, v11, v4);
-      v12 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v4);
+      v5 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -4941,9 +5070,9 @@ uint64_t sub_1002A23B4(unsigned int a1, unsigned int a2, uint64_t a3)
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v8, v9, v10, v11, v12, v13, v14, v4);
-      v15 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v4);
+      v8 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -4971,9 +5100,9 @@ uint64_t sub_1002A2474()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5000,9 +5129,9 @@ uint64_t sub_1002A2500()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5029,9 +5158,9 @@ uint64_t sub_1002A258C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5058,9 +5187,9 @@ uint64_t sub_1002A2618()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5087,9 +5216,9 @@ uint64_t sub_1002A26A4(unsigned __int8 a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5119,9 +5248,9 @@ uint64_t sub_1002A2734(uint64_t a1, uint64_t a2, uint64_t a3, unsigned int a4)
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v5, v6, v7, v8, v9, v10, v11, v4);
-      v12 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v4);
+      v5 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -5149,9 +5278,9 @@ uint64_t sub_1002A27E4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5183,9 +5312,9 @@ uint64_t sub_1002A2870(char a1, unsigned int a2, uint64_t a3)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v6, v7, v8, v9, v10, v11, v12, v5);
-    v13 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v5);
+    v6 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5212,9 +5341,9 @@ uint64_t sub_1002A291C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5261,9 +5390,9 @@ uint64_t sub_1002A29A8(uint64_t a1, uint64_t a2, unsigned int a3, uint64_t a4)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v11, v12, v13, v14, v15, v16, v17, v10);
-    v18 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v10);
+    v11 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5300,9 +5429,9 @@ uint64_t sub_1002A2A98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v9, v10, v11, v12, v13, v14, v15, v8);
-    v16 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v8);
+    v9 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5334,9 +5463,9 @@ uint64_t sub_1002A2B68(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5368,9 +5497,9 @@ uint64_t sub_1002A2C00(uint64_t a1, uint64_t a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v2);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5397,9 +5526,9 @@ uint64_t sub_1002A2CB0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5431,9 +5560,9 @@ uint64_t sub_1002A2D3C(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5460,9 +5589,9 @@ uint64_t sub_1002A2DDC(uint64_t a1, uint64_t a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v2);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5484,14 +5613,14 @@ uint64_t sub_1002A2E90(unint64_t a1, uint64_t a2)
     return 122;
   }
 
-  *(v14 + 3) = 0;
-  v14[0] = 0;
+  *(v7 + 3) = 0;
+  v7[0] = 0;
   v4 = 101;
-  if (!sub_1002D0158(v3, v14, 0) && !LOBYTE(v14[0]))
+  if (!sub_1002D0158(v3, v7, 0) && !LOBYTE(v7[0]))
   {
     if (off_100B607D0)
     {
-      v4 = off_100B607D0(v3, v14 + 1, a2);
+      v4 = off_100B607D0(v3, v7 + 1, a2);
       if (!v4)
       {
         return v4;
@@ -5506,9 +5635,9 @@ uint64_t sub_1002A2E90(unint64_t a1, uint64_t a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v5, v6, v7, v8, v9, v10, v11, v4);
-    v12 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v4);
+    v5 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5524,11 +5653,11 @@ uint64_t sub_1002A2F84(uint64_t a1, uint64_t a2)
     return 122;
   }
 
-  v15 = 0;
-  v14 = 0;
+  WORD2(v7) = 0;
+  LODWORD(v7) = 0;
   if (off_100B607D0)
   {
-    v4 = off_100B607D0(a1, &v14, a2);
+    v4 = off_100B607D0(a1, &v7, a2);
     if (!v4)
     {
       return v4;
@@ -5542,9 +5671,9 @@ uint64_t sub_1002A2F84(uint64_t a1, uint64_t a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v5, v6, v7, v8, v9, v10, v11, v4);
-    v12 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v4, v7);
+    v5 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5576,9 +5705,9 @@ uint64_t sub_1002A303C(void *a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v1);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5610,9 +5739,9 @@ uint64_t sub_1002A30D8(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v1);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5644,9 +5773,9 @@ uint64_t sub_1002A3174(void *a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v1);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5675,9 +5804,9 @@ uint64_t sub_1002A3210(int a1, __int16 a2, __int16 a3)
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v4, v5, v6, v7, v8, v9, v10, v3);
-      v11 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v3);
+      v4 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -5706,17 +5835,17 @@ uint64_t sub_1002A32C4(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t 
     }
   }
 
-  v27 = 0;
-  v10 = sub_10023DB58(a1, &v27);
+  v20 = 0;
+  v10 = sub_10023DB58(a1, &v20);
   if (!v10)
   {
-    v11 = v27;
-    if (*v27 == -1)
+    v11 = v20;
+    if (*v20 == -1)
     {
       return 101;
     }
 
-    v12 = *(v27 + 62);
+    v12 = *(v20 + 62);
     if ((a2 - 3) <= 0xFFFFFFFD && (v12 - 1) < 2)
     {
       return 101;
@@ -5725,7 +5854,7 @@ uint64_t sub_1002A32C4(uint64_t a1, uint64_t a2, uint64_t a3, int *a4, uint64_t 
     if (a3)
     {
       v14 = v12 | a2;
-      *(v27 + 62) = v12 | a2;
+      *(v20 + 62) = v12 | a2;
       if ((dword_100B603C0 - 5000) < 0x3E8)
       {
         *a4 = v14;
@@ -5763,14 +5892,14 @@ LABEL_27:
     else
     {
       v15 = v12 & ~a2;
-      *(v27 + 62) = v15;
+      *(v20 + 62) = v15;
       if (v12 && !v15)
       {
         if (v11[144] == 1 && v11[197] == 1)
         {
           v11[197] = 0;
           sub_100247BFC(v11, 2);
-          v16 = *(v27 + 62);
+          v16 = *(v20 + 62);
         }
 
         else
@@ -5811,9 +5940,9 @@ LABEL_36:
 LABEL_37:
         if (sub_10000C240())
         {
-          sub_10000AF54("VSC failed %!", v19, v20, v21, v22, v23, v24, v25, v10);
-          v26 = sub_10000C050(0x54u);
-          if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+          sub_10000AF54("VSC failed %!", v10);
+          v19 = sub_10000C050(0x54u);
+          if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
             sub_10080F604();
           }
@@ -5849,9 +5978,9 @@ uint64_t sub_1002A34E4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5878,9 +6007,9 @@ uint64_t sub_1002A3570()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5907,9 +6036,9 @@ uint64_t sub_1002A35FC()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5936,9 +6065,9 @@ uint64_t sub_1002A3688()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -5954,14 +6083,14 @@ uint64_t sub_1002A3714(uint64_t a1, uint64_t a2, uint64_t a3)
     return 101;
   }
 
-  v15 = 0;
-  v5 = sub_10023DB58(a2, &v15);
+  v8 = 0;
+  v5 = sub_10023DB58(a2, &v8);
   if (!v5)
   {
-    sub_1002489CC(a1);
+    sub_1002489CC();
     if (off_100B60808)
     {
-      v5 = off_100B60808(a1, v15, a3);
+      v5 = off_100B60808(a1, v8, a3);
       if (!v5)
       {
         return v5;
@@ -5975,9 +6104,9 @@ uint64_t sub_1002A3714(uint64_t a1, uint64_t a2, uint64_t a3)
 
     if (sub_10000C240())
     {
-      sub_10000AF54("%s VSC failed %!", v7, v8, v9, v10, v11, v12, v13, "BT_VSC_WriteWBSEnable");
-      v14 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("%s VSC failed %!", "BT_VSC_WriteWBSEnable", v5);
+      v7 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -6005,9 +6134,9 @@ uint64_t sub_1002A37F0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6039,9 +6168,9 @@ uint64_t sub_1002A387C(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v1);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6057,13 +6186,13 @@ uint64_t sub_1002A3914(uint64_t a1, uint64_t a2)
     return 101;
   }
 
-  v13 = 0;
-  v3 = sub_10023DB58(a1, &v13);
+  v6 = 0;
+  v3 = sub_10023DB58(a1, &v6);
   if (!v3)
   {
     if (off_100B60820)
     {
-      v3 = off_100B60820(v13, a2);
+      v3 = off_100B60820(v6, a2);
       if (!v3)
       {
         return v3;
@@ -6077,9 +6206,9 @@ uint64_t sub_1002A3914(uint64_t a1, uint64_t a2)
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v5, v6, v7, v8, v9, v10, v11, v3);
-      v12 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v3);
+      v5 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -6107,9 +6236,9 @@ uint64_t sub_1002A39C8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6125,13 +6254,13 @@ uint64_t sub_1002A3A54(uint64_t a1, uint64_t a2)
     return 101;
   }
 
-  v13 = 0;
-  v3 = sub_10023DB58(a1, &v13);
+  v6 = 0;
+  v3 = sub_10023DB58(a1, &v6);
   if (!v3)
   {
     if (off_100B60838)
     {
-      v3 = off_100B60838(v13, a2);
+      v3 = off_100B60838(v6, a2);
       if (!v3)
       {
         return v3;
@@ -6145,9 +6274,9 @@ uint64_t sub_1002A3A54(uint64_t a1, uint64_t a2)
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v5, v6, v7, v8, v9, v10, v11, v3);
-      v12 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v3);
+      v5 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -6180,9 +6309,9 @@ uint64_t sub_1002A3B08(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6214,9 +6343,9 @@ uint64_t sub_1002A3BA0(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6248,9 +6377,9 @@ uint64_t sub_1002A3C38(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6266,13 +6395,13 @@ uint64_t sub_1002A3CD0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
     return 101;
   }
 
-  v17 = 0;
-  v7 = sub_10023DB58(a1, &v17);
+  v10 = 0;
+  v7 = sub_10023DB58(a1, &v10);
   if (!v7)
   {
     if (off_100B60858)
     {
-      v7 = off_100B60858(v17, a2, a3, a4);
+      v7 = off_100B60858(v10, a2, a3, a4);
       if (!v7)
       {
         return v7;
@@ -6286,9 +6415,9 @@ uint64_t sub_1002A3CD0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v9, v10, v11, v12, v13, v14, v15, v7);
-      v16 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v7);
+      v9 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -6305,13 +6434,13 @@ uint64_t sub_1002A3D9C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return 101;
   }
 
-  v23 = 0;
-  v13 = sub_10023DB58(a1, &v23);
+  v16 = 0;
+  v13 = sub_10023DB58(a1, &v16);
   if (!v13)
   {
     if (off_100B60860)
     {
-      v13 = off_100B60860(v23, a2, a3, a4, a5, a6, a7);
+      v13 = off_100B60860(v16, a2, a3, a4, a5, a6, a7);
       if (!v13)
       {
         return v13;
@@ -6325,9 +6454,9 @@ uint64_t sub_1002A3D9C(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v15, v16, v17, v18, v19, v20, v21, v13);
-      v22 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v13);
+      v15 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -6344,13 +6473,13 @@ uint64_t sub_1002A3E90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return 101;
   }
 
-  v27 = 0;
-  v17 = sub_10023DB58(a1, &v27);
+  v20 = 0;
+  v17 = sub_10023DB58(a1, &v20);
   if (!v17)
   {
     if (off_100B60868)
     {
-      v17 = off_100B60868(v27, a2, a3, a4, a5, a6, a7, a8, a9, a10);
+      v17 = off_100B60868(v20, a2, a3, a4, a5, a6, a7, a8, a9, a10);
       if (!v17)
       {
         return v17;
@@ -6364,9 +6493,9 @@ uint64_t sub_1002A3E90(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v19, v20, v21, v22, v23, v24, v25, v17);
-      v26 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v26, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v17);
+      v19 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -6394,9 +6523,9 @@ uint64_t sub_1002A3F9C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6423,9 +6552,9 @@ uint64_t sub_1002A4028()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6457,9 +6586,9 @@ uint64_t sub_1002A40B4(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6491,9 +6620,9 @@ uint64_t sub_1002A414C(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6525,9 +6654,9 @@ uint64_t sub_1002A41E4(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6559,9 +6688,9 @@ uint64_t sub_1002A427C(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6588,9 +6717,9 @@ uint64_t sub_1002A4314()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6622,9 +6751,9 @@ uint64_t sub_1002A43A0(uint64_t a1, uint64_t a2, uint64_t a3)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v7, v8, v9, v10, v11, v12, v13, v6);
-    v14 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v6);
+    v7 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6651,9 +6780,9 @@ uint64_t sub_1002A445C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6680,9 +6809,9 @@ uint64_t sub_1002A44E8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6709,9 +6838,9 @@ uint64_t sub_1002A4574()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6738,9 +6867,9 @@ uint64_t sub_1002A4600()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6767,9 +6896,9 @@ uint64_t sub_1002A468C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6796,9 +6925,9 @@ uint64_t sub_1002A4718()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6825,9 +6954,9 @@ uint64_t sub_1002A47A4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6854,9 +6983,9 @@ uint64_t sub_1002A4830()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6883,9 +7012,9 @@ uint64_t sub_1002A48BC()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6912,9 +7041,9 @@ uint64_t sub_1002A4948()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6946,9 +7075,9 @@ uint64_t sub_1002A49D4(unsigned __int16 *a1, uint64_t a2, uint64_t a3, uint64_t 
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v9, v10, v11, v12, v13, v14, v15, v8);
-    v16 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v8);
+    v9 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -6964,13 +7093,13 @@ uint64_t sub_1002A4A98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
     return 101;
   }
 
-  v19 = 0;
-  v9 = sub_10023DB58(a1, &v19);
+  v12 = 0;
+  v9 = sub_10023DB58(a1, &v12);
   if (!v9)
   {
     if (off_100B608C8)
     {
-      v9 = off_100B608C8(v19, a2, a3, a4, a5);
+      v9 = off_100B608C8(v12, a2, a3, a4, a5);
       if (!v9)
       {
         return v9;
@@ -6984,9 +7113,9 @@ uint64_t sub_1002A4A98(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
     if (sub_10000C240())
     {
-      sub_10000AF54("VSC failed %!", v11, v12, v13, v14, v15, v16, v17, v9);
-      v18 = sub_10000C050(0x54u);
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+      sub_10000AF54("VSC failed %!", v9);
+      v11 = sub_10000C050(0x54u);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_10080F604();
       }
@@ -7014,9 +7143,9 @@ uint64_t sub_1002A4B74()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7043,9 +7172,9 @@ uint64_t sub_1002A4C00()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7072,9 +7201,9 @@ uint64_t sub_1002A4C8C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7101,9 +7230,9 @@ uint64_t sub_1002A4D18()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7119,21 +7248,21 @@ uint64_t sub_1002A4DA4(uint64_t a1, int a2, uint64_t a3)
     return 101;
   }
 
-  v25 = 0;
-  v6 = sub_10023DB58(a1, &v25);
+  v11 = 0;
+  v6 = sub_10023DB58(a1, &v11);
   if (v6)
   {
     return v6;
   }
 
-  if (*v25 == 0xFFFF)
+  if (*v11 == 0xFFFF)
   {
     return 101;
   }
 
   if ((dword_100B603C0 - 5000) <= 0x3E7)
   {
-    *(v25 + 330) = a2;
+    *(v11 + 330) = a2;
     if (off_100B607E0)
     {
       if (a2)
@@ -7163,9 +7292,9 @@ uint64_t sub_1002A4DA4(uint64_t a1, int a2, uint64_t a3)
       return v6;
     }
 
-    sub_10000AF54("VSC failed %!", v9, v10, v11, v12, v13, v14, v15, v6);
-    v16 = sub_10000C050(0x54u);
-    if (!os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v6);
+    v9 = sub_10000C050(0x54u);
+    if (!os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       return v6;
     }
@@ -7191,9 +7320,9 @@ LABEL_19:
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v17, v18, v19, v20, v21, v22, v23, v6);
-    v24 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v6);
+    v10 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_19;
     }
@@ -7228,9 +7357,9 @@ uint64_t sub_1002A4F18(uint64_t a1, uint64_t a2, uint64_t a3)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v7, v8, v9, v10, v11, v12, v13, v6);
-    v14 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v6);
+    v7 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7257,9 +7386,9 @@ uint64_t sub_1002A4FD4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7286,9 +7415,9 @@ uint64_t sub_1002A5060()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7315,9 +7444,9 @@ uint64_t sub_1002A50EC()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7344,9 +7473,9 @@ uint64_t sub_1002A5178()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7384,9 +7513,9 @@ uint64_t sub_1002A5204(uint64_t a1, uint64_t a2, uint64_t a3)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v8, v9, v10, v11, v12, v13, v14, v6);
-    v15 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v6);
+    v8 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7413,9 +7542,9 @@ uint64_t sub_1002A52D4(uint64_t a1, unsigned __int16 a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v2);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7442,9 +7571,9 @@ uint64_t sub_1002A5364()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7471,9 +7600,9 @@ uint64_t sub_1002A53F0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7500,9 +7629,9 @@ uint64_t sub_1002A547C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7529,9 +7658,9 @@ uint64_t sub_1002A5508()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7558,9 +7687,9 @@ uint64_t sub_1002A5594()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7587,9 +7716,9 @@ uint64_t sub_1002A5620()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7616,9 +7745,9 @@ uint64_t sub_1002A56AC()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7645,9 +7774,9 @@ uint64_t sub_1002A5738()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7674,9 +7803,9 @@ uint64_t sub_1002A57C4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7703,9 +7832,9 @@ uint64_t sub_1002A5850()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7732,9 +7861,9 @@ uint64_t sub_1002A58DC()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7761,9 +7890,9 @@ uint64_t sub_1002A5968(uint64_t a1, uint64_t a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v2);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7790,9 +7919,9 @@ uint64_t sub_1002A5A04()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7819,9 +7948,9 @@ uint64_t sub_1002A5A90()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7848,9 +7977,9 @@ uint64_t sub_1002A5B1C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7877,9 +8006,9 @@ uint64_t sub_1002A5BA8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7906,9 +8035,9 @@ uint64_t sub_1002A5C34()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7935,9 +8064,9 @@ uint64_t sub_1002A5CC0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7964,9 +8093,9 @@ uint64_t sub_1002A5D4C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -7996,9 +8125,9 @@ uint64_t sub_1002A5DD8(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v2);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8025,9 +8154,9 @@ uint64_t sub_1002A5E84()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8054,9 +8183,9 @@ uint64_t sub_1002A5F10()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8083,9 +8212,9 @@ uint64_t sub_1002A5F9C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8112,9 +8241,9 @@ uint64_t sub_1002A6028()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8141,9 +8270,9 @@ uint64_t sub_1002A60B4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8170,9 +8299,9 @@ uint64_t sub_1002A6140()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8199,9 +8328,9 @@ uint64_t sub_1002A61CC()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8228,9 +8357,9 @@ uint64_t sub_1002A6258()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8257,9 +8386,9 @@ uint64_t sub_1002A62E4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8286,9 +8415,9 @@ uint64_t sub_1002A6370(uint64_t a1, uint64_t a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v2);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8315,9 +8444,9 @@ uint64_t sub_1002A642C(uint64_t a1, uint64_t a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v2);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8344,9 +8473,9 @@ uint64_t sub_1002A64D0(uint64_t a1, uint64_t a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v2);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8373,9 +8502,9 @@ uint64_t sub_1002A657C(uint64_t a1, uint64_t a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v2);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8402,9 +8531,9 @@ uint64_t sub_1002A6638()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8431,9 +8560,9 @@ uint64_t sub_1002A66C4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8460,9 +8589,9 @@ uint64_t sub_1002A6750()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8489,9 +8618,9 @@ uint64_t sub_1002A67DC()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8518,9 +8647,9 @@ uint64_t sub_1002A6868()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8547,9 +8676,9 @@ uint64_t sub_1002A68F4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8576,9 +8705,9 @@ uint64_t sub_1002A6980()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8605,9 +8734,9 @@ uint64_t sub_1002A6A0C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8634,9 +8763,9 @@ uint64_t sub_1002A6A98()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8663,9 +8792,9 @@ uint64_t sub_1002A6B24()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8692,9 +8821,9 @@ uint64_t sub_1002A6BB0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8721,9 +8850,9 @@ uint64_t sub_1002A6C3C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8750,9 +8879,9 @@ uint64_t sub_1002A6CC8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8779,9 +8908,9 @@ uint64_t sub_1002A6D54()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8808,9 +8937,9 @@ uint64_t sub_1002A6DE0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8837,9 +8966,9 @@ uint64_t sub_1002A6E6C(uint64_t a1)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v2, v3, v4, v5, v6, v7, v8, v1);
-    v9 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v1);
+    v2 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8866,9 +8995,9 @@ uint64_t sub_1002A6F00()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8895,9 +9024,9 @@ uint64_t sub_1002A6F8C(uint64_t a1, uint64_t a2)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v3, v4, v5, v6, v7, v8, v9, v2);
-    v10 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v2);
+    v3 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8924,9 +9053,9 @@ uint64_t sub_1002A7028(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint6
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v8, v9, v10, v11, v12, v13, v14, v7);
-    v15 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v7);
+    v8 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8953,9 +9082,9 @@ uint64_t sub_1002A70E4(uint64_t a1, uint64_t a2, uint64_t a3)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v4, v5, v6, v7, v8, v9, v10, v3);
-    v11 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v3);
+    v4 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -8982,9 +9111,9 @@ uint64_t sub_1002A7188()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -9011,9 +9140,9 @@ uint64_t sub_1002A7214()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -9040,9 +9169,9 @@ uint64_t sub_1002A72A0(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v5, v6, v7, v8, v9, v10, v11, v4);
-    v12 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v4);
+    v5 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -9069,9 +9198,9 @@ uint64_t sub_1002A7354()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -9098,9 +9227,9 @@ uint64_t sub_1002A73E0()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -9127,9 +9256,9 @@ uint64_t sub_1002A746C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -9156,9 +9285,9 @@ uint64_t sub_1002A74F8()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -9185,9 +9314,9 @@ uint64_t sub_1002A7584()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -9214,9 +9343,9 @@ uint64_t sub_1002A7610()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -9243,9 +9372,9 @@ uint64_t sub_1002A769C()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -9272,9 +9401,9 @@ uint64_t sub_1002A7728()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -9301,9 +9430,9 @@ uint64_t sub_1002A77B4()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }
@@ -9330,127 +9459,9 @@ uint64_t sub_1002A7840()
 
   if (sub_10000C240())
   {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10080F604();
-    }
-  }
-
-  return v0;
-}
-
-uint64_t sub_1002A78CC(uint64_t a1, uint64_t a2, void *a3)
-{
-  if (off_100B60BD0)
-  {
-    v4 = off_100B60BD0(a1, a2, a3);
-    if (!v4)
-    {
-      goto LABEL_8;
-    }
-  }
-
-  else
-  {
-    v4 = 3601;
-  }
-
-  if (sub_10000C240())
-  {
-    sub_10000AF54("VSC failed %!", v5, v6, v7, v8, v9, v10, v11, v4);
-    v12 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
-    {
-      sub_10080F604();
-    }
-  }
-
-LABEL_8:
-  free(a3);
-  return v4;
-}
-
-uint64_t sub_1002A7970()
-{
-  if (off_100B60BE8)
-  {
-    v0 = off_100B60BE8();
-    if (!v0)
-    {
-      return v0;
-    }
-  }
-
-  else
-  {
-    v0 = 3601;
-  }
-
-  if (sub_10000C240())
-  {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10080F604();
-    }
-  }
-
-  return v0;
-}
-
-uint64_t sub_1002A79FC()
-{
-  if (off_100B60CE8)
-  {
-    v0 = off_100B60CE8();
-    if (!v0)
-    {
-      return v0;
-    }
-  }
-
-  else
-  {
-    v0 = 3601;
-  }
-
-  if (sub_10000C240())
-  {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
-    {
-      sub_10080F604();
-    }
-  }
-
-  return v0;
-}
-
-uint64_t sub_1002A7A88()
-{
-  if (off_100B60C28)
-  {
-    v0 = off_100B60C28();
-    if (!v0)
-    {
-      return v0;
-    }
-  }
-
-  else
-  {
-    v0 = 3601;
-  }
-
-  if (sub_10000C240())
-  {
-    sub_10000AF54("VSC failed %!", v1, v2, v3, v4, v5, v6, v7, v0);
-    v8 = sub_10000C050(0x54u);
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    sub_10000AF54("VSC failed %!", v0);
+    v1 = sub_10000C050(0x54u);
+    if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
     {
       sub_10080F604();
     }

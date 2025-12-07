@@ -121,24 +121,24 @@ void __79__AddBookmarkUIActivity_addBookmarkNavController_didFinishWithResult_bo
 {
   v5 = a2;
   v6 = a3;
-  v7 = v6;
+  v8 = v6;
   if (v5)
   {
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = __79__AddBookmarkUIActivity_addBookmarkNavController_didFinishWithResult_bookmark___block_invoke_8;
-    v9[3] = &unk_2781D4C88;
-    v10 = *(a1 + 32);
-    v11 = v5;
-    dispatch_async(MEMORY[0x277D85CD0], v9);
+    v10[0] = MEMORY[0x277D85DD0];
+    v10[1] = 3221225472;
+    v10[2] = __79__AddBookmarkUIActivity_addBookmarkNavController_didFinishWithResult_bookmark___block_invoke_8;
+    v10[3] = &unk_2781D4C88;
+    v11 = *(a1 + 32);
+    v12 = v5;
+    dispatch_async(MEMORY[0x277D85CD0], v10);
   }
 
   else if (v6)
   {
-    v8 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = WBS_LOG_CHANNEL_PREFIXSiriIntelligence(v6, v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      __79__AddBookmarkUIActivity_addBookmarkNavController_didFinishWithResult_bookmark___block_invoke_cold_1(v8, v7);
+      __79__AddBookmarkUIActivity_addBookmarkNavController_didFinishWithResult_bookmark___block_invoke_cold_1(v9, v8);
     }
   }
 }

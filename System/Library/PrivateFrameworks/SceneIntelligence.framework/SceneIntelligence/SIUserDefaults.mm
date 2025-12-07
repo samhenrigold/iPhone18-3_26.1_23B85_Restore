@@ -1,13 +1,17 @@
 @interface SIUserDefaults
 + (BOOL)BOOLForKey:(id)key;
++ (BOOL)BOOLForKey:(id)key useCache:(BOOL)cache;
 + (BOOL)shouldUseCache;
 + (double)doubleForKey:(id)key;
++ (double)doubleForKey:(id)key useCache:(BOOL)cache;
 + (float)floatForKey:(id)key;
++ (float)floatForKey:(id)key useCache:(BOOL)cache;
 + (id)_numberForObject:(id)object;
 + (id)cachedObjectForKey:(id)key;
 + (id)defaultValues;
 + (id)listForKey:(id)key;
 + (id)numberForKey:(id)key;
++ (id)numberForKey:(id)key useCache:(BOOL)cache;
 + (id)objectForKey:(id)key;
 + (id)objectForKey:(id)key useCache:(BOOL)cache;
 + (id)objectForKeySlow:(id)slow;
@@ -15,11 +19,13 @@
 + (id)stringForKey:(id)key;
 + (id)userDefaultsCache;
 + (int64_t)integerForKey:(id)key;
++ (int64_t)integerForKey:(id)key useCache:(BOOL)cache;
 + (void)cacheObject:(id)object forKey:(id)key;
 + (void)clearUserDefaultsCache;
 + (void)removeAllKeys;
 + (void)removeCachedObjectForKey:(id)key;
 + (void)removeObjectForKey:(id)key;
++ (void)setBool:(BOOL)bool forKey:(id)key;
 + (void)setObject:(id)object forKey:(id)key;
 + (void)synchronize;
 @end
@@ -40,18 +46,16 @@
 
 void __31__SIUserDefaults_defaultValues__block_invoke()
 {
-  v4[3] = *MEMORY[0x277D85DE8];
-  v3[0] = @"com.apple.sceneintelligence.useCacheForUserDefaults";
-  v3[1] = @"com.apple.sceneintelligence.test.default";
-  v4[0] = MEMORY[0x277CBEC38];
-  v4[1] = @"test";
-  v3[2] = @"com.apple.sceneintelligence.polaris.mcam.metadata.size";
-  v4[2] = &unk_282F34DD8;
-  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v4 forKeys:v3 count:3];
+  v3[3] = *MEMORY[0x277D85DE8];
+  v2[0] = @"com.apple.sceneintelligence.useCacheForUserDefaults";
+  v2[1] = @"com.apple.sceneintelligence.test.default";
+  v3[0] = MEMORY[0x277CBEC38];
+  v3[1] = @"test";
+  v2[2] = @"com.apple.sceneintelligence.polaris.mcam.metadata.size";
+  v3[2] = &unk_282F34DD8;
+  v0 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v3 forKeys:v2 count:3];
   v1 = defaultValues_defaultValues;
   defaultValues_defaultValues = v0;
-
-  v2 = *MEMORY[0x277D85DE8];
 }
 
 + (id)userDefaultsCache
@@ -144,29 +148,29 @@ uint64_t __32__SIUserDefaults_shouldUseCache__block_invoke()
 
 + (void)removeAllKeys
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   +[SIUserDefaults clearUserDefaultsCache];
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   appleGlobalDomainSIKeys = [MEMORY[0x277CBEBD0] appleGlobalDomainSIKeys];
-  v3 = [appleGlobalDomainSIKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [appleGlobalDomainSIKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     do
     {
       v6 = 0;
       do
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(appleGlobalDomainSIKeys);
         }
 
-        v7 = *(*(&v10 + 1) + 8 * v6);
+        v7 = *(*(&v9 + 1) + 8 * v6);
         appleGlobalDomain = [MEMORY[0x277CBEBD0] appleGlobalDomain];
         [appleGlobalDomain removeObjectForKey:v7];
 
@@ -174,13 +178,11 @@ uint64_t __32__SIUserDefaults_shouldUseCache__block_invoke()
       }
 
       while (v4 != v6);
-      v4 = [appleGlobalDomainSIKeys countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [appleGlobalDomainSIKeys countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v4);
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 + (void)removeObjectForKey:(id)key
@@ -281,6 +283,31 @@ uint64_t __32__SIUserDefaults_shouldUseCache__block_invoke()
   return bOOLValue;
 }
 
++ (BOOL)BOOLForKey:(id)key useCache:(BOOL)cache
+{
+  v4 = [SIUserDefaults objectForKey:key useCache:cache];
+  if (objc_opt_respondsToSelector())
+  {
+    bOOLValue = [v4 BOOLValue];
+  }
+
+  else
+  {
+    bOOLValue = 0;
+  }
+
+  return bOOLValue;
+}
+
++ (void)setBool:(BOOL)bool forKey:(id)key
+{
+  boolCopy = bool;
+  v5 = MEMORY[0x277CCABB0];
+  keyCopy = key;
+  v7 = [v5 numberWithBool:boolCopy];
+  [SIUserDefaults setObject:v7 forKey:keyCopy];
+}
+
 + (id)stringForKey:(id)key
 {
   v3 = [SIUserDefaults objectForKey:key];
@@ -311,6 +338,14 @@ LABEL_7:
   v4 = [SIUserDefaults _numberForObject:v3];
 
   return v4;
+}
+
++ (id)numberForKey:(id)key useCache:(BOOL)cache
+{
+  v4 = [SIUserDefaults objectForKey:key useCache:cache];
+  v5 = [SIUserDefaults _numberForObject:v4];
+
+  return v5;
 }
 
 + (id)_numberForObject:(id)object
@@ -359,6 +394,14 @@ LABEL_7:
   return integerValue;
 }
 
++ (int64_t)integerForKey:(id)key useCache:(BOOL)cache
+{
+  v4 = [SIUserDefaults numberForKey:key useCache:cache];
+  integerValue = [v4 integerValue];
+
+  return integerValue;
+}
+
 + (float)floatForKey:(id)key
 {
   v3 = [SIUserDefaults numberForKey:key];
@@ -368,6 +411,15 @@ LABEL_7:
   return v5;
 }
 
++ (float)floatForKey:(id)key useCache:(BOOL)cache
+{
+  v4 = [SIUserDefaults numberForKey:key useCache:cache];
+  [v4 floatValue];
+  v6 = v5;
+
+  return v6;
+}
+
 + (double)doubleForKey:(id)key
 {
   v3 = [SIUserDefaults numberForKey:key];
@@ -375,6 +427,15 @@ LABEL_7:
   v5 = v4;
 
   return v5;
+}
+
++ (double)doubleForKey:(id)key useCache:(BOOL)cache
+{
+  v4 = [SIUserDefaults numberForKey:key useCache:cache];
+  [v4 doubleValue];
+  v6 = v5;
+
+  return v6;
 }
 
 + (id)listForKey:(id)key
@@ -396,7 +457,7 @@ LABEL_7:
 
 + (id)resolutionDictionaryForKey:(id)key
 {
-  v20[2] = *MEMORY[0x277D85DE8];
+  v19[2] = *MEMORY[0x277D85DE8];
   v3 = [SIUserDefaults objectForKey:key];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -408,19 +469,19 @@ LABEL_7:
       goto LABEL_8;
     }
 
-    v19[0] = @"width";
+    v18[0] = @"width";
     v5 = MEMORY[0x277CCABB0];
     v6 = [v4 objectAtIndexedSubscript:0];
     [v6 floatValue];
     v7 = [v5 numberWithFloat:?];
-    v19[1] = @"height";
-    v20[0] = v7;
+    v18[1] = @"height";
+    v19[0] = v7;
     v8 = MEMORY[0x277CCABB0];
     v9 = [v4 objectAtIndexedSubscript:1];
     [v9 floatValue];
     v10 = [v8 numberWithFloat:?];
-    v20[1] = v10;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
+    v19[1] = v10;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:2];
 
 LABEL_6:
 LABEL_8:
@@ -431,28 +492,26 @@ LABEL_8:
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v17[0] = @"width";
+    v16[0] = @"width";
     v12 = MEMORY[0x277CCABB0];
     v13 = v3;
     v4 = [v13 objectForKeyedSubscript:@"width"];
     [v4 floatValue];
     v6 = [v12 numberWithFloat:?];
-    v17[1] = @"height";
-    v18[0] = v6;
+    v16[1] = @"height";
+    v17[0] = v6;
     v14 = MEMORY[0x277CCABB0];
     v7 = [v13 objectForKeyedSubscript:?];
 
     [v7 floatValue];
     v9 = [v14 numberWithFloat:?];
-    v18[1] = v9;
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:v17 count:2];
+    v17[1] = v9;
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:v16 count:2];
     goto LABEL_6;
   }
 
   v11 = 0;
 LABEL_10:
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v11;
 }

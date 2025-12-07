@@ -99,11 +99,11 @@
 
 - (NSDictionary)dictionaryRepresentation
 {
-  v14[4] = *MEMORY[0x277D85DE8];
-  v13[0] = @"disabled";
+  v13[4] = *MEMORY[0x277D85DE8];
+  v12[0] = @"disabled";
   v3 = [MEMORY[0x277CCABB0] numberWithBool:{-[CAFSelectSettingEntry disabled](self, "disabled")}];
-  v14[0] = v3;
-  v13[1] = @"symbolName";
+  v13[0] = v3;
+  v12[1] = @"symbolName";
   symbolName = [(CAFSelectSettingEntry *)self symbolName];
   null = symbolName;
   if (!symbolName)
@@ -111,8 +111,8 @@
     null = [MEMORY[0x277CBEB68] null];
   }
 
-  v14[1] = null;
-  v13[2] = @"userVisibleDescription";
+  v13[1] = null;
+  v12[2] = @"userVisibleDescription";
   userVisibleDescription = [(CAFSelectSettingEntry *)self userVisibleDescription];
   null2 = userVisibleDescription;
   if (!userVisibleDescription)
@@ -120,8 +120,8 @@
     null2 = [MEMORY[0x277CBEB68] null];
   }
 
-  v14[2] = null2;
-  v13[3] = @"userVisibleLabel";
+  v13[2] = null2;
+  v12[3] = @"userVisibleLabel";
   userVisibleLabel = [(CAFSelectSettingEntry *)self userVisibleLabel];
   null3 = userVisibleLabel;
   if (!userVisibleLabel)
@@ -129,8 +129,8 @@
     null3 = [MEMORY[0x277CBEB68] null];
   }
 
-  v14[3] = null3;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:4];
+  v13[3] = null3;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:4];
   if (!userVisibleLabel)
   {
   }
@@ -142,8 +142,6 @@
   if (!symbolName)
   {
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v10;
 }

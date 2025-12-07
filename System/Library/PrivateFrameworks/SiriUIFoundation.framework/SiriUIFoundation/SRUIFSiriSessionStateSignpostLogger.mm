@@ -6,7 +6,7 @@
 
 - (void)sessionStateHandler:(id)handler didTransitionFromState:(int64_t)state toState:(int64_t)toState forEvent:(int64_t)event machAbsoluteTime:(double)time
 {
-  v33 = *MEMORY[0x277D85DE8];
+  v32 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   if (event == 6)
   {
@@ -17,8 +17,8 @@
       thinkingIntervalID = self->_thinkingIntervalID;
       if (thinkingIntervalID - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v17))
       {
-        LOWORD(v29) = 0;
-        _os_signpost_emit_with_name_impl(&dword_26951F000, v18, OS_SIGNPOST_INTERVAL_END, thinkingIntervalID, "ThinkingStateTransition", "", &v29, 2u);
+        LOWORD(v28) = 0;
+        _os_signpost_emit_with_name_impl(&dword_26951F000, v18, OS_SIGNPOST_INTERVAL_END, thinkingIntervalID, "ThinkingStateTransition", "", &v28, 2u);
       }
 
       self->_thinkingIntervalID = 0;
@@ -34,8 +34,8 @@
     v16 = self->_thinkingIntervalID;
     if (v16 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v14))
     {
-      LOWORD(v29) = 0;
-      _os_signpost_emit_with_name_impl(&dword_26951F000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v16, "ThinkingStateTransition", "", &v29, 2u);
+      LOWORD(v28) = 0;
+      _os_signpost_emit_with_name_impl(&dword_26951F000, v15, OS_SIGNPOST_INTERVAL_BEGIN, v16, "ThinkingStateTransition", "", &v28, 2u);
     }
   }
 
@@ -95,11 +95,11 @@
     {
       v25 = v24;
       v26 = AFAnalyticsEventTypeGetName();
-      v29 = 136315394;
-      v30 = "[SRUIFSiriSessionStateSignpostLogger sessionStateHandler:didTransitionFromState:toState:forEvent:machAbsoluteTime:]";
-      v31 = 2112;
-      v32 = v26;
-      _os_log_impl(&dword_26951F000, v25, OS_LOG_TYPE_DEFAULT, "%s logging event %@", &v29, 0x16u);
+      v28 = 136315394;
+      v29 = "[SRUIFSiriSessionStateSignpostLogger sessionStateHandler:didTransitionFromState:toState:forEvent:machAbsoluteTime:]";
+      v30 = 2112;
+      v31 = v26;
+      _os_log_impl(&dword_26951F000, v25, OS_LOG_TYPE_DEFAULT, "%s logging event %@", &v28, 0x16u);
     }
 
     mEMORY[0x277CEF158] = [MEMORY[0x277CEF158] sharedAnalytics];
@@ -110,8 +110,6 @@
       kdebug_trace();
     }
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 @end

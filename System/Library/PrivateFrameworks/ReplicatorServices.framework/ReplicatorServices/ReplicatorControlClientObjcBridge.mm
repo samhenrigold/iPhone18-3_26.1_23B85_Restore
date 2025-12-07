@@ -71,7 +71,7 @@
   v7 = &v15 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_1BABE6CDC();
   selfCopy = self;
-  v9 = sub_1BAB2EFDC();
+  v9 = sub_1BAB2EFDC(v7);
   v11 = v10;
 
   (*(v5 + 8))(v7, v4);
@@ -89,7 +89,7 @@
 - (_TtC18ReplicatorServices33ReplicatorControlClientObjcBridge)init
 {
   v3 = OBJC_IVAR____TtC18ReplicatorServices33ReplicatorControlClientObjcBridge_controlClient;
-  type metadata accessor for ReplicatorControlClient();
+  type metadata accessor for ReplicatorControlClient(0);
   swift_allocObject();
   *(&self->super.isa + v3) = ReplicatorControlClient.init()();
   v5.receiver = self;

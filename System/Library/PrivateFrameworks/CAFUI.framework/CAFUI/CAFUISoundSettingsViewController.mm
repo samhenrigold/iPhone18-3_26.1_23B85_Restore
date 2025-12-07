@@ -50,8 +50,8 @@
 
 - (void)pressesEnded:(id)ended withEvent:(id)event
 {
-  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIPress);
-  lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type UIPress and conformance NSObject, &lazy cache variable for type metadata for UIPress);
+  type metadata accessor for OS_os_log(0, &lazy cache variable for type metadata for UIPress, 0x277D758B8);
+  lazy protocol witness table accessor for type UIPress and conformance NSObject(&lazy protocol witness table cache variable for type UIPress and conformance NSObject, &lazy cache variable for type metadata for UIPress, 0x277D758B8, MEMORY[0x277D85378]);
   v6 = static Set._unconditionallyBridgeFromObjectiveC(_:)();
   eventCopy = event;
   selfCopy = self;

@@ -1,10 +1,10 @@
 @interface AnyHashable:
-- (uint64_t)Any;
+- (double)Any;
 @end
 
 @implementation AnyHashable:
 
-- (uint64_t)Any
+- (double)Any
 {
   v2 = *(self + 32);
   if (a2)
@@ -18,6 +18,8 @@
   }
 
   v2(v3);
+
+  return result;
 }
 
 @end

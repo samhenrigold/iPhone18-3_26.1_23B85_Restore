@@ -32,9 +32,9 @@
 {
   filterCopy = filter;
   storeCopy = store;
-  v17.receiver = self;
-  v17.super_class = FAMugshotMarqueeView;
-  v8 = [(FAMugshotMarqueeView *)&v17 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
+  v18.receiver = self;
+  v18.super_class = FAMugshotMarqueeView;
+  v8 = [(FAMugshotMarqueeView *)&v18 initWithFrame:*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)];
   if (v8)
   {
     v9 = objc_opt_new();
@@ -50,10 +50,10 @@
 
     if (!familyCircle)
     {
-      v14 = _FALogSystem();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+      v15 = _FALogSystem(v14);
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
       {
-        [FAMugshotMarqueeView initWithMemberFilter:v14 profilePictureStore:?];
+        [FAMugshotMarqueeView initWithMemberFilter:v15 profilePictureStore:?];
       }
     }
 
@@ -107,36 +107,36 @@
 
 - (void)_configureMarquee
 {
-  v34 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   arrangedSubviews = [(UIStackView *)self->_marquee arrangedSubviews];
-  v4 = [arrangedSubviews countByEnumeratingWithState:&v27 objects:v33 count:16];
+  v4 = [arrangedSubviews countByEnumeratingWithState:&v26 objects:v32 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v28;
+    v6 = *v27;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v28 != v6)
+        if (*v27 != v6)
         {
           objc_enumerationMutation(arrangedSubviews);
         }
 
-        [*(*(&v27 + 1) + 8 * i) removeFromSuperview];
+        [*(*(&v26 + 1) + 8 * i) removeFromSuperview];
       }
 
-      v5 = [arrangedSubviews countByEnumeratingWithState:&v27 objects:v33 count:16];
+      v5 = [arrangedSubviews countByEnumeratingWithState:&v26 objects:v32 count:16];
     }
 
     while (v5);
   }
 
-  v26 = [(FAProfilePictureStore *)self->_pictureStore profilePicturesWithDiameter:68.0];
+  v25 = [(FAProfilePictureStore *)self->_pictureStore profilePicturesWithDiameter:68.0];
   familyCircle = [(FAProfilePictureStore *)self->_pictureStore familyCircle];
   members = [familyCircle members];
   v10 = [members count];
@@ -145,7 +145,7 @@
   {
     v12 = (v10 & 0x7FFFFFFF) + 1;
     *&v11 = 138412290;
-    v25 = v11;
+    v24 = v11;
     do
     {
       familyCircle2 = [(FAProfilePictureStore *)self->_pictureStore familyCircle];
@@ -155,7 +155,7 @@
       membersFilter = self->_membersFilter;
       if (!membersFilter || membersFilter[2](membersFilter, v15))
       {
-        v17 = [v26 objectForKeyedSubscript:v15];
+        v17 = [v25 objectForKeyedSubscript:v15];
         v18 = [(FAMugshotMarqueeView *)self _configureImageWithData:v17];
         if (v18)
         {
@@ -173,11 +173,11 @@
 
         else
         {
-          v19 = _FALogSystem();
+          v19 = _FALogSystem(0);
           if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
           {
-            *buf = v25;
-            v32 = v15;
+            *buf = v24;
+            v31 = v15;
             _os_log_error_impl(&dword_21BB35000, v19, OS_LOG_TYPE_ERROR, "No member image for %@", buf, 0xCu);
           }
         }
@@ -190,13 +190,11 @@
   }
 
   [(FAMugshotMarqueeView *)self setNeedsDisplay];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_configureStackView
 {
-  v17[3] = *MEMORY[0x277D85DE8];
+  v16[3] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D75A68]);
   v4 = [v3 initWithFrame:{*MEMORY[0x277CBF3A0], *(MEMORY[0x277CBF3A0] + 8), *(MEMORY[0x277CBF3A0] + 16), *(MEMORY[0x277CBF3A0] + 24)}];
   [(UIStackView *)v4 setTranslatesAutoresizingMaskIntoConstraints:0];
@@ -207,22 +205,20 @@
   centerYAnchor = [(UIStackView *)v4 centerYAnchor];
   centerYAnchor2 = [(FAMugshotMarqueeView *)self centerYAnchor];
   v5 = [centerYAnchor constraintEqualToAnchor:centerYAnchor2];
-  v17[0] = v5;
+  v16[0] = v5;
   centerXAnchor = [(UIStackView *)v4 centerXAnchor];
   centerXAnchor2 = [(FAMugshotMarqueeView *)self centerXAnchor];
   v8 = [centerXAnchor constraintEqualToAnchor:centerXAnchor2];
-  v17[1] = v8;
+  v16[1] = v8;
   heightAnchor = [(UIStackView *)v4 heightAnchor];
   heightAnchor2 = [(FAMugshotMarqueeView *)self heightAnchor];
   v11 = [heightAnchor constraintEqualToAnchor:heightAnchor2];
-  v17[2] = v11;
-  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:3];
+  v16[2] = v11;
+  v12 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:3];
 
   [MEMORY[0x277CCAAD0] activateConstraints:v12];
   marquee = self->_marquee;
   self->_marquee = v4;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (id)_configureImageViewWithImage:(id)image
@@ -320,11 +316,10 @@ uint64_t __76__FAMugshotMarqueeView_Snapshot__imageWithMemberFilter_profilePictu
 
 - (void)initWithMemberFilter:(os_log_t)log profilePictureStore:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "[FAMugshotMarqueeView initWithMemberFilter:profilePictureStore:]";
-  _os_log_error_impl(&dword_21BB35000, log, OS_LOG_TYPE_ERROR, "%s has no circle", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "[FAMugshotMarqueeView initWithMemberFilter:profilePictureStore:]";
+  _os_log_error_impl(&dword_21BB35000, log, OS_LOG_TYPE_ERROR, "%s has no circle", &v1, 0xCu);
 }
 
 @end

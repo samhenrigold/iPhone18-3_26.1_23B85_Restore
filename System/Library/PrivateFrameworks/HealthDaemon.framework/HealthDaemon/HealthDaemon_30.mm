@@ -1,2184 +1,3 @@
-void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsAverageSampleDuration,HDStatisticsTimeInterval>>::_mergeToTime(uint64_t a1, double a2)
-{
-  if (*(a1 + 576) == 1)
-  {
-    _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsAverageSampleDuration,HDStatisticsTimeInterval>>::_configureForStartTime(a1);
-  }
-
-  if (*(a1 + 40))
-  {
-    _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsAverageSampleDuration,HDStatisticsTimeInterval>>::_advanceToTime(a1, a2);
-  }
-
-  if (*(a1 + 128) > a2)
-  {
-
-    HDStatisticsBucket<HDStatisticsCombined<HDStatisticsAverageSampleDuration,HDStatisticsTimeInterval>>::_mergeThroughTime(a1 + 120, a2);
-  }
-}
-
-uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsCombinedI33HDStatisticsAverageSampleDuration24HDStatisticsTimeIntervalEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke(void *a1, uint64_t a2)
-{
-  v3 = a1[5];
-  v4 = a1[6];
-  v5 = a1[4];
-  v6 = [v5 dateInterval];
-  v9[4] = v4;
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsCombinedI33HDStatisticsAverageSampleDuration24HDStatisticsTimeIntervalEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_2;
-  v10[3] = &__block_descriptor_40_e24_B52__0d8d16d24q32B40__44l;
-  v10[4] = v4;
-  v9[0] = MEMORY[0x277D85DD0];
-  v9[1] = 3221225472;
-  v9[2] = ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsCombinedI33HDStatisticsAverageSampleDuration24HDStatisticsTimeIntervalEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_3;
-  v9[3] = &__block_descriptor_40_e8_v16__0d8l;
-  v7 = [v3 collectionCalculator:v5 queryForInterval:v6 error:a2 sampleHandler:v10 mergeHandler:v9];
-
-  return v7;
-}
-
-uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsCombinedI33HDStatisticsAverageSampleDuration24HDStatisticsTimeIntervalEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_2(uint64_t a1, uint64_t a2, int a3, uint64_t a4, double a5, double a6, double a7)
-{
-  v10 = *(a1 + 32);
-  *v14 = a5;
-  *&v14[1] = a6;
-  *&v14[2] = a7;
-  v14[3] = a2;
-  v15 = 1;
-  v11 = [MEMORY[0x277CBEAA8] distantFuture];
-  [v11 timeIntervalSinceReferenceDate];
-  v16 = v12 <= a7;
-
-  return _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsAverageSampleDuration,HDStatisticsTimeInterval>>::_primitiveAddSample(v10, v14, a3, a4);
-}
-
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_HDConcreteStatisticsCollectionCalculatorImplementation(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5, void *a6)
-{
-  v6 = a3;
-  v8 = _HDStatisticsCollectionCalculatorImplementation::_HDStatisticsCollectionCalculatorImplementation(a1, a2, a3, a4, a5, a6);
-  *v8 = &unk_283BEFE28;
-  v9 = 900.0;
-  if ((v6 & 0x10) == 0)
-  {
-    v9 = 0.0;
-  }
-
-  *(v8 + 56) = v9;
-  *(v8 + 64) = 0u;
-  *(v8 + 80) = 0u;
-  *(v8 + 104) = 0;
-  *(v8 + 112) = 0;
-  *(v8 + 96) = 0;
-  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::HDStatisticsBucket(v8 + 120, 0, -1.79769313e308, 1.79769313e308);
-  *(a1 + 552) = 0u;
-  *(a1 + 568) = 0u;
-  *(a1 + 584) = 1;
-  *(a1 + 586) = 0;
-  *(a1 + 588) = 0;
-  *(a1 + 592) = 0xFFEFFFFFFFFFFFFFLL;
-  *(a1 + 600) = 0u;
-  *(a1 + 616) = 0u;
-  *(a1 + 632) = 0;
-  return a1;
-}
-
-void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::~_HDConcreteStatisticsCollectionCalculatorImplementation(uint64_t a1)
-{
-  _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::~_HDConcreteStatisticsCollectionCalculatorImplementation(a1);
-
-  JUMPOUT(0x22AAC8590);
-}
-
-{
-  *a1 = &unk_283BEFE28;
-  v2 = *(a1 + 616);
-  if (v2)
-  {
-    *(a1 + 624) = v2;
-    operator delete(v2);
-  }
-
-  v3 = *(a1 + 552);
-  if (v3)
-  {
-    *(a1 + 560) = v3;
-    operator delete(v3);
-  }
-
-  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCumulative>>::~HDStatisticsBucket(a1 + 120);
-  objc_destroyWeak((a1 + 104));
-
-  v4 = *(a1 + 72);
-  if (v4)
-  {
-    *(a1 + 80) = v4;
-    operator delete(v4);
-  }
-
-  _HDStatisticsCollectionCalculatorImplementation::~_HDStatisticsCollectionCalculatorImplementation(a1);
-}
-
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::setMergeGranularity(uint64_t result, double a2)
-{
-  if (*(result + 56) != a2)
-  {
-    *(result + 56) = a2;
-    *(result + 584) = 1;
-  }
-
-  return result;
-}
-
-void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::setDateInterval(uint64_t a1, void *a2)
-{
-  v6 = a2;
-  v3 = [v6 copy];
-  v4 = *(a1 + 64);
-  *(a1 + 64) = v3;
-
-  v5 = [v6 startDate];
-  [v5 timeIntervalSinceReferenceDate];
-  _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_configureForStartTime(a1);
-}
-
-void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::configureMergeAnchor(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  if (!*(a1 + 40))
-  {
-    v5 = v3;
-    [v3 timeIntervalSinceReferenceDate];
-    *(a1 + 592) = v4;
-    v3 = v5;
-  }
-}
-
-void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::setStatisticsConfiguration(id *a1, void *a2)
-{
-  objc_storeStrong(a1 + 75, a2);
-  v7 = a2;
-  v4 = a1[75];
-  v5 = a1[72];
-  a1[72] = v4;
-  v6 = v4;
-
-  objc_storeStrong(a1 + 19, a1[72]);
-}
-
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::setIntervalMask(uint64_t a1, char **a2, uint64_t a3)
-{
-  v6 = (a1 + 72);
-  if (v6 != a2)
-  {
-    std::vector<HKRawInterval<double>>::__assign_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(v6, *a2, a2[1], (a2[1] - *a2) >> 4);
-  }
-
-  if (*(a1 + 40))
-  {
-    return 1;
-  }
-
-  v7 = *(a1 + 224) == *(a1 + 216) && *(a1 + 256) < 1 || HKIntervalMask<double>::firstDifference(*(a1 + 184), *(a1 + 192), *a2, a2[1]) >= *(a1 + 176);
-  if ((a1 + 184) != a2)
-  {
-    std::vector<HKRawInterval<double>>::__assign_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>((a1 + 184), *a2, a2[1], (a2[1] - *a2) >> 4);
-  }
-
-  if (v7)
-  {
-    return 1;
-  }
-
-  v9 = *(*a1 + 128);
-
-  return v9(a1, 0, a3);
-}
-
-void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::setStatisticsHandler(uint64_t a1, void *a2)
-{
-  v5 = a2;
-  v3 = [v5 copy];
-  v4 = *(a1 + 96);
-  *(a1 + 96) = v3;
-}
-
-id _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::dataSource(uint64_t a1)
-{
-  WeakRetained = objc_loadWeakRetained((a1 + 104));
-
-  return WeakRetained;
-}
-
-id _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::currentStatistics(uint64_t a1)
-{
-  if (*(a1 + 584))
-  {
-    v1 = 0;
-  }
-
-  else
-  {
-    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::HDStatisticsBucket(v4, a1 + 120);
-    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_updateSourceOrder(v4);
-    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_mergeThroughTime(v4, v4[1]);
-    v1 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_statisticsFromFinishedBucket(a1, v4);
-    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCumulative>>::~HDStatisticsBucket(v4);
-  }
-
-  return v1;
-}
-
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::addSample(uint64_t a1, uint64_t a2, uint64_t a3)
-{
-  v6 = *(a1 + 64);
-  v7 = v6;
-  if (!v6)
-  {
-    goto LABEL_4;
-  }
-
-  v8 = [v6 startDate];
-  [v8 timeIntervalSinceReferenceDate];
-  if (v9 > *(a2 + 16))
-  {
-    v14 = 1;
-LABEL_8:
-
-    goto LABEL_13;
-  }
-
-  v10 = [v7 endDate];
-  [v10 timeIntervalSinceReferenceDate];
-  v12 = v11;
-  v13 = *(a2 + 8);
-
-  if (v12 >= v13)
-  {
-LABEL_4:
-    if (*(a1 + 586) == 1)
-    {
-      if (*(a1 + 585))
-      {
-        goto LABEL_6;
-      }
-
-      if (_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCumulative>>::_earliestStartTimeWithoutInvalidation(a1) > *(a2 + 8))
-      {
-        v15 = *(a2 + 16);
-        v8 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:? end:?];
-        v14 = (*(*a1 + 128))(a1, v8, a3);
-        goto LABEL_8;
-      }
-
-      if (*(a1 + 587) != 1)
-      {
-        std::vector<HDRawQuantitySample>::push_back[abi:ne200100](a1 + 616, a2);
-        goto LABEL_6;
-      }
-    }
-
-    v14 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_primitiveAddSample(a1, a2, 1, a3);
-    goto LABEL_13;
-  }
-
-LABEL_6:
-  v14 = 1;
-LABEL_13:
-
-  return v14;
-}
-
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::performAddSampleTransaction(uint64_t a1, void *a2, uint64_t a3)
-{
-  v75 = *MEMORY[0x277D85DE8];
-  v5 = a2;
-  v6 = v5;
-  if (*(a1 + 586) == 1)
-  {
-    v7 = (*(v5 + 2))(v5, a3);
-    goto LABEL_81;
-  }
-
-  *(a1 + 586) = 1;
-  v68 = a3;
-  if (!(*(v5 + 2))(v5, a3))
-  {
-    v7 = 0;
-    goto LABEL_80;
-  }
-
-  v67 = v6;
-  if (*(a1 + 585))
-  {
-    goto LABEL_5;
-  }
-
-  v9 = *(a1 + 608);
-  if (!v9)
-  {
-    v8 = 0;
-    v69 = 0;
-    goto LABEL_28;
-  }
-
-  if (!*(a1 + 40))
-  {
-LABEL_5:
-    v69 = 0;
-    v8 = 1;
-    goto LABEL_28;
-  }
-
-  [v9 sortUsingComparator:&__block_literal_global_947];
-  v69 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
-  v71 = 0u;
-  v10 = *(a1 + 608);
-  v11 = [v10 countByEnumeratingWithState:&v70 objects:v74 count:16];
-  if (!v11)
-  {
-
-    v12 = 0;
-    goto LABEL_27;
-  }
-
-  v12 = 0;
-  v13 = *v71;
-  do
-  {
-    for (i = 0; i != v11; ++i)
-    {
-      if (*v71 != v13)
-      {
-        objc_enumerationMutation(v10);
-      }
-
-      v15 = *(*(&v70 + 1) + 8 * i);
-      v16 = v15;
-      if (v12)
-      {
-        v17 = [v15 startDate];
-        v18 = [v12 endDate];
-        v19 = [v17 hk_isBeforeOrEqualToDate:v18];
-
-        if (v19)
-        {
-          v20 = [v16 endDate];
-          v21 = [v12 endDate];
-          v22 = [v20 hk_isAfterDate:v21];
-
-          if (!v22)
-          {
-            goto LABEL_21;
-          }
-
-          v23 = objc_alloc(MEMORY[0x277CCA970]);
-          v24 = [v12 startDate];
-          v25 = [v16 endDate];
-          v26 = [v23 initWithStartDate:v24 endDate:v25];
-        }
-
-        else
-        {
-          [v69 addObject:v12];
-          v26 = v16;
-        }
-
-        v12 = v26;
-      }
-
-      else
-      {
-        v12 = v15;
-      }
-
-LABEL_21:
-    }
-
-    v11 = [v10 countByEnumeratingWithState:&v70 objects:v74 count:16];
-  }
-
-  while (v11);
-
-  if (v12)
-  {
-    [v69 addObject:v12];
-  }
-
-LABEL_27:
-
-  v8 = 0;
-LABEL_28:
-  v27 = *(a1 + 608);
-  *(a1 + 608) = 0;
-
-  *(a1 + 585) = 0;
-  if (v8)
-  {
-    v28 = *(a1 + 616);
-    *(a1 + 632) = 0;
-    *(a1 + 624) = 0;
-    *(a1 + 616) = 0;
-    v29 = v28;
-    goto LABEL_46;
-  }
-
-  v30 = [v69 lastObject];
-  if (v30)
-  {
-    v31 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCumulative>>::_currentBucketInterval(a1);
-    v32 = [v31 endDate];
-    v33 = [v30 endDate];
-    v34 = [v32 hk_isBeforeOrEqualToDate:v33];
-
-    if (v34)
-    {
-      v35 = [v30 endDate];
-      [v35 timeIntervalSinceReferenceDate];
-      v37 = v36;
-
-      v38 = *(a1 + 616);
-      v39 = *(a1 + 624);
-      if (v38 != v39)
-      {
-        while (*(v38 + 8) >= v37)
-        {
-          v38 += 40;
-          if (v38 == v39)
-          {
-            goto LABEL_44;
-          }
-        }
-
-        if (v38 != v39)
-        {
-          v40 = (v38 + 40);
-          if ((v38 + 40) != v39)
-          {
-            do
-            {
-              if (*(v40 + 1) >= v37)
-              {
-                v41 = *v40;
-                v42 = v40[1];
-                *(v38 + 32) = *(v40 + 16);
-                *v38 = v41;
-                *(v38 + 16) = v42;
-                v38 += 40;
-              }
-
-              v40 = (v40 + 40);
-            }
-
-            while (v40 != v39);
-            v39 = *(a1 + 624);
-          }
-        }
-      }
-
-      if (v38 != v39)
-      {
-        *(a1 + 624) = v38;
-      }
-    }
-
-LABEL_44:
-  }
-
-  v28 = *(a1 + 616);
-  v29 = *(a1 + 624);
-  *(a1 + 632) = 0;
-  *(a1 + 616) = 0;
-  *(a1 + 624) = 0;
-  if ([v69 count])
-  {
-LABEL_46:
-    v44 = v69;
-    if (v44)
-    {
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
-      v71 = 0u;
-      v45 = v44;
-      v46 = [v45 countByEnumeratingWithState:&v70 objects:v74 count:16];
-      if (v46)
-      {
-        v47 = *v71;
-        while (2)
-        {
-          for (j = 0; j != v46; ++j)
-          {
-            if (*v71 != v47)
-            {
-              objc_enumerationMutation(v45);
-            }
-
-            v49 = *(*(&v70 + 1) + 8 * j);
-            v50 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_primitiveInvalidateInterval(a1, v49, v68);
-
-            if (!v50)
-            {
-
-              goto LABEL_68;
-            }
-          }
-
-          v46 = [v45 countByEnumeratingWithState:&v70 objects:v74 count:16];
-          if (v46)
-          {
-            continue;
-          }
-
-          break;
-        }
-      }
-
-      goto LABEL_58;
-    }
-
-    if (_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_primitiveInvalidateInterval(a1, 0, v68))
-    {
-      goto LABEL_58;
-    }
-
-LABEL_68:
-    v54 = 0;
-  }
-
-  else
-  {
-LABEL_58:
-    v52 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * ((v29 - v28) >> 3));
-    if (v29 == v28)
-    {
-      v53 = 0;
-    }
-
-    else
-    {
-      v53 = v52;
-    }
-
-    v54 = 1;
-    std::__introsort<std::_ClassicAlgPolicy,_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_addPendingSamples(std::vector<HDRawQuantitySample> &,NSError * {__autoreleasing}*)::{lambda(HDRawQuantitySample const&,HDRawQuantitySample const&)#1} &,HDRawQuantitySample*,false>(v28, v29, v53, 1, v43);
-    if (v29 != v28)
-    {
-      v55 = v28;
-      v51 = v68;
-      do
-      {
-        v56 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_primitiveAddSample(a1, v55, 1, v51);
-        v54 = v56;
-        v55 += 40;
-        if (v55 == v29)
-        {
-          v57 = 0;
-        }
-
-        else
-        {
-          v57 = v56;
-        }
-
-        v51 = v68;
-      }
-
-      while ((v57 & 1) != 0);
-    }
-  }
-
-  if (*(a1 + 40))
-  {
-    while (*(a1 + 560) != *(a1 + 552))
-    {
-      v58 = [*(a1 + 40) dateIntervalAtIndex:{*(a1 + 112) + 1, v51}];
-      HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_updateSourceOrder(a1 + 120);
-      HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_mergeThroughTime(a1 + 120, *(a1 + 128));
-      v59 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_statisticsFromFinishedBucket(a1, a1 + 120);
-      v60 = [v58 startDate];
-      [v60 timeIntervalSinceReferenceDate];
-      v62 = v61;
-      v63 = [v58 endDate];
-      [v63 timeIntervalSinceReferenceDate];
-      HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::advanceBucket((a1 + 112), v62, v64);
-
-      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_didChangeBucket(a1, v59);
-      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_notifyForCurrentBucket(a1);
-    }
-  }
-
-  *(a1 + 586) = 0;
-  if (v28)
-  {
-    operator delete(v28);
-  }
-
-  if (v54)
-  {
-    if (*(a1 + 588) == 1)
-    {
-      *(a1 + 588) = 0;
-      v6 = v67;
-      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_notifyForCurrentBucket(a1);
-      v7 = 1;
-      goto LABEL_80;
-    }
-
-    v7 = 1;
-  }
-
-  else
-  {
-    v7 = 0;
-  }
-
-  v6 = v67;
-LABEL_80:
-  *(a1 + 586) = 0;
-LABEL_81:
-
-  v65 = *MEMORY[0x277D85DE8];
-  return v7;
-}
-
-void sub_228F63CE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12)
-{
-  if (a2)
-  {
-
-    objc_begin_catch(exception_object);
-    *(v13 + 586) = 0;
-    objc_exception_rethrow();
-  }
-
-  _Unwind_Resume(exception_object);
-}
-
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::invalidateInterval(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = a2;
-  v6 = *(a1 + 40);
-  if (!v6)
-  {
-
-    goto LABEL_11;
-  }
-
-  if (!v5)
-  {
-LABEL_11:
-    if (*(a1 + 586))
-    {
-      goto LABEL_12;
-    }
-
-    v7 = 0;
-LABEL_14:
-    v11 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_primitiveInvalidateInterval(a1, v7, a3);
-    goto LABEL_15;
-  }
-
-  v7 = [v6 dateIntervalForIntervalsContainingInterval:v5];
-
-  if ((*(a1 + 586) & 1) == 0)
-  {
-    goto LABEL_14;
-  }
-
-  if (!v7)
-  {
-LABEL_12:
-    v12 = *(a1 + 608);
-    *(a1 + 608) = 0;
-
-    v7 = 0;
-    v11 = 1;
-    *(a1 + 585) = 1;
-    goto LABEL_15;
-  }
-
-  if ((*(a1 + 585) & 1) == 0)
-  {
-    v8 = *(a1 + 608);
-    if (!v8)
-    {
-      v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v10 = *(a1 + 608);
-      *(a1 + 608) = v9;
-
-      v8 = *(a1 + 608);
-    }
-
-    [v8 addObject:v7];
-  }
-
-  v11 = 1;
-LABEL_15:
-
-  return v11;
-}
-
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::queryForInitialStatistics(uint64_t a1, void *a2, uint64_t a3)
-{
-  v5 = a2;
-  WeakRetained = objc_loadWeakRetained((a1 + 104));
-  if (WeakRetained)
-  {
-    *(a1 + 584) = 1;
-    v9[0] = MEMORY[0x277D85DD0];
-    v9[1] = 3221225472;
-    v9[2] = ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI33HDStatisticsAverageSampleDurationEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke;
-    v9[3] = &unk_278624840;
-    v12 = a1;
-    v10 = v5;
-    v11 = WeakRetained;
-    v7 = (*(*a1 + 112))(a1, v9, a3);
-    if (v7 && *(a1 + 584) == 1 && !*(a1 + 40))
-    {
-      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_configureForStartTime(a1);
-    }
-  }
-
-  else
-  {
-    [MEMORY[0x277CCA9B8] hk_assignError:a3 code:3 format:@"Unable to query for initial statistics: no data source available."];
-    v7 = 0;
-  }
-
-  return v7;
-}
-
-void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::encodeInternalsWithEncoder(uint64_t a1, void *a2)
-{
-  v3 = a2;
-  [v3 encodeBool:*(a1 + 584) forKey:@"needs_config"];
-  v13 = v3;
-  v33 = &unk_283BF1A08;
-  v34 = 0;
-  v39 = 0;
-  v37 = 0;
-  v38 = 0;
-  v4 = *(a1 + 112);
-  LOBYTE(v39) = 1;
-  v35 = v4;
-  v36 = 0;
-  statistics::StatisticsEngine::makeCurrentBucket(&v33);
-  v14 = &unk_283BE6258;
-  v18 = 0;
-  v19 = 0;
-  v17 = 0;
-  v32 = 511;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
-  v28 = 0;
-  v5 = vextq_s8(*(a1 + 120), *(a1 + 120), 8uLL);
-  v6 = *(a1 + 136);
-  v30 = *(a1 + 144);
-  v31 = *(a1 + 145);
-  v29 = *(a1 + 148) == 0;
-  v7 = vextq_s8(*(a1 + 160), *(a1 + 160), 8uLL);
-  v15 = v5;
-  v16 = v7;
-  v7.i64[0] = *(a1 + 176);
-  v20 = v6;
-  v21 = v7.i64[0];
-  v8 = *(a1 + 216);
-  if (v8 != *(a1 + 224))
-  {
-    v40 = &unk_283BEB0A8;
-    v45 = 127;
-    v42 = vextq_s8(*v8, *v8, 8uLL);
-    v41 = v8[1];
-    v44 = 0;
-    HIBYTE(v43) = v8[2].i8[9];
-    LOBYTE(v43) = v8[2].i8[10];
-    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample&>();
-  }
-
-  statistics::StatisticsBucket::makeStatistics(&v14);
-  HDStatisticsRelative<HDStatisticsAverageSampleDuration>::archive(&v40, (a1 + 240));
-  statistics::Statistics::operator=(*(&v23 + 1), &v40);
-  statistics::Statistics::~Statistics(&v40);
-  v9 = *(a1 + 344);
-  if (v9 != a1 + 352)
-  {
-    HDStatisticsRelative<HDStatisticsAverageSampleDuration>::archive(&v40, (v9 + 40));
-    v10 = *(v9 + 32);
-    v47 |= 0x200u;
-    v46 = v10;
-    PB::PtrVector<statistics::Statistics>::emplace_back<statistics::Statistics&>();
-  }
-
-  v11 = *(a1 + 184);
-  if (v11 != *(a1 + 192))
-  {
-    v40 = &unk_283BF1F08;
-    v42.i32[0] = 3;
-    v41 = vextq_s8(*v11, *v11, 8uLL);
-    PB::PtrVector<statistics::Interval>::emplace_back<statistics::Interval&>();
-  }
-
-  statistics::StatisticsBucket::operator=(v34, &v14);
-  statistics::StatisticsBucket::~StatisticsBucket(&v14);
-  v12 = *(a1 + 552);
-  if (v12 != *(a1 + 560))
-  {
-    v40 = &unk_283BEB0A8;
-    v45 = 127;
-    v42 = vextq_s8(*v12, *v12, 8uLL);
-    v41 = v12[1];
-    v43 = 0;
-    v44 = 0;
-    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample>();
-  }
-
-  PB::Writer::Writer(&v40);
-  statistics::StatisticsEngine::writeTo(&v33, &v40);
-  [v13 encodeBytes:v41.i64[0] length:&v40[-v41.i64[0]] forKey:@"hdsce_archived_representation"];
-  PB::Writer::~Writer(&v40);
-  statistics::StatisticsEngine::~StatisticsEngine(&v33);
-}
-
-void sub_228F64530(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
-{
-  statistics::StatisticsEngine::~StatisticsEngine(&a34);
-
-  _Unwind_Resume(a1);
-}
-
-void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::decodeInternalsWithDecoder(uint64_t j, void *a2)
-{
-  v32 = a2;
-  *(j + 584) = [v32 decodeBoolForKey:@"needs_config"];
-  v3 = v32;
-  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::HDStatisticsBucket(v37, 0, -1.79769313e308, 1.79769313e308);
-  __p = 0u;
-  v39 = 0u;
-  v78 = 0;
-  PB::Reader::Reader(v77, [v3 decodeBytesForKey:@"hdsce_archived_representation" returnedLength:&v78]);
-  v70 = &unk_283BF1A08;
-  v71 = 0;
-  v75 = 0;
-  v73 = 0;
-  v74 = 0;
-  v76 = 0;
-  statistics::StatisticsEngine::readFrom(&v70, v77);
-  v36 = v72;
-  if (v71)
-  {
-    v34 = v3;
-    v43 = 0;
-    v46 = 0uLL;
-    v47 = 0;
-    memset(v49, 0, sizeof(v49));
-    v48 = 0;
-    memset(&v50[8], 0, 50);
-    v51 = 0u;
-    v52 = 0u;
-    LOWORD(v53) = 0;
-    v55[1] = 0;
-    *v50 = 0;
-    v55[0] = 0;
-    v54 = v55;
-    v57 = 0u;
-    v56 = 0u;
-    v58 = 1065353216;
-    v59 = 0u;
-    v60 = 0u;
-    v61 = 0u;
-    v62 = 0;
-    v63 = 1065353216;
-    v64 = 0u;
-    v65 = 0u;
-    v66 = 1065353216;
-    v67 = 0u;
-    v68 = 0u;
-    v69 = 1065353216;
-    v40 = vextq_s8(*(v71 + 8), *(v71 + 8), 8uLL);
-    v4 = *(v71 + 72);
-    v41 = *(v71 + 64);
-    LOWORD(v42) = *(v71 + 185);
-    v44 = vextq_s8(*(v71 + 24), *(v71 + 24), 8uLL);
-    v45 = v4;
-    v5 = *(v71 + 80);
-    v6 = *(v71 + 88);
-    for (i = v71; v5 != v6; ++v5)
-    {
-      v7 = *v5;
-      LOWORD(v81) = 1;
-      BYTE8(v81) = 0;
-      v8 = *(v7 + 8);
-      v9 = *(v7 + 16);
-      v79 = vextq_s8(*(v7 + 24), *(v7 + 24), 8uLL);
-      *&v80 = v8;
-      *(&v80 + 1) = v9;
-      BYTE9(v81) = *(v7 + 41);
-      BYTE10(v81) = *(v7 + 40);
-      std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](v49, v79.i8);
-    }
-
-    v33 = j;
-    v10 = i[13];
-    if (v10)
-    {
-      HDStatisticsRelative<HDStatisticsAverageSampleDuration>::unarchive(&v79, v10);
-      *&v50[48] = v82;
-      v51 = v83;
-      v52 = v84;
-      v53 = v85;
-      *v50 = v79;
-      *&v50[16] = v80;
-      *&v50[32] = v81;
-    }
-
-    v12 = i[17];
-    v11 = i[18];
-    while (v12 != v11)
-    {
-      v13 = *v12;
-      HDStatisticsRelative<HDStatisticsAverageSampleDuration>::unarchive(&v79, *v12);
-      v14 = *(v13 + 144);
-      v15 = v55[0];
-      if (!v55[0])
-      {
-LABEL_15:
-        operator new();
-      }
-
-      while (1)
-      {
-        while (1)
-        {
-          v16 = v15;
-          v17 = v15[4];
-          if (v17 <= v14)
-          {
-            break;
-          }
-
-          v15 = *v16;
-          if (!*v16)
-          {
-            goto LABEL_15;
-          }
-        }
-
-        if (v17 >= v14)
-        {
-          break;
-        }
-
-        v15 = v16[1];
-        if (!v15)
-        {
-          goto LABEL_15;
-        }
-      }
-
-      v18 = v85;
-      v20 = v83;
-      v19 = v84;
-      v21 = v81;
-      *(v16 + 11) = v82;
-      *(v16 + 13) = v20;
-      *(v16 + 15) = v19;
-      v22 = v80;
-      *(v16 + 5) = v79;
-      v16[17] = v18;
-      *(v16 + 7) = v22;
-      ++v12;
-      *(v16 + 9) = v21;
-    }
-
-    v23 = i[5];
-    v24 = i[6];
-    for (j = v33; v23 != v24; v23 += 8)
-    {
-      v26 = *(*v23 + 8);
-      v25 = *(*v23 + 16);
-      if (v26 >= v25)
-      {
-        v27 = *(*v23 + 16);
-      }
-
-      else
-      {
-        v27 = *(*v23 + 8);
-      }
-
-      if (v25 < v26)
-      {
-        v25 = *(*v23 + 8);
-      }
-
-      HKIntervalMask<double>::_insertInterval(&v46, v27, v25);
-    }
-
-    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCumulative>>::operator=(v37, &v40);
-    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCumulative>>::~HDStatisticsBucket(&v40);
-    v3 = v34;
-  }
-
-  v28 = v73;
-  for (k = v74; v28 != k; v28 += 8)
-  {
-    v30 = *(*v28 + 8);
-    v31 = *(*v28 + 16);
-    v40 = vextq_s8(*(*v28 + 24), *(*v28 + 24), 8uLL);
-    v41 = v30;
-    v42 = v31;
-    LOWORD(v43) = 1;
-    std::vector<HDRawQuantitySample>::push_back[abi:ne200100](&__p, v40.i8);
-  }
-
-  statistics::StatisticsEngine::~StatisticsEngine(&v70);
-
-  HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCumulative>>::operator=((j + 112), &v36);
-  if (__p)
-  {
-    *(&__p + 1) = __p;
-    operator delete(__p);
-  }
-
-  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCumulative>>::~HDStatisticsBucket(v37);
-}
-
-void sub_228F64A40(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, void *a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
-{
-  va_start(va, a8);
-  statistics::StatisticsEngine::~StatisticsEngine(&STACK[0x3C0]);
-  HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCumulative>>::~HDStatisticsCollectionEngine(va);
-
-  _Unwind_Resume(a1);
-}
-
-uint64_t HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::HDStatisticsBucket(uint64_t a1, void *a2, double a3, double a4)
-{
-  *a1 = a3;
-  *(a1 + 8) = a4;
-  *(a1 + 16) = 0;
-  *(a1 + 24) = 257;
-  *(a1 + 28) = 1;
-  *(a1 + 40) = 0;
-  *(a1 + 48) = 0;
-  *(a1 + 32) = 0;
-  *(a1 + 56) = a3;
-  *(a1 + 72) = 0;
-  *(a1 + 80) = 0;
-  *(a1 + 64) = 0;
-  objc_initWeak((a1 + 88), a2);
-  *(a1 + 128) = 0u;
-  *(a1 + 144) = 0u;
-  *(a1 + 160) = 0u;
-  *(a1 + 176) = 0;
-  *(a1 + 184) = 0u;
-  *(a1 + 200) = 0u;
-  *(a1 + 216) = 0;
-  *(a1 + 240) = 0;
-  *(a1 + 232) = 0;
-  *(a1 + 104) = 0;
-  *(a1 + 112) = 0;
-  *(a1 + 96) = 0;
-  *(a1 + 120) = 0;
-  *(a1 + 224) = a1 + 232;
-  *(a1 + 248) = 0u;
-  *(a1 + 264) = 0u;
-  *(a1 + 280) = 1065353216;
-  *(a1 + 336) = 0;
-  *(a1 + 304) = 0u;
-  *(a1 + 320) = 0u;
-  *(a1 + 288) = 0u;
-  *(a1 + 344) = 1065353216;
-  *(a1 + 352) = 0u;
-  *(a1 + 368) = 0u;
-  *(a1 + 384) = 1065353216;
-  *(a1 + 392) = 0u;
-  *(a1 + 408) = 0u;
-  *(a1 + 424) = 1065353216;
-  return a1;
-}
-
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_configureForStartTime(uint64_t a1)
-{
-  v29 = 0;
-  v2 = *(a1 + 40);
-  if (v2)
-  {
-    v3 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:?];
-    v4 = [v2 dateIntervalContainingDate:v3 index:&v29];
-
-    v5 = [v4 startDate];
-    [v5 timeIntervalSinceReferenceDate];
-    v7 = v6;
-
-    v8 = [v4 endDate];
-    [v8 timeIntervalSinceReferenceDate];
-LABEL_5:
-    v13 = v9;
-
-    goto LABEL_6;
-  }
-
-  v10 = *(a1 + 64);
-  v4 = v10;
-  if (v10)
-  {
-    v11 = [v10 startDate];
-    [v11 timeIntervalSinceReferenceDate];
-    v7 = v12;
-
-    v8 = [v4 endDate];
-    [v8 timeIntervalSinceReferenceDate];
-    goto LABEL_5;
-  }
-
-  v7 = -1.79769313e308;
-  v13 = 1.79769313e308;
-LABEL_6:
-
-  WeakRetained = objc_loadWeakRetained((a1 + 48));
-  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::HDStatisticsBucket(v22, WeakRetained, v7, v13);
-
-  if (*(a1 + 32) == 1)
-  {
-    v24 = 1;
-  }
-
-  v23 = *(a1 + 56);
-  v25 = *(a1 + 24) & 1;
-  if (v28 != (a1 + 72))
-  {
-    std::vector<HKRawInterval<double>>::__assign_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(v28, *(a1 + 72), *(a1 + 80), (*(a1 + 80) - *(a1 + 72)) >> 4);
-  }
-
-  objc_storeStrong(&v27, *(a1 + 600));
-  if (!*(a1 + 40))
-  {
-    v26 = 0;
-  }
-
-  v15 = v29;
-  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::HDStatisticsBucket(v17, v22);
-  v18 = v15;
-  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::HDStatisticsBucket(v19, v17);
-  __p = 0u;
-  v21 = 0u;
-  HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCumulative>>::operator=((a1 + 112), &v18);
-
-  if (__p)
-  {
-    *(&__p + 1) = __p;
-    operator delete(__p);
-  }
-
-  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCumulative>>::~HDStatisticsBucket(v19);
-  HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCumulative>>::~HDStatisticsBucket(v17);
-  *(a1 + 584) = 0;
-  return HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCumulative>>::~HDStatisticsBucket(v22);
-}
-
-uint64_t HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::HDStatisticsBucket(uint64_t a1, uint64_t a2)
-{
-  v4 = *(a2 + 16);
-  *a1 = *a2;
-  *(a1 + 16) = v4;
-  *(a1 + 32) = *(a2 + 32);
-  v5 = *(a2 + 56);
-  v6 = *(a2 + 40);
-  *(a1 + 64) = 0;
-  *(a1 + 40) = v6;
-  *(a1 + 56) = v5;
-  *(a1 + 72) = 0;
-  *(a1 + 80) = 0;
-  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(a1 + 64, *(a2 + 64), *(a2 + 72), (*(a2 + 72) - *(a2 + 64)) >> 4);
-  objc_copyWeak((a1 + 88), (a2 + 88));
-  *(a1 + 96) = 0;
-  *(a1 + 104) = 0;
-  *(a1 + 112) = 0;
-  v8 = *(a2 + 96);
-  v7 = *(a2 + 104);
-  if (v7 != v8)
-  {
-    v9 = 0xAAAAAAAAAAAAAAABLL * ((v7 - v8) >> 4);
-    if (v9 < 0x555555555555556)
-    {
-      std::__allocate_at_least[abi:ne200100]<std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>(v9);
-    }
-
-    std::vector<std::unique_ptr<statistics::Interval>>::__throw_length_error[abi:ne200100]();
-  }
-
-  v10 = *(a2 + 168);
-  v11 = *(a2 + 184);
-  v12 = *(a2 + 200);
-  v13 = *(a2 + 216);
-  v14 = *(a2 + 120);
-  v15 = *(a2 + 136);
-  v16 = *(a2 + 152);
-  *(a1 + 232) = 0;
-  v17 = (a1 + 232);
-  *(a1 + 224) = a1 + 232;
-  *(a1 + 152) = v16;
-  *(a1 + 136) = v15;
-  *(a1 + 120) = v14;
-  *(a1 + 216) = v13;
-  *(a1 + 200) = v12;
-  *(a1 + 184) = v11;
-  *(a1 + 168) = v10;
-  *(a1 + 240) = 0;
-  v18 = *(a2 + 224);
-  if (v18 != (a2 + 232))
-  {
-    v19 = 0;
-    v20 = (a1 + 232);
-    while (1)
-    {
-      v21 = v18[4];
-      v22 = (a1 + 232);
-      if (v20 == v17)
-      {
-        goto LABEL_12;
-      }
-
-      v23 = v19;
-      v24 = (a1 + 232);
-      if (v19)
-      {
-        do
-        {
-          v22 = v23;
-          v23 = v23[1];
-        }
-
-        while (v23);
-      }
-
-      else
-      {
-        do
-        {
-          v22 = v24[2];
-          v25 = *v22 == v24;
-          v24 = v22;
-        }
-
-        while (v25);
-      }
-
-      if (v22[4] < v21)
-      {
-LABEL_12:
-        if (v19)
-        {
-          v26 = v22 + 1;
-        }
-
-        else
-        {
-          v26 = (a1 + 232);
-        }
-
-        if (!*v26)
-        {
-LABEL_23:
-          operator new();
-        }
-      }
-
-      else
-      {
-        if (!v19)
-        {
-          goto LABEL_23;
-        }
-
-        while (1)
-        {
-          while (1)
-          {
-            v27 = v19;
-            v28 = v19[4];
-            if (v28 <= v21)
-            {
-              break;
-            }
-
-            v19 = *v27;
-            if (!*v27)
-            {
-              goto LABEL_23;
-            }
-          }
-
-          if (v28 >= v21)
-          {
-            break;
-          }
-
-          v19 = v27[1];
-          if (!v19)
-          {
-            goto LABEL_23;
-          }
-        }
-      }
-
-      v29 = v18[1];
-      if (v29)
-      {
-        do
-        {
-          v30 = v29;
-          v29 = *v29;
-        }
-
-        while (v29);
-      }
-
-      else
-      {
-        do
-        {
-          v30 = v18[2];
-          v25 = *v30 == v18;
-          v18 = v30;
-        }
-
-        while (!v25);
-      }
-
-      if (v30 == (a2 + 232))
-      {
-        break;
-      }
-
-      v19 = *v17;
-      v20 = *(a1 + 224);
-      v18 = v30;
-    }
-  }
-
-  std::unordered_set<long long>::unordered_set(a1 + 248, a2 + 248);
-  *(a1 + 288) = 0;
-  *(a1 + 296) = 0;
-  *(a1 + 304) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 288, *(a2 + 288), *(a2 + 296), (*(a2 + 296) - *(a2 + 288)) >> 3);
-  std::unordered_map<long long,long long>::unordered_map(a1 + 312, a2 + 312);
-  std::unordered_map<NSString * {__strong},long long,HDStringHash,HDStringEqual,std::allocator<std::pair<NSString * const {__strong},long long>>>::unordered_map(a1 + 352, a2 + 352);
-  std::unordered_map<long long,NSString * {__strong}>::unordered_map(a1 + 392, a2 + 392);
-  return a1;
-}
-
-void sub_228F651E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void **a9, void **a10)
-{
-  std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::~__hash_table(v10 + 352);
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v10 + 312);
-  v13 = *(v10 + 288);
-  if (v13)
-  {
-    *(v10 + 296) = v13;
-    operator delete(v13);
-  }
-
-  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v10 + 248);
-  std::__tree<long>::destroy(*v11);
-  v14 = *a9;
-  if (*a9)
-  {
-    *(v10 + 104) = v14;
-    operator delete(v14);
-  }
-
-  objc_destroyWeak((v10 + 88));
-  v15 = *a10;
-  if (*a10)
-  {
-    *(v10 + 72) = v15;
-    operator delete(v15);
-  }
-
-  _Unwind_Resume(a1);
-}
-
-id _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_statisticsFromFinishedBucket(uint64_t a1, uint64_t a2)
-{
-  v91 = *MEMORY[0x277D85DE8];
-  v4 = *a2;
-  v5 = objc_alloc(MEMORY[0x277CBEAA8]);
-  v6 = 40;
-  if (v4 != -1.79769313e308)
-  {
-    v6 = 0;
-  }
-
-  v79 = [v5 initWithTimeIntervalSinceReferenceDate:*(a2 + v6)];
-  v81 = a2;
-  if (*(a2 + 8) == 1.79769313e308)
-  {
-    v7 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:*(a2 + 48)];
-  }
-
-  else
-  {
-    v7 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:*(a2 + 8)];
-  }
-
-  v8 = v7;
-  v9 = *(a1 + 16);
-  v10 = *(a1 + 16);
-  objc_opt_class();
-  if (objc_opt_isKindOfClass())
-  {
-    v11 = *(a1 + 16);
-    if ([v11 shouldUseUnderlyingTypeForStatistics])
-    {
-      v12 = [v11 underlyingSampleType];
-
-      v9 = v12;
-    }
-  }
-
-  v13 = [objc_alloc(MEMORY[0x277CCDA50]) initWithDataType:v9 startDate:v79 endDate:v8];
-  if (*(a1 + 24))
-  {
-    WeakRetained = objc_loadWeakRetained((a1 + 48));
-
-    if (WeakRetained)
-    {
-      v2 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v15 = *(a2 + 288);
-      v16 = *(v81 + 296);
-      while (v15 != v16)
-      {
-        v17 = *v15;
-        v18 = objc_loadWeakRetained((a1 + 48));
-        v19 = [v18 sourceForSourceID:v17];
-
-        if (v19)
-        {
-          if (([v2 containsObject:v19] & 1) == 0)
-          {
-            [v2 addObject:v19];
-          }
-        }
-
-        ++v15;
-      }
-
-      v20 = [v2 copy];
-      [v13 _setSources:v20];
-    }
-  }
-
-  v89[0] = &unk_283BEFEF8;
-  v90 = v89;
-  v80 = v13;
-  v21 = MEMORY[0x277CCD7E8];
-  v22 = [MEMORY[0x277CCDAB0] secondUnit];
-  v23 = *(v81 + 168);
-  v24 = *(v81 + 200);
-  v86 = *(v81 + 184);
-  v87 = v24;
-  v88 = *(v81 + 216);
-  v25 = *(v81 + 136);
-  *__p = *(v81 + 120);
-  v83 = v25;
-  v84 = *(v81 + 152);
-  v85 = v23;
-  if (!v90)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  v26 = [v21 quantityWithUnit:v22 doubleValue:{*(*(*v90 + 48))(v90, __p)}];
-  [v80 setDuration:v26];
-
-  v27 = *(v81 + 168);
-  v28 = *(v81 + 200);
-  v86 = *(v81 + 184);
-  v87 = v28;
-  v88 = *(v81 + 216);
-  v29 = *(v81 + 136);
-  *__p = *(v81 + 120);
-  v83 = v29;
-  v84 = *(v81 + 152);
-  v85 = v27;
-  if (!v90)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  [v80 setDataCount:{*((*(*v90 + 48))(v90, __p) + 8)}];
-  v30 = *(v81 + 168);
-  v31 = *(v81 + 200);
-  v86 = *(v81 + 184);
-  v87 = v31;
-  v88 = *(v81 + 216);
-  v32 = *(v81 + 136);
-  *__p = *(v81 + 120);
-  v83 = v32;
-  v84 = *(v81 + 152);
-  v85 = v30;
-  if (!v90)
-  {
-    std::__throw_bad_function_call[abi:ne200100]();
-  }
-
-  v33 = (*(*v90 + 48))(v90, __p);
-  v34 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:*(v33 + 24) end:*(v33 + 32)];
-  [v80 setMostRecentQuantityDateInterval:v34];
-
-  if ((*(a1 + 24) & 1) == 0)
-  {
-    goto LABEL_60;
-  }
-
-  v77 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v76 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v75 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  *__p = 0u;
-  v83 = 0u;
-  LODWORD(v84) = 1065353216;
-  v26 = *(v81 + 224);
-  if (v26 == v81 + 232)
-  {
-    goto LABEL_59;
-  }
-
-  v73 = &v83;
-  do
-  {
-    v35 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_bundleIdentifierForSourceID(v81, *(v26 + 32));
-    v2 = v35;
-    if (!v35)
-    {
-      goto LABEL_46;
-    }
-
-    v36 = [v35 hash];
-    v37 = v36;
-    v38 = __p[1];
-    if (!__p[1])
-    {
-      goto LABEL_44;
-    }
-
-    v39 = vcnt_s8(__p[1]);
-    v39.i16[0] = vaddlv_u8(v39);
-    v40 = v39.u32[0];
-    if (v39.u32[0] > 1uLL)
-    {
-      v41 = v36;
-      if (v36 >= __p[1])
-      {
-        v41 = v36 % __p[1];
-      }
-    }
-
-    else
-    {
-      v41 = (__p[1] - 1) & v36;
-    }
-
-    v42 = *(__p[0] + v41);
-    if (!v42 || (v43 = *v42) == 0)
-    {
-LABEL_44:
-      operator new();
-    }
-
-    v74 = __p[1] - 1;
-    while (1)
-    {
-      v44 = v43[1];
-      if (v44 == v37)
-      {
-        break;
-      }
-
-      if (v40 > 1)
-      {
-        if (v44 >= v38)
-        {
-          v44 %= v38;
-        }
-      }
-
-      else
-      {
-        v44 &= v74;
-      }
-
-      if (v44 != v41)
-      {
-        goto LABEL_44;
-      }
-
-LABEL_43:
-      v43 = *v43;
-      if (!v43)
-      {
-        goto LABEL_44;
-      }
-    }
-
-    v45 = v43[2];
-    v46 = v2;
-    v47 = v46;
-    if (v45 != v46)
-    {
-      v48 = [v45 isEqualToString:v46];
-
-      if (v48)
-      {
-        goto LABEL_45;
-      }
-
-      goto LABEL_43;
-    }
-
-LABEL_45:
-    v49 = *(v26 + 40);
-    v50 = *(v26 + 56);
-    *(v43 + 7) = *(v26 + 72);
-    *(v43 + 5) = v50;
-    *(v43 + 3) = v49;
-    v51 = *(v26 + 88);
-    v52 = *(v26 + 104);
-    v53 = *(v26 + 120);
-    v43[15] = *(v26 + 136);
-    *(v43 + 13) = v53;
-    *(v43 + 11) = v52;
-    *(v43 + 9) = v51;
-
-LABEL_46:
-    v54 = *(v26 + 8);
-    if (v54)
-    {
-      do
-      {
-        v55 = v54;
-        v54 = *v54;
-      }
-
-      while (v54);
-    }
-
-    else
-    {
-      do
-      {
-        v55 = *(v26 + 16);
-        v56 = *v55 == v26;
-        v26 = v55;
-      }
-
-      while (!v56);
-    }
-
-    v26 = v55;
-  }
-
-  while (v55 != (v81 + 232));
-  for (i = v83; i; i = *i)
-  {
-    v58 = i[2];
-    v59 = MEMORY[0x277CCD7E8];
-    v60 = [MEMORY[0x277CCDAB0] secondUnit];
-    if (!v90)
-    {
-      std::__throw_bad_function_call[abi:ne200100]();
-    }
-
-    v61 = [v59 quantityWithUnit:v60 doubleValue:{*(*(*v90 + 48))(v90, i + 3)}];
-    [v77 setObject:v61 forKeyedSubscript:v58];
-
-    if (!v90)
-    {
-      std::__throw_bad_function_call[abi:ne200100]();
-    }
-
-    v62 = [MEMORY[0x277CCABB0] numberWithLongLong:{*((*(*v90 + 48))(v90, i + 3) + 8)}];
-    [v76 setObject:v62 forKeyedSubscript:v58];
-
-    if (!v90)
-    {
-      std::__throw_bad_function_call[abi:ne200100]();
-    }
-
-    v63 = (*(*v90 + 48))(v90, i + 3);
-    v2 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:*(v63 + 24) end:*(v63 + 32)];
-    [v75 setObject:v2 forKeyedSubscript:v58];
-  }
-
-LABEL_59:
-  std::__hash_table<std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsDiscrete>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsDiscrete>>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsDiscrete>>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsDiscrete>>>>::~__hash_table(__p);
-  [v80 setDurationBySource:v77];
-  [v80 setDataCountBySource:v76];
-  [v80 setMostRecentQuantityDateIntervalBySource:v75];
-
-LABEL_60:
-  std::__function::__value_func<HDStatisticsAverageSampleDuration const& ()(HDStatisticsRelative<HDStatisticsAverageSampleDuration> const&)>::~__value_func[abi:ne200100](v89);
-  v64 = [*(a1 + 16) _unitForChangeInCanonicalUnit];
-  v65 = [v80 averageQuantity];
-  if (v65)
-  {
-    v26 = [v80 averageQuantity];
-    if (([v26 isCompatibleWithUnit:v64] & 1) == 0)
-    {
-
-      goto LABEL_74;
-    }
-  }
-
-  v66 = [v80 minimumQuantity];
-  if (v66)
-  {
-    v2 = [v80 minimumQuantity];
-    if (![v2 isCompatibleWithUnit:v64])
-    {
-      v67 = 1;
-      goto LABEL_68;
-    }
-  }
-
-  v68 = [v80 maximumQuantity];
-  if (v68)
-  {
-    v69 = [v80 maximumQuantity];
-    v70 = [v69 isCompatibleWithUnit:v64];
-
-    v67 = v70 ^ 1;
-    if (v66)
-    {
-      goto LABEL_68;
-    }
-
-LABEL_72:
-    if (!v65)
-    {
-      goto LABEL_73;
-    }
-
-LABEL_69:
-
-    if ((v67 & 1) == 0)
-    {
-      goto LABEL_75;
-    }
-
-LABEL_74:
-    [MEMORY[0x277CBEAD8] raise:*MEMORY[0x277CBE658] format:{@"Expected compatibility with %@", v64, v73}];
-    goto LABEL_75;
-  }
-
-  v67 = 0;
-  if (!v66)
-  {
-    goto LABEL_72;
-  }
-
-LABEL_68:
-
-  if (v65)
-  {
-    goto LABEL_69;
-  }
-
-LABEL_73:
-
-  if (v67)
-  {
-    goto LABEL_74;
-  }
-
-LABEL_75:
-
-  v71 = *MEMORY[0x277D85DE8];
-
-  return v80;
-}
-
-void sub_228F65F08(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, void *a17)
-{
-  if (v20)
-  {
-  }
-
-  if (v18)
-  {
-  }
-
-  _Unwind_Resume(a1);
-}
-
-void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_updateSourceOrder(uint64_t a1)
-{
-  v1 = *(a1 + 272);
-  v2 = *(a1 + 288);
-  if (v1 != (*(a1 + 296) - v2) >> 3)
-  {
-    *(a1 + 296) = v2;
-    std::vector<long long>::reserve((a1 + 288), v1);
-    for (i = *(a1 + 264); i; i = *i)
-    {
-      v7 = i[2];
-      std::vector<long long>::push_back[abi:ne200100](a1 + 288, &v7);
-    }
-
-    WeakRetained = objc_loadWeakRetained((a1 + 88));
-
-    if (WeakRetained)
-    {
-      v6 = objc_loadWeakRetained((a1 + 88));
-      [v6 orderSourceIDs:a1 + 288];
-    }
-  }
-}
-
-void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_mergeThroughTime(uint64_t a1, double a2)
-{
-  v4 = *(a1 + 16);
-  if (v4 > 0.0 && *(a1 + 8) > a2)
-  {
-    a2 = v4 * floor(a2 / v4);
-  }
-
-  v5 = *(a1 + 56);
-  if (v5 < a2)
-  {
-    while (1)
-    {
-      v6 = *(a1 + 96);
-      v7 = *(a1 + 104);
-      v8 = 0xAAAAAAAAAAAAAAABLL * ((v7 - v6) >> 4);
-      if (v8 == 1)
-      {
-        break;
-      }
-
-      if (!v8)
-      {
-        goto LABEL_82;
-      }
-
-      v9 = a2;
-      v10 = a2;
-      v11 = v5;
-      v12 = *(a1 + 96);
-      if (v6 != v7)
-      {
-        do
-        {
-          v13 = *(v12 + 8);
-          v14 = *(v12 + 16);
-          if (v13 > v11 && v13 < v10)
-          {
-            v10 = *(v12 + 8);
-          }
-
-          if (v14 > v5)
-          {
-            v16 = *(v12 + 16);
-          }
-
-          else
-          {
-            v16 = v9;
-          }
-
-          if (v14 < v9)
-          {
-            v11 = v5;
-            v9 = v16;
-          }
-
-          v12 += 48;
-        }
-
-        while (v12 != v7);
-      }
-
-      if (v9 >= v10)
-      {
-        v17 = v10;
-      }
-
-      else
-      {
-        v17 = v9;
-      }
-
-      v18 = *(a1 + 16);
-      if (v18 > 0.0)
-      {
-        v19 = v18 * floor(v17 / v18);
-        v20 = v18 * floor((v18 + v5) / v18);
-        if (v19 >= v20)
-        {
-          v17 = v19;
-        }
-
-        else
-        {
-          v17 = v20;
-        }
-      }
-
-      *(a1 + 96) = 0;
-      *(a1 + 104) = 0;
-      *(a1 + 112) = 0;
-      if (v6 != v7)
-      {
-        if (v8 < 0x555555555555556)
-        {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>(0xAAAAAAAAAAAAAAABLL * ((v7 - v6) >> 4));
-        }
-
-        std::vector<std::unique_ptr<statistics::Interval>>::__throw_length_error[abi:ne200100]();
-      }
-
-      HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_updateSourceOrder(a1);
-      WeakRetained = objc_loadWeakRetained((a1 + 88));
-
-      if (WeakRetained)
-      {
-        *&v60 = a1;
-        v22 = 126 - 2 * __clz(v8);
-        if (v6 == v7)
-        {
-          v23 = 0;
-        }
-
-        else
-        {
-          v23 = v22;
-        }
-
-        std::__introsort<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCumulative>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCumulative>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCumulative>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCumulative>>::_SampleRemainder*,false>(v6, v7, &v60, v23, 1);
-      }
-
-      if (*(a1 + 25) == 1)
-      {
-        v52 = objc_alloc_init(MEMORY[0x277CBEB38]);
-      }
-
-      else
-      {
-        v52 = 0;
-      }
-
-      __p = v6;
-      if (v6 != v7)
-      {
-        v53 = 0;
-        v27 = 0;
-        v28 = v6;
-        while (1)
-        {
-          v29 = 0;
-          v58 = 0u;
-          v59 = 0u;
-          v57 = 0;
-          v30 = *(v28 + 16);
-          v54 = *v28;
-          v55 = v30;
-          v31 = *(v28 + 32);
-          v56 = v31;
-          v32 = *(&v54 + 1);
-          v33 = &v57;
-          if ((v31 & 1) != 0 && *(&v54 + 1) > v17)
-          {
-            v34 = *(v28 + 16);
-            v58 = *v28;
-            v59 = v34;
-            v57 = v31;
-            v29 = BYTE1(v56);
-            v33 = &v56;
-          }
-
-          *v33 = 0;
-          if (v56)
-          {
-            break;
-          }
-
-          std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](a1 + 96, v28);
-LABEL_74:
-          v28 += 48;
-          if (v28 == v7)
-          {
-            goto LABEL_75;
-          }
-        }
-
-        for (i = *(a1 + 64); i != *(a1 + 72) && v32 >= *i; i += 2)
-        {
-          if (v32 < i[1])
-          {
-            v39 = *(v28 + 42);
-            v36 = *(v28 + 41);
-            v37 = *(v28 + 40);
-            goto LABEL_72;
-          }
-        }
-
-        v36 = *(v28 + 41);
-        v37 = *(v28 + 40);
-        if (v27)
-        {
-          v38 = *(&v55 + 1);
-          if (v53 == *(&v55 + 1) || *(a1 + 24) == 1)
-          {
-            HDStatisticsRelative<HDStatisticsAverageSampleDuration>::addSample((a1 + 120), &v54);
-            v39 = 1;
-          }
-
-          else
-          {
-            v39 = *(v28 + 42);
-          }
-        }
-
-        else
-        {
-          HDStatisticsRelative<HDStatisticsAverageSampleDuration>::addSample((a1 + 120), &v54);
-          v39 = 1;
-          v38 = *(&v55 + 1);
-          v53 = *(&v55 + 1);
-        }
-
-        if (*(a1 + 25) != 1)
-        {
-          goto LABEL_71;
-        }
-
-        v40 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_bundleIdentifierForSourceID(a1, v38);
-        if (!v40)
-        {
-          goto LABEL_70;
-        }
-
-        v41 = [v52 objectForKeyedSubscript:v40];
-        v42 = v41;
-        if (v41)
-        {
-          if ([v41 longLongValue] != v38 && *(a1 + 24) != 1)
-          {
-LABEL_69:
-
-LABEL_70:
-LABEL_71:
-            v27 = 1;
-LABEL_72:
-            if (v57 == 1)
-            {
-              v60 = v58;
-              v61 = v59;
-              LOBYTE(v62) = v57;
-              BYTE1(v62) = v29;
-              LOBYTE(v63) = v37;
-              BYTE1(v63) = v36 & 1;
-              BYTE2(v63) = v39 & 1;
-              std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](a1 + 96, &v60);
-            }
-
-            goto LABEL_74;
-          }
-        }
-
-        else
-        {
-          v43 = [MEMORY[0x277CCABB0] numberWithLongLong:v38];
-          [v52 setObject:v43 forKeyedSubscript:v40];
-        }
-
-        v44 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_canonicalSourceIDForSourceID(a1, v38);
-        v45 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCumulative>>::_statisticsForSource(a1, v44);
-        HDStatisticsRelative<HDStatisticsAverageSampleDuration>::addSample(v45, &v54);
-        v36 = 1;
-        goto LABEL_69;
-      }
-
-LABEL_75:
-      *(a1 + 56) = v17;
-
-      if (__p)
-      {
-        operator delete(__p);
-      }
-
-LABEL_83:
-      v48 = *(a1 + 56);
-      if (v48 == v5)
-      {
-        v49 = [MEMORY[0x277CCA890] currentHandler];
-        v50 = [MEMORY[0x277CCACA8] stringWithUTF8String:"void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_mergeThroughTime(double) [Statistics = HDStatisticsRelative<HDStatisticsAverageSampleDuration>]"];
-        [v49 handleFailureInFunction:v50 file:@"HDStatisticsBucket.hpp" lineNumber:234 description:@"Failed to make forward progress during statistics merge."];
-
-        v48 = *(a1 + 56);
-      }
-
-      v5 = v48;
-      if (v48 >= a2)
-      {
-        return;
-      }
-    }
-
-    v65 = 0;
-    v64 = 0u;
-    v63 = 0u;
-    v24 = *(v6 + 16);
-    v60 = *v6;
-    v61 = v24;
-    v62 = *(v6 + 32);
-    v25 = *(a1 + 64);
-    v26 = *(a1 + 72);
-    if (v25 != v26)
-    {
-      while (*(&v60 + 1) >= *v25)
-      {
-        if (*(&v60 + 1) < v25[1])
-        {
-          LOBYTE(v62) = 0;
-          break;
-        }
-
-        v25 += 2;
-        if (v25 == v26)
-        {
-          break;
-        }
-      }
-    }
-
-    if (v62 == 1)
-    {
-      HDStatisticsRelative<HDStatisticsAverageSampleDuration>::addSample((a1 + 120), &v60);
-      if (*(a1 + 25) == 1)
-      {
-        v46 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_canonicalSourceIDForSourceID(a1, *(&v61 + 1));
-        v47 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCumulative>>::_statisticsForSource(a1, v46);
-        HDStatisticsRelative<HDStatisticsAverageSampleDuration>::addSample(v47, &v60);
-      }
-    }
-
-    *(a1 + 104) = *(a1 + 96);
-LABEL_82:
-    *(a1 + 56) = a2;
-    goto LABEL_83;
-  }
-}
-
 int *HDStatisticsRelative<HDStatisticsAverageSampleDuration>::addSample(int *result, double *a2)
 {
   if (*a2 == 1.79769313e308)
@@ -2271,8 +90,8 @@ uint64_t *HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDurat
     else
     {
       v6 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_bundleIdentifierForSourceID(a1, a2);
-      v9[0] = v6;
-      v7 = std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::find<NSString * {__strong}>((a1 + 352), v9);
+      v9 = v6;
+      v7 = std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::find<NSString * {__strong}>((a1 + 352), &v9);
       if (v7)
       {
         a2 = v7[3];
@@ -2280,9 +99,9 @@ uint64_t *HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDurat
 
       else
       {
-        v9[1] = v9;
-        std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>((a1 + 352), v9)[3] = a2;
-        v6 = v9[0];
+        v10 = &v9;
+        std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>((a1 + 352), &v9, &v10)[3] = a2;
+        v6 = v9;
       }
     }
   }
@@ -2292,7 +111,7 @@ uint64_t *HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDurat
 
 id HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_bundleIdentifierForSourceID(uint64_t a1, unint64_t a2)
 {
-  v9[0] = a2;
+  v9 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 88));
 
   if (WeakRetained)
@@ -2306,12 +125,12 @@ id HDStatisticsBucket<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::
     else
     {
       v6 = objc_loadWeakRetained((a1 + 88));
-      WeakRetained = [v6 bundleIdentifierForSourceID:{a2, v9[0]}];
+      WeakRetained = [v6 bundleIdentifierForSourceID:{a2, v9}];
 
       if (WeakRetained)
       {
-        v9[1] = v9;
-        v7 = std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 392), a2);
+        v10 = &v9;
+        v7 = std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 392), a2, &v10);
         objc_storeStrong(v7 + 3, WeakRetained);
       }
     }
@@ -2348,8 +167,9 @@ uint64_t std::__function::__value_func<HDStatisticsAverageSampleDuration const& 
   return a1;
 }
 
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_primitiveAddSample(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_primitiveAddSample(uint64_t a1, double *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a3;
   if (*(a1 + 584) == 1)
   {
     if ((a3 & 1) == 0)
@@ -2358,30 +178,29 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRel
       return 0;
     }
 
-    v8 = *(a2 + 8);
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_configureForStartTime(a1);
   }
 
-  v9 = *(a2 + 8);
-  if (v9 >= _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCumulative>>::_earliestStartTimeWithoutInvalidation(a1))
+  v8 = a2[1];
+  if (v8 >= _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCumulative>>::_earliestStartTimeWithoutInvalidation(a1))
   {
-    if (*(a1 + 40) && a3)
+    if (*(a1 + 40) && v5)
     {
-      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_advanceToTime(a1, v9);
+      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_advanceToTime(a1, v8);
     }
 
-    HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::addSample(a1 + 112, a2, a3);
+    HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::addSample(a1 + 112, a2, v5);
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_notifyForCurrentBucket(a1);
     return 1;
   }
 
   else
   {
-    v10 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:v9 end:*(a2 + 16)];
-    v11 = (*(*a1 + 128))(a1, v10, a4);
+    v9 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:v8 end:a2[2]];
+    v10 = (*(*a1 + 128))(a1, v9, a4);
   }
 
-  return v11;
+  return v10;
 }
 
 void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_advanceToTime(uint64_t a1, double a2)
@@ -2420,7 +239,7 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelativ
       v10 = v9;
       v11 = [v6 endDate];
       [v11 timeIntervalSinceReferenceDate];
-      HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::advanceBucket((a1 + 112), v10, v12);
+      HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::advanceBucket(a1 + 112, v10, v12);
     }
 
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_didChangeBucket(a1, v7);
@@ -2431,10 +250,10 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelativ
   }
 }
 
-void HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::addSample(uint64_t a1, uint64_t *a2, int a3)
+void HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::addSample(uint64_t a1, double *a2, int a3)
 {
   v5 = *a2;
-  v6 = *(a2 + 1);
+  v6 = a2[1];
   v7 = *(a2 + 32);
   v8 = *(a2 + 33);
   v36 = *(a2 + 1);
@@ -2480,7 +299,7 @@ void HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsAverageSample
   {
     v24 = v10;
     v14 = *(&v34 + 1);
-    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>((a1 + 256), *(&v34 + 1));
+    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>((a1 + 256), *(&v34 + 1), &v34 + 1);
     if (*(a1 + 112) == *(a1 + 104) && *(a1 + 144) <= 0)
     {
       v18.f64[1] = *(a1 + 16);
@@ -2612,12 +431,12 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelativ
   }
 }
 
-void HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::advanceBucket(void *a1, double a2, double a3)
+void HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::advanceBucket(uint64_t a1, double a2, double a3)
 {
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  std::vector<HDRawQuantitySample>::__init_with_size[abi:ne200100]<HDRawQuantitySample*,HDRawQuantitySample*>(&v9, a1[55], a1[56], 0xCCCCCCCCCCCCCCCDLL * ((a1[56] - a1[55]) >> 3));
+  std::vector<HDRawQuantitySample>::__init_with_size[abi:ne200100]<HDRawQuantitySample*,HDRawQuantitySample*>(&v9, *(a1 + 440), *(a1 + 448), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 448) - *(a1 + 440)) >> 3));
   HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCumulative>>::resetToBucket(a1, *a1 + 1, a2, a3);
   v6 = v9;
   v7 = v10;
@@ -2780,29 +599,12 @@ void sub_228F67984(_Unwind_Exception *a1)
 void ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI33HDStatisticsAverageSampleDurationEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke(uint64_t a1, void *a2)
 {
   v10 = a2;
-  if (!*(a1 + 32))
+  if (!*(a1 + 32) || ([v10 endDate], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "startDate"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v3, "hk_isBeforeOrEqualToDate:", v4), v4, v3, (v5 & 1) == 0) && (objc_msgSend(v10, "startDate"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "endDate"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "hk_isAfterOrEqualToDate:", v7), v7, v6, (v8 & 1) == 0))
   {
-    goto LABEL_11;
-  }
-
-  v3 = [v10 endDate];
-  v4 = [*(a1 + 32) startDate];
-  v5 = [v3 hk_isBeforeOrEqualToDate:v4];
-
-  if ((v5 & 1) == 0)
-  {
-    v6 = [v10 startDate];
-    v7 = [*(a1 + 32) endDate];
-    v8 = [v6 hk_isAfterOrEqualToDate:v7];
-
-    if ((v8 & 1) == 0)
+    v9 = *(a1 + 40);
+    if (v9)
     {
-LABEL_11:
-      v9 = *(a1 + 40);
-      if (v9)
-      {
-        (*(v9 + 16))(v9, v10);
-      }
+      (*(v9 + 16))(v9, v10);
     }
   }
 }
@@ -2857,7 +659,7 @@ uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStat
           v23 = v22;
           v24 = [v19 endDate];
           [v24 timeIntervalSinceReferenceDate];
-          HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::advanceBucket((v15 + 112), v23, v25);
+          HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::advanceBucket(v15 + 112, v23, v25);
 
           if (v20)
           {
@@ -2881,7 +683,7 @@ uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStat
   return v14;
 }
 
-uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI33HDStatisticsAverageSampleDurationEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke_3(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI33HDStatisticsAverageSampleDurationEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = 0;
   v5 = 0u;
@@ -2944,13 +746,13 @@ uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStat
   return v7;
 }
 
-uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI33HDStatisticsAverageSampleDurationEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_2(uint64_t a1, uint64_t a2, int a3, uint64_t a4, double a5, double a6, double a7)
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI33HDStatisticsAverageSampleDurationEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7)
 {
   v10 = *(a1 + 32);
-  *v14 = a5;
-  *&v14[1] = a6;
-  *&v14[2] = a7;
-  v14[3] = a2;
+  v14[0] = a5;
+  v14[1] = a6;
+  v14[2] = a7;
+  *&v14[3] = a2;
   v15 = 1;
   v11 = [MEMORY[0x277CBEAA8] distantFuture];
   [v11 timeIntervalSinceReferenceDate];
@@ -2959,7 +761,7 @@ uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStat
   return _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsAverageSampleDuration>>::_primitiveAddSample(v10, v14, a3, a4);
 }
 
-void HDStatisticsRelative<HDStatisticsAverageSampleDuration>::archive(uint64_t a1, int *a2)
+void HDStatisticsRelative<HDStatisticsAverageSampleDuration>::archive(uint64_t a1, int8x16_t *a2)
 {
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
@@ -2974,22 +776,21 @@ void HDStatisticsRelative<HDStatisticsAverageSampleDuration>::archive(uint64_t a
   *(a1 + 120) = 0;
   *(a1 + 128) = 0;
   statistics::Statistics::makePrimaryStatistics(a1);
-  HDStatisticsAverageSampleDuration::archive((a2 + 2), v6);
-  statistics::Statistics::operator=(*(a1 + 128), v6);
-  statistics::Statistics::~Statistics(v6);
-  v5 = *a2;
+  HDStatisticsAverageSampleDuration::archive(&a2->u64[1], &v6);
+  statistics::Statistics::operator=(*(a1 + 128), &v6);
+  statistics::Statistics::~Statistics(&v6);
+  v5 = a2->i32[0];
   *(a1 + 204) |= 0x100u;
   *(a1 + 136) = v5;
   statistics::Statistics::makeMostRecentDatum(a1);
-  v6[0] = &unk_283BEB0A8;
-  v10 = 127;
-  v7 = vextq_s8(*(a2 + 4), *(a2 + 4), 8uLL);
-  v6[1] = *(a2 + 10);
-  v6[2] = *(a2 + 11);
-  v8 = 0;
+  v6 = &unk_283BEB0A8;
+  v11 = 127;
+  v8 = vextq_s8(a2[4], a2[4], 8uLL);
+  v7 = a2[5];
   v9 = 0;
-  statistics::RawQuantitySample::operator=(*v4, v6);
-  PB::Base::~Base(v6);
+  v10 = 0;
+  statistics::RawQuantitySample::operator=(*v4, &v6);
+  PB::Base::~Base(&v6);
 }
 
 double HDStatisticsRelative<HDStatisticsAverageSampleDuration>::unarchive(uint64_t a1, void *a2)
@@ -3118,7 +919,7 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAve
 void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::setDateInterval(uint64_t a1, void *a2)
 {
   v6 = a2;
-  v3 = [v6 copy];
+  v3 = objc_msgSend_copy(v6);
   v4 = *(a1 + 64);
   *(a1 + 64) = v3;
 
@@ -3183,7 +984,7 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAve
 void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::setStatisticsHandler(uint64_t a1, void *a2)
 {
   v5 = a2;
-  v3 = [v5 copy];
+  v3 = objc_msgSend_copy(v5);
   v4 = *(a1 + 96);
   *(a1 + 96) = v3;
 }
@@ -3250,7 +1051,6 @@ LABEL_4:
 
       if (_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCumulative>::_earliestStartTimeWithoutInvalidation(a1) > *(a2 + 8))
       {
-        v15 = *(a2 + 16);
         v8 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:? end:?];
         v14 = (*(*a1 + 128))(a1, v8, a3);
         goto LABEL_8;
@@ -3276,7 +1076,7 @@ LABEL_13:
 
 uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::performAddSampleTransaction(uint64_t a1, void *a2, uint64_t a3)
 {
-  v75 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (*(a1 + 538) == 1)
@@ -3286,14 +1086,14 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAve
   }
 
   *(a1 + 538) = 1;
-  v68 = a3;
+  v67 = a3;
   if (!(*(v5 + 2))(v5, a3))
   {
     v7 = 0;
     goto LABEL_80;
   }
 
-  v67 = v6;
+  v66 = v6;
   if (*(a1 + 537))
   {
     goto LABEL_5;
@@ -3303,26 +1103,26 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAve
   if (!v9)
   {
     v8 = 0;
-    v69 = 0;
+    v68 = 0;
     goto LABEL_28;
   }
 
   if (!*(a1 + 40))
   {
 LABEL_5:
-    v69 = 0;
+    v68 = 0;
     v8 = 1;
     goto LABEL_28;
   }
 
   [v9 sortUsingComparator:&__block_literal_global_956];
-  v69 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v72 = 0u;
-  v73 = 0u;
-  v70 = 0u;
+  v68 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v71 = 0u;
+  v72 = 0u;
+  v69 = 0u;
+  v70 = 0u;
   v10 = *(a1 + 560);
-  v11 = [v10 countByEnumeratingWithState:&v70 objects:v74 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v69 objects:v73 count:16];
   if (!v11)
   {
 
@@ -3331,17 +1131,17 @@ LABEL_5:
   }
 
   v12 = 0;
-  v13 = *v71;
+  v13 = *v70;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v71 != v13)
+      if (*v70 != v13)
       {
         objc_enumerationMutation(v10);
       }
 
-      v15 = *(*(&v70 + 1) + 8 * i);
+      v15 = *(*(&v69 + 1) + 8 * i);
       v16 = v15;
       if (v12)
       {
@@ -3368,7 +1168,7 @@ LABEL_5:
 
         else
         {
-          [v69 addObject:v12];
+          [v68 addObject:v12];
           v26 = v16;
         }
 
@@ -3383,14 +1183,14 @@ LABEL_5:
 LABEL_21:
     }
 
-    v11 = [v10 countByEnumeratingWithState:&v70 objects:v74 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v69 objects:v73 count:16];
   }
 
   while (v11);
 
   if (v12)
   {
-    [v69 addObject:v12];
+    [v68 addObject:v12];
   }
 
 LABEL_27:
@@ -3411,7 +1211,7 @@ LABEL_28:
     goto LABEL_46;
   }
 
-  v30 = [v69 lastObject];
+  v30 = [v68 lastObject];
   if (v30)
   {
     v31 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCumulative>::_currentBucketInterval(a1);
@@ -3478,32 +1278,32 @@ LABEL_44:
   *(a1 + 584) = 0;
   *(a1 + 568) = 0;
   *(a1 + 576) = 0;
-  if ([v69 count])
+  if ([v68 count])
   {
 LABEL_46:
-    v44 = v69;
+    v44 = v68;
     if (v44)
     {
-      v72 = 0u;
-      v73 = 0u;
-      v70 = 0u;
       v71 = 0u;
+      v72 = 0u;
+      v69 = 0u;
+      v70 = 0u;
       v45 = v44;
-      v46 = [v45 countByEnumeratingWithState:&v70 objects:v74 count:16];
+      v46 = [v45 countByEnumeratingWithState:&v69 objects:v73 count:16];
       if (v46)
       {
-        v47 = *v71;
+        v47 = *v70;
         while (2)
         {
           for (j = 0; j != v46; ++j)
           {
-            if (*v71 != v47)
+            if (*v70 != v47)
             {
               objc_enumerationMutation(v45);
             }
 
-            v49 = *(*(&v70 + 1) + 8 * j);
-            v50 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::_primitiveInvalidateInterval(a1, v49, v68);
+            v49 = *(*(&v69 + 1) + 8 * j);
+            v50 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::_primitiveInvalidateInterval(a1, v49, v67);
 
             if (!v50)
             {
@@ -3512,7 +1312,7 @@ LABEL_46:
             }
           }
 
-          v46 = [v45 countByEnumeratingWithState:&v70 objects:v74 count:16];
+          v46 = [v45 countByEnumeratingWithState:&v69 objects:v73 count:16];
           if (v46)
           {
             continue;
@@ -3525,7 +1325,7 @@ LABEL_46:
       goto LABEL_58;
     }
 
-    if (_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::_primitiveInvalidateInterval(a1, 0, v68))
+    if (_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::_primitiveInvalidateInterval(a1, 0, v67))
     {
       goto LABEL_58;
     }
@@ -3553,12 +1353,12 @@ LABEL_58:
     if (v29 != v28)
     {
       v55 = v28;
-      v51 = v68;
+      v51 = v67;
       do
       {
         v56 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::_primitiveAddSample(a1, v55, 1, v51);
         v54 = v56;
-        v55 += 40;
+        v55 += 5;
         if (v55 == v29)
         {
           v57 = 0;
@@ -3569,7 +1369,7 @@ LABEL_58:
           v57 = v56;
         }
 
-        v51 = v68;
+        v51 = v67;
       }
 
       while ((v57 & 1) != 0);
@@ -3589,7 +1389,7 @@ LABEL_58:
       v62 = v61;
       v63 = [v58 endDate];
       [v63 timeIntervalSinceReferenceDate];
-      HDStatisticsCollectionEngine<HDStatisticsAverageSampleDuration>::advanceBucket((a1 + 112), v62, v64);
+      HDStatisticsCollectionEngine<HDStatisticsAverageSampleDuration>::advanceBucket(a1 + 112, v62, v64);
 
       _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::_didChangeBucket(a1, v59);
       _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::_notifyForCurrentBucket(a1);
@@ -3607,7 +1407,7 @@ LABEL_58:
     if (*(a1 + 540) == 1)
     {
       *(a1 + 540) = 0;
-      v6 = v67;
+      v6 = v66;
       _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::_notifyForCurrentBucket(a1);
       v7 = 1;
       goto LABEL_80;
@@ -3621,12 +1421,11 @@ LABEL_58:
     v7 = 0;
   }
 
-  v6 = v67;
+  v6 = v66;
 LABEL_80:
   *(a1 + 538) = 0;
 LABEL_81:
 
-  v65 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -3742,97 +1541,91 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverage
   v3 = a2;
   [v3 encodeBool:*(a1 + 536) forKey:@"needs_config"];
   v13 = v3;
-  v33 = &unk_283BF1A08;
-  v34 = 0;
-  v39 = 0;
-  v37 = 0;
-  v38 = 0;
-  v4 = *(a1 + 112);
-  LOBYTE(v39) = 1;
-  v35 = v4;
-  v36 = 0;
-  statistics::StatisticsEngine::makeCurrentBucket(&v33);
-  v14 = &unk_283BE6258;
-  v18 = 0;
-  v19 = 0;
-  v17 = 0;
-  v32 = 511;
-  v22 = 0u;
-  v23 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v26 = 0u;
-  v27 = 0u;
+  v27 = &unk_283BF1A08;
   v28 = 0;
+  v31 = 0;
+  v4 = *(a1 + 112);
+  LOBYTE(v31) = 1;
+  v29 = v4;
+  memset(v30, 0, sizeof(v30));
+  statistics::StatisticsEngine::makeCurrentBucket(&v27);
+  v14 = &unk_283BE6258;
+  memset(v17, 0, 24);
+  v26 = 511;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  memset(v21, 0, sizeof(v21));
+  v22 = 0;
   v5 = vextq_s8(*(a1 + 120), *(a1 + 120), 8uLL);
   v6 = *(a1 + 136);
-  v30 = *(a1 + 144);
-  v31 = *(a1 + 145);
-  v29 = *(a1 + 148) == 0;
+  v24 = *(a1 + 144);
+  v25 = *(a1 + 145);
+  v23 = *(a1 + 148) == 0;
   v7 = vextq_s8(*(a1 + 160), *(a1 + 160), 8uLL);
   v15 = v5;
   v16 = v7;
   v7.i64[0] = *(a1 + 176);
-  v20 = v6;
-  v21 = v7.i64[0];
+  v17[3] = v6;
+  v17[4] = v7.i64[0];
   v8 = *(a1 + 216);
   if (v8 != *(a1 + 224))
   {
-    v40 = &unk_283BEB0A8;
-    v45 = 127;
-    v42 = vextq_s8(*v8, *v8, 8uLL);
-    v41 = v8[1];
-    v44 = 0;
-    HIBYTE(v43) = v8[2].i8[9];
-    LOBYTE(v43) = v8[2].i8[10];
-    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample&>();
+    v32 = &unk_283BEB0A8;
+    v37 = 127;
+    v34 = vextq_s8(*v8, *v8, 8uLL);
+    v33 = v8[1];
+    v36 = 0;
+    HIBYTE(v35) = v8[2].i8[9];
+    LOBYTE(v35) = v8[2].i8[10];
+    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample&>(&v18, &v32);
   }
 
   statistics::StatisticsBucket::makeStatistics(&v14);
-  HDStatisticsAverageSampleDuration::archive((a1 + 240), &v40);
-  statistics::Statistics::operator=(*(&v23 + 1), &v40);
-  statistics::Statistics::~Statistics(&v40);
+  HDStatisticsAverageSampleDuration::archive((a1 + 240), &v32);
+  statistics::Statistics::operator=(*(&v19 + 1), &v32);
+  statistics::Statistics::~Statistics(&v32);
   v9 = *(a1 + 296);
   if (v9 != a1 + 304)
   {
-    HDStatisticsAverageSampleDuration::archive((v9 + 40), &v40);
+    HDStatisticsAverageSampleDuration::archive((v9 + 40), &v32);
     v10 = *(v9 + 32);
-    v47 |= 0x200u;
-    v46 = v10;
-    PB::PtrVector<statistics::Statistics>::emplace_back<statistics::Statistics&>();
+    v39 |= 0x200u;
+    v38 = v10;
+    PB::PtrVector<statistics::Statistics>::emplace_back<statistics::Statistics&>(v21 + 1, &v32);
   }
 
   v11 = *(a1 + 184);
   if (v11 != *(a1 + 192))
   {
-    v40 = &unk_283BF1F08;
-    v42.i32[0] = 3;
-    v41 = vextq_s8(*v11, *v11, 8uLL);
-    PB::PtrVector<statistics::Interval>::emplace_back<statistics::Interval&>();
+    v32 = &unk_283BF1F08;
+    v34.i32[0] = 3;
+    v33 = vextq_s8(*v11, *v11, 8uLL);
+    PB::PtrVector<statistics::Interval>::emplace_back<statistics::Interval&>(v17, &v32);
   }
 
-  statistics::StatisticsBucket::operator=(v34, &v14);
+  statistics::StatisticsBucket::operator=(v28, &v14);
   statistics::StatisticsBucket::~StatisticsBucket(&v14);
   v12 = *(a1 + 504);
   if (v12 != *(a1 + 512))
   {
-    v40 = &unk_283BEB0A8;
-    v45 = 127;
-    v42 = vextq_s8(*v12, *v12, 8uLL);
-    v41 = v12[1];
-    v43 = 0;
-    v44 = 0;
-    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample>();
+    v32 = &unk_283BEB0A8;
+    v37 = 127;
+    v34 = vextq_s8(*v12, *v12, 8uLL);
+    v33 = v12[1];
+    v35 = 0;
+    v36 = 0;
+    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample>(v30, &v32);
   }
 
-  PB::Writer::Writer(&v40);
-  statistics::StatisticsEngine::writeTo(&v33, &v40);
-  [v13 encodeBytes:v41.i64[0] length:&v40[-v41.i64[0]] forKey:@"hdsce_archived_representation"];
-  PB::Writer::~Writer(&v40);
-  statistics::StatisticsEngine::~StatisticsEngine(&v33);
+  PB::Writer::Writer(&v32);
+  statistics::StatisticsEngine::writeTo(&v27, &v32);
+  [v13 encodeBytes:v33.i64[0] length:v32 - v33.i64[0] forKey:@"hdsce_archived_representation"];
+  PB::Writer::~Writer(&v32);
+  statistics::StatisticsEngine::~StatisticsEngine(&v27);
 }
 
-void sub_228F69860(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_228F69860(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
 {
   statistics::StatisticsEngine::~StatisticsEngine(&a34);
 
@@ -3847,64 +1640,62 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverage
   HDStatisticsBucket<HDStatisticsAverageSampleDuration>::HDStatisticsBucket(v45, 0, -1.79769313e308, 1.79769313e308);
   __p = 0u;
   v47 = 0u;
-  v83 = 0;
-  PB::Reader::Reader(v82, [v3 decodeBytesForKey:@"hdsce_archived_representation" returnedLength:&v83]);
-  v75 = &unk_283BF1A08;
+  v81 = 0;
+  PB::Reader::Reader(v80, [v3 decodeBytesForKey:@"hdsce_archived_representation" returnedLength:&v81]);
+  v73 = &unk_283BF1A08;
+  v74 = 0;
+  v77 = 0;
+  v78 = 0;
   v76 = 0;
   v79 = 0;
-  v80 = 0;
-  v78 = 0;
-  v81 = 0;
-  statistics::StatisticsEngine::readFrom(&v75, v82);
-  v44 = v77;
-  if (v76)
+  statistics::StatisticsEngine::readFrom(&v73, v80);
+  v44 = v75;
+  if (v74)
   {
     v51 = 0;
-    v54 = 0uLL;
-    v55 = 0;
-    v60[1] = 0;
-    v60[0] = 0;
-    v57 = 0u;
-    v58 = 0u;
-    memset(v59, 0, 42);
-    v56 = 0;
-    v59[6] = v60;
-    v61 = 0u;
-    v62 = 0u;
-    v63 = 1065353216;
-    v67 = 0;
-    v65 = 0u;
-    v66 = 0u;
+    memset(v54, 0, sizeof(v54));
+    v58[1] = 0;
+    v58[0] = 0;
+    v55 = 0u;
+    v56 = 0u;
+    memset(v57, 0, 42);
+    v57[6] = v58;
+    v59 = 0u;
+    v60 = 0u;
+    v61 = 1065353216;
+    v65 = 0;
+    v63 = 0u;
     v64 = 0u;
-    v68 = 1065353216;
-    v69 = 0u;
+    v62 = 0u;
+    v66 = 1065353216;
+    v67 = 0u;
+    v68 = 0u;
+    v69 = 1065353216;
     v70 = 0u;
-    v71 = 1065353216;
-    v72 = 0u;
-    v73 = 0u;
-    v74 = 1065353216;
-    v48 = vextq_s8(*(v76 + 8), *(v76 + 8), 8uLL);
-    v4 = *(v76 + 72);
-    v49 = *(v76 + 64);
-    LOWORD(v50) = *(v76 + 185);
-    v52 = vextq_s8(*(v76 + 24), *(v76 + 24), 8uLL);
+    v71 = 0u;
+    v72 = 1065353216;
+    v48 = vextq_s8(*(v74 + 8), *(v74 + 8), 8uLL);
+    v4 = *(v74 + 72);
+    v49 = *(v74 + 64);
+    LOWORD(v50) = *(v74 + 185);
+    v52 = vextq_s8(*(v74 + 24), *(v74 + 24), 8uLL);
     v53 = v4;
-    v5 = *(v76 + 80);
-    v6 = *(v76 + 88);
+    v5 = *(v74 + 80);
+    v6 = *(v74 + 88);
     v41 = v3;
-    for (i = v76; v5 != v6; ++v5)
+    for (i = v74; v5 != v6; ++v5)
     {
       v7 = *v5;
-      v87 = 1;
-      v88 = 0;
+      v85 = 1;
+      v86 = 0;
       v8 = *(v7 + 8);
       v9 = *(v7 + 16);
-      v84 = vextq_s8(*(v7 + 24), *(v7 + 24), 8uLL);
-      v85 = v8;
-      v86 = v9;
-      v89 = *(v7 + 41);
-      v90 = *(v7 + 40);
-      std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](&v57, v84.i8);
+      v82 = vextq_s8(*(v7 + 24), *(v7 + 24), 8uLL);
+      v83 = v8;
+      v84 = v9;
+      v87 = *(v7 + 41);
+      v88 = *(v7 + 40);
+      std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](&v55, v82.i8);
     }
 
     v10 = i[13];
@@ -3928,12 +1719,12 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverage
         v15 = 0;
       }
 
-      *(&v58 + 1) = v12;
-      v59[0] = v11;
-      *&v59[1] = vextq_s8(v14, v14, 8uLL);
-      v59[3] = v15;
-      v59[4] = v13;
-      LOWORD(v59[5]) = v16;
+      *(&v56 + 1) = v12;
+      v57[0] = v11;
+      *&v57[1] = vextq_s8(v14, v14, 8uLL);
+      v57[3] = v15;
+      v57[4] = v13;
+      LOWORD(v57[5]) = v16;
     }
 
     v40 = j;
@@ -3962,8 +1753,8 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverage
       v24 = v19[3];
       v25 = v19[12];
       v26 = v19[18];
-      v27 = v60[0];
-      if (!v60[0])
+      v27 = v58[0];
+      if (!v58[0])
       {
 LABEL_21:
         operator new();
@@ -4031,15 +1822,15 @@ LABEL_21:
         v32 = *(*v30 + 8);
       }
 
-      HKIntervalMask<double>::_insertInterval(&v54, v34, v32);
+      HKIntervalMask<double>::_insertInterval(v54, v34, v32);
     }
 
     HDStatisticsBucket<HDStatisticsCumulative>::operator=(v45, &v48);
     HDStatisticsBucket<HDStatisticsCumulative>::~HDStatisticsBucket(&v48);
   }
 
-  v35 = v78;
-  for (k = v79; v35 != k; v35 += 8)
+  v35 = v76;
+  for (k = v77; v35 != k; v35 += 8)
   {
     v37 = *(*v35 + 8);
     v38 = *(*v35 + 16);
@@ -4050,7 +1841,7 @@ LABEL_21:
     std::vector<HDRawQuantitySample>::push_back[abi:ne200100](&__p, v48.i8);
   }
 
-  statistics::StatisticsEngine::~StatisticsEngine(&v75);
+  statistics::StatisticsEngine::~StatisticsEngine(&v73);
 
   HDStatisticsCollectionEngine<HDStatisticsCumulative>::operator=((j + 112), &v44);
   if (__p)
@@ -4062,10 +1853,10 @@ LABEL_21:
   HDStatisticsBucket<HDStatisticsCumulative>::~HDStatisticsBucket(v45);
 }
 
-void sub_228F69D78(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, ...)
+void sub_228F69D78(_Unwind_Exception *a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, ...)
 {
-  va_start(va, a10);
-  statistics::StatisticsEngine::~StatisticsEngine((v11 - 256));
+  va_start(va, a17);
+  statistics::StatisticsEngine::~StatisticsEngine((v18 - 256));
   HDStatisticsCollectionEngine<HDStatisticsCumulative>::~HDStatisticsCollectionEngine(va);
 
   _Unwind_Resume(a1);
@@ -4203,7 +1994,7 @@ uint64_t HDStatisticsBucket<HDStatisticsAverageSampleDuration>::HDStatisticsBuck
   *(a1 + 56) = v5;
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
-  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(a1 + 64, *(a2 + 64), *(a2 + 72), (*(a2 + 72) - *(a2 + 64)) >> 4);
+  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>((a1 + 64), *(a2 + 64), *(a2 + 72), (*(a2 + 72) - *(a2 + 64)) >> 4);
   objc_copyWeak((a1 + 88), (a2 + 88));
   *(a1 + 96) = 0;
   *(a1 + 104) = 0;
@@ -4369,7 +2160,7 @@ LABEL_23:
   *(a1 + 240) = 0;
   *(a1 + 248) = 0;
   *(a1 + 256) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 240, *(a2 + 240), *(a2 + 248), (*(a2 + 248) - *(a2 + 240)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 240), *(a2 + 240), *(a2 + 248), (*(a2 + 248) - *(a2 + 240)) >> 3);
   std::unordered_map<long long,long long>::unordered_map(a1 + 264, a2 + 264);
   std::unordered_map<NSString * {__strong},long long,HDStringHash,HDStringEqual,std::allocator<std::pair<NSString * const {__strong},long long>>>::unordered_map(a1 + 304, a2 + 304);
   std::unordered_map<long long,NSString * {__strong}>::unordered_map(a1 + 344, a2 + 344);
@@ -4409,7 +2200,7 @@ void sub_228F6A4E4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
 
 id _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::_statisticsFromFinishedBucket(uint64_t a1, uint64_t a2)
 {
-  v76 = *MEMORY[0x277D85DE8];
+  v74 = *MEMORY[0x277D85DE8];
   v4 = *a2;
   v5 = objc_alloc(MEMORY[0x277CBEAA8]);
   v6 = 40;
@@ -4418,8 +2209,8 @@ id _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSa
     v6 = 0;
   }
 
-  v67 = [v5 initWithTimeIntervalSinceReferenceDate:*(a2 + v6)];
-  v69 = a2;
+  v65 = [v5 initWithTimeIntervalSinceReferenceDate:*(a2 + v6)];
+  v67 = a2;
   if (*(a2 + 8) == 1.79769313e308)
   {
     v7 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:*(a2 + 48)];
@@ -4432,196 +2223,195 @@ id _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSa
 
   v8 = v7;
   v9 = *(a1 + 16);
-  v10 = *(a1 + 16);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v11 = *(a1 + 16);
-    if ([v11 shouldUseUnderlyingTypeForStatistics])
+    v10 = *(a1 + 16);
+    if ([v10 shouldUseUnderlyingTypeForStatistics])
     {
-      v12 = [v11 underlyingSampleType];
+      v11 = [v10 underlyingSampleType];
 
-      v9 = v12;
+      v9 = v11;
     }
   }
 
-  v13 = [objc_alloc(MEMORY[0x277CCDA50]) initWithDataType:v9 startDate:v67 endDate:v8];
+  v12 = [objc_alloc(MEMORY[0x277CCDA50]) initWithDataType:v9 startDate:v65 endDate:v8];
   if (*(a1 + 24))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
 
     if (WeakRetained)
     {
-      v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v16 = *(a2 + 240);
-      v17 = *(a2 + 248);
-      while (v16 != v17)
+      v14 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v15 = *(a2 + 240);
+      v16 = *(a2 + 248);
+      while (v15 != v16)
       {
-        v18 = *v16;
-        v19 = objc_loadWeakRetained((a1 + 48));
-        v20 = [v19 sourceForSourceID:v18];
+        v17 = *v15;
+        v18 = objc_loadWeakRetained((a1 + 48));
+        v19 = [v18 sourceForSourceID:v17];
 
-        if (v20)
+        if (v19)
         {
-          if (([v15 containsObject:v20] & 1) == 0)
+          if (([v14 containsObject:v19] & 1) == 0)
           {
-            [v15 addObject:v20];
+            [v14 addObject:v19];
           }
         }
 
-        ++v16;
+        ++v15;
       }
 
-      v21 = [v15 copy];
-      [v13 _setSources:v21];
+      v20 = objc_msgSend_copy(v14);
+      [v12 _setSources:v20];
     }
   }
 
-  v74[0] = &unk_283BF0078;
-  v75 = v74;
-  v68 = v13;
-  v22 = MEMORY[0x277CCD7E8];
-  v23 = [MEMORY[0x277CCDAB0] secondUnit];
-  v24 = *(v69 + 136);
-  *__p = *(v69 + 120);
-  v71 = v24;
-  v72 = *(v69 + 152);
-  v73 = *(v69 + 168);
-  if (!v75)
+  v72[0] = &unk_283BF0078;
+  v73 = v72;
+  v66 = v12;
+  v21 = MEMORY[0x277CCD7E8];
+  v22 = [MEMORY[0x277CCDAB0] secondUnit];
+  v23 = *(v67 + 136);
+  *__p = *(v67 + 120);
+  v69 = v23;
+  v70 = *(v67 + 152);
+  v71 = *(v67 + 168);
+  if (!v73)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  v25 = [v22 quantityWithUnit:v23 doubleValue:{*(*(*v75 + 48))(v75, __p)}];
-  [v68 setDuration:v25];
+  v24 = [v21 quantityWithUnit:v22 doubleValue:{*(*(*v73 + 48))(v73, __p)}];
+  [v66 setDuration:v24];
 
-  v26 = *(v69 + 136);
-  *__p = *(v69 + 120);
-  v71 = v26;
-  v72 = *(v69 + 152);
-  v73 = *(v69 + 168);
-  if (!v75)
+  v25 = *(v67 + 136);
+  *__p = *(v67 + 120);
+  v69 = v25;
+  v70 = *(v67 + 152);
+  v71 = *(v67 + 168);
+  if (!v73)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  [v68 setDataCount:{*((*(*v75 + 48))(v75, __p) + 8)}];
-  v27 = *(v69 + 136);
-  *__p = *(v69 + 120);
-  v71 = v27;
-  v72 = *(v69 + 152);
-  v73 = *(v69 + 168);
-  if (!v75)
+  [v66 setDataCount:{*((*(*v73 + 48))(v73, __p) + 8)}];
+  v26 = *(v67 + 136);
+  *__p = *(v67 + 120);
+  v69 = v26;
+  v70 = *(v67 + 152);
+  v71 = *(v67 + 168);
+  if (!v73)
   {
     std::__throw_bad_function_call[abi:ne200100]();
   }
 
-  v28 = (*(*v75 + 48))(v75, __p);
-  v29 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:*(v28 + 24) end:*(v28 + 32)];
-  [v68 setMostRecentQuantityDateInterval:v29];
+  v27 = (*(*v73 + 48))(v73, __p);
+  v28 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:*(v27 + 24) end:*(v27 + 32)];
+  [v66 setMostRecentQuantityDateInterval:v28];
 
   if ((*(a1 + 24) & 1) == 0)
   {
     goto LABEL_60;
   }
 
-  v66 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v65 = objc_alloc_init(MEMORY[0x277CBEB38]);
   v64 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v63 = objc_alloc_init(MEMORY[0x277CBEB38]);
+  v62 = objc_alloc_init(MEMORY[0x277CBEB38]);
   *__p = 0u;
-  v71 = 0u;
-  LODWORD(v72) = 1065353216;
-  v30 = *(v69 + 176);
-  if (v30 == (v69 + 184))
+  v69 = 0u;
+  LODWORD(v70) = 1065353216;
+  v29 = *(v67 + 176);
+  if (v29 == (v67 + 184))
   {
     goto LABEL_59;
   }
 
-  v62 = &v71;
+  v60 = &v69;
   do
   {
-    v31 = HDStatisticsBucket<HDStatisticsAverageSampleDuration>::_bundleIdentifierForSourceID(v69, v30[4]);
-    v32 = v31;
-    if (!v31)
+    v30 = HDStatisticsBucket<HDStatisticsAverageSampleDuration>::_bundleIdentifierForSourceID(v67, v29[4]);
+    v31 = v30;
+    if (!v30)
     {
       goto LABEL_46;
     }
 
-    v33 = [v31 hash];
-    v34 = v33;
-    v35 = __p[1];
+    v32 = [v30 hash];
+    v33 = v32;
+    v34 = __p[1];
     if (!__p[1])
     {
       goto LABEL_44;
     }
 
-    v36 = vcnt_s8(__p[1]);
-    v36.i16[0] = vaddlv_u8(v36);
-    v37 = v36.u32[0];
-    if (v36.u32[0] > 1uLL)
+    v35 = vcnt_s8(__p[1]);
+    v35.i16[0] = vaddlv_u8(v35);
+    v36 = v35.u32[0];
+    if (v35.u32[0] > 1uLL)
     {
-      v38 = v33;
-      if (v33 >= __p[1])
+      v37 = v32;
+      if (v32 >= __p[1])
       {
-        v38 = v33 % __p[1];
+        v37 = v32 % __p[1];
       }
     }
 
     else
     {
-      v38 = (__p[1] - 1) & v33;
+      v37 = (__p[1] - 1) & v32;
     }
 
-    v39 = *(__p[0] + v38);
-    if (!v39 || (v40 = *v39) == 0)
+    v38 = *(__p[0] + v37);
+    if (!v38 || (v39 = *v38) == 0)
     {
 LABEL_44:
       operator new();
     }
 
-    v63 = __p[1] - 1;
+    v61 = __p[1] - 1;
     while (1)
     {
-      v41 = v40[1];
-      if (v41 == v34)
+      v40 = v39[1];
+      if (v40 == v33)
       {
         break;
       }
 
-      if (v37 > 1)
+      if (v36 > 1)
       {
-        if (v41 >= v35)
+        if (v40 >= v34)
         {
-          v41 %= v35;
+          v40 %= v34;
         }
       }
 
       else
       {
-        v41 &= v63;
+        v40 &= v61;
       }
 
-      if (v41 != v38)
+      if (v40 != v37)
       {
         goto LABEL_44;
       }
 
 LABEL_43:
-      v40 = *v40;
-      if (!v40)
+      v39 = *v39;
+      if (!v39)
       {
         goto LABEL_44;
       }
     }
 
-    v42 = v40[2];
-    v43 = v32;
-    v44 = v43;
-    if (v42 != v43)
+    v41 = v39[2];
+    v42 = v31;
+    v43 = v42;
+    if (v41 != v42)
     {
-      v45 = [v42 isEqualToString:v43];
+      v44 = [v41 isEqualToString:v42];
 
-      if (v45)
+      if (v44)
       {
         goto LABEL_45;
       }
@@ -4630,85 +2420,84 @@ LABEL_43:
     }
 
 LABEL_45:
-    v46 = *(v30 + 5);
-    v47 = *(v30 + 7);
-    v48 = *(v30 + 9);
-    v40[9] = v30[11];
-    *(v40 + 7) = v48;
-    *(v40 + 5) = v47;
-    *(v40 + 3) = v46;
+    v45 = *(v29 + 5);
+    v46 = *(v29 + 7);
+    v47 = *(v29 + 9);
+    v39[9] = v29[11];
+    *(v39 + 7) = v47;
+    *(v39 + 5) = v46;
+    *(v39 + 3) = v45;
 
 LABEL_46:
-    v49 = v30[1];
-    if (v49)
+    v48 = v29[1];
+    if (v48)
     {
       do
       {
-        v50 = v49;
-        v49 = *v49;
+        v49 = v48;
+        v48 = *v48;
       }
 
-      while (v49);
+      while (v48);
     }
 
     else
     {
       do
       {
-        v50 = v30[2];
-        v51 = *v50 == v30;
-        v30 = v50;
+        v49 = v29[2];
+        v50 = *v49 == v29;
+        v29 = v49;
       }
 
-      while (!v51);
+      while (!v50);
     }
 
-    v30 = v50;
+    v29 = v49;
   }
 
-  while (v50 != (v69 + 184));
-  for (i = v71; i; i = *i)
+  while (v49 != (v67 + 184));
+  for (i = v69; i; i = *i)
   {
-    v53 = i[2];
-    v54 = MEMORY[0x277CCD7E8];
-    v55 = [MEMORY[0x277CCDAB0] secondUnit];
-    if (!v75)
+    v52 = i[2];
+    v53 = MEMORY[0x277CCD7E8];
+    v54 = [MEMORY[0x277CCDAB0] secondUnit];
+    if (!v73)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    v56 = [v54 quantityWithUnit:v55 doubleValue:{*(*(*v75 + 48))(v75, i + 3)}];
-    [v66 setObject:v56 forKeyedSubscript:v53];
+    v55 = [v53 quantityWithUnit:v54 doubleValue:{*(*(*v73 + 48))(v73, i + 3)}];
+    [v64 setObject:v55 forKeyedSubscript:v52];
 
-    if (!v75)
+    if (!v73)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    v57 = [MEMORY[0x277CCABB0] numberWithLongLong:{*((*(*v75 + 48))(v75, i + 3) + 8)}];
-    [v65 setObject:v57 forKeyedSubscript:v53];
+    v56 = [MEMORY[0x277CCABB0] numberWithLongLong:{*((*(*v73 + 48))(v73, i + 3) + 8)}];
+    [v63 setObject:v56 forKeyedSubscript:v52];
 
-    if (!v75)
+    if (!v73)
     {
       std::__throw_bad_function_call[abi:ne200100]();
     }
 
-    v58 = (*(*v75 + 48))(v75, i + 3);
-    v59 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:*(v58 + 24) end:*(v58 + 32)];
-    [v64 setObject:v59 forKeyedSubscript:v53];
+    v57 = (*(*v73 + 48))(v73, i + 3);
+    v58 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:*(v57 + 24) end:*(v57 + 32)];
+    [v62 setObject:v58 forKeyedSubscript:v52];
   }
 
 LABEL_59:
   std::__hash_table<std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsDiscrete>>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsDiscrete>>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsDiscrete>>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},HDStatisticsRelative<HDStatisticsDiscrete>>>>::~__hash_table(__p);
-  [v68 setDurationBySource:v66];
-  [v68 setDataCountBySource:v65];
-  [v68 setMostRecentQuantityDateIntervalBySource:v64];
+  [v66 setDurationBySource:v64];
+  [v66 setDataCountBySource:v63];
+  [v66 setMostRecentQuantityDateIntervalBySource:v62];
 
 LABEL_60:
-  std::__function::__value_func<HDStatisticsAverageSampleDuration const& ()(HDStatisticsAverageSampleDuration const&)>::~__value_func[abi:ne200100](v74);
-  v60 = *MEMORY[0x277D85DE8];
+  std::__function::__value_func<HDStatisticsAverageSampleDuration const& ()(HDStatisticsAverageSampleDuration const&)>::~__value_func[abi:ne200100](v72);
 
-  return v68;
+  return v66;
 }
 
 void HDStatisticsBucket<HDStatisticsAverageSampleDuration>::_updateSourceOrder(uint64_t a1)
@@ -4770,16 +2559,16 @@ void HDStatisticsBucket<HDStatisticsAverageSampleDuration>::_mergeThroughTime(ui
       {
         do
         {
-          v13 = *(v12 + 8);
-          v14 = *(v12 + 16);
+          v13 = v12->n128_f64[1];
+          v14 = v12[1].n128_f64[0];
           if (v13 > v11 && v13 < v10)
           {
-            v10 = *(v12 + 8);
+            v10 = v12->n128_f64[1];
           }
 
           if (v14 > v5)
           {
-            v16 = *(v12 + 16);
+            v16 = v12[1].n128_f64[0];
           }
 
           else
@@ -4793,7 +2582,7 @@ void HDStatisticsBucket<HDStatisticsAverageSampleDuration>::_mergeThroughTime(ui
             v9 = v16;
           }
 
-          v12 += 48;
+          v12 += 3;
         }
 
         while (v12 != v7);
@@ -5000,7 +2789,7 @@ LABEL_68:
             v54 = HDStatisticsBucket<HDStatisticsAverageSampleDuration>::_canonicalSourceIDForSourceID(a1, v39);
             v55 = HDStatisticsBucket<HDStatisticsCumulative>::_statisticsForSource(a1, v54);
             v56 = v38 - v37;
-            v57 = *(v55 + 1);
+            v57 = v55[1];
             if (v57)
             {
               v58 = v57 + 1;
@@ -5013,7 +2802,7 @@ LABEL_68:
             }
 
             *v55 = v56;
-            *(v55 + 1) = v58;
+            v55[1] = v58;
             v45 = 1;
 LABEL_81:
           }
@@ -5097,7 +2886,7 @@ LABEL_97:
       {
         v59 = HDStatisticsBucket<HDStatisticsAverageSampleDuration>::_canonicalSourceIDForSourceID(a1, v26);
         v60 = HDStatisticsBucket<HDStatisticsCumulative>::_statisticsForSource(a1, v59);
-        v61 = *(v60 + 1);
+        v61 = v60[1];
         if (v61)
         {
           v62 = v61 + 1;
@@ -5110,7 +2899,7 @@ LABEL_97:
         }
 
         *v60 = v28;
-        *(v60 + 1) = v62;
+        v60[1] = v62;
         v6 = *(a1 + 96);
       }
     }
@@ -5138,8 +2927,8 @@ uint64_t *HDStatisticsBucket<HDStatisticsAverageSampleDuration>::_canonicalSourc
     else
     {
       v6 = HDStatisticsBucket<HDStatisticsAverageSampleDuration>::_bundleIdentifierForSourceID(a1, a2);
-      v9[0] = v6;
-      v7 = std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::find<NSString * {__strong}>((a1 + 304), v9);
+      v9 = v6;
+      v7 = std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::find<NSString * {__strong}>((a1 + 304), &v9);
       if (v7)
       {
         a2 = v7[3];
@@ -5147,9 +2936,9 @@ uint64_t *HDStatisticsBucket<HDStatisticsAverageSampleDuration>::_canonicalSourc
 
       else
       {
-        v9[1] = v9;
-        std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>((a1 + 304), v9)[3] = a2;
-        v6 = v9[0];
+        v10 = &v9;
+        std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>((a1 + 304), &v9, &v10)[3] = a2;
+        v6 = v9;
       }
     }
   }
@@ -5159,7 +2948,7 @@ uint64_t *HDStatisticsBucket<HDStatisticsAverageSampleDuration>::_canonicalSourc
 
 id HDStatisticsBucket<HDStatisticsAverageSampleDuration>::_bundleIdentifierForSourceID(uint64_t a1, unint64_t a2)
 {
-  v9[0] = a2;
+  v9 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 88));
 
   if (WeakRetained)
@@ -5173,12 +2962,12 @@ id HDStatisticsBucket<HDStatisticsAverageSampleDuration>::_bundleIdentifierForSo
     else
     {
       v6 = objc_loadWeakRetained((a1 + 88));
-      WeakRetained = [v6 bundleIdentifierForSourceID:{a2, v9[0]}];
+      WeakRetained = [v6 bundleIdentifierForSourceID:{a2, v9}];
 
       if (WeakRetained)
       {
-        v9[1] = v9;
-        v7 = std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 344), a2);
+        v10 = &v9;
+        v7 = std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 344), a2, &v10);
         objc_storeStrong(v7 + 3, WeakRetained);
       }
     }
@@ -5215,8 +3004,9 @@ uint64_t std::__function::__value_func<HDStatisticsAverageSampleDuration const& 
   return a1;
 }
 
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::_primitiveAddSample(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::_primitiveAddSample(uint64_t a1, double *a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a3;
   if (*(a1 + 536) == 1)
   {
     if ((a3 & 1) == 0)
@@ -5225,30 +3015,29 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAve
       return 0;
     }
 
-    v8 = *(a2 + 8);
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::_configureForStartTime(a1);
   }
 
-  v9 = *(a2 + 8);
-  if (v9 >= _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCumulative>::_earliestStartTimeWithoutInvalidation(a1))
+  v8 = a2[1];
+  if (v8 >= _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCumulative>::_earliestStartTimeWithoutInvalidation(a1))
   {
-    if (*(a1 + 40) && a3)
+    if (*(a1 + 40) && v5)
     {
-      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::_advanceToTime(a1, v9);
+      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::_advanceToTime(a1, v8);
     }
 
-    HDStatisticsCollectionEngine<HDStatisticsAverageSampleDuration>::addSample(a1 + 112, a2, a3);
+    HDStatisticsCollectionEngine<HDStatisticsAverageSampleDuration>::addSample(a1 + 112, a2, v5);
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::_notifyForCurrentBucket(a1);
     return 1;
   }
 
   else
   {
-    v10 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:v9 end:*(a2 + 16)];
-    v11 = (*(*a1 + 128))(a1, v10, a4);
+    v9 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:v8 end:a2[2]];
+    v10 = (*(*a1 + 128))(a1, v9, a4);
   }
 
-  return v11;
+  return v10;
 }
 
 void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::_advanceToTime(uint64_t a1, double a2)
@@ -5287,7 +3076,7 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverage
       v10 = v9;
       v11 = [v6 endDate];
       [v11 timeIntervalSinceReferenceDate];
-      HDStatisticsCollectionEngine<HDStatisticsAverageSampleDuration>::advanceBucket((a1 + 112), v10, v12);
+      HDStatisticsCollectionEngine<HDStatisticsAverageSampleDuration>::advanceBucket(a1 + 112, v10, v12);
     }
 
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverageSampleDuration>::_didChangeBucket(a1, v7);
@@ -5298,10 +3087,10 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverage
   }
 }
 
-void HDStatisticsCollectionEngine<HDStatisticsAverageSampleDuration>::addSample(uint64_t a1, uint64_t *a2, int a3)
+void HDStatisticsCollectionEngine<HDStatisticsAverageSampleDuration>::addSample(uint64_t a1, double *a2, int a3)
 {
   v5 = *a2;
-  v6 = *(a2 + 1);
+  v6 = a2[1];
   v7 = *(a2 + 32);
   v8 = *(a2 + 33);
   v36 = *(a2 + 1);
@@ -5347,7 +3136,7 @@ void HDStatisticsCollectionEngine<HDStatisticsAverageSampleDuration>::addSample(
   {
     v24 = v10;
     v14 = *(&v34 + 1);
-    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>((a1 + 208), *(&v34 + 1));
+    std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>((a1 + 208), *(&v34 + 1), &v34 + 1);
     if (*(a1 + 112) == *(a1 + 104) && *(a1 + 136) <= 0)
     {
       v18.f64[1] = *(a1 + 16);
@@ -5421,10 +3210,10 @@ void HDStatisticsCollectionEngine<HDStatisticsAverageSampleDuration>::addSample(
     {
       v22 = HDStatisticsBucket<HDStatisticsAverageSampleDuration>::_canonicalSourceIDForSourceID(a1 + 8, v14);
       v23 = HDStatisticsBucket<HDStatisticsCumulative>::_statisticsForSource(a1 + 8, v22);
-      if (!*(v23 + 48) || v23[3] <= v6)
+      if (!*(v23 + 48) || *(v23 + 3) <= v6)
       {
-        v23[2] = v5;
-        v23[3] = v6;
+        *(v23 + 2) = v5;
+        *(v23 + 3) = v6;
         *(v23 + 2) = v36;
         *(v23 + 48) = v7;
         *(v23 + 49) = v8;
@@ -5463,12 +3252,12 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsAverage
   }
 }
 
-void HDStatisticsCollectionEngine<HDStatisticsAverageSampleDuration>::advanceBucket(void *a1, double a2, double a3)
+void HDStatisticsCollectionEngine<HDStatisticsAverageSampleDuration>::advanceBucket(uint64_t a1, double a2, double a3)
 {
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  std::vector<HDRawQuantitySample>::__init_with_size[abi:ne200100]<HDRawQuantitySample*,HDRawQuantitySample*>(&v9, a1[49], a1[50], 0xCCCCCCCCCCCCCCCDLL * ((a1[50] - a1[49]) >> 3));
+  std::vector<HDRawQuantitySample>::__init_with_size[abi:ne200100]<HDRawQuantitySample*,HDRawQuantitySample*>(&v9, *(a1 + 392), *(a1 + 400), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 400) - *(a1 + 392)) >> 3));
   HDStatisticsCollectionEngine<HDStatisticsCumulative>::resetToBucket(a1, *a1 + 1, a2, a3);
   v6 = v9;
   v7 = v10;
@@ -5631,29 +3420,12 @@ void sub_228F6C9A4(_Unwind_Exception *a1)
 void ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI33HDStatisticsAverageSampleDurationE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke(uint64_t a1, void *a2)
 {
   v10 = a2;
-  if (!*(a1 + 32))
+  if (!*(a1 + 32) || ([v10 endDate], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "startDate"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v3, "hk_isBeforeOrEqualToDate:", v4), v4, v3, (v5 & 1) == 0) && (objc_msgSend(v10, "startDate"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "endDate"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "hk_isAfterOrEqualToDate:", v7), v7, v6, (v8 & 1) == 0))
   {
-    goto LABEL_11;
-  }
-
-  v3 = [v10 endDate];
-  v4 = [*(a1 + 32) startDate];
-  v5 = [v3 hk_isBeforeOrEqualToDate:v4];
-
-  if ((v5 & 1) == 0)
-  {
-    v6 = [v10 startDate];
-    v7 = [*(a1 + 32) endDate];
-    v8 = [v6 hk_isAfterOrEqualToDate:v7];
-
-    if ((v8 & 1) == 0)
+    v9 = *(a1 + 40);
+    if (v9)
     {
-LABEL_11:
-      v9 = *(a1 + 40);
-      if (v9)
-      {
-        (*(v9 + 16))(v9, v10);
-      }
+      (*(v9 + 16))(v9, v10);
     }
   }
 }
@@ -5708,7 +3480,7 @@ uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI33HDStat
           v23 = v22;
           v24 = [v19 endDate];
           [v24 timeIntervalSinceReferenceDate];
-          HDStatisticsCollectionEngine<HDStatisticsAverageSampleDuration>::advanceBucket((v15 + 112), v23, v25);
+          HDStatisticsCollectionEngine<HDStatisticsAverageSampleDuration>::advanceBucket(v15 + 112, v23, v25);
 
           if (v20)
           {
@@ -5732,7 +3504,7 @@ uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI33HDStat
   return v14;
 }
 
-uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI33HDStatisticsAverageSampleDurationE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke_3(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI33HDStatisticsAverageSampleDurationE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   v7 = 0;
   v5 = 0u;
@@ -5795,13 +3567,13 @@ uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI33HDStat
   return v7;
 }
 
-uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI33HDStatisticsAverageSampleDurationE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_2(uint64_t a1, uint64_t a2, int a3, uint64_t a4, double a5, double a6, double a7)
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI33HDStatisticsAverageSampleDurationE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7)
 {
   v10 = *(a1 + 32);
-  *v14 = a5;
-  *&v14[1] = a6;
-  *&v14[2] = a7;
-  v14[3] = a2;
+  v14[0] = a5;
+  v14[1] = a6;
+  v14[2] = a7;
+  *&v14[3] = a2;
   v15 = 1;
   v11 = [MEMORY[0x277CBEAA8] distantFuture];
   [v11 timeIntervalSinceReferenceDate];
@@ -5890,7 +3662,7 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRel
 void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::setDateInterval(uint64_t a1, void *a2)
 {
   v6 = a2;
-  v3 = [v6 copy];
+  v3 = objc_msgSend_copy(v6);
   v4 = *(a1 + 64);
   *(a1 + 64) = v3;
 
@@ -5957,7 +3729,7 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRel
 void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::setStatisticsHandler(uint64_t a1, void *a2)
 {
   v5 = a2;
-  v3 = [v5 copy];
+  v3 = objc_msgSend_copy(v5);
   v4 = *(a1 + 96);
   *(a1 + 96) = v3;
 }
@@ -5982,9 +3754,9 @@ id _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<
   return 0;
 }
 
-void sub_228F6D614(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_228F6D614(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::~HDStatisticsBucket(va);
   _Unwind_Resume(a1);
 }
@@ -6025,7 +3797,6 @@ LABEL_4:
 
       if (_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_earliestStartTimeWithoutInvalidation(a1) > *(a2 + 8))
       {
-        v15 = *(a2 + 16);
         v8 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:? end:?];
         v14 = (*(*a1 + 128))(a1, v8, a3);
         goto LABEL_8;
@@ -6051,7 +3822,7 @@ LABEL_13:
 
 uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::performAddSampleTransaction(uint64_t a1, void *a2, uint64_t a3)
 {
-  v68 = *MEMORY[0x277D85DE8];
+  v67 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = v5;
   if (*(a1 + 642) == 1)
@@ -6061,14 +3832,14 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRel
   }
 
   *(a1 + 642) = 1;
-  v61 = a3;
+  v60 = a3;
   if (!(*(v5 + 2))(v5, a3))
   {
     v7 = 0;
     goto LABEL_80;
   }
 
-  v60 = v6;
+  v59 = v6;
   if (*(a1 + 641))
   {
     goto LABEL_5;
@@ -6078,26 +3849,26 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRel
   if (!v9)
   {
     v8 = 0;
-    v62 = 0;
+    v61 = 0;
     goto LABEL_28;
   }
 
   if (!*(a1 + 40))
   {
 LABEL_5:
-    v62 = 0;
+    v61 = 0;
     v8 = 1;
     goto LABEL_28;
   }
 
   [v9 sortUsingComparator:&__block_literal_global_979];
-  v62 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v65 = 0u;
-  v66 = 0u;
-  v63 = 0u;
+  v61 = objc_alloc_init(MEMORY[0x277CBEB18]);
   v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
   v10 = *(a1 + 664);
-  v11 = [v10 countByEnumeratingWithState:&v63 objects:v67 count:16];
+  v11 = [v10 countByEnumeratingWithState:&v62 objects:v66 count:16];
   if (!v11)
   {
 
@@ -6106,17 +3877,17 @@ LABEL_5:
   }
 
   v12 = 0;
-  v13 = *v64;
+  v13 = *v63;
   do
   {
     for (i = 0; i != v11; ++i)
     {
-      if (*v64 != v13)
+      if (*v63 != v13)
       {
         objc_enumerationMutation(v10);
       }
 
-      v15 = *(*(&v63 + 1) + 8 * i);
+      v15 = *(*(&v62 + 1) + 8 * i);
       v16 = v15;
       if (v12)
       {
@@ -6143,7 +3914,7 @@ LABEL_5:
 
         else
         {
-          [v62 addObject:v12];
+          [v61 addObject:v12];
           v26 = v16;
         }
 
@@ -6158,14 +3929,14 @@ LABEL_5:
 LABEL_21:
     }
 
-    v11 = [v10 countByEnumeratingWithState:&v63 objects:v67 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v62 objects:v66 count:16];
   }
 
   while (v11);
 
   if (v12)
   {
-    [v62 addObject:v12];
+    [v61 addObject:v12];
   }
 
 LABEL_27:
@@ -6186,7 +3957,7 @@ LABEL_28:
     goto LABEL_46;
   }
 
-  v30 = [v62 lastObject];
+  v30 = [v61 lastObject];
   if (v30)
   {
     v31 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_currentBucketInterval(a1);
@@ -6253,32 +4024,32 @@ LABEL_44:
   *(a1 + 688) = 0;
   *(a1 + 672) = 0;
   *(a1 + 680) = 0;
-  if ([v62 count])
+  if ([v61 count])
   {
 LABEL_46:
-    v44 = v62;
+    v44 = v61;
     if (v44)
     {
-      v65 = 0u;
-      v66 = 0u;
-      v63 = 0u;
       v64 = 0u;
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
       v45 = v44;
-      v46 = [v45 countByEnumeratingWithState:&v63 objects:v67 count:16];
+      v46 = [v45 countByEnumeratingWithState:&v62 objects:v66 count:16];
       if (v46)
       {
-        v47 = *v64;
+        v47 = *v63;
         while (2)
         {
           for (j = 0; j != v46; ++j)
           {
-            if (*v64 != v47)
+            if (*v63 != v47)
             {
               objc_enumerationMutation(v45);
             }
 
-            v49 = *(*(&v63 + 1) + 8 * j);
-            v50 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_primitiveInvalidateInterval(a1, v49, v61);
+            v49 = *(*(&v62 + 1) + 8 * j);
+            v50 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_primitiveInvalidateInterval(a1, v49, v60);
 
             if (!v50)
             {
@@ -6287,7 +4058,7 @@ LABEL_46:
             }
           }
 
-          v46 = [v45 countByEnumeratingWithState:&v63 objects:v67 count:16];
+          v46 = [v45 countByEnumeratingWithState:&v62 objects:v66 count:16];
           if (v46)
           {
             continue;
@@ -6300,7 +4071,7 @@ LABEL_46:
       goto LABEL_58;
     }
 
-    if (_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_primitiveInvalidateInterval(a1, 0, v61))
+    if (_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_primitiveInvalidateInterval(a1, 0, v60))
     {
       goto LABEL_58;
     }
@@ -6328,7 +4099,7 @@ LABEL_58:
     if (v29 != v28)
     {
       v55 = v28;
-      v51 = v61;
+      v51 = v60;
       do
       {
         v56 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_primitiveAddSample(a1, v55, 1, v51);
@@ -6344,7 +4115,7 @@ LABEL_58:
           v57 = v56;
         }
 
-        v51 = v61;
+        v51 = v60;
       }
 
       while ((v57 & 1) != 0);
@@ -6371,7 +4142,7 @@ LABEL_58:
     if (*(a1 + 644) == 1)
     {
       *(a1 + 644) = 0;
-      v6 = v60;
+      v6 = v59;
       _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_notifyForCurrentBucket(a1);
       v7 = 1;
       goto LABEL_80;
@@ -6385,12 +4156,11 @@ LABEL_58:
     v7 = 0;
   }
 
-  v6 = v60;
+  v6 = v59;
 LABEL_80:
   *(a1 + 642) = 0;
 LABEL_81:
 
-  v58 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -6506,31 +4276,26 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelativ
   v3 = a2;
   [v3 encodeBool:*(a1 + 640) forKey:@"needs_config"];
   v3;
-  v28[0] = &unk_283BF1A08;
-  v28[1] = 0;
-  v29 = 0;
+  v23[0] = &unk_283BF1A08;
+  v23[1] = 0;
+  v24 = 0;
   v4 = *(a1 + 112);
-  LOBYTE(v29) = 1;
-  v28[2] = v4;
-  memset(&v28[3], 0, 24);
-  statistics::StatisticsEngine::makeCurrentBucket(v28);
+  LOBYTE(v24) = 1;
+  v23[2] = v4;
+  memset(&v23[3], 0, 24);
+  statistics::StatisticsEngine::makeCurrentBucket(v23);
   v9 = &unk_283BE6258;
   v13 = 0;
   v14 = 0;
   v12 = 0;
-  v27 = 511;
-  v17 = 0u;
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  v22 = 0u;
-  v23 = 0;
+  v22 = 511;
+  memset(v17, 0, sizeof(v17));
+  v18 = 0;
   v5 = vextq_s8(*(a1 + 120), *(a1 + 120), 8uLL);
   v6 = *(a1 + 136);
-  v25 = *(a1 + 144);
-  v26 = *(a1 + 145);
-  v24 = *(a1 + 148) == 0;
+  v20 = *(a1 + 144);
+  v21 = *(a1 + 145);
+  v19 = *(a1 + 148) == 0;
   v7 = vextq_s8(*(a1 + 160), *(a1 + 160), 8uLL);
   v10 = v5;
   v11 = v7;
@@ -6540,22 +4305,22 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelativ
   v8 = *(a1 + 216);
   if (v8 != *(a1 + 224))
   {
-    v30[0] = &unk_283BEB0A8;
-    v35 = 127;
-    v31 = vextq_s8(*v8, *v8, 8uLL);
-    v30[1] = v8[1].i64[0];
-    v30[2] = v8[1].i64[1];
-    v34 = 0;
-    v33 = v8[2].i8[9];
-    v32 = v8[2].i8[10];
-    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample&>();
+    v25[0] = &unk_283BEB0A8;
+    v30 = 127;
+    v26 = vextq_s8(*v8, *v8, 8uLL);
+    v25[1] = v8[1].i64[0];
+    v25[2] = v8[1].i64[1];
+    v29 = 0;
+    v28 = v8[2].i8[9];
+    v27 = v8[2].i8[10];
+    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample&>(v17, v25);
   }
 
   statistics::StatisticsBucket::makeStatistics(&v9);
-  HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::archive(v30, a1 + 240);
+  HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::archive(v25, a1 + 240);
 }
 
-void sub_228F6E6C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, char a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+void sub_228F6E6C8(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
 {
   statistics::StatisticsEngine::~StatisticsEngine(&a34);
 
@@ -6570,110 +4335,108 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelativ
   HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::HDStatisticsBucket(&v36.n128_i64[1], 0, -1.79769313e308, 1.79769313e308);
   *v37 = 0u;
   v38 = 0u;
-  v79 = 0;
-  PB::Reader::Reader(v78, [v3 decodeBytesForKey:@"hdsce_archived_representation" returnedLength:&v79]);
-  v71 = &unk_283BF1A08;
-  v72 = 0;
-  v76 = 0;
-  v74 = 0;
-  v75 = 0;
   v77 = 0;
-  statistics::StatisticsEngine::readFrom(&v71, v78);
-  v36.n128_u64[0] = v73;
-  if (v72)
+  PB::Reader::Reader(v76, [v3 decodeBytesForKey:@"hdsce_archived_representation" returnedLength:&v77]);
+  v69 = &unk_283BF1A08;
+  v70 = 0;
+  v74 = 0;
+  v72 = 0;
+  v73 = 0;
+  v75 = 0;
+  statistics::StatisticsEngine::readFrom(&v69, v76);
+  v36.n128_u64[0] = v71;
+  if (v70)
   {
     v42 = 0;
-    v45 = 0uLL;
-    v46 = 0;
+    memset(v45, 0, sizeof(v45));
     *__p = 0u;
+    v49 = 0u;
+    v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
-    v53 = 0u;
-    v54 = 0;
-    memset(v55, 0, 74);
-    v56[1] = 0;
-    v49 = 0;
+    v52 = 0;
+    memset(v53, 0, 74);
+    v54[1] = 0;
     v47 = 0;
-    memset(v48, 0, sizeof(v48));
-    v56[0] = 0;
-    v55[10] = v56;
-    v57 = 0u;
+    memset(v46, 0, sizeof(v46));
+    v54[0] = 0;
+    v53[10] = v54;
+    v55 = 0u;
+    v56 = 0u;
+    v57 = 1065353216;
     v58 = 0u;
-    v59 = 1065353216;
+    v59 = 0u;
     v60 = 0u;
-    v61 = 0u;
-    v62 = 0u;
-    v63 = 0;
-    v64 = 1065353216;
-    v65 = 0u;
+    v61 = 0;
+    v62 = 1065353216;
+    v63 = 0u;
+    v64 = 0u;
+    v65 = 1065353216;
     v66 = 0u;
-    v67 = 1065353216;
-    v68 = 0u;
-    v69 = 0u;
-    v70 = 1065353216;
-    v39 = vextq_s8(*(v72 + 8), *(v72 + 8), 8uLL);
-    v4 = *(v72 + 72);
-    v40 = *(v72 + 64);
-    LOWORD(v41) = *(v72 + 185);
-    v43 = vextq_s8(*(v72 + 24), *(v72 + 24), 8uLL);
+    v67 = 0u;
+    v68 = 1065353216;
+    v39 = vextq_s8(*(v70 + 8), *(v70 + 8), 8uLL);
+    v4 = *(v70 + 72);
+    v40 = *(v70 + 64);
+    LOWORD(v41) = *(v70 + 185);
+    v43 = vextq_s8(*(v70 + 24), *(v70 + 24), 8uLL);
     v44 = v4;
-    v5 = *(v72 + 80);
-    v6 = *(v72 + 88);
+    v5 = *(v70 + 80);
+    v6 = *(v70 + 88);
     v34 = v3;
-    for (i = v72; v5 != v6; ++v5)
+    for (i = v70; v5 != v6; ++v5)
     {
       v7 = *v5;
-      WORD4(v81) = 1;
-      LOBYTE(v82) = 0;
+      WORD4(v79) = 1;
+      LOBYTE(v80) = 0;
       v8 = *(v7 + 8);
       v9 = *(v7 + 16);
-      *v80 = vextq_s8(*(v7 + 24), *(v7 + 24), 8uLL);
-      *&v80[16] = v8;
-      *&v81 = v9;
-      BYTE1(v82) = *(v7 + 41);
-      BYTE2(v82) = *(v7 + 40);
-      std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](v48, v80);
+      *v78 = vextq_s8(*(v7 + 24), *(v7 + 24), 8uLL);
+      *&v78[16] = v8;
+      *&v79 = v9;
+      BYTE1(v80) = *(v7 + 41);
+      BYTE2(v80) = *(v7 + 40);
+      std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](v46, v78);
     }
 
     v10 = i[13];
     if (v10)
     {
-      HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::unarchive(v80, v10);
-      v49 = *v80;
+      HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::unarchive(v78, v10);
+      v47 = *v78;
       if (__p[0])
       {
         __p[1] = __p[0];
         operator delete(__p[0]);
       }
 
-      *__p = *&v80[8];
+      *__p = *&v78[8];
+      v49 = v79;
+      *&v78[16] = 0;
+      *&v79 = 0;
+      *&v78[8] = 0;
+      v50 = v80;
       v51 = v81;
-      *&v80[16] = 0;
-      *&v81 = 0;
-      *&v80[8] = 0;
       v52 = v82;
-      v53 = v83;
-      v54 = v84;
-      v55[0] = v85;
-      v11 = v55[1];
-      if (v55[1])
+      v53[0] = v83;
+      v11 = v53[1];
+      if (v53[1])
       {
-        v55[2] = v55[1];
-        operator delete(v55[1]);
-        v11 = *&v80[8];
+        v53[2] = v53[1];
+        operator delete(v53[1]);
+        v11 = *&v78[8];
       }
 
-      *&v55[1] = v86;
-      v55[3] = v87;
-      v87 = 0;
-      v86 = 0uLL;
-      v55[4] = v88;
-      *&v55[5] = v89;
-      *&v55[7] = v90;
-      LOWORD(v55[9]) = v91;
+      *&v53[1] = v84;
+      v53[3] = v85;
+      v85 = 0;
+      v84 = 0uLL;
+      v53[4] = v86;
+      *&v53[5] = v87;
+      *&v53[7] = v88;
+      LOWORD(v53[9]) = v89;
       if (v11)
       {
-        *&v80[16] = v11;
+        *&v78[16] = v11;
         operator delete(v11);
       }
     }
@@ -6683,10 +4446,10 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelativ
     for (j = i[18]; v13 != j; ++v13)
     {
       v14 = *v13;
-      HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::unarchive(v80, *v13);
+      HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::unarchive(v78, *v13);
       v15 = *(v14 + 144);
-      v16 = v56[0];
-      if (!v56[0])
+      v16 = v54[0];
+      if (!v54[0])
       {
 LABEL_18:
         operator new();
@@ -6723,7 +4486,7 @@ LABEL_18:
       }
 
       v19 = v17[6];
-      *(v17 + 10) = *v80;
+      *(v17 + 10) = *v78;
       if (v19)
       {
         v17[7] = v19;
@@ -6733,17 +4496,17 @@ LABEL_18:
         v17[8] = 0;
       }
 
-      *(v17 + 3) = *&v80[8];
-      v17[8] = v81;
-      *&v80[16] = 0;
-      *&v81 = 0;
-      *&v80[8] = 0;
-      v17[9] = *(&v81 + 1);
-      v20 = v83;
-      *(v17 + 5) = v82;
+      *(v17 + 3) = *&v78[8];
+      v17[8] = v79;
+      *&v78[16] = 0;
+      *&v79 = 0;
+      *&v78[8] = 0;
+      v17[9] = *(&v79 + 1);
+      v20 = v81;
+      *(v17 + 5) = v80;
       *(v17 + 6) = v20;
-      *(v17 + 56) = v84;
-      v17[15] = v85;
+      *(v17 + 56) = v82;
+      v17[15] = v83;
       v21 = v17[16];
       if (v21)
       {
@@ -6752,21 +4515,21 @@ LABEL_18:
         v17[16] = 0;
         v17[17] = 0;
         v17[18] = 0;
-        v21 = *&v80[8];
+        v21 = *&v78[8];
       }
 
-      *(v17 + 8) = v86;
-      v17[18] = v87;
-      v87 = 0;
-      v86 = 0uLL;
-      v17[19] = v88;
-      v22 = v90;
-      *(v17 + 10) = v89;
+      *(v17 + 8) = v84;
+      v17[18] = v85;
+      v85 = 0;
+      v84 = 0uLL;
+      v17[19] = v86;
+      v22 = v88;
+      *(v17 + 10) = v87;
       *(v17 + 11) = v22;
-      *(v17 + 96) = v91;
+      *(v17 + 96) = v89;
       if (v21)
       {
-        *&v80[16] = v21;
+        *&v78[16] = v21;
         operator delete(v21);
       }
     }
@@ -6793,15 +4556,15 @@ LABEL_18:
         v25 = *(*v23 + 8);
       }
 
-      HKIntervalMask<double>::_insertInterval(&v45, v27, v25);
+      HKIntervalMask<double>::_insertInterval(v45, v27, v25);
     }
 
     HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::operator=(&v36.n128_i64[1], &v39);
     HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::~HDStatisticsBucket(&v39);
   }
 
-  v28 = v74;
-  for (m = v75; v28 != m; v28 += 8)
+  v28 = v72;
+  for (m = v73; v28 != m; v28 += 8)
   {
     v30 = *(*v28 + 8);
     v31 = *(*v28 + 16);
@@ -6812,7 +4575,7 @@ LABEL_18:
     std::vector<HDRawQuantitySample>::push_back[abi:ne200100](v37, v39.i8);
   }
 
-  statistics::StatisticsEngine::~StatisticsEngine(&v71);
+  statistics::StatisticsEngine::~StatisticsEngine(&v69);
 
   HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::operator=((k + 112), &v36);
   if (v37[0])
@@ -6824,35 +4587,35 @@ LABEL_18:
   HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::~HDStatisticsBucket(&v36.n128_i64[1]);
 }
 
-void sub_228F6ED28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, void *a6, uint64_t a7, ...)
+void sub_228F6ED28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, void *a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::~__hash_table(&STACK[0x400]);
-  std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::~__hash_table(a3);
+  std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::~__hash_table(a9);
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&STACK[0x3B0]);
-  v8 = STACK[0x398];
+  v14 = STACK[0x398];
   if (STACK[0x398])
   {
-    STACK[0x3A0] = v8;
-    operator delete(v8);
+    STACK[0x3A0] = v14;
+    operator delete(v14);
   }
 
   std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(&STACK[0x370]);
   std::__tree<std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>>>::destroy(STACK[0x360]);
   HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::~HDStatisticsRelative(&STACK[0x2B8]);
-  v9 = STACK[0x2A0];
+  v15 = STACK[0x2A0];
   if (STACK[0x2A0])
   {
-    STACK[0x2A8] = v9;
-    operator delete(v9);
+    STACK[0x2A8] = v15;
+    operator delete(v15);
   }
 
   objc_destroyWeak(&STACK[0x298]);
-  v10 = STACK[0x280];
+  v16 = STACK[0x280];
   if (STACK[0x280])
   {
-    STACK[0x288] = v10;
-    operator delete(v10);
+    STACK[0x288] = v16;
+    operator delete(v16);
   }
 
   statistics::StatisticsEngine::~StatisticsEngine(&STACK[0x430]);
@@ -7142,7 +4905,7 @@ uint64_t HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisti
   *(a1 + 56) = v5;
   *(a1 + 72) = 0;
   *(a1 + 80) = 0;
-  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(a1 + 64, *(a2 + 64), *(a2 + 72), (*(a2 + 72) - *(a2 + 64)) >> 4);
+  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>((a1 + 64), *(a2 + 64), *(a2 + 72), (*(a2 + 72) - *(a2 + 64)) >> 4);
   objc_copyWeak((a1 + 88), (a2 + 88));
   *(a1 + 96) = 0;
   *(a1 + 104) = 0;
@@ -7164,7 +4927,7 @@ uint64_t HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisti
   *(a1 + 128) = 0;
   *(a1 + 136) = 0;
   *(a1 + 144) = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a1 + 128, *(a2 + 128), *(a2 + 136), (*(a2 + 136) - *(a2 + 128)) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>((a1 + 128), *(a2 + 128), *(a2 + 136), (*(a2 + 136) - *(a2 + 128)) >> 3);
   v10 = *(a2 + 152);
   v11 = *(a2 + 168);
   *(a1 + 178) = *(a2 + 178);
@@ -7175,7 +4938,7 @@ uint64_t HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisti
   *(a1 + 200) = v12;
   *(a1 + 216) = 0;
   *(a1 + 224) = 0;
-  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(a1 + 208, *(a2 + 208), *(a2 + 216), (*(a2 + 216) - *(a2 + 208)) >> 4);
+  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>((a1 + 208), *(a2 + 208), *(a2 + 216), (*(a2 + 216) - *(a2 + 208)) >> 4);
   *(a1 + 232) = *(a2 + 232);
   v13 = *(a2 + 256);
   v14 = *(a2 + 272);
@@ -7316,7 +5079,7 @@ LABEL_22:
   *(a1 + 344) = 0;
   *(a1 + 352) = 0;
   *(a1 + 360) = 0;
-  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>(a1 + 344, *(a2 + 344), *(a2 + 352), (*(a2 + 352) - *(a2 + 344)) >> 3);
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 344), *(a2 + 344), *(a2 + 352), (*(a2 + 352) - *(a2 + 344)) >> 3);
   std::unordered_map<long long,long long>::unordered_map(a1 + 368, a2 + 368);
   std::unordered_map<NSString * {__strong},long long,HDStringHash,HDStringEqual,std::allocator<std::pair<NSString * const {__strong},long long>>>::unordered_map(a1 + 408, a2 + 408);
   std::unordered_map<long long,NSString * {__strong}>::unordered_map(a1 + 448, a2 + 448);
@@ -7355,7 +5118,7 @@ void sub_228F6F820(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4,
   _Unwind_Resume(a1);
 }
 
-uint64_t std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t result, uint64_t a2, uint64_t a3, unint64_t a4)
+uint64_t *std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(uint64_t *result, const void *a2, uint64_t a3, unint64_t a4)
 {
   if (a4)
   {
@@ -7377,7 +5140,7 @@ void sub_228F6F974(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void std::vector<double>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<double>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (!(a2 >> 61))
   {
@@ -7482,7 +5245,7 @@ uint64_t HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisti
 
 void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_statisticsFromFinishedBucket(uint64_t a1, double *a2)
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   v4 = *a2;
   v5 = objc_alloc(MEMORY[0x277CBEAA8]);
   v6 = 5;
@@ -7492,7 +5255,7 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelativ
   }
 
   v7 = [v5 initWithTimeIntervalSinceReferenceDate:a2[v6]];
-  v23 = a2;
+  v22 = a2;
   if (a2[1] == 1.79769313e308)
   {
     v8 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:a2[6]];
@@ -7505,69 +5268,70 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelativ
 
   v9 = v8;
   v10 = *(a1 + 16);
-  v11 = *(a1 + 16);
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v12 = *(a1 + 16);
-    if ([v12 shouldUseUnderlyingTypeForStatistics])
+    v11 = *(a1 + 16);
+    if ([v11 shouldUseUnderlyingTypeForStatistics])
     {
-      v13 = [v12 underlyingSampleType];
+      v12 = [v11 underlyingSampleType];
 
-      v10 = v13;
+      v10 = v12;
     }
   }
 
-  v14 = [objc_alloc(MEMORY[0x277CCDA50]) initWithDataType:v10 startDate:v7 endDate:v9];
+  v13 = [objc_alloc(MEMORY[0x277CCDA50]) initWithDataType:v10 startDate:v7 endDate:v9];
   if (*(a1 + 24))
   {
     WeakRetained = objc_loadWeakRetained((a1 + 48));
 
     if (WeakRetained)
     {
-      v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
-      v17 = *(v23 + 43);
-      v18 = *(v23 + 44);
-      while (v17 != v18)
+      v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v16 = *(v22 + 43);
+      v17 = *(v22 + 44);
+      while (v16 != v17)
       {
-        v19 = *v17;
-        v20 = objc_loadWeakRetained((a1 + 48));
-        v21 = [v20 sourceForSourceID:v19];
+        v18 = *v16;
+        v19 = objc_loadWeakRetained((a1 + 48));
+        v20 = [v19 sourceForSourceID:v18];
 
-        if (v21)
+        if (v20)
         {
-          if (([v16 containsObject:v21] & 1) == 0)
+          if (([v15 containsObject:v20] & 1) == 0)
           {
-            [v16 addObject:v21];
+            [v15 addObject:v20];
           }
         }
 
-        ++v17;
+        ++v16;
       }
 
-      v22 = [v16 copy];
-      [v14 _setSources:v22];
+      v21 = objc_msgSend_copy(v15);
+      [v13 _setSources:v21];
     }
   }
 
-  v24[0] = &unk_283BF0318;
-  v24[3] = v24;
-  v14;
-  std::__function::__value_func<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval> const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)>::__value_func[abi:ne200100](v25, v24);
-  v26 = 0;
+  v23[0] = &unk_283BF0318;
+  v23[3] = v23;
+  v13;
+  std::__function::__value_func<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval> const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)>::__value_func[abi:ne200100](v24, v23);
+  v25 = 0;
   operator new();
 }
 
-void sub_228F7070C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, char a36, uint64_t a37, uint64_t a38, uint64_t a39, char a40, uint64_t a41, uint64_t a42, uint64_t a43, char a44)
+void sub_228F7070C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11, void *a12, uint64_t a13, uint64_t a14, void *a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, uint64_t a41, uint64_t a42, uint64_t a43, ...)
 {
-  v48 = *(v46 - 200);
-  if (v48)
+  va_start(va, a43);
+
+  v47 = *(v45 - 200);
+  if (v47)
   {
-    *(v46 - 192) = v48;
-    operator delete(v48);
+    *(v45 - 192) = v47;
+    operator delete(v47);
   }
 
-  std::__function::__value_func<HDStatisticsPercentiles const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)>::~__value_func[abi:ne200100](&a44);
+  std::__function::__value_func<HDStatisticsPercentiles const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)>::~__value_func[abi:ne200100](va);
   std::__function::__value_func<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval> const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)>::~__value_func[abi:ne200100](&a40);
 
   std::__function::__value_func<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval> const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)>::~__value_func[abi:ne200100](&a36);
@@ -7609,12 +5373,12 @@ void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPe
   v5 = *(a1 + 56);
   if (v5 < a2)
   {
-    v72 = (a1 + 288);
+    v70 = (a1 + 288);
     while (1)
     {
       v6 = *(a1 + 96);
       v7 = *(a1 + 104);
-      v8 = 0xAAAAAAAAAAAAAAABLL * (v7 - v6);
+      v8 = 0xAAAAAAAAAAAAAAABLL * ((v7 - v6) >> 4);
       if (v8 == 1)
       {
         break;
@@ -7633,16 +5397,16 @@ void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPe
       {
         do
         {
-          v13 = *(v12 + 8);
-          v14 = *(v12 + 16);
+          v13 = v12->n128_f64[1];
+          v14 = v12[1].n128_f64[0];
           if (v13 > v11 && v13 < v10)
           {
-            v10 = *(v12 + 8);
+            v10 = v12->n128_f64[1];
           }
 
           if (v14 > v5)
           {
-            v16 = *(v12 + 16);
+            v16 = v12[1].n128_f64[0];
           }
 
           else
@@ -7656,7 +5420,7 @@ void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPe
             v9 = v16;
           }
 
-          v12 += 48;
+          v12 += 3;
         }
 
         while (v12 != v7);
@@ -7695,7 +5459,7 @@ void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPe
       {
         if (v8 < 0x555555555555556)
         {
-          std::__allocate_at_least[abi:ne200100]<std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>(0xAAAAAAAAAAAAAAABLL * (v7 - v6));
+          std::__allocate_at_least[abi:ne200100]<std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>(0xAAAAAAAAAAAAAAABLL * ((v7 - v6) >> 4));
         }
 
         std::vector<std::unique_ptr<statistics::Interval>>::__throw_length_error[abi:ne200100]();
@@ -7706,7 +5470,7 @@ void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPe
 
       if (WeakRetained)
       {
-        *&v75.var0 = a1;
+        *&v73.var0 = a1;
         v22 = 126 - 2 * __clz(v8);
         if (v6 == v7)
         {
@@ -7718,75 +5482,75 @@ void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPe
           v23 = v22;
         }
 
-        std::__introsort<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder*,false>(v6, v7, &v75, v23, 1);
+        std::__introsort<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder*,false>(v6, v7, &v73, v23, 1);
       }
 
       if (*(a1 + 25) == 1)
       {
-        v73 = objc_alloc_init(MEMORY[0x277CBEB38]);
+        v71 = objc_alloc_init(MEMORY[0x277CBEB38]);
       }
 
       else
       {
-        v73 = 0;
+        v71 = 0;
       }
 
       if (v6 != v7)
       {
-        v50 = 0;
-        v51 = 0;
-        v52 = v6;
+        v48 = 0;
+        v49 = 0;
+        v50 = v6;
         while (1)
         {
-          v53 = v52[1];
-          *&v75.var0 = *v52;
-          *&v75.var2 = v53;
-          *&v75.var4 = *(v52 + 4);
-          if (v75.var4 && v75.var1 <= v17)
+          v51 = *(v50 + 1);
+          *&v73.var0 = *v50;
+          *&v73.var2 = v51;
+          *&v73.var4 = v50[4];
+          if (v73.var4 && v73.var1 <= v17)
           {
             break;
           }
 
-          std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](a1 + 96, v52);
+          std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](a1 + 96, v50);
 LABEL_118:
-          v52 += 3;
-          if (v52 == v7)
+          v50 += 6;
+          if (v50 == v7)
           {
             goto LABEL_119;
           }
         }
 
-        var2 = v75.var2;
-        if (v75.var2 > v17)
+        var2 = v73.var2;
+        if (v73.var2 > v17)
         {
           var2 = v17;
         }
 
-        v75.var2 = var2;
-        for (i = *(a1 + 64); i != *(a1 + 72) && v75.var1 >= *i; i += 2)
+        v73.var2 = var2;
+        for (i = *(a1 + 64); i != *(a1 + 72) && v73.var1 >= *i; i += 2)
         {
-          if (v75.var1 < i[1])
+          if (v73.var1 < i[1])
           {
             goto LABEL_118;
           }
         }
 
-        v56 = *(v52 + 42);
-        v57 = *(v52 + 41);
-        if (v51)
+        v54 = *(v50 + 42);
+        v55 = *(v50 + 41);
+        if (v49)
         {
-          var3 = v75.var3;
-          if (v50 == v75.var3 || *(a1 + 24) == 1)
+          var3 = v73.var3;
+          if (v48 == v73.var3 || *(a1 + 24) == 1)
           {
-            HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::addSample((a1 + 120), &v75, v56 ^ 1);
+            HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::addSample((a1 + 120), &v73, v54 ^ 1);
           }
         }
 
         else
         {
-          HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::addSample((a1 + 120), &v75, v56 ^ 1);
-          var3 = v75.var3;
-          v50 = v75.var3;
+          HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::addSample((a1 + 120), &v73, v54 ^ 1);
+          var3 = v73.var3;
+          v48 = v73.var3;
         }
 
         if (*(a1 + 25) != 1)
@@ -7794,75 +5558,75 @@ LABEL_118:
           goto LABEL_117;
         }
 
-        v59 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_bundleIdentifierForSourceID(a1, var3);
-        if (!v59)
+        v57 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_bundleIdentifierForSourceID(a1, var3);
+        if (!v57)
         {
           goto LABEL_116;
         }
 
-        v60 = [v73 objectForKeyedSubscript:v59];
-        v61 = v60;
-        if (v60)
+        v58 = [v71 objectForKeyedSubscript:v57];
+        v59 = v58;
+        if (v58)
         {
-          if ([v60 longLongValue] != var3 && *(a1 + 24) != 1)
+          if ([v58 longLongValue] != var3 && *(a1 + 24) != 1)
           {
 LABEL_115:
 
 LABEL_116:
 LABEL_117:
-            v51 = 1;
+            v49 = 1;
             goto LABEL_118;
           }
         }
 
         else
         {
-          v62 = [MEMORY[0x277CCABB0] numberWithLongLong:var3];
-          [v73 setObject:v62 forKeyedSubscript:v59];
+          v60 = [MEMORY[0x277CCABB0] numberWithLongLong:var3];
+          [v71 setObject:v60 forKeyedSubscript:v57];
         }
 
-        v63 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_canonicalSourceIDForSourceID(a1, var3);
-        v64 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_statisticsForSource(a1, v63);
-        HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::addSample(v64, &v75, v57 ^ 1);
+        v61 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_canonicalSourceIDForSourceID(a1, var3);
+        v62 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_statisticsForSource(a1, v61);
+        HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::addSample(v62, &v73, v55 ^ 1);
         goto LABEL_115;
       }
 
 LABEL_119:
       *(a1 + 232) = HKIntervalMask<double>::removeIntervalsBefore((a1 + 208), v17) + *(a1 + 232);
-      v65 = *(a1 + 280);
-      if (v65 != v72)
+      v63 = *(a1 + 280);
+      if (v63 != v70)
       {
         do
         {
-          *(v65 + 19) = HKIntervalMask<double>::removeIntervalsBefore(v65 + 16, v17) + *(v65 + 19);
-          v66 = v65[1];
-          if (v66)
+          *(v63 + 19) = HKIntervalMask<double>::removeIntervalsBefore(v63 + 16, v17) + *(v63 + 19);
+          v64 = v63[1];
+          if (v64)
           {
             do
             {
-              v67 = v66;
-              v66 = *v66;
+              v65 = v64;
+              v64 = *v64;
             }
 
-            while (v66);
+            while (v64);
           }
 
           else
           {
             do
             {
-              v67 = v65[2];
-              v68 = *v67 == v65;
-              v65 = v67;
+              v65 = v63[2];
+              v66 = *v65 == v63;
+              v63 = v65;
             }
 
-            while (!v68);
+            while (!v66);
           }
 
-          v65 = v67;
+          v63 = v65;
         }
 
-        while (v67 != v72);
+        while (v65 != v70);
       }
 
       *(a1 + 56) = v17;
@@ -7873,18 +5637,18 @@ LABEL_119:
       }
 
 LABEL_128:
-      v69 = *(a1 + 56);
-      if (v69 == v5)
+      v67 = *(a1 + 56);
+      if (v67 == v5)
       {
-        v70 = [MEMORY[0x277CCA890] currentHandler];
-        v71 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles, HDStatisticsTimeInterval>>>::_mergeThroughTime(double) [Statistics = HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles, HDStatisticsTimeInterval>>]"}];
-        [v70 handleFailureInFunction:v71 file:@"HDStatisticsBucket.hpp" lineNumber:234 description:@"Failed to make forward progress during statistics merge."];
+        v68 = [MEMORY[0x277CCA890] currentHandler];
+        v69 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles, HDStatisticsTimeInterval>>>::_mergeThroughTime(double) [Statistics = HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles, HDStatisticsTimeInterval>>]"}];
+        [v68 handleFailureInFunction:v69 file:@"HDStatisticsBucket.hpp" lineNumber:234 description:@"Failed to make forward progress during statistics merge."];
 
-        v69 = *(a1 + 56);
+        v67 = *(a1 + 56);
       }
 
-      v5 = v69;
-      if (v69 >= a2)
+      v5 = v67;
+      if (v67 >= a2)
       {
         return;
       }
@@ -7893,51 +5657,69 @@ LABEL_128:
     v24 = *(v6 + 42);
     v25 = *(v6 + 41);
     v26 = *(v6 + 40);
-    v28 = *v6;
-    v27 = *(v6 + 1);
-    v29 = *(v6 + 2);
-    v30 = *(v6 + 3);
-    v31 = *(v6 + 32);
-    v32 = *(v6 + 33);
-    if (v29 <= a2)
+    v27 = v6[1];
+    v28 = v6[2];
+    v29 = *(v6 + 3);
+    v30 = *(v6 + 33);
+    if (v28 <= a2)
     {
-      v33 = *(v6 + 2);
+      v31 = v6[2];
     }
 
     else
     {
-      v33 = a2;
+      v31 = a2;
     }
 
     if (v27 < a2)
     {
-      v34 = *(v6 + 32);
+      v32 = *(v6 + 32);
     }
 
     else
+    {
+      v32 = 0;
+    }
+
+    if (v27 < a2)
+    {
+      v33 = 0;
+    }
+
+    else
+    {
+      v33 = *(v6 + 33);
+    }
+
+    if (v27 < a2)
     {
       v34 = 0;
     }
 
-    if (v27 < a2)
-    {
-      v35 = 0;
-    }
-
     else
     {
-      v35 = *(v6 + 33);
+      v31 = v6[2];
+      v34 = *(v6 + 3);
     }
 
     if (v27 < a2)
     {
-      v36 = 0;
+      v35 = 0.0;
     }
 
     else
     {
-      v33 = *(v6 + 2);
-      v36 = *(v6 + 3);
+      v35 = v6[2];
+    }
+
+    if (v27 < a2)
+    {
+      v36 = 0.0;
+    }
+
+    else
+    {
+      v36 = *v6;
     }
 
     if (v27 < a2)
@@ -7947,52 +5729,52 @@ LABEL_128:
 
     else
     {
-      v37 = *(v6 + 2);
+      v37 = v6[1];
     }
 
     if (v27 < a2)
     {
-      v38 = 0.0;
+      v38 = 0;
     }
 
     else
     {
-      v38 = *v6;
+      v38 = *(v6 + 32);
     }
 
-    if (v27 < a2)
+    if (v6[4])
+    {
+      v28 = v31;
+    }
+
+    else
+    {
+      v32 = *(v6 + 32);
+      v33 = 0;
+      v34 = 0;
+    }
+
+    if (v6[4])
+    {
+      v39 = v35;
+    }
+
+    else
     {
       v39 = 0.0;
     }
 
-    else
+    if (v6[4])
     {
-      v39 = *(v6 + 1);
-    }
-
-    if (v27 < a2)
-    {
-      v40 = 0;
+      v40 = v36;
     }
 
     else
     {
-      v40 = *(v6 + 32);
+      v40 = 0.0;
     }
 
-    if (v6[2])
-    {
-      v29 = v33;
-    }
-
-    else
-    {
-      v34 = *(v6 + 32);
-      v35 = 0;
-      v36 = 0;
-    }
-
-    if (v6[2])
+    if (v6[4])
     {
       v41 = v37;
     }
@@ -8002,50 +5784,30 @@ LABEL_128:
       v41 = 0.0;
     }
 
-    if (v6[2])
+    if (v6[4])
     {
       v42 = v38;
     }
 
     else
     {
-      v42 = 0.0;
+      v42 = 0;
     }
 
-    if (v6[2])
-    {
-      v43 = v39;
-    }
-
-    else
-    {
-      v43 = 0.0;
-    }
-
-    if (v6[2])
-    {
-      v44 = v40;
-    }
-
-    else
-    {
-      v44 = 0;
-    }
-
-    v75.var0 = *v6;
-    v75.var1 = v27;
-    v75.var2 = v29;
-    v75.var3 = v30;
-    v75.var4 = v34;
-    v75.var5 = v32;
-    *(&v75.var5 + 1) = *(v6 + 34);
-    *(&v75.var5 + 5) = *(v6 + 19);
-    *&v76 = v42;
-    *(&v76 + 1) = v43;
-    *&v77 = v41;
-    *(&v77 + 1) = v36;
-    LOBYTE(v78) = v44;
-    HIBYTE(v78) = v35;
+    v73.var0 = *v6;
+    v73.var1 = v27;
+    v73.var2 = v28;
+    v73.var3 = v29;
+    v73.var4 = v32;
+    v73.var5 = v30;
+    *(&v73.var5 + 1) = *(v6 + 34);
+    *(&v73.var5 + 5) = *(v6 + 19);
+    *&v74 = v40;
+    *(&v74 + 1) = v41;
+    *&v75 = v39;
+    *(&v75 + 1) = v34;
+    LOBYTE(v76) = v42;
+    HIBYTE(v76) = v33;
     for (j = *(a1 + 64); j != *(a1 + 72) && v27 >= *j; j += 2)
     {
       if (v27 < j[1])
@@ -8054,14 +5816,14 @@ LABEL_128:
       }
     }
 
-    if (v34)
+    if (v32)
     {
-      HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::addSample((a1 + 120), &v75, v24 ^ 1);
+      HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::addSample((a1 + 120), &v73, v24 ^ 1);
       if (*(a1 + 25) == 1)
       {
-        v46 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_canonicalSourceIDForSourceID(a1, v30);
-        v47 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_statisticsForSource(a1, v46);
-        HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::addSample(v47, &v75, v25 ^ 1);
+        v44 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_canonicalSourceIDForSourceID(a1, v29);
+        v45 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_statisticsForSource(a1, v44);
+        HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::addSample(v45, &v73, v25 ^ 1);
       }
 
       v26 = 1;
@@ -8070,17 +5832,17 @@ LABEL_128:
     }
 
 LABEL_85:
-    if (v44)
+    if (v42)
     {
-      LOWORD(v74) = v78;
-      v48 = v77;
-      v49 = *(a1 + 96);
-      *v49 = v76;
-      *(v49 + 16) = v48;
-      *(v49 + 32) = v74;
-      *(v49 + 40) = v26;
-      *(v49 + 41) = v25;
-      *(v49 + 42) = v24;
+      LOWORD(v72) = v76;
+      v46 = v75;
+      v47 = *(a1 + 96);
+      *v47 = v74;
+      *(v47 + 16) = v46;
+      *(v47 + 32) = v72;
+      *(v47 + 40) = v26;
+      *(v47 + 41) = v25;
+      *(v47 + 42) = v24;
     }
 
     else
@@ -8094,7 +5856,7 @@ LABEL_88:
   }
 }
 
-__n128 *HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::addSample(__n128 *result, HDRawQuantitySample *a2, int a3)
+uint64_t *HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::addSample(uint64_t *result, HDRawQuantitySample *a2, int a3)
 {
   v5 = result;
   if (a2->var0 == 1.79769313e308)
@@ -8107,7 +5869,7 @@ __n128 *HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStat
     v6 = 2 * (a2->var0 != -1.79769313e308);
   }
 
-  v7 = result->n128_u32[0];
+  v7 = *result;
   if (!v6)
   {
     if (v7)
@@ -8115,16 +5877,16 @@ __n128 *HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStat
       return result;
     }
 
-    v9 = result->n128_u64[1];
-    v10 = result[1].n128_u64[0];
-    result = (result + 8);
+    v9 = result[1];
+    v10 = result[2];
+    ++result;
     if (v10 != v9)
     {
       return result;
     }
 
     HDStatisticsPercentiles::addSample(result, a2);
-    v11 = v5 + 5;
+    v11 = v5 + 10;
     goto LABEL_23;
   }
 
@@ -8137,31 +5899,31 @@ __n128 *HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStat
 
     v8 = 1;
 LABEL_14:
-    result->n128_u32[0] = v8;
-    v15 = &result->n128_i8[8];
-    v14 = result->n128_u64[1];
+    *result = v8;
+    v15 = result + 1;
+    v14 = result[1];
     if (v14)
     {
-      v5[1].n128_u64[0] = v14;
+      v5[2] = v14;
       operator delete(v14);
     }
 
-    v5[5].n128_u64[0] = 0;
-    v17 = &v5[5].n128_i8[8];
-    v16 = v5[5].n128_u64[1];
+    v5[10] = 0;
+    v17 = v5 + 11;
+    v16 = v5[11];
     *v15 = 0u;
-    *(&v5[1] + 8) = 0u;
-    *(&v5[2] + 8) = 0u;
-    *(&v5[3] + 8) = 0u;
-    v5[4].n128_u16[4] = 0;
+    *(v5 + 3) = 0u;
+    *(v5 + 5) = 0u;
+    *(v5 + 7) = 0u;
+    *(v5 + 36) = 0;
     if (v16)
     {
-      v5[6].n128_u64[0] = v16;
+      v5[12] = v16;
       operator delete(v16);
-      v18 = v5[4].n128_u8[8];
+      v18 = *(v5 + 72);
       *v17 = 0u;
-      *(&v5[6] + 8) = 0u;
-      if (v18 && v5[3].n128_f64[0] > v5[8].n128_f64[0])
+      *(v5 + 13) = 0u;
+      if (v18 && *(v5 + 6) > *(v5 + 16))
       {
         goto LABEL_22;
       }
@@ -8170,15 +5932,15 @@ LABEL_14:
     else
     {
       *v17 = 0uLL;
-      *(&v5[6] + 8) = 0uLL;
+      *(v5 + 13) = 0uLL;
     }
 
-    *(v5 + 40) = *(v5 + 120);
-    *(v5 + 56) = *(v5 + 136);
-    v5[4].n128_u16[4] = v5[9].n128_u16[4];
+    *(v5 + 5) = *(v5 + 15);
+    *(v5 + 7) = *(v5 + 17);
+    *(v5 + 36) = *(v5 + 76);
 LABEL_22:
-    HDStatisticsPercentiles::addSample(&v5->n128_i8[8], a2);
-    v11 = v5 + 5;
+    HDStatisticsPercentiles::addSample((v5 + 1), a2);
+    v11 = v5 + 10;
 LABEL_23:
     v12 = a2;
     v13 = a3;
@@ -8191,8 +5953,8 @@ LABEL_23:
     goto LABEL_14;
   }
 
-  HDStatisticsPercentiles::addSample(&result->n128_i8[8], a2);
-  v11 = v5 + 5;
+  HDStatisticsPercentiles::addSample((result + 1), a2);
+  v11 = v5 + 10;
   v12 = a2;
   v13 = 1;
 LABEL_24:
@@ -8200,7 +5962,7 @@ LABEL_24:
   return HDStatisticsTimeInterval::addSample(v11, v12, v13);
 }
 
-void *HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_statisticsForSource(uint64_t a1, uint64_t a2)
+uint64_t **HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_statisticsForSource(uint64_t a1, uint64_t a2)
 {
   v7 = a2;
   v3 = *(a1 + 288);
@@ -8213,12 +5975,12 @@ void *HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsP
   v5 = (a1 + 288);
   do
   {
-    if (v3[4] >= a2)
+    if (*(v3 + 32) >= a2)
     {
       v5 = v3;
     }
 
-    v3 = v3[v3[4] < a2];
+    v3 = *(v3 + 8 * (*(v3 + 32) < a2));
   }
 
   while (v3);
@@ -8226,9 +5988,9 @@ void *HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsP
   {
 LABEL_8:
     v8 = &v7;
-    std::__tree<std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(a1 + 280, a2);
+    std::__tree<std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 280), a2, &v8);
     v8 = &v7;
-    v5 = std::__tree<std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(a1 + 280, v7);
+    v5 = std::__tree<std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 280), v7, &v8);
   }
 
   return v5 + 5;
@@ -8249,8 +6011,8 @@ uint64_t *HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatist
     else
     {
       v6 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_bundleIdentifierForSourceID(a1, a2);
-      v9[0] = v6;
-      v7 = std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::find<NSString * {__strong}>((a1 + 408), v9);
+      v9 = v6;
+      v7 = std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::find<NSString * {__strong}>((a1 + 408), &v9);
       if (v7)
       {
         a2 = v7[3];
@@ -8258,9 +6020,9 @@ uint64_t *HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatist
 
       else
       {
-        v9[1] = v9;
-        std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>((a1 + 408), v9)[3] = a2;
-        v6 = v9[0];
+        v10 = &v9;
+        std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::__emplace_unique_key_args<NSString * {__strong},std::piecewise_construct_t const&,std::tuple<NSString * const {__strong}&>,std::tuple<>>((a1 + 408), &v9, &v10)[3] = a2;
+        v6 = v9;
       }
     }
   }
@@ -8270,7 +6032,7 @@ uint64_t *HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatist
 
 id HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_bundleIdentifierForSourceID(uint64_t a1, unint64_t a2)
 {
-  v9[0] = a2;
+  v9 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 88));
 
   if (WeakRetained)
@@ -8284,12 +6046,12 @@ id HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPerc
     else
     {
       v6 = objc_loadWeakRetained((a1 + 88));
-      WeakRetained = [v6 bundleIdentifierForSourceID:{a2, v9[0]}];
+      WeakRetained = [v6 bundleIdentifierForSourceID:{a2, v9}];
 
       if (WeakRetained)
       {
-        v9[1] = v9;
-        v7 = std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 448), a2);
+        v10 = &v9;
+        v7 = std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>((a1 + 448), a2, &v10);
         objc_storeStrong(v7 + 3, WeakRetained);
       }
     }
@@ -8298,10 +6060,10 @@ id HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPerc
   return WeakRetained;
 }
 
-void *std::__tree<std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(uint64_t a1, uint64_t a2)
+uint64_t **std::__tree<std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>>>::__emplace_unique_key_args<long long,std::piecewise_construct_t const&,std::tuple<long long const&>,std::tuple<>>(uint64_t **a1, uint64_t a2, void **a3)
 {
-  v2 = *(a1 + 8);
-  if (!v2)
+  v3 = a1[1];
+  if (!v3)
   {
 LABEL_8:
     operator new();
@@ -8311,27 +6073,27 @@ LABEL_8:
   {
     while (1)
     {
-      v3 = v2;
-      v4 = v2[4];
-      if (v4 <= a2)
+      v4 = v3;
+      v5 = v3[4];
+      if (v5 <= a2)
       {
         break;
       }
 
-      v2 = *v3;
-      if (!*v3)
+      v3 = *v4;
+      if (!*v4)
       {
         goto LABEL_8;
       }
     }
 
-    if (v4 >= a2)
+    if (v5 >= a2)
     {
-      return v3;
+      return v4;
     }
 
-    v2 = v3[1];
-    if (!v2)
+    v3 = v4[1];
+    if (!v3)
     {
       goto LABEL_8;
     }
@@ -8344,7 +6106,7 @@ __n128 HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatistics
   *(a1 + 8) = 0;
   *(a1 + 16) = 0;
   *(a1 + 24) = 0;
-  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>(a1 + 8, *(a2 + 128), *(a2 + 136), (*(a2 + 136) - *(a2 + 128)) >> 3);
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>((a1 + 8), *(a2 + 128), *(a2 + 136), (*(a2 + 136) - *(a2 + 128)) >> 3);
   v4 = *(a2 + 152);
   *(a1 + 88) = 0;
   *(a1 + 32) = v4;
@@ -8355,7 +6117,7 @@ __n128 HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatistics
   v6 = *(a2 + 216);
   *(a1 + 96) = 0;
   *(a1 + 104) = 0;
-  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(a1 + 88, v5, v6, (v6 - v5) >> 4);
+  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>((a1 + 88), v5, v6, (v6 - v5) >> 4);
   *(a1 + 112) = *(a2 + 232);
   result = *(a2 + 240);
   v8 = *(a2 + 256);
@@ -8377,11 +6139,11 @@ void sub_228F7175C(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::statisticsByBundleIdentifier(uint64_t a1, uint64_t a2)
+void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::statisticsByBundleIdentifier(uint64_t *a1, uint64_t a2)
 {
   *a1 = 0u;
-  *(a1 + 16) = 0u;
-  *(a1 + 32) = 1065353216;
+  *(a1 + 1) = 0u;
+  *(a1 + 8) = 1065353216;
   v2 = *(a2 + 280);
   v29 = (a2 + 288);
   if (v2 == (a2 + 288))
@@ -8400,7 +6162,7 @@ void HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPe
 
     v6 = [v4 hash];
     v7 = v6;
-    v8 = *(a1 + 8);
+    v8 = a1[1];
     if (!*&v8)
     {
       goto LABEL_20;
@@ -8580,7 +6342,7 @@ void std::__hash_node_destructor<std::allocator<std::__hash_node<std::__hash_val
   operator delete(a2);
 }
 
-void *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(void *result, char *__src, char *a3, unint64_t a4)
+uint64_t *std::vector<double>::__assign_with_size[abi:ne200100]<double *,double *>(uint64_t *result, char *__src, char *a3, unint64_t a4)
 {
   v6 = result;
   v7 = result[2];
@@ -8734,9 +6496,9 @@ void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImple
   JUMPOUT(0x22AAC8590);
 }
 
-void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_addStatisticsFromFinishedBucket<HDStatisticsPercentiles,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>> const&,std::function<HDStatisticsCombined const&<HDStatisticsPercentiles,HDStatisticsTimeInterval> ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)> const&)::{lambda(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)#1},std::allocator<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_addStatisticsFromFinishedBucket<HDStatisticsPercentiles,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>> const&,std::function<HDStatisticsCombined const&<HDStatisticsPercentiles,HDStatisticsTimeInterval> ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)> const&)::{lambda(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)#1}>,HDStatisticsTimeInterval const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)>::destroy_deallocate(void *a1)
+void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_addStatisticsFromFinishedBucket<HDStatisticsPercentiles,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>> const&,std::function<HDStatisticsCombined const&<HDStatisticsPercentiles,HDStatisticsTimeInterval> ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)> const&)::{lambda(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)#1},std::allocator<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_addStatisticsFromFinishedBucket<HDStatisticsPercentiles,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>> const&,std::function<HDStatisticsCombined const&<HDStatisticsPercentiles,HDStatisticsTimeInterval> ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)> const&)::{lambda(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)#1}>,HDStatisticsTimeInterval const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)>::destroy_deallocate(char *a1)
 {
-  std::__function::__value_func<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval> const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)>::~__value_func[abi:ne200100](a1 + 8);
+  std::__function::__value_func<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval> const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)>::~__value_func[abi:ne200100]((a1 + 8));
 
   operator delete(a1);
 }
@@ -8795,9 +6557,9 @@ void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImple
   JUMPOUT(0x22AAC8590);
 }
 
-void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_addStatisticsFromFinishedBucket<HDStatisticsPercentiles,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>> const&,std::function<HDStatisticsCombined const&<HDStatisticsPercentiles,HDStatisticsTimeInterval> ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)> const&)::{lambda(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)#2},std::allocator<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_addStatisticsFromFinishedBucket<HDStatisticsPercentiles,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>> const&,std::function<HDStatisticsCombined const&<HDStatisticsPercentiles,HDStatisticsTimeInterval> ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)> const&)::{lambda(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)#2}>,HDStatisticsPercentiles const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)>::destroy_deallocate(void *a1)
+void std::__function::__func<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_addStatisticsFromFinishedBucket<HDStatisticsPercentiles,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>> const&,std::function<HDStatisticsCombined const&<HDStatisticsPercentiles,HDStatisticsTimeInterval> ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)> const&)::{lambda(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)#2},std::allocator<void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_addStatisticsFromFinishedBucket<HDStatisticsPercentiles,HDStatisticsTimeInterval>(HKStatistics *,HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>> const&,std::function<HDStatisticsCombined const&<HDStatisticsPercentiles,HDStatisticsTimeInterval> ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)> const&)::{lambda(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)#2}>,HDStatisticsPercentiles const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)>::destroy_deallocate(char *a1)
 {
-  std::__function::__value_func<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval> const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)>::~__value_func[abi:ne200100](a1 + 8);
+  std::__function::__value_func<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval> const& ()(HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>> const&)>::~__value_func[abi:ne200100]((a1 + 8));
 
   operator delete(a1);
 }
@@ -8871,8 +6633,9 @@ uint64_t std::__function::__value_func<HDStatisticsCombined<HDStatisticsPercenti
   return a1;
 }
 
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_primitiveAddSample(uint64_t a1, uint64_t a2, int a3, uint64_t a4)
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_primitiveAddSample(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
+  v5 = a3;
   if (*(a1 + 640) == 1)
   {
     if ((a3 & 1) == 0)
@@ -8881,58 +6644,54 @@ uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRel
       return 0;
     }
 
-    v8 = *(a2 + 8);
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_configureForStartTime(a1);
   }
 
-  v9 = *(a2 + 8);
-  if (v9 >= _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_earliestStartTimeWithoutInvalidation(a1))
+  v8 = *(a2 + 8);
+  if (v8 >= _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_earliestStartTimeWithoutInvalidation(a1))
   {
-    if (*(a1 + 40) && a3)
+    if (*(a1 + 40) && v5)
     {
-      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_advanceToTime(a1, v9);
+      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_advanceToTime(a1, v8);
     }
 
-    HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::addSample(a1 + 112, a2, a3);
+    HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::addSample(a1 + 112, a2, v5);
     _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_notifyForCurrentBucket(a1);
     return 1;
   }
 
   else
   {
-    v10 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:v9 end:*(a2 + 16)];
-    v11 = (*(*a1 + 128))(a1, v10, a4);
+    v9 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:v8 end:*(a2 + 16)];
+    v10 = (*(*a1 + 128))(a1, v9, a4);
   }
 
-  return v11;
+  return v10;
 }
 
-uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_advanceToTime(uint64_t result, double a2)
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_advanceToTime(uint64_t a1, double a2)
 {
-  if (*(result + 128) <= a2)
+  if (*(a1 + 128) <= a2)
   {
-    v2 = result;
-    if (*(v2 + 616) != *(v2 + 608))
+    if (*(a1 + 616) != *(a1 + 608))
     {
-      [*(result + 40) dateIntervalAtIndex:*(result + 112) + 1];
+      [*(a1 + 40) dateIntervalAtIndex:*(a1 + 112) + 1];
       objc_claimAutoreleasedReturnValue();
-      HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_updateSourceOrder(v2 + 120);
-      HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_mergeThroughTime(v2 + 120, *(v2 + 128));
-      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_statisticsFromFinishedBucket(v2, (v2 + 120));
+      HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_updateSourceOrder(a1 + 120);
+      HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_mergeThroughTime(a1 + 120, *(a1 + 128));
+      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_statisticsFromFinishedBucket(a1, (a1 + 120));
     }
 
     v5 = 0;
-    v3 = *(result + 40);
+    v3 = *(a1 + 40);
     v4 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:a2];
     [v3 dateIntervalContainingDate:v4 index:&v5];
     objc_claimAutoreleasedReturnValue();
 
-    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_updateSourceOrder(v2 + 120);
-    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_mergeThroughTime(v2 + 120, *(v2 + 128));
-    _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_statisticsFromFinishedBucket(v2, (v2 + 120));
+    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_updateSourceOrder(a1 + 120);
+    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_mergeThroughTime(a1 + 120, *(a1 + 128));
+    _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_statisticsFromFinishedBucket(a1, (a1 + 120));
   }
-
-  return result;
 }
 
 void HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::addSample(uint64_t a1, uint64_t *a2, int a3)
@@ -8977,7 +6736,7 @@ void HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCombined<HDSt
       }
 
       *&v43 = v13;
-      std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>((a1 + 312), v8);
+      std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__emplace_unique_key_args<long long,long long const&>((a1 + 312), v8, &v43 + 1);
       v14 = *(a1 + 112);
       if (v14 == *(a1 + 104) && (*(a1 + 144) - *(a1 + 136)) <= 0)
       {
@@ -9131,20 +6890,20 @@ void HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCombined<HDSt
       {
         v34 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_canonicalSourceIDForSourceID(a1 + 8, v8);
         v35 = HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_statisticsForSource(a1 + 8, v34);
-        if (!*(v35 + 152) || v35[16] <= v5)
+        if (!*(v35 + 152) || *(v35 + 16) <= v5)
         {
-          *(v35 + 15) = v6;
-          v35[16] = v5;
-          v35[17] = v7;
-          *(v35 + 18) = v8;
+          v35[15] = v6;
+          *(v35 + 16) = v5;
+          *(v35 + 17) = v7;
+          v35[18] = v8;
           *(v35 + 152) = v4;
           *(v35 + 153) = v9;
-          if (!*(v35 + 72) || v35[6] <= v5)
+          if (!*(v35 + 72) || *(v35 + 6) <= v5)
           {
-            *(v35 + 5) = v6;
-            v35[6] = v5;
-            v35[7] = v7;
-            *(v35 + 8) = v8;
+            v35[5] = v6;
+            *(v35 + 6) = v5;
+            *(v35 + 7) = v7;
+            v35[8] = v8;
             *(v35 + 72) = v4;
             *(v35 + 73) = v9;
           }
@@ -9204,12 +6963,12 @@ void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelativ
   }
 }
 
-void HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::advanceBucket(void *a1, double a2, double a3)
+void HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::advanceBucket(uint64_t a1, double a2, double a3)
 {
   v9 = 0;
   v10 = 0;
   v11 = 0;
-  std::vector<HDRawQuantitySample>::__init_with_size[abi:ne200100]<HDRawQuantitySample*,HDRawQuantitySample*>(&v9, a1[62], a1[63], 0xCCCCCCCCCCCCCCCDLL * ((a1[63] - a1[62]) >> 3));
+  std::vector<HDRawQuantitySample>::__init_with_size[abi:ne200100]<HDRawQuantitySample*,HDRawQuantitySample*>(&v9, *(a1 + 496), *(a1 + 504), 0xCCCCCCCCCCCCCCCDLL * ((*(a1 + 504) - *(a1 + 496)) >> 3));
   HDStatisticsCollectionEngine<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::resetToBucket(a1, *a1 + 1, a2, a3);
   v6 = v9;
   v7 = v10;
@@ -9485,29 +7244,12 @@ void sub_228F73678(_Unwind_Exception *a1)
 void ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI20HDStatisticsCombinedI23HDStatisticsPercentiles24HDStatisticsTimeIntervalEEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke(uint64_t a1, void *a2)
 {
   v10 = a2;
-  if (!*(a1 + 32))
+  if (!*(a1 + 32) || ([v10 endDate], v3 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "startDate"), v4 = objc_claimAutoreleasedReturnValue(), v5 = objc_msgSend(v3, "hk_isBeforeOrEqualToDate:", v4), v4, v3, (v5 & 1) == 0) && (objc_msgSend(v10, "startDate"), v6 = objc_claimAutoreleasedReturnValue(), objc_msgSend(*(a1 + 32), "endDate"), v7 = objc_claimAutoreleasedReturnValue(), v8 = objc_msgSend(v6, "hk_isAfterOrEqualToDate:", v7), v7, v6, (v8 & 1) == 0))
   {
-    goto LABEL_11;
-  }
-
-  v3 = [v10 endDate];
-  v4 = [*(a1 + 32) startDate];
-  v5 = [v3 hk_isBeforeOrEqualToDate:v4];
-
-  if ((v5 & 1) == 0)
-  {
-    v6 = [v10 startDate];
-    v7 = [*(a1 + 32) endDate];
-    v8 = [v6 hk_isAfterOrEqualToDate:v7];
-
-    if ((v8 & 1) == 0)
+    v9 = *(a1 + 40);
+    if (v9)
     {
-LABEL_11:
-      v9 = *(a1 + 40);
-      if (v9)
-      {
-        (*(v9 + 16))(v9, v10);
-      }
+      (*(v9 + 16))(v9, v10);
     }
   }
 }
@@ -9560,4 +7302,2448 @@ uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStat
   }
 
   return v14;
+}
+
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI20HDStatisticsCombinedI23HDStatisticsPercentiles24HDStatisticsTimeIntervalEEE28_primitiveInvalidateIntervalEP14NSDateIntervalPU15__autoreleasingP7NSError_block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7)
+{
+  if (*(a1 + 32) <= a6)
+  {
+    v9 = 1;
+  }
+
+  else
+  {
+    a2 = 0;
+    v9 = 0;
+    a7 = 0.0;
+    a5 = 0.0;
+    a6 = 0.0;
+  }
+
+  v18 = v7;
+  v19 = v8;
+  v12 = a5;
+  v13 = a6;
+  v14 = a7;
+  v15 = a2;
+  v16 = v9;
+  v17 = 0;
+  if (*(a1 + 56))
+  {
+    if (v9)
+    {
+      return _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_primitiveAddSample(*(a1 + 48), &v12, a3, a4);
+    }
+
+    return 1;
+  }
+
+  if (v9)
+  {
+    v11 = *(a1 + 40);
+    if (a6 < v11)
+    {
+      if (a7 <= v11)
+      {
+        v11 = a7;
+      }
+
+      v13 = a6;
+      v14 = v11;
+      v16 = v9;
+      return _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_primitiveAddSample(*(a1 + 48), &v12, a3, a4);
+    }
+
+    return 1;
+  }
+
+  return 1;
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_mergeToTime(uint64_t a1, double a2)
+{
+  if (*(a1 + 640) == 1)
+  {
+    _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_configureForStartTime(a1);
+  }
+
+  if (*(a1 + 40))
+  {
+    _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_advanceToTime(a1, a2);
+  }
+
+  if (*(a1 + 128) > a2)
+  {
+
+    HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_mergeThroughTime(a1 + 120, a2);
+  }
+}
+
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI20HDStatisticsCombinedI23HDStatisticsPercentiles24HDStatisticsTimeIntervalEEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke(void *a1, uint64_t a2)
+{
+  v3 = a1[5];
+  v4 = a1[6];
+  v5 = a1[4];
+  v6 = [v5 dateInterval];
+  v9[4] = v4;
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI20HDStatisticsCombinedI23HDStatisticsPercentiles24HDStatisticsTimeIntervalEEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_2;
+  v10[3] = &__block_descriptor_40_e24_B52__0d8d16d24q32B40__44l;
+  v10[4] = v4;
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI20HDStatisticsCombinedI23HDStatisticsPercentiles24HDStatisticsTimeIntervalEEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_3;
+  v9[3] = &__block_descriptor_40_e8_v16__0d8l;
+  v7 = [v3 collectionCalculator:v5 queryForInterval:v6 error:a2 sampleHandler:v10 mergeHandler:v9];
+
+  return v7;
+}
+
+uint64_t ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsRelativeI20HDStatisticsCombinedI23HDStatisticsPercentiles24HDStatisticsTimeIntervalEEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, double a5, double a6, double a7)
+{
+  v10 = *(a1 + 32);
+  *v14 = a5;
+  *&v14[1] = a6;
+  *&v14[2] = a7;
+  v14[3] = a2;
+  v15 = 1;
+  v11 = [MEMORY[0x277CBEAA8] distantFuture];
+  [v11 timeIntervalSinceReferenceDate];
+  v16 = v12 <= a7;
+
+  return _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>::_primitiveAddSample(v10, v14, a3, a4);
+}
+
+void HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::archive(uint64_t a1, uint64_t a2)
+{
+  *(a1 + 72) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 64) = 0;
+  *(a1 + 112) = 0;
+  *(a1 + 160) = 0;
+  *(a1 + 204) = 0;
+  *(a1 + 8) = 0;
+  *(a1 + 16) = 0;
+  *a1 = &unk_283BE6208;
+  *(a1 + 120) = 0;
+  *(a1 + 128) = 0;
+  statistics::Statistics::makePrimaryStatistics(a1);
+  HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>::archive(&v3, (a2 + 8));
+}
+
+void sub_228F73ED4()
+{
+  statistics::Statistics::operator=(*(v0 + 128), v4);
+  statistics::Statistics::~Statistics(v4);
+  v3 = *v1;
+  *(v0 + 204) |= 0x100u;
+  *(v0 + 136) = v3;
+  statistics::Statistics::makeMostRecentDatum(v0);
+  v4[0] = &unk_283BEB0A8;
+  v8 = 127;
+  v5 = vextq_s8(*(v1 + 30), *(v1 + 30), 8uLL);
+  v4[1] = *(v1 + 17);
+  v4[2] = *(v1 + 18);
+  v6 = 0;
+  v7 = 0;
+  statistics::RawQuantitySample::operator=(*v2, v4);
+  PB::Base::~Base(v4);
+}
+
+void HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>::archive(uint64_t a1, HDStatisticsPercentiles *a2)
+{
+  *a1 = &unk_283BE6208;
+  *(a1 + 8) = 0;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 64) = 0;
+  *(a1 + 160) = 0;
+  *(a1 + 204) = 0;
+  *(a1 + 16) = 0;
+  *(a1 + 120) = 0;
+  *(a1 + 128) = 0;
+  *(a1 + 112) = 0;
+  statistics::Statistics::makePrimaryStatistics(a1);
+  HDStatisticsPercentiles::archive(a2);
+}
+
+void sub_228F74004()
+{
+  statistics::Statistics::operator=(*(v0 + 128), v3);
+  statistics::Statistics::~Statistics(v3);
+  statistics::Statistics::makeAuxiliaryStatistics(v0);
+  HDStatisticsTimeInterval::archive((v1 + 72), v3);
+  statistics::Statistics::operator=(*v2, v3);
+  statistics::Statistics::~Statistics(v3);
+}
+
+double HDStatisticsRelative<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::unarchive(uint64_t a1, void *a2)
+{
+  *a1 = 0;
+  result = 0.0;
+  *(a1 + 8) = 0u;
+  *(a1 + 24) = 0u;
+  *(a1 + 40) = 0u;
+  *(a1 + 56) = 0u;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = 0u;
+  *(a1 + 96) = 0u;
+  *(a1 + 112) = 0u;
+  *(a1 + 128) = 0u;
+  *(a1 + 138) = 0u;
+  v5 = a2[16];
+  if (v5)
+  {
+    HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>::unarchive(&v13, v5);
+    v6 = v19;
+    v7 = v15;
+    v8 = v14;
+    *(a1 + 8) = v13;
+    *(a1 + 24) = v8;
+    v14 = 0;
+    v13 = 0uLL;
+    *(a1 + 32) = v7;
+    v9 = v17;
+    *(a1 + 40) = v16;
+    *(a1 + 56) = v9;
+    *(a1 + 72) = v18;
+    *(a1 + 80) = v6;
+    result = v22;
+    v10 = v21;
+    *(a1 + 88) = v20;
+    *(a1 + 104) = v10;
+    *(a1 + 112) = result;
+  }
+
+  *a1 = a2[17];
+  v11 = a2[14];
+  if (v11)
+  {
+    result = *(v11 + 8);
+    v12 = *(v11 + 16);
+    *(a1 + 120) = vextq_s8(*(v11 + 24), *(v11 + 24), 8uLL);
+    *(a1 + 136) = result;
+    *(a1 + 144) = v12;
+    *(a1 + 152) = 1;
+  }
+
+  return result;
+}
+
+double HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>::unarchive(uint64_t a1, const statistics::Statistics *a2)
+{
+  *(a1 + 64) = 0;
+  result = 0.0;
+  *(a1 + 32) = 0u;
+  *(a1 + 48) = 0u;
+  *a1 = 0u;
+  *(a1 + 16) = 0u;
+  *(a1 + 72) = 0u;
+  *(a1 + 88) = 0u;
+  *(a1 + 104) = 0;
+  v4 = *(a2 + 16);
+  if (v4)
+  {
+    HDStatisticsPercentiles::unarchive(v4, a2);
+  }
+
+  v5 = *(a2 + 1);
+  if (v5)
+  {
+    HDStatisticsTimeInterval::unarchive(v5, &v7);
+    *(a1 + 72) = v7;
+    result = *&v10;
+    v6 = v9;
+    *(a1 + 80) = v8;
+    *(a1 + 96) = v6;
+    *(a1 + 104) = result;
+  }
+
+  return result;
+}
+
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_HDConcreteStatisticsCollectionCalculatorImplementation(uint64_t a1, void *a2, uint64_t a3, uint64_t a4, void *a5, void *a6)
+{
+  v6 = a3;
+  v8 = _HDStatisticsCollectionCalculatorImplementation::_HDStatisticsCollectionCalculatorImplementation(a1, a2, a3, a4, a5, a6);
+  *v8 = &unk_283BF03C8;
+  v9 = 900.0;
+  if ((v6 & 0x10) == 0)
+  {
+    v9 = 0.0;
+  }
+
+  *(v8 + 56) = v9;
+  *(v8 + 64) = 0u;
+  *(v8 + 80) = 0u;
+  *(v8 + 104) = 0;
+  *(v8 + 112) = 0;
+  *(v8 + 96) = 0;
+  HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::HDStatisticsBucket(v8 + 120, 0, -1.79769313e308, 1.79769313e308);
+  *(a1 + 560) = 0u;
+  *(a1 + 576) = 0u;
+  *(a1 + 592) = 1;
+  *(a1 + 594) = 0;
+  *(a1 + 596) = 0;
+  *(a1 + 600) = 0xFFEFFFFFFFFFFFFFLL;
+  *(a1 + 608) = 0u;
+  *(a1 + 624) = 0u;
+  *(a1 + 640) = 0;
+  return a1;
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::~_HDConcreteStatisticsCollectionCalculatorImplementation(uint64_t a1)
+{
+  _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::~_HDConcreteStatisticsCollectionCalculatorImplementation(a1);
+
+  JUMPOUT(0x22AAC8590);
+}
+
+{
+  *a1 = &unk_283BF03C8;
+  v2 = *(a1 + 624);
+  if (v2)
+  {
+    *(a1 + 632) = v2;
+    operator delete(v2);
+  }
+
+  v3 = *(a1 + 560);
+  if (v3)
+  {
+    *(a1 + 568) = v3;
+    operator delete(v3);
+  }
+
+  HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::~HDStatisticsBucket(a1 + 120);
+  objc_destroyWeak((a1 + 104));
+
+  v4 = *(a1 + 72);
+  if (v4)
+  {
+    *(a1 + 80) = v4;
+    operator delete(v4);
+  }
+
+  _HDStatisticsCollectionCalculatorImplementation::~_HDStatisticsCollectionCalculatorImplementation(a1);
+}
+
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::setMergeGranularity(uint64_t result, double a2)
+{
+  if (*(result + 56) != a2)
+  {
+    *(result + 56) = a2;
+    *(result + 592) = 1;
+  }
+
+  return result;
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::setDateInterval(uint64_t a1, void *a2)
+{
+  v6 = a2;
+  v3 = objc_msgSend_copy(v6);
+  v4 = *(a1 + 64);
+  *(a1 + 64) = v3;
+
+  v5 = [v6 startDate];
+  [v5 timeIntervalSinceReferenceDate];
+  _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_configureForStartTime(a1);
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::configureMergeAnchor(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  if (!*(a1 + 40))
+  {
+    v5 = v3;
+    [v3 timeIntervalSinceReferenceDate];
+    *(a1 + 600) = v4;
+    v3 = v5;
+  }
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::setStatisticsConfiguration(uint64_t a1, void *a2)
+{
+  objc_storeStrong((a1 + 608), a2);
+  v7 = a2;
+  v4 = *(a1 + 608);
+  v5 = *(a1 + 584);
+  *(a1 + 584) = v4;
+  v6 = v4;
+
+  HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::setStatisticsConfiguration(a1 + 120, *(a1 + 584));
+}
+
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::setIntervalMask(uint64_t a1, char **a2, uint64_t a3)
+{
+  v6 = (a1 + 72);
+  if (v6 != a2)
+  {
+    std::vector<HKRawInterval<double>>::__assign_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(v6, *a2, a2[1], (a2[1] - *a2) >> 4);
+  }
+
+  if (*(a1 + 40))
+  {
+    return 1;
+  }
+
+  v7 = *a2;
+  v8 = a2[1];
+  v9 = *(a1 + 224) == *(a1 + 216) && (*(a1 + 248) - *(a1 + 240)) < 1 || HKIntervalMask<double>::firstDifference(*(a1 + 184), *(a1 + 192), *a2, a2[1]) >= *(a1 + 176);
+  if ((a1 + 184) != a2)
+  {
+    std::vector<HKRawInterval<double>>::__assign_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>((a1 + 184), v7, v8, (v8 - v7) >> 4);
+  }
+
+  if (v9)
+  {
+    return 1;
+  }
+
+  v11 = *(*a1 + 128);
+
+  return v11(a1, 0, a3);
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::setStatisticsHandler(uint64_t a1, void *a2)
+{
+  v5 = a2;
+  v3 = objc_msgSend_copy(v5);
+  v4 = *(a1 + 96);
+  *(a1 + 96) = v3;
+}
+
+id _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::dataSource(uint64_t a1)
+{
+  WeakRetained = objc_loadWeakRetained((a1 + 104));
+
+  return WeakRetained;
+}
+
+id _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::currentStatistics(uint64_t a1)
+{
+  if ((*(a1 + 592) & 1) == 0)
+  {
+    HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::HDStatisticsBucket(v3, a1 + 120);
+    HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_updateSourceOrder(v3);
+    HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_mergeThroughTime(v3, v4);
+    _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_statisticsFromFinishedBucket(a1, v3);
+  }
+
+  return 0;
+}
+
+void sub_228F74728(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+{
+  va_start(va, a3);
+  HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::~HDStatisticsBucket(va);
+  _Unwind_Resume(a1);
+}
+
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::addSample(uint64_t a1, uint64_t a2, uint64_t a3)
+{
+  v6 = *(a1 + 64);
+  v7 = v6;
+  if (!v6)
+  {
+    goto LABEL_4;
+  }
+
+  v8 = [v6 startDate];
+  [v8 timeIntervalSinceReferenceDate];
+  if (v9 > *(a2 + 16))
+  {
+    v14 = 1;
+LABEL_8:
+
+    goto LABEL_13;
+  }
+
+  v10 = [v7 endDate];
+  [v10 timeIntervalSinceReferenceDate];
+  v12 = v11;
+  v13 = *(a2 + 8);
+
+  if (v12 >= v13)
+  {
+LABEL_4:
+    if (*(a1 + 594) == 1)
+    {
+      if (*(a1 + 593))
+      {
+        goto LABEL_6;
+      }
+
+      if (_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>::_earliestStartTimeWithoutInvalidation(a1) > *(a2 + 8))
+      {
+        v8 = [MEMORY[0x277CCA970] hk_dateIntervalWithStart:? end:?];
+        v14 = (*(*a1 + 128))(a1, v8, a3);
+        goto LABEL_8;
+      }
+
+      if (*(a1 + 595) != 1)
+      {
+        std::vector<HDRawQuantitySample>::push_back[abi:ne200100](a1 + 624, a2);
+        goto LABEL_6;
+      }
+    }
+
+    v14 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_primitiveAddSample(a1, a2, 1, a3);
+    goto LABEL_13;
+  }
+
+LABEL_6:
+  v14 = 1;
+LABEL_13:
+
+  return v14;
+}
+
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::performAddSampleTransaction(uint64_t a1, void *a2, uint64_t a3)
+{
+  v67 = *MEMORY[0x277D85DE8];
+  v5 = a2;
+  v6 = v5;
+  if (*(a1 + 594) == 1)
+  {
+    v7 = (*(v5 + 2))(v5, a3);
+    goto LABEL_81;
+  }
+
+  *(a1 + 594) = 1;
+  v60 = a3;
+  if (!(*(v5 + 2))(v5, a3))
+  {
+    v7 = 0;
+    goto LABEL_80;
+  }
+
+  v59 = v6;
+  if (*(a1 + 593))
+  {
+    goto LABEL_5;
+  }
+
+  v9 = *(a1 + 616);
+  if (!v9)
+  {
+    v8 = 0;
+    v61 = 0;
+    goto LABEL_28;
+  }
+
+  if (!*(a1 + 40))
+  {
+LABEL_5:
+    v61 = 0;
+    v8 = 1;
+    goto LABEL_28;
+  }
+
+  [v9 sortUsingComparator:&__block_literal_global_1002];
+  v61 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v64 = 0u;
+  v65 = 0u;
+  v62 = 0u;
+  v63 = 0u;
+  v10 = *(a1 + 616);
+  v11 = [v10 countByEnumeratingWithState:&v62 objects:v66 count:16];
+  if (!v11)
+  {
+
+    v12 = 0;
+    goto LABEL_27;
+  }
+
+  v12 = 0;
+  v13 = *v63;
+  do
+  {
+    for (i = 0; i != v11; ++i)
+    {
+      if (*v63 != v13)
+      {
+        objc_enumerationMutation(v10);
+      }
+
+      v15 = *(*(&v62 + 1) + 8 * i);
+      v16 = v15;
+      if (v12)
+      {
+        v17 = [v15 startDate];
+        v18 = [v12 endDate];
+        v19 = [v17 hk_isBeforeOrEqualToDate:v18];
+
+        if (v19)
+        {
+          v20 = [v16 endDate];
+          v21 = [v12 endDate];
+          v22 = [v20 hk_isAfterDate:v21];
+
+          if (!v22)
+          {
+            goto LABEL_21;
+          }
+
+          v23 = objc_alloc(MEMORY[0x277CCA970]);
+          v24 = [v12 startDate];
+          v25 = [v16 endDate];
+          v26 = [v23 initWithStartDate:v24 endDate:v25];
+        }
+
+        else
+        {
+          [v61 addObject:v12];
+          v26 = v16;
+        }
+
+        v12 = v26;
+      }
+
+      else
+      {
+        v12 = v15;
+      }
+
+LABEL_21:
+    }
+
+    v11 = [v10 countByEnumeratingWithState:&v62 objects:v66 count:16];
+  }
+
+  while (v11);
+
+  if (v12)
+  {
+    [v61 addObject:v12];
+  }
+
+LABEL_27:
+
+  v8 = 0;
+LABEL_28:
+  v27 = *(a1 + 616);
+  *(a1 + 616) = 0;
+
+  *(a1 + 593) = 0;
+  if (v8)
+  {
+    v28 = *(a1 + 624);
+    *(a1 + 640) = 0;
+    *(a1 + 632) = 0;
+    *(a1 + 624) = 0;
+    v29 = v28;
+    goto LABEL_46;
+  }
+
+  v30 = [v61 lastObject];
+  if (v30)
+  {
+    v31 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>::_currentBucketInterval(a1);
+    v32 = [v31 endDate];
+    v33 = [v30 endDate];
+    v34 = [v32 hk_isBeforeOrEqualToDate:v33];
+
+    if (v34)
+    {
+      v35 = [v30 endDate];
+      [v35 timeIntervalSinceReferenceDate];
+      v37 = v36;
+
+      v38 = *(a1 + 624);
+      v39 = *(a1 + 632);
+      if (v38 != v39)
+      {
+        while (*(v38 + 8) >= v37)
+        {
+          v38 += 40;
+          if (v38 == v39)
+          {
+            goto LABEL_44;
+          }
+        }
+
+        if (v38 != v39)
+        {
+          v40 = (v38 + 40);
+          if ((v38 + 40) != v39)
+          {
+            do
+            {
+              if (*(v40 + 1) >= v37)
+              {
+                v41 = *v40;
+                v42 = v40[1];
+                *(v38 + 32) = *(v40 + 16);
+                *v38 = v41;
+                *(v38 + 16) = v42;
+                v38 += 40;
+              }
+
+              v40 = (v40 + 40);
+            }
+
+            while (v40 != v39);
+            v39 = *(a1 + 632);
+          }
+        }
+      }
+
+      if (v38 != v39)
+      {
+        *(a1 + 632) = v38;
+      }
+    }
+
+LABEL_44:
+  }
+
+  v28 = *(a1 + 624);
+  v29 = *(a1 + 632);
+  *(a1 + 640) = 0;
+  *(a1 + 624) = 0;
+  *(a1 + 632) = 0;
+  if ([v61 count])
+  {
+LABEL_46:
+    v44 = v61;
+    if (v44)
+    {
+      v64 = 0u;
+      v65 = 0u;
+      v62 = 0u;
+      v63 = 0u;
+      v45 = v44;
+      v46 = [v45 countByEnumeratingWithState:&v62 objects:v66 count:16];
+      if (v46)
+      {
+        v47 = *v63;
+        while (2)
+        {
+          for (j = 0; j != v46; ++j)
+          {
+            if (*v63 != v47)
+            {
+              objc_enumerationMutation(v45);
+            }
+
+            v49 = *(*(&v62 + 1) + 8 * j);
+            v50 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_primitiveInvalidateInterval(a1, v49, v60);
+
+            if (!v50)
+            {
+
+              goto LABEL_68;
+            }
+          }
+
+          v46 = [v45 countByEnumeratingWithState:&v62 objects:v66 count:16];
+          if (v46)
+          {
+            continue;
+          }
+
+          break;
+        }
+      }
+
+      goto LABEL_58;
+    }
+
+    if (_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_primitiveInvalidateInterval(a1, 0, v60))
+    {
+      goto LABEL_58;
+    }
+
+LABEL_68:
+    v54 = 0;
+  }
+
+  else
+  {
+LABEL_58:
+    v52 = 126 - 2 * __clz(0xCCCCCCCCCCCCCCCDLL * ((v29 - v28) >> 3));
+    if (v29 == v28)
+    {
+      v53 = 0;
+    }
+
+    else
+    {
+      v53 = v52;
+    }
+
+    v54 = 1;
+    std::__introsort<std::_ClassicAlgPolicy,_HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_addPendingSamples(std::vector<HDRawQuantitySample> &,NSError * {__autoreleasing}*)::{lambda(HDRawQuantitySample const&,HDRawQuantitySample const&)#1} &,HDRawQuantitySample*,false>(v28, v29, v53, 1, v43);
+    if (v29 != v28)
+    {
+      v55 = v28;
+      v51 = v60;
+      do
+      {
+        v56 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_primitiveAddSample(a1, v55, 1, v51);
+        v54 = v56;
+        v55 += 40;
+        if (v55 == v29)
+        {
+          v57 = 0;
+        }
+
+        else
+        {
+          v57 = v56;
+        }
+
+        v51 = v60;
+      }
+
+      while ((v57 & 1) != 0);
+    }
+  }
+
+  if (*(a1 + 40) && *(a1 + 568) != *(a1 + 560))
+  {
+    [*(a1 + 40) dateIntervalAtIndex:{*(a1 + 112) + 1, v51}];
+    objc_claimAutoreleasedReturnValue();
+    HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_updateSourceOrder(a1 + 120);
+    HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_mergeThroughTime(a1 + 120, *(a1 + 128));
+    _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_statisticsFromFinishedBucket(a1, a1 + 120);
+  }
+
+  *(a1 + 594) = 0;
+  if (v28)
+  {
+    operator delete(v28);
+  }
+
+  if (v54)
+  {
+    if (*(a1 + 596) == 1)
+    {
+      *(a1 + 596) = 0;
+      v6 = v59;
+      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_notifyForCurrentBucket(a1);
+      v7 = 1;
+      goto LABEL_80;
+    }
+
+    v7 = 1;
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v6 = v59;
+LABEL_80:
+  *(a1 + 594) = 0;
+LABEL_81:
+
+  return v7;
+}
+
+void sub_228F74F94(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, void *a12)
+{
+  if (a2)
+  {
+
+    objc_begin_catch(exception_object);
+    *(v13 + 594) = 0;
+    objc_exception_rethrow();
+  }
+
+  _Unwind_Resume(exception_object);
+}
+
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::invalidateInterval(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = a2;
+  v6 = *(a1 + 40);
+  if (!v6)
+  {
+
+    goto LABEL_11;
+  }
+
+  if (!v5)
+  {
+LABEL_11:
+    if (*(a1 + 594))
+    {
+      goto LABEL_12;
+    }
+
+    v7 = 0;
+LABEL_14:
+    v11 = _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_primitiveInvalidateInterval(a1, v7, a3);
+    goto LABEL_15;
+  }
+
+  v7 = [v6 dateIntervalForIntervalsContainingInterval:v5];
+
+  if ((*(a1 + 594) & 1) == 0)
+  {
+    goto LABEL_14;
+  }
+
+  if (!v7)
+  {
+LABEL_12:
+    v12 = *(a1 + 616);
+    *(a1 + 616) = 0;
+
+    v7 = 0;
+    v11 = 1;
+    *(a1 + 593) = 1;
+    goto LABEL_15;
+  }
+
+  if ((*(a1 + 593) & 1) == 0)
+  {
+    v8 = *(a1 + 616);
+    if (!v8)
+    {
+      v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v10 = *(a1 + 616);
+      *(a1 + 616) = v9;
+
+      v8 = *(a1 + 616);
+    }
+
+    [v8 addObject:v7];
+  }
+
+  v11 = 1;
+LABEL_15:
+
+  return v11;
+}
+
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::queryForInitialStatistics(uint64_t a1, void *a2, uint64_t a3)
+{
+  v5 = a2;
+  WeakRetained = objc_loadWeakRetained((a1 + 104));
+  if (WeakRetained)
+  {
+    *(a1 + 592) = 1;
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = ___ZN55_HDConcreteStatisticsCollectionCalculatorImplementationI20HDStatisticsCombinedI23HDStatisticsPercentiles24HDStatisticsTimeIntervalEE25queryForInitialStatisticsEP32HDStatisticsCollectionCalculatorPU15__autoreleasingP7NSError_block_invoke;
+    v9[3] = &unk_278624840;
+    v12 = a1;
+    v10 = v5;
+    v11 = WeakRetained;
+    v7 = (*(*a1 + 112))(a1, v9, a3);
+    if (v7 && *(a1 + 592) == 1 && !*(a1 + 40))
+    {
+      _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_configureForStartTime(a1);
+    }
+  }
+
+  else
+  {
+    [MEMORY[0x277CCA9B8] hk_assignError:a3 code:3 format:@"Unable to query for initial statistics: no data source available."];
+    v7 = 0;
+  }
+
+  return v7;
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::encodeInternalsWithEncoder(uint64_t a1, void *a2)
+{
+  v3 = a2;
+  [v3 encodeBool:*(a1 + 592) forKey:@"needs_config"];
+  v3;
+  v23[0] = &unk_283BF1A08;
+  v23[1] = 0;
+  v24 = 0;
+  v4 = *(a1 + 112);
+  LOBYTE(v24) = 1;
+  v23[2] = v4;
+  memset(&v23[3], 0, 24);
+  statistics::StatisticsEngine::makeCurrentBucket(v23);
+  v9 = &unk_283BE6258;
+  v13 = 0;
+  v14 = 0;
+  v12 = 0;
+  v22 = 511;
+  memset(v17, 0, sizeof(v17));
+  v18 = 0;
+  v5 = vextq_s8(*(a1 + 120), *(a1 + 120), 8uLL);
+  v6 = *(a1 + 136);
+  v20 = *(a1 + 144);
+  v21 = *(a1 + 145);
+  v19 = *(a1 + 148) == 0;
+  v7 = vextq_s8(*(a1 + 160), *(a1 + 160), 8uLL);
+  v10 = v5;
+  v11 = v7;
+  v7.i64[0] = *(a1 + 176);
+  v15 = v6;
+  v16 = v7.i64[0];
+  v8 = *(a1 + 216);
+  if (v8 != *(a1 + 224))
+  {
+    v25[0] = &unk_283BEB0A8;
+    v30 = 127;
+    v26 = vextq_s8(*v8, *v8, 8uLL);
+    v25[1] = v8[1].i64[0];
+    v25[2] = v8[1].i64[1];
+    v29 = 0;
+    v28 = v8[2].i8[9];
+    v27 = v8[2].i8[10];
+    PB::PtrVector<statistics::RawQuantitySample>::emplace_back<statistics::RawQuantitySample&>(v17, v25);
+  }
+
+  statistics::StatisticsBucket::makeStatistics(&v9);
+  HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>::archive(v25, (a1 + 240));
+}
+
+void sub_228F757DC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, id a9, char a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, uint64_t a36, uint64_t a37, uint64_t a38, uint64_t a39, uint64_t a40, char a41)
+{
+  statistics::StatisticsEngine::~StatisticsEngine(&a34);
+
+  _Unwind_Resume(a1);
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::decodeInternalsWithDecoder(uint64_t k, void *a2)
+{
+  v31 = a2;
+  *(k + 592) = [v31 decodeBoolForKey:@"needs_config"];
+  v3 = v31;
+  HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::HDStatisticsBucket(&v35.n128_i64[1], 0, -1.79769313e308, 1.79769313e308);
+  *v36 = 0u;
+  v37 = 0u;
+  v71 = 0;
+  PB::Reader::Reader(v70, [v3 decodeBytesForKey:@"hdsce_archived_representation" returnedLength:&v71]);
+  v63 = &unk_283BF1A08;
+  v64 = 0;
+  v68 = 0;
+  v66 = 0;
+  v67 = 0;
+  v69 = 0;
+  statistics::StatisticsEngine::readFrom(&v63, v70);
+  v35.n128_u64[0] = v65;
+  if (v64)
+  {
+    v33 = v3;
+    v41 = 0;
+    memset(v44, 0, sizeof(v44));
+    memset(&v45[6], 0, 32);
+    v48[1] = 0;
+    v48[0] = 0;
+    memset(v45, 0, 90);
+    v46 = 0;
+    v47 = v48;
+    v49 = 0u;
+    v50 = 0u;
+    v51 = 1065353216;
+    v52 = 0u;
+    v53 = 0u;
+    v54 = 0u;
+    v55 = 0;
+    v56 = 1065353216;
+    v57 = 0u;
+    v58 = 0u;
+    v59 = 1065353216;
+    v60 = 0u;
+    v61 = 0u;
+    v62 = 1065353216;
+    v38 = vextq_s8(*(v64 + 8), *(v64 + 8), 8uLL);
+    v4 = *(v64 + 72);
+    v39 = *(v64 + 64);
+    LOWORD(v40) = *(v64 + 185);
+    v42 = vextq_s8(*(v64 + 24), *(v64 + 24), 8uLL);
+    v43 = v4;
+    v5 = *(v64 + 80);
+    v6 = *(v64 + 88);
+    for (i = v64; v5 != v6; ++v5)
+    {
+      v7 = *v5;
+      LOWORD(v75) = 1;
+      BYTE8(v75) = 0;
+      v8 = *(v7 + 8);
+      v9 = *(v7 + 16);
+      v72 = vextq_s8(*(v7 + 24), *(v7 + 24), 8uLL);
+      v73 = v8;
+      v74 = v9;
+      BYTE9(v75) = *(v7 + 41);
+      BYTE10(v75) = *(v7 + 40);
+      std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](v45, v72.i8);
+    }
+
+    v10 = i[13];
+    if (v10)
+    {
+      HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>::unarchive(&v72, v10);
+      if (*(&v45[1] + 1))
+      {
+        *&v45[2] = *(&v45[1] + 1);
+        operator delete(*(&v45[1] + 1));
+      }
+
+      *(&v45[1] + 8) = v72;
+      *&v45[3] = v74;
+      *(&v45[3] + 8) = v75;
+      *(&v45[2] + 1) = v73;
+      v73 = 0;
+      v72 = 0uLL;
+      *(&v45[4] + 8) = v76;
+      WORD4(v45[5]) = v77;
+      *&v45[6] = v78;
+      v11 = *(&v45[6] + 1);
+      if (*(&v45[6] + 1))
+      {
+        *&v45[7] = *(&v45[6] + 1);
+        operator delete(*(&v45[6] + 1));
+        v11 = v72.i64[0];
+      }
+
+      *(&v45[6] + 8) = v79;
+      *(&v45[7] + 1) = v80;
+      v80 = 0;
+      v79 = 0uLL;
+      v46 = v81;
+      if (v11)
+      {
+        v72.i64[1] = v11;
+        operator delete(v11);
+      }
+    }
+
+    v32 = k;
+    v12 = i[17];
+    for (j = i[18]; v12 != j; ++v12)
+    {
+      v14 = *v12;
+      HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>::unarchive(&v72, *v12);
+      v15 = *(v14 + 18);
+      v16 = v48[0];
+      if (!v48[0])
+      {
+LABEL_18:
+        operator new();
+      }
+
+      while (1)
+      {
+        while (1)
+        {
+          v17 = v16;
+          v18 = v16[4];
+          if (v18 <= v15)
+          {
+            break;
+          }
+
+          v16 = *v17;
+          if (!*v17)
+          {
+            goto LABEL_18;
+          }
+        }
+
+        if (v18 >= v15)
+        {
+          break;
+        }
+
+        v16 = v17[1];
+        if (!v16)
+        {
+          goto LABEL_18;
+        }
+      }
+
+      v19 = v17[5];
+      if (v19)
+      {
+        v17[6] = v19;
+        operator delete(v19);
+        v17[5] = 0;
+        v17[6] = 0;
+        v17[7] = 0;
+      }
+
+      *(v17 + 5) = v72;
+      v17[7] = v73;
+      v17[8] = v74;
+      v20 = v76;
+      *(v17 + 9) = v75;
+      v73 = 0;
+      v72 = 0uLL;
+      *(v17 + 11) = v20;
+      *(v17 + 52) = v77;
+      v17[14] = v78;
+      v21 = v17[15];
+      if (v21)
+      {
+        v17[16] = v21;
+        operator delete(v21);
+        v17[15] = 0;
+        v17[16] = 0;
+        v17[17] = 0;
+        v21 = v72.i64[0];
+      }
+
+      *(v17 + 15) = v79;
+      v17[17] = v80;
+      v80 = 0;
+      v79 = 0uLL;
+      v17[18] = v81;
+      if (v21)
+      {
+        v72.i64[1] = v21;
+        operator delete(v21);
+      }
+    }
+
+    v22 = i[5];
+    v23 = i[6];
+    for (k = v32; v22 != v23; v22 += 8)
+    {
+      v25 = *(*v22 + 8);
+      v24 = *(*v22 + 16);
+      if (v25 >= v24)
+      {
+        v26 = *(*v22 + 16);
+      }
+
+      else
+      {
+        v26 = *(*v22 + 8);
+      }
+
+      if (v24 < v25)
+      {
+        v24 = *(*v22 + 8);
+      }
+
+      HKIntervalMask<double>::_insertInterval(v44, v26, v24);
+    }
+
+    HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::operator=(&v35.n128_i64[1], &v38);
+    HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::~HDStatisticsBucket(&v38);
+    v3 = v33;
+  }
+
+  v27 = v66;
+  for (m = v67; v27 != m; v27 += 8)
+  {
+    v29 = *(*v27 + 8);
+    v30 = *(*v27 + 16);
+    v38 = vextq_s8(*(*v27 + 24), *(*v27 + 24), 8uLL);
+    v39 = v29;
+    v40 = v30;
+    LOWORD(v41) = 1;
+    std::vector<HDRawQuantitySample>::push_back[abi:ne200100](v36, v38.i8);
+  }
+
+  statistics::StatisticsEngine::~StatisticsEngine(&v63);
+
+  HDStatisticsCollectionEngine<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::operator=((k + 112), &v35);
+  if (v36[0])
+  {
+    v36[1] = v36[0];
+    operator delete(v36[0]);
+  }
+
+  HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::~HDStatisticsBucket(&v35.n128_i64[1]);
+}
+
+void sub_228F75DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, void *a4, uint64_t a5, void *a6, uint64_t a7, uint64_t a8, uint64_t a9, void *a10, uint64_t a11, void *a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
+  std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::~__hash_table(v13 + 400);
+  std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::~__hash_table(a9);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v13 + 320);
+  v15 = STACK[0x338];
+  if (STACK[0x338])
+  {
+    STACK[0x340] = v15;
+    operator delete(v15);
+  }
+
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v13 + 256);
+  std::__tree<std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>>::destroy(STACK[0x300]);
+  HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>::~HDStatisticsCombined(v13 + 120);
+  v16 = STACK[0x270];
+  if (STACK[0x270])
+  {
+    STACK[0x278] = v16;
+    operator delete(v16);
+  }
+
+  objc_destroyWeak((v13 + 88));
+  v17 = STACK[0x250];
+  if (STACK[0x250])
+  {
+    STACK[0x258] = v17;
+    operator delete(v17);
+  }
+
+  statistics::StatisticsEngine::~StatisticsEngine(&STACK[0x3D0]);
+  HDStatisticsCollectionEngine<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::~HDStatisticsCollectionEngine(va);
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::HDStatisticsBucket(uint64_t a1, void *a2, double a3, double a4)
+{
+  *a1 = a3;
+  *(a1 + 8) = a4;
+  *(a1 + 16) = 0;
+  *(a1 + 24) = 256;
+  *(a1 + 28) = 1;
+  *(a1 + 40) = 0;
+  *(a1 + 48) = 0;
+  *(a1 + 32) = 0;
+  *(a1 + 56) = a3;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = 0;
+  *(a1 + 64) = 0;
+  objc_initWeak((a1 + 88), a2);
+  *(a1 + 192) = 0u;
+  *(a1 + 208) = 0u;
+  *(a1 + 248) = 0;
+  *(a1 + 240) = 0;
+  *(a1 + 96) = 0u;
+  *(a1 + 112) = 0u;
+  *(a1 + 128) = 0u;
+  *(a1 + 144) = 0u;
+  *(a1 + 160) = 0u;
+  *(a1 + 170) = 0u;
+  *(a1 + 224) = 0;
+  *(a1 + 232) = a1 + 240;
+  *(a1 + 256) = 0u;
+  *(a1 + 272) = 0u;
+  *(a1 + 288) = 1065353216;
+  *(a1 + 344) = 0;
+  *(a1 + 312) = 0u;
+  *(a1 + 328) = 0u;
+  *(a1 + 296) = 0u;
+  *(a1 + 352) = 1065353216;
+  *(a1 + 360) = 0u;
+  *(a1 + 376) = 0u;
+  *(a1 + 392) = 1065353216;
+  *(a1 + 400) = 0u;
+  *(a1 + 416) = 0u;
+  *(a1 + 432) = 1065353216;
+  return a1;
+}
+
+uint64_t HDStatisticsCollectionEngine<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::~HDStatisticsCollectionEngine(uint64_t a1)
+{
+  v2 = *(a1 + 448);
+  if (v2)
+  {
+    *(a1 + 456) = v2;
+    operator delete(v2);
+  }
+
+  HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::~HDStatisticsBucket(a1 + 8);
+  return a1;
+}
+
+uint64_t HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::~HDStatisticsBucket(uint64_t a1)
+{
+  std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::~__hash_table(a1 + 400);
+  std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::~__hash_table(a1 + 360);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(a1 + 320);
+  v2 = *(a1 + 296);
+  if (v2)
+  {
+    *(a1 + 304) = v2;
+    operator delete(v2);
+  }
+
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(a1 + 256);
+  std::__tree<std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>>::destroy(*(a1 + 240));
+  v3 = *(a1 + 200);
+  if (v3)
+  {
+    *(a1 + 208) = v3;
+    operator delete(v3);
+  }
+
+  v4 = *(a1 + 120);
+  if (v4)
+  {
+    *(a1 + 128) = v4;
+    operator delete(v4);
+  }
+
+  v5 = *(a1 + 96);
+  if (v5)
+  {
+    *(a1 + 104) = v5;
+    operator delete(v5);
+  }
+
+  objc_destroyWeak((a1 + 88));
+  v6 = *(a1 + 64);
+  if (v6)
+  {
+    *(a1 + 72) = v6;
+    operator delete(v6);
+  }
+
+  return a1;
+}
+
+void std::__tree<std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>>::destroy(void *a1)
+{
+  if (a1)
+  {
+    std::__tree<std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>>::destroy(*a1);
+    std::__tree<std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>>::destroy(a1[1]);
+    std::__destroy_at[abi:ne200100]<std::pair<long long const,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,0>(a1 + 4);
+
+    operator delete(a1);
+  }
+}
+
+void std::__destroy_at[abi:ne200100]<std::pair<long long const,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,0>(void *a1)
+{
+  v2 = a1[11];
+  if (v2)
+  {
+    a1[12] = v2;
+    operator delete(v2);
+  }
+
+  v3 = a1[1];
+  if (v3)
+  {
+    a1[2] = v3;
+
+    operator delete(v3);
+  }
+}
+
+uint64_t _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_configureForStartTime(uint64_t a1)
+{
+  v27 = 0;
+  v2 = *(a1 + 40);
+  if (v2)
+  {
+    v3 = [MEMORY[0x277CBEAA8] dateWithTimeIntervalSinceReferenceDate:?];
+    v4 = [v2 dateIntervalContainingDate:v3 index:&v27];
+
+    v5 = [v4 startDate];
+    [v5 timeIntervalSinceReferenceDate];
+    v7 = v6;
+
+    v8 = [v4 endDate];
+    [v8 timeIntervalSinceReferenceDate];
+LABEL_5:
+    v13 = v9;
+
+    goto LABEL_6;
+  }
+
+  v10 = *(a1 + 64);
+  v4 = v10;
+  if (v10)
+  {
+    v11 = [v10 startDate];
+    [v11 timeIntervalSinceReferenceDate];
+    v7 = v12;
+
+    v8 = [v4 endDate];
+    [v8 timeIntervalSinceReferenceDate];
+    goto LABEL_5;
+  }
+
+  v7 = -1.79769313e308;
+  v13 = 1.79769313e308;
+LABEL_6:
+
+  WeakRetained = objc_loadWeakRetained((a1 + 48));
+  HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::HDStatisticsBucket(v21, WeakRetained, v7, v13);
+
+  if (*(a1 + 32) == 1)
+  {
+    v23 = 1;
+  }
+
+  v22 = *(a1 + 56);
+  v24 = *(a1 + 24) & 1;
+  if (v26 != (a1 + 72))
+  {
+    std::vector<HKRawInterval<double>>::__assign_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>(v26, *(a1 + 72), *(a1 + 80), (*(a1 + 80) - *(a1 + 72)) >> 4);
+  }
+
+  HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::setStatisticsConfiguration(v21, *(a1 + 608));
+  if (!*(a1 + 40))
+  {
+    v25 = 0;
+  }
+
+  v15 = v27;
+  HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::HDStatisticsBucket(v17, v21);
+  v18.n128_u64[0] = v15;
+  HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::HDStatisticsBucket(&v18.n128_i64[1], v17);
+  __p = 0u;
+  v20 = 0u;
+  HDStatisticsCollectionEngine<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::operator=((a1 + 112), &v18);
+
+  if (__p)
+  {
+    *(&__p + 1) = __p;
+    operator delete(__p);
+  }
+
+  HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::~HDStatisticsBucket(&v18.n128_i64[1]);
+  HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::~HDStatisticsBucket(v17);
+  *(a1 + 592) = 0;
+  return HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::~HDStatisticsBucket(v21);
+}
+
+void HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::setStatisticsConfiguration(uint64_t a1, void *a2)
+{
+  objc_storeStrong((a1 + 32), a2);
+  v4 = a2;
+  HDStatisticsPercentiles::configure((a1 + 120), v4);
+}
+
+void *HDStatisticsCollectionEngine<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::operator=(void *a1, __n128 *a2)
+{
+  *a1 = a2->n128_u64[0];
+  HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::operator=((a1 + 1), &a2->n128_i64[1]);
+  std::vector<HKRawInterval<double>>::__move_assign((a1 + 56), a2 + 28);
+  v4 = a2[29].n128_u64[1];
+  a2[29].n128_u64[1] = 0;
+  v5 = a1[59];
+  a1[59] = v4;
+
+  return a1;
+}
+
+uint64_t HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::HDStatisticsBucket(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 16);
+  *a1 = *a2;
+  *(a1 + 16) = v4;
+  *(a1 + 32) = *(a2 + 32);
+  v5 = *(a2 + 56);
+  v6 = *(a2 + 40);
+  *(a1 + 64) = 0;
+  *(a1 + 40) = v6;
+  *(a1 + 56) = v5;
+  *(a1 + 72) = 0;
+  *(a1 + 80) = 0;
+  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>((a1 + 64), *(a2 + 64), *(a2 + 72), (*(a2 + 72) - *(a2 + 64)) >> 4);
+  objc_copyWeak((a1 + 88), (a2 + 88));
+  *(a1 + 96) = 0;
+  *(a1 + 104) = 0;
+  *(a1 + 112) = 0;
+  v8 = *(a2 + 96);
+  v7 = *(a2 + 104);
+  if (v7 != v8)
+  {
+    v9 = 0xAAAAAAAAAAAAAAABLL * ((v7 - v8) >> 4);
+    if (v9 < 0x555555555555556)
+    {
+      std::__allocate_at_least[abi:ne200100]<std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>(v9);
+    }
+
+    std::vector<std::unique_ptr<statistics::Interval>>::__throw_length_error[abi:ne200100]();
+  }
+
+  *(a1 + 120) = 0;
+  *(a1 + 128) = 0;
+  *(a1 + 136) = 0;
+  std::vector<double>::__init_with_size[abi:ne200100]<double *,double *>((a1 + 120), *(a2 + 120), *(a2 + 128), (*(a2 + 128) - *(a2 + 120)) >> 3);
+  v10 = *(a2 + 144);
+  v11 = *(a2 + 160);
+  *(a1 + 170) = *(a2 + 170);
+  *(a1 + 144) = v10;
+  *(a1 + 160) = v11;
+  v12 = *(a2 + 192);
+  *(a1 + 200) = 0;
+  *(a1 + 192) = v12;
+  *(a1 + 208) = 0;
+  *(a1 + 216) = 0;
+  std::vector<HKRawInterval<double>>::__init_with_size[abi:ne200100]<HKRawInterval<double>*,HKRawInterval<double>*>((a1 + 200), *(a2 + 200), *(a2 + 208), (*(a2 + 208) - *(a2 + 200)) >> 4);
+  v13 = *(a2 + 224);
+  *(a1 + 240) = 0;
+  v14 = (a1 + 240);
+  *(a1 + 224) = v13;
+  *(a1 + 248) = 0;
+  *(a1 + 232) = a1 + 240;
+  v15 = *(a2 + 232);
+  if (v15 != (a2 + 240))
+  {
+    do
+    {
+      v16 = *v14;
+      v17 = (a1 + 240);
+      if (*(a1 + 232) == v14)
+      {
+        goto LABEL_11;
+      }
+
+      v18 = *v14;
+      v19 = (a1 + 240);
+      if (v16)
+      {
+        do
+        {
+          v17 = v18;
+          v18 = v18[1];
+        }
+
+        while (v18);
+      }
+
+      else
+      {
+        do
+        {
+          v17 = v19[2];
+          v20 = *v17 == v19;
+          v19 = v17;
+        }
+
+        while (v20);
+      }
+
+      v21 = v15[4];
+      if (v17[4] < v21)
+      {
+LABEL_11:
+        if (v16)
+        {
+          v22 = v17 + 1;
+        }
+
+        else
+        {
+          v22 = (a1 + 240);
+        }
+
+        if (!*v22)
+        {
+LABEL_22:
+          operator new();
+        }
+      }
+
+      else
+      {
+        if (!v16)
+        {
+          goto LABEL_22;
+        }
+
+        while (1)
+        {
+          while (1)
+          {
+            v23 = v16;
+            v24 = v16[4];
+            if (v24 <= v21)
+            {
+              break;
+            }
+
+            v16 = *v23;
+            if (!*v23)
+            {
+              goto LABEL_22;
+            }
+          }
+
+          if (v24 >= v21)
+          {
+            break;
+          }
+
+          v16 = v23[1];
+          if (!v16)
+          {
+            goto LABEL_22;
+          }
+        }
+      }
+
+      v25 = v15[1];
+      if (v25)
+      {
+        do
+        {
+          v26 = v25;
+          v25 = *v25;
+        }
+
+        while (v25);
+      }
+
+      else
+      {
+        do
+        {
+          v26 = v15[2];
+          v20 = *v26 == v15;
+          v15 = v26;
+        }
+
+        while (!v20);
+      }
+
+      v15 = v26;
+    }
+
+    while (v26 != (a2 + 240));
+  }
+
+  std::unordered_set<long long>::unordered_set(a1 + 256, a2 + 256);
+  *(a1 + 296) = 0;
+  *(a1 + 304) = 0;
+  *(a1 + 312) = 0;
+  std::vector<long long>::__init_with_size[abi:ne200100]<long long *,long long *>((a1 + 296), *(a2 + 296), *(a2 + 304), (*(a2 + 304) - *(a2 + 296)) >> 3);
+  std::unordered_map<long long,long long>::unordered_map(a1 + 320, a2 + 320);
+  std::unordered_map<NSString * {__strong},long long,HDStringHash,HDStringEqual,std::allocator<std::pair<NSString * const {__strong},long long>>>::unordered_map(a1 + 360, a2 + 360);
+  std::unordered_map<long long,NSString * {__strong}>::unordered_map(a1 + 400, a2 + 400);
+  return a1;
+}
+
+void sub_228F7684C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, void **a10, void **a11)
+{
+  std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::~__hash_table(v12 + 360);
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v12 + 320);
+  v14 = *(v12 + 296);
+  if (v14)
+  {
+    *(v12 + 304) = v14;
+    operator delete(v14);
+  }
+
+  std::__hash_table<unsigned long long,std::hash<unsigned long long>,std::equal_to<unsigned long long>,std::allocator<unsigned long long>>::~__hash_table(v12 + 256);
+  std::__tree<std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>>::destroy(*v11);
+  HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>::~HDStatisticsCombined(a9);
+  v15 = *a10;
+  if (*a10)
+  {
+    *(v12 + 104) = v15;
+    operator delete(v15);
+  }
+
+  objc_destroyWeak((v12 + 88));
+  v16 = *a11;
+  if (*a11)
+  {
+    *(v12 + 72) = v16;
+    operator delete(v16);
+  }
+
+  _Unwind_Resume(a1);
+}
+
+uint64_t std::unique_ptr<std::__tree_node<std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,void *>,std::__tree_node_destructor<std::allocator<std::__tree_node<std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,void *>>>>::~unique_ptr[abi:ne200100](uint64_t a1)
+{
+  v2 = *a1;
+  *a1 = 0;
+  if (v2)
+  {
+    if (*(a1 + 16) == 1)
+    {
+      std::__destroy_at[abi:ne200100]<std::pair<long long const,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,0>(v2 + 4);
+    }
+
+    operator delete(v2);
+  }
+
+  return a1;
+}
+
+uint64_t HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::operator=(uint64_t a1, uint64_t a2)
+{
+  v4 = *(a2 + 16);
+  *a1 = *a2;
+  *(a1 + 16) = v4;
+  v5 = *(a2 + 32);
+  *(a2 + 32) = 0;
+  v6 = *(a1 + 32);
+  *(a1 + 32) = v5;
+
+  v7 = *(a2 + 40);
+  *(a1 + 56) = *(a2 + 56);
+  *(a1 + 40) = v7;
+  std::vector<HKRawInterval<double>>::__move_assign(a1 + 64, (a2 + 64));
+  WeakRetained = objc_loadWeakRetained((a2 + 88));
+  objc_storeWeak((a1 + 88), WeakRetained);
+
+  v9 = *(a1 + 96);
+  if (v9)
+  {
+    *(a1 + 104) = v9;
+    operator delete(v9);
+    *(a1 + 96) = 0;
+    *(a1 + 104) = 0;
+    *(a1 + 112) = 0;
+  }
+
+  *(a1 + 96) = *(a2 + 96);
+  *(a1 + 112) = *(a2 + 112);
+  *(a2 + 96) = 0;
+  *(a2 + 104) = 0;
+  *(a2 + 112) = 0;
+  std::vector<HKRawInterval<double>>::__move_assign(a1 + 120, (a2 + 120));
+  *(a1 + 144) = *(a2 + 144);
+  v10 = *(a2 + 152);
+  v11 = *(a2 + 168);
+  *(a1 + 184) = *(a2 + 184);
+  *(a1 + 168) = v11;
+  *(a1 + 152) = v10;
+  *(a1 + 192) = *(a2 + 192);
+  std::vector<HKRawInterval<double>>::__move_assign(a1 + 200, (a2 + 200));
+  v13 = a1 + 240;
+  v12 = *(a1 + 240);
+  *(a1 + 224) = *(a2 + 224);
+  std::__tree<std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,std::__map_value_compare<long long,std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>,std::less<long long>,true>,std::allocator<std::__value_type<long long,HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>>>::destroy(v12);
+  *(a1 + 232) = *(a2 + 232);
+  v15 = *(a2 + 240);
+  v16 = *(a2 + 248);
+  v14 = (a2 + 240);
+  *(a1 + 240) = v15;
+  *(a1 + 248) = v16;
+  if (v16)
+  {
+    *(v15 + 16) = v13;
+    *(a2 + 232) = v14;
+    *v14 = 0;
+    *(a2 + 248) = 0;
+  }
+
+  else
+  {
+    *(a1 + 232) = v13;
+  }
+
+  std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__move_assign(a1 + 256, (a2 + 256));
+  std::vector<HKRawInterval<double>>::__move_assign(a1 + 296, (a2 + 296));
+  std::__hash_table<long long,std::hash<long long>,std::equal_to<long long>,std::allocator<long long>>::__move_assign(a1 + 320, (a2 + 320));
+  std::__hash_table<std::__hash_value_type<NSString * {__strong},long long>,std::__unordered_map_hasher<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringHash,HDStringEqual,true>,std::__unordered_map_equal<NSString * {__strong},std::__hash_value_type<NSString * {__strong},long long>,HDStringEqual,HDStringHash,true>,std::allocator<std::__hash_value_type<NSString * {__strong},long long>>>::__move_assign(a1 + 360, (a2 + 360));
+  std::__hash_table<std::__hash_value_type<long long,NSString * {__strong}>,std::__unordered_map_hasher<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::hash<long long>,std::equal_to<long long>,true>,std::__unordered_map_equal<long long,std::__hash_value_type<long long,NSString * {__strong}>,std::equal_to<long long>,std::hash<long long>,true>,std::allocator<std::__hash_value_type<long long,NSString * {__strong}>>>::__move_assign(a1 + 400, (a2 + 400));
+  return a1;
+}
+
+void _HDConcreteStatisticsCollectionCalculatorImplementation<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_statisticsFromFinishedBucket(uint64_t a1, uint64_t a2)
+{
+  v25 = *MEMORY[0x277D85DE8];
+  v4 = *a2;
+  v5 = objc_alloc(MEMORY[0x277CBEAA8]);
+  v6 = 40;
+  if (v4 != -1.79769313e308)
+  {
+    v6 = 0;
+  }
+
+  v7 = [v5 initWithTimeIntervalSinceReferenceDate:*(a2 + v6)];
+  if (*(a2 + 8) == 1.79769313e308)
+  {
+    v8 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:*(a2 + 48)];
+  }
+
+  else
+  {
+    v8 = [objc_alloc(MEMORY[0x277CBEAA8]) initWithTimeIntervalSinceReferenceDate:*(a2 + 8)];
+  }
+
+  v9 = v8;
+  v10 = *(a1 + 16);
+  objc_opt_class();
+  if (objc_opt_isKindOfClass())
+  {
+    v11 = *(a1 + 16);
+    if ([v11 shouldUseUnderlyingTypeForStatistics])
+    {
+      v12 = [v11 underlyingSampleType];
+
+      v10 = v12;
+    }
+  }
+
+  v13 = [objc_alloc(MEMORY[0x277CCDA50]) initWithDataType:v10 startDate:v7 endDate:v9];
+  if (*(a1 + 24))
+  {
+    WeakRetained = objc_loadWeakRetained((a1 + 48));
+
+    if (WeakRetained)
+    {
+      v15 = objc_alloc_init(MEMORY[0x277CBEB18]);
+      v16 = *(a2 + 296);
+      v17 = *(a2 + 304);
+      while (v16 != v17)
+      {
+        v18 = *v16;
+        v19 = objc_loadWeakRetained((a1 + 48));
+        v20 = [v19 sourceForSourceID:v18];
+
+        if (v20)
+        {
+          if (([v15 containsObject:v20] & 1) == 0)
+          {
+            [v15 addObject:v20];
+          }
+        }
+
+        ++v16;
+      }
+
+      v21 = objc_msgSend_copy(v15);
+      [v13 _setSources:v21];
+    }
+  }
+
+  v22[0] = &unk_283BF05B8;
+  v22[3] = v22;
+  v13;
+  std::__function::__value_func<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval> const& ()(HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval> const&)>::__value_func[abi:ne200100](v23, v22);
+  v24 = 0;
+  operator new();
+}
+
+void sub_228F7753C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, void *a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, uint64_t a31, uint64_t a32, uint64_t a33, uint64_t a34, uint64_t a35, ...)
+{
+  va_start(va, a35);
+
+  v39 = *(v37 - 200);
+  if (v39)
+  {
+    *(v37 - 192) = v39;
+    operator delete(v39);
+  }
+
+  std::__function::__value_func<HDStatisticsPercentiles const& ()(HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval> const&)>::~__value_func[abi:ne200100](va);
+  std::__function::__value_func<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval> const& ()(HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval> const&)>::~__value_func[abi:ne200100](&a32);
+
+  std::__function::__value_func<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval> const& ()(HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval> const&)>::~__value_func[abi:ne200100](&a28);
+  _Unwind_Resume(a1);
+}
+
+void HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_updateSourceOrder(uint64_t a1)
+{
+  v1 = *(a1 + 280);
+  v2 = *(a1 + 296);
+  if (v1 != (*(a1 + 304) - v2) >> 3)
+  {
+    *(a1 + 304) = v2;
+    std::vector<long long>::reserve((a1 + 296), v1);
+    for (i = *(a1 + 272); i; i = *i)
+    {
+      v7 = i[2];
+      std::vector<long long>::push_back[abi:ne200100](a1 + 296, &v7);
+    }
+
+    WeakRetained = objc_loadWeakRetained((a1 + 88));
+
+    if (WeakRetained)
+    {
+      v6 = objc_loadWeakRetained((a1 + 88));
+      [v6 orderSourceIDs:a1 + 296];
+    }
+  }
+}
+
+void HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_mergeThroughTime(uint64_t a1, double a2)
+{
+  v4 = *(a1 + 16);
+  if (v4 > 0.0 && *(a1 + 8) > a2)
+  {
+    a2 = v4 * floor(a2 / v4);
+  }
+
+  v5 = *(a1 + 56);
+  if (v5 < a2)
+  {
+    v72 = (a1 + 240);
+    while (1)
+    {
+      v6 = *(a1 + 96);
+      v7 = *(a1 + 104);
+      v8 = 0xAAAAAAAAAAAAAAABLL * ((v7 - v6) >> 4);
+      if (v8 == 1)
+      {
+        break;
+      }
+
+      if (!v8)
+      {
+        goto LABEL_88;
+      }
+
+      v9 = a2;
+      v10 = a2;
+      v11 = v5;
+      v12 = *(a1 + 96);
+      if (v6 != v7)
+      {
+        do
+        {
+          v13 = v12->n128_f64[1];
+          v14 = v12[1].n128_f64[0];
+          if (v13 > v11 && v13 < v10)
+          {
+            v10 = v12->n128_f64[1];
+          }
+
+          if (v14 > v5)
+          {
+            v16 = v12[1].n128_f64[0];
+          }
+
+          else
+          {
+            v16 = v9;
+          }
+
+          if (v14 < v9)
+          {
+            v11 = v5;
+            v9 = v16;
+          }
+
+          v12 += 3;
+        }
+
+        while (v12 != v7);
+      }
+
+      if (v9 >= v10)
+      {
+        v17 = v10;
+      }
+
+      else
+      {
+        v17 = v9;
+      }
+
+      v18 = *(a1 + 16);
+      if (v18 > 0.0)
+      {
+        v19 = v18 * floor(v17 / v18);
+        v20 = v18 * floor((v18 + v5) / v18);
+        if (v19 >= v20)
+        {
+          v17 = v19;
+        }
+
+        else
+        {
+          v17 = v20;
+        }
+      }
+
+      *(a1 + 96) = 0;
+      *(a1 + 104) = 0;
+      *(a1 + 112) = 0;
+      if (v6 != v7)
+      {
+        if (v8 < 0x555555555555556)
+        {
+          std::__allocate_at_least[abi:ne200100]<std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>(0xAAAAAAAAAAAAAAABLL * ((v7 - v6) >> 4));
+        }
+
+        std::vector<std::unique_ptr<statistics::Interval>>::__throw_length_error[abi:ne200100]();
+      }
+
+      HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_updateSourceOrder(a1);
+      WeakRetained = objc_loadWeakRetained((a1 + 88));
+
+      if (WeakRetained)
+      {
+        *&v75.var0 = a1;
+        v22 = 126 - 2 * __clz(v8);
+        if (v6 == v7)
+        {
+          v23 = 0;
+        }
+
+        else
+        {
+          v23 = v22;
+        }
+
+        std::__introsort<std::_ClassicAlgPolicy,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>::_mergeTowardTime(double)::{lambda(HDStatisticsBucket<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>::_SampleRemainder const&,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>::_SampleRemainder const&)#1} &,HDStatisticsBucket<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>::_SampleRemainder*,false>(v6, v7, &v75, v23, 1);
+      }
+
+      if (*(a1 + 25) == 1)
+      {
+        v73 = objc_alloc_init(MEMORY[0x277CBEB38]);
+      }
+
+      else
+      {
+        v73 = 0;
+      }
+
+      if (v6 != v7)
+      {
+        v48 = 0;
+        v49 = 0;
+        v50 = v6;
+        while (1)
+        {
+          v51 = *(v50 + 1);
+          *&v75.var0 = *v50;
+          *&v75.var2 = v51;
+          *&v75.var4 = v50[4];
+          if (v75.var4 && v75.var1 <= v17)
+          {
+            break;
+          }
+
+          std::vector<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder,std::allocator<HDStatisticsBucket<HDStatisticsRelative<HDStatisticsCombined<HDStatisticsDiscrete,HDStatisticsTimeInterval>>>::_SampleRemainder>>::push_back[abi:ne200100](a1 + 96, v50);
+LABEL_118:
+          v50 += 6;
+          if (v50 == v7)
+          {
+            goto LABEL_119;
+          }
+        }
+
+        var2 = v75.var2;
+        if (v75.var2 > v17)
+        {
+          var2 = v17;
+        }
+
+        v75.var2 = var2;
+        for (i = *(a1 + 64); i != *(a1 + 72) && v75.var1 >= *i; i += 2)
+        {
+          if (v75.var1 < i[1])
+          {
+            goto LABEL_118;
+          }
+        }
+
+        v54 = *(v50 + 42);
+        v55 = *(v50 + 41);
+        if (v49)
+        {
+          var3 = v75.var3;
+          if (v48 == v75.var3 || *(a1 + 24) == 1)
+          {
+            HDStatisticsPercentiles::addSample((a1 + 120), &v75);
+            HDStatisticsTimeInterval::addSample((a1 + 192), &v75, v54 ^ 1);
+          }
+        }
+
+        else
+        {
+          HDStatisticsPercentiles::addSample((a1 + 120), &v75);
+          HDStatisticsTimeInterval::addSample((a1 + 192), &v75, v54 ^ 1);
+          var3 = v75.var3;
+          v48 = v75.var3;
+        }
+
+        if (*(a1 + 25) == 1)
+        {
+          v57 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_bundleIdentifierForSourceID(a1, var3);
+          if (v57)
+          {
+            v58 = [v73 objectForKeyedSubscript:v57];
+            v59 = v58;
+            if (v58)
+            {
+              if ([v58 longLongValue] == var3 || *(a1 + 24) == 1)
+              {
+                v60 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_canonicalSourceIDForSourceID(a1, var3);
+                v61 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_statisticsForSource(a1, v60);
+                v62 = v55 ^ 1;
+                HDStatisticsPercentiles::addSample(v61, &v75);
+                goto LABEL_114;
+              }
+            }
+
+            else
+            {
+              v63 = [MEMORY[0x277CCABB0] numberWithLongLong:var3];
+              [v73 setObject:v63 forKeyedSubscript:v57];
+
+              v64 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_canonicalSourceIDForSourceID(a1, var3);
+              v61 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_statisticsForSource(a1, v64);
+              v62 = v55 ^ 1;
+              HDStatisticsPercentiles::addSample(v61, &v75);
+LABEL_114:
+              HDStatisticsTimeInterval::addSample(v61 + 9, &v75, v62);
+            }
+          }
+        }
+
+        v49 = 1;
+        goto LABEL_118;
+      }
+
+LABEL_119:
+      *(a1 + 224) = HKIntervalMask<double>::removeIntervalsBefore((a1 + 200), v17) + *(a1 + 224);
+      v65 = *(a1 + 232);
+      if (v65 != v72)
+      {
+        do
+        {
+          *(v65 + 18) = HKIntervalMask<double>::removeIntervalsBefore(v65 + 15, v17) + *(v65 + 18);
+          v66 = v65[1];
+          if (v66)
+          {
+            do
+            {
+              v67 = v66;
+              v66 = *v66;
+            }
+
+            while (v66);
+          }
+
+          else
+          {
+            do
+            {
+              v67 = v65[2];
+              v68 = *v67 == v65;
+              v65 = v67;
+            }
+
+            while (!v68);
+          }
+
+          v65 = v67;
+        }
+
+        while (v67 != v72);
+      }
+
+      *(a1 + 56) = v17;
+
+      if (v6)
+      {
+        operator delete(v6);
+      }
+
+LABEL_128:
+      v69 = *(a1 + 56);
+      if (v69 == v5)
+      {
+        v70 = [MEMORY[0x277CCA890] currentHandler];
+        v71 = [MEMORY[0x277CCACA8] stringWithUTF8String:{"void HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles, HDStatisticsTimeInterval>>::_mergeThroughTime(double) [Statistics = HDStatisticsCombined<HDStatisticsPercentiles, HDStatisticsTimeInterval>]"}];
+        [v70 handleFailureInFunction:v71 file:@"HDStatisticsBucket.hpp" lineNumber:234 description:@"Failed to make forward progress during statistics merge."];
+
+        v69 = *(a1 + 56);
+      }
+
+      v5 = v69;
+      if (v69 >= a2)
+      {
+        return;
+      }
+    }
+
+    v24 = *(v6 + 42);
+    v25 = *(v6 + 41);
+    v26 = *(v6 + 40);
+    v27 = v6[1];
+    v28 = v6[2];
+    v29 = *(v6 + 3);
+    v30 = *(v6 + 33);
+    if (v28 <= a2)
+    {
+      v31 = v6[2];
+    }
+
+    else
+    {
+      v31 = a2;
+    }
+
+    if (v27 < a2)
+    {
+      v32 = *(v6 + 32);
+    }
+
+    else
+    {
+      v32 = 0;
+    }
+
+    if (v27 < a2)
+    {
+      v33 = 0;
+    }
+
+    else
+    {
+      v33 = *(v6 + 33);
+    }
+
+    if (v27 < a2)
+    {
+      v34 = 0;
+    }
+
+    else
+    {
+      v31 = v6[2];
+      v34 = *(v6 + 3);
+    }
+
+    if (v27 < a2)
+    {
+      v35 = 0.0;
+    }
+
+    else
+    {
+      v35 = v6[2];
+    }
+
+    if (v27 < a2)
+    {
+      v36 = 0.0;
+    }
+
+    else
+    {
+      v36 = *v6;
+    }
+
+    if (v27 < a2)
+    {
+      v37 = 0.0;
+    }
+
+    else
+    {
+      v37 = v6[1];
+    }
+
+    if (v27 < a2)
+    {
+      v38 = 0;
+    }
+
+    else
+    {
+      v38 = *(v6 + 32);
+    }
+
+    if (v6[4])
+    {
+      v28 = v31;
+    }
+
+    else
+    {
+      v32 = *(v6 + 32);
+      v33 = 0;
+      v34 = 0;
+    }
+
+    if (v6[4])
+    {
+      v39 = v35;
+    }
+
+    else
+    {
+      v39 = 0.0;
+    }
+
+    if (v6[4])
+    {
+      v40 = v36;
+    }
+
+    else
+    {
+      v40 = 0.0;
+    }
+
+    if (v6[4])
+    {
+      v41 = v37;
+    }
+
+    else
+    {
+      v41 = 0.0;
+    }
+
+    if (v6[4])
+    {
+      v42 = v38;
+    }
+
+    else
+    {
+      v42 = 0;
+    }
+
+    v75.var0 = *v6;
+    v75.var1 = v27;
+    v75.var2 = v28;
+    v75.var3 = v29;
+    v75.var4 = v32;
+    v75.var5 = v30;
+    *(&v75.var5 + 1) = *(v6 + 34);
+    *(&v75.var5 + 5) = *(v6 + 19);
+    *&v76 = v40;
+    *(&v76 + 1) = v41;
+    *&v77 = v39;
+    *(&v77 + 1) = v34;
+    LOBYTE(v78) = v42;
+    HIBYTE(v78) = v33;
+    for (j = *(a1 + 64); j != *(a1 + 72) && v27 >= *j; j += 2)
+    {
+      if (v27 < j[1])
+      {
+        goto LABEL_85;
+      }
+    }
+
+    if (v32)
+    {
+      HDStatisticsPercentiles::addSample((a1 + 120), &v75);
+      HDStatisticsTimeInterval::addSample((a1 + 192), &v75, v24 ^ 1);
+      if (*(a1 + 25) == 1)
+      {
+        v44 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_canonicalSourceIDForSourceID(a1, v29);
+        v45 = HDStatisticsBucket<HDStatisticsCombined<HDStatisticsPercentiles,HDStatisticsTimeInterval>>::_statisticsForSource(a1, v44);
+        HDStatisticsPercentiles::addSample(v45, &v75);
+        HDStatisticsTimeInterval::addSample(v45 + 9, &v75, v25 ^ 1);
+      }
+
+      v26 = 1;
+      LOBYTE(v25) = 1;
+      LOBYTE(v24) = 1;
+    }
+
+LABEL_85:
+    if (v42)
+    {
+      LOWORD(v74) = v78;
+      v46 = v77;
+      v47 = *(a1 + 96);
+      *v47 = v76;
+      *(v47 + 16) = v46;
+      *(v47 + 32) = v74;
+      *(v47 + 40) = v26;
+      *(v47 + 41) = v25;
+      *(v47 + 42) = v24;
+    }
+
+    else
+    {
+      *(a1 + 104) = *(a1 + 96);
+    }
+
+LABEL_88:
+    *(a1 + 56) = a2;
+    goto LABEL_128;
+  }
 }

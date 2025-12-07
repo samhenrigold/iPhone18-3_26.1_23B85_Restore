@@ -1721,7 +1721,7 @@ LABEL_11:
         v37 = *(*(&v89 + 1) + 8 * i);
         mercatorCoordinate = [v37 mercatorCoordinate];
         v39 = contextCopy2->var3;
-        v96[0] = md::NavContext::worldPoint(*(v39 + 8), mercatorCoordinate, *(v39 + 52));
+        v96[0] = COERCE_VOID_(md::NavContext::worldPoint(*(v39 + 8), mercatorCoordinate, *(v39 + 52)));
         v96[1] = v40;
         v96[2] = v41;
         md::LabelLayoutContext::projectPointToPixel(v39, v96, &v93);
@@ -1815,7 +1815,7 @@ LABEL_11:
                 *(v67 + 3) = v56;
                 v70 = v98;
                 v69 = v99;
-                v71 = v98 + v67 - v99;
+                v71 = (v98 + v67 - v99);
                 if (v98 != v99)
                 {
                   v72 = v98;
@@ -1825,8 +1825,8 @@ LABEL_11:
                     v74 = *v72;
                     *v72 = 0;
                     *v73 = v74;
-                    v73[1] = v72[1];
-                    v72 += 2;
+                    v73[1] = *(v72 + 1);
+                    v72 += 4;
                     v73 += 2;
                   }
 
@@ -1897,7 +1897,7 @@ LABEL_11:
   v80 = v99;
   if (v98 != v99)
   {
-    v81 = v98 + 2;
+    v81 = v98 + 4;
     do
     {
       [v79 addObject:*(v81 - 2)];
@@ -1907,7 +1907,7 @@ LABEL_11:
       }
 
       v82 = v81 == v80;
-      v81 += 2;
+      v81 += 4;
     }
 
     while (!v82);

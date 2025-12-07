@@ -1,6 +1,7 @@
 @interface DSPlatterTableView
 + (id)bannerWithPresentingViewController:(id)controller;
 + (id)cellWithPresentingViewController:(id)controller;
+- (DSPlatterTableView)initWithController:(id)controller color:(id)color softCorner:(BOOL)corner;
 - (UIViewController)presentingViewController;
 - (id)_descriptionWithAlignment:(int64_t)alignment style:(id)style color:(id)color;
 - (id)_lockImage;
@@ -14,6 +15,32 @@
 @end
 
 @implementation DSPlatterTableView
+
+- (DSPlatterTableView)initWithController:(id)controller color:(id)color softCorner:(BOOL)corner
+{
+  cornerCopy = corner;
+  v17[1] = *MEMORY[0x277D85DE8];
+  controllerCopy = controller;
+  colorCopy = color;
+  v16.receiver = self;
+  v16.super_class = DSPlatterTableView;
+  v10 = [(DSPlatterTableView *)&v16 init];
+  if (v10)
+  {
+    v11 = os_log_create("com.apple.DigitalSeparation", "DSPlatterTableView");
+    v12 = DSLog_8;
+    DSLog_8 = v11;
+
+    [(DSPlatterTableView *)v10 setPresentingViewController:controllerCopy];
+    [(DSPlatterTableView *)v10 setTranslatesAutoresizingMaskIntoConstraints:0];
+    [(DSPlatterTableView *)v10 _pinBackgroundColor:colorCopy cornerRadius:cornerCopy];
+    v17[0] = objc_opt_class();
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
+    v14 = [(DSPlatterTableView *)v10 registerForTraitChanges:v13 withAction:sel__updateAppearanceForTraitCollectionChange];
+  }
+
+  return v10;
+}
 
 + (id)bannerWithPresentingViewController:(id)controller
 {
@@ -167,7 +194,7 @@
 {
   v3 = [MEMORY[0x277D755D0] configurationWithPointSize:34.0];
   v4 = MEMORY[0x277D755B8];
-  v5 = DSUIBundle();
+  v5 = DSUIBundle(v3);
   v6 = [v4 imageNamed:@"lock.and.ring.2" inBundle:v5 withConfiguration:v3];
 
   traitCollection = [(DSPlatterTableView *)self traitCollection];

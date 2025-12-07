@@ -18,13 +18,13 @@ void __figXPCConnection_HandleConnectionDemise_block_invoke(uint64_t a1)
   }
 
   DefaultLocalCenter = CMNotificationCenterGetDefaultLocalCenter();
-  CMNotificationCenterPostNotification(DefaultLocalCenter, @"xpcConnectionNotification_ServerDied", *(a1 + 40), 0);
+  CMNotificationCenterPostNotification(DefaultLocalCenter, @"xpcConnectionNotification_ServerDied", *(a1 + 40), 0, 0, v5, v6, v7, v9);
   CFRelease(*(a1 + 40));
-  v5 = *(a1 + 32);
-  if (v5)
+  v8 = *(a1 + 32);
+  if (v8)
   {
 
-    CFRelease(v5);
+    CFRelease(v8);
   }
 }
 

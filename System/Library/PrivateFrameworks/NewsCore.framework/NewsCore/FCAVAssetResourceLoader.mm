@@ -76,7 +76,7 @@
 
 - (BOOL)resourceLoader:(id)loader shouldWaitForLoadingOfRequestedResource:(id)resource
 {
-  v37 = *MEMORY[0x1E69E9840];
+  v36 = *MEMORY[0x1E69E9840];
   resourceCopy = resource;
   request = [resourceCopy request];
   v7 = [request URL];
@@ -88,14 +88,14 @@
 
   if (v11)
   {
-    v29 = MEMORY[0x1E69E9820];
-    v30 = 3221225472;
-    v31 = __82__FCAVAssetResourceLoader_resourceLoader_shouldWaitForLoadingOfRequestedResource___block_invoke;
-    v32 = &unk_1E7C450F8;
-    v33 = resourceCopy;
-    v34 = pathExtension;
-    v12 = _Block_copy(&v29);
-    v13 = [(FCAVAssetResourceLoader *)self assetManager:v29];
+    v28 = MEMORY[0x1E69E9820];
+    v29 = 3221225472;
+    v30 = __82__FCAVAssetResourceLoader_resourceLoader_shouldWaitForLoadingOfRequestedResource___block_invoke;
+    v31 = &unk_1E7C450F8;
+    v32 = resourceCopy;
+    v33 = pathExtension;
+    v12 = _Block_copy(&v28);
+    v13 = [(FCAVAssetResourceLoader *)self assetManager:v28];
     v14 = [request URL];
     v15 = [v13 assetHandleForURL:v14 lifetimeHint:0];
 
@@ -111,7 +111,7 @@
         v20 = [request URL];
         lastPathComponent = [v20 lastPathComponent];
         *buf = 138543362;
-        v36 = lastPathComponent;
+        v35 = lastPathComponent;
         _os_log_impl(&dword_1B63EF000, v19, OS_LOG_TYPE_DEFAULT, "returning master playlist %{public}@ from cache", buf, 0xCu);
       }
 
@@ -127,7 +127,7 @@
         v24 = [request URL];
         lastPathComponent2 = [v24 lastPathComponent];
         *buf = 138543362;
-        v36 = lastPathComponent2;
+        v35 = lastPathComponent2;
         _os_log_impl(&dword_1B63EF000, v23, OS_LOG_TYPE_DEFAULT, "fetching master playlist %{public}@ from network", buf, 0xCu);
       }
 
@@ -135,7 +135,6 @@
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v11;
 }
 

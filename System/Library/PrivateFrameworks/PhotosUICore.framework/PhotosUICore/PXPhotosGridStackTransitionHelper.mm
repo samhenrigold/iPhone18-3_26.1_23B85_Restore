@@ -114,7 +114,7 @@
     v13 = [referenceCopy assetReferenceForAssetReference:toEndpointCopy];
     v48 = 0u;
     v49 = 0u;
-    [toEndpointCopy indexPath];
+    objc_msgSend_indexPath(toEndpointCopy);
     if (v13 && v48 != *off_1E7721F68)
     {
       v42 = v13;

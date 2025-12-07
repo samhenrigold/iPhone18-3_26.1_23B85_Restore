@@ -17,7 +17,7 @@
 
 - (id)negotiatedParameters
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277CCAAB0];
   protocolParameters = [(HMDCameraStreamSession *)self protocolParameters];
   v5 = [v3 archivedDataWithRootObject:protocolParameters requiringSecureCoding:1 error:0];
@@ -39,27 +39,25 @@
 
   if (!v10)
   {
-    v13[0] = @"kSelectedStreamParameters";
-    v13[1] = @"kVideoTierParameters";
-    v14[0] = v5;
-    v14[1] = v8;
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:v13 count:2];
+    v12[0] = @"kSelectedStreamParameters";
+    v12[1] = @"kVideoTierParameters";
+    v13[0] = v5;
+    v13[1] = v8;
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:2];
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 
   return v9;
 }
 
 - (HMDCameraStreamSession)initWithSessionID:(id)d streamingTierType:(unint64_t)type remoteCapabilities:(id)capabilities streamPreference:(id)preference
 {
-  v47 = *MEMORY[0x277D85DE8];
+  v46 = *MEMORY[0x277D85DE8];
   dCopy = d;
   capabilitiesCopy = capabilities;
   preferenceCopy = preference;
-  v42.receiver = self;
-  v42.super_class = HMDCameraStreamSession;
-  v14 = [(HMDCameraStreamSession *)&v42 init];
+  v41.receiver = self;
+  v41.super_class = HMDCameraStreamSession;
+  v14 = [(HMDCameraStreamSession *)&v41 init];
   v15 = v14;
   if (v14)
   {
@@ -76,9 +74,9 @@
     v20 = [capabilitiesCopy hmf_dataForKey:@"kRemoteStreamCapabilities"];
     if (v20)
     {
-      v41 = 0;
-      v21 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v20 error:&v41];
-      v22 = v41;
+      v40 = 0;
+      v21 = [MEMORY[0x277CCAAC8] unarchivedObjectOfClass:objc_opt_class() fromData:v20 error:&v40];
+      v22 = v40;
       if (v21)
       {
         [(HMDStreamingCapabilities *)v15->_streamingCapabilities updateWithRemoteSettings:v21];
@@ -86,25 +84,25 @@
 
       else
       {
-        v40 = dCopy;
+        v39 = dCopy;
         v23 = objc_autoreleasePoolPush();
         v24 = v15;
         v25 = HMFGetOSLogHandle();
         if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
         {
           HMFGetLogIdentifier();
-          v26 = v39 = v23;
+          v26 = v38 = v23;
           *buf = 138543618;
-          v44 = v26;
-          v45 = 2112;
-          v46 = v22;
+          v43 = v26;
+          v44 = 2112;
+          v45 = v22;
           _os_log_impl(&dword_229538000, v25, OS_LOG_TYPE_ERROR, "%{public}@Failed to unarchive remote streaming capabilities from remote capabilities data: %@", buf, 0x16u);
 
-          v23 = v39;
+          v23 = v38;
         }
 
         objc_autoreleasePoolPop(v23);
-        dCopy = v40;
+        dCopy = v39;
       }
     }
 
@@ -133,16 +131,15 @@
       v35 = HMFGetLogIdentifier();
       v36 = v15->_streamingCapabilities;
       *buf = 138543618;
-      v44 = v35;
-      v45 = 2112;
-      v46 = v36;
+      v43 = v35;
+      v44 = 2112;
+      v45 = v36;
       _os_log_impl(&dword_229538000, v34, OS_LOG_TYPE_INFO, "%{public}@Initialized stream session with capabilities: %@", buf, 0x16u);
     }
 
     objc_autoreleasePoolPop(v32);
   }
 
-  v37 = *MEMORY[0x277D85DE8];
   return v15;
 }
 
@@ -160,10 +157,9 @@
 
 void __37__HMDCameraStreamSession_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v3_258437;
-  logCategory__hmf_once_v3_258437 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v3_258437;
+  logCategory__hmf_once_v3_258437 = v0;
 }
 
 @end

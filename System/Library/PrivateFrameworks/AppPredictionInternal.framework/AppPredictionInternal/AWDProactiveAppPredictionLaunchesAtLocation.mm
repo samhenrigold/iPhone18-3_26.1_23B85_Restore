@@ -3,6 +3,7 @@
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)launchReasonAsString:(int)string;
 - (int)StringAsLaunchReason:(id)reason;
 - (int)launchReason;
 - (unint64_t)hash;
@@ -137,6 +138,21 @@
   }
 
   *&self->_has = *&self->_has & 0xFFFB | v3;
+}
+
+- (id)launchReasonAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_2785A1D48[string];
+  }
+
+  return v4;
 }
 
 - (int)StringAsLaunchReason:(id)reason
@@ -367,7 +383,6 @@ LABEL_18:
   has = self->_has;
   if (has)
   {
-    timestamp = self->_timestamp;
     PBDataWriterWriteUint64Field();
     has = self->_has;
     if ((has & 2) == 0)
@@ -387,7 +402,6 @@ LABEL_3:
     goto LABEL_3;
   }
 
-  latitude = self->_latitude;
   PBDataWriterWriteFloatField();
   has = self->_has;
   if ((has & 0x10) == 0)
@@ -402,12 +416,10 @@ LABEL_4:
   }
 
 LABEL_23:
-  longitude = self->_longitude;
   PBDataWriterWriteFloatField();
   if ((*&self->_has & 0x20) != 0)
   {
 LABEL_5:
-    timeBucket = self->_timeBucket;
     PBDataWriterWriteUint32Field();
   }
 
@@ -417,17 +429,15 @@ LABEL_6:
     PBDataWriterWriteStringField();
   }
 
-  v6 = self->_has;
-  if ((v6 & 0x100) != 0)
+  v5 = self->_has;
+  if ((v5 & 0x100) != 0)
   {
-    isTourist = self->_isTourist;
     PBDataWriterWriteBOOLField();
-    v6 = self->_has;
+    v5 = self->_has;
   }
 
-  if ((v6 & 0x40) != 0)
+  if ((v5 & 0x40) != 0)
   {
-    isClip = self->_isClip;
     PBDataWriterWriteBOOLField();
   }
 
@@ -436,16 +446,15 @@ LABEL_6:
     PBDataWriterWriteStringField();
   }
 
-  v9 = self->_has;
-  if ((v9 & 8) != 0)
+  v6 = self->_has;
+  if ((v6 & 8) != 0)
   {
-    locationAccuracy = self->_locationAccuracy;
     PBDataWriterWriteUint32Field();
-    v9 = self->_has;
-    if ((v9 & 4) == 0)
+    v6 = self->_has;
+    if ((v6 & 4) == 0)
     {
 LABEL_16:
-      if ((v9 & 0x80) == 0)
+      if ((v6 & 0x80) == 0)
       {
         goto LABEL_18;
       }
@@ -454,17 +463,15 @@ LABEL_16:
     }
   }
 
-  else if ((v9 & 4) == 0)
+  else if ((v6 & 4) == 0)
   {
     goto LABEL_16;
   }
 
-  launchReason = self->_launchReason;
   PBDataWriterWriteInt32Field();
   if ((*&self->_has & 0x80) != 0)
   {
 LABEL_17:
-    isNegativeSession = self->_isNegativeSession;
     PBDataWriterWriteBOOLField();
   }
 
@@ -777,7 +784,6 @@ LABEL_13:
       goto LABEL_57;
     }
 
-    v11 = *(equalCopy + 58);
     if (self->_isTourist)
     {
       if ((*(equalCopy + 58) & 1) == 0)
@@ -804,7 +810,6 @@ LABEL_13:
       goto LABEL_57;
     }
 
-    v12 = *(equalCopy + 56);
     if (self->_isClip)
     {
       if ((*(equalCopy + 56) & 1) == 0)
@@ -879,19 +884,19 @@ LABEL_13:
         goto LABEL_57;
       }
 
-      v13 = 1;
+      v11 = 1;
       goto LABEL_58;
     }
 
 LABEL_57:
-    v13 = 0;
+    v11 = 0;
     goto LABEL_58;
   }
 
-  v13 = (v10 & 0x80) == 0;
+  v11 = (v10 & 0x80) == 0;
 LABEL_58:
 
-  return v13;
+  return v11;
 }
 
 - (unint64_t)hash

@@ -32,7 +32,7 @@
     [(UIView *)v4->_label setBackgroundColor:0];
     [(UILabel *)v4->_label setTextAlignment:1];
     -[UILabel setFont:](v4->_label, "setFont:", [off_1E70ECC18 boldSystemFontOfSize:16.0]);
-    [(UILabel *)v4->_label setTextColor:+[UIColor blackColor]];
+    [(UILabel *)v4->_label setTextColor:objc_msgSend_blackColor(UIColor)];
     [(UIView *)v4->_label setAlpha:0.4];
     layer = [(UIView *)v4->_label layer];
     -[CALayer setCompositingFilter:](layer, "setCompositingFilter:", [MEMORY[0x1E6979378] filterWithType:*MEMORY[0x1E6979CE8]]);

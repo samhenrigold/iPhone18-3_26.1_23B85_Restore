@@ -106,30 +106,30 @@
 
 - (BOOL)_showStopConditionAlert
 {
-  v16[4] = *MEMORY[0x277D85DE8];
-  v15[0] = *MEMORY[0x277CBF188];
+  v15[4] = *MEMORY[0x277D85DE8];
+  v14[0] = *MEMORY[0x277CBF188];
   configuration = [(DVTiOSDeviceGlobalStatusIndicator *)self configuration];
   title = [configuration title];
-  v16[0] = title;
-  v15[1] = *MEMORY[0x277CBF198];
+  v15[0] = title;
+  v14[1] = *MEMORY[0x277CBF198];
   configuration2 = [(DVTiOSDeviceGlobalStatusIndicator *)self configuration];
   informationText = [configuration2 informationText];
   v7 = *MEMORY[0x277CBF218];
-  v16[1] = informationText;
-  v16[2] = @"Continue Recording";
+  v15[1] = informationText;
+  v15[2] = @"Continue Recording";
   v8 = *MEMORY[0x277CBF1E8];
-  v15[2] = v7;
-  v15[3] = v8;
-  v16[3] = @"Stop Recording";
-  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:v15 count:4];
+  v14[2] = v7;
+  v14[3] = v8;
+  v15[3] = @"Stop Recording";
+  v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:v14 count:4];
 
   self->_userNotificationStopCondition = CFUserNotificationCreate(*MEMORY[0x277CBECE8], 0.0, 0, 0, v9);
   userNotificationStopCondition = [(DVTiOSDeviceGlobalStatusIndicator *)self userNotificationStopCondition];
   if (userNotificationStopCondition)
   {
-    v14 = 0;
-    CFUserNotificationReceiveResponse(self->_userNotificationStopCondition, 0.0, &v14);
-    if (!v14)
+    v13 = 0;
+    CFUserNotificationReceiveResponse(self->_userNotificationStopCondition, 0.0, &v13);
+    if (!v13)
     {
       stoppedByUserBlock = [(DVTiOSDeviceGlobalStatusIndicator *)self stoppedByUserBlock];
       stoppedByUserBlock[2]();
@@ -141,9 +141,7 @@
     self->_userNotificationStopCondition = 0;
   }
 
-  result = userNotificationStopCondition != 0;
-  v13 = *MEMORY[0x277D85DE8];
-  return result;
+  return userNotificationStopCondition != 0;
 }
 
 - (BOOL)statusBarCoordinator:(id)coordinator receivedTapWithContext:(id)context completionBlock:(id)block

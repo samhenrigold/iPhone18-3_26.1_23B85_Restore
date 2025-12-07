@@ -1,7 +1,7 @@
 @interface FCAVPersistentAssetKeyCache
 - (NSData)keyServerCertificate;
 - (id)assetKeyForURI:(id)i;
-- (uint64_t)_prepareForUse;
+- (void)_prepareForUse;
 - (void)clearKeyServerCertificate;
 - (void)importAVAssetKey:(id)key;
 - (void)initWithCacheDirectory:(void *)directory;
@@ -57,11 +57,11 @@
   return v8;
 }
 
-- (uint64_t)_prepareForUse
+- (void)_prepareForUse
 {
   if (result)
   {
-    v1 = *(result + 16);
+    v1 = result[2];
     v2[0] = MEMORY[0x1E69E9820];
     v2[1] = 3221225472;
     v2[2] = __45__FCAVPersistentAssetKeyCache__prepareForUse__block_invoke;
@@ -142,7 +142,7 @@
 
 - (void)saveKeyServerCertificate:(id)certificate
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   certificateCopy = certificate;
   [(FCAVPersistentAssetKeyCache *)self _prepareForUse];
   if (self)
@@ -155,23 +155,21 @@
     certificateFileURL = 0;
   }
 
-  v11 = 0;
+  v10 = 0;
   v6 = certificateFileURL;
-  v7 = [certificateCopy writeToURL:v6 options:0 error:&v11];
+  v7 = [certificateCopy writeToURL:v6 options:0 error:&v10];
 
-  v8 = v11;
+  v8 = v10;
   if ((v7 & 1) == 0)
   {
     v9 = FCAVAssetLog;
     if (os_log_type_enabled(FCAVAssetLog, OS_LOG_TYPE_ERROR))
     {
       *buf = 138543362;
-      v13 = v8;
+      v12 = v8;
       _os_log_error_impl(&dword_1B63EF000, v9, OS_LOG_TYPE_ERROR, "AV asset key cache failed to save certificate with error: %{public}@", buf, 0xCu);
     }
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)clearKeyServerCertificate
@@ -230,7 +228,7 @@
 
 void __45__FCAVPersistentAssetKeyCache__prepareForUse__block_invoke(uint64_t a1)
 {
-  v33 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   v1 = *(a1 + 32);
   if (!*(v1 + 24))
   {
@@ -249,26 +247,26 @@ void __45__FCAVPersistentAssetKeyCache__prepareForUse__block_invoke(uint64_t a1)
     v11 = *(v1 + 24);
     *(v1 + 24) = v10;
 
-    v28 = 0u;
-    v29 = 0u;
-    v26 = 0u;
     v27 = 0u;
+    v28 = 0u;
+    v25 = 0u;
+    v26 = 0u;
     v12 = [*(v1 + 24) allKeys];
-    v13 = [v12 countByEnumeratingWithState:&v26 objects:v32 count:16];
+    v13 = [v12 countByEnumeratingWithState:&v25 objects:v31 count:16];
     if (v13)
     {
       v14 = v13;
-      v15 = *v27;
+      v15 = *v26;
       do
       {
         for (i = 0; i != v14; ++i)
         {
-          if (*v27 != v15)
+          if (*v26 != v15)
           {
             objc_enumerationMutation(v12);
           }
 
-          v17 = *(*(&v26 + 1) + 8 * i);
+          v17 = *(*(&v25 + 1) + 8 * i);
           objc_opt_class();
           v18 = [*(v1 + 24) objectForKey:v17];
           if (v18)
@@ -297,7 +295,7 @@ void __45__FCAVPersistentAssetKeyCache__prepareForUse__block_invoke(uint64_t a1)
           }
         }
 
-        v14 = [v12 countByEnumeratingWithState:&v26 objects:v32 count:16];
+        v14 = [v12 countByEnumeratingWithState:&v25 objects:v31 count:16];
       }
 
       while (v14);
@@ -310,12 +308,10 @@ void __45__FCAVPersistentAssetKeyCache__prepareForUse__block_invoke(uint64_t a1)
       v23 = v21;
       v24 = [v22 allKeys];
       *buf = 138543362;
-      v31 = v24;
+      v30 = v24;
       _os_log_impl(&dword_1B63EF000, v23, OS_LOG_TYPE_DEFAULT, "AV asset key cache loaded with cached keys: %{public}@", buf, 0xCu);
     }
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 @end

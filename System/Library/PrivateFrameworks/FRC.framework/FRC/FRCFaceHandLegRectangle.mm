@@ -43,7 +43,7 @@
 
 + (id)handRectangleWithObservation:(id)observation
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   observationCopy = observation;
   v4 = objc_alloc_init(FRCFaceHandLegRectangle);
   v5 = v4;
@@ -51,19 +51,19 @@
   {
     [(FRCFaceHandLegRectangle *)v4 setCategory:1];
     v6 = *MEMORY[0x277CE3068];
-    v34 = 0;
-    v7 = [observationCopy recognizedPointsForGroupKey:v6 error:&v34];
-    v8 = v34;
+    v33 = 0;
+    v7 = [observationCopy recognizedPointsForGroupKey:v6 error:&v33];
+    v8 = v33;
+    v29 = 0u;
     v30 = 0u;
     v31 = 0u;
     v32 = 0u;
-    v33 = 0u;
     v9 = v7;
-    v10 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v31;
+      v12 = *v30;
       v13 = 1.79769313e308;
       v14 = 2.22507386e-308;
       v15 = 2.22507386e-308;
@@ -72,13 +72,13 @@
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v31 != v12)
+          if (*v30 != v12)
           {
             objc_enumerationMutation(v9);
           }
 
-          v18 = *(*(&v30 + 1) + 8 * i);
-          v19 = [v9 objectForKeyedSubscript:{v18, v30}];
+          v18 = *(*(&v29 + 1) + 8 * i);
+          v19 = [v9 objectForKeyedSubscript:{v18, v29}];
           [v19 confidence];
           v21 = v20;
 
@@ -96,7 +96,7 @@
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v30 objects:v35 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v29 objects:v34 count:16];
       }
 
       while (v11);
@@ -113,8 +113,6 @@
     [(FRCFaceHandLegRectangle *)v5 setBoundingBox:v16, v13, v15 - v16, v14 - v13];
     v27 = v5;
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

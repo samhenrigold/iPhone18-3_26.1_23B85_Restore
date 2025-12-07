@@ -433,7 +433,7 @@ LABEL_16:
   v23 = pureGeometry;
   if (pureGeometry)
   {
-    [pureGeometry fullTransform];
+    objc_msgSend_fullTransform(pureGeometry);
     v24 = v47;
     v25 = v48;
     v26 = v49;
@@ -669,7 +669,7 @@ LABEL_16:
 
         if (layout2)
         {
-          [layout2 pureTransformInRoot];
+          objc_msgSend_pureTransformInRoot(layout2);
         }
 
         else
@@ -837,7 +837,7 @@ LABEL_20:
   v12 = pureGeometry;
   if (pureGeometry)
   {
-    [pureGeometry fullTransform];
+    objc_msgSend_fullTransform(pureGeometry, v18, v19);
     v13 = v21;
     v14 = v22;
     v15 = v23;

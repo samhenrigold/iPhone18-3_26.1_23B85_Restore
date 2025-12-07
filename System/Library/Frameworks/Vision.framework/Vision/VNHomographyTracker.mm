@@ -74,7 +74,7 @@ uint64_t __121__VNHomographyTracker_processRegionOfInterest_croppedPixelBuffer_o
     goto LABEL_22;
   }
 
-  [v4 timingInfo];
+  objc_msgSend_timingInfo(v4);
   v30 = v26;
   v6 = v28;
   v31 = v27;

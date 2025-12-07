@@ -47,18 +47,18 @@
 
 - (void)layoutSubviews
 {
-  v3 = sub_100004CB8(&qword_100644A50);
-  __chkstk_darwin(v3 - 8);
-  v5 = &v10 - v4;
-  v6 = type metadata accessor for VerticalToggleSlider();
-  v10.receiver = self;
-  v10.super_class = v6;
+  sub_100004CB8(&qword_100644A50, &qword_100528DC0);
+  __chkstk_darwin();
+  v4 = &v9 - v3;
+  v5 = type metadata accessor for VerticalToggleSlider();
+  v9.receiver = self;
+  v9.super_class = v5;
   selfCopy = self;
-  [(VerticalToggleSlider *)&v10 layoutSubviews];
-  v8 = sub_1003E6470();
+  [(VerticalToggleSlider *)&v9 layoutSubviews];
+  v7 = sub_1003E6470();
   sub_1004DE52C();
-  v9 = sub_1004DE53C();
-  (*(*(v9 - 8) + 56))(v5, 0, 1, v9);
+  v8 = sub_1004DE53C();
+  (*(*(v8 - 8) + 56))(v4, 0, 1, v8);
   sub_1004DE54C();
 }
 

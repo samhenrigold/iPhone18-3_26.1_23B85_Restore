@@ -3,14 +3,27 @@
 - (id)getSecondBinauraldHearingAid:(id)aid;
 - (void)HAPReadActivePresetIndex:(id)index;
 - (void)HAPReadHearingAidFeatures:(id)features;
+- (void)HAPReadPresetsRequest:(id)request withStartIndex:(unsigned __int8)index withNumPresets:(unsigned __int8)presets;
+- (void)HAPSendReadPresetsRequest:(id)request withStartIndex:(unsigned __int8)index withNumPresets:(unsigned __int8)presets;
+- (void)HAPSendSetActivePreset:(id)preset withIndex:(unsigned __int8)index syncLocally:(BOOL)locally;
 - (void)HAPSendSetNextPreset:(id)preset syncLocally:(BOOL)locally;
 - (void)HAPSendSetPreviousPreset:(id)preset syncLocally:(BOOL)locally;
+- (void)HAPSendWritePresetName:(id)name withIndex:(unsigned __int8)index withName:(id)withName;
+- (void)HAPSetActivePreset:(id)preset withIndex:(unsigned __int8)index;
 - (void)HAPSetNextPreset:(id)preset;
 - (void)HAPSetPreviousPreset:(id)preset;
+- (void)HAPWritePresetName:(id)name withIndex:(unsigned __int8)index withName:(id)withName;
 - (void)addAcceptorToSet:(id)set;
 - (void)peripheralDisconnected:(id)disconnected;
+- (void)processActivePresetIndex:(unsigned __int8)index withIdentifier:(id)identifier;
 - (void)processHearingAidFeatures:(id)features;
 - (void)processPresetControlPointResult:(unsigned __int8)result withIdentifier:(id)identifier;
+- (void)processPresetNameChanged:(unsigned __int8)changed withIdentifier:(id)identifier;
+- (void)processPresetRecordAdded:(unsigned __int8)added withIdentifier:(id)identifier;
+- (void)processPresetRecordAvailable:(unsigned __int8)available withIdentifier:(id)identifier;
+- (void)processPresetRecordDeleted:(unsigned __int8)deleted withIdentifier:(id)identifier;
+- (void)processPresetRecordUnavailable:(unsigned __int8)unavailable withIdentifier:(id)identifier;
+- (void)processReadPresetsResponse:(unsigned __int8)response withIdentifier:(id)identifier;
 @end
 
 @implementation ClientHearingAccessProfile
@@ -177,7 +190,7 @@
       if (!os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
       {
 LABEL_9:
-        v14 = +[LEAudioXPCSession instance];
+        v14 = [LEAudioXPCSession instance:*v15];
         [v14 supportedFeaturesUpdated:v6];
 
         goto LABEL_10;
@@ -193,6 +206,380 @@ LABEL_9:
   }
 
 LABEL_10:
+}
+
+- (void)processActivePresetIndex:(unsigned __int8)index withIdentifier:(id)identifier
+{
+  indexCopy = index;
+  identifierCopy = identifier;
+  coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+  v14 = [coordinatedSet objectForKey:identifierCopy];
+
+  v8 = v14;
+  if (v14)
+  {
+    hasInterface = [v14 hasInterface];
+    presets = [hasInterface presets];
+    v11 = [NSNumber numberWithInt:indexCopy];
+    v12 = [presets objectForKey:v11];
+
+    if (v12)
+    {
+      [v12 printHASPresetRecord];
+      v13 = +[LEAudioXPCSession instance];
+      [v13 activePresetUpdated:v14 withIndex:indexCopy];
+    }
+
+    v8 = v14;
+  }
+}
+
+- (void)processReadPresetsResponse:(unsigned __int8)response withIdentifier:(id)identifier
+{
+  responseCopy = response;
+  identifierCopy = identifier;
+  coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+  v8 = [coordinatedSet objectForKey:identifierCopy];
+
+  if (v8)
+  {
+    hasInterface = [v8 hasInterface];
+    presets = [hasInterface presets];
+    v11 = [NSNumber numberWithInt:responseCopy];
+    v12 = [presets objectForKey:v11];
+
+    if (v12)
+    {
+      [v12 printHASPresetRecord];
+      if ([v12 isLast])
+      {
+        v13 = qword_1000A9FE0;
+        if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_DEFAULT))
+        {
+          *v15 = 0;
+          _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Read all presets", v15, 2u);
+        }
+
+        v14 = +[LEAudioXPCSession instance];
+        [v14 presetsUpdated:v8];
+      }
+    }
+  }
+}
+
+- (void)processPresetNameChanged:(unsigned __int8)changed withIdentifier:(id)identifier
+{
+  changedCopy = changed;
+  identifierCopy = identifier;
+  coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+  v14 = [coordinatedSet objectForKey:identifierCopy];
+
+  v8 = v14;
+  if (v14)
+  {
+    hasInterface = [v14 hasInterface];
+    presets = [hasInterface presets];
+    v11 = [NSNumber numberWithInt:changedCopy];
+    v12 = [presets objectForKey:v11];
+
+    if (v12)
+    {
+      [v12 printHASPresetRecord];
+      v13 = +[LEAudioXPCSession instance];
+      [v13 presetNameUpdated:v14 withIndex:changedCopy];
+    }
+
+    v8 = v14;
+  }
+}
+
+- (void)processPresetRecordAdded:(unsigned __int8)added withIdentifier:(id)identifier
+{
+  addedCopy = added;
+  identifierCopy = identifier;
+  coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+  v14 = [coordinatedSet objectForKey:identifierCopy];
+
+  v8 = v14;
+  if (v14)
+  {
+    hasInterface = [v14 hasInterface];
+    presets = [hasInterface presets];
+    v11 = [NSNumber numberWithInt:addedCopy];
+    v12 = [presets objectForKey:v11];
+
+    if (v12)
+    {
+      [v12 printHASPresetRecord];
+      v13 = +[LEAudioXPCSession instance];
+      [v13 presetsUpdated:v14];
+    }
+
+    v8 = v14;
+  }
+}
+
+- (void)processPresetRecordDeleted:(unsigned __int8)deleted withIdentifier:(id)identifier
+{
+  deletedCopy = deleted;
+  identifierCopy = identifier;
+  coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+  v14 = [coordinatedSet objectForKey:identifierCopy];
+
+  v8 = v14;
+  if (v14)
+  {
+    hasInterface = [v14 hasInterface];
+    presets = [hasInterface presets];
+    v11 = [NSNumber numberWithInt:deletedCopy];
+    v12 = [presets objectForKey:v11];
+
+    if (v12)
+    {
+      [v12 printHASPresetRecord];
+      v13 = +[LEAudioXPCSession instance];
+      [v13 presetsUpdated:v14];
+    }
+
+    v8 = v14;
+  }
+}
+
+- (void)processPresetRecordAvailable:(unsigned __int8)available withIdentifier:(id)identifier
+{
+  availableCopy = available;
+  identifierCopy = identifier;
+  coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+  v13 = [coordinatedSet objectForKey:identifierCopy];
+
+  v8 = v13;
+  if (v13)
+  {
+    hasInterface = [v13 hasInterface];
+    presets = [hasInterface presets];
+    v11 = [NSNumber numberWithInt:availableCopy];
+    v12 = [presets objectForKey:v11];
+
+    if (v12)
+    {
+      [v12 printHASPresetRecord];
+    }
+
+    v8 = v13;
+  }
+}
+
+- (void)processPresetRecordUnavailable:(unsigned __int8)unavailable withIdentifier:(id)identifier
+{
+  unavailableCopy = unavailable;
+  identifierCopy = identifier;
+  coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+  v13 = [coordinatedSet objectForKey:identifierCopy];
+
+  v8 = v13;
+  if (v13)
+  {
+    hasInterface = [v13 hasInterface];
+    presets = [hasInterface presets];
+    v11 = [NSNumber numberWithInt:unavailableCopy];
+    v12 = [presets objectForKey:v11];
+
+    if (v12)
+    {
+      [v12 printHASPresetRecord];
+    }
+
+    v8 = v13;
+  }
+}
+
+- (void)HAPReadPresetsRequest:(id)request withStartIndex:(unsigned __int8)index withNumPresets:(unsigned __int8)presets
+{
+  presetsCopy = presets;
+  indexCopy = index;
+  requestCopy = request;
+  coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+  v11 = [coordinatedSet objectForKey:requestCopy];
+
+  if (v11)
+  {
+    hasInterface = [v11 hasInterface];
+
+    if (hasInterface)
+    {
+      [v11 sendReadPresetsRequest:indexCopy withNumPresets:presetsCopy];
+    }
+  }
+}
+
+- (void)HAPWritePresetName:(id)name withIndex:(unsigned __int8)index withName:(id)withName
+{
+  indexCopy = index;
+  nameCopy = name;
+  withNameCopy = withName;
+  coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+  v11 = [coordinatedSet objectForKey:nameCopy];
+
+  if (v11)
+  {
+    hasInterface = [v11 hasInterface];
+
+    if (hasInterface)
+    {
+      hasInterface2 = [v11 hasInterface];
+      binauralHearingAid = [hasInterface2 binauralHearingAid];
+
+      if (binauralHearingAid && ([v11 hasInterface], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v15, "independentPresets"), v15, (v16 & 1) == 0))
+      {
+        peripheral = [v11 peripheral];
+        identifier = [peripheral identifier];
+        v19 = [(ClientHearingAccessProfile *)self getSecondBinauraldHearingAid:identifier];
+
+        if (v19)
+        {
+          binauralHearingAidSet = [(ClientHearingAccessProfile *)self binauralHearingAidSet];
+          v21 = [(ClientCommonAudioProfile *)self getOrderedAccessSet:binauralHearingAidSet];
+
+          v30 = 0u;
+          v31 = 0u;
+          v28 = 0u;
+          v29 = 0u;
+          v22 = v21;
+          v23 = [v22 countByEnumeratingWithState:&v28 objects:v32 count:16];
+          if (v23)
+          {
+            v24 = v23;
+            v25 = *v29;
+            do
+            {
+              v26 = 0;
+              do
+              {
+                if (*v29 != v25)
+                {
+                  objc_enumerationMutation(v22);
+                }
+
+                [*(*(&v28 + 1) + 8 * v26) sendWritePresetName:indexCopy withName:{withNameCopy, v28}];
+                v26 = v26 + 1;
+              }
+
+              while (v24 != v26);
+              v24 = [v22 countByEnumeratingWithState:&v28 objects:v32 count:16];
+            }
+
+            while (v24);
+          }
+        }
+
+        else
+        {
+          v27 = qword_1000A9FE0;
+          if (os_log_type_enabled(qword_1000A9FE0, OS_LOG_TYPE_ERROR))
+          {
+            sub_10005ED50(v27);
+          }
+        }
+      }
+
+      else
+      {
+        [v11 sendWritePresetName:indexCopy withName:withNameCopy];
+      }
+    }
+  }
+}
+
+- (void)HAPSetActivePreset:(id)preset withIndex:(unsigned __int8)index
+{
+  indexCopy = index;
+  presetCopy = preset;
+  coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+  v8 = [coordinatedSet objectForKey:presetCopy];
+
+  if (v8)
+  {
+    hasInterface = [v8 hasInterface];
+
+    if (hasInterface)
+    {
+      hasInterface2 = [v8 hasInterface];
+      presetSyncSupported = [hasInterface2 presetSyncSupported];
+
+      if (presetSyncSupported)
+      {
+        [v8 sendSetActivePresetSyncLocally:indexCopy];
+        goto LABEL_21;
+      }
+
+      hasInterface3 = [v8 hasInterface];
+      binauralHearingAid = [hasInterface3 binauralHearingAid];
+
+      if (binauralHearingAid)
+      {
+        peripheral = [v8 peripheral];
+        identifier = [peripheral identifier];
+        v16 = [(ClientHearingAccessProfile *)self getSecondBinauraldHearingAid:identifier];
+
+        if (v16)
+        {
+          hasInterface4 = [v16 hasInterface];
+          presetSyncSupported2 = [hasInterface4 presetSyncSupported];
+
+          if (presetSyncSupported2)
+          {
+            [v16 sendSetActivePresetSyncLocally:indexCopy];
+LABEL_20:
+
+            goto LABEL_21;
+          }
+
+          hasInterface5 = [v8 hasInterface];
+          independentPresets = [hasInterface5 independentPresets];
+
+          if ((independentPresets & 1) == 0)
+          {
+            binauralHearingAidSet = [(ClientHearingAccessProfile *)self binauralHearingAidSet];
+            v22 = [(ClientCommonAudioProfile *)self getOrderedAccessSet:binauralHearingAidSet];
+
+            v30 = 0u;
+            v31 = 0u;
+            v28 = 0u;
+            v29 = 0u;
+            v23 = v22;
+            v24 = [v23 countByEnumeratingWithState:&v28 objects:v32 count:16];
+            if (v24)
+            {
+              v25 = v24;
+              v26 = *v29;
+              do
+              {
+                for (i = 0; i != v25; i = i + 1)
+                {
+                  if (*v29 != v26)
+                  {
+                    objc_enumerationMutation(v23);
+                  }
+
+                  [*(*(&v28 + 1) + 8 * i) sendSetActivePreset:{indexCopy, v28}];
+                }
+
+                v25 = [v23 countByEnumeratingWithState:&v28 objects:v32 count:16];
+              }
+
+              while (v25);
+            }
+
+            goto LABEL_20;
+          }
+        }
+      }
+
+      [v8 sendSetActivePreset:indexCopy];
+    }
+  }
+
+LABEL_21:
 }
 
 - (void)HAPSetNextPreset:(id)preset
@@ -408,6 +795,142 @@ LABEL_21:
     {
       [v7 sendReadHearingAidFeatures];
     }
+  }
+}
+
+- (void)HAPSendReadPresetsRequest:(id)request withStartIndex:(unsigned __int8)index withNumPresets:(unsigned __int8)presets
+{
+  presetsCopy = presets;
+  indexCopy = index;
+  requestCopy = request;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v9 = [requestCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v17;
+    do
+    {
+      v12 = 0;
+      do
+      {
+        if (*v17 != v11)
+        {
+          objc_enumerationMutation(requestCopy);
+        }
+
+        v13 = *(*(&v16 + 1) + 8 * v12);
+        coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+        v15 = [coordinatedSet objectForKey:v13];
+
+        if (v15)
+        {
+          [v15 sendReadPresetsRequest:indexCopy withNumPresets:presetsCopy];
+        }
+
+        v12 = v12 + 1;
+      }
+
+      while (v10 != v12);
+      v10 = [requestCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v10);
+  }
+}
+
+- (void)HAPSendWritePresetName:(id)name withIndex:(unsigned __int8)index withName:(id)withName
+{
+  indexCopy = index;
+  nameCopy = name;
+  withNameCopy = withName;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v20 = 0u;
+  v10 = [nameCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+  if (v10)
+  {
+    v11 = v10;
+    v12 = *v18;
+    do
+    {
+      v13 = 0;
+      do
+      {
+        if (*v18 != v12)
+        {
+          objc_enumerationMutation(nameCopy);
+        }
+
+        v14 = *(*(&v17 + 1) + 8 * v13);
+        coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+        v16 = [coordinatedSet objectForKey:v14];
+
+        if (v16)
+        {
+          [v16 sendWritePresetName:indexCopy withName:withNameCopy];
+        }
+
+        v13 = v13 + 1;
+      }
+
+      while (v11 != v13);
+      v11 = [nameCopy countByEnumeratingWithState:&v17 objects:v21 count:16];
+    }
+
+    while (v11);
+  }
+}
+
+- (void)HAPSendSetActivePreset:(id)preset withIndex:(unsigned __int8)index syncLocally:(BOOL)locally
+{
+  locallyCopy = locally;
+  indexCopy = index;
+  presetCopy = preset;
+  v16 = 0u;
+  v17 = 0u;
+  v18 = 0u;
+  v19 = 0u;
+  v9 = [presetCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+  if (v9)
+  {
+    v10 = v9;
+    v11 = *v17;
+    do
+    {
+      for (i = 0; i != v10; i = i + 1)
+      {
+        if (*v17 != v11)
+        {
+          objc_enumerationMutation(presetCopy);
+        }
+
+        v13 = *(*(&v16 + 1) + 8 * i);
+        coordinatedSet = [(ClientCommonAudioProfile *)self coordinatedSet];
+        v15 = [coordinatedSet objectForKey:v13];
+
+        if (v15)
+        {
+          if (locallyCopy)
+          {
+            [v15 sendSetActivePresetSyncLocally:indexCopy];
+          }
+
+          else
+          {
+            [v15 sendSetActivePreset:indexCopy];
+          }
+        }
+      }
+
+      v10 = [presetCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+    }
+
+    while (v10);
   }
 }
 

@@ -51,151 +51,145 @@
 
 - (id)runWithInputsArray:(id)array resultsArray:(id)resultsArray intermediateOperations:(id)operations
 {
-  v77[1] = *MEMORY[0x1E69E9840];
-  executable = self->_executable;
-  if (objc_opt_respondsToSelector())
+  v75[1] = *MEMORY[0x1E69E9840];
+  if ((objc_opt_respondsToSelector() & 1) == 0)
   {
-    operationsCopy = operations;
-    v71 = 72;
-    resultsArrayCopy = resultsArray;
-    v76 = 56;
-    v74 = [(objc_class *)getMPSGraphClassByName("MPSGraphDevice") deviceWithMTLDevice:self->_device];
-    MPSGraphClassByName = getMPSGraphClassByName("MPSGraphTensorData");
-    v11 = [array count];
-    v73 = &v69;
-    v12 = &v69 - ((8 * v11 + 15) & 0xFFFFFFFFFFFFFFF0);
-    v13 = 0x1E695D000uLL;
-    if (v11)
-    {
-      v14 = 0;
-      v15 = 1;
-      do
-      {
-        arrayCopy = array;
-        v17 = [array objectAtIndexedSubscript:v14];
-        if ([v17 isEqual:{objc_msgSend(*(v13 + 4016), "null")}])
-        {
-          v17 = 0;
-        }
-
-        v18 = v13;
-        v19 = *(&self->super.super.super.isa + v76);
-        v20 = [(NSArray *)self->_inputShapes objectAtIndexedSubscript:v14];
-        v21 = v19;
-        v13 = v18;
-        v22 = v17;
-        array = arrayCopy;
-        *&v12[8 * v14] = _NewTensorDataWithMTLTensor(v21, v22, v14, MPSGraphClassByName, v20);
-        v14 = v15;
-        v23 = v11 > v15++;
-      }
-
-      while (v23);
-    }
-
-    v72 = MPSGraphClassByName;
-    v24 = [MEMORY[0x1E695DEC8] arrayWithObjects:v12 count:v11];
-    v25 = *(&self->super.super.super.isa + v71);
-    v71 = v24;
-    operationsCopy = [v25 newExecutableWithDevice:v74 inputsArray:? intermediateOperations:? executionDescriptor:?];
-    getOutputShapes = [operationsCopy getOutputShapes];
-    v27 = getOutputShapes;
-    v28 = resultsArrayCopy;
-    selfCopy = self;
-    if (!resultsArrayCopy)
-    {
-      v30 = [getOutputShapes count];
-      resultsArrayCopy = &v69;
-      v69 = v30;
-      v31 = 8 * v30;
-      v32 = (&v69 - ((8 * v30 + 15) & 0xFFFFFFFFFFFFFFF0));
-      v33 = [v27 count];
-      v34 = v76;
-      if (v33)
-      {
-        v35 = 0;
-        v36 = 1;
-        do
-        {
-          v37 = [v27 objectAtIndexedSubscript:v35];
-          v77[0] = 0;
-          v38 = objc_opt_new();
-          [v38 setDimensions:{TensorExtentsFromMPSShape(objc_msgSend(v37, "shape"))}];
-          dataType = [v37 dataType];
-          [v38 setDataType:{MTLTensorDataTypeFromMPSDataType(dataType, v40, v41, v42, v43, v44, v45, v46)}];
-          [v38 setUsage:4];
-          v47 = [*(&selfCopy->super.super.super.isa + v34) newTensorWithDescriptor:v38 error:v77];
-
-          v32[v35] = v47;
-          v35 = v36;
-          v23 = [v27 count] > v36++;
-        }
-
-        while (v23);
-      }
-
-      v28 = [MEMORY[0x1E695DEC8] arrayWithObjects:v32 count:{objc_msgSend(v27, "count")}];
-      if (v69)
-      {
-        do
-        {
-          v48 = *v32++;
-
-          v31 -= 8;
-        }
-
-        while (v31);
-      }
-    }
-
-    resultsArrayCopy = &v69 - ((8 * [v27 count] + 15) & 0xFFFFFFFFFFFFFFF0);
-    v49 = [v27 count];
-    v50 = v72;
-    v51 = v76;
-    v52 = 0x1E695D000uLL;
-    if (v49)
-    {
-      v53 = selfCopy;
-      v54 = 0;
-      v55 = 1;
-      do
-      {
-        v56 = v28;
-        v57 = [v28 objectAtIndexedSubscript:v54];
-        if ([v57 isEqual:{objc_msgSend(*(v52 + 4016), "null")}])
-        {
-          v57 = 0;
-        }
-
-        v58 = v52;
-        v59 = *(&v53->super.super.super.isa + v51);
-        v60 = [v27 objectAtIndexedSubscript:v54];
-        v61 = v59;
-        v52 = v58;
-        v62 = v57;
-        v28 = v56;
-        v63 = _NewTensorDataWithMTLTensor(v61, v62, v54, v50, v60);
-        *&resultsArrayCopy[8 * v54] = v63;
-        v54 = v55;
-        v23 = [v27 count] > v55++;
-      }
-
-      while (v23);
-    }
-
-    v64 = MEMORY[0x1E695DEC8];
-    v65 = [v27 count];
-    v66 = [v64 arrayWithObjects:resultsArrayCopy count:v65];
-    [operationsCopy runWithDevice:v74 inputsArray:v71 resultsArray:v66 executionDescriptor:0];
+    return 0;
   }
 
-  else
+  operationsCopy = operations;
+  v69 = 72;
+  resultsArrayCopy = resultsArray;
+  v74 = 56;
+  v72 = [(objc_class *)getMPSGraphClassByName("MPSGraphDevice") deviceWithMTLDevice:self->_device];
+  MPSGraphClassByName = getMPSGraphClassByName("MPSGraphTensorData");
+  v10 = [array count];
+  v71 = &v67;
+  v11 = &v67 - ((8 * v10 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v12 = 0x1E695D000uLL;
+  if (v10)
   {
-    v28 = 0;
+    v13 = 0;
+    v14 = 1;
+    do
+    {
+      arrayCopy = array;
+      v16 = [array objectAtIndexedSubscript:v13];
+      if ([v16 isEqual:{objc_msgSend(*(v12 + 4016), "null")}])
+      {
+        v16 = 0;
+      }
+
+      v17 = v12;
+      v18 = *(&self->super.super.super.isa + v74);
+      v19 = [(NSArray *)self->_inputShapes objectAtIndexedSubscript:v13];
+      v20 = v18;
+      v12 = v17;
+      v21 = v16;
+      array = arrayCopy;
+      *&v11[8 * v13] = _NewTensorDataWithMTLTensor(v20, v21, v13, MPSGraphClassByName, v19);
+      v13 = v14;
+      v22 = v10 > v14++;
+    }
+
+    while (v22);
   }
 
-  v67 = *MEMORY[0x1E69E9840];
-  return v28;
+  v70 = MPSGraphClassByName;
+  v23 = [MEMORY[0x1E695DEC8] arrayWithObjects:v11 count:v10];
+  v24 = *(&self->super.super.super.isa + v69);
+  v69 = v23;
+  operationsCopy = [v24 newExecutableWithDevice:v72 inputsArray:? intermediateOperations:? executionDescriptor:?];
+  getOutputShapes = [operationsCopy getOutputShapes];
+  v26 = getOutputShapes;
+  v27 = resultsArrayCopy;
+  selfCopy = self;
+  if (!resultsArrayCopy)
+  {
+    v29 = [getOutputShapes count];
+    resultsArrayCopy = &v67;
+    v67 = v29;
+    v30 = 8 * v29;
+    v31 = (&v67 - ((8 * v29 + 15) & 0xFFFFFFFFFFFFFFF0));
+    v32 = [v26 count];
+    v33 = v74;
+    if (v32)
+    {
+      v34 = 0;
+      v35 = 1;
+      do
+      {
+        v36 = [v26 objectAtIndexedSubscript:v34];
+        v75[0] = 0;
+        v37 = objc_opt_new();
+        [v37 setDimensions:{TensorExtentsFromMPSShape(objc_msgSend(v36, "shape"))}];
+        dataType = [v36 dataType];
+        [v37 setDataType:{MTLTensorDataTypeFromMPSDataType(dataType, v39, v40, v41, v42, v43, v44, v45)}];
+        [v37 setUsage:4];
+        v46 = [*(&selfCopy->super.super.super.isa + v33) newTensorWithDescriptor:v37 error:v75];
+
+        v31[v34] = v46;
+        v34 = v35;
+        v22 = [v26 count] > v35++;
+      }
+
+      while (v22);
+    }
+
+    v27 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:{objc_msgSend(v26, "count")}];
+    if (v67)
+    {
+      do
+      {
+        v47 = *v31++;
+
+        v30 -= 8;
+      }
+
+      while (v30);
+    }
+  }
+
+  resultsArrayCopy = &v67 - ((8 * [v26 count] + 15) & 0xFFFFFFFFFFFFFFF0);
+  v48 = [v26 count];
+  v49 = v70;
+  v50 = v74;
+  v51 = 0x1E695D000uLL;
+  if (v48)
+  {
+    v52 = selfCopy;
+    v53 = 0;
+    v54 = 1;
+    do
+    {
+      v55 = v27;
+      v56 = [v27 objectAtIndexedSubscript:v53];
+      if ([v56 isEqual:{objc_msgSend(*(v51 + 4016), "null")}])
+      {
+        v56 = 0;
+      }
+
+      v57 = v51;
+      v58 = *(&v52->super.super.super.isa + v50);
+      v59 = [v26 objectAtIndexedSubscript:v53];
+      v60 = v58;
+      v51 = v57;
+      v61 = v56;
+      v27 = v55;
+      v62 = _NewTensorDataWithMTLTensor(v60, v61, v53, v49, v59);
+      *&resultsArrayCopy[8 * v53] = v62;
+      v53 = v54;
+      v22 = [v26 count] > v54++;
+    }
+
+    while (v22);
+  }
+
+  v63 = MEMORY[0x1E695DEC8];
+  v64 = [v26 count];
+  v65 = [v63 arrayWithObjects:resultsArrayCopy count:v64];
+  [operationsCopy runWithDevice:v72 inputsArray:v69 resultsArray:v65 executionDescriptor:0];
+  return v27;
 }
 
 @end

@@ -1,10 +1,10 @@
 @interface NSString(CKAdditions)
-- (uint64_t)compareToVersion:()CKAdditions;
+- (void)compareToVersion:()CKAdditions;
 @end
 
 @implementation NSString(CKAdditions)
 
-- (uint64_t)compareToVersion:()CKAdditions
+- (void)compareToVersion:()CKAdditions
 {
   v4 = [self componentsSeparatedByString:@"."];
   v5 = [a3 componentsSeparatedByString:@"."];

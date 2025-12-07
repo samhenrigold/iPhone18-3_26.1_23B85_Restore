@@ -114,10 +114,7 @@ void __57__SCLRecurrenceSchedule_performBlockWithSharedFormatter___block_invoke(
 
 uint64_t __36__SCLRecurrenceSchedule_description__block_invoke(uint64_t a1, void *a2)
 {
-  v3 = [a2 stringFromSchedule:*(a1 + 32)];
-  v4 = *(*(a1 + 40) + 8);
-  v5 = *(v4 + 40);
-  *(v4 + 40) = v3;
+  *(*(*(a1 + 40) + 8) + 40) = [a2 stringFromSchedule:*(a1 + 32)];
 
   return MEMORY[0x2821F96F8]();
 }
@@ -143,50 +140,49 @@ uint64_t __36__SCLRecurrenceSchedule_description__block_invoke(uint64_t a1, void
 
 - (SCLRecurrenceSchedule)initWithTimeIntervals:(id)intervals repeatSchedule:(int64_t)schedule
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   intervalsCopy = intervals;
   v6 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   v7 = intervalsCopy;
-  v8 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v21;
+    v10 = *v20;
     do
     {
       v11 = 0;
       do
       {
-        if (*v21 != v10)
+        if (*v20 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v20 + 1) + 8 * v11);
-        v17[0] = MEMORY[0x277D85DD0];
-        v17[1] = 3221225472;
-        v17[2] = __93__SCLRecurrenceSchedule_SCLRecurrenceScheduleCreation__initWithTimeIntervals_repeatSchedule___block_invoke;
-        v17[3] = &unk_279B6C200;
-        v18 = v6;
-        v19 = v12;
-        SCLEnumerateDaysInRepeatSchedule(schedule, v17);
+        v12 = *(*(&v19 + 1) + 8 * v11);
+        v16[0] = MEMORY[0x277D85DD0];
+        v16[1] = 3221225472;
+        v16[2] = __93__SCLRecurrenceSchedule_SCLRecurrenceScheduleCreation__initWithTimeIntervals_repeatSchedule___block_invoke;
+        v16[3] = &unk_279B6C200;
+        v17 = v6;
+        v18 = v12;
+        SCLEnumerateDaysInRepeatSchedule(schedule, v16);
 
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v9);
   }
 
   v13 = [(SCLRecurrenceSchedule *)self initWithRecurrences:v6];
-  v14 = *MEMORY[0x277D85DE8];
   return v13;
 }
 

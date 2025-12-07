@@ -111,12 +111,12 @@ void __69__WFParameterValuePickerViewController_parameterAttributesDidChange___b
   dispatch_async(MEMORY[0x277D85CD0], v6);
 }
 
-uint64_t __69__WFParameterValuePickerViewController_parameterAttributesDidChange___block_invoke_2(uint64_t result)
+void *__69__WFParameterValuePickerViewController_parameterAttributesDidChange___block_invoke_2(void *result)
 {
-  v1 = *(result + 32);
+  v1 = *(result + 4);
   if (v1)
   {
-    return [*(result + 40) reloadDisplayingValuesWithCollection:v1 searchTerm:0 validateCurrentState:1 animatingDifferences:1];
+    return [*(result + 5) reloadDisplayingValuesWithCollection:v1 searchTerm:0 validateCurrentState:1 animatingDifferences:1];
   }
 
   return result;
@@ -473,7 +473,7 @@ void __63__WFParameterValuePickerViewController_toggleCell_atIndexPath___block_i
   [v4 showActionOutputPickerAllowingShortcutInput:v3 variableProvider:v5 completionHandler:v6];
 }
 
-uint64_t __63__WFParameterValuePickerViewController_toggleCell_atIndexPath___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__63__WFParameterValuePickerViewController_toggleCell_atIndexPath___block_invoke_3(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 stateIsEquivalent:*(a1 + 32)];
   *a4 = result;
@@ -1219,7 +1219,7 @@ BOOL __75__WFParameterValuePickerViewController_validateCurrentStateWithCollecti
   return v6;
 }
 
-uint64_t __75__WFParameterValuePickerViewController_validateCurrentStateWithCollection___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
+void *__75__WFParameterValuePickerViewController_validateCurrentStateWithCollection___block_invoke_2(uint64_t a1, uint64_t a2, uint64_t a3, _BYTE *a4)
 {
   result = [*(a1 + 32) stateIsEquivalent:a2];
   *a4 = result;
@@ -1320,7 +1320,7 @@ LABEL_7:
   return v7 & 1;
 }
 
-uint64_t __75__WFParameterValuePickerViewController_currentSelectedValuesContainsState___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__75__WFParameterValuePickerViewController_currentSelectedValuesContainsState___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 stateIsEquivalent:*(a1 + 32)];
   *(*(*(a1 + 40) + 8) + 24) = result;

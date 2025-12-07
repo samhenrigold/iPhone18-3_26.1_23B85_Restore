@@ -51,20 +51,19 @@
 
   if (self->_invalidateCalled)
   {
-    v3 = *MEMORY[0x277CCA590];
-    v9 = NSErrorF();
+    v8 = NSErrorF();
     if (gLogCategory_HMServiceClient <= 90 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&gLogCategory_HMServiceClient, "[HMServiceClient _activate]", 90, "### Activate failed: %@, %@", self, v8);
     }
 
-    v7 = MEMORY[0x2530950A0](self->_activateCompletion);
+    v6 = MEMORY[0x2530950A0](self->_activateCompletion);
     activateCompletion = self->_activateCompletion;
     self->_activateCompletion = 0;
 
-    if (v7)
+    if (v6)
     {
-      (v7)[2](v7, v9);
+      (v6)[2](v6, v8);
     }
   }
 
@@ -84,18 +83,18 @@
     else
     {
       xpcCnx = self->_xpcCnx;
-      v11[0] = MEMORY[0x277D85DD0];
-      v11[1] = 3221225472;
-      v11[2] = __28__HMServiceClient__activate__block_invoke;
-      v11[3] = &unk_2796EEA68;
-      v11[4] = self;
-      v6 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v11];
       v10[0] = MEMORY[0x277D85DD0];
       v10[1] = 3221225472;
-      v10[2] = __28__HMServiceClient__activate__block_invoke_2;
+      v10[2] = __28__HMServiceClient__activate__block_invoke;
       v10[3] = &unk_2796EEA68;
       v10[4] = self;
-      [v6 clientActivate:self completion:v10];
+      v5 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v10];
+      v9[0] = MEMORY[0x277D85DD0];
+      v9[1] = 3221225472;
+      v9[2] = __28__HMServiceClient__activate__block_invoke_2;
+      v9[3] = &unk_2796EEA68;
+      v9[4] = self;
+      [v5 clientActivate:self completion:v9];
     }
   }
 }
@@ -141,9 +140,11 @@
 - (id)description
 {
   clientID = self->_clientID;
-  NSAppendPrintF();
+  v5 = 0;
+  NSAppendPrintF(&v5, "HMServiceClient, CID 0x%X", clientID);
+  v2 = v5;
 
-  return 0;
+  return v2;
 }
 
 void __28__HMServiceClient__activate__block_invoke_2(uint64_t a1, void *a2)
@@ -157,7 +158,7 @@ void __28__HMServiceClient__activate__block_invoke_2(uint64_t a1, void *a2)
     {
       if (gLogCategory_HMServiceClient != -1 || (v5 = _LogCategory_Initialize(), v4 = v9, v5))
       {
-        __28__HMServiceClient__activate__block_invoke_2_cold_1();
+        __28__HMServiceClient__activate__block_invoke_2_cold_1(v4);
         v4 = v9;
       }
     }
@@ -264,11 +265,14 @@ void __42__HMServiceClient_activateWithCompletion___block_invoke(uint64_t a1)
   v2 = *(a1 + 32);
   if (*(v2 + 8) == 1)
   {
-    v3 = *MEMORY[0x277CCA590];
-    v8 = NSErrorF();
-    if (gLogCategory_HMServiceClient <= 90 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
+    v3 = NSErrorF();
+    v9 = v3;
+    if (gLogCategory_HMServiceClient <= 90)
     {
-      __42__HMServiceClient_activateWithCompletion___block_invoke_cold_1();
+      if (gLogCategory_HMServiceClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v9, v4))
+      {
+        __42__HMServiceClient_activateWithCompletion___block_invoke_cold_1(v3);
+      }
     }
 
     (*(*(a1 + 40) + 16))();
@@ -277,14 +281,14 @@ void __42__HMServiceClient_activateWithCompletion___block_invoke(uint64_t a1)
   else
   {
     *(v2 + 8) = 1;
-    v4 = MEMORY[0x2530950A0](*(a1 + 40));
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 16);
-    *(v5 + 16) = v4;
+    v5 = MEMORY[0x2530950A0](*(a1 + 40));
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 16);
+    *(v6 + 16) = v5;
 
-    v7 = *(a1 + 32);
+    v8 = *(a1 + 32);
 
-    [v7 _activate];
+    [v8 _activate];
   }
 }
 
@@ -296,7 +300,7 @@ void __28__HMServiceClient__activate__block_invoke(uint64_t a1, void *a2)
   {
     if (gLogCategory_HMServiceClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
     {
-      __28__HMServiceClient__activate__block_invoke_cold_1();
+      __28__HMServiceClient__activate__block_invoke_cold_1(v3);
       v3 = v5;
     }
   }
@@ -318,14 +322,16 @@ uint64_t __36__HMServiceClient__ensureXPCStarted__block_invoke_2(uint64_t a1)
 - (void)_interrupted
 {
   dispatch_assert_queue_V2(self->_dispatchQueue);
-  if (gLogCategory_HMServiceClient <= 50 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
+  if (gLogCategory_HMServiceClient <= 50)
   {
-    [HMServiceClient _interrupted];
+    if (gLogCategory_HMServiceClient != -1 || (v3 = _LogCategory_Initialize(), v3))
+    {
+      [(HMServiceClient *)v3 _interrupted];
+    }
   }
 
-  v3 = *MEMORY[0x277CCA590];
-  v4 = NSErrorF();
-  [(HMServiceClient *)self _reportError:v4];
+  v6 = NSErrorF();
+  [(HMServiceClient *)self _reportError:v6];
 
   activateCompletion = self->_activateCompletion;
   self->_activateCompletion = 0;
@@ -333,9 +339,9 @@ uint64_t __36__HMServiceClient__ensureXPCStarted__block_invoke_2(uint64_t a1)
   interruptionHandler = self->_interruptionHandler;
   if (interruptionHandler)
   {
-    v7 = *(interruptionHandler + 2);
+    v9 = *(interruptionHandler + 2);
 
-    v7();
+    v9();
   }
 }
 
@@ -369,16 +375,15 @@ void __29__HMServiceClient_invalidate__block_invoke(uint64_t a1)
       v4 = *(a1 + 32);
     }
 
-    v10 = MEMORY[0x2530950A0](*(v4 + 16));
+    v9 = MEMORY[0x2530950A0](*(v4 + 16));
     v6 = *(a1 + 32);
     v7 = *(v6 + 16);
     *(v6 + 16) = 0;
 
-    if (v10)
+    if (v9)
     {
-      v8 = *MEMORY[0x277CCA590];
-      v9 = NSErrorF();
-      v10[2](v10, v9);
+      v8 = NSErrorF();
+      v9[2](v9, v8);
     }
 
     [*(a1 + 32) _invalidated];
@@ -389,56 +394,59 @@ void __29__HMServiceClient_invalidate__block_invoke(uint64_t a1)
 {
   if (!self->_invalidateDone)
   {
-    if (!self->_invalidateCalled && gLogCategory_HMServiceClient <= 50 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
+    selfCopy = self;
+    if (!self->_invalidateCalled && gLogCategory_HMServiceClient <= 50)
     {
-      [HMServiceClient _invalidated];
+      if (gLogCategory_HMServiceClient != -1 || (self = _LogCategory_Initialize(), self))
+      {
+        [(HMServiceClient *)self _invalidated];
+      }
     }
 
-    if (!self->_xpcCnx)
+    if (!selfCopy->_xpcCnx)
     {
-      v15 = MEMORY[0x2530950A0](self->_activateCompletion, a2);
-      activateCompletion = self->_activateCompletion;
-      self->_activateCompletion = 0;
+      v15 = MEMORY[0x2530950A0](selfCopy->_activateCompletion, a2);
+      activateCompletion = selfCopy->_activateCompletion;
+      selfCopy->_activateCompletion = 0;
 
       if (v15)
       {
-        v4 = *MEMORY[0x277CCA590];
         v5 = NSErrorF();
         v15[2](v15, v5);
       }
 
-      audiogramsAvailableHandler = self->_audiogramsAvailableHandler;
-      self->_audiogramsAvailableHandler = 0;
+      audiogramsAvailableHandler = selfCopy->_audiogramsAvailableHandler;
+      selfCopy->_audiogramsAvailableHandler = 0;
 
-      deviceRecordChangedHandler = self->_deviceRecordChangedHandler;
-      self->_deviceRecordChangedHandler = 0;
+      deviceRecordChangedHandler = selfCopy->_deviceRecordChangedHandler;
+      selfCopy->_deviceRecordChangedHandler = 0;
 
-      interruptionHandler = self->_interruptionHandler;
-      self->_interruptionHandler = 0;
+      interruptionHandler = selfCopy->_interruptionHandler;
+      selfCopy->_interruptionHandler = 0;
 
-      invalidAudiograms = self->_invalidAudiograms;
-      self->_invalidAudiograms = 0;
+      invalidAudiograms = selfCopy->_invalidAudiograms;
+      selfCopy->_invalidAudiograms = 0;
 
-      validAudiograms = self->_validAudiograms;
-      self->_validAudiograms = 0;
+      validAudiograms = selfCopy->_validAudiograms;
+      selfCopy->_validAudiograms = 0;
 
-      v11 = MEMORY[0x2530950A0](self->_invalidationHandler);
-      invalidationHandler = self->_invalidationHandler;
-      self->_invalidationHandler = 0;
+      v11 = MEMORY[0x2530950A0](selfCopy->_invalidationHandler);
+      invalidationHandler = selfCopy->_invalidationHandler;
+      selfCopy->_invalidationHandler = 0;
 
       if (v11)
       {
         v11[2](v11);
       }
 
-      [(NSMutableDictionary *)self->_recordMap removeAllObjects];
-      recordMap = self->_recordMap;
-      self->_recordMap = 0;
+      [(NSMutableDictionary *)selfCopy->_recordMap removeAllObjects];
+      recordMap = selfCopy->_recordMap;
+      selfCopy->_recordMap = 0;
 
-      xpcCnx = self->_xpcCnx;
-      self->_xpcCnx = 0;
+      xpcCnx = selfCopy->_xpcCnx;
+      selfCopy->_xpcCnx = 0;
 
-      self->_invalidateDone = 1;
+      selfCopy->_invalidateDone = 1;
       if (gLogCategory_HMServiceClient <= 10 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
       {
         [HMServiceClient _invalidated];
@@ -452,7 +460,7 @@ void __29__HMServiceClient_invalidate__block_invoke(uint64_t a1)
   errorCopy = error;
   if (gLogCategory_HMServiceClient <= 90 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
   {
-    [HMServiceClient _reportError:];
+    [HMServiceClient _reportError:errorCopy];
   }
 
   v4 = MEMORY[0x2530950A0](self->_activateCompletion);
@@ -475,8 +483,7 @@ void __29__HMServiceClient_invalidate__block_invoke(uint64_t a1)
 
   if (gLogCategory_HMServiceClient <= 30 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
   {
-    clientID = selfCopy->_clientID;
-    LogPrintF();
+    LogPrintF(&gLogCategory_HMServiceClient, "[HMServiceClient getHearingModeDeviceRecordForIdentifier:]", 30, "CID 0x%X, fetch for HMDeviceRecord id: %@ returned: %@ ", selfCopy->_clientID, identifierCopy, v6);
   }
 
   return v6;
@@ -498,7 +505,7 @@ void __29__HMServiceClient_invalidate__block_invoke(uint64_t a1)
     {
       if (gLogCategory_HMServiceClient <= 90 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&gLogCategory_HMServiceClient, "[HMServiceClient fetchHearingModeDeviceRecordForIdentifier:]", 90, "### sync fetch for HMDeviceRecord id: %@ failed with XPC error: %{error}", identifierCopy, _ensureXPCStarted);
       }
 
       v6 = v17[5];
@@ -542,12 +549,11 @@ uint64_t __61__HMServiceClient_fetchHearingModeDeviceRecordForIdentifier___block
   v4 = v3;
   if (gLogCategory_HMServiceClient <= 90)
   {
-    v7 = v3;
-    if (gLogCategory_HMServiceClient != -1 || (v3 = _LogCategory_Initialize(), v4 = v7, v3))
+    v6 = v3;
+    if (gLogCategory_HMServiceClient != -1 || (v3 = _LogCategory_Initialize(), v4 = v6, v3))
     {
-      v6 = *(a1 + 32);
-      v3 = LogPrintF();
-      v4 = v7;
+      v3 = LogPrintF(&gLogCategory_HMServiceClient, "[HMServiceClient fetchHearingModeDeviceRecordForIdentifier:]_block_invoke", 90, "### sync fetch for HMDeviceRecord id: %@ failed with XPC %{error}", *(a1 + 32), v4);
+      v4 = v6;
     }
   }
 
@@ -588,15 +594,17 @@ void __80__HMServiceClient_fetchOcclusionResultForDeviceIdentifier_featureID_com
   v2 = *(a1 + 32);
   if (v2[24] == 1)
   {
-    v4 = *MEMORY[0x277CCA590];
-    v11 = NSErrorF();
-    if (gLogCategory_HMServiceClient <= 90 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
+    v4 = NSErrorF();
+    v11 = v4;
+    if (gLogCategory_HMServiceClient <= 90)
     {
-      v10 = *v3;
-      LogPrintF();
+      if (gLogCategory_HMServiceClient != -1 || (v10 = _LogCategory_Initialize(), v4 = v11, v10))
+      {
+        LogPrintF(&gLogCategory_HMServiceClient, "[HMServiceClient fetchOcclusionResultForDeviceIdentifier:featureID:completion:]_block_invoke", 90, "### fetchOcclusionResultOfDeviceIdentifier failed: %@, %@", *v3, v4);
+      }
     }
 
-    (*(*(a1 + 48) + 16))(*(a1 + 48), 0);
+    (*(*(a1 + 48) + 16))();
   }
 
   else
@@ -611,7 +619,7 @@ void __80__HMServiceClient_fetchOcclusionResultForDeviceIdentifier_featureID_com
     {
       if (gLogCategory_HMServiceClient <= 30 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
       {
-        __80__HMServiceClient_fetchOcclusionResultForDeviceIdentifier_featureID_completion___block_invoke_cold_1(v3, a1);
+        __80__HMServiceClient_fetchOcclusionResultForDeviceIdentifier_featureID_completion___block_invoke_cold_1();
       }
 
       v6 = *(*(a1 + 32) + 40);
@@ -636,9 +644,16 @@ void __80__HMServiceClient_fetchOcclusionResultForDeviceIdentifier_featureID_com
 void __80__HMServiceClient_fetchOcclusionResultForDeviceIdentifier_featureID_completion___block_invoke_3(uint64_t a1, uint64_t a2, void *a3)
 {
   v4 = a3;
-  if (v4 && gLogCategory_HMServiceClient <= 90 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
+  v6 = v4;
+  if (v4)
   {
-    __80__HMServiceClient_fetchOcclusionResultForDeviceIdentifier_featureID_completion___block_invoke_3_cold_1();
+    if (gLogCategory_HMServiceClient <= 90)
+    {
+      if (gLogCategory_HMServiceClient != -1 || (v5 = _LogCategory_Initialize(), v4 = v6, v5))
+      {
+        __80__HMServiceClient_fetchOcclusionResultForDeviceIdentifier_featureID_completion___block_invoke_3_cold_1(v4);
+      }
+    }
   }
 
   (*(*(a1 + 32) + 16))();
@@ -669,59 +684,53 @@ void __60__HMServiceClient_modifyDeviceConfig_identifier_completion___block_invo
   v2 = *(a1 + 32);
   if (*(v2 + 24) == 1)
   {
-    v3 = *MEMORY[0x277CCA590];
-    v4 = NSErrorF();
-    v16 = v4;
+    v3 = NSErrorF();
+    v11 = v3;
     if (gLogCategory_HMServiceClient <= 90)
     {
-      if (gLogCategory_HMServiceClient != -1 || (v5 = _LogCategory_Initialize(), v4 = v16, v5))
+      if (gLogCategory_HMServiceClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v11, v4))
       {
-        v13 = *(a1 + 32);
-        LogPrintF();
-        v4 = v16;
+        LogPrintF(&gLogCategory_HMServiceClient, "[HMServiceClient modifyDeviceConfig:identifier:completion:]_block_invoke", 90, "### modifyDeviceConfig failed: %@, %@", *(a1 + 32), v3);
       }
     }
 
-    (*(*(a1 + 56) + 16))(*(a1 + 56), v4);
+    (*(*(a1 + 56) + 16))();
   }
 
   else
   {
     if (gLogCategory_HMServiceClient <= 30)
     {
-      if (gLogCategory_HMServiceClient != -1 || (v6 = _LogCategory_Initialize(), v2 = *(a1 + 32), v6))
+      if (gLogCategory_HMServiceClient != -1 || (v5 = _LogCategory_Initialize(), v2 = *(a1 + 32), v5))
       {
-        v14 = *(a1 + 40);
-        v15 = *(a1 + 48);
-        v12 = *(v2 + 64);
-        LogPrintF();
+        LogPrintF(&gLogCategory_HMServiceClient, "[HMServiceClient modifyDeviceConfig:identifier:completion:]_block_invoke", 30, "CID 0x%X, modifying config: %@ for identifier: %@", *(v2 + 64), *(a1 + 40), *(a1 + 48));
         v2 = *(a1 + 32);
       }
     }
 
-    v7 = [v2 _ensureXPCStarted];
-    if (v7)
+    v6 = [v2 _ensureXPCStarted];
+    if (v6)
     {
       (*(*(a1 + 56) + 16))();
     }
 
     else
     {
-      v8 = *(*(a1 + 32) + 40);
-      v19[0] = MEMORY[0x277D85DD0];
-      v19[1] = 3221225472;
-      v19[2] = __60__HMServiceClient_modifyDeviceConfig_identifier_completion___block_invoke_2;
-      v19[3] = &unk_2796EEAB8;
-      v20 = *(a1 + 56);
-      v9 = [v8 remoteObjectProxyWithErrorHandler:v19];
-      v10 = *(a1 + 40);
-      v11 = *(a1 + 48);
-      v17[0] = MEMORY[0x277D85DD0];
-      v17[1] = 3221225472;
-      v17[2] = __60__HMServiceClient_modifyDeviceConfig_identifier_completion___block_invoke_3;
-      v17[3] = &unk_2796EEAB8;
-      v18 = *(a1 + 56);
-      [v9 clientModifyDeviceConfig:v10 identifier:v11 completion:v17];
+      v7 = *(*(a1 + 32) + 40);
+      v14[0] = MEMORY[0x277D85DD0];
+      v14[1] = 3221225472;
+      v14[2] = __60__HMServiceClient_modifyDeviceConfig_identifier_completion___block_invoke_2;
+      v14[3] = &unk_2796EEAB8;
+      v15 = *(a1 + 56);
+      v8 = [v7 remoteObjectProxyWithErrorHandler:v14];
+      v9 = *(a1 + 40);
+      v10 = *(a1 + 48);
+      v12[0] = MEMORY[0x277D85DD0];
+      v12[1] = 3221225472;
+      v12[2] = __60__HMServiceClient_modifyDeviceConfig_identifier_completion___block_invoke_3;
+      v12[3] = &unk_2796EEAB8;
+      v13 = *(a1 + 56);
+      [v8 clientModifyDeviceConfig:v9 identifier:v10 completion:v12];
     }
   }
 }
@@ -734,7 +743,7 @@ uint64_t __60__HMServiceClient_modifyDeviceConfig_identifier_completion___block_
   {
     if (gLogCategory_HMServiceClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
     {
-      __60__HMServiceClient_modifyDeviceConfig_identifier_completion___block_invoke_2_cold_1();
+      __60__HMServiceClient_modifyDeviceConfig_identifier_completion___block_invoke_2_cold_1(v3);
       v3 = v7;
     }
   }
@@ -759,7 +768,7 @@ uint64_t __60__HMServiceClient_modifyDeviceConfig_identifier_completion___block_
     {
       if (gLogCategory_HMServiceClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
       {
-        __60__HMServiceClient_modifyDeviceConfig_identifier_completion___block_invoke_3_cold_1();
+        __60__HMServiceClient_modifyDeviceConfig_identifier_completion___block_invoke_3_cold_1(v3);
         v3 = v7;
       }
     }
@@ -797,20 +806,19 @@ uint64_t __82__HMServiceClient_occlusionIndicationShownForDeviceAddress_featureI
   v2 = *(a1 + 32);
   if (v2[24] == 1)
   {
-    v3 = *MEMORY[0x277CCA590];
-    v4 = NSErrorF();
-    v5 = v4;
+    v3 = NSErrorF();
+    v4 = v3;
   }
 
   else
   {
-    v4 = [v2 _ensureXPCStarted];
-    v5 = v4;
-    if (!v4)
+    v3 = [v2 _ensureXPCStarted];
+    v4 = v3;
+    if (!v3)
     {
-      v9 = 0;
-      v6 = [*(*(a1 + 32) + 40) remoteObjectProxy];
-      [v6 clientSetOcclusionIndicationShownForDeviceAddress:*(a1 + 40) featureID:*(a1 + 48) type:*(a1 + 52) action:*(a1 + 56)];
+      v7 = 0;
+      v5 = [*(*(a1 + 32) + 40) remoteObjectProxy];
+      [v5 clientSetOcclusionIndicationShownForDeviceAddress:*(a1 + 40) featureID:*(a1 + 48) type:*(a1 + 52) action:*(a1 + 56)];
 
       goto LABEL_8;
     }
@@ -818,17 +826,16 @@ uint64_t __82__HMServiceClient_occlusionIndicationShownForDeviceAddress_featureI
 
   if (gLogCategory_HMServiceClient <= 90)
   {
-    v9 = v5;
-    if (gLogCategory_HMServiceClient != -1 || (v4 = _LogCategory_Initialize(), v5 = v9, v4))
+    v7 = v4;
+    if (gLogCategory_HMServiceClient != -1 || (v3 = _LogCategory_Initialize(), v4 = v7, v3))
     {
-      v8 = *(a1 + 32);
-      v4 = LogPrintF();
+      v3 = LogPrintF(&gLogCategory_HMServiceClient, "[HMServiceClient occlusionIndicationShownForDeviceAddress:featureID:type:action:]_block_invoke", 90, "### occlusionIndicationShown failed: %@, %@", *(a1 + 32), v4);
 LABEL_8:
-      v5 = v9;
+      v4 = v7;
     }
   }
 
-  return MEMORY[0x2821F96F8](v4, v5);
+  return MEMORY[0x2821F96F8](v3, v4);
 }
 
 - (void)triggerFetchAudiogramsWithCompletion:(id)completion
@@ -851,26 +858,23 @@ void __56__HMServiceClient_triggerFetchAudiogramsWithCompletion___block_invoke(u
   v2 = *(a1 + 32);
   if (v2[24] == 1)
   {
-    v4 = *MEMORY[0x277CCA590];
-    v5 = NSErrorF();
-    v12 = v5;
+    v4 = NSErrorF();
+    v10 = v4;
     if (gLogCategory_HMServiceClient <= 90)
     {
-      if (gLogCategory_HMServiceClient != -1 || (v10 = _LogCategory_Initialize(), v5 = v12, v10))
+      if (gLogCategory_HMServiceClient != -1 || (v9 = _LogCategory_Initialize(), v4 = v10, v9))
       {
-        v11 = *v3;
-        LogPrintF();
-        v5 = v12;
+        LogPrintF(&gLogCategory_HMServiceClient, "[HMServiceClient triggerFetchAudiogramsWithCompletion:]_block_invoke", 90, "### trigger fetchAudiograms failed: %@, %@", *v3, v4);
       }
     }
 
-    (*(*(a1 + 40) + 16))(*(a1 + 40), v5);
+    (*(*(a1 + 40) + 16))();
   }
 
   else
   {
-    v6 = [v2 _ensureXPCStarted];
-    if (v6)
+    v5 = [v2 _ensureXPCStarted];
+    if (v5)
     {
       (*(*(a1 + 40) + 16))();
     }
@@ -882,20 +886,20 @@ void __56__HMServiceClient_triggerFetchAudiogramsWithCompletion___block_invoke(u
         __56__HMServiceClient_triggerFetchAudiogramsWithCompletion___block_invoke_cold_1(v3);
       }
 
-      v7 = *(*(a1 + 32) + 40);
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __56__HMServiceClient_triggerFetchAudiogramsWithCompletion___block_invoke_2;
-      v15[3] = &unk_2796EEAB8;
-      v16 = *(a1 + 40);
-      v8 = [v7 remoteObjectProxyWithErrorHandler:v15];
+      v6 = *(*(a1 + 32) + 40);
       v13[0] = MEMORY[0x277D85DD0];
       v13[1] = 3221225472;
-      v13[2] = __56__HMServiceClient_triggerFetchAudiogramsWithCompletion___block_invoke_3;
+      v13[2] = __56__HMServiceClient_triggerFetchAudiogramsWithCompletion___block_invoke_2;
       v13[3] = &unk_2796EEAB8;
-      v9 = *(a1 + 32);
       v14 = *(a1 + 40);
-      [v8 clientTriggerFetchAudiograms:v9 completion:v13];
+      v7 = [v6 remoteObjectProxyWithErrorHandler:v13];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __56__HMServiceClient_triggerFetchAudiogramsWithCompletion___block_invoke_3;
+      v11[3] = &unk_2796EEAB8;
+      v8 = *(a1 + 32);
+      v12 = *(a1 + 40);
+      [v7 clientTriggerFetchAudiograms:v8 completion:v11];
     }
   }
 }
@@ -903,9 +907,16 @@ void __56__HMServiceClient_triggerFetchAudiogramsWithCompletion___block_invoke(u
 void __56__HMServiceClient_triggerFetchAudiogramsWithCompletion___block_invoke_3(uint64_t a1, void *a2)
 {
   v3 = a2;
-  if (v3 && gLogCategory_HMServiceClient <= 90 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
+  v5 = v3;
+  if (v3)
   {
-    __56__HMServiceClient_triggerFetchAudiogramsWithCompletion___block_invoke_3_cold_1();
+    if (gLogCategory_HMServiceClient <= 90)
+    {
+      if (gLogCategory_HMServiceClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v5, v4))
+      {
+        __56__HMServiceClient_triggerFetchAudiogramsWithCompletion___block_invoke_3_cold_1(v3);
+      }
+    }
   }
 
   (*(*(a1 + 32) + 16))();
@@ -934,26 +945,23 @@ void __80__HMServiceClient_triggerOnDemandDiagnosticCheckForDeviceIdentifier_com
   v2 = *(a1 + 32);
   if (v2[24] == 1)
   {
-    v4 = *MEMORY[0x277CCA590];
-    v5 = NSErrorF();
-    v12 = v5;
+    v4 = NSErrorF();
+    v10 = v4;
     if (gLogCategory_HMServiceClient <= 90)
     {
-      if (gLogCategory_HMServiceClient != -1 || (v10 = _LogCategory_Initialize(), v5 = v12, v10))
+      if (gLogCategory_HMServiceClient != -1 || (v9 = _LogCategory_Initialize(), v4 = v10, v9))
       {
-        v11 = *v3;
-        LogPrintF();
-        v5 = v12;
+        LogPrintF(&gLogCategory_HMServiceClient, "[HMServiceClient triggerOnDemandDiagnosticCheckForDeviceIdentifier:completion:]_block_invoke", 90, "### trigger on-demand diagnostic check failed: %@, %@", *v3, v4);
       }
     }
 
-    (*(*(a1 + 48) + 16))(*(a1 + 48), v5);
+    (*(*(a1 + 48) + 16))();
   }
 
   else
   {
-    v6 = [v2 _ensureXPCStarted];
-    if (v6)
+    v5 = [v2 _ensureXPCStarted];
+    if (v5)
     {
       (*(*(a1 + 48) + 16))();
     }
@@ -962,23 +970,23 @@ void __80__HMServiceClient_triggerOnDemandDiagnosticCheckForDeviceIdentifier_com
     {
       if (gLogCategory_HMServiceClient <= 30 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
       {
-        __80__HMServiceClient_triggerOnDemandDiagnosticCheckForDeviceIdentifier_completion___block_invoke_cold_1(v3, a1);
+        __80__HMServiceClient_triggerOnDemandDiagnosticCheckForDeviceIdentifier_completion___block_invoke_cold_1();
       }
 
-      v7 = *(*(a1 + 32) + 40);
-      v15[0] = MEMORY[0x277D85DD0];
-      v15[1] = 3221225472;
-      v15[2] = __80__HMServiceClient_triggerOnDemandDiagnosticCheckForDeviceIdentifier_completion___block_invoke_2;
-      v15[3] = &unk_2796EEAB8;
-      v16 = *(a1 + 48);
-      v8 = [v7 remoteObjectProxyWithErrorHandler:v15];
+      v6 = *(*(a1 + 32) + 40);
       v13[0] = MEMORY[0x277D85DD0];
       v13[1] = 3221225472;
-      v13[2] = __80__HMServiceClient_triggerOnDemandDiagnosticCheckForDeviceIdentifier_completion___block_invoke_3;
+      v13[2] = __80__HMServiceClient_triggerOnDemandDiagnosticCheckForDeviceIdentifier_completion___block_invoke_2;
       v13[3] = &unk_2796EEAB8;
-      v9 = *(a1 + 40);
       v14 = *(a1 + 48);
-      [v8 clientTriggerOnDemandDiagnosticCheckForDeviceIdentifier:v9 completion:v13];
+      v7 = [v6 remoteObjectProxyWithErrorHandler:v13];
+      v11[0] = MEMORY[0x277D85DD0];
+      v11[1] = 3221225472;
+      v11[2] = __80__HMServiceClient_triggerOnDemandDiagnosticCheckForDeviceIdentifier_completion___block_invoke_3;
+      v11[3] = &unk_2796EEAB8;
+      v8 = *(a1 + 40);
+      v12 = *(a1 + 48);
+      [v7 clientTriggerOnDemandDiagnosticCheckForDeviceIdentifier:v8 completion:v11];
     }
   }
 }
@@ -993,7 +1001,7 @@ uint64_t __80__HMServiceClient_triggerOnDemandDiagnosticCheckForDeviceIdentifier
     {
       if (gLogCategory_HMServiceClient != -1 || (v4 = _LogCategory_Initialize(), v3 = v7, v4))
       {
-        __80__HMServiceClient_triggerOnDemandDiagnosticCheckForDeviceIdentifier_completion___block_invoke_3_cold_1();
+        __80__HMServiceClient_triggerOnDemandDiagnosticCheckForDeviceIdentifier_completion___block_invoke_3_cold_1(v3);
         v3 = v7;
       }
     }
@@ -1035,11 +1043,10 @@ uint64_t __80__HMServiceClient_triggerOnDemandDiagnosticCheckForDeviceIdentifier
     {
       if (gLogCategory_HMServiceClient <= 30 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
       {
-        clientID = selfCopy->_clientID;
-        LogPrintF();
+        LogPrintF(&gLogCategory_HMServiceClient, "[HMServiceClient clientHMDeviceRecordChanged:]", 30, "CID 0x%X, reporting HMDeviceRecord: %@", selfCopy->_clientID, changedCopy);
       }
 
-      (*(selfCopy->_deviceRecordChangedHandler + 2))(selfCopy->_deviceRecordChangedHandler, changedCopy);
+      (*(selfCopy->_deviceRecordChangedHandler + 2))();
     }
 
     else if (gLogCategory_HMServiceClient <= 10 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
@@ -1068,8 +1075,7 @@ uint64_t __80__HMServiceClient_triggerOnDemandDiagnosticCheckForDeviceIdentifier
     objc_sync_exit(selfCopy);
     if (gLogCategory_HMServiceClient <= 30 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
     {
-      clientID = selfCopy->_clientID;
-      LogPrintF();
+      LogPrintF(&gLogCategory_HMServiceClient, "[HMServiceClient clientHMDeviceRecordLost:]", 30, "HMDeviceRecord lost for clientID 0x%X, device: %@", selfCopy->_clientID, lostCopy);
     }
   }
 
@@ -1087,11 +1093,10 @@ uint64_t __80__HMServiceClient_triggerOnDemandDiagnosticCheckForDeviceIdentifier
   {
     if (gLogCategory_HMServiceClient <= 30 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
     {
-      clientID = self->_clientID;
-      LogPrintF();
+      LogPrintF(&gLogCategory_HMServiceClient, "[HMServiceClient clientHMDeviceDiagnosticRecordFound:]", 30, "CID 0x%X, reporting HMDeviceDiagnosticRecord: %@", self->_clientID, foundCopy);
     }
 
-    (*(self->_deviceDiagnosticRecordFoundHandler + 2))(self->_deviceDiagnosticRecordFoundHandler, foundCopy);
+    (*(self->_deviceDiagnosticRecordFoundHandler + 2))();
   }
 
   else if (gLogCategory_HMServiceClient <= 10 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
@@ -1114,8 +1119,7 @@ uint64_t __80__HMServiceClient_triggerOnDemandDiagnosticCheckForDeviceIdentifier
 
   if (gLogCategory_HMServiceClient <= 90 && (gLogCategory_HMServiceClient != -1 || _LogCategory_Initialize()))
   {
-    clientID = selfCopy->_clientID;
-    LogPrintF();
+    LogPrintF(&gLogCategory_HMServiceClient, "[HMServiceClient clientHMAvailableAudiograms:invalidAudiograms:error:]", 90, "CID 0x%X, available audiograms, valid: %@, invalid: %@, error: %@", selfCopy->_clientID, audiogramsCopy, invalidAudiogramsCopy, errorCopy);
   }
 
   audiogramsAvailableHandler = selfCopy->_audiogramsAvailableHandler;
@@ -1123,13 +1127,6 @@ uint64_t __80__HMServiceClient_triggerOnDemandDiagnosticCheckForDeviceIdentifier
   {
     audiogramsAvailableHandler[2](audiogramsAvailableHandler, selfCopy->_validAudiograms, selfCopy->_invalidAudiograms, errorCopy);
   }
-}
-
-uint64_t __61__HMServiceClient_fetchHearingModeDeviceRecordForIdentifier___block_invoke_2_cold_1(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a1 + 32);
-  v4 = *(*(*a2 + 8) + 40);
-  return LogPrintF();
 }
 
 @end

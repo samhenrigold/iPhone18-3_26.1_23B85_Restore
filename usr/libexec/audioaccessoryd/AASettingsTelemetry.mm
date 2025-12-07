@@ -2,6 +2,7 @@
 + (id)sharedInstance;
 - (AASettingsTelemetry)init;
 - (void)_sendSettingsChanges:(id)changes device:(id)device;
+- (void)_submitFeaturesChangeMetrics:(unsigned int)metrics forFeature:(id)feature forDevice:(id)device;
 - (void)sendSettingsChanges:(id)changes device:(id)device;
 @end
 
@@ -140,6 +141,26 @@
   {
     sub_1001FA84C();
   }
+}
+
+- (void)_submitFeaturesChangeMetrics:(unsigned int)metrics forFeature:(id)feature forDevice:(id)device
+{
+  v6 = *&metrics;
+  v14[0] = feature;
+  v13[0] = @"FeatureName";
+  v13[1] = @"FeatureNewValue";
+  deviceCopy = device;
+  featureCopy = feature;
+  v9 = [NSNumber numberWithUnsignedInt:v6];
+  v14[1] = v9;
+  v13[2] = @"PID";
+  productID = [deviceCopy productID];
+
+  v11 = [NSNumber numberWithUnsignedInt:productID];
+  v14[2] = v11;
+  v12 = [NSDictionary dictionaryWithObjects:v14 forKeys:v13 count:3];
+
+  CUMetricsLog();
 }
 
 @end

@@ -14,6 +14,7 @@
 - (void)removeSystemCommissionerPairingWithUUID:(id)d completionHandler:(id)handler;
 - (void)retrievePreferredThreadCredentialsOrCreateWithDataset:(id)dataset completionHandler:(id)handler;
 - (void)showRestrictedCharacteristicsAccessWarningAlert;
+- (void)updateThreadCredentialManagementEnabled:(BOOL)enabled forSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler;
 @end
 
 @implementation MTSXPCClientProxy
@@ -27,14 +28,12 @@
 
 - (id)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   connection = [(MTSXPCClientProxy *)self connection];
   v5 = [v3 initWithName:@"Connection" value:connection];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -58,6 +57,15 @@
   datasetCopy = dataset;
   delegate = [(MTSXPCClientProxy *)self delegate];
   [delegate clientProxy:self retrievePreferredThreadCredentialsOrCreateWithDataset:datasetCopy completionHandler:handlerCopy];
+}
+
+- (void)updateThreadCredentialManagementEnabled:(BOOL)enabled forSystemCommissionerPairingUUID:(id)d completionHandler:(id)handler
+{
+  enabledCopy = enabled;
+  handlerCopy = handler;
+  dCopy = d;
+  delegate = [(MTSXPCClientProxy *)self delegate];
+  [delegate clientProxy:self updateThreadCredentialManagementEnabled:enabledCopy forSystemCommissionerPairingUUID:dCopy completionHandler:handlerCopy];
 }
 
 - (void)removeSystemCommissionerPairingWithUUID:(id)d completionHandler:(id)handler

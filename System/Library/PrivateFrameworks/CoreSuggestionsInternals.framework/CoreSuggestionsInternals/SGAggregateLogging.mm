@@ -56,7 +56,7 @@ void __110__SGAggregateLogging_PET__incrementValuesInDomain_subdomain_type_actio
 
 + (void)pushValueForDistributionKeyWithDomain:(id)domain subdomain:(id)subdomain suffix:(id)suffix action:(id)action value:(int64_t)value
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v8 = aggdKeyForComponents(domain, subdomain, 0, suffix, action);
   v9 = objc_opt_new();
   [v9 setKey:v8];
@@ -65,18 +65,17 @@ void __110__SGAggregateLogging_PET__incrementValuesInDomain_subdomain_type_actio
 
   v11 = objc_alloc(MEMORY[0x277CCACA8]);
   v12 = [v11 initWithFormat:@"%@.%@", *MEMORY[0x277D02470], v8];
-  v16 = @"count";
+  v15 = @"count";
   v13 = [MEMORY[0x277CCABB0] numberWithInt:value];
-  v17[0] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v16[0] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
 
   AnalyticsSendEvent();
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)setValueForScalarKeyWithDomain:(id)domain subdomain:(id)subdomain suffix:(id)suffix action:(id)action value:(int64_t)value
 {
-  v17[1] = *MEMORY[0x277D85DE8];
+  v16[1] = *MEMORY[0x277D85DE8];
   v8 = aggdKeyForComponents(domain, subdomain, 0, suffix, action);
   v9 = objc_opt_new();
   [v9 setKey:v8];
@@ -85,13 +84,12 @@ void __110__SGAggregateLogging_PET__incrementValuesInDomain_subdomain_type_actio
 
   v11 = objc_alloc(MEMORY[0x277CCACA8]);
   v12 = [v11 initWithFormat:@"%@.%@", *MEMORY[0x277D02470], v8];
-  v16 = @"count";
+  v15 = @"count";
   v13 = [MEMORY[0x277CCABB0] numberWithInt:value];
-  v17[0] = v13;
-  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v17 forKeys:&v16 count:1];
+  v16[0] = v13;
+  v14 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v16 forKeys:&v15 count:1];
 
   AnalyticsSendEvent();
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 + (void)addValueForScalarKeyWithDomain:(id)domain subdomain:(id)subdomain suffix:(id)suffix action:(id)action value:(int64_t)value

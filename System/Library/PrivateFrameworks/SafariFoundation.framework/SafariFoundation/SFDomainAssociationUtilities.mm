@@ -26,35 +26,35 @@
 
 + (BOOL)domainIsProhibitedForSavingCredentials:(id)credentials
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v19 = *MEMORY[0x277D85DE8];
   credentialsCopy = credentials;
   if (domainIsProhibitedForSavingCredentials__onceToken != -1)
   {
     +[SFDomainAssociationUtilities domainIsProhibitedForSavingCredentials:];
   }
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   v4 = domainIsProhibitedForSavingCredentials__blocklist;
-  v5 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v16;
+    v7 = *v15;
 LABEL_5:
     v8 = 0;
     while (1)
     {
-      if (*v16 != v7)
+      if (*v15 != v7)
       {
         objc_enumerationMutation(v4);
       }
 
-      v9 = *(*(&v15 + 1) + 8 * v8);
+      v9 = *(*(&v14 + 1) + 8 * v8);
       v10 = 1;
-      if ([credentialsCopy safari_hasCaseInsensitiveSuffix:{v9, v15}])
+      if ([credentialsCopy safari_hasCaseInsensitiveSuffix:{v9, v14}])
       {
         break;
       }
@@ -69,7 +69,7 @@ LABEL_5:
 
       if (v6 == ++v8)
       {
-        v6 = [v4 countByEnumeratingWithState:&v15 objects:v19 count:16];
+        v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
         v10 = 0;
         if (v6)
         {
@@ -86,7 +86,6 @@ LABEL_5:
     v10 = 0;
   }
 
-  v13 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -98,39 +97,39 @@ void __71__SFDomainAssociationUtilities_domainIsProhibitedForSavingCredentials__
 
 + (BOOL)highLevelDomainHasSuiteOfAssociatedApps:(id)apps
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   appsCopy = apps;
   if (highLevelDomainHasSuiteOfAssociatedApps__onceToken != -1)
   {
     +[SFDomainAssociationUtilities highLevelDomainHasSuiteOfAssociatedApps:];
   }
 
-  v12 = 0u;
-  v13 = 0u;
-  v10 = 0u;
   v11 = 0u;
+  v12 = 0u;
+  v9 = 0u;
+  v10 = 0u;
   v4 = highLevelDomainHasSuiteOfAssociatedApps__highLevelDomainsWithSuiteOfAssociatedApps;
-  v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
-    v6 = *v11;
+    v6 = *v10;
     while (2)
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v11 != v6)
+        if (*v10 != v6)
         {
           objc_enumerationMutation(v4);
         }
 
-        if ([appsCopy safari_isCaseInsensitiveEqualToString:{*(*(&v10 + 1) + 8 * i), v10}])
+        if ([appsCopy safari_isCaseInsensitiveEqualToString:{*(*(&v9 + 1) + 8 * i), v9}])
         {
           LOBYTE(v5) = 1;
           goto LABEL_13;
         }
       }
 
-      v5 = [v4 countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v5 = [v4 countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v5)
       {
         continue;
@@ -142,7 +141,6 @@ void __71__SFDomainAssociationUtilities_domainIsProhibitedForSavingCredentials__
 
 LABEL_13:
 
-  v8 = *MEMORY[0x277D85DE8];
   return v5;
 }
 

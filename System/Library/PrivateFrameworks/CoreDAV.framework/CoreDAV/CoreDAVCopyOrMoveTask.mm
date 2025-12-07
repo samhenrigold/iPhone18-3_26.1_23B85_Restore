@@ -79,9 +79,9 @@ LABEL_12:
 - (id)additionalHeaderValues
 {
   v3 = objc_alloc_init(MEMORY[0x277CBEB38]);
-  v14.receiver = self;
-  v14.super_class = CoreDAVCopyOrMoveTask;
-  additionalHeaderValues = [(CoreDAVTask *)&v14 additionalHeaderValues];
+  v15.receiver = self;
+  v15.super_class = CoreDAVCopyOrMoveTask;
+  additionalHeaderValues = [(CoreDAVTask *)&v15 additionalHeaderValues];
   [v3 addEntriesFromDictionary:additionalHeaderValues];
 
   destinationURL = [(CoreDAVCopyOrMoveTask *)self destinationURL];
@@ -113,13 +113,14 @@ LABEL_8:
   if (self->_shouldSendOrder)
   {
     cDVRawLastPathComponent = [(NSURL *)self->_priorOrderedURL CDVRawLastPathComponent];
-    if ([cDVRawLastPathComponent length])
+    v10 = [cDVRawLastPathComponent length];
+    if (v10)
     {
-      v10 = MEMORY[0x277CCACA8];
-      v11 = CDVRelativeOrderHeaderString();
-      v12 = [v10 stringWithFormat:@"%@%@", v11, cDVRawLastPathComponent];
+      v11 = MEMORY[0x277CCACA8];
+      v12 = CDVRelativeOrderHeaderString(v10);
+      v13 = [v11 stringWithFormat:@"%@%@", v12, cDVRawLastPathComponent];
 
-      [v3 setObject:v12 forKey:@"Position"];
+      [v3 setObject:v13 forKey:@"Position"];
     }
   }
 
@@ -137,7 +138,7 @@ LABEL_8:
 
 - (void)finishCoreDAVTaskWithError:(id)error
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   errorCopy = error;
   v5 = errorCopy;
   if (errorCopy)
@@ -155,8 +156,8 @@ LABEL_8:
         if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
         {
           *buf = 138543362;
-          v27 = objc_opt_class();
-          v11 = v27;
+          v26 = objc_opt_class();
+          v11 = v26;
           v12 = "%{public}@ cancelled";
           v13 = v10;
           v14 = OS_LOG_TYPE_INFO;
@@ -177,10 +178,10 @@ LABEL_11:
       if (os_log_type_enabled(v22, OS_LOG_TYPE_ERROR))
       {
         *buf = 138543618;
-        v27 = objc_opt_class();
-        v28 = 2112;
-        v29 = v5;
-        v11 = v27;
+        v26 = objc_opt_class();
+        v27 = 2112;
+        v28 = v5;
+        v11 = v26;
         v12 = "%{public}@ failed: %@";
         v13 = v22;
         v14 = OS_LOG_TYPE_ERROR;
@@ -214,11 +215,9 @@ LABEL_14:
 LABEL_15:
   self->super._numDownloadedElements = [allObjects count];
   [(CoreDAVCopyOrMoveTask *)self _callBackToDelegateWithResponses:allObjects error:v5];
-  v25.receiver = self;
-  v25.super_class = CoreDAVCopyOrMoveTask;
-  [(CoreDAVTask *)&v25 finishCoreDAVTaskWithError:v5];
-
-  v24 = *MEMORY[0x277D85DE8];
+  v24.receiver = self;
+  v24.super_class = CoreDAVCopyOrMoveTask;
+  [(CoreDAVTask *)&v24 finishCoreDAVTaskWithError:v5];
 }
 
 + (id)stringFromOverwriteValue:(int)value

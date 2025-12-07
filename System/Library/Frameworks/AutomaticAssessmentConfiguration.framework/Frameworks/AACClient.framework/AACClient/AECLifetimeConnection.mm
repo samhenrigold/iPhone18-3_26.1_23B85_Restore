@@ -39,9 +39,9 @@
     *v9 = error;
     errorCopy = error;
     selfCopy = self;
-    sub_236E036C4(v6);
+    sub_236E036C4(v6, v7);
     v6(v8);
-    sub_236E036D4(v6);
+    sub_236E036D4(v6, v7);
   }
 
   else
@@ -60,7 +60,7 @@
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
   selfCopy = self;
-  sub_236E02588(sub_236E03C90, v5, "Client beginning SAM");
+  sub_236E02588(sub_236E03C90, v5, "Client beginning SAM", &unk_2849D30A0, &unk_236E184F0);
 }
 
 - (void)handleEventWantsEndSingleAppModeWithCompletion:(id)completion
@@ -69,7 +69,7 @@
   v5 = swift_allocObject();
   *(v5 + 16) = v4;
   selfCopy = self;
-  sub_236E02588(sub_236E03C90, v5, "Client ending SAM");
+  sub_236E02588(sub_236E03C90, v5, "Client ending SAM", &unk_2849D3050, &unk_236E184E8);
 }
 
 - (void)handleEventWantsPresentBannerWithTitle:(id)title duration:(id)duration completion:(id)completion

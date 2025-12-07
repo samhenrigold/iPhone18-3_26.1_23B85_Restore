@@ -68,7 +68,7 @@
 
 - (id)excludedActivityTypesForPreviewController:(id)controller
 {
-  sub_1005B981C(&unk_101A23C50);
+  sub_1005B981C(&unk_101A23C50, qword_101481860);
   v3 = swift_allocObject();
   *(v3 + 16) = xmmword_10146C6B0;
   if (qword_1019F2750 != -1)

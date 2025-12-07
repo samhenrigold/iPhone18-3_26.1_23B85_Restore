@@ -20,7 +20,6 @@ void __170__HDNanoPairingEntity__initWithNanoRegistryUUID_persistentUUID_healthD
   MEMORY[0x22AAC6BD0](a2, @"source_bundle_id", *(a1 + 56));
   MEMORY[0x22AAC6BD0](a2, @"ids_id", *(a1 + 64));
   MEMORY[0x22AAC6B90](a2, @"sync_provenance", [*(a1 + 72) persistentID]);
-  v4 = *(a1 + 80);
 
   JUMPOUT(0x22AAC6B30);
 }
@@ -73,7 +72,7 @@ void __170__HDNanoPairingEntity__initWithNanoRegistryUUID_persistentUUID_healthD
 
 BOOL __71__HDNanoPairingEntity_nanoPairingEntityWithRegistryUUID_profile_error___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v52[7] = *MEMORY[0x277D85DE8];
+  v51[7] = *MEMORY[0x277D85DE8];
   v5 = [a2 databaseForEntityClass:*(a1 + 56)];
   v6 = [(HDNanoPairingEntity *)*(a1 + 56) _predicateWithRegistryUUID:?];
   v7 = [(HDNanoPairingEntity *)*(a1 + 56) _nanoPairingEntitiesWithPredicate:v6 database:v5 error:a3];
@@ -103,64 +102,64 @@ BOOL __71__HDNanoPairingEntity_nanoPairingEntityWithRegistryUUID_profile_error__
         v18 = v15;
         v19 = v5;
         v20 = v19;
-        v44 = v17;
-        v45 = v18;
+        v43 = v17;
+        v44 = v18;
         if (v16)
         {
-          v42 = v15;
-          v43 = v19;
+          v41 = v15;
+          v42 = v19;
           if (!v17)
           {
-            v41 = [MEMORY[0x277CCA890] currentHandler];
+            v40 = [MEMORY[0x277CCA890] currentHandler];
             v17 = 0;
-            [v41 handleFailureInMethod:sel__initWithNanoRegistryUUID_persistentUUID_healthDatabaseUUID_sourceBundleIdentifier_deviceIdentifier_syncStoreEntity_restoreComplete_database_error_ object:v16 file:@"HDNanoPairingEntity.m" lineNumber:55 description:{@"Invalid parameter not satisfying: %@", @"nanoRegistryUUID != nil"}];
+            [v40 handleFailureInMethod:sel__initWithNanoRegistryUUID_persistentUUID_healthDatabaseUUID_sourceBundleIdentifier_deviceIdentifier_syncStoreEntity_restoreComplete_database_error_ object:v16 file:@"HDNanoPairingEntity.m" lineNumber:55 description:{@"Invalid parameter not satisfying: %@", @"nanoRegistryUUID != nil"}];
 
-            v18 = v45;
+            v18 = v44;
           }
 
-          v52[0] = @"registry_uuid";
-          v52[1] = @"persistent_uuid";
-          v52[2] = @"health_uuid";
-          v52[3] = @"source_bundle_id";
-          v52[4] = @"ids_id";
-          v52[5] = @"sync_provenance";
-          v52[6] = @"restored";
-          v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v52 count:7];
+          v51[0] = @"registry_uuid";
+          v51[1] = @"persistent_uuid";
+          v51[2] = @"health_uuid";
+          v51[3] = @"source_bundle_id";
+          v51[4] = @"ids_id";
+          v51[5] = @"sync_provenance";
+          v51[6] = @"restored";
+          v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v51 count:7];
           v22 = objc_opt_class();
-          v46[0] = MEMORY[0x277D85DD0];
-          v46[1] = 3221225472;
-          v46[2] = __170__HDNanoPairingEntity__initWithNanoRegistryUUID_persistentUUID_healthDatabaseUUID_sourceBundleIdentifier_deviceIdentifier_syncStoreEntity_restoreComplete_database_error___block_invoke;
-          v46[3] = &unk_27861EB10;
+          v45[0] = MEMORY[0x277D85DD0];
+          v45[1] = 3221225472;
+          v45[2] = __170__HDNanoPairingEntity__initWithNanoRegistryUUID_persistentUUID_healthDatabaseUUID_sourceBundleIdentifier_deviceIdentifier_syncStoreEntity_restoreComplete_database_error___block_invoke;
+          v45[3] = &unk_27861EB10;
           v23 = v17;
-          v47 = v23;
+          v46 = v23;
+          v47 = 0u;
           v48 = 0u;
-          v49 = 0u;
           v24 = v18;
-          v50 = v24;
-          v51 = 0;
+          v49 = v24;
+          v50 = 0;
           v25 = v22;
-          v20 = v43;
-          v26 = [v25 insertOrReplaceEntity:0 database:v43 properties:v21 error:a3 bindingHandler:v46];
+          v20 = v42;
+          v26 = [v25 insertOrReplaceEntity:0 database:v42 properties:v21 error:a3 bindingHandler:v45];
 
           if (v26)
           {
-            v27 = [v23 copy];
+            v27 = objc_msgSend_copy(v23);
             v28 = *(v26 + 24);
             *(v26 + 24) = v27;
 
-            v29 = [0 copy];
+            v29 = objc_msgSend_copy(0);
             v30 = *(v26 + 32);
             *(v26 + 32) = v29;
 
-            v31 = [0 copy];
+            v31 = objc_msgSend_copy(0);
             v32 = *(v26 + 40);
             *(v26 + 40) = v31;
 
-            v33 = [0 copy];
+            v33 = objc_msgSend_copy(0);
             v34 = *(v26 + 48);
             *(v26 + 48) = v33;
 
-            v35 = [0 copy];
+            v35 = objc_msgSend_copy(0);
             v36 = *(v26 + 56);
             *(v26 + 56) = v35;
 
@@ -170,7 +169,7 @@ BOOL __71__HDNanoPairingEntity_nanoPairingEntityWithRegistryUUID_profile_error__
 
           v16 = v26;
 
-          v15 = v42;
+          v15 = v41;
         }
 
         v37 = *(*(a1 + 48) + 8);
@@ -187,7 +186,6 @@ BOOL __71__HDNanoPairingEntity_nanoPairingEntityWithRegistryUUID_profile_error__
     v12 = 0;
   }
 
-  v39 = *MEMORY[0x277D85DE8];
   return v12;
 }
 
@@ -205,28 +203,28 @@ BOOL __71__HDNanoPairingEntity_nanoPairingEntityWithRegistryUUID_profile_error__
 
 + (void)_nanoPairingEntitiesWithPredicate:(void *)predicate database:(uint64_t)database error:
 {
-  v19[7] = *MEMORY[0x277D85DE8];
+  v18[7] = *MEMORY[0x277D85DE8];
   predicateCopy = predicate;
   v7 = a2;
   v8 = objc_opt_self();
   v9 = objc_alloc_init(MEMORY[0x277CBEB18]);
-  v19[0] = @"registry_uuid";
-  v19[1] = @"persistent_uuid";
-  v19[2] = @"health_uuid";
-  v19[3] = @"source_bundle_id";
-  v19[4] = @"ids_id";
-  v19[5] = @"sync_provenance";
-  v19[6] = @"restored";
-  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v19 count:7];
+  v18[0] = @"registry_uuid";
+  v18[1] = @"persistent_uuid";
+  v18[2] = @"health_uuid";
+  v18[3] = @"source_bundle_id";
+  v18[4] = @"ids_id";
+  v18[5] = @"sync_provenance";
+  v18[6] = @"restored";
+  v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:7];
   v11 = [v8 queryWithDatabase:predicateCopy predicate:v7];
 
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __72__HDNanoPairingEntity__nanoPairingEntitiesWithPredicate_database_error___block_invoke;
-  v17[3] = &unk_278615128;
-  v18 = v9;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __72__HDNanoPairingEntity__nanoPairingEntitiesWithPredicate_database_error___block_invoke;
+  v16[3] = &unk_278615128;
+  v17 = v9;
   v12 = v9;
-  if ([v11 enumeratePersistentIDsAndProperties:v10 error:database enumerationHandler:v17])
+  if ([v11 enumeratePersistentIDsAndProperties:v10 error:database enumerationHandler:v16])
   {
     v13 = v12;
   }
@@ -238,7 +236,6 @@ BOOL __71__HDNanoPairingEntity_nanoPairingEntityWithRegistryUUID_profile_error__
 
   v14 = v13;
 
-  v15 = *MEMORY[0x277D85DE8];
   return v13;
 }
 
@@ -359,24 +356,23 @@ BOOL __65__HDNanoPairingEntity_sourceEntityForRegistryUUID_profile_error___block
 
 - (BOOL)saveWithHealthDatabase:(id)database error:(id *)error
 {
-  v12[6] = *MEMORY[0x277D85DE8];
-  v12[0] = @"persistent_uuid";
-  v12[1] = @"health_uuid";
-  v12[2] = @"source_bundle_id";
-  v12[3] = @"ids_id";
-  v12[4] = @"sync_provenance";
-  v12[5] = @"restored";
+  v11[6] = *MEMORY[0x277D85DE8];
+  v11[0] = @"persistent_uuid";
+  v11[1] = @"health_uuid";
+  v11[2] = @"source_bundle_id";
+  v11[3] = @"ids_id";
+  v11[4] = @"sync_provenance";
+  v11[5] = @"restored";
   v6 = MEMORY[0x277CBEA60];
   databaseCopy = database;
-  v8 = [v6 arrayWithObjects:v12 count:6];
-  v11[0] = MEMORY[0x277D85DD0];
-  v11[1] = 3221225472;
-  v11[2] = __52__HDNanoPairingEntity_saveWithHealthDatabase_error___block_invoke;
-  v11[3] = &unk_278614508;
-  v11[4] = self;
-  LOBYTE(error) = [(HDHealthEntity *)self updateProperties:v8 healthDatabase:databaseCopy error:error bindingHandler:v11];
+  v8 = [v6 arrayWithObjects:v11 count:6];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __52__HDNanoPairingEntity_saveWithHealthDatabase_error___block_invoke;
+  v10[3] = &unk_278614508;
+  v10[4] = self;
+  LOBYTE(error) = [(HDHealthEntity *)self updateProperties:v8 healthDatabase:databaseCopy error:error bindingHandler:v10];
 
-  v9 = *MEMORY[0x277D85DE8];
   return error;
 }
 
@@ -387,7 +383,6 @@ void __52__HDNanoPairingEntity_saveWithHealthDatabase_error___block_invoke(uint6
   MEMORY[0x22AAC6BD0](a2, @"source_bundle_id", *(*(a1 + 32) + 48));
   MEMORY[0x22AAC6BD0](a2, @"ids_id", *(*(a1 + 32) + 56));
   MEMORY[0x22AAC6B90](a2, @"sync_provenance", *(*(a1 + 32) + 64));
-  v4 = *(*(a1 + 32) + 16);
 
   JUMPOUT(0x22AAC6B30);
 }
@@ -470,13 +465,11 @@ uint64_t __55__HDNanoPairingEntity_resetProvenanceForProfile_error___block_invok
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"sync_provenance";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"sync_provenance";
   v2 = +[(HDHealthEntity *)HDSyncStoreEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }

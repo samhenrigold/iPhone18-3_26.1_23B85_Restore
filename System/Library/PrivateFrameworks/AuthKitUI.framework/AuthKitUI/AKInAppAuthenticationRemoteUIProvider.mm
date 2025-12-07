@@ -222,11 +222,10 @@ void __93__AKInAppAuthenticationRemoteUIProvider_presentLoginAlertWithError_titl
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v6 = 0;
-  objc_storeStrong(&v6, a3);
-  v3 = a1[4];
+  v5 = 0;
+  objc_storeStrong(&v5, a3);
   (*(a1[5] + 16))();
-  objc_storeStrong(&v6, 0);
+  objc_storeStrong(&v5, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -535,54 +534,54 @@ void __75__AKInAppAuthenticationRemoteUIProvider_dismissBasicLoginUIWithCompleti
 
 - (void)activateProximitySession:(id)session completion:(id)completion
 {
-  v45 = *MEMORY[0x277D85DE8];
+  v44 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   location[1] = a2;
   location[0] = 0;
   objc_storeStrong(location, session);
-  v40 = 0;
-  objc_storeStrong(&v40, completion);
   v39 = 0;
-  v38 = _AKLogSystem();
-  v37 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+  objc_storeStrong(&v39, completion);
+  v38 = 0;
+  v37 = _AKLogSystem();
+  v36 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v37, OS_LOG_TYPE_DEFAULT))
   {
-    log = v38;
-    type = v37;
-    __os_log_helper_16_0_0(v36);
-    _os_log_impl(&dword_222379000, log, type, "Activating Proximity message session...", v36, 2u);
+    log = v37;
+    type = v36;
+    __os_log_helper_16_0_0(v35);
+    _os_log_impl(&dword_222379000, log, type, "Activating Proximity message session...", v35, 2u);
   }
 
-  objc_storeStrong(&v38, 0);
+  objc_storeStrong(&v37, 0);
   WeakRetained = objc_loadWeakRetained(&selfCopy->_proximityAuthViewController);
   if (WeakRetained)
   {
     navigationController = [WeakRetained navigationController];
-    v5 = v39;
-    v39 = navigationController;
+    v5 = v38;
+    v38 = navigationController;
     MEMORY[0x277D82BD8](v5);
-    v34 = [[AKProximityMessageViewModel alloc] initWithType:3];
-    [WeakRetained updateViewWithViewModel:v34];
-    objc_storeStrong(&v34, 0);
+    v33 = [[AKProximityMessageViewModel alloc] initWithType:3];
+    [WeakRetained updateViewWithViewModel:v33];
+    objc_storeStrong(&v33, 0);
   }
 
   else
   {
-    v33 = _AKLogSystem();
-    v32 = 16;
-    if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+    v32 = _AKLogSystem();
+    v31 = 16;
+    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
     {
-      v15 = v33;
-      v16 = v32;
-      __os_log_helper_16_0_0(v31);
-      _os_log_error_impl(&dword_222379000, v15, v16, "Missing navigation controller to initate set up for self...", v31, 2u);
+      v14 = v32;
+      v15 = v31;
+      __os_log_helper_16_0_0(v30);
+      _os_log_error_impl(&dword_222379000, v14, v15, "Missing navigation controller to initate set up for self...", v30, 2u);
     }
 
-    objc_storeStrong(&v33, 0);
+    objc_storeStrong(&v32, 0);
   }
 
-  [(AKInAppAuthenticationRemoteUIProvider *)selfCopy _configureProximityAuthLoginOptionsWithCompletion:v40];
-  v6 = MEMORY[0x223DB6C90](v40);
+  [(AKInAppAuthenticationRemoteUIProvider *)selfCopy _configureProximityAuthLoginOptionsWithCompletion:v39];
+  v6 = MEMORY[0x223DB6C90](v39);
   proxAuthCompletion = selfCopy->_proxAuthCompletion;
   selfCopy->_proxAuthCompletion = v6;
   MEMORY[0x277D82BD8](proxAuthCompletion);
@@ -601,51 +600,49 @@ void __75__AKInAppAuthenticationRemoteUIProvider_dismissBasicLoginUIWithCompleti
   selfCopy->_pasViewPresenter = v9;
   *&v11 = MEMORY[0x277D82BD8](pasViewPresenter).n128_u64[0];
   [(PASUIDependentViewPresenter *)selfCopy->_pasViewPresenter setDelegate:selfCopy, v11];
-  v12 = selfCopy->_pasViewPresenter;
   if (objc_opt_respondsToSelector())
   {
-    v30 = _AKLogSystem();
-    v29 = OS_LOG_TYPE_DEBUG;
-    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
+    v29 = _AKLogSystem();
+    v28 = OS_LOG_TYPE_DEBUG;
+    if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
     {
-      __os_log_helper_16_2_1_8_64(v44, selfCopy->_pasViewPresenter);
-      _os_log_debug_impl(&dword_222379000, v30, v29, "Setting 'shouldSignInForSelf=YES' for PAS view presenter (%@)", v44, 0xCu);
+      __os_log_helper_16_2_1_8_64(v43, selfCopy->_pasViewPresenter);
+      _os_log_debug_impl(&dword_222379000, v29, v28, "Setting 'shouldSignInForSelf=YES' for PAS view presenter (%@)", v43, 0xCu);
     }
 
-    objc_storeStrong(&v30, 0);
+    objc_storeStrong(&v29, 0);
     [(PASUIDependentViewPresenter *)selfCopy->_pasViewPresenter setShouldSignInForSelf:1];
   }
 
   else
   {
-    v28 = _AKLogSystem();
-    v27 = OS_LOG_TYPE_ERROR;
-    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
+    v27 = _AKLogSystem();
+    v26 = OS_LOG_TYPE_ERROR;
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      __os_log_helper_16_2_1_8_64(v43, selfCopy->_pasViewPresenter);
-      _os_log_error_impl(&dword_222379000, v28, v27, "PAS view presenter (%@) does not respond to 'shouldSignInForSelf' selector", v43, 0xCu);
+      __os_log_helper_16_2_1_8_64(v42, selfCopy->_pasViewPresenter);
+      _os_log_error_impl(&dword_222379000, v27, v26, "PAS view presenter (%@) does not respond to 'shouldSignInForSelf' selector", v42, 0xCu);
     }
 
-    objc_storeStrong(&v28, 0);
+    objc_storeStrong(&v27, 0);
   }
 
-  v14 = selfCopy->_pasViewPresenter;
-  v13 = location[0];
-  v20 = MEMORY[0x277D85DD0];
-  v21 = -1073741824;
-  v22 = 0;
-  v23 = __77__AKInAppAuthenticationRemoteUIProvider_activateProximitySession_completion___block_invoke;
-  v24 = &unk_2784A6420;
-  v25 = MEMORY[0x277D82BE0](selfCopy);
-  v26 = MEMORY[0x277D82BE0](v39);
-  [(PASUIDependentViewPresenter *)v14 activateWithTemplateMessageSession:v13 completionHandler:&v20];
-  objc_storeStrong(&v26, 0);
+  v13 = selfCopy->_pasViewPresenter;
+  v12 = location[0];
+  v19 = MEMORY[0x277D85DD0];
+  v20 = -1073741824;
+  v21 = 0;
+  v22 = __77__AKInAppAuthenticationRemoteUIProvider_activateProximitySession_completion___block_invoke;
+  v23 = &unk_2784A6420;
+  v24 = MEMORY[0x277D82BE0](selfCopy);
+  v25 = MEMORY[0x277D82BE0](v38);
+  [(PASUIDependentViewPresenter *)v13 activateWithTemplateMessageSession:v12 completionHandler:&v19];
   objc_storeStrong(&v25, 0);
+  objc_storeStrong(&v24, 0);
   objc_storeStrong(&WeakRetained, 0);
+  objc_storeStrong(&v38, 0);
   objc_storeStrong(&v39, 0);
-  objc_storeStrong(&v40, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __77__AKInAppAuthenticationRemoteUIProvider_activateProximitySession_completion___block_invoke(void *a1)
@@ -1176,31 +1173,30 @@ void __81__AKInAppAuthenticationRemoteUIProvider_dismissProximityPairingUIWithCo
 
 void __74__AKInAppAuthenticationRemoteUIProvider_showProximityErrorWithCompletion___block_invoke(uint64_t a1)
 {
-  v8[2] = a1;
-  v8[1] = a1;
+  v7[2] = a1;
+  v7[1] = a1;
   if (*(a1 + 32))
   {
-    v8[0] = [[AKProximityMessageViewModel alloc] initWithType:4];
-    [*(a1 + 32) updateViewWithViewModel:v8[0]];
-    objc_storeStrong(v8, 0);
+    v7[0] = [[AKProximityMessageViewModel alloc] initWithType:4];
+    [*(a1 + 32) updateViewWithViewModel:v7[0]];
+    objc_storeStrong(v7, 0);
   }
 
   else
   {
-    v7 = _AKLogSystem();
-    v6 = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v6 = _AKLogSystem();
+    v5 = OS_LOG_TYPE_DEFAULT;
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      log = v7;
-      type = v6;
-      __os_log_helper_16_0_0(v5);
-      _os_log_impl(&dword_222379000, log, type, "Proximity Pairing UI is not shown, nothing to clean up", v5, 2u);
+      log = v6;
+      type = v5;
+      __os_log_helper_16_0_0(v4);
+      _os_log_impl(&dword_222379000, log, type, "Proximity Pairing UI is not shown, nothing to clean up", v4, 2u);
     }
 
-    objc_storeStrong(&v7, 0);
+    objc_storeStrong(&v6, 0);
     if (*(a1 + 48))
     {
-      v1 = *(*(a1 + 40) + 64);
       (*(*(a1 + 48) + 16))();
     }
   }
@@ -1319,7 +1315,6 @@ void __81__AKInAppAuthenticationRemoteUIProvider_presentKeepUsingUIForAppleID_co
   objc_storeStrong(&v46, 0);
   objc_storeStrong(&v47, 0);
   objc_storeStrong(&v48, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __81__AKInAppAuthenticationRemoteUIProvider_presentKeepUsingUIForAppleID_completion___block_invoke_80(uint64_t a1, void *a2)
@@ -1449,116 +1444,113 @@ void __77__AKInAppAuthenticationRemoteUIProvider_presentSecondFactorUIWithComple
 
 void __77__AKInAppAuthenticationRemoteUIProvider_presentSecondFactorUIWithCompletion___block_invoke_2(uint64_t a1)
 {
-  v33[2] = a1;
-  v33[1] = a1;
-  v33[0] = 0;
-  v32 = [*(a1 + 32) context];
-  location = [v32 presentingViewController];
-  v21 = [location presentedViewController];
+  v30[2] = a1;
+  v30[1] = a1;
+  v30[0] = 0;
+  v29 = [*(a1 + 32) context];
+  location = [v29 presentingViewController];
+  v18 = [location presentedViewController];
   objc_opt_class();
   isKindOfClass = objc_opt_isKindOfClass();
-  *&v1 = MEMORY[0x277D82BD8](v21).n128_u64[0];
+  *&v1 = MEMORY[0x277D82BD8](v18).n128_u64[0];
   if (isKindOfClass)
   {
     v2 = [location presentedViewController];
-    v3 = v33[0];
-    v33[0] = v2;
-    v19 = [v32 _message];
-    v29 = 0;
-    v27 = 0;
-    if (v19)
+    v3 = v30[0];
+    v30[0] = v2;
+    v16 = [v29 _message];
+    v26 = 0;
+    v24 = 0;
+    if (v16)
     {
-      [v33[0] setReason:v19];
+      [v30[0] setReason:v16];
     }
 
     else
     {
-      v4 = *(a1 + 32);
-      v30 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v29 = 1;
-      v28 = [v30 localizedStringForKey:@"ENTER_VERIFICATION_CODE" value:&stru_28358EF68 table:@"Localizable"];
-      v27 = 1;
-      [v33[0] setReason:v28];
+      v27 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v26 = 1;
+      v25 = [v27 localizedStringForKey:@"ENTER_VERIFICATION_CODE" value:&stru_28358EF68 table:@"Localizable"];
+      v24 = 1;
+      [v30[0] setReason:v25];
     }
 
-    if (v27)
+    if (v24)
     {
-      MEMORY[0x277D82BD8](v28);
+      MEMORY[0x277D82BD8](v25);
     }
 
-    if (v29)
+    if (v26)
     {
-      MEMORY[0x277D82BD8](v30);
+      MEMORY[0x277D82BD8](v27);
     }
 
-    v5 = MEMORY[0x277D82BD8](v19).n128_u64[0];
+    v4 = MEMORY[0x277D82BD8](v16).n128_u64[0];
   }
 
-  else if ([v32 piggybackingForTrustedDevice] == 1)
+  else if ([v29 piggybackingForTrustedDevice] == 1)
   {
-    v6 = [[AKBasicLoginAlertController alloc] initWithAlertStyle:5];
-    v7 = v33[0];
-    v33[0] = v6;
-    MEMORY[0x277D82BD8](v7);
-    v8 = *(a1 + 32);
-    v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-    v17 = [v18 localizedStringForKey:@"ENTER_VERIFICATION_CODE_REPAIR" value:&stru_28358EF68 table:@"Localizable"];
-    [v33[0] setReason:?];
-    MEMORY[0x277D82BD8](v17);
-    v5 = MEMORY[0x277D82BD8](v18).n128_u64[0];
+    v5 = [[AKBasicLoginAlertController alloc] initWithAlertStyle:5];
+    v6 = v30[0];
+    v30[0] = v5;
+    MEMORY[0x277D82BD8](v6);
+    v15 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+    v14 = [v15 localizedStringForKey:@"ENTER_VERIFICATION_CODE_REPAIR" value:&stru_28358EF68 table:@"Localizable"];
+    [v30[0] setReason:?];
+    MEMORY[0x277D82BD8](v14);
+    v4 = MEMORY[0x277D82BD8](v15).n128_u64[0];
   }
 
   else
   {
-    v9 = [[AKBasicLoginAlertController alloc] initWithAlertStyle:4];
-    v10 = v33[0];
-    v33[0] = v9;
-    v16 = [v32 _message];
-    v25 = 0;
-    v23 = 0;
-    if (v16)
+    v7 = [[AKBasicLoginAlertController alloc] initWithAlertStyle:4];
+    v8 = v30[0];
+    v30[0] = v7;
+    v13 = [v29 _message];
+    v22 = 0;
+    v20 = 0;
+    if (v13)
     {
-      [v33[0] setReason:v16];
+      [v30[0] setReason:v13];
     }
 
     else
     {
-      v11 = *(a1 + 32);
-      v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v25 = 1;
-      v24 = [v26 localizedStringForKey:@"ENTER_VERIFICATION_CODE" value:&stru_28358EF68 table:@"Localizable"];
-      v23 = 1;
-      [v33[0] setReason:v24];
+      v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v22 = 1;
+      v21 = [v23 localizedStringForKey:@"ENTER_VERIFICATION_CODE" value:&stru_28358EF68 table:@"Localizable"];
+      v20 = 1;
+      [v30[0] setReason:v21];
     }
 
-    if (v23)
+    if (v20)
     {
-      MEMORY[0x277D82BD8](v24);
+      MEMORY[0x277D82BD8](v21);
     }
 
-    if (v25)
+    if (v22)
     {
-      MEMORY[0x277D82BD8](v26);
+      MEMORY[0x277D82BD8](v23);
     }
 
-    v5 = MEMORY[0x277D82BD8](v16).n128_u64[0];
+    v4 = MEMORY[0x277D82BD8](v13).n128_u64[0];
   }
 
-  v13 = [v32 username];
-  [v33[0] setUsername:?];
-  [v33[0] setDelegate:{*(a1 + 32), MEMORY[0x277D82BD8](v13).n128_f64[0]}];
-  v14 = [*(a1 + 32) _secondFactorActionsForAlert:v33[0] completion:*(a1 + 40)];
-  [v33[0] setSecondFactorActions:?];
-  v15 = [v33[0] presentingViewController];
-  *&v12 = MEMORY[0x277D82BD8](v15).n128_u64[0];
-  if (!v15)
+  v10 = [v29 username];
+  [v30[0] setUsername:?];
+  [v30[0] setDelegate:{*(a1 + 32), MEMORY[0x277D82BD8](v10).n128_f64[0]}];
+  v11 = [*(a1 + 32) _secondFactorActionsForAlert:v30[0] completion:*(a1 + 40)];
+  [v30[0] setSecondFactorActions:?];
+  v12 = [v30[0] presentingViewController];
+  *&v9 = MEMORY[0x277D82BD8](v12).n128_u64[0];
+  if (!v12)
   {
-    [location presentViewController:v33[0] animated:1 completion:{0, v12}];
+    [location presentViewController:v30[0] animated:1 completion:{0, v9}];
   }
 
   objc_storeStrong(&location, 0);
-  objc_storeStrong(&v32, 0);
-  objc_storeStrong(v33, 0);
+  objc_storeStrong(&v29, 0);
+  objc_storeStrong(v30, 0);
 }
 
 - (void)presentSecondFactorAlertWithError:(id)error title:(id)title message:(id)message completion:(id)completion
@@ -1601,52 +1593,55 @@ void __77__AKInAppAuthenticationRemoteUIProvider_presentSecondFactorUIWithComple
 
 void __100__AKInAppAuthenticationRemoteUIProvider_presentSecondFactorAlertWithError_title_message_completion___block_invoke(uint64_t a1)
 {
-  v44[2] = a1;
-  v44[1] = a1;
-  v44[0] = [*(a1 + 32) context];
-  v43 = [v44[0] presentingViewController];
-  v22 = [*(a1 + 40) domain];
-  v23 = 0;
-  if ([v22 isEqual:*MEMORY[0x277CEFF48]])
+  v42[2] = a1;
+  v42[1] = a1;
+  v42[0] = [*(a1 + 32) context];
+  v41 = [v42[0] presentingViewController];
+  v20 = [*(a1 + 40) domain];
+  v21 = 0;
+  if ([v20 isEqual:*MEMORY[0x277CEFF48]])
   {
-    v23 = [*(a1 + 40) code] == -7036;
+    v21 = [*(a1 + 40) code] == -7036;
   }
 
-  *&v1 = MEMORY[0x277D82BD8](v22).n128_u64[0];
-  if (v23)
+  *&v1 = MEMORY[0x277D82BD8](v20).n128_u64[0];
+  if (v21)
   {
-    v42 = [v43 presentedViewController];
-    [v42 jiggleAView];
-    [v42 clearSecondFactorEntry];
-    [v42 setPasscodeFieldDisabled:0];
-    if ([v44[0] piggybackingForTrustedDevice] == 1)
+    v40 = [v41 presentedViewController];
+    [v40 jiggleAView];
+    [v40 clearSecondFactorEntry];
+    [v40 setPasscodeFieldDisabled:0];
+    if ([v42[0] piggybackingForTrustedDevice] == 1)
     {
-      v2 = *(a1 + 32);
-      v20 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v19 = [v20 localizedStringForKey:@"ENTER_VERIFICATION_CODE_REPAIR" value:&stru_28358EF68 table:@"Localizable"];
-      [v42 setReason:?];
-      MEMORY[0x277D82BD8](v19);
-      v3 = MEMORY[0x277D82BD8](v20).n128_u64[0];
+      v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v17 = [v18 localizedStringForKey:@"ENTER_VERIFICATION_CODE_REPAIR" value:&stru_28358EF68 table:@"Localizable"];
+      [v40 setReason:?];
+      MEMORY[0x277D82BD8](v17);
+      v2 = MEMORY[0x277D82BD8](v18).n128_u64[0];
     }
 
     else
     {
-      v18 = [v44[0] _message];
-      v40 = 0;
+      v16 = [v42[0] _message];
       v38 = 0;
-      if (v18)
+      v36 = 0;
+      if (v16)
       {
-        [v42 setReason:v18];
+        [v40 setReason:v16];
       }
 
       else
       {
-        v4 = *(a1 + 32);
-        v41 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-        v40 = 1;
-        v39 = [v41 localizedStringForKey:@"ENTER_VERIFICATION_CODE" value:&stru_28358EF68 table:@"Localizable"];
+        v39 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
         v38 = 1;
-        [v42 setReason:v39];
+        v37 = [v39 localizedStringForKey:@"ENTER_VERIFICATION_CODE" value:&stru_28358EF68 table:@"Localizable"];
+        v36 = 1;
+        [v40 setReason:v37];
+      }
+
+      if (v36)
+      {
+        MEMORY[0x277D82BD8](v37);
       }
 
       if (v38)
@@ -1654,64 +1649,59 @@ void __100__AKInAppAuthenticationRemoteUIProvider_presentSecondFactorAlertWithEr
         MEMORY[0x277D82BD8](v39);
       }
 
-      if (v40)
-      {
-        MEMORY[0x277D82BD8](v41);
-      }
-
-      v3 = MEMORY[0x277D82BD8](v18).n128_u64[0];
+      v2 = MEMORY[0x277D82BD8](v16).n128_u64[0];
     }
 
-    v17 = [*(a1 + 32) _secondFactorActionsForAlert:v42 completion:{*(a1 + 64), *&v3}];
-    [v42 setSecondFactorActions:?];
-    MEMORY[0x277D82BD8](v17);
-    objc_storeStrong(&v42, 0);
+    v15 = [*(a1 + 32) _secondFactorActionsForAlert:v40 completion:{*(a1 + 64), *&v2}];
+    [v40 setSecondFactorActions:?];
+    MEMORY[0x277D82BD8](v15);
+    objc_storeStrong(&v40, 0);
   }
 
   else
   {
-    [v43 dismissViewControllerAnimated:1 completion:v1];
-    v37 = [MEMORY[0x277D75110] alertControllerWithTitle:*(a1 + 48) message:*(a1 + 56) preferredStyle:?];
-    v8 = v37;
-    v7 = MEMORY[0x277D750F8];
-    v11 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:?];
-    v10 = [v11 localizedStringForKey:@"CANCEL" value:? table:?];
-    v31 = MEMORY[0x277D85DD0];
-    v32 = -1073741824;
-    v33 = 0;
-    v34 = __100__AKInAppAuthenticationRemoteUIProvider_presentSecondFactorAlertWithError_title_message_completion___block_invoke_2;
-    v35 = &unk_2784A64D8;
-    v36 = MEMORY[0x277D82BE0](*(a1 + 64));
-    v9 = [v7 actionWithTitle:v10 style:1 handler:&v31];
-    [v8 addAction:?];
-    MEMORY[0x277D82BD8](v9);
-    MEMORY[0x277D82BD8](v10);
-    *&v5 = MEMORY[0x277D82BD8](v11).n128_u64[0];
-    v13 = v37;
-    v12 = MEMORY[0x277D750F8];
-    v16 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:{@"com.apple.AuthKitUI", v5}];
-    v15 = [v16 localizedStringForKey:@"TRY_AGAIN" value:&stru_28358EF68 table:@"Localizable"];
-    v24 = MEMORY[0x277D85DD0];
-    v25 = -1073741824;
-    v26 = 0;
-    v27 = __100__AKInAppAuthenticationRemoteUIProvider_presentSecondFactorAlertWithError_title_message_completion___block_invoke_103;
-    v28 = &unk_2784A73C8;
-    v29 = MEMORY[0x277D82BE0](*(a1 + 32));
-    v30 = MEMORY[0x277D82BE0](*(a1 + 64));
-    v14 = [v12 actionWithTitle:v15 style:0 handler:&v24];
-    [v13 addAction:?];
-    MEMORY[0x277D82BD8](v14);
-    MEMORY[0x277D82BD8](v15);
-    *&v6 = MEMORY[0x277D82BD8](v16).n128_u64[0];
-    [v43 presentViewController:v37 animated:1 completion:{0, v6}];
-    objc_storeStrong(&v30, 0);
-    objc_storeStrong(&v29, 0);
-    objc_storeStrong(&v36, 0);
-    objc_storeStrong(&v37, 0);
+    [v41 dismissViewControllerAnimated:1 completion:v1];
+    v35 = [MEMORY[0x277D75110] alertControllerWithTitle:*(a1 + 48) message:*(a1 + 56) preferredStyle:?];
+    v6 = v35;
+    v5 = MEMORY[0x277D750F8];
+    v9 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:?];
+    v8 = [v9 localizedStringForKey:@"CANCEL" value:? table:?];
+    v29 = MEMORY[0x277D85DD0];
+    v30 = -1073741824;
+    v31 = 0;
+    v32 = __100__AKInAppAuthenticationRemoteUIProvider_presentSecondFactorAlertWithError_title_message_completion___block_invoke_2;
+    v33 = &unk_2784A64D8;
+    v34 = MEMORY[0x277D82BE0](*(a1 + 64));
+    v7 = [v5 actionWithTitle:v8 style:1 handler:&v29];
+    [v6 addAction:?];
+    MEMORY[0x277D82BD8](v7);
+    MEMORY[0x277D82BD8](v8);
+    *&v3 = MEMORY[0x277D82BD8](v9).n128_u64[0];
+    v11 = v35;
+    v10 = MEMORY[0x277D750F8];
+    v14 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:{@"com.apple.AuthKitUI", v3}];
+    v13 = [v14 localizedStringForKey:@"TRY_AGAIN" value:&stru_28358EF68 table:@"Localizable"];
+    v22 = MEMORY[0x277D85DD0];
+    v23 = -1073741824;
+    v24 = 0;
+    v25 = __100__AKInAppAuthenticationRemoteUIProvider_presentSecondFactorAlertWithError_title_message_completion___block_invoke_103;
+    v26 = &unk_2784A73C8;
+    v27 = MEMORY[0x277D82BE0](*(a1 + 32));
+    v28 = MEMORY[0x277D82BE0](*(a1 + 64));
+    v12 = [v10 actionWithTitle:v13 style:0 handler:&v22];
+    [v11 addAction:?];
+    MEMORY[0x277D82BD8](v12);
+    MEMORY[0x277D82BD8](v13);
+    *&v4 = MEMORY[0x277D82BD8](v14).n128_u64[0];
+    [v41 presentViewController:v35 animated:1 completion:{0, v4}];
+    objc_storeStrong(&v28, 0);
+    objc_storeStrong(&v27, 0);
+    objc_storeStrong(&v34, 0);
+    objc_storeStrong(&v35, 0);
   }
 
-  objc_storeStrong(&v43, 0);
-  objc_storeStrong(v44, 0);
+  objc_storeStrong(&v41, 0);
+  objc_storeStrong(v42, 0);
 }
 
 void __100__AKInAppAuthenticationRemoteUIProvider_presentSecondFactorAlertWithError_title_message_completion___block_invoke_2(void *a1, void *a2)
@@ -1922,7 +1912,6 @@ void __90__AKInAppAuthenticationRemoteUIProvider_presentIDPProvidedUIWithConfigu
   objc_storeStrong(v23, 0);
   objc_storeStrong(&v24, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 double __90__AKInAppAuthenticationRemoteUIProvider_presentIDPProvidedUIWithConfiguration_completion___block_invoke_105(uint64_t a1)
@@ -2024,7 +2013,6 @@ double __90__AKInAppAuthenticationRemoteUIProvider_presentIDPProvidedUIWithConfi
   objc_storeStrong(&context, 0);
   objc_storeStrong(&v39, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __93__AKInAppAuthenticationRemoteUIProvider_presentServerProvidedUIWithConfiguration_completion___block_invoke(id *a1, void *a2, void *a3, void *a4)
@@ -2177,173 +2165,169 @@ double __93__AKInAppAuthenticationRemoteUIProvider_presentServerProvidedUIWithCo
 
 void __99__AKInAppAuthenticationRemoteUIProvider_presentBiometricOrPasscodeValidationForAppleID_completion___block_invoke(void *a1)
 {
-  v61[2] = *MEMORY[0x277D85DE8];
-  v58[2] = a1;
-  v58[1] = a1;
-  v58[0] = objc_opt_new();
-  v25 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.AuthKitUI"];
-  v24 = [v25 localizedStringForKey:@"CANCEL" value:? table:?];
-  [v58[0] setLocalizedCancelTitle:?];
-  MEMORY[0x277D82BD8](v24);
-  MEMORY[0x277D82BD8](v25);
-  [v58[0] setTouchIDAuthenticationAllowableReuseDuration:20.0];
-  [v58[0] setTouchIDAuthenticationRetryLimit:&unk_2835AAE70];
-  v57 = 0;
-  v56 = 2;
-  v1 = a1[4];
-  v26 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v55 = [v26 localizedStringForKey:@"SIGN_IN" value:&stru_28358EF68 table:@"Localizable"];
-  MEMORY[0x277D82BD8](v26);
+  v58[2] = *MEMORY[0x277D85DE8];
+  v55[2] = a1;
+  v55[1] = a1;
+  v55[0] = objc_opt_new();
+  v22 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.AuthKitUI"];
+  v21 = [v22 localizedStringForKey:@"CANCEL" value:? table:?];
+  [v55[0] setLocalizedCancelTitle:?];
+  MEMORY[0x277D82BD8](v21);
+  MEMORY[0x277D82BD8](v22);
+  [v55[0] setTouchIDAuthenticationAllowableReuseDuration:20.0];
+  [v55[0] setTouchIDAuthenticationRetryLimit:&unk_2835AAE70];
+  v54 = 0;
+  v53 = 2;
+  v23 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v52 = [v23 localizedStringForKey:@"SIGN_IN" value:&stru_28358EF68 table:@"Localizable"];
+  MEMORY[0x277D82BD8](v23);
   WeakRetained = objc_loadWeakRetained((a1[4] + 112));
-  v29 = [WeakRetained title];
-  if (v29)
+  v26 = [WeakRetained title];
+  if (v26)
   {
-    v2 = MEMORY[0x277D82BE0](v29);
+    v1 = MEMORY[0x277D82BE0](v26);
   }
 
   else
   {
-    v2 = MEMORY[0x277D82BE0](v55);
+    v1 = MEMORY[0x277D82BE0](v52);
   }
 
-  location = v2;
-  MEMORY[0x277D82BD8](v29);
+  location = v1;
+  MEMORY[0x277D82BD8](v26);
   MEMORY[0x277D82BD8](WeakRetained);
-  v3 = a1[4];
-  v21 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-  v53 = [v21 localizedStringForKey:@"AUTHORIZE_PASSCODE_VALIDATION_TITLE" value:&stru_28358EF68 table:@"Localizable"];
-  MEMORY[0x277D82BD8](v21);
-  v22 = objc_loadWeakRetained((a1[4] + 112));
-  v51 = 0;
-  v23 = 0;
-  if ([v22 isPasscodeOnlyPolicy])
+  v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  v50 = [v18 localizedStringForKey:@"AUTHORIZE_PASSCODE_VALIDATION_TITLE" value:&stru_28358EF68 table:@"Localizable"];
+  MEMORY[0x277D82BD8](v18);
+  v19 = objc_loadWeakRetained((a1[4] + 112));
+  v48 = 0;
+  v20 = 0;
+  if ([v19 isPasscodeOnlyPolicy])
   {
-    v52 = objc_loadWeakRetained((a1[4] + 112));
-    v51 = 1;
-    v23 = [v52 serviceType] == 2;
+    v49 = objc_loadWeakRetained((a1[4] + 112));
+    v48 = 1;
+    v20 = [v49 serviceType] == 2;
   }
 
-  if (v51)
+  if (v48)
   {
-    MEMORY[0x277D82BD8](v52);
+    MEMORY[0x277D82BD8](v49);
   }
 
-  v4 = MEMORY[0x277D82BD8](v22).n128_u64[0];
-  if (v23)
+  v2 = MEMORY[0x277D82BD8](v19).n128_u64[0];
+  if (v20)
   {
     objc_storeStrong(&location, &stru_28358EF68);
-    v19 = objc_loadWeakRetained((a1[4] + 112));
-    v20 = [v19 title];
-    v49 = 0;
-    v47 = 0;
-    if (v20)
+    v16 = objc_loadWeakRetained((a1[4] + 112));
+    v17 = [v16 title];
+    v46 = 0;
+    v44 = 0;
+    if (v17)
     {
-      objc_storeStrong(&v53, v20);
+      objc_storeStrong(&v50, v17);
     }
 
     else
     {
-      v5 = a1[4];
-      v50 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
-      v49 = 1;
-      v48 = [v50 localizedStringForKey:@"PASSCODE_AUTHENTICATION_TITLE" value:&stru_28358EF68 table:@"Localizable"];
-      v47 = 1;
-      objc_storeStrong(&v53, v48);
+      v47 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+      v46 = 1;
+      v45 = [v47 localizedStringForKey:@"PASSCODE_AUTHENTICATION_TITLE" value:&stru_28358EF68 table:@"Localizable"];
+      v44 = 1;
+      objc_storeStrong(&v50, v45);
     }
 
-    if (v47)
+    if (v44)
     {
-      MEMORY[0x277D82BD8](v48);
+      MEMORY[0x277D82BD8](v45);
     }
 
-    if (v49)
+    if (v46)
     {
-      MEMORY[0x277D82BD8](v50);
+      MEMORY[0x277D82BD8](v47);
     }
 
-    MEMORY[0x277D82BD8](v20);
-    v4 = MEMORY[0x277D82BD8](v19).n128_u64[0];
+    MEMORY[0x277D82BD8](v17);
+    v2 = MEMORY[0x277D82BD8](v16).n128_u64[0];
   }
 
-  v60[0] = &unk_2835AAE88;
-  v61[0] = location;
-  v60[1] = &unk_2835AAEA0;
-  v61[1] = v53;
-  v46 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v61 forKeys:v60 count:{2, *&v4}];
-  v17 = objc_loadWeakRetained((a1[4] + 112));
-  v18 = [v17 biometricSkipPasscodeFallback];
-  *&v6 = MEMORY[0x277D82BD8](v17).n128_u64[0];
-  if (v18)
+  v57[0] = &unk_2835AAE88;
+  v58[0] = location;
+  v57[1] = &unk_2835AAEA0;
+  v58[1] = v50;
+  v43 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v58 forKeys:v57 count:{2, *&v2}];
+  v14 = objc_loadWeakRetained((a1[4] + 112));
+  v15 = [v14 biometricSkipPasscodeFallback];
+  *&v3 = MEMORY[0x277D82BD8](v14).n128_u64[0];
+  if (v15)
   {
-    v56 = 1;
-    [v58[0] setLocalizedFallbackTitle:{&stru_28358EF68, v6}];
+    v53 = 1;
+    [v55[0] setLocalizedFallbackTitle:{&stru_28358EF68, v3}];
   }
 
-  v16 = objc_loadWeakRetained((a1[4] + 112));
-  if ([v16 isPasscodeOnlyPolicy])
+  v13 = objc_loadWeakRetained((a1[4] + 112));
+  if ([v13 isPasscodeOnlyPolicy])
   {
-    v15 = 1007;
+    v12 = 1007;
   }
 
   else
   {
-    v15 = v56;
+    v12 = v53;
   }
 
-  v56 = v15;
-  *&v7 = MEMORY[0x277D82BD8](v16).n128_u64[0];
-  v45 = v57;
-  v14 = [v58[0] canEvaluatePolicy:v56 error:{&v45, v7}];
-  objc_storeStrong(&v57, v45);
-  if (v14)
+  v53 = v12;
+  *&v4 = MEMORY[0x277D82BD8](v13).n128_u64[0];
+  v42 = v54;
+  v11 = [v55[0] canEvaluatePolicy:v53 error:{&v42, v4}];
+  objc_storeStrong(&v54, v42);
+  if (v11)
   {
-    v13 = v58[0];
-    v11 = v56;
-    v12 = v46;
-    v39 = MEMORY[0x277D85DD0];
-    v40 = -1073741824;
-    v41 = 0;
-    v42 = __99__AKInAppAuthenticationRemoteUIProvider_presentBiometricOrPasscodeValidationForAppleID_completion___block_invoke_127;
-    v43 = &unk_2784A67C8;
-    v44 = MEMORY[0x277D82BE0](a1[5]);
-    [v13 evaluatePolicy:v11 options:v12 reply:&v39];
-    objc_storeStrong(&v44, 0);
+    v10 = v55[0];
+    v8 = v53;
+    v9 = v43;
+    v36 = MEMORY[0x277D85DD0];
+    v37 = -1073741824;
+    v38 = 0;
+    v39 = __99__AKInAppAuthenticationRemoteUIProvider_presentBiometricOrPasscodeValidationForAppleID_completion___block_invoke_127;
+    v40 = &unk_2784A67C8;
+    v41 = MEMORY[0x277D82BE0](a1[5]);
+    [v10 evaluatePolicy:v8 options:v9 reply:&v36];
+    objc_storeStrong(&v41, 0);
   }
 
   else
   {
-    v38 = _AKLogSystem();
+    v35 = _AKLogSystem();
     type = OS_LOG_TYPE_DEFAULT;
-    if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v35, OS_LOG_TYPE_DEFAULT))
     {
-      __os_log_helper_16_2_1_8_64(v59, v57);
-      _os_log_impl(&dword_222379000, v38, type, "Cannot Evaluate Policy error %@", v59, 0xCu);
+      __os_log_helper_16_2_1_8_64(v56, v54);
+      _os_log_impl(&dword_222379000, v35, type, "Cannot Evaluate Policy error %@", v56, 0xCu);
     }
 
-    objc_storeStrong(&v38, 0);
-    v9 = MEMORY[0x277D85CD0];
-    v8 = MEMORY[0x277D85CD0];
-    queue = v9;
-    v30 = MEMORY[0x277D85DD0];
-    v31 = -1073741824;
-    v32 = 0;
-    v33 = __99__AKInAppAuthenticationRemoteUIProvider_presentBiometricOrPasscodeValidationForAppleID_completion___block_invoke_129;
-    v34 = &unk_2784A7378;
-    v36 = MEMORY[0x277D82BE0](a1[5]);
-    v35 = MEMORY[0x277D82BE0](v57);
-    dispatch_async(queue, &v30);
-    MEMORY[0x277D82BD8](queue);
     objc_storeStrong(&v35, 0);
-    objc_storeStrong(&v36, 0);
+    v6 = MEMORY[0x277D85CD0];
+    v5 = MEMORY[0x277D85CD0];
+    queue = v6;
+    v27 = MEMORY[0x277D85DD0];
+    v28 = -1073741824;
+    v29 = 0;
+    v30 = __99__AKInAppAuthenticationRemoteUIProvider_presentBiometricOrPasscodeValidationForAppleID_completion___block_invoke_129;
+    v31 = &unk_2784A7378;
+    v33 = MEMORY[0x277D82BE0](a1[5]);
+    v32 = MEMORY[0x277D82BE0](v54);
+    dispatch_async(queue, &v27);
+    MEMORY[0x277D82BD8](queue);
+    objc_storeStrong(&v32, 0);
+    objc_storeStrong(&v33, 0);
   }
 
-  objc_storeStrong(&v46, 0);
-  objc_storeStrong(&v53, 0);
+  objc_storeStrong(&v43, 0);
+  objc_storeStrong(&v50, 0);
   objc_storeStrong(&location, 0);
-  objc_storeStrong(&v55, 0);
-  objc_storeStrong(&v57, 0);
-  objc_storeStrong(v58, 0);
-  *MEMORY[0x277D85DE8];
+  objc_storeStrong(&v52, 0);
+  objc_storeStrong(&v54, 0);
+  objc_storeStrong(v55, 0);
 }
 
 void __99__AKInAppAuthenticationRemoteUIProvider_presentBiometricOrPasscodeValidationForAppleID_completion___block_invoke_127(void *a1, void *a2, void *a3)
@@ -2424,7 +2408,6 @@ void __99__AKInAppAuthenticationRemoteUIProvider_presentBiometricOrPasscodeValid
   objc_storeStrong(v31, 0);
   objc_storeStrong(&v32, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)presentNativeRecoveryUIWithContext:(id)context completion:(id)completion
@@ -3319,7 +3302,6 @@ void __81__AKInAppAuthenticationRemoteUIProvider__secondFactorActionsForAlert_co
   MEMORY[0x277D82BD8](v3);
   objc_storeStrong(&WeakRetained, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateReason
@@ -3728,113 +3710,112 @@ void __112__AKInAppAuthenticationRemoteUIProvider_presentLoginAlertWithError_tit
   location[2] = a1;
   location[1] = a1;
   location[0] = _AKLogSystem();
-  v34 = OS_LOG_TYPE_DEFAULT;
+  v33 = OS_LOG_TYPE_DEFAULT;
   if (os_log_type_enabled(location[0], OS_LOG_TYPE_DEFAULT))
   {
     log = location[0];
-    type = v34;
-    __os_log_helper_16_0_0(v33);
-    _os_log_impl(&dword_222379000, log, type, "akd says there was an issue with the login. Will display alert.", v33, 2u);
+    type = v33;
+    __os_log_helper_16_0_0(v32);
+    _os_log_impl(&dword_222379000, log, type, "akd says there was an issue with the login. Will display alert.", v32, 2u);
   }
 
   objc_storeStrong(location, 0);
-  v32 = [*(a1 + 32) context];
-  v31 = [v32 presentingViewController];
-  v6 = [*(a1 + 40) domain];
-  v7 = 0;
-  if ([v6 isEqual:*MEMORY[0x277CEFF48]])
+  v31 = [*(a1 + 32) context];
+  v30 = [v31 presentingViewController];
+  v5 = [*(a1 + 40) domain];
+  v6 = 0;
+  if ([v5 isEqual:*MEMORY[0x277CEFF48]])
   {
-    v7 = [*(a1 + 40) code] == -7028;
+    v6 = [*(a1 + 40) code] == -7028;
   }
 
-  *&v1 = MEMORY[0x277D82BD8](v6).n128_u64[0];
-  if (v7)
+  *&v1 = MEMORY[0x277D82BD8](v5).n128_u64[0];
+  if (v6)
   {
     [*(a1 + 32) _showMaxAttemptAlertWithCompletion:{*(a1 + 64), v1}];
-    v30 = 1;
+    v29 = 1;
   }
 
   else
   {
-    v29 = MEMORY[0x277D82BE0](*(*(a1 + 32) + 8));
-    v15 = MEMORY[0x277D85DD0];
-    v16 = -1073741824;
-    v17 = 0;
-    v18 = __112__AKInAppAuthenticationRemoteUIProvider_presentLoginAlertWithError_title_message_waitForInteraction_completion___block_invoke_186;
-    v19 = &unk_2784A7558;
-    v20 = MEMORY[0x277D82BE0](*(a1 + 48));
-    v21 = MEMORY[0x277D82BE0](*(a1 + 56));
-    v22 = MEMORY[0x277D82BE0](v29);
-    v23 = MEMORY[0x277D82BE0](*(a1 + 32));
-    v26 = MEMORY[0x277D82BE0](*(a1 + 64));
-    v27 = *(a1 + 72) & 1;
-    v24 = MEMORY[0x277D82BE0](*(a1 + 40));
-    v25 = MEMORY[0x277D82BE0](v31);
-    v28 = MEMORY[0x223DB6C90](&v15);
-    v14 = [v32 alertDelegate];
+    v28 = MEMORY[0x277D82BE0](*(*(a1 + 32) + 8));
+    v14 = MEMORY[0x277D85DD0];
+    v15 = -1073741824;
+    v16 = 0;
+    v17 = __112__AKInAppAuthenticationRemoteUIProvider_presentLoginAlertWithError_title_message_waitForInteraction_completion___block_invoke_186;
+    v18 = &unk_2784A7558;
+    v19 = MEMORY[0x277D82BE0](*(a1 + 48));
+    v20 = MEMORY[0x277D82BE0](*(a1 + 56));
+    v21 = MEMORY[0x277D82BE0](v28);
+    v22 = MEMORY[0x277D82BE0](*(a1 + 32));
+    v25 = MEMORY[0x277D82BE0](*(a1 + 64));
+    v26 = *(a1 + 72) & 1;
+    v23 = MEMORY[0x277D82BE0](*(a1 + 40));
+    v24 = MEMORY[0x277D82BE0](v30);
+    v27 = MEMORY[0x223DB6C90](&v14);
+    v13 = [v31 alertDelegate];
     if (objc_opt_respondsToSelector())
     {
       oslog = _AKLogSystem();
-      v12 = OS_LOG_TYPE_DEBUG;
+      v11 = OS_LOG_TYPE_DEBUG;
       if (os_log_type_enabled(oslog, OS_LOG_TYPE_DEBUG))
       {
-        v4 = oslog;
-        v5 = v12;
-        __os_log_helper_16_0_0(v11);
-        _os_log_debug_impl(&dword_222379000, v4, v5, "Will skip showing login error alert.", v11, 2u);
+        v3 = oslog;
+        v4 = v11;
+        __os_log_helper_16_0_0(v10);
+        _os_log_debug_impl(&dword_222379000, v3, v4, "Will skip showing login error alert.", v10, 2u);
       }
 
       objc_storeStrong(&oslog, 0);
-      [v14 displayAlertForContext:v32 error:*(a1 + 40) completion:*(a1 + 64)];
-      v30 = 1;
+      [v13 displayAlertForContext:v31 error:*(a1 + 40) completion:*(a1 + 64)];
+      v29 = 1;
     }
 
-    else if (v29)
+    else if (v28)
     {
       if ([*(a1 + 40) ak_isAuthenticationErrorWithCode:-7006])
       {
         [*(*(a1 + 32) + 8) stopAnimating];
         [*(*(a1 + 32) + 8) jiggleAView];
         [*(*(a1 + 32) + 8) clearPasswordField];
-        v3 = [*(a1 + 32) _actionsForLoginWithCompletion:*(a1 + 64)];
+        v2 = [*(a1 + 32) _actionsForLoginWithCompletion:*(a1 + 64)];
         [*(*(a1 + 32) + 8) setLoginActions:?];
-        MEMORY[0x277D82BD8](v3);
+        MEMORY[0x277D82BD8](v2);
       }
 
       else
       {
-        [*(a1 + 32) cleanUpBasicLoginWithCompletion:v28];
+        [*(a1 + 32) cleanUpBasicLoginWithCompletion:v27];
       }
 
-      v30 = 0;
+      v29 = 0;
     }
 
     else
     {
-      (*(v28 + 2))();
+      (*(v27 + 2))();
       if ((*(a1 + 72) & 1) == 0)
       {
-        v2 = *(a1 + 40);
         (*(*(a1 + 64) + 16))();
       }
 
-      v30 = 1;
+      v29 = 1;
     }
 
-    objc_storeStrong(&v14, 0);
-    objc_storeStrong(&v28, 0);
-    objc_storeStrong(&v25, 0);
+    objc_storeStrong(&v13, 0);
+    objc_storeStrong(&v27, 0);
     objc_storeStrong(&v24, 0);
-    objc_storeStrong(&v26, 0);
     objc_storeStrong(&v23, 0);
+    objc_storeStrong(&v25, 0);
     objc_storeStrong(&v22, 0);
     objc_storeStrong(&v21, 0);
     objc_storeStrong(&v20, 0);
-    objc_storeStrong(&v29, 0);
+    objc_storeStrong(&v19, 0);
+    objc_storeStrong(&v28, 0);
   }
 
+  objc_storeStrong(&v30, 0);
   objc_storeStrong(&v31, 0);
-  objc_storeStrong(&v32, 0);
 }
 
 void __112__AKInAppAuthenticationRemoteUIProvider_presentLoginAlertWithError_title_message_waitForInteraction_completion___block_invoke_186(uint64_t a1)
@@ -3885,18 +3866,18 @@ void __112__AKInAppAuthenticationRemoteUIProvider_presentLoginAlertWithError_tit
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v8[1] = a1;
-  v8[0] = _AKLogSystem();
-  v7 = 2;
-  if (os_log_type_enabled(v8[0], OS_LOG_TYPE_DEBUG))
+  v7[1] = a1;
+  v7[0] = _AKLogSystem();
+  v6 = 2;
+  if (os_log_type_enabled(v7[0], OS_LOG_TYPE_DEBUG))
   {
-    log = v8[0];
-    type = v7;
-    __os_log_helper_16_0_0(v6);
-    _os_log_debug_impl(&dword_222379000, log, type, "User dismissed login error alert.", v6, 2u);
+    log = v7[0];
+    type = v6;
+    __os_log_helper_16_0_0(v5);
+    _os_log_debug_impl(&dword_222379000, log, type, "User dismissed login error alert.", v5, 2u);
   }
 
-  objc_storeStrong(v8, 0);
+  objc_storeStrong(v7, 0);
   if (*(a1 + 32))
   {
     [*(a1 + 40) presentBasicLoginUIWithCompletion:*(a1 + 56)];
@@ -3904,7 +3885,6 @@ void __112__AKInAppAuthenticationRemoteUIProvider_presentLoginAlertWithError_tit
 
   else if (*(a1 + 64))
   {
-    v2 = *(a1 + 48);
     (*(*(a1 + 56) + 16))();
   }
 
@@ -4071,7 +4051,6 @@ void __112__AKInAppAuthenticationRemoteUIProvider_presentLoginAlertWithError_tit
   objc_storeStrong(&presentingViewController, 0);
   objc_storeStrong(&context, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)presentLoginAlertUIAsViewWithError:(id)error title:(id)title message:(id)message waitForInteraction:(BOOL)interaction completion:(id)completion
@@ -4119,147 +4098,146 @@ void __120__AKInAppAuthenticationRemoteUIProvider_presentLoginAlertUIAsViewWithE
   location[2] = a1;
   location[1] = a1;
   location[0] = _AKLogSystem();
-  v59 = OS_LOG_TYPE_DEFAULT;
+  v58 = OS_LOG_TYPE_DEFAULT;
   if (os_log_type_enabled(location[0], OS_LOG_TYPE_DEFAULT))
   {
     log = location[0];
-    type = v59;
-    __os_log_helper_16_0_0(v58);
-    _os_log_impl(&dword_222379000, log, type, "akd says there was an issue with the login. Will display alert.", v58, 2u);
+    type = v58;
+    __os_log_helper_16_0_0(v57);
+    _os_log_impl(&dword_222379000, log, type, "akd says there was an issue with the login. Will display alert.", v57, 2u);
   }
 
   objc_storeStrong(location, 0);
-  v57 = [*(a1 + 32) context];
-  v25 = [*(a1 + 40) domain];
-  v26 = 0;
-  if ([v25 isEqual:*MEMORY[0x277CEFF48]])
+  v56 = [*(a1 + 32) context];
+  v24 = [*(a1 + 40) domain];
+  v25 = 0;
+  if ([v24 isEqual:*MEMORY[0x277CEFF48]])
   {
-    v26 = [*(a1 + 40) code] == -7028;
+    v25 = [*(a1 + 40) code] == -7028;
   }
 
-  *&v1 = MEMORY[0x277D82BD8](v25).n128_u64[0];
-  if (v26)
+  *&v1 = MEMORY[0x277D82BD8](v24).n128_u64[0];
+  if (v25)
   {
     [*(a1 + 32) _showMaxAttemptAlertWithCompletion:{*(a1 + 64), v1}];
-    v56 = 1;
+    v55 = 1;
   }
 
   else
   {
-    v55 = [v57 alertDelegate];
+    v54 = [v56 alertDelegate];
     if (objc_opt_respondsToSelector())
     {
-      v54 = _AKLogSystem();
-      v53 = 2;
-      if (os_log_type_enabled(v54, OS_LOG_TYPE_DEBUG))
+      v53 = _AKLogSystem();
+      v52 = 2;
+      if (os_log_type_enabled(v53, OS_LOG_TYPE_DEBUG))
       {
-        v23 = v54;
-        v24 = v53;
-        __os_log_helper_16_0_0(v52);
-        _os_log_debug_impl(&dword_222379000, v23, v24, "Will skip showing login error alert.", v52, 2u);
+        v22 = v53;
+        v23 = v52;
+        __os_log_helper_16_0_0(v51);
+        _os_log_debug_impl(&dword_222379000, v22, v23, "Will skip showing login error alert.", v51, 2u);
       }
 
-      objc_storeStrong(&v54, 0);
-      [v55 displayAlertForContext:v57 error:*(a1 + 40) completion:*(a1 + 64)];
-      v56 = 1;
+      objc_storeStrong(&v53, 0);
+      [v54 displayAlertForContext:v56 error:*(a1 + 40) completion:*(a1 + 64)];
+      v55 = 1;
     }
 
     else
     {
-      v51 = _AKLogSystem();
-      v50 = OS_LOG_TYPE_DEFAULT;
-      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+      v50 = _AKLogSystem();
+      v49 = OS_LOG_TYPE_DEFAULT;
+      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
       {
-        v21 = v51;
-        v22 = v50;
-        __os_log_helper_16_0_0(v49);
-        _os_log_impl(&dword_222379000, v21, v22, "Displaying login alert...", v49, 2u);
+        v20 = v50;
+        v21 = v49;
+        __os_log_helper_16_0_0(v48);
+        _os_log_impl(&dword_222379000, v20, v21, "Displaying login alert...", v48, 2u);
       }
 
-      objc_storeStrong(&v51, 0);
-      v48 = [MEMORY[0x277D75110] alertControllerWithTitle:*(a1 + 48) message:*(a1 + 56) preferredStyle:1];
-      v20 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.AuthKitUI"];
-      v47 = [v20 localizedStringForKey:@"OK" value:&stru_28358EF68 table:@"Localizable"];
-      if ([*(a1 + 40) ak_isAuthenticationErrorWithCode:{-7094, MEMORY[0x277D82BD8](v20).n128_f64[0]}])
+      objc_storeStrong(&v50, 0);
+      v47 = [MEMORY[0x277D75110] alertControllerWithTitle:*(a1 + 48) message:*(a1 + 56) preferredStyle:1];
+      v19 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.AuthKitUI"];
+      v46 = [v19 localizedStringForKey:@"OK" value:&stru_28358EF68 table:@"Localizable"];
+      if ([*(a1 + 40) ak_isAuthenticationErrorWithCode:{-7094, MEMORY[0x277D82BD8](v19).n128_f64[0]}])
       {
-        v16 = MEMORY[0x277D750F8];
-        v18 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:?];
-        v17 = [v18 localizedStringForKey:@"CONTINUE" value:? table:?];
-        v38 = MEMORY[0x277D85DD0];
-        v39 = -1073741824;
-        v40 = 0;
-        v41 = __120__AKInAppAuthenticationRemoteUIProvider_presentLoginAlertUIAsViewWithError_title_message_waitForInteraction_completion___block_invoke_197;
-        v42 = &unk_2784A75A8;
-        v45 = *(a1 + 72) & 1;
-        v44 = MEMORY[0x277D82BE0](*(a1 + 64));
-        v43 = MEMORY[0x277D82BE0](*(a1 + 40));
-        v46 = [v16 actionWithTitle:v17 style:0 handler:&v38];
-        MEMORY[0x277D82BD8](v17);
-        *&v2 = MEMORY[0x277D82BD8](v18).n128_u64[0];
-        [v48 addAction:{v46, v2}];
-        [v48 setPreferredAction:v46];
-        v19 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.AuthKitUI"];
-        v3 = [v19 localizedStringForKey:@"CANCEL" value:&stru_28358EF68 table:@"Localizable"];
-        v4 = v47;
-        v47 = v3;
+        v15 = MEMORY[0x277D750F8];
+        v17 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:?];
+        v16 = [v17 localizedStringForKey:@"CONTINUE" value:? table:?];
+        v37 = MEMORY[0x277D85DD0];
+        v38 = -1073741824;
+        v39 = 0;
+        v40 = __120__AKInAppAuthenticationRemoteUIProvider_presentLoginAlertUIAsViewWithError_title_message_waitForInteraction_completion___block_invoke_197;
+        v41 = &unk_2784A75A8;
+        v44 = *(a1 + 72) & 1;
+        v43 = MEMORY[0x277D82BE0](*(a1 + 64));
+        v42 = MEMORY[0x277D82BE0](*(a1 + 40));
+        v45 = [v15 actionWithTitle:v16 style:0 handler:&v37];
+        MEMORY[0x277D82BD8](v16);
+        *&v2 = MEMORY[0x277D82BD8](v17).n128_u64[0];
+        [v47 addAction:{v45, v2}];
+        [v47 setPreferredAction:v45];
+        v18 = [MEMORY[0x277CCA8D8] bundleWithIdentifier:@"com.apple.AuthKitUI"];
+        v3 = [v18 localizedStringForKey:@"CANCEL" value:&stru_28358EF68 table:@"Localizable"];
+        v4 = v46;
+        v46 = v3;
         MEMORY[0x277D82BD8](v4);
-        MEMORY[0x277D82BD8](v19);
-        objc_storeStrong(&v46, 0);
+        MEMORY[0x277D82BD8](v18);
+        objc_storeStrong(&v45, 0);
+        objc_storeStrong(&v42, 0);
         objc_storeStrong(&v43, 0);
-        objc_storeStrong(&v44, 0);
       }
 
-      v14 = v48;
-      v13 = MEMORY[0x277D750F8];
-      v12 = v47;
-      v30 = MEMORY[0x277D85DD0];
-      v31 = -1073741824;
-      v32 = 0;
-      v33 = __120__AKInAppAuthenticationRemoteUIProvider_presentLoginAlertUIAsViewWithError_title_message_waitForInteraction_completion___block_invoke_203;
-      v34 = &unk_2784A75A8;
-      v37 = *(a1 + 72) & 1;
-      v36 = MEMORY[0x277D82BE0](*(a1 + 64));
-      v35 = MEMORY[0x277D82BE0](*(a1 + 40));
-      v15 = [v13 actionWithTitle:v12 style:1 handler:&v30];
-      [v14 addAction:?];
-      *&v5 = MEMORY[0x277D82BD8](v15).n128_u64[0];
+      v13 = v47;
+      v12 = MEMORY[0x277D750F8];
+      v11 = v46;
+      v29 = MEMORY[0x277D85DD0];
+      v30 = -1073741824;
+      v31 = 0;
+      v32 = __120__AKInAppAuthenticationRemoteUIProvider_presentLoginAlertUIAsViewWithError_title_message_waitForInteraction_completion___block_invoke_203;
+      v33 = &unk_2784A75A8;
+      v36 = *(a1 + 72) & 1;
+      v35 = MEMORY[0x277D82BE0](*(a1 + 64));
+      v34 = MEMORY[0x277D82BE0](*(a1 + 40));
+      v14 = [v12 actionWithTitle:v11 style:1 handler:&v29];
+      [v13 addAction:?];
+      *&v5 = MEMORY[0x277D82BD8](v14).n128_u64[0];
       if (*(*(a1 + 32) + 16))
       {
         [*(*(a1 + 32) + 16) stopAnimating];
         [*(*(a1 + 32) + 16) clearPasswordField];
-        v9 = [*(a1 + 32) _actionsForLoginWithCompletion:*(a1 + 64)];
+        v8 = [*(a1 + 32) _actionsForLoginWithCompletion:*(a1 + 64)];
         [*(*(a1 + 32) + 16) setLoginActions:?];
-        *&v8 = MEMORY[0x277D82BD8](v9).n128_u64[0];
-        [*(*(a1 + 32) + 16) presentViewController:v48 animated:1 completion:{0, v8}];
-        v56 = 0;
+        *&v7 = MEMORY[0x277D82BD8](v8).n128_u64[0];
+        [*(*(a1 + 32) + 16) presentViewController:v47 animated:1 completion:{0, v7}];
+        v55 = 0;
       }
 
       else
       {
         WeakRetained = objc_loadWeakRetained((*(a1 + 32) + 112));
-        v10 = [WeakRetained presentingViewController];
-        [v10 presentViewController:v48 animated:1 completion:0];
-        MEMORY[0x277D82BD8](v10);
+        v9 = [WeakRetained presentingViewController];
+        [v9 presentViewController:v47 animated:1 completion:0];
+        MEMORY[0x277D82BD8](v9);
         v6 = MEMORY[0x277D82BD8](WeakRetained);
         if ((*(a1 + 72) & 1) == 0)
         {
-          v7 = *(a1 + 40);
           (*(*(a1 + 64) + 16))(v6);
         }
 
-        v56 = 1;
+        v55 = 1;
       }
 
+      objc_storeStrong(&v34, 0);
       objc_storeStrong(&v35, 0);
-      objc_storeStrong(&v36, 0);
+      objc_storeStrong(&v46, 0);
       objc_storeStrong(&v47, 0);
-      objc_storeStrong(&v48, 0);
     }
 
-    objc_storeStrong(&v55, 0);
+    objc_storeStrong(&v54, 0);
   }
 
-  objc_storeStrong(&v57, 0);
+  objc_storeStrong(&v56, 0);
 }
 
 void __120__AKInAppAuthenticationRemoteUIProvider_presentLoginAlertUIAsViewWithError_title_message_waitForInteraction_completion___block_invoke_197(uint64_t a1, void *a2)
@@ -4267,31 +4245,30 @@ void __120__AKInAppAuthenticationRemoteUIProvider_presentLoginAlertUIAsViewWithE
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v12[1] = a1;
-  v12[0] = MEMORY[0x277D82BE0](@"prefs:root=General&path=ManagedConfigurationList");
-  v11 = [MEMORY[0x277CBEBC0] URLWithString:@"prefs:root=General&path=ManagedConfigurationList"];
-  v10 = _AKLogSystem();
-  v9 = OS_LOG_TYPE_DEFAULT;
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  v11[1] = a1;
+  v11[0] = MEMORY[0x277D82BE0](@"prefs:root=General&path=ManagedConfigurationList");
+  v10 = [MEMORY[0x277CBEBC0] URLWithString:@"prefs:root=General&path=ManagedConfigurationList"];
+  v9 = _AKLogSystem();
+  v8 = OS_LOG_TYPE_DEFAULT;
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
-    log = v10;
-    type = v9;
-    __os_log_helper_16_0_0(v8);
-    _os_log_impl(&dword_222379000, log, type, "Attempting to redirect to device management landing page", v8, 2u);
+    log = v9;
+    type = v8;
+    __os_log_helper_16_0_0(v7);
+    _os_log_impl(&dword_222379000, log, type, "Attempting to redirect to device management landing page", v7, 2u);
   }
 
-  objc_storeStrong(&v10, 0);
-  v4 = [MEMORY[0x277CC1E80] defaultWorkspace];
-  [v4 openSensitiveURL:v11 withOptions:0];
-  v2 = MEMORY[0x277D82BD8](v4);
+  objc_storeStrong(&v9, 0);
+  v3 = [MEMORY[0x277CC1E80] defaultWorkspace];
+  [v3 openSensitiveURL:v10 withOptions:0];
+  v2 = MEMORY[0x277D82BD8](v3);
   if (*(a1 + 48))
   {
-    v3 = *(a1 + 32);
     (*(*(a1 + 40) + 16))(v2);
   }
 
-  objc_storeStrong(&v11, 0);
-  objc_storeStrong(v12, 0);
+  objc_storeStrong(&v10, 0);
+  objc_storeStrong(v11, 0);
   objc_storeStrong(location, 0);
 }
 
@@ -4300,21 +4277,20 @@ void __120__AKInAppAuthenticationRemoteUIProvider_presentLoginAlertUIAsViewWithE
   location[1] = a1;
   location[0] = 0;
   objc_storeStrong(location, a2);
-  v8[1] = a1;
-  v8[0] = _AKLogSystem();
-  v7 = 2;
-  if (os_log_type_enabled(v8[0], OS_LOG_TYPE_DEBUG))
+  v7[1] = a1;
+  v7[0] = _AKLogSystem();
+  v6 = 2;
+  if (os_log_type_enabled(v7[0], OS_LOG_TYPE_DEBUG))
   {
-    log = v8[0];
-    type = v7;
-    __os_log_helper_16_0_0(v6);
-    _os_log_debug_impl(&dword_222379000, log, type, "User dismissed login error alert.", v6, 2u);
+    log = v7[0];
+    type = v6;
+    __os_log_helper_16_0_0(v5);
+    _os_log_debug_impl(&dword_222379000, log, type, "User dismissed login error alert.", v5, 2u);
   }
 
-  objc_storeStrong(v8, 0);
+  objc_storeStrong(v7, 0);
   if (*(a1 + 48))
   {
-    v2 = *(a1 + 32);
     (*(*(a1 + 40) + 16))();
   }
 
@@ -4458,7 +4434,6 @@ void __120__AKInAppAuthenticationRemoteUIProvider_presentLoginAlertUIAsViewWithE
   objc_storeStrong(&v31, 0);
   objc_storeStrong(&v30, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 void __75__AKInAppAuthenticationRemoteUIProvider_proximitySetupCompletedWithResult___block_invoke(id *a1, void *a2, void *a3)
@@ -4581,7 +4556,6 @@ void __75__AKInAppAuthenticationRemoteUIProvider_proximitySetupCompletedWithResu
   objc_storeStrong(v27, 0);
   objc_storeStrong(&v28, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 double __75__AKInAppAuthenticationRemoteUIProvider_proximitySetupCompletedWithResult___block_invoke_206(uint64_t a1)
@@ -4691,7 +4665,6 @@ double __75__AKInAppAuthenticationRemoteUIProvider_proximitySetupCompletedWithRe
 
   objc_storeStrong(&WeakRetained, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)setupPerformAIDASignInWith:(id)with completion:(id)completion
@@ -4811,7 +4784,6 @@ LABEL_24:
   objc_storeStrong(&WeakRetained, 0);
   objc_storeStrong(&v27, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (void)proximitySetupSelectedAccount:(int64_t)account completion:(id)completion
@@ -4874,7 +4846,6 @@ LABEL_12:
 
   objc_storeStrong(&WeakRetained, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 - (AKProximityAuthViewController)proximityAuthViewController

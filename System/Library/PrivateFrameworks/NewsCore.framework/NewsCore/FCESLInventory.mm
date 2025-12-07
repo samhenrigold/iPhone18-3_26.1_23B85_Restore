@@ -263,43 +263,41 @@ void __48__FCESLInventory_refreshIfNeededWithCompletion___block_invoke(uint64_t 
 
 - (id)_childInventories
 {
-  v8[2] = *MEMORY[0x1E69E9840];
+  v7[2] = *MEMORY[0x1E69E9840];
   globalInventory = [(FCESLInventory *)self globalInventory];
-  v8[0] = globalInventory;
+  v7[0] = globalInventory;
   tagInventory = [(FCESLInventory *)self tagInventory];
-  v8[1] = tagInventory;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:2];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[1] = tagInventory;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:2];
 
   return v5;
 }
 
 - (void)_enumerateChildInventories:(id)inventories
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   inventoriesCopy = inventories;
+  v12 = 0u;
   v13 = 0u;
   v14 = 0u;
   v15 = 0u;
-  v16 = 0u;
   _childInventories = [(FCESLInventory *)self _childInventories];
-  v6 = [_childInventories countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v6 = [_childInventories countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v14;
+    v8 = *v13;
     do
     {
       v9 = 0;
       do
       {
-        if (*v14 != v8)
+        if (*v13 != v8)
         {
           objc_enumerationMutation(_childInventories);
         }
 
-        v10 = *(*(&v13 + 1) + 8 * v9);
+        v10 = *(*(&v12 + 1) + 8 * v9);
         v11 = objc_autoreleasePoolPush();
         inventoriesCopy[2](inventoriesCopy, v10);
         objc_autoreleasePoolPop(v11);
@@ -307,13 +305,11 @@ void __48__FCESLInventory_refreshIfNeededWithCompletion___block_invoke(uint64_t 
       }
 
       while (v7 != v9);
-      v7 = [_childInventories countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v7 = [_childInventories countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v7);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 @end

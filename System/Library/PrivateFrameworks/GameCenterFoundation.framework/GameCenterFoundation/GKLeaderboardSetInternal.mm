@@ -18,28 +18,26 @@
   return v3;
 }
 
-void __51__GKLeaderboardSetInternal_secureCodedPropertyKeys__block_invoke()
+void __51__GKLeaderboardSetInternal_secureCodedPropertyKeys__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v12[5] = *MEMORY[0x277D85DE8];
-  v12[0] = objc_opt_class();
-  v12[1] = objc_opt_class();
-  v12[2] = objc_opt_class();
-  v0 = MEMORY[0x277CBEB98];
-  v1 = objc_opt_class();
-  v2 = objc_opt_class();
-  v3 = [v0 setWithObjects:{v1, v2, objc_opt_class(), 0, @"identifier", @"groupIdentifier", @"title", @"leaderboardIdentifiers"}];
-  v12[3] = v3;
-  v11[4] = @"icons";
-  v4 = MEMORY[0x277CBEB98];
-  v5 = objc_opt_class();
-  v6 = objc_opt_class();
-  v7 = [v4 setWithObjects:{v5, v6, objc_opt_class(), 0}];
-  v12[4] = v7;
-  v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:v11 count:5];
-  v9 = secureCodedPropertyKeys_sSecureCodedKeys_274;
-  secureCodedPropertyKeys_sSecureCodedKeys_274 = v8;
-
-  v10 = *MEMORY[0x277D85DE8];
+  v13[5] = *MEMORY[0x277D85DE8];
+  v13[0] = objc_opt_class();
+  v13[1] = objc_opt_class();
+  v13[2] = objc_opt_class();
+  v2 = MEMORY[0x277CBEB98];
+  v3 = objc_opt_class();
+  v4 = objc_opt_class();
+  v5 = [v2 setWithObjects:{v3, v4, objc_opt_class(), 0, @"identifier", @"groupIdentifier", @"title", @"leaderboardIdentifiers"}];
+  v13[3] = v5;
+  v12[4] = @"icons";
+  v6 = MEMORY[0x277CBEB98];
+  v7 = objc_opt_class();
+  v8 = objc_opt_class();
+  v9 = [v6 setWithObjects:{v7, v8, objc_opt_class(), 0}];
+  v13[4] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:v12 count:5];
+  v11 = secureCodedPropertyKeys_sSecureCodedKeys_274;
+  secureCodedPropertyKeys_sSecureCodedKeys_274 = v10;
 }
 
 - (BOOL)isEqual:(id)equal

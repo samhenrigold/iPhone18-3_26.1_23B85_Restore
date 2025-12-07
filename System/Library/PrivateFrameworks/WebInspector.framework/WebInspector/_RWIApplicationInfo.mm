@@ -230,17 +230,18 @@ LABEL_26:
   v20->_hasUpdatedFromListing = 1;
   if (v7)
   {
-    if (RWIAutomationAvailabilityFromString(v7, &v20->_automationAvailability))
+    v33 = RWIAutomationAvailabilityFromString(v7, &v20->_automationAvailability);
+    if (v33)
     {
       v32 = v20->_hasUpdatedFromListing;
-      v33 = v20->_automationAvailability;
+      v34 = v20->_automationAvailability;
       goto LABEL_30;
     }
 
-    v36 = RWIDefaultLog();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_ERROR))
+    v37 = RWIDefaultLog(v33);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      [(_RWIApplicationInfo *)v7 updateFromListing:v36];
+      [(_RWIApplicationInfo *)v7 updateFromListing:v37];
     }
 
     v24 = 0;
@@ -248,9 +249,9 @@ LABEL_26:
 
   else
   {
-    v33 = automationAvailability;
+    v34 = automationAvailability;
 LABEL_30:
-    v24 = hasUpdatedFromListing != v32 || hasRemoteDebugSession != *p_hasRemoteDebugSession || automationAvailability != v33;
+    v24 = hasUpdatedFromListing != v32 || hasRemoteDebugSession != *p_hasRemoteDebugSession || automationAvailability != v34;
   }
 
 LABEL_42:
@@ -258,17 +259,15 @@ LABEL_42:
 LABEL_43:
 LABEL_44:
 
-  v37 = *MEMORY[0x277D85DE8];
   return v24;
 }
 
 - (void)updateFromListing:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138543362;
-  v4 = a1;
-  _os_log_error_impl(&dword_273C9C000, a2, OS_LOG_TYPE_ERROR, "Could not parse value for WIRAutomationAvailabilityKey: %{public}@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138543362;
+  v3 = a1;
+  _os_log_error_impl(&dword_273C9C000, a2, OS_LOG_TYPE_ERROR, "Could not parse value for WIRAutomationAvailabilityKey: %{public}@", &v2, 0xCu);
 }
 
 @end

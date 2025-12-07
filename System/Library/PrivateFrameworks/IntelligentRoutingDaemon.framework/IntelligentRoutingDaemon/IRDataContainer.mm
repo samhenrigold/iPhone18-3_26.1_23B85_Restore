@@ -158,52 +158,48 @@ LABEL_23:
 
 - (void)_initWithPersona:(uint64_t)a3 .cold.1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_25543D000, a2, a3, "#data-container, [ErrorId - container_get_path error] container_get_path failed for persona: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_25543D000, a2, a3, "#data-container, [ErrorId - container_get_path error] container_get_path failed for persona: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_initWithPersona:(uint64_t)a1 .cold.2(uint64_t a1, void *a2)
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *__error();
-  v6 = 138412546;
-  v7 = a1;
-  v8 = 1024;
-  v9 = v4;
-  _os_log_error_impl(&dword_25543D000, v3, OS_LOG_TYPE_ERROR, "#data-container, [ErrorId - sandbox_extension_consume] sandbox_extension_consume failed for persona: %@, error: %{darwin.errno}d", &v6, 0x12u);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138412546;
+  v6 = a1;
+  v7 = 1024;
+  v8 = v4;
+  _os_log_error_impl(&dword_25543D000, v3, OS_LOG_TYPE_ERROR, "#data-container, [ErrorId - sandbox_extension_consume] sandbox_extension_consume failed for persona: %@, error: %{darwin.errno}d", &v5, 0x12u);
 }
 
 - (void)_initWithPersona:(uint64_t)a3 .cold.3(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_25543D000, a2, a3, "#data-container, [ErrorId - container_copy_sandbox_token error] container_copy_sandbox_token failed for persona: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_25543D000, a2, a3, "#data-container, [ErrorId - container_copy_sandbox_token error] container_copy_sandbox_token failed for persona: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)_initWithPersona:(uint64_t)a3 .cold.4(uint64_t a1, void *a2, uint64_t a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = MEMORY[0x277CCACA8];
   v6 = a2;
   v7 = [v5 stringWithUTF8String:a3];
-  v9 = 138412546;
-  v10 = a1;
-  v11 = 2112;
-  v12 = v7;
-  _os_log_error_impl(&dword_25543D000, v6, OS_LOG_TYPE_ERROR, "#data-container, [ErrorId - container_query_get_single_result error] container_query_get_single_result failed for persona: %@, error: %@", &v9, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v8 = 138412546;
+  v9 = a1;
+  v10 = 2112;
+  v11 = v7;
+  _os_log_error_impl(&dword_25543D000, v6, OS_LOG_TYPE_ERROR, "#data-container, [ErrorId - container_query_get_single_result error] container_query_get_single_result failed for persona: %@, error: %@", &v8, 0x16u);
 }
 
 - (void)_initWithPersona:(uint64_t)a3 .cold.5(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0_3(&dword_25543D000, a2, a3, "#data-container, [ErrorId - container_query_create error] container_query_create fail for persona: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0_3(&dword_25543D000, a2, a3, "#data-container, [ErrorId - container_query_create error] container_query_create fail for persona: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

@@ -14,15 +14,14 @@
 - (CFIndex)retainCount;
 - (CFStringRef)parameterString;
 - (CFURLRef)absoluteURL;
-- (CFURLRef)initAbsoluteURLWithDataRepresentation:()NSURL relativeToURL:;
 - (CFURLRef)initFileURLWithPath:()NSURL;
 - (CFURLRef)initFileURLWithPath:()NSURL isDirectory:;
 - (CFURLRef)initWithCoder:()NSURL;
-- (CFURLRef)initWithDataRepresentation:()NSURL relativeToURL:;
 - (CFURLRef)initWithString:()NSURL relativeToURL:encodingInvalidCharacters:;
 - (NSNumber)port;
 - (NSString)description;
 - (NSString)resourceSpecifier;
+- (UInt8)fileSystemRepresentation;
 - (__CFString)fragment;
 - (__CFString)host;
 - (__CFString)path;
@@ -32,35 +31,36 @@
 - (__CFString)scheme;
 - (__CFString)user;
 - (char)_trueSelf;
+- (char)initAbsoluteURLWithDataRepresentation:()NSURL relativeToURL:;
 - (char)initByResolvingAliasFileAtURL:()NSURL options:error:;
 - (char)initByResolvingBookmarkData:()NSURL options:relativeToURL:bookmarkDataIsStale:error:;
 - (char)initFileURLWithFileSystemRepresentation:()NSURL isDirectory:relativeToURL:;
-- (char)initFileURLWithPath:()NSURL isDirectory:relativeToURL:;
-- (char)initFileURLWithPath:()NSURL relativeToURL:;
+- (char)initWithDataRepresentation:()NSURL relativeToURL:;
+- (const)absoluteString;
 - (const)baseURL;
+- (const)password;
 - (id)_tryRetain;
 - (id)dealloc;
 - (id)retain;
 - (id)standardizedURL;
+- (objc_class)initFileURLWithPath:()NSURL isDirectory:relativeToURL:;
+- (objc_class)initFileURLWithPath:()NSURL relativeToURL:;
+- (objc_class)initWithScheme:()NSURL host:path:;
 - (uint64_t)_clientsCreatingIfNecessary:()NSURL;
 - (uint64_t)_encoding;
 - (uint64_t)_securePath;
-- (uint64_t)absoluteString;
 - (uint64_t)dataRepresentation;
-- (uint64_t)encodeWithCoder:()NSURL;
-- (uint64_t)fileSystemRepresentation;
-- (uint64_t)getFileSystemRepresentation:()NSURL maxLength:;
-- (uint64_t)hasDirectoryPath;
 - (uint64_t)hash;
 - (uint64_t)init;
-- (uint64_t)initWithScheme:()NSURL host:path:;
-- (uint64_t)isEqual:()NSURL;
-- (uint64_t)isFileURL;
 - (uint64_t)isKindOfClass:()NSURL;
 - (uint64_t)isMemberOfClass:()NSURL;
-- (uint64_t)password;
 - (unint64_t)_isDeallocating;
+- (unint64_t)hasDirectoryPath;
+- (unint64_t)isEqual:()NSURL;
+- (unint64_t)isFileURL;
 - (void)_freeClients;
+- (void)encodeWithCoder:()NSURL;
+- (void)getFileSystemRepresentation:()NSURL maxLength:;
 - (void)release;
 @end
 
@@ -105,7 +105,7 @@ LABEL_8:
 - (id)retain
 {
   selfCopy = self;
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   Class = object_getClass(self);
   if (qword_1ED43FC08 != -1)
   {
@@ -114,9 +114,9 @@ LABEL_8:
 
   if (Class != qword_1ED43FC00)
   {
-    v5.receiver = selfCopy;
-    v5.super_class = NSURL_0;
-    return objc_msgSendSuper2(&v5, sel_retain);
+    v4.receiver = selfCopy;
+    v4.super_class = NSURL_0;
+    return objc_msgSendSuper2(&v4, sel_retain);
   }
 
   if (qword_1ED43FBF8 != -1)
@@ -129,10 +129,10 @@ LABEL_8:
     return selfCopy;
   }
 
-  return MEMORY[0x1EEDB8360](selfCopy, v2);
+  return MEMORY[0x1EEDB8360](selfCopy);
 }
 
-- (uint64_t)isFileURL
+- (unint64_t)isFileURL
 {
   _trueSelf = [self _trueSelf];
   if (qword_1ED43FBF8 != -1)
@@ -199,8 +199,8 @@ LABEL_8:
 
   if (_trueSelf == qword_1ED43FBF0)
   {
-    v6 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:+[NSString stringWithFormat:](NSString userInfo:{"stringWithFormat:", @"%@: object was not initialized", _NSMethodExceptionProem(_trueSelf, a2)), 0}];
-    objc_exception_throw(v6);
+    v5 = [MEMORY[0x1E695DF30] exceptionWithName:*MEMORY[0x1E695D920] reason:+[NSString stringWithFormat:](NSString userInfo:{"stringWithFormat:", @"%@: object was not initialized", _NSMethodExceptionProem(_trueSelf, a2)), 0}];
+    objc_exception_throw(v5);
   }
 
   if (!_trueSelf)
@@ -217,7 +217,7 @@ LABEL_8:
   else
   {
 
-    return MEMORY[0x1EEDB8350](_trueSelf, v4);
+    return MEMORY[0x1EEDB8350](_trueSelf);
   }
 }
 
@@ -403,7 +403,7 @@ LABEL_14:
   }
 }
 
-- (uint64_t)fileSystemRepresentation
+- (UInt8)fileSystemRepresentation
 {
   _trueSelf = [self _trueSelf];
   if (qword_1ED43FBF8 != -1)
@@ -497,7 +497,7 @@ LABEL_22:
   return [path fileSystemRepresentation];
 }
 
-- (uint64_t)absoluteString
+- (const)absoluteString
 {
   _trueSelf = [self _trueSelf];
   if (qword_1ED43FBF8 != -1)
@@ -643,7 +643,7 @@ LABEL_22:
   }
 }
 
-- (uint64_t)hasDirectoryPath
+- (unint64_t)hasDirectoryPath
 {
   _trueSelf = [self _trueSelf];
   if (qword_1ED43FBF8 != -1)
@@ -1250,7 +1250,7 @@ LABEL_9:
         if (v13)
         {
 LABEL_12:
-          *&v12[*MEMORY[0x1E695E028]] = v13;
+          *(v12 + *MEMORY[0x1E695E028]) = v13;
           return v12;
         }
       }
@@ -1407,7 +1407,7 @@ LABEL_27:
   return v4;
 }
 
-- (uint64_t)initWithScheme:()NSURL host:path:
+- (objc_class)initWithScheme:()NSURL host:path:
 {
   if (([a5 isAbsolutePath] & 1) == 0)
   {
@@ -1483,7 +1483,7 @@ LABEL_22:
   }
 }
 
-- (CFURLRef)initWithDataRepresentation:()NSURL relativeToURL:
+- (char)initWithDataRepresentation:()NSURL relativeToURL:
 {
   selfCopy = self;
   v17 = *MEMORY[0x1E69E9840];
@@ -1586,7 +1586,7 @@ LABEL_8:
   return v4;
 }
 
-- (CFURLRef)initAbsoluteURLWithDataRepresentation:()NSURL relativeToURL:
+- (char)initAbsoluteURLWithDataRepresentation:()NSURL relativeToURL:
 {
   selfCopy = self;
   v17 = *MEMORY[0x1E69E9840];
@@ -1840,7 +1840,7 @@ LABEL_29:
       if (v8)
       {
 LABEL_19:
-        *&selfCopy[*MEMORY[0x1E695E028]] = v8;
+        *(selfCopy + *MEMORY[0x1E695E028]) = v8;
         return selfCopy;
       }
     }
@@ -1922,7 +1922,7 @@ LABEL_12:
         if (v10)
         {
 LABEL_15:
-          *&selfCopy[*MEMORY[0x1E695E028]] = v10;
+          *(selfCopy + *MEMORY[0x1E695E028]) = v10;
           return selfCopy;
         }
       }
@@ -1960,7 +1960,7 @@ LABEL_27:
   return CFURLCreateWithFileSystemPath(0, stringByStandardizingPath, kCFURLPOSIXPathStyle, a4);
 }
 
-- (char)initFileURLWithPath:()NSURL isDirectory:relativeToURL:
+- (objc_class)initFileURLWithPath:()NSURL isDirectory:relativeToURL:
 {
   selfCopy = self;
   v18 = *MEMORY[0x1E69E9840];
@@ -2037,7 +2037,7 @@ LABEL_27:
       if (v12)
       {
 LABEL_15:
-        *&selfCopy[*MEMORY[0x1E695E028]] = v12;
+        *(selfCopy + *MEMORY[0x1E695E028]) = v12;
         return selfCopy;
       }
     }
@@ -2059,7 +2059,7 @@ LABEL_23:
   return selfCopy;
 }
 
-- (char)initFileURLWithPath:()NSURL relativeToURL:
+- (objc_class)initFileURLWithPath:()NSURL relativeToURL:
 {
   v26 = *MEMORY[0x1E69E9840];
   v22 = 0;
@@ -2174,7 +2174,7 @@ LABEL_20:
       goto LABEL_20;
     }
 
-    *&v14[*MEMORY[0x1E695E028]] = v15;
+    *(v14 + *MEMORY[0x1E695E028]) = v15;
   }
 
 LABEL_21:
@@ -2294,7 +2294,7 @@ LABEL_11:
   return v5;
 }
 
-- (uint64_t)getFileSystemRepresentation:()NSURL maxLength:
+- (void)getFileSystemRepresentation:()NSURL maxLength:
 {
   _trueSelf = [self _trueSelf];
   if (qword_1ED43FBF8 != -1)
@@ -2319,7 +2319,7 @@ LABEL_11:
 
     else
     {
-      return CFURLGetFileSystemRepresentation(_trueSelf, 1u, a3, a4) != 0;
+      return (CFURLGetFileSystemRepresentation(_trueSelf, 1u, a3, a4) != 0);
     }
   }
 
@@ -2544,7 +2544,7 @@ LABEL_8:
   return v5;
 }
 
-- (uint64_t)isEqual:()NSURL
+- (unint64_t)isEqual:()NSURL
 {
   objc_opt_self();
   if ((objc_opt_isKindOfClass() & 1) == 0)
@@ -2585,7 +2585,7 @@ LABEL_16:
   return [(objc_class *)_trueSelf isEqual:_trueSelf2];
 }
 
-- (uint64_t)encodeWithCoder:()NSURL
+- (void)encodeWithCoder:()NSURL
 {
   v15 = *MEMORY[0x1E69E9840];
   allowsKeyedCoding = [a3 allowsKeyedCoding];
@@ -2814,7 +2814,7 @@ LABEL_37:
   return 0;
 }
 
-- (uint64_t)password
+- (const)password
 {
   v12 = *MEMORY[0x1E69E9840];
   _trueSelf = [self _trueSelf];

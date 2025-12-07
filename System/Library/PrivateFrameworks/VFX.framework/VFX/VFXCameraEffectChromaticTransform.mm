@@ -53,23 +53,23 @@
     sub_1AFDD6EB0();
   }
 
-  v0 = sub_1AF0D160C(qword_1ED73AE30, 0xC0uLL);
-  *(v0 + 64) = 1;
-  *(v0 + 72) = 32;
-  *(v0 + 80) = 1065353216;
+  v2 = sub_1AF0D160C(qword_1ED73AE30, 0xC0uLL);
+  *(v2 + 64) = 1;
+  *(v2 + 72) = 32;
+  *(v2 + 80) = 1065353216;
   result = 0.0;
-  *(v0 + 88) = 0;
-  *(v0 + 96) = 1065353216;
-  *(v0 + 104) = 0;
-  *(v0 + 112) = 1067030938;
-  *(v0 + 120) = 0;
-  *(v0 + 128) = xmmword_1AFE20150;
-  *(v0 + 144) = xmmword_1AFE20160;
-  *(v0 + 160) = xmmword_1AFE20180;
-  *(v0 + 176) = 0;
-  *(v0 + 184) = 1065353216;
-  *(v0 + 188) = 0;
-  *(v0 + 192) = 0;
+  *(v2 + 88) = 0;
+  *(v2 + 96) = 1065353216;
+  *(v2 + 104) = 0;
+  *(v2 + 112) = 1067030938;
+  *(v2 + 120) = 0;
+  *(v2 + 128) = xmmword_1AFE20150;
+  *(v2 + 144) = xmmword_1AFE20160;
+  *(v2 + 160) = xmmword_1AFE20180;
+  *(v2 + 176) = 0;
+  *(v2 + 184) = 1065353216;
+  *(v2 + 188) = 0;
+  *(v2 + 192) = 0;
   return result;
 }
 
@@ -80,18 +80,18 @@
     return self->_sampleCount;
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF1633E8(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF1633E8(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -121,18 +121,18 @@
     return self->_intensity;
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF160D20(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF160D20(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -150,7 +150,7 @@
     v5[2] = sub_1AF2B41A4;
     v5[3] = &unk_1E7A7E270;
     v5[4] = self;
-    intensityCopy = intensity;
+    *&v6 = intensity;
     objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, a2, self, @"intensity", v5);
   }
 }
@@ -162,18 +162,18 @@
     return *(self + 80);
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, a3, a4);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, a3);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF1634FC(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF1634FC(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -201,18 +201,18 @@
     return self->_fromAngle;
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF16158C(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF16158C(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -230,7 +230,7 @@
     v5[2] = sub_1AF2B446C;
     v5[3] = &unk_1E7A7E270;
     v5[4] = self;
-    zCopy = z;
+    *&v6 = z;
     objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, a2, self, @"fromZ", v5);
   }
 }
@@ -242,18 +242,18 @@
     return *self->_fromShift;
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF161628(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF161628(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -271,7 +271,7 @@
     v5[2] = sub_1AF2B45CC;
     v5[3] = &unk_1E7A7E270;
     v5[4] = self;
-    angleCopy = angle;
+    *&v6 = angle;
     objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, a2, self, @"fromAngle", v5);
   }
 }
@@ -283,18 +283,18 @@
     return *(self + 96);
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, a3, a4);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, a3);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF163598(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF163598(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -322,18 +322,18 @@
     return self->_toAngle;
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF1624AC(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF1624AC(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -351,7 +351,7 @@
     v5[2] = sub_1AF2B4894;
     v5[3] = &unk_1E7A7E270;
     v5[4] = self;
-    zCopy = z;
+    *&v6 = z;
     objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, a2, self, @"toZ", v5);
   }
 }
@@ -363,18 +363,18 @@
     return *self->_toShift;
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF162548(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF162548(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -392,7 +392,7 @@
     v5[2] = sub_1AF2B49F4;
     v5[3] = &unk_1E7A7E270;
     v5[4] = self;
-    angleCopy = angle;
+    *&v6 = angle;
     objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, a2, self, @"toAngle", v5);
   }
 }
@@ -404,18 +404,18 @@
     return *(self + 112);
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, a3, a4);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, a3);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF163634(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF163634(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -440,19 +440,19 @@
 {
   if (self[1].n128_u8[12] == 1)
   {
-    v5 = objc_msgSend_worldRef(self, a2, a3, a4);
-    v9 = v5;
-    if (v5)
+    v4 = objc_msgSend_worldRef(self, a2, a3);
+    v7 = v4;
+    if (v4)
     {
-      sub_1AF1CEA20(v5);
+      sub_1AF1CEA20(v4, v5);
     }
 
-    v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-    result = sub_1AF1628E8(v10);
-    if (v9)
+    v8 = objc_msgSend_cfxObject(self, v5, v6);
+    result = sub_1AF1628E8(v8, v9);
+    if (v7)
     {
       v12 = result;
-      sub_1AF1CEA9C(v9);
+      sub_1AF1CEA9C(v7, v10);
       return v12;
     }
   }
@@ -484,19 +484,19 @@
 {
   if (self[1].n128_u8[12] == 1)
   {
-    v5 = objc_msgSend_worldRef(self, a2, a3, a4);
-    v9 = v5;
-    if (v5)
+    v4 = objc_msgSend_worldRef(self, a2, a3);
+    v7 = v4;
+    if (v4)
     {
-      sub_1AF1CEA20(v5);
+      sub_1AF1CEA20(v4, v5);
     }
 
-    v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-    result = sub_1AF1636D0(v10);
-    if (v9)
+    v8 = objc_msgSend_cfxObject(self, v5, v6);
+    result = sub_1AF1636D0(v8, v9);
+    if (v7)
     {
       v12 = result;
-      sub_1AF1CEA9C(v9);
+      sub_1AF1CEA9C(v7, v10);
       return v12;
     }
   }
@@ -528,19 +528,19 @@
 {
   if (self[1].n128_u8[12] == 1)
   {
-    v5 = objc_msgSend_worldRef(self, a2, a3, a4);
-    v9 = v5;
-    if (v5)
+    v4 = objc_msgSend_worldRef(self, a2, a3);
+    v7 = v4;
+    if (v4)
     {
-      sub_1AF1CEA20(v5);
+      sub_1AF1CEA20(v4, v5);
     }
 
-    v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-    result = sub_1AF162A28(v10);
-    if (v9)
+    v8 = objc_msgSend_cfxObject(self, v5, v6);
+    result = sub_1AF162A28(v8, v9);
+    if (v7)
     {
       v12 = result;
-      sub_1AF1CEA9C(v9);
+      sub_1AF1CEA9C(v7, v10);
       return v12;
     }
   }
@@ -575,18 +575,18 @@
     return *(self + 176);
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, a3, a4);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, a3);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF163774(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF163774(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -614,18 +614,18 @@
     return *&self->_maskEnabled;
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF161A84(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF161A84(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -643,7 +643,7 @@
     v5[2] = sub_1AF2B5268;
     v5[3] = &unk_1E7A7E270;
     v5[4] = self;
-    radiusCopy = radius;
+    *&v6 = radius;
     objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, a2, self, @"maskRadius", v5);
   }
 }
@@ -652,18 +652,18 @@
 {
   if (self->super._isPresentationObject)
   {
-    v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-    v9 = v5;
-    if (v5)
+    v4 = objc_msgSend_worldRef(self, a2, v2);
+    v7 = v4;
+    if (v4)
     {
-      sub_1AF1CEA20(v5);
+      sub_1AF1CEA20(v4, v5);
     }
 
-    v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-    unMultBlending_low = sub_1AF163864(v10);
-    if (v9)
+    v8 = objc_msgSend_cfxObject(self, v5, v6);
+    unMultBlending_low = sub_1AF163864(v8, v9);
+    if (v7)
     {
-      sub_1AF1CEA9C(v9);
+      sub_1AF1CEA9C(v7, v10);
     }
   }
 
@@ -699,18 +699,18 @@
     return *&self[1].super.super.isa;
   }
 
-  v5 = objc_msgSend_worldRef(self, a2, v2, v3);
-  v9 = v5;
-  if (v5)
+  v4 = objc_msgSend_worldRef(self, a2, v2);
+  v7 = v4;
+  if (v4)
   {
-    sub_1AF1CEA20(v5);
+    sub_1AF1CEA20(v4, v5);
   }
 
-  v10 = objc_msgSend_cfxObject(self, v6, v7, v8);
-  v11 = sub_1AF161BCC(v10);
-  if (v9)
+  v8 = objc_msgSend_cfxObject(self, v5, v6);
+  v11 = sub_1AF161BCC(v8, v9);
+  if (v7)
   {
-    sub_1AF1CEA9C(v9);
+    sub_1AF1CEA9C(v7, v10);
   }
 
   return v11;
@@ -728,7 +728,7 @@
     v5[2] = sub_1AF2B5524;
     v5[3] = &unk_1E7A7E270;
     v5[4] = self;
-    blendingCopy = blending;
+    *&v6 = blending;
     objc_msgSend_postCommandWithObject_key_applyBlock_(VFXTransaction, a2, self, @"unMultBlending", v5);
   }
 }
@@ -743,31 +743,31 @@
 - (BOOL)rawFloat2ForKey:(id)key value:
 {
   v4 = v3;
-  if (objc_msgSend_isEqualToString_(key, a2, @"center", v3))
+  if (objc_msgSend_isEqualToString_(key, a2, @"center"))
   {
-    objc_msgSend_center(self, v7, v8, v9);
+    objc_msgSend_center(self, v7, v8);
 LABEL_9:
-    *v4 = v10;
+    *v4 = v9;
     LOBYTE(isEqualToString) = 1;
     return isEqualToString;
   }
 
-  if (objc_msgSend_isEqualToString_(key, v7, @"fromShift", v9))
+  if (objc_msgSend_isEqualToString_(key, v7, @"fromShift"))
   {
-    objc_msgSend_fromShift(self, v11, v12, v13);
+    objc_msgSend_fromShift(self, v10, v11);
     goto LABEL_9;
   }
 
-  if (objc_msgSend_isEqualToString_(key, v11, @"toShift", v13))
+  if (objc_msgSend_isEqualToString_(key, v10, @"toShift"))
   {
-    objc_msgSend_toShift(self, v14, v15, v16);
+    objc_msgSend_toShift(self, v12, v13);
     goto LABEL_9;
   }
 
-  isEqualToString = objc_msgSend_isEqualToString_(key, v14, @"maskCenter", v16);
+  isEqualToString = objc_msgSend_isEqualToString_(key, v12, @"maskCenter");
   if (isEqualToString)
   {
-    objc_msgSend_maskCenter(self, v18, v19, v20);
+    objc_msgSend_maskCenter(self, v15, v16);
     goto LABEL_9;
   }
 
@@ -777,25 +777,25 @@ LABEL_9:
 - (BOOL)rawFloat3ForKey:(id)key value:
 {
   v4 = v3;
-  if (objc_msgSend_isEqualToString_(key, a2, @"color1", v3))
+  if (objc_msgSend_isEqualToString_(key, a2, @"color1"))
   {
-    objc_msgSend_color1(self, v7, v8, v9);
+    objc_msgSend_color1(self, v7, v8);
 LABEL_7:
-    *v4 = v10;
+    *v4 = v9;
     LOBYTE(isEqualToString) = 1;
     return isEqualToString;
   }
 
-  if (objc_msgSend_isEqualToString_(key, v7, @"color2", v9))
+  if (objc_msgSend_isEqualToString_(key, v7, @"color2"))
   {
-    objc_msgSend_color2(self, v11, v12, v13);
+    objc_msgSend_color2(self, v10, v11);
     goto LABEL_7;
   }
 
-  isEqualToString = objc_msgSend_isEqualToString_(key, v11, @"color3", v13);
+  isEqualToString = objc_msgSend_isEqualToString_(key, v10, @"color3");
   if (isEqualToString)
   {
-    objc_msgSend_color3(self, v15, v16, v17);
+    objc_msgSend_color3(self, v13, v14);
     goto LABEL_7;
   }
 
@@ -804,174 +804,174 @@ LABEL_7:
 
 - (id)valueForKey:(id)key
 {
-  if (objc_msgSend_isEqualToString_(key, a2, @"color1", v3))
+  if (objc_msgSend_isEqualToString_(key, a2, @"color1"))
   {
-    v9 = MEMORY[0x1E696B098];
-    objc_msgSend_color1(self, v6, v7, v8);
+    v7 = MEMORY[0x1E696B098];
+    objc_msgSend_color1(self, v5, v6);
 LABEL_7:
 
-    return objc_msgSend_valueWithVFXFloat3_(v9, v10, v11, v12);
+    return objc_msgSend_valueWithVFXFloat3_(v7, v8, v9);
   }
 
-  if (objc_msgSend_isEqualToString_(key, v6, @"color2", v8))
+  if (objc_msgSend_isEqualToString_(key, v5, @"color2"))
   {
-    v9 = MEMORY[0x1E696B098];
-    objc_msgSend_color2(self, v13, v14, v15);
+    v7 = MEMORY[0x1E696B098];
+    objc_msgSend_color2(self, v10, v11);
     goto LABEL_7;
   }
 
-  if (objc_msgSend_isEqualToString_(key, v13, @"color3", v15))
+  if (objc_msgSend_isEqualToString_(key, v10, @"color3"))
   {
-    v9 = MEMORY[0x1E696B098];
-    objc_msgSend_color3(self, v16, v17, v18);
+    v7 = MEMORY[0x1E696B098];
+    objc_msgSend_color3(self, v12, v13);
     goto LABEL_7;
   }
 
-  if (objc_msgSend_isEqualToString_(key, v16, @"center", v18))
+  if (objc_msgSend_isEqualToString_(key, v12, @"center"))
   {
-    v23 = MEMORY[0x1E696B098];
-    objc_msgSend_center(self, v20, v21, v22);
+    v17 = MEMORY[0x1E696B098];
+    objc_msgSend_center(self, v15, v16);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v20, @"fromShift", v22))
+  else if (objc_msgSend_isEqualToString_(key, v15, @"fromShift"))
   {
-    v23 = MEMORY[0x1E696B098];
-    objc_msgSend_fromShift(self, v26, v27, v28);
+    v17 = MEMORY[0x1E696B098];
+    objc_msgSend_fromShift(self, v19, v20);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v26, @"toShift", v28))
+  else if (objc_msgSend_isEqualToString_(key, v19, @"toShift"))
   {
-    v23 = MEMORY[0x1E696B098];
-    objc_msgSend_toShift(self, v29, v30, v31);
+    v17 = MEMORY[0x1E696B098];
+    objc_msgSend_toShift(self, v21, v22);
   }
 
   else
   {
-    if (!objc_msgSend_isEqualToString_(key, v29, @"maskCenter", v31))
+    if (!objc_msgSend_isEqualToString_(key, v21, @"maskCenter"))
     {
-      v35.receiver = self;
-      v35.super_class = VFXCameraEffectChromaticTransform;
-      return [(VFXCameraEffectChromaticTransform *)&v35 valueForKey:key];
+      v25.receiver = self;
+      v25.super_class = VFXCameraEffectChromaticTransform;
+      return [(VFXCameraEffectChromaticTransform *)&v25 valueForKey:key];
     }
 
-    v23 = MEMORY[0x1E696B098];
-    objc_msgSend_maskCenter(self, v32, v33, v34);
+    v17 = MEMORY[0x1E696B098];
+    objc_msgSend_maskCenter(self, v23, v24);
   }
 
-  return MEMORY[0x1EEE66B58](v23, sel_valueWithVFXFloat2_, v24, v25);
+  return MEMORY[0x1EEE66B58](v17, sel_valueWithVFXFloat2_, v18);
 }
 
 - (void)setValue:(id)value forKey:(id)key
 {
-  if (objc_msgSend_isEqualToString_(key, a2, @"color1", key))
+  if (objc_msgSend_isEqualToString_(key, a2, @"color1"))
   {
-    objc_msgSend_VFXFloat3Value(value, v7, v8, v9);
+    objc_msgSend_VFXFloat3Value(value, v7, v8);
 
-    objc_msgSend_setColor1_(self, v10, v11, v12);
+    objc_msgSend_setColor1_(self, v9, v10);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v7, @"color2", v9))
+  else if (objc_msgSend_isEqualToString_(key, v7, @"color2"))
   {
-    objc_msgSend_VFXFloat3Value(value, v13, v14, v15);
+    objc_msgSend_VFXFloat3Value(value, v11, v12);
 
-    objc_msgSend_setColor2_(self, v16, v17, v18);
+    objc_msgSend_setColor2_(self, v13, v14);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v13, @"color3", v15))
+  else if (objc_msgSend_isEqualToString_(key, v11, @"color3"))
   {
-    objc_msgSend_VFXFloat3Value(value, v19, v20, v21);
+    objc_msgSend_VFXFloat3Value(value, v15, v16);
 
-    objc_msgSend_setColor3_(self, v22, v23, v24);
+    objc_msgSend_setColor3_(self, v17, v18);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v19, @"center", v21))
+  else if (objc_msgSend_isEqualToString_(key, v15, @"center"))
   {
-    objc_msgSend_VFXFloat2Value(value, v25, v26, v27);
+    objc_msgSend_VFXFloat2Value(value, v19, v20);
 
-    objc_msgSend_setCenter_(self, v28, v29, v30);
+    objc_msgSend_setCenter_(self, v21, v22);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v25, @"fromShift", v27))
+  else if (objc_msgSend_isEqualToString_(key, v19, @"fromShift"))
   {
-    objc_msgSend_VFXFloat2Value(value, v31, v32, v33);
+    objc_msgSend_VFXFloat2Value(value, v23, v24);
 
-    objc_msgSend_setFromShift_(self, v34, v35, v36);
+    objc_msgSend_setFromShift_(self, v25, v26);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v31, @"toShift", v33))
+  else if (objc_msgSend_isEqualToString_(key, v23, @"toShift"))
   {
-    objc_msgSend_VFXFloat2Value(value, v37, v38, v39);
+    objc_msgSend_VFXFloat2Value(value, v27, v28);
 
-    objc_msgSend_setToShift_(self, v40, v41, v42);
+    objc_msgSend_setToShift_(self, v29, v30);
   }
 
-  else if (objc_msgSend_isEqualToString_(key, v37, @"maskCenter", v39))
+  else if (objc_msgSend_isEqualToString_(key, v27, @"maskCenter"))
   {
-    objc_msgSend_VFXFloat2Value(value, v43, v44, v45);
+    objc_msgSend_VFXFloat2Value(value, v31, v32);
 
-    objc_msgSend_setMaskCenter_(self, v46, v47, v48);
+    objc_msgSend_setMaskCenter_(self, v33, v34);
   }
 
   else
   {
-    v49.receiver = self;
-    v49.super_class = VFXCameraEffectChromaticTransform;
-    [(VFXCameraEffectChromaticTransform *)&v49 setValue:value forKey:key];
+    v35.receiver = self;
+    v35.super_class = VFXCameraEffectChromaticTransform;
+    [(VFXCameraEffectChromaticTransform *)&v35 setValue:value forKey:key];
   }
 }
 
 - (id)copyWithZone:(_NSZone *)zone
 {
-  v59.receiver = self;
-  v59.super_class = VFXCameraEffectChromaticTransform;
-  v4 = [(VFXCameraEffect *)&v59 copyWithZone:zone];
-  objc_msgSend_setSampleCount_(v4, v5, self->_sampleCount, v6);
-  *&v7 = self->_intensity;
-  objc_msgSend_setIntensity_(v4, v8, v9, v10, v7);
-  objc_msgSend_setCenter_(v4, v11, v12, v13, *&self->_center[4]);
-  *&v14 = self->_fromAngle;
-  objc_msgSend_setFromZ_(v4, v15, v16, v17, v14);
-  LODWORD(v18) = *self->_fromShift;
-  objc_msgSend_setFromAngle_(v4, v19, v20, v21, v18);
-  objc_msgSend_setFromShift_(v4, v22, v23, v24, *&self->_fromShift[4]);
-  *&v25 = self->_toAngle;
-  objc_msgSend_setToZ_(v4, v26, v27, v28, v25);
-  LODWORD(v29) = *self->_toShift;
-  objc_msgSend_setToAngle_(v4, v30, v31, v32, v29);
-  objc_msgSend_setToShift_(v4, v33, v34, v35, *&self->_toShift[4]);
-  objc_msgSend_setColor1_(v4, v36, v37, v38, *&self->_color1[4]);
-  objc_msgSend_setColor2_(v4, v39, v40, v41, *&self->_color2[4]);
-  objc_msgSend_setColor3_(v4, v42, v43, v44, *&self->_color3[4]);
-  objc_msgSend_setMaskCenter_(v4, v45, v46, v47, *&self->_maskCenter[4]);
-  LODWORD(v48) = *&self->_maskEnabled;
-  objc_msgSend_setMaskRadius_(v4, v49, v50, v51, v48);
-  objc_msgSend_setMaskEnabled_(v4, v52, LOBYTE(self->_unMultBlending), v53);
-  LODWORD(v54) = self[1].super.super.isa;
-  objc_msgSend_setUnMultBlending_(v4, v55, v56, v57, v54);
+  v43.receiver = self;
+  v43.super_class = VFXCameraEffectChromaticTransform;
+  v4 = [(VFXCameraEffect *)&v43 copyWithZone:zone];
+  objc_msgSend_setSampleCount_(v4, v5, self->_sampleCount);
+  *&v6 = self->_intensity;
+  objc_msgSend_setIntensity_(v4, v7, v8, v6);
+  objc_msgSend_setCenter_(v4, v9, v10, *&self->_center[4]);
+  *&v11 = self->_fromAngle;
+  objc_msgSend_setFromZ_(v4, v12, v13, v11);
+  LODWORD(v14) = *self->_fromShift;
+  objc_msgSend_setFromAngle_(v4, v15, v16, v14);
+  objc_msgSend_setFromShift_(v4, v17, v18, *&self->_fromShift[4]);
+  *&v19 = self->_toAngle;
+  objc_msgSend_setToZ_(v4, v20, v21, v19);
+  LODWORD(v22) = *self->_toShift;
+  objc_msgSend_setToAngle_(v4, v23, v24, v22);
+  objc_msgSend_setToShift_(v4, v25, v26, *&self->_toShift[4]);
+  objc_msgSend_setColor1_(v4, v27, v28, *&self->_color1[4]);
+  objc_msgSend_setColor2_(v4, v29, v30, *&self->_color2[4]);
+  objc_msgSend_setColor3_(v4, v31, v32, *&self->_color3[4]);
+  objc_msgSend_setMaskCenter_(v4, v33, v34, *&self->_maskCenter[4]);
+  LODWORD(v35) = *&self->_maskEnabled;
+  objc_msgSend_setMaskRadius_(v4, v36, v37, v35);
+  objc_msgSend_setMaskEnabled_(v4, v38, LOBYTE(self->_unMultBlending));
+  LODWORD(v39) = self[1].super.super.isa;
+  objc_msgSend_setUnMultBlending_(v4, v40, v41, v39);
   return v4;
 }
 
 - (void)_updateModelFromPresentation
 {
-  v3.receiver = self;
-  v3.super_class = VFXCameraEffectChromaticTransform;
-  [(VFXCameraEffect *)&v3 _updateModelFromPresentation];
-  self->_sampleCount = sub_1AF1633E8(self->super._cameraEffect);
-  self->_intensity = sub_1AF160D20(self->super._cameraEffect);
-  *&self->_center[4] = sub_1AF1634FC(self->super._cameraEffect);
-  self->_fromAngle = sub_1AF16158C(self->super._cameraEffect);
-  *self->_fromShift = sub_1AF161628(self->super._cameraEffect);
-  *&self->_fromShift[4] = sub_1AF163598(self->super._cameraEffect);
-  self->_toAngle = sub_1AF1624AC(self->super._cameraEffect);
-  *self->_toShift = sub_1AF162548(self->super._cameraEffect);
-  *&self->_toShift[4] = sub_1AF163634(self->super._cameraEffect);
-  *&self->_color1[4] = sub_1AF1628E8(self->super._cameraEffect);
-  *&self->_color2[4] = sub_1AF1636D0(self->super._cameraEffect);
-  *&self->_color3[4] = sub_1AF162A28(self->super._cameraEffect);
-  *&self->_maskCenter[4] = sub_1AF163774(self->super._cameraEffect);
-  *&self->_maskEnabled = sub_1AF161A84(self->super._cameraEffect);
-  LOBYTE(self->_unMultBlending) = sub_1AF163864(self->super._cameraEffect);
-  *&self[1].super.super.isa = sub_1AF161BCC(self->super._cameraEffect);
+  v19.receiver = self;
+  v19.super_class = VFXCameraEffectChromaticTransform;
+  [(VFXCameraEffect *)&v19 _updateModelFromPresentation];
+  self->_sampleCount = sub_1AF1633E8(self->super._cameraEffect, v3);
+  self->_intensity = sub_1AF160D20(self->super._cameraEffect, v4);
+  *&self->_center[4] = sub_1AF1634FC(self->super._cameraEffect, v5);
+  self->_fromAngle = sub_1AF16158C(self->super._cameraEffect, v6);
+  *self->_fromShift = sub_1AF161628(self->super._cameraEffect, v7);
+  *&self->_fromShift[4] = sub_1AF163598(self->super._cameraEffect, v8);
+  self->_toAngle = sub_1AF1624AC(self->super._cameraEffect, v9);
+  *self->_toShift = sub_1AF162548(self->super._cameraEffect, v10);
+  *&self->_toShift[4] = sub_1AF163634(self->super._cameraEffect, v11);
+  *&self->_color1[4] = sub_1AF1628E8(self->super._cameraEffect, v12);
+  *&self->_color2[4] = sub_1AF1636D0(self->super._cameraEffect, v13);
+  *&self->_color3[4] = sub_1AF162A28(self->super._cameraEffect, v14);
+  *&self->_maskCenter[4] = sub_1AF163774(self->super._cameraEffect, v15);
+  *&self->_maskEnabled = sub_1AF161A84(self->super._cameraEffect, v16);
+  LOBYTE(self->_unMultBlending) = sub_1AF163864(self->super._cameraEffect, v17);
+  *&self[1].super.super.isa = sub_1AF161BCC(self->super._cameraEffect, v18);
 }
 
 - (void)_updatePresentationFromModel
@@ -986,80 +986,80 @@ LABEL_7:
 
 - (void)encodeWithCoder:(id)coder
 {
-  v30.receiver = self;
-  v30.super_class = VFXCameraEffectChromaticTransform;
-  [(VFXCameraEffect *)&v30 encodeWithCoder:?];
+  v22.receiver = self;
+  v22.super_class = VFXCameraEffectChromaticTransform;
+  [(VFXCameraEffect *)&v22 encodeWithCoder:?];
   *&v5 = self->_sampleCount;
-  objc_msgSend_encodeFloat_forKey_(coder, v6, @"sampleCount", v7, v5);
-  *&v8 = self->_intensity;
-  objc_msgSend_encodeFloat_forKey_(coder, v9, @"intensity", v10, v8);
+  objc_msgSend_encodeFloat_forKey_(coder, v6, @"sampleCount", v5);
+  *&v7 = self->_intensity;
+  objc_msgSend_encodeFloat_forKey_(coder, v8, @"intensity", v7);
   sub_1AF371A30(coder, @"center", *&self->_center[4]);
-  *&v11 = self->_fromAngle;
-  objc_msgSend_encodeFloat_forKey_(coder, v12, @"fromZ", v13, v11);
-  LODWORD(v14) = *self->_fromShift;
-  objc_msgSend_encodeFloat_forKey_(coder, v15, @"fromAngle", v16, v14);
+  *&v9 = self->_fromAngle;
+  objc_msgSend_encodeFloat_forKey_(coder, v10, @"fromZ", v9);
+  LODWORD(v11) = *self->_fromShift;
+  objc_msgSend_encodeFloat_forKey_(coder, v12, @"fromAngle", v11);
   sub_1AF371A30(coder, @"fromShift", *&self->_fromShift[4]);
-  *&v17 = self->_toAngle;
-  objc_msgSend_encodeFloat_forKey_(coder, v18, @"toZ", v19, v17);
-  LODWORD(v20) = *self->_toShift;
-  objc_msgSend_encodeFloat_forKey_(coder, v21, @"toAngle", v22, v20);
+  *&v13 = self->_toAngle;
+  objc_msgSend_encodeFloat_forKey_(coder, v14, @"toZ", v13);
+  LODWORD(v15) = *self->_toShift;
+  objc_msgSend_encodeFloat_forKey_(coder, v16, @"toAngle", v15);
   sub_1AF371A30(coder, @"toShift", *&self->_toShift[4]);
   sub_1AF371A8C(coder, @"color1", *&self->_color1[4]);
   sub_1AF371A8C(coder, @"color2", *&self->_color2[4]);
   sub_1AF371A8C(coder, @"color3", *&self->_color3[4]);
   sub_1AF371A30(coder, @"maskCenter", *&self->_maskCenter[4]);
-  LODWORD(v23) = *&self->_maskEnabled;
-  objc_msgSend_encodeFloat_forKey_(coder, v24, @"maskRadius", v25, v23);
-  objc_msgSend_encodeBool_forKey_(coder, v26, LOBYTE(self->_unMultBlending), @"maskEnabled");
-  LODWORD(v27) = self[1].super.super.isa;
-  objc_msgSend_encodeFloat_forKey_(coder, v28, @"unMultBlending", v29, v27);
+  LODWORD(v17) = *&self->_maskEnabled;
+  objc_msgSend_encodeFloat_forKey_(coder, v18, @"maskRadius", v17);
+  objc_msgSend_encodeBool_forKey_(coder, v19, LOBYTE(self->_unMultBlending), @"maskEnabled");
+  LODWORD(v20) = self[1].super.super.isa;
+  objc_msgSend_encodeFloat_forKey_(coder, v21, @"unMultBlending", v20);
 }
 
 - (VFXCameraEffectChromaticTransform)initWithCoder:(id)coder
 {
-  v87.receiver = self;
-  v87.super_class = VFXCameraEffectChromaticTransform;
-  v7 = [(VFXCameraEffect *)&v87 initWithCoder:?];
-  if (v7)
+  v59.receiver = self;
+  v59.super_class = VFXCameraEffectChromaticTransform;
+  v6 = [(VFXCameraEffect *)&v59 initWithCoder:?];
+  if (v6)
   {
-    v8 = objc_msgSend_immediateMode(VFXTransaction, v4, v5, v6);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v9, 1, v10);
-    objc_msgSend_decodeFloatForKey_(coder, v11, @"sampleCount", v12);
-    objc_msgSend_setSampleCount_(v7, v14, v13, v15);
-    objc_msgSend_decodeFloatForKey_(coder, v16, @"intensity", v17);
-    objc_msgSend_setIntensity_(v7, v18, v19, v20);
-    v21 = sub_1AF371B84(coder, @"center");
-    objc_msgSend_setCenter_(v7, v22, v23, v24, v21);
-    objc_msgSend_decodeFloatForKey_(coder, v25, @"fromZ", v26);
-    objc_msgSend_setFromZ_(v7, v27, v28, v29);
-    objc_msgSend_decodeFloatForKey_(coder, v30, @"fromAngle", v31);
-    objc_msgSend_setFromAngle_(v7, v32, v33, v34);
-    v35 = sub_1AF371B84(coder, @"fromShift");
-    objc_msgSend_setFromShift_(v7, v36, v37, v38, v35);
-    objc_msgSend_decodeFloatForKey_(coder, v39, @"toZ", v40);
-    objc_msgSend_setToZ_(v7, v41, v42, v43);
-    objc_msgSend_decodeFloatForKey_(coder, v44, @"toAngle", v45);
-    objc_msgSend_setToAngle_(v7, v46, v47, v48);
-    v49 = sub_1AF371B84(coder, @"toShift");
-    objc_msgSend_setToShift_(v7, v50, v51, v52, v49);
-    v53 = sub_1AF371BC4(coder, @"color1");
-    objc_msgSend_setColor1_(v7, v54, v55, v56, v53);
-    v57 = sub_1AF371BC4(coder, @"color2");
-    objc_msgSend_setColor2_(v7, v58, v59, v60, v57);
-    v61 = sub_1AF371BC4(coder, @"color3");
-    objc_msgSend_setColor3_(v7, v62, v63, v64, v61);
-    v65 = sub_1AF371B84(coder, @"maskCenter");
-    objc_msgSend_setMaskCenter_(v7, v66, v67, v68, v65);
-    objc_msgSend_decodeFloatForKey_(coder, v69, @"maskRadius", v70);
-    objc_msgSend_setMaskRadius_(v7, v71, v72, v73);
-    v76 = objc_msgSend_decodeBoolForKey_(coder, v74, @"maskEnabled", v75);
-    objc_msgSend_setMaskEnabled_(v7, v77, v76, v78);
-    objc_msgSend_decodeFloatForKey_(coder, v79, @"unMultBlending", v80);
-    objc_msgSend_setUnMultBlending_(v7, v81, v82, v83);
-    objc_msgSend_setImmediateMode_(VFXTransaction, v84, v8, v85);
+    v7 = objc_msgSend_immediateMode(VFXTransaction, v4, v5);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v8, 1);
+    objc_msgSend_decodeFloatForKey_(coder, v9, @"sampleCount");
+    objc_msgSend_setSampleCount_(v6, v11, v10);
+    objc_msgSend_decodeFloatForKey_(coder, v12, @"intensity");
+    objc_msgSend_setIntensity_(v6, v13, v14);
+    v15 = sub_1AF371B84(coder, @"center");
+    objc_msgSend_setCenter_(v6, v16, v17, v15);
+    objc_msgSend_decodeFloatForKey_(coder, v18, @"fromZ");
+    objc_msgSend_setFromZ_(v6, v19, v20);
+    objc_msgSend_decodeFloatForKey_(coder, v21, @"fromAngle");
+    objc_msgSend_setFromAngle_(v6, v22, v23);
+    v24 = sub_1AF371B84(coder, @"fromShift");
+    objc_msgSend_setFromShift_(v6, v25, v26, v24);
+    objc_msgSend_decodeFloatForKey_(coder, v27, @"toZ");
+    objc_msgSend_setToZ_(v6, v28, v29);
+    objc_msgSend_decodeFloatForKey_(coder, v30, @"toAngle");
+    objc_msgSend_setToAngle_(v6, v31, v32);
+    v33 = sub_1AF371B84(coder, @"toShift");
+    objc_msgSend_setToShift_(v6, v34, v35, v33);
+    v36 = sub_1AF371BC4(coder, @"color1");
+    objc_msgSend_setColor1_(v6, v37, v38, v36);
+    v39 = sub_1AF371BC4(coder, @"color2");
+    objc_msgSend_setColor2_(v6, v40, v41, v39);
+    v42 = sub_1AF371BC4(coder, @"color3");
+    objc_msgSend_setColor3_(v6, v43, v44, v42);
+    v45 = sub_1AF371B84(coder, @"maskCenter");
+    objc_msgSend_setMaskCenter_(v6, v46, v47, v45);
+    objc_msgSend_decodeFloatForKey_(coder, v48, @"maskRadius");
+    objc_msgSend_setMaskRadius_(v6, v49, v50);
+    v52 = objc_msgSend_decodeBoolForKey_(coder, v51, @"maskEnabled");
+    objc_msgSend_setMaskEnabled_(v6, v53, v52);
+    objc_msgSend_decodeFloatForKey_(coder, v54, @"unMultBlending");
+    objc_msgSend_setUnMultBlending_(v6, v55, v56);
+    objc_msgSend_setImmediateMode_(VFXTransaction, v57, v7);
   }
 
-  return v7;
+  return v6;
 }
 
 @end

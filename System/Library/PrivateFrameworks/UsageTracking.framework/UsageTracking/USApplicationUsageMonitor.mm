@@ -1,4 +1,5 @@
 @interface USApplicationUsageMonitor
++ (id)_eventWithBundleIdentifier:(id)identifier startDate:(id)date usageType:(int64_t)type usageTrusted:(BOOL)trusted;
 - (USApplicationUsageMonitor)init;
 - (void)clearAppWebAndMediaUsageInContextStoreMatchingBundleIDs:(id)ds clearAll:(BOOL)all;
 - (void)displayMonitor:(id)monitor didConnectIdentity:(id)identity withConfiguration:(id)configuration;
@@ -17,28 +18,28 @@
 
 - (void)updateAppDataInContextStore
 {
-  v52 = *MEMORY[0x277D85DE8];
-  v36 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v51 = *MEMORY[0x277D85DE8];
+  v35 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v44 = 0u;
   v45 = 0u;
   v46 = 0u;
   v47 = 0u;
-  v48 = 0u;
   selfCopy = self;
   obj = [(USApplicationUsageMonitor *)self inUseApplicationEvents];
-  v40 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
-  if (v40)
+  v39 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
+  if (v39)
   {
-    v38 = *v46;
+    v37 = *v45;
     do
     {
-      for (i = 0; i != v40; ++i)
+      for (i = 0; i != v39; ++i)
       {
-        if (*v46 != v38)
+        if (*v45 != v37)
         {
           objc_enumerationMutation(obj);
         }
 
-        v4 = *(*(&v45 + 1) + 8 * i);
+        v4 = *(*(&v44 + 1) + 8 * i);
         inUseApplicationEvents = [(USApplicationUsageMonitor *)selfCopy inUseApplicationEvents];
         v6 = [inUseApplicationEvents objectForKeyedSubscript:v4];
 
@@ -52,8 +53,8 @@
           stringValue = [v6 stringValue];
           if (v10)
           {
-            v42 = stringValue;
-            v44 = v4;
+            v41 = stringValue;
+            v43 = v4;
           }
 
           else
@@ -63,9 +64,9 @@
               goto LABEL_20;
             }
 
-            v44 = v4;
+            v43 = v4;
             v10 = stringValue;
-            v42 = 0;
+            v41 = 0;
           }
 
           metadata2 = [v6 metadata];
@@ -93,50 +94,48 @@
           v23 = v22;
 
           appUsageBundleID = [MEMORY[0x277CFE338] appUsageBundleID];
-          v49[0] = appUsageBundleID;
-          v43 = v10;
-          v50[0] = v10;
+          v48[0] = appUsageBundleID;
+          v42 = v10;
+          v49[0] = v10;
           appUsageStartDate = [MEMORY[0x277CFE338] appUsageStartDate];
-          v49[1] = appUsageStartDate;
-          v50[1] = startDate;
+          v48[1] = appUsageStartDate;
+          v49[1] = startDate;
           appUsageType = [MEMORY[0x277CFE338] appUsageType];
-          v49[2] = appUsageType;
-          v41 = v17;
-          v50[2] = v17;
+          v48[2] = appUsageType;
+          v40 = v17;
+          v49[2] = v17;
           isUsageTrusted2 = [MEMORY[0x277CFE338] isUsageTrusted];
-          v49[3] = isUsageTrusted2;
-          v50[3] = v23;
-          v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v50 forKeys:v49 count:4];
+          v48[3] = isUsageTrusted2;
+          v49[3] = v23;
+          v28 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v49 forKeys:v48 count:4];
           v29 = [v28 mutableCopy];
 
-          if (v42)
+          if (v41)
           {
             clipBundleIDKey = [MEMORY[0x277CFE338] clipBundleIDKey];
-            [v29 setObject:v42 forKeyedSubscript:clipBundleIDKey];
+            [v29 setObject:v41 forKeyedSubscript:clipBundleIDKey];
           }
 
-          if (([v44 isEqualToString:@"com.apple.springboard.stand-by"] & 1) == 0)
+          if (([v43 isEqualToString:@"com.apple.springboard.stand-by"] & 1) == 0)
           {
             v31 = [v29 copy];
-            [v36 addObject:v31];
+            [v35 addObject:v31];
           }
         }
 
 LABEL_20:
       }
 
-      v40 = [obj countByEnumeratingWithState:&v45 objects:v51 count:16];
+      v39 = [obj countByEnumeratingWithState:&v44 objects:v50 count:16];
     }
 
-    while (v40);
+    while (v39);
   }
 
   keyPathForAppUsageDataDictionaries = [MEMORY[0x277CFE338] keyPathForAppUsageDataDictionaries];
-  v33 = [v36 copy];
+  v33 = [v35 copy];
   userContext = [MEMORY[0x277CFE318] userContext];
   [userContext setObject:v33 forKeyedSubscript:keyPathForAppUsageDataDictionaries];
-
-  v35 = *MEMORY[0x277D85DE8];
 }
 
 - (void)obtainCurrentValue
@@ -176,10 +175,127 @@ LABEL_20:
   return v3;
 }
 
++ (id)_eventWithBundleIdentifier:(id)identifier startDate:(id)date usageType:(int64_t)type usageTrusted:(BOOL)trusted
+{
+  trustedCopy = trusted;
+  v48[2] = *MEMORY[0x277D85DE8];
+  identifierCopy = identifier;
+  dateCopy = date;
+  v11 = dateCopy;
+  v12 = 0;
+  if (identifierCopy && dateCopy)
+  {
+    if ([identifierCopy isEqualToString:@"com.apple.springboard.stand-by"])
+    {
+      v13 = MEMORY[0x277CFE1D8];
+      appUsageStream = [MEMORY[0x277CFE298] appUsageStream];
+      distantFuture = [MEMORY[0x277CBEAA8] distantFuture];
+      v16 = [MEMORY[0x277CFE1A8] withBundle:@"com.apple.springboard.stand-by"];
+      usageType = [MEMORY[0x277CFE1D0] usageType];
+      v47[0] = usageType;
+      v18 = [MEMORY[0x277CCABB0] numberWithInteger:type];
+      v48[0] = v18;
+      isUsageTrusted = [MEMORY[0x277CFE1D0] isUsageTrusted];
+      v47[1] = isUsageTrusted;
+      v48[1] = MEMORY[0x277CBEC38];
+      v20 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v48 forKeys:v47 count:2];
+      v21 = v13;
+      v22 = distantFuture;
+      v12 = [v21 eventWithStream:appUsageStream startDate:v11 endDate:distantFuture value:v16 metadata:v20];
+
+LABEL_23:
+      goto LABEL_24;
+    }
+
+    appUsageStream = [objc_alloc(MEMORY[0x277CBEB38]) initWithCapacity:2];
+    v23 = [MEMORY[0x277CCABB0] numberWithInteger:type];
+    usageType2 = [MEMORY[0x277CFE1D0] usageType];
+    [appUsageStream setObject:v23 forKeyedSubscript:usageType2];
+
+    v25 = [MEMORY[0x277CCABB0] numberWithBool:trustedCopy];
+    isUsageTrusted2 = [MEMORY[0x277CFE1D0] isUsageTrusted];
+    [appUsageStream setObject:v25 forKeyedSubscript:isUsageTrusted2];
+
+    v45 = 0;
+    v16 = [objc_alloc(MEMORY[0x277CC1E70]) initWithBundleIdentifier:identifierCopy allowPlaceholder:1 error:&v45];
+    v22 = v45;
+    if (v22)
+    {
+      usageType = [MEMORY[0x277CFE0C8] knowledgeChannel];
+      if (os_log_type_enabled(usageType, OS_LOG_TYPE_ERROR))
+      {
+        [USApplicationUsageMonitor _eventWithBundleIdentifier:identifierCopy startDate:v22 usageType:usageType usageTrusted:?];
+      }
+
+      v12 = 0;
+      goto LABEL_23;
+    }
+
+    shortVersionString = [v16 shortVersionString];
+    usageType = shortVersionString;
+    if (shortVersionString && [shortVersionString length])
+    {
+      shortVersionString2 = [MEMORY[0x277CFE178] shortVersionString];
+      [appUsageStream setObject:usageType forKeyedSubscript:shortVersionString2];
+    }
+
+    exactBundleVersion = [v16 exactBundleVersion];
+    if ([exactBundleVersion length])
+    {
+      exactBundleVersion2 = [MEMORY[0x277CFE178] exactBundleVersion];
+      [appUsageStream setObject:exactBundleVersion forKeyedSubscript:exactBundleVersion2];
+    }
+
+    appClipMetadata = [v16 appClipMetadata];
+    v44 = appClipMetadata;
+    if (appClipMetadata)
+    {
+      parentApplicationIdentifiers = [appClipMetadata parentApplicationIdentifiers];
+      firstObject = [parentApplicationIdentifiers firstObject];
+
+      v34 = firstObject;
+      v46 = 0;
+      if (!CPCopyBundleIdentifierAndTeamFromApplicationIdentifier() || (v35 = v46) == 0)
+      {
+        knowledgeChannel = [MEMORY[0x277CFE0C8] knowledgeChannel];
+        if (os_log_type_enabled(knowledgeChannel, OS_LOG_TYPE_FAULT))
+        {
+          [USApplicationUsageMonitor _eventWithBundleIdentifier:identifierCopy startDate:knowledgeChannel usageType:? usageTrusted:?];
+        }
+
+        v12 = 0;
+        goto LABEL_22;
+      }
+
+      [MEMORY[0x277CFE158] appBundleID];
+      v36 = v43 = v34;
+      [appUsageStream setObject:v35 forKeyedSubscript:v36];
+    }
+
+    v34 = [appUsageStream copy];
+    v37 = MEMORY[0x277CFE1D8];
+    knowledgeChannel = [MEMORY[0x277CFE298] appUsageStream];
+    distantFuture2 = [MEMORY[0x277CBEAA8] distantFuture];
+    [MEMORY[0x277CFE1A8] withBundle:identifierCopy];
+    v40 = v42 = exactBundleVersion;
+    v12 = [v37 eventWithStream:knowledgeChannel startDate:v11 endDate:distantFuture2 value:v40 metadata:v34];
+
+    exactBundleVersion = v42;
+    v22 = 0;
+LABEL_22:
+
+    goto LABEL_23;
+  }
+
+LABEL_24:
+
+  return v12;
+}
+
 - (void)clearAppWebAndMediaUsageInContextStoreMatchingBundleIDs:(id)ds clearAll:(BOOL)all
 {
   allCopy = all;
-  v65 = *MEMORY[0x277D85DE8];
+  v64 = *MEMORY[0x277D85DE8];
   dsCopy = ds;
   knowledgeChannel = [MEMORY[0x277CFE0C8] knowledgeChannel];
   if (os_log_type_enabled(knowledgeChannel, OS_LOG_TYPE_DEBUG))
@@ -193,8 +309,8 @@ LABEL_20:
   v10 = MEMORY[0x277CCAC30];
   appWebUsageBundleID = [MEMORY[0x277CFE338] appWebUsageBundleID];
   v12 = appWebUsageBundleID;
-  v50 = dsCopy;
-  v51 = v8;
+  v49 = dsCopy;
+  v50 = v8;
   selfCopy = self;
   if (allCopy)
   {
@@ -208,34 +324,34 @@ LABEL_20:
   v13 = ;
 
   userContext = [MEMORY[0x277CFE318] userContext];
-  v48 = v13;
-  v49 = keyPathForAppWebUsageDataDictionaries;
+  v47 = v13;
+  v48 = keyPathForAppWebUsageDataDictionaries;
   v15 = [userContext removeObjectsMatchingPredicate:v13 fromArrayAtKeyPath:keyPathForAppWebUsageDataDictionaries];
 
-  v58 = 0u;
-  v59 = 0u;
-  v56 = 0u;
   v57 = 0u;
+  v58 = 0u;
+  v55 = 0u;
+  v56 = 0u;
   obj = v15;
-  v16 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
+  v16 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
   v17 = 0x277CFE000uLL;
   if (v16)
   {
     v18 = v16;
-    v19 = *v57;
-    v52 = *v57;
+    v19 = *v56;
+    v51 = *v56;
     do
     {
       v20 = 0;
-      v54 = v18;
+      v53 = v18;
       do
       {
-        if (*v57 != v19)
+        if (*v56 != v19)
         {
           objc_enumerationMutation(obj);
         }
 
-        v21 = *(*(&v56 + 1) + 8 * v20);
+        v21 = *(*(&v55 + 1) + 8 * v20);
         appWebUsageStartDate = [*(v17 + 824) appWebUsageStartDate];
         v23 = [v21 objectForKeyedSubscript:appWebUsageStartDate];
 
@@ -297,42 +413,40 @@ LABEL_20:
 
           if (v42)
           {
-            [v51 addObject:v42];
+            [v50 addObject:v42];
           }
 
           v17 = 0x277CFE000;
-          v19 = v52;
-          v18 = v54;
+          v19 = v51;
+          v18 = v53;
         }
 
         ++v20;
       }
 
       while (v18 != v20);
-      v18 = [obj countByEnumeratingWithState:&v56 objects:v64 count:16];
+      v18 = [obj countByEnumeratingWithState:&v55 objects:v63 count:16];
     }
 
     while (v18);
   }
 
-  if ([v51 count])
+  if ([v50 count])
   {
     knowledgeChannel2 = [MEMORY[0x277CFE0C8] knowledgeChannel];
     if (os_log_type_enabled(knowledgeChannel2, OS_LOG_TYPE_INFO))
     {
-      v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v51, "count")}];
+      v44 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:{objc_msgSend(v50, "count")}];
       *buf = 138412546;
-      v61 = v44;
-      v62 = 2112;
-      v63 = v50;
+      v60 = v44;
+      v61 = 2112;
+      v62 = v49;
       _os_log_impl(&dword_2707F8000, knowledgeChannel2, OS_LOG_TYPE_INFO, "Cleared %@ events from bundleIDs: %@", buf, 0x16u);
     }
 
     historicalHandler = [(_DKMonitor *)selfCopy historicalHandler];
-    (historicalHandler)[2](historicalHandler, v51);
+    (historicalHandler)[2](historicalHandler, v50);
   }
-
-  v46 = *MEMORY[0x277D85DE8];
 }
 
 - (void)updateActiveApplicationsWithLayout:(id)layout displayType:(unint64_t)type
@@ -353,34 +467,34 @@ LABEL_20:
 void __76__USApplicationUsageMonitor_updateActiveApplicationsWithLayout_displayType___block_invoke(uint64_t a1)
 {
   v1 = a1;
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) displayBacklightLevel];
   v3 = objc_alloc_init(MEMORY[0x277CBEB98]);
   v4 = objc_alloc_init(MEMORY[0x277CBEB58]);
   if (v2)
   {
-    v29 = 0u;
-    v30 = 0u;
-    v27 = 0u;
     v28 = 0u;
+    v29 = 0u;
+    v26 = 0u;
+    v27 = 0u;
     v5 = [*(v1 + 32) elements];
-    v6 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
+    v6 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
     if (v6)
     {
       v7 = v6;
-      v25 = v3;
-      v26 = v1;
-      v8 = *v28;
+      v24 = v3;
+      v25 = v1;
+      v8 = *v27;
       while (2)
       {
         for (i = 0; i != v7; ++i)
         {
-          if (*v28 != v8)
+          if (*v27 != v8)
           {
             objc_enumerationMutation(v5);
           }
 
-          v10 = *(*(&v27 + 1) + 8 * i);
+          v10 = *(*(&v26 + 1) + 8 * i);
           v11 = [v10 bundleIdentifier];
           if (!v11)
           {
@@ -415,7 +529,7 @@ void __76__USApplicationUsageMonitor_updateActiveApplicationsWithLayout_displayT
           }
         }
 
-        v7 = [v5 countByEnumeratingWithState:&v27 objects:v31 count:16];
+        v7 = [v5 countByEnumeratingWithState:&v26 objects:v30 count:16];
         if (v7)
         {
           continue;
@@ -425,8 +539,8 @@ void __76__USApplicationUsageMonitor_updateActiveApplicationsWithLayout_displayT
       }
 
 LABEL_19:
-      v3 = v25;
-      v1 = v26;
+      v3 = v24;
+      v1 = v25;
     }
 
     v17 = [v4 copy];
@@ -474,8 +588,6 @@ LABEL_19:
 
   v23 = [v4 copy];
   [*(v1 + 40) updateInUseApplications:v23 activeApplications:0];
-
-  v24 = *MEMORY[0x277D85DE8];
 }
 
 - (void)platformSpecificStart
@@ -587,7 +699,7 @@ LABEL_19:
 
 - (void)updateInUseApplications:(id)applications activeApplications:(id)activeApplications
 {
-  v84 = *MEMORY[0x277D85DE8];
+  v83 = *MEMORY[0x277D85DE8];
   applicationsCopy = applications;
   queue = [(_DKMonitor *)self queue];
   dispatch_assert_queue_V2(queue);
@@ -600,32 +712,32 @@ LABEL_19:
   date = [MEMORY[0x277CBEAA8] date];
   if (([applicationsCopy isEqual:v10] & 1) == 0)
   {
-    v59 = v10;
-    v62 = [inUseApplicationEvents mutableCopy];
+    v58 = v10;
+    v61 = [inUseApplicationEvents mutableCopy];
+    v76 = 0u;
     v77 = 0u;
     v78 = 0u;
     v79 = 0u;
-    v80 = 0u;
-    v60 = applicationsCopy;
+    v59 = applicationsCopy;
     obj = applicationsCopy;
-    v12 = [obj countByEnumeratingWithState:&v77 objects:v83 count:16];
+    v12 = [obj countByEnumeratingWithState:&v76 objects:v82 count:16];
     selfCopy = self;
-    v61 = inUseApplicationEvents;
+    v60 = inUseApplicationEvents;
     if (v12)
     {
       v13 = v12;
-      v14 = *v78;
+      v14 = *v77;
       v15 = MEMORY[0x277CBEC38];
       do
       {
         for (i = 0; i != v13; ++i)
         {
-          if (*v78 != v14)
+          if (*v77 != v14)
           {
             objc_enumerationMutation(obj);
           }
 
-          v17 = *(*(&v77 + 1) + 8 * i);
+          v17 = *(*(&v76 + 1) + 8 * i);
           v18 = [inUseApplicationEvents objectForKeyedSubscript:v17];
           if (!v18)
           {
@@ -636,7 +748,7 @@ LABEL_19:
             v18 = [USApplicationUsageMonitor _eventWithBundleIdentifier:v17 startDate:date usageType:v21 usageTrusted:1];
             if (v18)
             {
-              [v62 setObject:v18 forKey:v17];
+              [v61 setObject:v18 forKey:v17];
               metadata = [v18 metadata];
               appBundleID = [MEMORY[0x277CFE158] appBundleID];
               v24 = [metadata objectForKeyedSubscript:appBundleID];
@@ -647,72 +759,72 @@ LABEL_19:
               [date timeIntervalSinceReferenceDate];
               [appUsageSource sendEvent:v25 timestamp:?];
 
-              inUseApplicationEvents = v61;
+              inUseApplicationEvents = v60;
             }
           }
         }
 
-        v13 = [obj countByEnumeratingWithState:&v77 objects:v83 count:16];
+        v13 = [obj countByEnumeratingWithState:&v76 objects:v82 count:16];
       }
 
       while (v13);
     }
 
     v27 = objc_alloc_init(MEMORY[0x277CBEB58]);
+    v72 = 0u;
     v73 = 0u;
     v74 = 0u;
     v75 = 0u;
-    v76 = 0u;
-    v68 = inUseApplicationEvents;
-    v28 = [v68 countByEnumeratingWithState:&v73 objects:v82 count:16];
+    v67 = inUseApplicationEvents;
+    v28 = [v67 countByEnumeratingWithState:&v72 objects:v81 count:16];
     if (v28)
     {
       v29 = v28;
-      v30 = *v74;
+      v30 = *v73;
       do
       {
         for (j = 0; j != v29; ++j)
         {
-          if (*v74 != v30)
+          if (*v73 != v30)
           {
-            objc_enumerationMutation(v68);
+            objc_enumerationMutation(v67);
           }
 
-          v32 = *(*(&v73 + 1) + 8 * j);
+          v32 = *(*(&v72 + 1) + 8 * j);
           if (([obj containsObject:v32] & 1) == 0)
           {
             [v27 addObject:v32];
-            [v62 removeObjectForKey:v32];
+            [v61 removeObjectForKey:v32];
           }
         }
 
-        v29 = [v68 countByEnumeratingWithState:&v73 objects:v82 count:16];
+        v29 = [v67 countByEnumeratingWithState:&v72 objects:v81 count:16];
       }
 
       while (v29);
     }
 
-    v63 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v62 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v68 = 0u;
     v69 = 0u;
     v70 = 0u;
     v71 = 0u;
-    v72 = 0u;
-    v65 = v27;
-    v33 = [v65 countByEnumeratingWithState:&v69 objects:v81 count:16];
+    v64 = v27;
+    v33 = [v64 countByEnumeratingWithState:&v68 objects:v80 count:16];
     if (v33)
     {
       v34 = v33;
-      v66 = *v70;
+      v65 = *v69;
       do
       {
         for (k = 0; k != v34; ++k)
         {
-          if (*v70 != v66)
+          if (*v69 != v65)
           {
-            objc_enumerationMutation(v65);
+            objc_enumerationMutation(v64);
           }
 
-          v36 = [v68 objectForKeyedSubscript:*(*(&v69 + 1) + 8 * k)];
+          v36 = [v67 objectForKeyedSubscript:*(*(&v68 + 1) + 8 * k)];
           [v36 setEndDate:date];
           metadata2 = [v36 metadata];
           appBundleID2 = [MEMORY[0x277CFE158] appBundleID];
@@ -738,7 +850,7 @@ LABEL_19:
 
           if (([v41 isEqualToString:@"com.apple.springboard.stand-by"] & 1) == 0)
           {
-            [v63 addObject:v36];
+            [v62 addObject:v36];
           }
 
           metadata3 = [v36 metadata];
@@ -783,36 +895,34 @@ LABEL_19:
 LABEL_44:
         }
 
-        v34 = [v65 countByEnumeratingWithState:&v69 objects:v81 count:16];
+        v34 = [v64 countByEnumeratingWithState:&v68 objects:v80 count:16];
       }
 
       while (v34);
     }
 
     v54 = [obj count];
-    if ([v65 count] || !v54)
+    if ([v64 count] || !v54)
     {
-      [(USApplicationUsageMonitor *)selfCopy clearAppWebAndMediaUsageInContextStoreMatchingBundleIDs:v65 clearAll:v54 == 0];
+      [(USApplicationUsageMonitor *)selfCopy clearAppWebAndMediaUsageInContextStoreMatchingBundleIDs:v64 clearAll:v54 == 0];
     }
 
-    v55 = [v62 copy];
+    v55 = [v61 copy];
     [(USApplicationUsageMonitor *)selfCopy setInUseApplicationEvents:v55];
 
     historicalHandler = [(_DKMonitor *)selfCopy historicalHandler];
 
-    applicationsCopy = v60;
-    inUseApplicationEvents = v61;
+    applicationsCopy = v59;
+    inUseApplicationEvents = v60;
     if (historicalHandler)
     {
       historicalHandler2 = [(_DKMonitor *)selfCopy historicalHandler];
-      (historicalHandler2)[2](historicalHandler2, v63);
+      (historicalHandler2)[2](historicalHandler2, v62);
     }
 
     [(USApplicationUsageMonitor *)selfCopy updateAppDataInContextStore];
-    v10 = v59;
+    v10 = v58;
   }
-
-  v58 = *MEMORY[0x277D85DE8];
 }
 
 - (void)start
@@ -889,31 +999,28 @@ void __34__USApplicationUsageMonitor_start__block_invoke_43(uint64_t a1)
 
 + (void)_eventWithBundleIdentifier:(os_log_t)log startDate:usageType:usageTrusted:.cold.1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
-  v5 = a1;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_error_impl(&dword_2707F8000, log, OS_LOG_TYPE_ERROR, "Failed to lookup LSApplicationRecord for app usage event with bundleID %@: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
+  v4 = a1;
+  v5 = 2112;
+  v6 = a2;
+  _os_log_error_impl(&dword_2707F8000, log, OS_LOG_TYPE_ERROR, "Failed to lookup LSApplicationRecord for app usage event with bundleID %@: %@", &v3, 0x16u);
 }
 
 + (void)_eventWithBundleIdentifier:(uint64_t)a1 startDate:(NSObject *)a2 usageType:usageTrusted:.cold.2(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_fault_impl(&dword_2707F8000, a2, OS_LOG_TYPE_FAULT, "Failed to find app bundleID for app clip usage event with bundleID %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_fault_impl(&dword_2707F8000, a2, OS_LOG_TYPE_FAULT, "Failed to find app bundleID for app clip usage event with bundleID %@", &v2, 0xCu);
 }
 
 - (void)clearAppWebAndMediaUsageInContextStoreMatchingBundleIDs:(uint64_t)a1 clearAll:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_2707F8000, a2, OS_LOG_TYPE_DEBUG, "Clearing app and media usage for bundleIDs: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_2707F8000, a2, OS_LOG_TYPE_DEBUG, "Clearing app and media usage for bundleIDs: %@", &v2, 0xCu);
 }
 
 @end

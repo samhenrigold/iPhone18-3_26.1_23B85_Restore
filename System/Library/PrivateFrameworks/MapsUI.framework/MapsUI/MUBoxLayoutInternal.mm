@@ -49,194 +49,167 @@
 
 - (MULayoutItem)container
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUBoxLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v6);
+  sub_1C5623A68(v5);
   Strong = swift_unknownObjectWeakLoadStrong();
 
-  sub_1C567D244(v6);
+  sub_1C567D244(v5);
 
   return Strong;
 }
 
 - (void)setContainer:(id)container
 {
-  v4 = OBJC_IVAR___MUBoxLayoutInternal_builder;
-  v5 = *(&self->super.super.isa + OBJC_IVAR___MUBoxLayoutInternal_builder);
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1C5623A68(v10);
+  sub_1C5623A68(v7);
   swift_unknownObjectWeakAssign();
-  v7 = *(&self->super.super.isa + v4);
-  sub_1C567D378(v10, v9);
-  sub_1C5623B40(v9, v8);
+  sub_1C567D378(v7, v6);
+  sub_1C5623B40(v6, v5);
   swift_unknownObjectRelease();
-  sub_1C567D244(v10);
+  sub_1C567D244(v7);
 }
 
 - (int64_t)verticalAlignment
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUBoxLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v6);
-  v4 = sub_1C57243F4();
+  sub_1C5623A68(v5);
+  v3 = sub_1C57243F4();
 
-  sub_1C567D244(v6);
-  return v4;
+  sub_1C567D244(v5);
+  return v3;
 }
 
 - (void)setVerticalAlignment:(int64_t)alignment
 {
-  v5 = OBJC_IVAR___MUBoxLayoutInternal_builder;
-  v6 = *(&self->super.super.isa + OBJC_IVAR___MUBoxLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v11);
+  sub_1C5623A68(v7);
   sub_1C572440C(alignment);
-  v8 = *(&self->super.super.isa + v5);
-  sub_1C567D378(v11, v10);
-  sub_1C5623B40(v10, v9);
-  sub_1C567D244(v11);
+  sub_1C567D378(v7, v6);
+  sub_1C5623B40(v6, v5);
+  sub_1C567D244(v7);
 }
 
 - (BOOL)verticalAlignmentBoundsContent
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUBoxLayoutInternal_builder);
   selfCopy = self;
   sub_1C5623A68(v5);
-  LOBYTE(v2) = sub_1C5724830();
+  v3 = sub_1C5724830();
 
   sub_1C567D244(v5);
-  return v2 & 1;
+  return v3 & 1;
 }
 
 - (void)setVerticalAlignmentBoundsContent:(BOOL)content
 {
-  v5 = OBJC_IVAR___MUBoxLayoutInternal_builder;
-  v6 = *(&self->super.super.isa + OBJC_IVAR___MUBoxLayoutInternal_builder);
+  contentCopy = content;
   selfCopy = self;
-  sub_1C5623A68(v11);
-  sub_1C5724854(content);
-  v8 = *(&self->super.super.isa + v5);
-  sub_1C567D378(v11, v10);
-  sub_1C5623B40(v10, v9);
-  sub_1C567D244(v11);
+  sub_1C5623A68(v7);
+  sub_1C5724854(contentCopy);
+  sub_1C567D378(v7, v6);
+  sub_1C5623B40(v6, v5);
+  sub_1C567D244(v7);
 }
 
 - (float)verticalAlignmentFittingSizePriority
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUBoxLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v6);
-  v4 = sub_1C5724800();
+  sub_1C5623A68(v5);
+  v3 = sub_1C5724800();
 
-  sub_1C567D244(v6);
-  return v4;
+  sub_1C567D244(v5);
+  return v3;
 }
 
 - (void)setVerticalAlignmentFittingSizePriority:(float)priority
 {
-  v5 = OBJC_IVAR___MUBoxLayoutInternal_builder;
-  v6 = *(&self->super.super.isa + OBJC_IVAR___MUBoxLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v11);
+  sub_1C5623A68(v7);
   sub_1C57248B8(priority);
-  v8 = *(&self->super.super.isa + v5);
-  sub_1C567D378(v11, v10);
-  sub_1C5623B40(v10, v9);
-  sub_1C567D244(v11);
+  sub_1C567D378(v7, v6);
+  sub_1C5623B40(v6, v5);
+  sub_1C567D244(v7);
 }
 
 - (int64_t)horizontalAlignment
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUBoxLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v6);
-  v4 = sub_1C57243F4();
+  sub_1C5623A68(v5);
+  v3 = sub_1C57243F4();
 
-  sub_1C567D244(v6);
-  return v4;
+  sub_1C567D244(v5);
+  return v3;
 }
 
 - (void)setHorizontalAlignment:(int64_t)alignment
 {
-  v5 = OBJC_IVAR___MUBoxLayoutInternal_builder;
-  v6 = *(&self->super.super.isa + OBJC_IVAR___MUBoxLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v11);
+  sub_1C5623A68(v7);
   sub_1C572440C(alignment);
-  v8 = *(&self->super.super.isa + v5);
-  sub_1C567D378(v11, v10);
-  sub_1C5623B40(v10, v9);
-  sub_1C567D244(v11);
+  sub_1C567D378(v7, v6);
+  sub_1C5623B40(v6, v5);
+  sub_1C567D244(v7);
 }
 
 - (BOOL)horizontalAlignmentBoundsContent
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUBoxLayoutInternal_builder);
   selfCopy = self;
   sub_1C5623A68(v5);
-  LOBYTE(v2) = sub_1C5724830();
+  v3 = sub_1C5724830();
 
   sub_1C567D244(v5);
-  return v2 & 1;
+  return v3 & 1;
 }
 
 - (void)setHorizontalAlignmentBoundsContent:(BOOL)content
 {
-  v5 = OBJC_IVAR___MUBoxLayoutInternal_builder;
-  v6 = *(&self->super.super.isa + OBJC_IVAR___MUBoxLayoutInternal_builder);
+  contentCopy = content;
   selfCopy = self;
-  sub_1C5623A68(v11);
-  sub_1C5724854(content);
-  v8 = *(&self->super.super.isa + v5);
-  sub_1C567D378(v11, v10);
-  sub_1C5623B40(v10, v9);
-  sub_1C567D244(v11);
+  sub_1C5623A68(v7);
+  sub_1C5724854(contentCopy);
+  sub_1C567D378(v7, v6);
+  sub_1C5623B40(v6, v5);
+  sub_1C567D244(v7);
 }
 
 - (float)horizontalAlignmentFittingSizePriority
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUBoxLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v6);
-  v4 = sub_1C5724800();
+  sub_1C5623A68(v5);
+  v3 = sub_1C5724800();
 
-  sub_1C567D244(v6);
-  return v4;
+  sub_1C567D244(v5);
+  return v3;
 }
 
 - (void)setHorizontalAlignmentFittingSizePriority:(float)priority
 {
-  v5 = OBJC_IVAR___MUBoxLayoutInternal_builder;
-  v6 = *(&self->super.super.isa + OBJC_IVAR___MUBoxLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v11);
+  sub_1C5623A68(v7);
   sub_1C57248B8(priority);
-  v8 = *(&self->super.super.isa + v5);
-  sub_1C567D378(v11, v10);
-  sub_1C5623B40(v10, v9);
-  sub_1C567D244(v11);
+  sub_1C567D378(v7, v6);
+  sub_1C5623B40(v6, v5);
+  sub_1C567D244(v7);
 }
 
 - (NSDirectionalEdgeInsets)insets
 {
-  v2 = *(&self->super.super.isa + OBJC_IVAR___MUBoxLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v12);
+  sub_1C5623A68(v11);
 
-  v4 = *&v12[4];
-  v5 = *&v12[5];
-  v6 = *&v12[6];
-  v7 = *&v12[7];
-  sub_1C567D244(v12);
+  v3 = *&v11[4];
+  v4 = *&v11[5];
+  v5 = *&v11[6];
+  v6 = *&v11[7];
+  sub_1C567D244(v11);
+  v7 = v3;
   v8 = v4;
   v9 = v5;
   v10 = v6;
-  v11 = v7;
-  result.trailing = v11;
-  result.bottom = v10;
-  result.leading = v9;
-  result.top = v8;
+  result.trailing = v10;
+  result.bottom = v9;
+  result.leading = v8;
+  result.top = v7;
   return result;
 }
 
@@ -246,18 +219,15 @@
   bottom = insets.bottom;
   leading = insets.leading;
   top = insets.top;
-  v8 = OBJC_IVAR___MUBoxLayoutInternal_builder;
-  v9 = *(&self->super.super.isa + OBJC_IVAR___MUBoxLayoutInternal_builder);
   selfCopy = self;
-  sub_1C5623A68(v14);
-  v15 = top;
-  v16 = leading;
-  v17 = bottom;
-  v18 = trailing;
-  v11 = *(&self->super.super.isa + v8);
-  sub_1C567D378(v14, v13);
-  sub_1C5623B40(v13, v12);
-  sub_1C567D244(v14);
+  sub_1C5623A68(v10);
+  v11 = top;
+  v12 = leading;
+  v13 = bottom;
+  v14 = trailing;
+  sub_1C567D378(v10, v9);
+  sub_1C5623B40(v9, v8);
+  sub_1C567D244(v10);
 }
 
 - (NSArray)arrangedLayoutItems
@@ -307,20 +277,20 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  v5 = BoxLayout.padding(forArrangedLayoutItem:)();
-  v7 = v6;
+  v7 = BoxLayout.padding(forArrangedLayoutItem:)(item, v6);
   v9 = v8;
   v11 = v10;
+  v13 = v12;
   swift_unknownObjectRelease();
 
-  v12 = v5;
-  v13 = v7;
-  v14 = v9;
-  v15 = v11;
-  result.trailing = v15;
-  result.bottom = v14;
-  result.leading = v13;
-  result.top = v12;
+  v14 = v7;
+  v15 = v9;
+  v16 = v11;
+  v17 = v13;
+  result.trailing = v17;
+  result.bottom = v16;
+  result.leading = v15;
+  result.top = v14;
   return result;
 }
 
@@ -332,7 +302,7 @@
   top = padding.top;
   swift_unknownObjectRetain();
   selfCopy = self;
-  BoxLayout.setPadding(_:forArrangedLayoutItem:)(top, leading, bottom, trailing);
+  BoxLayout.setPadding(_:forArrangedLayoutItem:)(item, selfCopy, top, leading, bottom, trailing);
   swift_unknownObjectRelease();
 }
 
@@ -340,14 +310,14 @@
 {
   swift_unknownObjectRetain();
   selfCopy = self;
-  v5 = BoxLayout.offset(forArrangedLayoutItem:)();
-  v7 = v6;
+  v7 = BoxLayout.offset(forArrangedLayoutItem:)(item, v6);
+  v9 = v8;
   swift_unknownObjectRelease();
 
-  v8 = v5;
-  v9 = v7;
-  result.vertical = v9;
-  result.horizontal = v8;
+  v10 = v7;
+  v11 = v9;
+  result.vertical = v11;
+  result.horizontal = v10;
   return result;
 }
 
@@ -357,7 +327,7 @@
   horizontal = offset.horizontal;
   swift_unknownObjectRetain();
   selfCopy = self;
-  BoxLayout.setOffset(_:forArrangedLayoutItem:)(horizontal, vertical);
+  BoxLayout.setOffset(_:forArrangedLayoutItem:)(item, selfCopy, horizontal, vertical);
   swift_unknownObjectRelease();
 }
 

@@ -125,7 +125,7 @@ LABEL_3:
     goto LABEL_6;
   }
 
-  if (inviteePhones && [inviteePhones count])
+  if (inviteePhones && objc_msgSend_count(inviteePhones))
   {
     v21 = emailCopy;
     v22 = inviteePhones;

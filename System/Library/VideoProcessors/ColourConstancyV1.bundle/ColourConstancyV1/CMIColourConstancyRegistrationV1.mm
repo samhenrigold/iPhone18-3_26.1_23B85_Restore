@@ -1,6 +1,5 @@
 @interface CMIColourConstancyRegistrationV1
 - (CMIColourConstancyRegistrationV1)initWithMetalContext:(id)context;
-- (__n128)homography;
 - (int)prepareToProcess:(int)process;
 - (int)purgeResources;
 - (int)registerImage:(id)image referenceLumaTexture:(id)texture;
@@ -115,11 +114,11 @@ LABEL_4:
 {
   imageCopy = image;
   textureCopy = texture;
-  v8 = textureCopy;
-  v9 = 0;
-  v17 = 0;
-  memset(v16, 0, sizeof(v16));
-  v15 = 0;
+  v9 = textureCopy;
+  v10 = 0;
+  v25 = 0;
+  memset(v24, 0, sizeof(v24));
+  v23 = 0;
   if (!self->_registrationProcessingType)
   {
     if (-[FigRegWarpPPGPU allocateResources:imageHeight:imageFormat:externalMemory:externalMemorySize:](self->_regWarpGPU, "allocateResources:imageHeight:imageFormat:externalMemory:externalMemorySize:", [textureCopy width], objc_msgSend(textureCopy, "height"), objc_msgSend(textureCopy, "pixelFormat"), 0, 0))
@@ -127,60 +126,55 @@ LABEL_4:
       sub_13E94();
     }
 
-    else if ([(FigRegWarpPPGPU *)self->_regWarpGPU processReferenceTexture:v8 regionOfInterest:0 numKeypoints:&v15])
+    else if ([(FigRegWarpPPGPU *)self->_regWarpGPU processReferenceTexture:v9 regionOfInterest:0 numKeypoints:&v23])
     {
       sub_13F74();
     }
 
     else
     {
-      v10 = [(FigRegWarpPPGPU *)self->_regWarpGPU processNonReferenceTexture:imageCopy outputTransform:v16];
-      if (v10 == -6 || !v10)
+      v11 = [(FigRegWarpPPGPU *)self->_regWarpGPU processNonReferenceTexture:imageCopy outputTransform:v24];
+      if (v11 == -6 || !v11)
       {
-        HIDWORD(v11) = HIDWORD(v16[0]);
-        v12 = *(v16 + 12);
-        *&self[1].super.isa = v16[0];
-        *&self[1]._regWarpGPU = v12;
-        *&v11 = *(&v16[1] + 1);
-        DWORD2(v11) = v17;
-        *&self[1]._registrationProcessingType = v11;
+        HIDWORD(v12) = HIDWORD(v24[0]);
+        v13 = *(v24 + 12);
+        *&self[1].super.isa = v24[0];
+        *&self[1]._regWarpGPU = v13;
+        *&v12 = *(&v24[1] + 1);
+        DWORD2(v12) = v25;
+        *&self[1]._registrationProcessingType = v12;
         [(FigRegWarpPPGPU *)self->_regWarpGPU releaseResources];
-        v9 = 0;
+        v10 = 0;
         goto LABEL_9;
       }
 
       fig_log_get_emitter();
-      FigDebugAssert3();
-      v13 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
-      os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT);
+      FigDebugAssert3("%s assert: %s at %s (%s:%d) - %s%s(err=%d)", 0, v4, v16[0], v16[1], v17, v18, v19, v20);
+      v22 = 0;
+      v21 = 0;
+      v14 = fig_log_emitter_get_os_log_and_send_and_compose_flags_and_os_log_type();
+      os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
       fig_log_call_emit_and_clean_up_after_send_and_compose();
     }
 
-    v9 = -1;
+    v10 = -1;
   }
 
 LABEL_9:
 
-  return v9;
+  return v10;
 }
 
 - (int)warpImage:(id)image outputWarpedTexture:(id)texture
 {
   v4 = [(CMIWarpStage *)self->_warpStage runWarpUsingTransform:image inputTex:texture outputTex:*&self[1].super.isa, *&self[1]._regWarpGPU, *&self[1]._registrationProcessingType];
+  v5 = v4;
   if (v4)
   {
-    sub_14054();
+    sub_14054(v4);
   }
 
-  return v4;
-}
-
-- (__n128)homography
-{
-  result = *(self + 48);
-  v2 = *(self + 64);
-  v3 = *(self + 80);
-  return result;
+  return v5;
 }
 
 @end

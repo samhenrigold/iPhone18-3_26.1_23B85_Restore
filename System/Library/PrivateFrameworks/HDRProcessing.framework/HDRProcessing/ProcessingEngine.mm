@@ -2,9 +2,11 @@
 - (BOOL)hdr10_tm_configChanged:(_HDR10TMParam *)changed HDRControl:(id *)control TCControl:(ToneCurve_Control *)cControl EdrAdaptationParam:(_EdrAdaptationParam *)param AmbAdaptationParam:(_AmbAdaptationParam *)adaptationParam;
 - (BOOL)hlg_tm_configChanged:(id *)changed HDRControl:(id *)control TCControl:(ToneCurve_Control *)cControl TMParam:(_HLGTMParam *)param EdrAdaptationParam:(_EdrAdaptationParam *)adaptationParam AmbAdaptationParam:(_AmbAdaptationParam *)ambAdaptationParam;
 - (ProcessingEngine)init;
+- (void)createLUTFromDMConfig:(id *)config DM:(id)m TCControl:(ToneCurve_Control *)control HDRControl:(id *)rControl LLDoVi:(BOOL)vi;
 - (void)dealloc;
 - (void)hdr10_tm_reserveConfig:(_HDR10TMParam *)config HDRControl:(id *)control TCControl:(ToneCurve_Control *)cControl EdrAdaptationParam:(_EdrAdaptationParam *)param AmbAdaptationParam:(_AmbAdaptationParam *)adaptationParam;
 - (void)hlg_tm_reserveConfig:(id *)config HDRControl:(id *)control TCControl:(ToneCurve_Control *)cControl TMParam:(_HLGTMParam *)param EdrAdaptationParam:(_EdrAdaptationParam *)adaptationParam AmbAdaptationParam:(_AmbAdaptationParam *)ambAdaptationParam;
+- (void)mixLUTFromTCControl:(ToneCurve_Control *)control TCControlConstr:(ToneCurve_Control *)constr withFactor:(float)factor;
 - (void)printArray:(__sFILE *)array Prefix:(const char *)prefix Array:(void *)a5 Size:(unint64_t)size NumberPerLine:(unint64_t)line Format:(int)format;
 - (void)setupToneMappingWithDmData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl dmConfig:(id *)config DM:(id)m constraintDM:(id)dM hdr10InfoFrame:(id *)frame;
 @end
@@ -203,6 +205,180 @@
   }
 }
 
+- (void)createLUTFromDMConfig:(id *)config DM:(id)m TCControl:(ToneCurve_Control *)control HDRControl:(id *)rControl LLDoVi:(BOOL)vi
+{
+  viCopy = vi;
+  v20 = *MEMORY[0x277D85DE8];
+  mCopy = m;
+  processingType = control->tmData.processingType;
+  if (processingType != 5)
+  {
+    if (processingType != 2)
+    {
+      if (processingType == 1)
+      {
+        [(ProcessingEngine *)self hdr10_createLUTFromDMConfig:config DM:mCopy TCControl:control HDRControl:rControl TMParam:&control->hdr10TmParam TMParam:&control->hdr10TmParamCano EdrAdaptationParam:&control->edrAdaptationParam AmbAdaptationParam:&control->ambAdaptationParam];
+      }
+
+      else
+      {
+        if ((processingType | 4) != 4)
+        {
+          if (enableLogInstance)
+          {
+            if (logInstanceID)
+            {
+              v15 = logInstanceID;
+            }
+
+            else
+            {
+              v15 = prevLogInstanceID;
+            }
+
+            if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+            {
+              *buf = 134217984;
+              v19 = WORD1(v15);
+              _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: processingType == kHDRProcessingTypeDoVi || processingType == kHDRProcessingTypeDoVi84 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Engine/ProcessingEngine.mm at line 283\n", buf, 0xCu);
+            }
+
+            prevLogInstanceID = v15;
+          }
+
+          else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+          {
+            *buf = 0;
+            _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: processingType == kHDRProcessingTypeDoVi || processingType == kHDRProcessingTypeDoVi84 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Engine/ProcessingEngine.mm at line 283\n", buf, 2u);
+          }
+        }
+
+        if (processingType == 4 && rControl->var17 == 18)
+        {
+          v16 = !self->_enableHwOOTF || !self->_enableHwOotfForDolby84;
+        }
+
+        else
+        {
+          v16 = 0;
+        }
+
+        BYTE3(v17) = rControl->var10 - 3 < 2;
+        BYTE2(v17) = processingType == 4;
+        LOBYTE(v17) = v16;
+        BYTE1(v17) = ((debugDM4DisableConf & 0x80) == 0) & (LOWORD(config[1].var47) >> 7);
+        [ProcessingEngine dovi_createLUTFromDMConfig:"dovi_createLUTFromDMConfig:DM:HDRControl:LLDoVi:TMParam:EdrAdaptationParam:AmbAdaptationParam:HlgOOTFCombined:HlgOOTFOnly:IsDoVi84:IsInternalDisplay:tcCtrl:" DM:config HDRControl:mCopy LLDoVi:rControl TMParam:viCopy EdrAdaptationParam:&control->doviTmParam AmbAdaptationParam:&control->edrAdaptationParam HlgOOTFCombined:&control->ambAdaptationParam HlgOOTFOnly:v17 IsDoVi84:control IsInternalDisplay:? tcCtrl:?];
+      }
+
+      goto LABEL_31;
+    }
+
+LABEL_14:
+    control->hlgTmParam.enableHwOOTF = self->_enableHwOOTF;
+    control->hlgTmParam.enableHwOotfForHLG = self->_enableHwOotfForHLG;
+    LODWORD(v17) = control->tmData.hlgTmMode;
+    [(ProcessingEngine *)self hlg_createLUTFromDMConfig:config DM:mCopy HDRControl:rControl TCControl:control TMParam:&control->hlgTmParam EdrAdaptationParam:&control->edrAdaptationParam AmbAdaptationParam:&control->ambAdaptationParam TMMode:v17];
+    goto LABEL_31;
+  }
+
+  if (rControl->var17 != 18)
+  {
+    goto LABEL_31;
+  }
+
+  if (control->targetTransferFunction != 18)
+  {
+    goto LABEL_14;
+  }
+
+  if (enableLogInstance)
+  {
+    if (logInstanceID)
+    {
+      v14 = logInstanceID;
+    }
+
+    else
+    {
+      v14 = prevLogInstanceID;
+    }
+
+    if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134217984;
+      v19 = WORD1(v14);
+      _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: hdrCtrl->transferFunction != kIOSurfaceTagColorTransferFunction_ITU_R_2100_HLG warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Engine/ProcessingEngine.mm at line 280\n", buf, 0xCu);
+    }
+
+    prevLogInstanceID = v14;
+  }
+
+  else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 0;
+    _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: hdrCtrl->transferFunction != kIOSurfaceTagColorTransferFunction_ITU_R_2100_HLG warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Engine/ProcessingEngine.mm at line 280\n", buf, 2u);
+  }
+
+LABEL_31:
+}
+
+- (void)mixLUTFromTCControl:(ToneCurve_Control *)control TCControlConstr:(ToneCurve_Control *)constr withFactor:(float)factor
+{
+  v14 = *MEMORY[0x277D85DE8];
+  processingType = control->tmData.processingType;
+  if (processingType != 5)
+  {
+    if (processingType == 2)
+    {
+
+      [ProcessingEngine hlg_mixLUTFromTCControl:"hlg_mixLUTFromTCControl:TCControlConstr:withFactor:" TCControlConstr:? withFactor:?];
+    }
+
+    else if (processingType == 1)
+    {
+
+      [ProcessingEngine hdr10_mixLUTFromTCControl:"hdr10_mixLUTFromTCControl:TCControlConstr:withFactor:" TCControlConstr:? withFactor:?];
+    }
+
+    else
+    {
+      if ((processingType & 0xFFFFFFFB) != 0)
+      {
+        if (enableLogInstance)
+        {
+          if (logInstanceID)
+          {
+            v10 = logInstanceID;
+          }
+
+          else
+          {
+            v10 = prevLogInstanceID;
+          }
+
+          if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+          {
+            v12 = 134217984;
+            v13 = WORD1(v10);
+            _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] #%04llx Assertion: processingType == kHDRProcessingTypeDoVi || processingType == kHDRProcessingTypeDoVi84 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Engine/ProcessingEngine.mm at line 329\n", &v12, 0xCu);
+          }
+
+          prevLogInstanceID = v10;
+        }
+
+        else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT))
+        {
+          LOWORD(v12) = 0;
+          _os_log_impl(&dword_250836000, MEMORY[0x277D86220], OS_LOG_TYPE_DEFAULT, " [1.450.54] Assertion: processingType == kHDRProcessingTypeDoVi || processingType == kHDRProcessingTypeDoVi84 warned in /Library/Caches/com.apple.xbs/Sources/HDRProcessing/Engine/ProcessingEngine.mm at line 329\n", &v12, 2u);
+        }
+      }
+
+      *&v11 = factor;
+      [(ProcessingEngine *)self dovi_mixLUTFromTCControl:control TCControlConstr:constr withFactor:v11];
+    }
+  }
+}
+
 - (void)setupToneMappingWithDmData:(id *)data tcControl:(ToneCurve_Control *)control hdrControl:(id *)hdrControl dmConfig:(id *)config DM:(id)m constraintDM:(id)dM hdr10InfoFrame:(id *)frame
 {
   mCopy = m;
@@ -330,101 +506,95 @@
 
 - (void)printArray:(__sFILE *)array Prefix:(const char *)prefix Array:(void *)a5 Size:(unint64_t)size NumberPerLine:(unint64_t)line Format:(int)format
 {
-  v35 = *MEMORY[0x277D85DE8];
-  bzero(v34, 0x2000uLL);
+  v23 = *MEMORY[0x277D85DE8];
+  bzero(v22, 0x2000uLL);
   if (!array)
   {
     if (!size)
     {
-LABEL_43:
-      printf("%s", v34);
-      goto LABEL_44;
+LABEL_37:
+      printf("%s", v22);
+      return;
     }
 
-    v16 = 0;
-    v17 = 0;
-    v18 = 1;
+    v14 = 0;
+    v15 = 0;
+    v16 = 1;
     while (1)
     {
-      if (v18 != 1 && !(v16 % line))
+      if (v16 != 1 && !(v14 % line))
       {
-        v17 += snprintf(&v34[v17], 0x2000 - v17, "\n");
+        v15 += snprintf(&v22[v15], 0x2000 - v15, "\n");
       }
 
       if (format <= 1)
       {
         if (!format)
         {
-          v24 = *(a5 + v16);
-          v23 = snprintf(&v34[v17], 0x2000 - v17, "%s%.10f%s");
-          goto LABEL_42;
+          v21 = snprintf(&v22[v15], 0x2000 - v15, "%s%.10f%s");
+          goto LABEL_36;
         }
 
         if (format != 1)
         {
-          goto LABEL_40;
+          goto LABEL_34;
         }
 
-        v21 = &v34[v17];
-        v22 = 0x2000 - v17;
-        v31 = *(a5 + v16);
+        v19 = &v22[v15];
+        v20 = 0x2000 - v15;
       }
 
       else
       {
         if (format == 2)
         {
-          v19 = &v34[v17];
-          v20 = 0x2000 - v17;
-          v32 = *(a5 + v16);
-          goto LABEL_41;
+          v17 = &v22[v15];
+          v18 = 0x2000 - v15;
+          goto LABEL_35;
         }
 
         if (format != 3)
         {
           if (format == 4)
           {
-            v19 = &v34[v17];
-            v20 = 0x2000 - v17;
-            v30 = *(a5 + v16);
+            v17 = &v22[v15];
+            v18 = 0x2000 - v15;
           }
 
           else
           {
-LABEL_40:
-            *(a5 + v16);
-            v19 = &v34[v17];
-            v20 = 0x2000 - v17;
+LABEL_34:
+            v17 = &v22[v15];
+            v18 = 0x2000 - v15;
           }
 
-LABEL_41:
-          v23 = snprintf(v19, v20, "%s%d%s");
-          goto LABEL_42;
+LABEL_35:
+          v21 = snprintf(v17, v18, "%s%d%s");
+          goto LABEL_36;
         }
 
-        v21 = &v34[v17];
-        v22 = 0x2000 - v17;
-        v33 = *(a5 + v16);
+        v19 = &v22[v15];
+        v20 = 0x2000 - v15;
       }
 
-      v23 = snprintf(v21, v22, "%s%u%s");
-LABEL_42:
-      v17 += v23;
-      v16 = v18++;
-      if (v16 >= size)
+      v21 = snprintf(v19, v20, "%s%u%s");
+LABEL_36:
+      v15 += v21;
+      v14 = v16++;
+      if (v14 >= size)
       {
-        goto LABEL_43;
+        goto LABEL_37;
       }
     }
   }
 
   if (size)
   {
-    v13 = 0;
-    v14 = 1;
+    v12 = 0;
+    v13 = 1;
     do
     {
-      if (v14 != 1 && !(v13 % line))
+      if (v13 != 1 && !(v12 % line))
       {
         fputc(10, array);
       }
@@ -433,58 +603,30 @@ LABEL_42:
       {
         if (!format)
         {
-          v15 = *(a5 + v13);
           fprintf(array, "%s%.10f%s");
-          goto LABEL_21;
+          goto LABEL_15;
         }
 
         if (format != 1)
         {
-          goto LABEL_19;
+LABEL_14:
+          fprintf(array, "%s%d%s");
+          goto LABEL_15;
         }
-
-        v27 = *(a5 + v13);
       }
 
-      else
+      else if (format != 3)
       {
-        if (format == 2)
-        {
-          v28 = *(a5 + v13);
-          goto LABEL_20;
-        }
-
-        if (format != 3)
-        {
-          if (format == 4)
-          {
-            v26 = *(a5 + v13);
-          }
-
-          else
-          {
-LABEL_19:
-            *(a5 + v13);
-          }
-
-LABEL_20:
-          fprintf(array, "%s%d%s");
-          goto LABEL_21;
-        }
-
-        v29 = *(a5 + v13);
+        goto LABEL_14;
       }
 
       fprintf(array, "%s%u%s");
-LABEL_21:
-      v13 = v14++;
+LABEL_15:
+      v12 = v13++;
     }
 
-    while (v13 < size);
+    while (v12 < size);
   }
-
-LABEL_44:
-  v25 = *MEMORY[0x277D85DE8];
 }
 
 @end

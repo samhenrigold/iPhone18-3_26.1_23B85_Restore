@@ -27,7 +27,7 @@
     sub_1000169CC();
   }
 
-  v5 = &OrgApacheLuceneIndexFilteredTermsEnum_AcceptStatusEnum_values_;
+  v5 = OrgApacheLuceneIndexFilteredTermsEnum_AcceptStatusEnum_values_;
   if (!v4)
   {
     v5 = &qword_1005578E0;

@@ -133,34 +133,32 @@ LABEL_10:
   {
     if (eventType == 1)
     {
-      v5 = 0x277CF1138;
-      goto LABEL_8;
+LABEL_6:
+      v4 = objc_opt_class();
+      goto LABEL_7;
     }
 
     if (!eventType)
     {
-LABEL_15:
+LABEL_13:
       [(IRBiomeParameters *)self biomeEventClass];
     }
   }
 
   else
   {
-    switch(eventType)
+    if (eventType == 2 || eventType == 3)
     {
-      case 2:
-        v5 = 0x277CF1330;
-        goto LABEL_8;
-      case 3:
-        v5 = 0x277CF10F8;
-LABEL_8:
-        v6 = *v5;
-        v4 = objc_opt_class();
-        break;
-      case 4:
-        goto LABEL_15;
+      goto LABEL_6;
+    }
+
+    if (eventType == 4)
+    {
+      goto LABEL_13;
     }
   }
+
+LABEL_7:
 
   return v4;
 }
@@ -176,7 +174,7 @@ LABEL_8:
     v7 = IRBiomeEventTypeToString(v5);
     [v7 UTF8String];
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_25543D000, v8, v9, "%s[%@], [ErrorId - Biome query publisher unsupported] couldn't find a publisher for biome event type %s", v10, v11, v12, v13, v20);
+    OUTLINED_FUNCTION_2(&dword_25543D000, v8, v9, "%s[%@], [ErrorId - Biome query publisher unsupported] couldn't find a publisher for biome event type %s", v10, v11, v12, v13);
   }
 
   dispatch_get_specific(*v3);
@@ -184,7 +182,7 @@ LABEL_8:
   if (OUTLINED_FUNCTION_1())
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_3(&dword_25543D000, v14, v15, "%s[%@], %s:%d: assertion failure in %s", v16, v17, v18, v19, v20);
+    OUTLINED_FUNCTION_3(&dword_25543D000, v14, v15, "%s[%@], %s:%d: assertion failure in %s", v16, v17, v18, v19);
   }
 
   abort();
@@ -201,7 +199,7 @@ LABEL_8:
     v7 = IRBiomeEventTypeToString(v5);
     [v7 UTF8String];
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_25543D000, v8, v9, "%s[%@], [ErrorId - Biome context publisher unsupported] couldn't find a publisher for biome event type %s", v10, v11, v12, v13, v20);
+    OUTLINED_FUNCTION_2(&dword_25543D000, v8, v9, "%s[%@], [ErrorId - Biome context publisher unsupported] couldn't find a publisher for biome event type %s", v10, v11, v12, v13);
   }
 
   dispatch_get_specific(*v3);
@@ -209,7 +207,7 @@ LABEL_8:
   if (OUTLINED_FUNCTION_1())
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_3(&dword_25543D000, v14, v15, "%s[%@], %s:%d: assertion failure in %s", v16, v17, v18, v19, v20);
+    OUTLINED_FUNCTION_3(&dword_25543D000, v14, v15, "%s[%@], %s:%d: assertion failure in %s", v16, v17, v18, v19);
   }
 
   abort();
@@ -226,7 +224,7 @@ LABEL_8:
     v7 = IRBiomeEventTypeToString(v5);
     [v7 UTF8String];
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_2(&dword_25543D000, v8, v9, "%s[%@], [ErrorId - Unsupported biome event class] couldn't find a Class for biome event type %s", v10, v11, v12, v13, v20);
+    OUTLINED_FUNCTION_2(&dword_25543D000, v8, v9, "%s[%@], [ErrorId - Unsupported biome event class] couldn't find a Class for biome event type %s", v10, v11, v12, v13);
   }
 
   dispatch_get_specific(*v3);
@@ -234,7 +232,7 @@ LABEL_8:
   if (OUTLINED_FUNCTION_1())
   {
     OUTLINED_FUNCTION_0();
-    OUTLINED_FUNCTION_3(&dword_25543D000, v14, v15, "%s[%@], %s:%d: assertion failure in %s", v16, v17, v18, v19, v20);
+    OUTLINED_FUNCTION_3(&dword_25543D000, v14, v15, "%s[%@], %s:%d: assertion failure in %s", v16, v17, v18, v19);
   }
 
   abort();

@@ -14,7 +14,6 @@
 - (id)debugDescription;
 - (id)description;
 - (int64_t)version;
-- (void)_clearDirtyProperties;
 - (void)_markPropertyDirty:(id)dirty;
 - (void)_reloadProperties;
 - (void)_setValue:(id)value forProperty:(id)property;
@@ -24,6 +23,7 @@
 - (void)setAccessibility:(id)accessibility;
 - (void)setAccount:(id)account;
 - (void)setService:(id)service;
+- (void)setSynchronizable:(BOOL)synchronizable;
 - (void)setVersion:(int64_t)version;
 @end
 
@@ -168,7 +168,7 @@
 
     else
     {
-      v10 = 1;
+      return 1;
     }
   }
 
@@ -180,10 +180,9 @@
 
   else
   {
-    v10 = 0;
+    return 0;
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v10;
 }
 
@@ -208,21 +207,22 @@
   v4 = [(NSMutableDictionary *)self->_properties dataValueForKey:*MEMORY[0x277CDBFB8]];
   if (v4)
   {
-    v10 = 0;
-    v5 = [MEMORY[0x277CCAC58] propertyListWithData:v4 options:0 format:0 error:&v10];
-    v6 = v10;
+    v11 = 0;
+    v5 = [MEMORY[0x277CCAC58] propertyListWithData:v4 options:0 format:0 error:&v11];
+    v6 = v11;
+    v7 = v6;
     if (v6)
     {
-      v7 = _ACDKeychainLogSystem();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+      v8 = _ACDKeychainLogSystem(v6);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
       {
-        [(ACDKeychainItem *)v6 _metadataWithError:v7];
+        [(ACDKeychainItem *)v7 _metadataWithError:v8];
       }
 
       if (error)
       {
-        v8 = v6;
-        *error = v6;
+        v9 = v7;
+        *error = v7;
       }
     }
   }
@@ -305,26 +305,37 @@
   }
 }
 
+- (void)setSynchronizable:(BOOL)synchronizable
+{
+  synchronizableCopy = synchronizable;
+  if ([(ACDKeychainItem *)self synchronizable]!= synchronizable)
+  {
+    v5 = [MEMORY[0x277CCABB0] numberWithBool:synchronizableCopy];
+    [(ACDKeychainItem *)self _setValue:v5 forProperty:*MEMORY[0x277CDC140]];
+  }
+}
+
 - (BOOL)_setMetadata:(id)metadata withError:(id *)error
 {
   if (metadata)
   {
-    v13 = 0;
-    v6 = [MEMORY[0x277CCAC58] dataWithPropertyList:metadata format:100 options:0 error:&v13];
-    v7 = v13;
-    v8 = v7 == 0;
+    v14 = 0;
+    v6 = [MEMORY[0x277CCAC58] dataWithPropertyList:metadata format:100 options:0 error:&v14];
+    v7 = v14;
+    v8 = v7;
+    v9 = v7 == 0;
     if (v7)
     {
-      v9 = _ACDKeychainLogSystem();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v10 = _ACDKeychainLogSystem(v7);
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        [ACDKeychainItem _setMetadata:v7 withError:v9];
+        [ACDKeychainItem _setMetadata:v8 withError:v10];
       }
 
       if (error)
       {
-        v10 = v7;
-        *error = v7;
+        v11 = v8;
+        *error = v8;
       }
     }
 
@@ -342,7 +353,7 @@
     return 1;
   }
 
-  return v8;
+  return v9;
 }
 
 - (void)setVersion:(int64_t)version
@@ -383,13 +394,6 @@
   [(NSMutableSet *)dirtyProperties addObject:dirtyCopy];
 }
 
-- (void)_clearDirtyProperties
-{
-  dirtyProperties = self->_dirtyProperties;
-  self->_dirtyProperties = 0;
-  MEMORY[0x2821F96F8]();
-}
-
 - (id)_modifiedProperties
 {
   allObjects = [(NSMutableSet *)self->_dirtyProperties allObjects];
@@ -404,12 +408,9 @@
 
 - (void)_reloadProperties
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = [MEMORY[0x277CCABB0] numberWithInt:self];
+  v6 = [MEMORY[0x277CCABB0] numberWithInt:self];
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (id)debugDescription
@@ -436,20 +437,18 @@
 
 - (void)_metadataWithError:(uint64_t)a1 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "Failed to decode keychain metadata: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "Failed to decode keychain metadata: %@", &v2, 0xCu);
 }
 
 - (void)_setMetadata:(uint64_t)a1 withError:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "Failed to encode keychain metadata: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_221D2F000, a2, OS_LOG_TYPE_ERROR, "Failed to encode keychain metadata: %@", &v2, 0xCu);
 }
 
 @end

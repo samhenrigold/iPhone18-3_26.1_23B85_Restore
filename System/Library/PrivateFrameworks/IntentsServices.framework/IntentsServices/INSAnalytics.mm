@@ -66,38 +66,36 @@
 
 void __55__INSAnalytics_logEventWithType_context_contextNoCopy___block_invoke(uint64_t a1)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
+  v7 = 0u;
   v8 = 0u;
   v9 = 0u;
   v10 = 0u;
-  v11 = 0u;
   v2 = [*(a1 + 32) observers];
-  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v9;
+    v5 = *v8;
     do
     {
       v6 = 0;
       do
       {
-        if (*v9 != v5)
+        if (*v8 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v8 + 1) + 8 * v6++) analytics:*(a1 + 32) needsToLogEventWithType:*(a1 + 48) context:*(a1 + 40) contextNoCopy:*(a1 + 56)];
+        [*(*(&v7 + 1) + 8 * v6++) analytics:*(a1 + 32) needsToLogEventWithType:*(a1 + 48) context:*(a1 + 40) contextNoCopy:*(a1 + 56)];
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v7 objects:v11 count:16];
     }
 
     while (v4);
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)removeObserver:(id)observer

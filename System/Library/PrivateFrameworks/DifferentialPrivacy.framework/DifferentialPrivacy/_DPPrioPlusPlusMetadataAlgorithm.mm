@@ -26,7 +26,7 @@
   }
 
   v4->_dimension = dimensionality;
-  if (dimensionality && (2 * nextPowerOfTwo(dimensionality + 1)) <= 0x100000)
+  if (dimensionality && 2 * nextPowerOfTwo(dimensionality + 1) <= 0x100000)
   {
     v8 = prio_memory_alloc(v5[1]);
     v5[2] = v8;
@@ -35,7 +35,7 @@
       v6 = +[_DPLog framework];
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        [_DPPrioPlusPlusMetadataAlgorithm initWithDimensionality:?];
+        [_DPPrioPlusPlusMetadataAlgorithm initWithDimensionality:];
       }
 
       goto LABEL_6;
@@ -49,7 +49,7 @@ LABEL_8:
   v6 = +[_DPLog framework];
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    [_DPPrioPlusPlusMetadataAlgorithm initWithDimensionality:?];
+    [_DPPrioPlusPlusMetadataAlgorithm initWithDimensionality:];
   }
 
 LABEL_6:
@@ -70,7 +70,7 @@ LABEL_9:
 
 - (id)randomize:(id)randomize
 {
-  v22[3] = *MEMORY[0x277D85DE8];
+  v21[3] = *MEMORY[0x277D85DE8];
   randomizeCopy = randomize;
   dimension = [(_DPPrioPlusPlusMetadataAlgorithm *)self dimension];
   v6 = prio_share_length(dimension);
@@ -116,14 +116,14 @@ LABEL_5:
     if (v15)
     {
       share_array_prng(mutableBytes, [v15 bytes], v6);
-      v21[0] = @"share1";
-      v21[1] = @"share2";
-      v22[0] = v7;
-      v22[1] = v14;
-      v21[2] = @"dimensionality";
+      v20[0] = @"share1";
+      v20[1] = @"share2";
+      v21[0] = v7;
+      v21[1] = v14;
+      v20[2] = @"dimensionality";
       v17 = [MEMORY[0x277CCABB0] numberWithUnsignedLong:dimension];
-      v22[2] = v17;
-      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v22 forKeys:v21 count:3];
+      v21[2] = v17;
+      v18 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:3];
     }
 
     else
@@ -138,27 +138,7 @@ LABEL_5:
     }
   }
 
-  v19 = *MEMORY[0x277D85DE8];
-
   return v18;
-}
-
-- (void)initWithDimensionality:(uint64_t *)a1 .cold.1(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0xCu);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)initWithDimensionality:(uint64_t *)a1 .cold.2(uint64_t *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_0_3();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -30,9 +30,11 @@
 
 uint64_t __35__CUIKLogSubsystem_defaultCategory__block_invoke()
 {
-  defaultCategory_logHandle = os_log_create("com.apple.calendar.cuik", "Default");
+  v0 = os_log_create("com.apple.calendar.cuik", "Default");
+  v1 = defaultCategory_logHandle;
+  defaultCategory_logHandle = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (OS_os_log)eventLoader
@@ -49,9 +51,11 @@ uint64_t __35__CUIKLogSubsystem_defaultCategory__block_invoke()
 
 uint64_t __31__CUIKLogSubsystem_eventLoader__block_invoke()
 {
-  eventLoader_logHandle = os_log_create("com.apple.calendar.cuik", "EventLoader");
+  v0 = os_log_create("com.apple.calendar.cuik", "EventLoader");
+  v1 = eventLoader_logHandle;
+  eventLoader_logHandle = v0;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v0, v1);
 }
 
 + (OS_os_log)signpost

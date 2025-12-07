@@ -20,21 +20,17 @@
 - (BKSContextRelativePoint)initWithBSXPCCoder:(id)coder
 {
   coderCopy = coder;
-  [coderCopy decodeCGPointForKey:@"point"];
-  v6 = v5;
-  v8 = v7;
-  v9 = [coderCopy decodeInt64ForKey:@"contextID"];
+  [coderCopy decodeCGPointForKey:?];
+  [coderCopy decodeInt64ForKey:?];
 
-  return [(BKSContextRelativePoint *)self initWithPoint:v9 contextID:v6, v8];
+  return [BKSContextRelativePoint initWithPoint:"initWithPoint:contextID:" contextID:?];
 }
 
 - (void)encodeWithBSXPCCoder:(id)coder
 {
-  x = self->_point.x;
-  y = self->_point.y;
   coderCopy = coder;
-  [coderCopy encodeCGPoint:@"point" forKey:{x, y}];
-  [coderCopy encodeInt64:self->_contextID forKey:@"contextID"];
+  [coderCopy encodeCGPoint:? forKey:?];
+  [coderCopy encodeInt64:? forKey:?];
 }
 
 - (BOOL)isEqual:(id)equal

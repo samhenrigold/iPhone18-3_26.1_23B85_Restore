@@ -276,7 +276,7 @@ void __141__PKSqueezePaletteViewExpandedOptionsLayout_initWithContext_backButton
       v10 = 0.0;
     }
 
-    [(PKSqueezePaletteView *)v7 updateUIStartAngle:1 endAngle:v13[3] clockwise:v10 animated:?];
+    [(PKSqueezePaletteView *)v7 updateUIStartAngle:v13[3] endAngle:v10 clockwise:1u animated:?];
 
     _Block_object_dispose(&v12, 8);
   }

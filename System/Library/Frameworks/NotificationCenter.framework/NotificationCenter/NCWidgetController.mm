@@ -7,6 +7,7 @@
 - (void)_invalidateConnection;
 - (void)dealloc;
 - (void)requestRefreshAfterDate:(id)date forWidgetWithBundleIdentifier:(id)identifier;
+- (void)setHasContent:(BOOL)flag forWidgetWithBundleIdentifier:(NSString *)bundleID;
 @end
 
 @implementation NCWidgetController
@@ -146,6 +147,26 @@ void __43__NCWidgetController__connectionForRequest__block_invoke_4(uint64_t a1)
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   [WeakRetained _invalidateConnection];
   [WeakRetained _setStrongReference:0];
+}
+
+- (void)setHasContent:(BOOL)flag forWidgetWithBundleIdentifier:(NSString *)bundleID
+{
+  v4 = flag;
+  v6 = bundleID;
+  objc_initWeak(&location, self);
+  _connectionForRequest = [(NCWidgetController *)self _connectionForRequest];
+  v10[0] = MEMORY[0x277D85DD0];
+  v10[1] = 3221225472;
+  v10[2] = __66__NCWidgetController_setHasContent_forWidgetWithBundleIdentifier___block_invoke;
+  v10[3] = &unk_278750CA0;
+  v8 = v6;
+  v11 = v8;
+  objc_copyWeak(&v12, &location);
+  v9 = [_connectionForRequest remoteObjectProxyWithErrorHandler:v10];
+  [v9 __setHasContent:v4 forWidgetWithBundleIdentifier:v8];
+
+  objc_destroyWeak(&v12);
+  objc_destroyWeak(&location);
 }
 
 void __66__NCWidgetController_setHasContent_forWidgetWithBundleIdentifier___block_invoke(uint64_t a1, void *a2)

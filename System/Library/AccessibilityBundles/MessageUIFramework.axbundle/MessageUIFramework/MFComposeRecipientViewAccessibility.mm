@@ -1,5 +1,7 @@
 @interface MFComposeRecipientViewAccessibility
 - (MFComposeRecipientViewAccessibility)initWithFrame:(CGRect)frame;
+- (void)_reflowAnimated:(BOOL)animated;
+- (void)addRecipient:(id)recipient index:(unint64_t)index animate:(BOOL)animate;
 - (void)removeRecipient:(id)recipient;
 @end
 
@@ -10,6 +12,23 @@
   v4.receiver = self;
   v4.super_class = MFComposeRecipientViewAccessibility;
   return [(MFComposeRecipientViewAccessibility *)&v4 initWithFrame:frame.origin.x, frame.origin.y, frame.size.width, frame.size.height];
+}
+
+- (void)addRecipient:(id)recipient index:(unint64_t)index animate:(BOOL)animate
+{
+  v5.receiver = self;
+  v5.super_class = MFComposeRecipientViewAccessibility;
+  [(MFComposeRecipientViewAccessibility *)&v5 addRecipient:recipient index:index animate:animate];
+}
+
+- (void)_reflowAnimated:(BOOL)animated
+{
+  v6.receiver = self;
+  v6.super_class = MFComposeRecipientViewAccessibility;
+  [(MFComposeRecipientViewAccessibility *)&v6 _reflowAnimated:animated];
+  v4 = [(MFComposeRecipientViewAccessibility *)self safeValueForKey:@"addButton"];
+  v5 = accessibilityLocalizedString(@"add.contact.button");
+  [v4 setAccessibilityLabel:v5];
 }
 
 - (void)removeRecipient:(id)recipient

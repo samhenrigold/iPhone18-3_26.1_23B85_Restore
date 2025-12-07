@@ -51,7 +51,6 @@ void sub_29C87296C(void *a1, char a2, id obj)
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x29EDCA608];
 }
 
 void sub_29C873E60(NSObject *a1, char a2, id obj)
@@ -75,7 +74,6 @@ void sub_29C873E60(NSObject *a1, char a2, id obj)
   }
 
   objc_storeStrong(&location, 0);
-  *MEMORY[0x29EDCA608];
 }
 
 void sub_29C873F70(uint64_t a1, uint64_t a2)
@@ -201,7 +199,6 @@ void sub_29C875340(void *a1, char a2, id obj, void *a4)
 
   objc_storeStrong(&v12, 0);
   objc_storeStrong(&location, 0);
-  *MEMORY[0x29EDCA608];
 }
 
 void sub_29C8756AC(NSObject *a1, void *a2)
@@ -222,7 +219,6 @@ void sub_29C8756AC(NSObject *a1, void *a2)
 
   objc_storeStrong(oslog, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x29EDCA608];
 }
 
 uint64_t sub_29C875D8C(uint64_t result, uint64_t a2, uint64_t a3)
@@ -303,5 +299,4 @@ void sub_29C876F54(uint64_t a1, char a2, id obj)
 
   dispatch_semaphore_signal(*(a1 + 32));
   objc_storeStrong(&location, 0);
-  *MEMORY[0x29EDCA608];
 }

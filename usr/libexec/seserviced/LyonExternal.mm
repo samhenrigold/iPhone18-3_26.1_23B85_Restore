@@ -98,21 +98,20 @@
 {
   v0 = type metadata accessor for DispatchPredicate();
   v1 = *(v0 - 8);
-  v2 = *(v1 + 64);
   __chkstk_darwin(v0);
-  v4 = (aBlock - ((v3 + 15) & 0xFFFFFFFFFFFFFFF0));
+  v3 = (aBlock - ((v2 + 15) & 0xFFFFFFFFFFFFFFF0));
   if (qword_100501D90 != -1)
   {
     swift_once();
   }
 
-  v5 = qword_10051B7F0;
-  *v4 = qword_10051B7F0;
-  (*(v1 + 104))(v4, enum case for DispatchPredicate.notOnQueue(_:), v0);
-  v6 = v5;
-  v7 = _dispatchPreconditionTest(_:)();
-  result = (*(v1 + 8))(v4, v0);
-  if ((v7 & 1) == 0)
+  v4 = qword_10051B7F0;
+  *v3 = qword_10051B7F0;
+  (*(v1 + 104))(v3, enum case for DispatchPredicate.notOnQueue(_:), v0);
+  v5 = v4;
+  v6 = _dispatchPreconditionTest(_:)();
+  result = (*(v1 + 8))(v3, v0);
+  if ((v6 & 1) == 0)
   {
     __break(1u);
     goto LABEL_7;
@@ -124,10 +123,10 @@
   aBlock[1] = 1107296256;
   aBlock[2] = sub_100346DB0;
   aBlock[3] = &unk_1004CFF30;
-  v9 = _Block_copy(aBlock);
+  v8 = _Block_copy(aBlock);
 
-  dispatch_sync(v6, v9);
-  _Block_release(v9);
+  dispatch_sync(v5, v8);
+  _Block_release(v8);
   result = swift_isEscapingClosureAtFileLocation();
   if (result)
   {

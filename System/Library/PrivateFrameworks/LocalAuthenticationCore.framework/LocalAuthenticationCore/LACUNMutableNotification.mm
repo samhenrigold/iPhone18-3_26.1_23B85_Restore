@@ -7,10 +7,10 @@
 
 - (NSString)description
 {
-  v37[12] = *MEMORY[0x1E69E9840];
-  v32 = MEMORY[0x1E696AEC0];
-  v31 = objc_opt_class();
-  v36[0] = @"identifier";
+  v36[12] = *MEMORY[0x1E69E9840];
+  v31 = MEMORY[0x1E696AEC0];
+  v30 = objc_opt_class();
+  v35[0] = @"identifier";
   identifier = [(LACUNMutableNotification *)self identifier];
   v4 = identifier;
   if (!identifier)
@@ -18,10 +18,10 @@
     identifier = [MEMORY[0x1E695DFB0] null];
   }
 
-  v35 = v4;
-  v28 = identifier;
-  v37[0] = identifier;
-  v36[1] = @"categoryIdentifier";
+  v34 = v4;
+  v27 = identifier;
+  v36[0] = identifier;
+  v35[1] = @"categoryIdentifier";
   categoryIdentifier = [(LACUNMutableNotification *)self categoryIdentifier];
   v6 = categoryIdentifier;
   if (!categoryIdentifier)
@@ -29,12 +29,12 @@
     categoryIdentifier = [MEMORY[0x1E695DFB0] null];
   }
 
-  v27 = categoryIdentifier;
-  v37[1] = categoryIdentifier;
-  v36[2] = @"shouldDisplayActionsInline";
-  v33 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACUNMutableNotification shouldDisplayActionsInline](self, "shouldDisplayActionsInline")}];
-  v37[2] = v33;
-  v36[3] = @"title";
+  v26 = categoryIdentifier;
+  v36[1] = categoryIdentifier;
+  v35[2] = @"shouldDisplayActionsInline";
+  v32 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACUNMutableNotification shouldDisplayActionsInline](self, "shouldDisplayActionsInline")}];
+  v36[2] = v32;
+  v35[3] = @"title";
   title = [(LACUNMutableNotification *)self title];
   v8 = title;
   if (!title)
@@ -42,12 +42,12 @@
     title = [MEMORY[0x1E695DFB0] null];
   }
 
-  v26 = title;
-  v37[3] = title;
-  v36[4] = @"isTitleLocalized";
-  v30 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACUNMutableNotification isTitleLocalized](self, "isTitleLocalized")}];
-  v37[4] = v30;
-  v36[5] = @"body";
+  v25 = title;
+  v36[3] = title;
+  v35[4] = @"isTitleLocalized";
+  v29 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACUNMutableNotification isTitleLocalized](self, "isTitleLocalized")}];
+  v36[4] = v29;
+  v35[5] = @"body";
   body = [(LACUNMutableNotification *)self body];
   v10 = body;
   if (!body)
@@ -55,13 +55,13 @@
     body = [MEMORY[0x1E695DFB0] null];
   }
 
-  v34 = v6;
-  v25 = body;
-  v37[5] = body;
-  v36[6] = @"isBodyLocalized";
-  v29 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACUNMutableNotification isBodyLocalized](self, "isBodyLocalized")}];
-  v37[6] = v29;
-  v36[7] = @"systemIconName";
+  v33 = v6;
+  v24 = body;
+  v36[5] = body;
+  v35[6] = @"isBodyLocalized";
+  v28 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACUNMutableNotification isBodyLocalized](self, "isBodyLocalized")}];
+  v36[6] = v28;
+  v35[7] = @"systemIconName";
   systemIconName = [(LACUNMutableNotification *)self systemIconName];
   v12 = systemIconName;
   if (!systemIconName)
@@ -69,9 +69,9 @@
     systemIconName = [MEMORY[0x1E695DFB0] null];
   }
 
-  v24 = systemIconName;
-  v37[7] = systemIconName;
-  v36[8] = @"defaultActionURL";
+  v23 = systemIconName;
+  v36[7] = systemIconName;
+  v35[8] = @"defaultActionURL";
   defaultActionURL = [(LACUNMutableNotification *)self defaultActionURL];
   null = defaultActionURL;
   if (!defaultActionURL)
@@ -79,22 +79,22 @@
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v37[8] = null;
-  v36[9] = @"isTimeSensitive";
+  v36[8] = null;
+  v35[9] = @"isTimeSensitive";
   v15 = [MEMORY[0x1E696AD98] numberWithBool:{-[LACUNMutableNotification isTimeSensitive](self, "isTimeSensitive")}];
-  v37[9] = v15;
-  v36[10] = @"withdrawInterval";
+  v36[9] = v15;
+  v35[10] = @"withdrawInterval";
   v16 = MEMORY[0x1E696AD98];
   [(LACUNMutableNotification *)self withdrawInterval];
   v17 = [v16 numberWithDouble:?];
-  v37[10] = v17;
-  v36[11] = @"triggerInterval";
+  v36[10] = v17;
+  v35[11] = @"triggerInterval";
   v18 = MEMORY[0x1E696AD98];
   [(LACUNMutableNotification *)self triggerInterval];
   v19 = [v18 numberWithDouble:?];
-  v37[11] = v19;
-  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:v36 count:12];
-  v21 = [v32 stringWithFormat:@"<%@ %p %@>", v31, self, v20];;
+  v36[11] = v19;
+  v20 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v36 forKeys:v35 count:12];
+  v21 = [v31 stringWithFormat:@"<%@ %p %@>", v30, self, v20];;
 
   if (!defaultActionURL)
   {
@@ -112,15 +112,13 @@
   {
   }
 
+  if (!v33)
+  {
+  }
+
   if (!v34)
   {
   }
-
-  if (!v35)
-  {
-  }
-
-  v22 = *MEMORY[0x1E69E9840];
 
   return v21;
 }

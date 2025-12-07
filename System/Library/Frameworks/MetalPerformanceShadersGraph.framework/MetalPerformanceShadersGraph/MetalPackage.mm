@@ -10,9 +10,9 @@
 {
   lCopy = l;
   rLCopy = rL;
-  v22.receiver = self;
-  v22.super_class = MetalPackage;
-  v9 = [(MetalPackage *)&v22 init];
+  v24.receiver = self;
+  v24.super_class = MetalPackage;
+  v9 = [(MetalPackage *)&v24 init];
   objc_storeStrong(&v9->_packageURL, l);
   objc_storeStrong(&v9->_temporaryPackageURL, rL);
   defaultManager = [MEMORY[0x1E696AC08] defaultManager];
@@ -26,29 +26,29 @@
   v15 = strlen(v14);
   if (v15 < 0x7FFFFFFFFFFFFFF8)
   {
-    v16 = v15;
+    v18 = v15;
     if (v15 < 0x17)
     {
-      v21 = v15;
+      v23 = v15;
       if (v15)
       {
         memmove(&__dst, v14, v15);
       }
 
-      *(&__dst + v16) = 0;
+      *(&__dst + v18) = 0;
       ptr = v9->_temporaryPackageFileLock.__ptr_;
       v9->_temporaryPackageFileLock.__ptr_ = 0;
       if (ptr)
       {
-        llvm::LockFileManager::~LockFileManager(ptr);
+        llvm::LockFileManager::~LockFileManager(ptr, v16, v17);
         MEMORY[0x1E12E5B90]();
       }
 
-      v18 = v9->_writingLockGuard.__ptr_;
+      v20 = v9->_writingLockGuard.__ptr_;
       v9->_writingLockGuard.__ptr_ = 0;
-      if (v18)
+      if (v20)
       {
-        std::default_delete<InProcessPackageWritingGuard::LockGuard>::operator()[abi:ne200100](v18);
+        std::default_delete<InProcessPackageWritingGuard::LockGuard>::operator()[abi:ne200100](v20);
       }
 
       operator new();

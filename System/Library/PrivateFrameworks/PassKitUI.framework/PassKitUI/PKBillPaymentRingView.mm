@@ -392,67 +392,75 @@ uint64_t __73__PKBillPaymentRingView_initWithSuggestedAmountList_delegate_dataSo
 
 - (void)layoutSubviews
 {
-  v128 = *MEMORY[0x1E69E9840];
-  v126.receiver = self;
-  v126.super_class = PKBillPaymentRingView;
-  [(PKBillPaymentRingView *)&v126 layoutSubviews];
+  v139 = *MEMORY[0x1E69E9840];
+  v137.receiver = self;
+  v137.super_class = PKBillPaymentRingView;
+  [(PKBillPaymentRingView *)&v137 layoutSubviews];
   v3 = objc_autoreleasePoolPush();
   [(PKBillPaymentRingView *)self bounds];
   v5 = v4;
   v7 = v6;
-  PKSizeAlignedInRect();
-  v9 = v8;
-  v11 = v10;
-  v13 = v12;
-  v15 = v14;
+  *&v9 = v8;
+  *&v11 = v10;
+  v12.n128_f64[0] = fmin(v8, v10);
+  v13.n128_u64[0] = v12.n128_u64[0];
+  v14.n128_u64[0] = v5;
+  v15.n128_u64[0] = v7;
+  v16.n128_u64[0] = v9;
+  v17.n128_u64[0] = v11;
+  PKSizeAlignedInRect(*MEMORY[0x1E69BB7F8], v12, v13, v14, v15, v16, v17, v18);
+  v20 = v19;
+  v22 = v21;
+  v24 = v23;
+  v26 = v25;
   [(PKRingGradientView *)self->_ringView frame];
-  v134.origin.x = v16;
-  v134.origin.y = v17;
-  v134.size.width = v18;
-  v134.size.height = v19;
-  v129.origin.x = v9;
-  v129.origin.y = v11;
-  v129.size.width = v13;
-  v118 = v15;
-  v129.size.height = v15;
-  v20 = CGRectEqualToRect(v129, v134);
-  if (!v20)
+  v145.origin.x = v27;
+  v145.origin.y = v28;
+  v145.size.width = v29;
+  v145.size.height = v30;
+  v140.origin.x = v20;
+  v140.origin.y = v22;
+  v140.size.width = v24;
+  v129 = v26;
+  v140.size.height = v26;
+  v31 = CGRectEqualToRect(v140, v145);
+  if (!v31)
   {
-    [(PKRingGradientView *)self->_ringView setFrame:v9, v11, v13, v15];
+    [(PKRingGradientView *)self->_ringView setFrame:v20, v22, v24, v26];
     [(PKRingGradientView *)self->_ringView setNeedsDisplay];
   }
 
   [(PKBillPaymentRingView *)self _ringWidth];
-  v22 = v21;
-  v23 = v13 + v21 * -2.0 + -20.0;
-  if (v23 >= 0.0)
+  v33 = v32;
+  v34 = v24 + v32 * -2.0 + -20.0;
+  if (v34 >= 0.0)
   {
-    v24 = v23;
+    v35 = v34;
   }
 
   else
   {
-    v24 = 0.0;
+    v35 = 0.0;
   }
 
-  v116 = v9;
-  v117 = v13;
-  v25 = v13 - v22;
+  v127 = v20;
+  v128 = v24;
+  v36 = v24 - v33;
   context = v3;
-  v113 = v7;
-  v114 = v5;
-  v112 = v13 - v22;
-  v119 = v24;
-  if (!v20)
+  v124 = *&v11;
+  v125 = *&v9;
+  v123 = v24 - v33;
+  v130 = v35;
+  if (!v31)
   {
     [(PKBillPaymentRingView *)self _amountLabelMaximumFontSize];
-    v27 = v26;
-    v28 = *MEMORY[0x1E69DB970];
-    v29 = PKRoundedSystemFontOfSizeAndWeight(v26, *MEMORY[0x1E69DB970]);
-    pk_fixedWidthFont = [v29 pk_fixedWidthFont];
+    v38 = v37;
+    v39 = *MEMORY[0x1E69DB970];
+    v40 = PKRoundedSystemFontOfSizeAndWeight(v37, *MEMORY[0x1E69DB970]);
+    pk_fixedWidthFont = [v40 pk_fixedWidthFont];
 
-    v31 = PKRoundedSystemFontOfSizeAndWeight(v27 * 0.5, v28);
-    pk_fixedWidthFont2 = [v31 pk_fixedWidthFont];
+    v42 = PKRoundedSystemFontOfSizeAndWeight(v38 * 0.5, v39);
+    pk_fixedWidthFont2 = [v42 pk_fixedWidthFont];
 
     [(PKEnterCurrencyAmountView *)self->_enterCurrencyAmountView setAmountFont:pk_fixedWidthFont];
     [(PKEnterCurrencyAmountView *)self->_enterCurrencyAmountView setCurrencySymbolFont:pk_fixedWidthFont2];
@@ -461,183 +469,183 @@ uint64_t __73__PKBillPaymentRingView_initWithSuggestedAmountList_delegate_dataSo
     maximumAmount = [(PKBillPaymentSuggestedAmountList *)self->_suggestedAmountList maximumAmount];
     [(PKEnterCurrencyAmountView *)enterCurrencyAmountView setCurrentAmount:maximumAmount];
 
-    [(PKEnterCurrencyAmountView *)self->_enterCurrencyAmountView sizeThatFits:v24, 1.79769313e308];
-    v37 = fmax(v27 * fmin(v24 / v36, 1.0), 12.0);
-    v38 = PKRoundedSystemFontOfSizeAndWeight(v37, v28);
-    pk_fixedWidthFont3 = [v38 pk_fixedWidthFont];
+    [(PKEnterCurrencyAmountView *)self->_enterCurrencyAmountView sizeThatFits:v35, 1.79769313e308];
+    v48 = fmax(v38 * fmin(v35 / v47, 1.0), 12.0);
+    v49 = PKRoundedSystemFontOfSizeAndWeight(v48, v39);
+    pk_fixedWidthFont3 = [v49 pk_fixedWidthFont];
 
-    v40 = PKRoundedSystemFontOfSizeAndWeight(v37 * 0.5, v28);
-    pk_fixedWidthFont4 = [v40 pk_fixedWidthFont];
+    v51 = PKRoundedSystemFontOfSizeAndWeight(v48 * 0.5, v39);
+    pk_fixedWidthFont4 = [v51 pk_fixedWidthFont];
 
     [(PKEnterCurrencyAmountView *)self->_enterCurrencyAmountView setAmountFont:pk_fixedWidthFont3];
     [(PKEnterCurrencyAmountView *)self->_enterCurrencyAmountView setCurrencySymbolFont:pk_fixedWidthFont4];
     [(PKEnterCurrencyAmountView *)self->_enterCurrencyAmountView setCurrentAmount:currentAmount];
-    [(PKEnterCurrencyAmountView *)self->_enterCurrencyAmountView sizeThatFits:v24, 1.79769313e308];
-    v43 = v42;
-    v44 = v25 * 0.5;
-    v45 = PKRoundedSystemFontOfSizeAndWeight(fmax(fmin(v25 * 0.5 * 0.096, 13.0), 2.0), *MEMORY[0x1E69DB968]);
-    [(PKCurvedTextLabel *)self->_topCurvedTextLabel setFont:v45];
-    [(PKCurvedTextLabel *)self->_bottomCurvedTextLabel setFont:v45];
-    v46 = acos(1.0 - (v44 - (v43 * 0.5 + 10.0)) / v44);
-    v47 = sin((v46 + v46) * 0.5);
-    v48 = PKRoundedSystemFontOfSizeAndWeight(fmax(fmin((v44 + v44) * v47 * 0.0856, 22.0), 2.0), v28);
-    pk_fixedWidthFont5 = [v48 pk_fixedWidthFont];
+    [(PKEnterCurrencyAmountView *)self->_enterCurrencyAmountView sizeThatFits:v35, 1.79769313e308];
+    v54 = v53;
+    v55 = v36 * 0.5;
+    v56 = PKRoundedSystemFontOfSizeAndWeight(fmax(fmin(v36 * 0.5 * 0.096, 13.0), 2.0), *MEMORY[0x1E69DB968]);
+    [(PKCurvedTextLabel *)self->_topCurvedTextLabel setFont:v56];
+    [(PKCurvedTextLabel *)self->_bottomCurvedTextLabel setFont:v56];
+    v57 = acos(1.0 - (v55 - (v54 * 0.5 + 10.0)) / v55);
+    v58 = sin((v57 + v57) * 0.5);
+    v59 = PKRoundedSystemFontOfSizeAndWeight(fmax(fmin((v55 + v55) * v58 * 0.0856, 22.0), 2.0), v39);
+    pk_fixedWidthFont5 = [v59 pk_fixedWidthFont];
 
     [(UILabel *)self->_interestLabel setFont:pk_fixedWidthFont5];
   }
 
-  [(PKBillPaymentCircularView *)self->_handleView sizeThatFits:v22, v22];
-  v50 = *MEMORY[0x1E695EFF8];
-  v51 = *(MEMORY[0x1E695EFF8] + 8);
-  [(PKBillPaymentCircularView *)self->_handleView setBounds:*MEMORY[0x1E695EFF8], v51, v52, v53];
+  [(PKBillPaymentCircularView *)self->_handleView sizeThatFits:v33, v33];
+  v61 = *MEMORY[0x1E695EFF8];
+  v62 = *(MEMORY[0x1E695EFF8] + 8);
+  [(PKBillPaymentCircularView *)self->_handleView setBounds:*MEMORY[0x1E695EFF8], v62, v63, v64];
   handleView = self->_handleView;
   [(PKBillPaymentRingView *)self _offsetCurrentAngle];
   [(PKBillPaymentRingView *)self _centerPointAtAngle:0 adjustToCover:?];
   [(PKBillPaymentCircularView *)handleView setCenter:?];
   [(PKEnterCurrencyAmountView *)self->_enterCurrencyAmountView frame];
-  [(PKEnterCurrencyAmountView *)self->_enterCurrencyAmountView sizeThatFits:v119, 1.79769313e308];
+  [(PKEnterCurrencyAmountView *)self->_enterCurrencyAmountView sizeThatFits:v130, 1.79769313e308];
   PKRectCenteredXInRect();
-  v111 = v11;
+  v122 = v22;
   PKRectCenteredYInRect();
-  v56 = v55;
-  v58 = v57;
-  v60 = v59;
-  v62 = v61;
+  v67 = v66;
+  v69 = v68;
+  v71 = v70;
+  v73 = v72;
   isSmall = self->_isSmall;
-  [(PKEnterCurrencyAmountView *)self->_enterCurrencyAmountView setBounds:v50, v51];
-  v64 = self->_enterCurrencyAmountView;
-  v130.origin.x = v56;
-  v130.origin.y = v58;
-  v130.size.width = v60;
-  v130.size.height = v62;
-  MidX = CGRectGetMidX(v130);
-  v131.origin.x = v56;
-  v131.origin.y = v58;
-  v110 = v62;
-  v131.size.width = v60;
-  v131.size.height = v62;
-  [(PKEnterCurrencyAmountView *)v64 setCenter:MidX, CGRectGetMidY(v131)];
-  v66 = self->_enterCurrencyAmountView;
+  [(PKEnterCurrencyAmountView *)self->_enterCurrencyAmountView setBounds:v61, v62];
+  v75 = self->_enterCurrencyAmountView;
+  v141.origin.x = v67;
+  v141.origin.y = v69;
+  v141.size.width = v71;
+  v141.size.height = v73;
+  MidX = CGRectGetMidX(v141);
+  v142.origin.x = v67;
+  v142.origin.y = v69;
+  v121 = v73;
+  v142.size.width = v71;
+  v142.size.height = v73;
+  [(PKEnterCurrencyAmountView *)v75 setCenter:MidX, CGRectGetMidY(v142)];
+  v77 = self->_enterCurrencyAmountView;
   if (isSmall)
   {
-    v67 = 0.00001;
-    v68 = 0.00001;
+    v78 = 0.00001;
+    v79 = 0.00001;
   }
 
   else
   {
-    v67 = 1.0;
-    v68 = 1.0;
+    v78 = 1.0;
+    v79 = 1.0;
   }
 
-  CGAffineTransformMakeScale(&v125, v67, v68);
-  [(PKEnterCurrencyAmountView *)v66 setTransform:&v125];
+  CGAffineTransformMakeScale(&v136, v78, v79);
+  [(PKEnterCurrencyAmountView *)v77 setTransform:&v136];
   [(PKCurvedTextLabel *)self->_topCurvedTextLabel frame];
   text = [(PKCurvedTextLabel *)self->_topCurvedTextLabel text];
   textAttributes = [(PKCurvedTextLabel *)self->_topCurvedTextLabel textAttributes];
   [text sizeWithAttributes:textAttributes];
-  v72 = v71;
+  v83 = v82;
 
-  v109 = v117 * 0.5 - v22;
-  [(PKCurvedTextLabel *)self->_topCurvedTextLabel setCircleRadius:v109 - v72 * 0.5 + -7.0];
-  [(PKCurvedTextLabel *)self->_topCurvedTextLabel sizeThatFits:v114, v113];
+  v120 = v128 * 0.5 - v33;
+  [(PKCurvedTextLabel *)self->_topCurvedTextLabel setCircleRadius:v120 - v83 * 0.5 + -7.0];
+  [(PKCurvedTextLabel *)self->_topCurvedTextLabel sizeThatFits:v125, v124];
   PKRectCenteredXInRect();
   [(PKCurvedTextLabel *)self->_topCurvedTextLabel setFrame:?];
   [(PKCurvedTextLabel *)self->_bottomCurvedTextLabel frame];
   text2 = [(PKCurvedTextLabel *)self->_bottomCurvedTextLabel text];
   textAttributes2 = [(PKCurvedTextLabel *)self->_bottomCurvedTextLabel textAttributes];
   [text2 sizeWithAttributes:textAttributes2];
-  v76 = v75;
+  v87 = v86;
 
-  [(PKCurvedTextLabel *)self->_bottomCurvedTextLabel setCircleRadius:v109 - v76 * 0.5 + -7.0];
-  [(PKCurvedTextLabel *)self->_bottomCurvedTextLabel sizeThatFits:v114, v113];
-  v132.origin.x = v116;
-  v132.origin.y = v111;
-  v132.size.width = v117;
-  v132.size.height = v118;
-  CGRectGetMaxY(v132);
+  [(PKCurvedTextLabel *)self->_bottomCurvedTextLabel setCircleRadius:v120 - v87 * 0.5 + -7.0];
+  [(PKCurvedTextLabel *)self->_bottomCurvedTextLabel sizeThatFits:v125, v124];
+  v143.origin.x = v127;
+  v143.origin.y = v122;
+  v143.size.width = v128;
+  v143.size.height = v129;
+  CGRectGetMaxY(v143);
   PKRectCenteredXInRect();
   [(PKCurvedTextLabel *)self->_bottomCurvedTextLabel setFrame:?];
   [(UILabel *)self->_interestLabel frame];
-  [(UILabel *)self->_interestLabel sizeThatFits:v112, 3.40282347e38];
-  v133.origin.y = v58;
-  v133.origin.x = v56;
-  v133.size.height = v110;
-  v133.size.width = v60;
-  CGRectGetMaxY(v133);
+  [(UILabel *)self->_interestLabel sizeThatFits:v123, 3.40282347e38];
+  v144.origin.y = v69;
+  v144.origin.x = v67;
+  v144.size.height = v121;
+  v144.size.width = v71;
+  CGRectGetMaxY(v144);
   PKRectCenteredXInRect();
   [(UILabel *)self->_interestLabel setFrame:?];
   if (self->_dotsVisible)
   {
-    v77 = self->_isSmall;
-    v78 = !v77;
-    memset(&v125, 0, sizeof(v125));
-    if (!v77)
+    v88 = self->_isSmall;
+    v89 = !v88;
+    memset(&v136, 0, sizeof(v136));
+    if (!v88)
     {
-      v79 = *(MEMORY[0x1E695EFD0] + 16);
-      *&v125.a = *MEMORY[0x1E695EFD0];
-      *&v125.c = v79;
-      *&v125.tx = *(MEMORY[0x1E695EFD0] + 32);
+      v90 = *(MEMORY[0x1E695EFD0] + 16);
+      *&v136.a = *MEMORY[0x1E695EFD0];
+      *&v136.c = v90;
+      *&v136.tx = *(MEMORY[0x1E695EFD0] + 32);
       goto LABEL_16;
     }
   }
 
   else
   {
-    memset(&v125, 0, sizeof(v125));
-    v78 = 0.0;
+    memset(&v136, 0, sizeof(v136));
+    v89 = 0.0;
   }
 
-  CGAffineTransformMakeScale(&v125, 0.00001, 0.00001);
+  CGAffineTransformMakeScale(&v136, 0.00001, 0.00001);
 LABEL_16:
-  v123 = 0u;
-  v124 = 0u;
-  v121 = 0u;
-  v122 = 0u;
-  v80 = self->_suggestedAmountViews;
-  v81 = [(NSArray *)v80 countByEnumeratingWithState:&v121 objects:v127 count:16];
-  if (v81)
+  v134 = 0u;
+  v135 = 0u;
+  v132 = 0u;
+  v133 = 0u;
+  v91 = self->_suggestedAmountViews;
+  v92 = [(NSArray *)v91 countByEnumeratingWithState:&v132 objects:v138 count:16];
+  if (v92)
   {
-    v82 = v81;
-    v83 = *v122;
+    v93 = v92;
+    v94 = *v133;
     do
     {
-      for (i = 0; i != v82; ++i)
+      for (i = 0; i != v93; ++i)
       {
-        if (*v122 != v83)
+        if (*v133 != v94)
         {
-          objc_enumerationMutation(v80);
+          objc_enumerationMutation(v91);
         }
 
-        v85 = *(*(&v121 + 1) + 8 * i);
-        suggestedAmount = [v85 suggestedAmount];
+        v96 = *(*(&v132 + 1) + 8 * i);
+        suggestedAmount = [v96 suggestedAmount];
         amount = [suggestedAmount amount];
         [(PKBillPaymentRingView *)self _angleForAmount:amount];
         [(PKBillPaymentRingView *)self _offsetAngle:?];
         [(PKBillPaymentRingView *)self _centerPointAtAngle:0 adjustToCover:?];
-        v89 = v88;
-        v91 = v90;
-        [v85 sizeThatFits:{v22, v22}];
-        v93 = v92;
-        v95 = v94;
-        [v85 setBounds:{v50, v51, v92, v94}];
-        v96.n128_f64[0] = v89 + v93 * -0.5;
-        v97.n128_f64[0] = v91 + v95 * -0.5;
-        PKPointRoundToPixel(v96, v97, v98);
         v100 = v99;
         v102 = v101;
-        layer = [v85 layer];
+        [v96 sizeThatFits:{v33, v33}];
+        v104 = v103;
+        v106 = v105;
+        [v96 setBounds:{v61, v62, v103, v105}];
+        v107.n128_f64[0] = v100 + v104 * -0.5;
+        v108.n128_f64[0] = v102 + v106 * -0.5;
+        PKPointRoundToPixel(v107, v108, v109);
+        v111 = v110;
+        v113 = v112;
+        layer = [v96 layer];
         [layer anchorPoint];
-        [layer setPosition:{v100 + v104 * v93, v102 + v105 * v95}];
-        [v85 setAlpha:v78];
-        v120 = v125;
-        [v85 setTransform:&v120];
+        [layer setPosition:{v111 + v115 * v104, v113 + v116 * v106}];
+        [v96 setAlpha:v89];
+        v131 = v136;
+        [v96 setTransform:&v131];
       }
 
-      v82 = [(NSArray *)v80 countByEnumeratingWithState:&v121 objects:v127 count:16];
+      v93 = [(NSArray *)v91 countByEnumeratingWithState:&v132 objects:v138 count:16];
     }
 
-    while (v82);
+    while (v93);
   }
 
   topCurvedTextLabel = self->_topCurvedTextLabel;
@@ -2587,7 +2595,7 @@ LABEL_14:
   v24 = v23;
   if (v23)
   {
-    [v23 decimalValue];
+    objc_msgSend_decimalValue(v23);
   }
 
   else

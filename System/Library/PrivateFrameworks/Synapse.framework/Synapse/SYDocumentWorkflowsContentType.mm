@@ -32,7 +32,7 @@
 
 + (BOOL)isImageContentType:(id)type
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   v4 = [MEMORY[0x277CE1CB8] typeWithIdentifier:typeCopy];
   v5 = v4;
@@ -46,15 +46,14 @@
     v7 = os_log_create("com.apple.synapse", "DocumentWorkflows");
     if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138412290;
-      v11 = typeCopy;
-      _os_log_impl(&dword_225901000, v7, OS_LOG_TYPE_DEFAULT, "Unknown content type: %@", &v10, 0xCu);
+      v9 = 138412290;
+      v10 = typeCopy;
+      _os_log_impl(&dword_225901000, v7, OS_LOG_TYPE_DEFAULT, "Unknown content type: %@", &v9, 0xCu);
     }
 
     v6 = 0;
   }
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

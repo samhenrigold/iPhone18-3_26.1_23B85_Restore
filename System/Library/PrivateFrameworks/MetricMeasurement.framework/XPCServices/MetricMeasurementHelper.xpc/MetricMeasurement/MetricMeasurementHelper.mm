@@ -73,13 +73,13 @@
 
   objc_storeStrong(&self->_sandboxExtensionToken, token);
   objc_storeStrong(&self->_performanceTraceURL, complete);
-  v12 = _MXMGetLog();
-  if (os_log_type_enabled(v12, OS_LOG_TYPE_INFO))
+  v14 = _MXMGetLog(v12, v13);
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
   {
     performanceTraceURL = self->_performanceTraceURL;
-    v14 = 138412290;
-    v15 = performanceTraceURL;
-    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "Peformance trace URL: %@", &v14, 0xCu);
+    v16 = 138412290;
+    v17 = performanceTraceURL;
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Peformance trace URL: %@", &v16, 0xCu);
   }
 
   dispatch_semaphore_signal(self->_completed_trace_sem);
@@ -100,33 +100,33 @@
 {
   metricCopy = metric;
   responseCopy = response;
-  v9 = _MXMGetLog();
-  if (os_log_type_enabled(v9, OS_LOG_TYPE_INFO))
+  v10 = _MXMGetLog(responseCopy, v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
   {
     metric = [metricCopy metric];
     *buf = 138412290;
-    v18 = metric;
-    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "Attempting to sample probe using underlying metric: %@.", buf, 0xCu);
+    v22 = metric;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Attempting to sample probe using underlying metric: %@.", buf, 0xCu);
   }
 
-  v16 = 0;
+  v20 = 0;
   _remoteProbe = [metricCopy _remoteProbe];
-  v12 = [_remoteProbe sampleWithTimeout:&v16 stopReason:timeout];
-  v13 = _MXMGetLog();
-  if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
-  {
-    samples = [v12 samples];
-    *buf = 138412290;
-    v18 = samples;
-    _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_INFO, "Captured Samples: %@. Now attempting to reply with this data.", buf, 0xCu);
-  }
-
-  responseCopy[2](responseCopy, v12, v16, 0);
-  v15 = _MXMGetLog();
+  v13 = [_remoteProbe sampleWithTimeout:&v20 stopReason:timeout];
+  v15 = _MXMGetLog(v13, v14);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_INFO))
   {
+    samples = [v13 samples];
+    *buf = 138412290;
+    v22 = samples;
+    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Captured Samples: %@. Now attempting to reply with this data.", buf, 0xCu);
+  }
+
+  responseCopy[2](responseCopy, v13, v20, 0);
+  v19 = _MXMGetLog(v17, v18);
+  if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+  {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_INFO, "Replied with samples.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_INFO, "Replied with samples.", buf, 2u);
   }
 }
 
@@ -134,12 +134,12 @@
 {
   helperCopy = helper;
   responseCopy = response;
-  v8 = _MXMGetLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _MXMGetLog(responseCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v20 = helperCopy;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Setting the following configurations for performance trace: %@", buf, 0xCu);
+    v21 = helperCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "Setting the following configurations for performance trace: %@", buf, 0xCu);
   }
 
   if (helperCopy)
@@ -151,33 +151,33 @@
   {
     [PTTraceConfig configWithTemplate:1];
   }
-  v9 = ;
-  [v9 setSkipNotification:1];
-  v10 = +[NSXPCConnection currentConnection];
-  [v9 setOwnerPID:{objc_msgSend(v10, "processIdentifier")}];
+  v10 = ;
+  [v10 setSkipNotification:1];
+  v11 = +[NSXPCConnection currentConnection];
+  [v10 setOwnerPID:{objc_msgSend(v11, "processIdentifier")}];
 
-  v11 = [PTTraceSession initWithConfig:v9];
+  v12 = [PTTraceSession initWithConfig:v10];
   traceSession = self->_traceSession;
-  self->_traceSession = v11;
+  self->_traceSession = v12;
 
   [(PTTraceSession *)self->_traceSession setDelegate:self];
   [(PTTraceSession *)self->_traceSession startPerformanceTrace];
   start_trace_sem = self->_start_trace_sem;
-  v14 = dispatch_time(0, 20000000000);
-  if (dispatch_semaphore_wait(start_trace_sem, v14))
+  v15 = dispatch_time(0, 20000000000);
+  if (dispatch_semaphore_wait(start_trace_sem, v15))
   {
-    v17 = NSLocalizedDescriptionKey;
-    v18 = @"Timed out while trying to start the performance trace.";
-    v15 = [NSDictionary dictionaryWithObjects:&v18 forKeys:&v17 count:1];
-    v16 = [NSError errorWithDomain:@"InstrumentErrorDomain" code:0 userInfo:v15];
+    v18 = NSLocalizedDescriptionKey;
+    v19 = @"Timed out while trying to start the performance trace.";
+    v16 = [NSDictionary dictionaryWithObjects:&v19 forKeys:&v18 count:1];
+    v17 = [NSError errorWithDomain:@"InstrumentErrorDomain" code:0 userInfo:v16];
   }
 
   else
   {
-    v16 = 0;
+    v17 = 0;
   }
 
-  responseCopy[2](responseCopy, v16, performanceTraceDidStartError, 0);
+  responseCopy[2](responseCopy, v17, performanceTraceDidStartError, 0);
 }
 
 - (void)_stopPerformanceTraceHelper:(id)helper
@@ -225,82 +225,82 @@ LABEL_7:
 {
   helperCopy = helper;
   responseCopy = response;
-  v8 = _MXMGetLog();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+  v9 = _MXMGetLog(responseCopy, v8);
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     *buf = 138412290;
-    v30 = helperCopy;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEBUG, "Setting the following configurations for function coverage: %@", buf, 0xCu);
+    v34 = helperCopy;
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEBUG, "Setting the following configurations for function coverage: %@", buf, 0xCu);
   }
 
-  v9 = [helperCopy valueForKey:@"targetedProcesses"];
-  v10 = [helperCopy valueForKey:@"isLongRunningTest"];
-  v11 = v10;
-  if (!v10)
+  v10 = [helperCopy valueForKey:@"targetedProcesses"];
+  v11 = [helperCopy valueForKey:@"isLongRunningTest"];
+  v12 = v11;
+  if (!v11)
   {
-    v10 = &__kCFBooleanTrue;
+    v11 = &__kCFBooleanTrue;
   }
 
-  bOOLValue = [v10 BOOLValue];
+  bOOLValue = [v11 BOOLValue];
 
-  v13 = [helperCopy valueForKey:@"areTargetedProcessesRunning"];
-  v14 = v13;
-  if (!v13)
+  v14 = [helperCopy valueForKey:@"areTargetedProcessesRunning"];
+  v15 = v14;
+  if (!v14)
   {
-    v13 = &__kCFBooleanFalse;
+    v14 = &__kCFBooleanFalse;
   }
 
-  bOOLValue2 = [v13 BOOLValue];
+  bOOLValue2 = [v14 BOOLValue];
 
-  v16 = objc_alloc_init(FunctionCoverageCollection);
+  v17 = objc_alloc_init(FunctionCoverageCollection);
   functionCoverage = self->_functionCoverage;
-  self->_functionCoverage = v16;
+  self->_functionCoverage = v17;
 
-  v18 = _MXMGetLog();
-  v19 = os_log_type_enabled(v18, OS_LOG_TYPE_DEBUG);
+  v21 = _MXMGetLog(v19, v20);
+  v22 = os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG);
   if (bOOLValue)
   {
-    if (v19)
+    if (v22)
     {
-      v20 = [v9 componentsJoinedByString:{@", "}];
+      v23 = [v10 componentsJoinedByString:{@", "}];
       *buf = 138412290;
-      v30 = v20;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Invoking lossy function coverage collection with targeted processes: %@", buf, 0xCu);
+      v34 = v23;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "Invoking lossy function coverage collection with targeted processes: %@", buf, 0xCu);
     }
 
-    v21 = self->_functionCoverage;
-    v28 = 0;
-    v22 = &v28;
-    [(FunctionCoverageCollection *)v21 startCollectingLossy:&v28 targetedProcesses:v9];
+    v24 = self->_functionCoverage;
+    v32 = 0;
+    v25 = &v32;
+    [(FunctionCoverageCollection *)v24 startCollectingLossy:&v32 targetedProcesses:v10];
   }
 
   else
   {
-    if (v19)
+    if (v22)
     {
-      v23 = [v9 componentsJoinedByString:{@", "}];
+      v26 = [v10 componentsJoinedByString:{@", "}];
       *buf = 138412546;
-      v30 = v23;
-      v31 = 1024;
-      v32 = bOOLValue2;
-      _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_DEBUG, "Invoking lossless function coverage collection with targeted processes: %@; targetedProcessesAreRunning: %d", buf, 0x12u);
+      v34 = v26;
+      v35 = 1024;
+      v36 = bOOLValue2;
+      _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEBUG, "Invoking lossless function coverage collection with targeted processes: %@; targetedProcessesAreRunning: %d", buf, 0x12u);
     }
 
-    v24 = self->_functionCoverage;
-    v27 = 0;
-    v22 = &v27;
-    [(FunctionCoverageCollection *)v24 startCollectingLossless:&v27 targetedProcesses:v9 targetedProcessesAreRunning:0];
+    v27 = self->_functionCoverage;
+    v31 = 0;
+    v25 = &v31;
+    [(FunctionCoverageCollection *)v27 startCollectingLossless:&v31 targetedProcesses:v10 targetedProcessesAreRunning:0];
   }
 
-  v25 = *v22;
-  v26 = _MXMGetLog();
-  if (os_log_type_enabled(v26, OS_LOG_TYPE_DEBUG))
+  v28 = *v25;
+  v30 = _MXMGetLog(v28, v29);
+  if (os_log_type_enabled(v30, OS_LOG_TYPE_DEBUG))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v26, OS_LOG_TYPE_DEBUG, "Finished starting function coverage collection", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEBUG, "Finished starting function coverage collection", buf, 2u);
   }
 
-  responseCopy[2](responseCopy, v25);
+  responseCopy[2](responseCopy, v28);
 }
 
 - (void)_stopFunctionCoverageCollectionHelper:(id)helper
@@ -390,51 +390,51 @@ LABEL_7:
   v6 = objc_alloc_init(NSMutableArray);
   if (helperCopy && [helperCopy count])
   {
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
-    v46 = 0u;
-    v37 = helperCopy;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v42 = helperCopy;
     v7 = helperCopy;
-    v8 = [v7 countByEnumeratingWithState:&v45 objects:v54 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v50 objects:v59 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v11 = *v46;
+      v11 = *v51;
       do
       {
         v12 = 0;
         v13 = v10;
         do
         {
-          if (*v46 != v11)
+          if (*v51 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v14 = *(*(&v45 + 1) + 8 * v12);
-          v44 = v13;
-          v15 = [MXMUncacheConfiguration configWithDictionary:v14 error:&v44];
-          v10 = v44;
+          v14 = *(*(&v50 + 1) + 8 * v12);
+          v49 = v13;
+          v15 = [MXMUncacheConfiguration configWithDictionary:v14 error:&v49];
+          v10 = v49;
 
           if (v10)
           {
-            v16 = 1;
+            v18 = 1;
           }
 
           else
           {
-            v16 = v15 == 0;
+            v18 = v15 == 0;
           }
 
-          if (v16)
+          if (v18)
           {
-            v17 = _MXMGetLog();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            v19 = _MXMGetLog(v16, v17);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to create MXMUncacheConfiguration from dictionaries.", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to create MXMUncacheConfiguration from dictionaries.", buf, 2u);
             }
 
             responseCopy[2](responseCopy, 0, v10);
@@ -450,7 +450,7 @@ LABEL_7:
         }
 
         while (v9 != v12);
-        v9 = [v7 countByEnumeratingWithState:&v45 objects:v54 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v50 objects:v59 count:16];
       }
 
       while (v9);
@@ -461,7 +461,7 @@ LABEL_7:
       v10 = 0;
     }
 
-    helperCopy = v37;
+    helperCopy = v42;
     if (!v6)
     {
       goto LABEL_43;
@@ -470,10 +470,10 @@ LABEL_7:
 
   else
   {
-    v52 = NSLocalizedDescriptionKey;
-    v53 = @"Array of uncache configurations was nil or empty.";
-    v18 = [NSDictionary dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-    v10 = [NSError errorWithDomain:@"InstrumentErrorDomain" code:0 userInfo:v18];
+    v57 = NSLocalizedDescriptionKey;
+    v58 = @"Array of uncache configurations was nil or empty.";
+    v20 = [NSDictionary dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+    v10 = [NSError errorWithDomain:@"InstrumentErrorDomain" code:0 userInfo:v20];
 
     responseCopy[2](responseCopy, 0, v10);
     if (!v6)
@@ -484,43 +484,43 @@ LABEL_7:
 
   if ([v6 count])
   {
-    v38 = helperCopy;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v19 = v6;
-    v20 = [v19 countByEnumeratingWithState:&v40 objects:v51 count:16];
-    if (!v20)
+    v43 = helperCopy;
+    v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
+    v21 = v6;
+    v22 = [v21 countByEnumeratingWithState:&v45 objects:v56 count:16];
+    if (!v22)
     {
       goto LABEL_42;
     }
 
-    v21 = v20;
-    v22 = *v41;
+    v23 = v22;
+    v24 = *v46;
     while (1)
     {
-      for (i = 0; i != v21; i = i + 1)
+      for (i = 0; i != v23; i = i + 1)
       {
-        if (*v41 != v22)
+        if (*v46 != v24)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v21);
         }
 
-        v24 = *(*(&v40 + 1) + 8 * i);
-        filepath = [v24 filepath];
-        if (!filepath || (v26 = filepath, [v24 filepath], v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "length"), v27, v26, !v28))
+        v26 = *(*(&v45 + 1) + 8 * i);
+        filepath = [v26 filepath];
+        if (!filepath || (v29 = filepath, [v26 filepath], v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "length"), v30, v29, !v31))
         {
-          v33 = _MXMGetLog();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v38 = _MXMGetLog(filepath, v28);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
-            filepath2 = [v24 filepath];
+            filepath2 = [v26 filepath];
             *buf = 138412290;
-            v50 = filepath2;
-            v35 = v33;
-            v36 = "Invalid filepath: %@";
+            v55 = filepath2;
+            v40 = v38;
+            v41 = "Invalid filepath: %@";
 LABEL_38:
-            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, v36, buf, 0xCu);
+            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, v41, buf, 0xCu);
           }
 
 LABEL_39:
@@ -528,28 +528,28 @@ LABEL_39:
           continue;
         }
 
-        v29 = _MXMGetLog();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+        v32 = _MXMGetLog(filepath, v28);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
-          filepath3 = [v24 filepath];
+          filepath3 = [v26 filepath];
           *buf = 138412290;
-          v50 = filepath3;
-          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "Attempting to uncache filepath: %@", buf, 0xCu);
+          v55 = filepath3;
+          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEBUG, "Attempting to uncache filepath: %@", buf, 0xCu);
         }
 
-        filepath4 = [v24 filepath];
-        v32 = _uncacheFilepath(filepath4);
+        filepath4 = [v26 filepath];
+        v35 = _uncacheFilepath(filepath4);
 
-        if (v32)
+        if (v35)
         {
-          v33 = _MXMGetLog();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v38 = _MXMGetLog(v36, v37);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
-            filepath2 = [v24 filepath];
+            filepath2 = [v26 filepath];
             *buf = 138412290;
-            v50 = filepath2;
-            v35 = v33;
-            v36 = "Failed to uncache filepath: %@";
+            v55 = filepath2;
+            v40 = v38;
+            v41 = "Failed to uncache filepath: %@";
             goto LABEL_38;
           }
 
@@ -557,12 +557,12 @@ LABEL_39:
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v40 objects:v51 count:16];
-      if (!v21)
+      v23 = [v21 countByEnumeratingWithState:&v45 objects:v56 count:16];
+      if (!v23)
       {
 LABEL_42:
 
-        helperCopy = v38;
+        helperCopy = v43;
         break;
       }
     }
@@ -579,51 +579,51 @@ LABEL_43:
   v6 = objc_alloc_init(NSMutableArray);
   if (helperCopy && [helperCopy count])
   {
-    v47 = 0u;
-    v48 = 0u;
-    v45 = 0u;
-    v46 = 0u;
-    v37 = helperCopy;
+    v52 = 0u;
+    v53 = 0u;
+    v50 = 0u;
+    v51 = 0u;
+    v42 = helperCopy;
     v7 = helperCopy;
-    v8 = [v7 countByEnumeratingWithState:&v45 objects:v54 count:16];
+    v8 = [v7 countByEnumeratingWithState:&v50 objects:v59 count:16];
     if (v8)
     {
       v9 = v8;
       v10 = 0;
-      v11 = *v46;
+      v11 = *v51;
       do
       {
         v12 = 0;
         v13 = v10;
         do
         {
-          if (*v46 != v11)
+          if (*v51 != v11)
           {
             objc_enumerationMutation(v7);
           }
 
-          v14 = *(*(&v45 + 1) + 8 * v12);
-          v44 = v13;
-          v15 = [MXMTerminateProcessConfiguration configWithDictionary:v14 error:&v44];
-          v10 = v44;
+          v14 = *(*(&v50 + 1) + 8 * v12);
+          v49 = v13;
+          v15 = [MXMTerminateProcessConfiguration configWithDictionary:v14 error:&v49];
+          v10 = v49;
 
           if (v10)
           {
-            v16 = 1;
+            v18 = 1;
           }
 
           else
           {
-            v16 = v15 == 0;
+            v18 = v15 == 0;
           }
 
-          if (v16)
+          if (v18)
           {
-            v17 = _MXMGetLog();
-            if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+            v19 = _MXMGetLog(v16, v17);
+            if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
             {
               *buf = 0;
-              _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_ERROR, "Failed to create MXMTerminateProcessConfiguration from dictionaries.", buf, 2u);
+              _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_ERROR, "Failed to create MXMTerminateProcessConfiguration from dictionaries.", buf, 2u);
             }
 
             responseCopy[2](responseCopy, 0, v10);
@@ -639,7 +639,7 @@ LABEL_43:
         }
 
         while (v9 != v12);
-        v9 = [v7 countByEnumeratingWithState:&v45 objects:v54 count:16];
+        v9 = [v7 countByEnumeratingWithState:&v50 objects:v59 count:16];
       }
 
       while (v9);
@@ -650,7 +650,7 @@ LABEL_43:
       v10 = 0;
     }
 
-    helperCopy = v37;
+    helperCopy = v42;
     if (!v6)
     {
       goto LABEL_43;
@@ -659,10 +659,10 @@ LABEL_43:
 
   else
   {
-    v52 = NSLocalizedDescriptionKey;
-    v53 = @"Array of terminate process configurations was nil or empty.";
-    v18 = [NSDictionary dictionaryWithObjects:&v53 forKeys:&v52 count:1];
-    v10 = [NSError errorWithDomain:@"InstrumentErrorDomain" code:0 userInfo:v18];
+    v57 = NSLocalizedDescriptionKey;
+    v58 = @"Array of terminate process configurations was nil or empty.";
+    v20 = [NSDictionary dictionaryWithObjects:&v58 forKeys:&v57 count:1];
+    v10 = [NSError errorWithDomain:@"InstrumentErrorDomain" code:0 userInfo:v20];
 
     responseCopy[2](responseCopy, 0, v10);
     if (!v6)
@@ -673,43 +673,43 @@ LABEL_43:
 
   if ([v6 count])
   {
-    v38 = helperCopy;
-    v42 = 0u;
-    v43 = 0u;
-    v40 = 0u;
-    v41 = 0u;
-    v19 = v6;
-    v20 = [v19 countByEnumeratingWithState:&v40 objects:v51 count:16];
-    if (!v20)
+    v43 = helperCopy;
+    v47 = 0u;
+    v48 = 0u;
+    v45 = 0u;
+    v46 = 0u;
+    v21 = v6;
+    v22 = [v21 countByEnumeratingWithState:&v45 objects:v56 count:16];
+    if (!v22)
     {
       goto LABEL_42;
     }
 
-    v21 = v20;
-    v22 = *v41;
+    v23 = v22;
+    v24 = *v46;
     while (1)
     {
-      for (i = 0; i != v21; i = i + 1)
+      for (i = 0; i != v23; i = i + 1)
       {
-        if (*v41 != v22)
+        if (*v46 != v24)
         {
-          objc_enumerationMutation(v19);
+          objc_enumerationMutation(v21);
         }
 
-        v24 = *(*(&v40 + 1) + 8 * i);
-        processName = [v24 processName];
-        if (!processName || (v26 = processName, [v24 processName], v27 = objc_claimAutoreleasedReturnValue(), v28 = objc_msgSend(v27, "length"), v27, v26, !v28))
+        v26 = *(*(&v45 + 1) + 8 * i);
+        processName = [v26 processName];
+        if (!processName || (v29 = processName, [v26 processName], v30 = objc_claimAutoreleasedReturnValue(), v31 = objc_msgSend(v30, "length"), v30, v29, !v31))
         {
-          v33 = _MXMGetLog();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v38 = _MXMGetLog(processName, v28);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
-            processName2 = [v24 processName];
+            processName2 = [v26 processName];
             *buf = 138412290;
-            v50 = processName2;
-            v35 = v33;
-            v36 = "Invalid process name: %@";
+            v55 = processName2;
+            v40 = v38;
+            v41 = "Invalid process name: %@";
 LABEL_38:
-            _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, v36, buf, 0xCu);
+            _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_ERROR, v41, buf, 0xCu);
           }
 
 LABEL_39:
@@ -717,28 +717,28 @@ LABEL_39:
           continue;
         }
 
-        v29 = _MXMGetLog();
-        if (os_log_type_enabled(v29, OS_LOG_TYPE_DEBUG))
+        v32 = _MXMGetLog(processName, v28);
+        if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
         {
-          processName3 = [v24 processName];
+          processName3 = [v26 processName];
           *buf = 138412290;
-          v50 = processName3;
-          _os_log_impl(&_mh_execute_header, v29, OS_LOG_TYPE_DEBUG, "Attempting to terminate process with name: %@", buf, 0xCu);
+          v55 = processName3;
+          _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_DEBUG, "Attempting to terminate process with name: %@", buf, 0xCu);
         }
 
-        processName4 = [v24 processName];
-        v32 = _terminateProcess(processName4);
+        processName4 = [v26 processName];
+        v35 = _terminateProcess(processName4);
 
-        if ((v32 & 1) == 0)
+        if ((v35 & 1) == 0)
         {
-          v33 = _MXMGetLog();
-          if (os_log_type_enabled(v33, OS_LOG_TYPE_ERROR))
+          v38 = _MXMGetLog(v36, v37);
+          if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
           {
-            processName2 = [v24 processName];
+            processName2 = [v26 processName];
             *buf = 138412290;
-            v50 = processName2;
-            v35 = v33;
-            v36 = "Failed to terminate process name: %@";
+            v55 = processName2;
+            v40 = v38;
+            v41 = "Failed to terminate process name: %@";
             goto LABEL_38;
           }
 
@@ -746,12 +746,12 @@ LABEL_39:
         }
       }
 
-      v21 = [v19 countByEnumeratingWithState:&v40 objects:v51 count:16];
-      if (!v21)
+      v23 = [v21 countByEnumeratingWithState:&v45 objects:v56 count:16];
+      if (!v23)
       {
 LABEL_42:
 
-        helperCopy = v38;
+        helperCopy = v43;
         break;
       }
     }

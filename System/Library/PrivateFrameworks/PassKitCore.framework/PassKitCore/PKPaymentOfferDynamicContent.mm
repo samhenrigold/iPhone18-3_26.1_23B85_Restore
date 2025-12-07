@@ -73,9 +73,9 @@ LABEL_62:
     goto LABEL_63;
   }
 
-  v8 = [(__CFString *)v7 isEqualToString:@"splashScreen"];
+  isEqualToString = objc_msgSend_isEqualToString_(v7);
 
-  if (v8)
+  if (isEqualToString)
   {
     v9 = 1;
 LABEL_61:
@@ -84,126 +84,126 @@ LABEL_61:
   }
 
   v11 = v66;
-  if (v11 == @"installmentOfferSelection" || (v12 = v11, v13 = [(__CFString *)v11 isEqualToString:@"installmentOfferSelection"], v12, (v13 & 1) != 0))
+  if (v11 == @"installmentOfferSelection" || (v12 = v11, v13 = objc_msgSend_isEqualToString_(v11), v12, (v13 & 1) != 0))
   {
     v9 = 2;
     goto LABEL_61;
   }
 
   v14 = v12;
-  if (v14 == @"webviewScreen" || (v15 = v14, v16 = [(__CFString *)v14 isEqualToString:@"webviewScreen"], v15, (v16 & 1) != 0))
+  if (v14 == @"webviewScreen" || (v15 = v14, v16 = objc_msgSend_isEqualToString_(v14), v15, (v16 & 1) != 0))
   {
     v9 = 3;
     goto LABEL_61;
   }
 
   v17 = v15;
-  if (v17 == @"offersChanged" || (v18 = v17, v19 = [(__CFString *)v17 isEqualToString:@"offersChanged"], v18, (v19 & 1) != 0))
+  if (v17 == @"offersChanged" || (v18 = v17, v19 = objc_msgSend_isEqualToString_(v17), v18, (v19 & 1) != 0))
   {
     v9 = 4;
     goto LABEL_61;
   }
 
   v20 = v18;
-  if (v20 == @"ineligibleOffers" || (v21 = v20, v22 = [(__CFString *)v20 isEqualToString:@"ineligibleOffers"], v21, (v22 & 1) != 0))
+  if (v20 == @"ineligibleOffers" || (v21 = v20, v22 = objc_msgSend_isEqualToString_(v20), v21, (v22 & 1) != 0))
   {
     v9 = 5;
     goto LABEL_61;
   }
 
   v23 = v21;
-  if (v23 == @"languageNotice" || (v24 = v23, v25 = [(__CFString *)v23 isEqualToString:@"languageNotice"], v24, (v25 & 1) != 0))
+  if (v23 == @"languageNotice" || (v24 = v23, v25 = objc_msgSend_isEqualToString_(v23), v24, (v25 & 1) != 0))
   {
     v9 = 6;
     goto LABEL_61;
   }
 
   v26 = v24;
-  if (v26 == @"offerSummary" || (v27 = v26, v28 = [(__CFString *)v26 isEqualToString:@"offerSummary"], v27, (v28 & 1) != 0))
+  if (v26 == @"offerSummary" || (v27 = v26, v28 = objc_msgSend_isEqualToString_(v26), v27, (v28 & 1) != 0))
   {
     v9 = 7;
     goto LABEL_61;
   }
 
   v29 = v27;
-  if (v29 == @"offerShortSummary" || (v30 = v29, v31 = [(__CFString *)v29 isEqualToString:@"offerShortSummary"], v30, (v31 & 1) != 0))
+  if (v29 == @"offerShortSummary" || (v30 = v29, v31 = objc_msgSend_isEqualToString_(v29), v30, (v31 & 1) != 0))
   {
     v9 = 8;
     goto LABEL_61;
   }
 
   v32 = v30;
-  if (v32 == @"offerPaymentSummary" || (v33 = v32, v34 = [(__CFString *)v32 isEqualToString:@"offerPaymentSummary"], v33, (v34 & 1) != 0))
+  if (v32 == @"offerPaymentSummary" || (v33 = v32, v34 = objc_msgSend_isEqualToString_(v32), v33, (v34 & 1) != 0))
   {
     v9 = 9;
     goto LABEL_61;
   }
 
   v35 = v33;
-  if (v35 == @"provisioning" || (v36 = v35, v37 = [(__CFString *)v35 isEqualToString:@"provisioning"], v36, (v37 & 1) != 0))
+  if (v35 == @"provisioning" || (v36 = v35, v37 = objc_msgSend_isEqualToString_(v35), v36, (v37 & 1) != 0))
   {
     v9 = 10;
     goto LABEL_61;
   }
 
   v38 = v36;
-  if (v38 == @"installmentPartnerExplanation" || (v39 = v38, v40 = [(__CFString *)v38 isEqualToString:@"installmentPartnerExplanation"], v39, (v40 & 1) != 0))
+  if (v38 == @"installmentPartnerExplanation" || (v39 = v38, v40 = objc_msgSend_isEqualToString_(v38), v39, (v40 & 1) != 0))
   {
     v9 = 11;
     goto LABEL_61;
   }
 
   v41 = v39;
-  if (v41 == @"merchandisingContent" || (v42 = v41, v43 = [(__CFString *)v41 isEqualToString:@"merchandisingContent"], v42, (v43 & 1) != 0))
+  if (v41 == @"merchandisingContent" || (v42 = v41, v43 = objc_msgSend_isEqualToString_(v41), v42, (v43 & 1) != 0))
   {
     v9 = 12;
     goto LABEL_61;
   }
 
   v44 = v42;
-  if (v44 == @"paymentSelectorTile" || (v45 = v44, v46 = [(__CFString *)v44 isEqualToString:@"paymentSelectorTile"], v45, (v46 & 1) != 0))
+  if (v44 == @"paymentSelectorTile" || (v45 = v44, v46 = objc_msgSend_isEqualToString_(v44), v45, (v46 & 1) != 0))
   {
     v9 = 13;
     goto LABEL_61;
   }
 
   v47 = v45;
-  if (v47 == @"amountEntryScreen" || (v48 = v47, v49 = [(__CFString *)v47 isEqualToString:@"amountEntryScreen"], v48, (v49 & 1) != 0))
+  if (v47 == @"amountEntryScreen" || (v48 = v47, v49 = objc_msgSend_isEqualToString_(v47), v48, (v49 & 1) != 0))
   {
     v9 = 14;
     goto LABEL_61;
   }
 
   v50 = v48;
-  if (v50 == @"transactionOfferStatus" || (v51 = v50, v52 = [(__CFString *)v50 isEqualToString:@"transactionOfferStatus"], v51, (v52 & 1) != 0))
+  if (v50 == @"transactionOfferStatus" || (v51 = v50, v52 = objc_msgSend_isEqualToString_(v50), v51, (v52 & 1) != 0))
   {
     v9 = 15;
     goto LABEL_61;
   }
 
   v53 = v51;
-  if (v53 == @"transactionNotification" || (v54 = v53, v55 = [(__CFString *)v53 isEqualToString:@"transactionNotification"], v54, (v55 & 1) != 0))
+  if (v53 == @"transactionNotification" || (v54 = v53, v55 = objc_msgSend_isEqualToString_(v53), v54, (v55 & 1) != 0))
   {
     v9 = 16;
     goto LABEL_61;
   }
 
   v56 = v54;
-  if (v56 == @"dashboardMessage" || (v57 = v56, v58 = [(__CFString *)v56 isEqualToString:@"dashboardMessage"], v57, (v58 & 1) != 0))
+  if (v56 == @"dashboardMessage" || (v57 = v56, v58 = objc_msgSend_isEqualToString_(v56), v57, (v58 & 1) != 0))
   {
     v9 = 17;
     goto LABEL_61;
   }
 
   v59 = v57;
-  if (v59 == @"rewardsSplashScreen" || (v60 = v59, v61 = [(__CFString *)v59 isEqualToString:@"rewardsSplashScreen"], v60, (v61 & 1) != 0))
+  if (v59 == @"rewardsSplashScreen" || (v60 = v59, v61 = objc_msgSend_isEqualToString_(v59), v60, (v61 & 1) != 0))
   {
     v9 = 18;
     goto LABEL_61;
   }
 
   v62 = v60;
-  if (v62 == @"paymentSelectorTileSetupAfterPurchase" || (v10 = v62, v63 = [(__CFString *)v62 isEqualToString:@"paymentSelectorTileSetupAfterPurchase"], v10, v63))
+  if (v62 == @"paymentSelectorTileSetupAfterPurchase" || (v10 = v62, v63 = objc_msgSend_isEqualToString_(v62), v10, v63))
   {
     v9 = 19;
     goto LABEL_61;

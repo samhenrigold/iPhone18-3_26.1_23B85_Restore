@@ -61,41 +61,97 @@
 {
   if ((level & 0x8000000) != 0)
   {
-    v4 = 0;
+    v4 = 8;
   }
 
   else
   {
-    objc_opt_class();
-    CUAppendF();
-    v4 = 0;
+    v4 = 12;
   }
 
-  wifiAwareIdentifier = self->_wifiAwareIdentifier;
-  CUAppendF();
-  v5 = v4;
-
-  self->_pairingType;
-  CUAppendF();
-  v6 = v5;
-
-  passkey = self->_passkey;
-  CUAppendF();
-  v7 = v6;
-
-  self->_accept;
-  CUAppendF();
-  v8 = v7;
-
-  v9 = &stru_285B4C350;
-  if (v8)
+  v22 = v4;
+  if ((level & 0x8000000) != 0)
   {
-    v9 = v8;
+    v6 = 0;
   }
 
-  v10 = v9;
+  else
+  {
+    v21 = 0;
+    v5 = objc_opt_class();
+    CUAppendF(&v21, &v22, "%@", v5);
+    v6 = v21;
+  }
 
-  return v10;
+  v20 = v6;
+  CUAppendF(&v20, &v22, "WiFiAware identifier %llu", self->_wifiAwareIdentifier);
+  v7 = v20;
+
+  v19 = v7;
+  pairingType = self->_pairingType;
+  if (pairingType <= 19)
+  {
+    if (!pairingType)
+    {
+      v9 = @"DAWiFiAwarePairingTypeInvalid";
+      goto LABEL_19;
+    }
+
+    if (pairingType == 10)
+    {
+      v9 = @"DAWiFiAwarePairingTypeJustWorks";
+      goto LABEL_19;
+    }
+  }
+
+  else
+  {
+    switch(pairingType)
+    {
+      case 20:
+        v9 = @"DAWiFiAwarePairingTypePasskeyDisplay";
+        goto LABEL_19;
+      case 30:
+        v9 = @"DAWiFiAwarePairingTypePasskeyEntry";
+        goto LABEL_19;
+      case 40:
+        v9 = @"DAWiFiAwarePairingTypeNumericComparison";
+        goto LABEL_19;
+    }
+  }
+
+  v9 = @"?";
+LABEL_19:
+  CUAppendF(&v19, &v22, "pairingType %@", v9);
+  v10 = v19;
+
+  v18 = v10;
+  CUAppendF(&v18, &v22, "pairingPasskey %@", self->_passkey);
+  v11 = v18;
+
+  v17 = v11;
+  if (self->_accept)
+  {
+    v12 = "yes";
+  }
+
+  else
+  {
+    v12 = "no";
+  }
+
+  CUAppendF(&v17, &v22, "accept %s", v12);
+  v13 = v17;
+
+  v14 = &stru_285B4C350;
+  if (v13)
+  {
+    v14 = v13;
+  }
+
+  v15 = v14;
+
+  return v15;
 }
 
 - (DAWiFiAwarePairingInfo)initWithXPCObject:(id)object error:(id *)error

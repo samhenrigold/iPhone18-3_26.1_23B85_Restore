@@ -38,9 +38,9 @@
 {
   memset(&v35[1], 0, sizeof(CMTime));
   options = self->_options;
-  if (options && ([(PTCinematographyFocusFramesOptions *)options minimumRackFocusPullTime], v6 = self->_options, memset(v35, 0, 24), v6))
+  if (options && (objc_msgSend_minimumRackFocusPullTime(options, a2), v6 = self->_options, memset(v35, 0, 24), v6))
   {
-    [(PTCinematographyFocusFramesOptions *)v6 maximumRackFocusPullTime];
+    objc_msgSend_maximumRackFocusPullTime(v6);
     v7 = self->_options;
   }
 
@@ -63,7 +63,7 @@
     v12 = v11;
     if (v11)
     {
-      [v11 time];
+      objc_msgSend_time(v11);
     }
 
     else
@@ -98,7 +98,7 @@ LABEL_27:
         v17 = v16;
         if (v16)
         {
-          [v16 time];
+          objc_msgSend_time(v16);
         }
 
         else
@@ -118,7 +118,7 @@ LABEL_27:
         v20 = v19;
         if (v19)
         {
-          [v19 time];
+          objc_msgSend_time(v19);
         }
 
         else
@@ -130,7 +130,7 @@ LABEL_27:
         v22 = v21;
         if (v21)
         {
-          [v21 time];
+          objc_msgSend_time(v21);
         }
 
         else
@@ -182,7 +182,7 @@ LABEL_27:
   v8 = v7;
   if (v7)
   {
-    [v7 time];
+    objc_msgSend_time(v7);
   }
 
   else
@@ -204,7 +204,7 @@ LABEL_27:
     v10 = v9;
     if (v9)
     {
-      [v9 time];
+      objc_msgSend_time(v9);
     }
 
     else

@@ -3,7 +3,7 @@
 
 @implementation UIStatisticsBundleIdentifier
 
-uint64_t ___UIStatisticsBundleIdentifier_block_invoke()
+void *___UIStatisticsBundleIdentifier_block_invoke()
 {
   _MergedGlobals_1361 = os_variant_has_internal_diagnostics();
   v0 = _UIMainBundleIdentifier();

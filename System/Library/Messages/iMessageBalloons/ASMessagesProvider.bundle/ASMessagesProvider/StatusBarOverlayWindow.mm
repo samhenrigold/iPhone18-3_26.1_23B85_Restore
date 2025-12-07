@@ -76,7 +76,7 @@
   }
 
   v10 = v9;
-  sub_BE70(0, &qword_93E550);
+  sub_BE70(0, &qword_93E550, UIView_ptr);
   v11 = v7;
   v7 = v10;
   LOBYTE(v10) = sub_76A1C0();

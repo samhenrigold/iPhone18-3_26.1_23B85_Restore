@@ -119,7 +119,7 @@
 
 - (BOOL)isApplicationFocalForPushTask:(id)task
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   v5 = taskCopy;
   if ([taskCopy hasPrefix:@"com.apple.apsd."])
@@ -140,25 +140,25 @@
   keyPathForAppUsageDataDictionaries = [MEMORY[0x1E6997A68] keyPathForAppUsageDataDictionaries];
   v10 = [(_CDLocalContext *)context objectForKeyedSubscript:keyPathForAppUsageDataDictionaries];
 
-  v23 = 0u;
-  v24 = 0u;
-  v21 = 0u;
   v22 = 0u;
+  v23 = 0u;
+  v20 = 0u;
+  v21 = 0u;
   v11 = v10;
-  v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v12)
   {
-    v13 = *v22;
+    v13 = *v21;
     while (2)
     {
       for (i = 0; i != v12; ++i)
       {
-        if (*v22 != v13)
+        if (*v21 != v13)
         {
           objc_enumerationMutation(v11);
         }
 
-        v15 = *(*(&v21 + 1) + 8 * i);
+        v15 = *(*(&v20 + 1) + 8 * i);
         appUsageBundleID = [MEMORY[0x1E6997A68] appUsageBundleID];
         v17 = [v15 objectForKeyedSubscript:appUsageBundleID];
         lowercaseString2 = [v17 lowercaseString];
@@ -171,7 +171,7 @@
         }
       }
 
-      v12 = [v11 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v12 = [v11 countByEnumeratingWithState:&v20 objects:v24 count:16];
       if (v12)
       {
         continue;
@@ -183,7 +183,6 @@
 
 LABEL_16:
 
-  v19 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
@@ -249,7 +248,7 @@ LABEL_8:
 
 - (BOOL)allowDiscretionaryWorkForBackgroundTask:(id)task withParameters:(id)parameters
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   parametersCopy = parameters;
   v8 = [(_DASSystemContext *)self keyPathForPriority:_DASSchedulingPriorityBackground];
@@ -264,9 +263,9 @@ LABEL_8:
     dasSystemContextLog = [(_DASSystemContext *)self dasSystemContextLog];
     if (os_log_type_enabled(dasSystemContextLog, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = 138412290;
-      v26 = taskCopy;
-      _os_log_impl(&dword_1B6E2F000, dasSystemContextLog, OS_LOG_TYPE_DEFAULT, "Task %@: Application focal", &v25, 0xCu);
+      v24 = 138412290;
+      v25 = taskCopy;
+      _os_log_impl(&dword_1B6E2F000, dasSystemContextLog, OS_LOG_TYPE_DEFAULT, "Task %@: Application focal", &v24, 0xCu);
     }
   }
 
@@ -278,11 +277,11 @@ LABEL_8:
       dasSystemContextLog2 = [(_DASSystemContext *)self dasSystemContextLog];
       if (os_log_type_enabled(dasSystemContextLog2, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138412546;
-        v26 = taskCopy;
-        v27 = 2048;
-        v28 = 30;
-        _os_log_impl(&dword_1B6E2F000, dasSystemContextLog2, OS_LOG_TYPE_DEFAULT, "Task %@: Battery level below %lu returning NO", &v25, 0x16u);
+        v24 = 138412546;
+        v25 = taskCopy;
+        v26 = 2048;
+        v27 = 30;
+        _os_log_impl(&dword_1B6E2F000, dasSystemContextLog2, OS_LOG_TYPE_DEFAULT, "Task %@: Battery level below %lu returning NO", &v24, 0x16u);
       }
     }
 
@@ -291,11 +290,11 @@ LABEL_8:
       dasSystemContextLog3 = [(_DASSystemContext *)self dasSystemContextLog];
       if (os_log_type_enabled(dasSystemContextLog3, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138412546;
-        v26 = taskCopy;
-        v27 = 2048;
-        v28 = 0;
-        _os_log_impl(&dword_1B6E2F000, dasSystemContextLog3, OS_LOG_TYPE_DEFAULT, "Task %@: Thermal pressure level above %lu returning NO", &v25, 0x16u);
+        v24 = 138412546;
+        v25 = taskCopy;
+        v26 = 2048;
+        v27 = 0;
+        _os_log_impl(&dword_1B6E2F000, dasSystemContextLog3, OS_LOG_TYPE_DEFAULT, "Task %@: Thermal pressure level above %lu returning NO", &v24, 0x16u);
       }
 
       v14 = 0;
@@ -309,9 +308,9 @@ LABEL_8:
       dasSystemContextLog4 = [(_DASSystemContext *)self dasSystemContextLog];
       if (os_log_type_enabled(dasSystemContextLog4, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138412290;
-        v26 = taskCopy;
-        _os_log_impl(&dword_1B6E2F000, dasSystemContextLog4, OS_LOG_TYPE_DEFAULT, "Task %@: Out of Energy budget returning NO", &v25, 0xCu);
+        v24 = 138412290;
+        v25 = taskCopy;
+        _os_log_impl(&dword_1B6E2F000, dasSystemContextLog4, OS_LOG_TYPE_DEFAULT, "Task %@: Out of Energy budget returning NO", &v24, 0xCu);
       }
 
       v14 = 0;
@@ -325,9 +324,9 @@ LABEL_8:
       dasSystemContextLog = [(_DASSystemContext *)self dasSystemContextLog];
       if (os_log_type_enabled(dasSystemContextLog, OS_LOG_TYPE_DEFAULT))
       {
-        v25 = 138412290;
-        v26 = taskCopy;
-        _os_log_impl(&dword_1B6E2F000, dasSystemContextLog, OS_LOG_TYPE_DEFAULT, "Task %@: Inexpensive network not available returning NO", &v25, 0xCu);
+        v24 = 138412290;
+        v25 = taskCopy;
+        _os_log_impl(&dword_1B6E2F000, dasSystemContextLog, OS_LOG_TYPE_DEFAULT, "Task %@: Inexpensive network not available returning NO", &v24, 0xCu);
       }
 
       v22 = 0;
@@ -351,13 +350,12 @@ LABEL_8:
 LABEL_27:
 
 LABEL_28:
-  v23 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (BOOL)allowDiscretionaryWorkForUtilityTask:(id)task withParameters:(id)parameters
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   taskCopy = task;
   parametersCopy = parameters;
   v8 = [MEMORY[0x1E6997A78] keyPathWithKey:@"/das/utilityConstraints"];
@@ -372,9 +370,9 @@ LABEL_28:
     dasSystemContextLog = [(_DASSystemContext *)self dasSystemContextLog];
     if (os_log_type_enabled(dasSystemContextLog, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 138412290;
-      v29 = taskCopy;
-      _os_log_impl(&dword_1B6E2F000, dasSystemContextLog, OS_LOG_TYPE_DEFAULT, "Task %@: Application focal", &v28, 0xCu);
+      v27 = 138412290;
+      v28 = taskCopy;
+      _os_log_impl(&dword_1B6E2F000, dasSystemContextLog, OS_LOG_TYPE_DEFAULT, "Task %@: Application focal", &v27, 0xCu);
     }
 
 LABEL_24:
@@ -390,11 +388,11 @@ LABEL_30:
     dasSystemContextLog2 = [(_DASSystemContext *)self dasSystemContextLog];
     if (os_log_type_enabled(dasSystemContextLog2, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 138412546;
-      v29 = taskCopy;
-      v30 = 2048;
-      v31 = 20;
-      _os_log_impl(&dword_1B6E2F000, dasSystemContextLog2, OS_LOG_TYPE_DEFAULT, "Task %@: Battery level below %lu returning NO", &v28, 0x16u);
+      v27 = 138412546;
+      v28 = taskCopy;
+      v29 = 2048;
+      v30 = 20;
+      _os_log_impl(&dword_1B6E2F000, dasSystemContextLog2, OS_LOG_TYPE_DEFAULT, "Task %@: Battery level below %lu returning NO", &v27, 0x16u);
     }
   }
 
@@ -403,11 +401,11 @@ LABEL_30:
     dasSystemContextLog3 = [(_DASSystemContext *)self dasSystemContextLog];
     if (os_log_type_enabled(dasSystemContextLog3, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 138412546;
-      v29 = taskCopy;
-      v30 = 2048;
-      v31 = 20;
-      _os_log_impl(&dword_1B6E2F000, dasSystemContextLog3, OS_LOG_TYPE_DEFAULT, "Task %@: Thermal pressure level above %lu returning NO", &v28, 0x16u);
+      v27 = 138412546;
+      v28 = taskCopy;
+      v29 = 2048;
+      v30 = 20;
+      _os_log_impl(&dword_1B6E2F000, dasSystemContextLog3, OS_LOG_TYPE_DEFAULT, "Task %@: Thermal pressure level above %lu returning NO", &v27, 0x16u);
     }
 
     v14 = 0;
@@ -421,9 +419,9 @@ LABEL_30:
     dasSystemContextLog4 = [(_DASSystemContext *)self dasSystemContextLog];
     if (os_log_type_enabled(dasSystemContextLog4, OS_LOG_TYPE_DEFAULT))
     {
-      v28 = 138412290;
-      v29 = taskCopy;
-      _os_log_impl(&dword_1B6E2F000, dasSystemContextLog4, OS_LOG_TYPE_DEFAULT, "Task %@: Out of Energy budget returning NO", &v28, 0xCu);
+      v27 = 138412290;
+      v28 = taskCopy;
+      _os_log_impl(&dword_1B6E2F000, dasSystemContextLog4, OS_LOG_TYPE_DEFAULT, "Task %@: Out of Energy budget returning NO", &v27, 0xCu);
     }
 
     v14 = 0;
@@ -444,18 +442,18 @@ LABEL_29:
         goto LABEL_30;
       }
 
-      v28 = 138412290;
-      v29 = taskCopy;
+      v27 = 138412290;
+      v28 = taskCopy;
       v23 = "Task %@: Network not available returning NO";
 LABEL_28:
-      _os_log_impl(&dword_1B6E2F000, dasSystemContextLog, OS_LOG_TYPE_DEFAULT, v23, &v28, 0xCu);
+      _os_log_impl(&dword_1B6E2F000, dasSystemContextLog, OS_LOG_TYPE_DEFAULT, v23, &v27, 0xCu);
       goto LABEL_29;
     }
 
     if ((unsignedIntegerValue & 0x10) != 0)
     {
-      v26 = [parametersCopy objectForKeyedSubscript:kDASSystemContextKeyBypassDataBudget];
-      bOOLValue4 = [v26 BOOLValue];
+      v25 = [parametersCopy objectForKeyedSubscript:kDASSystemContextKeyBypassDataBudget];
+      bOOLValue4 = [v25 BOOLValue];
 
       if ((bOOLValue4 & 1) == 0 && (unsignedIntegerValue & 8) != 0)
       {
@@ -465,8 +463,8 @@ LABEL_28:
           goto LABEL_29;
         }
 
-        v28 = 138412290;
-        v29 = taskCopy;
+        v27 = 138412290;
+        v28 = taskCopy;
         v23 = "Task %@: Out of data budget returning NO";
         goto LABEL_28;
       }
@@ -487,27 +485,24 @@ LABEL_28:
   v22 = 0;
 LABEL_31:
 
-  v24 = *MEMORY[0x1E69E9840];
   return v22;
 }
 
 - (void)updateSystemConstraintsWithParameters:(id)parameters
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   parametersCopy = parameters;
   dasSystemContextLog = [(_DASSystemContext *)self dasSystemContextLog];
   if (os_log_type_enabled(dasSystemContextLog, OS_LOG_TYPE_DEFAULT))
   {
     v6 = [parametersCopy description];
-    v9 = 138412290;
-    v10 = v6;
-    _os_log_impl(&dword_1B6E2F000, dasSystemContextLog, OS_LOG_TYPE_DEFAULT, "Updating system constraints to: %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v6;
+    _os_log_impl(&dword_1B6E2F000, dasSystemContextLog, OS_LOG_TYPE_DEFAULT, "Updating system constraints to: %@", &v8, 0xCu);
   }
 
   v7 = +[_DASScheduler sharedScheduler];
   [v7 updateSystemConstraintsWithParameters:parametersCopy];
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)addNotificationHandlerForTaskName:(id)name withPriority:(unint64_t)priority withParameters:(id)parameters withHandler:(id)handler
@@ -560,30 +555,30 @@ LABEL_31:
 
 - (void)removeNotificationHandlerForTaskName:(id)name
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   nameCopy = name;
   nameCopy = [MEMORY[0x1E696AEC0] stringWithFormat:@"com.apple.das.systemcontext.%@", nameCopy];
   selfCopy = self;
   objc_sync_enter(selfCopy);
-  v18 = 0u;
-  v19 = 0u;
-  v16 = 0u;
   v17 = 0u;
+  v18 = 0u;
+  v15 = 0u;
+  v16 = 0u;
   v7 = selfCopy->_registrations;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v8)
   {
-    v9 = *v17;
+    v9 = *v16;
 LABEL_3:
     v10 = 0;
     while (1)
     {
-      if (*v17 != v9)
+      if (*v16 != v9)
       {
         objc_enumerationMutation(v7);
       }
 
-      v11 = *(*(&v16 + 1) + 8 * v10);
+      v11 = *(*(&v15 + 1) + 8 * v10);
       identifier = [v11 identifier];
       v13 = [identifier isEqualToString:nameCopy];
 
@@ -594,7 +589,7 @@ LABEL_3:
 
       if (v8 == ++v10)
       {
-        v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v16 objects:v20 count:16];
+        v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v15 objects:v19 count:16];
         if (v8)
         {
           goto LABEL_3;
@@ -625,17 +620,14 @@ LABEL_9:
 LABEL_12:
     objc_sync_exit(selfCopy);
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 - (void)allowDiscretionaryWorkForBackgroundTask:(uint64_t)a1 withParameters:(NSObject *)a2 .cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x1E69E9840];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_1B6E2F000, a2, OS_LOG_TYPE_DEBUG, "Task %@: Returning YES", &v3, 0xCu);
-  v2 = *MEMORY[0x1E69E9840];
+  v4 = *MEMORY[0x1E69E9840];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_1B6E2F000, a2, OS_LOG_TYPE_DEBUG, "Task %@: Returning YES", &v2, 0xCu);
 }
 
 @end

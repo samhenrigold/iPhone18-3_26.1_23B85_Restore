@@ -217,7 +217,7 @@ void __43__FBServiceFacilityServer__initWithDomain___block_invoke(uint64_t a1, v
   v11 = remoteToken;
   if (remoteToken)
   {
-    [remoteToken realToken];
+    objc_msgSend_realToken(remoteToken);
   }
 
   else
@@ -307,7 +307,7 @@ void __69__FBServiceFacilityServer_listener_didReceiveConnection_withContext___b
 
 - (void)addFacility:(id)facility
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   facilityCopy = facility;
   identifier = [facilityCopy identifier];
   if (!identifier)
@@ -337,24 +337,22 @@ void __69__FBServiceFacilityServer_listener_didReceiveConnection_withContext___b
     v11 = objc_opt_class();
     v12 = NSStringFromClass(v11);
     succinctDescription = [facilityCopy succinctDescription];
-    v15 = 138543618;
-    v16 = v12;
-    v17 = 2114;
-    v18 = succinctDescription;
-    _os_log_impl(&dword_1A89DD000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Adding facility: %{public}@", &v15, 0x16u);
+    v14 = 138543618;
+    v15 = v12;
+    v16 = 2114;
+    v17 = succinctDescription;
+    _os_log_impl(&dword_1A89DD000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] Adding facility: %{public}@", &v14, 0x16u);
   }
 
   [(NSMutableDictionary *)self->_lock_facilitiesByIdentifier setObject:facilityCopy forKey:v7];
   [(NSMutableDictionary *)self->_lock_suspendedFacilitiesByIdentifier setObject:facilityCopy forKey:v7];
   [(FBServiceFacilityServer *)self _lock_evaluateSuspendedFacility:facilityCopy];
   os_unfair_lock_unlock(&self->_lock);
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)removeFacility:(id)facility
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   facilityCopy = facility;
   identifier = [facilityCopy identifier];
   if (identifier)
@@ -365,11 +363,11 @@ void __69__FBServiceFacilityServer_listener_didReceiveConnection_withContext___b
       v7 = objc_opt_class();
       v8 = NSStringFromClass(v7);
       succinctDescription = [facilityCopy succinctDescription];
-      v11 = 138543618;
-      v12 = v8;
-      v13 = 2114;
-      v14 = succinctDescription;
-      _os_log_impl(&dword_1A89DD000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Removing facility: %{public}@", &v11, 0x16u);
+      v10 = 138543618;
+      v11 = v8;
+      v12 = 2114;
+      v13 = succinctDescription;
+      _os_log_impl(&dword_1A89DD000, v6, OS_LOG_TYPE_DEFAULT, "[%{public}@] Removing facility: %{public}@", &v10, 0x16u);
     }
 
     os_unfair_lock_lock(&self->_lock);
@@ -377,13 +375,11 @@ void __69__FBServiceFacilityServer_listener_didReceiveConnection_withContext___b
     [(NSMutableDictionary *)self->_lock_suspendedFacilitiesByIdentifier removeObjectForKey:identifier];
     os_unfair_lock_unlock(&self->_lock);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 - (void)noteMilestoneReached:(id)reached
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   reachedCopy = reached;
   v5 = FBLogCommon();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
@@ -391,51 +387,50 @@ void __69__FBServiceFacilityServer_listener_didReceiveConnection_withContext___b
     v6 = objc_opt_class();
     v7 = NSStringFromClass(v6);
     *buf = 138543618;
-    v20 = v7;
-    v21 = 2114;
-    v22 = reachedCopy;
+    v19 = v7;
+    v20 = 2114;
+    v21 = reachedCopy;
     _os_log_impl(&dword_1A89DD000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Milestone reached: %{public}@", buf, 0x16u);
   }
 
   os_unfair_lock_lock(&self->_lock);
   [(NSMutableSet *)self->_lock_completedMilestones addObject:reachedCopy];
-  v16 = 0u;
-  v17 = 0u;
-  v14 = 0u;
   v15 = 0u;
+  v16 = 0u;
+  v13 = 0u;
+  v14 = 0u;
   allValues = [(NSMutableDictionary *)self->_lock_suspendedFacilitiesByIdentifier allValues];
-  v9 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(allValues);
         }
 
-        [(FBServiceFacilityServer *)self _lock_evaluateSuspendedFacility:*(*(&v14 + 1) + 8 * v12++)];
+        [(FBServiceFacilityServer *)self _lock_evaluateSuspendedFacility:*(*(&v13 + 1) + 8 * v12++)];
       }
 
       while (v10 != v12);
-      v10 = [allValues countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [allValues countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
 
   os_unfair_lock_unlock(&self->_lock);
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_facilityQueue_facility:(id)queue_facility handleMessage:(id)message client:(id)client
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   clientCopy = client;
   v9 = *MEMORY[0x1E699F9E8];
@@ -450,13 +445,13 @@ void __69__FBServiceFacilityServer_listener_didReceiveConnection_withContext___b
       v14 = NSStringFromClass(v13);
       prettyProcessDescription = [clientCopy prettyProcessDescription];
       facilityID = [clientCopy facilityID];
-      v24 = 138543874;
-      v25 = v14;
-      v26 = 2114;
-      v27 = prettyProcessDescription;
-      v28 = 2114;
-      v29 = facilityID;
-      _os_log_impl(&dword_1A89DD000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Client %{public}@ connected to service %{public}@", &v24, 0x20u);
+      v23 = 138543874;
+      v24 = v14;
+      v25 = 2114;
+      v26 = prettyProcessDescription;
+      v27 = 2114;
+      v28 = facilityID;
+      _os_log_impl(&dword_1A89DD000, v12, OS_LOG_TYPE_DEFAULT, "[%{public}@] Client %{public}@ connected to service %{public}@", &v23, 0x20u);
     }
 
     createReply = [messageCopy createReply];
@@ -488,8 +483,6 @@ void __69__FBServiceFacilityServer_listener_didReceiveConnection_withContext___b
     v22 = [MEMORY[0x1E699FCF8] messageWithBSXPCMessage:messageCopy ownReply:1];
     [queue_facilityCopy queue_handleMessage:v22 withType:v21 fromClient:clientCopy];
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_lock_areFacilityPrerequisitesSatisfied:(id)satisfied
@@ -513,7 +506,7 @@ void __69__FBServiceFacilityServer_listener_didReceiveConnection_withContext___b
 
 - (void)_lock_evaluateSuspendedFacility:(id)facility
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   facilityCopy = facility;
   os_unfair_lock_assert_owner(&self->_lock);
   if ([(FBServiceFacilityServer *)self _lock_areFacilityPrerequisitesSatisfied:facilityCopy])
@@ -525,32 +518,32 @@ void __69__FBServiceFacilityServer_listener_didReceiveConnection_withContext___b
       v7 = NSStringFromClass(v6);
       identifier = [facilityCopy identifier];
       *buf = 138543618;
-      v26 = v7;
-      v27 = 2114;
-      v28 = identifier;
+      v25 = v7;
+      v26 = 2114;
+      v27 = identifier;
       _os_log_impl(&dword_1A89DD000, v5, OS_LOG_TYPE_DEFAULT, "[%{public}@] Starting facility: %{public}@", buf, 0x16u);
     }
 
-    v22 = 0u;
-    v23 = 0u;
-    v20 = 0u;
     v21 = 0u;
+    v22 = 0u;
+    v19 = 0u;
+    v20 = 0u;
     allObjects = [(NSMutableSet *)self->_lock_pendingConnects allObjects];
-    v10 = [allObjects countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v10 = [allObjects countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v21;
+      v12 = *v20;
       do
       {
         for (i = 0; i != v11; ++i)
         {
-          if (*v21 != v12)
+          if (*v20 != v12)
           {
             objc_enumerationMutation(allObjects);
           }
 
-          v14 = *(*(&v20 + 1) + 8 * i);
+          v14 = *(*(&v19 + 1) + 8 * i);
           facility = [v14 facility];
 
           if (facility == facilityCopy)
@@ -562,7 +555,7 @@ void __69__FBServiceFacilityServer_listener_didReceiveConnection_withContext___b
           }
         }
 
-        v11 = [allObjects countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v11 = [allObjects countByEnumeratingWithState:&v19 objects:v23 count:16];
       }
 
       while (v11);
@@ -572,50 +565,22 @@ void __69__FBServiceFacilityServer_listener_didReceiveConnection_withContext___b
     identifier2 = [facilityCopy identifier];
     [(NSMutableDictionary *)lock_suspendedFacilitiesByIdentifier removeObjectForKey:identifier2];
   }
-
-  v19 = *MEMORY[0x1E69E9840];
 }
 
 void __41__FBServiceFacilityServer_sharedInstance__block_invoke_cold_1(uint64_t a1)
 {
   v2 = MEMORY[0x1E696AEC0];
   v3 = [MEMORY[0x1E699FCB0] identifier];
-  [MEMORY[0x1E698F508] bootstrapConfiguration];
-  v16 = v15 = v3;
-  v4 = [v2 stringWithFormat:@"must have a valid domain for %@ : bootstrapConfiguration = %@"];
+  v4 = [MEMORY[0x1E698F508] bootstrapConfiguration];
+  v5 = [v2 stringWithFormat:@"must have a valid domain for %@ : bootstrapConfiguration = %@", v3, v4];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v5 = NSStringFromSelector(*(a1 + 32));
-    v6 = *(a1 + 40);
+    v6 = NSStringFromSelector(*(a1 + 32));
     v7 = objc_opt_class();
     v8 = NSStringFromClass(v7);
-    v9 = *(a1 + 40);
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16, 2u);
-  }
-
-  [v4 UTF8String];
-  _bs_set_crash_log_message();
-  __break(0);
-}
-
-void __47__FBServiceFacilityServer_sharedInstanceDomain__block_invoke_cold_1(uint64_t a1, uint64_t a2)
-{
-  v4 = MEMORY[0x1E696AEC0];
-  v16 = [MEMORY[0x1E699FCB0] identifier];
-  v17 = a1;
-  v5 = [v4 stringWithFormat:@"must have one and only one domain specify %@ : domains=%@"];
-
-  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
-  {
-    v6 = NSStringFromSelector(*(a2 + 32));
-    v7 = *(a2 + 40);
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
-    v10 = *(a2 + 40);
-    OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v11, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v12, v13, v14, v15, v16, v17, 2u);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15);
   }
 
   [v5 UTF8String];
@@ -623,31 +588,49 @@ void __47__FBServiceFacilityServer_sharedInstanceDomain__block_invoke_cold_1(uin
   __break(0);
 }
 
-void __47__FBServiceFacilityServer_sharedInstanceDomain__block_invoke_cold_2(uint64_t a1)
+void __47__FBServiceFacilityServer_sharedInstanceDomain__block_invoke_cold_1(uint64_t a1, uint64_t a2)
 {
-  v2 = MEMORY[0x1E696AEC0];
-  v14 = [MEMORY[0x1E699FCB0] identifier];
-  v3 = [v2 stringWithFormat:@"if we own the defaultShellMachName then %@ must be registered there"];
+  v4 = MEMORY[0x1E696AEC0];
+  v5 = [MEMORY[0x1E699FCB0] identifier];
+  v6 = [v4 stringWithFormat:@"must have one and only one domain specify %@ : domains=%@", v5, a1];
 
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v4 = NSStringFromSelector(*(a1 + 32));
-    v5 = *(a1 + 40);
-    v6 = objc_opt_class();
-    v7 = NSStringFromClass(v6);
-    v8 = *(a1 + 40);
+    v7 = NSStringFromSelector(*(a2 + 32));
+    v8 = objc_opt_class();
+    v9 = NSStringFromClass(v8);
     OUTLINED_FUNCTION_2_0();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v9, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v10, v11, v12, v13, v14, v15, 2u);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v10, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v11, v12, v13, v14, v15, v16);
   }
 
-  [v3 UTF8String];
+  [v6 UTF8String];
+  _bs_set_crash_log_message();
+  __break(0);
+}
+
+void __47__FBServiceFacilityServer_sharedInstanceDomain__block_invoke_cold_2(uint64_t a1)
+{
+  v2 = MEMORY[0x1E696AEC0];
+  v3 = [MEMORY[0x1E699FCB0] identifier];
+  v4 = [v2 stringWithFormat:@"if we own the defaultShellMachName then %@ must be registered there", v3];
+
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v5 = NSStringFromSelector(*(a1 + 32));
+    v6 = objc_opt_class();
+    v7 = NSStringFromClass(v6);
+    OUTLINED_FUNCTION_2_0();
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
+  }
+
+  [v4 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
 - (void)_initWithDomain:(char *)a1 .cold.1(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"domain"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -655,7 +638,7 @@ void __47__FBServiceFacilityServer_sharedInstanceDomain__block_invoke_cold_2(uin
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"domain", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -665,7 +648,7 @@ void __47__FBServiceFacilityServer_sharedInstanceDomain__block_invoke_cold_2(uin
 
 - (void)addFacility:(uint64_t)a1 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"duplicate facility with identifier %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"duplicate facility with identifier %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -673,7 +656,7 @@ void __47__FBServiceFacilityServer_sharedInstanceDomain__block_invoke_cold_2(uin
     v4 = OUTLINED_FUNCTION_12();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -683,7 +666,7 @@ void __47__FBServiceFacilityServer_sharedInstanceDomain__block_invoke_cold_2(uin
 
 - (void)addFacility:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[facility queue] != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -691,7 +674,7 @@ void __47__FBServiceFacilityServer_sharedInstanceDomain__block_invoke_cold_2(uin
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"[facility queue] != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -701,7 +684,7 @@ void __47__FBServiceFacilityServer_sharedInstanceDomain__block_invoke_cold_2(uin
 
 - (void)addFacility:(char *)a1 .cold.3(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"identifier != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -709,7 +692,7 @@ void __47__FBServiceFacilityServer_sharedInstanceDomain__block_invoke_cold_2(uin
     v3 = OUTLINED_FUNCTION_12();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_1();
-    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"identifier != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_0(&dword_1A89DD000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];

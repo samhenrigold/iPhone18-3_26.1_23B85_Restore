@@ -3,6 +3,7 @@
 - (BOOL)closeDataPipes;
 - (BOOL)isPacketAvailable;
 - (EAPacket)consumeNextOutPacket;
+- (IAPSessionBasic)initWithClient:(id)client connectionID:(unsigned int)d protocolID:(unsigned __int8)iD sessionID:(unsigned __int16 *)sessionID;
 - (unint64_t)_sessionPacketsFromAppBytesFree;
 - (unsigned)sendBytesToApp:(const char *)app length:(int)length;
 - (void)_openPipeFromApp;
@@ -17,17 +18,150 @@
 
 @implementation IAPSessionBasic
 
+- (IAPSessionBasic)initWithClient:(id)client connectionID:(unsigned int)d protocolID:(unsigned __int8)iD sessionID:(unsigned __int16 *)sessionID
+{
+  v6 = *&d;
+  v14.receiver = self;
+  v14.super_class = IAPSessionBasic;
+  v8 = [(IAPSession *)&v14 initWithClient:client connectionID:*&d protocolID:iD sessionID:sessionID];
+  if (!v8)
+  {
+    return v8;
+  }
+
+  result = sub_1000CD4A4(v6, v7);
+  if (!result || (result & 7) != 0)
+  {
+    goto LABEL_31;
+  }
+
+  v10 = sub_100018DC0(result);
+  result = sub_1000D6C34(v10, 0);
+  if (result)
+  {
+    if (result <= 0x10000)
+    {
+      if (result >= 0x3C3D)
+      {
+        v13 = 15;
+        do
+        {
+          v12 = (0x40000 / result) & ~v13;
+          if (v13 < 3)
+          {
+            break;
+          }
+
+          v13 >>= 1;
+        }
+
+        while (!v12);
+        if ((&v8->_numberOfSessionPacketsFromApp & 3) == 0)
+        {
+          v8->_numberOfSessionPacketsFromApp = v12;
+          if (v12 > 3)
+          {
+LABEL_17:
+            if ((&v8->_numberOfSessionPacketsFromAppMask & 3) == 0)
+            {
+              v8->_numberOfSessionPacketsFromAppMask = v12 - 1;
+              v8->_openPipeFromAppCompleted = 0;
+              v8->_openPipeToAppCompleted = 0;
+              result = objc_alloc_init(NSCondition);
+              if ((&v8->_sessionPacketsFromAppCondition & 7) == 0)
+              {
+                v8->_sessionPacketsFromAppCondition = result;
+                result = malloc_type_malloc(8 * v8->_numberOfSessionPacketsFromApp, 0x2004093837F09uLL);
+                if ((&v8->_sessionPacketsFromApp & 7) == 0)
+                {
+                  v8->_sessionPacketsFromApp = result;
+                  if (v8->_numberOfSessionPacketsFromApp)
+                  {
+                    operator new();
+                  }
+
+                  if ((&v8->_sessionPacketsFromAppHead & 3) == 0)
+                  {
+                    v8->_sessionPacketsFromAppHead = 0;
+                    if ((&v8->_sessionPacketsFromAppReady & 3) == 0)
+                    {
+                      v8->_sessionPacketsFromAppReady = 0;
+                      if ((&v8->_sessionPacketsFromAppTail & 3) == 0)
+                      {
+                        v8->_sessionPacketsFromAppTail = 0;
+                        if ((&v8->_sessionPacketsBytesRemainingCached & 7) == 0)
+                        {
+                          v8->_sessionPacketsBytesRemainingCached = 0xFFFFFFFFLL;
+                          result = objc_alloc_init(NSCondition);
+                          if ((&v8->_sessionDataFromAccCondition & 7) == 0)
+                          {
+                            v8->_sessionDataFromAccCondition = result;
+                            result = [[NSMutableData alloc] initWithCapacity:0x40000];
+                            if ((&v8->_sessionDataFromAcc & 7) == 0)
+                            {
+                              v8->_sessionDataFromAcc = result;
+                              [(IAPSession *)v8 _registerListenSocket];
+                              return v8;
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+
+            goto LABEL_31;
+          }
+
+          __break(0x5518u);
+        }
+      }
+
+      else
+      {
+        p_numberOfSessionPacketsFromApp = &v8->_numberOfSessionPacketsFromApp;
+        if ((&v8->_numberOfSessionPacketsFromApp & 3) == 0)
+        {
+          v12 = 16;
+          goto LABEL_11;
+        }
+      }
+    }
+
+    else
+    {
+      p_numberOfSessionPacketsFromApp = &v8->_numberOfSessionPacketsFromApp;
+      if ((&v8->_numberOfSessionPacketsFromApp & 3) == 0)
+      {
+        v12 = 4;
+LABEL_11:
+        *p_numberOfSessionPacketsFromApp = v12;
+        goto LABEL_17;
+      }
+    }
+
+LABEL_31:
+    __break(0x5516u);
+    __break(0x5513u);
+  }
+
+  __break(0x5503u);
+  return result;
+}
+
 - (void)shuttingDownSession
 {
   if (((self + 16) & 7) == 0 && ((self + 24) & 3) == 0 && ((self + 30) & 1) == 0)
   {
     sub_1000DDE90(3u, @"%s:%s clientID=%@ connectionID=0x%x protocolID=%d sessionID=%d", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAPSession.mm", "[IAPSessionBasic shuttingDownSession]", self->super._client, self->super._connectionID, self->super._protocolID, self->super._sessionID);
-    v3 = sub_10004AB10();
-    if (v3)
+    v5 = sub_10004AB10(v3, v4);
+    if (v5)
     {
-      if ((v3 & 7) == 0)
+      if ((v5 & 7) == 0)
       {
-        sub_10004B0D4(v3, self->super._connectionID, self->super._sessionID);
+        sub_10004B0D4(v5, self->super._connectionID, self->super._sessionID);
         p_sessionPacketsFromAppCondition = &self->_sessionPacketsFromAppCondition;
         if ((&self->_sessionPacketsFromAppCondition & 7) == 0)
         {
@@ -36,59 +170,59 @@
           if ((&self->_numberOfSessionPacketsFromApp & 3) == 0)
           {
             p_sessionPacketsFromApp = &self->_sessionPacketsFromApp;
-            v7 = (&self->_sessionPacketsFromApp & 7) == 0;
+            v9 = (&self->_sessionPacketsFromApp & 7) == 0;
             if (*p_numberOfSessionPacketsFromApp)
             {
-              v8 = 0;
-              while (v7)
+              v10 = 0;
+              while (v9)
               {
-                v9 = *p_sessionPacketsFromApp;
-                v10 = ~*p_sessionPacketsFromApp;
-                if (8 * v8 > v10)
+                v11 = *p_sessionPacketsFromApp;
+                v12 = ~*p_sessionPacketsFromApp;
+                if (8 * v10 > v12)
                 {
                   goto LABEL_29;
                 }
 
-                v11 = &v9[8 * v8];
-                if (!v9 || (v11 & 7) != 0)
+                v13 = &v11[8 * v10];
+                if (!v11 || (v13 & 7) != 0)
                 {
                   break;
                 }
 
-                v13 = *v11;
-                if (*v11)
+                v15 = *v13;
+                if (*v13)
                 {
-                  if ((v13 & 7) != 0)
+                  if ((v15 & 7) != 0)
                   {
                     break;
                   }
 
-                  (*(*v13 + 8))(v13);
-                  v9 = *p_sessionPacketsFromApp;
-                  v10 = ~*p_sessionPacketsFromApp;
+                  (*(*v15 + 8))(v15);
+                  v11 = *p_sessionPacketsFromApp;
+                  v12 = ~*p_sessionPacketsFromApp;
                 }
 
-                if (8 * v8 > v10)
+                if (8 * v10 > v12)
                 {
                   goto LABEL_29;
                 }
 
-                if (!v9)
+                if (!v11)
                 {
                   break;
                 }
 
-                v14 = &v9[8 * v8];
-                if ((v14 & 7) != 0)
+                v16 = &v11[8 * v10];
+                if ((v16 & 7) != 0)
                 {
                   break;
                 }
 
-                *v14 = 0;
-                ++v8;
+                *v16 = 0;
+                ++v10;
                 p_sessionPacketsFromApp = &self->_sessionPacketsFromApp;
-                v7 = (&self->_sessionPacketsFromApp & 7) == 0;
-                if (v8 >= *p_numberOfSessionPacketsFromApp)
+                v9 = (&self->_sessionPacketsFromApp & 7) == 0;
+                if (v10 >= *p_numberOfSessionPacketsFromApp)
                 {
                   goto LABEL_24;
                 }
@@ -98,7 +232,7 @@
             else
             {
 LABEL_24:
-              if (v7)
+              if (v9)
               {
                 free(*p_sessionPacketsFromApp);
                 *p_sessionPacketsFromApp = 0;
@@ -117,9 +251,9 @@ LABEL_24:
                     [(NSCondition *)*p_sessionDataFromAccCondition unlock];
 
                     *p_sessionDataFromAccCondition = 0;
-                    v17.receiver = self;
-                    v17.super_class = IAPSessionBasic;
-                    [(IAPSession *)&v17 shuttingDownSession];
+                    v19.receiver = self;
+                    v19.super_class = IAPSessionBasic;
+                    [(IAPSession *)&v19 shuttingDownSession];
                     return;
                   }
                 }
@@ -186,9 +320,9 @@ LABEL_29:
 
   v5 = [[NSThread alloc] initWithTarget:self selector:"_writeSessionDataFromAccThread" object:0];
   *p_sessionDataFromAccThread = v5;
-  [(NSThread *)v5 start];
-  v6 = sub_10004AB10();
-  if (!v6 || (v6 & 7) != 0 || (sub_10004B064(v6, self->super._connectionID, self->super._sessionID, self->super._protocolID), v7 = [[NSThread alloc] initWithTarget:self selector:"_readSessionDataFromAppThread" object:0], (&self->_sessionPacketsFromAppThread & 7) != 0))
+  start = [(NSThread *)v5 start];
+  v8 = sub_10004AB10(start, v7);
+  if (!v8 || (v8 & 7) != 0 || (sub_10004B064(v8, self->super._connectionID, self->super._sessionID, self->super._protocolID), v9 = [[NSThread alloc] initWithTarget:self selector:"_readSessionDataFromAppThread" object:0], (&self->_sessionPacketsFromAppThread & 7) != 0))
   {
 LABEL_16:
     __break(0x5516u);
@@ -197,9 +331,9 @@ LABEL_17:
     return;
   }
 
-  self->_sessionPacketsFromAppThread = v7;
+  self->_sessionPacketsFromAppThread = v9;
 
-  [(NSThread *)v7 start];
+  [(NSThread *)v9 start];
 }
 
 - (void)_openPipeFromApp
@@ -244,7 +378,7 @@ LABEL_17:
   }
 
   v5 = [[NSThread alloc] initWithTarget:self selector:"_writeSessionDataFromAccThread" object:0];
-  if ((&self->_sessionDataFromAccThread & 7) != 0 || (self->_sessionDataFromAccThread = v5, [(NSThread *)v5 start], (v6 = sub_10004AB10()) == 0) || (v6 & 7) != 0)
+  if ((&self->_sessionDataFromAccThread & 7) != 0 || (self->_sessionDataFromAccThread = v5, v6 = [(NSThread *)v5 start], (v8 = sub_10004AB10(v6, v7)) == 0) || (v8 & 7) != 0)
   {
 LABEL_16:
     __break(0x5516u);
@@ -253,11 +387,11 @@ LABEL_17:
     return;
   }
 
-  sub_10004B064(v6, self->super._connectionID, self->super._sessionID, self->super._protocolID);
-  v7 = [[NSThread alloc] initWithTarget:self selector:"_readSessionDataFromAppThread" object:0];
-  *p_sessionPacketsFromAppThread = v7;
+  sub_10004B064(v8, self->super._connectionID, self->super._sessionID, self->super._protocolID);
+  v9 = [[NSThread alloc] initWithTarget:self selector:"_readSessionDataFromAppThread" object:0];
+  *p_sessionPacketsFromAppThread = v9;
 
-  [(NSThread *)v7 start];
+  [(NSThread *)v9 start];
 }
 
 - (BOOL)closeDataPipes
@@ -927,14 +1061,14 @@ LABEL_33:
 {
   *&v2 = 0xAAAAAAAAAAAAAAAALL;
   *(&v2 + 1) = 0xAAAAAAAAAAAAAAAALL;
-  *&v61.fds_bits[24] = v2;
-  *&v61.fds_bits[28] = v2;
-  *&v61.fds_bits[16] = v2;
-  *&v61.fds_bits[20] = v2;
-  *&v61.fds_bits[8] = v2;
-  *&v61.fds_bits[12] = v2;
-  *v61.fds_bits = v2;
-  *&v61.fds_bits[4] = v2;
+  *&v58.fds_bits[24] = v2;
+  *&v58.fds_bits[28] = v2;
+  *&v58.fds_bits[16] = v2;
+  *&v58.fds_bits[20] = v2;
+  *&v58.fds_bits[8] = v2;
+  *&v58.fds_bits[12] = v2;
+  *v58.fds_bits = v2;
+  *&v58.fds_bits[4] = v2;
   if (self)
   {
     p_sessionPacketsFromAppThread = &self->_sessionPacketsFromAppThread;
@@ -947,7 +1081,7 @@ LABEL_33:
 
       p_sock = &self->super._sock;
       p_connectionID = &self->super._connectionID;
-      v56 = &self->super._connectionID & 3;
+      v53 = &self->super._connectionID & 3;
       p_sessionID = &self->super._sessionID;
       while ((&self->super._sock & 3) == 0)
       {
@@ -957,17 +1091,17 @@ LABEL_33:
         }
 
         v6 = objc_autoreleasePoolPush();
-        memset(&v61, 0, sizeof(v61));
+        memset(&v58, 0, sizeof(v58));
         v7 = *p_sock;
-        if (__darwin_check_fd_set_overflow(*p_sock, &v61, 0))
+        if (__darwin_check_fd_set_overflow(*p_sock, &v58, 0))
         {
           v8 = v7 >> 5;
-          if (~&v61 < 4 * v8)
+          if (~&v58 < 4 * v8)
           {
             goto LABEL_108;
           }
 
-          v61.fds_bits[v8] |= 1 << v7;
+          v58.fds_bits[v8] |= 1 << v7;
         }
 
         if (__OFADD__(*p_sock, 1))
@@ -975,7 +1109,7 @@ LABEL_33:
           goto LABEL_107;
         }
 
-        v9 = select(*p_sock + 1, &v61, 0, 0, 0);
+        v9 = select(*p_sock + 1, &v58, 0, 0, 0);
         if (![(NSThread *)*p_sessionPacketsFromAppThread isCancelled])
         {
           if (v9 == 1)
@@ -1042,30 +1176,29 @@ LABEL_33:
                       goto LABEL_108;
                     }
 
-                    v21 = *p_sock;
                     if (v18 >= 0x2000)
                     {
-                      v22 = 0x2000;
+                      v21 = 0x2000;
                     }
 
                     else
                     {
-                      v22 = v18;
+                      v21 = v18;
                     }
 
-                    if (v16 >= v22)
+                    if (v16 >= v21)
                     {
-                      v23 = v22;
+                      v22 = v21;
                     }
 
                     else
                     {
-                      v23 = v16;
+                      v22 = v16;
                     }
 
-                    v24 = recv(*p_sock, (v19 + v20), v23, 0);
-                    v25 = v24;
-                    if (v24 == -1)
+                    v23 = recv(*p_sock, (v19 + v20), v22, 0);
+                    v25 = v23;
+                    if (v23 == -1)
                     {
                       v26 = __error();
                       if (!v26 || (v26 & 3) != 0)
@@ -1074,16 +1207,16 @@ LABEL_33:
                       }
 
                       v27 = *v26;
-                      v28 = __error();
-                      v30 = (v28 & 3) == 0 && v28 != 0;
+                      v23 = __error();
+                      v29 = (v23 & 3) == 0 && v23 != 0;
                       if (v27 != 35)
                       {
-                        if (!v30)
+                        if (!v29)
                         {
                           goto LABEL_106;
                         }
 
-                        sub_1000DDEEC(3u, 3, "ERROR - %s:%s - %d error reading data from pipe (errno=%d)\n", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAPSession.mm", "[IAPSessionBasic _readSessionDataFromAppThread]", 793, *v28);
+                        sub_1000DDEEC(3u, 3, "ERROR - %s:%s - %d error reading data from pipe (errno=%d)\n", "/Library/Caches/com.apple.xbs/Sources/iapd/iapd/IAPSession.mm", "[IAPSessionBasic _readSessionDataFromAppThread]", 793, *v23);
 LABEL_79:
                         if ((v17 & 1) == 0)
                         {
@@ -1100,13 +1233,13 @@ LABEL_80:
                         if ((hasSessionPacketFromAppNotificationBeenPosted & 1) == 0)
                         {
                           self->_hasSessionPacketFromAppNotificationBeenPosted = 1;
-                          v44 = sub_10004AB10();
-                          if (!v44 || (v44 & 7) != 0 || v56 || (p_sessionID & 1) != 0)
+                          v43 = sub_10004AB10(v23, v24);
+                          if (!v43 || (v43 & 7) != 0 || v53 || (p_sessionID & 1) != 0)
                           {
                             goto LABEL_106;
                           }
 
-                          sub_10004B11C(v44, *p_connectionID, *p_sessionID);
+                          sub_10004B11C(v43, *p_connectionID, *p_sessionID);
                         }
 
                         if ((&self->_sessionPacketsFromAppTail & 3) != 0)
@@ -1114,59 +1247,58 @@ LABEL_80:
                           goto LABEL_106;
                         }
 
-                        v45 = *p_sessionPacketsFromAppHead;
-                        if (v45 == self->_sessionPacketsFromAppTail)
+                        v44 = *p_sessionPacketsFromAppHead;
+                        if (v44 == self->_sessionPacketsFromAppTail)
                         {
-                          v46 = *p_sessionPacketsFromApp;
-                          v47 = ~*p_sessionPacketsFromApp;
-                          if (8 * v45 > v47)
+                          v45 = *p_sessionPacketsFromApp;
+                          v46 = ~*p_sessionPacketsFromApp;
+                          if (8 * v44 > v46)
                           {
                             goto LABEL_108;
                           }
 
-                          if (!v46)
+                          if (!v45)
                           {
                             goto LABEL_106;
                           }
 
-                          v48 = &v46[v45];
-                          if ((v48 & 7) != 0)
+                          v47 = &v45[v44];
+                          if ((v47 & 7) != 0)
                           {
                             goto LABEL_106;
                           }
 
-                          if (*v48)
+                          if (*v47)
                           {
                             goto LABEL_103;
                           }
 
-                          if ((p_sessionID & 1) != 0 || v56 || (&self->_sessionPacketsFromAppReady & 3) != 0)
+                          if ((p_sessionID & 1) != 0 || v53 || (&self->_sessionPacketsFromAppReady & 3) != 0)
                           {
                             goto LABEL_106;
                           }
 
                           sessionPacketsFromAppReady = self->_sessionPacketsFromAppReady;
-                          v50 = &(*p_sessionPacketsFromApp)[sessionPacketsFromAppReady] + 1 < 0;
-                          if (8 * sessionPacketsFromAppReady > v47)
+                          if (8 * sessionPacketsFromAppReady > v46)
                           {
                             goto LABEL_108;
                           }
 
-                          v51 = &v46[sessionPacketsFromAppReady];
-                          if ((v51 & 7) != 0)
+                          v49 = &v45[sessionPacketsFromAppReady];
+                          if ((v49 & 7) != 0)
                           {
                             goto LABEL_106;
                           }
 
-                          v52 = *v51;
-                          if (v52)
+                          v50 = *v49;
+                          if (v50)
                           {
-                            if ((v52 & 7) != 0)
+                            if ((v50 & 7) != 0)
                             {
                               goto LABEL_106;
                             }
 
-                            var22 = v52->var22;
+                            var22 = v50->var22;
                           }
 
                           else
@@ -1174,70 +1306,71 @@ LABEL_80:
                             var22 = 0;
                           }
 
-                          sub_1000DDE90(3u, @"session data from app buffer is full for session=%d and connectionID=0x%x head=%d(%hhx) tail=%d ready=%d(%hhx, payloadLen=%d)", *p_sessionID, self->super._connectionID, v45, 0, v45, sessionPacketsFromAppReady, v52, var22);
+                          sub_1000DDE90(3u, @"session data from app buffer is full for session=%d and connectionID=0x%x head=%d(%hhx) tail=%d ready=%d(%hhx, payloadLen=%d)", *p_sessionID, self->super._connectionID, v44, 0, v44, sessionPacketsFromAppReady, v50, var22);
                           [(NSCondition *)*p_sessionPacketsFromAppCondition wait];
                         }
 
                         goto LABEL_103;
                       }
 
-                      if (!v30)
+                      if (!v29)
                       {
                         goto LABEL_106;
                       }
 
-                      if (*v28 == 35)
+                      if (*v23 == 35)
                       {
                         goto LABEL_79;
                       }
                     }
 
-                    else if (!v24)
+                    else if (!v23)
                     {
                       goto LABEL_79;
                     }
 
-                    v31 = *(v15 + 128);
-                    v32 = __OFADD__(v31, v25);
-                    v33 = v31 + v25;
-                    if (v32)
+                    v30 = *(v15 + 128);
+                    v31 = __OFADD__(v30, v25);
+                    v32 = v30 + v25;
+                    if (v31)
                     {
                       goto LABEL_107;
                     }
 
-                    if (v33 >= 0x10000)
+                    if (v32 >= 0x10000)
                     {
                       goto LABEL_109;
                     }
 
-                    *(v15 + 128) = v33;
+                    *(v15 + 128) = v32;
                     p_sessionPacketsBytesRemainingCached = &self->_sessionPacketsBytesRemainingCached;
                     if ((&self->_sessionPacketsBytesRemainingCached & 7) != 0)
                     {
                       goto LABEL_106;
                     }
 
-                    v35 = *p_sessionPacketsBytesRemainingCached;
+                    v34 = *p_sessionPacketsBytesRemainingCached;
                     if (*p_sessionPacketsBytesRemainingCached != 0xFFFFFFFF)
                     {
-                      v36 = v35 >= v25;
-                      v37 = v35 - v25;
-                      if (!v36)
+                      v35 = v34 >= v25;
+                      v36 = v34 - v25;
+                      if (!v35)
                       {
                         goto LABEL_110;
                       }
 
-                      *p_sessionPacketsBytesRemainingCached = v37;
+                      *p_sessionPacketsBytesRemainingCached = v36;
                     }
 
-                    v36 = v16 >= v25;
+                    v35 = v16 >= v25;
                     v16 -= v25;
-                    if (!v36)
+                    if (!v35)
                     {
                       goto LABEL_110;
                     }
 
-                    if (!sub_1000B9424(v15))
+                    v23 = sub_1000B9424(v15);
+                    if (!v23)
                     {
                       if (*p_sessionPacketsFromAppHead == -1)
                       {
@@ -1249,42 +1382,42 @@ LABEL_80:
                         goto LABEL_106;
                       }
 
-                      v38 = self->_numberOfSessionPacketsFromAppMask & (*p_sessionPacketsFromAppHead + 1);
-                      *p_sessionPacketsFromAppHead = v38;
-                      v39 = *p_sessionPacketsFromApp;
-                      if (__CFADD__(*p_sessionPacketsFromApp, 8 * v38))
+                      v37 = self->_numberOfSessionPacketsFromAppMask & (*p_sessionPacketsFromAppHead + 1);
+                      *p_sessionPacketsFromAppHead = v37;
+                      v38 = *p_sessionPacketsFromApp;
+                      if (__CFADD__(*p_sessionPacketsFromApp, 8 * v37))
                       {
                         goto LABEL_108;
                       }
 
-                      if (!v39)
+                      if (!v38)
                       {
                         goto LABEL_106;
                       }
 
-                      v40 = &v39[v38];
-                      if ((v40 & 7) != 0)
+                      v39 = &v38[v37];
+                      if ((v39 & 7) != 0)
                       {
                         goto LABEL_106;
                       }
 
-                      v41 = self->_hasSessionPacketFromAppNotificationBeenPosted;
-                      if (v41 >= 2)
+                      v40 = self->_hasSessionPacketFromAppNotificationBeenPosted;
+                      if (v40 >= 2)
                       {
                         goto LABEL_111;
                       }
 
-                      v15 = *v40;
-                      if ((v41 & 1) == 0)
+                      v15 = *v39;
+                      if ((v40 & 1) == 0)
                       {
                         self->_hasSessionPacketFromAppNotificationBeenPosted = 1;
-                        v42 = sub_10004AB10();
-                        if (!v42 || (v42 & 7) != 0 || v56 || (p_sessionID & 1) != 0)
+                        v41 = sub_10004AB10(0, v24);
+                        if (!v41 || (v41 & 7) != 0 || v53 || (p_sessionID & 1) != 0)
                         {
                           goto LABEL_106;
                         }
 
-                        sub_10004B11C(v42, *p_connectionID, *p_sessionID);
+                        v23 = sub_10004B11C(v41, *p_connectionID, *p_sessionID);
                       }
                     }
 
@@ -1319,7 +1452,6 @@ LABEL_103:
                 break;
               }
 
-              v54 = *v10;
               syslog(4, "ERROR - %s:%s - %d error waiting for read data, errno = %d");
             }
           }
@@ -1559,22 +1691,22 @@ LABEL_21:
     [(NSCondition *)*p_sessionDataFromAccCondition signal];
   }
 
-  [(NSCondition *)*p_sessionDataFromAccCondition unlock];
-  v13 = v7 ^ 1;
+  unlock = [(NSCondition *)*p_sessionDataFromAccCondition unlock];
+  v15 = v7 ^ 1;
   if (v5 < 0x40000)
   {
-    v13 = 1;
+    v15 = 1;
   }
 
-  if ((v13 & 1) == 0)
+  if ((v15 & 1) == 0)
   {
-    v14 = sub_10004AB10();
-    if (v14 && (v14 & 7) == 0 && (&self->super._connectionID & 3) == 0 && ((self + 30) & 1) == 0)
+    v16 = sub_10004AB10(unlock, v14);
+    if (v16 && (v16 & 7) == 0 && (&self->super._connectionID & 3) == 0 && ((self + 30) & 1) == 0)
     {
-      v15 = self->super._connectionID;
-      v16 = self->super._sessionID;
+      v17 = self->super._connectionID;
+      v18 = self->super._sessionID;
 
-      sub_10004B164(v14, v15, v16);
+      sub_10004B164(v16, v17, v18);
       return;
     }
 

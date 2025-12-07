@@ -98,9 +98,12 @@ void __47__AVTInMemoryResourceCache_performStorageWork___block_invoke(uint64_t a
 
 uint64_t __63__AVTInMemoryResourceCache_resourceExistsInCacheForItem_scope___block_invoke(uint64_t a1, void *a2)
 {
-  *(*(*(a1 + 40) + 8) + 40) = [a2 objectForKey:*(a1 + 32)];
+  v3 = [a2 objectForKey:*(a1 + 32)];
+  v4 = *(*(a1 + 40) + 8);
+  v5 = *(v4 + 40);
+  *(v4 + 40) = v3;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v3, v5);
 }
 
 - (id)_resourceForItem:(id)item scope:(id)scope cacheMissHandler:(id)handler
@@ -172,9 +175,12 @@ uint64_t __68__AVTInMemoryResourceCache__resourceForItem_scope_cacheMissHandler_
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  *(*(a1[6] + 8) + 40) = [*(*(a1[5] + 8) + 40) resource];
+  v6 = [*(*(a1[5] + 8) + 40) resource];
+  v7 = *(a1[6] + 8);
+  v8 = *(v7 + 40);
+  *(v7 + 40) = v6;
 
-  return MEMORY[0x1EEE66BB8]();
+  return MEMORY[0x1EEE66BB8](v6, v8);
 }
 
 void __68__AVTInMemoryResourceCache__resourceForItem_scope_cacheMissHandler___block_invoke_2(uint64_t a1, void *a2)

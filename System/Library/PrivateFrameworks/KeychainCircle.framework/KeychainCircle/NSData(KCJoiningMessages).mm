@@ -15,8 +15,7 @@
   {
     v10 = [MEMORY[0x277CBEB28] dataWithLength:v9];
     mutableBytes = [v10 mutableBytes];
-    [v10 length];
-    if (encode_seq_string_data(v7, v8, a5, mutableBytes) == mutableBytes)
+    if (encode_seq_string_data(v7, v8, a5, mutableBytes, mutableBytes + [v10 length]) == mutableBytes)
     {
       v17 = v10;
     }
@@ -45,8 +44,7 @@
   {
     v10 = [MEMORY[0x277CBEB28] dataWithLength:v9];
     mutableBytes = [v10 mutableBytes];
-    [v10 length];
-    if (encode_seq_data_data(v7, v8) == mutableBytes)
+    if (encode_seq_data_data(v7, v8, a5, mutableBytes, mutableBytes + [v10 length]) == mutableBytes)
     {
       v17 = v10;
     }

@@ -42,69 +42,67 @@
 
 - (void)add:(id)add
 {
-  v20 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   addCopy = add;
-  v5 = __ABPKLogSharedInstance();
+  v5 = __ABPKLogSharedInstance(addCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     capacity = self->_capacity;
-    v18 = 134217984;
-    v19 = capacity;
-    _os_log_impl(&dword_23EDDC000, v5, OS_LOG_TYPE_DEBUG, " Circular buffer capacity: %lu ", &v18, 0xCu);
+    v19 = 134217984;
+    v20 = capacity;
+    _os_log_impl(&dword_23EDDC000, v5, OS_LOG_TYPE_DEBUG, " Circular buffer capacity: %lu ", &v19, 0xCu);
   }
 
-  v7 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+  v8 = __ABPKLogSharedInstance(v7);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
   {
-    v8 = [(NSMutableArray *)self->_array count];
-    v18 = 134217984;
-    v19 = v8;
-    _os_log_impl(&dword_23EDDC000, v7, OS_LOG_TYPE_DEBUG, " Circular buffer count: %lu ", &v18, 0xCu);
+    v9 = [(NSMutableArray *)self->_array count];
+    v19 = 134217984;
+    v20 = v9;
+    _os_log_impl(&dword_23EDDC000, v8, OS_LOG_TYPE_DEBUG, " Circular buffer count: %lu ", &v19, 0xCu);
   }
 
-  v9 = [(NSMutableArray *)self->_array count];
-  v10 = self->_capacity;
-  v11 = __ABPKLogSharedInstance();
-  v12 = os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG);
-  if (v9 == v10)
+  v10 = [(NSMutableArray *)self->_array count];
+  v11 = self->_capacity;
+  v12 = __ABPKLogSharedInstance(v10);
+  v13 = os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG);
+  if (v10 == v11)
   {
-    if (v12)
+    if (v13)
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_DEBUG, " Circular buffer full ", &v18, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_DEBUG, " Circular buffer full ", &v19, 2u);
     }
 
-    v13 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+    v15 = __ABPKLogSharedInstance(v14);
+    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
     {
-      LOWORD(v18) = 0;
-      _os_log_impl(&dword_23EDDC000, v13, OS_LOG_TYPE_DEBUG, " Removing first element ", &v18, 2u);
+      LOWORD(v19) = 0;
+      _os_log_impl(&dword_23EDDC000, v15, OS_LOG_TYPE_DEBUG, " Removing first element ", &v19, 2u);
     }
 
-    [(NSMutableArray *)self->_array removeObjectAtIndex:0];
-    v11 = __ABPKLogSharedInstance();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    v12 = __ABPKLogSharedInstance([(NSMutableArray *)self->_array removeObjectAtIndex:0]);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      v14 = [(NSMutableArray *)self->_array count];
-      v18 = 134217984;
-      v19 = v14;
-      v15 = " Insert new element at the index: %lu ";
+      v16 = [(NSMutableArray *)self->_array count];
+      v19 = 134217984;
+      v20 = v16;
+      v17 = " Insert new element at the index: %lu ";
 LABEL_14:
-      _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_DEBUG, v15, &v18, 0xCu);
+      _os_log_impl(&dword_23EDDC000, v12, OS_LOG_TYPE_DEBUG, v17, &v19, 0xCu);
     }
   }
 
-  else if (v12)
+  else if (v13)
   {
-    v16 = [(NSMutableArray *)self->_array count];
-    v18 = 134217984;
-    v19 = v16;
-    v15 = " Inserting element to the circular buffer: %lu ";
+    v18 = [(NSMutableArray *)self->_array count];
+    v19 = 134217984;
+    v20 = v18;
+    v17 = " Inserting element to the circular buffer: %lu ";
     goto LABEL_14;
   }
 
   [(NSMutableArray *)self->_array addObject:addCopy];
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -8,6 +8,7 @@
 - (void)cancel;
 - (void)checkAndConsumeShowsAppAttributionBannerWithCompletion:(id)completion;
 - (void)connectToService;
+- (void)didDetermineAvailability:(BOOL)availability;
 - (void)didFinishLoadingWithError:(id)error;
 - (void)didFinishTestingAtTime:(double)time;
 - (void)didInstallApplicationPlaceholder;
@@ -257,6 +258,19 @@ void __68__CPSSessionProxy__checkAndConsumeShowsAppAttributionBannerIfNeeded__bl
     v4[2](v4, a2);
 
     WeakRetained = v6;
+  }
+}
+
+- (void)didDetermineAvailability:(BOOL)availability
+{
+  availabilityCopy = availability;
+  WeakRetained = objc_loadWeakRetained(&self->_delegate);
+  v6 = objc_opt_respondsToSelector();
+
+  if (v6)
+  {
+    v7 = objc_loadWeakRetained(&self->_delegate);
+    [v7 proxy:self didDetermineAvailability:availabilityCopy];
   }
 }
 

@@ -42,7 +42,7 @@
 
 + (id)actions
 {
-  v11[1] = *MEMORY[0x277D85DE8];
+  v10[1] = *MEMORY[0x277D85DE8];
   v2 = objc_alloc_init(MEMORY[0x277CFE4F8]);
   if (v2)
   {
@@ -56,16 +56,14 @@
     v7 = [v4 stringWithFormat:v6];
     [v2 setLabel:v7];
 
-    v11[0] = v2;
-    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v11 count:1];
+    v10[0] = v2;
+    v8 = [MEMORY[0x277CBEA60] arrayWithObjects:v10 count:1];
   }
 
   else
   {
     v8 = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return v8;
 }
@@ -133,16 +131,14 @@
 
 + (id)notificationOptions
 {
-  v8[3] = *MEMORY[0x277D85DE8];
+  v7[3] = *MEMORY[0x277D85DE8];
   defaultOptions = [MEMORY[0x277CFE510] defaultOptions];
   v3 = *MEMORY[0x277CFE478];
-  v8[0] = *MEMORY[0x277CFE470];
-  v8[1] = v3;
-  v8[2] = *MEMORY[0x277CFE490];
-  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:3];
+  v7[0] = *MEMORY[0x277CFE470];
+  v7[1] = v3;
+  v7[2] = *MEMORY[0x277CFE490];
+  v4 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:3];
   v5 = [defaultOptions setByAddingObjectsFromArray:v4];
-
-  v6 = *MEMORY[0x277D85DE8];
 
   return v5;
 }

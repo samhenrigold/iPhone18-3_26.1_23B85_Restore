@@ -12,6 +12,7 @@
 - (BOOL)privateCreateAudioApplicationInServer:(id)server;
 - (BOOL)privateRecreateAudioApplicationInServer;
 - (BOOL)setInputMuteStateChangeHandler:(void *)inputMuteHandler error:(NSError *)outError;
+- (BOOL)setInputMuted:(BOOL)muted context:(id)context error:(id *)error;
 - (BOOL)stemClickMutingEnabled;
 - (id)initDelegateForProcess:(id *)process processAttribution:(id)attribution;
 - (id)initPrivate:(id)private;
@@ -30,6 +31,7 @@
 - (void)dealloc;
 - (void)postNotificationName:(id)name userInfo:(id)info;
 - (void)privateCreateAudioApplicationInServer:;
+- (void)privateEnableSystemMute:(BOOL)mute;
 - (void)privateHandlePing;
 - (void)privateOptInToStemClickMuting;
 - (void)requestRecordPermissionWithCompletionHandler:(id)handler;
@@ -61,23 +63,23 @@
   return v3;
 }
 
-void __36__AVAudioApplication_sharedInstance__block_invoke()
+void __36__AVAudioApplication_sharedInstance__block_invoke(avas::ProcessIdentity *a1)
 {
-  avas::ProcessIdentity::currentProcess(v8);
-  v0 = objc_alloc_init(MEMORY[0x1E698D730]);
-  [v0 setAudioAppType:1886546285];
-  v7[0] = v8[0];
-  v7[1] = v8[1];
-  [v0 setAppAuditToken:v7];
-  v1 = [MEMORY[0x1E696AAE8] mainBundle];
-  v2 = [v1 bundleIdentifier];
-  [v0 setAttributionBundleID:v2];
-  v4 = ;
-  [v0 setProcessName:v4];
+  avas::ProcessIdentity::currentProcess(v9);
+  v1 = objc_alloc_init(MEMORY[0x1E698D730]);
+  [v1 setAudioAppType:1886546285];
+  v8[0] = v9[0];
+  v8[1] = v9[1];
+  [v1 setAppAuditToken:v8];
+  v2 = [MEMORY[0x1E696AAE8] mainBundle];
+  v3 = [v2 bundleIdentifier];
+  [v1 setAttributionBundleID:v3];
+  v5 = ;
+  [v1 setProcessName:v5];
 
-  v5 = [[AVAudioApplication alloc] initPrivate:v0];
-  v6 = +[AVAudioApplication sharedInstance]::singleton;
-  +[AVAudioApplication sharedInstance]::singleton = v5;
+  v6 = [[AVAudioApplication alloc] initPrivate:v1];
+  v7 = +[AVAudioApplication sharedInstance]::singleton;
+  +[AVAudioApplication sharedInstance]::singleton = v6;
 }
 
 - (AVAudioApplication)initWithSpecification:(id)specification
@@ -101,24 +103,24 @@ void __36__AVAudioApplication_sharedInstance__block_invoke()
 
 - (id)initPrivate:(id)private
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   privateCopy = private;
   v5 = privateCopy;
   if (privateCopy)
   {
-    [privateCopy appAuditToken];
+    objc_msgSend_appAuditToken(privateCopy);
   }
 
   else
   {
-    memset(&v15[1], 0, 32);
+    memset(&v14[1], 0, 32);
   }
 
-  buf = *&v15[1].receiver;
-  atoken = *&v15[1].receiver;
-  v18 = audit_token_to_pid(&atoken);
-  atoken = *&v15[1].receiver;
-  v19 = audit_token_to_pidversion(&atoken);
+  buf = *&v14[1].receiver;
+  atoken = *&v14[1].receiver;
+  v17 = audit_token_to_pid(&atoken);
+  atoken = *&v14[1].receiver;
+  v18 = audit_token_to_pidversion(&atoken);
   isValid = avas::ProcessIdentity::isValid(&buf);
   if (!isValid)
   {
@@ -137,9 +139,9 @@ void __36__AVAudioApplication_sharedInstance__block_invoke()
     goto LABEL_14;
   }
 
-  v15[0].receiver = self;
-  v15[0].super_class = AVAudioApplication;
-  self = [(objc_super *)v15 init];
+  v14[0].receiver = self;
+  v14[0].super_class = AVAudioApplication;
+  self = [(objc_super *)v14 init];
   if (!self)
   {
     goto LABEL_19;
@@ -181,16 +183,16 @@ LABEL_19:
 
   else
   {
-    v13 = *avas::client::gSessionClientLog(audioAppType);
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
-      v14 = {;
+    v12 = *avas::client::gSessionClientLog(audioAppType);
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      v13 = {;
       buf.val[0] = 136315650;
       *&buf.val[1] = "AVAudioApplication.mm";
       LOWORD(buf.val[3]) = 1024;
       *(&buf.val[3] + 2) = 230;
       HIWORD(buf.val[4]) = 2112;
-      *&buf.val[5] = v14;
-      _os_log_impl(&dword_1AC8A4000, v13, OS_LOG_TYPE_ERROR, "%25s:%-5d Error - unknown audio app type. creation description: %@", &buf, 0x1Cu);
+      *&buf.val[5] = v13;
+      _os_log_impl(&dword_1AC8A4000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d Error - unknown audio app type. creation description: %@", &buf, 0x1Cu);
     }
   }
 
@@ -198,7 +200,6 @@ LABEL_14:
   selfCopy = 0;
 LABEL_20:
 
-  v11 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -229,7 +230,7 @@ LABEL_20:
 
 - (BOOL)isInputMuted
 {
-  [(AVAudioApplication *)self privateGetAppProperty:@"InputMute"];
+  objc_msgSend_privateGetAppProperty_(self, a2, @"InputMute");
   v3 = v9;
   v4 = v3;
   if (v8)
@@ -268,17 +269,17 @@ LABEL_20:
 
 - (AVAudioApplicationRecordPermission)recordPermission
 {
-  v12 = *MEMORY[0x1E69E9840];
-  LOBYTE(v9[0]) = 0;
-  v10 = 0;
+  v11 = *MEMORY[0x1E69E9840];
+  LOBYTE(v8[0]) = 0;
+  v9 = 0;
   ptr = self->_impl.__ptr_;
   os_unfair_lock_lock(ptr);
   if ([*(ptr + 4) audioAppType] == 1886547832)
   {
-    appAuditToken = *(ptr + 4);
-    if (appAuditToken)
+    v3 = *(ptr + 4);
+    if (v3)
     {
-      appAuditToken = [appAuditToken appAuditToken];
+      v3 = objc_msgSend_appAuditToken(v3);
     }
 
     else
@@ -286,10 +287,10 @@ LABEL_20:
       memset(buf, 0, 32);
     }
 
-    v9[0] = *buf;
-    v9[1] = *&buf[16];
-    v10 = 1;
-    v4 = *avas::client::gSessionClientLog(appAuditToken);
+    v8[0] = *buf;
+    v8[1] = *&buf[16];
+    v9 = 1;
+    v4 = *avas::client::gSessionClientLog(v3);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
@@ -305,15 +306,14 @@ LABEL_20:
   *&buf[8] = buf;
   *&buf[16] = 0x2020000000;
   *&buf[24] = 1970168948;
-  v8[0] = MEMORY[0x1E69E9820];
-  v8[1] = 3221225472;
-  v8[2] = __38__AVAudioApplication_recordPermission__block_invoke;
-  v8[3] = &unk_1E7986E68;
-  v8[4] = buf;
-  makeTCCAccessRequest(0, 2, 1919119972, v9, v8);
+  v7[0] = MEMORY[0x1E69E9820];
+  v7[1] = 3221225472;
+  v7[2] = __38__AVAudioApplication_recordPermission__block_invoke;
+  v7[3] = &unk_1E7986E68;
+  v7[4] = buf;
+  makeTCCAccessRequest(0, 2, 1919119972, v8, v7);
   v5 = *(*&buf[8] + 24);
   _Block_object_dispose(buf, 8);
-  v6 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -443,7 +443,7 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
 {
   ptr = self->_impl.__ptr_;
   os_unfair_lock_lock(ptr);
-  avas::client::AVAudioApplicationImpl::GetConnection((ptr + 8), retstr);
+  avas::client::AVAudioApplicationImpl::GetConnection(retstr, (ptr + 8));
   if (ptr)
   {
 
@@ -455,20 +455,20 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
 
 - (void)privateOptInToStemClickMuting
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   v3 = *avas::client::gSessionClientLog(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     ptr = self->_impl.__ptr_;
     os_unfair_lock_lock(ptr);
     os_unfair_lock_opaque = ptr[18]._os_unfair_lock_opaque;
-    v9 = 136315650;
-    v10 = "AVAudioApplication.mm";
-    v11 = 1024;
-    v12 = 428;
-    v13 = 1024;
-    v14 = os_unfair_lock_opaque;
-    _os_log_impl(&dword_1AC8A4000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d App (pid:%d) registered to observe AVAudioApplication input mute notifications", &v9, 0x18u);
+    v8 = 136315650;
+    v9 = "AVAudioApplication.mm";
+    v10 = 1024;
+    v11 = 428;
+    v12 = 1024;
+    v13 = os_unfair_lock_opaque;
+    _os_log_impl(&dword_1AC8A4000, v3, OS_LOG_TYPE_DEFAULT, "%25s:%-5d App (pid:%d) registered to observe AVAudioApplication input mute notifications", &v8, 0x18u);
     os_unfair_lock_unlock(ptr);
   }
 
@@ -478,15 +478,56 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
     v7 = *avas::client::gSessionClientLog(v6);
     if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
-      v9 = 136315394;
-      v10 = "AVAudioApplication.mm";
-      v11 = 1024;
-      v12 = 446;
-      _os_log_impl(&dword_1AC8A4000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to opt in to PrefersBluetoothAccessoryMuting", &v9, 0x12u);
+      v8 = 136315394;
+      v9 = "AVAudioApplication.mm";
+      v10 = 1024;
+      v11 = 446;
+      _os_log_impl(&dword_1AC8A4000, v7, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to opt in to PrefersBluetoothAccessoryMuting", &v8, 0x12u);
     }
   }
+}
 
-  v8 = *MEMORY[0x1E69E9840];
+- (void)privateEnableSystemMute:(BOOL)mute
+{
+  v15 = *MEMORY[0x1E69E9840];
+  v4 = [MEMORY[0x1E696AD98] numberWithBool:mute];
+  LODWORD(self) = [(AVAudioApplication *)self privateSetAppProperty:@"EnableSystemMute" value:v4];
+
+  v6 = *avas::client::gSessionClientLog(v5);
+  v7 = v6;
+  if (self)
+  {
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    {
+      return;
+    }
+
+    v11 = 136315394;
+    v12 = "AVAudioApplication.mm";
+    v13 = 1024;
+    v14 = 458;
+    v8 = "%25s:%-5d Failed to set EnableSystemMute property";
+    v9 = v6;
+    v10 = OS_LOG_TYPE_ERROR;
+  }
+
+  else
+  {
+    if (!os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    {
+      return;
+    }
+
+    v11 = 136315394;
+    v12 = "AVAudioApplication.mm";
+    v13 = 1024;
+    v14 = 461;
+    v8 = "%25s:%-5d Enabled system mute";
+    v9 = v6;
+    v10 = OS_LOG_TYPE_DEFAULT;
+  }
+
+  _os_log_impl(&dword_1AC8A4000, v9, v10, v8, &v11, 0x12u);
 }
 
 - (BOOL)privateCreateAudioApplicationInServer:(id)server
@@ -498,11 +539,11 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
 
 - (BOOL)privateRecreateAudioApplicationInServer
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v77 = *MEMORY[0x1E69E9840];
   ptr = self->_impl.__ptr_;
   os_unfair_lock_lock(ptr);
   lock = ptr;
-  v63 = (ptr + 8);
+  v62 = (ptr + 8);
   v3 = *(ptr + 6);
   v4 = CADeprecated::TSingleton<ApplicationMap>::instance();
   ApplicationMap::Remove(v4, v3);
@@ -513,31 +554,30 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
     atomic_fetch_add_explicit(&v6->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  avas::client::XPCConnection::sync_message<unsigned int>(v5, v74);
+  avas::client::XPCConnection::sync_message<unsigned int>(v5, v73);
   v7 = objc_autoreleasePoolPush();
-  v8 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong},unsigned int>::sync_proxy(v74);
-  v9 = *(v63 + 3);
-  v10 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong},unsigned int>::reply(v74);
+  v8 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong},unsigned int>::sync_proxy(v73);
+  v9 = *(v62 + 3);
+  v10 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong},unsigned int>::reply(v73);
   [v8 createAudioApplicationForSpecification:v9 reply:v10];
 
   objc_autoreleasePoolPop(v7);
-  v11 = *&v74[40];
-  v47 = v11;
+  v11 = *&v73[40];
+  v46 = v11;
   if (v11)
   {
     v12 = *avas::client::gSessionClientLog(v11);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
-      v13 = [(avas::client *)v47 description];
-      v14 = objc_claimAutoreleasedReturnValue();
+      v14 = v13 = [(avas::client *)v46 description];
       *buf = 136315906;
       *&buf[4] = "AVAudioApplication.mm";
-      v66 = 1024;
-      v67 = 515;
-      v68 = 2112;
-      v69 = v13;
-      v70 = 2112;
-      v71 = v14;
+      v65 = 1024;
+      v66 = 515;
+      v67 = 2112;
+      v68 = v13;
+      v69 = 2112;
+      v70 = v14;
       _os_log_impl(&dword_1AC8A4000, v12, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to recreate application, error: %@, specification: %@", buf, 0x26u);
     }
 
@@ -546,27 +586,27 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
 
   else
   {
-    v15 = v75;
+    v15 = v74;
   }
 
-  std::__function::__value_func<void ()(NSError *,std::tuple<unsigned int> &&)>::~__value_func[abi:ne200100](&v74[8]);
+  std::__function::__value_func<void ()(NSError *,std::tuple<unsigned int> &&)>::~__value_func[abi:ne200100](&v73[8]);
   if (v6)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v6);
   }
 
-  if (!v47)
+  if (!v46)
   {
-    avas::client::AVAudioApplicationImpl::SetClientID(v63, v15);
+    avas::client::AVAudioApplicationImpl::SetClientID(v62, v15);
     v16 = CADeprecated::TSingleton<ApplicationMap>::instance();
     ApplicationMap::Add(v16, v15, self);
-    avas::AudioAppState::getPropertyApp(v63 + 9, &cfstr_Hasinputmuteha.isa, v60);
-    v46 = v61;
-    if (v46)
+    avas::AudioAppState::getPropertyApp(&v59, v62 + 9, &cfstr_Hasinputmuteha.isa);
+    v45 = v60;
+    if (v45)
     {
-      if ([v46 unsignedIntegerValue] == v3)
+      if ([v45 unsignedIntegerValue] == v3)
       {
-        v17 = v63;
+        v17 = v62;
         v18 = [MEMORY[0x1E696AD98] numberWithUnsignedInt:v15];
         LOBYTE(v17) = avas::AudioAppState::setPropertyApp(v17 + 9, @"HasInputMuteHandlerSetMacOS", v18) == 0;
 
@@ -575,48 +615,48 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
           v20 = *avas::client::gSessionClientLog(v19);
           if (os_log_type_enabled(v20, OS_LOG_TYPE_ERROR))
           {
-            *v74 = 136315906;
-            *&v74[4] = "AVAudioApplication.mm";
-            *&v74[12] = 1024;
-            *&v74[14] = 534;
-            *&v74[18] = 1024;
-            *&v74[20] = v3;
-            *&v74[24] = 1024;
-            *&v74[26] = v15;
-            _os_log_impl(&dword_1AC8A4000, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d error - failed to update ClientOwningInputMuteHandlerMacOS from old clientID (%u) to new clientID (%u)", v74, 0x1Eu);
+            *v73 = 136315906;
+            *&v73[4] = "AVAudioApplication.mm";
+            *&v73[12] = 1024;
+            *&v73[14] = 534;
+            *&v73[18] = 1024;
+            *&v73[20] = v3;
+            *&v73[24] = 1024;
+            *&v73[26] = v15;
+            _os_log_impl(&dword_1AC8A4000, v20, OS_LOG_TYPE_ERROR, "%25s:%-5d error - failed to update ClientOwningInputMuteHandlerMacOS from old clientID (%u) to new clientID (%u)", v73, 0x1Eu);
           }
         }
       }
     }
 
-    avas::AudioAppState::getAppPropertiesExplicitlySet(v63 + 9);
+    avas::AudioAppState::getAppPropertiesExplicitlySet(v62 + 9);
+    v57 = 0u;
     v58 = 0u;
-    v59 = 0u;
-    v56 = 0u;
-    v49 = v57 = 0u;
-    allKeys = [v49 allKeys];
-    v22 = [allKeys countByEnumeratingWithState:&v56 objects:v77 count:16];
+    v55 = 0u;
+    v48 = v56 = 0u;
+    allKeys = [v48 allKeys];
+    v22 = [allKeys countByEnumeratingWithState:&v55 objects:v76 count:16];
     if (v22)
     {
-      v23 = *v57;
+      v23 = *v56;
       do
       {
         v24 = 0;
         do
         {
-          if (*v57 != v23)
+          if (*v56 != v23)
           {
             objc_enumerationMutation(allKeys);
           }
 
-          v25 = *(*(&v56 + 1) + 8 * v24);
+          v25 = *(*(&v55 + 1) + 8 * v24);
           {
             avas::AudioSessionMuteEnabled(void)::enabled = _os_feature_enabled_impl();
           }
 
           if (avas::AudioSessionMuteEnabled(void)::enabled != 1 || ([v25 isEqualToString:@"InputMute"] & 1) == 0)
           {
-            v26 = [v49 objectForKey:{v25, v46}];
+            v26 = [v48 objectForKey:{v25, v45}];
             v27 = [(AVAudioApplication *)self privateSetAppProperty:v25 value:v26 guard:&lock]== 0;
 
             if (!v27)
@@ -624,16 +664,16 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
               v29 = *avas::client::gSessionClientLog(v28);
               if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
               {
-                v30 = [v49 objectForKey:v25];
-                *v74 = 136315906;
-                *&v74[4] = "AVAudioApplication.mm";
-                *&v74[12] = 1024;
-                *&v74[14] = 552;
-                *&v74[18] = 2112;
-                *&v74[20] = v25;
-                *&v74[28] = 2112;
-                *&v74[30] = v30;
-                _os_log_impl(&dword_1AC8A4000, v29, OS_LOG_TYPE_ERROR, "%25s:%-5d error - failed to apply app property {key: %@ value: %@} after server restart", v74, 0x26u);
+                v30 = [v48 objectForKey:v25];
+                *v73 = 136315906;
+                *&v73[4] = "AVAudioApplication.mm";
+                *&v73[12] = 1024;
+                *&v73[14] = 552;
+                *&v73[18] = 2112;
+                *&v73[20] = v25;
+                *&v73[28] = 2112;
+                *&v73[30] = v30;
+                _os_log_impl(&dword_1AC8A4000, v29, OS_LOG_TYPE_ERROR, "%25s:%-5d error - failed to apply app property {key: %@ value: %@} after server restart", v73, 0x26u);
               }
             }
           }
@@ -642,75 +682,75 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
         }
 
         while (v22 != v24);
-        v31 = [allKeys countByEnumeratingWithState:&v56 objects:v77 count:16];
+        v31 = [allKeys countByEnumeratingWithState:&v55 objects:v76 count:16];
         v22 = v31;
       }
 
       while (v31);
     }
 
-    vala = avas::AudioAppState::getMXPropertiesExplicitlySet(v63 + 9);
-    avas::client::AVAudioApplicationImpl::GetConnection(v63, v74);
-    v54 = 0u;
-    v55 = 0u;
-    v52 = 0u;
+    vala = avas::AudioAppState::getMXPropertiesExplicitlySet(v62 + 9);
+    avas::client::AVAudioApplicationImpl::GetConnection(v73, v62);
     v53 = 0u;
+    v54 = 0u;
+    v51 = 0u;
+    v52 = 0u;
     obj = [vala allKeys];
-    v32 = [obj countByEnumeratingWithState:&v52 objects:v73 count:16];
+    v32 = [obj countByEnumeratingWithState:&v51 objects:v72 count:16];
     if (v32)
     {
-      v33 = *v53;
+      v33 = *v52;
       do
       {
         for (i = 0; i != v32; ++i)
         {
-          if (*v53 != v33)
+          if (*v52 != v33)
           {
             objc_enumerationMutation(obj);
           }
 
-          v35 = *(*(&v52 + 1) + 8 * i);
-          avas::client::XPCConnection::sync_message<>(*v74, buf);
+          v35 = *(*(&v51 + 1) + 8 * i);
+          avas::client::XPCConnection::sync_message<>(*v73, buf);
           v36 = objc_autoreleasePoolPush();
           v37 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong}>::sync_proxy(buf);
-          *v64 = *&v74[16];
-          *&v64[16] = *&v74[32];
-          v38 = v76;
+          *v63 = *&v73[16];
+          *&v63[16] = *&v73[32];
+          v38 = v75;
           v39 = [vala objectForKey:v35];
           v40 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong}>::reply(buf);
-          [v37 setMXPropertyOnAllSessions:v64 clientID:v38 MXProperty:v35 values:v39 reply:v40];
+          [v37 setMXPropertyOnAllSessions:v63 clientID:v38 MXProperty:v35 values:v39 reply:v40];
 
           objc_autoreleasePoolPop(v36);
-          if (v72)
+          if (v71)
           {
             v42 = *avas::client::gSessionClientLog(v41);
             if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
             {
               v43 = [vala objectForKey:v35];
-              *v64 = 136315906;
-              *&v64[4] = "AVAudioApplication.mm";
-              *&v64[12] = 1024;
-              *&v64[14] = 572;
-              *&v64[18] = 2112;
-              *&v64[20] = v35;
-              *&v64[28] = 2112;
-              *&v64[30] = v43;
-              _os_log_impl(&dword_1AC8A4000, v42, OS_LOG_TYPE_ERROR, "%25s:%-5d error - failed to apply MX property {key: %@ value: %@} after server restart", v64, 0x26u);
+              *v63 = 136315906;
+              *&v63[4] = "AVAudioApplication.mm";
+              *&v63[12] = 1024;
+              *&v63[14] = 572;
+              *&v63[18] = 2112;
+              *&v63[20] = v35;
+              *&v63[28] = 2112;
+              *&v63[30] = v43;
+              _os_log_impl(&dword_1AC8A4000, v42, OS_LOG_TYPE_ERROR, "%25s:%-5d error - failed to apply MX property {key: %@ value: %@} after server restart", v63, 0x26u);
             }
           }
 
           _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(&buf[8]);
         }
 
-        v32 = [obj countByEnumeratingWithState:&v52 objects:v73 count:16];
+        v32 = [obj countByEnumeratingWithState:&v51 objects:v72 count:16];
       }
 
       while (v32);
     }
 
-    if (*&v74[8])
+    if (*&v73[8])
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](*&v74[8]);
+      std::__shared_weak_count::__release_shared[abi:ne200100](*&v73[8]);
     }
   }
 
@@ -719,9 +759,7 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
     os_unfair_lock_unlock(lock);
   }
 
-  result = v47 == 0;
-  v45 = *MEMORY[0x1E69E9840];
-  return result;
+  return v46 == 0;
 }
 
 - (tuple<int,)privateGetMXProperty:(id)property
@@ -730,7 +768,7 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
   propertyCopy = property;
   ptr = self->_impl.__ptr_;
   os_unfair_lock_lock(ptr);
-  avas::client::AVAudioApplicationImpl::GetConnection((ptr + 8), v10);
+  avas::client::AVAudioApplicationImpl::GetConnection(v10, (ptr + 8));
   if (v10[0].n128_u64[1])
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v10[0].n128_u64[1]);
@@ -752,7 +790,7 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
   propertyCopy = property;
   ptr = self->_impl.__ptr_;
   os_unfair_lock_lock(ptr);
-  avas::client::AVAudioApplicationImpl::GetConnection((ptr + 8), v10);
+  avas::client::AVAudioApplicationImpl::GetConnection(v10, (ptr + 8));
   if (v10[0].n128_u64[1])
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v10[0].n128_u64[1]);
@@ -770,10 +808,54 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
 
 - (int)privateSetAppProperty:(id)property value:(id)value guard:(void *)guard
 {
+  v24 = *MEMORY[0x1E69E9840];
+  propertyCopy = property;
+  valueCopy = value;
+  avas::client::AVAudioApplicationImpl::GetConnection(v19, *(guard + 1));
+  avas::client::XPCConnection::sync_message<>(v19[0].n128_u64[0], &v21);
+  v9 = objc_autoreleasePoolPush();
+  v10 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong}>::sync_proxy(&v21);
+  v17 = v19[1];
+  v18 = v19[2];
+  v11 = v20;
+  v12 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong}>::reply(&v21);
+  [v10 setApplicationProperty:&v17 clientID:v11 propertyID:propertyCopy propertyValue:valueCopy reply:v12];
+
+  objc_autoreleasePoolPop(v9);
+  v13 = v23;
+  if (v13)
+  {
+    v14 = v13;
+    code = [v13 code];
+  }
+
+  else
+  {
+    code = avas::AudioAppState::setPropertyApp((*(guard + 1) + 72), propertyCopy, valueCopy);
+  }
+
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(&v22);
+  if (v19[0].n128_u64[1])
+  {
+    std::__shared_weak_count::__release_shared[abi:ne200100](v19[0].n128_u64[1]);
+  }
+
+  return code;
+}
+
+- (int)privateSetAppProperty:(id)property value:(id)value
+{
   v25 = *MEMORY[0x1E69E9840];
   propertyCopy = property;
   valueCopy = value;
-  avas::client::AVAudioApplicationImpl::GetConnection(*(guard + 1), v20);
+  ptr = self->_impl.__ptr_;
+  os_unfair_lock_lock(ptr);
+  avas::client::AVAudioApplicationImpl::GetConnection(v20, (ptr + 8));
+  if (ptr)
+  {
+    os_unfair_lock_unlock(ptr);
+  }
+
   avas::client::XPCConnection::sync_message<>(v20[0].n128_u64[0], &v22);
   v9 = objc_autoreleasePoolPush();
   v10 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong}>::sync_proxy(&v22);
@@ -793,51 +875,6 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
 
   else
   {
-    code = avas::AudioAppState::setPropertyApp((*(guard + 1) + 72), propertyCopy, valueCopy);
-  }
-
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(&v23);
-  if (v20[0].n128_u64[1])
-  {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v20[0].n128_u64[1]);
-  }
-
-  v16 = *MEMORY[0x1E69E9840];
-  return code;
-}
-
-- (int)privateSetAppProperty:(id)property value:(id)value
-{
-  v26 = *MEMORY[0x1E69E9840];
-  propertyCopy = property;
-  valueCopy = value;
-  ptr = self->_impl.__ptr_;
-  os_unfair_lock_lock(ptr);
-  avas::client::AVAudioApplicationImpl::GetConnection((ptr + 8), v21);
-  if (ptr)
-  {
-    os_unfair_lock_unlock(ptr);
-  }
-
-  avas::client::XPCConnection::sync_message<>(v21[0].n128_u64[0], &v23);
-  v9 = objc_autoreleasePoolPush();
-  v10 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong}>::sync_proxy(&v23);
-  v19 = v21[1];
-  v20 = v21[2];
-  v11 = v22;
-  v12 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong}>::reply(&v23);
-  [v10 setApplicationProperty:&v19 clientID:v11 propertyID:propertyCopy propertyValue:valueCopy reply:v12];
-
-  objc_autoreleasePoolPop(v9);
-  v13 = v25;
-  if (v13)
-  {
-    v14 = v13;
-    code = [v13 code];
-  }
-
-  else
-  {
     v16 = self->_impl.__ptr_;
     os_unfair_lock_lock(v16);
     code = avas::AudioAppState::setPropertyApp(v16 + 10, propertyCopy, valueCopy);
@@ -847,41 +884,40 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
     }
   }
 
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(&v24);
-  if (v21[0].n128_u64[1])
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(&v23);
+  if (v20[0].n128_u64[1])
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v21[0].n128_u64[1]);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v20[0].n128_u64[1]);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return code;
 }
 
 - (int)privateUpdateAppProperty:(id)property value:(id)value context:(id)context
 {
-  v29 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   propertyCopy = property;
   valueCopy = value;
   contextCopy = context;
   ptr = self->_impl.__ptr_;
   os_unfair_lock_lock(ptr);
-  avas::client::AVAudioApplicationImpl::GetConnection((ptr + 8), v24);
+  avas::client::AVAudioApplicationImpl::GetConnection(v23, (ptr + 8));
   if (ptr)
   {
     os_unfair_lock_unlock(ptr);
   }
 
-  avas::client::XPCConnection::sync_message<>(v24[0].n128_u64[0], &v26);
+  avas::client::XPCConnection::sync_message<>(v23[0].n128_u64[0], &v25);
   v12 = objc_autoreleasePoolPush();
-  v13 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong}>::sync_proxy(&v26);
-  v22 = v24[1];
-  v23 = v24[2];
-  v14 = v25;
-  v15 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong}>::reply(&v26);
-  [v13 updateApplicationProperty:&v22 clientID:v14 propertyID:propertyCopy propertyValue:valueCopy context:contextCopy reply:v15];
+  v13 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong}>::sync_proxy(&v25);
+  v21 = v23[1];
+  v22 = v23[2];
+  v14 = v24;
+  v15 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong}>::reply(&v25);
+  [v13 updateApplicationProperty:&v21 clientID:v14 propertyID:propertyCopy propertyValue:valueCopy context:contextCopy reply:v15];
 
   objc_autoreleasePoolPop(v12);
-  v16 = v28;
+  v16 = v27;
   if (v16)
   {
     v17 = v16;
@@ -899,40 +935,39 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
     }
   }
 
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(&v27);
-  if (v24[0].n128_u64[1])
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(&v26);
+  if (v23[0].n128_u64[1])
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v24[0].n128_u64[1]);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v23[0].n128_u64[1]);
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return code;
 }
 
 - (int)privateSetMXPropertyOnAllSessions:(id)sessions value:(id)value
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v25 = *MEMORY[0x1E69E9840];
   sessionsCopy = sessions;
   valueCopy = value;
   ptr = self->_impl.__ptr_;
   os_unfair_lock_lock(ptr);
-  avas::client::AVAudioApplicationImpl::GetConnection((ptr + 8), v21);
+  avas::client::AVAudioApplicationImpl::GetConnection(v20, (ptr + 8));
   if (ptr)
   {
     os_unfair_lock_unlock(ptr);
   }
 
-  avas::client::XPCConnection::sync_message<>(v21[0].n128_u64[0], &v23);
+  avas::client::XPCConnection::sync_message<>(v20[0].n128_u64[0], &v22);
   v9 = objc_autoreleasePoolPush();
-  v10 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong}>::sync_proxy(&v23);
-  v19 = v21[1];
-  v20 = v21[2];
-  v11 = v22;
-  v12 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong}>::reply(&v23);
-  [v10 setMXPropertyOnAllSessions:&v19 clientID:v11 MXProperty:sessionsCopy values:valueCopy reply:v12];
+  v10 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong}>::sync_proxy(&v22);
+  v18 = v20[1];
+  v19 = v20[2];
+  v11 = v21;
+  v12 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong}>::reply(&v22);
+  [v10 setMXPropertyOnAllSessions:&v18 clientID:v11 MXProperty:sessionsCopy values:valueCopy reply:v12];
 
   objc_autoreleasePoolPop(v9);
-  v13 = v25;
+  v13 = v24;
   if (v13)
   {
     v14 = v13;
@@ -950,13 +985,12 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
     }
   }
 
-  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(&v24);
-  if (v21[0].n128_u64[1])
+  _ZNSt3__110__function12__value_funcIFvP7NSErrorONS_5tupleIJEEEEED2B8ne200100Ev(&v23);
+  if (v20[0].n128_u64[1])
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v21[0].n128_u64[1]);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v20[0].n128_u64[1]);
   }
 
-  v17 = *MEMORY[0x1E69E9840];
   return code;
 }
 
@@ -991,19 +1025,19 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
 
 - (void)requestRecordPermissionWithCompletionHandler:(id)handler
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   handlerCopy = handler;
-  LOBYTE(v17) = 0;
-  LOBYTE(v19) = 0;
+  LOBYTE(v16) = 0;
+  LOBYTE(v18) = 0;
   ptr = self->_impl.__ptr_;
   os_unfair_lock_lock(ptr);
   audioAppType = [*(ptr + 4) audioAppType];
   if (audioAppType == 1886547832)
   {
-    appAuditToken = *(ptr + 4);
-    if (appAuditToken)
+    v7 = *(ptr + 4);
+    if (v7)
     {
-      appAuditToken = [appAuditToken appAuditToken];
+      v7 = objc_msgSend_appAuditToken(v7);
     }
 
     else
@@ -1011,10 +1045,10 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
       memset(buf, 0, 32);
     }
 
-    v17 = *buf;
-    v18 = *&buf[16];
-    LOBYTE(v19) = 1;
-    v8 = *avas::client::gSessionClientLog(appAuditToken);
+    v16 = *buf;
+    v17 = *&buf[16];
+    LOBYTE(v18) = 1;
+    v8 = *avas::client::gSessionClientLog(v7);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_INFO))
     {
       *buf = 136315394;
@@ -1034,34 +1068,32 @@ void __80__AVAudioApplication_requestMicrophoneInjectionPermissionWithCompletion
 
   else
   {
-    v11[0] = MEMORY[0x1E69E9820];
-    v11[1] = 3221225472;
+    v10[0] = MEMORY[0x1E69E9820];
+    v10[1] = 3221225472;
+    v13 = v16;
+    v10[2] = __72__AVAudioApplication_SPI__requestRecordPermissionWithCompletionHandler___block_invoke;
+    v10[3] = &unk_1E7986FC8;
+    v10[4] = self;
+    v12 = audioAppType;
     v14 = v17;
-    v11[2] = __72__AVAudioApplication_SPI__requestRecordPermissionWithCompletionHandler___block_invoke;
-    v11[3] = &unk_1E7986FC8;
-    v11[4] = self;
-    v13 = audioAppType;
     v15 = v18;
-    v16 = v19;
-    v12 = handlerCopy;
-    makeTCCAccessRequest(1, 0, 1919119972, &v17, v11);
+    v11 = handlerCopy;
+    makeTCCAccessRequest(1, 0, 1919119972, &v16, v10);
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 }
 
 void __72__AVAudioApplication_SPI__requestRecordPermissionWithCompletionHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v35 = *MEMORY[0x1E69E9840];
+  v34 = *MEMORY[0x1E69E9840];
   v4 = *avas::client::gSessionClientLog(a1);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315650;
     *&buf[4] = "AVAudioApplication.mm";
-    v30 = 1024;
-    v31 = 732;
-    v32 = 1024;
-    v33 = a2 == 2;
+    v29 = 1024;
+    v30 = 732;
+    v31 = 1024;
+    v32 = a2 == 2;
     _os_log_impl(&dword_1AC8A4000, v4, OS_LOG_TYPE_DEFAULT, "%25s:%-5d Got Microphone Permission value %d", buf, 0x18u);
   }
 
@@ -1077,15 +1109,15 @@ void __72__AVAudioApplication_SPI__requestRecordPermissionWithCompletionHandler_
   avas::client::XPCConnection::sync_message<>(v6, buf);
   *&v9 = -1;
   *(&v9 + 1) = -1;
+  v20 = v9;
   v21 = v9;
-  v22 = v9;
   if (*(a1 + 48) == 1886547832)
   {
     if (*(a1 + 88) == 1)
     {
       v10 = *(a1 + 72);
-      v21 = *(a1 + 56);
-      v22 = v10;
+      v20 = *(a1 + 56);
+      v21 = v10;
     }
 
     else
@@ -1093,11 +1125,11 @@ void __72__AVAudioApplication_SPI__requestRecordPermissionWithCompletionHandler_
       v11 = *avas::client::gSessionClientLog(v8);
       if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
-        *v23 = 136315394;
-        v24 = "AVAudioApplication.mm";
-        v25 = 1024;
-        v26 = 744;
-        _os_log_impl(&dword_1AC8A4000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d Error: Invalid client token for proxy AVAudioApplication", v23, 0x12u);
+        *v22 = 136315394;
+        v23 = "AVAudioApplication.mm";
+        v24 = 1024;
+        v25 = 744;
+        _os_log_impl(&dword_1AC8A4000, v11, OS_LOG_TYPE_ERROR, "%25s:%-5d Error: Invalid client token for proxy AVAudioApplication", v22, 0x12u);
       }
     }
   }
@@ -1108,7 +1140,7 @@ void __72__AVAudioApplication_SPI__requestRecordPermissionWithCompletionHandler_
   v15 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong}>::reply(buf);
   if (v14 == 1886547832)
   {
-    v16 = &v21;
+    v16 = &v20;
   }
 
   else
@@ -1116,22 +1148,22 @@ void __72__AVAudioApplication_SPI__requestRecordPermissionWithCompletionHandler_
     v16 = 0;
   }
 
-  [v13 updateMicrophonePermission:1919119972 clientToken:v16 reply:{v15, v21, v22}];
+  [v13 updateMicrophonePermission:1919119972 clientToken:v16 reply:{v15, v20, v21}];
 
   objc_autoreleasePoolPop(v12);
-  if (v34)
+  if (v33)
   {
     v18 = *avas::client::gSessionClientLog(v17);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v19 = v34;
-      *v23 = 136315650;
-      v24 = "AVAudioApplication.mm";
-      v25 = 1024;
-      v26 = 758;
-      v27 = 2112;
-      v28 = v19;
-      _os_log_impl(&dword_1AC8A4000, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d Server returned an error from -updateMicrophonePermission:. %@", v23, 0x1Cu);
+      v19 = v33;
+      *v22 = 136315650;
+      v23 = "AVAudioApplication.mm";
+      v24 = 1024;
+      v25 = 758;
+      v26 = 2112;
+      v27 = v19;
+      _os_log_impl(&dword_1AC8A4000, v18, OS_LOG_TYPE_ERROR, "%25s:%-5d Server returned an error from -updateMicrophonePermission:. %@", v22, 0x1Cu);
     }
   }
 
@@ -1144,23 +1176,60 @@ void __72__AVAudioApplication_SPI__requestRecordPermissionWithCompletionHandler_
   }
 
   os_unfair_lock_unlock(v5);
-  v20 = *MEMORY[0x1E69E9840];
+}
+
+- (BOOL)setInputMuted:(BOOL)muted context:(id)context error:(id *)error
+{
+  mutedCopy = muted;
+  v21 = *MEMORY[0x1E69E9840];
+  v7 = [MEMORY[0x1E696AD98] numberWithBool:{muted, context}];
+  v8 = [(AVAudioApplication *)self privateSetAppProperty:@"InputMute" value:v7];
+
+  if (v8)
+  {
+    v10 = *avas::client::gSessionClientLog(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+    {
+      v11 = "unmuted";
+      v14 = "AVAudioApplication.mm";
+      v16 = 788;
+      v17 = 2080;
+      v13 = 136315906;
+      v15 = 1024;
+      if (mutedCopy)
+      {
+        v11 = "muted";
+      }
+
+      v18 = v11;
+      v19 = 1024;
+      v20 = v8;
+      _os_log_impl(&dword_1AC8A4000, v10, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to set input %s, err:%d", &v13, 0x22u);
+    }
+
+    return FormatNSErrorForReturn();
+  }
+
+  else
+  {
+    self->_inputMuted = mutedCopy;
+    return 1;
+  }
 }
 
 + (id)muteRunningInputs:(id *)inputs
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   {
     avas::SmartRoutingPrioritizesCall(void)::enabled = _os_feature_enabled_impl();
   }
 
   if (avas::SmartRoutingPrioritizesCall(void)::enabled == 1)
   {
-    EphemeralAudioApp::EphemeralAudioApp(v5);
+    EphemeralAudioApp::EphemeralAudioApp(&v4);
   }
 
   FormatNSErrorForReturn();
-  v3 = *MEMORY[0x1E69E9840];
 
   return 0;
 }
@@ -1174,31 +1243,31 @@ void __72__AVAudioApplication_SPI__requestRecordPermissionWithCompletionHandler_
 
 + (BOOL)currentRouteSupportsEnhanceDialogue:(id *)dialogue
 {
-  v36 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = +[AVAudioSession sharedInstance];
   currentRoute = [v3 currentRoute];
   outputs = [currentRoute outputs];
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   obj = outputs;
-  v6 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+  v6 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
   if (v6)
   {
-    v29 = *v32;
+    v28 = *v31;
     while (2)
     {
-      v28 = v6;
-      for (i = 0; i != v28; ++i)
+      v27 = v6;
+      for (i = 0; i != v27; ++i)
       {
-        if (*v32 != v29)
+        if (*v31 != v28)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v31 + 1) + 8 * i);
+        v8 = *(*(&v30 + 1) + 8 * i);
         if (+[AVAudioApplication appleTVSupportsEnhanceDialogue])
         {
           portType = [v8 portType];
@@ -1242,7 +1311,7 @@ void __72__AVAudioApplication_SPI__requestRecordPermissionWithCompletionHandler_
             goto LABEL_33;
           }
 
-          v27 = portType4;
+          v26 = portType4;
           portType5 = [v8 portType];
           if (portType5 == @"BluetoothA2DPOutput")
           {
@@ -1278,7 +1347,7 @@ LABEL_30:
 LABEL_31:
 LABEL_32:
 
-            portType4 = v27;
+            portType4 = v26;
 LABEL_33:
 
 LABEL_34:
@@ -1322,7 +1391,7 @@ LABEL_36:
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+      v6 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
       v24 = 0;
       if (v6)
       {
@@ -1340,39 +1409,38 @@ LABEL_36:
 
 LABEL_37:
 
-  v25 = *MEMORY[0x1E69E9840];
   return v24;
 }
 
 - (id)sessionIDs
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   ptr = self->_impl.__ptr_;
   os_unfair_lock_lock(ptr);
-  avas::client::AVAudioApplicationImpl::GetConnection((ptr + 8), v15);
+  avas::client::AVAudioApplicationImpl::GetConnection(v14, (ptr + 8));
   if (ptr)
   {
     os_unfair_lock_unlock(ptr);
   }
 
-  avas::client::XPCConnection::sync_message<NSArray * {__strong}>(v15[0].n128_u64[0], &v19);
+  avas::client::XPCConnection::sync_message<NSArray * {__strong}>(v14[0].n128_u64[0], &v18);
   v3 = objc_autoreleasePoolPush();
-  v4 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong},NSArray * {__strong}>::sync_proxy(&v19);
-  *buf = v15[1];
-  *&buf[16] = v15[2];
-  v5 = v17;
-  v6 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong},NSArray * {__strong}>::reply(&v19);
+  v4 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong},NSArray * {__strong}>::sync_proxy(&v18);
+  *buf = v14[1];
+  *&buf[16] = v14[2];
+  v5 = v16;
+  v6 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong},NSArray * {__strong}>::reply(&v18);
   [v4 sessionIDs:buf clientID:v5 reply:v6];
 
   objc_autoreleasePoolPop(v3);
-  v7 = v21;
+  v7 = v20;
   if (v7)
   {
     v8 = v7;
     v9 = *avas::client::gSessionClientLog(v7);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v10 = v16;
+      v10 = v15;
       v11 = [(avas::client *)v8 description];
       *buf = 136315906;
       *&buf[4] = "AVAudioApplication.mm";
@@ -1390,27 +1458,25 @@ LABEL_37:
 
   else
   {
-    v12 = v22;
+    v12 = v21;
   }
 
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::~__value_func[abi:ne200100](&v20);
-  if (v15[0].n128_u64[1])
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::~__value_func[abi:ne200100](&v19);
+  if (v14[0].n128_u64[1])
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v15[0].n128_u64[1]);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14[0].n128_u64[1]);
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (BOOL)stemClickMutingEnabled
 {
-  v15 = *MEMORY[0x1E69E9840];
-  [(AVAudioApplication *)self privateGetMXProperty:*MEMORY[0x1E69B02A8]];
-  v2 = v10;
+  v14 = *MEMORY[0x1E69E9840];
+  objc_msgSend_privateGetMXProperty_(self, a2, *MEMORY[0x1E69B02A8]);
+  v2 = v9;
   v3 = v2;
-  if (v9)
+  if (v8)
   {
     v4 = 1;
   }
@@ -1426,9 +1492,9 @@ LABEL_37:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v12 = "AVAudioApplication.mm";
-      v13 = 1024;
-      v14 = 1051;
+      v11 = "AVAudioApplication.mm";
+      v12 = 1024;
+      v13 = 1051;
       _os_log_impl(&dword_1AC8A4000, v5, OS_LOG_TYPE_ERROR, "%25s:%-5d Failed to get PrefersBluetoothAccessoryMuting", buf, 0x12u);
     }
 
@@ -1440,32 +1506,31 @@ LABEL_37:
     bOOLValue = [(avas::client *)v2 BOOLValue];
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return bOOLValue;
 }
 
 - (void)privateHandlePing
 {
-  v50[1] = *MEMORY[0x1E69E9840];
+  v49[1] = *MEMORY[0x1E69E9840];
   ptr = self->_impl.__ptr_;
   os_unfair_lock_lock(ptr);
-  avas::client::AVAudioApplicationImpl::GetConnection((ptr + 8), v40);
+  avas::client::AVAudioApplicationImpl::GetConnection(v39, (ptr + 8));
   if (ptr)
   {
     os_unfair_lock_unlock(ptr);
   }
 
-  avas::client::XPCConnection::sync_message<NSArray * {__strong}>(v40[0].n128_u64[0], &v46);
+  avas::client::XPCConnection::sync_message<NSArray * {__strong}>(v39[0].n128_u64[0], &v45);
   v3 = objc_autoreleasePoolPush();
-  v4 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong},NSArray * {__strong}>::sync_proxy(&v46);
-  *buf = v40[1];
-  *&buf[16] = v40[2];
-  v5 = v42;
-  v6 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong},NSArray * {__strong}>::reply(&v46);
+  v4 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong},NSArray * {__strong}>::sync_proxy(&v45);
+  *buf = v39[1];
+  *&buf[16] = v39[2];
+  v5 = v41;
+  v6 = caulk::xpc::message<objc_object  {objcproto25SessionManagerXPCProtocol}* {__strong},NSArray * {__strong}>::reply(&v45);
   [v4 getApplicationMessages:buf clientID:v5 reply:v6];
 
   objc_autoreleasePoolPop(v3);
-  if (v48)
+  if (v47)
   {
     v8 = *avas::client::gSessionClientLog(v7);
     obj = v8;
@@ -1476,54 +1541,54 @@ LABEL_37:
       *&buf[12] = 1024;
       *&buf[14] = 1072;
       *&buf[18] = 2112;
-      *&buf[20] = v48;
-      v9 = v48;
+      *&buf[20] = v47;
+      v9 = v47;
       _os_log_impl(&dword_1AC8A4000, v8, OS_LOG_TYPE_ERROR, "%25s:%-5d Server returned an error:. %@", buf, 0x1Cu);
     }
   }
 
   else
   {
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
-    obj = v49;
-    v29 = [obj countByEnumeratingWithState:&v36 objects:v45 count:16];
-    if (v29)
+    obj = v48;
+    v28 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
+    if (v28)
     {
-      v28 = *v37;
+      v27 = *v36;
       do
       {
-        for (i = 0; i != v29; ++i)
+        for (i = 0; i != v28; ++i)
         {
-          if (*v37 != v28)
+          if (*v36 != v27)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v36 + 1) + 8 * i);
+          v10 = *(*(&v35 + 1) + 8 * i);
+          v31 = 0u;
           v32 = 0u;
           v33 = 0u;
           v34 = 0u;
-          v35 = 0u;
           v11 = v10;
-          v12 = [v11 countByEnumeratingWithState:&v32 objects:v44 count:16];
+          v12 = [v11 countByEnumeratingWithState:&v31 objects:v43 count:16];
           v13 = v12;
           if (v12)
           {
-            v14 = *v33;
+            v14 = *v32;
             do
             {
               v15 = 0;
               do
               {
-                if (*v33 != v14)
+                if (*v32 != v14)
                 {
                   objc_enumerationMutation(v11);
                 }
 
-                v16 = *(*(&v32 + 1) + 8 * v15);
+                v16 = *(*(&v31 + 1) + 8 * v15);
                 v17 = *avas::client::gSessionClientLog(v12);
                 if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
                 {
@@ -1532,7 +1597,7 @@ LABEL_37:
                   *&buf[12] = 1024;
                   *&buf[14] = 1083;
                   *&buf[18] = 1024;
-                  *&buf[20] = v41;
+                  *&buf[20] = v40;
                   *&buf[24] = 2112;
                   *&buf[26] = v16;
                   _os_log_impl(&dword_1AC8A4000, v17, OS_LOG_TYPE_INFO, "%25s:%-5d Handling application deferred message, PID = %d, notificationName = %@", buf, 0x22u);
@@ -1562,9 +1627,9 @@ LABEL_37:
                   v24 = v23;
                   if (v23)
                   {
-                    v50[0] = @"AVAudioApplicationMuteStateKey";
+                    v49[0] = @"AVAudioApplicationMuteStateKey";
                     *buf = v23;
-                    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v50 count:1];
+                    v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:buf forKeys:v49 count:1];
                     [(AVAudioApplication *)selfCopy postNotificationName:@"AVAudioApplicationInputMuteStateChangeNotification" userInfo:v25];
                   }
                 }
@@ -1573,7 +1638,7 @@ LABEL_37:
               }
 
               while (v13 != v15);
-              v12 = [v11 countByEnumeratingWithState:&v32 objects:v44 count:16];
+              v12 = [v11 countByEnumeratingWithState:&v31 objects:v43 count:16];
               v13 = v12;
             }
 
@@ -1581,20 +1646,18 @@ LABEL_37:
           }
         }
 
-        v29 = [obj countByEnumeratingWithState:&v36 objects:v45 count:16];
+        v28 = [obj countByEnumeratingWithState:&v35 objects:v44 count:16];
       }
 
-      while (v29);
+      while (v28);
     }
   }
 
-  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::~__value_func[abi:ne200100](&v47);
-  if (v40[0].n128_u64[1])
+  std::__function::__value_func<void ()(NSError *,std::tuple<NSArray * {__strong}> &&)>::~__value_func[abi:ne200100](&v46);
+  if (v39[0].n128_u64[1])
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v40[0].n128_u64[1]);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v39[0].n128_u64[1]);
   }
-
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 - (void)postNotificationName:(id)name userInfo:(id)info

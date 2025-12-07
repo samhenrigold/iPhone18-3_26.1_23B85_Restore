@@ -163,29 +163,29 @@ LABEL_17:
 
 + (id)appleMediaAccessoryTopicsForAccessoryUUID:(id)d homeUUID:(id)iD
 {
-  v30 = *MEMORY[0x277D85DE8];
+  v29 = *MEMORY[0x277D85DE8];
   dCopy = d;
   iDCopy = iD;
   array = [MEMORY[0x277CBEB18] array];
+  v24 = 0u;
   v25 = 0u;
   v26 = 0u;
   v27 = 0u;
-  v28 = 0u;
-  v6 = [(p *)&unk_283E77178 countByEnumeratingWithState:&v25 objects:v29 count:16];
+  v6 = [(p *)&unk_283E77178 countByEnumeratingWithState:&v24 objects:v28 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v26;
+    v8 = *v25;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v8)
+        if (*v25 != v8)
         {
           objc_enumerationMutation(&unk_283E77178);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
+        v10 = *(*(&v24 + 1) + 8 * i);
         v11 = [(p *)&unk_283E77560 objectForKeyedSubscript:v10];
         v12 = [v11 objectForKeyedSubscript:@"indexes"];
         v13 = [v12 objectForKeyedSubscript:@"AppleAccessoryIndex"];
@@ -202,15 +202,13 @@ LABEL_17:
         }
       }
 
-      v7 = [(p *)&unk_283E77178 countByEnumeratingWithState:&v25 objects:v29 count:16];
+      v7 = [(p *)&unk_283E77178 countByEnumeratingWithState:&v24 objects:v28 count:16];
     }
 
     while (v7);
   }
 
-  v20 = [array copy];
-
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = objc_msgSend_copy(array);
 
   return v20;
 }

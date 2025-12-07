@@ -33,29 +33,29 @@
 
 - (id)_cellInfosForSection:(id)section
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   sectionCopy = section;
   array = [MEMORY[0x277CBEB18] array];
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = sectionCopy;
-  v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v21;
+    v7 = *v20;
     do
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v21 != v7)
+        if (*v20 != v7)
         {
           objc_enumerationMutation(obj);
         }
 
-        v9 = *(*(&v20 + 1) + 8 * i);
+        v9 = *(*(&v19 + 1) + 8 * i);
         v10 = [v9 objectForKey:@"localized label"];
         v11 = [v9 objectForKey:@"type"];
         v12 = [v9 objectForKey:@"value"];
@@ -83,13 +83,11 @@
         }
       }
 
-      v6 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v6 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v6);
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return array;
 }
@@ -107,30 +105,30 @@
 - (id)_sectionsFromProperties:(id)properties
 {
   selfCopy = self;
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   propertiesCopy = properties;
   array = [MEMORY[0x277CBEB18] array];
-  v17 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v16 = objc_alloc_init(MEMORY[0x277CBEB18]);
+  v19 = 0u;
   v20 = 0u;
   v21 = 0u;
   v22 = 0u;
-  v23 = 0u;
   obj = propertiesCopy;
-  v4 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+  v4 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
   if (v4)
   {
     v5 = v4;
-    v6 = *v21;
+    v6 = *v20;
     do
     {
       for (i = 0; i != v5; ++i)
       {
-        if (*v21 != v6)
+        if (*v20 != v6)
         {
           objc_enumerationMutation(obj);
         }
 
-        v8 = *(*(&v20 + 1) + 8 * i);
+        v8 = *(*(&v19 + 1) + 8 * i);
         v9 = [v8 objectForKey:{@"localized label", selfCopy}];
         v10 = [v8 objectForKey:@"type"];
         v11 = [v8 objectForKey:@"value"];
@@ -142,23 +140,21 @@
 
         else
         {
-          [v17 addObject:v8];
+          [v16 addObject:v8];
         }
       }
 
-      v5 = [obj countByEnumeratingWithState:&v20 objects:v24 count:16];
+      v5 = [obj countByEnumeratingWithState:&v19 objects:v23 count:16];
     }
 
     while (v5);
   }
 
-  if ([v17 count])
+  if ([v16 count])
   {
-    v13 = [(CertInfoCertificateDetailsView *)selfCopy _sectionInfoForCertSection:v17 title:0];
+    v13 = [(CertInfoCertificateDetailsView *)selfCopy _sectionInfoForCertSection:v16 title:0];
     [array addObject:v13];
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return array;
 }

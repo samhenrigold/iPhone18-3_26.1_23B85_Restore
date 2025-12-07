@@ -11,15 +11,14 @@
 
 + (id)_medicationScheduleIntervalDataEntityPropertiesForModel
 {
-  v5[6] = *MEMORY[0x277D85DE8];
-  v5[0] = @"schedule_id";
-  v5[1] = @"start_time_components";
-  v5[2] = @"day_of_week";
-  v5[3] = @"cycle_index";
-  v5[4] = @"cycle_interval_days";
-  v5[5] = @"dose";
-  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v5 count:6];
-  v3 = *MEMORY[0x277D85DE8];
+  v4[6] = *MEMORY[0x277D85DE8];
+  v4[0] = @"schedule_id";
+  v4[1] = @"start_time_components";
+  v4[2] = @"day_of_week";
+  v4[3] = @"cycle_index";
+  v4[4] = @"cycle_interval_days";
+  v4[5] = @"dose";
+  v2 = [MEMORY[0x277CBEA60] arrayWithObjects:v4 count:6];
 
   return v2;
 }
@@ -39,20 +38,18 @@
 
 + (id)foreignKeys
 {
-  v7[1] = *MEMORY[0x277D85DE8];
-  v6 = @"schedule_id";
+  v6[1] = *MEMORY[0x277D85DE8];
+  v5 = @"schedule_id";
   v2 = +[(HDHealthEntity *)HDMedicationScheduleEntity];
-  v7[0] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:&v6 count:1];
-
-  v4 = *MEMORY[0x277D85DE8];
+  v6[0] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:&v5 count:1];
 
   return v3;
 }
 
 + (BOOL)enumerateMedicationScheduleIntervalDataWithOwnerID:(int64_t)d transaction:(id)transaction error:(id *)error enumerationHandler:(id)handler
 {
-  v25[6] = *MEMORY[0x277D85DE8];
+  v24[6] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v11 = MEMORY[0x277D10B18];
   v12 = MEMORY[0x277CCABB0];
@@ -64,23 +61,22 @@
 
   v17 = [self queryWithDatabase:v16 predicate:v15];
 
-  v25[0] = @"schedule_id";
-  v25[1] = @"start_time_components";
-  v25[2] = @"day_of_week";
-  v25[3] = @"cycle_index";
-  v25[4] = @"cycle_interval_days";
-  v25[5] = @"dose";
-  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v25 count:6];
-  v22[0] = MEMORY[0x277D85DD0];
-  v22[1] = 3221225472;
-  v22[2] = __130__HDMedicationScheduleIntervalDataEntity_enumerateMedicationScheduleIntervalDataWithOwnerID_transaction_error_enumerationHandler___block_invoke;
-  v22[3] = &unk_2796CEDB8;
-  v23 = handlerCopy;
+  v24[0] = @"schedule_id";
+  v24[1] = @"start_time_components";
+  v24[2] = @"day_of_week";
+  v24[3] = @"cycle_index";
+  v24[4] = @"cycle_interval_days";
+  v24[5] = @"dose";
+  v18 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:6];
+  v21[0] = MEMORY[0x277D85DD0];
+  v21[1] = 3221225472;
+  v21[2] = __130__HDMedicationScheduleIntervalDataEntity_enumerateMedicationScheduleIntervalDataWithOwnerID_transaction_error_enumerationHandler___block_invoke;
+  v21[3] = &unk_2796CEDB8;
+  v22 = handlerCopy;
   selfCopy = self;
   v19 = handlerCopy;
-  LOBYTE(error) = [v17 enumerateProperties:v18 error:error enumerationHandler:v22];
+  LOBYTE(error) = [v17 enumerateProperties:v18 error:error enumerationHandler:v21];
 
-  v20 = *MEMORY[0x277D85DE8];
   return error;
 }
 

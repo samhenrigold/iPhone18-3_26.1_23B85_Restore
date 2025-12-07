@@ -1,6 +1,6 @@
 @interface _CHSWidgetRelevancePropertiesBufBuilder
-- (id)initWithBufferBuilder:(id *)builder;
 - (void)dealloc;
+- (void)initWithBufferBuilder:(void *)builder;
 - (void)setExtensionIdentity:(id)identity;
 - (void)setIsDeletion:(BOOL)deletion;
 - (void)setKind:(id)kind;
@@ -11,7 +11,7 @@
 
 @implementation _CHSWidgetRelevancePropertiesBufBuilder
 
-- (id)initWithBufferBuilder:(id *)builder
+- (void)initWithBufferBuilder:(void *)builder
 {
   v4 = a2;
   if (builder)
@@ -50,7 +50,6 @@
 
 - (void)setExtensionIdentity:(id)identity
 {
-  v10 = *MEMORY[0x1E69E9840];
   identityCopy = identity;
   if (!identityCopy)
   {
@@ -65,13 +64,10 @@
     v7 = identityCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<unsigned char>>(self->_bldr->var0, 4, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setKind:(id)kind
 {
-  v10 = *MEMORY[0x1E69E9840];
   kindCopy = kind;
   if (!kindCopy)
   {
@@ -86,54 +82,42 @@
     v7 = kindCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<unsigned char>>(self->_bldr->var0, 6, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setSupportsBackgroundRefresh:(BOOL)refresh
 {
   refreshCopy = refresh;
-  v7 = *MEMORY[0x1E69E9840];
   firstError = [(AFBBufferBuilder *)self->_owner firstError];
 
   if (!firstError)
   {
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(self->_bldr->var0, 8, refreshCopy, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setIsDeletion:(BOOL)deletion
 {
   deletionCopy = deletion;
-  v7 = *MEMORY[0x1E69E9840];
   firstError = [(AFBBufferBuilder *)self->_owner firstError];
 
   if (!firstError)
   {
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<unsigned char>(self->_bldr->var0, 10, deletionCopy, 0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setLastRelevanceUpdate:(double)update
 {
-  v7 = *MEMORY[0x1E69E9840];
   firstError = [(AFBBufferBuilder *)self->_owner firstError];
 
   if (!firstError)
   {
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddElement<double>(self->_bldr->var0, 12, update, 0.0);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)setRelevances:(id)relevances
 {
-  v10 = *MEMORY[0x1E69E9840];
   relevancesCopy = relevances;
   if (!relevancesCopy)
   {
@@ -148,8 +132,6 @@
     v7 = relevancesCopy;
     apple::aiml::flatbuffers2::FlatBufferBuilder::AddOffset<apple::aiml::flatbuffers2::Vector<unsigned char>>(self->_bldr->var0, 14, [v7 unsignedIntValue]);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 @end

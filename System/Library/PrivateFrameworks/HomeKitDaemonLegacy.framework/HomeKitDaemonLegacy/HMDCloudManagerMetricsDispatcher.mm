@@ -8,7 +8,7 @@
 
 - (void)submitFailureEventWithModelType:(id)type failureCode:(unint64_t)code error:(id)error
 {
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   typeCopy = type;
   errorCopy = error;
   v10 = objc_autoreleasePoolPush();
@@ -30,13 +30,13 @@
     }
 
     *buf = 138544130;
-    v21 = v13;
-    v22 = 2112;
-    v23 = typeCopy;
-    v24 = 2112;
-    v25 = v14;
-    v26 = 2112;
-    v27 = errorCopy;
+    v20 = v13;
+    v21 = 2112;
+    v22 = typeCopy;
+    v23 = 2112;
+    v24 = v14;
+    v25 = 2112;
+    v26 = errorCopy;
     _os_log_impl(&dword_2531F8000, v12, OS_LOG_TYPE_INFO, "%{public}@Submitting failure event with model type: %@ failure code: %@ error: %@", buf, 0x2Au);
   }
 
@@ -44,8 +44,6 @@
   v17 = [[HMDCloudManagerModelFailureEvent alloc] initWithModel:typeCopy failureCode:code error:errorCopy];
   logEventSubmitter = [(HMDCloudManagerMetricsDispatcher *)selfCopy logEventSubmitter];
   [logEventSubmitter submitLogEvent:v17];
-
-  v19 = *MEMORY[0x277D85DE8];
 }
 
 - (HMDCloudManagerMetricsDispatcher)initWithLogEventDispatcher:(id)dispatcher
@@ -77,12 +75,11 @@
 
 uint64_t __47__HMDCloudManagerMetricsDispatcher_logCategory__block_invoke()
 {
-  v0 = *MEMORY[0x277D0F1A8];
-  v1 = HMFCreateOSLogHandle();
-  v2 = logCategory__hmf_once_v2_187225;
-  logCategory__hmf_once_v2_187225 = v1;
+  v0 = HMFCreateOSLogHandle();
+  v1 = logCategory__hmf_once_v2_187225;
+  logCategory__hmf_once_v2_187225 = v0;
 
-  return MEMORY[0x2821F96F8](v1, v2);
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 @end

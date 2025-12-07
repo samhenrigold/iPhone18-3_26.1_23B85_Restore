@@ -9,7 +9,7 @@
 
 - (LSMIResultRegistrantServerDatabaseContextProviding)init
 {
-  _LSAssertRunningInServer("[LSMIResultRegistrantServerDatabaseContextProviding init]");
+  _LSAssertRunningInServer("[LSMIResultRegistrantServerDatabaseContextProviding init]", a2);
   v4.receiver = self;
   v4.super_class = LSMIResultRegistrantServerDatabaseContextProviding;
   return [(LSMIResultRegistrantServerDatabaseContextProviding *)&v4 init];
@@ -18,7 +18,7 @@
 - (id)databaseContextWithError:(id *)error
 {
   v5 = +[_LSDServiceDomain defaultServiceDomain];
-  v6 = LaunchServices::Database::Context::_get(&self->_ctx, v5, 0);
+  v6 = LaunchServices::Database::Context::_get(&self->_ctx._contextPointer, v5, 0);
 
   if (v6)
   {
@@ -33,7 +33,7 @@
   else
   {
     v9 = +[_LSDServiceDomain defaultServiceDomain];
-    v10 = LaunchServices::Database::Context::_get(&self->_ctx, v9, 0);
+    v10 = LaunchServices::Database::Context::_get(&self->_ctx._contextPointer, v9, 0);
 
     if (v10)
     {

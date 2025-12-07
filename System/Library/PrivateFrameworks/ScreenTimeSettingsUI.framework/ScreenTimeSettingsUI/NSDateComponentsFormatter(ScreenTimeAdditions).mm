@@ -12,9 +12,9 @@
     +[NSDateComponentsFormatter(ScreenTimeAdditions) st_sharedAbbreviatedSecondsDateFormatter];
   }
 
-  v1 = st_sharedAbbreviatedSecondsDateFormatter_usageTimeFormatter;
+  v2 = st_sharedAbbreviatedSecondsDateFormatter_usageTimeFormatter;
 
-  return v1;
+  return v2;
 }
 
 + (id)st_sharedShortDynamicDateFormatter
@@ -24,9 +24,9 @@
     +[NSDateComponentsFormatter(ScreenTimeAdditions) st_sharedShortDynamicDateFormatter];
   }
 
-  v1 = st_sharedShortDynamicDateFormatter_usageTimeFormatter;
+  v2 = st_sharedShortDynamicDateFormatter_usageTimeFormatter;
 
-  return v1;
+  return v2;
 }
 
 @end

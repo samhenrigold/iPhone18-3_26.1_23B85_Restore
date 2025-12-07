@@ -18,7 +18,7 @@
 - (BUFileIOChannel)initWithType:(unint64_t)type URL:(id)l oflag:(int)oflag mode:(unsigned __int16)mode error:(id *)error cleanupHandler:(id)handler
 {
   modeCopy = mode;
-  v79 = *MEMORY[0x277D85DE8];
+  v80 = *MEMORY[0x277D85DE8];
   lCopy = l;
   handlerCopy = handler;
   if (!lCopy || (objc_msgSend_isFileURL(lCopy, v15, v16) & 1) == 0)
@@ -28,19 +28,19 @@
       *error = objc_msgSend_bu_fileReadPOSIXErrorWithNumber_userInfo_(MEMORY[0x277CCA9B8], v15, 2, 0);
     }
 
-    v40 = MEMORY[0x245D00360](handlerCopy);
-    v41 = v40;
-    if (v40)
+    v41 = MEMORY[0x245D00360](handlerCopy);
+    v42 = v41;
+    if (v41)
     {
-      (*(v40 + 16))(v40, 2);
+      (*(v41 + 16))(v41, 2);
     }
 
     goto LABEL_17;
   }
 
-  v70.receiver = self;
-  v70.super_class = BUFileIOChannel;
-  v19 = [(BUFileIOChannel *)&v70 init];
+  v71.receiver = self;
+  v71.super_class = BUFileIOChannel;
+  v19 = [(BUFileIOChannel *)&v71 init];
   if (!v19)
   {
     if (error)
@@ -48,11 +48,11 @@
       *error = objc_msgSend_bu_fileReadPOSIXErrorWithNumber_userInfo_(MEMORY[0x277CCA9B8], v18, 12, 0);
     }
 
-    v44 = MEMORY[0x245D00360](handlerCopy);
-    self = v44;
-    if (v44)
+    v45 = MEMORY[0x245D00360](handlerCopy);
+    self = v45;
+    if (v45)
     {
-      (*(v44 + 16))(v44, 12);
+      (*(v45 + 16))(v45, 12);
     }
 
 LABEL_17:
@@ -60,18 +60,18 @@ LABEL_17:
     goto LABEL_18;
   }
 
-  v68[0] = 0;
-  v68[1] = v68;
-  v68[2] = 0x2020000000;
-  v69 = 0;
-  v65[0] = MEMORY[0x277D85DD0];
-  v65[1] = 3221225472;
-  v65[2] = sub_241DC1D7C;
-  v65[3] = &unk_278D1D8D0;
-  v67 = v68;
+  v69[0] = 0;
+  v69[1] = v69;
+  v69[2] = 0x2020000000;
+  v70 = 0;
+  v66[0] = MEMORY[0x277D85DD0];
+  v66[1] = 3221225472;
+  v66[2] = sub_241DC1D7C;
+  v66[3] = &unk_278D1D8D0;
+  v68 = v69;
   v20 = handlerCopy;
-  v66 = v20;
-  v61 = MEMORY[0x245D00360](v65);
+  v67 = v20;
+  v62 = MEMORY[0x245D00360](v66);
   v23 = objc_msgSend_path(lCopy, v21, v22);
   v24 = v23;
   v27 = objc_msgSend_fileSystemRepresentation(v23, v25, v26);
@@ -86,19 +86,19 @@ LABEL_17:
     v30 = open(v27, oflag, modeCopy);
     if (v30 < 0)
     {
-      v45 = MEMORY[0x277CCA9B8];
-      v46 = __error();
-      v39 = objc_msgSend_bu_fileReadPOSIXErrorWithNumber_userInfo_(v45, v47, *v46, 0);
-      v48 = BUZipLog();
-      if (os_log_type_enabled(v48, OS_LOG_TYPE_ERROR))
+      v46 = MEMORY[0x277CCA9B8];
+      v47 = __error();
+      v40 = objc_msgSend_bu_fileReadPOSIXErrorWithNumber_userInfo_(v46, v48, *v47, 0);
+      v49 = BUZipLog(v40);
+      if (os_log_type_enabled(v49, OS_LOG_TYPE_ERROR))
       {
-        v49 = __error();
-        v50 = strerror(*v49);
-        sub_241DD0A5C(v50, buf, v27, v48);
+        v50 = __error();
+        v51 = strerror(*v50);
+        sub_241DD0A5C(v51, buf, v27, v49);
       }
 
-      v51 = __error();
-      v61[2](v61, *v51);
+      v52 = __error();
+      v62[2](v62, *v52);
       goto LABEL_26;
     }
 
@@ -111,58 +111,58 @@ LABEL_17:
     cleanup_handler[1] = 3221225472;
     cleanup_handler[2] = sub_241DC1DF4;
     cleanup_handler[3] = &unk_278D1D8F8;
-    v64 = v30;
-    v63 = v20;
+    v65 = v30;
+    v64 = v20;
     v34 = dispatch_io_create(type, v30, v33, cleanup_handler);
     objc_msgSend_setChannel_(v19, v35, v34);
 
-    v36 = BUZipLog();
-    if (os_log_type_enabled(v36, OS_LOG_TYPE_DEBUG))
+    v37 = BUZipLog(v36);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_DEBUG))
     {
-      v57 = objc_msgSend_channel(v19, v37, v38);
-      v60 = objc_msgSend_path(lCopy, v58, v59);
+      v58 = objc_msgSend_channel(v19, v38, v39);
+      v61 = objc_msgSend_path(lCopy, v59, v60);
       *buf = 138413058;
-      v72 = v19;
-      v73 = 1024;
-      v74 = v30;
-      v75 = 2112;
-      v76 = v57;
-      v77 = 2112;
-      v78 = v60;
-      _os_log_debug_impl(&dword_241DA6000, v36, OS_LOG_TYPE_DEBUG, "%@: initWithType:URL:oflag:mode:, fd = %d, self.channel = %@, URL = %@", buf, 0x26u);
+      v73 = v19;
+      v74 = 1024;
+      v75 = v30;
+      v76 = 2112;
+      v77 = v58;
+      v78 = 2112;
+      v79 = v61;
+      _os_log_debug_impl(&dword_241DA6000, v37, OS_LOG_TYPE_DEBUG, "%@: initWithType:URL:oflag:mode:, fd = %d, self.channel = %@, URL = %@", buf, 0x26u);
     }
   }
 
-  v39 = 0;
+  v40 = 0;
 LABEL_26:
-  v52 = objc_msgSend_channel(v19, v28, v29);
-  v53 = v52 == 0;
+  v53 = objc_msgSend_channel(v19, v28, v29);
+  v54 = v53 == 0;
 
-  if (v53)
+  if (v54)
   {
     if (error)
     {
-      if (v39)
+      if (v40)
       {
-        v55 = v39;
-        *error = v39;
+        v56 = v40;
+        *error = v40;
       }
 
       else
       {
-        v56 = objc_msgSend_bu_fileReadPOSIXErrorWithNumber_userInfo_(MEMORY[0x277CCA9B8], v54, 2, 0);
-        *error = v56;
+        v57 = objc_msgSend_bu_fileReadPOSIXErrorWithNumber_userInfo_(MEMORY[0x277CCA9B8], v55, 2, 0);
+        *error = v57;
       }
     }
 
-    v61[2](v61, 2);
+    v62[2](v62, 2);
 
     v19 = 0;
   }
 
   self = v19;
 
-  _Block_object_dispose(v68, 8);
+  _Block_object_dispose(v69, 8);
   selfCopy = self;
 LABEL_18:
 

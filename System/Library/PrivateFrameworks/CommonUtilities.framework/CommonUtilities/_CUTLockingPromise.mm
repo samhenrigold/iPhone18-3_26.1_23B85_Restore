@@ -29,72 +29,71 @@
 
 - (void)_fulfillWithResult:(id)result
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   resultCopy = result;
-  [(NSRecursiveLock *)self->_lock lock];
-  if ([(_CUTLockingPromise *)self done])
+  objc_msgSend_lock(self->_lock, v6, v7);
+  if (objc_msgSend_done(self, v8, v9))
   {
-    sub_1B233138C(a2, self);
+    sub_1B233138C(a2, self, v11);
   }
 
-  [(_CUTLockingPromise *)self setDone:1];
-  [(_CUTLockingPromise *)self setResult:resultCopy];
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
-  v14 = 0u;
-  v6 = self->_resultBlocks;
-  v7 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
-  if (v7)
+  objc_msgSend_setDone_(self, v10, 1);
+  objc_msgSend_setResult_(self, v12, resultCopy);
+  v25 = 0u;
+  v26 = 0u;
+  v23 = 0u;
+  v24 = 0u;
+  v13 = self->_resultBlocks;
+  v15 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v14, &v23, v27, 16);
+  if (v15)
   {
-    v8 = v7;
-    v9 = *v14;
+    v16 = v15;
+    v17 = *v24;
     do
     {
-      v10 = 0;
+      v18 = 0;
       do
       {
-        if (*v14 != v9)
+        if (*v24 != v17)
         {
-          objc_enumerationMutation(v6);
+          objc_enumerationMutation(v13);
         }
 
-        (*(*(*(&v13 + 1) + 8 * v10) + 16))(*(*(&v13 + 1) + 8 * v10));
-        ++v10;
+        (*(*(*(&v23 + 1) + 8 * v18) + 16))(*(*(&v23 + 1) + 8 * v18));
+        ++v18;
       }
 
-      while (v8 != v10);
-      v8 = [(NSMutableArray *)v6 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      while (v16 != v18);
+      v16 = objc_msgSend_countByEnumeratingWithState_objects_count_(v13, v19, &v23, v27, 16);
     }
 
-    while (v8);
+    while (v16);
   }
 
   resultBlocks = self->_resultBlocks;
   self->_resultBlocks = 0;
 
-  [(NSRecursiveLock *)self->_lock unlock];
-  v12 = *MEMORY[0x1E69E9840];
+  objc_msgSend_unlock(self->_lock, v21, v22, v23);
 }
 
 - (void)registerResultBlock:(id)block
 {
   blockCopy = block;
-  [(NSRecursiveLock *)self->_lock lock];
-  if ([(_CUTLockingPromise *)self done])
+  objc_msgSend_lock(self->_lock, v4, v5);
+  if (objc_msgSend_done(self, v6, v7))
   {
-    result = [(_CUTLockingPromise *)self result];
-    blockCopy[2](blockCopy, result);
+    v10 = objc_msgSend_result(self, v8, v9);
+    blockCopy[2](blockCopy, v10);
   }
 
   else
   {
     resultBlocks = self->_resultBlocks;
-    result = MEMORY[0x1B2746240](blockCopy);
-    [(NSMutableArray *)resultBlocks addObject:result];
+    v10 = MEMORY[0x1B2746240](blockCopy);
+    objc_msgSend_addObject_(resultBlocks, v12, v10);
   }
 
-  [(NSRecursiveLock *)self->_lock unlock];
+  objc_msgSend_unlock(self->_lock, v13, v14);
 }
 
 @end

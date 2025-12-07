@@ -1,9 +1,15 @@
 @interface HASInterface
+- (BOOL)presetAvailable:(unsigned __int8)available;
+- (BOOL)presetNameWritable:(unsigned __int8)writable;
 - (HASInterface)initWithPeripheral:(id)peripheral service:(id)service;
 - (id)attApplicationErrorCodeToString:(int64_t)string;
 - (id)attCommonProfileAndServiceErrorCodeToString:(int64_t)string;
 - (id)hearingAidTypeToString:(unsigned __int8)string;
 - (id)presetNameToString:(id)string;
+- (void)buildReadPresetsRequest:(unsigned __int8)request numPresets:(unsigned __int8)presets withRequestData:(id *)data;
+- (void)buildSetActivePreset:(unsigned __int8)preset withRequestData:(id *)data;
+- (void)buildSetActivePresetSyncLocally:(unsigned __int8)locally withRequestData:(id *)data;
+- (void)buildWritePresetName:(unsigned __int8)name withName:(id)withName withRequestData:(id *)data;
 - (void)handleActivePresetIndex;
 - (void)handleGenericUpdate:(id)update length:(unsigned __int8)length;
 - (void)handleHearingAidFeaturestUpdate;
@@ -375,6 +381,57 @@ LABEL_10:
   }
 
 LABEL_12:
+}
+
+- (void)buildReadPresetsRequest:(unsigned __int8)request numPresets:(unsigned __int8)presets withRequestData:(id *)data
+{
+  presetsCopy = presets;
+  requestCopy = request;
+  v7 = *data;
+  [v7 writeUint8:1];
+  [v7 writeUint8:requestCopy];
+  [v7 writeUint8:presetsCopy];
+}
+
+- (void)buildWritePresetName:(unsigned __int8)name withName:(id)withName withRequestData:(id *)data
+{
+  nameCopy = name;
+  v7 = *data;
+  withNameCopy = withName;
+  v13 = [withNameCopy dataUsingEncoding:4];
+  v9 = [withNameCopy length];
+
+  [v7 writeUint8:4];
+  [v7 writeUint8:nameCopy];
+  v10 = v13;
+  bytes = [v13 bytes];
+  if (v9 >= 0x28uLL)
+  {
+    v12 = 40;
+  }
+
+  else
+  {
+    v12 = v9;
+  }
+
+  [v7 writeBytes:bytes length:v12];
+}
+
+- (void)buildSetActivePreset:(unsigned __int8)preset withRequestData:(id *)data
+{
+  presetCopy = preset;
+  v5 = *data;
+  [v5 writeUint8:5];
+  [v5 writeUint8:presetCopy];
+}
+
+- (void)buildSetActivePresetSyncLocally:(unsigned __int8)locally withRequestData:(id *)data
+{
+  locallyCopy = locally;
+  v5 = *data;
+  [v5 writeUint8:8];
+  [v5 writeUint8:locallyCopy];
 }
 
 - (void)handleHearingAidFeaturestUpdate
@@ -1107,6 +1164,46 @@ LABEL_21:
   peripheral = [(ServiceInterface *)self peripheral];
   hearingAidPresetControlPointCharacteristic = [(HASInterface *)self hearingAidPresetControlPointCharacteristic];
   [peripheral writeValue:operationCopy forCharacteristic:hearingAidPresetControlPointCharacteristic type:0];
+}
+
+- (BOOL)presetNameWritable:(unsigned __int8)writable
+{
+  writableCopy = writable;
+  presets = [(HASInterface *)self presets];
+  v5 = [NSNumber numberWithInt:writableCopy];
+  v6 = [presets objectForKey:v5];
+
+  if (v6)
+  {
+    writable = [v6 writable];
+  }
+
+  else
+  {
+    writable = 0;
+  }
+
+  return writable;
+}
+
+- (BOOL)presetAvailable:(unsigned __int8)available
+{
+  availableCopy = available;
+  presets = [(HASInterface *)self presets];
+  v5 = [NSNumber numberWithInt:availableCopy];
+  v6 = [presets objectForKey:v5];
+
+  if (v6)
+  {
+    isAvailable = [v6 isAvailable];
+  }
+
+  else
+  {
+    isAvailable = 0;
+  }
+
+  return isAvailable;
 }
 
 - (id)presetNameToString:(id)string

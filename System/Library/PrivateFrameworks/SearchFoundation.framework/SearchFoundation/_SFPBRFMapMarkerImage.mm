@@ -284,18 +284,14 @@ LABEL_18:
 
 - (void)setSystemImage:(id)image
 {
-  v4 = [image copy];
-  systemImage = self->_systemImage;
-  self->_systemImage = v4;
+  self->_systemImage = [image copy];
 
   MEMORY[0x1EEE66BB8]();
 }
 
 - (void)setTitle:(id)title
 {
-  v4 = [title copy];
-  title = self->_title;
-  self->_title = v4;
+  self->_title = [title copy];
 
   MEMORY[0x1EEE66BB8]();
 }

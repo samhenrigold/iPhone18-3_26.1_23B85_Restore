@@ -211,15 +211,15 @@ LABEL_16:
 LABEL_17:
 }
 
-uint64_t __97___TVModalPresenter_showController_fromController_withConfiguration_animated_andCompletionBlock___block_invoke_5(uint64_t a1)
+uint64_t __97___TVModalPresenter_showController_fromController_withConfiguration_animated_andCompletionBlock___block_invoke_5(uint64_t a1, uint64_t a2)
 {
   objc_opt_class();
   result = objc_opt_isKindOfClass();
   if (result)
   {
-    v3 = *(a1 + 32);
+    v4 = *(a1 + 32);
 
-    return [v3 didPresentTraitsOverridingViewController];
+    return [v4 didPresentTraitsOverridingViewController];
   }
 
   return result;

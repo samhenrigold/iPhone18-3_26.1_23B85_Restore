@@ -29,11 +29,11 @@
 
 - (AEProgressViewModelSnapshot)initWithProgressByIndexPath:(id)path dataSourceIdenfitier:(int64_t)idenfitier
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   pathCopy = path;
-  v27.receiver = self;
-  v27.super_class = AEProgressViewModelSnapshot;
-  v8 = [(AEProgressViewModelSnapshot *)&v27 init];
+  v25.receiver = self;
+  v25.super_class = AEProgressViewModelSnapshot;
+  v8 = [(AEProgressViewModelSnapshot *)&v25 init];
   v9 = v8;
   if (v8)
   {
@@ -42,38 +42,37 @@
     {
       objc_storeStrong(&v8->__progressByIndexPath, path);
       v10 = objc_alloc_init(MEMORY[0x277D3CD78]);
-      v25 = 0u;
-      v26 = 0u;
       v23 = 0u;
       v24 = 0u;
+      v21 = 0u;
+      v22 = 0u;
       keyEnumerator = [(NSDictionary *)v9->__progressByIndexPath keyEnumerator];
-      v12 = [keyEnumerator countByEnumeratingWithState:&v23 objects:v28 count:16];
+      v12 = [keyEnumerator countByEnumeratingWithState:&v21 objects:v26 count:16];
       if (v12)
       {
         v13 = v12;
-        v14 = *v24;
+        v14 = *v22;
         do
         {
           v15 = 0;
           do
           {
-            if (*v24 != v14)
+            if (*v22 != v14)
             {
               objc_enumerationMutation(keyEnumerator);
             }
 
-            v16 = *(*(&v23 + 1) + 8 * v15);
-            v21 = 0u;
-            v22 = 0u;
+            v19 = 0u;
+            v20 = 0u;
             PXSimpleIndexPathFromIndexPath();
-            v20[0] = v21;
-            v20[1] = v22;
-            [v10 addIndexPath:v20];
+            v18[0] = v19;
+            v18[1] = v20;
+            [v10 addIndexPath:v18];
             ++v15;
           }
 
           while (v13 != v15);
-          v13 = [keyEnumerator countByEnumeratingWithState:&v23 objects:v28 count:16];
+          v13 = [keyEnumerator countByEnumeratingWithState:&v21 objects:v26 count:16];
         }
 
         while (v13);
@@ -84,7 +83,6 @@
     }
   }
 
-  v18 = *MEMORY[0x277D85DE8];
   return v9;
 }
 

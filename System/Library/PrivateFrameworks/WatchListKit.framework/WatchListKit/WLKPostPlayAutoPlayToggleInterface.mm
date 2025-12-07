@@ -37,28 +37,27 @@
   os_unfair_lock_lock(&__accessLock_0);
   if (!self->_isNextEpisodeSettingEnabled)
   {
-    v3 = +[WLKPostPlayAutoPlayManager defaultManager];
-    v4 = [v3 isEnabledForType:1];
+    v4 = +[WLKPostPlayAutoPlayManager defaultManager];
+    v5 = [v4 isEnabledForType:1];
 
-    v5 = [MEMORY[0x277CCABB0] numberWithBool:v4];
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:v5];
     isNextEpisodeSettingEnabled = self->_isNextEpisodeSettingEnabled;
-    self->_isNextEpisodeSettingEnabled = v5;
+    self->_isNextEpisodeSettingEnabled = v6;
   }
 
-  v7 = WLKSystemLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = WLKSystemLogObject(v3);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = self->_isNextEpisodeSettingEnabled;
+    v9 = self->_isNextEpisodeSettingEnabled;
     v12 = 138412290;
-    v13 = v8;
-    _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlayToggleInterface - isNextEpisodeSettingEnabled returns %@", &v12, 0xCu);
+    v13 = v9;
+    _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlayToggleInterface - isNextEpisodeSettingEnabled returns %@", &v12, 0xCu);
   }
 
-  v9 = self->_isNextEpisodeSettingEnabled;
+  v10 = self->_isNextEpisodeSettingEnabled;
   os_unfair_lock_unlock(&__accessLock_0);
-  v10 = *MEMORY[0x277D85DE8];
 
-  return v9;
+  return v10;
 }
 
 - (void)setIsNextEpisodeSettingEnabled:(id)enabled
@@ -141,28 +140,27 @@ void __69__WLKPostPlayAutoPlayToggleInterface_setIsNextEpisodeSettingEnabled___b
   os_unfair_lock_lock(&__accessLock_0);
   if (!self->_isRecommendedItemsSettingEnabled)
   {
-    v3 = +[WLKPostPlayAutoPlayManager defaultManager];
-    v4 = [v3 isEnabledForType:2];
+    v4 = +[WLKPostPlayAutoPlayManager defaultManager];
+    v5 = [v4 isEnabledForType:2];
 
-    v5 = [MEMORY[0x277CCABB0] numberWithBool:v4];
+    v6 = [MEMORY[0x277CCABB0] numberWithBool:v5];
     isRecommendedItemsSettingEnabled = self->_isRecommendedItemsSettingEnabled;
-    self->_isRecommendedItemsSettingEnabled = v5;
+    self->_isRecommendedItemsSettingEnabled = v6;
   }
 
-  v7 = WLKSystemLogObject();
-  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  v8 = WLKSystemLogObject(v3);
+  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
   {
-    v8 = self->_isRecommendedItemsSettingEnabled;
+    v9 = self->_isRecommendedItemsSettingEnabled;
     v12 = 138412290;
-    v13 = v8;
-    _os_log_impl(&dword_272A0F000, v7, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlayToggleInterface - isRecommendedItemsSettingEnabled returns %@", &v12, 0xCu);
+    v13 = v9;
+    _os_log_impl(&dword_272A0F000, v8, OS_LOG_TYPE_DEFAULT, "WLKPostPlayAutoPlayToggleInterface - isRecommendedItemsSettingEnabled returns %@", &v12, 0xCu);
   }
 
-  v9 = self->_isRecommendedItemsSettingEnabled;
+  v10 = self->_isRecommendedItemsSettingEnabled;
   os_unfair_lock_unlock(&__accessLock_0);
-  v10 = *MEMORY[0x277D85DE8];
 
-  return v9;
+  return v10;
 }
 
 - (void)setIsRecommendedItemsSettingEnabled:(id)enabled

@@ -8,34 +8,33 @@
 
 - (void)_updateModesWithIntelligentBreakthroughEnabled
 {
-  v11 = *MEMORY[0x277D85DE8];
+  v10 = *MEMORY[0x277D85DE8];
   selfCopy = self;
   objc_sync_enter(selfCopy);
   modeService = selfCopy->_modeService;
-  v8 = 0;
-  v4 = [(DNDModeConfigurationService *)modeService modeConfigurationsReturningError:&v8];
-  v5 = v8;
+  v7 = 0;
+  v4 = [(DNDModeConfigurationService *)modeService modeConfigurationsReturningError:&v7];
+  v5 = v7;
   if (v4)
   {
     [(NSMutableSet *)selfCopy->_modesWithIntelligentBreakthroughEnabled removeAllObjects];
     selfCopy->_didCompleteOneSuccessfulModeConfigurationFetch = 1;
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __77__PSUModeConfigurationService__updateModesWithIntelligentBreakthroughEnabled__block_invoke;
-    v7[3] = &unk_278947730;
-    v7[4] = selfCopy;
-    [v4 enumerateKeysAndObjectsUsingBlock:v7];
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __77__PSUModeConfigurationService__updateModesWithIntelligentBreakthroughEnabled__block_invoke;
+    v6[3] = &unk_278947730;
+    v6[4] = selfCopy;
+    [v4 enumerateKeysAndObjectsUsingBlock:v6];
   }
 
   else if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     *buf = 138412290;
-    v10 = v5;
+    v9 = v5;
     _os_log_error_impl(&dword_231CAE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not fetch mode configurations: %@", buf, 0xCu);
   }
 
   objc_sync_exit(selfCopy);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void __77__PSUModeConfigurationService__updateModesWithIntelligentBreakthroughEnabled__block_invoke(uint64_t a1, uint64_t a2, void *a3)
@@ -112,16 +111,14 @@ void __77__PSUModeConfigurationService__updateModesWithIntelligentBreakthroughEn
 
 void __35__PSUModeConfigurationService_init__block_invoke(uint64_t a1, char a2, void *a3)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v4 = a3;
   if ((a2 & 1) == 0 && os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
-    v6 = 138412290;
-    v7 = v4;
-    _os_log_error_impl(&dword_231CAE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not add mode configuration listener: %@", &v6, 0xCu);
+    v5 = 138412290;
+    v6 = v4;
+    _os_log_error_impl(&dword_231CAE000, MEMORY[0x277D86220], OS_LOG_TYPE_ERROR, "Could not add mode configuration listener: %@", &v5, 0xCu);
   }
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

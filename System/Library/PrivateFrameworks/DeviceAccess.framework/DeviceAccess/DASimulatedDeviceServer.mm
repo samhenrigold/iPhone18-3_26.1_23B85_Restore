@@ -28,12 +28,12 @@
 
 - (id)descriptionWithLevel:(int)level
 {
-  objc_opt_class();
-  deviceBonjourServiceType = self->_deviceBonjourServiceType;
-  v5 = *&self->_deviceIdentitifer;
-  NSAppendPrintF();
+  v7 = 0;
+  v4 = objc_opt_class();
+  NSAppendPrintF(&v7, "%@, ID %@, Nm '%@', BST '%@'", v4, self->_deviceIdentitifer, self->_deviceName, self->_deviceBonjourServiceType);
+  v5 = v7;
 
-  return 0;
+  return v5;
 }
 
 - (void)activate
@@ -53,10 +53,10 @@
 
   if (!self->_deviceName)
   {
-    arc4random();
-    v6 = NSPrintF();
+    v6 = arc4random();
+    v7 = NSPrintF("Random Device %u", v6);
     deviceName = self->_deviceName;
-    self->_deviceName = v6;
+    self->_deviceName = v7;
   }
 
   dispatchQueue = self->_dispatchQueue;
@@ -68,10 +68,10 @@
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __35__DASimulatedDeviceServer_activate__block_invoke(uint64_t result)
+char *__35__DASimulatedDeviceServer_activate__block_invoke(char *result)
 {
-  v2 = (result + 32);
-  v1 = *(result + 32);
+  v2 = result + 32;
+  v1 = *(result + 4);
   if ((*(v1 + 8) & 1) == 0)
   {
     *(v1 + 8) = 1;
@@ -90,8 +90,8 @@ uint64_t __35__DASimulatedDeviceServer_activate__block_invoke(uint64_t result)
 
 - (void)_activate
 {
-  v0 = CUPrintNSError();
-  LogPrintF();
+  v1 = CUPrintNSError();
+  LogPrintF(&gLogCategory_DASimulatedDeviceServer, "[DASimulatedDeviceServer _activate]", 90, "### TCP server failed: %@", v1);
 }
 
 void *__36__DASimulatedDeviceServer__activate__block_invoke(uint64_t a1, uint64_t a2)
@@ -117,10 +117,10 @@ void *__36__DASimulatedDeviceServer__activate__block_invoke(uint64_t a1, uint64_
   dispatch_async(dispatchQueue, block);
 }
 
-uint64_t __37__DASimulatedDeviceServer_invalidate__block_invoke(uint64_t result)
+char *__37__DASimulatedDeviceServer_invalidate__block_invoke(char *result)
 {
-  v2 = (result + 32);
-  v1 = *(result + 32);
+  v2 = result + 32;
+  v1 = *(result + 4);
   if ((*(v1 + 24) & 1) == 0)
   {
     *(v1 + 24) = 1;
@@ -157,7 +157,7 @@ uint64_t __37__DASimulatedDeviceServer_invalidate__block_invoke(uint64_t result)
     self->_invalidateDone = 1;
     if (gLogCategory_DASimulatedDeviceServer <= 30 && (gLogCategory_DASimulatedDeviceServer != -1 || _LogCategory_Initialize()))
     {
-      [DASimulatedDeviceServer _invalidated];
+      [(DASimulatedDeviceServer *)self _invalidated];
     }
   }
 }

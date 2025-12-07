@@ -1,61 +1,3 @@
-void sub_100081AF8(uint64_t a1, void *a2, void *a3)
-{
-  v5 = a2;
-  v6 = a3;
-  reply = xpc_dictionary_create_reply(*(a1 + 32));
-  v8 = xpc_dictionary_get_remote_connection(*(a1 + 32));
-  if (reply)
-  {
-    v9 = xpc_get_type(reply) != &_xpc_type_dictionary || v8 == 0;
-    if (!v9 && xpc_get_type(v8) == &_xpc_type_connection)
-    {
-      if (v5 && ([v5 _endpoint], (v11 = objc_claimAutoreleasedReturnValue()) != 0) && (v12 = v11, type = xpc_get_type(v11), v12, type == &_xpc_type_endpoint))
-      {
-        v15 = [v5 _endpoint];
-        xpc_dictionary_set_value(reply, "new-connection", v15);
-
-        if (!v6)
-        {
-          goto LABEL_18;
-        }
-      }
-
-      else
-      {
-        v14 = ne_log_obj();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
-        {
-          LOWORD(v16) = 0;
-          _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Failed to get a valid XPC endpoint from the filter plugin", &v16, 2u);
-        }
-
-        xpc_dictionary_set_int64(reply, "error", 3);
-        if (!v6)
-        {
-          goto LABEL_18;
-        }
-      }
-
-      xpc_dictionary_set_data(reply, "crypto-key", [v6 bytes], objc_msgSend(v6, "length"));
-LABEL_18:
-      xpc_connection_send_message(v8, reply);
-      goto LABEL_10;
-    }
-  }
-
-  v10 = ne_log_obj();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
-  {
-    v16 = 134218240;
-    v17 = reply;
-    v18 = 2048;
-    v19 = v8;
-    _os_log_error_impl(&_mh_execute_header, v10, OS_LOG_TYPE_ERROR, "Failed to create a reply (%p) or a connection to send it over (%p) when sending the filter connection to the client", &v16, 0x16u);
-  }
-
-LABEL_10:
-}
-
 id sub_100082754(uint64_t a1)
 {
   v2 = ne_log_obj();
@@ -591,9 +533,9 @@ void sub_100084AD8(void *a1, char a2)
   }
 }
 
-void sub_100084BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100084BE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -611,7 +553,7 @@ void sub_100084C10(uint64_t a1)
   if (*(a1 + 48) == 1)
   {
     sub_10008FAD0(*(a1 + 32));
-    sub_10008E79C(*(v1 + 32));
+    sub_10008E79C(*(v1 + 32), v2);
   }
 
   if (*(v1 + 49) != 1)
@@ -619,294 +561,294 @@ void sub_100084C10(uint64_t a1)
     goto LABEL_70;
   }
 
-  v2 = [*(v1 + 32) configuration];
-  v3 = [v2 relay];
-  v4 = [v3 isEnabled];
+  v3 = [*(v1 + 32) configuration];
+  v4 = [v3 relay];
+  v5 = [v4 isEnabled];
 
-  v6 = *(v1 + 32);
-  if (!v4)
+  v7 = *(v1 + 32);
+  if (!v5)
   {
-    v50 = [v6 policySession];
-    sub_100030D44(v50);
+    v51 = [v7 policySession];
+    sub_100030D44(v51);
 
 LABEL_70:
-    v88 = *(*(v1 + 40) + 8);
-    v10 = *(v88 + 40);
-    *(v88 + 40) = 0;
+    v89 = *(*(v1 + 40) + 8);
+    v11 = *(v89 + 40);
+    *(v89 + 40) = 0;
     goto LABEL_71;
   }
 
-  if (!v6 || (v8 = objc_getProperty(v6, v5, 416, 1), v6 = *(v1 + 32), !v8))
+  if (!v7 || (v9 = objc_getProperty(v7, v6, 416, 1), v7 = *(v1 + 32), !v9))
   {
-    v52 = [v6 policySession];
-    v53 = [*(v1 + 32) networkAgent];
-    v55 = [v53 agentUUID];
+    v53 = [v7 policySession];
+    v54 = [*(v1 + 32) networkAgent];
+    v56 = [v54 agentUUID];
     Property = *(v1 + 32);
     if (Property)
     {
-      Property = objc_getProperty(Property, v54, 392, 1);
+      Property = objc_getProperty(Property, v55, 392, 1);
     }
 
-    v58 = [Property agentUUID];
-    v59 = *(v1 + 32);
-    if (v59)
+    v59 = [Property agentUUID];
+    v60 = *(v1 + 32);
+    if (v60)
     {
-      v59 = objc_getProperty(v59, v57, 408, 1);
+      v60 = objc_getProperty(v60, v58, 408, 1);
     }
 
-    v61 = [v59 matchDomains];
-    v62 = *(v1 + 32);
-    if (v62)
+    v62 = [v60 matchDomains];
+    v63 = *(v1 + 32);
+    if (v63)
     {
-      v62 = objc_getProperty(v62, v60, 408, 1);
+      v63 = objc_getProperty(v63, v61, 408, 1);
     }
 
-    v64 = [v62 excludedDomains];
-    v65 = *(v1 + 32);
-    if (v65)
+    v65 = [v63 excludedDomains];
+    v66 = *(v1 + 32);
+    if (v66)
     {
-      v65 = objc_getProperty(v65, v63, 440, 1);
+      v66 = objc_getProperty(v66, v64, 440, 1);
     }
 
-    v67 = v65;
-    v68 = *(v1 + 32);
-    if (v68)
+    v68 = v66;
+    v69 = *(v1 + 32);
+    if (v69)
     {
-      v68 = objc_getProperty(v68, v66, 408, 1);
+      v69 = objc_getProperty(v69, v67, 408, 1);
     }
 
-    v70 = [v68 matchFQDNs];
-    v71 = *(v1 + 32);
-    v96 = v1;
-    if (v71)
+    v71 = [v69 matchFQDNs];
+    v72 = *(v1 + 32);
+    v97 = v1;
+    if (v72)
     {
-      v71 = objc_getProperty(v71, v69, 408, 1);
+      v72 = objc_getProperty(v72, v70, 408, 1);
     }
 
-    v73 = [v71 excludedFQDNs];
-    v74 = *(v96 + 32);
-    v100 = v53;
-    if (v74)
+    v74 = [v72 excludedFQDNs];
+    v75 = *(v97 + 32);
+    v101 = v54;
+    if (v75)
     {
-      v74 = objc_getProperty(v74, v72, 408, 1);
+      v75 = objc_getProperty(v75, v73, 408, 1);
     }
 
-    v75 = [v74 perApp];
-    v76 = [*(v96 + 32) server];
-    obja = v76;
-    if (v76)
+    v76 = [v75 perApp];
+    v77 = [*(v97 + 32) server];
+    obja = v77;
+    if (v77)
     {
-      v76 = objc_getProperty(v76, v77, 80, 1);
+      v77 = objc_getProperty(v77, v78, 80, 1);
     }
 
-    v78 = v76;
-    v106 = v55;
-    v103 = v58;
-    v79 = v61;
-    v80 = v64;
-    v81 = v67;
-    v82 = v70;
-    v83 = v73;
-    v84 = v75;
-    v85 = v78;
-    v86 = v52;
-    if (v52 && *(v52 + 8) == 9)
+    v79 = v77;
+    v107 = v56;
+    v104 = v59;
+    v80 = v62;
+    v81 = v65;
+    v82 = v68;
+    v83 = v71;
+    v84 = v74;
+    v85 = v76;
+    v86 = v79;
+    v87 = v53;
+    if (v53 && *(v53 + 8) == 9)
     {
       *buf = _NSConcreteStackBlock;
       *&buf[8] = 3221225472;
       *&buf[16] = sub_10004E334;
-      v113 = &unk_1000EA210;
-      v114 = v52;
-      v115 = v81;
-      v116 = v85;
-      v117 = v106;
-      v118 = v103;
-      v119 = v79;
-      v120 = v82;
-      v121 = v84;
-      v122 = v80;
-      v123 = v83;
-      v86 = v52;
+      v114 = &unk_1000EA210;
+      v115 = v53;
+      v116 = v82;
+      v117 = v86;
+      v118 = v107;
+      v119 = v104;
+      v120 = v80;
+      v121 = v83;
+      v122 = v85;
+      v123 = v81;
+      v124 = v84;
+      v87 = v53;
       sub_100031500(NESMPolicyMasterSession, buf);
     }
 
     goto LABEL_69;
   }
 
-  if (v6)
+  if (v7)
   {
-    v6 = objc_getProperty(v6, v7, 416, 1);
+    v7 = objc_getProperty(v7, v8, 416, 1);
   }
 
-  v9 = [v6 objectForKey:@"proxy-match"];
-  v10 = v9;
-  if (v9 && [v9 count])
+  v10 = [v7 objectForKey:@"proxy-match"];
+  v11 = v10;
+  if (v10 && [v10 count])
   {
-    v96 = v1;
-    v104 = objc_alloc_init(NSMutableArray);
-    v101 = objc_alloc_init(NSMutableArray);
-    v99 = objc_alloc_init(NSMutableArray);
-    v11 = objc_alloc_init(NSMutableArray);
-    v107 = 0u;
+    v97 = v1;
+    v105 = objc_alloc_init(NSMutableArray);
+    v102 = objc_alloc_init(NSMutableArray);
+    v100 = objc_alloc_init(NSMutableArray);
+    v12 = objc_alloc_init(NSMutableArray);
     v108 = 0u;
     v109 = 0u;
     v110 = 0u;
-    obj = v10;
-    v12 = [obj countByEnumeratingWithState:&v107 objects:v111 count:16];
-    if (v12)
+    v111 = 0u;
+    obj = v11;
+    v13 = [obj countByEnumeratingWithState:&v108 objects:v112 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = *v108;
+      v14 = v13;
+      v15 = *v109;
       do
       {
-        for (i = 0; i != v13; i = i + 1)
+        for (i = 0; i != v14; i = i + 1)
         {
-          if (*v108 != v14)
+          if (*v109 != v15)
           {
             objc_enumerationMutation(obj);
           }
 
-          v16 = *(*(&v107 + 1) + 8 * i);
-          v17 = [v16 objectForKey:@"proxies"];
-          v18 = v17;
-          if (!v17 || (v19 = [v17 count], v20 = &__kCFBooleanTrue, !v19))
+          v17 = *(*(&v108 + 1) + 8 * i);
+          v18 = [v17 objectForKey:@"proxies"];
+          v19 = v18;
+          if (!v18 || (v20 = [v18 count], v21 = &__kCFBooleanTrue, !v20))
           {
-            v20 = &__kCFBooleanFalse;
+            v21 = &__kCFBooleanFalse;
           }
 
-          [v11 addObject:v20];
-          v21 = [v16 objectForKey:@"domains"];
-          v22 = objc_alloc_init(NSMutableArray);
+          [v12 addObject:v21];
+          v22 = [v17 objectForKey:@"domains"];
           v23 = objc_alloc_init(NSMutableArray);
-          if (v21)
+          v24 = objc_alloc_init(NSMutableArray);
+          if (v22)
           {
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
-              if ([v21 count])
+              if ([v22 count])
               {
                 separateDomainsFromFQDNs();
               }
             }
           }
 
-          [v104 addObject:v22];
-          [v101 addObject:v23];
-          v24 = [v16 objectForKey:@"subnets"];
-          if (!v24)
+          [v105 addObject:v23];
+          [v102 addObject:v24];
+          v25 = [v17 objectForKey:@"subnets"];
+          if (!v25)
           {
-            v24 = objc_alloc_init(NSArray);
+            v25 = objc_alloc_init(NSArray);
           }
 
-          [v99 addObject:v24];
+          [v100 addObject:v25];
         }
 
-        v13 = [obj countByEnumeratingWithState:&v107 objects:v111 count:16];
+        v14 = [obj countByEnumeratingWithState:&v108 objects:v112 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
-    v25 = [*(v96 + 32) policySession];
-    v94 = [*(v96 + 32) networkAgent];
-    v27 = [v94 agentUUID];
-    v28 = *(v96 + 32);
-    if (v28)
+    v26 = [*(v97 + 32) policySession];
+    v95 = [*(v97 + 32) networkAgent];
+    v28 = [v95 agentUUID];
+    v29 = *(v97 + 32);
+    if (v29)
     {
-      v28 = objc_getProperty(v28, v26, 392, 1);
+      v29 = objc_getProperty(v29, v27, 392, 1);
     }
 
-    v30 = [v28 agentUUID];
-    v31 = *(v96 + 32);
-    if (v31)
+    v31 = [v29 agentUUID];
+    v32 = *(v97 + 32);
+    if (v32)
     {
-      v31 = objc_getProperty(v31, v29, 440, 1);
+      v32 = objc_getProperty(v32, v30, 440, 1);
     }
 
-    v33 = v31;
-    v34 = *(v96 + 32);
-    if (v34)
+    v34 = v32;
+    v35 = *(v97 + 32);
+    if (v35)
     {
-      v34 = objc_getProperty(v34, v32, 408, 1);
+      v35 = objc_getProperty(v35, v33, 408, 1);
     }
 
-    v35 = [v34 perApp];
-    v36 = [*(v96 + 32) server];
-    v93 = v36;
-    if (v36)
+    v36 = [v35 perApp];
+    v37 = [*(v97 + 32) server];
+    v94 = v37;
+    if (v37)
     {
-      v36 = objc_getProperty(v36, v37, 80, 1);
+      v37 = objc_getProperty(v37, v38, 80, 1);
     }
 
-    v38 = v36;
-    v39 = v27;
-    v95 = v30;
-    v40 = v104;
-    v41 = v101;
-    v105 = v99;
-    v42 = v11;
-    v43 = v33;
-    v44 = v35;
-    v45 = v38;
-    v46 = v25;
-    if (v25 && *(v25 + 8) == 9)
+    v39 = v37;
+    v40 = v28;
+    v96 = v31;
+    v41 = v105;
+    v42 = v102;
+    v106 = v100;
+    v43 = v12;
+    v44 = v34;
+    v45 = v36;
+    v46 = v39;
+    v47 = v26;
+    if (v26 && *(v26 + 8) == 9)
     {
-      v102 = v39;
-      v47 = [v42 count];
-      if (v47 == [v40 count] && (v48 = objc_msgSend(v42, "count"), v48 == objc_msgSend(v41, "count")) && (v49 = objc_msgSend(v42, "count"), v49 == objc_msgSend(v105, "count")))
+      v103 = v40;
+      v48 = [v43 count];
+      if (v48 == [v41 count] && (v49 = objc_msgSend(v43, "count"), v49 == objc_msgSend(v42, "count")) && (v50 = objc_msgSend(v43, "count"), v50 == objc_msgSend(v106, "count")))
       {
         *buf = _NSConcreteStackBlock;
         *&buf[8] = 3221225472;
         *&buf[16] = sub_10004ED18;
-        v113 = &unk_1000EA210;
-        v114 = v25;
-        v115 = v43;
-        v116 = v45;
-        v117 = v40;
+        v114 = &unk_1000EA210;
+        v115 = v26;
+        v116 = v44;
+        v117 = v46;
         v118 = v41;
-        v119 = v105;
-        v120 = v102;
-        v121 = v95;
-        v122 = v42;
-        v123 = v44;
-        v39 = v102;
+        v119 = v42;
+        v120 = v106;
+        v121 = v103;
+        v122 = v96;
+        v123 = v43;
+        v124 = v45;
+        v40 = v103;
         sub_100031500(NESMPolicyMasterSession, buf);
       }
 
       else
       {
-        v87 = ne_log_obj();
-        if (os_log_type_enabled(v87, OS_LOG_TYPE_ERROR))
+        v88 = ne_log_obj();
+        if (os_log_type_enabled(v88, OS_LOG_TYPE_ERROR))
         {
-          v90 = [v42 count];
-          v91 = [v40 count];
+          v91 = [v43 count];
           v92 = [v41 count];
+          v93 = [v42 count];
           *buf = 134218496;
-          *&buf[4] = v90;
+          *&buf[4] = v91;
           *&buf[12] = 2048;
-          *&buf[14] = v91;
-          v46 = v25;
+          *&buf[14] = v92;
+          v47 = v26;
           *&buf[22] = 2048;
-          v113 = v92;
-          _os_log_error_impl(&_mh_execute_header, v87, OS_LOG_TYPE_ERROR, "Unbalanced ordered relay rules: %lu / %lu / %lu", buf, 0x20u);
+          v114 = v93;
+          _os_log_error_impl(&_mh_execute_header, v88, OS_LOG_TYPE_ERROR, "Unbalanced ordered relay rules: %lu / %lu / %lu", buf, 0x20u);
         }
 
-        v39 = v102;
+        v40 = v103;
       }
     }
 
 LABEL_69:
-    v1 = v96;
+    v1 = v97;
     goto LABEL_70;
   }
 
-  v51 = ne_log_obj();
-  if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
+  v52 = ne_log_obj();
+  if (os_log_type_enabled(v52, OS_LOG_TYPE_ERROR))
   {
-    v89 = *(v1 + 32);
+    v90 = *(v1 + 32);
     *buf = 138412290;
-    *&buf[4] = v89;
-    _os_log_error_impl(&_mh_execute_header, v51, OS_LOG_TYPE_ERROR, "%@ No match rules found in PvD configuration", buf, 0xCu);
+    *&buf[4] = v90;
+    _os_log_error_impl(&_mh_execute_header, v52, OS_LOG_TYPE_ERROR, "%@ No match rules found in PvD configuration", buf, 0xCu);
   }
 
 LABEL_71:
@@ -993,7 +935,7 @@ void sub_1000864E4(void *a1)
   {
     v4 = [NENetworkAgentRegistrationFileHandle alloc];
     v6 = objc_getProperty(a1, v5, 400, 1);
-    v7 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [a1 type]);
+    v7 = [NSNumber numberWithInt:objc_msgSend_type(a1)];
     v8 = [a1 configuration];
     v9 = [v8 identifier];
     v11 = [objc_getProperty(a1 v10];
@@ -1076,7 +1018,7 @@ void sub_100086814(void *a1)
   {
     v4 = [NENetworkAgentRegistrationFileHandle alloc];
     v6 = objc_getProperty(a1, v5, 384, 1);
-    v7 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [a1 type]);
+    v7 = [NSNumber numberWithInt:objc_msgSend_type(a1)];
     v8 = [a1 configuration];
     v9 = [v8 identifier];
     v11 = [objc_getProperty(a1 v10];
@@ -1151,30 +1093,30 @@ id sub_100087AC8(void *a1, void *a2)
 {
   v3 = a1;
   v4 = a2;
-  v30 = v3;
+  v29 = v3;
   url = nw_endpoint_create_url([v3 UTF8String]);
   masque = nw_proxy_hop_create_masque();
   nw_proxy_hop_set_masque_version();
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v7 = [v4 additionalHTTPHeaderFields];
-  v8 = [v7 countByEnumeratingWithState:&v39 objects:v45 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v38 objects:v44 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v40;
+    v10 = *v39;
     do
     {
       for (i = 0; i != v9; i = i + 1)
       {
-        if (*v40 != v10)
+        if (*v39 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v39 + 1) + 8 * i);
+        v12 = *(*(&v38 + 1) + 8 * i);
         v13 = [v4 additionalHTTPHeaderFields];
         v14 = [v13 objectForKeyedSubscript:v12];
 
@@ -1183,38 +1125,38 @@ id sub_100087AC8(void *a1, void *a2)
         nw_proxy_hop_add_extra_header();
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v39 objects:v45 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v38 objects:v44 count:16];
     }
 
     while (v9);
   }
 
-  v37 = 0u;
-  v38 = 0u;
-  v35 = 0u;
   v36 = 0u;
+  v37 = 0u;
+  v34 = 0u;
+  v35 = 0u;
   v15 = [v4 rawPublicKeys];
-  v16 = [v15 countByEnumeratingWithState:&v35 objects:v44 count:16];
+  v16 = [v15 countByEnumeratingWithState:&v34 objects:v43 count:16];
   if (v16)
   {
     v17 = v16;
-    v18 = *v36;
+    v18 = *v35;
     do
     {
       for (j = 0; j != v17; j = j + 1)
       {
-        if (*v36 != v18)
+        if (*v35 != v18)
         {
           objc_enumerationMutation(v15);
         }
 
-        v20 = *(*(&v35 + 1) + 8 * j);
+        v20 = *(*(&v34 + 1) + 8 * j);
         [v20 bytes];
         [v20 length];
         nw_proxy_hop_add_server_raw_public_key();
       }
 
-      v17 = [v15 countByEnumeratingWithState:&v35 objects:v44 count:16];
+      v17 = [v15 countByEnumeratingWithState:&v34 objects:v43 count:16];
     }
 
     while (v17);
@@ -1228,30 +1170,29 @@ id sub_100087AC8(void *a1, void *a2)
     nw_proxy_hop_set_client_identity_reference();
   }
 
-  v33 = 0u;
-  v34 = 0u;
-  v31 = 0u;
   v32 = 0u;
+  v33 = 0u;
+  v30 = 0u;
+  v31 = 0u;
   v23 = [v4 certificateReferences];
-  v24 = [v23 countByEnumeratingWithState:&v31 objects:v43 count:16];
+  v24 = [v23 countByEnumeratingWithState:&v30 objects:v42 count:16];
   if (v24)
   {
     v25 = v24;
-    v26 = *v32;
+    v26 = *v31;
     do
     {
-      for (k = 0; k != v25; k = k + 1)
+      for (k = 0; k != v25; ++k)
       {
-        if (*v32 != v26)
+        if (*v31 != v26)
         {
           objc_enumerationMutation(v23);
         }
 
-        v28 = *(*(&v31 + 1) + 8 * k);
         nw_proxy_hop_add_client_certificate_reference();
       }
 
-      v25 = [v23 countByEnumeratingWithState:&v31 objects:v43 count:16];
+      v25 = [v23 countByEnumeratingWithState:&v30 objects:v42 count:16];
     }
 
     while (v25);
@@ -1330,7 +1271,7 @@ LABEL_3:
       v14 = [NEDNSSettingsNetworkAgent alloc];
       v15 = [a1 configuration];
       v16 = [v15 identifier];
-      v17 = [v14 initWithConfigUUID:v16 sessionType:objc_msgSend(a1 name:{"type"), @"dns-settings"}];
+      v17 = [v14 initWithConfigUUID:v16 sessionType:objc_msgSend_type(a1) name:@"dns-settings"];
       objc_setProperty_atomic(a1, v18, v17, 392);
 
       [objc_getProperty(a1 v19];
@@ -1350,22 +1291,7 @@ LABEL_3:
       v72 = sub_100084BF8;
       v73 = sub_100084C08;
       v74 = 0;
-      if (!v66)
-      {
-        goto LABEL_10;
-      }
-
-      v28 = +[NEFileHandleMaintainer sharedMaintainer];
-      v67[0] = _NSConcreteStackBlock;
-      v67[1] = 3221225472;
-      v67[2] = sub_100088698;
-      v67[3] = &unk_1000EA8C8;
-      v67[4] = a1;
-      v67[5] = &receive_handler;
-      [v28 iterateFileHandlesWithBlock:v67];
-
-      v29 = *(p_receive_handler + 40);
-      if (v29)
+      if (v66 && (+[NEFileHandleMaintainer sharedMaintainer](NEFileHandleMaintainer, "sharedMaintainer"), v28 = objc_claimAutoreleasedReturnValue(), v67[0] = _NSConcreteStackBlock, v67[1] = 3221225472, v67[2] = sub_100088698, v67[3] = &unk_1000EA8C8, v67[4] = a1, v67[5] = &receive_handler, [v28 iterateFileHandlesWithBlock:v67], v28, (v29 = *(p_receive_handler + 40)) != 0))
       {
         v30 = [v29 agentUUID];
         v32 = objc_getProperty(a1, v31, 392, 1);
@@ -1374,7 +1300,6 @@ LABEL_3:
 
       else
       {
-LABEL_10:
         v30 = +[NSUUID UUID];
         v32 = objc_getProperty(a1, v40, 392, 1);
         [v32 setAgentUUID:v30];
@@ -1785,7 +1710,7 @@ LABEL_52:
         goto LABEL_51;
       }
 
-      sub_100089164();
+      sub_100089164(NESMRelaySession);
       os_unfair_lock_lock(&unk_1000FD588);
       if ([qword_1000FD578 containsObject:v25])
       {
@@ -1879,12 +1804,11 @@ void sub_100088F48(uint64_t a1, int a2, uint64_t a3)
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   if (WeakRetained && a2 == 2 && !a3)
   {
-    v8 = WeakRetained;
-    v7 = *(a1 + 32);
-    v8[177] = nw_connection_group_get_port();
-    sub_100087E8C(v8, 0);
-    sub_100084AD8(v8, 0);
-    WeakRetained = v8;
+    v6 = WeakRetained;
+    WeakRetained[177] = nw_connection_group_get_port();
+    sub_100087E8C(v6, 0);
+    sub_100084AD8(v6, 0);
+    WeakRetained = v6;
   }
 }
 
@@ -1915,13 +1839,13 @@ void sub_1000890E4(uint64_t a1, void *a2)
 {
   v2 = a2;
   objc_opt_self();
-  sub_100089164();
+  sub_100089164(NESMRelaySession);
   os_unfair_lock_lock(&unk_1000FD588);
   [qword_1000FD578 removeObject:v2];
   os_unfair_lock_unlock(&unk_1000FD588);
 }
 
-void sub_100089164()
+void sub_100089164(uint64_t a1)
 {
   objc_opt_self();
   if (qword_1000FD580 != -1)
@@ -2142,9 +2066,9 @@ LABEL_23:
 LABEL_34:
 }
 
-void sub_10008A440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_10008A440(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -2171,7 +2095,7 @@ void sub_10008A470(uint64_t a1)
 
   if (v5)
   {
-    if ([*(a1 + 40) type] == 2)
+    if (objc_msgSend_type(*(a1 + 40)) == 2)
     {
       v6 = objc_alloc_init(NEOnDemandRuleConnect);
     }
@@ -2191,7 +2115,7 @@ void sub_10008A470(uint64_t a1)
       {
         v35 = *(a1 + 40);
         *buf = 138412290;
-        v60 = v35;
+        v61 = v35;
         _os_log_impl(&_mh_execute_header, v34, OS_LOG_TYPE_DEFAULT, "%@: Matched no on demand rule", buf, 0xCu);
       }
 
@@ -2202,7 +2126,7 @@ void sub_10008A470(uint64_t a1)
     v28 = [v27 networkDescriptionArray];
     v29 = [v28 indexOfObject:v26];
 
-    v30 = [*(a1 + 40) type];
+    v30 = objc_msgSend_type(*(a1 + 40));
     v31 = *(a1 + 40);
     if (v30 == 1)
     {
@@ -2212,44 +2136,44 @@ void sub_10008A470(uint64_t a1)
 
     else
     {
-      if ([v31 type] != 2)
+      if (objc_msgSend_type(v31) != 2)
       {
         v34 = 0;
 LABEL_30:
-        if ((sub_10008AA94(*(a1 + 40)) & 1) == 0 && sub_10008AB9C(*(a1 + 40)))
+        if ((sub_10008AA94(*(a1 + 40)) & 1) == 0 && sub_10008AB9C(*(a1 + 40), v37))
         {
-          v37 = sub_10008AC98(*(a1 + 40), v34);
+          v38 = sub_10008AC98(*(a1 + 40), v34);
 
-          v34 = v37;
+          v34 = v38;
         }
 
         if ([v34 count]> v29)
         {
-          v38 = [v34 objectAtIndex:v29];
+          v39 = [v34 objectAtIndex:v29];
 
-          v6 = v38;
+          v6 = v39;
         }
 
-        v39 = ne_log_obj();
-        if (os_log_type_enabled(v39, OS_LOG_TYPE_DEFAULT))
+        v40 = ne_log_obj();
+        if (os_log_type_enabled(v40, OS_LOG_TYPE_DEFAULT))
         {
-          v40 = *(a1 + 40);
+          v41 = *(a1 + 40);
           *buf = 138412546;
-          v60 = v40;
-          v61 = 2112;
-          v62 = v6;
-          _os_log_impl(&_mh_execute_header, v39, OS_LOG_TYPE_DEFAULT, "%@: Matched on demand rule %@", buf, 0x16u);
+          v61 = v41;
+          v62 = 2112;
+          v63 = v6;
+          _os_log_impl(&_mh_execute_header, v40, OS_LOG_TYPE_DEFAULT, "%@: Matched on demand rule %@", buf, 0x16u);
         }
 
 LABEL_38:
-        v41 = [*(a1 + 40) matchedRule];
-        if (v41 | v6)
+        v42 = [*(a1 + 40) matchedRule];
+        if (v42 | v6)
         {
-          v42 = v41;
-          v43 = [*(a1 + 40) matchedRule];
-          v44 = [v43 isEqual:v6];
+          v43 = v42;
+          v44 = [*(a1 + 40) matchedRule];
+          v45 = [v44 isEqual:v6];
 
-          if ((v44 & 1) == 0)
+          if ((v45 & 1) == 0)
           {
             [*(a1 + 40) setMatchedRule:v6];
             sub_10008AD10(*(a1 + 40));
@@ -2295,39 +2219,39 @@ LABEL_53:
 
       if (v13)
       {
-        v56 = 0u;
         v57 = 0u;
-        v54 = 0u;
+        v58 = 0u;
         v55 = 0u;
+        v56 = 0u;
         v14 = [*(a1 + 40) dnsRedirectionDetector];
         v15 = [v14 resolvedEndpoints];
 
-        v16 = [v15 countByEnumeratingWithState:&v54 objects:v58 count:16];
+        v16 = [v15 countByEnumeratingWithState:&v55 objects:v59 count:16];
         if (v16)
         {
           v17 = v16;
           v6 = 0;
-          v18 = *v55;
+          v18 = *v56;
           do
           {
             v19 = 0;
             v20 = v6;
             do
             {
-              if (*v55 != v18)
+              if (*v56 != v18)
               {
                 objc_enumerationMutation(v15);
               }
 
-              v21 = *(*(&v54 + 1) + 8 * v19);
+              v21 = *(*(&v55 + 1) + 8 * v19);
               v22 = ne_log_obj();
               if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
               {
                 v23 = *(a1 + 40);
                 *buf = 138412546;
-                v60 = v23;
-                v61 = 2112;
-                v62 = v21;
+                v61 = v23;
+                v62 = 2112;
+                v63 = v21;
                 _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%@: Found redirected address %@", buf, 0x16u);
               }
 
@@ -2343,7 +2267,7 @@ LABEL_53:
             }
 
             while (v17 != v19);
-            v17 = [v15 countByEnumeratingWithState:&v54 objects:v58 count:16];
+            v17 = [v15 countByEnumeratingWithState:&v55 objects:v59 count:16];
           }
 
           while (v17);
@@ -2363,35 +2287,35 @@ LABEL_53:
       sub_10008C490(*(a1 + 40));
       [*(a1 + 40) setDnsRedirectionTransaction:0];
       Property = [*(a1 + 40) server];
-      v47 = Property;
+      v48 = Property;
       if (Property)
       {
-        Property = objc_getProperty(Property, v46, 64, 1);
+        Property = objc_getProperty(Property, v47, 64, 1);
       }
 
       v26 = Property;
 
       if (v6)
       {
-        v48 = [[NSDictionary alloc] initWithObjectsAndKeys:{v6, @"redirectedAddress", 0}];
+        v49 = [[NSDictionary alloc] initWithObjectsAndKeys:{v6, @"redirectedAddress", 0}];
       }
 
       else
       {
-        v48 = objc_alloc_init(NSDictionary);
+        v49 = objc_alloc_init(NSDictionary);
       }
 
-      v49 = v48;
-      v50 = ne_log_obj();
-      if (os_log_type_enabled(v50, OS_LOG_TYPE_DEFAULT))
+      v50 = v49;
+      v51 = ne_log_obj();
+      if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        v60 = v6;
-        _os_log_impl(&_mh_execute_header, v50, OS_LOG_TYPE_DEFAULT, "Caching DNS redirector result: %@", buf, 0xCu);
+        v61 = v6;
+        _os_log_impl(&_mh_execute_header, v51, OS_LOG_TYPE_DEFAULT, "Caching DNS redirector result: %@", buf, 0xCu);
       }
 
-      v51 = +[NENetworkPropertiesCache sharedCache];
-      [v51 setProperties:v49 forNetworkPath:v26];
+      v52 = +[NENetworkPropertiesCache sharedCache];
+      [v52 setProperties:v50 forNetworkPath:v26];
 
 LABEL_52:
       goto LABEL_53;
@@ -2399,9 +2323,9 @@ LABEL_52:
   }
 
 LABEL_54:
-  v52 = *(*(a1 + 56) + 8);
-  v53 = *(v52 + 40);
-  *(v52 + 40) = 0;
+  v53 = *(*(a1 + 56) + 8);
+  v54 = *(v53 + 40);
+  *(v53 + 40) = 0;
 }
 
 id sub_10008AA94(void *a1)
@@ -2411,7 +2335,7 @@ id sub_10008AA94(void *a1)
     return 0;
   }
 
-  if ([a1 type] == 1)
+  if (objc_msgSend_type(a1) == 1)
   {
     v3 = [a1 configuration];
     v4 = [v3 VPN];
@@ -2430,7 +2354,7 @@ LABEL_12:
     goto LABEL_11;
   }
 
-  if ([a1 type] == 2)
+  if (objc_msgSend_type(a1) == 2)
   {
     v3 = [a1 configuration];
     v4 = [v3 appVPN];
@@ -2449,49 +2373,49 @@ LABEL_11:
   return 0;
 }
 
-id sub_10008AB9C(void *a1)
+id sub_10008AB9C(void *a1, const char *a2)
 {
   if (!a1)
   {
     return 0;
   }
 
-  if ([a1 type] != 1)
+  if (objc_msgSend_type(a1, a2) != 1)
   {
-    if ([a1 type] == 2)
+    if (objc_msgSend_type(a1) == 2)
     {
-      v2 = [a1 configuration];
-      v3 = [v2 appVPN];
-      if ([v3 isDisconnectOnDemandEnabled])
+      v4 = [a1 configuration];
+      v5 = [v4 appVPN];
+      if ([v5 isDisconnectOnDemandEnabled])
       {
-        v4 = [a1 configuration];
-        v5 = [v4 appVPN];
+        v6 = [a1 configuration];
+        v7 = [v6 appVPN];
         goto LABEL_8;
       }
 
 LABEL_9:
-      v7 = 0;
+      v9 = 0;
       goto LABEL_10;
     }
 
     return 0;
   }
 
-  v2 = [a1 configuration];
-  v3 = [v2 VPN];
-  if (![v3 isDisconnectOnDemandEnabled])
+  v4 = [a1 configuration];
+  v5 = [v4 VPN];
+  if (![v5 isDisconnectOnDemandEnabled])
   {
     goto LABEL_9;
   }
 
-  v4 = [a1 configuration];
-  v5 = [v4 VPN];
+  v6 = [a1 configuration];
+  v7 = [v6 VPN];
 LABEL_8:
-  v6 = v5;
-  v7 = [v5 isEnabled];
+  v8 = v7;
+  v9 = [v7 isEnabled];
 
 LABEL_10:
-  return v7;
+  return v9;
 }
 
 uint64_t sub_10008AC98(uint64_t a1, void *a2)
@@ -2524,7 +2448,7 @@ id sub_10008AD10(id result)
 
   [val setFailedConnectCountWithinInterval:0];
   sub_10008C510(val);
-  if ([val type] == 1)
+  if (objc_msgSend_type(val) == 1)
   {
     v5 = [val configuration];
     v6 = [v5 identifier];
@@ -2554,7 +2478,7 @@ id sub_10008AD10(id result)
   if ([v12 action] == 3)
   {
     v13 = val;
-    v14 = [val type];
+    v14 = objc_msgSend_type(val);
 
     if (v14 == 1)
     {
@@ -2969,7 +2893,7 @@ LABEL_88:
 
     v179 = sub_10008D698(val);
     v103 = val;
-    if ([val type] == 1)
+    if (objc_msgSend_type(val) == 1)
     {
       objc_opt_class();
       if ((objc_opt_isKindOfClass() & 1) != 0 && [val tunnelKind] == 2)
@@ -3017,7 +2941,7 @@ LABEL_88:
           v137 = [v136 identifier];
           [v137 getUUIDBytes:out];
 
-          [val type];
+          objc_msgSend_type(val);
           matched = ne_session_service_copy_cached_match_domains();
           if (matched)
           {
@@ -3064,7 +2988,7 @@ LABEL_88:
 
     else
     {
-      if ([val type] != 2)
+      if (objc_msgSend_type(val) != 2)
       {
 LABEL_120:
         v151 = [v103 matchedRule];
@@ -3108,7 +3032,7 @@ LABEL_120:
       v116 = [val configuration];
       v117 = [v116 appVPN];
       v118 = [v117 appRules];
-      sub_100040988(v115, v118);
+      sub_100040988(v115, v118, v101);
 
       v119 = [val policySession];
       v120 = [val matchedRule];
@@ -3149,7 +3073,7 @@ LABEL_120:
   sub_100030E44(v114);
 
 LABEL_125:
-  v158 = [val type] == 1;
+  v158 = objc_msgSend_type(val) == 1;
   result = val;
   if (v158)
   {
@@ -3195,37 +3119,37 @@ void sub_10008C510(void *a1)
 
       if (v4)
       {
-        if ([a1 type] == 1)
+        if (objc_msgSend_type(a1) == 1)
         {
           v5 = [a1 configuration];
           v6 = [v5 VPN];
         }
 
-        else if ([a1 type] == 2)
+        else if (objc_msgSend_type(a1) == 2)
         {
           v5 = [a1 configuration];
           v6 = [v5 appVPN];
         }
 
-        else if ([a1 type] == 3)
+        else if (objc_msgSend_type(a1) == 3)
         {
           v5 = [a1 configuration];
           v6 = [v5 alwaysOnVPN];
         }
 
-        else if ([a1 type] == 4)
+        else if (objc_msgSend_type(a1) == 4)
         {
           v5 = [a1 configuration];
           v6 = [v5 contentFilter];
         }
 
-        else if ([a1 type] == 5)
+        else if (objc_msgSend_type(a1) == 5)
         {
           v5 = [a1 configuration];
           v6 = [v5 pathController];
         }
 
-        else if ([a1 type] == 7)
+        else if (objc_msgSend_type(a1) == 7)
         {
           v5 = [a1 configuration];
           v6 = [v5 dnsSettings];
@@ -3233,9 +3157,9 @@ void sub_10008C510(void *a1)
 
         else
         {
-          if ([a1 type] != 9)
+          if (objc_msgSend_type(a1) != 9)
           {
-            if ([a1 type] == 10)
+            if (objc_msgSend_type(a1) == 10)
             {
               v131 = [a1 configuration];
               v132 = [v131 urlFilter];
@@ -3251,7 +3175,7 @@ LABEL_20:
                   goto LABEL_24;
                 }
 
-                if ([a1 type] == 1)
+                if (objc_msgSend_type(a1) == 1)
                 {
                   v10 = [a1 configuration];
                   v11 = [v10 VPN];
@@ -3259,7 +3183,7 @@ LABEL_20:
 
                 else
                 {
-                  if ([a1 type] != 2 || objc_msgSend(a1, "onDemandPauseLevelInternal") == 2 || objc_msgSend(a1, "onDemandPauseLevelInternal") == 3)
+                  if (objc_msgSend_type(a1) != 2 || [a1 onDemandPauseLevelInternal] == 2 || objc_msgSend(a1, "onDemandPauseLevelInternal") == 3)
                   {
                     goto LABEL_20;
                   }
@@ -3273,7 +3197,7 @@ LABEL_20:
 
 LABEL_24:
                 v13 = [a1 status];
-                if ([a1 type] == 5)
+                if (objc_msgSend_type(a1) == 5)
                 {
                   v14 = 1;
                   if (!v9)
@@ -3282,7 +3206,7 @@ LABEL_24:
                   }
                 }
 
-                else if ((([a1 type] == 1) & v9) == 1)
+                else if (((objc_msgSend_type(a1) == 1) & v9) == 1)
                 {
                   v15 = [a1 matchedRule];
                   v14 = [v15 action] == 3;
@@ -3302,13 +3226,13 @@ LABEL_24:
                   }
                 }
 
-                if ([a1 type] == 2)
+                if (objc_msgSend_type(a1) == 2)
                 {
                   v16 = 1;
                   goto LABEL_40;
                 }
 
-                if ([a1 type] == 1)
+                if (objc_msgSend_type(a1) == 1)
                 {
                   v17 = [a1 matchedRule];
                   v16 = [v17 action] == 1;
@@ -3321,9 +3245,9 @@ LABEL_39:
 LABEL_40:
                 v148 = v14;
                 v146 = v16;
-                if ([a1 type] != 5)
+                if (objc_msgSend_type(a1) != 5)
                 {
-                  if ([a1 type] == 7)
+                  if (objc_msgSend_type(a1) == 7)
                   {
                     v18 = a1;
                     v25 = [v18 networkAgent];
@@ -3340,7 +3264,7 @@ LABEL_40:
 
                   else
                   {
-                    if ([a1 type] != 9)
+                    if (objc_msgSend_type(a1) != 9)
                     {
                       v35 = 0;
                       goto LABEL_88;
@@ -4098,7 +4022,6 @@ LABEL_6:
 LABEL_7:
   if (v3)
   {
-    v6 = *(a1 + 48);
     objc_opt_class();
     if ((objc_opt_isKindOfClass() & 1) == 0 || [*(a1 + 48) statusCode] - 200 < 0x64)
     {
@@ -4106,59 +4029,59 @@ LABEL_7:
     }
   }
 
-  v7 = *(a1 + 56);
-  v8 = [*(a1 + 64) onDemandDomainCache];
+  v6 = *(a1 + 56);
+  v7 = [*(a1 + 64) onDemandDomainCache];
 
-  if (v7 != v8)
+  if (v6 != v7)
   {
     return;
   }
 
-  v25 = 0u;
-  v26 = 0u;
-  v23 = 0u;
   v24 = 0u;
-  v9 = [*(a1 + 64) onDemandDomainCache];
-  v10 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
-  if (!v10)
+  v25 = 0u;
+  v22 = 0u;
+  v23 = 0u;
+  v8 = [*(a1 + 64) onDemandDomainCache];
+  v9 = [v8 countByEnumeratingWithState:&v22 objects:v27 count:16];
+  if (!v9)
   {
 LABEL_22:
 
     goto LABEL_25;
   }
 
-  v11 = v10;
-  v12 = *v24;
+  v10 = v9;
+  v11 = *v23;
 LABEL_13:
-  v13 = 0;
+  v12 = 0;
   while (1)
   {
-    if (*v24 != v12)
+    if (*v23 != v11)
     {
-      objc_enumerationMutation(v9);
+      objc_enumerationMutation(v8);
     }
 
-    v14 = *(*(&v23 + 1) + 8 * v13);
-    v15 = [v14 objectForKeyedSubscript:@"service-domains"];
+    v13 = *(*(&v22 + 1) + 8 * v12);
+    v14 = [v13 objectForKeyedSubscript:@"service-domains"];
     if ((isa_nsarray() & 1) == 0)
     {
 
       goto LABEL_20;
     }
 
-    v16 = [v14 objectForKeyedSubscript:@"service-domains"];
-    v17 = [v16 isEqualToArray:*(a1 + 72)];
+    v15 = [v13 objectForKeyedSubscript:@"service-domains"];
+    v16 = [v15 isEqualToArray:*(a1 + 72)];
 
-    if (v17)
+    if (v16)
     {
       break;
     }
 
 LABEL_20:
-    if (v11 == ++v13)
+    if (v10 == ++v12)
     {
-      v11 = [v9 countByEnumeratingWithState:&v23 objects:v28 count:16];
-      if (v11)
+      v10 = [v8 countByEnumeratingWithState:&v22 objects:v27 count:16];
+      if (v10)
       {
         goto LABEL_13;
       }
@@ -4167,26 +4090,26 @@ LABEL_20:
     }
   }
 
-  v18 = v14;
-  v19 = [*(a1 + 64) onDemandDomainCache];
-  v20 = [v19 indexOfObject:v18];
+  v17 = v13;
+  v18 = [*(a1 + 64) onDemandDomainCache];
+  v19 = [v18 indexOfObject:v17];
 
-  if (v18)
+  if (v17)
   {
-    v21 = [NSMutableDictionary dictionaryWithDictionary:v18];
-    [v21 setObject:&__kCFBooleanTrue forKeyedSubscript:@"service-probe-failed"];
-    v22 = [*(a1 + 64) onDemandDomainCache];
-    [v22 replaceObjectAtIndex:v20 withObject:v21];
+    v20 = [NSMutableDictionary dictionaryWithDictionary:v17];
+    [v20 setObject:&__kCFBooleanTrue forKeyedSubscript:@"service-probe-failed"];
+    v21 = [*(a1 + 64) onDemandDomainCache];
+    [v21 replaceObjectAtIndex:v19 withObject:v20];
     goto LABEL_26;
   }
 
 LABEL_25:
-  v21 = +[NSMutableDictionary dictionary];
-  [v21 setObject:*(a1 + 72) forKeyedSubscript:@"service-domains"];
-  [v21 setObject:&__kCFBooleanTrue forKeyedSubscript:@"service-probe-failed"];
-  v22 = [*(a1 + 64) onDemandDomainCache];
-  [v22 addObject:v21];
-  v18 = 0;
+  v20 = +[NSMutableDictionary dictionary];
+  [v20 setObject:*(a1 + 72) forKeyedSubscript:@"service-domains"];
+  [v20 setObject:&__kCFBooleanTrue forKeyedSubscript:@"service-probe-failed"];
+  v21 = [*(a1 + 64) onDemandDomainCache];
+  [v21 addObject:v20];
+  v17 = 0;
 LABEL_26:
 
   sub_10008D95C(*(a1 + 64));
@@ -4205,7 +4128,7 @@ void sub_10008DDC0(void *a1)
 
   if (v4)
   {
-    if ([a1 type] == 1 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && objc_msgSend(a1, "parentType") == 2)
+    if (objc_msgSend_type(a1) == 1 && (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0) && [a1 parentType] == 2)
     {
       if ([a1 tunnelKind] == 1)
       {
@@ -4225,7 +4148,7 @@ void sub_10008DDC0(void *a1)
 
     v7 = [NENetworkAgentRegistrationFileHandle alloc];
     v8 = [a1 networkAgentRegistration];
-    v9 = +[NSNumber numberWithInt:](NSNumber, "numberWithInt:", [a1 type]);
+    v9 = [NSNumber numberWithInt:objc_msgSend_type(a1)];
     v10 = [a1 configuration];
     v11 = [v10 identifier];
     v12 = [a1 networkAgent];
@@ -4463,21 +4386,21 @@ void sub_10008E6C4(uint64_t a1)
   }
 }
 
-void sub_10008E79C(void *a1)
+void sub_10008E79C(void *a1, const char *a2)
 {
   if (a1)
   {
-    v2 = [a1 type];
-    v3 = v2;
-    v46 = 0;
-    v47 = &v46;
-    v48 = 0x3032000000;
-    v49 = sub_10008A458;
-    v50 = sub_10008A468;
-    v51 = 0;
-    if (v2 <= 3)
+    v3 = objc_msgSend_type(a1, a2);
+    v4 = v3;
+    v47 = 0;
+    v48 = &v47;
+    v49 = 0x3032000000;
+    v50 = sub_10008A458;
+    v51 = sub_10008A468;
+    v52 = 0;
+    if (v3 <= 3)
     {
-      switch(v2)
+      switch(v3)
       {
         case 1:
           objc_opt_class();
@@ -4485,184 +4408,184 @@ void sub_10008E79C(void *a1)
           {
             if ([a1 tunnelKind] == 1)
             {
-              v13 = @"Primary Tunnel";
+              v14 = @"Primary Tunnel";
             }
 
             else
             {
-              v13 = @"Fallback Tunnel";
+              v14 = @"Fallback Tunnel";
             }
           }
 
           else
           {
-            v13 = 0;
+            v14 = 0;
           }
 
-          v18 = [NEVPNNetworkAgent alloc];
-          v8 = [a1 configuration];
-          v10 = [v8 identifier];
-          v11 = [v18 initWithConfigUUID:v10 sessionType:1 name:v13];
-          [a1 setNetworkAgent:v11];
+          v19 = [NEVPNNetworkAgent alloc];
+          v9 = [a1 configuration];
+          v11 = [v9 identifier];
+          v12 = [v19 initWithConfigUUID:v11 sessionType:1 name:v14];
+          [a1 setNetworkAgent:v12];
           break;
         case 2:
-          v17 = [NEAppVPNNetworkAgent alloc];
-          v8 = [a1 configuration];
-          v10 = [v8 identifier];
-          v11 = [v17 initWithConfigUUID:v10 sessionType:2 name:0];
-          [a1 setNetworkAgent:v11];
+          v18 = [NEAppVPNNetworkAgent alloc];
+          v9 = [a1 configuration];
+          v11 = [v9 identifier];
+          v12 = [v18 initWithConfigUUID:v11 sessionType:2 name:0];
+          [a1 setNetworkAgent:v12];
           break;
         case 3:
-          v9 = [NEAOVPNNetworkAgent alloc];
-          v8 = [a1 configuration];
-          v10 = [v8 identifier];
-          v11 = [v9 initWithConfigUUID:v10 sessionType:3 name:0];
-          [a1 setNetworkAgent:v11];
+          v10 = [NEAOVPNNetworkAgent alloc];
+          v9 = [a1 configuration];
+          v11 = [v9 identifier];
+          v12 = [v10 initWithConfigUUID:v11 sessionType:3 name:0];
+          [a1 setNetworkAgent:v12];
           break;
         default:
           goto LABEL_19;
       }
     }
 
-    else if (v2 > 6)
+    else if (v3 > 6)
     {
-      if (v2 == 7)
+      if (v3 == 7)
       {
-        v16 = [NEDNSSettingsNetworkAgent alloc];
-        v8 = [a1 configuration];
-        v10 = [v8 identifier];
-        v11 = [v16 initWithConfigUUID:v10 sessionType:7 name:0];
-        [a1 setNetworkAgent:v11];
+        v17 = [NEDNSSettingsNetworkAgent alloc];
+        v9 = [a1 configuration];
+        v11 = [v9 identifier];
+        v12 = [v17 initWithConfigUUID:v11 sessionType:7 name:0];
+        [a1 setNetworkAgent:v12];
       }
 
       else
       {
-        if (v2 != 9)
+        if (v3 != 9)
         {
           goto LABEL_19;
         }
 
-        v12 = [NERelayNetworkAgent alloc];
-        v8 = [a1 configuration];
-        v10 = [v8 identifier];
-        v11 = [v12 initWithDelegate:a1 configUUID:v10 sessionType:9 name:0];
-        [a1 setNetworkAgent:v11];
+        v13 = [NERelayNetworkAgent alloc];
+        v9 = [a1 configuration];
+        v11 = [v9 identifier];
+        v12 = [v13 initWithDelegate:a1 configUUID:v11 sessionType:9 name:0];
+        [a1 setNetworkAgent:v12];
       }
     }
 
     else
     {
-      if (v2 != 4)
+      if (v3 != 4)
       {
-        if (v2 == 5)
+        if (v3 == 5)
         {
-          v4 = [NEPathControllerNetworkAgent alloc];
-          v5 = [a1 configuration];
-          v6 = [v5 identifier];
-          v7 = [v4 initWithConfigUUID:v6 sessionType:5 name:0];
-          [a1 setNetworkAgent:v7];
+          v5 = [NEPathControllerNetworkAgent alloc];
+          v6 = [a1 configuration];
+          v7 = [v6 identifier];
+          v8 = [v5 initWithConfigUUID:v7 sessionType:5 name:0];
+          [a1 setNetworkAgent:v8];
 
-          v8 = [a1 networkAgent];
+          v9 = [a1 networkAgent];
           objc_initWeak(&location, a1);
           *&buf = _NSConcreteStackBlock;
           *(&buf + 1) = 3221225472;
-          v56 = sub_10008E438;
-          v57 = &unk_1000EA878;
-          objc_copyWeak(&v58, &location);
-          [v8 setAssertHandler:&buf];
+          v57 = sub_10008E438;
+          v58 = &unk_1000EA878;
+          objc_copyWeak(&v59, &location);
+          [v9 setAssertHandler:&buf];
           from[0] = _NSConcreteStackBlock;
           from[1] = 3221225472;
           from[2] = sub_10008E52C;
           from[3] = &unk_1000EA8A0;
-          objc_copyWeak(&v53, &location);
-          [v8 setUnassertHandler:from];
-          objc_destroyWeak(&v53);
-          objc_destroyWeak(&v58);
+          objc_copyWeak(&v54, &location);
+          [v9 setUnassertHandler:from];
+          objc_destroyWeak(&v54);
+          objc_destroyWeak(&v59);
           objc_destroyWeak(&location);
 
 LABEL_28:
-          v19 = [NWNetworkAgentRegistration alloc];
-          v20 = [a1 networkAgent];
-          v21 = [v19 initWithNetworkAgentClass:objc_opt_class()];
-          [a1 setNetworkAgentRegistration:v21];
+          v20 = [NWNetworkAgentRegistration alloc];
+          v21 = [a1 networkAgent];
+          v22 = [v20 initWithNetworkAgentClass:objc_opt_class()];
+          [a1 setNetworkAgentRegistration:v22];
 
-          v22 = +[NEFileHandleMaintainer sharedMaintainer];
-          v45[0] = _NSConcreteStackBlock;
-          v45[1] = 3221225472;
-          v45[2] = sub_10008F0B0;
-          v45[3] = &unk_1000EA8C8;
-          v45[4] = a1;
-          v45[5] = &v46;
-          [v22 iterateFileHandlesWithBlock:v45];
+          v23 = +[NEFileHandleMaintainer sharedMaintainer];
+          v46[0] = _NSConcreteStackBlock;
+          v46[1] = 3221225472;
+          v46[2] = sub_10008F0B0;
+          v46[3] = &unk_1000EA8C8;
+          v46[4] = a1;
+          v46[5] = &v47;
+          [v23 iterateFileHandlesWithBlock:v46];
 
-          v23 = v47[5];
-          if (v23)
+          v24 = v48[5];
+          if (v24)
           {
-            v24 = [v23 agentFlags];
-            v25 = [v47[5] agentUUID];
-            v26 = [a1 networkAgent];
-            [v26 setAgentUUID:v25];
-
+            v25 = [v24 agentFlags];
+            v26 = [v48[5] agentUUID];
             v27 = [a1 networkAgent];
-            [v27 setActive:v24 & 1];
+            [v27 setAgentUUID:v26];
 
             v28 = [a1 networkAgent];
-            [v28 setVoluntary:(v24 >> 1) & 1];
+            [v28 setActive:v25 & 1];
 
             v29 = [a1 networkAgent];
-            [v29 setUserActivated:(v24 >> 2) & 1];
+            [v29 setVoluntary:(v25 >> 1) & 1];
 
             v30 = [a1 networkAgent];
-            [v30 setKernelActivated:(v24 >> 3) & 1];
+            [v30 setUserActivated:(v25 >> 2) & 1];
+
+            v31 = [a1 networkAgent];
+            [v31 setKernelActivated:(v25 >> 3) & 1];
           }
 
           else
           {
-            if (v3 == 9)
+            if (v4 == 9)
             {
-              v30 = [a1 configuration];
-              v31 = [v30 identifier];
-              v32 = [a1 networkAgent];
-              [v32 setAgentUUID:v31];
+              v31 = [a1 configuration];
+              v32 = [v31 identifier];
+              v33 = [a1 networkAgent];
+              [v33 setAgentUUID:v32];
             }
 
             else
             {
-              v30 = +[NSUUID UUID];
-              v31 = [a1 networkAgent];
-              [v31 setAgentUUID:v30];
+              v31 = +[NSUUID UUID];
+              v32 = [a1 networkAgent];
+              [v32 setAgentUUID:v31];
             }
           }
 
-          v33 = [a1 configuration];
-          v34 = [v33 name];
-          v35 = [a1 networkAgent];
-          [v35 setConfigurationName:v34];
-
+          v34 = [a1 configuration];
+          v35 = [v34 name];
           v36 = [a1 networkAgent];
+          [v36 setConfigurationName:v35];
+
+          v37 = [a1 networkAgent];
           objc_initWeak(from, a1);
           *&buf = _NSConcreteStackBlock;
           *(&buf + 1) = 3221225472;
-          v56 = sub_10008E218;
-          v57 = &unk_1000EA850;
-          objc_copyWeak(&v58, from);
-          [v36 setStartHandler:&buf];
-          objc_destroyWeak(&v58);
+          v57 = sub_10008E218;
+          v58 = &unk_1000EA850;
+          objc_copyWeak(&v59, from);
+          [v37 setStartHandler:&buf];
+          objc_destroyWeak(&v59);
           objc_destroyWeak(from);
 
-          v37 = v47[5];
-          if (v37)
+          v38 = v48[5];
+          if (v38)
           {
-            v38 = [v37 handle];
-            v39 = dup([v38 fileDescriptor]);
+            v39 = [v38 handle];
+            v40 = dup([v39 fileDescriptor]);
 
-            v40 = [a1 networkAgentRegistration];
-            v41 = [a1 networkAgent];
-            v42 = [v40 setRegisteredNetworkAgent:v41 fileDescriptor:v39];
+            v41 = [a1 networkAgentRegistration];
+            v42 = [a1 networkAgent];
+            v43 = [v41 setRegisteredNetworkAgent:v42 fileDescriptor:v40];
 
-            if ((v42 & 1) == 0)
+            if ((v43 & 1) == 0)
             {
-              close(v39);
+              close(v40);
               sub_10008C510(a1);
             }
           }
@@ -4672,44 +4595,44 @@ LABEL_28:
             sub_10008C510(a1);
           }
 
-          v43 = [a1 queue];
+          v44 = [a1 queue];
           block[0] = _NSConcreteStackBlock;
           block[1] = 3221225472;
           block[2] = sub_10008F15C;
           block[3] = &unk_1000EB1C0;
           block[4] = a1;
-          dispatch_async(v43, block);
+          dispatch_async(v44, block);
 
 LABEL_39:
-          _Block_object_dispose(&v46, 8);
+          _Block_object_dispose(&v47, 8);
 
           return;
         }
 
 LABEL_19:
-        v14 = ne_log_obj();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
+        v15 = ne_log_obj();
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           LODWORD(buf) = 138412290;
           *(&buf + 4) = a1;
-          _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "%@: session type does not support NWNetworkAgent", &buf, 0xCu);
+          _os_log_error_impl(&_mh_execute_header, v15, OS_LOG_TYPE_ERROR, "%@: session type does not support NWNetworkAgent", &buf, 0xCu);
         }
 
         goto LABEL_39;
       }
 
-      v15 = [NEContentFilterNetworkAgent alloc];
-      v8 = [a1 configuration];
-      v10 = [v8 identifier];
-      v11 = [v15 initWithConfigUUID:v10 sessionType:4 name:0];
-      [a1 setNetworkAgent:v11];
+      v16 = [NEContentFilterNetworkAgent alloc];
+      v9 = [a1 configuration];
+      v11 = [v9 identifier];
+      v12 = [v16 initWithConfigUUID:v11 sessionType:4 name:0];
+      [a1 setNetworkAgent:v12];
     }
 
     goto LABEL_28;
   }
 }
 
-void sub_10008F040(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, char a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id location)
+void sub_10008F040(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id location)
 {
   objc_destroyWeak((v28 + 32));
   objc_destroyWeak((v27 + 32));
@@ -4764,7 +4687,7 @@ uint64_t sub_10008F168(uint64_t result, char a2)
         _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@: Resetting VPN On Demand", buf, 0xCu);
       }
 
-      if ([v3 type] == 1 || (result = objc_msgSend(v3, "type"), result == 2))
+      if (objc_msgSend_type(v3) == 1 || (result = objc_msgSend_type(v3), result == 2))
       {
         v5[0] = _NSConcreteStackBlock;
         v5[1] = 3221225472;
@@ -4793,28 +4716,28 @@ void sub_10008F2B0(uint64_t a1, int a2)
     }
 
     *buf = 138412546;
-    v62 = v6;
-    v63 = 2112;
-    v64 = v5;
+    v63 = v6;
+    v64 = 2112;
+    v65 = v5;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_DEFAULT, "%@: Plugin %@ installed", buf, 0x16u);
   }
 
   [*(a1 + 32) setDisableOnDemand:a2 ^ 1u];
   if (sub_10008AA94(*(a1 + 32)))
   {
-    v7 = 1;
+    v8 = 1;
   }
 
   else
   {
-    v7 = sub_10008AB9C(*(a1 + 32));
+    v8 = sub_10008AB9C(*(a1 + 32), v7);
   }
 
-  v8 = *(a1 + 40);
-  v9 = ([*(a1 + 32) type] == 2) | v8;
-  if ((v9 & 1) != 0 || !v7)
+  v9 = *(a1 + 40);
+  v10 = (objc_msgSend_type(*(a1 + 32)) == 2) | v9;
+  if ((v10 & 1) != 0 || !v8)
   {
-    if (v9)
+    if (v10)
     {
       goto LABEL_14;
     }
@@ -4822,23 +4745,23 @@ void sub_10008F2B0(uint64_t a1, int a2)
 
   else
   {
-    v10 = [*(a1 + 32) onDemandMonitor];
+    v11 = [*(a1 + 32) onDemandMonitor];
 
-    if (!v10)
+    if (!v11)
     {
-      v11 = [*(a1 + 32) onDemandMonitor];
+      v12 = [*(a1 + 32) onDemandMonitor];
 
-      if (!v11)
+      if (!v12)
       {
         goto LABEL_28;
       }
 
 LABEL_14:
       sub_10008F9DC(*(a1 + 32));
-      if ([*(a1 + 32) type] == 2)
+      if (objc_msgSend_type(*(a1 + 32)) == 2)
       {
-        v12 = objc_alloc_init(NEOnDemandRuleConnect);
-        if (v9)
+        v13 = objc_alloc_init(NEOnDemandRuleConnect);
+        if (v10)
         {
           goto LABEL_26;
         }
@@ -4846,131 +4769,131 @@ LABEL_14:
 
       else
       {
-        v12 = 0;
-        if (v9)
+        v13 = 0;
+        if (v10)
         {
           goto LABEL_26;
         }
       }
 
-      v17 = [*(a1 + 32) matchedRule];
-      if (!(v17 | v12) || (v18 = v17, [*(a1 + 32) matchedRule], v19 = objc_claimAutoreleasedReturnValue(), v20 = objc_msgSend(v19, "isEqual:", v12), v19, v18, (v20 & 1) != 0))
+      v18 = [*(a1 + 32) matchedRule];
+      if (!(v18 | v13) || (v19 = v18, [*(a1 + 32) matchedRule], v20 = objc_claimAutoreleasedReturnValue(), v21 = objc_msgSend(v20, "isEqual:", v13), v20, v19, (v21 & 1) != 0))
       {
 LABEL_27:
 
-        if (!v7)
+        if (!v8)
         {
           return;
         }
 
 LABEL_28:
-        v21 = ne_log_obj();
-        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        v22 = ne_log_obj();
+        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
         {
-          v22 = *(a1 + 32);
+          v23 = *(a1 + 32);
           *buf = 138412290;
-          v62 = v22;
-          _os_log_impl(&_mh_execute_header, v21, OS_LOG_TYPE_DEFAULT, "%@: Enabling VPN On Demand", buf, 0xCu);
+          v63 = v23;
+          _os_log_impl(&_mh_execute_header, v22, OS_LOG_TYPE_DEFAULT, "%@: Enabling VPN On Demand", buf, 0xCu);
         }
 
-        v23 = *(a1 + 32);
-        if (v23)
+        v24 = *(a1 + 32);
+        if (v24)
         {
-          if ([*(a1 + 32) type] == 1)
+          if (objc_msgSend_type(*(a1 + 32)) == 1)
           {
-            v24 = [v23 configuration];
-            v25 = [v24 VPN];
+            v25 = [v24 configuration];
+            v26 = [v25 VPN];
           }
 
           else
           {
-            if ([v23 type] != 2)
+            if (objc_msgSend_type(v24) != 2)
             {
-              v27 = 0;
+              v28 = 0;
 LABEL_42:
-              if ((sub_10008AA94(v23) & 1) == 0 && sub_10008AB9C(v23))
+              if ((sub_10008AA94(v24) & 1) == 0 && sub_10008AB9C(v24, v33))
               {
-                v32 = sub_10008AC98(v23, v27);
+                v34 = sub_10008AC98(v24, v28);
 
-                v27 = v32;
+                v28 = v34;
               }
 
-              v16 = +[NSMutableArray array];
-              if (![v27 count])
+              v17 = +[NSMutableArray array];
+              if (![v28 count])
               {
-                v33 = objc_alloc_init(NWNetworkDescription);
-                [v16 addObject:v33];
+                v35 = objc_alloc_init(NWNetworkDescription);
+                [v17 addObject:v35];
                 goto LABEL_60;
               }
 
-              v59 = 0u;
               v60 = 0u;
-              v57 = 0u;
+              v61 = 0u;
               v58 = 0u;
-              v33 = v27;
-              v34 = [v33 countByEnumeratingWithState:&v57 objects:buf count:16];
-              if (v34)
+              v59 = 0u;
+              v35 = v28;
+              v36 = [v35 countByEnumeratingWithState:&v58 objects:buf count:16];
+              if (v36)
               {
-                v35 = v34;
-                v55 = v27;
-                v56 = a1;
-                v36 = *v58;
+                v37 = v36;
+                v56 = v28;
+                v57 = a1;
+                v38 = *v59;
                 while (1)
                 {
-                  for (i = 0; i != v35; i = i + 1)
+                  for (i = 0; i != v37; i = i + 1)
                   {
-                    if (*v58 != v36)
+                    if (*v59 != v38)
                     {
-                      objc_enumerationMutation(v33);
+                      objc_enumerationMutation(v35);
                     }
 
-                    v38 = v16;
-                    v39 = *(*(&v57 + 1) + 8 * i);
-                    v40 = objc_alloc_init(NWNetworkDescription);
-                    v41 = [v39 interfaceTypeMatch];
-                    if (v41 == 3)
+                    v40 = v17;
+                    v41 = *(*(&v58 + 1) + 8 * i);
+                    v42 = objc_alloc_init(NWNetworkDescription);
+                    v43 = [v41 interfaceTypeMatch];
+                    if (v43 == 3)
                     {
-                      v42 = &off_1000EE3C0;
+                      v44 = &off_1000EE3C0;
                     }
 
                     else
                     {
-                      if (v41 != 2)
+                      if (v43 != 2)
                       {
                         goto LABEL_56;
                       }
 
-                      v42 = &off_1000EE3D8;
+                      v44 = &off_1000EE3D8;
                     }
 
-                    v43 = [NSSet setWithObject:v42, v55, v56, v57];
-                    [v40 setInterfaceTypeOptions:v43];
+                    v45 = [NSSet setWithObject:v44, v56, v57, v58];
+                    [v42 setInterfaceTypeOptions:v45];
 
 LABEL_56:
-                    v44 = [v39 DNSSearchDomainMatch];
-                    v45 = [NSSet setWithArray:v44];
-                    [v40 setDnsSearchDomainOptions:v45];
-
-                    v46 = [v39 DNSServerAddressMatch];
+                    v46 = [v41 DNSSearchDomainMatch];
                     v47 = [NSSet setWithArray:v46];
-                    [v40 setDnsServerAddressOptions:v47];
+                    [v42 setDnsSearchDomainOptions:v47];
 
-                    v48 = [v39 SSIDMatch];
+                    v48 = [v41 DNSServerAddressMatch];
                     v49 = [NSSet setWithArray:v48];
-                    [v40 setSsidOptions:v49];
+                    [v42 setDnsServerAddressOptions:v49];
 
-                    v50 = [v39 probeURL];
-                    [v40 setProbeURL:v50];
+                    v50 = [v41 SSIDMatch];
+                    v51 = [NSSet setWithArray:v50];
+                    [v42 setSsidOptions:v51];
 
-                    v16 = v38;
-                    [v38 addObject:v40];
+                    v52 = [v41 probeURL];
+                    [v42 setProbeURL:v52];
+
+                    v17 = v40;
+                    [v40 addObject:v42];
                   }
 
-                  v35 = [v33 countByEnumeratingWithState:&v57 objects:buf count:16];
-                  if (!v35)
+                  v37 = [v35 countByEnumeratingWithState:&v58 objects:buf count:16];
+                  if (!v37)
                   {
-                    v27 = v55;
-                    a1 = v56;
+                    v28 = v56;
+                    a1 = v57;
                     break;
                   }
                 }
@@ -4978,35 +4901,34 @@ LABEL_56:
 
 LABEL_60:
 
-              if (v16)
+              if (v17)
               {
-                v51 = objc_alloc_init(NWParameters);
-                [v51 prohibitNetworkAgentsWithDomain:@"NetworkExtension" type:@"VPN"];
-                [v51 prohibitNetworkAgentsWithDomain:@"NetworkExtension" type:@"AppVPN"];
-                [v51 prohibitNetworkAgentsWithDomain:@"NetworkExtension" type:@"AOVPN"];
-                v52 = *(a1 + 32);
+                v53 = objc_alloc_init(NWParameters);
+                [v53 prohibitNetworkAgentsWithDomain:@"NetworkExtension" type:@"VPN"];
+                [v53 prohibitNetworkAgentsWithDomain:@"NetworkExtension" type:@"AppVPN"];
+                [v53 prohibitNetworkAgentsWithDomain:@"NetworkExtension" type:@"AOVPN"];
                 objc_opt_class();
                 if ((objc_opt_isKindOfClass() & 1) != 0 && [*(a1 + 32) tunnelKind] == 2)
                 {
-                  [v51 setRequiredInterfaceType:2];
+                  [v53 setRequiredInterfaceType:2];
                 }
 
-                v53 = [NWMonitor monitorWithNetworkDescriptionArray:v16 endpoint:0 parameters:v51];
-                [*(a1 + 32) setOnDemandMonitor:v53];
+                v54 = [NWMonitor monitorWithNetworkDescriptionArray:v17 endpoint:0 parameters:v53];
+                [*(a1 + 32) setOnDemandMonitor:v54];
 
-                v54 = [*(a1 + 32) onDemandMonitor];
-                [v54 addObserver:*(a1 + 32) forKeyPath:@"bestAvailableNetworkDescription" options:5 context:0];
+                v55 = [*(a1 + 32) onDemandMonitor];
+                [v55 addObserver:*(a1 + 32) forKeyPath:@"bestAvailableNetworkDescription" options:5 context:0];
               }
 
               goto LABEL_65;
             }
 
-            v24 = [v23 configuration];
-            v25 = [v24 appVPN];
+            v25 = [v24 configuration];
+            v26 = [v25 appVPN];
           }
 
-          v26 = v25;
-          v27 = [v25 onDemandRules];
+          v27 = v26;
+          v28 = [v26 onDemandRules];
 
           goto LABEL_42;
         }
@@ -5015,49 +4937,49 @@ LABEL_60:
       }
 
 LABEL_26:
-      [*(a1 + 32) setMatchedRule:v12];
+      [*(a1 + 32) setMatchedRule:v13];
       sub_10008AD10(*(a1 + 32));
       [*(a1 + 32) notifyChangedExtendedStatus];
       goto LABEL_27;
     }
   }
 
-  if ((v7 & 1) == 0)
+  if ((v8 & 1) == 0)
   {
-    v13 = [*(a1 + 32) onDemandMonitor];
+    v14 = [*(a1 + 32) onDemandMonitor];
 
-    if (v13)
+    if (v14)
     {
-      v14 = ne_log_obj();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = ne_log_obj();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
-        v15 = *(a1 + 32);
+        v16 = *(a1 + 32);
         *buf = 138412290;
-        v62 = v15;
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "%@: Disabling VPN On Demand", buf, 0xCu);
+        v63 = v16;
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "%@: Disabling VPN On Demand", buf, 0xCu);
       }
 
       sub_10008F9DC(*(a1 + 32));
-      if ([*(a1 + 32) type] == 2)
+      if (objc_msgSend_type(*(a1 + 32)) == 2)
       {
-        v16 = objc_alloc_init(NEOnDemandRuleConnect);
+        v17 = objc_alloc_init(NEOnDemandRuleConnect);
       }
 
       else
       {
-        v16 = 0;
+        v17 = 0;
       }
 
-      v28 = [*(a1 + 32) matchedRule];
-      if (v28 | v16)
+      v29 = [*(a1 + 32) matchedRule];
+      if (v29 | v17)
       {
-        v29 = v28;
-        v30 = [*(a1 + 32) matchedRule];
-        v31 = [v30 isEqual:v16];
+        v30 = v29;
+        v31 = [*(a1 + 32) matchedRule];
+        v32 = [v31 isEqual:v17];
 
-        if ((v31 & 1) == 0)
+        if ((v32 & 1) == 0)
         {
-          [*(a1 + 32) setMatchedRule:v16];
+          [*(a1 + 32) setMatchedRule:v17];
           sub_10008AD10(*(a1 + 32));
           [*(a1 + 32) notifyChangedExtendedStatus];
         }
@@ -5066,7 +4988,7 @@ LABEL_26:
       }
 
 LABEL_40:
-      v16 = 0;
+      v17 = 0;
 LABEL_65:
     }
   }
@@ -5308,19 +5230,8 @@ LABEL_10:
   }
 
   v7 = objc_getProperty(WeakRetained, v5, 688, 1);
-  if (!v7)
+  if (!v7 || (v9 = v7, objc_getProperty(v6, v8, 688, 1), v10 = objc_claimAutoreleasedReturnValue(), [v10 controlUnit], v11 = objc_claimAutoreleasedReturnValue(), v12 = objc_msgSend(v11, "unsignedIntValue"), v11, v10, v9, !v12))
   {
-    goto LABEL_7;
-  }
-
-  v9 = v7;
-  v10 = objc_getProperty(v6, v8, 688, 1);
-  v11 = [v10 controlUnit];
-  v12 = [v11 unsignedIntValue];
-
-  if (!v12)
-  {
-LABEL_7:
     v14 = ne_log_obj();
     if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
     {
@@ -5475,9 +5386,9 @@ void sub_100090CC8(void *a1, char a2)
   }
 }
 
-void sub_100090DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_100090DD0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5494,74 +5405,74 @@ void sub_100090E00(uint64_t a1)
   if (*(a1 + 48) == 1)
   {
     sub_10008FAD0(*(a1 + 32));
-    sub_10008E79C(*(a1 + 32));
+    sub_10008E79C(*(a1 + 32), v2);
   }
 
   if (*(a1 + 49) == 1)
   {
-    v2 = [*(a1 + 32) configuration];
-    v3 = [v2 dnsSettings];
-    v4 = [v3 isEnabled];
+    v3 = [*(a1 + 32) configuration];
+    v4 = [v3 dnsSettings];
+    v5 = [v4 isEnabled];
 
-    v5 = [*(a1 + 32) policySession];
-    v6 = v5;
-    if (v4)
+    v6 = [*(a1 + 32) policySession];
+    v7 = v6;
+    if (v5)
     {
-      v26 = [*(a1 + 32) networkAgent];
-      v7 = [v26 agentUUID];
-      v25 = [*(a1 + 32) configuration];
-      v8 = [v25 dnsSettings];
-      v9 = [v8 settings];
-      v11 = [v9 matchDomains];
+      v27 = [*(a1 + 32) networkAgent];
+      v8 = [v27 agentUUID];
+      v26 = [*(a1 + 32) configuration];
+      v9 = [v26 dnsSettings];
+      v10 = [v9 settings];
+      v12 = [v10 matchDomains];
       Property = *(a1 + 32);
       if (Property)
       {
-        Property = objc_getProperty(Property, v10, 376, 1);
-        v13 = *(a1 + 32);
+        Property = objc_getProperty(Property, v11, 376, 1);
+        v14 = *(a1 + 32);
       }
 
       else
       {
-        v13 = 0;
+        v14 = 0;
       }
 
-      v14 = Property;
-      v15 = [v13 server];
-      v17 = v15;
-      if (v15)
+      v15 = Property;
+      v16 = [v14 server];
+      v18 = v16;
+      if (v16)
       {
-        v15 = objc_getProperty(v15, v16, 80, 1);
+        v16 = objc_getProperty(v16, v17, 80, 1);
       }
 
-      v18 = v15;
-      v19 = v7;
-      v20 = v11;
-      v21 = v14;
-      v22 = v18;
-      if (v6 && v6[2] == 7)
+      v19 = v16;
+      v20 = v8;
+      v21 = v12;
+      v22 = v15;
+      v23 = v19;
+      if (v7 && v7[2] == 7)
       {
-        v27[0] = _NSConcreteStackBlock;
-        v27[1] = 3221225472;
-        v27[2] = sub_10004B7F8;
-        v27[3] = &unk_1000EA198;
-        v27[4] = v6;
-        v28 = v19;
+        v28[0] = _NSConcreteStackBlock;
+        v28[1] = 3221225472;
+        v28[2] = sub_10004B7F8;
+        v28[3] = &unk_1000EA198;
+        v28[4] = v7;
         v29 = v20;
         v30 = v21;
         v31 = v22;
-        sub_100031500(NESMPolicyMasterSession, v27);
+        v32 = v23;
+        sub_100031500(NESMPolicyMasterSession, v28);
       }
     }
 
     else
     {
-      sub_100030D44(v5);
+      sub_100030D44(v6);
     }
   }
 
-  v23 = *(*(a1 + 40) + 8);
-  v24 = *(v23 + 40);
-  *(v23 + 40) = 0;
+  v24 = *(*(a1 + 40) + 8);
+  v25 = *(v24 + 40);
+  *(v24 + 40) = 0;
 }
 
 void sub_100091124(uint64_t a1)
@@ -6892,7 +6803,7 @@ void sub_1000947B4(uint64_t a1, int a2)
   }
 }
 
-id sub_100094870()
+id sub_100094870(uint64_t a1)
 {
   objc_opt_self();
   if (qword_1000FD598 != -1)
@@ -6900,9 +6811,9 @@ id sub_100094870()
     dispatch_once(&qword_1000FD598, &stru_1000EAB50);
   }
 
-  v0 = qword_1000FD590;
+  v1 = qword_1000FD590;
 
-  return v0;
+  return v1;
 }
 
 void sub_1000948C8(id a1)
@@ -6921,35 +6832,19 @@ void sub_100094904(uint64_t a1)
   {
     ++*(v2 + 8);
     v5 = *(a1 + 32);
-    if (v5)
+    if (v5 && *(v5 + 8) == 1)
     {
-      if (*(v5 + 8) == 1)
+      WiFiManagerClientSetWoWState();
+      WiFiManagerClientRegisterWowStateChangedCallback();
+      CFRunLoopGetMain();
+      WiFiManagerClientScheduleWithRunLoop();
+      v6 = ne_log_obj();
+      if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
       {
-        v6 = *(v5 + 16);
-        WiFiManagerClientSetWoWState();
         v7 = *(a1 + 32);
-        if (v7)
-        {
-          v8 = *(v7 + 16);
-        }
-
-        WiFiManagerClientRegisterWowStateChangedCallback();
-        v9 = *(a1 + 32);
-        if (v9)
-        {
-          v10 = *(v9 + 16);
-        }
-
-        CFRunLoopGetMain();
-        WiFiManagerClientScheduleWithRunLoop();
-        v11 = ne_log_obj();
-        if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
-        {
-          v12 = *(a1 + 32);
-          v13 = 138412290;
-          v14 = v12;
-          _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "%@ enabled Wi-Fi WoW", &v13, 0xCu);
-        }
+        v8 = 138412290;
+        v9 = v7;
+        _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%@ enabled Wi-Fi WoW", &v8, 0xCu);
       }
     }
   }
@@ -6970,20 +6865,18 @@ void sub_100094A70(uint64_t a1)
         if (!*(v3 + 8) && *(v3 + 16))
         {
           WiFiManagerClientSetWoWState();
-          v4 = *(v3 + 16);
           WiFiManagerClientRegisterWowStateChangedCallback();
-          v5 = *(v3 + 16);
           CFRunLoopGetMain();
           WiFiManagerClientUnscheduleFromRunLoop();
           CFRelease(*(v3 + 16));
           *(v3 + 8) = 0;
           *(v3 + 16) = 0;
-          v6 = ne_log_obj();
-          if (os_log_type_enabled(v6, OS_LOG_TYPE_INFO))
+          v4 = ne_log_obj();
+          if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
           {
-            v7 = 138412290;
-            v8 = v3;
-            _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_INFO, "%@ disabled Wi-Fi WoW", &v7, 0xCu);
+            v5 = 138412290;
+            v6 = v3;
+            _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%@ disabled Wi-Fi WoW", &v5, 0xCu);
           }
         }
       }
@@ -8386,12 +8279,12 @@ LABEL_37:
   }
 }
 
-void sub_100099EBC(uint64_t a1)
+void sub_100099EBC(uint64_t result)
 {
-  v2 = *(a1 + 32);
+  v2 = *(result + 32);
   if (v2)
   {
-    v3 = *(a1 + 40);
+    v3 = *(result + 40);
     if (v3 == (*(v2 + 352) & 1))
     {
       return;
@@ -8400,7 +8293,7 @@ void sub_100099EBC(uint64_t a1)
     *(v2 + 352) = v3;
   }
 
-  else if (!*(a1 + 40))
+  else if (!*(result + 40))
   {
     return;
   }
@@ -8408,7 +8301,7 @@ void sub_100099EBC(uint64_t a1)
   v4 = ne_log_obj();
   if (os_log_type_enabled(v4, OS_LOG_TYPE_INFO))
   {
-    v5 = *(a1 + 32);
+    v5 = *(result + 32);
     v6 = "not";
     if (v5 && (*(v5 + 352) & 1) != 0)
     {
@@ -8422,7 +8315,7 @@ void sub_100099EBC(uint64_t a1)
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "%@ fallback is %s active", &v9, 0x16u);
   }
 
-  v8 = *(a1 + 32);
+  v8 = *(result + 32);
   if (v8)
   {
     if (v8[352])
@@ -8948,4 +8841,130 @@ void sub_10009ACAC(void *a1, const char *a2)
 
   [v12 handleNetworkPrepareResult:v14];
 LABEL_20:
+}
+
+id sub_10009AE84(uint64_t a1, const char *a2)
+{
+  Property = *(a1 + 32);
+  if (Property)
+  {
+    Property = objc_getProperty(Property, a2, 360, 1);
+  }
+
+  v4 = [Property objectAtIndexedSubscript:0];
+  v6 = v4;
+  if (v4)
+  {
+    v7 = objc_getProperty(v4, v5, 24, 1);
+  }
+
+  else
+  {
+    v7 = 0;
+  }
+
+  v8 = *(a1 + 40);
+
+  v10 = *(a1 + 48);
+  v11 = *(a1 + 32);
+  if (v7 == v8)
+  {
+    if (v11)
+    {
+      v11 = objc_getProperty(v11, v9, 360, 1);
+    }
+
+    v12 = 0;
+  }
+
+  else
+  {
+    if (v11)
+    {
+      v11 = objc_getProperty(v11, v9, 360, 1);
+    }
+
+    v12 = 1;
+  }
+
+  v13 = [v11 objectAtIndexedSubscript:v12];
+  if (v13)
+  {
+    v13[2] = v10;
+  }
+
+  v14 = ne_log_obj();
+  if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
+  {
+    v15 = *(a1 + 32);
+    v17 = *(a1 + 40);
+    if (v15)
+    {
+      v18 = [objc_getProperty(v15 v16];
+      v20 = v18;
+      if (v18)
+      {
+        v21 = objc_getProperty(v18, v19, 24, 1);
+      }
+
+      else
+      {
+        v21 = 0;
+      }
+
+      if (v21 == v17)
+      {
+        v27 = @"Primary Tunnel";
+      }
+
+      else
+      {
+        v23 = [objc_getProperty(v15 v22];
+        v25 = v23;
+        if (v23)
+        {
+          v26 = objc_getProperty(v23, v24, 24, 1);
+        }
+
+        else
+        {
+          v26 = 0;
+        }
+
+        if (v26 == v17)
+        {
+          v27 = @"Fallback Tunnel";
+        }
+
+        else
+        {
+          v27 = &stru_1000EBA68;
+        }
+      }
+    }
+
+    else
+    {
+      v27 = 0;
+    }
+
+    v28 = v27;
+    v31 = 138412802;
+    v32 = v15;
+    v33 = 2112;
+    v34 = v28;
+    v35 = 2080;
+    v36 = ne_session_status_to_string();
+    _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "%@[%@]: VPN Status to Parent: %s", &v31, 0x20u);
+  }
+
+  v29 = [*(a1 + 32) status];
+  [*(a1 + 32) setStatus:*(a1 + 48)];
+  result = [*(a1 + 32) status];
+  if (result == v29)
+  {
+    return [*(a1 + 32) notifyChangedExtendedStatus];
+  }
+
+  return result;
 }

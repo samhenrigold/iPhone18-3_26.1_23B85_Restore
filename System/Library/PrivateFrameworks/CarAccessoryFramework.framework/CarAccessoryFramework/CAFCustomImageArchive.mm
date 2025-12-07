@@ -5,6 +5,7 @@
 - (CAFGetImageArchiveControl)getImageArchiveControl;
 - (CAFStringCharacteristic)identifierCharacteristic;
 - (NSString)identifier;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)getImageArchiveWithCompletion:(id)completion;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
@@ -134,6 +135,35 @@ void __55__CAFCustomImageArchive_getImageArchiveWithCompletion___block_invoke(ui
   v3 = [MEMORY[0x277CBEA90] data];
   v2 = [MEMORY[0x277CCA9B8] errorWithDomain:@"com.apple.caraccessoryframework.cardata" code:9 userInfo:0];
   (*(v1 + 16))(v1, v3, v2);
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if (![characteristicType isEqual:@"0x0000000030000019"])
+  {
+    goto LABEL_4;
+  }
+
+  uniqueIdentifier = [updateCopy uniqueIdentifier];
+  identifierCharacteristic = [(CAFCustomImageArchive *)self identifierCharacteristic];
+  uniqueIdentifier2 = [identifierCharacteristic uniqueIdentifier];
+  v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+  if (v11)
+  {
+    characteristicType = [(CAFService *)self observers];
+    identifier = [(CAFCustomImageArchive *)self identifier];
+    [characteristicType customImageArchiveService:self didUpdateIdentifier:identifier];
+
+LABEL_4:
+  }
+
+  v13.receiver = self;
+  v13.super_class = CAFCustomImageArchive;
+  [(CAFService *)&v13 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForIdentifier

@@ -18,11 +18,11 @@
 
 - (_TtC12VisualLookUp35VisualIntelligenceServiceCompatible)initWithOverrideTrialTypes:(id)types namespaces:(id)namespaces factors:(id)factors values:(id)values
 {
-  sub_1D9C7DF2C();
-  sub_1D9C7DF2C();
-  sub_1D9C7DF2C();
-  sub_1D9C7DF2C();
-  return VisualIntelligenceServiceCompatible.init(overrideTrialTypes:namespaces:factors:values:)();
+  v6 = sub_1D9C7DF2C();
+  v7 = sub_1D9C7DF2C();
+  v8 = sub_1D9C7DF2C();
+  v9 = sub_1D9C7DF2C();
+  return VisualIntelligenceServiceCompatible.init(overrideTrialTypes:namespaces:factors:values:)(v6, v7, v8, v9);
 }
 
 - (_TtC12VisualLookUp23OntologyGraphCompatible)ontologyGraph
@@ -185,13 +185,13 @@
   x = interest.origin.x;
   swift_unknownObjectRetain();
   selfCopy = self;
-  sub_1D9BC96F0(x, y, width, height);
+  sub_1D9BC96F0(image, x, y, width, height);
 
   swift_unknownObjectRelease();
-  sub_1D9A0835C(0, &unk_1ECB54100);
-  v11 = sub_1D9C7DF1C();
+  sub_1D9A0835C(0, &unk_1ECB54100, off_1E85897A0);
+  v12 = sub_1D9C7DF1C();
 
-  return v11;
+  return v12;
 }
 
 - (id)refineRegionsWithRequest:(id)request error:(id *)error

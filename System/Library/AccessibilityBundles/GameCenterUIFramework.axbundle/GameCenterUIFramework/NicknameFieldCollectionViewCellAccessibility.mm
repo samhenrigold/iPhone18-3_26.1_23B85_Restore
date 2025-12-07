@@ -98,23 +98,21 @@
 
 - (id)_accessibilitySupplementaryFooterViews
 {
-  v9[1] = *MEMORY[0x29EDCA608];
+  v8[1] = *MEMORY[0x29EDCA608];
   _accessibilityTextViewTextOperationResponder = [(NicknameFieldCollectionViewCellAccessibility *)self _accessibilityTextViewTextOperationResponder];
   if ([_accessibilityTextViewTextOperationResponder safeBoolForKey:@"isEditing"])
   {
     v4 = [_accessibilityTextViewTextOperationResponder safeValueForKey:@"_clearButton"];
-    v9[0] = v4;
-    _accessibilitySupplementaryFooterViews = [MEMORY[0x29EDB8D80] arrayWithObjects:v9 count:1];
+    v8[0] = v4;
+    _accessibilitySupplementaryFooterViews = [MEMORY[0x29EDB8D80] arrayWithObjects:v8 count:1];
   }
 
   else
   {
-    v8.receiver = self;
-    v8.super_class = NicknameFieldCollectionViewCellAccessibility;
-    _accessibilitySupplementaryFooterViews = [(NicknameFieldCollectionViewCellAccessibility *)&v8 _accessibilitySupplementaryFooterViews];
+    v7.receiver = self;
+    v7.super_class = NicknameFieldCollectionViewCellAccessibility;
+    _accessibilitySupplementaryFooterViews = [(NicknameFieldCollectionViewCellAccessibility *)&v7 _accessibilitySupplementaryFooterViews];
   }
-
-  v6 = *MEMORY[0x29EDCA608];
 
   return _accessibilitySupplementaryFooterViews;
 }

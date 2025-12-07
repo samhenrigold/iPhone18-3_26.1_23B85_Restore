@@ -10,36 +10,33 @@
 - (void)_bridgedUpdateConfigurationUsingState:(id)state
 {
   sub_29D69F37C(0, &qword_2A17B1848, MEMORY[0x29EDC77B8]);
-  v5 = *(*(v4 - 8) + 64);
-  MEMORY[0x2A1C7C4A8](v4 - 8, v6);
-  v8 = &v25 - v7;
-  v9 = sub_29D9379E8();
-  v10 = *(v9 - 8);
-  v11 = *(v10 + 64);
-  MEMORY[0x2A1C7C4A8](v9, v12);
-  v14 = &v25 - ((v13 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v15 = sub_29D937998();
-  v16 = *(v15 - 8);
-  v17 = *(v16 + 64);
-  MEMORY[0x2A1C7C4A8](v15, v18);
-  v20 = &v25 - ((v19 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x2A1C7C4A8](v4 - 8, v5);
+  v7 = &v22 - v6;
+  v8 = sub_29D9379E8();
+  v9 = *(v8 - 8);
+  MEMORY[0x2A1C7C4A8](v8, v10);
+  v12 = &v22 - ((v11 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v13 = sub_29D937998();
+  v14 = *(v13 - 8);
+  MEMORY[0x2A1C7C4A8](v13, v15);
+  v17 = &v22 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_29D937988();
   selfCopy = self;
-  v22 = sub_29D937978();
-  v23 = type metadata accessor for CenteredLabelWithSpinnerCell();
-  v25.receiver = selfCopy;
-  v25.super_class = v23;
-  [(CenteredLabelWithSpinnerCell *)&v25 _bridgedUpdateConfigurationUsingState:v22];
+  v19 = sub_29D937978();
+  v20 = type metadata accessor for CenteredLabelWithSpinnerCell();
+  v22.receiver = selfCopy;
+  v22.super_class = v20;
+  [(CenteredLabelWithSpinnerCell *)&v22 _bridgedUpdateConfigurationUsingState:v19];
 
   sub_29D9379D8();
   systemBackgroundColor = [objc_opt_self() systemBackgroundColor];
   sub_29D9379B8();
-  (*(v10 + 16))(v8, v14, v9);
-  (*(v10 + 56))(v8, 0, 1, v9);
-  MEMORY[0x29ED6A980](v8);
+  (*(v9 + 16))(v7, v12, v8);
+  (*(v9 + 56))(v7, 0, 1, v8);
+  MEMORY[0x29ED6A980](v7);
 
-  (*(v10 + 8))(v14, v9);
-  (*(v16 + 8))(v20, v15);
+  (*(v9 + 8))(v12, v8);
+  (*(v14 + 8))(v17, v13);
 }
 
 - (void)prepareForReuse

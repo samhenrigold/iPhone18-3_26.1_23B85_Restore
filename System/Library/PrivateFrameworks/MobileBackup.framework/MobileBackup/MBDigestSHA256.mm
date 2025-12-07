@@ -61,11 +61,9 @@
 
 - (id)final
 {
-  v5 = *MEMORY[0x1E69E9840];
-  [(MBDigestSHA256 *)self finalWithBytes:v4 length:32];
-  result = [MEMORY[0x1E695DEF0] dataWithBytes:v4 length:32];
-  v3 = *MEMORY[0x1E69E9840];
-  return result;
+  v4 = *MEMORY[0x1E69E9840];
+  [(MBDigestSHA256 *)self finalWithBytes:v3 length:32];
+  return [MEMORY[0x1E695DEF0] dataWithBytes:v3 length:32];
 }
 
 - (uint64_t)finalWithBytes:length:.cold.1()

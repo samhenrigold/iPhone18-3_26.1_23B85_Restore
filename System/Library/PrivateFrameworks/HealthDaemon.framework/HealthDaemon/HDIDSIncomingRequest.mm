@@ -12,11 +12,11 @@
   pbRequest = [(HDIDSIncomingRequest *)self pbRequest];
   v4 = HDNanoSyncDescriptionSafe(pbRequest);
 
-  LODWORD(pbRequest) = [(HDIDSIncomingRequest *)self messageID];
+  messageID = [(HDIDSIncomingRequest *)self messageID];
   idsIdentifier = [(HDIDSIncomingRequest *)self idsIdentifier];
-  v6 = FormattedMessageDescription(pbRequest, 1, 1, idsIdentifier, v4);
+  v7 = FormattedMessageDescription(messageID, 1, 1, idsIdentifier, v4);
 
-  return v6;
+  return v7;
 }
 
 - (PBCodable)pbRequest
@@ -52,7 +52,7 @@
 
 - (void)dealloc
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (self->_expectsResponse)
   {
     response = self->_response;
@@ -64,19 +64,18 @@
       {
         v5 = v4;
         *buf = 138412546;
-        v10 = objc_opt_class();
-        v11 = 2112;
+        v9 = objc_opt_class();
+        v10 = 2112;
         selfCopy = self;
-        v6 = v10;
+        v6 = v9;
         _os_log_impl(&dword_228986000, v5, OS_LOG_TYPE_DEFAULT, "%@ (%@) deallocated without sending a response", buf, 0x16u);
       }
     }
   }
 
-  v8.receiver = self;
-  v8.super_class = HDIDSIncomingRequest;
-  [(HDIDSIncomingRequest *)&v8 dealloc];
-  v7 = *MEMORY[0x277D85DE8];
+  v7.receiver = self;
+  v7.super_class = HDIDSIncomingRequest;
+  [(HDIDSIncomingRequest *)&v7 dealloc];
 }
 
 - (NSString)description

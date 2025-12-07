@@ -58,7 +58,7 @@
 
 - (void)resolvePartialMessage:(id)message timestamp:(unint64_t)timestamp isolatedStreamUUID:(id)d
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   dCopy = d;
   if (dCopy || [messageCopy clockIsolationLevel] != 2)
@@ -71,9 +71,9 @@
     block[3] = &unk_1E8587968;
     block[4] = self;
     timestampCopy = timestamp;
-    v16 = messageCopy;
-    v17 = uUID;
-    v18 = dCopy;
+    v15 = messageCopy;
+    v16 = uUID;
+    v17 = dCopy;
     qualifiedMessageName = uUID;
     dispatch_async(queue, block);
   }
@@ -90,14 +90,12 @@
     if (os_log_type_enabled(SiriAnalyticsLogContextStreaming, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v21 = "[SiriAnalyticsClientMessageStream resolvePartialMessage:timestamp:isolatedStreamUUID:]";
-      v22 = 2112;
-      v23 = qualifiedMessageName;
+      v20 = "[SiriAnalyticsClientMessageStream resolvePartialMessage:timestamp:isolatedStreamUUID:]";
+      v21 = 2112;
+      v22 = qualifiedMessageName;
       _os_log_error_impl(&dword_1D9863000, v11, OS_LOG_TYPE_ERROR, "%s SELF Event is marked as ISOLATED but is emitted without isolatedStreamUUID. Not emitting event: %@", buf, 0x16u);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resolvePartialMessage:(id)message isolatedStreamUUID:(id)d
@@ -123,7 +121,7 @@
 
 - (void)emitMessage:(id)message timestamp:(unint64_t)timestamp isolatedStreamUUID:(id)d
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v29 = *MEMORY[0x1E69E9840];
   messageCopy = message;
   dCopy = d;
   qualifiedMessageName = [messageCopy qualifiedMessageName];
@@ -142,9 +140,9 @@
     if (os_signpost_enabled(v13))
     {
       *buf = 134349314;
-      v27 = (v11 + timestamp - v12);
-      v28 = 2112;
-      v29 = qualifiedMessageName;
+      v26 = (v11 + timestamp - v12);
+      v27 = 2112;
+      v28 = qualifiedMessageName;
       _os_signpost_emit_with_name_impl(&dword_1D9863000, v13, OS_SIGNPOST_EVENT, v15, "EventEmitted", "%{public, signpost.description:event_time}llu type=%@", buf, 0x16u);
     }
   }
@@ -159,9 +157,9 @@
     block[3] = &unk_1E8587968;
     block[4] = self;
     timestampCopy = timestamp;
-    v22 = messageCopy;
-    v23 = uUID;
-    v24 = dCopy;
+    v21 = messageCopy;
+    v22 = uUID;
+    v23 = dCopy;
     v19 = uUID;
     dispatch_async(queue, block);
   }
@@ -177,14 +175,12 @@
     if (os_log_type_enabled(SiriAnalyticsLogContextStreaming, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315394;
-      v27 = "[SiriAnalyticsClientMessageStream emitMessage:timestamp:isolatedStreamUUID:]";
-      v28 = 2112;
-      v29 = qualifiedMessageName;
+      v26 = "[SiriAnalyticsClientMessageStream emitMessage:timestamp:isolatedStreamUUID:]";
+      v27 = 2112;
+      v28 = qualifiedMessageName;
       _os_log_error_impl(&dword_1D9863000, v16, OS_LOG_TYPE_ERROR, "%s SELF Event is marked as ISOLATED but is emitted without isolatedStreamUUID. Not emitting event: %@", buf, 0x16u);
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)emitMessage:(id)message isolatedStreamUUID:(id)d

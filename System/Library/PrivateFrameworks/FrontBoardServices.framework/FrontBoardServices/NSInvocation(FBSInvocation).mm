@@ -63,7 +63,7 @@
 
           if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
           {
-            [NSInvocation(FBSInvocation) fbs_getObjectForValue:a2 atIndex:?];
+            [NSInvocation(FBSInvocation) fbs_getObjectForValue:a2 atIndex:self];
           }
 
           [v25 UTF8String];
@@ -142,7 +142,7 @@ LABEL_47:
     v26 = [MEMORY[0x1E696AEC0] stringWithFormat:@"parameter type is not supported", v7];
     if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
     {
-      [NSInvocation(FBSInvocation) fbs_getObjectForValue:a2 atIndex:?];
+      [NSInvocation(FBSInvocation) fbs_getObjectForValue:a2 atIndex:self];
     }
 
     [v26 UTF8String];
@@ -175,28 +175,29 @@ LABEL_21:
   return v14;
 }
 
-- (void)fbs_getObjectForValue:()FBSInvocation atIndex:.cold.1(const char *a1)
+- (void)fbs_getObjectForValue:()FBSInvocation atIndex:.cold.1(const char *a1, uint64_t a2)
 {
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  LODWORD(v10) = 138544642;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, 2u);
+  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 - (void)fbs_getObjectForValue:()FBSInvocation atIndex:.cold.2(char *a1)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"expected != nil"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a1);
-    objc_claimAutoreleasedReturnValue();
-    v3 = OUTLINED_FUNCTION_12();
-    v4 = NSStringFromClass(v3);
+    v3 = NSStringFromSelector(a1);
+    v5 = OUTLINED_FUNCTION_12(v3, v4);
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"expected != nil", v10, v11);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
   [v2 UTF8String];
@@ -205,30 +206,31 @@ LABEL_21:
 
 - (void)fbs_getObjectForValue:()FBSInvocation atIndex:.cold.3(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"struct is too large: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"struct is too large: %@", a1];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    NSStringFromSelector(a2);
-    objc_claimAutoreleasedReturnValue();
-    v4 = OUTLINED_FUNCTION_12();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a2);
+    v6 = OUTLINED_FUNCTION_12(v4, v5);
+    v7 = NSStringFromClass(v6);
     OUTLINED_FUNCTION_8();
-    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_11(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v8, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v9, v10, v11, v12, v13, v14);
   }
 
   [v3 UTF8String];
   _bs_set_crash_log_message();
 }
 
-- (void)fbs_getObjectForValue:()FBSInvocation atIndex:.cold.4(const char *a1)
+- (void)fbs_getObjectForValue:()FBSInvocation atIndex:.cold.4(const char *a1, uint64_t a2)
 {
-  v1 = NSStringFromSelector(a1);
-  v2 = objc_opt_class();
-  v3 = NSStringFromClass(v2);
+  v2 = NSStringFromSelector(a1);
+  v3 = objc_opt_class();
+  v4 = NSStringFromClass(v3);
+  LODWORD(v10) = 138544642;
+  *(&v10 + 4) = v2;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_8_0();
   OUTLINED_FUNCTION_3_0();
-  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v4, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v5, v6, v7, v8, 2u);
+  OUTLINED_FUNCTION_3(&dword_1A2DBB000, MEMORY[0x1E69E9C10], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, DWORD2(v10));
 }
 
 @end

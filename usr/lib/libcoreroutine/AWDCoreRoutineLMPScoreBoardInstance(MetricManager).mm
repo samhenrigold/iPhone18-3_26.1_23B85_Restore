@@ -72,13 +72,13 @@ LABEL_9:
 
 - (id)description
 {
-  v2 = MEMORY[0x277CCACA8];
-  v3 = objc_opt_class();
-  v4 = NSStringFromClass(v3);
+  v3 = MEMORY[0x277CCACA8];
+  v4 = objc_opt_class();
+  v5 = NSStringFromClass(v4);
   keyword = [self keyword];
-  v6 = [v2 stringWithFormat:@"%@, keyword %@, corrects %d, incorrects %d, unknowns %d", v4, keyword, objc_msgSend(self, "corrects"), objc_msgSend(self, "incorrects"), objc_msgSend(self, "unknowns")];
+  v7 = [v3 stringWithFormat:@"%@, keyword %@, corrects %d, incorrects %d, unknowns %d", v5, keyword, objc_msgSend(self, "corrects"), objc_msgSend(self, "incorrects"), objc_msgSend(self, "unknowns")];
 
-  return v6;
+  return v7;
 }
 
 @end

@@ -1,15 +1,44 @@
 @interface _DPRecordQueryPredicates
 + (id)entityForKey:(id)key;
 + (id)predicateForKey:(id)key beginsWith:(BOOL)with matchReportVersion:(BOOL)version;
++ (id)predicateForKey:(id)key beginsWith:(BOOL)with submitted:(BOOL)submitted matchReportVersion:(BOOL)version;
 @end
 
 @implementation _DPRecordQueryPredicates
+
++ (id)predicateForKey:(id)key beginsWith:(BOOL)with submitted:(BOOL)submitted matchReportVersion:(BOOL)version
+{
+  versionCopy = version;
+  submittedCopy = submitted;
+  withCopy = with;
+  v17[2] = *MEMORY[0x277D85DE8];
+  keyCopy = key;
+  if (submittedCopy)
+  {
+    [self predicateForRecordsSubmitted];
+  }
+
+  else
+  {
+    [self predicateForRecordsNotSubmitted];
+  }
+  v11 = ;
+  v12 = MEMORY[0x277CCA920];
+  v17[0] = v11;
+  v13 = [objc_opt_class() predicateForKey:keyCopy beginsWith:withCopy matchReportVersion:versionCopy];
+
+  v17[1] = v13;
+  v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+  v15 = [v12 andPredicateWithSubpredicates:v14];
+
+  return v15;
+}
 
 + (id)predicateForKey:(id)key beginsWith:(BOOL)with matchReportVersion:(BOOL)version
 {
   versionCopy = version;
   withCopy = with;
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   keyCopy = key;
   if (withCopy)
   {
@@ -26,9 +55,9 @@
   {
     kDPCurrentReportVersion = [MEMORY[0x277CCAC30] predicateWithFormat:@"reportVersion == %ld", kDPCurrentReportVersion];
     v12 = MEMORY[0x277CCA920];
-    v17[0] = v10;
-    v17[1] = kDPCurrentReportVersion;
-    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v16[0] = v10;
+    v16[1] = kDPCurrentReportVersion;
+    v13 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
     v14 = [v12 andPredicateWithSubpredicates:v13];
   }
 
@@ -36,8 +65,6 @@
   {
     v14 = v9;
   }
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }

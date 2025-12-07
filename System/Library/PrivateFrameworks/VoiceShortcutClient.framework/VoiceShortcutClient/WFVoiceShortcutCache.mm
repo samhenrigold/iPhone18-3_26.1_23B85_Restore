@@ -34,17 +34,16 @@
 
 - (void)databaseDidChange
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v3 = getWFVoiceShortcutClientLogObject();
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
-    v5 = 136315138;
-    v6 = "[WFVoiceShortcutCache databaseDidChange]";
-    _os_log_impl(&dword_1B1DE3000, v3, OS_LOG_TYPE_DEBUG, "%s Shortcuts database changed - clearing out voice shortcuts cache.", &v5, 0xCu);
+    v4 = 136315138;
+    v5 = "[WFVoiceShortcutCache databaseDidChange]";
+    _os_log_impl(&dword_1B1DE3000, v3, OS_LOG_TYPE_DEBUG, "%s Shortcuts database changed - clearing out voice shortcuts cache.", &v4, 0xCu);
   }
 
   [(WFVoiceShortcutCache *)self clear];
-  v4 = *MEMORY[0x1E69E9840];
 }
 
 - (void)unregisterFromDatabaseNotifications
@@ -120,7 +119,7 @@
 
 void __48__WFVoiceShortcutCache_setCachedVoiceShortcuts___block_invoke_2(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v3 = a2;
   os_unfair_lock_lock((*(a1 + 32) + 8));
   [*(a1 + 32) setVoiceShortcuts:v3];
@@ -132,38 +131,36 @@ void __48__WFVoiceShortcutCache_setCachedVoiceShortcuts___block_invoke_2(uint64_
   [v6 removeAllObjects];
 
   os_unfair_lock_unlock((*(a1 + 32) + 8));
-  v15 = 0u;
-  v16 = 0u;
-  v13 = 0u;
   v14 = 0u;
+  v15 = 0u;
+  v12 = 0u;
+  v13 = 0u;
   v7 = v5;
-  v8 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v14;
+    v10 = *v13;
     do
     {
       v11 = 0;
       do
       {
-        if (*v14 != v10)
+        if (*v13 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        (*(*(*(&v13 + 1) + 8 * v11) + 16))(*(*(&v13 + 1) + 8 * v11));
+        (*(*(*(&v12 + 1) + 8 * v11) + 16))(*(*(&v12 + 1) + 8 * v11));
         ++v11;
       }
 
       while (v9 != v11);
-      v9 = [v7 countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v12 objects:v16 count:16];
     }
 
     while (v9);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)getCachedVoiceShortcuts:(id)shortcuts

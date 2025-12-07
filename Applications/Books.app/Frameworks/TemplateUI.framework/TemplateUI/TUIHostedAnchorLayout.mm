@@ -8,7 +8,7 @@
 - (BOOL)collectHostingPropertiesWithCollector:(id)collector
 {
   collectorCopy = collector;
-  v5 = [(TUILayout *)self box];
+  v5 = objc_msgSend_box(self);
   hostingProperties = [v5 hostingProperties];
   hostingIdentifier = [v5 hostingIdentifier];
   [collectorCopy hostingCollectorAddProperties:hostingProperties forIdentifier:hostingIdentifier];
@@ -24,7 +24,7 @@
   }
 
   v5 = [context renderModelForContainerLayout:self kind:6];
-  v6 = [(TUILayout *)self box];
+  v6 = objc_msgSend_box(self);
   identifier = [v6 identifier];
   hostingIdentifier = [v6 hostingIdentifier];
   hostingProperties = [v6 hostingProperties];

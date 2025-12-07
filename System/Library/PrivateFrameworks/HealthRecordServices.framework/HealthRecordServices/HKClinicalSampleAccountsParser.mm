@@ -37,7 +37,7 @@
 
 - (id)_parseAccountsFromJSONData:(id)data error:(id *)error
 {
-  v36 = *MEMORY[0x277D85DE8];
+  v35 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if (!dataCopy)
   {
@@ -58,30 +58,30 @@
       if (v12)
       {
         v13 = objc_alloc_init(MEMORY[0x277CBEB18]);
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
         obj = v12;
-        v14 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
+        v14 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
         if (v14)
         {
           v15 = v14;
-          v16 = *v32;
-          v28 = v10;
-          v29 = v8;
-          v27 = v12;
+          v16 = *v31;
+          v27 = v10;
+          v28 = v8;
+          v26 = v12;
           while (2)
           {
             for (i = 0; i != v15; ++i)
             {
-              if (*v32 != v16)
+              if (*v31 != v16)
               {
                 objc_enumerationMutation(obj);
               }
 
-              v18 = *(*(&v31 + 1) + 8 * i);
-              v19 = [(HKClinicalSampleAccountsParser *)self _parseProviderFromSampleAccountJSONDict:v18 error:error, v27, v28, v29];
+              v18 = *(*(&v30 + 1) + 8 * i);
+              v19 = [(HKClinicalSampleAccountsParser *)self _parseProviderFromSampleAccountJSONDict:v18 error:error, v26, v27, v28];
               if (!v19)
               {
                 goto LABEL_20;
@@ -94,9 +94,9 @@
 
 LABEL_20:
                 v24 = 0;
-                v10 = v28;
-                v8 = v29;
-                v12 = v27;
+                v10 = v27;
+                v8 = v28;
+                v12 = v26;
                 goto LABEL_21;
               }
 
@@ -107,10 +107,10 @@ LABEL_20:
               [v13 addObject:v23];
             }
 
-            v15 = [obj countByEnumeratingWithState:&v31 objects:v35 count:16];
-            v10 = v28;
-            v8 = v29;
-            v12 = v27;
+            v15 = [obj countByEnumeratingWithState:&v30 objects:v34 count:16];
+            v10 = v27;
+            v8 = v28;
+            v12 = v26;
             if (v15)
             {
               continue;
@@ -140,8 +140,6 @@ LABEL_21:
   {
     v24 = 0;
   }
-
-  v25 = *MEMORY[0x277D85DE8];
 
   return v24;
 }
@@ -265,7 +263,7 @@ LABEL_21:
 
 - (id)_parseBatchesFromSampleAccountJSONDict:(id)dict error:(id *)error
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v24 = *MEMORY[0x277D85DE8];
   v5 = [dict objectForKeyedSubscript:@"batches"];
   objc_opt_class();
   v6 = HKSafeObject();
@@ -273,27 +271,27 @@ LABEL_21:
   if (v6)
   {
     v7 = [objc_alloc(MEMORY[0x277CBEB18]) initWithCapacity:{objc_msgSend(v6, "count")}];
+    v19 = 0u;
     v20 = 0u;
     v21 = 0u;
     v22 = 0u;
-    v23 = 0u;
-    v19 = v6;
+    v18 = v6;
     v8 = v6;
-    v9 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v21;
+      v11 = *v20;
       while (2)
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v21 != v11)
+          if (*v20 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          v13 = [objc_opt_class() _jsonDictionaryFromJSONObject:*(*(&v20 + 1) + 8 * i) subElement:@"resources" error:error];
+          v13 = [objc_opt_class() _jsonDictionaryFromJSONObject:*(*(&v19 + 1) + 8 * i) subElement:@"resources" error:error];
           if (!v13)
           {
 
@@ -307,7 +305,7 @@ LABEL_21:
           [v7 addObject:v15];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v20 objects:v24 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v19 objects:v23 count:16];
         if (v10)
         {
           continue;
@@ -320,15 +318,13 @@ LABEL_21:
     v16 = v7;
 LABEL_12:
 
-    v6 = v19;
+    v6 = v18;
   }
 
   else
   {
     v16 = 0;
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

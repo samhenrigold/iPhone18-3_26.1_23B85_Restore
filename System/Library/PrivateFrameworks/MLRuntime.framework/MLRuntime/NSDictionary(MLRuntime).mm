@@ -66,7 +66,7 @@
 
 - (uint64_t)mlr_BOOLValueForKey:()MLRuntime defaultValue:
 {
-  v5 = [self _numberValueForKey:?];
+  v5 = [self _numberValueForKey:a3];
   v6 = v5;
   if (v5)
   {
@@ -78,7 +78,7 @@
 
 - (uint64_t)mlr_integerValueForKey:()MLRuntime defaultValue:
 {
-  v5 = [self _numberValueForKey:?];
+  v5 = [self _numberValueForKey:a3];
   v6 = v5;
   if (v5)
   {
@@ -90,7 +90,7 @@
 
 - (uint64_t)mlr_unsignedIntegerValueForKey:()MLRuntime defaultValue:
 {
-  v5 = [self _numberValueForKey:?];
+  v5 = [self _numberValueForKey:a3];
   v6 = v5;
   if (v5)
   {

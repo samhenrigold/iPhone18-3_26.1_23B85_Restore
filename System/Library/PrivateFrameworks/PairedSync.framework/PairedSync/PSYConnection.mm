@@ -30,32 +30,32 @@
 
 - (void)startSyncWithOptions:(id)options
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   optionsCopy = options;
+  v5 = optionsCopy;
   if (!optionsCopy)
   {
     optionsCopy = objc_alloc_init(PSYOptions);
+    v5 = optionsCopy;
   }
 
-  v5 = psy_log();
-  v6 = os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT);
+  v6 = psy_log(optionsCopy);
+  v7 = os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT);
 
-  if (v6)
+  if (v7)
   {
-    v7 = psy_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = psy_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 138543362;
-      v11 = optionsCopy;
-      _os_log_impl(&dword_25DF25000, v7, OS_LOG_TYPE_DEFAULT, "Starting sync with options: %{public}@", &v10, 0xCu);
+      v11 = 138543362;
+      v12 = v5;
+      _os_log_impl(&dword_25DF25000, v9, OS_LOG_TYPE_DEFAULT, "Starting sync with options: %{public}@", &v11, 0xCu);
     }
   }
 
-  [(PSYConnection *)self setOptions:optionsCopy];
+  [(PSYConnection *)self setOptions:v5];
   remoteConnection = [(PSYConnection *)self remoteConnection];
-  [remoteConnection startSyncWithOptions:optionsCopy];
-
-  v9 = *MEMORY[0x277D85DE8];
+  [remoteConnection startSyncWithOptions:v5];
 }
 
 - (id)remoteConnection

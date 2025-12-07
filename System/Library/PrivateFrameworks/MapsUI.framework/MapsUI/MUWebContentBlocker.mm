@@ -2,7 +2,6 @@
 + (id)sharedBlocker;
 - (BOOL)shouldBlockLoadingOfURL:(id)l;
 - (id)_regularExpression;
-- (id)patternForBlocking;
 @end
 
 @implementation MUWebContentBlocker
@@ -33,16 +32,9 @@ uint64_t __36__MUWebContentBlocker_sharedBlocker__block_invoke(uint64_t a1)
   return MEMORY[0x1EEE66BB8](v1, v2);
 }
 
-- (id)patternForBlocking
-{
-  v2 = *MEMORY[0x1E696F180];
-  v3 = *(MEMORY[0x1E696F180] + 8);
-  return GEOConfigGetString();
-}
-
 - (id)_regularExpression
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   patternForBlocking = [(MUWebContentBlocker *)self patternForBlocking];
   objc_opt_class();
   if (objc_opt_isKindOfClass())
@@ -66,9 +58,9 @@ uint64_t __36__MUWebContentBlocker_sharedBlocker__block_invoke(uint64_t a1)
 
     else
     {
-      v14 = 0;
-      v9 = [objc_alloc(MEMORY[0x1E696AE70]) initWithPattern:patternForBlocking options:0 error:&v14];
-      v10 = v14;
+      v13 = 0;
+      v9 = [objc_alloc(MEMORY[0x1E696AE70]) initWithPattern:patternForBlocking options:0 error:&v13];
+      v10 = v13;
       if (v9)
       {
         [(NSCache *)self->_regularExpressionCache setObject:v9 forKey:patternForBlocking];
@@ -85,9 +77,9 @@ uint64_t __36__MUWebContentBlocker_sharedBlocker__block_invoke(uint64_t a1)
         if (os_log_type_enabled(MUGetMUWebContentLog_log_24338, OS_LOG_TYPE_ERROR))
         {
           *buf = 138412546;
-          v16 = patternForBlocking;
-          v17 = 2112;
-          v18 = v10;
+          v15 = patternForBlocking;
+          v16 = 2112;
+          v17 = v10;
           _os_log_impl(&dword_1C5620000, v11, OS_LOG_TYPE_ERROR, "Error parsing regex pattern '%@': %@", buf, 0x16u);
         }
       }
@@ -100,8 +92,6 @@ uint64_t __36__MUWebContentBlocker_sharedBlocker__block_invoke(uint64_t a1)
   {
     v8 = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v8;
 }

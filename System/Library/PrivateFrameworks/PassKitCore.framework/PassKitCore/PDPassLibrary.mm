@@ -631,30 +631,31 @@
 {
   proxyCopy = proxy;
   handlerCopy = handler;
+  v9 = handlerCopy;
   if (handlerCopy)
   {
     if (proxyCopy)
     {
-      v9 = PDOSTransactionCreate("PDPassLibrary");
-      v10 = objc_autoreleasePoolPush();
-      v11 = [(PDDatabaseManager *)self->_databaseManager passesOfStyles:styles];
-      v12 = [(PDPassLibrary *)self _entitlementFilteredPasses:v11];
-      handlerCopy[2](handlerCopy, v12);
+      v10 = PDOSTransactionCreate("PDPassLibrary");
+      v11 = objc_autoreleasePoolPush();
+      v12 = [(PDDatabaseManager *)self->_databaseManager passesOfStyles:styles];
+      v13 = [(PDPassLibrary *)self _entitlementFilteredPasses:v12];
+      (v9)[2](v9, v13);
 
-      objc_autoreleasePoolPop(v10);
+      objc_autoreleasePoolPop(v11);
     }
 
     else
     {
-      v13 = PDDefaultQueue();
+      v14 = PDDefaultQueue(handlerCopy);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_1000540B0;
       block[3] = &unk_10083DED8;
       block[4] = self;
       stylesCopy = styles;
-      v15 = handlerCopy;
-      dispatch_async(v13, block);
+      v16 = v9;
+      dispatch_async(v14, block);
     }
   }
 }
@@ -664,30 +665,31 @@
   proxyCopy = proxy;
   hashCopy = hash;
   handlerCopy = handler;
+  v10 = handlerCopy;
   if (handlerCopy)
   {
     if (proxyCopy)
     {
-      v10 = PDOSTransactionCreate("PDPassLibrary");
-      v11 = objc_autoreleasePoolPush();
-      v12 = [(PDDatabaseManager *)self->_databaseManager passWithProvisioningCredentialHash:hashCopy];
-      v13 = [(PDPassLibrary *)self _sanitizePassIfNeeded:v12];
-      handlerCopy[2](handlerCopy, v13);
+      v11 = PDOSTransactionCreate("PDPassLibrary");
+      v12 = objc_autoreleasePoolPush();
+      v13 = [(PDDatabaseManager *)self->_databaseManager passWithProvisioningCredentialHash:hashCopy];
+      v14 = [(PDPassLibrary *)self _sanitizePassIfNeeded:v13];
+      (v10)[2](v10, v14);
 
-      objc_autoreleasePoolPop(v11);
+      objc_autoreleasePoolPop(v12);
     }
 
     else
     {
-      v14 = PDDefaultQueue();
+      v15 = PDDefaultQueue(handlerCopy);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_1000542BC;
       block[3] = &unk_10083D320;
       block[4] = self;
-      v16 = hashCopy;
-      v17 = handlerCopy;
-      dispatch_async(v14, block);
+      v17 = hashCopy;
+      v18 = v10;
+      dispatch_async(v15, block);
     }
   }
 }
@@ -1299,7 +1301,7 @@ LABEL_3:
 
       else
       {
-        v14 = PDDefaultQueue();
+        v14 = PDDefaultQueue(v11);
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_100056808;
@@ -1349,7 +1351,7 @@ LABEL_3:
 
       else
       {
-        v13 = PDDefaultQueue();
+        v13 = PDDefaultQueue(v10);
         v14[0] = _NSConcreteStackBlock;
         v14[1] = 3221225472;
         v14[2] = sub_100056B88;
@@ -1380,39 +1382,40 @@ LABEL_3:
   handlerCopy = handler;
   if (handlerCopy)
   {
-    if (([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]& 1) != 0)
+    passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+    if (passesAllAccess)
     {
       if (proxyCopy)
       {
-        v7 = objc_autoreleasePoolPush();
+        v8 = objc_autoreleasePoolPush();
         paymentPassesPendingActivation = [(PDDatabaseManager *)self->_databaseManager paymentPassesPendingActivation];
-        v9 = [(PDPassLibrary *)self _entitlementFilteredPasses:paymentPassesPendingActivation];
-        handlerCopy[2](handlerCopy, v9);
+        v10 = [(PDPassLibrary *)self _entitlementFilteredPasses:paymentPassesPendingActivation];
+        handlerCopy[2](handlerCopy, v10);
 
-        objc_autoreleasePoolPop(v7);
+        objc_autoreleasePoolPop(v8);
       }
 
       else
       {
-        v11 = PDDefaultQueue();
-        v12[0] = _NSConcreteStackBlock;
-        v12[1] = 3221225472;
-        v12[2] = sub_100056D60;
-        v12[3] = &unk_10083C820;
-        v12[4] = self;
-        v13 = handlerCopy;
-        dispatch_async(v11, v12);
+        v12 = PDDefaultQueue(passesAllAccess);
+        v13[0] = _NSConcreteStackBlock;
+        v13[1] = 3221225472;
+        v13[2] = sub_100056D60;
+        v13[3] = &unk_10083C820;
+        v13[4] = self;
+        v14 = handlerCopy;
+        dispatch_async(v12, v13);
       }
     }
 
     else
     {
-      v10 = PKLogFacilityTypeGetObject();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = PKLogFacilityTypeGetObject();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v15 = "[PDPassLibrary usingSynchronousProxy:getPaymentPassesPendingActivationWithHandler:]";
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Client is not entitled for method: %s", buf, 0xCu);
+        v16 = "[PDPassLibrary usingSynchronousProxy:getPaymentPassesPendingActivationWithHandler:]";
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Client is not entitled for method: %s", buf, 0xCu);
       }
 
       handlerCopy[2](handlerCopy, 0);
@@ -1424,7 +1427,7 @@ LABEL_3:
 {
   catalogCopy = catalog;
   v5 = PDOSTransactionCreate("PDPassLibrary");
-  v6 = PDDefaultQueue();
+  v6 = PDDefaultQueue(v5);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100056EB8;
@@ -1621,21 +1624,22 @@ LABEL_3:
   codesCopy = codes;
   typeCopy = type;
   handlerCopy = handler;
+  v18 = handlerCopy;
   if (handlerCopy)
   {
-    v18 = PDDefaultQueue();
+    v19 = PDDefaultQueue(handlerCopy);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100057A30;
     block[3] = &unk_10083F508;
     block[4] = self;
-    v20 = networksCopy;
+    v21 = networksCopy;
     capabilitiesCopy = capabilities;
-    v21 = codesCopy;
-    v22 = typeCopy;
+    v22 = codesCopy;
+    v23 = typeCopy;
     requestCopy = request;
-    v23 = handlerCopy;
-    dispatch_async(v18, block);
+    v24 = v18;
+    dispatch_async(v19, block);
   }
 }
 
@@ -2338,41 +2342,42 @@ LABEL_15:
   handlerCopy = handler;
   if (handlerCopy)
   {
-    if (([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]& 1) != 0)
+    passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+    if (passesAllAccess)
     {
       if (proxyCopy)
       {
-        v10 = objc_autoreleasePoolPush();
-        v11 = [(PDCardFileManager *)self->_cardFileManager objectWithUniqueID:dCopy];
-        dataAccessor = [v11 dataAccessor];
+        v11 = objc_autoreleasePoolPush();
+        v12 = [(PDCardFileManager *)self->_cardFileManager objectWithUniqueID:dCopy];
+        dataAccessor = [v12 dataAccessor];
         manifestHash = [dataAccessor manifestHash];
         handlerCopy[2](handlerCopy, manifestHash);
 
-        objc_autoreleasePoolPop(v10);
+        objc_autoreleasePoolPop(v11);
       }
 
       else
       {
-        v15 = PDDefaultQueue();
+        v16 = PDDefaultQueue(passesAllAccess);
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_10005A2F4;
         block[3] = &unk_10083F490;
-        v18 = handlerCopy;
+        v19 = handlerCopy;
         block[4] = self;
-        v17 = dCopy;
-        dispatch_async(v15, block);
+        v18 = dCopy;
+        dispatch_async(v16, block);
       }
     }
 
     else
     {
-      v14 = PKLogFacilityTypeGetObject();
-      if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+      v15 = PKLogFacilityTypeGetObject();
+      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315138;
-        v20 = "[PDPassLibrary usingSynchronousProxy:getManifestHashForPassWithUniqueID:handler:]";
-        _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Client is not entitled for method: %s", buf, 0xCu);
+        v21 = "[PDPassLibrary usingSynchronousProxy:getManifestHashForPassWithUniqueID:handler:]";
+        _os_log_impl(&_mh_execute_header, v15, OS_LOG_TYPE_DEFAULT, "Client is not entitled for method: %s", buf, 0xCu);
       }
 
       handlerCopy[2](handlerCopy, 0);
@@ -3027,21 +3032,22 @@ LABEL_22:
 
 - (void)checkForTransitNotification
 {
-  if ([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess])
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v3 = PDDefaultQueue();
+    v4 = PDDefaultQueue(passesAllAccess);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10005DF94;
     block[3] = &unk_10083C470;
     block[4] = self;
-    dispatch_async(v3, block);
+    dispatch_async(v4, block);
   }
 
   else
   {
-    v4 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
       sub_1005B7D2C();
     }
@@ -3412,7 +3418,7 @@ LABEL_9:
 {
   dataCopy = data;
   handlerCopy = handler;
-  v8 = PDDefaultQueue();
+  v8 = PDDefaultQueue(handlerCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10005F2E0;
@@ -3429,7 +3435,7 @@ LABEL_9:
 {
   passCopy = pass;
   handlerCopy = handler;
-  v7 = PDDefaultQueue();
+  v7 = PDDefaultQueue(handlerCopy);
   dispatch_assert_queue_V2(v7);
 
   v8 = objc_autoreleasePoolPush();
@@ -3600,23 +3606,24 @@ LABEL_8:
 - (void)updateSettings:(unint64_t)settings forObjectWithUniqueID:(id)d
 {
   dCopy = d;
-  if ([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess])
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v7 = PDDefaultQueue();
+    v8 = PDDefaultQueue(passesAllAccess);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10005FC34;
     block[3] = &unk_10083D690;
     block[4] = self;
     settingsCopy = settings;
-    v10 = dCopy;
-    dispatch_async(v7, block);
+    v11 = dCopy;
+    dispatch_async(v8, block);
   }
 
   else
   {
-    v8 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       sub_1005B7DC8();
     }
@@ -3627,24 +3634,25 @@ LABEL_8:
 {
   dCopy = d;
   completionCopy = completion;
-  if ([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess])
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v10 = PDDefaultQueue();
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_10005FD8C;
-    v12[3] = &unk_10083F918;
-    v12[4] = self;
-    v13 = dCopy;
+    v11 = PDDefaultQueue(passesAllAccess);
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_10005FD8C;
+    v13[3] = &unk_10083F918;
+    v13[4] = self;
+    v14 = dCopy;
     stateCopy = state;
-    v14 = completionCopy;
-    dispatch_async(v10, v12);
+    v15 = completionCopy;
+    dispatch_async(v11, v13);
   }
 
   else
   {
-    v11 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    v12 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       sub_1005B7DFC();
     }
@@ -3819,22 +3827,23 @@ LABEL_9:
 - (void)rescheduleCommutePlanRenewalReminderForPassWithUniqueID:(id)d
 {
   dCopy = d;
-  if ([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess])
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v5 = PDDefaultQueue();
-    v7[0] = _NSConcreteStackBlock;
-    v7[1] = 3221225472;
-    v7[2] = sub_100060438;
-    v7[3] = &unk_10083C420;
-    v7[4] = self;
-    v8 = dCopy;
-    dispatch_async(v5, v7);
+    v6 = PDDefaultQueue(passesAllAccess);
+    v8[0] = _NSConcreteStackBlock;
+    v8[1] = 3221225472;
+    v8[2] = sub_100060438;
+    v8[3] = &unk_10083C420;
+    v8[4] = self;
+    v9 = dCopy;
+    dispatch_async(v6, v8);
   }
 
   else
   {
-    v6 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+    v7 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
     {
       sub_1005B7E98();
     }
@@ -4007,20 +4016,21 @@ LABEL_9:
     goto LABEL_14;
   }
 
-  if ([(PKEntitlementWhitelist *)self->_whitelist passesAddSilently])
+  passesAddSilently = [(PKEntitlementWhitelist *)self->_whitelist passesAddSilently];
+  if (passesAddSilently)
   {
-    v14 = PDDefaultQueue();
+    v15 = PDDefaultQueue(passesAddSilently);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100061408;
     block[3] = &unk_10083FA08;
     block[4] = self;
-    v40 = enumeratorCopy;
-    v41 = handlerCopy;
-    v39 = transactionCopy;
-    dispatch_async(v14, block);
+    v42 = enumeratorCopy;
+    v43 = handlerCopy;
+    v41 = transactionCopy;
+    dispatch_async(v15, block);
 
-    v15 = v40;
+    v16 = v42;
 LABEL_5:
 
     goto LABEL_14;
@@ -4030,76 +4040,76 @@ LABEL_5:
   {
     _rateLimiter = [(PDPassLibrary *)self _rateLimiter];
     remoteProcessBundleIdentifier = [(PDPassLibrary *)self remoteProcessBundleIdentifier];
-    v18 = [_rateLimiter proposeOperation:0 bundleIdentifier:remoteProcessBundleIdentifier tokens:passes];
+    v19 = [_rateLimiter proposeOperation:0 bundleIdentifier:remoteProcessBundleIdentifier tokens:passes];
 
-    if (!v18)
+    if (!v19)
     {
-      v31 = PDDefaultQueue();
-      v32[0] = _NSConcreteStackBlock;
-      v32[1] = 3221225472;
-      v32[2] = sub_100061624;
-      v32[3] = &unk_10083FA30;
-      v32[4] = self;
-      v33 = enumeratorCopy;
-      v34 = handlerCopy;
-      dispatch_async(v31, v32);
+      v33 = PDDefaultQueue(v20);
+      v34[0] = _NSConcreteStackBlock;
+      v34[1] = 3221225472;
+      v34[2] = sub_100061624;
+      v34[3] = &unk_10083FA30;
+      v34[4] = self;
+      v35 = enumeratorCopy;
+      v36 = handlerCopy;
+      dispatch_async(v33, v34);
 
-      v15 = v33;
+      v16 = v35;
       goto LABEL_5;
     }
   }
 
   [(PDPassLibrary *)self remoteProcessIdentifier];
-  v19 = PDLocalizedAppNameForPID();
-  v42[0] = kCFUserNotificationAlternateButtonTitleKey;
+  v21 = PDLocalizedAppNameForPID();
+  v44[0] = kCFUserNotificationAlternateButtonTitleKey;
   if (passes == 1)
   {
-    v20 = @"INGESTION_ADD";
+    v22 = @"INGESTION_ADD";
   }
 
   else
   {
-    v20 = @"INGESTION_ADD_N";
+    v22 = @"INGESTION_ADD_N";
   }
 
-  v21 = PKLocalizedString(&v20->isa);
-  v43[0] = v21;
-  v42[1] = kCFUserNotificationOtherButtonTitleKey;
-  v22 = PKLocalizedString(@"REVIEW_BUTTON_TITLE");
-  v43[1] = v22;
-  v42[2] = kCFUserNotificationDefaultButtonTitleKey;
-  v23 = PKLocalizedString(@"INGESTION_CANCEL");
-  v43[2] = v23;
-  v42[3] = kCFUserNotificationAlertHeaderKey;
-  v24 = PKLocalizedString(@"ADD_PASSES_TITLE", @"%@%lu", v19, passes);
-  v43[3] = v24;
-  v43[4] = &__kCFBooleanTrue;
-  v42[4] = PKUserNotificationDontDismissOnUnlock;
-  v42[5] = PKUserNotificationAllowMenuButtonDismissal;
-  v43[5] = &__kCFBooleanTrue;
-  v25 = [NSDictionary dictionaryWithObjects:v43 forKeys:v42 count:6];
+  v23 = PKLocalizedString(&v22->isa);
+  v45[0] = v23;
+  v44[1] = kCFUserNotificationOtherButtonTitleKey;
+  v24 = PKLocalizedString(@"REVIEW_BUTTON_TITLE");
+  v45[1] = v24;
+  v44[2] = kCFUserNotificationDefaultButtonTitleKey;
+  v25 = PKLocalizedString(@"INGESTION_CANCEL");
+  v45[2] = v25;
+  v44[3] = kCFUserNotificationAlertHeaderKey;
+  v26 = PKLocalizedString(@"ADD_PASSES_TITLE", @"%@%lu", v21, passes);
+  v45[3] = v26;
+  v45[4] = &__kCFBooleanTrue;
+  v44[4] = PKUserNotificationDontDismissOnUnlock;
+  v44[5] = PKUserNotificationAllowMenuButtonDismissal;
+  v45[5] = &__kCFBooleanTrue;
+  v27 = [NSDictionary dictionaryWithObjects:v45 forKeys:v44 count:6];
 
-  v35[0] = _NSConcreteStackBlock;
-  v35[1] = 3221225472;
-  v35[2] = sub_100061454;
-  v35[3] = &unk_10083FA58;
-  v35[4] = self;
-  v36 = handlerCopy;
-  v37 = enumeratorCopy;
-  v26 = [PKUserNotificationAgent presentNotificationWithParameters:v25 responseHandler:v35];
+  v37[0] = _NSConcreteStackBlock;
+  v37[1] = 3221225472;
+  v37[2] = sub_100061454;
+  v37[3] = &unk_10083FA58;
+  v37[4] = self;
+  v38 = handlerCopy;
+  v39 = enumeratorCopy;
+  v28 = [PKUserNotificationAgent presentNotificationWithParameters:v27 responseHandler:v37];
   os_unfair_lock_lock(&self->_lock);
   userNotifications = self->_userNotifications;
   if (!userNotifications)
   {
-    v28 = objc_alloc_init(NSMutableArray);
-    v29 = self->_userNotifications;
-    self->_userNotifications = v28;
+    v30 = objc_alloc_init(NSMutableArray);
+    v31 = self->_userNotifications;
+    self->_userNotifications = v30;
 
     userNotifications = self->_userNotifications;
   }
 
-  v30 = [NSValue valueWithPointer:v26];
-  [(NSMutableArray *)userNotifications addObject:v30];
+  v32 = [NSValue valueWithPointer:v28];
+  [(NSMutableArray *)userNotifications addObject:v32];
 
   os_unfair_lock_unlock(&self->_lock);
 LABEL_14:
@@ -4109,57 +4119,58 @@ LABEL_14:
 {
   descriptorsCopy = descriptors;
   handlerCopy = handler;
-  if (([(PKEntitlementWhitelist *)self->_whitelist passesAddUnsigned]& 1) != 0)
+  passesAddUnsigned = [(PKEntitlementWhitelist *)self->_whitelist passesAddUnsigned];
+  if (passesAddUnsigned)
   {
-    v9 = PDDefaultQueue();
+    v10 = PDDefaultQueue(passesAddUnsigned);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000618EC;
     block[3] = &unk_10083F418;
-    v17 = descriptorsCopy;
+    v18 = descriptorsCopy;
     selfCopy = self;
-    v19 = handlerCopy;
-    dispatch_async(v9, block);
+    v20 = handlerCopy;
+    dispatch_async(v10, block);
   }
 
   else
   {
-    v10 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Attempting to add unsigned passes, but missing proper entitlement.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Attempting to add unsigned passes, but missing proper entitlement.", buf, 2u);
     }
 
-    v22 = 0u;
     v23 = 0u;
-    v20 = 0u;
+    v24 = 0u;
     v21 = 0u;
-    v11 = descriptorsCopy;
-    v12 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
-    if (v12)
+    v22 = 0u;
+    v12 = descriptorsCopy;
+    v13 = [v12 countByEnumeratingWithState:&v21 objects:v26 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = *v21;
+      v14 = v13;
+      v15 = *v22;
       do
       {
-        v15 = 0;
+        v16 = 0;
         do
         {
-          if (*v21 != v14)
+          if (*v22 != v15)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          [*(*(&v20 + 1) + 8 * v15) invalidate];
-          v15 = v15 + 1;
+          [*(*(&v21 + 1) + 8 * v16) invalidate];
+          v16 = v16 + 1;
         }
 
-        while (v13 != v15);
-        v13 = [v11 countByEnumeratingWithState:&v20 objects:v25 count:16];
+        while (v14 != v16);
+        v14 = [v12 countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
     if (handlerCopy)
@@ -4173,35 +4184,36 @@ LABEL_14:
 {
   numbersCopy = numbers;
   handlerCopy = handler;
-  if (([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]& 1) != 0)
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v9 = PDDefaultQueue();
+    v10 = PDDefaultQueue(passesAllAccess);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100062054;
     block[3] = &unk_10083F418;
-    v13 = numbersCopy;
+    v14 = numbersCopy;
     selfCopy = self;
-    v15 = handlerCopy;
-    dispatch_async(v9, block);
+    v16 = handlerCopy;
+    dispatch_async(v10, block);
 
-    v10 = v13;
+    v11 = v14;
 LABEL_7:
 
     goto LABEL_8;
   }
 
-  v11 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+  v12 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Attempting to provision HomeKeys for serialNumbers, but missing proper entitlement.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Attempting to provision HomeKeys for serialNumbers, but missing proper entitlement.", buf, 2u);
   }
 
   if (handlerCopy)
   {
-    v10 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
-    (*(handlerCopy + 2))(handlerCopy, 0, v10);
+    v11 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
+    (*(handlerCopy + 2))(handlerCopy, 0, v11);
     goto LABEL_7;
   }
 
@@ -4211,33 +4223,34 @@ LABEL_8:
 - (void)usingSynchronousProxy:(BOOL)proxy availableHomeKeyPassesWithCompletionHandler:(id)handler
 {
   handlerCopy = handler;
-  if (([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]& 1) != 0)
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v6 = PDDefaultQueue();
+    v7 = PDDefaultQueue(passesAllAccess);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_1000632A8;
     block[3] = &unk_10083D648;
-    v10 = handlerCopy;
-    dispatch_async(v6, block);
+    v11 = handlerCopy;
+    dispatch_async(v7, block);
 
-    v7 = v10;
+    v8 = v11;
 LABEL_7:
 
     goto LABEL_8;
   }
 
-  v8 = PKLogFacilityTypeGetObject();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v9 = PKLogFacilityTypeGetObject();
+  if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Attempting to fetch available HomeKeys, but missing proper entitlement.", buf, 2u);
+    _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "Attempting to fetch available HomeKeys, but missing proper entitlement.", buf, 2u);
   }
 
   if (handlerCopy)
   {
-    v7 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
-    (*(handlerCopy + 2))(handlerCopy, 0, v7);
+    v8 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
+    (*(handlerCopy + 2))(handlerCopy, 0, v8);
     goto LABEL_7;
   }
 
@@ -4248,26 +4261,27 @@ LABEL_8:
 {
   descriptorCopy = descriptor;
   handlerCopy = handler;
-  if (([(PKEntitlementWhitelist *)self->_whitelist passesAddUnsigned]& 1) != 0)
+  passesAddUnsigned = [(PKEntitlementWhitelist *)self->_whitelist passesAddUnsigned];
+  if (passesAddUnsigned)
   {
-    v9 = PDDefaultQueue();
+    v10 = PDDefaultQueue(passesAddUnsigned);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100063A44;
     block[3] = &unk_10083F418;
-    v12 = descriptorCopy;
+    v13 = descriptorCopy;
     selfCopy = self;
-    v14 = handlerCopy;
-    dispatch_async(v9, block);
+    v15 = handlerCopy;
+    dispatch_async(v10, block);
   }
 
   else
   {
-    v10 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Attempting to replace unsigned passes, but missing proper entitlement.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Attempting to replace unsigned passes, but missing proper entitlement.", buf, 2u);
     }
 
     [descriptorCopy invalidate];
@@ -4283,27 +4297,28 @@ LABEL_8:
   identifierCopy = identifier;
   numberCopy = number;
   handlerCopy = handler;
-  if (([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]& 1) != 0)
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v12 = PDDefaultQueue();
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100063DF0;
-    v14[3] = &unk_10083E468;
-    v14[4] = self;
-    v15 = identifierCopy;
-    v16 = numberCopy;
-    v17 = handlerCopy;
-    dispatch_async(v12, v14);
+    v13 = PDDefaultQueue(passesAllAccess);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100063DF0;
+    v15[3] = &unk_10083E468;
+    v15[4] = self;
+    v16 = identifierCopy;
+    v17 = numberCopy;
+    v18 = handlerCopy;
+    dispatch_async(v13, v15);
   }
 
   else
   {
-    v13 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Attempting to call containsPassWithPassTypeIdentifier, but missing proper entitlement.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Attempting to call containsPassWithPassTypeIdentifier, but missing proper entitlement.", buf, 2u);
     }
 
     if (handlerCopy)
@@ -4318,27 +4333,27 @@ LABEL_8:
   identifierCopy = identifier;
   numberCopy = number;
   handlerCopy = handler;
-  if ([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]&& ([(PKEntitlementWhitelist *)self->_whitelist paymentAllAccess]& 1) != 0)
+  if ([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]&& (v12 = [(PKEntitlementWhitelist *)self->_whitelist paymentAllAccess], (v12 & 1) != 0))
   {
-    v12 = PDDefaultQueue();
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100063FC4;
-    v14[3] = &unk_10083E468;
-    v14[4] = self;
-    v15 = identifierCopy;
-    v16 = numberCopy;
-    v17 = handlerCopy;
-    dispatch_async(v12, v14);
+    v13 = PDDefaultQueue(v12);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100063FC4;
+    v15[3] = &unk_10083E468;
+    v15[4] = self;
+    v16 = identifierCopy;
+    v17 = numberCopy;
+    v18 = handlerCopy;
+    dispatch_async(v13, v15);
   }
 
   else
   {
-    v13 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Attempting to call enableExpressForPassWithPassTypeIdentifier, but missing proper entitlements.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Attempting to call enableExpressForPassWithPassTypeIdentifier, but missing proper entitlements.", buf, 2u);
     }
 
     if (handlerCopy)
@@ -4353,7 +4368,7 @@ LABEL_8:
   dCopy = d;
   reasonCopy = reason;
   handlerCopy = handler;
-  v11 = PDDefaultQueue();
+  v11 = PDDefaultQueue(handlerCopy);
   v15[0] = _NSConcreteStackBlock;
   v15[1] = 3221225472;
   v15[2] = sub_1000643EC;
@@ -4373,7 +4388,7 @@ LABEL_8:
   dsCopy = ds;
   reasonCopy = reason;
   handlerCopy = handler;
-  v11 = PDDefaultQueue();
+  v11 = PDDefaultQueue(handlerCopy);
   v15[0] = _NSConcreteStackBlock;
   v15[1] = 3221225472;
   v15[2] = sub_100064598;
@@ -4392,7 +4407,7 @@ LABEL_8:
 {
   dCopy = d;
   handlerCopy = handler;
-  v8 = PDDefaultQueue();
+  v8 = PDDefaultQueue(handlerCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_1000647F4;
@@ -4409,17 +4424,18 @@ LABEL_8:
 {
   dCopy = d;
   handlerCopy = handler;
-  if (PKManualArchiveEnabled())
+  v8 = PKManualArchiveEnabled();
+  if (v8)
   {
-    v8 = PDDefaultQueue();
+    v9 = PDDefaultQueue(v8);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100064940;
     block[3] = &unk_10083D320;
-    v10 = dCopy;
+    v11 = dCopy;
     selfCopy = self;
-    v12 = handlerCopy;
-    dispatch_async(v8, block);
+    v13 = handlerCopy;
+    dispatch_async(v9, block);
   }
 }
 
@@ -4427,7 +4443,7 @@ LABEL_8:
 {
   reasonCopy = reason;
   handlerCopy = handler;
-  v10 = PDDefaultQueue();
+  v10 = PDDefaultQueue(handlerCopy);
   v13[0] = _NSConcreteStackBlock;
   v13[1] = 3221225472;
   v13[2] = sub_100064A98;
@@ -4445,7 +4461,7 @@ LABEL_8:
 {
   reasonCopy = reason;
   handlerCopy = handler;
-  v8 = PDDefaultQueue();
+  v8 = PDDefaultQueue(handlerCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_100064BF8;
@@ -4462,17 +4478,18 @@ LABEL_8:
 {
   identifierCopy = identifier;
   handlerCopy = handler;
-  if ([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess])
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v8 = PDDefaultQueue();
+    v9 = PDDefaultQueue(passesAllAccess);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100064D90;
     block[3] = &unk_10083D320;
     block[4] = self;
-    v10 = identifierCopy;
-    v11 = handlerCopy;
-    dispatch_async(v8, block);
+    v11 = identifierCopy;
+    v12 = handlerCopy;
+    dispatch_async(v9, block);
   }
 
   else if (handlerCopy)
@@ -4487,21 +4504,22 @@ LABEL_8:
   contactCopy = contact;
   tokenCopy = token;
   handlerCopy = handler;
-  if ([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess])
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v18 = PDDefaultQueue();
+    v19 = PDDefaultQueue(passesAllAccess);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100064F20;
     block[3] = &unk_10083FCD8;
     block[4] = self;
-    v20 = identifierCopy;
-    v21 = contactCopy;
-    v22 = tokenCopy;
+    v21 = identifierCopy;
+    v22 = contactCopy;
+    v23 = tokenCopy;
     fieldsCopy = fields;
     sourceCopy = source;
-    v23 = handlerCopy;
-    dispatch_async(v18, block);
+    v24 = handlerCopy;
+    dispatch_async(v19, block);
   }
 
   else if (handlerCopy)
@@ -4615,7 +4633,7 @@ LABEL_8:
   dataCopy = data;
   dCopy = d;
   completionCopy = completion;
-  v11 = PDDefaultQueue();
+  v11 = PDDefaultQueue(completionCopy);
   v15[0] = _NSConcreteStackBlock;
   v15[1] = 3221225472;
   v15[2] = sub_10006557C;
@@ -4637,35 +4655,36 @@ LABEL_8:
   challengeCopy = challenge;
   authCopy = auth;
   completionCopy = completion;
-  if (([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]& 1) != 0)
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v18 = PDDefaultQueue();
-    v21[0] = _NSConcreteStackBlock;
-    v21[1] = 3221225472;
-    v21[2] = sub_100065DB4;
-    v21[3] = &unk_10083DD98;
-    v21[4] = self;
-    v22 = partyCopy;
-    v23 = hashCopy;
-    v24 = challengeCopy;
-    v25 = authCopy;
-    v26 = completionCopy;
-    dispatch_async(v18, v21);
+    v19 = PDDefaultQueue(passesAllAccess);
+    v22[0] = _NSConcreteStackBlock;
+    v22[1] = 3221225472;
+    v22[2] = sub_100065DB4;
+    v22[3] = &unk_10083DD98;
+    v22[4] = self;
+    v23 = partyCopy;
+    v24 = hashCopy;
+    v25 = challengeCopy;
+    v26 = authCopy;
+    v27 = completionCopy;
+    dispatch_async(v19, v22);
   }
 
   else
   {
-    v19 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    v20 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "Attempting to create FIDO key, but missing proper entitlement.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Attempting to create FIDO key, but missing proper entitlement.", buf, 2u);
     }
 
     if (completionCopy)
     {
-      v20 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
-      (*(completionCopy + 2))(completionCopy, 0, 0, 0, v20);
+      v21 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
+      (*(completionCopy + 2))(completionCopy, 0, 0, 0, v21);
     }
   }
 }
@@ -4676,28 +4695,29 @@ LABEL_8:
   hashCopy = hash;
   keyHashCopy = keyHash;
   completionCopy = completion;
-  if (([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]& 1) != 0)
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v15 = PDDefaultQueue();
+    v16 = PDDefaultQueue(passesAllAccess);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100065F64;
     block[3] = &unk_10083FD78;
     block[4] = self;
-    v18 = partyCopy;
-    v19 = hashCopy;
-    v20 = keyHashCopy;
-    v21 = completionCopy;
-    dispatch_async(v15, block);
+    v19 = partyCopy;
+    v20 = hashCopy;
+    v21 = keyHashCopy;
+    v22 = completionCopy;
+    dispatch_async(v16, block);
   }
 
   else
   {
-    v16 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
+    v17 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_DEFAULT, "Attempting to check for FIDO key, but missing proper entitlement.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Attempting to check for FIDO key, but missing proper entitlement.", buf, 2u);
     }
 
     if (completionCopy)
@@ -4716,37 +4736,38 @@ LABEL_8:
   identifierCopy = identifier;
   authCopy = auth;
   completionCopy = completion;
-  if (([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]& 1) != 0)
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v22 = PDDefaultQueue();
-    v25[0] = _NSConcreteStackBlock;
-    v25[1] = 3221225472;
-    v25[2] = sub_1000661B0;
-    v25[3] = &unk_10083FDA0;
-    v25[4] = self;
-    v26 = partyCopy;
-    v27 = hashCopy;
-    v28 = keyHashCopy;
-    v29 = challengeCopy;
-    v30 = identifierCopy;
-    v31 = authCopy;
-    v32 = completionCopy;
-    dispatch_async(v22, v25);
+    v23 = PDDefaultQueue(passesAllAccess);
+    v26[0] = _NSConcreteStackBlock;
+    v26[1] = 3221225472;
+    v26[2] = sub_1000661B0;
+    v26[3] = &unk_10083FDA0;
+    v26[4] = self;
+    v27 = partyCopy;
+    v28 = hashCopy;
+    v29 = keyHashCopy;
+    v30 = challengeCopy;
+    v31 = identifierCopy;
+    v32 = authCopy;
+    v33 = completionCopy;
+    dispatch_async(v23, v26);
   }
 
   else
   {
-    v23 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v23, OS_LOG_TYPE_DEFAULT, "Attempting to sign FIDO challenge, but missing proper entitlement.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v24, OS_LOG_TYPE_DEFAULT, "Attempting to sign FIDO challenge, but missing proper entitlement.", buf, 2u);
     }
 
     if (completionCopy)
     {
-      v24 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
-      (*(completionCopy + 2))(completionCopy, 0, v24);
+      v25 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
+      (*(completionCopy + 2))(completionCopy, 0, v25);
     }
   }
 }
@@ -4755,32 +4776,33 @@ LABEL_8:
 {
   idCopy = id;
   completionCopy = completion;
-  if (([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]& 1) != 0)
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v9 = PDDefaultQueue();
+    v10 = PDDefaultQueue(passesAllAccess);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10006636C;
     block[3] = &unk_10083D320;
     block[4] = self;
-    v13 = idCopy;
-    v14 = completionCopy;
-    dispatch_async(v9, block);
+    v14 = idCopy;
+    v15 = completionCopy;
+    dispatch_async(v10, block);
   }
 
   else
   {
-    v10 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Attempting to generate SE encryption cert, but missing proper entitlement.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Attempting to generate SE encryption cert, but missing proper entitlement.", buf, 2u);
     }
 
     if (completionCopy)
     {
-      v11 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
-      (*(completionCopy + 2))(completionCopy, 0, v11);
+      v12 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
+      (*(completionCopy + 2))(completionCopy, 0, v12);
     }
   }
 }
@@ -4789,32 +4811,33 @@ LABEL_8:
 {
   idCopy = id;
   completionCopy = completion;
-  if (([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]& 1) != 0)
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v9 = PDDefaultQueue();
+    v10 = PDDefaultQueue(passesAllAccess);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100066504;
     block[3] = &unk_10083D320;
     block[4] = self;
-    v13 = idCopy;
-    v14 = completionCopy;
-    dispatch_async(v9, block);
+    v14 = idCopy;
+    v15 = completionCopy;
+    dispatch_async(v10, block);
   }
 
   else
   {
-    v10 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+    v11 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Attempting to generateISO encryption cert, but missing proper entitlement.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Attempting to generateISO encryption cert, but missing proper entitlement.", buf, 2u);
     }
 
     if (completionCopy)
     {
-      v11 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
-      (*(completionCopy + 2))(completionCopy, 0, 0, v11);
+      v12 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
+      (*(completionCopy + 2))(completionCopy, 0, 0, v12);
     }
   }
 }
@@ -4828,27 +4851,27 @@ LABEL_8:
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412290;
-      v11 = idCopy;
+      v12 = idCopy;
       _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Deleting key material for subcredential id: %@", buf, 0xCu);
     }
 
-    v6 = PDDefaultQueue();
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_1000666B0;
-    v8[3] = &unk_10083C420;
-    v8[4] = self;
-    v9 = idCopy;
-    dispatch_async(v6, v8);
+    v7 = PDDefaultQueue(v6);
+    v9[0] = _NSConcreteStackBlock;
+    v9[1] = 3221225472;
+    v9[2] = sub_1000666B0;
+    v9[3] = &unk_10083C420;
+    v9[4] = self;
+    v10 = idCopy;
+    dispatch_async(v7, v9);
   }
 
   else
   {
-    v7 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Attempting to delete sub credential key material, but missing proper entitlement.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "Attempting to delete sub credential key material, but missing proper entitlement.", buf, 2u);
     }
   }
 }
@@ -4857,33 +4880,34 @@ LABEL_8:
 {
   credentialsCopy = credentials;
   completionCopy = completion;
-  if (([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]& 1) != 0)
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v11 = PDDefaultQueue();
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_1000668CC;
-    v14[3] = &unk_10083F918;
-    v14[4] = self;
-    v15 = credentialsCopy;
+    v12 = PDDefaultQueue(passesAllAccess);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_1000668CC;
+    v15[3] = &unk_10083F918;
+    v15[4] = self;
+    v16 = credentialsCopy;
     typeCopy = type;
-    v16 = completionCopy;
-    dispatch_async(v11, v14);
+    v17 = completionCopy;
+    dispatch_async(v12, v15);
   }
 
   else
   {
-    v12 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Attempting to addISO18013BlobsFromCredentials, but missing proper entitlement.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Attempting to addISO18013BlobsFromCredentials, but missing proper entitlement.", buf, 2u);
     }
 
     if (completionCopy)
     {
-      v13 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
-      (*(completionCopy + 2))(completionCopy, v13);
+      v14 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
+      (*(completionCopy + 2))(completionCopy, v14);
     }
   }
 }
@@ -4892,33 +4916,34 @@ LABEL_8:
 {
   blobsCopy = blobs;
   completionCopy = completion;
-  if (([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]& 1) != 0)
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v11 = PDDefaultQueue();
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100066A6C;
-    v14[3] = &unk_10083F918;
-    v14[4] = self;
-    v15 = blobsCopy;
+    v12 = PDDefaultQueue(passesAllAccess);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100066A6C;
+    v15[3] = &unk_10083F918;
+    v15[4] = self;
+    v16 = blobsCopy;
     typeCopy = type;
-    v16 = completionCopy;
-    dispatch_async(v11, v14);
+    v17 = completionCopy;
+    dispatch_async(v12, v15);
   }
 
   else
   {
-    v12 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
+    v13 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Attempting to addISO18013Blobs, but missing proper entitlement.", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Attempting to addISO18013Blobs, but missing proper entitlement.", buf, 2u);
     }
 
     if (completionCopy)
     {
-      v13 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
-      (*(completionCopy + 2))(completionCopy, v13);
+      v14 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
+      (*(completionCopy + 2))(completionCopy, v14);
     }
   }
 }
@@ -4927,18 +4952,60 @@ LABEL_8:
 {
   identifierCopy = identifier;
   completionCopy = completion;
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
+  {
+    v12 = PDDefaultQueue(passesAllAccess);
+    v15[0] = _NSConcreteStackBlock;
+    v15[1] = 3221225472;
+    v15[2] = sub_100066C10;
+    v15[3] = &unk_10083E128;
+    v15[4] = self;
+    v16 = identifierCopy;
+    existingCopy = existing;
+    v17 = completionCopy;
+    dispatch_async(v12, v15);
+  }
+
+  else
+  {
+    v13 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Attempting to generateLongTermPrivacyKeyForCredentialGroupIdentifier, but missing proper entitlement.", buf, 2u);
+    }
+
+    if (completionCopy)
+    {
+      v14 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
+      (*(completionCopy + 2))(completionCopy, 0, v14);
+    }
+  }
+}
+
+- (void)usingSynchronousProxy:(BOOL)proxy generateAuxiliaryCapabilitiesForRequirements:(id)requirements completion:(id)completion
+{
+  requirementsCopy = requirements;
+  completionCopy = completion;
   if (([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]& 1) != 0)
   {
-    v11 = PDDefaultQueue();
-    v14[0] = _NSConcreteStackBlock;
-    v14[1] = 3221225472;
-    v14[2] = sub_100066C10;
-    v14[3] = &unk_10083E128;
-    v14[4] = self;
-    v15 = identifierCopy;
-    existingCopy = existing;
+    v9 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 0;
+      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "GenerateAuxiliaryCapabilitiesForRequirements starting...", buf, 2u);
+    }
+
+    v11 = PDDefaultQueue(v10);
+    block[0] = _NSConcreteStackBlock;
+    block[1] = 3221225472;
+    block[2] = sub_100066DF0;
+    block[3] = &unk_10083D320;
+    block[4] = self;
+    v15 = requirementsCopy;
     v16 = completionCopy;
-    dispatch_async(v11, v14);
+    dispatch_async(v11, block);
   }
 
   else
@@ -4958,72 +5025,32 @@ LABEL_8:
   }
 }
 
-- (void)usingSynchronousProxy:(BOOL)proxy generateAuxiliaryCapabilitiesForRequirements:(id)requirements completion:(id)completion
-{
-  requirementsCopy = requirements;
-  completionCopy = completion;
-  if (([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]& 1) != 0)
-  {
-    v9 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_DEFAULT, "GenerateAuxiliaryCapabilitiesForRequirements starting...", buf, 2u);
-    }
-
-    v10 = PDDefaultQueue();
-    block[0] = _NSConcreteStackBlock;
-    block[1] = 3221225472;
-    block[2] = sub_100066DF0;
-    block[3] = &unk_10083D320;
-    block[4] = self;
-    v14 = requirementsCopy;
-    v15 = completionCopy;
-    dispatch_async(v10, block);
-  }
-
-  else
-  {
-    v11 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
-    {
-      *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Attempting to generateLongTermPrivacyKeyForCredentialGroupIdentifier, but missing proper entitlement.", buf, 2u);
-    }
-
-    if (completionCopy)
-    {
-      v12 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
-      (*(completionCopy + 2))(completionCopy, 0, v12);
-    }
-  }
-}
-
 - (void)signData:(id)data signatureEntanglementMode:(unint64_t)mode withCompletionHandler:(id)handler
 {
   dataCopy = data;
   handlerCopy = handler;
-  if (([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]& 1) != 0 || ([(PKEntitlementWhitelist *)self->_whitelist paymentAllAccess]& 1) != 0)
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess & 1) != 0 || (passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist paymentAllAccess], (passesAllAccess))
   {
-    v10 = PDDefaultQueue();
-    v12[0] = _NSConcreteStackBlock;
-    v12[1] = 3221225472;
-    v12[2] = sub_100067108;
-    v12[3] = &unk_10083F918;
-    v12[4] = self;
-    v13 = dataCopy;
+    v11 = PDDefaultQueue(passesAllAccess);
+    v13[0] = _NSConcreteStackBlock;
+    v13[1] = 3221225472;
+    v13[2] = sub_100067108;
+    v13[3] = &unk_10083F918;
+    v13[4] = self;
+    v14 = dataCopy;
     modeCopy = mode;
-    v14 = handlerCopy;
-    dispatch_async(v10, v12);
+    v15 = handlerCopy;
+    dispatch_async(v11, v13);
   }
 
   else
   {
-    v11 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+    v12 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "Call to signData:signatureEntanglementMode:withCompletionHandler: missing proper entitlements", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEFAULT, "Call to signData:signatureEntanglementMode:withCompletionHandler: missing proper entitlements", buf, 2u);
     }
 
     if (handlerCopy)
@@ -5083,32 +5110,33 @@ LABEL_8:
 {
   identifierCopy = identifier;
   completionCopy = completion;
-  if ([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess])
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v12 = PDDefaultQueue();
+    v13 = PDDefaultQueue(passesAllAccess);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_100067500;
     block[3] = &unk_10083FE18;
     block[4] = self;
     typeCopy = type;
-    v17 = identifierCopy;
+    v18 = identifierCopy;
     stateCopy = state;
-    v18 = completionCopy;
-    dispatch_async(v12, block);
+    v19 = completionCopy;
+    dispatch_async(v13, block);
   }
 
   else
   {
-    v13 = PKLogFacilityTypeGetObject();
-    if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+    v14 = PKLogFacilityTypeGetObject();
+    if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
     {
-      *v15 = 0;
-      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "Client missing proper entitlements", v15, 2u);
+      *v16 = 0;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "Client missing proper entitlements", v16, 2u);
     }
 
-    v14 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
-    (*(completionCopy + 2))(completionCopy, 0, v14);
+    v15 = [NSError errorWithDomain:PKPassKitErrorDomain code:4 userInfo:0];
+    (*(completionCopy + 2))(completionCopy, 0, v15);
   }
 }
 
@@ -5490,7 +5518,7 @@ LABEL_6:
 
       else
       {
-        v15 = PDDefaultQueue();
+        v15 = PDDefaultQueue(v12);
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_100068644;
@@ -5515,29 +5543,30 @@ LABEL_6:
   proxyCopy = proxy;
   configurationCopy = configuration;
   completionCopy = completion;
+  v10 = completionCopy;
   if (completionCopy)
   {
     if (proxyCopy)
     {
-      v10 = PKLogFacilityTypeGetObject();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = PKLogFacilityTypeGetObject();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
-        _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "canAddCarKeyPassWithConfiguration: synchronous not supported.", buf, 2u);
+        _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_DEFAULT, "canAddCarKeyPassWithConfiguration: synchronous not supported.", buf, 2u);
       }
     }
 
     else
     {
-      v11 = PDDefaultQueue();
+      v12 = PDDefaultQueue(completionCopy);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10006877C;
       block[3] = &unk_10083D320;
       block[4] = self;
-      v13 = configurationCopy;
-      v14 = completionCopy;
-      dispatch_async(v11, block);
+      v14 = configurationCopy;
+      v15 = v10;
+      dispatch_async(v12, block);
     }
   }
 }
@@ -5652,13 +5681,13 @@ LABEL_13:
   v8 = completionCopy;
   if (completionCopy)
   {
-    v24[0] = _NSConcreteStackBlock;
-    v24[1] = 3221225472;
-    v24[2] = sub_100068FF0;
-    v24[3] = &unk_10083FEB8;
+    v25[0] = _NSConcreteStackBlock;
+    v25[1] = 3221225472;
+    v25[2] = sub_100068FF0;
+    v25[3] = &unk_10083FEB8;
     v9 = completionCopy;
-    v25 = v9;
-    v10 = objc_retainBlock(v24);
+    v26 = v9;
+    v10 = objc_retainBlock(v25);
     v11 = +[PKAppleAccountManager sharedInstance];
     appleAccountInformation = [v11 appleAccountInformation];
     if ([appleAccountInformation isManagedAppleAccount])
@@ -5706,18 +5735,19 @@ LABEL_13:
             sharedWebService = [(PDPaymentWebServiceCoordinator *)self->_paymentWebServicesCoordinator sharedWebService];
             _appleAccountInformation = [sharedWebService _appleAccountInformation];
 
-            if ([_appleAccountInformation aidaAccountAvailable])
+            aidaAccountAvailable = [_appleAccountInformation aidaAccountAvailable];
+            if (aidaAccountAvailable)
             {
-              v18 = PDDefaultQueue();
-              v19[0] = _NSConcreteStackBlock;
-              v19[1] = 3221225472;
-              v19[2] = sub_100069168;
-              v19[3] = &unk_10083FFA0;
-              v19[4] = self;
-              v21 = v10;
-              v20 = configurationCopy;
-              v22 = v9;
-              dispatch_async(v18, v19);
+              v19 = PDDefaultQueue(aidaAccountAvailable);
+              v20[0] = _NSConcreteStackBlock;
+              v20[1] = 3221225472;
+              v20[2] = sub_100069168;
+              v20[3] = &unk_10083FFA0;
+              v20[4] = self;
+              v22 = v10;
+              v21 = configurationCopy;
+              v23 = v9;
+              dispatch_async(v19, v20);
             }
 
             else
@@ -5770,7 +5800,7 @@ LABEL_24:
 
       else
       {
-        v13 = PDDefaultQueue();
+        v13 = PDDefaultQueue(provisioningRequirementsChecker);
         block[0] = _NSConcreteStackBlock;
         block[1] = 3221225472;
         block[2] = sub_1000699D4;
@@ -5823,16 +5853,16 @@ LABEL_24:
       _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "GenerateTransactionKeyWithReaderIdentifier starting...", buf, 2u);
     }
 
-    v15 = PDDefaultQueue();
-    v16[0] = _NSConcreteStackBlock;
-    v16[1] = 3221225472;
-    v16[2] = sub_100069BA4;
-    v16[3] = &unk_10083E468;
-    v16[4] = self;
-    v17 = identifierCopy;
-    v18 = keyCopy;
-    v19 = completionCopy;
-    dispatch_async(v15, v16);
+    v16 = PDDefaultQueue(v15);
+    v17[0] = _NSConcreteStackBlock;
+    v17[1] = 3221225472;
+    v17[2] = sub_100069BA4;
+    v17[3] = &unk_10083E468;
+    v17[4] = self;
+    v18 = identifierCopy;
+    v19 = keyCopy;
+    v20 = completionCopy;
+    dispatch_async(v16, v17);
   }
 
   else
@@ -5868,18 +5898,18 @@ LABEL_24:
       _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "ConfigureHomeAuxiliaryCapabilitiesForSerialNumber starting...", buf, 2u);
     }
 
-    v21 = PDDefaultQueue();
-    v22[0] = _NSConcreteStackBlock;
-    v22[1] = 3221225472;
-    v22[2] = sub_10006A08C;
-    v22[3] = &unk_10083DD98;
-    v22[4] = self;
-    v23 = numberCopy;
-    v24 = descriptorCopy;
-    v25 = aliroDescriptorCopy;
-    v26 = identifierCopy;
-    v27 = completionCopy;
-    dispatch_async(v21, v22);
+    v22 = PDDefaultQueue(v21);
+    v23[0] = _NSConcreteStackBlock;
+    v23[1] = 3221225472;
+    v23[2] = sub_10006A08C;
+    v23[3] = &unk_10083DD98;
+    v23[4] = self;
+    v24 = numberCopy;
+    v25 = descriptorCopy;
+    v26 = aliroDescriptorCopy;
+    v27 = identifierCopy;
+    v28 = completionCopy;
+    dispatch_async(v22, v23);
   }
 
   else
@@ -5903,23 +5933,24 @@ LABEL_24:
   completionCopy = completion;
   if (completionCopy)
   {
-    if (([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess]& 1) != 0)
+    passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+    if (passesAllAccess)
     {
-      v9 = PDDefaultQueue();
+      v10 = PDDefaultQueue(passesAllAccess);
       block[0] = _NSConcreteStackBlock;
       block[1] = 3221225472;
       block[2] = sub_10006AF38;
       block[3] = &unk_10083D320;
       block[4] = self;
-      v12 = numberCopy;
-      v13 = completionCopy;
-      dispatch_async(v9, block);
+      v13 = numberCopy;
+      v14 = completionCopy;
+      dispatch_async(v10, block);
     }
 
     else
     {
-      v10 = PKLogFacilityTypeGetObject();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = PKLogFacilityTypeGetObject();
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         sub_1005B7FA8();
       }
@@ -6123,7 +6154,7 @@ LABEL_24:
   v3 = connection;
   if (connection)
   {
-    [connection auditToken];
+    objc_msgSend_auditToken(connection);
   }
 
   else
@@ -6344,17 +6375,18 @@ LABEL_24:
 {
   dCopy = d;
   handlerCopy = handler;
+  v8 = handlerCopy;
   if (handlerCopy)
   {
-    v8 = PDDefaultQueue();
+    v9 = PDDefaultQueue(handlerCopy);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10006CD30;
     block[3] = &unk_10083D320;
     block[4] = self;
-    v10 = dCopy;
-    v11 = handlerCopy;
-    dispatch_async(v8, block);
+    v11 = dCopy;
+    v12 = v8;
+    dispatch_async(v9, block);
   }
 }
 
@@ -6486,7 +6518,7 @@ LABEL_24:
 
 - (void)introduceDatabaseIntegrityProblem
 {
-  v3 = PDDefaultQueue();
+  v3 = PDDefaultQueue(self);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10006D7B8;
@@ -6499,7 +6531,7 @@ LABEL_24:
 {
   dateCopy = date;
   dCopy = d;
-  v8 = PDDefaultQueue();
+  v8 = PDDefaultQueue(dCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10006D90C;
@@ -6560,7 +6592,7 @@ LABEL_24:
 
 - (void)shuffleGroups:(int)groups
 {
-  v5 = PDDefaultQueue();
+  v5 = PDDefaultQueue(self);
   v6[0] = _NSConcreteStackBlock;
   v6[1] = 3221225472;
   v6[2] = sub_10006E218;
@@ -6576,19 +6608,20 @@ LABEL_24:
   messageCopy = message;
   identifierCopy = identifier;
   routeCopy = route;
-  if ([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess])
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v14 = PDDefaultQueue();
+    v15 = PDDefaultQueue(passesAllAccess);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10006E3B4;
     block[3] = &unk_10083DE38;
-    v16 = titleCopy;
-    v17 = messageCopy;
-    v18 = identifierCopy;
-    v19 = routeCopy;
+    v17 = titleCopy;
+    v18 = messageCopy;
+    v19 = identifierCopy;
+    v20 = routeCopy;
     selfCopy = self;
-    dispatch_async(v14, block);
+    dispatch_async(v15, block);
   }
 }
 
@@ -6596,17 +6629,18 @@ LABEL_24:
 {
   identifierCopy = identifier;
   completionCopy = completion;
-  if ([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess])
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v8 = PDDefaultQueue();
+    v9 = PDDefaultQueue(passesAllAccess);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10006E520;
     block[3] = &unk_10083D320;
     block[4] = self;
-    v10 = identifierCopy;
-    v11 = completionCopy;
-    dispatch_async(v8, block);
+    v11 = identifierCopy;
+    v12 = completionCopy;
+    dispatch_async(v9, block);
   }
 }
 
@@ -6614,17 +6648,18 @@ LABEL_24:
 {
   dateCopy = date;
   identifierCopy = identifier;
-  if ([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess])
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v8 = PDDefaultQueue();
+    v9 = PDDefaultQueue(passesAllAccess);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10006E674;
     block[3] = &unk_10083C4C0;
     block[4] = self;
-    v10 = dateCopy;
-    v11 = identifierCopy;
-    dispatch_async(v8, block);
+    v11 = dateCopy;
+    v12 = identifierCopy;
+    dispatch_async(v9, block);
   }
 }
 
@@ -6632,64 +6667,68 @@ LABEL_24:
 {
   contentCopy = content;
   completionCopy = completion;
-  if ([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess])
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v10 = PDDefaultQueue();
-    v11[0] = _NSConcreteStackBlock;
-    v11[1] = 3221225472;
-    v11[2] = sub_10006E784;
-    v11[3] = &unk_10083E128;
-    v11[4] = self;
-    v12 = contentCopy;
+    v11 = PDDefaultQueue(passesAllAccess);
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_10006E784;
+    v12[3] = &unk_10083E128;
+    v12[4] = self;
+    v13 = contentCopy;
     badgedCopy = badged;
-    v13 = completionCopy;
-    dispatch_async(v10, v11);
+    v14 = completionCopy;
+    dispatch_async(v11, v12);
   }
 }
 
 - (void)deleteInternalWalletMessageWithIdentifier:(id)identifier
 {
   identifierCopy = identifier;
-  if ([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess])
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v5 = PDDefaultQueue();
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_10006E8BC;
-    v6[3] = &unk_10083C420;
-    v6[4] = self;
-    v7 = identifierCopy;
-    dispatch_async(v5, v6);
+    v6 = PDDefaultQueue(passesAllAccess);
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_10006E8BC;
+    v7[3] = &unk_10083C420;
+    v7[4] = self;
+    v8 = identifierCopy;
+    dispatch_async(v6, v7);
   }
 }
 
 - (void)deleteAllInternalWalletMessages
 {
-  if ([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess])
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v3 = PDDefaultQueue();
+    v4 = PDDefaultQueue(passesAllAccess);
     block[0] = _NSConcreteStackBlock;
     block[1] = 3221225472;
     block[2] = sub_10006E96C;
     block[3] = &unk_10083C470;
     block[4] = self;
-    dispatch_async(v3, block);
+    dispatch_async(v4, block);
   }
 }
 
 - (void)sendUnverifiedPassNotificationIfNeededForUniqueID:(id)d
 {
   dCopy = d;
-  if ([(PKEntitlementWhitelist *)self->_whitelist passesAllAccess])
+  passesAllAccess = [(PKEntitlementWhitelist *)self->_whitelist passesAllAccess];
+  if (passesAllAccess)
   {
-    v5 = PDDefaultQueue();
-    v6[0] = _NSConcreteStackBlock;
-    v6[1] = 3221225472;
-    v6[2] = sub_10006EA44;
-    v6[3] = &unk_10083C420;
-    v6[4] = self;
-    v7 = dCopy;
-    dispatch_async(v5, v6);
+    v6 = PDDefaultQueue(passesAllAccess);
+    v7[0] = _NSConcreteStackBlock;
+    v7[1] = 3221225472;
+    v7[2] = sub_10006EA44;
+    v7[3] = &unk_10083C420;
+    v7[4] = self;
+    v8 = dCopy;
+    dispatch_async(v6, v7);
   }
 }
 
@@ -6777,7 +6816,7 @@ LABEL_24:
 - (void)spotlightReindexAllContentWithAcknowledgement:(id)acknowledgement
 {
   acknowledgementCopy = acknowledgement;
-  v5 = PDDefaultQueue();
+  v5 = PDDefaultQueue(acknowledgementCopy);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_10006ED90;
@@ -6792,7 +6831,7 @@ LABEL_24:
 {
   identifiersCopy = identifiers;
   acknowledgementCopy = acknowledgement;
-  v8 = PDDefaultQueue();
+  v8 = PDDefaultQueue(acknowledgementCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10006EF1C;
@@ -6808,7 +6847,7 @@ LABEL_24:
 - (void)spotlightResetWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PDDefaultQueue();
+  v5 = PDDefaultQueue(completionCopy);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_10006F088;
@@ -6822,7 +6861,7 @@ LABEL_24:
 - (void)spotlightStatusWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PDDefaultQueue();
+  v5 = PDDefaultQueue(completionCopy);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_10006F2E0;
@@ -6836,7 +6875,7 @@ LABEL_24:
 - (void)exportableManifestWithCompletion:(id)completion
 {
   completionCopy = completion;
-  v5 = PDHeavyQueue();
+  v5 = PDHeavyQueue(completionCopy);
   v7[0] = _NSConcreteStackBlock;
   v7[1] = 3221225472;
   v7[2] = sub_10006F4A4;
@@ -6851,7 +6890,7 @@ LABEL_24:
 {
   entryCopy = entry;
   completionCopy = completion;
-  v8 = PDDefaultQueue();
+  v8 = PDDefaultQueue(completionCopy);
   block[0] = _NSConcreteStackBlock;
   block[1] = 3221225472;
   block[2] = sub_10006FF78;

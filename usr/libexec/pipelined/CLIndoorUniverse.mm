@@ -66,7 +66,7 @@
     if ((*(parameters + 56) & 1) == 0)
     {
       sub_1000474A4(v21, "");
-      sub_100224398("Venue group distance must be set in the dynamicUniverseParameters", &__p);
+      sub_100224398(&__p, "Venue group distance must be set in the dynamicUniverseParameters");
       sub_1000E661C(v21, &__p, 1);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -106,7 +106,7 @@
     if ((*(parameters + 56) & 0x10) == 0)
     {
       sub_1000474A4(v21, "");
-      sub_10020A050("Disable dynamic universe must be set in the dynamicUniverseParameters", &__p);
+      sub_10020A050(&__p, "Disable dynamic universe must be set in the dynamicUniverseParameters");
       sub_1000E661C(v21, &__p, 1);
       if (SHIBYTE(__p.__r_.__value_.__r.__words[2]) < 0)
       {
@@ -205,13 +205,13 @@
         _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_DEBUG, "[CLIndoorUniverse] not enough distance %{private}.02f m moved since universe was set (waiting for at least: %{private}.02f m", v16, 0x16u);
       }
 
-      nullsub_76(v14);
-      nullsub_76(buf);
+      nullsub_76();
+      nullsub_76();
       goto LABEL_16;
     }
 
-    nullsub_76(v14);
-    nullsub_76(buf);
+    nullsub_76();
+    nullsub_76();
 LABEL_9:
     LOBYTE(v7) = 1;
     return v7;
@@ -293,7 +293,7 @@ LABEL_16:
         if (([v9 hasPrefix:{@"G", v14}] & 1) == 0)
         {
           sub_1000474A4(v19, "");
-          sub_10020A050("LocationGroupIds must be prefixed with G prior to stripping prefix.", &v22);
+          sub_10020A050(&v22, "LocationGroupIds must be prefixed with G prior to stripping prefix.");
           sub_1000E661C(v19, &v22, 1);
           if (SHIBYTE(v22.__r_.__value_.__r.__words[2]) < 0)
           {
@@ -448,7 +448,7 @@ LABEL_10:
   v41 = 0u;
   v42 = 0u;
   *v40 = 0u;
-  +[CLClientTypesPrivate defaultCLClientLocationPrivate];
+  objc_msgSend_defaultCLClientLocationPrivate(CLClientTypesPrivate);
   v17 = [[CLGpsPosition alloc] initWithLocation:a4 andPrivateLocation:v40];
   if (![*&self->_anon_c9[7] count])
   {
@@ -543,7 +543,7 @@ LABEL_10:
   if (!self->_availabilityData.m_initialized)
   {
     sub_1000474A4(v16, "");
-    sub_1001F2AF4("AvailabilityTile is not loaded.", __p);
+    sub_1001F2AF4(__p, "AvailabilityTile is not loaded.");
     sub_1000E661C(v16, __p, 1);
     if (SBYTE7(v19) < 0)
     {
@@ -558,31 +558,7 @@ LABEL_10:
     sub_10003F5D0(&v15);
   }
 
-  if (self->_anon_c9[47])
-  {
-    goto LABEL_6;
-  }
-
-  if (![(CLIndoorUniverse *)self isAllowedToUpdateUniverse:a4])
-  {
-    goto LABEL_6;
-  }
-
-  var13 = a4->var13;
-  v24 = *&a4->var11;
-  v25 = var13;
-  v26[0] = *&a4->var14;
-  *(v26 + 12) = *&a4->var16;
-  v10 = *&a4->var5;
-  v20 = *&a4->var3;
-  v21 = v10;
-  v11 = *&a4->var9;
-  v22 = *&a4->var7;
-  v23 = v11;
-  v12 = *&a4->var1.var1;
-  *__p = *&a4->var0;
-  v19 = v12;
-  if ([(CLIndoorUniverse *)self debouceUpdateUniverse:std.__rep_ fromLocation:__p])
+  if ((self->_anon_c9[47] & 1) == 0 && [(CLIndoorUniverse *)self isAllowedToUpdateUniverse:a4]&& (var13 = a4->var13, v24 = *&a4->var11, v25 = var13, v26[0] = *&a4->var14, *(v26 + 12) = *&a4->var16, v10 = *&a4->var5, v20 = *&a4->var3, v21 = v10, v11 = *&a4->var9, v22 = *&a4->var7, v23 = v11, v12 = *&a4->var1.var1, *__p = *&a4->var0, v19 = v12, [(CLIndoorUniverse *)self debouceUpdateUniverse:std.__rep_ fromLocation:__p]))
   {
     [(CLIndoorUniverse *)self updateLocalizerUniverse:std.__rep_ fromLocation:a4 withUniverseUpdatedHandler:handlerCopy];
     v13 = 1;
@@ -590,7 +566,6 @@ LABEL_10:
 
   else
   {
-LABEL_6:
     v13 = 0;
   }
 

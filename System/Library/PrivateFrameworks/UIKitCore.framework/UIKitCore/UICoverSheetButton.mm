@@ -506,7 +506,7 @@ uint64_t __44__UICoverSheetButton_layoutIfNeededAnimated__block_invoke(uint64_t 
 {
   v13[5] = *MEMORY[0x1E69E9840];
   v4 = [UIBlurEffect effectWithBlurRadius:30.0];
-  v5 = +[UIColor blackColor];
+  v5 = objc_msgSend_blackColor(UIColor, v4);
   v6 = [UIVisualEffect effectCompositingColor:v5 withMode:1010 alpha:0.12];
   v13[1] = v6;
   v7 = [UIImage kitImageNamed:@"UICoverSheetButtonLuminanceMap"];

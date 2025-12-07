@@ -589,7 +589,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlMulBlank *a2)
   v4 = *(a2 + 2) - 6;
   if (v4 > 1)
   {
-    operator new[](v4 & 0xFFFFFFFE);
+    operator new[](v4 & 0xFFFFFFFE, 0x1000C80BDFB0063);
   }
 
   XlMulBlank::setCellFormats(a2, *(this + 5), v4 >> 1);
@@ -875,7 +875,7 @@ unsigned int *updateRowInfoOffsetsInPackedDataForNewCell(unsigned int *result, u
   return result;
 }
 
-void initEDCell(int *a1, int a2, int a3, int a4)
+void initEDCell(EDCellHeader *a1, int a2, int a3, int a4)
 {
   if (a1)
   {
@@ -892,11 +892,11 @@ void initEDCell(int *a1, int a2, int a3, int a4)
     }
 
     v10 = v9 | (a3 << 29) | a2;
-    *a1 = v10;
-    a1[1] = -1;
+    a1->var0 = v10;
+    a1->var1 = -1;
     if (a4 && (v10 & 0x10000000) != 0)
     {
-      a1[2] = -1;
+      a1[1].var0 = -1;
     }
 
     if (a3 == 3)
@@ -960,7 +960,7 @@ uint64_t columnNumberForEDCell(const EDCellHeader *a1)
   }
 }
 
-uint64_t setNumberValueForEDCell(uint64_t result, double a2)
+double *setNumberValueForEDCell(double *result, double a2)
 {
   if (result)
   {
@@ -973,7 +973,7 @@ uint64_t setNumberValueForEDCell(uint64_t result, double a2)
 
       else
       {
-        *(result + 8) = a2;
+        result[1] = a2;
       }
     }
 
@@ -990,83 +990,83 @@ uint64_t setNumberValueForEDCell(uint64_t result, double a2)
   return result;
 }
 
-void XlRowBlock::~XlRowBlock(XlRowBlock *this)
+void XlRowBlock::~XlRowBlock(XlRowBlock *this, uint64_t a2)
 {
   *this = &unk_286ED1AB0;
-  XlRowBlock::reset(this);
-  v2 = *(this + 1);
-  if (v2)
+  XlRowBlock::reset(this, a2);
+  v3 = *(this + 1);
+  if (v3)
   {
-    *(this + 2) = v2;
-    operator delete(v2);
+    *(this + 2) = v3;
+    operator delete(v3);
   }
 }
 
 {
-  XlRowBlock::~XlRowBlock(this);
+  XlRowBlock::~XlRowBlock(this, a2);
 
   JUMPOUT(0x25F897000);
 }
 
-void XlCellRow::~XlCellRow(XlCellRow *this)
+void XlCellRow::~XlCellRow(XlCellRow *this, uint64_t a2)
 {
-  XlCellRow::~XlCellRow(this);
+  XlCellRow::~XlCellRow(this, a2);
 
   JUMPOUT(0x25F897000);
 }
 
 {
   *this = &unk_286ED0F80;
-  XlCellRow::reset(this);
-  v2 = *(this + 1);
-  if (v2)
+  XlCellRow::reset(this, a2);
+  v3 = *(this + 1);
+  if (v3)
   {
-    (*(*v2 + 8))(v2);
+    (*(*v3 + 8))(v3);
   }
 
   *(this + 1) = 0;
-  v3 = *(this + 2);
-  if (v3)
+  v4 = *(this + 2);
+  if (v4)
   {
-    *(this + 3) = v3;
-    operator delete(v3);
+    *(this + 3) = v4;
+    operator delete(v4);
   }
 }
 
-void *XlCellRow::reset(void *this)
+void *XlCellRow::reset(void *this, uint64_t a2)
 {
-  v1 = this;
-  v2 = this[2];
+  v2 = this;
+  v3 = this[2];
   *(this[1] + 19) = 0;
-  v3 = this[3];
-  if (((v3 - v2) & 0x7FFFFFFF8) != 0)
+  v4 = this[3];
+  if (((v4 - v3) & 0x7FFFFFFF8) != 0)
   {
-    v4 = 0;
+    v5 = 0;
     do
     {
-      this = *(v2 + 8 * v4);
+      this = *(v3 + 8 * v5);
       if (this)
       {
-        this = (*(*this + 8))(this);
-        v2 = v1[2];
-        v3 = v1[3];
+        this = (*(*this + 8))(this, a2);
+        v3 = v2[2];
+        v4 = v2[3];
       }
 
-      if (v4 >= ((v3 - v2) >> 3))
+      if (v5 >= ((v4 - v3) >> 3))
       {
         std::vector<TSU::UUIDData<TSP::UUIDData>>::__throw_out_of_range[abi:ne200100]();
       }
 
-      *(v2 + 8 * v4++) = 0;
-      v2 = v1[2];
-      v3 = v1[3];
+      *(v3 + 8 * v5++) = 0;
+      v3 = v2[2];
+      v4 = v2[3];
     }
 
-    while (v4 < ((v3 - v2) >> 3));
+    while (v5 < ((v4 - v3) >> 3));
   }
 
-  v1[3] = v2;
-  *(v1 + 10) = 0;
+  v2[3] = v3;
+  *(v2 + 10) = 0;
   return this;
 }
 
@@ -1116,7 +1116,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlMulRk *a2)
   v4 = *(a2 + 2) - 6;
   if (v4 > 5)
   {
-    operator new[](2 * (v4 / 6));
+    operator new[](2 * (v4 / 6), 0x1000C80BDFB0063);
   }
 
   XlMulRk::setNumbers(a2, *(this + 8), *(this + 5), v4 / 6);
@@ -1211,7 +1211,7 @@ void XlSheetPresentationTable::XlSheetPresentationTable(XlSheetPresentationTable
   *(this + 24) = 0u;
 }
 
-uint64_t XlBinaryReader::read(XlBinaryReader *this, XlSheetPresentationTable *a2)
+XlChartPlot *XlBinaryReader::read(XlBinaryReader *this, XlSheetPresentationTable *a2)
 {
   XlHeader::XlHeader(&v5);
   if ((*(this + 56) & 0x80000000) != 0)
@@ -1879,11 +1879,11 @@ void *XlBinaryReader::read(XlBinaryReader *this, XlCustomViewTable *a2)
   return result;
 }
 
-void sub_25D31CAE8(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10)
+void sub_25D31CAE8(_Unwind_Exception *exception_object, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10)
 {
   if (a10)
   {
-    (*(*a10 + 8))(a10);
+    (*(*a10 + 8))(a10, a2, a3, a4, a5, a6, a7, a8);
   }
 
   _Unwind_Resume(exception_object);
@@ -1945,9 +1945,9 @@ void XlDataValidityTable::XlDataValidityTable(XlDataValidityTable *this)
   *this = &unk_286ED1148;
 }
 
-void *XlBinaryReader::read(XlBinaryReader *this, XlDataValidityTable *a2)
+void *XlBinaryReader::read(XlBinaryReader *this, XlChartSeriesFormat *a2)
 {
-  result = CsSimpleHeapVector<XlRecord>::clear(a2 + 1);
+  result = CsSimpleHeapVector<XlRecord>::clear(&a2->var1);
   if ((*(this + 110) & 0x80000000) != 0)
   {
     result = XlBinaryReader::setSheet(this, 0);
@@ -2308,7 +2308,7 @@ void XlFormulaParser::~XlFormulaParser(XlPtg **this)
   v2 = *this;
   if (v2)
   {
-    (*(v2->var0 + 19))(v2, 0);
+    (*(*v2 + 152))(v2, 0);
     if (*this)
     {
       (*((*this)->var0 + 1))(*this);
@@ -2482,35 +2482,35 @@ void sub_25D31F32C(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_25D31F780(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D31F780(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = EDWorkbook;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_25D31F994(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D31F994(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = EDRowBlocks;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_25D31FA08(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D31FA08(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = EDRowBlock;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
-void sub_25D31FC3C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D31FC3C(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   v10 = v9;
   a9.receiver = v10;
   a9.super_class = EDSheet;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -2829,7 +2829,7 @@ void XlParserVisitor::~XlParserVisitor(XlParserVisitor *this)
   }
 
   *(this + 4) = 0;
-  TSURectWithOriginAndSize(this + 8);
+  TSURectWithOriginAndSize();
 }
 
 {
@@ -2849,7 +2849,7 @@ void XlStringExtractor::~XlStringExtractor(XlStringExtractor *this)
   *this = &unk_286ED3470;
   XlStringExtractor::reset(this);
   XlString::~XlString((this + 32));
-  TSURectWithOriginAndSize(this + 8);
+  TSURectWithOriginAndSize();
 }
 
 uint64_t XlStringExtractor::reset(XlStringExtractor *this)
@@ -2980,10 +2980,10 @@ void XlEshBinaryReader::~XlEshBinaryReader(XlEshBinaryReader *this)
   JUMPOUT(0x25F897000);
 }
 
-void sub_25D3208C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D3208C0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = EMNumberFormatter;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -3341,7 +3341,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlExternSheet *a2)
   return XlParserVisitor::endRead(this, a2);
 }
 
-uint64_t XlExternSheet::appendExternRef(void *a1, uint64_t a2)
+void *XlExternSheet::appendExternRef(void *a1, uint64_t a2)
 {
   v6 = a2;
   if (!a2)
@@ -3359,14 +3359,14 @@ uint64_t XlExternSheet::appendExternRef(void *a1, uint64_t a2)
   else
   {
     *v3 = a2;
-    result = (v3 + 1);
+    result = v3 + 1;
   }
 
   a1[4] = result;
   return result;
 }
 
-uint64_t XlLinkLookupTable::appendExternRef(void *a1, uint64_t a2)
+void *XlLinkLookupTable::appendExternRef(void *a1, uint64_t a2)
 {
   v6 = a2;
   if (!a2)
@@ -3384,7 +3384,7 @@ uint64_t XlLinkLookupTable::appendExternRef(void *a1, uint64_t a2)
   else
   {
     *v3 = a2;
-    result = (v3 + 1);
+    result = v3 + 1;
   }
 
   a1[3] = result;
@@ -3504,7 +3504,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlName *a2)
       operator new();
     }
 
-    operator new[]((v7 + 1));
+    operator new[]((v7 + 1), 0x1000C8077774924);
   }
 
   if (a2->var1.var2 >= 5u)
@@ -3517,7 +3517,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlName *a2)
         var9 = v4 - (*(**(this + 2) + 40))(*(this + 2));
       }
 
-      operator new[](var9);
+      operator new[](var9, 0x1000C8077774924);
     }
 
     if (v8)
@@ -3528,7 +3528,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlName *a2)
         operator new();
       }
 
-      operator new[]((v8 + 1));
+      operator new[]((v8 + 1), 0x1000C8077774924);
     }
 
     if (v9)
@@ -3539,7 +3539,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlName *a2)
         operator new();
       }
 
-      operator new[]((v9 + 1));
+      operator new[]((v9 + 1), 0x1000C8077774924);
     }
 
     if (v10)
@@ -3550,7 +3550,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlName *a2)
         operator new();
       }
 
-      operator new[]((v10 + 1));
+      operator new[]((v10 + 1), 0x1000C8077774924);
     }
 
     if (v11)
@@ -3561,7 +3561,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlName *a2)
         operator new();
       }
 
-      operator new[]((v11 + 1));
+      operator new[]((v11 + 1), 0x1000C8077774924);
     }
   }
 
@@ -3605,7 +3605,7 @@ uint64_t XlLinkTable::getLink(XlLinkTable *this, unsigned int a2)
   return result;
 }
 
-void XlNameTable::getName(XlNameTable *this@<X0>, unsigned int a2@<W1>, OcText *a3@<X8>)
+void XlNameTable::getName(XlNameTable *this@<X0>, uint64_t a2@<X1>, OcText *a3@<X8>)
 {
   v4 = *(this + 1);
   if (((*(this + 2) - v4) >> 3) <= a2)
@@ -3770,20 +3770,21 @@ XlPtg *XlFormulaParser::nextToken(XlFormulaParser *this)
   return v4;
 }
 
-void sub_25D322CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t *a9, XlPtg *a10)
+void sub_25D322CE0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
 {
+  va_start(va, a9);
   ChAutoPtr<ChStack<XlPtg *>>::~ChAutoPtr(&a9);
-  ChAutoPtr<XlPtg>::~ChAutoPtr(&a10);
+  ChAutoPtr<XlPtg>::~ChAutoPtr(va);
   _Unwind_Resume(a1);
 }
 
-uint64_t XlFormulaParser::processNextPtg(XlFormulaParser *this)
+uint64_t XlFormulaParser::processNextPtg(uint64_t **this)
 {
   v3 = 0;
   while (2)
   {
-    *(this + 5) = 0;
-    v4 = (this + 40);
+    this[5] = 0;
+    v4 = this + 5;
     *(this + 19) = (*(**this + 40))();
     if (!*this || !(*(**this + 176))(*this) || (v5 = *(this + 19), v5 >= *(this + 15)) || v5 > *(this + 16))
     {
@@ -3799,7 +3800,7 @@ LABEL_7:
 LABEL_58:
       if (*v4)
       {
-        ChStack<XlPtg *>::push(this + 8, v4);
+        ChStack<XlPtg *>::push((this + 1), v4);
         v9 = 0;
         *v4 = 0;
       }
@@ -3919,7 +3920,7 @@ LABEL_61:
       case 37:
       case 69:
       case 101:
-        XlFormulaParser::readPtgArea();
+        XlFormulaParser::readPtgArea(this, v7, 0);
       case 38:
       case 70:
       case 102:
@@ -3975,10 +3976,10 @@ LABEL_10:
       case 109:
         if ((*(this + 81) & 1) != 0 || *(this + 80) == 1)
         {
-          XlFormulaParser::readPtgArea();
+          XlFormulaParser::readPtgArea(this, v7, 1);
         }
 
-        XlFormulaParser::readPtgArea();
+        XlFormulaParser::readPtgArea(this, v7, 0);
       case 57:
       case 89:
       case 121:
@@ -4059,7 +4060,7 @@ uint64_t ChStack<XlPtg *>::push(uint64_t result, void *a2)
   {
     v4 = *(result + 24) + v3;
     *(result + 20) = v4;
-    operator new[](8 * v4);
+    operator new[](8 * v4, 0x20C8093837F09);
   }
 
   *(*result + 8 * v2) = *a2;
@@ -4232,32 +4233,31 @@ LABEL_19:
   return Object;
 }
 
-uint64_t XlChartBinaryReader::read(uint64_t this, XlEshRoot *a2)
+void XlChartBinaryReader::read(XlChartBinaryReader *this, XlEshRoot *a2)
 {
-  v3 = this;
   *(a2 + 11) = 0;
   if (*(a2 + 10) == 6)
   {
-    if ((*(this + 1940) & 0x80000000) == 0)
+    if ((*(this + 485) & 0x80000000) == 0)
     {
-      (*(**(this + 1312) + 16))(*(this + 1312));
+      (*(**(this + 164) + 16))(*(this + 164));
       XlHeader::XlHeader(&v9);
-      XlParserVisitor::getHeader(*(v3 + 1336), &v9, *(v3 + 1320));
-      v4 = *(v3 + 1304);
+      XlParserVisitor::getHeader(*(this + 167), &v9, *(this + 1320));
+      v4 = *(this + 163);
       if (v4)
       {
         (*(*v4 + 8))(v4);
       }
 
-      *(v3 + 1304) = 0;
+      *(this + 163) = 0;
       XlChartGelFrame::XlChartGelFrame(v7, &v9);
-      (*(**(v3 + 1336) + 2024))();
-      v5 = *(v3 + 1940);
+      (*(**(this + 167) + 2024))();
+      v5 = *(this + 485);
       *(a2 + 11) = v8;
       *(a2 + 12) = v5;
-      (*(**(v3 + 1312) + 16))(*(v3 + 1312));
-      v6 = (*(*v3 + 112))(v3);
-      (*(*v6 + 16))(v6, *(v3 + 1312));
+      (*(**(this + 164) + 16))(*(this + 164));
+      v6 = (*(*this + 112))(this);
+      (*(*v6 + 16))(v6, *(this + 164));
       operator new();
     }
   }
@@ -4265,16 +4265,14 @@ uint64_t XlChartBinaryReader::read(uint64_t this, XlEshRoot *a2)
   else
   {
 
-    return XlBinaryReader::read(this, a2);
+    XlBinaryReader::read(this, a2);
   }
-
-  return this;
 }
 
-void sub_25D325464(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_25D325464(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
-  MEMORY[0x25F897000](v2, v3);
+  va_start(va, a3);
+  MEMORY[0x25F897000](v3, v4);
   XlChartGelFrame::~XlChartGelFrame(va);
   _Unwind_Resume(a1);
 }
@@ -4367,7 +4365,7 @@ uint64_t XlReadStgStream::start(XlReadStgStream *this, SsrwOOStream *a2)
   *(this + 5) = a2;
   if (!*(this + 3))
   {
-    operator new[](10);
+    operator new[](10, 0x1000C8077774924);
   }
 
   v3 = (*(a2->var0 + 5))(a2);
@@ -4810,9 +4808,9 @@ uint64_t XlReadStgStream::readSInt32(XlReadStgStream *this)
   }
 }
 
-void XlEshBinaryReader::read(uint64_t a1, _DWORD *a2)
+void XlEshBinaryReader::read(uint64_t a1, EshRoot *a2)
 {
-  if (a2[10] && (v3 = *(a1 + 104)) != 0)
+  if (*(a2 + 10) && (v3 = *(a1 + 104)) != 0)
   {
     (*(*v3 + 16))(v3, v3[4], 0);
     EshBinaryReader::checkStarted(a1);
@@ -4968,7 +4966,7 @@ uint64_t XlReadStgStream::getStreamLocation(XlReadStgStream *this)
   return *v1;
 }
 
-uint64_t EshRoot::getChildInstance(EshRoot *this, unsigned int a2)
+uint64_t EshRoot::getChildInstance(EshRoot *this, uint64_t a2)
 {
   v2 = *(this + 2);
   if (((*(this + 3) - v2) >> 3) <= a2)
@@ -4986,12 +4984,12 @@ void XlEshBinaryReader::read(XlEshBinaryReader *this, EshObject *a2)
   operator new();
 }
 
-void XlEshBinaryReader::readObject(XlEshBinaryReader *this, EshContainer *a2)
+void XlEshBinaryReader::readObject(XlReadStgStream **this, EshContainer *a2)
 {
-  v3 = this + 40;
-  v4 = (*(*this + 96))(this);
+  v3 = (this + 5);
+  v4 = (*(*this + 12))(this);
   EshRecord::setHeader(a2, v4);
-  EshContainer::removeChildren(a2);
+  EshContainer::removeChildren(a2, v5);
   ChStack<EshHeader>::push(v3, a2 + 12);
   operator new();
 }
@@ -5044,14 +5042,14 @@ uint64_t XlEshBinaryReader::readRecordData(EshParserVisitor **this, EshRecord *a
   EshParserVisitor::beginRead(this[2], a2);
   if (a3->var3 == -4092)
   {
-    EshContainer::removeChildren(v6);
+    EshContainer::removeChildren(v6, v7);
     operator new();
   }
 
   (*(*a2 + 112))(a2, this[2]);
-  v7 = this[2];
+  v8 = this[2];
 
-  return EshParserVisitor::endRead(v7, a2);
+  return EshParserVisitor::endRead(v8, a2);
 }
 
 uint64_t XlReadStgStream::readUInt32(XlReadStgStream *this)
@@ -5135,9 +5133,9 @@ uint64_t XlReadStgStream::readBytes(XlReadStgStream *this, char *a2, unsigned in
   return result;
 }
 
-void XlEshRoot::~XlEshRoot(XlEshRoot *this)
+void XlEshRoot::~XlEshRoot(XlEshRoot *this, uint64_t a2)
 {
-  EshRoot::~EshRoot(this);
+  EshRoot::~EshRoot(this, a2);
 
   JUMPOUT(0x25F897000);
 }
@@ -5470,7 +5468,7 @@ void sub_25D328594(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-uint64_t TSUDeviceRGBColorSpace()
+uint64_t TSUDeviceRGBColorSpace(uint64_t a1, uint64_t a2)
 {
   if (TSUDeviceRGBColorSpace_sDeviceRGBDispatchOnce != -1)
   {
@@ -5480,7 +5478,7 @@ uint64_t TSUDeviceRGBColorSpace()
   return TSUDeviceRGBColorSpace_sDeviceRGBColorSpace;
 }
 
-uint64_t TSUDeviceCMYKColorSpace()
+uint64_t TSUDeviceCMYKColorSpace(uint64_t a1, uint64_t a2)
 {
   if (TSUDeviceCMYKColorSpace_sDeviceCMYKDispatchOnce != -1)
   {
@@ -5600,7 +5598,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlGenericRecord *a2)
   *(this + 18) = (*(**(this + 2) + 40))(*(this + 2));
   if ((*(this + 76) & 1) == 0)
   {
-    operator new[](*(a2 + 2));
+    operator new[](*(a2 + 2), 0x1000C8077774924);
   }
 
   return XlParserVisitor::endRead(this, a2);
@@ -5668,7 +5666,7 @@ void *ChAutoPtr<XlGraphicsInfo::XlObjData>::setValue(void *result, uint64_t a2)
   return result;
 }
 
-uint64_t XlGraphicsInfo::appendStateElement(void *a1, uint64_t a2)
+void *XlGraphicsInfo::appendStateElement(void *a1, uint64_t a2)
 {
   v6 = a2;
   if (!a2)
@@ -5686,7 +5684,7 @@ uint64_t XlGraphicsInfo::appendStateElement(void *a1, uint64_t a2)
   else
   {
     *v3 = a2;
-    result = (v3 + 1);
+    result = v3 + 1;
   }
 
   a1[4] = result;
@@ -5994,12 +5992,12 @@ uint64_t XlChartPlot::takeChartFormat(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void XlRecordFactory::createRecord(XlRecordFactory *this, XlHeader *a2)
+void XlRecordFactory::createRecord(XlHeader *this, XlHeader *a2)
 {
-  v2 = *(this + 2);
-  if (v2 <= 0x1A4)
+  var1 = this->var1;
+  if (var1 <= 0x1A4)
   {
-    switch(*(this + 2))
+    switch(this->var1)
     {
       case 3:
         goto LABEL_25;
@@ -6293,13 +6291,13 @@ void XlRecordFactory::createRecord(XlRecordFactory *this, XlHeader *a2)
     }
   }
 
-  if (*(this + 2) <= 0x207u)
+  if (this->var1 <= 0x207u)
   {
-    if (*(this + 2) > 0x1FFu)
+    if (this->var1 > 0x1FFu)
     {
-      if (*(this + 2) > 0x203u)
+      if (this->var1 > 0x203u)
       {
-        switch(v2)
+        switch(var1)
         {
           case 0x204u:
 LABEL_63:
@@ -6314,7 +6312,7 @@ LABEL_39:
 
       else
       {
-        switch(v2)
+        switch(var1)
         {
           case 0x200u:
             operator new();
@@ -6329,7 +6327,7 @@ LABEL_25:
 
     else
     {
-      switch(*(this + 2))
+      switch(this->var1)
       {
         case 0x1A5:
           operator new();
@@ -6379,13 +6377,13 @@ LABEL_25:
     goto LABEL_231;
   }
 
-  if (*(this + 2) > 0x41Du)
+  if (this->var1 > 0x41Du)
   {
-    if (*(this + 2) <= 0x865u)
+    if (this->var1 <= 0x865u)
     {
-      if (*(this + 2) > 0x7FFu)
+      if (this->var1 > 0x7FFu)
       {
-        switch(v2)
+        switch(var1)
         {
           case 0x800u:
             operator new();
@@ -6398,7 +6396,7 @@ LABEL_25:
 
       else
       {
-        switch(v2)
+        switch(var1)
         {
           case 0x41Eu:
             operator new();
@@ -6411,9 +6409,9 @@ LABEL_65:
       }
     }
 
-    else if (*(this + 2) <= 0x871u)
+    else if (this->var1 <= 0x871u)
     {
-      switch(v2)
+      switch(var1)
       {
         case 0x866u:
           operator new();
@@ -6424,14 +6422,14 @@ LABEL_65:
       }
     }
 
-    else if (*(this + 2) > 0x895u)
+    else if (this->var1 > 0x895u)
     {
-      if (v2 == 2198)
+      if (var1 == 2198)
       {
         operator new();
       }
 
-      if (v2 == 4188)
+      if (var1 == 4188)
       {
         operator new();
       }
@@ -6439,23 +6437,23 @@ LABEL_65:
 
     else
     {
-      if (v2 == 2162)
+      if (var1 == 2162)
       {
         operator new();
       }
 
-      if (v2 == 2175)
+      if (var1 == 2175)
       {
         operator new();
       }
     }
   }
 
-  else if (*(this + 2) <= 0x230u)
+  else if (this->var1 <= 0x230u)
   {
-    if (*(this + 2) > 0x220u)
+    if (this->var1 > 0x220u)
     {
-      switch(v2)
+      switch(var1)
       {
         case 0x221u:
           operator new();
@@ -6470,7 +6468,7 @@ LABEL_43:
 
     else
     {
-      switch(v2)
+      switch(var1)
       {
         case 0x208u:
           operator new();
@@ -6482,9 +6480,9 @@ LABEL_43:
     }
   }
 
-  else if (*(this + 2) <= 0x27Du)
+  else if (this->var1 <= 0x27Du)
   {
-    switch(v2)
+    switch(var1)
     {
       case 0x231u:
 LABEL_62:
@@ -6499,14 +6497,14 @@ LABEL_51:
 
   else
   {
-    if (*(this + 2) <= 0x405u)
+    if (this->var1 <= 0x405u)
     {
-      if (v2 == 638)
+      if (var1 == 638)
       {
         operator new();
       }
 
-      if (v2 == 659)
+      if (var1 == 659)
       {
         operator new();
       }
@@ -6514,13 +6512,13 @@ LABEL_51:
       goto LABEL_231;
     }
 
-    if (v2 == 1030)
+    if (var1 == 1030)
     {
 LABEL_66:
       operator new();
     }
 
-    if (v2 == 1033)
+    if (var1 == 1033)
     {
 LABEL_58:
       operator new();
@@ -6534,17 +6532,17 @@ LABEL_231:
 {
   if (a2 == 2)
   {
-    v2 = *(this + 2);
-    if (v2 > 0x193)
+    var1 = this->var1;
+    if (var1 > 0x193)
     {
-      if (*(this + 2) > 0x195u)
+      if (this->var1 > 0x195u)
       {
-        if (v2 == 428)
+        if (var1 == 428)
         {
           operator new();
         }
 
-        if (v2 == 406)
+        if (var1 == 406)
         {
           operator new();
         }
@@ -6552,12 +6550,12 @@ LABEL_231:
 
       else
       {
-        if (v2 == 404)
+        if (var1 == 404)
         {
           operator new();
         }
 
-        if (v2 == 405)
+        if (var1 == 405)
         {
           operator new();
         }
@@ -6566,7 +6564,7 @@ LABEL_231:
 
     else
     {
-      switch(*(this + 2))
+      switch(this->var1)
       {
         case 0x136:
           operator new();
@@ -6619,7 +6617,7 @@ LABEL_231:
         case 0x153:
           operator new();
         default:
-          if (v2 == 28)
+          if (var1 == 28)
           {
             operator new();
           }
@@ -6688,7 +6686,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlPls *a2)
   *(a2 + 4) = (*(**(this + 2) + 80))(*(this + 2)) & 1;
   if (v4)
   {
-    operator new[](v4);
+    operator new[](v4, 0x1000C8077774924);
   }
 
   return XlParserVisitor::endRead(this, a2);
@@ -6921,13 +6919,13 @@ void XlBottomMargin::XlBottomMargin(XlBottomMargin *this, XlHeader *a2)
   v2[2] = 0;
 }
 
-CGColorRef TSUCGColorCreateDeviceRGB(CGFloat a1, CGFloat a2, CGFloat a3, CGFloat a4)
+CGColorRef TSUCGColorCreateDeviceRGB(uint64_t a1, uint64_t a2, CGFloat a3, CGFloat a4, CGFloat a5, CGFloat a6)
 {
   components[4] = *MEMORY[0x277D85DE8];
-  components[0] = a1;
-  components[1] = a2;
-  components[2] = a3;
-  components[3] = a4;
+  components[0] = a3;
+  components[1] = a4;
+  components[2] = a5;
+  components[3] = a6;
   if (TSUDeviceRGBColorSpace_sDeviceRGBDispatchOnce != -1)
   {
     TSUDeviceRGBColorSpace_cold_1();
@@ -7081,7 +7079,7 @@ double EshTextBox::setInsetLeft(EshTextBox *this, unsigned int a2)
 {
   var2 = this->var2;
   v4 = a2;
-  *&result = EshOpt::setProperty(var2, 0x81u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var2, 129, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -7089,7 +7087,7 @@ double EshTextBox::setInsetRight(EshTextBox *this, unsigned int a2)
 {
   var2 = this->var2;
   v4 = a2;
-  *&result = EshOpt::setProperty(var2, 0x83u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var2, 131, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -7097,7 +7095,7 @@ double EshTextBox::setInsetTop(EshTextBox *this, unsigned int a2)
 {
   var2 = this->var2;
   v4 = a2;
-  *&result = EshOpt::setProperty(var2, 0x82u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var2, 130, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -7105,7 +7103,7 @@ double EshTextBox::setInsetBottom(EshTextBox *this, unsigned int a2)
 {
   var2 = this->var2;
   v4 = a2;
-  *&result = EshOpt::setProperty(var2, 0x84u, 2, &v4).n128_u64[0];
+  *&result = EshOpt::setProperty(var2, 132, 2, &v4).n128_u64[0];
   return result;
 }
 
@@ -7260,7 +7258,7 @@ uint64_t XlParserVisitor::getDataAndContinues(XlParserVisitor *this, unsigned in
   (*(**(this + 2) + 16))(*(this + 2), v6, 0);
   if (v7)
   {
-    operator new[](v7);
+    operator new[](v7, 0x1000C8077774924);
   }
 
   return v6;
@@ -7355,7 +7353,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlFmlaString *a2)
     v7 = v4 + v6;
     if (v7)
     {
-      operator new[]((v7 + 1));
+      operator new[]((v7 + 1), 0x1000C8077774924);
     }
 
     operator new();
@@ -7497,7 +7495,7 @@ XlCell *XlCell::setError(XlCell *a1, unsigned int a2)
   return result;
 }
 
-unsigned __int8 *XlFormulaParser::addPtgString(unsigned __int8 *this, XlPtg *a2, int a3)
+char *XlFormulaParser::addPtgString(char *this, XlPtg *a2, int a3)
 {
   if (a2)
   {
@@ -7664,74 +7662,74 @@ uint64_t XlFormulaProcessor::getShareBase(XlFormulaProcessor *this, XlFormulaInf
   return 1;
 }
 
-void XlFormulaProcessor::convertToRegularFormula(XlFormulaProcessor *this, XlFormulaInfo *a2)
+void XlFormulaProcessor::convertToRegularFormula(XlFormulaProcessor *this, XlFormulaInfo *a2, int a3, int a4)
 {
-  XlHeader::XlHeader(&v17);
+  XlHeader::XlHeader(&v19);
   if (a2->var1 == 1 && a2->var4 >= 5)
   {
     var3 = a2->var3;
     if (var3)
     {
-      v5 = *var3;
-      if (v5 == 2)
+      v7 = *var3;
+      if (v7 == 2)
       {
         a2->var1 = 2;
       }
 
       else
       {
-        if (v5 == 1)
+        if (v7 == 1)
         {
           UInt16 = CsLeReadUInt16((var3 + 1));
           SInt16 = CsLeReadSInt16((var3 + 3));
           var6 = a2->var6;
           if (*&a2->var6 != 0)
           {
-            v9 = *(this + 2);
-            if (!v9)
+            v11 = *(this + 2);
+            if (!v11)
             {
               operator new();
             }
 
             if (var6)
             {
-              XlBaseFormulaTable::add(v9, var6);
+              XlBaseFormulaTable::add(v11, var6, UInt16, SInt16);
             }
 
-            XlBaseFormulaTable::add(v9, a2->var7);
+            XlBaseFormulaTable::add(v11, a2->var7, UInt16, SInt16);
           }
 
-          v10 = *(this + 2);
-          if (v10)
+          v12 = *(this + 2);
+          if (v12)
           {
-            v11 = XlBaseFormulaTable::base(v10, UInt16, SInt16);
-            if (!v11)
+            v13 = XlBaseFormulaTable::base(v12, UInt16, SInt16);
+            if (!v13)
             {
               XlFormulaParser::setFormula(*(this + 1), a2->var3, a2->var5, a2->var4);
             }
 
-            v12 = v11[6];
-            if (v12 == 1212)
+            v14 = v13[6];
+            if (v14 == 1212)
             {
-              operator new[](v14[6]);
+              operator new[](v16[6], 0x1000C8077774924);
             }
 
-            if (v12 == 545)
+            if (v14 == 545)
             {
-              operator new[](v13[8]);
+              operator new[](v15[8], 0x1000C8077774924);
             }
 
             exception = __cxa_allocate_exception(4uLL);
-            v16 = 1004;
+            v18 = 1004;
           }
 
           else
           {
             exception = __cxa_allocate_exception(4uLL);
-            v16 = 1003;
+            v18 = 1003;
           }
 
-          *exception = v16;
+          *exception = v18;
         }
 
         a2->var1 = 0;
@@ -7749,13 +7747,13 @@ void XlBaseFormulaTable::XlBaseFormulaTable(XlBaseFormulaTable *this)
   *(this + 52) = 0u;
 }
 
-void XlBaseFormulaTable::add(XlBaseFormulaTable *this, XlRecord *a2)
+void XlBaseFormulaTable::add(XlBaseFormulaTable *this, XlRecord *a2, __int16 a3, __int16 a4)
 {
-  v4 = a2;
+  v6 = a2;
   if (a2)
   {
-    v2 = *(a2 + 6);
-    if (v2 == 545 || v2 == 566 || v2 == 1212)
+    v4 = *(a2 + 6);
+    if (v4 == 545 || v4 == 566 || v4 == 1212)
     {
       operator new();
     }
@@ -7765,7 +7763,7 @@ void XlBaseFormulaTable::add(XlBaseFormulaTable *this, XlRecord *a2)
   *exception = 8000;
 }
 
-uint64_t XlBaseFormulaTable::base(XlBaseFormulaTable *this, int a2, int a3)
+uint64_t XlBaseFormulaTable::base(XlBaseFormulaTable *this, unsigned __int16 a2, __int16 a3)
 {
   v4 = XlBaseFormulaTable::locate(this, a2, a3);
   if ((v4 & 0x80000000) != 0)
@@ -7958,10 +7956,10 @@ unsigned __int16 *extractDataFromPtgAreaBuffer(unsigned __int16 *result, int *a2
   return result;
 }
 
-void sub_25D3328C0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_25D3328C0(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = EDFormula;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -8073,7 +8071,7 @@ uint64_t XlParserVisitor::visit(XlParserVisitor *this, XlTxo *a2)
   {
     if (v9 == result)
     {
-      operator new[](result);
+      operator new[](result, 0x1000C8077774924);
     }
 
     goto LABEL_10;
@@ -9042,7 +9040,7 @@ void OcBinaryData::allocBuffer(OcBinaryData *this, unsigned int a2)
   }
 
   this->var6 = 1;
-  operator new[](a2);
+  operator new[](a2, 0x1000C8077774924);
 }
 
 uint64_t headerGetXFatStartSector(uint64_t result)
@@ -9101,39 +9099,40 @@ uint64_t EshDibBlip::accept(int a1, void *lpsrc)
   return v2();
 }
 
-void *EshContainer::removeChild(EshContainer *this, unsigned int a2)
+void *EshContainer::removeChild(void *this, uint64_t a2)
 {
-  v2 = *(this + 4);
-  v3 = (*(this + 5) - v2) >> 3;
+  v2 = this[4];
+  v3 = (this[5] - v2) >> 3;
   if (v3 <= a2)
   {
     goto LABEL_8;
   }
 
+  v4 = a2;
   result = *(v2 + 8 * a2);
   if (result)
   {
     result = MEMORY[0x25F897000](result, 0x1000C408B6DE1C6);
-    v2 = *(this + 4);
-    v3 = (*(this + 5) - v2) >> 3;
+    v2 = this[4];
+    v3 = (this[5] - v2) >> 3;
   }
 
-  if (v3 <= a2)
+  if (v3 <= v4)
   {
 LABEL_8:
     std::vector<TSU::UUIDData<TSP::UUIDData>>::__throw_out_of_range[abi:ne200100]();
   }
 
-  *(v2 + 8 * a2) = 0;
-  v7 = *(this + 5);
-  v8 = *(this + 4) + 8 * a2;
+  *(v2 + 8 * v4) = 0;
+  v7 = this[5];
+  v8 = this[4] + 8 * v4;
   v9 = v7 - (v8 + 8);
   if (v7 != v8 + 8)
   {
     result = memmove(v8, (v8 + 8), v7 - (v8 + 8));
   }
 
-  *(this + 5) = v8 + v9;
+  this[5] = v8 + v9;
   return result;
 }
 
@@ -9581,6 +9580,40 @@ uint64_t EshTablePropVal<EshPathCommand>::accept(uint64_t a1, uint64_t a2)
   }
 }
 
+void EshPropValParserVisitor::visit(EshPropValParserVisitor *a1, uint64_t a2)
+{
+  *(a1 + 11) = 0;
+  EshPropValParserVisitor::parseTable<EshTablePropVal<EshPathCommand>>(a1, a2);
+}
+
+{
+  EshPropValParserVisitor::parseTable<EshTablePropVal<int>>(a1, a2);
+}
+
+{
+  EshPropValParserVisitor::parseTable<EshTablePropVal<EshComputedPoint>>(a1, a2);
+}
+
+{
+  EshPropValParserVisitor::parseTable<EshTablePropVal<EshGradientStop>>(a1, a2);
+}
+
+{
+  EshPropValParserVisitor::parseTable<EshTablePropVal<EshComputedRect>>(a1, a2);
+}
+
+{
+  EshPropValParserVisitor::parseTable<EshTablePropVal<float>>(a1, a2);
+}
+
+{
+  EshPropValParserVisitor::parseTable<EshTablePropVal<EshHandle>>(a1, a2);
+}
+
+{
+  EshPropValParserVisitor::parseTable<EshTablePropVal<EshFormula>>(a1, a2);
+}
+
 uint64_t EshPropValParserVisitor::parseElement(uint64_t a1, uint64_t a2)
 {
   if (*(a1 + 20) != 2)
@@ -9647,8 +9680,8 @@ LABEL_12:
   EshPropValParserVisitor::parseValuePair(a1, a2, 0, 1, 1, 1);
   if (*(a2 + 3) == 1)
   {
-    EshPropValParserVisitor::parseValuePair(a1, a2, 1u, 1, (v5 >> 11) & 1, (v5 >> 12) & 1);
-    EshPropValParserVisitor::parseValuePair(a1, a2, 2u, (v5 >> 13) & 1, (v5 >> 7) & 1, (v5 >> 8) & 1);
+    EshPropValParserVisitor::parseValuePair(a1, a2, 1, 1, (v5 >> 11) & 1, (v5 >> 12) & 1);
+    EshPropValParserVisitor::parseValuePair(a1, a2, 2, (v5 >> 13) & 1, (v5 >> 7) & 1, (v5 >> 8) & 1);
     (*(**(a1 + 8) + 104))(*(a1 + 8));
     v6 = *(**(a1 + 8) + 104);
 
@@ -9657,15 +9690,15 @@ LABEL_12:
 
   else
   {
-    EshPropValParserVisitor::parseValuePair(a1, a2, 1u, (v5 >> 4) & 1, (v5 >> 11) & 1, (v5 >> 12) & 1);
-    EshPropValParserVisitor::parseValuePair(a1, a2, 2u, (v5 >> 5) & 1, (v5 >> 7) & 1, (v5 >> 8) & 1);
+    EshPropValParserVisitor::parseValuePair(a1, a2, 1, (v5 >> 4) & 1, (v5 >> 11) & 1, (v5 >> 12) & 1);
+    EshPropValParserVisitor::parseValuePair(a1, a2, 2, (v5 >> 5) & 1, (v5 >> 7) & 1, (v5 >> 8) & 1);
     if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(*(a2 + 36), xmmword_25D6FD680)))) & 1) == 0)
     {
       *(a2 + 36) = 0;
       *(a2 + 44) = 0;
     }
 
-    result = EshPropValParserVisitor::parseValuePair(a1, a2, 3u, (v5 >> 5) & 1, (v5 >> 9) & 1, (v5 >> 10) & 1);
+    result = EshPropValParserVisitor::parseValuePair(a1, a2, 3, (v5 >> 5) & 1, (v5 >> 9) & 1, (v5 >> 10) & 1);
     v9 = *(a2 + 52);
     v8 = (a2 + 52);
     if ((vmaxv_u16(vmovn_s32(vmvnq_s8(vceqq_s32(v9, xmmword_25D6FD680)))) & 1) == 0)
@@ -9690,15 +9723,15 @@ uint64_t EshPathCommand::decodeCount(int a1, unsigned int a2)
     goto LABEL_13;
   }
 
-  v3 = &EshPathCommand::m_commandPropsArray[6 * a1];
-  v4 = v3[2];
+  v3 = &EshPathCommand::m_commandPropsArray[12 * a1];
+  v4 = *(v3 + 2);
   if (v4 <= 0)
   {
     goto LABEL_13;
   }
 
-  v5 = v3[3];
-  v6 = a2 / v3[2];
+  v5 = *(v3 + 3);
+  v6 = a2 / *(v3 + 2);
   if ((v5 & 0x80000000) == 0)
   {
     if (0xFFFF - v5 >= v6)
@@ -9730,7 +9763,7 @@ LABEL_6:
     goto LABEL_15;
   }
 
-  if (v7 != 1 && (EshPathCommand::m_commandPropsArray[6 * a1 + 5] & 1) == 0)
+  if (v7 != 1 && (EshPathCommand::m_commandPropsArray[12 * a1 + 10] & 1) == 0)
   {
     v8 = "An unrepeatable path command with a count > 1.";
     v9 = 259;
@@ -9787,7 +9820,7 @@ uint64_t EshShapeLib::isShadowOK(EshShapeLib *this, uint64_t a2)
 
 uint64_t EshFill::getOpacity2(EshFill *this)
 {
-  v1 = *EshOpt::getProperty(this->var2, 0x184u);
+  v1 = *EshOpt::getProperty(this->var2, 388);
   if (v1 >= 0x10000)
   {
     return 0x10000;
@@ -9818,54 +9851,4 @@ uint64_t EshBasicTablePropVal<EshComputedRect>::operator[](uint64_t a1, unsigned
   }
 
   return v2 + 32 * a2;
-}
-
-CGFloat calculatePreviousPointOnLine(CGPoint a1, CGPoint a2, CGPoint *a3)
-{
-  v3 = vabdd_f64(a2.x, a1.x);
-  v4 = vabdd_f64(a2.y, a1.y);
-  v5 = a1.x <= a2.x;
-  v6 = 1.0;
-  if (v5)
-  {
-    v7 = 1.0;
-  }
-
-  else
-  {
-    v7 = -1.0;
-  }
-
-  if (a1.y > a2.y)
-  {
-    v6 = -1.0;
-  }
-
-  *a3 = a1;
-  if (v3 >= v4)
-  {
-    if ((v3 & 0x80000000) == 0)
-    {
-      a1.x = a1.x + v7;
-      a3->x = a1.x;
-      if (v3 < 2 * v4)
-      {
-LABEL_12:
-        a1.x = a1.y + v6;
-        a3->y = a1.y + v6;
-      }
-    }
-  }
-
-  else if ((v4 & 0x80000000) == 0)
-  {
-    if (v4 < 2 * v3)
-    {
-      a3->x = a1.x + v7;
-    }
-
-    goto LABEL_12;
-  }
-
-  return a1.x;
 }

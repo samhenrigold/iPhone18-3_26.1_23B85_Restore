@@ -75,7 +75,7 @@
   v10 = *(v19[0] + 40);
   if (v10)
   {
-    p_super = __atxlog_handle_usage_insights();
+    p_super = __atxlog_handle_usage_insights(v9);
     if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
     {
       [(ATXContinuousUsageAccumulator *)v19 successfullyAccumulatedContinuousUseEvents];
@@ -100,7 +100,7 @@ uint64_t __75__ATXContinuousUsageAccumulator_successfullyAccumulatedContinuousUs
   v5 = *(v4 + 40);
   *(v4 + 40) = v3;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v3, v5);
 }
 
 void __75__ATXContinuousUsageAccumulator_successfullyAccumulatedContinuousUseEvents__block_invoke_2(uint64_t a1, void *a2)
@@ -127,31 +127,31 @@ void __75__ATXContinuousUsageAccumulator_successfullyAccumulatedContinuousUseEve
 
 - (void)recordAppLaunchEndEvent:(id)event
 {
-  v37 = *MEMORY[0x277D85DE8];
+  v36 = *MEMORY[0x277D85DE8];
   eventCopy = event;
   v5 = [(NSMutableArray *)self->_appInFocusStartingEvents copy];
+  v31 = 0u;
   v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
   v6 = v5;
-  v7 = [v6 countByEnumeratingWithState:&v32 objects:v36 count:16];
+  v7 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
   if (v7)
   {
     v8 = v7;
-    v9 = *v33;
-    v29 = *v33;
-    v30 = v6;
+    v9 = *v32;
+    v28 = *v32;
+    v29 = v6;
     do
     {
       for (i = 0; i != v8; ++i)
       {
-        if (*v33 != v9)
+        if (*v32 != v9)
         {
           objc_enumerationMutation(v6);
         }
 
-        v11 = *(*(&v32 + 1) + 8 * i);
+        v11 = *(*(&v31 + 1) + 8 * i);
         bundleID = [eventCopy bundleID];
         bundleID2 = [v11 bundleID];
         v14 = [bundleID isEqualToString:bundleID2];
@@ -180,8 +180,8 @@ void __75__ATXContinuousUsageAccumulator_successfullyAccumulatedContinuousUseEve
               [(ATXContinuousUsageAccumulator *)self eventWithBundleID:bundleID3 launchReason:launchReason startTime:absoluteTimestamp5 endTime:absoluteTimestamp6 duration:?];
               v27 = v26 = self;
 
-              v9 = v29;
-              v6 = v30;
+              v9 = v28;
+              v6 = v29;
 
               [(NSMutableArray *)v26->_continuousUsageAccumulator addObject:v27];
               self = v26;
@@ -192,13 +192,11 @@ void __75__ATXContinuousUsageAccumulator_successfullyAccumulatedContinuousUseEve
         }
       }
 
-      v8 = [v6 countByEnumeratingWithState:&v32 objects:v36 count:16];
+      v8 = [v6 countByEnumeratingWithState:&v31 objects:v35 count:16];
     }
 
     while (v8);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 }
 
 - (id)eventWithBundleID:(id)d launchReason:(id)reason startTime:(id)time endTime:(id)endTime duration:(double)duration
@@ -220,14 +218,13 @@ void __75__ATXContinuousUsageAccumulator_successfullyAccumulatedContinuousUseEve
 
 - (void)successfullyAccumulatedContinuousUseEvents
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v2 = *(*self + 40);
-  v4 = 136315394;
-  v5 = "[ATXContinuousUsageAccumulator successfullyAccumulatedContinuousUseEvents]";
-  v6 = 2112;
-  v7 = v2;
-  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: Error reading merged publishers: %@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "[ATXContinuousUsageAccumulator successfullyAccumulatedContinuousUseEvents]";
+  v5 = 2112;
+  v6 = v2;
+  _os_log_error_impl(&dword_2263AA000, a2, OS_LOG_TYPE_ERROR, "%s: Error reading merged publishers: %@", &v3, 0x16u);
 }
 
 @end

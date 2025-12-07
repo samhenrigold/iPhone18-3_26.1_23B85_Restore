@@ -1004,7 +1004,7 @@ LABEL_29:
 
       else if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
-        sub_10004B500(v78, &v79);
+        sub_10004B500(v78, &v78[4]);
       }
     }
 
@@ -1175,7 +1175,7 @@ LABEL_70:
     v42 = object;
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_10004B6A0(name, location);
+      sub_10004B6A0();
     }
 
     goto LABEL_95;
@@ -1223,7 +1223,7 @@ LABEL_70:
 LABEL_95:
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
-      sub_10004B9A8(name, location);
+      sub_10004B9A8();
     }
 
     IOObjectRelease(v42);

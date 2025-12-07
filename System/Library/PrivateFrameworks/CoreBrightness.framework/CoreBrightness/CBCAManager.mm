@@ -182,10 +182,9 @@ uint64_t __52__CBCAManager_updateDigitalDimmingBrightnessScaler___block_invoke(u
     v3 = [objc_msgSend(MEMORY[0x1E6979550] "serverIfRunning")];
     v4 = *(a1 + 32);
     *&v5 = *(v4 + 76) * *(v4 + 80);
-    result = [v3 setColorMatrix:v4 + 40 scale:v5 rampDuration:0.0];
+    return [v3 setColorMatrix:v4 + 40 scale:v5 rampDuration:0.0];
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -200,48 +199,48 @@ uint64_t __52__CBCAManager_updateDigitalDimmingBrightnessScaler___block_invoke(u
 
 void __40__CBCAManager_colorRampPropertyHandler___block_invoke(uint64_t a1, void *a2, uint64_t a3, uint64_t a4)
 {
-  v49 = *MEMORY[0x1E69E9840];
-  v44 = a1;
-  v43 = a2;
-  v42 = a3;
-  v41 = a4;
-  v40 = a1;
+  v48 = *MEMORY[0x1E69E9840];
+  v43 = a1;
+  v42 = a2;
+  v41 = a3;
+  v40 = a4;
+  v39 = a1;
   objc_opt_class();
   if (objc_opt_isKindOfClass())
   {
-    v39 = [*(a1 + 32) objectForKey:@"ColorRampTarget"];
+    v38 = [*(a1 + 32) objectForKey:@"ColorRampTarget"];
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
-      v38 = 0;
-      v37 = [*(a1 + 32) objectForKey:@"ColorRampPeriod"];
+      v37 = 0;
+      v36 = [*(a1 + 32) objectForKey:@"ColorRampPeriod"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        [v37 doubleValue];
-        v38 = v4;
+        [v36 doubleValue];
+        v37 = v4;
       }
 
-      v36 = 1.0;
-      v35 = [*(a1 + 32) objectForKey:@"ColorScaler"];
+      v35 = 1.0;
+      v34 = [*(a1 + 32) objectForKey:@"ColorScaler"];
       objc_opt_class();
       if (objc_opt_isKindOfClass())
       {
-        [v35 floatValue];
-        v36 = v5;
+        [v34 floatValue];
+        v35 = v5;
       }
 
-      if ([v39 count] == 9)
+      if ([v38 count] == 9)
       {
         for (i = 0; i < 9; ++i)
         {
-          [objc_msgSend(v39 objectAtIndex:{i), "floatValue"}];
-          v48[i] = v6;
+          [objc_msgSend(v38 objectAtIndex:{i), "floatValue"}];
+          v47[i] = v6;
         }
 
         if (*(*(a1 + 40) + 16))
         {
-          v22 = *(*(a1 + 40) + 16);
+          v21 = *(*(a1 + 40) + 16);
         }
 
         else
@@ -256,63 +255,62 @@ void __40__CBCAManager_colorRampPropertyHandler___block_invoke(uint64_t a1, void
             inited = init_default_corebrightness_log();
           }
 
-          v22 = inited;
+          v21 = inited;
         }
 
-        v33 = v22;
-        v32 = OS_LOG_TYPE_DEBUG;
-        if (os_log_type_enabled(v22, OS_LOG_TYPE_DEBUG))
+        v32 = v21;
+        v31 = OS_LOG_TYPE_DEBUG;
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
         {
-          __os_log_helper_16_2_3_4_0_8_64_8_0(v47, [v43 displayId], v39, v38);
-          _os_log_debug_impl(&dword_1DE8E5000, v33, v32, "pushing matrix to display %u CA: %@ with ramp period %f", v47, 0x1Cu);
+          __os_log_helper_16_2_3_4_0_8_64_8_0(v46, [v42 displayId], v38, v37);
+          _os_log_debug_impl(&dword_1DE8E5000, v32, v31, "pushing matrix to display %u CA: %@ with ramp period %f", v46, 0x1Cu);
         }
 
-        v7 = *(a1 + 40);
         __memcpy_chk();
-        *(*(a1 + 40) + 76) = v36;
-        v8 = [objc_msgSend(MEMORY[0x1E6979550] "serverIfRunning")];
-        *&v9 = v36 * *(*(a1 + 40) + 80);
-        [v8 setColorMatrix:v48 scale:v9 rampDuration:*&v38];
-        v31 = [*(a1 + 32) objectForKey:@"ColorRampWhitePointTarget"];
-        if ([v31 count] == 2)
+        *(*(a1 + 40) + 76) = v35;
+        v7 = [objc_msgSend(MEMORY[0x1E6979550] "serverIfRunning")];
+        *&v8 = v35 * *(*(a1 + 40) + 80);
+        [v7 setColorMatrix:v47 scale:v8 rampDuration:*&v37];
+        v30 = [*(a1 + 32) objectForKey:@"ColorRampWhitePointTarget"];
+        if ([v30 count] == 2)
         {
-          [v31 objectAtIndexedSubscript:0];
+          [v30 objectAtIndexedSubscript:0];
           objc_opt_class();
           if (objc_opt_isKindOfClass())
           {
-            [v31 objectAtIndexedSubscript:1];
+            [v30 objectAtIndexedSubscript:1];
             objc_opt_class();
             if (objc_opt_isKindOfClass())
             {
               if (*(*(a1 + 40) + 16))
               {
-                v20 = *(*(a1 + 40) + 16);
+                v19 = *(*(a1 + 40) + 16);
               }
 
               else
               {
                 if (_COREBRIGHTNESS_LOG_DEFAULT)
                 {
-                  v19 = _COREBRIGHTNESS_LOG_DEFAULT;
+                  v18 = _COREBRIGHTNESS_LOG_DEFAULT;
                 }
 
                 else
                 {
-                  v19 = init_default_corebrightness_log();
+                  v18 = init_default_corebrightness_log();
                 }
 
-                v20 = v19;
+                v19 = v18;
               }
 
-              oslog = v20;
-              v29 = OS_LOG_TYPE_INFO;
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_INFO))
+              oslog = v19;
+              v28 = OS_LOG_TYPE_INFO;
+              if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
               {
-                [objc_msgSend(v31 objectAtIndex:{0), "floatValue"}];
-                *&v18 = v10;
-                [objc_msgSend(v31 objectAtIndex:{1), "floatValue"}];
-                __os_log_helper_16_0_3_8_0_8_0_8_0(v46, v18, COERCE__INT64(v11), v38);
-                _os_log_impl(&dword_1DE8E5000, oslog, v29, "pushing white point [%f, %f] with ramp period %f", v46, 0x20u);
+                [objc_msgSend(v30 objectAtIndex:{0), "floatValue"}];
+                *&v17 = v9;
+                [objc_msgSend(v30 objectAtIndex:{1), "floatValue"}];
+                __os_log_helper_16_0_3_8_0_8_0_8_0(v45, v17, COERCE__INT64(v10), v37);
+                _os_log_impl(&dword_1DE8E5000, oslog, v28, "pushing white point [%f, %f] with ramp period %f", v45, 0x20u);
               }
             }
           }
@@ -323,30 +321,30 @@ void __40__CBCAManager_colorRampPropertyHandler___block_invoke(uint64_t a1, void
       {
         if (*(*(a1 + 40) + 16))
         {
-          v17 = *(*(a1 + 40) + 16);
+          v16 = *(*(a1 + 40) + 16);
         }
 
         else
         {
           if (_COREBRIGHTNESS_LOG_DEFAULT)
           {
-            v16 = _COREBRIGHTNESS_LOG_DEFAULT;
+            v15 = _COREBRIGHTNESS_LOG_DEFAULT;
           }
 
           else
           {
-            v16 = init_default_corebrightness_log();
+            v15 = init_default_corebrightness_log();
           }
 
-          v17 = v16;
+          v16 = v15;
         }
 
-        v28 = v17;
-        v27 = OS_LOG_TYPE_ERROR;
-        if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+        v27 = v16;
+        v26 = OS_LOG_TYPE_ERROR;
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
         {
-          __os_log_helper_16_0_1_8_0(v45, [v39 count]);
-          _os_log_error_impl(&dword_1DE8E5000, v28, v27, "Unexpected number or elements in the matrix (%lu)", v45, 0xCu);
+          __os_log_helper_16_0_1_8_0(v44, [v38 count]);
+          _os_log_error_impl(&dword_1DE8E5000, v27, v26, "Unexpected number or elements in the matrix (%lu)", v44, 0xCu);
         }
       }
     }
@@ -355,37 +353,35 @@ void __40__CBCAManager_colorRampPropertyHandler___block_invoke(uint64_t a1, void
     {
       if (*(*(a1 + 40) + 16))
       {
-        v15 = *(*(a1 + 40) + 16);
+        v14 = *(*(a1 + 40) + 16);
       }
 
       else
       {
         if (_COREBRIGHTNESS_LOG_DEFAULT)
         {
-          v14 = _COREBRIGHTNESS_LOG_DEFAULT;
+          v13 = _COREBRIGHTNESS_LOG_DEFAULT;
         }
 
         else
         {
-          v14 = init_default_corebrightness_log();
+          v13 = init_default_corebrightness_log();
         }
 
-        v15 = v14;
+        v14 = v13;
       }
 
-      v26 = v15;
-      v25 = OS_LOG_TYPE_ERROR;
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+      v25 = v14;
+      v24 = OS_LOG_TYPE_ERROR;
+      if (os_log_type_enabled(v14, OS_LOG_TYPE_ERROR))
       {
-        v12 = v26;
-        v13 = v25;
-        __os_log_helper_16_0_0(v24);
-        _os_log_error_impl(&dword_1DE8E5000, v12, v13, "Unexpected color ramp target type", v24, 2u);
+        v11 = v25;
+        v12 = v24;
+        __os_log_helper_16_0_0(v23);
+        _os_log_error_impl(&dword_1DE8E5000, v11, v12, "Unexpected color ramp target type", v23, 2u);
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)displayBrightnessPropertyHandler:(id)handler
@@ -583,8 +579,6 @@ void __48__CBCAManager_displayBrightnessPropertyHandler___block_invoke(uint64_t 
       }
     }
   }
-
-  *MEMORY[0x1E69E9840];
 }
 
 - (void)nitsThresholdPLCPropertyHandler:(id)handler
@@ -683,10 +677,9 @@ uint64_t __47__CBCAManager_nitsThresholdPLCPropertyHandler___block_invoke(uint64
       _os_log_impl(&dword_1DE8E5000, v5, OS_LOG_TYPE_INFO, "pushing update in compositing to CA: %s", v8, 0xCu);
     }
 
-    result = [objc_msgSend(objc_msgSend(MEMORY[0x1E6979550] "serverIfRunning")];
+    return [objc_msgSend(objc_msgSend(MEMORY[0x1E6979550] "serverIfRunning")];
   }
 
-  *MEMORY[0x1E69E9840];
   return result;
 }
 

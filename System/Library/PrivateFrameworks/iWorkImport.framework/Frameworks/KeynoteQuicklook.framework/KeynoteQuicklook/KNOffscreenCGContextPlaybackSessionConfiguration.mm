@@ -11,57 +11,55 @@
 {
   height = size.height;
   width = size.width;
-  v17.receiver = self;
-  v17.super_class = KNOffscreenCGContextPlaybackSessionConfiguration;
-  initSuperclass = [(KNPlaybackSessionConfiguration *)&v17 initSuperclass];
-  v10 = initSuperclass;
+  v11.receiver = self;
+  v11.super_class = KNOffscreenCGContextPlaybackSessionConfiguration;
+  initSuperclass = [(KNPlaybackSessionConfiguration *)&v11 initSuperclass];
+  v8 = initSuperclass;
   if (initSuperclass)
   {
     initSuperclass->_boundsSize.width = width;
     initSuperclass->_boundsSize.height = height;
     if (enabled)
     {
-      v11 = objc_msgSend_currentCapabilities(MEMORY[0x277D801F0], v8, v9);
-      isHDRCapable = objc_msgSend_isHDRCapable(v11, v12, v13);
-      objc_msgSend_setSupportsHDR_(v10, v15, isHDRCapable);
+      currentCapabilities = [MEMORY[0x277D801F0] currentCapabilities];
+      -[KNPlaybackSessionConfiguration setSupportsHDR:](v8, "setSupportsHDR:", [currentCapabilities isHDRCapable]);
     }
 
     else
     {
-      objc_msgSend_setSupportsHDR_(initSuperclass, v8, 0);
+      [(KNPlaybackSessionConfiguration *)initSuperclass setSupportsHDR:0];
     }
   }
 
-  return v10;
+  return v8;
 }
 
 - (id)description
 {
-  v3 = objc_alloc(MEMORY[0x277D811A8]);
-  v5 = objc_msgSend_initWithObject_(v3, v4, self);
-  v6 = NSStringFromCGSize(self->_boundsSize);
-  objc_msgSend_addField_format_(v5, v7, @"boundsSize", @"%@", v6);
+  v3 = [objc_alloc(MEMORY[0x277D811A8]) initWithObject:self];
+  v4 = NSStringFromCGSize(self->_boundsSize);
+  [v3 addField:@"boundsSize" format:{@"%@", v4}];
 
-  v10 = objc_msgSend_descriptionString(v5, v8, v9);
+  descriptionString = [v3 descriptionString];
 
-  return v10;
+  return descriptionString;
 }
 
 - (KNOffscreenCGContextPlaybackSessionConfiguration)configurationWithUpdatedLayerScreenEnvironment
 {
   v2 = MEMORY[0x277D81150];
-  v3 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[KNOffscreenCGContextPlaybackSessionConfiguration configurationWithUpdatedLayerScreenEnvironment]");
-  v5 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v4, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m");
-  objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v2, v6, v3, v5, 538, 0, "Do not call method");
+  v3 = [MEMORY[0x277CCACA8] stringWithUTF8String:"-[KNOffscreenCGContextPlaybackSessionConfiguration configurationWithUpdatedLayerScreenEnvironment]"];
+  v4 = [MEMORY[0x277CCACA8] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/iWorkImport/keynote/Classes/KNPlaybackSessionConfiguration.m"];
+  [v2 handleFailureInFunction:v3 file:v4 lineNumber:538 isFatal:0 description:"Do not call method"];
 
-  objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v7, v8);
-  v9 = MEMORY[0x277CBEAD8];
-  v10 = *MEMORY[0x277CBE658];
-  v12 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v11, @"%s: %s", "Do not call method", "[KNOffscreenCGContextPlaybackSessionConfiguration configurationWithUpdatedLayerScreenEnvironment]");
-  v14 = objc_msgSend_exceptionWithName_reason_userInfo_(v9, v13, v10, v12, 0);
-  v15 = v14;
+  [MEMORY[0x277D81150] logBacktraceThrottled];
+  v5 = MEMORY[0x277CBEAD8];
+  v6 = *MEMORY[0x277CBE658];
+  v7 = [MEMORY[0x277CCACA8] stringWithFormat:@"%s: %s", "Do not call method", "-[KNOffscreenCGContextPlaybackSessionConfiguration configurationWithUpdatedLayerScreenEnvironment]"];
+  v8 = [v5 exceptionWithName:v6 reason:v7 userInfo:0];
+  v9 = v8;
 
-  objc_exception_throw(v14);
+  objc_exception_throw(v8);
 }
 
 - (CGSize)boundsSize

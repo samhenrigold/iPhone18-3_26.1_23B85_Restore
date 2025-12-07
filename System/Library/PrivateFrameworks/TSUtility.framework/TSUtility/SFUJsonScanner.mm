@@ -180,7 +180,7 @@ LABEL_7:
       {
         if (nextCharacter2 == 92)
         {
-          v10 = @"\\"";
+          v10 = @"\";
         }
 
         else

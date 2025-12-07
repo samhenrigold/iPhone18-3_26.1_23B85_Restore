@@ -117,14 +117,15 @@
 
 - ($F24F406B2B787EFB06265DBA3D28CBD5)colorWheelCoordinateForPoint:(CGPoint)point boundedToWheel:(BOOL)wheel
 {
+  wheelCopy = wheel;
   y = point.y;
   x = point.x;
   [(HUColorWheelView *)self bounds];
   [(HUColorWheelView *)self wheelHoleRadius];
 
-  HUColorWheelCoordinateForPoint(x, y);
-  result.var1 = v8;
-  result.var0 = v7;
+  HUColorWheelCoordinateForPoint(wheelCopy, x, y);
+  result.var1 = v9;
+  result.var0 = v8;
   return result;
 }
 
@@ -143,52 +144,52 @@
   [(HUColorWheelView *)self bounds];
   UIRectGetCenter();
   [(HUColorWheelView *)self bounds];
-  v6 = HUSizeRoundedToScreenScale();
-  v8 = v7;
+  v8 = HUSizeRoundedToScreenScale(v6, v7);
+  v10 = v9;
   [objc_opt_class() _colorWheelRenderingScale];
   [(HUColorWheelView *)self wheelHoleRadius];
-  v10 = v9;
+  v12 = v11;
   colorWheelSpace2 = [(HUColorWheelView *)self colorWheelSpace];
-  v12 = v6;
-  v13 = v8;
-  if (*&v6 != *&v8)
+  v14 = v8;
+  v15 = v10;
+  if (*&v8 != *&v10)
   {
-    v33.width = v6;
-    v33.height = v8;
-    v14 = NSStringFromCGSize(v33);
-    NSLog(&cfstr_AttemptingToDr.isa, v14);
+    v35.width = v8;
+    v35.height = v10;
+    v16 = NSStringFromCGSize(v35);
+    NSLog(&cfstr_AttemptingToDr.isa, v16);
   }
 
   DeviceRGB = CGColorSpaceCreateDeviceRGB();
-  v16 = CGBitmapContextCreateWithData(0, v6, v8, 8uLL, 4 * v12, DeviceRGB, 0x4001u, 0, 0);
-  Data = CGBitmapContextGetData(v16);
-  v27 = *MEMORY[0x277CBF348];
-  v18 = v13;
-  v19 = v12 * v13;
-  v20 = dispatch_get_global_queue(25, 0);
+  v18 = CGBitmapContextCreateWithData(0, v8, v10, 8uLL, 4 * v14, DeviceRGB, 0x4001u, 0, 0);
+  Data = CGBitmapContextGetData(v18);
+  v29 = *MEMORY[0x277CBF348];
+  v20 = v15;
+  v21 = v14 * v15;
+  v22 = dispatch_get_global_queue(25, 0);
   block[0] = MEMORY[0x277D85DD0];
   block[1] = 3221225472;
   block[2] = __HUCreateColorWheelImage_block_invoke;
   block[3] = &unk_277DB9C30;
-  v28 = v12;
-  v29 = v18;
-  v30 = v10;
-  v25 = colorWheelSpace2;
-  v26 = v6;
-  v31 = 4;
-  v32 = Data;
-  v21 = colorWheelSpace2;
-  dispatch_apply(v19, v20, block);
+  v30 = v14;
+  v31 = v20;
+  v32 = v12;
+  v27 = colorWheelSpace2;
+  v28 = v8;
+  v33 = 4;
+  v34 = Data;
+  v23 = colorWheelSpace2;
+  dispatch_apply(v21, v22, block);
 
-  Image = CGBitmapContextCreateImage(v16);
-  v23 = [MEMORY[0x277D755B8] imageWithCGImage:Image scale:0 orientation:1.0];
-  CGContextRelease(v16);
+  Image = CGBitmapContextCreateImage(v18);
+  v25 = [MEMORY[0x277D755B8] imageWithCGImage:Image scale:0 orientation:1.0];
+  CGContextRelease(v18);
   CGColorSpaceRelease(DeviceRGB);
   CGImageRelease(Image);
 
-  [v23 size];
+  [v25 size];
   UIRectCenteredAboutPoint();
-  [v23 drawInRect:?];
+  [v25 drawInRect:?];
 }
 
 @end

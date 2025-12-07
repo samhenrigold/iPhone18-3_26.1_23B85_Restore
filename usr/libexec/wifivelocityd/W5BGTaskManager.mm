@@ -37,17 +37,15 @@
     v9 = sub_100098A04();
     if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 136315906;
-      v23 = "[W5BGTaskManager scheduleRepeatingTask:interval:repeatingTask:]";
-      v24 = 2080;
-      v25 = "W5BGTaskManager.m";
-      v26 = 1024;
-      v27 = 40;
-      v28 = 2114;
+      v20 = 136315906;
+      v21 = "[W5BGTaskManager scheduleRepeatingTask:interval:repeatingTask:]";
+      v22 = 2080;
+      v23 = "W5BGTaskManager.m";
+      v24 = 1024;
+      v25 = 40;
+      v26 = 2114;
       taskCopy4 = task;
-LABEL_9:
-      _os_log_send_and_compose_impl();
-      return 0;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v9, 0, "[wifivelocity] %s (%s:%u) Task: %{public}@ already registered", &v20, 38);
     }
 
     return 0;
@@ -62,20 +60,20 @@ LABEL_9:
   if (([(BGSystemTaskScheduler *)scheduler registerForTaskWithIdentifier:task usingQueue:0 launchHandler:repeatingTask]& 1) == 0)
   {
     v18 = sub_100098A04();
-    if (!os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      return 0;
+      v20 = 136315906;
+      v21 = "[W5BGTaskManager scheduleRepeatingTask:interval:repeatingTask:]";
+      v22 = 2080;
+      v23 = "W5BGTaskManager.m";
+      v24 = 1024;
+      v25 = 50;
+      v26 = 2114;
+      taskCopy4 = task;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v18, 0, "[wifivelocity] %s (%s:%u) Failed to register task: %{public}@", &v20, 38);
     }
 
-    v22 = 136315906;
-    v23 = "[W5BGTaskManager scheduleRepeatingTask:interval:repeatingTask:]";
-    v24 = 2080;
-    v25 = "W5BGTaskManager.m";
-    v26 = 1024;
-    v27 = 50;
-    v28 = 2114;
-    taskCopy4 = task;
-    goto LABEL_9;
+    return 0;
   }
 
   if ([(BGSystemTaskScheduler *)self->_scheduler taskRequestForIdentifier:task])
@@ -83,15 +81,15 @@ LABEL_9:
     v11 = sub_100098A04();
     if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
     {
-      v22 = 136315906;
-      v23 = "[W5BGTaskManager scheduleRepeatingTask:interval:repeatingTask:]";
-      v24 = 2080;
-      v25 = "W5BGTaskManager.m";
-      v26 = 1024;
-      v27 = 53;
-      v28 = 2114;
+      v20 = 136315906;
+      v21 = "[W5BGTaskManager scheduleRepeatingTask:interval:repeatingTask:]";
+      v22 = 2080;
+      v23 = "W5BGTaskManager.m";
+      v24 = 1024;
+      v25 = 53;
+      v26 = 2114;
       taskCopy4 = task;
-      goto LABEL_9;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v11, 0, "[wifivelocity] %s (%s:%u) Task: %{public}@ already exists", &v20, 38);
     }
 
     return 0;
@@ -103,7 +101,7 @@ LABEL_9:
   [v14 setInterval:interval];
   [v14 setMinDurationBetweenInstances:interval];
   [v14 setShouldWakeDevice:0];
-  v21 = 0;
+  v19 = 0;
   v12 = [+[BGSystemTaskScheduler sharedScheduler](BGSystemTaskScheduler "sharedScheduler")];
   v15 = sub_100098A04();
   v16 = os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT);
@@ -111,39 +109,37 @@ LABEL_9:
   {
     if (v16)
     {
-      v22 = 136315906;
-      v23 = "[W5BGTaskManager scheduleRepeatingTask:interval:repeatingTask:]";
-      v24 = 2080;
-      v25 = "W5BGTaskManager.m";
-      v26 = 1024;
-      v27 = 70;
-      v28 = 2114;
+      v20 = 136315906;
+      v21 = "[W5BGTaskManager scheduleRepeatingTask:interval:repeatingTask:]";
+      v22 = 2080;
+      v23 = "W5BGTaskManager.m";
+      v24 = 1024;
+      v25 = 70;
+      v26 = 2114;
       taskCopy4 = task;
-      LODWORD(v20) = 38;
-      v19 = &v22;
-      _os_log_send_and_compose_impl();
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v15, 0, "[wifivelocity] %s (%s:%u) Scheduled periodic task: %{public}@", &v20, 38);
     }
 
-    [(NSMutableArray *)self->_registeredIdentifiers addObject:task, v19, v20];
+    [(NSMutableArray *)self->_registeredIdentifiers addObject:task];
   }
 
   else if (v16)
   {
-    v17 = v21;
-    if (!v21)
+    v17 = v19;
+    if (!v19)
     {
       v17 = @"Unknown";
     }
 
-    v22 = 136315906;
-    v23 = "[W5BGTaskManager scheduleRepeatingTask:interval:repeatingTask:]";
-    v24 = 2080;
-    v25 = "W5BGTaskManager.m";
-    v26 = 1024;
-    v27 = 66;
-    v28 = 2114;
+    v20 = 136315906;
+    v21 = "[W5BGTaskManager scheduleRepeatingTask:interval:repeatingTask:]";
+    v22 = 2080;
+    v23 = "W5BGTaskManager.m";
+    v24 = 1024;
+    v25 = 66;
+    v26 = 2114;
     taskCopy4 = v17;
-    _os_log_send_and_compose_impl();
+    _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v15, 0, "[wifivelocity] %s (%s:%u) Failed to submit task with error: %{public}@", &v20, 38);
   }
 
   return v12;
@@ -151,40 +147,39 @@ LABEL_9:
 
 - (void)stopAllRepeatingTasks
 {
-  v9[0] = 0;
-  v9[1] = v9;
-  v9[2] = 0x2020000000;
-  v10 = 0;
+  v13[0] = 0;
+  v13[1] = v13;
+  v13[2] = 0x2020000000;
+  v14 = 0;
   if (self->_scheduler)
   {
     v3 = [(NSMutableArray *)self->_registeredIdentifiers count];
     v4 = sub_100098A04();
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 136315906;
-      v12 = "[W5BGTaskManager stopAllRepeatingTasks]";
-      v13 = 2080;
-      v14 = "W5BGTaskManager.m";
-      v15 = 1024;
-      v16 = 87;
-      v17 = 2048;
-      v18 = v3;
-      LODWORD(v7) = 38;
-      v6 = &v11;
-      _os_log_send_and_compose_impl();
+      v15 = 136315906;
+      v16 = "[W5BGTaskManager stopAllRepeatingTasks]";
+      v17 = 2080;
+      v18 = "W5BGTaskManager.m";
+      v19 = 1024;
+      v20 = 87;
+      v21 = 2048;
+      v22 = v3;
+      LODWORD(v6) = 38;
+      _os_log_send_and_compose_impl(1, 0, 0, 0, &_mh_execute_header, v4, 0, "[wifivelocity] %s (%s:%u) #Registered Tasks: %ld", &v15, v6, v7, v8);
     }
 
     registeredIdentifiers = self->_registeredIdentifiers;
-    v8[0] = _NSConcreteStackBlock;
-    v8[1] = 3221225472;
-    v8[2] = sub_1000023BC;
-    v8[3] = &unk_1000E0FB0;
-    v8[4] = self;
-    v8[5] = v9;
-    [(NSMutableArray *)self->_registeredIdentifiers removeObjectsAtIndexes:[(NSMutableArray *)registeredIdentifiers indexesOfObjectsPassingTest:v8, v6, v7]];
+    v7 = _NSConcreteStackBlock;
+    v8 = 3221225472;
+    v9 = sub_1000023BC;
+    v10 = &unk_1000E0FB0;
+    selfCopy = self;
+    v12 = v13;
+    [(NSMutableArray *)self->_registeredIdentifiers removeObjectsAtIndexes:[(NSMutableArray *)registeredIdentifiers indexesOfObjectsPassingTest:&v7]];
   }
 
-  _Block_object_dispose(v9, 8);
+  _Block_object_dispose(v13, 8);
 }
 
 - (void)dealloc

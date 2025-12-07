@@ -105,44 +105,48 @@
     shouldLog = [(AnalyticsRecordingOperation *)v9 shouldLog];
     if ([(AnalyticsRecordingOperation *)v9 shouldLogToDisk])
     {
-      v12 = shouldLog | 2;
+      LODWORD(v12) = shouldLog | 2;
     }
 
     else
     {
-      v12 = shouldLog;
+      LODWORD(v12) = shouldLog;
     }
 
     oSLogObject = [(AnalyticsRecordingOperation *)v9 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v12 = v12;
+    }
+
+    else
     {
       v12 &= 2u;
     }
 
     if (v12)
     {
-      v18 = 138543362;
-      v19 = objc_opt_class();
-      v14 = v19;
-      LODWORD(v16) = 12;
-      v15 = _os_log_send_and_compose_impl();
+      v17 = 138543362;
+      v18 = objc_opt_class();
+      v14 = v18;
+      v15 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Operation failed with no dialog event to report", &v17, 12);
 
       if (!v15)
       {
-        goto LABEL_16;
+        goto LABEL_17;
       }
 
-      oSLogObject = [NSString stringWithCString:v15 encoding:4, &v18, v16];
+      oSLogObject = [NSString stringWithCString:v15 encoding:4];
       free(v15);
       SSFileLog();
     }
 
-    goto LABEL_16;
+    goto LABEL_17;
   }
 
   v7 = [AnalyticsRecordingOperation alloc];
-  v17 = eventCopy;
-  v8 = [NSArray arrayWithObjects:&v17 count:1];
+  v16 = eventCopy;
+  v8 = [NSArray arrayWithObjects:&v16 count:1];
   v9 = [(AnalyticsRecordingOperation *)v7 initWithMetricsEvents:v8];
 
   if (topicCopy)
@@ -153,7 +157,7 @@
   v10 = +[ISOperationQueue mainQueue];
   [v10 addOperation:v9];
 
-LABEL_16:
+LABEL_17:
 }
 
 - (void)configureDuet
@@ -204,10 +208,10 @@ LABEL_16:
   if (![(MetricsController *)self _hasEntitlements:connectionCopy])
   {
     [(MetricsController *)self _sendUnentitledResponseToMessage:messageCopy connection:connectionCopy];
-    goto LABEL_21;
+    goto LABEL_22;
   }
 
-  v26 = 0;
+  v25 = 0;
   v8 = SSXPCConnectionCopyClientIdentifier();
   objc_opt_class();
   v9 = SSXPCDictionaryCopyObjectWithClass();
@@ -220,50 +224,53 @@ LABEL_16:
   shouldLog = [v10 shouldLog];
   if ([v10 shouldLogToDisk])
   {
-    v12 = shouldLog | 2;
+    LODWORD(v12) = shouldLog | 2;
   }
 
   else
   {
-    v12 = shouldLog;
+    LODWORD(v12) = shouldLog;
   }
 
   oSLogObject = [v10 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v12 = v12;
+  }
+
+  else
   {
     v12 &= 2u;
   }
 
   if (!v12)
   {
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
   v14 = objc_opt_class();
   v15 = v14;
-  v27 = 138412802;
-  v28 = v14;
-  v29 = 1024;
-  v30 = [v9 count];
-  v31 = 2112;
-  v32 = v8;
-  LODWORD(v24) = 28;
-  v23 = &v27;
-  v16 = _os_log_send_and_compose_impl();
+  v26 = 138412802;
+  v27 = v14;
+  v28 = 1024;
+  v29 = [v9 count];
+  v30 = 2112;
+  v31 = v8;
+  v16 = _os_log_send_and_compose_impl(v12, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[%@] Insert Events received through XPC: %d requested by [%@]", &v26, 28);
 
   if (v16)
   {
-    oSLogObject = [NSString stringWithCString:v16 encoding:4, &v27, v24];
+    oSLogObject = [NSString stringWithCString:v16 encoding:4];
     free(v16);
     v23 = oSLogObject;
     SSFileLog();
-LABEL_12:
+LABEL_13:
   }
 
   eventController = self->_eventController;
-  v25 = 0;
-  v18 = [(SSMetricsEventController *)eventController insertEventSummaries:v9 error:&v25];
-  v19 = v25;
+  v24 = 0;
+  v18 = [(SSMetricsEventController *)eventController insertEventSummaries:v9 error:&v24];
+  v19 = v24;
   reply = xpc_dictionary_create_reply(messageCopy);
   if (v18)
   {
@@ -290,7 +297,7 @@ LABEL_12:
   SSXPCDictionarySetObject();
 
   xpc_connection_send_message(connectionCopy, reply);
-LABEL_21:
+LABEL_22:
 }
 
 - (void)recordAnalyticsWithMetricsDialogEventWithMessage:(id)message connection:(id)connection
@@ -320,7 +327,7 @@ LABEL_21:
       v15 = +[ISOperationQueue mainQueue];
       [v15 addOperation:v14];
 
-      goto LABEL_18;
+      goto LABEL_19;
     }
 
     v14 = +[SSLogConfig sharedDaemonConfig];
@@ -332,49 +339,53 @@ LABEL_21:
     shouldLog = [(AnalyticsRecordingOperation *)v14 shouldLog];
     if ([(AnalyticsRecordingOperation *)v14 shouldLogToDisk])
     {
-      v17 = shouldLog | 2;
+      LODWORD(v17) = shouldLog | 2;
     }
 
     else
     {
-      v17 = shouldLog;
+      LODWORD(v17) = shouldLog;
     }
 
     oSLogObject = [(AnalyticsRecordingOperation *)v14 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v17 = v17;
+    }
+
+    else
     {
       v17 &= 2u;
     }
 
     if (v17)
     {
-      LODWORD(v23) = 138543362;
-      *(&v23 + 4) = objc_opt_class();
-      v19 = *(&v23 + 4);
-      LODWORD(v22) = 12;
-      v20 = _os_log_send_and_compose_impl();
+      v22 = 138543362;
+      v23 = objc_opt_class();
+      v19 = v23;
+      v20 = _os_log_send_and_compose_impl(v17, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "%{public}@: Failed to find metrics dialog event", &v22, 12);
 
       if (!v20)
       {
-LABEL_18:
+LABEL_19:
 
         reply = xpc_dictionary_create_reply(messageCopy);
         xpc_dictionary_set_BOOL(reply, "0", v10 != 0);
         xpc_connection_send_message(connectionCopy, reply);
 
-        goto LABEL_19;
+        goto LABEL_20;
       }
 
-      oSLogObject = [NSString stringWithCString:v20 encoding:4, &v23, v22, v23];
+      oSLogObject = [NSString stringWithCString:v20 encoding:4];
       free(v20);
       SSFileLog();
     }
 
-    goto LABEL_18;
+    goto LABEL_19;
   }
 
   [(MetricsController *)self _sendUnentitledResponseToMessage:messageCopy connection:connectionCopy];
-LABEL_19:
+LABEL_20:
 }
 
 - (void)reportEventsWithMessage:(id)message connection:(id)connection
@@ -383,7 +394,7 @@ LABEL_19:
   connectionCopy = connection;
   if ([(MetricsController *)self _hasEntitlements:connectionCopy])
   {
-    v26 = 0;
+    v25 = 0;
     v8 = SSXPCConnectionCopyClientIdentifier();
     backoffRetryTimer = self->_backoffRetryTimer;
     v10 = +[SSLogConfig sharedDaemonConfig];
@@ -398,48 +409,52 @@ LABEL_19:
       shouldLog = [v11 shouldLog];
       if ([v11 shouldLogToDisk])
       {
-        v13 = shouldLog | 2;
+        LODWORD(v13) = shouldLog | 2;
       }
 
       else
       {
-        v13 = shouldLog;
+        LODWORD(v13) = shouldLog;
       }
 
       oSLogObject = [v11 OSLogObject];
-      if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+      {
+        v13 = v13;
+      }
+
+      else
       {
         v13 &= 2u;
       }
 
       if (v13)
       {
-        v27 = 138412546;
-        v28 = objc_opt_class();
-        v29 = 2112;
-        v30 = v8;
-        v15 = v28;
-        LODWORD(v24) = 22;
-        v16 = _os_log_send_and_compose_impl();
+        v26 = 138412546;
+        v27 = objc_opt_class();
+        v28 = 2112;
+        v29 = v8;
+        v15 = v27;
+        v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "[%@] Ignore report event for request during backoff for client: %@", &v26, 22);
 
         if (!v16)
         {
-LABEL_14:
+LABEL_15:
 
-LABEL_28:
+LABEL_30:
           reply = xpc_dictionary_create_reply(messageCopy);
           SSXPCDictionarySetObject();
           xpc_connection_send_message(connectionCopy, reply);
 
-          goto LABEL_29;
+          goto LABEL_31;
         }
 
-        oSLogObject = [NSString stringWithCString:v16 encoding:4, &v27, v24];
+        oSLogObject = [NSString stringWithCString:v16 encoding:4];
         free(v16);
         SSFileLog();
       }
 
-      goto LABEL_14;
+      goto LABEL_15;
     }
 
     if (!v10)
@@ -450,33 +465,37 @@ LABEL_28:
     shouldLog2 = [v11 shouldLog];
     if ([v11 shouldLogToDisk])
     {
-      v18 = shouldLog2 | 2;
+      LODWORD(v18) = shouldLog2 | 2;
     }
 
     else
     {
-      v18 = shouldLog2;
+      LODWORD(v18) = shouldLog2;
     }
 
     oSLogObject2 = [v11 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+    {
+      v18 = v18;
+    }
+
+    else
     {
       v18 &= 2u;
     }
 
     if (v18)
     {
-      v27 = 138412546;
-      v28 = objc_opt_class();
-      v29 = 2112;
-      v30 = v8;
-      v20 = v28;
-      LODWORD(v24) = 22;
-      v21 = _os_log_send_and_compose_impl();
+      v26 = 138412546;
+      v27 = objc_opt_class();
+      v28 = 2112;
+      v29 = v8;
+      v20 = v27;
+      v21 = _os_log_send_and_compose_impl(v18, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "[%@] Report Events requested by [%@]", &v26, 22);
 
       if (!v21)
       {
-LABEL_27:
+LABEL_29:
 
         dispatchQueue = self->_dispatchQueue;
         block[0] = _NSConcreteStackBlock;
@@ -485,19 +504,19 @@ LABEL_27:
         block[3] = &unk_100327110;
         block[4] = self;
         dispatch_async(dispatchQueue, block);
-        goto LABEL_28;
+        goto LABEL_30;
       }
 
-      oSLogObject2 = [NSString stringWithCString:v21 encoding:4, &v27, v24];
+      oSLogObject2 = [NSString stringWithCString:v21 encoding:4];
       free(v21);
       SSFileLog();
     }
 
-    goto LABEL_27;
+    goto LABEL_29;
   }
 
   [(MetricsController *)self _sendUnentitledResponseToMessage:messageCopy connection:connectionCopy];
-LABEL_29:
+LABEL_31:
 }
 
 - (void)setInternalSettingsWithMessage:(id)message connection:(id)connection
@@ -602,16 +621,16 @@ LABEL_29:
   if (operationCount < 4)
   {
     v5 = [[AnalyticsReportingOperation alloc] initWithController:self->_eventController];
-    v13[0] = _NSConcreteStackBlock;
-    v13[1] = 3221225472;
-    v13[2] = sub_1001E2558;
-    v13[3] = &unk_10032BE70;
-    v13[4] = self;
-    [(AnalyticsReportingOperation *)v5 setFinishBlock:v13];
+    v12[0] = _NSConcreteStackBlock;
+    v12[1] = 3221225472;
+    v12[2] = sub_1001E2558;
+    v12[3] = &unk_10032BE70;
+    v12[4] = self;
+    [(AnalyticsReportingOperation *)v5 setFinishBlock:v12];
     _operationQueue2 = [(MetricsController *)self _operationQueue];
     [_operationQueue2 addOperation:v5];
 
-    goto LABEL_14;
+    goto LABEL_15;
   }
 
   v5 = +[SSLogConfig sharedDaemonConfig];
@@ -623,42 +642,46 @@ LABEL_29:
   shouldLog = [(AnalyticsReportingOperation *)v5 shouldLog];
   if ([(AnalyticsReportingOperation *)v5 shouldLogToDisk])
   {
-    v7 = shouldLog | 2;
+    LODWORD(v7) = shouldLog | 2;
   }
 
   else
   {
-    v7 = shouldLog;
+    LODWORD(v7) = shouldLog;
   }
 
   oSLogObject = [(AnalyticsReportingOperation *)v5 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_INFO))
+  {
+    v7 = v7;
+  }
+
+  else
   {
     v7 &= 2u;
   }
 
   if (!v7)
   {
-    goto LABEL_12;
+    goto LABEL_13;
   }
 
-  v14 = 138412546;
-  v15 = objc_opt_class();
-  v16 = 2112;
-  v17 = &off_10034C1C8;
-  v9 = v15;
-  LODWORD(v12) = 22;
-  v10 = _os_log_send_and_compose_impl();
+  v13 = 138412546;
+  v14 = objc_opt_class();
+  v15 = 2112;
+  v16 = &off_10034C1C8;
+  v9 = v14;
+  v10 = _os_log_send_and_compose_impl(v7, 0, 0, 0, &_mh_execute_header, oSLogObject, 1, "[%@] ignoring request to report events, since there already are %@ operations queued", &v13, 22);
 
   if (v10)
   {
-    oSLogObject = [NSString stringWithCString:v10 encoding:4, &v14, v12];
+    oSLogObject = [NSString stringWithCString:v10 encoding:4];
     free(v10);
     SSFileLog();
-LABEL_12:
+LABEL_13:
   }
 
-LABEL_14:
+LABEL_15:
 }
 
 - (void)_reportEventsIfNeeded
@@ -677,44 +700,48 @@ LABEL_14:
     shouldLog = [v6 shouldLog];
     if ([v6 shouldLogToDisk])
     {
-      v8 = shouldLog | 2;
+      LODWORD(v8) = shouldLog | 2;
     }
 
     else
     {
-      v8 = shouldLog;
+      LODWORD(v8) = shouldLog;
     }
 
     oSLogObject = [v6 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_DEFAULT))
+    {
+      v8 = v8;
+    }
+
+    else
     {
       v8 &= 2u;
     }
 
     if (v8)
     {
-      *v19 = 138543618;
-      *&v19[4] = objc_opt_class();
-      *&v19[12] = 2048;
-      *&v19[14] = v4;
-      v10 = *&v19[4];
-      LODWORD(v18) = 22;
-      v11 = _os_log_send_and_compose_impl();
+      v18 = 138543618;
+      v19 = objc_opt_class();
+      v20 = 2048;
+      v21 = v4;
+      v10 = v19;
+      v11 = _os_log_send_and_compose_impl(v8, 0, 0, 0, &_mh_execute_header, oSLogObject, 0, "%{public}@: Maximum event count reached. Flushing %ld unreported events", &v18, 22);
 
       if (!v11)
       {
-LABEL_13:
+LABEL_14:
 
         [(MetricsController *)self _reportEvents];
         return;
       }
 
-      oSLogObject = [NSString stringWithCString:v11 encoding:4, v19, v18, *v19, *&v19[16]];
+      oSLogObject = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   if (!v5)
@@ -725,33 +752,37 @@ LABEL_13:
   shouldLog2 = [v6 shouldLog];
   if ([v6 shouldLogToDisk])
   {
-    v13 = shouldLog2 | 2;
+    LODWORD(v13) = shouldLog2 | 2;
   }
 
   else
   {
-    v13 = shouldLog2;
+    LODWORD(v13) = shouldLog2;
   }
 
   oSLogObject2 = [v6 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  {
+    v13 = v13;
+  }
+
+  else
   {
     v13 &= 2u;
   }
 
   if (v13)
   {
-    *v19 = 138543618;
-    *&v19[4] = objc_opt_class();
-    *&v19[12] = 2048;
-    *&v19[14] = v4;
-    v15 = *&v19[4];
-    LODWORD(v18) = 22;
-    v16 = _os_log_send_and_compose_impl();
+    v18 = 138543618;
+    v19 = objc_opt_class();
+    v20 = 2048;
+    v21 = v4;
+    v15 = v19;
+    v16 = _os_log_send_and_compose_impl(v13, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "%{public}@: Event count: %ld", &v18, 22);
 
     if (v16)
     {
-      v17 = [NSString stringWithCString:v16 encoding:4, v19, v18, *v19, *&v19[8]];
+      v17 = [NSString stringWithCString:v16 encoding:4];
       free(v16);
       SSFileLog();
     }
@@ -776,16 +807,21 @@ LABEL_13:
     shouldLog = [v4 shouldLog];
     if ([v4 shouldLogToDisk])
     {
-      v6 = shouldLog | 2;
+      LODWORD(v6) = shouldLog | 2;
     }
 
     else
     {
-      v6 = shouldLog;
+      LODWORD(v6) = shouldLog;
     }
 
     oSLogObject = [v4 OSLogObject];
-    if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+    {
+      v6 = v6;
+    }
+
+    else
     {
       v6 &= 2u;
     }
@@ -794,28 +830,27 @@ LABEL_13:
     {
       v8 = objc_opt_class();
       v9 = self->_backoffRetryCount + 1;
-      v27 = 138412546;
-      v28 = v8;
-      v29 = 2048;
-      v30 = v9;
+      v26 = 138412546;
+      v27 = v8;
+      v28 = 2048;
+      v29 = v9;
       v10 = v8;
-      LODWORD(v25) = 22;
-      v11 = _os_log_send_and_compose_impl();
+      v11 = _os_log_send_and_compose_impl(v6, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%@] Giving up after %ld retries", &v26, 22);
 
       if (!v11)
       {
-LABEL_13:
+LABEL_14:
 
         [(MetricsController *)self _cancelBackoffRetry];
         return;
       }
 
-      oSLogObject = [NSString stringWithCString:v11 encoding:4, &v27, v25];
+      oSLogObject = [NSString stringWithCString:v11 encoding:4];
       free(v11);
       SSFileLog();
     }
 
-    goto LABEL_13;
+    goto LABEL_14;
   }
 
   v12 = 2 << backoffRetryCount;
@@ -830,39 +865,43 @@ LABEL_13:
   shouldLog2 = [v13 shouldLog];
   if ([v13 shouldLogToDisk])
   {
-    v16 = shouldLog2 | 2;
+    LODWORD(v16) = shouldLog2 | 2;
   }
 
   else
   {
-    v16 = shouldLog2;
+    LODWORD(v16) = shouldLog2;
   }
 
   oSLogObject2 = [v13 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  if (os_log_type_enabled(oSLogObject2, OS_LOG_TYPE_INFO))
+  {
+    v16 = v16;
+  }
+
+  else
   {
     v16 &= 2u;
   }
 
   if (!v16)
   {
-    goto LABEL_24;
+    goto LABEL_26;
   }
 
-  v27 = 138412546;
-  v28 = objc_opt_class();
-  v29 = 2048;
-  v30 = v14;
-  v18 = v28;
-  LODWORD(v25) = 22;
-  v19 = _os_log_send_and_compose_impl();
+  v26 = 138412546;
+  v27 = objc_opt_class();
+  v28 = 2048;
+  v29 = v14;
+  v18 = v27;
+  v19 = _os_log_send_and_compose_impl(v16, 0, 0, 0, &_mh_execute_header, oSLogObject2, 1, "[%@] Scheduling backoff retry in %ld minutes", &v26, 22);
 
   if (v19)
   {
-    oSLogObject2 = [NSString stringWithCString:v19 encoding:4, &v27, v25];
+    oSLogObject2 = [NSString stringWithCString:v19 encoding:4];
     free(v19);
     SSFileLog();
-LABEL_24:
+LABEL_26:
   }
 
   v20 = dispatch_source_create(&_dispatch_source_type_timer, 0, 0, self->_dispatchQueue);
@@ -896,37 +935,41 @@ LABEL_24:
   shouldLog = [v7 shouldLog];
   if ([v7 shouldLogToDisk])
   {
-    v9 = shouldLog | 2;
+    LODWORD(v9) = shouldLog | 2;
   }
 
   else
   {
-    v9 = shouldLog;
+    LODWORD(v9) = shouldLog;
   }
 
   oSLogObject = [v7 OSLogObject];
-  if (!os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  if (os_log_type_enabled(oSLogObject, OS_LOG_TYPE_ERROR))
+  {
+    v9 = v9;
+  }
+
+  else
   {
     v9 &= 2u;
   }
 
   if (!v9)
   {
-    goto LABEL_11;
+    goto LABEL_12;
   }
 
-  LODWORD(v16) = 138412290;
-  *(&v16 + 4) = objc_opt_class();
-  v11 = *(&v16 + 4);
-  LODWORD(v15) = 12;
-  v12 = _os_log_send_and_compose_impl();
+  v15 = 138412290;
+  v16 = objc_opt_class();
+  v11 = v16;
+  v12 = _os_log_send_and_compose_impl(v9, 0, 0, 0, &_mh_execute_header, oSLogObject, 16, "[%@] Connection refused because entitlements are missing", &v15, 12);
 
   if (v12)
   {
-    oSLogObject = [NSString stringWithCString:v12 encoding:4, &v16, v15, v16];
+    oSLogObject = [NSString stringWithCString:v12 encoding:4];
     free(v12);
     SSFileLog();
-LABEL_11:
+LABEL_12:
   }
 
   reply = xpc_dictionary_create_reply(messageCopy);

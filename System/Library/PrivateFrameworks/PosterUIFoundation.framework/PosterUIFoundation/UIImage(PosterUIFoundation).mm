@@ -35,9 +35,9 @@
     +[UIImage(PosterUIFoundation) pui_fallbackSnapshotImage];
   }
 
-  v1 = pui_fallbackSnapshotImage_fallbackSnapshotImage;
+  v2 = pui_fallbackSnapshotImage_fallbackSnapshotImage;
 
-  return v1;
+  return v2;
 }
 
 + (id)pui_imageWithIOSurface:()PosterUIFoundation scale:orientation:
@@ -91,26 +91,44 @@
   v4 = kPaperboardIOSurfaceInterfaceOrientationPropertiesKey;
   v5 = a3;
   v6 = [v5 attachmentForKey:v4];
-  [v6 unsignedIntegerValue];
-
-  v7 = [v5 attachmentForKey:kPaperboardIOSurfaceDeviceOrientationPropertiesKey];
-  [v7 unsignedIntegerValue];
-
-  v8 = [v5 attachmentForKey:kPaperboardIOSurfaceDeviceScalePropertiesKey];
-  [v8 doubleValue];
-  if (v9 == 0.0)
+  unsignedIntegerValue = [v6 unsignedIntegerValue];
+  if (unsignedIntegerValue <= 1)
   {
-    v10 = 1.0;
+    v8 = 1;
   }
 
   else
   {
-    v10 = v9;
+    v8 = unsignedIntegerValue;
   }
 
-  v11 = [self pui_imageWithIOSurface:v5 scale:PUIImageOrientationForImageCapturedInInterfaceOrientationToBeDisplayedInInterfaceOrientation() orientation:v10];
+  v9 = [v5 attachmentForKey:kPaperboardIOSurfaceDeviceOrientationPropertiesKey];
+  unsignedIntegerValue2 = [v9 unsignedIntegerValue];
+  if (unsignedIntegerValue2 <= 1)
+  {
+    v11 = 1;
+  }
 
-  return v11;
+  else
+  {
+    v11 = unsignedIntegerValue2;
+  }
+
+  v12 = [v5 attachmentForKey:kPaperboardIOSurfaceDeviceScalePropertiesKey];
+  [v12 doubleValue];
+  if (v13 == 0.0)
+  {
+    v14 = 1.0;
+  }
+
+  else
+  {
+    v14 = v13;
+  }
+
+  v15 = [self pui_imageWithIOSurface:v5 scale:PUIImageOrientationForImageCapturedInInterfaceOrientationToBeDisplayedInInterfaceOrientation(v8 orientation:{v11), v14}];
+
+  return v15;
 }
 
 - (id)pui_wrappedIOSurface
@@ -155,9 +173,7 @@
   context = [v3 context];
   settings = [context settings];
 
-  [settings interfaceOrientation];
-  [settings pui_deviceOrientation];
-  v6 = PUIImageOrientationForImageCapturedInInterfaceOrientationToBeDisplayedInInterfaceOrientation();
+  v6 = PUIImageOrientationForImageCapturedInInterfaceOrientationToBeDisplayedInInterfaceOrientation([settings interfaceOrientation], objc_msgSend(settings, "pui_deviceOrientation"));
   iOSurface = [v3 IOSurface];
   if (iOSurface)
   {
@@ -331,57 +347,58 @@ LABEL_15:
 
 - (id)pui_cropImageWithRect:()PosterUIFoundation outputSize:preservingAspectRatio:canUseIOSurface:
 {
-  v87 = *MEMORY[0x1E69E9840];
-  v19 = PUILogRendering();
+  v93 = *MEMORY[0x1E69E9840];
+  v19 = PUILogRendering(self);
   v20 = os_signpost_id_generate(v19);
 
-  v21 = PUILogRendering();
-  v22 = v21;
-  v23 = v20 - 1;
-  if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+  v22 = PUILogRendering(v21);
+  v23 = v22;
+  v24 = v20 - 1;
+  if (v20 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v22))
   {
     *buf = 0;
-    _os_signpost_emit_with_name_impl(&dword_1A8C85000, v22, OS_SIGNPOST_INTERVAL_BEGIN, v20, "pui_cropImage", &unk_1A8D256D3, buf, 2u);
+    _os_signpost_emit_with_name_impl(&dword_1A8C85000, v23, OS_SIGNPOST_INTERVAL_BEGIN, v20, "pui_cropImage", &unk_1A8D256D3, buf, 2u);
   }
 
-  v24 = *MEMORY[0x1E695EFF8];
-  v25 = *(MEMORY[0x1E695EFF8] + 8);
+  v25 = *MEMORY[0x1E695EFF8];
+  v26 = *(MEMORY[0x1E695EFF8] + 8);
   [self size];
-  v94.size.width = v26;
-  v94.size.height = v27;
-  v89.origin.x = a2;
-  v89.origin.y = a3;
-  v89.size.width = a4;
-  v89.size.height = a5;
-  v94.origin.x = v24;
-  v94.origin.y = v25;
-  v28 = CGRectEqualToRect(v89, v94);
-  v29 = v28;
-  v30 = !v28;
-  v31 = a5 != a7 || a4 != a6;
-  v90.origin.x = a2;
-  v90.origin.y = a3;
-  v90.size.width = a4;
-  v90.size.height = a5;
-  if (CGRectIsEmpty(v90) || !(v30 | v31) || (BSFloatLessThanOrEqualToFloat() & 1) != 0 || BSFloatLessThanOrEqualToFloat())
+  v100.size.width = v27;
+  v100.size.height = v28;
+  v95.origin.x = a2;
+  v95.origin.y = a3;
+  v95.size.width = a4;
+  v95.size.height = a5;
+  v100.origin.x = v25;
+  v100.origin.y = v26;
+  v29 = CGRectEqualToRect(v95, v100);
+  v30 = v29;
+  v31 = !v29;
+  v32 = a5 != a7 || a4 != a6;
+  v96.origin.x = a2;
+  v96.origin.y = a3;
+  v96.size.width = a4;
+  v96.size.height = a5;
+  IsEmpty = CGRectIsEmpty(v96);
+  if (IsEmpty || !(v31 | v32) || (IsEmpty = BSFloatLessThanOrEqualToFloat(), (IsEmpty & 1) != 0) || (IsEmpty = BSFloatLessThanOrEqualToFloat(), IsEmpty))
   {
-    v32 = PUILogRendering();
-    v33 = v32;
-    if (v23 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+    v34 = PUILogRendering(IsEmpty);
+    v35 = v34;
+    if (v24 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v34))
     {
       *buf = 67110400;
-      *&buf[4] = v30;
+      *&buf[4] = v31;
       *&buf[8] = 1024;
-      *&buf[10] = v31;
+      *&buf[10] = v32;
       *&buf[14] = 2048;
-      *v74 = a4;
-      *&v74[8] = 2048;
-      *&v74[10] = a5;
-      *&v74[18] = 2048;
-      *&v74[20] = a6;
-      *&v74[28] = 2048;
-      *&v74[30] = a7;
-      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v33, OS_SIGNPOST_INTERVAL_END, v20, "pui_cropImage", "No work to do: needsCrop=%u, needsScale=%u, cropRect.size=(%f, %f), outputSize=(%f, %f)", buf, 0x36u);
+      *v80 = a4;
+      *&v80[8] = 2048;
+      *&v80[10] = a5;
+      *&v80[18] = 2048;
+      *&v80[20] = a6;
+      *&v80[28] = 2048;
+      *&v80[30] = a7;
+      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v35, OS_SIGNPOST_INTERVAL_END, v20, "pui_cropImage", "No work to do: needsCrop=%u, needsScale=%u, cropRect.size=(%f, %f), outputSize=(%f, %f)", buf, 0x36u);
     }
 
     selfCopy = self;
@@ -389,103 +406,116 @@ LABEL_15:
   }
 
   imageOrientation = [self imageOrientation];
-  v64 = *MEMORY[0x1E695EFD0];
-  v67 = *(MEMORY[0x1E695EFD0] + 16);
-  v38 = *(MEMORY[0x1E695EFD0] + 32);
-  v37 = *(MEMORY[0x1E695EFD0] + 40);
-  if (imageOrientation && ([self size], imageOrientation <= 7))
+  v70 = *MEMORY[0x1E695EFD0];
+  v73 = *(MEMORY[0x1E695EFD0] + 16);
+  v40 = *(MEMORY[0x1E695EFD0] + 32);
+  v39 = *(MEMORY[0x1E695EFD0] + 40);
+  if (!imageOrientation)
   {
-    if (((1 << imageOrientation) & 0x22) != 0)
-    {
-      v41 = xmmword_1A8D24B80;
-      v42 = xmmword_1A8D24B90;
-      v38 = 0;
-      v37 = v40;
-    }
+    v43 = 0;
+    goto LABEL_25;
+  }
 
-    else if (((1 << imageOrientation) & 0x44) != 0)
-    {
-      v41 = xmmword_1A8D24BA0;
-      v42 = xmmword_1A8D24BB0;
-      v37 = 0;
-      v38 = v40;
-    }
+  [self size];
+  v43 = 0;
+  if (imageOrientation > 7)
+  {
+LABEL_25:
+    v45 = v70;
+    v44 = v73;
+    goto LABEL_28;
+  }
 
-    else
-    {
-      v42 = v64;
-      v41 = v67;
-      if (((1 << imageOrientation) & 0x88) != 0)
-      {
-        v41 = xmmword_1A8D24B90;
-        v42 = xmmword_1A8D24B80;
-        v38 = 0;
-        v37 = v39;
-      }
-    }
+  if (((1 << imageOrientation) & 0x22) != 0)
+  {
+    v43 = 0;
+    v44 = xmmword_1A8D24B80;
+    v45 = xmmword_1A8D24B90;
+    v40 = 0;
+    v39 = v42;
+  }
+
+  else if (((1 << imageOrientation) & 0x44) != 0)
+  {
+    v44 = xmmword_1A8D24BA0;
+    v45 = xmmword_1A8D24BB0;
+    v43 = 1;
+    v39 = 0;
+    v40 = v42;
   }
 
   else
   {
-    v42 = v64;
-    v41 = v67;
+    v45 = v70;
+    v44 = v73;
+    if (((1 << imageOrientation) & 0x88) != 0)
+    {
+      v44 = xmmword_1A8D24B90;
+      v45 = xmmword_1A8D24B80;
+      v43 = 1;
+      v40 = 0;
+      v39 = v41;
+    }
   }
 
-  v65 = v42;
-  v68 = v41;
+LABEL_28:
+  v71 = v45;
+  v74 = v44;
   [self scale];
-  memset(&v72, 0, sizeof(v72));
-  v62 = v43;
-  CGAffineTransformMakeScale(&v72, v43, v43);
-  *buf = v65;
-  *v74 = v68;
-  *&v74[16] = v38;
-  *&v74[24] = v37;
-  t2 = v72;
-  memset(&v71, 0, sizeof(v71));
-  CGAffineTransformConcat(&v71, buf, &t2);
-  *buf = *&v71.a;
-  *v74 = *&v71.c;
-  *&v74[16] = *&v71.tx;
-  v91.origin.x = a2;
-  v91.origin.y = a3;
-  v91.size.width = a4;
-  v91.size.height = a5;
-  v92 = CGRectApplyAffineTransform(v91, buf);
-  x = v92.origin.x;
-  y = v92.origin.y;
-  height = v92.size.height;
-  width = v92.size.width;
-  v69 = imageOrientation;
+  memset(&v78, 0, sizeof(v78));
+  v68 = v46;
+  CGAffineTransformMakeScale(&v78, v46, v46);
+  *buf = v71;
+  *v80 = v74;
+  *&v80[16] = v40;
+  *&v80[24] = v39;
+  t2 = v78;
+  memset(&v77, 0, sizeof(v77));
+  CGAffineTransformConcat(&v77, buf, &t2);
+  *buf = *&v77.a;
+  *v80 = *&v77.c;
+  *&v80[16] = *&v77.tx;
+  v97.origin.x = a2;
+  v97.origin.y = a3;
+  v97.size.width = a4;
+  v97.size.height = a5;
+  v98 = CGRectApplyAffineTransform(v97, buf);
+  x = v98.origin.x;
+  y = v98.origin.y;
+  height = v98.size.height;
+  width = v98.size.width;
+  v75 = imageOrientation;
   if (!a10)
   {
-    goto LABEL_40;
+    goto LABEL_47;
   }
 
   *buf = 0;
-  v46 = PUICreateIOSurfaceForImage(self, buf, 1);
-  v47 = v46;
-  if (v46)
+  v50 = PUICreateIOSurfaceForImage(self, buf, 1);
+  v51 = v50;
+  if (v50)
   {
-    v61 = a10;
-    v48 = __PUICreateCroppedIOSurface(v46, x, y, width, height);
-    if (v48)
+    v67 = a10;
+    v52 = v43 ? a7 * v78.c + v78.a * a6 : a7 * v78.d + v78.b * a6;
+    v53 = v43 ? a7 * v78.d + v78.b * a6 : a7 * v78.c + v78.a * a6;
+    v54 = __PUICreateCroppedIOSurface(v50, x, y, width, height, v53, v52);
+    if (v54)
     {
-      selfCopy = [MEMORY[0x1E69DCAB8] pui_imageWithIOSurface:v48 scale:v69 orientation:v62];
+      selfCopy = [MEMORY[0x1E69DCAB8] pui_imageWithIOSurface:v54 scale:v75 orientation:v68];
     }
 
     else
     {
-      v49 = PUILogCommon();
-      if (os_log_type_enabled(v49, OS_LOG_TYPE_DEBUG))
+      v55 = PUILogCommon(0);
+      if (os_log_type_enabled(v55, OS_LOG_TYPE_DEBUG))
       {
-        [UIImage(PosterUIFoundation) pui_cropImageWithRect:v49 outputSize:? preservingAspectRatio:? canUseIOSurface:?];
+        [UIImage(PosterUIFoundation) pui_cropImageWithRect:v55 outputSize:? preservingAspectRatio:? canUseIOSurface:?];
       }
 
       selfCopy = 0;
     }
 
-    a10 = v61;
+    a10 = v67;
   }
 
   else
@@ -498,100 +528,100 @@ LABEL_15:
     CGImageBlockSetRelease();
   }
 
-  imageOrientation = v69;
+  imageOrientation = v75;
   if (!selfCopy)
   {
-LABEL_40:
-    v51 = PUILogCommon();
-    if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
+LABEL_47:
+    v57 = PUILogCommon(v47);
+    if (os_log_type_enabled(v57, OS_LOG_TYPE_DEBUG))
     {
-      [UIImage(PosterUIFoundation) pui_cropImageWithRect:v51 outputSize:? preservingAspectRatio:? canUseIOSurface:?];
+      [UIImage(PosterUIFoundation) pui_cropImageWithRect:v57 outputSize:? preservingAspectRatio:? canUseIOSurface:?];
     }
 
     pui_CGImageBackedImage = [self pui_CGImageBackedImage];
-    v53 = pui_CGImageBackedImage;
-    if (v29)
+    v59 = pui_CGImageBackedImage;
+    if (v30)
     {
-      v54 = 0;
+      v60 = 0;
       selfCopy = 0;
-      if (!v31)
+      if (!v32)
       {
-        goto LABEL_50;
+        goto LABEL_57;
       }
     }
 
     else
     {
       cGImage = [pui_CGImageBackedImage CGImage];
-      v93.origin.x = x;
-      v93.origin.y = y;
-      v93.size.height = height;
-      v93.size.width = width;
-      v54 = CGImageCreateWithImageInRect(cGImage, v93);
-      selfCopy = [objc_alloc(MEMORY[0x1E69DCAB8]) initWithCGImage:v54 scale:imageOrientation orientation:v62];
-      if (!v31)
+      v99.origin.x = x;
+      v99.origin.y = y;
+      v99.size.height = height;
+      v99.size.width = width;
+      v60 = CGImageCreateWithImageInRect(cGImage, v99);
+      selfCopy = [objc_alloc(MEMORY[0x1E69DCAB8]) initWithCGImage:v60 scale:imageOrientation orientation:v68];
+      if (!v32)
       {
-LABEL_50:
-        if (v54)
+LABEL_57:
+        if (v60)
         {
-          CGImageRelease(v54);
+          CGImageRelease(v60);
         }
 
-        v50 = 1;
-        goto LABEL_53;
+        v56 = 1;
+        goto LABEL_60;
       }
     }
 
     if (selfCopy)
     {
-      v56 = selfCopy;
+      v62 = selfCopy;
     }
 
     else
     {
-      v56 = v53;
+      v62 = v59;
     }
 
-    v57 = [v56 pui_resizeImageToSize:a9 preservingAspectRatio:{a6, a7}];
+    v63 = [v62 pui_resizeImageToSize:a9 preservingAspectRatio:{a6, a7}];
 
-    selfCopy = v57;
-    goto LABEL_50;
+    selfCopy = v63;
+    goto LABEL_57;
   }
 
-  v50 = 0;
-LABEL_53:
-  v58 = PUILogRendering();
-  v59 = v58;
-  if (v23 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v58))
+  v56 = 0;
+LABEL_60:
+  v64 = PUILogRendering(v47);
+  v65 = v64;
+  if (v24 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v64))
   {
     imageOrientation2 = [selfCopy imageOrientation];
     *buf = 67112192;
     *&buf[4] = selfCopy != 0;
     *&buf[8] = 1024;
-    *&buf[10] = v30;
+    *&buf[10] = v31;
     *&buf[14] = 1024;
-    *v74 = v31;
-    *&v74[4] = 2048;
-    *&v74[6] = a2;
-    *&v74[14] = 2048;
-    *&v74[16] = a3;
-    *&v74[24] = 2048;
-    *&v74[26] = a4;
-    *&v74[34] = 2048;
-    *&v74[36] = a5;
-    v75 = 2048;
-    v76 = a6;
-    v77 = 2048;
-    v78 = a7;
-    v79 = 2048;
-    v80 = v69;
+    *v80 = v32;
+    *&v80[4] = 2048;
+    *&v80[6] = a2;
+    *&v80[14] = 2048;
+    *&v80[16] = a3;
+    *&v80[24] = 2048;
+    *&v80[26] = a4;
+    *&v80[34] = 2048;
+    *&v80[36] = a5;
     v81 = 2048;
-    v82 = imageOrientation2;
-    v83 = 1024;
-    v84 = a10;
-    v85 = 1024;
-    v86 = v50;
-    _os_signpost_emit_with_name_impl(&dword_1A8C85000, v59, OS_SIGNPOST_INTERVAL_END, v20, "pui_cropImage", "Complete: success=%u needsCrop=%u, needsScale=%u, cropRect=((%f, %f), (%f, %f)), outputSize=(%f, %f), imageOrientation=%lu, outputImage.imageOrientation=%lu canUseIOSurface=%u, usedCPU=%u", buf, 0x70u);
+    v82 = a6;
+    v83 = 2048;
+    v84 = a7;
+    v85 = 2048;
+    v86 = v75;
+    v87 = 2048;
+    v88 = imageOrientation2;
+    v89 = 1024;
+    v90 = a10;
+    v91 = 1024;
+    v92 = v56;
+    _os_signpost_emit_with_name_impl(&dword_1A8C85000, v65, OS_SIGNPOST_INTERVAL_END, v20, "pui_cropImage", "Complete: success=%u needsCrop=%u, needsScale=%u, cropRect=((%f, %f), (%f, %f)), outputSize=(%f, %f), imageOrientation=%lu, outputImage.imageOrientation=%lu canUseIOSurface=%u, usedCPU=%u", buf, 0x70u);
   }
 
 LABEL_15:

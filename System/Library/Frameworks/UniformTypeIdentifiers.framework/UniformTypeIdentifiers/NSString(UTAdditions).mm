@@ -41,7 +41,7 @@ LABEL_3:
 
 - (id)stringByAppendingPathExtensionForType:()UTAdditions
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v5 = a3;
   if (!v5)
   {
@@ -50,33 +50,33 @@ LABEL_3:
   }
 
   v6 = objc_autoreleasePoolPush();
-  v17 = 0;
-  v18 = &v17;
-  v19 = 0x3032000000;
-  v20 = __Block_byref_object_copy__0;
-  v21 = __Block_byref_object_dispose__0;
-  v22 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__0;
+  v20 = __Block_byref_object_dispose__0;
+  v21 = 0;
   range = xmmword_1AC1BBD70;
   _CFGetPathExtensionRangesFromPathComponent();
-  v7 = v18[5];
+  v7 = v17[5];
   if (!v7)
   {
     preferredFilenameExtension = [v5 preferredFilenameExtension];
-    v9 = v18[5];
-    v18[5] = preferredFilenameExtension;
+    v9 = v17[5];
+    v17[5] = preferredFilenameExtension;
 
-    v7 = v18[5];
+    v7 = v17[5];
     if ((v5 & 0x8000000000000000) == 0 && !v7)
     {
       _typeRecord = [v5 _typeRecord];
-      v15[0] = MEMORY[0x1E69E9820];
-      v15[1] = 3221225472;
-      v15[2] = __63__NSString_UTAdditions__stringByAppendingPathExtensionForType___block_invoke;
-      v15[3] = &unk_1E796F018;
-      v15[4] = &v17;
-      [_typeRecord enumeratePedigreeWithBlock:v15];
+      v14[0] = MEMORY[0x1E69E9820];
+      v14[1] = 3221225472;
+      v14[2] = __63__NSString_UTAdditions__stringByAppendingPathExtensionForType___block_invoke;
+      v14[3] = &unk_1E796F018;
+      v14[4] = &v16;
+      [_typeRecord enumeratePedigreeWithBlock:v14];
 
-      v7 = v18[5];
+      v7 = v17[5];
     }
 
     if (!v7)
@@ -87,7 +87,7 @@ LABEL_3:
 
   if (([v7 isEqual:0] & 1) == 0)
   {
-    v11 = [self stringByAppendingPathExtension:v18[5]];
+    v11 = [(__CFString *)self stringByAppendingPathExtension:v17[5]];
   }
 
   else
@@ -96,14 +96,12 @@ LABEL_9:
     v11 = 0;
   }
 
-  _Block_object_dispose(&v17, 8);
+  _Block_object_dispose(&v16, 8);
   objc_autoreleasePoolPop(v6);
   if (!v11)
   {
-    v11 = [self copy];
+    v11 = [(__CFString *)self copy];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 
   return v11;
 }

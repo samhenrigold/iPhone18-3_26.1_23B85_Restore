@@ -758,7 +758,7 @@ void __76__PIPosterSettlingEffectLoader_adjustVideo_cropRect_forResource_complet
       if (properties)
       {
         memset(buf, 0, sizeof(buf));
-        [properties cleanAperture];
+        objc_msgSend_cleanAperture(properties);
         [properties size];
         NUPixelRectNormalize();
         x = x - v26;
@@ -965,13 +965,13 @@ LABEL_21:
     v92 = y;
     v94 = width;
     v96 = height;
-    [geometry extent];
+    objc_msgSend_extent(geometry);
     NUPixelRectToCGRect();
     v10 = v33;
     y = v34;
     x = v35;
     v11 = v36;
-    [callStackSymbols extent];
+    objc_msgSend_extent(callStackSymbols);
     NUPixelRectToCGRect();
     v38 = v37;
     v40 = v39;
@@ -2119,7 +2119,7 @@ void __76__PIPosterSettlingEffectLoader_loadCropRectWithResource_options_complet
     v10 = v9;
     if (v9)
     {
-      [v9 cleanAperture];
+      objc_msgSend_cleanAperture(v9);
     }
 
     else
@@ -2520,7 +2520,7 @@ void __58__PIPosterSettlingEffectLoader__gatingFlagsFromMADStatus___block_invoke
         retstr->var0 = 0;
         *&retstr->var1 = 0;
         retstr->var3 = 0;
-        [livePhotoKeyFrameAdjustmentController keyFrameTime];
+        objc_msgSend_keyFrameTime(livePhotoKeyFrameAdjustmentController);
       }
 
       else
@@ -2655,7 +2655,7 @@ LABEL_18:
   }
 
   [v8 setObject:MEMORY[0x1E695E118] forKeyedSubscript:*v15];
-  [self _livePhotoKeyFrameTimeForResource:resourceCopy];
+  objc_msgSend__livePhotoKeyFrameTimeForResource_(self);
   if (0 >> 96)
   {
     v17 = *MEMORY[0x1E695E480];

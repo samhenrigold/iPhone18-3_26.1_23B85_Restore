@@ -10,9 +10,9 @@
 
 - (ButterworthHighPassFilter)initWithCutoffFrequency:(float)frequency sampleRate:(float)rate
 {
-  v14.receiver = self;
-  v14.super_class = ButterworthHighPassFilter;
-  v6 = [(ButterworthHighPassFilter *)&v14 init];
+  v11.receiver = self;
+  v11.super_class = ButterworthHighPassFilter;
+  v6 = [(ButterworthHighPassFilter *)&v11 init];
   v7 = v6;
   if (v6)
   {
@@ -23,7 +23,7 @@
     v7->_y = malloc_type_calloc(v7->_order, 4uLL, 0x100004052888210uLL);
     *&v8 = frequency;
     *&v9 = rate;
-    objc_msgSend_calculateCoefficientsWithCutoff_sampleRate_(v7, v10, v11, v12, v8, v9);
+    [(ButterworthHighPassFilter *)v7 calculateCoefficientsWithCutoff:v8 sampleRate:v9];
   }
 
   return v7;

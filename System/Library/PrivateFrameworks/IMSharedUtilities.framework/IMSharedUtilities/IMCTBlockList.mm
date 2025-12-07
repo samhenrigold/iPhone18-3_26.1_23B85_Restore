@@ -21,7 +21,7 @@
 
 - (void)blockContact:(CNContact *)contact completion:(id)completion
 {
-  v7 = sub_1A870CCE0(&unk_1EB3090D0);
+  v7 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);
@@ -48,7 +48,7 @@
 
 - (void)unblockContact:(CNContact *)contact completion:(id)completion
 {
-  v7 = sub_1A870CCE0(&unk_1EB3090D0);
+  v7 = sub_1A870CCE0(&unk_1EB3090D0, &qword_1A88E2A30);
   MEMORY[0x1EEE9AC00](v7 - 8);
   v9 = &v17 - v8;
   v10 = _Block_copy(completion);

@@ -591,7 +591,7 @@ LABEL_10:
   v8.n128_u32[3] = a3.i32[0];
   v15[0] = v8;
   v15[1] = vextq_s8(vextq_s8(a3, a3, 0xCuLL), a4, 8uLL);
-  v16 = a4.u32[2];
+  v16 = a4.i32[2];
   v14 = 0;
   v9 = [objc_opt_class() _vn_createEncodableDataWithMagicNumber:1714649139 forN:9 floatValues:v15 error:&v14];
   v10 = v14;

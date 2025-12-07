@@ -32,11 +32,11 @@
 - (ATXModeEntityAffinityVector)initWithAffinities:(id)affinities shouldResize:(BOOL)resize
 {
   resizeCopy = resize;
-  v28 = *MEMORY[0x277D85DE8];
+  v27 = *MEMORY[0x277D85DE8];
   affinitiesCopy = affinities;
-  v26.receiver = self;
-  v26.super_class = ATXModeEntityAffinityVector;
-  v7 = [(ATXModeEntityAffinityVector *)&v26 init];
+  v25.receiver = self;
+  v25.super_class = ATXModeEntityAffinityVector;
+  v7 = [(ATXModeEntityAffinityVector *)&v25 init];
   if (v7)
   {
     v8 = 16;
@@ -48,32 +48,32 @@
     }
 
     while (v8);
-    v24 = 0u;
-    v25 = 0u;
-    v22 = 0u;
     v23 = 0u;
+    v24 = 0u;
+    v21 = 0u;
+    v22 = 0u;
     v10 = affinitiesCopy;
-    v11 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v23;
+      v13 = *v22;
       do
       {
         v14 = 0;
         do
         {
-          if (*v23 != v13)
+          if (*v22 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v22 + 1) + 8 * v14);
+          v15 = *(*(&v21 + 1) + 8 * v14);
           v16 = ATXStringToMode();
           if (v16 <= 0xF)
           {
             v17 = v16;
-            v18 = [v10 objectForKeyedSubscript:{v15, v22}];
+            v18 = [v10 objectForKeyedSubscript:{v15, v21}];
             [(NSArray *)v9 setObject:v18 atIndexedSubscript:v17];
           }
 
@@ -81,7 +81,7 @@
         }
 
         while (v12 != v14);
-        v12 = [v10 countByEnumeratingWithState:&v22 objects:v27 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v21 objects:v26 count:16];
       }
 
       while (v12);
@@ -96,7 +96,6 @@
     }
   }
 
-  v20 = *MEMORY[0x277D85DE8];
   return v7;
 }
 
@@ -140,23 +139,23 @@ id __48__ATXModeEntityAffinityVector_prettyDescription__block_invoke(uint64_t a1
   return v3;
 }
 
-id __47__ATXModeEntityAffinityVector_sortedAffinities__block_invoke(uint64_t a1, void *a2)
+id __47__ATXModeEntityAffinityVector_sortedAffinities__block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
-  v2 = a2;
-  [v2 doubleValue];
-  if (v3 >= 0.0001)
+  v3 = a2;
+  [v3 doubleValue];
+  if (v4 >= 0.0001)
   {
-    v5 = MEMORY[0x277D42648];
-    v6 = ATXModeToString();
-    v4 = [v5 tupleWithFirst:v2 second:v6];
+    v6 = MEMORY[0x277D42648];
+    v7 = ATXModeToString();
+    v5 = [v6 tupleWithFirst:v3 second:v7];
   }
 
   else
   {
-    v4 = 0;
+    v5 = 0;
   }
 
-  return v4;
+  return v5;
 }
 
 uint64_t __47__ATXModeEntityAffinityVector_sortedAffinities__block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -185,32 +184,32 @@ uint64_t __47__ATXModeEntityAffinityVector_sortedAffinities__block_invoke_2(uint
 
 - (double)magnitude
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = self->_affinityVector;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     v6 = 0.0;
     do
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v11 + 1) + 8 * i) doubleValue];
+        [*(*(&v10 + 1) + 8 * i) doubleValue];
         v6 = v6 + v8 * v8;
       }
 
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
     }
 
     while (v4);
@@ -224,36 +223,35 @@ uint64_t __47__ATXModeEntityAffinityVector_sortedAffinities__block_invoke_2(uint
   result = fabs(sqrt(v6));
   if (v6 == -INFINITY)
   {
-    result = INFINITY;
+    return INFINITY;
   }
 
-  v10 = *MEMORY[0x277D85DE8];
   return result;
 }
 
 - (BOOL)isZeroVector
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
+  v10 = 0u;
   v11 = 0u;
   v12 = 0u;
   v13 = 0u;
-  v14 = 0u;
   v2 = self->_affinityVector;
-  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+  v3 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v12;
+    v5 = *v11;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v12 != v5)
+        if (*v11 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        [*(*(&v11 + 1) + 8 * i) doubleValue];
+        [*(*(&v10 + 1) + 8 * i) doubleValue];
         if (v7 < 0.0)
         {
           v7 = -v7;
@@ -266,7 +264,7 @@ uint64_t __47__ATXModeEntityAffinityVector_sortedAffinities__block_invoke_2(uint
         }
       }
 
-      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v11 objects:v15 count:16];
+      v4 = [(NSArray *)v2 countByEnumeratingWithState:&v10 objects:v14 count:16];
       if (v4)
       {
         continue;
@@ -279,7 +277,6 @@ uint64_t __47__ATXModeEntityAffinityVector_sortedAffinities__block_invoke_2(uint
   v8 = 1;
 LABEL_13:
 
-  v9 = *MEMORY[0x277D85DE8];
   return v8;
 }
 
@@ -319,7 +316,7 @@ uint64_t __43__ATXModeEntityAffinityVector_resizeToUnit__block_invoke(uint64_t a
 
 + (id)weightedCentroid:(id)centroid
 {
-  v48 = *MEMORY[0x277D85DE8];
+  v47 = *MEMORY[0x277D85DE8];
   centroidCopy = centroid;
   if (![centroidCopy count])
   {
@@ -345,30 +342,30 @@ uint64_t __43__ATXModeEntityAffinityVector_resizeToUnit__block_invoke(uint64_t a
     while (v10);
   }
 
-  v45 = 0u;
-  v46 = 0u;
-  v43 = 0u;
   v44 = 0u;
+  v45 = 0u;
+  v42 = 0u;
+  v43 = 0u;
   v11 = centroidCopy;
-  v12 = [v11 countByEnumeratingWithState:&v43 objects:v47 count:16];
+  v12 = [v11 countByEnumeratingWithState:&v42 objects:v46 count:16];
   if (v12)
   {
     v13 = v12;
     selfCopy = self;
-    v41 = centroidCopy;
-    v14 = *v44;
+    v40 = centroidCopy;
+    v14 = *v43;
     v15 = 0.0;
     obj = v11;
     do
     {
       for (i = 0; i != v13; ++i)
       {
-        if (*v44 != v14)
+        if (*v43 != v14)
         {
           objc_enumerationMutation(obj);
         }
 
-        v17 = *(*(&v43 + 1) + 8 * i);
+        v17 = *(*(&v42 + 1) + 8 * i);
         first2 = [v17 first];
         affinityVector2 = [first2 affinityVector];
 
@@ -395,12 +392,12 @@ uint64_t __43__ATXModeEntityAffinityVector_resizeToUnit__block_invoke(uint64_t a
         v15 = v15 + v22;
       }
 
-      v13 = [obj countByEnumeratingWithState:&v43 objects:v47 count:16];
+      v13 = [obj countByEnumeratingWithState:&v42 objects:v46 count:16];
     }
 
     while (v13);
 
-    centroidCopy = v41;
+    centroidCopy = v40;
     if (v15 >= 0.0001)
     {
       if (v8)
@@ -429,7 +426,6 @@ LABEL_23:
   v37 = v36;
 
 LABEL_24:
-  v38 = *MEMORY[0x277D85DE8];
 
   return v37;
 }

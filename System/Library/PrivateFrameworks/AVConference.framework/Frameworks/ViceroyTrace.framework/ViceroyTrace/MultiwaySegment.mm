@@ -13,7 +13,9 @@
 - (void)addProtocolStackDescriptionTelemetry:(id)telemetry;
 - (void)addQRServerTelemetryToDictionary:(id)dictionary;
 - (void)addRateControlExperimentInfoToSegmentReport:(id)report;
+- (void)appendPathMTU:(unsigned __int16)u delta:(double)delta;
 - (void)applyKnownDataModeToNewSegment:(id)segment;
+- (void)applyKnownDataModeToNewSegmentForLinkProperty:(unsigned int)property andNewSegmemnt:(id)segmemnt;
 - (void)assertCleanCellTech;
 - (void)calculateDataModeDurationForLinkProperty:(unsigned int)property withCurrentState:(unsigned __int8)state andTime:(double)time;
 - (void)complete_and_release_nw_activity:(int)complete_and_release_nw_activity;
@@ -269,7 +271,7 @@
 
 - (void)setNWActivityReportingEnabled:(BOOL)enabled
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   self->_isNWActivityReportingEnabled = enabled;
   if (VRTraceGetErrorLogLevelForModule("") >= 8)
   {
@@ -280,25 +282,23 @@
       if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEFAULT))
       {
         isNWActivityReportingEnabled = self->_isNWActivityReportingEnabled;
-        v8 = 136315906;
-        v9 = v4;
-        v10 = 2080;
-        v11 = "[MultiwaySegment setNWActivityReportingEnabled:]";
-        v12 = 1024;
-        v13 = 3284;
-        v14 = 1024;
-        v15 = isNWActivityReportingEnabled;
-        _os_log_impl(&dword_23D4DF000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d _isNWActivityReportingEnabled=%d", &v8, 0x22u);
+        v7 = 136315906;
+        v8 = v4;
+        v9 = 2080;
+        v10 = "[MultiwaySegment setNWActivityReportingEnabled:]";
+        v11 = 1024;
+        v12 = 3284;
+        v13 = 1024;
+        v14 = isNWActivityReportingEnabled;
+        _os_log_impl(&dword_23D4DF000, v5, OS_LOG_TYPE_DEFAULT, " [%s] %s:%d _isNWActivityReportingEnabled=%d", &v7, 0x22u);
       }
     }
 
     else if (os_log_type_enabled(gVRTraceOSLog, OS_LOG_TYPE_DEBUG))
     {
-      [(MultiwaySegment *)v4 setNWActivityReportingEnabled:?];
+      [MultiwaySegment setNWActivityReportingEnabled:];
     }
   }
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (void)assertCleanCellTech
@@ -441,21 +441,19 @@
 
 - (id)reportingClientExperimentSettingsDictionary
 {
-  v7[2] = *MEMORY[0x277D85DE8];
-  v6[0] = @"NCM";
+  v6[2] = *MEMORY[0x277D85DE8];
+  v5[0] = @"NCM";
   p_reportingClientExperimentSettings = &self->_reportingClientExperimentSettings;
   v3 = [MEMORY[0x277CCABA8] numberWithUnsignedInt:self->_reportingClientExperimentSettings.networkConditionMonitoringClientExperimentEnabled];
-  v6[1] = @"MBD";
-  v7[0] = v3;
-  v7[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:p_reportingClientExperimentSettings->motionBasedDuplicationClientExperimentEnabled];
-  result = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:2];
-  v5 = *MEMORY[0x277D85DE8];
-  return result;
+  v5[1] = @"MBD";
+  v6[0] = v3;
+  v6[1] = [MEMORY[0x277CCABA8] numberWithUnsignedInt:p_reportingClientExperimentSettings->motionBasedDuplicationClientExperimentEnabled];
+  return [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:2];
 }
 
 - (void)processFrameSizeBasedFECTelemetry:(id)telemetry statsHolder:(id)holder direction:(int)direction
 {
-  v50 = *MEMORY[0x277D85DE8];
+  v49 = *MEMORY[0x277D85DE8];
   if (direction)
   {
     v7 = @"VFecStats";
@@ -469,22 +467,22 @@
   v8 = [telemetry objectForKeyedSubscript:v7];
   if ([v8 objectForKeyedSubscript:@"VFecSVFC"])
   {
-    v44 = 0u;
-    v45 = 0u;
-    v42 = 0u;
     v43 = 0u;
+    v44 = 0u;
+    v41 = 0u;
+    v42 = 0u;
     v9 = [v8 objectForKeyedSubscript:@"VFecSVFC"];
-    v10 = [v9 countByEnumeratingWithState:&v42 objects:v49 count:16];
+    v10 = [v9 countByEnumeratingWithState:&v41 objects:v48 count:16];
     if (v10)
     {
       v11 = v10;
-      v12 = *v43;
+      v12 = *v42;
       do
       {
         v13 = 0;
         do
         {
-          if (*v43 != v12)
+          if (*v42 != v12)
           {
             objc_enumerationMutation(v9);
           }
@@ -494,7 +492,7 @@
         }
 
         while (v11 != v13);
-        v11 = [v9 countByEnumeratingWithState:&v42 objects:v49 count:16];
+        v11 = [v9 countByEnumeratingWithState:&v41 objects:v48 count:16];
       }
 
       while (v11);
@@ -503,22 +501,22 @@
 
   if ([v8 objectForKeyedSubscript:@"VFecSVPC"])
   {
-    v40 = 0u;
-    v41 = 0u;
-    v38 = 0u;
     v39 = 0u;
+    v40 = 0u;
+    v37 = 0u;
+    v38 = 0u;
     v14 = [v8 objectForKeyedSubscript:@"VFecSVPC"];
-    v15 = [v14 countByEnumeratingWithState:&v38 objects:v48 count:16];
+    v15 = [v14 countByEnumeratingWithState:&v37 objects:v47 count:16];
     if (v15)
     {
       v16 = v15;
-      v17 = *v39;
+      v17 = *v38;
       do
       {
         v18 = 0;
         do
         {
-          if (*v39 != v17)
+          if (*v38 != v17)
           {
             objc_enumerationMutation(v14);
           }
@@ -528,7 +526,7 @@
         }
 
         while (v16 != v18);
-        v16 = [v14 countByEnumeratingWithState:&v38 objects:v48 count:16];
+        v16 = [v14 countByEnumeratingWithState:&v37 objects:v47 count:16];
       }
 
       while (v16);
@@ -537,22 +535,22 @@
 
   if ([v8 objectForKeyedSubscript:@"VFecSVFAC"])
   {
-    v36 = 0u;
-    v37 = 0u;
-    v34 = 0u;
     v35 = 0u;
+    v36 = 0u;
+    v33 = 0u;
+    v34 = 0u;
     v19 = [v8 objectForKeyedSubscript:@"VFecSVFAC"];
-    v20 = [v19 countByEnumeratingWithState:&v34 objects:v47 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v33 objects:v46 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v35;
+      v22 = *v34;
       do
       {
         v23 = 0;
         do
         {
-          if (*v35 != v22)
+          if (*v34 != v22)
           {
             objc_enumerationMutation(v19);
           }
@@ -562,7 +560,7 @@
         }
 
         while (v21 != v23);
-        v21 = [v19 countByEnumeratingWithState:&v34 objects:v47 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v33 objects:v46 count:16];
       }
 
       while (v21);
@@ -571,22 +569,22 @@
 
   if ([v8 objectForKeyedSubscript:@"VFecSVDPL"])
   {
-    v32 = 0u;
-    v33 = 0u;
-    v30 = 0u;
     v31 = 0u;
+    v32 = 0u;
+    v29 = 0u;
+    v30 = 0u;
     v24 = [v8 objectForKeyedSubscript:{@"VFecSVDPL", 0}];
-    v25 = [v24 countByEnumeratingWithState:&v30 objects:v46 count:16];
+    v25 = [v24 countByEnumeratingWithState:&v29 objects:v45 count:16];
     if (v25)
     {
       v26 = v25;
-      v27 = *v31;
+      v27 = *v30;
       do
       {
         v28 = 0;
         do
         {
-          if (*v31 != v27)
+          if (*v30 != v27)
           {
             objc_enumerationMutation(v24);
           }
@@ -596,14 +594,12 @@
         }
 
         while (v26 != v28);
-        v26 = [v24 countByEnumeratingWithState:&v30 objects:v46 count:16];
+        v26 = [v24 countByEnumeratingWithState:&v29 objects:v45 count:16];
       }
 
       while (v26);
     }
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 }
 
 - (void)addCommonSegmentTelemetry:(id)telemetry
@@ -787,6 +783,38 @@
   }
 
   *(&self->super.super.isa + *v4 + started) = 1;
+}
+
+- (void)applyKnownDataModeToNewSegmentForLinkProperty:(unsigned int)property andNewSegmemnt:(id)segmemnt
+{
+  v5 = *&property;
+  v6 = 0;
+  v7 = &OBJC_IVAR___MultiwaySegment__isConnectionConstrained;
+  if (property == 1)
+  {
+    v7 = &OBJC_IVAR___MultiwaySegment__isConnectionExpensive;
+    v8 = &OBJC_IVAR___MultiwaySegment__expensiveConnectionDurationStart;
+  }
+
+  else
+  {
+    v8 = &OBJC_IVAR___MultiwaySegment__constrainedConnectionDurationStart;
+  }
+
+  v9 = self + *v7;
+  v10 = self + *v8;
+  do
+  {
+    if (v9[v6] == 1)
+    {
+      [segmemnt setupConnectionDurationStart:v6 withProperty:v5 setTime:*&v10[4 * v6]];
+      [segmemnt markConnectionDurationHasStarted:v6 withProperty:v5];
+    }
+
+    ++v6;
+  }
+
+  while (v6 != 3);
 }
 
 - (void)applyKnownDataModeToNewSegment:(id)segment
@@ -1009,6 +1037,29 @@ LABEL_18:
   [stats setObject:v7 forKeyedSubscript:@"VCRCMLRCTBR"];
 }
 
+- (void)appendPathMTU:(unsigned __int16)u delta:(double)delta
+{
+  if (delta != 0.0)
+  {
+    pathMTUCounter = self->_pathMTUCounter;
+    pathMTUArray = self->_pathMTUArray;
+    v8 = [MEMORY[0x277CCABA8] numberWithUnsignedShort:u];
+    if (pathMTUCounter)
+    {
+      v9 = @",%@";
+    }
+
+    else
+    {
+      v9 = @"%@";
+    }
+
+    [(NSMutableString *)pathMTUArray appendFormat:v9, v8];
+    -[NSMutableString appendFormat:](self->_pathMTUDurationArray, "appendFormat:", v9, [MEMORY[0x277CCABA8] numberWithUnsignedInt:(delta * 1000.0)]);
+    ++self->_pathMTUCounter;
+  }
+}
+
 - (void)finalizePathMTUForTime:(double)time
 {
   if (!self->_isFinalized)
@@ -1064,21 +1115,17 @@ LABEL_18:
   }
 }
 
-- (void)setNWActivityReportingEnabled:(uint64_t)a1 .cold.1(uint64_t a1, unsigned __int8 *a2)
+- (void)setNWActivityReportingEnabled:.cold.1()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v2 = *a2;
   OUTLINED_FUNCTION_4_2();
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_6_3();
   OUTLINED_FUNCTION_4_3();
-  _os_log_debug_impl(v3, v4, v5, v6, v7, 0x22u);
-  v8 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(v0, v1, v2, v3, v4, 0x22u);
 }
 
 - (void)addQRServerTelemetryToDictionary:.cold.1()
 {
-  v7 = *MEMORY[0x277D85DE8];
   if (VRTraceGetErrorLogLevelForModule("") >= 3)
   {
     VRTraceErrorLogLevelToCSTR(3u);
@@ -1087,11 +1134,9 @@ LABEL_18:
       OUTLINED_FUNCTION_3_3();
       OUTLINED_FUNCTION_0();
       OUTLINED_FUNCTION_1();
-      _os_log_error_impl(v1, v2, v3, v4, v5, v6);
+      _os_log_error_impl(v0, v1, v2, v3, v4, v5);
     }
   }
-
-  v0 = *MEMORY[0x277D85DE8];
 }
 
 @end

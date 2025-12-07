@@ -68,79 +68,79 @@
   if ([v6 length])
   {
     v8 = [v6 dataUsingEncoding:4];
-    v29 = 0;
-    v9 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v8 options:0 error:&v29];
-    v10 = v29;
-    v11 = _LTOSLogTranslationEngine();
-    v12 = v11;
+    v34 = 0;
+    v9 = [MEMORY[0x277CCAAA0] JSONObjectWithData:v8 options:0 error:&v34];
+    v10 = v34;
+    v12 = _LTOSLogTranslationEngine(v10, v11);
+    v13 = v12;
     if (!v9)
     {
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
       {
-        [_LTTranslationCandidate(Daemon) updateWithEngineMeta:v10 locale:v12];
+        [_LTTranslationCandidate(Daemon) updateWithEngineMeta:v10 locale:v13];
       }
 
       goto LABEL_26;
     }
 
-    if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
+    if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
     {
-      [_LTTranslationCandidate(Daemon) updateWithEngineMeta:v9 locale:v12];
+      [_LTTranslationCandidate(Daemon) updateWithEngineMeta:v9 locale:v13];
     }
 
-    v13 = [MEMORY[0x277CE1C30] statisticsWithEngineMeta:v9 locale:v7];
-    [self setStatistics:v13];
+    v14 = [MEMORY[0x277CE1C30] statisticsWithEngineMeta:v9 locale:v7];
+    [self setStatistics:v14];
 
     standardUserDefaults = [MEMORY[0x277CBEBD0] standardUserDefaults];
-    v15 = [standardUserDefaults BOOLForKey:@"DisambiguationEnabled"];
+    v16 = [standardUserDefaults BOOLForKey:@"DisambiguationEnabled"];
 
-    if ((v15 & 1) == 0)
+    if ((v16 & 1) == 0)
     {
-      v18 = _LTOSLogTranslationEngine();
-      if (os_log_type_enabled(v18, OS_LOG_TYPE_INFO))
+      v21 = _LTOSLogTranslationEngine(v17, v18);
+      if (os_log_type_enabled(v21, OS_LOG_TYPE_INFO))
       {
-        *v28 = 0;
-        _os_log_impl(&dword_232E53000, v18, OS_LOG_TYPE_INFO, "Skipping loading sense data from meta because it's disabled in user defaults", v28, 2u);
+        *v33 = 0;
+        _os_log_impl(&dword_232E53000, v21, OS_LOG_TYPE_INFO, "Skipping loading sense data from meta because it's disabled in user defaults", v33, 2u);
       }
 
       [self setSenses:0];
       goto LABEL_26;
     }
 
-    v16 = [v9 objectForKeyedSubscript:@"senses"];
-    if (v16)
+    v19 = [v9 objectForKeyedSubscript:@"senses"];
+    if (v19)
     {
-      v17 = [MEMORY[0x277CE1C20] sensesFromArray:v16];
+      v20 = [MEMORY[0x277CE1C20] sensesFromArray:v19];
     }
 
     else
     {
-      v19 = [v9 objectForKeyedSubscript:@"status"];
-      v20 = [v19 isEqualToString:@"phrasebook_exact"];
+      v22 = [v9 objectForKeyedSubscript:@"status"];
+      v23 = [v22 isEqualToString:@"phrasebook_exact"];
 
-      if (!v20)
+      if (!v23)
       {
 LABEL_16:
-        v22 = [v9 objectForKeyedSubscript:@"gender_alternatives"];
-        if (v22)
+        v25 = [v9 objectForKeyedSubscript:@"gender_alternatives"];
+        if (v25)
         {
-          v23 = [MEMORY[0x277CE1C08] genderAlternativesFromDictionary:v22];
-          [self setGenderAlternatives:v23];
+          v26 = [MEMORY[0x277CE1C08] genderAlternativesFromDictionary:v25];
+          [self setGenderAlternatives:v26];
         }
 
-        v24 = [v9 objectForKeyedSubscript:@"romanization"];
+        v27 = [v9 objectForKeyedSubscript:@"romanization"];
         sanitizedFormattedString = [self sanitizedFormattedString];
-        if (!sanitizedFormattedString && v24 && [v24 length])
+        if (!sanitizedFormattedString && v27 && [v27 length])
         {
           romanization = [self romanization];
 
           if (!romanization)
           {
-            [self setRomanization:v24];
-            v27 = _LTOSLogTranslationEngine();
-            if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+            v30 = [self setRomanization:v27];
+            v32 = _LTOSLogTranslationEngine(v30, v31);
+            if (os_log_type_enabled(v32, OS_LOG_TYPE_DEBUG))
             {
-              [_LTTranslationCandidate(Daemon) updateWithEngineMeta:v27 locale:self];
+              [_LTTranslationCandidate(Daemon) updateWithEngineMeta:v32 locale:self];
             }
           }
         }
@@ -153,11 +153,11 @@ LABEL_26:
         goto LABEL_27;
       }
 
-      v17 = [MEMORY[0x277CE1C20] senseWithPhrasebookMatchMeta:v9];
+      v20 = [MEMORY[0x277CE1C20] senseWithPhrasebookMatchMeta:v9];
     }
 
-    v21 = v17;
-    [self setSenses:v17];
+    v24 = v20;
+    [self setSenses:v20];
 
     goto LABEL_16;
   }
@@ -167,32 +167,28 @@ LABEL_27:
 
 - (void)updateWithEngineMeta:()Daemon locale:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_debug_impl(&dword_232E53000, a2, OS_LOG_TYPE_DEBUG, "Translation candidate meta: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_debug_impl(&dword_232E53000, a2, OS_LOG_TYPE_DEBUG, "Translation candidate meta: %@", &v2, 0xCu);
 }
 
 - (void)updateWithEngineMeta:()Daemon locale:.cold.2(void *a1, void *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = [a2 romanization];
-  v6 = 138739971;
-  v7 = v4;
-  _os_log_debug_impl(&dword_232E53000, v3, OS_LOG_TYPE_DEBUG, "Setting romanization from meta JSON string: %{sensitive}@", &v6, 0xCu);
-
-  v5 = *MEMORY[0x277D85DE8];
+  v5 = 138739971;
+  v6 = v4;
+  _os_log_debug_impl(&dword_232E53000, v3, OS_LOG_TYPE_DEBUG, "Setting romanization from meta JSON string: %{sensitive}@", &v5, 0xCu);
 }
 
 - (void)updateWithEngineMeta:()Daemon locale:.cold.3(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
-  v4 = a1;
-  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Skipping meta, failed to parse as JSON: %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
+  v3 = a1;
+  _os_log_error_impl(&dword_232E53000, a2, OS_LOG_TYPE_ERROR, "Skipping meta, failed to parse as JSON: %@", &v2, 0xCu);
 }
 
 @end

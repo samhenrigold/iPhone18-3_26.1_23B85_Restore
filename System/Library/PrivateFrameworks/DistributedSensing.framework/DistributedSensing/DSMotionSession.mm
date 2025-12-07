@@ -34,7 +34,7 @@
   v7 = [(DSMotionSession *)&v21 init];
   if (!v7)
   {
-    v19 = DSLogObjectForCategory_DSMotionSession();
+    v19 = DSLogObjectForCategory_DSMotionSession(0);
     if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_27;
@@ -45,9 +45,10 @@
     goto LABEL_26;
   }
 
-  if (MEMORY[0x24C1EF810](objectCopy) != MEMORY[0x277D86468])
+  v8 = MEMORY[0x24C1EF810](objectCopy);
+  if (v8 != MEMORY[0x277D86468])
   {
-    v19 = DSLogObjectForCategory_DSMotionSession();
+    v19 = DSLogObjectForCategory_DSMotionSession(v8);
     if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_27;
@@ -61,7 +62,7 @@
   uint64 = xpc_dictionary_get_uint64(objectCopy, "kDSVehicleState");
   if (uint64 >= 0x100)
   {
-    v19 = DSLogObjectForCategory_DSMotionSession();
+    v19 = DSLogObjectForCategory_DSMotionSession(uint64);
     if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_27;
@@ -72,35 +73,35 @@
     goto LABEL_26;
   }
 
-  v9 = uint64;
+  v10 = uint64;
   if (onceTokenDSMotionSession != -1)
   {
     [DSMotionSession initWithXPCObject:error:];
   }
 
-  v10 = logObjDSMotionSession;
+  v11 = logObjDSMotionSession;
   if (os_log_type_enabled(logObjDSMotionSession, OS_LOG_TYPE_DEFAULT))
   {
-    if (v9 > 2)
+    if (v10 > 2)
     {
-      v11 = "?";
+      v12 = "?";
     }
 
     else
     {
-      v11 = off_278F85DD8[v9];
+      v12 = off_278F85DD8[v10];
     }
 
     *buf = 136315138;
-    v23 = v11;
-    _os_log_impl(&dword_249027000, v10, OS_LOG_TYPE_DEFAULT, "Vehicle state : %s", buf, 0xCu);
+    v23 = v12;
+    _os_log_impl(&dword_249027000, v11, OS_LOG_TYPE_DEFAULT, "Vehicle state : %s", buf, 0xCu);
   }
 
-  v7->_vehicleState = v9;
-  v12 = xpc_dictionary_get_uint64(objectCopy, "kDSVehicleConfidence");
-  if (v12 >= 0x100)
+  v7->_vehicleState = v10;
+  v13 = xpc_dictionary_get_uint64(objectCopy, "kDSVehicleConfidence");
+  if (v13 >= 0x100)
   {
-    v19 = DSLogObjectForCategory_DSMotionSession();
+    v19 = DSLogObjectForCategory_DSMotionSession(v13);
     if (!os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
     {
       goto LABEL_27;
@@ -112,43 +113,42 @@ LABEL_26:
     _os_log_impl(&dword_249027000, v19, OS_LOG_TYPE_ERROR, v20, buf, 2u);
 LABEL_27:
 
-    v16 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DSErrorDomain" code:1 userInfo:0];
+    v17 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DSErrorDomain" code:1 userInfo:0];
     if (error)
     {
-      v16 = v16;
-      v15 = 0;
-      *error = v16;
+      v17 = v17;
+      v16 = 0;
+      *error = v17;
     }
 
     else
     {
-      v15 = 0;
+      v16 = 0;
     }
 
     goto LABEL_17;
   }
 
-  v13 = v12;
+  v14 = v13;
   if (onceTokenDSMotionSession != -1)
   {
     [DSMotionSession initWithXPCObject:error:];
   }
 
-  v14 = logObjDSMotionSession;
+  v15 = logObjDSMotionSession;
   if (os_log_type_enabled(logObjDSMotionSession, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 134217984;
-    v23 = v13;
-    _os_log_impl(&dword_249027000, v14, OS_LOG_TYPE_DEFAULT, "Vehicle confidence: %llu", buf, 0xCu);
+    v23 = v14;
+    _os_log_impl(&dword_249027000, v15, OS_LOG_TYPE_DEFAULT, "Vehicle confidence: %llu", buf, 0xCu);
   }
 
-  v7->_vehicleConfidence = v13;
-  v15 = v7;
-  v16 = 0;
+  v7->_vehicleConfidence = v14;
+  v16 = v7;
+  v17 = 0;
 LABEL_17:
 
-  v17 = *MEMORY[0x277D85DE8];
-  return v15;
+  return v16;
 }
 
 - (void)encodeSelf:(id)self
@@ -170,7 +170,7 @@ LABEL_17:
 
 - (void)activateWithCompletion:(id)completion
 {
-  v19[1] = *MEMORY[0x277D85DE8];
+  v18[1] = *MEMORY[0x277D85DE8];
   completionCopy = completion;
   selfCopy = self;
   objc_sync_enter(selfCopy);
@@ -230,9 +230,9 @@ LABEL_19:
   else
   {
     v8 = MEMORY[0x277CCA9B8];
-    v18 = *MEMORY[0x277CCA450];
-    v19[0] = @"Unsupported feature";
-    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:&v18 count:1];
+    v17 = *MEMORY[0x277CCA450];
+    v18[0] = @"Unsupported feature";
+    v9 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v18 forKeys:&v17 count:1];
     v10 = [v8 errorWithDomain:@"DSErrorDomain" code:5 userInfo:v9];
 
     if (onceTokenDSMotionSession != -1)
@@ -255,8 +255,6 @@ LABEL_19:
 
 LABEL_21:
   objc_sync_exit(selfCopy);
-
-  v15 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_activate
@@ -391,7 +389,7 @@ LABEL_21:
 
 - (void)_xpcHandleCompletionBlockReply:(id)reply error:(id *)error
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   string = xpc_dictionary_get_string(replyCopy, "kDSXPCMsg");
   if (!strcmp(string, "kDSXPCSuccess"))
@@ -404,8 +402,8 @@ LABEL_21:
     v8 = logObjDSMotionSession;
     if (os_log_type_enabled(logObjDSMotionSession, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v17) = 0;
-      _os_log_impl(&dword_249027000, v8, OS_LOG_TYPE_DEFAULT, "Activated", &v17, 2u);
+      LOWORD(v16) = 0;
+      _os_log_impl(&dword_249027000, v8, OS_LOG_TYPE_DEFAULT, "Activated", &v16, 2u);
     }
 
     v7 = 0;
@@ -432,9 +430,9 @@ LABEL_21:
       bytes_ptr = [objc_alloc(MEMORY[0x277CBEA90]) initWithBytes:bytes_ptr length:xpc_data_get_length(v9)];
       if (bytes_ptr)
       {
-        v15 = MEMORY[0x277CCAAC8];
-        v16 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
-        v7 = [v15 unarchivedObjectOfClasses:v16 fromData:bytes_ptr error:0];
+        v14 = MEMORY[0x277CCAAC8];
+        v15 = [MEMORY[0x277CBEB98] setWithObject:objc_opt_class()];
+        v7 = [v14 unarchivedObjectOfClasses:v15 fromData:bytes_ptr error:0];
 
         if (v7)
         {
@@ -457,8 +455,8 @@ LABEL_21:
   v11 = logObjDSMotionSession;
   if (os_log_type_enabled(logObjDSMotionSession, OS_LOG_TYPE_ERROR))
   {
-    LOWORD(v17) = 0;
-    _os_log_impl(&dword_249027000, v11, OS_LOG_TYPE_ERROR, "Error while unarchiving completion block error", &v17, 2u);
+    LOWORD(v16) = 0;
+    _os_log_impl(&dword_249027000, v11, OS_LOG_TYPE_ERROR, "Error while unarchiving completion block error", &v16, 2u);
   }
 
   v7 = [MEMORY[0x277CCA9B8] errorWithDomain:@"DSErrorDomain" code:1 userInfo:0];
@@ -471,9 +469,9 @@ LABEL_17:
   v12 = logObjDSMotionSession;
   if (os_log_type_enabled(logObjDSMotionSession, OS_LOG_TYPE_DEFAULT))
   {
-    v17 = 138412290;
-    v18 = v7;
-    _os_log_impl(&dword_249027000, v12, OS_LOG_TYPE_DEFAULT, "Failed to activate with error %@", &v17, 0xCu);
+    v16 = 138412290;
+    v17 = v7;
+    _os_log_impl(&dword_249027000, v12, OS_LOG_TYPE_DEFAULT, "Failed to activate with error %@", &v16, 0xCu);
   }
 
   if (error)
@@ -484,8 +482,6 @@ LABEL_22:
   }
 
 LABEL_23:
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)invalidate
@@ -654,7 +650,7 @@ LABEL_23:
 
 - (void)_xpcEventHandler:(id)handler
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
   v5 = handlerCopy;
   if (handlerCopy == MEMORY[0x277D863F8])
@@ -669,17 +665,16 @@ LABEL_23:
       v8 = logObjDSMotionSession;
       if (os_log_type_enabled(logObjDSMotionSession, OS_LOG_TYPE_ERROR))
       {
-        xpcConnection = self->_xpcConnection;
-        v10 = v8;
-        v14 = 136315138;
-        v15 = xpc_connection_copy_invalidation_reason();
-        _os_log_impl(&dword_249027000, v10, OS_LOG_TYPE_ERROR, "XPC Connection Invalidated for reason: %s", &v14, 0xCu);
+        v9 = v8;
+        v12 = 136315138;
+        v13 = xpc_connection_copy_invalidation_reason();
+        _os_log_impl(&dword_249027000, v9, OS_LOG_TYPE_ERROR, "XPC Connection Invalidated for reason: %s", &v12, 0xCu);
       }
     }
 
     selfCopy = self;
     objc_sync_enter(selfCopy);
-    v12 = selfCopy->_xpcConnection;
+    xpcConnection = selfCopy->_xpcConnection;
     selfCopy->_xpcConnection = 0;
 
     objc_sync_exit(selfCopy);
@@ -707,13 +702,11 @@ LABEL_23:
     if (os_log_type_enabled(logObjDSMotionSession, OS_LOG_TYPE_ERROR))
     {
       v7 = v6;
-      v14 = 136315138;
-      v15 = MEMORY[0x24C1EF710](v5);
-      _os_log_impl(&dword_249027000, v7, OS_LOG_TYPE_ERROR, "Invalid XPC Message :%s", &v14, 0xCu);
+      v12 = 136315138;
+      v13 = MEMORY[0x24C1EF710](v5);
+      _os_log_impl(&dword_249027000, v7, OS_LOG_TYPE_ERROR, "Invalid XPC Message :%s", &v12, 0xCu);
     }
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_handleXPCMessage:(id)message
@@ -816,10 +809,11 @@ LABEL_13:
   dispatchQueue = self->_dispatchQueue;
   messageCopy = message;
   dispatch_assert_queue_V2(dispatchQueue);
-  v9 = 0;
-  v6 = [[DSDeviceContext alloc] initWithXPCObject:messageCopy error:&v9];
+  v10 = 0;
+  v6 = [[DSDeviceContext alloc] initWithXPCObject:messageCopy error:&v10];
 
-  v7 = v9;
+  v7 = v10;
+  v8 = v7;
   if (v6)
   {
     deviceFoundHandler = self->_deviceFoundHandler;
@@ -831,7 +825,7 @@ LABEL_13:
 
   else
   {
-    [DSMotionSession _deviceFoundMessage:];
+    [DSMotionSession _deviceFoundMessage:v7];
   }
 }
 
@@ -840,10 +834,11 @@ LABEL_13:
   dispatchQueue = self->_dispatchQueue;
   messageCopy = message;
   dispatch_assert_queue_V2(dispatchQueue);
-  v9 = 0;
-  v6 = [[DSDeviceContext alloc] initWithXPCObject:messageCopy error:&v9];
+  v10 = 0;
+  v6 = [[DSDeviceContext alloc] initWithXPCObject:messageCopy error:&v10];
 
-  v7 = v9;
+  v7 = v10;
+  v8 = v7;
   if (v6)
   {
     deviceChangedHandler = self->_deviceChangedHandler;
@@ -855,7 +850,7 @@ LABEL_13:
 
   else
   {
-    [DSMotionSession _deviceFoundMessage:];
+    [DSMotionSession _deviceFoundMessage:v7];
   }
 }
 
@@ -864,10 +859,11 @@ LABEL_13:
   dispatchQueue = self->_dispatchQueue;
   messageCopy = message;
   dispatch_assert_queue_V2(dispatchQueue);
-  v9 = 0;
-  v6 = [[DSDeviceContext alloc] initWithXPCObject:messageCopy error:&v9];
+  v10 = 0;
+  v6 = [[DSDeviceContext alloc] initWithXPCObject:messageCopy error:&v10];
 
-  v7 = v9;
+  v7 = v10;
+  v8 = v7;
   if (v6)
   {
     deviceLostHandler = self->_deviceLostHandler;
@@ -879,7 +875,7 @@ LABEL_13:
 
   else
   {
-    [DSMotionSession _deviceLostMessage:];
+    [DSMotionSession _deviceLostMessage:v7];
   }
 }
 
@@ -926,7 +922,7 @@ LABEL_13:
 
 void __49__DSMotionSession_updateVehicleState_confidence___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v2 = *(a1 + 32);
   if (*(v2 + 40) != *(a1 + 48))
   {
@@ -960,11 +956,11 @@ void __49__DSMotionSession_updateVehicleState_confidence___block_invoke(uint64_t
         v7 = off_278F85DD8[v6];
       }
 
-      v15 = 136315394;
-      v16 = v5;
-      v17 = 2080;
-      v18 = v7;
-      _os_log_impl(&dword_249027000, v3, OS_LOG_TYPE_DEFAULT, "Updating Vehicle State from %s to %s", &v15, 0x16u);
+      v14 = 136315394;
+      v15 = v5;
+      v16 = 2080;
+      v17 = v7;
+      _os_log_impl(&dword_249027000, v3, OS_LOG_TYPE_DEFAULT, "Updating Vehicle State from %s to %s", &v14, 0x16u);
     }
 
     *(*(*(a1 + 40) + 8) + 24) = 1;
@@ -1047,11 +1043,11 @@ LABEL_29:
         case 0xFu:
           v12 = "highest";
 LABEL_41:
-          v15 = 136315394;
-          v16 = v10;
-          v17 = 2080;
-          v18 = v12;
-          _os_log_impl(&dword_249027000, v8, OS_LOG_TYPE_DEFAULT, "Updating Vehicle confidence from %s to %s", &v15, 0x16u);
+          v14 = 136315394;
+          v15 = v10;
+          v16 = 2080;
+          v17 = v12;
+          _os_log_impl(&dword_249027000, v8, OS_LOG_TYPE_DEFAULT, "Updating Vehicle confidence from %s to %s", &v14, 0x16u);
 LABEL_42:
           *(*(*(a1 + 40) + 8) + 24) = 1;
           goto LABEL_43;
@@ -1078,12 +1074,10 @@ LABEL_43:
     v13 = logObjDSMotionSession;
     if (os_log_type_enabled(logObjDSMotionSession, OS_LOG_TYPE_DEFAULT))
     {
-      LOWORD(v15) = 0;
-      _os_log_impl(&dword_249027000, v13, OS_LOG_TYPE_DEFAULT, "States already updated", &v15, 2u);
+      LOWORD(v14) = 0;
+      _os_log_impl(&dword_249027000, v13, OS_LOG_TYPE_DEFAULT, "States already updated", &v14, 2u);
     }
   }
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_updateVehicleState:(unsigned __int8)state confidence:(unsigned __int8)confidence
@@ -1115,21 +1109,23 @@ LABEL_43:
   }
 }
 
-- (void)_deviceFoundMessage:.cold.1()
+- (void)_deviceFoundMessage:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = DSLogObjectForCategory_DSMotionSession();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = DSLogObjectForCategory_DSMotionSession(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_0(&dword_249027000, v1, v2, "Error decoding device context", v3, v4, v5, v6, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0(&dword_249027000, v2, v3, "Error decoding device context", v4, v5, v6, v7, v8);
   }
 }
 
-- (void)_deviceLostMessage:.cold.1()
+- (void)_deviceLostMessage:(uint64_t)a1 .cold.1(uint64_t a1)
 {
-  v0 = DSLogObjectForCategory_DSMotionSession();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_ERROR))
+  v1 = DSLogObjectForCategory_DSMotionSession(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_ERROR))
   {
-    OUTLINED_FUNCTION_0(&dword_249027000, v1, v2, "Error decoding winner context", v3, v4, v5, v6, 0);
+    v8 = 0;
+    OUTLINED_FUNCTION_0(&dword_249027000, v2, v3, "Error decoding winner context", v4, v5, v6, v7, v8);
   }
 }
 

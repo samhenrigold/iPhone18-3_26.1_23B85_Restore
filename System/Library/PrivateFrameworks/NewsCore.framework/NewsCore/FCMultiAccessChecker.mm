@@ -36,25 +36,25 @@
 
 - (FCMultiAccessChecker)initWithAccessCheckers:(id)checkers
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   checkersCopy = checkers;
   if (!checkersCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v10 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessCheckers != nil"];
+    v9 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "accessCheckers != nil"];
     *buf = 136315906;
-    v13 = "[FCMultiAccessChecker initWithAccessCheckers:]";
-    v14 = 2080;
-    v15 = "FCMultiAccessChecker.m";
-    v16 = 1024;
-    v17 = 28;
-    v18 = 2114;
-    v19 = v10;
+    v12 = "[FCMultiAccessChecker initWithAccessCheckers:]";
+    v13 = 2080;
+    v14 = "FCMultiAccessChecker.m";
+    v15 = 1024;
+    v16 = 28;
+    v17 = 2114;
+    v18 = v9;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v11.receiver = self;
-  v11.super_class = FCMultiAccessChecker;
-  v5 = [(FCAccessChecker *)&v11 init];
+  v10.receiver = self;
+  v10.super_class = FCMultiAccessChecker;
+  v5 = [(FCAccessChecker *)&v10 init];
   if (v5)
   {
     v6 = [checkersCopy copy];
@@ -62,7 +62,6 @@
     v5->_accessCheckers = v6;
   }
 
-  v8 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
@@ -106,7 +105,7 @@
   return error;
 }
 
-uint64_t __60__FCMultiAccessChecker_hasAccessToItem_blockedReason_error___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__60__FCMultiAccessChecker_hasAccessToItem_blockedReason_error___block_invoke(void *a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 hasAccessToItem:a1[4] blockedReason:a1[6] error:a1[7]];
   *(*(a1[5] + 8) + 24) = result;
@@ -120,35 +119,35 @@ uint64_t __60__FCMultiAccessChecker_hasAccessToItem_blockedReason_error___block_
 
 - (void)checkAccessToItem:(id)item withQualityOfService:(int64_t)service completion:(id)completion
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v51 = *MEMORY[0x1E69E9840];
   itemCopy = item;
   completionCopy = completion;
   if (!itemCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "item != nil"];
+    v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "item != nil"];
     *buf = 136315906;
-    v45 = "[FCMultiAccessChecker checkAccessToItem:withQualityOfService:completion:]";
-    v46 = 2080;
-    v47 = "FCMultiAccessChecker.m";
-    v48 = 1024;
-    v49 = 72;
-    v50 = 2114;
-    v51 = v24;
+    v44 = "[FCMultiAccessChecker checkAccessToItem:withQualityOfService:completion:]";
+    v45 = 2080;
+    v46 = "FCMultiAccessChecker.m";
+    v47 = 1024;
+    v48 = 72;
+    v49 = 2114;
+    v50 = v23;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
-  v27 = completionCopy;
+  v26 = completionCopy;
   if (!completionCopy && os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v25 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completion != nil"];
+    v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Invalid parameter not satisfying %s", "completion != nil"];
     *buf = 136315906;
-    v45 = "[FCMultiAccessChecker checkAccessToItem:withQualityOfService:completion:]";
-    v46 = 2080;
-    v47 = "FCMultiAccessChecker.m";
-    v48 = 1024;
-    v49 = 73;
-    v50 = 2114;
-    v51 = v25;
+    v44 = "[FCMultiAccessChecker checkAccessToItem:withQualityOfService:completion:]";
+    v45 = 2080;
+    v46 = "FCMultiAccessChecker.m";
+    v47 = 1024;
+    v48 = 73;
+    v49 = 2114;
+    v50 = v24;
     _os_log_error_impl(&dword_1B63EF000, MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR, "*** Assertion failure (Identifier: catch-all) : %s %s:%d %{public}@", buf, 0x26u);
   }
 
@@ -156,36 +155,36 @@ uint64_t __60__FCMultiAccessChecker_hasAccessToItem_blockedReason_error___block_
   v11 = objc_opt_new();
   v12 = dispatch_group_create();
   accessCheckers = [(FCMultiAccessChecker *)self accessCheckers];
-  v38[0] = MEMORY[0x1E69E9820];
-  v38[1] = 3221225472;
-  v38[2] = __74__FCMultiAccessChecker_checkAccessToItem_withQualityOfService_completion___block_invoke;
-  v38[3] = &unk_1E7C45B28;
+  v37[0] = MEMORY[0x1E69E9820];
+  v37[1] = 3221225472;
+  v37[2] = __74__FCMultiAccessChecker_checkAccessToItem_withQualityOfService_completion___block_invoke;
+  v37[3] = &unk_1E7C45B28;
   v14 = v12;
-  v39 = v14;
-  v26 = itemCopy;
-  v40 = v26;
+  v38 = v14;
+  v25 = itemCopy;
+  v39 = v25;
   serviceCopy = service;
   v15 = v10;
-  v41 = v15;
+  v40 = v15;
   v16 = v11;
-  v42 = v16;
-  [accessCheckers enumerateObjectsUsingBlock:v38];
+  v41 = v16;
+  [accessCheckers enumerateObjectsUsingBlock:v37];
   if (FCDispatchGroupIsEmpty(v14))
   {
-    v33[0] = MEMORY[0x1E69E9820];
-    v33[1] = 3221225472;
-    v33[2] = __74__FCMultiAccessChecker_checkAccessToItem_withQualityOfService_completion___block_invoke_3;
-    v33[3] = &unk_1E7C43498;
-    v17 = &v34;
-    v34 = accessCheckers;
-    v18 = &v35;
-    v35 = v15;
-    v19 = &v36;
-    v36 = v16;
-    v20 = &v37;
-    v21 = v27;
-    v37 = v27;
-    __74__FCMultiAccessChecker_checkAccessToItem_withQualityOfService_completion___block_invoke_3(v33);
+    v32[0] = MEMORY[0x1E69E9820];
+    v32[1] = 3221225472;
+    v32[2] = __74__FCMultiAccessChecker_checkAccessToItem_withQualityOfService_completion___block_invoke_3;
+    v32[3] = &unk_1E7C43498;
+    v17 = &v33;
+    v33 = accessCheckers;
+    v18 = &v34;
+    v34 = v15;
+    v19 = &v35;
+    v35 = v16;
+    v20 = &v36;
+    v21 = v26;
+    v36 = v26;
+    __74__FCMultiAccessChecker_checkAccessToItem_withQualityOfService_completion___block_invoke_3(v32);
   }
 
   else
@@ -195,19 +194,17 @@ uint64_t __60__FCMultiAccessChecker_hasAccessToItem_blockedReason_error___block_
     block[1] = 3221225472;
     block[2] = __74__FCMultiAccessChecker_checkAccessToItem_withQualityOfService_completion___block_invoke_4;
     block[3] = &unk_1E7C43498;
-    v17 = &v29;
-    v29 = accessCheckers;
-    v18 = &v30;
-    v30 = v15;
-    v19 = &v31;
-    v31 = v16;
-    v20 = &v32;
-    v21 = v27;
-    v32 = v27;
+    v17 = &v28;
+    v28 = accessCheckers;
+    v18 = &v29;
+    v29 = v15;
+    v19 = &v30;
+    v30 = v16;
+    v20 = &v31;
+    v21 = v26;
+    v31 = v26;
     dispatch_group_notify(v14, v22, block);
   }
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __74__FCMultiAccessChecker_checkAccessToItem_withQualityOfService_completion___block_invoke(uint64_t a1, void *a2, uint64_t a3)

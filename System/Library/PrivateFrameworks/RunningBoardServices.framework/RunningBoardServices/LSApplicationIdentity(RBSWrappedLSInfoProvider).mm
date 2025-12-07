@@ -6,7 +6,7 @@
 
 - (id)fetchWrappedInfoWithError:()RBSWrappedLSInfoProvider
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v5 = [self findApplicationRecordWithError:?];
   v6 = v5;
   if (v5)
@@ -19,7 +19,7 @@
 
   else
   {
-    v11 = rbs_general_log();
+    v11 = rbs_general_log(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       if (a3)
@@ -32,9 +32,9 @@
         v12 = @"<>";
       }
 
-      v15 = 138543362;
-      v16 = v12;
-      _os_log_impl(&dword_18E8AD000, v11, OS_LOG_TYPE_INFO, "fetchWrappedInfoWithError failed due to %{public}@", &v15, 0xCu);
+      v14 = 138543362;
+      v15 = v12;
+      _os_log_impl(&dword_18E8AD000, v11, OS_LOG_TYPE_INFO, "fetchWrappedInfoWithError failed due to %{public}@", &v14, 0xCu);
       if (a3)
       {
       }
@@ -42,8 +42,6 @@
 
     v10 = 0;
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 
   return v10;
 }

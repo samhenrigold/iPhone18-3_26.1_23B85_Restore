@@ -394,7 +394,7 @@
 
 - (id)voicemailsMatchingFlags:(unsigned int)flags withoutFlags:(unsigned int)withoutFlags
 {
-  v4 = VMStoreCopyOfAllRecordsWithFlags(flags, withoutFlags, 0);
+  v4 = VMStoreCopyOfAllRecordsWithFlags(*&flags, *&withoutFlags, 0);
   v8[0] = _NSConcreteStackBlock;
   v8[1] = 3221225472;
   v8[2] = sub_100069A38;

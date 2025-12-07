@@ -16,6 +16,7 @@
 - (void)hrmSessionStateChanged:(BOOL)changed completion:(id)completion;
 - (void)invalidate;
 - (void)prewarmAudioAccessoriesForFitnessWorkout;
+- (void)setArbitrationBlockingModeWithCompletion:(BOOL)completion completion:(id)a4;
 @end
 
 @implementation AAAudioRoutingControl
@@ -88,12 +89,11 @@
 
 - (id)description
 {
-  deviceAddress = self->_deviceAddress;
-  appBundleID = self->_appBundleID;
-  clientID = self->_clientID;
-  NSAppendPrintF();
+  v4 = 0;
+  NSAppendPrintF(&v4, "AAAudioRoutingControl, CID 0x%X address %@ app %@", self->_clientID, self->_deviceAddress, self->_appBundleID);
+  v2 = v4;
 
-  return 0;
+  return v2;
 }
 
 - (void)areHeadphonesNearbyAndEligibleToPlay:(id)play
@@ -208,8 +208,7 @@ void __48__AAAudioRoutingControl_activateWithCompletion___block_invoke(uint64_t 
   v2 = *(a1 + 32);
   if (*(v2 + 8) == 1)
   {
-    v3 = *MEMORY[0x277CCA590];
-    v8 = NSErrorF();
+    v7 = NSErrorF(*MEMORY[0x277CCA590], 4294960575, "Activate already called");
     if (gLogCategory_AAAudioRoutingControl <= 90 && (gLogCategory_AAAudioRoutingControl != -1 || _LogCategory_Initialize()))
     {
       __48__AAAudioRoutingControl_activateWithCompletion___block_invoke_cold_1();
@@ -221,14 +220,14 @@ void __48__AAAudioRoutingControl_activateWithCompletion___block_invoke(uint64_t 
   else
   {
     *(v2 + 8) = 1;
-    v4 = MEMORY[0x245CE9060](*(a1 + 40));
-    v5 = *(a1 + 32);
-    v6 = *(v5 + 16);
-    *(v5 + 16) = v4;
+    v3 = MEMORY[0x245CE9060](*(a1 + 40));
+    v4 = *(a1 + 32);
+    v5 = *(v4 + 16);
+    *(v4 + 16) = v3;
 
-    v7 = *(a1 + 32);
+    v6 = *(a1 + 32);
 
-    [v7 _activate];
+    [v6 _activate];
   }
 }
 
@@ -253,44 +252,43 @@ void __48__AAAudioRoutingControl_activateWithCompletion___block_invoke(uint64_t 
   self->_direct = v4;
   if (gLogCategory_AAAudioRoutingControl <= 30 && (gLogCategory_AAAudioRoutingControl != -1 || _LogCategory_Initialize()))
   {
-    [(AAAudioRoutingControl *)self _activate];
+    [AAAudioRoutingControl _activate];
   }
 
   if (self->_invalidateCalled)
   {
-    v5 = *MEMORY[0x277CCA590];
-    v9 = NSErrorF();
+    v8 = NSErrorF(*MEMORY[0x277CCA590], 4294896148, "Activate after invalidate");
     if (gLogCategory_AAAudioRoutingControl <= 90 && (gLogCategory_AAAudioRoutingControl != -1 || _LogCategory_Initialize()))
     {
       LogPrintF();
     }
 
-    v7 = MEMORY[0x245CE9060](self->_activateCompletion);
+    v6 = MEMORY[0x245CE9060](self->_activateCompletion);
     activateCompletion = self->_activateCompletion;
     self->_activateCompletion = 0;
 
-    if (v7)
+    if (v6)
     {
-      (v7)[2](v7, v9);
+      (v6)[2](v6, v8);
     }
   }
 
   else
   {
-    v10[0] = MEMORY[0x277D85DD0];
-    v10[1] = 3221225472;
-    v10[2] = __34__AAAudioRoutingControl__activate__block_invoke;
-    v10[3] = &unk_278CDD750;
-    v10[4] = self;
-    v6 = MEMORY[0x245CE9060](v10);
+    v9[0] = MEMORY[0x277D85DD0];
+    v9[1] = 3221225472;
+    v9[2] = __34__AAAudioRoutingControl__activate__block_invoke;
+    v9[3] = &unk_278CDD750;
+    v9[4] = self;
+    v5 = MEMORY[0x245CE9060](v9);
     if (self->_direct)
     {
-      [(AAAudioRoutingControl *)self _activateDirect:v6];
+      [(AAAudioRoutingControl *)self _activateDirect:v5];
     }
 
     else
     {
-      [(AAAudioRoutingControl *)self _activateXPC:v6];
+      [(AAAudioRoutingControl *)self _activateXPC:v5];
     }
   }
 }
@@ -333,7 +331,7 @@ void __34__AAAudioRoutingControl__activate__block_invoke(uint64_t a1, void *a2)
   directCopy = direct;
   if (gLogCategory_AAAudioRoutingControl <= 30 && (gLogCategory_AAAudioRoutingControl != -1 || _LogCategory_Initialize()))
   {
-    [AAAudioRoutingControl _activateDirect:?];
+    [AAAudioRoutingControl _activateDirect:];
   }
 
   v5 = gAAServicesDaemon;
@@ -378,7 +376,7 @@ uint64_t __41__AAAudioRoutingControl__activateDirect___block_invoke_2(uint64_t a
   cCopy = c;
   if (gLogCategory_AAAudioRoutingControl <= 30 && (gLogCategory_AAAudioRoutingControl != -1 || _LogCategory_Initialize()))
   {
-    [AAAudioRoutingControl _activateXPC:?];
+    [AAAudioRoutingControl _activateXPC:];
   }
 
   _ensureXPCStarted = [(AAAudioRoutingControl *)self _ensureXPCStarted];
@@ -426,6 +424,50 @@ uint64_t __38__AAAudioRoutingControl__activateXPC___block_invoke_2(uint64_t a1)
   }
 
   return result;
+}
+
+- (void)setArbitrationBlockingModeWithCompletion:(BOOL)completion completion:(id)a4
+{
+  completionCopy = completion;
+  v6 = a4;
+  if (gLogCategory_AAAudioRoutingControl <= 30 && (gLogCategory_AAAudioRoutingControl != -1 || _LogCategory_Initialize()))
+  {
+    [AAAudioRoutingControl setArbitrationBlockingModeWithCompletion:completion:];
+  }
+
+  _ensureXPCStarted = [(AAAudioRoutingControl *)self _ensureXPCStarted];
+  if (_ensureXPCStarted)
+  {
+    if (gLogCategory_AAAudioRoutingControl <= 90 && (gLogCategory_AAAudioRoutingControl != -1 || _LogCategory_Initialize()))
+    {
+      [AAAudioRoutingControl setArbitrationBlockingModeWithCompletion:completion:];
+    }
+
+    v6[2](v6, _ensureXPCStarted);
+  }
+
+  else
+  {
+    if (!self->_xpcCnx && gLogCategory_AAAudioRoutingControl <= 90 && (gLogCategory_AAAudioRoutingControl != -1 || _LogCategory_Initialize()))
+    {
+      [AAAudioRoutingControl setArbitrationBlockingModeWithCompletion:completion:];
+    }
+
+    xpcCnx = self->_xpcCnx;
+    v13[0] = MEMORY[0x277D85DD0];
+    v13[1] = 3221225472;
+    v13[2] = __77__AAAudioRoutingControl_setArbitrationBlockingModeWithCompletion_completion___block_invoke;
+    v13[3] = &unk_278CDD700;
+    v9 = v6;
+    v14 = v9;
+    v10 = [(NSXPCConnection *)xpcCnx remoteObjectProxyWithErrorHandler:v13];
+    v11[0] = MEMORY[0x277D85DD0];
+    v11[1] = 3221225472;
+    v11[2] = __77__AAAudioRoutingControl_setArbitrationBlockingModeWithCompletion_completion___block_invoke_2;
+    v11[3] = &unk_278CDD700;
+    v12 = v9;
+    [v10 setHijackBlockingMode:self mode:completionCopy completion:v11];
+  }
 }
 
 void __77__AAAudioRoutingControl_setArbitrationBlockingModeWithCompletion_completion___block_invoke(uint64_t a1, void *a2)
@@ -617,8 +659,8 @@ _BYTE *__42__AAAudioRoutingControl__ensureXPCStarted__block_invoke_2(uint64_t a1
     [AAAudioRoutingControl _interrupted];
   }
 
-  v3 = BTErrorF();
-  [(AAAudioRoutingControl *)self _reportError:v3];
+  v10 = BTErrorF(4294960596, "XPC interrupted", v2, v3, v4, v5, v6, v7, v9);
+  [(AAAudioRoutingControl *)self _reportError:v10];
 }
 
 - (void)invalidate
@@ -656,15 +698,15 @@ void __35__AAAudioRoutingControl_invalidate__block_invoke(uint64_t a1)
       v4 = *(a1 + 32);
     }
 
-    v8 = MEMORY[0x245CE9060](*(v4 + 16));
+    v15 = MEMORY[0x245CE9060](*(v4 + 16));
     v5 = *(a1 + 32);
     v6 = *(v5 + 16);
     *(v5 + 16) = 0;
 
-    if (v8)
+    if (v15)
     {
-      v7 = BTErrorF();
-      v8[2](v8, v7);
+      v13 = BTErrorF(4294896148, "Invalidate called", v7, v8, v9, v10, v11, v12, v14);
+      v15[2](v15, v13);
     }
 
     [*(a1 + 32) _invalidated];
@@ -694,14 +736,14 @@ void __42__AAAudioRoutingControl__invalidateDirect__block_invoke(uint64_t a1)
 
     if (!self->_direct && !self->_xpcCnx)
     {
-      v6 = MEMORY[0x245CE9060](self->_activateCompletion, a2);
+      v13 = MEMORY[0x245CE9060](self->_activateCompletion, a2);
       activateCompletion = self->_activateCompletion;
       self->_activateCompletion = 0;
 
-      if (v6)
+      if (v13)
       {
-        v4 = BTErrorF();
-        v6[2](v6, v4);
+        v10 = BTErrorF(4294896148, "Unexpectedly invalidated", v4, v5, v6, v7, v8, v9, v12);
+        v13[2](v13, v10);
       }
 
       xpcCnx = self->_xpcCnx;
@@ -732,13 +774,6 @@ void __42__AAAudioRoutingControl__invalidateDirect__block_invoke(uint64_t a1)
   {
     (v4)[2](v4, errorCopy);
   }
-}
-
-- (uint64_t)setArbitrationBlockingModeWithCompletion:(uint64_t)a1 completion:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
-{
-  v3 = *(a2 + 40);
-  v4 = *(a2 + 48);
-  return LogPrintF();
 }
 
 @end

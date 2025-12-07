@@ -212,9 +212,9 @@ LABEL_15:
           goto LABEL_16;
         }
 
-        v17 = [(NSString *)v12 isEqualToString:v13];
+        isEqualToString = objc_msgSend_isEqualToString_(v12);
 
-        if (!v17)
+        if (!isEqualToString)
         {
 LABEL_16:
           self->_isForCurrentUser = user;
@@ -495,7 +495,7 @@ uint64_t __60__PKPassShare_appendCredentialShareDictionary_entitlements___block_
   v6 = v5;
   if (v4 == v5)
   {
-    v8 = 1;
+    isEqualToString = 1;
   }
 
   else
@@ -512,16 +512,16 @@ uint64_t __60__PKPassShare_appendCredentialShareDictionary_entitlements___block_
 
     if (v7)
     {
-      v8 = 0;
+      isEqualToString = 0;
     }
 
     else
     {
-      v8 = [v4 isEqualToString:v5];
+      isEqualToString = objc_msgSend_isEqualToString_(v4);
     }
   }
 
-  return v8;
+  return isEqualToString;
 }
 
 uint64_t __51__PKPassShare__effectiveStatusFromCredentialShares__block_invoke(unint64_t a1)
@@ -823,9 +823,9 @@ LABEL_55:
 
   if (v9)
   {
-    v11 = [(NSString *)v8 isEqualToString:v9];
+    isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-    if (v11)
+    if (isEqualToString)
     {
       goto LABEL_55;
     }
@@ -851,7 +851,7 @@ LABEL_18:
     goto LABEL_19;
   }
 
-  v15 = [(NSString *)v12 isEqualToString:v13];
+  v15 = objc_msgSend_isEqualToString_(v12);
 
   if (v15)
   {
@@ -865,7 +865,7 @@ LABEL_18:
   }
 
   v17 = v16;
-  v18 = [(__CFString *)v16 isEqualToString:@"owner"];
+  v18 = objc_msgSend_isEqualToString_(v16);
 
   if (v18)
   {
@@ -889,7 +889,7 @@ LABEL_57:
 
     if (v20)
     {
-      v22 = [(NSString *)v12 isEqualToString:v20];
+      v22 = objc_msgSend_isEqualToString_(v12);
 
       if (v22)
       {
@@ -970,7 +970,7 @@ LABEL_19:
 
           if (v35 && v36)
           {
-            v40 = [v35 isEqualToString:v36];
+            v40 = objc_msgSend_isEqualToString_(v35);
 
             if (v40)
             {
@@ -1007,7 +1007,7 @@ LABEL_42:
             continue;
           }
 
-          v44 = [v39 isEqualToString:v43];
+          v44 = objc_msgSend_isEqualToString_(v39);
 
           if (v44)
           {
@@ -1067,7 +1067,7 @@ LABEL_59:
     goto LABEL_61;
   }
 
-  v51 = [(NSString *)v48 isEqualToString:v49];
+  v51 = objc_msgSend_isEqualToString_(v48);
 
   if (v51)
   {

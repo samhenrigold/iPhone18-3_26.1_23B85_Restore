@@ -1,4 +1,5 @@
 @interface AMPTintedBackgroundButton
+- (void)setHighlighted:(BOOL)highlighted;
 - (void)tintColorDidChange;
 - (void)updateBackgroundColor;
 @end
@@ -10,6 +11,14 @@
   v3.receiver = self;
   v3.super_class = AMPTintedBackgroundButton;
   [(AMPTintedBackgroundButton *)&v3 tintColorDidChange];
+  [(AMPTintedBackgroundButton *)self updateBackgroundColor];
+}
+
+- (void)setHighlighted:(BOOL)highlighted
+{
+  v4.receiver = self;
+  v4.super_class = AMPTintedBackgroundButton;
+  [(AMPTintedBackgroundButton *)&v4 setHighlighted:highlighted];
   [(AMPTintedBackgroundButton *)self updateBackgroundColor];
 }
 

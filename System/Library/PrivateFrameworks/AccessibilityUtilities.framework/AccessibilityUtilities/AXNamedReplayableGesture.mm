@@ -307,7 +307,7 @@
   return v11;
 }
 
-unint64_t __59__AXNamedReplayableGesture_gestureWithPoints_times_forces___block_invoke(uint64_t a1, void *a2, uint64_t a3)
+void *__59__AXNamedReplayableGesture_gestureWithPoints_times_forces___block_invoke(uint64_t a1, void *a2, uint64_t a3)
 {
   v5 = *(*(*(a1 + 32) + 8) + 24);
   result = [a2 count];

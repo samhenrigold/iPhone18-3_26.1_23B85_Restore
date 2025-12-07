@@ -1,3 +1,52 @@
+uint64_t HSUtil::Decoder::_readCodable<MTPListGestureConfig_>(uint64_t a1, unint64_t *a2, MTGestureConfig_ *a3)
+{
+  v6 = *a2;
+  result = HSUtil::Decoder::_skipElement(a1, a2);
+  if (!*a1)
+  {
+    v8 = result;
+    result = HSUtil::Decoder::_loadKeyTableIfNeeded(a1, a2);
+    if (!*a1)
+    {
+      v11[1] = *(a1 + 8);
+      v11[0] = 0xAAAAAAAA00000000;
+      v10 = *(a1 + 24);
+      v9 = *(a1 + 32);
+      v12 = 0;
+      v13 = v10;
+      v14 = v9;
+      if (v9)
+      {
+        atomic_fetch_add_explicit(&v9->__shared_owners_, 1uLL, memory_order_relaxed);
+      }
+
+      v15 = *(a1 + 40);
+      v16 = *(a1 + 56) + v6;
+      v17 = v8;
+      v18 = 0;
+      if ((MTGestureConfig_::decode(a3, v11) & 1) == 0)
+      {
+        *a1 = 10;
+      }
+
+      if (v14)
+      {
+        std::__shared_weak_count::__release_shared[abi:ne200100](v14);
+      }
+
+      result = v12;
+      v12 = 0;
+      if (result)
+      {
+        std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](result);
+        operator delete();
+      }
+    }
+  }
+
+  return result;
+}
+
 uint64_t MTGestureConfig_::decode(MTGestureConfig_ *this, HSUtil::Decoder *a2)
 {
   *&v4 = 0xAAAAAAAAAAAAAAAALL;
@@ -7,7 +56,7 @@ uint64_t MTGestureConfig_::decode(MTGestureConfig_ *this, HSUtil::Decoder *a2)
   v9 = v4;
   v10 = v4;
   v8 = v4;
-  HSUtil::Decoder::decodeMap(a2, &v8);
+  HSUtil::Decoder::decodeMap(&v8, a2);
   if (*a2)
   {
     memset(__b, 170, sizeof(__b));
@@ -433,42 +482,42 @@ float MTSurfaceDimensions_::convertPixelDeltaToMillimeters(MTSurfaceDimensions_ 
   return *(this + v3) * a2;
 }
 
-void MTSurfaceDimensions_::convertPixelDeltaToMillimetersPerSecond(MTSurfaceDimensions_ *this, float a2, double a3)
+void MTSurfaceDimensions_::convertPixelDeltaToMillimetersPerSecond(MTSurfaceDimensions_ *this, float a2, double a3, uint64_t a4)
 {
   if (a3 == 0.0)
   {
-    v4 = MTLoggingPlugin();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = MTLoggingPlugin(this, a4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v5 = 136315906;
-      v6 = "[Error] ";
-      v7 = 2080;
-      v8 = "";
-      v9 = 2080;
-      v10 = "convertPixelDeltaToMillimetersPerSecond";
-      v11 = 2048;
-      v12 = a3;
-      _os_log_impl(&dword_0, v4, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected frame interval %g, setting velocity to 0.0", &v5, 0x2Au);
+      v6 = 136315906;
+      v7 = "[Error] ";
+      v8 = 2080;
+      v9 = "";
+      v10 = 2080;
+      v11 = "convertPixelDeltaToMillimetersPerSecond";
+      v12 = 2048;
+      v13 = a3;
+      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected frame interval %g, setting velocity to 0.0", &v6, 0x2Au);
     }
   }
 }
 
-float32x2_t MTSurfaceDimensions_::convertPixelDeltasToMillimetersPerSecond(MTSurfaceDimensions_ *this, MTPoint a2, double a3)
+float32x2_t MTSurfaceDimensions_::convertPixelDeltasToMillimetersPerSecond(MTSurfaceDimensions_ *this, MTPoint a2, double a3, uint64_t a4)
 {
   if (a3 == 0.0)
   {
-    v5 = MTLoggingPlugin();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v6 = MTLoggingPlugin(this, a4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
     {
       *buf = 136315906;
-      v8 = "[Error] ";
-      v9 = 2080;
-      v10 = "";
-      v11 = 2080;
-      v12 = "convertPixelDeltasToMillimetersPerSecond";
-      v13 = 2048;
-      v14 = a3;
-      _os_log_impl(&dword_0, v5, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected frame interval %g, setting velocity to 0.0", buf, 0x2Au);
+      v9 = "[Error] ";
+      v10 = 2080;
+      v11 = "";
+      v12 = 2080;
+      v13 = "convertPixelDeltasToMillimetersPerSecond";
+      v14 = 2048;
+      v15 = a3;
+      _os_log_impl(&dword_0, v6, OS_LOG_TYPE_ERROR, "[HID] [MT] %s%s%s Unexpected frame interval %g, setting velocity to 0.0", buf, 0x2Au);
     }
 
     return 0;
@@ -502,7 +551,7 @@ void __cxx_global_var_init_3_43(uint64_t a1, const char *a2)
   }
 }
 
-void MTRestZoneIntegrator_::clearMotion(float32x2_t *this, int a2)
+void MTRestZoneIntegrator_::clearMotion(float32x2_t *this, uint64_t a2)
 {
   v2 = a2;
   if (a2)
@@ -518,14 +567,14 @@ void MTRestZoneIntegrator_::clearMotion(float32x2_t *this, int a2)
   *this[20].f32 = 0u;
   *this[22].f32 = 0u;
   MTFingerToPathMap_::clearFingerPathMappings(this);
-  v4 = MTLoggingPlugin();
-  if (os_log_type_enabled(v4, OS_LOG_TYPE_DEBUG))
+  v6 = MTLoggingPlugin(v4, v5);
+  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEBUG))
   {
-    MTRestZoneIntegrator_::clearMotion(v2, v4);
+    MTRestZoneIntegrator_::clearMotion(v2, v6);
   }
 }
 
-MTFingerToPathMap_ *MTRestZoneIntegrator_::MTRestZoneIntegrator_(MTFingerToPathMap_ *a1, uint64_t a2, __int32 a3, __int32 a4)
+MTFingerToPathMap_ *MTRestZoneIntegrator_::MTRestZoneIntegrator_(MTFingerToPathMap_ *a1, uint64_t a2, int a3, int a4)
 {
   MTFingerToPathMap_::MTFingerToPathMap_(a1, 0);
   *v8 = off_109CE8;
@@ -589,10 +638,10 @@ void MTRestZoneIntegrator_::translationSimilarityDotProduct(MTRestZoneIntegrator
   hypotf(x, y);
 }
 
-uint64_t MTRestZoneIntegrator_::extractMotionDeltas(MTRestZoneIntegrator_ *this, const MTPathStates_ *a2, MTParserPath_ *a3, MTParserPath_ *a4, int a5)
+void MTRestZoneIntegrator_::extractMotionDeltas(MTRestZoneIntegrator_ *this, const MTPathStates_ *a2, MTParserPath_ *a3, MTParserPath_ *a4, int a5)
 {
   v10 = MTParserPath_::stableAndMoved(a3);
-  result = MTParserPath_::stableAndMoved(a4);
+  v11 = MTParserPath_::stableAndMoved(a4);
   *(this + 76) = 1065353216;
   *(this + 33) = 0;
   *(this + 34) = 0;
@@ -641,7 +690,7 @@ uint64_t MTRestZoneIntegrator_::extractMotionDeltas(MTRestZoneIntegrator_ *this,
         v26 = *&a4[3].var3.var13.y;
         y = a3[3].var3.var13.y;
         x = a3[3].var3.var14.x;
-        if ((v10 | result))
+        if (v10 || v11)
         {
           v29.f32[0] = -x;
           v29.i32[1] = LODWORD(a3[3].var3.var14.x);
@@ -660,7 +709,7 @@ uint64_t MTRestZoneIntegrator_::extractMotionDeltas(MTRestZoneIntegrator_ *this,
         }
 
         v35 = v26.y;
-        MTRestZoneIntegrator_::translationSimilarityDotProduct(result, *&y, v26);
+        MTRestZoneIntegrator_::translationSimilarityDotProduct(v11, *&y, v26);
         v23 = v36;
         if ((a3->var3.var3 - 3) <= 1 && (HIDWORD(a3[1].var3.var0) - 3) <= 1 && MTParserPath_::isFingerOrRestingContact(a3))
         {
@@ -671,7 +720,7 @@ uint64_t MTRestZoneIntegrator_::extractMotionDeltas(MTRestZoneIntegrator_ *this,
 
     MTContact_getEllipseEccentricity();
     v38 = v37;
-    result = MTContact_getEllipseEccentricity();
+    MTContact_getEllipseEccentricity();
     v40 = v38 / v39;
     *(this + 76) = v40;
     if (v23 > 0.0)
@@ -685,7 +734,6 @@ uint64_t MTRestZoneIntegrator_::extractMotionDeltas(MTRestZoneIntegrator_ *this,
   }
 
   *(this + 75) = v14;
-  return result;
 }
 
 uint64_t MTRestZoneIntegrator_::combineCentralFingerScaleRotate(uint64_t this, const MTPathStates_ *a2, const MTParserPath_ *a3, const MTPoint *a4)
@@ -925,54 +973,54 @@ float MTRestZoneIntegrator_::translationDominance(MTRestZoneIntegrator_ *this, c
   return v3;
 }
 
-void MTRestZoneIntegrator_::weighDominantMotions(float32x2_t *this, double a2)
+void MTRestZoneIntegrator_::weighDominantMotions(float32x2_t *this, double a2, uint64_t a3)
 {
-  MTRestZoneIntegrator_::convertPixelDeltasTo_mm_s(this, a2);
+  MTRestZoneIntegrator_::convertPixelDeltasTo_mm_s(this, a2, a3);
   if (!MTRestZoneIntegrator_::isLockedOnPolarSymmetric(this) && !MTRestZoneIntegrator_::isLockedOnTranslate(this))
   {
+    v13 = -1;
+    HIDWORD(v5) = -1;
     v12 = -1;
-    HIDWORD(v4) = -1;
     v11 = -1;
-    v10 = -1;
-    v5 = this[10].i32[0];
-    if (v5 == this[11].i32[0])
+    v6 = this[10].i32[0];
+    if (v6 == this[11].i32[0])
     {
-      if (v5 == 1)
+      if (v6 == 1)
       {
-        v6 = &this[22];
-        v7 = &this[27] + 1;
+        v7 = this + 22;
+        v8 = (this + 220);
       }
 
       else
       {
-        v6 = &this[20];
-        v7 = &this[27];
+        v7 = this + 20;
+        v8 = this + 27;
       }
 
-      *&v4 = a2;
-      MTRestZoneIntegrator_::accumulateMotionEnvelope(this, v6, &v11, v7, &v10, &v12, v4);
+      *&v5 = a2;
+      MTRestZoneIntegrator_::accumulateMotionEnvelope(this, v7, &v12, v8, &v11, &v13, v5);
     }
 
     else
     {
-      v8 = a2;
-      *&v9 = MTRestZoneIntegrator_::decayMotionEnvelope(this, this + 24, this + 26, &this[28], &this[29], &this[28] + 1, v8);
-      *&v9 = v8;
-      MTRestZoneIntegrator_::accumulateMotionEnvelope(this, &this[24], this + 26, &this[28], &this[29], &this[28] + 1, v9);
-      MTRestZoneIntegrator_::decayMotionEnvelope(this, this + 20, &v11, &this[27], &v10, &v12, v8);
-      MTRestZoneIntegrator_::decayMotionEnvelope(this, this + 22, &v11, &this[27] + 1, &v10, &v12, v8);
+      v9 = a2;
+      *&v10 = MTRestZoneIntegrator_::decayMotionEnvelope(this, this + 24, this + 26, &this[28], &this[29], &this[28] + 1, v9);
+      *&v10 = v9;
+      MTRestZoneIntegrator_::accumulateMotionEnvelope(this, &this[24], this + 26, &this[28], &this[29], &this[28] + 1, v10);
+      MTRestZoneIntegrator_::decayMotionEnvelope(this, this + 20, &v12, &this[27], &v11, &v13, v9);
+      MTRestZoneIntegrator_::decayMotionEnvelope(this, this + 22, &v12, &this[27] + 1, &v11, &v13, v9);
     }
   }
 }
 
-void MTRestZoneIntegrator_::convertPixelDeltasTo_mm_s(MTRestZoneIntegrator_ *this, double a2)
+void MTRestZoneIntegrator_::convertPixelDeltasTo_mm_s(MTRestZoneIntegrator_ *this, double a2, uint64_t a3)
 {
-  *(this + 70) = MTSurfaceDimensions_::convertPixelDeltasToMillimetersPerSecond(*(this + 31), *(this + 264), a2).u32[0];
-  *(this + 71) = v4;
-  MTSurfaceDimensions_::convertPixelDeltaToMillimetersPerSecond(*(this + 31), *(this + 68), a2);
-  *(this + 72) = v5;
-  MTSurfaceDimensions_::convertPixelDeltaToMillimetersPerSecond(*(this + 31), *(this + 69), a2);
-  *(this + 73) = v6;
+  *(this + 70) = MTSurfaceDimensions_::convertPixelDeltasToMillimetersPerSecond(*(this + 31), *(this + 264), a2, a3).u32[0];
+  *(this + 71) = v5;
+  MTSurfaceDimensions_::convertPixelDeltaToMillimetersPerSecond(*(this + 31), *(this + 68), a2, v6);
+  *(this + 72) = v7;
+  MTSurfaceDimensions_::convertPixelDeltaToMillimetersPerSecond(*(this + 31), *(this + 69), a2, v8);
+  *(this + 73) = v9;
 }
 
 void MTRestZoneIntegrator_::integrateRestingZoneMotion(float32x2_t *this, const MTPathStates_ *a2, int a3)
@@ -1008,9 +1056,9 @@ void MTRestZoneIntegrator_::integrateRestingZoneMotion(float32x2_t *this, const 
     }
 
     MTRestZoneIntegrator_::extractMotionDeltas(v9, v10, v11, OutermostTouchingPath, v12);
-    v14 = *(a2 + 1) - *(a2 + 2);
+    v15 = *(a2 + 1) - *(a2 + 2);
 
-    MTRestZoneIntegrator_::weighDominantMotions(this, v14);
+    MTRestZoneIntegrator_::weighDominantMotions(this, v15, v14);
   }
 
   else
@@ -1126,7 +1174,7 @@ uint64_t MTForceBehavior_Configuration::pushBehavior(MTForceBehavior_Configurati
   return result;
 }
 
-void MTForceBehavior_Configuration::clearBehaviors(MTForceBehavior_Configuration *this)
+void MTForceBehavior_Configuration::clearBehaviors(uint64_t this)
 {
   for (i = 0; i != 6; ++i)
   {
@@ -1166,7 +1214,7 @@ void MTForceBehavior_Configuration::clearBehaviors(MTForceBehavior_Configuration
   *(this + 24) = 1;
 }
 
-void MTForceBehavior_Configuration::clearNonDefaultBehaviors(MTForceBehavior_Configuration *this)
+void MTForceBehavior_Configuration::clearNonDefaultBehaviors(uint64_t this)
 {
   for (i = 0; i != 6; ++i)
   {
@@ -1295,16 +1343,16 @@ uint64_t *MTForceBehavior_Configuration::collectiveBehavior(MTForceBehavior_Conf
     return &MTForceBehavior_::Null;
   }
 
-  v4 = (*this + 24 * a2);
+  v4 = *this + 24 * a2;
   v2 = *v4;
-  v3 = v4[1];
+  v3 = *(v4 + 8);
   if (v3 == *v4)
   {
     return &MTForceBehavior_::Null;
   }
 
   v5 = 0;
-  for (result = v3 - 18; ; result -= 18)
+  for (result = (v3 - 144); ; result -= 18)
   {
     v7 = *(result + 2);
     v8 = 1;
@@ -1477,7 +1525,7 @@ uint64_t MTForceManagement_::MTForceManagement_(uint64_t a1, void *a2)
   *(a1 + 304) = 0u;
   *(a1 + 320) = 0u;
   MTForceThresholding_::MTForceThresholding_(v5, a1);
-  std::vector<MTForceThresholding_>::vector[abi:ne200100]((a1 + 472), 0x20uLL);
+  std::vector<MTForceThresholding_>::vector[abi:ne200100]((a1 + 472), 0x20uLL, v5);
   MTForceThresholding_::~MTForceThresholding_(v5);
   *(a1 + 512) = 0x100000001;
   MTForceClickHistory_::MTForceClickHistory_((a1 + 520), 1.0);
@@ -1848,7 +1896,7 @@ void MTForceManagement_::updateStatusVariablesFromForceEvent(uint64_t a1, int a2
   *(a1 + 11) = v13;
 }
 
-void MTForceManagement_::appendForceStageEvent(uint64_t a1, uint64_t a2, uint64_t a3)
+void MTForceManagement_::appendForceStageEvent(uint64_t a1, uint64_t a2, double *a3)
 {
   if (_os_feature_enabled_impl())
   {
@@ -1869,29 +1917,29 @@ void MTForceManagement_::appendForceStageEvent(uint64_t a1, uint64_t a2, uint64_
   }
 }
 
-void MTForceManagement_::appendThresholdInfo()
+void MTForceManagement_::appendThresholdInfo(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   IOHIDEventGetTimeStamp();
   VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
   if (VendorDefinedEvent)
   {
-    v1 = VendorDefinedEvent;
+    v4 = VendorDefinedEvent;
     IOHIDEventAppendEvent();
 
-    CFRelease(v1);
+    CFRelease(v4);
   }
 }
 
-void MTForceManagement_::appendClickInfo()
+void MTForceManagement_::appendClickInfo(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   IOHIDEventGetTimeStamp();
   VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
   if (VendorDefinedEvent)
   {
-    v1 = VendorDefinedEvent;
+    v4 = VendorDefinedEvent;
     IOHIDEventAppendEvent();
 
-    CFRelease(v1);
+    CFRelease(v4);
   }
 }
 
@@ -1976,7 +2024,7 @@ LABEL_13:
         *&v22 = *(this + 236);
         *(&v22 + 1) = __PAIR64__(v16, v15);
         *v23 = *(this + 244);
-        MTForceManagement_::appendThresholdInfo();
+        MTForceManagement_::appendThresholdInfo(v12, &v22, a3);
       }
 
       if (v26 == 16)
@@ -1992,7 +2040,7 @@ LABEL_13:
         *&v23[4] = v20;
         *&v23[8] = v21;
         *&v23[12] = vrev64_s32(*(this + 520));
-        MTForceManagement_::appendClickInfo();
+        MTForceManagement_::appendClickInfo(v12, &v22, a3);
       }
     }
 
@@ -2029,7 +2077,7 @@ LABEL_13:
     return *(this + 9) != *(this + 10);
   }
 
-  v9 = MTLoggingPlugin();
+  v9 = MTLoggingPlugin(this, a2);
   if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
   {
     MTForceManagement_::actuateForceAndHIDEvents(v9);
@@ -2504,14 +2552,14 @@ float MTForceManagement_::setOverrideBehavior(MTForceManagement_ *this, MTForceB
   return result;
 }
 
-void std::vector<MTForceBehavior_>::__base_destruct_at_end[abi:ne200100](uint64_t a1, void *a2)
+void std::vector<MTForceBehavior_>::__base_destruct_at_end[abi:ne200100](uint64_t result, void *a2)
 {
-  for (i = *(a1 + 8); i != a2; std::allocator_traits<std::allocator<MTForceBehavior_>>::destroy[abi:ne200100]<MTForceBehavior_,0>(a1, i))
+  for (i = *(result + 8); i != a2; std::allocator_traits<std::allocator<MTForceBehavior_>>::destroy[abi:ne200100]<MTForceBehavior_,0>(result, i))
   {
     i -= 18;
   }
 
-  *(a1 + 8) = a2;
+  *(result + 8) = a2;
 }
 
 void std::allocator_traits<std::allocator<MTForceBehavior_>>::destroy[abi:ne200100]<MTForceBehavior_,0>(uint64_t a1, void *a2)
@@ -2613,20 +2661,20 @@ void sub_6C0C0(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-void *std::vector<std::vector<MTForceBehavior_>>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<std::vector<MTForceBehavior_>>::vector[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<std::vector<MTForceBehavior_>>::__vallocate[abi:ne200100](result, a2);
+    std::vector<std::vector<MTForceBehavior_>>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<std::vector<MTForceBehavior_>>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<std::vector<MTForceBehavior_>>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0xAAAAAAAAAAAAAABLL)
   {
@@ -2696,9 +2744,9 @@ uint64_t std::vector<MTForceBehavior_>::__emplace_back_slow_path<MTForceBehavior
   return v12;
 }
 
-void sub_6C3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_6C3AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a3);
+  va_start(va, a5);
   std::__split_buffer<MTForceBehavior_>::~__split_buffer(va);
   _Unwind_Resume(a1);
 }
@@ -2803,20 +2851,20 @@ void std::__split_buffer<MTForceBehavior_>::__destruct_at_end[abi:ne200100](uint
   }
 }
 
-void *std::vector<MTForceThresholding_>::vector[abi:ne200100](void *result, unint64_t a2)
+uint64_t *std::vector<MTForceThresholding_>::vector[abi:ne200100](uint64_t *a1, unint64_t a2, uint64_t a3)
 {
-  *result = 0;
-  result[1] = 0;
-  result[2] = 0;
+  *a1 = 0;
+  a1[1] = 0;
+  a1[2] = 0;
   if (a2)
   {
-    std::vector<MTForceThresholding_>::__vallocate[abi:ne200100](result, a2);
+    std::vector<MTForceThresholding_>::__vallocate[abi:ne200100](a1, a2);
   }
 
-  return result;
+  return a1;
 }
 
-void std::vector<MTForceThresholding_>::__vallocate[abi:ne200100](uint64_t a1, unint64_t a2)
+void std::vector<MTForceThresholding_>::__vallocate[abi:ne200100](uint64_t *a1, unint64_t a2)
 {
   if (a2 < 0x88888888888889)
   {
@@ -2906,65 +2954,65 @@ void __cxx_global_var_init_10_19(uint64_t a1, const char *a2)
   }
 }
 
-uint64_t MTAppendGestureStartedToCollectionEvent()
+uint64_t MTAppendGestureStartedToCollectionEvent(uint64_t a1)
 {
   IOHIDEventGetIntegerValue();
   IOHIDEventSetIntegerValue();
   return 0;
 }
 
-uint64_t MTAppendGestureEndedToCollectionEvent()
+uint64_t MTAppendGestureEndedToCollectionEvent(uint64_t a1)
 {
   IOHIDEventGetIntegerValue();
   IOHIDEventSetIntegerValue();
   return 0;
 }
 
-uint64_t MTAppendRelativeMouseEvent()
+uint64_t MTAppendRelativeMouseEvent(uint64_t a1, int a2, int a3, uint64_t a4)
 {
   mach_absolute_time();
   MouseEvent = IOHIDEventCreateMouseEvent();
   if (MouseEvent)
   {
-    v1 = MouseEvent;
+    v5 = MouseEvent;
     IOHIDEventAppendEvent();
-    CFRelease(v1);
+    CFRelease(v5);
   }
 
   return 0;
 }
 
-uint64_t MTAppendMouseButtonEvent()
+uint64_t MTAppendMouseButtonEvent(uint64_t a1, uint64_t a2)
 {
   mach_absolute_time();
   ButtonEvent = IOHIDEventCreateButtonEvent();
   if (ButtonEvent)
   {
-    v1 = ButtonEvent;
+    v3 = ButtonEvent;
     IOHIDEventAppendEvent();
-    CFRelease(v1);
+    CFRelease(v3);
   }
 
   return 0;
 }
 
-uint64_t MTAppendVelocityEvent()
+uint64_t MTAppendVelocityEvent(uint64_t a1, float a2, float a3)
 {
   mach_absolute_time();
   VelocityEvent = IOHIDEventCreateVelocityEvent();
   if (VelocityEvent)
   {
-    v1 = VelocityEvent;
+    v4 = VelocityEvent;
     IOHIDEventAppendEvent();
-    CFRelease(v1);
+    CFRelease(v4);
   }
 
   return 0;
 }
 
-uint64_t MTAppendFluidSwipeEvent(double a1, float a2, uint64_t a3, int a4)
+uint64_t MTAppendFluidSwipeEvent(uint64_t a1, int a2, uint64_t a3, int a4, uint64_t a5, int a6, float a7, float a8, float a9, float a10)
 {
-  switch(a4)
+  switch(a2)
   {
     case 27:
       mach_absolute_time();
@@ -2982,62 +3030,62 @@ uint64_t MTAppendFluidSwipeEvent(double a1, float a2, uint64_t a3, int a4)
       return 0;
   }
 
-  v6 = FluidTouchGestureEvent;
+  v12 = FluidTouchGestureEvent;
   if (FluidTouchGestureEvent)
   {
     IOHIDEventSetPhase();
-    if (a2 != 0.0)
+    if (a8 != 0.0)
     {
-      MTAppendVelocityEvent();
+      MTAppendVelocityEvent(v12, a8, a8);
     }
 
     IOHIDEventAppendEvent();
-    CFRelease(v6);
+    CFRelease(v12);
   }
 
   return 0;
 }
 
-uint64_t MTAppendSwipeEvent()
+uint64_t MTAppendSwipeEvent(uint64_t a1, int a2)
 {
   mach_absolute_time();
   SwipeEvent = IOHIDEventCreateSwipeEvent();
   if (SwipeEvent)
   {
-    v1 = SwipeEvent;
+    v3 = SwipeEvent;
     IOHIDEventAppendEvent();
-    CFRelease(v1);
+    CFRelease(v3);
   }
 
   return 0;
 }
 
-uint64_t MTAppendKeyboardEvent()
+uint64_t MTAppendKeyboardEvent(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   mach_absolute_time();
   KeyboardEvent = IOHIDEventCreateKeyboardEvent();
   if (KeyboardEvent)
   {
-    v1 = KeyboardEvent;
+    v4 = KeyboardEvent;
     IOHIDEventAppendEvent();
-    CFRelease(v1);
+    CFRelease(v4);
   }
 
   return 0;
 }
 
-uint64_t MTAppendKeystrokeEvent()
+uint64_t MTAppendKeystrokeEvent(uint64_t a1, uint64_t a2)
 {
-  MTAppendKeyboardEvent();
-  MTAppendKeyboardEvent();
+  MTAppendKeyboardEvent(a1, a2, 1);
+  MTAppendKeyboardEvent(a1, a2, 0);
   return 0;
 }
 
-uint64_t MTAppendModifierKeyEvent(uint64_t a1, char a2)
+uint64_t MTAppendModifierKeyEvent(uint64_t a1, char a2, uint64_t a3)
 {
   if ((a2 & 2) != 0)
   {
-    MTAppendKeyboardEvent();
+    MTAppendKeyboardEvent(a1, 225, a3);
     if ((a2 & 1) == 0)
     {
 LABEL_3:
@@ -3047,7 +3095,7 @@ LABEL_3:
       }
 
 LABEL_9:
-      MTAppendKeyboardEvent();
+      MTAppendKeyboardEvent(a1, 226, a3);
       if ((a2 & 8) == 0)
       {
         return 0;
@@ -3062,7 +3110,7 @@ LABEL_9:
     goto LABEL_3;
   }
 
-  MTAppendKeyboardEvent();
+  MTAppendKeyboardEvent(a1, 1, a3);
   if ((a2 & 4) != 0)
   {
     goto LABEL_9;
@@ -3072,98 +3120,98 @@ LABEL_4:
   if ((a2 & 8) != 0)
   {
 LABEL_5:
-    MTAppendKeyboardEvent();
+    MTAppendKeyboardEvent(a1, 227, a3);
   }
 
   return 0;
 }
 
-uint64_t MTAppendZoomToggleEvent()
+uint64_t MTAppendZoomToggleEvent(uint64_t a1)
 {
   mach_absolute_time();
   ZoomToggleEvent = IOHIDEventCreateZoomToggleEvent();
   if (ZoomToggleEvent)
   {
-    v1 = ZoomToggleEvent;
+    v2 = ZoomToggleEvent;
     IOHIDEventAppendEvent();
-    CFRelease(v1);
+    CFRelease(v2);
   }
 
   return 0;
 }
 
-uint64_t MTAppendShowDefinitionEvent()
+uint64_t MTAppendShowDefinitionEvent(uint64_t a1)
 {
   mach_absolute_time();
   SymbolicHotKeyEvent = IOHIDEventCreateSymbolicHotKeyEvent();
   if (SymbolicHotKeyEvent)
   {
-    v1 = SymbolicHotKeyEvent;
+    v2 = SymbolicHotKeyEvent;
     IOHIDEventSetPhase();
     IOHIDEventAppendEvent();
-    CFRelease(v1);
+    CFRelease(v2);
   }
 
   return 0;
 }
 
-uint64_t MTAppendBoundaryScrollEvent()
+uint64_t MTAppendBoundaryScrollEvent(uint64_t a1, int a2, int a3)
 {
   mach_absolute_time();
   BoundaryScrollEvent = IOHIDEventCreateBoundaryScrollEvent();
   if (BoundaryScrollEvent)
   {
-    v1 = BoundaryScrollEvent;
+    v4 = BoundaryScrollEvent;
     IOHIDEventAppendEvent();
-    CFRelease(v1);
+    CFRelease(v4);
   }
 
   return 0;
 }
 
-uint64_t MTAppendScrollEvent()
+uint64_t MTAppendScrollEvent(uint64_t a1, int a2, int a3, int a4, int a5)
 {
   mach_absolute_time();
   ScrollEvent = IOHIDEventCreateScrollEvent();
   if (ScrollEvent)
   {
-    v1 = ScrollEvent;
+    v6 = ScrollEvent;
     IOHIDEventSetPhase();
     IOHIDEventAppendEvent();
-    CFRelease(v1);
+    CFRelease(v6);
   }
 
   return 0;
 }
 
-uint64_t MTAppendMomentumEnableEvent()
+uint64_t MTAppendMomentumEnableEvent(uint64_t a1, char a2, char a3)
 {
   mach_absolute_time();
   VendorDefinedEvent = IOHIDEventCreateVendorDefinedEvent();
   if (VendorDefinedEvent)
   {
-    v1 = VendorDefinedEvent;
+    v4 = VendorDefinedEvent;
     IOHIDEventAppendEvent();
-    CFRelease(v1);
+    CFRelease(v4);
   }
 
   return 0;
 }
 
-uint64_t MTAppendZoomRotateTranslateEvent(double a1, double a2, float a3, uint64_t a4, int a5, int a6, int a7, int a8, int a9)
+uint64_t MTAppendZoomRotateTranslateEvent(uint64_t a1, int a2, int a3, int a4, int a5, int a6, double a7, double a8, float a9)
 {
-  if (a3 <= 0.0)
+  if (a9 <= 0.0)
   {
-    v9 = a5 == 16 || a5 == 32;
+    v9 = a2 == 16 || a2 == 32;
     goto LABEL_11;
   }
 
-  v9 = a5 == 16 || a5 == 32;
-  if ((a7 / a3) == 0.0)
+  v9 = a2 == 16 || a2 == 32;
+  if ((a4 / a9) == 0.0)
   {
 LABEL_11:
     v10 = v9 & MTAppendZoomRotateTranslateEvent_rotate_in_progress;
-    if (!a6)
+    if (!a3)
     {
       goto LABEL_7;
     }
@@ -3172,7 +3220,7 @@ LABEL_11:
   }
 
   v10 = 1;
-  if (!a6)
+  if (!a3)
   {
 LABEL_7:
     v11 = v9 & MTAppendZoomRotateTranslateEvent_zoom_in_progress;
@@ -3182,7 +3230,7 @@ LABEL_7:
 LABEL_12:
   v11 = 1;
 LABEL_13:
-  if (a9 | a8)
+  if (a6 | a5)
   {
     v12 = 1;
   }
@@ -3256,8 +3304,8 @@ uint64_t _walkStages(void *a1, void *a2, void *a3)
 
   else
   {
-    std::__hash_table<HSStage * {__strong},HSUtil::ObjectHasher,std::equal_to<HSStage * {__strong}>,std::allocator<HSStage * {__strong}>>::__emplace_unique_key_args<HSStage * {__strong},HSStage * const {__strong}&>(a1, &v18);
-    if (v5[2](v5, v18))
+    std::__hash_table<HSStage * {__strong},HSUtil::ObjectHasher,std::equal_to<HSStage * {__strong}>,std::allocator<HSStage * {__strong}>>::__emplace_unique_key_args<HSStage * {__strong},HSStage * const {__strong}&>(a1, &v18, &v18);
+    if ((*(v5 + 2))(v5, v18))
     {
       v16 = 0u;
       v17 = 0u;
@@ -3341,77 +3389,69 @@ void *std::__hash_table<HSStage * {__strong},HSUtil::ObjectHasher,std::equal_to<
     return 0;
   }
 
-  result = *v6;
-  if (*v6)
+  for (result = *v6; result; result = *result)
   {
-    do
+    v8 = result[1];
+    if (v8 == v3)
     {
-      v8 = result[1];
-      if (v8 == v3)
+      if (result[2] == v3)
       {
-        if (result[2] == v3)
+        return result;
+      }
+    }
+
+    else
+    {
+      if (v4.u32[0] > 1uLL)
+      {
+        if (v8 >= *&v2)
         {
-          return result;
+          v8 %= *&v2;
         }
       }
 
       else
       {
-        if (v4.u32[0] > 1uLL)
-        {
-          if (v8 >= *&v2)
-          {
-            v8 %= *&v2;
-          }
-        }
-
-        else
-        {
-          v8 &= *&v2 - 1;
-        }
-
-        if (v8 != v5)
-        {
-          return 0;
-        }
+        v8 &= *&v2 - 1;
       }
 
-      result = *result;
+      if (v8 != v5)
+      {
+        return 0;
+      }
     }
-
-    while (result);
   }
 
   return result;
 }
 
-void *std::__hash_table<HSStage * {__strong},HSUtil::ObjectHasher,std::equal_to<HSStage * {__strong}>,std::allocator<HSStage * {__strong}>>::__emplace_unique_key_args<HSStage * {__strong},HSStage * const {__strong}&>(void *a1, unint64_t *a2)
+void *std::__hash_table<HSStage * {__strong},HSUtil::ObjectHasher,std::equal_to<HSStage * {__strong}>,std::allocator<HSStage * {__strong}>>::__emplace_unique_key_args<HSStage * {__strong},HSStage * const {__strong}&>(void *a1, unint64_t *a2, id *a3)
 {
-  v2 = *a2;
-  v3 = a1[1];
-  if (!*&v3)
+  v3 = *a2;
+  v4 = a1[1];
+  if (!*&v4)
   {
     goto LABEL_18;
   }
 
-  v4 = vcnt_s8(v3);
-  v4.i16[0] = vaddlv_u8(v4);
-  if (v4.u32[0] > 1uLL)
+  v5 = vcnt_s8(v4);
+  v5.i16[0] = vaddlv_u8(v5);
+  if (v5.u32[0] > 1uLL)
   {
-    v5 = *a2;
-    if (*&v3 <= v2)
+    v6 = *a2;
+    if (*&v4 <= v3)
     {
-      v5 = v2 % *&v3;
+      v6 = v3 % *&v4;
     }
   }
 
   else
   {
-    v5 = (*&v3 - 1) & v2;
+    v6 = (*&v4 - 1) & v3;
   }
 
-  v6 = *(*a1 + 8 * v5);
-  if (!v6 || (v7 = *v6) == 0)
+  v7 = *(*a1 + 8 * v6);
+  if (!v7 || (v8 = *v7) == 0)
   {
 LABEL_18:
     operator new();
@@ -3419,49 +3459,49 @@ LABEL_18:
 
   while (1)
   {
-    v8 = v7[1];
-    if (v8 == v2)
+    v9 = v8[1];
+    if (v9 == v3)
     {
       break;
     }
 
-    if (v4.u32[0] > 1uLL)
+    if (v5.u32[0] > 1uLL)
     {
-      if (v8 >= *&v3)
+      if (v9 >= *&v4)
       {
-        v8 %= *&v3;
+        v9 %= *&v4;
       }
     }
 
     else
     {
-      v8 &= *&v3 - 1;
+      v9 &= *&v4 - 1;
     }
 
-    if (v8 != v5)
+    if (v9 != v6)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v7 = *v7;
-    if (!v7)
+    v8 = *v8;
+    if (!v8)
     {
       goto LABEL_18;
     }
   }
 
-  if (v7[2] != v2)
+  if (v8[2] != v3)
   {
     goto LABEL_17;
   }
 
-  return v7;
+  return v8;
 }
 
-void sub_6DD28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_6DD28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<HSStage * {__strong},void *>,std::__hash_node_destructor<std::allocator<std::__hash_node<HSStage * {__strong},void *>>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3582,50 +3622,50 @@ void sub_6E358(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   _Unwind_Resume(a1);
 }
 
-void sub_6E89C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_6E89C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va1, a2);
-  va_start(va, a2);
-  v4 = va_arg(va1, void);
-  v6 = va_arg(va1, void);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v5 = va_arg(va1, void);
   v7 = va_arg(va1, void);
   v8 = va_arg(va1, void);
   v9 = va_arg(va1, void);
+  v10 = va_arg(va1, void);
   std::__hash_table<objc_object  {objcproto15HSStageObserver}* {__weak},HSUtil::ObjectHasher,std::equal_to<objc_object  {objcproto15HSStageObserver}*>,std::allocator<objc_object  {objcproto15HSStageObserver}*>>::~__hash_table(va);
   HSUtil::ObjectLock::~ObjectLock(va1);
 
   _Unwind_Resume(a1);
 }
 
-id *std::__hash_table<objc_object  {objcproto15HSStageObserver}* {__weak},HSUtil::ObjectHasher,std::equal_to<objc_object  {objcproto15HSStageObserver}*>,std::allocator<objc_object  {objcproto15HSStageObserver}*>>::__emplace_unique_key_args<objc_object  {objcproto15HSStageObserver}*,objc_object  {objcproto15HSStageObserver} const {__weak}&>(void *a1, id *location)
+id *std::__hash_table<objc_object  {objcproto15HSStageObserver}* {__weak},HSUtil::ObjectHasher,std::equal_to<objc_object  {objcproto15HSStageObserver}*>,std::allocator<objc_object  {objcproto15HSStageObserver}*>>::__emplace_unique_key_args<objc_object  {objcproto15HSStageObserver}*,objc_object  {objcproto15HSStageObserver} const {__weak}&>(void *a1, id *location, id *a3)
 {
   WeakRetained = objc_loadWeakRetained(location);
 
-  v5 = a1[1];
-  if (!*&v5)
+  v6 = a1[1];
+  if (!*&v6)
   {
     goto LABEL_18;
   }
 
-  v6 = vcnt_s8(v5);
-  v6.i16[0] = vaddlv_u8(v6);
-  v7 = v6.u32[0];
-  if (v6.u32[0] > 1uLL)
+  v7 = vcnt_s8(v6);
+  v7.i16[0] = vaddlv_u8(v7);
+  v8 = v7.u32[0];
+  if (v7.u32[0] > 1uLL)
   {
-    v8 = WeakRetained;
-    if (*&v5 <= WeakRetained)
+    v9 = WeakRetained;
+    if (*&v6 <= WeakRetained)
     {
-      v8 = WeakRetained % *&v5;
+      v9 = WeakRetained % *&v6;
     }
   }
 
   else
   {
-    v8 = (*&v5 - 1) & WeakRetained;
+    v9 = (*&v6 - 1) & WeakRetained;
   }
 
-  v9 = *(*a1 + 8 * v8);
-  if (!v9 || (v10 = *v9) == 0)
+  v10 = *(*a1 + 8 * v9);
+  if (!v10 || (v11 = *v10) == 0)
   {
 LABEL_18:
     operator new();
@@ -3633,49 +3673,49 @@ LABEL_18:
 
   while (1)
   {
-    v11 = v10[1];
-    if (v11 == WeakRetained)
+    v12 = v11[1];
+    if (v12 == WeakRetained)
     {
       break;
     }
 
-    if (v7 > 1)
+    if (v8 > 1)
     {
-      if (v11 >= *&v5)
+      if (v12 >= *&v6)
       {
-        v11 %= *&v5;
+        v12 %= *&v6;
       }
     }
 
     else
     {
-      v11 &= *&v5 - 1;
+      v12 &= *&v6 - 1;
     }
 
-    if (v11 != v8)
+    if (v12 != v9)
     {
       goto LABEL_18;
     }
 
 LABEL_17:
-    v10 = *v10;
-    if (!v10)
+    v11 = *v11;
+    if (!v11)
     {
       goto LABEL_18;
     }
   }
 
-  if (!std::equal_to<objc_object  {objcproto15HSStageObserver}* {__weak}>::operator()[abi:ne200100](a1, v10 + 2, location))
+  if (!std::equal_to<objc_object  {objcproto15HSStageObserver}* {__weak}>::operator()[abi:ne200100](a1, v11 + 2, location))
   {
     goto LABEL_17;
   }
 
-  return v10;
+  return v11;
 }
 
-void sub_6EC48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_6EC48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<std::__hash_node<objc_object  {objcproto15HSStageObserver}* {__weak},void *>,std::__hash_node_destructor<std::allocator<void *>>>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -3902,7 +3942,7 @@ uint64_t std::unordered_set<objc_object  {objcproto15HSStageObserver}* {__weak},
   std::__hash_table<std::__hash_value_type<char const*,HSUtil::CoderKey const*>,std::__unordered_map_hasher<char const*,std::__hash_value_type<char const*,HSUtil::CoderKey const*>,HSUtil::CoderKey::KeyStringHash,HSUtil::CoderKey::KeyStringEqual,true>,std::__unordered_map_equal<char const*,std::__hash_value_type<char const*,HSUtil::CoderKey const*>,HSUtil::CoderKey::KeyStringEqual,HSUtil::CoderKey::KeyStringHash,true>,std::allocator<std::__hash_value_type<char const*,HSUtil::CoderKey const*>>>::__rehash<true>(a1, *(a2 + 8));
   for (i = *(a2 + 16); i; i = *i)
   {
-    std::__hash_table<objc_object  {objcproto15HSStageObserver}* {__weak},HSUtil::ObjectHasher,std::equal_to<objc_object  {objcproto15HSStageObserver}*>,std::allocator<objc_object  {objcproto15HSStageObserver}*>>::__emplace_unique_key_args<objc_object  {objcproto15HSStageObserver}*,objc_object  {objcproto15HSStageObserver} const {__weak}&>(a1, i + 2);
+    std::__hash_table<objc_object  {objcproto15HSStageObserver}* {__weak},HSUtil::ObjectHasher,std::equal_to<objc_object  {objcproto15HSStageObserver}*>,std::allocator<objc_object  {objcproto15HSStageObserver}*>>::__emplace_unique_key_args<objc_object  {objcproto15HSStageObserver}*,objc_object  {objcproto15HSStageObserver} const {__weak}&>(a1, i + 2, i + 2);
   }
 
   return a1;
@@ -4034,20 +4074,20 @@ uint64_t HSUtil::EncoderBuf::buffer(HSUtil::EncoderBuf *this)
   return this + 144;
 }
 
-id HSUtil::Buffer::getNSData(HSUtil::Buffer *a1)
+id HSUtil::Buffer::getNSData(HSUtil::Buffer *a1, uint64_t a2)
 {
   if (*(a1 + 5))
   {
-    HSUtil::Buffer::_releaseData(a1);
-    v2 = [NSData dataWithBytesNoCopy:"dataWithBytesNoCopy:length:freeWhenDone:" length:? freeWhenDone:?];
+    HSUtil::Buffer::_releaseData(a1, a2);
+    v3 = [NSData dataWithBytesNoCopy:"dataWithBytesNoCopy:length:freeWhenDone:" length:? freeWhenDone:?];
   }
 
   else
   {
-    v2 = 0;
+    v3 = 0;
   }
 
-  return v2;
+  return v3;
 }
 
 void HSUtil::EncoderBuf::~EncoderBuf(HSUtil::EncoderBuf *this)
@@ -4095,13 +4135,13 @@ void HSUtil::Decoder::decodeHSCodable(uint64_t a1, void *a2)
 void HSUtil::DecoderBuf::~DecoderBuf(HSUtil::DecoderBuf *this)
 {
   HSUtil::Buffer::~Buffer((this + 80));
-  v2 = *(this + 4);
-  if (v2)
+  v4 = *(this + 4);
+  if (v4)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v2);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
   }
 
-  std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](this + 2, 0);
+  std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](this + 2, 0, v2, v3);
 }
 
 id HSUtil::Decoder::decodeObject(HSUtil::Decoder *this)
@@ -4299,7 +4339,7 @@ uint64_t HSUtil::Encoder::EncodeObject(HSUtil::Encoder *this, HSUtil::Encoder *a
   return 1;
 }
 
-unint64_t *HSUtil::Encoder::encodeObjectStart(unint64_t *result, const HSUtil::CoderKey *a2, int a3)
+HSUtil::Encoder *HSUtil::Encoder::encodeObjectStart(HSUtil::Encoder *result, const HSUtil::CoderKey *a2, int a3)
 {
   if (!*result)
   {
@@ -4415,10 +4455,10 @@ uint64_t HSUtil::Encoder::flush(uint64_t this)
   return this;
 }
 
-void *HSUtil::Buffer::_releaseData(HSUtil::Buffer *this)
+void *HSUtil::Buffer::_releaseData(HSUtil::Buffer *this, uint64_t a2)
 {
   result = *(this + 5);
-  v3 = HSUtil::Buffer::_EmptyData;
+  v4 = HSUtil::Buffer::_EmptyData;
   if (result == HSUtil::Buffer::_EmptyData)
   {
     return 0;
@@ -4431,7 +4471,7 @@ void *HSUtil::Buffer::_releaseData(HSUtil::Buffer *this)
 
   *(this + 6) = 0;
   *(this + 7) = 0;
-  *(this + 5) = v3;
+  *(this + 5) = v4;
   *(this + 64) = 0;
   return result;
 }
@@ -4445,87 +4485,87 @@ uint64_t HSUtil::DecoderBuf::DecoderBuf(uint64_t a1, uint64_t a2)
   *(a1 + 48) = 0u;
   *(a1 + 64) = 0u;
   HSUtil::Buffer::Buffer(a1 + 80, a2);
-  HSUtil::Decoder::setReadable(a1, (a1 + 80));
+  HSUtil::Decoder::setReadable(a1, (a1 + 80), v3, v4);
   return a1;
 }
 
 void sub_704EC(_Unwind_Exception *a1)
 {
   HSUtil::Buffer::~Buffer((v1 + 80));
-  HSUtil::Decoder::~Decoder(v1);
+  HSUtil::Decoder::~Decoder(v1, v3, v4, v5);
   _Unwind_Resume(a1);
 }
 
-void *HSUtil::Decoder::setReadable(void *this, Readable *a2)
+uint64_t (***HSUtil::Decoder::setReadable(uint64_t (***this)(void *), Readable *a2, uint64_t a3, uint64_t a4))(void *)
 {
   if (*this <= 4)
   {
-    v3 = this;
-    v4 = this[1];
-    if (v4 != this)
+    v5 = this;
+    v6 = this[1];
+    if (v6 != this)
     {
-      if (v4[2])
+      if (v6[2])
       {
         operator new();
       }
 
-      std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](this + 2, 0);
-      HSUtil::Decoder::_copyKeys((v3 + 24), &v10);
-      v5 = v10;
-      v10 = 0uLL;
-      v6 = *(v3 + 32);
-      *(v3 + 24) = v5;
-      if (v6)
+      std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](this + 2, 0, a3, a4);
+      HSUtil::Decoder::_copyKeys(v5 + 3, &v12);
+      v7 = v12;
+      v12 = 0uLL;
+      v8 = v5[4];
+      *(v5 + 3) = v7;
+      if (v8)
       {
-        std::__shared_weak_count::__release_shared[abi:ne200100](v6);
-        if (*(&v10 + 1))
+        std::__shared_weak_count::__release_shared[abi:ne200100](v8);
+        if (*(&v12 + 1))
         {
-          std::__shared_weak_count::__release_shared[abi:ne200100](*(&v10 + 1));
+          std::__shared_weak_count::__release_shared[abi:ne200100](*(&v12 + 1));
         }
       }
 
-      *(v3 + 8) = v3;
+      v5[1] = v5;
     }
 
-    *(v3 + 48) = 0;
-    *(v3 + 56) = 0;
-    *(v3 + 40) = a2;
+    v5[6] = 0;
+    v5[7] = 0;
+    v5[5] = a2;
     this = (*(*a2 + 8))(a2);
     if (this)
     {
-      v8 = 6;
+      v10 = 6;
     }
 
     else
     {
-      *(v3 + 64) = v7;
-      *(v3 + 72) = 0;
+      v5[8] = v9;
+      v5[9] = 0;
       if (this)
       {
-        v9 = this;
-        *(v3 + 48) = (**this)(this);
-        this = (*(*v9 + 8))(v9);
-        v8 = 0;
-        *(v3 + 64) = this;
+        v11 = this;
+        v5[6] = (**this)(this);
+        this = (*v11)[1](v11);
+        v10 = 0;
+        v5[8] = this;
       }
 
       else
       {
-        v8 = 0;
+        v10 = 0;
       }
     }
 
-    *v3 = v8;
+    *v5 = v10;
   }
 
   return this;
 }
 
-void *HSUtil::Decoder::_copyKeys@<X0>(void *result@<X0>, void *a2@<X8>)
+void HSUtil::Decoder::_copyKeys(void *a1@<X0>, uint64_t a2@<X8>)
 {
-  if (*result)
+  if (*a1)
   {
-    v2 = result[1];
+    v2 = a1[1];
     if (v2)
     {
       atomic_fetch_add_explicit((v2 + 8), 1uLL, memory_order_relaxed);
@@ -4535,8 +4575,7 @@ void *HSUtil::Decoder::_copyKeys@<X0>(void *result@<X0>, void *a2@<X8>)
   }
 
   *a2 = 0;
-  a2[1] = 0;
-  return result;
+  *(a2 + 8) = 0;
 }
 
 void sub_70754(_Unwind_Exception *exception_object, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, std::__shared_weak_count *a10)
@@ -5122,7 +5161,7 @@ id HSUtil::Decoder::_readNSData(HSUtil::Decoder *this, unint64_t *a2)
 
   else
   {
-    HSUtil::Decoder::_readDataByCopy(this, a2, v8);
+    HSUtil::Decoder::_readDataByCopy(v8, this, a2);
     if (*this)
     {
       v5 = 0;
@@ -5139,14 +5178,14 @@ id HSUtil::Decoder::_readNSData(HSUtil::Decoder *this, unint64_t *a2)
   return v5;
 }
 
-void sub_710FC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_710FC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HSUtil::Buffer::~Buffer(va);
   _Unwind_Resume(a1);
 }
 
-id HSUtil::Decoder::_readNSArray(HSUtil::Decoder *this, unint64_t *a2)
+NSMutableArray *HSUtil::Decoder::_readNSArray(HSUtil::Decoder *this, unint64_t *a2)
 {
   v14[0] = *a2;
   Token = HSUtil::Decoder::_readToken(this, v14);
@@ -5168,7 +5207,7 @@ id HSUtil::Decoder::_readNSArray(HSUtil::Decoder *this, unint64_t *a2)
 
   else
   {
-    HSUtil::Decoder::_readArray(this, a2, v14);
+    HSUtil::Decoder::_readArray(v14, this, a2);
     if (*this)
     {
       v5 = 0;
@@ -5228,14 +5267,14 @@ id HSUtil::Decoder::_readNSArray(HSUtil::Decoder *this, unint64_t *a2)
   return v5;
 }
 
-void sub_71288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_71288(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a3);
-  HSUtil::Decoder::~Decoder(va);
+  va_start(va, a6);
+  HSUtil::Decoder::~Decoder(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
-id HSUtil::Decoder::_readNSDictionary(HSUtil::Decoder *this, unint64_t *a2)
+NSMutableDictionary *HSUtil::Decoder::_readNSDictionary(HSUtil::Decoder *this, unint64_t *a2)
 {
   v18[0] = *a2;
   Token = HSUtil::Decoder::_readToken(this, v18);
@@ -5257,7 +5296,7 @@ id HSUtil::Decoder::_readNSDictionary(HSUtil::Decoder *this, unint64_t *a2)
 
   else
   {
-    HSUtil::Decoder::_readMap(this, a2, v18);
+    HSUtil::Decoder::_readMap(v18, this, a2);
     if (*this)
     {
       v5 = 0;
@@ -5330,10 +5369,10 @@ LABEL_24:
   return v5;
 }
 
-void sub_7147C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
+void sub_7147C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
 {
-  va_start(va, a3);
-  HSUtil::Decoder::~Decoder(va);
+  va_start(va, a6);
+  HSUtil::Decoder::~Decoder(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
@@ -5434,8 +5473,8 @@ LABEL_25:
     goto LABEL_2;
   }
 
-  v28 = v10;
-  v15 = HSUtil::Decoder::_readKey(this, &v28);
+  v31 = v10;
+  v15 = HSUtil::Decoder::_readKey(this, &v31);
   if (*this)
   {
     if (*this != 11)
@@ -5448,9 +5487,9 @@ LABEL_2:
     goto LABEL_3;
   }
 
-  v16 = v28;
-  v17 = v9 - (v28 - v10);
-  if (v9 < v28 - v10)
+  v16 = v31;
+  v17 = v9 - (v31 - v10);
+  if (v9 < v31 - v10)
   {
 LABEL_32:
     v5 = 0;
@@ -5459,80 +5498,80 @@ LABEL_32:
   }
 
   __dst = 0;
-  v20 = *(this + 1);
-  v21 = 0;
+  v23 = *(this + 1);
+  v24 = 0;
   v18 = *(this + 4);
-  v22 = *(this + 3);
-  v23 = v18;
+  v25 = *(this + 3);
+  v26 = v18;
   if (v18)
   {
     atomic_fetch_add_explicit((v18 + 8), 1uLL, memory_order_relaxed);
   }
 
-  v24 = *(this + 40);
-  v25 = *(this + 7) + v16;
-  v26 = v17;
-  v27 = 0;
+  v27 = *(this + 40);
+  v28 = *(this + 7) + v16;
+  v29 = v17;
+  v30 = 0;
   v5 = HSUtil::Decoder::_decodeObjectWithCallback(this, &__dst, v15);
-  HSUtil::Decoder::~Decoder(&__dst);
+  HSUtil::Decoder::~Decoder(&__dst, v19, v20, v21);
 LABEL_3:
 
   return v5;
 }
 
-void sub_716A4(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_716A4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a2);
-  HSUtil::Decoder::~Decoder(va);
+  va_start(va, a5);
+  HSUtil::Decoder::~Decoder(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
-void HSUtil::Decoder::_readDataByCopy(HSUtil::Decoder *this@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+void HSUtil::Decoder::_readDataByCopy(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>, unint64_t *a3@<X1>)
 {
-  DataLength = HSUtil::Decoder::_readDataLength(this, a2);
+  DataLength = HSUtil::Decoder::_readDataLength(this, a3);
   if (*this)
   {
-    *a3 = &off_108FA0;
-    *(a3 + 8) = &off_108FF8;
-    *(a3 + 16) = &off_109018;
-    *(a3 + 24) = &off_109030;
-    *(a3 + 32) = off_109048;
-    *(a3 + 40) = 0;
-    *(a3 + 48) = 0;
-    *(a3 + 56) = 0;
-    *(a3 + 64) &= 0xFCu;
+    *a1 = &off_108FA0;
+    a1[1] = &off_108FF8;
+    a1[2] = &off_109018;
+    a1[3] = &off_109030;
+    a1[4] = off_109048;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[7] = 0;
+    *(a1 + 64) &= 0xFCu;
   }
 
   else
   {
     v7 = DataLength;
     HSUtil::Buffer::Buffer(v8, v7, v7);
-    HSUtil::Decoder::_read(this, a2, __dst, v7);
+    HSUtil::Decoder::_read(this, a3, __dst, v7);
     if (*this)
     {
-      *a3 = &off_108FA0;
-      *(a3 + 8) = &off_108FF8;
-      *(a3 + 16) = &off_109018;
-      *(a3 + 24) = &off_109030;
-      *(a3 + 32) = off_109048;
-      *(a3 + 40) = 0;
-      *(a3 + 48) = 0;
-      *(a3 + 56) = 0;
-      *(a3 + 64) &= 0xFCu;
+      *a1 = &off_108FA0;
+      a1[1] = &off_108FF8;
+      a1[2] = &off_109018;
+      a1[3] = &off_109030;
+      a1[4] = off_109048;
+      a1[5] = 0;
+      a1[6] = 0;
+      a1[7] = 0;
+      *(a1 + 64) &= 0xFCu;
     }
 
     else
     {
-      HSUtil::Buffer::Buffer(a3, v8);
+      HSUtil::Buffer::Buffer(a1, v8);
     }
 
     HSUtil::Buffer::~Buffer(v8);
   }
 }
 
-void sub_718A0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_718A0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HSUtil::Buffer::~Buffer(va);
   _Unwind_Resume(a1);
 }
@@ -5619,9 +5658,9 @@ uint64_t HSUtil::Decoder::_readDataLength(HSUtil::Decoder *this, unint64_t *a2)
   }
 }
 
-double HSUtil::Decoder::_readArray@<D0>(HSUtil::Decoder *this@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+double HSUtil::Decoder::_readArray@<D0>(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>, unint64_t *a3@<X1>)
 {
-  Token = HSUtil::Decoder::_readToken(this, a2);
+  Token = HSUtil::Decoder::_readToken(this, a3);
   if (*this)
   {
     goto LABEL_22;
@@ -5630,7 +5669,7 @@ double HSUtil::Decoder::_readArray@<D0>(HSUtil::Decoder *this@<X0>, unint64_t *a
   if (Token == 232)
   {
     v18 = 0;
-    HSUtil::Decoder::_read(this, a2, &v18, 4uLL);
+    HSUtil::Decoder::_read(this, a3, &v18, 4uLL);
     if (*this)
     {
       v9 = 0;
@@ -5652,7 +5691,7 @@ double HSUtil::Decoder::_readArray@<D0>(HSUtil::Decoder *this@<X0>, unint64_t *a
     if (Token == 231)
     {
       v17 = 0;
-      HSUtil::Decoder::_read(this, a2, &v17, 2uLL);
+      HSUtil::Decoder::_read(this, a3, &v17, 2uLL);
       v7 = *this;
       v8 = v17;
     }
@@ -5666,7 +5705,7 @@ double HSUtil::Decoder::_readArray@<D0>(HSUtil::Decoder *this@<X0>, unint64_t *a
       }
 
       __dst = 0;
-      HSUtil::Decoder::_read(this, a2, &__dst, 1uLL);
+      HSUtil::Decoder::_read(this, a3, &__dst, 1uLL);
       v7 = *this;
       v8 = __dst;
     }
@@ -5687,23 +5726,23 @@ double HSUtil::Decoder::_readArray@<D0>(HSUtil::Decoder *this@<X0>, unint64_t *a
     }
   }
 
-  v10 = *a2;
+  v10 = *a3;
   v11 = *(this + 8);
-  v12 = v11 >= *a2;
-  v13 = v11 - *a2;
+  v12 = v11 >= *a3;
+  v13 = v11 - *a3;
   if (!v12)
   {
     v14 = 6;
 LABEL_21:
     *this = v14;
 LABEL_22:
-    *a3 = 5;
-    *(a3 + 8) = a3;
+    *a1 = 5;
+    a1[1] = a1;
     result = 0.0;
-    *(a3 + 16) = 0u;
-    *(a3 + 32) = 0u;
-    *(a3 + 48) = 0u;
-    *(a3 + 64) = 0u;
+    *(a1 + 1) = 0u;
+    *(a1 + 2) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 4) = 0u;
     return result;
   }
 
@@ -5713,15 +5752,15 @@ LABEL_22:
     goto LABEL_21;
   }
 
-  *a2 = v10 + v9;
+  *a3 = v10 + v9;
   *this = 0;
-  HSUtil::Decoder::_loadKeyTableIfNeeded(this, a2);
+  HSUtil::Decoder::_loadKeyTableIfNeeded(this, a3);
   if (*this)
   {
     goto LABEL_22;
   }
 
-  *&result = HSUtil::Decoder::Decoder(a3, this, v10, v9).n128_u64[0];
+  *&result = HSUtil::Decoder::Decoder(a1, this, v10, v9).n128_u64[0];
   return result;
 }
 
@@ -6122,45 +6161,46 @@ id HSProxySynth::HSStageProxy_decodeStateFromData_call1<BOOL>(void *a1, void *a2
   return v5;
 }
 
-void sub_72D2C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, char a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, char a29)
+void sub_72D2C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, ...)
 {
-  HSUtil::Decoder::~Decoder(&a9);
-  HSUtil::Decoder::~Decoder(&a19);
-  HSUtil::Buffer::~Buffer(&a29);
+  va_start(va, a28);
+  HSUtil::Decoder::~Decoder(&a9, a2, a3, a4);
+  HSUtil::Decoder::~Decoder(&a19, v30, v31, v32);
+  HSUtil::Buffer::~Buffer(va);
 
   _Unwind_Resume(a1);
 }
 
-unint64_t *HSUtil::Decoder::decodeElement@<X0>(unint64_t *this@<X0>, uint64_t a2@<X8>)
+HSUtil::Decoder *HSUtil::Decoder::decodeElement@<X0>(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>)
 {
   if (*this < 5)
   {
     v3 = this;
-    v7 = this[9];
-    HSUtil::Decoder::_readElement(this, &v7, v4);
+    v9 = *(this + 9);
+    HSUtil::Decoder::_readElement(v6, this, &v9);
     if (*v3)
     {
-      *a2 = 5;
-      *(a2 + 8) = a2;
-      *(a2 + 16) = 0u;
-      *(a2 + 32) = 0u;
-      *(a2 + 48) = 0u;
-      *(a2 + 64) = 0u;
+      *a1 = 5;
+      a1[1] = a1;
+      *(a1 + 1) = 0u;
+      *(a1 + 2) = 0u;
+      *(a1 + 3) = 0u;
+      *(a1 + 4) = 0u;
     }
 
     else
     {
-      v3[9] = v7;
-      HSUtil::Decoder::Decoder(a2, v4);
+      *(v3 + 9) = v9;
+      HSUtil::Decoder::Decoder(a1, v6, v4, v5);
     }
 
-    if (v6)
+    if (v8)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
 
-    this = v5;
-    v5 = 0;
+    this = v7;
+    v7 = 0;
     if (this)
     {
       std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](this);
@@ -6170,25 +6210,25 @@ unint64_t *HSUtil::Decoder::decodeElement@<X0>(unint64_t *this@<X0>, uint64_t a2
 
   else
   {
-    *a2 = 5;
-    *(a2 + 8) = a2;
-    *(a2 + 16) = 0u;
-    *(a2 + 32) = 0u;
-    *(a2 + 48) = 0u;
-    *(a2 + 64) = 0u;
+    *a1 = 5;
+    a1[1] = a1;
+    *(a1 + 1) = 0u;
+    *(a1 + 2) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 4) = 0u;
   }
 
   return this;
 }
 
-void sub_72E48(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_72E48(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a2);
-  HSUtil::Decoder::~Decoder(va);
+  va_start(va, a5);
+  HSUtil::Decoder::~Decoder(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
-HSUtil::Decoder *HSUtil::Decoder::Decoder(HSUtil::Decoder *this, Readable *a2)
+HSUtil::Decoder *HSUtil::Decoder::Decoder(HSUtil::Decoder *this, Readable *a2, uint64_t a3, uint64_t a4)
 {
   *this = 0;
   *(this + 1) = this;
@@ -6196,41 +6236,41 @@ HSUtil::Decoder *HSUtil::Decoder::Decoder(HSUtil::Decoder *this, Readable *a2)
   *(this + 2) = 0u;
   *(this + 3) = 0u;
   *(this + 4) = 0u;
-  HSUtil::Decoder::setReadable(this, a2);
+  HSUtil::Decoder::setReadable(this, a2, a3, a4);
   return this;
 }
 
-void sub_731AC(_Unwind_Exception *a1)
+void sub_731AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
-  v4 = *(v2 + 32);
-  if (v4)
+  v7 = *(v5 + 32);
+  if (v7)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v4);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v7);
   }
 
-  std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](v1, 0);
+  std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](v4, 0, a3, a4);
   _Unwind_Resume(a1);
 }
 
-double HSUtil::Decoder::_readElement@<D0>(HSUtil::Decoder *this@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+double HSUtil::Decoder::_readElement@<D0>(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>, unint64_t *a3@<X1>)
 {
-  v6 = *a2;
-  v7 = HSUtil::Decoder::_skipElement(this, a2);
-  if (*this || (v8 = v7, HSUtil::Decoder::_loadKeyTableIfNeeded(this, a2), *this))
+  v6 = *a3;
+  v7 = HSUtil::Decoder::_skipElement(this, a3);
+  if (*this || (v8 = v7, HSUtil::Decoder::_loadKeyTableIfNeeded(this, a3), *this))
   {
-    *a3 = 5;
-    *(a3 + 8) = a3;
+    *a1 = 5;
+    a1[1] = a1;
     result = 0.0;
-    *(a3 + 16) = 0u;
-    *(a3 + 32) = 0u;
-    *(a3 + 48) = 0u;
-    *(a3 + 64) = 0u;
+    *(a1 + 1) = 0u;
+    *(a1 + 2) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 4) = 0u;
   }
 
   else
   {
 
-    *&result = HSUtil::Decoder::Decoder(a3, this, v6, v8).n128_u64[0];
+    *&result = HSUtil::Decoder::Decoder(a1, this, v6, v8).n128_u64[0];
   }
 
   return result;
@@ -6404,12 +6444,12 @@ LABEL_31:
 
       if ((ElementToken - 224) < 3)
       {
-        HSUtil::Decoder::decodeStringByRef(a2, __src);
+        HSUtil::Decoder::decodeStringByRef(__src, a2);
         v17 = *a2;
         *this = *a2;
         if (v17 == 4)
         {
-          HSUtil::Decoder::decodeStringReadable(a2, v36);
+          HSUtil::Decoder::decodeStringReadable(v36, a2);
           v22 = *a2;
           *this = *a2;
           if (v22)
@@ -6447,7 +6487,7 @@ LABEL_71:
             return;
           }
 
-          HSUtil::Decoder::decodeArray(a2, __src);
+          HSUtil::Decoder::decodeArray(__src, a2);
           v25 = *a2;
           *this = *a2;
           if (!v25)
@@ -6486,12 +6526,12 @@ LABEL_84:
           goto LABEL_85;
         }
 
-        HSUtil::Decoder::decodeDataByRef(a2, __src);
+        HSUtil::Decoder::decodeDataByRef(__src, a2);
         v9 = *a2;
         *this = *a2;
         if (v9 == 4)
         {
-          HSUtil::Decoder::decodeDataReadable(a2, v36);
+          HSUtil::Decoder::decodeDataReadable(v36, a2);
           v21 = *a2;
           *this = *a2;
           if (v21)
@@ -6569,7 +6609,7 @@ LABEL_81:
         return;
       }
 
-      HSUtil::Decoder::decodeContainer(a2, __src);
+      HSUtil::Decoder::decodeContainer(__src, a2);
       v28 = *a2;
       *this = *a2;
       if (!v28)
@@ -6623,7 +6663,7 @@ LABEL_81:
       return;
     }
 
-    HSUtil::Decoder::decodeMap(a2, __src);
+    HSUtil::Decoder::decodeMap(__src, a2);
     v23 = *a2;
     *this = *a2;
     if (!v23)
@@ -6639,9 +6679,9 @@ LABEL_81:
   }
 }
 
-void sub_73734(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_73734(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HSUtil::Buffer::~Buffer(va);
   _Unwind_Resume(a1);
 }
@@ -6770,20 +6810,20 @@ uint64_t HSUtil::Decoder::decodeBool(HSUtil::Decoder *this)
   return result;
 }
 
-void *HSUtil::Decoder::decodeNull(void *this)
+HSUtil::Decoder *HSUtil::Decoder::decodeNull(HSUtil::Decoder *this)
 {
   if (*this <= 4)
   {
     v4[3] = v1;
     v4[4] = v2;
     v3 = this;
-    v4[0] = this[9];
+    v4[0] = *(this + 9);
     this = HSUtil::Decoder::_readToken(this, v4);
     if (*v3 || this == 140)
     {
       if (!*v3)
       {
-        v3[9] = v4[0];
+        *(v3 + 9) = v4[0];
       }
     }
 
@@ -6816,29 +6856,29 @@ unint64_t HSUtil::Decoder::decodeKey(HSUtil::Decoder *this)
   return result;
 }
 
-void HSUtil::Decoder::decodeStringByRef(HSUtil::Decoder *this@<X0>, uint64_t a2@<X8>)
+void HSUtil::Decoder::decodeStringByRef(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>)
 {
   if (*this < 5)
   {
     v5 = *(this + 9);
-    HSUtil::Decoder::_readStringByRefIfSupported(this, &v5, v4);
+    HSUtil::Decoder::_readStringByRefIfSupported(v4, this, &v5);
     if (*this)
     {
-      *a2 = &off_108FA0;
-      *(a2 + 8) = &off_108FF8;
-      *(a2 + 16) = &off_109018;
-      *(a2 + 24) = &off_109030;
-      *(a2 + 32) = off_109048;
-      *(a2 + 40) = 0;
-      *(a2 + 48) = 0;
-      *(a2 + 56) = 0;
-      *(a2 + 64) &= 0xFCu;
+      *a1 = &off_108FA0;
+      a1[1] = &off_108FF8;
+      a1[2] = &off_109018;
+      a1[3] = &off_109030;
+      a1[4] = off_109048;
+      a1[5] = 0;
+      a1[6] = 0;
+      a1[7] = 0;
+      *(a1 + 64) &= 0xFCu;
     }
 
     else
     {
       *(this + 9) = v5;
-      HSUtil::Buffer::Buffer(a2, v4);
+      HSUtil::Buffer::Buffer(a1, v4);
     }
 
     HSUtil::Buffer::~Buffer(v4);
@@ -6846,45 +6886,45 @@ void HSUtil::Decoder::decodeStringByRef(HSUtil::Decoder *this@<X0>, uint64_t a2@
 
   else
   {
-    *a2 = &off_108FA0;
-    *(a2 + 8) = &off_108FF8;
-    *(a2 + 16) = &off_109018;
-    *(a2 + 24) = &off_109030;
-    *(a2 + 32) = off_109048;
-    *(a2 + 40) = 0;
-    *(a2 + 48) = 0;
-    *(a2 + 56) = 0;
-    *(a2 + 64) &= 0xFCu;
+    *a1 = &off_108FA0;
+    a1[1] = &off_108FF8;
+    a1[2] = &off_109018;
+    a1[3] = &off_109030;
+    a1[4] = off_109048;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[7] = 0;
+    *(a1 + 64) &= 0xFCu;
   }
 }
 
-void HSUtil::Decoder::decodeStringReadable(HSUtil::Decoder *this@<X0>, uint64_t a2@<X8>)
+void HSUtil::Decoder::decodeStringReadable(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>)
 {
   if (*this < 5)
   {
-    v6 = *(this + 9);
-    HSUtil::Decoder::_readStringReadable(this, &v6, v4);
+    v7 = *(this + 9);
+    HSUtil::Decoder::_readStringReadable(&v4, this, &v7);
     if (*this)
     {
-      *(a2 + 24) = 0u;
-      *(a2 + 8) = 0u;
+      *(a1 + 3) = 0u;
+      *(a1 + 1) = 0u;
     }
 
     else
     {
-      *(this + 9) = v6;
-      *(a2 + 8) = *&v4[8];
-      *(a2 + 24) = v5;
+      *(this + 9) = v7;
+      *(a1 + 1) = v5;
+      *(a1 + 3) = v6;
     }
 
-    *a2 = &off_109DD0;
+    *a1 = &off_109DD0;
   }
 
   else
   {
-    *a2 = &off_109DD0;
-    *(a2 + 8) = 0u;
-    *(a2 + 24) = 0u;
+    *a1 = &off_109DD0;
+    *(a1 + 1) = 0u;
+    *(a1 + 3) = 0u;
   }
 }
 
@@ -6926,29 +6966,29 @@ uint64_t (***HSUtil::Encoder::_encodeString(HSUtil::Encoder *this, Readable *a2)
   return result;
 }
 
-void HSUtil::Decoder::decodeDataByRef(HSUtil::Decoder *this@<X0>, uint64_t a2@<X8>)
+void HSUtil::Decoder::decodeDataByRef(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>)
 {
   if (*this < 5)
   {
     v5 = *(this + 9);
-    HSUtil::Decoder::_readDataByRefIfSupported(this, &v5, v4);
+    HSUtil::Decoder::_readDataByRefIfSupported(v4, this, &v5);
     if (*this)
     {
-      *a2 = &off_108FA0;
-      *(a2 + 8) = &off_108FF8;
-      *(a2 + 16) = &off_109018;
-      *(a2 + 24) = &off_109030;
-      *(a2 + 32) = off_109048;
-      *(a2 + 40) = 0;
-      *(a2 + 48) = 0;
-      *(a2 + 56) = 0;
-      *(a2 + 64) &= 0xFCu;
+      *a1 = &off_108FA0;
+      a1[1] = &off_108FF8;
+      a1[2] = &off_109018;
+      a1[3] = &off_109030;
+      a1[4] = off_109048;
+      a1[5] = 0;
+      a1[6] = 0;
+      a1[7] = 0;
+      *(a1 + 64) &= 0xFCu;
     }
 
     else
     {
       *(this + 9) = v5;
-      HSUtil::Buffer::Buffer(a2, v4);
+      HSUtil::Buffer::Buffer(a1, v4);
     }
 
     HSUtil::Buffer::~Buffer(v4);
@@ -6956,45 +6996,45 @@ void HSUtil::Decoder::decodeDataByRef(HSUtil::Decoder *this@<X0>, uint64_t a2@<X
 
   else
   {
-    *a2 = &off_108FA0;
-    *(a2 + 8) = &off_108FF8;
-    *(a2 + 16) = &off_109018;
-    *(a2 + 24) = &off_109030;
-    *(a2 + 32) = off_109048;
-    *(a2 + 40) = 0;
-    *(a2 + 48) = 0;
-    *(a2 + 56) = 0;
-    *(a2 + 64) &= 0xFCu;
+    *a1 = &off_108FA0;
+    a1[1] = &off_108FF8;
+    a1[2] = &off_109018;
+    a1[3] = &off_109030;
+    a1[4] = off_109048;
+    a1[5] = 0;
+    a1[6] = 0;
+    a1[7] = 0;
+    *(a1 + 64) &= 0xFCu;
   }
 }
 
-void HSUtil::Decoder::decodeDataReadable(HSUtil::Decoder *this@<X0>, uint64_t a2@<X8>)
+void HSUtil::Decoder::decodeDataReadable(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>)
 {
   if (*this < 5)
   {
-    v6 = *(this + 9);
-    HSUtil::Decoder::_readDataReadable(this, &v6, v4);
+    v7 = *(this + 9);
+    HSUtil::Decoder::_readDataReadable(&v4, this, &v7);
     if (*this)
     {
-      *(a2 + 24) = 0u;
-      *(a2 + 8) = 0u;
+      *(a1 + 3) = 0u;
+      *(a1 + 1) = 0u;
     }
 
     else
     {
-      *(this + 9) = v6;
-      *(a2 + 8) = *&v4[8];
-      *(a2 + 24) = v5;
+      *(this + 9) = v7;
+      *(a1 + 1) = v5;
+      *(a1 + 3) = v6;
     }
 
-    *a2 = &off_109DD0;
+    *a1 = &off_109DD0;
   }
 
   else
   {
-    *a2 = &off_109DD0;
-    *(a2 + 8) = 0u;
-    *(a2 + 24) = 0u;
+    *a1 = &off_109DD0;
+    *(a1 + 1) = 0u;
+    *(a1 + 3) = 0u;
   }
 }
 
@@ -7059,36 +7099,36 @@ uint64_t (***HSUtil::Encoder::_encodeArrayStart(unint64_t *a1, int a2))(void)
   return HSUtil::Encoder::_writeTokenValue8(a1, 0xE6u, 0);
 }
 
-unint64_t *HSUtil::Decoder::decodeArray@<X0>(unint64_t *this@<X0>, uint64_t a2@<X8>)
+HSUtil::Decoder *HSUtil::Decoder::decodeArray@<X0>(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>)
 {
   if (*this < 5)
   {
     v3 = this;
-    v7 = this[9];
-    HSUtil::Decoder::_readArray(this, &v7, v4);
+    v9 = *(this + 9);
+    HSUtil::Decoder::_readArray(v6, this, &v9);
     if (*v3)
     {
-      *a2 = 5;
-      *(a2 + 8) = a2;
-      *(a2 + 16) = 0u;
-      *(a2 + 32) = 0u;
-      *(a2 + 48) = 0u;
-      *(a2 + 64) = 0u;
+      *a1 = 5;
+      a1[1] = a1;
+      *(a1 + 1) = 0u;
+      *(a1 + 2) = 0u;
+      *(a1 + 3) = 0u;
+      *(a1 + 4) = 0u;
     }
 
     else
     {
-      v3[9] = v7;
-      HSUtil::Decoder::Decoder(a2, v4);
+      *(v3 + 9) = v9;
+      HSUtil::Decoder::Decoder(a1, v6, v4, v5);
     }
 
-    if (v6)
+    if (v8)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
 
-    this = v5;
-    v5 = 0;
+    this = v7;
+    v7 = 0;
     if (this)
     {
       std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](this);
@@ -7098,21 +7138,21 @@ unint64_t *HSUtil::Decoder::decodeArray@<X0>(unint64_t *this@<X0>, uint64_t a2@<
 
   else
   {
-    *a2 = 5;
-    *(a2 + 8) = a2;
-    *(a2 + 16) = 0u;
-    *(a2 + 32) = 0u;
-    *(a2 + 48) = 0u;
-    *(a2 + 64) = 0u;
+    *a1 = 5;
+    a1[1] = a1;
+    *(a1 + 1) = 0u;
+    *(a1 + 2) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 4) = 0u;
   }
 
   return this;
 }
 
-void sub_74330(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_74330(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a2);
-  HSUtil::Decoder::~Decoder(va);
+  va_start(va, a5);
+  HSUtil::Decoder::~Decoder(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
@@ -7139,36 +7179,36 @@ uint64_t (***HSUtil::Encoder::_encodeMapStart(unint64_t *a1, int a2))(void)
   return HSUtil::Encoder::_writeTokenValue8(a1, 0xE9u, 0);
 }
 
-unint64_t *HSUtil::Decoder::decodeContainer@<X0>(unint64_t *this@<X0>, uint64_t a2@<X8>)
+HSUtil::Decoder *HSUtil::Decoder::decodeContainer@<X0>(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>)
 {
   if (*this < 5)
   {
     v3 = this;
-    v7 = this[9];
-    HSUtil::Decoder::_readContainer(this, &v7, v4);
+    v9 = *(this + 9);
+    HSUtil::Decoder::_readContainer(v6, this, &v9);
     if (*v3)
     {
-      *a2 = 5;
-      *(a2 + 8) = a2;
-      *(a2 + 16) = 0u;
-      *(a2 + 32) = 0u;
-      *(a2 + 48) = 0u;
-      *(a2 + 64) = 0u;
+      *a1 = 5;
+      a1[1] = a1;
+      *(a1 + 1) = 0u;
+      *(a1 + 2) = 0u;
+      *(a1 + 3) = 0u;
+      *(a1 + 4) = 0u;
     }
 
     else
     {
-      v3[9] = v7;
-      HSUtil::Decoder::Decoder(a2, v4);
+      *(v3 + 9) = v9;
+      HSUtil::Decoder::Decoder(a1, v6, v4, v5);
     }
 
-    if (v6)
+    if (v8)
     {
-      std::__shared_weak_count::__release_shared[abi:ne200100](v6);
+      std::__shared_weak_count::__release_shared[abi:ne200100](v8);
     }
 
-    this = v5;
-    v5 = 0;
+    this = v7;
+    v7 = 0;
     if (this)
     {
       std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](this);
@@ -7178,25 +7218,25 @@ unint64_t *HSUtil::Decoder::decodeContainer@<X0>(unint64_t *this@<X0>, uint64_t 
 
   else
   {
-    *a2 = 5;
-    *(a2 + 8) = a2;
-    *(a2 + 16) = 0u;
-    *(a2 + 32) = 0u;
-    *(a2 + 48) = 0u;
-    *(a2 + 64) = 0u;
+    *a1 = 5;
+    a1[1] = a1;
+    *(a1 + 1) = 0u;
+    *(a1 + 2) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 4) = 0u;
   }
 
   return this;
 }
 
-void sub_744AC(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_744AC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, ...)
 {
-  va_start(va, a2);
-  HSUtil::Decoder::~Decoder(va);
+  va_start(va, a5);
+  HSUtil::Decoder::~Decoder(va, a2, a3, a4);
   _Unwind_Resume(a1);
 }
 
-HSUtil::Decoder *HSUtil::Decoder::_readStringByRefIfSupported@<X0>(HSUtil::Decoder *this@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+HSUtil::Decoder *HSUtil::Decoder::_readStringByRefIfSupported@<X0>(uint64_t a3@<X8>, HSUtil::Decoder *this@<X0>, unint64_t *a2@<X1>)
 {
   if (*(this + 6))
   {
@@ -7216,25 +7256,25 @@ HSUtil::Decoder *HSUtil::Decoder::_readStringByRefIfSupported@<X0>(HSUtil::Decod
   return this;
 }
 
-__n128 HSUtil::Decoder::_readStringReadable@<Q0>(HSUtil::Decoder *this@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+__n128 HSUtil::Decoder::_readStringReadable@<Q0>(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>, unint64_t *a3@<X1>)
 {
-  StringLength = HSUtil::Decoder::_readStringLength(this, a2);
+  StringLength = HSUtil::Decoder::_readStringLength(this, a3);
   if (*this)
   {
     goto LABEL_7;
   }
 
-  v8 = *a2;
+  v8 = *a3;
   v9 = *(this + 8);
-  if (v9 >= *a2)
+  if (v9 >= *a3)
   {
     v11 = StringLength;
-    if (v9 - *a2 >= StringLength - 1)
+    if (v9 - *a3 >= StringLength - 1)
     {
-      *a2 = v8 + StringLength - 1;
+      *a3 = v8 + StringLength - 1;
       *this = 0;
       __dst = 0;
-      HSUtil::Decoder::_read(this, a2, &__dst, 1uLL);
+      HSUtil::Decoder::_read(this, a3, &__dst, 1uLL);
       if (*this)
       {
         goto LABEL_7;
@@ -7242,11 +7282,11 @@ __n128 HSUtil::Decoder::_readStringReadable@<Q0>(HSUtil::Decoder *this@<X0>, uni
 
       if (!__dst)
       {
-        *a3 = &off_109DD0;
+        *a1 = &off_109DD0;
         result = *(this + 40);
-        *(a3 + 8) = result;
-        *(a3 + 24) = *(this + 7) + v8;
-        *(a3 + 32) = v11;
+        *(a1 + 1) = result;
+        a1[3] = *(this + 7) + v8;
+        a1[4] = v11;
         return result;
       }
 
@@ -7266,10 +7306,10 @@ __n128 HSUtil::Decoder::_readStringReadable@<Q0>(HSUtil::Decoder *this@<X0>, uni
 
   *this = v10;
 LABEL_7:
-  *a3 = &off_109DD0;
+  *a1 = &off_109DD0;
   result.n128_u64[0] = 0;
-  *(a3 + 8) = 0u;
-  *(a3 + 24) = 0u;
+  *(a1 + 1) = 0u;
+  *(a1 + 3) = 0u;
   return result;
 }
 
@@ -7494,30 +7534,30 @@ LABEL_32:
   return v14 | v13;
 }
 
-void sub_74B6C(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_74B6C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   HSUtil::Buffer::~Buffer(va);
   _Unwind_Resume(a1);
 }
 
-HSUtil::Decoder *HSUtil::Decoder::_readDataByRefIfSupported@<X0>(HSUtil::Decoder *this@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+HSUtil::Decoder *HSUtil::Decoder::_readDataByRefIfSupported@<X0>(uint64_t a1@<X8>, HSUtil::Decoder *this@<X0>, unint64_t *a3@<X1>)
 {
   if (*(this + 6))
   {
-    return HSUtil::Decoder::_readDataByRef(this, a2, a3);
+    return HSUtil::Decoder::_readDataByRef(this, a3, a1);
   }
 
   *this = 4;
-  *a3 = &off_108FA0;
-  *(a3 + 8) = &off_108FF8;
-  *(a3 + 16) = &off_109018;
-  *(a3 + 24) = &off_109030;
-  *(a3 + 32) = off_109048;
-  *(a3 + 40) = 0;
-  *(a3 + 48) = 0;
-  *(a3 + 56) = 0;
-  *(a3 + 64) &= 0xFCu;
+  *a1 = &off_108FA0;
+  *(a1 + 8) = &off_108FF8;
+  *(a1 + 16) = &off_109018;
+  *(a1 + 24) = &off_109030;
+  *(a1 + 32) = off_109048;
+  *(a1 + 40) = 0;
+  *(a1 + 48) = 0;
+  *(a1 + 56) = 0;
+  *(a1 + 64) &= 0xFCu;
   return this;
 }
 
@@ -7564,28 +7604,28 @@ LABEL_7:
   return HSUtil::Buffer::Buffer(a3, v12, result);
 }
 
-__n128 HSUtil::Decoder::_readDataReadable@<Q0>(HSUtil::Decoder *this@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+__n128 HSUtil::Decoder::_readDataReadable@<Q0>(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>, unint64_t *a3@<X1>)
 {
-  DataLength = HSUtil::Decoder::_readDataLength(this, a2);
+  DataLength = HSUtil::Decoder::_readDataLength(this, a3);
   if (*this)
   {
     goto LABEL_7;
   }
 
-  v8 = *a2;
+  v8 = *a3;
   v9 = *(this + 8);
-  v10 = v9 >= *a2;
-  v11 = v9 - *a2;
+  v10 = v9 >= *a3;
+  v11 = v9 - *a3;
   if (!v10)
   {
     v12 = 6;
 LABEL_6:
     *this = v12;
 LABEL_7:
-    *a3 = &off_109DD0;
+    *a1 = &off_109DD0;
     result.n128_u64[0] = 0;
-    *(a3 + 8) = 0u;
-    *(a3 + 24) = 0u;
+    *(a1 + 1) = 0u;
+    *(a1 + 3) = 0u;
     return result;
   }
 
@@ -7595,19 +7635,19 @@ LABEL_7:
     goto LABEL_6;
   }
 
-  *a2 = v8 + DataLength;
+  *a3 = v8 + DataLength;
   *this = 0;
-  *a3 = &off_109DD0;
+  *a1 = &off_109DD0;
   result = *(this + 40);
-  *(a3 + 8) = result;
-  *(a3 + 24) = *(this + 7) + v8;
-  *(a3 + 32) = DataLength;
+  *(a1 + 1) = result;
+  a1[3] = *(this + 7) + v8;
+  a1[4] = DataLength;
   return result;
 }
 
-double HSUtil::Decoder::_readContainer@<D0>(HSUtil::Decoder *this@<X0>, unint64_t *a2@<X1>, uint64_t a3@<X8>)
+double HSUtil::Decoder::_readContainer@<D0>(uint64_t *__return_ptr a1@<X8>, HSUtil::Decoder *this@<X0>, unint64_t *a3@<X1>)
 {
-  Token = HSUtil::Decoder::_readToken(this, a2);
+  Token = HSUtil::Decoder::_readToken(this, a3);
   if (*this)
   {
     goto LABEL_22;
@@ -7623,7 +7663,7 @@ double HSUtil::Decoder::_readContainer@<D0>(HSUtil::Decoder *this@<X0>, unint64_
   if ((v7 & 0x49) != 0)
   {
     v17 = 0;
-    HSUtil::Decoder::_read(this, a2, &v17, 1uLL);
+    HSUtil::Decoder::_read(this, a3, &v17, 1uLL);
     v8 = *this;
     v9 = v17;
   }
@@ -7633,7 +7673,7 @@ double HSUtil::Decoder::_readContainer@<D0>(HSUtil::Decoder *this@<X0>, unint64_
     if ((v7 & 0x92) == 0)
     {
       v19 = 0;
-      HSUtil::Decoder::_read(this, a2, &v19, 4uLL);
+      HSUtil::Decoder::_read(this, a3, &v19, 4uLL);
       if (*this)
       {
         v10 = 0;
@@ -7653,7 +7693,7 @@ double HSUtil::Decoder::_readContainer@<D0>(HSUtil::Decoder *this@<X0>, unint64_
     }
 
     __dst = 0;
-    HSUtil::Decoder::_read(this, a2, &__dst, 2uLL);
+    HSUtil::Decoder::_read(this, a3, &__dst, 2uLL);
     v8 = *this;
     v9 = __dst;
   }
@@ -7674,23 +7714,23 @@ double HSUtil::Decoder::_readContainer@<D0>(HSUtil::Decoder *this@<X0>, unint64_
   }
 
 LABEL_16:
-  v11 = *a2;
+  v11 = *a3;
   v12 = *(this + 8);
-  v13 = v12 >= *a2;
-  v14 = v12 - *a2;
+  v13 = v12 >= *a3;
+  v14 = v12 - *a3;
   if (!v13)
   {
     v15 = 6;
 LABEL_21:
     *this = v15;
 LABEL_22:
-    *a3 = 5;
-    *(a3 + 8) = a3;
+    *a1 = 5;
+    a1[1] = a1;
     result = 0.0;
-    *(a3 + 16) = 0u;
-    *(a3 + 32) = 0u;
-    *(a3 + 48) = 0u;
-    *(a3 + 64) = 0u;
+    *(a1 + 1) = 0u;
+    *(a1 + 2) = 0u;
+    *(a1 + 3) = 0u;
+    *(a1 + 4) = 0u;
     return result;
   }
 
@@ -7700,35 +7740,38 @@ LABEL_22:
     goto LABEL_21;
   }
 
-  *a2 = v11 + v10;
+  *a3 = v11 + v10;
   *this = 0;
-  HSUtil::Decoder::_loadKeyTableIfNeeded(this, a2);
+  HSUtil::Decoder::_loadKeyTableIfNeeded(this, a3);
   if (*this)
   {
     goto LABEL_22;
   }
 
-  *&result = HSUtil::Decoder::Decoder(a3, this, v11, v10).n128_u64[0];
+  *&result = HSUtil::Decoder::Decoder(a1, this, v11, v10).n128_u64[0];
   return result;
 }
 
 void HSUtil::IOUtil::Copy()
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 {
+  v5 = 136315906;
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, 2u);
+  OUTLINED_FUNCTION_1(&dword_0, &_os_log_default, v0, "Assertion failed (%s @ %s:%ju): %s", v1, v2, v3, v4, v5);
 }
 
 void __cxx_global_var_init_50()
@@ -7828,9 +7871,9 @@ void collectStages(NSMutableSet *a1, HSStage *a2)
   }
 }
 
-void sub_76320(_Unwind_Exception *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_76320(_Unwind_Exception *a1, void *a2, void *a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, void *a9, void *a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a13);
+  va_start(va, a20);
 
   HSUtil::ObjectLock::~ObjectLock(va);
   _Unwind_Resume(a1);
@@ -7892,10 +7935,10 @@ void __cxx_global_var_init_8_46(uint64_t a1, const char *a2)
   }
 }
 
-void sub_76B68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_76B68(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = HSObjectServer;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7912,9 +7955,9 @@ void sub_76D20(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-void HSMapper::New(uint64_t a1, void *a2)
+void HSMapper::New(void x0_0, void *a1)
 {
-  v2 = a2;
+  v2 = a1;
   v3 = os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_DEBUG);
   if (v3)
   {
@@ -7934,7 +7977,7 @@ void sub_76EAC(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, in
   _Unwind_Resume(a1);
 }
 
-void sub_77008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, char a10, void *a11)
+void sub_77008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, void *a11)
 {
   if (v11)
   {
@@ -7945,10 +7988,10 @@ void sub_77008(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uin
   _Unwind_Resume(a1);
 }
 
-void sub_77460(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, objc_super a9)
+void sub_77460(_Unwind_Exception *a1, int a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, objc_super a9)
 {
   a9.super_class = HSObjectClient;
-  [(_Unwind_Exception *)&a9 dealloc];
+  [(_Unwind_Exception *)&a9 dealloc:a3];
   _Unwind_Resume(a1);
 }
 
@@ -7957,19 +8000,19 @@ id HSMapper::send(HSMapper *this, uint64_t a2, objc_selector *a3, objc_object *a
   v11 = a4;
   v12 = a5;
   v13 = a6;
-  v28[0] = a2;
-  v28[1] = a3;
+  v27[0] = a2;
+  v27[1] = a3;
   v14 = v11;
-  v29 = v14;
+  v28 = v14;
   v15 = v12;
-  v30 = v15;
+  v29 = v15;
   v16 = v13;
-  v31 = v16;
-  HSMapper::_popEncoderBuf(this, &v27);
-  v17 = v27;
-  v26[0] = this;
-  v26[1] = &v27;
-  if (!*v27 && !((*v17 != 0) | Message::encode(v28, v27) & 1))
+  v30 = v16;
+  HSMapper::_popEncoderBuf(&v26, this);
+  v17 = v26;
+  v25[0] = this;
+  v25[1] = &v26;
+  if (!*v26 && !((*v17 != 0) | Message::encode(v27, v26) & 1))
   {
     *v17 = 10;
   }
@@ -7977,7 +8020,7 @@ id HSMapper::send(HSMapper *this, uint64_t a2, objc_selector *a3, objc_object *a
   v18 = HSUtil::EncoderBuf::buffer(v17);
   if (!*(v18 + 5))
   {
-    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject.mm", v32);
+    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject.mm", v31);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       HSMapper::send();
@@ -7994,8 +8037,8 @@ LABEL_9:
     goto LABEL_21;
   }
 
-  HSUtil::Connection::send(*(this + 2), v18, v24);
-  if (v25)
+  HSUtil::Connection::send(v24, *(this + 2), v18);
+  if (v24[5])
   {
     v23 = 0;
     v21 = 0u;
@@ -8007,7 +8050,7 @@ LABEL_9:
 
     else
     {
-      basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject.mm", v32);
+      basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject.mm", v31);
       if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
       {
         HSMapper::send();
@@ -8019,7 +8062,7 @@ LABEL_9:
 
   else
   {
-    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject.mm", v32);
+    basename_r("/Library/Caches/com.apple.xbs/Sources/HIDSensingPipeline/HIDSensingPipeline/HSRemoteObject.mm", v31);
     if (os_log_type_enabled(&_os_log_default, OS_LOG_TYPE_ERROR))
     {
       HSMapper::send();
@@ -8030,19 +8073,19 @@ LABEL_9:
 
   HSUtil::Buffer::~Buffer(v24);
 LABEL_21:
-  HSUtil::DeferredFn<HSMapper::send(unsigned long long,objc_selector *,objc_object *,objc_object *,objc_object *)::{lambda(void)#1}>::~DeferredFn(v26);
-  std::unique_ptr<HSUtil::EncoderBuf>::~unique_ptr[abi:ne200100](&v27);
+  HSUtil::DeferredFn<HSMapper::send(unsigned long long,objc_selector *,objc_object *,objc_object *,objc_object *)::{lambda(void)#1}>::~DeferredFn(v25);
+  std::unique_ptr<HSUtil::EncoderBuf>::~unique_ptr[abi:ne200100](&v26);
 
   return v19;
 }
 
-void sub_7772C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id a27)
+void sub_7772C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, id a28)
 {
   Message::~Message(&a9);
   HSUtil::Buffer::~Buffer(&a15);
   HSUtil::DeferredFn<HSMapper::send(unsigned long long,objc_selector *,objc_object *,objc_object *,objc_object *)::{lambda(void)#1}>::~DeferredFn(&a24);
   std::unique_ptr<HSUtil::EncoderBuf>::~unique_ptr[abi:ne200100](&a26);
-  Message::~Message(&a27);
+  Message::~Message(&a28);
 
   _Unwind_Resume(a1);
 }
@@ -8084,35 +8127,35 @@ void sub_77F04(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void HSMapper::_init(uint64_t a1, uint64_t *a2, uint64_t a3, void *a4, uint64_t a5)
+void HSMapper::_init(id *a1, void **a2, uint64_t a3, void *a4, uint64_t a5)
 {
   v8 = a4;
   v10 = *a2;
   v9 = a2[1];
   if (v9)
   {
-    atomic_fetch_add_explicit((v9 + 16), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v9 + 2, 1uLL, memory_order_relaxed);
   }
 
-  v11 = *(a1 + 8);
+  v11 = a1[1];
   *a1 = v10;
-  *(a1 + 8) = v9;
+  a1[1] = v9;
   if (v11)
   {
     std::__shared_weak_count::__release_weak(v11);
   }
 
   WeakRetained = objc_loadWeakRetained(a5);
-  objc_storeWeak((a1 + 32), WeakRetained);
+  objc_storeWeak(a1 + 4, WeakRetained);
 
   *(a1 + 40) = *(a5 + 8);
-  std::function<void ()(std::shared_ptr<HSMapper>)>::operator=((a1 + 48), a5 + 16);
-  v13 = *(a1 + 8);
+  std::function<void ()(std::shared_ptr<HSMapper>)>::operator=(a1 + 6, a5 + 16);
+  v13 = a1[1];
   v14[0] = *a1;
   v14[1] = v13;
   if (v13)
   {
-    atomic_fetch_add_explicit((v13 + 16), 1uLL, memory_order_relaxed);
+    atomic_fetch_add_explicit(v13 + 2, 1uLL, memory_order_relaxed);
   }
 
   HSMapper::_createConnectionConfig(v14, v8, *(a1 + 40), &v15);
@@ -8179,10 +8222,10 @@ void std::vector<std::unique_ptr<HSUtil::EncoderBuf>>::__destroy_vector::operato
   }
 }
 
-void *std::unique_ptr<HSUtil::EncoderBuf>::~unique_ptr[abi:ne200100](void *result)
+void *std::unique_ptr<HSUtil::EncoderBuf>::~unique_ptr[abi:ne200100](void *a1)
 {
-  v1 = *result;
-  *result = 0;
+  v1 = *a1;
+  *a1 = 0;
   if (v1)
   {
     HSUtil::Buffer::~Buffer((v1 + 18));
@@ -8204,7 +8247,7 @@ void *std::unique_ptr<HSUtil::EncoderBuf>::~unique_ptr[abi:ne200100](void *resul
     operator delete();
   }
 
-  return result;
+  return a1;
 }
 
 uint64_t std::__hash_table<std::__hash_value_type<unsigned long long,HSProxy * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,HSProxy * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,HSProxy * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,HSProxy * {__strong}>>>::~__hash_table(uint64_t a1)
@@ -8244,9 +8287,9 @@ void std::shared_ptr<HSMapper>::shared_ptr[abi:ne200100]<HSMapper,0>(void *a1, u
   operator new();
 }
 
-void sub_785D0(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_785D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<HSMapper>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8310,7 +8353,7 @@ void HSMapper::~HSMapper(HSMapper *this)
     std::__shared_weak_count::__release_shared[abi:ne200100](v10);
   }
 
-  std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](this + 48, 0);
+  std::unique_ptr<HSUtil::Decoder::Callbacks>::reset[abi:ne200100](this + 48, 0, v4, v5);
   std::mutex::~mutex((this + 304));
   v13 = (this + 280);
   std::vector<std::unique_ptr<HSUtil::EncoderBuf>>::__destroy_vector::operator()[abi:ne200100](&v13);
@@ -8402,7 +8445,7 @@ void HSUtil::Connection::Config::~Config(id *this)
   std::__function::__value_func<HSUtil::Buffer ()(std::shared_ptr<HSUtil::Connection>,HSUtil::Buffer&&)>::~__value_func[abi:ne200100]((this + 1));
 }
 
-unint64_t HSMapper::_idForObject(HSMapper *this, objc_object *a2)
+uint64_t HSMapper::_idForObject(HSMapper *this, objc_object *a2)
 {
   v10 = a2;
   os_unfair_lock_lock(this + 52);
@@ -8411,10 +8454,10 @@ unint64_t HSMapper::_idForObject(HSMapper *this, objc_object *a2)
   {
     v9 = *(this + 10);
     *(this + 10) = v9 + 1;
-    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,objc_object * {__strong}&>(this + 11, &v9);
+    std::__hash_table<std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::__unordered_map_hasher<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::hash<unsigned long long>,std::equal_to<unsigned long long>,true>,std::__unordered_map_equal<unsigned long long,std::__hash_value_type<unsigned long long,objc_object * {__strong}>,std::equal_to<unsigned long long>,std::hash<unsigned long long>,true>,std::allocator<std::__hash_value_type<unsigned long long,objc_object * {__strong}>>>::__emplace_unique_key_args<unsigned long long,unsigned long long &,objc_object * {__strong}&>(this + 11, &v9, &v9, &v10);
     if (v5)
     {
-      std::__hash_table<std::__hash_value_type<objc_object * {__strong},unsigned long long>,std::__unordered_map_hasher<objc_object * {__strong},std::__hash_value_type<objc_object * {__strong},unsigned long long>,HSUtil::ObjectHasher,std::equal_to<objc_object * {__strong}>,true>,std::__unordered_map_equal<objc_object * {__strong},std::__hash_value_type<objc_object * {__strong},unsigned long long>,std::equal_to<objc_object * {__strong}>,HSUtil::ObjectHasher,true>,std::allocator<std::__hash_value_type<objc_object * {__strong},unsigned long long>>>::__emplace_unique_key_args<objc_object * {__strong},objc_object * {__strong}&,unsigned long long &>(this + 16, &v10);
+      std::__hash_table<std::__hash_value_type<objc_object * {__strong},unsigned long long>,std::__unordered_map_hasher<objc_object * {__strong},std::__hash_value_type<objc_object * {__strong},unsigned long long>,HSUtil::ObjectHasher,std::equal_to<objc_object * {__strong}>,true>,std::__unordered_map_equal<objc_object * {__strong},std::__hash_value_type<objc_object * {__strong},unsigned long long>,std::equal_to<objc_object * {__strong}>,HSUtil::ObjectHasher,true>,std::allocator<std::__hash_value_type<objc_object * {__strong},unsigned long long>>>::__emplace_unique_key_args<objc_object * {__strong},objc_object * {__strong}&,unsigned long long &>(this + 16, &v10, &v10, &v9);
       if (v6)
       {
         v4 = v9;
@@ -8468,7 +8511,8 @@ void HSUtil::Connection::start(HSUtil::Connection *this)
   if (!*(this + 56))
   {
     *(this + 56) = 1;
-    _ZNSt3__16threadC2IZN6HSUtil10Connection5startEvEUlvE_JELi0EEEOT_DpOT0_();
+    v2 = this;
+    _ZNSt3__16threadC2IZN6HSUtil10Connection5startEvEUlvE_JELi0EEEOT_DpOT0_(&v3.__t_, &v2);
   }
 
   HSUtil::Connection::start();
@@ -8749,9 +8793,9 @@ void std::shared_ptr<HSUtil::Connection>::shared_ptr[abi:ne200100]<HSUtil::Conne
   operator new();
 }
 
-void sub_79600(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_79600(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va, a2);
+  va_start(va, a3);
   std::unique_ptr<HSUtil::Connection>::~unique_ptr[abi:ne200100](va);
   _Unwind_Resume(a1);
 }
@@ -8999,7 +9043,7 @@ void std::unique_lock<std::mutex>::lock[abi:ne200100](uint64_t a1)
   }
 
   std::__throw_system_error(11, "unique_lock::lock: already locked");
-  ___ZN6HSUtil10Connection6_closeENS0_6StatusEb_block_invoke();
+  ___ZN6HSUtil10Connection6_closeENS0_6StatusEb_block_invoke(v3);
 }
 
 void ___ZN6HSUtil10Connection6_closeENS0_6StatusEb_block_invoke(uint64_t a1)
@@ -9324,9 +9368,8 @@ void std::__function::__func<HSMapper::_createConnectionConfig(std::weak_ptr<HSM
 void std::__function::__func<HSMapper::_createConnectionConfig(std::weak_ptr<HSMapper>,NSObject  {objcproto17OS_dispatch_queue}*,BOOL)::{lambda(std::shared_ptr<HSUtil::Connection>,HSUtil::Buffer &&)#1},std::allocator<HSUtil::Buffer &&>,HSUtil::Buffer ()(std::shared_ptr<HSUtil::Connection>,HSUtil::Buffer &)>::operator()(uint64_t a1@<X0>, __int128 *a2@<X1>, Readable *a3@<X2>, uint64_t a4@<X8>)
 {
   v4 = *a2;
-  *a2 = 0;
-  *(a2 + 1) = 0;
-  HSMapper::_createConnectionConfig(std::weak_ptr<HSMapper>,NSObject  {objcproto17OS_dispatch_queue}*,BOOL)::{lambda(std::shared_ptr<HSUtil::Connection>,HSUtil::Buffer &&)#1}::operator()(a1 + 8, &v4, a3, a4);
+  *a2 = 0uLL;
+  HSMapper::_createConnectionConfig(std::weak_ptr<HSMapper>,NSObject  {objcproto17OS_dispatch_queue}*,BOOL)::{lambda(std::shared_ptr<HSUtil::Connection>,HSUtil::Buffer &&)#1}::operator()((a1 + 8), &v4, a4, a3);
   if (*(&v4 + 1))
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](*(&v4 + 1));
@@ -9355,9 +9398,9 @@ uint64_t std::__function::__func<HSMapper::_createConnectionConfig(std::weak_ptr
   }
 }
 
-void HSMapper::_createConnectionConfig(std::weak_ptr<HSMapper>,NSObject  {objcproto17OS_dispatch_queue}*,BOOL)::{lambda(std::shared_ptr<HSUtil::Connection>,HSUtil::Buffer &&)#1}::operator()(uint64_t a1@<X0>, uint64_t a2@<X1>, Readable *a3@<X2>, uint64_t a4@<X8>)
+void HSMapper::_createConnectionConfig(std::weak_ptr<HSMapper>,NSObject  {objcproto17OS_dispatch_queue}*,BOOL)::{lambda(std::shared_ptr<HSUtil::Connection>,HSUtil::Buffer &&)#1}::operator()(HSMapper **a1@<X0>, uint64_t a2@<X1>, uint64_t a3@<X8>, Readable *a4@<X2>)
 {
-  v6 = *(a1 + 8);
+  v6 = a1[1];
   if (!v6)
   {
     v9 = 0;
@@ -9368,16 +9411,16 @@ void HSMapper::_createConnectionConfig(std::weak_ptr<HSMapper>,NSObject  {objcpr
   if (!v9 || (v10 = *a1) == 0)
   {
 LABEL_9:
-    *a4 = &off_108FA0;
-    *(a4 + 8) = &off_108FF8;
-    *(a4 + 16) = &off_109018;
-    *(a4 + 24) = &off_109030;
+    *a3 = &off_108FA0;
+    *(a3 + 8) = &off_108FF8;
+    *(a3 + 16) = &off_109018;
+    *(a3 + 24) = &off_109030;
     v12 = HSUtil::Buffer::_EmptyData;
-    *(a4 + 32) = off_109048;
-    *(a4 + 40) = v12;
-    *(a4 + 48) = 0;
-    *(a4 + 56) = 0;
-    *(a4 + 64) &= 0xFCu;
+    *(a3 + 32) = off_109048;
+    *(a3 + 40) = v12;
+    *(a3 + 48) = 0;
+    *(a3 + 56) = 0;
+    *(a3 + 64) &= 0xFCu;
     if (!v9)
     {
       return;
@@ -9393,7 +9436,7 @@ LABEL_9:
     atomic_fetch_add_explicit(&v11->__shared_owners_, 1uLL, memory_order_relaxed);
   }
 
-  HSMapper::_messageHandler(v10, a3, a4);
+  HSMapper::_messageHandler(v10, a4, a3);
   if (v13)
   {
     std::__shared_weak_count::__release_shared[abi:ne200100](v13);
@@ -9463,7 +9506,7 @@ void HSMapper::_messageHandler(HSMapper *a1@<X0>, Readable *a2@<X2>, uint64_t a3
       }
     }
 
-    HSMapper::_popEncoderBuf(a1, &v15);
+    HSMapper::_popEncoderBuf(&v15, a1);
     v12 = v15;
     *dst = a1;
     v23 = &v15;
@@ -9522,20 +9565,20 @@ LABEL_22:
 LABEL_23:
 }
 
-void sub_7AB28(_Unwind_Exception *a1, uint64_t a2, ...)
+void sub_7AB28(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, ...)
 {
-  va_start(va2, a2);
-  va_start(va1, a2);
-  va_start(va, a2);
-  v5 = va_arg(va1, void);
+  va_start(va2, a3);
+  va_start(va1, a3);
+  va_start(va, a3);
+  v6 = va_arg(va1, void);
   va_copy(va2, va1);
-  v7 = va_arg(va2, id);
-  v9 = va_arg(va2, void);
+  v8 = va_arg(va2, id);
   v10 = va_arg(va2, void);
   v11 = va_arg(va2, void);
   v12 = va_arg(va2, void);
   v13 = va_arg(va2, void);
-  HSUtil::DeferredFn<HSMapper::_messageHandler(std::shared_ptr<HSUtil::Connection>,HSUtil::Buffer &&)::{lambda(void)#1}>::~DeferredFn((v3 - 72));
+  v14 = va_arg(va2, void);
+  HSUtil::DeferredFn<HSMapper::_messageHandler(std::shared_ptr<HSUtil::Connection>,HSUtil::Buffer &&)::{lambda(void)#1}>::~DeferredFn((v4 - 72));
   std::unique_ptr<HSUtil::EncoderBuf>::~unique_ptr[abi:ne200100](va);
 
   Message::~Message(va1);
@@ -9546,48 +9589,48 @@ void sub_7AB28(_Unwind_Exception *a1, uint64_t a2, ...)
 BOOL HSMapper::_decodeMessage(uint64_t a1, Readable *a2, Message *a3)
 {
   std::mutex::lock((a1 + 304));
-  HSUtil::Decoder::setReadable((a1 + 368), a2);
+  HSUtil::Decoder::setReadable((a1 + 368), a2, v6, v7);
   if (*(a1 + 368))
   {
-    v6 = 0;
+    v8 = 0;
 LABEL_11:
     std::mutex::unlock((a1 + 304));
-    return v6;
+    return v8;
   }
 
-  HSUtil::Decoder::decodeElement((a1 + 368), v10);
-  v7 = *(a1 + 368);
-  if (v7)
+  HSUtil::Decoder::decodeElement(v12, (a1 + 368));
+  v9 = *(a1 + 368);
+  if (v9)
   {
-    v6 = 0;
+    v8 = 0;
   }
 
   else
   {
     std::mutex::unlock((a1 + 304));
-    HSUtil::Decoder::decodeCodable<Message>(v10, a3);
-    v6 = v10[0] == 0;
+    HSUtil::Decoder::decodeCodable<Message>(v12, a3);
+    v8 = LODWORD(v12[0]) == 0;
   }
 
-  if (v12)
+  if (v14)
   {
-    std::__shared_weak_count::__release_shared[abi:ne200100](v12);
+    std::__shared_weak_count::__release_shared[abi:ne200100](v14);
   }
 
-  v8 = v11;
-  v11 = 0;
-  if (v8)
+  v10 = v13;
+  v13 = 0;
+  if (v10)
   {
-    std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](v8);
+    std::__function::__value_func<objc_object * ()(HSUtil::Decoder &,HSUtil::CoderKey const&)>::~__value_func[abi:ne200100](v10);
     operator delete();
   }
 
-  if (v7)
+  if (v9)
   {
     goto LABEL_11;
   }
 
-  return v6;
+  return v8;
 }
 
 id HSMapper::_objectForID(HSMapper *this, unint64_t a2)
@@ -9608,43 +9651,4 @@ id HSMapper::_objectForID(HSMapper *this, unint64_t a2)
   os_unfair_lock_unlock(this + 52);
 
   return v4;
-}
-
-void HSMapper::_popEncoderBuf(HSMapper *this@<X0>, int **a2@<X8>)
-{
-  std::mutex::lock((this + 216));
-  v4 = *(this + 36);
-  if (*(this + 35) == v4)
-  {
-    std::mutex::unlock((this + 216));
-    operator new();
-  }
-
-  v7 = *(v4 - 8);
-  v5 = (v4 - 8);
-  v6 = v7;
-  *v5 = 0;
-  *a2 = v7;
-  *(this + 36) = std::unique_ptr<HSUtil::EncoderBuf>::~unique_ptr[abi:ne200100](v5);
-  if (!*v7)
-  {
-    *(v6 + 8) = *(v6 + 7);
-    v8 = *(v6 + 17);
-    v9 = *(v6 + 13);
-    if (__CFADD__(v9, v8))
-    {
-      v10 = 14;
-    }
-
-    else
-    {
-      v10 = 0;
-      *(v6 + 13) = v9 + v8;
-      *(v6 + 17) = 0;
-    }
-
-    *v6 = v10;
-  }
-
-  std::mutex::unlock((this + 216));
 }

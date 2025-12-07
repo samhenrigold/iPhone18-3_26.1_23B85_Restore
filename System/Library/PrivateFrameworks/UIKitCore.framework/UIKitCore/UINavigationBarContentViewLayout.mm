@@ -28,11 +28,11 @@ uint64_t __61___UINavigationBarContentViewLayout_setActiveRenamerSession___block
   return [v2 _updateRenamingContentViewVisibilityIfNecessary];
 }
 
-uint64_t __61___UINavigationBarContentViewLayout_setActiveRenamerSession___block_invoke_2(uint64_t result)
+id *__61___UINavigationBarContentViewLayout_setActiveRenamerSession___block_invoke_2(id *result)
 {
-  if (!*(result + 32))
+  if (!result[4])
   {
-    return [*(result + 40) _updateRenamingContentViewIfNecessary];
+    return [result[5] _updateRenamingContentViewIfNecessary];
   }
 
   return result;

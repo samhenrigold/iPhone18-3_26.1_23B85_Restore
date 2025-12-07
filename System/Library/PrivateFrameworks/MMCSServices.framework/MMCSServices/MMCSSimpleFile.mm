@@ -11,8 +11,7 @@
   v3 = MEMORY[0x277CCACA8];
   v4 = objc_opt_class();
   v5 = NSStringFromClass(v4);
-  authToken = self->_authToken;
-  return objc_msgSend_stringWithFormat_(v3, v7, @"[%@: guid: %@  item id: %qx  path: %@  fd: %d token: %@   requestor ID: %@  request url: %@ signature: %@  progress: %f file size: %llu]", v8, v9, v5, self->_guid, self->_itemID, self->_localPath, self->_fd, authToken, self->_requestorID, self->_requestURL, self->_signature, *&self->_progress, self->_protocolFileSize);
+  return objc_msgSend_stringWithFormat_(v3, v6, @"[%@: guid: %@  item id: %qx  path: %@  fd: %d token: %@   requestor ID: %@  request url: %@ signature: %@  progress: %f file size: %llu]", v7, v8, v5, self->_guid, self->_itemID, self->_localPath, self->_fd, self->_authToken, self->_requestorID, self->_requestURL, self->_signature, *&self->_progress, self->_protocolFileSize);
 }
 
 - (MMCSSimpleFile)init

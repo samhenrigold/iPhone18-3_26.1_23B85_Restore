@@ -397,25 +397,25 @@ id GPU_CreateRMSPropOptimizer(void *a1, uint64_t a2, void *a3, float a4, float a
   return v37;
 }
 
-BOOL ANE_ConvertFp32ToInt16(float *a1, _WORD *a2)
+BOOL ANE_ConvertFp32ToInt16(uint64_t a1, _WORD *a2)
 {
-  v7 = 0;
-  v4 = [MLCDataHelper convertFp32toFp16:1 fp32Values:a1 fp16Values:&v7];
-  if (v4)
+  v6 = 0;
+  v3 = [MLCDataHelper convertFp32toFp16:1 fp32Values:a1 fp16Values:&v6];
+  if (v3)
   {
-    *a2 = v7;
+    *a2 = v6;
   }
 
   else
   {
-    v5 = +[MLCLog framework];
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
+    v4 = +[MLCLog framework];
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
     {
-      ANE_ConvertFp32ToInt16_cold_1(a1);
+      ANE_ConvertFp32ToInt16_cold_1();
     }
   }
 
-  return v4;
+  return v3;
 }
 
 uint64_t ANE_CompressSparseKernel(void *a1, uint64_t a2, NSObject **a3, void *a4, void *a5, float a6)
@@ -553,7 +553,7 @@ LABEL_30:
   return v19;
 }
 
-float ANE_GetTensorValueInFloat(uint64_t a1, int a2, uint64_t a3, float a4)
+float ANE_GetTensorValueInFloat(uint64_t a1, uint64_t a2, uint64_t a3, float a4)
 {
   if (a2 <= 5)
   {
@@ -762,30 +762,28 @@ void ANE_GetTensorBatchSizeWithOnePrepended(void *a1, void *a2)
 
 void ANE_GetTensor4DShapeWithOnePrepended(void *a1, void *a2)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  v11 = 1;
-  v12 = 1;
-  v9 = 1;
+  v12[4] = *MEMORY[0x277D85DE8];
   v10 = 1;
+  v11 = 1;
+  v8 = 1;
+  v9 = 1;
   v3 = a1;
-  ANE_GetTensorWidthAndHeightWithOnePrepended(v3, &v9, &v10);
-  ANE_GetTensorFeatureChannelsWithOnePrepended(v3, &v11);
-  ANE_GetTensorBatchSizeWithOnePrepended(v3, &v12);
+  ANE_GetTensorWidthAndHeightWithOnePrepended(v3, &v8, &v9);
+  ANE_GetTensorFeatureChannelsWithOnePrepended(v3, &v10);
+  ANE_GetTensorBatchSizeWithOnePrepended(v3, &v11);
 
-  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v12];
-  v13[0] = v4;
-  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v11];
-  v13[1] = v5;
-  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v10];
-  v13[2] = v6;
-  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v9];
-  v13[3] = v7;
-  *a2 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v11];
+  v12[0] = v4;
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v10];
+  v12[1] = v5;
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v9];
+  v12[2] = v6;
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v8];
+  v12[3] = v7;
+  *a2 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:4];
 }
 
-void ANE_GetDimensionIn4DWithOnePrepended(unint64_t a1, unint64_t a2, uint64_t *a3)
+void ANE_GetDimensionIn4DWithOnePrepended(unint64_t a1, unint64_t a2, unint64_t *a3)
 {
   if (a1 >= 5)
   {
@@ -908,27 +906,25 @@ void ANE_GetTensorBatchSizeWithBatchFirst(void *a1, void *a2)
 
 void ANE_GetTensor4DShapeWithBatchFirst(void *a1, void *a2)
 {
-  v13[4] = *MEMORY[0x277D85DE8];
-  v11 = 1;
-  v12 = 1;
-  v9 = 1;
+  v12[4] = *MEMORY[0x277D85DE8];
   v10 = 1;
+  v11 = 1;
+  v8 = 1;
+  v9 = 1;
   v3 = a1;
-  ANE_GetTensorWidthAndHeightWithBatchFirst(v3, &v9, &v10);
-  ANE_GetTensorFeatureChannelsWithBatchFirst(v3, &v11);
-  ANE_GetTensorBatchSizeWithBatchFirst(v3, &v12);
+  ANE_GetTensorWidthAndHeightWithBatchFirst(v3, &v8, &v9);
+  ANE_GetTensorFeatureChannelsWithBatchFirst(v3, &v10);
+  ANE_GetTensorBatchSizeWithBatchFirst(v3, &v11);
 
-  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v12];
-  v13[0] = v4;
-  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v11];
-  v13[1] = v5;
-  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v10];
-  v13[2] = v6;
-  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v9];
-  v13[3] = v7;
-  *a2 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:4];
-
-  v8 = *MEMORY[0x277D85DE8];
+  v4 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v11];
+  v12[0] = v4;
+  v5 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v10];
+  v12[1] = v5;
+  v6 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v9];
+  v12[2] = v6;
+  v7 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v8];
+  v12[3] = v7;
+  *a2 = [MEMORY[0x277CBEA60] arrayWithObjects:v12 count:4];
 }
 
 __CFString *ANE_GetANECIRDimension(unint64_t a1)
@@ -947,7 +943,7 @@ __CFString *ANE_GetANECIRDimension(unint64_t a1)
   return 0;
 }
 
-__CFString *ANE_GetANECIRDataTypeWithMLCDataType(int a1)
+__CFString *ANE_GetANECIRDataTypeWithMLCDataType(uint64_t a1)
 {
   v1 = a1 - 1;
   if (a1 - 1) < 9 && ((0x1ADu >> v1))
@@ -966,29 +962,29 @@ __CFString *ANE_GetANECIRDataTypeWithMLCDataType(int a1)
 
 id ANE_FindUnitWithType(void *a1, void *a2)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v3 = a1;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v4 = a2;
-  v5 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v5 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; ++i)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v4);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
-        v10 = [v9 objectForKeyedSubscript:{@"Type", v14}];
+        v9 = *(*(&v13 + 1) + 8 * i);
+        v10 = [v9 objectForKeyedSubscript:{@"Type", v13}];
         if ([v10 isEqualToString:v3])
         {
           v11 = v9;
@@ -997,7 +993,7 @@ id ANE_FindUnitWithType(void *a1, void *a2)
         }
       }
 
-      v6 = [v4 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [v4 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -1010,12 +1006,10 @@ id ANE_FindUnitWithType(void *a1, void *a2)
   v11 = 0;
 LABEL_11:
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
-BOOL ANE_ValidateInterleave(unint64_t a1, unint64_t a2, int a3)
+BOOL ANE_ValidateInterleave(unint64_t a1, unint64_t a2, uint64_t a3)
 {
   if (a1)
   {
@@ -1285,7 +1279,7 @@ uint64_t ANE_CalculateIOInterleave(void *a1)
   return v5;
 }
 
-uint64_t ANE_ConvertInputTensor(void *a1, void *a2, char *a3, uint64_t a4, char *a5, unint64_t a6)
+uint64_t ANE_ConvertInputTensor(void *a1, void *a2, char *a3, void *a4, char *a5, unint64_t a6)
 {
   v11 = a1;
   v12 = a2;
@@ -1691,7 +1685,7 @@ uint64_t ANE_ANECDataTypeToMLCDataType(void *a1)
   return v2;
 }
 
-uint64_t ANE_ReadOutputTensor(void *a1, void *a2, uint64_t a3, char *a4, unint64_t a5)
+uint64_t ANE_ReadOutputTensor(void *a1, void *a2, void *a3, char *a4, unint64_t a5)
 {
   v9 = a1;
   v10 = a2;
@@ -2194,53 +2188,53 @@ void ANE_ApplyPaddingSizes(void *a1, void *a2)
 
 id ANE_ComputeLiveOutputs(void *a1)
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB58] set];
+  v34 = 0u;
   v35 = 0u;
   v36 = 0u;
   v37 = 0u;
-  v38 = 0u;
   v3 = v1;
-  v23 = [v3 countByEnumeratingWithState:&v35 objects:v41 count:16];
-  if (v23)
+  v22 = [v3 countByEnumeratingWithState:&v34 objects:v40 count:16];
+  if (v22)
   {
-    v22 = *v36;
+    v21 = *v35;
     do
     {
       v4 = 0;
       do
       {
-        if (*v36 != v22)
+        if (*v35 != v21)
         {
           objc_enumerationMutation(v3);
         }
 
-        v24 = v4;
-        v5 = *(*(&v35 + 1) + 8 * v4);
+        v23 = v4;
+        v5 = *(*(&v34 + 1) + 8 * v4);
+        v30 = 0u;
         v31 = 0u;
         v32 = 0u;
         v33 = 0u;
-        v34 = 0u;
         v6 = [v5 resultTensors];
-        v7 = [v6 countByEnumeratingWithState:&v31 objects:v40 count:16];
+        v7 = [v6 countByEnumeratingWithState:&v30 objects:v39 count:16];
         if (v7)
         {
           v8 = v7;
-          v9 = *v32;
-          v25 = v6;
-          v26 = v5;
+          v9 = *v31;
+          v24 = v6;
+          v25 = v5;
           do
           {
             v10 = 0;
             do
             {
-              if (*v32 != v9)
+              if (*v31 != v9)
               {
                 objc_enumerationMutation(v6);
               }
 
-              v11 = *(*(&v31 + 1) + 8 * v10);
+              v11 = *(*(&v30 + 1) + 8 * v10);
               v12 = [v11 childLayers];
               if (![v12 count] || (objc_msgSend(v5, "isDebuggingEnabled") & 1) != 0)
               {
@@ -2258,34 +2252,34 @@ LABEL_25:
                 goto LABEL_25;
               }
 
-              v29 = 0u;
-              v30 = 0u;
-              v27 = 0u;
               v28 = 0u;
+              v29 = 0u;
+              v26 = 0u;
+              v27 = 0u;
               v12 = [v11 childLayers];
-              v14 = [v12 countByEnumeratingWithState:&v27 objects:v39 count:16];
+              v14 = [v12 countByEnumeratingWithState:&v26 objects:v38 count:16];
               if (v14)
               {
                 v15 = v14;
-                v16 = *v28;
+                v16 = *v27;
                 while (2)
                 {
                   for (i = 0; i != v15; ++i)
                   {
-                    if (*v28 != v16)
+                    if (*v27 != v16)
                     {
                       objc_enumerationMutation(v12);
                     }
 
-                    if (![v3 containsObject:*(*(&v27 + 1) + 8 * i)])
+                    if (![v3 containsObject:*(*(&v26 + 1) + 8 * i)])
                     {
-                      v6 = v25;
-                      v5 = v26;
+                      v6 = v24;
+                      v5 = v25;
                       goto LABEL_24;
                     }
                   }
 
-                  v15 = [v12 countByEnumeratingWithState:&v27 objects:v39 count:16];
+                  v15 = [v12 countByEnumeratingWithState:&v26 objects:v38 count:16];
                   if (v15)
                   {
                     continue;
@@ -2294,8 +2288,8 @@ LABEL_25:
                   break;
                 }
 
-                v6 = v25;
-                v5 = v26;
+                v6 = v24;
+                v5 = v25;
               }
 
               else
@@ -2307,76 +2301,75 @@ LABEL_26:
             }
 
             while (v10 != v8);
-            v18 = [v6 countByEnumeratingWithState:&v31 objects:v40 count:16];
+            v18 = [v6 countByEnumeratingWithState:&v30 objects:v39 count:16];
             v8 = v18;
           }
 
           while (v18);
         }
 
-        v4 = v24 + 1;
+        v4 = v23 + 1;
       }
 
-      while (v24 + 1 != v23);
-      v23 = [v3 countByEnumeratingWithState:&v35 objects:v41 count:16];
+      while (v23 + 1 != v22);
+      v22 = [v3 countByEnumeratingWithState:&v34 objects:v40 count:16];
     }
 
-    while (v23);
+    while (v22);
   }
 
   v19 = [v2 copy];
-  v20 = *MEMORY[0x277D85DE8];
 
   return v19;
 }
 
 id ANE_ComputeLiveInputs(void *a1)
 {
-  v39 = *MEMORY[0x277D85DE8];
+  v38 = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [MEMORY[0x277CBEB58] set];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v3 = v1;
-  v27 = [v3 countByEnumeratingWithState:&v33 objects:v38 count:16];
-  if (v27)
+  v26 = [v3 countByEnumeratingWithState:&v32 objects:v37 count:16];
+  if (v26)
   {
-    v4 = *v34;
-    v26 = *v34;
+    v4 = *v33;
+    v25 = *v33;
     do
     {
       v5 = 0;
       do
       {
-        if (*v34 != v4)
+        if (*v33 != v4)
         {
           objc_enumerationMutation(v3);
         }
 
-        v28 = v5;
-        v6 = *(*(&v33 + 1) + 8 * v5);
+        v27 = v5;
+        v6 = *(*(&v32 + 1) + 8 * v5);
+        v28 = 0u;
         v29 = 0u;
         v30 = 0u;
         v31 = 0u;
-        v32 = 0u;
         v7 = [v6 sourceTensors];
-        v8 = [v7 countByEnumeratingWithState:&v29 objects:v37 count:16];
+        v8 = [v7 countByEnumeratingWithState:&v28 objects:v36 count:16];
         if (v8)
         {
           v9 = v8;
-          v10 = *v30;
+          v10 = *v29;
           while (2)
           {
             for (i = 0; i != v9; ++i)
             {
-              if (*v30 != v10)
+              if (*v29 != v10)
               {
                 objc_enumerationMutation(v7);
               }
 
-              v12 = *(*(&v29 + 1) + 8 * i);
+              v12 = *(*(&v28 + 1) + 8 * i);
               v13 = [v12 parentLayers];
               v14 = [v13 count];
 
@@ -2416,7 +2409,7 @@ id ANE_ComputeLiveInputs(void *a1)
               }
             }
 
-            v9 = [v7 countByEnumeratingWithState:&v29 objects:v37 count:16];
+            v9 = [v7 countByEnumeratingWithState:&v28 objects:v36 count:16];
             if (v9)
             {
               continue;
@@ -2426,28 +2419,26 @@ id ANE_ComputeLiveInputs(void *a1)
           }
         }
 
-        v5 = v28 + 1;
-        v4 = v26;
+        v5 = v27 + 1;
+        v4 = v25;
       }
 
-      while (v28 + 1 != v27);
-      v27 = [v3 countByEnumeratingWithState:&v33 objects:v38 count:16];
+      while (v27 + 1 != v26);
+      v26 = [v3 countByEnumeratingWithState:&v32 objects:v37 count:16];
     }
 
-    while (v27);
+    while (v26);
   }
 
   v22 = [v2 copy];
 LABEL_24:
-
-  v24 = *MEMORY[0x277D85DE8];
 
   return v22;
 }
 
 uint64_t ANE_WriteANEModelFiles(void *a1, void *a2)
 {
-  v44 = *MEMORY[0x277D85DE8];
+  v43 = *MEMORY[0x277D85DE8];
   v3 = a1;
   v4 = a2;
   LODWORD(a2) = arc4random();
@@ -2457,15 +2448,15 @@ uint64_t ANE_WriteANEModelFiles(void *a1, void *a2)
 
   v8 = [v7 stringByAppendingPathComponent:@"net.plist"];
   v9 = [MEMORY[0x277CCAA00] defaultManager];
-  v38 = 0;
-  if ([v9 fileExistsAtPath:v7 isDirectory:&v38])
+  v37 = 0;
+  if ([v9 fileExistsAtPath:v7 isDirectory:&v37])
   {
-    if ((v38 & 1) == 0)
+    if ((v37 & 1) == 0)
     {
       v10 = +[MLCLog framework];
       if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
-        ANE_WriteANEModelFiles_cold_2(v7, &v38);
+        ANE_WriteANEModelFiles_cold_2();
       }
 
 LABEL_23:
@@ -2479,9 +2470,9 @@ LABEL_24:
 
   else
   {
-    v37 = 0;
-    v11 = [v9 createDirectoryAtPath:v7 withIntermediateDirectories:1 attributes:0 error:&v37];
-    v12 = v37;
+    v36 = 0;
+    v11 = [v9 createDirectoryAtPath:v7 withIntermediateDirectories:1 attributes:0 error:&v36];
+    v12 = v36;
     v13 = v12;
     if ((v11 & 1) == 0)
     {
@@ -2506,29 +2497,29 @@ LABEL_24:
     goto LABEL_23;
   }
 
-  v30 = v9;
-  v31 = v8;
-  v32 = v3;
+  v29 = v9;
+  v30 = v8;
+  v31 = v3;
   [v4 allKeys];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
-  v35 = 0u;
-  v14 = v36 = 0u;
-  v15 = [v14 countByEnumeratingWithState:&v33 objects:v43 count:16];
+  v14 = v35 = 0u;
+  v15 = [v14 countByEnumeratingWithState:&v32 objects:v42 count:16];
   if (v15)
   {
     v16 = v15;
-    v17 = *v34;
+    v17 = *v33;
     while (2)
     {
       for (i = 0; i != v16; ++i)
       {
-        if (*v34 != v17)
+        if (*v33 != v17)
         {
           objc_enumerationMutation(v14);
         }
 
-        v19 = [v4 objectForKeyedSubscript:*(*(&v33 + 1) + 8 * i)];
+        v19 = [v4 objectForKeyedSubscript:*(*(&v32 + 1) + 8 * i)];
         v20 = [v19 allKeys];
         v21 = [v20 firstObject];
 
@@ -2549,7 +2540,7 @@ LABEL_24:
         }
       }
 
-      v16 = [v14 countByEnumeratingWithState:&v33 objects:v43 count:16];
+      v16 = [v14 countByEnumeratingWithState:&v32 objects:v42 count:16];
       if (v16)
       {
         continue;
@@ -2564,19 +2555,18 @@ LABEL_24:
   if (os_log_type_enabled(v24, OS_LOG_TYPE_INFO))
   {
     *buf = 136315394;
-    v40 = "ANE_WriteANEModelFiles";
-    v41 = 2112;
-    v42 = v7;
+    v39 = "ANE_WriteANEModelFiles";
+    v40 = 2112;
+    v41 = v7;
     _os_log_impl(&dword_238C1D000, v24, OS_LOG_TYPE_INFO, "%s: wrote ANE Model to directory = %@", buf, 0x16u);
   }
 
 LABEL_28:
-  v8 = v31;
-  v3 = v32;
-  v9 = v30;
+  v8 = v30;
+  v3 = v31;
+  v9 = v29;
 
 LABEL_29:
-  v28 = *MEMORY[0x277D85DE8];
   return v25;
 }
 
@@ -2982,7 +2972,7 @@ LABEL_18:
   return v26;
 }
 
-id CPU_BuildBNNSNDArrayDescriptorForBetaOrGammaDeltas(void *a1, void *a2, int a3, int a4)
+id CPU_BuildBNNSNDArrayDescriptorForBetaOrGammaDeltas(void *a1, void *a2, uint64_t a3, int a4)
 {
   memset(v7, 0, sizeof(v7));
   v4 = CPU_BuildBNNSNDArrayDescriptor(v7, a1, 0, a2, a3, 1, a4);
@@ -3002,56 +2992,13 @@ uint64_t CPU_BuildBNNSNormalizationParams(unsigned int a1, uint64_t a2, void *a3
   v19 = a5;
   v20 = a6;
   v21 = a7;
-  if (v20)
+  if (v20 && ([v20 data], v22 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v20, "descriptor"), v23 = objc_claimAutoreleasedReturnValue(), v24 = CPU_BuildBNNSNDArrayDescriptor(a2 + 352, v17, 0, v22, objc_msgSend(v23, "dataType"), 1, a1 == 2), v23, v22, !v24) || v21 && (objc_msgSend(v21, "data"), v25 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v21, "descriptor"), v26 = objc_claimAutoreleasedReturnValue(), v27 = CPU_BuildBNNSNDArrayDescriptor(a2 + 528, v17, 0, v25, objc_msgSend(v26, "dataType"), 1, a1 == 2), v26, v25, !v27) || a1 <= 1 && (v18 && (objc_msgSend(v18, "data"), v28 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v18, "descriptor"), v29 = objc_claimAutoreleasedReturnValue(), v30 = CPU_BuildBNNSNDArrayDescriptor(a2 + 704, v17, 0, v28, objc_msgSend(v29, "dataType"), 1, 0), v29, v28, !v30) || v19 && (objc_msgSend(v19, "data"), v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "descriptor"), v32 = objc_claimAutoreleasedReturnValue(), v33 = CPU_BuildBNNSNDArrayDescriptor(a2 + 880, v17, 0, v31, objc_msgSend(v32, "dataType"), 1, 0), v32, v31, !v33)))
   {
-    v22 = [v20 data];
-    v23 = [v20 descriptor];
-    v24 = CPU_BuildBNNSNDArrayDescriptor(a2 + 352, v17, 0, v22, [v23 dataType], 1, a1 == 2);
-
-    if (!v24)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  if (v21)
-  {
-    v25 = [v21 data];
-    v26 = [v21 descriptor];
-    v27 = CPU_BuildBNNSNDArrayDescriptor(a2 + 528, v17, 0, v25, [v26 dataType], 1, a1 == 2);
-
-    if (!v27)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  if (a1 > 1)
-  {
-    goto LABEL_10;
-  }
-
-  if (v18)
-  {
-    v28 = [v18 data];
-    v29 = [v18 descriptor];
-    v30 = CPU_BuildBNNSNDArrayDescriptor(a2 + 704, v17, 0, v28, [v29 dataType], 1, 0);
-
-    if (!v30)
-    {
-      goto LABEL_11;
-    }
-  }
-
-  if (v19 && ([v19 data], v31 = objc_claimAutoreleasedReturnValue(), objc_msgSend(v19, "descriptor"), v32 = objc_claimAutoreleasedReturnValue(), v33 = CPU_BuildBNNSNDArrayDescriptor(a2 + 880, v17, 0, v31, objc_msgSend(v32, "dataType"), 1, 0), v32, v31, !v33))
-  {
-LABEL_11:
     v34 = 0;
   }
 
   else
   {
-LABEL_10:
     *(a2 + 1056) = a9;
     *(a2 + 1060) = a8;
     v34 = 1;
@@ -3154,20 +3101,21 @@ uint64_t CPU_BuildBNNSNormalizationInputOutputParams(uint64_t a1, void *a2, void
   return v33;
 }
 
-id CPU_CreateNormalizationLayer(int a1, void *a2, void *a3, void *a4, uint64_t a5, void *a6, void *a7, void *a8, float a9, float a10, void *a11)
+id CPU_CreateNormalizationLayer(uint64_t a1, void *a2, void *a3, void *a4, uint64_t a5, void *a6, void *a7, void *a8, float a9, float a10, void *a11)
 {
-  v75[1] = *MEMORY[0x277D85DE8];
+  v19 = a1;
+  v74[1] = *MEMORY[0x277D85DE8];
   v20 = a2;
   v21 = a3;
   v22 = a4;
-  v67 = a6;
-  v68 = a7;
-  v69 = a8;
+  v66 = a6;
+  v67 = a7;
+  v68 = a8;
   v23 = a11;
-  v66 = [MEMORY[0x277CBEBF8] mutableCopy];
-  bzero(v72, 0x468uLL);
+  v65 = [MEMORY[0x277CBEBF8] mutableCopy];
+  bzero(v71, 0x468uLL);
   v24 = [v22 mutableCopy];
-  if (a1 == 2 && [v22 count] != 3)
+  if (v19 == 2 && [v22 count] != 3)
   {
     v25 = 0;
     do
@@ -3179,17 +3127,17 @@ id CPU_CreateNormalizationLayer(int a1, void *a2, void *a3, void *a4, uint64_t a
     while (v25 < 3 - [v22 count]);
   }
 
-  v26 = v67;
-  v27 = v68;
-  v28 = v69;
-  if (!CPU_BuildBNNSNormalizationParams(a1, v72, v24, v67, v68, v69, v23, a9, a10))
+  v26 = v66;
+  v27 = v67;
+  v28 = v68;
+  if (!CPU_BuildBNNSNormalizationParams(v19, v71, v24, v66, v67, v68, v23, a9, a10))
   {
     goto LABEL_27;
   }
 
-  if (a1 <= 1)
+  if (v19 <= 1)
   {
-    if (!a1)
+    if (!v19)
     {
       v29 = 2;
       if (!v21)
@@ -3200,7 +3148,7 @@ id CPU_CreateNormalizationLayer(int a1, void *a2, void *a3, void *a4, uint64_t a
       goto LABEL_21;
     }
 
-    if (a1 == 1)
+    if (v19 == 1)
     {
       v29 = 20;
       if (!v21)
@@ -3209,9 +3157,9 @@ id CPU_CreateNormalizationLayer(int a1, void *a2, void *a3, void *a4, uint64_t a
       }
 
 LABEL_21:
-      if (setBNNSActivation(v73, v21))
+      if (setBNNSActivation(v72, v21))
       {
-        v29 = dword_238D46050[a1];
+        v29 = dword_238D46050[v19];
         goto LABEL_23;
       }
 
@@ -3223,11 +3171,11 @@ LABEL_27:
     goto LABEL_15;
   }
 
-  if (a1 != 2)
+  if (v19 != 2)
   {
-    if (a1 == 3)
+    if (v19 == 3)
     {
-      v73[6] = a5;
+      v72[6] = a5;
       v29 = 33;
       if (!v21)
       {
@@ -3238,17 +3186,17 @@ LABEL_27:
     }
 
 LABEL_15:
-    v65 = +[MLCLog framework];
-    if (os_log_type_enabled(v65, OS_LOG_TYPE_ERROR))
+    v64 = +[MLCLog framework];
+    if (os_log_type_enabled(v64, OS_LOG_TYPE_ERROR))
     {
-      CPU_CreateNormalizationLayer_cold_1(a1, v65);
+      CPU_CreateNormalizationLayer_cold_1(v19, v64);
     }
 
     v30 = MEMORY[0x277CBEBF8];
     goto LABEL_45;
   }
 
-  v73[7] = 3 - [v22 count];
+  v72[7] = 3 - [v22 count];
   v29 = 28;
   if (v21)
   {
@@ -3256,12 +3204,12 @@ LABEL_15:
   }
 
 LABEL_23:
-  v57 = v29;
-  v65 = [MEMORY[0x277CBEA90] dataWithBytes:v72 length:1128];
-  memset(v71, 0, sizeof(v71));
+  v56 = v29;
+  v64 = [MEMORY[0x277CBEA90] dataWithBytes:v71 length:1128];
   memset(v70, 0, sizeof(v70));
-  v64 = [MEMORY[0x277CBEA90] dataWithBytes:v71 length:176];
+  memset(v69, 0, sizeof(v69));
   v63 = [MEMORY[0x277CBEA90] dataWithBytes:v70 length:176];
+  v62 = [MEMORY[0x277CBEA90] dataWithBytes:v69 length:176];
   if ([v24 count])
   {
     v31 = 0;
@@ -3282,30 +3230,30 @@ LABEL_23:
     v32 = 1;
   }
 
-  v59 = v20;
+  v58 = v20;
   v34 = [MEMORY[0x277CBEBF8] mutableCopy];
-  v58 = v21;
-  if (v69)
+  v57 = v21;
+  if (v68)
   {
     v35 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:malloc_type_calloc(v32 length:4uLL freeWhenDone:{0x100004052888210uLL), 4 * v32, 1}];
-    v36 = [v69 descriptor];
-    v62 = v35;
-    v61 = CPU_BuildBNNSNDArrayDescriptorForBetaOrGammaDeltas(v24, v35, [v36 dataType], a1 == 2);
+    v36 = [v68 descriptor];
+    v61 = v35;
+    v60 = CPU_BuildBNNSNDArrayDescriptorForBetaOrGammaDeltas(v24, v35, [v36 dataType], v19 == 2);
 
     for (i = 0; i != 3; ++i)
     {
       v38 = [v28 descriptor];
-      v39 = CPU_BuildBNNSNDArrayDescriptorForBetaOrGammaDeltas(v24, 0, [v38 dataType], a1 == 2);
+      v39 = CPU_BuildBNNSNDArrayDescriptorForBetaOrGammaDeltas(v24, 0, [v38 dataType], v19 == 2);
       [v34 setObject:v39 atIndexedSubscript:i];
 
-      v28 = v69;
+      v28 = v68;
     }
   }
 
   else
   {
+    v60 = 0;
     v61 = 0;
-    v62 = 0;
   }
 
   v40 = [MEMORY[0x277CBEBF8] mutableCopy];
@@ -3313,39 +3261,39 @@ LABEL_23:
   {
     v41 = [MEMORY[0x277CBEA90] dataWithBytesNoCopy:malloc_type_calloc(v32 length:4uLL freeWhenDone:{0x100004052888210uLL), 4 * v32, 1}];
     v42 = [v23 descriptor];
-    v60 = v41;
-    v56 = CPU_BuildBNNSNDArrayDescriptorForBetaOrGammaDeltas(v24, v41, [v42 dataType], a1 == 2);
+    v59 = v41;
+    v55 = CPU_BuildBNNSNDArrayDescriptorForBetaOrGammaDeltas(v24, v41, [v42 dataType], v19 == 2);
 
     for (j = 0; j != 3; ++j)
     {
       v44 = [v23 descriptor];
-      v45 = CPU_BuildBNNSNDArrayDescriptorForBetaOrGammaDeltas(v24, 0, [v44 dataType], a1 == 2);
+      v45 = CPU_BuildBNNSNDArrayDescriptorForBetaOrGammaDeltas(v24, 0, [v44 dataType], v19 == 2);
       [v40 setObject:v45 atIndexedSubscript:j];
     }
 
-    v46 = v56;
+    v46 = v55;
   }
 
   else
   {
     v46 = 0;
-    v60 = 0;
+    v59 = 0;
   }
 
-  v75[0] = v64;
-  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v75 count:1];
-  v74 = v63;
-  v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v74 count:1];
-  v49 = v61;
-  v50 = [MLCCPUDeviceOps deviceOpsWithType:v57 params:v65 inDeltaData:v47 outDeltaData:v48 betaDeltaData:v61 gammaDeltaData:v46 betaMomentumData:v34 gammaMomentumData:v40];
+  v74[0] = v63;
+  v47 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:1];
+  v73 = v62;
+  v48 = [MEMORY[0x277CBEA60] arrayWithObjects:&v73 count:1];
+  v49 = v60;
+  v50 = [MLCCPUDeviceOps deviceOpsWithType:v56 params:v64 inDeltaData:v47 outDeltaData:v48 betaDeltaData:v60 gammaDeltaData:v46 betaMomentumData:v34 gammaMomentumData:v40];
 
   if (v50)
   {
-    [v66 addObject:v50];
-    [v50 setBetaDeltaData:v61];
+    [v65 addObject:v50];
+    [v50 setBetaDeltaData:v60];
     [v50 setGammaDeltaData:v46];
-    [v50 setBetaDeltaDataBytes:v62];
-    [v50 setGammaDeltaDataBytes:v60];
+    [v50 setBetaDeltaDataBytes:v61];
+    [v50 setGammaDeltaDataBytes:v59];
     v51 = MEMORY[0x277CBEBF8];
     v52 = [MEMORY[0x277CBEBF8] mutableCopy];
     [v50 setBetaMomentumDataBytes:v52];
@@ -3353,29 +3301,28 @@ LABEL_23:
     v53 = [v51 mutableCopy];
     [v50 setGammaMomentumDataBytes:v53];
 
-    if (v67)
+    if (v66)
     {
       [v50 setMovingMean:?];
     }
 
-    v49 = v61;
-    if (v68)
+    v49 = v60;
+    if (v67)
     {
-      [v50 setMovingVariance:v68];
+      [v50 setMovingVariance:v67];
     }
   }
 
-  v30 = [v66 copy];
+  v30 = [v65 copy];
 
-  v21 = v58;
-  v20 = v59;
-  v26 = v67;
-  v27 = v68;
-  v28 = v69;
+  v21 = v57;
+  v20 = v58;
+  v26 = v66;
+  v27 = v67;
+  v28 = v68;
 LABEL_45:
 
 LABEL_46:
-  v54 = *MEMORY[0x277D85DE8];
 
   return v30;
 }
@@ -3483,7 +3430,7 @@ uint64_t CPU_SetOptimizerDataForNormalizationLayer(void *a1, void *a2, void *a3)
 
 id ANE_BuildTransposeParams(void *a1)
 {
-  v38[2] = *MEMORY[0x277D85DE8];
+  v37[2] = *MEMORY[0x277D85DE8];
   v1 = a1;
   v2 = [v1 count];
   v3 = [MEMORY[0x277CBEB18] arrayWithCapacity:4];
@@ -3593,11 +3540,11 @@ LABEL_14:
   v30 = v29;
   if (v28 && v29)
   {
-    v37[0] = @"TransposeSourceDimension";
-    v37[1] = @"TransposeDestinationDimension";
-    v38[0] = v28;
-    v38[1] = v29;
-    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v38 forKeys:v37 count:2];
+    v36[0] = @"TransposeSourceDimension";
+    v36[1] = @"TransposeDestinationDimension";
+    v37[0] = v28;
+    v37[1] = v29;
+    v31 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v37 forKeys:v36 count:2];
     [v23 addObject:v31];
 
     goto LABEL_14;
@@ -3613,7 +3560,6 @@ LABEL_14:
 LABEL_22:
 
 LABEL_23:
-  v35 = *MEMORY[0x277D85DE8];
 
   return v33;
 }
@@ -3651,7 +3597,7 @@ id ANE_CreateTransposeLayer(void *a1)
 
 id ANE_CompileTransposeLayer(void *a1, void *a2, void *a3)
 {
-  v18[1] = *MEMORY[0x277D85DE8];
+  v17[1] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a1;
   v7 = [a3 parentLayers];
@@ -3667,8 +3613,8 @@ id ANE_CompileTransposeLayer(void *a1, void *a2, void *a3)
 
   if (v13)
   {
-    v18[0] = v12;
-    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v18 count:1];
+    v17[0] = v12;
+    v14 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:1];
   }
 
   else
@@ -3681,8 +3627,6 @@ id ANE_CompileTransposeLayer(void *a1, void *a2, void *a3)
 
     v14 = 0;
   }
-
-  v16 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
@@ -3727,7 +3671,7 @@ id ANE_CreateFullyConnectedLayer()
 
 id ANE_CompileFullyConnectedLayer(void *a1, void *a2, void *a3)
 {
-  v114[3] = *MEMORY[0x277D85DE8];
+  v113[3] = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [a1 objectAtIndexedSubscript:0];
@@ -3737,8 +3681,8 @@ id ANE_CompileFullyConnectedLayer(void *a1, void *a2, void *a3)
 
   v11 = [v5 objectAtIndexedSubscript:0];
   v12 = [v11 descriptor];
-  v110 = v10;
-  v107 = v11;
+  v109 = v10;
+  v106 = v11;
   if ([v12 dimensionCount] == 4)
   {
     v13 = [v11 descriptor];
@@ -3747,23 +3691,23 @@ id ANE_CompileFullyConnectedLayer(void *a1, void *a2, void *a3)
     if ([v15 unsignedIntegerValue] == 1)
     {
       [v11 descriptor];
-      v16 = v104 = v8;
+      v16 = v103 = v8;
       v17 = [v16 shape];
       v18 = [v17 objectAtIndexedSubscript:3];
-      v102 = v7;
+      v101 = v7;
       v19 = [v18 unsignedIntegerValue];
 
-      v10 = v110;
-      v8 = v104;
+      v10 = v109;
+      v8 = v103;
 
       v20 = v19 == 1;
-      v7 = v102;
+      v7 = v101;
       if (!v20)
       {
         goto LABEL_12;
       }
 
-      v21 = v110;
+      v21 = v109;
       v22 = [v21 descriptor];
       v23 = [v21 weights];
       v24 = [v21 biases];
@@ -3785,14 +3729,14 @@ LABEL_73:
             v55 = 0;
 LABEL_81:
 
-            v8 = v104;
+            v8 = v103;
             if (v55)
             {
               goto LABEL_63;
             }
 
-            v96 = +[MLCLog framework];
-            if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
+            v95 = +[MLCLog framework];
+            if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
             {
               ANE_CompileFullyConnectedLayer_cold_8();
             }
@@ -3806,22 +3750,22 @@ LABEL_81:
           v26 = 0;
         }
 
-        v93 = ANE_CreateUnitsWithConvolutionLayer(v21, v25, v26);
-        v55 = v93;
-        if (v93)
+        v92 = ANE_CreateUnitsWithConvolutionLayer(v21, v25, v26);
+        v55 = v92;
+        if (v92)
         {
-          v94 = v93;
+          v93 = v92;
         }
 
         else
         {
-          v95 = +[MLCLog framework];
-          if (os_log_type_enabled(v95, OS_LOG_TYPE_ERROR))
+          v94 = +[MLCLog framework];
+          if (os_log_type_enabled(v94, OS_LOG_TYPE_ERROR))
           {
             ANE_CompileFullyConnectedLayer_cold_7();
           }
 
-          v7 = v102;
+          v7 = v101;
         }
 
         goto LABEL_81;
@@ -3839,15 +3783,15 @@ LABEL_81:
 
 LABEL_12:
   v27 = v10;
-  v109 = v7;
-  v106 = [MEMORY[0x277CBEBF8] mutableCopy];
+  v108 = v7;
+  v105 = [MEMORY[0x277CBEBF8] mutableCopy];
   v28 = v27;
   v29 = [v28 descriptor];
   v30 = [v28 sourceTensors];
-  v108 = [v30 objectAtIndexedSubscript:0];
+  v107 = [v30 objectAtIndexedSubscript:0];
 
-  v111 = [v28 weights];
-  v31 = [v111 descriptor];
+  v110 = [v28 weights];
+  v31 = [v110 descriptor];
   v32 = [v31 dataType];
 
   v33 = [v28 biases];
@@ -3885,12 +3829,12 @@ LABEL_12:
     }
   }
 
-  v103 = v7;
-  v105 = v8;
-  v99 = v6;
-  v100 = v5;
+  v102 = v7;
+  v104 = v8;
+  v98 = v6;
+  v99 = v5;
   v44 = [v29 inputFeatureChannelCount];
-  v98 = v29;
+  v97 = v29;
   v45 = [v29 outputFeatureChannelCount];
   if (v34)
   {
@@ -3904,8 +3848,8 @@ LABEL_12:
 
   v47 = v46 * v45 * [MLCTensorDescriptor elementByteCount:v32];
   v48 = malloc_type_malloc(v47, 0x2FEC0D5uLL);
-  v101 = [MLCTensorData dataWithBytesNoCopy:v48 length:v47 freeWhenDone:1];
-  v49 = [v111 data];
+  v100 = [MLCTensorData dataWithBytesNoCopy:v48 length:v47 freeWhenDone:1];
+  v49 = [v110 data];
   v50 = [v49 bytes];
 
   if (v34)
@@ -3955,16 +3899,16 @@ LABEL_49:
 
     if ((v32 - 1) > 8 || ((0x1A5u >> (v32 - 1)) & 1) == 0)
     {
-      v97 = +[MLCLog framework];
-      if (os_log_type_enabled(v97, OS_LOG_TYPE_ERROR))
+      v96 = +[MLCLog framework];
+      if (os_log_type_enabled(v96, OS_LOG_TYPE_ERROR))
       {
         ANE_CompileFullyConnectedLayer_cold_2();
       }
 
       v55 = 0;
-      v6 = v99;
-      v5 = v100;
-      v7 = v103;
+      v6 = v98;
+      v5 = v99;
+      v7 = v102;
       goto LABEL_61;
     }
 
@@ -4047,27 +3991,27 @@ LABEL_48:
 
 LABEL_50:
   v72 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v46];
-  v114[0] = v72;
-  v114[1] = &unk_284BA5F00;
+  v113[0] = v72;
+  v113[1] = &unk_284BA5F00;
   v73 = [MEMORY[0x277CCABB0] numberWithUnsignedInteger:v45];
-  v114[2] = v73;
-  v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v114 count:3];
+  v113[2] = v73;
+  v74 = [MEMORY[0x277CBEA60] arrayWithObjects:v113 count:3];
 
-  v75 = [v111 label];
-  v97 = v74;
-  v76 = [_MLCANEPlistBuilder constantTensorWithShape:v74 data:v101 dataType:v32 tensorLabel:v75];
+  v75 = [v110 label];
+  v96 = v74;
+  v76 = [_MLCANEPlistBuilder constantTensorWithShape:v74 data:v100 dataType:v32 tensorLabel:v75];
 
-  v77 = [v109 constantTensors];
+  v77 = [v108 constantTensors];
   [v77 addObject:v76];
 
   v78 = [MEMORY[0x277CBEC10] mutableCopy];
   [v78 setObject:@"MatrixMultiplication" forKeyedSubscript:kMLCANENetUnitType[0]];
   if (v34)
   {
-    LODWORD(v113[0]) = 1065353216;
-    v112 = 0;
-    ANE_ConvertFp32ToInt16(v113, &v112);
-    v79 = [MEMORY[0x277CCABB0] numberWithShort:v112];
+    LODWORD(v112[0]) = 1065353216;
+    v111 = 0;
+    ANE_ConvertFp32ToInt16(v112, &v111);
+    v79 = [MEMORY[0x277CCABB0] numberWithShort:v111];
     [v78 setObject:v79 forKeyedSubscript:@"Bias"];
   }
 
@@ -4081,15 +4025,15 @@ LABEL_50:
   v85 = ANE_GetANECIRDataTypeWithMLCDataType([v84 dataType]);
 
   [v83 addObject:v85];
-  v113[0] = v108;
-  v113[1] = v76;
-  v86 = [MEMORY[0x277CBEA60] arrayWithObjects:v113 count:2];
+  v112[0] = v107;
+  v112[1] = v76;
+  v86 = [MEMORY[0x277CBEA60] arrayWithObjects:v112 count:2];
   v87 = ANE_ValidateMatrixMultUnit(v86, v80, 1);
 
   if (v87)
   {
-    [v106 addObject:v80];
-    v55 = [v106 copy];
+    [v105 addObject:v80];
+    v55 = [v105 copy];
   }
 
   else
@@ -4103,14 +4047,14 @@ LABEL_50:
     v55 = 0;
   }
 
-  v7 = v103;
+  v7 = v102;
 
-  v6 = v99;
-  v5 = v100;
+  v6 = v98;
+  v5 = v99;
 LABEL_61:
-  v8 = v105;
-  v29 = v98;
-  v53 = v101;
+  v8 = v104;
+  v29 = v97;
+  v53 = v100;
 
 LABEL_62:
   if (v55)
@@ -4132,701 +4076,558 @@ LABEL_67:
   v89 = 0;
 LABEL_68:
 
-  v91 = *MEMORY[0x277D85DE8];
-
   return v89;
 }
 
 void ANE_BuildNeuronParams_cold_1(uint64_t a1)
 {
   OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  v7 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_6(&dword_238C1D000, v1, v2, "%s: failed to convert FP32 value=%f to int16", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_BuildNeuronParams_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_238C1D000, v1, v2, "%s: failed to convert FP32 value=%f to int16", v3, v4, v5, v6, v7);
 }
 
 void ANE_BuildNeuronParams_cold_4(uint64_t a1)
 {
   OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  v7 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_6(&dword_238C1D000, v1, v2, "%s: failed to convert float value=%f to int16", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_238C1D000, v1, v2, "%s: failed to convert float value=%f to int16", v3, v4, v5, v6, v7);
 }
 
 void ANE_BuildNeuronParams_cold_10(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 activationType];
+  v7 = 136315394;
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: failed to build the parameters for activation type=%d", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: failed to build the parameters for activation type=%d", v3, v4, v5, v6, v7);
 }
 
 void ANE_BuildNeuronParams_cold_13(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 activationType];
+  v7 = 136315394;
   OUTLINED_FUNCTION_5();
-  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: unsupported activation type=%d", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: unsupported activation type=%d", v3, v4, v5, v6, v7);
 }
 
 void ANE_BuildLinearParams_cold_1(uint64_t a1)
 {
   OUTLINED_FUNCTION_3(a1, *MEMORY[0x277D85DE8]);
+  v7 = 136315394;
   OUTLINED_FUNCTION_2();
-  OUTLINED_FUNCTION_6(&dword_238C1D000, v1, v2, "%s: failed to convert FP32 value=%f to int16", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_238C1D000, v1, v2, "%s: failed to convert FP32 value=%f to int16", v3, v4, v5, v6, v7);
 }
 
 void ANE_BuildLinearParams_cold_3(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   [a1 a];
-  v4[0] = 136315394;
+  v3[0] = 136315394;
   OUTLINED_FUNCTION_2();
-  _os_log_debug_impl(&dword_238C1D000, a2, OS_LOG_TYPE_DEBUG, "%s: descriptor value a=%.10f is too small(< 1e-4f)", v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_238C1D000, a2, OS_LOG_TYPE_DEBUG, "%s: descriptor value a=%.10f is too small(< 1e-4f)", v3, 0x16u);
 }
 
 void ANE_CreateUnitsWithNeuronLayer_cold_1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: unit=%@ of layer=%@ failed validation", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: unit=%@ of layer=%@ failed validation", v2);
 }
 
 void ANE_CreateUnitsWithNeuronLayer_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateUnitsWithNeuronLayer_cold_6()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: failed to create the ANEC IR units of layer=%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: failed to create the ANEC IR units of layer=%@", v2, v3, v4, v5, v6);
 }
 
 void ANE_CreateUnitsWithNeuronLayer_cold_7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateUnitsWithNeuronLayer_cold_10()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateUnitsWithNeuronLayer_cold_16()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateUnitsOfLinear_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateUnitsOfLinear_cold_2()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: unit=%@ of layer=%@ failed validation", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: unit=%@ of layer=%@ failed validation", v2);
 }
 
 void ANE_CreateUnitsOfLinear_cold_4()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: neuron unit=%@ failed validation", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: neuron unit=%@ failed validation", v2, v3, v4, v5, v6);
 }
 
 void GPU_CreateLossLayer_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 reductionType];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown reduction type %d", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown reduction type %d", v3, v4, v5, v6, v7);
 }
 
 void GPU_CreateLossLayer_cold_2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 lossType];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown loss type %d", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown loss type %d", v3, v4, v5, v6, v7);
 }
 
 void CPU_BNNSDataTypeSizeInBytes_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: Unsupported data type", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CPU_BNNSDataTypeSizeInBytes";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: Unsupported data type", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CPU_BNNSDataType_cold_1(int a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "CPU_BNNSDataType";
-  v5 = 1024;
-  v6 = a1;
-  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: Unsupported sources data type (%d)", &v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "CPU_BNNSDataType";
+  v4 = 1024;
+  v5 = a1;
+  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: Unsupported sources data type (%d)", &v2, 0x12u);
 }
 
 void CPU_BuildBNNSNDArrayLastMajorDescriptor_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: Unsupported shape dimensions", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CPU_BuildBNNSNDArrayLastMajorDescriptor";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: Unsupported shape dimensions", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CPU_BuildBNNSNDArrayDescriptor_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: Unsupported shape dimensions", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CPU_BuildBNNSNDArrayDescriptor";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: Unsupported shape dimensions", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CPU_BuildPermuteBNNSNDArrayDescriptor_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: Unsupported shape dimensions", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CPU_BuildPermuteBNNSNDArrayDescriptor";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: Unsupported shape dimensions", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CPU_BuildBNNSNDArrayDescriptorRowMajor_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: Unsupported shape dimensions", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CPU_BuildBNNSNDArrayDescriptorRowMajor";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: Unsupported shape dimensions", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void CPU_BuildBNNSNDArrayDescriptorColMajor_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: Unsupported shape dimensions", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "CPU_BuildBNNSNDArrayDescriptorColMajor";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: Unsupported shape dimensions", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
-void convertDataLayout_cold_1()
+void convertDataLayout_cold_1(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: tensor layout conversion with mismatching source and result tensor", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v3, v4, "%@: tensor layout conversion with mismatching source and result tensor", v5, v6, v7, v8);
 }
 
-void convertDataLayout_cold_2()
+void convertDataLayout_cold_2(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: unsupported format for converting", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v3, v4, "%@: unsupported format for converting", v5, v6, v7, v8);
 }
 
-void convertDataLayout_cold_3()
+void convertDataLayout_cold_3(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: tensorDesc not matching data in layout conversion", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v3, v4, "%@: tensorDesc not matching data in layout conversion", v5, v6, v7, v8);
 }
 
-void convertDataLayout_cold_4()
+void convertDataLayout_cold_4(uint64_t a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v0 = objc_opt_class();
-  v1 = NSStringFromClass(v0);
+  v1 = objc_opt_class();
+  v2 = NSStringFromClass(v1);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v2, v3, "%@: tensor layout conversion without allocation", v4, v5, v6, v7, v9);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v3, v4, "%@: tensor layout conversion without allocation", v5, v6, v7, v8);
 }
 
 void convertNCHWtoTNC_cold_1(void *a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
   v1 = [a1 descriptor];
   v2 = objc_opt_class();
   v3 = NSStringFromClass(v2);
   OUTLINED_FUNCTION_2_0();
-  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v4, v5, "%@: height should be 1 for LSTM input tensor of shape NCHW", v6, v7, v8, v9, v11);
-
-  v10 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_0(&dword_238C1D000, v4, v5, "%@: height should be 1 for LSTM input tensor of shape NCHW", v6, v7, v8, v9);
 }
 
 void ANE_CreateUpsampleLayer_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "ANE_CreateUpsampleLayer";
-  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: only nearest sample mode is supported", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "ANE_CreateUpsampleLayer";
+  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: only nearest sample mode is supported", &v1, 0xCu);
 }
 
 void ANE_CreateUpsampleLayer_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: scaleFactorX=%f is not a power-of-2 value and not supported", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: scaleFactorX=%f is not a power-of-2 value and not supported", v2, v3, v4, v5, v6);
 }
 
 void ANE_CreateUpsampleLayer_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: scaleFactorY=%f is not a power-of-2 value and not supported", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: scaleFactorY=%f is not a power-of-2 value and not supported", v2, v3, v4, v5, v6);
 }
 
 void ANE_CompileUpsampleLayer_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: failed to create upsample units for layer=%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: failed to create upsample units for layer=%@", v2, v3, v4, v5, v6);
 }
 
 void ANE_CompileUpsampleLayer_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: failed to create two reshape units for layer=%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: failed to create two reshape units for layer=%@", v2, v3, v4, v5, v6);
 }
 
 void ANE_CompileUpsampleLayer_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: failed to create the upsample units of layer=%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: failed to create the upsample units of layer=%@", v2, v3, v4, v5, v6);
 }
 
 void ANE_CompileUpsampleLayer_cold_4()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_2_2();
-  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: unsupported source tensor shape count=%lu", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: unsupported source tensor shape count=%lu", v2, v3, v4, v5, v6);
 }
 
 void ANE_CreateUpsampleUnits_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: failed to create the upsample units each that performs 2x2 upsampling of layer=%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: failed to create the upsample units each that performs 2x2 upsampling of layer=%@", v2, v3, v4, v5, v6);
 }
 
 void ANE_CreateUpsampleUnits_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: failed to create the upsample units each that performs 2x1 upsampling of layer=%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: failed to create the upsample units each that performs 2x1 upsampling of layer=%@", v2, v3, v4, v5, v6);
 }
 
 void ANE_CreateUpsampleUnits_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: failed to create the upsample units each that performs 1x2 upsampling of layer=%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: failed to create the upsample units each that performs 1x2 upsampling of layer=%@", v2, v3, v4, v5, v6);
 }
 
 void ANE_CreateUpsampleUnits_cold_4()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: failed to create the upsample unit that performs 1x1 upsampling of layer=%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: failed to create the upsample unit that performs 1x1 upsampling of layer=%@", v2, v3, v4, v5, v6);
 }
 
 void ANE_CreateUpsampleUnits_cold_5(uint64_t a1, int a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "ANE_CreateUpsampleUnits";
-  v6 = 1024;
-  v7 = a2;
-  v8 = 2112;
-  v9 = a1;
-  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: unsupported data type=%d for tensor=%@", &v4, 0x1Cu);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "ANE_CreateUpsampleUnits";
+  v5 = 1024;
+  v6 = a2;
+  v7 = 2112;
+  v8 = a1;
+  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: unsupported data type=%d for tensor=%@", &v3, 0x1Cu);
 }
 
 void ANE_CreateUpsampleUnitsWithParams_cold_1()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136315650;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_1();
-  v5 = v0;
-  v6 = v1;
-  _os_log_error_impl(&dword_238C1D000, v2, OS_LOG_TYPE_ERROR, "%s: the unit=%@ of layer=%@ failed validation", v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_error_impl(&dword_238C1D000, v2, OS_LOG_TYPE_ERROR, "%s: the unit=%@ of layer=%@ failed validation", v3, 0x20u);
 }
 
 void ANE_CreateSliceLayer_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "ANE_CreateSliceLayer";
-  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: only stride of 1 is supported", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "ANE_CreateSliceLayer";
+  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: only stride of 1 is supported", &v1, 0xCu);
 }
 
 void ANE_CreateSliceLayer_cold_2(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "ANE_CreateSliceLayer";
-  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: failed to get ANEC IR dimension", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "ANE_CreateSliceLayer";
+  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: failed to get ANEC IR dimension", &v1, 0xCu);
 }
 
 void ANE_CreateSliceLayer_cold_3(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   [a1 count];
-  v4[0] = 136315394;
+  v3[0] = 136315394;
   OUTLINED_FUNCTION_0_4();
-  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: the number of dimensions=%lu is unsupported", v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: the number of dimensions=%lu is unsupported", v3, 0x16u);
 }
 
 void ANE_CompileSliceLayer_cold_1(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "ANE_CompileSliceLayer";
-  v6 = 2112;
-  v7 = a1;
-  v8 = 2112;
-  v9 = a2;
-  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: unit=%@ of layer=%@ failed validation", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "ANE_CompileSliceLayer";
+  v5 = 2112;
+  v6 = a1;
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: unit=%@ of layer=%@ failed validation", &v3, 0x20u);
 }
 
 void ANE_CompileSliceLayer_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_4();
-  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: unsupported dimension=%lu", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: unsupported dimension=%lu", v1, 0x16u);
 }
 
 void ANE_CreateComparisonLayer_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CompileComparisonLayer_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileComparisonLayer_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileComparisonLayer_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CompileComparisonLayer_cold_4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileComparisonLayer_cold_5()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: the unit=%@ for layer=%@ failed validation", v3);
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CompileComparisonLayer_cold_6()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: the unit=%@ for layer=%@ failed validation", v2);
 }
 
 void ANE_CompileComparisonLayer_cold_8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileComparisonLayer_cold_10()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_ConnectBroadcastUnits_cold_1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: unit=%@ for layer=%@ failed validation", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: unit=%@ for layer=%@ failed validation", v2);
 }
 
 void ANE_CompileReshapeLayer_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: layer=%@ failed validation", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: layer=%@ failed validation", v1, 0x16u);
 }
 
 void ANE_CompileReshapeLayer_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136315650;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_1();
-  v5 = v0;
-  v6 = v1;
-  _os_log_error_impl(&dword_238C1D000, v2, OS_LOG_TYPE_ERROR, "%s: unsupported shape=%@ for result tensor=%@", v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_error_impl(&dword_238C1D000, v2, OS_LOG_TYPE_ERROR, "%s: unsupported shape=%@ for result tensor=%@", v3, 0x20u);
 }
 
 void GPU_CreateOptimizerDeviceDataForTensor_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "GPU_CreateOptimizerDeviceDataForTensor";
-  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: momentum creation failed", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "GPU_CreateOptimizerDeviceDataForTensor";
+  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: momentum creation failed", &v1, 0xCu);
 }
 
 void GPU_CreateOptimizerDeviceVectorDataForTensor_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "GPU_CreateOptimizerDeviceVectorDataForTensor";
-  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: momentum creation failed", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "GPU_CreateOptimizerDeviceVectorDataForTensor";
+  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: momentum creation failed", &v1, 0xCu);
 }
 
 void ANE_BuildArithmeticParams_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateArithmeticLayer_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CreateUnitsWithArithmeticOpeartion_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateUnitsWithArithmeticOpeartion_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateUnitsWithArithmeticOpeartion_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateUnitsWithArithmeticOpeartion_cold_4()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: unit=%@ of layer=%@ failed validation", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: unit=%@ of layer=%@ failed validation", v2);
 }
 
 void ANE_CreateUnitsWithArithmeticOpeartion_cold_6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateUnitsWithArithmeticOpeartion_cold_9()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateUnitsWithArithmeticOpeartion_cold_10()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: the neuron unit=%@ for layer=%@ failed validation", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: the neuron unit=%@ for layer=%@ failed validation", v2);
 }
 
 void ANE_CreateUnitsWithArithmeticOpeartion_cold_11()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: the elementwise unit=%@ for layer=%@ failed validation", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: the elementwise unit=%@ for layer=%@ failed validation", v2);
 }
 
 void ANE_CreateUnitsWithArithmeticOpeartion_cold_12()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_5();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateUnitsWithArithmeticOpeartion_cold_15()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateUnitsWithArithmeticOpeartion_cold_16()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileArithmeticLayer_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_IsSupportedLayer_cold_1(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 descriptor];
   [v3 poolingType];
-  v5 = 136315394;
-  v6 = "includePaddingLayer";
+  v4 = 136315394;
+  v5 = "includePaddingLayer";
   OUTLINED_FUNCTION_4_0();
-  _os_log_debug_impl(&dword_238C1D000, a2, OS_LOG_TYPE_DEBUG, "%s: unsupported pooling type=%d", &v5, 0x12u);
-
-  v4 = *MEMORY[0x277D85DE8];
+  _os_log_debug_impl(&dword_238C1D000, a2, OS_LOG_TYPE_DEBUG, "%s: unsupported pooling type=%d", &v4, 0x12u);
 }
 
 void buildANESubgraph_cold_1(uint8_t *buf, void *a2, os_log_t log)
@@ -4838,214 +4639,155 @@ void buildANESubgraph_cold_1(uint8_t *buf, void *a2, os_log_t log)
 
 void setBNNSActivation_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  [a1 activationType];
-  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown neuron type %d", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_BuildConvolutionParams_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  *v7 = 136315394;
+  *&v7[4] = "setBNNSActivation";
+  *&v7[12] = 1024;
+  *&v7[14] = [a1 activationType];
+  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown neuron type %d", v3, v4, v5, v6, *v7, *&v7[8], *&v7[16]);
 }
 
 void ANE_BuildConvolutionParams_cold_2(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 dataType];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x1Cu);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_BuildConvolutionParams_cold_3(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 convolutionType];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CreateConvolutionLayer_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CreateConvolutionLayer_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateUnitsWithConvolutionLayer_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateUnitsWithConvolutionLayer_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CreateUnitsWithConvolutionLayer_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateUnitsWithConvolutionLayer_cold_4()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136315650;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_1();
-  v5 = v0;
-  v6 = v1;
-  _os_log_error_impl(&dword_238C1D000, v2, OS_LOG_TYPE_ERROR, "%s: unit=%@ of layer=%@ failed validation", v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_error_impl(&dword_238C1D000, v2, OS_LOG_TYPE_ERROR, "%s: unit=%@ of layer=%@ failed validation", v3, 0x20u);
 }
 
 void ANE_CreateUnitsWithConvolutionLayer_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileConvolutionLayer_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileConvolutionLayer_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileConvolutionLayer_cold_4(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 fusedLayers];
   v2 = [v1 objectAtIndexedSubscript:0];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v3, v4, v5, v6, v7, 0x16u);
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileConvolutionLayer_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileConvolutionLayer_cold_6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileSelectionLayer_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: the number of arithmetic parameters must be 4", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_CompileSelectionLayer";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: the number of arithmetic parameters must be 4", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_CompileSelectionLayer_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: broadcasting is needed but not supported", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_CompileSelectionLayer";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: broadcasting is needed but not supported", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_CompileSelectionLayer_cold_3(int a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "ANE_CompileSelectionLayer";
-  v5 = 1024;
-  v6 = a1;
-  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: invalid broadcast status=%d", &v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "ANE_CompileSelectionLayer";
+  v4 = 1024;
+  v5 = a1;
+  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: invalid broadcast status=%d", &v2, 0x12u);
 }
 
 void ANE_CompileSelectionLayer_cold_4()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: unit=%@ for layer=%@ failed validation", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: unit=%@ for layer=%@ failed validation", v2);
 }
 
 void ANE_CompileSelectionLayer_cold_8(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: the data types of source tensors are not supported", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_CompileSelectionLayer";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: the data types of source tensors are not supported", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void VerifyTensorBeforeRead_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "VerifyTensorBeforeRead";
-  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: Tensor's device memory was not converted to ANE data structure", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "VerifyTensorBeforeRead";
+  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: Tensor's device memory was not converted to ANE data structure", &v1, 0xCu);
 }
 
 void VerifyTensorBeforeRead_cold_2()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: empty liveIOStatus in tensor=%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: empty liveIOStatus in tensor=%@", v2, v3, v4, v5, v6);
 }
 
 void VerifyTensorBeforeRead_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = 136315394;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: device memory not allocated for tensor=%@", v2, v3, v4, v5, 2u);
-  v6 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_6(&dword_238C1D000, v0, v1, "%s: device memory not allocated for tensor=%@", v2, v3, v4, v5, v6);
 }
 
 void GPU_AllocateResourceForMultiGPUTraining_cold_1(uint8_t *buf, _BYTE *a2, os_log_t log)
@@ -5057,775 +4799,667 @@ void GPU_AllocateResourceForMultiGPUTraining_cold_1(uint8_t *buf, _BYTE *a2, os_
 
 void GPU_AllocateResourceForMultiGPUTraining_cold_2(void *a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v3 = [a1 deviceList];
-  v5 = 134217984;
-  v6 = [v3 count];
-  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "2 GPUs are expected but only %lu GPU is available", &v5, 0xCu);
-
-  v4 = *MEMORY[0x277D85DE8];
+  v4 = 134217984;
+  v5 = [v3 count];
+  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "2 GPUs are expected but only %lu GPU is available", &v4, 0xCu);
 }
 
 void ANE_ValidateConcatUnit_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: failed to build ANECTensorDesc for sourceTensor=%@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: failed to build ANECTensorDesc for sourceTensor=%@", v1, 0x16u);
 }
 
 void ANE_ValidateConcatUnit_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateConcatUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateConcatUnit_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateConcatUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_BuildANECTensorDesc_cold_1(void *a1, uint64_t a2, NSObject *a3)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v6 = 136315650;
-  v7 = "ANE_BuildANECTensorDesc";
-  v8 = 1024;
-  v9 = [a1 dataType];
-  v10 = 2112;
-  v11 = a2;
-  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%s: unsupported data type=%d for tensor=%@", &v6, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
+  v5 = 136315650;
+  v6 = "ANE_BuildANECTensorDesc";
+  v7 = 1024;
+  v8 = [a1 dataType];
+  v9 = 2112;
+  v10 = a2;
+  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%s: unsupported data type=%d for tensor=%@", &v5, 0x1Cu);
 }
 
 void ANE_CreateUnitValidator_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: incorrect platform=%@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: incorrect platform=%@", v1, 0x16u);
 }
 
 void ANE_ValidateConvolutionUnit_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateConvolutionUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateConvolutionUnit_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateConvolutionUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateConvolutionUnit_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateConvolutionUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateInstanceNormUnit_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateInstanceNormUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateInstanceNormUnit_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateInstanceNormUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateInstanceNormUnit_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateInstanceNormUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateNeuronUnit_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateNeuronUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateNeuronUnit_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateNeuronUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateNeuronUnit_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateNeuronUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidatePoolingUnit_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidatePoolingUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidatePoolingUnit_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidatePoolingUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidatePoolingUnit_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidatePoolingUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateSoftmaxUnit_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateSoftmaxUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateSoftmaxUnit_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateSoftmaxUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateSoftmaxUnit_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateSoftmaxUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateReshapeUnit_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateReshapeUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateReshapeUnit_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateReshapeUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateReshapeUnit_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateReshapeUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateTransposeUnit_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateTransposeUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateTransposeUnit_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateTransposeUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateTransposeUnit_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateTransposeUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateReductionUnit_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateReductionUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateReductionUnit_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateReductionUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateReductionUnit_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateReductionUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateBroadcastUnit_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build input ANECTensorDesc", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateBroadcastUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build input ANECTensorDesc", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateBroadcastUnit_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build output ANECTensorDesc", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateBroadcastUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build output ANECTensorDesc", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateBroadcastUnit_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateBroadcastUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateBroadcastUnit_cold_5(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateBroadcastUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateElementWiseUnit_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateElementWiseUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateElementWiseUnit_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateElementWiseUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateElementWiseUnit_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateElementWiseUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateInputViewUnit_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateInputViewUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateInputViewUnit_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateInputViewUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateInputViewUnit_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateInputViewUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateArgMinMaxUnit_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateArgMinMaxUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateArgMinMaxUnit_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateArgMinMaxUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateArgMinMaxUnit_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateArgMinMaxUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateGOCUnit_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateGOCUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateGOCUnit_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateGOCUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateGOCUnit_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateGOCUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateMatrixMultUnit_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateMatrixMultUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateMatrixMultUnit_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateMatrixMultUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateMatrixMultUnit_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateMatrixMultUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateLayerNormUnit_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateLayerNormUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to build ANECTensorDesc", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateLayerNormUnit_cold_3(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateLayerNormUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to create ANEC unit validator", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_ValidateLayerNormUnit_cold_4(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "ANE_ValidateLayerNormUnit";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: unable to delete the validator instance", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __isAppleNeuralEngineAPIAvailable_block_invoke_cold_2(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: no AppleNeuralEngine framework API available", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "isAppleNeuralEngineAPIAvailable_block_invoke";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: no AppleNeuralEngine framework API available", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_BuildReductionParams_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 objectAtIndexedSubscript:0];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_BuildReductionParams_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: unsupported reduction type=%d", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: unsupported reduction type=%d", v1, 0x12u);
 }
 
 void ANE_Get4DReductionDimensions_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "ANE_Get4DReductionDimensions";
-  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: only suppport a source tensor with up to 4 dimensions", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "ANE_Get4DReductionDimensions";
+  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: only suppport a source tensor with up to 4 dimensions", &v1, 0xCu);
 }
 
 void ANE_CreateReductionLayer_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "ANE_CreateReductionLayer";
-  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: failed to build the reduction parameters", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "ANE_CreateReductionLayer";
+  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: failed to build the reduction parameters", &v1, 0xCu);
 }
 
 void ANE_CompileReductionLayer_cold_1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: unit=%@ of layer=%@ failed validation", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: unit=%@ of layer=%@ failed validation", v2);
 }
 
 void ANE_CompileReductionLayer_cold_3(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 objectAtIndexedSubscript:0];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileReductionLayer_cold_4(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 reductionType];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x12u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileSoftmaxLayer_cold_1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: unit=%@ of layer=%@ failed validation", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: unit=%@ of layer=%@ failed validation", v2);
 }
 
 void ANE_CompileSoftmaxLayer_cold_4(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "ANE_CompileSoftmaxLayer";
-  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: nil GOC unit parameters", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "ANE_CompileSoftmaxLayer";
+  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: nil GOC unit parameters", &v1, 0xCu);
 }
 
 void ANE_CompileSoftmaxLayer_cold_5(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "ANE_CompileSoftmaxLayer";
-  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: nil neuron unit parameters", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "ANE_CompileSoftmaxLayer";
+  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: nil neuron unit parameters", &v1, 0xCu);
 }
 
 void CPU_BuildBNNSLSTMInputAndOutput_cold_1(int a1, int a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "CPU_BuildBNNSLSTMInputAndOutput";
-  v6 = 1024;
-  v7 = a1;
-  v8 = 1024;
-  v9 = a2;
-  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: LSTM input feature size is %d but source tensor input feature size is %d", &v4, 0x18u);
-  v3 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "CPU_BuildBNNSLSTMInputAndOutput";
+  v5 = 1024;
+  v6 = a1;
+  v7 = 1024;
+  v8 = a2;
+  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: LSTM input feature size is %d but source tensor input feature size is %d", &v3, 0x18u);
 }
 
 void addInputWeightPointersToGate_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to allocate pointed weight for first input weight", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "addInputWeightPointersToGate";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to allocate pointed weight for first input weight", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void createParameterPointersForGate_cold_1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to allocate pointed weight for either hidden weights or bias terms", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "createParameterPointersForGate";
+  OUTLINED_FUNCTION_1_0(&dword_238C1D000, a1, a3, "%s: failed to allocate pointed weight for either hidden weights or bias terms", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void ANE_CreatePoolingLayer_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 poolingType];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: unsupported pooling type %d", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CreatePoolingLayer_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CompilePoolingLayer_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: unsupported pooling type %d", v3, v4, v5, v6, v7);
 }
 
 void ANE_CompilePoolingLayer_cold_3(uint64_t a1, uint64_t a2, os_log_t log)
 {
-  v10 = *MEMORY[0x277D85DE8];
-  v4 = 136315650;
-  v5 = "ANE_CompilePoolingLayer";
-  v6 = 2112;
-  v7 = a1;
-  v8 = 2112;
-  v9 = a2;
-  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: reduction unit=%@ for layer=%@ failed validation", &v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CompilePoolingLayer_cold_4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
+  v3 = 136315650;
+  v4 = "ANE_CompilePoolingLayer";
+  v5 = 2112;
+  v6 = a1;
+  v7 = 2112;
+  v8 = a2;
+  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: reduction unit=%@ for layer=%@ failed validation", &v3, 0x20u);
 }
 
 void ANE_CompilePoolingLayer_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CompilePoolingLayer_cold_6()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void CPU_CreateLossLayer_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: Unknown loss type %d", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: Unknown loss type %d", v1, 0x12u);
 }
 
 void getBNNSLossReductionFunction_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: Unknown reduction type %d", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: Unknown reduction type %d", v1, 0x12u);
 }
 
 void CPU_CompileYOLOLossLayer_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x277D85DE8];
   v1 = [a1 descriptor];
   [v1 dataType];
+  v8 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_8(&dword_238C1D000, v2, v3, "%s: Unsupported result data type (%d)", v4, v5, v6, v7, 2u);
-
-  v8 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_238C1D000, v2, v3, "%s: Unsupported result data type (%d)", v4, v5, v6, v7, v8);
 }
 
 void CPU_CompileYOLOLossLayer_cold_2(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 objectAtIndexedSubscript:0];
   v2 = [v1 descriptor];
   [v2 dataType];
+  v9 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_8(&dword_238C1D000, v3, v4, "%s: Unsupported sources data type %d", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_238C1D000, v3, v4, "%s: Unsupported sources data type %d", v5, v6, v7, v8, v9);
 }
 
 void CPU_CreateFusedConvolutionNormalizationAndNeuronLayer_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: Unsupported operation type (%d)", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: Unsupported operation type (%d)", v1, 0x12u);
 }
 
 void CPU_CompileFusedConvolutionNormalizationAndNeuronLayer_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "CPU_CompileFusedConvolutionNormalizationAndNeuronLayer";
-  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: BNNS filter could not be created", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "CPU_CompileFusedConvolutionNormalizationAndNeuronLayer";
+  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: BNNS filter could not be created", &v1, 0xCu);
 }
 
 void CPU_CompileFusedConvolutionNormalizationAndNeuronLayer_cold_2(void *a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
   [a1 deviceOpType];
-  v4[0] = 136315394;
+  v3[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: Unsupported operation type (%d)", v4, 0x12u);
-  v3 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: Unsupported operation type (%d)", v3, 0x12u);
 }
 
 void CPU_CreatePaddingLayer_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: Unsupported data type %d", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: Unsupported data type %d", v1, 0x12u);
 }
 
 void CPU_CreatePaddingLayer_cold_2()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_0_1();
-  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: Unsupported padding type %d", v2, 0x12u);
-  v1 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CreateMatMulLayer_cold_1(float *a1)
-{
-  v8 = *MEMORY[0x277D85DE8];
-  v7 = *a1;
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CreateMatMulLayer_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: Unsupported padding type %d", v1, 0x12u);
 }
 
 void ANE_CompileMatMulLayer_cold_1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: transpose unit=%@ for layer=%@ failed validation", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: transpose unit=%@ for layer=%@ failed validation", v2);
 }
 
 void ANE_CompileMatMulLayer_cold_2()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: matrix mult unit=%@ for layer=%@ failed validation", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: matrix mult unit=%@ for layer=%@ failed validation", v2);
 }
 
 void ANE_CompileMatMulLayer_cold_4()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: GOC unit=%@ for layer=%@ failed validation", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: GOC unit=%@ for layer=%@ failed validation", v2);
 }
 
 void ANE_CompileMatMulLayer_cold_5()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: elementWise add unit=%@ for layer=%@ failed validation", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: elementWise add unit=%@ for layer=%@ failed validation", v2);
 }
 
 void ANE_CompileMatMulLayer_cold_6()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: broadcasting bias tensor is needed but not supported. bias tensor=%@, result tensor=%@", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: broadcasting bias tensor is needed but not supported. bias tensor=%@, result tensor=%@", v2);
 }
 
 void ANE_CompileMatMulLayer_cold_8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileMatMulLayer_cold_9()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileMatMulLayer_cold_10()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileMatMulLayer_cold_11()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileConcatLayer_cold_1()
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v3 = 136315650;
+  v2 = 136315650;
   OUTLINED_FUNCTION_0();
-  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: unit=%@ of layer=%@ failed validation", v3);
-  v2 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_4(&dword_238C1D000, v0, v1, "%s: unit=%@ of layer=%@ failed validation", v2);
 }
 
 void ANE_CreateNormalizationLayer_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 count];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_3(&dword_238C1D000, v1, v2, "%s: unsupported shape dimensions=%lu for group normalization", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_238C1D000, v1, v2, "%s: unsupported shape dimensions=%lu for group normalization", v3, v4, v5, v6, v7);
 }
 
 void ANE_CreateNormalizationLayer_cold_2(uint64_t a1)
@@ -5834,31 +5468,6 @@ void ANE_CreateNormalizationLayer_cold_2(uint64_t a1)
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CreateNormalizationLayer_cold_3()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CreateNormalizationLayer_cold_4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CreateNormalizationLayer_cold_5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateNormalizationLayer_cold_6(uint64_t a1)
@@ -5867,33 +5476,21 @@ void ANE_CreateNormalizationLayer_cold_6(uint64_t a1)
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateNormalizationLayer_cold_7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CreateNormalizationLayer_cold_8()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateNormalizationLayer_cold_9(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 count];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_3(&dword_238C1D000, v1, v2, "%s: unsupported shape dimensions=%lu for instance normalization", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_238C1D000, v1, v2, "%s: unsupported shape dimensions=%lu for instance normalization", v3, v4, v5, v6, v7);
 }
 
 void ANE_CreateNormalizationLayer_cold_10(uint64_t a1)
@@ -5902,865 +5499,566 @@ void ANE_CreateNormalizationLayer_cold_10(uint64_t a1)
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CreateNormalizationLayer_cold_11()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CreateNormalizationLayer_cold_12()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CreateNormalizationLayer_cold_13()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CreateNormalizationLayer_cold_14()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CreateNormalizationLayer_cold_15()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateNormalizationLayer_cold_16()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CreateNormalizationLayer_cold_17()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_BuildBatchNormalizationParams_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 count];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_4();
-  OUTLINED_FUNCTION_0_3(&dword_238C1D000, v1, v2, "%s: unsupported shape dimensions=%lu for batch normalization", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_BuildBatchNormalizationParams_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_238C1D000, v1, v2, "%s: unsupported shape dimensions=%lu for batch normalization", v3, v4, v5, v6, v7);
 }
 
 void ANE_BuildBatchNormalizationParams_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_BuildBatchNormalizationParams_cold_5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileNormalizationLayer_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileNormalizationLayer_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileNormalizationLayer_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileNormalizationLayer_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CompileNormalizationLayer_cold_5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileNormalizationLayer_cold_6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileNormalizationLayer_cold_7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileNormalizationLayer_cold_8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileNormalizationLayer_cold_9()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileNormalizationLayer_cold_10()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileNormalizationLayer_cold_11()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileNormalizationLayer_cold_13()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileNormalizationLayer_cold_14(void *a1)
 {
-  v10 = *MEMORY[0x277D85DE8];
   v1 = [a1 fusedLayers];
   v2 = [v1 objectAtIndexedSubscript:0];
+  v9 = 136315394;
   OUTLINED_FUNCTION_1();
-  OUTLINED_FUNCTION_0_3(&dword_238C1D000, v3, v4, "%s: the fused layer is not a neuron layer.The fused layer=%@", v5, v6, v7, v8, 2u);
-
-  v9 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_0_3(&dword_238C1D000, v3, v4, "%s: the fused layer is not a neuron layer.The fused layer=%@", v5, v6, v7, v8, v9);
 }
 
 void ANE_CompileNormalizationLayer_cold_16()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_BuildGocParams_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_8_1();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x1Cu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CalculateScaleAndBiasForInstanceNorm_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateNormUnits_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateNormUnits_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateNormUnits_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateNormUnits_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateNormUnits_cold_6()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateNormUnits_cold_7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CreateBroadcastedConstantTensor_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
-void ANE_ConvertFp32ToInt16_cold_1(float *a1)
+void ANE_ConvertFp32ToInt16_cold_1()
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v1 = *a1;
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-  v7 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
 }
 
 void ANE_CompressSparseKernel_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompressSparseKernel_cold_2()
 {
-  v9 = *MEMORY[0x277D85DE8];
-  v5[0] = 136315650;
+  v8 = *MEMORY[0x277D85DE8];
+  v4[0] = 136315650;
   OUTLINED_FUNCTION_2_2();
-  v6 = v0;
-  v7 = v1;
-  v8 = v2;
-  _os_log_debug_impl(&dword_238C1D000, v3, OS_LOG_TYPE_DEBUG, "%s: not a sparse kernel because sparsity=%f is below sparsityThreshold=%f", v5, 0x20u);
-  v4 = *MEMORY[0x277D85DE8];
+  v5 = v0;
+  v6 = v1;
+  v7 = v2;
+  _os_log_debug_impl(&dword_238C1D000, v3, OS_LOG_TYPE_DEBUG, "%s: not a sparse kernel because sparsity=%f is below sparsityThreshold=%f", v4, 0x20u);
 }
 
 void ANE_GetTensorValueInFloat_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_GetTensorWidthAndHeightWithOnePrepended_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_GetDimensionIn4DWithOnePrepended_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_7_1();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_GetDimensionIn4DWithOnePrepended_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_GetTensorFeatureChannelsWithBatchFirst_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_GetANECIRDimension_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_GetANECIRDataTypeWithMLCDataType_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_ValidateInterleave_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_ValidateInterleave_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_7_1();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_ValidateInterleave_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_7_1();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_ValidateInterleave_cold_4()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_ValidateInterleave_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_GetANEElementByteCount_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CalculateRowStrideForTensor_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CalculateRowStrideForTensor_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CalculatePlaneStrideForTensor_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CalculatePlaneCountForTensor_cold_1()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CalculateIOInterleave_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_ConvertInputTensor_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 descriptor];
   [v1 tensorAllocationSizeInBytes];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x20u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_ConvertInputTensor_cold_2()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_ConvertInputTensor_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_ConvertInputTensor_cold_4(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 dimensionCount];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_ConvertInputTensor_cold_5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_ANECDataTypeToMLCDataType_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_ReadOutputTensor_cold_1(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 deviceIndex];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x20u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_ReadOutputTensor_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_ReadOutputTensor_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_0_1();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x18u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_ReadOutputTensor_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_2_2();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_ReadOutputTensor_cold_5()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_ReadOutputTensor_cold_6(void *a1)
 {
-  v7 = *MEMORY[0x277D85DE8];
   [a1 dimensionCount];
   OUTLINED_FUNCTION_0_4();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v1, v2, v3, v4, v5, 0x16u);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_ReadOutputTensor_cold_7()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_ReadOutputTensor_cold_8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_ComputeLiveInputs_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   v1 = [a1 parentLayers];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_1_1();
   _os_log_error_impl(v2, v3, v4, v5, v6, 0x16u);
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_WriteANEModelFiles_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7_1();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_WriteANEModelFiles_cold_2(uint64_t a1, unsigned __int8 *a2)
-{
-  v9 = *MEMORY[0x277D85DE8];
-  v8 = *a2;
-  OUTLINED_FUNCTION_4_2();
-  _os_log_error_impl(v2, v3, v4, v5, v6, 0x1Cu);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_WriteANEModelFiles_cold_3()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_WriteANEModelFiles_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_DeleteANEModelDirectory_cold_1()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7_1();
   OUTLINED_FUNCTION_4_2();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void CPU_CreateSGDOptimizer_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 regularizationType];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown gradient clipping type %d", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown gradient clipping type %d", v3, v4, v5, v6, v7);
 }
 
 void CPU_CreateSGDOptimizer_cold_2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 regularizationType];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown regularization type type %d", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown regularization type type %d", v3, v4, v5, v6, v7);
 }
 
 void CPU_CreateAdamOptimizer_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 regularizationType];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown gradient clipping type %d", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown gradient clipping type %d", v3, v4, v5, v6, v7);
 }
 
 void CPU_CreateAdamOptimizer_cold_2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 regularizationType];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown regularization type type %d", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown regularization type type %d", v3, v4, v5, v6, v7);
 }
 
 void CPU_CreateRMSPropOptimizer_cold_1(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 regularizationType];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown gradient clipping type %d", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown gradient clipping type %d", v3, v4, v5, v6, v7);
 }
 
 void CPU_CreateRMSPropOptimizer_cold_2(void *a1)
 {
-  v8 = *MEMORY[0x277D85DE8];
   [a1 regularizationType];
+  v7 = 136315394;
   OUTLINED_FUNCTION_0_1();
-  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown regularization type type %d", v3, v4, v5, v6, 2u);
-  v7 = *MEMORY[0x277D85DE8];
+  OUTLINED_FUNCTION_8(&dword_238C1D000, v1, v2, "%s: Unknown regularization type type %d", v3, v4, v5, v6, v7);
 }
 
 void CPU_CreateNormalizationLayer_cold_1(int a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "CPU_CreateNormalizationLayer";
-  v5 = 1024;
-  v6 = a1;
-  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: Unsupported norm type (%d)", &v3, 0x12u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "CPU_CreateNormalizationLayer";
+  v4 = 1024;
+  v5 = a1;
+  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: Unsupported norm type (%d)", &v2, 0x12u);
 }
 
 void ANE_BuildTransposeParams_cold_1(os_log_t log)
 {
-  v4 = *MEMORY[0x277D85DE8];
-  v2 = 136315138;
-  v3 = "ANE_BuildTransposeParams";
-  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: failed to get ANEC IR dimension", &v2, 0xCu);
-  v1 = *MEMORY[0x277D85DE8];
+  v3 = *MEMORY[0x277D85DE8];
+  v1 = 136315138;
+  v2 = "ANE_BuildTransposeParams";
+  _os_log_error_impl(&dword_238C1D000, log, OS_LOG_TYPE_ERROR, "%s: failed to get ANEC IR dimension", &v1, 0xCu);
 }
 
 void ANE_BuildTransposeParams_cold_2(void *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 136315394;
-  v5 = "ANE_BuildTransposeParams";
-  v6 = 2048;
-  v7 = [a1 count];
-  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: unsupported shape count=%lu", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 136315394;
+  v4 = "ANE_BuildTransposeParams";
+  v5 = 2048;
+  v6 = [a1 count];
+  _os_log_error_impl(&dword_238C1D000, a2, OS_LOG_TYPE_ERROR, "%s: unsupported shape count=%lu", &v3, 0x16u);
 }
 
 void ANE_CreateTransposeLayer_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: failed to build the transpose parameteres for shape=%@", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: failed to build the transpose parameteres for shape=%@", v1, 0x16u);
 }
 
 void ANE_CompileTransposeLayer_cold_1()
 {
-  v3 = *MEMORY[0x277D85DE8];
-  v2[0] = 136315394;
+  v2 = *MEMORY[0x277D85DE8];
+  v1[0] = 136315394;
   OUTLINED_FUNCTION_1();
-  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: layer=%@ failed validation", v2, 0x16u);
-  v1 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_238C1D000, v0, OS_LOG_TYPE_ERROR, "%s: layer=%@ failed validation", v1, 0x16u);
 }
 
 void ANE_CompileFullyConnectedLayer_cold_1(void *a1, int a2, NSObject *a3)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   v5 = [a1 descriptor];
-  v7 = 136315650;
-  v8 = "ANE_CreateMatMulUnitsWithFullyConnectedLayer";
-  v9 = 1024;
-  v10 = a2;
-  v11 = 1024;
-  v12 = [v5 dataType];
-  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%s: different data types between weights and biases are not supported. weight data type=%d, bias data type=%d", &v7, 0x18u);
-
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CompileFullyConnectedLayer_cold_2()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0x12u);
-  v5 = *MEMORY[0x277D85DE8];
+  v6 = 136315650;
+  v7 = "ANE_CreateMatMulUnitsWithFullyConnectedLayer";
+  v8 = 1024;
+  v9 = a2;
+  v10 = 1024;
+  v11 = [v5 dataType];
+  _os_log_error_impl(&dword_238C1D000, a3, OS_LOG_TYPE_ERROR, "%s: different data types between weights and biases are not supported. weight data type=%d, bias data type=%d", &v6, 0x18u);
 }
 
 void ANE_CompileFullyConnectedLayer_cold_3()
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v4[0] = 136315650;
+  v6 = *MEMORY[0x277D85DE8];
+  v3[0] = 136315650;
   OUTLINED_FUNCTION_1();
-  v5 = v0;
-  v6 = v1;
-  _os_log_error_impl(&dword_238C1D000, v2, OS_LOG_TYPE_ERROR, "%s: unit=%@ of layer=%@ failed validation", v4, 0x20u);
-  v3 = *MEMORY[0x277D85DE8];
+  v4 = v0;
+  v5 = v1;
+  _os_log_error_impl(&dword_238C1D000, v2, OS_LOG_TYPE_ERROR, "%s: unit=%@ of layer=%@ failed validation", v3, 0x20u);
 }
 
 void ANE_CompileFullyConnectedLayer_cold_4()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CompileFullyConnectedLayer_cold_5()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
-}
-
-void ANE_CompileFullyConnectedLayer_cold_6()
-{
-  v6 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_7();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileFullyConnectedLayer_cold_7()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 void ANE_CompileFullyConnectedLayer_cold_8()
 {
-  v6 = *MEMORY[0x277D85DE8];
   OUTLINED_FUNCTION_1();
   OUTLINED_FUNCTION_7();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 __double2 __sincos_stret(double a1)

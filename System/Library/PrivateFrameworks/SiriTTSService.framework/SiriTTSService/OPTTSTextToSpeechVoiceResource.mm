@@ -76,11 +76,7 @@ uint64_t __52__OPTTSTextToSpeechVoiceResource_addObjectToBuffer___block_invoke(u
 
 - (void)data:(id)data
 {
-  root = self->_root;
-  v5 = &root[-*root->var0];
   dataCopy = data;
-  v7 = *root[*v5[6].var0 + *root[*v5[6].var0].var0].var0;
-  v8 = dataCopy;
   (*(data + 2))();
 }
 

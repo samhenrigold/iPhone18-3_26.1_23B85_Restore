@@ -62,11 +62,11 @@
 
 - (MTTimeInBedSession)initWithCoder:(id)coder
 {
-  v24[2] = *MEMORY[0x1E69E9840];
+  v23[2] = *MEMORY[0x1E69E9840];
   coderCopy = coder;
-  v22.receiver = self;
-  v22.super_class = MTTimeInBedSession;
-  v5 = [(MTTimeInBedSession *)&v22 init];
+  v21.receiver = self;
+  v21.super_class = MTTimeInBedSession;
+  v5 = [(MTTimeInBedSession *)&v21 init];
   if (v5)
   {
     v6 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"StartDate"];
@@ -78,9 +78,9 @@
     v5->_endDate = v8;
 
     v10 = MEMORY[0x1E695DFD8];
-    v24[0] = objc_opt_class();
-    v24[1] = objc_opt_class();
-    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v24 count:2];
+    v23[0] = objc_opt_class();
+    v23[1] = objc_opt_class();
+    v11 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:2];
     v12 = [v10 setWithArray:v11];
     v13 = [coderCopy decodeObjectOfClasses:v12 forKey:@"Intervals"];
     intervals = v5->_intervals;
@@ -88,10 +88,10 @@
 
     v5->_endReason = [coderCopy decodeIntegerForKey:@"EndReason"];
     v15 = MEMORY[0x1E695DFD8];
-    v23[0] = objc_opt_class();
-    v23[1] = objc_opt_class();
-    v23[2] = objc_opt_class();
-    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v23 count:3];
+    v22[0] = objc_opt_class();
+    v22[1] = objc_opt_class();
+    v22[2] = objc_opt_class();
+    v16 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:3];
     v17 = [v15 setWithArray:v16];
     v18 = [coderCopy decodeObjectOfClasses:v17 forKey:@"MetaData"];
     metadata = v5->_metadata;
@@ -100,7 +100,6 @@
     v5->_needsAdditionalProcessing = [coderCopy decodeBoolForKey:@"NeedsAdditionalProcessing"];
   }
 
-  v20 = *MEMORY[0x1E69E9840];
   return v5;
 }
 

@@ -8,7 +8,7 @@ void ___NETRBCreateNetwork_block_invoke(uint64_t a1)
   v2 = *(a1 + 48);
   if (__NETRBClientValidateClient(_NETRBNetworkClient))
   {
-    NETRBErrorLog();
+    NETRBErrorLog("%s: invalid network global client", "_NETRBCreateNetwork_block_invoke");
     *(*(*(a1 + 32) + 8) + 24) = 6002;
   }
 
@@ -37,24 +37,25 @@ void ___NETRBCreateNetwork_block_invoke(uint64_t a1)
 
 void ___NETRBCreateNetwork_block_invoke_2(void *a1, xpc_object_t xdict)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   if (!xdict)
   {
-    goto LABEL_16;
+    NETRBErrorLog("%s: no response from daemon");
+    goto LABEL_17;
   }
 
   if (xpc_dictionary_get_uint64(xdict, netrbXPCResponse) != 2001)
   {
     *(*(a1[5] + 8) + 24) = 1;
-    goto LABEL_18;
+    NETRBErrorLog("%s: interface creation failed");
+    return;
   }
 
   uuid = xpc_dictionary_get_uuid(xdict, netrbXPCNetworkAuthorizationToken);
   if (!uuid)
   {
-LABEL_18:
-    NETRBErrorLog();
-    goto LABEL_19;
+    NETRBErrorLog("%s: network handle not returned");
+    return;
   }
 
   *src = *uuid;
@@ -67,10 +68,10 @@ LABEL_18:
       goto LABEL_6;
     }
 
-LABEL_16:
-    NETRBErrorLog();
+    NETRBErrorLog("%s: network handle mismatch");
+LABEL_17:
     *(*(a1[4] + 8) + 24) = 0;
-    goto LABEL_19;
+    return;
   }
 
   uuid_copy((v6 + 4), src);
@@ -97,9 +98,6 @@ LABEL_6:
   {
     *(a1[6] + 116) = xpc_dictionary_get_uint64(xdict, netrbXPCNetworkMtu);
   }
-
-LABEL_19:
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

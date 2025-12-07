@@ -1,5 +1,6 @@
 @interface _MRUpdateActiveSystemEndpointRequestProtobuf
 - (BOOL)isEqual:(id)equal;
+- (id)changeTypeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -45,20 +46,43 @@
   *&self->_has = *&self->_has & 0xFB | v3;
 }
 
-- (int)StringAsChangeType:(id)type
+- (id)changeTypeAsString:(int)string
 {
-  typeCopy = type;
-  if ([typeCopy isEqualToString:@"Immediate"])
+  if (string)
   {
-    v4 = 0;
+    if (string == 1)
+    {
+      v4 = @"Deferrable";
+    }
+
+    else
+    {
+      v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+    }
   }
 
   else
   {
-    v4 = [typeCopy isEqualToString:@"Deferrable"];
+    v4 = @"Immediate";
   }
 
   return v4;
+}
+
+- (int)StringAsChangeType:(id)type
+{
+  typeCopy = type;
+  if (objc_msgSend_isEqualToString_(typeCopy))
+  {
+    isEqualToString = 0;
+  }
+
+  else
+  {
+    isEqualToString = objc_msgSend_isEqualToString_(typeCopy);
+  }
+
+  return isEqualToString;
 }
 
 - (void)setHasPairedDeviceSync:(BOOL)sync
@@ -221,32 +245,30 @@ LABEL_17:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v11 = toCopy;
+  v6 = toCopy;
   if (self->_outputDeviceUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if ((*&self->_has & 4) != 0)
   {
-    changeType = self->_changeType;
     PBDataWriterWriteInt32Field();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   if (self->_reason)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
   has = self->_has;
   if ((has & 0x10) != 0)
   {
-    pairedDeviceSync = self->_pairedDeviceSync;
     PBDataWriterWriteBOOLField();
-    toCopy = v11;
+    toCopy = v6;
     has = self->_has;
     if ((has & 2) == 0)
     {
@@ -265,9 +287,8 @@ LABEL_9:
     goto LABEL_9;
   }
 
-  type = self->_type;
   PBDataWriterWriteUint64Field();
-  toCopy = v11;
+  toCopy = v6;
   has = self->_has;
   if ((has & 1) == 0)
   {
@@ -281,22 +302,20 @@ LABEL_10:
   }
 
 LABEL_19:
-  disableDuration = self->_disableDuration;
   PBDataWriterWriteDoubleField();
-  toCopy = v11;
+  toCopy = v6;
   if ((*&self->_has & 8) != 0)
   {
 LABEL_11:
-    demoteWhenSyncingToCompanion = self->_demoteWhenSyncingToCompanion;
     PBDataWriterWriteBOOLField();
-    toCopy = v11;
+    toCopy = v6;
   }
 
 LABEL_12:
   if (self->_previousOutputDeviceUID)
   {
     PBDataWriterWriteStringField();
-    toCopy = v11;
+    toCopy = v6;
   }
 }
 
@@ -467,7 +486,6 @@ LABEL_8:
   }
 
   has = self->_has;
-  v7 = *(equalCopy + 60);
   if ((has & 4) != 0)
   {
     if ((*(equalCopy + 60) & 4) == 0 || self->_changeType != *(equalCopy + 6))
@@ -492,7 +510,6 @@ LABEL_8:
     has = self->_has;
   }
 
-  v9 = *(equalCopy + 60);
   if ((has & 0x10) != 0)
   {
     if ((*(equalCopy + 60) & 0x10) == 0)
@@ -500,7 +517,6 @@ LABEL_8:
       goto LABEL_35;
     }
 
-    v10 = *(equalCopy + 57);
     if (self->_pairedDeviceSync)
     {
       if ((*(equalCopy + 57) & 1) == 0)
@@ -554,7 +570,7 @@ LABEL_8:
     }
 
 LABEL_35:
-    v12 = 0;
+    v9 = 0;
     goto LABEL_36;
   }
 
@@ -563,7 +579,6 @@ LABEL_35:
     goto LABEL_35;
   }
 
-  v14 = *(equalCopy + 56);
   if (self->_demoteWhenSyncingToCompanion)
   {
     if ((*(equalCopy + 56) & 1) == 0)
@@ -581,17 +596,17 @@ LABEL_32:
   previousOutputDeviceUID = self->_previousOutputDeviceUID;
   if (previousOutputDeviceUID | *(equalCopy + 5))
   {
-    v12 = [(NSString *)previousOutputDeviceUID isEqual:?];
+    v9 = [(NSString *)previousOutputDeviceUID isEqual:?];
   }
 
   else
   {
-    v12 = 1;
+    v9 = 1;
   }
 
 LABEL_36:
 
-  return v12;
+  return v9;
 }
 
 - (unint64_t)hash

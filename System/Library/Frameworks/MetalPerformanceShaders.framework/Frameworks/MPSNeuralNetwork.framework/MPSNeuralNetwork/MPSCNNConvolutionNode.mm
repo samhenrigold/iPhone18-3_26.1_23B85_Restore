@@ -18,11 +18,11 @@
 
 - (MPSCNNConvolutionNode)initWithSource:(id)source weights:(id)weights state:(id)state
 {
-  v24[1] = *MEMORY[0x277D85DE8];
+  v28[1] = *MEMORY[0x277D85DE8];
   if (weights)
   {
-    v24[0] = source;
-    v16 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v24, 1, state, v5, v6, v7);
+    v28[0] = source;
+    v16 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x277CBEA60], a2, v28, 1, state, v5, v6, v7);
     if (state)
     {
       stateCopy = state;
@@ -34,9 +34,9 @@
       v17 = 0;
     }
 
-    v22.receiver = self;
-    v22.super_class = MPSCNNConvolutionNode;
-    result = [(MPSNNFilterNode *)&v22 initWithSourceImages:v16 sourceStates:v17 paddingPolicy:0];
+    v26.receiver = self;
+    v26.super_class = MPSCNNConvolutionNode;
+    result = [(MPSNNFilterNode *)&v26 initWithSourceImages:v16 sourceStates:v17 paddingPolicy:0];
     if (result)
     {
       v19 = result;
@@ -54,7 +54,7 @@
     {
       v21 = objc_opt_class();
       NSStringFromClass(v21);
-      MTLReportFailure();
+      MTLReportFailure(1, "/Library/Caches/com.apple.xbs/Sources/MetalPerformanceShaders/MPSNeuralNetwork/Graph/MPSCNNConvolutionGraphNodes.mm", 0x5F, @"[%@ initWithSource:convolutionDescriptor:kernelWeights:biasTerms]: kernel weights may not be nil", v22, v23, v24, v25);
     }
 
     return 0;

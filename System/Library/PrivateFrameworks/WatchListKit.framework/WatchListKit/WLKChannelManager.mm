@@ -21,9 +21,11 @@
 
 uint64_t __42__WLKChannelManager_defaultChannelManager__block_invoke()
 {
-  defaultChannelManager_defaultChannelManager = objc_alloc_init(WLKChannelManager);
+  v0 = objc_alloc_init(WLKChannelManager);
+  v1 = defaultChannelManager_defaultChannelManager;
+  defaultChannelManager_defaultChannelManager = v0;
 
-  return MEMORY[0x2821F96F8]();
+  return MEMORY[0x2821F96F8](v0, v1);
 }
 
 - (void)vppaConsentedBundleIDsWithCompletion:(id)completion
@@ -40,17 +42,15 @@ uint64_t __42__WLKChannelManager_defaultChannelManager__block_invoke()
 
 void __58__WLKChannelManager_vppaConsentedBundleIDsWithCompletion___block_invoke(uint64_t a1, void *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
   v2 = a2;
-  v3 = WLKPlaybackTrackingLogObject();
+  v3 = WLKPlaybackTrackingLogObject(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
-    v5 = 138412290;
-    v6 = v2;
-    _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKChannelManager - Error: Unable to communicate with the remote object proxy (%@)", &v5, 0xCu);
+    v4 = 138412290;
+    v5 = v2;
+    _os_log_impl(&dword_272A0F000, v3, OS_LOG_TYPE_DEFAULT, "WLKChannelManager - Error: Unable to communicate with the remote object proxy (%@)", &v4, 0xCu);
   }
-
-  v4 = *MEMORY[0x277D85DE8];
 }
 
 - (NSXPCConnection)connection
@@ -93,13 +93,13 @@ void __58__WLKChannelManager_vppaConsentedBundleIDsWithCompletion___block_invoke
   return v10;
 }
 
-void __31__WLKChannelManager_connection__block_invoke()
+void __31__WLKChannelManager_connection__block_invoke(uint64_t a1)
 {
-  v0 = WLKPlaybackTrackingLogObject();
-  if (os_log_type_enabled(v0, OS_LOG_TYPE_DEFAULT))
+  v1 = WLKPlaybackTrackingLogObject(a1);
+  if (os_log_type_enabled(v1, OS_LOG_TYPE_DEFAULT))
   {
-    *v1 = 0;
-    _os_log_impl(&dword_272A0F000, v0, OS_LOG_TYPE_DEFAULT, "WLKChannelManager - Connection interrupted.", v1, 2u);
+    *v2 = 0;
+    _os_log_impl(&dword_272A0F000, v1, OS_LOG_TYPE_DEFAULT, "WLKChannelManager - Connection interrupted.", v2, 2u);
   }
 }
 
@@ -111,7 +111,7 @@ void __31__WLKChannelManager_connection__block_invoke_8(uint64_t a1)
 
 - (void)_invalidationHandler
 {
-  v3 = WLKPlaybackTrackingLogObject();
+  v3 = WLKPlaybackTrackingLogObject(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v6 = 0;

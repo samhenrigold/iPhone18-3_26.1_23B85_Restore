@@ -109,8 +109,8 @@ LABEL_6:
   v10 = &v8[OBJC_IVAR___ICSelectionStateModelContainerSelectionOptionsCompletionBlocks_dataRenderedBlock];
   *v10 = v5;
   v10[1] = v6;
-  sub_100010854(v3);
-  sub_100010854(v5);
+  sub_100010854(v3, v4);
+  sub_100010854(v5, v6);
   v12.receiver = v8;
   v12.super_class = v7;
   return [(ICSelectionStateModelContainerSelectionOptionsCompletionBlocks *)&v12 init];

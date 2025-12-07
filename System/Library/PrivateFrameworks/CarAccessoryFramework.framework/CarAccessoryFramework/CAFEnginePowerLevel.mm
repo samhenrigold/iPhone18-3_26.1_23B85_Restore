@@ -22,6 +22,7 @@
 - (NSMeasurement)powerLevelMarkerAvailableMax;
 - (NSMeasurement)powerLevelMarkerAvailableMin;
 - (unsigned)powerState;
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate;
 - (void)registerObserver:(id)observer;
 - (void)unregisterObserver:(id)observer;
 @end
@@ -294,6 +295,100 @@
   v3 = powerStateCharacteristic != 0;
 
   return v3;
+}
+
+- (void)_characteristicDidUpdate:(id)update fromGroupUpdate:(BOOL)groupUpdate
+{
+  groupUpdateCopy = groupUpdate;
+  updateCopy = update;
+  characteristicType = [updateCopy characteristicType];
+  if ([characteristicType isEqual:@"0x0000000041000022"])
+  {
+    uniqueIdentifier = [updateCopy uniqueIdentifier];
+    powerLevelCharacteristic = [(CAFEnginePowerLevel *)self powerLevelCharacteristic];
+    uniqueIdentifier2 = [powerLevelCharacteristic uniqueIdentifier];
+    v11 = [uniqueIdentifier isEqual:uniqueIdentifier2];
+
+    if (v11)
+    {
+      observers = [(CAFService *)self observers];
+      powerLevel = [(CAFEnginePowerLevel *)self powerLevel];
+      [observers enginePowerLevelService:self didUpdatePowerLevel:powerLevel];
+LABEL_12:
+
+LABEL_17:
+      goto LABEL_18;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType2 = [updateCopy characteristicType];
+  if ([characteristicType2 isEqual:@"0x0000000041000023"])
+  {
+    uniqueIdentifier3 = [updateCopy uniqueIdentifier];
+    powerLevelMarkerAvailableMinCharacteristic = [(CAFEnginePowerLevel *)self powerLevelMarkerAvailableMinCharacteristic];
+    uniqueIdentifier4 = [powerLevelMarkerAvailableMinCharacteristic uniqueIdentifier];
+    v18 = [uniqueIdentifier3 isEqual:uniqueIdentifier4];
+
+    if (v18)
+    {
+      observers = [(CAFService *)self observers];
+      powerLevel = [(CAFEnginePowerLevel *)self powerLevelMarkerAvailableMin];
+      [observers enginePowerLevelService:self didUpdatePowerLevelMarkerAvailableMin:powerLevel];
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+  }
+
+  characteristicType3 = [updateCopy characteristicType];
+  if ([characteristicType3 isEqual:@"0x0000000041000024"])
+  {
+    uniqueIdentifier5 = [updateCopy uniqueIdentifier];
+    powerLevelMarkerAvailableMaxCharacteristic = [(CAFEnginePowerLevel *)self powerLevelMarkerAvailableMaxCharacteristic];
+    uniqueIdentifier6 = [powerLevelMarkerAvailableMaxCharacteristic uniqueIdentifier];
+    v23 = [uniqueIdentifier5 isEqual:uniqueIdentifier6];
+
+    if (v23)
+    {
+      observers = [(CAFService *)self observers];
+      powerLevel = [(CAFEnginePowerLevel *)self powerLevelMarkerAvailableMax];
+      [observers enginePowerLevelService:self didUpdatePowerLevelMarkerAvailableMax:powerLevel];
+      goto LABEL_12;
+    }
+  }
+
+  else
+  {
+  }
+
+  observers = [updateCopy characteristicType];
+  if (![observers isEqual:@"0x0000000036000067"])
+  {
+    goto LABEL_17;
+  }
+
+  uniqueIdentifier7 = [updateCopy uniqueIdentifier];
+  powerStateCharacteristic = [(CAFEnginePowerLevel *)self powerStateCharacteristic];
+  uniqueIdentifier8 = [powerStateCharacteristic uniqueIdentifier];
+  v27 = [uniqueIdentifier7 isEqual:uniqueIdentifier8];
+
+  if (v27)
+  {
+    observers = [(CAFService *)self observers];
+    [observers enginePowerLevelService:self didUpdatePowerState:{-[CAFEnginePowerLevel powerState](self, "powerState")}];
+    goto LABEL_17;
+  }
+
+LABEL_18:
+  v28.receiver = self;
+  v28.super_class = CAFEnginePowerLevel;
+  [(CAFService *)&v28 _characteristicDidUpdate:updateCopy fromGroupUpdate:groupUpdateCopy];
 }
 
 - (BOOL)registeredForPowerLevel

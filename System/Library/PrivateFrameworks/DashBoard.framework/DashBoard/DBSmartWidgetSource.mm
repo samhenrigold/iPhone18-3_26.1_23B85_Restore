@@ -207,13 +207,13 @@ void __41__DBSmartWidgetSource_refreshPredictions__block_invoke_cold_1(uint64_t 
   objc_sync_exit(obj);
 }
 
-uint64_t __38__DBSmartWidgetSource_registerSource___block_invoke()
+uint64_t __38__DBSmartWidgetSource_registerSource___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v0 = objc_opt_new();
-  v1 = _registeredSources;
-  _registeredSources = v0;
+  v2 = objc_opt_new();
+  v3 = _registeredSources;
+  _registeredSources = v2;
 
-  return MEMORY[0x2821F96F8](v0, v1);
+  return MEMORY[0x2821F96F8](v2, v3);
 }
 
 + (NSArray)registeredSources

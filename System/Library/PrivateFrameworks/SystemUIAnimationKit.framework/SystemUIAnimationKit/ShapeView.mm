@@ -8,7 +8,7 @@
 
 + (Class)layerClass
 {
-  sub_26C5ECD00();
+  sub_26C5ECD00(0, a2);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -20,14 +20,14 @@
   y = frame.origin.y;
   x = frame.origin.x;
   v8.receiver = self;
-  v8.super_class = type metadata accessor for ShapeView();
+  v8.super_class = type metadata accessor for ShapeView(self, a2);
   return [(ShapeView *)&v8 initWithFrame:x, y, width, height];
 }
 
 - (_TtC20SystemUIAnimationKit9ShapeView)initWithCoder:(id)coder
 {
   v7.receiver = self;
-  v7.super_class = type metadata accessor for ShapeView();
+  v7.super_class = type metadata accessor for ShapeView(self, a2);
   coderCopy = coder;
   v5 = [(ShapeView *)&v7 initWithCoder:coderCopy];
 

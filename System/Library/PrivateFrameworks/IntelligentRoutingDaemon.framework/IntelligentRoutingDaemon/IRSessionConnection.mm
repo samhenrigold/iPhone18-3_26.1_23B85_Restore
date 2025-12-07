@@ -56,23 +56,23 @@
 
 - (void)xpcInvalidationHandler
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   v3 = MEMORY[0x277D21260];
   v4 = *MEMORY[0x277D21260];
   if (os_log_type_enabled(*MEMORY[0x277D21260], OS_LOG_TYPE_DEFAULT))
   {
     v5 = v4;
     client = [(IRSessionConnection *)self client];
-    clientIdentifier = [client clientIdentifier];
+    v7 = objc_msgSend_clientIdentifier(client);
     v8 = MEMORY[0x277CCABB0];
     client2 = [(IRSessionConnection *)self client];
     connection = [client2 connection];
     v11 = [v8 numberWithInt:{objc_msgSend(connection, "processIdentifier")}];
-    v18 = 138412546;
-    v19 = clientIdentifier;
-    v20 = 2112;
-    v21 = v11;
-    _os_log_impl(&dword_25543D000, v5, OS_LOG_TYPE_DEFAULT, "#session-connection, Disconnection for: %@, with pid: %@", &v18, 0x16u);
+    v17 = 138412546;
+    v18 = v7;
+    v19 = 2112;
+    v20 = v11;
+    _os_log_impl(&dword_25543D000, v5, OS_LOG_TYPE_DEFAULT, "#session-connection, Disconnection for: %@, with pid: %@", &v17, 0x16u);
   }
 
   serviceIdentifier = [(IRSessionConnection *)self serviceIdentifier];
@@ -92,8 +92,6 @@
       }
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_createServiceWithParameters:(id)parameters reply:(id)reply
@@ -101,8 +99,8 @@
   v6 = MEMORY[0x277D212E0];
   replyCopy = reply;
   client = [(IRSessionConnection *)self client];
-  clientIdentifier = [client clientIdentifier];
-  v9 = [v6 serviceTokenForServiceIdentifier:clientIdentifier];
+  v8 = objc_msgSend_clientIdentifier(client);
+  v9 = [v6 serviceTokenForServiceIdentifier:v8];
   (*(reply + 2))(replyCopy, v9, 0);
 }
 
@@ -119,7 +117,7 @@
 
 - (void)_databaseExportwithReply:(id)reply
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   server = [(IRSessionConnection *)self server];
   persistenceManager = [server persistenceManager];
@@ -134,20 +132,18 @@
   {
     v9 = MEMORY[0x277CCA9B8];
     v10 = *MEMORY[0x277D21258];
-    v13 = *MEMORY[0x277CCA470];
-    v14[0] = @"Could not export DB";
-    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
+    v12 = *MEMORY[0x277CCA470];
+    v13[0] = @"Could not export DB";
+    v11 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
     v8 = [v9 errorWithDomain:v10 code:-12895 userInfo:v11];
   }
 
   replyCopy[2](replyCopy, v7, v8);
-
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_deleteDatabaseWithReply:(id)reply
 {
-  v13[1] = *MEMORY[0x277D85DE8];
+  v12[1] = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   os_unfair_lock_lock(&serviceCreationAndDeletionlock);
   server = [(IRSessionConnection *)self server];
@@ -162,28 +158,27 @@
   else
   {
     v9 = MEMORY[0x277CCA9B8];
-    v12 = *MEMORY[0x277CCA470];
-    v13[0] = @"Couldn't delete DB";
-    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+    v11 = *MEMORY[0x277CCA470];
+    v12[0] = @"Couldn't delete DB";
+    v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v12 forKeys:&v11 count:1];
     v8 = [v9 errorWithDomain:*MEMORY[0x277D21258] code:-12896 userInfo:v10];
   }
 
   replyCopy[2](replyCopy, v8);
 
   os_unfair_lock_unlock(&serviceCreationAndDeletionlock);
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_getServiceTokensWithReply:(id)reply
 {
-  v15[1] = *MEMORY[0x277D85DE8];
+  v14[1] = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   os_unfair_lock_lock(&serviceCreationAndDeletionlock);
   client = [(IRSessionConnection *)self client];
-  clientIdentifier = [client clientIdentifier];
+  v6 = objc_msgSend_clientIdentifier(client);
   server = [(IRSessionConnection *)self server];
   persistenceManager = [server persistenceManager];
-  v9 = [IRServiceContainer getServiceTokensForClientIdentifier:clientIdentifier persistenceManager:persistenceManager];
+  v9 = [IRServiceContainer getServiceTokensForClientIdentifier:v6 persistenceManager:persistenceManager];
 
   if (v9)
   {
@@ -193,21 +188,20 @@
   else
   {
     v11 = MEMORY[0x277CCA9B8];
-    v14 = *MEMORY[0x277CCA470];
-    v15[0] = @"Could not get service tokens";
-    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v15 forKeys:&v14 count:1];
+    v13 = *MEMORY[0x277CCA470];
+    v14[0] = @"Could not get service tokens";
+    v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v14 forKeys:&v13 count:1];
     v10 = [v11 errorWithDomain:*MEMORY[0x277D21258] code:-12897 userInfo:v12];
   }
 
   replyCopy[2](replyCopy, v9, v10);
 
   os_unfair_lock_unlock(&serviceCreationAndDeletionlock);
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_runWithConfiguration:(id)configuration
 {
-  v73[1] = *MEMORY[0x277D85DE8];
+  v72[1] = *MEMORY[0x277D85DE8];
   configurationCopy = configuration;
   server = [(IRSessionConnection *)self server];
   if (server)
@@ -215,8 +209,8 @@
     v6 = MEMORY[0x277D212E0];
     serviceToken = [configurationCopy serviceToken];
     client = [(IRSessionConnection *)self client];
-    clientIdentifier = [client clientIdentifier];
-    LODWORD(v6) = [v6 isServiceTokenValid:serviceToken forClientIdentifier:clientIdentifier];
+    v9 = objc_msgSend_clientIdentifier(client);
+    LODWORD(v6) = [v6 isServiceTokenValid:serviceToken forClientIdentifier:v9];
 
     if (v6)
     {
@@ -228,8 +222,8 @@
     {
       v12 = MEMORY[0x277D212E0];
       serviceToken2 = [(IRSessionConnection *)self client];
-      clientIdentifier2 = [serviceToken2 clientIdentifier];
-      v11 = [v12 serviceTokenForServiceIdentifier:clientIdentifier2];
+      v13 = objc_msgSend_clientIdentifier(serviceToken2);
+      v11 = [v12 serviceTokenForServiceIdentifier:v13];
     }
 
     if (v11)
@@ -261,37 +255,37 @@ LABEL_17:
       persistenceManager = [server persistenceManager];
       v18 = [IRServiceContainer getServicesWithPersistenceManager:persistenceManager];
 
-      v60[0] = MEMORY[0x277D85DD0];
-      v60[1] = 3221225472;
-      v60[2] = __45__IRSessionConnection__runWithConfiguration___block_invoke;
-      v60[3] = &unk_2797E2590;
+      v59[0] = MEMORY[0x277D85DD0];
+      v59[1] = 3221225472;
+      v59[2] = __45__IRSessionConnection__runWithConfiguration___block_invoke;
+      v59[3] = &unk_2797E2590;
       configurationCopy = v15;
-      v61 = configurationCopy;
-      v58 = v18;
-      v59 = [v18 firstWhere:v60];
+      v60 = configurationCopy;
+      v57 = v18;
+      v58 = [v18 firstWhere:v59];
       v19 = *MEMORY[0x277D21260];
       if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
       {
         client2 = [(IRSessionConnection *)self client];
-        clientIdentifier3 = [client2 clientIdentifier];
+        v53 = objc_msgSend_clientIdentifier(client2);
         serviceToken3 = [configurationCopy serviceToken];
         serviceIdentifier3 = [serviceToken3 serviceIdentifier];
         serviceToken4 = [configurationCopy serviceToken];
         [serviceToken4 servicePackage];
         v23 = IRServicePackageString();
         *buf = 138413058;
-        v65 = clientIdentifier3;
-        v66 = 2112;
-        v67 = serviceIdentifier3;
-        v68 = 2112;
-        v69 = v23;
-        v70 = 2112;
-        v71 = v59;
+        v64 = v53;
+        v65 = 2112;
+        v66 = serviceIdentifier3;
+        v67 = 2112;
+        v68 = v23;
+        v69 = 2112;
+        v70 = v58;
         _os_log_impl(&dword_25543D000, v19, OS_LOG_TYPE_INFO, "#session-connection, Client:%@ running Service Token:%@ with Service Package:%@\n Service found in database:%@", buf, 0x2Au);
       }
 
-      v24 = v59;
-      if (!v59)
+      v24 = v58;
+      if (!v58)
       {
         serviceToken5 = [configurationCopy serviceToken];
         serviceIdentifier4 = [serviceToken5 serviceIdentifier];
@@ -301,7 +295,7 @@ LABEL_17:
         serviceToken7 = [configurationCopy serviceToken];
         v29 = [v27 initWithServicePackage:{objc_msgSend(serviceToken7, "servicePackage")}];
         persistenceManager2 = [server persistenceManager];
-        v53 = [IRServiceContainer createServiceWithClientIdentifier:serviceIdentifier4 serviceIdentifier:serviceIdentifier5 parameters:v29 persistenceManager:persistenceManager2];
+        v52 = [IRServiceContainer createServiceWithClientIdentifier:serviceIdentifier4 serviceIdentifier:serviceIdentifier5 parameters:v29 persistenceManager:persistenceManager2];
 
         v31 = *MEMORY[0x277D21260];
         if (os_log_type_enabled(v31, OS_LOG_TYPE_INFO))
@@ -309,20 +303,20 @@ LABEL_17:
           serviceToken8 = [configurationCopy serviceToken];
           serviceIdentifier6 = [serviceToken8 serviceIdentifier];
           client3 = [(IRSessionConnection *)self client];
-          clientIdentifier4 = [client3 clientIdentifier];
-          v36 = clientIdentifier4;
+          v35 = objc_msgSend_clientIdentifier(client3);
+          v36 = v35;
           v37 = @"YES";
           *buf = 138412802;
-          v65 = serviceIdentifier6;
-          v66 = 2112;
-          if (!v53)
+          v64 = serviceIdentifier6;
+          v65 = 2112;
+          if (!v52)
           {
             v37 = @"NO";
           }
 
-          v67 = clientIdentifier4;
-          v68 = 2112;
-          v69 = v37;
+          v66 = v35;
+          v67 = 2112;
+          v68 = v37;
           _os_log_impl(&dword_25543D000, v31, OS_LOG_TYPE_INFO, "#session-connection, Creating service: %@, for client: %@, success: %@", buf, 0x20u);
         }
 
@@ -344,11 +338,11 @@ LABEL_17:
         goto LABEL_17;
       }
 
-      v50 = MEMORY[0x277CCA9B8];
-      v62 = *MEMORY[0x277CCA470];
-      v63 = @"Could not run service";
-      v51 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v63 forKeys:&v62 count:1];
-      serviceHandler = [v50 errorWithDomain:*MEMORY[0x277D21258] code:-12889 userInfo:v51];
+      v49 = MEMORY[0x277CCA9B8];
+      v61 = *MEMORY[0x277CCA470];
+      v62 = @"Could not run service";
+      v50 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v62 forKeys:&v61 count:1];
+      serviceHandler = [v49 errorWithDomain:*MEMORY[0x277D21258] code:-12889 userInfo:v50];
 
       client4 = [(IRSessionConnection *)self client];
       [client4 _sessionDidFailWithError:serviceHandler];
@@ -357,9 +351,9 @@ LABEL_17:
     else
     {
       v46 = MEMORY[0x277CCA9B8];
-      v72 = *MEMORY[0x277CCA470];
-      v73[0] = @"Could not run service, unknown client";
-      v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v73 forKeys:&v72 count:1];
+      v71 = *MEMORY[0x277CCA470];
+      v72[0] = @"Could not run service, unknown client";
+      v47 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v72 forKeys:&v71 count:1];
       serviceHandler = [v46 errorWithDomain:*MEMORY[0x277D21258] code:-12889 userInfo:v47];
 
       client5 = [(IRSessionConnection *)self client];
@@ -368,8 +362,6 @@ LABEL_17:
 
 LABEL_21:
   }
-
-  v49 = *MEMORY[0x277D85DE8];
 }
 
 uint64_t __45__IRSessionConnection__runWithConfiguration___block_invoke(uint64_t a1, void *a2)
@@ -430,7 +422,7 @@ void __41__IRSessionConnection__updateCandidates___block_invoke(uint64_t a1, uin
 
 - (void)_requestCurrentContextWithBundleID:(id)d
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v30 = *MEMORY[0x277D85DE8];
   dCopy = d;
   serviceHandler = [(IRSessionConnection *)self serviceHandler];
   v6 = [serviceHandler requestCurrentContextWithBundleID:dCopy];
@@ -443,7 +435,7 @@ void __41__IRSessionConnection__updateCandidates___block_invoke(uint64_t a1, uin
   {
     log = v8;
     client2 = [(IRSessionConnection *)self client];
-    clientIdentifier = [client2 clientIdentifier];
+    v17 = objc_msgSend_clientIdentifier(client2);
     allKeys = [v6 allKeys];
     firstObject = [allKeys firstObject];
     allValues = [v6 allValues];
@@ -453,24 +445,22 @@ void __41__IRSessionConnection__updateCandidates___block_invoke(uint64_t a1, uin
     firstObject3 = [allValues2 firstObject];
     v16 = [IRLogQEUtility getContextAsString:firstObject3];
     *buf = 138413314;
-    v22 = clientIdentifier;
-    v23 = 2112;
-    v24 = @"Request";
-    v25 = 2112;
-    v26 = firstObject;
-    v27 = 2112;
-    v28 = bundleIdentifier;
-    v29 = 2112;
-    v30 = v16;
+    v21 = v17;
+    v22 = 2112;
+    v23 = @"Request";
+    v24 = 2112;
+    v25 = firstObject;
+    v26 = 2112;
+    v27 = bundleIdentifier;
+    v28 = 2112;
+    v29 = v16;
     _os_log_impl(&dword_25543D000, log, OS_LOG_TYPE_DEFAULT, "#session-connection, [%@]:[%@]: didUpdateContexts: [%@][%@]:\n%@", buf, 0x34u);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_requestCurrentContextWithReply:(id)reply
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   replyCopy = reply;
   serviceHandler = [(IRSessionConnection *)self serviceHandler];
   v6 = [serviceHandler requestCurrentContextWithBundleID:0];
@@ -480,7 +470,7 @@ void __41__IRSessionConnection__updateCandidates___block_invoke(uint64_t a1, uin
   {
     log = v7;
     client = [(IRSessionConnection *)self client];
-    clientIdentifier = [client clientIdentifier];
+    v17 = objc_msgSend_clientIdentifier(client);
     allKeys = [v6 allKeys];
     firstObject = [allKeys firstObject];
     allValues = [v6 allValues];
@@ -490,23 +480,21 @@ void __41__IRSessionConnection__updateCandidates___block_invoke(uint64_t a1, uin
     firstObject3 = [allValues2 firstObject];
     v14 = [IRLogQEUtility getContextAsString:firstObject3];
     *buf = 138413314;
-    v23 = clientIdentifier;
-    v24 = 2112;
-    v25 = @"RequestWithReply";
-    v26 = 2112;
-    v27 = firstObject;
-    v28 = 2112;
-    v29 = bundleIdentifier;
-    v30 = 2112;
-    v31 = v14;
+    v22 = v17;
+    v23 = 2112;
+    v24 = @"RequestWithReply";
+    v25 = 2112;
+    v26 = firstObject;
+    v27 = 2112;
+    v28 = bundleIdentifier;
+    v29 = 2112;
+    v30 = v14;
     _os_log_impl(&dword_25543D000, log, OS_LOG_TYPE_DEFAULT, "#session-connection, [%@]:[%@]: didUpdateContexts: [%@][%@]:\n%@", buf, 0x34u);
   }
 
   allValues3 = [v6 allValues];
   firstObject4 = [allValues3 firstObject];
   replyCopy[2](replyCopy, firstObject4, 0);
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_invalidate
@@ -517,7 +505,7 @@ void __41__IRSessionConnection__updateCandidates___block_invoke(uint64_t a1, uin
 
 - (void)didUpdateContexts:(id)contexts withReason:(id)reason
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   contextsCopy = contexts;
   reasonCopy = reason;
   if ([(IRSessionConnection *)self mode]== 1)
@@ -530,7 +518,7 @@ void __41__IRSessionConnection__updateCandidates___block_invoke(uint64_t a1, uin
     {
       log = v9;
       client2 = [(IRSessionConnection *)self client];
-      clientIdentifier = [client2 clientIdentifier];
+      v17 = objc_msgSend_clientIdentifier(client2);
       allKeys = [contextsCopy allKeys];
       firstObject = [allKeys firstObject];
       allValues = [contextsCopy allValues];
@@ -540,25 +528,23 @@ void __41__IRSessionConnection__updateCandidates___block_invoke(uint64_t a1, uin
       firstObject3 = [allValues2 firstObject];
       v16 = [IRLogQEUtility getContextAsString:firstObject3];
       *buf = 138413314;
-      v23 = clientIdentifier;
-      v24 = 2112;
-      v25 = reasonCopy;
-      v26 = 2112;
-      v27 = firstObject;
-      v28 = 2112;
-      v29 = bundleIdentifier;
-      v30 = 2112;
-      v31 = v16;
+      v22 = v17;
+      v23 = 2112;
+      v24 = reasonCopy;
+      v25 = 2112;
+      v26 = firstObject;
+      v27 = 2112;
+      v28 = bundleIdentifier;
+      v29 = 2112;
+      v30 = v16;
       _os_log_impl(&dword_25543D000, log, OS_LOG_TYPE_DEFAULT, "#session-connection, [%@]:[%@]: didUpdateContexts: [%@][%@]:\n%@", buf, 0x34u);
     }
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (void)didUpdateBundlesWithSignificantInteractionPattern:(id)pattern
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   patternCopy = pattern;
   client = [(IRSessionConnection *)self client];
   [client _didUpdateBundlesWithSignificantInteractionPattern:patternCopy];
@@ -568,15 +554,13 @@ void __41__IRSessionConnection__updateCandidates___block_invoke(uint64_t a1, uin
   {
     v7 = v6;
     client2 = [(IRSessionConnection *)self client];
-    clientIdentifier = [client2 clientIdentifier];
-    v11 = 138412546;
-    v12 = clientIdentifier;
-    v13 = 2112;
-    v14 = patternCopy;
-    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "#session-connection, [%@]: Did update bundles: [%@]", &v11, 0x16u);
+    v9 = objc_msgSend_clientIdentifier(client2);
+    v10 = 138412546;
+    v11 = v9;
+    v12 = 2112;
+    v13 = patternCopy;
+    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "#session-connection, [%@]: Did update bundles: [%@]", &v10, 0x16u);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_setSpotOnLocationWithParameters:(id)parameters
@@ -584,13 +568,13 @@ void __41__IRSessionConnection__updateCandidates___block_invoke(uint64_t a1, uin
   parametersCopy = parameters;
   serviceHandler = [(IRSessionConnection *)self serviceHandler];
   client = [(IRSessionConnection *)self client];
-  clientIdentifier = [client clientIdentifier];
-  [serviceHandler setSpotOnLocationWithParameters:parametersCopy andClientID:clientIdentifier];
+  v6 = objc_msgSend_clientIdentifier(client);
+  [serviceHandler setSpotOnLocationWithParameters:parametersCopy andClientID:v6];
 }
 
 - (void)didSpotOnLocationComplete:(id)complete
 {
-  v16 = *MEMORY[0x277D85DE8];
+  v15 = *MEMORY[0x277D85DE8];
   completeCopy = complete;
   client = [(IRSessionConnection *)self client];
   [client _didSpotOnLocationComplete:completeCopy];
@@ -600,16 +584,14 @@ void __41__IRSessionConnection__updateCandidates___block_invoke(uint64_t a1, uin
   {
     v7 = v6;
     client2 = [(IRSessionConnection *)self client];
-    clientIdentifier = [client2 clientIdentifier];
+    v9 = objc_msgSend_clientIdentifier(client2);
     localizedDescription = [completeCopy localizedDescription];
-    v12 = 138412546;
-    v13 = clientIdentifier;
-    v14 = 2112;
-    v15 = localizedDescription;
-    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "#session-connection, [%@]: Did Spot On Location Complete with error: [%@]", &v12, 0x16u);
+    v11 = 138412546;
+    v12 = v9;
+    v13 = 2112;
+    v14 = localizedDescription;
+    _os_log_impl(&dword_25543D000, v7, OS_LOG_TYPE_DEFAULT, "#session-connection, [%@]: Did Spot On Location Complete with error: [%@]", &v11, 0x16u);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -58,18 +58,18 @@
 
 - (void)transitionToStateIfPossible:(int64_t)possible
 {
-  v18 = *MEMORY[0x1E69E9840];
-  v5 = PGLogCommon();
+  v19 = *MEMORY[0x1E69E9840];
+  v5 = PGLogCommon(self);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     v6 = NSStringFromPGBackgroundPIPAuthorizationState(possible);
-    v12 = 136315650;
-    v13 = "[_PGBackgroundPIPServiceConnectionTarget transitionToStateIfPossible:]";
-    v14 = 2114;
-    v15 = v6;
-    v16 = 2114;
+    v13 = 136315650;
+    v14 = "[_PGBackgroundPIPServiceConnectionTarget transitionToStateIfPossible:]";
+    v15 = 2114;
+    v16 = v6;
+    v17 = 2114;
     selfCopy2 = self;
-    _os_log_impl(&dword_1BB282000, v5, OS_LOG_TYPE_DEFAULT, "%s requestedState: %{public}@ for %{public}@", &v12, 0x20u);
+    _os_log_impl(&dword_1BB282000, v5, OS_LOG_TYPE_DEFAULT, "%s requestedState: %{public}@ for %{public}@", &v13, 0x20u);
   }
 
   os_unfair_lock_lock(&self->_lock);
@@ -82,17 +82,17 @@
       return;
     }
 
-    delegate = PGLogCommon();
+    delegate = PGLogCommon(v9);
     if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = NSStringFromPGBackgroundPIPAuthorizationState(possible);
-      v12 = 136315650;
-      v13 = "[_PGBackgroundPIPServiceConnectionTarget transitionToStateIfPossible:]";
-      v14 = 2114;
-      v15 = v9;
-      v16 = 2114;
+      v10 = NSStringFromPGBackgroundPIPAuthorizationState(possible);
+      v13 = 136315650;
+      v14 = "[_PGBackgroundPIPServiceConnectionTarget transitionToStateIfPossible:]";
+      v15 = 2114;
+      v16 = v10;
+      v17 = 2114;
       selfCopy2 = self;
-      _os_log_impl(&dword_1BB282000, delegate, OS_LOG_TYPE_DEFAULT, "%s Refusing requestedState: %{public}@ for %{public}@", &v12, 0x20u);
+      _os_log_impl(&dword_1BB282000, delegate, OS_LOG_TYPE_DEFAULT, "%s Refusing requestedState: %{public}@ for %{public}@", &v13, 0x20u);
     }
   }
 
@@ -114,8 +114,8 @@
     else
     {
       remoteTarget = [(BSServiceConnection *)self->_connection remoteTarget];
-      v11 = [MEMORY[0x1E696AD98] numberWithInteger:possible];
-      [remoteTarget transitionToState:v11];
+      v12 = [MEMORY[0x1E696AD98] numberWithInteger:possible];
+      [remoteTarget transitionToState:v12];
 
       if (possible != 1)
       {

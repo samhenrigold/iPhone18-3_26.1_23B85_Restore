@@ -21,6 +21,7 @@
 - (void)setRSSI:(int64_t)i;
 - (void)setSNR:(int64_t)r;
 - (void)updateCCA:(int64_t)a;
+- (void)updateCurrentHostAPState:(BOOL)state channel:(int)channel centerFreq:(unsigned int)freq bandwidth:(unsigned int)bandwidth apState:(int)apState;
 - (void)updateFwTxPer;
 - (void)updateFwTxStats:(int64_t)stats :(int64_t)a4 :(int64_t)a5;
 - (void)updatePhyRates:(int64_t)rates :(int64_t)a4 :(int64_t)a5;
@@ -30,6 +31,7 @@
 - (void)updateRxStats:(int64_t)stats :(int64_t)a4;
 - (void)updateTxPer;
 - (void)updateTxStats:(int64_t)stats :(int64_t)a4 :(int64_t)a5;
+- (void)updateWeightedAverageMetrics:(int)metrics :(int)a4 :(unsigned int)a5 :(unsigned int)a6;
 @end
 
 @implementation WCM_WiFiService
@@ -201,6 +203,34 @@
   v3.receiver = self;
   v3.super_class = WCM_WiFiService;
   [(WCM_WiFiService *)&v3 dealloc];
+}
+
+- (void)updateCurrentHostAPState:(BOOL)state channel:(int)channel centerFreq:(unsigned int)freq bandwidth:(unsigned int)bandwidth apState:(int)apState
+{
+  v7 = *&apState;
+  v8 = *&bandwidth;
+  v9 = *&freq;
+  v10 = *&channel;
+  stateCopy = state;
+  [+[WCM_PolicyManager singleton](WCM_PolicyManager "singleton")];
+  v13 = +[WCM_PolicyManager singleton];
+  if (stateCopy)
+  {
+    [v13 updatehostApState:1];
+    [(WCM_WiFiDelegate *)self->mDelegate updateWiFiState:v7 channel:v10 centerFreq:v9 bandwidth:v8 hostAp:1];
+    mDelegate = self->mDelegate;
+    v15 = v7 > 2;
+  }
+
+  else
+  {
+    [v13 updatehostApState:0];
+    [(WCM_WiFiDelegate *)self->mDelegate updateWiFiState:v7 channel:0 centerFreq:0 bandwidth:0 hostAp:0];
+    mDelegate = self->mDelegate;
+    v15 = 0;
+  }
+
+  [(WCM_WiFiDelegate *)mDelegate update5GHzHostAPState:v15];
 }
 
 - (void)initializeiRATMetrics
@@ -487,9 +517,34 @@ LABEL_6:
 
     *&self->m_movingAverage_txFrame = vdivq_f64(vmlaq_f64(vcvtq_f64_s64(v8), _Q2, *&self->m_movingAverage_txFrame), _Q1);
     [(WCM_WiFiService *)self updateTxPer];
-    m_txFail = self->m_txFail;
-    [WCM_Logging logLevel:19 message:@"WiFi TX Stats: TX Fail %lld, Tx Frame %lld, Cum Tx Fail %lld, Cum TX Frame %lld, M-AVG TxFrame %f, M-AVG TxFail %f, M-AVG TX PER %f", m_txFail, self->m_txFrame, self->m_cumulative_txFail, self->m_cumulative_txFrame, *&self->m_movingAverage_txFrame, *&self->m_movingAverage_txFail, *&self->m_movingAverageTxPer];
+    [WCM_Logging logLevel:19 message:@"WiFi TX Stats: TX Fail %lld, Tx Frame %lld, Cum Tx Fail %lld, Cum TX Frame %lld, M-AVG TxFrame %f, M-AVG TxFail %f, M-AVG TX PER %f", self->m_txFail, self->m_txFrame, self->m_cumulative_txFail, self->m_cumulative_txFrame, *&self->m_movingAverage_txFrame, *&self->m_movingAverage_txFail, *&self->m_movingAverageTxPer];
   }
+}
+
+- (void)updateWeightedAverageMetrics:(int)metrics :(int)a4 :(unsigned int)a5 :(unsigned int)a6
+{
+  self->m_wghtAvgMetricsValid = 1;
+  if (metrics)
+  {
+    self->m_wghtAvgRSSI = metrics;
+  }
+
+  if (a4)
+  {
+    self->m_wghtAvgSNR = a4;
+  }
+
+  if (a5)
+  {
+    self->m_wghtAvgTXPhyRate = a5;
+  }
+
+  if (a6)
+  {
+    self->m_wghtAvgRXPhyRate = a6;
+  }
+
+  [(WCM_WiFiDelegate *)self->mDelegate updateWeightAvgLQM:*&a6 txRate:*&a5];
 }
 
 - (void)resetCumulativeCounters

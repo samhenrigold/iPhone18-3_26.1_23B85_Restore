@@ -40,27 +40,25 @@
 
 + (void)initialize
 {
-  v7[15] = *MEMORY[0x1E69E9840];
+  v6[15] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_class();
-  v7[0] = objc_opt_class();
-  v7[1] = objc_opt_class();
-  v7[2] = objc_opt_class();
-  v7[3] = objc_opt_class();
-  v7[4] = objc_opt_class();
-  v7[5] = objc_opt_class();
-  v7[6] = objc_opt_class();
-  v7[7] = objc_opt_class();
-  v7[8] = objc_opt_class();
-  v7[9] = objc_opt_class();
-  v7[10] = objc_opt_class();
-  v7[11] = objc_opt_class();
-  v7[12] = objc_opt_class();
-  v7[13] = objc_opt_class();
-  v7[14] = objc_opt_class();
-  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v7, 15);
+  v6[0] = objc_opt_class();
+  v6[1] = objc_opt_class();
+  v6[2] = objc_opt_class();
+  v6[3] = objc_opt_class();
+  v6[4] = objc_opt_class();
+  v6[5] = objc_opt_class();
+  v6[6] = objc_opt_class();
+  v6[7] = objc_opt_class();
+  v6[8] = objc_opt_class();
+  v6[9] = objc_opt_class();
+  v6[10] = objc_opt_class();
+  v6[11] = objc_opt_class();
+  v6[12] = objc_opt_class();
+  v6[13] = objc_opt_class();
+  v6[14] = objc_opt_class();
+  v5 = objc_msgSend_arrayWithObjects_count_(MEMORY[0x1E695DEC8], v4, v6, 15);
   sub_1886CEE50(self, v3, v5, 0, 1);
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (CKSyncEngineEventType)type

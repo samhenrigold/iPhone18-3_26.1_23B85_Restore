@@ -76,165 +76,166 @@
 
 - (double)initWithImage:(double)image pressedImage:(double)pressedImage label:(double)label labelHeight:(double)height withBarStyle:(uint64_t)style withStyle:(void *)withStyle withInsets:(void *)insets possibleTitles:(uint64_t)self0 possibleSystemItems:(uint64_t)self1 withToolbarTintColor:(uint64_t)self2 bezel:(uint64_t)self3 imageInsets:(double)self4 glowInsets:(double)self5 landscape:(double)self6
 {
-  v79 = *MEMORY[0x1E69E9840];
+  titlesCopy = titles;
+  v82 = *MEMORY[0x1E69E9840];
   if (withStyle)
   {
     [withStyle size];
-    v37 = v36;
-    v39 = v38;
+    v40 = v39;
+    v42 = v41;
   }
 
   else
   {
-    v37 = *MEMORY[0x1E695F060];
-    v39 = *(MEMORY[0x1E695F060] + 8);
+    v40 = *MEMORY[0x1E695F060];
+    v42 = *(MEMORY[0x1E695F060] + 8);
   }
 
-  v40 = MEMORY[0x1E695F058];
-  v41 = MEMORY[0x1E695EFF8];
+  v43 = MEMORY[0x1E695F058];
+  v44 = MEMORY[0x1E695EFF8];
   pressedImageCopy = pressedImage;
   heightCopy = height;
   labelCopy = label;
   if (insets)
   {
     [insets size];
-    if (v42 > v37)
+    if (v45 > v40)
     {
-      v37 = v42;
+      v40 = v45;
     }
 
-    if (v43 > v39)
+    if (v46 > v42)
     {
-      v39 = v43;
+      v42 = v46;
     }
   }
 
-  v44 = *(v40 + 16);
-  v46 = *v41;
-  v45 = v41[1];
+  v47 = *(v43 + 16);
+  v49 = *v44;
+  v48 = v44[1];
   if (a17)
   {
-    v47 = v41[1];
+    v50 = v44[1];
     if ([a17 count])
     {
-      titlesCopy = titles;
-      v48 = *MEMORY[0x1E695F060];
-      v76 = 0u;
+      v70 = titlesCopy;
+      v51 = *MEMORY[0x1E695F060];
+      v79 = 0u;
+      v80 = 0u;
       v77 = 0u;
-      v74 = 0u;
-      v75 = 0u;
-      v49 = [a17 countByEnumeratingWithState:&v74 objects:v78 count:16];
-      if (v49)
+      v78 = 0u;
+      v52 = [a17 countByEnumeratingWithState:&v77 objects:v81 count:16];
+      if (v52)
       {
-        v50 = v49;
-        v51 = *v75;
+        v53 = v52;
+        v54 = *v78;
         do
         {
-          for (i = 0; i != v50; ++i)
+          for (i = 0; i != v53; ++i)
           {
-            if (*v75 != v51)
+            if (*v78 != v54)
             {
               objc_enumerationMutation(a17);
             }
 
-            integerValue = [*(*(&v74 + 1) + 8 * i) integerValue];
-            v72 = 0;
-            v73 = 0;
-            LOWORD(v66) = a28;
-            [UIBarButtonItem _getSystemItemStyle:0 title:0 image:&v73 selectedImage:&v72 action:0 forBarStyle:items landscape:v66 alwaysBordered:integerValue usingSystemItem:0 usingItemStyle:?];
-            [v73 size];
-            if (v48 < v54)
+            integerValue = [*(*(&v77 + 1) + 8 * i) integerValue];
+            v75 = 0;
+            v76 = 0;
+            LOWORD(v69) = a28;
+            [UIBarButtonItem _getSystemItemStyle:0 title:0 image:&v76 selectedImage:&v75 action:0 forBarStyle:items landscape:v69 alwaysBordered:integerValue usingSystemItem:0 usingItemStyle:?];
+            [v76 size];
+            if (v51 < v57)
             {
-              [v73 size];
-              v48 = v55;
+              [v76 size];
+              v51 = v58;
             }
 
-            if (v72)
+            if (v75)
             {
-              [v72 size];
-              if (v48 < v56)
+              [v75 size];
+              if (v51 < v59)
               {
-                [v72 size];
-                v48 = v57;
+                [v75 size];
+                v51 = v60;
               }
             }
           }
 
-          v50 = [a17 countByEnumeratingWithState:&v74 objects:v78 count:16];
+          v53 = [a17 countByEnumeratingWithState:&v77 objects:v81 count:16];
         }
 
-        while (v50);
+        while (v53);
       }
 
-      if (v37 < v48)
+      if (v40 < v51)
       {
-        v37 = v48;
+        v40 = v51;
       }
 
-      titles = titlesCopy;
+      titlesCopy = v70;
     }
 
-    v45 = v47;
+    v48 = v50;
   }
 
-  if (v44 + 2.0 <= v37)
+  if (v47 + 2.0 <= v40)
   {
-    v58 = v37;
+    v61 = v40;
   }
 
   else
   {
-    v58 = v44 + 2.0;
+    v61 = v47 + 2.0;
   }
 
-  v71.receiver = self;
-  v71.super_class = UIToolbarButton;
-  v59 = objc_msgSendSuper2(&v71, sel_initWithFrame_, v46, v45, v58, v39);
-  *(v59 + 77) = a18;
-  *(v59 + 65) = a24;
-  *(v59 + 66) = a25;
-  *(v59 + 67) = a26;
-  *(v59 + 68) = a27;
-  *(v59 + 63) = items;
-  v59[64] = 0.0;
+  v74.receiver = self;
+  v74.super_class = UIToolbarButton;
+  v62 = objc_msgSendSuper2(&v74, sel_initWithFrame_, v49, v48, v61, v42);
+  *(v62 + 77) = a18;
+  *(v62 + 65) = a24;
+  *(v62 + 66) = a25;
+  *(v62 + 67) = a26;
+  *(v62 + 68) = a27;
+  *(v62 + 63) = items;
+  v62[64] = 0.0;
   if (withStyle)
   {
-    *(v59 + 61) = [(UINavigationButton *)[_UIToolbarNavigationButton alloc] initWithImage:withStyle width:2 * (color == 2) style:1 applyBezel:*(v59 + 63) forBarStyle:0 buttonItemStyle:0.0];
-    v61 = pressedImageCopy;
-    v60 = heightCopy;
+    *(v62 + 61) = [(UINavigationButton *)[_UIToolbarNavigationButton alloc] initWithImage:withStyle width:2 * (color == 2) style:1 applyBezel:*(v62 + 63) forBarStyle:0 buttonItemStyle:0.0];
+    v64 = pressedImageCopy;
+    v63 = heightCopy;
     imageCopy2 = image;
-    v62 = labelCopy;
+    v65 = labelCopy;
   }
 
   else
   {
-    v61 = pressedImageCopy;
-    v60 = heightCopy;
+    v64 = pressedImageCopy;
+    v63 = heightCopy;
     imageCopy2 = image;
-    v62 = labelCopy;
-    if (titles)
+    v65 = labelCopy;
+    if (titlesCopy)
     {
-      v59[62] = 0.0;
-      v64 = 4.0;
+      v62[62] = 0.0;
+      v67 = 4.0;
       if (a2 > 0.0)
       {
-        v64 = a2;
+        v67 = a2;
       }
 
-      v59[72] = v64;
+      v62[72] = v67;
     }
   }
 
-  v59[73] = imageCopy2 + a20;
-  v59[74] = v61 + a21;
-  v59[75] = v62 + a22;
-  v59[76] = v60 + a23;
-  [v59 setOpaque:0];
-  [v59 addSubview:*(v59 + 61)];
-  [v59 _adjustPushButtonForMiniBar:0 isChangingBarHeight:0];
-  [v59 addSubview:*(v59 + 62)];
-  [v59 setNeedsLayout];
-  return v59;
+  v62[73] = imageCopy2 + a20;
+  v62[74] = v64 + a21;
+  v62[75] = v65 + a22;
+  v62[76] = v63 + a23;
+  [v62 setOpaque:0];
+  [v62 addSubview:*(v62 + 61)];
+  [v62 _adjustPushButtonForMiniBar:0 isChangingBarHeight:0];
+  [v62 addSubview:*(v62 + 62)];
+  [v62 setNeedsLayout];
+  return v62;
 }
 
 - (void)dealloc

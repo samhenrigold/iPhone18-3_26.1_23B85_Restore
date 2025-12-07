@@ -145,7 +145,7 @@ LABEL_22:
   v8 = *(qword_1000D18A8 + 8);
   if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
   {
-    sub_100075E4C(self, v8);
+    sub_100075E4C(self, v8, changeCopy);
   }
 
 LABEL_28:

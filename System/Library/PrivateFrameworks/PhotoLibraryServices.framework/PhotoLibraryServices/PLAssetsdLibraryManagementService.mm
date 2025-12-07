@@ -823,7 +823,7 @@ LABEL_8:
       connectionAuthorization = self->_connectionAuthorization;
       if (connectionAuthorization)
       {
-        [(PLAssetsdConnectionAuthorization *)connectionAuthorization clientAuditToken];
+        objc_msgSend_clientAuditToken(connectionAuthorization);
       }
 
       else
@@ -846,7 +846,7 @@ LABEL_8:
     {
       if (self->_connectionAuthorization)
       {
-        [(PLAssetsdConnectionAuthorization *)self->_connectionAuthorization clientAuditToken];
+        objc_msgSend_clientAuditToken(self->_connectionAuthorization);
         v22 = *(*(&buf + 1) + 40);
       }
 

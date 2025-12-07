@@ -14,21 +14,22 @@
 
 - (void)viewDidLoad
 {
-  v3.receiver = self;
-  v3.super_class = type metadata accessor for CatalogWorkoutDetailViewController();
-  v2 = v3.receiver;
-  [(CatalogWorkoutDetailViewController *)&v3 viewDidLoad];
+  v5.receiver = self;
+  v5.super_class = type metadata accessor for CatalogWorkoutDetailViewController();
+  v2 = v5.receiver;
+  [(CatalogWorkoutDetailViewController *)&v5 viewDidLoad];
   sub_20BE80794();
-  sub_20BF00F54();
+  sub_20BF00F54(v3);
   sub_20B795A10(0);
-  sub_20BAD5CFC();
-  sub_20BF003BC();
+  v4.n128_f64[0] = sub_20BAD5CFC();
+  sub_20BF003BC(v4);
 }
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_20BF00540(appear);
+  sub_20BF00540(appearCopy);
 }
 
 - (void)viewIsAppearing:(BOOL)appearing
@@ -55,8 +56,8 @@
   v7.super_class = type metadata accessor for CatalogWorkoutDetailViewController();
   v4 = v7.receiver;
   [(CatalogWorkoutDetailViewController *)&v7 viewDidDisappear:disappearCopy];
-  sub_20BF02C58(&unk_27C770518, v5, type metadata accessor for CatalogWorkoutDetailViewController);
-  sub_20BF02C58(&unk_27C770530, v6, type metadata accessor for CatalogWorkoutDetailViewController);
+  sub_20BF02C58(&unk_27C770518, v5, type metadata accessor for CatalogWorkoutDetailViewController, &unk_20C183770);
+  sub_20BF02C58(&unk_27C770530, v6, type metadata accessor for CatalogWorkoutDetailViewController, &unk_20C1836E8);
   sub_20C139374();
 }
 
@@ -91,7 +92,7 @@
 
   sub_20BF99F98(sub_20BF02C50, v5);
 
-  __swift_destroy_boxed_opaque_existential_1(&v6);
+  __swift_destroy_boxed_opaque_existential_1(v6);
 }
 
 - (_TtC9SeymourUI34CatalogWorkoutDetailViewController)initWithNibName:(id)name bundle:(id)bundle

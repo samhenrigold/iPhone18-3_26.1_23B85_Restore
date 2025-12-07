@@ -5,6 +5,7 @@
 - (BOOL)stopAdvertisingForData:(id)data completionHandler:(id)handler;
 - (SFBonjourNearBy)initWithQueue:(id)queue;
 - (id)_endpointForUniqueID:(id)d;
+- (id)_handleConnection:(id)connection isAdvToBrowserConnection:(BOOL)browserConnection;
 - (id)getUniqueServiceNameForAdvertiser;
 - (id)randomUUID;
 - (void)_cleanUp;
@@ -75,20 +76,19 @@
     localBrowserUUIDString = v7->_localBrowserUUIDString;
     v7->_localBrowserUUIDString = randomUUID2;
 
-    v24 = daemon_log();
-    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
+    v25 = daemon_log(v24);
+    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
     {
-      v25 = v7->_localAdvertiserUUIDString;
-      v26 = v7->_localBrowserUUIDString;
+      v26 = v7->_localAdvertiserUUIDString;
+      v27 = v7->_localBrowserUUIDString;
       *buf = 138412546;
-      v31 = v25;
+      v31 = v26;
       v32 = 2112;
-      v33 = v26;
-      _os_log_impl(&dword_1A9662000, v24, OS_LOG_TYPE_DEFAULT, "LocalAdvID %@, LocalBrowserID: %@", buf, 0x16u);
+      v33 = v27;
+      _os_log_impl(&dword_1A9662000, v25, OS_LOG_TYPE_DEFAULT, "LocalAdvID %@, LocalBrowserID: %@", buf, 0x16u);
     }
   }
 
-  v27 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -117,23 +117,24 @@
 
 void __35__SFBonjourNearBy__startAdvertiser__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v6 = a3;
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v8 = WeakRetained;
   if (WeakRetained)
   {
-    v8 = daemon_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = daemon_log(WeakRetained);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v21[0] = 67109120;
-      v21[1] = a2;
-      _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "advertiser state handler with state %d", v21, 8u);
+      v22[0] = 67109120;
+      v22[1] = a2;
+      _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_DEFAULT, "advertiser state handler with state %d", v22, 8u);
     }
 
     if (v6)
     {
-      v9 = daemon_log();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      v11 = daemon_log(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         __35__SFBonjourNearBy__startAdvertiser__block_invoke_cold_1();
       }
@@ -142,73 +143,71 @@ void __35__SFBonjourNearBy__startAdvertiser__block_invoke(uint64_t a1, int a2, v
     switch(a2)
     {
       case 4:
-        v14 = daemon_log();
-        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
+        v16 = daemon_log(v10);
+        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v21[0]) = 0;
-          _os_log_impl(&dword_1A9662000, v14, OS_LOG_TYPE_DEFAULT, "advertiser cancelled", v21, 2u);
+          LOWORD(v22[0]) = 0;
+          _os_log_impl(&dword_1A9662000, v16, OS_LOG_TYPE_DEFAULT, "advertiser cancelled", v22, 2u);
         }
 
-        [WeakRetained setListener:0];
-        [WeakRetained _cleanupAdvertiser];
-        v15 = *(*(*(a1 + 32) + 8) + 40);
-        if (v15)
+        [v8 setListener:0];
+        [v8 _cleanupAdvertiser];
+        v17 = *(*(*(a1 + 32) + 8) + 40);
+        if (v17)
         {
-          v12 = nw_error_copy_cf_error(v15);
+          v14 = nw_error_copy_cf_error(v17);
         }
 
         else
         {
-          v12 = 0;
+          v14 = 0;
         }
 
-        v16 = [WeakRetained advertisingStateUpdateHandler];
+        v18 = [v8 advertisingStateUpdateHandler];
 
-        if (v16)
+        if (v18)
         {
-          v17 = [WeakRetained advertisingStateUpdateHandler];
-          v17[2](v17, 0, v12);
+          v19 = [v8 advertisingStateUpdateHandler];
+          v19[2](v19, 0, v14);
         }
 
-        v18 = *(*(a1 + 32) + 8);
-        v19 = *(v18 + 40);
-        *(v18 + 40) = 0;
+        v20 = *(*(a1 + 32) + 8);
+        v21 = *(v20 + 40);
+        *(v20 + 40) = 0;
 
         goto LABEL_26;
       case 3:
-        v13 = daemon_log();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+        v15 = daemon_log(v10);
+        if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
         {
           __35__SFBonjourNearBy__startAdvertiser__block_invoke_cold_2();
         }
 
         objc_storeStrong((*(*(a1 + 32) + 8) + 40), a3);
-        v12 = [WeakRetained listener];
-        nw_listener_cancel(v12);
+        v14 = [v8 listener];
+        nw_listener_cancel(v14);
         goto LABEL_26;
       case 2:
-        v10 = daemon_log();
-        if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+        v12 = daemon_log(v10);
+        if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v21[0]) = 0;
-          _os_log_impl(&dword_1A9662000, v10, OS_LOG_TYPE_DEFAULT, "advertiser is ready", v21, 2u);
+          LOWORD(v22[0]) = 0;
+          _os_log_impl(&dword_1A9662000, v12, OS_LOG_TYPE_DEFAULT, "advertiser is ready", v22, 2u);
         }
 
-        [WeakRetained setAdvertiserState:2];
-        v11 = [WeakRetained advertisingStateUpdateHandler];
+        [v8 setAdvertiserState:2];
+        v13 = [v8 advertisingStateUpdateHandler];
 
-        if (v11)
+        if (v13)
         {
-          v12 = [WeakRetained advertisingStateUpdateHandler];
-          (*(v12 + 16))(v12, 1, 0);
+          v14 = [v8 advertisingStateUpdateHandler];
+          (*(v14 + 16))(v14, 1, 0);
 LABEL_26:
         }
 
         break;
     }
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __35__SFBonjourNearBy__startAdvertiser__block_invoke_147(uint64_t a1, void *a2)
@@ -218,17 +217,15 @@ void __35__SFBonjourNearBy__startAdvertiser__block_invoke_147(uint64_t a1, void 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = [WeakRetained _handleConnection:v3 isAdvToBrowserConnection:1];
 
-  v6 = daemon_log();
-  if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+  v7 = daemon_log(v6);
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
   {
     v8 = 138412546;
     v9 = v3;
     v10 = 2112;
     v11 = v5;
-    _os_log_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEFAULT, "New Adv to browser connection %@ (endpoint %@)", &v8, 0x16u);
+    _os_log_impl(&dword_1A9662000, v7, OS_LOG_TYPE_DEFAULT, "New Adv to browser connection %@ (endpoint %@)", &v8, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)startAdvertisingWithData:(id)data completionHandler:(id)handler
@@ -250,86 +247,82 @@ void __35__SFBonjourNearBy__startAdvertiser__block_invoke_147(uint64_t a1, void 
 
 void __62__SFBonjourNearBy_startAdvertisingWithData_completionHandler___block_invoke(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) advertiserAdvs];
   v3 = [v2 containsObject:*(a1 + 40)];
 
   if (v3)
   {
-    v4 = daemon_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = daemon_log(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v5 = *(a1 + 40);
-      v14 = 138412290;
-      v15 = v5;
-      _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "Already advertising for advData %@", &v14, 0xCu);
+      v6 = *(a1 + 40);
+      v15 = 138412290;
+      v16 = v6;
+      _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "Already advertising for advData %@", &v15, 0xCu);
     }
   }
 
   else
   {
-    v6 = [*(a1 + 32) advertiserAdvs];
-    [v6 addObject:*(a1 + 40)];
+    v7 = [*(a1 + 32) advertiserAdvs];
+    [v7 addObject:*(a1 + 40)];
 
-    v7 = daemon_log();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v9 = daemon_log(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = *(a1 + 40);
-      v14 = 138412290;
-      v15 = v8;
-      _os_log_impl(&dword_1A9662000, v7, OS_LOG_TYPE_DEFAULT, "Starting advertising with advData %@", &v14, 0xCu);
+      v10 = *(a1 + 40);
+      v15 = 138412290;
+      v16 = v10;
+      _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_DEFAULT, "Starting advertising with advData %@", &v15, 0xCu);
     }
 
-    v9 = [*(a1 + 32) advertiserState];
-    v10 = *(a1 + 32);
-    if (v9 == 3)
+    v11 = [*(a1 + 32) advertiserState];
+    v12 = *(a1 + 32);
+    if (v11 == 3)
     {
-      v10[25] = 1;
+      v12[25] = 1;
     }
 
     else
     {
-      v11 = [v10 advertiserState];
-      v12 = *(a1 + 32);
-      if (v11 == 2)
+      v13 = [v12 advertiserState];
+      v14 = *(a1 + 32);
+      if (v13 == 2)
       {
-        [v12 _sendAdvMessageWithData:*(a1 + 40) isStart:1 completionHandler:*(a1 + 48)];
+        [v14 _sendAdvMessageWithData:*(a1 + 40) isStart:1 completionHandler:*(a1 + 48)];
       }
 
       else
       {
-        [v12 _startAdvertiser];
+        [v14 _startAdvertiser];
       }
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_stopAdvertising
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_serialQueue);
-  if ([(SFBonjourNearBy *)self advertiserState]== 2)
+  advertiserState = [(SFBonjourNearBy *)self advertiserState];
+  if (advertiserState == 2)
   {
     [(SFBonjourNearBy *)self setAdvertiserState:3];
     listener = self->_listener;
-    v4 = *MEMORY[0x1E69E9840];
 
     nw_listener_cancel(listener);
   }
 
   else
   {
-    v5 = daemon_log();
+    v5 = daemon_log(advertiserState);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7[0] = 67109120;
-      v7[1] = [(SFBonjourNearBy *)self advertiserState];
-      _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "Unable to stop advertiser, invalid state : %d", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = [(SFBonjourNearBy *)self advertiserState];
+      _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "Unable to stop advertiser, invalid state : %d", v6, 8u);
     }
-
-    v6 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -352,20 +345,21 @@ void __62__SFBonjourNearBy_startAdvertisingWithData_completionHandler___block_in
   return 1;
 }
 
-uint64_t __60__SFBonjourNearBy_stopAdvertisingForData_completionHandler___block_invoke(uint64_t a1)
+void *__60__SFBonjourNearBy_stopAdvertisingForData_completionHandler___block_invoke(uint64_t a1)
 {
   v12 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 160) containsObject:*(a1 + 40)];
-  v3 = daemon_log();
-  v4 = os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT);
-  if (v2)
+  v3 = v2;
+  v4 = daemon_log(v2);
+  v5 = os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT);
+  if (v3)
   {
-    if (v4)
+    if (v5)
     {
-      v5 = *(a1 + 40);
+      v6 = *(a1 + 40);
       v10 = 138412290;
-      v11 = v5;
-      _os_log_impl(&dword_1A9662000, v3, OS_LOG_TYPE_DEFAULT, "Stop advertising for advData %@", &v10, 0xCu);
+      v11 = v6;
+      _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "Stop advertising for advData %@", &v10, 0xCu);
     }
 
     if ([*(a1 + 32) advertiserState] == 2)
@@ -377,49 +371,49 @@ uint64_t __60__SFBonjourNearBy_stopAdvertisingForData_completionHandler___block_
     result = [*(*(a1 + 32) + 160) count];
     if (!result)
     {
-      v7 = daemon_log();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+      v8 = daemon_log(0);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         LOWORD(v10) = 0;
-        _os_log_impl(&dword_1A9662000, v7, OS_LOG_TYPE_DEFAULT, "No more advertisements, stopping advertiser completely.", &v10, 2u);
+        _os_log_impl(&dword_1A9662000, v8, OS_LOG_TYPE_DEFAULT, "No more advertisements, stopping advertiser completely.", &v10, 2u);
       }
 
       *(*(a1 + 32) + 25) = 0;
-      result = [*(a1 + 32) _stopAdvertising];
+      return [*(a1 + 32) _stopAdvertising];
     }
   }
 
   else
   {
-    if (v4)
+    if (v5)
     {
-      v8 = *(a1 + 40);
+      v9 = *(a1 + 40);
       v10 = 138412290;
-      v11 = v8;
-      _os_log_impl(&dword_1A9662000, v3, OS_LOG_TYPE_DEFAULT, "Unable to stop advertising for advData %@", &v10, 0xCu);
+      v11 = v9;
+      _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "Unable to stop advertising for advData %@", &v10, 0xCu);
     }
 
     result = *(a1 + 48);
     if (result)
     {
-      result = (*(result + 16))(result, *(a1 + 40), 0);
+      return (*(result + 2))(result, *(a1 + 40), 0);
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)_cleanupAdvertiser
 {
   dispatch_assert_queue_V2(self->_serialQueue);
-  if ([(SFBonjourNearBy *)self advertiserState])
+  advertiserState = [(SFBonjourNearBy *)self advertiserState];
+  if (advertiserState)
   {
-    v3 = daemon_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = daemon_log(advertiserState);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_1A9662000, v3, OS_LOG_TYPE_DEFAULT, "Cleaning up the advertiser", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "Cleaning up the advertiser", v6, 2u);
     }
 
     advToBrowserNwToSFendpoints = [(SFBonjourNearBy *)self advToBrowserNwToSFendpoints];
@@ -464,16 +458,16 @@ void __37__SFBonjourNearBy__cleanupAdvertiser__block_invoke(uint64_t a1, uint64_
 
 void __32__SFBonjourNearBy__startBrowser__block_invoke(uint64_t a1, int a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
+  v15 = *MEMORY[0x1E69E9840];
   v5 = a3;
-  v6 = daemon_log();
+  v6 = daemon_log(v5);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
   {
-    v13[0] = 67109378;
-    v13[1] = a2;
-    v14 = 2112;
-    v15 = v5;
-    _os_log_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEFAULT, "nw_browser_state_t changed:%d error:%@", v13, 0x12u);
+    v12[0] = 67109378;
+    v12[1] = a2;
+    v13 = 2112;
+    v14 = v5;
+    _os_log_impl(&dword_1A9662000, v6, OS_LOG_TYPE_DEFAULT, "nw_browser_state_t changed:%d error:%@", v12, 0x12u);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 32));
@@ -484,12 +478,11 @@ void __32__SFBonjourNearBy__startBrowser__block_invoke(uint64_t a1, int a2, void
     {
       if (a2 == 1)
       {
-        [WeakRetained setBrowserState:2];
-        v9 = daemon_log();
+        v9 = daemon_log([WeakRetained setBrowserState:2]);
         if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
         {
-          LOWORD(v13[0]) = 0;
-          _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_DEFAULT, "SFbonjourNearbyBrowser successfully started", v13, 2u);
+          LOWORD(v12[0]) = 0;
+          _os_log_impl(&dword_1A9662000, v9, OS_LOG_TYPE_DEFAULT, "SFbonjourNearbyBrowser successfully started", v12, 2u);
         }
 
         v10 = [v8 deviceDidStartScanning];
@@ -508,8 +501,6 @@ void __32__SFBonjourNearBy__startBrowser__block_invoke(uint64_t a1, int a2, void
       [v8 _cleanupBrowser];
     }
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __32__SFBonjourNearBy__startBrowser__block_invoke_154(uint64_t a1, void *a2, void *a3, int a4)
@@ -583,28 +574,26 @@ _BYTE *__33__SFBonjourNearBy_startDiscovery__block_invoke(uint64_t a1)
 
 - (void)_stopBrowser
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   dispatch_assert_queue_V2(self->_serialQueue);
-  if ([(SFBonjourNearBy *)self browserState]== 2)
+  browserState = [(SFBonjourNearBy *)self browserState];
+  if (browserState == 2)
   {
     [(SFBonjourNearBy *)self setBrowserState:3];
     browser = self->_browser;
-    v4 = *MEMORY[0x1E69E9840];
 
     nw_browser_cancel(browser);
   }
 
   else
   {
-    v5 = daemon_log();
+    v5 = daemon_log(browserState);
     if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v7[0] = 67109120;
-      v7[1] = [(SFBonjourNearBy *)self browserState];
-      _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "StopBrowser is not stopping. current browser state %d", v7, 8u);
+      v6[0] = 67109120;
+      v6[1] = [(SFBonjourNearBy *)self browserState];
+      _os_log_impl(&dword_1A9662000, v5, OS_LOG_TYPE_DEFAULT, "StopBrowser is not stopping. current browser state %d", v6, 8u);
     }
-
-    v6 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -668,13 +657,14 @@ void __48__SFBonjourNearBy__reportCachedDiscoveryResults__block_invoke_2(uint64_
 
 - (void)_cleanupBrowser
 {
-  if ([(SFBonjourNearBy *)self browserState])
+  browserState = [(SFBonjourNearBy *)self browserState];
+  if (browserState)
   {
-    v3 = daemon_log();
-    if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
+    v4 = daemon_log(browserState);
+    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&dword_1A9662000, v3, OS_LOG_TYPE_DEFAULT, "Cleaning up browser", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&dword_1A9662000, v4, OS_LOG_TYPE_DEFAULT, "Cleaning up browser", v8, 2u);
     }
 
     browserToAdvNwToSFendpoints = [(SFBonjourNearBy *)self browserToAdvNwToSFendpoints];
@@ -718,29 +708,29 @@ void __34__SFBonjourNearBy__cleanupBrowser__block_invoke(uint64_t a1, uint64_t a
 
 - (void)handleBrowseResults:(id)results
 {
-  v34 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   resultsCopy = results;
-  v25 = 0u;
   v26 = 0u;
   v27 = 0u;
   v28 = 0u;
-  v5 = [resultsCopy countByEnumeratingWithState:&v25 objects:v33 count:16];
+  v29 = 0u;
+  v5 = [resultsCopy countByEnumeratingWithState:&v26 objects:v34 count:16];
   if (v5)
   {
     v7 = v5;
-    v8 = *v26;
+    v8 = *v27;
     *&v6 = 138412290;
-    v24 = v6;
+    v25 = v6;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v26 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(resultsCopy);
         }
 
-        v10 = *(*(&v25 + 1) + 8 * i);
+        v10 = *(*(&v26 + 1) + 8 * i);
         if (([v10 change] & 2) != 0)
         {
           freshResult = [v10 freshResult];
@@ -749,43 +739,43 @@ void __34__SFBonjourNearBy__cleanupBrowser__block_invoke(uint64_t a1, uint64_t a
           if (![(SFBonjourNearBy *)self isLocalEndpoint:v12])
           {
             browserToAdvNwToSFendpoints = [(SFBonjourNearBy *)self browserToAdvNwToSFendpoints];
-            v18 = [browserToAdvNwToSFendpoints objectForKey:v12];
+            v19 = [browserToAdvNwToSFendpoints objectForKey:v12];
 
-            v14 = daemon_log();
-            v19 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
-            if (v18)
+            v14 = daemon_log(v20);
+            v21 = os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT);
+            if (v19)
             {
-              if (v19)
+              if (v21)
               {
-                *buf = v24;
-                v30 = v12;
+                *buf = v25;
+                v31 = v12;
                 _os_log_impl(&dword_1A9662000, v14, OS_LOG_TYPE_DEFAULT, "Ignoring duplicate endpoint %@", buf, 0xCu);
               }
             }
 
             else
             {
-              if (v19)
+              if (v21)
               {
                 *buf = 138412546;
-                v30 = v12;
-                v31 = 2048;
-                v32 = v12;
+                v31 = v12;
+                v32 = 2048;
+                v33 = v12;
                 _os_log_impl(&dword_1A9662000, v14, OS_LOG_TYPE_DEFAULT, "Found endpoint %@, (%p)", buf, 0x16u);
               }
 
-              v20 = +[SFBonjourEndpoint createConnectionParameters];
-              v14 = nw_connection_create(v12, v20);
+              v22 = +[SFBonjourEndpoint createConnectionParameters];
+              v14 = nw_connection_create(v12, v22);
 
-              v21 = [(SFBonjourNearBy *)self _handleConnection:v14 isAdvToBrowserConnection:0];
-              v22 = daemon_log();
-              if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+              v23 = [(SFBonjourNearBy *)self _handleConnection:v14 isAdvToBrowserConnection:0];
+              v24 = daemon_log(v23);
+              if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412546;
-                v30 = v14;
-                v31 = 2112;
-                v32 = v21;
-                _os_log_impl(&dword_1A9662000, v22, OS_LOG_TYPE_DEFAULT, "New Browser to Adv connection %@ (endpoint %@)", buf, 0x16u);
+                v31 = v14;
+                v32 = 2112;
+                v33 = v23;
+                _os_log_impl(&dword_1A9662000, v24, OS_LOG_TYPE_DEFAULT, "New Browser to Adv connection %@ (endpoint %@)", buf, 0x16u);
               }
             }
 
@@ -808,14 +798,14 @@ void __34__SFBonjourNearBy__cleanupBrowser__block_invoke(uint64_t a1, uint64_t a
             browserToAdvNwToSFendpoints2 = [(SFBonjourNearBy *)self browserToAdvNwToSFendpoints];
             v14 = [browserToAdvNwToSFendpoints2 objectForKey:v12];
 
-            v15 = daemon_log();
-            if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
+            v16 = daemon_log(v15);
+            if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
             {
               *buf = 138412546;
-              v30 = v12;
-              v31 = 2112;
-              v32 = v14;
-              _os_log_impl(&dword_1A9662000, v15, OS_LOG_TYPE_DEFAULT, "Removing endpoint %@ %@", buf, 0x16u);
+              v31 = v12;
+              v32 = 2112;
+              v33 = v14;
+              _os_log_impl(&dword_1A9662000, v16, OS_LOG_TYPE_DEFAULT, "Removing endpoint %@ %@", buf, 0x16u);
             }
 
             [v14 cancel];
@@ -824,13 +814,100 @@ LABEL_21:
         }
       }
 
-      v7 = [resultsCopy countByEnumeratingWithState:&v25 objects:v33 count:16];
+      v7 = [resultsCopy countByEnumeratingWithState:&v26 objects:v34 count:16];
     }
 
     while (v7);
   }
+}
 
-  v23 = *MEMORY[0x1E69E9840];
+- (id)_handleConnection:(id)connection isAdvToBrowserConnection:(BOOL)browserConnection
+{
+  browserConnectionCopy = browserConnection;
+  connectionCopy = connection;
+  dispatch_assert_queue_V2(self->_serialQueue);
+  if (connectionCopy)
+  {
+    v8 = 40;
+    if (browserConnectionCopy)
+    {
+      v8 = 32;
+    }
+
+    v9 = *(&self->super.isa + v8);
+    v10 = [[SFBonjourEndpoint alloc] initWithConnection:connectionCopy isAdvToBrowserConnection:browserConnectionCopy localUniqueID:v9 withQueue:self->_serialQueue];
+    if (v10)
+    {
+      v11 = nw_connection_copy_endpoint(connectionCopy);
+      if (browserConnectionCopy)
+      {
+        [(SFBonjourNearBy *)self advToBrowserNwToSFendpoints];
+      }
+
+      else
+      {
+        [(SFBonjourNearBy *)self browserToAdvNwToSFendpoints];
+      }
+      v12 = ;
+      [v12 setObject:v10 forKey:v11];
+
+      objc_initWeak(&location, self);
+      objc_initWeak(&from, v10);
+      v21[0] = MEMORY[0x1E69E9820];
+      v21[1] = 3221225472;
+      v21[2] = __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_invoke;
+      v21[3] = &unk_1E788FC80;
+      objc_copyWeak(&v22, &from);
+      objc_copyWeak(&v23, &location);
+      v24 = browserConnectionCopy;
+      [(SFBonjourEndpoint *)v10 setDidConnectHandler:v21];
+      v18[0] = MEMORY[0x1E69E9820];
+      v18[1] = 3221225472;
+      v18[2] = __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_invoke_2;
+      v18[3] = &unk_1E788FCA8;
+      objc_copyWeak(&v19, &location);
+      objc_copyWeak(&v20, &from);
+      [(SFBonjourEndpoint *)v10 setDidDisconnectHandler:v18];
+      v15[0] = MEMORY[0x1E69E9820];
+      v15[1] = 3221225472;
+      v15[2] = __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_invoke_174;
+      v15[3] = &unk_1E788FCD0;
+      objc_copyWeak(&v16, &location);
+      objc_copyWeak(&v17, &from);
+      [(SFBonjourEndpoint *)v10 setDidReceiveDataHandler:v15];
+      v13 = v10;
+      objc_destroyWeak(&v17);
+      objc_destroyWeak(&v16);
+      objc_destroyWeak(&v20);
+      objc_destroyWeak(&v19);
+      objc_destroyWeak(&v23);
+      objc_destroyWeak(&v22);
+      objc_destroyWeak(&from);
+      objc_destroyWeak(&location);
+    }
+
+    else
+    {
+      v11 = daemon_log(0);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+      {
+        [SFBonjourNearBy _handleConnection:isAdvToBrowserConnection:];
+      }
+    }
+  }
+
+  else
+  {
+    v9 = daemon_log(v7);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+    {
+      [SFBonjourNearBy _handleConnection:isAdvToBrowserConnection:];
+    }
+
+    v10 = 0;
+  }
+
+  return v10;
 }
 
 void __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_invoke(uint64_t a1)
@@ -841,11 +918,11 @@ void __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_in
   {
     v4 = [WeakRetained remoteUniqueIDString];
 
-    v5 = daemon_log();
-    v6 = os_log_type_enabled(v5, OS_LOG_TYPE_ERROR);
+    v6 = daemon_log(v5);
+    v7 = os_log_type_enabled(v6, OS_LOG_TYPE_ERROR);
     if (!v4)
     {
-      if (v6)
+      if (v7)
       {
         __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_invoke_cold_2();
       }
@@ -853,7 +930,7 @@ void __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_in
       goto LABEL_13;
     }
 
-    if (v6)
+    if (v7)
     {
       __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_invoke_cold_1(WeakRetained);
     }
@@ -867,15 +944,15 @@ void __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_in
     {
       [v3 browserToAdvUuidToSFendpoints];
     }
-    v7 = ;
-    v8 = [WeakRetained remoteUniqueIDString];
-    [v7 setObject:WeakRetained forKey:v8];
+    v8 = ;
+    v9 = [WeakRetained remoteUniqueIDString];
+    [v8 setObject:WeakRetained forKey:v9];
 
     if ([WeakRetained isAdvToBrowserConnection])
     {
-      v5 = [v3[20] allObjects];
-      v9 = [WeakRetained remoteUniqueIDString];
-      [v3 _sendMessage:v5 withType:@"SFBonjourNearbyMessageTypeStartAdvertiseData" toDevice:v9 completionCallback:&__block_literal_global_173_0];
+      v6 = [v3[20] allObjects];
+      v10 = [WeakRetained remoteUniqueIDString];
+      [v3 _sendMessage:v6 withType:@"SFBonjourNearbyMessageTypeStartAdvertiseData" toDevice:v10 completionCallback:&__block_literal_global_173_0];
 
 LABEL_13:
     }
@@ -892,7 +969,7 @@ void __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_in
     goto LABEL_20;
   }
 
-  v5 = daemon_log();
+  v5 = daemon_log(v3);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
   {
     __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_invoke_2_cold_1(v4);
@@ -981,19 +1058,19 @@ LABEL_20:
 
 void __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_invoke_174(uint64_t a1, void *a2)
 {
-  v40 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   v3 = a2;
   WeakRetained = objc_loadWeakRetained((a1 + 32));
   v5 = objc_loadWeakRetained((a1 + 40));
   v6 = v5;
   if (WeakRetained && v5)
   {
-    v35 = 0;
-    v7 = [MEMORY[0x1E696AE40] propertyListWithData:v3 options:0 format:&v35 error:0];
+    v36 = 0;
+    v7 = [MEMORY[0x1E696AE40] propertyListWithData:v3 options:0 format:&v36 error:0];
     if (!v7)
     {
-      v10 = daemon_log();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
+      v11 = daemon_log(0);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
       {
         __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_invoke_174_cold_2();
       }
@@ -1003,11 +1080,11 @@ void __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_in
 
     v8 = [v6 remoteUniqueIDString];
 
-    v9 = daemon_log();
-    v10 = v9;
+    v10 = daemon_log(v9);
+    v11 = v10;
     if (!v8)
     {
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
+      if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
       {
         __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_invoke_174_cold_1();
       }
@@ -1015,34 +1092,34 @@ void __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_in
       goto LABEL_20;
     }
 
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v37 = v7;
-      v38 = 2112;
-      v39 = v6;
-      _os_log_impl(&dword_1A9662000, v10, OS_LOG_TYPE_DEFAULT, "Received browser endpoint message %@ from endpoint %@", buf, 0x16u);
+      v38 = v7;
+      v39 = 2112;
+      v40 = v6;
+      _os_log_impl(&dword_1A9662000, v11, OS_LOG_TYPE_DEFAULT, "Received browser endpoint message %@ from endpoint %@", buf, 0x16u);
     }
 
-    v10 = [v7 objectForKeyedSubscript:@"SFBonjourNearbyMessageType"];
-    if ([v10 isEqualToString:@"SFBonjourNearbyMessageTypeStartAdvertiseData"])
+    v11 = [v7 objectForKeyedSubscript:@"SFBonjourNearbyMessageType"];
+    if ([v11 isEqualToString:@"SFBonjourNearbyMessageTypeStartAdvertiseData"])
     {
-      v11 = [v6 remoteAdvDataSet];
-      v12 = [v7 objectForKeyedSubscript:@"SFBonjourNearbyMessageValue"];
-      [v11 addObjectsFromArray:v12];
+      v12 = [v6 remoteAdvDataSet];
+      v13 = [v7 objectForKeyedSubscript:@"SFBonjourNearbyMessageValue"];
+      [v12 addObjectsFromArray:v13];
 
-      v13 = [WeakRetained deviceFoundHandler];
+      v14 = [WeakRetained deviceFoundHandler];
 
-      if (v13)
+      if (v14)
       {
-        v14 = [WeakRetained deviceFoundHandler];
+        v15 = [WeakRetained deviceFoundHandler];
 LABEL_17:
-        v20 = v14;
-        v21 = objc_alloc(MEMORY[0x1E696AFB0]);
-        v22 = [v6 remoteUniqueIDString];
-        v23 = [v21 initWithUUIDString:v22];
-        v24 = [v7 objectForKeyedSubscript:@"SFBonjourNearbyMessageValue"];
-        (*(v20 + 16))(v20, v23, v24);
+        v21 = v15;
+        v22 = objc_alloc(MEMORY[0x1E696AFB0]);
+        v23 = [v6 remoteUniqueIDString];
+        v24 = [v22 initWithUUIDString:v23];
+        v25 = [v7 objectForKeyedSubscript:@"SFBonjourNearbyMessageValue"];
+        (*(v21 + 16))(v21, v24, v25);
 
         goto LABEL_18;
       }
@@ -1050,9 +1127,9 @@ LABEL_17:
 
     else
     {
-      if (![v10 isEqualToString:@"SFBonjourNearbyMessageTypeStopAdvertiseData"])
+      if (![v11 isEqualToString:@"SFBonjourNearbyMessageTypeStopAdvertiseData"])
       {
-        if ([v10 isEqualToString:@"SFBonjourNearbyMessageTypeConnect"])
+        if ([v11 isEqualToString:@"SFBonjourNearbyMessageTypeConnect"])
         {
           [v6 setIsConnected:1];
           v26 = [WeakRetained deviceDidConnectHandler];
@@ -1062,42 +1139,43 @@ LABEL_17:
             goto LABEL_20;
           }
 
-          v20 = [WeakRetained deviceDidConnectHandler];
+          v21 = [WeakRetained deviceDidConnectHandler];
           v27 = objc_alloc(MEMORY[0x1E696AFB0]);
-          v22 = [v6 remoteUniqueIDString];
-          v23 = [v27 initWithUUIDString:v22];
-          (*(v20 + 16))(v20, v23, 0);
+          v23 = [v6 remoteUniqueIDString];
+          v24 = [v27 initWithUUIDString:v23];
+          (*(v21 + 16))(v21, v24, 0);
         }
 
         else
         {
-          if (![v10 isEqualToString:@"SFBonjourNearbyMessageTypeDisconnect"])
+          if (![v11 isEqualToString:@"SFBonjourNearbyMessageTypeDisconnect"])
           {
-            if ([v10 isEqualToString:@"SFBonjourNearbyMessageTypeDataPacket"])
+            v30 = [v11 isEqualToString:@"SFBonjourNearbyMessageTypeDataPacket"];
+            if (v30)
             {
-              v30 = [WeakRetained deviceDidReceiveDataHandler];
+              v31 = [WeakRetained deviceDidReceiveDataHandler];
 
-              if (!v30)
+              if (!v31)
               {
                 goto LABEL_20;
               }
 
-              v20 = [v7 objectForKeyedSubscript:@"SFBonjourNearbyMessageValue"];
-              v31 = [WeakRetained deviceDidReceiveDataHandler];
-              v32 = objc_alloc(MEMORY[0x1E696AFB0]);
-              v33 = [v6 remoteUniqueIDString];
-              v34 = [v32 initWithUUIDString:v33];
-              (v31)[2](v31, v34, v20);
+              v21 = [v7 objectForKeyedSubscript:@"SFBonjourNearbyMessageValue"];
+              v32 = [WeakRetained deviceDidReceiveDataHandler];
+              v33 = objc_alloc(MEMORY[0x1E696AFB0]);
+              v34 = [v6 remoteUniqueIDString];
+              v35 = [v33 initWithUUIDString:v34];
+              (v32)[2](v32, v35, v21);
             }
 
             else
             {
-              v20 = daemon_log();
-              if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+              v21 = daemon_log(v30);
+              if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138412290;
-                v37 = v10;
-                _os_log_impl(&dword_1A9662000, v20, OS_LOG_TYPE_DEFAULT, "SFBonjourNearBy unknown message type:%@", buf, 0xCu);
+                v38 = v11;
+                _os_log_impl(&dword_1A9662000, v21, OS_LOG_TYPE_DEFAULT, "SFBonjourNearBy unknown message type:%@", buf, 0xCu);
               }
             }
 
@@ -1112,11 +1190,11 @@ LABEL_17:
             goto LABEL_20;
           }
 
-          v20 = [WeakRetained deviceDidDisconnectHandler];
+          v21 = [WeakRetained deviceDidDisconnectHandler];
           v29 = objc_alloc(MEMORY[0x1E696AFB0]);
-          v22 = [v6 remoteUniqueIDString];
-          v23 = [v29 initWithUUIDString:v22];
-          (*(v20 + 16))(v20, v23);
+          v23 = [v6 remoteUniqueIDString];
+          v24 = [v29 initWithUUIDString:v23];
+          (*(v21 + 16))(v21, v24);
         }
 
 LABEL_18:
@@ -1125,61 +1203,59 @@ LABEL_19:
         goto LABEL_20;
       }
 
-      v15 = [v6 remoteAdvDataSet];
-      v16 = MEMORY[0x1E695DFD8];
-      v17 = [v7 objectForKeyedSubscript:@"SFBonjourNearbyMessageValue"];
-      v18 = [v16 setWithArray:v17];
-      [v15 minusSet:v18];
+      v16 = [v6 remoteAdvDataSet];
+      v17 = MEMORY[0x1E695DFD8];
+      v18 = [v7 objectForKeyedSubscript:@"SFBonjourNearbyMessageValue"];
+      v19 = [v17 setWithArray:v18];
+      [v16 minusSet:v19];
 
-      v19 = [WeakRetained deviceLostHandler];
+      v20 = [WeakRetained deviceLostHandler];
 
-      if (v19)
+      if (v20)
       {
-        v14 = [WeakRetained deviceLostHandler];
+        v15 = [WeakRetained deviceLostHandler];
         goto LABEL_17;
       }
     }
 
 LABEL_20:
   }
-
-  v25 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendMessage:(id)message withType:(id)type toEndpoint:(id)endpoint completionCallback:(id)callback
 {
-  v32[2] = *MEMORY[0x1E69E9840];
+  v31[2] = *MEMORY[0x1E69E9840];
   messageCopy = message;
   typeCopy = type;
   endpointCopy = endpoint;
   callbackCopy = callback;
   dispatch_assert_queue_V2(self->_serialQueue);
-  v31[0] = @"SFBonjourNearbyMessageType";
-  v31[1] = @"SFBonjourNearbyMessageValue";
-  v32[0] = typeCopy;
-  v32[1] = messageCopy;
-  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v32 forKeys:v31 count:2];
+  v30[0] = @"SFBonjourNearbyMessageType";
+  v30[1] = @"SFBonjourNearbyMessageValue";
+  v31[0] = typeCopy;
+  v31[1] = messageCopy;
+  v14 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v31 forKeys:v30 count:2];
   v15 = [MEMORY[0x1E696AE40] dataWithPropertyList:v14 format:200 options:0 error:0];
-  v16 = daemon_log();
+  v16 = daemon_log(v15);
   v17 = v16;
   if (v15)
   {
     if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138412546;
-      v26 = v14;
-      v27 = 2112;
-      v28 = endpointCopy;
+      v25 = v14;
+      v26 = 2112;
+      v27 = endpointCopy;
       _os_log_impl(&dword_1A9662000, v17, OS_LOG_TYPE_DEFAULT, "Sending payload %@ to endpoint %@", buf, 0x16u);
     }
 
-    v23[0] = MEMORY[0x1E69E9820];
-    v23[1] = 3221225472;
-    v23[2] = __71__SFBonjourNearBy__sendMessage_withType_toEndpoint_completionCallback___block_invoke;
-    v23[3] = &unk_1E788B6D8;
-    v24 = callbackCopy;
-    [endpointCopy sendDataMessage:v15 completion:v23];
-    v18 = v24;
+    v22[0] = MEMORY[0x1E69E9820];
+    v22[1] = 3221225472;
+    v22[2] = __71__SFBonjourNearBy__sendMessage_withType_toEndpoint_completionCallback___block_invoke;
+    v22[3] = &unk_1E788B6D8;
+    v23 = callbackCopy;
+    [endpointCopy sendDataMessage:v15 completion:v22];
+    v18 = v23;
     goto LABEL_9;
   }
 
@@ -1192,16 +1268,14 @@ LABEL_20:
   {
     v19 = MEMORY[0x1E696ABC0];
     v20 = *MEMORY[0x1E696A768];
-    v29 = *MEMORY[0x1E696A578];
-    v30 = @"Unable to send message, failed to serialize payload";
-    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v30 forKeys:&v29 count:1];
+    v28 = *MEMORY[0x1E696A578];
+    v29 = @"Unable to send message, failed to serialize payload";
+    v21 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v29 forKeys:&v28 count:1];
     v18 = [v19 errorWithDomain:v20 code:-6700 userInfo:v21];
 
     (*(callbackCopy + 2))(callbackCopy, v18);
 LABEL_9:
   }
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __71__SFBonjourNearBy__sendMessage_withType_toEndpoint_completionCallback___block_invoke(uint64_t a1)
@@ -1244,41 +1318,39 @@ uint64_t __71__SFBonjourNearBy__sendMessage_withType_toEndpoint_completionCallba
 
 void __69__SFBonjourNearBy__sendMessage_withType_toDevice_completionCallback___block_invoke(uint64_t a1)
 {
-  v13[1] = *MEMORY[0x1E69E9840];
+  v12[1] = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 64));
   v3 = WeakRetained;
   if (WeakRetained)
   {
     v4 = [WeakRetained _endpointForUniqueID:*(a1 + 32)];
+    v5 = v4;
     if (v4 && *(a1 + 40) && *(a1 + 48))
     {
-      v5 = *(a1 + 56);
       [v3 _sendMessage:? withType:? toEndpoint:? completionCallback:?];
     }
 
     else
     {
-      v6 = daemon_log();
+      v6 = daemon_log(v4);
       if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
       {
-        __69__SFBonjourNearBy__sendMessage_withType_toDevice_completionCallback___block_invoke_cold_1(a1, (a1 + 32));
+        __69__SFBonjourNearBy__sendMessage_withType_toDevice_completionCallback___block_invoke_cold_1();
       }
 
       if (*(a1 + 56))
       {
         v7 = MEMORY[0x1E696ABC0];
         v8 = *MEMORY[0x1E696A768];
-        v12 = *MEMORY[0x1E696A578];
-        v13[0] = @"Unable to send message, invalid params";
-        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v13 forKeys:&v12 count:1];
+        v11 = *MEMORY[0x1E696A578];
+        v12[0] = @"Unable to send message, invalid params";
+        v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v12 forKeys:&v11 count:1];
         v10 = [v7 errorWithDomain:v8 code:-6705 userInfo:v9];
 
         (*(*(a1 + 56) + 16))();
       }
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendAdvMessageWithData:(id)data isStart:(BOOL)start completionHandler:(id)handler
@@ -1315,22 +1387,20 @@ void __69__SFBonjourNearBy__sendMessage_withType_toDevice_completionCallback___b
 
 void __69__SFBonjourNearBy__sendAdvMessageWithData_isStart_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
-  v12[1] = *MEMORY[0x1E69E9840];
+  v11[1] = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
-  v12[0] = *(a1 + 40);
+  v11[0] = *(a1 + 40);
   v4 = MEMORY[0x1E695DEC8];
   v5 = a2;
-  v6 = [v4 arrayWithObjects:v12 count:1];
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 3221225472;
-  v9[2] = __69__SFBonjourNearBy__sendAdvMessageWithData_isStart_completionHandler___block_invoke_2;
-  v9[3] = &unk_1E788CB38;
+  v6 = [v4 arrayWithObjects:v11 count:1];
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 3221225472;
+  v8[2] = __69__SFBonjourNearBy__sendAdvMessageWithData_isStart_completionHandler___block_invoke_2;
+  v8[3] = &unk_1E788CB38;
   v7 = *(a1 + 48);
-  v11 = *(a1 + 56);
-  v10 = *(a1 + 40);
-  [v3 _sendMessage:v6 withType:v7 toDevice:v5 completionCallback:v9];
-
-  v8 = *MEMORY[0x1E69E9840];
+  v10 = *(a1 + 56);
+  v9 = *(a1 + 40);
+  [v3 _sendMessage:v6 withType:v7 toDevice:v5 completionCallback:v8];
 }
 
 uint64_t __69__SFBonjourNearBy__sendAdvMessageWithData_isStart_completionHandler___block_invoke_2(uint64_t result, uint64_t a2)
@@ -1449,19 +1519,20 @@ void __40__SFBonjourNearBy_disconnectFromDevice___block_invoke(uint64_t a1)
 void __55__SFBonjourNearBy_sendData_toDevice_completionHandler___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
+  v4 = v3;
   if (v3)
   {
-    v4 = daemon_log();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
+    v5 = daemon_log(v3);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      __55__SFBonjourNearBy_sendData_toDevice_completionHandler___block_invoke_cold_1(a1);
+      __55__SFBonjourNearBy_sendData_toDevice_completionHandler___block_invoke_cold_1();
     }
   }
 
-  v5 = *(a1 + 48);
-  if (v5)
+  v6 = *(a1 + 48);
+  if (v6)
   {
-    (*(v5 + 16))(v5, v3);
+    (*(v6 + 16))(v6, v4);
   }
 }
 
@@ -1479,8 +1550,8 @@ void __55__SFBonjourNearBy_sendData_toDevice_completionHandler___block_invoke(ui
   dCopy = d;
   if (!dCopy)
   {
-    v8 = daemon_log();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+    v9 = daemon_log(0);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [SFBonjourNearBy _endpointForUniqueID:];
     }
@@ -1498,8 +1569,8 @@ void __55__SFBonjourNearBy_sendData_toDevice_completionHandler___block_invoke(ui
 
     if (!v6)
     {
-      v8 = daemon_log();
-      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      v9 = daemon_log(v8);
+      if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
       {
         [SFBonjourNearBy _endpointForUniqueID:];
       }
@@ -1542,11 +1613,9 @@ uint64_t __27__SFBonjourNearBy__cleanUp__block_invoke(uint64_t a1)
 
 void __35__SFBonjourNearBy__startAdvertiser__block_invoke_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __35__SFBonjourNearBy__startAdvertiser__block_invoke_cold_2()
@@ -1558,105 +1627,72 @@ void __35__SFBonjourNearBy__startAdvertiser__block_invoke_cold_2()
 
 - (void)_handleConnection:isAdvToBrowserConnection:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
-}
-
-- (void)_handleConnection:isAdvToBrowserConnection:.cold.2()
-{
-  v6 = *MEMORY[0x1E69E9840];
-  OUTLINED_FUNCTION_3_1();
-  _os_log_error_impl(v0, v1, v2, v3, v4, 8u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_invoke_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   [a1 isAdvToBrowserConnection];
   OUTLINED_FUNCTION_0_16();
-  OUTLINED_FUNCTION_5_4(&dword_1A9662000, v1, v2, "Established [%@] connection for endpoint %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_4(&dword_1A9662000, v1, v2, "Established [%@] connection for endpoint %@", v3, v4, v5, v6);
 }
 
 void __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_invoke_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_invoke_2_cold_1(void *a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
   [a1 isAdvToBrowserConnection];
   OUTLINED_FUNCTION_0_16();
-  OUTLINED_FUNCTION_5_4(&dword_1A9662000, v1, v2, "[%@] connection closed for endpoint %@", v3, v4, v5, v6, v8);
-  v7 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_5_4(&dword_1A9662000, v1, v2, "[%@] connection closed for endpoint %@", v3, v4, v5, v6);
 }
 
 void __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_invoke_174_cold_1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_12();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 void __62__SFBonjourNearBy__handleConnection_isAdvToBrowserConnection___block_invoke_174_cold_2()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_2_12();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0x16u);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_sendMessage:withType:toEndpoint:completionCallback:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
-void __69__SFBonjourNearBy__sendMessage_withType_toDevice_completionCallback___block_invoke_cold_1(uint64_t a1, uint64_t *a2)
+void __69__SFBonjourNearBy__sendMessage_withType_toDevice_completionCallback___block_invoke_cold_1()
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v3 = *(a1 + 40);
-  v2 = *(a1 + 48);
-  v4 = *a2;
   OUTLINED_FUNCTION_0_16();
   OUTLINED_FUNCTION_2_12();
-  _os_log_error_impl(v5, v6, v7, v8, v9, 0x20u);
-  v10 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
-void __55__SFBonjourNearBy_sendData_toDevice_completionHandler___block_invoke_cold_1(uint64_t a1)
+void __55__SFBonjourNearBy_sendData_toDevice_completionHandler___block_invoke_cold_1()
 {
-  v9 = *MEMORY[0x1E69E9840];
-  v1 = *(a1 + 32);
-  v2 = *(a1 + 40);
   OUTLINED_FUNCTION_0_16();
   OUTLINED_FUNCTION_2_12();
-  _os_log_error_impl(v3, v4, v5, v6, v7, 0x20u);
-  v8 = *MEMORY[0x1E69E9840];
+  _os_log_error_impl(v0, v1, v2, v3, v4, 0x20u);
 }
 
 - (void)_endpointForUniqueID:.cold.1()
 {
-  v6 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_2();
   OUTLINED_FUNCTION_3_1();
   _os_log_error_impl(v0, v1, v2, v3, v4, 0xCu);
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_endpointForUniqueID:.cold.2()

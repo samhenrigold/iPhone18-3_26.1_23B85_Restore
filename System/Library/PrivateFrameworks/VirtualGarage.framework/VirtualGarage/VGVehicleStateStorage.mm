@@ -1,8 +1,10 @@
 @interface VGVehicleStateStorage
 - (BOOL)isEqual:(id)equal;
+- (id)activeConnectorAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
+- (id)originAsString:(int)string;
 - (int)StringAsActiveConnector:(id)connector;
 - (int)StringAsOrigin:(id)origin;
 - (int)activeConnector;
@@ -551,7 +553,7 @@ LABEL_50:
     }
 
 LABEL_64:
-    v15 = 0;
+    v14 = 0;
     goto LABEL_65;
   }
 
@@ -560,7 +562,6 @@ LABEL_64:
     goto LABEL_64;
   }
 
-  v12 = *(equalCopy + 120);
   if (self->_isCharging)
   {
     if ((*(equalCopy + 120) & 1) == 0)
@@ -597,17 +598,17 @@ LABEL_50:
   pairedAppInstallDeviceIdentifier = self->_pairedAppInstallDeviceIdentifier;
   if (pairedAppInstallDeviceIdentifier | *(equalCopy + 13))
   {
-    v15 = [(NSString *)pairedAppInstallDeviceIdentifier isEqual:?];
+    v14 = [(NSString *)pairedAppInstallDeviceIdentifier isEqual:?];
   }
 
   else
   {
-    v15 = 1;
+    v14 = 1;
   }
 
 LABEL_65:
 
-  return v15;
+  return v14;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -913,30 +914,25 @@ LABEL_10:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  identifier = self->_identifier;
-  v19 = toCopy;
   PBDataWriterWriteStringField();
   has = self->_has;
   if ((has & 8) != 0)
   {
-    dateOfUpdate = self->_dateOfUpdate;
     PBDataWriterWriteDoubleField();
     has = self->_has;
   }
 
   if ((has & 0x100) != 0)
   {
-    origin = self->_origin;
     PBDataWriterWriteInt32Field();
     has = self->_has;
   }
 
-  v9 = v19;
+  v5 = toCopy;
   if (has)
   {
-    batteryPercentage = self->_batteryPercentage;
     PBDataWriterWriteDoubleField();
-    v9 = v19;
+    v5 = toCopy;
     has = self->_has;
     if ((has & 4) == 0)
     {
@@ -955,9 +951,8 @@ LABEL_7:
     goto LABEL_7;
   }
 
-  currentEVRange = self->_currentEVRange;
   PBDataWriterWriteDoubleField();
-  v9 = v19;
+  v5 = toCopy;
   has = self->_has;
   if ((has & 0x20) == 0)
   {
@@ -971,9 +966,8 @@ LABEL_8:
   }
 
 LABEL_29:
-  maxEVRange = self->_maxEVRange;
   PBDataWriterWriteDoubleField();
-  v9 = v19;
+  v5 = toCopy;
   has = self->_has;
   if ((has & 0x40) == 0)
   {
@@ -987,9 +981,8 @@ LABEL_9:
   }
 
 LABEL_30:
-  minBatteryCapacity = self->_minBatteryCapacity;
   PBDataWriterWriteDoubleField();
-  v9 = v19;
+  v5 = toCopy;
   has = self->_has;
   if ((has & 2) == 0)
   {
@@ -1003,56 +996,52 @@ LABEL_10:
   }
 
 LABEL_31:
-  currentBatteryCapacity = self->_currentBatteryCapacity;
   PBDataWriterWriteDoubleField();
-  v9 = v19;
+  v5 = toCopy;
   if ((*&self->_has & 0x10) != 0)
   {
 LABEL_11:
-    maxBatteryCapacity = self->_maxBatteryCapacity;
     PBDataWriterWriteDoubleField();
-    v9 = v19;
+    v5 = toCopy;
   }
 
 LABEL_12:
   if (self->_consumptionArguments)
   {
     PBDataWriterWriteStringField();
-    v9 = v19;
+    v5 = toCopy;
   }
 
   if (self->_chargingArguments)
   {
     PBDataWriterWriteStringField();
-    v9 = v19;
+    v5 = toCopy;
   }
 
-  v11 = self->_has;
-  if ((v11 & 0x200) != 0)
+  v6 = self->_has;
+  if ((v6 & 0x200) != 0)
   {
-    isCharging = self->_isCharging;
     PBDataWriterWriteBOOLField();
-    v9 = v19;
-    v11 = self->_has;
+    v5 = toCopy;
+    v6 = self->_has;
   }
 
-  if ((v11 & 0x80) != 0)
+  if ((v6 & 0x80) != 0)
   {
-    activeConnector = self->_activeConnector;
     PBDataWriterWriteInt32Field();
-    v9 = v19;
+    v5 = toCopy;
   }
 
   if (self->_pairedAppInstallSessionIdentifier)
   {
     PBDataWriterWriteDataField();
-    v9 = v19;
+    v5 = toCopy;
   }
 
   if (self->_pairedAppInstallDeviceIdentifier)
   {
     PBDataWriterWriteStringField();
-    v9 = v19;
+    v5 = toCopy;
   }
 }
 
@@ -1316,6 +1305,21 @@ LABEL_12:
   return v4;
 }
 
+- (id)activeConnectorAsString:(int)string
+{
+  if (string >= 0xA)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279E266D0[string];
+  }
+
+  return v4;
+}
+
 - (void)setHasActiveConnector:(BOOL)connector
 {
   if (connector)
@@ -1455,6 +1459,21 @@ LABEL_12:
   else
   {
     v4 = 0;
+  }
+
+  return v4;
+}
+
+- (id)originAsString:(int)string
+{
+  if (string >= 3)
+  {
+    v4 = [MEMORY[0x277CCACA8] stringWithFormat:@"(unknown: %i)", *&string];
+  }
+
+  else
+  {
+    v4 = off_279E266B8[string];
   }
 
   return v4;

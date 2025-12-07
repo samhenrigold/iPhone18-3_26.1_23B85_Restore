@@ -98,9 +98,9 @@
   finalPointCopy = finalPoint;
   initialPointCopy = initialPoint;
   pointCopy = point;
-  v120.receiver = self;
-  v120.super_class = CRLFreehandDrawingToolEraser;
-  [(CRLFreehandDrawingTool *)&v120 performActionWithInputPoint:pointCopy isInitialPoint:initialPointCopy isFinalPoint:finalPointCopy];
+  v127.receiver = self;
+  v127.super_class = CRLFreehandDrawingToolEraser;
+  [(CRLFreehandDrawingTool *)&v127 performActionWithInputPoint:pointCopy isInitialPoint:initialPointCopy isFinalPoint:finalPointCopy];
   v9 = [(CRLFreehandDrawingTool *)self icc];
   [v9 viewScale];
   v11 = v10;
@@ -157,52 +157,52 @@
     v97 = pointCopy;
     [pointCopy unscaledPoint];
     [(CRLFreehandDrawingTool *)self possibleFreehandDrawingLayoutsInParentContainerAtPoint:?];
-    v116 = 0u;
-    v117 = 0u;
-    v118 = 0u;
-    obj = v119 = 0u;
-    v100 = [obj countByEnumeratingWithState:&v116 objects:v129 count:16];
+    v123 = 0u;
+    v124 = 0u;
+    v125 = 0u;
+    obj = v126 = 0u;
+    v100 = [obj countByEnumeratingWithState:&v123 objects:v136 count:16];
     if (v100)
     {
-      v99 = *v117;
+      v99 = *v124;
       v103 = v9;
       do
       {
         v42 = 0;
         do
         {
-          if (*v117 != v99)
+          if (*v124 != v99)
           {
             objc_enumerationMutation(obj);
           }
 
           v102 = v42;
-          v43 = *(*(&v116 + 1) + 8 * v42);
+          v43 = *(*(&v123 + 1) + 8 * v42);
           v44 = objc_opt_class();
           info = [v43 info];
           v46 = sub_100014370(v44, info);
 
-          v114 = 0u;
-          v115 = 0u;
-          v112 = 0u;
-          v113 = 0u;
+          v121 = 0u;
+          v122 = 0u;
+          v119 = 0u;
+          v120 = 0u;
           v101 = v46;
           childInfos = [v46 childInfos];
-          v107 = [childInfos countByEnumeratingWithState:&v112 objects:v128 count:16];
+          v107 = [childInfos countByEnumeratingWithState:&v119 objects:v135 count:16];
           if (v107)
           {
-            v106 = *v113;
+            v106 = *v120;
             do
             {
               v47 = 0;
               do
               {
-                if (*v113 != v106)
+                if (*v120 != v106)
                 {
                   objc_enumerationMutation(childInfos);
                 }
 
-                v48 = *(*(&v112 + 1) + 8 * v47);
+                v48 = *(*(&v119 + 1) + 8 * v47);
                 v49 = objc_opt_class();
                 v50 = [v9 layoutForInfo:v48];
                 v51 = sub_100014370(v49, v50);
@@ -212,7 +212,7 @@
                   pathSource = [v51 pathSource];
                   bezierPath = [pathSource bezierPath];
 
-                  [v51 pureTransformInRoot];
+                  objc_msgSend_pureTransformInRoot(v51);
                   [bezierPath transformUsingAffineTransform:buf];
                   shapeInfo = [v51 shapeInfo];
                   isTreatedAsFillForFreehandDrawing = [shapeInfo isTreatedAsFillForFreehandDrawing];
@@ -229,12 +229,12 @@
                     [stroke width];
                     v58 = v57;
 
-                    v130.origin.x = v31;
-                    v130.origin.y = v33;
-                    v130.size.width = v35;
-                    v130.size.height = v37;
-                    v131 = CGRectInset(v130, -v58, -v58);
-                    [(CRLBezierHitTester *)self->_strokeHitTester addPath:bezierPath filled:0 clippedToRect:v131.origin.x, v131.origin.y, v131.size.width, v131.size.height];
+                    v137.origin.x = v31;
+                    v137.origin.y = v33;
+                    v137.size.width = v35;
+                    v137.size.height = v37;
+                    v138 = CGRectInset(v137, -v58, -v58);
+                    [(CRLBezierHitTester *)self->_strokeHitTester addPath:bezierPath filled:0 clippedToRect:v138.origin.x, v138.origin.y, v138.size.width, v138.size.height];
                     if (v58 > self->_widthOfThickestStrokePossiblyBeingErased)
                     {
                       self->_widthOfThickestStrokePossiblyBeingErased = v58;
@@ -327,7 +327,7 @@
               }
 
               while (v47 != v107);
-              v107 = [childInfos countByEnumeratingWithState:&v112 objects:v128 count:16];
+              v107 = [childInfos countByEnumeratingWithState:&v119 objects:v135 count:16];
             }
 
             while (v107);
@@ -337,7 +337,7 @@
         }
 
         while ((v102 + 1) != v100);
-        v100 = [obj countByEnumeratingWithState:&v116 objects:v129 count:16];
+        v100 = [obj countByEnumeratingWithState:&v123 objects:v136 count:16];
       }
 
       while (v100);
@@ -383,34 +383,34 @@
   [(CRLFreehandDrawingToolEraser *)self p_updatePathsFromPathCreatorsHidingShapesForWholeObjectAndDirtyingRectsForSlicing];
   if ([pointCopy inputType] == 2 && (objc_msgSend(pointCopy, "wasAddedByTouchesEnded") & 1) == 0)
   {
-    v127 = 0;
-    v125 = 0u;
-    v126 = 0u;
-    v123 = 0u;
-    v124 = 0u;
-    v122 = 0u;
+    v134 = 0;
+    v132 = 0u;
+    v133 = 0u;
+    v130 = 0u;
+    v131 = 0u;
+    v129 = 0u;
     memset(buf, 0, sizeof(buf));
     v91 = [(CRLFreehandDrawingTool *)self icc];
     freehandDrawingToolkit = [v91 freehandDrawingToolkit];
     v93 = freehandDrawingToolkit;
     if (pointCopy)
     {
-      [pointCopy PKInputPoint];
+      objc_msgSend_PKInputPoint(pointCopy);
       if (v93)
       {
 LABEL_50:
-        [v93 inputPointInPKCanvasViewFromUnscaledSpace:v110];
+        objc_msgSend_inputPointInPKCanvasViewFromUnscaledSpace_(v93);
 LABEL_53:
 
         v94 = [(CRLFreehandDrawingTool *)self icc];
         freehandDrawingToolkit2 = [v94 freehandDrawingToolkit];
-        v108[6] = v125;
-        v108[7] = v126;
-        v109 = v127;
+        v108[6] = v132;
+        v108[7] = v133;
+        v109 = v134;
         v108[2] = *&buf[32];
-        v108[3] = v122;
-        v108[4] = v123;
-        v108[5] = v124;
+        v108[3] = v129;
+        v108[4] = v130;
+        v108[5] = v131;
         v108[0] = *buf;
         v108[1] = *&buf[16];
         [freehandDrawingToolkit2 updatePencilShadowWithInputPoint:v108];
@@ -421,20 +421,27 @@ LABEL_53:
 
     else
     {
-      v111 = 0;
-      memset(v110, 0, sizeof(v110));
+      v118 = 0;
+      v116 = 0u;
+      v117 = 0u;
+      v114 = 0u;
+      v115 = 0u;
+      v112 = 0u;
+      v113 = 0u;
+      v110 = 0u;
+      v111 = 0u;
       if (freehandDrawingToolkit)
       {
         goto LABEL_50;
       }
     }
 
-    v127 = 0;
-    v125 = 0u;
-    v126 = 0u;
-    v123 = 0u;
-    v124 = 0u;
-    v122 = 0u;
+    v134 = 0;
+    v132 = 0u;
+    v133 = 0u;
+    v130 = 0u;
+    v131 = 0u;
+    v129 = 0u;
     memset(buf, 0, sizeof(buf));
     goto LABEL_53;
   }
@@ -1213,7 +1220,7 @@ LABEL_16:
             v26 = v25;
             if (v14)
             {
-              [v14 hitInfo];
+              objc_msgSend_hitInfo(v14);
               v27 = v93;
             }
 
@@ -1235,7 +1242,7 @@ LABEL_16:
 
               if (v14)
               {
-                [v14 hitInfo];
+                objc_msgSend_hitInfo(v14);
                 v32 = *(&v86 + 1);
                 v33 = *&v86;
               }

@@ -63,18 +63,18 @@
 - (id)addCell:(id)cell
 {
   cellCopy = cell;
-  objc_msgSend_willModify(self, v5, v6, v7, v8);
-  v13 = objc_msgSend_copy(cellCopy, v9, v10, v11, v12);
-  objc_msgSend_addPrecopiedCell_(self, v14, v13, v15, v16);
+  objc_msgSend_willModify(self, v5, v6, v7);
+  v11 = objc_msgSend_copy(cellCopy, v8, v9, v10);
+  objc_msgSend_addPrecopiedCell_(self, v12, v11, v13);
 
-  return v13;
+  return v11;
 }
 
 - (id)shallowAddCell:(id)cell
 {
   cellCopy = cell;
-  objc_msgSend_willModify(self, v5, v6, v7, v8);
-  objc_msgSend_addPrecopiedCell_(self, v9, cellCopy, v10, v11);
+  objc_msgSend_willModify(self, v5, v6, v7);
+  objc_msgSend_addPrecopiedCell_(self, v8, cellCopy, v9);
 
   return cellCopy;
 }
@@ -83,54 +83,54 @@
 {
   p_cells = &self->_cells;
   begin = self->_cells.__begin_;
-  v8 = self->_cells.var0 - begin;
-  if (self->_trailingEmptyCellCount + (v8 >> 3) <= index)
+  v7 = self->_cells.var0 - begin;
+  if (self->_trailingEmptyCellCount + (v7 >> 3) <= index)
   {
-    v9 = MEMORY[0x277D81150];
-    v10 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTCellList cellAtIndex:]", v3, v4);
-    v14 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellMap.mm", v12, v13);
-    v15 = objc_opt_class();
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v9, v16, v10, v14, 1259, 0, "Out of range in  %@", v15);
+    v8 = MEMORY[0x277D81150];
+    v9 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], a2, "[TSTCellList cellAtIndex:]", v3);
+    v12 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v10, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellMap.mm", v11);
+    v13 = objc_opt_class();
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v8, v14, v9, v12, 1259, 0, "Out of range in  %@", v13);
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v17, v18, v19, v20);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v15, v16, v17);
     begin = p_cells->__begin_;
-    v8 = p_cells->var0 - p_cells->__begin_;
+    v7 = p_cells->var0 - p_cells->__begin_;
   }
 
-  if (v8 >> 3 <= index)
+  if (v7 >> 3 <= index)
   {
-    v21 = 0;
+    v18 = 0;
   }
 
   else
   {
-    v21 = begin[index];
+    v18 = begin[index];
   }
 
-  return v21;
+  return v18;
 }
 
 - (void)replaceCell:(id)cell atIndex:(unint64_t)index
 {
   cellCopy = cell;
-  objc_msgSend_willModify(self, v8, v9, v10, v11);
+  objc_msgSend_willModify(self, v8, v9, v10);
   p_cells = &self->_cells;
   begin = self->_cells.__begin_;
-  v17 = self->_cells.var0 - begin;
-  if (v17 > index)
+  v15 = self->_cells.var0 - begin;
+  if (v15 > index)
   {
     goto LABEL_9;
   }
 
   trailingEmptyCellCount = self->_trailingEmptyCellCount;
-  if (trailingEmptyCellCount + v17 <= index)
+  if (trailingEmptyCellCount + v15 <= index)
   {
-    v19 = MEMORY[0x277D81150];
-    v20 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSTCellList replaceCell:atIndex:]", v13, v14);
-    v24 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v21, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellMap.mm", v22, v23);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v19, v25, v20, v24, 1276, 0, "Asking to replace where we currently have no cell at all - invalid replaceCell: call");
+    v17 = MEMORY[0x277D81150];
+    v18 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTCellList replaceCell:atIndex:]", v12);
+    v21 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v19, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellMap.mm", v20);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v17, v22, v18, v21, 1276, 0, "Asking to replace where we currently have no cell at all - invalid replaceCell: call");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v26, v27, v28, v29);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v23, v24, v25);
     trailingEmptyCellCount = self->_trailingEmptyCellCount;
   }
 
@@ -138,31 +138,31 @@
   {
     do
     {
-      v43 = 0;
-      sub_22127F618(&self->_cells.__begin_, &v43);
+      v37 = 0;
+      sub_22127F618(&self->_cells.__begin_, &v37);
 
-      v30 = self->_trailingEmptyCellCount - 1;
-      self->_trailingEmptyCellCount = v30;
+      v26 = self->_trailingEmptyCellCount - 1;
+      self->_trailingEmptyCellCount = v26;
     }
 
-    while (v30);
+    while (v26);
   }
 
   begin = p_cells->__begin_;
-  v31 = self->_cells.var0 - self->_cells.__begin_;
-  if (v31 <= index)
+  v27 = self->_cells.var0 - self->_cells.__begin_;
+  if (v27 <= index)
   {
-    v32 = MEMORY[0x277D81150];
-    v33 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v12, "[TSTCellList replaceCell:atIndex:]", v13, v14);
-    v37 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v34, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellMap.mm", v35, v36);
-    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v32, v38, v33, v37, 1283, 0, "Should now fit in real range");
+    v28 = MEMORY[0x277D81150];
+    v29 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v11, "[TSTCellList replaceCell:atIndex:]", v12);
+    v32 = objc_msgSend_stringWithUTF8String_(MEMORY[0x277CCACA8], v30, "/Library/Caches/com.apple.xbs/Sources/iWorkImport/shared/tables/TSTCellMap.mm", v31);
+    objc_msgSend_handleFailureInFunction_file_lineNumber_isFatal_description_(v28, v33, v29, v32, 1283, 0, "Should now fit in real range");
 
-    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v39, v40, v41, v42);
+    objc_msgSend_logBacktraceThrottled(MEMORY[0x277D81150], v34, v35, v36);
     begin = p_cells->__begin_;
-    v31 = p_cells->var0 - p_cells->__begin_;
+    v27 = p_cells->var0 - p_cells->__begin_;
   }
 
-  if (v31 > index)
+  if (v27 > index)
   {
 LABEL_9:
     objc_storeStrong(&begin[index], cell);
@@ -172,123 +172,123 @@ LABEL_9:
 - (id)copyWithZone:(_NSZone *)zone
 {
   v5 = objc_opt_class();
-  v9 = objc_msgSend_allocWithZone_(v5, v6, zone, v7, v8);
-  v14 = objc_msgSend_context(self, v10, v11, v12, v13);
-  v18 = objc_msgSend_initWithContext_(v9, v15, v14, v16, v17);
+  v8 = objc_msgSend_allocWithZone_(v5, v6, zone, v7);
+  v12 = objc_msgSend_context(self, v9, v10, v11);
+  v15 = objc_msgSend_initWithContext_(v8, v13, v12, v14);
 
-  sub_22116A0A0(v18 + 8, self->_cells.var0 - self->_cells.__begin_);
+  sub_22116A0A0(v15 + 8, self->_cells.var0 - self->_cells.__begin_);
   begin = self->_cells.__begin_;
   var0 = self->_cells.var0;
   while (begin != var0)
   {
-    v21 = *begin;
-    v27 = objc_msgSend_copy(v21, v22, v23, v24, v25);
-    sub_22127F618(v18 + 8, &v27);
+    v18 = *begin;
+    v23 = objc_msgSend_copy(v18, v19, v20, v21);
+    sub_22127F618(v15 + 8, &v23);
 
     ++begin;
   }
 
-  v18[11] = self->_trailingEmptyCellCount;
-  return v18;
+  v15[11] = self->_trailingEmptyCellCount;
+  return v15;
 }
 
 - (void)loadFromUnarchiver:(id)unarchiver
 {
   unarchiverCopy = unarchiver;
   google::protobuf::internal::AssignDescriptors();
-  v8 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v5, off_2812E4498[108], v6, v7);
+  v7 = objc_msgSend_messageWithDescriptor_(unarchiverCopy, v5, off_2812E4498[108], v6);
 
-  v13 = objc_msgSend_currentLocale(MEMORY[0x277D81228], v9, v10, v11, v12);
-  sub_22116A0A0(&self->_cells.__begin_, *(v8 + 32));
-  v17 = *(v8 + 40);
-  if (v17)
+  v11 = objc_msgSend_currentLocale(MEMORY[0x277D81228], v8, v9, v10);
+  sub_22116A0A0(&self->_cells.__begin_, *(v7 + 32));
+  v14 = *(v7 + 40);
+  if (v14)
   {
-    v18 = (v17 + 8);
+    v15 = (v14 + 8);
   }
 
   else
   {
-    v18 = 0;
+    v15 = 0;
   }
 
-  v19 = *(v8 + 32);
-  if (v19)
+  v16 = *(v7 + 32);
+  if (v16)
   {
-    v20 = 8 * v19;
+    v17 = 8 * v16;
     do
     {
-      TST::CellListArchive_OptionalCell::CellListArchive_OptionalCell(v35, *v18);
-      if (v35[16])
+      TST::CellListArchive_OptionalCell::CellListArchive_OptionalCell(v29, *v15);
+      if (v29[16])
       {
-        v25 = [TSTCell alloc];
-        v29 = objc_msgSend_initWithLocale_(v25, v26, v13, v27, v28);
-        if (v36)
+        v21 = [TSTCell alloc];
+        v24 = objc_msgSend_initWithLocale_(v21, v22, v11, v23);
+        if (v30)
         {
-          v30 = v36;
+          v25 = v30;
         }
 
         else
         {
-          v30 = &TST::_Cell_default_instance_;
+          v25 = &TST::_Cell_default_instance_;
         }
 
-        v24 = v29;
-        sub_221123AF0(v30, v29, unarchiverCopy);
-        objc_msgSend_addPrecopiedCell_(self, v31, v24, v32, v33);
+        v20 = v24;
+        sub_221123AF0(v25, v24, unarchiverCopy);
+        objc_msgSend_addPrecopiedCell_(self, v26, v20, v27);
       }
 
       else
       {
-        v24 = 0;
-        objc_msgSend_addPrecopiedCell_(self, v21, 0, v22, v23);
+        v20 = 0;
+        objc_msgSend_addPrecopiedCell_(self, v18, 0, v19);
       }
 
-      TST::CellListArchive_OptionalCell::~CellListArchive_OptionalCell(v35);
-      ++v18;
-      v20 -= 8;
+      TST::CellListArchive_OptionalCell::~CellListArchive_OptionalCell(v29);
+      ++v15;
+      v17 -= 8;
     }
 
-    while (v20);
+    while (v17);
   }
 
-  if (*(v8 + 16))
+  if (*(v7 + 16))
   {
-    self->_trailingEmptyCellCount += *(v8 + 48);
+    self->_trailingEmptyCellCount += *(v7 + 48);
   }
 
-  v34[0] = MEMORY[0x277D85DD0];
-  v34[1] = 3221225472;
-  v34[2] = sub_22127FEA0;
-  v34[3] = &unk_27845E3F8;
-  v34[4] = self;
-  objc_msgSend_addFinalizeHandler_(unarchiverCopy, v14, v34, v15, v16);
+  v28[0] = MEMORY[0x277D85DD0];
+  v28[1] = 3221225472;
+  v28[2] = sub_22127FEA0;
+  v28[3] = &unk_27845E3F8;
+  v28[4] = self;
+  objc_msgSend_addFinalizeHandler_(unarchiverCopy, v12, v28, v13);
 }
 
 - (void)saveToArchiver:(id)archiver
 {
   archiverCopy = archiver;
   google::protobuf::internal::AssignDescriptors();
-  v6 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_221280B44, off_2812E4498[108], v5);
+  v5 = objc_msgSend_messageWithNewFunction_descriptor_(archiverCopy, v4, sub_221280B44, off_2812E4498[108]);
 
   begin = self->_cells.__begin_;
   var0 = self->_cells.var0;
   while (begin != var0)
   {
-    v9 = *begin;
-    v10 = v9;
-    v11 = *(v6 + 40);
-    if (!v11)
+    v8 = *begin;
+    v9 = v8;
+    v10 = *(v5 + 40);
+    if (!v10)
     {
       goto LABEL_9;
     }
 
-    v12 = *(v6 + 32);
-    v13 = *v11;
-    if (v12 < *v11)
+    v11 = *(v5 + 32);
+    v12 = *v10;
+    if (v11 < *v10)
     {
-      *(v6 + 32) = v12 + 1;
-      v14 = *&v11[2 * v12 + 2];
-      if (!v9)
+      *(v5 + 32) = v11 + 1;
+      v13 = *&v10[2 * v11 + 2];
+      if (!v8)
       {
         goto LABEL_16;
       }
@@ -296,41 +296,41 @@ LABEL_9:
       goto LABEL_11;
     }
 
-    if (v13 == *(v6 + 36))
+    if (v12 == *(v5 + 36))
     {
 LABEL_9:
-      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v6 + 24));
-      v11 = *(v6 + 40);
-      v13 = *v11;
+      google::protobuf::internal::RepeatedPtrFieldBase::Reserve((v5 + 24));
+      v10 = *(v5 + 40);
+      v12 = *v10;
     }
 
-    *v11 = v13 + 1;
-    v14 = google::protobuf::Arena::CreateMaybeMessage<TST::CellListArchive_OptionalCell>(*(v6 + 24));
-    v15 = *(v6 + 32);
-    v16 = *(v6 + 40) + 8 * v15;
-    *(v6 + 32) = v15 + 1;
-    *(v16 + 8) = v14;
-    if (!v10)
+    *v10 = v12 + 1;
+    v13 = google::protobuf::Arena::CreateMaybeMessage<TST::CellListArchive_OptionalCell>(*(v5 + 24));
+    v14 = *(v5 + 32);
+    v15 = *(v5 + 40) + 8 * v14;
+    *(v5 + 32) = v14 + 1;
+    *(v15 + 8) = v13;
+    if (!v9)
     {
       goto LABEL_16;
     }
 
 LABEL_11:
-    *(v14 + 16) |= 1u;
-    v17 = *(v14 + 24);
-    if (!v17)
+    *(v13 + 16) |= 1u;
+    v16 = *(v13 + 24);
+    if (!v16)
     {
-      v18 = *(v14 + 8);
-      if (v18)
+      v17 = *(v13 + 8);
+      if (v17)
       {
-        v18 = *(v18 & 0xFFFFFFFFFFFFFFFELL);
+        v17 = *(v17 & 0xFFFFFFFFFFFFFFFELL);
       }
 
-      v17 = google::protobuf::Arena::CreateMaybeMessage<TST::Cell>(v18);
-      *(v14 + 24) = v17;
+      v16 = google::protobuf::Arena::CreateMaybeMessage<TST::Cell>(v17);
+      *(v13 + 24) = v16;
     }
 
-    sub_2211243E4(v10, v17, archiverCopy);
+    sub_2211243E4(v9, v16, archiverCopy);
 LABEL_16:
 
     ++begin;
@@ -339,8 +339,8 @@ LABEL_16:
   trailingEmptyCellCount = self->_trailingEmptyCellCount;
   if (trailingEmptyCellCount)
   {
-    *(v6 + 16) |= 1u;
-    *(v6 + 48) = trailingEmptyCellCount;
+    *(v5 + 16) |= 1u;
+    *(v5 + 48) = trailingEmptyCellCount;
   }
 }
 

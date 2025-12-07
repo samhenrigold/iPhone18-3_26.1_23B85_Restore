@@ -47,28 +47,26 @@
 
 void __41__CNAutocompleteRecentResult_comparators__block_invoke()
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v0 = objc_alloc(MEMORY[0x277CBEB70]);
   v1 = _Block_copy(sSortResultsByCategory);
-  v12 = v1;
+  v11 = v1;
   v2 = _Block_copy(sSortRecentResultsByCompletingChosenGroup);
-  v13 = v2;
+  v12 = v2;
   v3 = _Block_copy(sSortResultsByPreferredDomain);
-  v14 = v3;
+  v13 = v3;
   v4 = _Block_copy(sSortRecentResultsBySendingAddressMatch);
-  v15 = v4;
+  v14 = v4;
   v5 = _Block_copy(sSortRecentResultsByDate);
-  v16 = v5;
+  v15 = v5;
   v6 = _Block_copy(sSortResultsByDisplayName);
-  v17 = v6;
+  v16 = v6;
   v7 = _Block_copy(sSortResultsByAddress);
-  v18 = v7;
-  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v12 count:7];
-  v9 = [v0 initWithArray:{v8, v12, v13, v14, v15, v16, v17}];
+  v17 = v7;
+  v8 = [MEMORY[0x277CBEA60] arrayWithObjects:&v11 count:7];
+  v9 = [v0 initWithArray:{v8, v11, v12, v13, v14, v15, v16}];
   v10 = comparators_cn_once_object_14;
   comparators_cn_once_object_14 = v9;
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -4,6 +4,7 @@
 + (id)_internalParameters;
 + (id)_seedParameters;
 + (id)defaultDeviceParameters;
++ (id)parametersForPlatform:(unsigned __int8)platform isInternal:(BOOL)internal isSeed:(BOOL)seed isCarrier:(BOOL)carrier taskingIsEnabled:(BOOL)enabled;
 - (BOOL)isEqual:(id)equal;
 - (DRSTaskingLimitingParameters)initWithAcceptConfigCountCap:(unint64_t)cap taskingHysteresisInterval:(double)interval;
 @end
@@ -106,6 +107,38 @@ void __51__DRSTaskingLimitingParameters__customerParameters__block_invoke()
   v0 = [[DRSTaskingLimitingParameters alloc] initWithAcceptConfigCountCap:2 taskingHysteresisInterval:3600.0];
   v1 = _customerParameters_parameters;
   _customerParameters_parameters = v0;
+}
+
++ (id)parametersForPlatform:(unsigned __int8)platform isInternal:(BOOL)internal isSeed:(BOOL)seed isCarrier:(BOOL)carrier taskingIsEnabled:(BOOL)enabled
+{
+  if (enabled && platform != 5 && platform && !carrier)
+  {
+    if (internal)
+    {
+      _internalParameters = [self _internalParameters];
+    }
+
+    else
+    {
+      if (seed)
+      {
+        [self _seedParameters];
+      }
+
+      else
+      {
+        [self _customerParameters];
+      }
+      _internalParameters = ;
+    }
+  }
+
+  else
+  {
+    _internalParameters = [self _disabledParameters];
+  }
+
+  return _internalParameters;
 }
 
 - (BOOL)isEqual:(id)equal

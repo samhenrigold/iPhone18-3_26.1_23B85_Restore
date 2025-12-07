@@ -14,20 +14,20 @@
 
 - (MCGlobalHTTPProxyPayload)initWithDictionary:(id)dictionary profile:(id)profile outError:(id *)error
 {
-  v77 = *MEMORY[0x1E69E9840];
+  v76 = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   profileCopy = profile;
-  v72.receiver = self;
-  v72.super_class = MCGlobalHTTPProxyPayload;
-  v10 = [(MCPayload *)&v72 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
+  v71.receiver = self;
+  v71.super_class = MCGlobalHTTPProxyPayload;
+  v10 = [(MCPayload *)&v71 initWithDictionary:dictionaryCopy profile:profileCopy outError:error];
   if (!v10)
   {
     goto LABEL_23;
   }
 
-  v71 = 0;
-  v11 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyPACFallbackAllowed" isRequired:0 outError:&v71];
-  v12 = v71;
+  v70 = 0;
+  v11 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyPACFallbackAllowed" isRequired:0 outError:&v70];
+  v12 = v70;
   proxyPACFallbackAllowedNum = v10->_proxyPACFallbackAllowedNum;
   v10->_proxyPACFallbackAllowedNum = v11;
 
@@ -37,9 +37,9 @@
   }
 
   v10->_proxyPACFallbackAllowed = [(NSNumber *)v10->_proxyPACFallbackAllowedNum BOOLValue];
-  v70 = 0;
-  v14 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyCaptiveLoginAllowed" isRequired:0 outError:&v70];
-  v12 = v70;
+  v69 = 0;
+  v14 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyCaptiveLoginAllowed" isRequired:0 outError:&v69];
+  v12 = v69;
   proxyCaptiveLoginAllowedNum = v10->_proxyCaptiveLoginAllowedNum;
   v10->_proxyCaptiveLoginAllowedNum = v14;
 
@@ -51,9 +51,9 @@
   v10->_proxyCaptiveLoginAllowed = [(NSNumber *)v10->_proxyCaptiveLoginAllowedNum BOOLValue];
   if (![profileCopy isStub])
   {
-    v62 = 0;
-    v16 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyType" isRequired:0 outError:&v62];
-    v17 = v62;
+    v61 = 0;
+    v16 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyType" isRequired:0 outError:&v61];
+    v17 = v61;
     if (v17)
     {
       goto LABEL_12;
@@ -63,15 +63,15 @@
     {
       if ([v16 isEqualToString:@"Manual"])
       {
-        v39 = 1;
+        v38 = 1;
 LABEL_33:
-        v10->_proxyType = v39;
+        v10->_proxyType = v38;
         goto LABEL_34;
       }
 
       if ([v16 isEqualToString:@"Auto"])
       {
-        v39 = 0;
+        v38 = 0;
         goto LABEL_33;
       }
 
@@ -91,22 +91,11 @@ LABEL_34:
         goto LABEL_42;
       }
 
-      v61 = 0;
-      v44 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyServer" isRequired:1 outError:&v61];
-      v12 = v61;
-      proxyServer = v10->_proxyServer;
-      v10->_proxyServer = v44;
-
-      if (v12)
-      {
-        goto LABEL_13;
-      }
-
       v60 = 0;
-      v46 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyServerPort" isRequired:0 outError:&v60];
+      v43 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyServer" isRequired:1 outError:&v60];
       v12 = v60;
-      proxyServerPort = v10->_proxyServerPort;
-      v10->_proxyServerPort = v46;
+      proxyServer = v10->_proxyServer;
+      v10->_proxyServer = v43;
 
       if (v12)
       {
@@ -114,10 +103,10 @@ LABEL_34:
       }
 
       v59 = 0;
-      v48 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyUsername" isRequired:0 outError:&v59];
+      v45 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyServerPort" isRequired:0 outError:&v59];
       v12 = v59;
-      proxyUsername = v10->_proxyUsername;
-      v10->_proxyUsername = v48;
+      proxyServerPort = v10->_proxyServerPort;
+      v10->_proxyServerPort = v45;
 
       if (v12)
       {
@@ -125,21 +114,32 @@ LABEL_34:
       }
 
       v58 = 0;
-      v50 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyPassword" isRequired:0 outError:&v58];
+      v47 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyUsername" isRequired:0 outError:&v58];
       v12 = v58;
-      v51 = 120;
+      proxyUsername = v10->_proxyUsername;
+      v10->_proxyUsername = v47;
+
+      if (v12)
+      {
+        goto LABEL_13;
+      }
+
+      v57 = 0;
+      v49 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyPassword" isRequired:0 outError:&v57];
+      v12 = v57;
+      v50 = 120;
     }
 
     else
     {
-      v57 = 0;
-      v50 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyPACURL" isRequired:0 outError:&v57];
-      v12 = v57;
-      v51 = 128;
+      v56 = 0;
+      v49 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyPACURL" isRequired:0 outError:&v56];
+      v12 = v56;
+      v50 = 128;
     }
 
-    v52 = *(&v10->super.super.isa + v51);
-    *(&v10->super.super.isa + v51) = v50;
+    v51 = *(&v10->super.super.isa + v50);
+    *(&v10->super.super.isa + v50) = v49;
 
     if (v12)
     {
@@ -162,14 +162,14 @@ LABEL_42:
     else
     {
       scheme2 = [credentialUUID scheme];
-      v55 = [scheme2 isEqualToString:@"https"];
+      v54 = [scheme2 isEqualToString:@"https"];
 
-      if ((v55 & 1) == 0)
+      if ((v54 & 1) == 0)
       {
-        v56 = [MCPayload badFieldValueErrorWithField:@"ProxyPACURL"];
-        if (v56)
+        v55 = [MCPayload badFieldValueErrorWithField:@"ProxyPACURL"];
+        if (v55)
         {
-          v12 = v56;
+          v12 = v55;
           goto LABEL_52;
         }
       }
@@ -179,9 +179,9 @@ LABEL_42:
     goto LABEL_52;
   }
 
-  v69 = 0;
-  v16 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyType" isRequired:0 outError:&v69];
-  v17 = v69;
+  v68 = 0;
+  v16 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyType" isRequired:0 outError:&v68];
+  v17 = v68;
   if (v17)
   {
 LABEL_12:
@@ -195,22 +195,22 @@ LABEL_12:
     if (v10->_proxyType)
     {
 LABEL_30:
-      v63 = 0;
-      v41 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"credentialUUID" isRequired:0 outError:&v63];
-      v12 = v63;
+      v62 = 0;
+      v40 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"credentialUUID" isRequired:0 outError:&v62];
+      v12 = v62;
       credentialUUID = v10->_credentialUUID;
-      v10->_credentialUUID = v41;
+      v10->_credentialUUID = v40;
 LABEL_52:
 
       goto LABEL_13;
     }
 
-    v64 = 0;
-    v24 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyPACURL" isRequired:0 outError:&v64];
-    v12 = v64;
+    v63 = 0;
+    v24 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyPACURL" isRequired:0 outError:&v63];
+    v12 = v63;
     v25 = 128;
 LABEL_29:
-    v40 = *(&v10->super.super.isa + v25);
+    v39 = *(&v10->super.super.isa + v25);
     *(&v10->super.super.isa + v25) = v24;
 
     if (v12)
@@ -221,33 +221,33 @@ LABEL_29:
     goto LABEL_30;
   }
 
-  v68 = 0;
-  v18 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyServer" isRequired:0 outError:&v68];
-  v12 = v68;
+  v67 = 0;
+  v18 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyServer" isRequired:0 outError:&v67];
+  v12 = v67;
   v19 = v10->_proxyServer;
   v10->_proxyServer = v18;
 
   if (!v12)
   {
-    v67 = 0;
-    v20 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyServerPort" isRequired:0 outError:&v67];
-    v12 = v67;
+    v66 = 0;
+    v20 = [dictionaryCopy MCValidateAndRemoveObjectOfClass:objc_opt_class() withKey:@"ProxyServerPort" isRequired:0 outError:&v66];
+    v12 = v66;
     v21 = v10->_proxyServerPort;
     v10->_proxyServerPort = v20;
 
     if (!v12)
     {
-      v66 = 0;
-      v22 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyUsername" isRequired:0 outError:&v66];
-      v12 = v66;
+      v65 = 0;
+      v22 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyUsername" isRequired:0 outError:&v65];
+      v12 = v65;
       v23 = v10->_proxyUsername;
       v10->_proxyUsername = v22;
 
       if (!v12)
       {
-        v65 = 0;
-        v24 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyPassword" isRequired:0 outError:&v65];
-        v12 = v65;
+        v64 = 0;
+        v24 = [dictionaryCopy MCValidateAndRemoveNonZeroLengthStringWithKey:@"ProxyPassword" isRequired:0 outError:&v64];
+        v12 = v64;
         v25 = 120;
         goto LABEL_29;
       }
@@ -275,9 +275,9 @@ LABEL_14:
       v32 = v31;
       mCVerboseDescription = [v27 MCVerboseDescription];
       *buf = 138543618;
-      v74 = v31;
-      v75 = 2114;
-      v76 = mCVerboseDescription;
+      v73 = v31;
+      v74 = 2114;
+      v75 = mCVerboseDescription;
       _os_log_impl(&dword_1A795B000, v30, OS_LOG_TYPE_ERROR, "%{public}@ Can't parse payload: %{public}@", buf, 0x16u);
     }
 
@@ -292,15 +292,14 @@ LABEL_14:
       v35 = v34;
       friendlyName = [(MCPayload *)v10 friendlyName];
       *buf = 138543618;
-      v74 = friendlyName;
-      v75 = 2114;
-      v76 = dictionaryCopy;
+      v73 = friendlyName;
+      v74 = 2114;
+      v75 = dictionaryCopy;
       _os_log_impl(&dword_1A795B000, v35, OS_LOG_TYPE_INFO, "Payload “%{public}@” contains ignored fields. They are: %{public}@", buf, 0x16u);
     }
   }
 
 LABEL_23:
-  v37 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
@@ -423,7 +422,7 @@ LABEL_23:
 
 - (id)payloadDescriptionKeyValueSections
 {
-  v61[1] = *MEMORY[0x1E69E9840];
+  v60[1] = *MEMORY[0x1E69E9840];
   v3 = objc_opt_new();
   proxyServer = [(MCGlobalHTTPProxyPayload *)self proxyServer];
 
@@ -556,10 +555,8 @@ LABEL_18:
   }
 
   v57 = [MCKeyValueSection sectionWithKeyValues:v3];
-  v61[0] = v57;
-  v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:v61 count:1];
-
-  v59 = *MEMORY[0x1E69E9840];
+  v60[0] = v57;
+  v58 = [MEMORY[0x1E695DEC8] arrayWithObjects:v60 count:1];
 
   return v58;
 }

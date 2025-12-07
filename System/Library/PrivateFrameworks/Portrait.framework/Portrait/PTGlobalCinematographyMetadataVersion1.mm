@@ -64,9 +64,9 @@
   dataCopy = data;
   bytes = [dataCopy bytes];
   v6 = bswap32(bytes[3]);
-  v61.receiver = self;
-  v61.super_class = PTGlobalCinematographyMetadataVersion1;
-  v7 = [(PTGlobalCinematographyMetadata *)&v61 initWithMajorVersion:1 minorVersion:v6];
+  v63.receiver = self;
+  v63.super_class = PTGlobalCinematographyMetadataVersion1;
+  v7 = [(PTGlobalCinematographyMetadata *)&v63 initWithMajorVersion:1 minorVersion:v6];
   if (v7 && (v8 = bswap32(*bytes), [dataCopy length] == v8) && (v8 & 7) == 0 && -[PTGlobalCinematographyMetadata majorVersion](v7, "majorVersion") == 1 && -[PTGlobalCinematographyMetadata majorVersion](v7, "majorVersion") == bswap32(bytes[2]))
   {
     [OUTLINED_FUNCTION_4_0() getFloatParameter:1 fromPairs:? numPairs:? didFindValue:?];
@@ -75,25 +75,25 @@
     v7->_focusPullerMaxV = v10;
     v11 = [OUTLINED_FUNCTION_4_0() getFloatParameter:3 fromPairs:? numPairs:? didFindValue:?];
     v7->_focusPullerResistance = v12;
-    OUTLINED_FUNCTION_1_4(v11, v13, v14, v15, v16, v17, v18, v19, v51);
+    OUTLINED_FUNCTION_1_4(v11, v13, v14, v15, v16, v17, v18, v19, v53);
     v20 = [OUTLINED_FUNCTION_3_4() getCMTimeParameter:4 scale:90000 fromPairs:? numPairs:? withDefault:?];
-    OUTLINED_FUNCTION_5_1(v20, v21, v22, v23, v24, v25, v26, v27, v52, v55, v57, v28, v59);
-    OUTLINED_FUNCTION_1_4(v29, v30, v31, v32, v33, v34, v35, v36, v53);
-    v37 = [OUTLINED_FUNCTION_3_4() getCMTimeParameter:5 scale:90000 fromPairs:? numPairs:? withDefault:?];
-    OUTLINED_FUNCTION_5_1(v37, v38, v39, v40, v41, v42, v43, v44, v54, v56, v58, v45, v60);
-    v46 = OUTLINED_FUNCTION_4_0();
-    LODWORD(v47) = 0.5;
-    [v46 getFloatParameter:6 fromPairs:v47 numPairs:? withDefault:?];
-    HIDWORD(v7->_maximumRackFocusPullTime.epoch) = v48;
-    v49 = v7;
+    OUTLINED_FUNCTION_5_1(v20, v21, v22, v23, v24, v25, v26, v27, v28, v54, v57, v59, v29, v61);
+    OUTLINED_FUNCTION_1_4(v30, v31, v32, v33, v34, v35, v36, v37, v55);
+    v38 = [OUTLINED_FUNCTION_3_4() getCMTimeParameter:5 scale:90000 fromPairs:? numPairs:? withDefault:?];
+    OUTLINED_FUNCTION_5_1(v38, v39, v40, v41, v42, v43, v44, v45, v46, v56, v58, v60, v47, v62);
+    v48 = OUTLINED_FUNCTION_4_0();
+    LODWORD(v49) = 0.5;
+    [v48 getFloatParameter:6 fromPairs:v49 numPairs:? withDefault:?];
+    HIDWORD(v7->_maximumRackFocusPullTime.epoch) = v50;
+    v51 = v7;
   }
 
   else
   {
-    v49 = 0;
+    v51 = 0;
   }
 
-  return v49;
+  return v51;
 }
 
 - (BOOL)writeToData:(id)data withOptions:(id)options

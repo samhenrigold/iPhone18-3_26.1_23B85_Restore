@@ -280,20 +280,20 @@ uint64_t __51__PLTitledPlatterView_sizeThatFitsContentWithSize___block_invoke(ui
 - (void)_layoutHeaderViews
 {
   [(PLTitledPlatterView *)self bounds];
-  x = v13.origin.x;
-  y = v13.origin.y;
-  width = v13.size.width;
-  height = v13.size.height;
-  if (!CGRectIsEmpty(v13))
+  x = v15.origin.x;
+  y = v15.origin.y;
+  width = v15.size.width;
+  height = v15.size.height;
+  if (!CGRectIsEmpty(v15))
   {
     [(PLPlatterHeaderContentView *)self->_headerContentView sizeThatFits:width, height];
-    BSRectWithSize();
-    PLMainScreenScale();
+    v7 = BSRectWithSize();
+    PLMainScreenScale(v7, v8);
     UIRectIntegralWithScale();
-    x = v7;
-    y = v8;
-    width = v9;
-    height = v10;
+    x = v9;
+    y = v10;
+    width = v11;
+    height = v12;
   }
 
   [(PLPlatterHeaderContentView *)self->_headerContentView setFrame:x, y, width, height];
@@ -305,18 +305,18 @@ uint64_t __51__PLTitledPlatterView_sizeThatFitsContentWithSize___block_invoke(ui
 - (CGRect)_mainContentFrame
 {
   [(PLTitledPlatterView *)self bounds];
-  x = v17.origin.x;
-  y = v17.origin.y;
-  width = v17.size.width;
-  height = v17.size.height;
-  if (!CGRectIsEmpty(v17))
+  x = v19.origin.x;
+  y = v19.origin.y;
+  width = v19.size.width;
+  height = v19.size.height;
+  if (!CGRectIsEmpty(v19))
   {
     [(PLTitledPlatterView *)self _layoutHeaderViews];
     headerContentView = self->_headerContentView;
     if (self->_largerHeaderMarginEnabled)
     {
       [(PLPlatterHeaderContentView *)headerContentView frame];
-      v8 = CGRectGetHeight(v18);
+      v8 = CGRectGetHeight(v20);
     }
 
     else
@@ -328,28 +328,29 @@ uint64_t __51__PLTitledPlatterView_sizeThatFitsContentWithSize___block_invoke(ui
     height = height - v8;
   }
 
-  v19.origin.x = x;
-  v19.origin.y = y;
-  v19.size.width = width;
-  v19.size.height = height;
-  if (!CGRectIsEmpty(v19))
+  v21.origin.x = x;
+  v21.origin.y = y;
+  v21.size.width = width;
+  v21.size.height = height;
+  IsEmpty = CGRectIsEmpty(v21);
+  if (!IsEmpty)
   {
-    PLMainScreenScale();
+    PLMainScreenScale(IsEmpty, v10);
     UIRectIntegralWithScale();
-    x = v9;
-    y = v10;
-    width = v11;
-    height = v12;
+    x = v11;
+    y = v12;
+    width = v13;
+    height = v14;
   }
 
-  v13 = x;
-  v14 = y;
-  v15 = width;
-  v16 = height;
-  result.size.height = v16;
-  result.size.width = v15;
-  result.origin.y = v14;
-  result.origin.x = v13;
+  v15 = x;
+  v16 = y;
+  v17 = width;
+  v18 = height;
+  result.size.height = v18;
+  result.size.width = v17;
+  result.origin.y = v16;
+  result.origin.x = v15;
   return result;
 }
 

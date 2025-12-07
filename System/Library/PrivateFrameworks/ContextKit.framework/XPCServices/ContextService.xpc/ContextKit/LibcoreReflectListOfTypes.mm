@@ -1,5 +1,6 @@
 @interface LibcoreReflectListOfTypes
 + (void)initialize;
+- (LibcoreReflectListOfTypes)initWithInt:(int)int;
 - (id)description;
 - (id)getResolvedTypes;
 - (int)length;
@@ -8,6 +9,13 @@
 @end
 
 @implementation LibcoreReflectListOfTypes
+
+- (LibcoreReflectListOfTypes)initWithInt:(int)int
+{
+  v4 = new_JavaUtilArrayList_initWithInt_(*&int);
+  JreStrongAssignAndConsume(&self->types_, v4);
+  return self;
+}
 
 - (void)addWithJavaLangReflectType:(id)type
 {

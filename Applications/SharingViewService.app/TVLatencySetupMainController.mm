@@ -19,7 +19,7 @@
 {
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupMainController showTryAgainUI]", 30, "TryAgain UI\n");
   }
 
   vcTryAgain = self->_vcTryAgain;
@@ -42,7 +42,7 @@
 {
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupMainController showProgressUI]", 30, "Show progress UI\n");
   }
 
   vcProgress = self->_vcProgress;
@@ -67,8 +67,7 @@
   iCopy = i;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    v10 = iCopy;
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupMainController showDoneUI:final:]", 30, "Show done UI: %{error}\n", iCopy);
   }
 
   if (self->_vcDone)
@@ -96,7 +95,7 @@
 
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupMainController showDoneUI:final:]", 30, "Invalidating session\n");
   }
 
   [(SFDeviceSetupTVLatencySession *)self->_latencySetupSession invalidate];
@@ -122,7 +121,7 @@ LABEL_14:
   {
     if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BF2B8, "[TVLatencySetupMainController showAuthUIWithFlags:throttleSeconds:]", 30, "Show auth UI\n");
     }
 
     v6 = [(UIStoryboard *)self->_storyboard instantiateViewControllerWithIdentifier:@"AuthUI"];
@@ -167,7 +166,7 @@ LABEL_14:
 LABEL_12:
       if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001BF2B8, "[TVLatencySetupMainController _sessionHandleProgress:info:]", 30, "Setup completed\n");
       }
 
       [(TVLatencySetupMainController *)self showDoneUI:0];
@@ -196,7 +195,7 @@ LABEL_25:
     {
       if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001BF2B8, "[TVLatencySetupMainController _sessionHandleProgress:info:]", 30, "Remote user stop setup\n");
       }
 
       [(TVLatencySetupMainController *)self dismiss:17];
@@ -212,7 +211,7 @@ LABEL_20:
       v6 = CFDictionaryGetTypedValue();
       if (dword_1001BF2B8 <= 60 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
       {
-        LogPrintF();
+        LogPrintF(&dword_1001BF2B8, "[TVLatencySetupMainController _sessionHandleProgress:info:]", 60, "### Setup failed: %{error}\n", v6);
       }
 
       if (v6)
@@ -289,7 +288,7 @@ LABEL_35:
         {
           if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
           {
-            LogPrintF();
+            LogPrintF(&dword_1001BF2B8, "[TVLatencySetupMainController handleButtonActions:]", 30, "Home button\n");
           }
 
           [(TVLatencySetupMainController *)self dismiss:4];
@@ -355,7 +354,7 @@ LABEL_35:
   disappearCopy = disappear;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupMainController viewDidDisappear:]", 30, "Main ViewDidDisappear\n");
   }
 
   _remoteViewControllerProxy = [(TVLatencySetupMainController *)self _remoteViewControllerProxy];
@@ -365,7 +364,7 @@ LABEL_35:
   {
     if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
     {
-      LogPrintF();
+      LogPrintF(&dword_1001BF2B8, "[TVLatencySetupMainController viewDidDisappear:]", 30, "Main disappeared without dismiss (device locked?)...dismissing UI\n");
     }
 
     [(TVLatencySetupMainController *)self dismiss:21];
@@ -411,7 +410,7 @@ LABEL_35:
   appearCopy = appear;
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupMainController viewDidAppear:]", 30, "Main ViewDidAppear\n");
   }
 
   v14.receiver = self;
@@ -478,7 +477,7 @@ LABEL_35:
 
   if (dword_1001BF2B8 <= 30 && (dword_1001BF2B8 != -1 || _LogCategory_Initialize()))
   {
-    LogPrintF();
+    LogPrintF(&dword_1001BF2B8, "[TVLatencySetupMainController configureWithContext:completion:]", 30, "Main configuration: %@\n", self->super._userInfo);
   }
 
   CFStringGetTypeID();
@@ -500,7 +499,7 @@ LABEL_35:
 
   if (completionCopy)
   {
-    completionCopy[2](completionCopy);
+    completionCopy[2]();
   }
 }
 

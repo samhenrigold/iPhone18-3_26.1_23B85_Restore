@@ -72,17 +72,17 @@
   viewCopy = view;
   if (GetDefaultsWriteAKEnabled())
   {
-    v21.receiver = self;
-    v21.super_class = PDFAKDocumentAdaptor;
-    v8 = [(PDFAKDocumentAdaptor *)&v21 init];
+    v22.receiver = self;
+    v22.super_class = PDFAKDocumentAdaptor;
+    v8 = [(PDFAKDocumentAdaptor *)&v22 init];
     p_isa = &v8->super.isa;
     if (v8)
     {
       v8->_modelBaseScaleFactor = 9.22337204e18;
       objc_storeWeak(&v8->_pdfDocument, documentCopy);
-      objc_storeWeak(p_isa + 3, viewCopy);
-      v10 = [AKControllerClass() controllerWithDelegate:p_isa];
-      objc_storeStrong(p_isa + 4, v10);
+      v10 = objc_storeWeak(p_isa + 3, viewCopy);
+      v11 = [AKControllerClass(v10) controllerWithDelegate:p_isa];
+      objc_storeStrong(p_isa + 4, v11);
       [p_isa[4] setRulerHostingDelegate:p_isa];
       [objc_opt_class() addObserver:p_isa forKeyPath:@"prefersPencilOnlyDrawing" options:0 context:0];
       [p_isa _resetAnimationProperties];
@@ -90,15 +90,15 @@
       [defaultCenter addObserver:p_isa selector:sel_adjustScrollViewForKeyboardNotification_ name:*MEMORY[0x1E69DE080] object:0];
 
       defaultCenter2 = [MEMORY[0x1E696AD88] defaultCenter];
-      v13 = AKDidEndEditingTextAnnotationNotificationString();
-      [defaultCenter2 addObserver:p_isa selector:sel_annotationDidEndEditing_ name:v13 object:0];
+      v14 = AKDidEndEditingTextAnnotationNotificationString(defaultCenter2);
+      [defaultCenter2 addObserver:p_isa selector:sel_annotationDidEndEditing_ name:v14 object:0];
 
       defaultCenter3 = [MEMORY[0x1E696AD88] defaultCenter];
-      v15 = AKWillBeginEditingTextAnnotationNotificationString();
-      [defaultCenter3 addObserver:p_isa selector:sel_annotationWillBeginEditing_ name:v15 object:0];
+      v16 = AKWillBeginEditingTextAnnotationNotificationString(defaultCenter3);
+      [defaultCenter3 addObserver:p_isa selector:sel_annotationWillBeginEditing_ name:v16 object:0];
 
       objc_storeWeak(p_isa + 5, 0);
-      [v10 setAnnotationEditingEnabled:0];
+      [v11 setAnnotationEditingEnabled:0];
       if ([documentCopy isLocked] && !objc_msgSend(documentCopy, "pageCount"))
       {
         defaultCenter4 = [MEMORY[0x1E696AD88] defaultCenter];
@@ -217,7 +217,7 @@
   akToolbarView = self->_akToolbarView;
   if (!akToolbarView)
   {
-    v4 = [objc_alloc(AKToolbarViewClass()) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
+    v4 = [objc_alloc(AKToolbarViewClass(0)) initWithFrame:{*MEMORY[0x1E695F058], *(MEMORY[0x1E695F058] + 8), *(MEMORY[0x1E695F058] + 16), *(MEMORY[0x1E695F058] + 24)}];
     [v4 setShareButtonHidden:1];
     v5 = self->_akToolbarView;
     self->_akToolbarView = v4;
@@ -341,48 +341,48 @@
 
 - (CGPoint)convertPoint:(CGPoint)point fromModelToOverlayWithPageIndex:(unint64_t)index forAnnotationController:(id)controller
 {
-  y = point.y;
-  x = point.x;
-  v9 = [controller overlayViewAtIndex:?];
+  v7 = [controller overlayViewAtIndex:?];
   pdfView = [(PDFAKDocumentAdaptor *)self pdfView];
-  v11 = PDFPointFromCGPoint(x, y);
-  v13 = v12;
+  PDFPointFromCGPoint();
+  v10 = v9;
+  v12 = v11;
   pdfDocument = [(PDFAKDocumentAdaptor *)self pdfDocument];
-  v15 = [pdfDocument pageAtIndex:index];
-  [pdfView convertPoint:v15 fromPage:{v11, v13}];
-  v17 = v16;
-  v19 = v18;
+  v14 = [pdfDocument pageAtIndex:index];
+  [pdfView convertPoint:v14 fromPage:{v10, v12}];
+  v16 = v15;
+  v18 = v17;
 
-  [pdfView convertPoint:v9 toView:{v17, v19}];
-  v22 = PDFPointToCGPoint(v20, v21);
-  v24 = v23;
+  [pdfView convertPoint:v7 toView:{v16, v18}];
+  PDFPointToCGPoint();
+  v20 = v19;
+  v22 = v21;
 
-  v25 = v22;
-  v26 = v24;
-  result.y = v26;
-  result.x = v25;
+  v23 = v20;
+  v24 = v22;
+  result.y = v24;
+  result.x = v23;
   return result;
 }
 
 - (CGPoint)convertPoint:(CGPoint)point fromOverlayToModelWithPageIndex:(unint64_t)index forAnnotationController:(id)controller
 {
-  y = point.y;
-  x = point.x;
-  v9 = [controller overlayViewAtIndex:?];
+  v7 = [controller overlayViewAtIndex:?];
   pdfView = [(PDFAKDocumentAdaptor *)self pdfView];
-  [pdfView convertPoint:v9 fromView:{PDFPointFromCGPoint(x, y)}];
+  PDFPointFromCGPoint();
+  [pdfView convertPoint:v7 fromView:?];
+  v10 = v9;
   v12 = v11;
-  v14 = v13;
   pdfDocument = [(PDFAKDocumentAdaptor *)self pdfDocument];
-  v16 = [pdfDocument pageAtIndex:index];
-  [pdfView convertPoint:v16 toPage:{v12, v14}];
-  v19 = PDFPointToCGPoint(v17, v18);
-  v21 = v20;
+  v14 = [pdfDocument pageAtIndex:index];
+  [pdfView convertPoint:v14 toPage:{v10, v12}];
+  PDFPointToCGPoint();
+  v16 = v15;
+  v18 = v17;
 
-  v22 = v19;
-  v23 = v21;
-  result.y = v23;
-  result.x = v22;
+  v19 = v16;
+  v20 = v18;
+  result.y = v20;
+  result.x = v19;
   return result;
 }
 
@@ -430,88 +430,91 @@
     v24 = v23;
     v26 = v25;
     v28 = v27;
-    v30 = v29 - PDFRectToCGRect([v21 boundsForBox:1]);
+    v30 = v29;
+    [v21 boundsForBox:1];
+    PDFRectToCGRect();
     v32 = v24 - v31;
-    v51.origin.x = v30;
-    v51.origin.y = v32;
-    v51.size.width = v26;
-    v51.size.height = v28;
-    v33 = CGRectGetWidth(v51);
-    v52.origin.x = v30;
-    v52.origin.y = v32;
-    v52.size.width = v26;
-    v52.size.height = v28;
+    v34 = v26 - v33;
+    v53.origin.x = v32;
+    v53.origin.y = v34;
+    v53.size.width = v28;
+    v53.size.height = v30;
+    v35 = CGRectGetWidth(v53);
+    v54.origin.x = v32;
+    v54.origin.y = v34;
+    v54.size.width = v28;
+    v54.size.height = v30;
     mediaBox.origin.x = 0.0;
     mediaBox.origin.y = 0.0;
-    v34 = v33 * scale;
-    v35 = CGRectGetHeight(v52) * scale;
-    mediaBox.size.width = v34;
-    mediaBox.size.height = v35;
+    v36 = v35 * scale;
+    v37 = CGRectGetHeight(v54) * scale;
+    mediaBox.size.width = v36;
+    mediaBox.size.height = v37;
     if (CGDisplayListCreateWithRect())
     {
       CGDisplayListSetBoundingBox();
-      v36 = CGDisplayListContextCreate();
-      if (v36)
+      v38 = CGDisplayListContextCreate();
+      if (v38)
       {
-        v37 = v36;
-        CGContextSaveGState(v36);
+        v39 = v38;
+        CGContextSaveGState(v38);
         whiteColor = [MEMORY[0x1E69DC888] whiteColor];
-        CGContextSetFillColorWithColor(v37, [whiteColor CGColor]);
+        CGContextSetFillColorWithColor(v39, [whiteColor CGColor]);
 
-        v53.origin.x = 0.0;
-        v53.origin.y = 0.0;
-        v53.size.width = v34;
-        v53.size.height = v35;
-        CGContextFillRect(v37, v53);
-        CGContextScaleCTM(v37, scale, scale);
-        v54.origin.x = v30;
-        v54.origin.y = v32;
-        v54.size.width = v26;
-        v54.size.height = v28;
-        v39 = -CGRectGetMinX(v54);
-        v55.origin.x = v30;
-        v55.origin.y = v32;
-        v55.size.width = v26;
-        v55.size.height = v28;
-        MinY = CGRectGetMinY(v55);
-        CGContextTranslateCTM(v37, v39, -MinY);
-        [(PDFAKDocumentAdaptor *)self _compensatingAffineTransformForPage:v21];
-        CGContextConcatCTM(v37, &v49);
-        v41 = +[PDFPage isExcludingAKAnnotationRenderingForThisThread];
+        v55.origin.x = 0.0;
+        v55.origin.y = 0.0;
+        v55.size.width = v36;
+        v55.size.height = v37;
+        CGContextFillRect(v39, v55);
+        CGContextScaleCTM(v39, scale, scale);
+        v56.origin.x = v32;
+        v56.origin.y = v34;
+        v56.size.width = v28;
+        v56.size.height = v30;
+        v41 = -CGRectGetMinX(v56);
+        v57.origin.x = v32;
+        v57.origin.y = v34;
+        v57.size.width = v28;
+        v57.size.height = v30;
+        MinY = CGRectGetMinY(v57);
+        CGContextTranslateCTM(v39, v41, -MinY);
+        objc_msgSend__compensatingAffineTransformForPage_(self);
+        CGContextConcatCTM(v39, &v51);
+        v43 = +[PDFPage isExcludingAKAnnotationRenderingForThisThread];
         [PDFPage setExcludingAKAnnotationRenderingForThisThread:1];
-        [v21 drawWithBox:1 toContext:v37];
-        [PDFPage setExcludingAKAnnotationRenderingForThisThread:v41];
-        CGContextRestoreGState(v37);
-        CGContextRelease(v37);
+        [v21 drawWithBox:1 toContext:v39];
+        [PDFPage setExcludingAKAnnotationRenderingForThisThread:v43];
+        CGContextRestoreGState(v39);
+        CGContextRelease(v39);
         Mutable = CFDataCreateMutable(*MEMORY[0x1E695E480], 0);
-        v43 = Mutable;
+        v45 = Mutable;
         if (Mutable)
         {
-          v44 = CGDataConsumerCreateWithCFData(Mutable);
-          if (v44)
+          v46 = CGDataConsumerCreateWithCFData(Mutable);
+          if (v46)
           {
-            v45 = v44;
-            v46 = CGPDFContextCreate(v44, &mediaBox, 0);
-            if (v46)
+            v47 = v46;
+            v48 = CGPDFContextCreate(v46, &mediaBox, 0);
+            if (v48)
             {
-              v47 = v46;
-              CGPDFContextBeginPage(v46, 0);
-              CGContextSaveGState(v47);
+              v49 = v48;
+              CGPDFContextBeginPage(v48, 0);
+              CGContextSaveGState(v49);
               CGDisplayListDrawInContext();
-              CGContextRestoreGState(v47);
-              CGPDFContextEndPage(v47);
-              CGPDFContextClose(v47);
-              CGContextRelease(v47);
+              CGContextRestoreGState(v49);
+              CGPDFContextEndPage(v49);
+              CGPDFContextClose(v49);
+              CGContextRelease(v49);
             }
 
-            CGDataConsumerRelease(v45);
+            CGDataConsumerRelease(v47);
           }
         }
       }
 
       else
       {
-        v43 = 0;
+        v45 = 0;
       }
 
       CGDisplayListRelease();
@@ -519,11 +522,11 @@
 
     else
     {
-      v43 = 0;
+      v45 = 0;
     }
 
     [v21 setDisplaysAnnotations:displaysAnnotations];
-    v19 = v43;
+    v19 = v45;
   }
 
   return v19;
@@ -536,39 +539,39 @@
   v7 = PDFDegToRad(rotation);
   [v5 boundsForBox:1];
 
-  PDFRectToCGRect(v8);
-  v10 = v9;
-  v12 = v11;
-  memset(&v20, 0, sizeof(v20));
-  CGAffineTransformMakeRotation(&v20, v7);
-  v13 = *(MEMORY[0x1E695EFD0] + 16);
-  *&v19.a = *MEMORY[0x1E695EFD0];
-  *&v19.c = v13;
-  *&v19.tx = *(MEMORY[0x1E695EFD0] + 32);
+  PDFRectToCGRect();
+  v9 = v8;
+  v11 = v10;
+  memset(&v19, 0, sizeof(v19));
+  CGAffineTransformMakeRotation(&v19, v7);
+  v12 = *(MEMORY[0x1E695EFD0] + 16);
+  *&v18.a = *MEMORY[0x1E695EFD0];
+  *&v18.c = v12;
+  *&v18.tx = *(MEMORY[0x1E695EFD0] + 32);
   switch(rotation)
   {
     case 270:
-      v15 = 0.0;
+      v14 = 0.0;
       goto LABEL_7;
     case 180:
-      v15 = v10;
+      v14 = v9;
 LABEL_7:
-      v14 = v12;
+      v13 = v11;
       goto LABEL_8;
     case 90:
-      v14 = 0.0;
-      v15 = v10;
+      v13 = 0.0;
+      v14 = v9;
 LABEL_8:
-      CGAffineTransformMakeTranslation(&v19, v15, v14);
+      CGAffineTransformMakeTranslation(&v18, v14, v13);
       break;
   }
 
   *&retstr->c = 0u;
   *&retstr->tx = 0u;
   *&retstr->a = 0u;
-  t1 = v20;
-  v17 = v19;
-  return CGAffineTransformConcat(retstr, &t1, &v17);
+  t1 = v19;
+  v16 = v18;
+  return CGAffineTransformConcat(retstr, &t1, &v16);
 }
 
 - (id)popoverPresentingViewControllerForAnnotationController:(id)controller
@@ -1296,7 +1299,7 @@ LABEL_30:
 {
   modeCopy = mode;
   pdfView = [(PDFAKDocumentAdaptor *)self pdfView];
-  _PDFLog(OS_LOG_TYPE_DEFAULT, "PDFAKDocumentAdaptor", "Did enter Markup editing mode for PDFView: %@", v5, v6, v7, v8, v9, pdfView);
+  _PDFLog(OS_LOG_TYPE_DEFAULT, "PDFAKDocumentAdaptor", "Did enter Markup editing mode for PDFView: %@", pdfView);
   if (pdfView)
   {
     [(PDFAKDocumentAdaptor *)self _updatePDFScrollViewMinimumNumberOfTouches];
@@ -1324,7 +1327,7 @@ LABEL_30:
 {
   modeCopy = mode;
   pdfView = [(PDFAKDocumentAdaptor *)self pdfView];
-  _PDFLog(OS_LOG_TYPE_DEFAULT, "PDFAKDocumentAdaptor", "Did exit Markup editing mode for PDFView: %@", v5, v6, v7, v8, v9, pdfView);
+  _PDFLog(OS_LOG_TYPE_DEFAULT, "PDFAKDocumentAdaptor", "Did exit Markup editing mode for PDFView: %@", pdfView);
   if (pdfView)
   {
     [(PDFAKDocumentAdaptor *)self _updatePDFScrollViewMinimumNumberOfTouches];
@@ -1374,7 +1377,7 @@ LABEL_30:
   return v11;
 }
 
-uint64_t __94__PDFAKDocumentAdaptor_shouldAddTabControlsToTextEditorForAnnotation_forAnnotationController___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
+void *__94__PDFAKDocumentAdaptor_shouldAddTabControlsToTextEditorForAnnotation_forAnnotationController___block_invoke(uint64_t a1, void *a2, uint64_t a3, _BYTE *a4)
 {
   result = [a2 containsAnnotation:*(a1 + 32)];
   if (result)
@@ -1706,7 +1709,7 @@ LABEL_12:
 
 - (void)_updatePDFScrollViewMinimumNumberOfTouches
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   pdfView = [(PDFAKDocumentAdaptor *)self pdfView];
   scrollViewMinimumNumberOfTouches = [pdfView scrollViewMinimumNumberOfTouches];
   if ([pdfView isUsingPageViewController])
@@ -1717,26 +1720,26 @@ LABEL_12:
     [panGestureRecognizer setMinimumNumberOfTouches:scrollViewMinimumNumberOfTouches];
 
     viewControllers = [documentViewController viewControllers];
-    v19 = 0u;
-    v20 = 0u;
-    v21 = 0u;
-    v22 = 0u;
-    v8 = [viewControllers countByEnumeratingWithState:&v19 objects:v23 count:16];
+    v14 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v8 = [viewControllers countByEnumeratingWithState:&v14 objects:v18 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v20;
+      v10 = *v15;
       do
       {
         v11 = 0;
         do
         {
-          if (*v20 != v10)
+          if (*v15 != v10)
           {
             objc_enumerationMutation(viewControllers);
           }
 
-          scrollView2 = [*(*(&v19 + 1) + 8 * v11) scrollView];
+          scrollView2 = [*(*(&v14 + 1) + 8 * v11) scrollView];
           panGestureRecognizer2 = [scrollView2 panGestureRecognizer];
           [panGestureRecognizer2 setMinimumNumberOfTouches:scrollViewMinimumNumberOfTouches];
 
@@ -1744,7 +1747,7 @@ LABEL_12:
         }
 
         while (v9 != v11);
-        v9 = [viewControllers countByEnumeratingWithState:&v19 objects:v23 count:16];
+        v9 = [viewControllers countByEnumeratingWithState:&v14 objects:v18 count:16];
       }
 
       while (v9);
@@ -1758,7 +1761,7 @@ LABEL_12:
     [scrollView setMinimumNumberOfTouches:scrollViewMinimumNumberOfTouches];
   }
 
-  _PDFLog(OS_LOG_TYPE_DEFAULT, "PDFAKOverlayAdaptor", "Number of touches required to scroll is %lu for PDFView: %@", v14, v15, v16, v17, v18, scrollViewMinimumNumberOfTouches);
+  _PDFLog(OS_LOG_TYPE_DEFAULT, "PDFAKOverlayAdaptor", "Number of touches required to scroll is %lu for PDFView: %@", scrollViewMinimumNumberOfTouches, pdfView);
 }
 
 - (id)_scrollViewRecognizersForPageAtIndex:(unint64_t)index
@@ -1862,7 +1865,7 @@ LABEL_12:
 - (void)annotationWillBeginEditing:(id)editing
 {
   userInfo = [editing userInfo];
-  v5 = AKEditingTextAnnotationKeyString();
+  v5 = AKEditingTextAnnotationKeyString(userInfo);
   v6 = [userInfo objectForKey:v5];
 
   editingAnnotaiton = self->_editingAnnotaiton;

@@ -296,7 +296,7 @@ void __80__PBItemRepresentation_performProgressTrackingWithLoaderBlock_onCancelC
   PBDispatchAsyncCallback(v7);
 }
 
-uint64_t __80__PBItemRepresentation_performProgressTrackingWithLoaderBlock_onCancelCallback___block_invoke_3(uint64_t a1)
+void *__80__PBItemRepresentation_performProgressTrackingWithLoaderBlock_onCancelCallback___block_invoke_3(uint64_t a1)
 {
   result = [*(a1 + 32) setCompletedUnitCount:{objc_msgSend(*(a1 + 32), "totalUnitCount")}];
   if ((*(*(*(a1 + 48) + 8) + 24) & 1) == 0)
@@ -304,7 +304,7 @@ uint64_t __80__PBItemRepresentation_performProgressTrackingWithLoaderBlock_onCan
     result = *(a1 + 40);
     if (result)
     {
-      v3 = *(result + 16);
+      v3 = result[2];
 
       return v3();
     }
@@ -403,22 +403,20 @@ void __57__PBItemRepresentation__loadWithContext_completionBlock___block_invoke_
 
 id __57__PBItemRepresentation__loadWithContext_completionBlock___block_invoke_3(uint64_t a1, void *a2)
 {
-  v15 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = *(a1 + 40);
   v5 = *(*(a1 + 32) + 8);
-  v10[0] = MEMORY[0x277D85DD0];
-  v10[1] = 3221225472;
-  v10[2] = __57__PBItemRepresentation__loadWithContext_completionBlock___block_invoke_4;
-  v10[3] = &unk_279A06440;
-  v14 = *(a1 + 64);
+  v9[0] = MEMORY[0x277D85DD0];
+  v9[1] = 3221225472;
+  v9[2] = __57__PBItemRepresentation__loadWithContext_completionBlock___block_invoke_4;
+  v9[3] = &unk_279A06440;
+  v13 = *(a1 + 64);
   v6 = v3;
-  v11 = v6;
-  v12 = *(a1 + 48);
-  v13 = *(a1 + 56);
-  v7 = (*(v5 + 16))(v5, v4, v10);
-
-  v8 = *MEMORY[0x277D85DE8];
+  v10 = v6;
+  v11 = *(a1 + 48);
+  v12 = *(a1 + 56);
+  v7 = (*(v5 + 16))(v5, v4, v9);
 
   return v7;
 }
@@ -495,20 +493,19 @@ void __57__PBItemRepresentation__loadWithContext_completionBlock___block_invoke_
   if (v2)
   {
     v3 = PBCannotLoadRepresentationError(*(*(a1 + 32) + 24), 0);
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __57__PBItemRepresentation__loadWithContext_completionBlock___block_invoke_2_16;
-    v6[3] = &unk_279A063F0;
-    v7 = *(a1 + 48);
-    (*(v2 + 16))(v2, 0, 0, 0, v3, v6);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __57__PBItemRepresentation__loadWithContext_completionBlock___block_invoke_2_16;
+    v5[3] = &unk_279A063F0;
+    v6 = *(a1 + 48);
+    (*(v2 + 16))(v2, 0, 0, 0, v3, v5);
   }
 
   else
   {
-    v4 = *(a1 + 48);
-    v5 = *(*(a1 + 48) + 16);
+    v4 = *(*(a1 + 48) + 16);
 
-    v5();
+    v4();
   }
 }
 
@@ -528,20 +525,19 @@ void __57__PBItemRepresentation__loadWithContext_completionBlock___block_invoke_
   if (v2)
   {
     v3 = PBDataTransferCancelledError(0);
-    v6[0] = MEMORY[0x277D85DD0];
-    v6[1] = 3221225472;
-    v6[2] = __57__PBItemRepresentation__loadWithContext_completionBlock___block_invoke_5_20;
-    v6[3] = &unk_279A063F0;
-    v7 = *(a1 + 40);
-    (*(v2 + 16))(v2, 0, 0, 0, v3, v6);
+    v5[0] = MEMORY[0x277D85DD0];
+    v5[1] = 3221225472;
+    v5[2] = __57__PBItemRepresentation__loadWithContext_completionBlock___block_invoke_5_20;
+    v5[3] = &unk_279A063F0;
+    v6 = *(a1 + 40);
+    (*(v2 + 16))(v2, 0, 0, 0, v3, v5);
   }
 
   else
   {
-    v4 = *(a1 + 40);
-    v5 = *(*(a1 + 40) + 16);
+    v4 = *(*(a1 + 40) + 16);
 
-    v5();
+    v4();
   }
 }
 
@@ -615,9 +611,7 @@ void __58__PBItemRepresentation_loadWithContext_completionHandler___block_invoke
 
 - (void)setLoaderBlock:(id)block
 {
-  v4 = MEMORY[0x25F8AC430](block, a2);
-  loader = self->_loader;
-  self->_loader = v4;
+  self->_loader = MEMORY[0x25F8AC430](block, a2);
 
   MEMORY[0x2821F96F8]();
 }

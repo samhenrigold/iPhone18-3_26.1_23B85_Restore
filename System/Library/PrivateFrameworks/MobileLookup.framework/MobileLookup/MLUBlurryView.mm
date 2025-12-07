@@ -3,6 +3,7 @@
 - (double)blurRadius;
 - (void)_activateBlurring;
 - (void)setBlurRadius:(double)radius;
+- (void)setShouldRasterizeForTransition:(BOOL)transition;
 @end
 
 @implementation MLUBlurryView
@@ -27,7 +28,7 @@
 
 - (void)_activateBlurring
 {
-  v8[1] = *MEMORY[0x277D85DE8];
+  v7[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277CD9EA0]);
   v4 = [v3 initWithType:*MEMORY[0x277CDA328]];
   [v4 setValue:&unk_286AC90D8 forKey:*MEMORY[0x277CBFB08]];
@@ -35,12 +36,10 @@
   [v4 setValue:@"low" forKey:@"inputIntermediateBitDepth"];
   [v4 setName:@"gaussianBlur"];
   [(MLUBlurryView *)self setShouldRasterizeForTransition:1];
-  v8[0] = v4;
-  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
+  v7[0] = v4;
+  v5 = [MEMORY[0x277CBEA60] arrayWithObjects:v7 count:1];
   layer = [(MLUBlurryView *)self layer];
   [layer setFilters:v5];
-
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 - (double)blurRadius
@@ -67,6 +66,27 @@
   layer = [(MLUBlurryView *)self layer];
   v5 = [MEMORY[0x277CCABB0] numberWithDouble:radius];
   [layer setValue:v5 forKeyPath:@"filters.gaussianBlur.inputRadius"];
+}
+
+- (void)setShouldRasterizeForTransition:(BOOL)transition
+{
+  transitionCopy = transition;
+  self->_shouldRasterizeForTransition = transition;
+  layer = [(MLUBlurryView *)self layer];
+  [layer setShouldRasterize:transitionCopy];
+
+  window = [(MLUBlurryView *)self window];
+  screen = [window screen];
+  [screen scale];
+  v9 = v8;
+
+  if (v9 >= 3.0)
+  {
+    v9 = v9 * 0.5;
+  }
+
+  layer2 = [(MLUBlurryView *)self layer];
+  [layer2 setRasterizationScale:v9];
 }
 
 @end

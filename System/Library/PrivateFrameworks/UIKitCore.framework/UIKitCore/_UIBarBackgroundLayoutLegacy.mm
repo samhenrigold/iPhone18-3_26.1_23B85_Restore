@@ -157,7 +157,7 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  v7 = +[UIColor blackColor];
+  v7 = objc_msgSend_blackColor(UIColor, a2);
 LABEL_17:
 
   return v7;

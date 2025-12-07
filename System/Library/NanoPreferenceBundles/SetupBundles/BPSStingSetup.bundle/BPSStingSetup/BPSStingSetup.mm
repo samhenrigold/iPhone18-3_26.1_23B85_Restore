@@ -12,16 +12,16 @@ void sub_2DD0(uint64_t a1)
   [v6 setSource:0];
 }
 
-id bps_utility_log()
+id bps_utility_log(uint64_t a1)
 {
   if (qword_11D48 != -1)
   {
     sub_4F78();
   }
 
-  v1 = qword_11D40;
+  v2 = qword_11D40;
 
-  return v1;
+  return v2;
 }
 
 void sub_4EAC(id a1)
@@ -31,16 +31,16 @@ void sub_4EAC(id a1)
   _objc_release_x1();
 }
 
-id bps_setup_log()
+id bps_setup_log(uint64_t a1)
 {
   if (qword_11D58 != -1)
   {
     sub_4F8C();
   }
 
-  v1 = qword_11D50;
+  v2 = qword_11D50;
 
-  return v1;
+  return v2;
 }
 
 void sub_4F34(id a1)

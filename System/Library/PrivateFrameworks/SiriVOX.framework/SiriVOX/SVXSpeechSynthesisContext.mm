@@ -33,7 +33,7 @@
 
 - (void)handleAudioChunkData:(id)data
 {
-  v12 = *MEMORY[0x277D85DE8];
+  v11 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   audioChunkCount = self->_audioChunkCount;
   audioChunkHandler = self->_audioChunkHandler;
@@ -49,13 +49,11 @@
     v8 = *MEMORY[0x277CEF098];
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_ERROR))
     {
-      v10 = 136315138;
-      v11 = "[SVXSpeechSynthesisContext handleAudioChunkData:]";
-      _os_log_error_impl(&dword_2695B9000, v8, OS_LOG_TYPE_ERROR, "%s AudioChunkData received but no handler is set to take it", &v10, 0xCu);
+      v9 = 136315138;
+      v10 = "[SVXSpeechSynthesisContext handleAudioChunkData:]";
+      _os_log_error_impl(&dword_2695B9000, v8, OS_LOG_TYPE_ERROR, "%s AudioChunkData received but no handler is set to take it", &v9, 0xCu);
     }
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)prepare

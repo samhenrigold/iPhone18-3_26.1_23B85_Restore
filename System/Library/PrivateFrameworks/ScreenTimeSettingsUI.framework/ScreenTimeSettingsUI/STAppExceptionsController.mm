@@ -53,10 +53,11 @@
 
   v7 = (self + OBJC_IVAR___STAppExceptionsController_exceptionsListChangedHandler);
   v8 = *(self + OBJC_IVAR___STAppExceptionsController_exceptionsListChangedHandler);
+  v9 = *(self + OBJC_IVAR___STAppExceptionsController_exceptionsListChangedHandler + 8);
   *v7 = v6;
   v7[1] = v4;
   selfCopy = self;
-  sub_264C88B98(v8);
+  sub_264C88B98(v8, v9);
 }
 
 - (NSError)connectionError
@@ -123,7 +124,7 @@
 - (id)appsAboveAgeRating
 {
   sub_264CADF90();
-  sub_264C8A740(0, &qword_27FFAA250);
+  sub_264C8A740(0, &qword_27FFAA250, 0x277CC1E70);
   v2 = sub_264CC468C();
 
   return v2;

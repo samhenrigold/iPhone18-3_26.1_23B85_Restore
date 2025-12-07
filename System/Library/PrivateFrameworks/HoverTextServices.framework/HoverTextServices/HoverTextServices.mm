@@ -96,11 +96,11 @@ uint64_t __swift_project_value_buffer(uint64_t a1, uint64_t a2)
   return a2;
 }
 
-uint64_t sub_25460EB2C(uint64_t a1, uint64_t *a2)
+uint64_t sub_25460EB2C(uint64_t a1, uint64_t *a2, uint64_t a3, uint64_t a4)
 {
-  v3 = sub_254612908();
-  __swift_allocate_value_buffer(v3, a2);
-  __swift_project_value_buffer(v3, a2);
+  v5 = sub_254612908();
+  __swift_allocate_value_buffer(v5, a2);
+  __swift_project_value_buffer(v5, a2);
   return sub_2546128F8();
 }
 
@@ -118,14 +118,11 @@ uint64_t sub_25460EBC8(void *a1, uint64_t a2)
 
 uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 {
-  v3 = *(a1 - 8);
-  if ((*(v3 + 80) & 0x20000) != 0)
+  if ((*(*(a1 - 8) + 80) & 0x20000) != 0)
   {
-    v4 = *(v3 + 64);
-    v5 = *(v3 + 80);
-    v6 = swift_slowAlloc();
-    *a2 = v6;
-    return v6;
+    v3 = swift_slowAlloc();
+    *a2 = v3;
+    return v3;
   }
 
   return a2;
@@ -133,43 +130,42 @@ uint64_t *__swift_allocate_value_buffer(uint64_t a1, uint64_t *a2)
 
 uint64_t sub_25460EC80()
 {
-  v1 = *v0;
   MEMORY[0x259C12E00](0x6F72724520435049, 0xEB00000000203A72);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F60AE38, &qword_254613200);
   sub_254612A08();
   return 0;
 }
 
-uint64_t sub_25460ED1C(uint64_t result, void *a2, void (*a3)(void *, uint64_t))
+uint64_t sub_25460ED1C(uint64_t result, void *a2, void (*a3)(void *, uint64_t), uint64_t a4)
 {
   if (a3)
   {
     if (a2)
     {
-      sub_25460F050(a3);
-      v5 = a2;
+      sub_25460F050(a3, a4);
+      v7 = a2;
       a3(a2, 1);
 
-      return sub_25460F060(a3);
+      return sub_25460F060(a3, a4);
     }
 
     else
     {
-      v6 = result;
+      v8 = result;
       if (result)
       {
 
-        v7 = v6;
+        v9 = v8;
       }
 
       else
       {
-        sub_25460F050(a3);
-        v7 = sub_25460EF34(MEMORY[0x277D84F90]);
+        sub_25460F050(a3, a4);
+        v9 = sub_25460EF34(MEMORY[0x277D84F90]);
       }
 
-      a3(v7, 0);
-      sub_25460F060(a3);
+      a3(v9, 0);
+      sub_25460F060(a3, a4);
     }
   }
 
@@ -178,11 +174,9 @@ uint64_t sub_25460ED1C(uint64_t result, void *a2, void (*a3)(void *, uint64_t))
 
 unint64_t sub_25460EE28(uint64_t a1)
 {
-  v2 = v1;
-  v4 = *(v2 + 40);
-  v5 = sub_2546129A8();
+  v2 = sub_2546129A8();
 
-  return sub_25460EE6C(a1, v5);
+  return sub_25460EE6C(a1, v2);
 }
 
 unint64_t sub_25460EE6C(uint64_t a1, uint64_t a2)
@@ -267,7 +261,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t sub_25460F050(uint64_t result)
+uint64_t sub_25460F050(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -276,7 +270,7 @@ uint64_t sub_25460F050(uint64_t result)
   return result;
 }
 
-uint64_t sub_25460F060(uint64_t result)
+uint64_t sub_25460F060(uint64_t result, uint64_t a2)
 {
   if (result)
   {
@@ -290,7 +284,6 @@ uint64_t __swift_instantiateConcreteTypeFromMangledNameV2(uint64_t *a1, uint64_t
   result = *a1;
   if (!result)
   {
-    v4 = *a2;
     result = swift_getTypeByMangledNameInContext2();
     *a1 = result;
   }
@@ -383,20 +376,19 @@ unint64_t sub_25460F298()
 
 uint64_t sub_25460F2EC(uint64_t a1, uint64_t a2, void *a3)
 {
-  v5 = *(a1 + 32);
-  v4 = *(a1 + 40);
+  v4 = *(a1 + 32);
   if (a2)
   {
-    v6 = sub_254612928();
+    v5 = sub_254612928();
   }
 
   else
   {
-    v6 = 0;
+    v5 = 0;
   }
 
-  v7 = a3;
-  v5(v6, a3);
+  v6 = a3;
+  v4(v5, a3);
 }
 
 uint64_t sub_25460F3BC()
@@ -407,18 +399,18 @@ uint64_t sub_25460F3BC()
   return sub_254612AA8();
 }
 
-uint64_t sub_25460F434()
+uint64_t sub_25460F434(uint64_t a1)
 {
-  v1 = *v0;
+  v2 = *v1;
   sub_254612A88();
-  MEMORY[0x259C12F40](v1 + 1);
+  MEMORY[0x259C12F40](v2 + 1);
   return sub_254612AA8();
 }
 
-uint64_t sub_25460F478@<X0>(unint64_t *a1@<X0>, _BYTE *a2@<X8>)
+uint64_t sub_25460F478@<X0>(Swift::Int *a1@<X0>, HoverTextServices::HoverTextAXUIServiceMessageID_optional *a2@<X8>)
 {
   result = _s17HoverTextServices0aB20AXUIServiceMessageIDO8rawValueACSgSi_tcfC_0(*a1);
-  *a2 = result;
+  a2->value = result;
   return result;
 }
 
@@ -450,40 +442,39 @@ void sub_25460F5C0()
   v2 = *(v0 + OBJC_IVAR____TtC17HoverTextServices27HoverTextServiceAXUIService__client);
   if (v2)
   {
-    v3 = *(v0 + OBJC_IVAR____TtC17HoverTextServices27HoverTextServiceAXUIService__client);
-LABEL_7:
-    v14 = v2;
-    return;
+    goto LABEL_6;
   }
 
-  v4 = v0;
-  v5 = [objc_opt_self() processInfo];
-  [v5 processIdentifier];
+  v3 = v0;
+  v4 = [objc_opt_self() processInfo];
+  [v4 processIdentifier];
 
-  v6 = sub_254612A28();
-  MEMORY[0x259C12E00](v6);
+  v5 = sub_254612A28();
+  MEMORY[0x259C12E00](v5);
 
-  v7 = objc_allocWithZone(MEMORY[0x277CE7740]);
+  v6 = objc_allocWithZone(MEMORY[0x277CE7740]);
+  v7 = sub_254612938();
+
   v8 = sub_254612938();
+  v9 = [v6 initWithIdentifier:v7 serviceBundleName:v8];
 
-  v9 = sub_254612938();
-  v10 = [v7 initWithIdentifier:v8 serviceBundleName:v9];
+  v10 = *(v3 + v1);
+  *(v3 + v1) = v9;
+  v11 = v9;
 
-  v11 = *(v4 + v1);
-  *(v4 + v1) = v10;
-  v12 = v10;
+  if (v11)
+  {
+    [v11 setDelegate_];
+  }
 
+  v12 = *(v3 + v1);
   if (v12)
   {
-    [v12 setDelegate_];
-  }
-
-  v13 = *(v4 + v1);
-  if (v13)
-  {
-    v13;
+    v12;
     v2 = 0;
-    goto LABEL_7;
+LABEL_6:
+    v13 = v2;
+    return;
   }
 
   __break(1u);
@@ -494,46 +485,45 @@ void sub_25460F754()
   v1 = v0;
   v2 = sub_254612908();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &aBlock[-1] - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &aBlock[-1] - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_28133E190 != -1)
   {
     swift_once();
   }
 
-  v7 = __swift_project_value_buffer(v2, HTLog);
+  v6 = __swift_project_value_buffer(v2, HTLog);
   swift_beginAccess();
-  (*(v3 + 16))(v6, v7, v2);
-  v8 = sub_2546128E8();
-  v9 = sub_254612998();
-  if (os_log_type_enabled(v8, v9))
+  (*(v3 + 16))(v5, v6, v2);
+  v7 = sub_2546128E8();
+  v8 = sub_254612998();
+  if (os_log_type_enabled(v7, v8))
   {
-    v10 = swift_slowAlloc();
-    *v10 = 0;
-    _os_log_impl(&dword_25460D000, v8, v9, "Client requesting HoverText start", v10, 2u);
-    MEMORY[0x259C13270](v10, -1, -1);
+    v9 = swift_slowAlloc();
+    *v9 = 0;
+    _os_log_impl(&dword_25460D000, v7, v8, "Client requesting HoverText start", v9, 2u);
+    MEMORY[0x259C13270](v9, -1, -1);
   }
 
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   sub_25460F5C0();
-  v12 = v11;
+  v11 = v10;
+  v12 = swift_allocObject();
+  *(v12 + 16) = v1;
   v13 = swift_allocObject();
-  *(v13 + 16) = v1;
-  v14 = swift_allocObject();
-  *(v14 + 16) = sub_254611E74;
-  *(v14 + 24) = v13;
+  *(v13 + 16) = sub_254611E74;
+  *(v13 + 24) = v12;
   aBlock[4] = sub_254611F00;
-  aBlock[5] = v14;
+  aBlock[5] = v13;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = sub_25460F2EC;
   aBlock[3] = &block_descriptor_56;
-  v15 = _Block_copy(aBlock);
-  v16 = v1;
+  v14 = _Block_copy(aBlock);
+  v15 = v1;
 
-  [v12 sendAsynchronousMessage:0 withIdentifier:1 targetAccessQueue:0 completion:v15];
-  _Block_release(v15);
+  [v11 sendAsynchronousMessage:0 withIdentifier:1 targetAccessQueue:0 completion:v14];
+  _Block_release(v14);
 }
 
 void sub_25460FA0C()
@@ -541,11 +531,10 @@ void sub_25460FA0C()
   v1 = v0;
   v2 = sub_254612908();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = MEMORY[0x28223BE20](v2);
-  v7 = &aBlock[-1] - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5);
-  v9 = &aBlock[-1] - v8;
+  v4 = MEMORY[0x28223BE20](v2);
+  v6 = &aBlock[-1] - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v8 = &aBlock[-1] - v7;
   if (*(v1 + OBJC_IVAR____TtC17HoverTextServices27HoverTextServiceAXUIService_hoverTextEnabled))
   {
     if (qword_28133E190 != -1)
@@ -553,38 +542,38 @@ void sub_25460FA0C()
       swift_once();
     }
 
-    v10 = __swift_project_value_buffer(v2, HTLog);
+    v9 = __swift_project_value_buffer(v2, HTLog);
     swift_beginAccess();
-    (*(v3 + 16))(v7, v10, v2);
-    v11 = sub_2546128E8();
-    v12 = sub_254612998();
-    if (os_log_type_enabled(v11, v12))
+    (*(v3 + 16))(v6, v9, v2);
+    v10 = sub_2546128E8();
+    v11 = sub_254612998();
+    if (os_log_type_enabled(v10, v11))
     {
-      v13 = swift_slowAlloc();
-      *v13 = 0;
-      _os_log_impl(&dword_25460D000, v11, v12, "Client requesting HoverText stop", v13, 2u);
-      MEMORY[0x259C13270](v13, -1, -1);
+      v12 = swift_slowAlloc();
+      *v12 = 0;
+      _os_log_impl(&dword_25460D000, v10, v11, "Client requesting HoverText stop", v12, 2u);
+      MEMORY[0x259C13270](v12, -1, -1);
     }
 
-    (*(v3 + 8))(v7, v2);
+    (*(v3 + 8))(v6, v2);
     sub_25460F5C0();
-    v15 = v14;
+    v14 = v13;
+    v15 = swift_allocObject();
+    *(v15 + 16) = v1;
     v16 = swift_allocObject();
-    *(v16 + 16) = v1;
-    v17 = swift_allocObject();
-    *(v17 + 16) = sub_254611E38;
-    *(v17 + 24) = v16;
+    *(v16 + 16) = sub_254611E38;
+    *(v16 + 24) = v15;
     aBlock[4] = sub_254611F00;
-    aBlock[5] = v17;
+    aBlock[5] = v16;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 1107296256;
     aBlock[2] = sub_25460F2EC;
     aBlock[3] = &block_descriptor_46;
-    v18 = _Block_copy(aBlock);
-    v19 = v1;
+    v17 = _Block_copy(aBlock);
+    v18 = v1;
 
-    [v15 sendAsynchronousMessage:0 withIdentifier:2 targetAccessQueue:0 completion:v18];
-    _Block_release(v18);
+    [v14 sendAsynchronousMessage:0 withIdentifier:2 targetAccessQueue:0 completion:v17];
+    _Block_release(v17);
   }
 
   else
@@ -594,64 +583,63 @@ void sub_25460FA0C()
       swift_once();
     }
 
-    v20 = __swift_project_value_buffer(v2, HTLog);
+    v19 = __swift_project_value_buffer(v2, HTLog);
     swift_beginAccess();
-    (*(v3 + 16))(v9, v20, v2);
-    v21 = sub_2546128E8();
-    v22 = sub_254612978();
-    if (os_log_type_enabled(v21, v22))
+    (*(v3 + 16))(v8, v19, v2);
+    v20 = sub_2546128E8();
+    v21 = sub_254612978();
+    if (os_log_type_enabled(v20, v21))
     {
-      v23 = swift_slowAlloc();
-      *v23 = 0;
-      _os_log_impl(&dword_25460D000, v21, v22, "HoverText was never started, no need to stop", v23, 2u);
-      MEMORY[0x259C13270](v23, -1, -1);
+      v22 = swift_slowAlloc();
+      *v22 = 0;
+      _os_log_impl(&dword_25460D000, v20, v21, "HoverText was never started, no need to stop", v22, 2u);
+      MEMORY[0x259C13270](v22, -1, -1);
     }
 
-    (*(v3 + 8))(v9, v2);
+    (*(v3 + 8))(v8, v2);
   }
 }
 
 uint64_t sub_25460FDE8(void *a1, char a2, uint64_t a3, const char *a4, const char *a5, void *a6, char a7)
 {
-  v36 = a5;
+  v35 = a5;
   v13 = sub_254612908();
   v14 = *(v13 - 8);
-  v15 = *(v14 + 64);
-  v16 = (MEMORY[0x28223BE20])();
-  v18 = &v36 - ((v17 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v16);
-  v20 = &v36 - v19;
+  v15 = MEMORY[0x28223BE20](v13);
+  v17 = &v35 - ((v16 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v15);
+  v19 = &v35 - v18;
   if (a2)
   {
-    v21 = a1;
+    v20 = a1;
     if (qword_28133E190 != -1)
     {
       swift_once();
     }
 
-    v22 = __swift_project_value_buffer(v13, HTLog);
+    v21 = __swift_project_value_buffer(v13, HTLog);
     swift_beginAccess();
-    (*(v14 + 16))(v18, v22, v13);
-    v23 = a1;
-    v24 = sub_2546128E8();
-    v25 = sub_254612988();
+    (*(v14 + 16))(v17, v21, v13);
+    v22 = a1;
+    v23 = sub_2546128E8();
+    v24 = sub_254612988();
     sub_254611D90(a1, 1);
-    if (os_log_type_enabled(v24, v25))
+    if (os_log_type_enabled(v23, v24))
     {
+      v25 = swift_slowAlloc();
       v26 = swift_slowAlloc();
-      v27 = swift_slowAlloc();
-      *v26 = 138412290;
+      *v25 = 138412290;
       sub_25460F298();
       swift_allocError();
-      *v28 = a1;
-      v29 = a1;
-      v30 = _swift_stdlib_bridgeErrorToNSError();
-      *(v26 + 4) = v30;
-      *v27 = v30;
-      _os_log_impl(&dword_25460D000, v24, v25, a4, v26, 0xCu);
-      sub_254611DD8(v27, &qword_27F60AEE0, &qword_254613348);
-      MEMORY[0x259C13270](v27, -1, -1);
+      *v27 = a1;
+      v28 = a1;
+      v29 = _swift_stdlib_bridgeErrorToNSError();
+      *(v25 + 4) = v29;
+      *v26 = v29;
+      _os_log_impl(&dword_25460D000, v23, v24, a4, v25, 0xCu);
+      sub_254611DD8(v26, &qword_27F60AEE0, &qword_254613348);
       MEMORY[0x259C13270](v26, -1, -1);
+      MEMORY[0x259C13270](v25, -1, -1);
 
       sub_254611D90(a1, 1);
     }
@@ -661,7 +649,7 @@ uint64_t sub_25460FDE8(void *a1, char a2, uint64_t a3, const char *a4, const cha
       sub_254611D90(a1, 1);
     }
 
-    return (*(v14 + 8))(v18, v13);
+    return (*(v14 + 8))(v17, v13);
   }
 
   else
@@ -671,20 +659,20 @@ uint64_t sub_25460FDE8(void *a1, char a2, uint64_t a3, const char *a4, const cha
       swift_once();
     }
 
-    v31 = __swift_project_value_buffer(v13, HTLog);
+    v30 = __swift_project_value_buffer(v13, HTLog);
     swift_beginAccess();
-    (*(v14 + 16))(v20, v31, v13);
-    v32 = sub_2546128E8();
-    v33 = sub_254612998();
-    if (os_log_type_enabled(v32, v33))
+    (*(v14 + 16))(v19, v30, v13);
+    v31 = sub_2546128E8();
+    v32 = sub_254612998();
+    if (os_log_type_enabled(v31, v32))
     {
-      v34 = swift_slowAlloc();
-      *v34 = 0;
-      _os_log_impl(&dword_25460D000, v32, v33, v36, v34, 2u);
-      MEMORY[0x259C13270](v34, -1, -1);
+      v33 = swift_slowAlloc();
+      *v33 = 0;
+      _os_log_impl(&dword_25460D000, v31, v32, v35, v33, 2u);
+      MEMORY[0x259C13270](v33, -1, -1);
     }
 
-    result = (*(v14 + 8))(v20, v13);
+    result = (*(v14 + 8))(v19, v13);
     *(a3 + *a6) = a7;
   }
 
@@ -695,66 +683,65 @@ void sub_254610194(uint64_t a1, unint64_t a2)
 {
   v4 = sub_254612908();
   v5 = *(v4 - 8);
-  v6 = *(v5 + 64);
   MEMORY[0x28223BE20](v4);
-  v8 = &v21 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v7 = &v20 - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_28133E190 != -1)
   {
     swift_once();
   }
 
-  v9 = __swift_project_value_buffer(v4, HTLog);
+  v8 = __swift_project_value_buffer(v4, HTLog);
   swift_beginAccess();
-  (*(v5 + 16))(v8, v9, v4);
+  (*(v5 + 16))(v7, v8, v4);
 
-  v10 = sub_2546128E8();
-  v11 = sub_254612998();
+  v9 = sub_2546128E8();
+  v10 = sub_254612998();
 
-  if (os_log_type_enabled(v10, v11))
+  if (os_log_type_enabled(v9, v10))
   {
+    v11 = swift_slowAlloc();
     v12 = swift_slowAlloc();
-    v13 = swift_slowAlloc();
-    aBlock = v13;
-    *v12 = 136315138;
-    *(v12 + 4) = sub_254611454(a1, a2, &aBlock);
-    _os_log_impl(&dword_25460D000, v10, v11, "Client sending alert to HoverText: %s", v12, 0xCu);
-    __swift_destroy_boxed_opaque_existential_0(v13);
-    MEMORY[0x259C13270](v13, -1, -1);
+    aBlock = v12;
+    *v11 = 136315138;
+    *(v11 + 4) = sub_254611454(a1, a2, &aBlock);
+    _os_log_impl(&dword_25460D000, v9, v10, "Client sending alert to HoverText: %s", v11, 0xCu);
+    __swift_destroy_boxed_opaque_existential_0(v12);
     MEMORY[0x259C13270](v12, -1, -1);
+    MEMORY[0x259C13270](v11, -1, -1);
   }
 
-  (*(v5 + 8))(v8, v4);
+  (*(v5 + 8))(v7, v4);
   sub_25460F5C0();
-  v15 = v14;
+  v14 = v13;
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27F60AEE8, &unk_254613350);
   inited = swift_initStackObject();
   *(inited + 16) = xmmword_254613220;
   aBlock = 1954047348;
-  v23 = 0xE400000000000000;
-  v17 = MEMORY[0x277D837D0];
+  v22 = 0xE400000000000000;
+  v16 = MEMORY[0x277D837D0];
   sub_2546129C8();
-  *(inited + 96) = v17;
+  *(inited + 96) = v16;
   *(inited + 72) = a1;
   *(inited + 80) = a2;
 
   sub_25460EF34(inited);
   swift_setDeallocating();
   sub_254611DD8(inited + 32, &unk_27F60AEF0, &qword_254613118);
-  v18 = sub_254612918();
-  v19 = swift_allocObject();
-  *(v19 + 16) = nullsub_1;
-  *(v19 + 24) = 0;
-  v26 = sub_254611F00;
-  v27 = v19;
+  v17 = sub_254612918();
+  v18 = swift_allocObject();
+  *(v18 + 16) = nullsub_1;
+  *(v18 + 24) = 0;
+  v25 = sub_254611F00;
+  v26 = v18;
   aBlock = MEMORY[0x277D85DD0];
-  v23 = 1107296256;
-  v24 = sub_25460F2EC;
-  v25 = &block_descriptor_36;
-  v20 = _Block_copy(&aBlock);
+  v22 = 1107296256;
+  v23 = sub_25460F2EC;
+  v24 = &block_descriptor_36;
+  v19 = _Block_copy(&aBlock);
 
-  [v15 sendAsynchronousMessage:v18 withIdentifier:3 targetAccessQueue:0 completion:v20];
+  [v14 sendAsynchronousMessage:v17 withIdentifier:3 targetAccessQueue:0 completion:v19];
 
-  _Block_release(v20);
+  _Block_release(v19);
 }
 
 void sub_254610554()
@@ -762,46 +749,45 @@ void sub_254610554()
   v1 = v0;
   v2 = sub_254612908();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
   MEMORY[0x28223BE20](v2);
-  v6 = &aBlock[-1] - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v5 = &aBlock[-1] - ((v4 + 15) & 0xFFFFFFFFFFFFFFF0);
   if (qword_28133E190 != -1)
   {
     swift_once();
   }
 
-  v7 = __swift_project_value_buffer(v2, HTLog);
+  v6 = __swift_project_value_buffer(v2, HTLog);
   swift_beginAccess();
-  (*(v3 + 16))(v6, v7, v2);
-  v8 = sub_2546128E8();
-  v9 = sub_254612998();
-  if (os_log_type_enabled(v8, v9))
+  (*(v3 + 16))(v5, v6, v2);
+  v7 = sub_2546128E8();
+  v8 = sub_254612998();
+  if (os_log_type_enabled(v7, v8))
   {
-    v10 = swift_slowAlloc();
-    *v10 = 0;
-    _os_log_impl(&dword_25460D000, v8, v9, "Client requesting HoverText Typing start", v10, 2u);
-    MEMORY[0x259C13270](v10, -1, -1);
+    v9 = swift_slowAlloc();
+    *v9 = 0;
+    _os_log_impl(&dword_25460D000, v7, v8, "Client requesting HoverText Typing start", v9, 2u);
+    MEMORY[0x259C13270](v9, -1, -1);
   }
 
-  (*(v3 + 8))(v6, v2);
+  (*(v3 + 8))(v5, v2);
   sub_25460F5C0();
-  v12 = v11;
+  v11 = v10;
+  v12 = swift_allocObject();
+  *(v12 + 16) = v1;
   v13 = swift_allocObject();
-  *(v13 + 16) = v1;
-  v14 = swift_allocObject();
-  *(v14 + 16) = sub_254611D9C;
-  *(v14 + 24) = v13;
+  *(v13 + 16) = sub_254611D9C;
+  *(v13 + 24) = v12;
   aBlock[4] = sub_254611F00;
-  aBlock[5] = v14;
+  aBlock[5] = v13;
   aBlock[0] = MEMORY[0x277D85DD0];
   aBlock[1] = 1107296256;
   aBlock[2] = sub_25460F2EC;
   aBlock[3] = &block_descriptor_29;
-  v15 = _Block_copy(aBlock);
-  v16 = v1;
+  v14 = _Block_copy(aBlock);
+  v15 = v1;
 
-  [v12 sendAsynchronousMessage:0 withIdentifier:4 targetAccessQueue:0 completion:v15];
-  _Block_release(v15);
+  [v11 sendAsynchronousMessage:0 withIdentifier:4 targetAccessQueue:0 completion:v14];
+  _Block_release(v14);
 }
 
 void sub_25461080C()
@@ -809,11 +795,10 @@ void sub_25461080C()
   v1 = v0;
   v2 = sub_254612908();
   v3 = *(v2 - 8);
-  v4 = *(v3 + 64);
-  v5 = MEMORY[0x28223BE20](v2);
-  v7 = &aBlock[-1] - ((v6 + 15) & 0xFFFFFFFFFFFFFFF0);
-  MEMORY[0x28223BE20](v5);
-  v9 = &aBlock[-1] - v8;
+  v4 = MEMORY[0x28223BE20](v2);
+  v6 = &aBlock[-1] - ((v5 + 15) & 0xFFFFFFFFFFFFFFF0);
+  MEMORY[0x28223BE20](v4);
+  v8 = &aBlock[-1] - v7;
   if (*(v1 + OBJC_IVAR____TtC17HoverTextServices27HoverTextServiceAXUIService_hoverTextTypingEnabled))
   {
     if (qword_28133E190 != -1)
@@ -821,38 +806,38 @@ void sub_25461080C()
       swift_once();
     }
 
-    v10 = __swift_project_value_buffer(v2, HTLog);
+    v9 = __swift_project_value_buffer(v2, HTLog);
     swift_beginAccess();
-    (*(v3 + 16))(v7, v10, v2);
-    v11 = sub_2546128E8();
-    v12 = sub_254612998();
-    if (os_log_type_enabled(v11, v12))
+    (*(v3 + 16))(v6, v9, v2);
+    v10 = sub_2546128E8();
+    v11 = sub_254612998();
+    if (os_log_type_enabled(v10, v11))
     {
-      v13 = swift_slowAlloc();
-      *v13 = 0;
-      _os_log_impl(&dword_25460D000, v11, v12, "Client requesting HoverText Typing stop", v13, 2u);
-      MEMORY[0x259C13270](v13, -1, -1);
+      v12 = swift_slowAlloc();
+      *v12 = 0;
+      _os_log_impl(&dword_25460D000, v10, v11, "Client requesting HoverText Typing stop", v12, 2u);
+      MEMORY[0x259C13270](v12, -1, -1);
     }
 
-    (*(v3 + 8))(v7, v2);
+    (*(v3 + 8))(v6, v2);
     sub_25460F5C0();
-    v15 = v14;
+    v14 = v13;
+    v15 = swift_allocObject();
+    *(v15 + 16) = v1;
     v16 = swift_allocObject();
-    *(v16 + 16) = v1;
-    v17 = swift_allocObject();
-    *(v17 + 16) = sub_254611D34;
-    *(v17 + 24) = v16;
+    *(v16 + 16) = sub_254611D34;
+    *(v16 + 24) = v15;
     aBlock[4] = sub_254611D70;
-    aBlock[5] = v17;
+    aBlock[5] = v16;
     aBlock[0] = MEMORY[0x277D85DD0];
     aBlock[1] = 1107296256;
     aBlock[2] = sub_25460F2EC;
     aBlock[3] = &block_descriptor;
-    v18 = _Block_copy(aBlock);
-    v19 = v1;
+    v17 = _Block_copy(aBlock);
+    v18 = v1;
 
-    [v15 sendAsynchronousMessage:0 withIdentifier:5 targetAccessQueue:0 completion:v18];
-    _Block_release(v18);
+    [v14 sendAsynchronousMessage:0 withIdentifier:5 targetAccessQueue:0 completion:v17];
+    _Block_release(v17);
   }
 
   else
@@ -862,20 +847,20 @@ void sub_25461080C()
       swift_once();
     }
 
-    v20 = __swift_project_value_buffer(v2, HTLog);
+    v19 = __swift_project_value_buffer(v2, HTLog);
     swift_beginAccess();
-    (*(v3 + 16))(v9, v20, v2);
-    v21 = sub_2546128E8();
-    v22 = sub_254612978();
-    if (os_log_type_enabled(v21, v22))
+    (*(v3 + 16))(v8, v19, v2);
+    v20 = sub_2546128E8();
+    v21 = sub_254612978();
+    if (os_log_type_enabled(v20, v21))
     {
-      v23 = swift_slowAlloc();
-      *v23 = 0;
-      _os_log_impl(&dword_25460D000, v21, v22, "HoverText Typing was never started, no need to stop", v23, 2u);
-      MEMORY[0x259C13270](v23, -1, -1);
+      v22 = swift_slowAlloc();
+      *v22 = 0;
+      _os_log_impl(&dword_25460D000, v20, v21, "HoverText Typing was never started, no need to stop", v22, 2u);
+      MEMORY[0x259C13270](v22, -1, -1);
     }
 
-    (*(v3 + 8))(v9, v2);
+    (*(v3 + 8))(v8, v2);
   }
 }
 
@@ -884,114 +869,113 @@ void sub_254610C2C(uint64_t a1)
   v2 = v1;
   v4 = sub_254612908();
   v5 = *(v4 - 8);
-  v6 = v5[8];
-  v7 = MEMORY[0x28223BE20](v4);
-  v9 = v41 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
-  v10 = MEMORY[0x28223BE20](v7);
+  v6 = MEMORY[0x28223BE20](v4);
+  v8 = v40 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = MEMORY[0x28223BE20](v6);
+  v10 = MEMORY[0x28223BE20](v9);
   v11 = MEMORY[0x28223BE20](v10);
-  v12 = MEMORY[0x28223BE20](v11);
-  v14 = v41 - v13;
-  MEMORY[0x28223BE20](v12);
-  v17 = v41 - v16;
-  v18 = *(v2 + OBJC_IVAR____TtC17HoverTextServices27HoverTextServiceAXUIService__client);
+  v13 = v40 - v12;
+  MEMORY[0x28223BE20](v11);
+  v16 = v40 - v15;
+  v17 = *(v2 + OBJC_IVAR____TtC17HoverTextServices27HoverTextServiceAXUIService__client);
   if (a1)
   {
-    if (v18)
+    if (v17)
     {
-      v19 = v18 == a1;
+      v18 = v17 == a1;
     }
 
     else
     {
-      v19 = 0;
+      v18 = 0;
     }
 
-    if (!v19)
+    if (!v18)
     {
       return;
     }
   }
 
-  else if (v18)
+  else if (v17)
   {
     return;
   }
 
-  v42 = v15;
+  v41 = v14;
   if (qword_28133E190 != -1)
   {
     swift_once();
   }
 
-  v20 = __swift_project_value_buffer(v4, HTLog);
+  v19 = __swift_project_value_buffer(v4, HTLog);
   swift_beginAccess();
-  v21 = v5[2];
-  v44 = v5 + 2;
-  v45 = v20;
-  v43 = v21;
-  v21(v17, v20, v4);
-  v22 = sub_2546128E8();
-  v23 = sub_254612988();
-  if (os_log_type_enabled(v22, v23))
+  v20 = *(v5 + 16);
+  v43 = v5 + 16;
+  v44 = v19;
+  v42 = v20;
+  v20(v16, v19, v4);
+  v21 = sub_2546128E8();
+  v22 = sub_254612988();
+  if (os_log_type_enabled(v21, v22))
   {
-    v24 = v5;
-    v25 = v9;
-    v26 = swift_slowAlloc();
-    *v26 = 0;
-    _os_log_impl(&dword_25460D000, v22, v23, "Connection to HoverText UI Service was interrupted", v26, 2u);
-    v27 = v26;
-    v9 = v25;
-    v5 = v24;
-    MEMORY[0x259C13270](v27, -1, -1);
+    v23 = v5;
+    v24 = v8;
+    v25 = swift_slowAlloc();
+    *v25 = 0;
+    _os_log_impl(&dword_25460D000, v21, v22, "Connection to HoverText UI Service was interrupted", v25, 2u);
+    v26 = v25;
+    v8 = v24;
+    v5 = v23;
+    MEMORY[0x259C13270](v26, -1, -1);
   }
 
-  v28 = v5[1];
-  v28(v17, v4);
-  v29 = objc_opt_self();
-  v30 = [v29 sharedInstance];
-  v31 = [v30 hoverTextEnabled];
+  v27 = *(v5 + 8);
+  v27(v16, v4);
+  v28 = objc_opt_self();
+  v29 = [v28 sharedInstance];
+  v30 = [v29 hoverTextEnabled];
 
-  if (v31)
+  if (v30)
   {
-    v41[5] = v9;
-    v43(v14, v45, v4);
-    v32 = sub_2546128E8();
-    v33 = sub_254612978();
-    if (os_log_type_enabled(v32, v33))
+    v40[5] = v8;
+    v42(v13, v44, v4);
+    v31 = sub_2546128E8();
+    v32 = sub_254612978();
+    if (os_log_type_enabled(v31, v32))
     {
-      v34 = swift_slowAlloc();
-      *v34 = 0;
-      _os_log_impl(&dword_25460D000, v32, v33, "HoverText still enabled. Will attempt to relaunch", v34, 2u);
-      MEMORY[0x259C13270](v34, -1, -1);
+      v33 = swift_slowAlloc();
+      *v33 = 0;
+      _os_log_impl(&dword_25460D000, v31, v32, "HoverText still enabled. Will attempt to relaunch", v33, 2u);
+      MEMORY[0x259C13270](v33, -1, -1);
     }
 
-    v28(v14, v4);
+    v27(v13, v4);
     sub_25460F754();
   }
 
-  v35 = [v29 sharedInstance];
-  v36 = [v35 hoverTextTypingEnabled];
+  v34 = [v28 sharedInstance];
+  v35 = [v34 hoverTextTypingEnabled];
 
-  v37 = v42;
-  if (v36)
+  v36 = v41;
+  if (v35)
   {
-    v43(v42, v45, v4);
-    v38 = sub_2546128E8();
-    v39 = sub_254612978();
-    if (os_log_type_enabled(v38, v39))
+    v42(v41, v44, v4);
+    v37 = sub_2546128E8();
+    v38 = sub_254612978();
+    if (os_log_type_enabled(v37, v38))
     {
-      v40 = swift_slowAlloc();
-      *v40 = 0;
-      _os_log_impl(&dword_25460D000, v38, v39, "HoverText Typing still enabled. Will attempt to relaunch", v40, 2u);
-      MEMORY[0x259C13270](v40, -1, -1);
+      v39 = swift_slowAlloc();
+      *v39 = 0;
+      _os_log_impl(&dword_25460D000, v37, v38, "HoverText Typing still enabled. Will attempt to relaunch", v39, 2u);
+      MEMORY[0x259C13270](v39, -1, -1);
     }
 
-    v28(v37, v4);
+    v27(v36, v4);
     sub_254610554();
   }
 }
 
-uint64_t sub_254611454(uint64_t a1, unint64_t a2, uint64_t *a3)
+unint64_t sub_254611454(uint64_t a1, unint64_t a2, uint64_t *a3)
 {
 
   v6 = sub_254611520(v11, 0, 0, 1, a1, a2);
@@ -1089,16 +1073,14 @@ LABEL_8:
   }
 }
 
-uint64_t sub_25461162C(uint64_t a1, unint64_t a2)
+void *sub_25461162C(uint64_t a1, unint64_t a2)
 {
-  v4 = sub_254611678(a1, a2);
+  v3 = sub_254611678(a1, a2);
   sub_2546117A8(&unk_2866791C0);
-  result = v4;
-  v3 = *(v4 + 16) - 1;
-  return result;
+  return v3;
 }
 
-uint64_t sub_254611678(uint64_t a1, unint64_t a2)
+void *sub_254611678(uint64_t a1, unint64_t a2)
 {
   if ((a2 & 0x1000000000000000) != 0)
   {
@@ -1195,7 +1177,6 @@ LABEL_16:
   }
 
   v6 = result;
-  v7 = *v1;
   result = swift_isUniquelyReferenced_nonNull_native();
   if (result && v5 <= *(v3 + 24) >> 1)
   {
@@ -1209,15 +1190,15 @@ LABEL_16:
 
   if (v4 <= v5)
   {
-    v12 = v4 + v2;
+    v11 = v4 + v2;
   }
 
   else
   {
-    v12 = v4;
+    v11 = v4;
   }
 
-  result = sub_254611908(result, v12, 1, v3);
+  result = sub_254611908(result, v11, 1, v3);
   v3 = result;
   if (!*(v6 + 16))
   {
@@ -1232,15 +1213,15 @@ LABEL_13:
   }
 
 LABEL_5:
-  v8 = *(v3 + 16);
-  if ((*(v3 + 24) >> 1) - v8 < v2)
+  v7 = *(v3 + 16);
+  if ((*(v3 + 24) >> 1) - v7 < v2)
   {
 LABEL_17:
     __break(1u);
     goto LABEL_18;
   }
 
-  memcpy((v3 + v8 + 32), (v6 + 32), v2);
+  memcpy((v3 + v7 + 32), (v6 + 32), v2);
 
   if (!v2)
   {
@@ -1249,12 +1230,12 @@ LABEL_14:
     return result;
   }
 
-  v9 = *(v3 + 16);
-  v10 = __OFADD__(v9, v2);
-  v11 = v9 + v2;
-  if (!v10)
+  v8 = *(v3 + 16);
+  v9 = __OFADD__(v8, v2);
+  v10 = v8 + v2;
+  if (!v9)
   {
-    *(v3 + 16) = v11;
+    *(v3 + 16) = v10;
     goto LABEL_14;
   }
 
@@ -1568,15 +1549,17 @@ LABEL_20:
   return result;
 }
 
-uint64_t __swift_destroy_boxed_opaque_existential_0(uint64_t *a1)
+uint64_t __swift_destroy_boxed_opaque_existential_0(void *a1)
 {
   v1 = *(a1[3] - 8);
-  if ((*(v1 + 82) & 2) == 0)
+  if ((*(v1 + 82) & 2) != 0)
+  {
+  }
+
+  else
   {
     return (*(v1 + 8))();
   }
-
-  v3 = *a1;
 }
 
 uint64_t sub_254611CD4(uint64_t a1, uint64_t a2)
@@ -1616,7 +1599,6 @@ uint64_t objectdestroy_18Tm()
 {
   if (*(v0 + 16))
   {
-    v1 = *(v0 + 24);
   }
 
   return MEMORY[0x2821FE8E8](v0, 32, 7);

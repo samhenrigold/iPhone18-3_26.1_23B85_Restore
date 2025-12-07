@@ -159,7 +159,7 @@
   if (v5)
   {
     folderView = [v5 folderView];
-    sub_21EA8A91C(x, y);
+    sub_21EA8A91C(folderView, x, y);
   }
 
   else
@@ -207,7 +207,7 @@
   swift_unknownObjectRelease();
   sub_21EAA9320();
   swift_unknownObjectRelease();
-  v11 = sub_21EA830FC(v14, &v13, store, provider, extensionProviderCopy);
+  v11 = sub_21EA830FC(v14, v13, store, provider, extensionProviderCopy);
   swift_unknownObjectRelease();
   swift_unknownObjectRelease();
 
@@ -448,7 +448,7 @@
     v5 = v4;
     sub_21EA5AEE4();
 
-    sub_21E9F8880(0, &qword_28125B7C0);
+    sub_21E9F8880(0, &qword_28125B7C0, 0x277D75548);
     v6 = sub_21EAA8EB0();
 
     return v6;
@@ -479,7 +479,7 @@
 
   selfCopy = self;
   sub_21EA6AF1C(animated, v6, v7);
-  sub_21E9FFAF0(v6);
+  sub_21E9FFAF0(v6, v7);
 }
 
 - (BOOL)isOnDefaultPage
@@ -556,7 +556,7 @@
   v2 = *(self + OBJC_IVAR___CCUIPagingViewController_expandedViewControllers);
   selfCopy = self;
   allObjects = [v2 allObjects];
-  sub_21E9F8880(0, &qword_28125B748);
+  sub_21E9F8880(0, &qword_28125B748, off_2783810E8);
   v5 = sub_21EAA8EC0();
 
   if (v5 >> 62)
@@ -584,7 +584,7 @@
 
 - (void)expandModuleWithIdentifier:(id)identifier
 {
-  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CEDCFF0);
+  v4 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CEDCFF0, &unk_21EAB7080);
   MEMORY[0x28223BE20](v4 - 8);
   v6 = &v12[-v5];
   v7 = sub_21EAA8E00();
@@ -597,12 +597,12 @@
   selfCopy = self;
   sub_21EA753A0(sub_21EA88004, v12);
 
-  sub_21EA488A0(v6, &unk_27CEDCFF0);
+  sub_21EA488A0(v6, &unk_27CEDCFF0, &unk_21EAB7080);
 }
 
 - (void)expandModuleWithIdentifier:(id)identifier uniqueIdentifier:(id)uniqueIdentifier
 {
-  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CEDCFF0);
+  v6 = __swift_instantiateConcreteTypeFromMangledNameV2(&unk_27CEDCFF0, &unk_21EAB7080);
   MEMORY[0x28223BE20](v6 - 8);
   v8 = &v16 - v7;
   v9 = sub_21EAA8E00();
@@ -627,7 +627,7 @@
   selfCopy = self;
   sub_21EA753A0(sub_21EA88004, (&v16 - 6));
 
-  sub_21EA488A0(v8, &unk_27CEDCFF0);
+  sub_21EA488A0(v8, &unk_27CEDCFF0, &unk_21EAB7080);
 }
 
 - (void)enumerateDisplayedModuleViewsWithBlock:(id)block
@@ -670,7 +670,7 @@
 
   selfCopy = self;
   sub_21EA6D240(animated, v6, v7);
-  sub_21E9FFAF0(v6);
+  sub_21E9FFAF0(v6, v7);
 }
 
 - (void)dismissPresentedContentAnimated:(BOOL)animated completion:(id)completion
@@ -690,7 +690,7 @@
 
   selfCopy = self;
   sub_21EA6D99C(animated, v6, v7);
-  sub_21E9FFAF0(v6);
+  sub_21E9FFAF0(v6, v7);
 }
 
 - (SBHIconModel)iconModel
@@ -756,7 +756,7 @@
 
   selfCopy = self;
   v13 = sub_21EA6FCB0(v11, v10, var0, var1, var2);
-  sub_21E9FFAF0(v11);
+  sub_21E9FFAF0(v11, v10);
 
   return v13;
 }
@@ -769,8 +769,9 @@
 
 - (void)viewWillAppear:(BOOL)appear
 {
+  appearCopy = appear;
   selfCopy = self;
-  sub_21EA71258(appear);
+  sub_21EA71258(appearCopy);
 }
 
 - (void)viewIsAppearing:(BOOL)appearing
@@ -805,20 +806,22 @@
 
 - (void)viewWillDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_21EA714A0(disappear);
+  sub_21EA714A0(disappearCopy);
 }
 
 - (void)viewDidDisappear:(BOOL)disappear
 {
+  disappearCopy = disappear;
   selfCopy = self;
-  sub_21EA717AC(disappear);
+  sub_21EA717AC(disappearCopy);
 }
 
 - (void)viewWillLayoutSubviews
 {
   selfCopy = self;
-  sub_21EA719B8();
+  sub_21EA719B8(selfCopy);
 }
 
 - (void)setEditing:(BOOL)editing
@@ -910,9 +913,10 @@
 {
   controllerCopy = controller;
   selfCopy = self;
-  v6 = _s15ControlCenterUI20PagingViewControllerC017compactModeSourceE03forSo6UIViewCSgSo026CCUIContentModuleContainereF0C_tF_0(controllerCopy);
+  _s15ControlCenterUI20PagingViewControllerC017compactModeSourceE03forSo6UIViewCSgSo026CCUIContentModuleContainereF0C_tF_0(controllerCopy);
+  v7 = v6;
 
-  return v6;
+  return v7;
 }
 
 - (CGRect)compactModeFrameForContentModuleContainerViewController:(id)controller
@@ -998,7 +1002,7 @@ LABEL_7:
   else
   {
     allObjects = [*(selfCopy + OBJC_IVAR___CCUIPagingViewController_expandedViewControllers) allObjects];
-    sub_21E9F8880(0, &qword_28125B748);
+    sub_21E9F8880(0, &qword_28125B748, off_2783810E8);
     v7 = sub_21EAA8EC0();
 
     if (v7 >> 62)
@@ -1056,7 +1060,7 @@ LABEL_7:
 {
   controllerCopy = controller;
   selfCopy = self;
-  sub_21EA7A384(controllerCopy);
+  sub_21EA7A384(controllerCopy, 0x696F705F69756363, 0xEC0000007265746ELL);
 }
 
 - (void)pointerDidExitContentModuleContainerViewController:(id)controller
@@ -1071,7 +1075,7 @@ LABEL_7:
   plattersCopy = platters;
   if (platters)
   {
-    sub_21E9F8880(0, &unk_28125B720);
+    sub_21E9F8880(0, &unk_28125B720, 0x277D75D18);
     plattersCopy = sub_21EAA8EC0();
   }
 
@@ -1232,8 +1236,8 @@ LABEL_5:
     icon = [tappedCopy icon];
     if (icon)
     {
-      v6 = icon;
-      sub_21EA73EF0(icon);
+      v7 = icon;
+      sub_21EA73EF0(icon, v6);
       _s15ControlCenterUI20PagingViewControllerC15iconDragManager_0gE0011willAnimateH16LiftWithAnimator7sessionySo06SBIconhI0C_So0pE0CSo15UIDragAnimating_pSo0Q7Session_ptF_0();
     }
   }
@@ -1244,10 +1248,10 @@ LABEL_5:
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = sub_21EA84CF0();
+  v8 = sub_21EA84CF0(source);
 
   swift_unknownObjectRelease();
-  return v7 & 1;
+  return v8 & 1;
 }
 
 - (id)iconView:(id)view configurationInteractionForDataSource:(id)source
@@ -1255,11 +1259,11 @@ LABEL_5:
   viewCopy = view;
   swift_unknownObjectRetain();
   selfCopy = self;
-  v7 = PagingViewController.iconView(_:configurationInteractionFor:)(viewCopy);
+  v8 = PagingViewController.iconView(_:configurationInteractionFor:)(viewCopy, source);
 
   swift_unknownObjectRelease();
 
-  return v7;
+  return v8;
 }
 
 - (id)iconView:(id)view containerViewForConfigurationInteraction:(id)interaction
@@ -1356,12 +1360,12 @@ LABEL_5:
     v7 = sub_21EAA8DC0();
     v8 = SBHIconDragItemWithIconAndIconView();
 
-    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEDCF10);
+    __swift_instantiateConcreteTypeFromMangledNameV2(&qword_27CEDCF10, &qword_21EAB6F80);
     v9 = swift_allocObject();
     *(v9 + 16) = xmmword_21EAB6F60;
     *(v9 + 32) = v8;
 
-    sub_21E9F8880(0, &qword_27CEDD6E8);
+    sub_21E9F8880(0, &qword_27CEDD6E8, 0x277D75470);
     v10 = sub_21EAA8EB0();
 
     return v10;
@@ -1564,15 +1568,15 @@ LABEL_7:
   iconsCopy = icons;
   if (icons)
   {
-    sub_21E9F8880(0, &qword_28125B730);
-    sub_21E9FBE14(&qword_27CEDD6E0, &qword_28125B730);
+    sub_21E9F8880(0, &qword_28125B730, 0x277D66368);
+    sub_21E9FBE14(&qword_27CEDD6E0, &qword_28125B730, 0x277D66368);
     iconsCopy = sub_21EAA8F60();
   }
 
   if (removedIcons)
   {
-    sub_21E9F8880(0, &qword_28125B730);
-    sub_21E9FBE14(&qword_27CEDD6E0, &qword_28125B730);
+    sub_21E9F8880(0, &qword_28125B730, 0x277D66368);
+    sub_21E9FBE14(&qword_27CEDD6E0, &qword_28125B730, 0x277D66368);
     removedIcons = sub_21EAA8F60();
   }
 
@@ -1626,7 +1630,7 @@ LABEL_7:
   v12 = v5;
   sub_21EA848EC(v9, v10, v11, v12, &v15);
 
-  sub_21E9F8880(0, &unk_27CEDD6D0);
+  sub_21E9F8880(0, &unk_27CEDD6D0, 0x277D66130);
   v13 = sub_21EAA8EB0();
 
   return v13;
@@ -1656,7 +1660,7 @@ LABEL_7:
     selfCopy = self;
     [v7 preferredGallerySizeClass];
     v10 = SBHIconGridSizeClassForCCUIGridSizeClass();
-    sub_21E9F8880(0, &unk_27CEDCDA0);
+    sub_21E9F8880(0, &unk_27CEDCDA0, 0x277D66450);
     v11 = sub_21EAA8FA0();
     [v11 addIconDataSource_];
     [v11 setGridSizeClass_];

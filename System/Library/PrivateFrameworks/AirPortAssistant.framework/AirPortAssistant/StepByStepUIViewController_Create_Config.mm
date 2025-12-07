@@ -18,502 +18,502 @@
 - (void)viewWillAppear:(BOOL)appear
 {
   appearCopy = appear;
-  objc_msgSend_setUseSinglePassword_(self, a2, 1);
-  objc_msgSend_setDelegate_(self, v4, self);
-  v7 = objc_msgSend_inParamDict(self, v5, v6);
-  v9 = objc_msgSend_objectForKey_(v7, v8, @"kSBSKey_SelectorChoice");
-  if ((objc_msgSend_integerValue(v9, v10, v11) - 101) > 1)
+  objc_msgSend_setUseSinglePassword_(self, a2, 1, v3);
+  objc_msgSend_setDelegate_(self, v5, self, v6);
+  v10 = objc_msgSend_inParamDict(self, v7, v8, v9);
+  v13 = objc_msgSend_objectForKey_(v10, v11, @"kSBSKey_SelectorChoice", v12);
+  if ((objc_msgSend_integerValue(v13, v14, v15, v16) - 101) > 1)
   {
-    v231 = 0;
-    v232 = 0;
-    v18 = 0;
-    v33 = 0;
+    v287 = 0;
+    v288 = 0;
     v26 = 0;
+    v37 = 0;
+    v27 = 0;
     NetworkPasswordForNetworkNamed = 0;
   }
 
   else
   {
-    v14 = objc_msgSend_inParamDict(self, v12, v13);
-    v16 = objc_msgSend_objectForKey_(v14, v15, @"kSBSKey_SourceBase");
-    v18 = objc_msgSend_objectForKey_(v16, v17, @"name");
-    v26 = sub_23EB6AE58(v16, v19, v20, v21, v22, v23, v24, v25);
-    v232 = off_27E3830F0;
-    v29 = objc_msgSend_sharedInstance(WiFiUtils, v27, v28);
-    NetworkPasswordForNetworkNamed = objc_msgSend_getNetworkPasswordForNetworkNamed_(v29, v30, v26);
-    v231 = v16;
-    v33 = objc_msgSend_keychainPasswordForBaseStation_(AssistantCallbackController, v32, v16);
+    v20 = objc_msgSend_inParamDict(self, v17, v18, v19);
+    v23 = objc_msgSend_objectForKey_(v20, v21, @"kSBSKey_SourceBase", v22);
+    v26 = objc_msgSend_objectForKey_(v23, v24, @"name", v25);
+    v27 = sub_23EB6AE58(v23);
+    v288 = off_27E3830F0;
+    v31 = objc_msgSend_sharedInstance(WiFiUtils, v28, v29, v30);
+    NetworkPasswordForNetworkNamed = objc_msgSend_getNetworkPasswordForNetworkNamed_(v31, v32, v27, v33);
+    v287 = v23;
+    v37 = objc_msgSend_keychainPasswordForBaseStation_(AssistantCallbackController, v35, v23, v36);
   }
 
-  v34 = objc_msgSend_inParamDict(self, v12, v13);
-  v36 = objc_msgSend_objectForKey_(v34, v35, @"kSBSKey_TargetBase");
-  v44 = sub_23EB6A2C0(v36, v37, v38, v39, v40, v41, v42, v43);
-  v47 = objc_msgSend_inParamDict(self, v45, v46);
-  v49 = objc_msgSend_objectForKey_(v47, v48, @"kSBSKey_TargetBase");
-  v57 = sub_23EB6A294(v49, v50, v51, v52, v53, v54, v55, v56);
-  v59 = objc_msgSend_valueForKey_(self->super.super._inParamDict, v58, @"kSBSKey_TargetBaseFeatures");
-  v60 = sub_23EB5E1E8(v59, 1297314927);
-  objc_msgSend_setHasDisk_(self, v61, v60);
-  objc_msgSend_setPersonalizedBaseName_(self, v62, v18);
-  v65 = objc_msgSend_personalizedBaseName(self, v63, v64);
-  if (!objc_msgSend_length(v65, v66, v67))
+  v38 = objc_msgSend_inParamDict(self, v17, v18, v19);
+  v41 = objc_msgSend_objectForKey_(v38, v39, @"kSBSKey_TargetBase", v40);
+  v42 = sub_23EB6A2C0(v41);
+  v46 = objc_msgSend_inParamDict(self, v43, v44, v45);
+  v49 = objc_msgSend_objectForKey_(v46, v47, @"kSBSKey_TargetBase", v48);
+  v50 = sub_23EB6A294(v49);
+  v53 = objc_msgSend_valueForKey_(self->super.super._inParamDict, v51, @"kSBSKey_TargetBaseFeatures", v52);
+  v54 = sub_23EB5E1E8(v53, 1297314927);
+  objc_msgSend_setHasDisk_(self, v55, v54, v56);
+  objc_msgSend_setPersonalizedBaseName_(self, v57, v26, v58);
+  v62 = objc_msgSend_personalizedBaseName(self, v59, v60, v61);
+  if (!objc_msgSend_length(v62, v63, v64, v65))
   {
-    v70 = sub_23EB6D75C(v44, v57);
-    objc_msgSend_setPersonalizedBaseName_(self, v71, v70);
+    v69 = sub_23EB6D75C(v42, v50);
+    objc_msgSend_setPersonalizedBaseName_(self, v70, v69, v71);
   }
 
-  v72 = objc_msgSend_personalizedBaseName(self, v68, v69);
-  if (!objc_msgSend_length(v72, v73, v74))
+  v72 = objc_msgSend_personalizedBaseName(self, v66, v67, v68);
+  if (!objc_msgSend_length(v72, v73, v74, v75))
   {
-    v76 = sub_23EB6D7A8(v44, v57);
-    objc_msgSend_setPersonalizedBaseName_(self, v77, v76);
+    v78 = sub_23EB6D7A8(v42, v50);
+    objc_msgSend_setPersonalizedBaseName_(self, v79, v78, v80);
   }
 
-  if (!v26)
+  if (!v27)
   {
-    v26 = objc_msgSend_valueForKey_(self->super.super._outResultsDict, v75, @"kSBSKey_NetworkName");
-    if (!v26)
+    v27 = objc_msgSend_valueForKey_(self->super.super._outResultsDict, v76, @"kSBSKey_NetworkName", v77);
+    if (!v27)
     {
-      v26 = sub_23EB6D820();
+      v27 = sub_23EB6D820(0, v76);
     }
   }
 
-  v233 = v18;
-  objc_msgSend_setWifiName_(self, v75, v26);
+  v289 = v26;
+  objc_msgSend_setWifiName_(self, v76, v27, v77);
   if (!NetworkPasswordForNetworkNamed)
   {
-    NetworkPasswordForNetworkNamed = objc_msgSend_valueForKey_(self->super.super._outResultsDict, v78, @"kSBSKey_NetworkPassword");
+    NetworkPasswordForNetworkNamed = objc_msgSend_valueForKey_(self->super.super._outResultsDict, v81, @"kSBSKey_NetworkPassword", v82);
   }
 
   if (NetworkPasswordForNetworkNamed)
   {
-    objc_msgSend_setWifiPassword_(self, v78, NetworkPasswordForNetworkNamed);
+    objc_msgSend_setWifiPassword_(self, v81, NetworkPasswordForNetworkNamed, v82);
   }
 
   else
   {
-    objc_msgSend_setWifiPassword_(self, v78, &stru_285145FE8);
+    objc_msgSend_setWifiPassword_(self, v81, &stru_285145FE8, v82);
   }
 
-  v81 = objc_msgSend_wifiPassword(self, v79, v80);
-  objc_msgSend_setWifiPasswordVerify_(self, v82, v81);
-  if (!v33)
+  v86 = objc_msgSend_wifiPassword(self, v83, v84, v85);
+  objc_msgSend_setWifiPasswordVerify_(self, v87, v86, v88);
+  if (!v37)
   {
-    v33 = objc_msgSend_valueForKey_(self->super.super._outResultsDict, v83, @"kSBSKey_BasePassword");
+    v37 = objc_msgSend_valueForKey_(self->super.super._outResultsDict, v89, @"kSBSKey_BasePassword", v90);
   }
 
-  if (v33)
+  if (v37)
   {
-    objc_msgSend_setBasePassword_(self, v83, v33);
+    objc_msgSend_setBasePassword_(self, v89, v37, v90);
   }
 
   else
   {
-    objc_msgSend_setBasePassword_(self, v83, &stru_285145FE8);
+    objc_msgSend_setBasePassword_(self, v89, &stru_285145FE8, v90);
   }
 
-  v86 = objc_msgSend_basePassword(self, v84, v85);
-  objc_msgSend_setBasePasswordVerify_(self, v87, v86);
-  v90 = objc_msgSend_wifiPassword(self, v88, v89);
-  v93 = objc_msgSend_basePassword(self, v91, v92);
-  isEqualToString = objc_msgSend_isEqualToString_(v90, v94, v93);
-  objc_msgSend_setUseSinglePassword_(self, v96, isEqualToString);
-  if (objc_msgSend_hasDisk(self, v97, v98))
+  v94 = objc_msgSend_basePassword(self, v91, v92, v93);
+  objc_msgSend_setBasePasswordVerify_(self, v95, v94, v96);
+  v100 = objc_msgSend_wifiPassword(self, v97, v98, v99);
+  v104 = objc_msgSend_basePassword(self, v101, v102, v103);
+  isEqualToString = objc_msgSend_isEqualToString_(v100, v105, v104, v106);
+  objc_msgSend_setUseSinglePassword_(self, v108, isEqualToString, v109);
+  if (objc_msgSend_hasDisk(self, v110, v111, v112))
   {
-    v101 = objc_msgSend_valueForKey_(self->super.super._outResultsDict, v99, @"kSBSKey_DiskSharing_Password");
-    if (v101)
+    v116 = objc_msgSend_valueForKey_(self->super.super._outResultsDict, v113, @"kSBSKey_DiskSharing_Password", v115);
+    if (v116)
     {
-      objc_msgSend_setDiskPassword_(self, v102, v101);
+      objc_msgSend_setDiskPassword_(self, v117, v116, v118);
     }
 
     else
     {
-      objc_msgSend_setDiskPassword_(self, v102, &stru_285145FE8);
+      objc_msgSend_setDiskPassword_(self, v117, &stru_285145FE8, v118);
     }
 
-    v105 = objc_msgSend_diskPassword(self, v103, v104);
-    objc_msgSend_setDiskPasswordVerify_(self, v106, v105);
-    if ((objc_msgSend_useSinglePassword(self, v107, v108) & 1) != 0 || (v111 = objc_msgSend_diskPassword(self, v109, v110), !objc_msgSend_length(v111, v112, v113)))
+    v122 = objc_msgSend_diskPassword(self, v119, v120, v121);
+    objc_msgSend_setDiskPasswordVerify_(self, v123, v122, v124);
+    if ((objc_msgSend_useSinglePassword(self, v125, v126, v127) & 1) != 0 || (v131 = objc_msgSend_diskPassword(self, v128, v129, v130), !objc_msgSend_length(v131, v132, v133, v134)))
     {
-      objc_msgSend_setUseDifferentDiskPassword_(self, v109, 0);
+      objc_msgSend_setUseDifferentDiskPassword_(self, v128, 0, v130);
     }
 
     else
     {
-      v115 = objc_msgSend_diskPassword(self, v109, v114);
-      v118 = objc_msgSend_basePassword(self, v116, v117);
-      v120 = objc_msgSend_isEqualToString_(v115, v119, v118) ^ 1;
-      objc_msgSend_setUseDifferentDiskPassword_(self, v121, v120);
+      v136 = objc_msgSend_diskPassword(self, v128, v135, v130);
+      v140 = objc_msgSend_basePassword(self, v137, v138, v139);
+      v143 = objc_msgSend_isEqualToString_(v136, v141, v140, v142) ^ 1;
+      objc_msgSend_setUseDifferentDiskPassword_(self, v144, v143, v145);
     }
   }
 
-  v122 = objc_msgSend_inParamDict(self, v99, v100);
-  v124 = objc_msgSend_objectForKey_(v122, v123, @"kSBSKey_Mode");
-  v127 = objc_msgSend_integerValue(v124, v125, v126);
-  objc_msgSend_setSbsMode_(self, v128, v127);
-  if (objc_msgSend_sbsMode(self, v129, v130) == 2)
+  v146 = objc_msgSend_inParamDict(self, v113, v114, v115);
+  v149 = objc_msgSend_objectForKey_(v146, v147, @"kSBSKey_Mode", v148);
+  v153 = objc_msgSend_integerValue(v149, v150, v151, v152);
+  objc_msgSend_setSbsMode_(self, v154, v153, v155);
+  if (objc_msgSend_sbsMode(self, v156, v157, v158) == 2)
   {
-    objc_msgSend_setLeftNavigationButton_enable_hide_(self, v131, @"kCancel", 1, 0);
-    if (!objc_msgSend_actionController(self, v133, v134))
+    objc_msgSend_setLeftNavigationButton_enable_hide_(self, v159, @"kCancel", 1, 0);
+    if (!objc_msgSend_actionController(self, v162, v163, v164))
     {
-      v135 = objc_msgSend_tableManager(self, v131, v132);
-      v138 = objc_msgSend_parentController(self, v136, v137);
-      v140 = objc_msgSend_recommendationActionControllerWithTableManager_andAssistantUIViewController_(RecommendationActionController, v139, v135, v138);
-      objc_msgSend_setActionController_(self, v141, v140);
+      v165 = objc_msgSend_tableManager(self, v159, v160, v161);
+      v169 = objc_msgSend_parentController(self, v166, v167, v168);
+      v171 = objc_msgSend_recommendationActionControllerWithTableManager_andAssistantUIViewController_(RecommendationActionController, v170, v165, v169);
+      objc_msgSend_setActionController_(self, v172, v171, v173);
     }
   }
 
-  if (objc_msgSend_sbsMode(self, v131, v132) == 2)
+  if (objc_msgSend_sbsMode(self, v159, v160, v161) == 2)
   {
-    v144 = objc_msgSend_wifiName(self, v142, v143);
-    if (objc_msgSend_length(v144, v145, v146))
+    v177 = objc_msgSend_wifiName(self, v174, v175, v176);
+    if (objc_msgSend_length(v177, v178, v179, v180))
     {
-      objc_msgSend_wifiName(self, v142, v143);
+      objc_msgSend_wifiName(self, v174, v175, v176);
     }
   }
 
-  v147 = objc_msgSend_inParamDict(self, v142, v143);
-  v149 = objc_msgSend_objectForKey_(v147, v148, @"kSBSKey_SelectorChoice");
-  if ((objc_msgSend_integerValue(v149, v150, v151) - 101) > 1)
+  v181 = objc_msgSend_inParamDict(self, v174, v175, v176);
+  v184 = objc_msgSend_objectForKey_(v181, v182, @"kSBSKey_SelectorChoice", v183);
+  if ((objc_msgSend_integerValue(v184, v185, v186, v187) - 101) > 1)
   {
-    ProductLocalizedStringWithFormat = objc_msgSend_getProductLocalizedStringWithFormat_(self, v152, @"PrimarySetupRecommendation_Create%@");
+    ProductLocalizedStringWithFormat = objc_msgSend_getProductLocalizedStringWithFormat_(self, v188, @"PrimarySetupRecommendation_Create%@", v189);
   }
 
   else
   {
-    v153 = sub_23EB6CD3C(@"TextualSentenceConcatenator", qword_27E383800);
-    v154 = sub_23EB6CD3C(@"TurnOffNamedDeviceBeingReplaced", @"AirPortSettings");
-    v157 = objc_msgSend_inParamDict(self, v155, v156);
-    v159 = objc_msgSend_objectForKey_(v157, v158, @"kSBSKey_SourceBase");
-    v161 = objc_msgSend_objectForKey_(v159, v160, @"name");
-    valid = objc_msgSend_stringWithValidatedFormat_validFormatSpecifiers_error_(MEMORY[0x277CCACA8], v162, v154, @"%@", 0, v161);
-    v166 = objc_msgSend_inParamDict(self, v164, v165);
-    ProductLocalizedStringWithFormat_fromParamDict = objc_msgSend_getProductLocalizedStringWithFormat_fromParamDict_(StepByStepUtilities, v167, @"PrimarySetupRecommendation_Replace%@", v166);
-    v170 = objc_msgSend_stringWithValidatedFormat_validFormatSpecifiers_error_(MEMORY[0x277CCACA8], v169, ProductLocalizedStringWithFormat_fromParamDict, @"%@", 0, v161);
-    ProductLocalizedStringWithFormat = objc_msgSend_stringWithValidatedFormat_validFormatSpecifiers_error_(MEMORY[0x277CCACA8], v171, v153, @"%@%@", 0, v170, valid);
+    v190 = sub_23EB6CD3C(@"TextualSentenceConcatenator", qword_27E383800);
+    v191 = sub_23EB6CD3C(@"TurnOffNamedDeviceBeingReplaced", @"AirPortSettings");
+    v195 = objc_msgSend_inParamDict(self, v192, v193, v194);
+    v198 = objc_msgSend_objectForKey_(v195, v196, @"kSBSKey_SourceBase", v197);
+    v201 = objc_msgSend_objectForKey_(v198, v199, @"name", v200);
+    valid = objc_msgSend_stringWithValidatedFormat_validFormatSpecifiers_error_(MEMORY[0x277CCACA8], v202, v191, @"%@", 0, v201);
+    v207 = objc_msgSend_inParamDict(self, v204, v205, v206);
+    ProductLocalizedStringWithFormat_fromParamDict = objc_msgSend_getProductLocalizedStringWithFormat_fromParamDict_(StepByStepUtilities, v208, @"PrimarySetupRecommendation_Replace%@", v207);
+    v211 = objc_msgSend_stringWithValidatedFormat_validFormatSpecifiers_error_(MEMORY[0x277CCACA8], v210, ProductLocalizedStringWithFormat_fromParamDict, @"%@", 0, v201);
+    ProductLocalizedStringWithFormat = objc_msgSend_stringWithValidatedFormat_validFormatSpecifiers_error_(MEMORY[0x277CCACA8], v212, v190, @"%@%@", 0, v211, valid);
   }
 
-  sub_23EB5E054(self->super.justTextLabel, self->super.justTextContainerView, ProductLocalizedStringWithFormat);
-  v175 = objc_msgSend_tableHeaderContainerView(self, v173, v174);
-  objc_msgSend_readjustSubviewsInContainer_(AssistantUIViewController, v176, v175);
-  objc_msgSend_setupTable(self, v177, v178);
-  objc_msgSend_updateTable(self, v179, v180);
-  objc_msgSend_setupInitialTableHeaderConfiguration(self, v181, v182);
-  v185 = objc_msgSend_parentController(self, v183, v184);
-  v230 = objc_msgSend__assistantUIController(v185, v186, v187);
-  v190 = objc_msgSend_topoView(self, v188, v189);
-  v193 = objc_msgSend_layer(v190, v191, v192);
-  v196 = objc_msgSend_topoLayout(self, v194, v195);
-  v199 = objc_msgSend_topoView(self, v197, v198);
-  v201 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v200, v44);
-  v203 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v202, v57);
-  v206 = objc_msgSend_inParamDict(self, v204, v205);
-  v208 = objc_msgSend_objectForKey_(v206, v207, @"kSBSKey_TargetNetwork");
-  v209 = sub_23EB6D0E0(v208, v44, 0);
-  v218 = objc_msgSend_valueForKey_(v231, v210, @"syAP");
-  if (v231)
+  sub_23EB5E054(self->super.justTextLabel, self->super.justTextContainerView, ProductLocalizedStringWithFormat, v214);
+  v218 = objc_msgSend_tableHeaderContainerView(self, v215, v216, v217);
+  objc_msgSend_readjustSubviewsInContainer_(AssistantUIViewController, v219, v218, v220);
+  objc_msgSend_setupTable(self, v221, v222, v223);
+  objc_msgSend_updateTable(self, v224, v225, v226);
+  objc_msgSend_setupInitialTableHeaderConfiguration(self, v227, v228, v229);
+  v233 = objc_msgSend_parentController(self, v230, v231, v232);
+  v286 = objc_msgSend__assistantUIController(v233, v234, v235, v236);
+  v240 = objc_msgSend_topoView(self, v237, v238, v239);
+  v244 = objc_msgSend_layer(v240, v241, v242, v243);
+  v248 = objc_msgSend_topoLayout(self, v245, v246, v247);
+  v252 = objc_msgSend_topoView(self, v249, v250, v251);
+  v255 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v253, v42, v254);
+  v258 = objc_msgSend_numberWithInteger_(MEMORY[0x277CCABB0], v256, v50, v257);
+  v262 = objc_msgSend_inParamDict(self, v259, v260, v261);
+  v265 = objc_msgSend_objectForKey_(v262, v263, @"kSBSKey_TargetNetwork", v264);
+  v267 = sub_23EB6D0E0(v265, v42, 0, v266);
+  v271 = objc_msgSend_valueForKey_(v287, v268, @"syAP", v269);
+  if (v287)
   {
-    v219 = MEMORY[0x277CCABB0];
-    v220 = sub_23EB6A294(v231, v211, v212, v213, v214, v215, v216, v217);
-    v222 = objc_msgSend_numberWithInteger_(v219, v221, v220);
+    v272 = MEMORY[0x277CCABB0];
+    v273 = sub_23EB6A294(v287);
+    v276 = objc_msgSend_numberWithInteger_(v272, v274, v273, v275);
   }
 
   else
   {
-    v222 = 0;
+    v276 = 0;
   }
 
-  v223 = objc_msgSend_modifyTopoUIInLayer_withLayout_andOwningView_targetProductID_targetDeviceKind_targetName_targetWiFiName_sourceProductID_sourceDeviceKind_sourceName_sourceWiFiName_connectionType_(v230, v211, v193, v196, v199, v201, v203, v209, 0, v218, v222, v233, 0, v232);
-  objc_msgSend_setTopoLayout_(self, v224, v223);
-  objc_msgSend_validateAndUpdateNextButton(self, v225, v226);
-  objc_msgSend_setValue_forKey_(self->super.super._outResultsDict, v227, &stru_285145FE8, @"kSBSKey_BasePassword");
-  objc_msgSend_setValue_forKey_(self->super.super._outResultsDict, v228, &stru_285145FE8, @"kSBSKey_NetworkPassword");
-  objc_msgSend_setValue_forKey_(self->super.super._outResultsDict, v229, &stru_285145FE8, @"kSBSKey_DiskSharing_Password");
-  v235.receiver = self;
-  v235.super_class = StepByStepUIViewController_Create_Config;
-  [(StepByStepUIViewController *)&v235 viewWillAppear:appearCopy];
+  v277 = objc_msgSend_modifyTopoUIInLayer_withLayout_andOwningView_targetProductID_targetDeviceKind_targetName_targetWiFiName_sourceProductID_sourceDeviceKind_sourceName_sourceWiFiName_connectionType_(v286, v270, v244, v248, v252, v255, v258, v267, 0, v271, v276, v289, 0, v288);
+  objc_msgSend_setTopoLayout_(self, v278, v277, v279);
+  objc_msgSend_validateAndUpdateNextButton(self, v280, v281, v282);
+  objc_msgSend_setValue_forKey_(self->super.super._outResultsDict, v283, &stru_285145FE8, @"kSBSKey_BasePassword");
+  objc_msgSend_setValue_forKey_(self->super.super._outResultsDict, v284, &stru_285145FE8, @"kSBSKey_NetworkPassword");
+  objc_msgSend_setValue_forKey_(self->super.super._outResultsDict, v285, &stru_285145FE8, @"kSBSKey_DiskSharing_Password");
+  v291.receiver = self;
+  v291.super_class = StepByStepUIViewController_Create_Config;
+  [(StepByStepUIViewController *)&v291 viewWillAppear:appearCopy];
 }
 
 - (BOOL)validateAndSetValues
 {
-  v4 = objc_msgSend_tableManager(self, a2, v2);
-  if (objc_msgSend_indexOfSectionWithIdentifier_(v4, v5, @"WiFiName") == 0x7FFFFFFFFFFFFFFFLL)
+  v5 = objc_msgSend_tableManager(self, a2, v2, v3);
+  if (objc_msgSend_indexOfSectionWithIdentifier_(v5, v6, @"WiFiName", v7) == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v8 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v9 = objc_msgSend_tableManager(self, v6, v7);
-    ValueForFirstItemOfType_inCellWithTag = objc_msgSend_getValueForFirstItemOfType_inCellWithTag_(v9, v10, @"editTextView", 1464225389);
-    objc_msgSend_setWifiName_(self, v12, ValueForFirstItemOfType_inCellWithTag);
-    v15 = objc_msgSend_wifiName(self, v13, v14);
-    v18 = objc_msgSend_UTF8String(v15, v16, v17);
-    v8 = sub_23EB6BB98(v18) != 0;
+    v12 = objc_msgSend_tableManager(self, v8, v9, v10);
+    ValueForFirstItemOfType_inCellWithTag = objc_msgSend_getValueForFirstItemOfType_inCellWithTag_(v12, v13, @"editTextView", 1464225389);
+    objc_msgSend_setWifiName_(self, v15, ValueForFirstItemOfType_inCellWithTag, v16);
+    v20 = objc_msgSend_wifiName(self, v17, v18, v19);
+    v24 = objc_msgSend_UTF8String(v20, v21, v22, v23);
+    v11 = sub_23EB6BB98(v24) != 0;
   }
 
-  v19 = objc_msgSend_tableManager(self, v6, v7);
-  v21 = objc_msgSend_getValueForFirstItemOfType_inCellWithTag_(v19, v20, @"editTextView", 1937329773);
-  objc_msgSend_setPersonalizedBaseName_(self, v22, v21);
-  if (objc_msgSend_personalizedBaseName(self, v23, v24))
+  v25 = objc_msgSend_tableManager(self, v8, v9, v10);
+  v27 = objc_msgSend_getValueForFirstItemOfType_inCellWithTag_(v25, v26, @"editTextView", 1937329773);
+  objc_msgSend_setPersonalizedBaseName_(self, v28, v27, v29);
+  if (objc_msgSend_personalizedBaseName(self, v30, v31, v32))
   {
-    v27 = objc_msgSend_personalizedBaseName(self, v25, v26);
-    v30 = objc_msgSend_UTF8String(v27, v28, v29);
-    v8 &= sub_23EB6BC14(v30) != 0;
+    v36 = objc_msgSend_personalizedBaseName(self, v33, v34, v35);
+    v40 = objc_msgSend_UTF8String(v36, v37, v38, v39);
+    v11 &= sub_23EB6BC14(v40) != 0;
   }
 
-  v31 = objc_msgSend_tableManager(self, v25, v26);
-  v33 = objc_msgSend_getValueForFirstItemOfType_inCellWithTag_(v31, v32, @"editTextView", 1464225889);
-  objc_msgSend_setWifiPassword_(self, v34, v33);
-  v37 = objc_msgSend_tableManager(self, v35, v36);
-  v39 = objc_msgSend_getValueForFirstItemOfType_inCellWithTag_(v37, v38, @"editTextView", 1464225878);
-  objc_msgSend_setWifiPasswordVerify_(self, v40, v39);
-  v43 = objc_msgSend_tableManager(self, v41, v42);
-  v46 = objc_msgSend_wifiPassword(self, v44, v45);
-  v49 = objc_msgSend_wifiPasswordVerify(self, v47, v48);
-  v51 = objc_msgSend_verifyStr1_forTag1_matchesStr2_forTag2_(v43, v50, v46, 1464225889, v49, 1464225878);
-  v54 = objc_msgSend_wifiPassword(self, v52, v53);
-  v57 = objc_msgSend_UTF8String(v54, v55, v56);
-  if (!v57)
+  v41 = objc_msgSend_tableManager(self, v33, v34, v35);
+  v43 = objc_msgSend_getValueForFirstItemOfType_inCellWithTag_(v41, v42, @"editTextView", 1464225889);
+  objc_msgSend_setWifiPassword_(self, v44, v43, v45);
+  v49 = objc_msgSend_tableManager(self, v46, v47, v48);
+  v51 = objc_msgSend_getValueForFirstItemOfType_inCellWithTag_(v49, v50, @"editTextView", 1464225878);
+  objc_msgSend_setWifiPasswordVerify_(self, v52, v51, v53);
+  v57 = objc_msgSend_tableManager(self, v54, v55, v56);
+  v61 = objc_msgSend_wifiPassword(self, v58, v59, v60);
+  v65 = objc_msgSend_wifiPasswordVerify(self, v62, v63, v64);
+  v67 = objc_msgSend_verifyStr1_forTag1_matchesStr2_forTag2_(v57, v66, v61, 1464225889, v65, 1464225878);
+  v71 = objc_msgSend_wifiPassword(self, v68, v69, v70);
+  v75 = objc_msgSend_UTF8String(v71, v72, v73, v74);
+  if (!v75)
   {
     return 0;
   }
 
-  v58 = v57;
-  v59 = sub_23EB6BBDC(v57);
-  v60 = v59 != 0;
-  if (objc_msgSend_useSinglePassword(self, v61, v62))
+  v76 = v75;
+  v77 = sub_23EB6BBDC(v75);
+  v78 = v77 != 0;
+  if (objc_msgSend_useSinglePassword(self, v79, v80, v81))
   {
-    if (sub_23EB6BC58(v58))
+    if (sub_23EB6BC58(v76))
     {
-      v65 = v59 == 0;
+      v85 = v77 == 0;
     }
 
     else
     {
-      v65 = 1;
+      v85 = 1;
     }
 
-    v60 = !v65;
+    v78 = !v85;
   }
 
-  v66 = v60 & v51 & v8;
-  if ((objc_msgSend_useSinglePassword(self, v63, v64) & 1) == 0)
+  v86 = v78 & v67 & v11;
+  if ((objc_msgSend_useSinglePassword(self, v82, v83, v84) & 1) == 0)
   {
-    v69 = objc_msgSend_tableManager(self, v67, v68);
-    v71 = objc_msgSend_getValueForFirstItemOfType_inCellWithTag_(v69, v70, @"editTextView", 1113673825);
-    objc_msgSend_setBasePassword_(self, v72, v71);
-    v75 = objc_msgSend_tableManager(self, v73, v74);
-    v77 = objc_msgSend_getValueForFirstItemOfType_inCellWithTag_(v75, v76, @"editTextView", 1113673814);
-    objc_msgSend_setBasePasswordVerify_(self, v78, v77);
-    v81 = objc_msgSend_tableManager(self, v79, v80);
-    v84 = objc_msgSend_basePassword(self, v82, v83);
-    v87 = objc_msgSend_basePasswordVerify(self, v85, v86);
-    LOBYTE(v81) = objc_msgSend_verifyStr1_forTag1_matchesStr2_forTag2_(v81, v88, v84, 1113673825, v87, 1113673814);
-    v91 = objc_msgSend_basePassword(self, v89, v90);
-    v94 = objc_msgSend_UTF8String(v91, v92, v93);
-    v66 &= (sub_23EB6BC58(v94) != 0) & v81;
-    if (objc_msgSend_hasDisk(self, v95, v96))
+    v90 = objc_msgSend_tableManager(self, v87, v88, v89);
+    v92 = objc_msgSend_getValueForFirstItemOfType_inCellWithTag_(v90, v91, @"editTextView", 1113673825);
+    objc_msgSend_setBasePassword_(self, v93, v92, v94);
+    v98 = objc_msgSend_tableManager(self, v95, v96, v97);
+    v100 = objc_msgSend_getValueForFirstItemOfType_inCellWithTag_(v98, v99, @"editTextView", 1113673814);
+    objc_msgSend_setBasePasswordVerify_(self, v101, v100, v102);
+    v106 = objc_msgSend_tableManager(self, v103, v104, v105);
+    v110 = objc_msgSend_basePassword(self, v107, v108, v109);
+    v114 = objc_msgSend_basePasswordVerify(self, v111, v112, v113);
+    LOBYTE(v106) = objc_msgSend_verifyStr1_forTag1_matchesStr2_forTag2_(v106, v115, v110, 1113673825, v114, 1113673814);
+    v119 = objc_msgSend_basePassword(self, v116, v117, v118);
+    v123 = objc_msgSend_UTF8String(v119, v120, v121, v122);
+    v86 &= (sub_23EB6BC58(v123) != 0) & v106;
+    if (objc_msgSend_hasDisk(self, v124, v125, v126))
     {
-      if (objc_msgSend_useDifferentDiskPassword(self, v97, v98))
+      if (objc_msgSend_useDifferentDiskPassword(self, v127, v128, v129))
       {
-        v101 = objc_msgSend_tableManager(self, v99, v100);
-        v103 = objc_msgSend_getValueForFirstItemOfType_inCellWithTag_(v101, v102, @"editTextView", 1147752545);
-        objc_msgSend_setDiskPassword_(self, v104, v103);
-        v107 = objc_msgSend_tableManager(self, v105, v106);
-        v109 = objc_msgSend_getValueForFirstItemOfType_inCellWithTag_(v107, v108, @"editTextView", 1147752534);
-        objc_msgSend_setDiskPasswordVerify_(self, v110, v109);
-        v113 = objc_msgSend_tableManager(self, v111, v112);
-        v116 = objc_msgSend_diskPassword(self, v114, v115);
-        v119 = objc_msgSend_diskPasswordVerify(self, v117, v118);
-        LOBYTE(v113) = objc_msgSend_verifyStr1_forTag1_matchesStr2_forTag2_(v113, v120, v116, 1147752545, v119, 1147752534);
-        v123 = objc_msgSend_diskPassword(self, v121, v122);
-        v126 = objc_msgSend_UTF8String(v123, v124, v125);
-        return (sub_23EB6BCE0(v126) != 0) & v113 & v66;
+        v133 = objc_msgSend_tableManager(self, v130, v131, v132);
+        v135 = objc_msgSend_getValueForFirstItemOfType_inCellWithTag_(v133, v134, @"editTextView", 1147752545);
+        objc_msgSend_setDiskPassword_(self, v136, v135, v137);
+        v141 = objc_msgSend_tableManager(self, v138, v139, v140);
+        v143 = objc_msgSend_getValueForFirstItemOfType_inCellWithTag_(v141, v142, @"editTextView", 1147752534);
+        objc_msgSend_setDiskPasswordVerify_(self, v144, v143, v145);
+        v149 = objc_msgSend_tableManager(self, v146, v147, v148);
+        v153 = objc_msgSend_diskPassword(self, v150, v151, v152);
+        v157 = objc_msgSend_diskPasswordVerify(self, v154, v155, v156);
+        LOBYTE(v149) = objc_msgSend_verifyStr1_forTag1_matchesStr2_forTag2_(v149, v158, v153, 1147752545, v157, 1147752534);
+        v162 = objc_msgSend_diskPassword(self, v159, v160, v161);
+        v166 = objc_msgSend_UTF8String(v162, v163, v164, v165);
+        return (sub_23EB6BCE0(v166) != 0) & v149 & v86;
       }
     }
   }
 
-  return v66;
+  return v86;
 }
 
 - (void)updateTableForSinglePassword
 {
-  v4 = objc_msgSend_tableManager(self, a2, v2);
-  objc_msgSend_deleteSectionWithIdentifier_animated_(v4, v5, @"WiFiPassword", 0);
-  v8 = objc_msgSend_tableManager(self, v6, v7);
-  objc_msgSend_deleteSectionWithIdentifier_animated_(v8, v9, @"BasePassword", 0);
-  v12 = objc_msgSend_tableManager(self, v10, v11);
-  objc_msgSend_deleteSectionWithIdentifier_animated_(v12, v13, @"DiskPassword", 0);
-  v16 = objc_msgSend_tableManager(self, v14, v15);
-  objc_msgSend_deleteSectionWithIdentifier_animated_(v16, v17, @"DiskPasswordSwitch", 0);
+  v5 = objc_msgSend_tableManager(self, a2, v2, v3);
+  objc_msgSend_deleteSectionWithIdentifier_animated_(v5, v6, @"WiFiPassword", 0);
+  v10 = objc_msgSend_tableManager(self, v7, v8, v9);
+  objc_msgSend_deleteSectionWithIdentifier_animated_(v10, v11, @"BasePassword", 0);
+  v15 = objc_msgSend_tableManager(self, v12, v13, v14);
+  objc_msgSend_deleteSectionWithIdentifier_animated_(v15, v16, @"DiskPassword", 0);
+  v20 = objc_msgSend_tableManager(self, v17, v18, v19);
+  objc_msgSend_deleteSectionWithIdentifier_animated_(v20, v21, @"DiskPasswordSwitch", 0);
   actionController = self->actionController;
-  if (actionController && !objc_msgSend_isPrimaryRecommendation(actionController, v18, v19))
+  if (actionController && !objc_msgSend_isPrimaryRecommendation(actionController, v22, v23, v24))
   {
-    v67 = objc_msgSend_tableManager(self, v18, v19);
+    v84 = objc_msgSend_tableManager(self, v22, v23, v24);
 
-    objc_msgSend_deleteSectionWithIdentifier_animated_(v67, v68, @"SinglePassword", 0);
+    objc_msgSend_deleteSectionWithIdentifier_animated_(v84, v85, @"SinglePassword", 0);
   }
 
   else
   {
-    v21 = objc_msgSend_tableManager(self, v18, v19);
-    if (objc_msgSend_indexOfSectionWithIdentifier_(v21, v22, @"SinglePassword") == 0x7FFFFFFFFFFFFFFFLL)
+    v26 = objc_msgSend_tableManager(self, v22, v23, v24);
+    if (objc_msgSend_indexOfSectionWithIdentifier_(v26, v27, @"SinglePassword", v28) == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v25 = objc_msgSend_array(MEMORY[0x277CBEB18], v23, v24);
-      v28 = objc_msgSend_tableManager(self, v26, v27);
-      v29 = sub_23EB6CD3C(@"PasswordLabel", qword_27E383800);
-      v32 = objc_msgSend_wifiPassword(self, v30, v31);
-      v33 = sub_23EB6CD3C(@"CreatePasswordPlaceholder", qword_27E383800);
-      isSecure_keyboardType_withTag = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v28, v34, 0, v29, v32, v33, 1, 1, 1464225889);
-      v39 = sub_23EB5E230(1651716432, v36);
-      if (v39)
+      v32 = objc_msgSend_array(MEMORY[0x277CBEB18], v29, v30, v31);
+      v36 = objc_msgSend_tableManager(self, v33, v34, v35);
+      v37 = sub_23EB6CD3C(@"PasswordLabel", qword_27E383800);
+      v41 = objc_msgSend_wifiPassword(self, v38, v39, v40);
+      v42 = sub_23EB6CD3C(@"CreatePasswordPlaceholder", qword_27E383800);
+      isSecure_keyboardType_withTag = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v36, v43, 0, v37, v41, v42, 1, 1, 1464225889);
+      v49 = sub_23EB5E230(1651716432, v45);
+      if (v49)
       {
-        objc_msgSend_setObject_forKey_(isSecure_keyboardType_withTag, v37, v39, @"nsFormatter");
+        objc_msgSend_setObject_forKey_(isSecure_keyboardType_withTag, v46, v49, @"nsFormatter");
       }
 
-      v40 = objc_msgSend_tableManager(self, v37, v38);
-      objc_msgSend_setNewRow_verifierAccessoryType_(v40, v41, isSecure_keyboardType_withTag, 0);
-      objc_msgSend_addObject_(v25, v42, isSecure_keyboardType_withTag);
-      v45 = objc_msgSend_tableManager(self, v43, v44);
-      v46 = sub_23EB6CD3C(@"VerifyLabel", qword_27E383800);
-      v49 = objc_msgSend_wifiPasswordVerify(self, v47, v48);
-      v50 = sub_23EB6CD3C(@"VerifyPlaceholder", qword_27E383800);
-      v52 = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v45, v51, 0, v46, v49, v50, 1, 1, 1464225878);
-      v55 = v52;
-      if (v39)
+      v50 = objc_msgSend_tableManager(self, v46, v47, v48);
+      objc_msgSend_setNewRow_verifierAccessoryType_(v50, v51, isSecure_keyboardType_withTag, 0);
+      objc_msgSend_addObject_(v32, v52, isSecure_keyboardType_withTag, v53);
+      v57 = objc_msgSend_tableManager(self, v54, v55, v56);
+      v58 = sub_23EB6CD3C(@"VerifyLabel", qword_27E383800);
+      v62 = objc_msgSend_wifiPasswordVerify(self, v59, v60, v61);
+      v63 = sub_23EB6CD3C(@"VerifyPlaceholder", qword_27E383800);
+      v65 = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v57, v64, 0, v58, v62, v63, 1, 1, 1464225878);
+      v69 = v65;
+      if (v49)
       {
-        objc_msgSend_setObject_forKey_(v52, v53, v39, @"nsFormatter");
+        objc_msgSend_setObject_forKey_(v65, v66, v49, @"nsFormatter");
       }
 
-      v56 = objc_msgSend_tableManager(self, v53, v54);
-      objc_msgSend_setNewRow_verifierAccessoryType_(v56, v57, v55, 0);
-      objc_msgSend_addObject_(v25, v58, v55);
-      v61 = objc_msgSend_tableManager(self, v59, v60);
-      v62 = MEMORY[0x277CBEB38];
-      v63 = sub_23EB6CD3C(@"WiFiPasswordRequirement", qword_27E383800);
-      v66 = objc_msgSend_dictionaryWithObjectsAndKeys_(v62, v64, v25, @"sectionRows", v63, @"footer", @"SinglePassword", @"identifier", 0);
+      v70 = objc_msgSend_tableManager(self, v66, v67, v68);
+      objc_msgSend_setNewRow_verifierAccessoryType_(v70, v71, v69, 0);
+      objc_msgSend_addObject_(v32, v72, v69, v73);
+      v77 = objc_msgSend_tableManager(self, v74, v75, v76);
+      v78 = MEMORY[0x277CBEB38];
+      v79 = sub_23EB6CD3C(@"WiFiPasswordRequirement", qword_27E383800);
+      v83 = objc_msgSend_dictionaryWithObjectsAndKeys_(v78, v80, v32, v81, @"sectionRows", v79, @"footer", @"SinglePassword", @"identifier", 0);
 
-      objc_msgSend_addSectionInfo_animated_(v61, v65, v66, 0);
+      objc_msgSend_addSectionInfo_animated_(v77, v82, v83, 0);
     }
   }
 }
 
 - (void)updateTableForMultiplePasswords
 {
-  v4 = objc_msgSend_tableManager(self, a2, v2);
-  objc_msgSend_deleteSectionWithIdentifier_animated_(v4, v5, @"WiFiPassword", 0);
-  v8 = objc_msgSend_tableManager(self, v6, v7);
-  objc_msgSend_deleteSectionWithIdentifier_animated_(v8, v9, @"BasePassword", 0);
-  v12 = objc_msgSend_tableManager(self, v10, v11);
-  objc_msgSend_deleteSectionWithIdentifier_animated_(v12, v13, @"BasePassword", 0);
-  v16 = objc_msgSend_tableManager(self, v14, v15);
-  objc_msgSend_deleteSectionWithIdentifier_animated_(v16, v17, @"SinglePassword", 0);
-  v20 = objc_msgSend_tableManager(self, v18, v19);
-  objc_msgSend_deleteSectionWithIdentifier_animated_(v20, v21, @"DiskPasswordSwitch", 0);
-  if ((objc_msgSend_useDifferentDiskPassword(self, v22, v23) & 1) == 0)
+  v5 = objc_msgSend_tableManager(self, a2, v2, v3);
+  objc_msgSend_deleteSectionWithIdentifier_animated_(v5, v6, @"WiFiPassword", 0);
+  v10 = objc_msgSend_tableManager(self, v7, v8, v9);
+  objc_msgSend_deleteSectionWithIdentifier_animated_(v10, v11, @"BasePassword", 0);
+  v15 = objc_msgSend_tableManager(self, v12, v13, v14);
+  objc_msgSend_deleteSectionWithIdentifier_animated_(v15, v16, @"BasePassword", 0);
+  v20 = objc_msgSend_tableManager(self, v17, v18, v19);
+  objc_msgSend_deleteSectionWithIdentifier_animated_(v20, v21, @"SinglePassword", 0);
+  v25 = objc_msgSend_tableManager(self, v22, v23, v24);
+  objc_msgSend_deleteSectionWithIdentifier_animated_(v25, v26, @"DiskPasswordSwitch", 0);
+  if ((objc_msgSend_useDifferentDiskPassword(self, v27, v28, v29) & 1) == 0)
   {
-    v26 = objc_msgSend_tableManager(self, v24, v25);
-    objc_msgSend_deleteSectionWithIdentifier_animated_(v26, v27, @"DiskPassword", 0);
+    v33 = objc_msgSend_tableManager(self, v30, v31, v32);
+    objc_msgSend_deleteSectionWithIdentifier_animated_(v33, v34, @"DiskPassword", 0);
   }
 
   actionController = self->actionController;
-  if (!actionController || objc_msgSend_isPrimaryRecommendation(actionController, v24, v25))
+  if (!actionController || objc_msgSend_isPrimaryRecommendation(actionController, v30, v31, v32))
   {
-    v29 = objc_msgSend_tableManager(self, v24, v25);
-    if (objc_msgSend_indexOfSectionWithIdentifier_(v29, v30, @"WiFiPassword") == 0x7FFFFFFFFFFFFFFFLL)
+    v36 = objc_msgSend_tableManager(self, v30, v31, v32);
+    if (objc_msgSend_indexOfSectionWithIdentifier_(v36, v37, @"WiFiPassword", v38) == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v33 = objc_msgSend_array(MEMORY[0x277CBEB18], v31, v32);
-      v36 = objc_msgSend_tableManager(self, v34, v35);
-      v37 = sub_23EB6CD3C(@"PasswordLabel", qword_27E383800);
-      v40 = objc_msgSend_wifiPassword(self, v38, v39);
-      v41 = sub_23EB6CD3C(@"CreatePasswordPlaceholder", qword_27E383800);
-      isSecure_keyboardType_withTag = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v36, v42, 0, v37, v40, v41, 1, 1, 1464225889);
-      v47 = sub_23EB5E230(1651725131, v44);
-      if (v47)
+      v42 = objc_msgSend_array(MEMORY[0x277CBEB18], v39, v40, v41);
+      v46 = objc_msgSend_tableManager(self, v43, v44, v45);
+      v47 = sub_23EB6CD3C(@"PasswordLabel", qword_27E383800);
+      v51 = objc_msgSend_wifiPassword(self, v48, v49, v50);
+      v52 = sub_23EB6CD3C(@"CreatePasswordPlaceholder", qword_27E383800);
+      isSecure_keyboardType_withTag = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v46, v53, 0, v47, v51, v52, 1, 1, 1464225889);
+      v59 = sub_23EB5E230(1651725131, v55);
+      if (v59)
       {
-        objc_msgSend_setObject_forKey_(isSecure_keyboardType_withTag, v45, v47, @"nsFormatter");
+        objc_msgSend_setObject_forKey_(isSecure_keyboardType_withTag, v56, v59, @"nsFormatter");
       }
 
-      v48 = objc_msgSend_tableManager(self, v45, v46);
-      objc_msgSend_setNewRow_verifierAccessoryType_(v48, v49, isSecure_keyboardType_withTag, 0);
-      objc_msgSend_addObject_(v33, v50, isSecure_keyboardType_withTag);
-      v53 = objc_msgSend_tableManager(self, v51, v52);
-      v54 = sub_23EB6CD3C(@"VerifyLabel", qword_27E383800);
-      v57 = objc_msgSend_wifiPasswordVerify(self, v55, v56);
-      v58 = sub_23EB6CD3C(@"VerifyPlaceholder", qword_27E383800);
-      v60 = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v53, v59, 0, v54, v57, v58, 1, 1, 1464225878);
-      v63 = v60;
-      if (v47)
+      v60 = objc_msgSend_tableManager(self, v56, v57, v58);
+      objc_msgSend_setNewRow_verifierAccessoryType_(v60, v61, isSecure_keyboardType_withTag, 0);
+      objc_msgSend_addObject_(v42, v62, isSecure_keyboardType_withTag, v63);
+      v67 = objc_msgSend_tableManager(self, v64, v65, v66);
+      v68 = sub_23EB6CD3C(@"VerifyLabel", qword_27E383800);
+      v72 = objc_msgSend_wifiPasswordVerify(self, v69, v70, v71);
+      v73 = sub_23EB6CD3C(@"VerifyPlaceholder", qword_27E383800);
+      v75 = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v67, v74, 0, v68, v72, v73, 1, 1, 1464225878);
+      v79 = v75;
+      if (v59)
       {
-        objc_msgSend_setObject_forKey_(v60, v61, v47, @"nsFormatter");
+        objc_msgSend_setObject_forKey_(v75, v76, v59, @"nsFormatter");
       }
 
-      v64 = objc_msgSend_tableManager(self, v61, v62);
-      objc_msgSend_setNewRow_verifierAccessoryType_(v64, v65, v63, 0);
-      objc_msgSend_addObject_(v33, v66, v63);
-      v69 = objc_msgSend_tableManager(self, v67, v68);
-      v70 = MEMORY[0x277CBEB38];
-      v71 = sub_23EB6CD3C(@"WiFiPasswordSectionTitle", qword_27E383800);
-      v72 = sub_23EB6CD3C(@"WiFiPasswordRequirement", qword_27E383800);
-      v74 = objc_msgSend_dictionaryWithObjectsAndKeys_(v70, v73, v33, @"sectionRows", v71, @"header", v72, @"footer", @"WiFiPassword", @"identifier", 0);
-      objc_msgSend_addSectionInfo_animated_(v69, v75, v74, 0);
+      v80 = objc_msgSend_tableManager(self, v76, v77, v78);
+      objc_msgSend_setNewRow_verifierAccessoryType_(v80, v81, v79, 0);
+      objc_msgSend_addObject_(v42, v82, v79, v83);
+      v87 = objc_msgSend_tableManager(self, v84, v85, v86);
+      v88 = MEMORY[0x277CBEB38];
+      v89 = sub_23EB6CD3C(@"WiFiPasswordSectionTitle", qword_27E383800);
+      v90 = sub_23EB6CD3C(@"WiFiPasswordRequirement", qword_27E383800);
+      v93 = objc_msgSend_dictionaryWithObjectsAndKeys_(v88, v91, v42, v92, @"sectionRows", v89, @"header", v90, @"footer", @"WiFiPassword", @"identifier", 0);
+      objc_msgSend_addSectionInfo_animated_(v87, v94, v93, 0);
     }
 
-    v76 = objc_msgSend_tableManager(self, v31, v32);
-    if (objc_msgSend_indexOfSectionWithIdentifier_(v76, v77, @"BasePassword") == 0x7FFFFFFFFFFFFFFFLL)
+    v95 = objc_msgSend_tableManager(self, v39, v40, v41);
+    if (objc_msgSend_indexOfSectionWithIdentifier_(v95, v96, @"BasePassword", v97) == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v80 = objc_msgSend_array(MEMORY[0x277CBEB18], v78, v79);
-      v83 = objc_msgSend_tableManager(self, v81, v82);
-      v84 = sub_23EB6CD3C(@"PasswordLabel", qword_27E383800);
-      v87 = objc_msgSend_basePassword(self, v85, v86);
-      v88 = sub_23EB6CD3C(@"CreatePasswordPlaceholder", qword_27E383800);
-      v90 = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v83, v89, 0, v84, v87, v88, 1, 1, 1113673825);
-      v94 = sub_23EB5E230(1651721296, v91);
-      if (v94)
+      v101 = objc_msgSend_array(MEMORY[0x277CBEB18], v98, v99, v100);
+      v105 = objc_msgSend_tableManager(self, v102, v103, v104);
+      v106 = sub_23EB6CD3C(@"PasswordLabel", qword_27E383800);
+      v110 = objc_msgSend_basePassword(self, v107, v108, v109);
+      v111 = sub_23EB6CD3C(@"CreatePasswordPlaceholder", qword_27E383800);
+      v113 = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v105, v112, 0, v106, v110, v111, 1, 1, 1113673825);
+      v118 = sub_23EB5E230(1651721296, v114);
+      if (v118)
       {
-        objc_msgSend_setObject_forKey_(v90, v92, v94, @"nsFormatter");
+        objc_msgSend_setObject_forKey_(v113, v115, v118, @"nsFormatter");
       }
 
-      v95 = objc_msgSend_tableManager(self, v92, v93);
-      objc_msgSend_setNewRow_verifierAccessoryType_(v95, v96, v90, 0);
-      objc_msgSend_addObject_(v80, v97, v90);
-      v100 = objc_msgSend_tableManager(self, v98, v99);
-      v101 = sub_23EB6CD3C(@"VerifyLabel", qword_27E383800);
-      v104 = objc_msgSend_basePasswordVerify(self, v102, v103);
-      v105 = sub_23EB6CD3C(@"VerifyPlaceholder", qword_27E383800);
-      v107 = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v100, v106, 0, v101, v104, v105, 1, 1, 1113673814);
-      v110 = v107;
-      if (v94)
+      v119 = objc_msgSend_tableManager(self, v115, v116, v117);
+      objc_msgSend_setNewRow_verifierAccessoryType_(v119, v120, v113, 0);
+      objc_msgSend_addObject_(v101, v121, v113, v122);
+      v126 = objc_msgSend_tableManager(self, v123, v124, v125);
+      v127 = sub_23EB6CD3C(@"VerifyLabel", qword_27E383800);
+      v131 = objc_msgSend_basePasswordVerify(self, v128, v129, v130);
+      v132 = sub_23EB6CD3C(@"VerifyPlaceholder", qword_27E383800);
+      v134 = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v126, v133, 0, v127, v131, v132, 1, 1, 1113673814);
+      v138 = v134;
+      if (v118)
       {
-        objc_msgSend_setObject_forKey_(v107, v108, v94, @"nsFormatter");
+        objc_msgSend_setObject_forKey_(v134, v135, v118, @"nsFormatter");
       }
 
-      v111 = objc_msgSend_tableManager(self, v108, v109);
-      objc_msgSend_setNewRow_verifierAccessoryType_(v111, v112, v110, 0);
-      objc_msgSend_addObject_(v80, v113, v110);
-      v116 = objc_msgSend_tableManager(self, v114, v115);
-      v117 = MEMORY[0x277CBEB38];
-      v118 = sub_23EB6CD3C(@"AdminPasswordSectionTitle", qword_27E383800);
-      v120 = objc_msgSend_dictionaryWithObjectsAndKeys_(v117, v119, v80, @"sectionRows", v118, @"header", @"BasePassword", @"identifier", 0);
-      objc_msgSend_addSectionInfo_animated_(v116, v121, v120, 0);
+      v139 = objc_msgSend_tableManager(self, v135, v136, v137);
+      objc_msgSend_setNewRow_verifierAccessoryType_(v139, v140, v138, 0);
+      objc_msgSend_addObject_(v101, v141, v138, v142);
+      v146 = objc_msgSend_tableManager(self, v143, v144, v145);
+      v147 = MEMORY[0x277CBEB38];
+      v148 = sub_23EB6CD3C(@"AdminPasswordSectionTitle", qword_27E383800);
+      v151 = objc_msgSend_dictionaryWithObjectsAndKeys_(v147, v149, v101, v150, @"sectionRows", v148, @"header", @"BasePassword", @"identifier", 0);
+      objc_msgSend_addSectionInfo_animated_(v146, v152, v151, 0);
     }
 
-    if (objc_msgSend_hasDisk(self, v78, v79))
+    if (objc_msgSend_hasDisk(self, v98, v99, v100))
     {
-      v124 = objc_msgSend_tableManager(self, v122, v123);
-      if (objc_msgSend_indexOfSectionWithIdentifier_(v124, v125, @"DiskPasswordSwitch") == 0x7FFFFFFFFFFFFFFFLL)
+      v156 = objc_msgSend_tableManager(self, v153, v154, v155);
+      if (objc_msgSend_indexOfSectionWithIdentifier_(v156, v157, @"DiskPasswordSwitch", v158) == 0x7FFFFFFFFFFFFFFFLL)
       {
-        v128 = objc_msgSend_array(MEMORY[0x277CBEB18], v126, v127);
-        v129 = sub_23EB6CD3C(@"StepByStepChoice_Create_Config.UsingDifferentDiskPasswordLabel", qword_27E383800);
-        v132 = objc_msgSend_tableManager(self, v130, v131);
-        v135 = objc_msgSend_useDifferentDiskPassword(self, v133, v134);
-        v137 = objc_msgSend_createRowStyleBasicOnOffWithImage_labelText_isOn_withTag_(v132, v136, 0, v129, v135, 1146114935);
-        objc_msgSend_addObject_(v128, v138, v137);
-        v141 = objc_msgSend_tableManager(self, v139, v140);
-        v144 = objc_msgSend_dictionaryWithObjectsAndKeys_(MEMORY[0x277CBEB38], v142, v128, @"sectionRows", @"DiskPasswordSwitch", @"identifier", 0);
+        v162 = objc_msgSend_array(MEMORY[0x277CBEB18], v159, v160, v161);
+        v163 = sub_23EB6CD3C(@"StepByStepChoice_Create_Config.UsingDifferentDiskPasswordLabel", qword_27E383800);
+        v167 = objc_msgSend_tableManager(self, v164, v165, v166);
+        v171 = objc_msgSend_useDifferentDiskPassword(self, v168, v169, v170);
+        v173 = objc_msgSend_createRowStyleBasicOnOffWithImage_labelText_isOn_withTag_(v167, v172, 0, v163, v171, 1146114935);
+        objc_msgSend_addObject_(v162, v174, v173, v175);
+        v179 = objc_msgSend_tableManager(self, v176, v177, v178);
+        v183 = objc_msgSend_dictionaryWithObjectsAndKeys_(MEMORY[0x277CBEB38], v180, v162, v181, @"sectionRows", @"DiskPasswordSwitch", @"identifier", 0);
 
-        objc_msgSend_addSectionInfo_animated_(v141, v143, v144, 0);
+        objc_msgSend_addSectionInfo_animated_(v179, v182, v183, 0);
       }
     }
   }
@@ -523,16 +523,16 @@
 {
   if (self->actionController)
   {
-    v5 = objc_msgSend_section(path, a2, path);
-    v8 = objc_msgSend_tableManager(self, v6, v7);
-    if (v5 == objc_msgSend_indexOfSectionWithIdentifier_(v8, v9, @"ActionTableSection"))
+    v6 = objc_msgSend_section(path, a2, path, v3);
+    v10 = objc_msgSend_tableManager(self, v7, v8, v9);
+    if (v6 == objc_msgSend_indexOfSectionWithIdentifier_(v10, v11, @"ActionTableSection", v12))
     {
-      objc_msgSend_setupTable(self, v10, v11);
-      objc_msgSend_updateTable(self, v12, v13);
-      objc_msgSend_validateAndUpdateNextButton(self, v14, v15);
-      v18 = objc_msgSend_tableManager(self, v16, v17);
+      objc_msgSend_setupTable(self, v13, v14, v15);
+      objc_msgSend_updateTable(self, v16, v17, v18);
+      objc_msgSend_validateAndUpdateNextButton(self, v19, v20, v21);
+      v25 = objc_msgSend_tableManager(self, v22, v23, v24);
 
-      objc_msgSend_selectMenuCellAtIndexPath_(v18, v19, path);
+      objc_msgSend_selectMenuCellAtIndexPath_(v25, v26, path, v27);
     }
   }
 }
@@ -540,124 +540,124 @@
 - (void)switchTouchedInCellAtIndexPath:(id)path forSwitchIndex:(unint64_t)index isOn:(BOOL)on
 {
   onCopy = on;
-  v19 = 0;
+  v23 = 0;
   v8 = objc_msgSend_tableManager(self, a2, path, index);
-  if (objc_msgSend_tagOfCellAtIndexPath_tag_(v8, v9, path, &v19))
+  if (objc_msgSend_tagOfCellAtIndexPath_tag_(v8, v9, path, &v23))
   {
-    if (v19 == 1146114935)
+    if (v23 == 1146114935)
     {
-      objc_msgSend_setUseDifferentDiskPassword_(self, v10, onCopy);
+      objc_msgSend_setUseDifferentDiskPassword_(self, v10, onCopy, v12);
     }
 
-    else if (v19 == 1397773175)
+    else if (v23 == 1397773175)
     {
-      objc_msgSend_setUseSinglePassword_(self, v10, onCopy);
+      objc_msgSend_setUseSinglePassword_(self, v10, onCopy, v12);
       if (onCopy)
       {
-        v12 = objc_msgSend_wifiPassword(self, v10, v11);
-        v15 = objc_msgSend_UTF8String(v12, v13, v14);
-        if (v15)
+        v13 = objc_msgSend_wifiPassword(self, v10, v11, v12);
+        v17 = objc_msgSend_UTF8String(v13, v14, v15, v16);
+        if (v17)
         {
-          if (!sub_23EB6BC58(v15))
+          if (!sub_23EB6BC58(v17))
           {
-            objc_msgSend_setWifiPassword_(self, v10, &stru_285145FE8);
-            objc_msgSend_setWifiPasswordVerify_(self, v16, &stru_285145FE8);
+            objc_msgSend_setWifiPassword_(self, v10, &stru_285145FE8, v12);
+            objc_msgSend_setWifiPasswordVerify_(self, v18, &stru_285145FE8, v19);
           }
         }
       }
     }
 
-    objc_msgSend_updateTable(self, v10, v11);
-    objc_msgSend_validateAndUpdateNextButton(self, v17, v18);
+    objc_msgSend_updateTable(self, v10, v11, v12);
+    objc_msgSend_validateAndUpdateNextButton(self, v20, v21, v22);
   }
 }
 
 - (void)updateSinglePasswordSwitchExplanation:(BOOL)explanation
 {
   explanationCopy = explanation;
-  hasDisk = objc_msgSend_hasDisk(self, a2, explanation);
-  v7 = @"off";
+  hasDisk = objc_msgSend_hasDisk(self, a2, explanation, v3);
+  v9 = @"off";
   if (explanationCopy)
   {
-    v7 = @"on";
+    v9 = @"on";
   }
 
   if (hasDisk)
   {
-    v8 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v6, @"SinglePasswordExplanationWithDisk.%@", v7);
+    v10 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v7, @"SinglePasswordExplanationWithDisk.%@", v8, v9);
   }
 
   else
   {
-    v8 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v6, @"SinglePasswordExplanation.%@", v7);
+    v10 = objc_msgSend_stringWithFormat_(MEMORY[0x277CCACA8], v7, @"SinglePasswordExplanation.%@", v8, v9);
   }
 
-  v9 = sub_23EB6CD3C(v8, qword_27E383800);
-  v12 = objc_msgSend_tableManager(self, v10, v11);
+  v11 = sub_23EB6CD3C(v10, qword_27E383800);
+  v15 = objc_msgSend_tableManager(self, v12, v13, v14);
 
-  MEMORY[0x2821F9670](v12, sel_updateFooter_forSectionWithIdentifier_, v9);
+  MEMORY[0x2821F9670](v15, sel_updateFooter_forSectionWithIdentifier_, v11, @"SinglePasswordSwitch");
 }
 
 - (void)setupInitialTableHeaderConfiguration
 {
-  v4 = MEMORY[0x277CBEA60];
-  v5 = objc_msgSend_justTextContainerView(self, a2, v2);
-  v8 = objc_msgSend_topoView(self, v6, v7);
-  v10 = objc_msgSend_arrayWithObjects_(v4, v9, v5, v8, 0);
-  v13 = objc_msgSend_parentController(self, v11, v12);
-  v16 = objc_msgSend_tableHeaderContainerView(self, v14, v15);
-  objc_msgSend_replaceSubviewsInView_newSubviews_withAnimation_(v13, v17, v16, v10, 1);
-  v20 = objc_msgSend_tableHeaderContainerView(self, v18, v19);
-  v23 = objc_msgSend_tableView(self, v21, v22);
+  v5 = MEMORY[0x277CBEA60];
+  v6 = objc_msgSend_justTextContainerView(self, a2, v2, v3);
+  v10 = objc_msgSend_topoView(self, v7, v8, v9);
+  v13 = objc_msgSend_arrayWithObjects_(v5, v11, v6, v12, v10, 0);
+  v17 = objc_msgSend_parentController(self, v14, v15, v16);
+  v21 = objc_msgSend_tableHeaderContainerView(self, v18, v19, v20);
+  objc_msgSend_replaceSubviewsInView_newSubviews_withAnimation_(v17, v22, v21, v13, 1);
+  v26 = objc_msgSend_tableHeaderContainerView(self, v23, v24, v25);
+  v30 = objc_msgSend_tableView(self, v27, v28, v29);
 
-  objc_msgSend_setTableHeaderView_(v23, v24, v20);
+  objc_msgSend_setTableHeaderView_(v30, v31, v26, v32);
 }
 
 - (void)validateAndUpdateNextButton
 {
   actionController = self->actionController;
-  if (!actionController || objc_msgSend_isPrimaryRecommendation(actionController, a2, v2))
+  if (!actionController || objc_msgSend_isPrimaryRecommendation(actionController, a2, v2, v3))
   {
-    if (!objc_msgSend_validateAndSetValues(self, a2, v2))
+    if (!objc_msgSend_validateAndSetValues(self, a2, v2, v3))
     {
-      v27 = 0;
+      v33 = 0;
       goto LABEL_10;
     }
 
     outResultsDict = self->super.super._outResultsDict;
-    v7 = objc_msgSend_wifiName(self, a2, v5);
-    objc_msgSend_setValue_forKey_(outResultsDict, v8, v7, @"kSBSKey_NetworkName");
-    v9 = self->super.super._outResultsDict;
-    v12 = objc_msgSend_personalizedBaseName(self, v10, v11);
-    objc_msgSend_setValue_forKey_(v9, v13, v12, @"kSBSKey_BaseName");
-    v14 = self->super.super._outResultsDict;
-    v17 = objc_msgSend_wifiPassword(self, v15, v16);
-    objc_msgSend_setValue_forKey_(v14, v18, v17, @"kSBSKey_NetworkPassword");
-    v21 = objc_msgSend_useSinglePassword(self, v19, v20);
-    v24 = self->super.super._outResultsDict;
-    if (v21)
+    v9 = objc_msgSend_wifiName(self, a2, v6, v7);
+    objc_msgSend_setValue_forKey_(outResultsDict, v10, v9, @"kSBSKey_NetworkName");
+    v11 = self->super.super._outResultsDict;
+    v15 = objc_msgSend_personalizedBaseName(self, v12, v13, v14);
+    objc_msgSend_setValue_forKey_(v11, v16, v15, @"kSBSKey_BaseName");
+    v17 = self->super.super._outResultsDict;
+    v21 = objc_msgSend_wifiPassword(self, v18, v19, v20);
+    objc_msgSend_setValue_forKey_(v17, v22, v21, @"kSBSKey_NetworkPassword");
+    v26 = objc_msgSend_useSinglePassword(self, v23, v24, v25);
+    v30 = self->super.super._outResultsDict;
+    if (v26)
     {
-      v25 = objc_msgSend_wifiPassword(self, v22, v23);
-      objc_msgSend_setValue_forKey_(v24, v26, v25, @"kSBSKey_BasePassword");
+      v31 = objc_msgSend_wifiPassword(self, v27, v28, v29);
+      objc_msgSend_setValue_forKey_(v30, v32, v31, @"kSBSKey_BasePassword");
     }
 
     else
     {
-      v28 = objc_msgSend_basePassword(self, v22, v23);
-      objc_msgSend_setValue_forKey_(v24, v29, v28, @"kSBSKey_BasePassword");
-      if (objc_msgSend_useDifferentDiskPassword(self, v30, v31))
+      v34 = objc_msgSend_basePassword(self, v27, v28, v29);
+      objc_msgSend_setValue_forKey_(v30, v35, v34, @"kSBSKey_BasePassword");
+      if (objc_msgSend_useDifferentDiskPassword(self, v36, v37, v38))
       {
-        v33 = self->super.super._outResultsDict;
-        v34 = objc_msgSend_diskPassword(self, a2, v32);
-        objc_msgSend_setValue_forKey_(v33, v35, v34, @"kSBSKey_DiskSharing_Password");
+        v41 = self->super.super._outResultsDict;
+        v42 = objc_msgSend_diskPassword(self, a2, v39, v40);
+        objc_msgSend_setValue_forKey_(v41, v43, v42, @"kSBSKey_DiskSharing_Password");
       }
     }
   }
 
-  v27 = 1;
+  v33 = 1;
 LABEL_10:
 
-  objc_msgSend_setRightNavigationButton_enable_hide_(self, a2, @"kNext", v27, 0);
+  objc_msgSend_setRightNavigationButton_enable_hide_(self, a2, @"kNext", v33, 0);
 }
 
 - (void)setupTable
@@ -667,152 +667,152 @@ LABEL_10:
     goto LABEL_6;
   }
 
-  v4 = objc_msgSend_tableManager(self, a2, v2);
-  v7 = objc_msgSend_sectionIdentifier(self->actionController, v5, v6);
-  if (objc_msgSend_indexOfSectionWithIdentifier_(v4, v8, v7) == 0x7FFFFFFFFFFFFFFFLL)
+  v5 = objc_msgSend_tableManager(self, a2, v2, v3);
+  v9 = objc_msgSend_sectionIdentifier(self->actionController, v6, v7, v8);
+  if (objc_msgSend_indexOfSectionWithIdentifier_(v5, v10, v9, v11) == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v9 = objc_msgSend_tableManager(self, a2, v2);
+    v12 = objc_msgSend_tableManager(self, a2, v2, v3);
     actionController = self->actionController;
-    v13 = sub_23EC13460(self, v11, v12) != 1;
-    SectionInfoWithLongStrings = objc_msgSend_getSectionInfoWithLongStrings_(actionController, v14, v13);
-    objc_msgSend_addSectionInfo_(v9, v16, SectionInfoWithLongStrings);
+    v17 = sub_23EC13460(self, v14, v15, v16) != 1;
+    SectionInfoWithLongStrings = objc_msgSend_getSectionInfoWithLongStrings_(actionController, v18, v17, v19);
+    objc_msgSend_addSectionInfo_(v12, v21, SectionInfoWithLongStrings, v22);
   }
 
-  v17 = self->actionController;
-  if (v17 && !objc_msgSend_isPrimaryRecommendation(v17, a2, v2))
+  v23 = self->actionController;
+  if (v23 && !objc_msgSend_isPrimaryRecommendation(v23, a2, v2, v3))
   {
-    v55 = objc_msgSend_tableManager(self, a2, v2);
-    objc_msgSend_deleteSectionWithIdentifier_animated_(v55, v56, @"WiFiName", 0);
+    v72 = objc_msgSend_tableManager(self, a2, v2, v3);
+    objc_msgSend_deleteSectionWithIdentifier_animated_(v72, v73, @"WiFiName", 0);
   }
 
   else
   {
 LABEL_6:
-    v18 = objc_msgSend_tableManager(self, a2, v2);
-    if (objc_msgSend_indexOfSectionWithIdentifier_(v18, v19, @"WiFiName") == 0x7FFFFFFFFFFFFFFFLL)
+    v24 = objc_msgSend_tableManager(self, a2, v2, v3);
+    if (objc_msgSend_indexOfSectionWithIdentifier_(v24, v25, @"WiFiName", v26) == 0x7FFFFFFFFFFFFFFFLL)
     {
-      v22 = objc_msgSend_array(MEMORY[0x277CBEB18], v20, v21);
-      v25 = objc_msgSend_tableManager(self, v23, v24);
-      v26 = sub_23EB6CD3C(@"CustomWiFiName", qword_27E383800);
-      v29 = objc_msgSend_wifiName(self, v27, v28);
-      v30 = sub_23EB6CD3C(@"CustomWiFiNamePlaceholder", qword_27E383800);
-      isSecure_keyboardType_withTag = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v25, v31, 0, v26, v29, v30, 0, 0, 1464225389);
-      v34 = sub_23EB5E230(1651724878, v33);
-      if (v34)
+      v30 = objc_msgSend_array(MEMORY[0x277CBEB18], v27, v28, v29);
+      v34 = objc_msgSend_tableManager(self, v31, v32, v33);
+      v35 = sub_23EB6CD3C(@"CustomWiFiName", qword_27E383800);
+      v39 = objc_msgSend_wifiName(self, v36, v37, v38);
+      v40 = sub_23EB6CD3C(@"CustomWiFiNamePlaceholder", qword_27E383800);
+      isSecure_keyboardType_withTag = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v34, v41, 0, v35, v39, v40, 0, 0, 1464225389);
+      v44 = sub_23EB5E230(1651724878, v43);
+      if (v44)
       {
-        objc_msgSend_setObject_forKey_(isSecure_keyboardType_withTag, v35, v34, @"nsFormatter");
+        objc_msgSend_setObject_forKey_(isSecure_keyboardType_withTag, v45, v44, @"nsFormatter");
       }
 
-      objc_msgSend_addObject_(v22, v35, isSecure_keyboardType_withTag);
-      v38 = objc_msgSend_tableManager(self, v36, v37);
-      v39 = sub_23EB6CD3C(@"CustomBaseName", qword_27E383800);
-      v42 = objc_msgSend_personalizedBaseName(self, v40, v41);
-      v43 = sub_23EB6CD3C(@"CustomBaseNamePlaceholder", qword_27E383800);
-      v45 = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v38, v44, 0, v39, v42, v43, 0, 0, 1937329773);
-      v47 = sub_23EB5E230(1937329773, v46);
-      if (v47)
+      objc_msgSend_addObject_(v30, v45, isSecure_keyboardType_withTag, v46);
+      v50 = objc_msgSend_tableManager(self, v47, v48, v49);
+      v51 = sub_23EB6CD3C(@"CustomBaseName", qword_27E383800);
+      v55 = objc_msgSend_personalizedBaseName(self, v52, v53, v54);
+      v56 = sub_23EB6CD3C(@"CustomBaseNamePlaceholder", qword_27E383800);
+      v58 = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v50, v57, 0, v51, v55, v56, 0, 0, 1937329773);
+      v60 = sub_23EB5E230(1937329773, v59);
+      if (v60)
       {
-        objc_msgSend_setObject_forKey_(v45, v48, v47, @"nsFormatter");
+        objc_msgSend_setObject_forKey_(v58, v61, v60, @"nsFormatter");
       }
 
-      objc_msgSend_addObject_(v22, v48, v45);
-      v51 = objc_msgSend_tableManager(self, v49, v50);
-      v53 = objc_msgSend_dictionaryWithObjectsAndKeys_(MEMORY[0x277CBEB38], v52, v22, @"sectionRows", @"WiFiName", @"identifier", 0);
-      objc_msgSend_addSectionInfo_(v51, v54, v53);
+      objc_msgSend_addObject_(v30, v61, v58, v62);
+      v66 = objc_msgSend_tableManager(self, v63, v64, v65);
+      v69 = objc_msgSend_dictionaryWithObjectsAndKeys_(MEMORY[0x277CBEB38], v67, v30, v68, @"sectionRows", @"WiFiName", @"identifier", 0);
+      objc_msgSend_addSectionInfo_(v66, v70, v69, v71);
     }
   }
 
-  v57 = self->actionController;
-  v58 = objc_msgSend_tableManager(self, v20, v21);
-  if (v57)
+  v74 = self->actionController;
+  v75 = objc_msgSend_tableManager(self, v27, v28, v29);
+  if (v74)
   {
 
-    objc_msgSend_deleteSectionWithIdentifier_animated_(v58, v59, @"SinglePasswordSwitch", 0);
+    objc_msgSend_deleteSectionWithIdentifier_animated_(v75, v76, @"SinglePasswordSwitch", 0);
   }
 
-  else if (objc_msgSend_indexOfSectionWithIdentifier_(v58, v59, @"SinglePasswordSwitch") == 0x7FFFFFFFFFFFFFFFLL)
+  else if (objc_msgSend_indexOfSectionWithIdentifier_(v75, v76, @"SinglePasswordSwitch", v77) == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v62 = objc_msgSend_array(MEMORY[0x277CBEB18], v60, v61);
-    v65 = objc_msgSend_tableManager(self, v63, v64);
-    v66 = sub_23EB6CD3C(@"StepByStepChoice_Create_Config.UsingSinglePasswordLabel", qword_27E383800);
-    v69 = objc_msgSend_useSinglePassword(self, v67, v68);
-    v71 = objc_msgSend_createRowStyleBasicOnOffWithImage_labelText_isOn_withTag_(v65, v70, 0, v66, v69, 1397773175);
-    objc_msgSend_addObject_(v62, v72, v71);
-    v75 = objc_msgSend_tableManager(self, v73, v74);
-    v78 = objc_msgSend_dictionaryWithObjectsAndKeys_(MEMORY[0x277CBEB38], v76, v62, @"sectionRows", @"SinglePasswordSwitch", @"identifier", 0);
+    v81 = objc_msgSend_array(MEMORY[0x277CBEB18], v78, v79, v80);
+    v85 = objc_msgSend_tableManager(self, v82, v83, v84);
+    v86 = sub_23EB6CD3C(@"StepByStepChoice_Create_Config.UsingSinglePasswordLabel", qword_27E383800);
+    v90 = objc_msgSend_useSinglePassword(self, v87, v88, v89);
+    v92 = objc_msgSend_createRowStyleBasicOnOffWithImage_labelText_isOn_withTag_(v85, v91, 0, v86, v90, 1397773175);
+    objc_msgSend_addObject_(v81, v93, v92, v94);
+    v98 = objc_msgSend_tableManager(self, v95, v96, v97);
+    v102 = objc_msgSend_dictionaryWithObjectsAndKeys_(MEMORY[0x277CBEB38], v99, v81, v100, @"sectionRows", @"SinglePasswordSwitch", @"identifier", 0);
 
-    objc_msgSend_addSectionInfo_(v75, v77, v78);
+    objc_msgSend_addSectionInfo_(v98, v101, v102, v103);
   }
 }
 
 - (void)updateTable
 {
-  v4 = objc_msgSend_useSinglePassword(self, a2, v2);
-  objc_msgSend_updateSinglePasswordSwitchExplanation_(self, v5, v4);
-  if (objc_msgSend_useSinglePassword(self, v6, v7))
+  v5 = objc_msgSend_useSinglePassword(self, a2, v2, v3);
+  objc_msgSend_updateSinglePasswordSwitchExplanation_(self, v6, v5, v7);
+  if (objc_msgSend_useSinglePassword(self, v8, v9, v10))
   {
 
-    MEMORY[0x2821F9670](self, sel_updateTableForSinglePassword, v9);
+    MEMORY[0x2821F9670](self, sel_updateTableForSinglePassword, v12, v13);
   }
 
   else
   {
-    objc_msgSend_updateTableForMultiplePasswords(self, v8, v9);
-    if (objc_msgSend_useDifferentDiskPassword(self, v10, v11))
+    objc_msgSend_updateTableForMultiplePasswords(self, v11, v12, v13);
+    if (objc_msgSend_useDifferentDiskPassword(self, v14, v15, v16))
     {
 
-      MEMORY[0x2821F9670](self, sel_addDiskPasswordSection, v13);
+      MEMORY[0x2821F9670](self, sel_addDiskPasswordSection, v18, v19);
     }
 
     else
     {
-      v14 = objc_msgSend_tableManager(self, v12, v13);
+      v20 = objc_msgSend_tableManager(self, v17, v18, v19);
 
-      objc_msgSend_deleteSectionWithIdentifier_(v14, v15, @"DiskPassword");
+      objc_msgSend_deleteSectionWithIdentifier_(v20, v21, @"DiskPassword", v22);
     }
   }
 }
 
 - (void)addDiskPasswordSection
 {
-  v4 = objc_msgSend_tableManager(self, a2, v2);
-  if (objc_msgSend_indexOfSectionWithIdentifier_(v4, v5, @"DiskPassword") == 0x7FFFFFFFFFFFFFFFLL)
+  v5 = objc_msgSend_tableManager(self, a2, v2, v3);
+  if (objc_msgSend_indexOfSectionWithIdentifier_(v5, v6, @"DiskPassword", v7) == 0x7FFFFFFFFFFFFFFFLL)
   {
-    v8 = objc_msgSend_array(MEMORY[0x277CBEB18], v6, v7);
-    v11 = objc_msgSend_tableManager(self, v9, v10);
-    v12 = sub_23EB6CD3C(@"PasswordLabel", qword_27E383800);
-    v15 = objc_msgSend_diskPassword(self, v13, v14);
-    v16 = sub_23EB6CD3C(@"CreatePasswordPlaceholder", qword_27E383800);
-    isSecure_keyboardType_withTag = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v11, v17, 0, v12, v15, v16, 1, 1, 1147752545);
-    v22 = sub_23EB5E230(1718842224, v19);
-    if (v22)
+    v11 = objc_msgSend_array(MEMORY[0x277CBEB18], v8, v9, v10);
+    v15 = objc_msgSend_tableManager(self, v12, v13, v14);
+    v16 = sub_23EB6CD3C(@"PasswordLabel", qword_27E383800);
+    v20 = objc_msgSend_diskPassword(self, v17, v18, v19);
+    v21 = sub_23EB6CD3C(@"CreatePasswordPlaceholder", qword_27E383800);
+    isSecure_keyboardType_withTag = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v15, v22, 0, v16, v20, v21, 1, 1, 1147752545);
+    v28 = sub_23EB5E230(1718842224, v24);
+    if (v28)
     {
-      objc_msgSend_setObject_forKey_(isSecure_keyboardType_withTag, v20, v22, @"nsFormatter");
+      objc_msgSend_setObject_forKey_(isSecure_keyboardType_withTag, v25, v28, @"nsFormatter");
     }
 
-    v23 = objc_msgSend_tableManager(self, v20, v21);
-    objc_msgSend_setNewRow_verifierAccessoryType_(v23, v24, isSecure_keyboardType_withTag, 0);
-    objc_msgSend_addObject_(v8, v25, isSecure_keyboardType_withTag);
-    v28 = objc_msgSend_tableManager(self, v26, v27);
-    v29 = sub_23EB6CD3C(@"VerifyLabel", qword_27E383800);
-    v32 = objc_msgSend_diskPasswordVerify(self, v30, v31);
-    v33 = sub_23EB6CD3C(@"VerifyPlaceholder", qword_27E383800);
-    v35 = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v28, v34, 0, v29, v32, v33, 1, 1, 1147752534);
-    v38 = v35;
-    if (v22)
+    v29 = objc_msgSend_tableManager(self, v25, v26, v27);
+    objc_msgSend_setNewRow_verifierAccessoryType_(v29, v30, isSecure_keyboardType_withTag, 0);
+    objc_msgSend_addObject_(v11, v31, isSecure_keyboardType_withTag, v32);
+    v36 = objc_msgSend_tableManager(self, v33, v34, v35);
+    v37 = sub_23EB6CD3C(@"VerifyLabel", qword_27E383800);
+    v41 = objc_msgSend_diskPasswordVerify(self, v38, v39, v40);
+    v42 = sub_23EB6CD3C(@"VerifyPlaceholder", qword_27E383800);
+    v44 = objc_msgSend_createRowStyleBasicEditableWithImage_labelText_currentValue_placeholderText_isSecure_keyboardType_withTag_(v36, v43, 0, v37, v41, v42, 1, 1, 1147752534);
+    v48 = v44;
+    if (v28)
     {
-      objc_msgSend_setObject_forKey_(v35, v36, v22, @"nsFormatter");
+      objc_msgSend_setObject_forKey_(v44, v45, v28, @"nsFormatter");
     }
 
-    v39 = objc_msgSend_tableManager(self, v36, v37);
-    objc_msgSend_setNewRow_verifierAccessoryType_(v39, v40, v38, 0);
-    objc_msgSend_addObject_(v8, v41, v38);
-    v44 = objc_msgSend_tableManager(self, v42, v43);
-    v45 = MEMORY[0x277CBEB38];
-    v46 = sub_23EB6CD3C(@"DiskPasswordSectionTitle", qword_27E383800);
-    v49 = objc_msgSend_dictionaryWithObjectsAndKeys_(v45, v47, v8, @"sectionRows", v46, @"header", @"DiskPassword", @"identifier", 0);
+    v49 = objc_msgSend_tableManager(self, v45, v46, v47);
+    objc_msgSend_setNewRow_verifierAccessoryType_(v49, v50, v48, 0);
+    objc_msgSend_addObject_(v11, v51, v48, v52);
+    v56 = objc_msgSend_tableManager(self, v53, v54, v55);
+    v57 = MEMORY[0x277CBEB38];
+    v58 = sub_23EB6CD3C(@"DiskPasswordSectionTitle", qword_27E383800);
+    v62 = objc_msgSend_dictionaryWithObjectsAndKeys_(v57, v59, v11, v60, @"sectionRows", v58, @"header", @"DiskPassword", @"identifier", 0);
 
-    objc_msgSend_addSectionInfo_animated_(v44, v48, v49, 0);
+    objc_msgSend_addSectionInfo_animated_(v56, v61, v62, 0);
   }
 }
 

@@ -1085,7 +1085,6 @@ LABEL_104:
 
 + (id)userFromManifestDictionary:(id)dictionary
 {
-  v97 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = objc_alloc_init(UMLUser);
   [(UMLUser *)v4 setUid:sub_22EE75268(dictionaryCopy, @"MKBUserSessionID", 0)];
@@ -1780,53 +1779,51 @@ LABEL_98:
   [(UMLUser *)v4 setIsLoginUser:sub_22EE751E8(dictionaryCopy, @"MKBUserSessionLoginUser")];
   [(UMLUser *)v4 setIsAuditor:sub_22EE751E8(dictionaryCopy, @"MKBUserSessionAuditor")];
   [(UMLUser *)v4 setHasSyncBag:sub_22EE751E8(dictionaryCopy, @"MKBUserSessionHasSyncBag")];
-  v80 = sub_22EE75468(dictionaryCopy, @"MKBUserSessionLanguage");
-  [(UMLUser *)v4 setUserLanguauge:v80];
+  v79 = sub_22EE75468(dictionaryCopy, @"MKBUserSessionLanguage");
+  [(UMLUser *)v4 setUserLanguauge:v79];
 
-  v81 = sub_22EE75468(dictionaryCopy, @"MKBUserSessionFileInfo");
-  [(UMLUser *)v4 setFileInfoPath:v81];
+  v80 = sub_22EE75468(dictionaryCopy, @"MKBUserSessionFileInfo");
+  [(UMLUser *)v4 setFileInfoPath:v80];
 
-  v82 = sub_22EE75468(dictionaryCopy, @"MKBUserSessionVolumeDeviceNode");
-  [(UMLUser *)v4 setDiskNode:v82];
+  v81 = sub_22EE75468(dictionaryCopy, @"MKBUserSessionVolumeDeviceNode");
+  [(UMLUser *)v4 setDiskNode:v81];
 
-  v83 = sub_22EE75468(dictionaryCopy, @"MKBUserSessionVolumeUUID");
-  [(UMLUser *)v4 setVolumeUUID:v83];
+  v82 = sub_22EE75468(dictionaryCopy, @"MKBUserSessionVolumeUUID");
+  [(UMLUser *)v4 setVolumeUUID:v82];
 
-  v84 = sub_22EE757B0(dictionaryCopy, @"MKBUserSessionOpaque");
-  [(UMLUser *)v4 setOpaqueData:v84];
+  v83 = sub_22EE757B0(dictionaryCopy, @"MKBUserSessionOpaque");
+  [(UMLUser *)v4 setOpaqueData:v83];
 
-  v85 = sub_22EE757B0(dictionaryCopy, @"MKBUserSessionKeybagOpaqueData");
-  [(UMLUser *)v4 setKeybagOpaqueData:v85];
+  v84 = sub_22EE757B0(dictionaryCopy, @"MKBUserSessionKeybagOpaqueData");
+  [(UMLUser *)v4 setKeybagOpaqueData:v84];
+
+  v85 = sub_22EE75730(dictionaryCopy, @"MKBUserSessionCreateTimeStamp");
+  [(UMLUser *)v4 setCreationDate:v85];
 
   v86 = sub_22EE75730(dictionaryCopy, @"MKBUserSessionCreateTimeStamp");
   [(UMLUser *)v4 setCreationDate:v86];
 
-  v87 = sub_22EE75730(dictionaryCopy, @"MKBUserSessionCreateTimeStamp");
-  [(UMLUser *)v4 setCreationDate:v87];
+  v87 = sub_22EE75730(dictionaryCopy, @"MKBUserSessionCachedLoginStartTime");
+  [(UMLUser *)v4 setLastLoginStart:v87];
 
-  v88 = sub_22EE75730(dictionaryCopy, @"MKBUserSessionCachedLoginStartTime");
-  [(UMLUser *)v4 setLastLoginStart:v88];
+  v88 = sub_22EE75730(dictionaryCopy, @"MKBUserSessionCachedLoginEndTime");
+  [(UMLUser *)v4 setLastLoginEnd:v88];
 
-  v89 = sub_22EE75730(dictionaryCopy, @"MKBUserSessionCachedLoginEndTime");
-  [(UMLUser *)v4 setLastLoginEnd:v89];
+  v89 = sub_22EE75730(dictionaryCopy, @"MKBUserSessionFirstLoginStartTime");
+  [(UMLUser *)v4 setFirstLoginStart:v89];
 
-  v90 = sub_22EE75730(dictionaryCopy, @"MKBUserSessionFirstLoginStartTime");
-  [(UMLUser *)v4 setFirstLoginStart:v90];
+  v90 = sub_22EE75730(dictionaryCopy, @"MKBUserSessionFirstLoginEndTime");
+  [(UMLUser *)v4 setFirstLoginEnd:v90];
 
-  v91 = sub_22EE75730(dictionaryCopy, @"MKBUserSessionFirstLoginEndTime");
-  [(UMLUser *)v4 setFirstLoginEnd:v91];
+  v91 = sub_22EE75730(dictionaryCopy, @"MKBUserSessionCachedLoginStartTime");
+  [(UMLUser *)v4 setCachedLoginStart:v91];
 
-  v92 = sub_22EE75730(dictionaryCopy, @"MKBUserSessionCachedLoginStartTime");
-  [(UMLUser *)v4 setCachedLoginStart:v92];
-
-  v93 = sub_22EE75730(dictionaryCopy, @"MKBUserSessionCachedLoginEndTime");
-  [(UMLUser *)v4 setCachedLoginEnd:v93];
+  v92 = sub_22EE75730(dictionaryCopy, @"MKBUserSessionCachedLoginEndTime");
+  [(UMLUser *)v4 setCachedLoginEnd:v92];
 
   [(UMLUser *)v4 setGracePeriod:sub_22EE75268(dictionaryCopy, @"MKBUserSessionRequiresPasscode", 0)];
   v77 = v4;
 LABEL_176:
-
-  v78 = *MEMORY[0x277D85DE8];
 
   return v77;
 }

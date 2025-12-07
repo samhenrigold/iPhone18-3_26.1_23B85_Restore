@@ -22,7 +22,7 @@
 - (id)allPendingItems
 {
   v39 = *MEMORY[0x277D85DE8];
-  v3 = _FLLogSystem();
+  v3 = _FLLogSystem(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
@@ -48,8 +48,8 @@
 
   if (v26)
   {
-    v7 = _FLLogSystem();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
+    v8 = _FLLogSystem(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       [(FLTopLevelViewModel *)v26 allPendingItems];
     }
@@ -65,63 +65,62 @@
   v28 = 0u;
   v29 = 0u;
   obj = v6;
-  v8 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
-  if (v8)
+  v9 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
+  if (v9)
   {
-    v9 = *v29;
+    v10 = *v29;
     do
     {
-      for (i = 0; i != v8; ++i)
+      for (i = 0; i != v9; ++i)
       {
-        if (*v29 != v9)
+        if (*v29 != v10)
         {
           objc_enumerationMutation(obj);
         }
 
-        v11 = *(*(&v28 + 1) + 8 * i);
-        expirationDate = [v11 expirationDate];
-        v13 = expirationDate == 0;
+        v12 = *(*(&v28 + 1) + 8 * i);
+        expirationDate = [v12 expirationDate];
+        v14 = expirationDate == 0;
 
-        if (v13)
+        if (v14)
         {
-          [(FLTopLevelViewModel *)self _removeTimerForItem:v11];
+          [(FLTopLevelViewModel *)self _removeTimerForItem:v12];
         }
 
         else
         {
           timersByID = self->_timersByID;
-          uniqueIdentifier = [v11 uniqueIdentifier];
-          v16 = [(NSMutableDictionary *)timersByID objectForKeyedSubscript:uniqueIdentifier];
+          uniqueIdentifier = [v12 uniqueIdentifier];
+          v17 = [(NSMutableDictionary *)timersByID objectForKeyedSubscript:uniqueIdentifier];
 
-          if (v16)
+          if (v17)
           {
-            v17 = self->_timersByID;
-            uniqueIdentifier2 = [v11 uniqueIdentifier];
-            v19 = [(NSMutableDictionary *)v17 objectForKeyedSubscript:uniqueIdentifier2];
-            fireDate = [v19 fireDate];
-            _midnightAdjustedDate = [v11 _midnightAdjustedDate];
-            v22 = [fireDate isEqualToDate:_midnightAdjustedDate];
+            v18 = self->_timersByID;
+            uniqueIdentifier2 = [v12 uniqueIdentifier];
+            v20 = [(NSMutableDictionary *)v18 objectForKeyedSubscript:uniqueIdentifier2];
+            fireDate = [v20 fireDate];
+            _midnightAdjustedDate = [v12 _midnightAdjustedDate];
+            v23 = [fireDate isEqualToDate:_midnightAdjustedDate];
 
-            if (v22)
+            if (v23)
             {
               continue;
             }
 
-            [(FLTopLevelViewModel *)self _removeTimerForItem:v11];
+            [(FLTopLevelViewModel *)self _removeTimerForItem:v12];
           }
 
-          [(FLTopLevelViewModel *)self _configureTimerForItem:v11];
+          [(FLTopLevelViewModel *)self _configureTimerForItem:v12];
         }
       }
 
-      v8 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
+      v9 = [obj countByEnumeratingWithState:&v28 objects:v38 count:16];
     }
 
-    while (v8);
+    while (v9);
   }
 
   _Block_object_dispose(buf, 8);
-  v23 = *MEMORY[0x277D85DE8];
 
   return obj;
 }
@@ -175,19 +174,20 @@
 
 uint64_t __38__FLTopLevelViewModel_allPendingItems__block_invoke(uint64_t a1, void *a2)
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   v3 = a2;
-  if ([v3 isExpired])
+  v4 = [v3 isExpired];
+  if (v4)
   {
-    v4 = _FLLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _FLLogSystem(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      v11 = 138412290;
-      v12 = v3;
-      _os_log_impl(&dword_22E696000, v4, OS_LOG_TYPE_DEFAULT, "Item expired, not returning to UI %@", &v11, 0xCu);
+      v12 = 138412290;
+      v13 = v3;
+      _os_log_impl(&dword_22E696000, v5, OS_LOG_TYPE_DEFAULT, "Item expired, not returning to UI %@", &v12, 0xCu);
     }
 
-    v5 = 0;
+    v6 = 0;
     *(*(*(a1 + 40) + 8) + 24) = 1;
     goto LABEL_13;
   }
@@ -195,16 +195,16 @@ uint64_t __38__FLTopLevelViewModel_allPendingItems__block_invoke(uint64_t a1, vo
   if (!*(*(a1 + 32) + 24))
   {
 LABEL_8:
-    v5 = 1;
+    v6 = 1;
     goto LABEL_13;
   }
 
-  v6 = [v3 targetBundleIdentifier];
-  if ([v6 isEqualToString:*(*(a1 + 32) + 24)])
+  v7 = [v3 targetBundleIdentifier];
+  if ([v7 isEqualToString:*(*(a1 + 32) + 24)])
   {
-    v7 = [v3 displayStyle];
+    v8 = [v3 displayStyle];
 
-    if ((v7 & 8) == 0)
+    if ((v8 & 8) == 0)
     {
       goto LABEL_8;
     }
@@ -214,30 +214,30 @@ LABEL_8:
   {
   }
 
-  v8 = _FLLogSystem();
-  if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+  v10 = _FLLogSystem(v9);
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = 138412290;
-    v12 = v3;
-    _os_log_impl(&dword_22E696000, v8, OS_LOG_TYPE_DEFAULT, "Item %@ did not match, discarding...", &v11, 0xCu);
+    v12 = 138412290;
+    v13 = v3;
+    _os_log_impl(&dword_22E696000, v10, OS_LOG_TYPE_DEFAULT, "Item %@ did not match, discarding...", &v12, 0xCu);
   }
 
-  v5 = 0;
+  v6 = 0;
 LABEL_13:
 
-  v9 = *MEMORY[0x277D85DE8];
-  return v5;
+  return v6;
 }
 
 - (void)_updateTimerItems:(id)items
 {
-  if ([(NSMutableDictionary *)self->_timersByID count])
+  v4 = [(NSMutableDictionary *)self->_timersByID count];
+  if (v4)
   {
-    v4 = _FLLogSystem();
-    if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
+    v5 = _FLLogSystem(v4);
+    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
     {
-      *v5 = 0;
-      _os_log_impl(&dword_22E696000, v4, OS_LOG_TYPE_DEFAULT, "_updateItemTimers called", v5, 2u);
+      *v6 = 0;
+      _os_log_impl(&dword_22E696000, v5, OS_LOG_TYPE_DEFAULT, "_updateItemTimers called", v6, 2u);
     }
 
     [(FLItemChangeObserver *)self->_observer timerUpdated];
@@ -272,14 +272,14 @@ LABEL_13:
 
 void __46__FLTopLevelViewModel__configureTimerForItem___block_invoke(uint64_t a1)
 {
-  v11 = *MEMORY[0x277D85DE8];
-  v2 = _FLLogSystem();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = _FLLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
-    v9 = 138412290;
-    v10 = v3;
-    _os_log_impl(&dword_22E696000, v2, OS_LOG_TYPE_DEFAULT, "Timer fired for removing item %@", &v9, 0xCu);
+    v8 = 138412290;
+    v9 = v3;
+    _os_log_impl(&dword_22E696000, v2, OS_LOG_TYPE_DEFAULT, "Timer fired for removing item %@", &v8, 0xCu);
   }
 
   WeakRetained = objc_loadWeakRetained((a1 + 40));
@@ -292,8 +292,6 @@ void __46__FLTopLevelViewModel__configureTimerForItem___block_invoke(uint64_t a1
     v7 = [*(a1 + 32) uniqueIdentifier];
     [v6 setObject:0 forKeyedSubscript:v7];
   }
-
-  v8 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_removeTimerForItem:(id)item
@@ -312,21 +310,19 @@ void __46__FLTopLevelViewModel__configureTimerForItem___block_invoke(uint64_t a1
 
 - (void)refreshItemsForItem:(id)item withCompletionHandler:(id)handler
 {
-  v14[1] = *MEMORY[0x277D85DE8];
+  v13[1] = *MEMORY[0x277D85DE8];
   handlerCopy = handler;
-  v14[0] = item;
+  v13[0] = item;
   v7 = MEMORY[0x277CBEA60];
   itemCopy = item;
-  v9 = [v7 arrayWithObjects:v14 count:1];
-  v12[0] = MEMORY[0x277D85DD0];
-  v12[1] = 3221225472;
-  v12[2] = __65__FLTopLevelViewModel_refreshItemsForItem_withCompletionHandler___block_invoke;
-  v12[3] = &unk_278852D78;
-  v13 = handlerCopy;
+  v9 = [v7 arrayWithObjects:v13 count:1];
+  v11[0] = MEMORY[0x277D85DD0];
+  v11[1] = 3221225472;
+  v11[2] = __65__FLTopLevelViewModel_refreshItemsForItem_withCompletionHandler___block_invoke;
+  v11[3] = &unk_278852D78;
+  v12 = handlerCopy;
   v10 = handlerCopy;
-  [(FLTopLevelViewModel *)self refreshItems:v9 withCompletionHandler:v12];
-
-  v11 = *MEMORY[0x277D85DE8];
+  [(FLTopLevelViewModel *)self refreshItems:v9 withCompletionHandler:v11];
 }
 
 void __65__FLTopLevelViewModel_refreshItemsForItem_withCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
@@ -456,26 +452,26 @@ void __51__FLTopLevelViewModel_extensionToItemMapFromItems___block_invoke(uint64
         v16 = *(*(&v48 + 1) + 8 * i);
         dispatch_group_enter(v10);
         Current = CFAbsoluteTimeGetCurrent();
-        v18 = _FLLogSystem();
-        if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+        v19 = _FLLogSystem(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138412290;
           v58 = v16;
-          _os_log_impl(&dword_22E696000, v18, OS_LOG_TYPE_DEFAULT, "Starting to refresh items for: %@", buf, 0xCu);
+          _os_log_impl(&dword_22E696000, v19, OS_LOG_TYPE_DEFAULT, "Starting to refresh items for: %@", buf, 0xCu);
         }
 
-        v19 = [[FLHeadlessExtensionLoader alloc] initWithIdentifier:v16];
-        v20 = +[FLHeadlessExtensionLoader sharedExtensionQueue];
+        v20 = [[FLHeadlessExtensionLoader alloc] initWithIdentifier:v16];
+        v21 = +[FLHeadlessExtensionLoader sharedExtensionQueue];
         block[0] = MEMORY[0x277D85DD0];
         block[1] = 3221225472;
         block[2] = __70__FLTopLevelViewModel__refreshItemsWithExtensionToItemMap_completion___block_invoke_29;
         block[3] = &unk_278852E68;
-        v44 = v19;
+        v44 = v20;
         v45 = v16;
         v47 = Current;
         v46 = v11;
-        v21 = v19;
-        dispatch_async(v20, block);
+        v22 = v20;
+        dispatch_async(v21, block);
       }
 
       v13 = [obj countByEnumeratingWithState:&v48 objects:v59 count:16];
@@ -484,7 +480,7 @@ void __51__FLTopLevelViewModel_extensionToItemMapFromItems___block_invoke(uint64
     while (v13);
   }
 
-  v22 = dispatch_get_global_queue(25, 0);
+  v23 = dispatch_get_global_queue(25, 0);
   v37[0] = MEMORY[0x277D85DD0];
   v37[1] = 3221225472;
   v37[2] = __70__FLTopLevelViewModel__refreshItemsWithExtensionToItemMap_completion___block_invoke_33;
@@ -495,14 +491,12 @@ void __51__FLTopLevelViewModel_extensionToItemMapFromItems___block_invoke(uint64
   v40 = array3;
   v41 = v29;
   v42 = completionCopy;
-  v23 = completionCopy;
-  v24 = v29;
-  v25 = array3;
-  v26 = array;
-  v27 = v30;
-  dispatch_group_notify(v10, v22, v37);
-
-  v28 = *MEMORY[0x277D85DE8];
+  v24 = completionCopy;
+  v25 = v29;
+  v26 = array3;
+  v27 = array;
+  v28 = v30;
+  dispatch_group_notify(v10, v23, v37);
 }
 
 void __70__FLTopLevelViewModel__refreshItemsWithExtensionToItemMap_completion___block_invoke(id *a1, void *a2, uint64_t a3)
@@ -550,85 +544,80 @@ void __70__FLTopLevelViewModel__refreshItemsWithExtensionToItemMap_completion___
   if (v2)
   {
     v3 = [*(a1 + 32) remoteInterface];
-    v7[0] = MEMORY[0x277D85DD0];
-    v7[1] = 3221225472;
-    v7[2] = __70__FLTopLevelViewModel__refreshItemsWithExtensionToItemMap_completion___block_invoke_2_30;
-    v7[3] = &unk_278852E40;
+    v6[0] = MEMORY[0x277D85DD0];
+    v6[1] = 3221225472;
+    v6[2] = __70__FLTopLevelViewModel__refreshItemsWithExtensionToItemMap_completion___block_invoke_2_30;
+    v6[3] = &unk_278852E40;
     v4 = *(a1 + 48);
-    v7[4] = *(a1 + 40);
-    v10 = *(a1 + 56);
-    v9 = v4;
-    v8 = *(a1 + 32);
-    [v3 followUpPerformUpdateWithCompletionHandler:v7];
+    v6[4] = *(a1 + 40);
+    v9 = *(a1 + 56);
+    v8 = v4;
+    v7 = *(a1 + 32);
+    [v3 followUpPerformUpdateWithCompletionHandler:v6];
   }
 
   else
   {
-    v5 = *(a1 + 40);
-    v6 = *(*(a1 + 48) + 16);
+    v5 = *(*(a1 + 48) + 16);
 
-    v6();
+    v5();
   }
 }
 
 uint64_t __70__FLTopLevelViewModel__refreshItemsWithExtensionToItemMap_completion___block_invoke_2_30(uint64_t a1)
 {
-  v12 = *MEMORY[0x277D85DE8];
-  v2 = _FLLogSystem();
+  v10 = *MEMORY[0x277D85DE8];
+  v2 = _FLLogSystem(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_DEFAULT))
   {
     v3 = *(a1 + 32);
     v4 = [MEMORY[0x277CCABB0] numberWithDouble:CFAbsoluteTimeGetCurrent() - *(a1 + 56)];
-    v8 = 138412546;
-    v9 = v3;
-    v10 = 2112;
-    v11 = v4;
-    _os_log_impl(&dword_22E696000, v2, OS_LOG_TYPE_DEFAULT, "Refreshed items for %@ took %@", &v8, 0x16u);
+    v6 = 138412546;
+    v7 = v3;
+    v8 = 2112;
+    v9 = v4;
+    _os_log_impl(&dword_22E696000, v2, OS_LOG_TYPE_DEFAULT, "Refreshed items for %@ took %@", &v6, 0x16u);
   }
 
-  v5 = *(a1 + 32);
-  result = (*(*(a1 + 48) + 16))();
-  v7 = *MEMORY[0x277D85DE8];
-  return result;
+  return (*(*(a1 + 48) + 16))();
 }
 
 void __70__FLTopLevelViewModel__refreshItemsWithExtensionToItemMap_completion___block_invoke_33(uint64_t a1)
 {
-  v20[3] = *MEMORY[0x277D85DE8];
+  v19[3] = *MEMORY[0x277D85DE8];
   v2 = [*(a1 + 32) allPendingItems];
   v3 = MEMORY[0x277CBEB98];
   v4 = [v2 fl_map:&__block_literal_global_38];
   v5 = [v3 setWithArray:v4];
 
   v6 = *(a1 + 40);
-  v13[0] = MEMORY[0x277D85DD0];
-  v13[1] = 3221225472;
-  v13[2] = __70__FLTopLevelViewModel__refreshItemsWithExtensionToItemMap_completion___block_invoke_3;
-  v13[3] = &unk_278852E90;
+  v12[0] = MEMORY[0x277D85DD0];
+  v12[1] = 3221225472;
+  v12[2] = __70__FLTopLevelViewModel__refreshItemsWithExtensionToItemMap_completion___block_invoke_3;
+  v12[3] = &unk_278852E90;
   v7 = v5;
-  v14 = v7;
-  v15 = *(a1 + 48);
-  v16 = *(a1 + 56);
-  [v6 enumerateObjectsUsingBlock:v13];
-  v19[0] = FLItemRefreshResultSuccess;
-  v19[1] = FLItemRefreshResultFailure;
+  v13 = v7;
+  v14 = *(a1 + 48);
+  v15 = *(a1 + 56);
+  [v6 enumerateObjectsUsingBlock:v12];
+  v18[0] = FLItemRefreshResultSuccess;
+  v18[1] = FLItemRefreshResultFailure;
   v9 = *(a1 + 56);
   v8 = *(a1 + 64);
-  v20[0] = *(a1 + 48);
-  v20[1] = v8;
-  v19[2] = FLItemRefreshResultRemoved;
-  v20[2] = v9;
-  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:3];
-  v11 = _FLLogSystem();
+  v19[0] = *(a1 + 48);
+  v19[1] = v8;
+  v18[2] = FLItemRefreshResultRemoved;
+  v19[2] = v9;
+  v10 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v19 forKeys:v18 count:3];
+  v11 = _FLLogSystem(v10);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v18 = v10;
+    v17 = v10;
     _os_log_impl(&dword_22E696000, v11, OS_LOG_TYPE_DEFAULT, "Refresh completed with result: %@", buf, 0xCu);
   }
 
   (*(*(a1 + 72) + 16))();
-  v12 = *MEMORY[0x277D85DE8];
 }
 
 void __70__FLTopLevelViewModel__refreshItemsWithExtensionToItemMap_completion___block_invoke_3(uint64_t a1, void *a2)
@@ -655,7 +644,7 @@ void __70__FLTopLevelViewModel__refreshItemsWithExtensionToItemMap_completion___
   accountsCopy = accounts;
   v9 = _FLSignpostCreate();
   v59 = v10;
-  v11 = _FLSignpostLogSystem();
+  v11 = _FLSignpostLogSystem(v9);
   if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
   {
     [FLTopLevelViewModel _groupsForPrimaryAccount:v9 secondaryAccounts:v11 simpleAccountGrouping:?];
@@ -787,13 +776,13 @@ void __70__FLTopLevelViewModel__refreshItemsWithExtensionToItemMap_completion___
           groupIdentifier3 = [v39 groupIdentifier];
           [v33 addObject:groupIdentifier3];
 
-          v46 = _FLLogSystem();
-          if (os_log_type_enabled(v46, OS_LOG_TYPE_DEFAULT))
+          v47 = _FLLogSystem(v46);
+          if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
           {
             groupIdentifier4 = [v39 groupIdentifier];
             *buf = 138412290;
             v71 = groupIdentifier4;
-            _os_log_impl(&dword_22E696000, v46, OS_LOG_TYPE_DEFAULT, "Adding dynamic group: %@", buf, 0xCu);
+            _os_log_impl(&dword_22E696000, v47, OS_LOG_TYPE_DEFAULT, "Adding dynamic group: %@", buf, 0xCu);
           }
         }
       }
@@ -804,71 +793,67 @@ void __70__FLTopLevelViewModel__refreshItemsWithExtensionToItemMap_completion___
     while (v36);
   }
 
-  [(FLTopLevelViewModel *)selfCopy mapItems:v34 toGroups:v31 unknownGroup:v54 deviceGroup:v64 simpleAccountGrouping:groupingCopy];
-  v48 = _FLLogSystem();
-  if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
+  v49 = _FLLogSystem([(FLTopLevelViewModel *)selfCopy mapItems:v34 toGroups:v31 unknownGroup:v54 deviceGroup:v64 simpleAccountGrouping:groupingCopy]);
+  if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
     v71 = v31;
-    _os_log_impl(&dword_22E696000, v48, OS_LOG_TYPE_DEFAULT, "Groups created: %@", buf, 0xCu);
+    _os_log_impl(&dword_22E696000, v49, OS_LOG_TYPE_DEFAULT, "Groups created: %@", buf, 0xCu);
   }
 
   Nanoseconds = _FLSignpostGetNanoseconds(v61, v59);
-  v50 = _FLSignpostLogSystem();
-  if (os_log_type_enabled(v50, OS_LOG_TYPE_DEBUG))
+  v51 = _FLSignpostLogSystem(Nanoseconds);
+  if (os_log_type_enabled(v51, OS_LOG_TYPE_DEBUG))
   {
-    [FLTopLevelViewModel _groupsForPrimaryAccount:v61 secondaryAccounts:v50 simpleAccountGrouping:?];
+    [FLTopLevelViewModel _groupsForPrimaryAccount:v61 secondaryAccounts:v51 simpleAccountGrouping:?];
   }
 
-  v51 = [v31 copy];
-  v52 = *MEMORY[0x277D85DE8];
+  v52 = [v31 copy];
 
-  return v51;
+  return v52;
 }
 
 - (void)mapItems:(id)items toGroups:(id)groups unknownGroup:(id)group deviceGroup:(id)deviceGroup simpleAccountGrouping:(BOOL)grouping
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v26 = *MEMORY[0x277D85DE8];
   itemsCopy = items;
   groupsCopy = groups;
   groupCopy = group;
   deviceGroupCopy = deviceGroup;
-  v15 = _FLLogSystem();
+  v15 = _FLLogSystem(deviceGroupCopy);
   if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 138412290;
-    v26 = itemsCopy;
+    v25 = itemsCopy;
     _os_log_impl(&dword_22E696000, v15, OS_LOG_TYPE_DEFAULT, "Starting to build groups from %@", buf, 0xCu);
   }
 
-  v20[0] = MEMORY[0x277D85DD0];
-  v20[1] = 3221225472;
-  v20[2] = __88__FLTopLevelViewModel_mapItems_toGroups_unknownGroup_deviceGroup_simpleAccountGrouping___block_invoke;
-  v20[3] = &unk_278852EE0;
+  v19[0] = MEMORY[0x277D85DD0];
+  v19[1] = 3221225472;
+  v19[2] = __88__FLTopLevelViewModel_mapItems_toGroups_unknownGroup_deviceGroup_simpleAccountGrouping___block_invoke;
+  v19[3] = &unk_278852EE0;
   groupingCopy = grouping;
-  v21 = groupsCopy;
-  v22 = deviceGroupCopy;
-  v23 = groupCopy;
+  v20 = groupsCopy;
+  v21 = deviceGroupCopy;
+  v22 = groupCopy;
   v16 = groupCopy;
   v17 = deviceGroupCopy;
   v18 = groupsCopy;
-  [itemsCopy enumerateObjectsUsingBlock:v20];
-
-  v19 = *MEMORY[0x277D85DE8];
+  [itemsCopy enumerateObjectsUsingBlock:v19];
 }
 
 void __88__FLTopLevelViewModel_mapItems_toGroups_unknownGroup_deviceGroup_simpleAccountGrouping___block_invoke(uint64_t a1, void *a2)
 {
-  v29 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = [v3 groupIdentifier];
+  v23 = 0u;
   v24 = 0u;
   v25 = 0u;
   v26 = 0u;
-  v27 = 0u;
-  v23 = a1;
+  v22 = a1;
   v5 = *(a1 + 32);
-  v6 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
   if (!v6)
   {
 
@@ -882,36 +867,36 @@ void __88__FLTopLevelViewModel_mapItems_toGroups_unknownGroup_deviceGroup_simple
   }
 
   v7 = v6;
-  v22 = v3;
+  v21 = v3;
   v8 = 0;
-  v9 = *v25;
+  v9 = *v24;
   do
   {
     v10 = 0;
     do
     {
-      if (*v25 != v9)
+      if (*v24 != v9)
       {
         objc_enumerationMutation(v5);
       }
 
-      v11 = *(*(&v24 + 1) + 8 * v10);
+      v11 = *(*(&v23 + 1) + 8 * v10);
       v12 = [v11 identifier];
       v13 = [v12 isEqualToString:v4];
 
       if (v13)
       {
-        if (*(v23 + 56))
+        if (*(v22 + 56))
         {
           goto LABEL_10;
         }
 
-        v14 = [v22 accountIdentifier];
+        v14 = [v21 accountIdentifier];
 
         if (v14)
         {
           v15 = [v11 accountID];
-          v16 = [v22 accountIdentifier];
+          v16 = [v21 accountIdentifier];
           v17 = [v15 isEqualToString:v16];
 
           if ((v17 & 1) == 0)
@@ -937,7 +922,7 @@ LABEL_11:
     }
 
     while (v7 != v10);
-    v19 = [v5 countByEnumeratingWithState:&v24 objects:v28 count:16];
+    v19 = [v5 countByEnumeratingWithState:&v23 objects:v27 count:16];
     v7 = v19;
   }
 
@@ -945,16 +930,16 @@ LABEL_11:
 
   if (!v4)
   {
-    v3 = v22;
+    v3 = v21;
 LABEL_23:
-    v20 = *(v23 + 48);
+    v20 = *(v22 + 48);
 LABEL_24:
     [v20 addItem:v3];
 
     goto LABEL_25;
   }
 
-  v3 = v22;
+  v3 = v21;
   if (v8)
   {
     v20 = v8;
@@ -962,10 +947,8 @@ LABEL_24:
   }
 
 LABEL_20:
-  [*(v23 + 40) addItem:v3];
+  [*(v22 + 40) addItem:v3];
 LABEL_25:
-
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 + (id)redirectURLForItem:(id)item withAction:(id)action
@@ -1016,66 +999,64 @@ void __53__FLTopLevelViewModel_redirectURLForItem_withAction___block_invoke(uint
 
   if (v8)
   {
-    v9 = _FLLogSystem();
-    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
+    v10 = _FLLogSystem(v9);
+    if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = [v6 identifier];
-      v11 = MEMORY[0x277CCABB0];
-      v12 = [v6 items];
-      v13 = [v11 numberWithUnsignedInteger:{objc_msgSend(v12, "count")}];
-      v14 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v6, "shouldCoalesceItems")}];
+      v11 = [v6 identifier];
+      v12 = MEMORY[0x277CCABB0];
+      v13 = [v6 items];
+      v14 = [v12 numberWithUnsignedInteger:{objc_msgSend(v13, "count")}];
+      v15 = [MEMORY[0x277CCABB0] numberWithBool:{objc_msgSend(v6, "shouldCoalesceItems")}];
       *buf = 138412802;
-      v34 = v10;
+      v34 = v11;
       v35 = 2112;
-      v36 = v13;
+      v36 = v14;
       v37 = 2112;
-      v38 = v14;
-      _os_log_impl(&dword_22E696000, v9, OS_LOG_TYPE_DEFAULT, "Group: %@ - %@ - %@", buf, 0x20u);
+      v38 = v15;
+      _os_log_impl(&dword_22E696000, v10, OS_LOG_TYPE_DEFAULT, "Group: %@ - %@ - %@", buf, 0x20u);
     }
 
-    v15 = *(a1 + 72);
-    v16 = [*(a1 + 40) targetBundleIdentifier];
-    v17 = [v15 _prefixFromBundleIdentifier:v16];
+    v16 = *(a1 + 72);
+    v17 = [*(a1 + 40) targetBundleIdentifier];
+    v18 = [v16 _prefixFromBundleIdentifier:v17];
 
-    if (v17)
+    if (v18)
     {
-      v18 = [v6 shouldCoalesceItems];
-      v19 = 48;
-      if (v18)
+      v19 = [v6 shouldCoalesceItems];
+      v20 = 48;
+      if (v19)
       {
-        v19 = 32;
+        v20 = 32;
       }
 
-      v20 = [v17 stringByAppendingString:*(a1 + v19)];
-      v21 = *(*(a1 + 64) + 8);
-      v22 = *(v21 + 40);
-      *(v21 + 40) = v20;
+      v21 = [v18 stringByAppendingString:*(a1 + v20)];
+      v22 = *(*(a1 + 64) + 8);
+      v23 = *(v22 + 40);
+      *(v22 + 40) = v21;
 
-      v23 = *(a1 + 56);
-      v24 = *(*(*(a1 + 64) + 8) + 40);
-      v25 = *(a1 + 48);
-      if (v23)
+      v24 = *(a1 + 56);
+      v25 = *(*(*(a1 + 64) + 8) + 40);
+      v26 = *(a1 + 48);
+      if (v24)
       {
-        v26 = [v23 identifier];
-        v27 = [v24 stringByAppendingFormat:@"&itemId=%@&notificationActionId=%@&animated=true", v25, v26];
-        v28 = *(*(a1 + 64) + 8);
-        v29 = *(v28 + 40);
-        *(v28 + 40) = v27;
+        v27 = [v24 identifier];
+        v28 = [v25 stringByAppendingFormat:@"&itemId=%@&notificationActionId=%@&animated=true", v26, v27];
+        v29 = *(*(a1 + 64) + 8);
+        v30 = *(v29 + 40);
+        *(v29 + 40) = v28;
       }
 
       else
       {
-        v30 = [v24 stringByAppendingFormat:@"&itemId=%@&animated=true", *(a1 + 48)];
-        v31 = *(*(a1 + 64) + 8);
-        v26 = *(v31 + 40);
-        *(v31 + 40) = v30;
+        v31 = [v25 stringByAppendingFormat:@"&itemId=%@&animated=true", *(a1 + 48)];
+        v32 = *(*(a1 + 64) + 8);
+        v27 = *(v32 + 40);
+        *(v32 + 40) = v31;
       }
     }
 
     *a4 = 1;
   }
-
-  v32 = *MEMORY[0x277D85DE8];
 }
 
 + (id)_prefixFromBundleIdentifier:(id)identifier
@@ -1103,31 +1084,28 @@ LABEL_7:
 
 - (void)allPendingItems
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 138412290;
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 138412290;
   selfCopy = self;
-  _os_log_error_impl(&dword_22E696000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch pending items, not much we can do here... so lets just log it  %@", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_22E696000, a2, OS_LOG_TYPE_ERROR, "Failed to fetch pending items, not much we can do here... so lets just log it  %@", &v2, 0xCu);
 }
 
 - (void)_groupsForPrimaryAccount:(uint64_t)a1 secondaryAccounts:(NSObject *)a2 simpleAccountGrouping:.cold.1(uint64_t a1, NSObject *a2)
 {
-  v5 = *MEMORY[0x277D85DE8];
-  v3 = 134217984;
-  v4 = a1;
-  _os_log_debug_impl(&dword_22E696000, a2, OS_LOG_TYPE_DEBUG, "BEGIN [%llu]: Building groups", &v3, 0xCu);
-  v2 = *MEMORY[0x277D85DE8];
+  v4 = *MEMORY[0x277D85DE8];
+  v2 = 134217984;
+  v3 = a1;
+  _os_log_debug_impl(&dword_22E696000, a2, OS_LOG_TYPE_DEBUG, "BEGIN [%llu]: Building groups", &v2, 0xCu);
 }
 
 - (void)_groupsForPrimaryAccount:(unint64_t)a1 secondaryAccounts:(uint64_t)a2 simpleAccountGrouping:(os_log_t)log .cold.2(unint64_t a1, uint64_t a2, os_log_t log)
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 134218240;
-  v5 = a2;
-  v6 = 2048;
-  v7 = a1 / 1000000000.0;
-  _os_log_debug_impl(&dword_22E696000, log, OS_LOG_TYPE_DEBUG, "END [%llu] %fs: Building groups", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 134218240;
+  v4 = a2;
+  v5 = 2048;
+  v6 = a1 / 1000000000.0;
+  _os_log_debug_impl(&dword_22E696000, log, OS_LOG_TYPE_DEBUG, "END [%llu] %fs: Building groups", &v3, 0x16u);
 }
 
 @end

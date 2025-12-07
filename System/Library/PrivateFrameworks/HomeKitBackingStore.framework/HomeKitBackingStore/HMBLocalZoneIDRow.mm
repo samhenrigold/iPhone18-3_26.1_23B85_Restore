@@ -56,14 +56,12 @@
 
 - (NSArray)attributeDescriptions
 {
-  v9[1] = *MEMORY[0x277D85DE8];
+  v8[1] = *MEMORY[0x277D85DE8];
   v3 = objc_alloc(MEMORY[0x277D0F778]);
   name = [(HMBLocalZoneIDRow *)self name];
   v5 = [v3 initWithName:@"Name" value:name];
-  v9[0] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:1];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[0] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:1];
 
   return v6;
 }
@@ -80,15 +78,13 @@
 
 - (id)labels
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   name = [(HMBLocalZoneIDRow *)self name];
-  v9[0] = name;
+  v8[0] = name;
   token = [(HMBLocalZoneIDRow *)self token];
   v5 = [token base64EncodedStringWithOptions:0];
-  v9[1] = v5;
-  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v9 count:2];
-
-  v7 = *MEMORY[0x277D85DE8];
+  v8[1] = v5;
+  v6 = [MEMORY[0x277CBEA60] arrayWithObjects:v8 count:2];
 
   return v6;
 }

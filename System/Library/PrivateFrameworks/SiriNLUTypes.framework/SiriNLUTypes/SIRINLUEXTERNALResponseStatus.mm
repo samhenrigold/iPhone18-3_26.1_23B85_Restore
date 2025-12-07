@@ -1,5 +1,6 @@
 @interface SIRINLUEXTERNALResponseStatus
 - (BOOL)isEqual:(id)equal;
+- (id)codeAsString:(int)string;
 - (id)copyWithZone:(_NSZone *)zone;
 - (id)description;
 - (id)dictionaryRepresentation;
@@ -53,7 +54,6 @@
     goto LABEL_9;
   }
 
-  v5 = *(equalCopy + 24);
   if (*&self->_has)
   {
     if ((*(equalCopy + 24) & 1) == 0 || self->_code != *(equalCopy + 2))
@@ -65,24 +65,24 @@
   else if (*(equalCopy + 24))
   {
 LABEL_9:
-    v7 = 0;
+    v6 = 0;
     goto LABEL_10;
   }
 
   descriptionA = self->_descriptionA;
   if (descriptionA | *(equalCopy + 2))
   {
-    v7 = [(NSString *)descriptionA isEqual:?];
+    v6 = [(NSString *)descriptionA isEqual:?];
   }
 
   else
   {
-    v7 = 1;
+    v6 = 1;
   }
 
 LABEL_10:
 
-  return v7;
+  return v6;
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -122,18 +122,17 @@ LABEL_10:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  v6 = toCopy;
+  v5 = toCopy;
   if (*&self->_has)
   {
-    code = self->_code;
     PBDataWriterWriteInt32Field();
-    toCopy = v6;
+    toCopy = v5;
   }
 
   if (self->_descriptionA)
   {
     PBDataWriterWriteStringField();
-    toCopy = v6;
+    toCopy = v5;
   }
 }
 
@@ -279,6 +278,81 @@ LABEL_22:
   {
     v4 = 0;
   }
+
+  return v4;
+}
+
+- (id)codeAsString:(int)string
+{
+  if (string > 300)
+  {
+    if (string <= 302)
+    {
+      if (string == 301)
+      {
+        v4 = @"INTERNAL_ERROR";
+      }
+
+      else
+      {
+        v4 = @"INITIALISATION_ERROR";
+      }
+
+      return v4;
+    }
+
+    if (string == 303)
+    {
+      v4 = @"FEATURE_EXTRACTION_ERROR";
+
+      return v4;
+    }
+
+    if (string == 500)
+    {
+      v4 = @"COMMUNICATION";
+
+      return v4;
+    }
+
+LABEL_35:
+    v4 = [MEMORY[0x1E696AEC0] stringWithFormat:@"(unknown: %i)", *&string];
+
+    return v4;
+  }
+
+  if (string > 100)
+  {
+    if (string == 101)
+    {
+      v4 = @"EMPTY_NLU_REQUEST";
+
+      return v4;
+    }
+
+    if (string == 300)
+    {
+      v4 = @"PROCESSING";
+
+      return v4;
+    }
+
+    goto LABEL_35;
+  }
+
+  if (string)
+  {
+    if (string == 100)
+    {
+      v4 = @"INPUT";
+
+      return v4;
+    }
+
+    goto LABEL_35;
+  }
+
+  v4 = @"SUCCESS";
 
   return v4;
 }

@@ -1,4 +1,4 @@
-uint64_t CPS_LOG_CHANNEL_PREFIXClipUIServices()
+uint64_t CPS_LOG_CHANNEL_PREFIXClipUIServices(uint64_t a1, uint64_t a2)
 {
   if (CPS_LOG_CHANNEL_PREFIXClipUIServices_onceToken != -1)
   {
@@ -136,15 +136,16 @@ void sub_24375559C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint8_t a9)
+void OUTLINED_FUNCTION_2(void *a1, uint64_t a2, uint64_t a3, const char *a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, ...)
 {
+  va_start(va, a8);
 
-  _os_log_error_impl(a1, v9, OS_LOG_TYPE_ERROR, a4, &a9, 0xCu);
+  _os_log_error_impl(a1, v8, OS_LOG_TYPE_ERROR, a4, va, 0xCu);
 }
 
-void sub_2437578D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_2437578D0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -188,7 +189,7 @@ uint64_t ProxCardKitLibrary()
   return v0;
 }
 
-uint64_t __ProxCardKitLibraryCore_block_invoke()
+uint64_t __ProxCardKitLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ProxCardKitLibraryCore_frameworkLibrary = result;
@@ -288,9 +289,9 @@ void sub_24375EE68(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_24375EFDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_24375EFDC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -302,9 +303,9 @@ void sub_24375FAF4(_Unwind_Exception *a1)
   _Unwind_Resume(a1);
 }
 
-void sub_2437601C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_2437601C0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -317,9 +318,9 @@ void sub_2437609F0(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_243761524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, ...)
+void sub_243761524(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, ...)
 {
-  va_start(va, a14);
+  va_start(va, a21);
   _Block_object_dispose(va, 8);
 
   _Unwind_Resume(a1);
@@ -371,7 +372,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t ___ZL36UserNotificationsSettingsLibraryCorePPc_block_invoke()
+uint64_t ___ZL36UserNotificationsSettingsLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   UserNotificationsSettingsLibraryCore(char **)::frameworkLibrary = result;
@@ -424,7 +425,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t ___ZL29AppleMediaServicesLibraryCorePPc_block_invoke()
+uint64_t ___ZL29AppleMediaServicesLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   AppleMediaServicesLibraryCore(char **)::frameworkLibrary = result;
@@ -471,7 +472,7 @@ LABEL_7:
   return result;
 }
 
-uint64_t ___ZL29ControlCenterUIKitLibraryCorePPc_block_invoke()
+uint64_t ___ZL29ControlCenterUIKitLibraryCorePPc_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   ControlCenterUIKitLibraryCore(char **)::frameworkLibrary = result;
@@ -512,7 +513,7 @@ void ProxCardKitLibrary_0()
   }
 }
 
-uint64_t __ProxCardKitLibraryCore_block_invoke_0()
+uint64_t __ProxCardKitLibraryCore_block_invoke_0(uint64_t a1)
 {
   result = _sl_dlopen();
   ProxCardKitLibraryCore_frameworkLibrary_0 = result;
@@ -547,14 +548,14 @@ Class __getPRXCardContainerViewControllerClass_block_invoke(uint64_t a1)
   return result;
 }
 
-void sub_24376976C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, ...)
+void sub_24376976C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
 {
-  va_start(va, a6);
+  va_start(va, a11);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-Class __getCIImageClass_block_invoke(uint64_t a1)
+Class __getCIImageClass_block_invoke(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4)
 {
   CoreImageLibrary();
   result = objc_getClass("CIImage");
@@ -598,7 +599,7 @@ uint64_t CoreImageLibrary()
   return v0;
 }
 
-uint64_t __CoreImageLibraryCore_block_invoke()
+uint64_t __CoreImageLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   CoreImageLibraryCore_frameworkLibrary = result;

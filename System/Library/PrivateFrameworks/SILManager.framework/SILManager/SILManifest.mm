@@ -107,11 +107,12 @@
 
 + (BOOL)validateFlipBookStates:(id)states
 {
-  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSSDySSSaySiGGGMd);
+  __swift_instantiateConcreteTypeFromMangledNameV2(&_sSDySSSDySSSaySiGGGMd, &_sSDySSSDySSSaySiGGGMR);
   v3 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
-  v4 = specialized static SILManifest.validateFlipBookStates(_:)(v3);
+  specialized static SILManifest.validateFlipBookStates(_:)(v3);
+  v5 = v4;
 
-  return v4 & 1;
+  return v5 & 1;
 }
 
 + (_TtC10SILManager11SILManifest)manifest

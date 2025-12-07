@@ -122,7 +122,7 @@
       }
     }
 
-    [(PXPhotoKitAssetActionManager *)self _setActivePerformer:0, *v13];
+    [(PXPhotoKitAssetActionManager *)self _setActivePerformer:0, *v13, *&v13[8]];
   }
 }
 

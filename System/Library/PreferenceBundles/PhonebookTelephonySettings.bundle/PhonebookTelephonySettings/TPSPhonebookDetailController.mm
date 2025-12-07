@@ -4,6 +4,7 @@
 - (id)errorAlertControllerWithMessage:(id)message;
 - (void)saveAction;
 - (void)viewDidLoad;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation TPSPhonebookDetailController
@@ -36,6 +37,17 @@
 
   [(TPSPhonebookDetailController *)self setPane:0];
   [(TPSPhonebookDetailController *)self loadPane];
+}
+
+- (void)viewWillAppear:(BOOL)appear
+{
+  v7.receiver = self;
+  v7.super_class = TPSPhonebookDetailController;
+  [(TPSPhonebookDetailController *)&v7 viewWillAppear:appear];
+  pane = [(TPSPhonebookDetailController *)self pane];
+  phonebookController = [(TPSPhonebookDetailController *)self phonebookController];
+  localizedSubscriptionTelephoneNumber = [phonebookController localizedSubscriptionTelephoneNumber];
+  [pane setPreferenceValue:localizedSubscriptionTelephoneNumber];
 }
 
 - (UIBarButtonItem)saveBarButtonItem

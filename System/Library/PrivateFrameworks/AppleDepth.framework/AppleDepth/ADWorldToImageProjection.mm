@@ -1,5 +1,5 @@
 @interface ADWorldToImageProjection
-- (uint64_t)initWithPose:(void *)pose calibration:;
+- (ADWorldToImageProjection)initWithPose:(__n128)pose calibration:(__n128)calibration;
 - (void)dealloc;
 - (void)projectPoints:(ADWorldToImageProjection *)self count:(SEL)count;
 @end
@@ -48,19 +48,19 @@
   operator delete(v7);
 }
 
-- (uint64_t)initWithPose:(void *)pose calibration:
+- (ADWorldToImageProjection)initWithPose:(__n128)pose calibration:(__n128)calibration
 {
-  v8[4] = *MEMORY[0x277D85DE8];
-  poseCopy = pose;
+  v12[4] = *MEMORY[0x277D85DE8];
+  v8 = a7;
   self[1] = 0;
-  v7.receiver = self;
-  v7.super_class = ADWorldToImageProjection;
-  if ([(ADWorldToImageProjection *)&v7 init])
+  v11.receiver = self;
+  v11.super_class = ADWorldToImageProjection;
+  if ([(ADWorldToImageProjection *)&v11 init])
   {
-    v5 = poseCopy;
-    v8[0] = &unk_285231478;
-    v8[1] = v5;
-    v8[3] = v8;
+    v9 = v8;
+    v12[0] = &unk_285231478;
+    v12[1] = v9;
+    v12[3] = v12;
     DisparityToDepth::VioProjectionFactory::create();
   }
 

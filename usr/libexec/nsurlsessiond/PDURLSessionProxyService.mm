@@ -9,9 +9,11 @@
 - (void)_onqueue_messageWithIdentifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)_onqueue_sendMessage:(id)message ofType:(unsigned __int16)type responseIdentifier:(id)identifier forSourceApplication:(id)application withUrgency:(BOOL)urgency withIDSMessageTimeout:(int64_t)timeout withReply:(id)reply;
 - (void)_onqueue_sendStartupMessage;
+- (void)_onqueue_setPrefersInfraWiFi:(BOOL)fi;
 - (void)_onqueue_updateDeviceState;
 - (void)devicesDidUnpair:(id)unpair;
 - (void)sendProtobufMessage:(id)message ofType:(unsigned __int16)type withReply:(id)reply;
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error;
 - (void)service:(id)service account:(id)account incomingUnhandledProtobuf:(id)protobuf fromID:(id)d context:(id)context;
 - (void)service:(id)service activeAccountsChanged:(id)changed;
 - (void)service:(id)service didSwitchActivePairedDevice:(id)device acknowledgementBlock:(id)block;
@@ -69,6 +71,65 @@
   if ([changedCopy count] && self->_startupMessageFailed)
   {
     [(PDURLSessionProxyService *)self _onqueue_sendStartupMessage];
+  }
+}
+
+- (void)service:(id)service account:(id)account identifier:(id)identifier didSendWithSuccess:(BOOL)success error:(id)error
+{
+  successCopy = success;
+  serviceCopy = service;
+  accountCopy = account;
+  identifierCopy = identifier;
+  errorCopy = error;
+  v17 = qword_1000EB1D8;
+  if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+  {
+    v18 = objc_opt_class();
+    v19 = NSStringFromClass(v18);
+    v20 = NSStringFromSelector(a2);
+    code = [errorCopy code];
+    v24 = 138413570;
+    if (successCopy)
+    {
+      v22 = 89;
+    }
+
+    else
+    {
+      v22 = 78;
+    }
+
+    v25 = v19;
+    v26 = 2112;
+    v27 = v20;
+    v28 = 1024;
+    v29 = v22;
+    v30 = 2114;
+    v31 = identifierCopy;
+    v32 = 2112;
+    v33 = errorCopy;
+    v34 = 2048;
+    v35 = code;
+    _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "%@::%@ success = %c, identifier = %{public}@, error = %@ [%ld]", &v24, 0x3Au);
+  }
+
+  if ([identifierCopy isEqualToString:self->_startupMessageIdentifier])
+  {
+    if (!successCopy)
+    {
+      v23 = qword_1000EB1D8;
+      if (os_log_type_enabled(qword_1000EB1D8, OS_LOG_TYPE_ERROR))
+      {
+        v24 = 138412290;
+        v25 = errorCopy;
+        _os_log_error_impl(&_mh_execute_header, v23, OS_LOG_TYPE_ERROR, "Failed to send PDURLSessionProxy startup message, error %@", &v24, 0xCu);
+      }
+    }
+  }
+
+  else
+  {
+    [(PDURLSessionProxyService *)self _onqueue_messageWithIdentifier:identifierCopy didSendWithSuccess:successCopy error:errorCopy];
   }
 }
 
@@ -751,6 +812,77 @@ LABEL_19:
   [(NSMutableDictionary *)v10 setObject:v9 forKeyedSubscript:v11];
 
   return (unsignedLongLongValue + 1);
+}
+
+- (void)_onqueue_setPrefersInfraWiFi:(BOOL)fi
+{
+  fiCopy = fi;
+  v5 = qword_1000EB140;
+  if (!qword_1000EB140)
+  {
+    v6 = CFPreferencesCopyAppValue(@"DisableInfraWiFi", @"com.apple.nsurlsessiond");
+    if (v6)
+    {
+      v7 = v6;
+      v8 = CFGetTypeID(v6);
+      if (v8 == CFBooleanGetTypeID())
+      {
+        Value = CFBooleanGetValue(v7);
+      }
+
+      else
+      {
+        v10 = CFGetTypeID(v7);
+        if (v10 != CFStringGetTypeID())
+        {
+          CFRelease(v7);
+          goto LABEL_10;
+        }
+
+        Value = CFEqual(v7, @"1");
+      }
+
+      v11 = Value;
+      CFRelease(v7);
+      if (v11)
+      {
+        v12 = &kCFBooleanTrue;
+LABEL_11:
+        v5 = *v12;
+        qword_1000EB140 = *v12;
+        goto LABEL_12;
+      }
+    }
+
+LABEL_10:
+    v12 = &kCFBooleanFalse;
+    goto LABEL_11;
+  }
+
+LABEL_12:
+  if (!CFBooleanGetValue(v5) && self->_prefersInfraWiFi != fiCopy)
+  {
+    self->_prefersInfraWiFi = fiCopy;
+    v13 = qword_1000EB1D8;
+    if (os_log_type_enabled(qword_1000EB1D8, OS_LOG_TYPE_DEFAULT))
+    {
+      if (fiCopy)
+      {
+        v14 = 89;
+      }
+
+      else
+      {
+        v14 = 78;
+      }
+
+      v15[0] = 67109120;
+      v15[1] = v14;
+      _os_log_impl(&_mh_execute_header, v13, OS_LOG_TYPE_DEFAULT, "PDURLSessionProxyService setting preferInfraWiFi to %c", v15, 8u);
+    }
+
+    [(IDSService *)self->_idsService setPreferInfraWiFi:fiCopy];
+  }
 }
 
 - (void)_onqueue_updateDeviceState

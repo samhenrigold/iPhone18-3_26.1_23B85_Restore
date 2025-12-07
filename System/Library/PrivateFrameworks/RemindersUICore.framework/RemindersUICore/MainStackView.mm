@@ -31,7 +31,7 @@
   ObjectType = swift_getObjectType();
   if (subviews)
   {
-    sub_21D0D8CF0(0, &qword_280D176A0);
+    sub_21D0D8CF0(0, &qword_280D176A0, 0x277D75D18);
     sub_21DBFA5EC();
     subviews = sub_21DBFA5DC();
   }

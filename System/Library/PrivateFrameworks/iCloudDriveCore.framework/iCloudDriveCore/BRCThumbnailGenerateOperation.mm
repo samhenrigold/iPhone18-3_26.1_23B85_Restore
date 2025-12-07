@@ -50,39 +50,37 @@
 
 - (void)main
 {
-  v8 = *MEMORY[0x277D85DE8];
-  v4 = 138412546;
+  v7 = *MEMORY[0x277D85DE8];
+  v3 = 138412546;
   selfCopy = self;
-  v6 = 2112;
-  v7 = a2;
-  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Created QLThumbnailGenerationRequest %@%@", &v4, 0x16u);
-  v3 = *MEMORY[0x277D85DE8];
+  v5 = 2112;
+  v6 = a2;
+  _os_log_debug_impl(&dword_223E7A000, log, OS_LOG_TYPE_DEBUG, "[DEBUG] Created QLThumbnailGenerationRequest %@%@", &v3, 0x16u);
 }
 
 void __37__BRCThumbnailGenerateOperation_main__block_invoke(uint64_t a1, void *a2)
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v3 = a2;
   v4 = brc_bread_crumbs();
   v5 = brc_default_log();
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
-    v7 = *(a1 + 32);
-    v8 = *(v7 + 504);
-    v9 = *(v7 + 520);
-    v10 = 138413058;
-    v11 = v8;
-    v12 = 2112;
-    v13 = v9;
-    v14 = 2112;
-    v15 = v3;
-    v16 = 2112;
-    v17 = v4;
-    _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] Saved the thumbnail of %@ to %@ with error %@%@", &v10, 0x2Au);
+    v6 = *(a1 + 32);
+    v7 = *(v6 + 504);
+    v8 = *(v6 + 520);
+    v9 = 138413058;
+    v10 = v7;
+    v11 = 2112;
+    v12 = v8;
+    v13 = 2112;
+    v14 = v3;
+    v15 = 2112;
+    v16 = v4;
+    _os_log_debug_impl(&dword_223E7A000, v5, OS_LOG_TYPE_DEBUG, "[DEBUG] Saved the thumbnail of %@ to %@ with error %@%@", &v9, 0x2Au);
   }
 
   [*(a1 + 32) completedWithResult:0 error:v3];
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)cancel

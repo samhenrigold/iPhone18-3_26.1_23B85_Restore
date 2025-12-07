@@ -284,7 +284,6 @@
   objc_storeStrong(&v69, 0);
   objc_storeStrong(&v70, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v6 = v75;
 
   return v6;
@@ -691,7 +690,6 @@ LABEL_8:
   objc_storeStrong(&v88, 0);
   objc_storeStrong(&v90, 0);
   objc_storeStrong(location, 0);
-  *MEMORY[0x277D85DE8];
   v5 = v93;
 
   return v5;
@@ -794,7 +792,6 @@ LABEL_19:
   objc_storeStrong(&v14, 0);
   objc_storeStrong(&v20, 0);
   objc_storeStrong(&v21, 0);
-  *MEMORY[0x277D85DE8];
 }
 
 + (id)updateAMDSQLSchema:(id)schema error:(id *)error

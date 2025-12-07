@@ -11,38 +11,38 @@
 
 + (id)relayPartsFor:(id)for overridingAttachmentData:(id)data
 {
-  v100 = *MEMORY[0x277D85DE8];
+  v99 = *MEMORY[0x277D85DE8];
   forCopy = for;
   dataCopy = data;
-  v66 = forCopy;
+  v65 = forCopy;
   body = [forCopy body];
   LODWORD(forCopy) = [body __im_isRichCard];
 
   if (forCopy)
   {
-    v71 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v70 = objc_alloc_init(MEMORY[0x277CBEB18]);
+    v74 = 0u;
     v75 = 0u;
     v76 = 0u;
     v77 = 0u;
-    v78 = 0u;
-    obj = [v66 fileTransferGUIDs];
-    v70 = [obj countByEnumeratingWithState:&v75 objects:v99 count:16];
-    if (v70)
+    obj = [v65 fileTransferGUIDs];
+    v69 = [obj countByEnumeratingWithState:&v74 objects:v98 count:16];
+    if (v69)
     {
       v8 = 0;
-      v68 = *v76;
+      v67 = *v75;
       *&v7 = 134218498;
-      v64 = v7;
+      v63 = v7;
       while (2)
       {
-        for (i = 0; i != v70; ++i)
+        for (i = 0; i != v69; ++i)
         {
-          if (*v76 != v68)
+          if (*v75 != v67)
           {
             objc_enumerationMutation(obj);
           }
 
-          v10 = *(*(&v75 + 1) + 8 * i);
+          v10 = *(*(&v74 + 1) + 8 * i);
           v11 = +[IMDAttachmentStore sharedInstance];
           v12 = [v11 attachmentWithGUID:v10];
 
@@ -55,12 +55,12 @@
               v34 = OSLogHandleForIMFoundationCategory();
               if (os_log_type_enabled(v34, OS_LOG_TYPE_INFO))
               {
-                guid = [v66 guid];
+                guid = [v65 guid];
                 guid2 = [v12 guid];
                 *buf = 138412546;
-                v94 = guid;
-                v95 = 2112;
-                v96 = guid2;
+                v93 = guid;
+                v94 = 2112;
+                v95 = guid2;
                 _os_log_impl(&dword_22B4CC000, v34, OS_LOG_TYPE_INFO, "Rich cards media assets are too large for relay in message: %@, drop rest of the transfer starting from: %@", buf, 0x16u);
               }
             }
@@ -73,14 +73,14 @@
             v14 = OSLogHandleForIMFoundationCategory();
             if (os_log_type_enabled(v14, OS_LOG_TYPE_INFO))
             {
-              guid3 = [v66 guid];
+              guid3 = [v65 guid];
               guid4 = [v12 guid];
-              *buf = v64;
-              v94 = v8;
-              v95 = 2112;
-              v96 = guid3;
-              v97 = 2112;
-              v98 = guid4;
+              *buf = v63;
+              v93 = v8;
+              v94 = 2112;
+              v95 = guid3;
+              v96 = 2112;
+              v97 = guid4;
               _os_log_impl(&dword_22B4CC000, v14, OS_LOG_TYPE_INFO, "Processing rich cards media assets of %lu bytes for relay in message: %@, drop rest of the transfer starting from: %@", buf, 0x20u);
             }
           }
@@ -97,7 +97,7 @@
             v19 = 0;
           }
 
-          v91[0] = IMDCTPartDictionaryContentTypeKey;
+          v90[0] = IMDCTPartDictionaryContentTypeKey;
           mimeType = [v12 mimeType];
           if (mimeType)
           {
@@ -110,25 +110,25 @@
             v21 = @"application/octet-stream";
           }
 
-          v92[0] = v21;
-          v92[1] = @"0.file";
-          v91[1] = IMDCTPartDictionaryContentIDKey;
-          v91[2] = IMDCTPartDictionaryContentLocationKey;
+          v91[0] = v21;
+          v91[1] = @"0.file";
+          v90[1] = IMDCTPartDictionaryContentIDKey;
+          v90[2] = IMDCTPartDictionaryContentLocationKey;
           filename = [v12 filename];
           lastPathComponent = [filename lastPathComponent];
-          v92[2] = lastPathComponent;
-          v91[3] = IMDCTPartDictionaryContentDataKey;
+          v91[2] = lastPathComponent;
+          v90[3] = IMDCTPartDictionaryContentDataKey;
           v24 = v18;
           if (!v18)
           {
-            v69 = objc_opt_new();
-            v24 = v69;
+            v68 = objc_opt_new();
+            v24 = v68;
           }
 
-          v91[4] = IMDCTPartDictionaryContentRichCardOriginalGuidKey;
-          v92[3] = v24;
-          v92[4] = v10;
-          v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v92 forKeys:v91 count:5];
+          v90[4] = IMDCTPartDictionaryContentRichCardOriginalGuidKey;
+          v91[3] = v24;
+          v91[4] = v10;
+          v25 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v91 forKeys:v90 count:5];
           if (!v18)
           {
           }
@@ -137,11 +137,11 @@
           {
           }
 
-          [v71 addObject:v25];
+          [v70 addObject:v25];
         }
 
-        v70 = [obj countByEnumeratingWithState:&v75 objects:v99 count:16];
-        if (v70)
+        v69 = [obj countByEnumeratingWithState:&v74 objects:v98 count:16];
+        if (v69)
         {
           continue;
         }
@@ -152,23 +152,23 @@
 
 LABEL_40:
 
-    body2 = [v66 body];
+    body2 = [v65 body];
     firstObject = [self _richCardsDictionary:body2];
 
     if (firstObject)
     {
-      [v71 addObject:firstObject];
+      [v70 addObject:firstObject];
     }
 
     goto LABEL_83;
   }
 
-  fileTransferGUIDs = [v66 fileTransferGUIDs];
+  fileTransferGUIDs = [v65 fileTransferGUIDs];
   v27 = [fileTransferGUIDs count];
 
   if (v27)
   {
-    fileTransferGUIDs2 = [v66 fileTransferGUIDs];
+    fileTransferGUIDs2 = [v65 fileTransferGUIDs];
     firstObject = [fileTransferGUIDs2 firstObject];
 
     v30 = +[IMDAttachmentStore sharedInstance];
@@ -181,7 +181,7 @@ LABEL_40:
         if (dataCopy && ([dataCopy objectForKey:firstObject], (v45 = objc_claimAutoreleasedReturnValue()) != 0))
         {
           v46 = v45;
-          v74 = v46;
+          v73 = v46;
         }
 
         else
@@ -198,19 +198,19 @@ LABEL_40:
             if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
             {
               *buf = 138412546;
-              v94 = @"YES";
-              v95 = 2112;
-              v96 = @"NO";
+              v93 = @"YES";
+              v94 = 2112;
+              v95 = @"NO";
               _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "No transfer(%@) or data(%@) found ", buf, 0x16u);
             }
 
             goto LABEL_49;
           }
 
-          v74 = 0;
+          v73 = 0;
         }
 
-        v85[0] = IMDCTPartDictionaryContentTypeKey;
+        v84[0] = IMDCTPartDictionaryContentTypeKey;
         mimeType3 = [v31 mimeType];
         if (mimeType3)
         {
@@ -222,23 +222,23 @@ LABEL_40:
           mimeType4 = @"application/octet-stream";
         }
 
-        v86[0] = mimeType4;
-        v86[1] = @"0.file";
-        v85[1] = IMDCTPartDictionaryContentIDKey;
-        v85[2] = IMDCTPartDictionaryContentLocationKey;
+        v85[0] = mimeType4;
+        v85[1] = @"0.file";
+        v84[1] = IMDCTPartDictionaryContentIDKey;
+        v84[2] = IMDCTPartDictionaryContentLocationKey;
         filename2 = [v31 filename];
         lastPathComponent2 = [filename2 lastPathComponent];
-        v86[2] = lastPathComponent2;
-        v85[3] = IMDCTPartDictionaryContentDataKey;
-        v86[3] = v46;
-        v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v86 forKeys:v85 count:4];
+        v85[2] = lastPathComponent2;
+        v84[3] = IMDCTPartDictionaryContentDataKey;
+        v85[3] = v46;
+        v52 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v85 forKeys:v84 count:4];
 
         if (mimeType3)
         {
         }
 
-        v84 = v52;
-        v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v84 count:1];
+        v83 = v52;
+        v53 = [MEMORY[0x277CBEA60] arrayWithObjects:&v83 count:1];
         v54 = CreateSMILStringForMessageParts(v53);
 
         if (IMOSLoggingEnabled())
@@ -247,49 +247,49 @@ LABEL_40:
           if (os_log_type_enabled(v55, OS_LOG_TYPE_INFO))
           {
             *buf = 138412290;
-            v94 = v54;
+            v93 = v54;
             _os_log_impl(&dword_22B4CC000, v55, OS_LOG_TYPE_INFO, "Generated SMIL string: %@", buf, 0xCu);
           }
         }
 
-        v82[0] = IMDCTPartDictionaryContentTypeKey;
-        v82[1] = IMDCTPartDictionaryContentIDKey;
-        v83[0] = IMDCTPartDictionaryContentTypeSMILKey;
-        v83[1] = @"0.smil";
-        v82[2] = IMDCTPartDictionaryContentDataKey;
+        v81[0] = IMDCTPartDictionaryContentTypeKey;
+        v81[1] = IMDCTPartDictionaryContentIDKey;
+        v82[0] = IMDCTPartDictionaryContentTypeSMILKey;
+        v82[1] = @"0.smil";
+        v81[2] = IMDCTPartDictionaryContentDataKey;
         v56 = [(__CFString *)v54 dataUsingEncoding:4];
-        v83[2] = v56;
-        v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v83 forKeys:v82 count:3];
+        v82[2] = v56;
+        v57 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v82 forKeys:v81 count:3];
 
-        body3 = [v66 body];
+        body3 = [v65 body];
         __im_hasChipList = [body3 __im_hasChipList];
 
         if (__im_hasChipList)
         {
-          body4 = [v66 body];
+          body4 = [v65 body];
           v61 = [self _chipListDictionary:body4];
 
           if (v61)
           {
-            v81[0] = v57;
-            v81[1] = v52;
-            v81[2] = v61;
-            v71 = [MEMORY[0x277CBEA60] arrayWithObjects:v81 count:3];
+            v80[0] = v57;
+            v80[1] = v52;
+            v80[2] = v61;
+            v70 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:3];
           }
 
           else
           {
-            v80[0] = v57;
-            v80[1] = v52;
-            v71 = [MEMORY[0x277CBEA60] arrayWithObjects:v80 count:2];
+            v79[0] = v57;
+            v79[1] = v52;
+            v70 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:2];
           }
         }
 
         else
         {
-          v79[0] = v57;
-          v79[1] = v52;
-          v71 = [MEMORY[0x277CBEA60] arrayWithObjects:v79 count:2];
+          v78[0] = v57;
+          v78[1] = v52;
+          v70 = [MEMORY[0x277CBEA60] arrayWithObjects:v78 count:2];
         }
 
         goto LABEL_82;
@@ -302,7 +302,7 @@ LABEL_40:
         {
           guid5 = [v31 guid];
           *buf = 138412290;
-          v94 = guid5;
+          v93 = guid5;
           _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "Transfer found in thumbnail state, aborting relay %@", buf, 0xCu);
         }
 
@@ -316,7 +316,7 @@ LABEL_49:
       if (os_log_type_enabled(v32, OS_LOG_TYPE_INFO))
       {
         *buf = 138412290;
-        v94 = firstObject;
+        v93 = firstObject;
         _os_log_impl(&dword_22B4CC000, v32, OS_LOG_TYPE_INFO, "No transfer found for %@", buf, 0xCu);
       }
 
@@ -324,65 +324,64 @@ LABEL_49:
     }
 
 LABEL_50:
-    v71 = 0;
+    v70 = 0;
 LABEL_82:
 
     goto LABEL_83;
   }
 
-  body5 = [v66 body];
+  body5 = [v65 body];
   __im_hasChipList2 = [body5 __im_hasChipList];
 
   if (!__im_hasChipList2)
   {
-    firstObject = [self _plainTextDictionaryFromMessage:v66];
-    v87 = firstObject;
-    v71 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:1];
+    firstObject = [self _plainTextDictionaryFromMessage:v65];
+    v86 = firstObject;
+    v70 = [MEMORY[0x277CBEA60] arrayWithObjects:&v86 count:1];
     goto LABEL_83;
   }
 
-  body6 = [v66 body];
+  body6 = [v65 body];
   firstObject = [self _chipListDictionary:body6];
 
-  body7 = [v66 body];
+  body7 = [v65 body];
   v42 = [body7 length];
 
   if (v42 == 1)
   {
     if (!firstObject)
     {
-      v71 = 0;
+      v70 = 0;
       goto LABEL_83;
     }
 
-    body8 = [v66 body];
+    body8 = [v65 body];
     v44 = [self _chipListDictionary:body8];
-    v90 = v44;
-    v71 = [MEMORY[0x277CBEA60] arrayWithObjects:&v90 count:1];
+    v89 = v44;
+    v70 = [MEMORY[0x277CBEA60] arrayWithObjects:&v89 count:1];
   }
 
   else
   {
-    v49 = [self _plainTextDictionaryFromMessage:v66];
+    v49 = [self _plainTextDictionaryFromMessage:v65];
     body8 = v49;
     if (firstObject)
     {
-      v89[0] = v49;
-      v89[1] = firstObject;
-      v71 = [MEMORY[0x277CBEA60] arrayWithObjects:v89 count:2];
+      v88[0] = v49;
+      v88[1] = firstObject;
+      v70 = [MEMORY[0x277CBEA60] arrayWithObjects:v88 count:2];
     }
 
     else
     {
-      v88 = v49;
-      v71 = [MEMORY[0x277CBEA60] arrayWithObjects:&v88 count:1];
+      v87 = v49;
+      v70 = [MEMORY[0x277CBEA60] arrayWithObjects:&v87 count:1];
     }
   }
 
 LABEL_83:
-  v62 = *MEMORY[0x277D85DE8];
 
-  return v71;
+  return v70;
 }
 
 + (id)plainTextRelayPartWithString:(id)string index:(int64_t)index
@@ -421,23 +420,21 @@ LABEL_83:
 
 + (id)_plainTextDictionaryFromMessage:(id)message
 {
-  v9[2] = *MEMORY[0x277D85DE8];
+  v8[2] = *MEMORY[0x277D85DE8];
   v3 = [IMDTelephonyServiceSession getPlainTextForMessage:message processedMessageItem:message];
-  v9[0] = @"text/plain";
-  v8[0] = IMDCTPartDictionaryContentTypeKey;
-  v8[1] = IMDCTPartDictionaryContentDataKey;
+  v8[0] = @"text/plain";
+  v7[0] = IMDCTPartDictionaryContentTypeKey;
+  v7[1] = IMDCTPartDictionaryContentDataKey;
   v4 = [v3 dataUsingEncoding:4];
-  v9[1] = v4;
-  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v9 forKeys:v8 count:2];
-
-  v6 = *MEMORY[0x277D85DE8];
+  v8[1] = v4;
+  v5 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v8 forKeys:v7 count:2];
 
   return v5;
 }
 
 + (id)_chipListDictionary:(id)dictionary
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   v4 = [dictionaryCopy attributedSubstringFromRange:{objc_msgSend(dictionaryCopy, "length") - 1, 1}];
   if (![v4 length])
@@ -495,27 +492,25 @@ LABEL_18:
     if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 134217984;
-      v23 = [v10 length];
+      v22 = [v10 length];
       _os_log_impl(&dword_22B4CC000, v11, OS_LOG_TYPE_INFO, "Relay chiplist from chat bot, data in bytes: %lu", buf, 0xCu);
     }
   }
 
-  v20[0] = IMDCTPartDictionaryContentTypeKey;
-  v20[1] = IMDCTPartDictionaryContentDataKey;
-  v21[0] = @"text/attributed/chipList";
-  v21[1] = v10;
-  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+  v19[0] = IMDCTPartDictionaryContentTypeKey;
+  v19[1] = IMDCTPartDictionaryContentDataKey;
+  v20[0] = @"text/attributed/chipList";
+  v20[1] = v10;
+  v12 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
   mEMORY[0x277D1AAA8] = v10;
 LABEL_19:
-
-  v18 = *MEMORY[0x277D85DE8];
 
   return v12;
 }
 
 + (id)_richCardsDictionary:(id)dictionary
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   dictionaryCopy = dictionary;
   if (![dictionaryCopy __im_isRichCard])
   {
@@ -579,16 +574,16 @@ LABEL_16:
       if (os_log_type_enabled(v17, OS_LOG_TYPE_INFO))
       {
         *buf = 134217984;
-        v23 = [v15 length];
+        v22 = [v15 length];
         _os_log_impl(&dword_22B4CC000, v17, OS_LOG_TYPE_INFO, "Relay richcards from chat bot, data in bytes: %lu", buf, 0xCu);
       }
     }
 
-    v20[0] = IMDCTPartDictionaryContentTypeKey;
-    v20[1] = IMDCTPartDictionaryContentDataKey;
-    v21[0] = @"text/attributed/richCards";
-    v21[1] = v15;
-    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v21 forKeys:v20 count:2];
+    v19[0] = IMDCTPartDictionaryContentTypeKey;
+    v19[1] = IMDCTPartDictionaryContentDataKey;
+    v20[0] = @"text/attributed/richCards";
+    v20[1] = v15;
+    v16 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v20 forKeys:v19 count:2];
     goto LABEL_21;
   }
 
@@ -602,7 +597,6 @@ LABEL_16:
 LABEL_21:
 
 LABEL_22:
-  v18 = *MEMORY[0x277D85DE8];
 
   return v16;
 }

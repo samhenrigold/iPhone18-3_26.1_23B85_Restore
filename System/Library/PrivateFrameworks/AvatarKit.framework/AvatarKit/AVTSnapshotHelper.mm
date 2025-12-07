@@ -1,6 +1,6 @@
 @interface AVTSnapshotHelper
 - (BOOL)_isRenderPassDescriptorValid;
-- (uint64_t)newCGImageWithRenderer:(uint64_t)renderer antialiasingMode:(uint64_t)mode pixelWidth:(uint64_t)width pixelHeight:(void *)height error:;
+- (CGImageRef)newCGImageWithRenderer:(uint64_t)renderer antialiasingMode:(uint64_t)mode pixelWidth:(uint64_t)width pixelHeight:(void *)height error:;
 - (uint64_t)newImageWithRenderer:(uint64_t)renderer antialiasingMode:(uint64_t)mode pixelWidth:(uint64_t)width pixelHeight:(void *)height imagePointSize:(double)size contentScaleFactor:(double)factor error:(float)error;
 - (void)_rebuildBitmapContextIfNeeded;
 - (void)_rebuildRenderPassDescriptorIfNeeded;
@@ -9,9 +9,9 @@
 
 @implementation AVTSnapshotHelper
 
-- (uint64_t)newCGImageWithRenderer:(uint64_t)renderer antialiasingMode:(uint64_t)mode pixelWidth:(uint64_t)width pixelHeight:(void *)height error:
+- (CGImageRef)newCGImageWithRenderer:(uint64_t)renderer antialiasingMode:(uint64_t)mode pixelWidth:(uint64_t)width pixelHeight:(void *)height error:
 {
-  v98 = *MEMORY[0x1E69E9840];
+  v99 = *MEMORY[0x1E69E9840];
   v11 = a2;
   v12 = v11;
   if (!Image)
@@ -21,13 +21,13 @@
 
   if (!mode || !width)
   {
-    backgroundColor = avt_default_log();
+    backgroundColor = avt_default_log(v11);
     if (os_log_type_enabled(backgroundColor, OS_LOG_TYPE_ERROR))
     {
-      v66 = objc_opt_class();
-      v67 = NSStringFromClass(v66);
+      v63 = objc_opt_class();
+      v64 = NSStringFromClass(v63);
       *buf = 138412802;
-      *&buf[4] = v67;
+      *&buf[4] = v64;
       *&buf[12] = 1024;
       *&buf[14] = mode;
       *&buf[18] = 1024;
@@ -45,10 +45,10 @@
 
   if (!*(Image + 1))
   {
-    v15 = avt_default_log();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
+    v16 = avt_default_log(v15);
+    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
     {
-      [AVTSnapshotHelper newCGImageWithRenderer:v15 antialiasingMode:? pixelWidth:? pixelHeight:? error:?];
+      [AVTSnapshotHelper newCGImageWithRenderer:v16 antialiasingMode:? pixelWidth:? pixelHeight:? error:?];
     }
   }
 
@@ -59,18 +59,15 @@
   if (*(Image + 12) != backgroundColor)
   {
     objc_storeStrong(Image + 12, backgroundColor);
-    v17 = AVTColor4WithCGColor([*(Image + 12) CGColor]);
-    v18 = vmulq_laneq_f32(v17, v17, 3);
-    v19 = vcvtq_f64_f32(*v18.i8);
-    *(Image + 104) = v19;
-    v18.i32[0] = vextq_s8(v18, v18, 8uLL).u32[0];
-    v18.i32[1] = vextq_s8(*&v17, *&v17, 8uLL).i32[1];
-    v84 = vcvtq_f64_f32(*v18.i8);
-    v85 = v19;
-    *(Image + 120) = v84;
+    v18 = AVTColor4WithCGColor([*(Image + 12) CGColor]);
+    v19 = vmulq_laneq_f32(v18, v18, 3);
+    *(Image + 104) = vcvtq_f64_f32(*v19.i8);
+    v19.i32[0] = vextq_s8(v19, v19, 8uLL).u32[0];
+    v19.i32[1] = vextq_s8(*&v18, *&v18, 8uLL).i32[1];
+    *(Image + 120) = vcvtq_f64_f32(*v19.i8);
     colorAttachments = [*(Image + 3) colorAttachments];
-    v21 = [colorAttachments objectAtIndexedSubscript:0];
-    [v21 setClearColor:{*&v85, *&v84}];
+    v21 = [colorAttachments objectAtIndexedSubscript:?];
+    [v21 setClearColor:?];
   }
 
   v22 = (Image + 16);
@@ -86,40 +83,39 @@
     v27 = *(Image + 2);
     *(Image + 2) = newCommandQueue;
 
-    [*(Image + 2) setBackgroundGPUPriority:2];
-    v28 = *(Image + 1);
-    v29 = AVTMTLDeviceSupportsReadWritePixelFormat();
-    v30 = @"avt_convert_linear_premultiplied_to_gamma_premultiplied_copy";
-    *(Image + 32) = v29;
-    if (v29)
+    [*(Image + 2) setBackgroundGPUPriority:?];
+    v28 = AVTMTLDeviceSupportsReadWritePixelFormat();
+    v29 = @"avt_convert_linear_premultiplied_to_gamma_premultiplied_copy";
+    *(Image + 32) = v28;
+    if (v28)
     {
-      v30 = @"avt_convert_linear_premultiplied_to_gamma_premultiplied_in_place";
+      v29 = @"avt_convert_linear_premultiplied_to_gamma_premultiplied_in_place";
     }
 
-    v31 = *(Image + 1);
-    v32 = v30;
-    v33 = [AVTMetalHelper helperForDevice:v31];
-    v34 = [(AVTMetalHelper *)v33 computePipelineStateWithFunctionName:v32];
+    v30 = *(Image + 1);
+    v31 = v29;
+    v32 = [AVTMetalHelper helperForDevice:v30];
+    v33 = [(AVTMetalHelper *)v32 computePipelineStateWithFunctionName:v31];
 
-    v35 = *(Image + 8);
-    *(Image + 8) = v34;
+    v34 = *(Image + 8);
+    *(Image + 8) = v33;
   }
 
   [(CGImage *)Image _rebuildRenderPassDescriptorIfNeeded];
   [(CGImage *)Image _rebuildBitmapContextIfNeeded];
   if (os_variant_has_internal_diagnostics())
   {
-    v36 = objc_alloc_init(MEMORY[0x1E6974010]);
-    [v36 setErrorOptions:1];
-    commandBuffer = [*v22 commandBufferWithDescriptor:v36];
+    v35 = objc_alloc_init(MEMORY[0x1E6974010]);
+    [v35 setErrorOptions:?];
+    logs2 = [*v22 commandBufferWithDescriptor:?];
 
-    if (commandBuffer)
+    if (logs2)
     {
       goto LABEL_16;
     }
 
 LABEL_24:
-    v38 = avt_default_log();
+    v38 = avt_default_log(commandBuffer);
     if (os_log_type_enabled(v38, OS_LOG_TYPE_ERROR))
     {
       [AVTSnapshotHelper newCGImageWithRenderer:v38 antialiasingMode:? pixelWidth:? pixelHeight:? error:?];
@@ -130,6 +126,7 @@ LABEL_24:
   }
 
   commandBuffer = [*v22 commandBuffer];
+  logs2 = commandBuffer;
   if (!commandBuffer)
   {
     goto LABEL_24;
@@ -137,35 +134,35 @@ LABEL_24:
 
 LABEL_16:
   heightCopy = height;
-  [v12 renderWithViewport:commandBuffer commandBuffer:*(Image + 3) passDescriptor:{0.0, 0.0, *(Image + 9), *(Image + 10)}];
+  [v12 renderWithViewport:? commandBuffer:? passDescriptor:?];
   v38 = *(Image + 5);
   threadExecutionWidth = [*(Image + 8) threadExecutionWidth];
   maxTotalThreadsPerThreadgroup = [*(Image + 8) maxTotalThreadsPerThreadgroup];
-  computeCommandEncoder = [commandBuffer computeCommandEncoder];
-  [computeCommandEncoder setComputePipelineState:*(Image + 8)];
-  [computeCommandEncoder setTexture:*(Image + 6) atIndex:0];
+  computeCommandEncoder = [logs2 computeCommandEncoder];
+  [computeCommandEncoder setComputePipelineState:?];
+  [computeCommandEncoder setTexture:? atIndex:?];
   if ((*(Image + 32) & 1) == 0)
   {
     v42 = *(Image + 7);
 
-    [computeCommandEncoder setTexture:*(Image + 7) atIndex:1];
+    [computeCommandEncoder setTexture:? atIndex:?];
     v38 = v42;
   }
 
   device3 = [computeCommandEncoder device];
-  v45 = AVTMTLDeviceSupportsNonUniformThreadgroupSize(device3, v44);
+  v44 = AVTMTLDeviceSupportsNonUniformThreadgroupSize(device3);
 
-  if (v45)
+  if (v44)
   {
     width = [*(Image + 5) width];
     height = [*(Image + 5) height];
     *buf = width;
     *&buf[8] = height;
     *&buf[16] = 1;
-    *v87 = threadExecutionWidth;
-    *&v87[8] = maxTotalThreadsPerThreadgroup / threadExecutionWidth;
-    *&v87[16] = 1;
-    [computeCommandEncoder dispatchThreads:buf threadsPerThreadgroup:v87];
+    *v88 = threadExecutionWidth;
+    *&v88[8] = maxTotalThreadsPerThreadgroup / threadExecutionWidth;
+    *&v88[16] = 1;
+    [computeCommandEncoder dispatchThreads:? threadsPerThreadgroup:?];
   }
 
   else
@@ -173,55 +170,55 @@ LABEL_16:
     width2 = [*(Image + 5) width];
     if (threadExecutionWidth >= width2)
     {
-      v49 = width2;
+      v48 = width2;
     }
 
     else
     {
-      v49 = threadExecutionWidth;
+      v48 = threadExecutionWidth;
     }
 
     height2 = [*(Image + 5) height];
     if (threadExecutionWidth >= height2)
     {
-      v51 = height2;
+      v50 = height2;
     }
 
     else
     {
-      v51 = threadExecutionWidth;
+      v50 = threadExecutionWidth;
     }
 
     do
     {
-      v52 = v51;
-      v53 = v51 * v49;
-      v51 >>= 1;
+      v51 = v50;
+      v52 = v50 * v48;
+      v50 >>= 1;
     }
 
-    while (v53 > maxTotalThreadsPerThreadgroup);
-    v54 = (v49 + [*(Image + 5) width] - 1) / v49;
+    while (v52 > maxTotalThreadsPerThreadgroup);
+    v53 = ([*(Image + 5) width] + v48 - 1) / v48;
     height3 = [*(Image + 5) height];
-    *buf = v54;
-    *&buf[8] = (v52 + height3 - 1) / v52;
+    *buf = v53;
+    *&buf[8] = (height3 + v51 - 1) / v51;
     *&buf[16] = 1;
-    *v87 = v49;
-    *&v87[8] = v52;
-    *&v87[16] = 1;
-    [computeCommandEncoder dispatchThreadgroups:buf threadsPerThreadgroup:v87];
+    *v88 = v48;
+    *&v88[8] = v51;
+    *&v88[16] = 1;
+    [computeCommandEncoder dispatchThreadgroups:? threadsPerThreadgroup:?];
   }
 
   [computeCommandEncoder endEncoding];
-  [commandBuffer commit];
-  [commandBuffer waitUntilCompleted];
-  if ([commandBuffer status] == 4)
+  [logs2 commit];
+  [logs2 waitUntilCompleted];
+  if ([logs2 status] == 4)
   {
-    Data = CGBitmapContextGetData(*(Image + 17));
-    BytesPerRow = CGBitmapContextGetBytesPerRow(*(Image + 17));
+    CGBitmapContextGetData(*(Image + 17));
+    CGBitmapContextGetBytesPerRow(*(Image + 17));
     memset(buf, 0, 24);
     *&buf[24] = *(Image + 72);
     *&buf[40] = 1;
-    [v38 getBytes:Data bytesPerRow:BytesPerRow fromRegion:buf mipmapLevel:0];
+    [NSObject getBytes:v38 bytesPerRow:"getBytes:bytesPerRow:fromRegion:mipmapLevel:" fromRegion:? mipmapLevel:?];
     Image = CGBitmapContextCreateImage(*(Image + 17));
 LABEL_48:
 
@@ -229,63 +226,74 @@ LABEL_49:
 LABEL_50:
 
 LABEL_51:
-    v64 = *MEMORY[0x1E69E9840];
     return Image;
   }
 
-  error = [commandBuffer error];
-  v59 = error;
+  error = [logs2 error];
+  v56 = error;
   if (heightCopy && error)
   {
-    v60 = error;
-    *heightCopy = v59;
+    v57 = error;
+    *heightCopy = v56;
   }
 
-  if (AVTIsRunningInAppExtensionOrViewService())
+  code = AVTIsRunningInAppExtensionOrViewService();
+  if (code)
   {
-    v72 = avt_default_log();
-    if (os_log_type_enabled(v72, OS_LOG_TYPE_FAULT))
+    v69 = avt_default_log(code);
+    if (os_log_type_enabled(v69, OS_LOG_TYPE_FAULT))
     {
-      v73 = objc_opt_class();
-      v74 = NSStringFromClass(v73);
-      status = [commandBuffer status];
-      logs = [commandBuffer logs];
+      v70 = objc_opt_class();
+      v71 = NSStringFromClass(v70);
+      status = [logs2 status];
+      logs = [logs2 logs];
       *buf = 136316418;
       *&buf[4] = "[AVTSnapshotHelper newCGImageWithRenderer:antialiasingMode:pixelWidth:pixelHeight:error:]";
       *&buf[12] = 2112;
-      *&buf[14] = v74;
+      *&buf[14] = v71;
       *&buf[22] = 2048;
       *&buf[24] = v12;
       *&buf[32] = 1024;
       *&buf[34] = status;
       *&buf[38] = 2112;
-      *&buf[40] = v59;
-      LOWORD(v96) = 2112;
-      *(&v96 + 2) = logs;
-      _os_log_fault_impl(&dword_1BB472000, v72, OS_LOG_TYPE_FAULT, "Fault: %s %@ %p: Command buffer execution failed with status %d, error: %@\n%@", buf, 0x3Au);
+      *&buf[40] = v56;
+      LOWORD(v97) = 2112;
+      *(&v97 + 2) = logs;
+      _os_log_fault_impl(&dword_1BB472000, v69, OS_LOG_TYPE_FAULT, "Fault: %s %@ %p: Command buffer execution failed with status %d, error: %@\n%@", buf, 0x3Au);
     }
 
+    v87 = 0;
+    v98 = 0u;
     v97 = 0u;
-    v96 = 0u;
     memset(buf, 0, sizeof(buf));
-    os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-    v77 = objc_opt_class();
-    v78 = NSStringFromClass(v77);
-    status2 = [commandBuffer status];
-    commandBuffer = [commandBuffer logs];
-    *v87 = 136316418;
-    *&v87[4] = "[AVTSnapshotHelper newCGImageWithRenderer:antialiasingMode:pixelWidth:pixelHeight:error:]";
-    *&v87[12] = 2112;
-    *&v87[14] = v78;
-    *&v87[22] = 2048;
-    v88 = v12;
-    v89 = 1024;
-    v90 = status2;
-    v91 = 2112;
-    v92 = v59;
-    v93 = 2112;
-    v94 = commandBuffer;
-    v12 = _os_log_send_and_compose_impl();
+    v74 = MEMORY[0x1E69E9C10];
+    if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+    {
+      v75 = 3;
+    }
+
+    else
+    {
+      v75 = 2;
+    }
+
+    v76 = objc_opt_class();
+    v77 = NSStringFromClass(v76);
+    status2 = [logs2 status];
+    logs2 = [logs2 logs];
+    *v88 = 136316418;
+    *&v88[4] = "[AVTSnapshotHelper newCGImageWithRenderer:antialiasingMode:pixelWidth:pixelHeight:error:]";
+    *&v88[12] = 2112;
+    *&v88[14] = v77;
+    *&v88[22] = 2048;
+    v89 = v12;
+    v90 = 1024;
+    v91 = status2;
+    v92 = 2112;
+    v93 = v56;
+    v94 = 2112;
+    v95 = logs2;
+    v12 = _os_log_send_and_compose_impl(v75, &v87, buf, 80, &dword_1BB472000, v74, 16, "AvatarKit crash: %s %@ %p: Command buffer execution failed with status %d, error: %@\n%@", v88, 58);
 
     _os_crash_msg();
     __break(1u);
@@ -293,41 +301,45 @@ LABEL_51:
 
   else
   {
-    if (v59)
+    if (v56)
     {
-      domain = [v59 domain];
-      v62 = *MEMORY[0x1E6973F70];
+      domain = [v56 domain];
+      v60 = *MEMORY[0x1E6973F70];
 
-      if (domain == v62 && [v59 code] == 7)
+      if (domain == v60)
       {
-        [AVTSnapshotHelper newCGImageWithRenderer:v12 antialiasingMode:commandBuffer pixelWidth:v59 pixelHeight:? error:?];
+        code = [v56 code];
+        if (code == 7)
+        {
+          [AVTSnapshotHelper newCGImageWithRenderer:v12 antialiasingMode:logs2 pixelWidth:v56 pixelHeight:? error:?];
 LABEL_47:
 
-        Image = 0;
-        goto LABEL_48;
+          Image = 0;
+          goto LABEL_48;
+        }
       }
     }
 
-    v63 = avt_default_log();
-    if (os_log_type_enabled(v63, OS_LOG_TYPE_FAULT))
+    v61 = avt_default_log(code);
+    if (os_log_type_enabled(v61, OS_LOG_TYPE_FAULT))
     {
-      v68 = objc_opt_class();
-      v69 = NSStringFromClass(v68);
-      status3 = [commandBuffer status];
-      logs2 = [commandBuffer logs];
+      v65 = objc_opt_class();
+      v66 = NSStringFromClass(v65);
+      status3 = [logs2 status];
+      v36Logs = [logs2 logs];
       *buf = 136316418;
       *&buf[4] = "[AVTSnapshotHelper newCGImageWithRenderer:antialiasingMode:pixelWidth:pixelHeight:error:]";
       *&buf[12] = 2112;
-      *&buf[14] = v69;
+      *&buf[14] = v66;
       *&buf[22] = 2048;
       *&buf[24] = v12;
       *&buf[32] = 1024;
       *&buf[34] = status3;
       *&buf[38] = 2112;
-      *&buf[40] = v59;
-      LOWORD(v96) = 2112;
-      *(&v96 + 2) = logs2;
-      _os_log_fault_impl(&dword_1BB472000, v63, OS_LOG_TYPE_FAULT, "Fault: %s %@ %p: Command buffer execution failed with status %d, error: %@\n%@", buf, 0x3Au);
+      *&buf[40] = v56;
+      LOWORD(v97) = 2112;
+      *(&v97 + 2) = v36Logs;
+      _os_log_fault_impl(&dword_1BB472000, v61, OS_LOG_TYPE_FAULT, "Fault: %s %@ %p: Command buffer execution failed with status %d, error: %@\n%@", buf, 0x3Au);
     }
 
     if (!AVTLogAllowsInternalCrash())
@@ -336,27 +348,39 @@ LABEL_47:
     }
   }
 
+  v87 = 0;
+  v98 = 0u;
   v97 = 0u;
-  v96 = 0u;
   memset(buf, 0, sizeof(buf));
-  os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR);
-  v80 = objc_opt_class();
-  v81 = NSStringFromClass(v80);
-  status4 = [commandBuffer status];
-  logs3 = [commandBuffer logs];
-  *v87 = 136316418;
-  *&v87[4] = "[AVTSnapshotHelper newCGImageWithRenderer:antialiasingMode:pixelWidth:pixelHeight:error:]";
-  *&v87[12] = 2112;
-  *&v87[14] = v81;
-  *&v87[22] = 2048;
-  v88 = v12;
-  v89 = 1024;
-  v90 = status4;
-  v91 = 2112;
-  v92 = v59;
-  v93 = 2112;
-  v94 = logs3;
-  _os_log_send_and_compose_impl();
+  v79 = MEMORY[0x1E69E9C10];
+  if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
+  {
+    v80 = 3;
+  }
+
+  else
+  {
+    v80 = 2;
+  }
+
+  v81 = objc_opt_class();
+  v82 = NSStringFromClass(v81);
+  status4 = [logs2 status];
+  v36Logs2 = [logs2 logs];
+  *v88 = 136316418;
+  *&v88[4] = "[AVTSnapshotHelper newCGImageWithRenderer:antialiasingMode:pixelWidth:pixelHeight:error:]";
+  *&v88[12] = 2112;
+  *&v88[14] = v82;
+  *&v88[22] = 2048;
+  v89 = v12;
+  v90 = 1024;
+  v91 = status4;
+  v92 = 2112;
+  v93 = v56;
+  v94 = 2112;
+  v95 = v36Logs2;
+  LODWORD(v85) = 58;
+  _os_log_send_and_compose_impl(v80, &v87, buf, 80, &dword_1BB472000, v79, 16, "AvatarKit crash: %s %@ %p: Command buffer execution failed with status %d, error: %@\n%@", v88, v85);
 
   result = _os_crash_msg();
   __break(1u);
@@ -372,7 +396,7 @@ LABEL_47:
   }
 
   colorAttachments = [(MTLRenderPassDescriptor *)renderPassDescriptor colorAttachments];
-  v5 = [colorAttachments objectAtIndexedSubscript:0];
+  v5 = [colorAttachments objectAtIndexedSubscript:?];
   texture = [v5 texture];
 
   device = [texture device];
@@ -399,7 +423,7 @@ LABEL_47:
     }
 
     colorAttachments2 = [(MTLRenderPassDescriptor *)self->_renderPassDescriptor colorAttachments];
-    v14 = [colorAttachments2 objectAtIndexedSubscript:0];
+    v14 = [colorAttachments2 objectAtIndexedSubscript:?];
     resolveTexture = [v14 resolveTexture];
 
     if (v10 > 1)
@@ -433,23 +457,16 @@ LABEL_15:
 {
   if (![(AVTSnapshotHelper *)self _isRenderPassDescriptorValid])
   {
-    v44 = [MEMORY[0x1E69741B8] texture2DDescriptorWithPixelFormat:71 width:self->_pixelWidth height:self->_pixelHeight mipmapped:0];
-    [v44 setStorageMode:0];
-    [v44 setUsage:4];
-    supportsReadWriteTexture = self->_supportsReadWriteTexture;
-    usage = [v44 usage];
-    v5 = 3;
-    if (!supportsReadWriteTexture)
-    {
-      v5 = 1;
-    }
-
-    [v44 setUsage:usage | v5];
-    v6 = [(MTLDevice *)self->_device newTextureWithDescriptor:v44];
-    objc_storeStrong(&self->_convertPremultipliedAlphaTexture, v6);
-    v7 = [v6 newTextureViewWithPixelFormat:70];
+    v28 = [MEMORY[0x1E69741B8] texture2DDescriptorWithPixelFormat:? width:? height:? mipmapped:?];
+    [v28 setStorageMode:?];
+    [v28 setUsage:?];
+    [v28 usage];
+    [v28 setUsage:?];
+    v3 = [(MTLDevice *)self->_device newTextureWithDescriptor:?];
+    objc_storeStrong(&self->_convertPremultipliedAlphaTexture, v3);
+    v4 = [v3 newTextureViewWithPixelFormat:?];
     convertPremultipliedAlphaTextureView = self->_convertPremultipliedAlphaTextureView;
-    self->_convertPremultipliedAlphaTextureView = v7;
+    self->_convertPremultipliedAlphaTextureView = v4;
 
     if (self->_supportsReadWriteTexture)
     {
@@ -459,115 +476,73 @@ LABEL_15:
 
     else
     {
-      convertPremultipliedAlphaExtraTexture = [v44 copy];
-      [(MTLTexture *)convertPremultipliedAlphaExtraTexture setPixelFormat:70];
+      convertPremultipliedAlphaExtraTexture = [v28 copy];
+      [(MTLTexture *)convertPremultipliedAlphaExtraTexture setPixelFormat:?];
       [(MTLTexture *)convertPremultipliedAlphaExtraTexture usage];
-      [(MTLTexture *)convertPremultipliedAlphaExtraTexture setUsage:0];
-      [(MTLTexture *)convertPremultipliedAlphaExtraTexture setUsage:[(MTLTexture *)convertPremultipliedAlphaExtraTexture usage]| 2];
-      v10 = [(MTLDevice *)self->_device newTextureWithDescriptor:convertPremultipliedAlphaExtraTexture];
-      v11 = self->_convertPremultipliedAlphaExtraTexture;
-      self->_convertPremultipliedAlphaExtraTexture = v10;
+      [(MTLTexture *)convertPremultipliedAlphaExtraTexture setUsage:?];
+      [(MTLTexture *)convertPremultipliedAlphaExtraTexture usage];
+      [(MTLTexture *)convertPremultipliedAlphaExtraTexture setUsage:?];
+      v7 = [(MTLDevice *)self->_device newTextureWithDescriptor:?];
+      v8 = self->_convertPremultipliedAlphaExtraTexture;
+      self->_convertPremultipliedAlphaExtraTexture = v7;
     }
 
-    v12 = AVTMTLDeviceSupportsMemorylessStorage(self->_device);
-    antialiasingMode = self->_antialiasingMode;
-    v14 = 1;
-    if (antialiasingMode == 1)
+    AVTMTLDeviceSupportsMemorylessStorage(self->_device);
+    if (self->_antialiasingMode - 1 > 1)
     {
-      v15 = 2;
+      v9 = 0;
     }
 
     else
     {
-      v15 = 1;
+      [v28 setStorageMode:?];
+      [v28 setUsage:?];
+      [v28 setTextureType:?];
+      [v28 setSampleCount:?];
+      v9 = [(MTLDevice *)self->_device newTextureWithDescriptor:?];
     }
 
-    if (antialiasingMode == 2)
-    {
-      v16 = 4;
-    }
-
-    else
-    {
-      v16 = v15;
-    }
-
-    v17 = 2;
-    if (v12)
-    {
-      v18 = 3;
-    }
-
-    else
-    {
-      v18 = 2;
-    }
-
-    if (antialiasingMode - 1 > 1)
-    {
-      v20 = 0;
-      v21 = 0;
-      v19 = v6;
-    }
-
-    else
-    {
-      [v44 setStorageMode:v18];
-      v17 = 4;
-      [v44 setUsage:4];
-      [v44 setTextureType:4];
-      [v44 setSampleCount:v16];
-      v19 = [(MTLDevice *)self->_device newTextureWithDescriptor:v44];
-      v14 = 2;
-      v20 = v6;
-      v21 = v19;
-    }
-
-    v22 = [MEMORY[0x1E69741B8] texture2DDescriptorWithPixelFormat:252 width:self->_pixelWidth height:self->_pixelHeight mipmapped:0];
-    [v22 setStorageMode:v18];
-    [v22 setUsage:4];
-    [v22 setTextureType:v17];
-    [v22 setSampleCount:v16];
-    v23 = [(MTLDevice *)self->_device newTextureWithDescriptor:v22];
+    v10 = [MEMORY[0x1E69741B8] texture2DDescriptorWithPixelFormat:? width:? height:? mipmapped:?];
+    [v10 setStorageMode:?];
+    [v10 setUsage:?];
+    [v10 setTextureType:?];
+    [v10 setSampleCount:?];
+    v11 = [(MTLDevice *)self->_device newTextureWithDescriptor:?];
     renderPassDescriptor = [MEMORY[0x1E6974130] renderPassDescriptor];
     renderPassDescriptor = self->_renderPassDescriptor;
     self->_renderPassDescriptor = renderPassDescriptor;
 
     colorAttachments = [(MTLRenderPassDescriptor *)self->_renderPassDescriptor colorAttachments];
-    v27 = [colorAttachments objectAtIndexedSubscript:0];
-    [v27 setTexture:v19];
+    v15 = [colorAttachments objectAtIndexedSubscript:?];
+    [v15 setTexture:?];
 
     colorAttachments2 = [(MTLRenderPassDescriptor *)self->_renderPassDescriptor colorAttachments];
-    v29 = [colorAttachments2 objectAtIndexedSubscript:0];
-    [v29 setResolveTexture:v20];
+    v17 = [colorAttachments2 objectAtIndexedSubscript:?];
+    [v17 setResolveTexture:?];
 
     colorAttachments3 = [(MTLRenderPassDescriptor *)self->_renderPassDescriptor colorAttachments];
-    v31 = [colorAttachments3 objectAtIndexedSubscript:0];
-    [v31 setLoadAction:2];
+    v19 = [colorAttachments3 objectAtIndexedSubscript:?];
+    [v19 setLoadAction:?];
 
-    red = self->_backgroundColorForMetal.red;
-    green = self->_backgroundColorForMetal.green;
-    blue = self->_backgroundColorForMetal.blue;
-    alpha = self->_backgroundColorForMetal.alpha;
     colorAttachments4 = [(MTLRenderPassDescriptor *)self->_renderPassDescriptor colorAttachments];
-    v37 = [colorAttachments4 objectAtIndexedSubscript:0];
-    [v37 setClearColor:{red, green, blue, alpha}];
+    v21 = [colorAttachments4 objectAtIndexedSubscript:?];
+    [v21 setClearColor:?];
 
     colorAttachments5 = [(MTLRenderPassDescriptor *)self->_renderPassDescriptor colorAttachments];
-    v39 = [colorAttachments5 objectAtIndexedSubscript:0];
-    [v39 setStoreAction:v14];
+    v23 = [colorAttachments5 objectAtIndexedSubscript:?];
+    [v23 setStoreAction:?];
 
     depthAttachment = [(MTLRenderPassDescriptor *)self->_renderPassDescriptor depthAttachment];
-    [depthAttachment setTexture:v23];
+    [depthAttachment setTexture:?];
 
     depthAttachment2 = [(MTLRenderPassDescriptor *)self->_renderPassDescriptor depthAttachment];
-    [depthAttachment2 setClearDepth:0.0];
+    [depthAttachment2 setClearDepth:?];
 
     depthAttachment3 = [(MTLRenderPassDescriptor *)self->_renderPassDescriptor depthAttachment];
-    [depthAttachment3 setLoadAction:2];
+    [depthAttachment3 setLoadAction:?];
 
     depthAttachment4 = [(MTLRenderPassDescriptor *)self->_renderPassDescriptor depthAttachment];
-    [depthAttachment4 setStoreAction:0];
+    [depthAttachment4 setStoreAction:?];
   }
 }
 
@@ -621,68 +596,64 @@ LABEL_15:
 
 - (uint64_t)newImageWithRenderer:(uint64_t)renderer antialiasingMode:(uint64_t)mode pixelWidth:(uint64_t)width pixelHeight:(void *)height imagePointSize:(double)size contentScaleFactor:(double)factor error:(float)error
 {
-  v15 = a2;
-  if (self && (v16 = [(AVTSnapshotHelper *)self newCGImageWithRenderer:v15 antialiasingMode:renderer pixelWidth:mode pixelHeight:width error:height]) != 0)
+  v14 = a2;
+  if (self && (v15 = [(AVTSnapshotHelper *)self newCGImageWithRenderer:v14 antialiasingMode:renderer pixelWidth:mode pixelHeight:width error:height]) != 0)
   {
-    v17 = v16;
-    v18 = [MEMORY[0x1E69DCAB8] imageWithCGImage:v16 scale:0 orientation:error];
-    CFRelease(v17);
+    v16 = v15;
+    v17 = [MEMORY[0x1E69DCAB8] imageWithCGImage:? scale:? orientation:?];
+    CFRelease(v16);
   }
 
   else
   {
-    v18 = 0;
+    v17 = 0;
   }
 
-  return v18;
+  return v17;
 }
 
 - (void)newCGImageWithRenderer:(os_log_t)log antialiasingMode:pixelWidth:pixelHeight:error:.cold.1(os_log_t log)
 {
-  v4 = *MEMORY[0x1E69E9840];
-  v2 = 136315138;
-  v3 = "_device";
-  v1 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
+  v1 = 136315138;
+  v2 = "_device";
 }
 
 - (void)newCGImageWithRenderer:(uint64_t *)a1 antialiasingMode:(NSObject *)a2 pixelWidth:pixelHeight:error:.cold.2(uint64_t *a1, NSObject *a2)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   v2 = *a1;
-  v4 = 136315394;
-  v5 = "[AVTSnapshotHelper newCGImageWithRenderer:antialiasingMode:pixelWidth:pixelHeight:error:]";
-  v6 = 2048;
-  v7 = v2;
-  _os_log_error_impl(&dword_1BB472000, a2, OS_LOG_TYPE_ERROR, "Error: %s Failed to create a command buffer from command queue %p", &v4, 0x16u);
-  v3 = *MEMORY[0x1E69E9840];
+  v3 = 136315394;
+  v4 = "[AVTSnapshotHelper newCGImageWithRenderer:antialiasingMode:pixelWidth:pixelHeight:error:]";
+  v5 = 2048;
+  v6 = v2;
+  _os_log_error_impl(&dword_1BB472000, a2, OS_LOG_TYPE_ERROR, "Error: %s Failed to create a command buffer from command queue %p", &v3, 0x16u);
 }
 
 - (void)newCGImageWithRenderer:(uint64_t)a3 antialiasingMode:pixelWidth:pixelHeight:error:.cold.3(uint64_t a1, void *a2, uint64_t a3)
 {
-  v24 = *MEMORY[0x1E69E9840];
-  v6 = avt_default_log();
+  v23 = *MEMORY[0x1E69E9840];
+  v6 = avt_default_log(a1);
   if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
   {
-    v8 = objc_opt_class();
-    v9 = NSStringFromClass(v8);
-    v10 = [a2 status];
-    v11 = [a2 logs];
-    v12 = 136316418;
-    v13 = "[AVTSnapshotHelper newCGImageWithRenderer:antialiasingMode:pixelWidth:pixelHeight:error:]";
-    v14 = 2112;
-    v15 = v9;
-    v16 = 2048;
-    v17 = a1;
-    v18 = 1024;
-    v19 = v10;
-    v20 = 2112;
-    v21 = a3;
-    v22 = 2112;
-    v23 = v11;
-    _os_log_error_impl(&dword_1BB472000, v6, OS_LOG_TYPE_ERROR, "Error: %s %@ %p: Command buffer execution failed with status %d, error: %@\n%@", &v12, 0x3Au);
+    v7 = objc_opt_class();
+    v8 = NSStringFromClass(v7);
+    v9 = [a2 status];
+    v10 = [a2 logs];
+    v11 = 136316418;
+    v12 = "[AVTSnapshotHelper newCGImageWithRenderer:antialiasingMode:pixelWidth:pixelHeight:error:]";
+    v13 = 2112;
+    v14 = v8;
+    v15 = 2048;
+    v16 = a1;
+    v17 = 1024;
+    v18 = v9;
+    v19 = 2112;
+    v20 = a3;
+    v21 = 2112;
+    v22 = v10;
+    _os_log_error_impl(&dword_1BB472000, v6, OS_LOG_TYPE_ERROR, "Error: %s %@ %p: Command buffer execution failed with status %d, error: %@\n%@", &v11, 0x3Au);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 @end

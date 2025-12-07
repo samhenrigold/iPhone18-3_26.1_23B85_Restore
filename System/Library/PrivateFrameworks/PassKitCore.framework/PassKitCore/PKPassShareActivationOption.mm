@@ -51,26 +51,26 @@ LABEL_19:
     goto LABEL_20;
   }
 
-  v6 = [(__CFString *)identifierCopy isEqualToString:@"onlineSharingPinActivation"];
+  isEqualToString = objc_msgSend_isEqualToString_(identifierCopy);
 
-  if ((v6 & 1) == 0)
+  if ((isEqualToString & 1) == 0)
   {
     v9 = v5;
-    if (v9 == @"sharingPasswordActivation" || (v10 = v9, v11 = [(__CFString *)v9 isEqualToString:@"sharingPasswordActivation"], v10, (v11 & 1) != 0))
+    if (v9 == @"sharingPasswordActivation" || (v10 = v9, v11 = objc_msgSend_isEqualToString_(v9), v10, (v11 & 1) != 0))
     {
       v7 = 2;
       goto LABEL_5;
     }
 
     v12 = v10;
-    if (v12 == @"devicePinActivation" || (v13 = v12, v14 = [(__CFString *)v12 isEqualToString:@"devicePinActivation"], v13, (v14 & 1) != 0))
+    if (v12 == @"devicePinActivation" || (v13 = v12, v14 = objc_msgSend_isEqualToString_(v12), v13, (v14 & 1) != 0))
     {
       v7 = 1;
       goto LABEL_5;
     }
 
     v15 = v13;
-    if (v15 == @"ownerKeyActivation" || (v16 = v15, v17 = [(__CFString *)v15 isEqualToString:@"ownerKeyActivation"], v16, (v17 & 1) != 0) || (v18 = v16, v18 == @"friendKeyActivation") || (v19 = v18, v20 = [(__CFString *)v18 isEqualToString:@"friendKeyActivation"], v19, (v20 & 1) != 0) || (v21 = v19, v21 == @"keyFobActivation") || (v22 = v21, v23 = [(__CFString *)v21 isEqualToString:@"keyFobActivation"], v22, (v23 & 1) != 0))
+    if (v15 == @"ownerKeyActivation" || (v16 = v15, v17 = objc_msgSend_isEqualToString_(v15), v16, (v17 & 1) != 0) || (v18 = v16, v18 == @"friendKeyActivation") || (v19 = v18, v20 = objc_msgSend_isEqualToString_(v18), v19, (v20 & 1) != 0) || (v21 = v19, v21 == @"keyFobActivation") || (v22 = v21, v23 = objc_msgSend_isEqualToString_(v21), v22, (v23 & 1) != 0))
     {
       v7 = 3;
       goto LABEL_5;
@@ -164,7 +164,7 @@ LABEL_20:
       if (v5 != @"sharingPasswordActivation" && v5 != 0)
       {
         v7 = v5;
-        [(__CFString *)v5 isEqualToString:@"sharingPasswordActivation"];
+        objc_msgSend_isEqualToString_(v5);
       }
 
       return @"VEP";
@@ -192,9 +192,9 @@ LABEL_20:
   v9 = v8;
   if (v8)
   {
-    v10 = [(__CFString *)v8 isEqualToString:@"ownerKeyActivation"];
+    isEqualToString = objc_msgSend_isEqualToString_(v8);
 
-    if (v10)
+    if (isEqualToString)
     {
       return @"OWNERKEY";
     }
@@ -209,7 +209,7 @@ LABEL_20:
   v12 = v11;
   if (v11)
   {
-    v13 = [(__CFString *)v11 isEqualToString:@"friendKeyActivation"];
+    v13 = objc_msgSend_isEqualToString_(v11);
 
     if (v13)
     {
@@ -221,7 +221,7 @@ LABEL_20:
   result = @"KEYFOB";
   if (v14 != @"keyFobActivation" && v14)
   {
-    [(__CFString *)v14 isEqualToString:@"keyFobActivation"];
+    objc_msgSend_isEqualToString_(v14);
 
     return @"KEYFOB";
   }
@@ -251,9 +251,9 @@ LABEL_20:
   v7 = v6;
   if (v6)
   {
-    v8 = [(__CFString *)v6 isEqualToString:@"ownerKeyActivation"];
+    isEqualToString = objc_msgSend_isEqualToString_(v6);
 
-    if (v8)
+    if (isEqualToString)
     {
       return @"OWNERKEY";
     }
@@ -268,7 +268,7 @@ LABEL_20:
   v10 = v9;
   if (v9)
   {
-    v11 = [(__CFString *)v9 isEqualToString:@"friendKeyActivation"];
+    v11 = objc_msgSend_isEqualToString_(v9);
 
     if (v11)
     {
@@ -282,7 +282,7 @@ LABEL_20:
   {
     if (v12)
     {
-      [(__CFString *)v12 isEqualToString:@"keyFobActivation"];
+      objc_msgSend_isEqualToString_(v12);
 
       return @"KEYFOB";
     }

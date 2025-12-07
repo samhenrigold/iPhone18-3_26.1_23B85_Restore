@@ -7,7 +7,7 @@
 - (void)EKUI_annotateIfNeededWithAppEntityForEvent:()EKUIAppEntityAnnotation isEditing:
 {
   v9 = a3;
-  if (CalendarLinkLibraryCore())
+  if (CalendarLinkLibraryCore(0))
   {
     isViewLoaded = [self isViewLoaded];
     if (v9)

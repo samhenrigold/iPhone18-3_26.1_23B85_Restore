@@ -59,11 +59,11 @@
   return v6;
 }
 
-uint64_t __35__TUISmartActionPollCandidate_hash__block_invoke(uint64_t a1, void *a2)
+char *__35__TUISmartActionPollCandidate_hash__block_invoke(uint64_t a1, void *a2)
 {
   v3 = 257 * *(*(*(a1 + 32) + 8) + 24);
   result = [a2 hash];
-  *(*(*(a1 + 32) + 8) + 24) = v3 + result;
+  *(*(*(a1 + 32) + 8) + 24) = &result[v3];
   return result;
 }
 

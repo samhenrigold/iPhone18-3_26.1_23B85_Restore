@@ -1,334 +1,3 @@
-uint64_t ___xpc_init_pid_domain_process_initial_images_block_invoke(uint64_t a1, const char *a2, void *a3)
-{
-  if (_xpc_has_prefix(a2, "/System/Library/Frameworks/"))
-  {
-    v6 = 32;
-  }
-
-  else
-  {
-    has_prefix = _xpc_has_prefix(a2, "/System/Library/PrivateFrameworks/");
-    v6 = 40;
-    if (has_prefix)
-    {
-      v6 = 32;
-    }
-  }
-
-  xpc_dictionary_set_value(*(a1 + v6), a2, a3);
-  return 1;
-}
-
-void _xpc_envdict_putenv(void *a1, char *a2)
-{
-  v8 = *MEMORY[0x1E69E9840];
-  if (_xpc_has_prefix(a2, "__XPC_"))
-  {
-    v4 = strchr(a2, 61);
-    if (v4)
-    {
-      v5 = v4;
-      memset(v7, 0, sizeof(v7));
-      __strlcpy_chk();
-      xpc_dictionary_set_string(a1, v7, v5 + 1);
-    }
-  }
-
-  v6 = *MEMORY[0x1E69E9840];
-}
-
-uint64_t _libxpc_initializer()
-{
-  init_port_set[3] = *MEMORY[0x1E69E9840];
-  _xpc_ktrace_pid0(687865900);
-  _xpc_install_dispatch_hooks();
-  v0 = MEMORY[0x1E69E99F0];
-  if (*(MEMORY[0x1E69E99F0] + 16) == -1)
-  {
-    v1 = *(MEMORY[0x1E69E99F0] + 24);
-  }
-
-  else
-  {
-    v1 = _os_alloc_once();
-  }
-
-  if (*MEMORY[0x1E69E5908])
-  {
-    xpc_get_class4NSXPC(OS_xpc_uint64);
-    _objc_registerTaggedPointerClass();
-    xpc_get_class4NSXPC(OS_xpc_int64);
-    _objc_registerTaggedPointerClass();
-  }
-
-  *(v1 + 176) = 0;
-  *(v1 + 184) = 0;
-  *(v1 + 112) = xpc_array_create(0, 0);
-  *(v1 + 104) = 0;
-  *(v1 + 41) = 1;
-  v2 = getenv("XPC_FLAGS");
-  if (!v2)
-  {
-    v2 = "0x0";
-  }
-
-  v3 = strtoll(v2, 0, 16);
-  *(v1 + 8) = v3;
-  v4 = getenv("XPC_NULL_BOOTSTRAP");
-  if (v4 && *v4 == 49 && !v4[1])
-  {
-    v3 |= 2uLL;
-    *(v1 + 8) = v3;
-  }
-
-  if ((v3 & 0x4000) != 0)
-  {
-    *(v1 + 208) = 1;
-  }
-
-  v5 = getenv("XPC_SERVICES_UNAVAILABLE");
-  if (v5 && *v5 == 49 && !v5[1])
-  {
-    *(v1 + 8) = v3 | 0x80;
-  }
-
-  if (getsectbyname("__TEXT", "__launchd"))
-  {
-    *v1 = 1;
-  }
-
-  else if (getsectbyname("__TEXT", "__xpcproxy"))
-  {
-    *(v1 + 1) = 1;
-  }
-
-  else if (getsectbyname("__TEXT", "__launchctl"))
-  {
-    *(v1 + 2) = 1;
-  }
-
-  else if (*(v1 + 8))
-  {
-    *(v1 + 3) = 1;
-  }
-
-  if (getsectbyname("__TEXT", "__libxpcunittest") && MEMORY[0xFFFFF4084])
-  {
-    *(v1 + 88) = 1;
-  }
-
-  v6 = *(v1 + 8);
-  if ((v6 & 2) != 0)
-  {
-    *(v1 + 4) = 1;
-    _xpc_neuter_potential_reentrancy(1);
-    v6 = *(v1 + 8);
-    if ((v6 & 0x2000) == 0)
-    {
-LABEL_30:
-      if ((v6 & 0x10) == 0)
-      {
-        goto LABEL_31;
-      }
-
-LABEL_35:
-      xpc_track_activity();
-      goto LABEL_36;
-    }
-  }
-
-  else if ((v6 & 0x2000) == 0)
-  {
-    goto LABEL_30;
-  }
-
-  *(v1 + 192) = 1;
-  if ((v6 & 0x10) != 0)
-  {
-    goto LABEL_35;
-  }
-
-LABEL_31:
-  if ((v6 & 8) != 0)
-  {
-    xpc_transactions_enable();
-  }
-
-LABEL_36:
-  if (getenv("XPC_DEBUG_SERVICES"))
-  {
-    *(v1 + 40) = 1;
-  }
-
-  if ((*v1 & 1) == 0 && (*(v1 + 4) & 1) == 0)
-  {
-    if (*(v1 + 1) == 1)
-    {
-      if (*(v0 + 16) == -1)
-      {
-        v7 = *(v0 + 24);
-      }
-
-      else
-      {
-        v7 = _os_alloc_once();
-      }
-
-      init_port_set[0] = 0;
-      init_port_setCnt = 0;
-      v8 = mach_ports_lookup(*MEMORY[0x1E69E9A60], init_port_set, &init_port_setCnt);
-      if (v8)
-      {
-        _libxpc_initializer_cold_3(v8);
-      }
-
-      v9 = init_port_setCnt;
-      if (!init_port_setCnt)
-      {
-        _libxpc_initializer_cold_6();
-      }
-
-      v10 = init_port_set[0];
-      v11 = *init_port_set[0];
-      *(v7 + 16) = *init_port_set[0];
-      if ((v11 + 1) <= 1)
-      {
-        _libxpc_initializer_cold_5();
-      }
-
-      if (v9 != 1)
-      {
-        *(v7 + 20) = v10[1];
-      }
-
-      mig_deallocate(v10, 4 * v9);
-      if (*(v7 + 9))
-      {
-        v12 = *(v7 + 16);
-        *MEMORY[0x1E69E99F8] = v12;
-        _xpc_mach_port_retain_send(v12);
-      }
-
-      _xpc_create_bootstrap_pipe();
-      goto LABEL_70;
-    }
-
-    v13 = *(v0 + 16);
-    if (*(v1 + 3) == 1)
-    {
-      if (v13 == -1)
-      {
-        v14 = *(v0 + 24);
-        v15 = v14;
-      }
-
-      else
-      {
-        v15 = _os_alloc_once();
-        v14 = *(v0 + 24);
-      }
-
-      v16 = MEMORY[0x1E69E9A60];
-      if (!task_get_special_port(*MEMORY[0x1E69E9A60], 4, (v14 + 16)))
-      {
-        v17 = *(v14 + 16);
-        *MEMORY[0x1E69E99F8] = v17;
-        _xpc_mach_port_retain_send(v17);
-        if ((*(v14 + 8) & 4) != 0)
-        {
-          init_port_set[0] = 0;
-          init_port_setCnt = 0;
-          v18 = mach_ports_lookup(*v16, init_port_set, &init_port_setCnt);
-          if (v18)
-          {
-            _libxpc_initializer_cold_3(v18);
-          }
-
-          v19 = init_port_set[0];
-          if (*init_port_set[0] + 1 >= 2)
-          {
-            *(v14 + 32) = _xpc_endpoint_create(*init_port_set[0]);
-            v19 = init_port_set[0];
-          }
-
-          mig_deallocate(v19, 4 * init_port_setCnt);
-        }
-
-        _xpc_create_bootstrap_pipe();
-        _xpc_collect_environment();
-        _xpc_collect_images();
-        if ((*(v15 + 16) + 1) <= 1)
-        {
-          *(v15 + 8) |= 2uLL;
-          *(v15 + 4) = 1;
-        }
-
-        v20 = 0;
-LABEL_69:
-        _xpc_early_init(v20);
-        goto LABEL_70;
-      }
-
-      special_port = _libxpc_initializer_cold_2();
-    }
-
-    else
-    {
-      if (v13 == -1)
-      {
-        v21 = *(v0 + 24);
-        v22 = v21;
-      }
-
-      else
-      {
-        v22 = _os_alloc_once();
-        v21 = *(v0 + 24);
-      }
-
-      special_port = task_get_special_port(*MEMORY[0x1E69E9A60], 4, (v21 + 16));
-      if (!special_port)
-      {
-        v24 = *(v21 + 16);
-        *MEMORY[0x1E69E99F8] = v24;
-        _xpc_mach_port_retain_send(v24);
-        _xpc_create_bootstrap_pipe();
-        _xpc_collect_environment();
-        _xpc_collect_images();
-        if ((*(v22 + 16) + 1) <= 1)
-        {
-          *(v22 + 8) |= 2uLL;
-          *(v22 + 4) = 1;
-        }
-
-        v20 = 1;
-        goto LABEL_69;
-      }
-    }
-
-    _libxpc_initializer_cold_1(special_port);
-  }
-
-LABEL_70:
-  v25 = getenv("XPC_FLAGS");
-  if (v25)
-  {
-    v26 = v25;
-    v27 = *(v1 + 8) & 0x82;
-    memset(init_port_set, 0, 24);
-    snprintf(init_port_set, 0x18uLL, "0x%llx", v27);
-    if (strcmp(init_port_set, v26))
-    {
-      setenv("XPC_FLAGS", init_port_set, 1);
-    }
-  }
-
-  *(v1 + 137) = 1;
-  result = _xpc_ktrace_pid0(687865904);
-  v29 = *MEMORY[0x1E69E9840];
-  return result;
-}
-
 uint64_t xpc_atfork_prepare()
 {
   if (*(MEMORY[0x1E69E99F0] + 16) == -1)
@@ -447,28 +116,28 @@ void _xpc_uncork_domain()
   os_unfair_lock_lock_with_options();
   _xpc_uncork_pid_domain_locked(v0);
 
-  os_unfair_lock_unlock(v0 + 26);
+  os_unfair_lock_unlock((v0 + 104));
 }
 
-void _xpc_uncork_pid_domain_locked(uint64_t a1)
+void _xpc_uncork_pid_domain_locked(xpc_object_t *inited)
 {
-  if ((*(a1 + 108) & 1) == 0 && (*(a1 + 4) & 1) == 0 && (*(a1 + 1) & 1) == 0)
+  if ((*(inited + 108) & 1) == 0 && (*(inited + 4) & 1) == 0 && (*(inited + 1) & 1) == 0)
   {
-    if ((*(a1 + 109) & 1) == 0)
+    if ((*(inited + 109) & 1) == 0)
     {
-      _xpc_init_pid_domain(a1);
+      _xpc_init_pid_domain(inited);
     }
 
-    *(a1 + 108) = 1;
+    *(inited + 108) = 1;
     if ((_xpc_services_unavailable() & 1) == 0)
     {
       v2 = xpc_dictionary_create(0, 0, 0);
-      if (xpc_array_get_count(*(a1 + 112)))
+      if (xpc_array_get_count(inited[14]))
       {
         v3 = 0;
         do
         {
-          value = xpc_array_get_value(*(a1 + 112), v3);
+          value = xpc_array_get_value(inited[14], v3);
           applier[0] = MEMORY[0x1E69E9820];
           applier[1] = 0x40000000;
           applier[2] = ___xpc_uncork_pid_domain_locked_block_invoke;
@@ -478,7 +147,7 @@ void _xpc_uncork_pid_domain_locked(uint64_t a1)
           ++v3;
         }
 
-        while (v3 < xpc_array_get_count(*(a1 + 112)));
+        while (v3 < xpc_array_get_count(inited[14]));
       }
 
       if (xpc_dictionary_get_count(v2))
@@ -487,8 +156,8 @@ void _xpc_uncork_pid_domain_locked(uint64_t a1)
       }
 
       xpc_release(v2);
-      xpc_release(*(a1 + 112));
-      *(a1 + 112) = 0;
+      xpc_release(inited[14]);
+      inited[14] = 0;
       v5 = xpc_dictionary_create(0, 0, 0);
       xpc_dictionary_set_uint64(v5, "type", 5uLL);
       v6 = getpid();
@@ -575,109 +244,108 @@ void _fetch_xpcservice_info()
   xpc_release(v1);
 }
 
-_xpc_connection_s *xpc_connection_create_bs_service_listener(const char *a1)
+_xpc_connection_s *xpc_connection_create_bs_service_listener(const char *a1, uint64_t a2)
 {
-  service_listener = _xpc_connection_create_service_listener(a1);
+  service_listener = _xpc_connection_create_service_listener(a1, a2);
   _xpc_register_service_listener_with_handler(service_listener, 0, a1 == 0, 1);
   return service_listener;
 }
 
-uint64_t _xpc_connection_create_service_listener(const char *a1)
+uint64_t _xpc_connection_create_service_listener(const char *a1, uint64_t a2)
 {
-  v47 = *MEMORY[0x1E69E9840];
-  v2 = _xpc_copy_xpcservice_dictionary();
-  if (!v2 || (v3 = v2, xpc_get_type(v2) != OS_xpc_dictionary))
+  v48 = *MEMORY[0x1E69E9840];
+  v4 = _xpc_copy_xpcservice_dictionary();
+  if (!v4 || (v5 = v4, xpc_get_type(v4) != OS_xpc_dictionary))
   {
     _xpc_connection_create_service_listener_cold_6();
   }
 
   if (*(MEMORY[0x1E69E99F0] + 16) == -1)
   {
-    v4 = *(MEMORY[0x1E69E99F0] + 24);
+    v6 = *(MEMORY[0x1E69E99F0] + 24);
   }
 
   else
   {
-    v4 = _os_alloc_once();
+    v6 = _os_alloc_once();
   }
 
-  if (*(v4 + 144) != -1)
+  if (*(v6 + 144) != -1)
   {
-    dispatch_once_f((v4 + 144), 0, _fetch_xpcservice_info);
+    dispatch_once_f((v6 + 144), 0, _fetch_xpcservice_info);
   }
 
-  v5 = *(v4 + 160);
-  if (!v5)
+  v7 = *(v6 + 160);
+  if (!v7)
   {
     _xpc_connection_create_service_listener_cold_5();
   }
 
-  v6 = _xpc_strdup(v5);
-  if (!v6)
+  v8 = _xpc_strdup(v7);
+  if (!v8)
   {
     _xpc_connection_create_service_listener_cold_4();
   }
 
-  v7 = v6;
+  v9 = v8;
   if (a1)
   {
-    value = xpc_dictionary_get_value(v3, "_AdditionalSubServices");
-    if (!value || (v9 = value, xpc_get_type(value) != OS_xpc_dictionary))
+    value = xpc_dictionary_get_value(v5, "_AdditionalSubServices");
+    if (!value || (v11 = value, xpc_get_type(value) != OS_xpc_dictionary))
     {
       _xpc_connection_create_service_listener_cold_3();
     }
 
-    v10 = xpc_dictionary_get_value(v9, a1);
-    if (!v10 || (v11 = v10, xpc_get_type(v10) != OS_xpc_BOOL))
+    v12 = xpc_dictionary_get_value(v11, a1);
+    if (!v12 || (v13 = v12, xpc_get_type(v12) != OS_xpc_BOOL))
     {
       _xpc_connection_create_service_listener_cold_2();
     }
 
-    if (v11 == &_xpc_BOOL_false)
+    if (v13 == &_xpc_BOOL_false)
     {
       _xpc_connection_create_service_listener_cold_1();
     }
 
-    v45 = 0u;
     v46 = 0u;
-    v43 = 0u;
+    v47 = 0u;
     v44 = 0u;
-    v41 = 0u;
+    v45 = 0u;
     v42 = 0u;
-    v39 = 0u;
+    v43 = 0u;
     v40 = 0u;
-    v37 = 0u;
+    v41 = 0u;
     v38 = 0u;
-    v35 = 0u;
+    v39 = 0u;
     v36 = 0u;
-    v33 = 0u;
+    v37 = 0u;
     v34 = 0u;
-    v31 = 0u;
+    v35 = 0u;
     v32 = 0u;
-    v29 = 0u;
+    v33 = 0u;
     v30 = 0u;
-    v27 = 0u;
+    v31 = 0u;
     v28 = 0u;
-    v25 = 0u;
+    v29 = 0u;
     v26 = 0u;
-    v23 = 0u;
+    v27 = 0u;
     v24 = 0u;
-    v21 = 0u;
+    v25 = 0u;
     v22 = 0u;
-    v19 = 0u;
+    v23 = 0u;
     v20 = 0u;
-    v17 = 0u;
+    v21 = 0u;
     v18 = 0u;
+    v19 = 0u;
     *__str = 0u;
-    v16 = 0u;
-    snprintf(__str, 0x200uLL, "%s.%s", v7, a1);
-    v6 = __str;
+    v17 = 0u;
+    snprintf(__str, 0x200uLL, "%s.%s", v9, a1);
+    v8 = __str;
   }
 
-  internal_listener = _xpc_connection_create_internal_listener(v6);
-  xpc_release(v3);
-  free(v7);
-  v13 = *MEMORY[0x1E69E9840];
+  internal_listener = _xpc_connection_create_internal_listener(v8, a2);
+  xpc_release(v5);
+  free(v9);
   return internal_listener;
 }
 
@@ -769,7 +437,7 @@ void xpc_handle_service(char *a1, uint64_t a2, uint64_t a3)
 {
   if (a3)
   {
-    v14 = _xpc_asprintf("The evaluator doesn't do anything. Pass NULL.");
+    v14 = _xpc_asprintf("The evaluator doesn't do anything. Pass NULL.", a2);
     _xpc_api_misuse(v14);
   }
 
@@ -803,7 +471,7 @@ void xpc_handle_service(char *a1, uint64_t a2, uint64_t a3)
     xpc_handle_service_cold_1();
   }
 
-  internal_listener = _xpc_connection_create_internal_listener(a1);
+  internal_listener = _xpc_connection_create_internal_listener(a1, 0);
   _xpc_register_service_listener_with_handler(internal_listener, a2, 0, 0);
   xpc_release(internal_listener);
 
@@ -812,7 +480,7 @@ void xpc_handle_service(char *a1, uint64_t a2, uint64_t a3)
 
 void xpc_handle_subservice(const char *a1, uint64_t a2)
 {
-  service_listener = _xpc_connection_create_service_listener(a1);
+  service_listener = _xpc_connection_create_service_listener(a1, 0);
   _xpc_register_service_listener_with_handler(service_listener, a2, 0, 0);
 
   xpc_release(service_listener);
@@ -820,7 +488,7 @@ void xpc_handle_subservice(const char *a1, uint64_t a2)
 
 void xpc_main(xpc_connection_handler_t handler)
 {
-  service_listener = _xpc_connection_create_service_listener(0);
+  service_listener = _xpc_connection_create_service_listener(0, 0);
   _xpc_register_service_listener_with_handler(service_listener, handler, 1, 1);
   xpc_release(service_listener);
   _xpc_main();
@@ -1094,22 +762,20 @@ uint64_t ___xpc_dyld_image_callback_block_invoke()
 
 uint64_t _xpc_copy_own_bundle()
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   bzero(buf, 0x400uLL);
   bufsize = 1024;
   if (_NSGetExecutablePath(buf, &bufsize) || !bufsize)
   {
-    _xpc_copy_own_bundle_cold_1(&v2, v4);
+    _xpc_copy_own_bundle_cold_1(v1, v3);
   }
 
-  result = xpc_bundle_create(buf, 2u);
-  v1 = *MEMORY[0x1E69E9840];
-  return result;
+  return xpc_bundle_create(buf, 2u);
 }
 
 _BYTE *_xpc_init_pid_domain(_BYTE *result)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if ((result[109] & 1) == 0)
   {
     v1 = result;
@@ -1138,9 +804,9 @@ _BYTE *_xpc_init_pid_domain(_BYTE *result)
         xpc_release(object);
       }
 
-      if (v6 == 32 && (*(v1 + 137) & 1) == 0)
+      if (v6 == 32 && (v1[137] & 1) == 0)
       {
-        _xpc_init_pid_domain_cold_1(&v8, v10);
+        _xpc_init_pid_domain_cold_1(&v7, v9);
       }
 
       xpc_release(v2);
@@ -1148,11 +814,10 @@ _BYTE *_xpc_init_pid_domain(_BYTE *result)
       _initial_images = 0;
       xpc_release(_environment);
       _environment = 0;
-      result = _xpc_ktrace_pid0(687865920);
+      return _xpc_ktrace_pid0(687865920);
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -1287,24 +952,22 @@ uint64_t _xpc_serializer_munmap(void *a1, size_t a2)
 
 size_t _xpc_serializer_debug(uint64_t a1, char *a2, size_t a3)
 {
-  v6 = *(a1 + 24);
   msg = dispatch_mach_msg_get_msg();
-  v8 = *(a1 + 24);
   dispatch_mach_msg_get_msg();
   result = 0;
   if (a3 >= 2)
   {
     if ((*(a1 + 156) & 4) != 0)
     {
-      v10 = "true";
+      v8 = "true";
     }
 
     else
     {
-      v10 = "false";
+      v8 = "false";
     }
 
-    LODWORD(result) = snprintf(a2, a3, ", hdr = %p, hdr size = %lu, graph = %p, graph sz = %lu, out-of-line = %s", msg, 0, *(a1 + 32), *(a1 + 40), v10);
+    LODWORD(result) = snprintf(a2, a3, ", hdr = %p, hdr size = %lu, graph = %p, graph sz = %lu, out-of-line = %s", msg, 0, *(a1 + 32), *(a1 + 40), v8);
     if (result >= a3)
     {
       return a3 - 1;
@@ -1369,37 +1032,62 @@ uint64_t _xpc_serializer_create_for_data()
   return v0;
 }
 
-uint64_t _xpc_serializer_append(uint64_t result, void *__src, size_t __n, int a4)
+uint64_t _xpc_serializer_append(uint64_t result, void *__src, size_t __n, uint64_t a4)
 {
-  v28 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   if ((*(result + 16) & 5) == 1)
   {
-    v17 = _xpc_asprintf("Attempt to append to a serializer created from the wire.", __src, __n);
-    _xpc_api_misuse(v17);
+    v16 = _xpc_asprintf("Attempt to append to a serializer created from the wire.", __src, __n, a4);
+    _xpc_api_misuse(v16);
   }
 
-  if (!__src)
+  if (__src)
   {
-    goto LABEL_12;
-  }
-
-  v7 = result;
-  v8 = (__n + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  if (a4)
-  {
-    v9 = (__n + 3) & 0xFFFFFFFFFFFFFFFCLL;
-  }
-
-  else
-  {
-    v9 = __n;
-  }
-
-  v10 = *(result + 56);
-  if (v10 >= v9)
-  {
-LABEL_9:
+    v5 = a4;
+    v7 = result;
+    v8 = (__n + 3) & 0xFFFFFFFFFFFFFFFCLL;
     if (a4)
+    {
+      v9 = (__n + 3) & 0xFFFFFFFFFFFFFFFCLL;
+    }
+
+    else
+    {
+      v9 = __n;
+    }
+
+    v10 = *(result + 56);
+    if (v10 < v9)
+    {
+      if ((*(result + 156) & 0x48) == 0)
+      {
+        v25 = 0u;
+        v26 = 0u;
+        v23 = 0u;
+        v24 = 0u;
+        v21 = 0u;
+        v22 = 0u;
+        v19 = 0u;
+        v20 = 0u;
+        *__str = 0u;
+        v18 = 0u;
+        result = snprintf(__str, 0xA0uLL, "full graph sz = %zu, remaining = %zu, needed = %zu", *(result + 40), v10, v9);
+        qword_1EAF1E800 = __str;
+        __break(1u);
+        return result;
+      }
+
+      v11 = *(result + 40);
+      v12 = v11 - v10;
+      v13 = ((v9 - v10 + 3) & 0xFFFFFFFFFFFFFFFCLL) + 2 * v11;
+      v14 = _xpc_realloc_typed(*(result + 32), v11, v13, 0x1CB89060uLL);
+      *(v7 + 32) = v14;
+      *(v7 + 40) = v13;
+      *(v7 + 48) = &v14[v12];
+      *(v7 + 56) = v13 - v12;
+    }
+
+    if (v5)
     {
       bzero((*(v7 + 48) + __n), v8 - __n);
     }
@@ -1408,60 +1096,31 @@ LABEL_9:
     v15 = *(v7 + 56) - v9;
     *(v7 + 48) += v9;
     *(v7 + 56) = v15;
-LABEL_12:
-    v16 = *MEMORY[0x1E69E9840];
-    return result;
   }
 
-  if ((*(result + 156) & 0x48) != 0)
-  {
-    v11 = *(result + 40);
-    v12 = v11 - v10;
-    v13 = ((v9 - v10 + 3) & 0xFFFFFFFFFFFFFFFCLL) + 2 * v11;
-    v14 = _xpc_realloc_typed(*(result + 32), v11, v13, 0x1CB89060uLL);
-    *(v7 + 32) = v14;
-    *(v7 + 40) = v13;
-    *(v7 + 48) = &v14[v12];
-    *(v7 + 56) = v13 - v12;
-    goto LABEL_9;
-  }
-
-  v26 = 0u;
-  v27 = 0u;
-  v24 = 0u;
-  v25 = 0u;
-  v22 = 0u;
-  v23 = 0u;
-  v20 = 0u;
-  v21 = 0u;
-  *__str = 0u;
-  v19 = 0u;
-  result = snprintf(__str, 0xA0uLL, "full graph sz = %zu, remaining = %zu, needed = %zu", *(result + 40), v10, v9);
-  qword_1EAF1E800 = __str;
-  __break(1u);
   return result;
 }
 
 uint64_t _xpc_serializer_pack(uint64_t a1, unint64_t a2, unsigned int a3, char a4)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v41 = *MEMORY[0x1E69E9840];
   _xpc_ktrace_pid1(687865860, a2);
   if (_xpc_is_cyclic(a2))
   {
-    v39 = _xpc_asprintf("Tried to serialize an object containing a cycle");
+    v34 = _xpc_asprintf("Tried to serialize an object containing a cycle");
     goto LABEL_52;
   }
 
-  v43 = 8;
-  v44 = 0;
-  v42[0] = a1;
-  v42[1] = &v43;
-  v42[2] = &v44;
-  _xpc_serializer_apply(a2, v42);
-  v8 = v43;
-  if (12 * v44)
+  v38 = 8;
+  v39 = 0;
+  v37[0] = a1;
+  v37[1] = &v38;
+  v37[2] = &v39;
+  _xpc_serializer_apply(a2, v37);
+  v8 = v38;
+  if (12 * v39)
   {
-    v9 = 12 * v44 + 28;
+    v9 = 12 * v39 + 28;
   }
 
   else
@@ -1469,36 +1128,36 @@ uint64_t _xpc_serializer_pack(uint64_t a1, unint64_t a2, unsigned int a3, char a
     v9 = 24;
   }
 
-  v41 = 0;
-  v11 = (a4 & 1) == 0 && (v9 + v43) < 0x3FBD;
+  v36 = 0;
+  v11 = (a4 & 1) == 0 && (v9 + v38) < 0x3FBD;
   if ((a4 & 2) != 0 || v11)
   {
     *(a1 + 24) = dispatch_mach_msg_create();
-    v13 = (v41 + v9);
+    v13 = (v36 + v9);
   }
 
   else
   {
     v12 = 16;
-    if (!v44)
+    if (!v39)
     {
       v12 = 20;
     }
 
     if ((v9 + v12) > 0x40000)
     {
-      _xpc_serializer_pack_cold_1(&v40, v45);
+      _xpc_serializer_pack_cold_1(&v35, v40);
     }
 
     *(a1 + 24) = dispatch_mach_msg_create();
-    *&v45[0] = v8;
-    v13 = _xpc_mmap_anon(v45);
+    *&v40[0] = v8;
+    v13 = _xpc_mmap_anon(v40);
     *(a1 + 64) = _xpc_serializer_munmap;
     *(a1 + 156) |= 4u;
   }
 
-  v14 = v44;
-  if (v44)
+  v14 = v39;
+  if (v39)
   {
     v15 = 44;
     if ((*(a1 + 156) & 4) == 0)
@@ -1506,7 +1165,7 @@ uint64_t _xpc_serializer_pack(uint64_t a1, unint64_t a2, unsigned int a3, char a
       v15 = 28;
     }
 
-    *(a1 + 72) = v41 + v15;
+    *(a1 + 72) = v36 + v15;
     *(a1 + 88) = v14;
   }
 
@@ -1561,9 +1220,9 @@ uint64_t _xpc_serializer_pack(uint64_t a1, unint64_t a2, unsigned int a3, char a
         goto LABEL_39;
       }
 
-      v39 = _xpc_asprintf("Object is not an XPC object");
+      v34 = _xpc_asprintf("Object is not an XPC object");
 LABEL_52:
-      _xpc_api_misuse(v39);
+      _xpc_api_misuse(v34);
     }
 
     extension_vtable = &_OS_xpc_type_uint64;
@@ -1572,14 +1231,14 @@ LABEL_52:
   else
   {
     Class = object_getClass(a2);
-    if (Class < OS_xpc_object || Class > OS_xpc_string_cache || (Class & 7) != 0)
+    if (Class < OBJC_CLASS___OS_xpc_object || Class > OS_xpc_string_cache || (Class & 7) != 0)
     {
       extension_vtable = _xpc_get_extension_vtable(a2);
     }
 
     else
     {
-      extension_vtable = (&_xpc_vtables + 2 * (Class - OS_xpc_object));
+      extension_vtable = (&_xpc_vtables + 2 * (Class - OBJC_CLASS___OS_xpc_object));
     }
   }
 
@@ -1592,49 +1251,43 @@ LABEL_39:
     _xpc_serializer_pack_cold_2(v24, v25, a2);
   }
 
-  v26 = *(a1 + 24);
   msg = dispatch_mach_msg_get_msg();
-  *&v45[0] = 0;
-  v28 = *(a1 + 24);
+  *&v40[0] = 0;
   dispatch_mach_msg_get_msg();
-  v29 = v45[0];
-  v30 = *(a1 + 88) + ((*(a1 + 156) >> 2) & 1);
+  v27 = v40[0];
+  v28 = *(a1 + 88) + ((*(a1 + 156) >> 2) & 1);
   if (xpc_get_type(a2) == OS_xpc_dictionary)
   {
     *(a1 + 128) = _xpc_dictionary_extract_importance_voucher(a2);
     transaction = _xpc_dictionary_get_transaction(a2);
-    v32 = transaction ? 16 : 0;
-    *(a1 + 156) = *(a1 + 156) & 0xEF | v32;
+    v30 = transaction ? 16 : 0;
+    *(a1 + 156) = *(a1 + 156) & 0xEF | v30;
     if (transaction)
     {
       _xpc_dictionary_set_transaction(a2, 0);
     }
   }
 
-  *msg = (v30 != 0) << 31;
-  *(msg + 4) = v29;
+  *msg = (v28 != 0) << 31;
+  *(msg + 4) = v27;
   *(msg + 8) = xmmword_1972A7D10;
-  if (v30)
+  if (v28)
   {
-    *(msg + 24) = v30;
+    *(msg + 24) = v28;
     if ((*(a1 + 156) & 4) != 0)
     {
       *(a1 + 64) = 0;
-      v33 = (*(a1 + 40) + *MEMORY[0x1E69E9AC8] - 1) & -*MEMORY[0x1E69E9AC8];
+      v31 = (*(a1 + 40) + *MEMORY[0x1E69E9AC8] - 1) & -*MEMORY[0x1E69E9AC8];
       *(msg + 28) = *(a1 + 32);
       *(msg + 36) = 16777473;
-      *(msg + 40) = v33;
+      *(msg + 40) = v31;
     }
   }
 
   *(a1 + 156) |= 1u;
-  v34 = *(a1 + 24);
-  v35 = dispatch_mach_msg_get_msg();
-  _xpc_ktrace_pid2(687865864, a2, v35);
-  v36 = *(a1 + 24);
-  result = dispatch_mach_msg_get_msg();
-  v38 = *MEMORY[0x1E69E9840];
-  return result;
+  v32 = dispatch_mach_msg_get_msg();
+  _xpc_ktrace_pid2(687865864, a2, v32);
+  return dispatch_mach_msg_get_msg();
 }
 
 void _xpc_serializer_clear_sent_descriptors(uint64_t a1)
@@ -1716,37 +1369,34 @@ void _xpc_serializer_cleanup(uint64_t a1)
 
 uint64_t _xpc_serializer_reap_combined_send_receive(uint64_t a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if ((*(a1 + 156) & 2) == 0)
   {
-    _xpc_serializer_reap_combined_send_receive_cold_3(&v4, v5);
+    _xpc_serializer_reap_combined_send_receive_cold_3(&v3, v4);
   }
 
   if (*(a1 + 64))
   {
-    _xpc_serializer_reap_combined_send_receive_cold_1(&v4, v5);
+    _xpc_serializer_reap_combined_send_receive_cold_1(&v3, v4);
   }
 
   v1 = *(a1 + 24);
   if (!v1)
   {
-    _xpc_serializer_reap_combined_send_receive_cold_2(&v4, v5);
+    _xpc_serializer_reap_combined_send_receive_cold_2(&v3, v4);
   }
 
   *(a1 + 24) = 0;
-  v2 = *MEMORY[0x1E69E9840];
   return v1;
 }
 
 void _xpc_serializer_destroy(_DWORD *a1)
 {
-  v4 = *MEMORY[0x1E69E9840];
+  v3 = *MEMORY[0x1E69E9840];
   if (a1[3] != 1)
   {
-    _xpc_serializer_destroy_cold_1(&v2, v3);
+    _xpc_serializer_destroy_cold_1(&v1, v2);
   }
-
-  v1 = *MEMORY[0x1E69E9840];
 
   xpc_release(a1);
 }
@@ -1806,14 +1456,7 @@ uint64_t _xpc_serializer_unpad(uint64_t a1)
   return v1;
 }
 
-uint64_t _xpc_serializer_get_mach_message_length(uint64_t a1)
-{
-  v1 = *(a1 + 24);
-  dispatch_mach_msg_get_msg();
-  return 0;
-}
-
-uint64_t _xpc_serializer_reset_mach_message_header(uint64_t a1)
+uint64_t _xpc_serializer_reset_mach_message_header(uint64_t a1, uint64_t a2, uint64_t a3)
 {
   dispatch_release(*(a1 + 24));
   result = dispatch_mach_msg_create();
@@ -1830,7 +1473,7 @@ uint64_t _xpc_connection_reply_callout(uint64_t a1, uint64_t a2)
   return _os_avoid_tail_call();
 }
 
-unsigned int *_xpc_serializer_apply(uint64_t object, uint64_t a2)
+__objc2_class *_xpc_serializer_apply(uint64_t object, uint64_t a2)
 {
   v4 = *(a2 + 8);
   if (object < 0)
@@ -1898,14 +1541,14 @@ unsigned int *_xpc_serializer_apply(uint64_t object, uint64_t a2)
   return result;
 }
 
-uint64_t _xpc_serializer_dictionary_apply(const char *a1, void *a2, uint64_t a3)
+__objc2_class *_xpc_serializer_dictionary_apply(const char *a1, uint64_t a2, uint64_t a3)
 {
   **(a3 + 8) += (strlen(a1) & 0xFFFFFFFFFFFFFFFCLL) + 4;
 
-  return _xpc_serializer_apply(a2);
+  return _xpc_serializer_apply(a2, a3);
 }
 
-uint64_t launch_trial_factors_active_reload(xpc_object_t *a1)
+int64_t launch_trial_factors_active_reload(xpc_object_t *a1)
 {
   v2 = xpc_dictionary_create(0, 0, 0);
   xdict = 0;
@@ -1936,10 +1579,10 @@ uint64_t launch_trial_factors_active_reload(xpc_object_t *a1)
 
 uint64_t _xpc_mach_send_desc(unsigned int *a1, uint64_t a2)
 {
-  v21 = *MEMORY[0x1E69E9840];
-  v12 = 0;
+  v20 = *MEMORY[0x1E69E9840];
+  v11 = 0;
   v4 = MEMORY[0x1E69E9A60];
-  v5 = MEMORY[0x19A8DD090](*MEMORY[0x1E69E9A60], a1[6], 0, &v12);
+  v5 = MEMORY[0x19A8DD090](*MEMORY[0x1E69E9A60], a1[6], 0, &v11);
   if (v5)
   {
     if (v5 == 15)
@@ -1949,7 +1592,7 @@ uint64_t _xpc_mach_send_desc(unsigned int *a1, uint64_t a2)
 
     else if (v5 == 17)
     {
-      v6 = MEMORY[0x19A8DD090](*v4, a1[6], 4, &v12);
+      v6 = MEMORY[0x19A8DD090](*v4, a1[6], 4, &v11);
       v7 = "(invalid)";
       if (!v6)
       {
@@ -1968,15 +1611,15 @@ uint64_t _xpc_mach_send_desc(unsigned int *a1, uint64_t a2)
     v7 = "send";
   }
 
-  v19 = 0u;
-  v20 = 0u;
-  v17 = 0u;
   v18 = 0u;
-  v15 = 0u;
+  v19 = 0u;
   v16 = 0u;
-  *__str = 0u;
+  v17 = 0u;
   v14 = 0u;
-  v8 = snprintf(__str, 0x80uLL, "<%s: %p> { name = %u, right = %s, urefs = %u }", "mach send right", a1, a1[6], v7, v12);
+  v15 = 0u;
+  *__str = 0u;
+  v13 = 0u;
+  v8 = snprintf(__str, 0x80uLL, "<%s: %p> { name = %u, right = %s, urefs = %u }", "mach send right", a1, a1[6], v7, v11);
   if (v8 >= 0x7F)
   {
     v9 = 127;
@@ -1987,9 +1630,7 @@ uint64_t _xpc_mach_send_desc(unsigned int *a1, uint64_t a2)
     v9 = v8;
   }
 
-  result = _xpc_serializer_append(a2, __str, (v9 + 1), 0);
-  v11 = *MEMORY[0x1E69E9840];
-  return result;
+  return _xpc_serializer_append(a2, __str, (v9 + 1), 0);
 }
 
 uint64_t _xpc_mach_send_serialize(uint64_t a1, void *a2)
@@ -1997,7 +1638,7 @@ uint64_t _xpc_mach_send_serialize(uint64_t a1, void *a2)
   v2 = *(a1 + 24);
   if (v2 == -2)
   {
-    v4 = _xpc_asprintf("Cannot serialize an xpc_mach_send object and use _xpc_mach_send_extract_right at the same time");
+    v4 = _xpc_asprintf("Cannot serialize an xpc_mach_send object and use _xpc_mach_send_extract_right at the same time", a2);
     _xpc_api_misuse(v4);
   }
 
@@ -2308,14 +1949,14 @@ xpc_object_t _create_with_format_and_arguments(void *a1, const char *a2, uint64_
 
 uint64_t ___create_with_format_and_arguments_block_invoke(uint64_t a1, int a2)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   if (a2)
   {
     v3 = *(*(a1 + 32) + 8);
     v4 = *(v3 + 24);
     if (*(*(a1 + 40) + v4) != a2)
     {
-      ___create_with_format_and_arguments_block_invoke_cold_1(&v11, v12);
+      ___create_with_format_and_arguments_block_invoke_cold_1(&v10, v11);
     }
 
     *(v3 + 24) = v4 + 1;
@@ -2335,7 +1976,7 @@ uint64_t ___create_with_format_and_arguments_block_invoke(uint64_t a1, int a2)
     result = *(v5 + 4 * v8 + 60) & 0x4000;
     if (!result)
     {
-      goto LABEL_10;
+      return result;
     }
 
 LABEL_9:
@@ -2348,20 +1989,18 @@ LABEL_9:
     goto LABEL_9;
   }
 
-LABEL_10:
-  v10 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 uint64_t ___create_with_format_and_arguments_block_invoke_1(void *a1, unsigned __int8 a2)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   v2 = a1[6];
   v3 = *(a1[5] + 8);
   v4 = *(v3 + 24);
   if (*(v2 + v4) != a2)
   {
-    ___create_with_format_and_arguments_block_invoke_cold_1(&v17, v18);
+    ___create_with_format_and_arguments_block_invoke_cold_1(&v16, v17);
   }
 
   *(v3 + 24) = v4 + 1;
@@ -2394,7 +2033,6 @@ uint64_t ___create_with_format_and_arguments_block_invoke_1(void *a1, unsigned _
 
   *(v5 + v11) = 0;
   (*(a1[4] + 16))();
-  v15 = *MEMORY[0x1E69E9840];
   return v5 + v8;
 }
 
@@ -2455,7 +2093,7 @@ uint64_t ___create_with_format_and_arguments_block_invoke_2(void *a1)
 
 void ___create_with_format_and_arguments_block_invoke_10(void *a1, void *a2)
 {
-  v65 = *MEMORY[0x1E69E9840];
+  v61 = *MEMORY[0x1E69E9840];
   v4 = *(a1[7] + 8);
   v5 = *(v4 + 24);
   v6 = *(a1[13] + v5);
@@ -2463,134 +2101,133 @@ void ___create_with_format_and_arguments_block_invoke_10(void *a1, void *a2)
   {
     case '%':
       *(v4 + 24) = v5 + 1;
-      v8 = a1[4];
-      v9 = (*(a1[4] + 16))();
-      v10 = strlen(v9);
-      if (!v10)
+      v8 = (*(a1[4] + 16))();
+      v9 = strlen(v8);
+      if (!v9)
       {
-        ___create_with_format_and_arguments_block_invoke_10_cold_1(&v63, v64);
+        ___create_with_format_and_arguments_block_invoke_10_cold_1(&v59, v60);
       }
 
-      v11 = v10;
-      v12 = *(*(a1[7] + 8) + 24);
-      v13 = *(a1[13] + v12);
-      if (*(a1[13] + v12))
+      v10 = v9;
+      v11 = *(*(a1[7] + 8) + 24);
+      v12 = *(a1[13] + v11);
+      if (*(a1[13] + v11))
       {
-        if (v13 == 42)
+        if (v12 == 42)
         {
-          v14 = 0;
+          v13 = 0;
         }
 
         else
         {
-          if (v13 != 43)
+          if (v12 != 43)
           {
-            v17 = 0;
-            v19 = 1;
+            v15 = 0;
+            v16 = 1;
 LABEL_17:
-            v20 = xpc_format_specifiers_lookup(v9, v11);
-            if (!v20)
+            v17 = xpc_format_specifiers_lookup(v8, v10);
+            if (!v17)
             {
-              v31 = _xpc_asprintf("Invalid format specifier!");
+              v27 = _xpc_asprintf("Invalid format specifier!");
               goto LABEL_64;
             }
 
-            v21 = v20[2];
-            if (v21 > 5)
+            v18 = v17[2];
+            if (v18 > 5)
             {
-              if (v21 <= 7)
+              if (v18 <= 7)
               {
-                if (v21 == 6)
+                if (v18 == 6)
                 {
-                  if ((v19 & 1) == 0)
+                  if ((v16 & 1) == 0)
                   {
-                    v31 = _xpc_asprintf("Invalid rest suffix for 'fd' format specifier!");
+                    v27 = _xpc_asprintf("Invalid rest suffix for 'fd' format specifier!");
                     goto LABEL_64;
                   }
 
-                  v22 = v47;
-                  v23 = v46;
-                  v46[0] = MEMORY[0x1E69E9820];
-                  v46[1] = 0x40000000;
-                  v47[0] = ___create_with_format_and_arguments_block_invoke_6;
-                  v47[1] = &unk_1E74AAF78;
-                  v24 = a1[11];
-                  v47[2] = a1[10];
-                  v47[3] = v24;
-                  v47[4] = a2;
+                  v19 = v43;
+                  v20 = v42;
+                  v42[0] = MEMORY[0x1E69E9820];
+                  v42[1] = 0x40000000;
+                  v43[0] = ___create_with_format_and_arguments_block_invoke_6;
+                  v43[1] = &unk_1E74AAF78;
+                  v21 = a1[11];
+                  v43[2] = a1[10];
+                  v43[3] = v21;
+                  v43[4] = a2;
                 }
 
                 else
                 {
-                  if ((v19 & 1) == 0)
+                  if ((v16 & 1) == 0)
                   {
-                    v31 = _xpc_asprintf("Invalid rest suffix for 'int{64}' format specifier!");
+                    v27 = _xpc_asprintf("Invalid rest suffix for 'int{64}' format specifier!");
                     goto LABEL_64;
                   }
 
-                  v22 = v44;
-                  v26 = v20[1] == 2;
-                  v23 = v43;
-                  v43[0] = MEMORY[0x1E69E9820];
-                  v43[1] = 0x40000000;
-                  v44[0] = ___create_with_format_and_arguments_block_invoke_7;
-                  v44[1] = &unk_1E74AAFA0;
-                  v45 = v26;
-                  v24 = a1[11];
-                  v44[2] = a1[10];
-                  v44[3] = v24;
-                  v44[4] = a2;
+                  v19 = v40;
+                  v23 = v17[1] == 2;
+                  v20 = v39;
+                  v39[0] = MEMORY[0x1E69E9820];
+                  v39[1] = 0x40000000;
+                  v40[0] = ___create_with_format_and_arguments_block_invoke_7;
+                  v40[1] = &unk_1E74AAFA0;
+                  v41 = v23;
+                  v21 = a1[11];
+                  v40[2] = a1[10];
+                  v40[3] = v21;
+                  v40[4] = a2;
                 }
 
                 goto LABEL_42;
               }
 
-              switch(v21)
+              switch(v18)
               {
                 case 8:
-                  v22 = v40;
-                  v23 = v39;
-                  v39[0] = MEMORY[0x1E69E9820];
-                  v39[1] = 0x40000000;
-                  v40[0] = ___create_with_format_and_arguments_block_invoke_8;
-                  v40[1] = &unk_1E74AAFC8;
-                  v40[2] = a1[10];
-                  v42 = a2;
-                  v25 = *(a1 + 11);
-                  v41 = v25;
+                  v19 = v36;
+                  v20 = v35;
+                  v35[0] = MEMORY[0x1E69E9820];
+                  v35[1] = 0x40000000;
+                  v36[0] = ___create_with_format_and_arguments_block_invoke_8;
+                  v36[1] = &unk_1E74AAFC8;
+                  v36[2] = a1[10];
+                  v38 = a2;
+                  v22 = *(a1 + 11);
+                  v37 = v22;
                   break;
                 case 9:
-                  if ((v19 & 1) == 0)
+                  if ((v16 & 1) == 0)
                   {
-                    v31 = _xpc_asprintf("Invalid rest suffix for 'uint{64}' format specifier!");
+                    v27 = _xpc_asprintf("Invalid rest suffix for 'uint{64}' format specifier!");
                     goto LABEL_64;
                   }
 
-                  v22 = v37;
-                  v30 = v20[1] == 2;
-                  v23 = v36;
-                  v36[0] = MEMORY[0x1E69E9820];
-                  v36[1] = 0x40000000;
-                  v37[0] = ___create_with_format_and_arguments_block_invoke_9;
-                  v37[1] = &unk_1E74AAFF0;
-                  v38 = v30;
-                  v24 = a1[11];
-                  v37[2] = a1[10];
-                  v37[3] = v24;
-                  v37[4] = a2;
+                  v19 = v33;
+                  v26 = v17[1] == 2;
+                  v20 = v32;
+                  v32[0] = MEMORY[0x1E69E9820];
+                  v32[1] = 0x40000000;
+                  v33[0] = ___create_with_format_and_arguments_block_invoke_9;
+                  v33[1] = &unk_1E74AAFF0;
+                  v34 = v26;
+                  v21 = a1[11];
+                  v33[2] = a1[10];
+                  v33[3] = v21;
+                  v33[4] = a2;
 LABEL_42:
-                  *(*(v24 + 8) + 24) = 0;
+                  *(*(v21 + 8) + 24) = 0;
                   do
                   {
-                    (*v22)(v23);
-                    if (v19)
+                    (*v19)(v20);
+                    if (v16)
                     {
                       goto LABEL_46;
                     }
                   }
 
                   while (*(*(a1[12] + 8) + 24) != 1);
-                  if (*v17 != 43)
+                  if (*v15 != 43)
                   {
                     goto LABEL_47;
                   }
@@ -2601,150 +2238,149 @@ LABEL_46:
                     goto LABEL_47;
                   }
 
-                  v31 = _xpc_asprintf("Missing required format arg!");
+                  v27 = _xpc_asprintf("Missing required format arg!");
 LABEL_64:
-                  _xpc_api_misuse(v31);
+                  _xpc_api_misuse(v27);
                 case 10:
-                  v22 = v33;
-                  v23 = v32;
-                  v32[0] = MEMORY[0x1E69E9820];
-                  v32[1] = 0x40000000;
-                  v33[0] = ___create_with_format_and_arguments_block_invoke_10;
-                  v33[1] = &unk_1E74AB018;
-                  v33[2] = a1[10];
-                  v35 = a2;
-                  v25 = *(a1 + 11);
-                  v34 = v25;
+                  v19 = v29;
+                  v20 = v28;
+                  v28[0] = MEMORY[0x1E69E9820];
+                  v28[1] = 0x40000000;
+                  v29[0] = ___create_with_format_and_arguments_block_invoke_10;
+                  v29[1] = &unk_1E74AB018;
+                  v29[2] = a1[10];
+                  v31 = a2;
+                  v22 = *(a1 + 11);
+                  v30 = v22;
                   break;
                 default:
 LABEL_59:
-                  v23 = 0;
-                  v24 = a1[11];
-                  v22 = 16;
+                  v20 = 0;
+                  v21 = a1[11];
+                  v19 = 16;
                   goto LABEL_42;
               }
             }
 
             else
             {
-              if (v21 > 2)
+              if (v18 > 2)
               {
-                if (v21 != 3)
+                if (v18 != 3)
                 {
-                  if (v21 == 4)
+                  if (v18 == 4)
                   {
-                    if ((v19 & 1) == 0)
+                    if ((v16 & 1) == 0)
                     {
-                      v31 = _xpc_asprintf("Invalid rest suffix for 'date' format specifier!");
+                      v27 = _xpc_asprintf("Invalid rest suffix for 'date' format specifier!");
                       goto LABEL_64;
                     }
 
-                    v22 = v51;
-                    v23 = v50;
-                    v50[0] = MEMORY[0x1E69E9820];
-                    v50[1] = 0x40000000;
-                    v51[0] = ___create_with_format_and_arguments_block_invoke_4;
-                    v51[1] = &unk_1E74AAF28;
-                    v24 = a1[11];
-                    v51[2] = a1[10];
-                    v51[3] = v24;
-                    v51[4] = a2;
+                    v19 = v47;
+                    v20 = v46;
+                    v46[0] = MEMORY[0x1E69E9820];
+                    v46[1] = 0x40000000;
+                    v47[0] = ___create_with_format_and_arguments_block_invoke_4;
+                    v47[1] = &unk_1E74AAF28;
+                    v21 = a1[11];
+                    v47[2] = a1[10];
+                    v47[3] = v21;
+                    v47[4] = a2;
                   }
 
                   else
                   {
-                    if ((v19 & 1) == 0)
+                    if ((v16 & 1) == 0)
                     {
-                      v31 = _xpc_asprintf("Invalid rest suffix for 'double' format specifier!");
+                      v27 = _xpc_asprintf("Invalid rest suffix for 'double' format specifier!");
                       goto LABEL_64;
                     }
 
-                    v22 = v49;
-                    v23 = v48;
-                    v48[0] = MEMORY[0x1E69E9820];
-                    v48[1] = 0x40000000;
-                    v49[0] = ___create_with_format_and_arguments_block_invoke_5;
-                    v49[1] = &unk_1E74AAF50;
-                    v24 = a1[11];
-                    v49[2] = a1[10];
-                    v49[3] = v24;
-                    v49[4] = a2;
+                    v19 = v45;
+                    v20 = v44;
+                    v44[0] = MEMORY[0x1E69E9820];
+                    v44[1] = 0x40000000;
+                    v45[0] = ___create_with_format_and_arguments_block_invoke_5;
+                    v45[1] = &unk_1E74AAF50;
+                    v21 = a1[11];
+                    v45[2] = a1[10];
+                    v45[3] = v21;
+                    v45[4] = a2;
                   }
 
                   goto LABEL_42;
                 }
 
-                v22 = v53;
-                v23 = v52;
-                v52[0] = MEMORY[0x1E69E9820];
-                v52[1] = 0x40000000;
-                v53[0] = ___create_with_format_and_arguments_block_invoke_3;
-                v53[1] = &unk_1E74AAF00;
-                v53[2] = a1[10];
-                v55 = a2;
-                v25 = *(a1 + 11);
-                v54 = v25;
+                v19 = v49;
+                v20 = v48;
+                v48[0] = MEMORY[0x1E69E9820];
+                v48[1] = 0x40000000;
+                v49[0] = ___create_with_format_and_arguments_block_invoke_3;
+                v49[1] = &unk_1E74AAF00;
+                v49[2] = a1[10];
+                v51 = a2;
+                v22 = *(a1 + 11);
+                v50 = v22;
                 goto LABEL_41;
               }
 
-              if (v21 != 1)
+              if (v18 != 1)
               {
-                if (v21 == 2)
+                if (v18 == 2)
                 {
-                  if ((v19 & 1) == 0)
+                  if ((v16 & 1) == 0)
                   {
-                    v31 = _xpc_asprintf("Invalid rest suffix for 'BOOL' format specifier!");
+                    v27 = _xpc_asprintf("Invalid rest suffix for 'BOOL' format specifier!");
                     goto LABEL_64;
                   }
 
-                  v22 = v57;
-                  v23 = v56;
-                  v56[0] = MEMORY[0x1E69E9820];
-                  v56[1] = 0x40000000;
-                  v57[0] = ___create_with_format_and_arguments_block_invoke_2_18;
-                  v57[1] = &unk_1E74AAED8;
-                  v57[4] = a2;
-                  v24 = a1[11];
-                  v57[2] = a1[10];
-                  v57[3] = v24;
+                  v19 = v53;
+                  v20 = v52;
+                  v52[0] = MEMORY[0x1E69E9820];
+                  v52[1] = 0x40000000;
+                  v53[0] = ___create_with_format_and_arguments_block_invoke_2_18;
+                  v53[1] = &unk_1E74AAED8;
+                  v53[4] = a2;
+                  v21 = a1[11];
+                  v53[2] = a1[10];
+                  v53[3] = v21;
                   goto LABEL_42;
                 }
 
                 goto LABEL_59;
               }
 
-              v22 = v59;
-              v27 = v20[1] == 1;
-              v23 = v58;
-              v58[0] = MEMORY[0x1E69E9820];
-              v58[1] = 0x40000000;
-              v59[0] = ___create_with_format_and_arguments_block_invoke_14;
-              v59[1] = &unk_1E74AAEB0;
-              v59[2] = a1[10];
-              v61 = a2;
-              v62 = v27;
-              v25 = *(a1 + 11);
-              v60 = v25;
+              v19 = v55;
+              v24 = v17[1] == 1;
+              v20 = v54;
+              v54[0] = MEMORY[0x1E69E9820];
+              v54[1] = 0x40000000;
+              v55[0] = ___create_with_format_and_arguments_block_invoke_14;
+              v55[1] = &unk_1E74AAEB0;
+              v55[2] = a1[10];
+              v57 = a2;
+              v58 = v24;
+              v22 = *(a1 + 11);
+              v56 = v22;
             }
 
 LABEL_41:
-            v24 = v25;
+            v21 = v22;
             goto LABEL_42;
           }
 
-          v14 = 1u;
+          v13 = 1u;
         }
       }
 
       else
       {
-        v14 = 2u;
+        v13 = 2u;
       }
 
-      v17 = &asc_1972AC5CC[v14];
-      v18 = asc_1972AC5CC[v14];
+      v15 = &asc_1972AC5CC[v13];
       (*(a1[5] + 16))();
-      v19 = 0;
+      v16 = 0;
       goto LABEL_17;
     case '{':
       v7 = xpc_dictionary_create(0, 0, 0);
@@ -2760,16 +2396,15 @@ LABEL_6:
       goto LABEL_47;
   }
 
-  v15 = a1[6];
-  v16 = (*(a1[6] + 16))();
-  xpc_array_set_string(a2, 0xFFFFFFFFFFFFFFFFLL, v16);
+  v14 = (*(a1[6] + 16))();
+  xpc_array_set_string(a2, 0xFFFFFFFFFFFFFFFFLL, v14);
 LABEL_47:
-  v28 = *(a1[13] + *(*(a1[7] + 8) + 24));
-  if (v28 > 0x2B)
+  v25 = *(a1[13] + *(*(a1[7] + 8) + 24));
+  if (v25 > 0x2B)
   {
-    if (v28 != 93)
+    if (v25 != 93)
     {
-      if (v28 != 44)
+      if (v25 != 44)
       {
         goto LABEL_61;
       }
@@ -2778,13 +2413,11 @@ LABEL_47:
     }
   }
 
-  else if (*(a1[13] + *(*(a1[7] + 8) + 24)) && v28 != 41)
+  else if (*(a1[13] + *(*(a1[7] + 8) + 24)) && v25 != 41)
   {
 LABEL_61:
-    ___create_with_format_and_arguments_block_invoke_10_cold_2(&v63, v64);
+    ___create_with_format_and_arguments_block_invoke_10_cold_2(&v59, v60);
   }
-
-  v29 = *MEMORY[0x1E69E9840];
 }
 
 void ___create_with_format_and_arguments_block_invoke_14(uint64_t a1)
@@ -2941,23 +2574,22 @@ void ___create_with_format_and_arguments_block_invoke_10(uint64_t a1)
   }
 }
 
-uint64_t ___create_with_format_and_arguments_block_invoke_37(void *a1, uint64_t a2, char *a3)
+uint64_t ___create_with_format_and_arguments_block_invoke_37(void *a1, uint64_t a2, uint64_t a3)
 {
-  v5 = *a3;
   (*(a1[4] + 16))();
-  while (*(a1[7] + *(*(a1[6] + 8) + 24)) != a3[1])
+  while (*(a1[7] + *(*(a1[6] + 8) + 24)) != *(a3 + 1))
   {
     (*(a1[5] + 16))();
   }
 
-  v6 = *(a1[4] + 16);
+  v5 = *(a1[4] + 16);
 
-  return v6();
+  return v5();
 }
 
 void ___create_with_format_and_arguments_block_invoke_2_40(void *a1, void *a2)
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v4 = (*(a1[4] + 16))();
   (*(a1[5] + 16))();
   v5 = *(a1[7] + 8);
@@ -2971,207 +2603,188 @@ void ___create_with_format_and_arguments_block_invoke_2_40(void *a1, void *a2)
       v10 = strlen(v9);
       if (!v10)
       {
-        ___create_with_format_and_arguments_block_invoke_10_cold_1(&v50, v51);
+        ___create_with_format_and_arguments_block_invoke_10_cold_1(&v46, v47);
       }
 
       v11 = *(*(a1[7] + 8) + 24);
       v12 = *(a1[12] + v11);
-      if (*(a1[12] + v11))
+      if (!*(a1[12] + v11) || v12 == 42 || v12 == 43)
       {
-        if (v12 == 42)
-        {
-          v47 = 0;
-        }
+        (*(a1[5] + 16))();
+        v45 = _xpc_asprintf("Invalid rest suffix in dictionary element format specifier!");
+        goto LABEL_57;
+      }
 
-        else
+      v13 = xpc_format_specifiers_lookup(v9, v10);
+      if (!v13)
+      {
+        v45 = _xpc_asprintf("Invalid format specifier!");
+        goto LABEL_57;
+      }
+
+      v14 = v13[2];
+      if (v14 > 5)
+      {
+        if (v14 <= 7)
         {
-          if (v12 != 43)
+          if (v14 == 6)
           {
-            v13 = xpc_format_specifiers_lookup(v9, v10);
-            if (!v13)
+            v29 = *(a1[10] + 8);
+            v30 = *(v29 + 24);
+            *(v29 + 24) = v30 + 2;
+            xpc_dictionary_set_fd(a2, v4, *v30);
+          }
+
+          else
+          {
+            v22 = *(a1[10] + 8);
+            v23 = *(v22 + 24);
+            if (v13[1] == 2)
             {
-              v49 = _xpc_asprintf("Invalid format specifier!");
-              goto LABEL_61;
-            }
-
-            v14 = v13[2];
-            if (v14 > 5)
-            {
-              if (v14 <= 7)
-              {
-                if (v14 == 6)
-                {
-                  v29 = *(a1[10] + 8);
-                  v30 = *(v29 + 24);
-                  *(v29 + 24) = v30 + 2;
-                  xpc_dictionary_set_fd(a2, v4, *v30);
-                }
-
-                else
-                {
-                  v22 = *(a1[10] + 8);
-                  v23 = *(v22 + 24);
-                  if (v13[1] == 2)
-                  {
-                    *(v22 + 24) = v23 + 1;
-                    v24 = *v23;
-                  }
-
-                  else
-                  {
-                    *(v22 + 24) = v23 + 1;
-                    v24 = *v23;
-                  }
-
-                  xpc_dictionary_set_int64(a2, v4, v24);
-                }
-
-                goto LABEL_46;
-              }
-
-              if (v14 != 8)
-              {
-                if (v14 == 9)
-                {
-                  v40 = *(a1[10] + 8);
-                  v41 = *(v40 + 24);
-                  if (v13[1] == 2)
-                  {
-                    *(v40 + 24) = v41 + 1;
-                    v42 = *v41;
-                  }
-
-                  else
-                  {
-                    *(v40 + 24) = v41 + 1;
-                    v42 = *v41;
-                  }
-
-                  xpc_dictionary_set_uint64(a2, v4, v42);
-                  goto LABEL_46;
-                }
-
-                if (v14 == 10)
-                {
-                  v18 = *(a1[10] + 8);
-                  v19 = *(v18 + 24);
-                  *(v18 + 24) = v19 + 1;
-                  if (!*v19)
-                  {
-                    goto LABEL_38;
-                  }
-
-                  xpc_dictionary_set_uuid(a2, v4, *v19);
-                }
-
-LABEL_46:
-                if (*(*(a1[11] + 8) + 24) != 1)
-                {
-                  goto LABEL_47;
-                }
-
-                v49 = _xpc_asprintf("Null required format arg!");
-LABEL_61:
-                _xpc_api_misuse(v49);
-              }
-
-              v36 = *(a1[10] + 8);
-              v37 = *(v36 + 24);
-              *(v36 + 24) = v37 + 1;
-              if (*v37)
-              {
-                xpc_dictionary_set_string(a2, v4, *v37);
-                goto LABEL_46;
-              }
-            }
-
-            else if (v14 <= 2)
-            {
-              if (v14 != 1)
-              {
-                if (v14 == 2)
-                {
-                  v20 = *(a1[10] + 8);
-                  v21 = *(v20 + 24);
-                  *(v20 + 24) = v21 + 2;
-                  xpc_dictionary_set_BOOL(a2, v4, *v21 != 0);
-                }
-
-                goto LABEL_46;
-              }
-
-              v25 = v13[1];
-              v26 = *(a1[10] + 8);
-              v27 = *(v26 + 24);
-              *(v26 + 24) = v27 + 1;
-              v28 = *v27;
-              if (*v27)
-              {
-                xpc_dictionary_set_value(a2, v4, *v27);
-                if (v25 == 1)
-                {
-                  xpc_release(v28);
-                }
-
-                goto LABEL_46;
-              }
+              *(v22 + 24) = v23 + 1;
+              v24 = *v23;
             }
 
             else
             {
-              if (v14 != 3)
-              {
-                if (v14 == 4)
-                {
-                  v38 = *(a1[10] + 8);
-                  v39 = *(v38 + 24);
-                  *(v38 + 24) = v39 + 1;
-                  xpc_dictionary_set_date(a2, v4, *v39);
-                }
-
-                else
-                {
-                  v15 = *(a1[10] + 8);
-                  v16 = *(v15 + 24);
-                  *(v15 + 24) = v16 + 1;
-                  xpc_dictionary_set_double(a2, v4, *v16);
-                }
-
-                goto LABEL_46;
-              }
-
-              v31 = *(a1[10] + 8);
-              v32 = *(v31 + 24);
-              *(v31 + 24) = v32 + 1;
-              v33 = *v32;
-              if (*v32)
-              {
-                v34 = *(a1[10] + 8);
-                v35 = *(v34 + 24);
-                *(v34 + 24) = v35 + 1;
-                xpc_dictionary_set_data(a2, v4, v33, *v35);
-                goto LABEL_46;
-              }
+              *(v22 + 24) = v23 + 1;
+              v24 = *v23;
             }
 
-LABEL_38:
-            *(*(a1[11] + 8) + 24) = 1;
+            xpc_dictionary_set_int64(a2, v4, v24);
+          }
+
+          goto LABEL_46;
+        }
+
+        if (v14 != 8)
+        {
+          if (v14 == 9)
+          {
+            v40 = *(a1[10] + 8);
+            v41 = *(v40 + 24);
+            if (v13[1] == 2)
+            {
+              *(v40 + 24) = v41 + 1;
+              v42 = *v41;
+            }
+
+            else
+            {
+              *(v40 + 24) = v41 + 1;
+              v42 = *v41;
+            }
+
+            xpc_dictionary_set_uint64(a2, v4, v42);
             goto LABEL_46;
           }
 
-          v47 = 1u;
+          if (v14 == 10)
+          {
+            v18 = *(a1[10] + 8);
+            v19 = *(v18 + 24);
+            *(v18 + 24) = v19 + 1;
+            if (!*v19)
+            {
+              goto LABEL_38;
+            }
+
+            xpc_dictionary_set_uuid(a2, v4, *v19);
+          }
+
+LABEL_46:
+          if (*(*(a1[11] + 8) + 24) != 1)
+          {
+            goto LABEL_47;
+          }
+
+          v45 = _xpc_asprintf("Null required format arg!");
+LABEL_57:
+          _xpc_api_misuse(v45);
+        }
+
+        v36 = *(a1[10] + 8);
+        v37 = *(v36 + 24);
+        *(v36 + 24) = v37 + 1;
+        if (*v37)
+        {
+          xpc_dictionary_set_string(a2, v4, *v37);
+          goto LABEL_46;
+        }
+      }
+
+      else if (v14 <= 2)
+      {
+        if (v14 != 1)
+        {
+          if (v14 == 2)
+          {
+            v20 = *(a1[10] + 8);
+            v21 = *(v20 + 24);
+            *(v20 + 24) = v21 + 2;
+            xpc_dictionary_set_BOOL(a2, v4, *v21 != 0);
+          }
+
+          goto LABEL_46;
+        }
+
+        v25 = v13[1];
+        v26 = *(a1[10] + 8);
+        v27 = *(v26 + 24);
+        *(v26 + 24) = v27 + 1;
+        v28 = *v27;
+        if (*v27)
+        {
+          xpc_dictionary_set_value(a2, v4, *v27);
+          if (v25 == 1)
+          {
+            xpc_release(v28);
+          }
+
+          goto LABEL_46;
         }
       }
 
       else
       {
-        v47 = 2u;
+        if (v14 != 3)
+        {
+          if (v14 == 4)
+          {
+            v38 = *(a1[10] + 8);
+            v39 = *(v38 + 24);
+            *(v38 + 24) = v39 + 1;
+            xpc_dictionary_set_date(a2, v4, *v39);
+          }
+
+          else
+          {
+            v15 = *(a1[10] + 8);
+            v16 = *(v15 + 24);
+            *(v15 + 24) = v16 + 1;
+            xpc_dictionary_set_double(a2, v4, *v16);
+          }
+
+          goto LABEL_46;
+        }
+
+        v31 = *(a1[10] + 8);
+        v32 = *(v31 + 24);
+        *(v31 + 24) = v32 + 1;
+        v33 = *v32;
+        if (*v32)
+        {
+          v34 = *(a1[10] + 8);
+          v35 = *(v34 + 24);
+          *(v34 + 24) = v35 + 1;
+          xpc_dictionary_set_data(a2, v4, v33, *v35);
+          goto LABEL_46;
+        }
       }
 
-      v48 = asc_1972AC5CC[v47];
-      (*(a1[5] + 16))();
-      v49 = _xpc_asprintf("Invalid rest suffix in dictionary element format specifier!");
-      goto LABEL_61;
+LABEL_38:
+      *(*(a1[11] + 8) + 24) = 1;
+      goto LABEL_46;
     case '{':
       v8 = xpc_dictionary_create(0, 0, 0);
       xpc_dictionary_set_value(a2, v4, v8);
@@ -3193,19 +2806,13 @@ LABEL_47:
   if (v43 == 44)
   {
     v44 = *(a1[5] + 16);
-    v45 = *MEMORY[0x1E69E9840];
 
     v44();
   }
 
-  else
+  else if (v43 != 125)
   {
-    if (v43 != 125)
-    {
-      ___create_with_format_and_arguments_block_invoke_2_40_cold_2(&v50, v51);
-    }
-
-    v46 = *MEMORY[0x1E69E9840];
+    ___create_with_format_and_arguments_block_invoke_2_40_cold_2(&v46, v47);
   }
 }
 
@@ -3252,32 +2859,31 @@ void launch_remove_external_service(const char *a1, const char *a2, NSObject *a3
   }
 
   v9 = _xpc_mach_port_allocate(0x1001u, 1u, launch_remove_external_service);
-  v10 = v9;
-  v11 = _xpc_event_routine_async(832, v8, v9);
-  if (v11)
+  v10 = _xpc_event_routine_async(832, v8);
+  if (v10)
   {
-    v12 = v11;
-    if (_xpc_mach_port_close_recv(v10, 0, launch_remove_external_service))
+    v11 = v10;
+    if (_xpc_mach_port_close_recv(v9, 0, launch_remove_external_service))
     {
       _os_assumes_log();
     }
 
-    v13 = _xpc_alloc_typed(0x18uLL, 0x10A00408A00E5F2uLL);
-    v13[2] = v12;
-    *(v13 + 2) = _xpc_Block_copy_impl(a4);
-    dispatch_async_f(a3, v13, _deliver_error);
+    v12 = _xpc_alloc_typed(0x18uLL, 0x10A00408A00E5F2uLL);
+    v12[2] = v11;
+    *(v12 + 2) = _xpc_Block_copy_impl(a4);
+    dispatch_async_f(a3, v12, _deliver_error);
   }
 
   else
   {
-    v14 = _xpc_alloc_typed(0x18uLL, 0x10A00408A00E5F2uLL);
-    v15 = dispatch_source_create(MEMORY[0x1E69E96D8], v10, 0, a3);
-    dispatch_set_context(v15, v14);
-    *v14 = v15;
-    v14[2] = _xpc_Block_copy_impl(a4);
-    dispatch_source_set_event_handler_f(v15, _removal_reply_event);
+    v13 = _xpc_alloc_typed(0x18uLL, 0x10A00408A00E5F2uLL);
+    v14 = dispatch_source_create(MEMORY[0x1E69E96D8], v9, 0, a3);
+    dispatch_set_context(v14, v13);
+    *v13 = v14;
+    v13[2] = _xpc_Block_copy_impl(a4);
+    dispatch_source_set_event_handler_f(v14, _removal_reply_event);
     dispatch_source_set_mandatory_cancel_handler_f();
-    dispatch_activate(v15);
+    dispatch_activate(v14);
   }
 
   xpc_release(v8);
@@ -3567,7 +3173,7 @@ uint64_t _xpc_session_xref_dispose(os_unfair_lock_s *a1)
 
 void _xpc_session_dispose(uint64_t a1)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (_os_trace_lazy_init_completed_4libxpc())
   {
     if (_xpc_session_log_handle__once != -1)
@@ -3586,7 +3192,7 @@ void _xpc_session_dispose(uint64_t a1)
 
   if (*(a1 + 36) != 5)
   {
-    _xpc_session_dispose_cold_2(&v8, buf);
+    _xpc_session_dispose_cold_2(&v7, buf);
   }
 
   xpc_release(*(a1 + 56));
@@ -3626,8 +3232,6 @@ void _xpc_session_dispose(uint64_t a1)
   {
     dispatch_release(v6);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 void _xpc_session_cancelation_reason_dispose(void *a1)
@@ -3656,7 +3260,7 @@ NSObject *_xpc_session_common_create_opq(NSObject *a1, char *label)
 
 uint64_t _xpc_session_create_with_connection(_xpc_connection_s *a1, NSObject *a2, char a3, char a4, xpc_object_t *a5)
 {
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   xpc_connection_set_target_queue(a1, a2);
   v10 = _xpc_session_alloc(72);
   *(v10 + 40) = 0;
@@ -3669,15 +3273,15 @@ uint64_t _xpc_session_create_with_connection(_xpc_connection_s *a1, NSObject *a2
   _xpc_retain(v10);
   *&handler = MEMORY[0x1E69E9820];
   *(&handler + 1) = 0x40000000;
-  v18 = ___xpc_session_setup_connection_handlers_block_invoke;
-  v19 = &__block_descriptor_tmp_32_0;
-  v20 = v10;
+  v17 = ___xpc_session_setup_connection_handlers_block_invoke;
+  v18 = &__block_descriptor_tmp_32_0;
+  v19 = v10;
   xpc_connection_set_event_handler(a1, &handler);
   if ((a3 & 1) == 0)
   {
     if (*(v10 + 36) != 1)
     {
-      _xpc_session_create_with_connection_cold_1(&v16, &handler);
+      _xpc_session_create_with_connection_cold_1(&v15, &handler);
     }
 
     xpc_connection_activate(*(v10 + 56));
@@ -3694,8 +3298,7 @@ uint64_t _xpc_session_create_with_connection(_xpc_connection_s *a1, NSObject *a2
       }
 
       xpc_release(v10);
-      v10 = 0;
-      goto LABEL_15;
+      return 0;
     }
 
     *(v10 + 36) = 3;
@@ -3723,19 +3326,17 @@ uint64_t _xpc_session_create_with_connection(_xpc_connection_s *a1, NSObject *a2
     }
   }
 
-LABEL_15:
-  v14 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 xpc_session_t xpc_session_create_xpc_service(const char *name, dispatch_queue_t target_queue, xpc_session_create_flags_t flags, xpc_rich_error_t *error_out)
 {
   v4 = flags;
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ((flags & 2) != 0)
   {
-    v13 = _xpc_asprintf("Attempting to set privileged flag on connection to XPC Service.", target_queue);
-    _xpc_api_misuse(v13);
+    v12 = _xpc_asprintf("Attempting to set privileged flag on connection to XPC Service.", target_queue);
+    _xpc_api_misuse(v12);
   }
 
   opq = _xpc_session_common_create_opq(target_queue, "com.apple.session.queue");
@@ -3753,22 +3354,21 @@ xpc_session_t xpc_session_create_xpc_service(const char *name, dispatch_queue_t 
     v10 = _xpc_session_log_handle__log;
     if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_DEFAULT))
     {
-      v14 = 134218242;
-      v15 = v9;
-      v16 = 2080;
-      v17 = name;
-      _os_log_impl(&dword_197263000, v10, OS_LOG_TYPE_DEFAULT, "[%p] Session created with XPC Service: %s", &v14, 0x16u);
+      v13 = 134218242;
+      v14 = v9;
+      v15 = 2080;
+      v16 = name;
+      _os_log_impl(&dword_197263000, v10, OS_LOG_TYPE_DEFAULT, "[%p] Session created with XPC Service: %s", &v13, 0x16u);
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 xpc_session_t xpc_session_create_mach_service(const char *mach_service, dispatch_queue_t target_queue, xpc_session_create_flags_t flags, xpc_rich_error_t *error_out)
 {
   v5 = flags;
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   opq = _xpc_session_common_create_opq(target_queue, "com.apple.session.queue");
   v8 = xpc_connection_create_mach_service(mach_service, opq, v5 & 2);
   v9 = _xpc_session_create_with_connection(v8, opq, v5, 0, error_out);
@@ -3784,21 +3384,20 @@ xpc_session_t xpc_session_create_mach_service(const char *mach_service, dispatch
     v10 = _xpc_session_log_handle__log;
     if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134218242;
-      v14 = v9;
-      v15 = 2080;
-      v16 = mach_service;
-      _os_log_impl(&dword_197263000, v10, OS_LOG_TYPE_DEFAULT, "[%p] Session created with Mach Service: %s", &v13, 0x16u);
+      v12 = 134218242;
+      v13 = v9;
+      v14 = 2080;
+      v15 = mach_service;
+      _os_log_impl(&dword_197263000, v10, OS_LOG_TYPE_DEFAULT, "[%p] Session created with Mach Service: %s", &v12, 0x16u);
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 uint64_t xpc_session_create_xpc_endpoint(_xpc_endpoint_s *a1, NSObject *a2, char a3, xpc_object_t *a4)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   opq = _xpc_session_common_create_opq(a2, "com.apple.session.queue");
   v8 = xpc_connection_create_from_endpoint(a1);
   v9 = _xpc_session_create_with_connection(v8, opq, a3, 0, a4);
@@ -3814,30 +3413,29 @@ uint64_t xpc_session_create_xpc_endpoint(_xpc_endpoint_s *a1, NSObject *a2, char
     v10 = _xpc_session_log_handle__log;
     if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_DEFAULT))
     {
-      v13 = 134217984;
-      v14 = v9;
-      _os_log_impl(&dword_197263000, v10, OS_LOG_TYPE_DEFAULT, "[%p] Session created with Endpoint.", &v13, 0xCu);
+      v12 = 134217984;
+      v13 = v9;
+      _os_log_impl(&dword_197263000, v10, OS_LOG_TYPE_DEFAULT, "[%p] Session created with Endpoint.", &v12, 0xCu);
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
 uint64_t _xpc_session_create_from_connection_4SWIFT(uint64_t a1, NSObject *a2, unint64_t a3, xpc_object_t *a4)
 {
   v4 = a3;
-  v19 = *MEMORY[0x1E69E9840];
+  v18 = *MEMORY[0x1E69E9840];
   if (a3 >= 2)
   {
-    v13 = _xpc_asprintf("invalid flags value %llu", a3);
-    _xpc_api_misuse(v13);
+    v12 = _xpc_asprintf("invalid flags value %llu", a3);
+    _xpc_api_misuse(v12);
   }
 
-  v14 = 0;
+  v13 = 0;
   opq = _xpc_session_common_create_opq(a2, "com.apple.session.queue");
-  connection = _xpc_connection_extract_connection(a1, &v14);
-  v9 = _xpc_session_create_with_connection(connection, opq, v4, v14, a4);
+  connection = _xpc_connection_extract_connection(a1, &v13);
+  v9 = _xpc_session_create_with_connection(connection, opq, v4, v13, a4);
   dispatch_release(opq);
   if (_os_trace_lazy_init_completed_4libxpc())
   {
@@ -3850,14 +3448,13 @@ uint64_t _xpc_session_create_from_connection_4SWIFT(uint64_t a1, NSObject *a2, u
     if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134218240;
-      v16 = v9;
-      v17 = 2048;
-      v18 = a1;
+      v15 = v9;
+      v16 = 2048;
+      v17 = a1;
       _os_log_impl(&dword_197263000, v10, OS_LOG_TYPE_DEFAULT, "[%p] Session created from connection [%p]", buf, 0x16u);
     }
   }
 
-  v11 = *MEMORY[0x1E69E9840];
   return v9;
 }
 
@@ -4015,7 +3612,7 @@ uint64_t _xpc_session_activate_if_new(os_unfair_lock_s *a1, xpc_object_t *a2)
 
 BOOL _xpc_session_activate_locked(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   os_unfair_lock_assert_owner((a1 + 32));
   *(a1 + 36) = 3;
   xpc_connection_activate(*(a1 + 56));
@@ -4030,13 +3627,12 @@ BOOL _xpc_session_activate_locked(uint64_t a1)
     v3 = _xpc_session_log_handle__log;
     if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = 134217984;
-      v7 = a1;
-      _os_log_impl(&dword_197263000, v3, OS_LOG_TYPE_DEFAULT, "[%p] Session activated", &v6, 0xCu);
+      v5 = 134217984;
+      v6 = a1;
+      _os_log_impl(&dword_197263000, v3, OS_LOG_TYPE_DEFAULT, "[%p] Session activated", &v5, 0xCu);
     }
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return !is_invalid;
 }
 
@@ -4126,14 +3722,14 @@ xpc_rich_error_t xpc_session_send_message(xpc_session_t session, xpc_object_t me
   state = _xpc_session_get_state(session);
   if (state <= 2)
   {
-    v6 = _xpc_asprintf("Attempting to send a message using a session that is neither active or canceled.");
-    _xpc_api_misuse(v6);
+    v7 = _xpc_asprintf("Attempting to send a message using a session that is neither active or canceled.");
+    _xpc_api_misuse(v7);
   }
 
   if ((state & 0x7FFFFFFE) == 4)
   {
 
-    return _xpc_session_message_error_during_cancelation(state);
+    return _xpc_session_message_error_during_cancelation(state, v5);
   }
 
   else
@@ -4143,11 +3739,11 @@ xpc_rich_error_t xpc_session_send_message(xpc_session_t session, xpc_object_t me
   }
 }
 
-size_t _xpc_session_message_error_during_cancelation(unsigned int a1)
+size_t _xpc_session_message_error_during_cancelation(uint64_t a1, uint64_t a2)
 {
   if (a1 == 4)
   {
-    v2 = "Attempting to send message using a session that's canceling";
+    v3 = "Attempting to send message using a session that's canceling";
   }
 
   else
@@ -4157,10 +3753,10 @@ size_t _xpc_session_message_error_during_cancelation(unsigned int a1)
       _xpc_session_message_error_during_cancelation_cold_1(a1);
     }
 
-    v2 = "Attempting to send message using a canceled session";
+    v3 = "Attempting to send message using a canceled session";
   }
 
-  return xpc_rich_error_create(v2, 0);
+  return xpc_rich_error_create(v3, 0);
 }
 
 xpc_object_t xpc_session_send_message_with_reply_sync(xpc_session_t session, xpc_object_t message, xpc_rich_error_t *error_out)
@@ -4168,8 +3764,8 @@ xpc_object_t xpc_session_send_message_with_reply_sync(xpc_session_t session, xpc
   state = _xpc_session_get_state(session);
   if (state <= 2)
   {
-    v12 = _xpc_asprintf("Attempting to send a message using a session that is neither active or canceled.");
-    _xpc_api_misuse(v12);
+    v13 = _xpc_asprintf("Attempting to send a message using a session that is neither active or canceled.");
+    _xpc_api_misuse(v13);
   }
 
   v7 = state;
@@ -4183,11 +3779,11 @@ xpc_object_t xpc_session_send_message_with_reply_sync(xpc_session_t session, xpc
   {
     if (error_out)
     {
-      v9 = _xpc_session_message_error_during_cancelation(v7);
+      v10 = _xpc_session_message_error_during_cancelation(v7, v9);
 LABEL_7:
-      v10 = 0;
-      *error_out = v9;
-      return v10;
+      v11 = 0;
+      *error_out = v10;
+      return v11;
     }
 
     return 0;
@@ -4196,11 +3792,11 @@ LABEL_7:
   os_unfair_lock_lock_with_options();
   ++*(session + 12);
   os_unfair_lock_unlock(session + 8);
-  v10 = xpc_connection_send_message_with_reply_sync(*(session + 7), message);
+  v11 = xpc_connection_send_message_with_reply_sync(*(session + 7), message);
   _xpc_session_decrement_inflight_replies(session);
-  if (v10 && xpc_get_type(v10) == OS_xpc_error)
+  if (v11 && xpc_get_type(v11) == OS_xpc_error)
   {
-    v9 = _xpc_session_cancel_after_reply_error(session, v10);
+    v10 = _xpc_session_cancel_after_reply_error(session, v11);
     if (error_out)
     {
       goto LABEL_7;
@@ -4209,7 +3805,7 @@ LABEL_7:
     return 0;
   }
 
-  return v10;
+  return v11;
 }
 
 void _xpc_session_decrement_inflight_replies(uint64_t a1)
@@ -4279,21 +3875,21 @@ void xpc_session_send_message_with_reply_async(xpc_session_t session, xpc_object
   state = _xpc_session_get_state(session);
   if (state <= 2)
   {
-    v11 = _xpc_asprintf("Attempting to send a message using a session that is neither active or canceled.");
-    _xpc_api_misuse(v11);
+    v12 = _xpc_asprintf("Attempting to send a message using a session that is neither active or canceled.");
+    _xpc_api_misuse(v12);
   }
 
   if ((state & 0x7FFFFFFE) == 4)
   {
-    v7 = _xpc_session_message_error_during_cancelation(state);
-    v8 = *(session + 8);
+    v8 = _xpc_session_message_error_during_cancelation(state, v7);
+    v9 = *(session + 8);
     block[0] = MEMORY[0x1E69E9820];
     block[1] = 0x40000000;
     block[2] = __xpc_session_send_message_with_reply_async_block_invoke;
     block[3] = &unk_1E74AB118;
     block[4] = reply_handler;
-    block[5] = v7;
-    dispatch_async(v8, block);
+    block[5] = v8;
+    dispatch_async(v9, block);
   }
 
   else
@@ -4302,37 +3898,36 @@ void xpc_session_send_message_with_reply_async(xpc_session_t session, xpc_object
     os_unfair_lock_lock_with_options();
     ++*(session + 12);
     os_unfair_lock_unlock(session + 8);
-    v9 = *(session + 7);
-    v10 = *(session + 8);
-    v12[0] = MEMORY[0x1E69E9820];
-    v12[1] = 0x40000000;
-    v12[2] = __xpc_session_send_message_with_reply_async_block_invoke_2;
-    v12[3] = &unk_1E74AB140;
-    v12[4] = reply_handler;
-    v12[5] = session;
-    xpc_connection_send_message_with_reply(v9, message, v10, v12);
+    v10 = *(session + 7);
+    v11 = *(session + 8);
+    v13[0] = MEMORY[0x1E69E9820];
+    v13[1] = 0x40000000;
+    v13[2] = __xpc_session_send_message_with_reply_async_block_invoke_2;
+    v13[3] = &unk_1E74AB140;
+    v13[4] = reply_handler;
+    v13[5] = session;
+    xpc_connection_send_message_with_reply(v10, message, v11, v13);
   }
 }
 
 void __xpc_session_send_message_with_reply_async_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  xpc_release(v3);
+  xpc_release(v2);
 }
 
 uint64_t __xpc_session_send_message_with_reply_async_block_invoke_2(uint64_t a1, __objc2_class **a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   _xpc_session_decrement_inflight_replies(*(a1 + 40));
   if (xpc_get_type(a2) == OS_xpc_error)
   {
     v4 = _xpc_session_cancel_after_reply_error(*(a1 + 40), a2);
     if (!v4)
     {
-      __xpc_session_send_message_with_reply_async_block_invoke_2_cold_1(&v9, v10);
+      __xpc_session_send_message_with_reply_async_block_invoke_2_cold_1(&v8, v9);
     }
 
     v5 = v4;
@@ -4346,12 +3941,11 @@ uint64_t __xpc_session_send_message_with_reply_async_block_invoke_2(uint64_t a1,
   }
 
   v6 = *(a1 + 40);
-  v7 = *MEMORY[0x1E69E9840];
 
   return _xpc_release(v6);
 }
 
-uint64_t xpc_session_set_target_user_session_uid(uint64_t a1, int a2)
+uint64_t xpc_session_set_target_user_session_uid(uint64_t a1, uint64_t a2)
 {
   _xpc_session_assert_inactive(a1, "set target user session UID");
   v4 = *(a1 + 56);
@@ -4404,32 +3998,32 @@ os_log_t ___xpc_session_log_handle_block_invoke()
 
 void ___xpc_session_setup_connection_handlers_block_invoke(uint64_t a1, __objc2_class **object)
 {
-  v38 = *MEMORY[0x1E69E9840];
+  v35 = *MEMORY[0x1E69E9840];
   v3 = *(*(a1 + 32) + 36);
   if ((v3 - 4) <= 0xFFFFFFFD)
   {
-    if (!_os_trace_lazy_init_completed_4libxpc())
+    if (_os_trace_lazy_init_completed_4libxpc())
     {
-      goto LABEL_43;
+      if (_xpc_session_log_handle__once != -1)
+      {
+        _xpc_session_dispose_cold_1();
+      }
+
+      v4 = _xpc_session_log_handle__log;
+      if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_DEFAULT))
+      {
+        v5 = *(a1 + 32);
+        *buf = 134217984;
+        *&buf[4] = v5;
+        v6 = "[%p] Received event on inactive Session";
+        v7 = v4;
+LABEL_7:
+        _os_log_impl(&dword_197263000, v7, OS_LOG_TYPE_DEFAULT, v6, buf, 0xCu);
+        return;
+      }
     }
 
-    if (_xpc_session_log_handle__once != -1)
-    {
-      _xpc_session_dispose_cold_1();
-    }
-
-    v4 = _xpc_session_log_handle__log;
-    if (!os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_43;
-    }
-
-    v5 = *(a1 + 32);
-    *buf = 134217984;
-    *&buf[4] = v5;
-    v6 = "[%p] Received event on inactive Session";
-    v7 = v4;
-    goto LABEL_7;
+    return;
   }
 
   if (v3 == 2 && object != &_xpc_error_connection_invalid)
@@ -4439,183 +4033,177 @@ void ___xpc_session_setup_connection_handlers_block_invoke(uint64_t a1, __objc2_
 
   type = xpc_get_type(object);
   v11 = *(a1 + 32);
-  if (type == OS_xpc_error)
+  if (type != OS_xpc_error)
   {
-    if (object == &_xpc_error_connection_invalid)
+    v12 = *(v11 + 24);
+    if (v12)
     {
-      if (_os_trace_lazy_init_completed_4libxpc())
-      {
-        if (_xpc_session_log_handle__once != -1)
-        {
-          _xpc_session_dispose_cold_1();
-        }
+      v13 = *(v12 + 16);
 
-        v18 = _xpc_session_log_handle__log;
-        if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 134217984;
-          *&buf[4] = v11;
-          _os_log_impl(&dword_197263000, v18, OS_LOG_TYPE_DEFAULT, "[%p] Connection invalidation received", buf, 0xCu);
-        }
-      }
-
-      if (*(v11 + 36) == 2)
-      {
-        v17 = 6;
-      }
-
-      else
-      {
-        v17 = 3;
-      }
-    }
-
-    else if (object == &_xpc_error_connection_interrupted)
-    {
-      if (_os_trace_lazy_init_completed_4libxpc())
-      {
-        if (_xpc_session_log_handle__once != -1)
-        {
-          _xpc_session_dispose_cold_1();
-        }
-
-        v19 = _xpc_session_log_handle__log;
-        if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 134217984;
-          *&buf[4] = v11;
-          _os_log_impl(&dword_197263000, v19, OS_LOG_TYPE_DEFAULT, "[%p] Connection interruption received", buf, 0xCu);
-        }
-      }
-
-      v17 = 2;
+      v13(v12, object);
     }
 
     else
     {
-      if (object == &_xpc_error_termination_imminent)
-      {
-        if (!_os_trace_lazy_init_completed_4libxpc())
-        {
-          goto LABEL_43;
-        }
-
-        if (_xpc_session_log_handle__once != -1)
-        {
-          _xpc_session_dispose_cold_1();
-        }
-
-        v31 = _xpc_session_log_handle__log;
-        if (!os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_DEFAULT))
-        {
-          goto LABEL_43;
-        }
-
-        *buf = 134217984;
-        *&buf[4] = v11;
-        v6 = "[%p] Termination imminent. No more messages will be received on this session.";
-        v7 = v31;
-LABEL_7:
-        _os_log_impl(&dword_197263000, v7, OS_LOG_TYPE_DEFAULT, v6, buf, 0xCu);
-LABEL_43:
-        v23 = *MEMORY[0x1E69E9840];
-        return;
-      }
-
-      if (object != &_xpc_error_peer_code_signing_requirement)
-      {
-        ___xpc_session_setup_connection_handlers_block_invoke_cold_3();
-      }
-
+      v21 = _xpc_session_common_copy_concise_identifier(*(v11 + 56), "Session");
+      *buf = 0u;
+      v30 = 0u;
+      xpc_dictionary_get_audit_token(object, buf);
       if (_os_trace_lazy_init_completed_4libxpc())
       {
         if (_xpc_session_log_handle__once != -1)
         {
-          _xpc_session_dispose_cold_1();
+          _xpc_session_create_with_connection_cold_2();
         }
 
-        v16 = _xpc_session_log_handle__log;
-        if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_DEFAULT))
+        v22 = _xpc_session_log_handle__log;
+        if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_ERROR))
         {
-          *buf = 134217984;
-          *&buf[4] = v11;
-          _os_log_impl(&dword_197263000, v16, OS_LOG_TYPE_DEFAULT, "[%p] Peer did not meet the code signing requirement. Cancelling the connection.", buf, 0xCu);
+          *v31 = 134218498;
+          v32 = v11;
+          v33 = 2080;
+          *v34 = v21;
+          *&v34[8] = 1024;
+          *&v34[10] = DWORD1(v30);
+          _os_log_impl(&dword_197263000, v22, OS_LOG_TYPE_ERROR, "[%p] Incoming message to %s from PID %d is dropped because incoming message handler isn't set", v31, 0x1Cu);
         }
       }
 
-      v17 = 5;
+      v23 = _xpc_asprintf("Incoming message to %s is dropped because incoming message handler isn't set", v21);
+      if (os_fault_with_payload() && _os_trace_lazy_init_completed_4libxpc())
+      {
+        if (_xpc_session_log_handle__once != -1)
+        {
+          _xpc_session_create_with_connection_cold_2();
+        }
+
+        v24 = _xpc_session_log_handle__log;
+        if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_ERROR))
+        {
+          v25 = *__error();
+          v26 = __error();
+          v27 = xpc_strerror(*v26);
+          *v31 = 134218498;
+          v32 = v11;
+          v33 = 1024;
+          *v34 = v25;
+          *&v34[4] = 2080;
+          *&v34[6] = v27;
+          _os_log_impl(&dword_197263000, v24, OS_LOG_TYPE_ERROR, "[%p] Unable to generate a fault: %d - %s", v31, 0x1Cu);
+        }
+      }
+
+      free(v23);
+      free(v21);
     }
 
-    v20 = *(a1 + 32);
-    v21 = _xpc_session_rich_error_with_cancelation_reason(v20, v17);
-    v22 = _xpc_alloc_typed(0x10uLL, 0x1020040D5A9D86FuLL);
-    *v22 = v17;
-    v22[1] = v21;
-    _xpc_session_cancel_with_reason(v20, v22);
-    goto LABEL_43;
+    return;
   }
 
-  v12 = *(v11 + 24);
-  if (!v12)
+  if (object == &_xpc_error_connection_invalid)
   {
-    v24 = _xpc_session_common_copy_concise_identifier(*(v11 + 56), "Session");
-    *buf = 0u;
-    v33 = 0u;
-    xpc_dictionary_get_audit_token(object, buf);
     if (_os_trace_lazy_init_completed_4libxpc())
     {
       if (_xpc_session_log_handle__once != -1)
       {
-        _xpc_session_create_with_connection_cold_2();
+        _xpc_session_dispose_cold_1();
       }
 
-      v25 = _xpc_session_log_handle__log;
-      if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_ERROR))
+      v16 = _xpc_session_log_handle__log;
+      if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_DEFAULT))
       {
-        *v34 = 134218498;
-        v35 = v11;
-        v36 = 2080;
-        *v37 = v24;
-        *&v37[8] = 1024;
-        *&v37[10] = DWORD1(v33);
-        _os_log_impl(&dword_197263000, v25, OS_LOG_TYPE_ERROR, "[%p] Incoming message to %s from PID %d is dropped because incoming message handler isn't set", v34, 0x1Cu);
+        *buf = 134217984;
+        *&buf[4] = v11;
+        _os_log_impl(&dword_197263000, v16, OS_LOG_TYPE_DEFAULT, "[%p] Connection invalidation received", buf, 0xCu);
       }
     }
 
-    v26 = _xpc_asprintf("Incoming message to %s is dropped because incoming message handler isn't set", v24);
-    if (os_fault_with_payload() && _os_trace_lazy_init_completed_4libxpc())
+    if (*(v11 + 36) == 2)
+    {
+      v15 = 6;
+    }
+
+    else
+    {
+      v15 = 3;
+    }
+
+    goto LABEL_42;
+  }
+
+  if (object == &_xpc_error_connection_interrupted)
+  {
+    if (_os_trace_lazy_init_completed_4libxpc())
     {
       if (_xpc_session_log_handle__once != -1)
       {
-        _xpc_session_create_with_connection_cold_2();
+        _xpc_session_dispose_cold_1();
       }
 
-      v27 = _xpc_session_log_handle__log;
-      if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_ERROR))
+      v17 = _xpc_session_log_handle__log;
+      if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_DEFAULT))
       {
-        v28 = *__error();
-        v29 = __error();
-        v30 = xpc_strerror(*v29);
-        *v34 = 134218498;
-        v35 = v11;
-        v36 = 1024;
-        *v37 = v28;
-        *&v37[4] = 2080;
-        *&v37[6] = v30;
-        _os_log_impl(&dword_197263000, v27, OS_LOG_TYPE_ERROR, "[%p] Unable to generate a fault: %d - %s", v34, 0x1Cu);
+        *buf = 134217984;
+        *&buf[4] = v11;
+        _os_log_impl(&dword_197263000, v17, OS_LOG_TYPE_DEFAULT, "[%p] Connection interruption received", buf, 0xCu);
       }
     }
 
-    free(v26);
-    free(v24);
-    goto LABEL_43;
+    v15 = 2;
+    goto LABEL_42;
   }
 
-  v13 = *(v11 + 24);
-  v14 = *(v12 + 16);
-  v15 = *MEMORY[0x1E69E9840];
+  if (object != &_xpc_error_termination_imminent)
+  {
+    if (object != &_xpc_error_peer_code_signing_requirement)
+    {
+      ___xpc_session_setup_connection_handlers_block_invoke_cold_3();
+    }
 
-  v14(v12, object);
+    if (_os_trace_lazy_init_completed_4libxpc())
+    {
+      if (_xpc_session_log_handle__once != -1)
+      {
+        _xpc_session_dispose_cold_1();
+      }
+
+      v14 = _xpc_session_log_handle__log;
+      if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 134217984;
+        *&buf[4] = v11;
+        _os_log_impl(&dword_197263000, v14, OS_LOG_TYPE_DEFAULT, "[%p] Peer did not meet the code signing requirement. Cancelling the connection.", buf, 0xCu);
+      }
+    }
+
+    v15 = 5;
+LABEL_42:
+    v18 = *(a1 + 32);
+    v19 = _xpc_session_rich_error_with_cancelation_reason(v18, v15);
+    v20 = _xpc_alloc_typed(0x10uLL, 0x1020040D5A9D86FuLL);
+    *v20 = v15;
+    v20[1] = v19;
+    _xpc_session_cancel_with_reason(v18, v20);
+    return;
+  }
+
+  if (_os_trace_lazy_init_completed_4libxpc())
+  {
+    if (_xpc_session_log_handle__once != -1)
+    {
+      _xpc_session_dispose_cold_1();
+    }
+
+    v28 = _xpc_session_log_handle__log;
+    if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134217984;
+      *&buf[4] = v11;
+      v6 = "[%p] Termination imminent. No more messages will be received on this session.";
+      v7 = v28;
+      goto LABEL_7;
+    }
+  }
 }
 
 size_t _xpc_session_rich_error_with_cancelation_reason(uint64_t a1, int a2)
@@ -4667,7 +4255,7 @@ size_t _xpc_session_rich_error_with_cancelation_reason(uint64_t a1, int a2)
 
 void _xpc_session_cancel_with_reason(uint64_t a1, void *a2)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock_with_options();
   if (a2)
   {
@@ -4714,9 +4302,9 @@ void _xpc_session_cancel_with_reason(uint64_t a1, void *a2)
         v5 = _xpc_session_log_handle__log;
         if (os_log_type_enabled(_xpc_session_log_handle__log, OS_LOG_TYPE_DEFAULT))
         {
-          LODWORD(v12) = 134217984;
-          *(&v12 + 4) = a1;
-          _os_log_impl(&dword_197263000, v5, OS_LOG_TYPE_DEFAULT, "[%p] Session canceled.", &v12, 0xCu);
+          LODWORD(v11) = 134217984;
+          *(&v11 + 4) = a1;
+          _os_log_impl(&dword_197263000, v5, OS_LOG_TYPE_DEFAULT, "[%p] Session canceled.", &v11, 0xCu);
         }
       }
 
@@ -4727,29 +4315,28 @@ void _xpc_session_cancel_with_reason(uint64_t a1, void *a2)
         v7 = *(*(a1 + 40) + 8);
         xpc_retain(v7);
         v8 = *(a1 + 64);
-        *&v12 = MEMORY[0x1E69E9820];
-        *(&v12 + 1) = 0x40000000;
-        v13 = ___xpc_session_call_cancel_handler_block_invoke;
-        v14 = &unk_1E74AB1E8;
-        v15 = v6;
-        v16 = v7;
-        dispatch_async(v8, &v12);
+        *&v11 = MEMORY[0x1E69E9820];
+        *(&v11 + 1) = 0x40000000;
+        v12 = ___xpc_session_call_cancel_handler_block_invoke;
+        v13 = &unk_1E74AB1E8;
+        v14 = v6;
+        v15 = v7;
+        dispatch_async(v8, &v11);
       }
 
       v9 = *(a1 + 52) & 1;
       v10 = *(a1 + 64);
-      *&v12 = MEMORY[0x1E69E9820];
-      *(&v12 + 1) = 0x40000000;
-      v13 = ___xpc_session_complete_cancelation_locked_block_invoke_48;
-      v14 = &__block_descriptor_tmp_49;
-      v15 = a1;
-      LOBYTE(v16) = v9;
-      dispatch_async(v10, &v12);
+      *&v11 = MEMORY[0x1E69E9820];
+      *(&v11 + 1) = 0x40000000;
+      v12 = ___xpc_session_complete_cancelation_locked_block_invoke_48;
+      v13 = &__block_descriptor_tmp_49;
+      v14 = a1;
+      LOBYTE(v15) = v9;
+      dispatch_async(v10, &v11);
     }
   }
 
   os_unfair_lock_unlock((a1 + 32));
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void ___xpc_session_complete_cancelation_locked_block_invoke_48(uint64_t a1)
@@ -4765,11 +4352,10 @@ void ___xpc_session_complete_cancelation_locked_block_invoke_48(uint64_t a1)
 
 void ___xpc_session_call_cancel_handler_block_invoke(uint64_t a1)
 {
-  v2 = *(a1 + 40);
   (*(*(a1 + 32) + 16))();
-  v3 = *(a1 + 40);
+  v2 = *(a1 + 40);
 
-  xpc_release(v3);
+  xpc_release(v2);
 }
 
 uint64_t _xpc_endpoint_deserialize(uint64_t *a1)
@@ -4925,15 +4511,15 @@ uint64_t xpc_endpoint_create_bs_named(char *a1, int a2, char *a3)
 
 uint64_t _xpc_endpoint_create_bs(char *a1, int a2, uint64_t a3, const unsigned __int8 *a4, uint64_t a5, char *a6)
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    _xpc_endpoint_create_bs_cold_2(&v13, v14);
+    _xpc_endpoint_create_bs_cold_2(v12, v13);
   }
 
   if (!a6)
   {
-    _xpc_endpoint_create_bs_cold_1(&v13, v14);
+    _xpc_endpoint_create_bs_cold_1(v12, v13);
   }
 
   *a6 = 0;
@@ -4943,9 +4529,9 @@ uint64_t _xpc_endpoint_create_bs(char *a1, int a2, uint64_t a3, const unsigned _
     v7 = 512;
   }
 
-  LODWORD(v14[0]) = 0;
-  LOBYTE(v13) = 0;
-  v8 = _xpc_look_up_endpoint(a1, a2, a3, 0, a4, v7 | a5, 0, v14, &v13);
+  LODWORD(v13[0]) = 0;
+  v12[0] = 0;
+  v8 = _xpc_look_up_endpoint(a1, a2, a3, 0, a4, v7 | a5, 0, v13, v12);
   result = 0;
   if (v8 > 123)
   {
@@ -4961,17 +4547,17 @@ uint64_t _xpc_endpoint_create_bs(char *a1, int a2, uint64_t a3, const unsigned _
     {
 LABEL_12:
       _os_assumes_log();
-      result = 0;
+      return 0;
     }
   }
 
   else
   {
-    v10 = v14[0];
+    v10 = v13[0];
     result = _xpc_base_create(OS_xpc_endpoint, 8);
     *(result + 16) |= 2u;
     *(result + 24) = v10;
-    if (v13 == 1)
+    if (v12[0])
     {
       v11 = 3;
     }
@@ -4984,7 +4570,6 @@ LABEL_12:
     *a6 = v11;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -4998,20 +4583,18 @@ uint64_t xpc_endpoint_create_bs_service(char *a1, const unsigned __int8 *a2, cha
 
 BOOL xpc_endpoint_get_bs_job_handle(uint64_t a1, _OWORD *a2)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 24);
   if (v2 + 1 < 2)
   {
-    goto LABEL_8;
+    return 0;
   }
 
   v4 = xpc_mach_send_create(v2);
   if (!xpc_mach_send_get_right(v4) || xpc_mach_send_get_right(v4) == -1)
   {
     xpc_release(v4);
-LABEL_8:
-    v7 = 0;
-    goto LABEL_9;
+    return 0;
   }
 
   v5 = xpc_dictionary_create(0, 0, 0);
@@ -5032,13 +4615,13 @@ LABEL_8:
   {
     if (!xdict)
     {
-      xpc_endpoint_get_bs_job_handle_cold_2(&v11, v13);
+      xpc_endpoint_get_bs_job_handle_cold_2(&v10, v12);
     }
 
     uuid = xpc_dictionary_get_uuid(xdict, "job-handle");
     if (!uuid)
     {
-      xpc_endpoint_get_bs_job_handle_cold_1(&v11, v13);
+      xpc_endpoint_get_bs_job_handle_cold_1(&v10, v12);
     }
 
     *a2 = *uuid;
@@ -5046,8 +4629,6 @@ LABEL_8:
   }
 
   xpc_release(v5);
-LABEL_9:
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -5067,15 +4648,15 @@ uint64_t xpc_endpoint_create_mach_port_4sim(int a1)
 
 uint64_t _xpc_pointer_desc(const void **a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v14 = *MEMORY[0x1E69E9840];
   v12 = 0u;
-  v9 = 0u;
+  v13 = 0u;
   v10 = 0u;
-  *__str = 0u;
+  v11 = 0u;
   v8 = 0u;
+  v9 = 0u;
+  *__str = 0u;
+  v7 = 0u;
   v3 = snprintf(__str, 0x80uLL, "<%s: %p>: %p", "pointer", a1, a1[3]);
   if (v3 >= 0x7F)
   {
@@ -5087,9 +4668,7 @@ uint64_t _xpc_pointer_desc(const void **a1, uint64_t a2)
     v4 = v3;
   }
 
-  result = _xpc_serializer_append(a2, __str, (v4 + 1), 0);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return _xpc_serializer_append(a2, __str, (v4 + 1), 0);
 }
 
 uint64_t xpc_pointer_create(uint64_t a1)
@@ -5167,7 +4746,7 @@ uint64_t _xpc_listener_xref_dispose(os_unfair_lock_s *a1)
 
 void _xpc_listener_dispose(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (_os_trace_lazy_init_completed_4libxpc())
   {
     if (_xpc_listener_log_handle__once != -1)
@@ -5186,7 +4765,7 @@ void _xpc_listener_dispose(uint64_t a1)
 
   if (*(a1 + 28) != 3)
   {
-    _xpc_listener_dispose_cold_2(&v6, buf);
+    _xpc_listener_dispose_cold_2(&v5, buf);
   }
 
   xpc_release(*(a1 + 32));
@@ -5208,16 +4787,14 @@ void _xpc_listener_dispose(uint64_t a1)
   {
     dispatch_release(v4);
   }
-
-  v5 = *MEMORY[0x1E69E9840];
 }
 
 xpc_listener_t xpc_listener_create(const char *service, dispatch_queue_t target_queue, xpc_listener_create_flags_t flags, xpc_listener_incoming_session_handler_t incoming_session_handler, xpc_rich_error_t *error_out)
 {
   v7 = flags;
-  v21 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   opq = _xpc_session_common_create_opq(target_queue, "com.apple.listener.queue");
-  listener = xpc_connection_create_listener(service);
+  listener = xpc_connection_create_listener(service, opq);
   if (*(MEMORY[0x1E69E99F0] + 16) == -1)
   {
     v11 = *(MEMORY[0x1E69E99F0] + 24);
@@ -5230,8 +4807,8 @@ xpc_listener_t xpc_listener_create(const char *service, dispatch_queue_t target_
 
   if ((~v7 & 6) == 0)
   {
-    v16 = _xpc_asprintf("Cannot force the listener to be both a MachService and a XPCService");
-    _xpc_api_misuse(v16);
+    v15 = _xpc_asprintf("Cannot force the listener to be both a MachService and a XPCService");
+    _xpc_api_misuse(v15);
   }
 
   if ((v7 & 2) != 0 || !(v7 & 4 | *(v11 + 8) & 0x8000))
@@ -5250,21 +4827,20 @@ xpc_listener_t xpc_listener_create(const char *service, dispatch_queue_t target_
     v13 = _xpc_listener_log_handle__log;
     if (os_log_type_enabled(_xpc_listener_log_handle__log, OS_LOG_TYPE_DEFAULT))
     {
-      v17 = 134218242;
-      v18 = v12;
-      v19 = 2080;
-      v20 = service;
-      _os_log_impl(&dword_197263000, v13, OS_LOG_TYPE_DEFAULT, "[%p] Listener created with name: %s", &v17, 0x16u);
+      v16 = 134218242;
+      v17 = v12;
+      v18 = 2080;
+      v19 = service;
+      _os_log_impl(&dword_197263000, v13, OS_LOG_TYPE_DEFAULT, "[%p] Listener created with name: %s", &v16, 0x16u);
     }
   }
 
-  v14 = *MEMORY[0x1E69E9840];
   return v12;
 }
 
 void *_xpc_listener_create_with_connection(_xpc_connection_s *a1, uint64_t a2, char a3, const void *a4, size_t *a5)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v10 = _xpc_listener_alloc(48);
   v10[3] = 0x100000000;
   v10[4] = a1;
@@ -5273,43 +4849,42 @@ void *_xpc_listener_create_with_connection(_xpc_connection_s *a1, uint64_t a2, c
   _xpc_retain(v10);
   *&handler = MEMORY[0x1E69E9820];
   *(&handler + 1) = 0x40000000;
-  v17 = ___xpc_listener_setup_connection_handlers_block_invoke;
-  v18 = &__block_descriptor_tmp_17;
-  v19 = v10;
+  v16 = ___xpc_listener_setup_connection_handlers_block_invoke;
+  v17 = &__block_descriptor_tmp_17;
+  v18 = v10;
   xpc_connection_set_event_handler(a1, &handler);
   if ((a3 & 1) == 0)
   {
-    v15 = 0;
-    v11 = _xpc_listener_activate(v10, &v15, a5);
-    if (v15 != 1)
+    v14 = 0;
+    v11 = _xpc_listener_activate(v10, &v14, a5);
+    if (v14 != 1)
     {
-      _xpc_listener_create_with_connection_cold_1(&v14, &handler);
+      _xpc_listener_create_with_connection_cold_1(v13, &handler);
     }
 
     if ((v11 & 1) == 0)
     {
       xpc_release(v10);
-      v10 = 0;
+      return 0;
     }
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return v10;
 }
 
 void *xpc_listener_create_anonymous(NSObject *a1, char a2, const void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
   opq = _xpc_session_common_create_opq(a1, "com.apple.listener.queue");
   v6 = xpc_connection_create(0, opq);
-  v11 = 0;
-  v7 = _xpc_listener_create_with_connection(v6, opq, a2, a3, &v11);
+  v10 = 0;
+  v7 = _xpc_listener_create_with_connection(v6, opq, a2, a3, &v10);
   if (!v7)
   {
     _os_assumes_log();
   }
 
-  if (v11)
+  if (v10)
   {
     _os_assumes_log();
   }
@@ -5325,12 +4900,11 @@ void *xpc_listener_create_anonymous(NSObject *a1, char a2, const void *a3)
     if (os_log_type_enabled(_xpc_listener_log_handle__log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v13 = v7;
+      v12 = v7;
       _os_log_impl(&dword_197263000, v8, OS_LOG_TYPE_DEFAULT, "[%p] Anonymous listener created", buf, 0xCu);
     }
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -5358,10 +4932,10 @@ BOOL xpc_listener_activate(xpc_listener_t listener, xpc_rich_error_t *error_out)
 
 uint64_t _xpc_listener_activate(uint64_t a1, _DWORD *a2, size_t *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   if (!a2)
   {
-    _xpc_listener_activate_cold_3(&v15, buf);
+    _xpc_listener_activate_cold_3(&v14, buf);
   }
 
   os_unfair_lock_lock_with_options();
@@ -5370,9 +4944,7 @@ uint64_t _xpc_listener_activate(uint64_t a1, _DWORD *a2, size_t *a3)
   if (v6 != 1)
   {
     os_unfair_lock_unlock((a1 + 24));
-LABEL_13:
-    result = 0;
-    goto LABEL_20;
+    return 0;
   }
 
   xpc_retain(a1);
@@ -5403,16 +4975,16 @@ LABEL_13:
       if (os_log_type_enabled(_xpc_listener_log_handle__log, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 134218242;
-        v17 = a1;
-        v18 = 2080;
-        v19 = v9;
+        v16 = a1;
+        v17 = 2080;
+        v18 = v9;
         _os_log_impl(&dword_197263000, v11, OS_LOG_TYPE_DEFAULT, "[%p] Failed listener activation: %s", buf, 0x16u);
       }
     }
 
     free(v9);
     xpc_listener_cancel(a1);
-    goto LABEL_13;
+    return 0;
   }
 
   if (_os_trace_lazy_init_completed_4libxpc())
@@ -5426,20 +4998,17 @@ LABEL_13:
     if (os_log_type_enabled(_xpc_listener_log_handle__log, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 134217984;
-      v17 = a1;
+      v16 = a1;
       _os_log_impl(&dword_197263000, v13, OS_LOG_TYPE_DEFAULT, "[%p] Listener activated", buf, 0xCu);
     }
   }
 
-  result = 1;
-LABEL_20:
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  return 1;
 }
 
 void xpc_listener_cancel(xpc_listener_t listener)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   os_unfair_lock_lock_with_options();
   v2 = *(listener + 7);
   if (v2 != 3)
@@ -5463,9 +5032,9 @@ void xpc_listener_cancel(xpc_listener_t listener)
       v4 = _xpc_listener_log_handle__log;
       if (os_log_type_enabled(_xpc_listener_log_handle__log, OS_LOG_TYPE_DEFAULT))
       {
-        LODWORD(v7) = 134217984;
-        *(&v7 + 4) = listener;
-        _os_log_impl(&dword_197263000, v4, OS_LOG_TYPE_DEFAULT, "[%p] Listener canceled.", &v7, 0xCu);
+        LODWORD(v6) = 134217984;
+        *(&v6 + 4) = listener;
+        _os_log_impl(&dword_197263000, v4, OS_LOG_TYPE_DEFAULT, "[%p] Listener canceled.", &v6, 0xCu);
       }
     }
 
@@ -5475,16 +5044,15 @@ void xpc_listener_cancel(xpc_listener_t listener)
     }
 
     v5 = *(listener + 5);
-    *&v7 = MEMORY[0x1E69E9820];
-    *(&v7 + 1) = 0x40000000;
-    v8 = ___xpc_listener_cancel_locked_block_invoke_23;
-    v9 = &__block_descriptor_tmp_24_1;
-    v10 = listener;
-    dispatch_async(v5, &v7);
+    *&v6 = MEMORY[0x1E69E9820];
+    *(&v6 + 1) = 0x40000000;
+    v7 = ___xpc_listener_cancel_locked_block_invoke_23;
+    v8 = &__block_descriptor_tmp_24_1;
+    v9 = listener;
+    dispatch_async(v5, &v6);
   }
 
   os_unfair_lock_unlock(listener + 6);
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t xpc_listener_set_peer_requirement(uint64_t a1, void *a2)
@@ -5554,13 +5122,13 @@ os_log_t ___xpc_listener_log_handle_block_invoke()
 
 void ___xpc_listener_setup_connection_handlers_block_invoke(uint64_t a1, __objc2_class **a2)
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (_xpc_listener_get_state(v3) != 2)
   {
     if (!_os_trace_lazy_init_completed_4libxpc())
     {
-      goto LABEL_35;
+      return;
     }
 
     if (_xpc_listener_log_handle__once != -1)
@@ -5571,22 +5139,22 @@ void ___xpc_listener_setup_connection_handlers_block_invoke(uint64_t a1, __objc2
     v7 = _xpc_listener_log_handle__log;
     if (!os_log_type_enabled(_xpc_listener_log_handle__log, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_35;
+      return;
     }
 
     *buf = 134217984;
-    v27 = v3;
+    v25 = v3;
     v8 = "[%p] Received event on inactive Listener";
 LABEL_26:
     _os_log_impl(&dword_197263000, v7, OS_LOG_TYPE_DEFAULT, v8, buf, 0xCu);
-    goto LABEL_35;
+    return;
   }
 
   if (a2 == &_xpc_error_connection_invalid)
   {
     if (!_os_trace_lazy_init_completed_4libxpc())
     {
-      goto LABEL_35;
+      return;
     }
 
     if (_xpc_listener_log_handle__once != -1)
@@ -5597,72 +5165,53 @@ LABEL_26:
     v7 = _xpc_listener_log_handle__log;
     if (!os_log_type_enabled(_xpc_listener_log_handle__log, OS_LOG_TYPE_DEFAULT))
     {
-      goto LABEL_35;
+      return;
     }
 
     *buf = 134217984;
-    v27 = v3;
+    v25 = v3;
     v8 = "[%p] Connection invalidation received";
     goto LABEL_26;
   }
 
-  if (a2 == &_xpc_error_connection_interrupted)
+  if (a2 != &_xpc_error_connection_interrupted)
   {
-    if (!_os_trace_lazy_init_completed_4libxpc())
+    if (xpc_get_type(a2) != OS_xpc_connection)
     {
-      goto LABEL_35;
-    }
+      v4 = xpc_copy_description(a2);
+      if (!_os_trace_lazy_init_completed_4libxpc())
+      {
+        goto LABEL_34;
+      }
 
-    if (_xpc_listener_log_handle__once != -1)
-    {
-      _xpc_listener_dispose_cold_1();
-    }
+      if (_xpc_listener_log_handle__once != -1)
+      {
+        _xpc_listener_dispose_cold_1();
+      }
 
-    v7 = _xpc_listener_log_handle__log;
-    if (!os_log_type_enabled(_xpc_listener_log_handle__log, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_35;
-    }
+      v5 = _xpc_listener_log_handle__log;
+      if (!os_log_type_enabled(_xpc_listener_log_handle__log, OS_LOG_TYPE_DEFAULT))
+      {
+        goto LABEL_34;
+      }
 
-    *buf = 134217984;
-    v27 = v3;
-    v8 = "[%p] Connection interruption received";
-    goto LABEL_26;
-  }
-
-  if (xpc_get_type(a2) != OS_xpc_connection)
-  {
-    v4 = xpc_copy_description(a2);
-    if (!_os_trace_lazy_init_completed_4libxpc())
-    {
-      goto LABEL_34;
-    }
-
-    if (_xpc_listener_log_handle__once != -1)
-    {
-      _xpc_listener_dispose_cold_1();
-    }
-
-    v5 = _xpc_listener_log_handle__log;
-    if (!os_log_type_enabled(_xpc_listener_log_handle__log, OS_LOG_TYPE_DEFAULT))
-    {
-      goto LABEL_34;
-    }
-
-    *buf = 134218242;
-    v27 = v3;
-    v28 = 2080;
-    v29 = v4;
-    v6 = "[%p] Received object of unsupported type: %s";
+      *buf = 134218242;
+      v25 = v3;
+      v26 = 2080;
+      v27 = v4;
+      v6 = "[%p] Received object of unsupported type: %s";
 LABEL_10:
-    _os_log_impl(&dword_197263000, v5, OS_LOG_TYPE_DEFAULT, v6, buf, 0x16u);
+      _os_log_impl(&dword_197263000, v5, OS_LOG_TYPE_DEFAULT, v6, buf, 0x16u);
 LABEL_34:
-    free(v4);
-    goto LABEL_35;
-  }
+      free(v4);
+      return;
+    }
 
-  if (a2)
-  {
+    if (!a2)
+    {
+      return;
+    }
+
     error = 0;
     v9 = _xpc_session_create_with_connection(a2, *(v3 + 40), 1, 1, &error);
     if (error)
@@ -5685,26 +5234,25 @@ LABEL_34:
       }
 
       *buf = 134218242;
-      v27 = v3;
-      v28 = 2080;
-      v29 = v4;
+      v25 = v3;
+      v26 = 2080;
+      v27 = v4;
       v6 = "[%p] Error creating session for incoming peer: %s";
       goto LABEL_10;
     }
 
-    v11 = *(v3 + 16);
-    if (!v11)
+    v10 = *(v3 + 16);
+    if (!v10)
     {
       ___xpc_listener_setup_connection_handlers_block_invoke_cold_9();
     }
 
-    v12 = *(v3 + 16);
-    (*(v11 + 16))(v11, v9);
-    v25 = 0;
-    v13 = _xpc_session_activate_if_new(v9, &v25);
-    if (v25)
+    (*(v10 + 16))(v10, v9);
+    v23 = 0;
+    v11 = _xpc_session_activate_if_new(v9, &v23);
+    if (v23)
     {
-      v14 = xpc_rich_error_copy_description(v25);
+      v12 = xpc_rich_error_copy_description(v23);
       if (_os_trace_lazy_init_completed_4libxpc())
       {
         if (_xpc_listener_log_handle__once != -1)
@@ -5712,27 +5260,27 @@ LABEL_34:
           xpc_listener_create_anonymous_cold_1();
         }
 
-        v15 = _xpc_listener_log_handle__log;
+        v13 = _xpc_listener_log_handle__log;
         if (os_log_type_enabled(_xpc_listener_log_handle__log, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 134218242;
-          v27 = v3;
-          v28 = 2080;
-          v29 = v14;
-          _os_log_impl(&dword_197263000, v15, OS_LOG_TYPE_DEFAULT, "[%p] Error activating session: %s", buf, 0x16u);
+          v25 = v3;
+          v26 = 2080;
+          v27 = v12;
+          _os_log_impl(&dword_197263000, v13, OS_LOG_TYPE_DEFAULT, "[%p] Error activating session: %s", buf, 0x16u);
         }
       }
 
-      free(v14);
+      free(v12);
       goto LABEL_44;
     }
 
-    switch(v13)
+    switch(v11)
     {
       case 1:
 LABEL_44:
         xpc_release(v9);
-        goto LABEL_35;
+        return;
       case 5:
         is_extracted = _xpc_session_is_extracted(v9);
         inited = _os_trace_lazy_init_completed_4libxpc();
@@ -5748,15 +5296,15 @@ LABEL_44:
             xpc_listener_create_anonymous_cold_1();
           }
 
-          v16 = _xpc_listener_log_handle__log;
+          v14 = _xpc_listener_log_handle__log;
           if (!os_log_type_enabled(_xpc_listener_log_handle__log, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_44;
           }
 
           *buf = 134217984;
-          v27 = v3;
-          v17 = "[%p] Peer session extracted";
+          v25 = v3;
+          v15 = "[%p] Peer session extracted";
         }
 
         else
@@ -5771,15 +5319,15 @@ LABEL_44:
             xpc_listener_create_anonymous_cold_1();
           }
 
-          v16 = _xpc_listener_log_handle__log;
+          v14 = _xpc_listener_log_handle__log;
           if (!os_log_type_enabled(_xpc_listener_log_handle__log, OS_LOG_TYPE_DEFAULT))
           {
             goto LABEL_44;
           }
 
           *buf = 134217984;
-          v27 = v3;
-          v17 = "[%p] Peer session rejected";
+          v25 = v3;
+          v15 = "[%p] Peer session rejected";
         }
 
         break;
@@ -5794,15 +5342,15 @@ LABEL_44:
           xpc_listener_create_anonymous_cold_1();
         }
 
-        v16 = _xpc_listener_log_handle__log;
+        v14 = _xpc_listener_log_handle__log;
         if (!os_log_type_enabled(_xpc_listener_log_handle__log, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_44;
         }
 
         *buf = 134217984;
-        v27 = v3;
-        v17 = "[%p] Peer session explicitly activated";
+        v25 = v3;
+        v15 = "[%p] Peer session explicitly activated";
         break;
       default:
         if (!_os_trace_lazy_init_completed_4libxpc())
@@ -5815,32 +5363,46 @@ LABEL_44:
           xpc_listener_create_anonymous_cold_1();
         }
 
-        v20 = _xpc_listener_log_handle__log;
+        v18 = _xpc_listener_log_handle__log;
         if (!os_log_type_enabled(_xpc_listener_log_handle__log, OS_LOG_TYPE_DEFAULT))
         {
           goto LABEL_44;
         }
 
-        v21 = _xpc_session_string_for_state(v13);
+        v19 = _xpc_session_string_for_state(v11);
         *buf = 134218242;
-        v27 = v3;
-        v28 = 2080;
-        v29 = v21;
-        v17 = "[%p] Unexpected peer session state: %s";
-        v22 = v20;
-        v23 = 22;
+        v25 = v3;
+        v26 = 2080;
+        v27 = v19;
+        v15 = "[%p] Unexpected peer session state: %s";
+        v20 = v18;
+        v21 = 22;
         goto LABEL_70;
     }
 
-    v22 = v16;
-    v23 = 12;
+    v20 = v14;
+    v21 = 12;
 LABEL_70:
-    _os_log_impl(&dword_197263000, v22, OS_LOG_TYPE_DEFAULT, v17, buf, v23);
+    _os_log_impl(&dword_197263000, v20, OS_LOG_TYPE_DEFAULT, v15, buf, v21);
     goto LABEL_44;
   }
 
-LABEL_35:
-  v10 = *MEMORY[0x1E69E9840];
+  if (_os_trace_lazy_init_completed_4libxpc())
+  {
+    if (_xpc_listener_log_handle__once != -1)
+    {
+      _xpc_listener_dispose_cold_1();
+    }
+
+    v7 = _xpc_listener_log_handle__log;
+    if (os_log_type_enabled(_xpc_listener_log_handle__log, OS_LOG_TYPE_DEFAULT))
+    {
+      *buf = 134217984;
+      v25 = v3;
+      v8 = "[%p] Connection interruption received";
+      goto LABEL_26;
+    }
+  }
 }
 
 uint64_t _xpc_try_mach_port_construct(mach_port_options_ptr_t options, mach_port_context_t context, mach_port_name_t *name)
@@ -5919,16 +5481,14 @@ uint64_t _xpc_mach_port_cleanup_right(mach_port_name_t name, int a2)
 
 mach_port_context_t _xpc_mach_port_get_context(mach_port_name_t name)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   context = 0;
   if (mach_port_get_context(*MEMORY[0x1E69E9A60], name, &context))
   {
-    _xpc_mach_port_get_context_cold_1(&v3, v5);
+    _xpc_mach_port_get_context_cold_1(&v2, v4);
   }
 
-  result = context;
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  return context;
 }
 
 uint64_t _xpc_mach_port_setup_port_destroyed(mach_port_name_t name, mach_port_t notify, mach_port_t *previous)
@@ -6026,7 +5586,7 @@ uint64_t _xpc_fileport_makeport()
   }
 }
 
-uint64_t _xpc_dictionary_mach_helper(void *a1, const char *a2, const _xpc_type_s *a3, uint64_t (*a4)(xpc_object_t))
+uint64_t _xpc_dictionary_mach_helper(void *a1, const char *a2, xpc_type_t a3, uint64_t (*a4)(xpc_object_t))
 {
   if (xpc_get_type(a1) != OS_xpc_error && xpc_get_type(a1) != OS_xpc_dictionary)
   {
@@ -6114,9 +5674,8 @@ BOOL OUTLINED_FUNCTION_4_0()
   return os_log_type_enabled(v0, OS_LOG_TYPE_ERROR);
 }
 
-uint64_t OUTLINED_FUNCTION_5()
+uint64_t OUTLINED_FUNCTION_5(uint64_t a1)
 {
-  v2 = *v0;
 
   return _os_crash_msg();
 }
@@ -6333,19 +5892,19 @@ uint64_t serialize_xpc_dict(void *a1, void *a2)
 
 uint64_t __serialize_xpc_dict_block_invoke(uint64_t a1, uint64_t a2, void *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v23 = *MEMORY[0x1E69E9840];
   v5 = *(a1 + 40);
-  v18 = 0;
-  v19 = 0;
+  v21 = 0;
+  v22 = 0;
   bytes = 5;
-  v17 = 0;
+  v20 = 0;
   xpc_array_set_data(v5, 0xFFFFFFFFFFFFFFFFLL, &bytes, 0x20uLL);
   string_ptr = xpc_string_get_string_ptr(a3);
-  v13[3] = 0;
-  v13[0] = 3;
-  v13[1] = _xpc_strdup(string_ptr);
-  v13[2] = xpc_string_get_length(a3);
-  xpc_array_set_data(*(a1 + 40), 0xFFFFFFFFFFFFFFFFLL, v13, 0x20uLL);
+  v16[3] = 0;
+  v16[0] = 3;
+  v16[1] = _xpc_strdup(string_ptr);
+  v16[2] = xpc_string_get_length(a3);
+  xpc_array_set_data(*(a1 + 40), 0xFFFFFFFFFFFFFFFFLL, v16, 0x20uLL);
   v7 = *(a1 + 48);
   v8 = xpc_string_get_string_ptr(a3);
   value = xpc_dictionary_get_value(v7, v8);
@@ -6355,73 +5914,74 @@ uint64_t __serialize_xpc_dict_block_invoke(uint64_t a1, uint64_t a2, void *a3)
     if (*(*(*(a1 + 32) + 8) + 24))
     {
       bytes = 0;
+      v20 = 0;
       v17 = 0;
-      v14 = 0;
-      v15 = 0;
+      v18 = 0;
       if ((_dyld_get_image_uuid() & 1) == 0)
       {
         bytes = 0;
-        v17 = 0;
+        v20 = 0;
       }
 
       if (_dyld_get_shared_cache_uuid())
       {
-        _dyld_get_shared_cache_range();
+        shared_cache_range = _dyld_get_shared_cache_range();
       }
 
       else
       {
-        v14 = 0;
-        v15 = 0;
+        shared_cache_range = 0;
+        v17 = 0;
+        v18 = 0;
       }
 
-      xpc_string_get_string_ptr(a3);
-      _os_log_simple();
-      result = 0;
+      v14 = xpc_string_get_string_ptr(a3);
+      _os_log_simple(&dword_197263000, &bytes, &v17, shared_cache_range, 16, 0, "failed to serialized value for key: %s", v14);
+      return 0;
     }
 
     else
     {
-      v10 = *(a1 + 40);
-      v18 = 0;
-      v19 = 0;
+      v12 = *(a1 + 40);
+      v21 = 0;
+      v22 = 0;
       bytes = 6;
-      v17 = 0;
-      xpc_array_set_data(v10, 0xFFFFFFFFFFFFFFFFLL, &bytes, 0x20uLL);
-      result = 1;
+      v20 = 0;
+      xpc_array_set_data(v12, 0xFFFFFFFFFFFFFFFFLL, &bytes, 0x20uLL);
+      return 1;
     }
   }
 
   else
   {
     bytes = 0;
+    v20 = 0;
     v17 = 0;
-    v14 = 0;
-    v15 = 0;
+    v18 = 0;
     if ((_dyld_get_image_uuid() & 1) == 0)
     {
       bytes = 0;
-      v17 = 0;
+      v20 = 0;
     }
 
     if (_dyld_get_shared_cache_uuid())
     {
-      _dyld_get_shared_cache_range();
+      v11 = _dyld_get_shared_cache_range();
     }
 
     else
     {
-      v14 = 0;
-      v15 = 0;
+      v11 = 0;
+      v17 = 0;
+      v18 = 0;
     }
 
-    xpc_string_get_string_ptr(a3);
-    _os_log_simple();
+    v15 = xpc_string_get_string_ptr(a3);
+    _os_log_simple(&dword_197263000, &bytes, &v17, v11, 16, 0, "no value for key: %s", v15);
     result = 0;
     *(*(*(a1 + 32) + 8) + 24) = 2;
   }
 
-  v12 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -6440,10 +6000,7 @@ LABEL_12:
 LABEL_16:
     LOBYTE(v18) = 0;
     xpc_array_set_data(a2, 0xFFFFFFFFFFFFFFFFLL, &bytes, 0x20uLL);
-    v7 = 0;
-LABEL_17:
-    v8 = *MEMORY[0x1E69E9840];
-    return v7;
+    return 0;
   }
 
   v5 = type;
@@ -6494,15 +6051,15 @@ LABEL_15:
       v19 = &v11;
       v20 = a2;
       xpc_array_apply(a1, &bytes);
-      v7 = *(v12 + 6);
-      if (!v7)
+      v8 = *(v12 + 6);
+      if (!v8)
       {
         v23 = 0;
         v24 = 0;
         v21 = 6;
         v22 = 0;
         xpc_array_set_data(a2, 0xFFFFFFFFFFFFFFFFLL, &v21, 0x20uLL);
-        v7 = *(v12 + 6);
+        v8 = *(v12 + 6);
       }
 
       _Block_object_dispose(&v11, 8);
@@ -6523,24 +6080,23 @@ LABEL_15:
       if (_dyld_get_shared_cache_uuid())
       {
         v11 = 0;
-        _dyld_get_shared_cache_range();
+        shared_cache_range = _dyld_get_shared_cache_range();
       }
 
       else
       {
+        shared_cache_range = 0;
         v21 = 0;
         v22 = 0;
       }
 
-      xpc_type_get_name(v5);
-      _os_log_simple();
-      v7 = 1;
+      name = xpc_type_get_name(v5);
+      _os_log_simple(&dword_197263000, &bytes, &v21, shared_cache_range, 16, 0, "unsupported type: %s", name);
+      return 1;
     }
 
-    goto LABEL_17;
+    return v8;
   }
-
-  v10 = *MEMORY[0x1E69E9840];
 
   return serialize_xpc_dict(a1, a2);
 }
@@ -6719,12 +6275,11 @@ void _xpc_transaction_begin_impl(uint64_t a1)
   *(a1 + 172) = v1 + 1;
   if (v1 == -1)
   {
-    v5 = _xpc_asprintf("Underflow of transaction count.");
-    _xpc_api_misuse(v5);
+    v4 = _xpc_asprintf("Underflow of transaction count.");
+    _xpc_api_misuse(v4);
   }
 
   _xpc_ktrace_pid1(687865884, v1 + 1);
-  v3 = *(a1 + 172);
   if (_sigterm_deferred_initialization == 1 && _xpc_is_multithreaded())
   {
     _sigterm_deferred_initialization = 0;
@@ -6736,15 +6291,15 @@ void _xpc_transaction_begin_impl(uint64_t a1)
 
   if (v1 <= 0 && *(a1 + 168) == 1)
   {
-    v4 = getpid();
-    proc_set_dirty(v4, 1);
+    v3 = getpid();
+    proc_set_dirty(v3, 1);
     _xpc_ktrace_pid0(687865892);
   }
 }
 
 _DWORD *_transaction_snapshot_new_locked(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
+  v12 = *MEMORY[0x1E69E9840];
   v2 = *(a1 + 184);
   if (v2)
   {
@@ -6779,7 +6334,7 @@ _DWORD *_transaction_snapshot_new_locked(uint64_t a1)
       *v8 = v7;
       if (!v3)
       {
-        _transaction_snapshot_new_locked_cold_1(&v11, v12);
+        _transaction_snapshot_new_locked_cold_1(&v10, v11);
       }
 
       v7 = *(v7 + 16);
@@ -6790,7 +6345,6 @@ _DWORD *_transaction_snapshot_new_locked(uint64_t a1)
     while (v7);
   }
 
-  v9 = *MEMORY[0x1E69E9840];
   return v6;
 }
 
@@ -6799,12 +6353,11 @@ void _transaction_snapshot_destroy(int *a1)
   if (a1[1] >= 1)
   {
     v2 = 0;
-    v3 = (a1 + 2);
+    v3 = a1 + 2;
     do
     {
-      v4 = *&v3[8 * v2];
       _os_object_release_internal();
-      *&v3[8 * v2++] = 0;
+      *&v3[2 * v2++] = 0;
     }
 
     while (v2 < a1[1]);
@@ -6851,7 +6404,7 @@ void _xpc_transaction_end()
 
 void xpc_track_activity()
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   if (*(MEMORY[0x1E69E99F0] + 16) == -1)
   {
     v0 = *(MEMORY[0x1E69E99F0] + 24);
@@ -6865,7 +6418,6 @@ void xpc_track_activity()
   os_unfair_lock_lock_with_options();
   if (*(v0 + 169))
   {
-    v1 = *MEMORY[0x1E69E9840];
 
     os_unfair_lock_unlock((v0 + 176));
   }
@@ -6876,18 +6428,18 @@ void xpc_track_activity()
     os_unfair_lock_unlock((v0 + 176));
     if (*(v0 + 192))
     {
-      v2 = 19;
+      v1 = 19;
     }
 
     else
     {
-      v2 = 7;
+      v1 = 7;
     }
 
-    v3 = getpid();
-    if ((proc_track_dirty(v3, v2) | 0x10) != 0x10)
+    v2 = getpid();
+    if ((proc_track_dirty(v2, v1) | 0x10) != 0x10)
     {
-      xpc_track_activity_cold_2(&v5, v6);
+      xpc_track_activity_cold_2(&v3, v4);
     }
 
     xpc_transactions_enable();
@@ -6895,8 +6447,6 @@ void xpc_track_activity()
     {
       _xpc_fd_desc_cold_1();
     }
-
-    v4 = *MEMORY[0x1E69E9840];
   }
 }
 
@@ -6960,7 +6510,7 @@ uint64_t xpc_transaction_try_exit_clean()
 
 void _os_transaction_log_snapshot(uint64_t a1, int a2, int *a3)
 {
-  v46 = *MEMORY[0x1E69E9840];
+  v31 = *MEMORY[0x1E69E9840];
   if (_xpc_transaction_log_pred != -1)
   {
     _os_transaction_log_snapshot_cold_1();
@@ -6980,15 +6530,15 @@ void _os_transaction_log_snapshot(uint64_t a1, int a2, int *a3)
       v10 = "";
     }
 
-    v39 = a1;
-    v40 = 1024;
-    *v41 = v9;
-    *&v41[4] = 1024;
-    *&v41[6] = v8;
-    v42 = 1024;
-    v43 = v7;
-    v44 = 2080;
-    v45 = v10;
+    v24 = a1;
+    v25 = 1024;
+    *v26 = v9;
+    *&v26[4] = 1024;
+    *&v26[6] = v8;
+    v27 = 1024;
+    v28 = v7;
+    v29 = 2080;
+    v30 = v10;
     _os_log_impl(&dword_197263000, v5, OS_LOG_TYPE_DEFAULT, "Remaining transactions %s: %d (%d os_transaction + %d xpc_transaction_begin)%s", buf, 0x28u);
   }
 
@@ -7012,9 +6562,9 @@ void _os_transaction_log_snapshot(uint64_t a1, int a2, int *a3)
       {
         v15 = v6 - *(v13 + 32);
         *buf = 136446466;
-        v39 = v14;
-        v40 = 2048;
-        *v41 = v15 / 0x3B9ACA00;
+        v24 = v14;
+        v25 = 2048;
+        *v26 = v15 / 0x3B9ACA00;
         _os_log_impl(&dword_197263000, v5, OS_LOG_TYPE_DEFAULT, "os_transaction: '%{public}s', created %llu sec ago", buf, 0x16u);
         v11 = a3[1];
       }
@@ -7024,27 +6574,30 @@ void _os_transaction_log_snapshot(uint64_t a1, int a2, int *a3)
   if (a2)
   {
     v16 = string_builder_new(0x100uLL);
-    v35 = *a3;
-    string_builder_appendf(v16, "Remaining %d os_transaction + %d xpc_transaction_begin\n", v17, v18, v19, v20, v21, v22, a3[1]);
-    v23 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW_APPROX);
+    string_builder_appendf(v16, "Remaining %d os_transaction + %d xpc_transaction_begin\n", a3[1], *a3);
+    v17 = clock_gettime_nsec_np(_CLOCK_MONOTONIC_RAW_APPROX);
     if (a3[1] >= 1)
     {
-      v30 = v23;
-      v31 = 0;
+      v18 = v17;
+      v19 = 0;
       do
       {
-        v32 = *&a3[2 * v31 + 2];
-        if ((*(v32 + 48) & 2) != 0)
+        v20 = *&a3[2 * v19 + 2];
+        if ((*(v20 + 48) & 2) != 0)
         {
-          v33 = *(v32 + 56);
+          v21 = *(v20 + 56);
         }
 
-        v36 = (v30 - *(v32 + 32)) / 0x3B9ACA00;
-        string_builder_appendf(v16, "os_transaction: [%p] '%s', created %llu sec ago\n", v24, v25, v26, v27, v28, v29, *(v32 + 40));
-        ++v31;
+        else
+        {
+          v21 = (v20 + 49);
+        }
+
+        string_builder_appendf(v16, "os_transaction: [%p] '%s', created %llu sec ago\n", *(v20 + 40), v21, (v18 - *(v20 + 32)) / 0x3B9ACA00);
+        ++v19;
       }
 
-      while (v31 < a3[1]);
+      while (v19 < a3[1]);
     }
 
     if (_transaction_snapshot_write_crash_message_asi_str)
@@ -7059,7 +6612,6 @@ void _os_transaction_log_snapshot(uint64_t a1, int a2, int *a3)
   }
 
   _transaction_snapshot_destroy(a3);
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 void xpc_transaction_exit_clean()
@@ -7245,14 +6797,14 @@ uint64_t _xpc_bundle_resolve_path_variant(const char *a1)
     return 3;
   }
 
-  v9[0] = MEMORY[0x1E69E9820];
-  v9[1] = 0x40000000;
-  v10 = ___xpc_bundle_resolve_path_variant_block_invoke;
-  v11 = &__block_descriptor_tmp_12;
-  v12 = v3;
+  v8[0] = MEMORY[0x1E69E9820];
+  v8[1] = 0x40000000;
+  v9 = ___xpc_bundle_resolve_path_variant_block_invoke;
+  v10 = &__block_descriptor_tmp_12;
+  v11 = v3;
   v5 = &dword_1E74AB4B8;
   v6 = 3;
-  while (!(v10)(v9, *(v5 - 1)))
+  while (!(v9)(v8, *(v5 - 1)))
   {
     v5 += 4;
     if (!--v6)
@@ -7267,7 +6819,7 @@ LABEL_10:
   if (close(v4) == -1)
   {
 LABEL_13:
-    v8 = *__error();
+    __error();
     _os_assumes_log();
   }
 
@@ -7340,10 +6892,10 @@ LABEL_13:
 
 char *_xpc_bundle_copy_container(unsigned int a1, const char *a2)
 {
-  v11 = *MEMORY[0x1E69E9840];
+  v10 = *MEMORY[0x1E69E9840];
   if (a1 == 3)
   {
-    _xpc_bundle_copy_container_cold_1(&v9, v10);
+    _xpc_bundle_copy_container_cold_1(&v8, v9);
   }
 
   v3 = _xpc_strdup(a2);
@@ -7362,16 +6914,15 @@ char *_xpc_bundle_copy_container(unsigned int a1, const char *a2)
     }
   }
 
-  v7 = *MEMORY[0x1E69E9840];
   return v3;
 }
 
 char *_xpc_bundle_variant_create_subpath(_BYTE *a1, unsigned int a2, int a3, uint64_t a4)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   if (a2 == 3)
   {
-    _xpc_bundle_copy_container_cold_1(&v8, v9);
+    _xpc_bundle_copy_container_cold_1(&v7, v8);
   }
 
   v4 = 0;
@@ -7443,10 +6994,10 @@ LABEL_19:
 LABEL_28:
       if (a4)
       {
-        goto LABEL_29;
+        return _xpc_asprintf("%s%s%s%s%s");
       }
 
-      goto LABEL_27;
+      return _xpc_asprintf("%s%s%s");
     }
   }
 
@@ -7460,18 +7011,12 @@ LABEL_28:
     goto LABEL_28;
   }
 
-  if (a4)
+  if (!a4)
   {
-LABEL_29:
-    result = _xpc_asprintf("%s%s%s%s%s");
-    goto LABEL_30;
+    return _xpc_asprintf("%s%s%s");
   }
 
-LABEL_27:
-  result = _xpc_asprintf("%s%s%s");
-LABEL_30:
-  v7 = *MEMORY[0x1E69E9840];
-  return result;
+  return _xpc_asprintf("%s%s%s%s%s");
 }
 
 char *_xpc_bundle_resolve_executable_name(const char *a1, xpc_object_t xdict)
@@ -7556,23 +7101,17 @@ BOOL _xpc_is_being_debugged()
 
 uint64_t _xpc_pid_is_being_debugged(int a1)
 {
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
+  v3 = 0u;
   v4 = 0u;
-  v5 = 0u;
-  memset(v3, 0, sizeof(v3));
-  if (_xpc_proc_bsdinfo(a1, v3))
+  memset(v2, 0, sizeof(v2));
+  if (!_xpc_proc_bsdinfo(a1, v2))
   {
-    _os_assumes_log();
-    result = 0;
+    return (v3 >> 1) & 1;
   }
 
-  else
-  {
-    result = (v4 >> 1) & 1;
-  }
-
-  v2 = *MEMORY[0x1E69E9840];
-  return result;
+  _os_assumes_log();
+  return 0;
 }
 
 void _xpc_api_misuse(const char *a1)
@@ -7594,10 +7133,10 @@ void _xpc_api_misuse(const char *a1)
 
 void *string_builder_new(size_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   if (!a1)
   {
-    string_builder_new_cold_1(&v6, v7);
+    string_builder_new_cold_1(&v5, v6);
   }
 
   v2 = _xpc_alloc_typed(0x18uLL, 0x1010040113C0ABBuLL);
@@ -7606,7 +7145,6 @@ void *string_builder_new(size_t a1)
   *v2 = v3;
   v2[1] = a1;
   v2[2] = 0;
-  v4 = *MEMORY[0x1E69E9840];
   return v2;
 }
 
@@ -7617,57 +7155,58 @@ void string_builder_destroy(void **a1)
   free(a1);
 }
 
-void string_builder_appendf(uint64_t a1, const char *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, char a9)
+void string_builder_appendf(uint64_t a1, const char *a2, ...)
 {
-  v24 = *MEMORY[0x1E69E9840];
+  va_start(va, a2);
+  v16 = *MEMORY[0x1E69E9840];
   __source[0] = 0;
-  __source[1] = &a9;
-  v10 = vasprintf(__source, a2, &a9);
-  if (v10 == -1)
+  va_copy(&__source[1], va);
+  v3 = vasprintf(__source, a2, va);
+  if (v3 == -1)
   {
     _xpc_fd_desc_cold_1();
-    goto LABEL_15;
+    return;
   }
 
-  v11 = *(a1 + 16);
-  v12 = __CFADD__(v11, v10);
-  v13 = v11 + v10;
-  if (v12)
+  v4 = *(a1 + 16);
+  v5 = __CFADD__(v4, v3);
+  v6 = v4 + v3;
+  if (v5)
   {
-    v14 = (v10 >> 63) + 1;
+    v7 = (v3 >> 63) + 1;
   }
 
   else
   {
-    v14 = v10 >> 63;
+    v7 = v3 >> 63;
   }
 
-  v15 = v14 << 63 >> 63;
-  if (v15 != v14 || v15 < 0)
+  v8 = v7 << 63 >> 63;
+  if (v8 != v7 || v8 < 0)
   {
     goto LABEL_20;
   }
 
-  v16 = *(a1 + 8);
-  if (v16 <= v13)
+  v9 = *(a1 + 8);
+  if (v9 <= v6)
   {
-    if ((v13 & 0x8000000000000000) == 0)
+    if ((v6 & 0x8000000000000000) == 0)
     {
-      v18 = 2 * v13;
-      if (2 * v13 < 2 * v16)
+      v11 = 2 * v6;
+      if (2 * v6 < 2 * v9)
       {
-        string_builder_appendf_cold_2(&v21, v23);
+        string_builder_appendf_cold_2(&v13, v15);
       }
 
-      v17 = _xpc_alloc_typed(2 * v13, 0x160059B9uLL);
-      if (strlcpy(v17, *a1, v18) >= v18)
+      v10 = _xpc_alloc_typed(2 * v6, 0x160059B9uLL);
+      if (strlcpy(v10, *a1, v11) >= v11)
       {
-        string_builder_appendf_cold_1(&v21, v23);
+        string_builder_appendf_cold_1(&v13, v15);
       }
 
       free(*a1);
-      *a1 = v17;
-      *(a1 + 8) = v18;
+      *a1 = v10;
+      *(a1 + 8) = v11;
       goto LABEL_13;
     }
 
@@ -7675,22 +7214,20 @@ LABEL_20:
     __break(1u);
   }
 
-  v17 = *a1;
-  v18 = *(a1 + 8);
+  v10 = *a1;
+  v11 = *(a1 + 8);
 LABEL_13:
-  v19 = strlcat(v17, __source[0], v18);
-  *(a1 + 16) = v19;
-  if (v19 >= *(a1 + 8))
+  v12 = strlcat(v10, __source[0], v11);
+  *(a1 + 16) = v12;
+  if (v12 >= *(a1 + 8))
   {
-    string_builder_appendf_cold_3(&v21, v23);
+    string_builder_appendf_cold_3(&v13, v15);
   }
 
   free(__source[0]);
-LABEL_15:
-  v20 = *MEMORY[0x1E69E9840];
 }
 
-uint64_t _xpc_services_unavailable()
+unint64_t _xpc_services_unavailable()
 {
   if (*(MEMORY[0x1E69E99F0] + 16) == -1)
   {
@@ -7724,7 +7261,7 @@ uint64_t _xpc_services_unavailable()
   }
 }
 
-uint64_t _xpc_runtime_get_entitlements_data()
+uint64_t _xpc_runtime_get_entitlements_data(uint64_t a1, uint64_t a2)
 {
   if (_xpc_runtime_get_entitlements_data_pred != -1)
   {
@@ -7742,7 +7279,7 @@ xpc_object_t ___xpc_runtime_get_entitlements_data_block_invoke()
   return result;
 }
 
-uint64_t _xpc_runtime_get_self_entitlements()
+uint64_t _xpc_runtime_get_self_entitlements(uint64_t a1, uint64_t a2)
 {
   if (_xpc_runtime_get_self_entitlements_pred != -1)
   {
@@ -7752,7 +7289,7 @@ uint64_t _xpc_runtime_get_self_entitlements()
   return _xpc_runtime_get_self_entitlements_entitlements;
 }
 
-xpc_object_t ___xpc_runtime_get_self_entitlements_block_invoke()
+xpc_object_t ___xpc_runtime_get_self_entitlements_block_invoke(uint64_t a1, uint64_t a2)
 {
   if (_xpc_runtime_get_entitlements_data_pred != -1)
   {
@@ -7761,10 +7298,10 @@ xpc_object_t ___xpc_runtime_get_self_entitlements_block_invoke()
 
   if (_xpc_runtime_get_entitlements_data_entitlements_data)
   {
-    v1 = 0;
-    v2 = 0;
-    xpc_data_get_bytes_ptr_and_length(_xpc_runtime_get_entitlements_data_entitlements_data, &v1, &v2);
-    result = xpc_create_from_ce_der(v1, v2);
+    v3 = 0;
+    v4 = 0;
+    xpc_data_get_bytes_ptr_and_length(_xpc_runtime_get_entitlements_data_entitlements_data, &v3, &v4);
+    result = xpc_create_from_ce_der(v3, v4);
   }
 
   else
@@ -7776,7 +7313,7 @@ xpc_object_t ___xpc_runtime_get_self_entitlements_block_invoke()
   return result;
 }
 
-uint64_t _xpc_runtime_is_app_sandboxed()
+uint64_t _xpc_runtime_is_app_sandboxed(uint64_t a1, uint64_t a2)
 {
   if (_xpc_runtime_is_app_sandboxed_pred != -1)
   {
@@ -7788,22 +7325,24 @@ uint64_t _xpc_runtime_is_app_sandboxed()
 
 uint64_t ___xpc_runtime_is_app_sandboxed_block_invoke()
 {
-  v3 = *MEMORY[0x1E69E9840];
-  bzero(v2, 0x400uLL);
+  v2 = *MEMORY[0x1E69E9840];
+  bzero(v1, 0x400uLL);
   getpid();
   result = sandbox_container_path_for_pid();
-  if (!result && v2[0])
+  if (!result)
   {
-    _xpc_runtime_is_app_sandboxed_containerized = 1;
+    if (v1[0])
+    {
+      _xpc_runtime_is_app_sandboxed_containerized = 1;
+    }
   }
 
-  v1 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void xpc_add_bundle(const char *a1, char a2)
 {
-  v10 = *MEMORY[0x1E69E9840];
+  v9 = *MEMORY[0x1E69E9840];
   _xpc_uncork_domain();
   if ((a2 & 2) != 0)
   {
@@ -7820,10 +7359,8 @@ void xpc_add_bundle(const char *a1, char a2)
   v6 = _xpc_bootstrap_services(v5);
   if (v6 != 36 && v6 != 124 && v6)
   {
-    xpc_track_activity_cold_2(&v8, v9);
+    xpc_track_activity_cold_2(&v7, v8);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 
   xpc_release(v5);
 }
@@ -8012,7 +7549,7 @@ const char *_xpc_spawnattr_unpack_strings(uint64_t a1, unint64_t a2, unsigned in
 
 uint64_t _xpc_spawnattr_binprefs_pack(uint64_t a1, uint64_t a2, _DWORD *a3, void *a4)
 {
-  v17 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   v8 = xpc_binprefs_count(a2);
   *(a1 + 32) = v8;
   v9 = 0;
@@ -8042,12 +7579,11 @@ uint64_t _xpc_spawnattr_binprefs_pack(uint64_t a1, uint64_t a2, _DWORD *a3, void
   result = xpc_binprefs_count(a2);
   if (v9 != 8 * result)
   {
-    _xpc_spawnattr_binprefs_pack_cold_1(&v15, v16);
+    _xpc_spawnattr_binprefs_pack_cold_1(&v14, v15);
   }
 
   *a3 += v9;
   *a4 -= v9;
-  v14 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -8080,15 +7616,15 @@ uint64_t _xpc_spawnattr_binprefs_unpack(uint64_t a1, uint64_t a2)
 
 uint64_t _xpc_pipe_desc(const char *a1, uint64_t a2)
 {
-  v15 = *MEMORY[0x1E69E9840];
-  v13 = 0u;
-  v14 = 0u;
-  v11 = 0u;
+  v14 = *MEMORY[0x1E69E9840];
   v12 = 0u;
-  v9 = 0u;
+  v13 = 0u;
   v10 = 0u;
-  *__str = 0u;
+  v11 = 0u;
   v8 = 0u;
+  v9 = 0u;
+  *__str = 0u;
+  v7 = 0u;
   v3 = snprintf(__str, 0x80uLL, "<%s: %p> { name = %s }", "pipe", a1, a1 + 49);
   if (v3 >= 0x7F)
   {
@@ -8100,9 +7636,7 @@ uint64_t _xpc_pipe_desc(const char *a1, uint64_t a2)
     v4 = v3;
   }
 
-  result = _xpc_serializer_append(a2, __str, (v4 + 1), 0);
-  v6 = *MEMORY[0x1E69E9840];
-  return result;
+  return _xpc_serializer_append(a2, __str, (v4 + 1), 0);
 }
 
 uint64_t _xpc_pipe_debug(uint64_t a1, char *__str, size_t __size)
@@ -8345,9 +7879,10 @@ mach_port_context_t _xpc_pipe_create(char *__s, mach_port_name_t a2, int a3)
   return v7;
 }
 
-mach_port_context_t xpc_pipe_create_with_user_session_uid(char *a1, unsigned int a2, int a3)
+mach_port_context_t xpc_pipe_create_with_user_session_uid(char *a1, uint64_t a2, int a3)
 {
-  if ((xpc_user_sessions_enabled() & 1) == 0)
+  v4 = a2;
+  if ((xpc_user_sessions_enabled(a1, a2) & 1) == 0)
   {
     v10 = _xpc_asprintf("xpc_pipe_create_with_user_session_uid() can only be used if xpc_user_sessions_enabled() returns true.");
     goto LABEL_12;
@@ -8361,7 +7896,7 @@ LABEL_12:
   }
 
   v11 = 0;
-  v6 = _xpc_look_up_endpoint(a1, 2, a2, 0, 0, 0, 0, &v11, 0);
+  v6 = _xpc_look_up_endpoint(a1, 2, v4, 0, 0, 0, 0, &v11, 0);
   v7 = 0;
   if (v6)
   {
@@ -8385,8 +7920,9 @@ LABEL_12:
   return v7;
 }
 
-uint64_t _xpc_pipe_routine(uint64_t a1, int a2, void *a3, void *a4, char a5)
+uint64_t _xpc_pipe_routine(uint64_t a1, uint64_t a2, void *a3, void *a4, char a5)
 {
+  v8 = a2;
   _xpc_pipe_check_in_once(a1);
   if (*(a1 + 28) != 1)
   {
@@ -8420,7 +7956,7 @@ LABEL_54:
   }
 
 LABEL_8:
-  v13 = _xpc_pipe_pack_message(a1, a2, a3, reply_port, 21, 1);
+  v13 = _xpc_pipe_pack_message(a1, v8, a3, reply_port, 21, 1);
   if (!v13)
   {
     return 22;
@@ -8483,7 +8019,7 @@ LABEL_8:
       v31 = _xpc_pipe_mach_msg(v14, v29, v24, v28, msgh_local_port);
       if (v26)
       {
-        _xpc_serializer_reset_mach_message_header(v14);
+        _xpc_serializer_reset_mach_message_header(v14, v26, v28);
       }
 
       if (v31 != 268435479)
@@ -8610,8 +8146,11 @@ LABEL_45:
   return v11;
 }
 
-uint64_t _xpc_pipe_simpleroutine(uint64_t a1, int a2, void *a3, int a4, char a5)
+uint64_t _xpc_pipe_simpleroutine(uint64_t a1, uint64_t a2, void *a3, uint64_t a4, uint64_t a5)
 {
+  v5 = a5;
+  v6 = a4;
+  v8 = a2;
   _xpc_pipe_check_in_once(a1);
   if (*(a1 + 28) != 1)
   {
@@ -8624,7 +8163,7 @@ uint64_t _xpc_pipe_simpleroutine(uint64_t a1, int a2, void *a3, int a4, char a5)
     _xpc_api_misuse(v15);
   }
 
-  if (a4)
+  if (v6)
   {
     v10 = 21;
   }
@@ -8634,14 +8173,14 @@ uint64_t _xpc_pipe_simpleroutine(uint64_t a1, int a2, void *a3, int a4, char a5)
     v10 = 0;
   }
 
-  v11 = _xpc_pipe_pack_message(a1, a2, a3, a4, v10, 0);
+  v11 = _xpc_pipe_pack_message(a1, v8, a3, v6, v10, 0);
   if (!v11)
   {
     return 22;
   }
 
   v12 = v11;
-  v13 = _xpc_send_serializer(v11, 1, a5);
+  v13 = _xpc_send_serializer(v11, 1, v5);
   xpc_release(v12);
   if (v13 == 32)
   {
@@ -8673,7 +8212,7 @@ uint64_t xpc_pipe_routine_reply(void *a1)
 
 void *_xpc_pipe_pack_message(uint64_t a1, int a2, unint64_t a3, int a4, int a5, char a6)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v12 = _xpc_serializer_create();
   if (a4)
   {
@@ -8687,7 +8226,7 @@ void *_xpc_pipe_pack_message(uint64_t a1, int a2, unint64_t a3, int a4, int a5, 
 
   if ((a2 & 0xFF000000) != 0)
   {
-    _xpc_pipe_pack_message_cold_1(&v23, v24);
+    _xpc_pipe_pack_message_cold_1(&v22, v23);
   }
 
   v14 = v12;
@@ -8737,10 +8276,9 @@ void *_xpc_pipe_pack_message(uint64_t a1, int a2, unint64_t a3, int a4, int a5, 
   else
   {
     xpc_release(v14);
-    v14 = 0;
+    return 0;
   }
 
-  v21 = *MEMORY[0x1E69E9840];
   return v14;
 }
 
@@ -8864,11 +8402,13 @@ void _xpc_pipe_check_in_once(uint64_t a1)
   }
 }
 
-uint64_t xpc_pipe_receive(mach_port_name_t a1, void *a2, char a3)
+uint64_t xpc_pipe_receive(uint64_t a1, void *a2, uint64_t a3)
 {
+  v3 = a3;
+  v5 = a1;
   object[1] = 0;
   object[0] = dispatch_mach_msg_create();
-  v6 = _xpc_pipe_receive(a1, object, a3);
+  v6 = _xpc_pipe_receive(v5, object, v3);
   v7 = object[0];
   if (!v6)
   {
@@ -9017,42 +8557,42 @@ uint64_t xpc_pipe_invalidate(uint64_t result)
 
 uint64_t xpc_pipe_try_receive(mach_port_name_t a1, uint64_t *a2, _DWORD *a3, unsigned int (*a4)(void), size_t a5, char a6)
 {
-  v25[1] = *MEMORY[0x1E69E9840];
-  v24 = 0;
-  v23 = dispatch_mach_msg_create();
-  v12 = _xpc_pipe_receive(a1, &v23, a6);
+  v24[1] = *MEMORY[0x1E69E9840];
+  v23 = 0;
+  v22 = dispatch_mach_msg_create();
+  v12 = _xpc_pipe_receive(a1, &v22, a6);
   if (v12)
   {
     v13 = v12;
-    v14 = v23;
+    v14 = v22;
   }
 
   else
   {
-    v25[0] = 0;
-    v14 = v23;
+    v24[0] = 0;
+    v14 = v22;
     msg = dispatch_mach_msg_get_msg();
-    v24 = msg;
-    if (v25[0] <= 0x17uLL)
+    v23 = msg;
+    if (v24[0] <= 0x17uLL)
     {
       xpc_pipe_try_receive_cold_1();
     }
 
-    v18 = msg;
-    v19 = *(msg + 20);
-    if (v19 == 0x40000000 || v19 == 0x10000000)
+    v17 = msg;
+    v18 = *(msg + 20);
+    if (v18 == 0x40000000 || v18 == 0x10000000)
     {
-      v21 = *(msg + 12);
-      v25[0] = 0;
+      v20 = *(msg + 12);
+      v24[0] = 0;
       v13 = 22;
-      if (!xpc_receive_mach_msg(v14, 0, 0, 0, v25))
+      if (!xpc_receive_mach_msg(v14, 0, 0, 0, v24))
       {
-        v22 = v25[0];
-        if (v25[0])
+        v21 = v24[0];
+        if (v24[0])
         {
           v13 = 0;
-          *a3 = v21;
-          *a2 = v22;
+          *a3 = v20;
+          *a2 = v21;
         }
       }
     }
@@ -9060,9 +8600,9 @@ uint64_t xpc_pipe_try_receive(mach_port_name_t a1, uint64_t *a2, _DWORD *a3, uns
     else
     {
       MEMORY[0x1EEE9AC00]();
-      bzero(&v23 - ((a5 + 15) & 0xFFFFFFFFFFFFFFF0), a5);
-      bzero(&v23 - ((a5 + 15) & 0xFFFFFFFFFFFFFFF0), a5);
-      v13 = _xpc_pipe_handle_mig(v18, (&v23 - ((a5 + 15) & 0xFFFFFFFFFFFFFFF0)), a4);
+      bzero(&v22 - ((a5 + 15) & 0xFFFFFFFFFFFFFFF0), a5);
+      bzero(&v22 - ((a5 + 15) & 0xFFFFFFFFFFFFFFF0), a5);
+      v13 = _xpc_pipe_handle_mig(v17, (&v22 - ((a5 + 15) & 0xFFFFFFFFFFFFFFF0)), a4);
     }
   }
 
@@ -9071,7 +8611,6 @@ uint64_t xpc_pipe_try_receive(mach_port_name_t a1, uint64_t *a2, _DWORD *a3, uns
     dispatch_release(v14);
   }
 
-  v15 = *MEMORY[0x1E69E9840];
   return v13;
 }
 
@@ -9177,7 +8716,7 @@ void *_xpc_memdup(const void *a1, size_t size)
 
 void *_xpc_mmap_anon(size_t *a1)
 {
-  v7 = *MEMORY[0x1E69E9840];
+  v6 = *MEMORY[0x1E69E9840];
   v2 = ~*MEMORY[0x1E69E9AB8] & (*MEMORY[0x1E69E9AB8] + *a1);
   for (*a1 = v2; ; v2 = *a1)
   {
@@ -9191,21 +8730,20 @@ void *_xpc_mmap_anon(size_t *a1)
     {
       if (*__error())
       {
-        _xpc_mmap_anon_cold_1(&v5, v6);
+        _xpc_mmap_anon_cold_1(&v4, v5);
       }
     }
 
     _waiting4memory();
   }
 
-  v4 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 char *_xpc_strdup(const char *a1)
 {
   v1 = a1;
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   while (1)
   {
     result = strdup(a1);
@@ -9218,7 +8756,7 @@ char *_xpc_strdup(const char *a1)
     {
       if (*__error())
       {
-        _xpc_mmap_anon_cold_1(&v4, v5);
+        _xpc_mmap_anon_cold_1(&v3, v4);
       }
     }
 
@@ -9226,7 +8764,6 @@ char *_xpc_strdup(const char *a1)
     a1 = v1;
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9234,7 +8771,7 @@ char *_xpc_strndup(const char *a1, size_t a2)
 {
   v2 = a2;
   v3 = a1;
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = *MEMORY[0x1E69E9840];
   while (1)
   {
     result = strndup(a1, a2);
@@ -9247,7 +8784,7 @@ char *_xpc_strndup(const char *a1, size_t a2)
     {
       if (*__error())
       {
-        _xpc_mmap_anon_cold_1(&v6, v7);
+        _xpc_mmap_anon_cold_1(&v5, v6);
       }
     }
 
@@ -9256,7 +8793,6 @@ char *_xpc_strndup(const char *a1, size_t a2)
     a2 = v2;
   }
 
-  v5 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9276,14 +8812,14 @@ uint64_t _xpc_memcmp(const void *a1, size_t __n, void *__s2, uint64_t a4)
 char *_xpc_asprintf(char *a1, ...)
 {
   va_start(va, a1);
-  v7 = *MEMORY[0x1E69E9840];
-  v5 = 0;
+  v6 = *MEMORY[0x1E69E9840];
+  v4 = 0;
   while (1)
   {
-    va_copy(&v4[1], va);
-    vasprintf(&v5, a1, va);
-    result = v5;
-    if (v5)
+    va_copy(&v3[1], va);
+    vasprintf(&v4, a1, va);
+    result = v4;
+    if (v4)
     {
       break;
     }
@@ -9292,21 +8828,20 @@ char *_xpc_asprintf(char *a1, ...)
     {
       if (*__error())
       {
-        _xpc_mmap_anon_cold_1(v4, v6);
+        _xpc_mmap_anon_cold_1(v3, v5);
       }
     }
 
     _waiting4memory();
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 void *_xpc_Block_copy_impl(const void *a1)
 {
   v1 = a1;
-  v6 = *MEMORY[0x1E69E9840];
+  v5 = *MEMORY[0x1E69E9840];
   while (1)
   {
     result = _Block_copy(a1);
@@ -9319,7 +8854,7 @@ void *_xpc_Block_copy_impl(const void *a1)
     {
       if (*__error())
       {
-        _xpc_mmap_anon_cold_1(&v4, v5);
+        _xpc_mmap_anon_cold_1(&v3, v4);
       }
     }
 
@@ -9327,7 +8862,6 @@ void *_xpc_Block_copy_impl(const void *a1)
     a1 = v1;
   }
 
-  v3 = *MEMORY[0x1E69E9840];
   return result;
 }
 
@@ -9570,7 +9104,7 @@ xpc_object_t xpc_create_from_plist_with_string_cache(_DWORD *a1, size_t size, vo
     }
 
     v37 = v109[3];
-    if (v37 < v106 || v37 >= v106 + v107)
+    if (v37 < v106 || v37 >= (v106 + v107))
     {
       goto LABEL_82;
     }
@@ -9639,8 +9173,8 @@ LABEL_85:
             goto LABEL_103;
           }
 
-          v69 = size_ptr + v68 - 1;
-          if (v69 < v106 || v69 >= v106 + v107)
+          v69 = (size_ptr + v68 - 1);
+          if (v69 < v106 || v69 >= (v106 + v107))
           {
             goto LABEL_103;
           }
@@ -9699,7 +9233,7 @@ LABEL_104:
             }
 
             v93 = v55 * v56;
-            if (v93 < 0 || ((v94 = size_ptr + v93 - 1, v94 >= v106) ? (v95 = v94 >= v106 + v107) : (v95 = 1), v95))
+            if (v93 < 0 || ((v94 = (size_ptr + v93 - 1), v94 >= v106) ? (v95 = v94 >= (v106 + v107)) : (v95 = 1), v95))
             {
 LABEL_103:
               v54 = 1;
@@ -9784,7 +9318,7 @@ LABEL_103:
               if (v64 == 3)
               {
                 v4 = 0;
-                v102 = (v61 + 8);
+                v102 = v61 + 8;
                 if (v102 < v106 || v102 >= v63)
                 {
                   goto LABEL_212;
@@ -9801,7 +9335,7 @@ LABEL_103:
                 }
 
                 v4 = 0;
-                v65 = (v61 + 4);
+                v65 = v61 + 4;
                 if (v65 < v106 || v65 >= v63)
                 {
                   goto LABEL_212;
@@ -10035,7 +9569,7 @@ LABEL_200:
     }
 
     v34 = v109[3];
-    if (v34 < v106 || v34 >= v106 + v107)
+    if (v34 < v106 || v34 >= (v106 + v107))
     {
       goto LABEL_82;
     }
@@ -10061,7 +9595,7 @@ LABEL_175:
   }
 
   v44 = v109[5];
-  if (!v44 || (*(v44 + 48) & 2) == 0 || (v45 = v109[1], v46 = *(v44 + 16), v45 > v46) || ((v47 = *(v44 + 24), v47 >= v106) ? (v48 = v47 >= v106 + v107) : (v48 = 1), v48))
+  if (!v44 || (*(v44 + 48) & 2) == 0 || (v45 = v109[1], v46 = *(v44 + 16), v45 > v46) || ((v47 = *(v44 + 24), v47 >= v106) ? (v48 = v47 >= (v106 + v107)) : (v48 = 1), v48))
   {
 LABEL_82:
     LOBYTE(v32) = 0;
@@ -10104,4 +9638,208 @@ LABEL_211:
 LABEL_212:
   _xpc_plist_unwind_stack(&v106);
   return v4;
+}
+
+void xpc_create_from_plist_descriptor(dispatch_fd_t a1, dispatch_queue_t queue, uint64_t a3)
+{
+  handler[0] = MEMORY[0x1E69E9820];
+  handler[1] = 0x40000000;
+  handler[2] = __xpc_create_from_plist_descriptor_block_invoke;
+  handler[3] = &unk_1E74AB608;
+  handler[4] = a3;
+  dispatch_read(a1, 0xFFFFFFFFFFFFFFFFLL, queue, handler);
+}
+
+void __xpc_create_from_plist_descriptor_block_invoke(uint64_t a1, dispatch_data_t data, int a3)
+{
+  if (a3 || (v7 = 0, buffer_ptr = 0, (v5 = dispatch_data_create_map(data, &buffer_ptr, &v7)) == 0))
+  {
+    v4 = 0;
+  }
+
+  else
+  {
+    v6 = v5;
+    v4 = xpc_create_from_plist_with_string_cache(buffer_ptr, v7, 0, 0);
+    dispatch_release(v6);
+  }
+
+  (*(*(a1 + 32) + 16))();
+  if (v4)
+  {
+    xpc_release(v4);
+  }
+}
+
+uint64_t _xpc_plist_swap_int(unint64_t *a1, unsigned int *a2, uint64_t a3, unint64_t *a4)
+{
+  if (!a3)
+  {
+    v5 = 0;
+    goto LABEL_10;
+  }
+
+  v4 = a2 + a3 - 1;
+  if (v4 < *a1 || v4 >= *a1 + a1[1])
+  {
+    return 0;
+  }
+
+  if (a3 > 3)
+  {
+    if (a3 == 4)
+    {
+      v5 = bswap32(*a2);
+      goto LABEL_10;
+    }
+
+    if (a3 == 8)
+    {
+      v5 = bswap64(*a2);
+      goto LABEL_10;
+    }
+
+LABEL_14:
+    v5 = 0;
+    do
+    {
+      v7 = *a2;
+      a2 = (a2 + 1);
+      v5 = v7 | (v5 << 8);
+      --a3;
+    }
+
+    while (a3);
+    goto LABEL_10;
+  }
+
+  if (a3 == 1)
+  {
+    v5 = *a2;
+    goto LABEL_10;
+  }
+
+  if (a3 != 2)
+  {
+    goto LABEL_14;
+  }
+
+  v5 = bswap32(*a2) >> 16;
+LABEL_10:
+  *a4 = v5;
+  return 1;
+}
+
+void _xpc_plist_unwind_stack(uint64_t a1)
+{
+  for (i = *(a1 + 48); i; *(a1 + 48) = i)
+  {
+    v3 = i;
+    i = *(i + 40);
+    if (v3[4])
+    {
+      xpc_release(v3[4]);
+      v3 = *(a1 + 48);
+    }
+
+    free(v3);
+  }
+}
+
+uint64_t _xpc_plist_parse_date(unint64_t *a1, uint64_t a2)
+{
+  v2 = *a1;
+  v3 = *a1 + a2;
+  v4 = (v3 + 1);
+  if (v3 + 1 < *a1)
+  {
+    return 0;
+  }
+
+  v6 = v2 + a1[1];
+  if (v4 >= v6)
+  {
+    return 0;
+  }
+
+  v7 = v3 + 9;
+  if (v7 < v2 || v7 >= v6)
+  {
+    return 0;
+  }
+
+  *(a1[6] + 32) = xpc_date_create_absolute(COERCE_DOUBLE(bswap64(*v4)));
+  return 1;
+}
+
+uint64_t _xpc_plist_collapse_stack(uint64_t a1)
+{
+  v2 = *(a1 + 48);
+  v3 = *(v2 + 40);
+  if (v3)
+  {
+    if ((*(v2 + 48) & 8) != 0)
+    {
+      return 1;
+    }
+
+    if ((*(v3 + 48) & 8) != 0)
+    {
+      if (*(v2 + 32))
+      {
+        result = *(v3 + 32);
+        if (!result)
+        {
+          return result;
+        }
+
+        v5 = *(v3 + 40);
+        if (v5)
+        {
+          if ((*(v5 + 48) & 2) != 0 && xpc_get_type(result) == OS_xpc_string)
+          {
+            v6 = *(v5 + 32);
+            string_ptr = xpc_string_get_string_ptr(*(v3 + 32));
+            xpc_dictionary_set_value_with_key_string_cache(v6, string_ptr, *(*(a1 + 48) + 32), *(a1 + 56));
+            xpc_release(*(v3 + 32));
+            xpc_release(*(*(a1 + 48) + 32));
+            free(*(a1 + 48));
+            free(v3);
+LABEL_17:
+            *(a1 + 48) = v5;
+            return 1;
+          }
+        }
+      }
+    }
+
+    else if ((*(v3 + 48) & 4) != 0)
+    {
+      v8 = *(v2 + 32);
+      if (v8)
+      {
+        result = *(v3 + 32);
+        if (!result)
+        {
+          return result;
+        }
+
+        xpc_array_append_value(result, v8);
+        xpc_release(*(*(a1 + 48) + 32));
+        v2 = *(a1 + 48);
+        goto LABEL_16;
+      }
+    }
+
+    else if (*(v3 + 48))
+    {
+      *(v3 + 32) = *(v2 + 32);
+LABEL_16:
+      free(v2);
+      v5 = v3;
+      goto LABEL_17;
+    }
+  }
+
+  return 0;
 }

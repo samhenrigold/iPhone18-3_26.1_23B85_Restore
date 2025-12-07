@@ -14,7 +14,7 @@
   v5 = *(integer + 1);
   v6 = *(integer + 4);
 
-  return JavaMathDivision_remainderArrayByIntWithIntArray_withInt_withInt_(v5, v6, int);
+  return JavaMathDivision_remainderArrayByIntWithIntArray_withInt_withInt_(v5, v6, *&int);
 }
 
 @end

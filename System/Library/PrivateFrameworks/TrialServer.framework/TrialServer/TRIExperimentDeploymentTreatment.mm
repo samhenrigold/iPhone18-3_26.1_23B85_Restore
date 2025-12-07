@@ -1,8 +1,10 @@
 @interface TRIExperimentDeploymentTreatment
++ (id)treatmentTripleWithExperimentId:(id)id deploymentId:(int)deploymentId treatmentId:(id)treatmentId;
 - (BOOL)isEqual:(id)equal;
 - (BOOL)isEqualTotreatmentTriple:(id)triple;
 - (TRIExperimentDeploymentTreatment)initWithCoder:(id)coder;
 - (TRIExperimentDeploymentTreatment)initWithExperimentId:(id)id deploymentId:(int)deploymentId treatmentId:(id)treatmentId;
+- (id)copyWithReplacementDeploymentId:(int)id;
 - (id)copyWithReplacementExperimentId:(id)id;
 - (id)copyWithReplacementTreatmentId:(id)id;
 - (id)description;
@@ -54,12 +56,32 @@ LABEL_3:
   return v14;
 }
 
++ (id)treatmentTripleWithExperimentId:(id)id deploymentId:(int)deploymentId treatmentId:(id)treatmentId
+{
+  v5 = *&deploymentId;
+  treatmentIdCopy = treatmentId;
+  idCopy = id;
+  v10 = [[self alloc] initWithExperimentId:idCopy deploymentId:v5 treatmentId:treatmentIdCopy];
+
+  return v10;
+}
+
 - (id)copyWithReplacementExperimentId:(id)id
 {
   idCopy = id;
   v5 = [objc_alloc(objc_opt_class()) initWithExperimentId:idCopy deploymentId:self->_deploymentId treatmentId:self->_treatmentId];
 
   return v5;
+}
+
+- (id)copyWithReplacementDeploymentId:(int)id
+{
+  v3 = *&id;
+  v5 = objc_alloc(objc_opt_class());
+  experimentId = self->_experimentId;
+  treatmentId = self->_treatmentId;
+
+  return [v5 initWithExperimentId:experimentId deploymentId:v3 treatmentId:treatmentId];
 }
 
 - (id)copyWithReplacementTreatmentId:(id)id
@@ -74,36 +96,8 @@ LABEL_3:
 {
   tripleCopy = triple;
   v5 = tripleCopy;
-  if (!tripleCopy)
+  if (!tripleCopy || (v6 = self->_experimentId == 0, [tripleCopy experimentId], v7 = objc_claimAutoreleasedReturnValue(), v8 = v7 != 0, v7, v6 == v8) || (experimentId = self->_experimentId) != 0 && (objc_msgSend(v5, "experimentId"), v10 = objc_claimAutoreleasedReturnValue(), v11 = -[NSString isEqual:](experimentId, "isEqual:", v10), v10, !v11) || (deploymentId = self->_deploymentId, deploymentId != objc_msgSend(v5, "deploymentId")) || (v13 = self->_treatmentId == 0, objc_msgSend(v5, "treatmentId"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 != 0, v14, v13 == v15))
   {
-    goto LABEL_9;
-  }
-
-  v6 = self->_experimentId == 0;
-  experimentId = [tripleCopy experimentId];
-  v8 = experimentId != 0;
-
-  if (v6 == v8)
-  {
-    goto LABEL_9;
-  }
-
-  experimentId = self->_experimentId;
-  if (experimentId)
-  {
-    experimentId2 = [v5 experimentId];
-    v11 = [(NSString *)experimentId isEqual:experimentId2];
-
-    if (!v11)
-    {
-      goto LABEL_9;
-    }
-  }
-
-  deploymentId = self->_deploymentId;
-  if (deploymentId != [v5 deploymentId] || (v13 = self->_treatmentId == 0, objc_msgSend(v5, "treatmentId"), v14 = objc_claimAutoreleasedReturnValue(), v15 = v14 != 0, v14, v13 == v15))
-  {
-LABEL_9:
     v18 = 0;
   }
 
@@ -151,7 +145,7 @@ LABEL_9:
 
 - (TRIExperimentDeploymentTreatment)initWithCoder:(id)coder
 {
-  v25[1] = *MEMORY[0x277D85DE8];
+  v24[1] = *MEMORY[0x277D85DE8];
   coderCopy = coder;
   v5 = [coderCopy decodeObjectOfClass:objc_opt_class() forKey:@"experimentId"];
   if (!v5)
@@ -163,9 +157,9 @@ LABEL_9:
       goto LABEL_8;
     }
 
-    v24 = *MEMORY[0x277CCA450];
-    v25[0] = @"Retrieved nil serialized value for nonnull TRIExperimentDeploymentTreatment.experimentId";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v25 forKeys:&v24 count:1];
+    v23 = *MEMORY[0x277CCA450];
+    v24[0] = @"Retrieved nil serialized value for nonnull TRIExperimentDeploymentTreatment.experimentId";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v24 forKeys:&v23 count:1];
     v11 = objc_alloc(MEMORY[0x277CCA9B8]);
     v12 = 2;
 LABEL_14:
@@ -194,9 +188,9 @@ LABEL_16:
 
     if (!error2)
     {
-      v20 = *MEMORY[0x277CCA450];
-      v21 = @"Retrieved nil serialized value for nonnull TRIExperimentDeploymentTreatment.treatmentId";
-      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v21 forKeys:&v20 count:1];
+      v19 = *MEMORY[0x277CCA450];
+      v20 = @"Retrieved nil serialized value for nonnull TRIExperimentDeploymentTreatment.treatmentId";
+      v15 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v20 forKeys:&v19 count:1];
       v16 = [objc_alloc(MEMORY[0x277CCA9B8]) initWithDomain:@"TRIExperimentDeploymentTreatmentOCNTErrorDomain" code:2 userInfo:v15];
       [coderCopy failWithError:v16];
     }
@@ -216,9 +210,9 @@ LABEL_15:
       goto LABEL_3;
     }
 
-    v22 = *MEMORY[0x277CCA450];
-    v23 = @"Missing serialized value for TRIExperimentDeploymentTreatment.deploymentId";
-    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v23 forKeys:&v22 count:1];
+    v21 = *MEMORY[0x277CCA450];
+    v22 = @"Missing serialized value for TRIExperimentDeploymentTreatment.deploymentId";
+    v8 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:&v22 forKeys:&v21 count:1];
     v11 = objc_alloc(MEMORY[0x277CCA9B8]);
     v12 = 1;
     goto LABEL_14;
@@ -228,7 +222,6 @@ LABEL_8:
   selfCopy = 0;
 LABEL_17:
 
-  v18 = *MEMORY[0x277D85DE8];
   return selfCopy;
 }
 

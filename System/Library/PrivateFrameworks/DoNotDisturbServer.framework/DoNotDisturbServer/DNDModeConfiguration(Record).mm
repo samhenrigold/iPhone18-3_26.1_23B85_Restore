@@ -51,7 +51,7 @@
 
     [v5 setCompatibilityVersion:{objc_msgSend(v4, "compatibilityVersion")}];
     [v5 setAutomaticallyGenerated:{objc_msgSend(v4, "isAutomaticallyGenerated")}];
-    [v4 lastModifiedByVersion];
+    objc_msgSend_lastModifiedByVersion(v4);
     [v5 setLastModifiedByVersion:v23];
     lastModifiedByDeviceID = [v4 lastModifiedByDeviceID];
 
@@ -108,7 +108,7 @@
   lastModified = [self lastModified];
   [(DNDSMutableModeConfigurationRecord *)v2 setLastModified:lastModified];
 
-  [self lastModifiedByVersion];
+  objc_msgSend_lastModifiedByVersion(self);
   [(DNDSMutableModeConfigurationRecord *)v2 setLastModifiedByVersion:v20];
   lastModifiedByDeviceID = [self lastModifiedByDeviceID];
   [(DNDSMutableModeConfigurationRecord *)v2 setLastModifiedByDeviceID:lastModifiedByDeviceID];

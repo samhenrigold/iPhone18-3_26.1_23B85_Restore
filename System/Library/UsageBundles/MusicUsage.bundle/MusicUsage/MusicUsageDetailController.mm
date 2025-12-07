@@ -12,6 +12,7 @@
 - (void)tableView:(id)view didSelectRowAtIndexPath:(id)path;
 - (void)updateLocalSongsGroupSize;
 - (void)updateUsageBundleSizeForCategoryIdentifier:(id)identifier;
+- (void)viewDidAppear:(BOOL)appear;
 - (void)viewDidLoad;
 @end
 
@@ -37,6 +38,42 @@
 
   objc_destroyWeak(&v8);
   objc_destroyWeak(&location);
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v23.receiver = self;
+  v23.super_class = MusicUsageDetailController;
+  [(MusicUsageDetailController *)&v23 viewDidAppear:appear];
+  if (![(NSMutableArray *)self->_usageGroups count])
+  {
+    navigationController = [(MusicUsageDetailController *)self navigationController];
+    v5 = [navigationController popViewControllerAnimated:1];
+  }
+
+  v22 = [NSURL URLWithString:@"settings-navigation://com.apple.Settings.Apps/com.apple.Music/com.apple.Music:MusicUsageLink"];
+  v6 = [_NSLocalizedStringResource alloc];
+  v7 = +[NSLocale currentLocale];
+  v8 = [NSBundle bundleWithIdentifier:@"com.apple.MusicSettings"];
+  bundleURL = [v8 bundleURL];
+  v10 = [v6 initWithKey:@"APPS" table:@"MusicSettings" locale:v7 bundleURL:bundleURL];
+
+  v11 = [_NSLocalizedStringResource alloc];
+  v12 = +[NSLocale currentLocale];
+  v13 = [NSBundle bundleWithIdentifier:@"com.apple.MusicSettings"];
+  bundleURL2 = [v13 bundleURL];
+  v15 = [v11 initWithKey:@"MUSIC" table:@"MusicSettings" locale:v12 bundleURL:bundleURL2];
+
+  v16 = [_NSLocalizedStringResource alloc];
+  v17 = +[NSLocale currentLocale];
+  v18 = [NSBundle bundleWithIdentifier:@"com.apple.MusicSettings"];
+  bundleURL3 = [v18 bundleURL];
+  v20 = [v16 initWithKey:@"DOWNLOADED_MUSIC" table:@"MusicSettings" locale:v17 bundleURL:bundleURL3];
+
+  v24[0] = v10;
+  v24[1] = v15;
+  v21 = [NSArray arrayWithObjects:v24 count:2];
+  [(MusicUsageDetailController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.Music" title:v20 localizedNavigationComponents:v21 deepLink:v22];
 }
 
 - (id)specifiers

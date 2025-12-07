@@ -46,7 +46,7 @@
 
 void __70__NETransparentProxyManager_loadFromPreferencesWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v24 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
   v7 = *(a1 + 32);
@@ -56,9 +56,9 @@ void __70__NETransparentProxyManager_loadFromPreferencesWithCompletionHandler___
     v8 = ne_log_obj();
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
-      v23 = 138412290;
-      v24 = v6;
-      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "Got an error while loading a configuration: %@", &v23, 0xCu);
+      v22 = 138412290;
+      v23 = v6;
+      _os_log_error_impl(&dword_1BA83C000, v8, OS_LOG_TYPE_ERROR, "Got an error while loading a configuration: %@", &v22, 0xCu);
     }
 
     v9 = [NEVPNManager mapError:v6];
@@ -74,9 +74,9 @@ void __70__NETransparentProxyManager_loadFromPreferencesWithCompletionHandler___
     {
       v20 = [*(a1 + 32) configuration];
       v21 = [v20 identifier];
-      v23 = 138412290;
-      v24 = v21;
-      _os_log_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_DEFAULT, "No configuration found with ID %@", &v23, 0xCu);
+      v22 = 138412290;
+      v23 = v21;
+      _os_log_impl(&dword_1BA83C000, v19, OS_LOG_TYPE_DEFAULT, "No configuration found with ID %@", &v22, 0xCu);
     }
 
     goto LABEL_14;
@@ -112,8 +112,6 @@ LABEL_14:
 
 LABEL_15:
   objc_sync_exit(v7);
-
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 - (void)additionalSetup
@@ -179,43 +177,43 @@ LABEL_15:
 
 void __73__NETransparentProxyManager_loadAllFromPreferencesWithCompletionHandler___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   v4 = a2;
   v5 = a3;
-  v30 = objc_alloc_init(MEMORY[0x1E695DF70]);
-  v27 = v4;
-  v28 = v5;
+  v29 = objc_alloc_init(MEMORY[0x1E695DF70]);
+  v26 = v4;
+  v27 = v5;
   if (!v5)
   {
-    v43[0] = 0;
-    v43[1] = v43;
-    v43[2] = 0x3032000000;
-    v43[3] = __Block_byref_object_copy__111;
-    v43[4] = __Block_byref_object_dispose__112;
-    v44 = 0;
+    v42[0] = 0;
+    v42[1] = v42;
+    v42[2] = 0x3032000000;
+    v42[3] = __Block_byref_object_copy__111;
+    v42[4] = __Block_byref_object_dispose__112;
+    v43 = 0;
     group = dispatch_group_create();
+    v38 = 0u;
     v39 = 0u;
     v40 = 0u;
     v41 = 0u;
-    v42 = 0u;
     v8 = v4;
-    v9 = [v8 countByEnumeratingWithState:&v39 objects:v47 count:{16, v4, 0}];
+    v9 = [v8 countByEnumeratingWithState:&v38 objects:v46 count:{16, v4, 0}];
     if (!v9)
     {
       goto LABEL_25;
     }
 
-    v10 = *v40;
+    v10 = *v39;
     while (1)
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v40 != v10)
+        if (*v39 != v10)
         {
           objc_enumerationMutation(v8);
         }
 
-        v12 = *(*(&v39 + 1) + 8 * i);
+        v12 = *(*(&v38 + 1) + 8 * i);
         v13 = [v12 VPN];
         if (v13)
         {
@@ -233,7 +231,7 @@ void __73__NETransparentProxyManager_loadAllFromPreferencesWithCompletionHandler
               {
                 v19 = objc_alloc_init(NETransparentProxyManager);
                 [(NEVPNManager *)v19 setConfiguration:v12];
-                [v30 addObject:v19];
+                [v29 addObject:v19];
                 v20 = +[NEVPNManager loadedManagers];
                 v21 = [v12 identifier];
                 [v20 setObject:v19 forKeyedSubscript:v21];
@@ -246,16 +244,16 @@ void __73__NETransparentProxyManager_loadAllFromPreferencesWithCompletionHandler
                 dispatch_group_enter(group);
                 v22 = [(NEVPNManager *)v19 connection];
                 v23 = [v12 identifier];
-                v36[0] = MEMORY[0x1E69E9820];
-                v36[1] = 3221225472;
-                v36[2] = __73__NETransparentProxyManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_6;
-                v36[3] = &unk_1E7F0B198;
-                v36[4] = v12;
-                v38 = v43;
-                v37 = group;
+                v35[0] = MEMORY[0x1E69E9820];
+                v35[1] = 3221225472;
+                v35[2] = __73__NETransparentProxyManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_6;
+                v35[3] = &unk_1E7F0B198;
+                v35[4] = v12;
+                v37 = v42;
+                v36 = group;
                 if (v22)
                 {
-                  [(NEVPNConnection *)v22 createSessionWithConfigurationIdentifier:v23 forceInfoFetch:0 completionHandler:v36];
+                  [(NEVPNConnection *)v22 createSessionWithConfigurationIdentifier:v23 forceInfoFetch:0 completionHandler:v35];
                 }
               }
 
@@ -266,7 +264,7 @@ void __73__NETransparentProxyManager_loadAllFromPreferencesWithCompletionHandler
                 {
                   v25 = [v12 name];
                   *buf = 138412290;
-                  v46 = v25;
+                  v45 = v25;
                   _os_log_impl(&dword_1BA83C000, &v19->super.super, OS_LOG_TYPE_DEFAULT, "Skipping configuration %@ because it has an invalid plugin type", buf, 0xCu);
                 }
               }
@@ -285,14 +283,14 @@ void __73__NETransparentProxyManager_loadAllFromPreferencesWithCompletionHandler
         {
           v24 = [v12 name];
           *buf = 138412290;
-          v46 = v24;
+          v45 = v24;
           _os_log_impl(&dword_1BA83C000, v18, OS_LOG_TYPE_DEFAULT, "Skipping configuration %@ because it is of the wrong type", buf, 0xCu);
         }
 
 LABEL_23:
       }
 
-      v9 = [v8 countByEnumeratingWithState:&v39 objects:v47 count:16];
+      v9 = [v8 countByEnumeratingWithState:&v38 objects:v46 count:16];
       if (!v9)
       {
 LABEL_25:
@@ -301,49 +299,46 @@ LABEL_25:
         block[1] = 3221225472;
         block[2] = __73__NETransparentProxyManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_8;
         block[3] = &unk_1E7F0B1C0;
-        v35 = v43;
-        v33 = v30;
-        v34 = *(a1 + 32);
+        v34 = v42;
+        v32 = v29;
+        v33 = *(a1 + 32);
         dispatch_group_notify(group, MEMORY[0x1E69E96A0], block);
 
-        _Block_object_dispose(v43, 8);
-        v7 = v30;
+        _Block_object_dispose(v42, 8);
+        v7 = v29;
         goto LABEL_26;
       }
     }
   }
 
   v6 = [NEVPNManager mapError:v5];
-  v7 = v30;
-  (*(*(a1 + 32) + 16))(*(a1 + 32), v30);
+  v7 = v29;
+  (*(*(a1 + 32) + 16))(*(a1 + 32), v29);
 
 LABEL_26:
-  v26 = *MEMORY[0x1E69E9840];
 }
 
 void __73__NETransparentProxyManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_6(uint64_t a1, void *a2)
 {
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = *MEMORY[0x1E69E9840];
   v4 = a2;
   if (v4)
   {
     v5 = ne_log_obj();
     if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
     {
-      v7 = [*(a1 + 32) name];
-      v8 = 138412546;
-      v9 = v7;
-      v10 = 2112;
-      v11 = v4;
-      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "Error creating connection for configuration %@: %@", &v8, 0x16u);
+      v6 = [*(a1 + 32) name];
+      v7 = 138412546;
+      v8 = v6;
+      v9 = 2112;
+      v10 = v4;
+      _os_log_error_impl(&dword_1BA83C000, v5, OS_LOG_TYPE_ERROR, "Error creating connection for configuration %@: %@", &v7, 0x16u);
     }
 
     objc_storeStrong((*(*(a1 + 48) + 8) + 40), a2);
   }
 
   dispatch_group_leave(*(a1 + 40));
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __73__NETransparentProxyManager_loadAllFromPreferencesWithCompletionHandler___block_invoke_8(uint64_t a1)
@@ -351,13 +346,11 @@ uint64_t __73__NETransparentProxyManager_loadAllFromPreferencesWithCompletionHan
   if (*(*(*(a1 + 48) + 8) + 40))
   {
     [*(a1 + 32) removeAllObjects];
-    v2 = *(*(*(a1 + 48) + 8) + 40);
   }
 
-  v3 = *(a1 + 32);
-  v4 = *(*(a1 + 40) + 16);
+  v2 = *(*(a1 + 40) + 16);
 
-  return v4();
+  return v2();
 }
 
 @end

@@ -28,7 +28,7 @@
   selfCopy = self;
   PaperKitPDFPage.annotations.getter();
 
-  type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for PDFAnnotation);
+  type metadata accessor for PKMathRecognitionItemAttributes(0, &lazy cache variable for type metadata for PDFAnnotation, 0x1E6978018);
   v3.super.isa = Array._bridgeToObjectiveC()().super.isa;
 
   return v3.super.isa;
@@ -64,7 +64,7 @@
 - (void)drawWithBox:(int64_t)box inContext:(CGContext *)context withOptions:(id)options
 {
   type metadata accessor for PDFPageDrawWithBoxOption(0);
-  lazy protocol witness table accessor for type CRKeyPath and conformance CRKeyPath(&lazy protocol witness table cache variable for type PDFPageDrawWithBoxOption and conformance PDFPageDrawWithBoxOption, type metadata accessor for PDFPageDrawWithBoxOption);
+  lazy protocol witness table accessor for type CRKeyPath and conformance CRKeyPath(&lazy protocol witness table cache variable for type PDFPageDrawWithBoxOption and conformance PDFPageDrawWithBoxOption, type metadata accessor for PDFPageDrawWithBoxOption, &protocol conformance descriptor for PDFPageDrawWithBoxOption);
   v8 = static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   contextCopy = context;
   selfCopy = self;
@@ -73,7 +73,7 @@
 
 - (Class)annotationSubclassForSubtype:(id)subtype
 {
-  type metadata accessor for CanvasElementPDFAnnotation();
+  type metadata accessor for CanvasElementPDFAnnotation(0);
 
   return swift_getObjCClassFromMetadata();
 }
@@ -96,7 +96,7 @@
 - (_TtC8PaperKit15PaperKitPDFPage)initWithImage:(id)image options:(id)options
 {
   type metadata accessor for PDFPageImageInitializationOption(0);
-  lazy protocol witness table accessor for type CRKeyPath and conformance CRKeyPath(&lazy protocol witness table cache variable for type PDFPageImageInitializationOption and conformance PDFPageImageInitializationOption, type metadata accessor for PDFPageImageInitializationOption);
+  lazy protocol witness table accessor for type CRKeyPath and conformance CRKeyPath(&lazy protocol witness table cache variable for type PDFPageImageInitializationOption and conformance PDFPageImageInitializationOption, type metadata accessor for PDFPageImageInitializationOption, &protocol conformance descriptor for PDFPageImageInitializationOption);
   static Dictionary._unconditionallyBridgeFromObjectiveC(_:)();
   return PaperKitPDFPage.init(image:options:)(image);
 }

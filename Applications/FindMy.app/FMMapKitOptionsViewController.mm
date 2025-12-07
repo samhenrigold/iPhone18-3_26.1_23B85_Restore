@@ -49,7 +49,7 @@
   swift_unknownObjectRetain();
   v4 = v7.receiver;
   [(FMMapKitOptionsViewController *)&v7 preferredContentSizeDidChangeForChildContentContainer:container];
-  sub_10007EBC0(&unk_1006C3670);
+  sub_10007EBC0(&unk_1006C3670, &unk_100565450);
   v5 = swift_dynamicCastClass();
   if (v5)
   {

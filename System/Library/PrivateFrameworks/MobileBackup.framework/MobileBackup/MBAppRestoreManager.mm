@@ -1,4 +1,5 @@
 @interface MBAppRestoreManager
+- (BOOL)_restoreApplicationWithBundleID:(id)d failed:(BOOL)failed context:(id)context error:(id *)error;
 - (BOOL)shouldObserveCoordinatorWithIdentity:(id)identity;
 - (MBAppRestoreManager)initWithStateQueue:(id)queue account:(id)account;
 - (MBAppRestoreManagerDelegate)delegate;
@@ -11,6 +12,8 @@
 - (void)restoreCoordinatorShouldBeginRestoringUserData:(id)data;
 - (void)retryAppDataDownloads;
 - (void)startObservingInstallCoordinators;
+- (void)stopTrackingCoordinator:(id)coordinator withSuccess:(BOOL)success;
+- (void)stopTrackingCoordinatorWithBundleID:(id)d success:(BOOL)success;
 - (void)updateProgressForCoordinatorWithBundleID:(id)d progress:(double)progress;
 @end
 
@@ -70,7 +73,7 @@
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "IX: Not observing coordinator for %@, %@ != %@", buf, 0x20u);
 
     bundleID2 = [identityCopy bundleID];
-    _MBLog();
+    _MBLog(@"I ", "IX: Not observing coordinator for %@, %@ != %@", bundleID2, personaUniqueString, personaIdentifier);
     v10 = 0;
     goto LABEL_8;
   }
@@ -87,7 +90,7 @@
     _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_INFO, "IX: Will observe coordinator for %@/%@", buf, 0x16u);
 
     bundleID2 = [identityCopy bundleID];
-    _MBLog();
+    _MBLog(@"I ", "IX: Will observe coordinator for %@/%@", bundleID2, personaUniqueString);
 LABEL_8:
   }
 
@@ -103,7 +106,7 @@ LABEL_10:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v2, OS_LOG_TYPE_DEFAULT, "Requesting MDM install of restored applications", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Requesting MDM install of restored applications");
   }
 
   v3 = dispatch_group_create();
@@ -123,7 +126,7 @@ LABEL_10:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "Finished requesting MDM install of restored applications", buf, 2u);
-    _MBLog();
+    _MBLog(@"Df", "Finished requesting MDM install of restored applications");
   }
 }
 
@@ -136,7 +139,7 @@ LABEL_10:
   {
     *buf = 0;
     _os_log_impl(&_mh_execute_header, v4, OS_LOG_TYPE_INFO, "IX: Queuing up coordinator enumeration", buf, 2u);
-    _MBLog();
+    _MBLog(@"I ", "IX: Queuing up coordinator enumeration");
   }
 
   stateQueue = self->_stateQueue;
@@ -157,7 +160,7 @@ LABEL_10:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v3, OS_LOG_TYPE_DEFAULT, "IX: Not notifying delegate of finished app restore while still in buddy", buf, 2u);
-      _MBLog();
+      _MBLog(@"Df", "IX: Not notifying delegate of finished app restore while still in buddy");
     }
   }
 
@@ -193,7 +196,7 @@ LABEL_10:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_ERROR, "IX: Coordinator had no bundleID associated with it. Nothing to do", buf, 2u);
-      _MBLog();
+      _MBLog(@"E ", "IX: Coordinator had no bundleID associated with it. Nothing to do");
     }
   }
 
@@ -203,7 +206,7 @@ LABEL_10:
     *buf = 138412290;
     v13 = bundleID;
     _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "IX: We're being asked to restore user data for %@", buf, 0xCu);
-    _MBLog();
+    _MBLog(@"Df", "IX: We're being asked to restore user data for %@", bundleID);
   }
 
   coordinatorQueue = self->_coordinatorQueue;
@@ -233,10 +236,10 @@ LABEL_10:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "IX: Got unsuccessful completion for coordinator with nil bundleID", buf, 2u);
-      _MBLog();
+      _MBLog(@"E ", "IX: Got unsuccessful completion for coordinator with nil bundleID");
     }
 
-    goto LABEL_17;
+    goto LABEL_19;
   }
 
   if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
@@ -250,51 +253,54 @@ LABEL_10:
     v31 = v15;
     _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_DEFAULT, "IX: App %@ could not be installed with error %@. Canceled by %@", buf, 0x20u);
 
-    IXStringForClientID();
-    v23 = v22 = reasonCopy;
-    v21 = bundleID;
-    _MBLog();
+    v16 = IXStringForClientID();
+    _MBLog(@"Df", "IX: App %@ could not be installed with error %@. Canceled by %@", bundleID, reasonCopy, v16);
   }
 
   if (client != 2)
   {
     v14 = [v12 userDataPromiseWithError:0];
-    v16 = MBGetDefaultLog();
-    v17 = os_log_type_enabled(v16, OS_LOG_TYPE_INFO);
+    v17 = MBGetDefaultLog();
+    v18 = os_log_type_enabled(v17, OS_LOG_TYPE_INFO);
     if (v14)
     {
-      if (v17)
+      if (v18)
       {
+        v19 = @"NO";
         if ([v14 isComplete])
         {
-          v18 = @"YES";
+          v20 = @"YES";
         }
 
         else
         {
-          v18 = @"NO";
+          v20 = @"NO";
         }
 
-        [v14 percentComplete:v21];
-        *buf = 138412546;
-        v27 = v18;
-        v28 = 2048;
-        v29 = v19;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "IX: Coordinator was canceled but has already been promised data. Complete: %@, Progress: %.2f. Will continue restoring app data", buf, 0x16u);
-        [v14 isComplete];
         [v14 percentComplete];
-        _MBLog();
+        *buf = 138412546;
+        v27 = v20;
+        v28 = 2048;
+        v29 = v21;
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "IX: Coordinator was canceled but has already been promised data. Complete: %@, Progress: %.2f. Will continue restoring app data", buf, 0x16u);
+        if ([v14 isComplete])
+        {
+          v19 = @"YES";
+        }
+
+        [v14 percentComplete];
+        _MBLog(@"I ", "IX: Coordinator was canceled but has already been promised data. Complete: %@, Progress: %.2f. Will continue restoring app data", v19, v22);
       }
     }
 
     else
     {
-      if (v17)
+      if (v18)
       {
         *buf = 138412290;
         v27 = bundleID;
-        _os_log_impl(&_mh_execute_header, v16, OS_LOG_TYPE_INFO, "IX: Coordinator %@ was canceled but hasn't been promised app data yet. Queueing up data restore", buf, 0xCu);
-        _MBLog();
+        _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_INFO, "IX: Coordinator %@ was canceled but hasn't been promised app data yet. Queueing up data restore", buf, 0xCu);
+        _MBLog(@"I ", "IX: Coordinator %@ was canceled but hasn't been promised app data yet. Queueing up data restore", bundleID);
       }
 
       coordinatorQueue = self->_coordinatorQueue;
@@ -309,7 +315,205 @@ LABEL_10:
       v14 = 0;
     }
 
-LABEL_17:
+LABEL_19:
+  }
+}
+
+- (void)stopTrackingCoordinator:(id)coordinator withSuccess:(BOOL)success
+{
+  successCopy = success;
+  coordinatorCopy = coordinator;
+  v7 = coordinatorCopy;
+  if (coordinatorCopy)
+  {
+    identity = [coordinatorCopy identity];
+    bundleID = [identity bundleID];
+
+    v10 = [v7 userDataPromiseWithError:0];
+    v11 = MBGetDefaultLog();
+    v12 = v11;
+    if (v10)
+    {
+      v13 = os_log_type_enabled(v11, OS_LOG_TYPE_INFO);
+      if (successCopy)
+      {
+        if (v13)
+        {
+          *buf = 138412290;
+          v39 = bundleID;
+          _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "IX: Setting data promise complete for bundleID %@", buf, 0xCu);
+          _MBLog(@"I ", "IX: Setting data promise complete for bundleID %@", bundleID);
+        }
+
+        [v10 setPercentComplete:1.0];
+        [v10 setComplete:1];
+        goto LABEL_22;
+      }
+
+      if (v13)
+      {
+        *buf = 138412290;
+        v39 = bundleID;
+        _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "IX: Cancelling data promise for bundleID %@", buf, 0xCu);
+        _MBLog(@"I ", "IX: Cancelling data promise for bundleID %@", bundleID);
+      }
+
+      v12 = [MBError errorWithCode:1 format:@"Couldn't restore app data for %@", bundleID];
+      v15 = IXCreateUserPresentableError();
+      v37 = 0;
+      v16 = [v10 cancelForReason:v15 client:2 error:&v37];
+      v17 = v37;
+      if ((v16 & 1) == 0)
+      {
+        v18 = MBGetDefaultLog();
+        if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
+        {
+          *buf = 138412546;
+          v39 = bundleID;
+          v40 = 2112;
+          v41 = v17;
+          _os_log_impl(&_mh_execute_header, v18, OS_LOG_TYPE_ERROR, "IX: Couldn't cancel data promise for %@ - %@", buf, 0x16u);
+          _MBLog(@"E ", "IX: Couldn't cancel data promise for %@ - %@", bundleID, v17);
+        }
+      }
+    }
+
+    else if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
+    {
+      if (successCopy)
+      {
+        v14 = @"completion";
+      }
+
+      else
+      {
+        v14 = @"cancellation";
+      }
+
+      *buf = 138412546;
+      v39 = bundleID;
+      v40 = 2112;
+      v41 = v14;
+      _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_ERROR, "IX: InstallCoordinator for %@ didn't have a user data promise at the time of %@", buf, 0x16u);
+      _MBLog(@"E ", "IX: InstallCoordinator for %@ didn't have a user data promise at the time of %@", bundleID, v14);
+    }
+
+LABEL_22:
+    [(NSMutableDictionary *)self->_appInstallCoordinators setObject:0 forKeyedSubscript:bundleID];
+    [v7 setObserver:0];
+    v19 = MBGetDefaultLog();
+    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+    {
+      if (successCopy)
+      {
+        v20 = @"Successfully";
+      }
+
+      else
+      {
+        v20 = @"Unsuccessfully";
+      }
+
+      account = [(MBAppRestoreManager *)self account];
+      accountIdentifier = [account accountIdentifier];
+      *buf = 138412802;
+      v39 = v20;
+      v40 = 2112;
+      v41 = bundleID;
+      v42 = 2112;
+      v43 = accountIdentifier;
+      _os_log_impl(&_mh_execute_header, v19, OS_LOG_TYPE_DEFAULT, "IX: %@ serviced data promise for %@ account %@", buf, 0x20u);
+
+      account2 = [(MBAppRestoreManager *)self account];
+      accountIdentifier2 = [account2 accountIdentifier];
+      _MBLog(@"Df", "IX: %@ serviced data promise for %@ account %@", v20, bundleID, accountIdentifier2);
+    }
+
+    v25 = [(NSMutableDictionary *)self->_appInstallCoordinators count];
+    allKeys = [(NSMutableDictionary *)self->_appInstallCoordinators allKeys];
+    v27 = allKeys;
+    if (v25 >= 0xA)
+    {
+      v28 = 10;
+    }
+
+    else
+    {
+      v28 = v25;
+    }
+
+    v29 = [allKeys subarrayWithRange:{0, v28}];
+
+    v30 = MBGetDefaultLog();
+    if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+    {
+      account3 = [(MBAppRestoreManager *)self account];
+      accountIdentifier3 = [account3 accountIdentifier];
+      *buf = 138412802;
+      v39 = accountIdentifier3;
+      v40 = 2048;
+      v41 = v25;
+      v42 = 2112;
+      v43 = v29;
+      _os_log_impl(&_mh_execute_header, v30, OS_LOG_TYPE_DEFAULT, "IX: Remaining coordinators for account %@ (%lu): %@", buf, 0x20u);
+
+      account4 = [(MBAppRestoreManager *)self account];
+      accountIdentifier4 = [account4 accountIdentifier];
+      _MBLog(@"Df", "IX: Remaining coordinators for account %@ (%lu): %@", accountIdentifier4, v25, v29);
+    }
+
+    v35 = @"failed";
+    if (successCopy)
+    {
+      v35 = @"finished";
+    }
+
+    v36 = [NSString stringWithFormat:@"Data restore %@", v35];
+    [AITransactionLog logStep:2 byParty:6 phase:2 success:successCopy forBundleID:bundleID description:v36];
+
+    dispatch_semaphore_signal(self->_coordinationSemaphore);
+    if (!v25)
+    {
+      [(MBAppRestoreManager *)self _finishAppDataRestore];
+    }
+
+    goto LABEL_37;
+  }
+
+  bundleID = MBGetDefaultLog();
+  if (os_log_type_enabled(bundleID, OS_LOG_TYPE_INFO))
+  {
+    *buf = 0;
+    _os_log_impl(&_mh_execute_header, bundleID, OS_LOG_TYPE_INFO, "IX: Can't stop tracking a null coordinator", buf, 2u);
+    _MBLog(@"I ", "IX: Can't stop tracking a null coordinator");
+  }
+
+LABEL_37:
+}
+
+- (void)stopTrackingCoordinatorWithBundleID:(id)d success:(BOOL)success
+{
+  successCopy = success;
+  dCopy = d;
+  if (dCopy)
+  {
+    v7 = [(NSMutableDictionary *)self->_appInstallCoordinators objectForKeyedSubscript:dCopy];
+    if (v7)
+    {
+      [(MBAppRestoreManager *)self stopTrackingCoordinator:v7 withSuccess:successCopy];
+    }
+
+    else
+    {
+      v8 = MBGetDefaultLog();
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
+      {
+        *buf = 138412290;
+        v10 = dCopy;
+        _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_ERROR, "Coordinator couldn't be found for %@. Couldn't stop tracking it", buf, 0xCu);
+        _MBLog(@"E ", "Coordinator couldn't be found for %@. Couldn't stop tracking it", dCopy);
+      }
+    }
   }
 }
 
@@ -333,7 +537,7 @@ LABEL_17:
         *buf = 138412290;
         v11 = dCopy;
         _os_log_impl(&_mh_execute_header, v9, OS_LOG_TYPE_ERROR, "Coordinator couldn't be found for %@. Couldn't update progress", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"E ", "Coordinator couldn't be found for %@. Couldn't update progress", dCopy);
       }
     }
   }
@@ -363,8 +567,7 @@ LABEL_17:
       *buf = 134217984;
       v35 = v9;
       _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "IX: Found %lu apps whose coordinators are no longer tracked by IX. Going to stop tracking them", buf, 0xCu);
-      v22 = [v6 count];
-      _MBLog();
+      _MBLog(@"Df", "IX: Found %lu apps whose coordinators are no longer tracked by IX. Going to stop tracking them", [v6 count]);
     }
 
     v10 = self->_stateQueue;
@@ -393,20 +596,20 @@ LABEL_17:
       v37 = accountIdentifier;
       _os_log_impl(&_mh_execute_header, v12, OS_LOG_TYPE_INFO, "IX: Found %lu apps whose data restores need to be restarted for account %@", buf, 0x16u);
 
-      [v7 count];
+      v17 = [v7 count];
       account2 = [(MBAppRestoreManager *)self account];
       accountIdentifier2 = [account2 accountIdentifier];
-      _MBLog();
+      _MBLog(@"I ", "IX: Found %lu apps whose data restores need to be restarted for account %@", v17, accountIdentifier2);
     }
 
-    v18 = dispatch_get_global_queue(17, 0);
+    v20 = dispatch_get_global_queue(17, 0);
     v25[0] = _NSConcreteStackBlock;
     v25[1] = 3221225472;
     v25[2] = sub_10007C430;
     v25[3] = &unk_1003BC060;
     v26 = v7;
     selfCopy2 = self;
-    dispatch_async(v18, v25);
+    dispatch_async(v20, v25);
 
     v12 = v26;
   }
@@ -421,7 +624,7 @@ LABEL_17:
 
     account4 = [(MBAppRestoreManager *)self account];
     accountIdentifier4 = [account4 accountIdentifier];
-    _MBLog();
+    _MBLog(@"I ", "IX: Found no apps whose user data promises needed to be restarted. Nothing more to do for account %@", accountIdentifier4);
   }
 }
 
@@ -477,7 +680,7 @@ LABEL_17:
         *buf = 138412290;
         v11 = bundleID;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "IX: Data promise already exists for %@. Will let it complete", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"I ", "IX: Data promise already exists for %@. Will let it complete", bundleID);
       }
     }
 
@@ -488,7 +691,7 @@ LABEL_17:
         *buf = 138412290;
         v11 = bundleID;
         _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_INFO, "IX: Setting up user data promise for %@", buf, 0xCu);
-        _MBLog();
+        _MBLog(@"I ", "IX: Setting up user data promise for %@", bundleID);
       }
 
       v8 = [[IXPromisedOutOfBandTransfer alloc] initWithName:bundleID client:2 diskSpaceNeeded:0];
@@ -505,7 +708,7 @@ LABEL_17:
     {
       *buf = 0;
       _os_log_impl(&_mh_execute_header, bundleID, OS_LOG_TYPE_INFO, "IX: Can't set up promises for a null coordinator", buf, 2u);
-      _MBLog();
+      _MBLog(@"I ", "IX: Can't set up promises for a null coordinator");
     }
   }
 }
@@ -522,6 +725,98 @@ LABEL_17:
     block[4] = self;
     dispatch_sync(stateQueue, block);
   }
+}
+
+- (BOOL)_restoreApplicationWithBundleID:(id)d failed:(BOOL)failed context:(id)context error:(id *)error
+{
+  failedCopy = failed;
+  dCopy = d;
+  contextCopy = context;
+  v12 = atomic_load(&self->_cancelled);
+  if (v12)
+  {
+    if (error)
+    {
+      [MBError errorWithCode:202 format:@"Restore was cancelled by user"];
+      *error = v13 = 0;
+    }
+
+    else
+    {
+      v13 = 0;
+    }
+  }
+
+  else
+  {
+    v39 = 0;
+    v40 = &v39;
+    v41 = 0x2020000000;
+    v42 = 0;
+    v33 = 0;
+    v34 = &v33;
+    v35 = 0x3032000000;
+    v36 = sub_10007C990;
+    v37 = sub_10007C9A0;
+    v38 = 0;
+    account = [(MBAppRestoreManager *)self account];
+    persona = [account persona];
+    isDataSeparatedPersona = [persona isDataSeparatedPersona];
+
+    if (isDataSeparatedPersona)
+    {
+      account2 = [(MBAppRestoreManager *)self account];
+      persona2 = [account2 persona];
+      personaIdentifier = [persona2 personaIdentifier];
+
+      v20 = MBGetDefaultLog();
+      if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+      {
+        *buf = 138543618;
+        v44 = personaIdentifier;
+        v45 = 2114;
+        v46 = dCopy;
+        _os_log_impl(&_mh_execute_header, v20, OS_LOG_TYPE_DEFAULT, "Adopting persona %{public}@ to restore %{public}@", buf, 0x16u);
+        _MBLog(@"Df", "Adopting persona %{public}@ to restore %{public}@", personaIdentifier, dCopy);
+      }
+
+      v27[0] = _NSConcreteStackBlock;
+      v27[1] = 3221225472;
+      v27[2] = sub_10007D404;
+      v27[3] = &unk_1003BCB10;
+      v30 = &v39;
+      v27[4] = self;
+      v28 = dCopy;
+      v32 = failedCopy;
+      v29 = contextCopy;
+      v31 = &v33;
+      v21 = [DMCPersonaHelper performBlockUnderPersona:personaIdentifier block:v27];
+    }
+
+    else
+    {
+      personaIdentifier = [(MBAppRestoreManager *)self delegate];
+      account3 = [(MBAppRestoreManager *)self account];
+      v23 = (v34 + 5);
+      obj = v34[5];
+      v24 = [personaIdentifier restoreApplicationWithBundleID:dCopy failed:failedCopy qos:&off_1003E0D20 context:contextCopy account:account3 error:&obj];
+      objc_storeStrong(v23, obj);
+      *(v40 + 24) = v24;
+    }
+
+    v13 = *(v40 + 24);
+    if (error && (v40[3] & 1) == 0)
+    {
+      *error = v34[5];
+      v13 = *(v40 + 24);
+    }
+
+    _Block_object_dispose(&v33, 8);
+
+    _Block_object_dispose(&v39, 8);
+  }
+
+  return v13 & 1;
 }
 
 - (MBAppRestoreManagerDelegate)delegate

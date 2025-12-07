@@ -93,7 +93,7 @@ LABEL_13:
 
 - (id)jsonDictionary
 {
-  v16[3] = *MEMORY[0x1E69E9840];
+  v15[3] = *MEMORY[0x1E69E9840];
   v3 = [MEMORY[0x1E696AD98] numberWithInt:{-[BMSiriRequestCountsMetadata schedule](self, "schedule")}];
   aggregationWindowStartTimestamp = [(BMSiriRequestCountsMetadata *)self aggregationWindowStartTimestamp];
   if (aggregationWindowStartTimestamp)
@@ -110,31 +110,31 @@ LABEL_13:
   }
 
   odmId = [(BMSiriRequestCountsMetadata *)self odmId];
-  v15[0] = @"schedule";
+  v14[0] = @"schedule";
   null = v3;
   if (!v3)
   {
     null = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[0] = null;
-  v15[1] = @"aggregationWindowStartTimestamp";
+  v15[0] = null;
+  v14[1] = @"aggregationWindowStartTimestamp";
   null2 = v7;
   if (!v7)
   {
     null2 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[1] = null2;
-  v15[2] = @"odmId";
+  v15[1] = null2;
+  v14[2] = @"odmId";
   null3 = odmId;
   if (!odmId)
   {
     null3 = [MEMORY[0x1E695DFB0] null];
   }
 
-  v16[2] = null3;
-  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v16 forKeys:v15 count:3];
+  v15[2] = null3;
+  v12 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v15 forKeys:v14 count:3];
   if (odmId)
   {
     if (v7)
@@ -166,14 +166,13 @@ LABEL_12:
 LABEL_18:
 
 LABEL_13:
-  v13 = *MEMORY[0x1E69E9840];
 
   return v12;
 }
 
 - (BMSiriRequestCountsMetadata)initWithJSONDictionary:(id)dictionary error:(id *)error
 {
-  v38[1] = *MEMORY[0x1E69E9840];
+  v37[1] = *MEMORY[0x1E69E9840];
   dictionaryCopy = dictionary;
   v7 = [dictionaryCopy objectForKeyedSubscript:@"schedule"];
   if (!v7 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) != 0))
@@ -216,16 +215,16 @@ LABEL_9:
             goto LABEL_22;
           }
 
-          v32 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v28 = *MEMORY[0x1E698F240];
-          v35 = *MEMORY[0x1E696A578];
+          v31 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v27 = *MEMORY[0x1E698F240];
+          v34 = *MEMORY[0x1E696A578];
           v20 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (as time internal since 1970), NSString (ISO8601 format), or NSDate", objc_opt_class(), @"aggregationWindowStartTimestamp"];
-          v36 = v20;
-          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v36 forKeys:&v35 count:1];
-          v29 = [v32 initWithDomain:v28 code:2 userInfo:v19];
+          v35 = v20;
+          v19 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v35 forKeys:&v34 count:1];
+          v28 = [v31 initWithDomain:v27 code:2 userInfo:v19];
           v11 = 0;
           selfCopy = 0;
-          *error = v29;
+          *error = v28;
           goto LABEL_21;
         }
 
@@ -249,13 +248,13 @@ LABEL_17:
       {
         if (error)
         {
-          v31 = objc_alloc(MEMORY[0x1E696ABC0]);
-          v30 = *MEMORY[0x1E698F240];
-          v33 = *MEMORY[0x1E696A578];
-          v24 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"odmId"];
-          v34 = v24;
-          v25 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v34 forKeys:&v33 count:1];
-          *error = [v31 initWithDomain:v30 code:2 userInfo:v25];
+          v30 = objc_alloc(MEMORY[0x1E696ABC0]);
+          v29 = *MEMORY[0x1E698F240];
+          v32 = *MEMORY[0x1E696A578];
+          v23 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSString", objc_opt_class(), @"odmId"];
+          v33 = v23;
+          v24 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v33 forKeys:&v32 count:1];
+          *error = [v30 initWithDomain:v29 code:2 userInfo:v24];
         }
 
         v20 = 0;
@@ -301,19 +300,18 @@ LABEL_8:
     goto LABEL_23;
   }
 
-  v26 = objc_alloc(MEMORY[0x1E696ABC0]);
-  v27 = *MEMORY[0x1E698F240];
-  v37 = *MEMORY[0x1E696A578];
+  v25 = objc_alloc(MEMORY[0x1E696ABC0]);
+  v26 = *MEMORY[0x1E698F240];
+  v36 = *MEMORY[0x1E696A578];
   v11 = [objc_alloc(MEMORY[0x1E696AEC0]) initWithFormat:@"Unexpected type %@ for element of %@, expecting NSNumber (corresponding to enum value), or NSString (string version of enum)", objc_opt_class(), @"schedule"];
-  v38[0] = v11;
-  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v38 forKeys:&v37 count:1];
+  v37[0] = v11;
+  v10 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v37 forKeys:&v36 count:1];
   v8 = 0;
   selfCopy = 0;
-  *error = [v26 initWithDomain:v27 code:2 userInfo:v10];
+  *error = [v25 initWithDomain:v26 code:2 userInfo:v10];
 LABEL_22:
 
 LABEL_23:
-  v22 = *MEMORY[0x1E69E9840];
   return selfCopy;
 }
 
@@ -329,20 +327,17 @@ LABEL_23:
 - (void)writeTo:(id)to
 {
   toCopy = to;
-  schedule = self->_schedule;
-  v8 = toCopy;
   PBDataWriterWriteUint32Field();
   if (self->_hasRaw_aggregationWindowStartTimestamp)
   {
-    raw_aggregationWindowStartTimestamp = self->_raw_aggregationWindowStartTimestamp;
     PBDataWriterWriteDoubleField();
   }
 
-  v7 = v8;
+  v4 = toCopy;
   if (self->_odmId)
   {
     PBDataWriterWriteStringField();
-    v7 = v8;
+    v4 = toCopy;
   }
 }
 
@@ -550,31 +545,27 @@ LABEL_45:
 
 + (id)protoFields
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"schedule" number:1 type:4 subMessageClass:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"aggregationWindowStartTimestamp" number:2 type:0 subMessageClass:{0, v2}];
-  v8[1] = v3;
+  v7[1] = v3;
   v4 = [objc_alloc(MEMORY[0x1E698F2C8]) initWithName:@"odmId" number:3 type:13 subMessageClass:0];
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }
 
 + (id)columns
 {
-  v8[3] = *MEMORY[0x1E69E9840];
+  v7[3] = *MEMORY[0x1E69E9840];
   v2 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"schedule" dataType:0 requestOnly:0 fieldNumber:1 protoDataType:4 convertedType:0];
   v3 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"aggregationWindowStartTimestamp" dataType:3 requestOnly:0 fieldNumber:2 protoDataType:0 convertedType:2];
   v4 = [objc_alloc(MEMORY[0x1E698F2E8]) initWithName:@"odmId" dataType:2 requestOnly:0 fieldNumber:3 protoDataType:13 convertedType:0];
-  v8[0] = v2;
-  v8[1] = v3;
-  v8[2] = v4;
-  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v8 count:3];
-
-  v6 = *MEMORY[0x1E69E9840];
+  v7[0] = v2;
+  v7[1] = v3;
+  v7[2] = v4;
+  v5 = [MEMORY[0x1E695DEC8] arrayWithObjects:v7 count:3];
 
   return v5;
 }

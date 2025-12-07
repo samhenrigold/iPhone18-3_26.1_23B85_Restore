@@ -1128,9 +1128,9 @@ void __PLIsLockdownMode_block_invoke()
   PLIsLockdownMode_isLockdownMode = [v2 enabled];
 }
 
-void sub_1AA9C2FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AA9C2FA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -1552,14 +1552,14 @@ uint64_t __PLSearchBackendInitialSuggestionsGetLog_block_invoke()
   return MEMORY[0x1EEE66BB8]();
 }
 
-NSObject *pl_dispatch_queue_create_with_fallback_qos(const char *a1, dispatch_queue_attr_t attr)
+NSObject *pl_dispatch_queue_create_with_fallback_qos(const char *a1, dispatch_queue_attr_t attr, uint64_t a3)
 {
-  v3 = dispatch_queue_attr_make_initially_inactive(attr);
-  v4 = dispatch_queue_create(a1, v3);
+  v4 = dispatch_queue_attr_make_initially_inactive(attr);
+  v5 = dispatch_queue_create(a1, v4);
   dispatch_set_qos_class_fallback();
-  dispatch_activate(v4);
+  dispatch_activate(v5);
 
-  return v4;
+  return v5;
 }
 
 id PLPhotosSearchGetLog()
@@ -3050,82 +3050,82 @@ __IOSurface *PLCreateCGImageFromIOSurfaceBackedUIImage(void *a1)
   return PLCreateCGImageFromIOSurface(v1);
 }
 
-uint64_t PLCreateImageAndJPEGDataFromPreviewImageSurface(__IOSurface *a1, uint64_t a2)
+uint64_t PLCreateImageAndJPEGDataFromPreviewImageSurface(__IOSurface *a1, uint64_t a2, unint64_t a3)
 {
-  v40[2] = *MEMORY[0x1E69E9840];
-  v4 = setupUIGraphicsFunctions();
-  v5 = 0;
-  if (!a1 || !v4)
+  v41[2] = *MEMORY[0x1E69E9840];
+  v5 = setupUIGraphicsFunctions();
+  v6 = 0;
+  if (!a1 || !v5)
   {
-    return v5;
+    return v6;
   }
 
   texture = 0;
   Width = IOSurfaceGetWidth(a1);
   +[PLAssetFormatsCore scaledSizeForSize:format:capLength:](PLAssetFormatsCore, "scaledSizeForSize:format:capLength:", +[PLAssetFormatsCore masterThumbnailFormat], 1, Width, IOSurfaceGetHeight(a1));
-  if (Width / v7 <= 4.0)
+  if (Width / v8 <= 4.0)
   {
-    v12 = CVPixelBufferCreateWithIOSurface(*MEMORY[0x1E695E480], a1, 0, &texture);
-    v13 = texture;
+    v13 = CVPixelBufferCreateWithIOSurface(*MEMORY[0x1E695E480], a1, 0, &texture);
+    v14 = texture;
     goto LABEL_25;
   }
 
   *destinationBuffer = 0;
   pixelTransferSessionOut = 0;
   pixelBufferOut = 0;
-  v8 = *MEMORY[0x1E695E480];
-  v9 = CVPixelBufferCreateWithIOSurface(*MEMORY[0x1E695E480], a1, 0, &pixelBufferOut);
-  if (v9)
+  v9 = *MEMORY[0x1E695E480];
+  v10 = CVPixelBufferCreateWithIOSurface(*MEMORY[0x1E695E480], a1, 0, &pixelBufferOut);
+  if (v10)
   {
-    v10 = 1;
+    v11 = 1;
   }
 
   else
   {
-    v10 = pixelBufferOut == 0;
+    v11 = pixelBufferOut == 0;
   }
 
-  if (v10 || ((v9 = VTPixelTransferSessionCreate(v8, &pixelTransferSessionOut)) == 0 ? (v11 = pixelTransferSessionOut == 0) : (v11 = 1), v11))
+  if (v11 || ((v10 = VTPixelTransferSessionCreate(v9, &pixelTransferSessionOut)) == 0 ? (v12 = pixelTransferSessionOut == 0) : (v12 = 1), v12))
   {
-    v12 = v9;
-    v13 = 0;
+    v13 = v10;
     v14 = 0;
+    v15 = 0;
     goto LABEL_23;
   }
 
   IOSurfaceBackedCVPixelBuffer = FigCreateIOSurfaceBackedCVPixelBuffer();
-  v14 = *destinationBuffer;
+  v15 = *destinationBuffer;
   if (IOSurfaceBackedCVPixelBuffer)
   {
-    v16 = 1;
+    v17 = 1;
   }
 
   else
   {
-    v16 = *destinationBuffer == 0;
+    v17 = *destinationBuffer == 0;
   }
 
-  if (v16)
+  if (v17)
   {
-    v12 = IOSurfaceBackedCVPixelBuffer;
+    v13 = IOSurfaceBackedCVPixelBuffer;
 LABEL_22:
-    v13 = 0;
+    v14 = 0;
     goto LABEL_23;
   }
 
-  v17 = VTPixelTransferSessionTransferImage(pixelTransferSessionOut, pixelBufferOut, *destinationBuffer);
-  v12 = v17;
-  v14 = *destinationBuffer;
-  if (v17)
+  v18 = VTPixelTransferSessionTransferImage(pixelTransferSessionOut, pixelBufferOut, *destinationBuffer);
+  v13 = v18;
+  v15 = *destinationBuffer;
+  if (v18)
   {
     goto LABEL_22;
   }
 
-  v13 = CVPixelBufferRetain(*destinationBuffer);
-  texture = v13;
-  v14 = *destinationBuffer;
+  v14 = CVPixelBufferRetain(*destinationBuffer);
+  texture = v14;
+  v15 = *destinationBuffer;
 LABEL_23:
-  CVPixelBufferRelease(v14);
+  CVPixelBufferRelease(v15);
   CVPixelBufferRelease(pixelBufferOut);
   if (pixelTransferSessionOut)
   {
@@ -3133,75 +3133,75 @@ LABEL_23:
   }
 
 LABEL_25:
-  if (v12)
+  if (v13)
   {
-    v18 = 1;
+    v19 = 1;
   }
 
   else
   {
-    v18 = v13 == 0;
+    v19 = v14 == 0;
   }
 
-  if (v18)
+  if (v19)
   {
-    v19 = 0;
-    v5 = 0;
+    v20 = 0;
+    v6 = 0;
     goto LABEL_45;
   }
 
   *destinationBuffer = 0;
   pixelBufferOut = 0;
-  v12 = VTImageRotationSessionCreate();
-  v19 = 0;
-  v20 = pixelBufferOut;
-  if (!v12 && pixelBufferOut)
+  v13 = VTImageRotationSessionCreate();
+  v20 = 0;
+  v21 = pixelBufferOut;
+  if (!v13 && pixelBufferOut)
   {
     VTSessionSetProperty(pixelBufferOut, *MEMORY[0x1E6983CF8], *MEMORY[0x1E695E4D0]);
     IOSurfaceBackedCVPixelBufferWithAttributes = FigCreateIOSurfaceBackedCVPixelBufferWithAttributes();
     if (IOSurfaceBackedCVPixelBufferWithAttributes)
     {
-      v22 = 1;
+      v23 = 1;
     }
 
     else
     {
-      v22 = *destinationBuffer == 0;
+      v23 = *destinationBuffer == 0;
     }
 
-    if (v22 || (IOSurfaceBackedCVPixelBufferWithAttributes = MEMORY[0x1AC591C30](pixelBufferOut, texture)) != 0)
+    if (v23 || (IOSurfaceBackedCVPixelBufferWithAttributes = MEMORY[0x1AC591C30](pixelBufferOut, texture)) != 0)
     {
-      v12 = IOSurfaceBackedCVPixelBufferWithAttributes;
-      v19 = 0;
+      v13 = IOSurfaceBackedCVPixelBufferWithAttributes;
+      v20 = 0;
     }
 
     else
     {
-      v25 = CVPixelBufferRetain(*destinationBuffer);
-      v19 = v25;
-      if (v25)
+      v26 = CVPixelBufferRetain(*destinationBuffer);
+      v20 = v26;
+      if (v26)
       {
-        IOSurface = CVPixelBufferGetIOSurface(v25);
-        v5 = sUICreateCGImageFromIOSurface(IOSurface);
-        v12 = 0;
+        IOSurface = CVPixelBufferGetIOSurface(v26);
+        v6 = sUICreateCGImageFromIOSurface(IOSurface);
+        v13 = 0;
         if (a2 && IOSurface)
         {
-          v27 = *MEMORY[0x1E6991978];
-          v40[0] = &unk_1F1F90728;
-          v28 = *MEMORY[0x1E6991970];
-          v39[0] = v27;
-          v39[1] = v28;
-          v37 = *MEMORY[0x1E6991B90];
-          v38 = &unk_1F1F91088;
-          v29 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v38 forKeys:&v37 count:1];
+          v28 = *MEMORY[0x1E6991978];
+          v41[0] = &unk_1F1F90728;
+          v29 = *MEMORY[0x1E6991970];
+          v40[0] = v28;
           v40[1] = v29;
-          v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v40 forKeys:v39 count:2];
+          v38 = *MEMORY[0x1E6991B90];
+          v39 = &unk_1F1F91088;
+          v30 = [MEMORY[0x1E695DF20] dictionaryWithObjects:&v39 forKeys:&v38 count:1];
+          v41[1] = v30;
+          v31 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v41 forKeys:v40 count:2];
 
-          v12 = PFFigJPEGDataFromImage();
+          v13 = PFFigJPEGDataFromImage();
         }
 
 LABEL_40:
-        v20 = pixelBufferOut;
+        v21 = pixelBufferOut;
         if (!pixelBufferOut)
         {
           goto LABEL_44;
@@ -3210,40 +3210,40 @@ LABEL_40:
         goto LABEL_43;
       }
 
-      v12 = 0;
+      v13 = 0;
     }
 
-    v5 = 0;
+    v6 = 0;
     goto LABEL_40;
   }
 
-  v5 = 0;
+  v6 = 0;
   if (pixelBufferOut)
   {
 LABEL_43:
-    CFRelease(v20);
+    CFRelease(v21);
   }
 
 LABEL_44:
   CVPixelBufferRelease(*destinationBuffer);
-  v13 = texture;
+  v14 = texture;
 LABEL_45:
-  CVPixelBufferRelease(v13);
-  CVPixelBufferRelease(v19);
-  if (v12)
+  CVPixelBufferRelease(v14);
+  CVPixelBufferRelease(v20);
+  if (v13)
   {
-    v23 = PLBackendGetLog();
-    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEFAULT))
+    v24 = PLBackendGetLog();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
     {
       *destinationBuffer = 136315394;
       *&destinationBuffer[4] = "CGImageRef PLCreateImageAndJPEGDataFromPreviewImageSurface(CFTypeRef, NSData *__autoreleasing *, UIImageOrientation)";
-      v35 = 2048;
-      v36 = v12;
-      _os_log_impl(&dword_1AA9BD000, v23, OS_LOG_TYPE_DEFAULT, "%s error %ld", destinationBuffer, 0x16u);
+      v36 = 2048;
+      v37 = v13;
+      _os_log_impl(&dword_1AA9BD000, v24, OS_LOG_TYPE_DEFAULT, "%s error %ld", destinationBuffer, 0x16u);
     }
   }
 
-  return v5;
+  return v6;
 }
 
 id PLCreateJPEGDataFromPreviewImageSurface(IOSurfaceRef surface, unint64_t a2)
@@ -3757,58 +3757,58 @@ id DCIM_newPLImageWithContentsOfFileURL(void *a1, int a2)
   return v13;
 }
 
-id DCIM_scaleImageFromURL(void *a1, double a2, double a3)
+id DCIM_scaleImageFromURL(void *a1, uint64_t a2, double a3, double a4)
 {
-  v24[1] = *MEMORY[0x1E69E9840];
-  v5 = a1;
-  if (v5)
+  v25[1] = *MEMORY[0x1E69E9840];
+  v6 = a1;
+  if (v6)
   {
-    v23 = *MEMORY[0x1E6991AE0];
-    if (a2 >= a3)
+    v24 = *MEMORY[0x1E6991AE0];
+    if (a3 >= a4)
     {
-      v6 = a2;
+      v7 = a3;
     }
 
     else
     {
-      v6 = a3;
+      v7 = a4;
     }
 
-    v7 = [MEMORY[0x1E696AD98] numberWithDouble:v6];
-    v24[0] = v7;
-    v8 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v24 forKeys:&v23 count:1];
+    v8 = [MEMORY[0x1E696AD98] numberWithDouble:v7];
+    v25[0] = v8;
+    v9 = [MEMORY[0x1E695DF20] dictionaryWithObjects:v25 forKeys:&v24 count:1];
 
-    v9 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfURL:v5];
+    v10 = [objc_alloc(MEMORY[0x1E695DEF0]) initWithContentsOfURL:v6];
     CGImageFromImageData = PFFigCreateCGImageFromImageData();
     if (CGImageFromImageData)
     {
-      v11 = PLPhotoKitGetLog();
-      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
+      v12 = PLPhotoKitGetLog();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 136315650;
-        v18 = "PLImage *DCIM_scaleImageFromURL(NSURL *__strong, CGSize, UIImageOrientation)";
-        v19 = 2048;
-        v20 = CGImageFromImageData;
-        v21 = 2112;
-        v22 = v5;
-        _os_log_impl(&dword_1AA9BD000, v11, OS_LOG_TYPE_DEFAULT, "PFFigCreateCGImageFromImageData %s returned %ld from %@", buf, 0x20u);
+        v19 = "PLImage *DCIM_scaleImageFromURL(NSURL *__strong, CGSize, UIImageOrientation)";
+        v20 = 2048;
+        v21 = CGImageFromImageData;
+        v22 = 2112;
+        v23 = v6;
+        _os_log_impl(&dword_1AA9BD000, v12, OS_LOG_TYPE_DEFAULT, "PFFigCreateCGImageFromImageData %s returned %ld from %@", buf, 0x20u);
       }
     }
 
-    v12 = [v5 path];
-    v13 = DCIM_newPLImageWithContentsOfFile(v12);
+    v13 = [v6 path];
+    v14 = DCIM_newPLImageWithContentsOfFile(v13);
 
-    v14 = DCIM_resizedImage(v13, a2, a3);
+    v15 = DCIM_resizedImage(v14, a3, a4);
 
-    v15 = v14;
+    v16 = v15;
   }
 
   else
   {
-    v15 = 0;
+    v16 = 0;
   }
 
-  return v15;
+  return v16;
 }
 
 id DCIM_resizedImage(void *a1, double a2, double a3)
@@ -4196,12 +4196,12 @@ LABEL_39:
   return v33;
 }
 
-uint64_t DCIM_NSValueToCGAffineTransform@<X0>(void *a1@<X0>, _OWORD *x8_0@<X8>)
+uint64_t DCIM_NSValueToCGAffineTransform@<X0>(void *a1@<X0>, _OWORD *a2@<X8>)
 {
-  x8_0[1] = 0u;
-  x8_0[2] = 0u;
-  *x8_0 = 0u;
-  return [a1 getValue:x8_0];
+  a2[1] = 0u;
+  a2[2] = 0u;
+  *a2 = 0u;
+  return [a1 getValue:a2];
 }
 
 uint64_t DCIM_newJPEGRepresentationWithPLImage(void *a1, double a2)
@@ -4456,7 +4456,7 @@ LABEL_10:
   return v4;
 }
 
-CGImageRef createImageByRemovingBlackBarsFromPreviewImage(CGImage *a1, int a2, int a3)
+CGImageRef createImageByRemovingBlackBarsFromPreviewImage(CGImage *a1, unsigned int a2, unsigned int a3)
 {
   Width = CGImageGetWidth(a1);
   Height = CGImageGetHeight(a1);
@@ -4817,18 +4817,18 @@ LABEL_82:
   return [a2 hasError] ^ 1;
 }
 
-void sub_1AA9CD544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AA9CD544(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AA9CD6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, ...)
+void sub_1AA9CD6F4(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, ...)
 {
-  va_start(va, a9);
+  va_start(va, a16);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v9 - 64), 8);
+  _Block_object_dispose((v16 - 64), 8);
   _Unwind_Resume(a1);
 }
 
@@ -4939,9 +4939,17 @@ __n128 __copy_helper_block_e8_32n18_8_8_t0w1_s8_t16w32(uint64_t a1, uint64_t a2)
   return result;
 }
 
-void sub_1AA9D9568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AA9D463C(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, SEL sel, ...)
 {
-  va_start(va, a7);
+  va_start(va, sel);
+
+  _Block_object_dispose(va, 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AA9D9568(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+{
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5013,9 +5021,9 @@ uint64_t PUTCreatePathForPersistentURL(void *a1)
   return v8;
 }
 
-void sub_1AA9E4ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AA9E4ADC(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5066,7 +5074,7 @@ LABEL_10:
   return result;
 }
 
-uint64_t __MediaPlayerLibraryCore_block_invoke()
+uint64_t __MediaPlayerLibraryCore_block_invoke(uint64_t a1)
 {
   result = _sl_dlopen();
   MediaPlayerLibraryCore_frameworkLibrary = result;
@@ -5145,9 +5153,9 @@ uint64_t PUTGetCurrentAccessForURLAndToken(void *a1, _OWORD *a2)
   return v10;
 }
 
-void sub_1AA9E5084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AA9E5084(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5290,7 +5298,7 @@ void sub_1AA9E6F44(_Unwind_Exception *exception_object)
   _Unwind_Resume(exception_object);
 }
 
-id PLURLForResourceProperties(uint64_t a1, uint64_t a2, unsigned int a3, int a4, int a5, char a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+id PLURLForResourceProperties(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
   v13 = PLPathForResourceProperties(a1, a2, a3, a4, a5, a6, a7, a8, a9, a10, a11, a12, a13);
   if (v13)
@@ -5306,8 +5314,10 @@ id PLURLForResourceProperties(uint64_t a1, uint64_t a2, unsigned int a3, int a4,
   return v14;
 }
 
-id PLPathForResourceProperties(uint64_t a1, uint64_t a2, unsigned int a3, int a4, int a5, char a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
+id PLPathForResourceProperties(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, char a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13)
 {
+  v15 = a5;
+  v16 = a4;
   v17 = a3;
   if (!PLResourceTypeIsAllowedForUseInFilename(a3, a4, a5))
   {
@@ -5318,14 +5328,14 @@ id PLPathForResourceProperties(uint64_t a1, uint64_t a2, unsigned int a3, int a4
   if (a1)
   {
     v20 = 0;
-    if (a4 > 1)
+    if (v16 > 1)
     {
-      if (a4 == 2)
+      if (v16 == 2)
       {
-        if (a5 || v17 != 31 || (a6 & 1) == 0)
+        if (v15 || v17 != 31 || (a6 & 1) == 0)
         {
-          FileMarker = _createFileMarker(v17, 2, a5);
-          if (a5)
+          FileMarker = _createFileMarker(v17, 2, v15);
+          if (v15)
           {
             v20 = a9;
           }
@@ -5343,16 +5353,16 @@ id PLPathForResourceProperties(uint64_t a1, uint64_t a2, unsigned int a3, int a4
 
       FileMarker = 0;
       v22 = a2;
-      if (a4 != 3)
+      if (v16 != 3)
       {
         goto LABEL_37;
       }
 
-      if ((a5 & 0xFFFF0000) != 0x40000)
+      if ((v15 & 0xFFFF0000) != 0x40000)
       {
         if ((v17 & 0xFFFFFFFE) == 0xE)
         {
-          FileMarker = _createFileMarker(v17, 3, a5);
+          FileMarker = _createFileMarker(v17, 3, v15);
           v20 = a10;
           goto LABEL_36;
         }
@@ -5386,7 +5396,7 @@ id PLPathForResourceProperties(uint64_t a1, uint64_t a2, unsigned int a3, int a4
       }
 
       FileMarker = malloc_type_calloc(1uLL, 0xBuLL, 0xFB88419CuLL);
-      if (snprintf(FileMarker, 0xBuLL, "%d_%d_%c", 4, a5 >> 1, 99) >= 0xB)
+      if (snprintf(FileMarker, 0xBuLL, "%d_%d_%c", 4, v15 >> 1, 99) >= 0xB)
       {
         goto LABEL_50;
       }
@@ -5396,11 +5406,11 @@ id PLPathForResourceProperties(uint64_t a1, uint64_t a2, unsigned int a3, int a4
 
     else
     {
-      if (a4)
+      if (v16)
       {
         FileMarker = 0;
         v22 = a2;
-        if (a4 != 1)
+        if (v16 != 1)
         {
           goto LABEL_37;
         }
@@ -5431,12 +5441,12 @@ LABEL_24:
         goto LABEL_35;
       }
 
-      if (a5)
+      if (v15)
       {
         v24 = v17;
         v25 = 0;
 LABEL_20:
-        FileMarker = _createFileMarker(v24, v25, a5);
+        FileMarker = _createFileMarker(v24, v25, v15);
         v20 = a9;
         goto LABEL_36;
       }
@@ -5486,7 +5496,7 @@ LABEL_43:
   return v23;
 }
 
-uint64_t PLResourceTypeIsAllowedForUseInFilename(unsigned int a1, int a2, int a3)
+BOOL PLResourceTypeIsAllowedForUseInFilename(unsigned int a1, int a2, int a3)
 {
   if (a1 <= 0x10)
   {
@@ -5671,9 +5681,9 @@ LABEL_14:
   return v8;
 }
 
-void sub_1AA9EAFA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1AA9EAFA0(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
 {
-  va_start(va, a11);
+  va_start(va, a18);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -5819,19 +5829,27 @@ void sub_1AA9FB4B4(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6
   _Unwind_Resume(a1);
 }
 
-void sub_1AA9FDE30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
+void sub_1AA9FD340(_Unwind_Exception *a1, int a2, int a3, int a4, int a5, int a6, int a7, int a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, char a15, void *a16, uint64_t a17, uint64_t a18, uint64_t a19, SEL sel, ...)
 {
-  va_start(va, a13);
+  va_start(va, sel);
+
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v13 - 96), 8);
   _Unwind_Resume(a1);
 }
 
-void sub_1AA9FE13C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, ...)
+void sub_1AA9FDE30(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, ...)
 {
-  va_start(va, a11);
+  va_start(va, a20);
   _Block_object_dispose(va, 8);
-  _Block_object_dispose((v11 - 112), 8);
+  _Block_object_dispose((v20 - 96), 8);
+  _Unwind_Resume(a1);
+}
+
+void sub_1AA9FE13C(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, ...)
+{
+  va_start(va, a18);
+  _Block_object_dispose(va, 8);
+  _Block_object_dispose((v18 - 112), 8);
   _Unwind_Resume(a1);
 }
 
@@ -5889,7 +5907,7 @@ id PLClientApplicationIdentifierFromXPCConnection(void *a1)
   v2 = v1;
   if (v1)
   {
-    [v1 auditToken];
+    objc_msgSend_auditToken(v1);
     v3 = PLClientApplicationIdentifierFromAuditToken(v6, v2);
   }
 
@@ -6152,7 +6170,7 @@ uint64_t _PLDataExplicitLengthKey(uint64_t a1)
   return v3;
 }
 
-id PLDataFromXPCDataObject(void *a1, uint64_t a2)
+PLXPCShMemData *PLDataFromXPCDataObject(void *a1, uint64_t a2)
 {
   v3 = a1;
   v4 = v3;
@@ -6641,9 +6659,9 @@ LABEL_11:
   return v8;
 }
 
-void sub_1AAA04134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, ...)
+void sub_1AAA04134(_Unwind_Exception *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, ...)
 {
-  va_start(va, a7);
+  va_start(va, a13);
   _Block_object_dispose(va, 8);
   _Unwind_Resume(a1);
 }
@@ -6926,7 +6944,7 @@ void PLXPCDictionarySetSandboxedURL(void *a1, const char *a2, void *a3)
   PLXPCDictionarySetString(v5, v8, v7);
 }
 
-id PLGetSandboxExtensionTokenWithFlags(void *a1, uint64_t a2, uint64_t a3, uint64_t a4)
+id PLGetSandboxExtensionTokenWithFlags(void *a1, uint64_t a2, uint64_t a3, _OWORD *a4)
 {
   v5 = a1;
   v6 = v5;
@@ -6992,7 +7010,7 @@ id PLClientBundleIdentifierFromXPCConnection(void *a1)
     goto LABEL_16;
   }
 
-  [v1 auditToken];
+  objc_msgSend_auditToken(v1);
   v13 = 0;
   *buf = 0u;
   v19 = 0u;
@@ -9504,31 +9522,4 @@ void PLDonateMomentShareURL(void *a1, void *a2)
   v10 = v3;
   v8 = v3;
   [v7 fetchShareFromShareURL:v4 ignoreExistingShare:0 completionHandler:v9];
-}
-
-void __PLDonateMomentShareURL_block_invoke(uint64_t a1, void *a2, void *a3)
-{
-  v11 = *MEMORY[0x1E69E9840];
-  v5 = a2;
-  v6 = a3;
-  v7 = PLGatekeeperXPCGetLog();
-  v8 = v7;
-  if (v6)
-  {
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
-    {
-      v9 = 138412290;
-      v10 = v6;
-      _os_log_impl(&dword_1AA9BD000, v8, OS_LOG_TYPE_ERROR, "Error fetching donated moment share from external client: %@", &v9, 0xCu);
-    }
-  }
-
-  else if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
-  {
-    v9 = 138412290;
-    v10 = v5;
-    _os_log_impl(&dword_1AA9BD000, v8, OS_LOG_TYPE_DEFAULT, "Successfully fetched donated moment share %@ from external client", &v9, 0xCu);
-  }
-
-  (*(*(a1 + 32) + 16))();
 }

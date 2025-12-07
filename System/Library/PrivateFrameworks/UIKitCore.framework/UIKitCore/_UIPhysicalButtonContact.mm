@@ -10,7 +10,7 @@
 - (id)descriptionWithMultilinePrefix:(id)prefix;
 - (id)succinctDescription;
 - (id)succinctDescriptionBuilder;
-- (uint64_t)_appendProemDescriptionSansSelfToFormatter:(uint64_t)result;
+- (unsigned)_appendProemDescriptionSansSelfToFormatter:(unsigned __int8 *)result;
 - (void)_appendDebugBodyDescriptionToFormatter:(uint64_t)formatter;
 - (void)appendDescriptionToFormatter:(id)formatter;
 @end
@@ -37,12 +37,12 @@
   return result;
 }
 
-- (uint64_t)_appendProemDescriptionSansSelfToFormatter:(uint64_t)result
+- (unsigned)_appendProemDescriptionSansSelfToFormatter:(unsigned __int8 *)result
 {
   if (result)
   {
     v3 = result;
-    v4 = [a2 appendBool:*(result + 8) withName:@"isTouching"];
+    v4 = [a2 appendBool:result[8] withName:@"isTouching"];
     v6[0] = MEMORY[0x1E69E9820];
     v6[1] = 3221225472;
     v6[2] = __71___UIPhysicalButtonContact__appendProemDescriptionSansSelfToFormatter___block_invoke;

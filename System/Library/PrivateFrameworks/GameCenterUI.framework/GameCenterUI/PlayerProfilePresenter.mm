@@ -60,7 +60,7 @@
 - (BOOL)isSignedIn
 {
   selfCopy = self;
-  v3 = sub_24E2465D8();
+  v3 = sub_24E2465D8(selfCopy);
 
   return v3 & 1;
 }
@@ -90,7 +90,7 @@
   selfCopy = self;
   sub_24E247E7C();
 
-  sub_24DF88A8C(0, &qword_27F1DFB08);
+  sub_24DF88A8C(0, &qword_27F1DFB08, 0x277D750C8);
   v3 = sub_24E347EE8();
 
   return v3;
@@ -103,7 +103,7 @@
 
   if (v3)
   {
-    sub_24DF88A8C(0, &unk_27F1E21B0);
+    sub_24DF88A8C(0, &unk_27F1E21B0, 0x277D751E0);
     v4 = sub_24E347EE8();
   }
 
@@ -165,9 +165,10 @@
 
 - (void)loadMoreActivityFeedWithContinuationToken:(id)token
 {
-  sub_24E347CF8();
+  v4 = sub_24E347CF8();
+  v6 = v5;
   selfCopy = self;
-  sub_24E24F26C();
+  sub_24E24F26C(v4, v6);
 }
 
 - (_TtC12GameCenterUI22PlayerProfilePresenter)initWithPlayerId:(id)id

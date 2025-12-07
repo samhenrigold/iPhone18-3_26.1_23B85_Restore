@@ -13,7 +13,7 @@
   {
     v12 = 0u;
     v13 = 0u;
-    [AVAssetPlanner segmentBoundaryGuidelinesForVideoCodecType:type videoEncoderSpecification:specification];
+    objc_msgSend_segmentBoundaryGuidelinesForVideoCodecType_videoEncoderSpecification_(AVAssetPlanner, a2, type, specification);
     v8 = MEMORY[0x1E695DF30];
     v9 = *MEMORY[0x1E695D940];
     v10 = @"Specified codecType and encoderSpecifications do not support segmented encoding";

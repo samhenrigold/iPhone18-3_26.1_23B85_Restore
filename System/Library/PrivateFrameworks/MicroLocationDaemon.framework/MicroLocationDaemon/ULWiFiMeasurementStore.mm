@@ -34,10 +34,10 @@
   v8 = a7.var0.var1;
   v9 = a6.var1;
   v10 = a6.var0.var1;
-  v74[1] = *MEMORY[0x277D85DE8];
+  v73[1] = *MEMORY[0x277D85DE8];
   __src[0] = 0;
   __src[1] = 0;
-  v72 = 0;
+  v71 = 0;
   v14 = +[ULDefaultsSingleton shared];
   defaultsDictionary = [v14 defaultsDictionary];
 
@@ -54,7 +54,7 @@
     unsignedIntValue = [&unk_286A71CD0 unsignedIntValue];
   }
 
-  v60 = unsignedIntValue;
+  v59 = unsignedIntValue;
 
   context = objc_autoreleasePoolPush();
   array = [MEMORY[0x277CBEB18] array];
@@ -143,34 +143,34 @@
     [array addObject:v37];
 
 LABEL_20:
-    v63 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0];
+    v62 = [MEMORY[0x277CCAC98] sortDescriptorWithKey:@"timestamp" ascending:0];
     v38 = objc_opt_class();
     v39 = NSStringFromClass(v38);
-    v74[0] = v63;
-    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v74 count:1];
-    v41 = [(ULStore *)selfCopy fetchPropertyForEntityName:v39 propertyToFetch:@"channel" distinctResults:0 byAndPredicates:array sortDescriptors:v40 andLimit:v60];
+    v73[0] = v62;
+    v40 = [MEMORY[0x277CBEA60] arrayWithObjects:v73 count:1];
+    v41 = [(ULStore *)selfCopy fetchPropertyForEntityName:v39 propertyToFetch:@"channel" distinctResults:0 byAndPredicates:array sortDescriptors:v40 andLimit:v59];
 
-    v68 = 0u;
-    v69 = 0u;
-    v66 = 0u;
     v67 = 0u;
+    v68 = 0u;
+    v65 = 0u;
+    v66 = 0u;
     v42 = v41;
-    v43 = [v42 countByEnumeratingWithState:&v66 objects:v73 count:16];
+    v43 = [v42 countByEnumeratingWithState:&v65 objects:v72 count:16];
     if (v43)
     {
-      v44 = *v67;
+      v44 = *v66;
       do
       {
         for (i = 0; i != v43; ++i)
         {
-          if (*v67 != v44)
+          if (*v66 != v44)
           {
             objc_enumerationMutation(v42);
           }
 
-          shortValue = [*(*(&v66 + 1) + 8 * i) shortValue];
+          shortValue = [*(*(&v65 + 1) + 8 * i) shortValue];
           v47 = __src[1];
-          if (__src[1] >= v72)
+          if (__src[1] >= v71)
           {
             v49 = __src[0];
             v50 = __src[1] - __src[0];
@@ -180,17 +180,17 @@ LABEL_20:
               std::vector<ULEventLogDO>::__throw_length_error[abi:ne200100]();
             }
 
-            if (v72 - __src[0] <= (v51 + 1))
+            if (v71 - __src[0] <= (v51 + 1))
             {
               v52 = v51 + 1;
             }
 
             else
             {
-              v52 = v72 - __src[0];
+              v52 = v71 - __src[0];
             }
 
-            if ((v72 - __src[0]) >= 0x7FFFFFFFFFFFFFFELL)
+            if ((v71 - __src[0]) >= 0x7FFFFFFFFFFFFFFELL)
             {
               v53 = 0x7FFFFFFFFFFFFFFFLL;
             }
@@ -211,7 +211,7 @@ LABEL_20:
             v54 = __src[0];
             __src[0] = 0;
             __src[1] = v48;
-            v72 = 0;
+            v71 = 0;
             if (v54)
             {
               operator delete(v54);
@@ -227,7 +227,7 @@ LABEL_20:
           __src[1] = v48;
         }
 
-        v43 = [v42 countByEnumeratingWithState:&v66 objects:v73 count:16];
+        v43 = [v42 countByEnumeratingWithState:&v65 objects:v72 count:16];
       }
 
       while (v43);
@@ -242,11 +242,11 @@ LABEL_20:
     [ULWiFiMeasurementStore getChannelsUsedByMeasurementsAtLoiGroupID:withSourceBSSIDinSet:fromScanTime:toScanTime:];
   }
 
-  v58 = logObject_MicroLocation_Default;
+  v57 = logObject_MicroLocation_Default;
   if (os_log_type_enabled(logObject_MicroLocation_Default, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 0;
-    _os_log_impl(&dword_258FE9000, v58, OS_LOG_TYPE_DEFAULT, "#Warning passed empty sourceBSSIDs set", buf, 2u);
+    _os_log_impl(&dword_258FE9000, v57, OS_LOG_TYPE_DEFAULT, "#Warning passed empty sourceBSSIDs set", buf, 2u);
   }
 
   v55 = 0;
@@ -259,7 +259,7 @@ LABEL_41:
   if (v55)
   {
     *&retstr->var0 = *__src;
-    retstr->var2 = v72;
+    retstr->var2 = v71;
   }
 
   else
@@ -272,7 +272,6 @@ LABEL_41:
     }
   }
 
-  v57 = *MEMORY[0x277D85DE8];
   return result;
 }
 

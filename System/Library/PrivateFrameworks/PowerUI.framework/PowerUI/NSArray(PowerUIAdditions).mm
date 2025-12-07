@@ -9,7 +9,7 @@
 
 - (double)mean
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   v2 = 0.0;
   if ([self count])
   {
@@ -19,49 +19,48 @@
 
     if (isKindOfClass)
     {
-      v15 = 0u;
-      v16 = 0u;
-      v13 = 0u;
       v14 = 0u;
+      v15 = 0u;
+      v12 = 0u;
+      v13 = 0u;
       selfCopy = self;
-      v6 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+      v6 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
       if (v6)
       {
         v7 = v6;
-        v8 = *v14;
+        v8 = *v13;
         do
         {
           v9 = 0;
           do
           {
-            if (*v14 != v8)
+            if (*v13 != v8)
             {
               objc_enumerationMutation(selfCopy);
             }
 
-            [*(*(&v13 + 1) + 8 * v9) doubleValue];
+            [*(*(&v12 + 1) + 8 * v9) doubleValue];
             v2 = v2 + v10;
             ++v9;
           }
 
           while (v7 != v9);
-          v7 = [selfCopy countByEnumeratingWithState:&v13 objects:v17 count:16];
+          v7 = [selfCopy countByEnumeratingWithState:&v12 objects:v16 count:16];
         }
 
         while (v7);
       }
 
-      v2 = v2 / [selfCopy count];
+      return v2 / [selfCopy count];
     }
   }
 
-  v11 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
 - (double)standardDeviation
 {
-  v21 = *MEMORY[0x277D85DE8];
+  v20 = *MEMORY[0x277D85DE8];
   v2 = 0.0;
   if ([self count] >= 2)
   {
@@ -73,31 +72,31 @@
     {
       [self mean];
       v6 = v5;
+      v15 = 0u;
       v16 = 0u;
       v17 = 0u;
       v18 = 0u;
-      v19 = 0u;
       selfCopy = self;
-      v8 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+      v8 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v8)
       {
         v9 = v8;
-        v10 = *v17;
+        v10 = *v16;
         v11 = 0.0;
         do
         {
           for (i = 0; i != v9; ++i)
           {
-            if (*v17 != v10)
+            if (*v16 != v10)
             {
               objc_enumerationMutation(selfCopy);
             }
 
-            [*(*(&v16 + 1) + 8 * i) doubleValue];
+            [*(*(&v15 + 1) + 8 * i) doubleValue];
             v11 = v11 + (v13 - v6) * (v13 - v6);
           }
 
-          v9 = [selfCopy countByEnumeratingWithState:&v16 objects:v20 count:16];
+          v9 = [selfCopy countByEnumeratingWithState:&v15 objects:v19 count:16];
         }
 
         while (v9);
@@ -108,11 +107,10 @@
         v11 = 0.0;
       }
 
-      v2 = sqrt(v11 / ([selfCopy count] - 1));
+      return sqrt(v11 / ([selfCopy count] - 1));
     }
   }
 
-  v14 = *MEMORY[0x277D85DE8];
   return v2;
 }
 
@@ -186,32 +184,32 @@ LABEL_11:
 
 - (id)percentiles:()PowerUIAdditions
 {
-  v38 = *MEMORY[0x277D85DE8];
+  v37 = *MEMORY[0x277D85DE8];
   v4 = a3;
   v5 = [self count];
   v6 = objc_opt_new();
-  v31 = [self sortedArrayUsingSelector:sel_compare_];
+  v30 = [self sortedArrayUsingSelector:sel_compare_];
+  v32 = 0u;
   v33 = 0u;
   v34 = 0u;
   v35 = 0u;
-  v36 = 0u;
   v7 = v4;
-  v8 = [v7 countByEnumeratingWithState:&v33 objects:v37 count:16];
+  v8 = [v7 countByEnumeratingWithState:&v32 objects:v36 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v34;
-    v30 = v7;
+    v10 = *v33;
+    v29 = v7;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v34 != v10)
+        if (*v33 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        [*(*(&v33 + 1) + 8 * i) doubleValue];
+        [*(*(&v32 + 1) + 8 * i) doubleValue];
         v13 = 0.0;
         if (v5)
         {
@@ -237,15 +235,15 @@ LABEL_11:
               if (v14 > 0.0)
               {
                 v18 = (v14 * (v5 - 1));
-                v32 = [v31 objectAtIndexedSubscript:v18 + 1];
-                [v32 doubleValue];
+                v31 = [v30 objectAtIndexedSubscript:v18 + 1];
+                [v31 doubleValue];
                 v20 = v19;
-                v21 = [v31 objectAtIndexedSubscript:v18];
+                v21 = [v30 objectAtIndexedSubscript:v18];
                 [v21 doubleValue];
                 v23 = v20 - v22;
 
-                v7 = v30;
-                v24 = [v31 objectAtIndexedSubscript:v18];
+                v7 = v29;
+                v24 = [v30 objectAtIndexedSubscript:v18];
                 [v24 doubleValue];
                 v13 = (v14 - v18 / (v5 + -1.0)) * v23 / ((v18 + 1) / (v5 + -1.0) - v18 / (v5 + -1.0)) + v25;
 LABEL_15:
@@ -269,13 +267,11 @@ LABEL_16:
         [v6 addObject:v27];
       }
 
-      v9 = [v7 countByEnumeratingWithState:&v33 objects:v37 count:16];
+      v9 = [v7 countByEnumeratingWithState:&v32 objects:v36 count:16];
     }
 
     while (v9);
   }
-
-  v28 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

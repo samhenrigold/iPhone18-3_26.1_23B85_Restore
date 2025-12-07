@@ -2,10 +2,12 @@
 + (NSMutableArray)discoverySessionFactories;
 + (OS_dispatch_queue)loggingQueue;
 + (id)discoverySessionWithConfiguration:(id)configuration;
++ (id)discoverySessionWithEndpointFeatures:(unsigned int)features;
 + (id)sharedDiscoverySessionForClass:(Class)class configuration:(id)configuration;
 + (void)registerDiscoverySessionFactory:(id)factory;
 - (BOOL)_shouldLogChanges;
 - (MRAVRoutingDiscoverySession)initWithConfiguration:(id)configuration;
+- (MRAVRoutingDiscoverySession)initWithFeatures:(unsigned int)features;
 - (NSArray)endpointsSnapshot;
 - (NSArray)outputDevicesSnapshot;
 - (NSMutableDictionary)endpointsAddedCallbacks;
@@ -387,39 +389,47 @@ void __57__MRAVRoutingDiscoverySession_endpointsModifiedCallbacks__block_invoke(
   *(v3 + 40) = v2;
 }
 
++ (id)discoverySessionWithEndpointFeatures:(unsigned int)features
+{
+  v4 = [MRAVRoutingDiscoverySessionConfiguration configurationWithEndpointFeatures:*&features];
+  v5 = [self discoverySessionWithConfiguration:v4];
+
+  return v5;
+}
+
 + (id)discoverySessionWithConfiguration:(id)configuration
 {
-  v23 = *MEMORY[0x1E69E9840];
+  v20 = *MEMORY[0x1E69E9840];
   configurationCopy = configuration;
   [objc_opt_class() discoverySessionFactories];
-  v18 = 0u;
-  v19 = 0u;
-  v20 = 0u;
-  v5 = v21 = 0u;
-  v6 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v15 = 0u;
+  v16 = 0u;
+  v17 = 0u;
+  v5 = v18 = 0u;
+  v6 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v19;
+    v8 = *v16;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v19 != v8)
+        if (*v16 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = (*(*(*(&v18 + 1) + 8 * i) + 16))(*(*(&v18 + 1) + 8 * i));
+        v10 = (*(*(*(&v15 + 1) + 8 * i) + 16))(*(*(&v15 + 1) + 8 * i));
         if (v10)
         {
-          v12 = v10;
+          v11 = v10;
 
-          goto LABEL_17;
+          goto LABEL_14;
         }
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v15 objects:v19 count:16];
       if (v7)
       {
         continue;
@@ -429,37 +439,25 @@ void __57__MRAVRoutingDiscoverySession_endpointsModifiedCallbacks__block_invoke(
     }
   }
 
-  if ([configurationCopy isLocal])
+  if ([configurationCopy isLocal] && (objc_msgSend(configurationCopy, "features") & 8) == 0)
   {
-    v11 = off_1E7698BB0;
-    if (([configurationCopy features] & 8) == 0 && (objc_msgSend(configurationCopy, "features") & 0x10) == 0)
-    {
-      v11 = off_1E7698B80;
-    }
+    [configurationCopy features];
+  }
+
+  v11 = objc_opt_class();
+  if (v11)
+  {
+LABEL_14:
+    v12 = [self sharedDiscoverySessionForClass:v11 configuration:{configurationCopy, v15}];
+    v13 = [[MRAVRoutingDiscoverySessionWrapper alloc] initWithSession:v12 configuration:configurationCopy];
   }
 
   else
   {
-    v11 = off_1E7698BC8;
+    v13 = 0;
   }
 
-  v13 = *v11;
-  v12 = objc_opt_class();
-  if (v12)
-  {
-LABEL_17:
-    v14 = [self sharedDiscoverySessionForClass:v12 configuration:{configurationCopy, v18}];
-    v15 = [[MRAVRoutingDiscoverySessionWrapper alloc] initWithSession:v14 configuration:configurationCopy];
-  }
-
-  else
-  {
-    v15 = 0;
-  }
-
-  v16 = *MEMORY[0x1E69E9840];
-
-  return v15;
+  return v13;
 }
 
 + (id)sharedDiscoverySessionForClass:(Class)class configuration:(id)configuration
@@ -494,6 +492,14 @@ LABEL_17:
   objc_sync_exit(v6);
 
   return v11;
+}
+
+- (MRAVRoutingDiscoverySession)initWithFeatures:(unsigned int)features
+{
+  v4 = [MRAVRoutingDiscoverySessionConfiguration configurationWithEndpointFeatures:*&features];
+  v5 = [(MRAVRoutingDiscoverySession *)self initWithConfiguration:v4];
+
+  return v5;
 }
 
 - (MRAVRoutingDiscoverySession)initWithConfiguration:(id)configuration
@@ -1095,7 +1101,7 @@ void __64__MRAVRoutingDiscoverySession_addOutputDevicesModifiedCallback___block_
 
 - (void)notifyOutputDevicesChanged:(id)changed
 {
-  v48 = *MEMORY[0x1E69E9840];
+  v47 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   discoveryMode = [(MRAVRoutingDiscoverySession *)self discoveryMode];
   if (discoveryMode)
@@ -1113,29 +1119,29 @@ void __64__MRAVRoutingDiscoverySession_addOutputDevicesModifiedCallback___block_
   [(MRAVRoutingDiscoverySession *)self setOutputDevicesSnapshot:mr_distantOutputDevices];
   if (alwaysAllowUpdates)
   {
-    v42 = mr_distantOutputDevices;
-    v40 = outputDevicesSnapshot;
+    v41 = mr_distantOutputDevices;
+    v39 = outputDevicesSnapshot;
     v9 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(changedCopy, "count")}];
+    v42 = 0u;
     v43 = 0u;
     v44 = 0u;
     v45 = 0u;
-    v46 = 0u;
     v10 = changedCopy;
-    v11 = [v10 countByEnumeratingWithState:&v43 objects:v47 count:16];
+    v11 = [v10 countByEnumeratingWithState:&v42 objects:v46 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v44;
+      v13 = *v43;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v44 != v13)
+          if (*v43 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v43 + 1) + 8 * i);
+          v15 = *(*(&v42 + 1) + 8 * i);
           v16 = [v15 uid];
           if (v16)
           {
@@ -1143,7 +1149,7 @@ void __64__MRAVRoutingDiscoverySession_addOutputDevicesModifiedCallback___block_
           }
         }
 
-        v12 = [v10 countByEnumeratingWithState:&v43 objects:v47 count:16];
+        v12 = [v10 countByEnumeratingWithState:&v42 objects:v46 count:16];
       }
 
       while (v12);
@@ -1152,15 +1158,15 @@ void __64__MRAVRoutingDiscoverySession_addOutputDevicesModifiedCallback___block_
     if (self->_previousOutputDevicesDiscoveryMode == discoveryMode)
     {
       v17 = +[MRUserSettings currentSettings];
-      v41 = [v17 calculateDiscoveryUpdates] ^ 1;
+      v40 = [v17 calculateDiscoveryUpdates] ^ 1;
     }
 
     else
     {
-      v41 = 1;
+      v40 = 1;
     }
 
-    outputDevicesSnapshot = v40;
+    outputDevicesSnapshot = v39;
     outputDevicesRemovedCallbacks = [(MRAVRoutingDiscoverySession *)self outputDevicesRemovedCallbacks];
     v19 = [outputDevicesRemovedCallbacks count];
     outputDevicesChangedCallbacks = [(MRAVRoutingDiscoverySession *)self outputDevicesChangedCallbacks];
@@ -1168,13 +1174,13 @@ void __64__MRAVRoutingDiscoverySession_addOutputDevicesModifiedCallback___block_
 
     if (v19 + v21)
     {
-      v31 = [MRAVRoutingDiscoverySession _determineRemovedOutputDevices:? previousOutputDevices:?];
-      if ([v31 count])
+      v30 = [MRAVRoutingDiscoverySession _determineRemovedOutputDevices:? previousOutputDevices:?];
+      if ([v30 count])
       {
         outputDevicesRemovedCallbacks2 = [(MRAVRoutingDiscoverySession *)self outputDevicesRemovedCallbacks];
-        [(MRAVRoutingDiscoverySession *)self _performOutputDevicesCallbacks:outputDevicesRemovedCallbacks2 withOutputDevices:v31 onQueue:self->_calloutQueue];
+        [(MRAVRoutingDiscoverySession *)self _performOutputDevicesCallbacks:outputDevicesRemovedCallbacks2 withOutputDevices:v30 onQueue:self->_calloutQueue];
 
-        v41 = 1;
+        v40 = 1;
       }
     }
 
@@ -1185,15 +1191,15 @@ void __64__MRAVRoutingDiscoverySession_addOutputDevicesModifiedCallback___block_
 
     if (v23 + v25)
     {
-      v32 = [MRAVRoutingDiscoverySession _determineAddedOutputDevices:? previousOutputDevices:?];
-      v33 = [v32 mr_replaceOutputDevicesWithOutputDevices:v9];
+      v31 = [MRAVRoutingDiscoverySession _determineAddedOutputDevices:? previousOutputDevices:?];
+      v32 = [v31 mr_replaceOutputDevicesWithOutputDevices:v9];
 
-      if ([v33 count])
+      if ([v32 count])
       {
         outputDevicesAddedCallbacks2 = [(MRAVRoutingDiscoverySession *)self outputDevicesAddedCallbacks];
-        [(MRAVRoutingDiscoverySession *)self _performOutputDevicesCallbacks:outputDevicesAddedCallbacks2 withOutputDevices:v33 onQueue:self->_calloutQueue];
+        [(MRAVRoutingDiscoverySession *)self _performOutputDevicesCallbacks:outputDevicesAddedCallbacks2 withOutputDevices:v32 onQueue:self->_calloutQueue];
 
-        v41 = 1;
+        v40 = 1;
       }
     }
 
@@ -1204,20 +1210,20 @@ void __64__MRAVRoutingDiscoverySession_addOutputDevicesModifiedCallback___block_
 
     if (v27 + v29)
     {
-      mr_distantOutputDevices = v42;
-      v34 = [(MRAVRoutingDiscoverySession *)self _determineModifiedOutputDevices:v42 previousOutputDevices:v40];
-      v35 = [v34 mr_replaceOutputDevicesWithOutputDevices:v9];
+      mr_distantOutputDevices = v41;
+      v33 = [(MRAVRoutingDiscoverySession *)self _determineModifiedOutputDevices:v41 previousOutputDevices:v39];
+      v34 = [v33 mr_replaceOutputDevicesWithOutputDevices:v9];
 
-      if ([v35 count])
+      if ([v34 count])
       {
         outputDevicesModifiedCallbacks2 = [(MRAVRoutingDiscoverySession *)self outputDevicesModifiedCallbacks];
-        [(MRAVRoutingDiscoverySession *)self _performOutputDevicesCallbacks:outputDevicesModifiedCallbacks2 withOutputDevices:v35 onQueue:self->_calloutQueue];
+        [(MRAVRoutingDiscoverySession *)self _performOutputDevicesCallbacks:outputDevicesModifiedCallbacks2 withOutputDevices:v34 onQueue:self->_calloutQueue];
       }
 
       else
       {
 
-        if ((v41 & 1) == 0)
+        if ((v40 & 1) == 0)
         {
           goto LABEL_21;
         }
@@ -1226,8 +1232,8 @@ void __64__MRAVRoutingDiscoverySession_addOutputDevicesModifiedCallback___block_
 
     else
     {
-      mr_distantOutputDevices = v42;
-      if (!v41)
+      mr_distantOutputDevices = v41;
+      if (!v40)
       {
 LABEL_21:
 
@@ -1244,13 +1250,11 @@ LABEL_21:
 LABEL_22:
   self->_previousOutputDevicesDiscoveryMode = discoveryMode;
   [(MRAVRoutingDiscoverySession *)self logOutputDevicesChanged:changedCopy oldOutputDevices:outputDevicesSnapshot];
-
-  v30 = *MEMORY[0x1E69E9840];
 }
 
 - (void)notifyAvailableEndpointsChanged:(id)changed discoveredEndpoints:(id)endpoints
 {
-  v54 = *MEMORY[0x1E69E9840];
+  v53 = *MEMORY[0x1E69E9840];
   changedCopy = changed;
   endpointsCopy = endpoints;
   v9 = [changedCopy count];
@@ -1275,46 +1279,46 @@ LABEL_22:
   [(MRAVRoutingDiscoverySession *)self setEndpointsSnapshot:mr_distantEndpoints];
   if (alwaysAllowUpdates)
   {
-    v45 = discoveryMode;
+    v44 = discoveryMode;
     if (self->_previousEndpointsDiscoveryMode == discoveryMode)
     {
       v14 = +[MRUserSettings currentSettings];
-      v46 = [v14 calculateDiscoveryUpdates] ^ 1;
+      v45 = [v14 calculateDiscoveryUpdates] ^ 1;
     }
 
     else
     {
-      v46 = 1;
+      v45 = 1;
     }
 
-    v47 = mr_distantEndpoints;
-    v48 = endpointsSnapshot;
+    v46 = mr_distantEndpoints;
+    v47 = endpointsSnapshot;
     v15 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(changedCopy, "count")}];
+    v48 = 0u;
     v49 = 0u;
     v50 = 0u;
     v51 = 0u;
-    v52 = 0u;
     v16 = changedCopy;
-    v17 = [v16 countByEnumeratingWithState:&v49 objects:v53 count:16];
+    v17 = [v16 countByEnumeratingWithState:&v48 objects:v52 count:16];
     if (v17)
     {
       v18 = v17;
-      v19 = *v50;
+      v19 = *v49;
       do
       {
         for (i = 0; i != v18; ++i)
         {
-          if (*v50 != v19)
+          if (*v49 != v19)
           {
             objc_enumerationMutation(v16);
           }
 
-          v21 = *(*(&v49 + 1) + 8 * i);
+          v21 = *(*(&v48 + 1) + 8 * i);
           uniqueIdentifier = [v21 uniqueIdentifier];
           [v15 setObject:v21 forKeyedSubscript:uniqueIdentifier];
         }
 
-        v18 = [v16 countByEnumeratingWithState:&v49 objects:v53 count:16];
+        v18 = [v16 countByEnumeratingWithState:&v48 objects:v52 count:16];
       }
 
       while (v18);
@@ -1327,13 +1331,13 @@ LABEL_22:
 
     if (v24 + v26)
     {
-      v36 = [MRAVRoutingDiscoverySession _determineRemovedOutputDevices:? previousOutputDevices:?];
-      if ([v36 count])
+      v35 = [MRAVRoutingDiscoverySession _determineRemovedOutputDevices:? previousOutputDevices:?];
+      if ([v35 count])
       {
         endpointsRemovedCallbacks2 = [(MRAVRoutingDiscoverySession *)self endpointsRemovedCallbacks];
-        [(MRAVRoutingDiscoverySession *)self _performEndpointsCallbacks:endpointsRemovedCallbacks2 withEndpoints:v36 onQueue:self->_calloutQueue];
+        [(MRAVRoutingDiscoverySession *)self _performEndpointsCallbacks:endpointsRemovedCallbacks2 withEndpoints:v35 onQueue:self->_calloutQueue];
 
-        v46 = 1;
+        v45 = 1;
       }
     }
 
@@ -1344,22 +1348,22 @@ LABEL_22:
 
     if (v28 + v30)
     {
-      v37 = [MRAVRoutingDiscoverySession _determineAddedOutputDevices:? previousOutputDevices:?];
-      v38 = [v37 mr_replaceEndpointsWithEndpoints:v15];
+      v36 = [MRAVRoutingDiscoverySession _determineAddedOutputDevices:? previousOutputDevices:?];
+      v37 = [v36 mr_replaceEndpointsWithEndpoints:v15];
 
-      discoveryMode = v45;
-      if ([v38 count])
+      discoveryMode = v44;
+      if ([v37 count])
       {
         endpointsAddedCallbacks2 = [(MRAVRoutingDiscoverySession *)self endpointsAddedCallbacks];
-        [(MRAVRoutingDiscoverySession *)self _performEndpointsCallbacks:endpointsAddedCallbacks2 withEndpoints:v38 onQueue:self->_calloutQueue];
+        [(MRAVRoutingDiscoverySession *)self _performEndpointsCallbacks:endpointsAddedCallbacks2 withEndpoints:v37 onQueue:self->_calloutQueue];
 
-        v46 = 1;
+        v45 = 1;
       }
     }
 
     else
     {
-      discoveryMode = v45;
+      discoveryMode = v44;
     }
 
     endpointsModifiedCallbacks = [(MRAVRoutingDiscoverySession *)self endpointsModifiedCallbacks];
@@ -1369,21 +1373,21 @@ LABEL_22:
 
     if (v32 + v34)
     {
-      mr_distantEndpoints = v47;
-      endpointsSnapshot = v48;
-      v39 = [(MRAVRoutingDiscoverySession *)self _determineModifiedEndpoints:v47 previousEndpoints:v48];
-      v40 = [v39 mr_replaceEndpointsWithEndpoints:v15];
+      mr_distantEndpoints = v46;
+      endpointsSnapshot = v47;
+      v38 = [(MRAVRoutingDiscoverySession *)self _determineModifiedEndpoints:v46 previousEndpoints:v47];
+      v39 = [v38 mr_replaceEndpointsWithEndpoints:v15];
 
-      if ([v40 count])
+      if ([v39 count])
       {
         endpointsModifiedCallbacks2 = [(MRAVRoutingDiscoverySession *)self endpointsModifiedCallbacks];
-        [(MRAVRoutingDiscoverySession *)self _performEndpointsCallbacks:endpointsModifiedCallbacks2 withEndpoints:v40 onQueue:self->_calloutQueue];
+        [(MRAVRoutingDiscoverySession *)self _performEndpointsCallbacks:endpointsModifiedCallbacks2 withEndpoints:v39 onQueue:self->_calloutQueue];
       }
 
       else
       {
 
-        if ((v46 & 1) == 0)
+        if ((v45 & 1) == 0)
         {
           goto LABEL_22;
         }
@@ -1392,9 +1396,9 @@ LABEL_22:
 
     else
     {
-      mr_distantEndpoints = v47;
-      endpointsSnapshot = v48;
-      if (!v46)
+      mr_distantEndpoints = v46;
+      endpointsSnapshot = v47;
+      if (!v45)
       {
 LABEL_22:
 
@@ -1411,8 +1415,6 @@ LABEL_22:
 LABEL_23:
   self->_previousEndpointsDiscoveryMode = discoveryMode;
   [(MRAVRoutingDiscoverySession *)self logEndpointsChanged:changedCopy oldEndpoints:endpointsSnapshot];
-
-  v35 = *MEMORY[0x1E69E9840];
 }
 
 - (BOOL)_shouldLogChanges
@@ -1443,16 +1445,17 @@ LABEL_23:
     }
 
     v9 = [v8 changeDescriptionTo:changedCopy keyBlock:&__block_literal_global_117_1 isUpdatedBlock:&__block_literal_global_120_0 descriptionBlock:&__block_literal_global_122];
+    v10 = v9;
     if (v9)
     {
-      v10 = MRLogCategoryDiscoveryUpdates();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = MRLogCategoryDiscoveryUpdates(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
         selfCopy = self;
         v19 = 2114;
-        v20 = v9;
-        _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ - Output devices changed\n%{public}@", buf, 0x16u);
+        v20 = v10;
+        _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ - Output devices changed\n%{public}@", buf, 0x16u);
       }
     }
 
@@ -1466,8 +1469,6 @@ LABEL_23:
     selfCopy2 = self;
     dispatch_async(loggingQueue, block);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __72__MRAVRoutingDiscoverySession_logOutputDevicesChanged_oldOutputDevices___block_invoke_123(void *a1)
@@ -1485,21 +1486,20 @@ void __72__MRAVRoutingDiscoverySession_logOutputDevicesChanged_oldOutputDevices_
   }
 
   v4 = [v3 changeDescriptionTo:v2 keyBlock:&__block_literal_global_126 isUpdatedBlock:&__block_literal_global_129_0 descriptionBlock:&__block_literal_global_131];
+  v5 = v4;
   if (v4)
   {
-    v5 = MRLogCategoryDiscoveryUpdates();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = MRLogCategoryDiscoveryUpdates(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = a1[6];
+      v7 = a1[6];
       v8 = 138543618;
-      v9 = v6;
+      v9 = v7;
       v10 = 2114;
-      v11 = v4;
-      _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ - Output devices changed\n%{public}@", &v8, 0x16u);
+      v11 = v5;
+      _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ - Output devices changed\n%{public}@", &v8, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 - (void)logEndpointsChanged:(id)changed oldEndpoints:(id)endpoints
@@ -1520,16 +1520,17 @@ void __72__MRAVRoutingDiscoverySession_logOutputDevicesChanged_oldOutputDevices_
     }
 
     v9 = [v8 changeDescriptionTo:changedCopy keyBlock:&__block_literal_global_134 isUpdatedBlock:&__block_literal_global_137 descriptionBlock:&__block_literal_global_140];
+    v10 = v9;
     if (v9)
     {
-      v10 = MRLogCategoryDiscoveryUpdates();
-      if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+      v11 = MRLogCategoryDiscoveryUpdates(v9);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138543618;
         selfCopy = self;
         v19 = 2114;
-        v20 = v9;
-        _os_log_impl(&dword_1A2860000, v10, OS_LOG_TYPE_DEFAULT, "%{public}@ - Endpoints changed\n%{public}@", buf, 0x16u);
+        v20 = v10;
+        _os_log_impl(&dword_1A2860000, v11, OS_LOG_TYPE_DEFAULT, "%{public}@ - Endpoints changed\n%{public}@", buf, 0x16u);
       }
     }
 
@@ -1543,8 +1544,6 @@ void __72__MRAVRoutingDiscoverySession_logOutputDevicesChanged_oldOutputDevices_
     selfCopy2 = self;
     dispatch_async(loggingQueue, block);
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__MRAVRoutingDiscoverySession_logEndpointsChanged_oldEndpoints___block_invoke_2(uint64_t a1, void *a2, void *a3)
@@ -1572,21 +1571,20 @@ void __64__MRAVRoutingDiscoverySession_logEndpointsChanged_oldEndpoints___block_
   }
 
   v4 = [v3 changeDescriptionTo:v2 keyBlock:&__block_literal_global_144 isUpdatedBlock:&__block_literal_global_147_0 descriptionBlock:&__block_literal_global_149_0];
+  v5 = v4;
   if (v4)
   {
-    v5 = MRLogCategoryDiscoveryUpdates();
-    if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+    v6 = MRLogCategoryDiscoveryUpdates(v4);
+    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
     {
-      v6 = a1[6];
+      v7 = a1[6];
       v8 = 138543618;
-      v9 = v6;
+      v9 = v7;
       v10 = 2114;
-      v11 = v4;
-      _os_log_impl(&dword_1A2860000, v5, OS_LOG_TYPE_DEFAULT, "%{public}@ - Endpoints changed\n%{public}@", &v8, 0x16u);
+      v11 = v5;
+      _os_log_impl(&dword_1A2860000, v6, OS_LOG_TYPE_DEFAULT, "%{public}@ - Endpoints changed\n%{public}@", &v8, 0x16u);
     }
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __64__MRAVRoutingDiscoverySession_logEndpointsChanged_oldEndpoints___block_invoke_3_145(uint64_t a1, void *a2, void *a3)
@@ -1619,46 +1617,44 @@ uint64_t __77__MRAVRoutingDiscoverySession__determineModifiedEndpoints_previousE
 
 void __80__MRAVRoutingDiscoverySession__performEndpointsCallbacks_withEndpoints_onQueue___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(a1 + 32) objectForKeyedSubscript:{*(*(&v9 + 1) + 8 * v6), v9}];
+        v7 = [*(a1 + 32) objectForKeyedSubscript:{*(*(&v8 + 1) + 8 * v6), v8}];
         v7[2](v7, *(a1 + 40));
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 uint64_t __85__MRAVRoutingDiscoverySession__determineModifiedOutputDevices_previousOutputDevices___block_invoke(uint64_t a1, void *a2)
 {
-  v25 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v3 = a2;
   v4 = [*(a1 + 32) indexOfObject:v3];
   if (v4 == 0x7FFFFFFFFFFFFFFFLL)
@@ -1674,55 +1670,59 @@ uint64_t __85__MRAVRoutingDiscoverySession__determineModifiedOutputDevices_previ
 
     if (v8)
     {
-      v21 = 0;
-      v22 = 0;
-      v20 = 0;
-      v9 = [v3 isEqualToOutputDevice:v6 denyList:0 addedProperties:&v22 removedProperties:&v21 changedProperties:&v20];
-      v10 = v22;
-      v11 = v21;
-      v12 = v20;
+      v24 = 0;
+      v25 = 0;
+      v23 = 0;
+      v9 = [v3 isEqualToOutputDevice:v6 denyList:0 addedProperties:&v25 removedProperties:&v24 changedProperties:&v23];
+      v10 = v25;
+      v11 = v24;
+      v12 = v23;
+      v13 = v12;
       if ((v9 & 1) == 0)
       {
-        v13 = MRLogCategoryDiscoveryOversize();
-        if (os_log_type_enabled(v13, OS_LOG_TYPE_DEFAULT))
+        v14 = MRLogCategoryDiscoveryOversize(v12);
+        if (os_log_type_enabled(v14, OS_LOG_TYPE_DEFAULT))
         {
-          v14 = *(a1 + 40);
+          v15 = *(a1 + 40);
           *buf = 138543362;
-          v24 = v14;
-          _os_log_impl(&dword_1A2860000, v13, OS_LOG_TYPE_DEFAULT, "%{public}@ - OutputDevice modified", buf, 0xCu);
+          v27 = v15;
+          _os_log_impl(&dword_1A2860000, v14, OS_LOG_TYPE_DEFAULT, "%{public}@ - OutputDevice modified", buf, 0xCu);
         }
       }
 
-      if ([v10 count])
+      v16 = [v10 count];
+      if (v16)
       {
-        v15 = MRLogCategoryDiscoveryOversize();
-        if (os_log_type_enabled(v15, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 138543362;
-          v24 = v10;
-          _os_log_impl(&dword_1A2860000, v15, OS_LOG_TYPE_DEFAULT, "Added Fields: %{public}@", buf, 0xCu);
-        }
-      }
-
-      if ([v11 count])
-      {
-        v16 = MRLogCategoryDiscoveryOversize();
-        if (os_log_type_enabled(v16, OS_LOG_TYPE_DEFAULT))
-        {
-          *buf = 138543362;
-          v24 = v11;
-          _os_log_impl(&dword_1A2860000, v16, OS_LOG_TYPE_DEFAULT, "Removed Fields: %{public}@", buf, 0xCu);
-        }
-      }
-
-      if ([v12 count])
-      {
-        v17 = MRLogCategoryDiscoveryOversize();
+        v17 = MRLogCategoryDiscoveryOversize(v16);
         if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
         {
           *buf = 138543362;
-          v24 = v12;
-          _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, "Changed Values: %{public}@", buf, 0xCu);
+          v27 = v10;
+          _os_log_impl(&dword_1A2860000, v17, OS_LOG_TYPE_DEFAULT, "Added Fields: %{public}@", buf, 0xCu);
+        }
+      }
+
+      v18 = [v11 count];
+      if (v18)
+      {
+        v19 = MRLogCategoryDiscoveryOversize(v18);
+        if (os_log_type_enabled(v19, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138543362;
+          v27 = v11;
+          _os_log_impl(&dword_1A2860000, v19, OS_LOG_TYPE_DEFAULT, "Removed Fields: %{public}@", buf, 0xCu);
+        }
+      }
+
+      v20 = [v13 count];
+      if (v20)
+      {
+        v21 = MRLogCategoryDiscoveryOversize(v20);
+        if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
+        {
+          *buf = 138543362;
+          v27 = v13;
+          _os_log_impl(&dword_1A2860000, v21, OS_LOG_TYPE_DEFAULT, "Changed Values: %{public}@", buf, 0xCu);
         }
       }
     }
@@ -1735,47 +1735,44 @@ uint64_t __85__MRAVRoutingDiscoverySession__determineModifiedOutputDevices_previ
     v5 = v9 ^ 1u;
   }
 
-  v18 = *MEMORY[0x1E69E9840];
   return v5;
 }
 
 void __88__MRAVRoutingDiscoverySession__performOutputDevicesCallbacks_withOutputDevices_onQueue___block_invoke(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
+  v13 = *MEMORY[0x1E69E9840];
+  v8 = 0u;
   v9 = 0u;
   v10 = 0u;
   v11 = 0u;
-  v12 = 0u;
   v2 = *(a1 + 32);
-  v3 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+  v3 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v10;
+    v5 = *v9;
     do
     {
       v6 = 0;
       do
       {
-        if (*v10 != v5)
+        if (*v9 != v5)
         {
           objc_enumerationMutation(v2);
         }
 
-        v7 = [*(a1 + 32) objectForKeyedSubscript:{*(*(&v9 + 1) + 8 * v6), v9}];
+        v7 = [*(a1 + 32) objectForKeyedSubscript:{*(*(&v8 + 1) + 8 * v6), v8}];
         v7[2](v7, *(a1 + 40));
 
         ++v6;
       }
 
       while (v4 != v6);
-      v4 = [v2 countByEnumeratingWithState:&v9 objects:v13 count:16];
+      v4 = [v2 countByEnumeratingWithState:&v8 objects:v12 count:16];
     }
 
     while (v4);
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_determineRemovedOutputDevices:(uint64_t)devices previousOutputDevices:
@@ -1802,7 +1799,7 @@ void __88__MRAVRoutingDiscoverySession__performOutputDevicesCallbacks_withOutput
 
 - (void)_performOutputDevicesCallbacks:(void *)callbacks withOutputDevices:(void *)devices onQueue:
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v8 = a2;
   callbacksCopy = callbacks;
   devicesCopy = devices;
@@ -1812,44 +1809,43 @@ void __88__MRAVRoutingDiscoverySession__performOutputDevicesCallbacks_withOutput
     if (devicesCopy)
     {
       OUTLINED_FUNCTION_1_19();
-      v46 = 3221225472;
-      v47 = __88__MRAVRoutingDiscoverySession__performOutputDevicesCallbacks_withOutputDevices_onQueue___block_invoke;
-      v48 = &unk_1E769A4A0;
-      v49 = v8;
-      v50 = callbacksCopy;
+      v43 = 3221225472;
+      v44 = __88__MRAVRoutingDiscoverySession__performOutputDevicesCallbacks_withOutputDevices_onQueue___block_invoke;
+      v45 = &unk_1E769A4A0;
+      v46 = v8;
+      v47 = callbacksCopy;
       dispatch_async(v18, &block);
     }
 
     else
     {
-      v19 = OUTLINED_FUNCTION_2_10(0, v11, v12, v13, v14, v15, v16, v17, 0, 0, 0, 0, 0, 0, 0, 0, v43, block, v46, v47, v48, v49, v50, v51);
+      v19 = OUTLINED_FUNCTION_2_10(0, v11, v12, v13, v14, v15, v16, v17, 0, 0, 0, 0, 0, 0, 0, 0, v40, block, v43, v44, v45, v46, v47);
       if (v19)
       {
         v20 = v19;
-        v21 = *v37;
+        v21 = *v34;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v37 != v21)
+            if (*v34 != v21)
             {
               objc_enumerationMutation(v8);
             }
 
-            v23 = [v8 objectForKeyedSubscript:*(v36 + 8 * i)];
-            v24 = OUTLINED_FUNCTION_5_7(v23);
-            v25(v24);
+            [v8 objectForKeyedSubscript:*(v33 + 8 * i)];
+            objc_claimAutoreleasedReturnValue();
+            OUTLINED_FUNCTION_5_7();
+            v23();
           }
 
-          v20 = OUTLINED_FUNCTION_2_10(v26, v27, v28, v29, v30, v31, v32, v33, v35, v36, v37, v38, v39, v40, v41, v42, v44, block, v46, v47, v48, v49, v50, v51);
+          v20 = OUTLINED_FUNCTION_2_10(v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v41, block, v43, v44, v45, v46, v47);
         }
 
         while (v20);
       }
     }
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_determineAddedOutputDevices:(uint64_t)devices previousOutputDevices:
@@ -1898,7 +1894,7 @@ void __88__MRAVRoutingDiscoverySession__performOutputDevicesCallbacks_withOutput
 
 - (void)_performEndpointsCallbacks:(void *)callbacks withEndpoints:(void *)endpoints onQueue:
 {
-  v52 = *MEMORY[0x1E69E9840];
+  v48 = *MEMORY[0x1E69E9840];
   v8 = a2;
   callbacksCopy = callbacks;
   endpointsCopy = endpoints;
@@ -1908,44 +1904,43 @@ void __88__MRAVRoutingDiscoverySession__performOutputDevicesCallbacks_withOutput
     if (endpointsCopy)
     {
       OUTLINED_FUNCTION_1_19();
-      v46 = 3221225472;
-      v47 = __80__MRAVRoutingDiscoverySession__performEndpointsCallbacks_withEndpoints_onQueue___block_invoke;
-      v48 = &unk_1E769A4A0;
-      v49 = v8;
-      v50 = callbacksCopy;
+      v43 = 3221225472;
+      v44 = __80__MRAVRoutingDiscoverySession__performEndpointsCallbacks_withEndpoints_onQueue___block_invoke;
+      v45 = &unk_1E769A4A0;
+      v46 = v8;
+      v47 = callbacksCopy;
       dispatch_async(v18, &block);
     }
 
     else
     {
-      v19 = OUTLINED_FUNCTION_2_10(0, v11, v12, v13, v14, v15, v16, v17, 0, 0, 0, 0, 0, 0, 0, 0, v43, block, v46, v47, v48, v49, v50, v51);
+      v19 = OUTLINED_FUNCTION_2_10(0, v11, v12, v13, v14, v15, v16, v17, 0, 0, 0, 0, 0, 0, 0, 0, v40, block, v43, v44, v45, v46, v47);
       if (v19)
       {
         v20 = v19;
-        v21 = *v37;
+        v21 = *v34;
         do
         {
           for (i = 0; i != v20; ++i)
           {
-            if (*v37 != v21)
+            if (*v34 != v21)
             {
               objc_enumerationMutation(v8);
             }
 
-            v23 = [v8 objectForKeyedSubscript:*(v36 + 8 * i)];
-            v24 = OUTLINED_FUNCTION_5_7(v23);
-            v25(v24);
+            [v8 objectForKeyedSubscript:*(v33 + 8 * i)];
+            objc_claimAutoreleasedReturnValue();
+            OUTLINED_FUNCTION_5_7();
+            v23();
           }
 
-          v20 = OUTLINED_FUNCTION_2_10(v26, v27, v28, v29, v30, v31, v32, v33, v35, v36, v37, v38, v39, v40, v41, v42, v44, block, v46, v47, v48, v49, v50, v51);
+          v20 = OUTLINED_FUNCTION_2_10(v24, v25, v26, v27, v28, v29, v30, v31, v32, v33, v34, v35, v36, v37, v38, v39, v41, block, v43, v44, v45, v46, v47);
         }
 
         while (v20);
       }
     }
   }
-
-  v34 = *MEMORY[0x1E69E9840];
 }
 
 - (id)_determineModifiedEndpoints:(void *)endpoints previousEndpoints:

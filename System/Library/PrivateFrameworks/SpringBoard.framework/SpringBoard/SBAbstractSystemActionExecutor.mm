@@ -29,7 +29,7 @@
   v9 = objc_opt_class();
   if ([v9 isEqual:objc_opt_class()])
   {
-    [SBAbstractSystemActionExecutor initWithSystemAction:a2];
+    [(SBAbstractSystemActionExecutor *)a2 initWithSystemAction:v8];
   }
 
   if (v8)
@@ -42,7 +42,7 @@
 
 - (id)previewWithCoordinator:(id)coordinator
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   coordinatorCopy = coordinator;
   if (![(SBAbstractSystemActionExecutor *)self canBeExecuted])
   {
@@ -50,25 +50,26 @@
   }
 
   v6 = [(SBAbstractSystemActionExecutor *)self _previewWithCoordinator:coordinatorCopy];
+  v7 = v6;
   if (v6)
   {
-    v7 = SBLogSystemActionPreviewing();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = SBLogSystemActionPreviewing(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = 138543618;
+      v10 = 138543618;
       selfCopy = self;
-      v11 = 2114;
-      v12 = v6;
-      _os_log_impl(&dword_21ED4E000, v7, OS_LOG_TYPE_DEFAULT, "%{public}@ encountered an error while previewing action: %{public}@", &v9, 0x16u);
+      v12 = 2114;
+      v13 = v7;
+      _os_log_impl(&dword_21ED4E000, v8, OS_LOG_TYPE_DEFAULT, "%{public}@ encountered an error while previewing action: %{public}@", &v10, 0x16u);
     }
   }
 
-  return v6;
+  return v7;
 }
 
 - (void)cancelPreviewing
 {
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ cannot cancel previewing an inexecutable action"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ cannot cancel previewing an inexecutable action", self];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -76,7 +77,7 @@
     v4 = OUTLINED_FUNCTION_5_0();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, self, v12, v13);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -86,7 +87,7 @@
 
 - (id)executeWithContext:(id)context executionHandler:(id)handler completion:(id)completion
 {
-  v27 = *MEMORY[0x277D85DE8];
+  v28 = *MEMORY[0x277D85DE8];
   contextCopy = context;
   handlerCopy = handler;
   completionCopy = completion;
@@ -116,24 +117,25 @@
     self->_executionStartTime = v17;
   }
 
-  v22 = 0;
-  v18 = [(SBAbstractSystemActionExecutor *)self _beginInteractiveExecutionWithContext:contextCopy executionHandler:handlerCopy error:&v22];
-  v19 = v22;
+  v23 = 0;
+  v18 = [(SBAbstractSystemActionExecutor *)self _beginInteractiveExecutionWithContext:contextCopy executionHandler:handlerCopy error:&v23];
+  v19 = v23;
   if (!v18)
   {
-    if ([(SBAbstractSystemActionExecutor *)self isExecuting])
+    isExecuting = [(SBAbstractSystemActionExecutor *)self isExecuting];
+    if (isExecuting)
     {
       [SBAbstractSystemActionExecutor executeWithContext:a2 executionHandler:? completion:?];
     }
 
-    v20 = SBLogSystemActionExecution();
-    if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))
+    v21 = SBLogSystemActionExecution(isExecuting);
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 138543618;
       selfCopy = self;
-      v25 = 2114;
-      v26 = v19;
-      _os_log_impl(&dword_21ED4E000, v20, OS_LOG_TYPE_DEFAULT, "%{public}@ will finish executing without beginning due to error: %{public}@", buf, 0x16u);
+      v26 = 2114;
+      v27 = v19;
+      _os_log_impl(&dword_21ED4E000, v21, OS_LOG_TYPE_DEFAULT, "%{public}@ will finish executing without beginning due to error: %{public}@", buf, 0x16u);
     }
 
     [(SBAbstractSystemActionExecutor *)self _finishExecutingWithResult:v19];
@@ -240,17 +242,15 @@
   return 0;
 }
 
-- (void)initWithSystemAction:(const char *)a1 .cold.1(const char *a1)
+- (void)initWithSystemAction:(const char *)a1 .cold.1(const char *a1, uint64_t a2)
 {
-  v2 = MEMORY[0x277CCACA8];
-  v11 = objc_opt_class();
-  v3 = [v2 stringWithFormat:@"%@ cannot be instantiated concretely use a subclass."];;
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ cannot be instantiated concretely use a subclass.", objc_opt_class()];;
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     v4 = NSStringFromSelector(a1);
     v5 = objc_opt_class();
     v13 = NSStringFromClass(v5);
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12, 2u);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -260,7 +260,7 @@
 
 - (void)initWithSystemAction:(char *)a1 .cold.2(char *a1)
 {
-  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v2 = [MEMORY[0x277CCACA8] stringWithFormat:@"Invalid condition not satisfying: %@", @"systemAction != ((void *)0)"];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a1);
@@ -268,7 +268,7 @@
     v3 = OUTLINED_FUNCTION_5_0();
     v4 = NSStringFromClass(v3);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, @"systemAction != ((void *)0)", v10, v11);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v5, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v6, v7, v8, v9, v10, v11);
   }
 
   [v2 UTF8String];
@@ -278,7 +278,7 @@
 
 - (void)previewWithCoordinator:(uint64_t)a1 .cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ cannot preview an inexecutable action"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ cannot preview an inexecutable action", a1];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -286,7 +286,7 @@
     v4 = OUTLINED_FUNCTION_5_0();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -296,7 +296,7 @@
 
 - (void)executeWithContext:(uint64_t)a1 executionHandler:(char *)a2 completion:.cold.1(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ cannot execute an inexecutable action"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"%@ cannot execute an inexecutable action", a1];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -304,7 +304,7 @@
     v4 = OUTLINED_FUNCTION_5_0();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];
@@ -314,7 +314,7 @@
 
 - (void)executeWithContext:(uint64_t)a1 executionHandler:(char *)a2 completion:.cold.2(uint64_t a1, char *a2)
 {
-  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed execution of %@ should not be executing"];
+  v3 = [MEMORY[0x277CCACA8] stringWithFormat:@"Failed execution of %@ should not be executing", a1];
   if (os_log_type_enabled(MEMORY[0x277D86220], OS_LOG_TYPE_ERROR))
   {
     NSStringFromSelector(a2);
@@ -322,7 +322,7 @@
     v4 = OUTLINED_FUNCTION_5_0();
     v5 = NSStringFromClass(v4);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, a1, v12, v13);
+    OUTLINED_FUNCTION_3(&dword_21ED4E000, MEMORY[0x277D86220], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, v11, v12);
   }
 
   [v3 UTF8String];

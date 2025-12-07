@@ -3,6 +3,7 @@
 - (BOOL)_areAllTouchesEndedOrCancelled;
 - (BOOL)_canRunBlocksWaitingForLastTouchAndDestinationToEnd;
 - (BOOL)_runBlocksWaitingForLastTouchAndDestinationToEndIfPossible;
+- (BOOL)addDestination:(id)destination onConnection:(id)connection systemPolicy:(BOOL)policy;
 - (BOOL)shouldIgnoreRequest:(SEL)request fromDestination:(id)destination;
 - (BOOL)synthesizesTouch;
 - (CGSize)maximumResizableSize;
@@ -20,6 +21,7 @@
 - (id)dataTransferSessionForDestination:(id)destination;
 - (id)itemCollectionForDestination:(id)destination;
 - (id)newDataTransferSessionWithDestinationAuditToken:(id *)token filter:(id)filter;
+- (id)takeProcessAssertionOnPID:(int)d;
 - (void)_acceptDragPreviews:(id)previews fence:(id)fence fromClient:(id)client;
 - (void)_animateOutVisibleItemsAndEndDragWithOperation:(unint64_t)operation destination:(id)destination;
 - (void)_applyMainWindowExclusionToRoutingPolicy:(id)policy;
@@ -38,11 +40,13 @@
 - (void)_receivedEndFromDestinationOnConnection:(id)connection;
 - (void)_resetTouchWatchdogWithTimeout:(double)timeout;
 - (void)_runBlocksWaitingForLastTouchAndDestinationToEnd;
+- (void)_touchEndedNormally:(BOOL)normally withID:(id)d;
 - (void)_touchWatchdogFired;
 - (void)_transitionToDoneIfPossible;
 - (void)_updateAccessibilityDragStatus;
 - (void)_updateIsAnyProcessBeingDebuggedWithConnection:(id)connection;
 - (void)_updatePotentialDrop:(id)drop forDestinationClient:(id)client;
+- (void)_updatePotentialDropPreferringFullSizePreview:(BOOL)preview;
 - (void)accessibilityCancel;
 - (void)accessibilityDrop;
 - (void)accessibilityMoveToPoint:(CGPoint)point;
@@ -84,6 +88,7 @@
 - (void)setState:(int64_t)state;
 - (void)sourceConnectionWasInvalidated;
 - (void)surrenderDragSession;
+- (void)takeOutsideAppSourceOperationMask:(unint64_t)mask prefersFullSizePreview:(BOOL)preview;
 - (void)takePotentialDrop:(id)drop;
 - (void)touchBeganWithID:(id)d;
 - (void)touchCancelledWithID:(id)d;
@@ -125,17 +130,17 @@
     [accessibilityConnectionCopy resume];
     *&buf = 0;
     *(&buf + 1) = &buf;
-    v83 = 0x2020000000;
-    v84 = 0;
+    v84 = 0x2020000000;
+    v85 = 0;
     v21 = [accessibilityConnectionCopy synchronousRemoteObjectProxyWithErrorHandler:&stru_100055680];
-    v79[0] = _NSConcreteStackBlock;
-    v79[1] = 3221225472;
-    v79[2] = sub_100016D38;
-    v79[3] = &unk_1000556A8;
+    v80[0] = _NSConcreteStackBlock;
+    v80[1] = 3221225472;
+    v80[2] = sub_100016D38;
+    v80[3] = &unk_1000556A8;
     p_buf = &buf;
     v22 = accessibilityConnectionCopy;
-    v80 = v22;
-    [v21 dragWillBeginWithReply:v79];
+    v81 = v22;
+    [v21 dragWillBeginWithReply:v80];
     if (*(*(&buf + 1) + 24))
     {
 
@@ -157,9 +162,9 @@ LABEL_16:
   }
 
 LABEL_10:
-  v78.receiver = self;
-  v78.super_class = DRDragSession;
-  v23 = [(DRDragSession *)&v78 init];
+  v79.receiver = self;
+  v79.super_class = DRDragSession;
+  v23 = [(DRDragSession *)&v79 init];
   if (v23)
   {
     _queue = [connectionCopy _queue];
@@ -280,36 +285,36 @@ LABEL_10:
     }
 
     v23->_sourceDataOwner = [itemCollection originatorDataOwner];
-    [(DRDragSession *)v23 _updateIsAnyProcessBeingDebuggedWithConnection:connectionCopy];
+    v66 = [(DRDragSession *)v23 _updateIsAnyProcessBeingDebuggedWithConnection:connectionCopy];
     if (qword_100063628 != -1)
     {
       sub_100030148();
     }
 
-    if (byte_100063630 == 1 && (sub_10001F158() & 1) == 0 || v23->_originatedFromAccessibility || v23->_isAnyProcessBeingDebugged)
+    if (byte_100063630 == 1 && (sub_10001F158(v66) & 1) == 0 || v23->_originatedFromAccessibility || v23->_isAnyProcessBeingDebugged)
     {
-      v66 = DRLogTarget();
-      if (os_log_type_enabled(v66, OS_LOG_TYPE_INFO))
+      v67 = DRLogTarget();
+      if (os_log_type_enabled(v67, OS_LOG_TYPE_INFO))
       {
         LODWORD(buf) = 138412290;
         *(&buf + 4) = v23;
-        _os_log_impl(&_mh_execute_header, v66, OS_LOG_TYPE_INFO, "Session %@: Touch watchdog disabled", &buf, 0xCu);
+        _os_log_impl(&_mh_execute_header, v67, OS_LOG_TYPE_INFO, "Session %@: Touch watchdog disabled", &buf, 0xCu);
       }
     }
 
     else
     {
       objc_initWeak(&buf, v23);
-      v67 = [DRDispatchTimer alloc];
-      v68 = v23->_xpcQueue;
-      v76[0] = _NSConcreteStackBlock;
-      v76[1] = 3221225472;
-      v76[2] = sub_100016DD4;
-      v76[3] = &unk_100054CA0;
-      objc_copyWeak(&v77, &buf);
-      v69 = [(DRDispatchTimer *)v67 initWithQueue:v68 eventHandler:v76];
+      v68 = [DRDispatchTimer alloc];
+      v69 = v23->_xpcQueue;
+      v77[0] = _NSConcreteStackBlock;
+      v77[1] = 3221225472;
+      v77[2] = sub_100016DD4;
+      v77[3] = &unk_100054CA0;
+      objc_copyWeak(&v78, &buf);
+      v70 = [(DRDispatchTimer *)v68 initWithQueue:v69 eventHandler:v77];
       touchWatchdogTimer = v23->_touchWatchdogTimer;
-      v23->_touchWatchdogTimer = v69;
+      v23->_touchWatchdogTimer = v70;
 
       if (v23->_touchWatchdogTimer)
       {
@@ -317,7 +322,7 @@ LABEL_10:
         [(DRDispatchTimer *)v23->_touchWatchdogTimer activate];
       }
 
-      objc_destroyWeak(&v77);
+      objc_destroyWeak(&v78);
       objc_destroyWeak(&buf);
     }
 
@@ -441,7 +446,7 @@ LABEL_17:
       v8 = 5.0;
       if (byte_100063630 == 1)
       {
-        v8 = sub_10001F304();
+        v8 = sub_10001F304(self);
       }
 
       [(DRDispatchTimer *)self->_setDownAnimationTimeoutTimer resetWithTimeout:v8 leeway:v8 * 0.1];
@@ -557,6 +562,25 @@ LABEL_17:
   dCopy = d;
   dispatch_assert_queue_V2(xpcQueue);
   [(DRDragSession *)self _touchEndedNormally:0 withID:dCopy];
+}
+
+- (void)_touchEndedNormally:(BOOL)normally withID:(id)d
+{
+  normallyCopy = normally;
+  dCopy = d;
+  dispatch_assert_queue_V2(self->_xpcQueue);
+  if (![(DRDragSession *)self synthesizesTouch])
+  {
+    [(DRDragSession *)self _resetTouchWatchdogWithTimeout:20.0];
+    if (([(NSMutableSet *)self->_endedTouchIDs containsObject:dCopy]& 1) == 0)
+    {
+      [(NSMutableSet *)self->_endedTouchIDs addObject:dCopy];
+      if ([(DRDragSession *)self _areAllTouchesEndedOrCancelled])
+      {
+        [(DRDragSession *)self _lastTouchEndedNormally:normallyCopy];
+      }
+    }
+  }
 }
 
 - (BOOL)_areAllTouchesEndedOrCancelled
@@ -782,7 +806,7 @@ LABEL_17:
   sourceConnection = self->_sourceConnection;
   if (sourceConnection)
   {
-    [(NSXPCConnection *)sourceConnection auditToken];
+    objc_msgSend_auditToken(sourceConnection);
   }
 
   else
@@ -799,6 +823,94 @@ LABEL_17:
   [(DRDataTransferSession *)v10 setDestinationAuditToken:&v13];
 
   return v10;
+}
+
+- (BOOL)addDestination:(id)destination onConnection:(id)connection systemPolicy:(BOOL)policy
+{
+  policyCopy = policy;
+  destinationCopy = destination;
+  connectionCopy = connection;
+  v10 = DRLogTarget();
+  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT))
+  {
+    v20 = 138412546;
+    selfCopy = self;
+    v22 = 2112;
+    v23 = destinationCopy;
+    _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_DEFAULT, "Session %@: addDestination: %@", &v20, 0x16u);
+  }
+
+  dispatch_assert_queue_V2(self->_xpcQueue);
+  if ([(DRDragSession *)self state]== 1)
+  {
+    if (connectionCopy)
+    {
+      v11 = [(NSMapTable *)self->_connectionToDestinationMap objectForKey:connectionCopy];
+
+      if (!v11)
+      {
+        objc_msgSend_auditToken(connectionCopy);
+        v12 = [(DRDragSession *)self newDataTransferSessionWithDestinationAuditToken:&v20 filter:0];
+        delegate = [(DRDragSession *)self delegate];
+        v15 = [delegate dragSession:self destinationIsDragMonitorConnection:{objc_msgSend(connectionCopy, "processIdentifier")}];
+
+        if (v15)
+        {
+          [v12 setDestinationIsAnotherDevice:1];
+        }
+
+        v16 = objc_opt_new();
+        [(DRDragSession *)v16 setDataTransferSession:v12];
+        [(DRDragSession *)v16 setConnection:connectionCopy];
+        [(DRDragSession *)v16 setClientSession:destinationCopy];
+        [(DRDragSession *)v16 setPolicyDriven:policyCopy];
+        if ([(DRDragSession *)v16 isPolicyDriven])
+        {
+          v17 = DRLogTarget();
+          if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+          {
+            processIdentifier = [connectionCopy processIdentifier];
+            v20 = 138412546;
+            selfCopy = v16;
+            v22 = 1024;
+            LODWORD(v23) = processIdentifier;
+            _os_log_impl(&_mh_execute_header, v17, OS_LOG_TYPE_DEFAULT, "Session addDestination (%@) setting as Policy Driven for pid %d", &v20, 0x12u);
+          }
+        }
+
+        [(NSMapTable *)self->_connectionToDestinationMap setObject:v16 forKey:connectionCopy];
+        [(DRDragSession *)self _updateIsAnyProcessBeingDebuggedWithConnection:connectionCopy];
+
+        v13 = 1;
+        goto LABEL_19;
+      }
+
+      v12 = DRLogTarget();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        sub_1000303DC();
+      }
+    }
+
+    else
+    {
+      v12 = DRLogTarget();
+      if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
+      {
+        sub_100030418();
+      }
+    }
+
+    v13 = 0;
+LABEL_19:
+
+    goto LABEL_20;
+  }
+
+  v13 = 0;
+LABEL_20:
+
+  return v13;
 }
 
 - (void)destinationConnectionWasInvalidated:(id)invalidated
@@ -907,6 +1019,77 @@ LABEL_11:
   return v4;
 }
 
+- (void)takeOutsideAppSourceOperationMask:(unint64_t)mask prefersFullSizePreview:(BOOL)preview
+{
+  previewCopy = preview;
+  v7 = DRLogTarget();
+  if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412802;
+    selfCopy = self;
+    v21 = 2048;
+    maskCopy = mask;
+    v23 = 1024;
+    v24 = previewCopy;
+    _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "Session %@: takeOutsideAppSourceOperationMask: %lu prefersFullSizePreview: %d", buf, 0x1Cu);
+  }
+
+  dispatch_assert_queue_V2(self->_xpcQueue);
+  if (self->_receivedOutsideAppSourceOperationMask)
+  {
+    p_super = DRLogTarget();
+    if (os_log_type_enabled(p_super, OS_LOG_TYPE_ERROR))
+    {
+      sub_1000304E8();
+    }
+  }
+
+  else
+  {
+    self->_outsideAppSourceOperationMask = mask;
+    [(DRDragSession *)self _updatePotentialDropPreferringFullSizePreview:previewCopy];
+    if (self->_receivedOutsideAppSourceOperationMask)
+    {
+      return;
+    }
+
+    self->_receivedOutsideAppSourceOperationMask = 1;
+    v14 = 0u;
+    v15 = 0u;
+    v16 = 0u;
+    v17 = 0u;
+    v9 = self->_pendingMaskBlocks;
+    v10 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+    if (v10)
+    {
+      v11 = v10;
+      v12 = *v15;
+      do
+      {
+        v13 = 0;
+        do
+        {
+          if (*v15 != v12)
+          {
+            objc_enumerationMutation(v9);
+          }
+
+          (*(*(*(&v14 + 1) + 8 * v13) + 16))(*(*(&v14 + 1) + 8 * v13));
+          v13 = v13 + 1;
+        }
+
+        while (v11 != v13);
+        v11 = [(NSMutableArray *)v9 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      }
+
+      while (v11);
+    }
+
+    p_super = &self->_pendingMaskBlocks->super.super;
+    self->_pendingMaskBlocks = 0;
+  }
+}
+
 - (void)dirtySourceItems:(id)items
 {
   itemsCopy = items;
@@ -995,7 +1178,7 @@ LABEL_11:
       v17 = v16;
       if (v16)
       {
-        [v16 auditToken];
+        objc_msgSend_auditToken(v16);
       }
 
       else
@@ -1232,7 +1415,7 @@ LABEL_20:
     v11 = connection;
     if (connection)
     {
-      [connection auditToken];
+      objc_msgSend_auditToken(connection);
     }
 
     else
@@ -1423,7 +1606,7 @@ LABEL_20:
       v24 = DRLogTarget();
       if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
       {
-        sub_100030664(connectionCopy, &self->_lastTouchUpPID);
+        sub_100030664(connectionCopy);
       }
     }
   }
@@ -2018,6 +2201,58 @@ LABEL_14:
   self->_continuityDisplayWantsDragsHidden = 1;
 }
 
+- (id)takeProcessAssertionOnPID:(int)d
+{
+  v3 = *&d;
+  v5 = DRLogTarget();
+  if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
+  {
+    *buf = 138412546;
+    selfCopy3 = self;
+    v20 = 1024;
+    v21 = v3;
+    _os_log_impl(&_mh_execute_header, v5, OS_LOG_TYPE_DEFAULT, "Session %@: taking process assertion on PID %d", buf, 0x12u);
+  }
+
+  v6 = [RBSTarget targetWithPid:v3];
+  v7 = [RBSAssertion alloc];
+  v8 = [RBSDomainAttribute attributeWithDomain:@"com.apple.DragUI" name:@"Dragging"];
+  v24 = v8;
+  v9 = [NSArray arrayWithObjects:&v24 count:1];
+  v10 = [v7 initWithExplanation:@"Taking process assertion for drag and drop." target:v6 attributes:v9];
+
+  v17 = 0;
+  v11 = [v10 acquireWithError:&v17];
+  v12 = v17;
+  v13 = DRLogTarget();
+  v14 = v13;
+  if (v11)
+  {
+    if (os_log_type_enabled(v13, OS_LOG_TYPE_INFO))
+    {
+      *buf = 138412546;
+      selfCopy3 = self;
+      v20 = 1024;
+      v21 = v3;
+      _os_log_impl(&_mh_execute_header, v14, OS_LOG_TYPE_INFO, "Session %@: acquired process assertion for %d", buf, 0x12u);
+    }
+  }
+
+  else if (os_log_type_enabled(v13, OS_LOG_TYPE_ERROR))
+  {
+    localizedDescription = [v12 localizedDescription];
+    *buf = 138412802;
+    selfCopy3 = self;
+    v20 = 1024;
+    v21 = v3;
+    v22 = 2112;
+    v23 = localizedDescription;
+    _os_log_error_impl(&_mh_execute_header, v14, OS_LOG_TYPE_ERROR, "Session %@: DID NOT acquire process assertion for %d, error: %@", buf, 0x1Cu);
+  }
+
+  return v10;
+}
+
 - (void)setState:(int64_t)state
 {
   dispatch_assert_queue_V2(self->_xpcQueue);
@@ -2248,7 +2483,7 @@ LABEL_25:
     sourceConnection = self->_sourceConnection;
     if (sourceConnection)
     {
-      [(NSXPCConnection *)sourceConnection auditToken];
+      objc_msgSend_auditToken(sourceConnection);
     }
 
     else
@@ -2262,30 +2497,19 @@ LABEL_25:
     destinationProcessInfo = [v10 destinationProcessInfo];
 
     bundleID = [destinationProcessInfo bundleID];
-    if (!bundleID)
-    {
-      goto LABEL_7;
-    }
-
-    v13 = bundleID;
-    bundleID2 = [(DRProcessInfo *)v9 bundleID];
-    bundleID3 = [destinationProcessInfo bundleID];
-    v16 = [bundleID2 isEqualToString:bundleID3];
-
-    if (!v16)
+    if (bundleID && (v13 = bundleID, -[DRProcessInfo bundleID](v9, "bundleID"), v14 = objc_claimAutoreleasedReturnValue(), [destinationProcessInfo bundleID], v15 = objc_claimAutoreleasedReturnValue(), v16 = objc_msgSend(v14, "isEqualToString:", v15), v15, v14, v13, !v16))
     {
       v17 = @"multipleAppDrag";
     }
 
     else
     {
-LABEL_7:
       v17 = @"singleAppDrag";
     }
 
     [_UIKitDragAndDropStatistics incrementUIKitScalarValueBy:1 forKey:v17, v19, v20];
-    bundleID4 = [destinationProcessInfo bundleID];
-    [_UIKitDragAndDropStatistics incrementUIKitScalarValueForKnownInternalAppsForKey:@"dropSuccessfullOnto" bundleID:bundleID4];
+    bundleID2 = [destinationProcessInfo bundleID];
+    [_UIKitDragAndDropStatistics incrementUIKitScalarValueForKnownInternalAppsForKey:@"dropSuccessfullOnto" bundleID:bundleID2];
   }
 }
 
@@ -2866,6 +3090,26 @@ LABEL_10:
     accessibilityProxy2 = [(DRDragSession *)self accessibilityProxy];
     [accessibilityProxy2 dragStatusDidChange:v9];
   }
+}
+
+- (void)_updatePotentialDropPreferringFullSizePreview:(BOOL)preview
+{
+  previewCopy = preview;
+  dispatch_assert_queue_V2(self->_xpcQueue);
+  lastPotentialDrop = self->_lastPotentialDrop;
+  if (lastPotentialDrop)
+  {
+    v6 = [(_DUIPotentialDrop *)lastPotentialDrop copy];
+  }
+
+  else
+  {
+    v6 = objc_opt_new();
+  }
+
+  v7 = v6;
+  [v6 setPrefersFullSizePreview:previewCopy];
+  [(DRDragSession *)self _updatePotentialDrop:v7 forDestinationClient:self->_lastPotentialDropDestinationClient];
 }
 
 - (void)_updatePotentialDrop:(id)drop forDestinationClient:(id)client

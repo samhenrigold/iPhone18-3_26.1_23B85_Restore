@@ -96,18 +96,18 @@ id __101__HFSimpleAggregatedCharacteristicValueSource_initWithValueSource_servic
 
 - (id)copyWithValueSource:(id)source
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v17 = *MEMORY[0x277D85DE8];
   sourceCopy = source;
   v5 = HFLogForCategory(0x3BuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = 136315650;
-    v13 = "[HFSimpleAggregatedCharacteristicValueSource copyWithValueSource:]";
-    v14 = 2048;
-    v15 = 63;
-    v16 = 2112;
-    v17 = sourceCopy;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%s (Line: %ld) Copying with valueSource %@.", &v12, 0x20u);
+    v11 = 136315650;
+    v12 = "[HFSimpleAggregatedCharacteristicValueSource copyWithValueSource:]";
+    v13 = 2048;
+    v14 = 63;
+    v15 = 2112;
+    v16 = sourceCopy;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%s (Line: %ld) Copying with valueSource %@.", &v11, 0x20u);
   }
 
   v6 = objc_alloc(objc_opt_class());
@@ -115,7 +115,6 @@ id __101__HFSimpleAggregatedCharacteristicValueSource_initWithValueSource_servic
   primaryServiceDescriptor = [(HFSimpleAggregatedCharacteristicValueSource *)self primaryServiceDescriptor];
   v9 = [v6 initWithValueSource:sourceCopy characteristics:characteristics primaryServiceDescriptor:primaryServiceDescriptor];
 
-  v10 = *MEMORY[0x277D85DE8];
   return v9;
 }
 
@@ -156,21 +155,21 @@ id __101__HFSimpleAggregatedCharacteristicValueSource_initWithValueSource_servic
 
 - (id)readValuesForServiceStateRecipe:(id)recipe
 {
-  v24 = *MEMORY[0x277D85DE8];
+  v23 = *MEMORY[0x277D85DE8];
   recipeCopy = recipe;
   v5 = HFLogForCategory(0x3BuLL);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     valueSource = [(HFSimpleAggregatedCharacteristicValueSource *)self valueSource];
-    v16 = 136315906;
-    v17 = "[HFSimpleAggregatedCharacteristicValueSource readValuesForServiceStateRecipe:]";
-    v18 = 2048;
-    v19 = 90;
-    v20 = 2112;
+    v15 = 136315906;
+    v16 = "[HFSimpleAggregatedCharacteristicValueSource readValuesForServiceStateRecipe:]";
+    v17 = 2048;
+    v18 = 90;
+    v19 = 2112;
     selfCopy = self;
-    v22 = 2112;
-    v23 = valueSource;
-    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%s (Line: %ld) valueSource for %@ = %@", &v16, 0x2Au);
+    v21 = 2112;
+    v22 = valueSource;
+    _os_log_impl(&dword_20D9BF000, v5, OS_LOG_TYPE_DEFAULT, "%s (Line: %ld) valueSource for %@ = %@", &v15, 0x2Au);
   }
 
   allServices = [(HFSimpleAggregatedCharacteristicValueSource *)self allServices];
@@ -181,8 +180,6 @@ id __101__HFSimpleAggregatedCharacteristicValueSource_initWithValueSource_servic
   characteristics = [(HFSimpleAggregatedCharacteristicValueSource *)self characteristics];
   v12 = [allCharacteristics na_setByIntersectingWithSet:characteristics];
   v13 = [valueSource2 readValuesForCharacteristics:v12];
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -232,7 +229,7 @@ id __80__HFSimpleAggregatedCharacteristicValueSource_readValuesForCharacteristic
 
 void __83__HFSimpleAggregatedCharacteristicValueSource_writeValuesForCharacteristicRecipes___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
   v7 = [*(a1 + 32) allServices];
@@ -242,37 +239,35 @@ void __83__HFSimpleAggregatedCharacteristicValueSource_writeValuesForCharacteris
   v10 = [*(a1 + 32) characteristics];
   v11 = [v9 na_setByIntersectingWithSet:v10];
 
-  v20 = 0u;
-  v21 = 0u;
-  v18 = 0u;
   v19 = 0u;
+  v20 = 0u;
+  v17 = 0u;
+  v18 = 0u;
   v12 = v11;
-  v13 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v13 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v13)
   {
     v14 = v13;
-    v15 = *v19;
+    v15 = *v18;
     do
     {
       v16 = 0;
       do
       {
-        if (*v19 != v15)
+        if (*v18 != v15)
         {
           objc_enumerationMutation(v12);
         }
 
-        [*(a1 + 40) setValue:v6 forCharacteristic:{*(*(&v18 + 1) + 8 * v16++), v18}];
+        [*(a1 + 40) setValue:v6 forCharacteristic:{*(*(&v17 + 1) + 8 * v16++), v17}];
       }
 
       while (v14 != v16);
-      v14 = [v12 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v14 = [v12 countByEnumeratingWithState:&v17 objects:v21 count:16];
     }
 
     while (v14);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)writeValuesForCharacteristicTypes:(id)types
@@ -296,42 +291,40 @@ void __83__HFSimpleAggregatedCharacteristicValueSource_writeValuesForCharacteris
 
 void __81__HFSimpleAggregatedCharacteristicValueSource_writeValuesForCharacteristicTypes___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   v5 = a2;
   v6 = a3;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v7 = [*(a1 + 32) characteristicsByType];
   v8 = [v7 objectForKeyedSubscript:v5];
 
-  v9 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v9 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v15;
+    v11 = *v14;
     do
     {
       v12 = 0;
       do
       {
-        if (*v15 != v11)
+        if (*v14 != v11)
         {
           objc_enumerationMutation(v8);
         }
 
-        [*(a1 + 40) setValue:v6 forCharacteristic:*(*(&v14 + 1) + 8 * v12++)];
+        [*(a1 + 40) setValue:v6 forCharacteristic:*(*(&v13 + 1) + 8 * v12++)];
       }
 
       while (v10 != v12);
-      v10 = [v8 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v10 = [v8 countByEnumeratingWithState:&v13 objects:v17 count:16];
     }
 
     while (v10);
   }
-
-  v13 = *MEMORY[0x277D85DE8];
 }
 
 - (id)metadataForCharacteristicType:(id)type
@@ -447,8 +440,8 @@ void __58__HFSimpleAggregatedCharacteristicValueSource_na_identity__block_invoke
     allServices = [(HFSimpleAggregatedCharacteristicValueSource *)self allServices];
     anyObject = [allServices anyObject];
 
-    home = [anyObject home];
-    v9 &= [home hf_enabledResidentsSupportsNaturalLight];
+    v12 = objc_msgSend_home(anyObject);
+    v9 &= [v12 hf_enabledResidentsSupportsNaturalLight];
   }
 
   return v9;

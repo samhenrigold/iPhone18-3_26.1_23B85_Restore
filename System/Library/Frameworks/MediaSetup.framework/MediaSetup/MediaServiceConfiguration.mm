@@ -19,6 +19,7 @@
 - (void)getServiceConfigurationInfo:(id)info completion:(id)completion;
 - (void)getServiceConfigurationInfo:(id)info serviceID:(id)d completion:(id)completion;
 - (void)getSupportedThirdPartyMediaServices:(id)services;
+- (void)overrideAppleMusicSubscriptionStatus:(BOOL)status homeUserIDS:(id)s completion:(id)completion;
 - (void)removeServiceFromHome:(id)home fromHome:(id)fromHome completion:(id)completion;
 - (void)requestAuthRenewalForMediaService:(id)service homeUserID:(id)d parentNetworkActivity:(id)activity completion:(id)completion;
 - (void)serviceSettingDidUpdate:(id)update homeUserID:(id)d;
@@ -161,7 +162,7 @@
 
 void __43__MediaServiceConfiguration_initWithQueue___block_invoke(uint64_t a1)
 {
-  v2 = _MSLogingFacility();
+  v2 = _MSLogingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __43__MediaServiceConfiguration_initWithQueue___block_invoke_cold_1(v2);
@@ -174,7 +175,7 @@ void __43__MediaServiceConfiguration_initWithQueue___block_invoke(uint64_t a1)
 
 void __43__MediaServiceConfiguration_initWithQueue___block_invoke_126(uint64_t a1)
 {
-  v2 = _MSLogingFacility();
+  v2 = _MSLogingFacility(a1);
   if (os_log_type_enabled(v2, OS_LOG_TYPE_ERROR))
   {
     __43__MediaServiceConfiguration_initWithQueue___block_invoke_126_cold_1(v2);
@@ -250,7 +251,7 @@ void __43__MediaServiceConfiguration_sharedInstance__block_invoke(uint64_t a1)
 
   else
   {
-    v15 = _MSLogingFacility();
+    v15 = _MSLogingFacility(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration *)v15 getAvailableServices:v16 completion:v17, v18, v19, v20, v21, v22];
@@ -309,7 +310,7 @@ void __61__MediaServiceConfiguration_getAvailableServices_completion___block_inv
 
   else
   {
-    v15 = _MSLogingFacility();
+    v15 = _MSLogingFacility(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration *)v15 getCachedAvailableServices:v16 completion:v17, v18, v19, v20, v21, v22];
@@ -366,7 +367,7 @@ void __67__MediaServiceConfiguration_getCachedAvailableServices_completion___blo
 
   else
   {
-    v9 = _MSLogingFacility();
+    v9 = _MSLogingFacility(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration *)v9 thirdPartyMusicAvailable:v10, v11, v12, v13, v14, v15, v16];
@@ -381,7 +382,7 @@ void __67__MediaServiceConfiguration_getCachedAvailableServices_completion___blo
 void __54__MediaServiceConfiguration_thirdPartyMusicAvailable___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MSLogingFacility();
+  v4 = _MSLogingFacility(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __54__MediaServiceConfiguration_thirdPartyMusicAvailable___block_invoke_cold_1(v3, v4);
@@ -420,7 +421,7 @@ void __54__MediaServiceConfiguration_thirdPartyMusicAvailable___block_invoke(uin
 
   else
   {
-    v18 = _MSLogingFacility();
+    v18 = _MSLogingFacility(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration *)v18 getCachedServiceInfo:v19 homeUserID:v20 endpointID:v21 completion:v22, v23, v24, v25];
@@ -479,7 +480,7 @@ void __83__MediaServiceConfiguration_getCachedServiceInfo_homeUserID_endpointID_
 
   else
   {
-    v18 = _MSLogingFacility();
+    v18 = _MSLogingFacility(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration *)v18 requestAuthRenewalForMediaService:v19 homeUserID:v20 parentNetworkActivity:v21 completion:v22, v23, v24, v25];
@@ -539,7 +540,7 @@ void __107__MediaServiceConfiguration_requestAuthRenewalForMediaService_homeUser
 
   else
   {
-    v18 = _MSLogingFacility();
+    v18 = _MSLogingFacility(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration *)v18 updateDefaultMediaService:v19 forHome:v20 completion:v21, v22, v23, v24, v25];
@@ -606,7 +607,7 @@ void __74__MediaServiceConfiguration_updateDefaultMediaService_forHome_completio
 
   else
   {
-    v15 = _MSLogingFacility();
+    v15 = _MSLogingFacility(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration *)v15 getDefaultMediaService:v16 completion:v17, v18, v19, v20, v21, v22];
@@ -665,7 +666,7 @@ void __63__MediaServiceConfiguration_getDefaultMediaService_completion___block_i
 
   else
   {
-    v18 = _MSLogingFacility();
+    v18 = _MSLogingFacility(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration *)v18 removeServiceFromHome:v19 fromHome:v20 completion:v21, v22, v23, v24, v25];
@@ -717,7 +718,7 @@ void __71__MediaServiceConfiguration_removeServiceFromHome_fromHome_completion__
 
   else
   {
-    v10 = _MSLogingFacility();
+    v10 = _MSLogingFacility(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration *)v10 addMediaService:v14 toHomes:v15 completion:v16, v17, v18, v19, v20];
@@ -784,7 +785,7 @@ void __64__MediaServiceConfiguration_addMediaService_toHomes_completion___block_
 
   else
   {
-    v12 = _MSLogingFacility();
+    v12 = _MSLogingFacility(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration *)v12 getPublicInfoForBundleID:v13 completion:v14, v15, v16, v17, v18, v19];
@@ -811,20 +812,18 @@ void __65__MediaServiceConfiguration_getPublicInfoForBundleID_completion___block
 
 - (void)getServiceConfigurationInfo:(id)info completion:(id)completion
 {
-  v12[1] = *MEMORY[0x277D85DE8];
+  v11[1] = *MEMORY[0x277D85DE8];
   if (completion)
   {
     v5 = MEMORY[0x277CCA9B8];
-    v11 = *MEMORY[0x277CCA450];
-    v12[0] = @"Please use updated API, getServiceConfigurationInfo:serviceID:completion";
+    v10 = *MEMORY[0x277CCA450];
+    v11[0] = @"Please use updated API, getServiceConfigurationInfo:serviceID:completion";
     v6 = MEMORY[0x277CBEAC0];
     completionCopy = completion;
-    v8 = [v6 dictionaryWithObjects:v12 forKeys:&v11 count:1];
+    v8 = [v6 dictionaryWithObjects:v11 forKeys:&v10 count:1];
     v9 = [v5 errorWithDomain:@"com.apple.mediasetup.errorDomain" code:1 userInfo:v8];
     (*(completion + 2))(completionCopy, 0, v9);
   }
-
-  v10 = *MEMORY[0x277D85DE8];
 }
 
 - (void)getServiceConfigurationInfo:(id)info serviceID:(id)d completion:(id)completion
@@ -856,7 +855,7 @@ void __65__MediaServiceConfiguration_getPublicInfoForBundleID_completion___block
 
   else
   {
-    v15 = _MSLogingFacility();
+    v15 = _MSLogingFacility(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration *)v15 getServiceConfigurationInfo:v16 serviceID:v17 completion:v18, v19, v20, v21, v22];
@@ -908,12 +907,34 @@ void __78__MediaServiceConfiguration_getServiceConfigurationInfo_serviceID_compl
 
   else
   {
-    v11 = _MSLogingFacility();
+    v11 = _MSLogingFacility(0);
     if (os_log_type_enabled(v11, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration *)v11 setVersion:v12 completion:v13, v14, v15, v16, v17, v18];
     }
   }
+}
+
+- (void)overrideAppleMusicSubscriptionStatus:(BOOL)status homeUserIDS:(id)s completion:(id)completion
+{
+  statusCopy = status;
+  completionCopy = completion;
+  connection = self->_connection;
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __89__MediaServiceConfiguration_overrideAppleMusicSubscriptionStatus_homeUserIDS_completion___block_invoke;
+  v16[3] = &unk_278AA3030;
+  v10 = completionCopy;
+  v17 = v10;
+  sCopy = s;
+  v12 = [(NSXPCConnection *)connection remoteObjectProxyWithErrorHandler:v16];
+  v14[0] = MEMORY[0x277D85DD0];
+  v14[1] = 3221225472;
+  v14[2] = __89__MediaServiceConfiguration_overrideAppleMusicSubscriptionStatus_homeUserIDS_completion___block_invoke_2;
+  v14[3] = &unk_278AA3030;
+  v15 = v10;
+  v13 = v10;
+  [v12 overrideAppleMusicSubscriptionStatus:statusCopy homeUserIDS:sCopy completion:v14];
 }
 
 uint64_t __89__MediaServiceConfiguration_overrideAppleMusicSubscriptionStatus_homeUserIDS_completion___block_invoke(uint64_t a1)
@@ -965,7 +986,7 @@ uint64_t __89__MediaServiceConfiguration_overrideAppleMusicSubscriptionStatus_ho
 
   else
   {
-    v9 = _MSLogingFacility();
+    v9 = _MSLogingFacility(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration *)v9 getDefaultMediaServiceForAllUsers:v10, v11, v12, v13, v14, v15, v16];
@@ -1021,7 +1042,7 @@ void __63__MediaServiceConfiguration_getDefaultMediaServiceForAllUsers___block_i
 
   else
   {
-    v15 = _MSLogingFacility();
+    v15 = _MSLogingFacility(0);
     if (os_log_type_enabled(v15, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration *)v15 getResolvedServiceInfo:v16 sharedUserID:v17 completion:v18, v19, v20, v21, v22];
@@ -1075,7 +1096,7 @@ void __76__MediaServiceConfiguration_getResolvedServiceInfo_sharedUserID_complet
 
   else
   {
-    v12 = _MSLogingFacility();
+    v12 = _MSLogingFacility(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration *)v12 getResolvedServiceInfo:v13 completion:v14, v15, v16, v17, v18, v19];
@@ -1133,7 +1154,7 @@ void __63__MediaServiceConfiguration_getResolvedServiceInfo_completion___block_i
 
   else
   {
-    v18 = _MSLogingFacility();
+    v18 = _MSLogingFacility(0);
     if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration *)v18 switchUserAccountInfo:v19 home:v20 completion:v21, v22, v23, v24, v25];
@@ -1158,27 +1179,26 @@ void __67__MediaServiceConfiguration_switchUserAccountInfo_home_completion___blo
 
 - (void)setDelegate:(id)delegate
 {
-  v10 = *MEMORY[0x277D85DE8];
+  v9 = *MEMORY[0x277D85DE8];
   delegateCopy = delegate;
-  v5 = _MSLogingFacility();
+  v5 = _MSLogingFacility(delegateCopy);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_INFO))
   {
-    v8 = 138412290;
-    v9 = delegateCopy;
-    _os_log_impl(&dword_23986C000, v5, OS_LOG_TYPE_INFO, "Setting MediaServiceUpdatedDelegate %@", &v8, 0xCu);
+    v7 = 138412290;
+    v8 = delegateCopy;
+    _os_log_impl(&dword_23986C000, v5, OS_LOG_TYPE_INFO, "Setting MediaServiceUpdatedDelegate %@", &v7, 0xCu);
   }
 
   v6 = [(NSXPCConnection *)self->_connection remoteObjectProxyWithErrorHandler:&__block_literal_global_147];
   [v6 openConnection];
 
   objc_storeWeak(&self->_delegate, delegateCopy);
-  v7 = *MEMORY[0x277D85DE8];
 }
 
 void __41__MediaServiceConfiguration_setDelegate___block_invoke(uint64_t a1, void *a2)
 {
   v2 = a2;
-  v3 = _MSLogingFacility();
+  v3 = _MSLogingFacility(v2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_ERROR))
   {
     __41__MediaServiceConfiguration_setDelegate___block_invoke_cold_1(v2, v3, v4, v5, v6, v7, v8, v9);
@@ -1297,7 +1317,7 @@ LABEL_5:
 
   else
   {
-    v21 = _MSLogingFacility();
+    v21 = _MSLogingFacility(0);
     if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration(MediaService) *)v21 updateProperty:v22 forHome:v23 withOptions:v24 completion:v25, v26, v27, v28];
@@ -1351,7 +1371,7 @@ void __89__MediaServiceConfiguration_MediaService__updateProperty_forHome_withOp
 
   else
   {
-    v12 = _MSLogingFacility();
+    v12 = _MSLogingFacility(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration(AppSelection) *)v12 activeServiceApplicationInformationForSharedUserID:v13 completionHandler:v14, v15, v16, v17, v18, v19];
@@ -1405,7 +1425,7 @@ void __112__MediaServiceConfiguration_AppSelection__activeServiceApplicationInfo
 
   else
   {
-    v12 = _MSLogingFacility();
+    v12 = _MSLogingFacility(0);
     if (os_log_type_enabled(v12, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration(AppSelection) *)v12 getMediaServiceChoicesForSharedUser:v13 completion:v14, v15, v16, v17, v18, v19];
@@ -1458,7 +1478,7 @@ void __90__MediaServiceConfiguration_AppSelection__getMediaServiceChoicesForShar
 
   else
   {
-    v9 = _MSLogingFacility();
+    v9 = _MSLogingFacility(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration(AppSelection) *)v9 getMediaServiceChoicesForAllUsers:v10, v11, v12, v13, v14, v15, v16];
@@ -1511,7 +1531,7 @@ void __77__MediaServiceConfiguration_AppSelection__getMediaServiceChoicesForAllU
 
   else
   {
-    v9 = _MSLogingFacility();
+    v9 = _MSLogingFacility(0);
     if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
       [(MediaServiceConfiguration(AppSelection) *)v9 getSupportedThirdPartyMediaServices:v10, v11, v12, v13, v14, v15, v16];
@@ -1522,7 +1542,7 @@ void __77__MediaServiceConfiguration_AppSelection__getMediaServiceChoicesForAllU
 void __79__MediaServiceConfiguration_AppSelection__getSupportedThirdPartyMediaServices___block_invoke(uint64_t a1, void *a2)
 {
   v3 = a2;
-  v4 = _MSLogingFacility();
+  v4 = _MSLogingFacility(v3);
   if (os_log_type_enabled(v4, OS_LOG_TYPE_ERROR))
   {
     __79__MediaServiceConfiguration_AppSelection__getSupportedThirdPartyMediaServices___block_invoke_cold_1(v3, v4, v5, v6, v7, v8, v9, v10);
@@ -1551,139 +1571,138 @@ void __79__MediaServiceConfiguration_AppSelection__getSupportedThirdPartyMediaSe
 
 - (void)getAvailableServices:(uint64_t)a3 completion:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MediaServiceConfiguration getAvailableServices:completion:]";
+  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)getCachedAvailableServices:(uint64_t)a3 completion:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MediaServiceConfiguration getCachedAvailableServices:completion:]";
+  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)thirdPartyMusicAvailable:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s Unexpected parameter, Nil HMHome", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MediaServiceConfiguration thirdPartyMusicAvailable:]";
+  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s Unexpected parameter, Nil HMHome", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __54__MediaServiceConfiguration_thirdPartyMusicAvailable___block_invoke_cold_1(uint64_t a1, NSObject *a2)
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[MediaServiceConfiguration thirdPartyMusicAvailable:]_block_invoke";
-  v5 = 2112;
-  v6 = a1;
-  _os_log_error_impl(&dword_23986C000, a2, OS_LOG_TYPE_ERROR, "%s Error %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[MediaServiceConfiguration thirdPartyMusicAvailable:]_block_invoke";
+  v4 = 2112;
+  v5 = a1;
+  _os_log_error_impl(&dword_23986C000, a2, OS_LOG_TYPE_ERROR, "%s Error %@", &v2, 0x16u);
 }
 
 - (void)getCachedServiceInfo:(uint64_t)a3 homeUserID:(uint64_t)a4 endpointID:(uint64_t)a5 completion:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MediaServiceConfiguration getCachedServiceInfo:homeUserID:endpointID:completion:]";
+  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)requestAuthRenewalForMediaService:(uint64_t)a3 homeUserID:(uint64_t)a4 parentNetworkActivity:(uint64_t)a5 completion:(uint64_t)a6 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MediaServiceConfiguration requestAuthRenewalForMediaService:homeUserID:parentNetworkActivity:completion:]";
+  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)updateDefaultMediaService:(uint64_t)a3 forHome:(uint64_t)a4 completion:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MediaServiceConfiguration updateDefaultMediaService:forHome:completion:]";
+  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)getDefaultMediaService:(uint64_t)a3 completion:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MediaServiceConfiguration getDefaultMediaService:completion:]";
+  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)removeServiceFromHome:(uint64_t)a3 fromHome:(uint64_t)a4 completion:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MediaServiceConfiguration removeServiceFromHome:fromHome:completion:]";
+  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)addMediaService:(uint64_t)a3 toHomes:(uint64_t)a4 completion:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MediaServiceConfiguration addMediaService:toHomes:completion:]";
+  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)getPublicInfoForBundleID:(uint64_t)a3 completion:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MediaServiceConfiguration getPublicInfoForBundleID:completion:]";
+  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)getServiceConfigurationInfo:(uint64_t)a3 serviceID:(uint64_t)a4 completion:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MediaServiceConfiguration getServiceConfigurationInfo:serviceID:completion:]";
+  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)setVersion:(uint64_t)a3 completion:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MediaServiceConfiguration setVersion:completion:]";
+  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)getDefaultMediaServiceForAllUsers:(uint64_t)a3 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MediaServiceConfiguration getDefaultMediaServiceForAllUsers:]";
+  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)getResolvedServiceInfo:(uint64_t)a3 sharedUserID:(uint64_t)a4 completion:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MediaServiceConfiguration getResolvedServiceInfo:sharedUserID:completion:]";
+  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)getResolvedServiceInfo:(uint64_t)a3 completion:(uint64_t)a4 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MediaServiceConfiguration getResolvedServiceInfo:completion:]";
+  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 - (void)switchUserAccountInfo:(uint64_t)a3 home:(uint64_t)a4 completion:(uint64_t)a5 .cold.1(NSObject *a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 136315138;
+  *(&v8 + 4) = "[MediaServiceConfiguration switchUserAccountInfo:home:completion:]";
+  OUTLINED_FUNCTION_0(&dword_23986C000, a1, a3, "%s, nil completion handler", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __41__MediaServiceConfiguration_setDelegate___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a2, a3, "Error establishing connection, %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_23986C000, a2, a3, "Error establishing connection, %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 void __79__MediaServiceConfiguration_AppSelection__getSupportedThirdPartyMediaServices___block_invoke_cold_1(uint64_t a1, NSObject *a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8)
 {
-  v9 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_0(&dword_23986C000, a2, a3, "got an error when working with the proxy: %@", a5, a6, a7, a8, 2u);
-  v8 = *MEMORY[0x277D85DE8];
+  LODWORD(v8) = 138412290;
+  *(&v8 + 4) = a1;
+  OUTLINED_FUNCTION_0(&dword_23986C000, a2, a3, "got an error when working with the proxy: %@", a5, a6, a7, a8, v8, DWORD2(v8));
 }
 
 @end

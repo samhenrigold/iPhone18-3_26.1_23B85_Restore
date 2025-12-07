@@ -109,28 +109,28 @@ void __34__WLKSchedule_initWithDictionary___block_invoke(uint64_t a1, void *a2)
 
 - (id)eventForDate:(id)date
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   dateCopy = date;
+  v16 = 0u;
   v17 = 0u;
   v18 = 0u;
   v19 = 0u;
-  v20 = 0u;
   v5 = self->_mutableEvents;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v18;
+    v8 = *v17;
     while (2)
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v18 != v8)
+        if (*v17 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v17 + 1) + 8 * i);
+        v10 = *(*(&v16 + 1) + 8 * i);
         startDate = [v10 startDate];
         endDate = [v10 endDate];
         v13 = [(WLKSchedule *)self _isDate:dateCopy containedByDate:startDate andDate:endDate];
@@ -142,7 +142,7 @@ void __34__WLKSchedule_initWithDictionary___block_invoke(uint64_t a1, void *a2)
         }
       }
 
-      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v17 objects:v21 count:16];
+      v7 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v16 objects:v20 count:16];
       if (v7)
       {
         continue;
@@ -155,36 +155,34 @@ void __34__WLKSchedule_initWithDictionary___block_invoke(uint64_t a1, void *a2)
   v14 = 0;
 LABEL_11:
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v14;
 }
 
 - (id)eventForDate:(id)date fuzziness:(double)fuzziness
 {
-  v23 = *MEMORY[0x277D85DE8];
+  v22 = *MEMORY[0x277D85DE8];
   dateCopy = date;
+  v17 = 0u;
   v18 = 0u;
   v19 = 0u;
   v20 = 0u;
-  v21 = 0u;
   v7 = self->_mutableEvents;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
   if (v8)
   {
-    v9 = *v19;
+    v9 = *v18;
     while (2)
     {
       for (i = 0; i != v8; i = i + 1)
       {
-        if (*v19 != v9)
+        if (*v18 != v9)
         {
           objc_enumerationMutation(v7);
         }
 
-        v11 = *(*(&v18 + 1) + 8 * i);
+        v11 = *(*(&v17 + 1) + 8 * i);
         v12 = objc_alloc(MEMORY[0x277CCA970]);
-        v13 = [v12 initWithStartDate:dateCopy duration:{fuzziness, v18}];
+        v13 = [v12 initWithStartDate:dateCopy duration:{fuzziness, v17}];
         startDate = [v11 startDate];
         v15 = [v13 containsDate:startDate];
 
@@ -196,7 +194,7 @@ LABEL_11:
         }
       }
 
-      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v18 objects:v22 count:16];
+      v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v17 objects:v21 count:16];
       if (v8)
       {
         continue;
@@ -208,36 +206,34 @@ LABEL_11:
 
 LABEL_11:
 
-  v16 = *MEMORY[0x277D85DE8];
-
   return v8;
 }
 
 - (id)adjacentEventsForDate:(id)date fuzziness:(double)fuzziness
 {
-  v26 = *MEMORY[0x277D85DE8];
+  v25 = *MEMORY[0x277D85DE8];
   dateCopy = date;
   array = [MEMORY[0x277CBEB18] array];
+  v20 = 0u;
   v21 = 0u;
   v22 = 0u;
   v23 = 0u;
-  v24 = 0u;
   v7 = self->_mutableEvents;
-  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+  v8 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v22;
+    v10 = *v21;
     do
     {
       for (i = 0; i != v9; ++i)
       {
-        if (*v22 != v10)
+        if (*v21 != v10)
         {
           objc_enumerationMutation(v7);
         }
 
-        v12 = *(*(&v21 + 1) + 8 * i);
+        v12 = *(*(&v20 + 1) + 8 * i);
         startDate = [v12 startDate];
         v14 = [startDate dateByAddingTimeInterval:-fuzziness];
 
@@ -250,41 +246,40 @@ LABEL_11:
         }
       }
 
-      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v21 objects:v25 count:16];
+      v9 = [(NSMutableArray *)v7 countByEnumeratingWithState:&v20 objects:v24 count:16];
     }
 
     while (v9);
   }
 
   v17 = [array copy];
-  v18 = *MEMORY[0x277D85DE8];
 
   return v17;
 }
 
 - (id)eventAfterDate:(id)date
 {
-  v19 = *MEMORY[0x277D85DE8];
+  v18 = *MEMORY[0x277D85DE8];
   dateCopy = date;
+  v13 = 0u;
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
-  v17 = 0u;
   v5 = self->_mutableEvents;
-  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+  v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
   if (v6)
   {
-    v7 = *v15;
+    v7 = *v14;
     while (2)
     {
       for (i = 0; i != v6; i = i + 1)
       {
-        if (*v15 != v7)
+        if (*v14 != v7)
         {
           objc_enumerationMutation(v5);
         }
 
-        v9 = *(*(&v14 + 1) + 8 * i);
+        v9 = *(*(&v13 + 1) + 8 * i);
         startDate = [v9 startDate];
         v11 = [startDate compare:dateCopy];
 
@@ -295,7 +290,7 @@ LABEL_11:
         }
       }
 
-      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v14 objects:v18 count:16];
+      v6 = [(NSMutableArray *)v5 countByEnumeratingWithState:&v13 objects:v17 count:16];
       if (v6)
       {
         continue;
@@ -306,8 +301,6 @@ LABEL_11:
   }
 
 LABEL_11:
-
-  v12 = *MEMORY[0x277D85DE8];
 
   return v6;
 }

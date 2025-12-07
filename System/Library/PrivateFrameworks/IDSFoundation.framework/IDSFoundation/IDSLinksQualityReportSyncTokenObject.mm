@@ -12,7 +12,7 @@
   v5 = sub_1A7E21A10();
   v7 = v6;
 
-  v8 = sub_1A7D56218();
+  v8 = sub_1A7D56218(v5, v7);
   sub_1A7CC7E50(v5, v7);
 
   return v8;
@@ -29,7 +29,7 @@
 
   swift_beginAccess();
 
-  sub_1A7CC7FFC(&qword_1EB2B64E8);
+  sub_1A7CC7FFC(&qword_1EB2B64E8, &unk_1A7E4A1F0);
   sub_1A7D56358();
   v5 = sub_1A7E215E0();
   v7 = v6;

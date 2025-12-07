@@ -9,6 +9,7 @@
 - (int)getTotalOut;
 - (int)inflateWithByteArray:(id)array;
 - (int)inflateWithByteArray:(id)array withInt:(int)int withInt:(int)withInt;
+- (int)setFileInputWithJavaIoFileDescriptor:(id)descriptor withLong:(int64_t)long withInt:(int)int;
 - (int64_t)getBytesRead;
 - (int64_t)getBytesWritten;
 - (uint64_t)checkOpen;
@@ -164,13 +165,14 @@
 
 - (int)inflateWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
 {
+  v6 = *&int;
   objc_sync_enter(self);
   if (!array)
   {
     JreThrowNullPointerException();
   }
 
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), v6, withInt);
   [JavaUtilZipInflater checkOpen]_0(self);
   if ([(JavaUtilZipInflater *)self needsInput])
   {
@@ -181,7 +183,7 @@
   {
     needsDictionary = self->needsDictionary_;
     self->needsDictionary_ = 0;
-    v9 = sub_10026BD54(self, array, int, withInt, self->streamHandle_);
+    v9 = sub_10026BD54(self, array, v6, withInt, self->streamHandle_);
     if (self->needsDictionary_ && needsDictionary)
     {
       v12 = new_JavaUtilZipDataFormatException_initWithNSString_(@"Needs dictionary");
@@ -235,6 +237,7 @@
 
 - (void)setDictionaryWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
 {
+  v6 = *&int;
   objc_sync_enter(self);
   [JavaUtilZipInflater checkOpen]_0(self);
   if (!array)
@@ -242,8 +245,8 @@
     JreThrowNullPointerException();
   }
 
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
-  sub_10026C08C(array, int, withInt, self->streamHandle_);
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), v6, withInt);
+  sub_10026C08C(array, v6, withInt, self->streamHandle_);
 
   objc_sync_exit(self);
 }
@@ -263,6 +266,7 @@
 
 - (void)setInputWithByteArray:(id)array withInt:(int)int withInt:(int)withInt
 {
+  v6 = *&int;
   objc_sync_enter(self);
   [JavaUtilZipInflater checkOpen]_0(self);
   if (!array)
@@ -270,12 +274,24 @@
     JreThrowNullPointerException();
   }
 
-  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), int, withInt);
+  JavaUtilArrays_checkOffsetAndCountWithInt_withInt_withInt_(*(array + 2), v6, withInt);
   self->inLength_ = withInt;
   self->inRead_ = 0;
-  sub_100152D7C(self, array, int, withInt, self->streamHandle_);
+  sub_100152D7C(self, array, v6, withInt, self->streamHandle_);
 
   objc_sync_exit(self);
+}
+
+- (int)setFileInputWithJavaIoFileDescriptor:(id)descriptor withLong:(int64_t)long withInt:(int)int
+{
+  v5 = *&int;
+  objc_sync_enter(self);
+  [JavaUtilZipInflater checkOpen]_0(self);
+  self->inRead_ = 0;
+  sub_10026C2B0(self, descriptor, long, v5, self->streamHandle_);
+  self->inLength_ = v5;
+  objc_sync_exit(self);
+  return v5;
 }
 
 @end

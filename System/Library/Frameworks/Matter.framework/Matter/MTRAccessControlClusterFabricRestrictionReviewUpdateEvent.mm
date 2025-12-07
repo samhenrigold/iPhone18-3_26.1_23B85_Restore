@@ -42,8 +42,8 @@
   arlRequestFlowUrl = [(MTRAccessControlClusterFabricRestrictionReviewUpdateEvent *)self arlRequestFlowUrl];
   [(MTRAccessControlClusterFabricRestrictionReviewUpdateEvent *)v4 setArlRequestFlowUrl:arlRequestFlowUrl];
 
-  fabricIndex = [(MTRAccessControlClusterFabricRestrictionReviewUpdateEvent *)self fabricIndex];
-  [(MTRAccessControlClusterFabricRestrictionReviewUpdateEvent *)v4 setFabricIndex:fabricIndex];
+  v8 = objc_msgSend_fabricIndex(self);
+  [(MTRAccessControlClusterFabricRestrictionReviewUpdateEvent *)v4 setFabricIndex:v8];
 
   return v4;
 }

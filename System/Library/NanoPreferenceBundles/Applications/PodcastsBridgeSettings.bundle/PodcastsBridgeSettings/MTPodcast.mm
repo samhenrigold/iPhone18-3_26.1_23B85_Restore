@@ -3,11 +3,15 @@
 + (id)podcastUuidForFeedUrl:(id)url ctx:(id)ctx;
 + (id)podcastUuidForFeedUrlString:(id)string ctx:(id)ctx;
 + (id)sortDescriptorsForAllPodcasts;
++ (id)sortDescriptorsForDateAddedAscending:(BOOL)ascending;
++ (id)sortDescriptorsForFirstTimeAvailableAscending:(BOOL)ascending;
 + (id)sortDescriptorsForLastDatePlayed;
 + (id)sortDescriptorsForManualOrder;
 + (id)sortDescriptorsForNewestOnTop;
 + (id)sortDescriptorsForOldestOnTop;
++ (id)sortDescriptorsForRecentlyUpdatedAscending:(BOOL)ascending;
 + (id)sortDescriptorsForSortType:(int64_t)type;
++ (id)sortDescriptorsForTitle:(BOOL)title;
 - (BOOL)hasAtLeastOneSeason;
 - (BOOL)hasMultipleSeasons;
 - (BOOL)updateCursorPosition:(BOOL)position;
@@ -726,6 +730,50 @@ LABEL_18:
   v3 = [NSArray arrayWithObjects:&v5 count:1];
 
   return v3;
+}
+
++ (id)sortDescriptorsForRecentlyUpdatedAscending:(BOOL)ascending
+{
+  v3 = [NSSortDescriptor sortDescriptorWithKey:kPodcastFeedChangedDate ascending:ascending];
+  v7[0] = v3;
+  v4 = [NSSortDescriptor sortDescriptorWithKey:kPodcastTitle ascending:0 selector:"localizedStandardCompare:"];
+  v7[1] = v4;
+  v5 = [NSArray arrayWithObjects:v7 count:2];
+
+  return v5;
+}
+
++ (id)sortDescriptorsForFirstTimeAvailableAscending:(BOOL)ascending
+{
+  v3 = [NSSortDescriptor sortDescriptorWithKey:kPodcastLatestEpisodeAvailabilityTime ascending:ascending];
+  v7[0] = v3;
+  v4 = [NSSortDescriptor sortDescriptorWithKey:kPodcastTitle ascending:0 selector:"localizedStandardCompare:"];
+  v7[1] = v4;
+  v5 = [NSArray arrayWithObjects:v7 count:2];
+
+  return v5;
+}
+
++ (id)sortDescriptorsForDateAddedAscending:(BOOL)ascending
+{
+  v3 = [NSSortDescriptor sortDescriptorWithKey:kPodcastAddedDate ascending:ascending];
+  v7[0] = v3;
+  v4 = [NSSortDescriptor sortDescriptorWithKey:kPodcastTitle ascending:0 selector:"localizedStandardCompare:"];
+  v7[1] = v4;
+  v5 = [NSArray arrayWithObjects:v7 count:2];
+
+  return v5;
+}
+
++ (id)sortDescriptorsForTitle:(BOOL)title
+{
+  v3 = [NSSortDescriptor sortDescriptorWithKey:kPodcastTitle ascending:title selector:"localizedStandardCompare:"];
+  v7[0] = v3;
+  v4 = [NSSortDescriptor sortDescriptorWithKey:kPodcastUpdatedDate ascending:0];
+  v7[1] = v4;
+  v5 = [NSArray arrayWithObjects:v7 count:2];
+
+  return v5;
 }
 
 @end

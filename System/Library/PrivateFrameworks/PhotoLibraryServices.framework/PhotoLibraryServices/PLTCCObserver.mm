@@ -57,7 +57,7 @@
   if (!type)
   {
     v14 = identifier;
-    if (event == 3 && (([v8 isEqualToString:*MEMORY[0x1E69D55C8]] & 1) != 0 || objc_msgSend(v8, "isEqualToString:", *MEMORY[0x1E69D55D0])))
+    if (event == 3 && ((objc_msgSend_isEqualToString_(v8) & 1) != 0 || objc_msgSend_isEqualToString_(v8)))
     {
       _systemPhotoLibrary = [(PLTCCObserver *)self _systemPhotoLibrary];
       v16 = PLBackendGetLog();
@@ -82,12 +82,12 @@
     {
       if ((authorization_value & 0xFFFFFFFFFFFFFFFDLL) == 0 && authorization_value_type == 1)
       {
-        if ([v8 isEqualToString:*MEMORY[0x1E69D5500]])
+        if (objc_msgSend_isEqualToString_(v8))
         {
           v18 = [MEMORY[0x1E696AEC0] stringWithUTF8String:v14];
-          v19 = [v18 isEqualToString:*MEMORY[0x1E69BFF18]];
+          isEqualToString = objc_msgSend_isEqualToString_(v18);
 
-          if (v19)
+          if (isEqualToString)
           {
             v20 = PLBackendGetLog();
             if (os_log_type_enabled(v20, OS_LOG_TYPE_DEFAULT))

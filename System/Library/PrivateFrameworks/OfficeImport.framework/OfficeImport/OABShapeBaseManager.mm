@@ -39,7 +39,7 @@
   {
     Color = EshStroke::getColor((self->mShapeBase + 320));
 
-    return EshColor::EshColor(v4, Color);
+    EshColor::EshColor(v4, Color);
   }
 
   else
@@ -48,7 +48,7 @@
     if (mMasterManager)
     {
 
-      return [(OABPropertiesManager *)mMasterManager strokeFgColor];
+      return objc_msgSend_strokeFgColor(mMasterManager);
     }
 
     else
@@ -345,7 +345,7 @@
   {
     Color = EshShadow::getColor((self->mShapeBase + 344));
 
-    return EshColor::EshColor(v4, Color);
+    EshColor::EshColor(v4, Color);
   }
 
   else
@@ -354,7 +354,7 @@
     if (mMasterManager)
     {
 
-      return [(OABPropertiesManager *)mMasterManager shadowColor];
+      return objc_msgSend_shadowColor(mMasterManager);
     }
 
     else
@@ -511,7 +511,7 @@
   {
     Color2 = EshStroke::getColor2((self->mShapeBase + 320));
 
-    return EshColor::EshColor(v4, Color2);
+    EshColor::EshColor(v4, Color2);
   }
 
   else
@@ -520,7 +520,7 @@
     if (mMasterManager)
     {
 
-      return [(OABPropertiesManager *)mMasterManager strokeBgColor];
+      return objc_msgSend_strokeBgColor(mMasterManager);
     }
 
     else

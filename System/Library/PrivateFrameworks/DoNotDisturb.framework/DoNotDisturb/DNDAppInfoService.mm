@@ -76,69 +76,67 @@ void __48__DNDAppInfoService_serviceForClientIdentifier___block_invoke_2(uint64_
 
 - (id)getAppInfoForBundleIdentifier:(id)identifier error:(id *)error
 {
-  v31 = *MEMORY[0x277D85DE8];
+  v33 = *MEMORY[0x277D85DE8];
   identifierCopy = identifier;
   v7 = _os_activity_create(&dword_22002F000, "com.apple.donotdisturb.DNDAppInfoService.getAppInfoForBundleIdentifier", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v7, &state);
   v8 = [DNDRequestDetails detailsRepresentingNowWithClientIdentifier:self->_clientIdentifier];
-  v20 = 0;
-  v21 = &v20;
-  v22 = 0x3032000000;
-  v23 = __Block_byref_object_copy__10;
-  v24 = __Block_byref_object_dispose__10;
-  v25 = 0;
-  v17 = 0;
-  v18[0] = &v17;
-  v18[1] = 0x3032000000;
-  v18[2] = __Block_byref_object_copy__10;
-  v18[3] = __Block_byref_object_dispose__10;
-  v19 = 0;
+  v22 = 0;
+  v23 = &v22;
+  v24 = 0x3032000000;
+  v25 = __Block_byref_object_copy__10;
+  v26 = __Block_byref_object_dispose__10;
+  v27 = 0;
+  v16 = 0;
+  v17 = &v16;
+  v18 = 0x3032000000;
+  v19 = __Block_byref_object_copy__10;
+  v20 = __Block_byref_object_dispose__10;
+  v21 = 0;
   v9 = +[DNDRemoteServiceConnection sharedInstance];
-  v16[0] = MEMORY[0x277D85DD0];
-  v16[1] = 3221225472;
-  v16[2] = __57__DNDAppInfoService_getAppInfoForBundleIdentifier_error___block_invoke;
-  v16[3] = &unk_27843AD20;
-  v16[4] = &v20;
-  v16[5] = &v17;
-  [v9 getAppInfoForBundleIdentifier:identifierCopy withRequestDetails:v8 completionHandler:v16];
+  v15[0] = MEMORY[0x277D85DD0];
+  v15[1] = 3221225472;
+  v15[2] = __57__DNDAppInfoService_getAppInfoForBundleIdentifier_error___block_invoke;
+  v15[3] = &unk_27843AD20;
+  v15[4] = &v22;
+  v15[5] = &v16;
+  [v9 getAppInfoForBundleIdentifier:identifierCopy withRequestDetails:v8 completionHandler:v15];
 
   v10 = DNDLogGlobalConfiguration;
-  if (*(v18[0] + 40))
+  if (v17[5])
   {
     if (os_log_type_enabled(DNDLogGlobalConfiguration, OS_LOG_TYPE_ERROR))
     {
-      [DNDAppInfoService getAppInfoForBundleIdentifier:v8 error:v18];
+      [DNDAppInfoService getAppInfoForBundleIdentifier:error:];
     }
   }
 
   else if (os_log_type_enabled(DNDLogGlobalConfiguration, OS_LOG_TYPE_DEFAULT))
   {
-    v11 = v21[5];
+    v11 = v23[5];
     *buf = 138543619;
-    v28 = v8;
-    v29 = 2113;
-    v30 = v11;
+    v30 = v8;
+    v31 = 2113;
+    v32 = v11;
     _os_log_impl(&dword_22002F000, v10, OS_LOG_TYPE_DEFAULT, "[%{public}@] App info is %{private}@", buf, 0x16u);
   }
 
   if (error)
   {
-    v12 = *(v18[0] + 40);
+    v12 = v17[5];
     if (v12)
     {
       *error = v12;
     }
   }
 
-  v13 = v21[5];
-  _Block_object_dispose(&v17, 8);
+  v13 = v23[5];
+  _Block_object_dispose(&v16, 8);
 
-  _Block_object_dispose(&v20, 8);
+  _Block_object_dispose(&v22, 8);
   os_activity_scope_leave(&state);
-
-  v14 = *MEMORY[0x277D85DE8];
 
   return v13;
 }
@@ -172,101 +170,99 @@ void __57__DNDAppInfoService_getAppInfoForBundleIdentifier_error___block_invoke(
 
 - (id)getAppInfoForBundleIdentifiers:(id)identifiers error:(id *)error
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v34 = *MEMORY[0x277D85DE8];
   identifiersCopy = identifiers;
   v7 = _os_activity_create(&dword_22002F000, "com.apple.donotdisturb.DNDAppInfoService.getAppInfoForBundleIdentifiers", MEMORY[0x277D86210], OS_ACTIVITY_FLAG_DEFAULT);
   state.opaque[0] = 0;
   state.opaque[1] = 0;
   os_activity_scope_enter(v7, &state);
   v8 = [DNDRequestDetails detailsRepresentingNowWithClientIdentifier:self->_clientIdentifier];
-  v21 = 0;
-  v22 = &v21;
-  v23 = 0x3032000000;
-  v24 = __Block_byref_object_copy__10;
-  v25 = __Block_byref_object_dispose__10;
-  v26 = 0;
-  v18 = 0;
-  v19[0] = &v18;
-  v19[1] = 0x3032000000;
-  v19[2] = __Block_byref_object_copy__10;
-  v19[3] = __Block_byref_object_dispose__10;
-  v20 = 0;
+  v23 = 0;
+  v24 = &v23;
+  v25 = 0x3032000000;
+  v26 = __Block_byref_object_copy__10;
+  v27 = __Block_byref_object_dispose__10;
+  v28 = 0;
+  v17 = 0;
+  v18 = &v17;
+  v19 = 0x3032000000;
+  v20 = __Block_byref_object_copy__10;
+  v21 = __Block_byref_object_dispose__10;
+  v22 = 0;
   v9 = +[DNDRemoteServiceConnection sharedInstance];
   allObjects = [identifiersCopy allObjects];
-  v17[0] = MEMORY[0x277D85DD0];
-  v17[1] = 3221225472;
-  v17[2] = __58__DNDAppInfoService_getAppInfoForBundleIdentifiers_error___block_invoke;
-  v17[3] = &unk_27843A5C0;
-  v17[4] = &v21;
-  v17[5] = &v18;
-  [v9 getAppInfoForBundleIdentifiers:allObjects withRequestDetails:v8 completionHandler:v17];
+  v16[0] = MEMORY[0x277D85DD0];
+  v16[1] = 3221225472;
+  v16[2] = __58__DNDAppInfoService_getAppInfoForBundleIdentifiers_error___block_invoke;
+  v16[3] = &unk_27843A5C0;
+  v16[4] = &v23;
+  v16[5] = &v17;
+  [v9 getAppInfoForBundleIdentifiers:allObjects withRequestDetails:v8 completionHandler:v16];
 
   v11 = DNDLogGlobalConfiguration;
-  if (*(v19[0] + 40))
+  if (v18[5])
   {
     if (os_log_type_enabled(DNDLogGlobalConfiguration, OS_LOG_TYPE_ERROR))
     {
-      [DNDAppInfoService getAppInfoForBundleIdentifier:v8 error:v19];
+      [DNDAppInfoService getAppInfoForBundleIdentifier:error:];
     }
   }
 
   else if (os_log_type_enabled(DNDLogGlobalConfiguration, OS_LOG_TYPE_DEFAULT))
   {
-    v12 = v22[5];
+    v12 = v24[5];
     *buf = 138543619;
-    v29 = v8;
-    v30 = 2113;
-    v31 = v12;
+    v31 = v8;
+    v32 = 2113;
+    v33 = v12;
     _os_log_impl(&dword_22002F000, v11, OS_LOG_TYPE_DEFAULT, "[%{public}@] App info is %{private}@", buf, 0x16u);
   }
 
   if (error)
   {
-    v13 = *(v19[0] + 40);
+    v13 = v18[5];
     if (v13)
     {
       *error = v13;
     }
   }
 
-  v14 = v22[5];
-  _Block_object_dispose(&v18, 8);
+  v14 = v24[5];
+  _Block_object_dispose(&v17, 8);
 
-  _Block_object_dispose(&v21, 8);
+  _Block_object_dispose(&v23, 8);
   os_activity_scope_leave(&state);
-
-  v15 = *MEMORY[0x277D85DE8];
 
   return v14;
 }
 
 void __58__DNDAppInfoService_getAppInfoForBundleIdentifiers_error___block_invoke(uint64_t a1, void *a2, void *a3)
 {
-  v32 = *MEMORY[0x277D85DE8];
+  v31 = *MEMORY[0x277D85DE8];
   v4 = a2;
-  v24 = a3;
+  v23 = a3;
   v5 = [MEMORY[0x277CBEB38] dictionary];
+  v26 = 0u;
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30 = 0u;
   obj = v4;
-  v6 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+  v6 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v28;
+    v8 = *v27;
     do
     {
       v9 = 0;
       do
       {
-        if (*v28 != v8)
+        if (*v27 != v8)
         {
           objc_enumerationMutation(obj);
         }
 
-        v10 = *(*(&v27 + 1) + 8 * v9);
+        v10 = *(*(&v26 + 1) + 8 * v9);
         v11 = [MEMORY[0x277CCA8D8] dnd_doNotDisturbLocalizationBundle];
         v12 = [v10 displayName];
         v13 = [v11 localizedStringForKey:v12 value:&stru_2833C9B78 table:0];
@@ -287,7 +283,7 @@ void __58__DNDAppInfoService_getAppInfoForBundleIdentifiers_error___block_invoke
       }
 
       while (v7 != v9);
-      v7 = [obj countByEnumeratingWithState:&v27 objects:v31 count:16];
+      v7 = [obj countByEnumeratingWithState:&v26 objects:v30 count:16];
     }
 
     while (v7);
@@ -300,9 +296,7 @@ void __58__DNDAppInfoService_getAppInfoForBundleIdentifiers_error___block_invoke
 
   v21 = *(*(a1 + 40) + 8);
   v22 = *(v21 + 40);
-  *(v21 + 40) = v24;
-
-  v23 = *MEMORY[0x277D85DE8];
+  *(v21 + 40) = v23;
 }
 
 - (id)_initWithClientIdentifier:(id)identifier
@@ -324,15 +318,6 @@ void __58__DNDAppInfoService_getAppInfoForBundleIdentifiers_error___block_invoke
   }
 
   return v5;
-}
-
-- (void)getAppInfoForBundleIdentifier:(uint64_t)a1 error:(uint64_t)a2 .cold.1(uint64_t a1, uint64_t a2)
-{
-  v6 = *MEMORY[0x277D85DE8];
-  v2 = *(*a2 + 40);
-  OUTLINED_FUNCTION_0_2();
-  OUTLINED_FUNCTION_0(&dword_22002F000, v3, v4, "[%{public}@] Error when getting app info, error='%{public}@'");
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 @end

@@ -46,28 +46,26 @@
 - (BOOL)addSelfToBuffer:(id *)buffer bufferLength:(unint64_t)length withCompletedSerializationDictionary:(id)dictionary
 {
   selfCopy = self;
-  v60 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if ([(SADispatchQueue *)self sizeInBytesForSerializedVersion]!= length)
   {
-    v18 = *__error();
-    v19 = _sa_logt();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_ERROR))
+    v17 = *__error();
+    v18 = _sa_logt();
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
     {
-      v20 = [selfCopy debugDescription];
+      v19 = [selfCopy debugDescription];
       *buf = 136315650;
-      uTF8String = [v20 UTF8String];
-      v58 = 2048;
-      *v59 = [selfCopy sizeInBytesForSerializedVersion];
-      *&v59[8] = 2048;
-      *&v59[10] = length;
-      _os_log_error_impl(&dword_1E0E2F000, v19, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
+      uTF8String = [v19 UTF8String];
+      v36 = 2048;
+      *v37 = [selfCopy sizeInBytesForSerializedVersion];
+      *&v37[8] = 2048;
+      *&v37[10] = length;
+      _os_log_error_impl(&dword_1E0E2F000, v18, OS_LOG_TYPE_ERROR, "%s: size %lu != buffer length %lu", buf, 0x20u);
     }
 
-    *__error() = v18;
-    v21 = [selfCopy debugDescription];
-    uTF8String2 = [v21 UTF8String];
-    [selfCopy sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(5457, "%s: size %lu != buffer length %lu", v23, v24, v25, v26, v27, v28, uTF8String2);
+    *__error() = v17;
+    v20 = [selfCopy debugDescription];
+    _SASetCrashLogMessage(5457, "%s: size %lu != buffer length %lu", [v20 UTF8String], objc_msgSend(selfCopy, "sizeInBytesForSerializedVersion"), length);
 
     _os_crash();
     __break(1u);
@@ -84,55 +82,51 @@
   {
 LABEL_8:
     v15 = *__error();
-    v29 = _sa_logt();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v21 = _sa_logt();
+    if (os_log_type_enabled(v21, OS_LOG_TYPE_ERROR))
     {
-      v30 = [selfCopy debugDescription];
-      uTF8String3 = [v30 UTF8String];
+      v22 = [selfCopy debugDescription];
+      uTF8String2 = [v22 UTF8String];
       states2 = [selfCopy states];
-      v33 = [states2 count];
+      v25 = [states2 count];
       *buf = 136315394;
-      uTF8String = uTF8String3;
-      v58 = 2048;
-      *v59 = v33;
-      _os_log_error_impl(&dword_1E0E2F000, v29, OS_LOG_TYPE_ERROR, "%s: %lu dispatchQueueStates", buf, 0x16u);
+      uTF8String = uTF8String2;
+      v36 = 2048;
+      *v37 = v25;
+      _os_log_error_impl(&dword_1E0E2F000, v21, OS_LOG_TYPE_ERROR, "%s: %lu dispatchQueueStates", buf, 0x16u);
     }
 
     *__error() = v15;
     buffer = [selfCopy debugDescription];
-    uTF8String4 = [($4D1F5B0DD0F603BB13AEFAC7E2434278 *)buffer UTF8String];
+    uTF8String3 = [($4D1F5B0DD0F603BB13AEFAC7E2434278 *)buffer UTF8String];
     selfCopy = [selfCopy states];
-    [selfCopy count];
-    _SASetCrashLogMessage(5467, "%s: %lu dispatchQueueStates", v35, v36, v37, v38, v39, v40, uTF8String4);
+    _SASetCrashLogMessage(5467, "%s: %lu dispatchQueueStates", uTF8String3, [selfCopy count]);
 
     _os_crash();
     __break(1u);
 LABEL_11:
-    v41 = *__error();
-    v42 = _sa_logt();
-    if (os_log_type_enabled(v42, OS_LOG_TYPE_ERROR))
+    v27 = *__error();
+    v28 = _sa_logt();
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_ERROR))
     {
-      v43 = [selfCopy debugDescription];
-      uTF8String5 = [v43 UTF8String];
-      v45 = *(&buffer->var2 + 2);
+      v29 = [selfCopy debugDescription];
+      uTF8String4 = [v29 UTF8String];
+      v31 = *(&buffer->var2 + 2);
       sizeInBytesForSerializedVersion = [selfCopy sizeInBytesForSerializedVersion];
       *buf = 136315906;
-      uTF8String = uTF8String5;
-      v58 = 1024;
-      *v59 = v45;
-      *&v59[4] = 2048;
-      *&v59[6] = v15;
-      *&v59[14] = 2048;
-      *&v59[16] = sizeInBytesForSerializedVersion;
-      _os_log_error_impl(&dword_1E0E2F000, v42, OS_LOG_TYPE_ERROR, "%s: after serializing (with %u dispatchQueueStates), ended with length %ld, should be %lu", buf, 0x26u);
+      uTF8String = uTF8String4;
+      v36 = 1024;
+      *v37 = v31;
+      *&v37[4] = 2048;
+      *&v37[6] = v15;
+      *&v37[14] = 2048;
+      *&v37[16] = sizeInBytesForSerializedVersion;
+      _os_log_error_impl(&dword_1E0E2F000, v28, OS_LOG_TYPE_ERROR, "%s: after serializing (with %u dispatchQueueStates), ended with length %ld, should be %lu", buf, 0x26u);
     }
 
-    *__error() = v41;
-    v47 = [selfCopy debugDescription];
-    uTF8String6 = [v47 UTF8String];
-    v49 = *(&buffer->var2 + 2);
-    [selfCopy sizeInBytesForSerializedVersion];
-    _SASetCrashLogMessage(5474, "%s: after serializing (with %u dispatchQueueStates), ended with length %ld, should be %lu", v50, v51, v52, v53, v54, v55, uTF8String6);
+    *__error() = v27;
+    v33 = [selfCopy debugDescription];
+    _SASetCrashLogMessage(5474, "%s: after serializing (with %u dispatchQueueStates), ended with length %ld, should be %lu", [v33 UTF8String], *(&buffer->var2 + 2), v15, objc_msgSend(selfCopy, "sizeInBytesForSerializedVersion"));
 
     _os_crash();
     __break(1u);
@@ -153,43 +147,42 @@ LABEL_11:
   }
 
   *(&buffer->var3 + v14) = SASerializableIndexForPointerFromSerializationDictionary(*(selfCopy + 32), dictionary);
-  v16 = *MEMORY[0x1E69E9840];
   return 1;
 }
 
 - (void)addSelfToSerializationDictionary:(id)dictionary
 {
-  v18 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   classDictionaryKey = [objc_opt_class() classDictionaryKey];
   v6 = SASerializableAddInstanceToSerializationDictionaryWithClassKey(dictionary, self, classDictionaryKey);
 
   if (v6)
   {
-    v15 = 0u;
-    v16 = 0u;
-    v13 = 0u;
     v14 = 0u;
+    v15 = 0u;
+    v12 = 0u;
+    v13 = 0u;
     states = [(SARecipe *)self states];
-    v8 = [states countByEnumeratingWithState:&v13 objects:v17 count:16];
+    v8 = [states countByEnumeratingWithState:&v12 objects:v16 count:16];
     if (v8)
     {
       v9 = v8;
-      v10 = *v14;
+      v10 = *v13;
       do
       {
         v11 = 0;
         do
         {
-          if (*v14 != v10)
+          if (*v13 != v10)
           {
             objc_enumerationMutation(states);
           }
 
-          [*(*(&v13 + 1) + 8 * v11++) addSelfToSerializationDictionary:dictionary];
+          [*(*(&v12 + 1) + 8 * v11++) addSelfToSerializationDictionary:dictionary];
         }
 
         while (v9 != v11);
-        v9 = [states countByEnumeratingWithState:&v13 objects:v17 count:16];
+        v9 = [states countByEnumeratingWithState:&v12 objects:v16 count:16];
       }
 
       while (v9);
@@ -197,13 +190,11 @@ LABEL_11:
 
     [(NSString *)self->_dispatchQueueLabel addSelfToSerializationDictionary:dictionary];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 + (id)newInstanceWithoutReferencesFromSerializedBuffer:(const void *)buffer bufferLength:(unint64_t)length
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v16 = *MEMORY[0x1E69E9840];
   if (*buffer >= 3u)
   {
     goto LABEL_11;
@@ -211,19 +202,19 @@ LABEL_11:
 
   if (length <= 0xF)
   {
-    v8 = *__error();
+    v7 = *__error();
     bufferCopy = _sa_logt();
     if (os_log_type_enabled(bufferCopy, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy2 = length;
-      v28 = 2048;
-      v29 = 16;
+      v14 = 2048;
+      v15 = 16;
       _os_log_error_impl(&dword_1E0E2F000, bufferCopy, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SADispatchQueue struct %lu", buf, 0x16u);
     }
 
-    *__error() = v8;
-    _SASetCrashLogMessage(5497, "bufferLength %lu < serialized SADispatchQueue struct %lu", v9, v10, v11, v12, v13, v14, length);
+    *__error() = v7;
+    _SASetCrashLogMessage(5497, "bufferLength %lu < serialized SADispatchQueue struct %lu", length, 16);
     _os_crash();
     __break(1u);
     goto LABEL_8;
@@ -233,37 +224,35 @@ LABEL_11:
   if (8 * *(buffer + 10) + 16 > length)
   {
 LABEL_8:
-    v15 = *__error();
-    v16 = _sa_logt();
-    if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+    v8 = *__error();
+    v9 = _sa_logt();
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_ERROR))
     {
-      v17 = *(bufferCopy + 10);
+      v10 = *(bufferCopy + 10);
       *buf = 134218240;
       lengthCopy2 = length;
-      v28 = 1024;
-      LODWORD(v29) = v17;
-      _os_log_error_impl(&dword_1E0E2F000, v16, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SADispatchQueue struct with %u dispatchQueueStates", buf, 0x12u);
+      v14 = 1024;
+      LODWORD(v15) = v10;
+      _os_log_error_impl(&dword_1E0E2F000, v9, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SADispatchQueue struct with %u dispatchQueueStates", buf, 0x12u);
     }
 
-    *__error() = v15;
-    v25 = *(bufferCopy + 10);
-    _SASetCrashLogMessage(5498, "bufferLength %lu < serialized SADispatchQueue struct with %u dispatchQueueStates", v18, v19, v20, v21, v22, v23, length);
+    *__error() = v8;
+    _SASetCrashLogMessage(5498, "bufferLength %lu < serialized SADispatchQueue struct with %u dispatchQueueStates", length, *(bufferCopy + 10));
     _os_crash();
     __break(1u);
 LABEL_11:
-    v24 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SADispatchQueue version" userInfo:0];
-    objc_exception_throw(v24);
+    v11 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SADispatchQueue version" userInfo:0];
+    objc_exception_throw(v11);
   }
 
   result = [SADispatchQueue dispatchQueueWithId:?];
   *(result + 24) = *(bufferCopy + 14) & 1;
-  v7 = *MEMORY[0x1E69E9840];
   return result;
 }
 
 - (void)populateReferencesUsingBuffer:(const void *)buffer bufferLength:(unint64_t)length andDeserializationDictionary:(id)dictionary andDataBufferDictionary:(id)bufferDictionary
 {
-  *&v55[13] = *MEMORY[0x1E69E9840];
+  *&v33[13] = *MEMORY[0x1E69E9840];
   if (*buffer >= 4u)
   {
     goto LABEL_21;
@@ -271,19 +260,19 @@ LABEL_11:
 
   if (length <= 0xF)
   {
-    v24 = *__error();
+    v22 = *__error();
     bufferCopy = _sa_logt();
     if (os_log_type_enabled(bufferCopy, OS_LOG_TYPE_ERROR))
     {
       *buf = 134218240;
       lengthCopy3 = length;
-      v54 = 2048;
-      *v55 = 16;
+      v32 = 2048;
+      *v33 = 16;
       _os_log_error_impl(&dword_1E0E2F000, bufferCopy, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SADispatchQueue struct %lu", buf, 0x16u);
     }
 
-    *__error() = v24;
-    _SASetCrashLogMessage(5511, "bufferLength %lu < serialized SADispatchQueue struct %lu", v25, v26, v27, v28, v29, v30, length);
+    *__error() = v22;
+    _SASetCrashLogMessage(5511, "bufferLength %lu < serialized SADispatchQueue struct %lu", length, 16);
     _os_crash();
     __break(1u);
     goto LABEL_15;
@@ -296,48 +285,46 @@ LABEL_11:
   if (v6 > length)
   {
 LABEL_15:
-    v31 = *__error();
-    v32 = _sa_logt();
-    if (os_log_type_enabled(v32, OS_LOG_TYPE_ERROR))
+    v23 = *__error();
+    v24 = _sa_logt();
+    if (os_log_type_enabled(v24, OS_LOG_TYPE_ERROR))
     {
-      v33 = *(bufferCopy + 10);
+      v25 = *(bufferCopy + 10);
       *buf = 134218496;
       lengthCopy3 = length;
-      v54 = 1024;
-      *v55 = v33;
-      v55[2] = 2048;
-      *&v55[3] = v6;
-      _os_log_error_impl(&dword_1E0E2F000, v32, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SADispatchQueue struct v1 with %u dispatchQueueStates (%llu)", buf, 0x1Cu);
+      v32 = 1024;
+      *v33 = v25;
+      v33[2] = 2048;
+      *&v33[3] = v6;
+      _os_log_error_impl(&dword_1E0E2F000, v24, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SADispatchQueue struct v1 with %u dispatchQueueStates (%llu)", buf, 0x1Cu);
     }
 
-    *__error() = v31;
-    v50 = *(bufferCopy + 10);
-    _SASetCrashLogMessage(5513, "bufferLength %lu < serialized SADispatchQueue struct v1 with %u dispatchQueueStates (%llu)", v34, v35, v36, v37, v38, v39, length);
+    *__error() = v23;
+    _SASetCrashLogMessage(5513, "bufferLength %lu < serialized SADispatchQueue struct v1 with %u dispatchQueueStates (%llu)", length, *(bufferCopy + 10), v6);
     _os_crash();
     __break(1u);
 LABEL_18:
-    v40 = *__error();
-    v41 = _sa_logt();
-    if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+    v26 = *__error();
+    v27 = _sa_logt();
+    if (os_log_type_enabled(v27, OS_LOG_TYPE_ERROR))
     {
-      v42 = *(bufferCopy + 10);
+      v28 = *(bufferCopy + 10);
       *buf = 134218496;
       lengthCopy3 = length;
-      v54 = 1024;
-      *v55 = v42;
-      v55[2] = 2048;
-      *&v55[3] = v7;
-      _os_log_error_impl(&dword_1E0E2F000, v41, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SADispatchQueue struct v2 with %u dispatchQueueStates (%llu)", buf, 0x1Cu);
+      v32 = 1024;
+      *v33 = v28;
+      v33[2] = 2048;
+      *&v33[3] = v7;
+      _os_log_error_impl(&dword_1E0E2F000, v27, OS_LOG_TYPE_ERROR, "bufferLength %lu < serialized SADispatchQueue struct v2 with %u dispatchQueueStates (%llu)", buf, 0x1Cu);
     }
 
-    *__error() = v40;
-    v51 = *(bufferCopy + 10);
-    _SASetCrashLogMessage(5520, "bufferLength %lu < serialized SADispatchQueue struct v2 with %u dispatchQueueStates (%llu)", v43, v44, v45, v46, v47, v48, length);
+    *__error() = v26;
+    _SASetCrashLogMessage(5520, "bufferLength %lu < serialized SADispatchQueue struct v2 with %u dispatchQueueStates (%llu)", length, *(bufferCopy + 10), v7);
     _os_crash();
     __break(1u);
 LABEL_21:
-    v49 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SADispatchQueue version" userInfo:0];
-    objc_exception_throw(v49);
+    v29 = [SAException exceptionWithName:@"Decoding failure" reason:@"Unknown SADispatchQueue version" userInfo:0];
+    objc_exception_throw(v29);
   }
 
   v14 = buffer + 16;
@@ -348,24 +335,22 @@ LABEL_21:
     objc_setProperty_atomic(self, v16, v17, 8);
   }
 
-  if (*(bufferCopy + 1) < 2u)
+  if (*(bufferCopy + 1) >= 2u)
   {
-    v23 = *MEMORY[0x1E69E9840];
-    return;
-  }
+    v7 = v10 + 24;
+    if (v10 + 24 <= length)
+    {
+      v18 = *&v14[8 * *(bufferCopy + 10)];
+      v19 = objc_opt_class();
+      v20 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v18, dictionary, bufferDictionary, v19, 0);
+      dispatchQueueLabel = self->_dispatchQueueLabel;
+      self->_dispatchQueueLabel = v20;
 
-  v7 = v10 + 24;
-  if (v10 + 24 > length)
-  {
+      return;
+    }
+
     goto LABEL_18;
   }
-
-  v18 = *&v14[8 * *(bufferCopy + 10)];
-  v19 = objc_opt_class();
-  v20 = _SASerializableInstanceForIndexUsingDeserializationDictionaryAndDataBufferDictionaryAndClass(v18, dictionary, bufferDictionary, v19, 0);
-  dispatchQueueLabel = self->_dispatchQueueLabel;
-  self->_dispatchQueueLabel = v20;
-  v22 = *MEMORY[0x1E69E9840];
 }
 
 @end

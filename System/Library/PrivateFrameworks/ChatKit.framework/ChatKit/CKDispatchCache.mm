@@ -85,14 +85,14 @@
 
 - (id)cachedObjectForKey:(id)key
 {
-  v24 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   keyCopy = key;
-  v14 = 0;
-  v15 = &v14;
-  v16 = 0x3032000000;
-  v17 = __Block_byref_object_copy_;
-  v18 = __Block_byref_object_dispose_;
-  v19 = 0;
+  v20 = 0;
+  v21 = &v20;
+  v22 = 0x3032000000;
+  v23 = __Block_byref_object_copy_;
+  v24 = __Block_byref_object_dispose_;
+  v25 = 0;
   if ([keyCopy length])
   {
     lockQueue = self->_lockQueue;
@@ -100,10 +100,10 @@
     block[1] = 3221225472;
     block[2] = __38__CKDispatchCache_cachedObjectForKey___block_invoke;
     block[3] = &unk_1E72EB858;
-    v13 = &v14;
+    v19 = &v20;
     block[4] = self;
     v6 = keyCopy;
-    v12 = v6;
+    v18 = v6;
     dispatch_sync(lockQueue, block);
     if (IMOSLoggingEnabled())
     {
@@ -111,7 +111,7 @@
       v7 = OSLogHandleForIMFoundationCategory();
       if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
       {
-        if (v15[5])
+        if (v21[5])
         {
           v8 = @"YES";
         }
@@ -122,23 +122,23 @@
         }
 
         *buf = 138412546;
-        v21 = v6;
-        v22 = 2112;
-        v23 = v8;
+        v27 = v6;
+        v28 = 2112;
+        v29 = v8;
         _os_log_impl(&dword_19020E000, v7, OS_LOG_TYPE_DEBUG, "Dispatch cache lookup [%@]: %@", buf, 0x16u);
       }
     }
 
     if (os_log_shim_legacy_logging_enabled() && _CKShouldLog())
     {
-      _CKLog();
+      _CKLog(2u, @"Dispatch cache lookup [%@]: %@", v9, v10, v11, v12, v13, v14, v6);
     }
   }
 
-  v9 = v15[5];
-  _Block_object_dispose(&v14, 8);
+  v15 = v21[5];
+  _Block_object_dispose(&v20, 8);
 
-  return v9;
+  return v15;
 }
 
 void __38__CKDispatchCache_cachedObjectForKey___block_invoke(void *a1)

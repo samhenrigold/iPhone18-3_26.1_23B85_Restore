@@ -493,7 +493,7 @@
   v11 = [(CIDynamicRender *)self sceneLuminance:self->inputImage];
   v12 = [(CIDynamicRender *)self captureType:self->inputImage];
   memset(&v128, 0, 40);
-  [(CIDynamicRender *)self calcColorStats:v10];
+  objc_msgSend_calcColorStats_(self);
   v13 = self->inputImage;
   smartToneStatistics = [(CIImage *)v10 smartToneStatistics];
   localLightStatisticsNoProxy = [(CIImage *)v10 localLightStatisticsNoProxy];

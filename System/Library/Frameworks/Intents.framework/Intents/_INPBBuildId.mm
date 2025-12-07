@@ -143,7 +143,6 @@ LABEL_13:
 
   if (buildNumber)
   {
-    buildNumber = self->_buildNumber;
     PBDataWriterWriteStringField();
   }
 
@@ -151,7 +150,6 @@ LABEL_13:
 
   if (versionNumber)
   {
-    versionNumber = self->_versionNumber;
     PBDataWriterWriteStringField();
   }
 }

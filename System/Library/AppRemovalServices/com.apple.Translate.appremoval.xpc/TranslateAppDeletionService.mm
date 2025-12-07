@@ -22,7 +22,7 @@
 
   selfCopy = self;
   sub_10000228C(v4, v5);
-  sub_100002440(v4);
+  sub_100002440(v4, v5);
 }
 
 - (_TtC30com_apple_Translate_appremoval27TranslateAppDeletionService)init

@@ -180,7 +180,7 @@ LABEL_10:
 
 - (NSString)key
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v12 = *MEMORY[0x277D85DE8];
   record = [(HDCloudSyncRecord *)self record];
   recordID = [record recordID];
   recordName = [recordID recordName];
@@ -197,15 +197,13 @@ LABEL_10:
     v8 = *MEMORY[0x277CCC328];
     if (os_log_type_enabled(*MEMORY[0x277CCC328], OS_LOG_TYPE_FAULT))
     {
-      v11 = 138412290;
+      v10 = 138412290;
       selfCopy = self;
-      _os_log_fault_impl(&dword_228986000, v8, OS_LOG_TYPE_FAULT, "Error fetching key from State Sync record %@", &v11, 0xCu);
+      _os_log_fault_impl(&dword_228986000, v8, OS_LOG_TYPE_FAULT, "Error fetching key from State Sync record %@", &v10, 0xCu);
     }
 
     lastObject = 0;
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 
   return lastObject;
 }
@@ -222,7 +220,7 @@ LABEL_10:
 
 - (void)updateStateData:(id)data
 {
-  v18 = *MEMORY[0x277D85DE8];
+  v16 = *MEMORY[0x277D85DE8];
   dataCopy = data;
   if ([dataCopy length] <= 0x100000)
   {
@@ -230,15 +228,14 @@ LABEL_10:
 
     record = [(HDCloudSyncRecord *)self record];
     [record setObject:0 forKeyedSubscript:@"CloudSyncStateAsset"];
-    v9 = *MEMORY[0x277D85DE8];
   }
 
   else
   {
-    v13 = 0;
-    v5 = [(HDCloudSyncStateRecord *)self _createAssetWithStateData:dataCopy error:&v13];
+    v11 = 0;
+    v5 = [(HDCloudSyncStateRecord *)self _createAssetWithStateData:dataCopy error:&v11];
 
-    v6 = v13;
+    v6 = v11;
     v7 = v6;
     if (v5 || !v6)
     {
@@ -256,13 +253,11 @@ LABEL_10:
       {
         *buf = 138543618;
         selfCopy = self;
-        v16 = 2114;
-        v17 = v7;
+        v14 = 2114;
+        v15 = v7;
         _os_log_error_impl(&dword_228986000, v8, OS_LOG_TYPE_ERROR, "%{public}@ Failed to update asset on HDCloudSyncStateRecord, %{public}@", buf, 0x16u);
       }
     }
-
-    v11 = *MEMORY[0x277D85DE8];
   }
 }
 

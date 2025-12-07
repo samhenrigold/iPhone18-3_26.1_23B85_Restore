@@ -114,9 +114,9 @@
       {
         text3 = [(UIDictationPhrase *)self text];
         text4 = [(UIDictationPhrase *)v5 text];
-        v11 = [text3 isEqual:text4];
+        isEqual = objc_msgSend_isEqual_(text3);
 
-        if (!v11)
+        if (!isEqual)
         {
           goto LABEL_11;
         }
@@ -133,7 +133,7 @@
       {
         alternativeInterpretations3 = [(UIDictationPhrase *)self alternativeInterpretations];
         alternativeInterpretations4 = [(UIDictationPhrase *)v5 alternativeInterpretations];
-        v18 = [alternativeInterpretations3 isEqual:alternativeInterpretations4];
+        v18 = objc_msgSend_isEqual_(alternativeInterpretations3);
 
         if (!v18)
         {

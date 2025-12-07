@@ -1,4 +1,5 @@
 @interface CDXSynchronizeExtensionsOperation
+- (CDXSynchronizeExtensionsOperation)initWithStore:(id)store firstUnlockStatus:(BOOL)status;
 - (CDXSynchronizeExtensionsOperation)initWithStore:(id)store firstUnlockStatus:(BOOL)status extensionsDataSource:(id)source identificationEntriesChangedNotifier:(id)notifier queue:(id)queue;
 - (id)storedExtensionIdentifiersPassingTest:(id)test error:(id *)error;
 - (void)performWithCompletionHandler:(id)handler;
@@ -30,6 +31,19 @@
   }
 
   return v18;
+}
+
+- (CDXSynchronizeExtensionsOperation)initWithStore:(id)store firstUnlockStatus:(BOOL)status
+{
+  statusCopy = status;
+  storeCopy = store;
+  v7 = dispatch_queue_create("com.apple.callkit.calldirectory.synchronizeextensionsoperation", 0);
+  v8 = objc_alloc_init(CXCallDirectoryNSExtensionManager);
+  v9 = [CDXNotifydNotifier alloc];
+  v10 = [(CDXNotifydNotifier *)v9 initWithNotificationName:CXCallDirectoryManagerIdentificationEntriesChangedNotification];
+  v11 = [(CDXSynchronizeExtensionsOperation *)self initWithStore:storeCopy firstUnlockStatus:statusCopy extensionsDataSource:v8 identificationEntriesChangedNotifier:v10 queue:v7];
+
+  return v11;
 }
 
 - (void)performWithCompletionHandler:(id)handler

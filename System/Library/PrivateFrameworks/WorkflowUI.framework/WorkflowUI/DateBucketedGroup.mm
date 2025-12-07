@@ -8,7 +8,7 @@
 {
   changeCopy = change;
   selfCopy = self;
-  sub_274789938();
+  sub_274789938(selfCopy);
 }
 
 @end

@@ -36,145 +36,143 @@
 
 - (double)featuredScoreForDescriptor:(id)descriptor
 {
-  v43 = *MEMORY[0x277D85DE8];
+  v45 = *MEMORY[0x277D85DE8];
   v4 = COERCE_DOUBLE(descriptor);
-  v5 = __atxlog_handle_lock_screen();
+  v5 = __atxlog_handle_lock_screen(*&v4);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEFAULT))
   {
     *buf = 136315394;
-    v33 = "[ATXFaceSuggestionScorer featuredScoreForDescriptor:]";
-    v34 = 2112;
-    v35 = v4;
+    v35 = "[ATXFaceSuggestionScorer featuredScoreForDescriptor:]";
+    v36 = 2112;
+    v37 = v4;
     _os_log_impl(&dword_2263AA000, v5, OS_LOG_TYPE_DEFAULT, "%s: %@", buf, 0x16u);
   }
 
   v6 = [(ATXFaceSuggestionScorer *)self _mockScoreForDescriptor:*&v4];
+  v7 = v6;
   if (v6)
   {
-    v7 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = __atxlog_handle_lock_screen(v6);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      [v6 doubleValue];
+      [v7 doubleValue];
       *buf = 136315650;
-      v33 = "[ATXFaceSuggestionScorer featuredScoreForDescriptor:]";
-      v34 = 2048;
-      v35 = v8;
-      v36 = 2112;
-      v37 = v4;
-      _os_log_impl(&dword_2263AA000, v7, OS_LOG_TYPE_DEFAULT, "%s: using mocked score of %f for descriptor %@", buf, 0x20u);
+      v35 = "[ATXFaceSuggestionScorer featuredScoreForDescriptor:]";
+      v36 = 2048;
+      v37 = v9;
+      v38 = 2112;
+      v39 = v4;
+      _os_log_impl(&dword_2263AA000, v8, OS_LOG_TYPE_DEFAULT, "%s: using mocked score of %f for descriptor %@", buf, 0x20u);
     }
 
-    [v6 doubleValue];
-    v10 = v9;
+    [v7 doubleValue];
+    v11 = v10;
   }
 
   else
   {
+    v32 = 0u;
+    v33 = 0u;
     v30 = 0u;
     v31 = 0u;
-    v28 = 0u;
-    v29 = 0u;
-    v11 = self->_signals;
-    v12 = [(NSSet *)v11 countByEnumeratingWithState:&v28 objects:v42 count:16];
-    if (v12)
+    v12 = self->_signals;
+    v13 = [(NSSet *)v12 countByEnumeratingWithState:&v30 objects:v44 count:16];
+    if (v13)
     {
-      v13 = v12;
-      v14 = *v29;
-      v10 = 0.0;
+      v14 = v13;
+      v15 = *v31;
+      v11 = 0.0;
       do
       {
-        for (i = 0; i != v13; ++i)
+        for (i = 0; i != v14; ++i)
         {
-          if (*v29 != v14)
+          if (*v31 != v15)
           {
-            objc_enumerationMutation(v11);
+            objc_enumerationMutation(v12);
           }
 
-          v16 = *(*(&v28 + 1) + 8 * i);
-          [v16 weight];
-          v18 = v17;
-          [v16 valueForDescriptor:*&v4];
-          v20 = v19;
-          v21 = v18 * v19;
-          v22 = __atxlog_handle_lock_screen();
-          if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
+          v17 = *(*(&v30 + 1) + 8 * i);
+          [v17 weight];
+          v19 = v18;
+          v20 = [v17 valueForDescriptor:*&v4];
+          v22 = v21;
+          v23 = v19 * v21;
+          v24 = __atxlog_handle_lock_screen(v20);
+          if (os_log_type_enabled(v24, OS_LOG_TYPE_DEFAULT))
           {
-            v23 = objc_opt_class();
-            NSStringFromClass(v23);
-            v24 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
+            v25 = objc_opt_class();
+            NSStringFromClass(v25);
+            v26 = COERCE_DOUBLE(objc_claimAutoreleasedReturnValue());
             *buf = 136316162;
-            v33 = "[ATXFaceSuggestionScorer featuredScoreForDescriptor:]";
-            v34 = 2112;
-            v35 = v24;
-            v36 = 2048;
-            v37 = v18;
+            v35 = "[ATXFaceSuggestionScorer featuredScoreForDescriptor:]";
+            v36 = 2112;
+            v37 = v26;
             v38 = 2048;
-            v39 = v20;
+            v39 = v19;
             v40 = 2048;
-            v41 = v21;
-            _os_log_impl(&dword_2263AA000, v22, OS_LOG_TYPE_DEFAULT, "%s: [%@] weight: %f, value: %f = product: %f", buf, 0x34u);
+            v41 = v22;
+            v42 = 2048;
+            v43 = v23;
+            _os_log_impl(&dword_2263AA000, v24, OS_LOG_TYPE_DEFAULT, "%s: [%@] weight: %f, value: %f = product: %f", buf, 0x34u);
           }
 
-          v10 = v10 + v21;
+          v11 = v11 + v23;
         }
 
-        v13 = [(NSSet *)v11 countByEnumeratingWithState:&v28 objects:v42 count:16];
+        v14 = [(NSSet *)v12 countByEnumeratingWithState:&v30 objects:v44 count:16];
       }
 
-      while (v13);
+      while (v14);
     }
 
     else
     {
-      v10 = 0.0;
+      v11 = 0.0;
     }
 
-    v25 = __atxlog_handle_lock_screen();
-    if (os_log_type_enabled(v25, OS_LOG_TYPE_DEFAULT))
+    v28 = __atxlog_handle_lock_screen(v27);
+    if (os_log_type_enabled(v28, OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315394;
-      v33 = "[ATXFaceSuggestionScorer featuredScoreForDescriptor:]";
-      v34 = 2048;
-      v35 = v10;
-      _os_log_impl(&dword_2263AA000, v25, OS_LOG_TYPE_DEFAULT, "%s: score: %f", buf, 0x16u);
+      v35 = "[ATXFaceSuggestionScorer featuredScoreForDescriptor:]";
+      v36 = 2048;
+      v37 = v11;
+      _os_log_impl(&dword_2263AA000, v28, OS_LOG_TYPE_DEFAULT, "%s: score: %f", buf, 0x16u);
     }
 
-    v6 = 0;
+    v7 = 0;
   }
 
-  v26 = *MEMORY[0x277D85DE8];
-  return v10;
+  return v11;
 }
 
 - (void)_loadSignals
 {
-  v17[9] = *MEMORY[0x277D85DE8];
+  v16[9] = *MEMORY[0x277D85DE8];
   [(ATXFaceSuggestionScorer *)self _loadAppLaunchData];
-  v15 = objc_alloc(MEMORY[0x277CBEB98]);
-  v16 = [[ATXFaceSuggestionAppLaunchSignal alloc] initWithAppLaunchDictionary:self->_appLaunchDictionary];
-  v17[0] = v16;
+  v14 = objc_alloc(MEMORY[0x277CBEB98]);
+  v15 = [[ATXFaceSuggestionAppLaunchSignal alloc] initWithAppLaunchDictionary:self->_appLaunchDictionary];
+  v16[0] = v15;
   v3 = [[ATXFaceSuggestionAppLaunchUniqueDaysSignal alloc] initWithAppLaunchDictionary:self->_appLaunchDictionary];
-  v17[1] = v3;
+  v16[1] = v3;
   v4 = objc_opt_new();
-  v17[2] = v4;
+  v16[2] = v4;
   v5 = objc_opt_new();
-  v17[3] = v5;
+  v16[3] = v5;
   v6 = [[ATXFaceSuggestionUprankedDateIntervalSignal alloc] initWithParameters:self->_parameters];
-  v17[4] = v6;
+  v16[4] = v6;
   v7 = [[ATXFaceSuggestionGlobalPopularitySignal alloc] initWithParameters:self->_parameters];
-  v17[5] = v7;
+  v16[5] = v7;
   v8 = objc_opt_new();
-  v17[6] = v8;
+  v16[6] = v8;
   v9 = objc_opt_new();
-  v17[7] = v9;
+  v16[7] = v9;
   v10 = objc_opt_new();
-  v17[8] = v10;
-  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:9];
-  v12 = [v15 initWithArray:v11];
+  v16[8] = v10;
+  v11 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:9];
+  v12 = [v14 initWithArray:v11];
   signals = self->_signals;
   self->_signals = v12;
-
-  v14 = *MEMORY[0x277D85DE8];
 }
 
 - (void)_loadAppLaunchData

@@ -4,6 +4,7 @@
 - (void)currentCloudSyncVersions:(id)versions;
 - (void)deleteUserDatumForKey:(id)key completion:(id)completion;
 - (void)dissociateCloudDataFromSyncWithCompletion:(id)completion;
+- (void)fetchUserDataIncludingDeleted:(BOOL)deleted completion:(id)completion;
 - (void)getUserDataChangesSince:(id)since completion:(id)completion;
 - (void)hasSaltChangedWithCompletion:(id)completion;
 - (void)removeUserDataForSaltedHashedRecordIDs:(id)ds completion:(id)completion;
@@ -30,34 +31,35 @@
 {
   sourceCopy = source;
   controllerCopy = controller;
-  v21.receiver = self;
-  v21.super_class = BCCloudSecureUserDataManager;
-  v9 = [(BCCloudSecureUserDataManager *)&v21 init];
+  v22.receiver = self;
+  v22.super_class = BCCloudSecureUserDataManager;
+  v9 = [(BCCloudSecureUserDataManager *)&v22 init];
+  v10 = v9;
   if (v9)
   {
-    v10 = sub_100002660();
-    if (os_log_type_enabled(v10, OS_LOG_TYPE_INFO))
+    v11 = sub_100002660(v9);
+    if (os_log_type_enabled(v11, OS_LOG_TYPE_INFO))
     {
       *buf = 0;
-      _os_log_impl(&_mh_execute_header, v10, OS_LOG_TYPE_INFO, "Initializing BCCloudAssetManager - Service mode", buf, 2u);
+      _os_log_impl(&_mh_execute_header, v11, OS_LOG_TYPE_INFO, "Initializing BCCloudAssetManager - Service mode", buf, 2u);
     }
 
-    objc_storeStrong(&v9->_secureDataSource, source);
-    v11 = [[BCCloudDataSyncManager alloc] initWithCloudKitController:controllerCopy];
-    syncManager = v9->_syncManager;
-    v9->_syncManager = v11;
+    objc_storeStrong(&v10->_secureDataSource, source);
+    v12 = [[BCCloudDataSyncManager alloc] initWithCloudKitController:controllerCopy];
+    syncManager = v10->_syncManager;
+    v10->_syncManager = v12;
 
-    [(BCCloudDataSyncManager *)v9->_syncManager setDelegate:v9];
-    v13 = [BCCloudDataManager alloc];
-    secureDataSource = [(BCCloudSecureUserDataManager *)v9 secureDataSource];
-    entityName = [(BCCloudSecureUserDataManager *)v9 entityName];
-    v16 = objc_opt_class();
-    v17 = [(BCCloudDataManager *)v13 initWithCloudDataSource:secureDataSource entityName:entityName notificationName:@"BCCloudSecureUserDataManagerChanged" immutableClass:v16 mutableClass:objc_opt_class() syncManager:v9->_syncManager cloudKitController:controllerCopy];
-    dataManager = v9->_dataManager;
-    v9->_dataManager = v17;
+    [(BCCloudDataSyncManager *)v10->_syncManager setDelegate:v10];
+    v14 = [BCCloudDataManager alloc];
+    secureDataSource = [(BCCloudSecureUserDataManager *)v10 secureDataSource];
+    entityName = [(BCCloudSecureUserDataManager *)v10 entityName];
+    v17 = objc_opt_class();
+    v18 = [(BCCloudDataManager *)v14 initWithCloudDataSource:secureDataSource entityName:entityName notificationName:@"BCCloudSecureUserDataManagerChanged" immutableClass:v17 mutableClass:objc_opt_class() syncManager:v10->_syncManager cloudKitController:controllerCopy];
+    dataManager = v10->_dataManager;
+    v10->_dataManager = v18;
   }
 
-  return v9;
+  return v10;
 }
 
 - (void)hasSaltChangedWithCompletion:(id)completion
@@ -82,11 +84,11 @@
 
   if (verboseLoggingEnabled)
   {
-    v6 = sub_10000DB80();
-    if (os_log_type_enabled(v6, OS_LOG_TYPE_DEFAULT))
+    v7 = sub_10000DB80(v6);
+    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
     {
-      *v7 = 0;
-      _os_log_impl(&_mh_execute_header, v6, OS_LOG_TYPE_DEFAULT, "\\BCCloudSecureUserDataManager deleteCloudDataWithCompletion:\\"", v7, 2u);
+      *v8 = 0;
+      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "\\BCCloudSecureUserDataManager deleteCloudDataWithCompletion:\", v8, 2u);
     }
   }
 
@@ -291,34 +293,34 @@
 
   if (verboseLoggingEnabled)
   {
-    v7 = sub_10000DB80();
-    if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+    v8 = sub_10000DB80(v7);
+    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v8 = @"NO";
+      v9 = @"NO";
       if (syncCopy)
       {
-        v8 = @"YES";
+        v9 = @"YES";
       }
 
-      v15 = 138412290;
-      v16 = v8;
-      _os_log_impl(&_mh_execute_header, v7, OS_LOG_TYPE_DEFAULT, "\\BCCloudSecureUserDataManager #enableCloudSync setEnableCloudSync %@\\"", &v15, 0xCu);
+      v16 = 138412290;
+      v17 = v9;
+      _os_log_impl(&_mh_execute_header, v8, OS_LOG_TYPE_DEFAULT, "\\BCCloudSecureUserDataManager #enableCloudSync setEnableCloudSync %@\", &v16, 0xCu);
     }
   }
 
   if (self->_enableCloudSync != syncCopy)
   {
     self->_enableCloudSync = syncCopy;
-    v9 = +[BCCloudKitController secureSharedInstance];
-    privateCloudDatabaseController = [v9 privateCloudDatabaseController];
+    v10 = +[BCCloudKitController secureSharedInstance];
+    privateCloudDatabaseController = [v10 privateCloudDatabaseController];
     transactionManager = privateCloudDatabaseController;
     syncManager = self->_syncManager;
     if (syncCopy)
     {
       [privateCloudDatabaseController addObserver:syncManager recordType:@"SecureUserData"];
 
-      v9 = +[BCCloudKitController secureSharedInstance];
-      transactionManager = [v9 transactionManager];
+      v10 = +[BCCloudKitController secureSharedInstance];
+      transactionManager = [v10 transactionManager];
       entityName = [(BCCloudSecureUserDataManager *)self entityName];
       syncManager = [(BCCloudSecureUserDataManager *)self syncManager];
       [transactionManager signalSyncToCKTransactionForEntityName:entityName syncManager:syncManager];
@@ -371,7 +373,7 @@
 
   else
   {
-    v10 = sub_100002660();
+    v10 = sub_100002660(0);
     if (os_log_type_enabled(v10, OS_LOG_TYPE_ERROR))
     {
       sub_1001C2074(v10);
@@ -445,6 +447,14 @@
   {
     [(BCCloudSecureUserDataManager *)self userDatumForKey:keyCopy completion:completionCopy];
   }
+}
+
+- (void)fetchUserDataIncludingDeleted:(BOOL)deleted completion:(id)completion
+{
+  deletedCopy = deleted;
+  completionCopy = completion;
+  dataManager = [(BCCloudSecureUserDataManager *)self dataManager];
+  [dataManager fetchCloudDataIncludingDeleted:deletedCopy completion:completionCopy];
 }
 
 - (void)getUserDataChangesSince:(id)since completion:(id)completion

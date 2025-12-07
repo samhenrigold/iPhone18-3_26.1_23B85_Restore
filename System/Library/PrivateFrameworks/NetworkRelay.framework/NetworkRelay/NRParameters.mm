@@ -1,22 +1,11 @@
 @interface NRParameters
 - (NRParameters)init;
 - (NRParameters)initWithParameters:(id)parameters;
-- (id)copyParameters;
 - (id)description;
 - (void)setServiceClass:(unsigned __int8)class;
 @end
 
 @implementation NRParameters
-
-- (id)copyParameters
-{
-  if (self)
-  {
-    parameters = self->_parameters;
-  }
-
-  JUMPOUT(0x25F873CE0);
-}
 
 - (void)setServiceClass:(unsigned __int8)class
 {
@@ -55,48 +44,47 @@
 
 - (NRParameters)initWithParameters:(id)parameters
 {
-  v25 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   parametersCopy = parameters;
-  v24.receiver = self;
-  v24.super_class = NRParameters;
-  v5 = [(NRParameters *)&v24 init];
+  v20.receiver = self;
+  v20.super_class = NRParameters;
+  v5 = [(NRParameters *)&v20 init];
   if (!v5)
   {
-    v10 = nrCopyLogObj_2805();
+    v9 = nrCopyLogObj_2805();
     if (sNRCopyLogToStdErr == 1)
     {
     }
 
     else
     {
-      v11 = v10;
-      v12 = os_log_type_enabled(v10, OS_LOG_TYPE_ERROR);
+      v10 = v9;
+      v11 = os_log_type_enabled(v9, OS_LOG_TYPE_ERROR);
 
-      if (!v12)
+      if (!v11)
       {
         goto LABEL_7;
       }
     }
 
-    v13 = nrCopyLogObj_2805();
-    _NRLogWithArgs(v13, 16, "%s%.30s:%-4d ABORTING: [super init] failed", v14, v15, v16, v17, v18, "");
+    v12 = nrCopyLogObj_2805();
+    _NRLogWithArgs(v12, 16, "%s%.30s:%-4d ABORTING: [super init] failed", ", "[NRParameters initWithParameters:]"", 108);
 
 LABEL_7:
-    v19 = _os_log_pack_size();
-    MEMORY[0x28223BE20](v19, v20);
-    v21 = *__error();
-    v22 = _os_log_pack_fill();
-    *v22 = 136446210;
-    *(v22 + 4) = "[NRParameters initWithParameters:]";
-    v23 = nrCopyLogObj_2805();
-    _NRLogAbortWithPack(v23);
+    v13 = _os_log_pack_size();
+    v15 = &v19 - ((MEMORY[0x28223BE20](v13, v14) + 15) & 0xFFFFFFFFFFFFFFF0);
+    v16 = __error();
+    v17 = _os_log_pack_fill(v15, v13, *v16, &dword_25B98C000, "%{public}s [super init] failed");
+    *v17 = 136446210;
+    *(v17 + 4) = "[NRParameters initWithParameters:]";
+    v18 = nrCopyLogObj_2805();
+    _NRLogAbortWithPack(v18, v15);
   }
 
   v6 = v5;
   parameters = v5->_parameters;
   v5->_parameters = parametersCopy;
 
-  v8 = *MEMORY[0x277D85DE8];
   return v6;
 }
 

@@ -33,7 +33,7 @@
 
 + (id)localizedTitleForUseCase:(unint64_t)case actionManager:(id)manager
 {
-  v4 = CKFrameworkBundle();
+  v4 = CKFrameworkBundle(self);
   v5 = [v4 localizedStringForKey:@"COPY" value:&stru_1F04268F8 table:@"ChatKit"];
 
   return v5;

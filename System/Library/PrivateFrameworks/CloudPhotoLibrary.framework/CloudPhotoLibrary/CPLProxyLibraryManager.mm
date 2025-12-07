@@ -39,6 +39,7 @@
 - (void)closeWithCompletionHandler:(id)handler;
 - (void)cloudCacheGetDescriptionForRecordWithScopedIdentifier:(id)identifier related:(BOOL)related completionHandler:(id)handler;
 - (void)compactFileCacheWithCompletionHandler:(id)handler;
+- (void)connection:(id)connection handleInvocation:(id)invocation isReply:(BOOL)reply;
 - (void)createScope:(id)scope completionHandler:(id)handler;
 - (void)deactivateScopeWithIdentifier:(id)identifier completionHandler:(id)handler;
 - (void)deactivateWithCompletionHandler:(id)handler;
@@ -213,8 +214,7 @@
 
 void __48__CPLProxyLibraryManager_proxyWithErrorHandler___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = [CPLErrors invalidDaemonErrorWithConnectionError:a2];
-  v3 = *(a1 + 32);
+  v3 = [CPLErrors invalidDaemonErrorWithConnectionError:a2];
   (*(*(a1 + 40) + 16))();
 }
 
@@ -245,53 +245,51 @@ void __42__CPLProxyLibraryManager__setupConnection__block_invoke(uint64_t a1)
   *(*v2 + 3) = v3;
 
   objc_initWeak(&location, *(*v2 + 3));
-  v5 = *v2;
-  v6 = [objc_opt_class() daemonProtocolInterface];
-  v7 = objc_loadWeakRetained(&location);
-  [v7 setRemoteObjectInterface:v6];
+  v5 = [objc_opt_class() daemonProtocolInterface];
+  v6 = objc_loadWeakRetained(&location);
+  [v6 setRemoteObjectInterface:v5];
 
-  v8 = *v2;
-  v9 = [objc_opt_class() clientProtocolInterface];
+  v7 = [objc_opt_class() clientProtocolInterface];
+  v8 = objc_loadWeakRetained(&location);
+  [v8 setExportedInterface:v7];
+
+  v9 = *v2;
   v10 = objc_loadWeakRetained(&location);
-  [v10 setExportedInterface:v9];
-
-  v11 = *v2;
-  v12 = objc_loadWeakRetained(&location);
-  [v12 setExportedObject:v11];
+  [v10 setExportedObject:v9];
 
   objc_initWeak(&from, *v2);
-  v21[0] = MEMORY[0x1E69E9820];
-  v21[1] = 3221225472;
-  v21[2] = __42__CPLProxyLibraryManager__setupConnection__block_invoke_270;
-  v21[3] = &unk_1E861A8F0;
-  objc_copyWeak(&v22, &from);
-  objc_copyWeak(&v23, &location);
-  v21[4] = *v2;
-  v13 = objc_loadWeakRetained(&location);
-  [v13 setInterruptionHandler:v21];
+  v19[0] = MEMORY[0x1E69E9820];
+  v19[1] = 3221225472;
+  v19[2] = __42__CPLProxyLibraryManager__setupConnection__block_invoke_270;
+  v19[3] = &unk_1E861A8F0;
+  objc_copyWeak(&v20, &from);
+  objc_copyWeak(&v21, &location);
+  v19[4] = *v2;
+  v11 = objc_loadWeakRetained(&location);
+  [v11 setInterruptionHandler:v19];
 
-  v18[0] = MEMORY[0x1E69E9820];
-  v18[1] = 3221225472;
-  v18[2] = __42__CPLProxyLibraryManager__setupConnection__block_invoke_2;
-  v18[3] = &unk_1E861A918;
-  objc_copyWeak(&v19, &from);
-  objc_copyWeak(&v20, &location);
+  v16[0] = MEMORY[0x1E69E9820];
+  v16[1] = 3221225472;
+  v16[2] = __42__CPLProxyLibraryManager__setupConnection__block_invoke_2;
+  v16[3] = &unk_1E861A918;
+  objc_copyWeak(&v17, &from);
+  objc_copyWeak(&v18, &location);
+  v12 = objc_loadWeakRetained(&location);
+  [v12 setInvalidationHandler:v16];
+
+  v13 = objc_loadWeakRetained(&location);
+  [v13 _setQueue:*(*v2 + 22)];
+
   v14 = objc_loadWeakRetained(&location);
-  [v14 setInvalidationHandler:v18];
+  [v14 setDelegate:*v2];
 
   v15 = objc_loadWeakRetained(&location);
-  [v15 _setQueue:*(*v2 + 22)];
+  [v15 resume];
 
-  v16 = objc_loadWeakRetained(&location);
-  [v16 setDelegate:*v2];
-
-  v17 = objc_loadWeakRetained(&location);
-  [v17 resume];
-
+  objc_destroyWeak(&v18);
+  objc_destroyWeak(&v17);
+  objc_destroyWeak(&v21);
   objc_destroyWeak(&v20);
-  objc_destroyWeak(&v19);
-  objc_destroyWeak(&v23);
-  objc_destroyWeak(&v22);
   objc_destroyWeak(&from);
 
   objc_destroyWeak(&location);
@@ -321,7 +319,7 @@ void __42__CPLProxyLibraryManager__setupConnection__block_invoke_279(void *a1, u
   if (self->_openingStatus != 4)
   {
     backoffRetryingConnectionDate = self->_backoffRetryingConnectionDate;
-    if (!backoffRetryingConnectionDate || [(CPLProxyLibraryManager *)backoffRetryingConnectionDate _markConnectionAsInvalid])
+    if (!backoffRetryingConnectionDate || (v6 = [(CPLProxyLibraryManager *)backoffRetryingConnectionDate _markConnectionAsInvalid]))
     {
       v4 = [MEMORY[0x1E695DF00] dateWithTimeIntervalSinceNow:30.0];
       v5 = self->_backoffRetryingConnectionDate;
@@ -330,20 +328,18 @@ void __42__CPLProxyLibraryManager__setupConnection__block_invoke_279(void *a1, u
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = __CPLManagerOSLogDomain();
-      if (os_log_type_enabled(v6, OS_LOG_TYPE_ERROR))
+      v7 = __CPLManagerOSLogDomain(v6);
+      if (os_log_type_enabled(v7, OS_LOG_TYPE_ERROR))
       {
-        v7 = [CPLDateFormatter stringFromDate:self->_backoffRetryingConnectionDate];
+        v8 = [CPLDateFormatter stringFromDate:self->_backoffRetryingConnectionDate];
         v9 = 138412290;
-        v10 = v7;
-        _os_log_impl(&dword_1DC05A000, v6, OS_LOG_TYPE_ERROR, "Marking connection as invalid until %@", &v9, 0xCu);
+        v10 = v8;
+        _os_log_impl(&dword_1DC05A000, v7, OS_LOG_TYPE_ERROR, "Marking connection as invalid until %@", &v9, 0xCu);
       }
     }
 
     self->_openingStatus = 4;
   }
-
-  v8 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dropConnectionCompletlyLocked
@@ -468,7 +464,7 @@ void __59__CPLProxyLibraryManager__reallyOpenWithCompletionHandler___block_invok
 
   if (!_connection)
   {
-    [CPLProxyLibraryManager _dispatchBlockWhenOpen:];
+    [CPLProxyLibraryManager _dispatchBlockWhenOpen:?];
     goto LABEL_18;
   }
 
@@ -479,7 +475,7 @@ void __59__CPLProxyLibraryManager__reallyOpenWithCompletionHandler___block_invok
       self->_logKilled = 1;
       if ((_CPLSilentLogging & 1) == 0)
       {
-        [CPLProxyLibraryManager _dispatchBlockWhenOpen:];
+        [CPLProxyLibraryManager _dispatchBlockWhenOpen:?];
       }
     }
 
@@ -548,17 +544,17 @@ LABEL_18:
 
 void __49__CPLProxyLibraryManager__dispatchBlockWhenOpen___block_invoke(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
 {
-  v51 = *MEMORY[0x1E69E9840];
+  v50 = *MEMORY[0x1E69E9840];
   v11 = a2;
   v12 = a3;
   v13 = a4;
   v14 = a5;
   v15 = a6;
-  v38 = v12;
+  v37 = v12;
   if (v11)
   {
-    __49__CPLProxyLibraryManager__dispatchBlockWhenOpen___block_invoke_cold_1(v11, a1, &v48);
-    v30 = v48;
+    __49__CPLProxyLibraryManager__dispatchBlockWhenOpen___block_invoke_cold_1(v11, a1, &v47);
+    v30 = v47;
     goto LABEL_18;
   }
 
@@ -577,44 +573,44 @@ void __49__CPLProxyLibraryManager__dispatchBlockWhenOpen___block_invoke(uint64_t
 
   if ([*(v17 + 88) count])
   {
-    v37 = v13;
-    v46 = 0u;
-    v47 = 0u;
-    v44 = 0u;
+    v36 = v13;
     v45 = 0u;
+    v46 = 0u;
+    v43 = 0u;
+    v44 = 0u;
     v19 = *(*(a1 + 40) + 88);
-    v20 = [v19 countByEnumeratingWithState:&v44 objects:v50 count:16];
+    v20 = [v19 countByEnumeratingWithState:&v43 objects:v49 count:16];
     if (v20)
     {
       v21 = v20;
-      v22 = *v45;
+      v22 = *v44;
       do
       {
         for (i = 0; i != v21; ++i)
         {
-          if (*v45 != v22)
+          if (*v44 != v22)
           {
             objc_enumerationMutation(v19);
           }
 
-          v24 = *(*(&v44 + 1) + 8 * i);
+          v24 = *(*(&v43 + 1) + 8 * i);
           v25 = *(a1 + 40);
-          v43[0] = MEMORY[0x1E69E9820];
-          v43[1] = 3221225472;
-          v43[2] = __49__CPLProxyLibraryManager__dispatchBlockWhenOpen___block_invoke_291;
-          v43[3] = &unk_1E861AA00;
-          v43[4] = v24;
-          v26 = [v25 proxyWithErrorHandler:v43];
+          v42[0] = MEMORY[0x1E69E9820];
+          v42[1] = 3221225472;
+          v42[2] = __49__CPLProxyLibraryManager__dispatchBlockWhenOpen___block_invoke_291;
+          v42[3] = &unk_1E861AA00;
+          v42[4] = v24;
+          v26 = [v25 proxyWithErrorHandler:v42];
           [v26 disableSynchronizationWithReason:v24];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v44 objects:v50 count:16];
+        v21 = [v19 countByEnumeratingWithState:&v43 objects:v49 count:16];
       }
 
       while (v21);
     }
 
-    v13 = v37;
+    v13 = v36;
     v11 = 0;
   }
 
@@ -641,36 +637,35 @@ void __49__CPLProxyLibraryManager__dispatchBlockWhenOpen___block_invoke(uint64_t
 LABEL_18:
   }
 
-  v41 = 0u;
-  v42 = 0u;
-  v39 = 0u;
   v40 = 0u;
+  v41 = 0u;
+  v38 = 0u;
+  v39 = 0u;
   v31 = *(*(a1 + 40) + 144);
-  v32 = [v31 countByEnumeratingWithState:&v39 objects:v49 count:16];
+  v32 = [v31 countByEnumeratingWithState:&v38 objects:v48 count:16];
   if (v32)
   {
     v33 = v32;
-    v34 = *v40;
+    v34 = *v39;
     do
     {
       for (j = 0; j != v33; ++j)
       {
-        if (*v40 != v34)
+        if (*v39 != v34)
         {
           objc_enumerationMutation(v31);
         }
 
-        (*(*(*(&v39 + 1) + 8 * j) + 16))();
+        (*(*(*(&v38 + 1) + 8 * j) + 16))();
       }
 
-      v33 = [v31 countByEnumeratingWithState:&v39 objects:v49 count:16];
+      v33 = [v31 countByEnumeratingWithState:&v38 objects:v48 count:16];
     }
 
     while (v33);
   }
 
   [*(*(a1 + 40) + 144) removeAllObjects];
-  v36 = *MEMORY[0x1E69E9840];
 }
 
 - (void)dispatchBlockWhenLibraryIsOpen:(id)open
@@ -720,7 +715,7 @@ LABEL_18:
 
 void __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   v3 = (a1 + 32);
   v2 = *(a1 + 32);
   if (v2[38])
@@ -730,7 +725,7 @@ void __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke(uint6
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = __CPLManagerOSLogDomain();
+    v4 = __CPLManagerOSLogDomain(v2);
     if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
     {
       v5 = [*v3 abstractObject];
@@ -743,12 +738,12 @@ void __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke(uint6
   }
 
   v6 = [v2 abstractObject];
-  v7 = _connectedLibraryManagerRegisterQueue();
+  v7 = _connectedLibraryManagerRegisterQueue(v6);
   *&buf = MEMORY[0x1E69E9820];
   *(&buf + 1) = 3221225472;
-  v17 = ___registerConnectedLibraryManager_block_invoke;
-  v18 = &unk_1E861A940;
-  v19 = v6;
+  v16 = ___registerConnectedLibraryManager_block_invoke;
+  v17 = &unk_1E861A940;
+  v18 = v6;
   v8 = v6;
   dispatch_sync(v7, &buf);
 
@@ -763,15 +758,13 @@ void __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke(uint6
   notify_register_dispatch("com.apple.cpl.cloudphotoddidlaunch", (v9 + 168), v10, handler);
   *(*(a1 + 32) + 174) = 1;
   v11 = *(a1 + 32);
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke_305;
-  v13[3] = &unk_1E861AAA0;
-  v13[4] = v11;
-  v14 = *(a1 + 40);
-  [v11 _reallyOpenWithCompletionHandler:v13];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v12[0] = MEMORY[0x1E69E9820];
+  v12[1] = 3221225472;
+  v12[2] = __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke_305;
+  v12[3] = &unk_1E861AAA0;
+  v12[4] = v11;
+  v13 = *(a1 + 40);
+  [v11 _reallyOpenWithCompletionHandler:v12];
 }
 
 void __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke_305(uint64_t a1, void *a2, void *a3, void *a4, void *a5, void *a6)
@@ -782,40 +775,39 @@ void __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke_305(u
   v13 = a4;
   v14 = a5;
   v15 = a6;
+  v16 = v15;
   *(*(a1 + 32) + 174) = 0;
   if (v11)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v16 = __CPLManagerOSLogDomain();
-      if (os_log_type_enabled(v16, OS_LOG_TYPE_ERROR))
+      v17 = __CPLManagerOSLogDomain(v15);
+      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
       {
-        v17 = [*(a1 + 32) abstractObject];
-        v18 = [v17 libraryIdentifier];
+        v18 = [*(a1 + 32) abstractObject];
+        v19 = [v18 libraryIdentifier];
         *buf = 138543618;
-        v24 = v18;
+        v24 = v19;
         v25 = 2112;
         v26 = v11;
-        _os_log_impl(&dword_1DC05A000, v16, OS_LOG_TYPE_ERROR, "First try opening library manager for %{public}@ failed, will retry once - error: %@", buf, 0x16u);
+        _os_log_impl(&dword_1DC05A000, v17, OS_LOG_TYPE_ERROR, "First try opening library manager for %{public}@ failed, will retry once - error: %@", buf, 0x16u);
       }
     }
 
-    v19 = *(a1 + 32);
+    v20 = *(a1 + 32);
     v21[0] = MEMORY[0x1E69E9820];
     v21[1] = 3221225472;
     v21[2] = __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke_306;
     v21[3] = &unk_1E861AAA0;
-    v21[4] = v19;
+    v21[4] = v20;
     v22 = *(a1 + 40);
-    [v19 _reallyOpenWithCompletionHandler:v21];
+    [v20 _reallyOpenWithCompletionHandler:v21];
   }
 
   else
   {
     (*(*(a1 + 40) + 16))();
   }
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 - (void)closeWithCompletionHandler:(id)handler
@@ -1214,17 +1206,17 @@ uint64_t __80__CPLProxyLibraryManager_boostPriorityForScopeWithIdentifier_comple
     v7 = [(NSMutableDictionary *)self->_outstandingInvocations objectForKey:identifierCopy];
     if (v7)
     {
-      [(NSMutableDictionary *)self->_outstandingInvocations removeObjectForKey:v6];
+      v8 = [(NSMutableDictionary *)self->_outstandingInvocations removeObjectForKey:v6];
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v8 = __CPLManagerOSLogDomain();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v9 = __CPLManagerOSLogDomain(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           v15 = 138412546;
           v16 = v6;
           v17 = 2112;
           v18 = v7;
-          _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "Got some callbacks for task with identifier %@ before we actually knew about it, redispatching: %@", &v15, 0x16u);
+          _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEBUG, "Got some callbacks for task with identifier %@ before we actually knew about it, redispatching: %@", &v15, 0x16u);
         }
       }
 
@@ -1236,7 +1228,7 @@ uint64_t __80__CPLProxyLibraryManager_boostPriorityForScopeWithIdentifier_comple
         }
 
         [v7 progress];
-        if (v11 > 0.0)
+        if (v12 > 0.0)
         {
           [v7 progress];
           [(CPLProxyLibraryManager *)self downloadDidProgress:v6 forResourceTransferTask:?];
@@ -1267,9 +1259,9 @@ LABEL_18:
     outstandingInvocationsCount = self->_outstandingInvocationsCount;
   }
 
-  v12 = outstandingInvocationsCount - 1;
-  self->_outstandingInvocationsCount = v12;
-  if (!v12)
+  v13 = outstandingInvocationsCount - 1;
+  self->_outstandingInvocationsCount = v13;
+  if (!v13)
   {
     if ([(NSMutableDictionary *)self->_outstandingInvocations count]&& (_CPLSilentLogging & 1) == 0)
     {
@@ -1279,8 +1271,6 @@ LABEL_18:
     outstandingInvocations = self->_outstandingInvocations;
     self->_outstandingInvocations = 0;
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dispatchFailedDownloadTaskForResource:(id)resource options:(id)options proposedTaskIdentifier:(id)identifier withError:(id)error withCompletionHandler:(id)handler
@@ -1378,20 +1368,20 @@ void __115__CPLProxyLibraryManager_beginDownloadForResource_clientBundleID_optio
 
 void __115__CPLProxyLibraryManager_beginDownloadForResource_clientBundleID_options_proposedTaskIdentifier_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = a1 + 32;
+  v2 = (a1 + 32);
   v22 = *(a1 + 32);
   v30[0] = MEMORY[0x1E69E9820];
   v30[1] = 3221225472;
   v30[2] = __115__CPLProxyLibraryManager_beginDownloadForResource_clientBundleID_options_proposedTaskIdentifier_completionHandler___block_invoke_3;
   v30[3] = &unk_1E861AC08;
   v3 = *(&v22 + 1);
-  v4 = *(v2 + 16);
-  v5 = *(v2 + 24);
+  v4 = v2[2];
+  v5 = v2[3];
   *&v6 = v4;
   *(&v6 + 1) = v5;
   v31 = v22;
   v32 = v6;
-  v33 = *(v2 + 48);
+  v33 = v2[6];
   v7 = [v22 proxyWithErrorHandler:v30];
   v8 = *v2;
   if (v7)
@@ -1406,14 +1396,14 @@ void __115__CPLProxyLibraryManager_beginDownloadForResource_clientBundleID_optio
     {
       if (v9)
       {
-        __115__CPLProxyLibraryManager_beginDownloadForResource_clientBundleID_options_proposedTaskIdentifier_completionHandler___block_invoke_2_cold_1(a1, v2);
+        __115__CPLProxyLibraryManager_beginDownloadForResource_clientBundleID_options_proposedTaskIdentifier_completionHandler___block_invoke_2_cold_1();
       }
 
       v14 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v15 = *(*v2 + 112);
-      *(*v2 + 112) = v14;
+      v15 = *(*v2 + 14);
+      *(*v2 + 14) = v14;
 
-      *(*v2 + 120) = 1;
+      *(*v2 + 15) = 1;
     }
 
     v16 = *(a1 + 40);
@@ -1860,7 +1850,7 @@ void __91__CPLProxyLibraryManager_beginInMemoryDownloadOfResource_clientBundleID
 
 void __91__CPLProxyLibraryManager_beginInMemoryDownloadOfResource_clientBundleID_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v3 = a1 + 32;
+  v3 = (a1 + 32);
   v2 = *(a1 + 32);
   v20[0] = MEMORY[0x1E69E9820];
   v20[1] = 3221225472;
@@ -1868,7 +1858,7 @@ void __91__CPLProxyLibraryManager_beginInMemoryDownloadOfResource_clientBundleID
   v20[3] = &unk_1E861AD70;
   v20[4] = v2;
   v21 = *(a1 + 40);
-  v22 = *(v3 + 32);
+  v22 = v3[4];
   v4 = [v2 proxyWithErrorHandler:v20];
   v5 = *v3;
   if (v4)
@@ -1883,14 +1873,14 @@ void __91__CPLProxyLibraryManager_beginInMemoryDownloadOfResource_clientBundleID
     {
       if (v6)
       {
-        __91__CPLProxyLibraryManager_beginInMemoryDownloadOfResource_clientBundleID_completionHandler___block_invoke_2_cold_1(a1, v3);
+        __91__CPLProxyLibraryManager_beginInMemoryDownloadOfResource_clientBundleID_completionHandler___block_invoke_2_cold_1();
       }
 
       v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v10 = *(*v3 + 112);
-      *(*v3 + 112) = v9;
+      v10 = *(*v3 + 14);
+      *(*v3 + 14) = v9;
 
-      *(*v3 + 120) = 1;
+      *(*v3 + 15) = 1;
     }
 
     v11 = *(a1 + 40);
@@ -3719,15 +3709,15 @@ void __83__CPLProxyLibraryManager_deleteResources_checkServerIfNecessary_complet
 
 void __83__CPLProxyLibraryManager_deleteResources_checkServerIfNecessary_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __83__CPLProxyLibraryManager_deleteResources_checkServerIfNecessary_completionHandler___block_invoke_3;
-  v19[3] = &unk_1E861B068;
+  v22 = *MEMORY[0x1E69E9840];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __83__CPLProxyLibraryManager_deleteResources_checkServerIfNecessary_completionHandler___block_invoke_3;
+  v18[3] = &unk_1E861B068;
   v2 = *(a1 + 32);
-  v20 = *(a1 + 40);
-  v21 = *(a1 + 48);
-  v3 = [v2 proxyWithErrorHandler:v19];
+  v19 = *(a1 + 40);
+  v20 = *(a1 + 48);
+  v3 = [v2 proxyWithErrorHandler:v18];
   v4 = v3;
   if (v3)
   {
@@ -3738,7 +3728,7 @@ void __83__CPLProxyLibraryManager_deleteResources_checkServerIfNecessary_complet
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = __CPLManagerOSLogDomain();
+      v5 = __CPLManagerOSLogDomain(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
@@ -3748,29 +3738,29 @@ void __83__CPLProxyLibraryManager_deleteResources_checkServerIfNecessary_complet
 
     v6 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
     v7 = +[CPLErrors unknownError];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v8 = *(a1 + 40);
-    v9 = [v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v13 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [v6 setObject:v7 forKeyedSubscript:{*(*(&v14 + 1) + 8 * i), v14}];
+          [v6 setObject:v7 forKeyedSubscript:{*(*(&v13 + 1) + 8 * i), v13}];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v13 objects:v21 count:16];
       }
 
       while (v10);
@@ -3778,8 +3768,6 @@ void __83__CPLProxyLibraryManager_deleteResources_checkServerIfNecessary_complet
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)checkResourcesAreSafeToPrune:(id)prune checkServerIfNecessary:(BOOL)necessary completionHandler:(id)handler
@@ -3824,15 +3812,15 @@ void __96__CPLProxyLibraryManager_checkResourcesAreSafeToPrune_checkServerIfNece
 
 void __96__CPLProxyLibraryManager_checkResourcesAreSafeToPrune_checkServerIfNecessary_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v23 = *MEMORY[0x1E69E9840];
-  v19[0] = MEMORY[0x1E69E9820];
-  v19[1] = 3221225472;
-  v19[2] = __96__CPLProxyLibraryManager_checkResourcesAreSafeToPrune_checkServerIfNecessary_completionHandler___block_invoke_3;
-  v19[3] = &unk_1E861B068;
+  v22 = *MEMORY[0x1E69E9840];
+  v18[0] = MEMORY[0x1E69E9820];
+  v18[1] = 3221225472;
+  v18[2] = __96__CPLProxyLibraryManager_checkResourcesAreSafeToPrune_checkServerIfNecessary_completionHandler___block_invoke_3;
+  v18[3] = &unk_1E861B068;
   v2 = *(a1 + 32);
-  v20 = *(a1 + 40);
-  v21 = *(a1 + 48);
-  v3 = [v2 proxyWithErrorHandler:v19];
+  v19 = *(a1 + 40);
+  v20 = *(a1 + 48);
+  v3 = [v2 proxyWithErrorHandler:v18];
   v4 = v3;
   if (v3)
   {
@@ -3843,7 +3831,7 @@ void __96__CPLProxyLibraryManager_checkResourcesAreSafeToPrune_checkServerIfNece
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v5 = __CPLManagerOSLogDomain();
+      v5 = __CPLManagerOSLogDomain(0);
       if (os_log_type_enabled(v5, OS_LOG_TYPE_ERROR))
       {
         *buf = 0;
@@ -3853,29 +3841,29 @@ void __96__CPLProxyLibraryManager_checkResourcesAreSafeToPrune_checkServerIfNece
 
     v6 = [objc_alloc(MEMORY[0x1E695DF90]) initWithCapacity:{objc_msgSend(*(a1 + 40), "count")}];
     v7 = +[CPLErrors unknownError];
+    v13 = 0u;
     v14 = 0u;
     v15 = 0u;
     v16 = 0u;
-    v17 = 0u;
     v8 = *(a1 + 40);
-    v9 = [v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
+    v9 = [v8 countByEnumeratingWithState:&v13 objects:v21 count:16];
     if (v9)
     {
       v10 = v9;
-      v11 = *v15;
+      v11 = *v14;
       do
       {
         for (i = 0; i != v10; ++i)
         {
-          if (*v15 != v11)
+          if (*v14 != v11)
           {
             objc_enumerationMutation(v8);
           }
 
-          [v6 setObject:v7 forKeyedSubscript:{*(*(&v14 + 1) + 8 * i), v14}];
+          [v6 setObject:v7 forKeyedSubscript:{*(*(&v13 + 1) + 8 * i), v13}];
         }
 
-        v10 = [v8 countByEnumeratingWithState:&v14 objects:v22 count:16];
+        v10 = [v8 countByEnumeratingWithState:&v13 objects:v21 count:16];
       }
 
       while (v10);
@@ -3883,8 +3871,6 @@ void __96__CPLProxyLibraryManager_checkResourcesAreSafeToPrune_checkServerIfNece
 
     (*(*(a1 + 48) + 16))();
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)resetStatus
@@ -4116,7 +4102,7 @@ void __59__CPLProxyLibraryManager_disableSynchronizationWithReason___block_invok
 
     else if ((_CPLSilentLogging & 1) == 0)
     {
-      __59__CPLProxyLibraryManager_disableSynchronizationWithReason___block_invoke_2_cold_1();
+      __59__CPLProxyLibraryManager_disableSynchronizationWithReason___block_invoke_2_cold_1(0);
     }
   }
 }
@@ -4210,7 +4196,7 @@ void __41__CPLProxyLibraryManager_disableMingling__block_invoke_2(uint64_t a1)
 
     else if ((_CPLSilentLogging & 1) == 0)
     {
-      __59__CPLProxyLibraryManager_disableSynchronizationWithReason___block_invoke_2_cold_1();
+      __59__CPLProxyLibraryManager_disableSynchronizationWithReason___block_invoke_2_cold_1(0);
     }
   }
 }
@@ -4295,7 +4281,7 @@ void __62__CPLProxyLibraryManager_noteClientIsBeginningSignificantWork__block_in
 
     else if ((_CPLSilentLogging & 1) == 0)
     {
-      __59__CPLProxyLibraryManager_disableSynchronizationWithReason___block_invoke_2_cold_1();
+      __59__CPLProxyLibraryManager_disableSynchronizationWithReason___block_invoke_2_cold_1(0);
     }
   }
 }
@@ -4733,11 +4719,11 @@ void __87__CPLProxyLibraryManager_getScopeStatusCountsForScopeWithIdentifier_com
   [v2 _dispatchBlockWhenOpen:v5];
 }
 
-void __87__CPLProxyLibraryManager_getScopeStatusCountsForScopeWithIdentifier_completionHandler___block_invoke_2(void *a1)
+void __87__CPLProxyLibraryManager_getScopeStatusCountsForScopeWithIdentifier_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v2 = a1 + 6;
-  v7 = *(a1 + 3);
-  v3 = a1[4];
+  v2 = a1 + 48;
+  v7 = *(a1 + 48);
+  v3 = *(a1 + 32);
   v8[0] = MEMORY[0x1E69E9820];
   v8[1] = 3221225472;
   v8[2] = __87__CPLProxyLibraryManager_getScopeStatusCountsForScopeWithIdentifier_completionHandler___block_invoke_3;
@@ -4748,7 +4734,7 @@ void __87__CPLProxyLibraryManager_getScopeStatusCountsForScopeWithIdentifier_com
   v6 = v5;
   if (v5)
   {
-    [v5 getScopeStatusCountsForScopeWithIdentifier:a1[5] completionHandler:a1[6]];
+    [v5 getScopeStatusCountsForScopeWithIdentifier:*(a1 + 40) completionHandler:*(a1 + 48)];
   }
 
   else
@@ -4773,17 +4759,17 @@ void __87__CPLProxyLibraryManager_getScopeStatusCountsForScopeWithIdentifier_com
     v7 = [(NSMutableDictionary *)self->_syncOutstandingInvocations objectForKey:identifierCopy];
     if (v7)
     {
-      [(NSMutableDictionary *)self->_syncOutstandingInvocations removeObjectForKey:v6];
+      v8 = [(NSMutableDictionary *)self->_syncOutstandingInvocations removeObjectForKey:v6];
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v8 = __CPLManagerOSLogDomain();
-        if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
+        v9 = __CPLManagerOSLogDomain(v8);
+        if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
         {
           v13 = 138412546;
           v14 = v6;
           v15 = 2112;
           v16 = v7;
-          _os_log_impl(&dword_1DC05A000, v8, OS_LOG_TYPE_DEBUG, "Got some callbacks for task with identifier %@ before we actually knew about it, redispatching: %@", &v13, 0x16u);
+          _os_log_impl(&dword_1DC05A000, v9, OS_LOG_TYPE_DEBUG, "Got some callbacks for task with identifier %@ before we actually knew about it, redispatching: %@", &v13, 0x16u);
         }
       }
 
@@ -4797,9 +4783,9 @@ void __87__CPLProxyLibraryManager_getScopeStatusCountsForScopeWithIdentifier_com
     syncOutstandingInvocationsCount = self->_syncOutstandingInvocationsCount;
   }
 
-  v10 = syncOutstandingInvocationsCount - 1;
-  self->_syncOutstandingInvocationsCount = v10;
-  if (!v10)
+  v11 = syncOutstandingInvocationsCount - 1;
+  self->_syncOutstandingInvocationsCount = v11;
+  if (!v11)
   {
     if ([(NSMutableDictionary *)self->_syncOutstandingInvocations count]&& (_CPLSilentLogging & 1) == 0)
     {
@@ -4809,8 +4795,6 @@ void __87__CPLProxyLibraryManager_getScopeStatusCountsForScopeWithIdentifier_com
     syncOutstandingInvocations = self->_syncOutstandingInvocations;
     self->_syncOutstandingInvocations = 0;
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dispatchFailedForceSyncTaskForScopeIdentifiers:(id)identifiers withError:(id)error withCompletionHandler:(id)handler
@@ -4877,17 +4861,17 @@ void __83__CPLProxyLibraryManager_forceSynchronizingScopeWithIdentifiers_complet
   [v5 _dispatchBlockWhenOpen:v6];
 }
 
-void __83__CPLProxyLibraryManager_forceSynchronizingScopeWithIdentifiers_completionHandler___block_invoke_2(uint64_t a1)
+void __83__CPLProxyLibraryManager_forceSynchronizingScopeWithIdentifiers_completionHandler___block_invoke_2(id *a1)
 {
-  v3 = a1 + 32;
-  v2 = *(a1 + 32);
+  v3 = a1 + 4;
+  v2 = a1[4];
   v20[0] = MEMORY[0x1E69E9820];
   v20[1] = 3221225472;
   v20[2] = __83__CPLProxyLibraryManager_forceSynchronizingScopeWithIdentifiers_completionHandler___block_invoke_3;
   v20[3] = &unk_1E861AD70;
   v20[4] = v2;
-  v21 = *(a1 + 40);
-  v22 = *(v3 + 24);
+  v21 = a1[5];
+  v22 = v3[3];
   v4 = [v2 proxyWithErrorHandler:v20];
   v5 = *v3;
   if (v4)
@@ -4902,26 +4886,26 @@ void __83__CPLProxyLibraryManager_forceSynchronizingScopeWithIdentifiers_complet
     {
       if (v6)
       {
-        __83__CPLProxyLibraryManager_forceSynchronizingScopeWithIdentifiers_completionHandler___block_invoke_2_cold_1(a1, v3);
+        __83__CPLProxyLibraryManager_forceSynchronizingScopeWithIdentifiers_completionHandler___block_invoke_2_cold_1();
       }
 
       v9 = objc_alloc_init(MEMORY[0x1E695DF90]);
-      v10 = *(*v3 + 128);
-      *(*v3 + 128) = v9;
+      v10 = *(*v3 + 16);
+      *(*v3 + 16) = v9;
 
-      *(*v3 + 136) = 1;
+      *(*v3 + 17) = 1;
     }
 
     v17[0] = MEMORY[0x1E69E9820];
     v17[1] = 3221225472;
     v17[2] = __83__CPLProxyLibraryManager_forceSynchronizingScopeWithIdentifiers_completionHandler___block_invoke_351;
     v17[3] = &unk_1E861AD98;
-    v11 = *(a1 + 40);
+    v11 = a1[5];
     *&v12 = v11;
-    *(&v12 + 1) = *(a1 + 32);
+    *(&v12 + 1) = a1[4];
     v16 = v12;
-    v13 = *(a1 + 48);
-    v14 = *(a1 + 56);
+    v13 = a1[6];
+    v14 = a1[7];
     *&v15 = v13;
     *(&v15 + 1) = v14;
     v18 = v16;
@@ -4933,9 +4917,9 @@ void __83__CPLProxyLibraryManager_forceSynchronizingScopeWithIdentifiers_complet
 
   else
   {
-    v7 = *(a1 + 40);
+    v7 = a1[5];
     v8 = +[CPLErrors unknownError];
-    [v5 _dispatchFailedForceSyncTaskForScopeIdentifiers:v7 withError:v8 withCompletionHandler:*(a1 + 56)];
+    [v5 _dispatchFailedForceSyncTaskForScopeIdentifiers:v7 withError:v8 withCompletionHandler:a1[7]];
   }
 }
 
@@ -5581,7 +5565,7 @@ void __63__CPLProxyLibraryManager_forceSyncDidFinishForTask_withErrors___block_i
 
   else
   {
-    [CPLProxyLibraryManager provideLocalResource:recordClassString:completionHandler:];
+    [CPLProxyLibraryManager provideLocalResource:resourceCopy recordClassString:? completionHandler:?];
   }
 }
 
@@ -5602,7 +5586,7 @@ void __83__CPLProxyLibraryManager_provideLocalResource_recordClassString_complet
 
 void __83__CPLProxyLibraryManager_provideLocalResource_recordClassString_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) abstractObject];
   v3 = [v2 delegate];
   if (v3)
@@ -5611,13 +5595,13 @@ void __83__CPLProxyLibraryManager_provideLocalResource_recordClassString_complet
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v4 = __CPLManagerOSLogDomain();
+        v4 = __CPLManagerOSLogDomain(_CPLSilentLogging);
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
           v5 = *(a1 + 40);
-          v7 = 138412290;
-          v8 = v5;
-          _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "Asking delegate to provide (local) %@", &v7, 0xCu);
+          v6 = 138412290;
+          v7 = v5;
+          _os_log_impl(&dword_1DC05A000, v4, OS_LOG_TYPE_DEFAULT, "Asking delegate to provide (local) %@", &v6, 0xCu);
         }
       }
 
@@ -5626,7 +5610,7 @@ void __83__CPLProxyLibraryManager_provideLocalResource_recordClassString_complet
 
     else
     {
-      __83__CPLProxyLibraryManager_provideLocalResource_recordClassString_completionHandler___block_invoke_2_cold_1(_CPLSilentLogging, a1);
+      __83__CPLProxyLibraryManager_provideLocalResource_recordClassString_completionHandler___block_invoke_2_cold_1(_CPLSilentLogging);
     }
   }
 
@@ -5634,8 +5618,6 @@ void __83__CPLProxyLibraryManager_provideLocalResource_recordClassString_complet
   {
     __83__CPLProxyLibraryManager_provideLocalResource_recordClassString_completionHandler___block_invoke_2_cold_2(a1);
   }
-
-  v6 = *MEMORY[0x1E69E9840];
 }
 
 - (void)pushAllChangesWithCompletionHandler:(id)handler
@@ -5682,7 +5664,7 @@ void __62__CPLProxyLibraryManager_pushAllChangesWithCompletionHandler___block_in
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v4 = __CPLManagerOSLogDomain();
+        v4 = __CPLManagerOSLogDomain(_CPLSilentLogging);
         if (os_log_type_enabled(v4, OS_LOG_TYPE_DEFAULT))
         {
           *v5 = 0;
@@ -5695,7 +5677,7 @@ void __62__CPLProxyLibraryManager_pushAllChangesWithCompletionHandler___block_in
 
     else
     {
-      __62__CPLProxyLibraryManager_pushAllChangesWithCompletionHandler___block_invoke_2_cold_1(_CPLSilentLogging, a1);
+      __62__CPLProxyLibraryManager_pushAllChangesWithCompletionHandler___block_invoke_2_cold_1(_CPLSilentLogging);
     }
   }
 
@@ -5954,7 +5936,7 @@ void __84__CPLProxyLibraryManager_getResourcesForItemWithScopedIdentifier_comple
 
   else
   {
-    __84__CPLProxyLibraryManager_getResourcesForItemWithScopedIdentifier_completionHandler___block_invoke_2_cold_1((a1 + 48));
+    __84__CPLProxyLibraryManager_getResourcesForItemWithScopedIdentifier_completionHandler___block_invoke_2_cold_1(a1 + 48);
   }
 }
 
@@ -6301,7 +6283,7 @@ void __96__CPLProxyLibraryManager_getStatusesForScopesWithIdentifiers_includeSto
 
 void __96__CPLProxyLibraryManager_getStatusesForScopesWithIdentifiers_includeStorages_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v3 = (a1 + 48);
+  v3 = a1 + 48;
   v2 = *(a1 + 48);
   v4 = *(a1 + 32);
   v7[0] = MEMORY[0x1E69E9820];
@@ -6433,7 +6415,7 @@ void __106__CPLProxyLibraryManager_cloudCacheGetDescriptionForRecordWithScopedId
 
 void __106__CPLProxyLibraryManager_cloudCacheGetDescriptionForRecordWithScopedIdentifier_related_completionHandler___block_invoke_2(uint64_t a1)
 {
-  v3 = (a1 + 48);
+  v3 = a1 + 48;
   v2 = *(a1 + 48);
   v4 = *(a1 + 32);
   v7[0] = MEMORY[0x1E69E9820];
@@ -7102,7 +7084,7 @@ void __85__CPLProxyLibraryManager_provideScopeChangeForScopeWithIdentifier_compl
 
   else
   {
-    __85__CPLProxyLibraryManager_provideScopeChangeForScopeWithIdentifier_completionHandler___block_invoke_2_cold_1((v2 + 8), v2);
+    __85__CPLProxyLibraryManager_provideScopeChangeForScopeWithIdentifier_completionHandler___block_invoke_2_cold_1((v2 + 8));
   }
 }
 
@@ -7167,7 +7149,7 @@ void __82__CPLProxyLibraryManager_provideRecordWithCloudScopeIdentifier_completi
 
   else
   {
-    __85__CPLProxyLibraryManager_provideScopeChangeForScopeWithIdentifier_completionHandler___block_invoke_2_cold_1((v2 + 8), v2);
+    __85__CPLProxyLibraryManager_provideScopeChangeForScopeWithIdentifier_completionHandler___block_invoke_2_cold_1((v2 + 8));
   }
 }
 
@@ -7232,7 +7214,7 @@ void __65__CPLProxyLibraryManager_provideCloudResource_completionHandler___block
 
   else
   {
-    __85__CPLProxyLibraryManager_provideScopeChangeForScopeWithIdentifier_completionHandler___block_invoke_2_cold_1((v2 + 8), v2);
+    __85__CPLProxyLibraryManager_provideScopeChangeForScopeWithIdentifier_completionHandler___block_invoke_2_cold_1((v2 + 8));
   }
 }
 
@@ -7299,7 +7281,7 @@ void __93__CPLProxyLibraryManager_addDropDerivativesRecipe_writeToUserDefaults_w
 
   else
   {
-    __93__CPLProxyLibraryManager_addDropDerivativesRecipe_writeToUserDefaults_withCompletionHandler___block_invoke_2_cold_1((v2 + 8), v2);
+    __93__CPLProxyLibraryManager_addDropDerivativesRecipe_writeToUserDefaults_withCompletionHandler___block_invoke_2_cold_1((v2 + 8));
   }
 }
 
@@ -7364,7 +7346,7 @@ void __64__CPLProxyLibraryManager_attachComputeStates_completionHandler___block_
 
   else
   {
-    __93__CPLProxyLibraryManager_addDropDerivativesRecipe_writeToUserDefaults_withCompletionHandler___block_invoke_2_cold_1((v2 + 8), v2);
+    __93__CPLProxyLibraryManager_addDropDerivativesRecipe_writeToUserDefaults_withCompletionHandler___block_invoke_2_cold_1((v2 + 8));
   }
 }
 
@@ -7440,7 +7422,7 @@ void __127__CPLProxyLibraryManager_fetchComputeStatesForRecordsWithScopedIdentif
   v20[1] = 3221225472;
   v20[2] = __127__CPLProxyLibraryManager_fetchComputeStatesForRecordsWithScopedIdentifiers_validator_shouldDecrypt_onDemand_completionHandler___block_invoke_3;
   v20[3] = &unk_1E861B420;
-  v3 = (a1 + 64);
+  v3 = a1 + 64;
   v14 = *(a1 + 64);
   v4 = v14;
   v5 = *(a1 + 40);
@@ -7528,10 +7510,10 @@ uint64_t __127__CPLProxyLibraryManager_fetchComputeStatesForRecordsWithScopedIde
 
 - (void)dealloc
 {
-  v9 = *MEMORY[0x1E69E9840];
+  v8 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = __CPLManagerOSLogDomain();
+    v4 = __CPLManagerOSLogDomain(self);
     if (OUTLINED_FUNCTION_75(v4))
     {
       *buf = 138412290;
@@ -7540,15 +7522,14 @@ uint64_t __127__CPLProxyLibraryManager_fetchComputeStatesForRecordsWithScopedIde
     }
   }
 
-  v6.receiver = self;
-  v6.super_class = CPLProxyLibraryManager;
-  [(CPLProxyLibraryManager *)&v6 dealloc];
-  v5 = *MEMORY[0x1E69E9840];
+  v5.receiver = self;
+  v5.super_class = CPLProxyLibraryManager;
+  [(CPLProxyLibraryManager *)&v5 dealloc];
 }
 
 void __42__CPLProxyLibraryManager__setupConnection__block_invoke_270(uint64_t a1)
 {
-  v78 = *MEMORY[0x1E69E9840];
+  v83 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
   v3 = [WeakRetained _connection];
   v4 = objc_loadWeakRetained((a1 + 48));
@@ -7561,13 +7542,13 @@ void __42__CPLProxyLibraryManager__setupConnection__block_invoke_270(uint64_t a1
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v20 = __CPLManagerOSLogDomain();
-          if (OUTLINED_FUNCTION_81(v20))
+          v22 = __CPLManagerOSLogDomain(v5);
+          if (OUTLINED_FUNCTION_81(v22))
           {
-            v21 = [WeakRetained abstractObject];
-            OUTLINED_FUNCTION_53(v21, 5.778e-34);
+            v23 = [WeakRetained abstractObject];
+            OUTLINED_FUNCTION_53(v23, 5.778e-34);
             OUTLINED_FUNCTION_52();
-            _os_log_impl(v22, v23, v24, v25, v26, 0x16u);
+            _os_log_impl(v24, v25, v26, v27, v28, 0x16u);
           }
         }
       }
@@ -7576,11 +7557,11 @@ void __42__CPLProxyLibraryManager__setupConnection__block_invoke_270(uint64_t a1
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v27 = __CPLManagerOSLogDomain();
-          if (OUTLINED_FUNCTION_72(v27))
+          v29 = __CPLManagerOSLogDomain(v5);
+          if (OUTLINED_FUNCTION_72(v29))
           {
-            v28 = [WeakRetained abstractObject];
-            OUTLINED_FUNCTION_53(v28, 5.778e-34);
+            v30 = [WeakRetained abstractObject];
+            OUTLINED_FUNCTION_53(v30, 5.778e-34);
             _os_log_impl(&dword_1DC05A000, v3, OS_LOG_TYPE_ERROR, "%@: connection with %{public}@ was interrupted", buf, 0x16u);
           }
         }
@@ -7592,115 +7573,116 @@ void __42__CPLProxyLibraryManager__setupConnection__block_invoke_270(uint64_t a1
       }
 
       v3 = [WeakRetained abstractObject];
-      v6 = [v3 resourceProgressDelegate];
-      v29 = +[CPLErrors unknownError];
+      v8 = [v3 resourceProgressDelegate];
+      v31 = +[CPLErrors unknownError];
+      v32 = v31;
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v30 = __CPLManagerOSLogDomain();
-        if (OUTLINED_FUNCTION_106(v30))
+        v33 = __CPLManagerOSLogDomain(v31);
+        if (OUTLINED_FUNCTION_106(v33))
         {
           OUTLINED_FUNCTION_66([WeakRetained[4] count], 3.852e-34);
           OUTLINED_FUNCTION_95();
-          _os_log_impl(v31, v32, OS_LOG_TYPE_DEBUG, v33, v34, 0xCu);
+          _os_log_impl(v34, v35, OS_LOG_TYPE_DEBUG, v36, v37, 0xCu);
         }
       }
 
-      v35 = [WeakRetained[4] count];
+      v38 = [WeakRetained[4] count];
       [WeakRetained[8] removeAllObjects];
-      if (v6)
+      if (v8)
       {
-        v36 = WeakRetained[4];
-        v73[0] = MEMORY[0x1E69E9820];
-        v73[1] = 3221225472;
-        v73[2] = __42__CPLProxyLibraryManager__setupConnection__block_invoke_271;
-        v73[3] = &unk_1E861A8A0;
-        v74 = v3;
-        v75 = v6;
-        v76 = v29;
-        [v36 enumerateKeysAndObjectsUsingBlock:v73];
+        v39 = WeakRetained[4];
+        v78[0] = MEMORY[0x1E69E9820];
+        v78[1] = 3221225472;
+        v78[2] = __42__CPLProxyLibraryManager__setupConnection__block_invoke_271;
+        v78[3] = &unk_1E861A8A0;
+        v79 = v3;
+        v80 = v8;
+        v81 = v32;
+        [v39 enumerateKeysAndObjectsUsingBlock:v78];
       }
 
-      [WeakRetained[4] removeAllObjects];
-      if (v35)
+      v40 = [WeakRetained[4] removeAllObjects];
+      if (v38)
       {
-        [CPLTransaction endTransactionWithIdentifier:@"cpl.activeresourcedownloads"];
+        v40 = [CPLTransaction endTransactionWithIdentifier:@"cpl.activeresourcedownloads"];
       }
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v37 = __CPLManagerOSLogDomain();
-        if (OUTLINED_FUNCTION_106(v37))
+        v41 = __CPLManagerOSLogDomain(v40);
+        if (OUTLINED_FUNCTION_106(v41))
         {
           OUTLINED_FUNCTION_66([WeakRetained[5] count], 3.852e-34);
           OUTLINED_FUNCTION_95();
-          _os_log_impl(v38, v39, OS_LOG_TYPE_DEBUG, v40, v41, 0xCu);
+          _os_log_impl(v42, v43, OS_LOG_TYPE_DEBUG, v44, v45, 0xCu);
         }
       }
 
-      if (v6)
+      if (v8)
       {
-        v42 = WeakRetained[5];
-        v69[0] = MEMORY[0x1E69E9820];
-        v69[1] = 3221225472;
-        v69[2] = __42__CPLProxyLibraryManager__setupConnection__block_invoke_277;
-        v69[3] = &unk_1E861A8A0;
-        v70 = v6;
-        v71 = v3;
-        v72 = v29;
-        [v42 enumerateKeysAndObjectsUsingBlock:v69];
+        v46 = WeakRetained[5];
+        v74[0] = MEMORY[0x1E69E9820];
+        v74[1] = 3221225472;
+        v74[2] = __42__CPLProxyLibraryManager__setupConnection__block_invoke_277;
+        v74[3] = &unk_1E861A8A0;
+        v75 = v8;
+        v76 = v3;
+        v77 = v32;
+        [v46 enumerateKeysAndObjectsUsingBlock:v74];
       }
 
-      [WeakRetained[5] removeAllObjects];
+      v47 = [WeakRetained[5] removeAllObjects];
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v43 = __CPLManagerOSLogDomain();
-        if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+        v48 = __CPLManagerOSLogDomain(v47);
+        if (os_log_type_enabled(v48, OS_LOG_TYPE_DEFAULT))
         {
           OUTLINED_FUNCTION_66([WeakRetained[6] count], 3.852e-34);
           OUTLINED_FUNCTION_95();
           OUTLINED_FUNCTION_59();
-          _os_log_impl(v44, v45, v46, v47, v48, v49);
+          _os_log_impl(v49, v50, v51, v52, v53, v54);
         }
       }
 
-      if (v6)
+      if (v8)
       {
-        v50 = WeakRetained[6];
-        v65[0] = MEMORY[0x1E69E9820];
-        v65[1] = 3221225472;
-        v65[2] = __42__CPLProxyLibraryManager__setupConnection__block_invoke_278;
-        v65[3] = &unk_1E861A8A0;
-        v66 = v6;
-        v67 = v3;
-        v68 = v29;
-        [v50 enumerateKeysAndObjectsUsingBlock:v65];
+        v55 = WeakRetained[6];
+        v70[0] = MEMORY[0x1E69E9820];
+        v70[1] = 3221225472;
+        v70[2] = __42__CPLProxyLibraryManager__setupConnection__block_invoke_278;
+        v70[3] = &unk_1E861A8A0;
+        v71 = v8;
+        v72 = v3;
+        v73 = v32;
+        [v55 enumerateKeysAndObjectsUsingBlock:v70];
       }
 
-      [WeakRetained[6] removeAllObjects];
+      v56 = [WeakRetained[6] removeAllObjects];
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v51 = __CPLManagerOSLogDomain();
-        if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
+        v57 = __CPLManagerOSLogDomain(v56);
+        if (os_log_type_enabled(v57, OS_LOG_TYPE_DEFAULT))
         {
           OUTLINED_FUNCTION_66([WeakRetained[7] count], 3.852e-34);
           OUTLINED_FUNCTION_95();
           OUTLINED_FUNCTION_59();
-          _os_log_impl(v52, v53, v54, v55, v56, v57);
+          _os_log_impl(v58, v59, v60, v61, v62, v63);
         }
       }
 
-      v58 = [v3 forceSyncDelegate];
-      if (v58)
+      v64 = [v3 forceSyncDelegate];
+      if (v64)
       {
-        v59 = WeakRetained[7];
+        v65 = WeakRetained[7];
         OUTLINED_FUNCTION_12();
         OUTLINED_FUNCTION_99();
-        v61[2] = __42__CPLProxyLibraryManager__setupConnection__block_invoke_279;
-        v61[3] = &unk_1E861A8C8;
-        v62 = v58;
-        v63 = v3;
-        v64 = v29;
-        [v59 enumerateKeysAndObjectsUsingBlock:v61];
+        v66[2] = __42__CPLProxyLibraryManager__setupConnection__block_invoke_279;
+        v66[3] = &unk_1E861A8C8;
+        v67 = v64;
+        v68 = v3;
+        v69 = v32;
+        [v65 enumerateKeysAndObjectsUsingBlock:v66];
       }
 
       [WeakRetained[7] removeAllObjects];
@@ -7714,13 +7696,13 @@ void __42__CPLProxyLibraryManager__setupConnection__block_invoke_270(uint64_t a1
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v13 = __CPLManagerOSLogDomain();
-      if (OUTLINED_FUNCTION_81(v13))
+      v15 = __CPLManagerOSLogDomain(v5);
+      if (OUTLINED_FUNCTION_81(v15))
       {
-        v6 = [WeakRetained abstractObject];
-        OUTLINED_FUNCTION_53(v6, 5.778e-34);
+        v8 = [WeakRetained abstractObject];
+        OUTLINED_FUNCTION_53(v8, 5.778e-34);
         OUTLINED_FUNCTION_52();
-        v12 = 22;
+        v14 = 22;
         goto LABEL_10;
       }
 
@@ -7736,14 +7718,14 @@ LABEL_55:
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v5 = __CPLManagerOSLogDomain();
-        if (OUTLINED_FUNCTION_81(v5))
+        v7 = __CPLManagerOSLogDomain(v6);
+        if (OUTLINED_FUNCTION_81(v7))
         {
-          v6 = objc_loadWeakRetained((a1 + 48));
-          OUTLINED_FUNCTION_66(v6, 5.7779e-34);
+          v8 = objc_loadWeakRetained((a1 + 48));
+          OUTLINED_FUNCTION_66(v8, 5.7779e-34);
           OUTLINED_FUNCTION_33();
 LABEL_10:
-          _os_log_impl(v7, v8, v9, v10, v11, v12);
+          _os_log_impl(v9, v10, v11, v12, v13, v14);
 LABEL_54:
 
           goto LABEL_55;
@@ -7755,12 +7737,12 @@ LABEL_54:
 
     else if ((_CPLSilentLogging & 1) == 0)
     {
-      v14 = __CPLManagerOSLogDomain();
-      if (OUTLINED_FUNCTION_81(v14))
+      v16 = __CPLManagerOSLogDomain(v6);
+      if (OUTLINED_FUNCTION_81(v16))
       {
         *buf = 0;
         OUTLINED_FUNCTION_52();
-        _os_log_impl(v15, v16, v17, v18, v19, 2u);
+        _os_log_impl(v17, v18, v19, v20, v21, 2u);
       }
 
       goto LABEL_55;
@@ -7768,13 +7750,11 @@ LABEL_54:
   }
 
 LABEL_56:
-
-  v60 = *MEMORY[0x1E69E9840];
 }
 
 void __42__CPLProxyLibraryManager__setupConnection__block_invoke_2(NSObject *a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v27 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained(&a1[4].isa);
   v3 = WeakRetained;
   if (WeakRetained)
@@ -7786,13 +7766,13 @@ void __42__CPLProxyLibraryManager__setupConnection__block_invoke_2(NSObject *a1)
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v15 = __CPLManagerOSLogDomain();
-        if (OUTLINED_FUNCTION_81(v15))
+        v17 = __CPLManagerOSLogDomain(v6);
+        if (OUTLINED_FUNCTION_81(v17))
         {
-          *v25 = 138412290;
-          *&v25[4] = @"com.apple.cloudphotod";
+          *v26 = 138412290;
+          *&v26[4] = @"com.apple.cloudphotod";
           OUTLINED_FUNCTION_33();
-          _os_log_impl(v16, v17, v18, v19, v20, v21);
+          _os_log_impl(v18, v19, v20, v21, v22, v23);
         }
       }
 
@@ -7801,49 +7781,46 @@ void __42__CPLProxyLibraryManager__setupConnection__block_invoke_2(NSObject *a1)
 
     else
     {
-      v6 = objc_loadWeakRetained(&a1[5].isa);
+      v7 = objc_loadWeakRetained(&a1[5].isa);
 
-      if (v6)
+      if (v7)
       {
         if ((_CPLSilentLogging & 1) == 0)
         {
-          v7 = __CPLManagerOSLogDomain();
-          if (os_log_type_enabled(v7, OS_LOG_TYPE_DEFAULT))
+          v9 = __CPLManagerOSLogDomain(v8);
+          if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
           {
-            v8 = objc_loadWeakRetained(&a1[5].isa);
+            v10 = objc_loadWeakRetained(&a1[5].isa);
             OUTLINED_FUNCTION_51();
             OUTLINED_FUNCTION_59();
-            _os_log_impl(v9, v10, v11, v12, v13, v14);
+            _os_log_impl(v11, v12, v13, v14, v15, v16);
           }
         }
       }
 
       else if ((_CPLSilentLogging & 1) == 0)
       {
-        v22 = __CPLManagerOSLogDomain();
-        if (OUTLINED_FUNCTION_81(v22))
+        v24 = __CPLManagerOSLogDomain(v8);
+        if (OUTLINED_FUNCTION_81(v24))
         {
-          *v25 = 0;
-          OUTLINED_FUNCTION_91(&dword_1DC05A000, a1, v23, "Ignoring stale invalidation handler for old connection", v25);
+          *v26 = 0;
+          OUTLINED_FUNCTION_91(&dword_1DC05A000, a1, v25, "Ignoring stale invalidation handler for old connection", v26);
         }
       }
     }
   }
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __59__CPLProxyLibraryManager__reallyOpenWithCompletionHandler___block_invoke_3(uint64_t a1, uint64_t a2, uint64_t a3, uint64_t a4, uint64_t a5, uint64_t a6, uint64_t a7, uint64_t a8, uint64_t a9, uint64_t a10, uint64_t a11, uint64_t a12, uint64_t a13, uint64_t a14, uint64_t a15, uint64_t a16, uint64_t a17, uint64_t a18, uint64_t a19, uint64_t a20, uint64_t a21, uint64_t a22, uint64_t a23, uint64_t a24, uint64_t a25, uint64_t a26, uint64_t a27, uint64_t a28, uint64_t a29, uint64_t a30, void *a31, void *a32, void *a33, void *a34)
 {
   OUTLINED_FUNCTION_101();
-  v69 = v35;
-  v70 = v34;
-  v67 = v36;
-  v68 = v37;
+  v66 = v35;
+  v67 = v34;
+  v64 = v36;
+  v65 = v37;
   v39 = v38;
   v41 = v40;
   v43 = v42;
-  v71 = *MEMORY[0x1E69E9840];
   v45 = v44;
   v46 = v41;
   v47 = a31;
@@ -7855,7 +7832,7 @@ void __59__CPLProxyLibraryManager__reallyOpenWithCompletionHandler___block_invok
 
   if (v51 == v52)
   {
-    v53 = v45;
+    v54 = v45;
     if (v45)
     {
       if ((*(v43 + 56) & 1) == 0)
@@ -7863,32 +7840,31 @@ void __59__CPLProxyLibraryManager__reallyOpenWithCompletionHandler___block_invok
         [*(v43 + 32) _markConnectionAsInvalid];
       }
 
-      v61 = OUTLINED_FUNCTION_37(*(v43 + 48));
-      v62(v61, v45, 0, 0, 0, 0);
+      OUTLINED_FUNCTION_37();
+      v61();
     }
 
     else
     {
       [*(v43 + 32) _setStatusFromDictionary:v46];
-      v63 = [*(v43 + 32) abstractObject];
-      [v63 _setSizeOfResourcesToUpload:v39 sizeOfOriginalResourcesToUpload:v67 numberOfImages:v68 numberOfVideos:v70 numberOfOtherItems:v69];
+      v62 = [*(v43 + 32) abstractObject];
+      [v62 _setSizeOfResourcesToUpload:v39 sizeOfOriginalResourcesToUpload:v64 numberOfImages:v65 numberOfVideos:v67 numberOfOtherItems:v66];
 
-      v53 = 0;
+      v54 = 0;
       *(*(v43 + 32) + 152) = 3;
-      v64 = OUTLINED_FUNCTION_18(*(v43 + 48));
-      v65(v64);
+      OUTLINED_FUNCTION_18();
+      v63();
     }
   }
 
   else
   {
-    v53 = v45;
+    v54 = v45;
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v54 = __CPLManagerOSLogDomain();
-      if (OUTLINED_FUNCTION_72(v54))
+      v55 = __CPLManagerOSLogDomain(v53);
+      if (OUTLINED_FUNCTION_72(v55))
       {
-        v55 = *(v43 + 40);
         OUTLINED_FUNCTION_76();
         OUTLINED_FUNCTION_34();
         _os_log_impl(v56, v57, v58, v59, v60, 0xCu);
@@ -7896,81 +7872,71 @@ void __59__CPLProxyLibraryManager__reallyOpenWithCompletionHandler___block_invok
     }
   }
 
-  v66 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_100();
 }
 
 void __49__CPLProxyLibraryManager__dispatchBlockWhenOpen___block_invoke_290(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v5 = v4;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_72(v5))
+    v6 = __CPLManagerOSLogDomain(v4);
+    if (OUTLINED_FUNCTION_72(v6))
     {
       OUTLINED_FUNCTION_36();
       OUTLINED_FUNCTION_14();
-      _os_log_impl(v6, v7, v8, v9, v10, 0xCu);
+      _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __49__CPLProxyLibraryManager__dispatchBlockWhenOpen___block_invoke_291(uint64_t a1, uint64_t a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
-  v5 = a3;
+  v4 = a3;
+  v5 = v4;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
+    v6 = __CPLManagerOSLogDomain(v4);
     if (OUTLINED_FUNCTION_72(v6))
     {
-      v7 = *(a1 + 32);
       OUTLINED_FUNCTION_24();
       OUTLINED_FUNCTION_14();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x16u);
+      _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __49__CPLProxyLibraryManager__dispatchBlockWhenOpen___block_invoke_292(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v5 = v4;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_72(v5))
+    v6 = __CPLManagerOSLogDomain(v4);
+    if (OUTLINED_FUNCTION_72(v6))
     {
       OUTLINED_FUNCTION_36();
       OUTLINED_FUNCTION_14();
-      _os_log_impl(v6, v7, v8, v9, v10, 0xCu);
+      _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __49__CPLProxyLibraryManager__dispatchBlockWhenOpen___block_invoke_295(uint64_t a1, uint64_t a2, void *a3)
 {
-  v12 = *MEMORY[0x1E69E9840];
   v4 = a3;
+  v5 = v4;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_72(v5))
+    v6 = __CPLManagerOSLogDomain(v4);
+    if (OUTLINED_FUNCTION_72(v6))
     {
       OUTLINED_FUNCTION_36();
       OUTLINED_FUNCTION_14();
-      _os_log_impl(v6, v7, v8, v9, v10, 0xCu);
+      _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
     }
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke_303(uint64_t a1, int a2)
@@ -7983,7 +7949,7 @@ void __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke_303(u
     {
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v6 = __CPLManagerOSLogDomain();
+        v6 = __CPLManagerOSLogDomain(v3);
         if (OUTLINED_FUNCTION_93(v6))
         {
           *v8 = 0;
@@ -8013,7 +7979,7 @@ void __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke_2(uin
       return;
     }
 
-    v2 = __CPLManagerOSLogDomain();
+    v2 = __CPLManagerOSLogDomain(a1);
     if (!OUTLINED_FUNCTION_93(v2))
     {
       goto LABEL_9;
@@ -8030,7 +7996,7 @@ void __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke_2(uin
     return;
   }
 
-  v6 = __CPLManagerOSLogDomain();
+  v6 = __CPLManagerOSLogDomain(a1);
   if (OUTLINED_FUNCTION_93(v6))
   {
     v8 = 0;
@@ -8046,32 +8012,33 @@ LABEL_9:
 void __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke_306(uint64_t a1, uint64_t a2, uint64_t a3, void *a4, void *a5, void *a6)
 {
   OUTLINED_FUNCTION_46();
-  v31 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v12 = v11;
   v13 = v6;
   v14 = a4;
   v15 = a5;
   v16 = a6;
+  v17 = v16;
   if (v12)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v17 = __CPLManagerOSLogDomain();
-      if (os_log_type_enabled(v17, OS_LOG_TYPE_ERROR))
+      v18 = __CPLManagerOSLogDomain(v16);
+      if (os_log_type_enabled(v18, OS_LOG_TYPE_ERROR))
       {
-        v18 = [*(v7 + 32) abstractObject];
-        v19 = [v18 libraryIdentifier];
+        v19 = [*(v7 + 32) abstractObject];
+        v20 = [v19 libraryIdentifier];
         OUTLINED_FUNCTION_51();
-        v29[6] = 2112;
-        v30 = v12;
-        v20 = &dword_1DC05A000;
-        v21 = "Second try opening library manager for %{public}@ failed: %@";
-        v22 = v29;
-        v23 = v17;
-        v24 = OS_LOG_TYPE_ERROR;
-        v25 = 22;
+        v28[6] = 2112;
+        v29 = v12;
+        v21 = &dword_1DC05A000;
+        v22 = "Second try opening library manager for %{public}@ failed: %@";
+        v23 = v28;
+        v24 = v18;
+        v25 = OS_LOG_TYPE_ERROR;
+        v26 = 22;
 LABEL_8:
-        _os_log_impl(v20, v23, v24, v21, v22, v25);
+        _os_log_impl(v21, v24, v25, v22, v23, v26);
 
         goto LABEL_9;
       }
@@ -8082,11 +8049,11 @@ LABEL_8:
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v17 = __CPLManagerOSLogDomain();
-    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEFAULT))
+    v18 = __CPLManagerOSLogDomain(v16);
+    if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
     {
-      v18 = [*(v7 + 32) abstractObject];
-      v19 = [v18 libraryIdentifier];
+      v19 = [*(v7 + 32) abstractObject];
+      v20 = [v19 libraryIdentifier];
       OUTLINED_FUNCTION_51();
       OUTLINED_FUNCTION_59();
       goto LABEL_8;
@@ -8095,18 +8062,16 @@ LABEL_8:
 LABEL_9:
   }
 
-  v26 = OUTLINED_FUNCTION_37(*(v7 + 40));
-  v27(v26, v12, v13, v14, v15, v16);
-
-  v28 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_37();
+  v27();
 }
 
 void __53__CPLProxyLibraryManager_closeWithCompletionHandler___block_invoke(uint64_t a1)
 {
-  v19 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_81(v3))
     {
       v4 = [*(a1 + 32) abstractObject];
@@ -8132,32 +8097,30 @@ void __53__CPLProxyLibraryManager_closeWithCompletionHandler___block_invoke(uint
   {
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_99();
-    v17[2] = __53__CPLProxyLibraryManager_closeWithCompletionHandler___block_invoke_307;
-    v17[3] = &unk_1E861AA50;
-    v17[4] = v12;
-    v18 = *(a1 + 40);
-    [v12 _dispatchBlockWhenOpen:v17];
+    v15[2] = __53__CPLProxyLibraryManager_closeWithCompletionHandler___block_invoke_307;
+    v15[3] = &unk_1E861AA50;
+    v15[4] = v12;
+    v16 = *(a1 + 40);
+    [v12 _dispatchBlockWhenOpen:v15];
   }
 
   else
   {
-    v14 = OUTLINED_FUNCTION_18(*(a1 + 40));
-    v15(v14);
+    OUTLINED_FUNCTION_18();
+    v14();
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __58__CPLProxyLibraryManager_deactivateWithCompletionHandler___block_invoke_2(uint64_t a1)
 {
-  v39 = *MEMORY[0x1E69E9840];
+  v38 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_81(v3))
     {
       [*(a1 + 32) abstractObject];
-      *(&v34 + 4) = LODWORD(v34) = 138412290;
+      *(&v33 + 4) = LODWORD(v33) = 138412290;
       OUTLINED_FUNCTION_33();
       _os_log_impl(v4, v5, v6, v7, v8, v9);
     }
@@ -8175,53 +8138,53 @@ void __58__CPLProxyLibraryManager_deactivateWithCompletionHandler___block_invoke
     v11 = *(a1 + 32);
   }
 
-  *&v34 = 0;
-  *(&v34 + 1) = &v34;
-  v35 = 0x3032000000;
-  v36 = __Block_byref_object_copy_;
-  v37 = __Block_byref_object_dispose_;
-  v38 = 0;
-  v31[0] = MEMORY[0x1E69E9820];
-  v31[1] = 3221225472;
-  v31[2] = __58__CPLProxyLibraryManager_deactivateWithCompletionHandler___block_invoke_308;
-  v31[3] = &unk_1E861AB40;
-  v31[4] = v11;
-  v32 = *(a1 + 40);
-  v33 = &v34;
-  v13 = MEMORY[0x1E128EBA0](v31);
+  *&v33 = 0;
+  *(&v33 + 1) = &v33;
+  v34 = 0x3032000000;
+  v35 = __Block_byref_object_copy_;
+  v36 = __Block_byref_object_dispose_;
+  v37 = 0;
+  v30[0] = MEMORY[0x1E69E9820];
+  v30[1] = 3221225472;
+  v30[2] = __58__CPLProxyLibraryManager_deactivateWithCompletionHandler___block_invoke_308;
+  v30[3] = &unk_1E861AB40;
+  v30[4] = v11;
+  v31 = *(a1 + 40);
+  v32 = &v33;
+  v13 = MEMORY[0x1E128EBA0](v30);
   v14 = [*(a1 + 32) _connection];
   v15 = *(a1 + 32);
-  v28[0] = MEMORY[0x1E69E9820];
-  v28[1] = 3221225472;
-  v28[2] = __58__CPLProxyLibraryManager_deactivateWithCompletionHandler___block_invoke_309;
-  v28[3] = &unk_1E861AB90;
-  v28[4] = v15;
-  v30 = &v34;
+  v27[0] = MEMORY[0x1E69E9820];
+  v27[1] = 3221225472;
+  v27[2] = __58__CPLProxyLibraryManager_deactivateWithCompletionHandler___block_invoke_309;
+  v27[3] = &unk_1E861AB90;
+  v27[4] = v15;
+  v29 = &v33;
   v16 = v13;
-  v29 = v16;
-  v17 = [v15 proxyWithErrorHandler:v28];
+  v28 = v16;
+  v17 = [v15 proxyWithErrorHandler:v27];
   if (v17)
   {
-    v24[0] = MEMORY[0x1E69E9820];
-    v24[1] = 3221225472;
-    v24[2] = __58__CPLProxyLibraryManager_deactivateWithCompletionHandler___block_invoke_311;
-    v24[3] = &unk_1E861ABB8;
-    v24[4] = *(a1 + 32);
-    v25 = v14;
-    v27 = &v34;
-    v26 = v16;
-    [v17 deactivateLibraryWithCompletionHandler:v24];
+    v23[0] = MEMORY[0x1E69E9820];
+    v23[1] = 3221225472;
+    v23[2] = __58__CPLProxyLibraryManager_deactivateWithCompletionHandler___block_invoke_311;
+    v23[3] = &unk_1E861ABB8;
+    v23[4] = *(a1 + 32);
+    v24 = v14;
+    v26 = &v33;
+    v25 = v16;
+    [v17 deactivateLibraryWithCompletionHandler:v23];
   }
 
   else
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v18 = __CPLManagerOSLogDomain();
+      v18 = __CPLManagerOSLogDomain(0);
       if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
       {
-        *v23 = 0;
-        OUTLINED_FUNCTION_91(&dword_1DC05A000, v18, v19, "Proxy has disappeared before deactivation", v23);
+        *v22 = 0;
+        OUTLINED_FUNCTION_91(&dword_1DC05A000, v18, v19, "Proxy has disappeared before deactivation", v22);
       }
     }
 
@@ -8230,16 +8193,14 @@ void __58__CPLProxyLibraryManager_deactivateWithCompletionHandler___block_invoke
     (*(v20 + 16))(v20, v21);
   }
 
-  _Block_object_dispose(&v34, 8);
-  v22 = *MEMORY[0x1E69E9840];
+  _Block_object_dispose(&v33, 8);
 }
 
 uint64_t __58__CPLProxyLibraryManager_deactivateWithCompletionHandler___block_invoke_308(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_81(v3))
     {
       v4 = [*(a1 + 32) abstractObject];
@@ -8249,62 +8210,51 @@ uint64_t __58__CPLProxyLibraryManager_deactivateWithCompletionHandler___block_in
     }
   }
 
-  v11 = *(*(*(a1 + 48) + 8) + 40);
-  v12 = OUTLINED_FUNCTION_37(*(a1 + 40));
-  v13(v12);
-  result = [*(a1 + 32) _dropConnectionCompletly];
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  OUTLINED_FUNCTION_37();
+  v11();
+  return [*(a1 + 32) _dropConnectionCompletly];
 }
 
 uint64_t __58__CPLProxyLibraryManager_deactivateWithCompletionHandler___block_invoke_2_310(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_72(v3))
     {
-      v4 = *(a1 + 32);
-      v5 = *(a1 + 40);
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_14();
-      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
+      _os_log_impl(v4, v5, v6, v7, v8, 0x16u);
     }
   }
 
   objc_storeStrong((*(*(a1 + 56) + 8) + 40), *(a1 + 40));
-  v11 = OUTLINED_FUNCTION_37(*(a1 + 48));
-  result = v12(v11);
-  v14 = *MEMORY[0x1E69E9840];
-  return result;
+  OUTLINED_FUNCTION_37();
+  return v9();
 }
 
-uint64_t __58__CPLProxyLibraryManager_deactivateWithCompletionHandler___block_invoke_2_312(void *a1)
+uint64_t __58__CPLProxyLibraryManager_deactivateWithCompletionHandler___block_invoke_2_312(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
-  v3 = a1[4];
+  v3 = *(a1 + 32);
   if (v3)
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v4 = __CPLManagerOSLogDomain();
+      v4 = __CPLManagerOSLogDomain(a1);
       if (OUTLINED_FUNCTION_72(v4))
       {
-        v6 = a1[4];
-        v5 = a1[5];
         OUTLINED_FUNCTION_11();
         OUTLINED_FUNCTION_14();
-        _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+        _os_log_impl(v5, v6, v7, v8, v9, 0x16u);
       }
 
-      v3 = a1[4];
+      v3 = *(a1 + 32);
     }
 
-    v12 = *(a1[7] + 8);
-    v13 = v3;
-    v1 = *(v12 + 40);
-    *(v12 + 40) = v13;
+    v10 = *(*(a1 + 56) + 8);
+    v11 = v3;
+    v1 = *(v10 + 40);
+    *(v10 + 40) = v11;
 LABEL_10:
 
     goto LABEL_11;
@@ -8312,182 +8262,170 @@ LABEL_10:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v14 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_81(v14))
+    v12 = __CPLManagerOSLogDomain(a1);
+    if (OUTLINED_FUNCTION_81(v12))
     {
-      v15 = a1[5];
       OUTLINED_FUNCTION_54();
       OUTLINED_FUNCTION_33();
-      _os_log_impl(v16, v17, v18, v19, v20, v21);
+      _os_log_impl(v13, v14, v15, v16, v17, v18);
     }
 
     goto LABEL_10;
   }
 
 LABEL_11:
-  v22 = OUTLINED_FUNCTION_37(a1[6]);
-  result = v23(v22);
-  v25 = *MEMORY[0x1E69E9840];
-  return result;
+  OUTLINED_FUNCTION_37();
+  return v19();
 }
 
 void __58__CPLProxyLibraryManager_testKey_value_completionHandler___block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v15 = *MEMORY[0x1E69E9840];
-  v4 = v3;
-  v5 = v0;
+  v3 = v2;
+  v4 = v0;
+  v5 = v4;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
+    v6 = __CPLManagerOSLogDomain(v4);
     if (OUTLINED_FUNCTION_71(v6))
     {
-      v7 = *(v2 + 32);
-      v8 = *(v2 + 40);
       OUTLINED_FUNCTION_36();
       OUTLINED_FUNCTION_55();
       OUTLINED_FUNCTION_31();
-      _os_log_impl(v9, v10, v11, v12, v13, 0x2Au);
+      _os_log_impl(v7, v8, v9, v10, v11, 0x2Au);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __86__CPLProxyLibraryManager_getTargetsForRecordsWithScopedIdentifiers_completionHandler___block_invoke_3()
 {
   OUTLINED_FUNCTION_90();
   OUTLINED_FUNCTION_58();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v1;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_74(v7))
     {
-      v7 = NSStringFromSelector(*(v0 + 40));
+      v8 = NSStringFromSelector(*(v0 + 40));
       OUTLINED_FUNCTION_5();
       OUTLINED_FUNCTION_19();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x20u);
+      _os_log_impl(v9, v10, v11, v12, v13, 0x20u);
     }
   }
 
-  v13 = OUTLINED_FUNCTION_15();
-  v14(v13);
+  v14 = OUTLINED_FUNCTION_15();
+  v15(v14);
 
-  v15 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_89();
 }
 
 void __83__CPLProxyLibraryManager_deleteResources_checkServerIfNecessary_completionHandler___block_invoke_3()
 {
   OUTLINED_FUNCTION_68();
-  v32 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_74(v7))
     {
       OUTLINED_FUNCTION_67([*(v1 + 32) count], 5.7781e-34);
       OUTLINED_FUNCTION_42();
-      _os_log_impl(v7, v8, v9, v10, v11, 0x20u);
+      _os_log_impl(v8, v9, v10, v11, v12, 0x20u);
     }
   }
 
-  v12 = objc_alloc(MEMORY[0x1E695DF90]);
-  [v12 initWithCapacity:{objc_msgSend(*(v1 + 32), "count")}];
-  v13 = OUTLINED_FUNCTION_88();
+  v13 = objc_alloc(MEMORY[0x1E695DF90]);
+  [v13 initWithCapacity:{objc_msgSend(*(v1 + 32), "count")}];
+  v14 = OUTLINED_FUNCTION_88();
   OUTLINED_FUNCTION_98();
-  v15 = [v14 countByEnumeratingWithState:? objects:? count:?];
-  if (v15)
+  v16 = [v15 countByEnumeratingWithState:? objects:? count:?];
+  if (v16)
   {
-    v23 = v15;
-    v24 = *v31;
+    v24 = v16;
+    v25 = *v30;
     do
     {
-      v25 = 0;
+      v26 = 0;
       do
       {
-        if (*v31 != v24)
+        if (*v30 != v25)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v14);
         }
 
-        v15 = OUTLINED_FUNCTION_102(v15, v16, v17, v18, v19, v20, v21, v22, v29, v30);
-        ++v25;
+        v16 = OUTLINED_FUNCTION_102(v16, v17, v18, v19, v20, v21, v22, v23, v28, v29);
+        ++v26;
       }
 
-      while (v23 != v25);
+      while (v24 != v26);
       OUTLINED_FUNCTION_98();
-      v15 = [v13 countByEnumeratingWithState:? objects:? count:?];
-      v23 = v15;
+      v16 = [v14 countByEnumeratingWithState:? objects:? count:?];
+      v24 = v16;
     }
 
-    while (v15);
+    while (v16);
   }
 
-  v26 = OUTLINED_FUNCTION_37(*(v1 + 40));
-  v27(v26, MEMORY[0x1E695E0F0], v12);
-
-  v28 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_37();
+  v27();
 }
 
 void __96__CPLProxyLibraryManager_checkResourcesAreSafeToPrune_checkServerIfNecessary_completionHandler___block_invoke_3()
 {
   OUTLINED_FUNCTION_68();
-  v32 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_74(v7))
     {
       OUTLINED_FUNCTION_67([*(v1 + 32) count], 5.7781e-34);
       OUTLINED_FUNCTION_42();
-      _os_log_impl(v7, v8, v9, v10, v11, 0x20u);
+      _os_log_impl(v8, v9, v10, v11, v12, 0x20u);
     }
   }
 
-  v12 = objc_alloc(MEMORY[0x1E695DF90]);
-  [v12 initWithCapacity:{objc_msgSend(*(v1 + 32), "count")}];
-  v13 = OUTLINED_FUNCTION_88();
+  v13 = objc_alloc(MEMORY[0x1E695DF90]);
+  [v13 initWithCapacity:{objc_msgSend(*(v1 + 32), "count")}];
+  v14 = OUTLINED_FUNCTION_88();
   OUTLINED_FUNCTION_98();
-  v15 = [v14 countByEnumeratingWithState:? objects:? count:?];
-  if (v15)
+  v16 = [v15 countByEnumeratingWithState:? objects:? count:?];
+  if (v16)
   {
-    v23 = v15;
-    v24 = *v31;
+    v24 = v16;
+    v25 = *v30;
     do
     {
-      v25 = 0;
+      v26 = 0;
       do
       {
-        if (*v31 != v24)
+        if (*v30 != v25)
         {
-          objc_enumerationMutation(v13);
+          objc_enumerationMutation(v14);
         }
 
-        v15 = OUTLINED_FUNCTION_102(v15, v16, v17, v18, v19, v20, v21, v22, v29, v30);
-        ++v25;
+        v16 = OUTLINED_FUNCTION_102(v16, v17, v18, v19, v20, v21, v22, v23, v28, v29);
+        ++v26;
       }
 
-      while (v23 != v25);
+      while (v24 != v26);
       OUTLINED_FUNCTION_98();
-      v15 = [v13 countByEnumeratingWithState:? objects:? count:?];
-      v23 = v15;
+      v16 = [v14 countByEnumeratingWithState:? objects:? count:?];
+      v24 = v16;
     }
 
-    while (v15);
+    while (v16);
   }
 
-  v26 = OUTLINED_FUNCTION_37(*(v1 + 40));
-  v27(v26, MEMORY[0x1E695E0F0], v12);
-
-  v28 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_37();
+  v27();
 }
 
 void __37__CPLProxyLibraryManager_resetStatus__block_invoke_2(uint64_t a1)
@@ -8501,7 +8439,7 @@ void __37__CPLProxyLibraryManager_resetStatus__block_invoke_2(uint64_t a1)
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = __CPLManagerOSLogDomain();
+    v4 = __CPLManagerOSLogDomain(0);
     if (OUTLINED_FUNCTION_72(v4))
     {
       OUTLINED_FUNCTION_14();
@@ -8512,21 +8450,19 @@ void __37__CPLProxyLibraryManager_resetStatus__block_invoke_2(uint64_t a1)
 
 void __37__CPLProxyLibraryManager_resetStatus__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v7))
+    v8 = __CPLManagerOSLogDomain(v6);
+    if (OUTLINED_FUNCTION_71(v8))
     {
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_31();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x16u);
+      _os_log_impl(v9, v10, v11, v12, v13, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 void __42__CPLProxyLibraryManager_startSyncSession__block_invoke_2(uint64_t a1)
@@ -8540,7 +8476,7 @@ void __42__CPLProxyLibraryManager_startSyncSession__block_invoke_2(uint64_t a1)
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = __CPLManagerOSLogDomain();
+    v4 = __CPLManagerOSLogDomain(0);
     if (OUTLINED_FUNCTION_72(v4))
     {
       OUTLINED_FUNCTION_14();
@@ -8551,28 +8487,26 @@ void __42__CPLProxyLibraryManager_startSyncSession__block_invoke_2(uint64_t a1)
 
 void __42__CPLProxyLibraryManager_startSyncSession__block_invoke_3(uint64_t a1, void *a2, void *a3)
 {
-  v14 = *MEMORY[0x1E69E9840];
   v5 = a2;
   v6 = a3;
+  v7 = v6;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v7))
+    v8 = __CPLManagerOSLogDomain(v6);
+    if (OUTLINED_FUNCTION_71(v8))
     {
       OUTLINED_FUNCTION_6();
       OUTLINED_FUNCTION_31();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x16u);
+      _os_log_impl(v9, v10, v11, v12, v13, 0x16u);
     }
   }
-
-  v13 = *MEMORY[0x1E69E9840];
 }
 
 - (void)noteClientReceivedNotificationOfServerChanges
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(self);
     if (OUTLINED_FUNCTION_82(v3))
     {
       OUTLINED_FUNCTION_35();
@@ -8584,337 +8518,316 @@ void __42__CPLProxyLibraryManager_startSyncSession__block_invoke_3(uint64_t a1, 
 void __58__CPLProxyLibraryManager_noteClientIsInForegroundQuietly___block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_71(v7))
     {
-      v7 = NSStringFromSelector(*(v2 + 32));
+      v8 = NSStringFromSelector(*(v2 + 32));
       OUTLINED_FUNCTION_3();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to send %@: %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v9, v10, "%@ failed to send %@: %@", v11, v12, v13, v14);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __58__CPLProxyLibraryManager_noteClientIsInForegroundQuietly___block_invoke_342()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_71(v7))
     {
-      v7 = NSStringFromSelector(*(v2 + 32));
+      v8 = NSStringFromSelector(*(v2 + 32));
       OUTLINED_FUNCTION_3();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to send %@: %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v9, v10, "%@ failed to send %@: %@", v11, v12, v13, v14);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __50__CPLProxyLibraryManager_noteClientIsInBackground__block_invoke_2(uint64_t a1)
 {
   v2 = a1;
-  v16 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (*(v3 + 72))
   {
     OUTLINED_FUNCTION_62(v3);
-    if (!v4)
+    if (v4)
     {
-      OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_44();
-      v6 = [v5 proxyWithErrorHandler:?];
-      v1 = v6;
-      if (v6)
-      {
-        [v6 noteClientIsInBackground];
-        *(*(v2 + 32) + 80) = 0;
-LABEL_10:
-
-        goto LABEL_11;
-      }
-
-      if (_CPLSilentLogging)
-      {
-        goto LABEL_10;
-      }
-
-      v15 = __CPLManagerOSLogDomain();
-      if (!OUTLINED_FUNCTION_72(v15))
-      {
-LABEL_9:
-
-        goto LABEL_10;
-      }
-
-      OUTLINED_FUNCTION_16();
-LABEL_8:
-      _os_log_impl(v8, v9, v10, v11, v12, v13);
-      goto LABEL_9;
+      return;
     }
-  }
 
-  else if ((_CPLSilentLogging & 1) == 0)
-  {
-    v7 = __CPLManagerOSLogDomain();
-    if (!OUTLINED_FUNCTION_82(v7))
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_48();
+    OUTLINED_FUNCTION_44();
+    v6 = [v5 proxyWithErrorHandler:?];
+    v1 = v6;
+    if (v6)
+    {
+      [v6 noteClientIsInBackground];
+      *(*(v2 + 32) + 80) = 0;
+      goto LABEL_10;
+    }
+
+    if (_CPLSilentLogging)
     {
       goto LABEL_10;
     }
 
+    v14 = __CPLManagerOSLogDomain(0);
+    if (!OUTLINED_FUNCTION_72(v14))
+    {
+LABEL_9:
+
+      goto LABEL_10;
+    }
+
+    OUTLINED_FUNCTION_16();
+LABEL_8:
+    _os_log_impl(v8, v9, v10, v11, v12, v13);
+    goto LABEL_9;
+  }
+
+  if (_CPLSilentLogging)
+  {
+    return;
+  }
+
+  v7 = __CPLManagerOSLogDomain(a1);
+  if (OUTLINED_FUNCTION_82(v7))
+  {
     v2 = NSStringFromSelector(*(v2 + 40));
     OUTLINED_FUNCTION_78();
     OUTLINED_FUNCTION_50();
     goto LABEL_8;
   }
 
-LABEL_11:
-  v14 = *MEMORY[0x1E69E9840];
+LABEL_10:
 }
 
 void __50__CPLProxyLibraryManager_noteClientIsInBackground__block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_71(v7))
     {
-      v7 = NSStringFromSelector(*(v2 + 32));
+      v8 = NSStringFromSelector(*(v2 + 32));
       OUTLINED_FUNCTION_3();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to send %@: %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v9, v10, "%@ failed to send %@: %@", v11, v12, v13, v14);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __59__CPLProxyLibraryManager_disableSynchronizationWithReason___block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_71(v7))
     {
-      v7 = NSStringFromSelector(*(v2 + 32));
+      v8 = NSStringFromSelector(*(v2 + 32));
       OUTLINED_FUNCTION_3();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to send %@: %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v9, v10, "%@ failed to send %@: %@", v11, v12, v13, v14);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __58__CPLProxyLibraryManager_enableSynchronizationWithReason___block_invoke_2(uint64_t a1)
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v17 = *MEMORY[0x1E69E9840];
   v2 = 88;
   if ([*(*(a1 + 32) + 88) countForObject:*(a1 + 40)])
   {
     [*(*(a1 + 32) + 88) removeObject:*(a1 + 40)];
-    if (![*(*(a1 + 32) + 88) countForObject:*(a1 + 40)])
+    if ([*(*(a1 + 32) + 88) countForObject:*(a1 + 40)])
     {
-      v3 = *(a1 + 32);
-      OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_43();
-      v2 = [v4 proxyWithErrorHandler:?];
-      if (v2)
-      {
-        [OUTLINED_FUNCTION_69() enableSynchronizationWithReason:?];
-      }
+      return;
+    }
 
-      else if ((_CPLSilentLogging & 1) == 0)
-      {
-        v9 = __CPLManagerOSLogDomain();
-        if (OUTLINED_FUNCTION_72(v9))
-        {
-          *buf = 0;
-          OUTLINED_FUNCTION_16();
-          _os_log_impl(v10, v11, v12, v13, v14, v15);
-        }
-      }
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_48();
+    OUTLINED_FUNCTION_43();
+    v2 = [v3 proxyWithErrorHandler:?];
+    if (v2)
+    {
+      [OUTLINED_FUNCTION_69() enableSynchronizationWithReason:?];
+    }
 
-LABEL_12:
+    else if ((_CPLSilentLogging & 1) == 0)
+    {
+      v7 = __CPLManagerOSLogDomain(0);
+      if (OUTLINED_FUNCTION_72(v7))
+      {
+        *buf = 0;
+        OUTLINED_FUNCTION_16();
+        _os_log_impl(v8, v9, v10, v11, v12, v13);
+      }
     }
   }
 
-  else if ((_CPLSilentLogging & 1) == 0)
+  else
   {
-    v5 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_82(v5))
+    if (_CPLSilentLogging)
     {
-      v6 = NSStringFromSelector(*(a1 + 48));
-      v7 = *(a1 + 40);
+      return;
+    }
+
+    v4 = __CPLManagerOSLogDomain(0);
+    if (OUTLINED_FUNCTION_82(v4))
+    {
+      v5 = NSStringFromSelector(*(a1 + 48));
       OUTLINED_FUNCTION_78();
-      v18 = 2112;
-      v19 = v8;
+      v15 = 2112;
+      v16 = v6;
       _os_log_impl(&dword_1DC05A000, 0x58, OS_LOG_TYPE_ERROR, "%@ has been called too many times with reason '%@'", buf, 0x16u);
     }
-
-    goto LABEL_12;
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __58__CPLProxyLibraryManager_enableSynchronizationWithReason___block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_71(v7))
     {
-      v7 = NSStringFromSelector(*(v2 + 32));
+      v8 = NSStringFromSelector(*(v2 + 32));
       OUTLINED_FUNCTION_3();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to send %@: %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v9, v10, "%@ failed to send %@: %@", v11, v12, v13, v14);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __41__CPLProxyLibraryManager_disableMingling__block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_71(v7))
     {
-      v7 = NSStringFromSelector(*(v2 + 32));
+      v8 = NSStringFromSelector(*(v2 + 32));
       OUTLINED_FUNCTION_3();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to send %@: %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v9, v10, "%@ failed to send %@: %@", v11, v12, v13, v14);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __40__CPLProxyLibraryManager_enableMingling__block_invoke_2(uint64_t a1)
 {
   v2 = a1;
-  v16 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (*(v3 + 96))
   {
     OUTLINED_FUNCTION_62(v3);
-    if (!v4)
+    if (v4)
     {
-      OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_44();
-      v6 = [v5 proxyWithErrorHandler:?];
-      v1 = v6;
-      if (v6)
-      {
-        [v6 enableMingling];
-LABEL_10:
-
-        goto LABEL_11;
-      }
-
-      if (_CPLSilentLogging)
-      {
-        goto LABEL_10;
-      }
-
-      v15 = __CPLManagerOSLogDomain();
-      if (!OUTLINED_FUNCTION_72(v15))
-      {
-LABEL_9:
-
-        goto LABEL_10;
-      }
-
-      OUTLINED_FUNCTION_16();
-LABEL_8:
-      _os_log_impl(v8, v9, v10, v11, v12, v13);
-      goto LABEL_9;
+      return;
     }
-  }
 
-  else if ((_CPLSilentLogging & 1) == 0)
-  {
-    v7 = __CPLManagerOSLogDomain();
-    if (!OUTLINED_FUNCTION_82(v7))
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_48();
+    OUTLINED_FUNCTION_44();
+    v6 = [v5 proxyWithErrorHandler:?];
+    v1 = v6;
+    if (v6)
+    {
+      [v6 enableMingling];
+      goto LABEL_10;
+    }
+
+    if (_CPLSilentLogging)
     {
       goto LABEL_10;
     }
 
+    v14 = __CPLManagerOSLogDomain(0);
+    if (!OUTLINED_FUNCTION_72(v14))
+    {
+LABEL_9:
+
+      goto LABEL_10;
+    }
+
+    OUTLINED_FUNCTION_16();
+LABEL_8:
+    _os_log_impl(v8, v9, v10, v11, v12, v13);
+    goto LABEL_9;
+  }
+
+  if (_CPLSilentLogging)
+  {
+    return;
+  }
+
+  v7 = __CPLManagerOSLogDomain(a1);
+  if (OUTLINED_FUNCTION_82(v7))
+  {
     v2 = NSStringFromSelector(v2[5]);
     OUTLINED_FUNCTION_78();
     OUTLINED_FUNCTION_50();
     goto LABEL_8;
   }
 
-LABEL_11:
-  v14 = *MEMORY[0x1E69E9840];
+LABEL_10:
 }
 
 void __40__CPLProxyLibraryManager_enableMingling__block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_71(v7))
     {
-      v7 = NSStringFromSelector(*(v2 + 32));
+      v8 = NSStringFromSelector(*(v2 + 32));
       OUTLINED_FUNCTION_3();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to send %@: %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v9, v10, "%@ failed to send %@: %@", v11, v12, v13, v14);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __62__CPLProxyLibraryManager_noteClientIsBeginningSignificantWork__block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_71(v7))
     {
-      v7 = NSStringFromSelector(*(v2 + 32));
+      v8 = NSStringFromSelector(*(v2 + 32));
       OUTLINED_FUNCTION_3();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to send %@: %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v9, v10, "%@ failed to send %@: %@", v11, v12, v13, v14);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __64__CPLProxyLibraryManager_getSystemBudgetsWithCompletionHandler___block_invoke_2(uint64_t a1)
@@ -8931,7 +8844,7 @@ void __64__CPLProxyLibraryManager_getSystemBudgetsWithCompletionHandler___block_
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = __CPLManagerOSLogDomain();
+    v4 = __CPLManagerOSLogDomain(0);
     if (OUTLINED_FUNCTION_72(v4))
     {
       OUTLINED_FUNCTION_14();
@@ -8943,21 +8856,19 @@ void __64__CPLProxyLibraryManager_getSystemBudgetsWithCompletionHandler___block_
 void __64__CPLProxyLibraryManager_getSystemBudgetsWithCompletionHandler___block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_71(v7))
     {
-      v7 = NSStringFromSelector(*(v2 + 32));
+      v8 = NSStringFromSelector(*(v2 + 32));
       OUTLINED_FUNCTION_3();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to send %@: %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v9, v10, "%@ failed to send %@: %@", v11, v12, v13, v14);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __61__CPLProxyLibraryManager_setShouldOverride_forSystemBudgets___block_invoke_2(uint64_t a1)
@@ -8975,7 +8886,7 @@ void __61__CPLProxyLibraryManager_setShouldOverride_forSystemBudgets___block_inv
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = __CPLManagerOSLogDomain();
+    v5 = __CPLManagerOSLogDomain(0);
     if (OUTLINED_FUNCTION_72(v5))
     {
       OUTLINED_FUNCTION_14();
@@ -8987,131 +8898,123 @@ void __61__CPLProxyLibraryManager_setShouldOverride_forSystemBudgets___block_inv
 void __61__CPLProxyLibraryManager_setShouldOverride_forSystemBudgets___block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_71(v7))
     {
-      v7 = NSStringFromSelector(*(v2 + 32));
+      v8 = NSStringFromSelector(*(v2 + 32));
       OUTLINED_FUNCTION_3();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to send %@: %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v9, v10, "%@ failed to send %@: %@", v11, v12, v13, v14);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __59__CPLProxyLibraryManager_noteClientIsEndingSignificantWork__block_invoke_2(uint64_t a1)
 {
   v2 = a1;
-  v16 = *MEMORY[0x1E69E9840];
   v3 = *(a1 + 32);
   if (*(v3 + 104))
   {
     OUTLINED_FUNCTION_62(v3);
-    if (!v4)
+    if (v4)
     {
-      OUTLINED_FUNCTION_0();
-      OUTLINED_FUNCTION_48();
-      OUTLINED_FUNCTION_44();
-      v6 = [v5 proxyWithErrorHandler:?];
-      v1 = v6;
-      if (v6)
-      {
-        [v6 noteClientIsEndingSignificantWork];
-LABEL_10:
-
-        goto LABEL_11;
-      }
-
-      if (_CPLSilentLogging)
-      {
-        goto LABEL_10;
-      }
-
-      v15 = __CPLManagerOSLogDomain();
-      if (!OUTLINED_FUNCTION_72(v15))
-      {
-LABEL_9:
-
-        goto LABEL_10;
-      }
-
-      OUTLINED_FUNCTION_16();
-LABEL_8:
-      _os_log_impl(v8, v9, v10, v11, v12, v13);
-      goto LABEL_9;
+      return;
     }
-  }
 
-  else if ((_CPLSilentLogging & 1) == 0)
-  {
-    v7 = __CPLManagerOSLogDomain();
-    if (!OUTLINED_FUNCTION_82(v7))
+    OUTLINED_FUNCTION_0();
+    OUTLINED_FUNCTION_48();
+    OUTLINED_FUNCTION_44();
+    v6 = [v5 proxyWithErrorHandler:?];
+    v1 = v6;
+    if (v6)
+    {
+      [v6 noteClientIsEndingSignificantWork];
+      goto LABEL_10;
+    }
+
+    if (_CPLSilentLogging)
     {
       goto LABEL_10;
     }
 
+    v14 = __CPLManagerOSLogDomain(0);
+    if (!OUTLINED_FUNCTION_72(v14))
+    {
+LABEL_9:
+
+      goto LABEL_10;
+    }
+
+    OUTLINED_FUNCTION_16();
+LABEL_8:
+    _os_log_impl(v8, v9, v10, v11, v12, v13);
+    goto LABEL_9;
+  }
+
+  if (_CPLSilentLogging)
+  {
+    return;
+  }
+
+  v7 = __CPLManagerOSLogDomain(a1);
+  if (OUTLINED_FUNCTION_82(v7))
+  {
     v2 = NSStringFromSelector(v2[5]);
     OUTLINED_FUNCTION_78();
     OUTLINED_FUNCTION_50();
     goto LABEL_8;
   }
 
-LABEL_11:
-  v14 = *MEMORY[0x1E69E9840];
+LABEL_10:
 }
 
 void __59__CPLProxyLibraryManager_noteClientIsEndingSignificantWork__block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_71(v7))
     {
-      v7 = NSStringFromSelector(*(v2 + 32));
+      v8 = NSStringFromSelector(*(v2 + 32));
       OUTLINED_FUNCTION_3();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to send %@: %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v9, v10, "%@ failed to send %@: %@", v11, v12, v13, v14);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __84__CPLProxyLibraryManager_checkHasBackgroundDownloadOperationsWithCompletionHandler___block_invoke_3()
 {
   OUTLINED_FUNCTION_90();
   OUTLINED_FUNCTION_68();
-  v17 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_74(v7))
     {
-      v7 = NSStringFromSelector(*(v1 + 40));
+      v8 = NSStringFromSelector(*(v1 + 40));
       OUTLINED_FUNCTION_3();
       OUTLINED_FUNCTION_19();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x20u);
+      _os_log_impl(v9, v10, v11, v12, v13, 0x20u);
     }
   }
 
-  v13 = *(v1 + 32);
-  if (v13)
+  if (*(v1 + 32))
   {
-    v14 = OUTLINED_FUNCTION_37(v13);
-    v15(v14, 0, v5);
+    OUTLINED_FUNCTION_37();
+    v14();
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_89();
 }
 
@@ -9119,29 +9022,27 @@ void __85__CPLProxyLibraryManager_getStatusForRecordsWithScopedIdentifiers_compl
 {
   OUTLINED_FUNCTION_90();
   OUTLINED_FUNCTION_68();
-  v17 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_74(v7))
     {
-      v7 = NSStringFromSelector(*(v1 + 40));
+      v8 = NSStringFromSelector(*(v1 + 40));
       OUTLINED_FUNCTION_3();
       OUTLINED_FUNCTION_19();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x20u);
+      _os_log_impl(v9, v10, v11, v12, v13, 0x20u);
     }
   }
 
-  v13 = *(v1 + 32);
-  if (v13)
+  if (*(v1 + 32))
   {
-    v14 = OUTLINED_FUNCTION_18(v13);
-    v15(v14);
+    OUTLINED_FUNCTION_18();
+    v14();
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_89();
 }
 
@@ -9149,29 +9050,27 @@ void __66__CPLProxyLibraryManager_getChangedStatusesWithCompletionHandler___bloc
 {
   OUTLINED_FUNCTION_90();
   OUTLINED_FUNCTION_68();
-  v17 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_74(v7))
     {
-      v7 = NSStringFromSelector(*(v1 + 40));
+      v8 = NSStringFromSelector(*(v1 + 40));
       OUTLINED_FUNCTION_3();
       OUTLINED_FUNCTION_19();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x20u);
+      _os_log_impl(v9, v10, v11, v12, v13, 0x20u);
     }
   }
 
-  v13 = *(v1 + 32);
-  if (v13)
+  if (*(v1 + 32))
   {
-    v14 = OUTLINED_FUNCTION_18(v13);
-    v15(v14);
+    OUTLINED_FUNCTION_18();
+    v14();
   }
 
-  v16 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_89();
 }
 
@@ -9189,7 +9088,7 @@ void __53__CPLProxyLibraryManager_acknowledgeChangedStatuses___block_invoke_2(ui
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = __CPLManagerOSLogDomain();
+    v4 = __CPLManagerOSLogDomain(0);
     if (OUTLINED_FUNCTION_72(v4))
     {
       OUTLINED_FUNCTION_14();
@@ -9201,21 +9100,19 @@ void __53__CPLProxyLibraryManager_acknowledgeChangedStatuses___block_invoke_2(ui
 void __53__CPLProxyLibraryManager_acknowledgeChangedStatuses___block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_71(v7))
     {
-      v7 = NSStringFromSelector(*(v2 + 32));
+      v8 = NSStringFromSelector(*(v2 + 32));
       OUTLINED_FUNCTION_3();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to acknowledge changed statuses %@: %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v9, v10, "%@ failed to acknowledge changed statuses %@: %@", v11, v12, v13, v14);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __82__CPLProxyLibraryManager_addStatusChangesForRecordsWithScopedIdentifiers_persist___block_invoke_2(uint64_t a1)
@@ -9233,7 +9130,7 @@ void __82__CPLProxyLibraryManager_addStatusChangesForRecordsWithScopedIdentifier
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = __CPLManagerOSLogDomain();
+    v5 = __CPLManagerOSLogDomain(0);
     if (OUTLINED_FUNCTION_72(v5))
     {
       OUTLINED_FUNCTION_14();
@@ -9245,52 +9142,49 @@ void __82__CPLProxyLibraryManager_addStatusChangesForRecordsWithScopedIdentifier
 void __82__CPLProxyLibraryManager_addStatusChangesForRecordsWithScopedIdentifiers_persist___block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_71(v7))
     {
-      v7 = NSStringFromSelector(*(v2 + 32));
+      v8 = NSStringFromSelector(*(v2 + 32));
       OUTLINED_FUNCTION_3();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to acknowledge changed statuses %@: %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v9, v10, "%@ failed to acknowledge changed statuses %@: %@", v11, v12, v13, v14);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __87__CPLProxyLibraryManager_getScopeStatusCountsForScopeWithIdentifier_completionHandler___block_invoke_3()
 {
   OUTLINED_FUNCTION_90();
   OUTLINED_FUNCTION_58();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v1;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_74(v7))
     {
-      v7 = NSStringFromSelector(*(v0 + 40));
+      v8 = NSStringFromSelector(*(v0 + 40));
       OUTLINED_FUNCTION_5();
       OUTLINED_FUNCTION_19();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x20u);
+      _os_log_impl(v9, v10, v11, v12, v13, 0x20u);
     }
   }
 
-  v13 = OUTLINED_FUNCTION_15();
-  v14(v13);
+  v14 = OUTLINED_FUNCTION_15();
+  v15(v14);
 
-  v15 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_89();
 }
 
 void __66__CPLProxyLibraryManager_downloadDidStartForResourceTransferTask___block_invoke_2(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 32) objectForKey:*(a1 + 40)];
   v3 = *(a1 + 32);
   if (v2)
@@ -9298,16 +9192,16 @@ void __66__CPLProxyLibraryManager_downloadDidStartForResourceTransferTask___bloc
     v4 = *(a1 + 40);
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_48();
-    v25 = __66__CPLProxyLibraryManager_downloadDidStartForResourceTransferTask___block_invoke_3;
-    v26 = &unk_1E861B1C8;
-    v27 = v2;
+    v23 = __66__CPLProxyLibraryManager_downloadDidStartForResourceTransferTask___block_invoke_3;
+    v24 = &unk_1E861B1C8;
+    v25 = v2;
     v5 = *(a1 + 40);
     v6 = *(a1 + 32);
-    v28 = v5;
-    v29 = v6;
-    [(CPLProxyLibraryManagerOutstandingInvocation *)v3 _withVoucherForTaskWithIdentifier:v4 do:v24];
+    v26 = v5;
+    v27 = v6;
+    [(CPLProxyLibraryManagerOutstandingInvocation *)v3 _withVoucherForTaskWithIdentifier:v4 do:v22];
 
-    v3 = v27;
+    v3 = v25;
 LABEL_12:
 
     goto LABEL_13;
@@ -9317,14 +9211,13 @@ LABEL_12:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v7 = __CPLManagerOSLogDomain();
+      v7 = __CPLManagerOSLogDomain(0);
       if (OUTLINED_FUNCTION_73(v7))
       {
         v8 = NSStringFromSelector(*(a1 + 48));
-        v9 = *(a1 + 40);
         OUTLINED_FUNCTION_85();
         OUTLINED_FUNCTION_41();
-        _os_log_impl(v10, v11, v12, v13, v14, 0x16u);
+        _os_log_impl(v9, v10, v11, v12, v13, 0x16u);
       }
     }
 
@@ -9336,50 +9229,43 @@ LABEL_12:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v15 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v15))
+    v14 = __CPLManagerOSLogDomain(0);
+    if (OUTLINED_FUNCTION_71(v14))
     {
-      v16 = *(a1 + 40);
-      v30 = 138412290;
-      v31 = v16;
+      v15 = *(a1 + 40);
+      v28 = 138412290;
+      v29 = v15;
       OUTLINED_FUNCTION_50();
-      _os_log_impl(v17, v18, v19, v20, v21, v22);
+      _os_log_impl(v16, v17, v18, v19, v20, v21);
     }
 
     goto LABEL_12;
   }
 
 LABEL_13:
-
-  v23 = *MEMORY[0x1E69E9840];
 }
 
 void __66__CPLProxyLibraryManager_downloadDidStartForResourceTransferTask___block_invoke_3(uint64_t a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_75(v3))
     {
-      v4 = *(a1 + 32);
-      v5 = *(a1 + 40);
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_25();
-      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
+      _os_log_impl(v4, v5, v6, v7, v8, 0x16u);
     }
   }
 
-  v11 = [*(a1 + 48) abstractObject];
-  v12 = [v11 resourceProgressDelegate];
-  [v12 libraryManager:v11 downloadDidStartForResourceTransferTask:*(a1 + 32)];
-
-  v13 = *MEMORY[0x1E69E9840];
+  v9 = [*(a1 + 48) abstractObject];
+  v10 = [v9 resourceProgressDelegate];
+  [v10 libraryManager:v9 downloadDidStartForResourceTransferTask:*(a1 + 32)];
 }
 
 void __70__CPLProxyLibraryManager_downloadDidProgress_forResourceTransferTask___block_invoke_2(uint64_t a1)
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v30 = *MEMORY[0x1E69E9840];
   v2 = [*(*(a1 + 32) + 32) objectForKey:*(a1 + 40)];
   v3 = *(a1 + 32);
   if (v2)
@@ -9387,17 +9273,17 @@ void __70__CPLProxyLibraryManager_downloadDidProgress_forResourceTransferTask___
     v4 = *(a1 + 40);
     OUTLINED_FUNCTION_12();
     OUTLINED_FUNCTION_99();
-    v25[2] = __70__CPLProxyLibraryManager_downloadDidProgress_forResourceTransferTask___block_invoke_3;
-    v25[3] = &unk_1E861B1F0;
-    v29 = *(a1 + 56);
-    v26 = v2;
+    v23[2] = __70__CPLProxyLibraryManager_downloadDidProgress_forResourceTransferTask___block_invoke_3;
+    v23[3] = &unk_1E861B1F0;
+    v27 = *(a1 + 56);
+    v24 = v2;
     v5 = *(a1 + 40);
     v6 = *(a1 + 32);
-    v27 = v5;
-    v28 = v6;
-    [(CPLProxyLibraryManagerOutstandingInvocation *)v3 _withVoucherForTaskWithIdentifier:v4 do:v25];
+    v25 = v5;
+    v26 = v6;
+    [(CPLProxyLibraryManagerOutstandingInvocation *)v3 _withVoucherForTaskWithIdentifier:v4 do:v23];
 
-    v3 = v26;
+    v3 = v24;
 LABEL_14:
 
     goto LABEL_15;
@@ -9407,14 +9293,13 @@ LABEL_14:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v7 = __CPLManagerOSLogDomain();
+      v7 = __CPLManagerOSLogDomain(0);
       if (OUTLINED_FUNCTION_73(v7))
       {
         v8 = NSStringFromSelector(*(a1 + 48));
-        v9 = *(a1 + 40);
         OUTLINED_FUNCTION_85();
         OUTLINED_FUNCTION_41();
-        _os_log_impl(v10, v11, v12, v13, v14, 0x16u);
+        _os_log_impl(v9, v10, v11, v12, v13, 0x16u);
       }
 
       v3 = *(a1 + 32);
@@ -9427,76 +9312,67 @@ LABEL_14:
       [*(*(a1 + 32) + 112) setObject:v3 forKey:*(a1 + 40)];
     }
 
-    LODWORD(v15) = *(a1 + 56);
-    [(CPLProxyLibraryManagerOutstandingInvocation *)v3 setProgress:v15];
+    LODWORD(v14) = *(a1 + 56);
+    [(CPLProxyLibraryManagerOutstandingInvocation *)v3 setProgress:v14];
     goto LABEL_14;
   }
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v16 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v16))
+    v15 = __CPLManagerOSLogDomain(0);
+    if (OUTLINED_FUNCTION_71(v15))
     {
-      v17 = *(a1 + 40);
-      v30 = 138412290;
-      v31 = v17;
+      v16 = *(a1 + 40);
+      v28 = 138412290;
+      v29 = v16;
       OUTLINED_FUNCTION_50();
-      _os_log_impl(v18, v19, v20, v21, v22, v23);
+      _os_log_impl(v17, v18, v19, v20, v21, v22);
     }
 
     goto LABEL_14;
   }
 
 LABEL_15:
-
-  v24 = *MEMORY[0x1E69E9840];
 }
 
 void __70__CPLProxyLibraryManager_downloadDidProgress_forResourceTransferTask___block_invoke_3(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_75(v3))
     {
-      v4 = *(a1 + 32);
-      v5 = *(a1 + 40);
-      LODWORD(v15) = 134218498;
-      *(&v15 + 4) = (*(a1 + 56) * 100.0);
+      LODWORD(v12) = 134218498;
+      *(&v12 + 4) = (*(a1 + 56) * 100.0);
       OUTLINED_FUNCTION_55();
       OUTLINED_FUNCTION_25();
-      _os_log_impl(v6, v7, v8, v9, v10, 0x20u);
+      _os_log_impl(v4, v5, v6, v7, v8, 0x20u);
     }
   }
 
-  v11 = [*(a1 + 48) abstractObject];
-  v12 = [v11 resourceProgressDelegate];
+  v9 = [*(a1 + 48) abstractObject];
+  v10 = [v9 resourceProgressDelegate];
   if (objc_opt_respondsToSelector())
   {
-    LODWORD(v13) = *(a1 + 56);
-    [v12 libraryManager:v11 downloadDidProgress:*(a1 + 32) forResourceTransferTask:v13];
+    LODWORD(v11) = *(a1 + 56);
+    [v10 libraryManager:v9 downloadDidProgress:*(a1 + 32) forResourceTransferTask:v11];
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __91__CPLProxyLibraryManager_downloadDidFinishForResourceTransferTask_finalResource_withError___block_invoke_2(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) cplReinflatedErrorForXPC];
   v3 = [OUTLINED_FUNCTION_77() objectForKey:?];
   v4 = *(a1 + 40);
   if (v3)
   {
-    v5 = *(a1 + 48);
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_48();
-    v19 = v3;
-    v20 = *(a1 + 48);
-    v21 = *(a1 + 56);
-    v22 = v2;
-    v23 = *(a1 + 40);
+    v16 = v3;
+    v17 = *(a1 + 48);
+    v18 = *(a1 + 56);
+    v19 = v2;
     [OUTLINED_FUNCTION_63() _withVoucherForTaskWithIdentifier:? do:?];
     [OUTLINED_FUNCTION_77() removeObjectForKey:?];
     [*(a1 + 40) _dropVoucherForTaskWithIdentifier:*(a1 + 48)];
@@ -9505,7 +9381,7 @@ void __91__CPLProxyLibraryManager_downloadDidFinishForResourceTransferTask_final
       [CPLTransaction endTransactionWithIdentifier:@"cpl.activeresourcedownloads"];
     }
 
-    v4 = v19;
+    v4 = v16;
 LABEL_16:
 
     goto LABEL_17;
@@ -9515,13 +9391,12 @@ LABEL_16:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = __CPLManagerOSLogDomain();
-      if (OUTLINED_FUNCTION_83(v6))
+      v5 = __CPLManagerOSLogDomain(0);
+      if (OUTLINED_FUNCTION_83(v5))
       {
-        v7 = NSStringFromSelector(*(a1 + 64));
-        v8 = *(a1 + 48);
+        v6 = NSStringFromSelector(*(a1 + 64));
         OUTLINED_FUNCTION_84();
-        OUTLINED_FUNCTION_87(&dword_1DC05A000, v9, v10, "Keeping %@ invocation for %@", &v24);
+        OUTLINED_FUNCTION_87(&dword_1DC05A000, v7, v8, "Keeping %@ invocation for %@", &v20);
       }
 
       v4 = *(a1 + 40);
@@ -9541,75 +9416,64 @@ LABEL_16:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v11 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v11))
+    v9 = __CPLManagerOSLogDomain(0);
+    if (OUTLINED_FUNCTION_74(v9))
     {
-      v12 = *(a1 + 48);
-      v24 = 138412290;
-      v25 = v12;
+      v10 = *(a1 + 48);
+      v20 = 138412290;
+      v21 = v10;
       OUTLINED_FUNCTION_42();
-      _os_log_impl(v13, v14, v15, v16, v17, 0xCu);
+      _os_log_impl(v11, v12, v13, v14, v15, 0xCu);
     }
 
     goto LABEL_16;
   }
 
 LABEL_17:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __91__CPLProxyLibraryManager_downloadDidFinishForResourceTransferTask_finalResource_withError___block_invoke_3(uint64_t a1)
 {
-  v21 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_75(v3))
     {
-      v4 = *(a1 + 32);
-      v5 = *(a1 + 40);
-      v6 = *(a1 + 48);
-      v7 = *(a1 + 56);
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_25();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x2Au);
+      _os_log_impl(v4, v5, v6, v7, v8, 0x2Au);
     }
   }
 
-  v13 = [*(a1 + 64) abstractObject];
-  v14 = [v13 resourceProgressDelegate];
-  v15 = *(a1 + 32);
-  v16 = *(a1 + 48);
-  v17 = *(a1 + 56);
-  v18 = v16;
-  v19 = v15;
-  [v14 libraryManager:v13 downloadDidFinishForResourceTransferTask:v19 finalResource:v18 withError:v17];
-
-  v20 = *MEMORY[0x1E69E9840];
+  v9 = [*(a1 + 64) abstractObject];
+  v10 = [v9 resourceProgressDelegate];
+  v11 = *(a1 + 32);
+  v12 = *(a1 + 48);
+  v13 = *(a1 + 56);
+  v14 = v12;
+  v15 = v11;
+  [v10 libraryManager:v9 downloadDidFinishForResourceTransferTask:v15 finalResource:v14 withError:v13];
 }
 
 void __90__CPLProxyLibraryManager_inMemoryDownloadDidFinishForResourceTransferTask_data_withError___block_invoke_2(uint64_t a1)
 {
-  v26 = *MEMORY[0x1E69E9840];
+  v22 = *MEMORY[0x1E69E9840];
   v2 = [*(a1 + 32) cplReinflatedErrorForXPC];
   v3 = [OUTLINED_FUNCTION_77() objectForKey:?];
   v4 = *(a1 + 40);
   if (v3)
   {
-    v5 = *(a1 + 48);
     OUTLINED_FUNCTION_0();
     OUTLINED_FUNCTION_48();
-    v19 = v3;
-    v20 = *(a1 + 48);
-    v21 = *(a1 + 56);
-    v22 = v2;
-    v23 = *(a1 + 40);
+    v16 = v3;
+    v17 = *(a1 + 48);
+    v18 = *(a1 + 56);
+    v19 = v2;
     [OUTLINED_FUNCTION_63() _withVoucherForTaskWithIdentifier:? do:?];
     [*(a1 + 40) _dropVoucherForTaskWithIdentifier:*(a1 + 48)];
     [OUTLINED_FUNCTION_77() removeObjectForKey:?];
 
-    v4 = v19;
+    v4 = v16;
 LABEL_12:
 
     goto LABEL_13;
@@ -9619,13 +9483,12 @@ LABEL_12:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v6 = __CPLManagerOSLogDomain();
-      if (OUTLINED_FUNCTION_83(v6))
+      v5 = __CPLManagerOSLogDomain(0);
+      if (OUTLINED_FUNCTION_83(v5))
       {
-        v7 = NSStringFromSelector(*(a1 + 64));
-        v8 = *(a1 + 48);
+        v6 = NSStringFromSelector(*(a1 + 64));
         OUTLINED_FUNCTION_84();
-        OUTLINED_FUNCTION_87(&dword_1DC05A000, v9, v10, "Keeping %@ invocation for %@", &v24);
+        OUTLINED_FUNCTION_87(&dword_1DC05A000, v7, v8, "Keeping %@ invocation for %@", &v20);
       }
     }
 
@@ -9640,40 +9503,37 @@ LABEL_12:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v11 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v11))
+    v9 = __CPLManagerOSLogDomain(0);
+    if (OUTLINED_FUNCTION_74(v9))
     {
-      v12 = *(a1 + 48);
-      v24 = 138412290;
-      v25 = v12;
+      v10 = *(a1 + 48);
+      v20 = 138412290;
+      v21 = v10;
       OUTLINED_FUNCTION_42();
-      _os_log_impl(v13, v14, v15, v16, v17, 0xCu);
+      _os_log_impl(v11, v12, v13, v14, v15, 0xCu);
     }
 
     goto LABEL_12;
   }
 
 LABEL_13:
-
-  v18 = *MEMORY[0x1E69E9840];
 }
 
 void __90__CPLProxyLibraryManager_inMemoryDownloadDidFinishForResourceTransferTask_data_withError___block_invoke_3(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_75(v3))
     {
-      *v12 = 138413058;
-      *&v12[4] = *(a1 + 32);
-      *&v12[12] = 2112;
-      *&v12[14] = *(a1 + 40);
-      *&v12[22] = 2048;
-      v13 = [*(a1 + 48) length];
-      LOWORD(v14) = 2112;
-      *(&v14 + 2) = *(a1 + 56);
+      *v11 = 138413058;
+      *&v11[4] = *(a1 + 32);
+      *&v11[12] = 2112;
+      *&v11[14] = *(a1 + 40);
+      *&v11[22] = 2048;
+      v12 = [*(a1 + 48) length];
+      LOWORD(v13) = 2112;
+      *(&v13 + 2) = *(a1 + 56);
       OUTLINED_FUNCTION_25();
       _os_log_impl(v4, v5, v6, v7, v8, 0x2Au);
     }
@@ -9682,132 +9542,111 @@ void __90__CPLProxyLibraryManager_inMemoryDownloadDidFinishForResourceTransferTa
   v9 = [*(a1 + 64) abstractObject];
   v10 = [v9 resourceProgressDelegate];
   [v10 libraryManager:v9 inMemoryDownloadDidFinishForResourceTransferTask:*(a1 + 32) data:*(a1 + 48) withError:*(a1 + 56)];
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 void __65__CPLProxyLibraryManager_backgroundDownloadDidFinishForResource___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = [*(a1 + 32) abstractObject];
+  v4 = v3;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_73(v4))
+    v5 = __CPLManagerOSLogDomain(v3);
+    if (OUTLINED_FUNCTION_73(v5))
     {
-      v5 = *(a1 + 40);
       OUTLINED_FUNCTION_54();
       OUTLINED_FUNCTION_41();
       _os_log_impl(v6, v7, v8, v9, v10, 0xCu);
     }
   }
 
-  v11 = [v3 resourceProgressDelegate];
-  [v11 libraryManager:v3 backgroundDownloadDidFinishForResource:*(a1 + 40)];
-
-  v12 = *MEMORY[0x1E69E9840];
+  v11 = [v4 resourceProgressDelegate];
+  [v11 libraryManager:v4 backgroundDownloadDidFinishForResource:*(a1 + 40)];
 }
 
 void __63__CPLProxyLibraryManager_backgroundDownloadDidFailForResource___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
   v3 = [*(a1 + 32) abstractObject];
+  v4 = v3;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_73(v4))
+    v5 = __CPLManagerOSLogDomain(v3);
+    if (OUTLINED_FUNCTION_73(v5))
     {
-      v5 = *(a1 + 40);
       OUTLINED_FUNCTION_54();
       OUTLINED_FUNCTION_41();
       _os_log_impl(v6, v7, v8, v9, v10, 0xCu);
     }
   }
 
-  v11 = [v3 resourceProgressDelegate];
+  v11 = [v4 resourceProgressDelegate];
   if (objc_opt_respondsToSelector())
   {
-    [v11 libraryManager:v3 backgroundDownloadDidFailForResource:*(a1 + 40)];
+    [v11 libraryManager:v4 backgroundDownloadDidFailForResource:*(a1 + 40)];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 id __77__CPLProxyLibraryManager_uploadDidStartForResource_withResourceTransferTask___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_75(v3))
     {
-      v4 = *(a1 + 32);
-      v5 = *(a1 + 40);
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_25();
-      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
+      _os_log_impl(v4, v5, v6, v7, v8, 0x16u);
     }
   }
 
-  result = [*(a1 + 48) _uploadTaskDidStartForResource:*(a1 + 32) withTaskIdentifier:*(a1 + 40)];
-  v12 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*(a1 + 48) _uploadTaskDidStartForResource:*(a1 + 32) withTaskIdentifier:*(a1 + 40)];
 }
 
 void __79__CPLProxyLibraryManager_uploadOfResource_didProgress_forResourceTransferTask___block_invoke_2(uint64_t a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_75(v3))
     {
-      v4 = *(a1 + 32);
-      v5 = *(a1 + 40);
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_25();
-      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
+      _os_log_impl(v4, v5, v6, v7, v8, 0x16u);
     }
   }
 
-  v11 = [*(a1 + 48) _uploadTaskDidStartForResource:*(a1 + 32) withTaskIdentifier:*(a1 + 40)];
-  v12 = [*(a1 + 48) abstractObject];
-  v13 = [v12 resourceProgressDelegate];
+  v9 = [*(a1 + 48) _uploadTaskDidStartForResource:*(a1 + 32) withTaskIdentifier:*(a1 + 40)];
+  v10 = [*(a1 + 48) abstractObject];
+  v11 = [v10 resourceProgressDelegate];
   if (objc_opt_respondsToSelector())
   {
-    LODWORD(v14) = *(a1 + 56);
-    [v13 libraryManager:v12 uploadDidProgress:v11 forResourceTransferTask:v14];
+    LODWORD(v12) = *(a1 + 56);
+    [v11 libraryManager:v10 uploadDidProgress:v9 forResourceTransferTask:v12];
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 }
 
 void __86__CPLProxyLibraryManager_uploadOfResource_didFinishForResourceTransferTask_withError___block_invoke_2()
 {
   OUTLINED_FUNCTION_90();
   v2 = v1;
-  v16 = *MEMORY[0x1E69E9840];
   v3 = [*(v1 + 32) cplReinflatedErrorForXPC];
+  v4 = v3;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v4 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_73(v4))
+    v5 = __CPLManagerOSLogDomain(v3);
+    if (OUTLINED_FUNCTION_73(v5))
     {
-      v5 = *(v2 + 40);
-      v6 = *(v2 + 48);
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_41();
-      _os_log_impl(v7, v8, v9, v10, v11, 0x20u);
+      _os_log_impl(v6, v7, v8, v9, v10, 0x20u);
     }
   }
 
-  v12 = [*(v2 + 56) _uploadTaskDidStartForResource:*(v2 + 40) withTaskIdentifier:*(v2 + 48)];
-  v13 = [*(v2 + 56) abstractObject];
-  v14 = [v13 resourceProgressDelegate];
-  [v14 libraryManager:v13 uploadDidFinishForResourceTransferTask:v12 withError:v3];
+  v11 = [*(v2 + 56) _uploadTaskDidStartForResource:*(v2 + 40) withTaskIdentifier:*(v2 + 48)];
+  v12 = [*(v2 + 56) abstractObject];
+  v13 = [v12 resourceProgressDelegate];
+  [v13 libraryManager:v12 uploadDidFinishForResourceTransferTask:v11 withError:v4];
   [*(*(v2 + 56) + 48) removeObjectForKey:*(v2 + 48)];
 
-  v15 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_89();
 }
 
@@ -9815,7 +9654,7 @@ void __56__CPLProxyLibraryManager_libraryManagerHasChangesToPull__block_invoke_2
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_75(v3))
     {
       LOWORD(v11) = 0;
@@ -9831,55 +9670,47 @@ void __56__CPLProxyLibraryManager_libraryManagerHasChangesToPull__block_invoke_2
 
 void __70__CPLProxyLibraryManager_libraryManagerDidUpdateStatusWithProperties___block_invoke_2(uint64_t a1)
 {
-  v13 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_75(v3))
     {
-      v4 = *(a1 + 32);
       OUTLINED_FUNCTION_54();
       OUTLINED_FUNCTION_25();
-      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+      _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
     }
   }
 
   if ([*(a1 + 40) _setStatusFromDictionary:*(a1 + 32)])
   {
-    v10 = [*(a1 + 40) abstractObject];
-    v11 = [v10 delegate];
-    [v11 libraryManagerStatusDidChange:v10];
+    v9 = [*(a1 + 40) abstractObject];
+    v10 = [v9 delegate];
+    [v10 libraryManagerStatusDidChange:v9];
   }
-
-  v12 = *MEMORY[0x1E69E9840];
 }
 
 void __160__CPLProxyLibraryManager_libraryManagerDidUpdateSizeOfResourcesToUploadToSize_sizeOfOriginalResourcesToUpload_numberOfImages_numberOfVideos_numberOfOtherItems___block_invoke_2(uint64_t a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_75(v3))
     {
-      v4 = *(a1 + 40);
       OUTLINED_FUNCTION_54();
       OUTLINED_FUNCTION_25();
-      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
+      _os_log_impl(v4, v5, v6, v7, v8, 0xCu);
     }
   }
 
-  v10 = [*(a1 + 32) abstractObject];
-  [v10 _setSizeOfResourcesToUpload:*(a1 + 40) sizeOfOriginalResourcesToUpload:*(a1 + 48) numberOfImages:*(a1 + 56) numberOfVideos:*(a1 + 64) numberOfOtherItems:*(a1 + 72)];
-
-  v11 = *MEMORY[0x1E69E9840];
+  v9 = [*(a1 + 32) abstractObject];
+  [v9 _setSizeOfResourcesToUpload:*(a1 + 40) sizeOfOriginalResourcesToUpload:*(a1 + 48) numberOfImages:*(a1 + 56) numberOfVideos:*(a1 + 64) numberOfOtherItems:*(a1 + 72)];
 }
 
 void __56__CPLProxyLibraryManager_libraryManagerHasStatusChanges__block_invoke_2(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_75(v3))
     {
       LOWORD(v11) = 0;
@@ -9898,31 +9729,29 @@ void __56__CPLProxyLibraryManager_libraryManagerHasStatusChanges__block_invoke_2
 
 void __63__CPLProxyLibraryManager_forceSyncDidFinishForTask_withErrors___block_invoke_2(uint64_t a1)
 {
-  v31 = *MEMORY[0x1E69E9840];
+  v28 = *MEMORY[0x1E69E9840];
   v2 = objc_alloc_init(MEMORY[0x1E695DF90]);
   v3 = *(a1 + 32);
-  v25[0] = MEMORY[0x1E69E9820];
-  v25[1] = 3221225472;
-  v25[2] = __63__CPLProxyLibraryManager_forceSyncDidFinishForTask_withErrors___block_invoke_3;
-  v25[3] = &unk_1E861B308;
+  v22[0] = MEMORY[0x1E69E9820];
+  v22[1] = 3221225472;
+  v22[2] = __63__CPLProxyLibraryManager_forceSyncDidFinishForTask_withErrors___block_invoke_3;
+  v22[3] = &unk_1E861B308;
   v4 = v2;
-  v26 = v4;
-  [v3 enumerateKeysAndObjectsUsingBlock:v25];
+  v23 = v4;
+  [v3 enumerateKeysAndObjectsUsingBlock:v22];
   v5 = [OUTLINED_FUNCTION_77() objectForKeyedSubscript:?];
   v6 = *(a1 + 40);
   if (v5)
   {
-    v7 = *(a1 + 48);
     OUTLINED_FUNCTION_0();
-    v21 = v5;
-    v22 = *(a1 + 48);
-    v23 = v4;
-    v24 = *(a1 + 40);
+    v19 = v5;
+    v20 = *(a1 + 48);
+    v21 = v4;
     [OUTLINED_FUNCTION_63() _withVoucherForTaskWithIdentifier:? do:?];
     [*(a1 + 40) _dropVoucherForTaskWithIdentifier:*(a1 + 48)];
     [OUTLINED_FUNCTION_77() removeObjectForKey:?];
 
-    v6 = v21;
+    v6 = v19;
 LABEL_14:
 
     goto LABEL_15;
@@ -9932,16 +9761,16 @@ LABEL_14:
   {
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v8 = __CPLManagerOSLogDomain();
-      if (OUTLINED_FUNCTION_83(v8))
+      v7 = __CPLManagerOSLogDomain(0);
+      if (OUTLINED_FUNCTION_83(v7))
       {
-        v9 = NSStringFromSelector(*(a1 + 56));
-        v10 = *(a1 + 48);
-        v27 = 138412546;
-        v28 = v9;
-        v29 = 2112;
-        v30 = v10;
-        OUTLINED_FUNCTION_87(&dword_1DC05A000, v11, v12, "Keeping %@ invocation for %@", &v27);
+        v8 = NSStringFromSelector(*(a1 + 56));
+        v9 = *(a1 + 48);
+        v24 = 138412546;
+        v25 = v8;
+        v26 = 2112;
+        v27 = v9;
+        OUTLINED_FUNCTION_87(&dword_1DC05A000, v10, v11, "Keeping %@ invocation for %@", &v24);
       }
 
       v6 = *(a1 + 40);
@@ -9960,54 +9789,46 @@ LABEL_14:
 
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v13 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v13))
+    v12 = __CPLManagerOSLogDomain(0);
+    if (OUTLINED_FUNCTION_74(v12))
     {
-      v14 = *(a1 + 48);
-      v27 = 138412290;
-      v28 = v14;
+      v13 = *(a1 + 48);
+      v24 = 138412290;
+      v25 = v13;
       OUTLINED_FUNCTION_42();
-      _os_log_impl(v15, v16, v17, v18, v19, 0xCu);
+      _os_log_impl(v14, v15, v16, v17, v18, 0xCu);
     }
 
     goto LABEL_14;
   }
 
 LABEL_15:
-
-  v20 = *MEMORY[0x1E69E9840];
 }
 
 void __63__CPLProxyLibraryManager_forceSyncDidFinishForTask_withErrors___block_invoke_4(uint64_t a1)
 {
-  v15 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_75(v3))
     {
-      v4 = *(a1 + 32);
-      v5 = *(a1 + 40);
-      v6 = *(a1 + 48);
       OUTLINED_FUNCTION_11();
       OUTLINED_FUNCTION_25();
-      _os_log_impl(v7, v8, v9, v10, v11, 0x20u);
+      _os_log_impl(v4, v5, v6, v7, v8, 0x20u);
     }
   }
 
-  v12 = [*(a1 + 56) abstractObject];
-  v13 = [v12 forceSyncDelegate];
-  [v13 libraryManager:v12 didFinishForceSyncTask:*(a1 + 32) withErrors:*(a1 + 48)];
-
-  v14 = *MEMORY[0x1E69E9840];
+  v9 = [*(a1 + 56) abstractObject];
+  v10 = [v9 forceSyncDelegate];
+  [v10 libraryManager:v9 didFinishForceSyncTask:*(a1 + 32) withErrors:*(a1 + 48)];
 }
 
 - (void)libraryManagerHasBeenReplaced
 {
-  v30 = *MEMORY[0x1E69E9840];
+  v32 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(self);
     if (os_log_type_enabled(v3, OS_LOG_TYPE_FAULT))
     {
       LOWORD(buf) = 0;
@@ -10016,48 +9837,89 @@ void __63__CPLProxyLibraryManager_forceSyncDidFinishForTask_withErrors___block_i
 
     if ((_CPLSilentLogging & 1) == 0)
     {
-      v4 = __CPLManagerOSLogDomain();
-      if (OUTLINED_FUNCTION_72(v4))
+      v5 = __CPLManagerOSLogDomain(v4);
+      if (OUTLINED_FUNCTION_72(v5))
       {
         abstractObject = [(CPLPlatformObject *)self abstractObject];
         OUTLINED_FUNCTION_78();
         OUTLINED_FUNCTION_34();
-        _os_log_impl(v6, v7, v8, v9, v10, 0xCu);
+        _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
       }
 
       if ((_CPLSilentLogging & 1) == 0)
       {
-        v11 = __CPLManagerOSLogDomain();
-        if (OUTLINED_FUNCTION_72(v11))
+        v13 = __CPLManagerOSLogDomain(v12);
+        v14 = OUTLINED_FUNCTION_72(v13);
+        if (v14)
         {
           *&buf = 0;
           *(&buf + 1) = &buf;
-          v26 = 0x3032000000;
-          v27 = __Block_byref_object_copy_;
-          v28 = __Block_byref_object_dispose_;
-          v29 = 0;
-          v12 = _connectedLibraryManagerRegisterQueue();
+          v28 = 0x3032000000;
+          v29 = __Block_byref_object_copy_;
+          v30 = __Block_byref_object_dispose_;
+          v31 = 0;
+          v15 = _connectedLibraryManagerRegisterQueue(v14);
           OUTLINED_FUNCTION_0();
           OUTLINED_FUNCTION_48();
-          v22 = ___connectedLibraryManagers_block_invoke;
-          v23 = &unk_1E861B528;
+          v24 = ___connectedLibraryManagers_block_invoke;
+          v25 = &unk_1E861B528;
           p_buf = &buf;
-          dispatch_sync(v13, block);
+          dispatch_sync(v16, block);
 
-          v14 = *(*(&buf + 1) + 40);
+          v17 = *(*(&buf + 1) + 40);
           _Block_object_dispose(&buf, 8);
 
           LODWORD(buf) = 138412290;
-          *(&buf + 4) = v14;
+          *(&buf + 4) = v17;
           OUTLINED_FUNCTION_34();
-          _os_log_impl(v15, v16, v17, v18, v19, 0xCu);
+          _os_log_impl(v18, v19, v20, v21, v22, 0xCu);
         }
       }
     }
   }
 
   self->_killed = 1;
-  v20 = *MEMORY[0x1E69E9840];
+}
+
+- (void)connection:(id)connection handleInvocation:(id)invocation isReply:(BOOL)reply
+{
+  replyCopy = reply;
+  connectionCopy = connection;
+  invocationCopy = invocation;
+  v9 = invocationCopy;
+  if (replyCopy)
+  {
+    if ((_CPLSilentLogging & 1) == 0)
+    {
+      v10 = __CPLManagerOSLogDomain(invocationCopy);
+      if (OUTLINED_FUNCTION_73(v10))
+      {
+        userInfo = [v9 userInfo];
+        v12 = [userInfo objectForKey:*MEMORY[0x1E696B158]];
+        OUTLINED_FUNCTION_51();
+        OUTLINED_FUNCTION_41();
+        _os_log_impl(v13, v14, v15, v16, v17, 0xCu);
+      }
+
+LABEL_8:
+    }
+  }
+
+  else if ((_CPLSilentLogging & 1) == 0)
+  {
+    v18 = __CPLManagerOSLogDomain(invocationCopy);
+    if (OUTLINED_FUNCTION_73(v18))
+    {
+      v19 = NSStringFromSelector([v9 selector]);
+      OUTLINED_FUNCTION_51();
+      OUTLINED_FUNCTION_41();
+      _os_log_impl(v20, v21, v22, v23, v24, 0x16u);
+    }
+
+    goto LABEL_8;
+  }
+
+  [v9 invoke];
 }
 
 void __37__CPLProxyLibraryManager_cancelTask___block_invoke(uint64_t a1)
@@ -10078,7 +9940,7 @@ void __37__CPLProxyLibraryManager_cancelTask___block_invoke(uint64_t a1)
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
+    v6 = __CPLManagerOSLogDomain(0);
     if (OUTLINED_FUNCTION_71(v6))
     {
       OUTLINED_FUNCTION_31();
@@ -10090,21 +9952,18 @@ void __37__CPLProxyLibraryManager_cancelTask___block_invoke(uint64_t a1)
 void __37__CPLProxyLibraryManager_cancelTask___block_invoke_2()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
-  v4 = v3;
-  v5 = v0;
+  v3 = v2;
+  v4 = v0;
+  v5 = v4;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
+    v6 = __CPLManagerOSLogDomain(v4);
     if (OUTLINED_FUNCTION_71(v6))
     {
-      v7 = *(v2 + 32);
       OUTLINED_FUNCTION_7();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to cancel %@: %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v7, v8, "%@ failed to cancel %@: %@", v9, v10, v11, v12);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __41__CPLProxyLibraryManager_cancelSyncTask___block_invoke(uint64_t a1)
@@ -10125,7 +9984,7 @@ void __41__CPLProxyLibraryManager_cancelSyncTask___block_invoke(uint64_t a1)
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
+    v6 = __CPLManagerOSLogDomain(0);
     if (OUTLINED_FUNCTION_71(v6))
     {
       OUTLINED_FUNCTION_31();
@@ -10137,217 +9996,50 @@ void __41__CPLProxyLibraryManager_cancelSyncTask___block_invoke(uint64_t a1)
 void __41__CPLProxyLibraryManager_cancelSyncTask___block_invoke_2()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
-  v4 = v3;
-  v5 = v0;
+  v3 = v2;
+  v4 = v0;
+  v5 = v4;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
+    v6 = __CPLManagerOSLogDomain(v4);
     if (OUTLINED_FUNCTION_71(v6))
     {
-      v7 = *(v2 + 32);
       OUTLINED_FUNCTION_7();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to cancel %@: %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v7, v8, "%@ failed to cancel %@: %@", v9, v10, v11, v12);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __84__CPLProxyLibraryManager_getResourcesForItemWithScopedIdentifier_completionHandler___block_invoke_3()
 {
   OUTLINED_FUNCTION_58();
-  v16 = *MEMORY[0x1E69E9840];
-  v4 = v3;
-  v5 = v1;
+  v3 = v2;
+  v4 = v0;
+  v5 = v4;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
+    v6 = __CPLManagerOSLogDomain(v4);
     if (OUTLINED_FUNCTION_74(v6))
     {
-      v7 = *(v0 + 32);
       OUTLINED_FUNCTION_36();
       OUTLINED_FUNCTION_19();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x20u);
+      _os_log_impl(v7, v8, v9, v10, v11, 0x20u);
     }
   }
 
-  v13 = OUTLINED_FUNCTION_37(*(v0 + 40));
-  v14(v13, v5, 0);
-
-  v15 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_37();
+  v12();
 }
 
 void __64__CPLProxyLibraryManager_compactFileCacheWithCompletionHandler___block_invoke_3()
 {
   OUTLINED_FUNCTION_58();
-  v14 = *MEMORY[0x1E69E9840];
   v3 = v2;
   v4 = v0;
+  v5 = v4;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v5))
-    {
-      OUTLINED_FUNCTION_6();
-      OUTLINED_FUNCTION_19();
-      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
-    }
-  }
-
-  v11 = OUTLINED_FUNCTION_23();
-  v12(v11, v4);
-
-  v13 = *MEMORY[0x1E69E9840];
-}
-
-void __72__CPLProxyLibraryManager_resetCacheWithOption_reason_completionHandler___block_invoke_3()
-{
-  OUTLINED_FUNCTION_58();
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = v2;
-  v4 = v0;
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v5 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v5))
-    {
-      OUTLINED_FUNCTION_6();
-      OUTLINED_FUNCTION_19();
-      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
-    }
-  }
-
-  v11 = OUTLINED_FUNCTION_23();
-  v12(v11, v4);
-
-  v13 = *MEMORY[0x1E69E9840];
-}
-
-void __67__CPLProxyLibraryManager_getListOfComponentsWithCompletionHandler___block_invoke_3()
-{
-  OUTLINED_FUNCTION_58();
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = v2;
-  v4 = v0;
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v5 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v5))
-    {
-      OUTLINED_FUNCTION_6();
-      OUTLINED_FUNCTION_19();
-      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
-    }
-  }
-
-  v11 = OUTLINED_FUNCTION_15();
-  v12(v11);
-
-  v13 = *MEMORY[0x1E69E9840];
-}
-
-void __67__CPLProxyLibraryManager_getStatusForComponents_completionHandler___block_invoke_3()
-{
-  OUTLINED_FUNCTION_58();
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = v2;
-  v4 = v0;
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v5 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v5))
-    {
-      OUTLINED_FUNCTION_6();
-      OUTLINED_FUNCTION_19();
-      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
-    }
-  }
-
-  v11 = OUTLINED_FUNCTION_15();
-  v12(v11);
-
-  v13 = *MEMORY[0x1E69E9840];
-}
-
-void __72__CPLProxyLibraryManager_getStatusArrayForComponents_completionHandler___block_invoke_3()
-{
-  OUTLINED_FUNCTION_58();
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = v2;
-  v4 = v0;
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v5 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v5))
-    {
-      OUTLINED_FUNCTION_6();
-      OUTLINED_FUNCTION_19();
-      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
-    }
-  }
-
-  v11 = OUTLINED_FUNCTION_15();
-  v12(v11);
-
-  v13 = *MEMORY[0x1E69E9840];
-}
-
-void __96__CPLProxyLibraryManager_getStatusesForScopesWithIdentifiers_includeStorages_completionHandler___block_invoke_3()
-{
-  OUTLINED_FUNCTION_58();
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = v2;
-  v4 = v0;
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v5 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v5))
-    {
-      OUTLINED_FUNCTION_6();
-      OUTLINED_FUNCTION_19();
-      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
-    }
-  }
-
-  v11 = OUTLINED_FUNCTION_15();
-  v12(v11);
-
-  v13 = *MEMORY[0x1E69E9840];
-}
-
-void __109__CPLProxyLibraryManager_getCloudCacheRecordsWithLocalScopedIdentifiers_desiredProperties_completionHandler___block_invoke_3()
-{
-  OUTLINED_FUNCTION_58();
-  v14 = *MEMORY[0x1E69E9840];
-  v3 = v2;
-  v4 = v0;
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v5 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v5))
-    {
-      OUTLINED_FUNCTION_6();
-      OUTLINED_FUNCTION_19();
-      _os_log_impl(v6, v7, v8, v9, v10, 0x16u);
-    }
-  }
-
-  v11 = OUTLINED_FUNCTION_15();
-  v12(v11);
-
-  v13 = *MEMORY[0x1E69E9840];
-}
-
-void __106__CPLProxyLibraryManager_cloudCacheGetDescriptionForRecordWithScopedIdentifier_related_completionHandler___block_invoke_3()
-{
-  OUTLINED_FUNCTION_58();
-  v15 = *MEMORY[0x1E69E9840];
-  v4 = v3;
-  v5 = v1;
-  if ((_CPLSilentLogging & 1) == 0)
-  {
-    v6 = __CPLManagerOSLogDomain();
+    v6 = __CPLManagerOSLogDomain(v4);
     if (OUTLINED_FUNCTION_74(v6))
     {
       OUTLINED_FUNCTION_6();
@@ -10356,71 +10048,208 @@ void __106__CPLProxyLibraryManager_cloudCacheGetDescriptionForRecordWithScopedId
     }
   }
 
-  v12 = OUTLINED_FUNCTION_18(*(v0 + 32));
-  v13(v12);
-
-  v14 = *MEMORY[0x1E69E9840];
+  v12 = OUTLINED_FUNCTION_23();
+  v13(v12, v5);
 }
 
-void __39__CPLProxyLibraryManager_addInfoToLog___block_invoke_2(uint64_t a1)
+void __72__CPLProxyLibraryManager_resetCacheWithOption_reason_completionHandler___block_invoke_3()
 {
-  v16 = *MEMORY[0x1E69E9840];
+  OUTLINED_FUNCTION_58();
+  v3 = v2;
+  v4 = v0;
+  v5 = v4;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v6 = __CPLManagerOSLogDomain(v4);
+    if (OUTLINED_FUNCTION_74(v6))
+    {
+      OUTLINED_FUNCTION_6();
+      OUTLINED_FUNCTION_19();
+      _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+    }
+  }
+
+  v12 = OUTLINED_FUNCTION_23();
+  v13(v12, v5);
+}
+
+void __67__CPLProxyLibraryManager_getListOfComponentsWithCompletionHandler___block_invoke_3()
+{
+  OUTLINED_FUNCTION_58();
+  v3 = v2;
+  v4 = v0;
+  v5 = v4;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v6 = __CPLManagerOSLogDomain(v4);
+    if (OUTLINED_FUNCTION_74(v6))
+    {
+      OUTLINED_FUNCTION_6();
+      OUTLINED_FUNCTION_19();
+      _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+    }
+  }
+
+  v12 = OUTLINED_FUNCTION_15();
+  v13(v12);
+}
+
+void __67__CPLProxyLibraryManager_getStatusForComponents_completionHandler___block_invoke_3()
+{
+  OUTLINED_FUNCTION_58();
+  v3 = v2;
+  v4 = v0;
+  v5 = v4;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v6 = __CPLManagerOSLogDomain(v4);
+    if (OUTLINED_FUNCTION_74(v6))
+    {
+      OUTLINED_FUNCTION_6();
+      OUTLINED_FUNCTION_19();
+      _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+    }
+  }
+
+  v12 = OUTLINED_FUNCTION_15();
+  v13(v12);
+}
+
+void __72__CPLProxyLibraryManager_getStatusArrayForComponents_completionHandler___block_invoke_3()
+{
+  OUTLINED_FUNCTION_58();
+  v3 = v2;
+  v4 = v0;
+  v5 = v4;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v6 = __CPLManagerOSLogDomain(v4);
+    if (OUTLINED_FUNCTION_74(v6))
+    {
+      OUTLINED_FUNCTION_6();
+      OUTLINED_FUNCTION_19();
+      _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+    }
+  }
+
+  v12 = OUTLINED_FUNCTION_15();
+  v13(v12);
+}
+
+void __96__CPLProxyLibraryManager_getStatusesForScopesWithIdentifiers_includeStorages_completionHandler___block_invoke_3()
+{
+  OUTLINED_FUNCTION_58();
+  v3 = v2;
+  v4 = v0;
+  v5 = v4;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v6 = __CPLManagerOSLogDomain(v4);
+    if (OUTLINED_FUNCTION_74(v6))
+    {
+      OUTLINED_FUNCTION_6();
+      OUTLINED_FUNCTION_19();
+      _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+    }
+  }
+
+  v12 = OUTLINED_FUNCTION_15();
+  v13(v12);
+}
+
+void __109__CPLProxyLibraryManager_getCloudCacheRecordsWithLocalScopedIdentifiers_desiredProperties_completionHandler___block_invoke_3()
+{
+  OUTLINED_FUNCTION_58();
+  v3 = v2;
+  v4 = v0;
+  v5 = v4;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v6 = __CPLManagerOSLogDomain(v4);
+    if (OUTLINED_FUNCTION_74(v6))
+    {
+      OUTLINED_FUNCTION_6();
+      OUTLINED_FUNCTION_19();
+      _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+    }
+  }
+
+  v12 = OUTLINED_FUNCTION_15();
+  v13(v12);
+}
+
+void __106__CPLProxyLibraryManager_cloudCacheGetDescriptionForRecordWithScopedIdentifier_related_completionHandler___block_invoke_3()
+{
+  OUTLINED_FUNCTION_58();
+  v3 = v2;
+  v4 = v0;
+  v5 = v4;
+  if ((_CPLSilentLogging & 1) == 0)
+  {
+    v6 = __CPLManagerOSLogDomain(v4);
+    if (OUTLINED_FUNCTION_74(v6))
+    {
+      OUTLINED_FUNCTION_6();
+      OUTLINED_FUNCTION_19();
+      _os_log_impl(v7, v8, v9, v10, v11, 0x16u);
+    }
+  }
+
+  OUTLINED_FUNCTION_18();
+  v12();
+}
+
+void __39__CPLProxyLibraryManager_addInfoToLog___block_invoke_2()
+{
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_48();
-  v4 = *(v3 + 32);
-  v5 = *(v3 + 40);
-  v6 = [OUTLINED_FUNCTION_56() proxyWithErrorHandler:?];
-  if (v6)
+  v2 = *(v1 + 40);
+  v3 = [OUTLINED_FUNCTION_56() proxyWithErrorHandler:?];
+  if (v3)
   {
     [OUTLINED_FUNCTION_69() addInfoToLog:?];
   }
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v7))
+    v4 = __CPLManagerOSLogDomain(0);
+    if (OUTLINED_FUNCTION_71(v4))
     {
-      v8 = *(a1 + 40);
       OUTLINED_FUNCTION_76();
       OUTLINED_FUNCTION_39();
-      _os_log_impl(v9, v10, v11, v12, v13, 0xCu);
+      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __39__CPLProxyLibraryManager_addInfoToLog___block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
-  v4 = v3;
-  v5 = v0;
+  v3 = v2;
+  v4 = v0;
+  v5 = v4;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
+    v6 = __CPLManagerOSLogDomain(v4);
     if (OUTLINED_FUNCTION_71(v6))
     {
-      v7 = *(v2 + 32);
       OUTLINED_FUNCTION_7();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to say '%@': %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v7, v8, "%@ failed to say '%@': %@", v9, v10, v11, v12);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __58__CPLProxyLibraryManager_reportSetting_hasBeenSetToValue___block_invoke_2(uint64_t a1)
 {
-  v22 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_12();
   OUTLINED_FUNCTION_99();
-  v17[2] = __58__CPLProxyLibraryManager_reportSetting_hasBeenSetToValue___block_invoke_3;
-  v17[3] = &unk_1E861AFF0;
+  v14[2] = __58__CPLProxyLibraryManager_reportSetting_hasBeenSetToValue___block_invoke_3;
+  v14[3] = &unk_1E861AFF0;
   v4 = *(v3 + 32);
-  v18 = *(v3 + 40);
-  v19 = *(a1 + 48);
-  v5 = [v4 proxyWithErrorHandler:v17];
+  v15 = *(v3 + 40);
+  v16 = *(a1 + 48);
+  v5 = [v4 proxyWithErrorHandler:v14];
   v6 = v5;
   if (v5)
   {
@@ -10429,260 +10258,219 @@ void __58__CPLProxyLibraryManager_reportSetting_hasBeenSetToValue___block_invoke
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = __CPLManagerOSLogDomain();
+    v7 = __CPLManagerOSLogDomain(0);
     if (OUTLINED_FUNCTION_71(v7))
     {
-      v8 = *(a1 + 40);
-      v9 = *(a1 + 48);
       OUTLINED_FUNCTION_76();
-      v20 = 2112;
-      v21 = v10;
+      v17 = 2112;
+      v18 = v8;
       OUTLINED_FUNCTION_39();
-      _os_log_impl(v11, v12, v13, v14, v15, 0x16u);
+      _os_log_impl(v9, v10, v11, v12, v13, 0x16u);
     }
   }
-
-  v16 = *MEMORY[0x1E69E9840];
 }
 
 void __58__CPLProxyLibraryManager_reportSetting_hasBeenSetToValue___block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v15 = *MEMORY[0x1E69E9840];
-  v4 = v3;
-  v5 = v0;
+  v3 = v2;
+  v4 = v0;
+  v5 = v4;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
+    v6 = __CPLManagerOSLogDomain(v4);
     if (OUTLINED_FUNCTION_71(v6))
     {
-      v7 = *(v2 + 32);
-      v8 = *(v2 + 40);
       OUTLINED_FUNCTION_36();
       OUTLINED_FUNCTION_55();
       OUTLINED_FUNCTION_31();
-      _os_log_impl(v9, v10, v11, v12, v13, 0x2Au);
+      _os_log_impl(v7, v8, v9, v10, v11, 0x2Au);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-void __48__CPLProxyLibraryManager_reportMiscInformation___block_invoke_2(uint64_t a1)
+void __48__CPLProxyLibraryManager_reportMiscInformation___block_invoke_2()
 {
-  v16 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_48();
-  v4 = *(v3 + 32);
-  v5 = *(v3 + 40);
-  v6 = [OUTLINED_FUNCTION_56() proxyWithErrorHandler:?];
-  if (v6)
+  v2 = *(v1 + 40);
+  v3 = [OUTLINED_FUNCTION_56() proxyWithErrorHandler:?];
+  if (v3)
   {
     [OUTLINED_FUNCTION_69() reportMiscInformation:?];
   }
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v7))
+    v4 = __CPLManagerOSLogDomain(0);
+    if (OUTLINED_FUNCTION_71(v4))
     {
-      v8 = *(a1 + 40);
       OUTLINED_FUNCTION_76();
       OUTLINED_FUNCTION_39();
-      _os_log_impl(v9, v10, v11, v12, v13, 0xCu);
+      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __48__CPLProxyLibraryManager_reportMiscInformation___block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
-  v4 = v3;
-  v5 = v0;
+  v3 = v2;
+  v4 = v0;
+  v5 = v4;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
+    v6 = __CPLManagerOSLogDomain(v4);
     if (OUTLINED_FUNCTION_71(v6))
     {
-      v7 = *(v2 + 32);
       OUTLINED_FUNCTION_7();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to report misc information '%@': %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v7, v8, "%@ failed to report misc information '%@': %@", v9, v10, v11, v12);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-void __45__CPLProxyLibraryManager_blockEngineElement___block_invoke_2(uint64_t a1)
+void __45__CPLProxyLibraryManager_blockEngineElement___block_invoke_2()
 {
-  v16 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_48();
-  v4 = *(v3 + 32);
-  v5 = *(v3 + 40);
-  v6 = [OUTLINED_FUNCTION_56() proxyWithErrorHandler:?];
-  if (v6)
+  v2 = *(v1 + 40);
+  v3 = [OUTLINED_FUNCTION_56() proxyWithErrorHandler:?];
+  if (v3)
   {
     [OUTLINED_FUNCTION_69() blockEngineElement:?];
   }
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v7))
+    v4 = __CPLManagerOSLogDomain(0);
+    if (OUTLINED_FUNCTION_71(v4))
     {
-      v8 = *(a1 + 40);
       OUTLINED_FUNCTION_76();
       OUTLINED_FUNCTION_39();
-      _os_log_impl(v9, v10, v11, v12, v13, 0xCu);
+      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __45__CPLProxyLibraryManager_blockEngineElement___block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
-  v4 = v3;
-  v5 = v0;
+  v3 = v2;
+  v4 = v0;
+  v5 = v4;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
+    v6 = __CPLManagerOSLogDomain(v4);
     if (OUTLINED_FUNCTION_71(v6))
     {
-      v7 = *(v2 + 32);
       OUTLINED_FUNCTION_7();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to block '%@': %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v7, v8, "%@ failed to block '%@': %@", v9, v10, v11, v12);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-void __47__CPLProxyLibraryManager_unblockEngineElement___block_invoke_2(uint64_t a1)
+void __47__CPLProxyLibraryManager_unblockEngineElement___block_invoke_2()
 {
-  v16 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_48();
-  v4 = *(v3 + 32);
-  v5 = *(v3 + 40);
-  v6 = [OUTLINED_FUNCTION_56() proxyWithErrorHandler:?];
-  if (v6)
+  v2 = *(v1 + 40);
+  v3 = [OUTLINED_FUNCTION_56() proxyWithErrorHandler:?];
+  if (v3)
   {
     [OUTLINED_FUNCTION_69() unblockEngineElement:?];
   }
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v7))
+    v4 = __CPLManagerOSLogDomain(0);
+    if (OUTLINED_FUNCTION_71(v4))
     {
-      v8 = *(a1 + 40);
       OUTLINED_FUNCTION_76();
       OUTLINED_FUNCTION_39();
-      _os_log_impl(v9, v10, v11, v12, v13, 0xCu);
+      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __47__CPLProxyLibraryManager_unblockEngineElement___block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
-  v4 = v3;
-  v5 = v0;
+  v3 = v2;
+  v4 = v0;
+  v5 = v4;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
+    v6 = __CPLManagerOSLogDomain(v4);
     if (OUTLINED_FUNCTION_71(v6))
     {
-      v7 = *(v2 + 32);
       OUTLINED_FUNCTION_7();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to unblock '%@': %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v7, v8, "%@ failed to unblock '%@': %@", v9, v10, v11, v12);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
-void __51__CPLProxyLibraryManager_unblockEngineElementOnce___block_invoke_2(uint64_t a1)
+void __51__CPLProxyLibraryManager_unblockEngineElementOnce___block_invoke_2()
 {
-  v16 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_0();
   OUTLINED_FUNCTION_48();
-  v4 = *(v3 + 32);
-  v5 = *(v3 + 40);
-  v6 = [OUTLINED_FUNCTION_56() proxyWithErrorHandler:?];
-  if (v6)
+  v2 = *(v1 + 40);
+  v3 = [OUTLINED_FUNCTION_56() proxyWithErrorHandler:?];
+  if (v3)
   {
     [OUTLINED_FUNCTION_69() unblockEngineElementOnce:?];
   }
 
   else if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v7))
+    v4 = __CPLManagerOSLogDomain(0);
+    if (OUTLINED_FUNCTION_71(v4))
     {
-      v8 = *(a1 + 40);
       OUTLINED_FUNCTION_76();
       OUTLINED_FUNCTION_39();
-      _os_log_impl(v9, v10, v11, v12, v13, 0xCu);
+      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __51__CPLProxyLibraryManager_unblockEngineElementOnce___block_invoke_3()
 {
   OUTLINED_FUNCTION_46();
-  v16 = *MEMORY[0x1E69E9840];
-  v4 = v3;
-  v5 = v0;
+  v3 = v2;
+  v4 = v0;
+  v5 = v4;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
+    v6 = __CPLManagerOSLogDomain(v4);
     if (OUTLINED_FUNCTION_71(v6))
     {
-      v7 = *(v2 + 32);
       OUTLINED_FUNCTION_7();
-      OUTLINED_FUNCTION_27(&dword_1DC05A000, v8, v9, "%@ failed to unblock '%@' once: %@", v10, v11, v12, v13, v15);
+      OUTLINED_FUNCTION_27(&dword_1DC05A000, v7, v8, "%@ failed to unblock '%@' once: %@", v9, v10, v11, v12);
     }
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 void __85__CPLProxyLibraryManager_provideScopeChangeForScopeWithIdentifier_completionHandler___block_invoke_3()
 {
   OUTLINED_FUNCTION_90();
   OUTLINED_FUNCTION_68();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_74(v7))
     {
-      v7 = NSStringFromSelector(*(v1 + 40));
+      v8 = NSStringFromSelector(*(v1 + 40));
       OUTLINED_FUNCTION_3();
       OUTLINED_FUNCTION_19();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x20u);
+      _os_log_impl(v9, v10, v11, v12, v13, 0x20u);
     }
   }
 
-  v13 = OUTLINED_FUNCTION_18(*(v1 + 32));
-  v14(v13);
+  OUTLINED_FUNCTION_18();
+  v14();
 
-  v15 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_89();
 }
 
@@ -10690,25 +10478,24 @@ void __82__CPLProxyLibraryManager_provideRecordWithCloudScopeIdentifier_completi
 {
   OUTLINED_FUNCTION_90();
   OUTLINED_FUNCTION_68();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_74(v7))
     {
-      v7 = NSStringFromSelector(*(v1 + 40));
+      v8 = NSStringFromSelector(*(v1 + 40));
       OUTLINED_FUNCTION_3();
       OUTLINED_FUNCTION_19();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x20u);
+      _os_log_impl(v9, v10, v11, v12, v13, 0x20u);
     }
   }
 
-  v13 = OUTLINED_FUNCTION_18(*(v1 + 32));
-  v14(v13);
+  OUTLINED_FUNCTION_18();
+  v14();
 
-  v15 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_89();
 }
 
@@ -10716,25 +10503,24 @@ void __65__CPLProxyLibraryManager_provideCloudResource_completionHandler___block
 {
   OUTLINED_FUNCTION_90();
   OUTLINED_FUNCTION_68();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v0;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_74(v7))
     {
-      v7 = NSStringFromSelector(*(v1 + 40));
+      v8 = NSStringFromSelector(*(v1 + 40));
       OUTLINED_FUNCTION_3();
       OUTLINED_FUNCTION_19();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x20u);
+      _os_log_impl(v9, v10, v11, v12, v13, 0x20u);
     }
   }
 
-  v13 = OUTLINED_FUNCTION_18(*(v1 + 32));
-  v14(v13);
+  OUTLINED_FUNCTION_18();
+  v14();
 
-  v15 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_89();
 }
 
@@ -10742,25 +10528,24 @@ void __93__CPLProxyLibraryManager_addDropDerivativesRecipe_writeToUserDefaults_w
 {
   OUTLINED_FUNCTION_90();
   OUTLINED_FUNCTION_58();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v1;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_74(v7))
     {
-      v7 = NSStringFromSelector(*(v0 + 40));
+      v8 = NSStringFromSelector(*(v0 + 40));
       OUTLINED_FUNCTION_5();
       OUTLINED_FUNCTION_19();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x20u);
+      _os_log_impl(v9, v10, v11, v12, v13, 0x20u);
     }
   }
 
-  v13 = OUTLINED_FUNCTION_23();
-  v14(v13, v5);
+  v14 = OUTLINED_FUNCTION_23();
+  v15(v14, v6);
 
-  v15 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_89();
 }
 
@@ -10768,25 +10553,24 @@ void __64__CPLProxyLibraryManager_attachComputeStates_completionHandler___block_
 {
   OUTLINED_FUNCTION_90();
   OUTLINED_FUNCTION_58();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v1;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_74(v7))
     {
-      v7 = NSStringFromSelector(*(v0 + 40));
+      v8 = NSStringFromSelector(*(v0 + 40));
       OUTLINED_FUNCTION_5();
       OUTLINED_FUNCTION_19();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x20u);
+      _os_log_impl(v9, v10, v11, v12, v13, 0x20u);
     }
   }
 
-  v13 = OUTLINED_FUNCTION_23();
-  v14(v13, v5);
+  v14 = OUTLINED_FUNCTION_23();
+  v15(v14, v6);
 
-  v15 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_89();
 }
 
@@ -10794,49 +10578,44 @@ void __127__CPLProxyLibraryManager_fetchComputeStatesForRecordsWithScopedIdentif
 {
   OUTLINED_FUNCTION_90();
   OUTLINED_FUNCTION_58();
-  v16 = *MEMORY[0x1E69E9840];
   v4 = v3;
   v5 = v1;
+  v6 = v5;
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_74(v6))
+    v7 = __CPLManagerOSLogDomain(v5);
+    if (OUTLINED_FUNCTION_74(v7))
     {
-      v7 = NSStringFromSelector(*(v0 + 48));
+      v8 = NSStringFromSelector(*(v0 + 48));
       OUTLINED_FUNCTION_5();
       OUTLINED_FUNCTION_19();
-      _os_log_impl(v8, v9, v10, v11, v12, 0x20u);
+      _os_log_impl(v9, v10, v11, v12, v13, 0x20u);
     }
   }
 
-  v13 = OUTLINED_FUNCTION_18(*(v0 + 40));
-  v14(v13);
+  OUTLINED_FUNCTION_18();
+  v14();
   [*(v0 + 32) setCompletedUnitCount:{objc_msgSend(*(v0 + 32), "totalUnitCount")}];
 
-  v15 = *MEMORY[0x1E69E9840];
   OUTLINED_FUNCTION_89();
 }
 
 uint64_t __42__CPLProxyLibraryManager__setupConnection__block_invoke_cold_1(void **a1, uint64_t a2, void *a3)
 {
-  v16 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v6 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_81(v6))
+    v5 = __CPLManagerOSLogDomain(a1);
+    if (OUTLINED_FUNCTION_81(v5))
     {
-      v7 = *(*a1 + a2);
       OUTLINED_FUNCTION_54();
       OUTLINED_FUNCTION_33();
-      _os_log_impl(v8, v9, v10, v11, v12, v13);
+      _os_log_impl(v6, v7, v8, v9, v10, v11);
     }
 
     a3 = *a1;
   }
 
-  result = [a3 _dropConnectionCompletlyLocked];
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  return [a3 _dropConnectionCompletlyLocked];
 }
 
 - (BOOL)_markConnectionAsInvalid
@@ -10860,10 +10639,9 @@ uint64_t __42__CPLProxyLibraryManager__setupConnection__block_invoke_cold_1(void
 
 - (uint64_t)_dispatchBlockWhenOpen:(void *)a1 .cold.1(void *a1)
 {
-  v14 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_75(v3))
     {
       v4 = [a1 _connection];
@@ -10874,15 +10652,12 @@ uint64_t __42__CPLProxyLibraryManager__setupConnection__block_invoke_cold_1(void
   }
 
   v10 = OUTLINED_FUNCTION_21();
-  result = v11(v10);
-  v13 = *MEMORY[0x1E69E9840];
-  return result;
+  return v11(v10);
 }
 
 - (void)_dispatchBlockWhenOpen:(void *)a1 .cold.2(void *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = __CPLManagerOSLogDomain();
+  v3 = __CPLManagerOSLogDomain(a1);
   if (OUTLINED_FUNCTION_93(v3))
   {
     v4 = [a1 _connection];
@@ -10890,8 +10665,6 @@ uint64_t __42__CPLProxyLibraryManager__setupConnection__block_invoke_cold_1(void
     OUTLINED_FUNCTION_59();
     _os_log_impl(v5, v6, v7, v8, v9, v10);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_dispatchBlockWhenOpen:.cold.3()
@@ -10914,66 +10687,56 @@ uint64_t __42__CPLProxyLibraryManager__setupConnection__block_invoke_cold_1(void
   abort();
 }
 
-- (void)_dispatchBlockWhenOpen:.cold.4()
+- (void)_dispatchBlockWhenOpen:(uint64_t)a1 .cold.4(uint64_t a1)
 {
-  v8 = *MEMORY[0x1E69E9840];
-  v1 = __CPLManagerOSLogDomain();
-  if (OUTLINED_FUNCTION_82(v1))
+  v2 = __CPLManagerOSLogDomain(a1);
+  if (OUTLINED_FUNCTION_82(v2))
   {
     OUTLINED_FUNCTION_24();
     OUTLINED_FUNCTION_35();
-    _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
+    _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
   }
-
-  v7 = *MEMORY[0x1E69E9840];
 }
 
-- (uint64_t)_dispatchBlockWhenOpen:.cold.5()
+- (uint64_t)_dispatchBlockWhenOpen:(uint64_t)a1 .cold.5(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v1 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_72(v1))
+    v2 = __CPLManagerOSLogDomain(a1);
+    if (OUTLINED_FUNCTION_72(v2))
     {
       OUTLINED_FUNCTION_24();
       OUTLINED_FUNCTION_14();
-      _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
+      _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
     }
   }
 
-  v7 = OUTLINED_FUNCTION_21();
-  result = v8(v7);
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  v8 = OUTLINED_FUNCTION_21();
+  return v9(v8);
 }
 
 uint64_t __49__CPLProxyLibraryManager__dispatchBlockWhenOpen___block_invoke_cold_1(void *a1, uint64_t a2, void *a3)
 {
-  v18 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
     v4 = a1;
-    v7 = __CPLManagerOSLogDomain();
+    v7 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_71(v7))
     {
-      LODWORD(v17) = 138412546;
+      LODWORD(v15) = 138412546;
       OUTLINED_FUNCTION_24();
       OUTLINED_FUNCTION_31();
       _os_log_impl(v8, v9, v10, v11, v12, 0x16u);
     }
   }
 
-  v13 = *(a2 + 32);
   +[CPLErrors libraryClosedError];
   objc_claimAutoreleasedReturnValue();
   [OUTLINED_FUNCTION_61() _setStatus:1 andError:v4];
 
-  v14 = [*(a2 + 32) delegate];
-  *a3 = v14;
-  result = [v14 libraryManagerStatusDidChange:*(a2 + 32)];
-  v16 = *MEMORY[0x1E69E9840];
-  return result;
+  v13 = [*(a2 + 32) delegate];
+  *a3 = v13;
+  return [v13 libraryManagerStatusDidChange:*(a2 + 32)];
 }
 
 void __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke_cold_1(char a1, uint64_t a2, id *a3)
@@ -11001,8 +10764,7 @@ void __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke_cold_
 
 - (void)_invokeOutstandingInvocationsWithTaskIdentifier:(id *)a1 .cold.1(id *a1)
 {
-  v12 = *MEMORY[0x1E69E9840];
-  v3 = __CPLManagerOSLogDomain();
+  v3 = __CPLManagerOSLogDomain(a1);
   if (OUTLINED_FUNCTION_82(v3))
   {
     v4 = [*a1 allKeys];
@@ -11011,8 +10773,6 @@ void __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke_cold_
     OUTLINED_FUNCTION_35();
     _os_log_impl(v6, v7, v8, v9, v10, 0xCu);
   }
-
-  v11 = *MEMORY[0x1E69E9840];
 }
 
 - (void)_invokeOutstandingInvocationsWithTaskIdentifier:.cold.2()
@@ -11035,55 +10795,51 @@ void __52__CPLProxyLibraryManager_openWithCompletionHandler___block_invoke_cold_
   abort();
 }
 
-void __115__CPLProxyLibraryManager_beginDownloadForResource_clientBundleID_options_proposedTaskIdentifier_completionHandler___block_invoke_2_cold_1(uint64_t a1, uint64_t *a2)
+void __115__CPLProxyLibraryManager_beginDownloadForResource_clientBundleID_options_proposedTaskIdentifier_completionHandler___block_invoke_2_cold_1()
 {
   if (_CPLSilentLogging != 1)
   {
-    v5 = __CPLGenericOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v5))
+    v1 = __CPLGenericOSLogDomain();
+    if (OUTLINED_FUNCTION_71(v1))
     {
-      LOWORD(v15) = 0;
+      LOWORD(v9) = 0;
       OUTLINED_FUNCTION_31();
-      _os_log_impl(v6, v7, v8, v9, v10, 2u);
+      _os_log_impl(v2, v3, v4, v5, v6, 2u);
     }
   }
 
-  v11 = [MEMORY[0x1E696AAA8] currentHandler];
-  v12 = *(a1 + 88);
-  v13 = *a2;
-  v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/Daemon/CPLProxyLibraryManager.m"];
+  v7 = [MEMORY[0x1E696AAA8] currentHandler];
+  v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/Daemon/CPLProxyLibraryManager.m"];
   [OUTLINED_FUNCTION_107() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 
   abort();
 }
 
-void __91__CPLProxyLibraryManager_beginInMemoryDownloadOfResource_clientBundleID_completionHandler___block_invoke_2_cold_1(uint64_t a1, uint64_t *a2)
+void __91__CPLProxyLibraryManager_beginInMemoryDownloadOfResource_clientBundleID_completionHandler___block_invoke_2_cold_1()
 {
   if (_CPLSilentLogging != 1)
   {
-    v5 = __CPLGenericOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v5))
+    v1 = __CPLGenericOSLogDomain();
+    if (OUTLINED_FUNCTION_71(v1))
     {
-      LOWORD(v15) = 0;
+      LOWORD(v9) = 0;
       OUTLINED_FUNCTION_31();
-      _os_log_impl(v6, v7, v8, v9, v10, 2u);
+      _os_log_impl(v2, v3, v4, v5, v6, 2u);
     }
   }
 
-  v11 = [MEMORY[0x1E696AAA8] currentHandler];
-  v12 = *(a1 + 72);
-  v13 = *a2;
-  v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/Daemon/CPLProxyLibraryManager.m"];
+  v7 = [MEMORY[0x1E696AAA8] currentHandler];
+  v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/Daemon/CPLProxyLibraryManager.m"];
   [OUTLINED_FUNCTION_107() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 
   abort();
 }
 
-void __58__CPLProxyLibraryManager_noteClientIsInForegroundQuietly___block_invoke_2_cold_1(uint64_t a1, void *a2)
+void __58__CPLProxyLibraryManager_noteClientIsInForegroundQuietly___block_invoke_2_cold_1(uint64_t a1, uint64_t *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = __CPLManagerOSLogDomain();
+    v5 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_71(v5))
     {
       OUTLINED_FUNCTION_31();
@@ -11094,13 +10850,13 @@ void __58__CPLProxyLibraryManager_noteClientIsInForegroundQuietly___block_invoke
   *a2 = a1;
 }
 
-void __59__CPLProxyLibraryManager_disableSynchronizationWithReason___block_invoke_2_cold_1()
+void __59__CPLProxyLibraryManager_disableSynchronizationWithReason___block_invoke_2_cold_1(uint64_t a1)
 {
-  v1 = __CPLManagerOSLogDomain();
-  if (OUTLINED_FUNCTION_82(v1))
+  v2 = __CPLManagerOSLogDomain(a1);
+  if (OUTLINED_FUNCTION_82(v2))
   {
     OUTLINED_FUNCTION_35();
-    _os_log_impl(v2, v3, v4, v5, v6, 2u);
+    _os_log_impl(v3, v4, v5, v6, v7, 2u);
   }
 }
 
@@ -11108,7 +10864,7 @@ void __84__CPLProxyLibraryManager_checkHasBackgroundDownloadOperationsWithComple
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_72(v3))
     {
       OUTLINED_FUNCTION_14();
@@ -11129,7 +10885,7 @@ void __85__CPLProxyLibraryManager_getStatusForRecordsWithScopedIdentifiers_compl
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
+    v3 = __CPLManagerOSLogDomain(a1);
     if (OUTLINED_FUNCTION_72(v3))
     {
       OUTLINED_FUNCTION_14();
@@ -11146,24 +10902,23 @@ void __85__CPLProxyLibraryManager_getStatusForRecordsWithScopedIdentifiers_compl
   }
 }
 
-void __87__CPLProxyLibraryManager_getScopeStatusCountsForScopeWithIdentifier_completionHandler___block_invoke_2_cold_1(uint64_t *a1)
+void __87__CPLProxyLibraryManager_getScopeStatusCountsForScopeWithIdentifier_completionHandler___block_invoke_2_cold_1(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_72(v3))
+    v2 = __CPLManagerOSLogDomain(a1);
+    if (OUTLINED_FUNCTION_72(v2))
     {
-      LOWORD(v12) = 0;
+      LOWORD(v10) = 0;
       OUTLINED_FUNCTION_14();
-      _os_log_impl(v4, v5, v6, v7, v8, 2u);
+      _os_log_impl(v3, v4, v5, v6, v7, 2u);
     }
   }
 
-  v9 = *a1;
   +[CPLErrors unknownError];
   objc_claimAutoreleasedReturnValue();
-  v10 = OUTLINED_FUNCTION_8();
-  v11(v10);
+  v8 = OUTLINED_FUNCTION_8();
+  v9(v8);
 }
 
 - (void)_invokeSyncOutstandingInvocationsWithTaskIdentifier:.cold.2()
@@ -11186,263 +10941,242 @@ void __87__CPLProxyLibraryManager_getScopeStatusCountsForScopeWithIdentifier_com
   abort();
 }
 
-void __83__CPLProxyLibraryManager_forceSynchronizingScopeWithIdentifiers_completionHandler___block_invoke_2_cold_1(uint64_t a1, uint64_t *a2)
+void __83__CPLProxyLibraryManager_forceSynchronizingScopeWithIdentifiers_completionHandler___block_invoke_2_cold_1()
 {
   if (_CPLSilentLogging != 1)
   {
-    v5 = __CPLGenericOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v5))
+    v1 = __CPLGenericOSLogDomain();
+    if (OUTLINED_FUNCTION_71(v1))
     {
-      LOWORD(v15) = 0;
+      LOWORD(v9) = 0;
       OUTLINED_FUNCTION_31();
-      _os_log_impl(v6, v7, v8, v9, v10, 2u);
+      _os_log_impl(v2, v3, v4, v5, v6, 2u);
     }
   }
 
-  v11 = [MEMORY[0x1E696AAA8] currentHandler];
-  v12 = *(a1 + 64);
-  v13 = *a2;
-  v14 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/Daemon/CPLProxyLibraryManager.m"];
+  v7 = [MEMORY[0x1E696AAA8] currentHandler];
+  v8 = [MEMORY[0x1E696AEC0] stringWithUTF8String:"/Library/Caches/com.apple.xbs/Sources/Photos/workspaces/cloudphotolibrary/Implementations/Daemon/CPLProxyLibraryManager.m"];
   [OUTLINED_FUNCTION_107() handleFailureInMethod:? object:? file:? lineNumber:? description:?];
 
   abort();
 }
 
-- (uint64_t)provideLocalResource:recordClassString:completionHandler:.cold.1()
+- (uint64_t)provideLocalResource:(uint64_t)a1 recordClassString:completionHandler:.cold.1(uint64_t a1)
 {
-  v11 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v1 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_72(v1))
+    v2 = __CPLManagerOSLogDomain(a1);
+    if (OUTLINED_FUNCTION_72(v2))
     {
       OUTLINED_FUNCTION_14();
-      _os_log_impl(v2, v3, v4, v5, v6, 0x16u);
+      _os_log_impl(v3, v4, v5, v6, v7, 0x16u);
     }
   }
 
-  v7 = OUTLINED_FUNCTION_21();
-  result = v8(v7, 0, 2);
-  v10 = *MEMORY[0x1E69E9840];
-  return result;
+  v8 = OUTLINED_FUNCTION_21();
+  return v9(v8, 0, 2);
 }
 
-uint64_t __83__CPLProxyLibraryManager_provideLocalResource_recordClassString_completionHandler___block_invoke_2_cold_1(char a1, uint64_t a2)
+uint64_t __83__CPLProxyLibraryManager_provideLocalResource_recordClassString_completionHandler___block_invoke_2_cold_1(uint64_t a1)
 {
   if ((a1 & 1) == 0)
   {
-    v4 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_72(v4))
+    v2 = __CPLManagerOSLogDomain(a1);
+    if (OUTLINED_FUNCTION_72(v2))
     {
       OUTLINED_FUNCTION_14();
-      _os_log_impl(v5, v6, v7, v8, v9, 2u);
+      _os_log_impl(v3, v4, v5, v6, v7, 2u);
     }
   }
 
-  v10 = OUTLINED_FUNCTION_18(*(a2 + 48));
-  return v11(v10);
+  OUTLINED_FUNCTION_18();
+  return v9(v8);
 }
 
 uint64_t __83__CPLProxyLibraryManager_provideLocalResource_recordClassString_completionHandler___block_invoke_2_cold_2(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_72(v3))
+    v2 = __CPLManagerOSLogDomain(a1);
+    if (OUTLINED_FUNCTION_72(v2))
     {
       OUTLINED_FUNCTION_14();
-      _os_log_impl(v4, v5, v6, v7, v8, 2u);
+      _os_log_impl(v3, v4, v5, v6, v7, 2u);
     }
   }
 
-  v9 = OUTLINED_FUNCTION_18(*(a1 + 48));
-  return v10(v9);
+  OUTLINED_FUNCTION_18();
+  return v9(v8);
 }
 
-void __62__CPLProxyLibraryManager_pushAllChangesWithCompletionHandler___block_invoke_2_cold_1(char a1, uint64_t a2)
+void __62__CPLProxyLibraryManager_pushAllChangesWithCompletionHandler___block_invoke_2_cold_1(uint64_t a1)
 {
   if ((a1 & 1) == 0)
   {
-    v4 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_72(v4))
+    v2 = __CPLManagerOSLogDomain(a1);
+    if (OUTLINED_FUNCTION_72(v2))
     {
-      LOWORD(v13) = 0;
+      LOWORD(v10) = 0;
       OUTLINED_FUNCTION_14();
-      _os_log_impl(v5, v6, v7, v8, v9, 2u);
+      _os_log_impl(v3, v4, v5, v6, v7, 2u);
     }
   }
 
-  v10 = *(a2 + 40);
   +[CPLErrors notImplementedError];
   objc_claimAutoreleasedReturnValue();
-  v11 = OUTLINED_FUNCTION_10();
-  v12(v11, v2);
+  v8 = OUTLINED_FUNCTION_10();
+  v9(v8, v1);
 }
 
 void __62__CPLProxyLibraryManager_pushAllChangesWithCompletionHandler___block_invoke_2_cold_2(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_72(v3))
+    v2 = __CPLManagerOSLogDomain(a1);
+    if (OUTLINED_FUNCTION_72(v2))
     {
-      LOWORD(v12) = 0;
+      LOWORD(v10) = 0;
       OUTLINED_FUNCTION_14();
-      _os_log_impl(v4, v5, v6, v7, v8, 2u);
+      _os_log_impl(v3, v4, v5, v6, v7, 2u);
     }
   }
 
-  v9 = *(a1 + 40);
   +[CPLErrors notImplementedError];
   objc_claimAutoreleasedReturnValue();
-  v10 = OUTLINED_FUNCTION_10();
-  v11(v10, v1);
+  v8 = OUTLINED_FUNCTION_10();
+  v9(v8, v1);
 }
 
 uint64_t __91__CPLProxyLibraryManager_providePayloadForComputeStates_inFolderWithURL_completionHandler___block_invoke_3_cold_1(uint64_t a1, uint64_t *a2)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v5))
+    v4 = __CPLManagerOSLogDomain(a1);
+    if (OUTLINED_FUNCTION_71(v4))
     {
-      LOWORD(v15) = 0;
+      LOWORD(v13) = 0;
       OUTLINED_FUNCTION_31();
-      _os_log_impl(v6, v7, v8, v9, v10, 2u);
+      _os_log_impl(v5, v6, v7, v8, v9, 2u);
     }
   }
 
-  v11 = *(a1 + 64);
   *a2 = +[CPLErrors notImplementedError];
-  v12 = OUTLINED_FUNCTION_94();
-  return v13(v12);
+  v10 = OUTLINED_FUNCTION_94();
+  return v11(v10);
 }
 
-void __84__CPLProxyLibraryManager_getResourcesForItemWithScopedIdentifier_completionHandler___block_invoke_2_cold_1(uint64_t *a1)
+void __84__CPLProxyLibraryManager_getResourcesForItemWithScopedIdentifier_completionHandler___block_invoke_2_cold_1(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_72(v3))
+    v2 = __CPLManagerOSLogDomain(a1);
+    if (OUTLINED_FUNCTION_72(v2))
     {
-      LOWORD(v12) = 0;
+      LOWORD(v10) = 0;
       OUTLINED_FUNCTION_14();
-      _os_log_impl(v4, v5, v6, v7, v8, 2u);
+      _os_log_impl(v3, v4, v5, v6, v7, 2u);
     }
   }
 
-  v9 = *a1;
   +[CPLErrors unknownError];
   objc_claimAutoreleasedReturnValue();
-  v10 = OUTLINED_FUNCTION_10();
-  v11(v10, v1, 0);
+  v8 = OUTLINED_FUNCTION_10();
+  v9(v8, v1, 0);
 }
 
-void __64__CPLProxyLibraryManager_compactFileCacheWithCompletionHandler___block_invoke_2_cold_1(uint64_t *a1)
+void __64__CPLProxyLibraryManager_compactFileCacheWithCompletionHandler___block_invoke_2_cold_1(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_72(v3))
+    v2 = __CPLManagerOSLogDomain(a1);
+    if (OUTLINED_FUNCTION_72(v2))
     {
-      LOWORD(v12) = 0;
+      LOWORD(v10) = 0;
       OUTLINED_FUNCTION_14();
-      _os_log_impl(v4, v5, v6, v7, v8, 2u);
+      _os_log_impl(v3, v4, v5, v6, v7, 2u);
     }
   }
 
-  v9 = *a1;
   +[CPLErrors unknownError];
   objc_claimAutoreleasedReturnValue();
-  v10 = OUTLINED_FUNCTION_10();
-  v11(v10, v1);
+  v8 = OUTLINED_FUNCTION_10();
+  v9(v8, v1);
 }
 
-void __106__CPLProxyLibraryManager_cloudCacheGetDescriptionForRecordWithScopedIdentifier_related_completionHandler___block_invoke_2_cold_1(uint64_t *a1)
+void __106__CPLProxyLibraryManager_cloudCacheGetDescriptionForRecordWithScopedIdentifier_related_completionHandler___block_invoke_2_cold_1(uint64_t a1)
 {
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v3 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_72(v3))
+    v2 = __CPLManagerOSLogDomain(a1);
+    if (OUTLINED_FUNCTION_72(v2))
     {
-      LOWORD(v12) = 0;
+      LOWORD(v10) = 0;
       OUTLINED_FUNCTION_14();
-      _os_log_impl(v4, v5, v6, v7, v8, 2u);
+      _os_log_impl(v3, v4, v5, v6, v7, 2u);
     }
   }
 
-  v9 = *a1;
   +[CPLErrors unknownError];
   objc_claimAutoreleasedReturnValue();
-  v10 = OUTLINED_FUNCTION_10();
-  v11(v10, 0, 0, v1);
+  v8 = OUTLINED_FUNCTION_10();
+  v9(v8, 0, 0, v1);
 }
 
-uint64_t __85__CPLProxyLibraryManager_provideScopeChangeForScopeWithIdentifier_completionHandler___block_invoke_2_cold_1(SEL *a1, uint64_t *a2)
+uint64_t __85__CPLProxyLibraryManager_provideScopeChangeForScopeWithIdentifier_completionHandler___block_invoke_2_cold_1(SEL *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_72(v5))
+    v3 = __CPLManagerOSLogDomain(a1);
+    if (OUTLINED_FUNCTION_72(v3))
     {
-      v6 = NSStringFromSelector(*a1);
+      v4 = NSStringFromSelector(*a1);
       OUTLINED_FUNCTION_51();
       OUTLINED_FUNCTION_14();
-      _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
+      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
     }
   }
 
-  v12 = OUTLINED_FUNCTION_18(*a2);
-  result = v13(v12);
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  OUTLINED_FUNCTION_18();
+  return v10();
 }
 
-uint64_t __93__CPLProxyLibraryManager_addDropDerivativesRecipe_writeToUserDefaults_withCompletionHandler___block_invoke_2_cold_1(SEL *a1, uint64_t *a2)
+uint64_t __93__CPLProxyLibraryManager_addDropDerivativesRecipe_writeToUserDefaults_withCompletionHandler___block_invoke_2_cold_1(SEL *a1)
 {
-  v16 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v5 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_72(v5))
+    v3 = __CPLManagerOSLogDomain(a1);
+    if (OUTLINED_FUNCTION_72(v3))
     {
-      v6 = NSStringFromSelector(*a1);
+      v4 = NSStringFromSelector(*a1);
       OUTLINED_FUNCTION_51();
       OUTLINED_FUNCTION_14();
-      _os_log_impl(v7, v8, v9, v10, v11, 0xCu);
+      _os_log_impl(v5, v6, v7, v8, v9, 0xCu);
     }
   }
 
-  v12 = OUTLINED_FUNCTION_18(*a2);
-  result = v13(v12);
-  v15 = *MEMORY[0x1E69E9840];
-  return result;
+  OUTLINED_FUNCTION_18();
+  return v10();
 }
 
-uint64_t __127__CPLProxyLibraryManager_fetchComputeStatesForRecordsWithScopedIdentifiers_validator_shouldDecrypt_onDemand_completionHandler___block_invoke_2_cold_1(SEL *a1, uint64_t *a2, id *a3)
+uint64_t __127__CPLProxyLibraryManager_fetchComputeStatesForRecordsWithScopedIdentifiers_validator_shouldDecrypt_onDemand_completionHandler___block_invoke_2_cold_1(SEL *a1, uint64_t a2, id *a3)
 {
-  v20 = *MEMORY[0x1E69E9840];
   if ((_CPLSilentLogging & 1) == 0)
   {
-    v7 = __CPLManagerOSLogDomain();
-    if (OUTLINED_FUNCTION_71(v7))
+    v6 = __CPLManagerOSLogDomain(a1);
+    if (OUTLINED_FUNCTION_71(v6))
     {
-      v8 = NSStringFromSelector(*a1);
+      v7 = NSStringFromSelector(*a1);
       OUTLINED_FUNCTION_51();
       OUTLINED_FUNCTION_31();
-      _os_log_impl(v9, v10, v11, v12, v13, 0xCu);
+      _os_log_impl(v8, v9, v10, v11, v12, 0xCu);
     }
   }
 
-  v14 = *a2;
-  v15 = +[CPLErrors unknownError];
-  v16 = OUTLINED_FUNCTION_94();
-  v17(v16);
+  v13 = +[CPLErrors unknownError];
+  v14 = OUTLINED_FUNCTION_94();
+  v15(v14);
 
-  result = [*a3 setCompletedUnitCount:{objc_msgSend(*a3, "totalUnitCount")}];
-  v19 = *MEMORY[0x1E69E9840];
-  return result;
+  return [*a3 setCompletedUnitCount:{objc_msgSend(*a3, "totalUnitCount")}];
 }
 
 @end

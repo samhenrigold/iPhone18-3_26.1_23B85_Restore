@@ -47,7 +47,8 @@
   sceneCopy = scene;
   activityCopy = activity;
   selfCopy = self;
-  sub_1003BFF80(selfCopy, activityCopy);
+  v8.super.isa = activityCopy;
+  sub_1003BFF80(selfCopy, v8);
 }
 
 - (void)windowScene:(id)scene performActionForShortcutItem:(id)item completionHandler:(id)handler

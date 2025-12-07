@@ -45,9 +45,9 @@
   os_unfair_lock_unlock(&self->_lock);
   [v9 lock];
   [v9 broadcast];
-  [v9 unlock];
-  v10 = _LTOSLogAssets();
-  if (os_log_type_enabled(v10, OS_LOG_TYPE_DEBUG))
+  unlock = [v9 unlock];
+  v12 = _LTOSLogAssets(unlock, v11);
+  if (os_log_type_enabled(v12, OS_LOG_TYPE_DEBUG))
   {
     [_LTDConfigurationCache setObject:forType:];
   }
@@ -94,36 +94,36 @@
   {
     v14 = v13;
     os_unfair_lock_unlock(&self->_lock);
-    v15 = _LTOSLogAssets();
-    if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+    v17 = _LTOSLogAssets(v15, v16);
+    if (os_log_type_enabled(v17, OS_LOG_TYPE_DEBUG))
     {
       [_LTDConfigurationCache objectForType:error:];
     }
 
     [v14 lock];
-    v16 = [MEMORY[0x277CBEAA8] now];
-    v17 = [v16 dateByAddingTimeInterval:_LTDPreferencesConfigurationCacheTimeout()];
-    v18 = [v14 waitUntilDate:v17];
+    v18 = [MEMORY[0x277CBEAA8] now];
+    v19 = [v18 dateByAddingTimeInterval:_LTDPreferencesConfigurationCacheTimeout()];
+    v20 = [v14 waitUntilDate:v19];
 
-    [v14 unlock];
-    v19 = _LTOSLogAssets();
-    if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
+    unlock = [v14 unlock];
+    v23 = _LTOSLogAssets(unlock, v22);
+    if (os_log_type_enabled(v23, OS_LOG_TYPE_DEBUG))
     {
       [_LTDConfigurationCache objectForType:error:];
-      if (v18)
+      if (v20)
       {
         goto LABEL_12;
       }
     }
 
-    else if (v18)
+    else if (v20)
     {
 LABEL_12:
       os_unfair_lock_lock(&self->_lock);
-      v20 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:v7];
-      v21 = objc_opt_class();
-      v22 = v20;
-      if (!v22 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (v23 = [v22 lt_ensureTypesForKeys:v21 values:0], v12 = v22, (v23 & 1) == 0))
+      v24 = [(NSMutableDictionary *)self->_cache objectForKeyedSubscript:v7];
+      v25 = objc_opt_class();
+      v26 = v24;
+      if (!v26 || (objc_opt_class(), (objc_opt_isKindOfClass() & 1) == 0) || (v27 = [v26 lt_ensureTypesForKeys:v25 values:0], v12 = v26, (v27 & 1) == 0))
       {
 
         v12 = 0;
@@ -135,9 +135,9 @@ LABEL_12:
         goto LABEL_21;
       }
 
-      v24 = [objc_opt_class() _errorForType:type reason:0];
-      v25 = _LTOSLogAssets();
-      if (os_log_type_enabled(v25, OS_LOG_TYPE_ERROR))
+      v28 = [objc_opt_class() _errorForType:type reason:0];
+      v30 = _LTOSLogAssets(v28, v29);
+      if (os_log_type_enabled(v30, OS_LOG_TYPE_ERROR))
       {
         [_LTDConfigurationCache objectForType:error:];
         if (!error)
@@ -154,16 +154,16 @@ LABEL_21:
         goto LABEL_32;
       }
 
-      v26 = v24;
-      *error = v24;
+      v31 = v28;
+      *error = v28;
       goto LABEL_20;
     }
 
-    v28 = [objc_opt_class() _errorForType:type reason:2];
-    v29 = _LTOSLogAssets();
-    if (os_log_type_enabled(v29, OS_LOG_TYPE_ERROR))
+    v35 = [objc_opt_class() _errorForType:type reason:2];
+    v37 = _LTOSLogAssets(v35, v36);
+    if (os_log_type_enabled(v37, OS_LOG_TYPE_ERROR))
     {
-      [(_LTDConfigurationCache *)v28 objectForType:type error:v29];
+      [(_LTDConfigurationCache *)v35 objectForType:type error:v37];
       if (!error)
       {
         goto LABEL_30;
@@ -177,15 +177,15 @@ LABEL_30:
       goto LABEL_31;
     }
 
-    v30 = v28;
-    *error = v28;
+    v38 = v35;
+    *error = v35;
     goto LABEL_30;
   }
 
   v14 = objc_opt_new();
-  [(NSMutableDictionary *)self->_conditions setObject:v14 forKeyedSubscript:v7];
-  v27 = _LTOSLogAssets();
-  if (os_log_type_enabled(v27, OS_LOG_TYPE_DEBUG))
+  v32 = [(NSMutableDictionary *)self->_conditions setObject:v14 forKeyedSubscript:v7];
+  v34 = _LTOSLogAssets(v32, v33);
+  if (os_log_type_enabled(v34, OS_LOG_TYPE_DEBUG))
   {
     [_LTDConfigurationCache objectForType:error:];
     if (!error)
@@ -235,7 +235,7 @@ LABEL_32:
 
 - (void)removeObjectForType:(int64_t)type
 {
-  v5 = _LTOSLogAssets();
+  v5 = _LTOSLogAssets(self, a2);
   if (os_log_type_enabled(v5, OS_LOG_TYPE_DEBUG))
   {
     [_LTDConfigurationCache removeObjectForType:];
@@ -254,8 +254,8 @@ LABEL_32:
 
 - (void)removeAllObjects
 {
-  v17 = *MEMORY[0x277D85DE8];
-  v3 = _LTOSLogAssets();
+  v16 = *MEMORY[0x277D85DE8];
+  v3 = _LTOSLogAssets(self, a2);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     [(_LTDConfigurationCache *)v3 removeAllObjects];
@@ -266,96 +266,45 @@ LABEL_32:
   allValues = [(NSMutableDictionary *)self->_conditions allValues];
   [(NSMutableDictionary *)self->_conditions removeAllObjects];
   os_unfair_lock_unlock(&self->_lock);
-  v14 = 0u;
-  v15 = 0u;
-  v12 = 0u;
   v13 = 0u;
+  v14 = 0u;
+  v11 = 0u;
+  v12 = 0u;
   v5 = allValues;
-  v6 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+  v6 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
   if (v6)
   {
     v7 = v6;
-    v8 = *v13;
+    v8 = *v12;
     do
     {
       for (i = 0; i != v7; ++i)
       {
-        if (*v13 != v8)
+        if (*v12 != v8)
         {
           objc_enumerationMutation(v5);
         }
 
-        v10 = *(*(&v12 + 1) + 8 * i);
+        v10 = *(*(&v11 + 1) + 8 * i);
         [v10 lock];
         [v10 broadcast];
         [v10 unlock];
       }
 
-      v7 = [v5 countByEnumeratingWithState:&v12 objects:v16 count:16];
+      v7 = [v5 countByEnumeratingWithState:&v11 objects:v15 count:16];
     }
 
     while (v7);
   }
-
-  v11 = *MEMORY[0x277D85DE8];
-}
-
-- (void)setObject:forType:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_5(&dword_232E53000, v0, v1, "Configuration cache set and signaled waiters for type %zd", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)objectForType:error:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_5(&dword_232E53000, v0, v1, "Configuration cache-miss, reader block-wait for type %zd", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)objectForType:error:.cold.2()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_5(&dword_232E53000, v0, v1, "Configuration reader block-wait end for type %zd", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
 }
 
 - (void)objectForType:(NSObject *)a3 error:.cold.3(uint64_t a1, uint64_t a2, NSObject *a3)
 {
-  *v4 = 134218242;
-  *&v4[4] = a2;
-  *&v4[12] = 2112;
-  *&v4[14] = a1;
-  OUTLINED_FUNCTION_1(&dword_232E53000, a2, a3, "Timed out loading configuration cache object for type %zd: %@", *v4, *&v4[8], *&v4[16], *MEMORY[0x277D85DE8]);
-  v3 = *MEMORY[0x277D85DE8];
-}
-
-- (void)objectForType:error:.cold.4()
-{
-  v3 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_1(&dword_232E53000, v0, v1, "Received no result in cache for key %{public}@: %@");
-  v2 = *MEMORY[0x277D85DE8];
-}
-
-- (void)objectForType:error:.cold.5()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_5(&dword_232E53000, v0, v1, "Configuration cache-miss, writer pass-through for type %zd", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
-}
-
-- (void)removeObjectForType:.cold.1()
-{
-  v8 = *MEMORY[0x277D85DE8];
-  OUTLINED_FUNCTION_1_2();
-  OUTLINED_FUNCTION_0_5(&dword_232E53000, v0, v1, "Configuration cache remove type: %zd", v2, v3, v4, v5, v7);
-  v6 = *MEMORY[0x277D85DE8];
+  *v3 = 134218242;
+  *&v3[4] = a2;
+  *&v3[12] = 2112;
+  *&v3[14] = a1;
+  OUTLINED_FUNCTION_1(&dword_232E53000, a2, a3, "Timed out loading configuration cache object for type %zd: %@", *v3, *&v3[8], *&v3[16], *MEMORY[0x277D85DE8]);
 }
 
 @end

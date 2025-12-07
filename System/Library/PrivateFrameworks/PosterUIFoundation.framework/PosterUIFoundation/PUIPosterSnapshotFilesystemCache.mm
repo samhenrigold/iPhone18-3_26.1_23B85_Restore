@@ -35,7 +35,7 @@
   managerCopy = manager;
   if (([lCopy checkResourceIsReachableAndReturnError:error] & 1) == 0)
   {
-    [PUIPosterSnapshotFilesystemCache initWithURL:a2 fileManager:? options:? error:?];
+    [PUIPosterSnapshotFilesystemCache initWithURL:a2 fileManager:self options:? error:?];
   }
 
   v41.receiver = self;
@@ -484,7 +484,7 @@ id __55__PUIPosterSnapshotFilesystemCache__snapshotBundleURLs__block_invoke(uint
 
 + (id)_snapshotURLForPosterPath:(id)path relativeTo:(id)to
 {
-  v32 = *MEMORY[0x1E69E9840];
+  v33 = *MEMORY[0x1E69E9840];
   pathCopy = path;
   toCopy = to;
   serverIdentity = [pathCopy serverIdentity];
@@ -498,49 +498,49 @@ id __55__PUIPosterSnapshotFilesystemCache__snapshotBundleURLs__block_invoke(uint
   serverIdentity3 = [pathCopy serverIdentity];
   v14 = [v12 stringWithFormat:@"%llu", objc_msgSend(serverIdentity3, "version")];
 
-  v15 = PUIPosterCurrentSnapshotBundleEpochAndVersionIdentifier();
-  v25 = toCopy;
-  v16 = [toCopy copy];
-  v26 = 0u;
+  v16 = PUIPosterCurrentSnapshotBundleEpochAndVersionIdentifier(v15);
+  v26 = toCopy;
+  v17 = [toCopy copy];
   v27 = 0u;
   v28 = 0u;
   v29 = 0u;
-  v30[0] = v15;
-  v30[1] = provider;
-  v24 = provider;
-  v30[2] = uUIDString;
-  v30[3] = v14;
-  v17 = [MEMORY[0x1E695DEC8] arrayWithObjects:v30 count:4];
-  v18 = [v17 countByEnumeratingWithState:&v26 objects:v31 count:16];
-  if (v18)
+  v30 = 0u;
+  v31[0] = v16;
+  v31[1] = provider;
+  v25 = provider;
+  v31[2] = uUIDString;
+  v31[3] = v14;
+  v18 = [MEMORY[0x1E695DEC8] arrayWithObjects:v31 count:4];
+  v19 = [v18 countByEnumeratingWithState:&v27 objects:v32 count:16];
+  if (v19)
   {
-    v19 = v18;
-    v20 = *v27;
+    v20 = v19;
+    v21 = *v28;
     do
     {
-      v21 = 0;
-      v22 = v16;
+      v22 = 0;
+      v23 = v17;
       do
       {
-        if (*v27 != v20)
+        if (*v28 != v21)
         {
-          objc_enumerationMutation(v17);
+          objc_enumerationMutation(v18);
         }
 
-        v16 = [v22 URLByAppendingPathComponent:*(*(&v26 + 1) + 8 * v21) isDirectory:1];
+        v17 = [v23 URLByAppendingPathComponent:*(*(&v27 + 1) + 8 * v22) isDirectory:1];
 
-        ++v21;
-        v22 = v16;
+        ++v22;
+        v23 = v17;
       }
 
-      while (v19 != v21);
-      v19 = [v17 countByEnumeratingWithState:&v26 objects:v31 count:16];
+      while (v20 != v22);
+      v20 = [v18 countByEnumeratingWithState:&v27 objects:v32 count:16];
     }
 
-    while (v19);
+    while (v20);
   }
 
-  return v16;
+  return v17;
 }
 
 + (id)_snapshotURLForPosterPath:(id)path snapshotCacheIdentifier:(id)identifier interfaceOrientation:(int64_t)orientation hardwareIdentifier:(id)hardwareIdentifier userInterfaceStyle:(int64_t)style relativeTo:(id)to
@@ -645,7 +645,7 @@ id __55__PUIPosterSnapshotFilesystemCache__snapshotBundleURLs__block_invoke(uint
   toCopy = to;
   providerCopy = provider;
   dCopy = d;
-  v10 = PUIPosterCurrentSnapshotBundleEpochAndVersionIdentifier();
+  v10 = PUIPosterCurrentSnapshotBundleEpochAndVersionIdentifier(dCopy);
   v11 = [toCopy URLByAppendingPathComponent:v10 isDirectory:1];
 
   v12 = [v11 URLByAppendingPathComponent:providerCopy isDirectory:1];
@@ -662,7 +662,7 @@ id __55__PUIPosterSnapshotFilesystemCache__snapshotBundleURLs__block_invoke(uint
   v19 = *MEMORY[0x1E69E9840];
   path = [l path];
   v4 = [path componentsSeparatedByString:@"/"];
-  v5 = PUIPosterCurrentSnapshotBundleEpochAndVersionIdentifier();
+  v5 = PUIPosterCurrentSnapshotBundleEpochAndVersionIdentifier(v4);
   v14 = 0u;
   v15 = 0u;
   v16 = 0u;
@@ -710,209 +710,210 @@ LABEL_12:
 
 - (id)latestSnapshotBundleForPoster:(id)poster snapshotCacheIdentifier:(id)identifier interfaceOrientation:(int64_t)orientation userInterfaceStyle:(int64_t)style hardwareIdentifier:(id)hardwareIdentifier error:(id *)error
 {
-  *&v56[5] = *MEMORY[0x1E69E9840];
+  *&v64[5] = *MEMORY[0x1E69E9840];
   posterCopy = poster;
   identifierCopy = identifier;
   hardwareIdentifierCopy = hardwareIdentifier;
-  if (![(BSAtomicFlag *)self->_invalidationFlag getFlag])
+  getFlag = [(BSAtomicFlag *)self->_invalidationFlag getFlag];
+  if (!getFlag)
   {
-    v19 = PUILogSnapshotCache();
-    v20 = os_signpost_id_generate(v19);
+    v20 = PUILogSnapshotCache(getFlag);
+    v21 = os_signpost_id_generate(v20);
 
-    v21 = PUILogSnapshotCache();
-    v22 = v21;
-    spid = v20;
-    v23 = v20 - 1;
-    if (v23 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v21))
+    v23 = PUILogSnapshotCache(v22);
+    v24 = v23;
+    spid = v21;
+    v25 = v21 - 1;
+    if (v25 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v23))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v22, OS_SIGNPOST_INTERVAL_BEGIN, spid, "SnapshotCacheRetrieval", &unk_1A8D256D3, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v24, OS_SIGNPOST_INTERVAL_BEGIN, spid, "SnapshotCacheRetrieval", &unk_1A8D256D3, buf, 2u);
     }
 
     if (([posterCopy isServerPosterPath] & 1) == 0)
     {
-      [PUIPosterSnapshotFilesystemCache latestSnapshotBundleForPoster:a2 snapshotCacheIdentifier:? interfaceOrientation:? userInterfaceStyle:? hardwareIdentifier:? error:?];
+      [PUIPosterSnapshotFilesystemCache latestSnapshotBundleForPoster:a2 snapshotCacheIdentifier:self interfaceOrientation:? userInterfaceStyle:? hardwareIdentifier:? error:?];
     }
 
     if (![identifierCopy length])
     {
-      [PUIPosterSnapshotFilesystemCache latestSnapshotBundleForPoster:a2 snapshotCacheIdentifier:? interfaceOrientation:? userInterfaceStyle:? hardwareIdentifier:? error:?];
+      [PUIPosterSnapshotFilesystemCache latestSnapshotBundleForPoster:a2 snapshotCacheIdentifier:self interfaceOrientation:? userInterfaceStyle:? hardwareIdentifier:? error:?];
     }
 
-    v24 = self->_cacheLock_URLResourceIdentifierToSnapshotBundleCache;
-    v25 = [objc_opt_class() _snapshotURLForPosterPath:posterCopy snapshotCacheIdentifier:identifierCopy interfaceOrientation:orientation hardwareIdentifier:hardwareIdentifierCopy userInterfaceStyle:style relativeTo:self->_snapshotBundleContainerURL];
-    v26 = PUILogSnapshotCache();
-    v27 = v26;
-    if (v23 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v26))
+    v26 = self->_cacheLock_URLResourceIdentifierToSnapshotBundleCache;
+    v27 = [objc_opt_class() _snapshotURLForPosterPath:posterCopy snapshotCacheIdentifier:identifierCopy interfaceOrientation:orientation hardwareIdentifier:hardwareIdentifierCopy userInterfaceStyle:style relativeTo:self->_snapshotBundleContainerURL];
+    v28 = PUILogSnapshotCache(v27);
+    v29 = v28;
+    if (v25 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v28))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v27, OS_SIGNPOST_INTERVAL_BEGIN, spid, "SnapshotCacheRetrieval-unlocked", &unk_1A8D256D3, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v29, OS_SIGNPOST_INTERVAL_BEGIN, spid, "SnapshotCacheRetrieval-unlocked", &unk_1A8D256D3, buf, 2u);
     }
 
-    v28 = [v25 pf_fileResourceIdentifierWithError:0];
-    v29 = [(NSCache *)v24 objectForKey:v28];
+    v30 = [v27 pf_fileResourceIdentifierWithError:0];
+    v31 = [(NSCache *)v26 objectForKey:v30];
 
-    v30 = PUILogSnapshotCache();
-    v31 = v30;
-    if (v29)
+    v33 = PUILogSnapshotCache(v32);
+    v34 = v33;
+    if (v31)
     {
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_DEFAULT))
+      if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v56 = v25;
-        _os_log_impl(&dword_1A8C85000, v31, OS_LOG_TYPE_DEFAULT, "pre _cacheLock; snapshotBundle found @ %@", buf, 0xCu);
+        *v64 = v27;
+        _os_log_impl(&dword_1A8C85000, v34, OS_LOG_TYPE_DEFAULT, "pre _cacheLock; snapshotBundle found @ %@", buf, 0xCu);
       }
 
-      v32 = PUILogSnapshotCache();
-      v33 = v32;
-      if (v23 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v32))
+      v36 = PUILogSnapshotCache(v35);
+      v37 = v36;
+      if (v25 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v36))
       {
         goto LABEL_32;
       }
 
       *buf = 67109378;
-      v56[0] = 1;
-      LOWORD(v56[1]) = 2114;
-      *(&v56[1] + 2) = v25;
-      v34 = "SnapshotCacheRetrieval-unlocked";
+      v64[0] = 1;
+      LOWORD(v64[1]) = 2114;
+      *(&v64[1] + 2) = v27;
+      v38 = "SnapshotCacheRetrieval-unlocked";
     }
 
     else
     {
-      if (v23 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v30))
+      if (v25 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v33))
       {
         *buf = 138543362;
-        *v56 = v25;
-        _os_signpost_emit_with_name_impl(&dword_1A8C85000, v31, OS_SIGNPOST_INTERVAL_END, spid, "SnapshotCacheRetrieval-unlocked", "Failed / %{public}@", buf, 0xCu);
+        *v64 = v27;
+        _os_signpost_emit_with_name_impl(&dword_1A8C85000, v34, OS_SIGNPOST_INTERVAL_END, spid, "SnapshotCacheRetrieval-unlocked", "Failed / %{public}@", buf, 0xCu);
       }
 
-      v35 = PUILogSnapshotCache();
-      v36 = v35;
-      if (v23 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
+      v40 = PUILogSnapshotCache(v39);
+      v41 = v40;
+      if (v25 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v40))
       {
         *buf = 0;
-        _os_signpost_emit_with_name_impl(&dword_1A8C85000, v36, OS_SIGNPOST_INTERVAL_BEGIN, spid, "SnapshotCacheRetrieval-locked", &unk_1A8D256D3, buf, 2u);
+        _os_signpost_emit_with_name_impl(&dword_1A8C85000, v41, OS_SIGNPOST_INTERVAL_BEGIN, spid, "SnapshotCacheRetrieval-locked", &unk_1A8D256D3, buf, 2u);
       }
 
       os_unfair_lock_lock(&self->_cacheLock);
-      v37 = [(NSCache *)v24 objectForKey:v25];
-      if (!v37)
+      v42 = [(NSCache *)v26 objectForKey:v27];
+      if (!v42)
       {
-        v41 = PUILogSnapshotCache();
-        v42 = v41;
-        if (v23 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v41))
+        v48 = PUILogSnapshotCache(0);
+        v49 = v48;
+        if (v25 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
         {
           *buf = 0;
-          _os_signpost_emit_with_name_impl(&dword_1A8C85000, v42, OS_SIGNPOST_INTERVAL_BEGIN, spid, "SnapshotCacheRetrieval-loadFromDisk-locked", &unk_1A8D256D3, buf, 2u);
+          _os_signpost_emit_with_name_impl(&dword_1A8C85000, v49, OS_SIGNPOST_INTERVAL_BEGIN, spid, "SnapshotCacheRetrieval-loadFromDisk-locked", &unk_1A8D256D3, buf, 2u);
         }
 
-        v54 = 0;
-        v43 = [PUIPosterSnapshotBundle snapshotBundleAtURL:v25 error:&v54];
-        v52 = v54;
-        v44 = PUILogSnapshotCache();
-        v45 = v44;
-        if (v43)
+        v62 = 0;
+        v50 = [PUIPosterSnapshotBundle snapshotBundleAtURL:v27 error:&v62];
+        v60 = v62;
+        v51 = PUILogSnapshotCache(v60);
+        v52 = v51;
+        if (v50)
         {
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_DEFAULT))
           {
             *buf = 138412290;
-            *v56 = v25;
-            _os_log_impl(&dword_1A8C85000, v45, OS_LOG_TYPE_DEFAULT, "loaded snapshotBundle %@", buf, 0xCu);
+            *v64 = v27;
+            _os_log_impl(&dword_1A8C85000, v52, OS_LOG_TYPE_DEFAULT, "loaded snapshotBundle %@", buf, 0xCu);
           }
 
-          [(NSCache *)v24 setObject:v43 forKey:v25];
-          v46 = v52;
+          v53 = [(NSCache *)v26 setObject:v50 forKey:v27];
+          v54 = v60;
         }
 
         else
         {
-          if (os_log_type_enabled(v44, OS_LOG_TYPE_ERROR))
+          if (os_log_type_enabled(v51, OS_LOG_TYPE_ERROR))
           {
-            [PUIPosterSnapshotFilesystemCache latestSnapshotBundleForPoster:v25 snapshotCacheIdentifier:v52 interfaceOrientation:v45 userInterfaceStyle:? hardwareIdentifier:? error:?];
+            [PUIPosterSnapshotFilesystemCache latestSnapshotBundleForPoster:v27 snapshotCacheIdentifier:v60 interfaceOrientation:v52 userInterfaceStyle:? hardwareIdentifier:? error:?];
           }
 
-          v46 = v52;
+          v54 = v60;
           if (error)
           {
-            v47 = v52;
-            *error = v52;
+            v53 = v60;
+            *error = v60;
           }
         }
 
-        v48 = PUILogSnapshotCache();
-        v49 = v48;
-        if (v23 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v48))
+        v55 = PUILogSnapshotCache(v53);
+        v56 = v55;
+        if (v25 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v55))
         {
           *buf = 67109378;
-          v56[0] = v43 != 0;
-          LOWORD(v56[1]) = 2114;
-          *(&v56[1] + 2) = v25;
-          _os_signpost_emit_with_name_impl(&dword_1A8C85000, v49, OS_SIGNPOST_INTERVAL_END, spid, "SnapshotCacheRetrieval-loadFromDisk-locked", "Success? %{BOOL}u  %{public}@", buf, 0x12u);
+          v64[0] = v50 != 0;
+          LOWORD(v64[1]) = 2114;
+          *(&v64[1] + 2) = v27;
+          _os_signpost_emit_with_name_impl(&dword_1A8C85000, v56, OS_SIGNPOST_INTERVAL_END, spid, "SnapshotCacheRetrieval-loadFromDisk-locked", "Success? %{BOOL}u  %{public}@", buf, 0x12u);
         }
 
         os_unfair_lock_unlock(&self->_cacheLock);
-        v50 = PUILogSnapshotCache();
-        v51 = v50;
-        if (v23 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v50))
+        v58 = PUILogSnapshotCache(v57);
+        v59 = v58;
+        if (v25 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v58))
         {
           *buf = 67109378;
-          v56[0] = v43 != 0;
-          LOWORD(v56[1]) = 2114;
-          *(&v56[1] + 2) = v25;
-          _os_signpost_emit_with_name_impl(&dword_1A8C85000, v51, OS_SIGNPOST_INTERVAL_END, spid, "SnapshotCacheRetrieval-locked", "Success? %{BOOL}u  %{public}@", buf, 0x12u);
+          v64[0] = v50 != 0;
+          LOWORD(v64[1]) = 2114;
+          *(&v64[1] + 2) = v27;
+          _os_signpost_emit_with_name_impl(&dword_1A8C85000, v59, OS_SIGNPOST_INTERVAL_END, spid, "SnapshotCacheRetrieval-locked", "Success? %{BOOL}u  %{public}@", buf, 0x12u);
         }
 
-        v18 = v43;
+        v19 = v50;
         goto LABEL_33;
       }
 
-      v29 = v37;
+      v31 = v42;
       os_unfair_lock_unlock(&self->_cacheLock);
-      v38 = PUILogSnapshotCache();
-      if (os_log_type_enabled(v38, OS_LOG_TYPE_DEFAULT))
+      v44 = PUILogSnapshotCache(v43);
+      if (os_log_type_enabled(v44, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 138412290;
-        *v56 = v25;
-        _os_log_impl(&dword_1A8C85000, v38, OS_LOG_TYPE_DEFAULT, "post _cacheLock; snapshotBundle found @ %@", buf, 0xCu);
+        *v64 = v27;
+        _os_log_impl(&dword_1A8C85000, v44, OS_LOG_TYPE_DEFAULT, "post _cacheLock; snapshotBundle found @ %@", buf, 0xCu);
       }
 
-      v39 = PUILogSnapshotCache();
-      v33 = v39;
-      if (v23 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v39))
+      v46 = PUILogSnapshotCache(v45);
+      v37 = v46;
+      if (v25 > 0xFFFFFFFFFFFFFFFDLL || !os_signpost_enabled(v46))
       {
 LABEL_32:
 
-        v18 = v29;
+        v19 = v31;
 LABEL_33:
 
         goto LABEL_34;
       }
 
       *buf = 67109378;
-      v56[0] = 1;
-      LOWORD(v56[1]) = 2114;
-      *(&v56[1] + 2) = v25;
-      v34 = "SnapshotCacheRetrieval-locked";
+      v64[0] = 1;
+      LOWORD(v64[1]) = 2114;
+      *(&v64[1] + 2) = v27;
+      v38 = "SnapshotCacheRetrieval-locked";
     }
 
-    _os_signpost_emit_with_name_impl(&dword_1A8C85000, v33, OS_SIGNPOST_INTERVAL_END, spid, v34, "Success? %{BOOL}u  %{public}@", buf, 0x12u);
+    _os_signpost_emit_with_name_impl(&dword_1A8C85000, v37, OS_SIGNPOST_INTERVAL_END, spid, v38, "Success? %{BOOL}u  %{public}@", buf, 0x12u);
     goto LABEL_32;
   }
 
   if (error)
   {
     [MEMORY[0x1E696ABC0] pui_errorWithCode:5];
-    *error = v18 = 0;
+    *error = v19 = 0;
   }
 
   else
   {
-    v18 = 0;
+    v19 = 0;
   }
 
 LABEL_34:
 
-  return v18;
+  return v19;
 }
 
 - (void)discardSnapshotsForPosters:(id)posters
@@ -1064,103 +1065,104 @@ id __56__PUIPosterSnapshotFilesystemCache_reachableCacheFuture__block_invoke(uin
 
 - (void)discardSnapshotsForPostersMatchingPredicate:(id)predicate
 {
-  v43 = *MEMORY[0x1E69E9840];
+  v46 = *MEMORY[0x1E69E9840];
   predicateCopy = predicate;
-  if (([(BSAtomicFlag *)self->_invalidationFlag getFlag]& 1) == 0)
+  getFlag = [(BSAtomicFlag *)self->_invalidationFlag getFlag];
+  if ((getFlag & 1) == 0)
   {
-    v4 = PUILogSnapshotCache();
-    v5 = os_signpost_id_generate(v4);
+    v5 = PUILogSnapshotCache(getFlag);
+    v6 = os_signpost_id_generate(v5);
 
-    v6 = PUILogSnapshotCache();
-    v7 = v6;
-    v27 = v5 - 1;
-    if (v5 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
+    v8 = PUILogSnapshotCache(v7);
+    v9 = v8;
+    v30 = v6 - 1;
+    if (v6 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
     {
       *buf = 138543362;
-      v38 = predicateCopy;
-      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v5, "SnapshotCacheCleanupMatchingPredicate", "Predicate %{public}@", buf, 0xCu);
+      v41 = predicateCopy;
+      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v6, "SnapshotCacheCleanupMatchingPredicate", "Predicate %{public}@", buf, 0xCu);
     }
 
-    spid = v5;
+    spid = v6;
 
-    v8 = objc_opt_new();
+    v10 = objc_opt_new();
     os_unfair_lock_lock(&self->_cacheLock);
-    v35 = 0u;
+    v38 = 0u;
+    v39 = 0u;
     v36 = 0u;
-    v33 = 0u;
-    v34 = 0u;
-    v9 = [(NSFileManager *)self->_fileManager enumeratorAtURL:self->_snapshotBundleContainerURL includingPropertiesForKeys:0 options:4 errorHandler:0];
-    v10 = [v9 countByEnumeratingWithState:&v33 objects:v42 count:16];
-    if (v10)
+    v37 = 0u;
+    v11 = [(NSFileManager *)self->_fileManager enumeratorAtURL:self->_snapshotBundleContainerURL includingPropertiesForKeys:0 options:4 errorHandler:0];
+    v12 = [v11 countByEnumeratingWithState:&v36 objects:v45 count:16];
+    if (v12)
     {
-      v11 = v10;
-      v12 = *v34;
+      v13 = v12;
+      v14 = *v37;
       do
       {
-        for (i = 0; i != v11; ++i)
+        for (i = 0; i != v13; ++i)
         {
-          if (*v34 != v12)
+          if (*v37 != v14)
           {
-            objc_enumerationMutation(v9);
+            objc_enumerationMutation(v11);
           }
 
-          v14 = *(*(&v33 + 1) + 8 * i);
-          pathExtension = [v14 pathExtension];
-          v16 = [pathExtension localizedCompare:@"pks"];
+          v16 = *(*(&v36 + 1) + 8 * i);
+          pathExtension = [v16 pathExtension];
+          v18 = [pathExtension localizedCompare:@"pks"];
 
-          if (!v16 && [predicateCopy evaluateWithObject:v14])
+          if (!v18 && [predicateCopy evaluateWithObject:v16])
           {
-            [v8 addObject:v14];
+            [v10 addObject:v16];
             cacheLock_URLResourceIdentifierToSnapshotBundleCache = self->_cacheLock_URLResourceIdentifierToSnapshotBundleCache;
-            v18 = [v14 pf_fileResourceIdentifierWithError:0];
-            [(NSCache *)cacheLock_URLResourceIdentifierToSnapshotBundleCache removeObjectForKey:v18];
+            v20 = [v16 pf_fileResourceIdentifierWithError:0];
+            [(NSCache *)cacheLock_URLResourceIdentifierToSnapshotBundleCache removeObjectForKey:v20];
           }
         }
 
-        v11 = [v9 countByEnumeratingWithState:&v33 objects:v42 count:16];
+        v13 = [v11 countByEnumeratingWithState:&v36 objects:v45 count:16];
       }
 
-      while (v11);
+      while (v13);
     }
 
-    v31 = 0u;
+    v34 = 0u;
+    v35 = 0u;
     v32 = 0u;
-    v29 = 0u;
-    v30 = 0u;
-    v19 = v8;
-    v20 = [v19 countByEnumeratingWithState:&v29 objects:v41 count:16];
-    if (v20)
+    v33 = 0u;
+    v21 = v10;
+    v22 = [v21 countByEnumeratingWithState:&v32 objects:v44 count:16];
+    if (v22)
     {
-      v21 = v20;
-      v22 = *v30;
+      v23 = v22;
+      v24 = *v33;
       do
       {
-        for (j = 0; j != v21; ++j)
+        for (j = 0; j != v23; ++j)
         {
-          if (*v30 != v22)
+          if (*v33 != v24)
           {
-            objc_enumerationMutation(v19);
+            objc_enumerationMutation(v21);
           }
 
-          [(NSFileManager *)self->_fileManager removeItemAtURL:*(*(&v29 + 1) + 8 * j) error:0];
+          [(NSFileManager *)self->_fileManager removeItemAtURL:*(*(&v32 + 1) + 8 * j) error:0];
         }
 
-        v21 = [v19 countByEnumeratingWithState:&v29 objects:v41 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v32 objects:v44 count:16];
       }
 
-      while (v21);
+      while (v23);
     }
 
     os_unfair_lock_unlock(&self->_cacheLock);
-    v24 = PUILogSnapshotCache();
-    v25 = v24;
-    if (v27 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v24))
+    v27 = PUILogSnapshotCache(v26);
+    v28 = v27;
+    if (v30 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v27))
     {
       *buf = 138543618;
-      v38 = predicateCopy;
-      v39 = 2114;
-      v40 = v19;
-      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v25, OS_SIGNPOST_INTERVAL_END, spid, "SnapshotCacheCleanupMatchingPredicate", "Predicate %{public}@; cleanedup urls: %{public}@", buf, 0x16u);
+      v41 = predicateCopy;
+      v42 = 2114;
+      v43 = v21;
+      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v28, OS_SIGNPOST_INTERVAL_END, spid, "SnapshotCacheCleanupMatchingPredicate", "Predicate %{public}@; cleanedup urls: %{public}@", buf, 0x16u);
     }
   }
 }
@@ -1222,7 +1224,7 @@ id __56__PUIPosterSnapshotFilesystemCache_reachableCacheFuture__block_invoke(uin
       hardwareIdentifier = [bundleCopy hardwareIdentifier];
       userInterfaceStyle = [bundleCopy userInterfaceStyle];
       v34 = self->_fileManager;
-      v19 = PUILogSnapshotCache();
+      v19 = PUILogSnapshotCache(v34);
       v33 = os_signpost_id_generate(v19);
 
       v20 = objc_opt_class();
@@ -1327,7 +1329,7 @@ void __86__PUIPosterSnapshotFilesystemCache_cacheSnapshotBundle_forRequest_optio
   v59[3] = &unk_1E7854320;
   v59[4] = *(a1 + 48);
   v7 = MEMORY[0x1AC5769F0](v59);
-  v8 = PUILogSnapshotCache();
+  v8 = PUILogSnapshotCache(v7);
   v9 = v8;
   v10 = *(a1 + 88);
   if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
@@ -1475,10 +1477,10 @@ void __86__PUIPosterSnapshotFilesystemCache_cacheSnapshotBundle_forRequest_optio
     v7 = *(a1 + 56);
     if (v7)
     {
-      (*(v7 + 16))(v7, v5, v6);
+      v7 = (*(v7 + 16))(v7, v5, v6);
     }
 
-    v8 = PUILogSnapshotCache();
+    v8 = PUILogSnapshotCache(v7);
     v9 = v8;
     v10 = *(a1 + 64);
     if (v10 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
@@ -1549,248 +1551,253 @@ void __86__PUIPosterSnapshotFilesystemCache_cacheSnapshotBundle_forRequest_optio
 
 void __57__PUIPosterSnapshotFilesystemCache__prepareSnapshotCache__block_invoke(uint64_t a1)
 {
-  v71 = *MEMORY[0x1E69E9840];
+  v78 = *MEMORY[0x1E69E9840];
   WeakRetained = objc_loadWeakRetained((a1 + 40));
+  v2 = WeakRetained;
   if (WeakRetained)
   {
-    v2 = PUILogSnapshotCache();
-    v3 = os_signpost_id_generate(v2);
+    v3 = PUILogSnapshotCache(WeakRetained);
+    v4 = os_signpost_id_generate(v3);
 
-    v4 = PUILogSnapshotCache();
-    v5 = v4;
-    v6 = v3 - 1;
-    if (v3 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v4))
+    v6 = PUILogSnapshotCache(v5);
+    v7 = v6;
+    v8 = v4 - 1;
+    if (v4 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v6))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v5, OS_SIGNPOST_INTERVAL_BEGIN, v3, "SnapshotCachePrepare", &unk_1A8D256D3, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v7, OS_SIGNPOST_INTERVAL_BEGIN, v4, "SnapshotCachePrepare", &unk_1A8D256D3, buf, 2u);
     }
 
-    v51 = PUIPosterCurrentSnapshotBundleEpochAndVersionIdentifier();
-    os_unfair_lock_lock(WeakRetained + 2);
-    v7 = [*(WeakRetained + 3) checkResourceIsReachableAndReturnError:0];
-    v8 = *(a1 + 32);
-    v9 = *(WeakRetained + 3);
-    if (v7)
+    v58 = PUIPosterCurrentSnapshotBundleEpochAndVersionIdentifier(v9);
+    os_unfair_lock_lock(v2 + 2);
+    v10 = [*(v2 + 3) checkResourceIsReachableAndReturnError:0];
+    v11 = *(a1 + 32);
+    v12 = *(v2 + 3);
+    if (v10)
     {
-      v47 = v3 - 1;
-      v48 = v3;
-      [v8 contentsOfDirectoryAtURL:v9 includingPropertiesForKeys:0 options:1 error:0];
-      v60 = 0u;
-      v61 = 0u;
-      v62 = 0u;
-      obj = v63 = 0u;
-      v10 = [obj countByEnumeratingWithState:&v60 objects:v70 count:16];
-      if (v10)
+      v54 = v4 - 1;
+      v55 = v4;
+      [v11 contentsOfDirectoryAtURL:v12 includingPropertiesForKeys:0 options:1 error:0];
+      v67 = 0u;
+      v68 = 0u;
+      v69 = 0u;
+      obj = v70 = 0u;
+      v13 = [obj countByEnumeratingWithState:&v67 objects:v77 count:16];
+      if (v13)
       {
-        v11 = v10;
-        v12 = *v61;
+        v14 = v13;
+        v15 = *v68;
         do
         {
-          for (i = 0; i != v11; ++i)
+          v16 = 0;
+          do
           {
-            if (*v61 != v12)
+            if (*v68 != v15)
             {
               objc_enumerationMutation(obj);
             }
 
-            v14 = *(*(&v60 + 1) + 8 * i);
-            v15 = [v14 lastPathComponent];
-            v16 = [v15 containsString:v51];
+            v17 = *(*(&v67 + 1) + 8 * v16);
+            v18 = [v17 lastPathComponent];
+            v19 = [v18 containsString:v58];
 
-            if ((v16 & 1) == 0)
+            if ((v19 & 1) == 0)
             {
-              v17 = [v14 pf_fileResourceIdentifierWithError:0];
-              if ([*(a1 + 32) removeItemAtURL:v14 error:0])
+              v20 = [v17 pf_fileResourceIdentifierWithError:0];
+              v21 = [*(a1 + 32) removeItemAtURL:v17 error:0];
+              if (v21)
               {
-                v18 = PUILogSnapshotCache();
-                if (os_log_type_enabled(v18, OS_LOG_TYPE_DEFAULT))
+                v22 = PUILogSnapshotCache(v21);
+                if (os_log_type_enabled(v22, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543362;
-                  v65 = v14;
-                  _os_log_impl(&dword_1A8C85000, v18, OS_LOG_TYPE_DEFAULT, "Pruning old epoch: %{public}@", buf, 0xCu);
+                  v72 = v17;
+                  _os_log_impl(&dword_1A8C85000, v22, OS_LOG_TYPE_DEFAULT, "Pruning old epoch: %{public}@", buf, 0xCu);
                 }
 
-                [*(WeakRetained + 4) removeObjectForKey:v17];
+                [*(v2 + 4) removeObjectForKey:v20];
               }
             }
+
+            ++v16;
           }
 
-          v11 = [obj countByEnumeratingWithState:&v60 objects:v70 count:16];
+          while (v14 != v16);
+          v13 = [obj countByEnumeratingWithState:&v67 objects:v77 count:16];
+          v14 = v13;
         }
 
-        while (v11);
+        while (v13);
       }
 
-      v19 = PUILogSnapshotCache();
-      if (os_log_type_enabled(v19, OS_LOG_TYPE_INFO))
+      v23 = PUILogSnapshotCache(v13);
+      if (os_log_type_enabled(v23, OS_LOG_TYPE_INFO))
       {
         *buf = 0;
-        _os_log_impl(&dword_1A8C85000, v19, OS_LOG_TYPE_INFO, "Scanning for pre-cachable snapshot bundles", buf, 2u);
+        _os_log_impl(&dword_1A8C85000, v23, OS_LOG_TYPE_INFO, "Scanning for pre-cachable snapshot bundles", buf, 2u);
       }
 
-      v20 = objc_opt_new();
-      v58 = 0u;
-      v59 = 0u;
-      v56 = 0u;
-      v57 = 0u;
-      v21 = [*(a1 + 32) enumeratorAtURL:*(WeakRetained + 3) includingPropertiesForKeys:0 options:2 errorHandler:0];
-      v22 = [v21 countByEnumeratingWithState:&v56 objects:v69 count:16];
-      if (v22)
+      v24 = objc_opt_new();
+      v65 = 0u;
+      v66 = 0u;
+      v63 = 0u;
+      v64 = 0u;
+      v25 = [*(a1 + 32) enumeratorAtURL:*(v2 + 3) includingPropertiesForKeys:0 options:2 errorHandler:0];
+      v26 = [v25 countByEnumeratingWithState:&v63 objects:v76 count:16];
+      if (v26)
       {
-        v23 = v22;
-        v24 = *v57;
+        v27 = v26;
+        v28 = *v64;
         do
         {
-          for (j = 0; j != v23; ++j)
+          for (i = 0; i != v27; ++i)
           {
-            if (*v57 != v24)
+            if (*v64 != v28)
             {
-              objc_enumerationMutation(v21);
+              objc_enumerationMutation(v25);
             }
 
-            v26 = *(*(&v56 + 1) + 8 * j);
-            v27 = [v26 pathExtension];
-            v28 = [v27 localizedCompare:@"pks"];
+            v30 = *(*(&v63 + 1) + 8 * i);
+            v31 = [v30 pathExtension];
+            v32 = [v31 localizedCompare:@"pks"];
 
-            if (!v28)
+            if (!v32)
             {
-              [v20 addObject:v26];
-              v29 = PUILogSnapshotCache();
-              if (os_log_type_enabled(v29, OS_LOG_TYPE_DEFAULT))
+              v33 = PUILogSnapshotCache([v24 addObject:v30]);
+              if (os_log_type_enabled(v33, OS_LOG_TYPE_DEFAULT))
               {
                 *buf = 138543362;
-                v65 = v26;
-                _os_log_impl(&dword_1A8C85000, v29, OS_LOG_TYPE_DEFAULT, "Found precachable url %{public}@", buf, 0xCu);
+                v72 = v30;
+                _os_log_impl(&dword_1A8C85000, v33, OS_LOG_TYPE_DEFAULT, "Found precachable url %{public}@", buf, 0xCu);
               }
             }
           }
 
-          v23 = [v21 countByEnumeratingWithState:&v56 objects:v69 count:16];
+          v27 = [v25 countByEnumeratingWithState:&v63 objects:v76 count:16];
         }
 
-        while (v23);
+        while (v27);
       }
 
-      v30 = PUILogSnapshotCache();
-      if (os_log_type_enabled(v30, OS_LOG_TYPE_INFO))
+      v35 = PUILogSnapshotCache(v34);
+      if (os_log_type_enabled(v35, OS_LOG_TYPE_INFO))
       {
-        v31 = [v20 count];
+        v36 = [v24 count];
         *buf = 134217984;
-        v65 = v31;
-        _os_log_impl(&dword_1A8C85000, v30, OS_LOG_TYPE_INFO, "Found %lu pre-cachable snapshot bundles", buf, 0xCu);
+        v72 = v36;
+        _os_log_impl(&dword_1A8C85000, v35, OS_LOG_TYPE_INFO, "Found %lu pre-cachable snapshot bundles", buf, 0xCu);
       }
 
-      os_unfair_lock_unlock(WeakRetained + 2);
-      v54 = 0u;
-      v55 = 0u;
-      v52 = 0u;
-      v53 = 0u;
-      v32 = v20;
-      v33 = [v32 countByEnumeratingWithState:&v52 objects:v68 count:16];
-      if (v33)
+      os_unfair_lock_unlock(v2 + 2);
+      v61 = 0u;
+      v62 = 0u;
+      v59 = 0u;
+      v60 = 0u;
+      v37 = v24;
+      v38 = [v37 countByEnumeratingWithState:&v59 objects:v75 count:16];
+      if (v38)
       {
-        v34 = v33;
-        v35 = *v53;
+        v39 = v38;
+        v40 = *v60;
         do
         {
-          for (k = 0; k != v34; ++k)
+          for (j = 0; j != v39; ++j)
           {
-            if (*v53 != v35)
+            if (*v60 != v40)
             {
-              objc_enumerationMutation(v32);
+              objc_enumerationMutation(v37);
             }
 
-            v37 = *(*(&v52 + 1) + 8 * k);
-            os_unfair_lock_lock(WeakRetained + 2);
-            v38 = [v37 pf_fileResourceIdentifierWithError:0];
-            v39 = [*(WeakRetained + 4) objectForKey:v38];
+            v42 = *(*(&v59 + 1) + 8 * j);
+            os_unfair_lock_lock(v2 + 2);
+            v43 = [v42 pf_fileResourceIdentifierWithError:0];
+            v44 = [*(v2 + 4) objectForKey:v43];
 
-            if (v39)
+            if (v44)
             {
-              v40 = PUILogSnapshotCache();
-              if (os_log_type_enabled(v40, OS_LOG_TYPE_ERROR))
+              v46 = PUILogSnapshotCache(v45);
+              if (os_log_type_enabled(v46, OS_LOG_TYPE_ERROR))
               {
                 *buf = 138543362;
-                v65 = v37;
-                _os_log_error_impl(&dword_1A8C85000, v40, OS_LOG_TYPE_ERROR, "Already cached %{public}@; moving on...", buf, 0xCu);
+                v72 = v42;
+                _os_log_error_impl(&dword_1A8C85000, v46, OS_LOG_TYPE_ERROR, "Already cached %{public}@; moving on...", buf, 0xCu);
               }
             }
 
             else
             {
-              v40 = [PUIPosterSnapshotBundle snapshotBundleAtURL:v37 error:0];
-              v41 = PUILogSnapshotCache();
-              v42 = v41;
-              if (v40)
+              v46 = [PUIPosterSnapshotBundle snapshotBundleAtURL:v42 error:0];
+              v47 = PUILogSnapshotCache(v46);
+              v48 = v47;
+              if (v46)
               {
-                if (os_log_type_enabled(v41, OS_LOG_TYPE_DEFAULT))
+                if (os_log_type_enabled(v47, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543618;
-                  v65 = v40;
-                  v66 = 2114;
-                  v67 = v37;
-                  _os_log_impl(&dword_1A8C85000, v42, OS_LOG_TYPE_DEFAULT, "PRECACHING %{public}@ @ %{public}@", buf, 0x16u);
+                  v72 = v46;
+                  v73 = 2114;
+                  v74 = v42;
+                  _os_log_impl(&dword_1A8C85000, v48, OS_LOG_TYPE_DEFAULT, "PRECACHING %{public}@ @ %{public}@", buf, 0x16u);
                 }
 
-                [*(WeakRetained + 4) setObject:v40 forKey:v38];
-                v43 = PUILogSnapshotCache();
-                if (os_log_type_enabled(v43, OS_LOG_TYPE_DEFAULT))
+                v49 = PUILogSnapshotCache([*(v2 + 4) setObject:v46 forKey:v43]);
+                if (os_log_type_enabled(v49, OS_LOG_TYPE_DEFAULT))
                 {
                   *buf = 138543618;
-                  v65 = v40;
-                  v66 = 2114;
-                  v67 = v37;
-                  _os_log_impl(&dword_1A8C85000, v43, OS_LOG_TYPE_DEFAULT, "PRECACHED %{public}@ @ %{public}@", buf, 0x16u);
+                  v72 = v46;
+                  v73 = 2114;
+                  v74 = v42;
+                  _os_log_impl(&dword_1A8C85000, v49, OS_LOG_TYPE_DEFAULT, "PRECACHED %{public}@ @ %{public}@", buf, 0x16u);
                 }
               }
 
               else
               {
-                if (os_log_type_enabled(v41, OS_LOG_TYPE_ERROR))
+                if (os_log_type_enabled(v47, OS_LOG_TYPE_ERROR))
                 {
                   *buf = 138543362;
-                  v65 = v37;
-                  _os_log_error_impl(&dword_1A8C85000, v42, OS_LOG_TYPE_ERROR, "Failed to precache %{public}@; removing", buf, 0xCu);
+                  v72 = v42;
+                  _os_log_error_impl(&dword_1A8C85000, v48, OS_LOG_TYPE_ERROR, "Failed to precache %{public}@; removing", buf, 0xCu);
                 }
 
-                [*(a1 + 32) removeItemAtURL:v37 error:0];
+                [*(a1 + 32) removeItemAtURL:v42 error:0];
               }
             }
 
-            os_unfair_lock_unlock(WeakRetained + 2);
+            os_unfair_lock_unlock(v2 + 2);
           }
 
-          v34 = [v32 countByEnumeratingWithState:&v52 objects:v68 count:16];
+          v39 = [v37 countByEnumeratingWithState:&v59 objects:v75 count:16];
         }
 
-        while (v34);
+        while (v39);
       }
 
-      v6 = v47;
-      v3 = v48;
+      v8 = v54;
+      v4 = v55;
     }
 
     else
     {
-      v44 = PFPosterPathFileAttributes();
-      [v8 createDirectoryAtURL:v9 withIntermediateDirectories:1 attributes:v44 error:0];
+      v51 = PFPosterPathFileAttributes();
+      [v11 createDirectoryAtURL:v12 withIntermediateDirectories:1 attributes:v51 error:0];
 
-      os_unfair_lock_unlock(WeakRetained + 2);
+      os_unfair_lock_unlock(v2 + 2);
     }
 
-    v45 = PUILogSnapshotCache();
-    v46 = v45;
-    if (v6 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v45))
+    v52 = PUILogSnapshotCache(v50);
+    v53 = v52;
+    if (v8 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v52))
     {
       *buf = 0;
-      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v46, OS_SIGNPOST_INTERVAL_END, v3, "SnapshotCachePrepare", &unk_1A8D256D3, buf, 2u);
+      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v53, OS_SIGNPOST_INTERVAL_END, v4, "SnapshotCachePrepare", &unk_1A8D256D3, buf, 2u);
     }
   }
 }
 
 - (void)_cacheLock_cleanupPostersWithOptions:(id)options
 {
-  v56 = *MEMORY[0x1E69E9840];
+  v59 = *MEMORY[0x1E69E9840];
   optionsCopy = options;
   cleanupPredicates = [optionsCopy cleanupPredicates];
   v5 = [cleanupPredicates count];
@@ -1798,166 +1805,166 @@ void __57__PUIPosterSnapshotFilesystemCache__prepareSnapshotCache__block_invoke(
   if (v5)
   {
     os_unfair_lock_assert_owner(&self->_cacheLock);
-    v6 = PUILogSnapshotCache();
-    v7 = os_signpost_id_generate(v6);
+    v7 = PUILogSnapshotCache(v6);
+    v8 = os_signpost_id_generate(v7);
 
-    v8 = PUILogSnapshotCache();
-    v9 = v8;
-    v10 = v7 - 1;
-    if (v7 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v8))
+    v10 = PUILogSnapshotCache(v9);
+    v11 = v10;
+    v12 = v8 - 1;
+    if (v8 - 1 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v10))
     {
       *buf = 138543362;
-      v55 = optionsCopy;
-      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v9, OS_SIGNPOST_INTERVAL_BEGIN, v7, "SnapshotCache-cleanupPostersWithOptions", "options: %{public}@", buf, 0xCu);
+      v58 = optionsCopy;
+      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v11, OS_SIGNPOST_INTERVAL_BEGIN, v8, "SnapshotCache-cleanupPostersWithOptions", "options: %{public}@", buf, 0xCu);
     }
 
-    spid = v7;
+    spid = v8;
 
-    v11 = objc_opt_new();
+    v13 = objc_opt_new();
     _snapshotBundleURLs = [(PUIPosterSnapshotFilesystemCache *)self _snapshotBundleURLs];
-    v13 = [_snapshotBundleURLs result:0];
+    v15 = [_snapshotBundleURLs result:0];
 
-    if ([v13 count])
+    if ([v15 count])
     {
-      v34 = v13;
-      v35 = v7 - 1;
-      v49 = 0u;
+      v37 = v15;
+      v38 = v8 - 1;
+      v52 = 0u;
+      v53 = 0u;
       v50 = 0u;
-      v47 = 0u;
-      v48 = 0u;
-      obj = v13;
-      v14 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
-      if (v14)
+      v51 = 0u;
+      obj = v15;
+      v16 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
+      if (v16)
       {
-        v15 = v14;
-        v16 = *v48;
+        v17 = v16;
+        v18 = *v51;
         do
         {
-          for (i = 0; i != v15; ++i)
+          for (i = 0; i != v17; ++i)
           {
-            if (*v48 != v16)
+            if (*v51 != v18)
             {
               objc_enumerationMutation(obj);
             }
 
-            v18 = *(*(&v47 + 1) + 8 * i);
-            v43 = 0u;
-            v44 = 0u;
-            v45 = 0u;
+            v20 = *(*(&v50 + 1) + 8 * i);
             v46 = 0u;
+            v47 = 0u;
+            v48 = 0u;
+            v49 = 0u;
             cleanupPredicates2 = [optionsCopy cleanupPredicates];
-            v20 = [cleanupPredicates2 countByEnumeratingWithState:&v43 objects:v52 count:16];
-            if (v20)
+            v22 = [cleanupPredicates2 countByEnumeratingWithState:&v46 objects:v55 count:16];
+            if (v22)
             {
-              v21 = v20;
-              v22 = *v44;
+              v23 = v22;
+              v24 = *v47;
               do
               {
-                for (j = 0; j != v21; ++j)
+                for (j = 0; j != v23; ++j)
                 {
-                  if (*v44 != v22)
+                  if (*v47 != v24)
                   {
                     objc_enumerationMutation(cleanupPredicates2);
                   }
 
-                  if (__doesURLMatchPredicate(v18, self->_snapshotBundleContainerURL, *(*(&v43 + 1) + 8 * j)))
+                  if (__doesURLMatchPredicate(v20, self->_snapshotBundleContainerURL, *(*(&v46 + 1) + 8 * j)))
                   {
-                    [v11 addObject:v18];
+                    [v13 addObject:v20];
                   }
                 }
 
-                v21 = [cleanupPredicates2 countByEnumeratingWithState:&v43 objects:v52 count:16];
+                v23 = [cleanupPredicates2 countByEnumeratingWithState:&v46 objects:v55 count:16];
               }
 
-              while (v21);
+              while (v23);
             }
           }
 
-          v15 = [obj countByEnumeratingWithState:&v47 objects:v53 count:16];
+          v17 = [obj countByEnumeratingWithState:&v50 objects:v56 count:16];
         }
 
-        while (v15);
+        while (v17);
       }
 
-      v13 = v34;
-      v10 = v35;
+      v15 = v37;
+      v12 = v38;
     }
 
-    v24 = self->_fileManager;
-    v39 = 0u;
-    v40 = 0u;
-    v41 = 0u;
+    v26 = self->_fileManager;
     v42 = 0u;
-    v25 = v11;
-    v26 = [v25 countByEnumeratingWithState:&v39 objects:v51 count:16];
-    if (v26)
+    v43 = 0u;
+    v44 = 0u;
+    v45 = 0u;
+    v27 = v13;
+    v28 = [v27 countByEnumeratingWithState:&v42 objects:v54 count:16];
+    if (v28)
     {
-      v27 = v26;
-      v28 = *v40;
+      v29 = v28;
+      v30 = *v43;
       do
       {
-        for (k = 0; k != v27; ++k)
+        for (k = 0; k != v29; ++k)
         {
-          if (*v40 != v28)
+          if (*v43 != v30)
           {
-            objc_enumerationMutation(v25);
+            objc_enumerationMutation(v27);
           }
 
-          v30 = *(*(&v39 + 1) + 8 * k);
-          v31 = [v30 pf_fileResourceIdentifierWithError:0];
-          if ([(NSFileManager *)v24 removeItemAtURL:v30 error:0])
+          v32 = *(*(&v42 + 1) + 8 * k);
+          v33 = [v32 pf_fileResourceIdentifierWithError:0];
+          if ([(NSFileManager *)v26 removeItemAtURL:v32 error:0])
           {
-            [(NSCache *)self->_cacheLock_URLResourceIdentifierToSnapshotBundleCache removeObjectForKey:v31];
+            [(NSCache *)self->_cacheLock_URLResourceIdentifierToSnapshotBundleCache removeObjectForKey:v33];
           }
         }
 
-        v27 = [v25 countByEnumeratingWithState:&v39 objects:v51 count:16];
+        v29 = [v27 countByEnumeratingWithState:&v42 objects:v54 count:16];
       }
 
-      while (v27);
+      while (v29);
     }
 
-    v32 = PUILogSnapshotCache();
-    v33 = v32;
-    if (v10 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v32))
+    v35 = PUILogSnapshotCache(v34);
+    v36 = v35;
+    if (v12 <= 0xFFFFFFFFFFFFFFFDLL && os_signpost_enabled(v35))
     {
       *buf = 138543362;
-      v55 = v25;
-      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v33, OS_SIGNPOST_INTERVAL_END, spid, "SnapshotCache-cleanupPostersBefore", "cleanedupPathURLs %{public}@", buf, 0xCu);
+      v58 = v27;
+      _os_signpost_emit_with_name_impl(&dword_1A8C85000, v36, OS_SIGNPOST_INTERVAL_END, spid, "SnapshotCache-cleanupPostersBefore", "cleanedupPathURLs %{public}@", buf, 0xCu);
     }
   }
 }
 
-- (void)initWithURL:(const char *)a1 fileManager:options:error:.cold.1(const char *a1)
+- (void)initWithURL:(const char *)a1 fileManager:(uint64_t)a2 options:error:.cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[cacheURL checkResourceIsReachableAndReturnError:outError]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[cacheURL checkResourceIsReachableAndReturnError:outError]", v11, v12);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
 
-- (void)latestSnapshotBundleForPoster:(const char *)a1 snapshotCacheIdentifier:interfaceOrientation:userInterfaceStyle:hardwareIdentifier:error:.cold.1(const char *a1)
+- (void)latestSnapshotBundleForPoster:(const char *)a1 snapshotCacheIdentifier:(uint64_t)a2 interfaceOrientation:userInterfaceStyle:hardwareIdentifier:error:.cold.1(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[path isServerPosterPath]"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[path isServerPosterPath]", v11, v12);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }
@@ -1972,19 +1979,19 @@ void __57__PUIPosterSnapshotFilesystemCache__prepareSnapshotCache__block_invoke(
   _os_log_error_impl(&dword_1A8C85000, log, OS_LOG_TYPE_ERROR, "failed to load snapshotBundle %@: %{public}@", &v3, 0x16u);
 }
 
-- (void)latestSnapshotBundleForPoster:(const char *)a1 snapshotCacheIdentifier:interfaceOrientation:userInterfaceStyle:hardwareIdentifier:error:.cold.3(const char *a1)
+- (void)latestSnapshotBundleForPoster:(const char *)a1 snapshotCacheIdentifier:(uint64_t)a2 interfaceOrientation:userInterfaceStyle:hardwareIdentifier:error:.cold.3(const char *a1, uint64_t a2)
 {
-  v2 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@"];
+  v3 = [MEMORY[0x1E696AEC0] stringWithFormat:@"Invalid condition not satisfying: %@", @"[snapshotCacheIdentifier length] > 0"];
   if (os_log_type_enabled(MEMORY[0x1E69E9C10], OS_LOG_TYPE_ERROR))
   {
-    v3 = NSStringFromSelector(a1);
-    v4 = objc_opt_class();
-    v5 = NSStringFromClass(v4);
+    v4 = NSStringFromSelector(a1);
+    v5 = objc_opt_class();
+    v6 = NSStringFromClass(v5);
     OUTLINED_FUNCTION_0_0();
-    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v6, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v7, v8, v9, v10, @"[snapshotCacheIdentifier length] > 0", v11, v12);
+    OUTLINED_FUNCTION_1_0(&dword_1A8C85000, MEMORY[0x1E69E9C10], v7, "failure in %{public}@ of <%{public}@:%p> (%{public}@:%i) : %{public}@", v8, v9, v10, v11, v12, v13);
   }
 
-  [v2 UTF8String];
+  [v3 UTF8String];
   _bs_set_crash_log_message();
   __break(0);
 }

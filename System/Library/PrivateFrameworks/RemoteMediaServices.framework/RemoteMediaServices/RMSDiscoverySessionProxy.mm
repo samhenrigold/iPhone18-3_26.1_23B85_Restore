@@ -75,7 +75,7 @@ void __42__RMSDiscoverySessionProxy_beginDiscovery__block_invoke(uint64_t a1, in
   {
     if (a2)
     {
-      v8 = RMSLogger();
+      v8 = RMSLogger(WeakRetained);
       if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
       {
         *buf = 0;
@@ -133,7 +133,7 @@ void __42__RMSDiscoverySessionProxy_beginDiscovery__block_invoke_12(uint64_t a1)
 
 - (void)endDiscovery
 {
-  v3 = RMSLogger();
+  v3 = RMSLogger(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEFAULT))
   {
     *v5 = 0;
@@ -155,7 +155,7 @@ void __42__RMSDiscoverySessionProxy_beginDiscovery__block_invoke_12(uint64_t a1)
 
 - (void)_availableServicesDidUpdateNotification:(id)notification
 {
-  v13 = *MEMORY[0x277D85DE8];
+  v14 = *MEMORY[0x277D85DE8];
   notificationCopy = notification;
   if ([(RMSSessionProxy *)self sessionMatchesNotification:notificationCopy])
   {
@@ -164,13 +164,13 @@ void __42__RMSDiscoverySessionProxy_beginDiscovery__block_invoke_12(uint64_t a1)
     availableServices = self->_availableServices;
     self->_availableServices = v6;
 
-    v8 = RMSLogger();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = RMSLogger(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
-      v9 = self->_availableServices;
-      v11 = 138412290;
-      v12 = v9;
-      _os_log_impl(&dword_261E98000, v8, OS_LOG_TYPE_DEFAULT, "Discovery proxy handling available services update: %@", &v11, 0xCu);
+      v10 = self->_availableServices;
+      v12 = 138412290;
+      v13 = v10;
+      _os_log_impl(&dword_261E98000, v9, OS_LOG_TYPE_DEFAULT, "Discovery proxy handling available services update: %@", &v12, 0xCu);
     }
 
     WeakRetained = objc_loadWeakRetained(&self->_delegate);
@@ -191,7 +191,7 @@ void __42__RMSDiscoverySessionProxy_beginDiscovery__block_invoke_12(uint64_t a1)
   }
 }
 
-uint64_t __61__RMSDiscoverySessionProxy__handleSessionDidEndNotification___block_invoke(uint64_t a1)
+void *__61__RMSDiscoverySessionProxy__handleSessionDidEndNotification___block_invoke(uint64_t a1)
 {
   result = [*(a1 + 32) endHeartbeat];
   v3 = *(a1 + 32);

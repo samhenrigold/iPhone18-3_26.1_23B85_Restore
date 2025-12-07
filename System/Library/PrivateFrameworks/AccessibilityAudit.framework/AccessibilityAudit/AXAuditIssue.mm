@@ -576,41 +576,12 @@ LABEL_20:
       v69 = auditElement;
       v18 = auditElement | auditElement2;
       screenGroupId = v70;
-      if (v18 && ![v69 isEqual:auditElement2])
+      if (v18 && ![v69 isEqual:auditElement2] || (-[AXAuditIssue elementRect](self, "elementRect"), v20 = v19, v22 = v21, v24 = v23, v26 = v25, -[AXAuditIssue elementRect](v5, "elementRect"), v76.origin.x = v27, v76.origin.y = v28, v30 = v29, v32 = v31, v75.origin.x = v20, v75.origin.y = v22, v75.size.width = v24, v75.size.height = v26, v76.size.width = v30, v76.size.height = v32, !NSEqualRects(v75, v76)) && ((v73.width = v24, v73.height = v26, v74.width = v30, v74.height = v32, !NSEqualSizes(v73, v74)) || !-[AXAuditIssue _isSameRelativeLocationAsAuditIssue:](self, "_isSameRelativeLocationAsAuditIssue:", v5)))
       {
-        goto LABEL_36;
-      }
-
-      [(AXAuditIssue *)self elementRect];
-      v20 = v19;
-      v22 = v21;
-      v24 = v23;
-      v26 = v25;
-      [(AXAuditIssue *)v5 elementRect];
-      v76.origin.x = v27;
-      v76.origin.y = v28;
-      v30 = v29;
-      v32 = v31;
-      v75.origin.x = v20;
-      v75.origin.y = v22;
-      v75.size.width = v24;
-      v75.size.height = v26;
-      v76.size.width = v30;
-      v76.size.height = v32;
-      if (!NSEqualRects(v75, v76))
-      {
-        v73.width = v24;
-        v73.height = v26;
-        v74.width = v30;
-        v74.height = v32;
-        if (!NSEqualSizes(v73, v74) || ![(AXAuditIssue *)self _isSameRelativeLocationAsAuditIssue:v5])
-        {
-LABEL_36:
-          v15 = 0;
+        v15 = 0;
 LABEL_56:
 
-          goto LABEL_20;
-        }
+        goto LABEL_20;
       }
 
       v66 = mlGeneratedDescription;

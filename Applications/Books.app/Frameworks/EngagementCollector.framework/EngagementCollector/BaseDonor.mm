@@ -13,14 +13,11 @@
 
 - (NSString)type
 {
-  v2 = (self + OBJC_IVAR____TtC19EngagementCollector9BaseDonor_type);
   swift_beginAccess();
-  v4 = *v2;
-  v3 = v2[1];
 
-  v5 = sub_31300();
+  v2 = sub_31300();
 
-  return v5;
+  return v2;
 }
 
 - (void)setType:(id)type
@@ -29,21 +26,18 @@
   v6 = v5;
   v7 = (self + OBJC_IVAR____TtC19EngagementCollector9BaseDonor_type);
   swift_beginAccess();
-  v8 = v7[1];
   *v7 = v4;
   v7[1] = v6;
 }
 
 - (NSArray)eventConfigurations
 {
-  v3 = OBJC_IVAR____TtC19EngagementCollector9BaseDonor_eventConfigurations;
   swift_beginAccess();
-  v4 = *(self + v3);
   type metadata accessor for BasePropertyConfiguration();
 
-  v5.super.isa = sub_313D0().super.isa;
+  v2.super.isa = sub_313D0().super.isa;
 
-  return v5.super.isa;
+  return v2.super.isa;
 }
 
 - (void)setEventConfigurations:(id)configurations
@@ -52,7 +46,6 @@
   v4 = sub_313E0();
   v5 = OBJC_IVAR____TtC19EngagementCollector9BaseDonor_eventConfigurations;
   swift_beginAccess();
-  v6 = *(self + v5);
   *(self + v5) = v4;
 }
 

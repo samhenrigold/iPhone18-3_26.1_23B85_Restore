@@ -53,7 +53,7 @@
   v8 = *(&self->super.isa + OBJC_IVAR___ICSharedWithYouControllerInternal_highlightCenter);
   selfCopy = self;
   highlights = [v8 highlights];
-  sub_2151A6C9C(0, &qword_2811996A8);
+  sub_2151A6C9C(0, &qword_2811996A8, 0x277CDC670);
   v11 = sub_2154A1F4C();
 
   v15 = v7;

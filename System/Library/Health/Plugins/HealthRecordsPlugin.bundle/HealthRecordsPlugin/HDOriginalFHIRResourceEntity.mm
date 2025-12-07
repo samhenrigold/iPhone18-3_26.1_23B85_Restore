@@ -699,7 +699,7 @@ LABEL_9:
     selfCopy = self;
     if (behavior2)
     {
-      [behavior2 currentOSVersionStruct];
+      objc_msgSend_currentOSVersionStruct(behavior2);
     }
 
     else
@@ -2047,25 +2047,25 @@ LABEL_17:
 
 + (BOOL)_ensureForeignKeysAreDeferredInDatabase:(id)database error:(id *)error
 {
-  v11 = 0;
-  v5 = [database executeUncachedSQL:@"PRAGMA defer_foreign_keys = ON" error:&v11];
-  v6 = v11;
-  if ((v5 & 1) == 0)
+  v12 = 0;
+  v6 = [database executeUncachedSQL:@"PRAGMA defer_foreign_keys = ON" error:&v12];
+  v7 = v12;
+  if ((v6 & 1) == 0)
   {
     _HKInitializeLogging();
-    v7 = HKLogHealthRecords;
+    v8 = HKLogHealthRecords;
     if (os_log_type_enabled(HKLogHealthRecords, OS_LOG_TYPE_ERROR))
     {
-      sub_A9874(v7);
+      sub_A9874(v8, self);
     }
 
-    v8 = v6;
-    if (v8)
+    v9 = v7;
+    if (v9)
     {
       if (error)
       {
-        v9 = v8;
-        *error = v8;
+        v10 = v9;
+        *error = v9;
       }
 
       else
@@ -2075,7 +2075,7 @@ LABEL_17:
     }
   }
 
-  return v5;
+  return v6;
 }
 
 @end

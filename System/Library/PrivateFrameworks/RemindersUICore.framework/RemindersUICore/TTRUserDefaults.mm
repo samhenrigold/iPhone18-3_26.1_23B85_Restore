@@ -56,14 +56,14 @@ LABEL_3:
   {
 LABEL_4:
     type metadata accessor for NSKeyValueChangeKey(0);
-    sub_21DA60E3C(&qword_27CE57F28, type metadata accessor for NSKeyValueChangeKey);
+    sub_21DA60E3C(&qword_27CE57F28, type metadata accessor for NSKeyValueChangeKey, asc_21DC08B90);
     sub_21DBF9E6C();
   }
 
 LABEL_7:
   _s15RemindersUICore15TTRUserDefaultsC12observeValue10forKeyPath2of6change7contextySSSg_ypSgSDySo05NSKeyf6ChangeH0aypGSgSvSgtF_0(v9, v11, v16);
 
-  sub_21D0CF7E0(v16, &qword_27CE5C690);
+  sub_21D0CF7E0(v16, &qword_27CE5C690, &unk_21DC11AB0);
 }
 
 @end

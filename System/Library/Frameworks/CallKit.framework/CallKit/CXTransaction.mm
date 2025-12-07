@@ -32,34 +32,34 @@
 
 - (BOOL)isComplete
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   actions = [(CXTransaction *)self actions];
-  v3 = [actions countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v3 = [actions countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v3)
   {
     v4 = v3;
-    v5 = *v11;
+    v5 = *v10;
     while (2)
     {
       for (i = 0; i != v4; ++i)
       {
-        if (*v11 != v5)
+        if (*v10 != v5)
         {
           objc_enumerationMutation(actions);
         }
 
-        if (![*(*(&v10 + 1) + 8 * i) isComplete])
+        if (![*(*(&v9 + 1) + 8 * i) isComplete])
         {
           v7 = 0;
           goto LABEL_11;
         }
       }
 
-      v4 = [actions countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v4 = [actions countByEnumeratingWithState:&v9 objects:v13 count:16];
       if (v4)
       {
         continue;
@@ -72,7 +72,6 @@
   v7 = 1;
 LABEL_11:
 
-  v8 = *MEMORY[0x1E69E9840];
   return v7;
 }
 
@@ -118,14 +117,13 @@ LABEL_11:
 
 - (CXTransaction)initWithAction:(CXAction *)action
 {
-  v11 = *MEMORY[0x1E69E9840];
-  v10 = action;
+  v10 = *MEMORY[0x1E69E9840];
+  v9 = action;
   v4 = MEMORY[0x1E695DEC8];
   v5 = action;
-  v6 = [v4 arrayWithObjects:&v10 count:1];
+  v6 = [v4 arrayWithObjects:&v9 count:1];
 
-  v7 = [(CXTransaction *)self initWithActions:v6, v10, v11];
-  v8 = *MEMORY[0x1E69E9840];
+  v7 = [(CXTransaction *)self initWithActions:v6, v9, v10];
   return v7;
 }
 
@@ -138,68 +136,66 @@ LABEL_11:
 
 - (void)addActionsFromTransaction:(id)transaction
 {
-  v15 = *MEMORY[0x1E69E9840];
+  v14 = *MEMORY[0x1E69E9840];
+  v9 = 0u;
   v10 = 0u;
   v11 = 0u;
   v12 = 0u;
-  v13 = 0u;
   actions = [transaction actions];
-  v5 = [actions countByEnumeratingWithState:&v10 objects:v14 count:16];
+  v5 = [actions countByEnumeratingWithState:&v9 objects:v13 count:16];
   if (v5)
   {
     v6 = v5;
-    v7 = *v11;
+    v7 = *v10;
     do
     {
       v8 = 0;
       do
       {
-        if (*v11 != v7)
+        if (*v10 != v7)
         {
           objc_enumerationMutation(actions);
         }
 
-        [(CXTransaction *)self addAction:*(*(&v10 + 1) + 8 * v8++)];
+        [(CXTransaction *)self addAction:*(*(&v9 + 1) + 8 * v8++)];
       }
 
       while (v6 != v8);
-      v6 = [actions countByEnumeratingWithState:&v10 objects:v14 count:16];
+      v6 = [actions countByEnumeratingWithState:&v9 objects:v13 count:16];
     }
 
     while (v6);
   }
-
-  v9 = *MEMORY[0x1E69E9840];
 }
 
 - (void)updateSanitizedCopy:(id)copy withZone:(_NSZone *)zone
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   copyCopy = copy;
   uUID = [(CXTransaction *)self UUID];
   [copyCopy setUUID:uUID];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   mutableActions = [(CXTransaction *)self mutableActions];
-  v8 = [mutableActions countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v8 = [mutableActions countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v8)
   {
     v9 = v8;
-    v10 = *v16;
+    v10 = *v15;
     do
     {
       v11 = 0;
       do
       {
-        if (*v16 != v10)
+        if (*v15 != v10)
         {
           objc_enumerationMutation(mutableActions);
         }
 
-        sanitizedCopy = [*(*(&v15 + 1) + 8 * v11) sanitizedCopy];
+        sanitizedCopy = [*(*(&v14 + 1) + 8 * v11) sanitizedCopy];
         if (sanitizedCopy)
         {
           mutableActions2 = [copyCopy mutableActions];
@@ -210,13 +206,11 @@ LABEL_11:
       }
 
       while (v9 != v11);
-      v9 = [mutableActions countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v9 = [mutableActions countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v9);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)sanitizedCopyWithZone:(_NSZone *)zone
@@ -229,46 +223,44 @@ LABEL_11:
 
 - (void)updateCopy:(id)copy withZone:(_NSZone *)zone
 {
-  v20 = *MEMORY[0x1E69E9840];
+  v19 = *MEMORY[0x1E69E9840];
   copyCopy = copy;
   [(CXTransaction *)self updateSanitizedCopy:copyCopy withZone:zone];
   mutableActions = [copyCopy mutableActions];
   [mutableActions removeAllObjects];
 
-  v17 = 0u;
-  v18 = 0u;
-  v15 = 0u;
   v16 = 0u;
+  v17 = 0u;
+  v14 = 0u;
+  v15 = 0u;
   mutableActions2 = [(CXTransaction *)self mutableActions];
-  v9 = [mutableActions2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+  v9 = [mutableActions2 countByEnumeratingWithState:&v14 objects:v18 count:16];
   if (v9)
   {
     v10 = v9;
-    v11 = *v16;
+    v11 = *v15;
     do
     {
       v12 = 0;
       do
       {
-        if (*v16 != v11)
+        if (*v15 != v11)
         {
           objc_enumerationMutation(mutableActions2);
         }
 
-        v13 = [*(*(&v15 + 1) + 8 * v12) copy];
+        v13 = [*(*(&v14 + 1) + 8 * v12) copy];
         [copyCopy addAction:v13];
 
         ++v12;
       }
 
       while (v10 != v12);
-      v10 = [mutableActions2 countByEnumeratingWithState:&v15 objects:v19 count:16];
+      v10 = [mutableActions2 countByEnumeratingWithState:&v14 objects:v18 count:16];
     }
 
     while (v10);
   }
-
-  v14 = *MEMORY[0x1E69E9840];
 }
 
 - (id)copyWithZone:(_NSZone *)zone
@@ -278,9 +270,11 @@ LABEL_11:
   return v5;
 }
 
-uint64_t __48__CXTransaction_allowedClassesForMutableActions__block_invoke()
+uint64_t __48__CXTransaction_allowedClassesForMutableActions__block_invoke(uint64_t a1, uint64_t a2)
 {
-  v24 = MEMORY[0x1E695DFD8];
+  v26 = MEMORY[0x1E695DFD8];
+  v25 = objc_opt_class();
+  v24 = objc_opt_class();
   v23 = objc_opt_class();
   v22 = objc_opt_class();
   v21 = objc_opt_class();
@@ -292,10 +286,6 @@ uint64_t __48__CXTransaction_allowedClassesForMutableActions__block_invoke()
   v15 = objc_opt_class();
   v14 = objc_opt_class();
   v13 = objc_opt_class();
-  v12 = objc_opt_class();
-  v11 = objc_opt_class();
-  v0 = objc_opt_class();
-  v1 = objc_opt_class();
   v2 = objc_opt_class();
   v3 = objc_opt_class();
   v4 = objc_opt_class();
@@ -304,7 +294,9 @@ uint64_t __48__CXTransaction_allowedClassesForMutableActions__block_invoke()
   v7 = objc_opt_class();
   v8 = objc_opt_class();
   v9 = objc_opt_class();
-  allowedClassesForMutableActions_allowedClassesForMutableActions = [v24 setWithObjects:{v23, v22, v21, v20, v19, v18, v17, v16, v15, v14, v13, v12, v11, v0, v1, v2, v3, v4, v5, v6, v7, v8, v9, objc_opt_class(), 0}];
+  v10 = objc_opt_class();
+  v11 = objc_opt_class();
+  allowedClassesForMutableActions_allowedClassesForMutableActions = [v26 setWithObjects:{v25, v24, v23, v22, v21, v20, v19, v18, v17, v16, v15, v14, v13, v2, v3, v4, v5, v6, v7, v8, v9, v10, v11, objc_opt_class(), 0}];
 
   return MEMORY[0x1EEE66BB8]();
 }

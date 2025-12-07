@@ -10,6 +10,8 @@
 - (id)specifiers;
 - (void)_localizedHangUpTriggerPhrase;
 - (void)setEnabled:(id)enabled specifier:(id)specifier;
+- (void)viewDidAppear:(BOOL)appear;
+- (void)viewWillAppear:(BOOL)appear;
 @end
 
 @implementation AssistantSiriInCallController
@@ -57,9 +59,16 @@
   return v5;
 }
 
+- (void)viewWillAppear:(BOOL)appear
+{
+  v3.receiver = self;
+  v3.super_class = AssistantSiriInCallController;
+  [(AssistantSiriInCallController *)&v3 viewWillAppear:appear];
+}
+
 - (id)specifiers
 {
-  v14[2] = *MEMORY[0x277D85DE8];
+  v13[2] = *MEMORY[0x277D85DE8];
   v3 = *MEMORY[0x277D3FC48];
   v4 = *(&self->super.super.super.super.super.isa + v3);
   if (!v4)
@@ -72,18 +81,60 @@
     v8 = +[AssistantSiriInCallController localizedSettingName];
     v9 = [v7 preferenceSpecifierNamed:v8 target:self set:sel_setEnabled_specifier_ get:sel_enabled_ detail:0 cell:6 edit:0];
 
-    v14[0] = v5;
-    v14[1] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v14 count:2];
+    v13[0] = v5;
+    v13[1] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v13 count:2];
     v11 = *(&self->super.super.super.super.super.isa + v3);
     *(&self->super.super.super.super.super.isa + v3) = v10;
 
     v4 = *(&self->super.super.super.super.super.isa + v3);
   }
 
-  v12 = *MEMORY[0x277D85DE8];
-
   return v4;
+}
+
+- (void)viewDidAppear:(BOOL)appear
+{
+  v24[2] = *MEMORY[0x277D85DE8];
+  v23.receiver = self;
+  v23.super_class = AssistantSiriInCallController;
+  [(AssistantSiriInCallController *)&v23 viewDidAppear:appear];
+  v22 = [MEMORY[0x277CBEBC0] URLWithString:@"settings-navigation://com.apple.Settings.Siri/SIRI_IN_CALL_ID"];
+  v4 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale = [MEMORY[0x277CBEAF8] currentLocale];
+  v6 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL = [v6 bundleURL];
+  v8 = [v4 initWithKey:@"Call Hang Up" table:0 locale:currentLocale bundleURL:bundleURL];
+
+  v9 = +[_TtC24AssistantSettingsSupport21GMEligibilityProvider shared];
+  LODWORD(v6) = [v9 deviceSupported];
+
+  if (v6)
+  {
+    v10 = @"Apple Intelligence & Siri";
+  }
+
+  else
+  {
+    v10 = @"Siri";
+  }
+
+  v11 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale2 = [MEMORY[0x277CBEAF8] currentLocale];
+  v13 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL2 = [v13 bundleURL];
+  v15 = [v11 initWithKey:v10 table:0 locale:currentLocale2 bundleURL:bundleURL2];
+
+  v16 = objc_alloc(MEMORY[0x277CCAEB8]);
+  currentLocale3 = [MEMORY[0x277CBEAF8] currentLocale];
+  v18 = [MEMORY[0x277CCA8D8] bundleForClass:objc_opt_class()];
+  bundleURL3 = [v18 bundleURL];
+  v20 = [v16 initWithKey:@"Call Hang Up" table:0 locale:currentLocale3 bundleURL:bundleURL3];
+
+  v24[0] = v15;
+  v24[1] = v20;
+  v21 = [MEMORY[0x277CBEA60] arrayWithObjects:v24 count:2];
+  [(AssistantSiriInCallController *)self pe_emitNavigationEventForApplicationSettingsWithApplicationBundleIdentifier:@"com.apple.siri" title:v8 localizedNavigationComponents:v21 deepLink:v22];
 }
 
 + (Class)_config
@@ -143,7 +194,7 @@
 
 - (id)_localizedHangUpTriggerPhrase
 {
-  v22 = *MEMORY[0x277D85DE8];
+  v21 = *MEMORY[0x277D85DE8];
   mEMORY[0x277CEF368] = [MEMORY[0x277CEF368] sharedPreferences];
   languageCode = [mEMORY[0x277CEF368] languageCode];
 
@@ -162,11 +213,11 @@
     if (os_log_type_enabled(*MEMORY[0x277CEF098], OS_LOG_TYPE_DEFAULT))
     {
       *buf = 136315650;
-      v17 = "[AssistantSiriInCallController _localizedHangUpTriggerPhrase]";
-      v18 = 2112;
-      v19 = languageCode;
-      v20 = 2112;
-      v21 = v11;
+      v16 = "[AssistantSiriInCallController _localizedHangUpTriggerPhrase]";
+      v17 = 2112;
+      v18 = languageCode;
+      v19 = 2112;
+      v20 = v11;
       _os_log_impl(&dword_2413B9000, v12, OS_LOG_TYPE_DEFAULT, "%s languageCode: %@, triggerPhrase: %@", buf, 0x20u);
     }
   }
@@ -182,20 +233,17 @@
     v11 = &stru_285317CF0;
   }
 
-  v14 = *MEMORY[0x277D85DE8];
-
   return v11;
 }
 
 - (void)_localizedHangUpTriggerPhrase
 {
-  v7 = *MEMORY[0x277D85DE8];
-  v3 = 136315394;
-  v4 = "[AssistantSiriInCallController _localizedHangUpTriggerPhrase]";
-  v5 = 2112;
+  v6 = *MEMORY[0x277D85DE8];
+  v2 = 136315394;
+  v3 = "[AssistantSiriInCallController _localizedHangUpTriggerPhrase]";
+  v4 = 2112;
   selfCopy = self;
-  _os_log_error_impl(&dword_2413B9000, a2, OS_LOG_TYPE_ERROR, "%s Missing localization for trigger phrase, languageCode: %@", &v3, 0x16u);
-  v2 = *MEMORY[0x277D85DE8];
+  _os_log_error_impl(&dword_2413B9000, a2, OS_LOG_TYPE_ERROR, "%s Missing localization for trigger phrase, languageCode: %@", &v2, 0x16u);
 }
 
 @end

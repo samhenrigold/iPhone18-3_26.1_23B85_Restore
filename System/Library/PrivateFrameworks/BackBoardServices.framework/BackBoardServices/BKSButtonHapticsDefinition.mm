@@ -27,7 +27,7 @@
 
 - (int64_t)maximumPressCount
 {
-  v2 = [(BSMutableSettings *)self->_settings objectForSetting:10];
+  v2 = [(BSMutableSettings *)self->_settings objectForSetting:?];
   v3 = v2;
   if (v2)
   {
@@ -44,7 +44,7 @@
 
 - (double)maximumMultiplePressTimeInterval
 {
-  v2 = [(BSMutableSettings *)self->_settings objectForSetting:13];
+  v2 = [(BSMutableSettings *)self->_settings objectForSetting:?];
   v3 = v2;
   if (v2)
   {
@@ -64,17 +64,20 @@
 {
   coderCopy = coder;
   [(BKSButtonHapticsDefinition *)self minimumMultiplePressTimeInterval];
-  [coderCopy encodeDouble:@"minimumMultiplePressTimeInterval" forKey:?];
+  [coderCopy encodeDouble:? forKey:?];
   [(BKSButtonHapticsDefinition *)self maximumMultiplePressTimeInterval];
-  [coderCopy encodeDouble:@"maximumMultiplePressTimeInterval" forKey:?];
+  [coderCopy encodeDouble:? forKey:?];
   [(BKSButtonHapticsDefinition *)self minimumLongPressTimeInterval];
-  [coderCopy encodeDouble:@"minimumLongPressTimeInterval" forKey:?];
+  [coderCopy encodeDouble:? forKey:?];
   [(BKSButtonHapticsDefinition *)self maximumLongPressTimeInterval];
-  [coderCopy encodeDouble:@"maximumLongPressTimeInterval" forKey:?];
-  [coderCopy encodeInteger:-[BKSButtonHapticsDefinition maximumTapCount](self forKey:{"maximumTapCount"), @"maximumTapCount"}];
-  [coderCopy encodeInteger:-[BKSButtonHapticsDefinition maximumPressCount](self forKey:{"maximumPressCount"), @"maximumPressCount"}];
-  [coderCopy encodeInteger:-[BKSButtonHapticsDefinition clickHapticAssetType](self forKey:{"clickHapticAssetType"), @"clickHapticAssetType"}];
-  [coderCopy encodeBool:self->_representsHomeButton forKey:@"representsHomeButton"];
+  [coderCopy encodeDouble:? forKey:?];
+  [(BKSButtonHapticsDefinition *)self maximumTapCount];
+  [coderCopy encodeInteger:? forKey:?];
+  [(BKSButtonHapticsDefinition *)self maximumPressCount];
+  [coderCopy encodeInteger:? forKey:?];
+  [(BKSButtonHapticsDefinition *)self clickHapticAssetType];
+  [coderCopy encodeInteger:? forKey:?];
+  [coderCopy encodeBool:? forKey:?];
 }
 
 - (BKSButtonHapticsDefinition)initWithCoder:(id)coder
@@ -83,18 +86,21 @@
   v5 = [(BKSButtonHapticsDefinition *)self init];
   if (v5)
   {
-    [coderCopy decodeDoubleForKey:@"minimumMultiplePressTimeInterval"];
+    [coderCopy decodeDoubleForKey:?];
     [(BKSButtonHapticsDefinition *)v5 setMinimumMultiplePressTimeInterval:?];
-    [coderCopy decodeDoubleForKey:@"maximumMultiplePressTimeInterval"];
+    [coderCopy decodeDoubleForKey:?];
     [(BKSButtonHapticsDefinition *)v5 setMaximumMultiplePressTimeInterval:?];
-    [coderCopy decodeDoubleForKey:@"minimumLongPressTimeInterval"];
+    [coderCopy decodeDoubleForKey:?];
     [(BKSButtonHapticsDefinition *)v5 setMinimumLongPressTimeInterval:?];
-    [coderCopy decodeDoubleForKey:@"maximumLongPressTimeInterval"];
+    [coderCopy decodeDoubleForKey:?];
     [(BKSButtonHapticsDefinition *)v5 setMaximumLongPressTimeInterval:?];
-    -[BKSButtonHapticsDefinition setMaximumTapCount:](v5, "setMaximumTapCount:", [coderCopy decodeIntegerForKey:@"maximumTapCount"]);
-    -[BKSButtonHapticsDefinition setMaximumPressCount:](v5, "setMaximumPressCount:", [coderCopy decodeIntegerForKey:@"maximumPressCount"]);
-    -[BKSButtonHapticsDefinition setClickHapticAssetType:](v5, "setClickHapticAssetType:", [coderCopy decodeIntegerForKey:@"clickHapticAssetType"]);
-    v5->_representsHomeButton = [coderCopy decodeBoolForKey:@"representsHomeButton"];
+    [coderCopy decodeIntegerForKey:?];
+    [(BKSButtonHapticsDefinition *)v5 setMaximumTapCount:?];
+    [coderCopy decodeIntegerForKey:?];
+    [(BKSButtonHapticsDefinition *)v5 setMaximumPressCount:?];
+    [coderCopy decodeIntegerForKey:?];
+    [(BKSButtonHapticsDefinition *)v5 setClickHapticAssetType:?];
+    v5->_representsHomeButton = [coderCopy decodeBoolForKey:?];
   }
 
   return v5;
@@ -105,28 +111,27 @@
   blockCopy = block;
   v7 = self->_settings;
   _BSSettings = [definition _BSSettings];
-  v9 = [MEMORY[0x1E698E770] diffFromSettings:v7 toSettings:_BSSettings];
-  v13[0] = MEMORY[0x1E69E9820];
-  v13[1] = 3221225472;
-  v13[2] = __76__BKSButtonHapticsDefinition_updateFromDefinition_withChangeInspectorBlock___block_invoke;
-  v13[3] = &unk_1E6F47418;
-  v15 = v7;
-  v16 = blockCopy;
-  v14 = _BSSettings;
+  v9 = [MEMORY[0x1E698E770] diffFromSettings:? toSettings:?];
+  v13 = MEMORY[0x1E69E9820];
+  v14 = 3221225472;
+  v15 = __76__BKSButtonHapticsDefinition_updateFromDefinition_withChangeInspectorBlock___block_invoke;
+  v16 = &unk_1E6F47418;
+  v18 = v7;
+  v19 = blockCopy;
+  v17 = _BSSettings;
   v10 = v7;
   v11 = blockCopy;
   v12 = _BSSettings;
-  [v9 inspectChangesWithBlock:v13];
+  [v9 inspectChangesWithBlock:?];
 }
 
 uint64_t __76__BKSButtonHapticsDefinition_updateFromDefinition_withChangeInspectorBlock___block_invoke(uint64_t a1, uint64_t a2)
 {
-  v4 = [*(a1 + 32) objectForSetting:a2];
-  if (v4)
+  [*(a1 + 32) objectForSetting:?];
+  if (objc_claimAutoreleasedReturnValue())
   {
-    v6 = v4;
     (*(*(a1 + 48) + 16))();
-    [*(a1 + 40) setObject:v6 forSetting:a2];
+    [*(a1 + 40) setObject:? forSetting:?];
   }
 
   return MEMORY[0x1EEE66BE0]();
@@ -137,7 +142,7 @@ uint64_t __76__BKSButtonHapticsDefinition_updateFromDefinition_withChangeInspect
   if (type < 0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"BKSButtonHapticsDefinition.m" lineNumber:230 description:{@"Invalid parameter not satisfying: %@", @"assetType >= BKSButtonHapticAssetTypeUndefined"}];
+    [currentHandler handleFailureInMethod:@"assetType >= BKSButtonHapticAssetTypeUndefined" object:? file:? lineNumber:? description:?];
 
     goto LABEL_3;
   }
@@ -145,19 +150,19 @@ uint64_t __76__BKSButtonHapticsDefinition_updateFromDefinition_withChangeInspect
   if (type)
   {
 LABEL_3:
-    v5 = [MEMORY[0x1E696AD98] numberWithInteger:type];
+    v4 = [MEMORY[0x1E696AD98] numberWithInteger:?];
     goto LABEL_5;
   }
 
-  v5 = 0;
+  v4 = 0;
 LABEL_5:
-  v8 = v5;
-  [(BSMutableSettings *)self->_settings setObject:v5 forSetting:16];
+  v6 = v4;
+  [BSMutableSettings setObject:"setObject:forSetting:" forSetting:?];
 }
 
 - (int64_t)clickHapticAssetType
 {
-  v2 = [(BSMutableSettings *)self->_settings objectForSetting:16];
+  v2 = [(BSMutableSettings *)self->_settings objectForSetting:?];
   v3 = v2;
   if (v2 && [v2 integerValue])
   {
@@ -194,32 +199,32 @@ LABEL_5:
   if (interval > 30.0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"BKSButtonHapticsDefinition.m" lineNumber:195 description:{@"Invalid parameter not satisfying: %@", @"longPressTimeInterval <= BK_MAX_TIMEOUT_SECONDS"}];
+    [currentHandler handleFailureInMethod:@"longPressTimeInterval <= BK_MAX_TIMEOUT_SECONDS" object:? file:? lineNumber:? description:?];
   }
 
   if (interval < -1.0)
   {
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler2 handleFailureInMethod:a2 object:self file:@"BKSButtonHapticsDefinition.m" lineNumber:196 description:{@"Invalid parameter not satisfying: %@", @"longPressTimeInterval >= BKSButtonDefinitionUnspecifiedValue"}];
+    [currentHandler2 handleFailureInMethod:@"longPressTimeInterval >= BKSButtonDefinitionUnspecifiedValue" object:? file:? lineNumber:? description:?];
   }
 
   if (interval == -1.0)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [MEMORY[0x1E696AD98] numberWithDouble:interval];
+    v5 = [MEMORY[0x1E696AD98] numberWithDouble:?];
   }
 
-  v9 = v6;
-  [(BSMutableSettings *)self->_settings setObject:v6 forSetting:15];
+  v8 = v5;
+  [BSMutableSettings setObject:"setObject:forSetting:" forSetting:?];
 }
 
 - (double)maximumLongPressTimeInterval
 {
-  v2 = [(BSMutableSettings *)self->_settings objectForSetting:15];
+  v2 = [(BSMutableSettings *)self->_settings objectForSetting:?];
   v3 = v2;
   if (v2)
   {
@@ -240,32 +245,32 @@ LABEL_5:
   if (interval > 30.0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"BKSButtonHapticsDefinition.m" lineNumber:178 description:{@"Invalid parameter not satisfying: %@", @"longPressTimeInterval <= BK_MAX_TIMEOUT_SECONDS"}];
+    [currentHandler handleFailureInMethod:@"longPressTimeInterval <= BK_MAX_TIMEOUT_SECONDS" object:? file:? lineNumber:? description:?];
   }
 
   if (interval < -1.0)
   {
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler2 handleFailureInMethod:a2 object:self file:@"BKSButtonHapticsDefinition.m" lineNumber:179 description:{@"Invalid parameter not satisfying: %@", @"longPressTimeInterval >= BKSButtonDefinitionUnspecifiedValue"}];
+    [currentHandler2 handleFailureInMethod:@"longPressTimeInterval >= BKSButtonDefinitionUnspecifiedValue" object:? file:? lineNumber:? description:?];
   }
 
   if (interval == -1.0)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [MEMORY[0x1E696AD98] numberWithDouble:interval];
+    v5 = [MEMORY[0x1E696AD98] numberWithDouble:?];
   }
 
-  v9 = v6;
-  [(BSMutableSettings *)self->_settings setObject:v6 forSetting:14];
+  v8 = v5;
+  [BSMutableSettings setObject:"setObject:forSetting:" forSetting:?];
 }
 
 - (double)minimumLongPressTimeInterval
 {
-  v2 = [(BSMutableSettings *)self->_settings objectForSetting:14];
+  v2 = [(BSMutableSettings *)self->_settings objectForSetting:?];
   v3 = v2;
   if (v2)
   {
@@ -286,27 +291,27 @@ LABEL_5:
   if (interval > 30.0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"BKSButtonHapticsDefinition.m" lineNumber:161 description:{@"Invalid parameter not satisfying: %@", @"multiplePressTimeInterval <= BK_MAX_TIMEOUT_SECONDS"}];
+    [currentHandler handleFailureInMethod:@"multiplePressTimeInterval <= BK_MAX_TIMEOUT_SECONDS" object:? file:? lineNumber:? description:?];
   }
 
   if (interval < -1.0)
   {
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler2 handleFailureInMethod:a2 object:self file:@"BKSButtonHapticsDefinition.m" lineNumber:162 description:{@"Invalid parameter not satisfying: %@", @"multiplePressTimeInterval >= BKSButtonDefinitionUnspecifiedValue"}];
+    [currentHandler2 handleFailureInMethod:@"multiplePressTimeInterval >= BKSButtonDefinitionUnspecifiedValue" object:? file:? lineNumber:? description:?];
   }
 
   if (interval == -1.0)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [MEMORY[0x1E696AD98] numberWithDouble:interval];
+    v5 = [MEMORY[0x1E696AD98] numberWithDouble:?];
   }
 
-  v9 = v6;
-  [(BSMutableSettings *)self->_settings setObject:v6 forSetting:13];
+  v8 = v5;
+  [BSMutableSettings setObject:"setObject:forSetting:" forSetting:?];
 }
 
 - (void)setMinimumMultiplePressTimeInterval:(double)interval
@@ -314,32 +319,32 @@ LABEL_5:
   if (interval > 30.0)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"BKSButtonHapticsDefinition.m" lineNumber:144 description:{@"Invalid parameter not satisfying: %@", @"multiplePressTimeInterval <= BK_MAX_TIMEOUT_SECONDS"}];
+    [currentHandler handleFailureInMethod:@"multiplePressTimeInterval <= BK_MAX_TIMEOUT_SECONDS" object:? file:? lineNumber:? description:?];
   }
 
   if (interval < -1.0)
   {
     currentHandler2 = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler2 handleFailureInMethod:a2 object:self file:@"BKSButtonHapticsDefinition.m" lineNumber:145 description:{@"Invalid parameter not satisfying: %@", @"multiplePressTimeInterval >= BKSButtonDefinitionUnspecifiedValue"}];
+    [currentHandler2 handleFailureInMethod:@"multiplePressTimeInterval >= BKSButtonDefinitionUnspecifiedValue" object:? file:? lineNumber:? description:?];
   }
 
   if (interval == -1.0)
   {
-    v6 = 0;
+    v5 = 0;
   }
 
   else
   {
-    v6 = [MEMORY[0x1E696AD98] numberWithDouble:interval];
+    v5 = [MEMORY[0x1E696AD98] numberWithDouble:?];
   }
 
-  v9 = v6;
-  [(BSMutableSettings *)self->_settings setObject:v6 forSetting:12];
+  v8 = v5;
+  [BSMutableSettings setObject:"setObject:forSetting:" forSetting:?];
 }
 
 - (double)minimumMultiplePressTimeInterval
 {
-  v2 = [(BSMutableSettings *)self->_settings objectForSetting:12];
+  v2 = [(BSMutableSettings *)self->_settings objectForSetting:?];
   v3 = v2;
   if (v2)
   {
@@ -361,18 +366,18 @@ LABEL_5:
   {
     if (count == -1)
     {
-      v5 = 0;
+      v4 = 0;
       goto LABEL_6;
     }
 
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"BKSButtonHapticsDefinition.m" lineNumber:129 description:{@"Invalid parameter not satisfying: %@", @"maximumPressCount == BKSButtonDefinitionUnspecifiedValue || (maximumPressCount >= 1 && maximumPressCount <= BKSButtonDefinitionMaximumSupportedPressCount)"}];
+    [currentHandler handleFailureInMethod:@"maximumPressCount == BKSButtonDefinitionUnspecifiedValue || (maximumPressCount >= 1 && maximumPressCount <= BKSButtonDefinitionMaximumSupportedPressCount)" object:? file:? lineNumber:? description:?];
   }
 
-  v5 = [MEMORY[0x1E696AD98] numberWithInteger:count];
+  v4 = [MEMORY[0x1E696AD98] numberWithInteger:?];
 LABEL_6:
-  v8 = v5;
-  [(BSMutableSettings *)self->_settings setObject:v5 forSetting:10];
+  v6 = v4;
+  [BSMutableSettings setObject:"setObject:forSetting:" forSetting:?];
 }
 
 - (void)setMaximumTapCount:(int64_t)count
@@ -380,7 +385,7 @@ LABEL_6:
   if ((count - 4) <= 0xFFFFFFFFFFFFFFFALL)
   {
     currentHandler = [MEMORY[0x1E696AAA8] currentHandler];
-    [currentHandler handleFailureInMethod:a2 object:self file:@"BKSButtonHapticsDefinition.m" lineNumber:114 description:{@"Invalid parameter not satisfying: %@", @"maximumTapCount == BKSButtonDefinitionUnspecifiedValue || (maximumTapCount >= 0 && maximumTapCount <= BKSButtonDefinitionMaximumSupportedPressCount)"}];
+    [currentHandler handleFailureInMethod:@"maximumTapCount == BKSButtonDefinitionUnspecifiedValue || (maximumTapCount >= 0 && maximumTapCount <= BKSButtonDefinitionMaximumSupportedPressCount)" object:? file:? lineNumber:? description:?];
 
     goto LABEL_3;
   }
@@ -388,19 +393,19 @@ LABEL_6:
   if (count != -1)
   {
 LABEL_3:
-    v5 = [MEMORY[0x1E696AD98] numberWithInteger:count];
+    v4 = [MEMORY[0x1E696AD98] numberWithInteger:?];
     goto LABEL_5;
   }
 
-  v5 = 0;
+  v4 = 0;
 LABEL_5:
-  v8 = v5;
-  [(BSMutableSettings *)self->_settings setObject:v5 forSetting:11];
+  v6 = v4;
+  [BSMutableSettings setObject:"setObject:forSetting:" forSetting:?];
 }
 
 - (int64_t)maximumTapCount
 {
-  v2 = [(BSMutableSettings *)self->_settings objectForSetting:11];
+  v2 = [(BSMutableSettings *)self->_settings objectForSetting:?];
   v3 = v2;
   if (v2)
   {
@@ -417,19 +422,22 @@ LABEL_5:
 
 - (id)description
 {
-  v3 = [MEMORY[0x1E698E680] builderWithObject:self];
-  v4 = [v3 appendBool:self->_representsHomeButton withName:@"representsHomeButton"];
-  v5 = [v3 appendInteger:-[BKSButtonHapticsDefinition maximumTapCount](self withName:{"maximumTapCount"), @"maximumTapCount"}];
-  v6 = [v3 appendInteger:-[BKSButtonHapticsDefinition maximumPressCount](self withName:{"maximumPressCount"), @"maximumPressCount"}];
+  v3 = [MEMORY[0x1E698E680] builderWithObject:?];
+  v4 = [v3 appendBool:? withName:?];
+  [(BKSButtonHapticsDefinition *)self maximumTapCount];
+  v5 = [v3 appendInteger:? withName:?];
+  [(BKSButtonHapticsDefinition *)self maximumPressCount];
+  v6 = [v3 appendInteger:? withName:?];
   [(BKSButtonHapticsDefinition *)self minimumMultiplePressTimeInterval];
-  v7 = [v3 appendDouble:@"minimumMultiplePressTimeInterval" withName:2 decimalPrecision:?];
+  v7 = [v3 appendDouble:? withName:? decimalPrecision:?];
   [(BKSButtonHapticsDefinition *)self maximumMultiplePressTimeInterval];
-  v8 = [v3 appendDouble:@"maximumMultiplePressTimeInterval" withName:2 decimalPrecision:?];
+  v8 = [v3 appendDouble:? withName:? decimalPrecision:?];
   [(BKSButtonHapticsDefinition *)self minimumLongPressTimeInterval];
-  v9 = [v3 appendDouble:@"minimumLongPressTimeInterval" withName:2 decimalPrecision:?];
+  v9 = [v3 appendDouble:? withName:? decimalPrecision:?];
   [(BKSButtonHapticsDefinition *)self maximumLongPressTimeInterval];
-  v10 = [v3 appendDouble:@"maximumLongPressTimeInterval" withName:2 decimalPrecision:?];
-  v11 = [v3 appendInteger:-[BKSButtonHapticsDefinition clickHapticAssetType](self withName:{"clickHapticAssetType"), @"clickHapticAssetType"}];
+  v10 = [v3 appendDouble:? withName:? decimalPrecision:?];
+  [(BKSButtonHapticsDefinition *)self clickHapticAssetType];
+  v11 = [v3 appendInteger:? withName:?];
   build = [v3 build];
 
   return build;
@@ -469,7 +477,7 @@ LABEL_5:
 + (id)definitionForHomeButton
 {
   v2 = objc_alloc_init(BKSButtonHapticsDefinition);
-  [(BKSButtonHapticsDefinition *)v2 setRepresentsHomeButton:1];
+  [(BKSButtonHapticsDefinition *)v2 setRepresentsHomeButton:?];
 
   return v2;
 }

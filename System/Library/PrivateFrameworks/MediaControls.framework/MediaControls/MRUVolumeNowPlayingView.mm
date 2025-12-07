@@ -13,37 +13,37 @@
 
 - (void)layoutSubviews
 {
-  v37.receiver = self;
-  v37.super_class = MRUVolumeNowPlayingView;
-  [(MRUVolumeNowPlayingView *)&v37 layoutSubviews];
+  v41.receiver = self;
+  v41.super_class = MRUVolumeNowPlayingView;
+  [(MRUVolumeNowPlayingView *)&v41 layoutSubviews];
   [(MRUVolumeNowPlayingView *)self bounds];
   axis = self->_axis;
   if (axis == 1)
   {
     UIRectCenteredXInRect();
-    v22 = v21;
     v24 = v23;
     v26 = v25;
     v28 = v27;
-    [(UIImageView *)self->_imageView setFrame:?];
-    v40.origin.x = v22;
-    v40.origin.y = v24;
-    v40.size.width = v26;
-    v40.size.height = v28;
-    CGRectGetHeight(v40);
-    UIRectInset();
     v30 = v29;
+    [(UIImageView *)self->_imageView setFrame:?];
+    v44.origin.x = v24;
+    v44.origin.y = v26;
+    v44.size.width = v28;
+    v44.size.height = v30;
+    CGRectGetHeight(v44);
+    UIRectInset();
     v32 = v31;
     v34 = v33;
     v36 = v35;
+    v38 = v37;
     p_titleLabel = &self->_titleLabel;
-    [(UILabel *)self->_titleLabel sizeThatFits:v33, v35];
-    MRUSizeCeilToViewScale(self);
-    v41.origin.x = v30;
-    v41.origin.y = v32;
-    v41.size.width = v34;
-    v41.size.height = v36;
-    CGRectGetMinY(v41);
+    [(UILabel *)self->_titleLabel sizeThatFits:v35, v37];
+    MRUSizeCeilToViewScale(self, v39, v40);
+    v45.origin.x = v32;
+    v45.origin.y = v34;
+    v45.size.width = v36;
+    v45.size.height = v38;
+    CGRectGetMinY(v45);
     UIRectCenteredYInRect();
   }
 
@@ -62,11 +62,11 @@
     [(MRUVolumeNowPlayingView *)self bounds];
     MPRectByApplyingUserInterfaceLayoutDirectionInRect();
     [(UIImageView *)self->_imageView setFrame:?];
-    v38.origin.x = v5;
-    v38.origin.y = v7;
-    v38.size.width = v9;
-    v38.size.height = v11;
-    CGRectGetWidth(v38);
+    v42.origin.x = v5;
+    v42.origin.y = v7;
+    v42.size.width = v9;
+    v42.size.height = v11;
+    CGRectGetWidth(v42);
     UIRectInset();
     v13 = v12;
     v15 = v14;
@@ -74,12 +74,12 @@
     v19 = v18;
     p_titleLabel = &self->_titleLabel;
     [(UILabel *)self->_titleLabel sizeThatFits:v16, v18];
-    MRUSizeCeilToViewScale(self);
-    v39.origin.x = v13;
-    v39.origin.y = v15;
-    v39.size.width = v17;
-    v39.size.height = v19;
-    CGRectGetMinX(v39);
+    MRUSizeCeilToViewScale(self, v21, v22);
+    v43.origin.x = v13;
+    v43.origin.y = v15;
+    v43.size.width = v17;
+    v43.size.height = v19;
+    CGRectGetMinX(v43);
     UIRectCenteredYInRect();
     [(MRUVolumeNowPlayingView *)self bounds];
     MPRectByApplyingUserInterfaceLayoutDirectionInRect();
@@ -137,10 +137,10 @@
   if (axis == 1)
   {
     [(UILabel *)self->_titleLabel sizeThatFits:width, height - 8.0];
-    v14 = MRUSizeCeilToViewScale(self);
-    if (v14 < 20.0)
+    v16 = MRUSizeCeilToViewScale(self, v17, v18);
+    if (v16 < 20.0)
     {
-      v14 = 20.0;
+      v16 = 20.0;
     }
 
     v6 = v9 + 20.0 + 8.0;
@@ -148,7 +148,7 @@
 
   else if (axis)
   {
-    v14 = 20.0;
+    v16 = 20.0;
   }
 
   else
@@ -167,30 +167,30 @@
     }
 
     [(UILabel *)self->_titleLabel sizeThatFits:v12, height];
-    v14 = v13 + MRUSizeCeilToViewScale(self);
+    v16 = v13 + MRUSizeCeilToViewScale(self, v14, v15);
     if (v9 >= 20.0)
     {
       v6 = v9;
     }
   }
 
-  if (v14 >= width)
+  if (v16 >= width)
   {
-    v14 = width;
+    v16 = width;
   }
 
   if (v6 >= height)
   {
-    v15 = height;
+    v19 = height;
   }
 
   else
   {
-    v15 = v6;
+    v19 = v6;
   }
 
-  result.height = v15;
-  result.width = v14;
+  result.height = v19;
+  result.width = v16;
   return result;
 }
 

@@ -17,7 +17,7 @@
       {
         *buf = 0;
         _os_log_impl(&_mh_execute_header, oslog, OS_LOG_TYPE_ERROR, "Analysis: Not performing analysis on incomplete backup", buf, 2u);
-        _MBLog();
+        _MBLog(@"E ", "Analysis: Not performing analysis on incomplete backup");
       }
     }
 
@@ -162,7 +162,7 @@
               v73 = 2112;
               v74 = v46;
               _os_log_impl(&_mh_execute_header, v32, OS_LOG_TYPE_INFO, "Sending to PowerLog: %@ %@", v71, 0x16u);
-              _MBLog();
+              _MBLog(@"I ", "Sending to PowerLog: %@ %@", @"Statistics", v46);
             }
 
             PLLogRegisteredEvent();
@@ -179,7 +179,7 @@
           {
             *buf = 0;
             _os_log_impl(&_mh_execute_header, v35, OS_LOG_TYPE_ERROR, "Analysis: Unable to allocate MBCKDomainStatistics", buf, 2u);
-            _MBLog();
+            _MBLog(@"E ", "Analysis: Unable to allocate MBCKDomainStatistics");
           }
         }
 
@@ -194,7 +194,7 @@
         {
           *buf = 0;
           _os_log_impl(&_mh_execute_header, v33, OS_LOG_TYPE_ERROR, "Analysis: Unable to fetch last snapshot", buf, 2u);
-          _MBLog();
+          _MBLog(@"E ", "Analysis: Unable to fetch last snapshot");
           v34 = v33;
         }
       }

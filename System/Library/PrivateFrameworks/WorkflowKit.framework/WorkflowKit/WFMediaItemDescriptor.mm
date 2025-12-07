@@ -52,7 +52,7 @@
 
 + (id)itemCollectionFromQuery:(id)query mediaType:(id)type
 {
-  v22[1] = *MEMORY[0x1E69E9840];
+  v21[1] = *MEMORY[0x1E69E9840];
   queryCopy = query;
   typeCopy = type;
   v8 = [self collectionsOrItemsFromQuery:queryCopy forMediaType:typeCopy];
@@ -67,30 +67,30 @@
 
   else
   {
-    v18 = 0;
-    v19 = &v18;
-    v20 = 0x2050000000;
+    v17 = 0;
+    v18 = &v17;
+    v19 = 0x2050000000;
     v11 = getMPMediaItemClass_softClass;
-    v21 = getMPMediaItemClass_softClass;
+    v20 = getMPMediaItemClass_softClass;
     if (!getMPMediaItemClass_softClass)
     {
-      v17[0] = MEMORY[0x1E69E9820];
-      v17[1] = 3221225472;
-      v17[2] = __getMPMediaItemClass_block_invoke;
-      v17[3] = &unk_1E837FAC0;
-      v17[4] = &v18;
-      __getMPMediaItemClass_block_invoke(v17);
-      v11 = v19[3];
+      v16[0] = MEMORY[0x1E69E9820];
+      v16[1] = 3221225472;
+      v16[2] = __getMPMediaItemClass_block_invoke;
+      v16[3] = &unk_1E837FAC0;
+      v16[4] = &v17;
+      __getMPMediaItemClass_block_invoke(v16);
+      v11 = v18[3];
     }
 
     v12 = v11;
-    _Block_object_dispose(&v18, 8);
+    _Block_object_dispose(&v17, 8);
     objc_opt_class();
     if (objc_opt_isKindOfClass())
     {
       v13 = objc_alloc(getMPMediaItemCollectionClass());
-      v22[0] = firstObject;
-      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v22 count:1];
+      v21[0] = firstObject;
+      v14 = [MEMORY[0x1E695DEC8] arrayWithObjects:v21 count:1];
       v10 = [v13 initWithItems:v14];
     }
 
@@ -99,8 +99,6 @@
       v10 = 0;
     }
   }
-
-  v15 = *MEMORY[0x1E69E9840];
 
   return v10;
 }
@@ -111,7 +109,7 @@
   typeCopy = type;
   MPMediaPropertyPredicateClass = getMPMediaPropertyPredicateClass();
   v8 = typeCopy;
-  if (![v8 isEqualToString:@"Playlist"])
+  if (!objc_msgSend_isEqualToString_(v8))
   {
     v18 = WFGroupingPropertyForMediaType(v8);
     if (v18 > 2)
@@ -345,7 +343,7 @@ LABEL_6:
   typeCopy = type;
   MPMediaPropertyPredicateClass = getMPMediaPropertyPredicateClass();
   v8 = typeCopy;
-  if ([v8 isEqualToString:@"Playlist"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v27 = 0;
     v28 = &v27;
@@ -379,7 +377,7 @@ LABEL_32:
     goto LABEL_16;
   }
 
-  if ([v8 isEqualToString:@"Song"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v27 = 0;
     v28 = &v27;
@@ -410,7 +408,7 @@ LABEL_32:
     goto LABEL_16;
   }
 
-  if (([v8 isEqualToString:@"Album"] & 1) != 0 || objc_msgSend(v8, "isEqualToString:", @"Compilation"))
+  if ((objc_msgSend_isEqualToString_(v8) & 1) != 0 || objc_msgSend_isEqualToString_(v8))
   {
     v27 = 0;
     v28 = &v27;
@@ -443,7 +441,7 @@ LABEL_16:
     goto LABEL_17;
   }
 
-  if ([v8 isEqualToString:@"Artist"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v27 = 0;
     v28 = &v27;
@@ -474,14 +472,14 @@ LABEL_16:
     goto LABEL_16;
   }
 
-  if ([v8 isEqualToString:@"Genre"])
+  if (objc_msgSend_isEqualToString_(v8))
   {
     v15 = getMPMediaItemPropertyGenrePersistentID();
   }
 
   else
   {
-    if (![v8 isEqualToString:@"Composer"])
+    if (!objc_msgSend_isEqualToString_(v8))
     {
       v16 = 0;
       goto LABEL_18;
@@ -506,39 +504,39 @@ LABEL_18:
 + (id)allDescriptorsForMediaTypeUsingMPMediaQuery:(id)query
 {
   queryCopy = query;
-  if ([queryCopy isEqualToString:@"Playlist"])
+  if (objc_msgSend_isEqualToString_(queryCopy))
   {
     playlistsQuery = [getMPMediaQueryClass() playlistsQuery];
   }
 
-  else if ([queryCopy isEqualToString:@"Song"])
+  else if (objc_msgSend_isEqualToString_(queryCopy))
   {
     playlistsQuery = [getMPMediaQueryClass() songsQuery];
   }
 
-  else if ([queryCopy isEqualToString:@"Album"])
+  else if (objc_msgSend_isEqualToString_(queryCopy))
   {
     playlistsQuery = [getMPMediaQueryClass() albumsQuery];
   }
 
-  else if ([queryCopy isEqualToString:@"Artist"])
+  else if (objc_msgSend_isEqualToString_(queryCopy))
   {
     playlistsQuery = [getMPMediaQueryClass() artistsQuery];
   }
 
-  else if ([queryCopy isEqualToString:@"Genre"])
+  else if (objc_msgSend_isEqualToString_(queryCopy))
   {
     playlistsQuery = [getMPMediaQueryClass() genresQuery];
   }
 
-  else if ([queryCopy isEqualToString:@"Compilation"])
+  else if (objc_msgSend_isEqualToString_(queryCopy))
   {
     playlistsQuery = [getMPMediaQueryClass() compilationsQuery];
   }
 
   else
   {
-    if (([queryCopy isEqualToString:@"Composer"] & 1) == 0)
+    if ((objc_msgSend_isEqualToString_(queryCopy) & 1) == 0)
     {
 
       goto LABEL_18;
@@ -573,7 +571,7 @@ LABEL_19:
 + (id)collectionsOrItemsFromQuery:(id)query forMediaType:(id)type
 {
   queryCopy = query;
-  if ([type isEqualToString:@"Song"])
+  if (objc_msgSend_isEqualToString_(type))
   {
     [queryCopy items];
   }
@@ -592,18 +590,18 @@ LABEL_19:
   entityCopy = entity;
   typeCopy = type;
   v7 = [MEMORY[0x1E696AD98] numberWithUnsignedLongLong:{objc_msgSend(entityCopy, "persistentID")}];
-  v8 = [typeCopy isEqualToString:@"Song"];
-  if ([typeCopy isEqualToString:@"Playlist"])
+  isEqualToString = objc_msgSend_isEqualToString_(typeCopy);
+  if (objc_msgSend_isEqualToString_(typeCopy))
   {
     v9 = 0;
   }
 
   else
   {
-    v9 = [typeCopy isEqualToString:@"Song"] ^ 1;
+    v9 = objc_msgSend_isEqualToString_(typeCopy) ^ 1;
   }
 
-  if ((v8 | v9))
+  if ((isEqualToString | v9))
   {
     representativeItem = entityCopy;
   }
@@ -615,32 +613,32 @@ LABEL_19:
 
   v11 = representativeItem;
   v12 = typeCopy;
-  if ([v12 isEqualToString:@"Playlist"])
+  if (objc_msgSend_isEqualToString_(v12))
   {
     v13 = @"name";
   }
 
-  else if ([v12 isEqualToString:@"Song"])
+  else if (objc_msgSend_isEqualToString_(v12))
   {
     v13 = @"title";
   }
 
-  else if ([v12 isEqualToString:@"Album"] & 1) != 0 || (objc_msgSend(v12, "isEqualToString:", @"Compilation"))
+  else if (objc_msgSend_isEqualToString_(v12) & 1) != 0 || (objc_msgSend_isEqualToString_(v12))
   {
     v13 = @"albumTitle";
   }
 
-  else if ([v12 isEqualToString:@"Artist"])
+  else if (objc_msgSend_isEqualToString_(v12))
   {
     v13 = @"artist";
   }
 
-  else if ([v12 isEqualToString:@"Genre"])
+  else if (objc_msgSend_isEqualToString_(v12))
   {
     v13 = @"genre";
   }
 
-  else if ([v12 isEqualToString:@"Composer"])
+  else if (objc_msgSend_isEqualToString_(v12))
   {
     v13 = @"composer";
   }

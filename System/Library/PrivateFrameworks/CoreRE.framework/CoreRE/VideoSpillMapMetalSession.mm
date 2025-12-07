@@ -696,7 +696,7 @@ LABEL_8:
     v25 = BYTE12(v131);
     v26 = CVPixelBufferGetIOSurface(*spillmap);
     v127 = 13;
-    v27 = re::_IOSurfaceSetBulkAttachments2();
+    v27 = re::_IOSurfaceSetBulkAttachments2(v26, v121, 128);
     if (v27)
     {
       v17 = v27;
@@ -907,7 +907,7 @@ LABEL_41:
         v125 = height;
         v126 = 1;
         [(MPSImageBilinearScale *)bilinearScale setClipRect:v121];
-        re::VideoTextureAllocator::createTextureInternal(allocator, width, height, 0x51u, 2u, 3, 0, 0, v121, v85, ProtectionOptions);
+        re::VideoTextureAllocator::createTextureInternal(allocator, width, height, 81, 2, 3, 0, 0, v121, v85, ProtectionOptions);
         v86 = *v121;
         v88 = v86;
         v34 = v110;
@@ -915,7 +915,7 @@ LABEL_41:
         {
         }
 
-        re::VideoTextureAllocator::createTextureInternal(allocator, width, height, 0x51u, 2u, 3, 0, 0, v121, v87, ProtectionOptions);
+        re::VideoTextureAllocator::createTextureInternal(allocator, width, height, 81, 2, 3, 0, 0, v121, v87, ProtectionOptions);
         v89 = *v121;
         v90 = v89;
         if (v89)
@@ -940,7 +940,7 @@ LABEL_41:
               v114 = vdupq_n_s64(0x20uLL);
               v115 = 1;
               [computeCommandEncoder dispatchThreads:v121 threadsPerThreadgroup:&v114];
-              [computeCommandEncoder endEncoding];
+              objc_msgSend_endEncoding(computeCommandEncoder);
             }
 
             else

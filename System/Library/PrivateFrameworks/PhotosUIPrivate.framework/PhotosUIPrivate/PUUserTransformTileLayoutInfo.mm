@@ -58,7 +58,7 @@
   v35 = v7;
   [(PUTileLayoutInfo *)self alpha];
   v33 = v9;
-  [(PUTileLayoutInfo *)self transform];
+  objc_msgSend_transform(self);
   [(PUTileLayoutInfo *)self zPosition];
   v32 = v10;
   coordinateSystem = [(PUTileLayoutInfo *)self coordinateSystem];
@@ -100,26 +100,26 @@
 
 - (double)initWithTileIdentifier:(double)identifier center:(double)center size:(double)size alpha:(double)alpha transform:(double)transform zPosition:(uint64_t)position coordinateSystem:(uint64_t)system untransformedContentFrame:(_OWORD *)self0 chromeInsets:(uint64_t)self1 contentPixelSize:(double)self2 cropInsets:(double)self3
 {
-  v31.receiver = self;
-  v31.super_class = PUUserTransformTileLayoutInfo;
-  v27 = frame[1];
-  v30[0] = *frame;
-  v30[1] = v27;
-  v30[2] = frame[2];
-  v28 = objc_msgSendSuper2(&v31, sel_initWithTileIdentifier_center_size_alpha_cornerRadius_cornerCurve_cornerMask_borderWidth_borderColor_transform_zPosition_contentsRect_hitTestOutset_coordinateSystem_cropInsets_normalizedLegibilityInsets_, system, 0, 0, 0, v30, insets, a2, identifier, center, size, alpha, 0.0, 0.0, transform, 0, 0, 0x3FF0000000000000, 0x3FF0000000000000, *MEMORY[0x1E69DDCE0], *(MEMORY[0x1E69DDCE0] + 8), *(MEMORY[0x1E69DDCE0] + 16), *(MEMORY[0x1E69DDCE0] + 24), a27, a28, a29, *MEMORY[0x1E69DDCE0], *(MEMORY[0x1E69DDCE0] + 8), *(MEMORY[0x1E69DDCE0] + 16), *(MEMORY[0x1E69DDCE0] + 24));
-  if (v28)
+  v33.receiver = self;
+  v33.super_class = PUUserTransformTileLayoutInfo;
+  v29 = frame[1];
+  v32[0] = *frame;
+  v32[1] = v29;
+  v32[2] = frame[2];
+  v30 = objc_msgSendSuper2(&v33, sel_initWithTileIdentifier_center_size_alpha_cornerRadius_cornerCurve_cornerMask_borderWidth_borderColor_transform_zPosition_contentsRect_hitTestOutset_coordinateSystem_cropInsets_normalizedLegibilityInsets_, system, 0, 0, 0, v32, insets, a2, identifier, center, size, alpha, 0.0, 0.0, transform, 0, 0, 0x3FF0000000000000, 0x3FF0000000000000, *MEMORY[0x1E69DDCE0], *(MEMORY[0x1E69DDCE0] + 8), *(MEMORY[0x1E69DDCE0] + 16), *(MEMORY[0x1E69DDCE0] + 24), a27, a28, a29, *MEMORY[0x1E69DDCE0], *(MEMORY[0x1E69DDCE0] + 8), *(MEMORY[0x1E69DDCE0] + 16), *(MEMORY[0x1E69DDCE0] + 24));
+  if (v30)
   {
     result = a26;
-    *(v28 + 42) = a17;
-    *(v28 + 43) = a18;
-    *(v28 + 44) = a19;
-    *(v28 + 45) = a20;
-    *(v28 + 46) = a21;
-    *(v28 + 47) = a22;
-    *(v28 + 48) = a23;
-    *(v28 + 49) = a24;
-    *(v28 + 40) = a25;
-    v28[41] = a26;
+    *(v30 + 42) = a17;
+    *(v30 + 43) = a18;
+    *(v30 + 44) = a19;
+    *(v30 + 45) = a20;
+    *(v30 + 46) = a21;
+    *(v30 + 47) = a22;
+    *(v30 + 48) = a23;
+    *(v30 + 49) = a24;
+    *(v30 + 40) = a25;
+    v30[41] = a26;
   }
 
   return result;
@@ -127,26 +127,26 @@
 
 - (double)initWithTileIdentifier:(uint64_t)identifier center:(_OWORD *)center size:(uint64_t)size alpha:(uint64_t)alpha transform:(uint64_t)transform zPosition:(uint64_t)position coordinateSystem:(double)system untransformedContentFrame:(double)self0 chromeInsets:(double)self1 contentPixelSize:(double)self2
 {
-  v22.receiver = self;
-  v22.super_class = PUUserTransformTileLayoutInfo;
-  v18 = center[1];
-  v21[0] = *center;
-  v21[1] = v18;
-  v21[2] = center[2];
-  v19 = objc_msgSendSuper2(&v22, sel_initWithTileIdentifier_center_size_alpha_transform_zPosition_coordinateSystem_, identifier, v21);
-  if (v19)
+  v30.receiver = self;
+  v30.super_class = PUUserTransformTileLayoutInfo;
+  v26 = center[1];
+  v29[0] = *center;
+  v29[1] = v26;
+  v29[2] = center[2];
+  v27 = objc_msgSendSuper2(&v30, sel_initWithTileIdentifier_center_size_alpha_transform_zPosition_coordinateSystem_, identifier, v29, size, alpha, transform, position, system, frame, insets, pixelSize, a13, a14);
+  if (v27)
   {
     result = a26;
-    *(v19 + 42) = a17;
-    *(v19 + 43) = a18;
-    *(v19 + 44) = a19;
-    *(v19 + 45) = a20;
-    *(v19 + 46) = a21;
-    *(v19 + 47) = a22;
-    *(v19 + 48) = a23;
-    *(v19 + 49) = a24;
-    *(v19 + 40) = a25;
-    v19[41] = a26;
+    *(v27 + 42) = a17;
+    *(v27 + 43) = a18;
+    *(v27 + 44) = a19;
+    *(v27 + 45) = a20;
+    *(v27 + 46) = a21;
+    *(v27 + 47) = a22;
+    *(v27 + 48) = a23;
+    *(v27 + 49) = a24;
+    *(v27 + 40) = a25;
+    v27[41] = a26;
   }
 
   return result;

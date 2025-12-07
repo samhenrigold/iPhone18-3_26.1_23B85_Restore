@@ -12,9 +12,9 @@
     +[NSBundle(DoNotDisturb) dnd_locationBundle];
   }
 
-  v1 = dnd_locationBundle_bundle;
+  v2 = dnd_locationBundle_bundle;
 
-  return v1;
+  return v2;
 }
 
 + (id)dnd_doNotDisturbLocalizationBundle
@@ -24,9 +24,9 @@
     +[NSBundle(DoNotDisturb) dnd_doNotDisturbLocalizationBundle];
   }
 
-  v1 = dnd_doNotDisturbLocalizationBundle_bundle;
+  v2 = dnd_doNotDisturbLocalizationBundle_bundle;
 
-  return v1;
+  return v2;
 }
 
 @end

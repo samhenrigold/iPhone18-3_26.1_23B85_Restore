@@ -136,19 +136,19 @@ uint64_t __22__FKFriendGroup_count__block_invoke(uint64_t result, uint64_t a2)
 
 - (void)addFriend:(id)friend error:(unsigned int *)error
 {
-  v14 = *MEMORY[0x277D85DE8];
+  v13 = *MEMORY[0x277D85DE8];
   friendCopy = friend;
   _firstEmptyPosition = [(FKFriendGroup *)self _firstEmptyPosition];
   if ((_firstEmptyPosition & 0x8000000000000000) != 0 || _firstEmptyPosition >= self->_groupSize)
   {
-    v8 = _FKGetLogSystem();
+    v8 = _FKGetLogSystem(_firstEmptyPosition);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
     {
-      v10 = 136315394;
-      v11 = "[FKFriendGroup addFriend:error:]";
-      v12 = 1024;
-      v13 = 110;
-      _os_log_impl(&dword_24BC19000, v8, OS_LOG_TYPE_DEFAULT, "%s (%d) unable to add friend: capacity reached", &v10, 0x12u);
+      v9 = 136315394;
+      v10 = "[FKFriendGroup addFriend:error:]";
+      v11 = 1024;
+      v12 = 110;
+      _os_log_impl(&dword_24BC19000, v8, OS_LOG_TYPE_DEFAULT, "%s (%d) unable to add friend: capacity reached", &v9, 0x12u);
     }
 
     *error = 1;
@@ -158,8 +158,6 @@ uint64_t __22__FKFriendGroup_count__block_invoke(uint64_t result, uint64_t a2)
   {
     [(FKFriendGroup *)self setFriend:friendCopy atPosition:_firstEmptyPosition error:error];
   }
-
-  v9 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setTitle:(id)title
@@ -192,9 +190,10 @@ void __26__FKFriendGroup_setTitle___block_invoke(uint64_t a1)
 {
   v25 = *MEMORY[0x277D85DE8];
   friendCopy = friend;
+  v9 = friendCopy;
   if (self->_groupSize <= position)
   {
-    delegate = _FKGetLogSystem();
+    delegate = _FKGetLogSystem(friendCopy);
     if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT))
     {
       v17 = 136315650;
@@ -206,18 +205,18 @@ void __26__FKFriendGroup_setTitle___block_invoke(uint64_t a1)
       _os_log_impl(&dword_24BC19000, delegate, OS_LOG_TYPE_DEFAULT, "%s (%d) unable to add friend at position %tu: out of range", &v17, 0x1Cu);
     }
 
-    v13 = 2;
+    v14 = 2;
   }
 
   else
   {
-    v9 = _FKGetLogSystem();
-    v10 = os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT);
-    if (friendCopy)
+    v10 = _FKGetLogSystem(friendCopy);
+    v11 = os_log_type_enabled(v10, OS_LOG_TYPE_DEFAULT);
+    if (v9)
     {
-      if (v10)
+      if (v11)
       {
-        displayName = [friendCopy displayName];
+        displayName = [v9 displayName];
         v17 = 136315906;
         v18 = "[FKFriendGroup setFriend:atPosition:error:]";
         v19 = 1024;
@@ -226,17 +225,17 @@ void __26__FKFriendGroup_setTitle___block_invoke(uint64_t a1)
         positionCopy3 = displayName;
         v23 = 2048;
         positionCopy2 = position;
-        _os_log_impl(&dword_24BC19000, v9, OS_LOG_TYPE_DEFAULT, "%s (%d) setting [%@] in friend list at position %tu", &v17, 0x26u);
+        _os_log_impl(&dword_24BC19000, v10, OS_LOG_TYPE_DEFAULT, "%s (%d) setting [%@] in friend list at position %tu", &v17, 0x26u);
       }
 
-      [(NSMutableArray *)self->_friendsManager setObject:friendCopy atIndexedSubscript:position];
+      [(NSMutableArray *)self->_friendsManager setObject:v9 atIndexedSubscript:position];
       delegate = [(FKFriendGroup *)self delegate];
-      [delegate friendGroup:self didSetFriend:friendCopy atPosition:position];
+      [delegate friendGroup:self didSetFriend:v9 atPosition:position];
     }
 
     else
     {
-      if (v10)
+      if (v11)
       {
         v17 = 136315650;
         v18 = "[FKFriendGroup setFriend:atPosition:error:]";
@@ -244,7 +243,7 @@ void __26__FKFriendGroup_setTitle___block_invoke(uint64_t a1)
         v20 = 138;
         v21 = 2048;
         positionCopy3 = position;
-        _os_log_impl(&dword_24BC19000, v9, OS_LOG_TYPE_DEFAULT, "%s (%d) setting empty slot in friend list at position %tu", &v17, 0x1Cu);
+        _os_log_impl(&dword_24BC19000, v10, OS_LOG_TYPE_DEFAULT, "%s (%d) setting empty slot in friend list at position %tu", &v17, 0x1Cu);
       }
 
       friendsManager = self->_friendsManager;
@@ -255,11 +254,10 @@ void __26__FKFriendGroup_setTitle___block_invoke(uint64_t a1)
       [delegate friendGroup:self didRemoveFriend:0 atPosition:position];
     }
 
-    v13 = 0;
+    v14 = 0;
   }
 
-  *error = v13;
-  v16 = *MEMORY[0x277D85DE8];
+  *error = v14;
 }
 
 - (void)removeFriendAtPosition:(unint64_t)position
@@ -272,8 +270,8 @@ void __26__FKFriendGroup_setTitle___block_invoke(uint64_t a1)
     null = [MEMORY[0x277CBEB68] null];
     [(NSMutableArray *)friendsManager setObject:null atIndexedSubscript:position];
 
-    v8 = _FKGetLogSystem();
-    if (os_log_type_enabled(v8, OS_LOG_TYPE_DEFAULT))
+    v9 = _FKGetLogSystem(v8);
+    if (os_log_type_enabled(v9, OS_LOG_TYPE_DEFAULT))
     {
       displayName = [v5 displayName];
       v12 = 136315906;
@@ -284,7 +282,7 @@ void __26__FKFriendGroup_setTitle___block_invoke(uint64_t a1)
       positionCopy2 = displayName;
       v18 = 2048;
       positionCopy = position;
-      _os_log_impl(&dword_24BC19000, v8, OS_LOG_TYPE_DEFAULT, "%s (%d) Removing friend [%@] from position %lu in friend group", &v12, 0x26u);
+      _os_log_impl(&dword_24BC19000, v9, OS_LOG_TYPE_DEFAULT, "%s (%d) Removing friend [%@] from position %lu in friend group", &v12, 0x26u);
     }
 
     delegate = [(FKFriendGroup *)self delegate];
@@ -293,7 +291,7 @@ void __26__FKFriendGroup_setTitle___block_invoke(uint64_t a1)
 
   else
   {
-    delegate = _FKGetLogSystem();
+    delegate = _FKGetLogSystem(0);
     if (os_log_type_enabled(delegate, OS_LOG_TYPE_DEFAULT))
     {
       v12 = 136315650;
@@ -305,8 +303,6 @@ void __26__FKFriendGroup_setTitle___block_invoke(uint64_t a1)
       _os_log_impl(&dword_24BC19000, delegate, OS_LOG_TYPE_DEFAULT, "%s (%d) Position %lu is already empty", &v12, 0x1Cu);
     }
   }
-
-  v11 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setFriends:(id)friends
@@ -346,7 +342,7 @@ void __26__FKFriendGroup_setTitle___block_invoke(uint64_t a1)
 
 - (id)displayNameForGroupWithSeparator:(id)separator
 {
-  v42 = *MEMORY[0x277D85DE8];
+  v41 = *MEMORY[0x277D85DE8];
   separatorCopy = separator;
   title = [(FKFriendGroup *)self title];
   v6 = [title length];
@@ -358,29 +354,29 @@ void __26__FKFriendGroup_setTitle___block_invoke(uint64_t a1)
 
   else if ([(NSMutableArray *)self->_friendsManager count])
   {
-    v31 = separatorCopy;
+    v30 = separatorCopy;
     array = [MEMORY[0x277CBEB18] array];
     array2 = [MEMORY[0x277CBEB18] array];
+    v35 = 0u;
     v36 = 0u;
     v37 = 0u;
     v38 = 0u;
-    v39 = 0u;
     v10 = self->_friendsManager;
-    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v36 objects:v41 count:16];
+    v11 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v35 objects:v40 count:16];
     if (v11)
     {
       v12 = v11;
-      v13 = *v37;
+      v13 = *v36;
       do
       {
         for (i = 0; i != v12; ++i)
         {
-          if (*v37 != v13)
+          if (*v36 != v13)
           {
             objc_enumerationMutation(v10);
           }
 
-          v15 = *(*(&v36 + 1) + 8 * i);
+          v15 = *(*(&v35 + 1) + 8 * i);
           null = [MEMORY[0x277CBEB68] null];
 
           if (v15 != null)
@@ -403,32 +399,32 @@ void __26__FKFriendGroup_setTitle___block_invoke(uint64_t a1)
           }
         }
 
-        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v36 objects:v41 count:16];
+        v12 = [(NSMutableArray *)v10 countByEnumeratingWithState:&v35 objects:v40 count:16];
       }
 
       while (v12);
     }
 
-    v34 = 0u;
-    v35 = 0u;
-    v32 = 0u;
     v33 = 0u;
+    v34 = 0u;
+    v31 = 0u;
+    v32 = 0u;
     v21 = array2;
-    v22 = [v21 countByEnumeratingWithState:&v32 objects:v40 count:16];
+    v22 = [v21 countByEnumeratingWithState:&v31 objects:v39 count:16];
     if (v22)
     {
       v23 = v22;
-      v24 = *v33;
+      v24 = *v32;
       do
       {
         for (j = 0; j != v23; ++j)
         {
-          if (*v33 != v24)
+          if (*v32 != v24)
           {
             objc_enumerationMutation(v21);
           }
 
-          v26 = *(*(&v32 + 1) + 8 * j);
+          v26 = *(*(&v31 + 1) + 8 * j);
           if ([v26 fkMessageDestinationType] == 2)
           {
             v27 = [v26 componentsSeparatedByString:@"@"];
@@ -442,7 +438,7 @@ void __26__FKFriendGroup_setTitle___block_invoke(uint64_t a1)
           }
         }
 
-        v23 = [v21 countByEnumeratingWithState:&v32 objects:v40 count:16];
+        v23 = [v21 countByEnumeratingWithState:&v31 objects:v39 count:16];
       }
 
       while (v23);
@@ -450,14 +446,14 @@ void __26__FKFriendGroup_setTitle___block_invoke(uint64_t a1)
 
     if ([array count])
     {
-      separatorCopy = v31;
-      title2 = [array componentsJoinedByString:v31];
+      separatorCopy = v30;
+      title2 = [array componentsJoinedByString:v30];
     }
 
     else
     {
       title2 = 0;
-      separatorCopy = v31;
+      separatorCopy = v30;
     }
   }
 
@@ -465,8 +461,6 @@ void __26__FKFriendGroup_setTitle___block_invoke(uint64_t a1)
   {
     title2 = 0;
   }
-
-  v29 = *MEMORY[0x277D85DE8];
 
   return title2;
 }

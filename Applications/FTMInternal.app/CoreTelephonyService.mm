@@ -4,6 +4,7 @@
 - (void)applicationInBackground;
 - (void)cellMonitorUpdate:(id)update info:(id)info;
 - (void)connectionAvailability:(id)availability availableConnections:(id)connections;
+- (void)connectionStateChanged:(id)changed connection:(int)connection dataConnectionStatusInfo:(id)info;
 - (void)dealloc;
 - (void)signalStrengthChanged:(id)changed info:(id)info;
 - (void)systemConfigurationChanged:(id)changed withConfiguration:(id)configuration;
@@ -39,8 +40,9 @@
     swift_once();
   }
 
-  static os_log_type_t.default.getter();
-  os_log(_:dso:log:type:_:)();
+  v3 = qword_1003824C0;
+  v4 = static os_log_type_t.default.getter();
+  v5 = os_log(_:dso:log:type:_:)("CoreTelephonyService - background", 33, 2, &_mh_execute_header, v3, v4, _swiftEmptyArrayStorage);
   *(&selfCopy->super.isa + OBJC_IVAR____TtC11FTMInternal20CoreTelephonyService_isApplicationForeground) = 0;
   [*(&selfCopy->super.isa + OBJC_IVAR____TtC11FTMInternal20CoreTelephonyService_updateNetworkValueTimer) invalidate];
 }
@@ -76,6 +78,14 @@
   sub_1001F449C(changed, info);
 }
 
+- (void)connectionStateChanged:(id)changed connection:(int)connection dataConnectionStatusInfo:(id)info
+{
+  changedCopy = changed;
+  infoCopy = info;
+  selfCopy = self;
+  sub_1002047FC(changed, connection, info);
+}
+
 - (void)connectionAvailability:(id)availability availableConnections:(id)connections
 {
   if (connections)
@@ -85,7 +95,7 @@
 
   availabilityCopy = availability;
   selfCopy = self;
-  sub_1002049CC();
+  sub_1002049CC(selfCopy);
 }
 
 @end

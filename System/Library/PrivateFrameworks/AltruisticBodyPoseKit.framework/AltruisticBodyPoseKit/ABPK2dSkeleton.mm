@@ -257,8 +257,8 @@
       break;
     }
 
-    v18 = *(*self->_anon_20 + 8 * v9);
-    if (v18.f32[0] == -1.0 || COERCE_FLOAT(HIDWORD(*(*self->_anon_20 + 8 * v9))) == -1.0)
+    v19 = *(*self->_anon_20 + 8 * v9);
+    if (v19.f32[0] == -1.0 || COERCE_FLOAT(HIDWORD(*(*self->_anon_20 + 8 * v9))) == -1.0)
     {
       *(*self->_anon_8 + 8 * v9) = _D9;
       ++v10;
@@ -266,24 +266,23 @@
 
     else
     {
-      *(*self->_anon_8 + 8 * v9) = vcvt_f32_f64(vmulq_f64(v24, vcvtq_f64_f32(v18)));
+      *(*self->_anon_8 + 8 * v9) = vcvt_f32_f64(vmulq_f64(v24, vcvtq_f64_f32(v19)));
     }
 
     ++v9;
   }
 
-  v20 = __ABPKLogSharedInstance();
-  if (os_log_type_enabled(v20, OS_LOG_TYPE_DEBUG))
+  v21 = __ABPKLogSharedInstance(v18);
+  if (os_log_type_enabled(v21, OS_LOG_TYPE_DEBUG))
   {
     *buf = 67109120;
     v26 = v10;
-    _os_log_impl(&dword_23EDDC000, v20, OS_LOG_TYPE_DEBUG, " missingJointsCount: %d ", buf, 8u);
+    _os_log_impl(&dword_23EDDC000, v21, OS_LOG_TYPE_DEBUG, " missingJointsCount: %d ", buf, 8u);
   }
 
   self->_imageRes.width = v22;
   self->_imageRes.height = v23;
   [(ABPK2dSkeleton *)self computeBoundingBox];
-  v21 = *MEMORY[0x277D85DE8];
 }
 
 - (void)setKeypoints2d:(ABPK2dSkeleton *)self withImageRes:(SEL)res
@@ -417,76 +416,72 @@
 
 - (void)printData
 {
-  v22 = *MEMORY[0x277D85DE8];
-  v3 = __ABPKLogSharedInstance();
+  v25 = *MEMORY[0x277D85DE8];
+  v3 = __ABPKLogSharedInstance(self);
   if (os_log_type_enabled(v3, OS_LOG_TYPE_DEBUG))
   {
     width = self->_imageRes.width;
     height = self->_imageRes.height;
     *buf = 134218240;
-    v19 = width;
-    v20 = 2048;
-    v21 = height;
+    v22 = width;
+    v23 = 2048;
+    v24 = height;
     _os_log_impl(&dword_23EDDC000, v3, OS_LOG_TYPE_DEBUG, " Image res: %f,%f ", buf, 0x16u);
   }
 
-  if ([(ABPKSkeletonDefinition *)self->_skeletonDefinition jointCount])
+  jointCount = [(ABPKSkeletonDefinition *)self->_skeletonDefinition jointCount];
+  if (jointCount)
   {
-    v6 = 0;
-    do
+    for (i = 0; i < jointCount; ++i)
     {
-      v7 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v7, OS_LOG_TYPE_DEBUG))
+      v8 = __ABPKLogSharedInstance(jointCount);
+      if (os_log_type_enabled(v8, OS_LOG_TYPE_DEBUG))
       {
-        v8 = [(ABPKSkeletonDefinition *)self->_skeletonDefinition jointName:v6];
+        v9 = [(ABPKSkeletonDefinition *)self->_skeletonDefinition jointName:i];
         *buf = 138412290;
-        v19 = *&v8;
-        _os_log_impl(&dword_23EDDC000, v7, OS_LOG_TYPE_DEBUG, " %@ ", buf, 0xCu);
+        v22 = *&v9;
+        _os_log_impl(&dword_23EDDC000, v8, OS_LOG_TYPE_DEBUG, " %@ ", buf, 0xCu);
       }
 
-      v9 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v9, OS_LOG_TYPE_DEBUG))
+      v11 = __ABPKLogSharedInstance(v10);
+      if (os_log_type_enabled(v11, OS_LOG_TYPE_DEBUG))
       {
-        v10 = *self->_anon_8;
-        v11 = COERCE_FLOAT(*(v10 + 8 * v6));
-        v12 = COERCE_FLOAT(HIDWORD(*(v10 + 8 * v6)));
+        v12 = *self->_anon_8;
+        v13 = COERCE_FLOAT(*(v12 + 8 * i));
+        v14 = COERCE_FLOAT(HIDWORD(*(v12 + 8 * i)));
         *buf = 134218240;
-        v19 = v11;
-        v20 = 2048;
-        v21 = v12;
-        _os_log_impl(&dword_23EDDC000, v9, OS_LOG_TYPE_DEBUG, " \t Keypoint:    (%f,%f) ", buf, 0x16u);
+        v22 = v13;
+        v23 = 2048;
+        v24 = v14;
+        _os_log_impl(&dword_23EDDC000, v11, OS_LOG_TYPE_DEBUG, " \t Keypoint:    (%f,%f) ", buf, 0x16u);
       }
 
-      v13 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v13, OS_LOG_TYPE_DEBUG))
+      v16 = __ABPKLogSharedInstance(v15);
+      if (os_log_type_enabled(v16, OS_LOG_TYPE_DEBUG))
       {
-        v14 = self->_visibility.__begin_[v6];
+        v17 = self->_visibility.__begin_[i];
         *buf = 67109120;
-        LODWORD(v19) = v14;
-        _os_log_impl(&dword_23EDDC000, v13, OS_LOG_TYPE_DEBUG, " \t Visibility:  %u ", buf, 8u);
+        LODWORD(v22) = v17;
+        _os_log_impl(&dword_23EDDC000, v16, OS_LOG_TYPE_DEBUG, " \t Visibility:  %u ", buf, 8u);
       }
 
-      v15 = __ABPKLogSharedInstance();
-      if (os_log_type_enabled(v15, OS_LOG_TYPE_DEBUG))
+      v19 = __ABPKLogSharedInstance(v18);
+      if (os_log_type_enabled(v19, OS_LOG_TYPE_DEBUG))
       {
-        v16 = self->_confidences.__begin_[v6];
+        v20 = self->_confidences.__begin_[i];
         *buf = 134217984;
-        v19 = v16;
-        _os_log_impl(&dword_23EDDC000, v15, OS_LOG_TYPE_DEBUG, " \t Confidence:  %f ", buf, 0xCu);
+        v22 = v20;
+        _os_log_impl(&dword_23EDDC000, v19, OS_LOG_TYPE_DEBUG, " \t Confidence:  %f ", buf, 0xCu);
       }
 
-      ++v6;
+      jointCount = [(ABPKSkeletonDefinition *)self->_skeletonDefinition jointCount];
     }
-
-    while (v6 < [(ABPKSkeletonDefinition *)self->_skeletonDefinition jointCount]);
   }
-
-  v17 = *MEMORY[0x277D85DE8];
 }
 
 - (id)toDictionary
 {
-  v17[2] = *MEMORY[0x277D85DE8];
+  v16[2] = *MEMORY[0x277D85DE8];
   v3 = objc_opt_new();
   v4 = 0;
   v5 = 4;
@@ -494,11 +489,11 @@
   {
     v6 = objc_opt_new();
     v7 = [MEMORY[0x277CCABB0] numberWithFloat:*(*self->_anon_8 + 8 * v4)];
-    v17[0] = v7;
+    v16[0] = v7;
     LODWORD(v8) = *(*self->_anon_8 + v5);
     v9 = [MEMORY[0x277CCABB0] numberWithFloat:v8];
-    v17[1] = v9;
-    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v17 count:2];
+    v16[1] = v9;
+    v10 = [MEMORY[0x277CBEA60] arrayWithObjects:v16 count:2];
 
     [v6 setObject:v10 forKeyedSubscript:@"positions2d"];
     *&v11 = self->_confidences.__begin_[v4];
@@ -515,8 +510,6 @@
     v5 += 8;
   }
 
-  v15 = *MEMORY[0x277D85DE8];
-
   return v3;
 }
 
@@ -525,7 +518,7 @@
   if (!result)
   {
     v10 = v4;
-    v8 = __ABPKLogSharedInstance();
+    v8 = __ABPKLogSharedInstance(self);
     if (os_log_type_enabled(v8, OS_LOG_TYPE_ERROR))
     {
       *buf = 0;

@@ -17,28 +17,26 @@
 {
   v5 = sub_195FA0478();
   v6 = *(v5 - 8);
-  v7 = *(v6 + 64);
   MEMORY[0x1EEE9AC00](v5);
-  v9 = &v15 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v8 = &v14 - ((v7 + 15) & 0xFFFFFFFFFFFFFFF0);
   sharedInstance = [objc_opt_self() sharedInstance];
-  v11 = CHSWidgetRelevanceServiceCacheDirectory();
+  v10 = CHSWidgetRelevanceServiceCacheDirectory();
   sub_195FA0428();
 
-  v12 = sub_195FA0398();
-  (*(v6 + 8))(v9, v5);
-  v13 = [(CHSWidgetRelevanceService *)self initWithConnection:sharedInstance cacheURL:v12 options:options];
+  v11 = sub_195FA0398();
+  (*(v6 + 8))(v8, v5);
+  v12 = [(CHSWidgetRelevanceService *)self initWithConnection:sharedInstance cacheURL:v11 options:options];
 
-  return v13;
+  return v12;
 }
 
 - (CHSWidgetRelevanceService)initWithConnection:(id)connection cacheURL:(id)l options:(unint64_t)options
 {
   v7 = sub_195FA0478();
-  v8 = *(*(v7 - 8) + 64);
   MEMORY[0x1EEE9AC00](v7 - 8);
-  v10 = &v12 - ((v9 + 15) & 0xFFFFFFFFFFFFFFF0);
+  v9 = &v11 - ((v8 + 15) & 0xFFFFFFFFFFFFFFF0);
   sub_195FA0428();
-  return sub_195F442D8(connection, v10, options);
+  return sub_195F442D8(connection, v9, options);
 }
 
 - (void)invalidate
@@ -54,7 +52,7 @@
 
   sub_195EB4B30(0, &qword_1EAEEDD50, off_1E74527C8);
   __swift_instantiateConcreteTypeFromMangledNameV2(&qword_1EAEEDD58, &unk_195FACFC8);
-  sub_195F48E88(&unk_1EAEEDD60, &qword_1EAEEDD50, off_1E74527C8);
+  sub_195F48E88(&unk_1EAEEDD60, &qword_1EAEEDD50, off_1E74527C8, MEMORY[0x1E69E81B8]);
   v3 = sub_195FA07E8();
 
   return v3;

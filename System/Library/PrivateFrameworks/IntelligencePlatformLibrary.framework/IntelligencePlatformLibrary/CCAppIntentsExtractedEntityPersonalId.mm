@@ -482,7 +482,6 @@ LABEL_36:
               {
                 v26 = objc_opt_class();
                 v25 = NSStringFromClass(v26);
-                v27 = *&v6[*v9];
                 v10 = CCSkipFieldErrorForMessage();
 LABEL_37:
               }
@@ -516,10 +515,9 @@ LABEL_17:
       }
 
 LABEL_46:
-      v28 = objc_opt_class();
-      v10 = NSStringFromClass(v28);
-      v29 = *&v6[*v9];
-      v30 = CCInvalidBufferErrorForMessage();
+      v27 = objc_opt_class();
+      v10 = NSStringFromClass(v27);
+      v28 = CCInvalidBufferErrorForMessage();
       CCSetError();
 
       goto LABEL_47;
@@ -531,7 +529,7 @@ LABEL_43:
       CCSetError();
 LABEL_47:
 
-      v31 = 0;
+      v29 = 0;
       goto LABEL_49;
     }
   }
@@ -541,10 +539,10 @@ LABEL_47:
     goto LABEL_46;
   }
 
-  v31 = 1;
+  v29 = 1;
 LABEL_49:
 
-  return v31;
+  return v29;
 }
 
 - (CCAppIntentsExtractedEntityPersonalId)initWithProvider:(id)provider underName:(id)name number:(id)number issueDate:(id)date expirationDate:(id)expirationDate issuedBy:(id)by region:(id)region country:(id)self0 birthday:(id)self1 placeOfBirth:(id)self2 address:(id)self3 category:(id)self4 restrictions:(id)self5 eventSubType:(id)self6 error:(id *)self7

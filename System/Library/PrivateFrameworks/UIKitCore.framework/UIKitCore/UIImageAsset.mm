@@ -895,15 +895,15 @@ LABEL_11:
 
     else
     {
-      LOBYTE(v10) = 0;
+      LOBYTE(isEqual) = 0;
       if (!v7 || !v8)
       {
         goto LABEL_21;
       }
 
-      v10 = [(NSBundle *)v7 isEqual:v8];
+      isEqual = objc_msgSend_isEqual_(v7);
 
-      if (!v10)
+      if (!isEqual)
       {
         goto LABEL_22;
       }
@@ -924,27 +924,27 @@ LABEL_15:
       v9 = v15;
       if (v7 == v15)
       {
-        LOBYTE(v10) = 1;
+        LOBYTE(isEqual) = 1;
       }
 
       else
       {
-        LOBYTE(v10) = 0;
+        LOBYTE(isEqual) = 0;
         if (v7 && v15)
         {
-          LOBYTE(v10) = [(NSBundle *)v7 isEqual:v15];
+          LOBYTE(isEqual) = objc_msgSend_isEqual_(v7);
         }
       }
 
       goto LABEL_21;
     }
 
-    LOBYTE(v10) = 0;
+    LOBYTE(isEqual) = 0;
     if (v7 && v12)
     {
-      v10 = [(NSBundle *)v7 isEqual:v12];
+      isEqual = objc_msgSend_isEqual_(v7);
 
-      if (!v10)
+      if (!isEqual)
       {
         goto LABEL_22;
       }
@@ -958,10 +958,10 @@ LABEL_22:
     goto LABEL_23;
   }
 
-  LOBYTE(v10) = 0;
+  LOBYTE(isEqual) = 0;
 LABEL_23:
 
-  return v10;
+  return isEqual;
 }
 
 - (void)_setLayerStack:(id)stack

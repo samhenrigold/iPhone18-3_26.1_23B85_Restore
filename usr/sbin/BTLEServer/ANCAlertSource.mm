@@ -3,11 +3,13 @@
 - (ANCAlertSourceDelegate)delegate;
 - (BOOL)isAlertSilent:(id)silent;
 - (BOOL)isSpecialSectionID:(id)d;
+- (id)alertsForCategoryID:(unsigned __int8)d;
 - (id)displayNameForAppIdentifier:(id)identifier;
 - (id)lazyContactStore;
 - (unint64_t)genreIDForGenre:(id)genre;
 - (unsigned)categoryIDForAppIdentifier:(id)identifier;
 - (unsigned)categoryIDForGenreID:(unint64_t)d;
+- (void)addAlert:(id)alert isPreExisting:(BOOL)existing;
 - (void)callHistoryChanged:(BOOL)changed;
 - (void)callHistoryChangedNotification;
 - (void)callIdentificationChanged:(id)changed;
@@ -180,6 +182,16 @@
   dispatch_sync(queue2, v6);
 }
 
+- (id)alertsForCategoryID:(unsigned __int8)d
+{
+  dCopy = d;
+  alerts = [(ANCAlertSource *)self alerts];
+  v5 = [NSNumber numberWithUnsignedChar:dCopy];
+  v6 = [alerts objectForKeyedSubscript:v5];
+
+  return v6;
+}
+
 - (id)displayNameForAppIdentifier:(id)identifier
 {
   v3 = [LSApplicationProxy applicationProxyForIdentifier:identifier];
@@ -252,6 +264,39 @@
   }
 
   return v13;
+}
+
+- (void)addAlert:(id)alert isPreExisting:(BOOL)existing
+{
+  existingCopy = existing;
+  alertCopy = alert;
+  alerts = [(ANCAlertSource *)self alerts];
+  v7 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", [alertCopy categoryID]);
+  v8 = [alerts objectForKeyedSubscript:v7];
+  v9 = v8;
+  if (v8)
+  {
+    v10 = v8;
+  }
+
+  else
+  {
+    v10 = +[NSMutableArray array];
+  }
+
+  v11 = v10;
+
+  [v11 addObject:alertCopy];
+  if ([v11 count] == 1)
+  {
+    alerts2 = [(ANCAlertSource *)self alerts];
+    v13 = +[NSNumber numberWithUnsignedChar:](NSNumber, "numberWithUnsignedChar:", [alertCopy categoryID]);
+    [alerts2 setObject:v11 forKeyedSubscript:v13];
+  }
+
+  [alertCopy setSilent:{-[ANCAlertSource isAlertSilent:](self, "isAlertSilent:", alertCopy)}];
+  delegate = [(ANCAlertSource *)self delegate];
+  [delegate alertAdded:alertCopy isPreExisting:existingCopy];
 }
 
 - (void)modifyAlert:(id)alert

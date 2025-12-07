@@ -107,6 +107,7 @@
 - (void)_ensureVisualSection:(int64_t)section inData:(id)data;
 - (void)_enumerateVisualItemFramesInRect:(CGRect)rect usingBlock:(id)block;
 - (void)_invalidateLayoutWithContext:(id)context;
+- (void)_invalidateSupplementaryViewKinds;
 - (void)_prepareForTransitionToOrFromGridLayout:(id)layout isAppearing:(BOOL)appearing;
 - (void)_prepareLayoutIfNeeded;
 - (void)_prepareSamplingDataIfNeeded;
@@ -122,6 +123,7 @@
 - (void)finalizeAnimatedBoundsChange;
 - (void)finalizeCollectionViewUpdates;
 - (void)finalizeLayoutTransition;
+- (void)finalizeViewTransitionToSize;
 - (void)getVisualSectionIndex:(int64_t *)index visualItemRange:(_NSRange *)range forRenderStripAtIndexPath:(id)path;
 - (void)invalidateLayoutForMetricsChange;
 - (void)invalidateLayoutForVerticalScroll;
@@ -320,9 +322,9 @@ uint64_t __57__PUSectionedGridLayout_updateReorderingTargetIndexPath___block_inv
     v5 = v16;
     if (!reorderingCopy)
     {
-      indexPath = [v16 indexPath];
-      v7 = [(PUSectionedGridLayout *)self reorderedIndexPath:indexPath];
-      if (([v7 isEqual:indexPath] & 1) == 0)
+      v6 = objc_msgSend_indexPath(v16);
+      v7 = [(PUSectionedGridLayout *)self reorderedIndexPath:v6];
+      if (([v7 isEqual:v6] & 1) == 0)
       {
         layoutSectioning = self->_layoutSectioning;
         v9 = v7;
@@ -335,12 +337,12 @@ uint64_t __57__PUSectionedGridLayout_updateReorderingTargetIndexPath___block_inv
         [v16 setFrame:?];
       }
 
-      if ([indexPath isEqual:self->_reorderingSourceIndexPath])
+      if ([v6 isEqual:self->_reorderingSourceIndexPath])
       {
         [v16 setHidden:1];
       }
 
-      if ([indexPath isEqual:self->_reorderingInsertedIndexPath])
+      if ([v6 isEqual:self->_reorderingInsertedIndexPath])
       {
         [v16 setAlpha:0.0];
       }
@@ -490,23 +492,21 @@ uint64_t __88__PUSectionedGridLayout_pu_layoutAttributesForElementClosestToPoint
   return v16;
 }
 
-uint64_t __74__PUSectionedGridLayout__realItemIndexPathClosestToPoint_inRect_withTest___block_invoke(void *a1, uint64_t a2, uint64_t a3)
+void __74__PUSectionedGridLayout__realItemIndexPathClosestToPoint_inRect_withTest___block_invoke(void *a1, uint64_t a2, uint64_t a3, double a4, double a5, double a6, double a7)
 {
-  v6 = a1[4];
-  if (!v6 || (result = (*(v6 + 16))(v6, a2, a3), result))
+  v10 = a1[4];
+  if (!v10 || (*(v10 + 16))(v10, a2, a3, a4, a5, a6, a7))
   {
-    result = UIDistanceBetweenPointAndRect();
-    v9 = *(a1[5] + 8);
-    if (v8 < *(v9 + 24))
+    UIDistanceBetweenPointAndRect();
+    v12 = *(a1[5] + 8);
+    if (v11 < *(v12 + 24))
     {
-      *(v9 + 24) = v8;
-      v10 = *(a1[6] + 8);
-      *(v10 + 32) = a2;
-      *(v10 + 40) = a3;
+      *(v12 + 24) = v11;
+      v13 = *(a1[6] + 8);
+      *(v13 + 32) = a2;
+      *(v13 + 40) = a3;
     }
   }
-
-  return result;
 }
 
 - (PUSimpleIndexPath)_visualIndexPathForTransitionCoordinates:(PUGridCoordinates)coordinates inTransitionSection:(int64_t)section
@@ -1097,43 +1097,43 @@ LABEL_5:
   v8 = [(PUSectionedGridLayout *)self supplementaryViewIndexPathForVisualSection:section supplementaryViewItemIndex:0];
   headerLayoutAttributes2 = [dataCopy headerLayoutAttributes];
   firstObject = [headerLayoutAttributes2 firstObject];
-  indexPath = [firstObject indexPath];
+  v11 = objc_msgSend_indexPath(firstObject);
 
-  while ([v8 compare:indexPath] == -1)
+  while ([v8 compare:v11] == -1)
   {
     v12 = [(PUSectionedGridLayout *)self _ensureUpdatedLayoutData:dataCopy isForward:0 outDeltaOriginY:0];
     headerLayoutAttributes3 = [dataCopy headerLayoutAttributes];
     firstObject2 = [headerLayoutAttributes3 firstObject];
-    indexPath2 = [firstObject2 indexPath];
+    v15 = objc_msgSend_indexPath(firstObject2);
 
-    indexPath = indexPath2;
+    v11 = v15;
     if (!v12)
     {
       goto LABEL_8;
     }
   }
 
-  indexPath2 = indexPath;
+  v15 = v11;
 LABEL_8:
   headerLayoutAttributes4 = [dataCopy headerLayoutAttributes];
   lastObject = [headerLayoutAttributes4 lastObject];
-  indexPath3 = [lastObject indexPath];
+  v18 = objc_msgSend_indexPath(lastObject);
 
-  while ([v8 compare:indexPath3] == 1)
+  while ([v8 compare:v18] == 1)
   {
     v19 = [(PUSectionedGridLayout *)self _ensureUpdatedLayoutData:dataCopy isForward:1 outDeltaOriginY:0];
     headerLayoutAttributes5 = [dataCopy headerLayoutAttributes];
     lastObject2 = [headerLayoutAttributes5 lastObject];
-    indexPath4 = [lastObject2 indexPath];
+    v22 = objc_msgSend_indexPath(lastObject2);
 
-    indexPath3 = indexPath4;
+    v18 = v22;
     if (!v19)
     {
       goto LABEL_13;
     }
   }
 
-  indexPath4 = indexPath3;
+  v22 = v18;
 LABEL_13:
 }
 
@@ -1243,8 +1243,8 @@ LABEL_13:
 
   if (lastObject)
   {
-    indexPath = [lastObject indexPath];
-    v39 = [(PUSectionedGridLayout *)self visualSectionForSupplementaryViewIndexPath:indexPath];
+    v38 = objc_msgSend_indexPath(lastObject);
+    v39 = [(PUSectionedGridLayout *)self visualSectionForSupplementaryViewIndexPath:v38];
     v40 = self->_totalVisualSections - 1;
 
     if (v39 == v40)
@@ -1305,8 +1305,8 @@ LABEL_13:
     [headerLayoutAttributes firstObject];
   }
   v24 = ;
-  indexPath = [v24 indexPath];
-  v26 = [(PUSectionedGridLayout *)self visualSectionForSupplementaryViewIndexPath:indexPath];
+  v25 = objc_msgSend_indexPath(v24);
+  v26 = [(PUSectionedGridLayout *)self visualSectionForSupplementaryViewIndexPath:v25];
   [v24 frame];
   r2[0] = v27;
   rect = v28;
@@ -1339,9 +1339,9 @@ LABEL_13:
     [MEMORY[0x1E696AC88] indexPathForItem:0 inSection:0];
     v39 = v38 = numberOfPagesToCache;
     firstObject = [headerLayoutAttributes firstObject];
-    indexPath2 = [firstObject indexPath];
+    v41 = objc_msgSend_indexPath(firstObject);
     v83 = v39;
-    v81 = [indexPath2 isEqual:v39];
+    v81 = [v41 isEqual:v39];
 
     v42 = v85 * v38;
     v43 = x;
@@ -1466,7 +1466,7 @@ LABEL_13:
       v34 = 1;
       v24 = v36;
       v64 = v86;
-      indexPath = v86;
+      v25 = v86;
       v32 = v50;
       v30 = width;
       v47 = v82;
@@ -1476,13 +1476,13 @@ LABEL_13:
       }
     }
 
-    v64 = indexPath;
+    v64 = v25;
     v36 = v24;
 LABEL_41:
-    indexPath = v64;
+    v25 = v64;
     firstObject2 = [*&r2[1] firstObject];
-    indexPath3 = [firstObject2 indexPath];
-    v68 = [indexPath3 isEqual:v83];
+    v67 = objc_msgSend_indexPath(firstObject2);
+    v68 = [v67 isEqual:v83];
 
     globalTopPadding = self->_globalTopPadding;
     [(PUSectionedGridLayout *)self globalHeaderHeight];
@@ -1800,8 +1800,8 @@ LABEL_5:
 
     if (v13)
     {
-      indexPath = [v13 indexPath];
-      v14 = [(PUSectionedGridLayout *)self visualSectionForSupplementaryViewIndexPath:indexPath];
+      v26 = objc_msgSend_indexPath(v13);
+      v14 = [(PUSectionedGridLayout *)self visualSectionForSupplementaryViewIndexPath:v26];
 
       goto LABEL_17;
     }
@@ -2874,12 +2874,12 @@ LABEL_18:
   appearingCopy = appearing;
   attributesCopy = attributes;
   layoutCopy = layout;
-  indexPath = [attributesCopy indexPath];
-  v11 = [(PUSectionedGridLayout *)self visualSectionForSupplementaryViewIndexPath:indexPath];
+  v10 = objc_msgSend_indexPath(attributesCopy);
+  v11 = [(PUSectionedGridLayout *)self visualSectionForSupplementaryViewIndexPath:v10];
   if (v11 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v12 = v11;
-    item = [indexPath item];
+    item = [v10 item];
     v14 = [(PUSectionedGridLayout *)self visualIndexForItemAtGridCoordinates:item, 0];
     if (v14 >= [(PULayoutSampledSectioning *)self->_layoutSectioning numberOfVisualItemsInVisualSection:v12])
     {
@@ -2916,7 +2916,7 @@ LABEL_18:
       v49 = 0u;
       v50 = 0u;
       [attributesCopy center];
-      [(PUSectionedGridLayout *)self _transformToConvertRect:v16 intoRect:v18 referenceCenter:v24, v22, v30, v32, v38, v36, v39, v40];
+      objc_msgSend__transformToConvertRect_intoRect_referenceCenter_(self, v16, v18, v24, v22, v30, v32, v38, v36, v39, v40);
       v48[4] = v53;
       v48[5] = v54;
       v48[6] = v55;
@@ -2952,8 +2952,8 @@ LABEL_18:
   appearingCopy = appearing;
   attributesCopy = attributes;
   layoutCopy = layout;
-  indexPath = [attributesCopy indexPath];
-  v10 = [(PUSectionedGridLayout *)self visualSectionForSupplementaryViewIndexPath:indexPath];
+  v9 = objc_msgSend_indexPath(attributesCopy);
+  v10 = [(PUSectionedGridLayout *)self visualSectionForSupplementaryViewIndexPath:v9];
   if (v10 != 0x7FFFFFFFFFFFFFFFLL)
   {
     v11 = v10;
@@ -3450,8 +3450,8 @@ LABEL_9:
   appearingCopy = appearing;
   attributesCopy = attributes;
   layoutCopy = layout;
-  indexPath = [attributesCopy indexPath];
-  v12 = -[PULayoutSampledSectioning visualIndexPathForRealIndexPath:isMainItem:](self->_layoutSectioning, "visualIndexPathForRealIndexPath:isMainItem:", [indexPath section], objc_msgSend(indexPath, "item"), 0);
+  v55 = objc_msgSend_indexPath(attributesCopy);
+  v12 = -[PULayoutSampledSectioning visualIndexPathForRealIndexPath:isMainItem:](self->_layoutSectioning, "visualIndexPathForRealIndexPath:isMainItem:", [v55 section], objc_msgSend(v55, "item"), 0);
   v14 = v13;
   if (v12 == 0x7FFFFFFFFFFFFFFFLL)
   {
@@ -3516,7 +3516,7 @@ LABEL_9:
   v46 = v45;
   v48 = v47;
   [attributesCopy center];
-  [(PUSectionedGridLayout *)self _transformToConvertRect:v42 intoRect:v44 referenceCenter:v46, v48, v54, v26, v28, v30, v49, v50];
+  objc_msgSend__transformToConvertRect_intoRect_referenceCenter_(self, v42, v44, v46, v48, v54, v26, v28, v30, v49, v50);
   v57[4] = v62;
   v57[5] = v63;
   v57[6] = v64;
@@ -3554,7 +3554,7 @@ LABEL_9:
     memset(&v14, 0, sizeof(v14));
     if (v9)
     {
-      [v9 transform3D];
+      objc_msgSend_transform3D(v9);
     }
 
     v12 = v14;
@@ -3962,7 +3962,7 @@ LABEL_10:
   }
 }
 
-uint64_t __49__PUSectionedGridLayout_finalizeLayoutTransition__block_invoke(uint64_t a1, uint64_t a2)
+void *__49__PUSectionedGridLayout_finalizeLayoutTransition__block_invoke(uint64_t a1, uint64_t a2)
 {
   v5[0] = MEMORY[0x1E69E9820];
   v5[1] = 3221225472;
@@ -4408,7 +4408,7 @@ LABEL_28:
   _Block_object_dispose(&v86, 8);
 }
 
-uint64_t __77__PUSectionedGridLayout__prepareForTransitionToOrFromGridLayout_isAppearing___block_invoke_171(uint64_t a1, uint64_t a2)
+void *__77__PUSectionedGridLayout__prepareForTransitionToOrFromGridLayout_isAppearing___block_invoke_171(uint64_t a1, uint64_t a2)
 {
   result = [*(a1 + 32) visualSectionForRealSection:a2];
   if (result != 0x7FFFFFFFFFFFFFFFLL)
@@ -4576,8 +4576,8 @@ void __77__PUSectionedGridLayout__prepareForTransitionToOrFromGridLayout_isAppea
   headerLayoutAttributes2 = [(PUSectionedGridLayoutData *)self->_layoutData headerLayoutAttributes];
   lastObject = [headerLayoutAttributes2 lastObject];
 
-  indexPath = [lastObject indexPath];
-  v8 = [(PUSectionedGridLayout *)self visualSectionForSupplementaryViewIndexPath:indexPath];
+  v7 = objc_msgSend_indexPath(lastObject);
+  v8 = [(PUSectionedGridLayout *)self visualSectionForSupplementaryViewIndexPath:v7];
 
   return v8;
 }
@@ -4600,8 +4600,8 @@ void __77__PUSectionedGridLayout__prepareForTransitionToOrFromGridLayout_isAppea
   headerLayoutAttributes2 = [(PUSectionedGridLayoutData *)self->_layoutData headerLayoutAttributes];
   firstObject = [headerLayoutAttributes2 firstObject];
 
-  indexPath = [firstObject indexPath];
-  v8 = [(PUSectionedGridLayout *)self visualSectionForSupplementaryViewIndexPath:indexPath];
+  v7 = objc_msgSend_indexPath(firstObject);
+  v8 = [(PUSectionedGridLayout *)self visualSectionForSupplementaryViewIndexPath:v7];
 
   return v8;
 }
@@ -4667,6 +4667,13 @@ LABEL_11:
 LABEL_12:
 
   return v14;
+}
+
+- (void)finalizeViewTransitionToSize
+{
+  viewSizeTransitionAnchorItem = self->_viewSizeTransitionAnchorItem;
+  self->_viewSizeTransitionAnchorItem = 0;
+  MEMORY[0x1EEE66BB8](self, viewSizeTransitionAnchorItem);
 }
 
 - (id)prepareForViewTransitionToSize:(CGSize)size
@@ -4960,6 +4967,13 @@ LABEL_17:
   }
 
   return supplementaryViewKinds;
+}
+
+- (void)_invalidateSupplementaryViewKinds
+{
+  supplementaryViewKinds = self->_supplementaryViewKinds;
+  self->_supplementaryViewKinds = 0;
+  MEMORY[0x1EEE66BB8](self, supplementaryViewKinds);
 }
 
 - (id)_layoutAttributesForItemAtVisualIndexPath:(PUSimpleIndexPath)path realIndexPath:(id)indexPath isMainRealItem:(BOOL)item

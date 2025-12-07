@@ -22,21 +22,19 @@
 
 void __63__HMDCameraProfileSettingsDerivedPropertiesModel_hmbProperties__block_invoke()
 {
-  v7[3] = *MEMORY[0x277D85DE8];
-  v6[0] = @"currentAccessModeField";
+  v6[3] = *MEMORY[0x277D85DE8];
+  v5[0] = @"currentAccessModeField";
   v0 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v7[0] = v0;
-  v6[1] = @"currentAccessModeChangeReasonField";
+  v6[0] = v0;
+  v5[1] = @"currentAccessModeChangeReasonField";
   v1 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v7[1] = v1;
-  v6[2] = @"currentAccessModeChangeDate";
+  v6[1] = v1;
+  v5[2] = @"currentAccessModeChangeDate";
   v2 = [MEMORY[0x277D170B8] fieldWithClass:objc_opt_class()];
-  v7[2] = v2;
-  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v7 forKeys:v6 count:3];
+  v6[2] = v2;
+  v3 = [MEMORY[0x277CBEAC0] dictionaryWithObjects:v6 forKeys:v5 count:3];
   v4 = hmbProperties__properties_111;
   hmbProperties__properties_111 = v3;
-
-  v5 = *MEMORY[0x277D85DE8];
 }
 
 - (int64_t)currentAccessModeChangeReason

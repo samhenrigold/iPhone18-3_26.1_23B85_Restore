@@ -180,16 +180,16 @@ LABEL_11:
   if (v18)
   {
     objc_storeStrong(&v18->_sessionID, d);
-    v20 = [identifierCopy copy];
+    v20 = objc_msgSend_copy(identifierCopy);
     hostProcessBundleIdentifier = v19->_hostProcessBundleIdentifier;
     v19->_hostProcessBundleIdentifier = v20;
 
     v19->_spiClient = client;
-    v22 = [nameCopy copy];
+    v22 = objc_msgSend_copy(nameCopy);
     deviceSectionName = v19->_deviceSectionName;
     v19->_deviceSectionName = v22;
 
-    v24 = [v17 copy];
+    v24 = objc_msgSend_copy(v17);
     description = v19->_description;
     v19->_description = v24;
 
@@ -325,7 +325,7 @@ void __60__HMDCameraSessionID_hostProcessBundleIdentifierForMessage___block_invo
 {
   v2 = [MEMORY[0x277CBEB38] dictionary];
   [v2 setObject:*MEMORY[0x277CCFE40] forKeyedSubscript:*MEMORY[0x277CD09C8]];
-  v0 = [v2 copy];
+  v0 = objc_msgSend_copy(v2);
   v1 = hostProcessBundleIdentifierForMessage__companionAppBundleIdentifierOverrides;
   hostProcessBundleIdentifierForMessage__companionAppBundleIdentifierOverrides = v0;
 }
